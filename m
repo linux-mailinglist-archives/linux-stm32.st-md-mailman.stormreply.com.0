@@ -2,59 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6DBA14DAFFE
-	for <lists+linux-stm32@lfdr.de>; Wed, 16 Mar 2022 13:46:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 289D24DB053
+	for <lists+linux-stm32@lfdr.de>; Wed, 16 Mar 2022 14:04:35 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1704BC5F1F2;
-	Wed, 16 Mar 2022 12:46:20 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CD679C5F1F2;
+	Wed, 16 Mar 2022 13:04:34 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B6884C5EC6C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 20969C5EC6C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 16 Mar 2022 12:46:18 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 22GAKPMF026976;
- Wed, 16 Mar 2022 13:46:01 +0100
+ Wed, 16 Mar 2022 13:04:33 +0000 (UTC)
+Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 22GAA8Yh009708;
+ Wed, 16 Mar 2022 14:04:22 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-transfer-encoding : content-type; s=selector1;
- bh=ZiRrRo4KPczvg2JBhLVWSWvGKQYYdComXd2P4kRbhpU=;
- b=grHcWnMSUrf9ekTryeAcwPrA+f53f9oHPnXNmTZOitoGFc7Lf+SLexN1IwdbFqrjh3+C
- Gg7QAfLxqJfQoYKTfAHhPd2occCtVUKpm1eLgiJlWmKAeCTMbxak33zklQ3wOxrmgtGY
- lkZJ5dTC3YOJ4DdBSbplY7KJFjEHrVrzrLoghkyeprk6nCTflLUCbUIYTYSpMFfi7lvr
- gZ3+T7UWvJskHXWWgPF7LWI+EoTuQQyFt4LqWMgjZOkSHYghs31QI57d+YE8G44c4Cc5
- iKSJZyHzJsCH8OVAfObmovtZdfSfaEYDlEc+j6rmRpe0e3qW+oaZ8uvnX9gaCV/gd+C6 vw== 
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=caLH5xorRCEoALX4pq7ufOB8VX+um3FujwLjscQI2h8=;
+ b=n3cotjuT9QfJZ8TudzlmmakXMPIczQmnyDBqjgRXbOtBfTE3jysM7FkbnGnzeHiW/k4P
+ TaK9S2d1KPfI8+jf1cK7L4vNc8d1fk9m4k4Bi8Er8tYD2XNEPOv9jcauTlY+8Dp0K0Cn
+ DK/Pv6g/4MKBvbaMvjwEnxq/2JAOdzywlLlL9yEvIj78rviafd7C+M5lA8DXin5j9b03
+ jgFCRtTXFnH2K1YjPn9koH5+oGKZ1ar2zu5GrR7Wp3DlEj8QUpgwghmXyAQu7LJ6d4mb
+ lORWUvSfuEwWMIMVJNdbcM1HwrATJcLNFSRn9obh8OLd8h9N5AA8y75cKlVXy4yFL7M2 Og== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3etj2atard-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3et63hdn0h-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 16 Mar 2022 13:46:01 +0100
+ Wed, 16 Mar 2022 14:04:22 +0100
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 4318F100038;
- Wed, 16 Mar 2022 13:46:01 +0100 (CET)
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id C804B10002A;
+ Wed, 16 Mar 2022 14:04:20 +0100 (CET)
 Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 3C8CF226FAF;
- Wed, 16 Mar 2022 13:46:01 +0100 (CET)
-Received: from localhost (10.75.127.47) by SFHDAG2NODE2.st.com (10.75.127.5)
- with Microsoft SMTP Server (TLS) id 15.0.1497.26; Wed, 16 Mar 2022 13:46:00
- +0100
-From: <gabriel.fernandez@foss.st.com>
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id BFC4D2278A3;
+ Wed, 16 Mar 2022 14:04:20 +0100 (CET)
+Received: from [10.201.22.79] (10.75.127.45) by SFHDAG2NODE2.st.com
+ (10.75.127.5) with Microsoft SMTP Server (TLS) id 15.0.1497.26; Wed, 16 Mar
+ 2022 14:04:20 +0100
+Message-ID: <ba05cd7e-0c1a-5188-f92a-20eb243789ab@foss.st.com>
+Date: Wed, 16 Mar 2022 14:04:19 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.0
+Content-Language: en-US
 To: Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
  <sboyd@kernel.org>, Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski
  <krzysztof.kozlowski@canonical.com>, Maxime Coquelin
  <mcoquelin.stm32@gmail.com>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Philipp Zabel <p.zabel@pengutronix.de>, Gabriel Fernandez
- <gabriel.fernandez@foss.st.com>
-Date: Wed, 16 Mar 2022 13:45:43 +0100
-Message-ID: <20220316124553.6818-4-gabriel.fernandez@foss.st.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220316124553.6818-1-gabriel.fernandez@foss.st.com>
+ Philipp Zabel <p.zabel@pengutronix.de>
 References: <20220316124553.6818-1-gabriel.fernandez@foss.st.com>
-MIME-Version: 1.0
-X-Originating-IP: [10.75.127.47]
+From: Gabriel FERNANDEZ <gabriel.fernandez@foss.st.com>
+In-Reply-To: <20220316124553.6818-1-gabriel.fernandez@foss.st.com>
+X-Originating-IP: [10.75.127.45]
 X-ClientProxiedBy: SFHDAG2NODE2.st.com (10.75.127.5) To SFHDAG2NODE2.st.com
  (10.75.127.5)
 X-Proofpoint-Virus-Version: vendor=baseguard
@@ -63,8 +64,8 @@ X-Proofpoint-Virus-Version: vendor=baseguard
 Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH v3 03/13] clk: stm32mp13: add stm32_mux clock
-	management
+Subject: Re: [Linux-stm32] [PATCH v3 00/13] Introduction of STM32MP13 RCC
+ driver (Reset Clock Controller)
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,174 +77,73 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
+Sorry, this series is incomplete due to a firewall issue.
 
-Just to introduce management of a stm32 mux clock.
+I will resend it.
 
-Signed-off-by: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
----
- drivers/clk/stm32/clk-stm32-core.c | 79 ++++++++++++++++++++++++++++++
- drivers/clk/stm32/clk-stm32-core.h | 24 +++++++++
- drivers/clk/stm32/clk-stm32mp13.c  | 11 +++++
- 3 files changed, 114 insertions(+)
+Best regards
 
-diff --git a/drivers/clk/stm32/clk-stm32-core.c b/drivers/clk/stm32/clk-stm32-core.c
-index 0fab4a5a8c66..98699093eb21 100644
---- a/drivers/clk/stm32/clk-stm32-core.c
-+++ b/drivers/clk/stm32/clk-stm32-core.c
-@@ -91,3 +91,82 @@ int stm32_rcc_init(struct device *dev, const struct of_device_id *match_data,
- 
- 	return 0;
- }
-+
-+static u8 stm32_mux_get_parent(void __iomem *base,
-+			       struct clk_stm32_clock_data *data,
-+			       u16 mux_id)
-+{
-+	const struct stm32_mux_cfg *mux = &data->muxes[mux_id];
-+	u32 mask = BIT(mux->width) - 1;
-+	u32 val;
-+
-+	val = readl(base + mux->offset) >> mux->shift;
-+	val &= mask;
-+
-+	return val;
-+}
-+
-+static int stm32_mux_set_parent(void __iomem *base,
-+				struct clk_stm32_clock_data *data,
-+				u16 mux_id, u8 index)
-+{
-+	const struct stm32_mux_cfg *mux = &data->muxes[mux_id];
-+
-+	u32 mask = BIT(mux->width) - 1;
-+	u32 reg = readl(base + mux->offset);
-+	u32 val = index << mux->shift;
-+
-+	reg &= ~(mask << mux->shift);
-+	reg |= val;
-+
-+	writel(reg, base + mux->offset);
-+
-+	return 0;
-+}
-+
-+static u8 clk_stm32_mux_get_parent(struct clk_hw *hw)
-+{
-+	struct clk_stm32_mux *mux = to_clk_stm32_mux(hw);
-+
-+	return stm32_mux_get_parent(mux->base, mux->clock_data, mux->mux_id);
-+}
-+
-+static int clk_stm32_mux_set_parent(struct clk_hw *hw, u8 index)
-+{
-+	struct clk_stm32_mux *mux = to_clk_stm32_mux(hw);
-+	unsigned long flags = 0;
-+
-+	spin_lock_irqsave(mux->lock, flags);
-+
-+	stm32_mux_set_parent(mux->base, mux->clock_data, mux->mux_id, index);
-+
-+	spin_unlock_irqrestore(mux->lock, flags);
-+
-+	return 0;
-+}
-+
-+const struct clk_ops clk_stm32_mux_ops = {
-+	.get_parent	= clk_stm32_mux_get_parent,
-+	.set_parent	= clk_stm32_mux_set_parent,
-+};
-+
-+struct clk_hw *clk_stm32_mux_register(struct device *dev,
-+				      const struct stm32_rcc_match_data *data,
-+				      void __iomem *base,
-+				      spinlock_t *lock,
-+				      const struct clock_config *cfg)
-+{
-+	struct clk_stm32_mux *mux = cfg->clock_cfg;
-+	struct clk_hw *hw = &mux->hw;
-+	int err;
-+
-+	mux->base = base;
-+	mux->lock = lock;
-+	mux->clock_data = data->clock_data;
-+
-+	err = clk_hw_register(dev, hw);
-+	if (err)
-+		return ERR_PTR(err);
-+
-+	return hw;
-+}
-diff --git a/drivers/clk/stm32/clk-stm32-core.h b/drivers/clk/stm32/clk-stm32-core.h
-index 519723ae97eb..8563e6e1c91a 100644
---- a/drivers/clk/stm32/clk-stm32-core.h
-+++ b/drivers/clk/stm32/clk-stm32-core.h
-@@ -83,10 +83,34 @@ int stm32_rcc_init(struct device *dev, const struct of_device_id *match_data,
- /* DIV define */
- #define DIV_NO_RDY		0xFF
- 
-+/* Definition of clock structure */
-+struct clk_stm32_mux {
-+	u16 mux_id;
-+	struct clk_hw hw;
-+	void __iomem *base;
-+	struct clk_stm32_clock_data *clock_data;
-+	spinlock_t *lock; /* spin lock */
-+};
-+
-+#define to_clk_stm32_mux(_hw) container_of(_hw, struct clk_stm32_mux, hw)
-+
-+/* Clock operators */
-+extern const struct clk_ops clk_stm32_mux_ops;
-+
- /* Clock registering */
-+struct clk_hw *clk_stm32_mux_register(struct device *dev,
-+				      const struct stm32_rcc_match_data *data,
-+				      void __iomem *base,
-+				      spinlock_t *lock,
-+				      const struct clock_config *cfg);
-+
- #define STM32_CLOCK_CFG(_binding, _clk, _struct, _register)\
- {\
- 	.id		= (_binding),\
- 	.clock_cfg	= (_struct) {_clk},\
- 	.func		= (_register),\
- }
-+
-+#define STM32_MUX_CFG(_binding, _clk)\
-+	STM32_CLOCK_CFG(_binding, &(_clk), struct clk_stm32_mux *,\
-+			&clk_stm32_mux_register)
-diff --git a/drivers/clk/stm32/clk-stm32mp13.c b/drivers/clk/stm32/clk-stm32mp13.c
-index a2a6bbb4ace5..40568a676111 100644
---- a/drivers/clk/stm32/clk-stm32mp13.c
-+++ b/drivers/clk/stm32/clk-stm32mp13.c
-@@ -400,7 +400,18 @@ static const struct stm32_mux_cfg stm32mp13_muxes[] = {
- 	CFG_MUX(MUX_SDMMC2,	RCC_SDMMC12CKSELR,	3, 3),
- };
- 
-+static const char * const eth12_src[] = {
-+	"pll4_p", "pll3_q"
-+};
-+
-+static struct clk_stm32_mux ck_ker_eth1 = {
-+	.mux_id = MUX_ETH1,
-+	.hw.init = CLK_HW_INIT_PARENTS("ck_ker_eth1", eth12_src, &clk_stm32_mux_ops,
-+				       CLK_OPS_PARENT_ENABLE | CLK_SET_RATE_NO_REPARENT),
-+};
-+
- static const struct clock_config stm32mp13_clock_cfg[] = {
-+	STM32_MUX_CFG(NO_ID, ck_ker_eth1),
- };
- 
- static u16 stm32mp13_cpt_gate[GATE_NB];
--- 
-2.25.1
+Gabriel
 
+
+On 3/16/22 13:45, gabriel.fernandez@foss.st.com wrote:
+> From: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
+>
+> v3:
+>    - cosmetic change from Stephen Boyd
+>    - rename some functions in clk-stm32-core
+>    - add missing static for variables or functions
+>
+> v2:
+>    - Resend because patch 9,10,12,13 has not been sent
+>    - add Reviewed by Krzysztof Kozlowski for patch 1
+>
+> Gabriel Fernandez (13):
+>    dt-bindings: rcc: stm32: add new compatible for STM32MP13 SoC
+>    clk: stm32: Introduce STM32MP13 RCC drivers (Reset Clock Controller)
+>    clk: stm32mp13: add stm32_mux clock management
+>    clk: stm32mp13: add stm32_gate management
+>    clk: stm32mp13: add stm32 divider clock
+>    clk: stm32mp13: add composite clock
+>    clk: stm32mp13: manage secured clocks
+>    clk: stm32mp13: add all STM32MP13 peripheral clocks
+>    clk: stm32mp13: add all STM32MP13 kernel clocks
+>    clk: stm32mp13: add multi mux function
+>    clk: stm32mp13: add safe mux management
+>    ARM: dts: stm32: enable optee firmware and SCMI support on STM32MP13
+>    ARM: dts: stm32: add RCC on STM32MP13x SoC family
+>
+>   .../bindings/clock/st,stm32mp1-rcc.yaml       |    2 +
+>   arch/arm/boot/dts/stm32mp131.dtsi             |  128 +-
+>   arch/arm/boot/dts/stm32mp133.dtsi             |    4 +-
+>   arch/arm/boot/dts/stm32mp13xf.dtsi            |    3 +-
+>   drivers/clk/Kconfig                           |    5 +
+>   drivers/clk/Makefile                          |    1 +
+>   drivers/clk/stm32/Makefile                    |    1 +
+>   drivers/clk/stm32/clk-stm32-core.c            |  695 +++++++
+>   drivers/clk/stm32/clk-stm32-core.h            |  188 ++
+>   drivers/clk/stm32/clk-stm32mp13.c             | 1620 +++++++++++++++
+>   drivers/clk/stm32/reset-stm32.c               |  122 ++
+>   drivers/clk/stm32/reset-stm32.h               |    8 +
+>   drivers/clk/stm32/stm32mp13_rcc.h             | 1748 +++++++++++++++++
+>   include/dt-bindings/clock/stm32mp13-clks.h    |  229 +++
+>   include/dt-bindings/reset/stm32mp13-resets.h  |  100 +
+>   15 files changed, 4794 insertions(+), 60 deletions(-)
+>   create mode 100644 drivers/clk/stm32/Makefile
+>   create mode 100644 drivers/clk/stm32/clk-stm32-core.c
+>   create mode 100644 drivers/clk/stm32/clk-stm32-core.h
+>   create mode 100644 drivers/clk/stm32/clk-stm32mp13.c
+>   create mode 100644 drivers/clk/stm32/reset-stm32.c
+>   create mode 100644 drivers/clk/stm32/reset-stm32.h
+>   create mode 100644 drivers/clk/stm32/stm32mp13_rcc.h
+>   create mode 100644 include/dt-bindings/clock/stm32mp13-clks.h
+>   create mode 100644 include/dt-bindings/reset/stm32mp13-resets.h
+>
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
