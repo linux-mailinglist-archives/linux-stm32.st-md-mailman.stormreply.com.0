@@ -2,52 +2,67 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E4864DAEC3
-	for <lists+linux-stm32@lfdr.de>; Wed, 16 Mar 2022 12:17:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9EA5C4DB000
+	for <lists+linux-stm32@lfdr.de>; Wed, 16 Mar 2022 13:46:20 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 07660C60464;
-	Wed, 16 Mar 2022 11:17:23 +0000 (UTC)
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
- [85.220.165.71])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 51B25C6046B;
+	Wed, 16 Mar 2022 12:46:20 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 043EDC5EC6C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 53236C5EC6C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 16 Mar 2022 11:17:20 +0000 (UTC)
-Received: from gallifrey.ext.pengutronix.de
- ([2001:67c:670:201:5054:ff:fe8d:eefb] helo=[127.0.0.1])
- by metis.ext.pengutronix.de with esmtp (Exim 4.92)
- (envelope-from <a.fatoum@pengutronix.de>)
- id 1nUReM-0003ml-JI; Wed, 16 Mar 2022 12:17:06 +0100
-Message-ID: <e888d777-71f8-8ddc-7590-53e181ae0ad4@pengutronix.de>
-Date: Wed, 16 Mar 2022 12:17:03 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.1
-Content-Language: en-US
-To: Etienne Carriere <etienne.carriere@linaro.org>,
- Gabriel FERNANDEZ <gabriel.fernandez@foss.st.com>,
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
- <sboyd@kernel.org>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Wed, 16 Mar 2022 12:46:19 +0000 (UTC)
+Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 22GAA4Yv013540;
+ Wed, 16 Mar 2022 13:46:02 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=selector1;
+ bh=xQ0LY62N9ucJsRtmmS7ed7yZVgwJC7hBULDEdrXmsp4=;
+ b=G4WdUUHjUULb5wZFHpgXbt+9XrzcIJGjvHqHnwzTy2OYZm4wBWHgOPosiBoGiR/A4EwU
+ i2PITWsjEAiXSXozHLkKLunwDQ78rhPamMfdh/eU6hgUHUhQVYmkjhrLEa7AZ9YHWyJF
+ G/TKfojRwbwnrPLZp6kOggJlY4/9dryVtg0dd7wYghiwi8ncRdTneh+x6jCq9OLsQzRK
+ TxVVco+Aj6SOu8Qb7kv7EIUmgSbB6Tjd8SJWi3XWyHOMuvZVRs4Lo0yg2QjFnWN/Dfbe
+ GS3J6w4IWazcy+PU68kjXw2NGvg+aMNvtzlqWEPo0gs4258x7W+YWtso03H8Wm/9MBPo kw== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3et63hdhen-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 16 Mar 2022 13:46:02 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id CA00310002A;
+ Wed, 16 Mar 2022 13:45:57 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id B3729226FB3;
+ Wed, 16 Mar 2022 13:45:57 +0100 (CET)
+Received: from localhost (10.75.127.47) by SFHDAG2NODE2.st.com (10.75.127.5)
+ with Microsoft SMTP Server (TLS) id 15.0.1497.26; Wed, 16 Mar 2022 13:45:57
+ +0100
+From: <gabriel.fernandez@foss.st.com>
+To: Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+ <sboyd@kernel.org>, Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski
+ <krzysztof.kozlowski@canonical.com>, Maxime Coquelin
+ <mcoquelin.stm32@gmail.com>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Philipp Zabel <p.zabel@pengutronix.de>, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org,
- "moderated list:ARM/FREESCALE IMX / MXC ARM ARCHITECTURE"
- <linux-arm-kernel@lists.infradead.org>,
- linux-stm32@st-md-mailman.stormreply.com,
- Pengutronix Kernel Team <kernel@pengutronix.de>
-References: <CAN5uoS9F1cjN+WLks1S=GzA1SHw=o-ibFbu-VsUzJ4NydAkAdw@mail.gmail.com>
-From: Ahmad Fatoum <a.fatoum@pengutronix.de>
-In-Reply-To: <CAN5uoS9F1cjN+WLks1S=GzA1SHw=o-ibFbu-VsUzJ4NydAkAdw@mail.gmail.com>
-X-SA-Exim-Connect-IP: 2001:67c:670:201:5054:ff:fe8d:eefb
-X-SA-Exim-Mail-From: a.fatoum@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH v2 12/13] ARM: dts: stm32: enable optee
- firmware and SCMI support on STM32MP13
+ Philipp Zabel <p.zabel@pengutronix.de>, Gabriel Fernandez
+ <gabriel.fernandez@foss.st.com>
+Date: Wed, 16 Mar 2022 13:45:40 +0100
+Message-ID: <20220316124553.6818-1-gabriel.fernandez@foss.st.com>
+X-Mailer: git-send-email 2.25.1
+MIME-Version: 1.0
+X-Originating-IP: [10.75.127.47]
+X-ClientProxiedBy: SFHDAG2NODE2.st.com (10.75.127.5) To SFHDAG2NODE2.st.com
+ (10.75.127.5)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.850,Hydra:6.0.425,FMLib:17.11.64.514
+ definitions=2022-03-16_04,2022-03-15_01,2022-02-23_01
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [PATCH v3 00/13] Introduction of STM32MP13 RCC driver
+	(Reset Clock Controller)
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -64,107 +79,61 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello Etienne,
+From: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
 
-On 16.03.22 12:01, Etienne Carriere wrote:
-> Hi Ahmad,
-> 
->> Helo Gabriel,
->>
->> On 03.03.22 14:09, Gabriel FERNANDEZ wrote:
->>>
->>> On 2/25/22 16:13, Ahmad Fatoum wrote:
->>>> Hello Gabriel,
->>>>
->>>> On 25.02.22 14:31, gabriel.fernandez@foss.st.com wrote:
->>>>> From: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
->>>>> +    firmware {
->>>>> +        optee {
->>>>> +            method = "smc";
->>>>> +            compatible = "linaro,optee-tz";
->>>>> +        };
->>>>> +
->>>>> +        scmi: scmi {
->>>>> +            compatible = "linaro,scmi-optee";
->>>> This compatible doesn't seem to be documented upstream. I am looking at v5.17-rc5.
->>>> Do you have a reference detailing the difference between this conduit and
->>>> plain arm,scmi-smc (as used with TF-A on the STM32MP151).
->>>>
->>>> Cheers,
->>>> Ahmad
->>>
->>> Hi
->>>
->>> Ahmad,
->>>
->>> it's on going.
->>>
->>> https://lore.kernel.org/linux-arm-kernel/20211029102118.GG6526@e120937-lin/T/#mf46c83f0aadce3061ee93fa22159405f38d881a0
->>
->> I've found that thread in the meantime and got some clarification on why a new
->> transport for OP-TEE was added. One question I still have though is why make
->> this transport the default for STM32MP13x instead of using SCMI over SMC like
->> you do for STM32MP15x. OP-TEE could still be made to service SCMI over SMC
->> and it would allow people employing TF-A as SCMI provider an easier migration
->> to the newer SoC.
->>
-> 
-> Just to rephrase a bit what's being said in the referred mail thread:
-> On STM32MP13x, there are SCMI messages that must be processed inside a
-> thread execution context in the SCMI server. There is no standard SMC
-> function ID defined that the SCMI/SMC transport could use for that
-> purpose. OP-TEE provides such a threaded context. Therefore STM32MP13x
-> explicitly expects SCMI services based on SCMI/OP-TEE transport, not
-> SCMI/SMC transport.
+v3:
+  - cosmetic change from Stephen Boyd
+  - rename some functions in clk-stm32-core
+  - add missing static for variables or functions
 
-I see. Users can still override it as they see fit and I understand that
-ST would prefer to have the "fully-featured" boot chain be the default
-for the new SoC. So no concerns from my side.
+v2:
+  - Resend because patch 9,10,12,13 has not been sent
+  - add Reviewed by Krzysztof Kozlowski for patch 1
 
-Thanks a lot for the clarification!
+Gabriel Fernandez (13):
+  dt-bindings: rcc: stm32: add new compatible for STM32MP13 SoC
+  clk: stm32: Introduce STM32MP13 RCC drivers (Reset Clock Controller)
+  clk: stm32mp13: add stm32_mux clock management
+  clk: stm32mp13: add stm32_gate management
+  clk: stm32mp13: add stm32 divider clock
+  clk: stm32mp13: add composite clock
+  clk: stm32mp13: manage secured clocks
+  clk: stm32mp13: add all STM32MP13 peripheral clocks
+  clk: stm32mp13: add all STM32MP13 kernel clocks
+  clk: stm32mp13: add multi mux function
+  clk: stm32mp13: add safe mux management
+  ARM: dts: stm32: enable optee firmware and SCMI support on STM32MP13
+  ARM: dts: stm32: add RCC on STM32MP13x SoC family
 
-Cheers,
-Ahmad
-
-> 
-> Best regards,
-> etienne
-> 
->> Cheers,
->> Ahmad
-> 
->>
->>>
->>>> +            #address-cells = <1>;
->>>> +            #size-cells = <0>;
->>>> +            linaro,optee-channel-id = <0>;
->>>> +            shmem = <&scmi_shm>;
->>>> +
->>>> +            scmi_clk: protocol@14 {
->>>> +                reg = <0x14>;
->>>> +                #clock-cells = <1>;
->>>> +            };
->>>> +
->>>> +            scmi_reset: protocol@16 {
->>>> +                reg = <0x16>;
->>>> +                #reset-cells = <1>;
->>>> +            };
->>>> +        };
->>>> +    };
->>>>       clocks {
->>>>           clk_axi: clk-axi {
->>>>               #clock-cells = <0>;
->>>
->>
-> 
-> 
-
+ .../bindings/clock/st,stm32mp1-rcc.yaml       |    2 +
+ arch/arm/boot/dts/stm32mp131.dtsi             |  128 +-
+ arch/arm/boot/dts/stm32mp133.dtsi             |    4 +-
+ arch/arm/boot/dts/stm32mp13xf.dtsi            |    3 +-
+ drivers/clk/Kconfig                           |    5 +
+ drivers/clk/Makefile                          |    1 +
+ drivers/clk/stm32/Makefile                    |    1 +
+ drivers/clk/stm32/clk-stm32-core.c            |  695 +++++++
+ drivers/clk/stm32/clk-stm32-core.h            |  188 ++
+ drivers/clk/stm32/clk-stm32mp13.c             | 1620 +++++++++++++++
+ drivers/clk/stm32/reset-stm32.c               |  122 ++
+ drivers/clk/stm32/reset-stm32.h               |    8 +
+ drivers/clk/stm32/stm32mp13_rcc.h             | 1748 +++++++++++++++++
+ include/dt-bindings/clock/stm32mp13-clks.h    |  229 +++
+ include/dt-bindings/reset/stm32mp13-resets.h  |  100 +
+ 15 files changed, 4794 insertions(+), 60 deletions(-)
+ create mode 100644 drivers/clk/stm32/Makefile
+ create mode 100644 drivers/clk/stm32/clk-stm32-core.c
+ create mode 100644 drivers/clk/stm32/clk-stm32-core.h
+ create mode 100644 drivers/clk/stm32/clk-stm32mp13.c
+ create mode 100644 drivers/clk/stm32/reset-stm32.c
+ create mode 100644 drivers/clk/stm32/reset-stm32.h
+ create mode 100644 drivers/clk/stm32/stm32mp13_rcc.h
+ create mode 100644 include/dt-bindings/clock/stm32mp13-clks.h
+ create mode 100644 include/dt-bindings/reset/stm32mp13-resets.h
 
 -- 
-Pengutronix e.K.                           |                             |
-Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
-31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
-Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
+2.25.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
