@@ -2,39 +2,39 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 092084DD753
+	by mail.lfdr.de (Postfix) with ESMTPS id 1297C4DD754
 	for <lists+linux-stm32@lfdr.de>; Fri, 18 Mar 2022 10:48:22 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id ADF5EC6049E;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BFF89C628A3;
 	Fri, 18 Mar 2022 09:48:21 +0000 (UTC)
-Received: from szxga08-in.huawei.com (szxga08-in.huawei.com [45.249.212.255])
+Received: from szxga02-in.huawei.com (szxga02-in.huawei.com [45.249.212.188])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8BDDAC6046B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 34F2CC6046B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 17 Mar 2022 13:18:58 +0000 (UTC)
+ Thu, 17 Mar 2022 13:19:12 +0000 (UTC)
 Received: from kwepemi500013.china.huawei.com (unknown [172.30.72.53])
- by szxga08-in.huawei.com (SkyGuard) with ESMTP id 4KK6zR5P09z1GCVs;
- Thu, 17 Mar 2022 21:13:55 +0800 (CST)
+ by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4KK7322MQBzCqkp;
+ Thu, 17 Mar 2022 21:17:02 +0800 (CST)
 Received: from huawei.com (10.175.112.208) by kwepemi500013.china.huawei.com
  (7.221.188.120) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.21; Thu, 17 Mar
- 2022 21:18:54 +0800
+ 2022 21:19:03 +0800
 From: Zheng Yongjun <zhengyongjun3@huawei.com>
-To: <dmitry.torokhov@gmail.com>, <mcoquelin.stm32@gmail.com>,
- <alexandre.torgue@foss.st.com>, <linux-input@vger.kernel.org>,
- <linux-stm32@st-md-mailman.stormreply.com>,
+To: <herbert@gondor.apana.org.au>, <davem@davemloft.net>,
+ <mcoquelin.stm32@gmail.com>, <alexandre.torgue@foss.st.com>,
+ <linux-crypto@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
  <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
-Date: Thu, 17 Mar 2022 13:16:04 +0000
-Message-ID: <20220317131604.53538-1-zhengyongjun3@huawei.com>
+Date: Thu, 17 Mar 2022 13:16:13 +0000
+Message-ID: <20220317131613.53628-1-zhengyongjun3@huawei.com>
 X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
 X-Originating-IP: [10.175.112.208]
-X-ClientProxiedBy: dggems703-chm.china.huawei.com (10.3.19.180) To
+X-ClientProxiedBy: dggems701-chm.china.huawei.com (10.3.19.178) To
  kwepemi500013.china.huawei.com (7.221.188.120)
 X-CFilter-Loop: Reflected
 X-Mailman-Approved-At: Fri, 18 Mar 2022 09:48:20 +0000
-Subject: [Linux-stm32] [PATCH] Input: fix reference leak in stmfts_input_open
+Subject: [Linux-stm32] [PATCH] crypto: fix reference leak in stm32_crc_remove
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -53,42 +53,29 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 pm_runtime_get_sync() will increment pm usage counter even it
 failed. Forgetting to call pm_runtime_put_noidle will result
-in reference leak in stmfts_input_open, so we should fix it.
+in reference leak in stm32_crc_remove, so we should fix it.
 
 Signed-off-by: Zheng Yongjun <zhengyongjun3@huawei.com>
 ---
- drivers/input/touchscreen/stmfts.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+ drivers/crypto/stm32/stm32-crc32.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/input/touchscreen/stmfts.c b/drivers/input/touchscreen/stmfts.c
-index bc11203c9cf7..72e0b767e1ba 100644
---- a/drivers/input/touchscreen/stmfts.c
-+++ b/drivers/input/touchscreen/stmfts.c
-@@ -339,11 +339,11 @@ static int stmfts_input_open(struct input_dev *dev)
+diff --git a/drivers/crypto/stm32/stm32-crc32.c b/drivers/crypto/stm32/stm32-crc32.c
+index be1bf39a317d..90a920e7f664 100644
+--- a/drivers/crypto/stm32/stm32-crc32.c
++++ b/drivers/crypto/stm32/stm32-crc32.c
+@@ -384,8 +384,10 @@ static int stm32_crc_remove(struct platform_device *pdev)
+ 	struct stm32_crc *crc = platform_get_drvdata(pdev);
+ 	int ret = pm_runtime_get_sync(crc->dev);
  
- 	err = pm_runtime_get_sync(&sdata->client->dev);
- 	if (err < 0)
--		return err;
-+		goto out;
+-	if (ret < 0)
++	if (ret < 0) {
++		pm_runtime_put_noidle(crc->dev);
+ 		return ret;
++	}
  
- 	err = i2c_smbus_write_byte(sdata->client, STMFTS_MS_MT_SENSE_ON);
- 	if (err)
--		return err;
-+		goto out;
- 
- 	mutex_lock(&sdata->mutex);
- 	sdata->running = true;
-@@ -366,7 +366,9 @@ static int stmfts_input_open(struct input_dev *dev)
- 				 "failed to enable touchkey\n");
- 	}
- 
--	return 0;
-+out:
-+	pm_runtime_put_noidle(&sdata->client->dev);
-+	return err;
- }
- 
- static void stmfts_input_close(struct input_dev *dev)
+ 	spin_lock(&crc_list.lock);
+ 	list_del(&crc->list);
 -- 
 2.17.1
 
