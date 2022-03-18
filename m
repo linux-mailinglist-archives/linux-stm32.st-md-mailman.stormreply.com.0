@@ -2,120 +2,126 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1E7864DD755
-	for <lists+linux-stm32@lfdr.de>; Fri, 18 Mar 2022 10:48:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 44F4E4DE315
+	for <lists+linux-stm32@lfdr.de>; Fri, 18 Mar 2022 21:59:12 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D4753C628A9;
-	Fri, 18 Mar 2022 09:48:21 +0000 (UTC)
-Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com
- [210.118.77.11])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E97D5C60467;
+	Fri, 18 Mar 2022 20:59:11 +0000 (UTC)
+Received: from mail-io1-f54.google.com (mail-io1-f54.google.com
+ [209.85.166.54])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D1BA2C6046B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7453AC60464
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 17 Mar 2022 19:21:38 +0000 (UTC)
-Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
- by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id
- 20220317192137euoutp017e71ba0ed22d1b91ba2d8624c345a9c9~dQVr6851W0692706927euoutp01j;
- Thu, 17 Mar 2022 19:21:37 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com
- 20220317192137euoutp017e71ba0ed22d1b91ba2d8624c345a9c9~dQVr6851W0692706927euoutp01j
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
- s=mail20170921; t=1647544897;
- bh=8AJD7LLy/THFDuNHTzws2WZ7Rh8dubqLenZAtO6y33w=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=SSsYA3sB8VCPS64sV7bKPBdT8Gs/9iazS1cVIbja0uftAb3Jtq7aVK0HmcrvM88Y1
- NoEJ9kl4mWA5MXUH10J7hVGyfodyRX1b5gMz1n+rN5J9woekIMHDbFexQ8XqDOWVDm
- SBXoHQ05p7Jo9XqAW4y1w7OlZTplPAkddYsl9vKc=
-Received: from eusmges2new.samsung.com (unknown [203.254.199.244]) by
- eucas1p2.samsung.com (KnoxPortal) with ESMTP id
- 20220317192137eucas1p26a509d5aaf346c7b64b070301bf61eb3~dQVrnVIS11741017410eucas1p2i;
- Thu, 17 Mar 2022 19:21:37 +0000 (GMT)
-Received: from eucas1p1.samsung.com ( [182.198.249.206]) by
- eusmges2new.samsung.com (EUCPMTA) with SMTP id 08.B3.09887.14A83326; Thu, 17
- Mar 2022 19:21:37 +0000 (GMT)
-Received: from eusmtrp1.samsung.com (unknown [182.198.249.138]) by
- eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
- 20220317192136eucas1p185dfbf79e792ebdc4c5614a90c1b0cd8~dQVqafbfc3134231342eucas1p1O;
- Thu, 17 Mar 2022 19:21:36 +0000 (GMT)
-Received: from eusmgms2.samsung.com (unknown [182.198.249.180]) by
- eusmtrp1.samsung.com (KnoxPortal) with ESMTP id
- 20220317192136eusmtrp180d92f8748820fe9ee93ff913a9123e8~dQVqZWQ871868218682eusmtrp1x;
- Thu, 17 Mar 2022 19:21:36 +0000 (GMT)
-X-AuditID: cbfec7f4-45bff7000000269f-39-62338a41cdcf
-Received: from eusmtip1.samsung.com ( [203.254.199.221]) by
- eusmgms2.samsung.com (EUCPMTA) with SMTP id C4.14.09404.F3A83326; Thu, 17
- Mar 2022 19:21:35 +0000 (GMT)
-Received: from localhost (unknown [106.120.51.46]) by eusmtip1.samsung.com
- (KnoxPortal) with ESMTPA id
- 20220317192135eusmtip11512036116a92f228b87ec99e1e8e94b~dQVqJMrcG1419214192eusmtip1r;
- Thu, 17 Mar 2022 19:21:35 +0000 (GMT)
-From: Lukasz Stelmach <l.stelmach@samsung.com>
+ Fri, 18 Mar 2022 20:59:10 +0000 (UTC)
+Received: by mail-io1-f54.google.com with SMTP id q11so10657366iod.6
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 18 Mar 2022 13:59:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linuxfoundation.org; s=google;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=oNAPpR+5qx5bHO8wJ1SIgWig3LUKuwuqLo641jvFAak=;
+ b=R3B03hXdzmRL4FMHavxss76+tb9Q0Hy78NbdGoHIgmWRsuIfciGr2JWywHMf/Kpkhf
+ QniqntLtfhiE8E3Wo0oxTFcS1KWerJtG5tNgnrk3j2xUiX43wMMg+/mjp1wKd5A4aRIu
+ ErIGjgvdava6sQlmLmDCO8Qr2P9RfzXvczFjE=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=oNAPpR+5qx5bHO8wJ1SIgWig3LUKuwuqLo641jvFAak=;
+ b=BclkTgVZsNyWQnVJfY3TcshmCIKpzqhgg7v5v+ETu4Gd7ekVCFnerT71O54nbhifg9
+ OSmmeKXc0Qqqdav1vyVJLjEJEkgK6wOIdBjMG4SW1PCw/sfRvGbiWo0U0RnRFZpv+NiG
+ BNtusVecxUkjJ9BFvsipa6QoFElnj472MQuhHmwWsjMl+VCqbNKebqoXow1eayOGV3hN
+ tBTGV2dTYVQD0/AXARco4x/FIiY6eNSBSx/J37aTSRcPkm2KIdtniOwlYBrFZsZ9pncE
+ c9zE8Dzqlh2qMPpoc0HhLmlViI4pKCJvgzCKHd6wutWUke5fjTw6CdkAIXoRNK1Efn8P
+ dMFg==
+X-Gm-Message-State: AOAM531bWYvo+/s5lNF36oINagS99b/spziPtZulc0B1BrEEKvfgXgVI
+ ViR5d+aun4oX2hziVt8rx+QHaQ==
+X-Google-Smtp-Source: ABdhPJw+g6qtXnLujFKVRv55AGvVhZcbGPndogV4eznqetPdpLwXYueCN6beIFsP8OoV/l235xaSaw==
+X-Received: by 2002:a5d:9542:0:b0:648:f92b:7bc6 with SMTP id
+ a2-20020a5d9542000000b00648f92b7bc6mr5223132ios.73.1647637149068; 
+ Fri, 18 Mar 2022 13:59:09 -0700 (PDT)
+Received: from [192.168.1.128] ([71.205.29.0])
+ by smtp.gmail.com with ESMTPSA id
+ d14-20020a056602328e00b006494aa126c2sm3528385ioz.11.2022.03.18.13.59.05
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 18 Mar 2022 13:59:08 -0700 (PDT)
 To: Mauro Carvalho Chehab <mchehab@kernel.org>
-Date: Thu, 17 Mar 2022 20:21:35 +0100
-In-Reply-To: <d5b6678363c4374436014137fecc22ff666e3ebc.1647274407.git.mchehab@kernel.org>
- (Mauro Carvalho Chehab's message of "Mon, 14 Mar 2022 17:35:00 +0100")
-Message-ID: <dleftj1qz0mlkw.fsf%l.stelmach@samsung.com>
-User-Agent: Gnus/5.13 (Gnus v5.13) Emacs/27.1 (gnu/linux)
+References: <cover.1647242578.git.mchehab@kernel.org>
+ <decd26e90adc5c16470e4f738810f22fe6478b27.1647242579.git.mchehab@kernel.org>
+From: Shuah Khan <skhan@linuxfoundation.org>
+Message-ID: <9e02d88a-3344-8d91-c652-72cb989506de@linuxfoundation.org>
+Date: Fri, 18 Mar 2022 14:59:05 -0600
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.8.1
 MIME-Version: 1.0
-X-Brightmail-Tracker: H4sIAAAAAAAAA02Sf1DTZRzHe77f7777Dhw+DpDnlkfdMCo4QcPySQj0sLvvVWdcWnnVNSd8
- BY6xrf3IrDNmUMGaIAMvmJhACZ78aA5FI52JlqfEYETkgoSEFCe6k3GQhNC2L9753/vz+bzf
- r+f5PPcwpKSUljK5Kj2nVSmUMjqEav/lvnPVRlPSjtV/+8Jwv6uTwC37fqZw7cFQbB8dEODy
- c91CXNjkJLF7clqAf+uoobHZdtKvCl0An7x1l8CTIwskLh+0CXFVj4PAF30cNg2MCXClo4PG
- JVNWGtc3fE7iBvscgfsLXTS+UjRObVjO2nyf0ax1uJtm7cdKaLbtuwJ2vK0asD1VdYD9sdZH
- sOcda1ifPTpD9E5IShanzP2Q0yambg/JcR9Sac5lfOS746CMoDvZBEQMgmvR78YaygRCGAk8
- CtDtwQeLxZS/GHcL+cIH0I0+i/BhxHSiIqglsBGgQnsOb7oJ0IzxG2ACDEPDBNTSsi3gifDL
- m22uIJWEfQI0MlBOBQbh8DXU5hgMgij4FBo1zQoCWgTrAXowvzrAEcN16KuFjEA7Er6I5m7c
- C9rFcBm6XD0WxJAwH1X3TIAAH8FpESobHAP8RTehhVNzJK/DkefSicUFVqCuCjMV4CNYgCos
- L/BZM0DtNf9SvCcZDTlnaV5vRJMXviR4fxi6emcZf24YsrR/TfJtMSr+QsK7V6LWsjOLFCna
- 5zkKeAuLLjue4F+qGSBX6RC9HzxpfWQb6yPbWP0REj6Lvu9I5NvxqKHuNsnrl1Brq5eqBYJj
- IIoz6PKzOd1zKm5Xgk6RrzOoshMy1fl24P+mXfOXpk6DRs+9hE5AMKATrPSHr9uaeoGUUqlV
- nCxC/Ot44g6JOEux+2NOq5ZrDUpO1wkeZyhZlDgz16aQwGyFnsvjOA2nfTglGJHUSCz5jwiT
- Wuf7RPGMO0ZuT1txPm1XkdfIls/Id8rfDE9LuYqFOvnFmLzZvriu++7imOvc3U+lWUmHt2yO
- X/hpiIJdbrOtd/3zfzmUu/fH1Vz5IzZ9xHDw7AFxaDdXJd++NEUc++7a9brmptKYvMhrFq/y
- afVpvUEtK4YTinWV2Y/1vz165NVXNlSFbrFr0jPet+6xaupPSXGvfucz8tSRt6hts9NJwkNQ
- f2RJkbh55nikWd+YWnLGLV1aklz3AV7Vku6JOr75FpP5Hrd36z/RzuE3csctzJDn8ITrdW/l
- /IGXzw57DWWfwGvfOlMKNBfizVunueU/RPzp3rM32hs7kFMmo3Q5ijVxpFan+B+mhywbIQQA
- AA==
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFmplleLIzCtJLcpLzFFi42I5/e/4XV37LuMkg4XvLSyuXDzEZLG29yiL
- xYLZ3BabHl9jtZi4/yy7RfPqc8wWNz99Y7W4vGsOm0XPhq1AVvNFRoutL98xWXx68J/ZYuLt
- DewWM87vY7I48jnVouvaE1aLKft2sVl0fpnFZrFoWSuzxbJNf5gsrjRfZLM41fKCxUHMY8Pn
- JjaPWffPsnlsWtXJ5rF5Sb3Hi80zGT3Oz1jI6LF7wWcmj4P7DD0+b5IL4IzSsynKLy1JVcjI
- Ly6xVYo2tDDSM7S00DMysdQzNDaPtTIyVdK3s0lJzcksSy3St0vQy7g5N69gf0DF57f7WBoY
- z1p3MXJySAiYSHRtmcwOYgsJLGWU+Po2p4uRAyguJbFybjpEibDEn2tdbBAlTxklVr1yAClh
- E9CTWLs2AiQsAmQ+33yRpYuRi4NZ4A6rRPPBLUwgCWEBH4nN+25DjY+QeDT/ClicRUBV4nHX
- L1YQm1NgEaPE338GIDN5Bcwluv8HgIRFBSwl/jz7CNbKKyAocXLmExYQm1kgW+Lr6ufMExgF
- ZiFJzUKSmgU0iVlAU2L9Ln2IsLbEsoWvmSFsW4l1696zLGBkXcUoklpanJueW2ykV5yYW1ya
- l66XnJ+7iRGYBrYd+7llB+PKVx/1DjEycTAeYlQB6ny0YfUFRimWvPy8VCUR3jMv9JOEeFMS
- K6tSi/Lji0pzUosPMZoCfTaRWUo0OR+YoPJK4g3NDEwNTcwsDUwtzYyVxHk9CzoShQTSE0tS
- s1NTC1KLYPqYODilGphibDLLzno6a12RuDKlvcxuZvKmx2eWWB5gnB5gUWXGNVsodHGRqhCz
- Pg9XyWxtr7VzpZ9P3hNRbMCt65M2a2Ge2rfLJw5tj9m7M9oh9VdhTkTaD/uPSTwRbxS7jzSL
- B4vd17WZInhyi7znJvmJfHYZ0y9uzPf51et2rNRa7eyadRl3RJdb7c6dG5/5ZvPfVelu/OFy
- pQ0xXB+yAqOC/zGZPEqxNDt5IlYh/0Lr14P3pCMCd6oZ3JLTZbry59WdaRMc3e6+YHjx+I13
- 6cwlzY/az/VOm73l4jPeGON4HienzZ/YF5RyXNizpM3tTnXW/W13Xuzus3NWTZE+0dB6LGOj
- pbZ4/N24dTtW7mBSmajEUpyRaKjFXFScCABQmWVNmAMAAA==
-X-CMS-MailID: 20220317192136eucas1p185dfbf79e792ebdc4c5614a90c1b0cd8
-X-Msg-Generator: CA
-X-RootMTR: 20220317192136eucas1p185dfbf79e792ebdc4c5614a90c1b0cd8
-X-EPHeader: CA
-CMS-TYPE: 201P
-X-CMS-RootMailID: 20220317192136eucas1p185dfbf79e792ebdc4c5614a90c1b0cd8
-References: <d5b6678363c4374436014137fecc22ff666e3ebc.1647274407.git.mchehab@kernel.org>
- <CGME20220317192136eucas1p185dfbf79e792ebdc4c5614a90c1b0cd8@eucas1p1.samsung.com>
-X-Mailman-Approved-At: Fri, 18 Mar 2022 09:48:20 +0000
-Cc: alsa-devel@alsa-project.org, linux-samsung-soc@vger.kernel.org,
- linux-aspeed@lists.ozlabs.org, openbmc@lists.ozlabs.org,
- linux-arm-msm@vger.kernel.org, mjpeg-users@lists.sourceforge.net,
- linux-staging@lists.linux.dev, linux-mediatek@lists.infradead.org,
- linux-kernel@vger.kernel.org, linux-sunxi@lists.linux.dev,
- linux-renesas-soc@vger.kernel.org, linux-rockchip@lists.infradead.org,
- linux-usb@vger.kernel.org, bcm-kernel-feedback-list@broadcom.com,
- linux-rpi-kernel@lists.infradead.org, linux-input@vger.kernel.org,
- linux-tegra@vger.kernel.org, linux-amlogic@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- linux-media@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH v2 65/67] media: Kconfig: cleanup
-	VIDEO_DEV dependencies
+In-Reply-To: <decd26e90adc5c16470e4f738810f22fe6478b27.1647242579.git.mchehab@kernel.org>
+Content-Language: en-US
+Cc: Heiko Stuebner <heiko@sntech.de>,
+ Geert Uytterhoeven <geert+renesas@glider.be>, Jaroslav Kysela <perex@perex.cz>,
+ Hans Verkuil <hverkuil@xs4all.nl>, Pavel Machek <pavel@ucw.cz>,
+ linux-stm32@st-md-mailman.stormreply.com, Jerome Brunet <jbrunet@baylibre.com>,
+ Michael Grzeschik <m.grzeschik@pengutronix.de>, Joe Hung <joe_hung@ilitek.com>,
+ Michal Simek <michal.simek@xilinx.com>,
+ Ludovic Desroches <ludovic.desroches@microchip.com>,
+ Jacob Chen <jacob-chen@iotwrt.com>, NXP Linux Team <linux-imx@nxp.com>,
+ Steve Longerbeam <slongerbeam@gmail.com>, Jeff LaBundy <jeff@labundy.com>,
+ linux-sunxi@lists.linux.dev, Nicolas Saenz Julienne <nsaenz@kernel.org>,
+ Sascha Hauer <s.hauer@pengutronix.de>, Shuah Khan <skhan@linuxfoundation.org>,
+ Hyun Kwon <hyun.kwon@xilinx.com>, Scott Branden <sbranden@broadcom.com>,
+ Heungjun Kim <riverful.kim@samsung.com>, Randy Dunlap <rdunlap@infradead.org>,
+ Michael Tretter <m.tretter@pengutronix.de>,
+ Sowjanya Komatineni <skomatineni@nvidia.com>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Giulio Benetti <giulio.benetti@benettiengineering.com>,
+ Ming Qian <ming.qian@nxp.com>, alsa-devel@alsa-project.org,
+ linux-usb@vger.kernel.org, Sylwester Nawrocki <s.nawrocki@samsung.com>,
+ linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>, linux-rockchip@lists.infradead.org,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Tianshu Qiu <tian.shu.qiu@intel.com>, linux-media@vger.kernel.org,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ linux-arm-msm@vger.kernel.org, Maxime Ripard <mripard@kernel.org>,
+ linux-samsung-soc@vger.kernel.org, Houlong Wei <houlong.wei@mediatek.com>,
+ linux-amlogic@lists.infradead.org, Mike Isely <isely@pobox.com>,
+ linux-arm-kernel@lists.infradead.org, linux-rpi-kernel@lists.infradead.org,
+ Zhou Peng <eagle.zhou@nxp.com>, linux-renesas-soc@vger.kernel.org,
+ Kyungmin Park <kyungmin.park@samsung.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Kevin Hilman <khilman@baylibre.com>,
+ Jacek Anaszewski <jacek.anaszewski@gmail.com>, Sean Young <sean@mess.org>,
+ Neil Armstrong <narmstrong@baylibre.com>,
+ Stanimir Varbanov <stanimir.varbanov@linaro.org>, linux-tegra@vger.kernel.org,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Fabio Estevam <festevam@gmail.com>,
+ Jean-Christophe Trotin <jean-christophe.trotin@foss.st.com>,
+ Florian Fainelli <f.fainelli@gmail.com>, linux-staging@lists.linux.dev,
+ Kieran Bingham <kieran.bingham@ideasonboard.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Shijie Qin <shijie.qin@nxp.com>,
+ bcm-kernel-feedback-list@broadcom.com, Joel Stanley <joel@jms.id.au>,
+ linux-input@vger.kernel.org, Ray Jui <rjui@broadcom.com>,
+ mjpeg-users@lists.sourceforge.net, Vincent Knecht <vincent.knecht@mailoo.org>,
+ Felipe Balbi <balbi@kernel.org>,
+ Martina Krasteva <martinax.krasteva@intel.com>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>, Shawn Guo <shawnguo@kernel.org>,
+ Minghsiu Tsai <minghsiu.tsai@mediatek.com>, Todor Tomov <todor.too@gmail.com>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Mirela Rabulea <mirela.rabulea@nxp.com>, Olivier Lorin <o.lorin@laposte.net>,
+ Marek Vasut <marex@denx.de>, Paul Kocialkowski <paul.kocialkowski@bootlin.com>,
+ Rick Chang <rick.chang@mediatek.com>,
+ Hugues Fruchet <hugues.fruchet@foss.st.com>, openbmc@lists.ozlabs.org,
+ Yong Zhi <yong.zhi@intel.com>, Shawn Tu <shawnx.tu@intel.com>,
+ linux-mediatek@lists.infradead.org, Yong Deng <yong.deng@magewell.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Tiffany Lin <tiffany.lin@mediatek.com>, Takashi Iwai <tiwai@suse.com>,
+ Robert Foss <robert.foss@linaro.org>, Philipp Zabel <p.zabel@pengutronix.de>
+Subject: Re: [Linux-stm32] [PATCH 64/64] media: Kconfig: cleanup VIDEO_DEV
+	dependencies
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -127,243 +133,75 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============8705309711325393624=="
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
---===============8705309711325393624==
-Content-Type: multipart/signed; boundary="=-=-="; micalg="pgp-sha256";
-	protocol="application/pgp-signature"
-
---=-=-=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-
-It was <2022-03-14 pon 17:35>, when Mauro Carvalho Chehab wrote:
+On 3/14/22 1:55 AM, Mauro Carvalho Chehab wrote:
 > media Kconfig has two entries associated to V4L API:
 > VIDEO_DEV and VIDEO_V4L2.
->
+> 
 > On Kernel 2.6.x, there were two V4L APIs, each one with its own flag.
 > VIDEO_DEV were meant to:
 > 	1) enable Video4Linux and make its Kconfig options to appear;
 > 	2) it makes the Kernel build the V4L core.
->
+> 
 > while VIDEO_V4L2 where used to distinguish between drivers that
 > implement the newer API and drivers that implemented the former one.
->
+> 
 > With time, such meaning changed, specially after the removal of
 > all V4L version 1 drivers.
->
+> 
 > At the current implementation, VIDEO_DEV only does (1): it enables
 > the media options related to V4L, that now has:
->
+> 
 > 	menu "Video4Linux options"
 > 		visible if VIDEO_DEV
->
+> 
 > 	source "drivers/media/v4l2-core/Kconfig"
 > 	endmenu
->
+> 
 > but it doesn't affect anymore the V4L core drivers.
->
+> 
 > The rationale is that the V4L2 core has a "soft" dependency
 > at the I2C bus, and now requires to select a number of other
 > Kconfig options:
->
+> 
 > 	config VIDEO_V4L2
 > 		tristate
-> 		depends on (I2C || I2C=3Dn) && VIDEO_DEV
+> 		depends on (I2C || I2C=n) && VIDEO_DEV
 > 		select RATIONAL
 > 		select VIDEOBUF2_V4L2 if VIDEOBUF2_CORE
-> 		default (I2C || I2C=3Dn) && VIDEO_DEV
->
+> 		default (I2C || I2C=n) && VIDEO_DEV
+> 
 > In the past, merging them would be tricky, but it seems that it is now
 > possible to merge those symbols, in order to simplify V4L dependencies.
->
+> 
 > Let's keep VIDEO_DEV, as this one is used on some make *defconfig
 > configurations.
->
+> 
 > Suggested-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 > Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-> Reviewed-by: Jacopo Mondi <jacopo@jmondi.org>
 > Signed-off-by: Mauro Carvalho Chehab <mchehab@kernel.org>
 > ---
->
-> To avoid mailbombing on a large number of people, only mailing lists were=
- C/C on the cover.
-> See [PATCH v2 00/67] at: https://lore.kernel.org/all/cover.1647274406.git=
-.mchehab@kernel.org/
->
->  drivers/input/rmi4/Kconfig                    |   2 +-
->  drivers/input/touchscreen/Kconfig             |   4 +-
->  drivers/media/Kconfig                         |   3 +
->  drivers/media/common/saa7146/Kconfig          |   2 +-
->  drivers/media/dvb-core/Kconfig                |   2 +-
->  drivers/media/dvb-frontends/Kconfig           |   4 +-
->  drivers/media/i2c/Kconfig                     | 250 +++++++++---------
->  drivers/media/i2c/ccs/Kconfig                 |   2 +-
->  drivers/media/i2c/cx25840/Kconfig             |   2 +-
->  drivers/media/i2c/et8ek8/Kconfig              |   2 +-
->  drivers/media/i2c/m5mols/Kconfig              |   2 +-
->  drivers/media/pci/Kconfig                     |   2 +-
->  drivers/media/pci/bt8xx/Kconfig               |   2 +-
->  drivers/media/pci/cobalt/Kconfig              |   2 +-
->  drivers/media/pci/cx18/Kconfig                |   2 +-
->  drivers/media/pci/dt3155/Kconfig              |   2 +-
->  drivers/media/pci/intel/ipu3/Kconfig          |   2 +-
->  drivers/media/pci/ivtv/Kconfig                |   2 +-
->  drivers/media/pci/meye/Kconfig                |   2 +-
->  drivers/media/pci/saa7146/Kconfig             |   6 +-
->  drivers/media/pci/sta2x11/Kconfig             |   2 +-
->  drivers/media/pci/tw5864/Kconfig              |   2 +-
->  drivers/media/pci/tw68/Kconfig                |   2 +-
->  drivers/media/pci/tw686x/Kconfig              |   2 +-
->  drivers/media/platform/Kconfig                |   6 +-
->  drivers/media/platform/allegro-dvt/Kconfig    |   2 +-
->  .../platform/allwinner/sun4i-csi/Kconfig      |   2 +-
->  .../platform/allwinner/sun6i-csi/Kconfig      |   2 +-
->  .../media/platform/allwinner/sun8i-di/Kconfig |   2 +-
->  .../platform/allwinner/sun8i-rotate/Kconfig   |   2 +-
->  .../media/platform/amlogic/meson-ge2d/Kconfig |   2 +-
->  drivers/media/platform/amphion/Kconfig        |   1 -
->  drivers/media/platform/aspeed/Kconfig         |   2 +-
->  drivers/media/platform/atmel/Kconfig          |   8 +-
->  drivers/media/platform/cadence/Kconfig        |   4 +-
->  drivers/media/platform/chips-media/Kconfig    |   2 +-
->  drivers/media/platform/intel/Kconfig          |   2 +-
->  drivers/media/platform/marvell/Kconfig        |   4 +-
->  .../media/platform/mediatek/mtk-jpeg/Kconfig  |   2 +-
->  .../media/platform/mediatek/mtk-mdp/Kconfig   |   2 +-
->  .../platform/mediatek/mtk-vcodec/Kconfig      |   2 +-
->  .../media/platform/mediatek/mtk-vpu/Kconfig   |   2 +-
->  .../media/platform/nvidia/tegra-vde/Kconfig   |   2 +-
->  drivers/media/platform/nxp/Kconfig            |   6 +-
->  drivers/media/platform/nxp/imx-jpeg/Kconfig   |   2 +-
->  drivers/media/platform/qcom/camss/Kconfig     |   2 +-
->  drivers/media/platform/qcom/venus/Kconfig     |   2 +-
->  drivers/media/platform/renesas/Kconfig        |  30 +--
->  .../media/platform/renesas/rcar-vin/Kconfig   |   4 +-
->  drivers/media/platform/rockchip/rga/Kconfig   |   2 +-
->  .../media/platform/rockchip/rkisp1/Kconfig    |   2 +-
->  .../media/platform/samsung/exynos-gsc/Kconfig |   2 +-
->  .../media/platform/samsung/exynos4-is/Kconfig |   2 +-
->  .../media/platform/samsung/s3c-camif/Kconfig  |   2 +-
->  .../media/platform/samsung/s5p-g2d/Kconfig    |   2 +-
->  .../media/platform/samsung/s5p-jpeg/Kconfig   |   2 +-
->  .../media/platform/samsung/s5p-mfc/Kconfig    |   2 +-
->  drivers/media/platform/stm/sti/bdisp/Kconfig  |   2 +-
->  drivers/media/platform/stm/sti/delta/Kconfig  |   2 +-
->  drivers/media/platform/stm/sti/hva/Kconfig    |   2 +-
->  drivers/media/platform/stm/stm32/Kconfig      |   4 +-
->  drivers/media/platform/ti/am437x/Kconfig      |   2 +-
->  drivers/media/platform/ti/davinci/Kconfig     |  12 +-
->  drivers/media/platform/ti/omap/Kconfig        |   2 +-
->  drivers/media/platform/ti/omap3isp/Kconfig    |   2 +-
->  drivers/media/platform/via/Kconfig            |   2 +-
->  drivers/media/platform/xilinx/Kconfig         |   2 +-
->  drivers/media/radio/Kconfig                   |  42 ++-
->  drivers/media/radio/si470x/Kconfig            |   2 +-
->  drivers/media/radio/wl128x/Kconfig            |   2 +-
->  drivers/media/spi/Kconfig                     |   4 +-
->  drivers/media/test-drivers/Kconfig            |   2 +-
->  drivers/media/test-drivers/vicodec/Kconfig    |   2 +-
->  drivers/media/test-drivers/vimc/Kconfig       |   2 +-
->  drivers/media/test-drivers/vivid/Kconfig      |   2 +-
->  drivers/media/tuners/Kconfig                  |   6 +-
->  drivers/media/tuners/e4000.c                  |   6 +-
->  drivers/media/tuners/fc2580.c                 |   6 +-
->  drivers/media/usb/airspy/Kconfig              |   2 +-
->  drivers/media/usb/au0828/Kconfig              |   6 +-
->  drivers/media/usb/cpia2/Kconfig               |   2 +-
->  drivers/media/usb/dvb-usb-v2/Kconfig          |   8 +-
->  drivers/media/usb/dvb-usb/Kconfig             |   4 +-
->  drivers/media/usb/gspca/Kconfig               |  96 +++----
->  drivers/media/usb/gspca/gl860/Kconfig         |   2 +-
->  drivers/media/usb/gspca/m5602/Kconfig         |   2 +-
->  drivers/media/usb/hackrf/Kconfig              |   2 +-
->  drivers/media/usb/hdpvr/Kconfig               |   2 +-
->  drivers/media/usb/msi2500/Kconfig             |   2 +-
->  drivers/media/usb/pvrusb2/Kconfig             |   2 +-
->  drivers/media/usb/pwc/Kconfig                 |   2 +-
->  drivers/media/usb/s2255/Kconfig               |   2 +-
->  drivers/media/usb/stkwebcam/Kconfig           |   2 +-
->  drivers/media/usb/usbtv/Kconfig               |   2 +-
->  drivers/media/usb/uvc/Kconfig                 |   2 +-
->  drivers/media/usb/zr364xx/Kconfig             |   2 +-
->  drivers/media/v4l2-core/Kconfig               |  12 +-
->  drivers/media/v4l2-core/Makefile              |   2 +-
->  drivers/staging/media/atomisp/Kconfig         |   2 +-
->  drivers/staging/media/atomisp/i2c/Kconfig     |  14 +-
->  drivers/staging/media/hantro/Kconfig          |   2 +-
->  drivers/staging/media/imx/Kconfig             |   2 +-
->  drivers/staging/media/ipu3/Kconfig            |   2 +-
->  drivers/staging/media/max96712/Kconfig        |   2 +-
->  drivers/staging/media/meson/vdec/Kconfig      |   2 +-
->  drivers/staging/media/omap4iss/Kconfig        |   2 +-
->  drivers/staging/media/rkvdec/Kconfig          |   2 +-
->  drivers/staging/media/sunxi/cedrus/Kconfig    |   2 +-
->  drivers/staging/media/tegra-video/Kconfig     |   2 +-
->  drivers/staging/media/zoran/Kconfig           |   2 +-
->  drivers/staging/most/video/Kconfig            |   2 +-
->  .../vc04_services/bcm2835-camera/Kconfig      |   2 +-
->  drivers/usb/gadget/Kconfig                    |   2 +-
->  drivers/usb/gadget/legacy/Kconfig             |   2 +-
->  sound/pci/Kconfig                             |   4 +-
->  115 files changed, 356 insertions(+), 374 deletions(-)
+> 
+
+>   drivers/media/test-drivers/vicodec/Kconfig    |   2 +-
+>   drivers/media/test-drivers/vimc/Kconfig       |   2 +-
+>   drivers/media/test-drivers/vivid/Kconfig      |   2 +-
 >
 
-Acked-by: =C5=81ukasz Stelmach <l.stelmach@samsung.com>
+For vimc change: (trimmed the recipient list to send response)
 
-[...]
+Acked-by: Shuah Khan <skhan@linuxfoundation.org>
 
-
-> diff --git a/drivers/media/platform/samsung/s5p-g2d/Kconfig b/drivers/med=
-ia/platform/samsung/s5p-g2d/Kconfig
-> index 9bc9d90a666a..28ab88fc2d7c 100644
-> --- a/drivers/media/platform/samsung/s5p-g2d/Kconfig
-> +++ b/drivers/media/platform/samsung/s5p-g2d/Kconfig
-> @@ -1,7 +1,7 @@
->  config VIDEO_SAMSUNG_S5P_G2D
->  	tristate "Samsung S5P and EXYNOS4 G2D 2d graphics accelerator driver"
->  	depends on V4L_MEM2MEM_DRIVERS
-> -	depends on VIDEO_DEV && VIDEO_V4L2
-> +	depends on VIDEO_DEV
->  	depends on ARCH_S5PV210 || ARCH_EXYNOS || COMPILE_TEST
->  	select VIDEOBUF2_DMA_CONTIG
->  	select V4L2_MEM2MEM_DEV
-
-[...]
+thanks,
+-- Shuah
 
 
-=2D-=20
-=C5=81ukasz Stelmach
-Samsung R&D Institute Poland
-Samsung Electronics
-
---=-=-=
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEXpuyqjq9kGEVr9UQsK4enJilgBAFAmIzij8ACgkQsK4enJil
-gBBbcgf/aneuRLpVmb3t9XhFHinqWTwAHjmHijfM4Bxpeie5LGPD+ZODOQbbTHI/
-SXYJS3DSxcgXnRGiv7g4MNmazBgof2zjvt/C8g0cTWdthAC4RALkjvOFd+4JyyJP
-ozwCmesdus9emei4oZwgFKK914YZDEjYr8bWMicgALtwdnF7z9A00O5RwqaptPTX
-jSFQlpjo5s4gYR2xpQZaLPRwnr328DtW8oertBocpd32+OtNe+A2u1cjdxKuOPqt
-1iB2h/WFOgzqi5noKYu5eQ37WtWZsiPlUuEcrUXRddHEj/TYOFwBEclb+TtkaO0X
-ysdUvYWSGALn6XAUtaiDpl43o6bQ2A==
-=1sCe
------END PGP SIGNATURE-----
---=-=-=--
-
---===============8705309711325393624==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============8705309711325393624==--
