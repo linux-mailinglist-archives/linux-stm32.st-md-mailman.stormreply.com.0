@@ -2,71 +2,67 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 530534E1913
-	for <lists+linux-stm32@lfdr.de>; Sun, 20 Mar 2022 01:01:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D50C14E1FAA
+	for <lists+linux-stm32@lfdr.de>; Mon, 21 Mar 2022 05:57:41 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E2935C60462;
-	Sun, 20 Mar 2022 00:01:22 +0000 (UTC)
-Received: from mout.gmx.net (mout.gmx.net [212.227.15.18])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6D6A8C5EC6B;
+	Mon, 21 Mar 2022 04:57:41 +0000 (UTC)
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com
+ [209.85.216.41])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E982BC5F1EE
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 41185C5A4FD
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 20 Mar 2022 00:01:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.net;
- s=badeba3b8450; t=1647734472;
- bh=hFobiD0Av9I4hKkI1kP4GGFNq/s/44RpeMZwSfBgc3c=;
- h=X-UI-Sender-Class:Subject:To:Cc:References:From:Date:In-Reply-To;
- b=PqKCQoexUgpht1kHUKyWOcgIyUGvwdsEF2BKQ4ntC7CxqdifOJlD7m1jZRDrV8HoV
- gxqSxo/y/MPcb5FQDJXBPZJolT+MC5eodSMtlPUgg4lyceVyw7MRymanITcbTJbtQ5
- GHYmxd202Jzv6Q+KWJWAU5kBiBsLTGl+b/TzQKLo=
-X-UI-Sender-Class: 01bb95c1-4bf8-414a-932a-4f6e2808ef9c
-Received: from [192.168.0.33] ([46.223.3.204]) by mail.gmx.net (mrgmx004
- [212.227.17.190]) with ESMTPSA (Nemesis) id 1MvbBk-1oKvuw0B6c-00sdcZ; Sun, 20
- Mar 2022 01:01:12 +0100
-To: gregkh@linuxfoundation.org, jirislaby@kernel.org
-References: <20220228023928.1067-1-LinoSanfilippo@gmx.de>
- <20220228023928.1067-2-LinoSanfilippo@gmx.de>
-From: Lino Sanfilippo <LinoSanfilippo@gmx.de>
-Message-ID: <9cf25a55-9597-74d3-7829-6422c8a5a73c@gmx.de>
-Date: Sun, 20 Mar 2022 01:01:08 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ Mon, 21 Mar 2022 04:57:39 +0000 (UTC)
+Received: by mail-pj1-f41.google.com with SMTP id
+ o6-20020a17090a9f8600b001c6562049d9so13405437pjp.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Sun, 20 Mar 2022 21:57:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=YLwShMZpFVnttuqvEbdrkmmsS2bGXBfGBiSI2Uo2yco=;
+ b=TpTUiczvhMBuZwTGPVhmDTRUbN1/0RAcJBgl6ZMwoyjWAUjV/T1yttZ2XtExcNES37
+ ot9N1RZraiX1CofYXH4B/3oIFhyfe4CRUdbcuuhMyq9AFSaiZAgBgFsbmt16ax9XlaFM
+ 6vcb7QiKjmFJc9qWFMyvJFSHJrNv5v4Bwr0osGJDX0aLvcE1zU8uhAJjyOuy9i0+B2MA
+ hwoL9xiGV6NFNSlnBz6X7lY0YEZuPrhcSlcvLTQjURne87KF3GIZn37VUGKyyWfBGjIB
+ /7D8tVgVYaodGzRq9aCIO9+/A2W3hnngLS9kGhhFDUR13nDf7BVRY0fkmOEeeQokz3HF
+ PK9g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=YLwShMZpFVnttuqvEbdrkmmsS2bGXBfGBiSI2Uo2yco=;
+ b=B+iXpbePjsHcHyZkDhx1wu4qUTPFunV7/RnxQ23bZjShHHa8zOSdtJ1NvNEccbwbg8
+ pIUBnsIirmiSMPe3aDJZw41oF11dPg60WiM5H/CrTbcOUNvOkNT4okApxVNlGlw2Ty2d
+ FN31FQ52v4Jx97TkDF4KctCDq1iUdEoku8WL8WiE4bmlu6P7wuEU+TgmtU1XnJTizTb6
+ nTYI9bks/yG0/oMVbbivN2jMJcrTpTQfY2dJvO26t8N/Brl8CGxB+Tea+GSaGhr4boQi
+ 3z2oU/1vZoYzfQVFNnh9Wm3TtP4JauURuA9KUfmnmX7JRA+mh2TesnKu6bxP8dShUPOy
+ 7FyQ==
+X-Gm-Message-State: AOAM5306sOX6jB4uZB2PU+i4sMEAQXz/ghjMxvgbRQbIoeg+8V7ns7s/
+ NiWLD80AWCJWGcB0HitCSOY=
+X-Google-Smtp-Source: ABdhPJy2QKuXkIMIpb6OZyTCemvsSgDY73bTi2uKa1E5rbRhlkD5fLusyOwSbP8pyLxk6aQU3aRkYA==
+X-Received: by 2002:a17:90b:3807:b0:1bf:6c8e:f9b7 with SMTP id
+ mq7-20020a17090b380700b001bf6c8ef9b7mr24357499pjb.16.1647838657418; 
+ Sun, 20 Mar 2022 21:57:37 -0700 (PDT)
+Received: from google.com ([2620:15c:202:201:31f6:c8f1:6f10:b2ec])
+ by smtp.gmail.com with ESMTPSA id
+ bh3-20020a056a02020300b00378b62df320sm13304028pgb.73.2022.03.20.21.57.36
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 20 Mar 2022 21:57:36 -0700 (PDT)
+Date: Sun, 20 Mar 2022 21:57:34 -0700
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: Zheng Yongjun <zhengyongjun3@huawei.com>
+Message-ID: <YjgFvv5uVC42J1aY@google.com>
+References: <20220317131604.53538-1-zhengyongjun3@huawei.com>
 MIME-Version: 1.0
-In-Reply-To: <20220228023928.1067-2-LinoSanfilippo@gmx.de>
-Content-Language: en-US
-X-Provags-ID: V03:K1:AUxWCItz1tm+yKQXwbhBjD4S3BmYFzw2v+jNazO1T0kwTCkHtob
- Pecyzp8X20LCrqzhrqfQDinKYmR+24IRLddX89cKYxPqgSYzE5yq3zeyMNG/JeyXJuvCoes
- XNksQk+zEi+BQjku9iX6cgR4Bgf3Yv5b0OJMxgCEcWDJTS0ZgGvQ3d8BCRneK1uL14tG+kl
- 5KSP4UDwyoJeZPqvd2JWQ==
-X-Spam-Flag: NO
-X-UI-Out-Filterresults: notjunk:1;V03:K0:USVa+vBjMjo=:YU3b7lq8uHCDGNS9biTLoT
- ci09eq5EIElP6ylgBJdoQkG75c22H3fbdRoeYsBXFCveZ7IqiyoVJaYy8xdMAy2dPUsYm6L8V
- QyeA50MtuZTBZjg1EnWcKYlbg8GC9kTzaS7QzVAn9FR9LPYCVt/hHuc/BKZ4br/qh5wd+3+ev
- LIgOJLv54mNCgyRuH6t6jAMDKfxMHjirhJ8/cVNrt3KUoYk96bZhSKB59wqd0xxKdWelaclBa
- yH/bm6Gaq1lbPZfF2dEoLAzmyZAm5TVNrvNCyFyELkrM0vg3GPxF8aqb6rMwB9/Ma/MxEE7/B
- NgvXNdpXKKfzrL3y5dGYLD39xGgCH6wMuFNX7EGN1qUKfavrgPOBnJgrC+/zBGW1uxuXhOlj0
- 0u6GfvleGUFA6oFIQNVea1ZBxIrriS72JMF5oEZtZVMB0psslFmZklTqs8wzvbk4TsGw943lH
- +qLyWQrxXxve3cuZBRroBFkW6vgFfKxmtYzT5LNeA/Nl/O7s8HWmGMF8JCrkcHwmXQRDRsZ7X
- NOvGQlChwTIQwWPgL3X2PJQ8cvrQRQVNWDuRkvDkmAdT9rJAexFZW/4FgF2DvhNPHFfq0H6tD
- 9rcblGibdNSvmHIzy9DmFUIum7J5/OTggTPSFnswYqSpWQeCPT3kWnv16cQO24PU8jYHPrSNZ
- 1exYdbSkpj3JsYmHj9ane/69lHJqLWrPOoFziqTUHcc8f5s3V1KDIIBc8Ro64/Luk5fTJBleh
- +pw+nz6XbmD5HzR60WkMTAT6XwFtcSIL7fOE7DiCNgpikxWJmfvSNpcJdlTIEnRFGXFruwL3Y
- E/t4LTQwHNBuUxmUOpz9JfJugc/LaAksGp17Ua3jCAjB0mkWww5iLOzukP2YQHosdpbNauRO0
- j+4AqAFnE2uD0WvkDJTY4Q8enKVotRqb6vIzoQBGfdohEnAj8IRvhjVit7wi2YPIexQ7MJ1BZ
- rmPHt7bVL3iWLrgQLr+QGn2Q8NF21SjKHnwjegSqlGlkUMxrrs6CbbWnOoe4GsqVlFTPf0j4u
- fccIrwmBb93tk3XuWP5FiCmC6rWWcAvzvaAM3x2d/L0qWMP53H284y9G8Ycry3cslN4C3ugZt
- r07LEfxtuwD/s0=
-Cc: linux-arm-kernel@lists.infradead.org, alexandre.belloni@bootlin.com,
- mcoquelin.stm32@gmail.com, linux-serial@vger.kernel.org,
- richard.genoud@gmail.com, festevam@gmail.com, s.hauer@pengutronix.de,
- nicolas.ferre@microchip.com, linux@armlinux.org.uk,
- alexandre.torgue@foss.st.com, ludovic.desroches@microchip.com, lukas@wunner.de,
- linux-imx@nxp.com, kernel@pengutronix.de, u.kleine-koenig@pengutronix.de,
- shawnguo@kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-kernel@vger.kernel.org, p.rosenberger@kunbus.com
-Subject: Re: [Linux-stm32] [PATCH v4 1/9] serial: core: move RS485
- configuration tasks from drivers into core
+Content-Disposition: inline
+In-Reply-To: <20220317131604.53538-1-zhengyongjun3@huawei.com>
+Cc: linux-kernel@vger.kernel.org, alexandre.torgue@foss.st.com,
+ mcoquelin.stm32@gmail.com, linux-input@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] Input: fix reference leak in
+	stmfts_input_open
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,30 +79,17 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Greg, Jiri,
+On Thu, Mar 17, 2022 at 01:16:04PM +0000, Zheng Yongjun wrote:
+> pm_runtime_get_sync() will increment pm usage counter even it
+> failed. Forgetting to call pm_runtime_put_noidle will result
+> in reference leak in stmfts_input_open, so we should fix it.
+> 
+> Signed-off-by: Zheng Yongjun <zhengyongjun3@huawei.com>
 
-On 28.02.22 at 03:39, Lino Sanfilippo wrote:
-> Several drivers that support setting the RS485 configuration via userspace
-> implement one or more of the following tasks:
->
-> - in case of an invalid RTS configuration (both RTS after send and RTS on
->   send set or both unset) fall back to enable RTS on send and disable RTS
->   after send
->
-> - nullify the padding field of the returned serial_rs485 struct
->
-> - copy the configuration into the uart port struct
->
-> - limit RTS delays to 100 ms
->
-> Move these tasks into the serial core to make them generic and to provide
-> a consistent behaviour among all drivers.
->
+Applied, thank you.
 
-is this patch series mergeable now? Or is there anything else to do from my side?
-
-Regards,
-Lino
+-- 
+Dmitry
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
