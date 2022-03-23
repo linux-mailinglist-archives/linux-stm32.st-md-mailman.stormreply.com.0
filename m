@@ -2,70 +2,73 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6533B4E53CF
-	for <lists+linux-stm32@lfdr.de>; Wed, 23 Mar 2022 15:00:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EE8864E5408
+	for <lists+linux-stm32@lfdr.de>; Wed, 23 Mar 2022 15:10:13 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1CEBEC5F1F1;
-	Wed, 23 Mar 2022 14:00:48 +0000 (UTC)
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AAEFEC5F1F1;
+	Wed, 23 Mar 2022 14:10:13 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5BF97C5A4FD
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7A6B7C5A4FD
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 23 Mar 2022 14:00:46 +0000 (UTC)
+ Wed, 23 Mar 2022 14:10:12 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by sin.source.kernel.org (Postfix) with ESMTPS id B1C6CCE2080
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 32C01616DF
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 23 Mar 2022 14:00:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28EF7C340F4
+ Wed, 23 Mar 2022 14:10:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97365C340F2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 23 Mar 2022 14:00:43 +0000 (UTC)
+ Wed, 23 Mar 2022 14:10:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1648044043;
- bh=0iSclD+CWJo049DAjnNmpJPmyTaLxoM33bJuF/qUYIU=;
+ s=k20201202; t=1648044610;
+ bh=v/gFT/8y2QNpM7jRFtSw7CA3jwTKUwu7o9yrZABFACw=;
  h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=jZ+K6QtSrHhnIoImw542na484JXIO49e49FdbBKfgDnU5cncgJ2q8UUGU82ue/Xbi
- KAB+CmdOZ1X58l9kDuVnAV9HtUnKQWpMdvJdL4MVp26ta3q7x+dYSIxNv75EuUBIfF
- cVZxZT/djEZBclgGulDEdZz5nxnPV0ScYwTcKmYB5egJ+ACg2iQobgStpUYixiggOT
- /bqOkJBeAEEnn1gxH8JkMFC+PaRxdRLS/mjB5t3vsKKtQ8rNQIeiiA8hyUCDzA8Z5H
- R3KyQFS7jNouiuGR3lC1pit1u7VdnnNzQ9MzIylbB/nKj2JazUYeCK28O2WomIamp9
- m0qjKUg8PACOg==
-Received: by mail-ej1-f42.google.com with SMTP id r22so2995022ejs.11
+ b=P+6qju7KgrYR9PKOtOje2vk3T7msB9Dbk7AF0A6rKiZ4l/NA6fVLIOeq3Q6cV+Psf
+ U84/Q23zl09bnN8MmrJjFmHzNc81xjaoIyVcteZphR5iwnf4GUrKAf7mFyK+6N7KHm
+ EG4lUIiy6K8tUjZDXzdcRdcCcvSJt4/uklymGD4IuW8MRu9R07+LmehP+aLa6mWBmY
+ spWoBaerVe1to5cHJfmrazOGYhZPDtoEp87mWUIRLkNPy92wYLGbW7sBeozCw0xjqO
+ AEYz6xqgfySUJC3MtfNsIUw+ygBR/olYwNushte6FdFdsu5fcTHKqD0xpmqYL3DWPJ
+ 7kBtA+yI0JovQ==
+Received: by mail-ej1-f44.google.com with SMTP id bi12so3110766ejb.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 23 Mar 2022 07:00:43 -0700 (PDT)
-X-Gm-Message-State: AOAM531/domszc7suXpcC+t8Io38MHKJVg6ATXbp69Qpu7BFliToZNDw
- 58XebFxFbCSaP5loe+5ZWdqtk4zS+6v1QqClUA==
-X-Google-Smtp-Source: ABdhPJzJCX1fd6x6XUQvELujRx+GXFcimDLm2YbxSHA7op+nKKjo5EIzA07JjYkwARfwQ/qJhXNGyMd50X5K9s9lP8M=
-X-Received: by 2002:a17:907:1c1b:b0:6e0:6618:8ac with SMTP id
- nc27-20020a1709071c1b00b006e0661808acmr109252ejc.82.1648044041365; Wed, 23
- Mar 2022 07:00:41 -0700 (PDT)
+ Wed, 23 Mar 2022 07:10:10 -0700 (PDT)
+X-Gm-Message-State: AOAM532fU+KuetI62x4DvI//oVfT9BzJVqjEmownzRBM3CMlQv5NpTTA
+ eWnCCZL2hZGovikDrVkXzE5pJKS2F4p388KCaw==
+X-Google-Smtp-Source: ABdhPJyoHAOLWCGsvMFbQN/cBB3l1ZQVSPRNagAHnYdBe/ediYewgN8QArA8v7kajXGSiPzjYVmw0poiMS0XEAnD4uA=
+X-Received: by 2002:a17:906:d204:b0:6d6:df17:835e with SMTP id
+ w4-20020a170906d20400b006d6df17835emr161839ejz.20.1648044608892; Wed, 23 Mar
+ 2022 07:10:08 -0700 (PDT)
 MIME-Version: 1.0
-References: <20220314075713.29140-1-biao.huang@mediatek.com>
- <20220314075713.29140-6-biao.huang@mediatek.com>
-In-Reply-To: <20220314075713.29140-6-biao.huang@mediatek.com>
-From: Rob Herring <robh+dt@kernel.org>
-Date: Wed, 23 Mar 2022 09:00:29 -0500
-X-Gmail-Original-Message-ID: <CAL_Jsq+6XKvS5RcE6j9vRd3JL-Wbi-O6BrcoGQ5xV0Q2ZG8EMw@mail.gmail.com>
-Message-ID: <CAL_Jsq+6XKvS5RcE6j9vRd3JL-Wbi-O6BrcoGQ5xV0Q2ZG8EMw@mail.gmail.com>
-To: Biao Huang <biao.huang@mediatek.com>
-Cc: devicetree@vger.kernel.org, srv_heupstream <srv_heupstream@mediatek.com>,
- netdev <netdev@vger.kernel.org>, "moderated list:ARM/STM32 ARCHITECTURE"
- <linux-stm32@st-md-mailman.stormreply.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
+References: <20220309134702.9942-1-jason-jh.lin@mediatek.com>
+In-Reply-To: <20220309134702.9942-1-jason-jh.lin@mediatek.com>
+From: Rob Herring <robh@kernel.org>
+Date: Wed, 23 Mar 2022 09:09:57 -0500
+X-Gmail-Original-Message-ID: <CAL_Jsq+=hTKTjB8rR77_uQYKDWHzLyTdeU7zbixSCZCNrdmNvg@mail.gmail.com>
+Message-ID: <CAL_Jsq+=hTKTjB8rR77_uQYKDWHzLyTdeU7zbixSCZCNrdmNvg@mail.gmail.com>
+To: "jason-jh.lin" <jason-jh.lin@mediatek.com>, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>
+Cc: Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Fei Shao <fshao@chromium.org>,
  "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- dkirjanov@suse.de, Jose Abreu <joabreu@synopsys.com>,
+ singo.chang@mediatek.com, Fabien Parent <fparent@baylibre.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ "roy-cw.yeh" <roy-cw.yeh@mediatek.com>,
+ Project_Global_Chrome_Upstream_Group
+ <Project_Global_Chrome_Upstream_Group@mediatek.com>,
+ Enric Balletbo i Serra <enric.balletbo@collabora.com>,
+ CK Hu <ck.hu@mediatek.com>, Moudy Ho <moudy.ho@mediatek.com>,
  "moderated list:ARM/Mediatek SoC support" <linux-mediatek@lists.infradead.org>,
- Macpaul Lin <macpaul.lin@mediatek.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Matthias Brugger <matthias.bgg@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- David Miller <davem@davemloft.net>,
  linux-arm-kernel <linux-arm-kernel@lists.infradead.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Hsin-Yi Wang <hsinyi@chromium.org>, Matthias Brugger <matthias.bgg@gmail.com>,
+ Nancy Lin <nancy.lin@mediatek.com>, "moderated list:ARM/STM32 ARCHITECTURE"
+ <linux-stm32@st-md-mailman.stormreply.com>, devicetree@vger.kernel.org,
  AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Subject: Re: [Linux-stm32] [PATCH net-next v13 5/7] net: dt-bindings: dwmac:
- Convert mediatek-dwmac to DT schema
+Subject: Re: [Linux-stm32] [PATCH v2 0/4] Fix MediaTek display dt-bindings
+	issues
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,34 +85,32 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Mar 14, 2022 at 2:57 AM Biao Huang <biao.huang@mediatek.com> wrote:
+On Wed, Mar 9, 2022 at 7:47 AM jason-jh.lin <jason-jh.lin@mediatek.com> wrote:
 >
-> Convert mediatek-dwmac to DT schema, and delete old mediatek-dwmac.txt.
-> And there are some changes in .yaml than .txt, others almost keep the same:
->   1. compatible "const: snps,dwmac-4.20".
->   2. delete "snps,reset-active-low;" in example, since driver remove this
->      property long ago.
->   3. add "snps,reset-delay-us = <0 10000 10000>" in example.
->   4. the example is for rgmii interface, keep related properties only.
+> The vdosys0 series carried a nice dt-bindings conversion of the old
+> txt documentation for the entire mediatek-drm driver, but some of
+> the issues in there weren't seen.
 >
-> Signed-off-by: Biao Huang <biao.huang@mediatek.com>
-> Reviewed-by: Rob Herring <robh@kernel.org>
-> ---
->  .../bindings/net/mediatek-dwmac.txt           |  91 ----------
->  .../bindings/net/mediatek-dwmac.yaml          | 155 ++++++++++++++++++
->  2 files changed, 155 insertions(+), 91 deletions(-)
->  delete mode 100644 Documentation/devicetree/bindings/net/mediatek-dwmac.txt
->  create mode 100644 Documentation/devicetree/bindings/net/mediatek-dwmac.yaml
+> This series is fixing all of the issues pointed out by a
+> `dt_binding_check` run, followed by `dtbs_check`.
+>
+> Change in v2:
+> - remove mediatek,ethdr.yaml file
+> - change include header of mediatek,ovl-2l.yaml from mt8173 to mt8183
+>
+> AngeloGioacchino Del Regno (3):
+>   dt-bindings: display: mediatek, mutex: Fix mediatek, gce-events type
+>   dt-bindings: display: mediatek, ovl: Fix 'iommu' required property
+>     typo
+>   dt-bindings: display: mediatek: Fix examples on new bindings
+>
+> jason-jh.lin (1):
+>   Revert "dt-bindings: display: mediatek: add ethdr definition for
+>     mt8195"
 
-Now failing in linux-next:
+Can this series get applied soon? linux-next is still broken.
 
-/builds/robherring/linux-dt/Documentation/devicetree/bindings/net/mediatek-dwmac.example.dtb:
-ethernet@1101c000: snps,txpbl:0:0: 1 is not one of [2, 4, 8]
- From schema: /builds/robherring/linux-dt/Documentation/devicetree/bindings/net/mediatek-dwmac.yaml
-/builds/robherring/linux-dt/Documentation/devicetree/bindings/net/mediatek-dwmac.example.dtb:
-ethernet@1101c000: snps,rxpbl:0:0: 1 is not one of [2, 4, 8]
- From schema: /builds/robherring/linux-dt/Documentation/devicetree/bindings/net/mediatek-dwmac.yaml
-
+If it hits Linus' tree, I will be applying them.
 
 Rob
 _______________________________________________
