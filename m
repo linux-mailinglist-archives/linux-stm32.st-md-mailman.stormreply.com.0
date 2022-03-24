@@ -2,59 +2,58 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8164F4E57F2
-	for <lists+linux-stm32@lfdr.de>; Wed, 23 Mar 2022 18:55:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5FBEC4E5C6F
+	for <lists+linux-stm32@lfdr.de>; Thu, 24 Mar 2022 01:52:18 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 332CCC5F1EF;
-	Wed, 23 Mar 2022 17:55:44 +0000 (UTC)
-Received: from mail-oa1-f41.google.com (mail-oa1-f41.google.com
- [209.85.160.41])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0E1E1C60469;
+	Thu, 24 Mar 2022 00:52:18 +0000 (UTC)
+Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DABCBC5A4FD
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8F4FDC5F1EF
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 23 Mar 2022 17:55:42 +0000 (UTC)
-Received: by mail-oa1-f41.google.com with SMTP id
- 586e51a60fabf-d6ca46da48so2441624fac.12
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 23 Mar 2022 10:55:42 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=G9nuSpDKEgw7Nx+8QlyFC8zKvObs8NIU6xkxgQTrJ2g=;
- b=hd4NmcdharBsi7UerF0mThKBpIcuP5Zv/txH7KsT2HOxb0zFfv63DOwaKPaXDonT4W
- F2wv0Gsyzbck9wutnpX5bOud0r9SBNKJPf4ujKb/H0TNBnaW1MnDQVpChyY7snokqBgM
- x7VeXfg+DAW/Fu3cLMD4UsnQ1otgjkGjLJ5+7+uR2ZtYhuVoOGbhMqsc/BUXP2kjjgOx
- 2ku0fx17IHSaCzqGptj4kdaEqhHqABHInyaAzVFKI6V5V+a+tyfCTO9tmkoLXqZD7VBU
- qGIYHzp5jbC5QD61S0I1hR0Pm3WsTOMZ81vcvTZdRioSvkYXAmPuJADUl7ZoQ+DZKc6s
- 0vwg==
-X-Gm-Message-State: AOAM5323IO08QO1AJbQrPA+xUaiCa0M2NDkkBtXfSjlV8HN8ufKW4Ops
- uQbNKsr8Mm+Ka4sjG2rXXg==
-X-Google-Smtp-Source: ABdhPJwaB9MUC7QokIP99uc9L6Wq+ettpIdTaw8OrMyNbqh3zU3dXgYv87+41FqCM7ufTf7BjMESnw==
-X-Received: by 2002:a05:6870:95a4:b0:d7:18b5:f927 with SMTP id
- k36-20020a05687095a400b000d718b5f927mr559577oao.45.1648058141804; 
- Wed, 23 Mar 2022 10:55:41 -0700 (PDT)
-Received: from robh.at.kernel.org (66-90-144-107.dyn.grandenetworks.net.
- [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
- z82-20020aca3355000000b002ef73b018absm234689oiz.9.2022.03.23.10.55.40
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 23 Mar 2022 10:55:41 -0700 (PDT)
-Received: (nullmailer pid 163348 invoked by uid 1000);
- Wed, 23 Mar 2022 17:55:40 -0000
-Date: Wed, 23 Mar 2022 12:55:40 -0500
-From: Rob Herring <robh@kernel.org>
-To: Yannick Brosseau <yannick.brosseau@gmail.com>
-Message-ID: <YjtfHEh8wUe0FZul@robh.at.kernel.org>
-References: <20220314012634.1176231-1-yannick.brosseau@gmail.com>
+ Thu, 24 Mar 2022 00:52:16 +0000 (UTC)
+X-UUID: 9be1904981d042b891cc123de4c0a5b3-20220324
+X-UUID: 9be1904981d042b891cc123de4c0a5b3-20220324
+Received: from mtkexhb02.mediatek.inc [(172.21.101.103)] by
+ mailgw02.mediatek.com (envelope-from <biao.huang@mediatek.com>)
+ (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
+ with ESMTP id 1488320240; Thu, 24 Mar 2022 08:52:10 +0800
+Received: from mtkcas11.mediatek.inc (172.21.101.40) by
+ mtkmbs10n2.mediatek.inc (172.21.101.183) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id 15.2.792.3; 
+ Thu, 24 Mar 2022 08:52:09 +0800
+Received: from mhfsdcap04 (10.17.3.154) by mtkcas11.mediatek.inc
+ (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via Frontend
+ Transport; Thu, 24 Mar 2022 08:52:08 +0800
+Message-ID: <6a2f52d2a173a9127ea517c81c3c1c5fe7b2b009.camel@mediatek.com>
+From: Biao Huang <biao.huang@mediatek.com>
+To: Rob Herring <robh+dt@kernel.org>
+Date: Thu, 24 Mar 2022 08:52:08 +0800
+In-Reply-To: <CAL_Jsq+6XKvS5RcE6j9vRd3JL-Wbi-O6BrcoGQ5xV0Q2ZG8EMw@mail.gmail.com>
+References: <20220314075713.29140-1-biao.huang@mediatek.com>
+ <20220314075713.29140-6-biao.huang@mediatek.com>
+ <CAL_Jsq+6XKvS5RcE6j9vRd3JL-Wbi-O6BrcoGQ5xV0Q2ZG8EMw@mail.gmail.com>
+X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.2 
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20220314012634.1176231-1-yannick.brosseau@gmail.com>
-Cc: devicetree@vger.kernel.org, Alexandre Torgue <alexandre.torgue@foss.st.com>,
- linux-kernel@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
+X-MTK: N
+Cc: devicetree@vger.kernel.org, srv_heupstream <srv_heupstream@mediatek.com>,
+ netdev <netdev@vger.kernel.org>, "moderated list:ARM/STM32
+ ARCHITECTURE" <linux-stm32@st-md-mailman.stormreply.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ dkirjanov@suse.de, Jose Abreu <joabreu@synopsys.com>,
+ "moderated list:ARM/Mediatek SoC
+ support" <linux-mediatek@lists.infradead.org>,
+ Macpaul Lin <macpaul.lin@mediatek.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] clk: stm32: Fix typo in comment
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ David Miller <davem@davemloft.net>,
+ linux-arm-kernel <linux-arm-kernel@lists.infradead.org>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Subject: Re: [Linux-stm32] [PATCH net-next v13 5/7] net: dt-bindings: dwmac:
+ Convert mediatek-dwmac to DT schema
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,16 +70,63 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Sun, 13 Mar 2022 21:26:33 -0400, Yannick Brosseau wrote:
-> s/Documentatoin/Documentation/ in path to the doc file
-> 
-> Signed-off-by: Yannick Brosseau <yannick.brosseau@gmail.com>
-> ---
->  include/dt-bindings/clock/stm32fx-clock.h | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
+Dear Rob,
 
-Applied, thanks!
+	Sorry for the failings.
+
+	"snps,txpbl"/"snps,rxpbl" are limited to enum [2,4,8] in
+snps,dwmac.yaml, but the hardware allows 1,2,4,8,16 or 32 according to
+datasheet.
+
+	I'll submit another patch to modify enum in snps,dwmac.yaml.
+
+Regards!
+Biao
+
+On Wed, 2022-03-23 at 09:00 -0500, Rob Herring wrote:
+> On Mon, Mar 14, 2022 at 2:57 AM Biao Huang <biao.huang@mediatek.com>
+> wrote:
+> > 
+> > Convert mediatek-dwmac to DT schema, and delete old mediatek-
+> > dwmac.txt.
+> > And there are some changes in .yaml than .txt, others almost keep
+> > the same:
+> >   1. compatible "const: snps,dwmac-4.20".
+> >   2. delete "snps,reset-active-low;" in example, since driver
+> > remove this
+> >      property long ago.
+> >   3. add "snps,reset-delay-us = <0 10000 10000>" in example.
+> >   4. the example is for rgmii interface, keep related properties
+> > only.
+> > 
+> > Signed-off-by: Biao Huang <biao.huang@mediatek.com>
+> > Reviewed-by: Rob Herring <robh@kernel.org>
+> > ---
+> >  .../bindings/net/mediatek-dwmac.txt           |  91 ----------
+> >  .../bindings/net/mediatek-dwmac.yaml          | 155
+> > ++++++++++++++++++
+> >  2 files changed, 155 insertions(+), 91 deletions(-)
+> >  delete mode 100644 Documentation/devicetree/bindings/net/mediatek-
+> > dwmac.txt
+> >  create mode 100644 Documentation/devicetree/bindings/net/mediatek-
+> > dwmac.yaml
+> 
+> Now failing in linux-next:
+> 
+> /builds/robherring/linux-
+> dt/Documentation/devicetree/bindings/net/mediatek-dwmac.example.dtb:
+> ethernet@1101c000: snps,txpbl:0:0: 1 is not one of [2, 4, 8]
+>  From schema: /builds/robherring/linux-
+> dt/Documentation/devicetree/bindings/net/mediatek-dwmac.yaml
+> /builds/robherring/linux-
+> dt/Documentation/devicetree/bindings/net/mediatek-dwmac.example.dtb:
+> ethernet@1101c000: snps,rxpbl:0:0: 1 is not one of [2, 4, 8]
+>  From schema: /builds/robherring/linux-
+> dt/Documentation/devicetree/bindings/net/mediatek-dwmac.yaml
+> 
+> 
+> Rob
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
