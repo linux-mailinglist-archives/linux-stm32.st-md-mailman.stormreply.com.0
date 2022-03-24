@@ -2,71 +2,70 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 76A1B4E66AC
-	for <lists+linux-stm32@lfdr.de>; Thu, 24 Mar 2022 17:11:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3D5744E66ED
+	for <lists+linux-stm32@lfdr.de>; Thu, 24 Mar 2022 17:24:13 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 202E2C60496;
-	Thu, 24 Mar 2022 16:11:10 +0000 (UTC)
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
- [209.85.128.52])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E4B17C60496;
+	Thu, 24 Mar 2022 16:24:12 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 971A7C57B6F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C9671C60468
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 24 Mar 2022 15:27:04 +0000 (UTC)
-Received: by mail-wm1-f52.google.com with SMTP id
- p12-20020a05600c430c00b0038cbdf52227so2787007wme.2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 24 Mar 2022 08:27:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre-com.20210112.gappssmtp.com; s=20210112;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=f+ay7tqudhjbGbdnObBg9rVW5P7BZjQ31rnVnGMAZWk=;
- b=yoqOuL45S1UOIOGTlbIjvOP0bcxCkdJmgO8ybdxTGcfeYXEDM/kYQY5Z6U5IvTUlrA
- teugwQjBm4bNPPo/5MKruClvWqHLscb3DjwlkqT2o8KXo2YvAG0f1lr6wGfUt2IVH/GI
- LuMWm36r+7lU5phOt6LmbSOkARXaNetUPuFetaALFUzIeVHEe2XfAxuPP6W1+tOXLv1R
- +4S5S29KOI8tD1M7ubPpTaVDFXTViYra3jR6/wt2Jl+gK4n/A6aq1GicM2o4Ef6lFni2
- 67DImm+X4wY+/1BLE/ziAbPoBDrAfVPdB8yjTWNJt+E7LRg78xdK03pNl8d5o10QmszF
- 06dg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=f+ay7tqudhjbGbdnObBg9rVW5P7BZjQ31rnVnGMAZWk=;
- b=aCdO/12ldIvwIU+tewdgnz0Jpx5i7zan6cYXJ3EtlWQ3Uhx7p+J/O7XcCn9h2ml6JB
- 3P74BYo2QAVuU/9HQmfnva/CtmHSArejIKSZ8vW4H+NaUqyS0snlc8VikxxSvfYfImKC
- +ic20LSEU79hOhzjbF2li6ojCcWXQedYjpdvWmaMMvXyBpo+/nJJ/m8hkb1Vcg1Ugp3w
- 2YXMkJjDNqKHl8Yvtz7bigCWhp98ows52WmBvsIkXGHuJuR42DmTSynkNIf1oR6VgU9X
- XMIUID38A2/Y3fBK0Rp1wnQTLeuZBl0QZldbhJsQEvcLacb4VRc183KCzxMbuK0LyESk
- eu5w==
-X-Gm-Message-State: AOAM531trRCOnquxvQyrV83lfDXw+JNkNdhhVgb1hiicH8PxayqSAE8A
- XAb+rPIW2bQOlqlIjTPcu6/RHg==
-X-Google-Smtp-Source: ABdhPJws87KVaVeOTw0TuPGtZNrXPQklwZMoptawtDOQ+Tbg5xeUk0cUlzKNYP316LQXkP4tCMCcwQ==
-X-Received: by 2002:a05:600c:ac5:b0:38c:9a51:3059 with SMTP id
- c5-20020a05600c0ac500b0038c9a513059mr5382446wmr.2.1648135624059; 
- Thu, 24 Mar 2022 08:27:04 -0700 (PDT)
-Received: from localhost.localdomain
- (laubervilliers-658-1-213-31.w90-63.abo.wanadoo.fr. [90.63.244.31])
- by smtp.googlemail.com with ESMTPSA id
- g17-20020a05600c4ed100b0038ca32d0f26sm2808104wmq.17.2022.03.24.08.27.03
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 24 Mar 2022 08:27:03 -0700 (PDT)
-From: Corentin Labbe <clabbe@baylibre.com>
-To: airlied@linux.ie, alexandre.torgue@foss.st.com, chunkuang.hu@kernel.org,
- daniel@ffwll.ch, krzk+dt@kernel.org, matthias.bgg@gmail.com,
- mcoquelin.stm32@gmail.com, p.zabel@pengutronix.de, robh+dt@kernel.org
-Date: Thu, 24 Mar 2022 15:26:58 +0000
-Message-Id: <20220324152658.1132110-1-clabbe@baylibre.com>
-X-Mailer: git-send-email 2.25.1
+ Thu, 24 Mar 2022 16:24:10 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 22OEsKmn012509;
+ Thu, 24 Mar 2022 17:23:52 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=kKmBnOfc0CnmBG1n6w5J+DiHVP5s4O6THfvfi6fXr88=;
+ b=XfGDv01oQ5a/zhM/o8KrNMMA7+CxC5ls5fTRREjjtSpFOdKcycgv+7IBF722KycCyNii
+ p6TfdFlZojfKDk8uPpngdyBvLyYUs71AD0jGDQa/C/eIpu7SfD2p6Qx4RQnDo5fzvqeI
+ dagA+/eNHVuG+pTAFphrqjgV734j3bPXjVI/tpC3ejz8AsOMwOoi0zOQc9cMeSRXzFzZ
+ 1rKXPPyYeuea9UOr6J8gTyxE6FY7PHDUBTj+gNulAFC+frBEDzyYvizHUjfeZMmKIX0g
+ QagrQJzCwa0Xz4c0Pcwb8foOPHLXWuKUi+6KqD6nkbws1ALXEfVsWTGENUS/mcsJnDxv pA== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3ew6xkuewr-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 24 Mar 2022 17:23:52 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id DE7FC10002A;
+ Thu, 24 Mar 2022 17:23:49 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id D428723713E;
+ Thu, 24 Mar 2022 17:23:49 +0100 (CET)
+Received: from [10.211.7.7] (10.75.127.48) by SFHDAG2NODE2.st.com
+ (10.75.127.5) with Microsoft SMTP Server (TLS) id 15.0.1497.26; Thu, 24 Mar
+ 2022 17:23:49 +0100
+Message-ID: <668661ca-271b-9a4f-6482-62f1b0190bb2@foss.st.com>
+Date: Thu, 24 Mar 2022 17:23:27 +0100
 MIME-Version: 1.0
-X-Mailman-Approved-At: Thu, 24 Mar 2022 16:11:08 +0000
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
- Corentin Labbe <clabbe@baylibre.com>, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH] dt-bindings: display: mediatek: Add includes
-	on examples
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.0
+Content-Language: en-US
+To: Ulf Hansson <ulf.hansson@linaro.org>
+References: <20220317111944.116148-1-yann.gautier@foss.st.com>
+ <20220317111944.116148-3-yann.gautier@foss.st.com>
+ <CAPDyKFqzzKgLHWiy26QW0hvM9kZEATS_c2mXkTuGiFpPaW8YKw@mail.gmail.com>
+From: Yann Gautier <yann.gautier@foss.st.com>
+In-Reply-To: <CAPDyKFqzzKgLHWiy26QW0hvM9kZEATS_c2mXkTuGiFpPaW8YKw@mail.gmail.com>
+X-Originating-IP: [10.75.127.48]
+X-ClientProxiedBy: SFHDAG2NODE1.st.com (10.75.127.4) To SFHDAG2NODE2.st.com
+ (10.75.127.5)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.850,Hydra:6.0.425,FMLib:17.11.64.514
+ definitions=2022-03-24_04,2022-03-24_01,2022-02-23_01
+Cc: Ludovic Barre <ludovic.barre@foss.st.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Linus Walleij <linus.walleij@linaro.org>, linux-mmc@vger.kernel.org,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, linux-kernel@vger.kernel.org,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 2/2] mmc: mmci: stm32: use a buffer for
+ unaligned DMA requests
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,263 +77,198 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-make dt_binding_check fail on lot of mediatek bindings due to missing
-includes.
+On 3/24/22 12:55, Ulf Hansson wrote:
+> On Thu, 17 Mar 2022 at 12:19, Yann Gautier <yann.gautier@foss.st.com> wrote:
+>>
+>> In SDIO mode, the sg list for requests can be unaligned with what the
+>> STM32 SDMMC internal DMA can support. In that case, instead of failing,
+>> use a temporary bounce buffer to copy from/to the sg list.
+>> This buffer is limited to 1MB. But for that we need to also limit
+>> max_req_size to 1MB. It has not shown any throughput penalties for
+>> SD-cards or eMMC.
+>>
+>> Signed-off-by: Yann Gautier <yann.gautier@foss.st.com>
+>> ---
+>>   drivers/mmc/host/mmci_stm32_sdmmc.c | 80 +++++++++++++++++++++++------
+>>   1 file changed, 63 insertions(+), 17 deletions(-)
+>>
+>> diff --git a/drivers/mmc/host/mmci_stm32_sdmmc.c b/drivers/mmc/host/mmci_stm32_sdmmc.c
+>> index 4566d7fc9055..a4414e32800f 100644
+>> --- a/drivers/mmc/host/mmci_stm32_sdmmc.c
+>> +++ b/drivers/mmc/host/mmci_stm32_sdmmc.c
+>> @@ -43,6 +43,9 @@ struct sdmmc_lli_desc {
+>>   struct sdmmc_idma {
+>>          dma_addr_t sg_dma;
+>>          void *sg_cpu;
+>> +       dma_addr_t bounce_dma_addr;
+>> +       void *bounce_buf;
+>> +       bool use_bounce_buffer;
+>>   };
+>>
+>>   struct sdmmc_dlyb {
+>> @@ -54,6 +57,7 @@ struct sdmmc_dlyb {
+>>   static int sdmmc_idma_validate_data(struct mmci_host *host,
+>>                                      struct mmc_data *data)
+>>   {
+>> +       struct sdmmc_idma *idma = host->dma_priv;
+>>          struct scatterlist *sg;
+>>          int i;
+>>
+>> @@ -61,21 +65,23 @@ static int sdmmc_idma_validate_data(struct mmci_host *host,
+>>           * idma has constraints on idmabase & idmasize for each element
+>>           * excepted the last element which has no constraint on idmasize
+>>           */
+>> +       idma->use_bounce_buffer = false;
+>>          for_each_sg(data->sg, sg, data->sg_len - 1, i) {
+>>                  if (!IS_ALIGNED(sg->offset, sizeof(u32)) ||
+>>                      !IS_ALIGNED(sg->length, SDMMC_IDMA_BURST)) {
+>> -                       dev_err(mmc_dev(host->mmc),
+>> +                       dev_dbg(mmc_dev(host->mmc),
+>>                                  "unaligned scatterlist: ofst:%x length:%d\n",
+>>                                  data->sg->offset, data->sg->length);
+>> -                       return -EINVAL;
+>> +                       idma->use_bounce_buffer = true;
+>> +                       return 0;
+>>                  }
+>>          }
+>>
+>>          if (!IS_ALIGNED(sg->offset, sizeof(u32))) {
+>> -               dev_err(mmc_dev(host->mmc),
+>> +               dev_dbg(mmc_dev(host->mmc),
+>>                          "unaligned last scatterlist: ofst:%x length:%d\n",
+>>                          data->sg->offset, data->sg->length);
+>> -               return -EINVAL;
+>> +               idma->use_bounce_buffer = true;
+>>          }
+>>
+>>          return 0;
+>> @@ -84,18 +90,29 @@ static int sdmmc_idma_validate_data(struct mmci_host *host,
+>>   static int _sdmmc_idma_prep_data(struct mmci_host *host,
+>>                                   struct mmc_data *data)
+>>   {
+>> -       int n_elem;
+>> +       struct sdmmc_idma *idma = host->dma_priv;
+>>
+>> -       n_elem = dma_map_sg(mmc_dev(host->mmc),
+>> -                           data->sg,
+>> -                           data->sg_len,
+>> -                           mmc_get_dma_dir(data));
+>> +       if (idma->use_bounce_buffer) {
+>> +               if (data->flags & MMC_DATA_WRITE) {
+>> +                       unsigned int xfer_bytes = data->blksz * data->blocks;
+>>
+>> -       if (!n_elem) {
+>> -               dev_err(mmc_dev(host->mmc), "dma_map_sg failed\n");
+>> -               return -EINVAL;
+>> -       }
+>> +                       sg_copy_to_buffer(data->sg, data->sg_len,
+>> +                                         idma->bounce_buf, xfer_bytes);
+>> +                       dma_wmb();
+>> +               }
+>> +       } else {
+>> +               int n_elem;
+>> +
+>> +               n_elem = dma_map_sg(mmc_dev(host->mmc),
+>> +                                   data->sg,
+>> +                                   data->sg_len,
+>> +                                   mmc_get_dma_dir(data));
+>>
+>> +               if (!n_elem) {
+>> +                       dev_err(mmc_dev(host->mmc), "dma_map_sg failed\n");
+>> +                       return -EINVAL;
+>> +               }
+>> +       }
+>>          return 0;
+>>   }
+>>
+>> @@ -112,8 +129,19 @@ static int sdmmc_idma_prep_data(struct mmci_host *host,
+>>   static void sdmmc_idma_unprep_data(struct mmci_host *host,
+>>                                     struct mmc_data *data, int err)
+>>   {
+>> -       dma_unmap_sg(mmc_dev(host->mmc), data->sg, data->sg_len,
+>> -                    mmc_get_dma_dir(data));
+>> +       struct sdmmc_idma *idma = host->dma_priv;
+>> +
+>> +       if (idma->use_bounce_buffer) {
+>> +               if (data->flags & MMC_DATA_READ) {
+>> +                       unsigned int xfer_bytes = data->blksz * data->blocks;
+>> +
+>> +                       sg_copy_from_buffer(data->sg, data->sg_len,
+>> +                                           idma->bounce_buf, xfer_bytes);
+>> +               }
+>> +       } else {
+>> +               dma_unmap_sg(mmc_dev(host->mmc), data->sg, data->sg_len,
+>> +                            mmc_get_dma_dir(data));
+>> +       }
+>>   }
+>>
+>>   static int sdmmc_idma_setup(struct mmci_host *host)
+>> @@ -137,6 +165,16 @@ static int sdmmc_idma_setup(struct mmci_host *host)
+>>                  host->mmc->max_segs = SDMMC_LLI_BUF_LEN /
+>>                          sizeof(struct sdmmc_lli_desc);
+>>                  host->mmc->max_seg_size = host->variant->stm32_idmabsize_mask;
+>> +
+>> +               host->mmc->max_req_size = SZ_1M;
+>> +               idma->bounce_buf = dmam_alloc_coherent(dev,
+>> +                                                      host->mmc->max_req_size,
+>> +                                                      &idma->bounce_dma_addr,
+>> +                                                      GFP_KERNEL);
+>> +               if (!idma->bounce_buf) {
+>> +                       dev_err(dev, "Unable to map allocate DMA bounce buffer.\n");
+>> +                       return -ENOMEM;
+> 
+Hi Ulf,
 
-Signed-off-by: Corentin Labbe <clabbe@baylibre.com>
----
-2 files remains to be fixed, but their examples use some variable undefined, so I cannot do anything:
-- display/mediatek/mediatek,ethdr.yaml
-- display/mediatek/mediatek,merge.yaml
+> If we fail to allocate the 1M bounce buffer, then we end up always
+> using a PIO based mode, right?
+> 
+> Perhaps we can allow the above allocation to fail, but then limit us
+> to use DMA only when the buffers are properly aligned? Would that
+> work?
+> 
+We have never supported PIO mode with STM32 variant.
+We only support DMA single buffer or DMA LLI.
+As we cannot have DMA LLI for unaligned access, we'll default to single 
+mode.
+If allocation fails, it then won't work.
+Maybe we shouldn't fail here, and just check idma->bounce_buf in 
+validate data function. If buffer is not allocated, we just return 
+-EINVAL as it was done before.
 
- .../display/mediatek/mediatek,aal.yaml        |   4 +
- .../display/mediatek/mediatek,ccorr.yaml      |   4 +
- .../display/mediatek/mediatek,color.yaml      |   4 +
- .../display/mediatek/mediatek,dither.yaml     |   4 +
- .../display/mediatek/mediatek,dsc.yaml        |   4 +
- .../display/mediatek/mediatek,gamma.yaml      |   4 +
- .../display/mediatek/mediatek,mutex.yaml      |   4 +
- .../display/mediatek/mediatek,od.yaml         |   1 +
- .../display/mediatek/mediatek,ovl-2l.yaml     |   5 +
- .../display/mediatek/mediatek,ovl.yaml        |   5 +
- .../display/mediatek/mediatek,postmask.yaml   |   4 +
- .../display/mediatek/mediatek,rdma.yaml       |   5 +
- .../display/mediatek/mediatek,split.yaml      |   3 +
- .../display/mediatek/mediatek,ufoe.yaml       |   3 +
- .../display/mediatek/mediatek,wdma.yaml       |   5 +
- 17 files changed, 59 insertions(+), 257 deletions(-)
+Best regards,
+Yann
 
-diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,aal.yaml b/Documentation/devicetree/bindings/display/mediatek/mediatek,aal.yaml
-index 225f9dd726d2..63755d4d21d7 100644
---- a/Documentation/devicetree/bindings/display/mediatek/mediatek,aal.yaml
-+++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,aal.yaml
-@@ -66,6 +66,10 @@ additionalProperties: false
- 
- examples:
-   - |
-+    #include <dt-bindings/clock/mt8173-clk.h>
-+    #include <dt-bindings/gce/mt8173-gce.h>
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    #include <dt-bindings/power/mt8173-power.h>
- 
-     aal@14015000 {
-         compatible = "mediatek,mt8173-disp-aal";
-diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,ccorr.yaml b/Documentation/devicetree/bindings/display/mediatek/mediatek,ccorr.yaml
-index 6894b6999412..b32355b32dfa 100644
---- a/Documentation/devicetree/bindings/display/mediatek/mediatek,ccorr.yaml
-+++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,ccorr.yaml
-@@ -65,6 +65,10 @@ additionalProperties: false
- 
- examples:
-   - |
-+    #include <dt-bindings/clock/mt8183-clk.h>
-+    #include <dt-bindings/gce/mt8183-gce.h>
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    #include <dt-bindings/power/mt8183-power.h>
- 
-     ccorr0: ccorr@1400f000 {
-         compatible = "mediatek,mt8183-disp-ccorr";
-diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,color.yaml b/Documentation/devicetree/bindings/display/mediatek/mediatek,color.yaml
-index bc83155b3b4c..ffdef0b30de8 100644
---- a/Documentation/devicetree/bindings/display/mediatek/mediatek,color.yaml
-+++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,color.yaml
-@@ -75,6 +75,10 @@ additionalProperties: false
- 
- examples:
-   - |
-+    #include <dt-bindings/clock/mt8173-clk.h>
-+    #include <dt-bindings/gce/mt8173-gce.h>
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    #include <dt-bindings/power/mt8173-power.h>
- 
-     color0: color@14013000 {
-         compatible = "mediatek,mt8173-disp-color";
-diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,dither.yaml b/Documentation/devicetree/bindings/display/mediatek/mediatek,dither.yaml
-index 9d89297f5f1d..7ac58022a2ed 100644
---- a/Documentation/devicetree/bindings/display/mediatek/mediatek,dither.yaml
-+++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,dither.yaml
-@@ -65,6 +65,10 @@ additionalProperties: false
- 
- examples:
-   - |
-+    #include <dt-bindings/clock/mt8183-clk.h>
-+    #include <dt-bindings/gce/mt8183-gce.h>
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    #include <dt-bindings/power/mt8183-power.h>
- 
-     dither0: dither@14012000 {
-         compatible = "mediatek,mt8183-disp-dither";
-diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,dsc.yaml b/Documentation/devicetree/bindings/display/mediatek/mediatek,dsc.yaml
-index 1ec083eff824..1ab30b0efffe 100644
---- a/Documentation/devicetree/bindings/display/mediatek/mediatek,dsc.yaml
-+++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,dsc.yaml
-@@ -60,6 +60,10 @@ additionalProperties: false
- 
- examples:
-   - |
-+    #include <dt-bindings/clock/mt8195-clk.h>
-+    #include <dt-bindings/gce/mt8195-gce.h>
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    #include <dt-bindings/power/mt8195-power.h>
- 
-     dsc0: disp_dsc_wrap@1c009000 {
-         compatible = "mediatek,mt8195-disp-dsc";
-diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,gamma.yaml b/Documentation/devicetree/bindings/display/mediatek/mediatek,gamma.yaml
-index 247baad147b3..4f8ba492dc0a 100644
---- a/Documentation/devicetree/bindings/display/mediatek/mediatek,gamma.yaml
-+++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,gamma.yaml
-@@ -66,6 +66,10 @@ additionalProperties: false
- 
- examples:
-   - |
-+    #include <dt-bindings/clock/mt8173-clk.h>
-+    #include <dt-bindings/gce/mt8173-gce.h>
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    #include <dt-bindings/power/mt8173-power.h>
- 
-     gamma@14016000 {
-         compatible = "mediatek,mt8173-disp-gamma";
-diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,mutex.yaml b/Documentation/devicetree/bindings/display/mediatek/mediatek,mutex.yaml
-index 6eca525eced0..ad3a69d1254c 100644
---- a/Documentation/devicetree/bindings/display/mediatek/mediatek,mutex.yaml
-+++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,mutex.yaml
-@@ -71,6 +71,10 @@ additionalProperties: false
- 
- examples:
-   - |
-+    #include <dt-bindings/clock/mt8173-clk.h>
-+    #include <dt-bindings/gce/mt8173-gce.h>
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    #include <dt-bindings/power/mt8173-power.h>
- 
-     mutex: mutex@14020000 {
-         compatible = "mediatek,mt8173-disp-mutex";
-diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,od.yaml b/Documentation/devicetree/bindings/display/mediatek/mediatek,od.yaml
-index 7519db315217..1f92566ff5ed 100644
---- a/Documentation/devicetree/bindings/display/mediatek/mediatek,od.yaml
-+++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,od.yaml
-@@ -45,6 +45,7 @@ additionalProperties: false
- 
- examples:
-   - |
-+    #include <dt-bindings/clock/mt8173-clk.h>
- 
-     od@14023000 {
-         compatible = "mediatek,mt8173-disp-od";
-diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,ovl-2l.yaml b/Documentation/devicetree/bindings/display/mediatek/mediatek,ovl-2l.yaml
-index e3cef99d0f98..e810e152404a 100644
---- a/Documentation/devicetree/bindings/display/mediatek/mediatek,ovl-2l.yaml
-+++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,ovl-2l.yaml
-@@ -66,6 +66,11 @@ additionalProperties: false
- 
- examples:
-   - |
-+    #include <dt-bindings/clock/mt8183-clk.h>
-+    #include <dt-bindings/gce/mt8183-gce.h>
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    #include <dt-bindings/memory/mt8183-larb-port.h>
-+    #include <dt-bindings/power/mt8183-power.h>
- 
-     ovl_2l0: ovl@14009000 {
-         compatible = "mediatek,mt8183-disp-ovl-2l";
-diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,ovl.yaml b/Documentation/devicetree/bindings/display/mediatek/mediatek,ovl.yaml
-index 93d5c68a2dbd..14673f979edc 100644
---- a/Documentation/devicetree/bindings/display/mediatek/mediatek,ovl.yaml
-+++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,ovl.yaml
-@@ -81,6 +81,11 @@ additionalProperties: false
- 
- examples:
-   - |
-+    #include <dt-bindings/clock/mt8173-clk.h>
-+    #include <dt-bindings/gce/mt8173-gce.h>
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    #include <dt-bindings/memory/mt8173-larb-port.h>
-+    #include <dt-bindings/power/mt8173-power.h>
- 
-     ovl0: ovl@1400c000 {
-         compatible = "mediatek,mt8173-disp-ovl";
-diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,postmask.yaml b/Documentation/devicetree/bindings/display/mediatek/mediatek,postmask.yaml
-index 6ac1da2e8871..d0d45d1e4f15 100644
---- a/Documentation/devicetree/bindings/display/mediatek/mediatek,postmask.yaml
-+++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,postmask.yaml
-@@ -58,6 +58,10 @@ additionalProperties: false
- 
- examples:
-   - |
-+    #include <dt-bindings/clock/mt8192-clk.h>
-+    #include <dt-bindings/gce/mt8192-gce.h>
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    #include <dt-bindings/power/mt8192-power.h>
- 
-     postmask0: postmask@1400d000 {
-         compatible = "mediatek,mt8192-disp-postmask";
-diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,rdma.yaml b/Documentation/devicetree/bindings/display/mediatek/mediatek,rdma.yaml
-index b56e22fbcd52..2265fef6a795 100644
---- a/Documentation/devicetree/bindings/display/mediatek/mediatek,rdma.yaml
-+++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,rdma.yaml
-@@ -94,6 +94,11 @@ additionalProperties: false
- 
- examples:
-   - |
-+    #include <dt-bindings/clock/mt8173-clk.h>
-+    #include <dt-bindings/gce/mt8173-gce.h>
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    #include <dt-bindings/memory/mt8173-larb-port.h>
-+    #include <dt-bindings/power/mt8173-power.h>
- 
-     rdma0: rdma@1400e000 {
-         compatible = "mediatek,mt8173-disp-rdma";
-diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,split.yaml b/Documentation/devicetree/bindings/display/mediatek/mediatek,split.yaml
-index 4f08e89c1067..83e6cb40ba7c 100644
---- a/Documentation/devicetree/bindings/display/mediatek/mediatek,split.yaml
-+++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,split.yaml
-@@ -49,6 +49,9 @@ additionalProperties: false
- 
- examples:
-   - |
-+    #include <dt-bindings/clock/mt8173-clk.h>
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    #include <dt-bindings/power/mt8173-power.h>
- 
-     split0: split@14018000 {
-         compatible = "mediatek,mt8173-disp-split";
-diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,ufoe.yaml b/Documentation/devicetree/bindings/display/mediatek/mediatek,ufoe.yaml
-index 6e8748529e73..69cddc2ee531 100644
---- a/Documentation/devicetree/bindings/display/mediatek/mediatek,ufoe.yaml
-+++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,ufoe.yaml
-@@ -51,6 +51,9 @@ additionalProperties: false
- 
- examples:
-   - |
-+    #include <dt-bindings/clock/mt8173-clk.h>
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    #include <dt-bindings/power/mt8173-power.h>
- 
-     ufoe@1401a000 {
-         compatible = "mediatek,mt8173-disp-ufoe";
-diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,wdma.yaml b/Documentation/devicetree/bindings/display/mediatek/mediatek,wdma.yaml
-index f9f00a518edf..60e9f890ebf1 100644
---- a/Documentation/devicetree/bindings/display/mediatek/mediatek,wdma.yaml
-+++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,wdma.yaml
-@@ -64,6 +64,11 @@ additionalProperties: false
- 
- examples:
-   - |
-+    #include <dt-bindings/clock/mt8173-clk.h>
-+    #include <dt-bindings/gce/mt8173-gce.h>
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    #include <dt-bindings/memory/mt8173-larb-port.h>
-+    #include <dt-bindings/power/mt8173-power.h>
- 
-     wdma0: wdma@14011000 {
-         compatible = "mediatek,mt8173-disp-wdma";
--- 
-2.34.1
+>> +               }
+>>          } else {
+>>                  host->mmc->max_segs = 1;
+>>                  host->mmc->max_seg_size = host->mmc->max_req_size;
+>> @@ -154,8 +192,16 @@ static int sdmmc_idma_start(struct mmci_host *host, unsigned int *datactrl)
+>>          struct scatterlist *sg;
+>>          int i;
+>>
+>> -       if (!host->variant->dma_lli || data->sg_len == 1) {
+>> -               writel_relaxed(sg_dma_address(data->sg),
+>> +       if (!host->variant->dma_lli || data->sg_len == 1 ||
+>> +           idma->use_bounce_buffer) {
+>> +               u32 dma_addr;
+>> +
+>> +               if (idma->use_bounce_buffer)
+>> +                       dma_addr = idma->bounce_dma_addr;
+>> +               else
+>> +                       dma_addr = sg_dma_address(data->sg);
+>> +
+>> +               writel_relaxed(dma_addr,
+>>                                 host->base + MMCI_STM32_IDMABASE0R);
+>>                  writel_relaxed(MMCI_STM32_IDMAEN,
+>>                                 host->base + MMCI_STM32_IDMACTRLR);
+> 
+> Kind regards
+> Uffe
 
 _______________________________________________
 Linux-stm32 mailing list
