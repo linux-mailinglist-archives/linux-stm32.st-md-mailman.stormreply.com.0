@@ -2,40 +2,40 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 037BC4E7A93
-	for <lists+linux-stm32@lfdr.de>; Fri, 25 Mar 2022 21:04:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3D2774E7A97
+	for <lists+linux-stm32@lfdr.de>; Fri, 25 Mar 2022 21:04:24 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AD0E2C628AD;
-	Fri, 25 Mar 2022 20:04:17 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 03DD7C628AE;
+	Fri, 25 Mar 2022 20:04:24 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2CA5FC6049F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E2AB1C628A2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 25 Mar 2022 20:04:15 +0000 (UTC)
+ Fri, 25 Mar 2022 20:04:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1648238656; x=1679774656;
+ t=1648238662; x=1679774662;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=s157fb9lA4a8XOSEq9n0q0pdUa5Gw9sK4n7L6BfC7jE=;
- b=SPrCOXHxQzgMYwokmPwL6bHmyQZvXg4N83LPvJjUxw6/esn7N9+1XEiN
- J5z6nJk0IGD6cfhxokgZx8SnHUmjA9rGuaRrJdu0RogfEeyJj9+GVD/Jf
- wHhGkaaUYENIWir4KN6Vka2kZI/ofS08zUC1vXvrtFb7vsBi1oxgLk9XJ
- kmZMvLd1oQRcb3bcLo/PkO4MTPVXn3nC/ZV3kqY3/T+E8iOcJ0fIAWiKg
- 87Tkt4lfzsIigEq+qsKdxA20MLInthFuFvdkPsi4EAFN6eEeD7QQDsPcJ
- Upg3yzZDIf+t+BGh6E0B8xHykPF94H4sgcvvL91F3XvXf+WZV8NMM24m8 g==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10297"; a="257537297"
-X-IronPort-AV: E=Sophos;i="5.90,211,1643702400"; d="scan'208";a="257537297"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Mar 2022 13:04:14 -0700
+ bh=5sK09O1uc6ZSl4vR7vWfGqwrFgZiRRMtY41JRk11RA8=;
+ b=iwVe5zhsnNSJmy9rX0brR1JECtMhDqjk+7HBrQf6HYO3RRxJ/2EWfERP
+ ccVlPye2g2y6iVzN8icod0CnM+m8uTQiS1iF/c6+EK+geNRKy761kR9Ib
+ 3ff1o/phvGJ3s0cGthIl2400VVFqkmZuKTQjUHYw9qQoK/Vi3btK7dk9g
+ zfmqiEgIFAFZJCEf8ExescL+o+LTJEnpJiIzoJ2g20ND8r6K6I8jsbyXd
+ 7ZBdQOipPsfaJWEWB5XznLLRa9AUboj76Tqw8/3kgfE7Y8vCQUbL+ohKt
+ VJS75cNxuYFMSukIyzuzmjiQBzLc7pS2Pq3ZCgrGNZGRebm/+v2SeMDuz A==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10297"; a="246195691"
+X-IronPort-AV: E=Sophos;i="5.90,211,1643702400"; d="scan'208";a="246195691"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Mar 2022 13:04:21 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.90,211,1643702400"; d="scan'208";a="638321942"
+X-IronPort-AV: E=Sophos;i="5.90,211,1643702400"; d="scan'208";a="602159418"
 Received: from black.fi.intel.com ([10.237.72.28])
- by FMSMGA003.fm.intel.com with ESMTP; 25 Mar 2022 13:04:09 -0700
+ by fmsmga008.fm.intel.com with ESMTP; 25 Mar 2022 13:04:16 -0700
 Received: by black.fi.intel.com (Postfix, from userid 1003)
- id 8C8E61C8; Fri, 25 Mar 2022 22:04:30 +0200 (EET)
+ id 98EFD217; Fri, 25 Mar 2022 22:04:30 +0200 (EET)
 From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
  Gregory CLEMENT <gregory.clement@bootlin.com>,
@@ -45,8 +45,8 @@ To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
  linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
  linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com
-Date: Fri, 25 Mar 2022 22:03:36 +0200
-Message-Id: <20220325200338.54270-3-andriy.shevchenko@linux.intel.com>
+Date: Fri, 25 Mar 2022 22:03:37 +0200
+Message-Id: <20220325200338.54270-4-andriy.shevchenko@linux.intel.com>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220325200338.54270-1-andriy.shevchenko@linux.intel.com>
 References: <20220325200338.54270-1-andriy.shevchenko@linux.intel.com>
@@ -58,8 +58,8 @@ Cc: Andrew Lunn <andrew@lunn.ch>, Neil Armstrong <narmstrong@baylibre.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
  Jerome Brunet <jbrunet@baylibre.com>
-Subject: [Linux-stm32] [PATCH v1 3/5] pinctrl: renesas: Replace custom code
-	by gpiochip_count() call
+Subject: [Linux-stm32] [PATCH v1 4/5] pinctrl: meson: Replace custom code by
+	gpiochip_count() call
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,44 +82,68 @@ custom code by gpiochip_count() call.
 
 Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 ---
- drivers/pinctrl/renesas/pinctrl-rza1.c | 17 +----------------
- 1 file changed, 1 insertion(+), 16 deletions(-)
+ drivers/pinctrl/meson/pinctrl-meson.c | 28 ++++++++++++---------------
+ 1 file changed, 12 insertions(+), 16 deletions(-)
 
-diff --git a/drivers/pinctrl/renesas/pinctrl-rza1.c b/drivers/pinctrl/renesas/pinctrl-rza1.c
-index c1d6e9512c7a..c66e72e7dd71 100644
---- a/drivers/pinctrl/renesas/pinctrl-rza1.c
-+++ b/drivers/pinctrl/renesas/pinctrl-rza1.c
-@@ -1154,21 +1154,6 @@ static const struct pinmux_ops rza1_pinmux_ops = {
-  * RZ/A1 pin controller driver operations
-  */
+diff --git a/drivers/pinctrl/meson/pinctrl-meson.c b/drivers/pinctrl/meson/pinctrl-meson.c
+index 49851444a6e3..7db70d4e214a 100644
+--- a/drivers/pinctrl/meson/pinctrl-meson.c
++++ b/drivers/pinctrl/meson/pinctrl-meson.c
+@@ -49,6 +49,7 @@
+ #include <linux/pinctrl/pinctrl.h>
+ #include <linux/pinctrl/pinmux.h>
+ #include <linux/platform_device.h>
++#include <linux/property.h>
+ #include <linux/regmap.h>
+ #include <linux/seq_file.h>
  
--static unsigned int rza1_count_gpio_chips(struct device_node *np)
--{
--	struct device_node *child;
--	unsigned int count = 0;
--
--	for_each_child_of_node(np, child) {
--		if (!of_property_read_bool(child, "gpio-controller"))
+@@ -662,27 +663,22 @@ static struct regmap *meson_map_resource(struct meson_pinctrl *pc,
+ 	return devm_regmap_init_mmio(pc->dev, base, &meson_regmap_config);
+ }
+ 
+-static int meson_pinctrl_parse_dt(struct meson_pinctrl *pc,
+-				  struct device_node *node)
++static int meson_pinctrl_parse_dt(struct meson_pinctrl *pc)
+ {
+-	struct device_node *np, *gpio_np = NULL;
++	struct device_node *gpio_np;
++	unsigned int chips;
+ 
+-	for_each_child_of_node(node, np) {
+-		if (!of_find_property(np, "gpio-controller", NULL))
 -			continue;
--
--		count++;
+-		if (gpio_np) {
+-			dev_err(pc->dev, "multiple gpio nodes\n");
+-			of_node_put(np);
+-			return -EINVAL;
+-		}
+-		gpio_np = np;
 -	}
 -
--	return count;
--}
--
- /**
-  * rza1_parse_gpiochip() - parse and register a gpio chip and pin range
-  *
-@@ -1255,7 +1240,7 @@ static int rza1_gpio_register(struct rza1_pinctrl *rza1_pctl)
- 	unsigned int i;
- 	int ret;
+-	if (!gpio_np) {
++	chips = gpiochip_count(pc->dev);
++	if (!chips) {
+ 		dev_err(pc->dev, "no gpio node found\n");
+ 		return -EINVAL;
+ 	}
++	if (chips > 1) {
++		dev_err(pc->dev, "multiple gpio nodes\n");
++		return -EINVAL;
++	}
  
--	ngpiochips = rza1_count_gpio_chips(np);
-+	ngpiochips = gpiochip_count(rza1_pctl->dev);
- 	if (ngpiochips == 0) {
- 		dev_dbg(rza1_pctl->dev, "No gpiochip registered\n");
- 		return 0;
++	gpio_np = to_of_node(device_get_named_child_node(pc->dev, "gpio-controller"));
+ 	pc->of_node = gpio_np;
+ 
+ 	pc->reg_mux = meson_map_resource(pc, gpio_np, "mux");
+@@ -751,7 +747,7 @@ int meson_pinctrl_probe(struct platform_device *pdev)
+ 	pc->dev = dev;
+ 	pc->data = (struct meson_pinctrl_data *) of_device_get_match_data(dev);
+ 
+-	ret = meson_pinctrl_parse_dt(pc, dev->of_node);
++	ret = meson_pinctrl_parse_dt(pc);
+ 	if (ret)
+ 		return ret;
+ 
 -- 
 2.35.1
 
