@@ -2,69 +2,47 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CA0AF4E7A24
-	for <lists+linux-stm32@lfdr.de>; Fri, 25 Mar 2022 18:58:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D2E6A4E7A25
+	for <lists+linux-stm32@lfdr.de>; Fri, 25 Mar 2022 18:59:04 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 768F8C628A9;
-	Fri, 25 Mar 2022 17:58:39 +0000 (UTC)
-Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com
- [209.85.210.175])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9D0C6C628AD;
+	Fri, 25 Mar 2022 17:59:04 +0000 (UTC)
+Received: from phobos.denx.de (phobos.denx.de [85.214.62.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CAE45C6049F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 98249C628A2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 25 Mar 2022 17:58:37 +0000 (UTC)
-Received: by mail-pf1-f175.google.com with SMTP id t5so7027633pfg.4
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 25 Mar 2022 10:58:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=X6I2uLnzEIdqiWzfno0jn7ams0Ws510KQwpNS/Hjq18=;
- b=Xy0qhcSnbYhYqWNv3YbcKNJ0etBQzMByQ4kXjmAwX6zViJEpjtcPwNXvnkxAJse9gs
- fzlrKTssTlzdQk75g/lzDDhZjWZXC/WgjPiagwpFHBwv7BCnuyhf0QCKLqwkeRy3d3aT
- Foj5t5ewO+hUkTBUmj6bj+ObBC3qXl2fdsF5hvI12kGxQexdercD4UdEfHBXHYPcs250
- bvyQIWjYDuz4f138edBZRlg4mogrtqNSKTNffTOH8EKyBf5wYLtQCXA88rvfK3RLoCh2
- 7dz6h555cGQC0YhOjfoxtIZz9XtG7Yq9SrPVBlx/kHrpqTrzYXkFRAZnFQ6qI9H0we6V
- B4iA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=X6I2uLnzEIdqiWzfno0jn7ams0Ws510KQwpNS/Hjq18=;
- b=3D3q8lHHcOvYHSIvJjQomR4Lg/pJvebGnQ6RKfI/xjTlFhsGvVqXV7jqfIbBDbRRzn
- gyqvSS+ALeJaz+H/XcpIFBZ13RkTEr/cQeRGwOYSGaWnkkLpKJQ811BnPJ5DvdLZCu+f
- 7g7zOGHS+tuDSURTXSHVNP9izgCtQLL3OkLjS079drXMWVDbtxO4Khu0/dF9iPs7sSiL
- ZRQH2sWHl4pJqQseDQaDMxVh/tuQ57F2slPzXYR4aX+clsBg/rMU5ebvgiuGrIviWPuU
- utDXRW1Y4YJKwl+NEFYgie0eu5lKyxCWNRu/yY/1Thr2MVLu/o+7lCqYp/IfNp3gSwf+
- 72BA==
-X-Gm-Message-State: AOAM5304g2YFvPC4rkdskGy/RJYNQEebsojE6vuPx50UBAdPq9e/RnAi
- rv0fu3LT+fN7CYmKdor5Aqy1kw==
-X-Google-Smtp-Source: ABdhPJwZYbCuVYvQYIXaVWlNsz8KlzfLi8UXyRIH8kxtrvyU2nJIWScGScs+DEC9+fm/qBiQXvM4yw==
-X-Received: by 2002:aa7:888b:0:b0:4fb:10e1:8983 with SMTP id
- z11-20020aa7888b000000b004fb10e18983mr4454085pfe.62.1648231116364; 
- Fri, 25 Mar 2022 10:58:36 -0700 (PDT)
-Received: from p14s (S0106889e681aac74.cg.shawcable.net. [68.147.0.187])
- by smtp.gmail.com with ESMTPSA id
- k15-20020a63ab4f000000b00381eef69bfbsm5938889pgp.3.2022.03.25.10.58.34
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 25 Mar 2022 10:58:35 -0700 (PDT)
-Date: Fri, 25 Mar 2022 11:58:32 -0600
-From: Mathieu Poirier <mathieu.poirier@linaro.org>
-To: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
-Message-ID: <20220325175832.GC3576184@p14s>
-References: <20220314170126.2333996-1-arnaud.pouliquen@foss.st.com>
- <20220314170126.2333996-4-arnaud.pouliquen@foss.st.com>
+ Fri, 25 Mar 2022 17:59:03 +0000 (UTC)
+Received: from tr.lan (ip-89-176-112-137.net.upcbroadband.cz [89.176.112.137])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
+ (No client certificate requested)
+ (Authenticated sender: marex@denx.de)
+ by phobos.denx.de (Postfix) with ESMTPSA id 89C9683940;
+ Fri, 25 Mar 2022 18:59:02 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de;
+ s=phobos-20191101; t=1648231142;
+ bh=aRcvhFxhUgNMFHxGbQZDCZbz1MVbIhTfwVJrIlBjhMU=;
+ h=From:To:Cc:Subject:Date:From;
+ b=x1CsJ6Cif1QzZ7ZYEvZTllTvZ2hWOt3/lq/2kLEHAYYFcTQB1jOcEIs662D4z7URr
+ gyvABtSbWAcgBcJDCtVyCOCBN1nEYivpFywjjYC3Eu0zEQI+tUmM/FV4g5quZN7qxj
+ 7Aw87kyZ4Hat/ATrzm4X0ISjmINaAIjXhsngdL/9eNok+LjlAn4zQOby0Wyfp7oeXj
+ x2vlDwBnuhmWn0gNmhIGWMaztXl0Mt9Kb2yvBQPyurmB0c5Xp7IAMJv9c3/CbkbGEx
+ CoMe6qWC+MxjiMqnUVvV2boOlyi3b79kC/W8kMTYDSTaeNHcFiqQD5gAkP0mNnguq2
+ pTVdCxkid3CdQ==
+From: Marek Vasut <marex@denx.de>
+To: linux-arm-kernel@lists.infradead.org
+Date: Fri, 25 Mar 2022 18:58:51 +0100
+Message-Id: <20220325175851.70083-1-marex@denx.de>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20220314170126.2333996-4-arnaud.pouliquen@foss.st.com>
-Cc: Rob Herring <robh@kernel.org>, Bruce Ashfield <bruce.ashfield@xilinx.com>,
- Stefano Stabellini <stefanos@xilinx.com>, linux-remoteproc@vger.kernel.org,
- linux-kernel@vger.kernel.org, Christoph Hellwig <hch@lst.de>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [RFC PATCH v4 3/4] remoteproc: Move rproc_vdev
- management to remoteproc_virtio.c
+X-Virus-Scanned: clamav-milter 0.103.5 at phobos.denx.de
+X-Virus-Status: Clean
+Cc: Marek Vasut <marex@denx.de>,
+ Patrick Delaunay <patrick.delaunay@foss.st.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>
+Subject: [Linux-stm32] [PATCH] ARM: dts: stm32: Fix PHY post-reset delay on
+	Avenger96
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,485 +54,33 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Mar 14, 2022 at 06:01:25PM +0100, Arnaud Pouliquen wrote:
-> Move functions related to the management of the rproc_vdev
-> structure in the remoteproc_virtio.c.
-> The aim is to decorrelate as possible the virtio management from
-> the core part.
-> 
-> Due to the strong correlation between the vrings and the resource table
-> the rproc_alloc/parse/free_vring functions are kept in the remoteproc core.
-> 
-> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
-> 
-> ---
-> Update vs previous revision:
->  - keep rproc_add_rvdev/rproc_remove_rvdev in remoteproc_core.c instead of
->    inlining them in remoteproc_internal.h.
-> ---
->  drivers/remoteproc/remoteproc_core.c     | 162 +---------------------
->  drivers/remoteproc/remoteproc_internal.h |  11 +-
->  drivers/remoteproc/remoteproc_virtio.c   | 166 ++++++++++++++++++++++-
->  3 files changed, 174 insertions(+), 165 deletions(-)
-> 
-> diff --git a/drivers/remoteproc/remoteproc_core.c b/drivers/remoteproc/remoteproc_core.c
-> index 1ca7320f04da..c05c721c1f18 100644
-> --- a/drivers/remoteproc/remoteproc_core.c
-> +++ b/drivers/remoteproc/remoteproc_core.c
-> @@ -23,9 +23,7 @@
->  #include <linux/panic_notifier.h>
->  #include <linux/slab.h>
->  #include <linux/mutex.h>
-> -#include <linux/dma-map-ops.h>
->  #include <linux/dma-mapping.h>
-> -#include <linux/dma-direct.h> /* XXX: pokes into bus_dma_range */
->  #include <linux/firmware.h>
->  #include <linux/string.h>
->  #include <linux/debugfs.h>
-> @@ -383,7 +381,7 @@ int rproc_alloc_vring(struct rproc_vdev *rvdev, int i)
->  	return 0;
->  }
->  
-> -static int
-> +int
->  rproc_parse_vring(struct rproc_vdev *rvdev, struct fw_rsc_vdev *rsc, int i)
->  {
->  	struct rproc *rproc = rvdev->rproc;
-> @@ -434,164 +432,17 @@ void rproc_free_vring(struct rproc_vring *rvring)
->  	}
->  }
->  
-> -static int rproc_vdev_do_start(struct rproc_subdev *subdev)
-> -{
-> -	struct rproc_vdev *rvdev = container_of(subdev, struct rproc_vdev, subdev);
-> -
-> -	return rproc_add_virtio_dev(rvdev, rvdev->id);
-> -}
-> -
-> -static void rproc_vdev_do_stop(struct rproc_subdev *subdev, bool crashed)
-> -{
-> -	struct rproc_vdev *rvdev = container_of(subdev, struct rproc_vdev, subdev);
-> -	int ret;
-> -
-> -	ret = device_for_each_child(&rvdev->dev, NULL, rproc_remove_virtio_dev);
-> -	if (ret)
-> -		dev_warn(&rvdev->dev, "can't remove vdev child device: %d\n", ret);
-> -}
-> -
-> -/**
-> - * rproc_rvdev_release() - release the existence of a rvdev
-> - *
-> - * @dev: the subdevice's dev
-> - */
-> -static void rproc_rvdev_release(struct device *dev)
-> -{
-> -	struct rproc_vdev *rvdev = container_of(dev, struct rproc_vdev, dev);
-> -
-> -	of_reserved_mem_device_release(dev);
-> -
-> -	kfree(rvdev);
-> -}
-> -
-> -static int copy_dma_range_map(struct device *to, struct device *from)
-> -{
-> -	const struct bus_dma_region *map = from->dma_range_map, *new_map, *r;
-> -	int num_ranges = 0;
-> -
-> -	if (!map)
-> -		return 0;
-> -
-> -	for (r = map; r->size; r++)
-> -		num_ranges++;
-> -
-> -	new_map = kmemdup(map, array_size(num_ranges + 1, sizeof(*map)),
-> -			  GFP_KERNEL);
-> -	if (!new_map)
-> -		return -ENOMEM;
-> -	to->dma_range_map = new_map;
-> -	return 0;
-> -}
-> -
-> -static void rproc_add_rvdev(struct rproc *rproc, struct rproc_vdev *rvdev)
-> +void rproc_add_rvdev(struct rproc *rproc, struct rproc_vdev *rvdev)
->  {
->  	if (rvdev && rproc)
->  		list_add_tail(&rvdev->node, &rproc->rvdevs);
->  }
->  
-> -static void rproc_remove_rvdev(struct rproc_vdev *rvdev)
-> +void rproc_remove_rvdev(struct rproc_vdev *rvdev)
->  {
->  	if (rvdev)
->  		list_del(&rvdev->node);
->  }
-> -
-> -static struct rproc_vdev *
-> -rproc_rvdev_add_device(struct rproc *rproc, struct rproc_vdev_data *rvdev_data)
-> -{
-> -	struct rproc_vdev *rvdev;
-> -	struct fw_rsc_vdev *rsc = rvdev_data->rsc;
-> -	char name[16];
-> -	int i, ret;
-> -
-> -	rvdev = kzalloc(sizeof(*rvdev), GFP_KERNEL);
-> -	if (!rvdev)
-> -		return ERR_PTR(-ENOMEM);
-> -
-> -	kref_init(&rvdev->refcount);
-> -
-> -	rvdev->id = rvdev_data->id;
-> -	rvdev->rproc = rproc;
-> -	rvdev->index = rvdev_data->index;
-> -
-> -	/* Initialise vdev subdevice */
-> -	snprintf(name, sizeof(name), "vdev%dbuffer", rvdev->index);
-> -	rvdev->dev.parent = &rproc->dev;
-> -	rvdev->dev.release = rproc_rvdev_release;
-> -	dev_set_name(&rvdev->dev, "%s#%s", dev_name(rvdev->dev.parent), name);
-> -	dev_set_drvdata(&rvdev->dev, rvdev);
-> -
-> -	ret = device_register(&rvdev->dev);
-> -	if (ret) {
-> -		put_device(&rvdev->dev);
-> -		return ERR_PTR(ret);
-> -	}
-> -
-> -	ret = copy_dma_range_map(&rvdev->dev, rproc->dev.parent);
-> -	if (ret)
-> -		goto free_rvdev;
-> -
-> -	/* Make device dma capable by inheriting from parent's capabilities */
-> -	set_dma_ops(&rvdev->dev, get_dma_ops(rproc->dev.parent));
-> -
-> -	ret = dma_coerce_mask_and_coherent(&rvdev->dev,
-> -					   dma_get_mask(rproc->dev.parent));
-> -	if (ret) {
-> -		dev_warn(&rvdev->dev,
-> -			 "Failed to set DMA mask %llx. Trying to continue... (%pe)\n",
-> -			 dma_get_mask(rproc->dev.parent), ERR_PTR(ret));
-> -	}
-> -
-> -	/* parse the vrings */
-> -	for (i = 0; i < rsc->num_of_vrings; i++) {
-> -		ret = rproc_parse_vring(rvdev, rsc, i);
-> -		if (ret)
-> -			goto free_rvdev;
-> -	}
-> -
-> -	/* remember the resource offset*/
-> -	rvdev->rsc_offset = rvdev_data->rsc_offset;
-> -
-> -	/* allocate the vring resources */
-> -	for (i = 0; i < rsc->num_of_vrings; i++) {
-> -		ret = rproc_alloc_vring(rvdev, i);
-> -		if (ret)
-> -			goto unwind_vring_allocations;
-> -	}
-> -
-> -	rproc_add_rvdev(rproc, rvdev);
-> -
-> -	rvdev->subdev.start = rproc_vdev_do_start;
-> -	rvdev->subdev.stop = rproc_vdev_do_stop;
-> -
-> -	rproc_add_subdev(rproc, &rvdev->subdev);
-> -
-> -	return rvdev;
-> -
-> -unwind_vring_allocations:
-> -	for (i--; i >= 0; i--)
-> -		rproc_free_vring(&rvdev->vring[i]);
-> -free_rvdev:
-> -	device_unregister(&rvdev->dev);
-> -	return ERR_PTR(ret);
-> -}
-> -
-> -static void rproc_rvdev_remove_device(struct rproc_vdev *rvdev)
-> -{
-> -	struct rproc *rproc = rvdev->rproc;
-> -	struct rproc_vring *rvring;
-> -	int id;
-> -
-> -	for (id = 0; id < ARRAY_SIZE(rvdev->vring); id++) {
-> -		rvring = &rvdev->vring[id];
-> -		rproc_free_vring(rvring);
-> -	}
-> -
-> -	rproc_remove_subdev(rproc, &rvdev->subdev);
-> -	rproc_remove_rvdev(rvdev);
-> -	device_unregister(&rvdev->dev);
-> -}
-> -
->  /**
->   * rproc_handle_vdev() - handle a vdev fw resource
->   * @rproc: the remote processor
-> @@ -662,13 +513,6 @@ static int rproc_handle_vdev(struct rproc *rproc, void *ptr,
->  	return 0;
->  }
->  
-> -void rproc_vdev_release(struct kref *ref)
-> -{
-> -	struct rproc_vdev *rvdev = container_of(ref, struct rproc_vdev, refcount);
-> -
-> -	rproc_rvdev_remove_device(rvdev);
-> -}
-> -
->  /**
->   * rproc_handle_trace() - handle a shared trace buffer resource
->   * @rproc: the remote processor
-> diff --git a/drivers/remoteproc/remoteproc_internal.h b/drivers/remoteproc/remoteproc_internal.h
-> index f582e353da3d..ba8ba36561f4 100644
-> --- a/drivers/remoteproc/remoteproc_internal.h
-> +++ b/drivers/remoteproc/remoteproc_internal.h
-> @@ -41,14 +41,14 @@ struct rproc_vdev_data {
->  
->  /* from remoteproc_core.c */
->  void rproc_release(struct kref *kref);
-> -irqreturn_t rproc_vq_interrupt(struct rproc *rproc, int vq_id);
-> -void rproc_vdev_release(struct kref *ref);
->  int rproc_of_parse_firmware(struct device *dev, int index,
->  			    const char **fw_name);
->  
->  /* from remoteproc_virtio.c */
-> -int rproc_add_virtio_dev(struct rproc_vdev *rvdev, int id);
-> -int rproc_remove_virtio_dev(struct device *dev, void *data);
-> +struct rproc_vdev *rproc_rvdev_add_device(struct rproc *rproc, struct rproc_vdev_data *rvdev_data);
-> +void rproc_rvdev_remove_device(struct rproc_vdev *rvdev);
-> +irqreturn_t rproc_vq_interrupt(struct rproc *rproc, int vq_id);
-> +void rproc_vdev_release(struct kref *ref);
->  
->  /* from remoteproc_debugfs.c */
->  void rproc_remove_trace_file(struct dentry *tfile);
-> @@ -98,6 +98,7 @@ static inline void  rproc_char_device_remove(struct rproc *rproc)
->  
->  void rproc_free_vring(struct rproc_vring *rvring);
->  int rproc_alloc_vring(struct rproc_vdev *rvdev, int i);
-> +int rproc_parse_vring(struct rproc_vdev *rvdev, struct fw_rsc_vdev *rsc, int i);
->  
->  void *rproc_da_to_va(struct rproc *rproc, u64 da, size_t len, bool *is_iomem);
->  phys_addr_t rproc_va_to_pa(void *cpu_addr);
-> @@ -111,6 +112,8 @@ struct resource_table *rproc_elf_find_loaded_rsc_table(struct rproc *rproc,
->  						       const struct firmware *fw);
->  struct rproc_mem_entry *
->  rproc_find_carveout_by_name(struct rproc *rproc, const char *name, ...);
-> +void rproc_add_rvdev(struct rproc *rproc, struct rproc_vdev *rvdev);
-> +void rproc_remove_rvdev(struct rproc_vdev *rvdev);
->  
->  static inline int rproc_prepare_device(struct rproc *rproc)
->  {
-> diff --git a/drivers/remoteproc/remoteproc_virtio.c b/drivers/remoteproc/remoteproc_virtio.c
-> index 70ab496d0431..581c3dd13cd4 100644
-> --- a/drivers/remoteproc/remoteproc_virtio.c
-> +++ b/drivers/remoteproc/remoteproc_virtio.c
-> @@ -9,7 +9,9 @@
->   * Brian Swetland <swetland@google.com>
->   */
->  
-> +#include <linux/dma-direct.h>
->  #include <linux/dma-map-ops.h>
-> +#include <linux/dma-mapping.h>
->  #include <linux/export.h>
->  #include <linux/of_reserved_mem.h>
->  #include <linux/remoteproc.h>
-> @@ -23,6 +25,25 @@
->  
->  #include "remoteproc_internal.h"
->  
-> +static int copy_dma_range_map(struct device *to, struct device *from)
-> +{
-> +	const struct bus_dma_region *map = from->dma_range_map, *new_map, *r;
-> +	int num_ranges = 0;
-> +
-> +	if (!map)
-> +		return 0;
-> +
-> +	for (r = map; r->size; r++)
-> +		num_ranges++;
-> +
-> +	new_map = kmemdup(map, array_size(num_ranges + 1, sizeof(*map)),
-> +			  GFP_KERNEL);
-> +	if (!new_map)
-> +		return -ENOMEM;
-> +	to->dma_range_map = new_map;
-> +	return 0;
-> +}
-> +
->  static struct rproc_vdev *vdev_to_rvdev(struct virtio_device *vdev)
->  {
->  	return container_of(vdev->dev.parent, struct rproc_vdev, dev);
-> @@ -339,7 +360,7 @@ static void rproc_virtio_dev_release(struct device *dev)
->   *
->   * Return: 0 on success or an appropriate error value otherwise
->   */
-> -int rproc_add_virtio_dev(struct rproc_vdev *rvdev, int id)
-> +static int rproc_add_virtio_dev(struct rproc_vdev *rvdev, int id)
->  {
->  	struct rproc *rproc = rvdev->rproc;
->  	struct device *dev = &rvdev->dev;
-> @@ -447,10 +468,151 @@ int rproc_add_virtio_dev(struct rproc_vdev *rvdev, int id)
->   *
->   * Return: 0
->   */
-> -int rproc_remove_virtio_dev(struct device *dev, void *data)
-> +static int rproc_remove_virtio_dev(struct device *dev, void *data)
->  {
->  	struct virtio_device *vdev = dev_to_virtio(dev);
->  
->  	unregister_virtio_device(vdev);
->  	return 0;
->  }
-> +
-> +static int rproc_vdev_do_start(struct rproc_subdev *subdev)
-> +{
-> +	struct rproc_vdev *rvdev = container_of(subdev, struct rproc_vdev, subdev);
-> +
-> +	return rproc_add_virtio_dev(rvdev, rvdev->id);
-> +}
-> +
-> +static void rproc_vdev_do_stop(struct rproc_subdev *subdev, bool crashed)
-> +{
-> +	struct rproc_vdev *rvdev = container_of(subdev, struct rproc_vdev, subdev);
-> +	int ret;
-> +
-> +	ret = device_for_each_child(&rvdev->dev, NULL, rproc_remove_virtio_dev);
-> +	if (ret)
-> +		dev_warn(&rvdev->dev, "can't remove vdev child device: %d\n", ret);
-> +}
-> +
-> +/**
-> + * rproc_rvdev_release() - release the existence of a rvdev
-> + *
-> + * @dev: the subdevice's dev
-> + */
-> +static void rproc_rvdev_release(struct device *dev)
-> +{
-> +	struct rproc_vdev *rvdev = container_of(dev, struct rproc_vdev, dev);
-> +
-> +	of_reserved_mem_device_release(dev);
-> +
-> +	kfree(rvdev);
-> +}
-> +
-> +struct rproc_vdev *
-> +rproc_rvdev_add_device(struct rproc *rproc, struct rproc_vdev_data *rvdev_data)
-> +{
-> +	struct rproc_vdev *rvdev;
-> +	struct fw_rsc_vdev *rsc = rvdev_data->rsc;
-> +	char name[16];
-> +	int i, ret;
-> +
-> +	rvdev = kzalloc(sizeof(*rvdev), GFP_KERNEL);
-> +	if (!rvdev)
-> +		return ERR_PTR(-ENOMEM);
-> +
-> +	kref_init(&rvdev->refcount);
-> +
-> +	rvdev->id = rvdev_data->id;
-> +	rvdev->rproc = rproc;
-> +	rvdev->index = rvdev_data->index;
-> +
-> +	/* Initialise vdev subdevice */
-> +	snprintf(name, sizeof(name), "vdev%dbuffer", rvdev->index);
-> +	rvdev->dev.parent = &rproc->dev;
-> +	rvdev->dev.release = rproc_rvdev_release;
-> +	dev_set_name(&rvdev->dev, "%s#%s", dev_name(rvdev->dev.parent), name);
-> +	dev_set_drvdata(&rvdev->dev, rvdev);
-> +
-> +	ret = device_register(&rvdev->dev);
-> +	if (ret) {
-> +		put_device(&rvdev->dev);
-> +		return ERR_PTR(ret);
-> +	}
-> +
-> +	ret = copy_dma_range_map(&rvdev->dev, rproc->dev.parent);
-> +	if (ret)
-> +		goto free_rvdev;
-> +
-> +	/* Make device dma capable by inheriting from parent's capabilities */
-> +	set_dma_ops(&rvdev->dev, get_dma_ops(rproc->dev.parent));
-> +
-> +	ret = dma_coerce_mask_and_coherent(&rvdev->dev,
-> +					   dma_get_mask(rproc->dev.parent));
-> +	if (ret) {
-> +		dev_warn(&rvdev->dev,
-> +			 "Failed to set DMA mask %llx. Trying to continue... (%pe)\n",
-> +			 dma_get_mask(rproc->dev.parent), ERR_PTR(ret));
-> +	}
-> +
-> +	/* parse the vrings */
-> +	for (i = 0; i < rsc->num_of_vrings; i++) {
-> +		ret = rproc_parse_vring(rvdev, rsc, i);
-> +		if (ret)
-> +			goto free_rvdev;
-> +	}
-> +
-> +	/* remember the resource offset*/
-> +	rvdev->rsc_offset = rvdev_data->rsc_offset;
-> +
-> +	/* allocate the vring resources */
-> +	for (i = 0; i < rsc->num_of_vrings; i++) {
-> +		ret = rproc_alloc_vring(rvdev, i);
-> +		if (ret)
-> +			goto unwind_vring_allocations;
-> +	}
-> +
-> +	rproc_add_rvdev(rproc, rvdev);
-> +
-> +	rvdev->subdev.start = rproc_vdev_do_start;
-> +	rvdev->subdev.stop = rproc_vdev_do_stop;
-> +
-> +	rproc_add_subdev(rproc, &rvdev->subdev);
-> +
-> +	return rvdev;
-> +
-> +unwind_vring_allocations:
-> +	for (i--; i >= 0; i--)
-> +		rproc_free_vring(&rvdev->vring[i]);
-> +free_rvdev:
-> +	device_unregister(&rvdev->dev);
-> +	return ERR_PTR(ret);
-> +}
-> +
-> +void rproc_rvdev_remove_device(struct rproc_vdev *rvdev)
-> +{
-> +	struct rproc *rproc = rvdev->rproc;
-> +	struct rproc_vring *rvring;
-> +	int id;
-> +
-> +	for (id = 0; id < ARRAY_SIZE(rvdev->vring); id++) {
-> +		rvring = &rvdev->vring[id];
-> +		rproc_free_vring(rvring);
-> +	}
-> +
-> +	rproc_remove_subdev(rproc, &rvdev->subdev);
-> +	rproc_remove_rvdev(rvdev);
-> +	device_unregister(&rvdev->dev);
-> +}
-> +
-> +void rproc_vdev_release(struct kref *ref)
-> +{
-> +	struct rproc_vdev *rvdev = container_of(ref, struct rproc_vdev, refcount);
-> +	struct rproc_vring *rvring;
-> +	int id;
-> +
-> +	for (id = 0; id < ARRAY_SIZE(rvdev->vring); id++) {
-> +		rvring = &rvdev->vring[id];
-> +		rproc_free_vring(rvring);
-> +	}
-
-You have a problem here...
-
-> +
-> +	rproc_rvdev_remove_device(rvdev);
-> +}
-> -- 
-> 2.25.1
-> 
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+UGVyIEtTWjkwMzFSTlggUEhZIGRhdGFzaGVldCBGSUdVUkUgNy01OiBQT1dFUi1VUC9QT1dFUi1E
+T1dOL1JFU0VUIFRJTUlORwpOb3RlIDI6IEFmdGVyIHRoZSBkZS1hc3NlcnRpb24gb2YgcmVzZXQs
+IHdhaXQgYSBtaW5pbXVtIG9mIDEwMCDOvHMgYmVmb3JlCnN0YXJ0aW5nIHByb2dyYW1taW5nIG9u
+IHRoZSBNSUlNIChNREMvTURJTykgaW50ZXJmYWNlLgoKQWRkIDFtcyBwb3N0LXJlc2V0IGRlbGF5
+IHRvIGd1YXJhbnRlZSB0aGlzIGZpZ3VyZS4KCkZpeGVzOiAwMTBjYTlmZTUwMGJmICgiQVJNOiBk
+dHM6IHN0bTMyOiBBZGQgbWlzc2luZyBldGhlcm5ldCBQSFkgcmVzZXQgb24gQVY5NiIpClNpZ25l
+ZC1vZmYtYnk6IE1hcmVrIFZhc3V0IDxtYXJleEBkZW54LmRlPgpDYzogQWxleGFuZHJlIFRvcmd1
+ZSA8YWxleGFuZHJlLnRvcmd1ZUBmb3NzLnN0LmNvbT4KQ2M6IFBhdHJpY2UgQ2hvdGFyZCA8cGF0
+cmljZS5jaG90YXJkQGZvc3Muc3QuY29tPgpDYzogUGF0cmljayBEZWxhdW5heSA8cGF0cmljay5k
+ZWxhdW5heUBmb3NzLnN0LmNvbT4KQ2M6IGxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1y
+ZXBseS5jb20KVG86IGxpbnV4LWFybS1rZXJuZWxAbGlzdHMuaW5mcmFkZWFkLm9yZwotLS0KIGFy
+Y2gvYXJtL2Jvb3QvZHRzL3N0bTMybXAxNXh4LWRoY29yLWF2ZW5nZXI5Ni5kdHNpIHwgMSArCiAx
+IGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKykKCmRpZmYgLS1naXQgYS9hcmNoL2FybS9ib290
+L2R0cy9zdG0zMm1wMTV4eC1kaGNvci1hdmVuZ2VyOTYuZHRzaSBiL2FyY2gvYXJtL2Jvb3QvZHRz
+L3N0bTMybXAxNXh4LWRoY29yLWF2ZW5nZXI5Ni5kdHNpCmluZGV4IDYxZTE3ZjQ0Y2U4MTUuLjc2
+YzU0YjAwNmQ4NzEgMTAwNjQ0Ci0tLSBhL2FyY2gvYXJtL2Jvb3QvZHRzL3N0bTMybXAxNXh4LWRo
+Y29yLWF2ZW5nZXI5Ni5kdHNpCisrKyBiL2FyY2gvYXJtL2Jvb3QvZHRzL3N0bTMybXAxNXh4LWRo
+Y29yLWF2ZW5nZXI5Ni5kdHNpCkBAIC0xNDEsNiArMTQxLDcgQEAgbWRpbzAgewogCQljb21wYXRp
+YmxlID0gInNucHMsZHdtYWMtbWRpbyI7CiAJCXJlc2V0LWdwaW9zID0gPCZncGlveiAyIEdQSU9f
+QUNUSVZFX0xPVz47CiAJCXJlc2V0LWRlbGF5LXVzID0gPDEwMDA+OworCQlyZXNldC1wb3N0LWRl
+bGF5LXVzID0gPDEwMDA+OwogCiAJCXBoeTA6IGV0aGVybmV0LXBoeUA3IHsKIAkJCXJlZyA9IDw3
+PjsKLS0gCjIuMzUuMQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4u
+c3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxt
+YW4vbGlzdGluZm8vbGludXgtc3RtMzIK
