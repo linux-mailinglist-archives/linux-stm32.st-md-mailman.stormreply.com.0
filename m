@@ -2,49 +2,73 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 410234E800C
-	for <lists+linux-stm32@lfdr.de>; Sat, 26 Mar 2022 09:41:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1F4DD4E89D6
+	for <lists+linux-stm32@lfdr.de>; Sun, 27 Mar 2022 21:58:45 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E754BC6046B;
-	Sat, 26 Mar 2022 08:41:35 +0000 (UTC)
-Received: from mxout03.lancloud.ru (mxout03.lancloud.ru [45.84.86.113])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AC373C5F1FA;
+	Sun, 27 Mar 2022 19:58:44 +0000 (UTC)
+Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com
+ [209.85.208.50])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 161D5C5F1D3
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5D611C57B6F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 26 Mar 2022 08:41:34 +0000 (UTC)
-Received: from LanCloud
-DKIM-Filter: OpenDKIM Filter v2.11.0 mxout03.lancloud.ru DA04E20A8247
-Received: from LanCloud
-Received: from LanCloud
-Received: from LanCloud
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Gregory CLEMENT
- <gregory.clement@bootlin.com>, Geert Uytterhoeven <geert+renesas@glider.be>,
- Fabien Dessenne <fabien.dessenne@foss.st.com>, Linus Walleij
- <linus.walleij@linaro.org>, <linux-gpio@vger.kernel.org>,
- <linux-arm-kernel@lists.infradead.org>, <linux-amlogic@lists.infradead.org>,
- <linux-kernel@vger.kernel.org>, <linux-renesas-soc@vger.kernel.org>,
- <linux-stm32@st-md-mailman.stormreply.com>
+ Sun, 27 Mar 2022 19:58:43 +0000 (UTC)
+Received: by mail-ed1-f50.google.com with SMTP id r23so14785878edb.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Sun, 27 Mar 2022 12:58:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=SJC0OBpbo1wPJs92walEXwvuMKGL+QuVz9UtNgWIQO4=;
+ b=cbr7IATfDrBAabV81aPZWOvIUBIUIpSdkVpz3wjkORMU+Td/ujiwFi9ZmSk3nHQVca
+ qjNhZ+aFm+JtQYK//RiGq1gFJxM3cmSauYqUO2zFMLO92vxv2idh3/kJkah5hdsKpIGu
+ ohyvdc6aUDzyrgxarmcXEakKWBjWYqlfE3WMVENslcooChfSlJsQNnzSyLyNuECHCTUB
+ bRs1z9EhRBXqUQTHHRdq+XJEiCuxMkMsGkp4wRMPUhOZcZzxM7/lQ4CY1YO15gUoudXV
+ 1CUzBCwGedNlRNVXhiCntP139L693MrUoHassTyuCBVby16DlShHN5rHMaHEZH4B0VAv
+ 665A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=SJC0OBpbo1wPJs92walEXwvuMKGL+QuVz9UtNgWIQO4=;
+ b=gOjnHOZgU8GfwuvZ9qzcFaJqacQHdagaUgmaRjxgmwgraiRPA4KqE0byKHwOxDqimf
+ J81y3ZxD4c2hpt0/vl8xP7zVy0Vx0RMozYuthDBAkd/lK9VZzr/qvuivL7g+ABS7ts08
+ Osk/fVOGDPtLWHg+3lruALVyYLz0F4ZyO971CrWDElJvIKUvk/AOC9FAdfRHl8Oj8i2g
+ kULsX2vWgWEfml9sgZK9dd/Lx2t/xYupbB8S4MknCwFRqbPGdD2f3HjKGJHNodqoJNG0
+ 1K6+zxxCP9tRyLLGvI3QOQQ9tBLyl/K6PCFm3GdNMxG3DExcc4TC2n/EdIymI5SzH1fT
+ Vj3A==
+X-Gm-Message-State: AOAM530dp09MwWz+yv+8V4mt2+ry06pYUbjzVgaCG+2igkPCpWBrKWbn
+ XXuRGD9n9XHbq2i6Pb0DriI7Ca4/0csyKSIcF2M=
+X-Google-Smtp-Source: ABdhPJwgGCwymYiuaBSFEllOtIN0gwhVm7kC5VU8kOJXl9C6VXio0PVhOi6MtGOhiTL4+DgFpjcuqUXIPq2NqVcjDUg=
+X-Received: by 2002:aa7:c30f:0:b0:419:2af:4845 with SMTP id
+ l15-20020aa7c30f000000b0041902af4845mr12139494edq.296.1648411122928; Sun, 27
+ Mar 2022 12:58:42 -0700 (PDT)
+MIME-Version: 1.0
 References: <20220325200338.54270-1-andriy.shevchenko@linux.intel.com>
  <20220325200338.54270-5-andriy.shevchenko@linux.intel.com>
-From: Sergey Shtylyov <s.shtylyov@omp.ru>
-Organization: Open Mobile Platform
-Message-ID: <3415996d-e8b5-2416-fb66-e65779a9b507@omp.ru>
-Date: Sat, 26 Mar 2022 11:41:31 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.10.1
-MIME-Version: 1.0
-In-Reply-To: <20220325200338.54270-5-andriy.shevchenko@linux.intel.com>
-Content-Language: en-US
-X-Originating-IP: [192.168.11.198]
-X-ClientProxiedBy: LFEXT01.lancloud.ru (fd00:f066::141) To
- LFEX1907.lancloud.ru (fd00:f066::207)
-Cc: Andrew Lunn <andrew@lunn.ch>, Neil Armstrong <narmstrong@baylibre.com>,
+ <3415996d-e8b5-2416-fb66-e65779a9b507@omp.ru>
+In-Reply-To: <3415996d-e8b5-2416-fb66-e65779a9b507@omp.ru>
+From: Andy Shevchenko <andy.shevchenko@gmail.com>
+Date: Sun, 27 Mar 2022 22:58:07 +0300
+Message-ID: <CAHp75VdoKOqaR5XuBvZ9EBPRE+ULvXf+B3sh1rQ6RXt_ovcsbw@mail.gmail.com>
+To: Sergey Shtylyov <s.shtylyov@omp.ru>
+Cc: Andrew Lunn <andrew@lunn.ch>, Geert Uytterhoeven <geert+renesas@glider.be>,
+ Neil Armstrong <narmstrong@baylibre.com>,
  Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Kevin Hilman <khilman@baylibre.com>, Bartosz Golaszewski <brgl@bgdev.pl>,
+ Kevin Hilman <khilman@baylibre.com>,
+ Gregory CLEMENT <gregory.clement@bootlin.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Linux-Renesas <linux-renesas-soc@vger.kernel.org>,
+ "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Bartosz Golaszewski <brgl@bgdev.pl>,
+ linux-amlogic <linux-amlogic@lists.infradead.org>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Linus Walleij <linus.walleij@linaro.org>,
+ linux-arm Mailing List <linux-arm-kernel@lists.infradead.org>,
  Jerome Brunet <jbrunet@baylibre.com>
 Subject: Re: [Linux-stm32] [PATCH v1 5/5] pinctrl: armada-37xx: Replace
  custom code by gpiochip_count() call
@@ -64,59 +88,28 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello!
+On Sat, Mar 26, 2022 at 7:02 PM Sergey Shtylyov <s.shtylyov@omp.ru> wrote:
+> On 3/25/22 11:03 PM, Andy Shevchenko wrote:
+>
+> > Since we have a generic function to count GPIO controller nodes
+> > under a given device, there is no need to open-code it. Replace
+> > custom code by gpiochip_count() call.
 
-On 3/25/22 11:03 PM, Andy Shevchenko wrote:
+...
 
-> Since we have generic function to count GPIO controller nodes
-> under given device, there is no need to open code it. Replace
-> custom code by gpiochip_count() call.
-> 
-> Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-> ---
->  drivers/pinctrl/mvebu/pinctrl-armada-37xx.c | 24 +++++++++------------
->  1 file changed, 10 insertions(+), 14 deletions(-)
-> 
-> diff --git a/drivers/pinctrl/mvebu/pinctrl-armada-37xx.c b/drivers/pinctrl/mvebu/pinctrl-armada-37xx.c
-> index 08cad14042e2..ba94125f6566 100644
-> --- a/drivers/pinctrl/mvebu/pinctrl-armada-37xx.c
-> +++ b/drivers/pinctrl/mvebu/pinctrl-armada-37xx.c
-> @@ -728,22 +728,18 @@ static int armada_37xx_irqchip_register(struct platform_device *pdev,
->  	struct gpio_irq_chip *girq = &gc->irq;
->  	struct device *dev = &pdev->dev;
->  	struct device_node *np;
-> -	int ret = -ENODEV, i, nr_irq_parent;
-> +	unsigned int nr_child_nodes, i;
-> +	int ret;
->  
->  	/* Check if we have at least one gpio-controller child node */
-> -	for_each_child_of_node(dev->of_node, np) {
-> -		if (of_property_read_bool(np, "gpio-controller")) {
-> -			ret = 0;
-> -			break;
-> -		}
-> -	}
-> -	if (ret)
-> -		return dev_err_probe(dev, ret, "no gpio-controller child node\n");
-> +	nr_child_nodes = gpiochip_count(dev);
-> +	if (!nr_child_nodes)
-> +		return dev_err_probe(dev, -ENODEV, "no gpio-controller child node\n");
->  
-> -	nr_irq_parent = of_irq_count(np);
->  	spin_lock_init(&info->irq_lock);
->  
-> -	if (!nr_irq_parent) {
-> +	nr_child_nodes = of_irq_count(np);
+> > +     nr_child_nodes = of_irq_count(np);
+>
+>    Mhm, 'np' is no longer assigned to it at this point...
 
-   Mhm, 'np' is no longer assigned to at this point...
+Good catch! We may retrieve it by calling
 
-> +	if (!nr_child_nodes) {
->  		dev_err(dev, "invalid or no IRQ\n");
->  		return 0;
->  	}
-[...]
+  np = to_of_node(device_get_named_child_node(dev, "gpio-controller"));
 
-MBR, Sergey
+like it's done in the previous patch in the series.
+
+--
+With Best Regards,
+Andy Shevchenko
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
