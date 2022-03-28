@@ -2,82 +2,47 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6EA504EA7E7
+	by mail.lfdr.de (Postfix) with ESMTPS id 6F6E84EA7E8
 	for <lists+linux-stm32@lfdr.de>; Tue, 29 Mar 2022 08:33:00 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0FE8EC60467;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 289D9C6049B;
 	Tue, 29 Mar 2022 06:33:00 +0000 (UTC)
-Received: from mx1.tq-group.com (mx1.tq-group.com [93.104.207.81])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from frasgout.his.huawei.com (frasgout.his.huawei.com
+ [185.176.79.56])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 26D30C57B6F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0F2B6C57B6F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 28 Mar 2022 14:00:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=tq-group.com; i=@tq-group.com; q=dns/txt; s=key1;
- t=1648476006; x=1680012006;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=ayM215iKfS3RVxHHf6+6kiEWl9gC2cMSZOj/C1/hktk=;
- b=ZbRv/twRm4kA9xCGu4gpMNUovCtrBxQMre8O78UsqzArEN65ExYH5OnT
- p35CVjpyeybkqQmfpVUMRXs1KG8d/OBciqNLtg9VAbA6VnWLMCyUPAiOC
- emmSSf2V630MO6tIgvKN2uu2IK6wIoL54a6HHzlIv7VQnG23ygEAw1dSI
- TTSUQJAD2CN6uOhlxaRWaAq/ij+NT7L4RGFS0MZ0HQ5gKsrV+5B2K6AKJ
- VV8DK/Oa6X/UN13vhmvZWZZw+e8SFYMBxBgH7fqpSE5RjdMJ5bMPEy0Sh
- 9Tg//0dxy63pJQvoF4s3sT1or4UIFNBtDPSl4sOK2jhVSwJ7yz2NBkHPy g==;
-X-IronPort-AV: E=Sophos;i="5.90,217,1643670000"; d="scan'208";a="22935295"
-Received: from unknown (HELO tq-pgp-pr1.tq-net.de) ([192.168.6.15])
- by mx1-pgp.tq-group.com with ESMTP; 28 Mar 2022 16:00:05 +0200
-Received: from mx1.tq-group.com ([192.168.6.7])
- by tq-pgp-pr1.tq-net.de (PGP Universal service);
- Mon, 28 Mar 2022 16:00:05 +0200
-X-PGP-Universal: processed;
- by tq-pgp-pr1.tq-net.de on Mon, 28 Mar 2022 16:00:05 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=tq-group.com; i=@tq-group.com; q=dns/txt; s=key1;
- t=1648476005; x=1680012005;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=ayM215iKfS3RVxHHf6+6kiEWl9gC2cMSZOj/C1/hktk=;
- b=WuV252Nu+GZzN74VzCmlspBKd0dca8X2+xSzsUDOC+VBkSdAcRJKkpz9
- V6ZhUvtyzJXo40EU/KoKsnsMA+udDgpFrmJjA0OOrI8Du6AE/IqQXvbD0
- l7/oi3cIclt6kdqSsBk62dD3jTXzpYH4IITmDIWCq1j5VlQdR/7ht0rkB
- UzXa+gf9sB2fMmE9Y4BJg30hxvVMBs2s+cV3pKJsYN741b+m12/z4LAVK
- Ghd0BfGmPSMkfRYy9LlDPSTztxPRWJXf02LYJ3AALa7lqL+bNoPBea5QD
- q3OLZ+wYdDSKr/JtyC5EC84xkLnc6lGkLWsLSzPCKdl/McKEhN7OLwWQj g==;
-X-IronPort-AV: E=Sophos;i="5.90,217,1643670000"; d="scan'208";a="22935294"
-Received: from vtuxmail01.tq-net.de ([10.115.0.20])
- by mx1.tq-group.com with ESMTP; 28 Mar 2022 16:00:05 +0200
-Received: from steina-w.localnet (unknown [10.123.49.12])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
- (No client certificate requested)
- by vtuxmail01.tq-net.de (Postfix) with ESMTPSA id 20160280065;
- Mon, 28 Mar 2022 16:00:04 +0200 (CEST)
-From: Alexander Stein <alexander.stein@ew.tq-group.com>
-To: Jonathan =?ISO-8859-1?Q?Neusch=E4fer?= <j.neuschaefer@gmx.net>
-Date: Mon, 28 Mar 2022 16:00:02 +0200
-Message-ID: <2100132.irdbgypaU6@steina-w>
-Organization: TQ-Systems GmbH
-In-Reply-To: <YkG2RPrtPaBNXb7a@latitude>
-References: <20220328000915.15041-1-ansuelsmth@gmail.com>
- <YkG2RPrtPaBNXb7a@latitude>
+ Mon, 28 Mar 2022 17:51:11 +0000 (UTC)
+Received: from fraeml714-chm.china.huawei.com (unknown [172.18.147.200])
+ by frasgout.his.huawei.com (SkyGuard) with ESMTP id 4KS0Zg0mQtz67Mmd;
+ Tue, 29 Mar 2022 01:49:47 +0800 (CST)
+Received: from roberto-ThinkStation-P620.huawei.com (10.204.63.22) by
+ fraeml714-chm.china.huawei.com (10.206.15.33) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.24; Mon, 28 Mar 2022 19:51:08 +0200
+From: Roberto Sassu <roberto.sassu@huawei.com>
+To: <corbet@lwn.net>, <viro@zeniv.linux.org.uk>, <ast@kernel.org>,
+ <daniel@iogearbox.net>, <andrii@kernel.org>, <kpsingh@kernel.org>,
+ <shuah@kernel.org>, <mcoquelin.stm32@gmail.com>,
+ <alexandre.torgue@foss.st.com>, <zohar@linux.ibm.com>
+Date: Mon, 28 Mar 2022 19:50:15 +0200
+Message-ID: <20220328175033.2437312-1-roberto.sassu@huawei.com>
+X-Mailer: git-send-email 2.32.0
 MIME-Version: 1.0
+X-Originating-IP: [10.204.63.22]
+X-ClientProxiedBy: lhreml754-chm.china.huawei.com (10.201.108.204) To
+ fraeml714-chm.china.huawei.com (10.206.15.33)
+X-CFilter-Loop: Reflected
 X-Mailman-Approved-At: Tue, 29 Mar 2022 06:32:58 +0000
-Cc: linux-aspeed@lists.ozlabs.org, linux-realtek-soc@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com, chrome-platform@lists.linux.dev,
- linux-samsung-soc@vger.kernel.org, openbmc@lists.ozlabs.org,
- linux-arm-kernel@axis.com, linux-rockchip@lists.infradead.org,
- linux-sunxi@lists.linux.dev, devicetree@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-actions@lists.infradead.org,
- linux-unisoc@lists.infradead.org, Rob Herring <robh+dt@kernel.org>,
- linux-mediatek@lists.infradead.org, linux-rpi-kernel@lists.infradead.org,
- linux-tegra@vger.kernel.org, linux-amlogic@lists.infradead.org,
- linux-omap@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, Ansuel Smith <ansuelsmth@gmail.com>,
- linux-renesas-soc@vger.kernel.org, kernel@dh-electronics.com,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, linux-oxnas@groups.io
-Subject: Re: [Linux-stm32] (EXT) Re: [RFC PATCH 0/1] Categorize ARM dts
-	directory
+Cc: linux-doc@vger.kernel.org, netdev@vger.kernel.org,
+ Roberto Sassu <roberto.sassu@huawei.com>, linux-kernel@vger.kernel.org,
+ linux-security-module@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, linux-integrity@vger.kernel.org,
+ bpf@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH 00/18] bpf: Secure and authenticated
+	preloading of eBPF programs
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,63 +54,137 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Am Montag, 28. M=E4rz 2022, 15:21:08 CEST schrieb Jonathan Neusch=E4fer:
-> * PGP Signed by an unknown key
-> =
+eBPF already allows programs to be preloaded and kept running without
+intervention from user space. There is a dedicated kernel module called
+bpf_preload, which contains the light skeleton of the iterators_bpf eBPF
+program. If this module is enabled in the kernel configuration, its loading
+will be triggered when the bpf filesystem is mounted (unless the module is
+built-in), and the links of iterators_bpf are pinned in that filesystem
+(they will appear as the progs.debug and maps.debug files).
 
-> On Mon, Mar 28, 2022 at 02:09:14AM +0200, Ansuel Smith wrote:
-> > Hi,
-> > as the title say, the intention of this ""series"" is to finally
-> > categorize
-> > the ARM dts directory in subdirectory for each oem.
-> =
+However, the current mechanism, if used to preload an LSM, would not offer
+the same security guarantees of LSMs integrated in the security subsystem.
+Also, it is not generic enough to be used for preloading arbitrary eBPF
+programs, unless the bpf_preload code is heavily modified.
 
-> [...]
-> =
+More specifically, the security problems are:
+- any program can be pinned to the bpf filesystem without limitations
+  (unless a MAC mechanism enforces some restrictions);
+- programs being executed can be terminated at any time by deleting the
+  pinned objects or unmounting the bpf filesystem.
 
-> > [1] https://gist.github.com/Ansuel/47c49925ee7ef4b1dd035afc74679ab5
-> > [2] https://gist.github.com/Ansuel/19f61f1e583c49407ce35c10e770fbe0
-> =
+The usability problems are:
+- only a fixed amount of links can be pinned;
+- only links can be pinned, other object types are not supported;
+- code to pin objects has to be written manually;
+- preloading multiple eBPF programs is not practical, bpf_preload has to be
+  modified to include additional light skeletons.
 
-> Nice idea, thank you!
-> =
+Solve the security problems by mounting the bpf filesystem from the kernel,
+by preloading authenticated kernel modules (e.g. with module.sig_enforce)
+and by pinning objects to that filesystem. This particular filesystem
+instance guarantees that desired eBPF programs run until the very end of
+the kernel lifecycle, since even root cannot interfere with it.
 
-> A few notes on categorization below.
-> [...]
-> >  create mode 100644 arch/arm/boot/dts/freescale/Makefile
-> =
+Solve the usability problems by generalizing the pinning function, to
+handle not only links but also maps and progs. Also increment the object
+reference count and call the pinning function directly from the preload
+method (currently in the bpf_preload kernel module) rather than from the
+bpf filesystem code itself, so that a generic eBPF program can do those
+operations depending on its objects (this also avoids the limitation of the
+fixed-size array for storing the objects to pin).
 
-> Freescale has been part of NXP for a while, so it might make sense to
-> merge the freescale and nxp directories. I can't speak for
-> NXP-the-company, so that's just my view as a bystander.
+Then, simplify the process of pinning objects defined by a generic eBPF
+program by automatically generating the required methods in the light
+skeleton. Also, generate a separate kernel module for each eBPF program to
+preload, so that existing ones don't have to be modified. Finally, support
+preloading multiple eBPF programs by allowing users to specify a list from
+the kernel configuration, at build time, or with the new kernel option
+bpf_preload_list=, at run-time.
 
-Please don't mix the names for arm and arm64. It's very confusing if the =
+To summarize, this patch set makes it possible to plug in out-of-tree LSMs
+matching the security guarantees of their counterpart in the security
+subsystem, without having to modify the kernel itself. The same benefits
+are extended to other eBPF program types.
 
-vendor directory is named differently for each architecture.
+Only one remaining problem is how to support auto-attaching eBPF programs
+with LSM type. It will be solved with a separate patch set.
 
->[...]
-> >  create mode 120000 arch/arm/boot/dts/nxp/armv7-m.dtsi
-> =
+Patches 1-2 export some definitions, to build out-of-tree kernel modules
+with eBPF programs to preload. Patches 3-4 allow eBPF programs to pin
+objects by themselves. Patches 5-10 automatically generate the methods for
+preloading in the light skeleton. Patches 11-14 make it possible to preload
+multiple eBPF programs. Patch 15 automatically generates the kernel module
+for preloading an eBPF program, patch 16 does a kernel mount of the bpf
+filesystem, and finally patches 17-18 test the functionality introduced.
 
-> armv7-m.dtsi is a bit confusing, because it contains a few devices at
-> fixed addresses, so it looks vendor-specific at a first glance into the
-> file. However, if it is actually as vendor-neutral as the name implies,
-> I think it should live dts/ directly, rather than in vendor
-> subdirectories.
+Roberto Sassu (18):
+  bpf: Export bpf_link_inc()
+  bpf-preload: Move bpf_preload.h to include/linux
+  bpf-preload: Generalize object pinning from the kernel
+  bpf-preload: Export and call bpf_obj_do_pin_kernel()
+  bpf-preload: Generate static variables
+  bpf-preload: Generate free_objs_and_skel()
+  bpf-preload: Generate preload()
+  bpf-preload: Generate load_skel()
+  bpf-preload: Generate code to pin non-internal maps
+  bpf-preload: Generate bpf_preload_ops
+  bpf-preload: Store multiple bpf_preload_ops structures in a linked
+    list
+  bpf-preload: Implement new registration method for preloading eBPF
+    programs
+  bpf-preload: Move pinned links and maps to a dedicated directory in
+    bpffs
+  bpf-preload: Switch to new preload registration method
+  bpf-preload: Generate code of kernel module to preload
+  bpf-preload: Do kernel mount to ensure that pinned objects don't
+    disappear
+  bpf-preload/selftests: Add test for automatic generation of preload
+    methods
+  bpf-preload/selftests: Preload a test eBPF program and check pinned
+    objects
 
-This seems to be some generic devices common for all ARMv7M CPUs used in =
+ .../admin-guide/kernel-parameters.txt         |   8 +
+ fs/namespace.c                                |   1 +
+ include/linux/bpf.h                           |   5 +
+ include/linux/bpf_preload.h                   |  37 ++
+ init/main.c                                   |   2 +
+ kernel/bpf/inode.c                            | 295 +++++++++--
+ kernel/bpf/preload/Kconfig                    |  25 +-
+ kernel/bpf/preload/bpf_preload.h              |  16 -
+ kernel/bpf/preload/bpf_preload_kern.c         |  85 +---
+ kernel/bpf/preload/iterators/Makefile         |   9 +-
+ .../bpf/preload/iterators/iterators.lskel.h   | 466 +++++++++++-------
+ kernel/bpf/syscall.c                          |   1 +
+ .../bpf/bpftool/Documentation/bpftool-gen.rst |  13 +
+ tools/bpf/bpftool/bash-completion/bpftool     |   6 +-
+ tools/bpf/bpftool/gen.c                       | 331 +++++++++++++
+ tools/bpf/bpftool/main.c                      |   7 +-
+ tools/bpf/bpftool/main.h                      |   1 +
+ tools/testing/selftests/bpf/Makefile          |  32 +-
+ .../bpf/bpf_testmod_preload/.gitignore        |   7 +
+ .../bpf/bpf_testmod_preload/Makefile          |  20 +
+ .../gen_preload_methods.expected.diff         |  97 ++++
+ .../bpf/prog_tests/test_gen_preload_methods.c |  27 +
+ .../bpf/prog_tests/test_preload_methods.c     |  69 +++
+ .../selftests/bpf/progs/gen_preload_methods.c |  23 +
+ 24 files changed, 1246 insertions(+), 337 deletions(-)
+ create mode 100644 include/linux/bpf_preload.h
+ delete mode 100644 kernel/bpf/preload/bpf_preload.h
+ create mode 100644 tools/testing/selftests/bpf/bpf_testmod_preload/.gitignore
+ create mode 100644 tools/testing/selftests/bpf/bpf_testmod_preload/Makefile
+ create mode 100644 tools/testing/selftests/bpf/prog_tests/gen_preload_methods.expected.diff
+ create mode 100644 tools/testing/selftests/bpf/prog_tests/test_gen_preload_methods.c
+ create mode 100644 tools/testing/selftests/bpf/prog_tests/test_preload_methods.c
+ create mode 100644 tools/testing/selftests/bpf/progs/gen_preload_methods.c
 
-Cortex-M CPUs. It's also used by some stm32 .dtsi.
-
-Best regards,
-Alexander
-
-
+-- 
+2.32.0
 
 _______________________________________________
 Linux-stm32 mailing list
