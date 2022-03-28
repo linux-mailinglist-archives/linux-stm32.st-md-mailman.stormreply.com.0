@@ -2,32 +2,32 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 326404EA7F3
+	by mail.lfdr.de (Postfix) with ESMTPS id 47D624EA7F4
 	for <lists+linux-stm32@lfdr.de>; Tue, 29 Mar 2022 08:33:01 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EA3A3C62D33;
-	Tue, 29 Mar 2022 06:33:00 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 08A45C62D4D;
+	Tue, 29 Mar 2022 06:33:01 +0000 (UTC)
 Received: from frasgout.his.huawei.com (frasgout.his.huawei.com
  [185.176.79.56])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 06C7AC628A0
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5AC06C628A2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 28 Mar 2022 17:53:45 +0000 (UTC)
-Received: from fraeml714-chm.china.huawei.com (unknown [172.18.147.201])
- by frasgout.his.huawei.com (SkyGuard) with ESMTP id 4KS0cL000Bz67mcQ;
- Tue, 29 Mar 2022 01:51:13 +0800 (CST)
+ Mon, 28 Mar 2022 17:53:46 +0000 (UTC)
+Received: from fraeml714-chm.china.huawei.com (unknown [172.18.147.206])
+ by frasgout.his.huawei.com (SkyGuard) with ESMTP id 4KS0d716hCz67bVy;
+ Tue, 29 Mar 2022 01:51:55 +0800 (CST)
 Received: from roberto-ThinkStation-P620.huawei.com (10.204.63.22) by
  fraeml714-chm.china.huawei.com (10.206.15.33) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.24; Mon, 28 Mar 2022 19:53:43 +0200
+ 15.1.2375.24; Mon, 28 Mar 2022 19:53:44 +0200
 From: Roberto Sassu <roberto.sassu@huawei.com>
 To: <corbet@lwn.net>, <viro@zeniv.linux.org.uk>, <ast@kernel.org>,
  <daniel@iogearbox.net>, <andrii@kernel.org>, <kpsingh@kernel.org>,
  <shuah@kernel.org>, <mcoquelin.stm32@gmail.com>,
  <alexandre.torgue@foss.st.com>, <zohar@linux.ibm.com>
-Date: Mon, 28 Mar 2022 19:50:26 +0200
-Message-ID: <20220328175033.2437312-12-roberto.sassu@huawei.com>
+Date: Mon, 28 Mar 2022 19:50:27 +0200
+Message-ID: <20220328175033.2437312-13-roberto.sassu@huawei.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20220328175033.2437312-1-roberto.sassu@huawei.com>
 References: <20220328175033.2437312-1-roberto.sassu@huawei.com>
@@ -43,8 +43,8 @@ Cc: linux-doc@vger.kernel.org, netdev@vger.kernel.org,
  linux-fsdevel@vger.kernel.org, linux-integrity@vger.kernel.org,
  bpf@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 11/18] bpf-preload: Store multiple
-	bpf_preload_ops structures in a linked list
+Subject: [Linux-stm32] [PATCH 12/18] bpf-preload: Implement new registration
+	method for preloading eBPF programs
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -61,155 +61,184 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-In preparation to support preloading multiple eBPF programs, define a
-linked list of bpf_preload_ops_item structures. The new structure contains
-the object name from the eBPF program to preload (except for iterators_bpf
-whose kernel module name is bpf_preload, the object name and the kernel
-module name should match).
+The current registration method consisting in setting the bpf_preload_ops
+global variable is not suitable for preloading multiple eBPF programs, as
+each eBPF program would overwrite the global variable with its own method.
 
-The new structure also contains a bpf_preload_ops structure declared in the
-light skeleton, with the preload method of the eBPF program.
+Implement a new registration method in two steps. First, introduce
+bpf_init_preload_list() to populate at kernel initialization time the new
+linked list with an element for each of the desired eBPF programs to
+preload.
 
-The list of eBPF programs that can be preloaded can be specified in a
-subsequent patch from the kernel configuration or with the new option
-bpf_preload_list= in the kernel command line.
-
-For now, bpf_preload is always preloaded, as it still relies on the old
-registration method consisting in setting the bpf_preload_ops global
-variable. That will change when bpf_preload will switch to the new
-registration method based on the linked list.
+Second, introduce bpf_preload_set_ops() to allow an eBPF program to set its
+preload method in the corresponding item of the linked list. The condition
+for a successful registration is that the item in the linked list should
+already exist. Return a boolean value to report if registration was
+successful or not.
 
 Signed-off-by: Roberto Sassu <roberto.sassu@huawei.com>
 ---
- kernel/bpf/inode.c | 89 +++++++++++++++++++++++++++++++++++++---------
- 1 file changed, 73 insertions(+), 16 deletions(-)
+ include/linux/bpf_preload.h |   7 +++
+ kernel/bpf/inode.c          | 107 +++++++++++++++++++++++++++++++++++-
+ 2 files changed, 113 insertions(+), 1 deletion(-)
 
+diff --git a/include/linux/bpf_preload.h b/include/linux/bpf_preload.h
+index e604933b3daa..bdbe75c22fcb 100644
+--- a/include/linux/bpf_preload.h
++++ b/include/linux/bpf_preload.h
+@@ -19,12 +19,19 @@ extern struct bpf_preload_ops *bpf_preload_ops;
+ 
+ int bpf_obj_do_pin_kernel(struct dentry *parent, const char *name, void *raw,
+ 			  enum bpf_type type);
++bool bpf_preload_set_ops(const char *name, struct module *owner,
++			 struct bpf_preload_ops *ops);
+ #else
+ static inline int bpf_obj_do_pin_kernel(struct dentry *parent, const char *name,
+ 					void *raw, enum bpf_type type)
+ {
+ 	return -EOPNOTSUPP;
+ }
++
++static inline bool bpf_preload_set_ops(const char *name, struct module *owner,
++				       struct bpf_preload_ops *ops)
++{
++}
+ #endif /*CONFIG_BPF_SYSCALL*/
+ 
+ #endif
 diff --git a/kernel/bpf/inode.c b/kernel/bpf/inode.c
-index bb8762abbf3d..0a6e83d32360 100644
+index 0a6e83d32360..440ea517cc29 100644
 --- a/kernel/bpf/inode.c
 +++ b/kernel/bpf/inode.c
-@@ -685,35 +685,91 @@ static int bpf_parse_param(struct fs_context *fc, struct fs_parameter *param)
- struct bpf_preload_ops *bpf_preload_ops;
- EXPORT_SYMBOL_GPL(bpf_preload_ops);
+@@ -22,6 +22,8 @@
+ #include <linux/bpf_trace.h>
+ #include <linux/bpf_preload.h>
  
--static bool bpf_preload_mod_get(void)
-+struct bpf_preload_ops_item {
-+	struct list_head list;
-+	struct bpf_preload_ops *ops;
-+	char *obj_name;
-+};
++static char *bpf_preload_list_str;
 +
-+static LIST_HEAD(preload_list);
-+static DEFINE_MUTEX(bpf_preload_lock);
-+
-+static bool bpf_preload_mod_get(const char *obj_name,
-+				struct bpf_preload_ops **ops)
+ static void *bpf_any_get(void *raw, enum bpf_type type)
  {
--	/* If bpf_preload.ko wasn't loaded earlier then load it now.
--	 * When bpf_preload is built into vmlinux the module's __init
-+	/* If the kernel preload module wasn't loaded earlier then load it now.
-+	 * When the preload code is built into vmlinux the module's __init
- 	 * function will populate it.
- 	 */
--	if (!bpf_preload_ops) {
--		request_module("bpf_preload");
--		if (!bpf_preload_ops)
-+	if (!*ops) {
-+		mutex_unlock(&bpf_preload_lock);
-+		request_module(obj_name);
-+		mutex_lock(&bpf_preload_lock);
-+		if (!*ops)
- 			return false;
- 	}
- 	/* And grab the reference, so the module doesn't disappear while the
- 	 * kernel is interacting with the kernel module and its UMD.
- 	 */
--	if (!try_module_get(bpf_preload_ops->owner)) {
-+	if (!try_module_get((*ops)->owner)) {
- 		pr_err("bpf_preload module get failed.\n");
- 		return false;
- 	}
- 	return true;
- }
+ 	switch (type) {
+@@ -855,6 +857,100 @@ static struct file_system_type bpf_fs_type = {
+ 	.kill_sb	= kill_litter_super,
+ };
  
--static void bpf_preload_mod_put(void)
-+static void bpf_preload_mod_put(struct bpf_preload_ops *ops)
- {
--	if (bpf_preload_ops)
--		/* now user can "rmmod bpf_preload" if necessary */
--		module_put(bpf_preload_ops->owner);
-+	if (ops)
-+		/* now user can "rmmod <kernel module>" if necessary */
-+		module_put(ops->owner);
- }
- 
--static DEFINE_MUTEX(bpf_preload_lock);
-+static bool bpf_preload_list_mod_get(void)
++static struct bpf_preload_ops_item *
++bpf_preload_list_lookup_entry(const char *obj_name)
 +{
 +	struct bpf_preload_ops_item *cur;
-+	bool ret = false;
-+
-+	ret |= bpf_preload_mod_get("bpf_preload", &bpf_preload_ops);
 +
 +	list_for_each_entry(cur, &preload_list, list)
-+		ret |= bpf_preload_mod_get(cur->obj_name, &cur->ops);
++		if (!strcmp(obj_name, cur->obj_name))
++			return cur;
++
++	return NULL;
++}
++
++static int bpf_preload_list_add_entry(const char *obj_name,
++				      struct bpf_preload_ops *ops)
++{
++	struct bpf_preload_ops_item *new;
++
++	if (!*obj_name)
++		return 0;
++
++	new = kzalloc(sizeof(*new), GFP_NOFS);
++	if (!new)
++		return -ENOMEM;
++
++	new->obj_name = kstrdup(obj_name, GFP_NOFS);
++	if (!new->obj_name) {
++		kfree(new);
++		return -ENOMEM;
++	}
++
++	new->ops = ops;
++
++	list_add(&new->list, &preload_list);
++	return 0;
++}
++
++bool bpf_preload_set_ops(const char *obj_name, struct module *owner,
++			 struct bpf_preload_ops *ops)
++{
++	struct bpf_preload_ops_item *found_item;
++	bool set = false;
++
++	mutex_lock(&bpf_preload_lock);
++
++	found_item = bpf_preload_list_lookup_entry(obj_name);
++	if (found_item) {
++		if (!found_item->ops ||
++		    (found_item->ops && found_item->ops->owner == owner)) {
++			found_item->ops = ops;
++			set = true;
++		}
++	}
++
++	mutex_unlock(&bpf_preload_lock);
++	return set;
++}
++EXPORT_SYMBOL_GPL(bpf_preload_set_ops);
++
++static int __init bpf_init_preload_list(void)
++{
++	char *str_ptr = bpf_preload_list_str, *str_end;
++	struct bpf_preload_ops_item *cur, *tmp;
++	char obj_name[NAME_MAX + 1];
++	int ret;
++
++	while (str_ptr && *str_ptr) {
++		str_end = strchrnul(str_ptr, ',');
++
++		snprintf(obj_name, sizeof(obj_name), "%.*s",
++			 (int)(str_end - str_ptr), str_ptr);
++
++		if (!bpf_preload_list_lookup_entry(obj_name)) {
++			ret = bpf_preload_list_add_entry(obj_name, NULL);
++			if (ret)
++				goto out;
++		}
++
++		if (!*str_end)
++			break;
++
++		str_ptr = str_end + 1;
++	}
++
++	return 0;
++out:
++	list_for_each_entry_safe(cur, tmp, &preload_list, list) {
++		list_del(&cur->list);
++		kfree(cur->obj_name);
++		kfree(cur);
++	}
 +
 +	return ret;
 +}
 +
-+static int bpf_preload_list(struct dentry *parent)
-+{
-+	struct bpf_preload_ops_item *cur;
-+	int err;
-+
-+	if (bpf_preload_ops) {
-+		err = bpf_preload_ops->preload(parent);
-+		if (err)
-+			return err;
-+	}
-+
-+	list_for_each_entry(cur, &preload_list, list) {
-+		if (!cur->ops)
-+			continue;
-+
-+		err = cur->ops->preload(parent);
-+		if (err)
-+			return err;
-+	}
-+
-+	return 0;
-+}
-+
-+static void bpf_preload_list_mod_put(void)
-+{
-+	struct bpf_preload_ops_item *cur;
-+
-+	list_for_each_entry(cur, &preload_list, list)
-+		bpf_preload_mod_put(cur->ops);
-+
-+	bpf_preload_mod_put(bpf_preload_ops);
-+}
- 
- static int populate_bpffs(struct dentry *parent)
+ static int __init bpf_init(void)
  {
-@@ -724,12 +780,13 @@ static int populate_bpffs(struct dentry *parent)
- 	 */
- 	mutex_lock(&bpf_preload_lock);
+ 	int ret;
+@@ -864,8 +960,17 @@ static int __init bpf_init(void)
+ 		return ret;
  
--	/* if bpf_preload.ko wasn't built into vmlinux then load it */
--	if (!bpf_preload_mod_get())
-+	/* if kernel preload mods weren't built into vmlinux then load them */
-+	if (!bpf_preload_list_mod_get())
- 		goto out;
- 
--	err = bpf_preload_ops->preload(parent);
--	bpf_preload_mod_put();
-+	err = bpf_preload_list(parent);
-+	bpf_preload_list_mod_put();
+ 	ret = register_filesystem(&bpf_fs_type);
+-	if (ret)
++	if (ret) {
+ 		sysfs_remove_mount_point(fs_kobj, "bpf");
++		return ret;
++	}
 +
- out:
- 	mutex_unlock(&bpf_preload_lock);
- 	return err;
++	ret = bpf_init_preload_list();
++	if (ret) {
++		unregister_filesystem(&bpf_fs_type);
++		sysfs_remove_mount_point(fs_kobj, "bpf");
++		return ret;
++	}
+ 
+ 	return ret;
+ }
 -- 
 2.32.0
 
