@@ -2,66 +2,77 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 637724E96D2
-	for <lists+linux-stm32@lfdr.de>; Mon, 28 Mar 2022 14:37:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 56F6F4E9814
+	for <lists+linux-stm32@lfdr.de>; Mon, 28 Mar 2022 15:27:17 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0DA24C5C842;
-	Mon, 28 Mar 2022 12:37:57 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 13313C5E2CC;
+	Mon, 28 Mar 2022 13:27:17 +0000 (UTC)
+Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com
+ [209.85.208.48])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EE63BC57183
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 79317C57183
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 28 Mar 2022 12:37:55 +0000 (UTC)
-Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 22S8Jr1s017538;
- Mon, 28 Mar 2022 14:37:44 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=PRSUOkbjhbLZbdipmTB0fmY4CfFxVYPER1xJPcVCusk=;
- b=GND7worVS6mA7ZXXW7V81FZ/BD6+o/Yo1ksdttq6DgyRCkO4AxsgshfrPJ8hqliCtafS
- MMr0eK4bT/qd5/Z3bnELbfPK5hs5LNt9pBgJouBKWLxcwQZFlRRz/C2bj5Ahq7Zjehbr
- /QIRaEmTtHc9AZdQHbnFF40wIvz7MHuAYNxAAiuChN7mFZ402kf6YTNe7r4BoH+MaQRI
- o7BeNbCs5PGvzl/Ckairnt/Iqse9KcZdwEgr9cpzkOjHGT/22tEKzXIImOz8Ql6OZePi
- xjbuH/nBXkYT/a78Q9BfJaCw4eXTFAeoQXUU7o2O+vw+c16n1i704lkw4t6DVDW9Fytv og== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3f1s4p1r08-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 28 Mar 2022 14:37:44 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 86AE710002A;
- Mon, 28 Mar 2022 14:37:38 +0200 (CEST)
-Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 7629C22D163;
- Mon, 28 Mar 2022 14:37:38 +0200 (CEST)
-Received: from [10.201.21.216] (10.75.127.47) by SFHDAG2NODE2.st.com
- (10.75.127.5) with Microsoft SMTP Server (TLS) id 15.0.1497.26; Mon, 28 Mar
- 2022 14:37:37 +0200
-Message-ID: <be2042d2-e315-223d-5454-ebfb934f9d2d@foss.st.com>
-Date: Mon, 28 Mar 2022 14:37:37 +0200
+ Mon, 28 Mar 2022 13:27:15 +0000 (UTC)
+Received: by mail-ed1-f48.google.com with SMTP id b24so16890425edu.10
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 28 Mar 2022 06:27:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:content-transfer-encoding:in-reply-to;
+ bh=PJXGZlpigjTh6H9JMMa18nQ2vBOjy1Eubx2lpLSUCN4=;
+ b=P+Xah39W4u3PaDSAqPLufO5/H/K2gU2w/d2wFaGX2dVMn3ptW0NhEHGwzIdwRpRl/0
+ z1FSOdPVtx96dA5F7FeFqr/xM+E7aaBMX+Jrr4ATSqkcDJ6ByLiqoci0ikB8zblEPzRr
+ AgfVgEhpKJPDuyJpnsbMs0owuaCWieQCxknWTP5AisVim3x2oWgpvZspTe1rCjJ71yEY
+ k1XEvY3EOHeoQH9GnIpyLgDu0KacloeGCU6qlaS6y84XNz0XNDoFZ24ZhfgNJ0IJhypy
+ Itw+T2ZDe09wzSYH9OizIncV+P60OAXYspmhj2dwWHF5nT/b4EcIUOf1ZGBuS6ErOxv8
+ XOvg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to;
+ bh=PJXGZlpigjTh6H9JMMa18nQ2vBOjy1Eubx2lpLSUCN4=;
+ b=g9M65GLHBQxT83nRut5+SQOrka3ZOM7/ymWqJa9KSbFQY9r4fsNnJEAMVDXuoi8Zm2
+ iZq0+ne25Yqtsz7mDaE81QDQd1YhER1fEDBJA90dkdiIE7Yo7Tgu2c2yr7Hh6JEyDkFm
+ ks5efnlC/KFeyfG/bxYUba8GrsaZ8V/Oq1cEfpqKiLua4bLUNb9+hZ+Nb7MTwEYSGrkd
+ sc5A9lQdOFf8jiGRxj4rZCtZRy8mRQiPR6Zl+4zzJCRArpAPfGXaQQbmNKT8H3tmn/kv
+ I3NVwIG/hCRJOYolO+v+CPt0lJCKnYT5nodfmhrLRJoJ26EQgH/8r8f7BcxT7KdwwsIu
+ DO+g==
+X-Gm-Message-State: AOAM532O1EOdQZcvfg0Byqw0vP0KsteYQAmrNeQT7kFlqZyiKAV4DrBg
+ 29FmtPb2JfWR5gn0pL8tmpk=
+X-Google-Smtp-Source: ABdhPJzfZMouNxSUPChSrobO0DmZY1dpjyjoJXynXzykI+ox1dAeHmzyb365QAjutoruA3M7o01bCQ==
+X-Received: by 2002:a05:6402:27d0:b0:419:5184:58ae with SMTP id
+ c16-20020a05640227d000b00419518458aemr16315076ede.314.1648474034597; 
+ Mon, 28 Mar 2022 06:27:14 -0700 (PDT)
+Received: from Ansuel-xps.localdomain (93-42-69-170.ip85.fastwebnet.it.
+ [93.42.69.170]) by smtp.gmail.com with ESMTPSA id
+ y16-20020aa7d510000000b004197c1cec7dsm6986648edq.6.2022.03.28.06.27.12
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 28 Mar 2022 06:27:14 -0700 (PDT)
+Date: Mon, 28 Mar 2022 15:27:13 +0200
+From: Ansuel Smith <ansuelsmth@gmail.com>
+To: Jonathan =?iso-8859-1?Q?Neusch=E4fer?= <j.neuschaefer@gmx.net>
+Message-ID: <YkG3sQ3MDhVoW8l4@Ansuel-xps.localdomain>
+References: <20220328000915.15041-1-ansuelsmth@gmail.com>
+ <YkG2RPrtPaBNXb7a@latitude>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
-Content-Language: en-US
-To: Xiaomeng Tong <xiam0nd.tong@gmail.com>, <yannick.fertre@foss.st.com>
-References: <20220327055355.3808-1-xiam0nd.tong@gmail.com>
-From: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
-In-Reply-To: <20220327055355.3808-1-xiam0nd.tong@gmail.com>
-X-Originating-IP: [10.75.127.47]
-X-ClientProxiedBy: SFHDAG2NODE2.st.com (10.75.127.5) To SFHDAG2NODE2.st.com
- (10.75.127.5)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.850,Hydra:6.0.425,FMLib:17.11.64.514
- definitions=2022-03-28_04,2022-03-28_01,2022-02-23_01
-Cc: marex@denx.de, daniel@ffwll.ch, airlied@linux.ie,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- mcoquelin.stm32@gmail.com, stable@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] stm: ltdc: fix two incorrect NULL checks
-	on list iterator
+Content-Disposition: inline
+In-Reply-To: <YkG2RPrtPaBNXb7a@latitude>
+Cc: linux-aspeed@lists.ozlabs.org, linux-realtek-soc@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com, chrome-platform@lists.linux.dev,
+ linux-samsung-soc@vger.kernel.org, openbmc@lists.ozlabs.org,
+ linux-arm-kernel@axis.com, linux-rockchip@lists.infradead.org,
+ linux-sunxi@lists.linux.dev, devicetree@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-actions@lists.infradead.org,
+ linux-unisoc@lists.infradead.org, Rob Herring <robh+dt@kernel.org>,
+ linux-mediatek@lists.infradead.org, linux-rpi-kernel@lists.infradead.org,
+ linux-tegra@vger.kernel.org, linux-amlogic@lists.infradead.org,
+ linux-omap@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+ kernel@dh-electronics.com, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ linux-oxnas@groups.io
+Subject: Re: [Linux-stm32] [RFC PATCH 0/1] Categorize ARM dts directory
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,28 +84,128 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SGVsbG8gWGlhb21lbmcKCk9uIDMvMjcvMjIgMDc6NTMsIFhpYW9tZW5nIFRvbmcgd3JvdGU6Cj4g
-VGhlIHR3byBidWdzIGFyZSBoZXJlOgo+IAlpZiAoZW5jb2Rlcikgewo+IAlpZiAoYnJpZGdlICYm
-IGJyaWRnZS0+dGltaW5ncykKPgo+IFRoZSBsaXN0IGl0ZXJhdG9yIHZhbHVlICdlbmNvZGVyL2Jy
-aWRnZScgd2lsbCAqYWx3YXlzKiBiZSBzZXQgYW5kCj4gbm9uLU5VTEwgYnkgZHJtX2Zvcl9lYWNo
-X2VuY29kZXIoKS9saXN0X2Zvcl9lYWNoX2VudHJ5KCksIHNvIGl0IGlzCj4gaW5jb3JyZWN0IHRv
-IGFzc3VtZSB0aGF0IHRoZSBpdGVyYXRvciB2YWx1ZSB3aWxsIGJlIE5VTEwgaWYgdGhlCj4gbGlz
-dCBpcyBlbXB0eSBvciBubyBlbGVtZW50IGlzIGZvdW5kLgo+Cj4gVG8gZml4IHRoZSBidWcsIHVz
-ZSBhIG5ldyB2YXJpYWJsZSAnKl9pdGVyJyBhcyB0aGUgbGlzdCBpdGVyYXRvciwKPiB3aGlsZSB1
-c2UgdGhlIG9sZCB2YXJpYWJsZSAnZW5jb2Rlci9icmlkZ2UnIGFzIGEgZGVkaWNhdGVkIHBvaW50
-ZXIKPiB0byBwb2ludCB0byB0aGUgZm91bmQgZWxlbWVudC4KPgo+IENjOiBzdGFibGVAdmdlci5r
-ZXJuZWwub3JnCj4gRml4ZXM6IDk5ZTM2MDQ0MmYyMjMgKCJkcm0vc3RtOiBGaXggYnVzX2ZsYWdz
-IGhhbmRsaW5nIikKPiBTaWduZWQtb2ZmLWJ5OiBYaWFvbWVuZyBUb25nIDx4aWFtMG5kLnRvbmdA
-Z21haWwuY29tPgo+IC0tLQo+ICBkcml2ZXJzL2dwdS9kcm0vc3RtL2x0ZGMuYyB8IDE2ICsrKysr
-KysrKystLS0tLS0KPiAgMSBmaWxlIGNoYW5nZWQsIDEwIGluc2VydGlvbnMoKyksIDYgZGVsZXRp
-b25zKC0pCgoKVGhhbmtzIGZvciB5b3VyIGZpeAoKQWNrZWQtYnk6IFJhcGhhZWwgR2FsbGFpcy1Q
-b3UgPHJhcGhhZWwuZ2FsbGFpcy1wb3VAZm9zcy5zdC5jb20+CgoKUmFwaGHDq2wgR2FsbGFpcy1Q
-b3UKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4
-LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHku
-Y29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZv
-L2xpbnV4LXN0bTMyCg==
+On Mon, Mar 28, 2022 at 03:21:08PM +0200, Jonathan Neusch=E4fer wrote:
+> On Mon, Mar 28, 2022 at 02:09:14AM +0200, Ansuel Smith wrote:
+> > Hi,
+> > as the title say, the intention of this ""series"" is to finally catego=
+rize
+> > the ARM dts directory in subdirectory for each oem.
+> [...]
+> > [1] https://gist.github.com/Ansuel/47c49925ee7ef4b1dd035afc74679ab5
+> > [2] https://gist.github.com/Ansuel/19f61f1e583c49407ce35c10e770fbe0
+> =
+
+> Nice idea, thank you!
+> =
+
+> A few notes on categorization below.
+> =
+
+> =
+
+> >  create mode 100644 arch/arm/boot/dts/broadcom/Makefile
+> >  rename arch/arm/boot/dts/{ =3D> broadcom}/bcm-cygnus-clock.dtsi (100%)
+> =
+
+> Or maybe bcm instead of broadcom. Not sure which is preferred by
+> Broadcom people.
+> =
+
+
+In arm64 they used broadcom so i assume the full name looks correct.
+
+> >  create mode 100644 arch/arm/boot/dts/dove/Makefile
+> >  rename arch/arm/boot/dts/{ =3D> dove}/dove-cm-a510.dtsi (100%)
+> =
+
+> Arguably part of Marvell.
+> =
+
+> >  create mode 100644 arch/arm/boot/dts/edac/Makefile
+> >  rename arch/arm/boot/dts/{ =3D> edac}/ecx-2000.dts (100%)
+> >  rename arch/arm/boot/dts/{ =3D> edac}/ecx-common.dtsi (100%)
+> >  rename arch/arm/boot/dts/{ =3D> edac}/highbank.dts (100%)
+> =
+
+> Why edac?
+> The most obvious name I can see here is calxeda.
+> =
+
+> >  create mode 100644 arch/arm/boot/dts/freescale/Makefile
+> =
+
+> Freescale has been part of NXP for a while, so it might make sense to
+> merge the freescale and nxp directories. I can't speak for
+> NXP-the-company, so that's just my view as a bystander.
+> =
+
+> >  create mode 100644 arch/arm/boot/dts/kirkwood/Makefile
+> =
+
+> The Kirkwood family should probably be sorted into Marvell.
+> =
+
+> >  create mode 100644 arch/arm/boot/dts/layerscape/Makefile
+> >  rename arch/arm/boot/dts/{ =3D> layerscape}/ls1021a-moxa-uc-8410a.dts =
+(100%)
+> >  rename arch/arm/boot/dts/{ =3D> layerscape}/ls1021a-qds.dts (100%)
+> >  rename arch/arm/boot/dts/{ =3D> layerscape}/ls1021a-tsn.dts (100%)
+> >  rename arch/arm/boot/dts/{ =3D> layerscape}/ls1021a-twr.dts (100%)
+> >  rename arch/arm/boot/dts/{ =3D> layerscape}/ls1021a.dtsi (100%)
+> =
+
+> The Layerscape family is part of Freescale/NXP.
+> =
+
+> >  create mode 120000 arch/arm/boot/dts/nxp/armv7-m.dtsi
+> =
+
+> armv7-m.dtsi is a bit confusing, because it contains a few devices at
+> fixed addresses, so it looks vendor-specific at a first glance into the
+> file. However, if it is actually as vendor-neutral as the name implies,
+> I think it should live dts/ directly, rather than in vendor
+> subdirectories.
+>
+
+Considering it's really just 3 binding IMHO it should be just dropped
+and merged in other dtsi... But lets not extend this too much.
+This is really just a simplic link and armv7-m.dtsi is placed in dts/
+I create links in each oem that includes it to skip any changes to the
+dts.
+
+> >  rename arch/arm/boot/dts/{ =3D> nxp}/lpc18xx.dtsi (100%)
+> =
+
+> Here we have the NXP LPCxxxx family, which is AFAIK unrelated to the
+> i.MX family (and thus the bulk of the Freescale legacy).
+> =
+
+> >  create mode 100644 arch/arm/boot/dts/vybrid/Makefile
+> =
+
+> Vybrid is another chip family of NXP, with a good deal of Freescale
+> legacy in it as evidenced by the "fsl," prefix in the devicetrees.
+> =
+
+> =
+
+> =
+
+> Thanks,
+> Jonathan
+
+Thx for the hint hope to get more comments about the dubious
+categorization about nxp and freescale.
+
+-- =
+
+	Ansuel
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
