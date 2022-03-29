@@ -2,40 +2,40 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B88124EB06A
-	for <lists+linux-stm32@lfdr.de>; Tue, 29 Mar 2022 17:29:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AA8CA4EB069
+	for <lists+linux-stm32@lfdr.de>; Tue, 29 Mar 2022 17:29:30 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8128DC628A3;
-	Tue, 29 Mar 2022 15:29:32 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 60B2BC628B2;
+	Tue, 29 Mar 2022 15:29:30 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C634AC628A2
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C7584C628A2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 29 Mar 2022 15:29:28 +0000 (UTC)
+ Tue, 29 Mar 2022 15:29:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1648567768; x=1680103768;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=Pdfled0GCqwc7iDQ57lJV4J/3sRBeMXhKiS4YDZIDhI=;
- b=mkLvvVG7nlnCcG/zCrb0c9qGxYlYl3k1h7yz9xnCLQi+oWv7fTzTIU4j
- psfkixKGfxQzcjSjCi+55t9Bm9GA8M2/Bmezrnd7cGQEPkj3yI77AvjAg
- 3gTVepp5irrecMJ5t+50ISiBsIVhdGK2+nussYm0dhGcGuiMh/GwHPF2A
- Y1+MYwBofLPkAODBiGtemX5uCV5JolBpbJFL6QTV1QZZnMSatnNAPg7sF
- gXeils1NF9hvd4xFkSWSOhqDpdYMq9jffdLaG3eFVILV1SOqOIbmksDQe
- ifFcLSwOx55bkPx5Y1b5nIvwIam++f1CL0ABTSGL2zpso/JU86zyqnDk/ A==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10301"; a="258104923"
-X-IronPort-AV: E=Sophos;i="5.90,220,1643702400"; d="scan'208";a="258104923"
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ bh=UCAuTqBZ9mYCDZIPOGv2WkU53JOPeTds3YQkaU6nhzA=;
+ b=BcZdUyacx6ZRupcFYRtz0s+U5HSAF/lM4s7nox6Dhp730tb6pPbBkmkA
+ jYgEjd305NLfPu12c/OWUf+x8FBtECt/WUwqXCErnwEIumEe3YBKdkgSr
+ jkztANpKE1EtLV9cBSm/cj4W8MbN6hc1K/tVzbG7PV2L9zrOYyOMzdVdS
+ noBHvlP/mgH+2Nm2AKuprYMDnDsEqkHB1SViAsMYfIZe433Dd14x98ZDt
+ aJ5kcywBKntjG4IUQ0oBJCJZxUebjP2sHWHWmXzQrAFMCoJHWPXMx6d8/
+ xbHlA4vU55jfxD5WSuEDxUderZ/vvYLUAV6D4nABU4M7297O8TBgt2zz4 A==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10301"; a="259248450"
+X-IronPort-AV: E=Sophos;i="5.90,220,1643702400"; d="scan'208";a="259248450"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  29 Mar 2022 08:29:25 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.90,220,1643702400"; d="scan'208";a="719566993"
+X-IronPort-AV: E=Sophos;i="5.90,220,1643702400"; d="scan'208";a="518990850"
 Received: from black.fi.intel.com ([10.237.72.28])
- by orsmga005.jf.intel.com with ESMTP; 29 Mar 2022 08:29:16 -0700
+ by orsmga002.jf.intel.com with ESMTP; 29 Mar 2022 08:29:16 -0700
 Received: by black.fi.intel.com (Postfix, from userid 1003)
- id A52104E5; Tue, 29 Mar 2022 18:29:29 +0300 (EEST)
+ id B4175809; Tue, 29 Mar 2022 18:29:29 +0300 (EEST)
 From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 To: Qianggui Song <qianggui.song@amlogic.com>,
  Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
@@ -45,8 +45,8 @@ To: Qianggui Song <qianggui.song@amlogic.com>,
  linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org,
  linux-renesas-soc@vger.kernel.org, linux-samsung-soc@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com
-Date: Tue, 29 Mar 2022 18:29:25 +0300
-Message-Id: <20220329152926.50958-13-andriy.shevchenko@linux.intel.com>
+Date: Tue, 29 Mar 2022 18:29:26 +0300
+Message-Id: <20220329152926.50958-14-andriy.shevchenko@linux.intel.com>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220329152926.50958-1-andriy.shevchenko@linux.intel.com>
 References: <20220329152926.50958-1-andriy.shevchenko@linux.intel.com>
@@ -66,8 +66,8 @@ Cc: Andrew Lunn <andrew@lunn.ch>, Tomer Maimon <tmaimon77@gmail.com>,
  Avi Fishman <avifishman70@gmail.com>, Patrick Venture <venture@google.com>,
  Philipp Zabel <p.zabel@pengutronix.de>,
  Gregory Clement <gregory.clement@bootlin.com>
-Subject: [Linux-stm32] [PATCH v2 12/13] pinctrl: armada-37xx: Switch to use
-	fwnode instead of of_node
+Subject: [Linux-stm32] [PATCH v2 13/13] pinctrl: armada-37xx: Reuse GPIO
+	fwnode in armada_37xx_irqchip_register()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,59 +84,45 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-GPIO library now accepts fwnode as a firmware node,
-so switch the driver to use it.
+Since we have fwnode of the first found GPIO controller assigned to the
+struct gpio_chip, we may reuse it in the armada_37xx_irqchip_register().
 
 Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 ---
- drivers/pinctrl/mvebu/pinctrl-armada-37xx.c | 18 +++++++-----------
- 1 file changed, 7 insertions(+), 11 deletions(-)
+ drivers/pinctrl/mvebu/pinctrl-armada-37xx.c | 16 +++-------------
+ 1 file changed, 3 insertions(+), 13 deletions(-)
 
 diff --git a/drivers/pinctrl/mvebu/pinctrl-armada-37xx.c b/drivers/pinctrl/mvebu/pinctrl-armada-37xx.c
-index 3e10a44e2669..4a2fa10f94f8 100644
+index 4a2fa10f94f8..54f473f4afed 100644
 --- a/drivers/pinctrl/mvebu/pinctrl-armada-37xx.c
 +++ b/drivers/pinctrl/mvebu/pinctrl-armada-37xx.c
-@@ -21,6 +21,7 @@
- #include <linux/pinctrl/pinctrl.h>
- #include <linux/pinctrl/pinmux.h>
- #include <linux/platform_device.h>
-+#include <linux/property.h>
- #include <linux/regmap.h>
- #include <linux/slab.h>
- #include <linux/string_helpers.h>
-@@ -787,18 +788,13 @@ static int armada_37xx_gpiochip_register(struct platform_device *pdev,
- 					struct armada_37xx_pinctrl *info)
- {
+@@ -727,23 +727,13 @@ static int armada_37xx_irqchip_register(struct platform_device *pdev,
+ 	struct gpio_chip *gc = &info->gpio_chip;
+ 	struct irq_chip *irqchip = &info->irq_chip;
+ 	struct gpio_irq_chip *girq = &gc->irq;
++	struct device_node *np = to_of_node(gc->fwnode);
  	struct device *dev = &pdev->dev;
 -	struct device_node *np;
-+	struct fwnode_handle *fwnode;
- 	struct gpio_chip *gc;
--	int ret = -ENODEV;
-+	int ret;
- 
+-	int ret = -ENODEV, i, nr_irq_parent;
+-
+-	/* Check if we have at least one gpio-controller child node */
 -	for_each_child_of_node(dev->of_node, np) {
--		if (of_find_property(np, "gpio-controller", NULL)) {
+-		if (of_property_read_bool(np, "gpio-controller")) {
 -			ret = 0;
 -			break;
 -		}
 -	}
 -	if (ret)
--		return ret;
-+	fwnode = device_get_named_child_node(dev, "gpio-controller");
-+	if (!fwnode)
-+		return -ENODEV;
+-		return dev_err_probe(dev, ret, "no gpio-controller child node\n");
++	unsigned int i, nr_irq_parent;
  
- 	info->gpio_chip = armada_37xx_gpiolib_chip;
+-	nr_irq_parent = of_irq_count(np);
+ 	spin_lock_init(&info->irq_lock);
  
-@@ -806,7 +802,7 @@ static int armada_37xx_gpiochip_register(struct platform_device *pdev,
- 	gc->ngpio = info->data->nr_pins;
- 	gc->parent = dev;
- 	gc->base = -1;
--	gc->of_node = np;
-+	gc->fwnode = fwnode;
- 	gc->label = info->data->name;
- 
- 	ret = armada_37xx_irqchip_register(pdev, info);
++	nr_irq_parent = of_irq_count(np);
+ 	if (!nr_irq_parent) {
+ 		dev_err(dev, "invalid or no IRQ\n");
+ 		return 0;
 -- 
 2.35.1
 
