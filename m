@@ -2,40 +2,40 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7E7D54EB068
-	for <lists+linux-stm32@lfdr.de>; Tue, 29 Mar 2022 17:29:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 09A774EB063
+	for <lists+linux-stm32@lfdr.de>; Tue, 29 Mar 2022 17:29:28 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3F7F4C628AF;
-	Tue, 29 Mar 2022 15:29:30 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C29C7C628A1;
+	Tue, 29 Mar 2022 15:29:27 +0000 (UTC)
 Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9F7FDC60467
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EB548C60467
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 29 Mar 2022 15:29:27 +0000 (UTC)
+ Tue, 29 Mar 2022 15:29:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1648567767; x=1680103767;
+ t=1648567766; x=1680103766;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=1uhnGCeQRRhPDv5FfIf14aURC8nLj45dxjP/6kq7UUg=;
- b=ZE/yyFaR4l4GaQpjf3INnujjeNg72EdBEf9nrhrQrb3zTWqW9TmNWgAc
- Gk9U+rfjxoF7XtB0d/PryRpi1OLozPc0+rUsHo+fD2Wuz388loFZJhwmV
- Vq+8PvHDSvU63UbPxYBMMuIQ3Yqxa+CYh6Jr+U7KstnTej/7a1g2waaox
- PAt33XrE/9IJ69hNpqWa/f5NKLRGrb/4M3DQ/28SvRWPBc3vj5qs0bAUt
- Ff9KLP3OIZTUS1TTHHadrJVD4J6rL/8Ew3pWtDIx2Jm2vlaD6pZ4yLffp
- /tPythygRAcfHeeB76bGJT9H5tOdS5XotD+6UkcSo4b85st2IN9fu3xbA Q==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10301"; a="319974221"
-X-IronPort-AV: E=Sophos;i="5.90,220,1643702400"; d="scan'208";a="319974221"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ bh=D9rIVVydA1U6YDG/4d1Ed8j+r9S7iMMFVbYxLfWOamY=;
+ b=lGB/QbRIqHPBn49LcGLsR2OwP5ijXKCY1LFKVCmY8GAiqRi3rM8JhOOS
+ MFoCP4ZJgIhFa0fe60RzpP9PhVrlSqVCfPEQ0eYoCXfw4XhDZUDQEXaig
+ flrHPImv7J4jdi93R1rke3A87tPgFVCx34dIeIZbZjI44PUV6MexYf805
+ KjdTWPL9/9dAjGudLZ2PfhKiYAn9s8/M5/xz5iv/JRa/lSfN3+A4pH4sI
+ +n5RRPAgMkB3LGkcsiGalEQyiT1Tc4NQbIg9+ZNyJi9VdVQ+ToJgitsIW
+ syLENsIPLe1d0xG+TdeWKqhdDVBq6i30QbooKqxOnz+YuYDSHmjltKAq7 g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10301"; a="319974214"
+X-IronPort-AV: E=Sophos;i="5.90,220,1643702400"; d="scan'208";a="319974214"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Mar 2022 08:29:25 -0700
+ 29 Mar 2022 08:29:24 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.90,220,1643702400"; d="scan'208";a="546425146"
+X-IronPort-AV: E=Sophos;i="5.90,220,1643702400"; d="scan'208";a="604843273"
 Received: from black.fi.intel.com ([10.237.72.28])
- by orsmga007.jf.intel.com with ESMTP; 29 Mar 2022 08:29:16 -0700
+ by fmsmga008.fm.intel.com with ESMTP; 29 Mar 2022 08:29:16 -0700
 Received: by black.fi.intel.com (Postfix, from userid 1003)
- id 5FAC0314; Tue, 29 Mar 2022 18:29:29 +0300 (EEST)
+ id 6E4873C5; Tue, 29 Mar 2022 18:29:29 +0300 (EEST)
 From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 To: Qianggui Song <qianggui.song@amlogic.com>,
  Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
@@ -45,8 +45,8 @@ To: Qianggui Song <qianggui.song@amlogic.com>,
  linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org,
  linux-renesas-soc@vger.kernel.org, linux-samsung-soc@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com
-Date: Tue, 29 Mar 2022 18:29:20 +0300
-Message-Id: <20220329152926.50958-8-andriy.shevchenko@linux.intel.com>
+Date: Tue, 29 Mar 2022 18:29:21 +0300
+Message-Id: <20220329152926.50958-9-andriy.shevchenko@linux.intel.com>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220329152926.50958-1-andriy.shevchenko@linux.intel.com>
 References: <20220329152926.50958-1-andriy.shevchenko@linux.intel.com>
@@ -66,8 +66,8 @@ Cc: Andrew Lunn <andrew@lunn.ch>, Tomer Maimon <tmaimon77@gmail.com>,
  Avi Fishman <avifishman70@gmail.com>, Patrick Venture <venture@google.com>,
  Philipp Zabel <p.zabel@pengutronix.de>,
  Gregory Clement <gregory.clement@bootlin.com>
-Subject: [Linux-stm32] [PATCH v2 07/13] pinctrl: renesas: rza1: Switch to
-	use for_each_gpiochip_node() helper
+Subject: [Linux-stm32] [PATCH v2 08/13] pinctrl: npcm7xx: Switch to use
+	for_each_gpiochip_node() helper
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,91 +87,170 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Switch the code to use for_each_gpiochip_node() helper.
 
 While at it, in order to avoid additional churn in the future,
-switch to fwnode APIs where it makes sense.
+do the following:
+- use a temporary variable for struct device pointer to shorten a few lines
+- get rid of a temporary variable for vIRQ number, assign it directly
+- switch to fwnode APIs where it makes sense
 
 Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 ---
- drivers/pinctrl/renesas/pinctrl-rza1.c | 22 +++++++++-------------
- 1 file changed, 9 insertions(+), 13 deletions(-)
+ drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c | 141 ++++++++++------------
+ 1 file changed, 61 insertions(+), 80 deletions(-)
 
-diff --git a/drivers/pinctrl/renesas/pinctrl-rza1.c b/drivers/pinctrl/renesas/pinctrl-rza1.c
-index 5075d5cebe8c..74183f36567b 100644
---- a/drivers/pinctrl/renesas/pinctrl-rza1.c
-+++ b/drivers/pinctrl/renesas/pinctrl-rza1.c
-@@ -24,6 +24,7 @@
- #include <linux/pinctrl/pinconf-generic.h>
- #include <linux/pinctrl/pinctrl.h>
- #include <linux/pinctrl/pinmux.h>
-+#include <linux/property.h>
- #include <linux/slab.h>
- 
- #include "../core.h"
-@@ -1166,17 +1167,17 @@ static const struct pinmux_ops rza1_pinmux_ops = {
-  * @range: pin range to register to pinctrl core
-  */
- static int rza1_parse_gpiochip(struct rza1_pinctrl *rza1_pctl,
--			       struct device_node *np,
-+			       struct fwnode_handle *fwnode,
- 			       struct gpio_chip *chip,
- 			       struct pinctrl_gpio_range *range)
+diff --git a/drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c b/drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c
+index 221c33300d60..e73732e79585 100644
+--- a/drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c
++++ b/drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c
+@@ -1862,88 +1862,69 @@ static int npcm7xx_gpio_of(struct npcm7xx_pinctrl *pctrl)
  {
- 	const char *list_name = "gpio-ranges";
--	struct of_phandle_args of_args;
-+	struct fwnode_reference_args of_args;
- 	unsigned int gpioport;
- 	u32 pinctrl_base;
- 	int ret;
- 
--	ret = of_parse_phandle_with_fixed_args(np, list_name, 3, 0, &of_args);
-+	ret = fwnode_property_get_reference_args(fwnode, list_name, NULL, 3, 0, &of_args);
- 	if (ret) {
- 		dev_err(rza1_pctl->dev, "Unable to parse %s list property\n",
- 			list_name);
-@@ -1197,13 +1198,12 @@ static int rza1_parse_gpiochip(struct rza1_pinctrl *rza1_pctl,
- 
- 	*chip		= rza1_gpiochip_template;
- 	chip->base	= -1;
--	chip->label	= devm_kasprintf(rza1_pctl->dev, GFP_KERNEL, "%pOFn",
--					 np);
-+	chip->label	= devm_kasprintf(rza1_pctl->dev, GFP_KERNEL, "%pfw", fwnode);
- 	if (!chip->label)
- 		return -ENOMEM;
- 
- 	chip->ngpio	= of_args.args[2];
--	chip->of_node	= np;
-+	chip->fwnode	= fwnode;
- 	chip->parent	= rza1_pctl->dev;
- 
- 	range->id	= gpioport;
-@@ -1232,10 +1232,9 @@ static int rza1_parse_gpiochip(struct rza1_pinctrl *rza1_pctl,
-  */
- static int rza1_gpio_register(struct rza1_pinctrl *rza1_pctl)
- {
--	struct device_node *np = rza1_pctl->dev->of_node;
- 	struct pinctrl_gpio_range *gpio_ranges;
- 	struct gpio_chip *gpio_chips;
--	struct device_node *child;
-+	struct fwnode_handle *child;
- 	unsigned int ngpiochips;
- 	unsigned int i;
- 	int ret;
-@@ -1254,14 +1253,11 @@ static int rza1_gpio_register(struct rza1_pinctrl *rza1_pctl)
- 		return -ENOMEM;
- 
- 	i = 0;
--	for_each_child_of_node(np, child) {
--		if (!of_property_read_bool(child, "gpio-controller"))
--			continue;
+ 	int ret = -ENXIO;
+ 	struct resource res;
+-	int id = 0, irq;
+-	struct device_node *np;
+-	struct of_phandle_args pinspec;
 -
-+	for_each_gpiochip_node(rza1_pctl->dev, child) {
- 		ret = rza1_parse_gpiochip(rza1_pctl, child, &gpio_chips[i],
- 					  &gpio_ranges[i]);
- 		if (ret) {
--			of_node_put(child);
-+			fwnode_handle_put(child);
- 			return ret;
+-	for_each_available_child_of_node(pctrl->dev->of_node, np)
+-		if (of_find_property(np, "gpio-controller", NULL)) {
+-			ret = of_address_to_resource(np, 0, &res);
+-			if (ret < 0) {
+-				dev_err(pctrl->dev,
+-					"Resource fail for GPIO bank %u\n", id);
+-				return ret;
+-			}
+-
+-			pctrl->gpio_bank[id].base =
+-				ioremap(res.start, resource_size(&res));
+-
+-			irq = irq_of_parse_and_map(np, 0);
+-			if (irq < 0) {
+-				dev_err(pctrl->dev,
+-					"No IRQ for GPIO bank %u\n", id);
+-				ret = irq;
+-				return ret;
+-			}
+-
+-			ret = bgpio_init(&pctrl->gpio_bank[id].gc,
+-					 pctrl->dev, 4,
+-					 pctrl->gpio_bank[id].base +
+-					 NPCM7XX_GP_N_DIN,
+-					 pctrl->gpio_bank[id].base +
+-					 NPCM7XX_GP_N_DOUT,
+-					 NULL,
+-					 NULL,
+-					 pctrl->gpio_bank[id].base +
+-					 NPCM7XX_GP_N_IEM,
+-					 BGPIOF_READ_OUTPUT_REG_SET);
+-			if (ret) {
+-				dev_err(pctrl->dev, "bgpio_init() failed\n");
+-				return ret;
+-			}
+-
+-			ret = of_parse_phandle_with_fixed_args(np,
+-							       "gpio-ranges", 3,
+-							       0, &pinspec);
+-			if (ret < 0) {
+-				dev_err(pctrl->dev,
+-					"gpio-ranges fail for GPIO bank %u\n",
+-					id);
+-				return ret;
+-			}
+-
+-			pctrl->gpio_bank[id].irq = irq;
+-			pctrl->gpio_bank[id].irq_chip = npcmgpio_irqchip;
+-			pctrl->gpio_bank[id].gc.parent = pctrl->dev;
+-			pctrl->gpio_bank[id].irqbase =
+-				id * NPCM7XX_GPIO_PER_BANK;
+-			pctrl->gpio_bank[id].pinctrl_id = pinspec.args[0];
+-			pctrl->gpio_bank[id].gc.base = pinspec.args[1];
+-			pctrl->gpio_bank[id].gc.ngpio = pinspec.args[2];
+-			pctrl->gpio_bank[id].gc.owner = THIS_MODULE;
+-			pctrl->gpio_bank[id].gc.label =
+-				devm_kasprintf(pctrl->dev, GFP_KERNEL, "%pOF",
+-					       np);
+-			if (pctrl->gpio_bank[id].gc.label == NULL)
+-				return -ENOMEM;
+-
+-			pctrl->gpio_bank[id].gc.dbg_show = npcmgpio_dbg_show;
+-			pctrl->gpio_bank[id].direction_input =
+-				pctrl->gpio_bank[id].gc.direction_input;
+-			pctrl->gpio_bank[id].gc.direction_input =
+-				npcmgpio_direction_input;
+-			pctrl->gpio_bank[id].direction_output =
+-				pctrl->gpio_bank[id].gc.direction_output;
+-			pctrl->gpio_bank[id].gc.direction_output =
+-				npcmgpio_direction_output;
+-			pctrl->gpio_bank[id].request =
+-				pctrl->gpio_bank[id].gc.request;
+-			pctrl->gpio_bank[id].gc.request = npcmgpio_gpio_request;
+-			pctrl->gpio_bank[id].gc.free = npcmgpio_gpio_free;
+-			pctrl->gpio_bank[id].gc.of_node = np;
+-			id++;
++	struct device *dev = pctrl->dev;
++	struct fwnode_reference_args pinspec;
++	struct fwnode_handle *child;
++	int id = 0;
++
++	for_each_gpiochip_node(dev, child) {
++		struct device_node *np = to_of_node(child);
++
++		ret = of_address_to_resource(np, 0, &res);
++		if (ret < 0) {
++			dev_err(dev, "Resource fail for GPIO bank %u\n", id);
++			return ret;
++		}
++
++		pctrl->gpio_bank[id].base = ioremap(res.start, resource_size(&res));
++
++		ret = bgpio_init(&pctrl->gpio_bank[id].gc, dev, 4,
++				 pctrl->gpio_bank[id].base + NPCM7XX_GP_N_DIN,
++				 pctrl->gpio_bank[id].base + NPCM7XX_GP_N_DOUT,
++				 NULL,
++				 NULL,
++				 pctrl->gpio_bank[id].base + NPCM7XX_GP_N_IEM,
++				 BGPIOF_READ_OUTPUT_REG_SET);
++		if (ret) {
++			dev_err(dev, "bgpio_init() failed\n");
++			return ret;
  		}
  
++		ret = fwnode_property_get_reference_args(child, "gpio-ranges", NULL, 3, 0, &pinspec);
++		if (ret < 0) {
++			dev_err(dev, "gpio-ranges fail for GPIO bank %u\n", id);
++			return ret;
++		}
++
++		ret = irq_of_parse_and_map(np, 0);
++		if (ret < 0) {
++			dev_err(dev, "No IRQ for GPIO bank %u\n", id);
++			return ret;
++		}
++		pctrl->gpio_bank[id].irq = ret;
++		pctrl->gpio_bank[id].irq_chip = npcmgpio_irqchip;
++		pctrl->gpio_bank[id].irqbase = id * NPCM7XX_GPIO_PER_BANK;
++		pctrl->gpio_bank[id].pinctrl_id = pinspec.args[0];
++		pctrl->gpio_bank[id].gc.base = pinspec.args[1];
++		pctrl->gpio_bank[id].gc.ngpio = pinspec.args[2];
++		pctrl->gpio_bank[id].gc.owner = THIS_MODULE;
++		pctrl->gpio_bank[id].gc.parent = dev;
++		pctrl->gpio_bank[id].gc.label = devm_kasprintf(dev, GFP_KERNEL, "%pfw", child);
++		if (pctrl->gpio_bank[id].gc.label == NULL)
++			return -ENOMEM;
++
++		pctrl->gpio_bank[id].gc.dbg_show = npcmgpio_dbg_show;
++		pctrl->gpio_bank[id].direction_input = pctrl->gpio_bank[id].gc.direction_input;
++		pctrl->gpio_bank[id].gc.direction_input = npcmgpio_direction_input;
++		pctrl->gpio_bank[id].direction_output = pctrl->gpio_bank[id].gc.direction_output;
++		pctrl->gpio_bank[id].gc.direction_output = npcmgpio_direction_output;
++		pctrl->gpio_bank[id].request = pctrl->gpio_bank[id].gc.request;
++		pctrl->gpio_bank[id].gc.request = npcmgpio_gpio_request;
++		pctrl->gpio_bank[id].gc.free = npcmgpio_gpio_free;
++		pctrl->gpio_bank[id].gc.fwnode = child;
++		id++;
++	}
++
+ 	pctrl->bank_num = id;
+ 	return ret;
+ }
 -- 
 2.35.1
 
