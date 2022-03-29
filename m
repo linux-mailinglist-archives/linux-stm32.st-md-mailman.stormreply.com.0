@@ -2,75 +2,91 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B2F074E9A47
-	for <lists+linux-stm32@lfdr.de>; Mon, 28 Mar 2022 16:59:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4D7644EA420
+	for <lists+linux-stm32@lfdr.de>; Tue, 29 Mar 2022 02:24:04 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6D93BC5C842;
-	Mon, 28 Mar 2022 14:59:41 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 00B22C5C842;
+	Tue, 29 Mar 2022 00:24:04 +0000 (UTC)
+Received: from new3-smtp.messagingengine.com (new3-smtp.messagingengine.com
+ [66.111.4.229])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0FFE4C57183
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E8332C57B6F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 28 Mar 2022 14:59:41 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 22SDsu15025436;
- Mon, 28 Mar 2022 16:59:07 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=kltjsirzntSwfHTV/4WKoQM0uiln7XLsDRSP3qmSBh4=;
- b=NecfBsKyQWBqiXma1Zhw2cVJtVl4UDOKML7BTAe3e+LFAcTdfXlyw7wklCzcffFl/EDp
- rSyYsr6Irm3guATATSJnlScoZDze8MKQAUzD73gV/CVt5XOl91XVuLu5E8KRLC1iZXyN
- ctiHoAjA4oy5Tc2npoOG5dLc1f9k9JoCbc8sa066ciP2XwmPPnwd6ASka2hD0tBrNcpj
- M5gOYnzVCzR06iV7BjkQdTNhnrX6LWS3LEZGhMXkxiWXt6Ypck4UgYtve25lGkEGmx58
- kY9D7nQU2JTpeA/AKR/eRLS0OcDWs0X3Lc0SGhgLk3QCqqgkroGdaxnEKSRsGWVIVZX2 ug== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3f1tkm3ec9-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 28 Mar 2022 16:59:07 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id EE38110002A;
- Mon, 28 Mar 2022 16:59:05 +0200 (CEST)
-Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id D9521235F0D;
- Mon, 28 Mar 2022 16:59:05 +0200 (CEST)
-Received: from [10.201.21.172] (10.75.127.49) by SFHDAG2NODE2.st.com
- (10.75.127.5) with Microsoft SMTP Server (TLS) id 15.0.1497.26; Mon, 28 Mar
- 2022 16:59:04 +0200
-Message-ID: <0d0653d4-8272-7052-e0c5-447506a13a64@foss.st.com>
-Date: Mon, 28 Mar 2022 16:58:52 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
-Content-Language: en-US
-To: Linus Walleij <linus.walleij@linaro.org>
-References: <20220304135134.47827-1-yann.gautier@foss.st.com>
- <20220304135134.47827-2-yann.gautier@foss.st.com>
- <CACRpkdYQz+-im3n-r0_8RKL7so2bHS=aZobty4BbzixmPzms-Q@mail.gmail.com>
- <0bc53018-fce4-4104-fa47-6e60d2367d69@foss.st.com>
- <CACRpkdYMWXEX6dpT0aUrCrFd-8-U35OG9Zmpkfty=zMH=mQqbA@mail.gmail.com>
-From: Yann Gautier <yann.gautier@foss.st.com>
-In-Reply-To: <CACRpkdYMWXEX6dpT0aUrCrFd-8-U35OG9Zmpkfty=zMH=mQqbA@mail.gmail.com>
-X-Originating-IP: [10.75.127.49]
-X-ClientProxiedBy: SFHDAG2NODE3.st.com (10.75.127.6) To SFHDAG2NODE2.st.com
- (10.75.127.5)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.850,Hydra:6.0.425,FMLib:17.11.64.514
- definitions=2022-03-28_06,2022-03-28_01,2022-02-23_01
-Cc: Ludovic Barre <ludovic.barre@foss.st.com>, devicetree@vger.kernel.org,
- Ulf Hansson <ulf.hansson@linaro.org>, Marek Vasut <marex@denx.de>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Manivannan Sadhasivam <mani@kernel.org>,
- Grzegorz Szymaszek <gszymaszek@short.pl>, linux-mmc@vger.kernel.org,
- linux-kernel@vger.kernel.org, kernel@dh-electronics.com,
- Rob Herring <robh+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Russell King <linux@armlinux.org.uk>, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 1/3] dt-bindings: mmc: mmci: add a
- property to disable DMA LLI
+ Tue, 29 Mar 2022 00:24:02 +0000 (UTC)
+Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
+ by mailnew.nyi.internal (Postfix) with ESMTP id AA157580367;
+ Mon, 28 Mar 2022 20:24:01 -0400 (EDT)
+Received: from imap49 ([10.202.2.99])
+ by compute5.internal (MEProxy); Mon, 28 Mar 2022 20:24:01 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
+ :cc:content-transfer-encoding:content-type:date:date:from:from
+ :in-reply-to:in-reply-to:message-id:mime-version:references
+ :reply-to:sender:subject:subject:to:to; s=fm3; bh=YVcOcYXKVU4PEK
+ ENIKD3lZlfbqMF8OkXUPWQPtT0ZzA=; b=GV8iKIgkifB/LyajStlhIzzaA2PqSU
+ rEPGZBnWRziuDMlxEaU3fjhl0DHmyiueo1E3rsDwPrq1dyaythjr8LeJ4NZ3kmFH
+ v7J0UO7b64vG5VRtrXZ/OicN/3vDmtLy+M6As/zf5/EYH2TO2OF+YIkppderpdcN
+ ocuY8KYW/dUFglcgTgXnC/6f5bvCH2TNkniwuNDGczxXDBDNnP2nHRX3u9u0y3Go
+ 2HHhDpJUS8OMLXTkUmRtrROlDXASYpEdp57tTxY7G7Ci6RHcafVgGiKZGpjbHNDZ
+ //P9ySL7tvarTkKke+QN7H1PCcvhD3CsMcxHphO+TJq7W+71Q2wgIxYw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-transfer-encoding
+ :content-type:date:date:from:from:in-reply-to:in-reply-to
+ :message-id:mime-version:references:reply-to:sender:subject
+ :subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
+ :x-sasl-enc; s=fm3; bh=YVcOcYXKVU4PEKENIKD3lZlfbqMF8OkXUPWQPtT0Z
+ zA=; b=MfUF/QO1w2kk8LobJGDnDjGmGT9HUgvaIsBRcZJH4NP16C60y/NJslTt7
+ orhhkgHh49rbOiH30mg+9nD++QY3WWgzSB2sDT9Qr4nBx6DPKrUBtQOsEMz/dHsj
+ tnZTX8+5b3lvOKKTTCyQClpi0fsj22EquswXftZXPkMfoj2QCv1jAapgIQLAxfMF
+ S0z3hjnx7eO2S93c8UZottn5LmdiG0YcFFuK5zB8/ar7yCvc0Jy0dFV5KjDfSzzb
+ 3LrydgytiTwdKd8S3tKaPDcolfNGWpjEyPMA80KKZ8LEsNOU94avhhnY8yVPYBI+
+ z15/ibq45vK+JxVduu76w45M0nzjQ==
+X-ME-Sender: <xms:oFFCYs9K0yagZswp7rFBq_h4vFfHgzOKyc_TzBu90N89g92vvi8M3A>
+ <xme:oFFCYkvw9h1jnh95ii6UH3c9xPcsfcQHqQiMHfK2AbFZHDfMquci3iY3KqTCG7jHE
+ woyrhqOfmB1RNSngg>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvvddrudehkedgfedvucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+ cujfgurhepofgfggfkjghffffhvffutgfgsehtqhertderreejnecuhfhrohhmpedftehn
+ ughrvgifucflvghffhgvrhihfdcuoegrnhgurhgvfiesrghjrdhiugdrrghuqeenucggtf
+ frrghtthgvrhhnpedvgeekheegfedvhfethefhudetteegueeggfeiieegueehkedugedt
+ kefglefgheenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhroh
+ hmpegrnhgurhgvfiesrghjrdhiugdrrghu
+X-ME-Proxy: <xmx:oVFCYiAKjCQA5Zb05U61crJ5MlOJCJLgZQqyWNA7a6PSqL49ds9rcQ>
+ <xmx:oVFCYsd7HLs87jVXkH1pk4ddv_005tSApo64HS9hBsjced9RxeZQlg>
+ <xmx:oVFCYhNCDSxTTbHGsk6l4iYUYPZLYU9gbpl7DI-t2s9QTshCOjdDqA>
+ <xmx:oVFCYjVxoE5j7ipqETgwLEOiheaMjFzqbcptYMrhCgrHpWjYJYVlwQ>
+Received: by mailuser.nyi.internal (Postfix, from userid 501)
+ id E057EF6043F; Mon, 28 Mar 2022 20:24:00 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
+User-Agent: Cyrus-JMAP/3.5.0-alpha0-4911-g925b585eab-fm-20220323.003-g925b585e
+Mime-Version: 1.0
+Message-Id: <d5e6c96b-5882-4602-93cb-b08a65bfa37e@www.fastmail.com>
+In-Reply-To: <D9AFAC3C-46CA-4C40-8559-FD6934411CAB@goldelico.com>
+References: <20220328000915.15041-1-ansuelsmth@gmail.com>
+ <YkG2RPrtPaBNXb7a@latitude>
+ <D9AFAC3C-46CA-4C40-8559-FD6934411CAB@goldelico.com>
+Date: Tue, 29 Mar 2022 10:53:40 +1030
+From: "Andrew Jeffery" <andrew@aj.id.au>
+To: "H. Nikolaus Schaller" <hns@goldelico.com>,
+ =?UTF-8?Q?Jonathan_Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>,
+ "Ansuel Smith" <ansuelsmth@gmail.com>
+Cc: linux-aspeed@lists.ozlabs.org, linux-realtek-soc@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com, chrome-platform@lists.linux.dev,
+ linux-samsung-soc@vger.kernel.org, openbmc@lists.ozlabs.org,
+ linux-arm-kernel@axis.com, linux-rockchip@lists.infradead.org,
+ linux-sunxi@lists.linux.dev,
+ OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS <devicetree@vger.kernel.org>,
+ linux-arm-msm@vger.kernel.org, linux-actions@lists.infradead.org,
+ linux-unisoc@lists.infradead.org, Rob Herring <robh+dt@kernel.org>,
+ linux-mediatek@lists.infradead.org, linux-rpi-kernel@lists.infradead.org,
+ linux-tegra@vger.kernel.org, linux-amlogic@lists.infradead.org,
+ Linux-OMAP <linux-omap@vger.kernel.org>,
+ linux-arm-kernel <linux-arm-kernel@lists.infradead.org>,
+ linux-kernel <linux-kernel@vger.kernel.org>, linux-renesas-soc@vger.kernel.org,
+ kernel@dh-electronics.com, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ linux-oxnas@groups.io
+Subject: Re: [Linux-stm32] [RFC PATCH 0/1] Categorize ARM dts directory
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,49 +98,20 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 3/25/22 21:12, Linus Walleij wrote:
-> On Tue, Mar 15, 2022 at 9:26 AM Yann Gautier <yann.gautier@foss.st.com> wrote:
-> 
->> The STM32 variant uses an internal DMA, and the DMA functions are in its
->> dedicated file. So I was planning to do the same as what is done in
->> meson-gx-mmc.c: using a bounce buffer to copy from/to in case DMA
->> constraints are not fulfilled. Not sure it can help for Ux500.
->>
->> Ulf, before I send my new series (although it is not ready yet), would
->> you be OK with the bounce buffer idea?
-> 
-Hi Linus,
-
-> Would it not be better if the bounce buffer is something available
-> for all MMCI variants and not restricted to the STM32 DMA add-on?
-
-The issue was seen with the internal DMA of the STM32 variant of PL180.
-
-> 
-> What I'm thinking is that this is a problem with the MMCI hardware
-> rather than with the DMA hardware, so the problem kind of gets
-> fixed in the wrong place if the bounce buffer is in the DMA add-on
-> code.
-> 
-> Maybe this is how you fixed it in later patches, I'll take a look.
-
-I've pushed a new version there to correct latest remarks from Ulf:
-https://lore.kernel.org/all/20220328145114.334577-1-yann.gautier@foss.st.com/
-
-
-> 
-> Yours,
-> Linus Walleij
-
-Best regards,
-Yann
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+CgpPbiBUdWUsIDI5IE1hciAyMDIyLCBhdCAwMDoyMCwgSC4gTmlrb2xhdXMgU2NoYWxsZXIgd3Jv
+dGU6Cj4+IEFtIDI4LjAzLjIwMjIgdW0gMTU6MjEgc2NocmllYiBKb25hdGhhbiBOZXVzY2jDpGZl
+ciA8ai5uZXVzY2hhZWZlckBnbXgubmV0PjoKPj4gCj4+IE9yIG1heWJlIGJjbSBpbnN0ZWFkIG9m
+IGJyb2FkY29tLiBOb3Qgc3VyZSB3aGljaCBpcyBwcmVmZXJyZWQgYnkKPj4gQnJvYWRjb20gcGVv
+cGxlLgo+Cj4gTWF5YmUgaXQgc2hvdWxkIGFsd2F5cyBmb2xsb3cgdGhlIGxpc3Qgb2YgdmVuZG9y
+IHByZWZpeGVzIGFzIHdlIGFyZSAKPiB0YWxraW5nIGFib3V0IERUUz8KCisxIChpZiB3ZSdyZSBh
+Y3R1YWxseSBnb2luZyB0byBkbyB0aGlzKS4gVGhhdCB3b3VsZCBuZXV0ZXIgbW9zdCB0aGUgCm1p
+c3Rha2VzIGFuZCBkaXNjdXNzaW9uIGFuZCBjYW4gYmUgZXh0cmFjdGVkIGZyb20gdGhlIGR0cyBm
+aWxlcyAKdGhlbXNlbHZlcy4KCkFuZHJldwpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3Qt
+bWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBs
+eS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
