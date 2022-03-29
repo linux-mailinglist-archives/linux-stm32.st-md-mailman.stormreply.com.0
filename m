@@ -2,57 +2,71 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0F7544EB2B9
-	for <lists+linux-stm32@lfdr.de>; Tue, 29 Mar 2022 19:33:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6AF234EB519
+	for <lists+linux-stm32@lfdr.de>; Tue, 29 Mar 2022 23:17:07 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BBB53C5EC6B;
-	Tue, 29 Mar 2022 17:33:35 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1A192C5EC6B;
+	Tue, 29 Mar 2022 21:17:07 +0000 (UTC)
+Received: from mail-yb1-f176.google.com (mail-yb1-f176.google.com
+ [209.85.219.176])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AFBA7C5AB61
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B103BC5EC47
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 29 Mar 2022 17:33:34 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 26350B816FE;
- Tue, 29 Mar 2022 17:33:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D0C62C2BBE4;
- Tue, 29 Mar 2022 17:33:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1648575212;
- bh=ImLZ7XYxLjoICwbUH/PGLevWhdjBi7z3FcW2zXFX7As=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=J1V62gRYOch4F0yLlbgyUFLr6jdpkJPQwAr/s77QZ97iUxIMZ6l6lsIUwSOCItZ7X
- bHkE+vGYsAHLEgGQ653AwiJTIvABNWRGTy0xuUbNqTrdmju6ZxlItK3W3HNsnk+hpu
- nF9BoeMtE1PSIW/pdF04mpPDxrhT1hAm+FEazkyjUwjMGnqOLoOM/DaSTQBfrAPK0T
- zQ66Xfq8SujJVGdsaw5BDW3Eji87gcOodHF80jAhDs+XwLsi1DBztMVjyFGA+VB3Dg
- B0dLhBS9r+uv1DYIS0GeMxGYrwy5DBeDM2cOgPk0rtS0poi/z46W/I48qOxH2FqoKf
- QZ+RfzzJ4BSBA==
-Date: Tue, 29 Mar 2022 23:03:22 +0530
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Yann Gautier <yann.gautier@foss.st.com>, ulf.hansson@linaro.org
-Message-ID: <20220329173322.GC58120@thinkpad>
+ Tue, 29 Mar 2022 21:17:04 +0000 (UTC)
+Received: by mail-yb1-f176.google.com with SMTP id t11so33782276ybi.6
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 29 Mar 2022 14:17:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=1NmdHbhnl/vRItSEWqZfS578eYz0Ln76M7w3+17SBng=;
+ b=nnNp2K9C0PhtBCZ9DlF+5HkNtJtSFxGCTe+rj/yzMLI7t8hiUYwTIqIX7DjUb2Ej+l
+ YZJn4iEApNAcehGis3mzjUOYIlnzVRouSbGMm6iXFNxUZ+KoTMHAVElD+A4wwZmCd/B0
+ eEEbLLsLZFZEcsXXT0Lo5ktPGfgsMiW2ylL9g+GOabkqDWyMZ1h1SM1Pf4lmXgs/D+7I
+ gXS3N7nI5IDy0LRBZ4AehTCJ1hAF298ax1wzj0Ii9zBxM8U3GjQ0lFRhOsj8guh34ZnJ
+ wCCDM9vUrfgM5TSoshOYj3qBD4m2Ny8MZNGXo+h+RQmlgcxRSkD4XP6KR3exbwSYnVXH
+ m04Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=1NmdHbhnl/vRItSEWqZfS578eYz0Ln76M7w3+17SBng=;
+ b=O+CjNHv5bxoHLoKs2su/dT7hE3ioNc9IyArYxqyox0q4g9vKXwvYlvEHD38Q422TwW
+ Ha2VEYCJ4bfpzZKfQqOVP+uioad5ROa5S6kTB7WI5kybfNbJjbVrvNl/U3wFlR/LOnmT
+ 57PKeD1bJRGRMQ8vYSQ2q8m0h8/pIZAi9N9Iix4oDT5/TClvPA5KPlLY/DfrOfLkoHrU
+ y3Yt1hsNnNJdRF/Td37cvoTvFDloCFkf1rGxlM2eDcOmm8e55FGCEaGsTdgyeBRzYI2b
+ o6zH0/NXgekJZf+dKBBKxdfmOpLO3PGQnHsIh/ROzRSXRNc8bJ7RxUU7FYo6YATbZNnN
+ Chxw==
+X-Gm-Message-State: AOAM532usOzXR+89xPKQO6CHKZRW9roxHd82RbcN1cau5s5PjoZQrGu8
+ /p+DnjA68wGLXeRDSGg+F+YOvgtSkVrh+G26fXuTwg==
+X-Google-Smtp-Source: ABdhPJykJ5Ut7PIceBwZraoLzJOYrOlgWf2VUP56VuJtpRcHz881r39za7FgGIqkZzFEF9YvREaj+sXPJsynCiusvbw=
+X-Received: by 2002:a25:2497:0:b0:633:c1d0:e7bb with SMTP id
+ k145-20020a252497000000b00633c1d0e7bbmr30780376ybk.291.1648588623439; Tue, 29
+ Mar 2022 14:17:03 -0700 (PDT)
+MIME-Version: 1.0
 References: <20220304135134.47827-1-yann.gautier@foss.st.com>
  <20220304135134.47827-2-yann.gautier@foss.st.com>
  <CACRpkdYQz+-im3n-r0_8RKL7so2bHS=aZobty4BbzixmPzms-Q@mail.gmail.com>
  <0bc53018-fce4-4104-fa47-6e60d2367d69@foss.st.com>
  <20220329153114.GA58120@thinkpad>
  <71b10ce2-7b87-14d5-c8e4-3a4598c889e0@foss.st.com>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <71b10ce2-7b87-14d5-c8e4-3a4598c889e0@foss.st.com>
+ <20220329173322.GC58120@thinkpad>
+In-Reply-To: <20220329173322.GC58120@thinkpad>
+From: Linus Walleij <linus.walleij@linaro.org>
+Date: Tue, 29 Mar 2022 23:16:51 +0200
+Message-ID: <CACRpkdaiOhMGzuWPwoRLZ05HyM8BO_-cZt4TiAqAYQvDaJA-mA@mail.gmail.com>
+To: Manivannan Sadhasivam <mani@kernel.org>,
+ Srini Kandagatla <srinivas.kandagatla@linaro.org>
 Cc: Ludovic Barre <ludovic.barre@foss.st.com>, devicetree@vger.kernel.org,
- Marek Vasut <marex@denx.de>, Philipp Zabel <p.zabel@pengutronix.de>,
- Linus Walleij <linus.walleij@linaro.org>,
+ ulf.hansson@linaro.org, Marek Vasut <marex@denx.de>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
  Grzegorz Szymaszek <gszymaszek@short.pl>, linux-mmc@vger.kernel.org,
  linux-kernel@vger.kernel.org, kernel@dh-electronics.com,
  Rob Herring <robh+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Russell King <linux@armlinux.org.uk>, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
 Subject: Re: [Linux-stm32] [PATCH 1/3] dt-bindings: mmc: mmci: add a
- property to disable DMA LLI
+	property to disable DMA LLI
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,84 +83,26 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Mar 29, 2022 at 06:00:26PM +0200, Yann Gautier wrote:
-> On 3/29/22 17:31, Manivannan Sadhasivam wrote:
-> > On Tue, Mar 15, 2022 at 09:26:01AM +0100, Yann Gautier wrote:
-> > > On 3/14/22 23:43, Linus Walleij wrote:
-> > > > "On Fri, Mar 4, 2022 at 2:52 PM Yann Gautier <yann.gautier@foss.st.com> wrote:
-> > > > 
-> > > > > On STMicroelectronics variant of PL18x, the DMA Linked Lists are supported
-> > > > > starting from revision v2 of the peripheral. But it has limitations,
-> > > > > as all the buffers should be aligned on block size (except the last one).
-> > > > > But this cannot be guaranteed with SDIO. We should then have a property
-> > > > > to disable the support of LLI.
-> > > > > 
-> > > > > Signed-off-by: Yann Gautier <yann.gautier@foss.st.com>
-> > > > 
-> > > > Actually I think this is present also on the ux500 variants. See:
-> > > > commit 2253ed4b36dc876d1598c4dab5587e537ec68c34
-> > > > "mmc: mmci: Support any block sizes for ux500v2 and qcom variant"
-> > > > 
-> > > > Spot the variant data "dma_power_of_2".
-> > > > 
-> > > > So whatever property you add
-> > > > to the variant data (not in the device tree please) should
-> > > > be added to the ux500 variants as well, it will *VERY* likely
-> > > > have a problem with LLI elements not being a power of 2
-> > > > as it is the ancestor of later STMicro variants.
-> > > > 
-> > > > It might actually be the reason for some annoying WiFi error
-> > > > messages I have seen :/
-> > > > 
-> > > > Yours,
-> > > > Linus Walleij
-> > > 
-> > > Hi Linus,
-> > > 
-> > > The STM32 variant uses an internal DMA, and the DMA functions are in its
-> > > dedicated file. So I was planning to do the same as what is done in
-> > > meson-gx-mmc.c: using a bounce buffer to copy from/to in case DMA
-> > > constraints are not fulfilled. Not sure it can help for Ux500.
-> > > 
-> 
-> Hi Mani,
-> 
-> > 
-> > Irrelevant to this patch: May I know why the internal DMA cannot be represented
-> > as a dmaengine driver? We started seeing these internal DMA implementations in
-> > the other subsystems as well with pointers towards MMC core [1].
-> 
-> As for Prabhakar's answer, the IDMA here is inside our IP, and not used in
-> any other IP. So I'm not sure it is really relevant to move that to another
-> dmaengine driver.
-> 
+On Tue, Mar 29, 2022 at 7:33 PM Manivannan Sadhasivam <mani@kernel.org> wrote:
+> [Yann]
+> > As for Prabhakar's answer, the IDMA here is inside our IP, and not used in
+> > any other IP. So I'm not sure it is really relevant to move that to another
+> > dmaengine driver.
+>
+> Okay, I think this justification makes sense. I was worried of DMA IPs that get
+> sandwiched into many peripherals like the one on Renesas platforms. It turned
+> out that each subsystem has to add internal DMA support for it :/
 
-Okay, I think this justification makes sense. I was worried of DMA IPs that get
-sandwiched into many peripherals like the one on Renesas platforms. It turned
-out that each subsystem has to add internal DMA support for it :/
+That is a justified worry.
 
-Ulf, your thoughts?
+Qualcomm has "BAM DMA" (I think it is called?) which is added to each IP
+that needs DMA. drivers/mmc/host/mmci_qcom_dml.c
+It's for older Qualcomm platforms but I *think* it is actually not just used
+for the MMCI, just noone ever got around to adding it to any other
+peripheral? Srini do you know?
 
-Thanks,
-Mani
-
-> > 
-> > Thanks,
-> > Mani
-> 
-> Best regards,
-> Yann
-> 
-> > 
-> > [1] https://lore.kernel.org/all/CA+V-a8tfUgvzPyMe_FHuz=8mmC6dPHP7E=e+nCzOey04vCcAkg@mail.gmail.com/
-> > 
-> > > Ulf, before I send my new series (although it is not ready yet), would you
-> > > be OK with the bounce buffer idea?
-> > > 
-> > > 
-> > > Best regards,
-> > > Yann
-> 
+Yours,
+Linus Walleij
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
