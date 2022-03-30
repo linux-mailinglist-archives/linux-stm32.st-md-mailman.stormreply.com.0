@@ -2,86 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D0BCA4EBE5E
-	for <lists+linux-stm32@lfdr.de>; Wed, 30 Mar 2022 12:08:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8D6D04EBE49
+	for <lists+linux-stm32@lfdr.de>; Wed, 30 Mar 2022 12:04:35 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8F399C6046A;
-	Wed, 30 Mar 2022 10:08:34 +0000 (UTC)
-Received: from mail-qv1-f46.google.com (mail-qv1-f46.google.com
- [209.85.219.46])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 45B6FC6046A;
+	Wed, 30 Mar 2022 10:04:35 +0000 (UTC)
+Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 02054C60465
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B1BFAC01577
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 30 Mar 2022 10:08:32 +0000 (UTC)
-Received: by mail-qv1-f46.google.com with SMTP id k7so16455389qvc.4
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 30 Mar 2022 03:08:32 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=xxF35tmxxnkPH4ZK5NEAQj60FJRzpVvnSJO5oaHeufw=;
- b=ZavW8iCprWiNKv+6SyRthK8jxtXPZ4KKWqxqqj2nj5q2Ftya1Chba1+ekFdCm5jlKU
- 36IOxL7V6NravJp8zYcJtW1Gorn94YFUjOifYfYDH91sglvhZCmhlYLN6x0LrEOuKbNh
- ux6njFBgnELAxr6ZIn8nlhR8nRd2tI/I/qrzzgyLcJ9ZXjS/CmSidZv8GHLNhtHsFbm+
- +9tkHchbKQWUsO3m911x3uE2uo5CUKS+PpyRv0a5/mthzAwo2kQMH1TtgHdnx/tA6pIk
- poLjCKMwIkkPB6WujP9TFVZr+6sWmZibDxNnpIk6sf61NobZa7OK83DxT7u6YfFN3LXX
- HDAw==
-X-Gm-Message-State: AOAM5336+rHiQOGiYcEEgy0d+g3Iri4NkJ3ECLxYdnDu1jOARge6STVs
- 4D0DAzeq7BA4cFOlUFLz0S8PDY7VUZNN2w==
-X-Google-Smtp-Source: ABdhPJxetZkfuM83Njo0DYnwb4yKfGgUJ+/G1GSIyA5LHiw7L0JkDH9C4A9Za3LQWNqqMdT4s7G6Mw==
-X-Received: by 2002:a05:6214:2343:b0:43d:684c:f538 with SMTP id
- hu3-20020a056214234300b0043d684cf538mr30552975qvb.58.1648634911689; 
- Wed, 30 Mar 2022 03:08:31 -0700 (PDT)
-Received: from mail-yw1-f179.google.com (mail-yw1-f179.google.com.
- [209.85.128.179]) by smtp.gmail.com with ESMTPSA id
- b21-20020a05620a04f500b0067b4895472esm10780245qkh.5.2022.03.30.03.08.31
- for <linux-stm32@st-md-mailman.stormreply.com>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 30 Mar 2022 03:08:31 -0700 (PDT)
-Received: by mail-yw1-f179.google.com with SMTP id
- 00721157ae682-2d07ae0b1c4so212120937b3.11
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 30 Mar 2022 03:08:31 -0700 (PDT)
-X-Received: by 2002:a0d:ccd6:0:b0:2e7:98e2:a5a2 with SMTP id
- o205-20020a0dccd6000000b002e798e2a5a2mr28100571ywd.479.1648634538529; Wed, 30
- Mar 2022 03:02:18 -0700 (PDT)
+ Wed, 30 Mar 2022 10:04:33 +0000 (UTC)
+X-UUID: 141e6664f8144520a58982e68a60501a-20220330
+X-UUID: 141e6664f8144520a58982e68a60501a-20220330
+Received: from mtkmbs10n1.mediatek.inc [(172.21.101.34)] by
+ mailgw01.mediatek.com (envelope-from <jason-jh.lin@mediatek.com>)
+ (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
+ with ESMTP id 1238358222; Wed, 30 Mar 2022 18:04:29 +0800
+Received: from mtkcas11.mediatek.inc (172.21.101.40) by
+ mtkmbs07n2.mediatek.inc (172.21.101.141) with Microsoft SMTP Server (TLS) id
+ 15.0.1497.2; Wed, 30 Mar 2022 18:04:27 +0800
+Received: from mtksdccf07 (172.21.84.99) by mtkcas11.mediatek.inc
+ (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via Frontend
+ Transport; Wed, 30 Mar 2022 18:04:27 +0800
+Message-ID: <97bc1358813a2449d6e62653eb7af9906dfb190e.camel@mediatek.com>
+From: Jason-JH Lin <jason-jh.lin@mediatek.com>
+To: CK Hu <ck.hu@mediatek.com>, Rob Herring <robh+dt@kernel.org>, "Matthias
+ Brugger" <matthias.bgg@gmail.com>, Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>, AngeloGioacchino Del Regno
+ <angelogioacchino.delregno@collabora.com>
+Date: Wed, 30 Mar 2022 18:04:27 +0800
+In-Reply-To: <b9ed8c1511ea26c070dd3fb61f4370e5f858058c.camel@mediatek.com>
+References: <20220307032859.3275-1-jason-jh.lin@mediatek.com>
+ <20220307032859.3275-5-jason-jh.lin@mediatek.com>
+ <a068f2c9b2111f3a7a20da19073ef5fdb7f4a91f.camel@mediatek.com>
+ <b9ed8c1511ea26c070dd3fb61f4370e5f858058c.camel@mediatek.com>
+X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.2 
 MIME-Version: 1.0
-References: <20220329152926.50958-1-andriy.shevchenko@linux.intel.com>
- <20220329152926.50958-3-andriy.shevchenko@linux.intel.com>
-In-Reply-To: <20220329152926.50958-3-andriy.shevchenko@linux.intel.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Wed, 30 Mar 2022 12:02:07 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdWFENTrXsYq3PKRFBqUL570-pPMG43Vct62=U9cyyF0yQ@mail.gmail.com>
-Message-ID: <CAMuHMdWFENTrXsYq3PKRFBqUL570-pPMG43Vct62=U9cyyF0yQ@mail.gmail.com>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Andrew Lunn <andrew@lunn.ch>, Tomer Maimon <tmaimon77@gmail.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Neil Armstrong <narmstrong@baylibre.com>,
- Linus Walleij <linus.walleij@linaro.org>, Tomasz Figa <tomasz.figa@gmail.com>,
- Tali Perry <tali.perry1@gmail.com>,
- Sylwester Nawrocki <s.nawrocki@samsung.com>,
- linux-stm32@st-md-mailman.stormreply.com, Jerome Brunet <jbrunet@baylibre.com>,
- linux-samsung-soc <linux-samsung-soc@vger.kernel.org>,
- Benjamin Fair <benjaminfair@google.com>, Kevin Hilman <khilman@baylibre.com>,
- openbmc@lists.ozlabs.org, Krzysztof Kozlowski <krzk@kernel.org>,
- Nancy Yuen <yuenn@google.com>, Bartosz Golaszewski <brgl@bgdev.pl>,
- Alim Akhtar <alim.akhtar@samsung.com>,
- Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
- Qianggui Song <qianggui.song@amlogic.com>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
- "open list:ARM/Amlogic Meson..." <linux-amlogic@lists.infradead.org>,
- Linux ARM <linux-arm-kernel@lists.infradead.org>,
- Avi Fishman <avifishman70@gmail.com>, Patrick Venture <venture@google.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Linux-Renesas <linux-renesas-soc@vger.kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Gregory Clement <gregory.clement@bootlin.com>
-Subject: Re: [Linux-stm32] [PATCH v2 02/13] gpiolib: Introduce
-	gpiochip_node_count() helper
+X-MTK: N
+Cc: devicetree@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ fshao@chromium.org, David Airlie <airlied@linux.ie>,
+ linux-kernel@vger.kernel.org, singo.chang@mediatek.com,
+ roy-cw.yeh@mediatek.com, Project_Global_Chrome_Upstream_Group@mediatek.com,
+ Fabien Parent <fparent@baylibre.com>, moudy.ho@mediatek.com,
+ linux-mediatek@lists.infradead.org, Daniel Vetter <daniel@ffwll.ch>,
+ hsinyi@chromium.org, nancy.lin@mediatek.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v16 4/8] soc: mediatek: add mtk-mmsys
+ support for mt8195 vdosys0
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,55 +66,104 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Andy,
+Hi CK,
 
-On Tue, Mar 29, 2022 at 5:29 PM Andy Shevchenko
-<andriy.shevchenko@linux.intel.com> wrote:
-> The gpiochip_node_count() helper iterates over the device child nodes that
-> have the "gpio-controller" property set. It returns the number of such nodes
-> under a given device.
->
-> Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Thanks for the review.
 
-Thanks for your patch!
+On Mon, 2022-03-28 at 13:39 +0800, CK Hu wrote:
+> Hi, Jason:
+> 
+> On Mon, 2022-03-28 at 13:03 +0800, Jason-JH Lin wrote:
+> > Hi CK,
+> > 
+> > Thanks for the reviews.
+> > 
+> > On Mon, 2022-03-07 at 11:28 +0800, jason-jh.lin wrote:
+> > > Add mt8195 vdosys0 clock driver name and routing table to
+> > > the driver data of mtk-mmsys.
+> > > 
+> > > Signed-off-by: jason-jh.lin <jason-jh.lin@mediatek.com>
+> > > Acked-by: AngeloGioacchino Del Regno <
+> > > angelogioacchino.delregno@collabora.com>
+> > > ---
+> > > Impelmentation patch of vdosys1 can be refered to [1]
+> > > 
+> > > [1] soc: mediatek: add mtk-mmsys support for mt8195 vdosys1
+> > > ---
+> > >  drivers/soc/mediatek/mt8195-mmsys.h    | 130
+> > > +++++++++++++++++++++++++
+> > >  drivers/soc/mediatek/mtk-mmsys.c       |  11 +++
+> > >  include/linux/soc/mediatek/mtk-mmsys.h |   9 ++
+> > >  3 files changed, 150 insertions(+)
+> > >  create mode 100644 drivers/soc/mediatek/mt8195-mmsys.h
+> > > 
+> > > diff --git a/drivers/soc/mediatek/mt8195-mmsys.h
+> > > b/drivers/soc/mediatek/mt8195-mmsys.h
+> > > new file mode 100644
+> > > index 000000000000..24a3afe23bc8
+> > > --- /dev/null
+> > > +++ b/drivers/soc/mediatek/mt8195-mmsys.h
+> > > @@ -0,0 +1,130 @@
+> > > +/* SPDX-License-Identifier: GPL-2.0-only */
+> > > +
+> > > +#ifndef __SOC_MEDIATEK_MT8195_MMSYS_H
+> > > +#define __SOC_MEDIATEK_MT8195_MMSYS_H
+> > > +
+> > > +#define MT8195_VDO0_OVL_MOUT_EN					
+> > > 0xf14
+> > > +#define MT8195_MOUT_DISP_OVL0_TO_DISP_RDMA0			
+> > > BIT(0)
+> > > +#define MT8195_MOUT_DISP_OVL0_TO_DISP_WDMA0			
+> > > BIT(1)
+> > >  
+> > > Useless, so remove.
+> > > 
+> > > +#define MT8195_MOUT_DISP_OVL0_TO_DISP_OVL1			
+> > > BIT(2)
+> > > Ditto.Useless, so remove.
+> > > Regards,
+> > > CK
+> > 
+> > Although these definitions are not used, they represent the
+> > functionality provided by this register.
+> > 
+> > I think we can show that we have these capabilities by defining
+> > them.
+> > 
+> > Can we keep these definitions?
+> 
+> It's better that we know how to use it. Even though the symbol name
+> show some information, but I would like to add it to
+> mmsys_mt8195_routing_table[].
+> 
+> Regards,
+> CK
+> 
 
-> --- a/include/linux/gpio/driver.h
-> +++ b/include/linux/gpio/driver.h
-> @@ -755,4 +755,16 @@ static inline void gpiochip_unlock_as_irq(struct gpio_chip *gc,
->         device_for_each_child_node(dev, child)                                  \
->                 if (!fwnode_property_present(child, "gpio-controller")) {} else
->
-> +static inline unsigned int gpiochip_node_count(struct device *dev)
-> +{
-> +       struct fwnode_handle *child;
-> +       unsigned int count;
+OK, I think I just remove the useless define.
+Thanks.
 
-Preinitialize to zero?
+Regards,
+Jason-JH.Lin
+> > 
+> > Regards,
+> > Jason-JH.Lin
+> > 
+> > > +#define MT8195_MOUT_DISP_OVL1_TO_DISP_RDMA1			
+> > > BIT(4)
+> > > +#define MT8195_MOUT_DISP_OVL1_TO_DISP_WDMA1			
+> > > BIT(5)
+> > > +#define MT8195_MOUT_DISP_OVL1_TO_DISP_OVL0			
+> > > BIT(6)
+> > 
+> > 
+> > [snip]
+> > 
+> 
+> 
+-- 
+Jason-JH Lin <jason-jh.lin@mediatek.com>
 
-> +
-> +       count = 0;
-> +       for_each_gpiochip_node(dev, child)
-> +               count++;
-> +
-> +       return count;
-> +}
-> +
->  #endif /* __LINUX_GPIO_DRIVER_H */
-
-Regardless:
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-Tested-by: Geert Uytterhoeven <geert+renesas@glider.be>
-
-Gr{oetje,eeting}s,
-
-                        Geert
-
---
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
