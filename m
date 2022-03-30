@@ -2,74 +2,55 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D59A24EBD40
-	for <lists+linux-stm32@lfdr.de>; Wed, 30 Mar 2022 11:09:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 96F774EBD79
+	for <lists+linux-stm32@lfdr.de>; Wed, 30 Mar 2022 11:19:41 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8E8ABC60467;
-	Wed, 30 Mar 2022 09:09:16 +0000 (UTC)
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
- [209.85.128.54])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4A32DC60467;
+	Wed, 30 Mar 2022 09:19:41 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4A469C60464
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E0CC3C60464
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 30 Mar 2022 09:09:14 +0000 (UTC)
-Received: by mail-wm1-f54.google.com with SMTP id
- n63-20020a1c2742000000b0038d0c31db6eso3026060wmn.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 30 Mar 2022 02:09:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre-com.20210112.gappssmtp.com; s=20210112;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:organization:in-reply-to
- :content-transfer-encoding;
- bh=pF/hvrI7qLDjIFK1PZiWN5svxVn5RrF/RKLGWeqqmq0=;
- b=YwlT6ooY5LZVCud47hjD3kjq5J2PtJRsbEtQHc6vflzUEeEpN8odscB+zjLMBN7stW
- hYn47ImQM/UY4YJ1Ru6twpC8LiFoOQ8LprNtUBavXaqVWHgOHFlbzCx756jylJNV3Yp9
- 6/9t/A3XxA9qdzKF5+nCdP5aHR6tEF5+2GcZZVgmxJOEDmnwspBqLlcncg6zkL5ilwWr
- b8vlsb4NIVa9svDY8Wdm1gBQxnVAyl5MhAotSnIYqI7Rl+CvQLVQwExfQ3/PiXBnqQzn
- T//pXYch9DcznS2bDu+JjS2n2XbBY2N86LVJfZG6+M4SUbkHIk7q/1YDNmFmMZKmzNZj
- 1oFQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:organization:in-reply-to
- :content-transfer-encoding;
- bh=pF/hvrI7qLDjIFK1PZiWN5svxVn5RrF/RKLGWeqqmq0=;
- b=UaDFzbXKljnwFcRS9pl7E5W3PFWhZ8NePaON99ogUfC2GV1K1gbMy0NlGNi2cNzCS5
- 96FKf7OnaZ3TxqCBovyOTYDuqsYdBCtvMpm9B5RFjN7yzrgAodMpS9NYcezbD9QiPpr3
- XOuH83KcER8DUVy+f2ZTsRUdd+ebe3xqBAHNxHVtr7EeViBzO1o0n+QlxbzFPJmckIX/
- 63/o4k3xedQhtYTfxVQBRw4uCCdulOj8v/SpNdh2M/BuNghSSXGc1wO7EwXYGmXKnZRj
- X4jfDmPCL5wv7Vj+9jZ5oGQIlcpGf5BNY4dXWf59KdOQkjXSGbsU6GZwHd7vJm/LnbDA
- h+Cw==
-X-Gm-Message-State: AOAM531eJ03FrGX3gjSYdy0PXzMOEyMjAgXoGSLZDRltTM/0uKDSLu+z
- wZ2+sxfM+O0ZzgrqgFaNoRKHLg==
-X-Google-Smtp-Source: ABdhPJziTOza5+DSVLs+SpPhhmrhW5VtbyiLFPjGbJGLbqWH/uguopC9MkTPv25t1gHAv/kwvQCSyg==
-X-Received: by 2002:a7b:c778:0:b0:38c:9064:89fc with SMTP id
- x24-20020a7bc778000000b0038c906489fcmr3396059wmk.175.1648631353152; 
- Wed, 30 Mar 2022 02:09:13 -0700 (PDT)
-Received: from ?IPV6:2001:861:44c0:66c0:e47f:3cdb:5811:cee8?
- ([2001:861:44c0:66c0:e47f:3cdb:5811:cee8])
- by smtp.gmail.com with ESMTPSA id
- n8-20020a5d5988000000b00203d5f1f3e4sm18249681wri.105.2022.03.30.02.09.11
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 30 Mar 2022 02:09:12 -0700 (PDT)
-Message-ID: <1b0bc704-a740-ea15-1e90-166905be27d0@baylibre.com>
-Date: Wed, 30 Mar 2022 11:09:11 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
-Content-Language: en-US
-To: Geert Uytterhoeven <geert@linux-m68k.org>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+ Wed, 30 Mar 2022 09:19:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1648631980; x=1680167980;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=CexHFbKj9fB0vNoQokL/+22Rm+MDw+vDfIRSUuljC98=;
+ b=C56DLKDgo7Nqvzv/GJkQTubGNSqqab934zQE9JyIRTkORX+BhF6m9wZQ
+ dDVLagTBUjNnIB0U8hmwAl4jZ2MPSXTEJE/aDMfj81fEIlZAd9S+/zn+T
+ cWpgjVAHHcNB/bQOxskKEuwjWRKjBLc3ObpOzC6qh8JUWfCKi70M3jI/R
+ wM3eiwy+IpsL7i+7pIRnWRYeWuDupGDvCPuckLY7Juny8Diu4hu1K6n8e
+ 2HUZts2I/94qj3YyFVkvlyvZk5dkM7ER5hPxMRYfqZeZWNJyJ9ZHxvPko
+ /2VsJmht6iYR7t7JF2KWIG6rbC6c3KCsiX9Re8wbEI+ZyGGlBmUV7oGyW A==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10301"; a="284402004"
+X-IronPort-AV: E=Sophos;i="5.90,222,1643702400"; d="scan'208";a="284402004"
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Mar 2022 02:19:37 -0700
+X-IronPort-AV: E=Sophos;i="5.90,222,1643702400"; d="scan'208";a="503246100"
+Received: from smile.fi.intel.com ([10.237.72.59])
+ by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Mar 2022 02:19:30 -0700
+Received: from andy by smile.fi.intel.com with local (Exim 4.95)
+ (envelope-from <andriy.shevchenko@linux.intel.com>)
+ id 1nZUTf-009J1d-AZ; Wed, 30 Mar 2022 12:18:55 +0300
+Date: Wed, 30 Mar 2022 12:18:55 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Neil Armstrong <narmstrong@baylibre.com>
+Message-ID: <YkQgfwUs8KbhF/b/@smile.fi.intel.com>
 References: <20220329152926.50958-1-andriy.shevchenko@linux.intel.com>
  <20220329152926.50958-10-andriy.shevchenko@linux.intel.com>
  <94e888fe-d8fc-5379-302f-66d64f2ae10b@baylibre.com>
  <YkM22GwhxV+YKl8l@smile.fi.intel.com>
  <CAMuHMdWVA834tkeag=WOnHFGuhwZ93PkrgO24OV69Fye1hruLw@mail.gmail.com>
-From: Neil Armstrong <narmstrong@baylibre.com>
-Organization: Baylibre
-In-Reply-To: <CAMuHMdWVA834tkeag=WOnHFGuhwZ93PkrgO24OV69Fye1hruLw@mail.gmail.com>
+ <1b0bc704-a740-ea15-1e90-166905be27d0@baylibre.com>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <1b0bc704-a740-ea15-1e90-166905be27d0@baylibre.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Cc: Andrew Lunn <andrew@lunn.ch>, Tomer Maimon <tmaimon77@gmail.com>,
  Geert Uytterhoeven <geert+renesas@glider.be>,
  Linus Walleij <linus.walleij@linaro.org>, Tomasz Figa <tomasz.figa@gmail.com>,
@@ -80,7 +61,8 @@ Cc: Andrew Lunn <andrew@lunn.ch>, Tomer Maimon <tmaimon77@gmail.com>,
  Benjamin Fair <benjaminfair@google.com>, Kevin Hilman <khilman@baylibre.com>,
  Gregory Clement <gregory.clement@bootlin.com>,
  Krzysztof Kozlowski <krzk@kernel.org>, Nancy Yuen <yuenn@google.com>,
- Bartosz Golaszewski <brgl@bgdev.pl>, Alim Akhtar <alim.akhtar@samsung.com>,
+ Bartosz Golaszewski <brgl@bgdev.pl>, Geert Uytterhoeven <geert@linux-m68k.org>,
+ Alim Akhtar <alim.akhtar@samsung.com>,
  Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
  Qianggui Song <qianggui.song@amlogic.com>,
  Philipp Zabel <p.zabel@pengutronix.de>,
@@ -105,61 +87,58 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 30/03/2022 10:54, Geert Uytterhoeven wrote:
-> Hi Andy,
-> 
-> On Tue, Mar 29, 2022 at 6:47 PM Andy Shevchenko
-> <andriy.shevchenko@linux.intel.com> wrote:
->> On Tue, Mar 29, 2022 at 06:13:19PM +0200, Neil Armstrong wrote:
->>> On 29/03/2022 17:29, Andy Shevchenko wrote:
->>>> Rename REG_* to * as a prerequisite for enabling COMPILE_TEST.
->>>
->>> What error do you hit ?
->>
->> arch/x86/include/asm/arch_hweight.h:9:17: error: expected identifier before string constant
->> 9 | #define REG_OUT "a"
->>    |                 ^~~
-> 
-> Perhaps REG_{OUT,IN} in arch/x86/include/asm/arch_hweight.h should be
-> renamed instead, as this is a generic header file that can be included
-> anywhere, while the REG_{OUT,IN} definitions are only used locally,
-> in the header file?
+On Wed, Mar 30, 2022 at 11:09:11AM +0200, Neil Armstrong wrote:
+> On 30/03/2022 10:54, Geert Uytterhoeven wrote:
+> > On Tue, Mar 29, 2022 at 6:47 PM Andy Shevchenko
+> > <andriy.shevchenko@linux.intel.com> wrote:
+> > > On Tue, Mar 29, 2022 at 06:13:19PM +0200, Neil Armstrong wrote:
+> > > > On 29/03/2022 17:29, Andy Shevchenko wrote:
 
-Even better, those REG_OUT/REG_IN should be undefined at the end of the header since only
-used in the headers inline functions:
-==============><==================================
-diff --git a/arch/x86/include/asm/arch_hweight.h b/arch/x86/include/asm/arch_hweight.h
-index ba88edd0d58b..139a4b0a2a14 100644
---- a/arch/x86/include/asm/arch_hweight.h
-+++ b/arch/x86/include/asm/arch_hweight.h
-@@ -52,4 +52,7 @@ static __always_inline unsigned long __arch_hweight64(__u64 w)
-  }
-  #endif /* CONFIG_X86_32 */
+...
 
-+#undef REG_IN
-+#undef REG_OUT
-+
-  #endif
-==============><==================================
+> > > > What error do you hit ?
+> > > 
+> > > arch/x86/include/asm/arch_hweight.h:9:17: error: expected identifier before string constant
+> > > 9 | #define REG_OUT "a"
+> > >    |                 ^~~
+> > 
+> > Perhaps REG_{OUT,IN} in arch/x86/include/asm/arch_hweight.h should be
+> > renamed instead, as this is a generic header file that can be included
+> > anywhere, while the REG_{OUT,IN} definitions are only used locally,
+> > in the header file?
+> 
+> Even better, those REG_OUT/REG_IN should be undefined at the end of the header since only
+> used in the headers inline functions:
+> ==============><==================================
+> diff --git a/arch/x86/include/asm/arch_hweight.h b/arch/x86/include/asm/arch_hweight.h
+> index ba88edd0d58b..139a4b0a2a14 100644
+> --- a/arch/x86/include/asm/arch_hweight.h
+> +++ b/arch/x86/include/asm/arch_hweight.h
+> @@ -52,4 +52,7 @@ static __always_inline unsigned long __arch_hweight64(__u64 w)
+>  }
+>  #endif /* CONFIG_X86_32 */
+> 
+> +#undef REG_IN
+> +#undef REG_OUT
+> +
+>  #endif
+> ==============><==================================
 
-Neil
+Can you submit a formal patch, please?
 
-> 
-> Gr{oetje,eeting}s,
-> 
->                          Geert
-> 
-> --
-> Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-> 
-> In personal conversations with technical people, I call myself a hacker. But
-> when I'm talking to journalists I just say "programmer" or something like that.
->                                  -- Linus Torvalds
+
+And I think it would be good to have my patch as well, so we do not depend on
+the fate of the other one.
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
 
 _______________________________________________
 Linux-stm32 mailing list
