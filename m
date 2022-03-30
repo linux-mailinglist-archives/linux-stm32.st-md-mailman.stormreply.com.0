@@ -2,61 +2,78 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A639A4EBEE6
-	for <lists+linux-stm32@lfdr.de>; Wed, 30 Mar 2022 12:37:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2A87E4EBFE2
+	for <lists+linux-stm32@lfdr.de>; Wed, 30 Mar 2022 13:35:48 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5CA3AC60467;
-	Wed, 30 Mar 2022 10:37:09 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CE675C60467;
+	Wed, 30 Mar 2022 11:35:47 +0000 (UTC)
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EA4E0C60464
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D92EAC01577
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 30 Mar 2022 10:37:07 +0000 (UTC)
-Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 22U97xdG012932;
- Wed, 30 Mar 2022 12:36:47 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=from : to : cc :
- subject : date : message-id : mime-version : content-transfer-encoding :
- content-type; s=selector1;
- bh=d4JOb+YHVgrwP+08iqsQrB5MreHyNjkxKYaMVDOBz7o=;
- b=Qr1MR95AWC0XJrGwqmSl7B6W+eMtKVYe2AWGbrrubN0anGR3FrbdKKOXkaFrFGMXjxdE
- NBX+MA1BKZjwVg5hMlJAT0iHHZ4b0ue4FVNReguLmDI0e+bcTgrghPFancPtk3qT62SZ
- hNQP/Y4ySqceRZ2qRAzTVscehZrUJ2jFgM/RU/OrQ69mDdYGQTe6MeZEWAdvNLJO8zYN
- mQOFow6eulzujjBb9feE3Ta0HRBCC/yEgCmDaze1rdvo0X5Xm1gCdHuo4OPoo4tCNQux
- zaeV4L2xg478vju+Cc2oBplClP5oc1sv5j0vMtcRzrgUUZy6lQYL1fVX71R5WJvURl/H uA== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3f1s4pe9n1-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 30 Mar 2022 12:36:47 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 87C1710002A;
- Wed, 30 Mar 2022 12:36:46 +0200 (CEST)
-Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 7F7A521BF5E;
- Wed, 30 Mar 2022 12:36:46 +0200 (CEST)
-Received: from localhost (10.75.127.44) by SFHDAG2NODE2.st.com (10.75.127.5)
- with Microsoft SMTP Server (TLS) id 15.0.1497.26; Wed, 30 Mar 2022 12:36:46
- +0200
-From: Amelie Delaunay <amelie.delaunay@foss.st.com>
-To: Vinod Koul <vkoul@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-Date: Wed, 30 Mar 2022 12:36:45 +0200
-Message-ID: <20220330103645.99969-1-amelie.delaunay@foss.st.com>
-X-Mailer: git-send-email 2.25.1
+ Wed, 30 Mar 2022 11:35:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1648640146; x=1680176146;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=WvB6mJ9ryWwQ7CmVODZdOzNBEGHGFiTgCdDbkTsS7Js=;
+ b=Fuy/BXTpzFIFmrAZFdWCU5Qp+4QK3oC127c+5GMN14tBfm7FOlDH/q6K
+ OHEGtJeMBBwvDDG9co780PpEMAgZ1Ye8iKMpEidEIMVhVDhcOtLt6Xsyg
+ YlWDWo8b8ZN9KvjqL5TxsiYGpSp+9oOCa8nFFurlhNch8BrEXY18QkpME
+ UvV8xgS44ZRZ02z8XhMzJyaUPkbMwmDanTV80TG6ip8JLKiQ7BK2j7+K0
+ QADzIk9EdePXPB1ctkKnZEznqKdazrNjHpn7vhqUc8TGp5akuULIpiX9I
+ i3rbQl1mk5uT9svgozrv2yT0JH4B+OkrKxmAk2reSK00/avqSd/GMfvxv g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10301"; a="320219063"
+X-IronPort-AV: E=Sophos;i="5.90,222,1643702400"; d="scan'208";a="320219063"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Mar 2022 04:35:44 -0700
+X-IronPort-AV: E=Sophos;i="5.90,222,1643702400"; d="scan'208";a="519649292"
+Received: from smile.fi.intel.com ([10.237.72.59])
+ by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Mar 2022 04:35:35 -0700
+Received: from andy by smile.fi.intel.com with local (Exim 4.95)
+ (envelope-from <andriy.shevchenko@linux.intel.com>)
+ id 1nZWbM-009N8T-Sw; Wed, 30 Mar 2022 14:35:00 +0300
+Date: Wed, 30 Mar 2022 14:35:00 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+Message-ID: <YkRAZP+uTi6VUcDG@smile.fi.intel.com>
+References: <20220329152926.50958-1-andriy.shevchenko@linux.intel.com>
+ <20220329152926.50958-3-andriy.shevchenko@linux.intel.com>
+ <CAMuHMdWFENTrXsYq3PKRFBqUL570-pPMG43Vct62=U9cyyF0yQ@mail.gmail.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.44]
-X-ClientProxiedBy: SFHDAG2NODE2.st.com (10.75.127.5) To SFHDAG2NODE2.st.com
- (10.75.127.5)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.850,Hydra:6.0.425,FMLib:17.11.64.514
- definitions=2022-03-30_03,2022-03-30_01,2022-02-23_01
-Cc: dmaengine@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: [Linux-stm32] [PATCH] dmaengine: stm32-mdma: check the channel
-	availability (secure or not)
+Content-Disposition: inline
+In-Reply-To: <CAMuHMdWFENTrXsYq3PKRFBqUL570-pPMG43Vct62=U9cyyF0yQ@mail.gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+Cc: Andrew Lunn <andrew@lunn.ch>, Tomer Maimon <tmaimon77@gmail.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Neil Armstrong <narmstrong@baylibre.com>,
+ Linus Walleij <linus.walleij@linaro.org>, Tomasz Figa <tomasz.figa@gmail.com>,
+ Tali Perry <tali.perry1@gmail.com>,
+ Sylwester Nawrocki <s.nawrocki@samsung.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Jerome Brunet <jbrunet@baylibre.com>,
+ linux-samsung-soc <linux-samsung-soc@vger.kernel.org>,
+ Benjamin Fair <benjaminfair@google.com>, Kevin Hilman <khilman@baylibre.com>,
+ openbmc@lists.ozlabs.org, Krzysztof Kozlowski <krzk@kernel.org>,
+ Nancy Yuen <yuenn@google.com>, Bartosz Golaszewski <brgl@bgdev.pl>,
+ Alim Akhtar <alim.akhtar@samsung.com>,
+ Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
+ Qianggui Song <qianggui.song@amlogic.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
+ "open list:ARM/Amlogic Meson..." <linux-amlogic@lists.infradead.org>,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>,
+ Avi Fishman <avifishman70@gmail.com>, Patrick Venture <venture@google.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Linux-Renesas <linux-renesas-soc@vger.kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Gregory Clement <gregory.clement@bootlin.com>
+Subject: Re: [Linux-stm32] [PATCH v2 02/13] gpiolib: Introduce
+	gpiochip_node_count() helper
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,88 +90,33 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-STM32_MDMA_CCR bit[8] is used to enable Secure Mode (SM). If this bit is
-set, it means that all the channel registers are write-protected. So the
-channel is not available for Linux use.
+On Wed, Mar 30, 2022 at 12:02:07PM +0200, Geert Uytterhoeven wrote:
+> On Tue, Mar 29, 2022 at 5:29 PM Andy Shevchenko
+> <andriy.shevchenko@linux.intel.com> wrote:
 
-Add stm32_mdma_filter_fn() callback filter and give it to
-__dma_request_chan (instead of dma_get_any_slave_channel()), to exclude the
-channel if it is marked Secure.
+...
 
-Signed-off-by: Amelie Delaunay <amelie.delaunay@foss.st.com>
----
-Already sent few weeks ago. No change since
-https://lore.kernel.org/lkml/20220117100300.14150-1-amelie.delaunay@foss.st.com/
----
- drivers/dma/stm32-mdma.c | 21 ++++++++++++++++++++-
- 1 file changed, 20 insertions(+), 1 deletion(-)
+> > +       unsigned int count;
+> 
+> Preinitialize to zero?
 
-diff --git a/drivers/dma/stm32-mdma.c b/drivers/dma/stm32-mdma.c
-index 6f57ff0e7b37..95e5831e490a 100644
---- a/drivers/dma/stm32-mdma.c
-+++ b/drivers/dma/stm32-mdma.c
-@@ -73,6 +73,7 @@
- #define STM32_MDMA_CCR_WEX		BIT(14)
- #define STM32_MDMA_CCR_HEX		BIT(13)
- #define STM32_MDMA_CCR_BEX		BIT(12)
-+#define STM32_MDMA_CCR_SM		BIT(8)
- #define STM32_MDMA_CCR_PL_MASK		GENMASK(7, 6)
- #define STM32_MDMA_CCR_PL(n)		FIELD_PREP(STM32_MDMA_CCR_PL_MASK, (n))
- #define STM32_MDMA_CCR_TCIE		BIT(5)
-@@ -248,6 +249,7 @@ struct stm32_mdma_device {
- 	u32 nr_channels;
- 	u32 nr_requests;
- 	u32 nr_ahb_addr_masks;
-+	u32 chan_reserved;
- 	struct stm32_mdma_chan chan[STM32_MDMA_MAX_CHANNELS];
- 	u32 ahb_addr_masks[];
- };
-@@ -1456,10 +1458,23 @@ static void stm32_mdma_free_chan_resources(struct dma_chan *c)
- 	chan->desc_pool = NULL;
- }
- 
-+static bool stm32_mdma_filter_fn(struct dma_chan *c, void *fn_param)
-+{
-+	struct stm32_mdma_chan *chan = to_stm32_mdma_chan(c);
-+	struct stm32_mdma_device *dmadev = stm32_mdma_get_dev(chan);
-+
-+	/* Check if chan is marked Secure */
-+	if (dmadev->chan_reserved & BIT(chan->id))
-+		return false;
-+
-+	return true;
-+}
-+
- static struct dma_chan *stm32_mdma_of_xlate(struct of_phandle_args *dma_spec,
- 					    struct of_dma *ofdma)
- {
- 	struct stm32_mdma_device *dmadev = ofdma->of_dma_data;
-+	dma_cap_mask_t mask = dmadev->ddev.cap_mask;
- 	struct stm32_mdma_chan *chan;
- 	struct dma_chan *c;
- 	struct stm32_mdma_chan_config config;
-@@ -1485,7 +1500,7 @@ static struct dma_chan *stm32_mdma_of_xlate(struct of_phandle_args *dma_spec,
- 		return NULL;
- 	}
- 
--	c = dma_get_any_slave_channel(&dmadev->ddev);
-+	c = __dma_request_channel(&mask, stm32_mdma_filter_fn, &config, ofdma->of_node);
- 	if (!c) {
- 		dev_err(mdma2dev(dmadev), "No more channels available\n");
- 		return NULL;
-@@ -1615,6 +1630,10 @@ static int stm32_mdma_probe(struct platform_device *pdev)
- 	for (i = 0; i < dmadev->nr_channels; i++) {
- 		chan = &dmadev->chan[i];
- 		chan->id = i;
-+
-+		if (stm32_mdma_read(dmadev, STM32_MDMA_CCR(i)) & STM32_MDMA_CCR_SM)
-+			dmadev->chan_reserved |= BIT(i);
-+
- 		chan->vchan.desc_free = stm32_mdma_desc_free;
- 		vchan_init(&chan->vchan, dd);
- 	}
+Whatever for what consensus will be achieved. Initially I have that way,
+then I changed.
+
+> > +       count = 0;
+> > +       for_each_gpiochip_node(dev, child)
+> > +               count++;
+> 
+> Regardless:
+> Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+> Tested-by: Geert Uytterhoeven <geert+renesas@glider.be>
+
+Thanks!
+
 -- 
-2.25.1
+With Best Regards,
+Andy Shevchenko
+
 
 _______________________________________________
 Linux-stm32 mailing list
