@@ -2,42 +2,42 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0EFB94ECC9E
-	for <lists+linux-stm32@lfdr.de>; Wed, 30 Mar 2022 20:47:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1BDC24ECD99
+	for <lists+linux-stm32@lfdr.de>; Wed, 30 Mar 2022 21:59:32 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B80A2C6046A;
-	Wed, 30 Mar 2022 18:47:38 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BBA37C6046A;
+	Wed, 30 Mar 2022 19:59:31 +0000 (UTC)
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1BAE0C01577
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 34DE5C60465
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 30 Mar 2022 18:47:36 +0000 (UTC)
+ Wed, 30 Mar 2022 19:59:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1648666057; x=1680202057;
+ t=1648670370; x=1680206370;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:in-reply-to;
- bh=1gyOUmznH3pZBVK2tU7XqvNJ978LLkV6wParuR9BPcg=;
- b=OndB5kLfRBZ2QM3hkxkSokNYoyRyAe2v2Wn+T4B8PUjIOX9CVPTsJPV4
- +LP5rBRHNYXT6oroEBIqPosyNmkoNWNiu+JZtmZ87b5Ju3j5ht0ZekdwE
- 81mCsi36UdzcDrFO/9WXYiV7spf36hE0XbKnJy+pNSTRnib+IySZj/257
- ER6vDIB7jHv5e6Xgvi1ToXC3nLx5Eac06aeeiZtPhnWVEWsXbXjYxXuM2
- PNAIvlO5yKupUsTobrPXkTn5NtnLnK34WkbyKJVmsbE8JcJ5zMr1UMtMi
- YSL0aW0Chr4ua0SQ75Cgqioc7Br4/Hfd3PMilfjHrhaOzOtcFweP9G+Dm Q==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10302"; a="322801164"
-X-IronPort-AV: E=Sophos;i="5.90,223,1643702400"; d="scan'208";a="322801164"
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Mar 2022 11:47:35 -0700
+ bh=7tDoFQmVXXYn7rMUwMmyJcJFUqWlgwtXoTN80z/SlAk=;
+ b=nkWyWma1CEmPu0EoR9NvoGD6FGCvvmCKeTHJ/5O5xuFNbnj8AsATao+h
+ KWhTKceoda7rIju3wH/OilrYcxwmYK+V6eQ5bm6X9gu0VF75QcJViARsj
+ +3ndaKItxiiP+EX2tMZ5P60h9pZti3dOvN12lxlkzSXdLkjB8e6b6qREj
+ 6x2O2H+JBo8TkGtHJCutlqrYeiSYX3ftCSi1xxC0I7eJD/Kk3RuWNTp2j
+ OZtuHgxCEEpIqyJd3LsXl54YdD53dWDLQysfDZVqXhBglrNTJ1MsYUi3R
+ Fd2kvTBgsjpP1GYP9HZuDX3y74Ic+jLCtBCyxdVXIDqvSt19IhnJBMoCD Q==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10302"; a="320330433"
+X-IronPort-AV: E=Sophos;i="5.90,223,1643702400"; d="scan'208";a="320330433"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Mar 2022 12:59:28 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.90,223,1643702400"; d="scan'208";a="788107199"
+X-IronPort-AV: E=Sophos;i="5.90,223,1643702400"; d="scan'208";a="639849777"
 Received: from lkp-server02.sh.intel.com (HELO 56431612eabd) ([10.239.97.151])
- by fmsmga006.fm.intel.com with ESMTP; 30 Mar 2022 11:47:27 -0700
+ by FMSMGA003.fm.intel.com with ESMTP; 30 Mar 2022 12:59:21 -0700
 Received: from kbuild by 56431612eabd with local (Exim 4.95)
- (envelope-from <lkp@intel.com>) id 1nZdLq-0000K0-RG;
- Wed, 30 Mar 2022 18:47:26 +0000
-Date: Thu, 31 Mar 2022 02:46:39 +0800
+ (envelope-from <lkp@intel.com>) id 1nZeTQ-0000RU-Jy;
+ Wed, 30 Mar 2022 19:59:20 +0000
+Date: Thu, 31 Mar 2022 03:58:20 +0800
 From: kernel test robot <lkp@intel.com>
 To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
  Qianggui Song <qianggui.song@amlogic.com>,
@@ -49,7 +49,7 @@ To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
  linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org,
  openbmc@lists.ozlabs.org, linux-renesas-soc@vger.kernel.org,
  linux-samsung-soc@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
-Message-ID: <202203310240.Za1Wqczl-lkp@intel.com>
+Message-ID: <202203310305.QZp98VzT-lkp@intel.com>
 References: <20220330145030.1562-6-andriy.shevchenko@linux.intel.com>
 MIME-Version: 1.0
 Content-Disposition: inline
@@ -59,7 +59,7 @@ Cc: Andrew Lunn <andrew@lunn.ch>, kbuild-all@lists.01.org,
  Tomer Maimon <tmaimon77@gmail.com>, Neil Armstrong <narmstrong@baylibre.com>,
  Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
  Kevin Hilman <khilman@baylibre.com>,
- Gregory Clement <gregory.clement@bootlin.com>, llvm@lists.linux.dev,
+ Gregory Clement <gregory.clement@bootlin.com>,
  Tomasz Figa <tomasz.figa@gmail.com>, Tali Perry <tali.perry1@gmail.com>,
  Avi Fishman <avifishman70@gmail.com>, Benjamin Fair <benjaminfair@google.com>,
  Sylwester Nawrocki <s.nawrocki@samsung.com>,
@@ -92,34 +92,29 @@ I love your patch! Yet something to improve:
 
 url:    https://github.com/intel-lab-lkp/linux/commits/Andy-Shevchenko/gpiolib-Two-new-helpers-and-way-toward-fwnode/20220330-225341
 base:   a67ba3cf9551f8c92d5ec9d7eae1aadbb9127b57
-config: riscv-randconfig-r032-20220330 (https://download.01.org/0day-ci/archive/20220331/202203310240.Za1Wqczl-lkp@intel.com/config)
-compiler: clang version 15.0.0 (https://github.com/llvm/llvm-project 0f6d9501cf49ce02937099350d08f20c4af86f3d)
+config: alpha-randconfig-r013-20220330 (https://download.01.org/0day-ci/archive/20220331/202203310305.QZp98VzT-lkp@intel.com/config)
+compiler: alpha-linux-gcc (GCC) 11.2.0
 reproduce (this is a W=1 build):
         wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
         chmod +x ~/bin/make.cross
-        # install riscv cross compiling tool for clang build
-        # apt-get install binutils-riscv64-linux-gnu
         # https://github.com/intel-lab-lkp/linux/commit/3539d23dd289ca77a85d66fe8721e4febfc50ea4
         git remote add linux-review https://github.com/intel-lab-lkp/linux
         git fetch --no-tags linux-review Andy-Shevchenko/gpiolib-Two-new-helpers-and-way-toward-fwnode/20220330-225341
         git checkout 3539d23dd289ca77a85d66fe8721e4febfc50ea4
         # save the config file to linux build tree
         mkdir build_dir
-        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=clang make.cross W=1 O=build_dir ARCH=riscv SHELL=/bin/bash drivers/pinctrl/samsung/
+        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-11.2.0 make.cross O=build_dir ARCH=alpha SHELL=/bin/bash
 
 If you fix the issue, kindly add following tag as appropriate
 Reported-by: kernel test robot <lkp@intel.com>
 
 All errors (new ones prefixed by >>):
 
->> drivers/pinctrl/samsung/pinctrl-s3c24xx.c:528:50: error: no member named 'of_node' in 'struct samsung_pin_bank'; did you mean 'fwnode'?
-                   bank->irq_domain = irq_domain_add_linear(bank->of_node,
-                                                                  ^~~~~~~
-                                                                  fwnode
-   drivers/pinctrl/samsung/pinctrl-samsung.h:168:24: note: 'fwnode' declared here
-           struct fwnode_handle *fwnode;
-                                 ^
-   1 error generated.
+   drivers/pinctrl/samsung/pinctrl-s3c24xx.c: In function 's3c24xx_eint_init':
+>> drivers/pinctrl/samsung/pinctrl-s3c24xx.c:528:64: error: 'struct samsung_pin_bank' has no member named 'of_node'; did you mean 'fwnode'?
+     528 |                 bank->irq_domain = irq_domain_add_linear(bank->of_node,
+         |                                                                ^~~~~~~
+         |                                                                fwnode
 
 
 vim +528 drivers/pinctrl/samsung/pinctrl-s3c24xx.c
