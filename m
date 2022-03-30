@@ -2,40 +2,40 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3A3AC4EC729
-	for <lists+linux-stm32@lfdr.de>; Wed, 30 Mar 2022 16:50:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 45EEB4EC72A
+	for <lists+linux-stm32@lfdr.de>; Wed, 30 Mar 2022 16:50:38 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E00E5C628B1;
-	Wed, 30 Mar 2022 14:50:32 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 094B2C628A2;
+	Wed, 30 Mar 2022 14:50:38 +0000 (UTC)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2BBA4C628A3
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3911EC628A1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 30 Mar 2022 14:50:31 +0000 (UTC)
+ Wed, 30 Mar 2022 14:50:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1648651831; x=1680187831;
+ t=1648651836; x=1680187836;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=4I02wLs2fQ6LFKrv5lHQYVLXyBFhgeaw2PkLsNE7Tko=;
- b=V1VxnV7pZYQLl318WP6pwdM6hcDUoqidY9yN/X1eOl7zLSxMkIz1yCvd
- EGynLuzN5aL3HIvIG352ShF0RC7LqhNleEqFS81u1X4AR+U2ecRCAkH/5
- wTFqZVWJyjhick1fJoc7OroJs3z8nLUaek/cGOlbI6k0XTE7hPwxjB5lI
- QcLTVAz+ZyC8hOthzCvX5owUfryj0IkxC+89AxS/1B9aL5XM0BzPdmYT6
- QSp8JS0dlbmiy1hDFLQ3RW7wNOuMg4Valb0pWPSXveCcqrSZUa0zrp7M4
- aYKUmnN07Eb9/wC3aDtZGfSRX3+gXJ1v6LjHOInXpMurWjvZMCBmzLwRU A==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10301"; a="259276695"
-X-IronPort-AV: E=Sophos;i="5.90,222,1643702400"; d="scan'208";a="259276695"
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ bh=WOuu6zwMsg2iOvdBnmg8kIG4pCFXH+CIzNQjuQN2qTs=;
+ b=DzRB44sxB18HgRAYsACS4kfJpWe8TSysC01Hi5qCyJUtkMqYIdTWCH2z
+ pe21xP+TH8MOyHp32DT4AAaFp26IF2qYH8A0exxO90HIb9Q5jGjvMIYLc
+ qQWIQR3IFvAGjCwFGXjr2PinPDrXOyzGZ4DyGPRJMc4FjT++fKiVU5N3Z
+ /hJ4Hct3rvZ+Tti2O6UVJSj8XcMKc+2firHsebxc/0tmeM156Yt2ThSah
+ /d7wiuYWL6LWH3NIg5q4sC6lAAq6mCQ3m0jO+ZAWWnzr0ZpSiu9jYr/FC
+ 8QgPg8FvpOSOWXlmSmTCTkpCVraoGlqoZ7XVFSCo+/qmVpbkgRb0X3KjR Q==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10301"; a="322740728"
+X-IronPort-AV: E=Sophos;i="5.90,222,1643702400"; d="scan'208";a="322740728"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  30 Mar 2022 07:50:28 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.90,222,1643702400"; d="scan'208";a="503338711"
+X-IronPort-AV: E=Sophos;i="5.90,222,1643702400"; d="scan'208";a="605459808"
 Received: from black.fi.intel.com ([10.237.72.28])
- by orsmga003.jf.intel.com with ESMTP; 30 Mar 2022 07:50:20 -0700
+ by fmsmga008.fm.intel.com with ESMTP; 30 Mar 2022 07:50:20 -0700
 Received: by black.fi.intel.com (Postfix, from userid 1003)
- id 5E85B323; Wed, 30 Mar 2022 17:50:33 +0300 (EEST)
+ id 6D5E05F2; Wed, 30 Mar 2022 17:50:33 +0300 (EEST)
 From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 To: Qianggui Song <qianggui.song@amlogic.com>,
  Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
@@ -47,8 +47,8 @@ To: Qianggui Song <qianggui.song@amlogic.com>,
  linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org,
  linux-renesas-soc@vger.kernel.org, linux-samsung-soc@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com
-Date: Wed, 30 Mar 2022 17:50:22 +0300
-Message-Id: <20220330145030.1562-6-andriy.shevchenko@linux.intel.com>
+Date: Wed, 30 Mar 2022 17:50:23 +0300
+Message-Id: <20220330145030.1562-7-andriy.shevchenko@linux.intel.com>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220330145030.1562-1-andriy.shevchenko@linux.intel.com>
 References: <20220330145030.1562-1-andriy.shevchenko@linux.intel.com>
@@ -67,8 +67,8 @@ Cc: Andrew Lunn <andrew@lunn.ch>, Tomer Maimon <tmaimon77@gmail.com>,
  Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
  Nancy Yuen <yuenn@google.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Jerome Brunet <jbrunet@baylibre.com>
-Subject: [Linux-stm32] [PATCH v3 05/13] pinctrl: samsung: Switch to use
-	for_each_gpiochip_node() helper
+Subject: [Linux-stm32] [PATCH v3 06/13] pinctrl: renesas: rza1: Replace
+	custom code by gpiochip_node_count() call
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,133 +85,53 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Switch the code to use for_each_gpiochip_node() helper.
-
-While at it, in order to avoid additional churn in the future,
-switch to fwnode APIs where it makes sense.
+Since we have generic function to count GPIO controller nodes
+under a given device, there is no need to open code it. Replace
+custom code by gpiochip_node_count() call.
 
 Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+Tested-by: Geert Uytterhoeven <geert+renesas@glider.be>
+Acked-by: Geert Uytterhoeven <geert+renesas@glider.be>
 ---
- drivers/pinctrl/samsung/pinctrl-samsung.c | 30 +++++++++++------------
- drivers/pinctrl/samsung/pinctrl-samsung.h |  2 +-
- 2 files changed, 15 insertions(+), 17 deletions(-)
+ drivers/pinctrl/renesas/pinctrl-rza1.c | 17 +----------------
+ 1 file changed, 1 insertion(+), 16 deletions(-)
 
-diff --git a/drivers/pinctrl/samsung/pinctrl-samsung.c b/drivers/pinctrl/samsung/pinctrl-samsung.c
-index f610beab23a0..26d309d2516d 100644
---- a/drivers/pinctrl/samsung/pinctrl-samsung.c
-+++ b/drivers/pinctrl/samsung/pinctrl-samsung.c
-@@ -18,6 +18,7 @@
- #include <linux/init.h>
- #include <linux/platform_device.h>
- #include <linux/io.h>
-+#include <linux/property.h>
- #include <linux/slab.h>
- #include <linux/err.h>
- #include <linux/gpio/driver.h>
-@@ -966,7 +967,7 @@ static int samsung_gpiolib_register(struct platform_device *pdev,
- 		gc->base = bank->grange.base;
- 		gc->ngpio = bank->nr_pins;
- 		gc->parent = &pdev->dev;
--		gc->of_node = bank->of_node;
-+		gc->fwnode = bank->fwnode;
- 		gc->label = bank->name;
- 
- 		ret = devm_gpiochip_add_data(&pdev->dev, gc, bank);
-@@ -1002,27 +1003,25 @@ samsung_pinctrl_get_soc_data_for_of_alias(struct platform_device *pdev)
- 	return &(of_data->ctrl[id]);
- }
- 
--static void samsung_banks_of_node_put(struct samsung_pinctrl_drv_data *d)
-+static void samsung_banks_node_put(struct samsung_pinctrl_drv_data *d)
- {
- 	struct samsung_pin_bank *bank;
- 	unsigned int i;
- 
- 	bank = d->pin_banks;
- 	for (i = 0; i < d->nr_banks; ++i, ++bank)
--		of_node_put(bank->of_node);
-+		fwnode_handle_put(bank->fwnode);
- }
- 
- /*
-  * Iterate over all driver pin banks to find one matching the name of node,
-  * skipping optional "-gpio" node suffix. When found, assign node to the bank.
+diff --git a/drivers/pinctrl/renesas/pinctrl-rza1.c b/drivers/pinctrl/renesas/pinctrl-rza1.c
+index c1d6e9512c7a..acc00b1a955d 100644
+--- a/drivers/pinctrl/renesas/pinctrl-rza1.c
++++ b/drivers/pinctrl/renesas/pinctrl-rza1.c
+@@ -1154,21 +1154,6 @@ static const struct pinmux_ops rza1_pinmux_ops = {
+  * RZ/A1 pin controller driver operations
   */
--static void samsung_banks_of_node_get(struct device *dev,
--				      struct samsung_pinctrl_drv_data *d,
--				      struct device_node *node)
-+static void samsung_banks_node_get(struct device *dev, struct samsung_pinctrl_drv_data *d)
- {
- 	const char *suffix = "-gpio-bank";
- 	struct samsung_pin_bank *bank;
+ 
+-static unsigned int rza1_count_gpio_chips(struct device_node *np)
+-{
 -	struct device_node *child;
-+	struct fwnode_handle *child;
- 	/* Pin bank names are up to 4 characters */
- 	char node_name[20];
+-	unsigned int count = 0;
+-
+-	for_each_child_of_node(np, child) {
+-		if (!of_property_read_bool(child, "gpio-controller"))
+-			continue;
+-
+-		count++;
+-	}
+-
+-	return count;
+-}
+-
+ /**
+  * rza1_parse_gpiochip() - parse and register a gpio chip and pin range
+  *
+@@ -1255,7 +1240,7 @@ static int rza1_gpio_register(struct rza1_pinctrl *rza1_pctl)
  	unsigned int i;
-@@ -1038,17 +1037,17 @@ static void samsung_banks_of_node_get(struct device *dev,
- 			continue;
- 		}
+ 	int ret;
  
--		for_each_child_of_node(node, child) {
--			if (!of_find_property(child, "gpio-controller", NULL))
--				continue;
--			if (of_node_name_eq(child, node_name))
-+		for_each_gpiochip_node(dev, child) {
-+			struct device_node *np = to_of_node(child);
-+
-+			if (of_node_name_eq(np, node_name))
- 				break;
--			else if (of_node_name_eq(child, bank->name))
-+			if (of_node_name_eq(np, bank->name))
- 				break;
- 		}
- 
- 		if (child)
--			bank->of_node = child;
-+			bank->fwnode = child;
- 		else
- 			dev_warn(dev, "Missing node for bank %s - invalid DTB\n",
- 				 bank->name);
-@@ -1061,7 +1060,6 @@ static const struct samsung_pin_ctrl *
- samsung_pinctrl_get_soc_data(struct samsung_pinctrl_drv_data *d,
- 			     struct platform_device *pdev)
- {
--	struct device_node *node = pdev->dev.of_node;
- 	const struct samsung_pin_bank_data *bdata;
- 	const struct samsung_pin_ctrl *ctrl;
- 	struct samsung_pin_bank *bank;
-@@ -1125,7 +1123,7 @@ samsung_pinctrl_get_soc_data(struct samsung_pinctrl_drv_data *d,
- 	 */
- 	d->virt_base = virt_base[0];
- 
--	samsung_banks_of_node_get(&pdev->dev, d, node);
-+	samsung_banks_node_get(&pdev->dev, d);
- 
- 	d->pin_base = pin_base;
- 	pin_base += d->nr_pins;
-@@ -1186,7 +1184,7 @@ static int samsung_pinctrl_probe(struct platform_device *pdev)
- err_unregister:
- 	samsung_pinctrl_unregister(pdev, drvdata);
- err_put_banks:
--	samsung_banks_of_node_put(drvdata);
-+	samsung_banks_node_put(drvdata);
- 	return ret;
- }
- 
-diff --git a/drivers/pinctrl/samsung/pinctrl-samsung.h b/drivers/pinctrl/samsung/pinctrl-samsung.h
-index 5b32d3f30fcd..fc6f5199c548 100644
---- a/drivers/pinctrl/samsung/pinctrl-samsung.h
-+++ b/drivers/pinctrl/samsung/pinctrl-samsung.h
-@@ -165,7 +165,7 @@ struct samsung_pin_bank {
- 
- 	u32		pin_base;
- 	void		*soc_priv;
--	struct device_node *of_node;
-+	struct fwnode_handle *fwnode;
- 	struct samsung_pinctrl_drv_data *drvdata;
- 	struct irq_domain *irq_domain;
- 	struct gpio_chip gpio_chip;
+-	ngpiochips = rza1_count_gpio_chips(np);
++	ngpiochips = gpiochip_node_count(rza1_pctl->dev);
+ 	if (ngpiochips == 0) {
+ 		dev_dbg(rza1_pctl->dev, "No gpiochip registered\n");
+ 		return 0;
 -- 
 2.35.1
 
