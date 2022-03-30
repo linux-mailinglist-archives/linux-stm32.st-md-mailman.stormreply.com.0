@@ -2,73 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id F244F4EC727
-	for <lists+linux-stm32@lfdr.de>; Wed, 30 Mar 2022 16:50:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F00484EC7E5
+	for <lists+linux-stm32@lfdr.de>; Wed, 30 Mar 2022 17:13:00 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B26D8C628AC;
-	Wed, 30 Mar 2022 14:50:32 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A1DD4C60467;
+	Wed, 30 Mar 2022 15:13:00 +0000 (UTC)
+Received: from frasgout.his.huawei.com (frasgout.his.huawei.com
+ [185.176.79.56])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D1633C628A2
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6D503C01577
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 30 Mar 2022 14:50:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1648651831; x=1680187831;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=KXLXc+19o0UubT6TkmoiDgHQv9YpGm9hY5Ydb16Dc5c=;
- b=hVFdGvkznfRqL1cR046PqkU7GrcWCf7XONYN9ibliRI7JCRrnYpzM4iA
- 1dEh0G314rijySP8eiUcSQxlqGE5m/lGzCZFPVYiJya97thrm/RkednY0
- A9M4YfEK0lFk11GEmY996O6voSa4iKTZpWS1OM1O1j9G6h+r2T06CI1w/
- fa+TRtnUkK6bjRV0AfaeVe/PDu8ydPC6mbi/Lfw/6G7yrZJTrJI1uOiq5
- EPAVFfgvWDRCJOhUPH4xiCLgzFINixfwcBhQQspB1uBWp8sc4lnYmowHg
- Y58t3nUqNR4CoRnWElEM0VhM+XyXVSv1PkxOqy+9VxO3emwDWSjKfK/vI A==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10301"; a="258391448"
-X-IronPort-AV: E=Sophos;i="5.90,222,1643702400"; d="scan'208";a="258391448"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Mar 2022 07:50:29 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.90,222,1643702400"; d="scan'208";a="565571163"
-Received: from black.fi.intel.com ([10.237.72.28])
- by orsmga008.jf.intel.com with ESMTP; 30 Mar 2022 07:50:20 -0700
-Received: by black.fi.intel.com (Postfix, from userid 1003)
- id C214B6C0; Wed, 30 Mar 2022 17:50:33 +0300 (EEST)
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Qianggui Song <qianggui.song@amlogic.com>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Krzysztof Kozlowski <krzk@kernel.org>,
- Fabien Dessenne <fabien.dessenne@foss.st.com>,
- Linus Walleij <linus.walleij@linaro.org>, linux-gpio@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
- linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org,
- linux-renesas-soc@vger.kernel.org, linux-samsung-soc@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com
-Date: Wed, 30 Mar 2022 17:50:30 +0300
-Message-Id: <20220330145030.1562-14-andriy.shevchenko@linux.intel.com>
-X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20220330145030.1562-1-andriy.shevchenko@linux.intel.com>
-References: <20220330145030.1562-1-andriy.shevchenko@linux.intel.com>
+ Wed, 30 Mar 2022 15:12:58 +0000 (UTC)
+Received: from fraeml711-chm.china.huawei.com (unknown [172.18.147.207])
+ by frasgout.his.huawei.com (SkyGuard) with ESMTP id 4KT8z54Vvqz67yhs;
+ Wed, 30 Mar 2022 23:11:29 +0800 (CST)
+Received: from fraeml714-chm.china.huawei.com (10.206.15.33) by
+ fraeml711-chm.china.huawei.com (10.206.15.60) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.24; Wed, 30 Mar 2022 17:12:57 +0200
+Received: from fraeml714-chm.china.huawei.com ([10.206.15.33]) by
+ fraeml714-chm.china.huawei.com ([10.206.15.33]) with mapi id 15.01.2375.024;
+ Wed, 30 Mar 2022 17:12:57 +0200
+From: Roberto Sassu <roberto.sassu@huawei.com>
+To: Andrii Nakryiko <andrii.nakryiko@gmail.com>
+Thread-Topic: [PATCH 05/18] bpf-preload: Generate static variables
+Thread-Index: AQHYQsyWLcVpB05sakWRWVPVfsSzdqzW6LQAgACiZ4CAAH9p4A==
+Date: Wed, 30 Mar 2022 15:12:57 +0000
+Message-ID: <af5e27aeef544581804b578032fc1b4e@huawei.com>
+References: <20220328175033.2437312-1-roberto.sassu@huawei.com>
+ <20220328175033.2437312-6-roberto.sassu@huawei.com>
+ <CAEf4BzY9d0pUP2TFkOY41dbjyYrsr5S+sNCpynPtg_9XZHFb-Q@mail.gmail.com> 
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.81.211.106]
 MIME-Version: 1.0
-Cc: Andrew Lunn <andrew@lunn.ch>, Tomer Maimon <tmaimon77@gmail.com>,
- Neil Armstrong <narmstrong@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Kevin Hilman <khilman@baylibre.com>,
- Gregory Clement <gregory.clement@bootlin.com>,
- Tomasz Figa <tomasz.figa@gmail.com>, Tali Perry <tali.perry1@gmail.com>,
- Avi Fishman <avifishman70@gmail.com>, Bartosz Golaszewski <brgl@bgdev.pl>,
- Benjamin Fair <benjaminfair@google.com>,
- Sylwester Nawrocki <s.nawrocki@samsung.com>,
- Patrick Venture <venture@google.com>, Philipp Zabel <p.zabel@pengutronix.de>,
- Alim Akhtar <alim.akhtar@samsung.com>,
- Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
- Nancy Yuen <yuenn@google.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Jerome Brunet <jbrunet@baylibre.com>
-Subject: [Linux-stm32] [PATCH v3 13/13] pinctrl: armada-37xx: Reuse GPIO
-	fwnode in armada_37xx_irqchip_register()
+X-CFilter-Loop: Reflected
+Cc: Alexei Starovoitov <ast@kernel.org>,
+ "open list:KERNEL SELFTEST FRAMEWORK" <linux-kselftest@vger.kernel.org>,
+ Daniel Borkmann <daniel@iogearbox.net>, Jonathan Corbet <corbet@lwn.net>,
+ Networking <netdev@vger.kernel.org>, Linux Doc
+ Mailing List <linux-doc@vger.kernel.org>,
+ open list <linux-kernel@vger.kernel.org>, KP Singh <kpsingh@kernel.org>,
+ Mimi Zohar <zohar@linux.ibm.com>, Andrii Nakryiko <andrii@kernel.org>,
+ "linux-security-module@vger.kernel.org"
+ <linux-security-module@vger.kernel.org>, Al Viro <viro@zeniv.linux.org.uk>,
+ "mcoquelin.stm32@gmail.com" <mcoquelin.stm32@gmail.com>,
+ "linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>,
+ "linux-integrity@vger.kernel.org" <linux-integrity@vger.kernel.org>,
+ bpf <bpf@vger.kernel.org>, Shuah Khan <shuah@kernel.org>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ linux-arm-kernel <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH 05/18] bpf-preload: Generate static
+	variables
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,48 +74,83 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Since we have fwnode of the first found GPIO controller assigned to the
-struct gpio_chip, we may reuse it in the armada_37xx_irqchip_register().
+> From: Roberto Sassu
+> Sent: Wednesday, March 30, 2022 9:45 AM
+> > From: Andrii Nakryiko [mailto:andrii.nakryiko@gmail.com]
+> > Sent: Wednesday, March 30, 2022 1:52 AM
+> > On Mon, Mar 28, 2022 at 10:52 AM Roberto Sassu
+> > <roberto.sassu@huawei.com> wrote:
+> > >
+> > > The first part of the preload code generation consists in generating the
+> > > static variables to be used by the code itself: the links and maps to be
+> > > pinned, and the skeleton. Generation of the preload variables and
+> > methods
+> > > is enabled with the option -P added to 'bpftool gen skeleton'.
+> > >
+> > > The existing variables maps_link and progs_links in bpf_preload_kern.c
+> > have
+> > > been renamed respectively to dump_bpf_map_link and
+> > dump_bpf_prog_link, to
+> > > match the name of the variables in the main structure of the light
+> > > skeleton.
+> > >
+> > > Signed-off-by: Roberto Sassu <roberto.sassu@huawei.com>
+> > > ---
+> > >  kernel/bpf/preload/bpf_preload_kern.c         |  35 +-
+> > >  kernel/bpf/preload/iterators/Makefile         |   2 +-
+> > >  .../bpf/preload/iterators/iterators.lskel.h   | 378 +++++++++---------
+> > >  .../bpf/bpftool/Documentation/bpftool-gen.rst |   5 +
+> > >  tools/bpf/bpftool/bash-completion/bpftool     |   2 +-
+> > >  tools/bpf/bpftool/gen.c                       |  27 ++
+> > >  tools/bpf/bpftool/main.c                      |   7 +-
+> > >  tools/bpf/bpftool/main.h                      |   1 +
+> > >  8 files changed, 254 insertions(+), 203 deletions(-)
+> > >
+> >
+> > [...]
+> >
+> > > +__attribute__((unused)) static void
+> > > +iterators_bpf__assert(struct iterators_bpf *s)
+> > > +{
+> > > +#ifdef __cplusplus
+> > > +#define _Static_assert static_assert
+> > > +#endif
+> > > +#ifdef __cplusplus
+> > > +#undef _Static_assert
+> > > +#endif
+> > > +}
+> > > +
+> > > +static struct bpf_link *dump_bpf_map_link;
+> > > +static struct bpf_link *dump_bpf_prog_link;
+> > > +static struct iterators_bpf *skel;
+> >
+> > I don't understand what is this and what for? You are making an
+> > assumption that light skeleton can be instantiated just once, why? And
+> > adding extra bpftool option to light skeleton codegen just to save a
+> > bit of typing at the place where light skeleton is actually
+> > instantiated and used doesn't seems like a right approach.
+> 
+> True, iterator_bpf is simple. Writing the preloading code
+> for it is simple. But, what if you wanted to preload an LSM
+> with 10 hooks or more?
+> 
+> Ok, regarding where the preloading code should be, I will
+> try to move the generated code to the kernel module instead
+> of the light skeleton.
 
-Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
----
- drivers/pinctrl/mvebu/pinctrl-armada-37xx.c | 16 +++-------------
- 1 file changed, 3 insertions(+), 13 deletions(-)
+Done. I moved everything from the light skeleton to the kernel
+module. The changes now are also well separated, and
+regeneration of the kernel module occurs only after all the
+generation code is added to bpftool.
 
-diff --git a/drivers/pinctrl/mvebu/pinctrl-armada-37xx.c b/drivers/pinctrl/mvebu/pinctrl-armada-37xx.c
-index 1fef8a38f574..c0384661ea48 100644
---- a/drivers/pinctrl/mvebu/pinctrl-armada-37xx.c
-+++ b/drivers/pinctrl/mvebu/pinctrl-armada-37xx.c
-@@ -727,23 +727,13 @@ static int armada_37xx_irqchip_register(struct platform_device *pdev,
- 	struct gpio_chip *gc = &info->gpio_chip;
- 	struct irq_chip *irqchip = &info->irq_chip;
- 	struct gpio_irq_chip *girq = &gc->irq;
-+	struct device_node *np = to_of_node(gc->fwnode);
- 	struct device *dev = &pdev->dev;
--	struct device_node *np;
--	int ret = -ENODEV, i, nr_irq_parent;
--
--	/* Check if we have at least one gpio-controller child node */
--	for_each_child_of_node(dev->of_node, np) {
--		if (of_property_read_bool(np, "gpio-controller")) {
--			ret = 0;
--			break;
--		}
--	}
--	if (ret)
--		return dev_err_probe(dev, ret, "no gpio-controller child node\n");
-+	unsigned int i, nr_irq_parent;
- 
--	nr_irq_parent = of_irq_count(np);
- 	spin_lock_init(&info->irq_lock);
- 
-+	nr_irq_parent = of_irq_count(np);
- 	if (!nr_irq_parent) {
- 		dev_err(dev, "invalid or no IRQ\n");
- 		return 0;
--- 
-2.35.1
+I pushed a new branch:
 
+https://github.com/robertosassu/linux/commits/bpf-preload-v2-devel-v2
+
+Roberto
+
+HUAWEI TECHNOLOGIES Duesseldorf GmbH, HRB 56063
+Managing Director: Li Peng, Zhong Ronghua
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
