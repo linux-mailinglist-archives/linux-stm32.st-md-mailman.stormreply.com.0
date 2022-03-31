@@ -2,72 +2,72 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C02464EE40D
-	for <lists+linux-stm32@lfdr.de>; Fri,  1 Apr 2022 00:31:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 577514EE9D8
+	for <lists+linux-stm32@lfdr.de>; Fri,  1 Apr 2022 10:39:34 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6FDABC60496;
-	Thu, 31 Mar 2022 22:31:40 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0E5E6C5EC76;
+	Fri,  1 Apr 2022 08:39:34 +0000 (UTC)
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com
+ [209.85.216.53])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 91B66C60465
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 74FF8C60465
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 31 Mar 2022 22:31:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1648765898; x=1680301898;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=Du3Yko/lSEUNo3cG46eNYy30enIR53P83TYGdnVfgUA=;
- b=W8WDw8FRcJWHSi01Oif5JIHDUYRP2yEKIz9qPD5ukbLrsEL5cSlEsYYq
- BOi14qBF66dfPFTs9ywIX3kK/dLGvEKyOH3EZvsj0F6CGPAM4bhAG9y7P
- ghVIlZQxWxJsGxtmzW+eioTnUjOPV6QhAMT/8S4hnmZ7ga2p0Mt46wdMR
- sCBmO4d5Q8OGt6ZL/GgxzsbQKv1kshTzsgFw5w/PX04YDTbIVUAfHHW5d
- q9e6IbRfySpqdOxRvKGvamc1PKOKoJ04sL0GogxVZnrVcfy/6+pAdAJ3Z
- aYPxMSRfOGa3rtQhoEeOBVlD6FSvr/uNOh5RU6iTJPB1ElErVnIKVCZXd g==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10303"; a="284904397"
-X-IronPort-AV: E=Sophos;i="5.90,225,1643702400"; d="scan'208";a="284904397"
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Mar 2022 15:31:36 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.90,225,1643702400"; d="scan'208";a="841487322"
-Received: from lkp-server02.sh.intel.com (HELO 3231c491b0e2) ([10.239.97.151])
- by fmsmga005.fm.intel.com with ESMTP; 31 Mar 2022 15:31:29 -0700
-Received: from kbuild by 3231c491b0e2 with local (Exim 4.95)
- (envelope-from <lkp@intel.com>) id 1na3KC-0000i0-J5;
- Thu, 31 Mar 2022 22:31:28 +0000
-Date: Fri, 1 Apr 2022 06:31:10 +0800
-From: kernel test robot <lkp@intel.com>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Qianggui Song <qianggui.song@amlogic.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Krzysztof Kozlowski <krzk@kernel.org>,
- Fabien Dessenne <fabien.dessenne@foss.st.com>,
- Linus Walleij <linus.walleij@linaro.org>,
- linux-gpio@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org,
- openbmc@lists.ozlabs.org, linux-renesas-soc@vger.kernel.org,
- linux-samsung-soc@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
-Message-ID: <202204010610.Wk5CAkQ7-lkp@intel.com>
-References: <20220330145030.1562-6-andriy.shevchenko@linux.intel.com>
+ Thu, 31 Mar 2022 02:27:33 +0000 (UTC)
+Received: by mail-pj1-f53.google.com with SMTP id bx5so22675615pjb.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 30 Mar 2022 19:27:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=brGSPXAAKZq1zv7Rz5aMBtmTUSadoAJBmC11PEMAvD8=;
+ b=nlbLJK1J/O6nYUq8evC9fJ339K6x4bHJN538DoapkFJy/VjamB+dwe1Px9feUd1F62
+ AuQA+r+MLCydK2yozMl9JBakx4tVgx+dfV8Gdj/+JlJ2s2PcpC4CMNPP5jLvJ+K0I6D/
+ 58ZJKgDGq1VRIj1iby3BwAtIS+ZYXz1m49h/ISmaUaj8PnLMI0kAPXSIXPcLdRTC0j8J
+ U6i3turNOHHTzB3JHSrY9OZO6U8/hg8niDEnBammYq4EML8DPZ5FMpqH75sa8up49yfJ
+ k9LF6ybIF0vVv8TCzRBoa6wHQVGrUOF8KESVyx/8Ef7n7ki7hsvStej2Hwrh4SjR6gie
+ b89Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=brGSPXAAKZq1zv7Rz5aMBtmTUSadoAJBmC11PEMAvD8=;
+ b=a7XgULj9CF4hMxflknAQ1OFWR0SMh8VoThQCDZWoEFRvkAeyqhOuBuN30S6v8l2mYR
+ LWqDSaovTsjCP10fPQVWQB4qRl+MgXjeSvL4jXdhXViKrR/m/JFKRa9MD5MuUnIV14W9
+ nqrfL9bPG7ZUnr1wtxJRdIXJWRgZRa1tUe/hwOAznxmmn0pI69kxwH2Z85IQzCN7Zm1x
+ c1pXbyF58S/xPyMrKe2/FTNMKMDAEr7YjrDaIbJ6MaFSYvRsqWuCeOyaZL4BGCXrQpas
+ YojH5NP9x/1yWAUx0VLkwcau/IqwLIFep20wQOGNYuXiYS7BdEh12iH+Ztilrfb+53y6
+ uYdA==
+X-Gm-Message-State: AOAM5310MepppQyMlFw/5Zn46wZH0BFa86klUWlQQQemy3zFku+uobFZ
+ MSfG4dfLHoQyB73P4pJECGg=
+X-Google-Smtp-Source: ABdhPJyn/9RKDnn9ebHKMw2O6x7J/GpkAo9yaxB7FFrh7CXFQi1SCyOQyd83zRQ7s2yhmAiT/9wZaA==
+X-Received: by 2002:a17:90b:4a48:b0:1c7:bb62:446c with SMTP id
+ lb8-20020a17090b4a4800b001c7bb62446cmr3463303pjb.146.1648693651949; 
+ Wed, 30 Mar 2022 19:27:31 -0700 (PDT)
+Received: from MBP-98dd607d3435.dhcp.thefacebook.com
+ ([2620:10d:c090:400::5:756c]) by smtp.gmail.com with ESMTPSA id
+ f16-20020a056a00229000b004fabe756ba6sm27342617pfe.54.2022.03.30.19.27.28
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 30 Mar 2022 19:27:31 -0700 (PDT)
+Date: Wed, 30 Mar 2022 19:27:27 -0700
+From: Alexei Starovoitov <alexei.starovoitov@gmail.com>
+To: Roberto Sassu <roberto.sassu@huawei.com>
+Message-ID: <20220331022727.ybj4rui4raxmsdpu@MBP-98dd607d3435.dhcp.thefacebook.com>
+References: <20220328175033.2437312-1-roberto.sassu@huawei.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20220330145030.1562-6-andriy.shevchenko@linux.intel.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: Andrew Lunn <andrew@lunn.ch>, kbuild-all@lists.01.org,
- Tomer Maimon <tmaimon77@gmail.com>, Neil Armstrong <narmstrong@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Kevin Hilman <khilman@baylibre.com>,
- Gregory Clement <gregory.clement@bootlin.com>, llvm@lists.linux.dev,
- Tomasz Figa <tomasz.figa@gmail.com>, Tali Perry <tali.perry1@gmail.com>,
- Avi Fishman <avifishman70@gmail.com>, Benjamin Fair <benjaminfair@google.com>,
- Sylwester Nawrocki <s.nawrocki@samsung.com>,
- Patrick Venture <venture@google.com>, Alim Akhtar <alim.akhtar@samsung.com>,
- Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
- Nancy Yuen <yuenn@google.com>, Jerome Brunet <jbrunet@baylibre.com>
-Subject: Re: [Linux-stm32] [PATCH v3 05/13] pinctrl: samsung: Switch to use
- for_each_gpiochip_node() helper
+In-Reply-To: <20220328175033.2437312-1-roberto.sassu@huawei.com>
+X-Mailman-Approved-At: Fri, 01 Apr 2022 08:39:33 +0000
+Cc: ast@kernel.org, linux-kselftest@vger.kernel.org, daniel@iogearbox.net,
+ corbet@lwn.net, netdev@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, kpsingh@kernel.org, zohar@linux.ibm.com,
+ andrii@kernel.org, linux-security-module@vger.kernel.org,
+ viro@zeniv.linux.org.uk, mcoquelin.stm32@gmail.com,
+ linux-fsdevel@vger.kernel.org, linux-integrity@vger.kernel.org,
+ bpf@vger.kernel.org, shuah@kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 00/18] bpf: Secure and authenticated
+ preloading of eBPF programs
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,138 +84,103 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Andy,
+On Mon, Mar 28, 2022 at 07:50:15PM +0200, Roberto Sassu wrote:
+> eBPF already allows programs to be preloaded and kept running without
+> intervention from user space. There is a dedicated kernel module called
+> bpf_preload, which contains the light skeleton of the iterators_bpf eBPF
+> program. If this module is enabled in the kernel configuration, its loading
+> will be triggered when the bpf filesystem is mounted (unless the module is
+> built-in), and the links of iterators_bpf are pinned in that filesystem
+> (they will appear as the progs.debug and maps.debug files).
+> 
+> However, the current mechanism, if used to preload an LSM, would not offer
+> the same security guarantees of LSMs integrated in the security subsystem.
+> Also, it is not generic enough to be used for preloading arbitrary eBPF
+> programs, unless the bpf_preload code is heavily modified.
+> 
+> More specifically, the security problems are:
+> - any program can be pinned to the bpf filesystem without limitations
+>   (unless a MAC mechanism enforces some restrictions);
+> - programs being executed can be terminated at any time by deleting the
+>   pinned objects or unmounting the bpf filesystem.
 
-I love your patch! Yet something to improve:
+So many things to untangle here.
 
-[auto build test ERROR on a67ba3cf9551f8c92d5ec9d7eae1aadbb9127b57]
+The above paragraphs are misleading and incorrect.
+The commit log sounds like there are security issues that this
+patch set is fixing.
+This is not true.
+Looks like there is a massive misunderstanding on what bpffs is.
+It's a file system to pin and get bpf objects with normal
+file access permissions. Nothing else.
+Do NOT use it to pin LSM or any other security sensitive bpf programs
+and then complain that root can unpin them.
+Yes. Root can and should be able to 'rm -rf' anything in bpffs instance.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Andy-Shevchenko/gpiolib-Two-new-helpers-and-way-toward-fwnode/20220330-225341
-base:   a67ba3cf9551f8c92d5ec9d7eae1aadbb9127b57
-config: arm-randconfig-c002-20220331 (https://download.01.org/0day-ci/archive/20220401/202204010610.Wk5CAkQ7-lkp@intel.com/config)
-compiler: clang version 15.0.0 (https://github.com/llvm/llvm-project 881350a92d821d4f8e4fa648443ed1d17e251188)
-reproduce (this is a W=1 build):
-        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
-        chmod +x ~/bin/make.cross
-        # install arm cross compiling tool for clang build
-        # apt-get install binutils-arm-linux-gnueabi
-        # https://github.com/intel-lab-lkp/linux/commit/3539d23dd289ca77a85d66fe8721e4febfc50ea4
-        git remote add linux-review https://github.com/intel-lab-lkp/linux
-        git fetch --no-tags linux-review Andy-Shevchenko/gpiolib-Two-new-helpers-and-way-toward-fwnode/20220330-225341
-        git checkout 3539d23dd289ca77a85d66fe8721e4febfc50ea4
-        # save the config file to linux build tree
-        mkdir build_dir
-        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=clang make.cross W=1 O=build_dir ARCH=arm SHELL=/bin/bash
+> The usability problems are:
+> - only a fixed amount of links can be pinned;
 
-If you fix the issue, kindly add following tag as appropriate
-Reported-by: kernel test robot <lkp@intel.com>
+where do you see this limit?
 
-All errors (new ones prefixed by >>):
+> - only links can be pinned, other object types are not supported;
 
->> drivers/pinctrl/samsung/pinctrl-exynos.c:310:50: error: no member named 'of_node' in 'struct samsung_pin_bank'; did you mean 'fwnode'?
-                   bank->irq_domain = irq_domain_add_linear(bank->of_node,
-                                                                  ^~~~~~~
-                                                                  fwnode
-   drivers/pinctrl/samsung/pinctrl-samsung.h:168:24: note: 'fwnode' declared here
-           struct fwnode_handle *fwnode;
-                                 ^
-   drivers/pinctrl/samsung/pinctrl-exynos.c:568:50: error: no member named 'of_node' in 'struct samsung_pin_bank'; did you mean 'fwnode'?
-                   bank->irq_domain = irq_domain_add_linear(bank->of_node,
-                                                                  ^~~~~~~
-                                                                  fwnode
-   drivers/pinctrl/samsung/pinctrl-samsung.h:168:24: note: 'fwnode' declared here
-           struct fwnode_handle *fwnode;
-                                 ^
-   drivers/pinctrl/samsung/pinctrl-exynos.c:576:31: error: no member named 'of_node' in 'struct samsung_pin_bank'; did you mean 'fwnode'?
-                   if (!of_find_property(bank->of_node, "interrupts", NULL)) {
-                                               ^~~~~~~
-                                               fwnode
-   drivers/pinctrl/samsung/pinctrl-samsung.h:168:24: note: 'fwnode' declared here
-           struct fwnode_handle *fwnode;
-                                 ^
-   drivers/pinctrl/samsung/pinctrl-exynos.c:591:37: error: no member named 'of_node' in 'struct samsung_pin_bank'; did you mean 'fwnode'?
-                           irq = irq_of_parse_and_map(bank->of_node, idx);
-                                                            ^~~~~~~
-                                                            fwnode
-   drivers/pinctrl/samsung/pinctrl-samsung.h:168:24: note: 'fwnode' declared here
-           struct fwnode_handle *fwnode;
-                                 ^
-   4 errors generated.
+really? progs, maps can be pinned as well.
 
+> - code to pin objects has to be written manually;
 
-vim +310 drivers/pinctrl/samsung/pinctrl-exynos.c
+huh?
 
-7ccbc60cd9c293 drivers/pinctrl/pinctrl-exynos.c         Tomasz Figa      2013-05-22  273  
-43b169db184184 drivers/pinctrl/pinctrl-exynos.c         Thomas Abraham   2012-09-07  274  /*
-43b169db184184 drivers/pinctrl/pinctrl-exynos.c         Thomas Abraham   2012-09-07  275   * exynos_eint_gpio_init() - setup handling of external gpio interrupts.
-43b169db184184 drivers/pinctrl/pinctrl-exynos.c         Thomas Abraham   2012-09-07  276   * @d: driver data of samsung pinctrl driver.
-43b169db184184 drivers/pinctrl/pinctrl-exynos.c         Thomas Abraham   2012-09-07  277   */
-85745c870a757c drivers/pinctrl/samsung/pinctrl-exynos.c Marek Szyprowski 2020-07-20  278  __init int exynos_eint_gpio_init(struct samsung_pinctrl_drv_data *d)
-43b169db184184 drivers/pinctrl/pinctrl-exynos.c         Thomas Abraham   2012-09-07  279  {
-595be7268a8573 drivers/pinctrl/pinctrl-exynos.c         Tomasz Figa      2012-10-11  280  	struct samsung_pin_bank *bank;
-43b169db184184 drivers/pinctrl/pinctrl-exynos.c         Thomas Abraham   2012-09-07  281  	struct device *dev = d->dev;
-7ccbc60cd9c293 drivers/pinctrl/pinctrl-exynos.c         Tomasz Figa      2013-05-22  282  	int ret;
-7ccbc60cd9c293 drivers/pinctrl/pinctrl-exynos.c         Tomasz Figa      2013-05-22  283  	int i;
-43b169db184184 drivers/pinctrl/pinctrl-exynos.c         Thomas Abraham   2012-09-07  284  
-43b169db184184 drivers/pinctrl/pinctrl-exynos.c         Thomas Abraham   2012-09-07  285  	if (!d->irq) {
-43b169db184184 drivers/pinctrl/pinctrl-exynos.c         Thomas Abraham   2012-09-07  286  		dev_err(dev, "irq number not available\n");
-43b169db184184 drivers/pinctrl/pinctrl-exynos.c         Thomas Abraham   2012-09-07  287  		return -EINVAL;
-43b169db184184 drivers/pinctrl/pinctrl-exynos.c         Thomas Abraham   2012-09-07  288  	}
-43b169db184184 drivers/pinctrl/pinctrl-exynos.c         Thomas Abraham   2012-09-07  289  
-43b169db184184 drivers/pinctrl/pinctrl-exynos.c         Thomas Abraham   2012-09-07  290  	ret = devm_request_irq(dev, d->irq, exynos_eint_gpio_irq,
-43b169db184184 drivers/pinctrl/pinctrl-exynos.c         Thomas Abraham   2012-09-07  291  					0, dev_name(dev), d);
-43b169db184184 drivers/pinctrl/pinctrl-exynos.c         Thomas Abraham   2012-09-07  292  	if (ret) {
-43b169db184184 drivers/pinctrl/pinctrl-exynos.c         Thomas Abraham   2012-09-07  293  		dev_err(dev, "irq request failed\n");
-43b169db184184 drivers/pinctrl/pinctrl-exynos.c         Thomas Abraham   2012-09-07  294  		return -ENXIO;
-43b169db184184 drivers/pinctrl/pinctrl-exynos.c         Thomas Abraham   2012-09-07  295  	}
-43b169db184184 drivers/pinctrl/pinctrl-exynos.c         Thomas Abraham   2012-09-07  296  
-1bf00d7a6dbff0 drivers/pinctrl/samsung/pinctrl-exynos.c Tomasz Figa      2014-09-23  297  	bank = d->pin_banks;
-1bf00d7a6dbff0 drivers/pinctrl/samsung/pinctrl-exynos.c Tomasz Figa      2014-09-23  298  	for (i = 0; i < d->nr_banks; ++i, ++bank) {
-595be7268a8573 drivers/pinctrl/pinctrl-exynos.c         Tomasz Figa      2012-10-11  299  		if (bank->eint_type != EINT_TYPE_GPIO)
-595be7268a8573 drivers/pinctrl/pinctrl-exynos.c         Tomasz Figa      2012-10-11  300  			continue;
-85745c870a757c drivers/pinctrl/samsung/pinctrl-exynos.c Marek Szyprowski 2020-07-20  301  
-85745c870a757c drivers/pinctrl/samsung/pinctrl-exynos.c Marek Szyprowski 2020-07-20  302  		bank->irq_chip = devm_kmemdup(dev, &exynos_gpio_irq_chip,
-85745c870a757c drivers/pinctrl/samsung/pinctrl-exynos.c Marek Szyprowski 2020-07-20  303  					   sizeof(*bank->irq_chip), GFP_KERNEL);
-85745c870a757c drivers/pinctrl/samsung/pinctrl-exynos.c Marek Szyprowski 2020-07-20  304  		if (!bank->irq_chip) {
-85745c870a757c drivers/pinctrl/samsung/pinctrl-exynos.c Marek Szyprowski 2020-07-20  305  			ret = -ENOMEM;
-85745c870a757c drivers/pinctrl/samsung/pinctrl-exynos.c Marek Szyprowski 2020-07-20  306  			goto err_domains;
-85745c870a757c drivers/pinctrl/samsung/pinctrl-exynos.c Marek Szyprowski 2020-07-20  307  		}
-85745c870a757c drivers/pinctrl/samsung/pinctrl-exynos.c Marek Szyprowski 2020-07-20  308  		bank->irq_chip->chip.name = bank->name;
-85745c870a757c drivers/pinctrl/samsung/pinctrl-exynos.c Marek Szyprowski 2020-07-20  309  
-595be7268a8573 drivers/pinctrl/pinctrl-exynos.c         Tomasz Figa      2012-10-11 @310  		bank->irq_domain = irq_domain_add_linear(bank->of_node,
-6f5e41bd8fc6d3 drivers/pinctrl/samsung/pinctrl-exynos.c Abhilash Kesavan 2014-10-09  311  				bank->nr_pins, &exynos_eint_irqd_ops, bank);
-595be7268a8573 drivers/pinctrl/pinctrl-exynos.c         Tomasz Figa      2012-10-11  312  		if (!bank->irq_domain) {
-595be7268a8573 drivers/pinctrl/pinctrl-exynos.c         Tomasz Figa      2012-10-11  313  			dev_err(dev, "gpio irq domain add failed\n");
-7ccbc60cd9c293 drivers/pinctrl/pinctrl-exynos.c         Tomasz Figa      2013-05-22  314  			ret = -ENXIO;
-7ccbc60cd9c293 drivers/pinctrl/pinctrl-exynos.c         Tomasz Figa      2013-05-22  315  			goto err_domains;
-7ccbc60cd9c293 drivers/pinctrl/pinctrl-exynos.c         Tomasz Figa      2013-05-22  316  		}
-7ccbc60cd9c293 drivers/pinctrl/pinctrl-exynos.c         Tomasz Figa      2013-05-22  317  
-7ccbc60cd9c293 drivers/pinctrl/pinctrl-exynos.c         Tomasz Figa      2013-05-22  318  		bank->soc_priv = devm_kzalloc(d->dev,
-7ccbc60cd9c293 drivers/pinctrl/pinctrl-exynos.c         Tomasz Figa      2013-05-22  319  			sizeof(struct exynos_eint_gpio_save), GFP_KERNEL);
-7ccbc60cd9c293 drivers/pinctrl/pinctrl-exynos.c         Tomasz Figa      2013-05-22  320  		if (!bank->soc_priv) {
-7ccbc60cd9c293 drivers/pinctrl/pinctrl-exynos.c         Tomasz Figa      2013-05-22  321  			irq_domain_remove(bank->irq_domain);
-7ccbc60cd9c293 drivers/pinctrl/pinctrl-exynos.c         Tomasz Figa      2013-05-22  322  			ret = -ENOMEM;
-7ccbc60cd9c293 drivers/pinctrl/pinctrl-exynos.c         Tomasz Figa      2013-05-22  323  			goto err_domains;
-43b169db184184 drivers/pinctrl/pinctrl-exynos.c         Thomas Abraham   2012-09-07  324  		}
-0d3d30db936359 drivers/pinctrl/samsung/pinctrl-exynos.c Abhilash Kesavan 2014-10-09  325  
-595be7268a8573 drivers/pinctrl/pinctrl-exynos.c         Tomasz Figa      2012-10-11  326  	}
-43b169db184184 drivers/pinctrl/pinctrl-exynos.c         Thomas Abraham   2012-09-07  327  
-43b169db184184 drivers/pinctrl/pinctrl-exynos.c         Thomas Abraham   2012-09-07  328  	return 0;
-7ccbc60cd9c293 drivers/pinctrl/pinctrl-exynos.c         Tomasz Figa      2013-05-22  329  
-7ccbc60cd9c293 drivers/pinctrl/pinctrl-exynos.c         Tomasz Figa      2013-05-22  330  err_domains:
-7ccbc60cd9c293 drivers/pinctrl/pinctrl-exynos.c         Tomasz Figa      2013-05-22  331  	for (--i, --bank; i >= 0; --i, --bank) {
-7ccbc60cd9c293 drivers/pinctrl/pinctrl-exynos.c         Tomasz Figa      2013-05-22  332  		if (bank->eint_type != EINT_TYPE_GPIO)
-7ccbc60cd9c293 drivers/pinctrl/pinctrl-exynos.c         Tomasz Figa      2013-05-22  333  			continue;
-7ccbc60cd9c293 drivers/pinctrl/pinctrl-exynos.c         Tomasz Figa      2013-05-22  334  		irq_domain_remove(bank->irq_domain);
-7ccbc60cd9c293 drivers/pinctrl/pinctrl-exynos.c         Tomasz Figa      2013-05-22  335  	}
-7ccbc60cd9c293 drivers/pinctrl/pinctrl-exynos.c         Tomasz Figa      2013-05-22  336  
-7ccbc60cd9c293 drivers/pinctrl/pinctrl-exynos.c         Tomasz Figa      2013-05-22  337  	return ret;
-43b169db184184 drivers/pinctrl/pinctrl-exynos.c         Thomas Abraham   2012-09-07  338  }
-43b169db184184 drivers/pinctrl/pinctrl-exynos.c         Thomas Abraham   2012-09-07  339  
+> Solve the security problems by mounting the bpf filesystem from the kernel,
+> by preloading authenticated kernel modules (e.g. with module.sig_enforce)
+> and by pinning objects to that filesystem. This particular filesystem
+> instance guarantees that desired eBPF programs run until the very end of
+> the kernel lifecycle, since even root cannot interfere with it.
 
--- 
-0-DAY CI Kernel Test Service
-https://01.org/lkp
+No.
+
+I suspect there is huge confusion on what these two "progs.debug"
+and "maps.debug" files are in a bpffs instance.
+They are debug files to pretty pring loaded maps and progs for folks who
+like to use 'cat' to examine the state of the system instead of 'bpftool'.
+The root can remove these files from bpffs.
+
+There is no reason for kernel module to pin its bpf progs.
+If you want to develop DIGLIM as a kernel module that uses light skeleton
+just do:
+#include <linux/init.h>
+#include <linux/module.h>
+#include "diglim.lskel.h"
+
+static struct diglim_bpf *skel;
+
+static int __init load(void)
+{
+        skel = diglim_bpf__open_and_load();
+        err = diglim_bpf__attach(skel);
+}
+/* detach skel in __fini */
+
+It's really that short.
+
+Then you will be able to
+- insmod diglim.ko -> will load and attach bpf progs.
+- rmmod diglim -> will detach them.
+
+Independantly from these two mistunderstandings of bpffs and light skel
+we've been talking about auto exposing loaded bpf progs, maps, links
+in a bpffs without incrementing refcnt of them.
+When progs get unloaded the files will disappear.
+Some folks believe that doing 'ls' in a directory and see one file
+for each bpf prog loaded and then doing 'cat' on that file would be
+useful for debugging. That idea wasn't rejected. We're still thinking
+what would be the best way to auto-expose all bpf objects for debugging
+and whether it's actually makes sense to do considering that
+bpftool already has commands to list all progs, maps, links, etc
+with great detail.
+It's pretty much an argument between 'cat+ls' believers and
+'bpftool' cmdline believers.
+That discussion is orthogonal and should not be mixed with bpffs, lsm,
+security or anything else.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
