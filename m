@@ -2,72 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 577514EE9D8
+	by mail.lfdr.de (Postfix) with ESMTPS id 697B64EE9D9
 	for <lists+linux-stm32@lfdr.de>; Fri,  1 Apr 2022 10:39:34 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0E5E6C5EC76;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1F7BFC5F1F1;
 	Fri,  1 Apr 2022 08:39:34 +0000 (UTC)
-Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com
- [209.85.216.53])
+Received: from mail-yb1-f176.google.com (mail-yb1-f176.google.com
+ [209.85.219.176])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 74FF8C60465
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 56023C60465
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 31 Mar 2022 02:27:33 +0000 (UTC)
-Received: by mail-pj1-f53.google.com with SMTP id bx5so22675615pjb.3
+ Thu, 31 Mar 2022 12:04:10 +0000 (UTC)
+Received: by mail-yb1-f176.google.com with SMTP id u103so41879070ybi.9
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 30 Mar 2022 19:27:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=brGSPXAAKZq1zv7Rz5aMBtmTUSadoAJBmC11PEMAvD8=;
- b=nlbLJK1J/O6nYUq8evC9fJ339K6x4bHJN538DoapkFJy/VjamB+dwe1Px9feUd1F62
- AuQA+r+MLCydK2yozMl9JBakx4tVgx+dfV8Gdj/+JlJ2s2PcpC4CMNPP5jLvJ+K0I6D/
- 58ZJKgDGq1VRIj1iby3BwAtIS+ZYXz1m49h/ISmaUaj8PnLMI0kAPXSIXPcLdRTC0j8J
- U6i3turNOHHTzB3JHSrY9OZO6U8/hg8niDEnBammYq4EML8DPZ5FMpqH75sa8up49yfJ
- k9LF6ybIF0vVv8TCzRBoa6wHQVGrUOF8KESVyx/8Ef7n7ki7hsvStej2Hwrh4SjR6gie
- b89Q==
+ Thu, 31 Mar 2022 05:04:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:from:date:message-id:subject:to:cc;
+ bh=vVg2+GBr03vvdC1xuzhWdwYhm3SEo/ZuYCT/xeS6niE=;
+ b=XNIiZdqQuTo9cCA9QknJGojKVZIDaKhcCSFvqVYy8YyUk0bpVsdrbTjVTg7Lp1nLew
+ IY5YwQesdZeJO98Wtkf0gJDBPUKL0m9+Wn0YFc7j2yQlVMrw9N4nJUZZN9iaJHSGV8GE
+ wIfWgiVS8+lJwlFzJnR0mXEnPFYJwx9CWMy5YXQ7WbWrfvP429nyRcq2mne7+JpnESyV
+ cqRzfXEOIrPHo33blb3UFUEL2zzeQB+/vqt3oqOIJcbDGv83tPNxRMjYKdFa9Z7k33Cp
+ /ihZLKJMJerWNVDj3vJ38u2daHkYQUbIR7pwbvAk49sNYBMw23xdUWia+PkY7jqErTnZ
+ OdZA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=brGSPXAAKZq1zv7Rz5aMBtmTUSadoAJBmC11PEMAvD8=;
- b=a7XgULj9CF4hMxflknAQ1OFWR0SMh8VoThQCDZWoEFRvkAeyqhOuBuN30S6v8l2mYR
- LWqDSaovTsjCP10fPQVWQB4qRl+MgXjeSvL4jXdhXViKrR/m/JFKRa9MD5MuUnIV14W9
- nqrfL9bPG7ZUnr1wtxJRdIXJWRgZRa1tUe/hwOAznxmmn0pI69kxwH2Z85IQzCN7Zm1x
- c1pXbyF58S/xPyMrKe2/FTNMKMDAEr7YjrDaIbJ6MaFSYvRsqWuCeOyaZL4BGCXrQpas
- YojH5NP9x/1yWAUx0VLkwcau/IqwLIFep20wQOGNYuXiYS7BdEh12iH+Ztilrfb+53y6
- uYdA==
-X-Gm-Message-State: AOAM5310MepppQyMlFw/5Zn46wZH0BFa86klUWlQQQemy3zFku+uobFZ
- MSfG4dfLHoQyB73P4pJECGg=
-X-Google-Smtp-Source: ABdhPJyn/9RKDnn9ebHKMw2O6x7J/GpkAo9yaxB7FFrh7CXFQi1SCyOQyd83zRQ7s2yhmAiT/9wZaA==
-X-Received: by 2002:a17:90b:4a48:b0:1c7:bb62:446c with SMTP id
- lb8-20020a17090b4a4800b001c7bb62446cmr3463303pjb.146.1648693651949; 
- Wed, 30 Mar 2022 19:27:31 -0700 (PDT)
-Received: from MBP-98dd607d3435.dhcp.thefacebook.com
- ([2620:10d:c090:400::5:756c]) by smtp.gmail.com with ESMTPSA id
- f16-20020a056a00229000b004fabe756ba6sm27342617pfe.54.2022.03.30.19.27.28
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 30 Mar 2022 19:27:31 -0700 (PDT)
-Date: Wed, 30 Mar 2022 19:27:27 -0700
-From: Alexei Starovoitov <alexei.starovoitov@gmail.com>
-To: Roberto Sassu <roberto.sassu@huawei.com>
-Message-ID: <20220331022727.ybj4rui4raxmsdpu@MBP-98dd607d3435.dhcp.thefacebook.com>
-References: <20220328175033.2437312-1-roberto.sassu@huawei.com>
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
+ bh=vVg2+GBr03vvdC1xuzhWdwYhm3SEo/ZuYCT/xeS6niE=;
+ b=gjqXzhqsDL4K3Rdc3Lzksns/5lMrkLhS2jeFAzEdQ1JeNGExfozzAIF6H1O8AMS7MG
+ JgykiAG92hS/FglrA+7SCS7WgD64dOX/taafdXG4qBQSZmJi2b7rPbOyk9zN/H85PIg5
+ uix70OZLraLiLBz+wiHJoPW5CebHJkthXYZ5xxuBL1/ISf6RMj1GL+JZqQZWrGlrLG+e
+ aUozlGTRI6YSbAIxIj5oEflrIzvqK1EACvkOjrEBYg9sib99cp6mrklguD0uP5bpxcEe
+ 0C5Jny6sEJY7wrFW/SUavxSd/VM9pNSL3sulwpLDG8kyTKH1qDuq+9QxBgNbu1MTSG9L
+ nkvw==
+X-Gm-Message-State: AOAM5320uFWUQzNU2MZIJMaEYS0mn3b+WnE4ezJ0caW+H6UQyfqrVC8U
+ ryWPaFmDZHMcsBEKt+vNNHBl3ANB1cNksfgj3azlTQ==
+X-Google-Smtp-Source: ABdhPJyuBIMuDDH57X67oIQx5rSGcAvWFmiQQo2st/DsFD9hZKNBoW+8nuJ7Dfs4pq8CE5AAmKpXj6tqdVl0JB0YC4I=
+X-Received: by 2002:a25:548:0:b0:633:81bd:e319 with SMTP id
+ 69-20020a250548000000b0063381bde319mr3993613ybf.603.1648728248547; Thu, 31
+ Mar 2022 05:04:08 -0700 (PDT)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20220328175033.2437312-1-roberto.sassu@huawei.com>
+From: Naresh Kamboju <naresh.kamboju@linaro.org>
+Date: Thu, 31 Mar 2022 17:33:57 +0530
+Message-ID: <CA+G9fYuqU45hHmK4WMUNEXQbmBucE+9fB=S9wcHEfEHaZ2jgcQ@mail.gmail.com>
+To: linux-clk <linux-clk@vger.kernel.org>, 
+ "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, linux-stm32@st-md-mailman.stormreply.com, 
+ Linux ARM <linux-arm-kernel@lists.infradead.org>, 
+ open list <linux-kernel@vger.kernel.org>, lkft-triage@lists.linaro.org, 
+ regressions@lists.linux.dev
 X-Mailman-Approved-At: Fri, 01 Apr 2022 08:39:33 +0000
-Cc: ast@kernel.org, linux-kselftest@vger.kernel.org, daniel@iogearbox.net,
- corbet@lwn.net, netdev@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, kpsingh@kernel.org, zohar@linux.ibm.com,
- andrii@kernel.org, linux-security-module@vger.kernel.org,
- viro@zeniv.linux.org.uk, mcoquelin.stm32@gmail.com,
- linux-fsdevel@vger.kernel.org, linux-integrity@vger.kernel.org,
- bpf@vger.kernel.org, shuah@kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 00/18] bpf: Secure and authenticated
- preloading of eBPF programs
+Cc: Philipp Zabel <p.zabel@pengutronix.de>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
+ Stephen Boyd <sboyd@kernel.org>, Michael Turquette <mturquette@baylibre.com>,
+ gabriel.fernandez@foss.st.com, Rob Herring <robh+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Nicolas Dechesne <nicolas.dechesne@linaro.org>
+Subject: [Linux-stm32] [next] db845c: WARNING: CPU: 5 PID: 8 at
+ drivers/clk/clk-divider.c:139 divider_recalc_rate
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,103 +77,166 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Mar 28, 2022 at 07:50:15PM +0200, Roberto Sassu wrote:
-> eBPF already allows programs to be preloaded and kept running without
-> intervention from user space. There is a dedicated kernel module called
-> bpf_preload, which contains the light skeleton of the iterators_bpf eBPF
-> program. If this module is enabled in the kernel configuration, its loading
-> will be triggered when the bpf filesystem is mounted (unless the module is
-> built-in), and the links of iterators_bpf are pinned in that filesystem
-> (they will appear as the progs.debug and maps.debug files).
-> 
-> However, the current mechanism, if used to preload an LSM, would not offer
-> the same security guarantees of LSMs integrated in the security subsystem.
-> Also, it is not generic enough to be used for preloading arbitrary eBPF
-> programs, unless the bpf_preload code is heavily modified.
-> 
-> More specifically, the security problems are:
-> - any program can be pinned to the bpf filesystem without limitations
->   (unless a MAC mechanism enforces some restrictions);
-> - programs being executed can be terminated at any time by deleting the
->   pinned objects or unmounting the bpf filesystem.
+Following kernel warning noticed on db845c while booting linux next-20220331.
 
-So many things to untangle here.
+metadata:
+  git_ref: master
+  git_repo: https://gitlab.com/Linaro/lkft/mirrors/next/linux-next
+  git_sha: fdcbcd1348f4ef713668bae1b0fa9774e1811205
+  git_describe: next-20220331
+  kernel_version: 5.17.0
+  kernel-config: https://builds.tuxbuild.com/278RLnhgJL7XdlJbcbv07jiwbYB/config
 
-The above paragraphs are misleading and incorrect.
-The commit log sounds like there are security issues that this
-patch set is fixing.
-This is not true.
-Looks like there is a massive misunderstanding on what bpffs is.
-It's a file system to pin and get bpf objects with normal
-file access permissions. Nothing else.
-Do NOT use it to pin LSM or any other security sensitive bpf programs
-and then complain that root can unpin them.
-Yes. Root can and should be able to 'rm -rf' anything in bpffs instance.
+Boot log:
+[    0.000000] Booting Linux on physical CPU 0x0000000000 [0x517f803c]
+[    0.000000] Linux version 5.17.0-next-20220331 (tuxmake@tuxmake)
+(aarch64-linux-gnu-gcc (Debian 11.2.0-18) 11.2.0, GNU ld (GNU Binutils
+for Debian) 2.38) #1 SMP PREEMPT @1648699852
+[    0.000000] Machine model: Thundercomm Dragonboard 845c
+<trim>
+[    8.131366] ------------[ cut here ]------------
+[    8.131374] dsi0_pll_bit_clk: Zero divisor and CLK_DIVIDER_ALLOW_ZERO not set
+[    8.131387] WARNING: CPU: 5 PID: 8 at drivers/clk/clk-divider.c:139
+divider_recalc_rate+0x8c/0xc0
+[    8.131398] Modules linked in: qcom_spmi_adc5 snd_soc_sdm845
+qcom_vadc_common qcom_spmi_temp_alarm qcom_pon crct10dif_ce rtc_pm8xxx
+snd_soc_rt5663 msm snd_soc_qcom_common gpu_sched snd_soc_rl6231
+soundwire_bus reset_qcom_pdc drm_dp_helper qcom_camss hci_uart
+videobuf2_dma_sg btqca v4l2_fwnode venus_core ath10k_snoc v4l2_async
+btbcm ath10k_core i2c_qcom_geni v4l2_mem2mem videobuf2_memops
+videobuf2_v4l2 ath bluetooth camcc_sdm845 videobuf2_common
+spi_geni_qcom i2c_qcom_cci qcom_rng mac80211 xhci_pci qcom_q6v5_mss
+xhci_pci_renesas cfg80211 icc_osm_l3 slim_qcom_ngd_ctrl qcom_wdt
+rfkill qrtr lmh pdr_interface display_connector slimbus qcom_q6v5_pas
+drm_kms_helper qcom_pil_info qcom_q6v5 qcom_sysmon qcom_common
+qcom_glink_smem qmi_helpers drm mdt_loader socinfo rmtfs_mem fuse
+[    8.131462] CPU: 5 PID: 8 Comm: kworker/u16:0 Not tainted
+5.17.0-next-20220331 #1
+[    8.131465] Hardware name: Thundercomm Dragonboard 845c (DT)
+[    8.131467] Workqueue: events_unbound deferred_probe_work_func
+[    8.131475] pstate: 60400005 (nZCv daif +PAN -UAO -TCO -DIT -SSBS BTYPE=--)
+[    8.131477] pc : divider_recalc_rate+0x8c/0xc0
+[    8.131479] lr : divider_recalc_rate+0x8c/0xc0
+[    8.131481] sp : ffff8000080936c0
+[    8.131482] x29: ffff8000080936c0 x28: ffff781940e58d00 x27: ffffa7f3f1bc6d38
+[    8.131485] x26: ffffa7f3f1bc6cf8 x25: 0000000000000000 x24: ffffffffffffffff
+[    8.131488] x23: ffff781947e8a400 x22: 000000003b9aca50 x21: ffff781940be0800
+[    8.131491] x20: ffff781947e8a800 x19: 000000003b9aca50 x18: 0000000000000000
+[    8.131494] x17: 0000000000000000 x16: 0000000000000000 x15: 0000000000000000
+[    8.131497] x14: ffff7819bd718000 x13: 0a74657320746f6e x12: 204f52455a5f574f
+[    8.131500] x11: 4c4c415f52454449 x10: 5649445f4b4c4320 x9 : ffffa7f3f011de84
+[    8.131502] x8 : 445f4b4c4320646e x7 : 6120726f73697669 x6 : 0000000000000001
+[    8.131505] x5 : ffffa7f3f288f000 x4 : ffffa7f3f288f2d0 x3 : 0000000000000000
+[    8.131508] x2 : 0000000000000000 x1 : 0000000000000000 x0 : ffff7819402c7000
+[    8.131511] Call trace:
+[    8.131512]  divider_recalc_rate+0x8c/0xc0
+[    8.131513]  clk_divider_recalc_rate+0x64/0x90
+[    8.131515]  clk_recalc+0x40/0xb0
+[    8.131519]  clk_calc_subtree+0x58/0x90
+[    8.131521]  clk_calc_subtree+0x70/0x90
+[    8.131523]  clk_calc_new_rates+0x150/0x290
+[    8.131526]  clk_calc_new_rates+0x100/0x290
+[    8.131528]  clk_calc_new_rates+0x100/0x290
+[    8.131530]  clk_calc_new_rates+0x100/0x290
+[    8.131533]  clk_core_set_rate_nolock+0xa0/0x2a4
+[    8.131535]  clk_set_rate_range_nolock.part.0+0xbc/0x2a0
+[    8.131538]  __clk_put+0x70/0x140
+[    8.131540]  clk_put+0x1c/0x30
+[    8.131543]  of_clk_set_defaults+0x140/0x3c0
+[    8.131546]  platform_probe+0x48/0xf0
+[    8.131548]  really_probe+0x184/0x3d0
+[    8.131550]  __driver_probe_device+0x11c/0x190
+[    8.131553]  driver_probe_device+0x44/0xf4
+[    8.131556]  __device_attach_driver+0xa4/0x140
+[    8.131558]  bus_for_each_drv+0x84/0xe0
+[    8.131561]  __device_attach+0xe4/0x1c0
+[    8.131563]  device_initial_probe+0x20/0x30
+[    8.131565]  bus_probe_device+0xa4/0xb0
+[    8.131567]  deferred_probe_work_func+0xa8/0xfc
+[    8.131570]  process_one_work+0x1dc/0x450
+[    8.131575]  worker_thread+0x154/0x450
+[    8.131577]  kthread+0x100/0x110
+[    8.131579]  ret_from_fork+0x10/0x20
+[    8.131584] ---[ end trace 0000000000000000 ]---
+[    8.131588] ------------[ cut here ]------------
+[    8.131589] dsi0_phy_pll_out_dsiclk: Zero divisor and
+CLK_DIVIDER_ALLOW_ZERO not set
+[    8.131596] WARNING: CPU: 5 PID: 8 at drivers/clk/clk-divider.c:139
+divider_recalc_rate+0x8c/0xc0
+[    8.131599] Modules linked in: qcom_spmi_adc5 snd_soc_sdm845 qcom_vadc_commo#
+n qcom_spmi_temp_alarm qcom_pon crct10dif_ce rtc_pm8xxx snd_soc_rt5663
+msm snd_soc_qcom_common gpu_sched snd_soc_rl6231 soundwire_bus
+reset_qcom_pdc drm_dp_helper qcom_camss hci_uart videobuf2_dma_sg
+btqca v4l2_fwnode venus_core ath10k_snoc v4l2_async btbcm ath10k_core
+i2c_qcom_geni v4l2_mem2mem videobuf2_memops videobuf2_v4l2 ath
+bluetooth camcc_sdm845 videobuf2_common spi_geni_qcom i2c_qcom_cci
+qcom_rng mac80211 xhci_pci qcom_q6v5_mss xhci_pci_renesas cfg80211
+icc_osm_l3 slim_qcom_ngd_ctrl qcom_wdt rfkill qrtr lmh pdr_interface
+display_connector slimbus qcom_q6v5_pas drm_kms_helper qcom_pil_info
+qcom_q6v5 qcom_sysmon qcom_common qcom_glink_smem qmi_helpers drm
+mdt_loader socinfo rmtfs_mem fuse
+[    8.131637] CPU: 5 PID: 8 Comm: kworker/u16:0 Tainted: G        W
+      5.17.0-next-20220331 #1
+[    8.131639] Hardware name: Thundercomm Dragonboard 845c (DT)
+[    8.131640] Workqueue: events_unbound deferred_probe_work_func
+[    8.131643] pstate: 60400005 (nZCv daif +PAN -UAO -TCO -DIT -SSBS BTYPE=--)
+[    8.131645] pc : divider_recalc_rate+0x8c/0xc0
+[    8.131647] lr : divider_recalc_rate+0x8c/0xc0
+[    8.131648] sp : ffff800008093680
+[    8.131649] x29: ffff800008093680 x28: ffff781940e58d00 x27: ffffa7f3f1bc6d38
+[    8.131652] x26: ffffa7f3f1bc6cf8 x25: 0000000000000000 x24: ffffffffffffffff
+[    8.131655] x23: ffff781947e8a400 x22: 000000003b9aca50 x21: ffff781940be0800
+[    8.131657] x20: ffff781947e8b300 x19: 000000003b9aca50 x18: 0000000000000000
+[    8.131660] x17: 0000000000000000 x16: 0000000000000000 x15: 0000000000000000
+[    8.131663] x14: ffff7819bd718000 x13: 0a74657320746f6e x12: 204f52455a5f574f
+[    8.131666] x11: 4c4c415f52454449 x10: 5649445f4b4c4320 x9 : ffffa7f3f011de84
+[    8.131669] x8 : 445f4b4c4320646e x7 : 6120726f73697669 x6 : 0000000000000001
+[    8.131671] x5 : ffffa7f3f288f000 x4 : ffffa7f3f288f2d0 x3 : 0000000000000000
+[    8.131674] x2 : 0000000000000000 x1 : 0000000000000000 x0 : ffff7819402c7000
+[    8.131677] Call trace:
+[    8.131677]  divider_recalc_rate+0x8c/0xc0
+[    8.131679]  clk_divider_recalc_rate+0x64/0x90
+[    8.131680]  clk_recalc+0x40/0xb0
+[    8.131683]  clk_calc_subtree+0x58/0x90
+[    8.131685]  clk_calc_subtree+0x70/0x90
+[    8.131687]  clk_calc_subtree+0x70/0x90
+[    8.131690]  clk_calc_subtree+0x70/0x90
+[    8.131692]  clk_calc_new_rates+0x150/0x290
+[    8.131694]  clk_calc_new_rates+0x100/0x290
+[    8.131697]  clk_calc_new_rates+0x100/0x290
+[    8.131699]  clk_calc_new_rates+0x100/0x290
+[    8.131701]  clk_core_set_rate_nolock+0xa0/0x2a4
+[    8.131704]  clk_set_rate_range_nolock.part.0+0xbc/0x2a0
+[    8.131707]  __clk_put+0x70/0x140
+[    8.131708]  clk_put+0x1c/0x30
+[    8.131710]  of_clk_set_defaults+0x140/0x3c0
+[    8.131712]  platform_probe+0x48/0xf0
+[    8.131714]  really_probe+0x184/0x3d0
+[    8.131716]  __driver_probe_device+0x11c/0x190
+[    8.131719]  driver_probe_device+0x44/0xf4
+[    8.131722]  __device_attach_driver+0xa4/0x140
+[    8.131723]  bus_for_each_drv+0x84/0xe0
+[    8.131726]  __device_attach+0xe4/0x1c0
+[    8.131728]  device_initial_probe+0x20/0x30
+[    8.131730]  bus_probe_device+0xa4/0xb0
+[    8.131732]  deferred_probe_work_func+0xa8/0xfc
+[    8.131735]  process_one_work+0x1dc/0x450
+[    8.131737]  worker_thread+0x154/0x450
+[    8.131739]  kthread+0x100/0x110
+[    8.131741]  ret_from_fork+0x10/0x20
+[    8.131743] ---[ end trace 0000000000000000 ]---
+[    8.131756] ------------[ cut here ]#
+------------
+[    8.131757] dsi0_pll_bit_clk: Zero divisor and CLK_DIVIDER_ALLOW_ZERO not set
 
-> The usability problems are:
-> - only a fixed amount of links can be pinned;
 
-where do you see this limit?
+Reported-by: Linux Kernel Functional Testing <lkft@linaro.org>
 
-> - only links can be pinned, other object types are not supported;
+--
+Linaro LKFT
+https://lkft.linaro.org
 
-really? progs, maps can be pinned as well.
-
-> - code to pin objects has to be written manually;
-
-huh?
-
-> Solve the security problems by mounting the bpf filesystem from the kernel,
-> by preloading authenticated kernel modules (e.g. with module.sig_enforce)
-> and by pinning objects to that filesystem. This particular filesystem
-> instance guarantees that desired eBPF programs run until the very end of
-> the kernel lifecycle, since even root cannot interfere with it.
-
-No.
-
-I suspect there is huge confusion on what these two "progs.debug"
-and "maps.debug" files are in a bpffs instance.
-They are debug files to pretty pring loaded maps and progs for folks who
-like to use 'cat' to examine the state of the system instead of 'bpftool'.
-The root can remove these files from bpffs.
-
-There is no reason for kernel module to pin its bpf progs.
-If you want to develop DIGLIM as a kernel module that uses light skeleton
-just do:
-#include <linux/init.h>
-#include <linux/module.h>
-#include "diglim.lskel.h"
-
-static struct diglim_bpf *skel;
-
-static int __init load(void)
-{
-        skel = diglim_bpf__open_and_load();
-        err = diglim_bpf__attach(skel);
-}
-/* detach skel in __fini */
-
-It's really that short.
-
-Then you will be able to
-- insmod diglim.ko -> will load and attach bpf progs.
-- rmmod diglim -> will detach them.
-
-Independantly from these two mistunderstandings of bpffs and light skel
-we've been talking about auto exposing loaded bpf progs, maps, links
-in a bpffs without incrementing refcnt of them.
-When progs get unloaded the files will disappear.
-Some folks believe that doing 'ls' in a directory and see one file
-for each bpf prog loaded and then doing 'cat' on that file would be
-useful for debugging. That idea wasn't rejected. We're still thinking
-what would be the best way to auto-expose all bpf objects for debugging
-and whether it's actually makes sense to do considering that
-bpftool already has commands to list all progs, maps, links, etc
-with great detail.
-It's pretty much an argument between 'cat+ls' believers and
-'bpftool' cmdline believers.
-That discussion is orthogonal and should not be mixed with bpffs, lsm,
-security or anything else.
+[1] https://qa-reports.linaro.org/lkft/linux-next-master/build/next-20220331/testrun/8808185/suite/linux-log-parser/test/check-kernel-exception-4814166/log
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
