@@ -2,40 +2,40 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id EFD074EEB6D
-	for <lists+linux-stm32@lfdr.de>; Fri,  1 Apr 2022 12:35:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A9D544EEB7D
+	for <lists+linux-stm32@lfdr.de>; Fri,  1 Apr 2022 12:36:09 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A7A58C5F1F1;
-	Fri,  1 Apr 2022 10:35:55 +0000 (UTC)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 73325C628AD;
+	Fri,  1 Apr 2022 10:36:09 +0000 (UTC)
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5B14FC5EC47
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0F64CC628AD
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  1 Apr 2022 10:35:54 +0000 (UTC)
+ Fri,  1 Apr 2022 10:36:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1648809354; x=1680345354;
+ t=1648809368; x=1680345368;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=LT/CSy5JpaWUNE3hS0zZPYlM1WwfMM5j7JNnfmfMtD8=;
- b=CJkz7j3wpEqJ/dgj2RPV7wy59mvKQKKnnIDgalKyhk/llhuCwftn3kej
- Kfbm+6y4r04tUHY5jFDrxlWcu2dBZezCu9siDqIHpviz7OQjmN0jAPdgF
- R1cOg96KG244pD4ppHrkfQ7xrin1B/eWpgz7D4Q4q17eCQRcmMVgGEiGS
- TVvKAYWeM6uTmuhbfy8sMlUpovVx652nhdgUkKiuQds82v3b+d6Ngje6V
- R/3tk8Vmj+OL6E+VQlcdgNHddi5oCzqah3w1h+Tdj5J+knFOmabH2bC2u
- AjfqoXKHEgiUbCD2JW2+c2HHfMcbk3PVkgRK41OWinYRh/pawIZQ2isKS w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10303"; a="260281427"
-X-IronPort-AV: E=Sophos;i="5.90,227,1643702400"; d="scan'208";a="260281427"
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ bh=i+XLNp2iVCE62baGP2Gp0lU65sQmnL0penjqJcUdxuU=;
+ b=a1qYxLmx3nTcNyIprFMhG3X/iIZIrggRck5IiIWijv5h/UsQy/bVnVko
+ jZyNEU4ZvGgAZ/6QpwLRnlqUqGa7Q7mOyjEP8EJ0x4OSiU3oHLQ2cUW0D
+ 2nDj1v+8PeiT8teK9k47cTqbI42nOT9/t4k2QMHvP0Z+DHf7r5VL8k9oC
+ 74G7J8gPl+OhUqqK6lujfoXZ7c6s/5Oqg9piLsPxW+p8jR+byJJr3hWJj
+ NS9CSwP6AYJ1DLxPKRhcsFJcw0LAMmLOQI0HaaF8TJciclN3TgCtO1rPy
+ bHHXV/X6XjBiSV1LIuFL/MNiPwGW1p0yMebo76wMDG3i+A7xmlSoCGJnA A==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10303"; a="242247920"
+X-IronPort-AV: E=Sophos;i="5.90,227,1643702400"; d="scan'208";a="242247920"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  01 Apr 2022 03:35:51 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.90,227,1643702400"; d="scan'208";a="843133146"
+X-IronPort-AV: E=Sophos;i="5.90,227,1643702400"; d="scan'208";a="695847010"
 Received: from black.fi.intel.com ([10.237.72.28])
- by fmsmga005.fm.intel.com with ESMTP; 01 Apr 2022 03:35:44 -0700
+ by fmsmga001.fm.intel.com with ESMTP; 01 Apr 2022 03:35:44 -0700
 Received: by black.fi.intel.com (Postfix, from userid 1003)
- id AC82A1C3; Fri,  1 Apr 2022 13:36:05 +0300 (EEST)
+ id B7C6A1F5; Fri,  1 Apr 2022 13:36:05 +0300 (EEST)
 From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 To: Qianggui Song <qianggui.song@amlogic.com>,
  Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
@@ -47,8 +47,8 @@ To: Qianggui Song <qianggui.song@amlogic.com>,
  linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org,
  linux-renesas-soc@vger.kernel.org, linux-samsung-soc@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com
-Date: Fri,  1 Apr 2022 13:35:53 +0300
-Message-Id: <20220401103604.8705-3-andriy.shevchenko@linux.intel.com>
+Date: Fri,  1 Apr 2022 13:35:54 +0300
+Message-Id: <20220401103604.8705-4-andriy.shevchenko@linux.intel.com>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220401103604.8705-1-andriy.shevchenko@linux.intel.com>
 References: <20220401103604.8705-1-andriy.shevchenko@linux.intel.com>
@@ -67,8 +67,8 @@ Cc: Andrew Lunn <andrew@lunn.ch>, Tomer Maimon <tmaimon77@gmail.com>,
  Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
  Nancy Yuen <yuenn@google.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Jerome Brunet <jbrunet@baylibre.com>
-Subject: [Linux-stm32] [PATCH v4 02/13] gpiolib: Introduce
-	gpiochip_node_count() helper
+Subject: [Linux-stm32] [PATCH v4 03/13] pinctrl: stm32: Replace custom code
+	by gpiochip_node_count() call
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,37 +85,42 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The gpiochip_node_count() helper iterates over the device child nodes that
-have the "gpio-controller" property set. It returns the number of such nodes
-under a given device.
+Since we have generic function to count GPIO controller nodes
+under a given device, there is no need to open code it. Replace
+custom code by gpiochip_node_count() call.
 
 Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-Tested-by: Geert Uytterhoeven <geert+renesas@glider.be>
+Reviewed-by: Fabien Dessenne <fabien.dessenne@foss.st.com>
 ---
- include/linux/gpio/driver.h | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+ drivers/pinctrl/stm32/pinctrl-stm32.c | 8 +++-----
+ 1 file changed, 3 insertions(+), 5 deletions(-)
 
-diff --git a/include/linux/gpio/driver.h b/include/linux/gpio/driver.h
-index bfc91f122d5f..12de0b22b4ef 100644
---- a/include/linux/gpio/driver.h
-+++ b/include/linux/gpio/driver.h
-@@ -755,4 +755,15 @@ static inline void gpiochip_unlock_as_irq(struct gpio_chip *gc,
- 	device_for_each_child_node(dev, child)					\
- 		if (!fwnode_property_present(child, "gpio-controller")) {} else
+diff --git a/drivers/pinctrl/stm32/pinctrl-stm32.c b/drivers/pinctrl/stm32/pinctrl-stm32.c
+index 9ed764731570..91b9a64b649e 100644
+--- a/drivers/pinctrl/stm32/pinctrl-stm32.c
++++ b/drivers/pinctrl/stm32/pinctrl-stm32.c
+@@ -1423,7 +1423,8 @@ int stm32_pctl_probe(struct platform_device *pdev)
+ 	struct device *dev = &pdev->dev;
+ 	struct stm32_pinctrl *pctl;
+ 	struct pinctrl_pin_desc *pins;
+-	int i, ret, hwlock_id, banks = 0;
++	int i, ret, hwlock_id;
++	unsigned int banks;
  
-+static inline unsigned int gpiochip_node_count(struct device *dev)
-+{
-+	struct fwnode_handle *child;
-+	unsigned int count = 0;
-+
-+	for_each_gpiochip_node(dev, child)
-+		count++;
-+
-+	return count;
-+}
-+
- #endif /* __LINUX_GPIO_DRIVER_H */
+ 	if (!np)
+ 		return -EINVAL;
+@@ -1513,10 +1514,7 @@ int stm32_pctl_probe(struct platform_device *pdev)
+ 		return PTR_ERR(pctl->pctl_dev);
+ 	}
+ 
+-	for_each_available_child_of_node(np, child)
+-		if (of_property_read_bool(child, "gpio-controller"))
+-			banks++;
+-
++	banks = gpiochip_node_count(dev);
+ 	if (!banks) {
+ 		dev_err(dev, "at least one GPIO bank is required\n");
+ 		return -EINVAL;
 -- 
 2.35.1
 
