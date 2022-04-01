@@ -2,67 +2,86 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 481274EFA17
-	for <lists+linux-stm32@lfdr.de>; Fri,  1 Apr 2022 20:47:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F11C64EFD46
+	for <lists+linux-stm32@lfdr.de>; Sat,  2 Apr 2022 01:55:45 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EE805C5EC6C;
-	Fri,  1 Apr 2022 18:47:03 +0000 (UTC)
-Received: from mail-yb1-f174.google.com (mail-yb1-f174.google.com
- [209.85.219.174])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AE093C5EC6C;
+	Fri,  1 Apr 2022 23:55:45 +0000 (UTC)
+Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com
+ [209.85.210.177])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A21BDC5EC56
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1E774C06F81
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  1 Apr 2022 18:47:01 +0000 (UTC)
-Received: by mail-yb1-f174.google.com with SMTP id v35so6532053ybi.10
+ Fri,  1 Apr 2022 23:55:44 +0000 (UTC)
+Received: by mail-pf1-f177.google.com with SMTP id bo5so4010693pfb.4
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 01 Apr 2022 11:47:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=KHwVWHL7L6HTe2gQfSQb8Mhf5JWtkQAFwHffatgw3Es=;
- b=ESJ35r6Soz3GoZhs4/iCaSgJ1H5iixLvtUeVbp8SMsTqOu7sPNt5Pt63aoZtQ9Gcy0
- SrxH6F5EwyCwASWBNoryIheBo6XtCLv3VCV9FKV6axXrquEegjmORt3OLe2NP+Oh5vMj
- 6eiDCqxJwaDwjbuPyalFin+ZAyfRlCVmq1sfL3jXoMP5dYFk8qt5e6gIbpl6ByJCFHpi
- 45G8Ulfuq6EiLJOh6hKZP5MixWyE236KrdFKFLWFbYskpgpTNs07rfXS1ytSWh61FPTs
- RbLrApZVP4f1+GphMyt/1nM3/REYmUoXnuKEdx+mQa2n8M5YRkHq1sWe6vCT0GgSCG2g
- po1w==
+ Fri, 01 Apr 2022 16:55:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=ITDDF7wJMqoC4D+CMFddkLEBVT+cz8yxZasDs7bEqHU=;
+ b=lKGmW1uWP9QHlp4AUB8qvKmffBMuUV67+V/VNWVRF6rOOYUbY+74bGyNvz0/RaZGm0
+ /6a1CNZPKF9XX8ufK2skUi/JsjqwRe6QpfBWIMc4Hugbu/pi7xgtDj+QZhrsm47b6P7e
+ MOqTKbiXouVj0rKUrNmMDVRTSskLt1rtHCZgGPxPtO+6WMOtlhB0VeWkxpTII8BpF4Ar
+ ZZYmaNBpe+zxwun2L8jgoYeVVLVEgsbprrzeDw5z0zV8K8N7UqRI1RkpiMq9kECPUC5M
+ X+EyGGzgnmy6ExUyqWapnwBhOaROd4ahOlRCHdELR9gEp0stA9O6L/EGZyJY8XyOLX00
+ 1z1A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=KHwVWHL7L6HTe2gQfSQb8Mhf5JWtkQAFwHffatgw3Es=;
- b=E6JE+/CASyDMVUS+bZQ5hW0FKW42SB3A6TjCrPR8yP6RmRBRgIqnivf+3tObL1C6xG
- nXDF9xZgKqjj3ei1RMti7dJFFB/JkOEqENcKXhShrGB2s/wzSA9CMhwZaxKWztJf7138
- hR86c0ltdgKacsxAWDEO8RAX/4f2Vw1Flvr1xqEcd1aUqU9bNpjKi92hLASxq+M8X8Oj
- yYUi7r18QIzHwyBCkHN/0z6fLNptx+aJx2AAh/azTijXhAz649m+Qcw2vSGpskejNiWa
- AkbOAYn8gzGDpN8lv4vFgWOePK5nG5g6cSzKAoyZaR7M8PUQf+ItcIu2CXWgJ5Nl59Xt
- AwTg==
-X-Gm-Message-State: AOAM530GYIKQ5X5wBxErEoDeH7JxkpgaWzB0845kr4b8ewvYdDb3yDwx
- 5ghywHnI07qf4m3jkV/zl0eRloic/9Qf+yp1PfR4Xw==
-X-Google-Smtp-Source: ABdhPJyWFhvCTOuWsnUZ1wF2W4+gUa9RiTNz4mEEbStDzWibyXeAUKdg/4Tk05i1j56aFF/Yn/cxNWLVdWmLGZfQZ94=
-X-Received: by 2002:a25:9846:0:b0:61a:3deb:4d39 with SMTP id
- k6-20020a259846000000b0061a3deb4d39mr10149476ybo.537.1648838820325; Fri, 01
- Apr 2022 11:47:00 -0700 (PDT)
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=ITDDF7wJMqoC4D+CMFddkLEBVT+cz8yxZasDs7bEqHU=;
+ b=UNZzlePqHf4UkpLWXbBkAdlagMyE3cDpvLjwJNtyGsBvUKhbDsIRkAY/wZlVszfwRH
+ KwEwfMD8SYn0X8keHm+WiC0T2g87eK375MsgCNhfUK67G88B2T6Ej/960bkiJPQbZeFd
+ KnUoR627O/74TCUEVaux9Q1bSMQKfjdP7XKBsDakF9fzGHOff9nMuwpk2PoLr7d74xPr
+ 4KjfXPpzgYnLY16xRXvVhmeMbMpypwxJGPdYkgr6lmHyNKWaQUDhYOoSc8LyNWcIuTZw
+ FTJimyM2wztEVg8QGTVHtOoePLPC9Mc/4vPEOA+vQMMX4edyOTrpcd0moifEmWT8gJ5b
+ 3q8w==
+X-Gm-Message-State: AOAM530WEld6OOCWqexrRCTGYf588YK9VgJ38HPoAipjl7ehoXhAE3U1
+ yD4Iper8hVrqR5XyqpREgf8=
+X-Google-Smtp-Source: ABdhPJw5mHEx3OXRCJwg5BH/o7y2KBgiA/EPycjlEwRTxtui+XCnm3ENGoJTUYt+IJX/yfQbKijNJA==
+X-Received: by 2002:a62:84d3:0:b0:4fa:72e2:1c64 with SMTP id
+ k202-20020a6284d3000000b004fa72e21c64mr47407413pfd.29.1648857342449; 
+ Fri, 01 Apr 2022 16:55:42 -0700 (PDT)
+Received: from MBP-98dd607d3435.dhcp.thefacebook.com
+ ([2620:10d:c090:400::5:fb6e]) by smtp.gmail.com with ESMTPSA id
+ j7-20020a056a00130700b004b9f7cd94a4sm4230615pfu.56.2022.04.01.16.55.39
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 01 Apr 2022 16:55:41 -0700 (PDT)
+Date: Fri, 1 Apr 2022 16:55:37 -0700
+From: Alexei Starovoitov <alexei.starovoitov@gmail.com>
+To: Roberto Sassu <roberto.sassu@huawei.com>
+Message-ID: <20220401235537.mwziwuo4n53m5cxp@MBP-98dd607d3435.dhcp.thefacebook.com>
+References: <20220328175033.2437312-1-roberto.sassu@huawei.com>
+ <20220331022727.ybj4rui4raxmsdpu@MBP-98dd607d3435.dhcp.thefacebook.com>
+ <b9f5995f96da447c851f7c9db8232a9b@huawei.com>
 MIME-Version: 1.0
-References: <CA+G9fYuqU45hHmK4WMUNEXQbmBucE+9fB=S9wcHEfEHaZ2jgcQ@mail.gmail.com>
- <20220401151058.fipdax3kvmxknctv@houat>
-In-Reply-To: <20220401151058.fipdax3kvmxknctv@houat>
-From: Naresh Kamboju <naresh.kamboju@linaro.org>
-Date: Sat, 2 Apr 2022 00:16:48 +0530
-Message-ID: <CA+G9fYu+WddXTb0NcbviUfGQHhsmThssVCafLPw7+nj3JsoFAA@mail.gmail.com>
-To: Maxime Ripard <maxime@cerno.tech>
-Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, regressions@lists.linux.dev,
- Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
- Stephen Boyd <sboyd@kernel.org>, Michael Turquette <mturquette@baylibre.com>,
- open list <linux-kernel@vger.kernel.org>, lkft-triage@lists.linaro.org,
- linux-stm32@st-md-mailman.stormreply.com, gabriel.fernandez@foss.st.com,
- Rob Herring <robh+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Nicolas Dechesne <nicolas.dechesne@linaro.org>,
- Philipp Zabel <p.zabel@pengutronix.de>, linux-clk <linux-clk@vger.kernel.org>,
- Linux ARM <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [next] db845c: WARNING: CPU: 5 PID: 8 at
- drivers/clk/clk-divider.c:139 divider_recalc_rate
+Content-Disposition: inline
+In-Reply-To: <b9f5995f96da447c851f7c9db8232a9b@huawei.com>
+Cc: "ast@kernel.org" <ast@kernel.org>,
+ "linux-kselftest@vger.kernel.org" <linux-kselftest@vger.kernel.org>,
+ "daniel@iogearbox.net" <daniel@iogearbox.net>,
+ "corbet@lwn.net" <corbet@lwn.net>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "kpsingh@kernel.org" <kpsingh@kernel.org>,
+ "zohar@linux.ibm.com" <zohar@linux.ibm.com>,
+ "andrii@kernel.org" <andrii@kernel.org>,
+ "linux-security-module@vger.kernel.org"
+ <linux-security-module@vger.kernel.org>,
+ "viro@zeniv.linux.org.uk" <viro@zeniv.linux.org.uk>,
+ "mcoquelin.stm32@gmail.com" <mcoquelin.stm32@gmail.com>,
+ "linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>,
+ "linux-integrity@vger.kernel.org" <linux-integrity@vger.kernel.org>,
+ "bpf@vger.kernel.org" <bpf@vger.kernel.org>,
+ "shuah@kernel.org" <shuah@kernel.org>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH 00/18] bpf: Secure and authenticated
+ preloading of eBPF programs
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,120 +98,128 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, 1 Apr 2022 at 20:41, Maxime Ripard <maxime@cerno.tech> wrote:
->
-> Hi,
->
-> On Thu, Mar 31, 2022 at 05:33:57PM +0530, Naresh Kamboju wrote:
-> > Following kernel warning noticed on db845c while booting linux next-20220331.
-> >
-> > metadata:
-> >   git_ref: master
-> >   git_repo: https://gitlab.com/Linaro/lkft/mirrors/next/linux-next
-> >   git_sha: fdcbcd1348f4ef713668bae1b0fa9774e1811205
-> >   git_describe: next-20220331
-> >   kernel_version: 5.17.0
-> >   kernel-config: https://builds.tuxbuild.com/278RLnhgJL7XdlJbcbv07jiwbYB/config
-> >
-> > Boot log:
-> > [    0.000000] Booting Linux on physical CPU 0x0000000000 [0x517f803c]
-> > [    0.000000] Linux version 5.17.0-next-20220331 (tuxmake@tuxmake)
-> > (aarch64-linux-gnu-gcc (Debian 11.2.0-18) 11.2.0, GNU ld (GNU Binutils
-> > for Debian) 2.38) #1 SMP PREEMPT @1648699852
-> > [    0.000000] Machine model: Thundercomm Dragonboard 845c
-> > <trim>
-> > [    8.131366] ------------[ cut here ]------------
-> > [    8.131374] dsi0_pll_bit_clk: Zero divisor and CLK_DIVIDER_ALLOW_ZERO not set
-> > [    8.131387] WARNING: CPU: 5 PID: 8 at drivers/clk/clk-divider.c:139
-> > divider_recalc_rate+0x8c/0xc0
-> > [    8.131398] Modules linked in: qcom_spmi_adc5 snd_soc_sdm845
-> > qcom_vadc_common qcom_spmi_temp_alarm qcom_pon crct10dif_ce rtc_pm8xxx
-> > snd_soc_rt5663 msm snd_soc_qcom_common gpu_sched snd_soc_rl6231
-> > soundwire_bus reset_qcom_pdc drm_dp_helper qcom_camss hci_uart
-> > videobuf2_dma_sg btqca v4l2_fwnode venus_core ath10k_snoc v4l2_async
-> > btbcm ath10k_core i2c_qcom_geni v4l2_mem2mem videobuf2_memops
-> > videobuf2_v4l2 ath bluetooth camcc_sdm845 videobuf2_common
-> > spi_geni_qcom i2c_qcom_cci qcom_rng mac80211 xhci_pci qcom_q6v5_mss
-> > xhci_pci_renesas cfg80211 icc_osm_l3 slim_qcom_ngd_ctrl qcom_wdt
-> > rfkill qrtr lmh pdr_interface display_connector slimbus qcom_q6v5_pas
-> > drm_kms_helper qcom_pil_info qcom_q6v5 qcom_sysmon qcom_common
-> > qcom_glink_smem qmi_helpers drm mdt_loader socinfo rmtfs_mem fuse
-> > [    8.131462] CPU: 5 PID: 8 Comm: kworker/u16:0 Not tainted
-> > 5.17.0-next-20220331 #1
-> > [    8.131465] Hardware name: Thundercomm Dragonboard 845c (DT)
-> > [    8.131467] Workqueue: events_unbound deferred_probe_work_func
-> > [    8.131475] pstate: 60400005 (nZCv daif +PAN -UAO -TCO -DIT -SSBS BTYPE=--)
-> > [    8.131477] pc : divider_recalc_rate+0x8c/0xc0
-> > [    8.131479] lr : divider_recalc_rate+0x8c/0xc0
-> > [    8.131481] sp : ffff8000080936c0
-> > [    8.131482] x29: ffff8000080936c0 x28: ffff781940e58d00 x27: ffffa7f3f1bc6d38
-> > [    8.131485] x26: ffffa7f3f1bc6cf8 x25: 0000000000000000 x24: ffffffffffffffff
-> > [    8.131488] x23: ffff781947e8a400 x22: 000000003b9aca50 x21: ffff781940be0800
-> > [    8.131491] x20: ffff781947e8a800 x19: 000000003b9aca50 x18: 0000000000000000
-> > [    8.131494] x17: 0000000000000000 x16: 0000000000000000 x15: 0000000000000000
-> > [    8.131497] x14: ffff7819bd718000 x13: 0a74657320746f6e x12: 204f52455a5f574f
-> > [    8.131500] x11: 4c4c415f52454449 x10: 5649445f4b4c4320 x9 : ffffa7f3f011de84
-> > [    8.131502] x8 : 445f4b4c4320646e x7 : 6120726f73697669 x6 : 0000000000000001
-> > [    8.131505] x5 : ffffa7f3f288f000 x4 : ffffa7f3f288f2d0 x3 : 0000000000000000
-> > [    8.131508] x2 : 0000000000000000 x1 : 0000000000000000 x0 : ffff7819402c7000
-> > [    8.131511] Call trace:
-> > [    8.131512]  divider_recalc_rate+0x8c/0xc0
-> > [    8.131513]  clk_divider_recalc_rate+0x64/0x90
-> > [    8.131515]  clk_recalc+0x40/0xb0
-> > [    8.131519]  clk_calc_subtree+0x58/0x90
-> > [    8.131521]  clk_calc_subtree+0x70/0x90
-> > [    8.131523]  clk_calc_new_rates+0x150/0x290
-> > [    8.131526]  clk_calc_new_rates+0x100/0x290
-> > [    8.131528]  clk_calc_new_rates+0x100/0x290
-> > [    8.131530]  clk_calc_new_rates+0x100/0x290
-> > [    8.131533]  clk_core_set_rate_nolock+0xa0/0x2a4
-> > [    8.131535]  clk_set_rate_range_nolock.part.0+0xbc/0x2a0
-> > [    8.131538]  __clk_put+0x70/0x140
-> > [    8.131540]  clk_put+0x1c/0x30
-> > [    8.131543]  of_clk_set_defaults+0x140/0x3c0
-> > [    8.131546]  platform_probe+0x48/0xf0
-> > [    8.131548]  really_probe+0x184/0x3d0
-> > [    8.131550]  __driver_probe_device+0x11c/0x190
-> > [    8.131553]  driver_probe_device+0x44/0xf4
-> > [    8.131556]  __device_attach_driver+0xa4/0x140
-> > [    8.131558]  bus_for_each_drv+0x84/0xe0
-> > [    8.131561]  __device_attach+0xe4/0x1c0
-> > [    8.131563]  device_initial_probe+0x20/0x30
-> > [    8.131565]  bus_probe_device+0xa4/0xb0
-> > [    8.131567]  deferred_probe_work_func+0xa8/0xfc
-> > [    8.131570]  process_one_work+0x1dc/0x450
-> > [    8.131575]  worker_thread+0x154/0x450
-> > [    8.131577]  kthread+0x100/0x110
-> > [    8.131579]  ret_from_fork+0x10/0x20
-> > [    8.131584] ---[ end trace 0000000000000000 ]---
-> > [    8.131588] ------------[ cut here ]------------
->
-> I'm not sure if it's feasible, but if it is, it looks like something
-> that could be fixed by the patch pasted here:
->
-> https://lore.kernel.org/linux-clk/20220401122736.5yvanksa4pla7uql@houat/
-> Could you test it?
+On Thu, Mar 31, 2022 at 08:25:22AM +0000, Roberto Sassu wrote:
+> > From: Alexei Starovoitov [mailto:alexei.starovoitov@gmail.com]
+> > Sent: Thursday, March 31, 2022 4:27 AM
+> > On Mon, Mar 28, 2022 at 07:50:15PM +0200, Roberto Sassu wrote:
+> > > eBPF already allows programs to be preloaded and kept running without
+> > > intervention from user space. There is a dedicated kernel module called
+> > > bpf_preload, which contains the light skeleton of the iterators_bpf eBPF
+> > > program. If this module is enabled in the kernel configuration, its loading
+> > > will be triggered when the bpf filesystem is mounted (unless the module is
+> > > built-in), and the links of iterators_bpf are pinned in that filesystem
+> > > (they will appear as the progs.debug and maps.debug files).
+> > >
+> > > However, the current mechanism, if used to preload an LSM, would not
+> > offer
+> > > the same security guarantees of LSMs integrated in the security
+> > subsystem.
+> > > Also, it is not generic enough to be used for preloading arbitrary eBPF
+> > > programs, unless the bpf_preload code is heavily modified.
+> > >
+> > > More specifically, the security problems are:
+> > > - any program can be pinned to the bpf filesystem without limitations
+> > >   (unless a MAC mechanism enforces some restrictions);
+> > > - programs being executed can be terminated at any time by deleting the
+> > >   pinned objects or unmounting the bpf filesystem.
+> > 
+> > So many things to untangle here.
+> 
+> Hi Alexei
+> 
+> thanks for taking the time to provide such detailed
+> explanation.
+> 
+> > The above paragraphs are misleading and incorrect.
+> > The commit log sounds like there are security issues that this
+> > patch set is fixing.
+> > This is not true.
+> 
+> I reiterate the goal: enforce a mandatory policy with
+> an out-of-tree LSM (a kernel module is fine), with the
+> same guarantees of LSMs integrated in the security
+> subsystem.
 
-I have tested the single line patch and reported problems not fixed.
+To make it 100% clear:
+Any in-kernel feature that benefits out-of-tree module will be rejected.
 
+> The root user is not part of the TCB (i.e. is untrusted),
+> all the changes that user wants to make must be subject
+> of decision by the LSM enforcing the mandatory policy.
+> 
+> I thought about adding support for LSMs from kernel
+> modules via a new built-in LSM (called LoadLSM), but
 
---->8---
+Such approach will be rejected. See above.
 
-diff --git a/drivers/clk/clk.c b/drivers/clk/clk.c
-index 91f863b7a824..ee5a0223e47d 100644
---- a/drivers/clk/clk.c
-+++ b/drivers/clk/clk.c
-@@ -2599,6 +2599,8 @@ static int clk_core_set_parent_nolock(struct
-clk_core *core,
-  } else {
-  __clk_recalc_rates(core, POST_RATE_CHANGE);
-  __clk_recalc_accuracies(core);
-+
-+ core->req_rate = core->rate;
-  }
+> > I suspect there is huge confusion on what these two "progs.debug"
+> > and "maps.debug" files are in a bpffs instance.
+> > They are debug files to pretty pring loaded maps and progs for folks who
+> > like to use 'cat' to examine the state of the system instead of 'bpftool'.
+> > The root can remove these files from bpffs.
+> > 
+> > There is no reason for kernel module to pin its bpf progs.
+> > If you want to develop DIGLIM as a kernel module that uses light skeleton
+> > just do:
+> > #include <linux/init.h>
+> > #include <linux/module.h>
+> > #include "diglim.lskel.h"
+> > 
+> > static struct diglim_bpf *skel;
+> > 
+> > static int __init load(void)
+> > {
+> >         skel = diglim_bpf__open_and_load();
+> >         err = diglim_bpf__attach(skel);
+> > }
+> > /* detach skel in __fini */
+> > 
+> > It's really that short.
+> > 
+> > Then you will be able to
+> > - insmod diglim.ko -> will load and attach bpf progs.
+> > - rmmod diglim -> will detach them.
+> 
+> root can stop the LSM without consulting the security
+> policy. The goal of having root untrusted is not achieved.
 
+Out-of-tree module can do any hack.
+For example:
+1. don't do detach skel in __fini
+  rmmod will remove the module, but bpf progs will keep running.
+2. do module_get(THIS_MODULE) in __init
+  rmmod will return EBUSY
+  and have some out-of-band way of dropping mod refcnt.
+3. hack into sys_delete_module. if module_name==diglem return EBUSY.
+4. add proper LSM hook to delete_module
 
-- Naresh
+> My point was that pinning progs seems to be the
+> recommended way of keeping them running. 
+
+Not quite. bpf_link refcnt is what keeps progs attached.
+bpffs is mainly used for:
+- to pass maps/links from one process to another
+when passing fd is not possible.
+- to solve the case of crashing user space.
+The user space agent will restart and will pick up where
+it's left by reading map, link, prog FDs from bpffs.
+- pinning bpf iterators that are later used to 'cat' such files.
+That is what bpf_preload is doing by creating two debug
+files "maps.debug" and "progs.debug".
+
+> Pinning
+> them to unreachable inodes intuitively looked the
+> way to go for achieving the stated goal. 
+
+We can consider inodes in bpffs that are not unlinkable by root
+in the future, but certainly not for this use case.
+
+> Or maybe I
+> should just increment the reference count of links
+> and don't decrement during an rmmod?
+
+I suggest to abandon out-of-tree goal.
+Only then we can help and continue this discussion.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
