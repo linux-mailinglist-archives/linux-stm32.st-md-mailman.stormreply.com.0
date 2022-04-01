@@ -2,40 +2,40 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E34674EEB6C
-	for <lists+linux-stm32@lfdr.de>; Fri,  1 Apr 2022 12:35:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C36EF4EEB7E
+	for <lists+linux-stm32@lfdr.de>; Fri,  1 Apr 2022 12:36:10 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 92167C5EC76;
-	Fri,  1 Apr 2022 10:35:55 +0000 (UTC)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8A8D2C628AB;
+	Fri,  1 Apr 2022 10:36:10 +0000 (UTC)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8CEAAC5EC47
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1A76CC628A8
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  1 Apr 2022 10:35:53 +0000 (UTC)
+ Fri,  1 Apr 2022 10:36:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1648809353; x=1680345353;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=nXk4zlyXR8B57i9BaB9FWZP2fV36YlgrhivlcqXLjKY=;
- b=Y1pGTzWNTEpUUiW0MNcJBsM/Hm/Hejmww2rrtEfzwW5C0yLmYwTVEtWO
- V0rBICtyixf0rMsYhae8GIt/U5iCQVBuRDkf6VnPwGbarPq1oBk8jkj56
- 4syL8AxYp4ebCpjm7/nv0Xb5kkXUb0lvDEivwgm+NnLTncG5Ula+jP+3K
- wXS8COkd7QCwJRhyUd+QRIq6e9mlCT/b0NvL0L3mNKHe4MQ6FulVivXlG
- JpZMh4tkQxkQylOnzqAJ16RKjzxiq7Z3CLs23s6NBnr7ym1yd5zWmwmyt
- wDy9DAQ3/J2Mluqgep8FJcTYLasMni9p+mLMCckt6lq2dB0LUyC1JLqKS A==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10303"; a="260281424"
-X-IronPort-AV: E=Sophos;i="5.90,227,1643702400"; d="scan'208";a="260281424"
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Apr 2022 03:35:51 -0700
+ t=1648809369; x=1680345369;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=Mokh5NeYfH0tCFWB5WUbjJ/CRT9R2RJiXuGQoGrRwY8=;
+ b=f4SRO5Yo3teVoacAeRS9PYnmbF3BVZbt4Cp1iAGBKQMWgT4HvORjNdZ9
+ +cdvhPt0D5HiHOvRO6c4vxa+KUtRkxvWFuousT3wXjMiUCl5iN73Ug86P
+ Ex983S/A+lyaekFgON7Zx300fuyrcA3tkctX8Wp4oc2gShJ4qTdEV0KxM
+ dq2dUsfA87HGZ67qKhJbCXgCi/C2+vdp/emQJUPiNw9ggvg4D7L36N89E
+ PuxIvooXR/xmf2xjl2GWFBw+zv76Lvu9e52QaEpEeuRmt7FYt6OKtOhSk
+ iu4jjwg+UitXUmmT5RCHCXJo3ZdlcBZGcWZ2gV6uVhnLqbLeXAfF1Lh8O Q==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10303"; a="259804842"
+X-IronPort-AV: E=Sophos;i="5.90,227,1643702400"; d="scan'208";a="259804842"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Apr 2022 03:35:53 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.90,227,1643702400"; d="scan'208";a="843133139"
+X-IronPort-AV: E=Sophos;i="5.90,227,1643702400"; d="scan'208";a="522726475"
 Received: from black.fi.intel.com ([10.237.72.28])
- by fmsmga005.fm.intel.com with ESMTP; 01 Apr 2022 03:35:44 -0700
+ by orsmga006.jf.intel.com with ESMTP; 01 Apr 2022 03:35:44 -0700
 Received: by black.fi.intel.com (Postfix, from userid 1003)
- id 92A23179; Fri,  1 Apr 2022 13:36:05 +0300 (EEST)
+ id 9A77681; Fri,  1 Apr 2022 13:36:05 +0300 (EEST)
 From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 To: Qianggui Song <qianggui.song@amlogic.com>,
  Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
@@ -47,9 +47,11 @@ To: Qianggui Song <qianggui.song@amlogic.com>,
  linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org,
  linux-renesas-soc@vger.kernel.org, linux-samsung-soc@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com
-Date: Fri,  1 Apr 2022 13:35:51 +0300
-Message-Id: <20220401103604.8705-1-andriy.shevchenko@linux.intel.com>
+Date: Fri,  1 Apr 2022 13:35:52 +0300
+Message-Id: <20220401103604.8705-2-andriy.shevchenko@linux.intel.com>
 X-Mailer: git-send-email 2.35.1
+In-Reply-To: <20220401103604.8705-1-andriy.shevchenko@linux.intel.com>
+References: <20220401103604.8705-1-andriy.shevchenko@linux.intel.com>
 MIME-Version: 1.0
 Cc: Andrew Lunn <andrew@lunn.ch>, Tomer Maimon <tmaimon77@gmail.com>,
  Neil Armstrong <narmstrong@baylibre.com>,
@@ -65,8 +67,8 @@ Cc: Andrew Lunn <andrew@lunn.ch>, Tomer Maimon <tmaimon77@gmail.com>,
  Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
  Nancy Yuen <yuenn@google.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Jerome Brunet <jbrunet@baylibre.com>
-Subject: [Linux-stm32] [PATCH v4 00/13] gpiolib: Two new helpers and way
-	toward fwnode
+Subject: [Linux-stm32] [PATCH v4 01/13] gpiolib: Introduce
+	for_each_gpiochip_node() loop helper
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,74 +85,45 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-This is a spin-off of the previous work of switching GPIO library
-to use fwnode instead of of_node. Here we introduce a couple of
-a new macro helpers, which allows to switch some of the drivers
-to use fwnode and partially fwnode APIs. As a result of this cleanup
-a few drivers switched to use GPIO fwnode instead of of_node.
+Introduce for_each_gpiochip_node() loop helper which iterates over
+the GPIO controller child nodes of a given device.
 
-Bart, Linus, I can take it thru my tree with an immutable branch if
-it's the way you prefer, otherwise please suggest on how to proceed.
+Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+Tested-by: Geert Uytterhoeven <geert+renesas@glider.be>
+---
+ include/linux/gpio/driver.h | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-Changelog v4:
-- fixed compilation of the Samsung pin control drivers (LKP)
-- explained in the commit message why namespacing is good for meson defs
-- added tag to one of meson patches (Neil)
-
-Changelog v3:
-- moved count initialization to the definition in patch 2 (Geert)
-- replaced of_args by args, used %pfwP in patch 7 (Geert)
-- fixed kernel doc warning in patch 7
-- added tags to patches 1, 2, 6, and 7 (Geert)
-- added tag to patch 4 (Fabien)
-- renamed MREG to MESON_REG in patch 9 (Neil)
-- added tag to patch 10 (Neil)
-- used --base for cover-letter
-
-Changelog v2:
-- properly based, so kbuild bot may test it (LKP)
-- fixed typo in the macro (Geert)
-- split to two macro helpers and rename the gpiochip_count()
-- tagged one of stm32 and one of meson patches (Fabien, Neil)
-- unified previously standalone armada patch
-- due to above rewrote the armada patch from v1 completely (Sergey)
-- added a lot of a new patches
-- compile tested all of them on x86
-
-Andy Shevchenko (13):
-  gpiolib: Introduce for_each_gpiochip_node() loop helper
-  gpiolib: Introduce gpiochip_node_count() helper
-  pinctrl: stm32: Replace custom code by gpiochip_node_count() call
-  pinctrl: stm32: Switch to use for_each_gpiochip_node() helper
-  pinctrl: samsung: Switch to use for_each_gpiochip_node() helper
-  pinctrl: renesas: rza1: Replace custom code by gpiochip_node_count()
-    call
-  pinctrl: renesas: rza1: Switch to use for_each_gpiochip_node() helper
-  pinctrl: npcm7xx: Switch to use for_each_gpiochip_node() helper
-  pinctrl: meson: Rename REG_* to MESON_REG_*
-  pinctrl: meson: Enable COMPILE_TEST
-  pinctrl: meson: Replace custom code by gpiochip_node_count() call
-  pinctrl: armada-37xx: Switch to use fwnode instead of of_node
-  pinctrl: armada-37xx: Reuse GPIO fwnode in
-    armada_37xx_irqchip_register()
-
- drivers/pinctrl/meson/Kconfig               |   2 +-
- drivers/pinctrl/meson/pinctrl-meson.c       |  52 ++++---
- drivers/pinctrl/meson/pinctrl-meson.h       |  24 ++--
- drivers/pinctrl/mvebu/pinctrl-armada-37xx.c |  34 ++---
- drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c   | 142 +++++++++-----------
- drivers/pinctrl/renesas/pinctrl-rza1.c      |  47 ++-----
- drivers/pinctrl/samsung/pinctrl-exynos.c    |   8 +-
- drivers/pinctrl/samsung/pinctrl-s3c24xx.c   |   2 +-
- drivers/pinctrl/samsung/pinctrl-s3c64xx.c   |   4 +-
- drivers/pinctrl/samsung/pinctrl-samsung.c   |  30 ++---
- drivers/pinctrl/samsung/pinctrl-samsung.h   |   2 +-
- drivers/pinctrl/stm32/pinctrl-stm32.c       |  80 +++++------
- include/linux/gpio/driver.h                 |  18 ++-
- 13 files changed, 198 insertions(+), 247 deletions(-)
-
-
-base-commit: e5071887cd2296a7704dbcd10c1cedf0f11cdbd5
+diff --git a/include/linux/gpio/driver.h b/include/linux/gpio/driver.h
+index 98c93510640e..bfc91f122d5f 100644
+--- a/include/linux/gpio/driver.h
++++ b/include/linux/gpio/driver.h
+@@ -3,13 +3,14 @@
+ #define __LINUX_GPIO_DRIVER_H
+ 
+ #include <linux/device.h>
+-#include <linux/types.h>
+ #include <linux/irq.h>
+ #include <linux/irqchip/chained_irq.h>
+ #include <linux/irqdomain.h>
+ #include <linux/lockdep.h>
+ #include <linux/pinctrl/pinctrl.h>
+ #include <linux/pinctrl/pinconf-generic.h>
++#include <linux/property.h>
++#include <linux/types.h>
+ 
+ struct gpio_desc;
+ struct of_phandle_args;
+@@ -750,4 +751,8 @@ static inline void gpiochip_unlock_as_irq(struct gpio_chip *gc,
+ }
+ #endif /* CONFIG_GPIOLIB */
+ 
++#define for_each_gpiochip_node(dev, child)					\
++	device_for_each_child_node(dev, child)					\
++		if (!fwnode_property_present(child, "gpio-controller")) {} else
++
+ #endif /* __LINUX_GPIO_DRIVER_H */
 -- 
 2.35.1
 
