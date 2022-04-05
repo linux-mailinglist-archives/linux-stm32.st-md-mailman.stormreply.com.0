@@ -2,109 +2,70 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9E3FA4F56AF
+	by mail.lfdr.de (Postfix) with ESMTPS id C1E134F56B0
 	for <lists+linux-stm32@lfdr.de>; Wed,  6 Apr 2022 09:03:26 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EBFE7C628A0;
-	Wed,  6 Apr 2022 07:03:25 +0000 (UTC)
-Received: from sonic311-30.consmr.mail.ne1.yahoo.com
- (sonic311-30.consmr.mail.ne1.yahoo.com [66.163.188.211])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0F257C628AC;
+	Wed,  6 Apr 2022 07:03:26 +0000 (UTC)
+Received: from mail-ot1-f54.google.com (mail-ot1-f54.google.com
+ [209.85.210.54])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8A2B7C60467
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 490BAC60467
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  5 Apr 2022 16:22:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048;
- t=1649175722; bh=szf/cJYLQOZWni9lQf7ZhLfzr+7rhBIA+E3sIp1+wJc=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From:Subject:Reply-To;
- b=bZfL/NxYUY/nWW3qF2ZJjXG7Dg3pNQUyUnVHMCdlQYcK8KhjV2XIlaKccjneeCkFwe+UCJcmiHojHKBIADLU4Ikbupp+K45ltqzCRWzFjDPZMJ3/O7vaBcjp67kmvgMnWI7P0TCKjW99cXK8bk+5rylTUO1IAsJur8Jnb/KOHY4RMaxTIYqnDQ1lTkISegPfoAVdUD6+eHMiQt4gKQJoSBEhNaGN2pU/bjA9ttpnY4VZfD8LFNi+2w1An9PfTYYCHWIluLdQOnyvy9qkUs33ycWByVBKC8R7NedWGNHjON7zbO7QJDyfam89JJ2UClf7U5zwYsNlK8flfJ4iFI5e4A==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048;
- t=1649175722; bh=MjWoY0XQ7yCC8DRinMvFIWEycwD9ENQrbHuDSvHQo40=;
- h=X-Sonic-MF:Date:Subject:To:From:From:Subject;
- b=QZqQZtXrXXr+kG1OaAGR8Qn0h22DavyioI6fHj1usmFCPqfQk8tQXvolZqg3SQvh/W0Nuv0T5zGX2AYVLxAj9eiQkIJyD/5kj1LCyQJKBgCt7YeKkyYi1rqEQUnWFCH1aTzNEUiMEPTOxKWN75UfbQG2AvV7uZsjc//Nbr8u8pkbOcd5ieeLWq/Kr8xKN/1drb2wiykVfYRVCSr9KhChmWf3nosToXopMFGmlcxdmbHYy/V+v1rF1NKkAU8PZHQKcJervgnJWq41qGIQxnhHgp02Nhh/mxFhno06j4KJ1DUqqFDVTNoh99mw8mM+fcs97dodAzpjpLFFo6+fz2H9wQ==
-X-YMail-OSG: zQyH2LwVM1lp5wptu1Nu6P6xp3FdwTzJCg9Lej0g55C5Xx0XIRvIQ05IUhF81Xa
- p5wo8I1T_FGz5a.8kX7LA.b37J19Sa53hRJwhiWeUEz0vNsHWCZ4Zw8ii81Awkjj0Gk8GHkvtcKt
- JBgvws_8K8YjlxSr3DgFY7b9uTWdblyYIjBK9tHDGhHLPi0pq_ZGwvP4Pszxk5mEmqQb.ecXvauS
- 3uVHa7k5mgaWEQ9.xJnR1BNEh5CXais8nD.voUgflz2WxJnhRulTYQ_s5hjDIBMfyIJ6.N_m7CXQ
- pxC46xxx9gSozYR6ffjr.SLgNTxb3.xrWdXmQ3vKVEUtkvCC2QxbK2QkKAyYpYc7p5j4NjYPyXGS
- uK3NDvg6a9ynh8e1.Vt0v5gyBrGgdZP00r4n6C41JCCETeT_BwtjsDgN4hYPSYuIKKvVA5Bw.aMo
- 8CJ0zW2G.uvcecyYN4GKTRI2pUAfIHD5dhoIZWZkrVQH.zmFeuZIB5T0gV1tgD2P8YJpZFPhyW2q
- 3mG3qzvduo66EOgEyniniTs57H2nebdeRyaWflufxY9pYu_pk5ZDT_ftZhA1a6pw2H0EkOq88V7a
- CXER_19r_9N3Gw9iOtemV_Ip4H25Xq6OfftLt.GTr.n_.BX7pYd63zeJtFsCE22LImCE7fN4VNKN
- Nop0eL23X2KvJJrQI3EGmNzQVP7Bbew2cVZeNLRwdp2P8i2gg22C4W.cG3q4uQ24fK2sxUA1n9NZ
- i3z9gTrvNEFRo_Jqn9pt5i0L_nGvWtdNYRDDsLwSe7VA3pwjpJINAtCWe0iilbPU8f9OO9Pade6K
- MzzFtSLMhzhSFARvhqkOOW5IDc3LwHg0dv4iOgSR3SRmD0_tmMH6.rj6tKKWhhS7IT.KFZjaILr8
- GyWYjD_hc9lGUTt9lSU2DYoiRKTu6CO8FJzEP0uz0T8rpzOJgmtt9axS2xqEb62VtkLpt.N0t74h
- 61R5hpRnUjCa1IDwAslSGt.vYPCHM3bZ1IbEgr29EyMdasfmXRWp5VtTYPgia9LBhzCSgrTBU9fI
- FCGnWpVhg_eXTGgRKoUnb8IxtUC1DNFPVNKeVlnCOTwVX2EjMuwPfbI.XOwt6XjQQ8vlpJko_PMd
- X_n_SW9mCGqGvtBFIa5XBfID9pjmF.BDJBmTIkBuIUTtl9iXDtQZ8xRnVBsPmrsP2OHkx7h.C.kT
- NgEWrcNmNy1l1jmP0AGTMtXIMaza92pxwqPYhqEpdARZaWi_g2RdDlaTc1pXubLpzoqI92wf68N1
- Z4jCCpMkm3yjfFA8nGqTxtMc9LG_OIl.2FRtwBmgUEuFai4hZUvFS10QsgYMQXhslH2cKpYvcfZX
- wKMzAleqOjU7WuAkPCx5LkGLZL2_eCPbg2Bn4GMlcqaJ1uKrCt12c.4k_5B.bTMhXd7ARp88EACu
- 79CBisyF280Aj2dwhkcmwHuaDMD449DDyQzY6l6JdE5qZvSl7RvT6Ckhu9Ml7iksUEMroGMicaMu
- bti8mRpar5mkedy_AOxThS8l46n2uSHNr8vs7abj_o9u9ykY18P5lJIrYi9tW9ZGdn0ZhK_1fqej
- 1Lck.Ig0FCYlp2qDft_xZr1VATGM1Gue_TWbpX2izkpS2bS4T2QZZF8q7FgE6WWvki4Ut.eZImyy
- .cNRifDt6GlQErfWY3mUn3.L8efdsmXVwggeBTKja1hnandR1RROlB3OnPBNch8FFAFiZnOhvAXr
- QIjHOGd5HjN4lxsee4tcq1ADCo8UoZxbgiEULZRx5a_UHjbtpexPcu7PFTuyeXbsNe4qJmLQY5Qs
- XzxDp3xlUqZcCh06XH1XsuAhtIH6.0zGeMZ65XRvSKE_XQsAKxgM5ukcIOXxXMPcYTD1VTYrDhKH
- c.AaIVuH3Rc2.6d7.ac2nHWtLILdFBEhx2mcP9ekRNsABsUqG4xD3dykanY8e3mYVMC0.ieDQk2n
- OQbEbhfBkt1DQqdP.g3tVCdmDZWcNVWmvMGw0fYzqvicvnXGi01FHwTrUvP6ENNRDh6d84BrUevr
- QioA4Gg0RDKJug0e.Jl2jm9abJEojMxAxwmWzxR.O0n8qZfYo0s_zBK655X.O3GUSl9ZvLn75nq1
- 1CC0q.V2UcuNkx_lb5Z9x6hFFZixe7VLqytr1BAVIZZWlXRypUeXtVND0ZB9IMIRHx2mJrw2l2fS
- Bf_fJ9OHXPEfwBlG80hEqu9C21UKSfOLni7bAO_yUjP6ZvHToll22s24VlPQ3BE__5B8gQNX5Qet
- TFSx_AgGA48hwvK22F0vvPa1gMQ8Y4ZiOoiRere2IY4PonJv99q6MnJaS_jLHBKicawqnkrZpUf0
- yK3F3agTG7yf2B6E-
-X-Sonic-MF: <casey@schaufler-ca.com>
-Received: from sonic.gate.mail.ne1.yahoo.com by
- sonic311.consmr.mail.ne1.yahoo.com with HTTP; Tue, 5 Apr 2022 16:22:02 +0000
-Received: by hermes--canary-production-bf1-665cdb9985-6hz22 (VZM Hermes SMTP
- Server) with ESMTPA ID 3e6e483849819b115c06d1b80343537d; 
- Tue, 05 Apr 2022 16:21:58 +0000 (UTC)
-Message-ID: <fb804242-da2c-4213-9dc3-f09ea42f0355@schaufler-ca.com>
-Date: Tue, 5 Apr 2022 09:21:53 -0700
+ Tue,  5 Apr 2022 19:59:55 +0000 (UTC)
+Received: by mail-ot1-f54.google.com with SMTP id
+ i23-20020a9d6117000000b005cb58c354e6so264349otj.10
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 05 Apr 2022 12:59:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20210112;
+ h=date:from:to:cc:subject:in-reply-to:message-id:references
+ :mime-version; bh=vsB0AuI21Kofyvp/riTyvNd4coqIjgD81UccFUtHY1Y=;
+ b=Rkj/0laop7KLDhsOuGYl3niAtveifqwL5e0lXIyZGGEB1m2SyARx3Ci4ExPlECaTkX
+ 7L2h9PJbcRmLixmWeR7a2H/j38YzUjHGSgu3s57NYqCTEAzbH+sQR9e52MexiSIpH6Vf
+ Sv2LAOUWH3J38FPTjKaV4IpEhnKgbI9eUEH4/Hrlg6mcxhzq978HjsCyqxkBMi17ZJfT
+ NDFn0g5mtAtXhrDjW6qKOkD0lEYXWzru37r1hI2HBZEPY9Zm8Q3IpgPMvDbaY+TPg7gJ
+ awHH5L3kRLCOXBMIwig5z4glyV738Jh6WF+xGDSgZCmyHMAD7I7X1RBLVUE2n9BROIk3
+ yD4g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:in-reply-to:message-id
+ :references:mime-version;
+ bh=vsB0AuI21Kofyvp/riTyvNd4coqIjgD81UccFUtHY1Y=;
+ b=8MAp7ZgiyNxFeeGZgkEyHcMGTsputbUsM54iyK5b7CsCMV3zxbiZbCEofTZjP6fXkP
+ 9gViuc3UtNMw9X5IwwKG1GWs9hsNXGlMns312plYGz0zqTYIMMaxgjGGSnZsE3ITgAVT
+ 9uKVvfSroJD0foDvbsXQVC5JOeXnjzDcqxbFj+B68RjL/ERAra+1vONeyV/sZhtZkgyQ
+ FelnvrE9PYU9BgemFD9fGo9uWBSVzWZTRt1iKCz9IglEIPOZ+I6oHEnGmO7nFT9eHDIs
+ 6afdRgQqsIxwHeenX0jSLokhkCzVkAiBVa+95OAdW7tHotpr/fee7086DT3fRN+2YTO0
+ Dt6A==
+X-Gm-Message-State: AOAM532ZKBz9o0+/MM0JAEICJ1JeGn5P5VfSJIdj8+3RkW+EDWX7cVBE
+ o6X/xTwsq+IgBwi0uG+i28sATg==
+X-Google-Smtp-Source: ABdhPJwzGIRq6HBtLV2yo+jbEAfZXa6Ihlndw2zKxu4l+L+ifFdh57ilwowSntY2zVXQfwdL7la53w==
+X-Received: by 2002:a9d:853:0:b0:5b2:617e:e982 with SMTP id
+ 77-20020a9d0853000000b005b2617ee982mr1876988oty.333.1649188793899; 
+ Tue, 05 Apr 2022 12:59:53 -0700 (PDT)
+Received: from ripple.attlocal.net
+ (172-10-233-147.lightspeed.sntcca.sbcglobal.net. [172.10.233.147])
+ by smtp.gmail.com with ESMTPSA id
+ r129-20020acac187000000b002ef358c6e0esm5643602oif.49.2022.04.05.12.59.50
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 05 Apr 2022 12:59:51 -0700 (PDT)
+Date: Tue, 5 Apr 2022 12:59:41 -0700 (PDT)
+From: Hugh Dickins <hughd@google.com>
+X-X-Sender: hugh@ripple.anvils
+To: Patrice CHOTARD <patrice.chotard@foss.st.com>
+In-Reply-To: <481a13f8-d339-f726-0418-ab4258228e91@foss.st.com>
+Message-ID: <95a0d1dd-bcce-76c7-97b9-8374c9913321@google.com>
+References: <481a13f8-d339-f726-0418-ab4258228e91@foss.st.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.7.0
-Content-Language: en-US
-To: Roberto Sassu <roberto.sassu@huawei.com>,
- Djalal Harouni <tixxdz@gmail.com>, KP Singh <kpsingh@kernel.org>
-References: <20220328175033.2437312-1-roberto.sassu@huawei.com>
- <20220331022727.ybj4rui4raxmsdpu@MBP-98dd607d3435.dhcp.thefacebook.com>
- <b9f5995f96da447c851f7c9db8232a9b@huawei.com>
- <20220401235537.mwziwuo4n53m5cxp@MBP-98dd607d3435.dhcp.thefacebook.com>
- <CACYkzJ5QgkucL3HZ4bY5Rcme4ey6U3FW4w2Gz-9rdWq0_RHvgA@mail.gmail.com>
- <CAEiveUcx1KHoJ421Cv+52t=0U+Uy2VF51VC_zfTSftQ4wVYOPw@mail.gmail.com>
- <c2e57f10b62940eba3cfcae996e20e3c@huawei.com>
- <385e4cf4-4cd1-8f41-5352-ea87a1f419ad@schaufler-ca.com>
- <0497bb46586c4f37b9bd01950ba9e6a5@huawei.com>
-From: Casey Schaufler <casey@schaufler-ca.com>
-In-Reply-To: <0497bb46586c4f37b9bd01950ba9e6a5@huawei.com>
-X-Mailer: WebService/1.1.20001
- mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.yahoo
 X-Mailman-Approved-At: Wed, 06 Apr 2022 07:03:24 +0000
-Cc: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-kselftest@vger.kernel.org" <linux-kselftest@vger.kernel.org>,
- "daniel@iogearbox.net" <daniel@iogearbox.net>,
- "corbet@lwn.net" <corbet@lwn.net>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "andrii@kernel.org" <andrii@kernel.org>,
- "zohar@linux.ibm.com" <zohar@linux.ibm.com>, "ast@kernel.org" <ast@kernel.org>,
- Casey Schaufler <casey@schaufler-ca.com>,
- "linux-security-module@vger.kernel.org"
- <linux-security-module@vger.kernel.org>,
- "viro@zeniv.linux.org.uk" <viro@zeniv.linux.org.uk>,
- "mcoquelin.stm32@gmail.com" <mcoquelin.stm32@gmail.com>,
- "linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>,
- "linux-integrity@vger.kernel.org" <linux-integrity@vger.kernel.org>,
- "bpf@vger.kernel.org" <bpf@vger.kernel.org>,
- "shuah@kernel.org" <shuah@kernel.org>,
- Alexei Starovoitov <alexei.starovoitov@gmail.com>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH 00/18] bpf: Secure and authenticated
- preloading of eBPF programs
+Cc: miklos@szeredi.hu, djwong@kernel.org, hughd@google.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-mm@kvack.org,
+ mpatocka@redhat.com, zkabelac@redhat.com, linux-fsdevel@vger.kernel.org,
+ lczerner@redhat.com, akpm@linux-foundation.org, bp@suse.de, hch@lst.de,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
+Subject: Re: [Linux-stm32] Regression with v5.18-rc1 tag on STM32F7 and
+ STM32H7 based boards
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -116,117 +77,38 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 4/5/2022 8:29 AM, Roberto Sassu wrote:
->> From: Casey Schaufler [mailto:casey@schaufler-ca.com]
->> Sent: Tuesday, April 5, 2022 4:50 PM
->> On 4/4/2022 10:20 AM, Roberto Sassu wrote:
->>>> From: Djalal Harouni [mailto:tixxdz@gmail.com]
->>>> Sent: Monday, April 4, 2022 9:45 AM
->>>> On Sun, Apr 3, 2022 at 5:42 PM KP Singh <kpsingh@kernel.org> wrote:
->>>>> On Sat, Apr 2, 2022 at 1:55 AM Alexei Starovoitov
->>>>> <alexei.starovoitov@gmail.com> wrote:
->>>> ...
->>>>>>> Pinning
->>>>>>> them to unreachable inodes intuitively looked the
->>>>>>> way to go for achieving the stated goal.
->>>>>> We can consider inodes in bpffs that are not unlinkable by root
->>>>>> in the future, but certainly not for this use case.
->>>>> Can this not be already done by adding a BPF_LSM program to the
->>>>> inode_unlink LSM hook?
->>>>>
->>>> Also, beside of the inode_unlink... and out of curiosity: making
->> sysfs/bpffs/
->>>> readonly after pinning, then using bpf LSM hooks
->>>> sb_mount|remount|unmount...
->>>> family combining bpf() LSM hook... isn't this enough to:
->>>> 1. Restrict who can pin to bpffs without using a full MAC
->>>> 2. Restrict who can delete or unmount bpf filesystem
->>>>
->>>> ?
->>> I'm thinking to implement something like this.
->>>
->>> First, I add a new program flag called
->>> BPF_F_STOP_ONCONFIRM, which causes the ref count
->>> of the link to increase twice at creation time. In this way,
->>> user space cannot make the link disappear, unless a
->>> confirmation is explicitly sent via the bpf() system call.
->>>
->>> Another advantage is that other LSMs can decide
->>> whether or not they allow a program with this flag
->>> (in the bpf security hook).
->>>
->>> This would work regardless of the method used to
->>> load the eBPF program (user space or kernel space).
->>>
->>> Second, I extend the bpf() system call with a new
->>> subcommand, BPF_LINK_CONFIRM_STOP, which
->>> decreasres the ref count for the link of the programs
->>> with the BPF_F_STOP_ONCONFIRM flag. I will also
->>> introduce a new security hook (something like
->>> security_link_confirm_stop), so that an LSM has the
->>> opportunity to deny the stop (the bpf security hook
->>> would not be sufficient to determine exactly for
->>> which link the confirmation is given, an LSM should
->>> be able to deny the stop for its own programs).
->> Would you please stop referring to a set of eBPF programs
->> loaded into the BPF LSM as an LSM? Call it a BPF security
->> module (BSM) if you must use an abbreviation. An LSM is a
->> provider of security_ hooks. In your case that is BPF. When
->> you call the set of eBPF programs an LSM it is like calling
->> an SELinux policy an LSM.
-> An eBPF program could be a provider of security_ hooks
-> too.
+On Tue, 5 Apr 2022, Patrice CHOTARD wrote:
+> 
+> We found an issue with last kernel tag v5.18-rc1 on stm32f746-disco and 
+> stm32h743-disco boards (ARMV7-M SoCs).
+> 
+> Kernel hangs when executing SetPageUptodate(ZERO_PAGE(0)); in mm/filemap.c.
+> 
+> By reverting commit 56a8c8eb1eaf ("tmpfs: do not allocate pages on read"), 
+> kernel boots without any issue.
 
-No, it can't. If I look in /sys/kernel/security/lsm what
-you see is "bpf". The LSM is BPF. What BPF does in its
-hooks is up to it and its responsibility.
+Sorry about that, thanks a lot for finding.
 
->   The bpf LSM is an aggregator, similarly to your
-> infrastructure to manage built-in LSMs. Maybe, calling
-> it second-level LSM or secondary LSM would better
-> represent this new class.
+I see that arch/arm/configs/stm32_defconfig says CONFIG_MMU is not set:
+please confirm that is the case here.
 
-It isn't an LSM, and adding a qualifier doesn't make it
-one and only adds to the confusion.
+Yes, it looks as if NOMMU platforms are liable to have a bogus (that's my
+reading, but it may be unfair) definition for ZERO_PAGE(vaddr), and I was
+walking on ice to touch it without regard for !CONFIG_MMU.
 
-> The only differences are the registration method, (SEC
-> directive instead of DEFINE_LSM), and what the hook
-> implementation can access.
+CONFIG_SHMEM depends on CONFIG_MMU, so that PageUptodate is only needed
+when CONFIG_MMU.
 
-Those two things pretty well define what an LSM is.
+Easily fixed by an #ifdef CONFIG_MMU there in mm/filemap.c, but I'll hunt
+around (again) for a better place to do it - though I won't want to touch
+all the architectures for it.  I'll post later today.
 
-> The implementation of a security_ hook via eBPF can
-> follow the same structure of built-in LSMs, i.e. it can be
-> uniquely responsible for enforcing and be policy-agnostic,
-> and can retrieve the decisions based on a policy from a
-> component implemented somewhere else.
-
-The BPF LSM provides mechanism. The eBPF programs provide policy.
-
->
-> Hopefully, I understood the basic principles correctly.
-> I let the eBPF maintainers comment on this.
->
-> Thanks
->
-> Roberto
->
-> HUAWEI TECHNOLOGIES Duesseldorf GmbH, HRB 56063
-> Managing Director: Li Peng, Zhong Ronghua
->
->>> What do you think?
->>>
->>> Thanks
->>>
->>> Roberto
->>>
->>> HUAWEI TECHNOLOGIES Duesseldorf GmbH, HRB 56063
->>> Managing Director: Li Peng, Zhong Ronghua
+Hugh
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
