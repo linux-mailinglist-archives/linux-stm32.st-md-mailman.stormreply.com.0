@@ -2,76 +2,67 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E606C4F56B2
-	for <lists+linux-stm32@lfdr.de>; Wed,  6 Apr 2022 09:03:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9BFD14F56A3
+	for <lists+linux-stm32@lfdr.de>; Wed,  6 Apr 2022 08:55:55 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3520DC628B5;
-	Wed,  6 Apr 2022 07:03:26 +0000 (UTC)
-Received: from mail-ot1-f41.google.com (mail-ot1-f41.google.com
- [209.85.210.41])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3B051C6048F;
+	Wed,  6 Apr 2022 06:55:55 +0000 (UTC)
+Received: from frasgout.his.huawei.com (frasgout.his.huawei.com
+ [185.176.79.56])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 19C60C60479
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F07EDC60467
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  6 Apr 2022 06:22:31 +0000 (UTC)
-Received: by mail-ot1-f41.google.com with SMTP id
- i11-20020a9d4a8b000000b005cda3b9754aso1089188otf.12
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 05 Apr 2022 23:22:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20210112;
- h=date:from:to:cc:subject:in-reply-to:message-id:references
- :mime-version; bh=yiBEe+9/yoFS8QNsq6W7R4IU+UE1TYnjoeST9R9+qNE=;
- b=KUT/9NgMmzw9YQOEqgdiz670pyxDVPMbjQx3otCmSMt/gdzMHcoLFm2T972RH9JEEJ
- wzNHJBqSYPoYUG9rbbh+wEnWgQz2amBs1F824UgSA/7sEZRbiWnAt5T/e4pKu9i+sJPu
- VIlArAJUfWGx8iav+WnwxfS8HQRxOf1Sb95eTUgxXjP78YPWXlpAgJq3PJYqs9VFWk4Y
- GPWom4esroTnLycQhVNIiHLZxKlkmBZZ/hOXoLKhxBA0FRZhxpg2jMKcBK1CsEOQbRc6
- I8RDZCVDIKuXUTS8kRhVn5wEBq0KFWZTuzTAB19k2VtQez5WFi8D9mCEuQPI8dkDMAfm
- LTqw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:in-reply-to:message-id
- :references:mime-version;
- bh=yiBEe+9/yoFS8QNsq6W7R4IU+UE1TYnjoeST9R9+qNE=;
- b=mQ4NdJl/5GYAfmnUgtBIB9erIDho2S4WJuRD8ar2oUEsnJNgLZhTX4l+V7fpFhMpC9
- oKHUDnrHsmkzT4rKf6V4KU1g+cstHpfVFb2DyLw6zw78+8FfQJF0WGqDuDaq45IGurNN
- wWs2gLAS5zQmuS2HMpWecWlXEKInzyZlZMWUr5xb5aI7WymqDrE1zSDWQtBVZzDXwLSk
- j5DGFI9lojR1LiR3/gSZn864zapFgz6+qzqiF2JfWFzr5mS4xvU/78Kmt+hFS04KpX8c
- z0UhPw7C1mcWqkGrevR+jrenD45y7G2+6zvqe1AV5z30/mVzhoq89o3S35aGtYnkTrBC
- wzYQ==
-X-Gm-Message-State: AOAM533bafxsxFFnS7n62lGtaQVvOTeE8M1SwHh2KyXcwlOralhV04Nt
- YdSurnkOpEGAf6/qO1W4BH72kw==
-X-Google-Smtp-Source: ABdhPJxM2+O1/dslWgPqHrxOi+Em6zSBu8nEJlKSSUqBOQa0w/3S7eEJuGm4nvupcGs+sNGkQQKeCA==
-X-Received: by 2002:a9d:426:0:b0:5cb:5837:bfc0 with SMTP id
- 35-20020a9d0426000000b005cb5837bfc0mr2509606otc.305.1649226149595; 
- Tue, 05 Apr 2022 23:22:29 -0700 (PDT)
-Received: from ripple.attlocal.net
- (172-10-233-147.lightspeed.sntcca.sbcglobal.net. [172.10.233.147])
- by smtp.gmail.com with ESMTPSA id
- s125-20020acaa983000000b002ecdbaf98fesm6067819oie.34.2022.04.05.23.22.27
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 05 Apr 2022 23:22:29 -0700 (PDT)
-Date: Tue, 5 Apr 2022 23:22:10 -0700 (PDT)
-From: Hugh Dickins <hughd@google.com>
-X-X-Sender: hugh@ripple.anvils
-To: Arnd Bergmann <arnd@arndb.de>
-In-Reply-To: <95a0d1dd-bcce-76c7-97b9-8374c9913321@google.com>
-Message-ID: <7f2993a9-adc5-2b90-9218-c4ca8239c3e@google.com>
-References: <481a13f8-d339-f726-0418-ab4258228e91@foss.st.com>
- <95a0d1dd-bcce-76c7-97b9-8374c9913321@google.com>
+ Wed,  6 Apr 2022 06:55:53 +0000 (UTC)
+Received: from fraeml712-chm.china.huawei.com (unknown [172.18.147.207])
+ by frasgout.his.huawei.com (SkyGuard) with ESMTP id 4KYFbx609Tz67VyR;
+ Wed,  6 Apr 2022 14:54:05 +0800 (CST)
+Received: from fraeml714-chm.china.huawei.com (10.206.15.33) by
+ fraeml712-chm.china.huawei.com (10.206.15.61) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.24; Wed, 6 Apr 2022 08:55:52 +0200
+Received: from fraeml714-chm.china.huawei.com ([10.206.15.33]) by
+ fraeml714-chm.china.huawei.com ([10.206.15.33]) with mapi id 15.01.2375.024;
+ Wed, 6 Apr 2022 08:55:52 +0200
+From: Roberto Sassu <roberto.sassu@huawei.com>
+To: Casey Schaufler <casey@schaufler-ca.com>, "corbet@lwn.net"
+ <corbet@lwn.net>, "viro@zeniv.linux.org.uk" <viro@zeniv.linux.org.uk>,
+ "ast@kernel.org" <ast@kernel.org>, "daniel@iogearbox.net"
+ <daniel@iogearbox.net>, "andrii@kernel.org" <andrii@kernel.org>,
+ "kpsingh@kernel.org" <kpsingh@kernel.org>, "tixxdz@gmail.com"
+ <tixxdz@gmail.com>, "shuah@kernel.org" <shuah@kernel.org>,
+ "mcoquelin.stm32@gmail.com" <mcoquelin.stm32@gmail.com>,
+ "alexandre.torgue@foss.st.com" <alexandre.torgue@foss.st.com>,
+ "zohar@linux.ibm.com" <zohar@linux.ibm.com>
+Thread-Topic: [POC][USER SPACE][PATCH] Introduce LSM to protect pinned objects
+Thread-Index: AQHYSO6qHvGxtTZjlkOpBqG6raB3mazhyt4AgACodAA=
+Date: Wed, 6 Apr 2022 06:55:51 +0000
+Message-ID: <5ed9f7c8fab7426daf400756b2d8ea89@huawei.com>
+References: <CACYkzJ7ZVbL2MG7ugmDEfogSPAHkYYMCHxRO_eBCJJmBZyn6Rw@mail.gmail.com>
+ <20220405131116.3810418-1-roberto.sassu@huawei.com>
+ <5ce85845-824c-32fb-3807-6f9ab95ad6fe@schaufler-ca.com>
+In-Reply-To: <5ce85845-824c-32fb-3807-6f9ab95ad6fe@schaufler-ca.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.81.215.171]
 MIME-Version: 1.0
-X-Mailman-Approved-At: Wed, 06 Apr 2022 07:03:24 +0000
-Cc: djwong@kernel.org, linux-mm@kvack.org, zkabelac@redhat.com,
- Greg Ungerer <gerg@linux-m68k.org>, linux-arch@vger.kernel.org,
- Yoshinori Sato <ysato@users.sourceforge.jp>, miklos@szeredi.hu,
- Russell King <linux@armlinux.org.uk>, linux-stm32@st-md-mailman.stormreply.com,
- Geert Uytterhoeven <geert@linux-m68k.org>, bp@suse.de,
- uclinux-h8-devel@lists.sourceforge.jp, linux-m68k@lists.linux-m68k.org,
- mpatocka@redhat.com, linux-arm-kernel@lists.infradead.org,
- Hugh Dickins <hughd@googl.com>, linux-kernel@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, lczerner@redhat.com, akpm@linux-foundation.org,
- hch@lst.de
-Subject: Re: [Linux-stm32] Regression with v5.18-rc1 tag on STM32F7 and
- STM32H7 based boards
+X-CFilter-Loop: Reflected
+Cc: "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "linux-security-module@vger.kernel.org"
+ <linux-security-module@vger.kernel.org>,
+ "linux-kselftest@vger.kernel.org" <linux-kselftest@vger.kernel.org>,
+ "linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>,
+ "linux-integrity@vger.kernel.org" <linux-integrity@vger.kernel.org>,
+ "bpf@vger.kernel.org" <bpf@vger.kernel.org>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [POC][USER SPACE][PATCH] Introduce LSM to protect
+	pinned objects
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,186 +79,238 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Asking Arnd and others below: should noMMU arches have a good ZERO_PAGE?
-
-On Tue, 5 Apr 2022, Hugh Dickins wrote:
-> On Tue, 5 Apr 2022, Patrice CHOTARD wrote:
-> > 
-> > We found an issue with last kernel tag v5.18-rc1 on stm32f746-disco and 
-> > stm32h743-disco boards (ARMV7-M SoCs).
-> > 
-> > Kernel hangs when executing SetPageUptodate(ZERO_PAGE(0)); in mm/filemap.c.
-> > 
-> > By reverting commit 56a8c8eb1eaf ("tmpfs: do not allocate pages on read"), 
-> > kernel boots without any issue.
+> From: Casey Schaufler [mailto:casey@schaufler-ca.com]
+> Sent: Wednesday, April 6, 2022 12:48 AM
+> On 4/5/2022 6:11 AM, Roberto Sassu wrote:
+> > Introduce a new LSM to protect pinned objects in a bpf filesystem
 > 
-> Sorry about that, thanks a lot for finding.
+> This is *not an LSM*. Do not call it an LSM. It is a set of
+> eBPF programs. We have all the opportunities for confusion
+> that we need. I suggested that you call this a BPF security
+> module (BSM) earlier today. You have any number of things
+> you can call this that won't be objectionable.
 > 
-> I see that arch/arm/configs/stm32_defconfig says CONFIG_MMU is not set:
-> please confirm that is the case here.
+> > instance. This is useful for example to ensure that an LSM will always
+> > enforce its policy, even despite root tries to unload the corresponding
+> > eBPF program.
 > 
-> Yes, it looks as if NOMMU platforms are liable to have a bogus (that's my
-> reading, but it may be unfair) definition for ZERO_PAGE(vaddr), and I was
-> walking on ice to touch it without regard for !CONFIG_MMU.
+> How is this going to ensure that SELinux enforces its policy?
+
+I should have said above: that an LSM implemented with eBPF.
+Built-in LSMs are not affected by this change.
+
+Ok, next time I call it BSM.
+
+Thanks
+
+Roberto
+
+HUAWEI TECHNOLOGIES Duesseldorf GmbH, HRB 56063
+Managing Director: Li Peng, Zhong Ronghua
+
+> AppArmor has no eBPF program that corresponds to its policy,
+> neither does any other existing LSM, save BPF. Your claim is
+> nonsensical in the face of LSM behavior.
 > 
-> CONFIG_SHMEM depends on CONFIG_MMU, so that PageUptodate is only needed
-> when CONFIG_MMU.
-> 
-> Easily fixed by an #ifdef CONFIG_MMU there in mm/filemap.c, but I'll hunt
-> around (again) for a better place to do it - though I won't want to touch
-> all the architectures for it.  I'll post later today.
+> > Achieve the protection by denying inode unlink and unmount of the
+> > protected bpf filesystem instance. Since protected inodes hold a
+> > reference of the link of loaded programs (e.g. LSM hooks), denying
+> > operations on them will prevent the ref count of the links from reaching
+> > zero, ensuring that the programs remain always active.
+> >
+> > Enable the protection only for the instance created by the user space
+> > counterpart of the LSM, and don't interfere with other instances, so
+> > that their behavior remains unchanged.
+> >
+> > Suggested-by: Djalal Harouni <tixxdz@gmail.com>
+> > Signed-off-by: Roberto Sassu <roberto.sassu@huawei.com>
+> > ---
+> >   .gitignore       |  4 +++
+> >   Makefile         | 18 ++++++++++++++
+> >   bpffs_lsm_kern.c | 63
+> ++++++++++++++++++++++++++++++++++++++++++++++++
+> >   bpffs_lsm_user.c | 60
+> +++++++++++++++++++++++++++++++++++++++++++++
+> >   4 files changed, 145 insertions(+)
+> >   create mode 100644 .gitignore
+> >   create mode 100644 Makefile
+> >   create mode 100644 bpffs_lsm_kern.c
+> >   create mode 100644 bpffs_lsm_user.c
+> >
+> > diff --git a/.gitignore b/.gitignore
+> > new file mode 100644
+> > index 000000000000..7fa02964f1dc
+> > --- /dev/null
+> > +++ b/.gitignore
+> > @@ -0,0 +1,4 @@
+> > +*.o
+> > +vmlinux.h
+> > +bpffs_lsm_kern.skel.h
+> > +bpffs_lsm_user
+> > diff --git a/Makefile b/Makefile
+> > new file mode 100644
+> > index 000000000000..c3d805759db3
+> > --- /dev/null
+> > +++ b/Makefile
+> > @@ -0,0 +1,18 @@
+> > +# SPDX-License-Identifier: GPL-2.0
+> > +all: bpffs_lsm_user
+> > +
+> > +clean:
+> > +	rm -rf bpffs_lsm.skel.h vmlinux.h bpffs_lsm_kern.o bpffs_lsm_user
+> > +
+> > +vmlinux.h:
+> > +	/usr/sbin/bpftool btf dump file /sys/kernel/btf/vmlinux format c > \
+> > +			  vmlinux.h
+> > +
+> > +bpffs_lsm_kern.skel.h: bpffs_lsm_kern.o
+> > +	bpftool gen skeleton $< > $@
+> > +
+> > +bpffs_lsm_kern.o: bpffs_lsm_kern.c vmlinux.h
+> > +	clang -Wall -Werror -g -O2 -target bpf -c $< -o $@
+> > +
+> > +bpffs_lsm_user: bpffs_lsm_user.c bpffs_lsm_kern.skel.h
+> bpffs_lsm_kern.o
+> > +	cc -Wall -Werror -g -o $@ $< -lbpf
+> > diff --git a/bpffs_lsm_kern.c b/bpffs_lsm_kern.c
+> > new file mode 100644
+> > index 000000000000..b3ccb2a75c95
+> > --- /dev/null
+> > +++ b/bpffs_lsm_kern.c
+> > @@ -0,0 +1,63 @@
+> > +// SPDX-License-Identifier: GPL-2.0
+> > +/*
+> > + * Copyright (C) 2022 Huawei Technologies Duesseldorf GmbH
+> > + *
+> > + * Authors:
+> > + * Roberto Sassu <roberto.sassu@huawei.com>
+> > + *
+> > + * Implement an LSM to protect a bpf filesystem instance.
+> > + */
+> > +
+> > +#include "vmlinux.h"
+> > +#include <errno.h>
+> > +#include <bpf/bpf_helpers.h>
+> > +#include <bpf/bpf_tracing.h>
+> > +#include <bpf/bpf_core_read.h>
+> > +
+> > +char _license[] SEC("license") = "GPL";
+> > +
+> > +uint32_t monitored_pid = 0;
+> > +
+> > +struct {
+> > +	__uint(type, BPF_MAP_TYPE_INODE_STORAGE);
+> > +	__uint(map_flags, BPF_F_NO_PREALLOC);
+> > +	__type(key, int);
+> > +	__type(value, sizeof(uint8_t));
+> > +} inode_storage_map SEC(".maps");
+> > +
+> > +SEC("lsm/sb_set_mnt_opts")
+> > +int BPF_PROG(sb_set_mnt_opts, struct super_block *sb, void
+> *mnt_opts,
+> > +	     unsigned long kern_flags, unsigned long *set_kern_flags)
+> > +{
+> > +	u32 pid;
+> > +
+> > +	pid = bpf_get_current_pid_tgid() >> 32;
+> > +	if (pid != monitored_pid)
+> > +		return 0;
+> > +
+> > +	if (!bpf_inode_storage_get(&inode_storage_map, sb->s_root-
+> >d_inode, 0,
+> > +				   BPF_LOCAL_STORAGE_GET_F_CREATE))
+> > +		return -EPERM;
+> > +
+> > +	return 0;
+> > +}
+> > +
+> > +SEC("lsm/inode_unlink")
+> > +int BPF_PROG(inode_unlink, struct inode *dir, struct dentry *dentry)
+> > +{
+> > +	if (bpf_inode_storage_get(&inode_storage_map,
+> > +				  dir->i_sb->s_root->d_inode, 0, 0))
+> > +		return -EPERM;
+> > +
+> > +	return 0;
+> > +}
+> > +
+> > +SEC("lsm/sb_umount")
+> > +int BPF_PROG(sb_umount, struct vfsmount *mnt, int flags)
+> > +{
+> > +	if (bpf_inode_storage_get(&inode_storage_map,
+> > +				  mnt->mnt_sb->s_root->d_inode, 0, 0))
+> > +		return -EPERM;
+> > +
+> > +	return 0;
+> > +}
+> > diff --git a/bpffs_lsm_user.c b/bpffs_lsm_user.c
+> > new file mode 100644
+> > index 000000000000..e20180cc5db9
+> > --- /dev/null
+> > +++ b/bpffs_lsm_user.c
+> > @@ -0,0 +1,60 @@
+> > +// SPDX-License-Identifier: GPL-2.0
+> > +/*
+> > + * Copyright (C) 2022 Huawei Technologies Duesseldorf GmbH
+> > + *
+> > + * Author: Roberto Sassu <roberto.sassu@huawei.com>
+> > + *
+> > + * Implement the user space side of the LSM for bpffs.
+> > + */
+> > +
+> > +#include <fcntl.h>
+> > +#include <unistd.h>
+> > +#include <stdio.h>
+> > +#include <errno.h>
+> > +#include <stdlib.h>
+> > +#include <unistd.h>
+> > +#include <limits.h>
+> > +#include <sys/mount.h>
+> > +#include <sys/stat.h>
+> > +
+> > +#include "bpffs_lsm_kern.skel.h"
+> > +
+> > +#define MOUNT_FLAGS (MS_NOSUID | MS_NODEV | MS_NOEXEC |
+> MS_RELATIME)
+> > +
+> > +int main(int argc, char *argv[])
+> > +{
+> > +	char mntpoint[] = "/tmp/bpf_private_mountXXXXXX";
+> > +	char path[PATH_MAX];
+> > +	struct bpffs_lsm_kern *skel;
+> > +	int ret, i;
+> > +
+> > +	skel = bpffs_lsm_kern__open_and_load();
+> > +	if (!skel)
+> > +		return -EINVAL;
+> > +
+> > +	ret = bpffs_lsm_kern__attach(skel);
+> > +	if (ret < 0)
+> > +		goto out_destroy;
+> > +
+> > +	mkdtemp(mntpoint);
+> > +
+> > +	skel->bss->monitored_pid = getpid();
+> > +	ret = mount(mntpoint, mntpoint, "bpf", MOUNT_FLAGS, NULL);
+> > +	skel->bss->monitored_pid = 0;
+> > +
+> > +	if (ret < 0)
+> > +		goto out_destroy;
+> > +
+> > +	for (i = 0; i < skel->skeleton->prog_cnt; i++) {
+> > +		snprintf(path, sizeof(path), "%s/%s", mntpoint,
+> > +			 skel->skeleton->progs[i].name);
+> > +		ret = bpf_link__pin(*skel->skeleton->progs[i].link, path);
+> > +		if (ret < 0)
+> > +			goto out_destroy;
+> > +	}
+> > +
+> > +	ret = 0;
+> > +out_destroy:
+> > +	bpffs_lsm_kern__destroy(skel);
+> > +	return ret;
+> > +}
 
-I could put #ifdef CONFIG_MMU around the SetPageUptodate(ZERO_PAGE(0))
-added to pagecache_init(); or if that's considered distasteful, I could
-skip making it potentially useful to other filesystems, revert the change
-to pagecache_init(), and just do it in mm/shmem.c's CONFIG_SHMEM (hence
-CONFIG_MMU) instance of shmem_init().
-
-But I wonder if it's safe for noMMU architectures to go on without a
-working ZERO_PAGE(0).  It has uses scattered throughout the tree, in
-drivers, fs, crypto and more, and it's not at all obvious (to me) that
-they all depend on CONFIG_MMU.  Some might cause (unreported) crashes,
-some might use an unzeroed page in place of a pageful of zeroes.
-
-arm noMMU and h8300 noMMU and m68k noMMU each has
-#define ZERO_PAGE(vaddr)	(virt_to_page(0))
-which seems riskily wrong to me.
-
-h8300 and m68k actually go to the trouble of allocating an empty_zero_page
-for this, but then forget to link it up to the ZERO_PAGE(vaddr) definition,
-which is what all the common code uses.
-
-arm noMMU does not presently allocate such a page; and I do not feel
-entitled to steal a page from arm noMMU platforms, for a hypothetical
-case, without agreement.
-
-But here's an unbuilt and untested patch for consideration - which of
-course should be split in three if agreed (and perhaps the h8300 part
-quietly forgotten if h8300 is already on its way out).
-
-(Yes, arm uses empty_zero_page in a different way from all the other
-architectures; but that's okay, and I think arm's way, with virt_to_page()
-already baked in, is better than the others; but I've no wish to get into
-changing them.)
-
-Patrice, does this patch build and run for you? I have no appreciation
-of arm early startup issues, and may have got it horribly wrong.
-
-Thanks,
-Hugh
-
- arch/arm/include/asm/pgtable-nommu.h |    3 ++-
- arch/arm/mm/nommu.c                  |   16 ++++++++++++++++
- arch/h8300/include/asm/pgtable.h     |    6 +++++-
- arch/h8300/mm/init.c                 |    5 +++--
- arch/m68k/include/asm/pgtable_no.h   |    5 ++++-
- 5 files changed, 30 insertions(+), 5 deletions(-)
-
---- a/arch/arm/include/asm/pgtable-nommu.h
-+++ b/arch/arm/include/asm/pgtable-nommu.h
-@@ -48,7 +48,8 @@ typedef pte_t *pte_addr_t;
-  * ZERO_PAGE is a global shared page that is always zero: used
-  * for zero-mapped memory areas etc..
-  */
--#define ZERO_PAGE(vaddr)	(virt_to_page(0))
-+extern struct page *empty_zero_page;
-+#define ZERO_PAGE(vaddr)	(empty_zero_page)
- 
- /*
-  * Mark the prot value as uncacheable and unbufferable.
---- a/arch/arm/mm/nommu.c
-+++ b/arch/arm/mm/nommu.c
-@@ -24,6 +24,13 @@
- 
- #include "mm.h"
- 
-+/*
-+ * empty_zero_page is a special page that is used for
-+ * zero-initialized data and COW.
-+ */
-+struct page *empty_zero_page;
-+EXPORT_SYMBOL(empty_zero_page);
-+
- unsigned long vectors_base;
- 
- #ifdef CONFIG_ARM_MPU
-@@ -148,9 +155,18 @@ void __init adjust_lowmem_bounds(void)
-  */
- void __init paging_init(const struct machine_desc *mdesc)
- {
-+	void *zero_page;
-+
- 	early_trap_init((void *)vectors_base);
- 	mpu_setup();
- 	bootmem_init();
-+
-+	zero_page = memblock_alloc(PAGE_SIZE, PAGE_SIZE);
-+	if (!zero_page)
-+		panic("%s: Failed to allocate %lu bytes align=0x%lx\n",
-+		      __func__, PAGE_SIZE, PAGE_SIZE);
-+	empty_zero_page = virt_to_page(zero_page);
-+	flush_dcache_page(empty_zero_page);
- }
- 
- /*
---- a/arch/h8300/include/asm/pgtable.h
-+++ b/arch/h8300/include/asm/pgtable.h
-@@ -19,11 +19,15 @@ extern void paging_init(void);
- 
- static inline int pte_file(pte_t pte) { return 0; }
- #define swapper_pg_dir ((pgd_t *) 0)
-+
-+/* zero page used for uninitialized stuff */
-+extern void *empty_zero_page;
-+
- /*
-  * ZERO_PAGE is a global shared page that is always zero: used
-  * for zero-mapped memory areas etc..
-  */
--#define ZERO_PAGE(vaddr)	(virt_to_page(0))
-+#define ZERO_PAGE(vaddr)	(virt_to_page(empty_zero_page))
- 
- /*
-  * These would be in other places but having them here reduces the diffs.
---- a/arch/h8300/mm/init.c
-+++ b/arch/h8300/mm/init.c
-@@ -41,7 +41,8 @@
-  * ZERO_PAGE is a special page that is used for zero-initialized
-  * data and COW.
-  */
--unsigned long empty_zero_page;
-+void *empty_zero_page;
-+EXPORT_SYMBOL(empty_zero_page);
- 
- /*
-  * paging_init() continues the virtual memory environment setup which
-@@ -65,7 +66,7 @@ void __init paging_init(void)
- 	 * Initialize the bad page table and bad page to point
- 	 * to a couple of allocated pages.
- 	 */
--	empty_zero_page = (unsigned long)memblock_alloc(PAGE_SIZE, PAGE_SIZE);
-+	empty_zero_page = memblock_alloc(PAGE_SIZE, PAGE_SIZE);
- 	if (!empty_zero_page)
- 		panic("%s: Failed to allocate %lu bytes align=0x%lx\n",
- 		      __func__, PAGE_SIZE, PAGE_SIZE);
---- a/arch/m68k/include/asm/pgtable_no.h
-+++ b/arch/m68k/include/asm/pgtable_no.h
-@@ -38,11 +38,14 @@ extern void paging_init(void);
- #define __pte_to_swp_entry(pte)	((swp_entry_t) { pte_val(pte) })
- #define __swp_entry_to_pte(x)	((pte_t) { (x).val })
- 
-+/* zero page used for uninitialized stuff */
-+extern void *empty_zero_page;
-+
- /*
-  * ZERO_PAGE is a global shared page that is always zero: used
-  * for zero-mapped memory areas etc..
-  */
--#define ZERO_PAGE(vaddr)	(virt_to_page(0))
-+#define ZERO_PAGE(vaddr)	(virt_to_page(empty_zero_page))
- 
- /*
-  * All 32bit addresses are effectively valid for vmalloc...
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
