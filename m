@@ -2,88 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D784D4F56B1
-	for <lists+linux-stm32@lfdr.de>; Wed,  6 Apr 2022 09:03:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 84EEB4F55EC
+	for <lists+linux-stm32@lfdr.de>; Wed,  6 Apr 2022 08:20:57 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 242DAC628AF;
-	Wed,  6 Apr 2022 07:03:26 +0000 (UTC)
-Received: from sonic312-30.consmr.mail.ne1.yahoo.com
- (sonic312-30.consmr.mail.ne1.yahoo.com [66.163.191.211])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2A6B2C6048F;
+	Wed,  6 Apr 2022 06:20:57 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CBFBAC60467
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9D978C60479
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  5 Apr 2022 22:47:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048;
- t=1649198856; bh=kuHtMKHl/c2qIGNhAGVZoANBI56QWLO5me7QncFB0/4=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From:Subject:Reply-To;
- b=lw/b5SvbMVXuoNhOkN60MTNvRK0sDPou7k8Sm8/fDot5jNIhKwRd3eHlRDH4X++09rQEJw1wr+aKES2kF0F5dOMKeDQUZQ6F4HZOWGED0RDC4zr9xcZY9Qk6H8JLGIQho7PvJeTl8oKy7KnIOIiPnQQ7B7oSZHdV7nV34QwwpPvCV1hoQGTxbT/4rS1hlwLxnfvKtak1zmDmffa+AUzFsTThb4ap/GSRNi9jovUUtR5yK7ddvNvJrvphSyDebb/pwGdWdzuXAqm2VSIbgKe10iBQx3wYqNt0U7V+Z2fvGSGZwR7tJu3GBEoFohyivhXzK9FuIP48+lJCqFVNv9I8hQ==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048;
- t=1649198856; bh=VbxZHvRlQ3ApM+hvxQitthNUVXoy1RKh/KVchJBGZGS=;
- h=X-Sonic-MF:Date:Subject:To:From:From:Subject;
- b=oGp9qOO4oZpK+WQMwTyI6AQctVQpLckSVRDCMM9EY4+URlBQmX+gpK78IfGzEbJ1WQOoAgSAqaV7gbPSvkBrQmDEU+odSwN0Z7UaU315n38j5LFqVI6pfJGjwXZEkE0sJ20imT5mnbnidmwOGI5FZKeajBcL6gMT9w9tZ6VAPJSnOE5tnZANcnkdMh7dqLfFizhLODK+mnLGixLVyp1AgVBsFojT0K3uAfCKlTIeoM31WO7VJJKdaVbU1W5+cjem8eiUyG/ev9ipDWUvQK/goHUd0yZOMuHWRMtTMakOWirSW07wdwQdxNy89lTohXsPGu8sAAXcWlEgAmiEApvXZw==
-X-YMail-OSG: KM__rusVM1mvT51zYphGFvuxV3vMoEUz.64XbPOnJeUfM3Q02p8tjzbCHPbxK90
- xEbDliiZmXka7VwlPeFd9D1DD5e1OCiK71seGddNJdacxGYZBFqNL38S22jUAAh2NKwCZgZ3a1qm
- b68mSbOJTcl892WIwb.mTv9vYc9nK6H9jOBvffECkgbEOIuJ2OTT0OCGlYe38K9gXdoiudYOOpHl
- 2fh_s6WdkypLC5Nfeyk4z1adY.Se94Xlv.8WW64_g.Q6gsD7htFWlmyKKuIjT7IOL6GjWm9Szqd1
- R3UV59okWBjij2lkAmEvm1OGVvxhNPUS.liSAj2FU0qfbfjIyuTRodjmQ44ijXaF_l.ncSA6E7D2
- 52uqJTjoWIGYu33gu7Y9smglgLO03sxROpSKDJjLYSmqq5TZV191mqxNk6qpvwyo1.It_zg1CqAM
- _I4TYKmrHvNzptK8N1w3ksNztLX_e0N5gHbhAJlQPW5Bw6ykmInAWc_WUaCDq_nMTrMNQ0.BQLAW
- WCRbo_nap91myK7S6jaZMMJbCJQlKQ0d19nAP0GXwM.U0k4qdC3wPw9KG8_ejbIeSpZDDcf8IzrJ
- 4bQvcIjmYkKtr30WANdICKGFIG6qoNp9Fg95.2kjpGHvmwHPuO6qR9YqjocDnUP97EQvkTGUoZTC
- fmWLce.3nw8OaynFbR2KRNYiUriJl8uXIATVYpJyjRTwAIa8rjrwbAhxUP5NVN_nxvbt9B0qD1vL
- iF5dcCV7zA.vqsgkTlPIKvL7geTOs3C_5Q.EkNfAn5PlCJi3y1zODah_iTZ4ecECSgQVOQRR_lvQ
- 5sUCI4wSaPH5EOmTNV6q7bTyu3MxHVIaMUAIVoLi_8k4EtldfkqaEeKispwKxjk.YDkONtPJE0Cc
- pE8iFJVkuJaeEnENzECZy3vMXBzWkyWrlOzxhd.x5VcN.LvY_kezvJ9przKkPd24eoo3B9kOZUKP
- NS_jcRoQPrm.gnozfYxNufkt9qbgJaWqXnPjXRpcK_nHwdGqJ9SrZII7p1ZaQmL_NGh5eShl5Ak0
- oCDgnLQHlke0.mPoBs.DXXK7r8bayP2uWHxez.cMKyi2mCozH06SzzozGsmV2DV4wRVeNnQ5NnD7
- duFgvP9y0siotq8UHHEY2GCd5kkjmdaAUd1iyLgVlxPeMAd89ho9zCouqCHg9YuIHw3L_NEVlpyt
- 6bEP0KxoUYtsVKOeWmn1lqMZxOkdMux8JF.jzEan8uwwC2iFVX62Zh.3mtBLMy4wCtI2ydJ7NwVg
- kIvCoToLc5RDNWmOhaNfzcZ9SpG03jdgluv5cLh1oyTvjJti37BVGbQVSuFKambK6zz6fPT3JpqQ
- Td7uMTzGQLDd3aM3r4lpQwkkq6ZgvfZuI74TGG1Qz72OiRGT6ElyxmqgTz9DPI0QPCS8zFtBd5wN
- g7GXxswBII_DtM6v2a2SqBZlQJnDZCEbYwvF6Rsb7KLhj9nTdtNLv40B05j5uX6eOcjh6.gjicjh
- 4n2hzMomOHjxFoL26zmw2HZQXDRB9WrXRegbN6o9ZS7S56GISCNn0e.GVx1_ANGl1Y9ITLgc3mkj
- aeGxLxguvgu5LBpKKyxuQl92.GCrYlYGg9HBZk_gNpX.esY3Yg6VvCP7BctyRlX5CWY0a9REhZJK
- YiZHe20QUET91dvI8o.O7mlwNgp2u8k7LNi3gGdWWoDQLdXbXVKDqqN8p.OkQ_PT6MQFWhvWD6Hq
- lQi_UcfdeW3nTE0YTi7wBXLRaPZq2rA6YO6mbYysziXrkHmx9aCMWS1.7xLOO2J43QzBZ7VjWuOp
- mr2bspwwUWdOji.Vpcv8AgMMWnL2l9RHnGmuIXsm.HAAsC.rmVV9vmPHZtotu0A2DOfy6b8a.kDo
- 88dY442gAarDTf8zkzmeXacI80hqCh0bPv.qB_AqAuDz8UFgHzXk6kRu6lMfytQN56jEeBNu5Xav
- WAcMHhj._SoyiuB1CBQ_SLZ1CY5EpL3Iyd3J9TY3sxDmLjffnDicxHqypaiKCVj_kLP6XvZDVPDC
- iyDxzHS.Msc7c3OGGTk6..15qsMeGybeAzJrJPCL1fE309eHGaV_S4Jk04LwlcKG_q0pxqPS7NCO
- lvKrLp6NdUSkWJWPqisJBlzCNx0nElmqBXE2hAc2_hYCT_zwuwkjKJLWpKiy5Q8p8ZXptLMQaK_n
- h7bPvT_uLr4.6T.jmGFpAcr.PEWhdDEqORzK1ytMR5S1ocjyiSITC5gOz0z6sv3U1VufvspTMC_V
- OyGNoO0g8_WnT_BFdlHO7W5vCSMmUK1kEBFdnH8P0oNSTwlTNikou0acFupkLZ0z2
-X-Sonic-MF: <casey@schaufler-ca.com>
-Received: from sonic.gate.mail.ne1.yahoo.com by
- sonic312.consmr.mail.ne1.yahoo.com with HTTP; Tue, 5 Apr 2022 22:47:36 +0000
-Received: by hermes--canary-production-bf1-665cdb9985-4zttc (VZM Hermes SMTP
- Server) with ESMTPA ID eaa50fa1da4b68d1bc9a73fb183248ea; 
- Tue, 05 Apr 2022 22:47:33 +0000 (UTC)
-Message-ID: <5ce85845-824c-32fb-3807-6f9ab95ad6fe@schaufler-ca.com>
-Date: Tue, 5 Apr 2022 15:47:30 -0700
+ Wed,  6 Apr 2022 06:20:55 +0000 (UTC)
+Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 2365XrT0013557;
+ Wed, 6 Apr 2022 08:20:38 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=pWA9rhfIvXi7xQfjs4g7YC0QlPKyAhkJQh/gCQIhuSQ=;
+ b=3ae4B4bsrbgI+RMWdVXpkMVfL6X7hfGzUxfB/h6a+ge23AUTQuieyQQF4LRK0R5o856b
+ m//EtojJyA74H64+/uXZBc2LXfyhNKrOymAUrLFCTgxQPmREo/3K2GV21xzj+5w/zmmk
+ 6GfonvT7x3CvOezuQyv5ZK4FbdbBG7d2QxyQQbqxwCEqgVF3pcCm4uneKQ8B0MIqV2nP
+ ZeJy/EnOjsmf81aPqltE4iDGq1fBJimV9PyjCMU9k9XHrD9uRnZgqreJTyP//lDCkUw6
+ k9zHPMErHezC0pp3tSpYlgZDKxxyA2/tRjgV3yG01KGzzxeqQaV/PjB1tnygnOSdwFb5 hA== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3f6bwk3np1-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 06 Apr 2022 08:20:38 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id B8556100034;
+ Wed,  6 Apr 2022 08:20:36 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id A3BC921FE86;
+ Wed,  6 Apr 2022 08:20:36 +0200 (CEST)
+Received: from [10.201.21.201] (10.75.127.48) by SHFDAG1NODE1.st.com
+ (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2308.20; Wed, 6 Apr
+ 2022 08:20:36 +0200
+Message-ID: <30882dc7-c187-9d7c-726e-117a22dca4e9@foss.st.com>
+Date: Wed, 6 Apr 2022 08:20:35 +0200
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.7.0
 Content-Language: en-US
-To: Roberto Sassu <roberto.sassu@huawei.com>, corbet@lwn.net,
- viro@zeniv.linux.org.uk, ast@kernel.org, daniel@iogearbox.net,
- andrii@kernel.org, kpsingh@kernel.org, tixxdz@gmail.com, shuah@kernel.org,
- mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com, zohar@linux.ibm.com
-References: <CACYkzJ7ZVbL2MG7ugmDEfogSPAHkYYMCHxRO_eBCJJmBZyn6Rw@mail.gmail.com>
- <20220405131116.3810418-1-roberto.sassu@huawei.com>
-From: Casey Schaufler <casey@schaufler-ca.com>
-In-Reply-To: <20220405131116.3810418-1-roberto.sassu@huawei.com>
-X-Mailer: WebService/1.1.20001
- mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.yahoo
-X-Mailman-Approved-At: Wed, 06 Apr 2022 07:03:24 +0000
-Cc: linux-doc@vger.kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, Casey Schaufler <casey@schaufler-ca.com>,
- linux-security-module@vger.kernel.org, linux-kselftest@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, linux-integrity@vger.kernel.org,
- bpf@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [POC][USER SPACE][PATCH] Introduce LSM to protect
-	pinned objects
+To: Hugh Dickins <hughd@google.com>
+References: <481a13f8-d339-f726-0418-ab4258228e91@foss.st.com>
+ <95a0d1dd-bcce-76c7-97b9-8374c9913321@google.com>
+From: Patrice CHOTARD <patrice.chotard@foss.st.com>
+In-Reply-To: <95a0d1dd-bcce-76c7-97b9-8374c9913321@google.com>
+X-Originating-IP: [10.75.127.48]
+X-ClientProxiedBy: SFHDAG2NODE1.st.com (10.75.127.4) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.850,Hydra:6.0.425,FMLib:17.11.64.514
+ definitions=2022-04-06_02,2022-04-05_01,2022-02-23_01
+Cc: miklos@szeredi.hu, djwong@kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-mm@kvack.org,
+ mpatocka@redhat.com, zkabelac@redhat.com, linux-fsdevel@vger.kernel.org,
+ lczerner@redhat.com, akpm@linux-foundation.org, bp@suse.de, hch@lst.de,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
+Subject: Re: [Linux-stm32] Regression with v5.18-rc1 tag on STM32F7 and
+	STM32H7 based boards
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,221 +76,52 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 4/5/2022 6:11 AM, Roberto Sassu wrote:
-> Introduce a new LSM to protect pinned objects in a bpf filesystem
+Hi Hugh
 
-This is *not an LSM*. Do not call it an LSM. It is a set of
-eBPF programs. We have all the opportunities for confusion
-that we need. I suggested that you call this a BPF security
-module (BSM) earlier today. You have any number of things
-you can call this that won't be objectionable.
+On 4/5/22 21:59, Hugh Dickins wrote:
+> On Tue, 5 Apr 2022, Patrice CHOTARD wrote:
+>>
+>> We found an issue with last kernel tag v5.18-rc1 on stm32f746-disco and 
+>> stm32h743-disco boards (ARMV7-M SoCs).
+>>
+>> Kernel hangs when executing SetPageUptodate(ZERO_PAGE(0)); in mm/filemap.c.
+>>
+>> By reverting commit 56a8c8eb1eaf ("tmpfs: do not allocate pages on read"), 
+>> kernel boots without any issue.
+> 
+> Sorry about that, thanks a lot for finding.
+> 
+> I see that arch/arm/configs/stm32_defconfig says CONFIG_MMU is not set:
+> please confirm that is the case here.
 
-> instance. This is useful for example to ensure that an LSM will always
-> enforce its policy, even despite root tries to unload the corresponding
-> eBPF program.
+Yes i confirm, CONFIG_MMU is not set.
 
-How is this going to ensure that SELinux enforces its policy?
-AppArmor has no eBPF program that corresponds to its policy,
-neither does any other existing LSM, save BPF. Your claim is
-nonsensical in the face of LSM behavior.
 
-> Achieve the protection by denying inode unlink and unmount of the
-> protected bpf filesystem instance. Since protected inodes hold a
-> reference of the link of loaded programs (e.g. LSM hooks), denying
-> operations on them will prevent the ref count of the links from reaching
-> zero, ensuring that the programs remain always active.
->
-> Enable the protection only for the instance created by the user space
-> counterpart of the LSM, and don't interfere with other instances, so
-> that their behavior remains unchanged.
->
-> Suggested-by: Djalal Harouni <tixxdz@gmail.com>
-> Signed-off-by: Roberto Sassu <roberto.sassu@huawei.com>
-> ---
->   .gitignore       |  4 +++
->   Makefile         | 18 ++++++++++++++
->   bpffs_lsm_kern.c | 63 ++++++++++++++++++++++++++++++++++++++++++++++++
->   bpffs_lsm_user.c | 60 +++++++++++++++++++++++++++++++++++++++++++++
->   4 files changed, 145 insertions(+)
->   create mode 100644 .gitignore
->   create mode 100644 Makefile
->   create mode 100644 bpffs_lsm_kern.c
->   create mode 100644 bpffs_lsm_user.c
->
-> diff --git a/.gitignore b/.gitignore
-> new file mode 100644
-> index 000000000000..7fa02964f1dc
-> --- /dev/null
-> +++ b/.gitignore
-> @@ -0,0 +1,4 @@
-> +*.o
-> +vmlinux.h
-> +bpffs_lsm_kern.skel.h
-> +bpffs_lsm_user
-> diff --git a/Makefile b/Makefile
-> new file mode 100644
-> index 000000000000..c3d805759db3
-> --- /dev/null
-> +++ b/Makefile
-> @@ -0,0 +1,18 @@
-> +# SPDX-License-Identifier: GPL-2.0
-> +all: bpffs_lsm_user
-> +
-> +clean:
-> +	rm -rf bpffs_lsm.skel.h vmlinux.h bpffs_lsm_kern.o bpffs_lsm_user
-> +
-> +vmlinux.h:
-> +	/usr/sbin/bpftool btf dump file /sys/kernel/btf/vmlinux format c > \
-> +			  vmlinux.h
-> +
-> +bpffs_lsm_kern.skel.h: bpffs_lsm_kern.o
-> +	bpftool gen skeleton $< > $@
-> +
-> +bpffs_lsm_kern.o: bpffs_lsm_kern.c vmlinux.h
-> +	clang -Wall -Werror -g -O2 -target bpf -c $< -o $@
-> +
-> +bpffs_lsm_user: bpffs_lsm_user.c bpffs_lsm_kern.skel.h bpffs_lsm_kern.o
-> +	cc -Wall -Werror -g -o $@ $< -lbpf
-> diff --git a/bpffs_lsm_kern.c b/bpffs_lsm_kern.c
-> new file mode 100644
-> index 000000000000..b3ccb2a75c95
-> --- /dev/null
-> +++ b/bpffs_lsm_kern.c
-> @@ -0,0 +1,63 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * Copyright (C) 2022 Huawei Technologies Duesseldorf GmbH
-> + *
-> + * Authors:
-> + * Roberto Sassu <roberto.sassu@huawei.com>
-> + *
-> + * Implement an LSM to protect a bpf filesystem instance.
-> + */
-> +
-> +#include "vmlinux.h"
-> +#include <errno.h>
-> +#include <bpf/bpf_helpers.h>
-> +#include <bpf/bpf_tracing.h>
-> +#include <bpf/bpf_core_read.h>
-> +
-> +char _license[] SEC("license") = "GPL";
-> +
-> +uint32_t monitored_pid = 0;
-> +
-> +struct {
-> +	__uint(type, BPF_MAP_TYPE_INODE_STORAGE);
-> +	__uint(map_flags, BPF_F_NO_PREALLOC);
-> +	__type(key, int);
-> +	__type(value, sizeof(uint8_t));
-> +} inode_storage_map SEC(".maps");
-> +
-> +SEC("lsm/sb_set_mnt_opts")
-> +int BPF_PROG(sb_set_mnt_opts, struct super_block *sb, void *mnt_opts,
-> +	     unsigned long kern_flags, unsigned long *set_kern_flags)
-> +{
-> +	u32 pid;
-> +
-> +	pid = bpf_get_current_pid_tgid() >> 32;
-> +	if (pid != monitored_pid)
-> +		return 0;
-> +
-> +	if (!bpf_inode_storage_get(&inode_storage_map, sb->s_root->d_inode, 0,
-> +				   BPF_LOCAL_STORAGE_GET_F_CREATE))
-> +		return -EPERM;
-> +
-> +	return 0;
-> +}
-> +
-> +SEC("lsm/inode_unlink")
-> +int BPF_PROG(inode_unlink, struct inode *dir, struct dentry *dentry)
-> +{
-> +	if (bpf_inode_storage_get(&inode_storage_map,
-> +				  dir->i_sb->s_root->d_inode, 0, 0))
-> +		return -EPERM;
-> +
-> +	return 0;
-> +}
-> +
-> +SEC("lsm/sb_umount")
-> +int BPF_PROG(sb_umount, struct vfsmount *mnt, int flags)
-> +{
-> +	if (bpf_inode_storage_get(&inode_storage_map,
-> +				  mnt->mnt_sb->s_root->d_inode, 0, 0))
-> +		return -EPERM;
-> +
-> +	return 0;
-> +}
-> diff --git a/bpffs_lsm_user.c b/bpffs_lsm_user.c
-> new file mode 100644
-> index 000000000000..e20180cc5db9
-> --- /dev/null
-> +++ b/bpffs_lsm_user.c
-> @@ -0,0 +1,60 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * Copyright (C) 2022 Huawei Technologies Duesseldorf GmbH
-> + *
-> + * Author: Roberto Sassu <roberto.sassu@huawei.com>
-> + *
-> + * Implement the user space side of the LSM for bpffs.
-> + */
-> +
-> +#include <fcntl.h>
-> +#include <unistd.h>
-> +#include <stdio.h>
-> +#include <errno.h>
-> +#include <stdlib.h>
-> +#include <unistd.h>
-> +#include <limits.h>
-> +#include <sys/mount.h>
-> +#include <sys/stat.h>
-> +
-> +#include "bpffs_lsm_kern.skel.h"
-> +
-> +#define MOUNT_FLAGS (MS_NOSUID | MS_NODEV | MS_NOEXEC | MS_RELATIME)
-> +
-> +int main(int argc, char *argv[])
-> +{
-> +	char mntpoint[] = "/tmp/bpf_private_mountXXXXXX";
-> +	char path[PATH_MAX];
-> +	struct bpffs_lsm_kern *skel;
-> +	int ret, i;
-> +
-> +	skel = bpffs_lsm_kern__open_and_load();
-> +	if (!skel)
-> +		return -EINVAL;
-> +
-> +	ret = bpffs_lsm_kern__attach(skel);
-> +	if (ret < 0)
-> +		goto out_destroy;
-> +
-> +	mkdtemp(mntpoint);
-> +
-> +	skel->bss->monitored_pid = getpid();
-> +	ret = mount(mntpoint, mntpoint, "bpf", MOUNT_FLAGS, NULL);
-> +	skel->bss->monitored_pid = 0;
-> +
-> +	if (ret < 0)
-> +		goto out_destroy;
-> +
-> +	for (i = 0; i < skel->skeleton->prog_cnt; i++) {
-> +		snprintf(path, sizeof(path), "%s/%s", mntpoint,
-> +			 skel->skeleton->progs[i].name);
-> +		ret = bpf_link__pin(*skel->skeleton->progs[i].link, path);
-> +		if (ret < 0)
-> +			goto out_destroy;
-> +	}
-> +
-> +	ret = 0;
-> +out_destroy:
-> +	bpffs_lsm_kern__destroy(skel);
-> +	return ret;
-> +}
+
+> 
+> Yes, it looks as if NOMMU platforms are liable to have a bogus (that's my
+> reading, but it may be unfair) definition for ZERO_PAGE(vaddr), and I was
+> walking on ice to touch it without regard for !CONFIG_MMU.
+> 
+> CONFIG_SHMEM depends on CONFIG_MMU, so that PageUptodate is only needed
+> when CONFIG_MMU.
+> 
+> Easily fixed by an #ifdef CONFIG_MMU there in mm/filemap.c, but I'll hunt
+> around (again) for a better place to do it - though I won't want to touch
+> all the architectures for it.  I'll post later today.
+
+I did a quick test on my side, and yes, adding #ifdef CONFIG_MMU around 
+SetPageUptodate(ZERO_PAGE(0)); allows to boot the boards.
+
+Thanks
+Patrice
+> 
+> Hugh
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
