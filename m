@@ -2,55 +2,85 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 137C74F7602
-	for <lists+linux-stm32@lfdr.de>; Thu,  7 Apr 2022 08:27:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 60A5E4F7845
+	for <lists+linux-stm32@lfdr.de>; Thu,  7 Apr 2022 09:54:42 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B7BE9C628A3;
-	Thu,  7 Apr 2022 06:27:26 +0000 (UTC)
-Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 114E7C628A2;
+	Thu,  7 Apr 2022 07:54:42 +0000 (UTC)
+Received: from wout1-smtp.messagingengine.com (wout1-smtp.messagingengine.com
+ [64.147.123.24])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2999CC628A1
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C0659C6049B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  7 Apr 2022 06:27:23 +0000 (UTC)
-X-UUID: 93121cf8a2c048c1a70853a77a6974a5-20220407
-X-UUID: 93121cf8a2c048c1a70853a77a6974a5-20220407
-Received: from mtkcas10.mediatek.inc [(172.21.101.39)] by mailgw01.mediatek.com
- (envelope-from <jason-jh.lin@mediatek.com>)
- (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
- with ESMTP id 801607603; Thu, 07 Apr 2022 14:27:16 +0800
-Received: from mtkcas11.mediatek.inc (172.21.101.40) by
- mtkmbs10n2.mediatek.inc (172.21.101.183) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id 15.2.792.3; 
- Thu, 7 Apr 2022 14:27:14 +0800
-Received: from mtksdccf07 (172.21.84.99) by mtkcas11.mediatek.inc
- (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via Frontend
- Transport; Thu, 7 Apr 2022 14:27:14 +0800
-Message-ID: <d8711b8e4d233240eda73db54a625e88b9b3970b.camel@mediatek.com>
-From: Jason-JH Lin <jason-jh.lin@mediatek.com>
-To: CK Hu <ck.hu@mediatek.com>, Rob Herring <robh+dt@kernel.org>, "Matthias
- Brugger" <matthias.bgg@gmail.com>, Chun-Kuang Hu <chunkuang.hu@kernel.org>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Date: Thu, 7 Apr 2022 14:27:14 +0800
-In-Reply-To: <67b3e42d6a094108f724ed9b8c73f5cd6b2ce219.camel@mediatek.com>
-References: <20220407030409.9664-1-jason-jh.lin@mediatek.com>
- <20220407030409.9664-4-jason-jh.lin@mediatek.com>
- <67b3e42d6a094108f724ed9b8c73f5cd6b2ce219.camel@mediatek.com>
-X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.2 
+ Thu,  7 Apr 2022 07:54:40 +0000 (UTC)
+Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
+ by mailout.west.internal (Postfix) with ESMTP id DA65B3200EC0;
+ Thu,  7 Apr 2022 03:54:37 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute3.internal (MEProxy); Thu, 07 Apr 2022 03:54:39 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=cc
+ :cc:content-type:date:date:from:from:in-reply-to:in-reply-to
+ :message-id:mime-version:references:reply-to:sender:subject
+ :subject:to:to; s=fm3; bh=hvRJV0pvl3fLnQVaefDbK7s+xg+2wLBb3A3T1r
+ b+a40=; b=eHXmPPGVwTO8n00CRZPJ/6qTXK53BXAYGEUgX5Q4ulhZYaZVBXofVC
+ e+73TlEPGRjNEFTAp62XHawGFRcv2Vx+8OLji0ezh+6h6xAdNRW+gVDTsxgOQ6xC
+ SSSNTiV9WCeODs5dwjKJW3t8vBPjfA7m+chKp6C+lGrfMDNC88Yuj90znL63t3pl
+ aWYzG9i7wNkWts7SEosxihm928gTA1/9LUPssyeWPbh4Lj642vl5JvABNea7TPJo
+ kLVEo5rbL5yXxkuw11T5gy46szdIEA3Vr6eA6rfeYdOWTVKgsogCd9vomaoqQQWZ
+ aXf+NG3BJKBREvlz5Wb1UUhlKOL2tO3Q==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-type:date:date:from:from
+ :in-reply-to:in-reply-to:message-id:mime-version:references
+ :reply-to:sender:subject:subject:to:to:x-me-proxy:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=hvRJV0pvl3fLnQVae
+ fDbK7s+xg+2wLBb3A3T1rb+a40=; b=ddD17FI/e7dTpvPXM+oT59gLJeP8esacR
+ qzemYeqBlTAXFmFAjU3Ldoh3ezkkg2slPyZBqvXnbGGWQ5ASMbPNM1J43qkF5d+V
+ AI5ivyyhGS9fHqtymUlz7K9Y/nxQKulVmN16w5HNL+KBQ7qC+R6r0G7fJZltQdMW
+ 6tWmP4v6PVLaLkuxmLzI3pQmA7tME4yYOlmJF4aNC+ZWy24REG6fL8ihMJA1Hwhw
+ Vffq64B7/L4MvQUX2Wsm54NG+oWDZQBRT3fCbnJ1veDg0D2hlx1iHJtUcncteV7L
+ dhCWtywu5mHtmGmhdFJvH81fui0Ev1ead+22PGH7VzxNm1DcxNEnQ==
+X-ME-Sender: <xms:vZhOYvSYNG6eJq3NPujn5RnFmTh3UGDWuwo-62PxUGlhVgTTtmjPbw>
+ <xme:vZhOYgx0tg6Ra_heBgZ3o603PS36jkw_8ZAyXHIauJYx7-pH1wdkySWiEoCbud1mY
+ zrAcdO9lrQKuNeRj0s>
+X-ME-Received: <xmr:vZhOYk2JYooCHNI9FCJpq7_sVxnIYri9TrxS18AA_SiesYmfy0UiungjQWLUdo004MsR8R-ctJao0kU_HDNMVJd2czLP5DuMczGRYGA>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvvddrudejjedguddvjecutefuodetggdotefrod
+ ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
+ necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
+ enucfjughrpeffhffvuffkfhggtggujgesghdtreertddtvdenucfhrhhomhepofgrgihi
+ mhgvucftihhprghrugcuoehmrgigihhmvgestggvrhhnohdrthgvtghhqeenucggtffrrg
+ htthgvrhhnpefhffdtueegvedvueffjeeuffejfeffjedtfeevfeeuleejkeeghfeuheet
+ ffduheenucffohhmrghinhepghhithhlrggsrdgtohhmpdhtuhigsghuihhlugdrtghomh
+ dpkhgvrhhnvghlrdhorhhgpdhgihhthhhusgdrtghomhenucevlhhushhtvghrufhiiigv
+ pedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrgigihhmvgestggvrhhnohdrthgvtg
+ hh
+X-ME-Proxy: <xmx:vZhOYvAPLxH8jNLQWE9e3F1tB7METMXDutZ6OGPwtL9BbYgXU02n7Q>
+ <xmx:vZhOYogt36ZM9nWwgr3bYUgxrLqKVLAdYNmmjA3730hgffxEdR-Lyg>
+ <xmx:vZhOYjovNfrQvOv4Uvu9GX1FkT1TLcjJPQQ6R-sMH-M1iSSnu43eaQ>
+ <xmx:vZhOYkwGstWp97xfECSUvb9tHw6Elo7bdYe_jGXMYDxSvXroLaMOrw>
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 7 Apr 2022 03:54:36 -0400 (EDT)
+Date: Thu, 7 Apr 2022 09:54:35 +0200
+From: Maxime Ripard <maxime@cerno.tech>
+To: Naresh Kamboju <naresh.kamboju@linaro.org>
+Message-ID: <20220407075435.ahlylmbqmqnpxz64@houat>
+References: <CA+G9fYuqU45hHmK4WMUNEXQbmBucE+9fB=S9wcHEfEHaZ2jgcQ@mail.gmail.com>
+ <20220401151058.fipdax3kvmxknctv@houat>
+ <CA+G9fYu+WddXTb0NcbviUfGQHhsmThssVCafLPw7+nj3JsoFAA@mail.gmail.com>
 MIME-Version: 1.0
-X-MTK: N
-Cc: devicetree@vger.kernel.org, moudy.ho@mediatek.com,
- Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@linux.ie>,
- linux-kernel@vger.kernel.org, singo.chang@mediatek.com, hsinyi@chromium.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, postmaster@vger.kernel.org,
- Project_Global_Chrome_Upstream_Group@mediatek.com, Fabien
- Parent <fparent@baylibre.com>, nancy.lin@mediatek.com,
- linux-mediatek@lists.infradead.org, roy-cw.yeh@mediatek.com,
- Philipp Zabel <p.zabel@pengutronix.de>,
- John 'Warthog9' Hawley <warthog9@eaglescrag.net>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [RESEND v17 3/7] soc: mediatek: add mtk-mmsys
- support for mt8195 vdosys0
+In-Reply-To: <CA+G9fYu+WddXTb0NcbviUfGQHhsmThssVCafLPw7+nj3JsoFAA@mail.gmail.com>
+Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, regressions@lists.linux.dev,
+ Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
+ Stephen Boyd <sboyd@kernel.org>, Michael Turquette <mturquette@baylibre.com>,
+ open list <linux-kernel@vger.kernel.org>, lkft-triage@lists.linaro.org,
+ linux-stm32@st-md-mailman.stormreply.com, gabriel.fernandez@foss.st.com,
+ Rob Herring <robh+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Nicolas Dechesne <nicolas.dechesne@linaro.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>, linux-clk <linux-clk@vger.kernel.org>,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [next] db845c: WARNING: CPU: 5 PID: 8 at
+ drivers/clk/clk-divider.c:139 divider_recalc_rate
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -62,249 +92,163 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============8594674318883790460=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi CK,
 
-Thanks for the reviews.
+--===============8594674318883790460==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="i5yz424gkn64kvgh"
+Content-Disposition: inline
 
-On Thu, 2022-04-07 at 13:45 +0800, CK Hu wrote:
-> Hi, Jason:
-> 
-> On Thu, 2022-04-07 at 11:04 +0800, jason-jh.lin wrote:
-> > 1. Add mt8195 mmsys compatible for vdosys0.
-> > 2. Add mt8195 routing table settings and fix build fail.
-> > 3. Add clock name, clock driver name and routing table into the
-> > driver data
-> >    of mt8195 vdosys0.
-> > 4. Add get match data by clock name function and clock platform
-> > labels
-> >    to identify which mmsys node is corresponding to vdosys0.
-> > 
-> > Signed-off-by: jason-jh.lin <jason-jh.lin@mediatek.com>
-> > ---
-> >  drivers/gpu/drm/mediatek/mtk_drm_ddp_comp.c |   2 +-
-> >  drivers/gpu/drm/mediatek/mtk_drm_drv.c      |   6 +-
-> >  drivers/soc/mediatek/mt8167-mmsys.h         |   2 +-
-> >  drivers/soc/mediatek/mt8183-mmsys.h         |   2 +-
-> >  drivers/soc/mediatek/mt8186-mmsys.h         |   4 +-
-> >  drivers/soc/mediatek/mt8192-mmsys.h         |   4 +-
-> >  drivers/soc/mediatek/mt8195-mmsys.h         | 370
-> > ++++++++++++++++++++
-> >  drivers/soc/mediatek/mt8365-mmsys.h         |   4 +-
-> >  drivers/soc/mediatek/mtk-mmsys.c            |  62 ++++
-> >  drivers/soc/mediatek/mtk-mmsys.h            |   1 +
-> >  drivers/soc/mediatek/mtk-mutex.c            |   8 +-
-> >  include/linux/soc/mediatek/mtk-mmsys.h      |  13 +-
-> >  12 files changed, 461 insertions(+), 17 deletions(-)
-> >  create mode 100644 drivers/soc/mediatek/mt8195-mmsys.h
-> > 
-> 
-> [snip]
-> 
-> > diff --git a/drivers/soc/mediatek/mtk-mmsys.c
-> > b/drivers/soc/mediatek/mtk-mmsys.c
-> > index 4fc4c2c9ea20..b2fa239c5f5f 100644
-> > --- a/drivers/soc/mediatek/mtk-mmsys.c
-> > +++ b/drivers/soc/mediatek/mtk-mmsys.c
-> > @@ -4,6 +4,8 @@
-> >   * Author: James Liao <jamesjj.liao@mediatek.com>
-> >   */
-> >  
-> > +#include <linux/clk.h>
-> > +#include <linux/clk-provider.h>
-> >  #include <linux/delay.h>
-> >  #include <linux/device.h>
-> >  #include <linux/io.h>
-> > @@ -17,6 +19,7 @@
-> >  #include "mt8183-mmsys.h"
-> >  #include "mt8186-mmsys.h"
-> >  #include "mt8192-mmsys.h"
-> > +#include "mt8195-mmsys.h"
-> >  #include "mt8365-mmsys.h"
-> >  
-> >  static const struct mtk_mmsys_driver_data mt2701_mmsys_driver_data
-> > =
-> > {
-> > @@ -72,12 +75,24 @@ static const struct mtk_mmsys_driver_data
-> > mt8192_mmsys_driver_data = {
-> >  	.num_routes = ARRAY_SIZE(mmsys_mt8192_routing_table),
-> >  };
-> >  
-> > +static const struct mtk_mmsys_driver_data
-> > mt8195_vdosys0_driver_data
-> > = {
-> > +	.clk_name = "cfg_vdo0",
-> > +	.clk_driver = "clk-mt8195-vdo0",
-> > +	.routes = mmsys_mt8195_routing_table,
-> > +	.num_routes = ARRAY_SIZE(mmsys_mt8195_routing_table),
-> > +};
-> > +
-> >  static const struct mtk_mmsys_driver_data mt8365_mmsys_driver_data
-> > =
-> > {
-> >  	.clk_driver = "clk-mt8365-mm",
-> >  	.routes = mt8365_mmsys_routing_table,
-> >  	.num_routes = ARRAY_SIZE(mt8365_mmsys_routing_table),
-> >  };
-> >  
-> > +static const struct of_device_id mtk_clk_platform_labels[] = {
-> > +	{ .compatible = "mediatek,mt8195-mmsys",
-> > +	  .data = (void *)"clk-mt8195"},
-> > +};
-> > +
-> >  struct mtk_mmsys {
-> >  	void __iomem *regs;
-> >  	const struct mtk_mmsys_driver_data *data;
-> > @@ -85,6 +100,45 @@ struct mtk_mmsys {
-> >  	struct reset_controller_dev rcdev;
-> >  };
-> >  
-> > +static int mtk_mmsys_get_match_data_by_clk_name(const struct
-> > mtk_mmsys_driver_data **data,
-> > +						struct device *dev)
-> > +{
-> > +	int i;
-> > +	struct clk *clk;
-> > +	const char *clk_name;
-> > +	const struct of_device_id *of_id =
-> > of_match_node(mtk_clk_platform_labels,
-> > +							 dev->of_node);
-> > +	const struct mtk_mmsys_driver_data *drvdata[] = {
-> > +		&mt8195_vdosys0_driver_data,
-> > +	};
-> > +
-> > +	if (!of_id || !of_id->data) {
-> > +		dev_err(dev, "Can't find match clk platform labels\n");
-> > +		return -EINVAL;
-> > +	}
-> > +
-> > +	clk = devm_clk_get(dev, NULL);
-> > +	if (IS_ERR(clk)) {
-> > +		dev_err(dev, "failed to get mmsys clk\n");
-> > +		return PTR_ERR(clk);
-> > +	}
-> > +
-> > +	clk_name = __clk_get_name(clk);
-> > +	if (!clk_name) {
-> > +		dev_err(dev, "invalid mmsys clk name\n");
-> > +		return -EINVAL;
-> > +	}
-> > +
-> > +	for (i = 0; i < ARRAY_SIZE(drvdata); i++)
-> > +		if (strncmp(drvdata[i]->clk_name, clk_name,
-> > strlen(clk_name)) == 0 &&
-> > +		    strncmp(drvdata[i]->clk_driver, of_id->data,
-> > strlen(of_id->data)) == 0) {
-> 
-> I think clk_name is enough to identify the mmsys, why do you need
-> clk_driver?
 
-I think there might be another chip that needs to get driver data by
-clk_name .
-So I use "clk-mt8195" in clk_driver to identify the corresponding
-platform whose clk_name of mmsys is also "cfg_vod0".
+--i5yz424gkn64kvgh
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-> > +			*data = drvdata[i];
-> > +			return 0;
-> > +		}
-> > +
-> > +	return -EINVAL;
-> > +}
-> > +
-> >  void mtk_mmsys_ddp_connect(struct device *dev,
-> >  			   enum mtk_ddp_comp_id cur,
-> >  			   enum mtk_ddp_comp_id next)
-> > @@ -206,6 +260,11 @@ static int mtk_mmsys_probe(struct
-> > platform_device *pdev)
-> >  	}
-> >  
-> >  	mmsys->data = of_device_get_match_data(&pdev->dev);
-> > +	if (!mmsys->data &&
-> > mtk_mmsys_get_match_data_by_clk_name(&mmsys->data, dev) < 0) {
-> > +		dev_err(dev, "Couldn't get match driver data\n");
-> > +		return -EINVAL;
-> > +	}
-> > +
-> >  	platform_set_drvdata(pdev, mmsys);
-> >  
-> >  	clks = platform_device_register_data(&pdev->dev, mmsys->data-
-> > > clk_driver,
-> > 
-> > @@ -260,6 +319,9 @@ static const struct of_device_id
-> > of_match_mtk_mmsys[] = {
-> >  		.compatible = "mediatek,mt8192-mmsys",
-> >  		.data = &mt8192_mmsys_driver_data,
-> >  	},
-> > +	{
-> > +		.compatible = "mediatek,mt8195-mmsys",
-> > +	},
-> >  	{
-> >  		.compatible = "mediatek,mt8365-mmsys",
-> >  		.data = &mt8365_mmsys_driver_data,
-> > 
-> 
-> [snip]
-> 
-> > b/include/linux/soc/mediatek/mtk-mmsys.h
-> > index 4bba275e235a..fb719fd1281c 100644
-> > --- a/include/linux/soc/mediatek/mtk-mmsys.h
-> > +++ b/include/linux/soc/mediatek/mtk-mmsys.h
-> > @@ -16,14 +16,25 @@ enum mtk_ddp_comp_id {
-> >  	DDP_COMPONENT_CCORR,
-> >  	DDP_COMPONENT_COLOR0,
-> >  	DDP_COMPONENT_COLOR1,
-> > -	DDP_COMPONENT_DITHER,
-> > +	DDP_COMPONENT_DITHER0,
-> 
-> I would like soc and drm modification to go through different tree,
-> so
-> this setting would not modify drm driver in this patch.
-> 
-> DDP_COMPONENT_DITHER0 = DDP_COMPONENT_DITHER,
-> 
-> Then modify drm driver after this patch.
-> 
-> Regards,
-> CK
+Hi,
 
-OK, I will use this modification at the next version.
+On Sat, Apr 02, 2022 at 12:16:48AM +0530, Naresh Kamboju wrote:
+> On Fri, 1 Apr 2022 at 20:41, Maxime Ripard <maxime@cerno.tech> wrote:
+> >
+> > Hi,
+> >
+> > On Thu, Mar 31, 2022 at 05:33:57PM +0530, Naresh Kamboju wrote:
+> > > Following kernel warning noticed on db845c while booting linux next-2=
+0220331.
+> > >
+> > > metadata:
+> > >   git_ref: master
+> > >   git_repo: https://gitlab.com/Linaro/lkft/mirrors/next/linux-next
+> > >   git_sha: fdcbcd1348f4ef713668bae1b0fa9774e1811205
+> > >   git_describe: next-20220331
+> > >   kernel_version: 5.17.0
+> > >   kernel-config: https://builds.tuxbuild.com/278RLnhgJL7XdlJbcbv07jiw=
+bYB/config
+> > >
+> > > Boot log:
+> > > [    0.000000] Booting Linux on physical CPU 0x0000000000 [0x517f803c]
+> > > [    0.000000] Linux version 5.17.0-next-20220331 (tuxmake@tuxmake)
+> > > (aarch64-linux-gnu-gcc (Debian 11.2.0-18) 11.2.0, GNU ld (GNU Binutils
+> > > for Debian) 2.38) #1 SMP PREEMPT @1648699852
+> > > [    0.000000] Machine model: Thundercomm Dragonboard 845c
+> > > <trim>
+> > > [    8.131366] ------------[ cut here ]------------
+> > > [    8.131374] dsi0_pll_bit_clk: Zero divisor and CLK_DIVIDER_ALLOW_Z=
+ERO not set
+> > > [    8.131387] WARNING: CPU: 5 PID: 8 at drivers/clk/clk-divider.c:139
+> > > divider_recalc_rate+0x8c/0xc0
+> > > [    8.131398] Modules linked in: qcom_spmi_adc5 snd_soc_sdm845
+> > > qcom_vadc_common qcom_spmi_temp_alarm qcom_pon crct10dif_ce rtc_pm8xxx
+> > > snd_soc_rt5663 msm snd_soc_qcom_common gpu_sched snd_soc_rl6231
+> > > soundwire_bus reset_qcom_pdc drm_dp_helper qcom_camss hci_uart
+> > > videobuf2_dma_sg btqca v4l2_fwnode venus_core ath10k_snoc v4l2_async
+> > > btbcm ath10k_core i2c_qcom_geni v4l2_mem2mem videobuf2_memops
+> > > videobuf2_v4l2 ath bluetooth camcc_sdm845 videobuf2_common
+> > > spi_geni_qcom i2c_qcom_cci qcom_rng mac80211 xhci_pci qcom_q6v5_mss
+> > > xhci_pci_renesas cfg80211 icc_osm_l3 slim_qcom_ngd_ctrl qcom_wdt
+> > > rfkill qrtr lmh pdr_interface display_connector slimbus qcom_q6v5_pas
+> > > drm_kms_helper qcom_pil_info qcom_q6v5 qcom_sysmon qcom_common
+> > > qcom_glink_smem qmi_helpers drm mdt_loader socinfo rmtfs_mem fuse
+> > > [    8.131462] CPU: 5 PID: 8 Comm: kworker/u16:0 Not tainted
+> > > 5.17.0-next-20220331 #1
+> > > [    8.131465] Hardware name: Thundercomm Dragonboard 845c (DT)
+> > > [    8.131467] Workqueue: events_unbound deferred_probe_work_func
+> > > [    8.131475] pstate: 60400005 (nZCv daif +PAN -UAO -TCO -DIT -SSBS =
+BTYPE=3D--)
+> > > [    8.131477] pc : divider_recalc_rate+0x8c/0xc0
+> > > [    8.131479] lr : divider_recalc_rate+0x8c/0xc0
+> > > [    8.131481] sp : ffff8000080936c0
+> > > [    8.131482] x29: ffff8000080936c0 x28: ffff781940e58d00 x27: ffffa=
+7f3f1bc6d38
+> > > [    8.131485] x26: ffffa7f3f1bc6cf8 x25: 0000000000000000 x24: fffff=
+fffffffffff
+> > > [    8.131488] x23: ffff781947e8a400 x22: 000000003b9aca50 x21: ffff7=
+81940be0800
+> > > [    8.131491] x20: ffff781947e8a800 x19: 000000003b9aca50 x18: 00000=
+00000000000
+> > > [    8.131494] x17: 0000000000000000 x16: 0000000000000000 x15: 00000=
+00000000000
+> > > [    8.131497] x14: ffff7819bd718000 x13: 0a74657320746f6e x12: 204f5=
+2455a5f574f
+> > > [    8.131500] x11: 4c4c415f52454449 x10: 5649445f4b4c4320 x9 : ffffa=
+7f3f011de84
+> > > [    8.131502] x8 : 445f4b4c4320646e x7 : 6120726f73697669 x6 : 00000=
+00000000001
+> > > [    8.131505] x5 : ffffa7f3f288f000 x4 : ffffa7f3f288f2d0 x3 : 00000=
+00000000000
+> > > [    8.131508] x2 : 0000000000000000 x1 : 0000000000000000 x0 : ffff7=
+819402c7000
+> > > [    8.131511] Call trace:
+> > > [    8.131512]  divider_recalc_rate+0x8c/0xc0
+> > > [    8.131513]  clk_divider_recalc_rate+0x64/0x90
+> > > [    8.131515]  clk_recalc+0x40/0xb0
+> > > [    8.131519]  clk_calc_subtree+0x58/0x90
+> > > [    8.131521]  clk_calc_subtree+0x70/0x90
+> > > [    8.131523]  clk_calc_new_rates+0x150/0x290
+> > > [    8.131526]  clk_calc_new_rates+0x100/0x290
+> > > [    8.131528]  clk_calc_new_rates+0x100/0x290
+> > > [    8.131530]  clk_calc_new_rates+0x100/0x290
+> > > [    8.131533]  clk_core_set_rate_nolock+0xa0/0x2a4
+> > > [    8.131535]  clk_set_rate_range_nolock.part.0+0xbc/0x2a0
+> > > [    8.131538]  __clk_put+0x70/0x140
+> > > [    8.131540]  clk_put+0x1c/0x30
+> > > [    8.131543]  of_clk_set_defaults+0x140/0x3c0
+> > > [    8.131546]  platform_probe+0x48/0xf0
+> > > [    8.131548]  really_probe+0x184/0x3d0
+> > > [    8.131550]  __driver_probe_device+0x11c/0x190
+> > > [    8.131553]  driver_probe_device+0x44/0xf4
+> > > [    8.131556]  __device_attach_driver+0xa4/0x140
+> > > [    8.131558]  bus_for_each_drv+0x84/0xe0
+> > > [    8.131561]  __device_attach+0xe4/0x1c0
+> > > [    8.131563]  device_initial_probe+0x20/0x30
+> > > [    8.131565]  bus_probe_device+0xa4/0xb0
+> > > [    8.131567]  deferred_probe_work_func+0xa8/0xfc
+> > > [    8.131570]  process_one_work+0x1dc/0x450
+> > > [    8.131575]  worker_thread+0x154/0x450
+> > > [    8.131577]  kthread+0x100/0x110
+> > > [    8.131579]  ret_from_fork+0x10/0x20
+> > > [    8.131584] ---[ end trace 0000000000000000 ]---
+> > > [    8.131588] ------------[ cut here ]------------
+> >
+> > I'm not sure if it's feasible, but if it is, it looks like something
+> > that could be fixed by the patch pasted here:
+> >
+> > https://lore.kernel.org/linux-clk/20220401122736.5yvanksa4pla7uql@houat/
+> > Could you test it?
+>=20
+> I have tested the single line patch and reported problems not fixed.
+
+Could you test this branch?
+https://github.com/mripard/linux/tree/rpi/clk-improvements-more-fixes
+
 Thanks!
+Maxime
 
-Regards,
-Jason-JH.Lin
+--i5yz424gkn64kvgh
+Content-Type: application/pgp-signature; name="signature.asc"
 
-> 
-> > +	DDP_COMPONENT_DITHER1,
-> > +	DDP_COMPONENT_DP_INTF0,
-> > +	DDP_COMPONENT_DP_INTF1,
-> >  	DDP_COMPONENT_DPI0,
-> >  	DDP_COMPONENT_DPI1,
-> > +	DDP_COMPONENT_DSC0,
-> > +	DDP_COMPONENT_DSC1,
-> >  	DDP_COMPONENT_DSI0,
-> >  	DDP_COMPONENT_DSI1,
-> >  	DDP_COMPONENT_DSI2,
-> >  	DDP_COMPONENT_DSI3,
-> >  	DDP_COMPONENT_GAMMA,
-> > +	DDP_COMPONENT_MERGE0,
-> > +	DDP_COMPONENT_MERGE1,
-> > +	DDP_COMPONENT_MERGE2,
-> > +	DDP_COMPONENT_MERGE3,
-> > +	DDP_COMPONENT_MERGE4,
-> > +	DDP_COMPONENT_MERGE5,
-> >  	DDP_COMPONENT_OD0,
-> >  	DDP_COMPONENT_OD1,
-> >  	DDP_COMPONENT_OVL0,
-> 
-> 
--- 
-Jason-JH Lin <jason-jh.lin@mediatek.com>
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCYk6YuwAKCRDj7w1vZxhR
+xUChAP0UVOSNtC1qP84XhYgR5jOX0+qkLgOnE+8H9phnEaSRYAD/b4tGeJzdEGe1
+t+sCqPDcVmNLKYmYYv37511sduZt7Qw=
+=U3cn
+-----END PGP SIGNATURE-----
+
+--i5yz424gkn64kvgh--
+
+--===============8594674318883790460==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============8594674318883790460==--
