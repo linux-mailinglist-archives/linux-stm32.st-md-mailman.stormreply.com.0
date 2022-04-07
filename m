@@ -2,87 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id BF49C4F80EA
-	for <lists+linux-stm32@lfdr.de>; Thu,  7 Apr 2022 15:46:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 93F884F84C3
+	for <lists+linux-stm32@lfdr.de>; Thu,  7 Apr 2022 18:21:18 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6C7C3C628AB;
-	Thu,  7 Apr 2022 13:46:24 +0000 (UTC)
-Received: from wout3-smtp.messagingengine.com (wout3-smtp.messagingengine.com
- [64.147.123.19])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E477FC628AE;
+	Thu,  7 Apr 2022 16:21:17 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3D4B3C6049B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 18E70C628A2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  7 Apr 2022 13:46:22 +0000 (UTC)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.west.internal (Postfix) with ESMTP id 3CB773201591;
- Thu,  7 Apr 2022 09:46:19 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute4.internal (MEProxy); Thu, 07 Apr 2022 09:46:20 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=cc
- :cc:content-type:date:date:from:from:in-reply-to:in-reply-to
- :message-id:mime-version:references:reply-to:sender:subject
- :subject:to:to; s=fm3; bh=5MSx+d/bXZx5XVZ50S+zjx2/Cpj0N8/ygeOMyG
- KvsCs=; b=G3q6HFdoLRkTmNBNumrXdlcJS8czebdcWGFIoOney3lh9BIiMK4bPk
- B/NIRqJWmvEWZbcEw0iGQBi896zGgdWlDnEPuV1kGcKU1nWPHK6bNE/eIvFvMpI6
- /to7w4McrLT21izHjXAWfB+1u2TPWRpKTB9tshlOCV+6UtsoDjWUjVONg2dYvXey
- lXrqXWSHWsr7aOKYie6jGuGouXdr9eox1P3l79F5gQEDCk7LkauHoQJKjrkf38on
- v5A3PfbRCPyyWbbKtq6sFiYmspIeKBLuS4NyOftHhVp9/seUGBAbf3qvbfbGtFFW
- nKTDkm2xo+Id/Ww+MpvmIG2++F1orA2A==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-type:date:date:from:from
- :in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:sender:subject:subject:to:to:x-me-proxy:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=5MSx+d/bXZx5XVZ50
- S+zjx2/Cpj0N8/ygeOMyGKvsCs=; b=F3kF1OkFZOgLN5KdNWcDu4ISxuQ8KHqzm
- 9yLyWIgKjO7g8qJBrb689juCdmpD1GTZXgnH+QMJDa2lm6kgoeJ/pwDmbVDfjeQi
- B+oaMLTxUJgiZ4RlvpHosLycd9WE9pGVgD7LHBsaLCDpcY9k2qJC7Kk+FzHVrSWK
- IZ6gcFu/1RGG37KxmGFSkVAZn/BNNn3o6rYbZklExFZmzQFEFv/xppT4fXfurvDy
- 2xUZe5rY3M61iJtAc8wc6B7hpR6q05DCJDFcVbscENsC5Nqvbw3qcfxaQh4aqEQX
- SkNiersEJENFgOfXRgYjcoFXAC5RWyvz250pKctDuVkINSF0ST4IQ==
-X-ME-Sender: <xms:KetOYhEPeSNlbcKftz7DvQP1Mwu4B8fMn8eTGPRDBRea8ETtJgd30w>
- <xme:KetOYmXMtsdCZ6Udi84yb2N1TMDaqS5qQ_BjfvIogicWWD937Lq_EtUJ7WYBw-Di5
- EAqJyiaGWT4RcyfobY>
-X-ME-Received: <xmr:KetOYjId9D55254Q5KgdNxUEcvM6VAsWymziLCH-ykei5y8SKRBP6SBnUiB-i-5laV3-1uSjcEW4zq3tnunIHUyV7cIko04O80wPV7U>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvvddrudejkedgieekucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
- cujfgurhepfffhvffukfhfgggtuggjsehgtderredttddvnecuhfhrohhmpeforgigihhm
- vgcutfhiphgrrhguuceomhgrgihimhgvsegtvghrnhhordhtvggthheqnecuggftrfgrth
- htvghrnhepkeegveefgefgtdeifeeijefhvdehffekudetheejgeefteeihefffffhlefh
- gefhnecuffhomhgrihhnpehkvghrnhgvlhdrohhrghdpghhithhhuhgsrdgtohhmnecuve
- hluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmhgrgihimhgv
- segtvghrnhhordhtvggthh
-X-ME-Proxy: <xmx:KetOYnHGJqscSlNMgp2WMHjZbbAXtZeEPQ94vnntAWBQSu58jui4_g>
- <xmx:KetOYnXIO-Bhlt9HHApAJTyfMBGvxE7_L1AgrvSGPmmDG79j1W5OYA>
- <xmx:KetOYiMUUPK0YPnUubxWXRmdOMbgihzmXy6SshvNttj4dmZxh3FCKg>
- <xmx:KutOYgVBjRG0zdeycNJhX0xBWTOTbPqfwj4HD3dmXtSCfCpbgf76cQ>
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 7 Apr 2022 09:46:16 -0400 (EDT)
-Date: Thu, 7 Apr 2022 15:46:15 +0200
-From: Maxime Ripard <maxime@cerno.tech>
-To: Naresh Kamboju <naresh.kamboju@linaro.org>
-Message-ID: <20220407134615.pqx4lxvgl4ofjrki@houat>
-References: <CA+G9fYuqU45hHmK4WMUNEXQbmBucE+9fB=S9wcHEfEHaZ2jgcQ@mail.gmail.com>
- <20220401151058.fipdax3kvmxknctv@houat>
- <CA+G9fYu+WddXTb0NcbviUfGQHhsmThssVCafLPw7+nj3JsoFAA@mail.gmail.com>
- <20220407075435.ahlylmbqmqnpxz64@houat>
- <CA+G9fYvT_W9+0AguQu97mqTm5zNnSvF0asnatZX8BTf=_1oANg@mail.gmail.com>
+ Thu,  7 Apr 2022 16:21:16 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 237Apw6h022051;
+ Thu, 7 Apr 2022 18:21:04 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=selector1;
+ bh=l80vPjd5qYSa6FhlBCDjA+CHxt2mqTlfw0Ep0SOG8+M=;
+ b=tD73dFhKtQ/7vK3JiuNAloYLosoxJ2BYBiMGwdXXABL65QgGV6oWvFWrMMjE/Vl8WZSY
+ O7/S4ewIhH7VZrASEtkwogsKw3lg7wch3fYrKgzealeRMwoGq/F+ktGtWuiRICRvUFmn
+ 0rY/HafVedV6SatRRXHoPo21n6Hpx1SCYeRsKLdcWmzOlgkz3M/Y0rdR+UixGidV/gNa
+ IlDZwmEvne6Dam09DXqi8L5au7wDVIDrD3CjSciB/oS4cwchhWRrTSuAha16k+1uOR9S
+ 7RIZAku0N8WRLQMgV7tEp/QPyE/FU4KzHG+YJXDZKWNxI6KZFq9Svb/duKU66tRBjdkX dA== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3f8x9gncwf-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 07 Apr 2022 18:21:04 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 768A510002A;
+ Thu,  7 Apr 2022 18:21:02 +0200 (CEST)
+Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 6F3C4220FBF;
+ Thu,  7 Apr 2022 18:21:02 +0200 (CEST)
+Received: from localhost (10.75.127.46) by SFHDAG2NODE2.st.com (10.75.127.5)
+ with Microsoft SMTP Server (TLS) id 15.0.1497.26; Thu, 7 Apr 2022 18:21:02
+ +0200
+From: Valentin Caron <valentin.caron@foss.st.com>
+To: Alexandre Torgue <alexandre.torgue@foss.st.com>
+Date: Thu, 7 Apr 2022 18:20:40 +0200
+Message-ID: <20220407162042.361956-1-valentin.caron@foss.st.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-In-Reply-To: <CA+G9fYvT_W9+0AguQu97mqTm5zNnSvF0asnatZX8BTf=_1oANg@mail.gmail.com>
-Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, regressions@lists.linux.dev,
- Stephen Boyd <sboyd@kernel.org>, Michael Turquette <mturquette@baylibre.com>,
- open list <linux-kernel@vger.kernel.org>, lkft-triage@lists.linaro.org,
- linux-stm32@st-md-mailman.stormreply.com,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- gabriel.fernandez@foss.st.com, Rob Herring <robh+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Nicolas Dechesne <nicolas.dechesne@linaro.org>,
- Philipp Zabel <p.zabel@pengutronix.de>, linux-clk <linux-clk@vger.kernel.org>,
- Linux ARM <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [next] db845c: WARNING: CPU: 5 PID: 8 at
- drivers/clk/clk-divider.c:139 divider_recalc_rate
+X-Originating-IP: [10.75.127.46]
+X-ClientProxiedBy: SFHDAG2NODE2.st.com (10.75.127.5) To SFHDAG2NODE2.st.com
+ (10.75.127.5)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.858,Hydra:6.0.425,FMLib:17.11.64.514
+ definitions=2022-04-07_03,2022-04-07_01,2022-02-23_01
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Rob Herring <robh+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH 0/2] ARM: dts: stm32: add RTC support on
+	stm32mp13 boards
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,73 +69,26 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============1827458148157657098=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+Add RTC node on stm32mp13 soc.
+Enable RTC on stm32mp135f-dk board.
 
---===============1827458148157657098==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="qlotqj4qfa6bze52"
-Content-Disposition: inline
+Valentin Caron (2):
+  ARM: dts: stm32: add RTC node on stm32mp131
+  ARM: dts: stm32: enable RTC support on stm32mp135f-dk
 
+ arch/arm/boot/dts/stm32mp131.dtsi    | 15 +++++++++++++++
+ arch/arm/boot/dts/stm32mp135f-dk.dts |  4 ++++
+ 2 files changed, 19 insertions(+)
 
---qlotqj4qfa6bze52
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-Hi Naresh,
-
-On Thu, Apr 07, 2022 at 05:12:09PM +0530, Naresh Kamboju wrote:
-> On Thu, 7 Apr 2022 at 13:24, Maxime Ripard <maxime@cerno.tech> wrote:
-> >
-> > Hi,
-> >
-> > > > I'm not sure if it's feasible, but if it is, it looks like something
-> > > > that could be fixed by the patch pasted here:
-> > > >
-> > > > https://lore.kernel.org/linux-clk/20220401122736.5yvanksa4pla7uql@h=
-ouat/
-> > > > Could you test it?
-> > >
-> > > I have tested the single line patch and reported problems not fixed.
-> >
-> > Could you test this branch?
-> > https://github.com/mripard/linux/tree/rpi/clk-improvements-more-fixes
->=20
-> I have tested your tree and branch.
-> I saw more clk prints in the boot log and did not notice the reported war=
-ning.
-
-I just pushed a new version of my branch? It should get rid of most of
-the side effects (and logs) you were seeing.
-
-Thanks!
-Maxime
-
---qlotqj4qfa6bze52
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCYk7rJwAKCRDj7w1vZxhR
-xbTsAQC7LjET/cX1wvLVmcjsot44URT7Kp4tB6E6WFMkcILK7AEAzPiySlA4o95h
-mfsabSaOvr20D/J3iMVsLQUyauL6xwQ=
-=E5bt
------END PGP SIGNATURE-----
-
---qlotqj4qfa6bze52--
-
---===============1827458148157657098==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+-- 
+2.25.1
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============1827458148157657098==--
