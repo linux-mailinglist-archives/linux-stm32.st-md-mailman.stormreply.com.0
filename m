@@ -2,58 +2,73 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF3684F8BF6
-	for <lists+linux-stm32@lfdr.de>; Fri,  8 Apr 2022 04:42:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 167634F8D4D
+	for <lists+linux-stm32@lfdr.de>; Fri,  8 Apr 2022 08:00:20 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7B3BDC628B0;
-	Fri,  8 Apr 2022 02:42:56 +0000 (UTC)
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AD41FC628C3;
+	Fri,  8 Apr 2022 06:00:19 +0000 (UTC)
+Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com
+ [209.85.208.48])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B7EE5C628AE
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 21569C628A1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  8 Apr 2022 02:42:53 +0000 (UTC)
-X-UUID: 1668b79055aa48aeacf2f9a4eb05547a-20220408
-X-UUID: 1668b79055aa48aeacf2f9a4eb05547a-20220408
-Received: from mtkexhb02.mediatek.inc [(172.21.101.103)] by
- mailgw02.mediatek.com (envelope-from <jason-jh.lin@mediatek.com>)
- (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
- with ESMTP id 1616430123; Fri, 08 Apr 2022 10:42:46 +0800
-Received: from mtkexhb01.mediatek.inc (172.21.101.102) by
- mtkmbs10n1.mediatek.inc (172.21.101.34) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
- 15.2.792.15; Fri, 8 Apr 2022 10:42:45 +0800
-Received: from mtkcas11.mediatek.inc (172.21.101.40) by mtkexhb01.mediatek.inc
- (172.21.101.102) with Microsoft SMTP Server (TLS) id 15.0.1497.2;
- Fri, 8 Apr 2022 10:42:44 +0800
-Received: from mtksdccf07 (172.21.84.99) by mtkcas11.mediatek.inc
- (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via Frontend
- Transport; Fri, 8 Apr 2022 10:42:44 +0800
-Message-ID: <1ee8927744624fb0b6e97190e5a4b78cbee69751.camel@mediatek.com>
-From: Jason-JH Lin <jason-jh.lin@mediatek.com>
-To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, "Rob
- Herring" <robh+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>, 
- Chun-Kuang Hu <chunkuang.hu@kernel.org>
-Date: Fri, 8 Apr 2022 10:42:44 +0800
-In-Reply-To: <8d5c41c0-ac7c-ed1e-726b-0d738bf22fed@collabora.com>
-References: <20220407030409.9664-1-jason-jh.lin@mediatek.com>
- <20220407030409.9664-4-jason-jh.lin@mediatek.com>
- <8d5c41c0-ac7c-ed1e-726b-0d738bf22fed@collabora.com>
-X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.2 
+ Thu,  7 Apr 2022 14:30:31 +0000 (UTC)
+Received: by mail-ed1-f48.google.com with SMTP id f18so6636704edc.5
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 07 Apr 2022 07:30:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=zllbixT8uwwRAVX+QMa2CP3U9HgtcTg/FeMKsXjsUYM=;
+ b=u6ATGlIv6X2WFKo3R1hVE/lTaoxaCg9Er9kklI3dOr/U/syEMPq5alKk5jKRLSoMz0
+ J1ZJSvSIoN9sc//+nHCBPtYPO85jf7HtKRlDi6/+xycPUBMI2SL70ZUViNmFT21AZ4DJ
+ 6elP3inT+iiuIKDg3ER0qpTI1oXh3n/JciGaZu3NUGcXsCnP52+Fd0RcqClZkXxEce8l
+ Tdrvr95CWJiNNqwFZuZ2zHGss0FyXg1bQbRB5zPrBLHMIYVpx3CnAaHdBCaFhNZD1gsa
+ RzcQ7Hr7UKu1k9hwd0AOtLhQp9Q4FOhrST6VoIkOUXBaWI4WMReKUKkXb+V4KdbikNlc
+ AE5g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=zllbixT8uwwRAVX+QMa2CP3U9HgtcTg/FeMKsXjsUYM=;
+ b=iu7rhN2/n4nv/4kZb4BippoKeK0WRiUnv8+KsF3OSyr6v904WnLlx9DRxamul6C0Ex
+ f2+OeB9ndQczfxkPyw8QOWBW3N78zv+Z1VPH3Nce5T9tBanhAOx0Cd2NMqG6JQvHRdBo
+ D6msqTagNTbiPUtAAK6X/kFBSoyQXR5uAiyj2c+ua0ZGTlOnIIJ8BrwpSzcwXatzei88
+ 7Uby4zbUWBKErSVNhPeKe00GLB1YrKja9BB1OIzFMzCGDwjL8fMJOPTXO5mZqWPxGgJF
+ rgIwkpNSyQZyCtC1pWbroLBsruXX0FDAhzG+zVWgQ26BFUq0jKbrhbAR7EC00xYrZJvV
+ yp/A==
+X-Gm-Message-State: AOAM530mSGvL3Q5YuQYTOf415aIhzPdhARgu2d3bQqt+yqWZLku0um5Z
+ J7w3vfd7czB7XGGagwRG5csDZg==
+X-Google-Smtp-Source: ABdhPJylvMQfZo0mmKmPVZrTGayBO1CUslG2f0TvN0gV6Pn8PN9mNCoe3csN+n6Mvj9EGmyt5P+V2g==
+X-Received: by 2002:a05:6402:350c:b0:419:3d18:7dd2 with SMTP id
+ b12-20020a056402350c00b004193d187dd2mr14847093edd.148.1649341830705; 
+ Thu, 07 Apr 2022 07:30:30 -0700 (PDT)
+Received: from localhost.localdomain (xdsl-188-155-201-27.adslplus.ch.
+ [188.155.201.27]) by smtp.gmail.com with ESMTPSA id
+ x9-20020a05640226c900b0041d015bb8a5sm1133039edd.26.2022.04.07.07.30.29
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 07 Apr 2022 07:30:30 -0700 (PDT)
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+To: Sekhar Nori <nsekhar@ti.com>, Bartosz Golaszewski <brgl@bgdev.pl>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Viresh Kumar <vireshk@kernel.org>,
+ Shiraz Hashim <shiraz.linux.kernel@gmail.com>, soc@kernel.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
+Date: Thu,  7 Apr 2022 16:30:27 +0200
+Message-Id: <20220407143027.294678-1-krzysztof.kozlowski@linaro.org>
+X-Mailer: git-send-email 2.32.0
 MIME-Version: 1.0
-X-MTK: N
-Cc: devicetree@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- fshao@chromium.org, David Airlie <airlied@linux.ie>,
- linux-kernel@vger.kernel.org, singo.chang@mediatek.com, hsinyi@chromium.org,
- postmaster@vger.kernel.org, Project_Global_Chrome_Upstream_Group@mediatek.com,
- Fabien Parent <fparent@baylibre.com>, moudy.ho@mediatek.com,
- linux-mediatek@lists.infradead.org, roy-cw.yeh@mediatek.com,
- Daniel Vetter <daniel@ffwll.ch>, John
- 'Warthog9' Hawley <warthog9@eaglescrag.net>, CK Hu <ck.hu@mediatek.com>,
- Philipp Zabel <p.zabel@pengutronix.de>, nancy.lin@mediatek.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [RESEND v17 3/7] soc: mediatek: add mtk-mmsys
- support for mt8195 vdosys0
+X-Mailman-Approved-At: Fri, 08 Apr 2022 06:00:18 +0000
+Cc: Olof Johansson <olof@lixom.net>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, arm@kernel.org,
+ Arnd Bergmann <arnd@arndb.de>
+Subject: [Linux-stm32] [PATCH] ARM: dts: align SPI NOR node name with
+	dtschema
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,196 +85,107 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Angelo,
+The node names should be generic and SPI NOR dtschema expects "flash".
 
-Thanks for the reviews.
+Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+---
+ arch/arm/boot/dts/da850-evm.dts                  | 2 +-
+ arch/arm/boot/dts/dm8168-evm.dts                 | 2 +-
+ arch/arm/boot/dts/spear1310-evb.dts              | 2 +-
+ arch/arm/boot/dts/spear1340-evb.dts              | 2 +-
+ arch/arm/boot/dts/stm32mp157c-emstamp-argon.dtsi | 2 +-
+ arch/arm/boot/dts/stm32mp157c-ev1.dts            | 4 ++--
+ 6 files changed, 7 insertions(+), 7 deletions(-)
 
-On Thu, 2022-04-07 at 11:11 +0200, AngeloGioacchino Del Regno wrote:
-> Il 07/04/22 05:04, jason-jh.lin ha scritto:
-> > 1. Add mt8195 mmsys compatible for vdosys0.
-> > 2. Add mt8195 routing table settings and fix build fail.
-> > 3. Add clock name, clock driver name and routing table into the
-> > driver data
-> >     of mt8195 vdosys0.
-> > 4. Add get match data by clock name function and clock platform
-> > labels
-> >     to identify which mmsys node is corresponding to vdosys0.
-> > 
-> > Signed-off-by: jason-jh.lin <jason-jh.lin@mediatek.com>
-> > ---
-> >   drivers/gpu/drm/mediatek/mtk_drm_ddp_comp.c |   2 +-
-> >   drivers/gpu/drm/mediatek/mtk_drm_drv.c      |   6 +-
-> >   drivers/soc/mediatek/mt8167-mmsys.h         |   2 +-
-> >   drivers/soc/mediatek/mt8183-mmsys.h         |   2 +-
-> >   drivers/soc/mediatek/mt8186-mmsys.h         |   4 +-
-> >   drivers/soc/mediatek/mt8192-mmsys.h         |   4 +-
-> >   drivers/soc/mediatek/mt8195-mmsys.h         | 370
-> > ++++++++++++++++++++
-> >   drivers/soc/mediatek/mt8365-mmsys.h         |   4 +-
-> >   drivers/soc/mediatek/mtk-mmsys.c            |  62 ++++
-> >   drivers/soc/mediatek/mtk-mmsys.h            |   1 +
-> >   drivers/soc/mediatek/mtk-mutex.c            |   8 +-
-> >   include/linux/soc/mediatek/mtk-mmsys.h      |  13 +-
-> >   12 files changed, 461 insertions(+), 17 deletions(-)
-> >   create mode 100644 drivers/soc/mediatek/mt8195-mmsys.h
-> > 
-> 
-> ..snip..
-> 
-> > diff --git a/drivers/soc/mediatek/mtk-mmsys.c
-> > b/drivers/soc/mediatek/mtk-mmsys.c
-> > index 4fc4c2c9ea20..b2fa239c5f5f 100644
-> > --- a/drivers/soc/mediatek/mtk-mmsys.c
-> > +++ b/drivers/soc/mediatek/mtk-mmsys.c
-> > @@ -4,6 +4,8 @@
-> >    * Author: James Liao <jamesjj.liao@mediatek.com>
-> >    */
-> >   
-> > +#include <linux/clk.h>
-> > +#include <linux/clk-provider.h>
-> >   #include <linux/delay.h>
-> >   #include <linux/device.h>
-> >   #include <linux/io.h>
-> > @@ -17,6 +19,7 @@
-> >   #include "mt8183-mmsys.h"
-> >   #include "mt8186-mmsys.h"
-> >   #include "mt8192-mmsys.h"
-> > +#include "mt8195-mmsys.h"
-> >   #include "mt8365-mmsys.h"
-> >   
-> >   static const struct mtk_mmsys_driver_data
-> > mt2701_mmsys_driver_data = {
-> > @@ -72,12 +75,24 @@ static const struct mtk_mmsys_driver_data
-> > mt8192_mmsys_driver_data = {
-> >   	.num_routes = ARRAY_SIZE(mmsys_mt8192_routing_table),
-> >   };
-> >   
-> > +static const struct mtk_mmsys_driver_data
-> > mt8195_vdosys0_driver_data = {
-> > +	.clk_name = "cfg_vdo0",
-> > +	.clk_driver = "clk-mt8195-vdo0",
-> > +	.routes = mmsys_mt8195_routing_table,
-> > +	.num_routes = ARRAY_SIZE(mmsys_mt8195_routing_table),
-> > +};
-> > +
-> >   static const struct mtk_mmsys_driver_data
-> > mt8365_mmsys_driver_data = {
-> >   	.clk_driver = "clk-mt8365-mm",
-> >   	.routes = mt8365_mmsys_routing_table,
-> >   	.num_routes = ARRAY_SIZE(mt8365_mmsys_routing_table),
-> >   };
-> >   
-> > +static const struct of_device_id mtk_clk_platform_labels[] = {
-> > +	{ .compatible = "mediatek,mt8195-mmsys",
-> > +	  .data = (void *)"clk-mt8195"},
-> 
-> I have a hunch that MT8195 won't be the first and last SoC having
-> multiple
-> mmsys channels. I would tend to think that there will be more....
-> 
-
-Yes, there will be another SoC with multiple mmsys channels...
-
-> ....so, to make it clean from the beginning, I think that you should,
-> at
-> this point, assign a struct to that .data pointer, instead of
-> declaring a
-> drvdata struct into mtk_mmsys_get_match_data_by_clk_name().
-> 
-> Besides, I think that this kind of usage for __clk_get_name() may be
-> an API
-> abuse... but I'm not sure about that... in any case:
-> - if it's not an abuse, then you should simply pass
-> mt8195_vdosys0_driver_data,
->    or an array of pointers to mtk_mmsys_driver_data;
-> - if this is an abuse, you can do the same checks by looking at the
-> iostart
->    (mmio base address) of the vdosys{0,1} node(s).
-
-Do you mean that I should change clk_name to iostart like this?
-
-mt8195_vdosys0_driver_data = {
-	.iostart = 0x1c01a000, // instead of clk_name
-	.clk_driver = "clk-mt8195-vdo0",
-	.routes = mmsys_mt8195_routing_table,
-	.num_routes = ARRAY_SIZE(mmsys_mt8195_routing_table),
-};
-
-Just to confirm that address information can be disclosed here.
-If it is not appropriate to use address here, I'll keep using clk_name.
-
-> Honestly, though, I'm not even sure that you need this different
-> of_device_id
-> array here... since you could simply wrap the mtk_mmsys_driver_data
-> in the
-> of_match_mtk_mmsys that you have below... here's another idea:
-> 
-> struct mtk_mmsys_match_data {
-> 	const struct mtk_mmsys_driver_data *drv_data[];
-> 	unsigned short num_drv_data;
-> };
-> 
-> ...so that:
-> 
-> static int some_function_handling_multi_mmsys(struct mtk_mmsys
-> *mmsys,
-> 					      struct
-> mtk_mmsys_match_data *match)
-> {
-> 	int i;
-> 
-> 	i = [ logic to find the right match->drv_data entry here ]
-> 
-> 	return i;
-> }
-> 
-> static int mtk_mmsys_probe()
-> {
-> 	.... variables, something else ....
-> 
-> 	if (match_data->num_drv_data > 1) {
-> 		/* This SoC has multiple mmsys channels */
-> 		ret = some_function_handling_multi_mmsys(mmsys);
-> 		if (ret < 0)
-> 			return ret;
-> 
-> 		mmsys->data = match_data->drv_data[ret];
-> 	} else {
-> 		dev_dbg(dev, "Using single mmsys channel\n");
-> 		mmsys->data = match_data->drv_data[0];
-> 	}
-> 
-> 	...everything else that mtk_mmsys_probe does ...
-> }
-
-I've tried this idea in my local environment and it looks good.
-So I'll apply this at the next version. Thanks for your idea!
-
-> What I'm trying to communicate with this is that the currently chosen
-> solution
-> looks a bit fragile and needs to be made robust.
-> In comparison, even if it's not technically right to have two
-> different compatibles
-> for the same hardware (and shall not be done), the former solution,
-> even if wrong,
-> was more robust than this one, imo.
-> 
-> Regards,
-> Angelo
-
-Because we don't have a property to identify the different mmsys
-directly (not using multi-mmsys handle function).
-
-Although it make the code more complicated and not robust, but I think
-this time it should be implemented for other multi-mmsys SoC in the
-feature.
-
-
-Regards,
-Jason-JH.Lin
-
-- 
-Jason-JH Lin <jason-jh.lin@mediatek.com>
+diff --git a/arch/arm/boot/dts/da850-evm.dts b/arch/arm/boot/dts/da850-evm.dts
+index 87c517d65f62..e9aecac4f5b5 100644
+--- a/arch/arm/boot/dts/da850-evm.dts
++++ b/arch/arm/boot/dts/da850-evm.dts
+@@ -278,7 +278,7 @@ &spi1 {
+ 	status = "okay";
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&spi1_pins &spi1_cs0_pin>;
+-	flash: m25p80@0 {
++	flash: flash@0 {
+ 		#address-cells = <1>;
+ 		#size-cells = <1>;
+ 		compatible = "jedec,spi-nor";
+diff --git a/arch/arm/boot/dts/dm8168-evm.dts b/arch/arm/boot/dts/dm8168-evm.dts
+index 5126e2d72ed7..778796c10af8 100644
+--- a/arch/arm/boot/dts/dm8168-evm.dts
++++ b/arch/arm/boot/dts/dm8168-evm.dts
+@@ -177,7 +177,7 @@ &mcspi1 {
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&mcspi1_pins>;
+ 
+-	m25p80@0 {
++	flash@0 {
+ 		compatible = "w25x32";
+ 		spi-max-frequency = <48000000>;
+ 		reg = <0>;
+diff --git a/arch/arm/boot/dts/spear1310-evb.dts b/arch/arm/boot/dts/spear1310-evb.dts
+index 4cbadcb41084..ddd1cf4d0554 100644
+--- a/arch/arm/boot/dts/spear1310-evb.dts
++++ b/arch/arm/boot/dts/spear1310-evb.dts
+@@ -379,7 +379,7 @@ stmpe_touchscreen {
+ 					};
+ 				};
+ 
+-				m25p80@1 {
++				flash@1 {
+ 					compatible = "st,m25p80";
+ 					reg = <1>;
+ 					spi-max-frequency = <12000000>;
+diff --git a/arch/arm/boot/dts/spear1340-evb.dts b/arch/arm/boot/dts/spear1340-evb.dts
+index fd194ebeedc9..3a51a41eb5e4 100644
+--- a/arch/arm/boot/dts/spear1340-evb.dts
++++ b/arch/arm/boot/dts/spear1340-evb.dts
+@@ -439,7 +439,7 @@ spi0: spi@e0100000 {
+ 				cs-gpios = <&gpiopinctrl 80 0>, <&gpiopinctrl 24 0>,
+ 					   <&gpiopinctrl 85 0>;
+ 
+-				m25p80@0 {
++				flash@0 {
+ 					compatible = "m25p80";
+ 					reg = <0>;
+ 					spi-max-frequency = <12000000>;
+diff --git a/arch/arm/boot/dts/stm32mp157c-emstamp-argon.dtsi b/arch/arm/boot/dts/stm32mp157c-emstamp-argon.dtsi
+index 33ae5e0590df..ac53ee3c496b 100644
+--- a/arch/arm/boot/dts/stm32mp157c-emstamp-argon.dtsi
++++ b/arch/arm/boot/dts/stm32mp157c-emstamp-argon.dtsi
+@@ -398,7 +398,7 @@ &qspi {
+ 	#size-cells = <0>;
+ 	status = "okay";
+ 
+-	flash0: is25lp016d@0 {
++	flash0: flash@0 {
+ 		compatible = "jedec,spi-nor";
+ 		reg = <0>;
+ 		spi-max-frequency = <133000000>;
+diff --git a/arch/arm/boot/dts/stm32mp157c-ev1.dts b/arch/arm/boot/dts/stm32mp157c-ev1.dts
+index e222d2d2cb44..d142dd30e16b 100644
+--- a/arch/arm/boot/dts/stm32mp157c-ev1.dts
++++ b/arch/arm/boot/dts/stm32mp157c-ev1.dts
+@@ -262,7 +262,7 @@ &qspi {
+ 	#size-cells = <0>;
+ 	status = "okay";
+ 
+-	flash0: mx66l51235l@0 {
++	flash0: flash@0 {
+ 		compatible = "jedec,spi-nor";
+ 		reg = <0>;
+ 		spi-rx-bus-width = <4>;
+@@ -271,7 +271,7 @@ flash0: mx66l51235l@0 {
+ 		#size-cells = <1>;
+ 	};
+ 
+-	flash1: mx66l51235l@1 {
++	flash1: flash@1 {
+ 		compatible = "jedec,spi-nor";
+ 		reg = <1>;
+ 		spi-rx-bus-width = <4>;
+-- 
+2.32.0
 
 _______________________________________________
 Linux-stm32 mailing list
