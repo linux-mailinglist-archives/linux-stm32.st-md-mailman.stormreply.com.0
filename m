@@ -2,52 +2,53 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4A2694F6FE6
-	for <lists+linux-stm32@lfdr.de>; Thu,  7 Apr 2022 03:14:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5664C4F6FE9
+	for <lists+linux-stm32@lfdr.de>; Thu,  7 Apr 2022 03:14:44 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 12334C6049C;
-	Thu,  7 Apr 2022 01:14:35 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 20302C6049C;
+	Thu,  7 Apr 2022 01:14:44 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8DD34C60496
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2798DC60496
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  7 Apr 2022 01:14:33 +0000 (UTC)
+ Thu,  7 Apr 2022 01:14:43 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 7BD3661DCC;
- Thu,  7 Apr 2022 01:14:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6734C385A6;
- Thu,  7 Apr 2022 01:14:30 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 1E6AA61DE1;
+ Thu,  7 Apr 2022 01:14:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35E56C385A7;
+ Thu,  7 Apr 2022 01:14:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1649294071;
- bh=bSlGXJ7/3lA0wX2uR7IlVzvv2YkAhOIcVEo/DSFBlLg=;
+ s=k20201202; t=1649294080;
+ bh=kyCpt+kxit9oAreUT89imPW8qUa5FVx/lcfqw+8Zcqo=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=sc38JcbaMOUwjXtBKVW/EDMnlF2/Z6Tnyq5j8bhWJ0rcwvCoRqwv0TX40Mmiq0tr3
- snSaot5rnGOLb6f5qxu+GyN9AydK5isug2v49c2G1679esoZ0xS9gLAFnqo+n/TKOi
- 5MLBP4ybLi7kGiRCH+MVj2ep/6A3BQQC1jk0l8+afiHJgHZWTsYo5UMvU4CM3fnXb1
- FHjCo4Q6tR8+Qk6oN2tL4gRZxwU9KLBOVw4z8YYA4oTJKYtlWrcmuO25PBncGj7FM3
- LOYT3uIQ5viej8n5EQsJc0B4u0eAwLJohi6pZ1iDwDtXdIL8QvyjMwlqCXOrxtSjeA
- weeuzR5tc8ZKw==
+ b=SAWKeb2D7RfN9vhPcw/CJU6FytGgLXHSxdO+lVDeumVO961SxXW80RQ7JYjFspwcC
+ V5LGHgM5MLhzLW06EX8dr/fm87li/CMcp8YYPWfjbZoLMrJ1/ek/b0/kwHi7SenORc
+ 4BXBq2k47PHxlqw8JJeN9vwHULu7yZ0SuSSl1tGyr1n4p5tP+USWhQFCOFDucA0T1l
+ c/VK44CmfridpKjSio6g8yL3AcTxGkKJP2D74wAnvEEHRkZfITQWxsvLb+/GHrdtpI
+ J/y+JpVCC6z8zBvR9lkAkoNyoZLuUatekfn+KaJDNHqN5qMt49ByEi8e7KvVonfeOH
+ s1QylVdMEeskA==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Wed,  6 Apr 2022 21:13:55 -0400
-Message-Id: <20220407011413.114662-7-sashal@kernel.org>
+Date: Wed,  6 Apr 2022 21:13:59 -0400
+Message-Id: <20220407011413.114662-11-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220407011413.114662-1-sashal@kernel.org>
 References: <20220407011413.114662-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-Cc: Sasha Levin <sashal@kernel.org>,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>,
- Zheng Yongjun <zhengyongjun3@huawei.com>, mcoquelin.stm32@gmail.com,
- linux-input@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+Cc: Sasha Levin <sashal@kernel.org>, marex@denx.de,
+ Herbert Xu <herbert@gondor.apana.org.au>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Zheng Yongjun <zhengyongjun3@huawei.com>, linux-crypto@vger.kernel.org,
+ mcoquelin.stm32@gmail.com, davem@davemloft.net,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH AUTOSEL 5.10 07/25] Input: stmfts - fix
-	reference leak in stmfts_input_open
+Subject: [Linux-stm32] [PATCH AUTOSEL 5.10 11/25] crypto: stm32 - fix
+	reference leak in stm32_crc_remove
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,49 +67,35 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 From: Zheng Yongjun <zhengyongjun3@huawei.com>
 
-[ Upstream commit 26623eea0da3476446909af96c980768df07bbd9 ]
+[ Upstream commit e9a36feecee0ee5845f2e0656f50f9942dd0bed3 ]
 
 pm_runtime_get_sync() will increment pm usage counter even it
 failed. Forgetting to call pm_runtime_put_noidle will result
-in reference leak in stmfts_input_open, so we should fix it.
+in reference leak in stm32_crc_remove, so we should fix it.
 
 Signed-off-by: Zheng Yongjun <zhengyongjun3@huawei.com>
-Link: https://lore.kernel.org/r/20220317131604.53538-1-zhengyongjun3@huawei.com
-Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/input/touchscreen/stmfts.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+ drivers/crypto/stm32/stm32-crc32.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/input/touchscreen/stmfts.c b/drivers/input/touchscreen/stmfts.c
-index 9a64e1dbc04a..64b690a72d10 100644
---- a/drivers/input/touchscreen/stmfts.c
-+++ b/drivers/input/touchscreen/stmfts.c
-@@ -339,11 +339,11 @@ static int stmfts_input_open(struct input_dev *dev)
+diff --git a/drivers/crypto/stm32/stm32-crc32.c b/drivers/crypto/stm32/stm32-crc32.c
+index be1bf39a317d..90a920e7f664 100644
+--- a/drivers/crypto/stm32/stm32-crc32.c
++++ b/drivers/crypto/stm32/stm32-crc32.c
+@@ -384,8 +384,10 @@ static int stm32_crc_remove(struct platform_device *pdev)
+ 	struct stm32_crc *crc = platform_get_drvdata(pdev);
+ 	int ret = pm_runtime_get_sync(crc->dev);
  
- 	err = pm_runtime_get_sync(&sdata->client->dev);
- 	if (err < 0)
--		return err;
-+		goto out;
+-	if (ret < 0)
++	if (ret < 0) {
++		pm_runtime_put_noidle(crc->dev);
+ 		return ret;
++	}
  
- 	err = i2c_smbus_write_byte(sdata->client, STMFTS_MS_MT_SENSE_ON);
- 	if (err)
--		return err;
-+		goto out;
- 
- 	mutex_lock(&sdata->mutex);
- 	sdata->running = true;
-@@ -366,7 +366,9 @@ static int stmfts_input_open(struct input_dev *dev)
- 				 "failed to enable touchkey\n");
- 	}
- 
--	return 0;
-+out:
-+	pm_runtime_put_noidle(&sdata->client->dev);
-+	return err;
- }
- 
- static void stmfts_input_close(struct input_dev *dev)
+ 	spin_lock(&crc_list.lock);
+ 	list_del(&crc->list);
 -- 
 2.35.1
 
