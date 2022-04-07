@@ -2,70 +2,87 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8E8474F7F7C
-	for <lists+linux-stm32@lfdr.de>; Thu,  7 Apr 2022 14:51:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BF49C4F80EA
+	for <lists+linux-stm32@lfdr.de>; Thu,  7 Apr 2022 15:46:24 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4013EC628A2;
-	Thu,  7 Apr 2022 12:51:55 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6C7C3C628AB;
+	Thu,  7 Apr 2022 13:46:24 +0000 (UTC)
+Received: from wout3-smtp.messagingengine.com (wout3-smtp.messagingengine.com
+ [64.147.123.19])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4DE50C01577
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3D4B3C6049B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  7 Apr 2022 12:51:53 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 237Aq0jf009474;
- Thu, 7 Apr 2022 14:51:42 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=13b18C+QnCO96hAQswheWvxn/oYiNl1M/rXD0ThSX+o=;
- b=pzC0Z1TuNgjH4uMUvTS0kcpw+02eWvd/3XkZGoakzGMa7sjEyFM3Yg7MUheEh0HTbOwH
- VmvyQOIFjpj2NTdIYMlhHt47GnXNoFXyPmciTpB1iLc1e+vaqubl7YGzq5Qg+4Q3KMRR
- 2p1yPs3XChyMlevkosOJpnNBl47eZ6c417MZ18n/eGisfLL5kdwSMLQ3APtG2R9K5Ufz
- jdvx/2tjDDMj9wt0xg9ZAjA3KnXNPIuFhbBdSXkVqmTcbhuZ607gG7OvtaQRXIT3iCLY
- 2n60AKkdncFjGPFtMBiAQBpGLQevJIjmuV/J7gRPfIWNzR4/h9dvEMx7CG4x5Xsr582Q Uw== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3f8x4rm2j0-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 07 Apr 2022 14:51:42 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 72D5F10002A;
- Thu,  7 Apr 2022 14:51:41 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 5DB7A21B52C;
- Thu,  7 Apr 2022 14:51:41 +0200 (CEST)
-Received: from [10.48.0.142] (10.75.127.44) by SHFDAG1NODE1.st.com
- (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2308.20; Thu, 7 Apr
- 2022 14:51:40 +0200
-Message-ID: <60b04d4f-71ae-2c06-4570-eacd1f3db172@foss.st.com>
-Date: Thu, 7 Apr 2022 14:51:39 +0200
+ Thu,  7 Apr 2022 13:46:22 +0000 (UTC)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.west.internal (Postfix) with ESMTP id 3CB773201591;
+ Thu,  7 Apr 2022 09:46:19 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute4.internal (MEProxy); Thu, 07 Apr 2022 09:46:20 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=cc
+ :cc:content-type:date:date:from:from:in-reply-to:in-reply-to
+ :message-id:mime-version:references:reply-to:sender:subject
+ :subject:to:to; s=fm3; bh=5MSx+d/bXZx5XVZ50S+zjx2/Cpj0N8/ygeOMyG
+ KvsCs=; b=G3q6HFdoLRkTmNBNumrXdlcJS8czebdcWGFIoOney3lh9BIiMK4bPk
+ B/NIRqJWmvEWZbcEw0iGQBi896zGgdWlDnEPuV1kGcKU1nWPHK6bNE/eIvFvMpI6
+ /to7w4McrLT21izHjXAWfB+1u2TPWRpKTB9tshlOCV+6UtsoDjWUjVONg2dYvXey
+ lXrqXWSHWsr7aOKYie6jGuGouXdr9eox1P3l79F5gQEDCk7LkauHoQJKjrkf38on
+ v5A3PfbRCPyyWbbKtq6sFiYmspIeKBLuS4NyOftHhVp9/seUGBAbf3qvbfbGtFFW
+ nKTDkm2xo+Id/Ww+MpvmIG2++F1orA2A==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-type:date:date:from:from
+ :in-reply-to:in-reply-to:message-id:mime-version:references
+ :reply-to:sender:subject:subject:to:to:x-me-proxy:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=5MSx+d/bXZx5XVZ50
+ S+zjx2/Cpj0N8/ygeOMyGKvsCs=; b=F3kF1OkFZOgLN5KdNWcDu4ISxuQ8KHqzm
+ 9yLyWIgKjO7g8qJBrb689juCdmpD1GTZXgnH+QMJDa2lm6kgoeJ/pwDmbVDfjeQi
+ B+oaMLTxUJgiZ4RlvpHosLycd9WE9pGVgD7LHBsaLCDpcY9k2qJC7Kk+FzHVrSWK
+ IZ6gcFu/1RGG37KxmGFSkVAZn/BNNn3o6rYbZklExFZmzQFEFv/xppT4fXfurvDy
+ 2xUZe5rY3M61iJtAc8wc6B7hpR6q05DCJDFcVbscENsC5Nqvbw3qcfxaQh4aqEQX
+ SkNiersEJENFgOfXRgYjcoFXAC5RWyvz250pKctDuVkINSF0ST4IQ==
+X-ME-Sender: <xms:KetOYhEPeSNlbcKftz7DvQP1Mwu4B8fMn8eTGPRDBRea8ETtJgd30w>
+ <xme:KetOYmXMtsdCZ6Udi84yb2N1TMDaqS5qQ_BjfvIogicWWD937Lq_EtUJ7WYBw-Di5
+ EAqJyiaGWT4RcyfobY>
+X-ME-Received: <xmr:KetOYjId9D55254Q5KgdNxUEcvM6VAsWymziLCH-ykei5y8SKRBP6SBnUiB-i-5laV3-1uSjcEW4zq3tnunIHUyV7cIko04O80wPV7U>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvvddrudejkedgieekucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+ cujfgurhepfffhvffukfhfgggtuggjsehgtderredttddvnecuhfhrohhmpeforgigihhm
+ vgcutfhiphgrrhguuceomhgrgihimhgvsegtvghrnhhordhtvggthheqnecuggftrfgrth
+ htvghrnhepkeegveefgefgtdeifeeijefhvdehffekudetheejgeefteeihefffffhlefh
+ gefhnecuffhomhgrihhnpehkvghrnhgvlhdrohhrghdpghhithhhuhgsrdgtohhmnecuve
+ hluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmhgrgihimhgv
+ segtvghrnhhordhtvggthh
+X-ME-Proxy: <xmx:KetOYnHGJqscSlNMgp2WMHjZbbAXtZeEPQ94vnntAWBQSu58jui4_g>
+ <xmx:KetOYnXIO-Bhlt9HHApAJTyfMBGvxE7_L1AgrvSGPmmDG79j1W5OYA>
+ <xmx:KetOYiMUUPK0YPnUubxWXRmdOMbgihzmXy6SshvNttj4dmZxh3FCKg>
+ <xmx:KutOYgVBjRG0zdeycNJhX0xBWTOTbPqfwj4HD3dmXtSCfCpbgf76cQ>
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 7 Apr 2022 09:46:16 -0400 (EDT)
+Date: Thu, 7 Apr 2022 15:46:15 +0200
+From: Maxime Ripard <maxime@cerno.tech>
+To: Naresh Kamboju <naresh.kamboju@linaro.org>
+Message-ID: <20220407134615.pqx4lxvgl4ofjrki@houat>
+References: <CA+G9fYuqU45hHmK4WMUNEXQbmBucE+9fB=S9wcHEfEHaZ2jgcQ@mail.gmail.com>
+ <20220401151058.fipdax3kvmxknctv@houat>
+ <CA+G9fYu+WddXTb0NcbviUfGQHhsmThssVCafLPw7+nj3JsoFAA@mail.gmail.com>
+ <20220407075435.ahlylmbqmqnpxz64@houat>
+ <CA+G9fYvT_W9+0AguQu97mqTm5zNnSvF0asnatZX8BTf=_1oANg@mail.gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.7.0
-Content-Language: en-US
-To: <gabriel.fernandez@foss.st.com>, Michael Turquette
- <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, Rob Herring
- <robh+dt@kernel.org>, Krzysztof Kozlowski
- <krzysztof.kozlowski@canonical.com>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>, Philipp Zabel <p.zabel@pengutronix.de>
-References: <20220316131000.9874-1-gabriel.fernandez@foss.st.com>
-From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
-In-Reply-To: <20220316131000.9874-1-gabriel.fernandez@foss.st.com>
-X-Originating-IP: [10.75.127.44]
-X-ClientProxiedBy: SFHDAG2NODE2.st.com (10.75.127.5) To SHFDAG1NODE1.st.com
- (10.75.129.69)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.850,Hydra:6.0.425,FMLib:17.11.64.514
- definitions=2022-04-07_01,2022-04-07_01,2022-02-23_01
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH RESEND v3 00/13] Introduction of STM32MP13
- RCC driver (Reset Clock Controller)
+In-Reply-To: <CA+G9fYvT_W9+0AguQu97mqTm5zNnSvF0asnatZX8BTf=_1oANg@mail.gmail.com>
+Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, regressions@lists.linux.dev,
+ Stephen Boyd <sboyd@kernel.org>, Michael Turquette <mturquette@baylibre.com>,
+ open list <linux-kernel@vger.kernel.org>, lkft-triage@lists.linaro.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ gabriel.fernandez@foss.st.com, Rob Herring <robh+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Nicolas Dechesne <nicolas.dechesne@linaro.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>, linux-clk <linux-clk@vger.kernel.org>,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [next] db845c: WARNING: CPU: 5 PID: 8 at
+ drivers/clk/clk-divider.c:139 divider_recalc_rate
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,77 +94,73 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Type: multipart/mixed; boundary="===============1827458148157657098=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Gabriel,
 
-On 3/16/22 14:09, gabriel.fernandez@foss.st.com wrote:
-> From: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
-> 
-> v3:
->    - cosmetic change from Stephen Boyd
->    - rename some functions in clk-stm32-core
->    - add missing static for variables or functions
-> 
-> v2:
->    - Resend because patch 9,10,12,13 has not been sent
->    - add Reviewed by Krzysztof Kozlowski for patch 1
-> 
-> Gabriel Fernandez (13):
->    dt-bindings: rcc: stm32: add new compatible for STM32MP13 SoC
->    clk: stm32: Introduce STM32MP13 RCC drivers (Reset Clock Controller)
->    clk: stm32mp13: add stm32_mux clock management
->    clk: stm32mp13: add stm32_gate management
->    clk: stm32mp13: add stm32 divider clock
->    clk: stm32mp13: add composite clock
->    clk: stm32mp13: manage secured clocks
->    clk: stm32mp13: add all STM32MP13 peripheral clocks
->    clk: stm32mp13: add all STM32MP13 kernel clocks
->    clk: stm32mp13: add multi mux function
->    clk: stm32mp13: add safe mux management
->    ARM: dts: stm32: enable optee firmware and SCMI support on STM32MP13
->    ARM: dts: stm32: add RCC on STM32MP13x SoC family
-> 
-
-DT patches look good for me. I'll apply them on stm32-next as soon as 
-dt-bindings + drivers patch are applied.
-
-cheers
-Alex
+--===============1827458148157657098==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="qlotqj4qfa6bze52"
+Content-Disposition: inline
 
 
+--qlotqj4qfa6bze52
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
->   .../bindings/clock/st,stm32mp1-rcc.yaml       |    2 +
->   arch/arm/boot/dts/stm32mp131.dtsi             |  128 +-
->   arch/arm/boot/dts/stm32mp133.dtsi             |    4 +-
->   arch/arm/boot/dts/stm32mp13xf.dtsi            |    3 +-
->   drivers/clk/Kconfig                           |    5 +
->   drivers/clk/Makefile                          |    1 +
->   drivers/clk/stm32/Makefile                    |    1 +
->   drivers/clk/stm32/clk-stm32-core.c            |  695 +++++++
->   drivers/clk/stm32/clk-stm32-core.h            |  188 ++
->   drivers/clk/stm32/clk-stm32mp13.c             | 1620 +++++++++++++++
->   drivers/clk/stm32/reset-stm32.c               |  122 ++
->   drivers/clk/stm32/reset-stm32.h               |    8 +
->   drivers/clk/stm32/stm32mp13_rcc.h             | 1748 +++++++++++++++++
->   include/dt-bindings/clock/stm32mp13-clks.h    |  229 +++
->   include/dt-bindings/reset/stm32mp13-resets.h  |  100 +
->   15 files changed, 4794 insertions(+), 60 deletions(-)
->   create mode 100644 drivers/clk/stm32/Makefile
->   create mode 100644 drivers/clk/stm32/clk-stm32-core.c
->   create mode 100644 drivers/clk/stm32/clk-stm32-core.h
->   create mode 100644 drivers/clk/stm32/clk-stm32mp13.c
->   create mode 100644 drivers/clk/stm32/reset-stm32.c
->   create mode 100644 drivers/clk/stm32/reset-stm32.h
->   create mode 100644 drivers/clk/stm32/stm32mp13_rcc.h
->   create mode 100644 include/dt-bindings/clock/stm32mp13-clks.h
->   create mode 100644 include/dt-bindings/reset/stm32mp13-resets.h
-> 
+Hi Naresh,
+
+On Thu, Apr 07, 2022 at 05:12:09PM +0530, Naresh Kamboju wrote:
+> On Thu, 7 Apr 2022 at 13:24, Maxime Ripard <maxime@cerno.tech> wrote:
+> >
+> > Hi,
+> >
+> > > > I'm not sure if it's feasible, but if it is, it looks like something
+> > > > that could be fixed by the patch pasted here:
+> > > >
+> > > > https://lore.kernel.org/linux-clk/20220401122736.5yvanksa4pla7uql@h=
+ouat/
+> > > > Could you test it?
+> > >
+> > > I have tested the single line patch and reported problems not fixed.
+> >
+> > Could you test this branch?
+> > https://github.com/mripard/linux/tree/rpi/clk-improvements-more-fixes
+>=20
+> I have tested your tree and branch.
+> I saw more clk prints in the boot log and did not notice the reported war=
+ning.
+
+I just pushed a new version of my branch? It should get rid of most of
+the side effects (and logs) you were seeing.
+
+Thanks!
+Maxime
+
+--qlotqj4qfa6bze52
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCYk7rJwAKCRDj7w1vZxhR
+xbTsAQC7LjET/cX1wvLVmcjsot44URT7Kp4tB6E6WFMkcILK7AEAzPiySlA4o95h
+mfsabSaOvr20D/J3iMVsLQUyauL6xwQ=
+=E5bt
+-----END PGP SIGNATURE-----
+
+--qlotqj4qfa6bze52--
+
+--===============1827458148157657098==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============1827458148157657098==--
