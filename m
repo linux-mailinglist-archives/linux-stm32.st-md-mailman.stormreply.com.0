@@ -2,87 +2,72 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 39A084F9947
-	for <lists+linux-stm32@lfdr.de>; Fri,  8 Apr 2022 17:22:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 87F9A4F99C0
+	for <lists+linux-stm32@lfdr.de>; Fri,  8 Apr 2022 17:43:48 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F0714C628AC;
-	Fri,  8 Apr 2022 15:22:24 +0000 (UTC)
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com
- [209.85.221.52])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3E386C628AC;
+	Fri,  8 Apr 2022 15:43:48 +0000 (UTC)
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2F183C06F81
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3DC7FC60479
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  8 Apr 2022 15:22:24 +0000 (UTC)
-Received: by mail-wr1-f52.google.com with SMTP id d3so13405699wrb.7
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 08 Apr 2022 08:22:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=sPygLbD1B7EQ520hW5RQW4mGJJ5DO7vPlVdwf9z6NxI=;
- b=rnNZUmsDC25DLs3861xbnitTubGbaLpRp0g4SSNU90qrEH3Em2POjR8w4Wc+PNhH+N
- x2k51skqLe1F+lNYA9yvKLgAqtBISBFL6XVsgUZcRPfauhPI80VDFulZpkt5bmLpVDYY
- ZtcQhj39tTE2VqLciTtIybGXe+9YaHlgWcLqIkY0nOkMJZBBMOlSvxWId5Ha6vVxvmYz
- 7xnHdPudHX8+SFOLpTAwifky/xUbZjXnyx5436vJaaC0pZeTZxL3DQb4xvQz3KJUXv9q
- L9x98EaoaCIDFhQ0BAtDJvGbbNLRFinrYxieLx/dCD5jaTsZlGT4ryA5e8iHSxWZ89Kc
- mMPw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=sPygLbD1B7EQ520hW5RQW4mGJJ5DO7vPlVdwf9z6NxI=;
- b=AnttdRysdvYq2CRaUhXrzNIdaRsORNTZZA/xYvL1l0F7jKYKTp2SITWDnyKemqJvFE
- OSzVDBns4wCR0guwAfbdEQYISn6PeCbBQOU7c8dUyPNj/ke4MduOqHVLPZvgObdyWWCt
- K/Va6WstsIdnVGy5nWMt3ZsGZDXxpnmWCPen1Y4xzsjxDSQL3xqk1Epb8IjRsitCJbyU
- z+xjp3aJ03KsucB4rjDCRGD6l9tGYUdCeAxxMS6YCNk8551Ja+wPl/+7MST7qmd5FarI
- Swd6qyhJ4xLreqJpw44LwQi+vxqxihmwcrhPS367erLTc07AwcRQgvtig6xwdYk0eFov
- 9o4g==
-X-Gm-Message-State: AOAM533/48wLsIybS5k6wgRQAYdv2BtXr+c1qFrPM5ZxK5yvfG21zslK
- +iDpTfnWZHIF/qhLpSQnPmRclA==
-X-Google-Smtp-Source: ABdhPJxGPNgXgsufUjB8Lp8JJWbca8cu17Hg8qjIbnxCrticuxKM/31Uln39Sz96BlX1M76FBt7ZIw==
-X-Received: by 2002:a5d:6dac:0:b0:204:12ba:45ef with SMTP id
- u12-20020a5d6dac000000b0020412ba45efmr14920479wrs.416.1649431343717; 
- Fri, 08 Apr 2022 08:22:23 -0700 (PDT)
-Received: from [192.168.0.188] (xdsl-188-155-201-27.adslplus.ch.
- [188.155.201.27]) by smtp.gmail.com with ESMTPSA id
- r4-20020a1c2b04000000b0038a0e15ee13sm10714642wmr.8.2022.04.08.08.22.22
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 08 Apr 2022 08:22:23 -0700 (PDT)
-Message-ID: <d1f873c6-150f-5f4d-7aa8-7bb15823d991@linaro.org>
-Date: Fri, 8 Apr 2022 17:22:21 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.7.0
-Content-Language: en-US
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Qianggui Song <qianggui.song@amlogic.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>, Marc Zyngier <maz@kernel.org>,
- Fabien Dessenne <fabien.dessenne@foss.st.com>,
- Linus Walleij <linus.walleij@linaro.org>, linux-gpio@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
- linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org,
- linux-renesas-soc@vger.kernel.org, linux-samsung-soc@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com
+ Fri,  8 Apr 2022 15:43:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1649432626; x=1680968626;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=gcJtOPIX2/0B3YxiUGz/EyzDxp0SAsqb/v7kxf3M3BU=;
+ b=jL75dfHpXUaCBt5B2J3iWUUWmtmnWUKkuTWy2ZzZqjLgWwhRMO8EBmiK
+ YsDm/63ujRsvURvVUH/7aEBXBLWJ1k14XEwqAoBe1TzA82alnebmrhFPD
+ lfJkG2jUB8+r1z1Wmr2oF+oXbpPGZ26TbYpdVLZxE0qDd/1tnUxL9RD+i
+ jBjyDN7mWBN9ZzyAXxCIYXQ3UOHdrxreiZOADIE+w7NhbH5Kyb09bRFAz
+ T0gluRtgrMNUSrMpw2teRqDdTD774gQQmuG/GLvBHEmg+ldWLV1V3pigc
+ V8yvXz/YmbZhCrUqDk/3D3hvSat4ky3/jOkiJpb0ubOvSOy/xrHAmdb0B g==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10310"; a="260460281"
+X-IronPort-AV: E=Sophos;i="5.90,245,1643702400"; d="scan'208";a="260460281"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Apr 2022 08:43:44 -0700
+X-IronPort-AV: E=Sophos;i="5.90,245,1643702400"; d="scan'208";a="589257568"
+Received: from smile.fi.intel.com ([10.237.72.54])
+ by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Apr 2022 08:43:36 -0700
+Received: from andy by smile.fi.intel.com with local (Exim 4.95)
+ (envelope-from <andriy.shevchenko@linux.intel.com>)
+ id 1ncqiH-000Lsk-PD; Fri, 08 Apr 2022 18:39:53 +0300
+Date: Fri, 8 Apr 2022 18:39:53 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Message-ID: <YlBXSVyj88CqjGj4@smile.fi.intel.com>
 References: <20220401103604.8705-1-andriy.shevchenko@linux.intel.com>
  <20220401103604.8705-6-andriy.shevchenko@linux.intel.com>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20220401103604.8705-6-andriy.shevchenko@linux.intel.com>
+ <d1f873c6-150f-5f4d-7aa8-7bb15823d991@linaro.org>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <d1f873c6-150f-5f4d-7aa8-7bb15823d991@linaro.org>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Cc: Andrew Lunn <andrew@lunn.ch>, Tomer Maimon <tmaimon77@gmail.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
  Neil Armstrong <narmstrong@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Kevin Hilman <khilman@baylibre.com>,
- Gregory Clement <gregory.clement@bootlin.com>,
- Tomasz Figa <tomasz.figa@gmail.com>, Tali Perry <tali.perry1@gmail.com>,
- Avi Fishman <avifishman70@gmail.com>, Bartosz Golaszewski <brgl@bgdev.pl>,
- Benjamin Fair <benjaminfair@google.com>,
+ Linus Walleij <linus.walleij@linaro.org>, Tomasz Figa <tomasz.figa@gmail.com>,
+ Tali Perry <tali.perry1@gmail.com>,
  Sylwester Nawrocki <s.nawrocki@samsung.com>,
- Patrick Venture <venture@google.com>, Philipp Zabel <p.zabel@pengutronix.de>,
+ linux-stm32@st-md-mailman.stormreply.com, Jerome Brunet <jbrunet@baylibre.com>,
+ linux-samsung-soc@vger.kernel.org, Benjamin Fair <benjaminfair@google.com>,
+ Marc Zyngier <maz@kernel.org>, Gregory Clement <gregory.clement@bootlin.com>,
+ Nancy Yuen <yuenn@google.com>, Bartosz Golaszewski <brgl@bgdev.pl>,
  Alim Akhtar <alim.akhtar@samsung.com>,
  Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
- Nancy Yuen <yuenn@google.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Jerome Brunet <jbrunet@baylibre.com>
+ Qianggui Song <qianggui.song@amlogic.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ linux-gpio@vger.kernel.org, linux-amlogic@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, Avi Fishman <avifishman70@gmail.com>,
+ Patrick Venture <venture@google.com>, linux-kernel@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Kevin Hilman <khilman@baylibre.com>, openbmc@lists.ozlabs.org
 Subject: Re: [Linux-stm32] [PATCH v4 05/13] pinctrl: samsung: Switch to use
  for_each_gpiochip_node() helper
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
@@ -101,57 +86,71 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 01/04/2022 12:35, Andy Shevchenko wrote:
-> Switch the code to use for_each_gpiochip_node() helper.
-> 
+On Fri, Apr 08, 2022 at 05:22:21PM +0200, Krzysztof Kozlowski wrote:
+> On 01/04/2022 12:35, Andy Shevchenko wrote:
+> > Switch the code to use for_each_gpiochip_node() helper.
 
 (...)
 
->  /*
->   * Iterate over all driver pin banks to find one matching the name of node,
->   * skipping optional "-gpio" node suffix. When found, assign node to the bank.
->   */
-> -static void samsung_banks_of_node_get(struct device *dev,
-> -				      struct samsung_pinctrl_drv_data *d,
-> -				      struct device_node *node)
-> +static void samsung_banks_node_get(struct device *dev, struct samsung_pinctrl_drv_data *d)
+> >  /*
+> >   * Iterate over all driver pin banks to find one matching the name of node,
+> >   * skipping optional "-gpio" node suffix. When found, assign node to the bank.
+> >   */
+> > -static void samsung_banks_of_node_get(struct device *dev,
+> > -				      struct samsung_pinctrl_drv_data *d,
+> > -				      struct device_node *node)
+> > +static void samsung_banks_node_get(struct device *dev, struct samsung_pinctrl_drv_data *d)
+> 
+> This is worth simplification anyway, so please split it to separate patch.
 
-This is worth simplification anyway, so please split it to separate patch.
+Not sure what to do and why it worth an additional churn.
 
->  {
->  	const char *suffix = "-gpio-bank";
->  	struct samsung_pin_bank *bank;
-> -	struct device_node *child;
-> +	struct fwnode_handle *child;
->  	/* Pin bank names are up to 4 characters */
->  	char node_name[20];
->  	unsigned int i;
-> @@ -1038,17 +1037,17 @@ static void samsung_banks_of_node_get(struct device *dev,
->  			continue;
->  		}
->  
-> -		for_each_child_of_node(node, child) {
-> -			if (!of_find_property(child, "gpio-controller", NULL))
-> -				continue;
+> >  {
+> >  	const char *suffix = "-gpio-bank";
+> >  	struct samsung_pin_bank *bank;
+> > -	struct device_node *child;
+> > +	struct fwnode_handle *child;
+> >  	/* Pin bank names are up to 4 characters */
+> >  	char node_name[20];
+> >  	unsigned int i;
+> > @@ -1038,17 +1037,17 @@ static void samsung_banks_of_node_get(struct device *dev,
+> >  			continue;
+> >  		}
+> >  
+> > -		for_each_child_of_node(node, child) {
+> > -			if (!of_find_property(child, "gpio-controller", NULL))
+> > -				continue;
+> 
+> This does not look equivalent. There are nodes without this property.
 
-This does not look equivalent. There are nodes without this property.
+Not sure I understand why not. The macro checks for the property and
+iterates over nodes that have this property.
 
-> -			if (of_node_name_eq(child, node_name))
-> +		for_each_gpiochip_node(dev, child) {
-> +			struct device_node *np = to_of_node(child);
-> +
-> +			if (of_node_name_eq(np, node_name))
->  				break;
-> -			else if (of_node_name_eq(child, bank->name))
-> +			if (of_node_name_eq(np, bank->name))
->  				break;
->  		}
+Can you elaborate, please?
 
-This patch has to wait till someone provides you a tested-by. I might do
-it around next week.
+> > -			if (of_node_name_eq(child, node_name))
+> > +		for_each_gpiochip_node(dev, child) {
+> > +			struct device_node *np = to_of_node(child);
+> > +
+> > +			if (of_node_name_eq(np, node_name))
+> >  				break;
+> > -			else if (of_node_name_eq(child, bank->name))
+> > +			if (of_node_name_eq(np, bank->name))
+> >  				break;
+> >  		}
+> 
+> This patch has to wait till someone provides you a tested-by. I might do
+> it around next week.
 
-Best regards,
-Krzysztof
+Fine with me, I will drop it from my repo for now.
+
+Thanks for review!
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
