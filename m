@@ -2,61 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1A38D4F8EE7
-	for <lists+linux-stm32@lfdr.de>; Fri,  8 Apr 2022 08:35:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B03334F9078
+	for <lists+linux-stm32@lfdr.de>; Fri,  8 Apr 2022 10:13:00 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C3D51C628D6;
-	Fri,  8 Apr 2022 06:35:17 +0000 (UTC)
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
- [85.220.165.71])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 69300C628C3;
+	Fri,  8 Apr 2022 08:13:00 +0000 (UTC)
+Received: from mail-qk1-f174.google.com (mail-qk1-f174.google.com
+ [209.85.222.174])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BD43EC628C3
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0F8BAC628AE
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  8 Apr 2022 06:35:16 +0000 (UTC)
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
- by metis.ext.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <ukl@pengutronix.de>)
- id 1nciD8-0002FS-Ep; Fri, 08 Apr 2022 08:35:10 +0200
-Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
- by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.94.2)
- (envelope-from <ukl@pengutronix.de>)
- id 1nciD6-001kf0-Bn; Fri, 08 Apr 2022 08:35:06 +0200
-Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.94.2)
- (envelope-from <ukl@pengutronix.de>)
- id 1nciD4-001ukc-8G; Fri, 08 Apr 2022 08:35:06 +0200
-From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
-To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Rob Herring <robh+dt@kernel.org>
-Date: Fri,  8 Apr 2022 08:35:02 +0200
-Message-Id: <20220408063502.136403-3-u.kleine-koenig@pengutronix.de>
-X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20220408063502.136403-1-u.kleine-koenig@pengutronix.de>
-References: <20220408063502.136403-1-u.kleine-koenig@pengutronix.de>
+ Fri,  8 Apr 2022 08:12:59 +0000 (UTC)
+Received: by mail-qk1-f174.google.com with SMTP id p25so4212224qkj.10
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 08 Apr 2022 01:12:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=A1kYgClPNkXttcnpJuxPc0b6ZRe4IN7sg6hgxvxZY2I=;
+ b=kyEjHYb+mQEqY7tdjXMs0+hof/gNfwAwz9dja0FAcYnl7Kn2yZMySrQKi8P9cC9n1c
+ CrtjN1tyIdNUF+51+SrlLfuU7ya2y0WJG246oGGjod0iZExbZVBbxz+lGF1Db4h/s2qA
+ i6Id7+u85d6f6SJ9fRU8zrC9Iy8Rw9JXIieXMCRdohRYua+ZYihU6UkNdqGlGYDPoQ8u
+ 5r+d1x+aw1ZgnjTyjkG17EDh5N7rJJ8+Of6ms6W/m0OflU8zKwhmz2dJXJXf4PQjJZIr
+ ASahsPzrYQ3mTyOjiwbFaQSNl8+tdhB1PhF7L3BP8uSvcE5CKutKj9nyn8Gv569dZdOJ
+ ICEg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=A1kYgClPNkXttcnpJuxPc0b6ZRe4IN7sg6hgxvxZY2I=;
+ b=nVBqRotYdw/tUhNA7HXRpRWOsfFLmF6VfBi7DsgUP+WULu6cI9LmIykbKo2wgOt6lC
+ WPhDXC3icDGF8T/4yDJrLh/V5A27UcA47JaWmDfj7Xe0xu489Tnd6U2F1tOEpl35mJCL
+ eqD5O+FQPezHYvbHmE/vfA3P9sF/UVy8PMXVvYL246hJPLJEcJyeg27gjqWg5KOzT0ht
+ olKSbTWh/zX1BfLrKSIt3N4LRW4CfXRVOVxA9vNx1ycbzuRNKJ2aMSwOhSikrI0zK7o1
+ UrVdro7rF3HQBGp3R3ZcmS2pJ1tP3wcfuhzmqXuNJ0+PN4Yr1aD03/47SE/hnD2gV8JS
+ cZ+A==
+X-Gm-Message-State: AOAM532ueNXPg7sLpuH9NFxfQ/Oh97AS8YbxHuI3JIOKC8/PO5oQGBtA
+ aIigPDsJCb1c2lgiCPtX2T0=
+X-Google-Smtp-Source: ABdhPJxW/8z2WJJs+ZAhz+Xmzvh9kcBG41vVI4/HDjmZkkMAhj9pbXxrlb1zk92Dm7AY+6aJROjPYA==
+X-Received: by 2002:a37:787:0:b0:69a:854:caae with SMTP id
+ 129-20020a370787000000b0069a0854caaemr4189817qkh.20.1649405578000; 
+ Fri, 08 Apr 2022 01:12:58 -0700 (PDT)
+Received: from localhost.localdomain ([193.203.214.57])
+ by smtp.gmail.com with ESMTPSA id
+ h11-20020a05622a170b00b002ebc9d47207sm4985436qtk.91.2022.04.08.01.12.54
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 08 Apr 2022 01:12:57 -0700 (PDT)
+From: cgel.zte@gmail.com
+X-Google-Original-From: chi.minghao@zte.com.cn
+To: peppe.cavallaro@st.com
+Date: Fri,  8 Apr 2022 08:12:50 +0000
+Message-Id: <20220408081250.2494588-1-chi.minghao@zte.com.cn>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5309; h=from:subject;
- bh=y5fAVyEAIgUYzDJ9yAgTwAOsHYtt+sv987yLXwn0MMw=;
- b=owEBbQGS/pANAwAKAcH8FHityuwJAcsmYgBiT9eTDDTn9itzz1sovbwXTCCPNDIebecKLNY2KRbC
- ndlsFaGJATMEAAEKAB0WIQR+cioWkBis/z50pAvB/BR4rcrsCQUCYk/XkwAKCRDB/BR4rcrsCWdxB/
- wPighgQLXGw37i9E/DYD4O/6k6acukrDS0o8xp7e87XdaLK2ytZMb4bHUTm1rxGgin0FRIzrpHxZAy
- p+l3QOtdbN74IIJDZRz7cWomdIjJ6pi3L+Od2OtJEguU6GmrDtiPxhq9FF8sI9Yv98B0LdSRy7V9Ok
- vMkLc7Jg69YQtvrjqQhJP/axL8IgFgJZfezY2ImPZLh9DRSYCW6M98t8leDzZA90V0uY6DuIpKQfBz
- H+qisG3oh6mC3wThZ8fjA2WgTXR4wgaND8NujBkyvTTmII94lKfm+N+usqhj7vlkPkVXAKWd733Fh3
- se74rjqSw0rYwc/Iiqs3eXS0Or0q4t
-X-Developer-Key: i=u.kleine-koenig@pengutronix.de; a=openpgp;
- fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: ukl@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
-Cc: devicetree@vger.kernel.org, kernel@pengutronix.de,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Lee Jones <lee.jones@linaro.org>,
+Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+ Zeal Robot <zealci@zte.com.cn>, Minghao Chi <chi.minghao@zte.com.cn>,
+ davem@davemloft.net, joabreu@synopsys.com, kuba@kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v3 2/2] ARM: dts: stm32mp15x: Add timer
-	interrupts
+Subject: [Linux-stm32] [PATCH] net: stmmac: using pm_runtime_resume_and_get
+	instead of pm_runtime_get_sync
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -68,102 +73,86 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-VGhlIHRpbWVyIHVuaXRzIGluIHRoZSBzdG0zMm1wMTV4IENQVXMgaGF2ZSBpbnRlcnJ1cHRzLCBk
-ZXBlbmRpbmcgb24gdGhlCnRpbWVyIGZsYXZvdXIgZWl0aGVyIG9uZSAiZ2xvYmFsIiBvciBmb3Vy
-IGRlZGljYXRlZCBvbmVzLiBBZGQgdGhlIGlycXMKdG8gdGhlIHRpbWVyIHVuaXRzIG9uIHN0bTMy
-bXAxNXguCgpTaWduZWQtb2ZmLWJ5OiBVd2UgS2xlaW5lLUvDtm5pZyA8dS5rbGVpbmUta29lbmln
-QHBlbmd1dHJvbml4LmRlPgotLS0KIGFyY2gvYXJtL2Jvb3QvZHRzL3N0bTMybXAxNTEuZHRzaSB8
-IDM0ICsrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysKIDEgZmlsZSBjaGFuZ2VkLCAzNCBp
-bnNlcnRpb25zKCspCgpkaWZmIC0tZ2l0IGEvYXJjaC9hcm0vYm9vdC9kdHMvc3RtMzJtcDE1MS5k
-dHNpIGIvYXJjaC9hcm0vYm9vdC9kdHMvc3RtMzJtcDE1MS5kdHNpCmluZGV4IGY5YWE5YWYzMWVm
-ZC4uYWUyOTBhMDQ3NzFhIDEwMDY0NAotLS0gYS9hcmNoL2FybS9ib290L2R0cy9zdG0zMm1wMTUx
-LmR0c2kKKysrIGIvYXJjaC9hcm0vYm9vdC9kdHMvc3RtMzJtcDE1MS5kdHNpCkBAIC0xMjcsNiAr
-MTI3LDggQEAgdGltZXJzMjogdGltZXJANDAwMDAwMDAgewogCQkJI3NpemUtY2VsbHMgPSA8MD47
-CiAJCQljb21wYXRpYmxlID0gInN0LHN0bTMyLXRpbWVycyI7CiAJCQlyZWcgPSA8MHg0MDAwMDAw
-MCAweDQwMD47CisJCQlpbnRlcnJ1cHRzID0gPEdJQ19TUEkgMjggSVJRX1RZUEVfTEVWRUxfSElH
-SD47CisJCQlpbnRlcnJ1cHQtbmFtZXMgPSAiZ2xvYmFsIjsKIAkJCWNsb2NrcyA9IDwmcmNjIFRJ
-TTJfSz47CiAJCQljbG9jay1uYW1lcyA9ICJpbnQiOwogCQkJZG1hcyA9IDwmZG1hbXV4MSAxOCAw
-eDQwMCAweDE+LApAQCAtMTYwLDYgKzE2Miw4IEBAIHRpbWVyczM6IHRpbWVyQDQwMDAxMDAwIHsK
-IAkJCSNzaXplLWNlbGxzID0gPDA+OwogCQkJY29tcGF0aWJsZSA9ICJzdCxzdG0zMi10aW1lcnMi
-OwogCQkJcmVnID0gPDB4NDAwMDEwMDAgMHg0MDA+OworCQkJaW50ZXJydXB0cyA9IDxHSUNfU1BJ
-IDI5IElSUV9UWVBFX0xFVkVMX0hJR0g+OworCQkJaW50ZXJydXB0LW5hbWVzID0gImdsb2JhbCI7
-CiAJCQljbG9ja3MgPSA8JnJjYyBUSU0zX0s+OwogCQkJY2xvY2stbmFtZXMgPSAiaW50IjsKIAkJ
-CWRtYXMgPSA8JmRtYW11eDEgMjMgMHg0MDAgMHgxPiwKQEAgLTE5NCw2ICsxOTgsOCBAQCB0aW1l
-cnM0OiB0aW1lckA0MDAwMjAwMCB7CiAJCQkjc2l6ZS1jZWxscyA9IDwwPjsKIAkJCWNvbXBhdGli
-bGUgPSAic3Qsc3RtMzItdGltZXJzIjsKIAkJCXJlZyA9IDwweDQwMDAyMDAwIDB4NDAwPjsKKwkJ
-CWludGVycnVwdHMgPSA8R0lDX1NQSSAzMCBJUlFfVFlQRV9MRVZFTF9ISUdIPjsKKwkJCWludGVy
-cnVwdC1uYW1lcyA9ICJnbG9iYWwiOwogCQkJY2xvY2tzID0gPCZyY2MgVElNNF9LPjsKIAkJCWNs
-b2NrLW5hbWVzID0gImludCI7CiAJCQlkbWFzID0gPCZkbWFtdXgxIDI5IDB4NDAwIDB4MT4sCkBA
-IC0yMjYsNiArMjMyLDggQEAgdGltZXJzNTogdGltZXJANDAwMDMwMDAgewogCQkJI3NpemUtY2Vs
-bHMgPSA8MD47CiAJCQljb21wYXRpYmxlID0gInN0LHN0bTMyLXRpbWVycyI7CiAJCQlyZWcgPSA8
-MHg0MDAwMzAwMCAweDQwMD47CisJCQlpbnRlcnJ1cHRzID0gPEdJQ19TUEkgNTAgSVJRX1RZUEVf
-TEVWRUxfSElHSD47CisJCQlpbnRlcnJ1cHQtbmFtZXMgPSAiZ2xvYmFsIjsKIAkJCWNsb2NrcyA9
-IDwmcmNjIFRJTTVfSz47CiAJCQljbG9jay1uYW1lcyA9ICJpbnQiOwogCQkJZG1hcyA9IDwmZG1h
-bXV4MSA1NSAweDQwMCAweDE+LApAQCAtMjYwLDYgKzI2OCw4IEBAIHRpbWVyczY6IHRpbWVyQDQw
-MDA0MDAwIHsKIAkJCSNzaXplLWNlbGxzID0gPDA+OwogCQkJY29tcGF0aWJsZSA9ICJzdCxzdG0z
-Mi10aW1lcnMiOwogCQkJcmVnID0gPDB4NDAwMDQwMDAgMHg0MDA+OworCQkJaW50ZXJydXB0cyA9
-IDxHSUNfU1BJIDU0IElSUV9UWVBFX0xFVkVMX0hJR0g+OworCQkJaW50ZXJydXB0LW5hbWVzID0g
-Imdsb2JhbCI7CiAJCQljbG9ja3MgPSA8JnJjYyBUSU02X0s+OwogCQkJY2xvY2stbmFtZXMgPSAi
-aW50IjsKIAkJCWRtYXMgPSA8JmRtYW11eDEgNjkgMHg0MDAgMHgxPjsKQEAgLTI3OCw2ICsyODgs
-OCBAQCB0aW1lcnM3OiB0aW1lckA0MDAwNTAwMCB7CiAJCQkjc2l6ZS1jZWxscyA9IDwwPjsKIAkJ
-CWNvbXBhdGlibGUgPSAic3Qsc3RtMzItdGltZXJzIjsKIAkJCXJlZyA9IDwweDQwMDA1MDAwIDB4
-NDAwPjsKKwkJCWludGVycnVwdHMgPSA8R0lDX1NQSSA1NSBJUlFfVFlQRV9MRVZFTF9ISUdIPjsK
-KwkJCWludGVycnVwdC1uYW1lcyA9ICJnbG9iYWwiOwogCQkJY2xvY2tzID0gPCZyY2MgVElNN19L
-PjsKIAkJCWNsb2NrLW5hbWVzID0gImludCI7CiAJCQlkbWFzID0gPCZkbWFtdXgxIDcwIDB4NDAw
-IDB4MT47CkBAIC0yOTYsNiArMzA4LDggQEAgdGltZXJzMTI6IHRpbWVyQDQwMDA2MDAwIHsKIAkJ
-CSNzaXplLWNlbGxzID0gPDA+OwogCQkJY29tcGF0aWJsZSA9ICJzdCxzdG0zMi10aW1lcnMiOwog
-CQkJcmVnID0gPDB4NDAwMDYwMDAgMHg0MDA+OworCQkJaW50ZXJydXB0cyA9IDxHSUNfU1BJIDEx
-OSBJUlFfVFlQRV9MRVZFTF9ISUdIPjsKKwkJCWludGVycnVwdC1uYW1lcyA9ICJnbG9iYWwiOwog
-CQkJY2xvY2tzID0gPCZyY2MgVElNMTJfSz47CiAJCQljbG9jay1uYW1lcyA9ICJpbnQiOwogCQkJ
-c3RhdHVzID0gImRpc2FibGVkIjsKQEAgLTMxOCw2ICszMzIsOCBAQCB0aW1lcnMxMzogdGltZXJA
-NDAwMDcwMDAgewogCQkJI3NpemUtY2VsbHMgPSA8MD47CiAJCQljb21wYXRpYmxlID0gInN0LHN0
-bTMyLXRpbWVycyI7CiAJCQlyZWcgPSA8MHg0MDAwNzAwMCAweDQwMD47CisJCQlpbnRlcnJ1cHRz
-ID0gPEdJQ19TUEkgMTMwIElSUV9UWVBFX0xFVkVMX0hJR0g+OworCQkJaW50ZXJydXB0LW5hbWVz
-ID0gImdsb2JhbCI7CiAJCQljbG9ja3MgPSA8JnJjYyBUSU0xM19LPjsKIAkJCWNsb2NrLW5hbWVz
-ID0gImludCI7CiAJCQlzdGF0dXMgPSAiZGlzYWJsZWQiOwpAQCAtMzQwLDYgKzM1Niw4IEBAIHRp
-bWVyczE0OiB0aW1lckA0MDAwODAwMCB7CiAJCQkjc2l6ZS1jZWxscyA9IDwwPjsKIAkJCWNvbXBh
-dGlibGUgPSAic3Qsc3RtMzItdGltZXJzIjsKIAkJCXJlZyA9IDwweDQwMDA4MDAwIDB4NDAwPjsK
-KwkJCWludGVycnVwdHMgPSA8R0lDX1NQSSAxMzEgSVJRX1RZUEVfTEVWRUxfSElHSD47CisJCQlp
-bnRlcnJ1cHQtbmFtZXMgPSAiZ2xvYmFsIjsKIAkJCWNsb2NrcyA9IDwmcmNjIFRJTTE0X0s+Owog
-CQkJY2xvY2stbmFtZXMgPSAiaW50IjsKIAkJCXN0YXR1cyA9ICJkaXNhYmxlZCI7CkBAIC02MjMs
-NiArNjQxLDExIEBAIHRpbWVyczE6IHRpbWVyQDQ0MDAwMDAwIHsKIAkJCSNzaXplLWNlbGxzID0g
-PDA+OwogCQkJY29tcGF0aWJsZSA9ICJzdCxzdG0zMi10aW1lcnMiOwogCQkJcmVnID0gPDB4NDQw
-MDAwMDAgMHg0MDA+OworCQkJaW50ZXJydXB0cyA9IDxHSUNfU1BJIDI0IElSUV9UWVBFX0xFVkVM
-X0hJR0g+LAorCQkJCSAgICAgPEdJQ19TUEkgMjUgSVJRX1RZUEVfTEVWRUxfSElHSD4sCisJCQkJ
-ICAgICA8R0lDX1NQSSAyNiBJUlFfVFlQRV9MRVZFTF9ISUdIPiwKKwkJCQkgICAgIDxHSUNfU1BJ
-IDI3IElSUV9UWVBFX0xFVkVMX0hJR0g+OworCQkJaW50ZXJydXB0LW5hbWVzID0gImJyayIsICJ1
-cCIsICJ0cmctY29tIiwgImNjIjsKIAkJCWNsb2NrcyA9IDwmcmNjIFRJTTFfSz47CiAJCQljbG9j
-ay1uYW1lcyA9ICJpbnQiOwogCQkJZG1hcyA9IDwmZG1hbXV4MSAxMSAweDQwMCAweDE+LApAQCAt
-NjU5LDYgKzY4MiwxMSBAQCB0aW1lcnM4OiB0aW1lckA0NDAwMTAwMCB7CiAJCQkjc2l6ZS1jZWxs
-cyA9IDwwPjsKIAkJCWNvbXBhdGlibGUgPSAic3Qsc3RtMzItdGltZXJzIjsKIAkJCXJlZyA9IDww
-eDQ0MDAxMDAwIDB4NDAwPjsKKwkJCWludGVycnVwdHMgPSA8R0lDX1NQSSA0MyBJUlFfVFlQRV9M
-RVZFTF9ISUdIPiwKKwkJCQkgICAgIDxHSUNfU1BJIDQ0IElSUV9UWVBFX0xFVkVMX0hJR0g+LAor
-CQkJCSAgICAgPEdJQ19TUEkgNDUgSVJRX1RZUEVfTEVWRUxfSElHSD4sCisJCQkJICAgICA8R0lD
-X1NQSSA0NiBJUlFfVFlQRV9MRVZFTF9ISUdIPjsKKwkJCWludGVycnVwdC1uYW1lcyA9ICJicmsi
-LCAidXAiLCAidHJnLWNvbSIsICJjYyI7CiAJCQljbG9ja3MgPSA8JnJjYyBUSU04X0s+OwogCQkJ
-Y2xvY2stbmFtZXMgPSAiaW50IjsKIAkJCWRtYXMgPSA8JmRtYW11eDEgNDcgMHg0MDAgMHgxPiwK
-QEAgLTc0Niw2ICs3NzQsOCBAQCB0aW1lcnMxNTogdGltZXJANDQwMDYwMDAgewogCQkJI3NpemUt
-Y2VsbHMgPSA8MD47CiAJCQljb21wYXRpYmxlID0gInN0LHN0bTMyLXRpbWVycyI7CiAJCQlyZWcg
-PSA8MHg0NDAwNjAwMCAweDQwMD47CisJCQlpbnRlcnJ1cHRzID0gPEdJQ19TUEkgMTE2IElSUV9U
-WVBFX0xFVkVMX0hJR0g+OworCQkJaW50ZXJydXB0LW5hbWVzID0gImdsb2JhbCI7CiAJCQljbG9j
-a3MgPSA8JnJjYyBUSU0xNV9LPjsKIAkJCWNsb2NrLW5hbWVzID0gImludCI7CiAJCQlkbWFzID0g
-PCZkbWFtdXgxIDEwNSAweDQwMCAweDE+LApAQCAtNzczLDYgKzgwMyw4IEBAIHRpbWVyczE2OiB0
-aW1lckA0NDAwNzAwMCB7CiAJCQkjc2l6ZS1jZWxscyA9IDwwPjsKIAkJCWNvbXBhdGlibGUgPSAi
-c3Qsc3RtMzItdGltZXJzIjsKIAkJCXJlZyA9IDwweDQ0MDA3MDAwIDB4NDAwPjsKKwkJCWludGVy
-cnVwdHMgPSA8R0lDX1NQSSAxMTcgSVJRX1RZUEVfTEVWRUxfSElHSD47CisJCQlpbnRlcnJ1cHQt
-bmFtZXMgPSAiZ2xvYmFsIjsKIAkJCWNsb2NrcyA9IDwmcmNjIFRJTTE2X0s+OwogCQkJY2xvY2st
-bmFtZXMgPSAiaW50IjsKIAkJCWRtYXMgPSA8JmRtYW11eDEgMTA5IDB4NDAwIDB4MT4sCkBAIC03
-OTcsNiArODI5LDggQEAgdGltZXJzMTc6IHRpbWVyQDQ0MDA4MDAwIHsKIAkJCSNzaXplLWNlbGxz
-ID0gPDA+OwogCQkJY29tcGF0aWJsZSA9ICJzdCxzdG0zMi10aW1lcnMiOwogCQkJcmVnID0gPDB4
-NDQwMDgwMDAgMHg0MDA+OworCQkJaW50ZXJydXB0cyA9IDxHSUNfU1BJIDExOCBJUlFfVFlQRV9M
-RVZFTF9ISUdIPjsKKwkJCWludGVycnVwdC1uYW1lcyA9ICJnbG9iYWwiOwogCQkJY2xvY2tzID0g
-PCZyY2MgVElNMTdfSz47CiAJCQljbG9jay1uYW1lcyA9ICJpbnQiOwogCQkJZG1hcyA9IDwmZG1h
-bXV4MSAxMTEgMHg0MDAgMHgxPiwKLS0gCjIuMzUuMQoKX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0
-bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0
-b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+From: Minghao Chi <chi.minghao@zte.com.cn>
+
+Using pm_runtime_resume_and_get is more appropriate
+for simplifing code
+
+Reported-by: Zeal Robot <zealci@zte.com.cn>
+Signed-off-by: Minghao Chi <chi.minghao@zte.com.cn>
+---
+ .../net/ethernet/stmicro/stmmac/stmmac_mdio.c | 24 +++++++------------
+ 1 file changed, 8 insertions(+), 16 deletions(-)
+
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
+index a5d150c5f3d8..9bc625fccca0 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
+@@ -88,11 +88,9 @@ static int stmmac_xgmac2_mdio_read(struct mii_bus *bus, int phyaddr, int phyreg)
+ 	u32 tmp, addr, value = MII_XGMAC_BUSY;
+ 	int ret;
+ 
+-	ret = pm_runtime_get_sync(priv->device);
+-	if (ret < 0) {
+-		pm_runtime_put_noidle(priv->device);
++	ret = pm_runtime_resume_and_get(priv->device);
++	if (ret < 0)
+ 		return ret;
+-	}
+ 
+ 	/* Wait until any existing MII operation is complete */
+ 	if (readl_poll_timeout(priv->ioaddr + mii_data, tmp,
+@@ -156,11 +154,9 @@ static int stmmac_xgmac2_mdio_write(struct mii_bus *bus, int phyaddr,
+ 	u32 addr, tmp, value = MII_XGMAC_BUSY;
+ 	int ret;
+ 
+-	ret = pm_runtime_get_sync(priv->device);
+-	if (ret < 0) {
+-		pm_runtime_put_noidle(priv->device);
++	ret = pm_runtime_resume_and_get(priv->device);
++	if (ret < 0)
+ 		return ret;
+-	}
+ 
+ 	/* Wait until any existing MII operation is complete */
+ 	if (readl_poll_timeout(priv->ioaddr + mii_data, tmp,
+@@ -229,11 +225,9 @@ static int stmmac_mdio_read(struct mii_bus *bus, int phyaddr, int phyreg)
+ 	int data = 0;
+ 	u32 v;
+ 
+-	data = pm_runtime_get_sync(priv->device);
+-	if (data < 0) {
+-		pm_runtime_put_noidle(priv->device);
++	data = pm_runtime_resume_and_get(priv->device);
++	if (data < 0)
+ 		return data;
+-	}
+ 
+ 	value |= (phyaddr << priv->hw->mii.addr_shift)
+ 		& priv->hw->mii.addr_mask;
+@@ -297,11 +291,9 @@ static int stmmac_mdio_write(struct mii_bus *bus, int phyaddr, int phyreg,
+ 	u32 value = MII_BUSY;
+ 	u32 v;
+ 
+-	ret = pm_runtime_get_sync(priv->device);
+-	if (ret < 0) {
+-		pm_runtime_put_noidle(priv->device);
++	ret = pm_runtime_resume_and_get(priv->device);
++	if (ret < 0)
+ 		return ret;
+-	}
+ 
+ 	value |= (phyaddr << priv->hw->mii.addr_shift)
+ 		& priv->hw->mii.addr_mask;
+-- 
+2.25.1
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
