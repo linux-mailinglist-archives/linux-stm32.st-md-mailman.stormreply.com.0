@@ -2,74 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 87F9A4F99C0
-	for <lists+linux-stm32@lfdr.de>; Fri,  8 Apr 2022 17:43:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 16AFA4F9E4A
+	for <lists+linux-stm32@lfdr.de>; Fri,  8 Apr 2022 22:38:58 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3E386C628AC;
-	Fri,  8 Apr 2022 15:43:48 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C11D9C628A2;
+	Fri,  8 Apr 2022 20:38:57 +0000 (UTC)
+Received: from mail-qk1-f172.google.com (mail-qk1-f172.google.com
+ [209.85.222.172])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3DC7FC60479
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B06C0C06F81
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  8 Apr 2022 15:43:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1649432626; x=1680968626;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=gcJtOPIX2/0B3YxiUGz/EyzDxp0SAsqb/v7kxf3M3BU=;
- b=jL75dfHpXUaCBt5B2J3iWUUWmtmnWUKkuTWy2ZzZqjLgWwhRMO8EBmiK
- YsDm/63ujRsvURvVUH/7aEBXBLWJ1k14XEwqAoBe1TzA82alnebmrhFPD
- lfJkG2jUB8+r1z1Wmr2oF+oXbpPGZ26TbYpdVLZxE0qDd/1tnUxL9RD+i
- jBjyDN7mWBN9ZzyAXxCIYXQ3UOHdrxreiZOADIE+w7NhbH5Kyb09bRFAz
- T0gluRtgrMNUSrMpw2teRqDdTD774gQQmuG/GLvBHEmg+ldWLV1V3pigc
- V8yvXz/YmbZhCrUqDk/3D3hvSat4ky3/jOkiJpb0ubOvSOy/xrHAmdb0B g==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10310"; a="260460281"
-X-IronPort-AV: E=Sophos;i="5.90,245,1643702400"; d="scan'208";a="260460281"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Apr 2022 08:43:44 -0700
-X-IronPort-AV: E=Sophos;i="5.90,245,1643702400"; d="scan'208";a="589257568"
-Received: from smile.fi.intel.com ([10.237.72.54])
- by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Apr 2022 08:43:36 -0700
-Received: from andy by smile.fi.intel.com with local (Exim 4.95)
- (envelope-from <andriy.shevchenko@linux.intel.com>)
- id 1ncqiH-000Lsk-PD; Fri, 08 Apr 2022 18:39:53 +0300
-Date: Fri, 8 Apr 2022 18:39:53 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Message-ID: <YlBXSVyj88CqjGj4@smile.fi.intel.com>
-References: <20220401103604.8705-1-andriy.shevchenko@linux.intel.com>
- <20220401103604.8705-6-andriy.shevchenko@linux.intel.com>
- <d1f873c6-150f-5f4d-7aa8-7bb15823d991@linaro.org>
+ Fri,  8 Apr 2022 20:38:55 +0000 (UTC)
+Received: by mail-qk1-f172.google.com with SMTP id b33so5781730qkp.13
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 08 Apr 2022 13:38:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20210112;
+ h=date:from:to:cc:subject:message-id:mime-version;
+ bh=9HwDppLqHaQcBs/UBe2aw4cxWmdlTn3unTRBCytLFO0=;
+ b=kDWT7DbLIXeryuqgzJKXPRooe+DFb5VrAV9s8VQQh3/+L/jkAAOBZkzbwMa9Y+oos5
+ xnxE+TBlfk7ynX1+gqkkuP3JzEVI8mo5QCIzJjw4NrdeaKKiBsjlQPa32LF4zQlR8CMo
+ qxfJz6xxrivp2BwcN71Gyk/3z0QMnL9Gmeu3Da1e3QfE4v/4pQSGcCwMiLyOcku5wgHf
+ CZfBgZObe0vK4UJoPcPOS8TbVZaWAoObLYWjFjYFc3HV77ztvqr9DZRoGtYuTW224KS0
+ nv+SXeVtLimXZK1E6e75cZMoMhsooPeZNKUKc0CnODdMdlAwq5ZZ3HIupplfob3LOqv4
+ T//g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:mime-version;
+ bh=9HwDppLqHaQcBs/UBe2aw4cxWmdlTn3unTRBCytLFO0=;
+ b=wvyQ6jCxY7A/7v00fgXpgLl/6OXpe67qM9yt7f6vdt6enp29SXXzsLZLj1On4uoP+r
+ 0qmoTalI37/4f4hDP9aqbtqR74NCg0XFc+WEJkzj43pw2UtSA/cBio65gefTHkk0N6Gh
+ j8mdLZoS2Wu0eax8V6C+2zongQEgK5dm+j18P0+Do8jJMIBMUhCqicxh9epFWoTPOFmO
+ VwUOo/S2f4JO6mtZR+7DCsGhrwUs5qgVg4BuIhMgUKJmZ/GccHiE1x+V/PVh5ggkYGCO
+ 5CqP9lsMepyHEQIfkE82eDl6Hi9hDjTmuUo+kzsW/lzG7Ze/yrCJTCcWAl/R8+Fmwp4D
+ s6Nw==
+X-Gm-Message-State: AOAM531UsUUoITzKIStLWGwP7vb65hmfqsTz53jBkTZCxU9IgvzQULKG
+ eGv5Tb8qKkzeO7+JeJdfzzV+og==
+X-Google-Smtp-Source: ABdhPJxNNfuUtbU+jVA4OD408wRYRnD+uHeEDWk6oAgIVTm4FABTOcVGdZuqmIMJ8LrzmwY67c43ig==
+X-Received: by 2002:a37:b983:0:b0:67e:c0d2:c3ca with SMTP id
+ j125-20020a37b983000000b0067ec0d2c3camr13883611qkf.749.1649450334495; 
+ Fri, 08 Apr 2022 13:38:54 -0700 (PDT)
+Received: from ripple.attlocal.net
+ (172-10-233-147.lightspeed.sntcca.sbcglobal.net. [172.10.233.147])
+ by smtp.gmail.com with ESMTPSA id
+ k2-20020a37ba02000000b0067dc1b0104asm13964961qkf.124.2022.04.08.13.38.52
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 08 Apr 2022 13:38:53 -0700 (PDT)
+Date: Fri, 8 Apr 2022 13:38:41 -0700 (PDT)
+From: Hugh Dickins <hughd@google.com>
+X-X-Sender: hugh@ripple.anvils
+To: Andrew Morton <akpm@linux-foundation.org>
+Message-ID: <9a978571-8648-e830-5735-1f4748ce2e30@google.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <d1f873c6-150f-5f4d-7aa8-7bb15823d991@linaro.org>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Cc: Andrew Lunn <andrew@lunn.ch>, Tomer Maimon <tmaimon77@gmail.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Neil Armstrong <narmstrong@baylibre.com>,
- Linus Walleij <linus.walleij@linaro.org>, Tomasz Figa <tomasz.figa@gmail.com>,
- Tali Perry <tali.perry1@gmail.com>,
- Sylwester Nawrocki <s.nawrocki@samsung.com>,
- linux-stm32@st-md-mailman.stormreply.com, Jerome Brunet <jbrunet@baylibre.com>,
- linux-samsung-soc@vger.kernel.org, Benjamin Fair <benjaminfair@google.com>,
- Marc Zyngier <maz@kernel.org>, Gregory Clement <gregory.clement@bootlin.com>,
- Nancy Yuen <yuenn@google.com>, Bartosz Golaszewski <brgl@bgdev.pl>,
- Alim Akhtar <alim.akhtar@samsung.com>,
- Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
- Qianggui Song <qianggui.song@amlogic.com>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- linux-gpio@vger.kernel.org, linux-amlogic@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, Avi Fishman <avifishman70@gmail.com>,
- Patrick Venture <venture@google.com>, linux-kernel@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Kevin Hilman <khilman@baylibre.com>, openbmc@lists.ozlabs.org
-Subject: Re: [Linux-stm32] [PATCH v4 05/13] pinctrl: samsung: Switch to use
- for_each_gpiochip_node() helper
+Cc: linux-nfs@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ "Darrick J. Wong" <djwong@kernel.org>, Hugh Dickins <hughd@google.com>,
+ linux-kernel@vger.kernel.org, Christoph Hellwig <hch@lst.de>,
+ linux-mm@kvack.org, Chuck Lever III <chuck.lever@oracle.com>,
+ Mikulas Patocka <mpatocka@redhat.com>, Mark Hemment <markhemm@googlemail.com>,
+ linux-fsdevel@vger.kernel.org, Lukas Czerner <lczerner@redhat.com>
+Subject: [Linux-stm32] [PATCH] tmpfs: fix regressions from wider use of
+	ZERO_PAGE
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,71 +78,104 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, Apr 08, 2022 at 05:22:21PM +0200, Krzysztof Kozlowski wrote:
-> On 01/04/2022 12:35, Andy Shevchenko wrote:
-> > Switch the code to use for_each_gpiochip_node() helper.
+Chuck Lever reported fsx-based xfstests generic 075 091 112 127 failing
+when 5.18-rc1 NFS server exports tmpfs: bisected to recent tmpfs change.
 
-(...)
+Whilst nfsd_splice_action() does contain some questionable handling of
+repeated pages, and Chuck was able to work around there, history from
+Mark Hemment makes clear that there might be similar dangers elsewhere:
+it was not a good idea for me to pass ZERO_PAGE down to unknown actors.
 
-> >  /*
-> >   * Iterate over all driver pin banks to find one matching the name of node,
-> >   * skipping optional "-gpio" node suffix. When found, assign node to the bank.
-> >   */
-> > -static void samsung_banks_of_node_get(struct device *dev,
-> > -				      struct samsung_pinctrl_drv_data *d,
-> > -				      struct device_node *node)
-> > +static void samsung_banks_node_get(struct device *dev, struct samsung_pinctrl_drv_data *d)
-> 
-> This is worth simplification anyway, so please split it to separate patch.
+Revert shmem_file_read_iter() to using ZERO_PAGE for holes only when
+iter_is_iovec(); in other cases, use the more natural iov_iter_zero()
+instead of copy_page_to_iter().  We would use iov_iter_zero() throughout,
+but the x86 clear_user() is not nearly so well optimized as copy to user
+(dd of 1T sparse tmpfs file takes 57 seconds rather than 44 seconds).
 
-Not sure what to do and why it worth an additional churn.
+And now pagecache_init() does not need to SetPageUptodate(ZERO_PAGE(0)):
+which had caused boot failure on arm noMMU STM32F7 and STM32H7 boards
+Reported-by: Patrice CHOTARD <patrice.chotard@foss.st.com>
 
-> >  {
-> >  	const char *suffix = "-gpio-bank";
-> >  	struct samsung_pin_bank *bank;
-> > -	struct device_node *child;
-> > +	struct fwnode_handle *child;
-> >  	/* Pin bank names are up to 4 characters */
-> >  	char node_name[20];
-> >  	unsigned int i;
-> > @@ -1038,17 +1037,17 @@ static void samsung_banks_of_node_get(struct device *dev,
-> >  			continue;
-> >  		}
-> >  
-> > -		for_each_child_of_node(node, child) {
-> > -			if (!of_find_property(child, "gpio-controller", NULL))
-> > -				continue;
-> 
-> This does not look equivalent. There are nodes without this property.
+Reported-by: Chuck Lever III <chuck.lever@oracle.com>
+Fixes: 56a8c8eb1eaf ("tmpfs: do not allocate pages on read")
+Signed-off-by: Hugh Dickins <hughd@google.com>
+Tested-by: Chuck Lever III <chuck.lever@oracle.com>
+---
 
-Not sure I understand why not. The macro checks for the property and
-iterates over nodes that have this property.
+ mm/filemap.c |    6 ------
+ mm/shmem.c   |   31 ++++++++++++++++++++-----------
+ 2 files changed, 20 insertions(+), 17 deletions(-)
 
-Can you elaborate, please?
-
-> > -			if (of_node_name_eq(child, node_name))
-> > +		for_each_gpiochip_node(dev, child) {
-> > +			struct device_node *np = to_of_node(child);
-> > +
-> > +			if (of_node_name_eq(np, node_name))
-> >  				break;
-> > -			else if (of_node_name_eq(child, bank->name))
-> > +			if (of_node_name_eq(np, bank->name))
-> >  				break;
-> >  		}
-> 
-> This patch has to wait till someone provides you a tested-by. I might do
-> it around next week.
-
-Fine with me, I will drop it from my repo for now.
-
-Thanks for review!
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+--- 5.18-rc1/mm/filemap.c
++++ linux/mm/filemap.c
+@@ -1063,12 +1063,6 @@ void __init pagecache_init(void)
+ 		init_waitqueue_head(&folio_wait_table[i]);
+ 
+ 	page_writeback_init();
+-
+-	/*
+-	 * tmpfs uses the ZERO_PAGE for reading holes: it is up-to-date,
+-	 * and splice's page_cache_pipe_buf_confirm() needs to see that.
+-	 */
+-	SetPageUptodate(ZERO_PAGE(0));
+ }
+ 
+ /*
+--- 5.18-rc1/mm/shmem.c
++++ linux/mm/shmem.c
+@@ -2513,7 +2513,6 @@ static ssize_t shmem_file_read_iter(struct kiocb *iocb, struct iov_iter *to)
+ 		pgoff_t end_index;
+ 		unsigned long nr, ret;
+ 		loff_t i_size = i_size_read(inode);
+-		bool got_page;
+ 
+ 		end_index = i_size >> PAGE_SHIFT;
+ 		if (index > end_index)
+@@ -2570,24 +2569,34 @@ static ssize_t shmem_file_read_iter(struct kiocb *iocb, struct iov_iter *to)
+ 			 */
+ 			if (!offset)
+ 				mark_page_accessed(page);
+-			got_page = true;
++			/*
++			 * Ok, we have the page, and it's up-to-date, so
++			 * now we can copy it to user space...
++			 */
++			ret = copy_page_to_iter(page, offset, nr, to);
++			put_page(page);
++
++		} else if (iter_is_iovec(to)) {
++			/*
++			 * Copy to user tends to be so well optimized, but
++			 * clear_user() not so much, that it is noticeably
++			 * faster to copy the zero page instead of clearing.
++			 */
++			ret = copy_page_to_iter(ZERO_PAGE(0), offset, nr, to);
+ 		} else {
+-			page = ZERO_PAGE(0);
+-			got_page = false;
++			/*
++			 * But submitting the same page twice in a row to
++			 * splice() - or others? - can result in confusion:
++			 * so don't attempt that optimization on pipes etc.
++			 */
++			ret = iov_iter_zero(nr, to);
+ 		}
+ 
+-		/*
+-		 * Ok, we have the page, and it's up-to-date, so
+-		 * now we can copy it to user space...
+-		 */
+-		ret = copy_page_to_iter(page, offset, nr, to);
+ 		retval += ret;
+ 		offset += ret;
+ 		index += offset >> PAGE_SHIFT;
+ 		offset &= ~PAGE_MASK;
+ 
+-		if (got_page)
+-			put_page(page);
+ 		if (!iov_iter_count(to))
+ 			break;
+ 		if (ret < nr) {
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
