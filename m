@@ -2,73 +2,90 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3EC854FA54C
-	for <lists+linux-stm32@lfdr.de>; Sat,  9 Apr 2022 08:08:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CDC9A4FA897
+	for <lists+linux-stm32@lfdr.de>; Sat,  9 Apr 2022 15:33:53 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D1361C628AD;
-	Sat,  9 Apr 2022 06:08:47 +0000 (UTC)
-Received: from mail-qk1-f171.google.com (mail-qk1-f171.google.com
- [209.85.222.171])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 74C69C5F1D6;
+	Sat,  9 Apr 2022 13:33:53 +0000 (UTC)
+Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com
+ [209.85.218.54])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5573AC6046A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 032B7C06F81
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat,  9 Apr 2022 06:08:46 +0000 (UTC)
-Received: by mail-qk1-f171.google.com with SMTP id e10so4848051qka.6
+ Sat,  9 Apr 2022 13:33:51 +0000 (UTC)
+Received: by mail-ej1-f54.google.com with SMTP id i27so22324086ejd.9
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 08 Apr 2022 23:08:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20210112;
- h=date:from:to:cc:subject:in-reply-to:message-id:references
- :mime-version; bh=6aEcwmX5AHIuIeFqcYJ9jTFQjBEYXnOc4Olxo6nl8Es=;
- b=NqAdYhsFyqCpaZalKL8cZvkb0ebp2WuRLeZVDMBV9dnaLsD0hT6aMMQ1x2Gpg5345G
- +yO4oDYXUKqFAIV1Ac/DSJnN2zXSNk8YNat0v8IReqw/zVBgK8uPe1r4NjZWVWpybJU8
- dxf17wqIuahDlUYc1qEYdIrSo3YAZW/0uhEIvBdge44SZvyrjc/FGu+9F30AUhpazNQM
- UFO3izbcSbwR/kjPjgh+nyLiXzzlrRhudOVIhUrYpHG12yE+zu6lyoM90VBvW0GkHG6I
- ycykZh/XGWDW1qht46NE/BNnl/k2pgdvpjPmGyaU5zqIq52WH9JWnyILe48+6gOEaknW
- tGxQ==
+ Sat, 09 Apr 2022 06:33:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :cc:references:from:in-reply-to:content-transfer-encoding;
+ bh=LO7mTJuUjnyguTxwzU4yCMRsr4W3KT8BOY3t4LlaHc0=;
+ b=NSPuRoYHtyOw+PcsMZMVtuInfF33reqEX80RTlsMYF96wzkfEaIKPTkf0zDLCojnUm
+ 7GdAM9ck8RvQnAE0+woC+0Cz0hKM9k7ConH5cc8CM3A80Q22AF30cnY5tVI5IrRhfRiq
+ fUs2YJsfoDOLl23ee7Kfwr0FQg7iHJDavcGzo6omSFqqR7QkLBp6xvW024IMq4mk8XcH
+ aI+dI62HLCe60/HRWGhTBdhYz6pdh05BA5qgDsK/MG0ybk9Vjkb5p0YHoofix6xORs7e
+ TQjQGp1ld64FVyUXf1RkiYaMnO4jpnKDkq/gesw7lqgg3jkxwTzzbP8gH8cCxOWqkIK3
+ 2lCw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:in-reply-to:message-id
- :references:mime-version;
- bh=6aEcwmX5AHIuIeFqcYJ9jTFQjBEYXnOc4Olxo6nl8Es=;
- b=cjYsI8qmYd1FSD9eiHz30Hc+WOwokmOhfgLM6A1GcxxM27qS7UAAxmXDs1XodiW2XW
- LYnuqCm30FxZ1aqDlTimdAlrA60MxxZp2/+NdOzmMZsRDqMSKBFrkA2I4D4U8qwKlJhD
- GKeCffsLXU0lU6aGOHAiFAWpXhQiwlqw8h6VdMkLnzlNpdWM1kjCvM+zLXy6HY6VZrpp
- Fr4wup+SVPQJ4KR3PCvAQbfmGNtCdl1wgwNa2KsricHBgraHrjPxymngfzcq9OolfceJ
- l+Smgvq+WWERV59gpJxlYAWoaZNcizJqlDjaKoWSpMdw3ELlTKdpyTS+PK9RcwKWOxal
- n75g==
-X-Gm-Message-State: AOAM530t1uQd+oT4wmvdfZ0byjOjPCqUGfr2mOp1cEXGScBew5PXKFOC
- bj2n9Oe6aRModIw2IooI9yAEZQ==
-X-Google-Smtp-Source: ABdhPJwB4d7Ufi4cN4i+wikQ8L0VsgopVFCWZFF2+UtgD8fK4o0ibgOxwGW6k02yNhdIRgCp/83Ksg==
-X-Received: by 2002:a05:620a:d87:b0:67b:311c:ecbd with SMTP id
- q7-20020a05620a0d8700b0067b311cecbdmr15327968qkl.146.1649484525161; 
- Fri, 08 Apr 2022 23:08:45 -0700 (PDT)
-Received: from ripple.attlocal.net
- (172-10-233-147.lightspeed.sntcca.sbcglobal.net. [172.10.233.147])
- by smtp.gmail.com with ESMTPSA id
- p5-20020a378d05000000b0069beaffd5b3sm1849345qkd.4.2022.04.08.23.08.42
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 08 Apr 2022 23:08:44 -0700 (PDT)
-Date: Fri, 8 Apr 2022 23:08:29 -0700 (PDT)
-From: Hugh Dickins <hughd@google.com>
-X-X-Sender: hugh@ripple.anvils
-To: Christoph Hellwig <hch@lst.de>
-In-Reply-To: <20220409050638.GB17755@lst.de>
-Message-ID: <f73cfd56-35d2-53a3-3a59-4ff9495d7d34@google.com>
-References: <9a978571-8648-e830-5735-1f4748ce2e30@google.com>
- <20220409050638.GB17755@lst.de>
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=LO7mTJuUjnyguTxwzU4yCMRsr4W3KT8BOY3t4LlaHc0=;
+ b=2meL3yeHyJwE35SnmHXV8uK8myg3Ul2xp1Pq4C/w6CdnbqTLLvGKwj86fqzExbEL/j
+ roeIWLBl0SG/WTgeUBBZVWn/wjIa/fCJLqiwiSwCXouTqzVVGMc6zS9FZPDLzrr1tyMU
+ KmqRcQ4j9xYzfhOvZLpdPVHTATMs1pJ4XGexBPwBQJo+uR5Jp3h54ljhvQfc0gwxREe6
+ l6JpHG2bb+QmHS9vp5fQgNa7aLF6Dlh2n4yH81/9/e3AGsnBcty4Uf1gz/4mYyRjZkdm
+ vC45xHB+opy2/bkTgLNMO/JXbsbCfSacvTWXNP4FLVqK1PcDuyn4Uc+RgCZqmuxBSLhe
+ oNWA==
+X-Gm-Message-State: AOAM5301KAIkIHDoP961fQHnhvNFsesZXuwJtExbbAhO/guyNwOluZHz
+ vbtLb/dqtdh+QdIRppZeB3d9QA==
+X-Google-Smtp-Source: ABdhPJw7Y7cYYHPAiiiP0NIjLn5Hmp6+EKk8JZn75hkyokX3E/0ElhCjWMr9REwrEdqcx3UfkRN70w==
+X-Received: by 2002:a17:906:d204:b0:6d6:df17:835e with SMTP id
+ w4-20020a170906d20400b006d6df17835emr22437048ejz.20.1649511231518; 
+ Sat, 09 Apr 2022 06:33:51 -0700 (PDT)
+Received: from [192.168.0.188] (xdsl-188-155-201-27.adslplus.ch.
+ [188.155.201.27]) by smtp.gmail.com with ESMTPSA id
+ q22-20020a170906771600b006cf8a37ebf5sm9774514ejm.103.2022.04.09.06.33.49
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sat, 09 Apr 2022 06:33:51 -0700 (PDT)
+Message-ID: <3b527700-444e-1f6e-fee1-5cd6ed2ef7f9@linaro.org>
+Date: Sat, 9 Apr 2022 15:33:49 +0200
 MIME-Version: 1.0
-Cc: "Jason A. Donenfeld" <Jason@zx2c4.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- "Darrick J. Wong" <djwong@kernel.org>, linux-fsdevel@vger.kernel.org,
- Hugh Dickins <hughd@google.com>, linux-nfs@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-mm@kvack.org,
- Chuck Lever III <chuck.lever@oracle.com>,
- Mikulas Patocka <mpatocka@redhat.com>, viro@zeniv.linux.org.uk,
- Mark Hemment <markhemm@googlemail.com>, Borislav Petkov <bp@alien8.de>,
- Lukas Czerner <lczerner@redhat.com>, Andrew Morton <akpm@linux-foundation.org>
-Subject: Re: [Linux-stm32] [PATCH] tmpfs: fix regressions from wider use of
-	ZERO_PAGE
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.7.0
+Content-Language: en-US
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+References: <20220401103604.8705-1-andriy.shevchenko@linux.intel.com>
+ <20220401103604.8705-6-andriy.shevchenko@linux.intel.com>
+ <d1f873c6-150f-5f4d-7aa8-7bb15823d991@linaro.org>
+ <YlBXSVyj88CqjGj4@smile.fi.intel.com>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <YlBXSVyj88CqjGj4@smile.fi.intel.com>
+Cc: Andrew Lunn <andrew@lunn.ch>, Tomer Maimon <tmaimon77@gmail.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Neil Armstrong <narmstrong@baylibre.com>,
+ Linus Walleij <linus.walleij@linaro.org>, Tomasz Figa <tomasz.figa@gmail.com>,
+ Tali Perry <tali.perry1@gmail.com>,
+ Sylwester Nawrocki <s.nawrocki@samsung.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Jerome Brunet <jbrunet@baylibre.com>,
+ linux-samsung-soc@vger.kernel.org, Benjamin Fair <benjaminfair@google.com>,
+ Marc Zyngier <maz@kernel.org>, Gregory Clement <gregory.clement@bootlin.com>,
+ Nancy Yuen <yuenn@google.com>, Bartosz Golaszewski <brgl@bgdev.pl>,
+ Alim Akhtar <alim.akhtar@samsung.com>,
+ Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
+ Qianggui Song <qianggui.song@amlogic.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ linux-gpio@vger.kernel.org, linux-amlogic@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, Avi Fishman <avifishman70@gmail.com>,
+ Patrick Venture <venture@google.com>, linux-kernel@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Kevin Hilman <khilman@baylibre.com>, openbmc@lists.ozlabs.org
+Subject: Re: [Linux-stm32] [PATCH v4 05/13] pinctrl: samsung: Switch to use
+ for_each_gpiochip_node() helper
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,35 +102,74 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Sat, 9 Apr 2022, Christoph Hellwig wrote:
-> On Fri, Apr 08, 2022 at 01:38:41PM -0700, Hugh Dickins wrote:
-> > +		} else if (iter_is_iovec(to)) {
-> > +			/*
-> > +			 * Copy to user tends to be so well optimized, but
-> > +			 * clear_user() not so much, that it is noticeably
-> > +			 * faster to copy the zero page instead of clearing.
-> > +			 */
-> > +			ret = copy_page_to_iter(ZERO_PAGE(0), offset, nr, to);
+On 08/04/2022 17:39, Andy Shevchenko wrote:
+> On Fri, Apr 08, 2022 at 05:22:21PM +0200, Krzysztof Kozlowski wrote:
+>> On 01/04/2022 12:35, Andy Shevchenko wrote:
+>>> Switch the code to use for_each_gpiochip_node() helper.
 > 
-> Is the offset and length guaranteed to be less than PAGE_SIZE here?
+> (...)
+> 
+>>>  /*
+>>>   * Iterate over all driver pin banks to find one matching the name of node,
+>>>   * skipping optional "-gpio" node suffix. When found, assign node to the bank.
+>>>   */
+>>> -static void samsung_banks_of_node_get(struct device *dev,
+>>> -				      struct samsung_pinctrl_drv_data *d,
+>>> -				      struct device_node *node)
+>>> +static void samsung_banks_node_get(struct device *dev, struct samsung_pinctrl_drv_data *d)
+>>
+>> This is worth simplification anyway, so please split it to separate patch.
+> 
+> Not sure what to do and why it worth an additional churn.
 
-Almost :) The offset is guaranteed to be less than PAGE_SIZE here, and
-the length is guaranteed to be less than or equal to PAGE_SIZE - offset.
+Makes this change smaller so it's easier to review.
 
 > 
-> Either way I'd rather do this optimization in iov_iter_zero rather
-> than hiding it in tmpfs.
+>>>  {
+>>>  	const char *suffix = "-gpio-bank";
+>>>  	struct samsung_pin_bank *bank;
+>>> -	struct device_node *child;
+>>> +	struct fwnode_handle *child;
+>>>  	/* Pin bank names are up to 4 characters */
+>>>  	char node_name[20];
+>>>  	unsigned int i;
+>>> @@ -1038,17 +1037,17 @@ static void samsung_banks_of_node_get(struct device *dev,
+>>>  			continue;
+>>>  		}
+>>>  
+>>> -		for_each_child_of_node(node, child) {
+>>> -			if (!of_find_property(child, "gpio-controller", NULL))
+>>> -				continue;
+>>
+>> This does not look equivalent. There are nodes without this property.
+> 
+> Not sure I understand why not. The macro checks for the property and
+> iterates over nodes that have this property.
+> 
+> Can you elaborate, please?
 
-Let's see what others say.  I think we would all prefer clear_user() to be
-enhanced, and hack around it neither here in tmpfs nor in iov_iter_zero().
-But that careful work won't get done by magic, nor by me.
+Eh, my bad, it is equivalent.
 
-And iov_iter_zero() has to deal with a wider range of possibilities,
-when pulling in cache lines of ZERO_PAGE(0) will be less advantageous,
-than in tmpfs doing a large dd - the case I'm aiming not to regress here
-(tmpfs has been copying ZERO_PAGE(0) like this for years).
+> 
+>>> -			if (of_node_name_eq(child, node_name))
+>>> +		for_each_gpiochip_node(dev, child) {
+>>> +			struct device_node *np = to_of_node(child);
+>>> +
+>>> +			if (of_node_name_eq(np, node_name))
+>>>  				break;
+>>> -			else if (of_node_name_eq(child, bank->name))
+>>> +			if (of_node_name_eq(np, bank->name))
+>>>  				break;
+>>>  		}
+>>
+>> This patch has to wait till someone provides you a tested-by. I might do
+>> it around next week.
+> 
+> Fine with me, I will drop it from my repo for now.
 
-Hugh
+
+Best regards,
+Krzysztof
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
