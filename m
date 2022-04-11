@@ -2,69 +2,72 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4816C4FAD5A
-	for <lists+linux-stm32@lfdr.de>; Sun, 10 Apr 2022 12:47:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BAE884FB1FB
+	for <lists+linux-stm32@lfdr.de>; Mon, 11 Apr 2022 04:51:48 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0AAF6C628AD;
-	Sun, 10 Apr 2022 10:47:30 +0000 (UTC)
-Received: from mout.gmx.net (mout.gmx.net [212.227.15.15])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 67E08C628A2;
+	Mon, 11 Apr 2022 02:51:48 +0000 (UTC)
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com
+ [209.85.216.52])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 699ABC628A8
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7F71BC06F81
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 10 Apr 2022 10:47:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.net;
- s=badeba3b8450; t=1649587640;
- bh=sgguoRaS2TlrebaefUioIyv1Sby/7wOqOhBsg4HrAe4=;
- h=X-UI-Sender-Class:From:To:Cc:Subject:Date:In-Reply-To:References;
- b=aCiKvZRPvrXFmsM57tB/p97dj7WQQK2pKThT5rwUTjjCh0b6nQQQfAtcJEC3XtyDv
- 0TcCvS5WPFDbtzZFl7U9OHo2GGpJR6p8gMahC7/9ZD7RzMYHEibFAu5xRpQRUWSDHx
- A7J8qVqc3DBJu8KjRzgl8ZAzFT6ikKmdQKxDBQqc=
-X-UI-Sender-Class: 01bb95c1-4bf8-414a-932a-4f6e2808ef9c
-Received: from Venus.fritz.box ([46.223.3.230]) by mail.gmx.net (mrgmx005
- [212.227.17.190]) with ESMTPSA (Nemesis) id 1N8GQs-1nzNWa1YlE-014GAc; Sun, 10
- Apr 2022 12:47:20 +0200
-From: Lino Sanfilippo <LinoSanfilippo@gmx.de>
-To: gregkh@linuxfoundation.org, jirislaby@kernel.org,
- u.kleine-koenig@pengutronix.de
-Date: Sun, 10 Apr 2022 12:46:42 +0200
-Message-Id: <20220410104642.32195-10-LinoSanfilippo@gmx.de>
-X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20220410104642.32195-1-LinoSanfilippo@gmx.de>
-References: <20220410104642.32195-1-LinoSanfilippo@gmx.de>
+ Mon, 11 Apr 2022 02:51:46 +0000 (UTC)
+Received: by mail-pj1-f52.google.com with SMTP id
+ md20-20020a17090b23d400b001cb70ef790dso3313761pjb.5
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Sun, 10 Apr 2022 19:51:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=rXMHDZ/wjPIXvL9nqfsrxMZkzmm8UuxVAONDINflarg=;
+ b=AE76w0buips1IavXt8IqZhb/mkmazdyXyCp/cggM8TOunNklvkgT4lSsRzujLmLdE3
+ 476Yi8o85rpPXFHnov+x/BLI3qBaqVaaP6I4k4iLECAwuzFym8qZNIZbEP/WaSKDg6Zg
+ Q3gO1XTRhmNyxHLz71bDze79BuvYZ4M53fsVYrBMjvPRw4FZhhWJB6p04pI8WUQU1wUF
+ VS6JxUiB5uS9NezIa01SRAz5HYjTn9xC4rSa4gCrxokcMgDrVexzZAX9iJXsx6xLW0TK
+ CSo+qBkDUpOfw17IEGKJH3+MaferjZI/1prH9OTR0qLrgBsw9ADJ367gVGLHIl088MBE
+ 6bVQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=rXMHDZ/wjPIXvL9nqfsrxMZkzmm8UuxVAONDINflarg=;
+ b=winSzihd6QafRBND+iT+ieHEN6LSl8iN8943m31teKwz/br7n1BesGtZPPyrKa/drR
+ 4cJApdHy2DBTKb/IL01h/b5F+3weOaXQz7ykzJE27SDgJk74Hvm355DAoc2EqSd1JCEp
+ 0kpvdY8shShKW3/CS0w8CFxJieEmTM4/LAP0sEc+KYPuui2c1WaVPkc0qVbkjhCK7gHr
+ PgAi5sJrkUbwwyRU4sGSN2gSskBCa6Z50LKWwekEFp2G2aAuMdnVg0Emp13eGCKjwHSj
+ W4a2vWro1tSSkgZ+aWPJ7bHXp0xgamco+ZMyiW2RhFwzM2XDrDwMqGy7TdJ+1oJrP1JJ
+ k/og==
+X-Gm-Message-State: AOAM532xrcPaoYJPSvutqfeZyL9/+0Cqn0AAznOaBw5F3p+ATiqtnQcF
+ Assvq4buH/wAqXCB3UIcklElcw==
+X-Google-Smtp-Source: ABdhPJzGVKQR6w8pMxMmb2S23wGUZsQuhLLg7iNaBj4HpD8z37EDF1Ky46L9XugLcAZWFBAiFvYfIA==
+X-Received: by 2002:a17:90b:4a4e:b0:1ca:c996:20dc with SMTP id
+ lb14-20020a17090b4a4e00b001cac99620dcmr35062125pjb.98.1649645505104; 
+ Sun, 10 Apr 2022 19:51:45 -0700 (PDT)
+Received: from localhost ([223.184.83.228]) by smtp.gmail.com with ESMTPSA id
+ d8-20020aa78688000000b00505793566f7sm9440536pfo.211.2022.04.10.19.51.44
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 10 Apr 2022 19:51:44 -0700 (PDT)
+Date: Mon, 11 Apr 2022 08:21:42 +0530
+From: Viresh Kumar <viresh.kumar@linaro.org>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Message-ID: <20220411025142.uhdllnknn232h26f@vireshk-i7>
+References: <20220407143027.294678-1-krzysztof.kozlowski@linaro.org>
 MIME-Version: 1.0
-X-Provags-ID: V03:K1:8ffrXrQsbMz/N6WspPKgXguRr1bS3q5soA6JNcGZo8ZmdFieX+Z
- rUInPwmSnSNMlv73PqUgg1KDGn7ZC6/HPnKic8Nmsb4CPH36Gsu27w3A3RdLQ+Kowzyjrsx
- 76kM0WgH+bgIFRpHMJ81xmdnWoo3tQ2fctNdhXmvNWivxgeANUkn7LNS4h3G0ffypshD9mm
- BfI48+b6l6/ASA4x0nHKg==
-X-Spam-Flag: NO
-X-UI-Out-Filterresults: notjunk:1;V03:K0:4yr4llBWTr4=:n4BWjLga1isj9AecV7NBeI
- xKwlICbnPCXbrQoCerzcmbC4fVzy2YLv/hzlZKxRwnWfOHb/d3ALgEq/jwGtlVvJupZVBXxIU
- +C2jE9y4VUaNkpoKnBQ2P7weK1Kh97sCrkJjuwJMzoztlUVBk9FoACVRVbCO4/tLip2Yu3g+s
- gR6yNXBod1Yv5pGQxT091/uvbsNc+j9rhakYUfELNi1pUvc3K5Gfw7XjtNxexXbGZOUuBLL/6
- q3jO3lEEdoqScf18SNQUGTWzPHM/50wY+P0xVVfJllUOmKuKugs7e3h3OO7VLCkpWPBRKNRs7
- 5aQvfoN5PYNKww3r6uy+jMJsIZhYKx9m+2redZAcB0Up8/v3+EgAVQIwlFUxIbzPGdgZJiGUS
- Be806cz9LYpPDs1hDTNYLPEeU3ifbmFqAdJNv8YCZ6Qx2U42kQnkbYBxUmZvUPDJf7TQ55FOf
- FnUylAbT7bOAAMvRrkvkpQk/+Lo4fjShHSVRHw3pSbBt+EHe8JErC9qVeXsT9hEJohxUWaB3p
- WjTEAsgo4s88A3DtGPGU9dikTu7vfu5K6prfkFzzmMiRUPK8kq4cffUnwwFGNGy1fvy0+eiLt
- d/53+JwjId89FqB9Fg3xLsVIR0lKOMPuw3XRy1YvuQAYv5rNDVNNgRwx3ZqJbzUDmz9sMRS9k
- JlCmiFhx9kqvO2xB8Qh32g8h8sntNFGybSBZH99W4uXD4GWoE6CX1tbaX0lOicq1g7QKuPB4Q
- nXg90uhnd3N09t0MJA/e9bX/XkFa3UTaB05vmeVOUStyVFp+vc4AtDDh1Zgej0APkIJD8tXHg
- rUE7GTLeIprOPSVeaJ8ytMj7ax+olKNLxKxlLs3ruKLYazTWxXr1BpZNC2qloD+F7sJW8jvqG
- TrobolQhmzkyzyu8JN5W7+MP6AU+BnUUO2/FACGXkI2SLnlLlXxNtxxn0Nmvm9SnAwBvvfRKu
- XZo4e0q3w+LWfRVcQOOwwunZ3Rj1SeHNi8PBYsaYAWdYxeelL0/sHHxU3lIxJEfEtmZ5Tfpdo
- V2ayVlii9BsLmAyVRTBMunsjEaTmShGIyys8ueUoyisI1kk+8786Jmlhf6qEij+y+XZwEZJGE
- ymE9qc9IuPA5cA=
-Cc: linux-arm-kernel@lists.infradead.org, alexandre.belloni@bootlin.com,
- mcoquelin.stm32@gmail.com, Lino Sanfilippo <LinoSanfilippo@gmx.de>,
- richard.genoud@gmail.com, festevam@gmail.com, s.hauer@pengutronix.de,
- linux@armlinux.org.uk, nicolas.ferre@microchip.com,
- ludovic.desroches@microchip.com, lukas@wunner.de, linux-imx@nxp.com,
- kernel@pengutronix.de, linux-serial@vger.kernel.org, shawnguo@kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
- p.rosenberger@kunbus.com
-Subject: [Linux-stm32] [PATCH v4 RESEND 9/9] serial: atmel: remove redundant
-	assignment in rs485_config
+Content-Disposition: inline
+In-Reply-To: <20220407143027.294678-1-krzysztof.kozlowski@linaro.org>
+User-Agent: NeoMutt/20180716-391-311a52
+Cc: devicetree@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Arnd Bergmann <arnd@arndb.de>, arm@kernel.org,
+ Viresh Kumar <vireshk@kernel.org>, Bartosz Golaszewski <brgl@bgdev.pl>,
+ Sekhar Nori <nsekhar@ti.com>, linux-kernel@vger.kernel.org, soc@kernel.org,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Olof Johansson <olof@lixom.net>, Shiraz Hashim <shiraz.linux.kernel@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] ARM: dts: align SPI NOR node name with
+	dtschema
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,38 +84,18 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-In uart_set_rs485_config() the serial core already assigns the passed
-serial_rs485 struct to the uart port.
+On 07-04-22, 16:30, Krzysztof Kozlowski wrote:
+> The node names should be generic and SPI NOR dtschema expects "flash".
+> 
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> ---
+>  arch/arm/boot/dts/spear1310-evb.dts              | 2 +-
+>  arch/arm/boot/dts/spear1340-evb.dts              | 2 +-
 
-So remove the assignment from the drivers rs485_config() function to avoid
-redundancy.
+Acked-by: Viresh Kumar <viresh.kumar@linaro.org>
 
-Acked-by: Richard Genoud <richard.genoud@gmail.com>
-Signed-off-by: Lino Sanfilippo <LinoSanfilippo@gmx.de>
----
- drivers/tty/serial/atmel_serial.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
-
-diff --git a/drivers/tty/serial/atmel_serial.c b/drivers/tty/serial/atmel_serial.c
-index 3a45e4fc7993..dd1c7e4bd1c9 100644
---- a/drivers/tty/serial/atmel_serial.c
-+++ b/drivers/tty/serial/atmel_serial.c
-@@ -299,11 +299,9 @@ static int atmel_config_rs485(struct uart_port *port,
- 	/* Resetting serial mode to RS232 (0x0) */
- 	mode &= ~ATMEL_US_USMODE;
- 
--	port->rs485 = *rs485conf;
--
- 	if (rs485conf->flags & SER_RS485_ENABLED) {
- 		dev_dbg(port->dev, "Setting UART to RS485\n");
--		if (port->rs485.flags & SER_RS485_RX_DURING_TX)
-+		if (rs485conf->flags & SER_RS485_RX_DURING_TX)
- 			atmel_port->tx_done_mask = ATMEL_US_TXRDY;
- 		else
- 			atmel_port->tx_done_mask = ATMEL_US_TXEMPTY;
 -- 
-2.35.1
-
+viresh
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
