@@ -2,77 +2,64 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 52F004FB969
-	for <lists+linux-stm32@lfdr.de>; Mon, 11 Apr 2022 12:23:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B89B04FB9AE
+	for <lists+linux-stm32@lfdr.de>; Mon, 11 Apr 2022 12:30:42 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EAD3BC628A2;
-	Mon, 11 Apr 2022 10:23:03 +0000 (UTC)
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6F799C628A2;
+	Mon, 11 Apr 2022 10:30:42 +0000 (UTC)
+Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com
+ [209.85.210.174])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D1FA1C60464
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6AB13C60495
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 11 Apr 2022 10:23:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1649672583; x=1681208583;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=W9PBitEIG3h2GlCxu7zEfN69pBWFXH7+lRg/Bcxe/tU=;
- b=ZC2AF/cQqGnjY0Nl8jXOyt1X+DC9kvD5J9JyFcXXqQPEY/VQI9iR+3y+
- BZBK69/4cxiBqxv2KVmkAAXtonoy7UwiQ0nYGbY3eFXaFP5fGydnJmEVM
- 7V+pIHDTeh5WcRvXynVCAQuyc86fdVWpI5jGQ83zAYewKnUlvlcfAxunS
- qh82tKGwktz2/l37Xql6W9cfBQergipHxxi5o8pNzxMIKDXvhwIAZg/gF
- 9EOzW88CukEcjdJuF5yTVaGrirkMgUOmcFCaK4tMbEyqY0IzKn3tEqPJM
- k8zii7kYDlKjYQ5KLgTAfUIPrIY8SUTALimeVO366mXVvrBV70PSa1fJ/ A==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10313"; a="242670564"
-X-IronPort-AV: E=Sophos;i="5.90,251,1643702400"; d="scan'208";a="242670564"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Apr 2022 03:23:00 -0700
-X-IronPort-AV: E=Sophos;i="5.90,251,1643702400"; d="scan'208";a="525460425"
-Received: from smile.fi.intel.com ([10.237.72.54])
- by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Apr 2022 03:22:52 -0700
-Received: from andy by smile.fi.intel.com with local (Exim 4.95)
- (envelope-from <andriy.shevchenko@linux.intel.com>)
- id 1ndr8Z-001B7S-AA; Mon, 11 Apr 2022 13:19:11 +0300
-Date: Mon, 11 Apr 2022 13:19:11 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Message-ID: <YlQAn9+4kdB0F/4d@smile.fi.intel.com>
-References: <20220401103604.8705-1-andriy.shevchenko@linux.intel.com>
- <20220401103604.8705-10-andriy.shevchenko@linux.intel.com>
- <CAMuHMdX8zWA-3_=Je7sB_72G8Ky7-syqCH-RXGxNMazUipW-2g@mail.gmail.com>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <CAMuHMdX8zWA-3_=Je7sB_72G8Ky7-syqCH-RXGxNMazUipW-2g@mail.gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Cc: Andrew Lunn <andrew@lunn.ch>, Tomer Maimon <tmaimon77@gmail.com>,
- Neil Armstrong <narmstrong@baylibre.com>,
- Linus Walleij <linus.walleij@linaro.org>, Tomasz Figa <tomasz.figa@gmail.com>,
- Tali Perry <tali.perry1@gmail.com>,
- Sylwester Nawrocki <s.nawrocki@samsung.com>,
- linux-stm32@st-md-mailman.stormreply.com, Jerome Brunet <jbrunet@baylibre.com>,
- linux-samsung-soc <linux-samsung-soc@vger.kernel.org>,
- Benjamin Fair <benjaminfair@google.com>, Marc Zyngier <maz@kernel.org>,
- Gregory Clement <gregory.clement@bootlin.com>,
- Krzysztof Kozlowski <krzk@kernel.org>, Nancy Yuen <yuenn@google.com>,
- Bartosz Golaszewski <brgl@bgdev.pl>, Alim Akhtar <alim.akhtar@samsung.com>,
- Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
- Qianggui Song <qianggui.song@amlogic.com>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
- "open list:ARM/Amlogic Meson..." <linux-amlogic@lists.infradead.org>,
- Linux ARM <linux-arm-kernel@lists.infradead.org>,
- Avi Fishman <avifishman70@gmail.com>, Patrick Venture <venture@google.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Linux-Renesas <linux-renesas-soc@vger.kernel.org>,
+ Mon, 11 Apr 2022 10:30:41 +0000 (UTC)
+Received: by mail-pf1-f174.google.com with SMTP id h19so14252075pfv.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 11 Apr 2022 03:30:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:subject:date:message-id;
+ bh=VrMR8gvOFjWxaufbBwSvKiS63Y8OuXOfxSp4uF7zIAw=;
+ b=bynoAbM8exJk1RavUb1cy3mTryf26m1U2TStm4n/kw7GwzM6YE+84/uNbKwfjsoWtY
+ T9Ad79+XdDBOj4YhVgsoRhWpiJg+hu3Mg1N3O6m65iMZUmsNW6+bk4GCrLDfpX52O059
+ mpkL4bf22MXomVHepqv93Mf1CMjAN0nTQdftgaoqSS8zn2fnJBs/qj/HFaRbG2aULQU2
+ zgSpG7JTQQNtlhvCgQ6pZvzHicROL1kSegg+HciTD2M+FPuXJkp0rnCOWX1d/k2au351
+ 0YdDWf4ZSUkT5ETpf7L8mn3kJ2maZoC+4RdBKfrtYuvhflgySZcDVaTzp0XhzL+Yx4rG
+ lyag==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:subject:date:message-id;
+ bh=VrMR8gvOFjWxaufbBwSvKiS63Y8OuXOfxSp4uF7zIAw=;
+ b=xrR1/bFHXUKDq8sLXaFvIL2ryR5M7Fih9JKOveinxL+ygB5I3lermBwo7JNdAC/eGH
+ A0YHEvCmmWG4Xl+CG/r3gS+BuEa9ZPK09oxwIr9M1/citE7fFbFBfqetiKwDUy4d3YPJ
+ BQajU1tHhDi1ygME0VZK0Om5snj/o21DsMr7sJyiufQLpMFLeVcKKdJv7jvhJeqRobYo
+ 5uchwGS8cFE/ptjSffadBM9WFaTW30npL76XKITnliXtRN3J8hWiys35Rp0wNv15mr3T
+ ipshp83rdSCrWQ1+HowoIA6du2qMUI7eCyTQghGexBLv/6HKJDtwFL91lQPVvpp67Rjg
+ 4eOg==
+X-Gm-Message-State: AOAM5338DZS8ZMQXL7zPupxS6vib25gENhIqkD87FaF22wSee9f+aR0I
+ 2HbUj2tL+4J8jKUdKWSt2ME=
+X-Google-Smtp-Source: ABdhPJx0YrCFIkJmWNOPe3U/JuGUNRw8r6HGtDaYdKEXEkFfWj4uwqx3GF4DBIzJEzmlWnwoDkFvmg==
+X-Received: by 2002:a05:6a00:891:b0:4fe:1262:9b4e with SMTP id
+ q17-20020a056a00089100b004fe12629b4emr31867142pfj.21.1649673039947; 
+ Mon, 11 Apr 2022 03:30:39 -0700 (PDT)
+Received: from localhost.localdomain ([159.226.95.43])
+ by smtp.googlemail.com with ESMTPSA id
+ s24-20020a17090a441800b001ca9b5724a6sm19450645pjg.36.2022.04.11.03.30.37
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 11 Apr 2022 03:30:39 -0700 (PDT)
+From: Miaoqian Lin <linmq006@gmail.com>
+To: Jonathan Cameron <jic23@kernel.org>, Lars-Peter Clausen <lars@metafoo.de>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Kevin Hilman <khilman@baylibre.com>, openbmc@lists.ozlabs.org
-Subject: Re: [Linux-stm32] [PATCH v4 09/13] pinctrl: meson: Rename REG_* to
-	MESON_REG_*
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Kees Cook <keescook@chromium.org>, Miaoqian Lin <linmq006@gmail.com>,
+ Philippe Schenker <philippe.schenker@toradex.com>,
+ linux-iio@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Date: Mon, 11 Apr 2022 10:30:27 +0000
+Message-Id: <20220411103032.14038-1-linmq006@gmail.com>
+X-Mailer: git-send-email 2.17.1
+Subject: [Linux-stm32] [PATCH] iio: stmpe-adc: Fix
+	wait_for_completion_timeout return value check
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,33 +71,47 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Apr 11, 2022 at 11:04:00AM +0200, Geert Uytterhoeven wrote:
-> On Fri, Apr 1, 2022 at 12:36 PM Andy Shevchenko
-> <andriy.shevchenko@linux.intel.com> wrote:
-> > Currently compilation test fails on x86 due to name collision. The usual
-> > way to fix that is to move both conflicting parts to their own namespaces.
-> >
-> > Rename REG_* to MESON_REG_* as a prerequisite for enabling COMPILE_TEST.
+wait_for_completion_timeout() returns unsigned long not long.
+it returns 0 if timed out, and positive if completed.
+The check for <= 0 is ambiguous and should be == 0 here
+indicating timeout which is the only error case
 
-> >         NUM_REG,
-> 
-> MESON_NUM_REG?
+Fixes: e813dde6f833 ("iio: stmpe-adc: Use wait_for_completion_timeout")
+Signed-off-by: Miaoqian Lin <linmq006@gmail.com>
+---
+ drivers/iio/adc/stmpe-adc.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Hmm... Only one place where it's defined and used, but I can do it, sure.
-
-$ git grep -n -w NUM_REG
-drivers/pinctrl/meson/pinctrl-meson.h:72:       NUM_REG,
-drivers/pinctrl/meson/pinctrl-meson.h:105:      struct meson_reg_desc regs[NUM_REG];
-
+diff --git a/drivers/iio/adc/stmpe-adc.c b/drivers/iio/adc/stmpe-adc.c
+index d2d405388499..d475d1c17bfc 100644
+--- a/drivers/iio/adc/stmpe-adc.c
++++ b/drivers/iio/adc/stmpe-adc.c
+@@ -61,7 +61,7 @@ struct stmpe_adc {
+ static int stmpe_read_voltage(struct stmpe_adc *info,
+ 		struct iio_chan_spec const *chan, int *val)
+ {
+-	long ret;
++	unsigned long ret;
+ 
+ 	mutex_lock(&info->lock);
+ 
+@@ -79,7 +79,7 @@ static int stmpe_read_voltage(struct stmpe_adc *info,
+ 
+ 	ret = wait_for_completion_timeout(&info->completion, STMPE_ADC_TIMEOUT);
+ 
+-	if (ret <= 0) {
++	if (ret == 0) {
+ 		stmpe_reg_write(info->stmpe, STMPE_REG_ADC_INT_STA,
+ 				STMPE_ADC_CH(info->channel));
+ 		mutex_unlock(&info->lock);
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.17.1
 
 _______________________________________________
 Linux-stm32 mailing list
