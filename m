@@ -2,134 +2,89 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B99214FBBA2
-	for <lists+linux-stm32@lfdr.de>; Mon, 11 Apr 2022 14:05:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A33FE4FBBEE
+	for <lists+linux-stm32@lfdr.de>; Mon, 11 Apr 2022 14:21:04 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 579CBC628A2;
-	Mon, 11 Apr 2022 12:05:39 +0000 (UTC)
-Received: from CHE01-GV0-obe.outbound.protection.outlook.com
- (mail-gv0che01on2133.outbound.protection.outlook.com [40.107.23.133])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 45C90C628A2;
+	Mon, 11 Apr 2022 12:21:04 +0000 (UTC)
+Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com
+ [209.85.218.54])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DACFDC60464
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B219AC60464
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 11 Apr 2022 12:05:37 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=kxbNdyHi8Zyj3QsPBGEnQzRTImpdccqkJRuUXnXDUV0xGpFnZpX0HvMa/fvO0mYIqWVSZz1WHWMg9Ee3cm8WSZ3CqwhFZsirLfRbbxt5MGWG7ivX6VFxgyX6oYf9UL1aEB7ftv9ziYEk5NCfZ8e2qoIKT1JrphtvUovzQKW1gVm5bktADWZmVfrPTR/Dyn/yU/79v/RXu85wQJ84HzHHC40xPwIYBZj02tZNtmreCkTSmFV0HcYg5hjepeF08ysAZValHZwFyOmLn3RwxTJxOorV7TGuYpAezbckQEHK2J41JBp0sVi4zTGw+kJBesm6KBKkMTeFfGWlIp/PotAjFA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kUdgluxbOBy9DTXs/LzzM/sVIrtWZ+mmT1j+BFU9hso=;
- b=SCJHTy73OuFc0POQmeYMkbBh6hudYKd2R3z6udFIca6RKMZCW27bA/0xS5OqePnUJoCt7+jrrQ0iS+lEW5Ztc8+4nvKYFunClC3WZnh1bJ5Fk57SlxNyeVocondKvhaBDrDSmfNk9qABaKv/CaCE9lVh4Cx7ZSTOys6ZXrCQSYfoBcoJ2++FhSQThgOAwL438jk7Ln67ZCcfcRzOu8k1t9bEsqo/HGck+2/IVSosN/h3zX4havqlFuIB0WOqUWocQ8/10fnaSWB4tzSn7dKPPgFe+xX9PCSGlqawjTCgUbPfKGcIZhXA2bjvCNN2Qf3Y3Xyyhcacn+L9gT883dXdPw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=toradex.com; dmarc=pass action=none header.from=toradex.com;
- dkim=pass header.d=toradex.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=toradex.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kUdgluxbOBy9DTXs/LzzM/sVIrtWZ+mmT1j+BFU9hso=;
- b=iB8CaT/sBGuBMHm61Eq17ONDvhlGA8TyfdlzVQ/nNUTKE09uXaO9jPaJ4/ywBi509wiX53pCa0/drlLURVIU6v+TsufIHsS3rfliBfc1bRAqni25fEOUMhfMxEc1sJLS/MU6qAHWAs2JFlJ5s12pwmbE4MF/fDQ+gcc/Vb8k1ic=
-Received: from ZR0P278MB0377.CHEP278.PROD.OUTLOOK.COM (2603:10a6:910:34::14)
- by ZRAP278MB0463.CHEP278.PROD.OUTLOOK.COM (2603:10a6:910:2f::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5144.29; Mon, 11 Apr
- 2022 12:05:36 +0000
-Received: from ZR0P278MB0377.CHEP278.PROD.OUTLOOK.COM
- ([fe80::e9e8:9f72:60fb:764d]) by ZR0P278MB0377.CHEP278.PROD.OUTLOOK.COM
- ([fe80::e9e8:9f72:60fb:764d%3]) with mapi id 15.20.5144.029; Mon, 11 Apr 2022
- 12:05:36 +0000
-From: Philippe Schenker <philippe.schenker@toradex.com>
-To: "alexandre.torgue@foss.st.com" <alexandre.torgue@foss.st.com>,
- "linmq006@gmail.com" <linmq006@gmail.com>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>, "keescook@chromium.org"
- <keescook@chromium.org>, "lars@metafoo.de" <lars@metafoo.de>,
- "jic23@kernel.org" <jic23@kernel.org>, "mcoquelin.stm32@gmail.com"
- <mcoquelin.stm32@gmail.com>, "linux-iio@vger.kernel.org"
- <linux-iio@vger.kernel.org>, "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>, "linux-kernel@vger.kernel.org"
- <linux-kernel@vger.kernel.org>
-Thread-Topic: [PATCH] iio: stmpe-adc: Fix wait_for_completion_timeout return
- value check
-Thread-Index: AQHYTY85OSoU7TvO+UiefovZ9TLxCazqnceA
-Date: Mon, 11 Apr 2022 12:05:36 +0000
-Message-ID: <8b40cdebc07ff7ca29aa9fc03b8d9c40754ab4bd.camel@toradex.com>
-References: <20220411103032.14038-1-linmq006@gmail.com>
-In-Reply-To: <20220411103032.14038-1-linmq006@gmail.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-user-agent: Evolution 3.42.4 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=toradex.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 7f8741d2-8748-4c98-7aa5-08da1bb3967f
-x-ms-traffictypediagnostic: ZRAP278MB0463:EE_
-x-microsoft-antispam-prvs: <ZRAP278MB0463113ADC1BA869AB10822CF4EA9@ZRAP278MB0463.CHEP278.PROD.OUTLOOK.COM>
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: atquCx+hD0DfEr8W3MN/EjbimM1VdJSoOnFktfc2I3zNxRi9q3ynpoqOwG0vGeXx6IpDC4aftSKF4+6ifOT0e+84aaJYJjxMlWRmOJk2uxb1YJp28N48G1QaZs7sjoqC5XHjv7ydJqGVKR6/fgz/2nvna9ETH8gSMeuWK36B8mG62isDARKwW2/C51gjXtfhXRysxrpF8QkKvixsTejLOBW8rioh52EKe/7aSIk89D2/+yDTuXJzfV20rly2h1eSVZfk/dtYxZ6KaOFe6g9v2BnD4eJvR9vfrvrLA/zfbCpeM/HYWj/ffyD5c2sCnpwx/MAwtfbZaxZ6H7ydiMieyNOQw3YRdHmAvES5MJpqELU+tDpr8JzX+xM+DBBPLdVLHrZB6dU//Sg4eefHTPu3XjBwe3SCafaf/+M0QmtZ+Q/afJtVuOmET1MBfHInSNHzr5LxELmJOkbhGkKMCOY9iCDOuDmB4RFEnYg+v49W9EmtFTQeAjO5QKEDGRWRRloymVgNmUGxQgOj5mwJJP6Tvtrwok9EGMoSKTgjUJLI8t8KYb3gO2ZwGZKUXxsdU0XFvFkiYHuNf9SlnJW+1x+RSy6l6oeSWFx4ouLNvcYHvVhfLDT9TPlAktJOVM4/rq5QP6i7tVZn9f/TnvrGvVI17FCAsiEPW4wzILzqo+x4W1xkAWQsT51G+Rkd7tc1yuH7f6EX6GumXfEsJ7LdMrpsFuG2HbQRYpCBVHQWJpfAr7c=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:ZR0P278MB0377.CHEP278.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(136003)(346002)(396003)(376002)(39850400004)(366004)(66446008)(38100700002)(122000001)(64756008)(86362001)(8676002)(6486002)(66946007)(2616005)(508600001)(38070700005)(71200400001)(76116006)(8936002)(921005)(66476007)(110136005)(66556008)(316002)(2906002)(6506007)(44832011)(6512007)(83380400001)(26005)(186003)(7416002)(5660300002)(36756003);
- DIR:OUT; SFP:1102; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?ZHVMWHpIcXhBQ3Z0dDBWcnk0b0ZPT2JCWXY2RjJ1YndXYzd5R3pFa1M3LzVs?=
- =?utf-8?B?USt4TGtjZlBRZ09FRjIvQ3RFUGJnaElhSWt1d2hXaWl4c1QyNEc4cE1vNE5D?=
- =?utf-8?B?OWh4eGV5OUlzVE5ORlJURkQ2ZmZIVldYR25MTVZUTE5NdThSZjUwMkU0ZW5s?=
- =?utf-8?B?Y2FOU1kzTTFXUWVIT2I5MUttZ09iYXZTTjd5VVduQTdLaUxBUzMzVTdwTWlw?=
- =?utf-8?B?SVdxTWhEaTlURTRlaHl6RGZQaFRVMktaOVZXRXJONHl6N0lFeE9LVU1odEFV?=
- =?utf-8?B?cXU3WThkSEJZUkxPcWRVZ1hudlg0TjJxcmcyNUZBWGcxS3BuV0YvRDZqMi85?=
- =?utf-8?B?UWZob0l4eVpLZFpiV3FsVVBFdy9DMEVJTm9IMHNqUUtQRFJhTEwrcjZtY0lG?=
- =?utf-8?B?SGErYW9QRkVCU2pzTktmY2JrUjJOVDJCaUh3dlNJQ0tMOVlHUENXT2xaUVRu?=
- =?utf-8?B?QmIwL3lpclV4ZGc4dVJkYlV0UDBTUnhxT2pZTFk5U0RSRVlYbUZ1TlllTHJt?=
- =?utf-8?B?UVVEYnBFdzdiWW10RDR0LzdlaERWVTRrZzhPM3JOTUFqclhIODY0c0Nxd25j?=
- =?utf-8?B?NTZBb1VDbHBDNTBwTEhVZ1hOMTY2Sy9jbzZkaFJ4NzRickVWVm4rcGpGMkxB?=
- =?utf-8?B?VXI5Z1I4VzdMUVl5S1VPZUtaaUZydzNQMXlsUWNWNEZGdzVXS0JKaUoxQlZN?=
- =?utf-8?B?dzBGRXRSZk8wbmkrbG5Zd1o0MiszdFVVNjZQUlVPQWhnQ0R4OEJlQjhKTFc5?=
- =?utf-8?B?bTVXd0JHU2o5Y1pMczNKQTJENm5EdFFjZTBxSlc0RXdsMGFBdFBCcXJjZjNY?=
- =?utf-8?B?OVZoV1ZiNnNQYVdCNXFtT3JEK01nUW5WbzB6RithbGd1VThSQ2N1NUV6VkZj?=
- =?utf-8?B?Nko3YTZNem1lNFlFT1BrMHdDWkZab1lCbnZmWUU0Y2FpOThieStienk1Nk1I?=
- =?utf-8?B?emJxR2JMTU1FRGZNQ0ZGMnY4Kzgvb1B4NnpoYWkrTEZGOCsyaXZ6QVBvaTBn?=
- =?utf-8?B?NGVOa05XelViT011TmJmMCtiSjBjQWNXRXpydEYwOWRtRVR6VmphSFJrUjJP?=
- =?utf-8?B?T2FoUXQ1Q2J3Z1F0ZTY4RmZFbGN0WDFIbHN3MU1haXBwQ2JuTlZ0YzdlRnJC?=
- =?utf-8?B?NXRzajBIeWtub2dUekpScFNZMVZ2SXA2SG5vU29mR2N5Q3ltN2pxWENsRlFz?=
- =?utf-8?B?ZlpyMUxjOTBHRnd0UHN4Uld0Qkx4cjBXV01jL2ZONDRnZEk4TWtNVGRseGVW?=
- =?utf-8?B?Y0R0Tm9mT3NaN3RoNlp2SUxXN1JhNTYzeFh0Wkh0QWY2U2xLZnVzajUvMDB4?=
- =?utf-8?B?R1FraXNQUzh1dFZ5dXlrQjIyY1Vua1g1QUo1OS9CL0FKRE1BMVlZdWxzbTdx?=
- =?utf-8?B?WllycFhON2hTSURuTDNQTFBoK1ZlMzBLTW1rOVM2QnFXTlZqV1pQOVU1eUpJ?=
- =?utf-8?B?OXVTVEgvU0NsODg3MlR6T0piRXBaOXFKQVkwcFduT1F5Zi9xL1krSXI0cWFI?=
- =?utf-8?B?SUU0anBOM2VTRzRvTXlUWWpPTWJ5U2pkeVdZaXJnWTlzQlp0SHoxOWFITnZB?=
- =?utf-8?B?OUhiRWovd1Q5SUROOEVwZFdiSldQUjNyMjgzdlVIL3BJNUs5RStmM3B1L3B3?=
- =?utf-8?B?TFdYZ3ErMEQ2Z0FHNStCdnVhdEJFYko3VVVYNkdUZndlTG1xQ0FWL09SUGdx?=
- =?utf-8?B?N0hNR3pxWGthZmY4UjFsdlA3STB4cVZIMGNCcTVYdVpGbVpobW9RaDhDTGNY?=
- =?utf-8?B?VHZMY0VwaWRhcnFtTkMvSktjNzVxaTZkVHl0OVhKVHdCQittaDlCMkVIQjBN?=
- =?utf-8?B?RkdwbVRMZ2ZnTU1iY1FXb0I2SGhGNVhBM0RGRDg1UVZiRTJVZFVZTW0wMGU2?=
- =?utf-8?B?WDZxWEtpOUphNDNDanMyNG45L2ZMcHloMTU5SVZGV1pKS3pUQ1B6MjBNVFFi?=
- =?utf-8?B?c2I0QnpxS2Y4UUdEZk9iVkpZUERWTkZqUVBZSVZzSXg1N2lQNkF0MG9CTjVD?=
- =?utf-8?B?N2w2Vlpka0RQQ1ZBSFE0aWptQ0pzWkhaQm9hOVlWbWpnWHBtMnpVS3hIaUpH?=
- =?utf-8?B?SVRuMS9GWGFyZzdJUzR0akdJUFllM2VjR1RoT3o4bHhxdEo4T0NBd2w0ckZE?=
- =?utf-8?B?MWhMU3Zsc3ZyTWNUdWMrRnhINXovb1h0U0xoTjN1Kzg0aEo1eVNWUlRTNlRp?=
- =?utf-8?B?V0EwVXN1YndtcndLdGJyQ3VuRUcySkFpbE54SGFVOEhqQ2dxQm50WXMxS2tN?=
- =?utf-8?B?Smt3MnhZV2xoUWRZUmh5dmZHbllZVkJWL1dUMGQ4QXdYMmowUkF1eFY1VGRZ?=
- =?utf-8?B?YUszN2dXbTVyZ0lTMlRJdmlBeW5yTzREcjlFMUMrNU1VU3ZmdWZZU2YyMTIv?=
- =?utf-8?Q?RpaldQU1NGZc3H90OczLhd3bU+8yqOU4HWmF2?=
-Content-ID: <C7F31950D8C1F74BA7D2B61A6D3D8498@CHEP278.PROD.OUTLOOK.COM>
+ Mon, 11 Apr 2022 12:21:02 +0000 (UTC)
+Received: by mail-ej1-f54.google.com with SMTP id u15so11816313ejf.11
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 11 Apr 2022 05:21:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :cc:references:from:in-reply-to:content-transfer-encoding;
+ bh=RWDiMWfhIWr53FwXEogy4euvp8PAvtGehm8/baIndcM=;
+ b=zQpR9VZ+woJvNm5syngZCOBKwr61vOpjGU9a4vz+/8zEiU57r4DunLKIktFy6+XJOY
+ rHZC+TmG68NnXuKeXCGRNoJeyGNbsVWhdcjj8WjAsQmCLb4dp9ysubH/dHqKRovadDlE
+ x0FujnVPvMz5nyYyxT98DpK2RyMqbKeKIRRCABEm5v7fsb6W1u/w7QXoWMSngRY7jIUU
+ /xCqP+AYXVqsQ7sRPyRMuRJ8u3OLMMY2bW9p+5wjBVlXXpB9t3DLN0Q/W6xBPK/3c8rc
+ dQwFZ0V/hsyYTs9Gaw8hhxTMrAnzyuZltzbKevnbBsYWBfIwY1tDyOAd1jRHFX4Q5IKY
+ qvTQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=RWDiMWfhIWr53FwXEogy4euvp8PAvtGehm8/baIndcM=;
+ b=mGKQYkAYykdDXcF+UMS/hQ9g/qCOf/y4t/+f4jDe5w9HbXXX0VkDKeW60Y5fzA0zqf
+ u861xMeeR+NhD9YnJwNKj7hdbEOWKnTas6g7wr3cnCY0UiQgFCF+mRllPUUhlf1NvjxT
+ ahIlXQae5HzuuvT7Xlr5FRKURF7fNLgrWKPTYurDoHvKCumMIDjXs2Sqnrjvbw0x1hkR
+ jm+msmbXT/BJcEOszNSdJlmc0x7lX6DvTH4XVjo44spcD6x/dC58s0Ehg8yjSXjaDHUi
+ 8vS6VMzM+hWa73e3/P28pyfGfXCAJj55EeCgjOrcuUkIqYUwiJwOoQD59R8OtaT89vRS
+ GnaQ==
+X-Gm-Message-State: AOAM530hjYKIN/+Gi47yI++gN09xwCt7AcLAs2uqTcLD7mFHbA9B/Xy5
+ MUV5ABl6cCry7rnjHejt2kIL4Q==
+X-Google-Smtp-Source: ABdhPJzoWPcAyK9l16OvBAmj/RtOilX6prVo8h/I1VXPgagIcmmB9cRqHlnw49UNvIPQhNfGzSvvNA==
+X-Received: by 2002:a17:906:68c2:b0:6b4:9f26:c099 with SMTP id
+ y2-20020a17090668c200b006b49f26c099mr30356381ejr.41.1649679662257; 
+ Mon, 11 Apr 2022 05:21:02 -0700 (PDT)
+Received: from [192.168.0.192] (xdsl-188-155-201-27.adslplus.ch.
+ [188.155.201.27]) by smtp.gmail.com with ESMTPSA id
+ w6-20020a170906d20600b006ca00cb99e0sm11790596ejz.34.2022.04.11.05.21.00
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 11 Apr 2022 05:21:01 -0700 (PDT)
+Message-ID: <4513324d-3dba-fd21-2a7f-9f1b9ef535cc@linaro.org>
+Date: Mon, 11 Apr 2022 14:21:00 +0200
 MIME-Version: 1.0
-X-OriginatorOrg: toradex.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: ZR0P278MB0377.CHEP278.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7f8741d2-8748-4c98-7aa5-08da1bb3967f
-X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Apr 2022 12:05:36.3286 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: d9995866-0d9b-4251-8315-093f062abab4
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: ihLUaI9c8kdLUwW0VrVQ4HCmz1mP3RvEdvoKePAzVh4eoGA51rFDo9beHIebVwgIdKGPoerHcjKshqkusdPUZdAK0D40+Yvv5oGuahtfGJA=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZRAP278MB0463
-Subject: Re: [Linux-stm32] [PATCH] iio: stmpe-adc: Fix
- wait_for_completion_timeout return value check
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.7.0
+Content-Language: en-US
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Qianggui Song <qianggui.song@amlogic.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>, Marc Zyngier <maz@kernel.org>,
+ Fabien Dessenne <fabien.dessenne@foss.st.com>,
+ Linus Walleij <linus.walleij@linaro.org>, linux-gpio@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
+ linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org,
+ linux-renesas-soc@vger.kernel.org, linux-samsung-soc@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com
+References: <20220401103604.8705-1-andriy.shevchenko@linux.intel.com>
+ <20220401103604.8705-6-andriy.shevchenko@linux.intel.com>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20220401103604.8705-6-andriy.shevchenko@linux.intel.com>
+Cc: Andrew Lunn <andrew@lunn.ch>, Tomer Maimon <tmaimon77@gmail.com>,
+ Neil Armstrong <narmstrong@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Kevin Hilman <khilman@baylibre.com>,
+ Gregory Clement <gregory.clement@bootlin.com>,
+ Tomasz Figa <tomasz.figa@gmail.com>, Tali Perry <tali.perry1@gmail.com>,
+ Avi Fishman <avifishman70@gmail.com>, Bartosz Golaszewski <brgl@bgdev.pl>,
+ Benjamin Fair <benjaminfair@google.com>,
+ Sylwester Nawrocki <s.nawrocki@samsung.com>,
+ Patrick Venture <venture@google.com>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Alim Akhtar <alim.akhtar@samsung.com>,
+ Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
+ Nancy Yuen <yuenn@google.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Jerome Brunet <jbrunet@baylibre.com>
+Subject: Re: [Linux-stm32] [PATCH v4 05/13] pinctrl: samsung: Switch to use
+ for_each_gpiochip_node() helper
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -141,41 +96,34 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gTW9uLCAyMDIyLTA0LTExIGF0IDEwOjMwICswMDAwLCBNaWFvcWlhbiBMaW4gd3JvdGU6DQo+
-IHdhaXRfZm9yX2NvbXBsZXRpb25fdGltZW91dCgpIHJldHVybnMgdW5zaWduZWQgbG9uZyBub3Qg
-bG9uZy4NCj4gaXQgcmV0dXJucyAwIGlmIHRpbWVkIG91dCwgYW5kIHBvc2l0aXZlIGlmIGNvbXBs
-ZXRlZC4NCj4gVGhlIGNoZWNrIGZvciA8PSAwIGlzIGFtYmlndW91cyBhbmQgc2hvdWxkIGJlID09
-IDAgaGVyZQ0KPiBpbmRpY2F0aW5nIHRpbWVvdXQgd2hpY2ggaXMgdGhlIG9ubHkgZXJyb3IgY2Fz
-ZQ0KDQpIZWxsbyBhbmQgdGhhbmtzIGZvciB5b3VyIGZpeC4gQW55IHNwZWNpZmljIHJlYXNvbiB5
-b3UgZGlkbid0IGFwcGx5IHRoaXMNCmFsc28gaW4gZnVuY3Rpb24gc3RtcGVfcmVhZF90ZW1wPw0K
-DQpQaGlsaXBwZQ0KDQo+IA0KPiBGaXhlczogZTgxM2RkZTZmODMzICgiaWlvOiBzdG1wZS1hZGM6
-IFVzZQ0KPiB3YWl0X2Zvcl9jb21wbGV0aW9uX3RpbWVvdXQiKQ0KPiBTaWduZWQtb2ZmLWJ5OiBN
-aWFvcWlhbiBMaW4gPGxpbm1xMDA2QGdtYWlsLmNvbT4NCj4gLS0tDQo+IMKgZHJpdmVycy9paW8v
-YWRjL3N0bXBlLWFkYy5jIHwgNCArKy0tDQo+IMKgMSBmaWxlIGNoYW5nZWQsIDIgaW5zZXJ0aW9u
-cygrKSwgMiBkZWxldGlvbnMoLSkNCj4gDQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2lpby9hZGMv
-c3RtcGUtYWRjLmMgYi9kcml2ZXJzL2lpby9hZGMvc3RtcGUtYWRjLmMNCj4gaW5kZXggZDJkNDA1
-Mzg4NDk5Li5kNDc1ZDFjMTdiZmMgMTAwNjQ0DQo+IC0tLSBhL2RyaXZlcnMvaWlvL2FkYy9zdG1w
-ZS1hZGMuYw0KPiArKysgYi9kcml2ZXJzL2lpby9hZGMvc3RtcGUtYWRjLmMNCj4gQEAgLTYxLDcg
-KzYxLDcgQEAgc3RydWN0IHN0bXBlX2FkYyB7DQo+IMKgc3RhdGljIGludCBzdG1wZV9yZWFkX3Zv
-bHRhZ2Uoc3RydWN0IHN0bXBlX2FkYyAqaW5mbywNCj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqBzdHJ1Y3QgaWlvX2NoYW5fc3BlYyBjb25zdCAqY2hhbiwgaW50ICp2YWwpDQo+IMKg
-ew0KPiAtwqDCoMKgwqDCoMKgwqBsb25nIHJldDsNCj4gK8KgwqDCoMKgwqDCoMKgdW5zaWduZWQg
-bG9uZyByZXQ7DQo+IMKgDQo+IMKgwqDCoMKgwqDCoMKgwqBtdXRleF9sb2NrKCZpbmZvLT5sb2Nr
-KTsNCj4gwqANCj4gQEAgLTc5LDcgKzc5LDcgQEAgc3RhdGljIGludCBzdG1wZV9yZWFkX3ZvbHRh
-Z2Uoc3RydWN0IHN0bXBlX2FkYw0KPiAqaW5mbywNCj4gwqANCj4gwqDCoMKgwqDCoMKgwqDCoHJl
-dCA9IHdhaXRfZm9yX2NvbXBsZXRpb25fdGltZW91dCgmaW5mby0+Y29tcGxldGlvbiwNCj4gU1RN
-UEVfQURDX1RJTUVPVVQpOw0KPiDCoA0KPiAtwqDCoMKgwqDCoMKgwqBpZiAocmV0IDw9IDApIHsN
-Cj4gK8KgwqDCoMKgwqDCoMKgaWYgKHJldCA9PSAwKSB7DQo+IMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgc3RtcGVfcmVnX3dyaXRlKGluZm8tPnN0bXBlLCBTVE1QRV9SRUdfQURDX0lO
-VF9TVEEsDQo+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqBTVE1QRV9BRENfQ0goaW5mby0+Y2hhbm5lbCkpOw0KPiDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoG11dGV4X3VubG9jaygmaW5mby0+bG9jayk7DQoNCl9f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMy
-IG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0
-dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4
-LXN0bTMyCg==
+On 01/04/2022 12:35, Andy Shevchenko wrote:
+> Switch the code to use for_each_gpiochip_node() helper.
+> 
+> While at it, in order to avoid additional churn in the future,
+> switch to fwnode APIs where it makes sense.
+> 
+> Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+> ---
+>  drivers/pinctrl/samsung/pinctrl-exynos.c  |  8 +++---
+>  drivers/pinctrl/samsung/pinctrl-s3c24xx.c |  2 +-
+>  drivers/pinctrl/samsung/pinctrl-s3c64xx.c |  4 +--
+>  drivers/pinctrl/samsung/pinctrl-samsung.c | 30 +++++++++++------------
+>  drivers/pinctrl/samsung/pinctrl-samsung.h |  2 +-
+>  5 files changed, 22 insertions(+), 24 deletions(-)
+> 
+
+
+Tested-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+
+
+Best regards,
+Krzysztof
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
