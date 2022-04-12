@@ -2,67 +2,51 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 59E7A4FCC05
-	for <lists+linux-stm32@lfdr.de>; Tue, 12 Apr 2022 03:56:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 308614FCD38
+	for <lists+linux-stm32@lfdr.de>; Tue, 12 Apr 2022 05:40:16 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 18D93C628AD;
-	Tue, 12 Apr 2022 01:56:41 +0000 (UTC)
-Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com
- [209.85.215.178])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DEDC0C628AD;
+	Tue, 12 Apr 2022 03:40:15 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8F17EC5F1FB
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1F0A8C5F1FB
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 12 Apr 2022 01:56:39 +0000 (UTC)
-Received: by mail-pg1-f178.google.com with SMTP id u2so515364pgq.10
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 11 Apr 2022 18:56:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:subject:date:message-id:in-reply-to:references;
- bh=sM5FjahbxiDWtBMcPGoH6sjK50a41Jzz6Kf8kK5IDIA=;
- b=Vb/IP0/ckbo8JnxvOIqofc/GCxVL5OwLwa2/kVvlfWhHBj5G7Byk5xMS+tct28pghZ
- TjiX3jRqDNqNJRMws9ao6amJT7UsZ34eigDIyTwmZMS7Ni61Mi/olKMbLZdYFvQxdj42
- 57TwBOzAz7v5OFbDeALkA+a0kLtLFJJcN5kmFvgTZR5LrhWchnZNNsKENwWvJshWtCl6
- AtCcacnD6C2Oi/X8J77PhIIFq2QSY09G/tzc/a16o6RnMxR4amjp6NXs7RcKSBab8wzG
- FOcfqhL/QCvsohG7Vzqypqru1DVwekKsExWvYpZgT/dYWMf34rGB4kQSUED4UgIscY3w
- bmaw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:subject:date:message-id:in-reply-to
- :references;
- bh=sM5FjahbxiDWtBMcPGoH6sjK50a41Jzz6Kf8kK5IDIA=;
- b=n+HF2fIhjs6RGhuRnJVwFHKu2x5JNwwkgzQTXmlkQJuiuKpznqxGVqN7XcTb5KIlss
- OhE/qpPCMds7N+jXk9hifzyV/ifEO/vAOiemDmRGK9cRQ5OYGB5woTER3Qf1ypfVBHJf
- Sz/6mlozvj/iOqoOBss1gonkQiW7e9I0FEbgF/ok5BGdVoMXcV5KJOKTsZd+fCrc1wCP
- ZZOeXA3BUbOyv6PsMHot3tGmuQVRy3zthwb0dQFu/nOejfuPkF2kYlA16XROBCHWwNdQ
- cG1W9I0SX0ix/9g1h9KUOOf2seS6T3Pf94Sk20pQDiZvplejY9Oyq+zBSPQBR4DTzDUx
- 4KDQ==
-X-Gm-Message-State: AOAM530kEyxLdnNNSggG4y6YTH8ubbdTqpfh6WHmAKZREoAVRznCrXAJ
- sWj4pZi74R2J6REh/FD/Szo=
-X-Google-Smtp-Source: ABdhPJxaKYnF/FBKWSQfNDG/CffffK+XXw6W3BSTU7WQBeJ+uvZ16E1x2om5zLruk4LPuCuEc+5eJg==
-X-Received: by 2002:a63:140f:0:b0:399:3005:baf5 with SMTP id
- u15-20020a63140f000000b003993005baf5mr29409036pgl.193.1649728598072; 
- Mon, 11 Apr 2022 18:56:38 -0700 (PDT)
-Received: from localhost.localdomain ([159.226.95.43])
- by smtp.googlemail.com with ESMTPSA id
- gn21-20020a17090ac79500b001ca3c37af65sm746815pjb.21.2022.04.11.18.56.34
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 11 Apr 2022 18:56:37 -0700 (PDT)
-From: Miaoqian Lin <linmq006@gmail.com>
-To: Jonathan Cameron <jic23@kernel.org>, Lars-Peter Clausen <lars@metafoo.de>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Kees Cook <keescook@chromium.org>, Miaoqian Lin <linmq006@gmail.com>,
- Philippe Schenker <philippe.schenker@toradex.com>,
- linux-iio@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Date: Tue, 12 Apr 2022 01:55:42 +0000
-Message-Id: <20220412015547.4137-1-linmq006@gmail.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <60e67c07-7e40-4187-a90a-1be9acdfe757@gmail.com>
-References: <60e67c07-7e40-4187-a90a-1be9acdfe757@gmail.com>
-Subject: [Linux-stm32] [PATCH v2] iio: stmpe-adc: Fix
-	wait_for_completion_timeout return value check
+ Tue, 12 Apr 2022 03:40:14 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 683BEB81A93;
+ Tue, 12 Apr 2022 03:40:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id B934CC385AE;
+ Tue, 12 Apr 2022 03:40:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1649734811;
+ bh=QSsKy83Tm0f2ZZsihBg96iw58bRZQn7S4W9PNzeh6IU=;
+ h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
+ b=NxtyIYEfueBaHbM2MfB0w9z9bqeoYdVe4N7T0pIWDfo3db0loc10hklAXeu7IqXHq
+ E1oahx3XM2qt4aJwziCkzRp9iCoSeE4ILLvDk7tGS1YNh0g2wFfgAIbjhdK7rdave+
+ OgMKkzMHKd71phnAwvEvZwDk2xEFofUXQFs6YGv62NhufhyECL0ugAGGKTRqv3SOu3
+ u7bf+Lge3+xJD/67kDljEw+ouUB2XelIVyw8tpTsrbauROWPbmES5ev0DuhtR4kS5A
+ hkxIcCMiz8nqYImM4EFI0AaNPsn/D2dF3xzfeqEQZN/CLkJsw0OeJv20cKKYPyNyxt
+ ZOGtifyQm5u2Q==
+Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
+ A1D2BE8DBD1; Tue, 12 Apr 2022 03:40:11 +0000 (UTC)
+MIME-Version: 1.0
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: <164973481165.21815.4242211129127788144.git-patchwork-notify@kernel.org>
+Date: Tue, 12 Apr 2022 03:40:11 +0000
+References: <20220408081250.2494588-1-chi.minghao@zte.com.cn>
+In-Reply-To: <20220408081250.2494588-1-chi.minghao@zte.com.cn>
+To: CGEL <cgel.zte@gmail.com>
+Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org, zealci@zte.com.cn,
+ chi.minghao@zte.com.cn, linux-stm32@st-md-mailman.stormreply.com,
+ joabreu@synopsys.com, kuba@kernel.org, peppe.cavallaro@st.com,
+ davem@davemloft.net, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] net: stmmac: using
+ pm_runtime_resume_and_get instead of pm_runtime_get_sync
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,68 +58,36 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-wait_for_completion_timeout() returns unsigned long not long.
-it returns 0 if timed out, and positive if completed.
-The check for <= 0 is ambiguous and should be == 0 here
-indicating timeout which is the only error case
+Hello:
 
-Fixes: e813dde6f833 ("iio: stmpe-adc: Use wait_for_completion_timeout")
-Signed-off-by: Miaoqian Lin <linmq006@gmail.com>
----
-changes in v2:
-- Fix same issue in stmpe_read_temp.
----
- drivers/iio/adc/stmpe-adc.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+This patch was applied to netdev/net-next.git (master)
+by Jakub Kicinski <kuba@kernel.org>:
 
-diff --git a/drivers/iio/adc/stmpe-adc.c b/drivers/iio/adc/stmpe-adc.c
-index d2d405388499..83e0ac4467ca 100644
---- a/drivers/iio/adc/stmpe-adc.c
-+++ b/drivers/iio/adc/stmpe-adc.c
-@@ -61,7 +61,7 @@ struct stmpe_adc {
- static int stmpe_read_voltage(struct stmpe_adc *info,
- 		struct iio_chan_spec const *chan, int *val)
- {
--	long ret;
-+	unsigned long ret;
- 
- 	mutex_lock(&info->lock);
- 
-@@ -79,7 +79,7 @@ static int stmpe_read_voltage(struct stmpe_adc *info,
- 
- 	ret = wait_for_completion_timeout(&info->completion, STMPE_ADC_TIMEOUT);
- 
--	if (ret <= 0) {
-+	if (ret == 0) {
- 		stmpe_reg_write(info->stmpe, STMPE_REG_ADC_INT_STA,
- 				STMPE_ADC_CH(info->channel));
- 		mutex_unlock(&info->lock);
-@@ -96,7 +96,7 @@ static int stmpe_read_voltage(struct stmpe_adc *info,
- static int stmpe_read_temp(struct stmpe_adc *info,
- 		struct iio_chan_spec const *chan, int *val)
- {
--	long ret;
-+	unsigned long ret;
- 
- 	mutex_lock(&info->lock);
- 
-@@ -114,7 +114,7 @@ static int stmpe_read_temp(struct stmpe_adc *info,
- 
- 	ret = wait_for_completion_timeout(&info->completion, STMPE_ADC_TIMEOUT);
- 
--	if (ret <= 0) {
-+	if (ret == 0) {
- 		mutex_unlock(&info->lock);
- 		return -ETIMEDOUT;
- 	}
+On Fri,  8 Apr 2022 08:12:50 +0000 you wrote:
+> From: Minghao Chi <chi.minghao@zte.com.cn>
+> 
+> Using pm_runtime_resume_and_get is more appropriate
+> for simplifing code
+> 
+> Reported-by: Zeal Robot <zealci@zte.com.cn>
+> Signed-off-by: Minghao Chi <chi.minghao@zte.com.cn>
+> 
+> [...]
+
+Here is the summary with links:
+  - net: stmmac: using pm_runtime_resume_and_get instead of pm_runtime_get_sync
+    https://git.kernel.org/netdev/net-next/c/e2d0acd40c87
+
+You are awesome, thank you!
 -- 
-2.17.1
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
 
 _______________________________________________
 Linux-stm32 mailing list
