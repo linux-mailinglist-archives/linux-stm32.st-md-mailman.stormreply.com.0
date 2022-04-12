@@ -2,69 +2,67 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E98E14FBFB9
-	for <lists+linux-stm32@lfdr.de>; Mon, 11 Apr 2022 16:59:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 59E7A4FCC05
+	for <lists+linux-stm32@lfdr.de>; Tue, 12 Apr 2022 03:56:41 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A1F24C628A6;
-	Mon, 11 Apr 2022 14:59:28 +0000 (UTC)
-Received: from mail-qk1-f178.google.com (mail-qk1-f178.google.com
- [209.85.222.178])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 18D93C628AD;
+	Tue, 12 Apr 2022 01:56:41 +0000 (UTC)
+Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com
+ [209.85.215.178])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 771A3C60495
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8F17EC5F1FB
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 11 Apr 2022 14:59:27 +0000 (UTC)
-Received: by mail-qk1-f178.google.com with SMTP id bk12so10814465qkb.7
+ Tue, 12 Apr 2022 01:56:39 +0000 (UTC)
+Received: by mail-pg1-f178.google.com with SMTP id u2so515364pgq.10
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 11 Apr 2022 07:59:27 -0700 (PDT)
+ Mon, 11 Apr 2022 18:56:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:subject:date:message-id:in-reply-to:references;
+ bh=sM5FjahbxiDWtBMcPGoH6sjK50a41Jzz6Kf8kK5IDIA=;
+ b=Vb/IP0/ckbo8JnxvOIqofc/GCxVL5OwLwa2/kVvlfWhHBj5G7Byk5xMS+tct28pghZ
+ TjiX3jRqDNqNJRMws9ao6amJT7UsZ34eigDIyTwmZMS7Ni61Mi/olKMbLZdYFvQxdj42
+ 57TwBOzAz7v5OFbDeALkA+a0kLtLFJJcN5kmFvgTZR5LrhWchnZNNsKENwWvJshWtCl6
+ AtCcacnD6C2Oi/X8J77PhIIFq2QSY09G/tzc/a16o6RnMxR4amjp6NXs7RcKSBab8wzG
+ FOcfqhL/QCvsohG7Vzqypqru1DVwekKsExWvYpZgT/dYWMf34rGB4kQSUED4UgIscY3w
+ bmaw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=yUq/l2eFC4o7PuogV4g6ysQ8qWlSny+TA+UhI++mHfU=;
- b=BuIot4f6c2bqSv5AeJWp/50g9dHg9FF+x3qZ5vYIlv1gFSuBVJmz7YdtDKIvD0FuoM
- 2kKGiStC5IL2y0Q2Ty9/VmyuUq/uaVAxEf5C31RD19kNTlQTR0a9cRlQy5mJTUYuapjd
- tlPuqGELDz5QXrz2LnvbkBAK+B/QfIf4ILxW+CW0ob/u51A8XFvC7MxM9WZpOEu76plP
- +wYRJAP1l++CIGY95fNFk84IwXZw8Sh+t41ihdYQQFqyer0uClkqiKDSOiqeGXyjqEYO
- NqKMK7zmwY7R94aob+JNum2R7XSq+BTsE2lsvzBdC6SHmaB4MvwsVSvPlfnafXTdhaX5
- RSiQ==
-X-Gm-Message-State: AOAM530PGuBGF+zdlX2O6zWRurNxcyRPCsLQpINlqa0SwscIYfyGZRY3
- WeTHr6z813Bh7RagFxEGYYSSAoRZlx6QkA==
-X-Google-Smtp-Source: ABdhPJwhILEjJktyAvyHL4IxmyJffAlMeqAMhJUCy493I5XKoLtnVOwG20T2t5gKmV8Dp+tzCB6RaA==
-X-Received: by 2002:a05:620a:410b:b0:69c:2f6:f050 with SMTP id
- j11-20020a05620a410b00b0069c02f6f050mr6536638qko.284.1649689165789; 
- Mon, 11 Apr 2022 07:59:25 -0700 (PDT)
-Received: from mail-yw1-f174.google.com (mail-yw1-f174.google.com.
- [209.85.128.174]) by smtp.gmail.com with ESMTPSA id
- d15-20020a05622a15cf00b002ef31d86837sm1291580qty.55.2022.04.11.07.59.25
- for <linux-stm32@st-md-mailman.stormreply.com>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 11 Apr 2022 07:59:25 -0700 (PDT)
-Received: by mail-yw1-f174.google.com with SMTP id
- 00721157ae682-2ec05db3dfbso47412417b3.7
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 11 Apr 2022 07:59:25 -0700 (PDT)
-X-Received: by 2002:a81:3d81:0:b0:2eb:8069:5132 with SMTP id
- k123-20020a813d81000000b002eb80695132mr26323646ywa.438.1649689164877; Mon, 11
- Apr 2022 07:59:24 -0700 (PDT)
-MIME-Version: 1.0
-References: <20220408122636.505737-1-valentin.caron@foss.st.com>
- <20220408122636.505737-4-valentin.caron@foss.st.com>
-In-Reply-To: <20220408122636.505737-4-valentin.caron@foss.st.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Mon, 11 Apr 2022 16:59:13 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdWD8fxeqPUaT_CwnYdq02aaTsnQM_G-YyOGWooS5epCeQ@mail.gmail.com>
-Message-ID: <CAMuHMdWD8fxeqPUaT_CwnYdq02aaTsnQM_G-YyOGWooS5epCeQ@mail.gmail.com>
-To: Valentin Caron <valentin.caron@foss.st.com>
-Cc: "open list:SERIAL DRIVERS" <linux-serial@vger.kernel.org>,
- Jonathan Corbet <corbet@lwn.net>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "open list:DOCUMENTATION" <linux-doc@vger.kernel.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jiri Slaby <jirislaby@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com,
- Linux ARM <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH V2 3/3] serial: stm32: add earlycon support
+ h=x-gm-message-state:from:to:subject:date:message-id:in-reply-to
+ :references;
+ bh=sM5FjahbxiDWtBMcPGoH6sjK50a41Jzz6Kf8kK5IDIA=;
+ b=n+HF2fIhjs6RGhuRnJVwFHKu2x5JNwwkgzQTXmlkQJuiuKpznqxGVqN7XcTb5KIlss
+ OhE/qpPCMds7N+jXk9hifzyV/ifEO/vAOiemDmRGK9cRQ5OYGB5woTER3Qf1ypfVBHJf
+ Sz/6mlozvj/iOqoOBss1gonkQiW7e9I0FEbgF/ok5BGdVoMXcV5KJOKTsZd+fCrc1wCP
+ ZZOeXA3BUbOyv6PsMHot3tGmuQVRy3zthwb0dQFu/nOejfuPkF2kYlA16XROBCHWwNdQ
+ cG1W9I0SX0ix/9g1h9KUOOf2seS6T3Pf94Sk20pQDiZvplejY9Oyq+zBSPQBR4DTzDUx
+ 4KDQ==
+X-Gm-Message-State: AOAM530kEyxLdnNNSggG4y6YTH8ubbdTqpfh6WHmAKZREoAVRznCrXAJ
+ sWj4pZi74R2J6REh/FD/Szo=
+X-Google-Smtp-Source: ABdhPJxaKYnF/FBKWSQfNDG/CffffK+XXw6W3BSTU7WQBeJ+uvZ16E1x2om5zLruk4LPuCuEc+5eJg==
+X-Received: by 2002:a63:140f:0:b0:399:3005:baf5 with SMTP id
+ u15-20020a63140f000000b003993005baf5mr29409036pgl.193.1649728598072; 
+ Mon, 11 Apr 2022 18:56:38 -0700 (PDT)
+Received: from localhost.localdomain ([159.226.95.43])
+ by smtp.googlemail.com with ESMTPSA id
+ gn21-20020a17090ac79500b001ca3c37af65sm746815pjb.21.2022.04.11.18.56.34
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 11 Apr 2022 18:56:37 -0700 (PDT)
+From: Miaoqian Lin <linmq006@gmail.com>
+To: Jonathan Cameron <jic23@kernel.org>, Lars-Peter Clausen <lars@metafoo.de>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Kees Cook <keescook@chromium.org>, Miaoqian Lin <linmq006@gmail.com>,
+ Philippe Schenker <philippe.schenker@toradex.com>,
+ linux-iio@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Date: Tue, 12 Apr 2022 01:55:42 +0000
+Message-Id: <20220412015547.4137-1-linmq006@gmail.com>
+X-Mailer: git-send-email 2.17.1
+In-Reply-To: <60e67c07-7e40-4187-a90a-1be9acdfe757@gmail.com>
+References: <60e67c07-7e40-4187-a90a-1be9acdfe757@gmail.com>
+Subject: [Linux-stm32] [PATCH v2] iio: stmpe-adc: Fix
+	wait_for_completion_timeout return value check
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,53 +74,69 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Valentin,
+wait_for_completion_timeout() returns unsigned long not long.
+it returns 0 if timed out, and positive if completed.
+The check for <= 0 is ambiguous and should be == 0 here
+indicating timeout which is the only error case
 
-On Fri, Apr 8, 2022 at 3:14 PM Valentin Caron
-<valentin.caron@foss.st.com> wrote:
-> Add early console support in stm32 uart driver.
->
-> Signed-off-by: Alexandre Torgue <alexandre.torgue@foss.st.com>
-> Signed-off-by: Valentin Caron <valentin.caron@foss.st.com>
+Fixes: e813dde6f833 ("iio: stmpe-adc: Use wait_for_completion_timeout")
+Signed-off-by: Miaoqian Lin <linmq006@gmail.com>
+---
+changes in v2:
+- Fix same issue in stmpe_read_temp.
+---
+ drivers/iio/adc/stmpe-adc.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-Thanks for your patch!
+diff --git a/drivers/iio/adc/stmpe-adc.c b/drivers/iio/adc/stmpe-adc.c
+index d2d405388499..83e0ac4467ca 100644
+--- a/drivers/iio/adc/stmpe-adc.c
++++ b/drivers/iio/adc/stmpe-adc.c
+@@ -61,7 +61,7 @@ struct stmpe_adc {
+ static int stmpe_read_voltage(struct stmpe_adc *info,
+ 		struct iio_chan_spec const *chan, int *val)
+ {
+-	long ret;
++	unsigned long ret;
+ 
+ 	mutex_lock(&info->lock);
+ 
+@@ -79,7 +79,7 @@ static int stmpe_read_voltage(struct stmpe_adc *info,
+ 
+ 	ret = wait_for_completion_timeout(&info->completion, STMPE_ADC_TIMEOUT);
+ 
+-	if (ret <= 0) {
++	if (ret == 0) {
+ 		stmpe_reg_write(info->stmpe, STMPE_REG_ADC_INT_STA,
+ 				STMPE_ADC_CH(info->channel));
+ 		mutex_unlock(&info->lock);
+@@ -96,7 +96,7 @@ static int stmpe_read_voltage(struct stmpe_adc *info,
+ static int stmpe_read_temp(struct stmpe_adc *info,
+ 		struct iio_chan_spec const *chan, int *val)
+ {
+-	long ret;
++	unsigned long ret;
+ 
+ 	mutex_lock(&info->lock);
+ 
+@@ -114,7 +114,7 @@ static int stmpe_read_temp(struct stmpe_adc *info,
+ 
+ 	ret = wait_for_completion_timeout(&info->completion, STMPE_ADC_TIMEOUT);
+ 
+-	if (ret <= 0) {
++	if (ret == 0) {
+ 		mutex_unlock(&info->lock);
+ 		return -ETIMEDOUT;
+ 	}
+-- 
+2.17.1
 
-> --- a/Documentation/admin-guide/kernel-parameters.txt
-> +++ b/Documentation/admin-guide/kernel-parameters.txt
-> @@ -1264,6 +1264,12 @@
->                         address must be provided, and the serial port must
->                         already be setup and configured.
->
-> +               stm32,<addr>
-> +                       Use early console provided by ST Microelectronics
-> +                       serial driver for STM32 SoCs. A valid base address
-> +                       must be provided, and the serial port must already
-> +                       be setup and configured.
-
-Why do you need this parameter?
-
-Given this driver uses DT, can't it figure out the serial port address
-from chosen/stdout-path?
-
-+OF_EARLYCON_DECLARE(stm32, "st,stm32h7-uart", early_stm32_h7_serial_setup);
-+OF_EARLYCON_DECLARE(stm32, "st,stm32f7-uart", early_stm32_f7_serial_setup);
-+OF_EARLYCON_DECLARE(stm32, "st,stm32-uart", early_stm32_f4_serial_setup);
-
-Gr{oetje,eeting}s,
-
-                        Geert
-
---
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
