@@ -2,170 +2,72 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1A19F4FCF85
-	for <lists+linux-stm32@lfdr.de>; Tue, 12 Apr 2022 08:30:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 488B24FCF8C
+	for <lists+linux-stm32@lfdr.de>; Tue, 12 Apr 2022 08:33:10 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C0013C628B3;
-	Tue, 12 Apr 2022 06:30:05 +0000 (UTC)
-Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com
- [148.163.135.77])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 07984C628B3;
+	Tue, 12 Apr 2022 06:33:10 +0000 (UTC)
+Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6D239C628AA
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 867CCC628AA
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 12 Apr 2022 06:30:04 +0000 (UTC)
-Received: from pps.filterd (m0167088.ppops.net [127.0.0.1])
- by mx0a-00128a01.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 23C6Bhgh021578;
- Tue, 12 Apr 2022 02:29:38 -0400
-Received: from nam12-dm6-obe.outbound.protection.outlook.com
- (mail-dm6nam12lp2175.outbound.protection.outlook.com [104.47.59.175])
- by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 3fb861s0re-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 12 Apr 2022 02:29:37 -0400
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=INcscFLKorAu3OydriThRwsdVZmA9QhRwPO74il+gdCMYX1TdozI3kyjOxXRlUYzmCutQ0+49REGwz3l5AeZPTHNVFiPYPnVh12oE2eCCwpzLRh6HwYSvjt0mYftoW2++M8bS+lCLnBceaYxVWhT6ejV2Cwi6RDcjcOGBHdSTR7i1gDQkwG5qTg/I+uHvxC72SX1BXNohVGETrtNM4JMV8844ecLRL+7kzGZUKncZrMWYjVvyBZWK7ZCz29LIz8flBK7howJdENPBYJawCKvsLwIrWPY1hdxmslpkweQmstNyY0NpSuMvY4ydu8mOOMLP2SsCDvQ7C+LSUK8Nx19KQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8hD++m9Iy0D4DS7XDH+PXWcSlqeUwhIwN8uWbohTv8A=;
- b=coODDNNqOcOx7ePDnEy7GzymYdvCNnJjIU7MuNGXilUmbCczWkxLrPRPxu7jsMNrjl2j2MVsIZQ0do0ezzI4FddTsflBYbqq33p2XNEyqQYncqzaAH1jZo3F6tzhFr+Ny12yUscX1lCRh3KAi/Q+hnoAZfNf7R4vSBp1wrgCsS4LWJtBnxCseL5NMgpxTLKhVuAR2FkjpWcTlwTR0oAnDH76NrA5aQBxI5dtWZqUaWy9PFa6ObB6UWDTYEUBn8TSXOMXAtVqTjNHszOnl0ZqMqcXr25Lgcbg594So7SmrxgKMUehHtumuu+koFjD58ruH2kJBF3fqj6hvx3SxXomIQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=analog.com; dmarc=pass action=none header.from=analog.com;
- dkim=pass header.d=analog.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=analog.onmicrosoft.com; s=selector2-analog-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8hD++m9Iy0D4DS7XDH+PXWcSlqeUwhIwN8uWbohTv8A=;
- b=hVZLMS/zfA3waMzEQ4rthiCAZp3aa2lzzseoYnKnxKv6YLQIbI20Cmgc3ZCZv9IP5/sobYPEQ84oNkXeOb+UI4z1djfONZ8tGobUlGb318o/dElVTQ0D2AjDdnApXXE9/IZ/m9TUW5/k1R6jFAYlX+nAx40f4ZmYyeVgh79c1xs=
-Received: from PH0PR03MB6786.namprd03.prod.outlook.com (2603:10b6:510:122::7)
- by DM6PR03MB4668.namprd03.prod.outlook.com (2603:10b6:5:18c::28) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5144.29; Tue, 12 Apr
- 2022 06:29:36 +0000
-Received: from PH0PR03MB6786.namprd03.prod.outlook.com
- ([fe80::a97e:a520:c3a6:d2ae]) by PH0PR03MB6786.namprd03.prod.outlook.com
- ([fe80::a97e:a520:c3a6:d2ae%9]) with mapi id 15.20.5144.030; Tue, 12 Apr 2022
- 06:29:36 +0000
-From: "Sa, Nuno" <Nuno.Sa@analog.com>
-To: Miaoqian Lin <linmq006@gmail.com>, Jonathan Cameron <jic23@kernel.org>,
- Lars-Peter Clausen <lars@metafoo.de>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Kees Cook <keescook@chromium.org>, Philippe Schenker
- <philippe.schenker@toradex.com>, "linux-iio@vger.kernel.org"
- <linux-iio@vger.kernel.org>, "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>, "linux-kernel@vger.kernel.org"
- <linux-kernel@vger.kernel.org>
-Thread-Topic: [PATCH v2] iio: stmpe-adc: Fix wait_for_completion_timeout
- return value check
-Thread-Index: AQHYTiF1o+UEAcyHdk+WlnZwOcLGqazr0M0Q
-Date: Tue, 12 Apr 2022 06:29:35 +0000
-Message-ID: <PH0PR03MB6786157EDA63137DF0071D1F99ED9@PH0PR03MB6786.namprd03.prod.outlook.com>
-References: <60e67c07-7e40-4187-a90a-1be9acdfe757@gmail.com>
- <20220412015547.4137-1-linmq006@gmail.com>
-In-Reply-To: <20220412015547.4137-1-linmq006@gmail.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-dg-ref: =?iso-8859-1?Q?PG1ldGE+PGF0IG5tPSJib2R5LnR4dCIgcD0iYzpcdXNlcnNcbnNhXGFwcG?=
- =?iso-8859-1?Q?RhdGFccm9hbWluZ1wwOWQ4NDliNi0zMmQzLTRhNDAtODVlZS02Yjg0YmEy?=
- =?iso-8859-1?Q?OWUzNWJcbXNnc1xtc2ctZWFhOTk1YWQtYmEyOS0xMWVjLThiZGMtZmM3Nz?=
- =?iso-8859-1?Q?c0MjFmY2FlXGFtZS10ZXN0XGVhYTk5NWFmLWJhMjktMTFlYy04YmRjLWZj?=
- =?iso-8859-1?Q?Nzc3NDIxZmNhZWJvZHkudHh0IiBzej0iMjc3NSIgdD0iMTMyOTQyMTg1Nz?=
- =?iso-8859-1?Q?Q1MjQ4MTY3IiBoPSJVd2xhVDRpUUlQcGlCTHBFN2hMZVVBT0dUeEk9IiBp?=
- =?iso-8859-1?Q?ZD0iIiBibD0iMCIgYm89IjEiIGNpPSJjQUFBQUVSSFUxUlNSVUZOQ2dVQU?=
- =?iso-8859-1?Q?FFb0NBQUNuYndLdE5rN1lBUmlsT3BpL2c5WElHS1U2bUwrRDFjZ0RBQUFB?=
- =?iso-8859-1?Q?QUFBQUFBQUFBQUFBQUFBQUFBQUFBSEFBQUFEYUFRQUFBQUFBQUFBQUFBQU?=
- =?iso-8859-1?Q?FBQUFBQUFBQUFBRUFBUUFCQUFBQVZJRXZvUUFBQUFBQUFBQUFBQUFBQUo0?=
- =?iso-8859-1?Q?QUFBQmhBR1FBYVFCZkFITUFaUUJqQUhVQWNnQmxBRjhBY0FCeUFHOEFhZ0?=
- =?iso-8859-1?Q?JsQUdNQWRBQnpBRjhBWmdCaEFHd0Fjd0JsQUY4QVpnQnZBSE1BYVFCMEFH?=
- =?iso-8859-1?Q?a0FkZ0JsQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQU?=
- =?iso-8859-1?Q?FBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFB?=
- =?iso-8859-1?Q?QUFBQUFBQUFBQUFBQUFBQUFFQUFBQUFBQUFBQWdBQUFBQUFuZ0FBQUdFQV?=
- =?iso-8859-1?Q?pBQnBBRjhBY3dCbEFHTUFkUUJ5QUdVQVh3QndBSElBYndCcUFHVUFZd0Iw?=
- =?iso-8859-1?Q?QUhNQVh3QjBBR2tBWlFCeUFERUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQU?=
- =?iso-8859-1?Q?FBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFB?=
- =?iso-8859-1?Q?QUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQU?=
- =?iso-8859-1?Q?FBQUFBQUFBQUFBUUFBQUFBQUFBQUNBQUFBQUFDZUFBQUFZUUJrQUdrQVh3?=
- =?iso-8859-1?Q?QnpBR1VBWXdCMUFISUFaUUJmQUhBQWNnQnZBR29BWlFCakFIUUFjd0JmQU?=
- =?iso-8859-1?Q?hRQWFRQmxBSElBTWdBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFB?=
- =?iso-8859-1?Q?QUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQU?=
- =?iso-8859-1?Q?FBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFB?=
- =?iso-8859-1?Q?QUFBQkFBQUFBQUFBQUFJQUFBQUFBQT09Ii8+PC9tZXRhPg=3D=3D?=
-x-dg-rorf: true
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: bed5031a-c838-4978-f36a-08da1c4dd05b
-x-ms-traffictypediagnostic: DM6PR03MB4668:EE_
-x-microsoft-antispam-prvs: <DM6PR03MB4668355D4809048E305F8FC999ED9@DM6PR03MB4668.namprd03.prod.outlook.com>
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: hosHcJ4QfS1WBImAHccmjG+tH+TBZAh0dG98fQpEVc3VSa95+hBPXvZ1KJutURZGKmBTeyAIzWYYBFpcgCGAI9IyE6e1eWoMnodK6xQXT/ReQyvqttIml+IJuL1wOiXFZd46vwnVdRiFY3pLzpO8IwG8/hXF/wKGNKY8TS6A415DdYG8gAuEjcKsRentBjnH9ry82dmbXL0P49Zz8Mk0gLJ8HpH1BRFAj+99zG/DiJ8iwFs3WcCYHsf3yEUJ8SYnUsBZg++gXGSlE12aV9539b7QlQRDwY/Bt3DT+GbHRpYwwCBuHZOAXcuHKat9iIFU7/JjtGSHQsv8y+OcxU0wlHWH/I2UdJBelb8Jb4xuum4D1Z88desn/rXISFUB0mx5r9MFrQE20LzgCSKkDKjYAkxtBdjWJgomfPXplxYyZcc1tXIbf7NSGV9wlSMAImjaCe/czMtQh4qtvW4EtufqM0D2USibqcDVfo5FLwzPx3gB00F51ZN6dEauxZ0JH8NabV18lCkuMHondwvzuO48l4huITW65+B5jr7CtMTk9PWZwDouYz6bhTeNrgMMdhOLGtqGjyUMVPT09Ip1lfBjSiWppUHoqPFbtJ2Y3eLLWrQn10ozhfDVYmgsEYjbz5g5DbXg1Q/+rqK7UWwwu+6kHGzjINYvY9FYDlQG2atnxhzvVJbHNOpsCLfb6+13uXJb1NbxBQuz76QO2BqG+LQykoutUxfQ20cY3itV1eSIx6w=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH0PR03MB6786.namprd03.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(71200400001)(53546011)(2906002)(5660300002)(7416002)(8936002)(55016003)(52536014)(6506007)(7696005)(38100700002)(9686003)(33656002)(83380400001)(122000001)(316002)(110136005)(921005)(76116006)(508600001)(66446008)(186003)(8676002)(64756008)(66476007)(66556008)(66946007)(38070700005)(86362001);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 2
-x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?WQp8fVLK3SqdLMpYDrks7KC4dIjx0tZ0WV8kHBBAo+j54jyahQTjNrJl/R?=
- =?iso-8859-1?Q?B3i/Q6yfo5Jxm40W5Bm/x5pwWo0PvptWye5sX7DPssmGOXurlyCIBhs3t4?=
- =?iso-8859-1?Q?qg/GOqfVsFS4DcRZ8DLOe3s2+LEbATZiTnkY4e4SxQ6qzwlnr92v6Uz1gN?=
- =?iso-8859-1?Q?I2/I3J/3mOhiDrInjNR91WRBqUXU+Akv/rkEGQKPiYNyuzFeDi79jQTzqA?=
- =?iso-8859-1?Q?Lum24dEfEiJhm+MmY9FS6BiYLsSqBbJJpgTLX7nCSCpJmXA/si+zQTHUH3?=
- =?iso-8859-1?Q?pC6uQdOXY5SeaFW/U2j2PFi8KFB1pSpkzvFzoI/QElk2k11Mx9Up2z9COu?=
- =?iso-8859-1?Q?bEQIJkHdJ5TkRVmKu0hlu3ZHytcEEnqUQLJU+q3tGZ1Fic56TwdUREX1vn?=
- =?iso-8859-1?Q?mmIAk/qFf7M80uepkZ3uMlJ1/8w+LYziBj0IrM8Hg9nLprkqmFaX1Fm6Mu?=
- =?iso-8859-1?Q?RhStQr04xPfVdmxjucybuuRXqraV8H9Dh/7M9T8wA77zzTI54BA6ENyy8V?=
- =?iso-8859-1?Q?wbLkEXZnTn4sHUkQW/N34xIVd+qPkW3t+M9xylsPzDzTETvpUOneCBeY0L?=
- =?iso-8859-1?Q?FGJrI6fVe6aGmIz6KtWoETjtswz/uoG3c9018zvo842ZlUBGYwjPhvNItx?=
- =?iso-8859-1?Q?81zU+fwobhIQ/iirwym7DRNZJO9dDfh+T0MZyUQcACACicGI/TAeJPrid3?=
- =?iso-8859-1?Q?VgIBrYm/ks3DB715u1FYC5z5uDcG/WyfX9wQaITEoN3Q4xrpLLa/N/Giy0?=
- =?iso-8859-1?Q?2Uw7qEyXIcfkCGBGjn1wemuaDI2P9dmHQ7wa43m8rxYsix4mBMopLAqUZ0?=
- =?iso-8859-1?Q?jifvvLjcL6Bxog07slOKmLqxFMIQCM302WoE1who+7bQVE4FUWfRK51UL6?=
- =?iso-8859-1?Q?gyvBCwSVk3ehkYEO/17Qq7Oz977gt0CZTN2mXPU5ULQ6QEDQIAQ19OsCnS?=
- =?iso-8859-1?Q?f+scvx2UnbYE1eAp4/ha/lwrlp2+khhTZf3UgDgdwPUe7XqIe6i7OZBnCV?=
- =?iso-8859-1?Q?tNHdCTijLv06J/C/KJZ1brIlqhl7sS+LVahkEYaX9F6Xr1rgiHvuAVTiN3?=
- =?iso-8859-1?Q?wx5s5g+ZhQgacJvOOGLXusO8+FWkCaK/tQ1fIRwnxlJqCFCOZqubbkHfP4?=
- =?iso-8859-1?Q?Zf0/xQxLKXelWgAywYRCP7DbmE2sZmlBfv+HgyFXgDSp7IZv41MUY0SwdD?=
- =?iso-8859-1?Q?2jfuYYGWaftB7OvAHoctxthOSf4XACsVPLTZFZLHgcc0pT8eaH4tFfvFVi?=
- =?iso-8859-1?Q?gH4q4aapzNS6X8O+bh3rNEk0yokwWdYQN0qcUf9ctghqK46hLWkkPWFkQR?=
- =?iso-8859-1?Q?V84bPIqMD9zSKbMo86XeaaWgvArcBhOrN/mg2ahUevH+V2+OWuM8TE1fQ2?=
- =?iso-8859-1?Q?GEnNDJKPRnHPwwpae6q2Q874xth3Cp5EZ9YGCQby9XS/XheWFEraBi7h/W?=
- =?iso-8859-1?Q?DECbovdpzCoqGGf/YLvthCg+YobAVWSPp99I/2IlXYbLaTN4x6zUkVI+DO?=
- =?iso-8859-1?Q?iTqyOO2oDbiDaYoUi8ljFZjwNEkSOK4uPcKuRG1gdSrhaTHusxkXBDxpE/?=
- =?iso-8859-1?Q?DyrpOGeu/Jc0FlGFlHyaWQraca8ZSMwUCYUmq/CZrmxHb1v+UFkb6ESaR+?=
- =?iso-8859-1?Q?awGllI7K841Yl/4KwoGztnU97gTXDiF1QdYrm9B3eb57g1hAIFicBJ4DoS?=
- =?iso-8859-1?Q?upJcB0l11BcmmJw0YQ1nzjn2m+H9L5DHX8ShsmbmbaQPCtIQkcoE54OcEA?=
- =?iso-8859-1?Q?/J+U3bqroRcycPTzMxUQAo7JnWemTAOQABcYmHtGSS3p3rjPej8xBpfZl3?=
- =?iso-8859-1?Q?gHacjTkGriDsYuFC3WSMHP6S/GMIxNfvlo1aVHZN45nOUxQebLg0R4A2JB?=
- =?iso-8859-1?Q?vg?=
-x-ms-exchange-antispam-messagedata-1: 86z9b6/0D6DxkQ==
+ Tue, 12 Apr 2022 06:33:07 +0000 (UTC)
+X-UUID: 59ca3f62dd774853b46ce00bbf8b60e4-20220412
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.1.4, REQID:90f094df-27e4-4228-a006-e5dd11ed172f, OB:0,
+ LO
+ B:0,IP:0,URL:0,TC:0,Content:0,EDM:0,RT:0,SF:51,FILE:0,RULE:Release_Ham,ACT
+ ION:release,TS:51
+X-CID-INFO: VERSION:1.1.4, REQID:90f094df-27e4-4228-a006-e5dd11ed172f, OB:0,
+ LOB:
+ 0,IP:0,URL:0,TC:0,Content:0,EDM:0,RT:0,SF:51,FILE:0,RULE:Release_Ham,ACTIO
+ N:release,TS:51
+X-CID-META: VersionHash:faefae9, CLOUDID:523bdba8-d103-4e36-82b9-b0e86991b3df,
+ C
+ OID:e37b7fabc8cf,Recheck:0,SF:13|15|28|17|19|48,TC:nil,Content:0,EDM:-3,Fi
+ le:nil,QS:0,BEC:nil
+X-UUID: 59ca3f62dd774853b46ce00bbf8b60e4-20220412
+Received: from mtkcas11.mediatek.inc [(172.21.101.40)] by mailgw01.mediatek.com
+ (envelope-from <ck.hu@mediatek.com>)
+ (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
+ with ESMTP id 2129992685; Tue, 12 Apr 2022 14:33:03 +0800
+Received: from mtkcas11.mediatek.inc (172.21.101.40) by
+ mtkmbs10n1.mediatek.inc (172.21.101.34) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
+ 15.2.792.15; Tue, 12 Apr 2022 14:33:02 +0800
+Received: from mtksdccf07 (172.21.84.99) by mtkcas11.mediatek.inc
+ (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via Frontend
+ Transport; Tue, 12 Apr 2022 14:33:02 +0800
+Message-ID: <d08e121848788fee9898e1898ee756b10c99fa08.camel@mediatek.com>
+From: CK Hu <ck.hu@mediatek.com>
+To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Jason-JH Lin <jason-jh.lin@mediatek.com>, Rob Herring <robh+dt@kernel.org>,
+ Matthias Brugger <matthias.bgg@gmail.com>, Chun-Kuang Hu
+ <chunkuang.hu@kernel.org>
+Date: Tue, 12 Apr 2022 14:33:02 +0800
+In-Reply-To: <a48df6bb-6be8-6cb9-51d0-9044e706e834@collabora.com>
+References: <20220407030409.9664-1-jason-jh.lin@mediatek.com>
+ <20220407030409.9664-4-jason-jh.lin@mediatek.com>
+ <67b3e42d6a094108f724ed9b8c73f5cd6b2ce219.camel@mediatek.com>
+ <d8711b8e4d233240eda73db54a625e88b9b3970b.camel@mediatek.com>
+ <1f1692b6d14280fed40e53f464145ed70b67135f.camel@mediatek.com>
+ <a48df6bb-6be8-6cb9-51d0-9044e706e834@collabora.com>
+X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.2 
 MIME-Version: 1.0
-X-OriginatorOrg: analog.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR03MB6786.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: bed5031a-c838-4978-f36a-08da1c4dd05b
-X-MS-Exchange-CrossTenant-originalarrivaltime: 12 Apr 2022 06:29:35.9155 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: eaa689b4-8f87-40e0-9c6f-7228de4d754a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: iofzOJS0DpTY6wNU518RITv2UhyGXBeP151bHYHHvMGu2TyoDxsf92JIuq3LKQSeGS//rL4oi0oQ7mwhbmCBLA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR03MB4668
-X-Proofpoint-GUID: _7exyP1clxiklKtYsOj9Rs_-SweLKupd
-X-Proofpoint-ORIG-GUID: _7exyP1clxiklKtYsOj9Rs_-SweLKupd
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.858,Hydra:6.0.425,FMLib:17.11.64.514
- definitions=2022-04-12_02,2022-04-11_01,2022-02-23_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1011 malwarescore=0
- adultscore=0 phishscore=0 priorityscore=1501 suspectscore=0
- mlxlogscore=999 impostorscore=0 mlxscore=0 spamscore=0 bulkscore=0
- lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2202240000 definitions=main-2204120029
-Subject: Re: [Linux-stm32] [PATCH v2] iio: stmpe-adc: Fix
- wait_for_completion_timeout return value check
+X-MTK: N
+Cc: devicetree@vger.kernel.org, moudy.ho@mediatek.com,
+ Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@linux.ie>,
+ linux-kernel@vger.kernel.org, singo.chang@mediatek.com, hsinyi@chromium.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, postmaster@vger.kernel.org,
+ Project_Global_Chrome_Upstream_Group@mediatek.com, Fabien
+ Parent <fparent@baylibre.com>, nancy.lin@mediatek.com,
+ linux-mediatek@lists.infradead.org, roy-cw.yeh@mediatek.com,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ John 'Warthog9' Hawley <warthog9@eaglescrag.net>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [RESEND v17 3/7] soc: mediatek: add mtk-mmsys
+ support for mt8195 vdosys0
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -177,109 +79,144 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+Hi, Angelo:
 
+On Fri, 2022-04-08 at 10:49 +0200, AngeloGioacchino Del Regno wrote:
+> Il 08/04/22 03:28, CK Hu ha scritto:
+> > Hi, Jason:
+> > 
+> > On Thu, 2022-04-07 at 14:27 +0800, Jason-JH Lin wrote:
+> > > Hi CK,
+> > > 
+> > > Thanks for the reviews.
+> > > 
+> > > On Thu, 2022-04-07 at 13:45 +0800, CK Hu wrote:
+> > > > Hi, Jason:
+> > > > 
+> > > > On Thu, 2022-04-07 at 11:04 +0800, jason-jh.lin wrote:
+> > > > > 1. Add mt8195 mmsys compatible for vdosys0.
+> > > > > 2. Add mt8195 routing table settings and fix build fail.
+> > > > > 3. Add clock name, clock driver name and routing table into
+> > > > > the
+> > > > > driver data
+> > > > >     of mt8195 vdosys0.
+> > > > > 4. Add get match data by clock name function and clock
+> > > > > platform
+> > > > > labels
+> > > > >     to identify which mmsys node is corresponding to vdosys0.
+> > > > > 
+> > > > > Signed-off-by: jason-jh.lin <jason-jh.lin@mediatek.com>
+> > > > > ---
+> > > > >   drivers/gpu/drm/mediatek/mtk_drm_ddp_comp.c |   2 +-
+> > > > >   drivers/gpu/drm/mediatek/mtk_drm_drv.c      |   6 +-
+> > > > >   drivers/soc/mediatek/mt8167-mmsys.h         |   2 +-
+> > > > >   drivers/soc/mediatek/mt8183-mmsys.h         |   2 +-
+> > > > >   drivers/soc/mediatek/mt8186-mmsys.h         |   4 +-
+> > > > >   drivers/soc/mediatek/mt8192-mmsys.h         |   4 +-
+> > > > >   drivers/soc/mediatek/mt8195-mmsys.h         | 370
+> > > > > ++++++++++++++++++++
+> > > > >   drivers/soc/mediatek/mt8365-mmsys.h         |   4 +-
+> > > > >   drivers/soc/mediatek/mtk-mmsys.c            |  62 ++++
+> > > > >   drivers/soc/mediatek/mtk-mmsys.h            |   1 +
+> > > > >   drivers/soc/mediatek/mtk-mutex.c            |   8 +-
+> > > > >   include/linux/soc/mediatek/mtk-mmsys.h      |  13 +-
+> > > > >   12 files changed, 461 insertions(+), 17 deletions(-)
+> > > > >   create mode 100644 drivers/soc/mediatek/mt8195-mmsys.h
+> > > > > 
+> > > > 
+> > > > [snip]
+> > > > 
+> > > > > diff --git a/drivers/soc/mediatek/mtk-mmsys.c
+> > > > > b/drivers/soc/mediatek/mtk-mmsys.c
+> > > > > index 4fc4c2c9ea20..b2fa239c5f5f 100644
+> > > > > --- a/drivers/soc/mediatek/mtk-mmsys.c
+> > > > > +++ b/drivers/soc/mediatek/mtk-mmsys.c
+> > > > > @@ -4,6 +4,8 @@
+> > > > >    * Author: James Liao <jamesjj.liao@mediatek.com>
+> > > > >    */
+> > > > >   
+> 
+> ..snip..
+> 
+> > > 
+> > > I think there might be another chip that needs to get driver data
+> > > by
+> > > clk_name .
+> > > So I use "clk-mt8195" in clk_driver to identify the corresponding
+> > > platform whose clk_name of mmsys is also "cfg_vod0".
+> > 
+> > We usually don't care the future because the future may not happen.
+> > If
+> 
+> Hello CK,
+> 
+> I'm sorry, but I really have to disagree here.
+> Sure, the future may not happen, but from what I can see, MediaTek's
+> commitment
+> on upstreaming their SoCs is continuative and they care about the
+> future.
+> 
+> Let's also not forget that these drivers are not on a downstream
+> tree, where
+> you don't care about the past or the future, but on upstream, where
+> you:
+> - Definitely care about the past
+> - Should care about the future, if you want to avoid commit noise and
+>    making big changes to your drivers everytime, which would slow
+> down
+>    your upstreaming due to reviewers having to put 3x efforts on each
+>    iteration.
+> 
+> And let's also not forget that this being upstream means that these
+> drivers
+> may (or may not) be extended even by passionate community developers,
+> for
+> which, having such mechanisms there for other SoCs that MediaTek
+> didn't try
+> to upstream yet can only be good - and when these are engineered with
+> a
+> certain flexibility, while keeping the codebase solid, that can only
+> be good.
+> 
+> Besides, if I've misunderstood your "don't care the future"
+> statement,
+> pretend that I've never replied.
 
-> -----Original Message-----
-> From: Miaoqian Lin <linmq006@gmail.com>
-> Sent: Tuesday, April 12, 2022 3:56 AM
-> To: Jonathan Cameron <jic23@kernel.org>; Lars-Peter Clausen
-> <lars@metafoo.de>; Maxime Coquelin
-> <mcoquelin.stm32@gmail.com>; Alexandre Torgue
-> <alexandre.torgue@foss.st.com>; Kees Cook
-> <keescook@chromium.org>; Miaoqian Lin <linmq006@gmail.com>;
-> Philippe Schenker <philippe.schenker@toradex.com>; linux-
-> iio@vger.kernel.org; linux-stm32@st-md-mailman.stormreply.com;
-> linux-arm-kernel@lists.infradead.org; linux-kernel@vger.kernel.org
-> Subject: [PATCH v2] iio: stmpe-adc: Fix wait_for_completion_timeout
-> return value check
-> =
+OK, let's break this patch into two patches. The first is to support
+mt8195 only with clock name identification. The second patch is to
+identify SoC. In this series, we just need the first patch, so move the
+second patch to the series of another SoC with multiple mmsys device.
+Maybe another SoC with multiple mmsys device has new property which
+could be used to identify SoC, so we have no information about what is
+the better implementation of second patch. I do really care the future,
+but I have no information about the future. Please public any hidden
+information so we could have better decision.
 
-> [External]
-> =
+Regards,
+CK
 
-> wait_for_completion_timeout() returns unsigned long not long.
-> it returns 0 if timed out, and positive if completed.
-> The check for <=3D 0 is ambiguous and should be =3D=3D 0 here
-> indicating timeout which is the only error case
-> =
-
-> Fixes: e813dde6f833 ("iio: stmpe-adc: Use
-> wait_for_completion_timeout")
-> Signed-off-by: Miaoqian Lin <linmq006@gmail.com>
-> ---
-> changes in v2:
-> - Fix same issue in stmpe_read_temp.
-> ---
-
-Reviewed-by: Nuno S=E1 <nuno.sa@analog.com>
-
-(I guess the subject also needs tweaking for the preferred format)
-
->  drivers/iio/adc/stmpe-adc.c | 8 ++++----
->  1 file changed, 4 insertions(+), 4 deletions(-)
-> =
-
-> diff --git a/drivers/iio/adc/stmpe-adc.c b/drivers/iio/adc/stmpe-adc.c
-> index d2d405388499..83e0ac4467ca 100644
-> --- a/drivers/iio/adc/stmpe-adc.c
-> +++ b/drivers/iio/adc/stmpe-adc.c
-> @@ -61,7 +61,7 @@ struct stmpe_adc {
->  static int stmpe_read_voltage(struct stmpe_adc *info,
->  		struct iio_chan_spec const *chan, int *val)
->  {
-> -	long ret;
-> +	unsigned long ret;
-> =
-
->  	mutex_lock(&info->lock);
-> =
-
-> @@ -79,7 +79,7 @@ static int stmpe_read_voltage(struct stmpe_adc
-> *info,
-> =
-
->  	ret =3D wait_for_completion_timeout(&info->completion,
-> STMPE_ADC_TIMEOUT);
-> =
-
-> -	if (ret <=3D 0) {
-> +	if (ret =3D=3D 0) {
->  		stmpe_reg_write(info->stmpe,
-> STMPE_REG_ADC_INT_STA,
->  				STMPE_ADC_CH(info->channel));
->  		mutex_unlock(&info->lock);
-> @@ -96,7 +96,7 @@ static int stmpe_read_voltage(struct stmpe_adc
-> *info,
->  static int stmpe_read_temp(struct stmpe_adc *info,
->  		struct iio_chan_spec const *chan, int *val)
->  {
-> -	long ret;
-> +	unsigned long ret;
-> =
-
->  	mutex_lock(&info->lock);
-> =
-
-> @@ -114,7 +114,7 @@ static int stmpe_read_temp(struct stmpe_adc
-> *info,
-> =
-
->  	ret =3D wait_for_completion_timeout(&info->completion,
-> STMPE_ADC_TIMEOUT);
-> =
-
-> -	if (ret <=3D 0) {
-> +	if (ret =3D=3D 0) {
->  		mutex_unlock(&info->lock);
->  		return -ETIMEDOUT;
->  	}
-> --
-> 2.17.1
+> 
+> 
+> > it's sure that would happen, I think clk_driver is not a good
+> > choice.
+> > For now, the clk_driver name is different for each SoC, but it
+> > could be
+> > the same for each SoC because only one clock driver would be
+> > compiled.
+> > I think "compatible" would be different for each SoC.
+> > 
+> 
+> ...but I agree on that one (and I gave my own review and suggestions
+> on
+> how to improve that situation).
+> 
+> Regards,
+> Angelo
 
 _______________________________________________
 Linux-stm32 mailing list
