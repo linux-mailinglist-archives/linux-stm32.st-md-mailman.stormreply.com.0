@@ -2,65 +2,64 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 671134FD245
-	for <lists+linux-stm32@lfdr.de>; Tue, 12 Apr 2022 09:09:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 847FE4FD275
+	for <lists+linux-stm32@lfdr.de>; Tue, 12 Apr 2022 09:10:39 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 15A92C628AA;
-	Tue, 12 Apr 2022 07:09:18 +0000 (UTC)
-Received: from mail-qt1-f174.google.com (mail-qt1-f174.google.com
- [209.85.160.174])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4798BC60496;
+	Tue, 12 Apr 2022 07:10:39 +0000 (UTC)
+Received: from mail-qk1-f172.google.com (mail-qk1-f172.google.com
+ [209.85.222.172])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DCE64C60492
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E0709C60492
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 12 Apr 2022 07:09:14 +0000 (UTC)
-Received: by mail-qt1-f174.google.com with SMTP id j21so18579211qta.0
+ Tue, 12 Apr 2022 07:10:37 +0000 (UTC)
+Received: by mail-qk1-f172.google.com with SMTP id s4so13036181qkh.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 12 Apr 2022 00:09:14 -0700 (PDT)
+ Tue, 12 Apr 2022 00:10:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=Ou8zotsDb6wXIPljnzHu4XUowbgMosM63Cn663rp46M=;
- b=LVlh/tRvH71ktLfuib9NCViHKA8f0kEJc4AmJMpKEDE5aEjyO+V+Vbm2CUWH07lJad
- 8/9Tj/cMllX/mRTxp3rXVBvjiov+7QAmYwTWqc3COJWNC8H4B/h1XOUidXW+zbkzaZwP
- oD5jdVXyteqNosnRQJ3vAAHRnHa+MMkuAJzZrtJelhDsHes4oqS8RcOcL9BOxZXRTcxw
- s1KSsomLF/OjH77XNPs2juRaOEuhRKQ87HrpU+/4SzEO0JJM1jzjbW43lpadSFzTLgXN
- /J/qdATZY47naHznlo84/HmjjjBnQ5bL38g62skwnmnINWkRKGqzDEAW2O9uViIBz45V
- DK4w==
+ bh=Oakkso+e+qhsN2ZmTPlz+KXAhhWn3wzRJANvdCpqxYk=;
+ b=Q+HOoAU3/nLyYd9yfYUohPKt65udJu10tbdVwUJryH80QoNi65kxmmTeCr9w9bzzlw
+ 9+CcPTMIxqaDMabg2+1y9dXeGATDuh201jif5CmGHIeqDdX0cH6DbiImoYLmwC/lc2jl
+ R/wSyhKXfQMCMUFavhPHAShEs055XqvOqGD0YXq3jA8L/pEcv1WjVETenvk1nthFTAUo
+ zismcqyOqf+cfe2yh4uTtdBlq9bnut9NBhOM0DBK2RoAZzSFxc8remZ/aznsK0JCKl+g
+ Hv/5GL8gyYCqSaLkH6Qn8hXutJ7r2UL3WIOaOwPf0iu26PdDdkLhXONNAT/cCLc8y1B8
+ p1+Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=Ou8zotsDb6wXIPljnzHu4XUowbgMosM63Cn663rp46M=;
- b=ORzfltNNXqt7cHbk9hMiqEw/NnC/fUy1rT0EmTu1qTp8M+B9F1nxLeMLIL36DpZwDv
- nIuaSg7mEcDCa0qCQgNRcaUttX3nT/VT5esuk+/ntyfzfH7M7lSJLlXNqS+UbH+3ctrm
- fs3QW5F/+acNgNc5D6ftsGF5LwsnufGkdxHARHHbWidSRMc4Xu4N0cp9cPubsOkrXhMa
- OsXQTaSRbnOJR9ZIs3MH44DVNM4BzkvlTaOnGoPKmq1aeHeCMTUiFZQH3BDmXDO0sMQl
- uP8dHe7OyD6sA/IakbeRcaNEp6MHofYk9ePpe5W8jxnGo5zwNO0bpViW1IupKgns75Ga
- KW9Q==
-X-Gm-Message-State: AOAM530uWFMi0jS2gGS+lWUvsgmito9WmocGrZtn0XjA7Sqr2gbfYxc0
- Cu+51jrIa88vVGNrCz5Iwhg=
-X-Google-Smtp-Source: ABdhPJx4DR/2lIWNbxf+QPOcGkQ+ZbHPL7PSoRYaKAeefy7mBD1ijw/kEHdShjr7h9+JBy+VPiAijA==
-X-Received: by 2002:ac8:7c55:0:b0:2e1:d535:d881 with SMTP id
- o21-20020ac87c55000000b002e1d535d881mr2266217qtv.188.1649747353658; 
- Tue, 12 Apr 2022 00:09:13 -0700 (PDT)
+ bh=Oakkso+e+qhsN2ZmTPlz+KXAhhWn3wzRJANvdCpqxYk=;
+ b=vVMQZXqgB2UDGjFTTB3QfpxDs3ZWwY8pk6MY04ucAPhQUmHEp18mmA/hYYis842DLk
+ ki7uH4+33oIuW7XciQ218MY1vhsvnuibz8j3Ltun/OjJxZDNnGxL9nwCKQnO/PR0GYAs
+ aJ8VaG9yEdDauKkfSLaasd6QD937gyzjPkrXmXgGh1wrstT6X2Zx/bYouUUTw7VG4trQ
+ 04GK7T9ViEby0pR8vxCOG4ibqonDncij7VOeOHlLM6MskAaZGOuKjOwjNVOep0GJTvCw
+ 3fJZ3x0DRP8us+48owNJ6qTGIrDefkn1oASoBR39jDtz6XhGP24zOspFPaAfUixXy36a
+ ByyQ==
+X-Gm-Message-State: AOAM533jHdImvFteaYpnKNMZmAyjLyxNxyQtMWGEEegqxvsE0Yt7VmH9
+ lcylxew5CyZjQgq6LaC1isY=
+X-Google-Smtp-Source: ABdhPJz9HpruIk48ZvRlIQ4rkcyvLj2AR76zs2UjUSXZUe6ZnqXu1WL6aSY3Fc6MNlZTyztR5C57zw==
+X-Received: by 2002:a05:620a:2848:b0:67d:35de:bb5b with SMTP id
+ h8-20020a05620a284800b0067d35debb5bmr2092273qkp.499.1649747436883; 
+ Tue, 12 Apr 2022 00:10:36 -0700 (PDT)
 Received: from localhost.localdomain ([193.203.214.57])
  by smtp.gmail.com with ESMTPSA id
- x20-20020ac85f14000000b002e1ee1c56c3sm27634358qta.76.2022.04.12.00.09.10
+ f6-20020ac859c6000000b002ee0948f1aesm4653771qtf.72.2022.04.12.00.10.34
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 12 Apr 2022 00:09:12 -0700 (PDT)
+ Tue, 12 Apr 2022 00:10:36 -0700 (PDT)
 From: cgel.zte@gmail.com
 X-Google-Original-From: chi.minghao@zte.com.cn
-To: broonie@kernel.org
-Date: Tue, 12 Apr 2022 07:09:06 +0000
-Message-Id: <20220412070906.2532091-1-chi.minghao@zte.com.cn>
+To: lgirdwood@gmail.com
+Date: Tue, 12 Apr 2022 07:10:30 +0000
+Message-Id: <20220412071030.2532230-1-chi.minghao@zte.com.cn>
 X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Cc: Zeal Robot <zealci@zte.com.cn>, linux-kernel@vger.kernel.org,
- Minghao Chi <chi.minghao@zte.com.cn>, mcoquelin.stm32@gmail.com,
- linux-spi@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH] spi: spi-stm32-qspi: using
+Cc: Zeal Robot <zealci@zte.com.cn>, Minghao Chi <chi.minghao@zte.com.cn>,
+ linux-kernel@vger.kernel.org, broonie@kernel.org, mcoquelin.stm32@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH] regulator: stm32-vrefbuf: using
 	pm_runtime_resume_and_get instead of pm_runtime_get_sync
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -86,83 +85,83 @@ for simplifing code
 Reported-by: Zeal Robot <zealci@zte.com.cn>
 Signed-off-by: Minghao Chi <chi.minghao@zte.com.cn>
 ---
- drivers/spi/spi-stm32-qspi.c | 30 ++++++++++--------------------
+ drivers/regulator/stm32-vrefbuf.c | 30 ++++++++++--------------------
  1 file changed, 10 insertions(+), 20 deletions(-)
 
-diff --git a/drivers/spi/spi-stm32-qspi.c b/drivers/spi/spi-stm32-qspi.c
-index ffdc55f87e82..b3586521d08e 100644
---- a/drivers/spi/spi-stm32-qspi.c
-+++ b/drivers/spi/spi-stm32-qspi.c
-@@ -463,11 +463,9 @@ static int stm32_qspi_poll_status(struct spi_mem *mem, const struct spi_mem_op *
- 	if (!spi_mem_supports_op(mem, op))
- 		return -EOPNOTSUPP;
- 
--	ret = pm_runtime_get_sync(qspi->dev);
--	if (ret < 0) {
--		pm_runtime_put_noidle(qspi->dev);
-+	ret = pm_runtime_resume_and_get(qspi->dev);
-+	if (ret < 0)
- 		return ret;
--	}
- 
- 	mutex_lock(&qspi->lock);
- 
-@@ -490,11 +488,9 @@ static int stm32_qspi_exec_op(struct spi_mem *mem, const struct spi_mem_op *op)
- 	struct stm32_qspi *qspi = spi_controller_get_devdata(mem->spi->master);
+diff --git a/drivers/regulator/stm32-vrefbuf.c b/drivers/regulator/stm32-vrefbuf.c
+index 161622ea7259..30ea3bc8ca19 100644
+--- a/drivers/regulator/stm32-vrefbuf.c
++++ b/drivers/regulator/stm32-vrefbuf.c
+@@ -44,11 +44,9 @@ static int stm32_vrefbuf_enable(struct regulator_dev *rdev)
+ 	u32 val;
  	int ret;
  
--	ret = pm_runtime_get_sync(qspi->dev);
+-	ret = pm_runtime_get_sync(priv->dev);
 -	if (ret < 0) {
--		pm_runtime_put_noidle(qspi->dev);
-+	ret = pm_runtime_resume_and_get(qspi->dev);
+-		pm_runtime_put_noidle(priv->dev);
++	ret = pm_runtime_resume_and_get(priv->dev);
 +	if (ret < 0)
  		return ret;
 -	}
  
- 	mutex_lock(&qspi->lock);
- 	if (op->data.dir == SPI_MEM_DATA_IN && op->data.nbytes)
-@@ -536,11 +532,9 @@ static ssize_t stm32_qspi_dirmap_read(struct spi_mem_dirmap_desc *desc,
- 	u32 addr_max;
+ 	val = readl_relaxed(priv->base + STM32_VREFBUF_CSR);
+ 	val = (val & ~STM32_HIZ) | STM32_ENVR;
+@@ -81,11 +79,9 @@ static int stm32_vrefbuf_disable(struct regulator_dev *rdev)
+ 	u32 val;
  	int ret;
  
--	ret = pm_runtime_get_sync(qspi->dev);
+-	ret = pm_runtime_get_sync(priv->dev);
 -	if (ret < 0) {
--		pm_runtime_put_noidle(qspi->dev);
-+	ret = pm_runtime_resume_and_get(qspi->dev);
+-		pm_runtime_put_noidle(priv->dev);
++	ret = pm_runtime_resume_and_get(priv->dev);
 +	if (ret < 0)
  		return ret;
 -	}
  
- 	mutex_lock(&qspi->lock);
- 	/* make a local copy of desc op_tmpl and complete dirmap rdesc
-@@ -583,11 +577,9 @@ static int stm32_qspi_setup(struct spi_device *spi)
- 	if (!spi->max_speed_hz)
- 		return -EINVAL;
+ 	val = readl_relaxed(priv->base + STM32_VREFBUF_CSR);
+ 	val &= ~STM32_ENVR;
+@@ -102,11 +98,9 @@ static int stm32_vrefbuf_is_enabled(struct regulator_dev *rdev)
+ 	struct stm32_vrefbuf *priv = rdev_get_drvdata(rdev);
+ 	int ret;
  
--	ret = pm_runtime_get_sync(qspi->dev);
+-	ret = pm_runtime_get_sync(priv->dev);
 -	if (ret < 0) {
--		pm_runtime_put_noidle(qspi->dev);
-+	ret = pm_runtime_resume_and_get(qspi->dev);
+-		pm_runtime_put_noidle(priv->dev);
++	ret = pm_runtime_resume_and_get(priv->dev);
 +	if (ret < 0)
  		return ret;
 -	}
  
- 	presc = DIV_ROUND_UP(qspi->clk_rate, spi->max_speed_hz) - 1;
+ 	ret = readl_relaxed(priv->base + STM32_VREFBUF_CSR) & STM32_ENVR;
  
-@@ -851,11 +843,9 @@ static int __maybe_unused stm32_qspi_resume(struct device *dev)
+@@ -123,11 +117,9 @@ static int stm32_vrefbuf_set_voltage_sel(struct regulator_dev *rdev,
+ 	u32 val;
+ 	int ret;
  
- 	pinctrl_pm_select_default_state(dev);
- 
--	ret = pm_runtime_get_sync(dev);
+-	ret = pm_runtime_get_sync(priv->dev);
 -	if (ret < 0) {
--		pm_runtime_put_noidle(dev);
-+	ret = pm_runtime_resume_and_get(dev);
+-		pm_runtime_put_noidle(priv->dev);
++	ret = pm_runtime_resume_and_get(priv->dev);
 +	if (ret < 0)
  		return ret;
 -	}
  
- 	writel_relaxed(qspi->cr_reg, qspi->io_base + QSPI_CR);
- 	writel_relaxed(qspi->dcr_reg, qspi->io_base + QSPI_DCR);
+ 	val = readl_relaxed(priv->base + STM32_VREFBUF_CSR);
+ 	val = (val & ~STM32_VRS) | FIELD_PREP(STM32_VRS, sel);
+@@ -145,11 +137,9 @@ static int stm32_vrefbuf_get_voltage_sel(struct regulator_dev *rdev)
+ 	u32 val;
+ 	int ret;
+ 
+-	ret = pm_runtime_get_sync(priv->dev);
+-	if (ret < 0) {
+-		pm_runtime_put_noidle(priv->dev);
++	ret = pm_runtime_resume_and_get(priv->dev);
++	if (ret < 0)
+ 		return ret;
+-	}
+ 
+ 	val = readl_relaxed(priv->base + STM32_VREFBUF_CSR);
+ 	ret = FIELD_GET(STM32_VRS, val);
 -- 
 2.25.1
 
