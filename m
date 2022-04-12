@@ -2,51 +2,40 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 308614FCD38
-	for <lists+linux-stm32@lfdr.de>; Tue, 12 Apr 2022 05:40:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BC7D54FCE5A
+	for <lists+linux-stm32@lfdr.de>; Tue, 12 Apr 2022 06:58:02 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DEDC0C628AD;
-	Tue, 12 Apr 2022 03:40:15 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 757DCC628B3;
+	Tue, 12 Apr 2022 04:58:02 +0000 (UTC)
+Received: from verein.lst.de (verein.lst.de [213.95.11.211])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1F0A8C5F1FB
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CBB46C628AA
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 12 Apr 2022 03:40:14 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 683BEB81A93;
- Tue, 12 Apr 2022 03:40:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id B934CC385AE;
- Tue, 12 Apr 2022 03:40:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1649734811;
- bh=QSsKy83Tm0f2ZZsihBg96iw58bRZQn7S4W9PNzeh6IU=;
- h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=NxtyIYEfueBaHbM2MfB0w9z9bqeoYdVe4N7T0pIWDfo3db0loc10hklAXeu7IqXHq
- E1oahx3XM2qt4aJwziCkzRp9iCoSeE4ILLvDk7tGS1YNh0g2wFfgAIbjhdK7rdave+
- OgMKkzMHKd71phnAwvEvZwDk2xEFofUXQFs6YGv62NhufhyECL0ugAGGKTRqv3SOu3
- u7bf+Lge3+xJD/67kDljEw+ouUB2XelIVyw8tpTsrbauROWPbmES5ev0DuhtR4kS5A
- hkxIcCMiz8nqYImM4EFI0AaNPsn/D2dF3xzfeqEQZN/CLkJsw0OeJv20cKKYPyNyxt
- ZOGtifyQm5u2Q==
-Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
- A1D2BE8DBD1; Tue, 12 Apr 2022 03:40:11 +0000 (UTC)
+ Tue, 12 Apr 2022 04:58:01 +0000 (UTC)
+Received: by verein.lst.de (Postfix, from userid 2407)
+ id 4103168AA6; Tue, 12 Apr 2022 06:57:58 +0200 (CEST)
+Date: Tue, 12 Apr 2022 06:57:57 +0200
+From: Christoph Hellwig <hch@lst.de>
+To: Hugh Dickins <hughd@google.com>
+Message-ID: <20220412045757.GA5131@lst.de>
+References: <9a978571-8648-e830-5735-1f4748ce2e30@google.com>
+ <20220409050638.GB17755@lst.de>
+ <f73cfd56-35d2-53a3-3a59-4ff9495d7d34@google.com>
 MIME-Version: 1.0
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <164973481165.21815.4242211129127788144.git-patchwork-notify@kernel.org>
-Date: Tue, 12 Apr 2022 03:40:11 +0000
-References: <20220408081250.2494588-1-chi.minghao@zte.com.cn>
-In-Reply-To: <20220408081250.2494588-1-chi.minghao@zte.com.cn>
-To: CGEL <cgel.zte@gmail.com>
-Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org, zealci@zte.com.cn,
- chi.minghao@zte.com.cn, linux-stm32@st-md-mailman.stormreply.com,
- joabreu@synopsys.com, kuba@kernel.org, peppe.cavallaro@st.com,
- davem@davemloft.net, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] net: stmmac: using
- pm_runtime_resume_and_get instead of pm_runtime_get_sync
+Content-Disposition: inline
+In-Reply-To: <f73cfd56-35d2-53a3-3a59-4ff9495d7d34@google.com>
+User-Agent: Mutt/1.5.17 (2007-11-01)
+Cc: "Jason A. Donenfeld" <Jason@zx2c4.com>, x86@kernel.org,
+ "Darrick J. Wong" <djwong@kernel.org>, linux-fsdevel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-nfs@vger.kernel.org,
+ linux-mm@kvack.org, Chuck Lever III <chuck.lever@oracle.com>,
+ Mikulas Patocka <mpatocka@redhat.com>, viro@zeniv.linux.org.uk,
+ Mark Hemment <markhemm@googlemail.com>, Borislav Petkov <bp@alien8.de>,
+ Lukas Czerner <lczerner@redhat.com>, Andrew Morton <akpm@linux-foundation.org>,
+ Christoph Hellwig <hch@lst.de>, linux-kernel@vger.kernel.org
+Subject: [Linux-stm32] making x86 clear_user not suck,
+ was Re: [PATCH] tmpfs: fix regressions from wider use of ZERO_PAGE
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -63,32 +52,27 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello:
-
-This patch was applied to netdev/net-next.git (master)
-by Jakub Kicinski <kuba@kernel.org>:
-
-On Fri,  8 Apr 2022 08:12:50 +0000 you wrote:
-> From: Minghao Chi <chi.minghao@zte.com.cn>
+On Fri, Apr 08, 2022 at 11:08:29PM -0700, Hugh Dickins wrote:
+> > 
+> > Either way I'd rather do this optimization in iov_iter_zero rather
+> > than hiding it in tmpfs.
 > 
-> Using pm_runtime_resume_and_get is more appropriate
-> for simplifing code
-> 
-> Reported-by: Zeal Robot <zealci@zte.com.cn>
-> Signed-off-by: Minghao Chi <chi.minghao@zte.com.cn>
-> 
-> [...]
+> Let's see what others say.  I think we would all prefer clear_user() to be
+> enhanced, and hack around it neither here in tmpfs nor in iov_iter_zero().
+> But that careful work won't get done by magic, nor by me.
 
-Here is the summary with links:
-  - net: stmmac: using pm_runtime_resume_and_get instead of pm_runtime_get_sync
-    https://git.kernel.org/netdev/net-next/c/e2d0acd40c87
+I agree with that.
 
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+> And iov_iter_zero() has to deal with a wider range of possibilities,
+> when pulling in cache lines of ZERO_PAGE(0) will be less advantageous,
+> than in tmpfs doing a large dd - the case I'm aiming not to regress here
+> (tmpfs has been copying ZERO_PAGE(0) like this for years).
 
+Maybe.  OTOH I'd hate to have iov_iter_zero not used much because it
+sucks too much.
 
+So how can we entice someone with the right knowledge to implement a
+decent clear_user for x86?
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
