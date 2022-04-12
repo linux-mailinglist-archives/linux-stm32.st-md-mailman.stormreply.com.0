@@ -2,71 +2,67 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1EE464FD32F
-	for <lists+linux-stm32@lfdr.de>; Tue, 12 Apr 2022 11:05:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D5B44FD356
+	for <lists+linux-stm32@lfdr.de>; Tue, 12 Apr 2022 11:33:25 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C12BEC60496;
-	Tue, 12 Apr 2022 09:05:21 +0000 (UTC)
-Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com
- [209.85.208.41])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 526ECC60495;
+	Tue, 12 Apr 2022 09:33:25 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3ACE5C60492
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E607EC5F1FB
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 12 Apr 2022 09:05:20 +0000 (UTC)
-Received: by mail-ed1-f41.google.com with SMTP id d10so21615990edj.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 12 Apr 2022 02:05:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=JvUzj4eJQSW6VlbLUjMSITUiq97FPtxDr7ncwYmoRZw=;
- b=PQN4pGhpOlIZoayWPrUBzGowazBqMXrd4jRr1snIyitef4NjsLhheTAe0qQ4xxS53b
- 3Bt6MF+gTSAJvT6Dr3An/eqtqMwA/5zAkSdx9c7loYNVNFh9WM+LFbECAWMLVRdG5mYk
- EHaD8+YmvSfCswWysoOwVBSMt1FW0TYI80ssVuaKlsX40TIA1HRDORT8I2xQLJg1MiMs
- Yx/pt7YehaJjEiMKaTBxBkXZNXuWm38BnB890ruRydAj6g6KeFCaBmrdhEULfmwVXtvW
- JuXDdKRrxlc7wpyYmrYqigcamJk84SaFG6J8AQDlYbDZrY894fzLN+jF/gyZI2J22cJA
- G+3g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=JvUzj4eJQSW6VlbLUjMSITUiq97FPtxDr7ncwYmoRZw=;
- b=dy0Xp8F4d01UEn5R0RD9y7OQCk73QOCG6TfkbKGl7tf9q+LXB1+SyV7aTJO+rQp4Ds
- DK4UHo4dYKMOm39bWM+KykIiEeZcdMtbR0AE83Wi4RbTgFwATHoKeYJrZrqezz1Ynr92
- fluSgqKapla6cOVOc/Kfkf1M2/uZjthC5SkBt1tKwcEIQ4ljVsQWFW57x+BXwdViHDwA
- 3Gc1Ip1I7DEzVSc+kmabE30bkCqqrxYFj0/mm8npTNbS5uY5k29vI/J7NgbGNgSiRc94
- jHCXTGSytCvx4V+ul9vBa66bWQZcDXtT88QPjGbK32itoh6qQMrA8pZDHY2DI+k+1dIc
- 82jg==
-X-Gm-Message-State: AOAM530Lgn17LJUvHdqj9BHnuu3xwKyN9bxxFN0Ydyvqf7DD6Tm5L8rB
- zDaOqhzqJ8n5P6lJ6wQnsl0=
-X-Google-Smtp-Source: ABdhPJy7UIlkAw90AvWa8CNYC9UtMZpU5M8mz2CPjgf62C2T/CEb2v4+GAYAJGpj0vByS1chiMtK+A==
-X-Received: by 2002:a05:6402:27d1:b0:419:1b02:4a04 with SMTP id
- c17-20020a05640227d100b004191b024a04mr37474442ede.218.1649754319553; 
- Tue, 12 Apr 2022 02:05:19 -0700 (PDT)
-Received: from orome (pd9e518f7.dip0.t-ipconnect.de. [217.229.24.247])
- by smtp.gmail.com with ESMTPSA id
- d26-20020a1709064c5a00b006e89debe3f4sm1595260ejw.9.2022.04.12.02.05.17
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 12 Apr 2022 02:05:18 -0700 (PDT)
-Date: Tue, 12 Apr 2022 11:05:15 +0200
-From: Thierry Reding <thierry.reding@gmail.com>
-To: Rob Herring <robh@kernel.org>, Arnd Bergmann <arnd@arndb.de>
-Message-ID: <YlVAy95eF/9b1nmu@orome>
-References: <Yk3nShkFzNJaI3/Z@robh.at.kernel.org>
+ Tue, 12 Apr 2022 09:33:23 +0000 (UTC)
+Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 23C7gt62028744;
+ Tue, 12 Apr 2022 11:32:58 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=UICnyf3oPsQTzRC0I9H7zVlnLQiOcv6ykqLEagOPP+A=;
+ b=IZiYzbQebMHtNJebYRpmBh7Lqy92kJ9sBKCGLq14bPG5DvZMzlvjveRPSsU/fG8nFkZc
+ d7L+1c5QT0rmaKfaygh6U3kvSXCAm2v8IxvHHnXgIMxkt+03qgjPomdHlCyq9vhxHMUQ
+ TYbBnYgDgnja+vR7iGrAVCMwaYCKnEC0b0/S2uP76yfzcYWdeNlsCkO7v7PhVPbQEVSP
+ cnVRGjd3hOfOyY59a3X7inTOlAz/lsdR0LRsbEPxvnKKjmYZO0JCg8oVGdj0RIapw7Tx
+ u8uJpNiaBIOLA8CMZzlU3E58cl+T1Yl98ZwOJgrGZK6M0b5KOj23WKUy8wUz2VU/XQ+J qw== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3fb74y6cgq-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 12 Apr 2022 11:32:58 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id D4773100038;
+ Tue, 12 Apr 2022 11:32:55 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id CC121216833;
+ Tue, 12 Apr 2022 11:32:55 +0200 (CEST)
+Received: from [10.201.21.201] (10.75.127.49) by SHFDAG1NODE1.st.com
+ (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2308.20; Tue, 12 Apr
+ 2022 11:32:54 +0200
+Message-ID: <8daae353-911c-3102-756f-1f0448704355@foss.st.com>
+Date: Tue, 12 Apr 2022 11:32:53 +0200
 MIME-Version: 1.0
-In-Reply-To: <Yk3nShkFzNJaI3/Z@robh.at.kernel.org>
-User-Agent: Mutt/2.2.1 (c8109e14) (2022-02-19)
-Cc: devicetree@vger.kernel.org, Tomer Maimon <tmaimon77@gmail.com>,
- Avi Fishman <avifishman70@gmail.com>, Patrick Venture <venture@google.com>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Bjorn Andersson <bjorn.andersson@linaro.org>, Nancy Yuen <yuenn@google.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-tegra@vger.kernel.org,
- soc@kernel.org, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Tali Perry <tali.perry1@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
- linux-kernel@vger.kernel.org, Benjamin Fair <benjaminfair@google.com>
-Subject: Re: [Linux-stm32] [RESEND PATCH] arm64: dts: tegra: Fix boolean
- properties with values
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.7.0
+Content-Language: en-US
+To: <cgel.zte@gmail.com>, <broonie@kernel.org>
+References: <20220412070906.2532091-1-chi.minghao@zte.com.cn>
+From: Patrice CHOTARD <patrice.chotard@foss.st.com>
+In-Reply-To: <20220412070906.2532091-1-chi.minghao@zte.com.cn>
+X-Originating-IP: [10.75.127.49]
+X-ClientProxiedBy: SFHDAG2NODE3.st.com (10.75.127.6) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.858,Hydra:6.0.425,FMLib:17.11.64.514
+ definitions=2022-04-12_03,2022-04-11_01,2022-02-23_01
+Cc: Zeal Robot <zealci@zte.com.cn>, linux-kernel@vger.kernel.org,
+ Minghao Chi <chi.minghao@zte.com.cn>, linux-spi@vger.kernel.org,
+ mcoquelin.stm32@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] spi: spi-stm32-qspi: using
+ pm_runtime_resume_and_get instead of pm_runtime_get_sync
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,100 +74,106 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============6553041485148007289=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+Hi 
 
---===============6553041485148007289==
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="NBsBIpgqCfiMExLJ"
-Content-Disposition: inline
-
-
---NBsBIpgqCfiMExLJ
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Wed, Apr 06, 2022 at 02:17:30PM -0500, Rob Herring wrote:
-> Boolean properties in DT are present or not present and don't take a valu=
-e.
-> A property such as 'foo =3D <0>;' evaluated to true. IOW, the value doesn=
-'t
-> matter.
->=20
-> It may have been intended that 0 values are false, but there is no change
-> in behavior with this patch.
->=20
-> Signed-off-by: Rob Herring <robh@kernel.org>
+On 4/12/22 09:09, cgel.zte@gmail.com wrote:
+> From: Minghao Chi <chi.minghao@zte.com.cn>
+> 
+> Using pm_runtime_resume_and_get is more appropriate
+> for simplifing code
+> 
+> Reported-by: Zeal Robot <zealci@zte.com.cn>
+> Signed-off-by: Minghao Chi <chi.minghao@zte.com.cn>
 > ---
-> Can someone apply this for 5.18.
->=20
->  arch/arm64/boot/dts/nvidia/tegra186-p3310.dtsi            | 8 ++++----
->  .../boot/dts/nvidia/tegra186-p3509-0000+p3636-0001.dts    | 8 ++++----
->  arch/arm64/boot/dts/nvidia/tegra194-p2888.dtsi            | 6 +++---
->  arch/arm64/boot/dts/nvidia/tegra194-p3668.dtsi            | 6 +++---
->  arch/arm64/boot/dts/nvidia/tegra210-p2180.dtsi            | 6 +++---
->  arch/arm64/boot/dts/nvidia/tegra210-p2894.dtsi            | 8 ++++----
->  arch/arm64/boot/dts/nvidia/tegra210-p3450-0000.dts        | 8 ++++----
->  arch/arm64/boot/dts/nvidia/tegra210-smaug.dts             | 4 ++--
->  8 files changed, 27 insertions(+), 27 deletions(-)
+>  drivers/spi/spi-stm32-qspi.c | 30 ++++++++++--------------------
+>  1 file changed, 10 insertions(+), 20 deletions(-)
+> 
+> diff --git a/drivers/spi/spi-stm32-qspi.c b/drivers/spi/spi-stm32-qspi.c
+> index ffdc55f87e82..b3586521d08e 100644
+> --- a/drivers/spi/spi-stm32-qspi.c
+> +++ b/drivers/spi/spi-stm32-qspi.c
+> @@ -463,11 +463,9 @@ static int stm32_qspi_poll_status(struct spi_mem *mem, const struct spi_mem_op *
+>  	if (!spi_mem_supports_op(mem, op))
+>  		return -EOPNOTSUPP;
+>  
+> -	ret = pm_runtime_get_sync(qspi->dev);
+> -	if (ret < 0) {
+> -		pm_runtime_put_noidle(qspi->dev);
+> +	ret = pm_runtime_resume_and_get(qspi->dev);
+> +	if (ret < 0)
+>  		return ret;
+> -	}
+>  
+>  	mutex_lock(&qspi->lock);
+>  
+> @@ -490,11 +488,9 @@ static int stm32_qspi_exec_op(struct spi_mem *mem, const struct spi_mem_op *op)
+>  	struct stm32_qspi *qspi = spi_controller_get_devdata(mem->spi->master);
+>  	int ret;
+>  
+> -	ret = pm_runtime_get_sync(qspi->dev);
+> -	if (ret < 0) {
+> -		pm_runtime_put_noidle(qspi->dev);
+> +	ret = pm_runtime_resume_and_get(qspi->dev);
+> +	if (ret < 0)
+>  		return ret;
+> -	}
+>  
+>  	mutex_lock(&qspi->lock);
+>  	if (op->data.dir == SPI_MEM_DATA_IN && op->data.nbytes)
+> @@ -536,11 +532,9 @@ static ssize_t stm32_qspi_dirmap_read(struct spi_mem_dirmap_desc *desc,
+>  	u32 addr_max;
+>  	int ret;
+>  
+> -	ret = pm_runtime_get_sync(qspi->dev);
+> -	if (ret < 0) {
+> -		pm_runtime_put_noidle(qspi->dev);
+> +	ret = pm_runtime_resume_and_get(qspi->dev);
+> +	if (ret < 0)
+>  		return ret;
+> -	}
+>  
+>  	mutex_lock(&qspi->lock);
+>  	/* make a local copy of desc op_tmpl and complete dirmap rdesc
+> @@ -583,11 +577,9 @@ static int stm32_qspi_setup(struct spi_device *spi)
+>  	if (!spi->max_speed_hz)
+>  		return -EINVAL;
+>  
+> -	ret = pm_runtime_get_sync(qspi->dev);
+> -	if (ret < 0) {
+> -		pm_runtime_put_noidle(qspi->dev);
+> +	ret = pm_runtime_resume_and_get(qspi->dev);
+> +	if (ret < 0)
+>  		return ret;
+> -	}
+>  
+>  	presc = DIV_ROUND_UP(qspi->clk_rate, spi->max_speed_hz) - 1;
+>  
+> @@ -851,11 +843,9 @@ static int __maybe_unused stm32_qspi_resume(struct device *dev)
+>  
+>  	pinctrl_pm_select_default_state(dev);
+>  
+> -	ret = pm_runtime_get_sync(dev);
+> -	if (ret < 0) {
+> -		pm_runtime_put_noidle(dev);
+> +	ret = pm_runtime_resume_and_get(dev);
+> +	if (ret < 0)
+>  		return ret;
+> -	}
+>  
+>  	writel_relaxed(qspi->cr_reg, qspi->io_base + QSPI_CR);
+>  	writel_relaxed(qspi->dcr_reg, qspi->io_base + QSPI_DCR);
 
-This causes multiple regressions on Tegra boards. The reason for this is
-that these properties are not in fact boolean, despite what the DT
-bindings say. If you look at the code that handles these, you'll notice
-that they are single-cell properties, typically with <0> and <1> values.
-What may have led to the conclusion that these are boolean is that there
-is also a special case where these can be left out, but the meaning of
-that is not the "false" (<0>) value. Instead, leaving these out means
-that the values should be left at whatever is currently in the register.
+Reviewed-by: Patrice Chotard <patrice.chotard@foss.st.com>
 
-See pinconf_generic_parse_dt_config() and parse_dt_cfg() specifically in
-drivers/pinctrl/pinconf-generic.c.
-
-Arnd, can you please revert this so that these boards can be unbroken?
-
-It's a bit unfortunate because there seem to be other platforms that
-also employ these in the boolean form that Rob mentioned, but I think it
-is those that probably need fixing instead. Not sure what the intentions
-were for those.
-
-Adding Bjorn for MSM, the Nuvoton and STM32 folks.
-
-Thierry
-
---NBsBIpgqCfiMExLJ
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmJVQMgACgkQ3SOs138+
-s6FAcQ//f9+PoHjpquYwfy+qc69MSz549E+MT1SBelK6GGDpNc7CWrtmujpeiTP/
-bgA1e0TzCagra2528fAUyOtyAaVKPHS8BVt6OxptgyEgvwP2fygn83+2BIQsVar1
-Ls092mvWt1GeHYri19DRt3L43JH1RlcYxaPsUbgWU2tucetEtEDndOVUki87oclX
-se/tsVqGRA5B1FMFHPiVgJyTaFzJtiwkCZnH31BN3DRXSsOnkJr33fV5bQM4Ylg5
-vxWmwURr1T7+vTgUSCxi2RNzYGAuveI/IGFs1QD/jddo8MEHqF/EHmGmPWHF5fta
-iP3T6u7bSb0y433imp3GDtLFch/cJ4BZ9sIWfLqPXP06sVVMfbLq2joo0p26XEZ1
-q7hxFhNrpWBpmEna+RtNQWLCbcW7BBI+v0f4VYml+xNVpYehqUfHwrOqLdURucPO
-WbriU9+nODw81tLTJbSr2EGGvYi4uiGBZw302ZuApk2pOhF+Az9WnlxUHiM3Q64D
-WFubEG7Ezq1lEFO4hD4zZs9bMhSycTi6LMIJRTz7HHH/qPubJ8DWRi/Npn7WjN5S
-uzQyjmD9ei7E/jLb28Sa0TCk4zAKiZiSVWZF/ONXhJ4aGzkgLhebFgMlGOihj4Gj
-4J3cLi4fOm2o4qU7axaSMb8yd6hAD93kKRIylehK0Lfdmt9pM4I=
-=kKPk
------END PGP SIGNATURE-----
-
---NBsBIpgqCfiMExLJ--
-
---===============6553041485148007289==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+Thanks
+Patrice
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============6553041485148007289==--
