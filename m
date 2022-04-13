@@ -2,51 +2,53 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 78EDF4FFD71
-	for <lists+linux-stm32@lfdr.de>; Wed, 13 Apr 2022 20:06:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F3834FFE46
+	for <lists+linux-stm32@lfdr.de>; Wed, 13 Apr 2022 20:57:04 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2FB1AC6049B;
-	Wed, 13 Apr 2022 18:06:40 +0000 (UTC)
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 05702C6049B;
+	Wed, 13 Apr 2022 18:57:04 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1ADEEC60495
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 47052C5EC56
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 13 Apr 2022 18:06:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
- References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description;
- bh=RYArLPbSRQE8E13k3ycxmMoQnNRcq1Ic+NpsE4J+dOQ=; b=vMzaRyZmQeJIGHwv1m13Wm5unS
- s3ZTYmn9U4xKPzk44Q0g/u0dGqXES86OwZ1Ug1FlZ4Gg8SY/4PB8pK+ojDwrwQ+qfVTfcIdStZpCq
- dn32OxPcKjM/VvEY22ob50yqVN/B7Yow4fnHkU2iVyAgpCu1Fgh71ZP0IztEIy8ibfnA+6BL+YaKB
- 8+UCXRFsHA1WTfOQRgoML1NAxOSqHgyOW8XqCLYRn+FtSosvkYfDg7Ji22uJvZt/yAJqLxEHNriiS
- YM1wYeGLasScQ4LaGKJ8/lstaGm1Jk1WfaXWuKJWpoPWU4bZl0nmuks4rHwfP57ywTk+ZF+jmaeJy
- 78VBzJCg==;
-Received: from willy by casper.infradead.org with local (Exim 4.94.2 #2 (Red
- Hat Linux)) id 1nehNW-00ESOu-K7; Wed, 13 Apr 2022 18:06:06 +0000
-Date: Wed, 13 Apr 2022 19:06:06 +0100
-From: Matthew Wilcox <willy@infradead.org>
-To: Christoph Hellwig <hch@lst.de>
-Message-ID: <YlcRDrEGwEz1EymZ@casper.infradead.org>
-References: <9a978571-8648-e830-5735-1f4748ce2e30@google.com>
- <20220409050638.GB17755@lst.de>
- <f73cfd56-35d2-53a3-3a59-4ff9495d7d34@google.com>
- <20220412045757.GA5131@lst.de>
+ Wed, 13 Apr 2022 18:57:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1649876222; x=1681412222;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=lAetsBuWgswU7u+YkwA4as4H1nfbpfGF8R6Greju+tw=;
+ b=fjLkNU0SW3XtwH5xD2llmUFD0bwXU6KFD+HUuUGgJADYjliNR3+62FxE
+ x5RIE6xpAKmyutkrW5j2mPj0Ch3UqC2DImhmrBi+WbJ6na1fw8FccsuQ/
+ kPoWqicXSHi7w9ca5e9GN+xHt+p5VzePn9gD6OBv3clVjKgQLmNB+aiJD
+ SRUyxxxHf1uRuhQRAw+XrSwW8hZu9SS4RW2SOD8qxxX28wdpuUqekEvP5
+ MWUfXmdY1qLfjVRdBd9oDyQ4melLSTyo95Dms0+oMzYu2AgwlZQSG5LdY
+ mqexsNknrJNZ07r0sgp3WTwF/d+7r8J0INlwDeHMkjNbVzBohb6CAYI31 Q==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10316"; a="262501306"
+X-IronPort-AV: E=Sophos;i="5.90,257,1643702400"; d="scan'208";a="262501306"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Apr 2022 11:57:00 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.90,257,1643702400"; d="scan'208";a="612002913"
+Received: from black.fi.intel.com ([10.237.72.28])
+ by fmsmga008.fm.intel.com with ESMTP; 13 Apr 2022 11:56:57 -0700
+Received: by black.fi.intel.com (Postfix, from userid 1003)
+ id 66F9512C; Wed, 13 Apr 2022 21:56:57 +0300 (EEST)
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ linux-iio@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Date: Wed, 13 Apr 2022 21:56:56 +0300
+Message-Id: <20220413185656.21994-1-andriy.shevchenko@linux.intel.com>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20220412045757.GA5131@lst.de>
-Cc: "Jason A. Donenfeld" <Jason@zx2c4.com>, x86@kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- "Darrick J. Wong" <djwong@kernel.org>, linux-fsdevel@vger.kernel.org,
- Hugh Dickins <hughd@google.com>, linux-nfs@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-mm@kvack.org,
- Chuck Lever III <chuck.lever@oracle.com>,
- Mikulas Patocka <mpatocka@redhat.com>, viro@zeniv.linux.org.uk,
- Mark Hemment <markhemm@googlemail.com>, Borislav Petkov <bp@alien8.de>,
- Lukas Czerner <lczerner@redhat.com>, Andrew Morton <akpm@linux-foundation.org>
-Subject: Re: [Linux-stm32] making x86 clear_user not suck,
- was Re: [PATCH] tmpfs: fix regressions from wider use of ZERO_PAGE
+Cc: Lars-Peter Clausen <lars@metafoo.de>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Jonathan Cameron <jic23@kernel.org>
+Subject: [Linux-stm32] [PATCH v1 1/1] iio: trigger: stm32-lptimer-trigger:
+	Make use of device properties
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -63,31 +65,38 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Apr 12, 2022 at 06:57:57AM +0200, Christoph Hellwig wrote:
-> On Fri, Apr 08, 2022 at 11:08:29PM -0700, Hugh Dickins wrote:
-> > > 
-> > > Either way I'd rather do this optimization in iov_iter_zero rather
-> > > than hiding it in tmpfs.
-> > 
-> > Let's see what others say.  I think we would all prefer clear_user() to be
-> > enhanced, and hack around it neither here in tmpfs nor in iov_iter_zero().
-> > But that careful work won't get done by magic, nor by me.
-> 
-> I agree with that.
-> 
-> > And iov_iter_zero() has to deal with a wider range of possibilities,
-> > when pulling in cache lines of ZERO_PAGE(0) will be less advantageous,
-> > than in tmpfs doing a large dd - the case I'm aiming not to regress here
-> > (tmpfs has been copying ZERO_PAGE(0) like this for years).
-> 
-> Maybe.  OTOH I'd hate to have iov_iter_zero not used much because it
-> sucks too much.
-> 
-> So how can we entice someone with the right knowledge to implement a
-> decent clear_user for x86?
+Convert the module to be property provider agnostic and allow
+it to be used on non-OF platforms.
 
-Apparently that already happened, but it needs finishing up:
-https://lore.kernel.org/lkml/Yk9yBcj78mpXOOLL@zx2c4.com/
+Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+---
+ drivers/iio/trigger/stm32-lptimer-trigger.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/iio/trigger/stm32-lptimer-trigger.c b/drivers/iio/trigger/stm32-lptimer-trigger.c
+index 98cdc7e47f3d..af46c10cea92 100644
+--- a/drivers/iio/trigger/stm32-lptimer-trigger.c
++++ b/drivers/iio/trigger/stm32-lptimer-trigger.c
+@@ -13,6 +13,7 @@
+ #include <linux/mfd/stm32-lptimer.h>
+ #include <linux/module.h>
+ #include <linux/platform_device.h>
++#include <linux/property.h>
+ 
+ /* List Low-Power Timer triggers */
+ static const char * const stm32_lptim_triggers[] = {
+@@ -77,7 +78,7 @@ static int stm32_lptim_trigger_probe(struct platform_device *pdev)
+ 	if (!priv)
+ 		return -ENOMEM;
+ 
+-	if (of_property_read_u32(pdev->dev.of_node, "reg", &index))
++	if (device_property_read_u32(&pdev->dev, "reg", &index))
+ 		return -EINVAL;
+ 
+ 	if (index >= ARRAY_SIZE(stm32_lptim_triggers))
+-- 
+2.35.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
