@@ -2,67 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9B7BD50E608
-	for <lists+linux-stm32@lfdr.de>; Mon, 25 Apr 2022 18:43:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 29CA750E614
+	for <lists+linux-stm32@lfdr.de>; Mon, 25 Apr 2022 18:45:10 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 45151C60462;
-	Mon, 25 Apr 2022 16:43:59 +0000 (UTC)
-Received: from mail-pj1-f66.google.com (mail-pj1-f66.google.com
- [209.85.216.66])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E1E4AC628AC;
+	Mon, 25 Apr 2022 16:45:09 +0000 (UTC)
+Received: from alexa-out-sd-01.qualcomm.com (alexa-out-sd-01.qualcomm.com
+ [199.106.114.38])
+ (using TLSv1.2 with cipher AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 758E3C5EC56
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0E2C7C5EC56
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 18 Apr 2022 08:16:48 +0000 (UTC)
-Received: by mail-pj1-f66.google.com with SMTP id
- s14-20020a17090a880e00b001caaf6d3dd1so16672232pjn.3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 18 Apr 2022 01:16:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=QuqDicbY3kF4HQHdeFb/QPn21jDri/mLpJf4XQrwT3o=;
- b=Cf91qwkiOFKTt4qMLq9v73fay0oIWWa+PJlaAfoWlehlU4po3BhqsIN49MGh99uXsq
- 4xQC18cXFAhYHB1KMlGLW2uhEljK5iDu1fsATHCWs1p/gPmzOQFmczki0721XqaT+IxJ
- GUEYGWevx06ZGeWVwXeL5peJ58NYCPqBOsHlPwjpyFTvoClq2WFVu42rZPe/44iBdBH4
- 7InQgDLAq+z0Wm8/LOwqDZyiEg1NkqX/2Maj8gqEgvdXlCK/KnWE217YXd1spF3U4zHz
- xN4iBZ6o3LaF9zPmz8IGEDJnrN1PPTFYU9OMG6Sipf15vnV3P2T1es2G0lE+dbGV55As
- PK9w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=QuqDicbY3kF4HQHdeFb/QPn21jDri/mLpJf4XQrwT3o=;
- b=WdTXy3n5mr466bXBUNYYhRSLgu8ry8AjdA/E4xoIJ91TxirnSiR+Ya1FCTuBGS7q2Y
- ZF55tZyCNxp/RkYLhuxIrN1pJoQ6bJWsHPyblKEMExgbpmFwRrRAnRoZEKWOj+70v+Su
- M3FA7ZOjCN3owjkHa5k0zxu4l9QGyJZTM/iv/ioLmWBxz69YrjD2KB6wQwxciisn4qEE
- Q6PUu+AZE2aO7rud+fXhkqW0IMrdWoZjKisFAprl+abluwdUNlBV8l4bn5s9tdATwBwY
- 7gKvUAnUlmWaU2KNrNKKJ3wFlS73jAOA690my22rUZQtwMmZuo4ZdaVP9r68g0uXfOMp
- X1xQ==
-X-Gm-Message-State: AOAM532EoCm3hXPKZzKISGJbrcTFaGsDVTrtGf/1dkn4tInkXBex/bUz
- 2S9mqeHljWyZYrorwaNgSsQ=
-X-Google-Smtp-Source: ABdhPJzwGQWOC0I6R9+OHjfZ/iZ3x1t3TfAOEyesjAPVx/oKo1R9eOfSpI5WOxjRu4mpqrgcWQm9AQ==
-X-Received: by 2002:a17:902:f0ca:b0:158:d082:ee3a with SMTP id
- v10-20020a170902f0ca00b00158d082ee3amr10191448pla.151.1650269806945; 
- Mon, 18 Apr 2022 01:16:46 -0700 (PDT)
-Received: from localhost.localdomain ([103.84.139.165])
- by smtp.gmail.com with ESMTPSA id
- u10-20020a6540ca000000b0037445e95c93sm11777600pgp.15.2022.04.18.01.16.43
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 18 Apr 2022 01:16:46 -0700 (PDT)
-From: Hangyu Hua <hbh25y@gmail.com>
-To: alexander.shishkin@linux.intel.com, mcoquelin.stm32@gmail.com,
- alexandre.torgue@foss.st.com, gregkh@linuxfoundation.org,
- mathieu.poirier@linaro.org
-Date: Mon, 18 Apr 2022 16:16:32 +0800
-Message-Id: <20220418081632.35121-1-hbh25y@gmail.com>
-X-Mailer: git-send-email 2.25.1
+ Mon, 18 Apr 2022 11:47:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1650282445; x=1681818445;
+ h=from:to:cc:subject:date:message-id:mime-version;
+ bh=n2+oqVAGuq8c/aT6QcC6vtRWS7aPsK4XrbOxWAUb+cM=;
+ b=UBT6oYQAU5keoHZo3hSbf+FfQWuD0hJtKxUjiwip6JR7RLeTTPURc9fS
+ wnk5uIzGZqQNyjGoD+3g2J3IIqavcFZVmRuCXuzK5Mg1KXdCkoqjZlJa/
+ aOmjVFRItOJ1zbl4uhI6nj93NaezDfnrRB+kd5u4fHLh3UlvDIhHDFu9v g=;
+Received: from unknown (HELO ironmsg-SD-alpha.qualcomm.com) ([10.53.140.30])
+ by alexa-out-sd-01.qualcomm.com with ESMTP; 18 Apr 2022 04:47:23 -0700
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+ by ironmsg-SD-alpha.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Apr 2022 04:47:23 -0700
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.22; Mon, 18 Apr 2022 04:47:22 -0700
+Received: from jinlmao-gv.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.22; Mon, 18 Apr 2022 04:47:19 -0700
+From: Mao Jinlong <quic_jinlmao@quicinc.com>
+To: Alexander Shishkin <alexander.shishkin@linux.intel.com>, Maxime Coquelin
+ <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>
+Date: Mon, 18 Apr 2022 19:46:58 +0800
+Message-ID: <20220418114658.6491-1-quic_jinlmao@quicinc.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-X-Mailman-Approved-At: Mon, 25 Apr 2022 16:43:58 +0000
-Cc: Hangyu Hua <hbh25y@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: [Linux-stm32] [PATCH] hwtracing: stm: fix possible double free in
-	stm_register_device()
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-Mailman-Approved-At: Mon, 25 Apr 2022 16:45:09 +0000
+Cc: linux-arm-msm@vger.kernel.org, Mao Jinlong <quic_jinlmao@quicinc.com>,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Tao Zhang <quic_taozha@quicinc.com>,
+ Yuanfang Zhang <quic_yuanfang@quicinc.com>, Hao Zhang <quic_hazha@quicinc.com>,
+ Tingwei Zhang <quic_tingweiz@quicinc.com>,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH] stm class: Fix double add issue when store
+	source_link
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,31 +71,84 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-put_device() will call stm_device_release() to free stm when
-stm_register_device() fails. So there is no need to call vfree() again.
+If two threads store the same stm device to stm_source_link
+at the same time when stm->link_list is empty, it is possible
+that stm_source_link_add will be called for both of these two
+threads. Then double add issue below will happen. Add mutex
+lock for stm_source_link drop and stm_source_link add to avoid
+this race condition.
 
-Fix this by adding a return after put_device().
+[ 12.386579][ T1024] list_add double add: new=ffffff87b73ebd90,
+prev=ffffff87b73ebd90, next=ffffffc012737700.
+[ 12.386657][ T1024] -----------[ cut here ]-----------
+[ 12.386671][ T1024] kernel BUG at lib/list_debug.c:31!
+[ 12.388845][ T1024] CPU: 2 PID: 1024 Comm: sh
+[ 12.389162][ T1024] Call trace:
+[ 12.389174][ T1024] __list_add_valid+0x68/0x98
+[ 12.389199][ T1024] stm_source_link_store+0xcc/0x314 [stm_core]
+[ 12.389213][ T1024] dev_attr_store+0x38/0x8c
+[ 12.389228][ T1024] sysfs_kf_write+0xa0/0x100
+[ 12.389239][ T1024] kernfs_fop_write_iter+0x1b0/0x2f8
+[ 12.389253][ T1024] vfs_write+0x300/0x37c
+[ 12.389264][ T1024] ksys_write+0x84/0x12c
 
-Fixes: 7bd1d4093c2f ("stm class: Introduce an abstraction for System Trace Module devices")
-Signed-off-by: Hangyu Hua <hbh25y@gmail.com>
+Signed-off-by: Yuanfang Zhang <quic_yuanfang@quicinc.com>
+Signed-off-by: Mao Jinlong <quic_jinlmao@quicinc.com>
 ---
- drivers/hwtracing/stm/core.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/hwtracing/stm/core.c | 7 ++++++-
+ drivers/hwtracing/stm/stm.h  | 1 +
+ 2 files changed, 7 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/hwtracing/stm/core.c b/drivers/hwtracing/stm/core.c
-index 2712e699ba08..403b4f41bb1b 100644
+index 2712e699ba08..e73ac961acb2 100644
 --- a/drivers/hwtracing/stm/core.c
 +++ b/drivers/hwtracing/stm/core.c
-@@ -915,6 +915,7 @@ int stm_register_device(struct device *parent, struct stm_data *stm_data,
+@@ -1171,11 +1171,14 @@ static ssize_t stm_source_link_store(struct device *dev,
+ 	struct stm_device *link;
+ 	int err;
  
- 	/* matches device_initialize() above */
- 	put_device(&stm->dev);
-+	return err;
- err_free:
- 	vfree(stm);
++	mutex_lock(&src->link_mutex);
+ 	stm_source_link_drop(src);
  
+ 	link = stm_find_device(buf);
+-	if (!link)
++	if (!link) {
++		mutex_lock(&src->link_mutex);
+ 		return -EINVAL;
++	}
+ 
+ 	pm_runtime_get(&link->dev);
+ 
+@@ -1185,6 +1188,7 @@ static ssize_t stm_source_link_store(struct device *dev,
+ 		/* matches the stm_find_device() above */
+ 		stm_put_device(link);
+ 	}
++	mutex_unlock(&src->link_mutex);
+ 
+ 	return err ? : count;
+ }
+@@ -1251,6 +1255,7 @@ int stm_source_register_device(struct device *parent,
+ 
+ 	stm_output_init(&src->output);
+ 	spin_lock_init(&src->link_lock);
++	mutex_init(&src->link_mutex);
+ 	INIT_LIST_HEAD(&src->link_entry);
+ 	src->data = data;
+ 	data->src = src;
+diff --git a/drivers/hwtracing/stm/stm.h b/drivers/hwtracing/stm/stm.h
+index a9be49fc7a6b..60b814cc00e0 100644
+--- a/drivers/hwtracing/stm/stm.h
++++ b/drivers/hwtracing/stm/stm.h
+@@ -79,6 +79,7 @@ void stm_put_device(struct stm_device *stm);
+ struct stm_source_device {
+ 	struct device		dev;
+ 	struct stm_source_data	*data;
++	struct mutex		link_mutex;
+ 	spinlock_t		link_lock;
+ 	struct stm_device __rcu	*link;
+ 	struct list_head	link_entry;
 -- 
-2.25.1
+2.17.1
 
 _______________________________________________
 Linux-stm32 mailing list
