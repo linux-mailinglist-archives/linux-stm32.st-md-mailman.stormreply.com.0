@@ -2,59 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E0B025036D9
-	for <lists+linux-stm32@lfdr.de>; Sat, 16 Apr 2022 15:49:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 77D54506736
+	for <lists+linux-stm32@lfdr.de>; Tue, 19 Apr 2022 10:54:13 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8A925C60490;
-	Sat, 16 Apr 2022 13:49:05 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 224C6C06F81
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 16 Apr 2022 13:49:03 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F384AC6049D;
+	Tue, 19 Apr 2022 08:54:12 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id D85DA60F19;
- Sat, 16 Apr 2022 13:49:01 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44EB5C385A3;
- Sat, 16 Apr 2022 13:48:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1650116941;
- bh=UzrW4DH+G8Dj0UuJ/PNKT5uOU2E+a30RNW44fCHWJNc=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=WJY7d0fzGD9z8rEWIgPmHGwsmNVd9Xs4GizkmfHhSZTdXpeOzmuNzSEDDlWtvaAUh
- ouYerMh4rSVxXcQOtlh12advFnrZ3w0xQsVws8nqwg6zv8lwqjU8HRiXLrrg+vmhRq
- TqPqu2WKsrMm06dcs+P1dhrReRzGadl/5lkQPCFMn21K0IVEgGrdJmhL8/SLdvmhE6
- LnXD05Y6BVdxXqk6/T8tE4lLRIBV2CEwp1ujOfZgOxHbdpMNaBwXH4rYi564xDggwv
- 3j1FRgik6hAttx1qxP4sAcM5GEu+BOlOEStUl9ttE1BQPB2jA+a0w+5sFc/3f4+1q8
- Pb18ra+GYxNXQ==
-Date: Sat, 16 Apr 2022 14:56:58 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Philippe Schenker <philippe.schenker@toradex.com>
-Message-ID: <20220416145658.6b1b4947@jic23-huawei>
-In-Reply-To: <adf0c8de5fc7770023acbd2c9aab478b3a9ccf50.camel@toradex.com>
-References: <PH0PR03MB6786157EDA63137DF0071D1F99ED9@PH0PR03MB6786.namprd03.prod.outlook.com>
- <20220412065150.14486-1-linmq006@gmail.com>
- <adf0c8de5fc7770023acbd2c9aab478b3a9ccf50.camel@toradex.com>
-X-Mailer: Claws Mail 4.0.0 (GTK+ 3.24.33; x86_64-pc-linux-gnu)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4F8B0C60494
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 19 Apr 2022 08:54:11 +0000 (UTC)
+Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 23J2apKu015687;
+ Tue, 19 Apr 2022 10:53:49 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=selector1;
+ bh=eHr3F+Xv2EITeA1KgzRFAN3eKCVv1CZzksOJ3A+aaSg=;
+ b=slpjVlI6SYeJa4otSGHIrOyP2hdTU0VBH45RXqIcEDX+NHtn/LA4Wo9z4kgn9nq3tRp/
+ bglEWi0h26kYRGAIWgb5R2wEY0UEB1wlosDDi/MQZW/QSyO4UctCr6fQ7kVdN9isiVMA
+ gTjEHU5NL/VhDIPeYhfxpS+wIz0D7jDWRpxzfiA+5fVMINS0r5dOdObp/gPmOvxCKy96
+ 71L3z6GuRfIQT3pfEsTv8PPQ8vQ5cvkfAOMOK+4Hb4GPJsK0ZDWrogxQPp7iV5b47kbK
+ 62kiXRhmjrRs3k5LvN6QcPjW+yJg8U2aFj0wgPE8zefW82qrKvulrw1l/Lb7sQ1pd2HC hg== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3ffpqdmvq3-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 19 Apr 2022 10:53:49 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id AEC0110002A;
+ Tue, 19 Apr 2022 10:53:46 +0200 (CEST)
+Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id A749C2053D3;
+ Tue, 19 Apr 2022 10:53:46 +0200 (CEST)
+Received: from localhost (10.75.127.49) by SFHDAG2NODE2.st.com (10.75.127.5)
+ with Microsoft SMTP Server (TLS) id 15.0.1497.26; Tue, 19 Apr 2022 10:53:46
+ +0200
+From: Valentin Caron <valentin.caron@foss.st.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Date: Tue, 19 Apr 2022 10:53:27 +0200
+Message-ID: <20220419085330.1178925-1-valentin.caron@foss.st.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Cc: "linmq006@gmail.com" <linmq006@gmail.com>,
-	"          <linux-arm-kernel@lists.infradead.org>, "@stm-ict-prod-mailman-01.stormreply.prv,
-	linux-kernel@vger.kernel.org,
-	"  <keescook@chromium.org>, "@stm-ict-prod-mailman-01.stormreply.prv,
-	lars@metafoo.de,
-	" <linux-iio@vger.kernel.org>,  "@stm-ict-prod-mailman-01.stormreply.prv,
-	linux-arm-kernel@lists.infradead.org,,
-	"linux-stm32@st-md-mailman.stormreply.com\"          <linux-stm32@st-md-mailman.stormreply.com>, "@stm-ict-prod-mailman-01.stormreply.prv,
-	keescook@chromium.org, <linux-kernel@vger.kernel.org>,
-	" <mcoquelin.stm32@gmail.com>,  "@stm-ict-prod-mailman-01.stormreply.prv,
-	linux-iio@vger.kernel.org,
-	" <lars@metafoo.de>, "@stm-ict-prod-mailman-01.stormreply.prv,
-	mcoquelin.stm32@gmail.com
-Subject: Re: [Linux-stm32] [PATCH v3] iio: adc: stmpe-adc: Fix
- wait_for_completion_timeout return value check
+X-Originating-IP: [10.75.127.49]
+X-ClientProxiedBy: SFHDAG2NODE1.st.com (10.75.127.4) To SFHDAG2NODE2.st.com
+ (10.75.127.5)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.858,Hydra:6.0.486,FMLib:17.11.64.514
+ definitions=2022-04-19_03,2022-04-15_01,2022-02-23_01
+Cc: linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Geert Uytterhoeven <geert@linux-m68k.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jiri Slaby <jirislaby@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH V3 0/3] serial: stm32: add earlycon and
+	polling mode
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,62 +69,34 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gVHVlLCAxMiBBcHIgMjAyMiAwODo1MjoxMyArMDAwMApQaGlsaXBwZSBTY2hlbmtlciA8cGhp
-bGlwcGUuc2NoZW5rZXJAdG9yYWRleC5jb20+IHdyb3RlOgoKPiBPbiBUdWUsIDIwMjItMDQtMTIg
-YXQgMDY6NTEgKzAwMDAsIE1pYW9xaWFuIExpbiB3cm90ZToKPiA+IHdhaXRfZm9yX2NvbXBsZXRp
-b25fdGltZW91dCgpIHJldHVybnMgdW5zaWduZWQgbG9uZyBub3QgbG9uZy4KPiA+IGl0IHJldHVy
-bnMgMCBpZiB0aW1lZCBvdXQsIGFuZCBwb3NpdGl2ZSBpZiBjb21wbGV0ZWQuCj4gPiBUaGUgY2hl
-Y2sgZm9yIDw9IDAgaXMgYW1iaWd1b3VzIGFuZCBzaG91bGQgYmUgPT0gMCBoZXJlCj4gPiBpbmRp
-Y2F0aW5nIHRpbWVvdXQgd2hpY2ggaXMgdGhlIG9ubHkgZXJyb3IgY2FzZQo+ID4gCj4gPiBGaXhl
-czogZTgxM2RkZTZmODMzICgiaWlvOiBzdG1wZS1hZGM6IFVzZQo+ID4gd2FpdF9mb3JfY29tcGxl
-dGlvbl90aW1lb3V0IikKPiA+IFNpZ25lZC1vZmYtYnk6IE1pYW9xaWFuIExpbiA8bGlubXEwMDZA
-Z21haWwuY29tPiAgCj4gCj4gUmV2aWV3ZWQtYnk6IFBoaWxpcHBlIFNjaGVua2VyIDxwaGlsaXBw
-ZS5zY2hlbmtlckB0b3JhZGV4LmNvbT4KQXBwbGllZCB0byB0aGUgdG9ncmVnIGJyYW5jaCBvZiBp
-aW8uZ2l0IGFuZCBwdXNoZWQgb3V0IGFzIHRlc3RpbmcKdG8gc2VlIGlmIDAtZGF5IGNhbiBmaW5k
-IGFueSBwcm9ibGVtcyB3ZSBtaXNzZWQuCgpJJ20gbm90IHB1c2hpbmcgdGhpcyBiYWNrIHRvIHN0
-YWJsZSBob3dldmVyIGJlY2F1c2UgdGhlCmN1cnJlbnQgY29kZSBpc24ndCBzdHJpY3RseSBzcGVh
-a2luZyBidWdneSBpdCdzIGp1c3Qgb2RkCi8gbWlzbGVhZGluZy4KCkpvbmF0aGFuCgo+IAo+ID4g
-LS0tCj4gPiBjaGFuZ2VzIGluIHYyOgo+ID4gLSBGaXggc2FtZSBpc3N1ZSBpbiBzdG1wZV9yZWFk
-X3RlbXAuCj4gPiAtLS0KPiA+IGNoYW5nZXMgaW4gdjM6Cj4gPiAtIHVwZGF0ZSB0aGUgcGF0Y2gg
-c3ViamVjdC4KPiA+IC0tLQo+ID4gwqBkcml2ZXJzL2lpby9hZGMvc3RtcGUtYWRjLmMgfCA4ICsr
-KystLS0tCj4gPiDCoDEgZmlsZSBjaGFuZ2VkLCA0IGluc2VydGlvbnMoKyksIDQgZGVsZXRpb25z
-KC0pCj4gPiAKPiA+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2lpby9hZGMvc3RtcGUtYWRjLmMgYi9k
-cml2ZXJzL2lpby9hZGMvc3RtcGUtYWRjLmMKPiA+IGluZGV4IGQyZDQwNTM4ODQ5OS4uODNlMGFj
-NDQ2N2NhIDEwMDY0NAo+ID4gLS0tIGEvZHJpdmVycy9paW8vYWRjL3N0bXBlLWFkYy5jCj4gPiAr
-KysgYi9kcml2ZXJzL2lpby9hZGMvc3RtcGUtYWRjLmMKPiA+IEBAIC02MSw3ICs2MSw3IEBAIHN0
-cnVjdCBzdG1wZV9hZGMgewo+ID4gwqBzdGF0aWMgaW50IHN0bXBlX3JlYWRfdm9sdGFnZShzdHJ1
-Y3Qgc3RtcGVfYWRjICppbmZvLAo+ID4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqBz
-dHJ1Y3QgaWlvX2NoYW5fc3BlYyBjb25zdCAqY2hhbiwgaW50ICp2YWwpCj4gPiDCoHsKPiA+IC3C
-oMKgwqDCoMKgwqDCoGxvbmcgcmV0Owo+ID4gK8KgwqDCoMKgwqDCoMKgdW5zaWduZWQgbG9uZyBy
-ZXQ7Cj4gPiDCoAo+ID4gwqDCoMKgwqDCoMKgwqDCoG11dGV4X2xvY2soJmluZm8tPmxvY2spOwo+
-ID4gwqAKPiA+IEBAIC03OSw3ICs3OSw3IEBAIHN0YXRpYyBpbnQgc3RtcGVfcmVhZF92b2x0YWdl
-KHN0cnVjdCBzdG1wZV9hZGMKPiA+ICppbmZvLAo+ID4gwqAKPiA+IMKgwqDCoMKgwqDCoMKgwqBy
-ZXQgPSB3YWl0X2Zvcl9jb21wbGV0aW9uX3RpbWVvdXQoJmluZm8tPmNvbXBsZXRpb24sCj4gPiBT
-VE1QRV9BRENfVElNRU9VVCk7Cj4gPiDCoAo+ID4gLcKgwqDCoMKgwqDCoMKgaWYgKHJldCA8PSAw
-KSB7Cj4gPiArwqDCoMKgwqDCoMKgwqBpZiAocmV0ID09IDApIHsKPiA+IMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgc3RtcGVfcmVnX3dyaXRlKGluZm8tPnN0bXBlLCBTVE1QRV9SRUdf
-QURDX0lOVF9TVEEsCj4gPiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgU1RNUEVfQURDX0NIKGluZm8tPmNoYW5uZWwpKTsKPiA+
-IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgbXV0ZXhfdW5sb2NrKCZpbmZvLT5sb2Nr
-KTsKPiA+IEBAIC05Niw3ICs5Niw3IEBAIHN0YXRpYyBpbnQgc3RtcGVfcmVhZF92b2x0YWdlKHN0
-cnVjdCBzdG1wZV9hZGMKPiA+ICppbmZvLAo+ID4gwqBzdGF0aWMgaW50IHN0bXBlX3JlYWRfdGVt
-cChzdHJ1Y3Qgc3RtcGVfYWRjICppbmZvLAo+ID4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqBzdHJ1Y3QgaWlvX2NoYW5fc3BlYyBjb25zdCAqY2hhbiwgaW50ICp2YWwpCj4gPiDCoHsK
-PiA+IC3CoMKgwqDCoMKgwqDCoGxvbmcgcmV0Owo+ID4gK8KgwqDCoMKgwqDCoMKgdW5zaWduZWQg
-bG9uZyByZXQ7Cj4gPiDCoAo+ID4gwqDCoMKgwqDCoMKgwqDCoG11dGV4X2xvY2soJmluZm8tPmxv
-Y2spOwo+ID4gwqAKPiA+IEBAIC0xMTQsNyArMTE0LDcgQEAgc3RhdGljIGludCBzdG1wZV9yZWFk
-X3RlbXAoc3RydWN0IHN0bXBlX2FkYyAqaW5mbywKPiA+IMKgCj4gPiDCoMKgwqDCoMKgwqDCoMKg
-cmV0ID0gd2FpdF9mb3JfY29tcGxldGlvbl90aW1lb3V0KCZpbmZvLT5jb21wbGV0aW9uLAo+ID4g
-U1RNUEVfQURDX1RJTUVPVVQpOwo+ID4gwqAKPiA+IC3CoMKgwqDCoMKgwqDCoGlmIChyZXQgPD0g
-MCkgewo+ID4gK8KgwqDCoMKgwqDCoMKgaWYgKHJldCA9PSAwKSB7Cj4gPiDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoG11dGV4X3VubG9jaygmaW5mby0+bG9jayk7Cj4gPiDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoHJldHVybiAtRVRJTUVET1VUOwo+ID4gwqDCoMKgwqDC
-oMKgwqDCoH0gIAo+IAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4u
-c3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxt
-YW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+- Add support of early console and polling mode in stm32-usart driver.
+- Avoid a possible infinite loop in putchar function.
+
+Changes since v2:
+- Do not add "stm32" parameter in kernel-parameters.txt 
+
+Changes since v1:
+- Fix warning "unused variable 'ret'"
+
+Valentin Caron (3):
+  serial: stm32: remove infinite loop possibility in putchar function
+  serial: stm32: add KGDB support
+  serial: stm32: add earlycon support
+
+ drivers/tty/serial/Kconfig       |   1 +
+ drivers/tty/serial/stm32-usart.c | 100 +++++++++++++++++++++++++++++--
+ drivers/tty/serial/stm32-usart.h |   2 +
+ 3 files changed, 98 insertions(+), 5 deletions(-)
+
+-- 
+2.25.1
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
