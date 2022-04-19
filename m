@@ -2,66 +2,72 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DF451506C95
-	for <lists+linux-stm32@lfdr.de>; Tue, 19 Apr 2022 14:37:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7BBFD506D0D
+	for <lists+linux-stm32@lfdr.de>; Tue, 19 Apr 2022 15:04:09 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 90B75C6049A;
-	Tue, 19 Apr 2022 12:37:18 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2F0DEC6049A;
+	Tue, 19 Apr 2022 13:04:09 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
  [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 51453C60494
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A10CBC60494
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 19 Apr 2022 12:37:17 +0000 (UTC)
+ Tue, 19 Apr 2022 13:04:07 +0000 (UTC)
 Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 23J94c6C011392;
- Tue, 19 Apr 2022 14:36:49 +0200
+ by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 23J9NQDU015687;
+ Tue, 19 Apr 2022 15:03:56 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
  h=message-id : date :
  mime-version : subject : to : cc : references : from : in-reply-to :
  content-type : content-transfer-encoding; s=selector1;
- bh=NfBteY8OBaElO6y4VePd4S6y0BDjpnAtG+IBajaDGrw=;
- b=fh8KGt3tQex9C9tSv9HhXX+X6zSCoM2QDDLFJPzFjULHzQa/pXtig7YUl8NXBmIBIDIS
- omjkmFmsyGsH/fh/8n0U6z3perVUasFSFCVwx2r4bCjSqBWjkgwCSzQf+YYjTgNrV3rG
- SrnJxpdPDPy7bedgqLCFbJTst9cRUaB8Xn7668MzFVl9ZS0eVt8KbaIhhMdAaWs5oIK2
- 8jkhXI7Sod7IJs0djYoqPobdnqpmFO2zhVEEPreE6LwpKuOLxJIDITRFldJe5T2/zni9
- lrPX1qbi9lMQ5uOL5bbte6vXAeL50+/xOETXURJ0o//lMK78ZA5BKBcei6yKmNk+tLZH aQ== 
+ bh=NgPcRaYcvXPNkANqF3dRBBWX+Q6eKswfsITricOij1Q=;
+ b=8U9WERhD2Y+eA5c0qWpk1ByAAKR1yOMD9TXK0xbfz0J0CcWXxyLAjZT6WDYXwrbc3niP
+ OVSKHEcowed9p7kTD0x+fru0ZDuhjM2SOYFHaeUXauxPawIhPs1kVaNLFR/TKSiLIWOo
+ 7fS65M+51bnNCToNlzzmFuBUrXM6/g6exhSBGu8/zhXSjoRCvz/7l7cD/q62fNAHL0Fu
+ voiMCqlwcnaj8Td6sAefv99Y0H19Km2BzK7HA5EAFfi6H9bvJD3inZrHYw6uCN+jd7+t
+ TSv8DUiZv7sCLeYSWYIwP+hgrRMYisIkJj0zcZTIt/NTF93+364LBGpQJ7S7TZdvid4G Ew== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3ffpqdp60b-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3ffpqdpagd-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 19 Apr 2022 14:36:49 +0200
+ Tue, 19 Apr 2022 15:03:56 +0200
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 5902E10002A;
- Tue, 19 Apr 2022 14:36:47 +0200 (CEST)
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 87D7A10002A;
+ Tue, 19 Apr 2022 15:03:55 +0200 (CEST)
 Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 842CF20FCB9;
- Tue, 19 Apr 2022 14:36:47 +0200 (CEST)
-Received: from [10.48.0.142] (10.75.127.44) by SHFDAG1NODE1.st.com
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 692972122EA;
+ Tue, 19 Apr 2022 15:03:55 +0200 (CEST)
+Received: from [10.48.0.142] (10.75.127.46) by SHFDAG1NODE1.st.com
  (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2308.20; Tue, 19 Apr
- 2022 14:36:47 +0200
-Message-ID: <316ce7c7-2a8b-7854-8ea1-3cbe588eb605@foss.st.com>
-Date: Tue, 19 Apr 2022 14:36:46 +0200
+ 2022 15:03:54 +0200
+Message-ID: <d0d9c16f-4668-1263-49fa-e51648c8c098@foss.st.com>
+Date: Tue, 19 Apr 2022 15:03:53 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.7.0
 Content-Language: en-US
-To: Marek Vasut <marex@denx.de>, <linux-gpio@vger.kernel.org>
-References: <20220415215550.498381-1-marex@denx.de>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, Sekhar Nori
+ <nsekhar@ti.com>, Bartosz Golaszewski <brgl@bgdev.pl>, Rob Herring
+ <robh+dt@kernel.org>, Krzysztof Kozlowski
+ <krzysztof.kozlowski+dt@linaro.org>, Viresh Kumar <vireshk@kernel.org>,
+ Shiraz Hashim <shiraz.linux.kernel@gmail.com>, <soc@kernel.org>, Maxime
+ Coquelin <mcoquelin.stm32@gmail.com>,
+ <linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>
+References: <20220407143027.294678-1-krzysztof.kozlowski@linaro.org>
 From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
-In-Reply-To: <20220415215550.498381-1-marex@denx.de>
-X-Originating-IP: [10.75.127.44]
+In-Reply-To: <20220407143027.294678-1-krzysztof.kozlowski@linaro.org>
+X-Originating-IP: [10.75.127.46]
 X-ClientProxiedBy: SFHDAG2NODE2.st.com (10.75.127.5) To SHFDAG1NODE1.st.com
  (10.75.129.69)
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.205,Aquarius:18.0.858,Hydra:6.0.486,FMLib:17.11.64.514
  definitions=2022-04-19_05,2022-04-15_01,2022-02-23_01
-Cc: Marc Zyngier <maz@kernel.org>, Linus Walleij <linus.walleij@linaro.org>,
- Thomas Gleixner <tglx@linutronix.de>, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [RFC][PATCH] irqchip/stm32: Retrigger hierarchy
- for LEVEL triggered IRQs in tasklet
+Cc: Olof Johansson <olof@lixom.net>, arm@kernel.org,
+ Arnd Bergmann <arnd@arndb.de>
+Subject: Re: [Linux-stm32] [PATCH] ARM: dts: align SPI NOR node name with
+	dtschema
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,175 +84,115 @@ Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Marek
+Hi Krzysztof
 
-On 4/15/22 23:55, Marek Vasut wrote:
-> The current EOI handler for LEVEL triggered interrupts calls clk_enable(),
-> register IO, clk_disable(). The clock manipulation requires locking which
-> happens with IRQs disabled in clk_enable_lock(). Move the LEVEL IRQ test
-> and retrigger into dedicated tasklet and schedule the tasklet every time
-> a LEVEL IRQ triggers. This makes EOI fast for majority of IRQs on this
-> platform again, since those are edge triggered IRQs, and LEVEL triggered
-> IRQs are the exception.
+On 4/7/22 16:30, Krzysztof Kozlowski wrote:
+> The node names should be generic and SPI NOR dtschema expects "flash".
 > 
-> This also fixes the following splat found when using preempt-rt:
->   ------------[ cut here ]------------
->   WARNING: CPU: 0 PID: 0 at kernel/locking/rtmutex.c:2040 __rt_mutex_trylock+0x37/0x62
->   Modules linked in:
->   CPU: 0 PID: 0 Comm: swapper/0 Not tainted 5.10.109-rt65-stable-standard-00068-g6a5afc4b1217 #85
->   Hardware name: STM32 (Device Tree Support)
->   [<c010a45d>] (unwind_backtrace) from [<c010766f>] (show_stack+0xb/0xc)
->   [<c010766f>] (show_stack) from [<c06353ab>] (dump_stack+0x6f/0x84)
->   [<c06353ab>] (dump_stack) from [<c01145e3>] (__warn+0x7f/0xa4)
->   [<c01145e3>] (__warn) from [<c063386f>] (warn_slowpath_fmt+0x3b/0x74)
->   [<c063386f>] (warn_slowpath_fmt) from [<c063b43d>] (__rt_mutex_trylock+0x37/0x62)
->   [<c063b43d>] (__rt_mutex_trylock) from [<c063c053>] (rt_spin_trylock+0x7/0x16)
->   [<c063c053>] (rt_spin_trylock) from [<c036a2f3>] (clk_enable_lock+0xb/0x80)
->   [<c036a2f3>] (clk_enable_lock) from [<c036ba69>] (clk_core_enable_lock+0x9/0x18)
->   [<c036ba69>] (clk_core_enable_lock) from [<c034e9f3>] (stm32_gpio_get+0x11/0x24)
->   [<c034e9f3>] (stm32_gpio_get) from [<c034ef43>] (stm32_gpio_irq_trigger+0x1f/0x48)
->   [<c034ef43>] (stm32_gpio_irq_trigger) from [<c014aa53>] (handle_fasteoi_irq+0x71/0xa8)
->   [<c014aa53>] (handle_fasteoi_irq) from [<c0147111>] (generic_handle_irq+0x19/0x22)
->   [<c0147111>] (generic_handle_irq) from [<c014752d>] (__handle_domain_irq+0x55/0x64)
->   [<c014752d>] (__handle_domain_irq) from [<c0346f13>] (gic_handle_irq+0x53/0x64)
->   [<c0346f13>] (gic_handle_irq) from [<c0100ba5>] (__irq_svc+0x65/0xc0)
->   Exception stack(0xc0e01f18 to 0xc0e01f60)
->   1f00:                                                       0000300c 00000000
->   1f20: 0000300c c010ff01 00000000 00000000 c0e00000 c0e07714 00000001 c0e01f78
->   1f40: c0e07758 00000000 ef7cd0ff c0e01f68 c010554b c0105542 40000033 ffffffff
->   [<c0100ba5>] (__irq_svc) from [<c0105542>] (arch_cpu_idle+0xc/0x1e)
->   [<c0105542>] (arch_cpu_idle) from [<c063be95>] (default_idle_call+0x21/0x3c)
->   [<c063be95>] (default_idle_call) from [<c01324f7>] (do_idle+0xe3/0x1e4)
->   [<c01324f7>] (do_idle) from [<c01327b3>] (cpu_startup_entry+0x13/0x14)
->   [<c01327b3>] (cpu_startup_entry) from [<c0a00c13>] (start_kernel+0x397/0x3d4)
->   [<c0a00c13>] (start_kernel) from [<00000000>] (0x0)
->   ---[ end trace 0000000000000002 ]---
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> ---
+>   arch/arm/boot/dts/da850-evm.dts                  | 2 +-
+>   arch/arm/boot/dts/dm8168-evm.dts                 | 2 +-
+>   arch/arm/boot/dts/spear1310-evb.dts              | 2 +-
+>   arch/arm/boot/dts/spear1340-evb.dts              | 2 +-
+>   arch/arm/boot/dts/stm32mp157c-emstamp-argon.dtsi | 2 +-
+>   arch/arm/boot/dts/stm32mp157c-ev1.dts            | 4 ++--
+>   6 files changed, 7 insertions(+), 7 deletions(-)
 
-Internally we are changing things about clocking in stm32 pinctrl 
-driver. Fabien will give more details than me, but the idea is to clock 
-one times all banks during probe. It is done mainily to improve 
-performances during GPIO toggling and it will fix also the issue you report.
+Thanks for your patch. Is it possible to split it per vendor 
+(TI/STM32/SPEAR) ?
 
+Thanks
 Alex
 
-> Signed-off-by: Marek Vasut <marex@denx.de>
-> Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
-> Cc: Fabien Dessenne <fabien.dessenne@foss.st.com>
-> Cc: Linus Walleij <linus.walleij@linaro.org>
-> Cc: Marc Zyngier <maz@kernel.org>
-> Cc: Thomas Gleixner <tglx@linutronix.de>
-> Cc: linux-stm32@st-md-mailman.stormreply.com
-> Cc: linux-arm-kernel@lists.infradead.org
-> To: linux-gpio@vger.kernel.org
-> ---
->   drivers/pinctrl/stm32/pinctrl-stm32.c | 55 +++++++++++++++++++++------
->   1 file changed, 44 insertions(+), 11 deletions(-)
-> 
-> diff --git a/drivers/pinctrl/stm32/pinctrl-stm32.c b/drivers/pinctrl/stm32/pinctrl-stm32.c
-> index 242d1c37c6e4b..f4287fc18cf9a 100644
-> --- a/drivers/pinctrl/stm32/pinctrl-stm32.c
-> +++ b/drivers/pinctrl/stm32/pinctrl-stm32.c
-> @@ -10,6 +10,7 @@
->   #include <linux/gpio/driver.h>
->   #include <linux/hwspinlock.h>
->   #include <linux/io.h>
-> +#include <linux/interrupt.h>
->   #include <linux/irq.h>
->   #include <linux/mfd/syscon.h>
->   #include <linux/module.h>
-> @@ -95,6 +96,7 @@ struct stm32_gpio_bank {
->   	u32 bank_ioport_nr;
->   	u32 pin_backup[STM32_GPIO_PINS_PER_BANK];
->   	u8 irq_type[STM32_GPIO_PINS_PER_BANK];
-> +	struct tasklet_struct tasklet;
->   };
+
+> diff --git a/arch/arm/boot/dts/da850-evm.dts b/arch/arm/boot/dts/da850-evm.dts
+> index 87c517d65f62..e9aecac4f5b5 100644
+> --- a/arch/arm/boot/dts/da850-evm.dts
+> +++ b/arch/arm/boot/dts/da850-evm.dts
+> @@ -278,7 +278,7 @@ &spi1 {
+>   	status = "okay";
+>   	pinctrl-names = "default";
+>   	pinctrl-0 = <&spi1_pins &spi1_cs0_pin>;
+> -	flash: m25p80@0 {
+> +	flash: flash@0 {
+>   		#address-cells = <1>;
+>   		#size-cells = <1>;
+>   		compatible = "jedec,spi-nor";
+> diff --git a/arch/arm/boot/dts/dm8168-evm.dts b/arch/arm/boot/dts/dm8168-evm.dts
+> index 5126e2d72ed7..778796c10af8 100644
+> --- a/arch/arm/boot/dts/dm8168-evm.dts
+> +++ b/arch/arm/boot/dts/dm8168-evm.dts
+> @@ -177,7 +177,7 @@ &mcspi1 {
+>   	pinctrl-names = "default";
+>   	pinctrl-0 = <&mcspi1_pins>;
 >   
->   struct stm32_pinctrl {
-> @@ -307,20 +309,43 @@ static const struct gpio_chip stm32_gpio_template = {
->   	.set_config		= gpiochip_generic_config,
->   };
+> -	m25p80@0 {
+> +	flash@0 {
+>   		compatible = "w25x32";
+>   		spi-max-frequency = <48000000>;
+>   		reg = <0>;
+> diff --git a/arch/arm/boot/dts/spear1310-evb.dts b/arch/arm/boot/dts/spear1310-evb.dts
+> index 4cbadcb41084..ddd1cf4d0554 100644
+> --- a/arch/arm/boot/dts/spear1310-evb.dts
+> +++ b/arch/arm/boot/dts/spear1310-evb.dts
+> @@ -379,7 +379,7 @@ stmpe_touchscreen {
+>   					};
+>   				};
 >   
-> +static void stm32_gpio_irq_tasklet(struct tasklet_struct *t)
-> +{
-> +	struct stm32_gpio_bank *bank = from_tasklet(bank, t, tasklet);
-> +	struct irq_desc *desc;
-> +	struct irq_data *data;
-> +	int irq, pin, level;
-> +
-> +	/* Retrigger all LEVEL triggered pins which are still asserted. */
-> +	for (pin = 0; pin < STM32_GPIO_PINS_PER_BANK; pin++) {
-> +		if (!(bank->irq_type[pin] & IRQ_TYPE_LEVEL_MASK))
-> +			continue;
-> +
-> +		level = stm32_gpio_get(&bank->gpio_chip, pin);
-> +		if ((level == 0 && bank->irq_type[pin] == IRQ_TYPE_LEVEL_LOW) ||
-> +		    (level == 1 && bank->irq_type[pin] == IRQ_TYPE_LEVEL_HIGH)) {
-> +			irq = irq_find_mapping(bank->domain, pin);
-> +
-> +			desc = irq_to_desc(irq);
-> +			if (!desc)
-> +				continue;
-> +
-> +			data = irq_desc_get_irq_data(desc);
-> +			if (!data)
-> +				continue;
-> +
-> +			irq_chip_retrigger_hierarchy(data);
-> +		}
-> +	}
-> +}
-> +
->   static void stm32_gpio_irq_trigger(struct irq_data *d)
->   {
->   	struct stm32_gpio_bank *bank = d->domain->host_data;
-> -	int level;
-> -
-> -	/* Do not access the GPIO if this is not LEVEL triggered IRQ. */
-> -	if (!(bank->irq_type[d->hwirq] & IRQ_TYPE_LEVEL_MASK))
-> -		return;
+> -				m25p80@1 {
+> +				flash@1 {
+>   					compatible = "st,m25p80";
+>   					reg = <1>;
+>   					spi-max-frequency = <12000000>;
+> diff --git a/arch/arm/boot/dts/spear1340-evb.dts b/arch/arm/boot/dts/spear1340-evb.dts
+> index fd194ebeedc9..3a51a41eb5e4 100644
+> --- a/arch/arm/boot/dts/spear1340-evb.dts
+> +++ b/arch/arm/boot/dts/spear1340-evb.dts
+> @@ -439,7 +439,7 @@ spi0: spi@e0100000 {
+>   				cs-gpios = <&gpiopinctrl 80 0>, <&gpiopinctrl 24 0>,
+>   					   <&gpiopinctrl 85 0>;
 >   
-> -	/* If level interrupt type then retrig */
-> -	level = stm32_gpio_get(&bank->gpio_chip, d->hwirq);
-> -	if ((level == 0 && bank->irq_type[d->hwirq] == IRQ_TYPE_LEVEL_LOW) ||
-> -	    (level == 1 && bank->irq_type[d->hwirq] == IRQ_TYPE_LEVEL_HIGH))
-> -		irq_chip_retrigger_hierarchy(d);
-> +	/* If this is LEVEL triggered interrupt, retrigger in tasklet. */
-> +	if (bank->irq_type[d->hwirq] & IRQ_TYPE_LEVEL_MASK)
-> +		tasklet_schedule(&bank->tasklet);
->   }
+> -				m25p80@0 {
+> +				flash@0 {
+>   					compatible = "m25p80";
+>   					reg = <0>;
+>   					spi-max-frequency = <12000000>;
+> diff --git a/arch/arm/boot/dts/stm32mp157c-emstamp-argon.dtsi b/arch/arm/boot/dts/stm32mp157c-emstamp-argon.dtsi
+> index 33ae5e0590df..ac53ee3c496b 100644
+> --- a/arch/arm/boot/dts/stm32mp157c-emstamp-argon.dtsi
+> +++ b/arch/arm/boot/dts/stm32mp157c-emstamp-argon.dtsi
+> @@ -398,7 +398,7 @@ &qspi {
+>   	#size-cells = <0>;
+>   	status = "okay";
 >   
->   static void stm32_gpio_irq_eoi(struct irq_data *d)
-> @@ -450,6 +475,8 @@ static int stm32_gpio_domain_alloc(struct irq_domain *d,
->   	unsigned long flags;
->   	int ret = 0;
+> -	flash0: is25lp016d@0 {
+> +	flash0: flash@0 {
+>   		compatible = "jedec,spi-nor";
+>   		reg = <0>;
+>   		spi-max-frequency = <133000000>;
+> diff --git a/arch/arm/boot/dts/stm32mp157c-ev1.dts b/arch/arm/boot/dts/stm32mp157c-ev1.dts
+> index e222d2d2cb44..d142dd30e16b 100644
+> --- a/arch/arm/boot/dts/stm32mp157c-ev1.dts
+> +++ b/arch/arm/boot/dts/stm32mp157c-ev1.dts
+> @@ -262,7 +262,7 @@ &qspi {
+>   	#size-cells = <0>;
+>   	status = "okay";
 >   
-> +	tasklet_setup(&bank->tasklet, stm32_gpio_irq_tasklet);
-> +
->   	/*
->   	 * Check first that the IRQ MUX of that line is free.
->   	 * gpio irq mux is shared between several banks, protect with a lock
-> @@ -475,7 +502,11 @@ static int stm32_gpio_domain_alloc(struct irq_domain *d,
->   	irq_domain_set_hwirq_and_chip(d, virq, hwirq, &stm32_gpio_irq_chip,
->   				      bank);
+> -	flash0: mx66l51235l@0 {
+> +	flash0: flash@0 {
+>   		compatible = "jedec,spi-nor";
+>   		reg = <0>;
+>   		spi-rx-bus-width = <4>;
+> @@ -271,7 +271,7 @@ flash0: mx66l51235l@0 {
+>   		#size-cells = <1>;
+>   	};
 >   
-> -	return irq_domain_alloc_irqs_parent(d, virq, nr_irqs, &parent_fwspec);
-> +	ret = irq_domain_alloc_irqs_parent(d, virq, nr_irqs, &parent_fwspec);
-> +	if (ret)
-> +		tasklet_kill(&bank->tasklet);
-> +
-> +	return ret;
->   }
->   
->   static void stm32_gpio_domain_free(struct irq_domain *d, unsigned int virq,
-> @@ -486,6 +517,8 @@ static void stm32_gpio_domain_free(struct irq_domain *d, unsigned int virq,
->   	struct irq_data *irq_data = irq_domain_get_irq_data(d, virq);
->   	unsigned long flags, hwirq = irq_data->hwirq;
->   
-> +	tasklet_kill(&bank->tasklet);
-> +
->   	irq_domain_free_irqs_common(d, virq, nr_irqs);
->   
->   	spin_lock_irqsave(&pctl->irqmux_lock, flags);
+> -	flash1: mx66l51235l@1 {
+> +	flash1: flash@1 {
+>   		compatible = "jedec,spi-nor";
+>   		reg = <1>;
+>   		spi-rx-bus-width = <4>;
 
 _______________________________________________
 Linux-stm32 mailing list
