@@ -2,67 +2,67 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6F62F5071F1
-	for <lists+linux-stm32@lfdr.de>; Tue, 19 Apr 2022 17:37:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2A7305072EC
+	for <lists+linux-stm32@lfdr.de>; Tue, 19 Apr 2022 18:25:39 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2071FC6049A;
-	Tue, 19 Apr 2022 15:37:35 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CBD24C6049A;
+	Tue, 19 Apr 2022 16:25:38 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
  [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 04581C6047D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 85040C6047D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 19 Apr 2022 15:37:33 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 23JCbNEh019703;
- Tue, 19 Apr 2022 17:37:24 +0200
+ Tue, 19 Apr 2022 16:25:37 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 23JCZ9J4031629;
+ Tue, 19 Apr 2022 18:25:22 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
  h=message-id : date :
  mime-version : subject : to : cc : references : from : in-reply-to :
  content-type : content-transfer-encoding; s=selector1;
- bh=MMWQcd7ztdfHPvacGaXnDXQQDw/8sntKbHOtFacicws=;
- b=vVylh44DlkT3N6R9KUMdq7dAwFTjIftmkMCO3nv8tE917dkccLDGEn+FJRfq1pTuyP6C
- sB5kHZizIKqQBVAhejDTBU4fi+kKWqCBCJUHluKcK/Lfg/zn8zmb5xLnG80+mT15DB8F
- W+91vUWuhH0IM81x7FYGaKB12D/cEc2388zX4emxy5txFOkG/Zr8pvesIOdKEQnufyI+
- 06MkLL/gLpbBmZw7qQAZ3BJoKmcF1eQQe+7nFOqsfzcEUv0IArkGugWHzie8/87r3IMS
- NIKXavRJlQpm/YBEOVU62N3yNCIzDTA7GXxZjADaB/qpllYUSs6eIBC4x7Rnft94gGaO 2A== 
+ bh=5P/osqGB+ESz7rugDa+K24RbbtCL7IUzm5ZH73U2En0=;
+ b=oN52VIHzwaqM5it7I/vtINGZOH+WdXibeEf5smgxfk7c/y/d/qSlh7QmWghGq/xZunl0
+ 6AcGLqm11dQR/t4Mp+Kfu7wuFhxIZaH1aXFceKMFD0vBkSAdM/boV3IM0DXr5fVGKr4X
+ jDjrlLcrRlNrcnDlYuCJ0oHFfBz3OEc/UpDNfP+9vi2HWFpMa2fwARulY4wdJRsxca6P
+ a5iTdFTXgYsLrNbyusJ4bArv9WcAxFG6VSbhU4EcHXOhHtaOrF7vgTepAz+QlW4DLdA5
+ TyZ20W8FnN0ZWhpjIMB1MItnu9RaSqPpyyuoQPyabGmowOYWzKR8I0OfcG6c8s1I+mHW 3A== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3fh09krnem-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3fh09rgvf8-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 19 Apr 2022 17:37:24 +0200
+ Tue, 19 Apr 2022 18:25:22 +0200
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id D92B410002A;
- Tue, 19 Apr 2022 17:37:23 +0200 (CEST)
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id C6CCB10002A;
+ Tue, 19 Apr 2022 18:25:20 +0200 (CEST)
 Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id D2A48216EFC;
- Tue, 19 Apr 2022 17:37:23 +0200 (CEST)
-Received: from [10.48.0.142] (10.75.127.47) by SHFDAG1NODE1.st.com
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id C117C217B8F;
+ Tue, 19 Apr 2022 18:25:20 +0200 (CEST)
+Received: from [10.48.0.142] (10.75.127.44) by SHFDAG1NODE1.st.com
  (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2308.20; Tue, 19 Apr
- 2022 17:37:23 +0200
-Message-ID: <b7b07e11-6078-ca32-7d3d-188542f28f9d@foss.st.com>
-Date: Tue, 19 Apr 2022 17:37:22 +0200
+ 2022 18:25:20 +0200
+Message-ID: <da6cc91c-718c-83cc-aa63-1e4e134fb069@foss.st.com>
+Date: Tue, 19 Apr 2022 18:25:20 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.7.0
 Content-Language: en-US
-To: Valentin Caron <valentin.caron@foss.st.com>
-References: <20220407162042.361956-1-valentin.caron@foss.st.com>
+To: Steffen Trumtrar <s.trumtrar@pengutronix.de>,
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ <linux-arm-kernel@lists.infradead.org>
+References: <20220414100700.1733914-1-s.trumtrar@pengutronix.de>
+ <20220414100700.1733914-2-s.trumtrar@pengutronix.de>
 From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
-In-Reply-To: <20220407162042.361956-1-valentin.caron@foss.st.com>
-X-Originating-IP: [10.75.127.47]
+In-Reply-To: <20220414100700.1733914-2-s.trumtrar@pengutronix.de>
+X-Originating-IP: [10.75.127.44]
 X-ClientProxiedBy: SFHDAG2NODE2.st.com (10.75.127.5) To SHFDAG1NODE1.st.com
  (10.75.129.69)
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.205,Aquarius:18.0.858,Hydra:6.0.486,FMLib:17.11.64.514
  definitions=2022-04-19_05,2022-04-15_01,2022-02-23_01
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Rob Herring <robh+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 0/2] ARM: dts: stm32: add RTC support on
-	stm32mp13 boards
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH 2/3] ARM: dts: stm32: add stm32mp1 pwr
+	voltage regulator
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,25 +79,47 @@ Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Valentin
+Hi Steffen
 
-On 4/7/22 18:20, Valentin Caron wrote:
-> Add RTC node on stm32mp13 soc.
-> Enable RTC on stm32mp135f-dk board.
+On 4/14/22 12:06, Steffen Trumtrar wrote:
+> Add the devicetree binding for the STM32MP1 PWR voltage regulator.
+> Currently there is only a devicetree binding for this peripheral in the
+> mainline kernel and no driver.
 > 
-> Valentin Caron (2):
->    ARM: dts: stm32: add RTC node on stm32mp131
->    ARM: dts: stm32: enable RTC support on stm32mp135f-dk
+> Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
+> ---
+>   arch/arm/boot/dts/stm32mp151.dtsi | 8 ++++++++
+>   1 file changed, 8 insertions(+)
 > 
->   arch/arm/boot/dts/stm32mp131.dtsi    | 15 +++++++++++++++
->   arch/arm/boot/dts/stm32mp135f-dk.dts |  4 ++++
->   2 files changed, 19 insertions(+)
-> 
+> diff --git a/arch/arm/boot/dts/stm32mp151.dtsi b/arch/arm/boot/dts/stm32mp151.dtsi
+> index d8327298e2be..1816d9b02bb8 100644
+> --- a/arch/arm/boot/dts/stm32mp151.dtsi
+> +++ b/arch/arm/boot/dts/stm32mp151.dtsi
+> @@ -1181,6 +1181,14 @@ pwr_mcu: pwr_mcu@50001014 {
+>   			reg = <0x50001014 0x4>;
+>   		};
+>   
+> +		pwr_irq: pwr@50001020 {
 
-Series applied on stm32-next.
+label not used
 
-Thanks
+> +			compatible = "st,stm32mp1-pwr";
+> +			reg = <0x50001020 0x100>;
+> +			interrupts = <GIC_SPI 149 IRQ_TYPE_LEVEL_HIGH>;
+> +			interrupt-controller;
+> +			#interrupt-cells = <3>;
+> +		};
+> +
+
+PWR irqchip has been pushed on kernel.org ?
+
+regards
 Alex
+
+>   		exti: interrupt-controller@5000d000 {
+>   			compatible = "st,stm32mp1-exti", "syscon";
+>   			interrupt-controller;
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
