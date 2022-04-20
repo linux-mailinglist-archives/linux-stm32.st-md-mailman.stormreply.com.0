@@ -2,46 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 75C315076E4
-	for <lists+linux-stm32@lfdr.de>; Tue, 19 Apr 2022 19:57:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AA0B9508470
+	for <lists+linux-stm32@lfdr.de>; Wed, 20 Apr 2022 11:05:04 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1E602C6049A;
-	Tue, 19 Apr 2022 17:57:15 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 581A0C6049B;
+	Wed, 20 Apr 2022 09:05:04 +0000 (UTC)
+Received: from mail-qt1-f178.google.com (mail-qt1-f178.google.com
+ [209.85.160.178])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D1E10C60494
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 76BBEC6047D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 19 Apr 2022 17:57:13 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 647CBB818E8;
- Tue, 19 Apr 2022 17:57:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE04FC385A5;
- Tue, 19 Apr 2022 17:57:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1650391032;
- bh=Lc9zJeVdQ8rSijbGWdZIUTMzP4mcZbhXcP12WkMoY0g=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=t6vhbZRocd5W6GZWTR/08VvQ8eS+DwOpURNeDh2mGGxxKl4nJxOmcryDju8eejWpq
- e/TdCHwlEzdwlqqU3Z44aiHqfJOBhycK6uEKaI7iIlTdlOalUdVqf83aEsUt2syOW2
- NSClbiY03npA0NlvMW//IZnqpQf30OGX3d09/QP3Ky1zlAWAdhpUqsrKyVSCb6/XxW
- r+u1ZWNE6CQzAbaoaTnTg5iExYffGz9uw/dlKHrwzKNwBwWRT5OPLbsXLW5VtZJHCt
- ubd5uFE33c50r/gNM9ic2Sqyjy/laOJXT5u4joE9azVTb1gTcFeuWmFjqMSQiNn0jT
- Hif8cf/+yPCfw==
-From: Mark Brown <broonie@kernel.org>
-To: lgirdwood@gmail.com, cgel.zte@gmail.com
-In-Reply-To: <20220412071030.2532230-1-chi.minghao@zte.com.cn>
-References: <20220412071030.2532230-1-chi.minghao@zte.com.cn>
-Message-Id: <165039102938.1157438.13016498609633823663.b4-ty@kernel.org>
-Date: Tue, 19 Apr 2022 18:57:09 +0100
+ Wed, 20 Apr 2022 09:05:03 +0000 (UTC)
+Received: by mail-qt1-f178.google.com with SMTP id bb21so526243qtb.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 20 Apr 2022 02:05:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=GWU0CFZHZcK0qVtLfhFSoJd+WGMELdBWCS1aTnDQr3U=;
+ b=Iv2nZ/RlP644ADdG0Hr0RG7R/5gfSIQHdry7ICG8dKhB1iHWDcQCWdF7CfrLtk4hGv
+ gQRXUT6pvM1qpHMrUoWSoaUV1nendQ7v3rdf8Uo4ZSqn/yEYDQSFYpJlfYvjvgwHdcse
+ JK4il4+3AiMnBm+F1NoGl433RbNvIJTR8uHZqZVSPPiWiusSgQyakK2Ri0ArABjsRPP/
+ bX0WQMZxc9kZiZ47tVtutgaqh0iRmbdFXjMzyVYZ/UMZBiwUgzv0829jphGWtb1vLK+o
+ QUiQtVS2bBRa+ZDO7SijfGJhpI9dkaw/9B+k7LMSq7L9ImXT2X0n1a4o9ZY0ezJOQg3W
+ 2iAw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=GWU0CFZHZcK0qVtLfhFSoJd+WGMELdBWCS1aTnDQr3U=;
+ b=dfFNTysBm6VxSn0WBF5NxHXKxGdx6goYP5VEzbXgpF0jb7B7Z0Xh5MDhp48GywM/c5
+ HoeUUcy6IyBNcqFFw9I07zvrop62NqeKa2KlpTWBvQ5OdaCV9Ps0686qUmHgAF6oEnEr
+ GWGdvf2ch0TNMOaVsQ2nCDPguc23IdN7R/O6aTp6Mi36/wiVASbgpSy4QVxdUD+eBaMR
+ k9MnoPuhvBVP4edOmxuJp0a8LKL1uOssvRVLzGrZI/LvBrhefwQ9wgOcitW7q5fEUOFO
+ xNZ+7VrMGduDEQdtd3rLdcFsJjGALXL2ooE2BdZn8UxX2I3P6jLD6J4+hgdqR5PG7Au9
+ C24g==
+X-Gm-Message-State: AOAM530Py9X3Xvby6nkzkYnIYcGfRR8gVFREtrPkZm9YD1geecdj3PIm
+ TcbMm6tqZZuJIBNcsReuX0o=
+X-Google-Smtp-Source: ABdhPJynC+cZt0N24fBHq9t1/ImAPBCuJFzgMh6bLZNrRU9DO1Wd9RchF3AZrg8Hkwza637Uw3GtwQ==
+X-Received: by 2002:a05:622a:1ba5:b0:2f1:f540:e04b with SMTP id
+ bp37-20020a05622a1ba500b002f1f540e04bmr11914803qtb.62.1650445502343; 
+ Wed, 20 Apr 2022 02:05:02 -0700 (PDT)
+Received: from localhost.localdomain ([193.203.214.57])
+ by smtp.gmail.com with ESMTPSA id
+ f28-20020a05620a20dc00b0069d98e6bff9sm1249602qka.32.2022.04.20.02.04.59
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 20 Apr 2022 02:05:01 -0700 (PDT)
+From: cgel.zte@gmail.com
+X-Google-Original-From: chi.minghao@zte.com.cn
+To: alain.volmat@foss.st.com
+Date: Wed, 20 Apr 2022 09:04:52 +0000
+Message-Id: <20220420090452.2588930-1-chi.minghao@zte.com.cn>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Cc: zealci@zte.com.cn, chi.minghao@zte.com.cn, linux-kernel@vger.kernel.org,
- mcoquelin.stm32@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
+Cc: Zeal Robot <zealci@zte.com.cn>, linux-kernel@vger.kernel.org,
+ Minghao Chi <chi.minghao@zte.com.cn>, linux-spi@vger.kernel.org,
+ broonie@kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] regulator: stm32-vrefbuf: using
-	pm_runtime_resume_and_get instead of pm_runtime_get_sync
+Subject: [Linux-stm32] [PATCH] spi: stm32: using pm_runtime_resume_and_get
+	instead of pm_runtime_get_sync
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -58,41 +78,37 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, 12 Apr 2022 07:10:30 +0000, cgel.zte@gmail.com wrote:
-> From: Minghao Chi <chi.minghao@zte.com.cn>
-> 
-> Using pm_runtime_resume_and_get is more appropriate
-> for simplifing code
-> 
-> 
+From: Minghao Chi <chi.minghao@zte.com.cn>
 
-Applied to
+Using pm_runtime_resume_and_get() to replace pm_runtime_get_sync and
+pm_runtime_put_noidle. This change is just to simplify the code, no
+actual functional changes.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/regulator.git for-next
+Reported-by: Zeal Robot <zealci@zte.com.cn>
+Signed-off-by: Minghao Chi <chi.minghao@zte.com.cn>
+---
+ drivers/spi/spi-stm32.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-Thanks!
+diff --git a/drivers/spi/spi-stm32.c b/drivers/spi/spi-stm32.c
+index a6adc20f6862..6fe617b445a5 100644
+--- a/drivers/spi/spi-stm32.c
++++ b/drivers/spi/spi-stm32.c
+@@ -2000,9 +2000,8 @@ static int __maybe_unused stm32_spi_resume(struct device *dev)
+ 		return ret;
+ 	}
+ 
+-	ret = pm_runtime_get_sync(dev);
++	ret = pm_runtime_resume_and_get(dev);
+ 	if (ret < 0) {
+-		pm_runtime_put_noidle(dev);
+ 		dev_err(dev, "Unable to power device:%d\n", ret);
+ 		return ret;
+ 	}
+-- 
+2.25.1
 
-[1/1] regulator: stm32-vrefbuf: using pm_runtime_resume_and_get instead of pm_runtime_get_sync
-      commit: bfb5711e2455a239ad64dd5151fb16d195329d46
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
