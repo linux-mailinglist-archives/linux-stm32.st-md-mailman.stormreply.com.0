@@ -2,52 +2,81 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CCA11508854
-	for <lists+linux-stm32@lfdr.de>; Wed, 20 Apr 2022 14:41:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 89A6E508887
+	for <lists+linux-stm32@lfdr.de>; Wed, 20 Apr 2022 14:54:47 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 70C07C60492;
-	Wed, 20 Apr 2022 12:41:37 +0000 (UTC)
-Received: from smtp-relay-canonical-0.canonical.com
- (smtp-relay-canonical-0.canonical.com [185.125.188.120])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 39E3AC60492;
+	Wed, 20 Apr 2022 12:54:47 +0000 (UTC)
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com
+ [209.85.214.172])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 81961C5F1FB
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 979D8C5F1FB
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 20 Apr 2022 12:41:35 +0000 (UTC)
-Received: from localhost.localdomain (36-229-224-240.dynamic-ip.hinet.net
- [36.229.224.240])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id D00893FA47; 
- Wed, 20 Apr 2022 12:41:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
- s=20210705; t=1650458492;
- bh=SKjQnef4t+NYwjHc80rBUTUJdxxhm2rF2h/H64pus8k=;
- h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
- MIME-Version;
- b=aVhDslsDfu3NINdHmfYaY9uRiLennv/4jmsXRqZgK1SAGKGJNEgdwCf6h6BNXSBZD
- G+2PcfrUYj2iywGzbxDa4CjMQDc9K308UBX9w4H2LzeMMxgey0nOLodqVOUYT2vVg/
- WwVuLU54sOAgdl/GT9DvN3V2M0XnHwtnw4fqpJRsdh1nKLsI2ATK6rrc1TPD2Ehkfl
- NCFWADZEEXI3uP2eI8fCx4kyTQ5Tp85rSN2hKQOdnxhPkRlUPzE0HWdrG3ZztMexml
- KO+XzChdIMV/zng9m06yJYOUETKIkuth8Yn0TDbxr6t1FJhVW91YWbcPiO1TJ8MAg9
- TG312LAp8n8Ow==
-From: Kai-Heng Feng <kai.heng.feng@canonical.com>
-To: andrew@lunn.ch, hkallweit1@gmail.com, linux@armlinux.org.uk,
- peppe.cavallaro@st.com, alexandre.torgue@foss.st.com, joabreu@synopsys.com,
- davem@davemloft.net, kuba@kernel.org, pabeni@redhat.com
-Date: Wed, 20 Apr 2022 20:40:52 +0800
-Message-Id: <20220420124053.853891-6-kai.heng.feng@canonical.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20220420124053.853891-1-kai.heng.feng@canonical.com>
-References: <20220420124053.853891-1-kai.heng.feng@canonical.com>
+ Wed, 20 Apr 2022 12:54:45 +0000 (UTC)
+Received: by mail-pl1-f172.google.com with SMTP id n18so1697780plg.5
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 20 Apr 2022 05:54:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=cfKEQXfvPhG1kZ+YpMF2hReHRJMEZQRtVI8gWHNwJsE=;
+ b=SJ9wrEqPvYtvq6u4My/rceS5j/aS5O0TKpsoPpclCoMwLTUcTsXrjY6k58GgXgJDjk
+ tz01T2qFPAHZcwZXJgAwa/uoXApT+ETBGfmmTjkYZ9d86v15pp2JSMJBlS0X/emLIUnL
+ FfaBsG1olGj+ebvEzoG/tMRz6g3iydpNPuDMUWlcJE2yd+4v/SWBiXyLES6jNIDlHD5l
+ 61Z4eLrfFF8CDN43J7Tz5JjM0Q/1AYgpPCyv7abRl+quV72pVPxZxKv/x7sKMu9XzVL5
+ SWOxNuWj84mkapk9TS6KdbIbwNAjO5B36W7ddQDXFwsqyW2fnMzNSfySVXaXW0AshHBv
+ GGKQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=cfKEQXfvPhG1kZ+YpMF2hReHRJMEZQRtVI8gWHNwJsE=;
+ b=E67lCNgslDVuV2fL3ZQmioPUUmktTpYF/FCKAdv+JXRN9/42eckWh2hg9Ew1DNreaU
+ M/Uokt68MiunThDLm3Si1ip9vApm0HtwYDxIYAQerVCd4l37nBZTKhAobzIV3iVaFBzS
+ FZWgKPOlpIB10ZpyEM8vLW3Q6tkThxKBlpqHwdHk3axjCJSv4jsBM3fQ8Ti2aL2DnOac
+ 0tTKYdQE9tcs1PntRm6DJ8ICb6y/+mNN/lL/TIAvQPE/MoqCC7/YqWU/bZtp0dY/kAgg
+ GcIySzjq/2LdZxgQBTJQH02xL3R48YLRiLBIwxHLLAF9uMDkrbuAhi+pyWn3PpouzZh7
+ KfSA==
+X-Gm-Message-State: AOAM533oEcmnCMWX53XTO3lsgS31QPHse/nr54SIM8tmfW4mxKX3tjDG
+ jfPQKSITClIYnobrOBwVmVs=
+X-Google-Smtp-Source: ABdhPJyBl7o+zKhHc4HtlQRcXGENqCIJ11onw+S/lwrewiHQtnsX2ruF+ZGjWz971D6YhQis7geogw==
+X-Received: by 2002:a17:90b:4f42:b0:1d2:d1fa:4df5 with SMTP id
+ pj2-20020a17090b4f4200b001d2d1fa4df5mr4297398pjb.81.1650459284069; 
+ Wed, 20 Apr 2022 05:54:44 -0700 (PDT)
+Received: from hoboy.vegasvil.org ([2601:640:8200:33:e2d5:5eff:fea5:802f])
+ by smtp.gmail.com with ESMTPSA id
+ o22-20020a17090a9f9600b001d0d20fd674sm15955961pjp.40.2022.04.20.05.54.41
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 20 Apr 2022 05:54:42 -0700 (PDT)
+Date: Wed, 20 Apr 2022 05:54:39 -0700
+From: Richard Cochran <richardcochran@gmail.com>
+To: Tan Tee Min <tee.min.tan@linux.intel.com>
+Message-ID: <20220420125439.GA1401@hoboy.vegasvil.org>
+References: <20220413040115.2351987-1-tee.min.tan@intel.com>
+ <20220413125915.GA667752@hoboy.vegasvil.org>
+ <20220414072934.GA10025@linux.intel.com>
+ <20220414104259.0b928249@kernel.org>
+ <20220419005220.GA17634@linux.intel.com>
+ <20220419132853.GA19386@hoboy.vegasvil.org>
+ <20220420051508.GA18173@linux.intel.com>
 MIME-Version: 1.0
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- Kai-Heng Feng <kai.heng.feng@canonical.com>,
+Content-Disposition: inline
+In-Reply-To: <20220420051508.GA18173@linux.intel.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: Song Yoong Siang <yoong.siang.song@intel.com>, linux-kernel@vger.kernel.org,
+ Alexandre Torgue <alexandre.torgue@st.com>,
+ Voon Wei Feng <weifeng.voon@intel.com>,
+ Wong Vee Khee <vee.khee.wong@intel.com>, netdev@vger.kernel.org,
+ Tan Tee Min <tee.min.tan@intel.com>,
+ Rayagond Kokatanur <rayagond@vayavyalabs.com>, stable@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Jose Abreu <joabreu@synopsys.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 5/5] net: stmmac: Use acpi_mdiobus_register()
-	for ACPI based system
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "David S . Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net 1/1] net: stmmac: add fsleep() in HW
+ Rx timestamp checking loop
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -64,53 +93,16 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Child nodes of stmmac ACPI node may have additional properties that the
-PHY layer can use.
+On Wed, Apr 20, 2022 at 01:15:08PM +0800, Tan Tee Min wrote:
+> No. The context descriptor (frame) is possibly still owned by the
+> DMA controller in this situation.
 
-To achieve that, use acpi_mdiobus_register() to find PHY nodes
-references via "phy-handle", so the properties of PHY nodes can be used
-by the PHY layer.
+So that is a problem.  The solution is to postpone this logic until
+the driver owns the buffer.  Doesn't the HW offer some means of
+notification, like an interrupt for example?
 
-Signed-off-by: Kai-Heng Feng <kai.heng.feng@canonical.com>
----
- drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
-index a5d150c5f3d8c..37cebd8f2ec5c 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
-@@ -10,6 +10,8 @@
-   Maintainer: Giuseppe Cavallaro <peppe.cavallaro@st.com>
- *******************************************************************************/
- 
-+#include <linux/acpi.h>
-+#include <linux/acpi_mdio.h>
- #include <linux/gpio/consumer.h>
- #include <linux/io.h>
- #include <linux/iopoll.h>
-@@ -445,6 +447,7 @@ int stmmac_mdio_register(struct net_device *ndev)
- 	struct stmmac_mdio_bus_data *mdio_bus_data = priv->plat->mdio_bus_data;
- 	struct device_node *mdio_node = priv->plat->mdio_node;
- 	struct device *dev = ndev->dev.parent;
-+	struct fwnode_handle *fwnode = dev->fwnode;
- 	int addr, found, max_addr;
- 
- 	if (!mdio_bus_data)
-@@ -488,7 +491,10 @@ int stmmac_mdio_register(struct net_device *ndev)
- 	new_bus->phy_mask = mdio_bus_data->phy_mask;
- 	new_bus->parent = priv->device;
- 
--	err = of_mdiobus_register(new_bus, mdio_node);
-+	if (is_acpi_node(fwnode))
-+		err = acpi_mdiobus_register(new_bus, fwnode);
-+	else
-+		err = of_mdiobus_register(new_bus, mdio_node);
- 	if (err != 0) {
- 		dev_err(dev, "Cannot register the MDIO bus\n");
- 		goto bus_register_fail;
--- 
-2.34.1
+Thanks,
+Richard
 
 _______________________________________________
 Linux-stm32 mailing list
