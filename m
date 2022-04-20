@@ -2,66 +2,51 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id AA0B9508470
-	for <lists+linux-stm32@lfdr.de>; Wed, 20 Apr 2022 11:05:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0C0E05085AC
+	for <lists+linux-stm32@lfdr.de>; Wed, 20 Apr 2022 12:20:15 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 581A0C6049B;
-	Wed, 20 Apr 2022 09:05:04 +0000 (UTC)
-Received: from mail-qt1-f178.google.com (mail-qt1-f178.google.com
- [209.85.160.178])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B1ED8C6049B;
+	Wed, 20 Apr 2022 10:20:14 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 76BBEC6047D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BD963C5EC76
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 20 Apr 2022 09:05:03 +0000 (UTC)
-Received: by mail-qt1-f178.google.com with SMTP id bb21so526243qtb.3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 20 Apr 2022 02:05:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=GWU0CFZHZcK0qVtLfhFSoJd+WGMELdBWCS1aTnDQr3U=;
- b=Iv2nZ/RlP644ADdG0Hr0RG7R/5gfSIQHdry7ICG8dKhB1iHWDcQCWdF7CfrLtk4hGv
- gQRXUT6pvM1qpHMrUoWSoaUV1nendQ7v3rdf8Uo4ZSqn/yEYDQSFYpJlfYvjvgwHdcse
- JK4il4+3AiMnBm+F1NoGl433RbNvIJTR8uHZqZVSPPiWiusSgQyakK2Ri0ArABjsRPP/
- bX0WQMZxc9kZiZ47tVtutgaqh0iRmbdFXjMzyVYZ/UMZBiwUgzv0829jphGWtb1vLK+o
- QUiQtVS2bBRa+ZDO7SijfGJhpI9dkaw/9B+k7LMSq7L9ImXT2X0n1a4o9ZY0ezJOQg3W
- 2iAw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=GWU0CFZHZcK0qVtLfhFSoJd+WGMELdBWCS1aTnDQr3U=;
- b=dfFNTysBm6VxSn0WBF5NxHXKxGdx6goYP5VEzbXgpF0jb7B7Z0Xh5MDhp48GywM/c5
- HoeUUcy6IyBNcqFFw9I07zvrop62NqeKa2KlpTWBvQ5OdaCV9Ps0686qUmHgAF6oEnEr
- GWGdvf2ch0TNMOaVsQ2nCDPguc23IdN7R/O6aTp6Mi36/wiVASbgpSy4QVxdUD+eBaMR
- k9MnoPuhvBVP4edOmxuJp0a8LKL1uOssvRVLzGrZI/LvBrhefwQ9wgOcitW7q5fEUOFO
- xNZ+7VrMGduDEQdtd3rLdcFsJjGALXL2ooE2BdZn8UxX2I3P6jLD6J4+hgdqR5PG7Au9
- C24g==
-X-Gm-Message-State: AOAM530Py9X3Xvby6nkzkYnIYcGfRR8gVFREtrPkZm9YD1geecdj3PIm
- TcbMm6tqZZuJIBNcsReuX0o=
-X-Google-Smtp-Source: ABdhPJynC+cZt0N24fBHq9t1/ImAPBCuJFzgMh6bLZNrRU9DO1Wd9RchF3AZrg8Hkwza637Uw3GtwQ==
-X-Received: by 2002:a05:622a:1ba5:b0:2f1:f540:e04b with SMTP id
- bp37-20020a05622a1ba500b002f1f540e04bmr11914803qtb.62.1650445502343; 
- Wed, 20 Apr 2022 02:05:02 -0700 (PDT)
-Received: from localhost.localdomain ([193.203.214.57])
- by smtp.gmail.com with ESMTPSA id
- f28-20020a05620a20dc00b0069d98e6bff9sm1249602qka.32.2022.04.20.02.04.59
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 20 Apr 2022 02:05:01 -0700 (PDT)
-From: cgel.zte@gmail.com
-X-Google-Original-From: chi.minghao@zte.com.cn
-To: alain.volmat@foss.st.com
-Date: Wed, 20 Apr 2022 09:04:52 +0000
-Message-Id: <20220420090452.2588930-1-chi.minghao@zte.com.cn>
-X-Mailer: git-send-email 2.25.1
+ Wed, 20 Apr 2022 10:20:12 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 42EBEB81A62;
+ Wed, 20 Apr 2022 10:20:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 038FEC385A8;
+ Wed, 20 Apr 2022 10:20:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1650450011;
+ bh=/kdrOscUXpoTe8OKXrVoGjhZrmlONVarr3cDpQHst9I=;
+ h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
+ b=r4euG7tA1dKEixKtNEorriN9zHT/PHz65n++wmmdngajFBvjX1BpmR3HS1B3dPmvs
+ ACZgRaO+sTLRl06co6jxBAGu3LelTq4yHaKHEM1KeJ/wBs+FAJGvAsD4E6fMgq5wTr
+ 6ZnzYXjhj60w5lsL1Bj+8+cUUKgdIV7jHj2JYbZBALB3tmeZnmAgXTqL9TZ6jN2IYa
+ vN+NChKpFlgPwqWcQ3HwsrIr8aJiLlxUBB57D2nzj7Xii3XbeUPUtjSTo+zEnEem46
+ YNRr/+IHFg9WfL5CXNU3E6T1UwiNn3zWi8InFzzv3zTUPS7ssBEebc5l1BTcrAxn0E
+ miEuziuYqydIQ==
+Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
+ DC37EE7399D; Wed, 20 Apr 2022 10:20:10 +0000 (UTC)
 MIME-Version: 1.0
-Cc: Zeal Robot <zealci@zte.com.cn>, linux-kernel@vger.kernel.org,
- Minghao Chi <chi.minghao@zte.com.cn>, linux-spi@vger.kernel.org,
- broonie@kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: <165045001089.14273.9231245992154971496.git-patchwork-notify@kernel.org>
+Date: Wed, 20 Apr 2022 10:20:10 +0000
+References: <20220419084226.38340-1-haokexin@gmail.com>
+In-Reply-To: <20220419084226.38340-1-haokexin@gmail.com>
+To: Kevin Hao <haokexin@gmail.com>
+Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ joabreu@synopsys.com, mcoquelin.stm32@gmail.com, peppe.cavallaro@st.com,
+ kuba@kernel.org, zhengdejin5@gmail.com, pabeni@redhat.com, davem@davemloft.net,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH] spi: stm32: using pm_runtime_resume_and_get
-	instead of pm_runtime_get_sync
+Subject: Re: [Linux-stm32] [PATCH v2 net] net: stmmac: Use
+ readl_poll_timeout_atomic() in atomic state
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,35 +63,52 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Minghao Chi <chi.minghao@zte.com.cn>
+Hello:
 
-Using pm_runtime_resume_and_get() to replace pm_runtime_get_sync and
-pm_runtime_put_noidle. This change is just to simplify the code, no
-actual functional changes.
+This patch was applied to netdev/net.git (master)
+by David S. Miller <davem@davemloft.net>:
 
-Reported-by: Zeal Robot <zealci@zte.com.cn>
-Signed-off-by: Minghao Chi <chi.minghao@zte.com.cn>
----
- drivers/spi/spi-stm32.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+On Tue, 19 Apr 2022 16:42:26 +0800 you wrote:
+> The init_systime() may be invoked in atomic state. We have observed the
+> following call trace when running "phc_ctl /dev/ptp0 set" on a Intel
+> Agilex board.
+>   BUG: sleeping function called from invalid context at drivers/net/ethernet/stmicro/stmmac/stmmac_hwtstamp.c:74
+>   in_atomic(): 1, irqs_disabled(): 128, non_block: 0, pid: 381, name: phc_ctl
+>   preempt_count: 1, expected: 0
+>   RCU nest depth: 0, expected: 0
+>   Preemption disabled at:
+>   [<ffff80000892ef78>] stmmac_set_time+0x34/0x8c
+>   CPU: 2 PID: 381 Comm: phc_ctl Not tainted 5.18.0-rc2-next-20220414-yocto-standard+ #567
+>   Hardware name: SoCFPGA Agilex SoCDK (DT)
+>   Call trace:
+>    dump_backtrace.part.0+0xc4/0xd0
+>    show_stack+0x24/0x40
+>    dump_stack_lvl+0x7c/0xa0
+>    dump_stack+0x18/0x34
+>    __might_resched+0x154/0x1c0
+>    __might_sleep+0x58/0x90
+>    init_systime+0x78/0x120
+>    stmmac_set_time+0x64/0x8c
+>    ptp_clock_settime+0x60/0x9c
+>    pc_clock_settime+0x6c/0xc0
+>    __arm64_sys_clock_settime+0x88/0xf0
+>    invoke_syscall+0x5c/0x130
+>    el0_svc_common.constprop.0+0x4c/0x100
+>    do_el0_svc+0x7c/0xa0
+>    el0_svc+0x58/0xcc
+>    el0t_64_sync_handler+0xa4/0x130
+>    el0t_64_sync+0x18c/0x190
+> 
+> [...]
 
-diff --git a/drivers/spi/spi-stm32.c b/drivers/spi/spi-stm32.c
-index a6adc20f6862..6fe617b445a5 100644
---- a/drivers/spi/spi-stm32.c
-+++ b/drivers/spi/spi-stm32.c
-@@ -2000,9 +2000,8 @@ static int __maybe_unused stm32_spi_resume(struct device *dev)
- 		return ret;
- 	}
- 
--	ret = pm_runtime_get_sync(dev);
-+	ret = pm_runtime_resume_and_get(dev);
- 	if (ret < 0) {
--		pm_runtime_put_noidle(dev);
- 		dev_err(dev, "Unable to power device:%d\n", ret);
- 		return ret;
- 	}
+Here is the summary with links:
+  - [v2,net] net: stmmac: Use readl_poll_timeout_atomic() in atomic state
+    https://git.kernel.org/netdev/net/c/234901de2bc6
+
+You are awesome, thank you!
 -- 
-2.25.1
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
 
 _______________________________________________
