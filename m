@@ -2,67 +2,72 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B41F050E60A
-	for <lists+linux-stm32@lfdr.de>; Mon, 25 Apr 2022 18:43:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4CC8550E616
+	for <lists+linux-stm32@lfdr.de>; Mon, 25 Apr 2022 18:45:10 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6F893C60494;
-	Mon, 25 Apr 2022 16:43:59 +0000 (UTC)
-Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com
- [209.85.214.177])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1249FC628C0;
+	Mon, 25 Apr 2022 16:45:10 +0000 (UTC)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8607CC60494
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 740AAC6047D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 19 Apr 2022 08:45:04 +0000 (UTC)
-Received: by mail-pl1-f177.google.com with SMTP id s14so14831100plk.8
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 19 Apr 2022 01:45:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=X2KGsW6b0Sn4O5TobSGtAgwWDjHoIqdrX635z8HKk2g=;
- b=Z3YP7m4Hi6+FbbD8Pnt/OWzIrDKkf6UfsHwQvK7UkBJGn9KWGJp9u6A9GOgNT39Mo4
- 7VPRpOFFgWnQVrCAn0U+yjsfqW8nsa1HS161EzNFM9M6K0+y7baRoQqCi9mYhULFDm63
- 3XYnPBSqcy5QvjwcXaE+ZXkKM35xDhm9xJpuWArDis1vDoNlKNs89nOW6nP826ubtk11
- ZhE6HcUqkbUBhs3w1Mf4zelk1cFSUSMuoj4z+2m/IhFCednSaLj4TBbHrvo7S2rA0nnl
- XX63DdRKyvzwQwiMUGNomNWPNpio6EXg19+zd+MBkNBlMkcFD8LeElTWD34d528yBFFI
- QOJg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=X2KGsW6b0Sn4O5TobSGtAgwWDjHoIqdrX635z8HKk2g=;
- b=U9ezXqu3OTq4a0etgemILI5LOuGId674WsiSrrg38bADAXP0HK0SjVECOERP6cKfBq
- wxnEeG1h+iw1WzVJY6ry/ma6JGQy9aUv6siDfQHYSya7Cv8nnhUr8wSeOv+8WRvFuTVI
- IszCccyH62HV4nb5jpmjstGNp1r27CgDrHDNL3o8zJnoLnt3HFQ85Vp37e6RJyFphEHq
- zwYSqQYCv1xTxGvypF3yjtdiZ4UwLdVMu508vufOq3o/kZmVbc724mWy9qAaxx5I6Zz7
- hxmylqvGwfbKWwOJS5ItUoEJ8AlS5katcwmCYMd1i8sxrt+S+3eneRKUDiDCEs8yVzry
- DIYw==
-X-Gm-Message-State: AOAM532VsUbJ0evtidnH4zfGbra5kdabzmSNt9H0O270IHVrQ9NhgNIG
- 8lql/XV1fDiSH89y4VG8a2g=
-X-Google-Smtp-Source: ABdhPJyFqIglBKxu7J04iHFtU350zwAdnM+M5XIktrt7xCTxHoX5QbGCHczZPGQuJJmX0Rum6gYnjg==
-X-Received: by 2002:a17:902:f24b:b0:158:f5c3:a210 with SMTP id
- j11-20020a170902f24b00b00158f5c3a210mr11336632plc.65.1650357903104; 
- Tue, 19 Apr 2022 01:45:03 -0700 (PDT)
-Received: from pek-lpggp6.wrs.com (unknown-105-123.windriver.com.
- [147.11.105.123]) by smtp.gmail.com with ESMTPSA id
- k11-20020a056a00168b00b004f7e1555538sm16190618pfc.190.2022.04.19.01.44.58
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 19 Apr 2022 01:45:02 -0700 (PDT)
-From: Kevin Hao <haokexin@gmail.com>
-To: netdev@vger.kernel.org
-Date: Tue, 19 Apr 2022 16:42:26 +0800
-Message-Id: <20220419084226.38340-1-haokexin@gmail.com>
-X-Mailer: git-send-email 2.34.1
+ Wed, 20 Apr 2022 05:17:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1650431835; x=1681967835;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=l0WdwVsUeyccH1Fn1OB0E52YvfyFMuwl2zNyTg/ZU5E=;
+ b=TrKq2kDQIQNdt+OFZPIuCksNxrUJAc00w35Tjayu0kwp/GbRedIJXNxC
+ K+QdU5t9uAYP8JTzYpwx6HPbjfYQHQwkEA+UV355R0eGX5sweQc76X0V2
+ adSa3ZonlmUOv62myWcC+9l0mbDYhp4E4C6j36F0eSTXObnE8m3sFUcSt
+ cg8CokweTIeFXfBUpzUaVVRVQTgITujssGnB5qTklg7CL72LVKUzPBoQg
+ brjyergCMBW5huZLveZdySZiTfp4ptkdu2QyITMKaroA893/gHiVjg85n
+ AYRHaU47vIL55CT5QLY9UHlvxWljeExp5IwaQziknQ7jwY2psYVwtn8Dn g==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10322"; a="263404943"
+X-IronPort-AV: E=Sophos;i="5.90,274,1643702400"; d="scan'208";a="263404943"
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Apr 2022 22:17:13 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.90,274,1643702400"; d="scan'208";a="804919014"
+Received: from linux.intel.com ([10.54.29.200])
+ by fmsmga006.fm.intel.com with ESMTP; 19 Apr 2022 22:17:12 -0700
+Received: from linux.intel.com (ssid-ilbpg3-teeminta.png.intel.com
+ [10.88.227.74])
+ (using TLSv1.2 with cipher DHE-RSA-AES128-SHA (128/128 bits))
+ (No client certificate requested)
+ by linux.intel.com (Postfix) with ESMTPS id 5DCF85807D2;
+ Tue, 19 Apr 2022 22:17:08 -0700 (PDT)
+Date: Wed, 20 Apr 2022 13:15:08 +0800
+From: Tan Tee Min <tee.min.tan@linux.intel.com>
+To: Richard Cochran <richardcochran@gmail.com>
+Message-ID: <20220420051508.GA18173@linux.intel.com>
+References: <20220413040115.2351987-1-tee.min.tan@intel.com>
+ <20220413125915.GA667752@hoboy.vegasvil.org>
+ <20220414072934.GA10025@linux.intel.com>
+ <20220414104259.0b928249@kernel.org>
+ <20220419005220.GA17634@linux.intel.com>
+ <20220419132853.GA19386@hoboy.vegasvil.org>
 MIME-Version: 1.0
-X-Mailman-Approved-At: Mon, 25 Apr 2022 16:43:58 +0000
-Cc: Dejin Zheng <zhengdejin5@gmail.com>,
+Content-Disposition: inline
+In-Reply-To: <20220419132853.GA19386@hoboy.vegasvil.org>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+X-Mailman-Approved-At: Mon, 25 Apr 2022 16:45:09 +0000
+Cc: Song Yoong Siang <yoong.siang.song@intel.com>, linux-kernel@vger.kernel.org,
+ Alexandre Torgue <alexandre.torgue@st.com>,
+ Voon Wei Feng <weifeng.voon@intel.com>,
+ Wong Vee Khee <vee.khee.wong@intel.com>, netdev@vger.kernel.org,
+ Tan Tee Min <tee.min.tan@intel.com>,
+ Rayagond Kokatanur <rayagond@vayavyalabs.com>, stable@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, Jose Abreu <joabreu@synopsys.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>, Paolo Abeni <pabeni@redhat.com>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v2 net] net: stmmac: Use
-	readl_poll_timeout_atomic() in atomic state
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "David S . Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net 1/1] net: stmmac: add fsleep() in HW
+ Rx timestamp checking loop
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,77 +79,29 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The init_systime() may be invoked in atomic state. We have observed the
-following call trace when running "phc_ctl /dev/ptp0 set" on a Intel
-Agilex board.
-  BUG: sleeping function called from invalid context at drivers/net/ethernet/stmicro/stmmac/stmmac_hwtstamp.c:74
-  in_atomic(): 1, irqs_disabled(): 128, non_block: 0, pid: 381, name: phc_ctl
-  preempt_count: 1, expected: 0
-  RCU nest depth: 0, expected: 0
-  Preemption disabled at:
-  [<ffff80000892ef78>] stmmac_set_time+0x34/0x8c
-  CPU: 2 PID: 381 Comm: phc_ctl Not tainted 5.18.0-rc2-next-20220414-yocto-standard+ #567
-  Hardware name: SoCFPGA Agilex SoCDK (DT)
-  Call trace:
-   dump_backtrace.part.0+0xc4/0xd0
-   show_stack+0x24/0x40
-   dump_stack_lvl+0x7c/0xa0
-   dump_stack+0x18/0x34
-   __might_resched+0x154/0x1c0
-   __might_sleep+0x58/0x90
-   init_systime+0x78/0x120
-   stmmac_set_time+0x64/0x8c
-   ptp_clock_settime+0x60/0x9c
-   pc_clock_settime+0x6c/0xc0
-   __arm64_sys_clock_settime+0x88/0xf0
-   invoke_syscall+0x5c/0x130
-   el0_svc_common.constprop.0+0x4c/0x100
-   do_el0_svc+0x7c/0xa0
-   el0_svc+0x58/0xcc
-   el0t_64_sync_handler+0xa4/0x130
-   el0t_64_sync+0x18c/0x190
-
-So we should use readl_poll_timeout_atomic() here instead of
-readl_poll_timeout().
-
-Also adjust the delay time to 10us to fix a "__bad_udelay" build error
-reported by "kernel test robot <lkp@intel.com>". I have tested this on
-Intel Agilex and NXP S32G boards, there is no delay needed at all.
-So the 10us delay should be long enough for most cases.
-
-Fixes: ff8ed737860e ("net: stmmac: use readl_poll_timeout() function in init_systime()")
-Signed-off-by: Kevin Hao <haokexin@gmail.com>
----
-v2: Fix the "__bad_udelay" build error.
-
- drivers/net/ethernet/stmicro/stmmac/stmmac_hwtstamp.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_hwtstamp.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_hwtstamp.c
-index 22fea0f67245..92d32940aff0 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_hwtstamp.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_hwtstamp.c
-@@ -71,9 +71,9 @@ static int init_systime(void __iomem *ioaddr, u32 sec, u32 nsec)
- 	writel(value, ioaddr + PTP_TCR);
- 
- 	/* wait for present system time initialize to complete */
--	return readl_poll_timeout(ioaddr + PTP_TCR, value,
-+	return readl_poll_timeout_atomic(ioaddr + PTP_TCR, value,
- 				 !(value & PTP_TCR_TSINIT),
--				 10000, 100000);
-+				 10, 100000);
- }
- 
- static int config_addend(void __iomem *ioaddr, u32 addend)
--- 
-2.34.1
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gVHVlLCBBcHIgMTksIDIwMjIgYXQgMDY6Mjg6NTNBTSAtMDcwMCwgUmljaGFyZCBDb2NocmFu
+IHdyb3RlOgo+IE9uIFR1ZSwgQXByIDE5LCAyMDIyIGF0IDA4OjUyOjIwQU0gKzA4MDAsIFRhbiBU
+ZWUgTWluIHdyb3RlOgo+IAo+ID4gSSBhZ3JlZSB0aGF0IHRoZSBmc2xlZXAoMSkgKD0xdXMpIGlz
+IGEgYmlnIGhhbW1lci4KPiA+IFRodXMgaW4gb3JkZXIgdG8gaW1wcm92ZSB0aGlzLCBJ4oCZdmUg
+ZmlndXJlZCBvdXQgYSBzbWFsbGVyIGRlbGF5Cj4gPiB0aW1lIHRoYXQgaXMgZW5vdWdoIGZvciB0
+aGUgY29udGV4dCBkZXNjcmlwdG9yIHRvIGJlIHJlYWR5IHdoaWNoCj4gPiBpcyBuZGVsYXkoNTAw
+KSAoPTUwMG5zKS4KPiAKPiBXaHkgaXNuJ3QgdGhlIGNvbnRleHQgZGVzY3JpcHRvciByZWFkeT8K
+PiAKPiBJIG1lYW4sIHRoZSBmcmFtZSBhbHJlYWR5IGJlbG9uZ3MgdG8gdGhlIENQVSwgcmlnaHQ/
+CgpOby4gVGhlIGNvbnRleHQgZGVzY3JpcHRvciAoZnJhbWUpIGlzIHBvc3NpYmx5IHN0aWxsIG93
+bmVkIGJ5IHRoZQpETUEgY29udHJvbGxlciBpbiB0aGlzIHNpdHVhdGlvbi4KVGhpcyBpcyB3aHkg
+YSBsb29waW5nIGluIHRoZSBvcmlnaW5hbCBjb2RlIHRvIHdhaXQgZm9yIHRoZSBkZXNjcmlwdG9y
+CnRvIGJlIG93bmVkIGJ5IHRoZSBhcHBsaWNhdGlvbiBDUFUuIEhvd2V2ZXIsIHdoZW4gTkFQSSBp
+cyBidXN5IHBvbGxpbmcsCnRoZSBjb250ZXh0IGRlc2NyaXB0b3IgbWlnaHQgYmUgc3RpbGwgb3du
+ZWQgYnkgdGhlIERNQSBjb250cm9sbGVyIGV2ZW4KYWZ0ZXIgdGhlIGxvb3BpbmcuCgpUaHVzLCB3
+ZSBhcmUgYWRkaW5nIGFuIGFkZGl0aW9uYWwgbmFub3NlY29uZCBkZWxheSBpbnNpZGUgdGhlIGxv
+b3AsCnNvIHRoYXQgdGhlIERNQSBjb250cm9sbGVyIGNhbiBnZXQgYSBzaG9ydCBtb21lbnQgdG8g
+YnJlYXRoZSBhbmQKY29tcGxldGUgdGhlIGNvbnRleHQgZGVzY3JpcHRvci4KClRoYW5rcywKVGVl
+IE1pbgoKPiAKPiBUaGFua3MsCj4gUmljaGFyZApfX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJA
+c3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1y
+ZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
