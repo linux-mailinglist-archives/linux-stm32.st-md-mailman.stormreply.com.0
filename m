@@ -2,68 +2,46 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 091BF50A075
-	for <lists+linux-stm32@lfdr.de>; Thu, 21 Apr 2022 15:12:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 276A150A197
+	for <lists+linux-stm32@lfdr.de>; Thu, 21 Apr 2022 16:08:43 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A30BFC60496;
-	Thu, 21 Apr 2022 13:12:12 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C557AC60496;
+	Thu, 21 Apr 2022 14:08:42 +0000 (UTC)
+Received: from phobos.denx.de (phobos.denx.de [85.214.62.61])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9694AC5F1FB
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1E135C60467
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 21 Apr 2022 13:12:11 +0000 (UTC)
-Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 23LAfL7U028198;
- Thu, 21 Apr 2022 15:11:45 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=BSuqtpsBEN3AOPDnhS5vWYqg6e/X1Tlu5d5xf72gPyk=;
- b=SHKNDdkt7Fe7WIC0T5NYP/JVXwHDKmdxV1mXzUNfXQawJHG5hQmuOC/T+1KeL9m5Ploy
- f7r7NJ1lseg/NslMYDPFYFXEv0r19iHkjQZ8tX1MjOXmz+U/Mbk+vbZtZJxs5GDoTQ/l
- 08OntL/iPxnnA/8AXy/S88fYLiZEBxffEHjc3VxY/snA5ZDQ2HXoJ3gy6bkYbHL/0He4
- kWMHnYe7YTTY59n3A2R8IvhIjk2XGNVbOYHRVd+MF1YjFv/3EizrkHLivHGyeP4VeHlX
- 9b7Jb+zAHh9tp+aKNwOc6JX8T+eXlP201xNBekTlWjx8odL9StXhiouBODwsWa6HA7be 7g== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3ffpqh34up-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 21 Apr 2022 15:11:45 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id D15FF10003D;
- Thu, 21 Apr 2022 15:11:42 +0200 (CEST)
-Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id C63412248D1;
- Thu, 21 Apr 2022 15:11:42 +0200 (CEST)
-Received: from [10.201.21.172] (10.75.127.50) by SFHDAG2NODE2.st.com
- (10.75.127.5) with Microsoft SMTP Server (TLS) id 15.0.1497.26; Thu, 21 Apr
- 2022 15:11:42 +0200
-Message-ID: <37ba2977-848a-19a6-8505-279f2b19c962@foss.st.com>
-Date: Thu, 21 Apr 2022 15:11:41 +0200
+ Thu, 21 Apr 2022 14:08:41 +0000 (UTC)
+Received: from tr.lan (ip-86-49-12-201.net.upcbroadband.cz [86.49.12.201])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
+ (No client certificate requested)
+ (Authenticated sender: marex@denx.de)
+ by phobos.denx.de (Postfix) with ESMTPSA id 3507283BF4;
+ Thu, 21 Apr 2022 16:08:40 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de;
+ s=phobos-20191101; t=1650550120;
+ bh=GXAbl7k1LtV1G+BEDr5GpTwqouJ1Lxo5WQY7nELQLe8=;
+ h=From:To:Cc:Subject:Date:From;
+ b=ZKdRSzT5gDM8MKTxaERfavoaovfNVnIrGUV7WovmM5AkzAz7z5vNLdZG1r+avLHcq
+ lh83gGIs+Abt88BkoCO0yB5+4hFCqlR/iIEbhfevBnlrab7/JfOt8zVSCPa25kqiQs
+ UduAPS0kqsE04Pc9jZIr4thqfTMOPofrUbDhtkS2XkBoD/Zs2/5fnvS1d90p8Oueay
+ yN3OWHBmJtjm5nUWAVj465V9mLbPPwHN9rglrR4gbRCosHLAAuTKeMmNxNAL70AQna
+ uDtaDXwdgdf1t6uQATryRX3LdCjdmTpm5x2aPyRXHl7cLrvaRSfs5vLqovQp1mHGkh
+ jzWTxz7HtuZag==
+From: Marek Vasut <marex@denx.de>
+To: linux-gpio@vger.kernel.org
+Date: Thu, 21 Apr 2022 16:08:27 +0200
+Message-Id: <20220421140827.214088-1-marex@denx.de>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.7.0
-Content-Language: en-US
-To: Oleksij Rempel <o.rempel@pengutronix.de>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>
-References: <20220421091949.2789488-1-o.rempel@pengutronix.de>
- <20220421091949.2789488-2-o.rempel@pengutronix.de>
-From: Yann Gautier <yann.gautier@foss.st.com>
-In-Reply-To: <20220421091949.2789488-2-o.rempel@pengutronix.de>
-X-Originating-IP: [10.75.127.50]
-X-ClientProxiedBy: SFHDAG2NODE3.st.com (10.75.127.6) To SFHDAG2NODE2.st.com
- (10.75.127.5)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.858,Hydra:6.0.486,FMLib:17.11.64.514
- definitions=2022-04-21_01,2022-04-21_01,2022-02-23_01
-Cc: kernel@pengutronix.de, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH v1 2/2] ARM: dts: stm32: add support for
- Protonic PRTT1x boards
+X-Virus-Scanned: clamav-milter 0.103.5 at phobos.denx.de
+X-Virus-Status: Clean
+Cc: Marek Vasut <marex@denx.de>, Marc Zyngier <maz@kernel.org>,
+ Linus Walleij <linus.walleij@linaro.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH] irqchip/stm32: Keep pinctrl block clock
+	enabled when LEVEL IRQ requested
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,763 +53,136 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 4/21/22 11:19, Oleksij Rempel wrote:
-> This boards are based on STM32MP151AAD3 and use 10BaseT1L for communication.
-> 
-> - PRTT1C - 10BaseT1L switch
-> - PRTT1S - 10BaseT1L CO2 sensor board
-> - PRTT1A - 10BaseT1L multi functional controller
-> 
-> Signed-off-by: Oleksij Rempel <o.rempel@pengutronix.de>
-> ---
->   arch/arm/boot/dts/Makefile                |   4 +
->   arch/arm/boot/dts/stm32mp151a-prtt1a.dts  |  52 ++++
->   arch/arm/boot/dts/stm32mp151a-prtt1c.dts  | 327 ++++++++++++++++++++++
->   arch/arm/boot/dts/stm32mp151a-prtt1l.dtsi | 219 +++++++++++++++
->   arch/arm/boot/dts/stm32mp151a-prtt1s.dts  |  63 +++++
->   5 files changed, 665 insertions(+)
->   create mode 100644 arch/arm/boot/dts/stm32mp151a-prtt1a.dts
->   create mode 100644 arch/arm/boot/dts/stm32mp151a-prtt1c.dts
->   create mode 100644 arch/arm/boot/dts/stm32mp151a-prtt1l.dtsi
->   create mode 100644 arch/arm/boot/dts/stm32mp151a-prtt1s.dts
-> 
-> diff --git a/arch/arm/boot/dts/Makefile b/arch/arm/boot/dts/Makefile
-> index 7c16f8a2b738..ec5b2307e85a 100644
-> --- a/arch/arm/boot/dts/Makefile
-> +++ b/arch/arm/boot/dts/Makefile
-> @@ -1156,6 +1156,9 @@ dtb-$(CONFIG_ARCH_STM32) += \
->   	stm32h743i-disco.dtb \
->   	stm32h750i-art-pi.dtb \
->   	stm32mp135f-dk.dtb \
-> +	stm32mp151a-prtt1a.dtb \
-> +	stm32mp151a-prtt1c.dtb \
-> +	stm32mp151a-prtt1s.dtb \
->   	stm32mp153c-dhcom-drc02.dtb \
->   	stm32mp157a-avenger96.dtb \
->   	stm32mp157a-dhcor-avenger96.dtb \
-> @@ -1175,6 +1178,7 @@ dtb-$(CONFIG_ARCH_STM32) += \
->   	stm32mp157c-ev1.dtb \
->   	stm32mp157c-lxa-mc1.dtb \
->   	stm32mp157c-odyssey.dtb
-> +
->   dtb-$(CONFIG_MACH_SUN4I) += \
->   	sun4i-a10-a1000.dtb \
->   	sun4i-a10-ba10-tvbox.dtb \
-> diff --git a/arch/arm/boot/dts/stm32mp151a-prtt1a.dts b/arch/arm/boot/dts/stm32mp151a-prtt1a.dts
-> new file mode 100644
-> index 000000000000..75874eafde11
-> --- /dev/null
-> +++ b/arch/arm/boot/dts/stm32mp151a-prtt1a.dts
-> @@ -0,0 +1,52 @@
-> +// SPDX-License-Identifier: (GPL-2.0+ OR BSD-3-Clause)
-> +/*
-> + * Copyright (C) Protonic Holland
-> + * Author: David Jander <david@protonic.nl>
-> + */
-> +/dts-v1/;
-> +
-> +#include "stm32mp151a-prtt1l.dtsi"
-> +
-> +/ {
-> +	model = "Protonic PRTT1A";
-> +	compatible = "prt,prtt1a", "st,stm32mp151";
-> +};
-> +
-> +&ethernet0 {
-> +	phy-handle = <&phy0>;
-> +};
-> +
-> +&mdio0 {
-> +	/* TI DP83TD510E */
-> +	phy0: ethernet-phy@0 {
-> +		compatible = "ethernet-phy-id2000.0181";
-> +		reg = <0>;
-> +		interrupts-extended = <&gpioa 4 IRQ_TYPE_LEVEL_LOW>;
-> +		reset-gpios = <&gpioa 3 GPIO_ACTIVE_LOW>;
-> +		reset-assert-us = <10>;
-> +		reset-deassert-us = <35>;
-> +	};
-> +};
-> +
-> +&pwm5_pins_a {
-> +	pins {
-> +		pinmux = <STM32_PINMUX('A', 0, AF2)>; /* TIM5_CH1 */
-> +	};
-> +};
-> +
-> +&pwm5_sleep_pins_a {
-> +	pins {
-> +		pinmux = <STM32_PINMUX('A', 0, ANALOG)>; /* TIM5_CH1 */
-> +	};
-> +};
-> +
-> +&timers5 {
-> +	status = "okay";
-> +
-> +	pwm {
-> +		pinctrl-0 = <&pwm5_pins_a>;
-> +		pinctrl-1 = <&pwm5_sleep_pins_a>;
-> +		pinctrl-names = "default", "sleep";
-> +		status = "okay";
-> +	};
-> +};
-> diff --git a/arch/arm/boot/dts/stm32mp151a-prtt1c.dts b/arch/arm/boot/dts/stm32mp151a-prtt1c.dts
-> new file mode 100644
-> index 000000000000..a5d1e279ce75
-> --- /dev/null
-> +++ b/arch/arm/boot/dts/stm32mp151a-prtt1c.dts
-> @@ -0,0 +1,327 @@
-> +// SPDX-License-Identifier: (GPL-2.0+ OR BSD-3-Clause)
-> +/*
-> + * Copyright (C) Protonic Holland
-> + * Author: David Jander <david@protonic.nl>
-> + */
-> +/dts-v1/;
-> +
-> +#include "stm32mp151a-prtt1l.dtsi"
-> +
-> +/ {
-> +	model = "Protonic PRTT1C";
-> +	compatible = "prt,prtt1c", "st,stm32mp151";
-> +
-> +	clock_ksz9031: clock-ksz9031 {
-> +		compatible = "fixed-clock";
-> +		#clock-cells = <0>;
-> +		clock-frequency = <25000000>;
-> +	};
-> +
-> +	clock_sja1105: clock-sja1105 {
-> +		compatible = "fixed-clock";
-> +		#clock-cells = <0>;
-> +		clock-frequency = <25000000>;
-> +	};
-> +
-> +	mdio0: mdio {
-> +		compatible = "virtual,mdio-gpio";
-> +		#address-cells = <1>;
-> +		#size-cells = <0>;
-> +		gpios = <&gpioc 1 GPIO_ACTIVE_HIGH
-> +			 &gpioa 2 GPIO_ACTIVE_HIGH>;
-> +
-> +	};
-> +
-> +	wifi_pwrseq: wifi-pwrseq {
-> +		compatible = "mmc-pwrseq-simple";
-> +		reset-gpios = <&gpiod 8 GPIO_ACTIVE_LOW>;
-> +	};
-> +};
-> +
-> +&ethernet0 {
-> +	fixed-link {
-> +		speed = <100>;
-> +		full-duplex;
-> +	};
-> +};
-> +
-> +&gpioa {
-> +	gpio-line-names =
-> +		"", "", "", "PHY0_nRESET", "PHY0_nINT", "", "", "",
-> +		"", "", "", "", "", "", "", "SPI1_nSS";
-> +};
-> +
-> +&gpiod {
-> +	gpio-line-names =
-> +		"", "", "", "", "", "", "", "",
-> +		"WFM_RESET", "", "", "", "", "", "", "";
-> +};
-> +
-> +&gpioe {
-> +	gpio-line-names =
-> +		"SDMMC2_nRESET", "", "", "", "", "", "SPI1_nRESET", "",
-> +		"", "", "", "", "WFM_nIRQ", "", "", "";
-> +};
-> +
-> +&gpiog {
-> +	gpio-line-names =
-> +		"", "", "", "", "", "", "", "PHY3_nINT",
-> +		"PHY1_nINT", "PHY3_nRESET", "PHY2_nINT", "PHY2_nRESET",
-> +		"PHY1_nRESET", "SPE1_PWR", "SPE0_PWR", "";
-> +};
-> +
-> +&mdio0 {
-> +	/* All this DP83TD510E PHYs can't be probed before switch@0 is
-> +	 * probed so we need to use compatible with PHYid
-> +	 */
-> +	/* TI DP83TD510E */
-> +	t1l0_phy: ethernet-phy@6 {
-> +		compatible = "ethernet-phy-id2000.0181";
-> +		reg = <6>;
-> +		interrupts-extended = <&gpioa 4 IRQ_TYPE_LEVEL_LOW>;
-> +		reset-gpios = <&gpioa 3 GPIO_ACTIVE_LOW>;
-> +		reset-assert-us = <10>;
-> +		reset-deassert-us = <35>;
-> +	};
-> +
-> +	/* TI DP83TD510E */
-> +	t1l1_phy: ethernet-phy@7 {
-> +		compatible = "ethernet-phy-id2000.0181";
-> +		reg = <7>;
-> +		interrupts-extended = <&gpiog 8 IRQ_TYPE_LEVEL_LOW>;
-> +		reset-gpios = <&gpiog 12 GPIO_ACTIVE_LOW>;
-> +		reset-assert-us = <10>;
-> +		reset-deassert-us = <35>;
-> +	};
-> +
-> +	/* TI DP83TD510E */
-> +	t1l2_phy: ethernet-phy@10 {
-> +		compatible = "ethernet-phy-id2000.0181";
-> +		reg = <10>;
-> +		interrupts-extended = <&gpiog 10 IRQ_TYPE_LEVEL_LOW>;
-> +		reset-gpios = <&gpiog 11 GPIO_ACTIVE_LOW>;
-> +		reset-assert-us = <10>;
-> +		reset-deassert-us = <35>;
-> +	};
-> +
-> +	/* Micrel KSZ9031 */
-> +	rj45_phy: ethernet-phy@2 {
-> +		reg = <2>;
-> +		interrupts-extended = <&gpiog 7 IRQ_TYPE_LEVEL_LOW>;
-> +		reset-gpios = <&gpiog 9 GPIO_ACTIVE_LOW>;
-> +		reset-assert-us = <10000>;
-> +		reset-deassert-us = <1000>;
-> +
-> +		clocks = <&clock_ksz9031>;
-> +	};
-> +};
-> +
-> +&qspi {
-> +	status = "disabled";
-> +};
-> +
-> +&sdmmc2 {
-> +	pinctrl-names = "default", "opendrain", "sleep";
-> +	pinctrl-0 = <&sdmmc2_b4_pins_a &sdmmc2_d47_pins_a>;
-> +	pinctrl-1 = <&sdmmc2_b4_od_pins_a &sdmmc2_d47_pins_a>;
-> +	pinctrl-2 = <&sdmmc2_b4_sleep_pins_a &sdmmc2_d47_sleep_pins_a>;
+The current EOI handler for LEVEL triggered interrupts calls clk_enable(),
+register IO, clk_disable(). The clock manipulation requires locking which
+happens with IRQs disabled in clk_enable_lock(). Instead of turning the
+clock on and off all the time, enable the clock in case LEVEL interrupt is
+requested and keep the clock enabled until all LEVEL interrupts are freed.
+The LEVEL interrupts are an exception on this platform and seldom used, so
+this does not affect the common case.
 
-Hi Oleksij,
+This simplifies the LEVEL interrupt handling considerably and also fixes
+the following splat found when using preempt-rt:
+ ------------[ cut here ]------------
+ WARNING: CPU: 0 PID: 0 at kernel/locking/rtmutex.c:2040 __rt_mutex_trylock+0x37/0x62
+ Modules linked in:
+ CPU: 0 PID: 0 Comm: swapper/0 Not tainted 5.10.109-rt65-stable-standard-00068-g6a5afc4b1217 #85
+ Hardware name: STM32 (Device Tree Support)
+ [<c010a45d>] (unwind_backtrace) from [<c010766f>] (show_stack+0xb/0xc)
+ [<c010766f>] (show_stack) from [<c06353ab>] (dump_stack+0x6f/0x84)
+ [<c06353ab>] (dump_stack) from [<c01145e3>] (__warn+0x7f/0xa4)
+ [<c01145e3>] (__warn) from [<c063386f>] (warn_slowpath_fmt+0x3b/0x74)
+ [<c063386f>] (warn_slowpath_fmt) from [<c063b43d>] (__rt_mutex_trylock+0x37/0x62)
+ [<c063b43d>] (__rt_mutex_trylock) from [<c063c053>] (rt_spin_trylock+0x7/0x16)
+ [<c063c053>] (rt_spin_trylock) from [<c036a2f3>] (clk_enable_lock+0xb/0x80)
+ [<c036a2f3>] (clk_enable_lock) from [<c036ba69>] (clk_core_enable_lock+0x9/0x18)
+ [<c036ba69>] (clk_core_enable_lock) from [<c034e9f3>] (stm32_gpio_get+0x11/0x24)
+ [<c034e9f3>] (stm32_gpio_get) from [<c034ef43>] (stm32_gpio_irq_trigger+0x1f/0x48)
+ [<c034ef43>] (stm32_gpio_irq_trigger) from [<c014aa53>] (handle_fasteoi_irq+0x71/0xa8)
+ [<c014aa53>] (handle_fasteoi_irq) from [<c0147111>] (generic_handle_irq+0x19/0x22)
+ [<c0147111>] (generic_handle_irq) from [<c014752d>] (__handle_domain_irq+0x55/0x64)
+ [<c014752d>] (__handle_domain_irq) from [<c0346f13>] (gic_handle_irq+0x53/0x64)
+ [<c0346f13>] (gic_handle_irq) from [<c0100ba5>] (__irq_svc+0x65/0xc0)
+ Exception stack(0xc0e01f18 to 0xc0e01f60)
+ 1f00:                                                       0000300c 00000000
+ 1f20: 0000300c c010ff01 00000000 00000000 c0e00000 c0e07714 00000001 c0e01f78
+ 1f40: c0e07758 00000000 ef7cd0ff c0e01f68 c010554b c0105542 40000033 ffffffff
+ [<c0100ba5>] (__irq_svc) from [<c0105542>] (arch_cpu_idle+0xc/0x1e)
+ [<c0105542>] (arch_cpu_idle) from [<c063be95>] (default_idle_call+0x21/0x3c)
+ [<c063be95>] (default_idle_call) from [<c01324f7>] (do_idle+0xe3/0x1e4)
+ [<c01324f7>] (do_idle) from [<c01327b3>] (cpu_startup_entry+0x13/0x14)
+ [<c01327b3>] (cpu_startup_entry) from [<c0a00c13>] (start_kernel+0x397/0x3d4)
+ [<c0a00c13>] (start_kernel) from [<00000000>] (0x0)
+ ---[ end trace 0000000000000002 ]---
 
-> +	disable-wp;
-This is not used for eMMC (or SDIO), it can be removed.
+Power consumption measured on STM32MP157C DHCOM SoM is not increased or
+is below noise threshold.
 
-> +	disable-cd;
-This property does not exist.
+Fixes: 47beed513a85b ("pinctrl: stm32: Add level interrupt support to gpio irq chip")
+Signed-off-by: Marek Vasut <marex@denx.de>
+Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
+Cc: Fabien Dessenne <fabien.dessenne@foss.st.com>
+Cc: Linus Walleij <linus.walleij@linaro.org>
+Cc: Marc Zyngier <maz@kernel.org>
+Cc: linux-stm32@st-md-mailman.stormreply.com
+Cc: linux-arm-kernel@lists.infradead.org
+To: linux-gpio@vger.kernel.org
+---
+ drivers/pinctrl/stm32/pinctrl-stm32.c | 19 +++++++++++++++++--
+ 1 file changed, 17 insertions(+), 2 deletions(-)
 
-> +	none-removable;
-The right name is non-removable.
-
-> +	no-sd;
-> +	no-sdio;
-> +	no-1-8-v;
-> +	st,neg-edge;
-> +	bus-width = <8>;
-> +	vmmc-supply = <&reg_3v3>;
-> +	vqmmc-supply = <&reg_3v3>;
-> +	status = "okay";
-> +};
-> +
-> +&sdmmc2_b4_od_pins_a {
-> +	pins1 {
-> +		pinmux = <STM32_PINMUX('B', 14, AF9)>, /* SDMMC2_D0 */
-> +			 <STM32_PINMUX('B', 7, AF10)>, /* SDMMC2_D1 */
-> +			 <STM32_PINMUX('B', 3, AF9)>, /* SDMMC2_D2 */
-> +			 <STM32_PINMUX('B', 4, AF9)>; /* SDMMC2_D3 */
-> +	};
-> +};
-> +
-> +&sdmmc2_b4_pins_a {
-> +	pins1 {
-> +		pinmux = <STM32_PINMUX('B', 14, AF9)>, /* SDMMC2_D0 */
-> +			 <STM32_PINMUX('B', 7, AF10)>, /* SDMMC2_D1 */
-> +			 <STM32_PINMUX('B', 3, AF9)>, /* SDMMC2_D2 */
-> +			 <STM32_PINMUX('B', 4, AF9)>, /* SDMMC2_D3 */
-> +			 <STM32_PINMUX('G', 6, AF10)>; /* SDMMC2_CMD */
-> +	};
-> +};
-> +
-> +&sdmmc2_b4_sleep_pins_a {
-> +	pins {
-> +		pinmux = <STM32_PINMUX('B', 14, ANALOG)>, /* SDMMC2_D0 */
-> +			 <STM32_PINMUX('B', 7, ANALOG)>, /* SDMMC2_D1 */
-> +			 <STM32_PINMUX('B', 3, ANALOG)>, /* SDMMC2_D2 */
-> +			 <STM32_PINMUX('B', 4, ANALOG)>, /* SDMMC2_D3 */
-> +			 <STM32_PINMUX('E', 3, ANALOG)>, /* SDMMC2_CK */
-> +			 <STM32_PINMUX('G', 6, ANALOG)>; /* SDMMC2_CMD */
-> +	};
-> +};
-> +
-> +&sdmmc2_d47_pins_a {
-> +	pins {
-> +		pinmux = <STM32_PINMUX('A', 8, AF9)>, /* SDMMC2_D4 */
-> +			 <STM32_PINMUX('A', 9, AF10)>, /* SDMMC2_D5 */
-> +			 <STM32_PINMUX('C', 6, AF10)>, /* SDMMC2_D6 */
-> +			 <STM32_PINMUX('C', 7, AF10)>; /* SDMMC2_D7 */
-> +	};
-> +};
-> +
-> +&sdmmc2_d47_sleep_pins_a {
-> +	pins {
-> +		pinmux = <STM32_PINMUX('A', 8, ANALOG)>, /* SDMMC2_D4 */
-> +			 <STM32_PINMUX('A', 9, ANALOG)>, /* SDMMC2_D5 */
-> +			 <STM32_PINMUX('C', 6, ANALOG)>, /* SDMMC2_D6 */
-> +			 <STM32_PINMUX('D', 3, ANALOG)>; /* SDMMC2_D7 */
-> +	};
-> +};
-> +
-> +&sdmmc3 {
-> +	pinctrl-names = "default", "opendrain", "sleep";
-> +	pinctrl-0 = <&sdmmc3_b4_pins_b>;
-> +	pinctrl-1 = <&sdmmc3_b4_od_pins_b>;
-> +	pinctrl-2 = <&sdmmc3_b4_sleep_pins_b>;
-> +	disable-wp;
-> +	disable-cd;
-Those 2 previous lines could be removed.
-
-> +	none-removable;
-non-removable
-
-> +	no-1-8-v;
-> +	st,neg-edge;
-> +	sd-uhs-sdr12;
-> +	sd-uhs-sdr25;
-Not sure you can achieve UHS mode with a fixed regulator on vqmmc.
-The 2 previous lines should be removed IMHO.
-
-> +	bus-width = <4>;
-> +	vmmc-supply = <&reg_3v3>;
-> +	vqmmc-supply = <&reg_3v3>;
-> +        mmc-pwrseq = <&wifi_pwrseq>;
-> +	#address-cells = <1>;
-> +	#size-cells = <0>;
-> +	status = "okay";
-> +
-> +	mmc@1 {
-> +		compatible = "silabs,wf200";
-> +		reg = <1>;
-> +	};
-> +};
-> +
-> +&sdmmc3_b4_od_pins_b {
-> +	pins1 {
-> +		pinmux = <STM32_PINMUX('D', 1, AF10)>, /* SDMMC3_D0 */
-> +			 <STM32_PINMUX('D', 4, AF10)>, /* SDMMC3_D1 */
-> +			 <STM32_PINMUX('D', 5, AF10)>, /* SDMMC3_D2 */
-> +			 <STM32_PINMUX('D', 7, AF10)>; /* SDMMC3_D3 */
-> +	};
-> +};
-> +
-> +&sdmmc3_b4_pins_b {
-> +	pins1 {
-> +		pinmux = <STM32_PINMUX('D', 1, AF10)>, /* SDMMC3_D0 */
-> +			 <STM32_PINMUX('D', 4, AF10)>, /* SDMMC3_D1 */
-> +			 <STM32_PINMUX('D', 5, AF10)>, /* SDMMC3_D2 */
-> +			 <STM32_PINMUX('D', 7, AF10)>, /* SDMMC3_D3 */
-> +			 <STM32_PINMUX('D', 0, AF10)>; /* SDMMC3_CMD */
-> +	};
-> +};
-> +
-> +&sdmmc3_b4_sleep_pins_b {
-> +	pins {
-> +		pinmux = <STM32_PINMUX('D', 1, ANALOG)>, /* SDMMC3_D0 */
-> +			 <STM32_PINMUX('D', 4, ANALOG)>, /* SDMMC3_D1 */
-> +			 <STM32_PINMUX('D', 5, ANALOG)>, /* SDMMC3_D2 */
-> +			 <STM32_PINMUX('D', 7, ANALOG)>, /* SDMMC3_D3 */
-> +			 <STM32_PINMUX('G', 15, ANALOG)>, /* SDMMC3_CK */
-> +			 <STM32_PINMUX('D', 0, ANALOG)>; /* SDMMC3_CMD */
-> +	};
-> +};
-> +
-> +&spi1 {
-> +	pinctrl-0 = <&spi1_pins_a1>;
-> +	pinctrl-names = "default";
-> +	cs-gpios = <&gpioa 15 GPIO_ACTIVE_LOW>;
-> +	/delete-property/dmas;
-> +	/delete-property/dma-names;
-> +	status = "okay";
-> +
-> +	switch@0 {
-> +		compatible = "nxp,sja1105q";
-> +		reg = <0>;
-> +		spi-max-frequency = <4000000>;
-> +		spi-rx-delay-us = <1>;
-> +		spi-tx-delay-us = <1>;
-> +		spi-cpha;
-> +
-> +		reset-gpios = <&gpioe 6 GPIO_ACTIVE_LOW>;
-> +
-> +		clocks = <&clock_sja1105>;
-> +
-> +		ports {
-> +			#address-cells = <1>;
-> +			#size-cells = <0>;
-> +
-> +			port@0 {
-> +				reg = <0>;
-> +				label = "t1l0";
-> +				phy-mode = "rmii";
-> +				phy-handle = <&t1l0_phy>;
-> +			};
-> +
-> +			port@1 {
-> +				reg = <1>;
-> +				label = "t1l1";
-> +				phy-mode = "rmii";
-> +				phy-handle = <&t1l1_phy>;
-> +			};
-> +
-> +			port@2 {
-> +				reg = <2>;
-> +				label = "t1l2";
-> +				phy-mode = "rmii";
-> +				phy-handle = <&t1l2_phy>;
-> +			};
-> +
-> +			port@3 {
-> +				reg = <3>;
-> +				label = "rj45";
-> +				phy-handle = <&rj45_phy>;
-> +				phy-mode = "rgmii-id";
-> +			};
-> +
-> +			port@4 {
-> +				reg = <4>;
-> +				label = "cpu";
-> +				ethernet = <&ethernet0>;
-> +				phy-mode = "rmii";
-> +
-> +				fixed-link {
-> +					speed = <100>;
-> +					full-duplex;
-> +				};
-> +			};
-> +		};
-> +	};
-> +};
-> +
-> +&pinctrl {
-> +	spi1_pins_a1: spi1-0 {
-> +		pins1 {
-> +			pinmux = <STM32_PINMUX('A', 5, AF5)>, /* SPI1_SCK */
-> +				 <STM32_PINMUX('B', 5, AF5)>; /* SPI1_MOSI */
-> +			bias-disable;
-> +			drive-push-pull;
-> +			slew-rate = <1>;
-> +		};
-> +
-> +		pins2 {
-> +			pinmux = <STM32_PINMUX('A', 6, AF5)>; /* SPI1_MISO */
-> +			bias-disable;
-> +		};
-> +	};
-> +};
-> diff --git a/arch/arm/boot/dts/stm32mp151a-prtt1l.dtsi b/arch/arm/boot/dts/stm32mp151a-prtt1l.dtsi
-> new file mode 100644
-> index 000000000000..455b144ede7c
-> --- /dev/null
-> +++ b/arch/arm/boot/dts/stm32mp151a-prtt1l.dtsi
-> @@ -0,0 +1,219 @@
-> +// SPDX-License-Identifier: (GPL-2.0+ OR BSD-3-Clause)
-> +/*
-> + * Copyright (C) Protonic Holland
-> + * Author: David Jander <david@protonic.nl>
-> + */
-> +/dts-v1/;
-> +
-> +#include "stm32mp151.dtsi"
-> +#include "stm32mp15-pinctrl.dtsi"
-> +#include "stm32mp15xxad-pinctrl.dtsi"
-> +#include <dt-bindings/gpio/gpio.h>
-> +#include <dt-bindings/input/input.h>
-> +#include <dt-bindings/leds/common.h>
-> +
-> +/ {
-> +	aliases {
-> +		ethernet0 = &ethernet0;
-> +		mdio-gpio0 = &mdio0;
-> +		serial0 = &uart4;
-> +	};
-> +
-> +	led-controller-0 {
-> +		compatible = "gpio-leds";
-> +
-> +		led-0 {
-> +			color = <LED_COLOR_ID_RED>;
-> +			function = LED_FUNCTION_INDICATOR;
-> +			gpios = <&gpioa 13 GPIO_ACTIVE_LOW>;
-> +		};
-> +
-> +		led-1 {
-> +			color = <LED_COLOR_ID_GREEN>;
-> +			function = LED_FUNCTION_INDICATOR;
-> +			gpios = <&gpioa 14 GPIO_ACTIVE_LOW>;
-> +			linux,default-trigger = "heartbeat";
-> +		};
-> +	};
-> +
-> +
-> +	/* DP83TD510E PHYs have max MDC rate of 1.75MHz. Since we can't reduce
-> +	 * stmmac MDC clock without reducing system bus rate, we need to use
-> +	 * gpio based MDIO bus.
-> +	 */
-> +	mdio0: mdio {
-> +		compatible = "virtual,mdio-gpio";
-> +		#address-cells = <1>;
-> +		#size-cells = <0>;
-> +		gpios = <&gpioc 1 GPIO_ACTIVE_HIGH
-> +			 &gpioa 2 GPIO_ACTIVE_HIGH>;
-> +	};
-> +
-> +	reg_3v3: regulator-3v3 {
-> +		compatible = "regulator-fixed";
-> +		regulator-name = "3v3";
-> +		regulator-min-microvolt = <3300000>;
-> +		regulator-max-microvolt = <3300000>;
-> +	};
-> +};
-> +
-> +&ethernet0 {
-> +	pinctrl-0 = <&ethernet0_rmii_pins_a>;
-> +	pinctrl-1 = <&ethernet0_rmii_sleep_pins_a>;
-> +	pinctrl-names = "default", "sleep";
-> +	phy-mode = "rmii";
-> +	status = "okay";
-> +};
-> +
-> +&ethernet0_rmii_pins_a {
-> +	pins1 {
-> +		pinmux = <STM32_PINMUX('B', 12, AF11)>, /* ETH1_RMII_TXD0 */
-> +			 <STM32_PINMUX('B', 13, AF11)>, /* ETH1_RMII_TXD1 */
-> +			 <STM32_PINMUX('B', 11, AF11)>; /* ETH1_RMII_TX_EN */
-> +	};
-> +	pins2 {
-> +		pinmux = <STM32_PINMUX('C', 4, AF11)>,  /* ETH1_RMII_RXD0 */
-> +			 <STM32_PINMUX('C', 5, AF11)>,  /* ETH1_RMII_RXD1 */
-> +			 <STM32_PINMUX('A', 1, AF11)>,  /* ETH1_RMII_REF_CLK input */
-> +			 <STM32_PINMUX('A', 7, AF11)>;  /* ETH1_RMII_CRS_DV */
-> +	};
-> +};
-> +
-> +&ethernet0_rmii_sleep_pins_a {
-> +	pins1 {
-> +		pinmux = <STM32_PINMUX('B', 12, ANALOG)>, /* ETH1_RMII_TXD0 */
-> +			 <STM32_PINMUX('B', 13, ANALOG)>, /* ETH1_RMII_TXD1 */
-> +			 <STM32_PINMUX('B', 11, ANALOG)>, /* ETH1_RMII_TX_EN */
-> +			 <STM32_PINMUX('C', 4, ANALOG)>,  /* ETH1_RMII_RXD0 */
-> +			 <STM32_PINMUX('C', 5, ANALOG)>,  /* ETH1_RMII_RXD1 */
-> +			 <STM32_PINMUX('A', 1, ANALOG)>,  /* ETH1_RMII_REF_CLK */
-> +			 <STM32_PINMUX('A', 7, ANALOG)>;  /* ETH1_RMII_CRS_DV */
-> +	};
-> +};
-> +
-> +&qspi {
-> +	pinctrl-names = "default", "sleep";
-> +	pinctrl-0 = <&qspi_clk_pins_a &qspi_bk1_pins_a>;
-> +	pinctrl-1 = <&qspi_clk_sleep_pins_a &qspi_bk1_sleep_pins_a>;
-> +	reg = <0x58003000 0x1000>, <0x70000000 0x4000000>;
-> +	#address-cells = <1>;
-> +	#size-cells = <0>;
-> +	status = "okay";
-> +
-> +	flash@0 {
-> +		compatible = "spi-nand";
-> +		reg = <0>;
-> +		spi-rx-bus-width = <4>;
-> +		spi-max-frequency = <104000000>;
-> +		#address-cells = <1>;
-> +		#size-cells = <1>;
-> +	};
-> +};
-> +
-> +&qspi_bk1_pins_a {
-> +	pins1 {
-> +		bias-pull-up;
-> +		drive-push-pull;
-> +		slew-rate = <1>;
-> +	};
-> +};
-> +
-> +&sdmmc1 {
-> +	pinctrl-names = "default", "opendrain", "sleep";
-> +	pinctrl-0 = <&sdmmc1_b4_pins_a>;
-> +	pinctrl-1 = <&sdmmc1_b4_od_pins_a>;
-> +	pinctrl-2 = <&sdmmc1_b4_sleep_pins_a>;
-> +	/* cd-gpios = <&gpiog 1 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>; */
-You might use broken-cd instead if it is an SD-card
-> +	disable-wp;
-> +	disable-cd;
-...and remove this line
-
-> +	/* st,sig-dir; */
-> +	st,neg-edge;
-> +	/* st,use-ckin; */
-> +	bus-width = <4>;
-> +	sd-uhs-sdr12;
-> +	sd-uhs-sdr25;
-> +	sd-uhs-sdr50;
-> +	sd-uhs-ddr50;
-Same remark about UHS modes and fixed regulator for vqmmc.
-
-
-Best regards,
-Yann
-
-> +	vmmc-supply = <&reg_3v3>;
-> +	vqmmc-supply = <&reg_3v3>;
-> +	status = "okay";
-> +};
-> +
-> +&sdmmc1_b4_od_pins_a {
-> +	pins1 {
-> +		bias-pull-up;
-> +	};
-> +	pins2 {
-> +		bias-pull-up;
-> +	};
-> +};
-> +
-> +&sdmmc1_b4_pins_a {
-> +	pins1 {
-> +		bias-pull-up;
-> +	};
-> +	pins2 {
-> +		bias-pull-up;
-> +	};
-> +};
-> +
-> +&uart4 {
-> +	pinctrl-names = "default", "sleep", "idle";
-> +	pinctrl-0 = <&uart4_pins_a>;
-> +	pinctrl-1 = <&uart4_sleep_pins_a>;
-> +	pinctrl-2 = <&uart4_idle_pins_a>;
-> +	status = "okay";
-> +};
-> +
-> +&uart4_idle_pins_a {
-> +	pins1 {
-> +		pinmux = <STM32_PINMUX('B', 9, ANALOG)>; /* UART4_TX */
-> +	};
-> +	pins2 {
-> +		pinmux = <STM32_PINMUX('B', 2, AF8)>; /* UART4_RX */
-> +		bias-pull-up;
-> +	};
-> +};
-> +
-> +&uart4_pins_a {
-> +	pins1 {
-> +		pinmux = <STM32_PINMUX('B', 9, AF8)>; /* UART4_TX */
-> +		bias-disable;
-> +		drive-push-pull;
-> +		slew-rate = <0>;
-> +	};
-> +	pins2 {
-> +		pinmux = <STM32_PINMUX('B', 2, AF8)>; /* UART4_RX */
-> +		bias-pull-up;
-> +	};
-> +};
-> +
-> +&uart4_sleep_pins_a {
-> +	pins {
-> +		pinmux = <STM32_PINMUX('B', 9, ANALOG)>, /* UART4_TX */
-> +			<STM32_PINMUX('B', 2, ANALOG)>; /* UART4_RX */
-> +	};
-> +};
-> +
-> +&usbh_ehci {
-> +	phys = <&usbphyc_port0>;
-> +	phy-names = "usb";
-> +	status = "okay";
-> +};
-> +
-> +&usbotg_hs {
-> +	dr_mode = "host";
-> +	pinctrl-0 = <&usbotg_hs_pins_a>;
-> +	pinctrl-names = "default";
-> +	phys = <&usbphyc_port1 0>;
-> +	phy-names = "usb2-phy";
-> +	status = "okay";
-> +};
-> +
-> +&usbphyc {
-> +	status = "okay";
-> +};
-> +
-> +&usbphyc_port1 {
-> +	phy-supply = <&reg_3v3>;
-> +};
-> diff --git a/arch/arm/boot/dts/stm32mp151a-prtt1s.dts b/arch/arm/boot/dts/stm32mp151a-prtt1s.dts
-> new file mode 100644
-> index 000000000000..ad25929e64e6
-> --- /dev/null
-> +++ b/arch/arm/boot/dts/stm32mp151a-prtt1s.dts
-> @@ -0,0 +1,63 @@
-> +// SPDX-License-Identifier: (GPL-2.0+ OR BSD-3-Clause)
-> +/*
-> + * Copyright (C) Protonic Holland
-> + * Author: David Jander <david@protonic.nl>
-> + */
-> +/dts-v1/;
-> +
-> +#include "stm32mp151a-prtt1l.dtsi"
-> +
-> +/ {
-> +	model = "Protonic PRTT1S";
-> +	compatible = "prt,prtt1s", "st,stm32mp151";
-> +};
-> +
-> +&ethernet0 {
-> +	phy-handle = <&phy0>;
-> +};
-> +
-> +&i2c1 {
-> +	pinctrl-names = "default", "sleep";
-> +	pinctrl-0 = <&i2c1_pins_a>;
-> +	pinctrl-1 = <&i2c1_sleep_pins_a>;
-> +	clock-frequency = <100000>;
-> +	/delete-property/dmas;
-> +	/delete-property/dma-names;
-> +	status = "okay";
-> +
-> +	humidity-sensor@40 {
-> +		compatible = "ti,hdc1080";
-> +		reg = <0x40>;
-> +	};
-> +
-> +	co2-sensor@62 {
-> +		compatible = "sensirion,scd41";
-> +		reg = <0x62>;
-> +	};
-> +};
-> +
-> +&i2c1_pins_a {
-> +	pins {
-> +		pinmux = <STM32_PINMUX('D', 12, AF5)>, /* I2C1_SCL */
-> +			 <STM32_PINMUX('D', 13, AF5)>; /* I2C1_SDA */
-> +	};
-> +};
-> +
-> +&i2c1_sleep_pins_a {
-> +	pins {
-> +		pinmux = <STM32_PINMUX('D', 12, ANALOG)>, /* I2C1_SCL */
-> +			 <STM32_PINMUX('D', 13, ANALOG)>; /* I2C1_SDA */
-> +	};
-> +};
-> +
-> +&mdio0 {
-> +	/* TI DP83TD510E */
-> +	phy0: ethernet-phy@0 {
-> +		compatible = "ethernet-phy-id2000.0181";
-> +		reg = <0>;
-> +		interrupts-extended = <&gpioa 4 IRQ_TYPE_LEVEL_LOW>;
-> +		reset-gpios = <&gpioa 3 GPIO_ACTIVE_LOW>;
-> +		reset-assert-us = <10>;
-> +		reset-deassert-us = <35>;
-> +	};
-> +};
+diff --git a/drivers/pinctrl/stm32/pinctrl-stm32.c b/drivers/pinctrl/stm32/pinctrl-stm32.c
+index 242d1c37c6e4..7aecd0efde07 100644
+--- a/drivers/pinctrl/stm32/pinctrl-stm32.c
++++ b/drivers/pinctrl/stm32/pinctrl-stm32.c
+@@ -226,6 +226,13 @@ static void stm32_gpio_free(struct gpio_chip *chip, unsigned offset)
+ 	pinctrl_gpio_free(chip->base + offset);
+ }
+ 
++static int stm32_gpio_get_noclk(struct gpio_chip *chip, unsigned int offset)
++{
++	struct stm32_gpio_bank *bank = gpiochip_get_data(chip);
++
++	return !!(readl_relaxed(bank->base + STM32_GPIO_IDR) & BIT(offset));
++}
++
+ static int stm32_gpio_get(struct gpio_chip *chip, unsigned offset)
+ {
+ 	struct stm32_gpio_bank *bank = gpiochip_get_data(chip);
+@@ -233,7 +240,7 @@ static int stm32_gpio_get(struct gpio_chip *chip, unsigned offset)
+ 
+ 	clk_enable(bank->clk);
+ 
+-	ret = !!(readl_relaxed(bank->base + STM32_GPIO_IDR) & BIT(offset));
++	ret = stm32_gpio_get_noclk(chip, offset);
+ 
+ 	clk_disable(bank->clk);
+ 
+@@ -317,7 +324,7 @@ static void stm32_gpio_irq_trigger(struct irq_data *d)
+ 		return;
+ 
+ 	/* If level interrupt type then retrig */
+-	level = stm32_gpio_get(&bank->gpio_chip, d->hwirq);
++	level = stm32_gpio_get_noclk(&bank->gpio_chip, d->hwirq);
+ 	if ((level == 0 && bank->irq_type[d->hwirq] == IRQ_TYPE_LEVEL_LOW) ||
+ 	    (level == 1 && bank->irq_type[d->hwirq] == IRQ_TYPE_LEVEL_HIGH))
+ 		irq_chip_retrigger_hierarchy(d);
+@@ -359,6 +366,7 @@ static int stm32_gpio_irq_request_resources(struct irq_data *irq_data)
+ {
+ 	struct stm32_gpio_bank *bank = irq_data->domain->host_data;
+ 	struct stm32_pinctrl *pctl = dev_get_drvdata(bank->gpio_chip.parent);
++	unsigned long flags;
+ 	int ret;
+ 
+ 	ret = stm32_gpio_direction_input(&bank->gpio_chip, irq_data->hwirq);
+@@ -372,6 +380,10 @@ static int stm32_gpio_irq_request_resources(struct irq_data *irq_data)
+ 		return ret;
+ 	}
+ 
++	flags = irqd_get_trigger_type(irq_data);
++	if (flags & IRQ_TYPE_LEVEL_MASK)
++		clk_enable(bank->clk);
++
+ 	return 0;
+ }
+ 
+@@ -379,6 +391,9 @@ static void stm32_gpio_irq_release_resources(struct irq_data *irq_data)
+ {
+ 	struct stm32_gpio_bank *bank = irq_data->domain->host_data;
+ 
++	if (bank->irq_type[irq_data->hwirq] & IRQ_TYPE_LEVEL_MASK)
++		clk_disable(bank->clk);
++
+ 	gpiochip_unlock_as_irq(&bank->gpio_chip, irq_data->hwirq);
+ }
+ 
+-- 
+2.35.1
 
 _______________________________________________
 Linux-stm32 mailing list
