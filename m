@@ -2,59 +2,71 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 82D8E50A28A
-	for <lists+linux-stm32@lfdr.de>; Thu, 21 Apr 2022 16:31:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4002850A3F2
+	for <lists+linux-stm32@lfdr.de>; Thu, 21 Apr 2022 17:23:52 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 37B81C60496;
-	Thu, 21 Apr 2022 14:31:41 +0000 (UTC)
-Received: from mail-yw1-f179.google.com (mail-yw1-f179.google.com
- [209.85.128.179])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E61FBC60496;
+	Thu, 21 Apr 2022 15:23:51 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 19BF0C5F1FB
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D7579C5F1FB
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 21 Apr 2022 14:31:40 +0000 (UTC)
-Received: by mail-yw1-f179.google.com with SMTP id
- 00721157ae682-2edbd522c21so53755847b3.13
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 21 Apr 2022 07:31:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=wFI100ksKyx/De8JN82LDPBcTcxrj8iutf9RS/aDs2c=;
- b=PFD/WP8oOojZ7hWXT7AKN/o4scR2dHpuRMHfhP+qV3FTfhmRRMo3KypyjfQzu8Kwoa
- yJL1GTY9T1lsNRg3ddqZcOnN1GiLcjRMCh6EishWNc09VlPWoHQuaIwTKKNuYo7zIbVd
- UsCl5GqEE/jUsRvRupg105t2iSRIHw6FhRb2dddvoGH9i6lsZsNn4jaHLybpCSs/W2+q
- 2s0bE64G5jx7xUBj3fOvYipT8lpYi+dCewdRHHcb9D0/t0Zkh4BQGZzwshKbpseldb9L
- PjIIl9DI9X5lmEH5hfAiFNgBenF/l9AdQpellfFv+3+tQAgvs6a1BWaguAaIM0c9JKXt
- a+uw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=wFI100ksKyx/De8JN82LDPBcTcxrj8iutf9RS/aDs2c=;
- b=jDuVRMJio6h32+VAHjwSrHfVdktUgp8lz9pkVB3BjyApFtzAdzNW+AmIduMg284NhZ
- 9Q06qQekUUXjgGWXMcwlWUSDhDBwM9bCycyXBw/sX8J1k5H3kH1KIiE0//j4VTxSqkJR
- 6PMfUznLDKZKzTGYSkRS+12CtANuEN2xuvrw72FHMlac1/ga6sYQ5mZYBdy+TUuGoGhh
- dX0nKwdq0889SD5vJk/qmNFnnIQCeFtRXAu9ZftqMsSiX+046S8LC0wN7gmOr7QP6oSJ
- 6oEjaRmKWy8TRKX6gmsUct2LQ010ZCPhoivLjkTmmpP7texzmqrXxFmf0qgIIjU2lN9f
- G13A==
-X-Gm-Message-State: AOAM533hzIwylza4yUu1JArI39BxjVMtLjGCxm8H8jp9aqnJt/ZuaYuc
- ig1NQbfZoI3nUCcOo0YszpsLN05Mwgo84WJKG87n2A==
-X-Google-Smtp-Source: ABdhPJzc+2ALCE7Xo4CcUntkIGPkRLulqQajSFyrx/E9OSaxsFlqnOPZLERahbngQ9Sh9Z1MwsiYFsn5KbcV4X4kj2c=
-X-Received: by 2002:a0d:c4c2:0:b0:2f1:6c00:9eb4 with SMTP id
- g185-20020a0dc4c2000000b002f16c009eb4mr24374270ywd.448.1650551498376; Thu, 21
- Apr 2022 07:31:38 -0700 (PDT)
+ Thu, 21 Apr 2022 15:23:50 +0000 (UTC)
+Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 23LAfLVF028198;
+ Thu, 21 Apr 2022 17:23:29 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=DplC3BzhyblI5Lxwm3NDiSXDYLPoE+n3uwb7Qwcogf0=;
+ b=Pr9UPBN43blI3MNuBC4q4QuEx+wjppGjNYhPZqQYk/1eq6g/vma3OR/vcrxy2Te+1ZBS
+ ABJ91MHl8SK5OqbLd2FHybIoXbms1DOCAFPJAfeB37ByfARyB4bSdFZCzL1Nzc0MLrjx
+ gDbwizdZjpVr+YwnNItyW86rOMvuZBd7Oky6SurFkkswm9rGR1LWHfOTrX55uAvh7AS/
+ kXcSq+gdVqXdWX63VApZGvwk8PI11iPvC+QwuENM8ciYUFahPVyxb4XfZ3mEf9KDAAOj
+ RraVpB3D/tdGVA7hslZl+bobogT/06SMO+FMEvQrK7YdLuf9fVlCLUOus4Kuo1vnPxUy 7A== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3ffpqh3tk2-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 21 Apr 2022 17:23:29 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 8F66E10002A;
+ Thu, 21 Apr 2022 17:23:28 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 7A5D322ECF6;
+ Thu, 21 Apr 2022 17:23:28 +0200 (CEST)
+Received: from [10.48.0.142] (10.75.127.45) by SHFDAG1NODE1.st.com
+ (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2308.20; Thu, 21 Apr
+ 2022 17:23:27 +0200
+Message-ID: <31f5d4af-5a4f-e683-c50e-d59b63135a99@foss.st.com>
+Date: Thu, 21 Apr 2022 17:23:26 +0200
 MIME-Version: 1.0
-References: <20220415215410.498349-1-marex@denx.de>
-In-Reply-To: <20220415215410.498349-1-marex@denx.de>
-From: Linus Walleij <linus.walleij@linaro.org>
-Date: Thu, 21 Apr 2022 16:31:27 +0200
-Message-ID: <CACRpkdZiQiovFrgo7v7vRyQdyS0q8yS_dw097rbb31dXWsEDRw@mail.gmail.com>
-To: Marek Vasut <marex@denx.de>
-Cc: Marc Zyngier <maz@kernel.org>, linux-gpio@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] irqchip/stm32: Do not call
- stm32_gpio_get() for edge triggered IRQs in EOI
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.7.0
+Content-Language: en-US
+To: <gabriel.fernandez@foss.st.com>, Michael Turquette
+ <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, Rob Herring
+ <robh+dt@kernel.org>, Krzysztof Kozlowski
+ <krzysztof.kozlowski@canonical.com>, Maxime Coquelin
+ <mcoquelin.stm32@gmail.com>, Philipp Zabel <p.zabel@pengutronix.de>
+References: <20220316131000.9874-1-gabriel.fernandez@foss.st.com>
+ <20220316131000.9874-13-gabriel.fernandez@foss.st.com>
+From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
+In-Reply-To: <20220316131000.9874-13-gabriel.fernandez@foss.st.com>
+X-Originating-IP: [10.75.127.45]
+X-ClientProxiedBy: SFHDAG2NODE2.st.com (10.75.127.5) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.858,Hydra:6.0.486,FMLib:17.11.64.514
+ definitions=2022-04-21_02,2022-04-21_01,2022-02-23_01
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH RESEND v3 12/13] ARM: dts: stm32: enable
+ optee firmware and SCMI support on STM32MP13
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,35 +78,78 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, Apr 15, 2022 at 11:54 PM Marek Vasut <marex@denx.de> wrote:
+Hi Gabriel
 
-> The stm32_gpio_get() should only be called for LEVEL triggered interrupts,
-> skip calling it for EDGE triggered interrupts altogether to avoid wasting
-> CPU cycles in EOI handler. On this platform, EDGE triggered interrupts are
-> the majority and LEVEL triggered interrupts are the exception no less, and
-> the CPU cycles are not abundant.
->
-> Fixes: 47beed513a85b ("pinctrl: stm32: Add level interrupt support to gpio irq chip")
-> Signed-off-by: Marek Vasut <marex@denx.de>
-> Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
-> Cc: Fabien Dessenne <fabien.dessenne@foss.st.com>
-> Cc: Linus Walleij <linus.walleij@linaro.org>
-> Cc: Marc Zyngier <maz@kernel.org>
-> Cc: linux-stm32@st-md-mailman.stormreply.com
-> Cc: linux-arm-kernel@lists.infradead.org
-> To: linux-gpio@vger.kernel.org
+On 3/16/22 14:09, gabriel.fernandez@foss.st.com wrote:
+> From: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
+> 
+> Enable optee and SCMI clocks support.
+> 
+> Signed-off-by: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
+> ---
+>   arch/arm/boot/dts/stm32mp131.dtsi | 37 +++++++++++++++++++++++++++++++
+>   1 file changed, 37 insertions(+)
+> 
+> diff --git a/arch/arm/boot/dts/stm32mp131.dtsi b/arch/arm/boot/dts/stm32mp131.dtsi
+> index 262de4eeb4ed..78eac53224d4 100644
+> --- a/arch/arm/boot/dts/stm32mp131.dtsi
+> +++ b/arch/arm/boot/dts/stm32mp131.dtsi
+> @@ -27,6 +27,43 @@ arm-pmu {
+>   		interrupt-parent = <&intc>;
+>   	};
+>   
+> +	scmi_sram: sram@2ffff000 {
+> +		compatible = "mmio-sram";
+> +		reg = <0x2ffff000 0x1000>;
+> +		#address-cells = <1>;
+> +		#size-cells = <1>;
+> +		ranges = <0 0x2ffff000 0x1000>;
+> +
+> +		scmi_shm: scmi_shm@0 {
 
-Patch applied!
+rename to scmi-sram@0 to match with yaml description
 
-But I changed the subject to pinctrl: stm32:
+> +			compatible = "arm,scmi-shmem";
+> +			reg = <0 0x80>;
+> +		};
+> +	};
 
-Yours,
-Linus Walleij
+Can you move this sram node in Soc{ please?
+
+> +
+> +	firmware {
+> +		optee {
+> +			method = "smc";
+> +			compatible = "linaro,optee-tz";
+> +		};
+> +
+> +		scmi: scmi {
+> +			compatible = "linaro,scmi-optee";
+> +			#address-cells = <1>;
+> +			#size-cells = <0>;
+> +			linaro,optee-channel-id = <0>;
+> +			shmem = <&scmi_shm>;
+> +
+> +			scmi_clk: protocol@14 {
+> +				reg = <0x14>;
+> +				#clock-cells = <1>;
+> +			};
+> +
+> +			scmi_reset: protocol@16 {
+> +				reg = <0x16>;
+> +				#reset-cells = <1>;
+> +			};
+> +		};
+> +	};
+>   	clocks {
+>   		clk_axi: clk-axi {
+>   			#clock-cells = <0>;
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
