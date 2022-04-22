@@ -2,62 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id BB06650BA32
-	for <lists+linux-stm32@lfdr.de>; Fri, 22 Apr 2022 16:36:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D35D250BB43
+	for <lists+linux-stm32@lfdr.de>; Fri, 22 Apr 2022 17:10:21 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6F1F2C6049A;
-	Fri, 22 Apr 2022 14:36:28 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9A7F9C628A8;
+	Fri, 22 Apr 2022 15:10:21 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
  [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 63881C6047D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7A013C60496
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 22 Apr 2022 14:36:26 +0000 (UTC)
-Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 23MEYp7Q004664;
- Fri, 22 Apr 2022 16:36:18 +0200
+ Fri, 22 Apr 2022 15:10:19 +0000 (UTC)
+Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 23MEwj20006781;
+ Fri, 22 Apr 2022 17:09:55 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
  h=from : to : cc :
- subject : date : message-id : mime-version : content-transfer-encoding :
- content-type; s=selector1;
- bh=3E2c39yb1aGbUTxvLFXeT2bxlC2OY8EbvTcWhBmFb/Q=;
- b=ONG31MPr6xmPIGOCiwmLsIgdEPkWMIX170wNkG5tkbD0or2f4L1fb0zHGznnjkPK7dYy
- zuYR8qXrCbQ/IjgY5UpvlxeVzfLCF+MtdGQKvegqGtHx0mmO6VSp2EWzc5lIqR3vb7is
- qdKNwXxirmw2zTwcbIvY6Zj9/KXC0g0FNHc8ilO1ye9FoMGnPGYoxuFapoGZZ2/upxDg
- pPWcyHie2iE/pIwsACjwSbg7Cq2y9sB3kdyWbdmM5Qlgo6DIOZxS9wXyPecmu/a8a6qB
- CjbbMTjHYHtSNVMmk85dVgIOeDMh0w9Y1BS0ot3Ix3ujgcauAhtkLIhxLg/BkCCDmf93 xA== 
+ subject : date : message-id : mime-version : content-type; s=selector1;
+ bh=qntsBUku//AI5Nch4VT1ASqySX8P0QSy2neo7hBxy8E=;
+ b=2SFSZCYzEbtJLWELwSD2KXAiey89kwJ7f/ow7heOep5g4+8hq2FdZIGB/xiGp4E2qNLQ
+ 6DL6NGAE9fBx6b4CBc62m12fLJPA3AgQYuefu47JPQqqlbxXAnEEN6PRUWrxhPmoszHD
+ hEHbKVmNnQWceM6xMF0c9QFWiwEr9C988urHmOW7NDJ8aLDjaLhOdsYEywvNdnZTzfi0
+ RPQIE197lV89c9FiwO5Fcg7S4fi9UXVsxQBc+ULbKQoiAHrYM5WPvU6iuJlUslwWkx6L
+ itQnx8V4+jurSxdxBnavmSd1SpN3FFpRhg4RZwq3fY/zYoXtBLQW/CxqDsDJuW31ZLN6 vQ== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3ffpqe9qkt-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3ffpqh9mcc-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 22 Apr 2022 16:36:18 +0200
+ Fri, 22 Apr 2022 17:09:55 +0200
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 2C3DC10002A;
- Fri, 22 Apr 2022 16:36:18 +0200 (CEST)
-Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 2309E22D172;
- Fri, 22 Apr 2022 16:36:18 +0200 (CEST)
-Received: from localhost (10.75.127.44) by SFHDAG2NODE2.st.com (10.75.127.5)
- with Microsoft SMTP Server (TLS) id 15.0.1497.26; Fri, 22 Apr 2022 16:36:17
- +0200
-From: Fabien Dessenne <fabien.dessenne@foss.st.com>
-To: Linus Walleij <linus.walleij@linaro.org>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- <linux-gpio@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
- <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
- Marek Vasut <marex@denx.de>
-Date: Fri, 22 Apr 2022 16:36:08 +0200
-Message-ID: <20220422143608.226580-1-fabien.dessenne@foss.st.com>
-X-Mailer: git-send-email 2.25.1
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id C4DEF10002A;
+ Fri, 22 Apr 2022 17:09:54 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id ABAA6233C62;
+ Fri, 22 Apr 2022 17:09:54 +0200 (CEST)
+Received: from localhost (10.75.127.49) by SHFDAG1NODE1.st.com (10.75.129.69)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2308.20; Fri, 22 Apr
+ 2022 17:09:54 +0200
+From: Alexandre Torgue <alexandre.torgue@foss.st.com>
+To: <arnd@arndb.de>, <robh+dt@kernel.org>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, <soc@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>
+Date: Fri, 22 Apr 2022 17:09:44 +0200
+Message-ID: <20220422150952.20587-1-alexandre.torgue@foss.st.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.44]
-X-ClientProxiedBy: SFHDAG2NODE2.st.com (10.75.127.5) To SFHDAG2NODE2.st.com
- (10.75.127.5)
+X-Originating-IP: [10.75.127.49]
+X-ClientProxiedBy: SFHDAG2NODE3.st.com (10.75.127.6) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.205,Aquarius:18.0.858,Hydra:6.0.486,FMLib:17.11.64.514
  definitions=2022-04-22_04,2022-04-22_01,2022-02-23_01
-Subject: [Linux-stm32] [PATCH] pinctrl: stm32: improve bank clocks management
+Cc: Marek Vasut <marex@denx.de>, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, etienne.carriere@st.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH 0/8] Add SCMI version of ST boards
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,359 +74,58 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Instead of enabling/disabling the clock at each IO configuration update,
-just keep the clock enabled from the probe.
-This makes things simpler and more efficient (e.g. the time required to
-toggle an output IO is drastically decreased) without significantly
-increasing the power consumption.
+The aim of this series is to add OPTEE and SCMI support for STM32 boards in
+order to enable secure services for clocks and resets. New boards have been added
+to enable this support in order to not break boot of current STM32 boards users. 
 
-Signed-off-by: Fabien Dessenne <fabien.dessenne@foss.st.com>
----
- drivers/pinctrl/stm32/pinctrl-stm32.c      | 82 ++++++++--------------
- drivers/pinctrl/stm32/pinctrl-stm32.h      |  1 +
- drivers/pinctrl/stm32/pinctrl-stm32mp135.c |  2 +-
- drivers/pinctrl/stm32/pinctrl-stm32mp157.c |  2 +-
- 4 files changed, 34 insertions(+), 53 deletions(-)
+This series targets only boards provided by ST which are:
+-STM32MP157A-DK1
+-STM32MP157C-DK2
+-STM32MP157C-ED1
+-STM32MP157C-EV1
 
-diff --git a/drivers/pinctrl/stm32/pinctrl-stm32.c b/drivers/pinctrl/stm32/pinctrl-stm32.c
-index f7c9459f6628..b308e7bb7487 100644
---- a/drivers/pinctrl/stm32/pinctrl-stm32.c
-+++ b/drivers/pinctrl/stm32/pinctrl-stm32.c
-@@ -197,11 +197,7 @@ static inline void __stm32_gpio_set(struct stm32_gpio_bank *bank,
- 	if (!value)
- 		offset += STM32_GPIO_PINS_PER_BANK;
- 
--	clk_enable(bank->clk);
--
- 	writel_relaxed(BIT(offset), bank->base + STM32_GPIO_BSRR);
--
--	clk_disable(bank->clk);
- }
- 
- static int stm32_gpio_request(struct gpio_chip *chip, unsigned offset)
-@@ -225,25 +221,11 @@ static void stm32_gpio_free(struct gpio_chip *chip, unsigned offset)
- 	pinctrl_gpio_free(chip->base + offset);
- }
- 
--static int stm32_gpio_get_noclk(struct gpio_chip *chip, unsigned int offset)
--{
--	struct stm32_gpio_bank *bank = gpiochip_get_data(chip);
--
--	return !!(readl_relaxed(bank->base + STM32_GPIO_IDR) & BIT(offset));
--}
--
- static int stm32_gpio_get(struct gpio_chip *chip, unsigned offset)
- {
- 	struct stm32_gpio_bank *bank = gpiochip_get_data(chip);
--	int ret;
- 
--	clk_enable(bank->clk);
--
--	ret = stm32_gpio_get_noclk(chip, offset);
--
--	clk_disable(bank->clk);
--
--	return ret;
-+	return !!(readl_relaxed(bank->base + STM32_GPIO_IDR) & BIT(offset));
- }
- 
- static void stm32_gpio_set(struct gpio_chip *chip, unsigned offset, int value)
-@@ -323,7 +305,7 @@ static void stm32_gpio_irq_trigger(struct irq_data *d)
- 		return;
- 
- 	/* If level interrupt type then retrig */
--	level = stm32_gpio_get_noclk(&bank->gpio_chip, d->hwirq);
-+	level = stm32_gpio_get(&bank->gpio_chip, d->hwirq);
- 	if ((level == 0 && bank->irq_type[d->hwirq] == IRQ_TYPE_LEVEL_LOW) ||
- 	    (level == 1 && bank->irq_type[d->hwirq] == IRQ_TYPE_LEVEL_HIGH))
- 		irq_chip_retrigger_hierarchy(d);
-@@ -365,7 +347,6 @@ static int stm32_gpio_irq_request_resources(struct irq_data *irq_data)
- {
- 	struct stm32_gpio_bank *bank = irq_data->domain->host_data;
- 	struct stm32_pinctrl *pctl = dev_get_drvdata(bank->gpio_chip.parent);
--	unsigned long flags;
- 	int ret;
- 
- 	ret = stm32_gpio_direction_input(&bank->gpio_chip, irq_data->hwirq);
-@@ -379,10 +360,6 @@ static int stm32_gpio_irq_request_resources(struct irq_data *irq_data)
- 		return ret;
- 	}
- 
--	flags = irqd_get_trigger_type(irq_data);
--	if (flags & IRQ_TYPE_LEVEL_MASK)
--		clk_enable(bank->clk);
--
- 	return 0;
- }
- 
-@@ -390,9 +367,6 @@ static void stm32_gpio_irq_release_resources(struct irq_data *irq_data)
- {
- 	struct stm32_gpio_bank *bank = irq_data->domain->host_data;
- 
--	if (bank->irq_type[irq_data->hwirq] & IRQ_TYPE_LEVEL_MASK)
--		clk_disable(bank->clk);
--
- 	gpiochip_unlock_as_irq(&bank->gpio_chip, irq_data->hwirq);
- }
- 
-@@ -769,7 +743,6 @@ static int stm32_pmx_set_mode(struct stm32_gpio_bank *bank,
- 	unsigned long flags;
- 	int err = 0;
- 
--	clk_enable(bank->clk);
- 	spin_lock_irqsave(&bank->lock, flags);
- 
- 	if (pctl->hwlock) {
-@@ -798,7 +771,6 @@ static int stm32_pmx_set_mode(struct stm32_gpio_bank *bank,
- 
- unlock:
- 	spin_unlock_irqrestore(&bank->lock, flags);
--	clk_disable(bank->clk);
- 
- 	return err;
- }
-@@ -811,7 +783,6 @@ void stm32_pmx_get_mode(struct stm32_gpio_bank *bank, int pin, u32 *mode,
- 	int alt_offset = STM32_GPIO_AFRL + (pin / 8) * 4;
- 	unsigned long flags;
- 
--	clk_enable(bank->clk);
- 	spin_lock_irqsave(&bank->lock, flags);
- 
- 	val = readl_relaxed(bank->base + alt_offset);
-@@ -823,7 +794,6 @@ void stm32_pmx_get_mode(struct stm32_gpio_bank *bank, int pin, u32 *mode,
- 	*mode = val >> (pin * 2);
- 
- 	spin_unlock_irqrestore(&bank->lock, flags);
--	clk_disable(bank->clk);
- }
- 
- static int stm32_pmx_set_mux(struct pinctrl_dev *pctldev,
-@@ -886,7 +856,6 @@ static int stm32_pconf_set_driving(struct stm32_gpio_bank *bank,
- 	u32 val;
- 	int err = 0;
- 
--	clk_enable(bank->clk);
- 	spin_lock_irqsave(&bank->lock, flags);
- 
- 	if (pctl->hwlock) {
-@@ -910,7 +879,6 @@ static int stm32_pconf_set_driving(struct stm32_gpio_bank *bank,
- 
- unlock:
- 	spin_unlock_irqrestore(&bank->lock, flags);
--	clk_disable(bank->clk);
- 
- 	return err;
- }
-@@ -921,14 +889,12 @@ static u32 stm32_pconf_get_driving(struct stm32_gpio_bank *bank,
- 	unsigned long flags;
- 	u32 val;
- 
--	clk_enable(bank->clk);
- 	spin_lock_irqsave(&bank->lock, flags);
- 
- 	val = readl_relaxed(bank->base + STM32_GPIO_TYPER);
- 	val &= BIT(offset);
- 
- 	spin_unlock_irqrestore(&bank->lock, flags);
--	clk_disable(bank->clk);
- 
- 	return (val >> offset);
- }
-@@ -941,7 +907,6 @@ static int stm32_pconf_set_speed(struct stm32_gpio_bank *bank,
- 	u32 val;
- 	int err = 0;
- 
--	clk_enable(bank->clk);
- 	spin_lock_irqsave(&bank->lock, flags);
- 
- 	if (pctl->hwlock) {
-@@ -965,7 +930,6 @@ static int stm32_pconf_set_speed(struct stm32_gpio_bank *bank,
- 
- unlock:
- 	spin_unlock_irqrestore(&bank->lock, flags);
--	clk_disable(bank->clk);
- 
- 	return err;
- }
-@@ -976,14 +940,12 @@ static u32 stm32_pconf_get_speed(struct stm32_gpio_bank *bank,
- 	unsigned long flags;
- 	u32 val;
- 
--	clk_enable(bank->clk);
- 	spin_lock_irqsave(&bank->lock, flags);
- 
- 	val = readl_relaxed(bank->base + STM32_GPIO_SPEEDR);
- 	val &= GENMASK(offset * 2 + 1, offset * 2);
- 
- 	spin_unlock_irqrestore(&bank->lock, flags);
--	clk_disable(bank->clk);
- 
- 	return (val >> (offset * 2));
- }
-@@ -996,7 +958,6 @@ static int stm32_pconf_set_bias(struct stm32_gpio_bank *bank,
- 	u32 val;
- 	int err = 0;
- 
--	clk_enable(bank->clk);
- 	spin_lock_irqsave(&bank->lock, flags);
- 
- 	if (pctl->hwlock) {
-@@ -1020,7 +981,6 @@ static int stm32_pconf_set_bias(struct stm32_gpio_bank *bank,
- 
- unlock:
- 	spin_unlock_irqrestore(&bank->lock, flags);
--	clk_disable(bank->clk);
- 
- 	return err;
- }
-@@ -1031,14 +991,12 @@ static u32 stm32_pconf_get_bias(struct stm32_gpio_bank *bank,
- 	unsigned long flags;
- 	u32 val;
- 
--	clk_enable(bank->clk);
- 	spin_lock_irqsave(&bank->lock, flags);
- 
- 	val = readl_relaxed(bank->base + STM32_GPIO_PUPDR);
- 	val &= GENMASK(offset * 2 + 1, offset * 2);
- 
- 	spin_unlock_irqrestore(&bank->lock, flags);
--	clk_disable(bank->clk);
- 
- 	return (val >> (offset * 2));
- }
-@@ -1049,7 +1007,6 @@ static bool stm32_pconf_get(struct stm32_gpio_bank *bank,
- 	unsigned long flags;
- 	u32 val;
- 
--	clk_enable(bank->clk);
- 	spin_lock_irqsave(&bank->lock, flags);
- 
- 	if (dir)
-@@ -1060,7 +1017,6 @@ static bool stm32_pconf_get(struct stm32_gpio_bank *bank,
- 			 BIT(offset));
- 
- 	spin_unlock_irqrestore(&bank->lock, flags);
--	clk_disable(bank->clk);
- 
- 	return val;
- }
-@@ -1256,9 +1212,9 @@ static int stm32_gpiolib_register_bank(struct stm32_pinctrl *pctl,
- 	if (IS_ERR(bank->base))
- 		return PTR_ERR(bank->base);
- 
--	err = clk_prepare(bank->clk);
-+	err = clk_prepare_enable(bank->clk);
- 	if (err) {
--		dev_err(dev, "failed to prepare clk (%d)\n", err);
-+		dev_err(dev, "failed to prepare_enable clk (%d)\n", err);
- 		return err;
- 	}
- 
-@@ -1306,17 +1262,23 @@ static int stm32_gpiolib_register_bank(struct stm32_pinctrl *pctl,
- 					STM32_GPIO_IRQ_LINE, bank->fwnode,
- 					&stm32_gpio_domain_ops, bank);
- 
--	if (!bank->domain)
--		return -ENODEV;
-+	if (!bank->domain) {
-+		err = -ENODEV;
-+		goto err_clk;
-+	}
- 
- 	err = gpiochip_add_data(&bank->gpio_chip, bank);
- 	if (err) {
- 		dev_err(dev, "Failed to add gpiochip(%d)!\n", bank_nr);
--		return err;
-+		goto err_clk;
- 	}
- 
- 	dev_info(dev, "%s bank added\n", bank->gpio_chip.label);
- 	return 0;
-+
-+err_clk:
-+	clk_disable_unprepare(bank->clk);
-+	return err;
- }
- 
- static struct irq_domain *stm32_pctrl_get_irq_domain(struct device_node *np)
-@@ -1575,6 +1537,10 @@ int stm32_pctl_probe(struct platform_device *pdev)
- 			ret = stm32_gpiolib_register_bank(pctl, child);
- 			if (ret) {
- 				of_node_put(child);
-+
-+				for (i = 0; i < pctl->nbanks; i++)
-+					clk_disable_unprepare(pctl->banks[i].clk);
-+
- 				return ret;
- 			}
- 
-@@ -1647,12 +1613,26 @@ static int __maybe_unused stm32_pinctrl_restore_gpio_regs(
- 	return 0;
- }
- 
-+int __maybe_unused stm32_pinctrl_suspend(struct device *dev)
-+{
-+	struct stm32_pinctrl *pctl = dev_get_drvdata(dev);
-+	int i;
-+
-+	for (i = 0; i < pctl->nbanks; i++)
-+		clk_disable(pctl->banks[i].clk);
-+
-+	return 0;
-+}
-+
- int __maybe_unused stm32_pinctrl_resume(struct device *dev)
- {
- 	struct stm32_pinctrl *pctl = dev_get_drvdata(dev);
- 	struct stm32_pinctrl_group *g = pctl->groups;
- 	int i;
- 
-+	for (i = 0; i < pctl->nbanks; i++)
-+		clk_enable(pctl->banks[i].clk);
-+
- 	for (i = 0; i < pctl->ngroups; i++, g++)
- 		stm32_pinctrl_restore_gpio_regs(pctl, g->pin);
- 
-diff --git a/drivers/pinctrl/stm32/pinctrl-stm32.h b/drivers/pinctrl/stm32/pinctrl-stm32.h
-index b0882d120765..b9584039cdf5 100644
---- a/drivers/pinctrl/stm32/pinctrl-stm32.h
-+++ b/drivers/pinctrl/stm32/pinctrl-stm32.h
-@@ -65,6 +65,7 @@ struct stm32_gpio_bank;
- int stm32_pctl_probe(struct platform_device *pdev);
- void stm32_pmx_get_mode(struct stm32_gpio_bank *bank,
- 			int pin, u32 *mode, u32 *alt);
-+int stm32_pinctrl_suspend(struct device *dev);
- int stm32_pinctrl_resume(struct device *dev);
- 
- #endif /* __PINCTRL_STM32_H */
-diff --git a/drivers/pinctrl/stm32/pinctrl-stm32mp135.c b/drivers/pinctrl/stm32/pinctrl-stm32mp135.c
-index 4ab03520c407..f98717fe23ed 100644
---- a/drivers/pinctrl/stm32/pinctrl-stm32mp135.c
-+++ b/drivers/pinctrl/stm32/pinctrl-stm32mp135.c
-@@ -1660,7 +1660,7 @@ static const struct of_device_id stm32mp135_pctrl_match[] = {
- };
- 
- static const struct dev_pm_ops stm32_pinctrl_dev_pm_ops = {
--	 SET_LATE_SYSTEM_SLEEP_PM_OPS(NULL, stm32_pinctrl_resume)
-+	 SET_LATE_SYSTEM_SLEEP_PM_OPS(stm32_pinctrl_suspend, stm32_pinctrl_resume)
- };
- 
- static struct platform_driver stm32mp135_pinctrl_driver = {
-diff --git a/drivers/pinctrl/stm32/pinctrl-stm32mp157.c b/drivers/pinctrl/stm32/pinctrl-stm32mp157.c
-index 2ccb99d64df8..91b2fc8ddbdb 100644
---- a/drivers/pinctrl/stm32/pinctrl-stm32mp157.c
-+++ b/drivers/pinctrl/stm32/pinctrl-stm32mp157.c
-@@ -2343,7 +2343,7 @@ static const struct of_device_id stm32mp157_pctrl_match[] = {
- };
- 
- static const struct dev_pm_ops stm32_pinctrl_dev_pm_ops = {
--	 SET_LATE_SYSTEM_SLEEP_PM_OPS(NULL, stm32_pinctrl_resume)
-+	 SET_LATE_SYSTEM_SLEEP_PM_OPS(stm32_pinctrl_suspend, stm32_pinctrl_resume)
- };
- 
- static struct platform_driver stm32mp157_pinctrl_driver = {
+Some modifications in bindings files (yaml and .h) was needed and OPTEE/TEE
+configs are now enabled by default for ARCH_STM32 architecture.
+
+Note that patch [1] "dt-bindings: rcc: Add optional external ethernet RX clock
+properties" done by Marek has been already merged in Rob tree.
+
+Thanks
+Alex
+
+Alexandre Torgue (7):
+  dt-bindings: clock: stm32mp1: describes clocks if
+    "st,stm32mp1-rcc-secure"
+  dt-bindings: clock: stm32mp15: rename CK_SCMI define
+  dt-bindings: reset: stm32mp15: rename RST_SCMI define
+  ARM: stm32: select OPTEE on MPU family
+  ARM: dts: stm32: enable optee firmware and SCMI support on STM32MP15
+  dt-bindings: arm: stm32: Add SCMI version of STM32 boards
+    (DK1/DK2/ED1/EV1)
+  ARM: dts: stm32: Add SCMI version of STM32 boards (DK1/DK2/ED1/EV1)
+
+Marek Vasut (1):
+  dt-bindings: rcc: Add optional external ethernet RX clock properties
+
+ .../devicetree/bindings/arm/stm32/stm32.yaml  |  17 +++
+ .../bindings/clock/st,stm32mp1-rcc.yaml       |  34 ++++++
+ arch/arm/boot/dts/Makefile                    |   4 +
+ arch/arm/boot/dts/stm32mp151.dtsi             |  41 +++++++
+ arch/arm/boot/dts/stm32mp157a-dk1-scmi.dts    |  86 +++++++++++++++
+ arch/arm/boot/dts/stm32mp157c-dk2-scmi.dts    |  95 +++++++++++++++++
+ arch/arm/boot/dts/stm32mp157c-ed1-scmi.dts    |  91 ++++++++++++++++
+ arch/arm/boot/dts/stm32mp157c-ev1-scmi.dts    | 100 ++++++++++++++++++
+ arch/arm/mach-stm32/Kconfig                   |   2 +
+ include/dt-bindings/clock/stm32mp1-clks.h     |  46 ++++----
+ include/dt-bindings/reset/stm32mp1-resets.h   |  24 ++---
+ 11 files changed, 503 insertions(+), 37 deletions(-)
+ create mode 100644 arch/arm/boot/dts/stm32mp157a-dk1-scmi.dts
+ create mode 100644 arch/arm/boot/dts/stm32mp157c-dk2-scmi.dts
+ create mode 100644 arch/arm/boot/dts/stm32mp157c-ed1-scmi.dts
+ create mode 100644 arch/arm/boot/dts/stm32mp157c-ev1-scmi.dts
+
 -- 
-2.25.1
+2.17.1
 
 _______________________________________________
 Linux-stm32 mailing list
