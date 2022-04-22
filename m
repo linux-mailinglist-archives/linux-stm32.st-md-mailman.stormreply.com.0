@@ -2,61 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id EA91650BECD
-	for <lists+linux-stm32@lfdr.de>; Fri, 22 Apr 2022 19:36:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0CE7850C22E
+	for <lists+linux-stm32@lfdr.de>; Sat, 23 Apr 2022 00:11:24 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A1EA8C6049A;
-	Fri, 22 Apr 2022 17:36:02 +0000 (UTC)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B18AEC6049A;
+	Fri, 22 Apr 2022 22:11:23 +0000 (UTC)
+Received: from mail-yw1-f172.google.com (mail-yw1-f172.google.com
+ [209.85.128.172])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6CE5CC6047D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 08DDFC6047D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 22 Apr 2022 17:36:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1650648960; x=1682184960;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=ZEpaktPAhBfcH1j+/z/T41kMvD8alIN8R86i3Pz3/1A=;
- b=gsRJH5JXDZ5u78BTVtS3GluaSB96rybyKS2Tc9rZhi+6PqC4XVlT7vyF
- Wg8WL++43gNpV+fXZIM49heyExYAmN9eoKmcQZdch5RIkbBm0ejQ93vE8
- PiD6IOBgwFpLw/gn5ddYSoYEfztMq8yjt3U+Bc8b4mMafNBtROe9a9zhv
- ZNQIYdir7u6Oc8xmvocvV+crLlk40kiJ+TvNvmTOQD/sv9M57SoNy+FXA
- 0/TP0KTAD/dPBpTscTJglOTZdOY5Mqt4YXsZjKhWuAt6rUkZ1NAV+4nVE
- YmBhFF6F5803BuCa4sAMZ1OlUrtkYYDHIp94uQVR4YTiUUJQeuO7Mh7sP Q==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10324"; a="262333610"
-X-IronPort-AV: E=Sophos;i="5.90,282,1643702400"; d="scan'208";a="262333610"
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Apr 2022 10:35:58 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.90,282,1643702400"; d="scan'208";a="627076900"
-Received: from lkp-server01.sh.intel.com (HELO 3abc53900bec) ([10.239.97.150])
- by fmsmga004.fm.intel.com with ESMTP; 22 Apr 2022 10:35:54 -0700
-Received: from kbuild by 3abc53900bec with local (Exim 4.95)
- (envelope-from <lkp@intel.com>) id 1nhxCD-000APG-LM;
- Fri, 22 Apr 2022 17:35:53 +0000
-Date: Sat, 23 Apr 2022 01:35:32 +0800
-From: kernel test robot <lkp@intel.com>
-To: Ong Boon Leong <boon.leong.ong@intel.com>,
- Alexandre Torgue <alexandre.torgue@st.com>,
- Jose Abreu <joabreu@synopsys.com>, Andrew Lunn <andrew@lunn.ch>,
- Heiner Kallweit <hkallweit1@gmail.com>,
- Russell King <linux@armlinux.org.uk>, Paolo Abeni <pabeni@redhat.com>,
- "David S . Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>
-Message-ID: <202204230159.Tixm42oR-lkp@intel.com>
-References: <20220422073505.810084-2-boon.leong.ong@intel.com>
+ Fri, 22 Apr 2022 22:11:21 +0000 (UTC)
+Received: by mail-yw1-f172.google.com with SMTP id
+ 00721157ae682-2ec0bb4b715so99193797b3.5
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 22 Apr 2022 15:11:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=5l+l4eZhPaUW/t7OK97BcPL2a6Rcj2jRLXMJZMBnwXY=;
+ b=bEL2DxYNnRtfLQkf+Gd5ijJk/wLCwNwkdP5vYDyWTyOjZsvZTlfSvqSOxq2JF42ss7
+ HP6UC6QlX8/+l3vorVzNup0sqiJf/w6gvX2F/knJiiWYgwQ4MbjqsVF6yvMV1tn6q3Vj
+ PcgvskYL9C9Wd7aXGVstbXYCL0V0ScqXhqYkyZlZL9BuOOM3uM1sxoN9ZWeI8BK0psub
+ Kox8xtMQx9IKxnHzPLnNSP3XpNGgtrl9/3ayH2at3sTPHj+I9leJBNREIpTND7/egqjH
+ 6Y1+gIJP8/+l2HVWFtjAIBjhaH4HpZe2+wsoAO1redv4wu2SvvoyKmKKuwEvtPoDr2Dd
+ timQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=5l+l4eZhPaUW/t7OK97BcPL2a6Rcj2jRLXMJZMBnwXY=;
+ b=8ArdgdJc4OugRScQkm/lcO5xrjpwlBhoKdtwaFKw+g3r7+4HjVy0YDj6PpN9tUflsm
+ l9H0DFYADL27pcpw+bU/d1LfEWqI6o9MjOu1Z1HPjoEIKHpkjbi2uyTAbs4mKAiRJsHx
+ cC9zChVx7M3K/VvltEt+AEAXaTpfXyoe4/yjszr+PE1xiGH2L7kNU9WYrM1CLyXD0ao9
+ VGkWdbwaxLtiVaCiG6CDLV5J79wV/4zqKF5JXgtSbUAgHFc512rAJimzgdrZpTPAe+Cp
+ Rx/sHwLnYqmXN9+qFSe1nwKIua3dHpUtcNqLOEPGdbl12o4pDGB97uxMZsa5HFLdbLlV
+ pZ7Q==
+X-Gm-Message-State: AOAM531HC2VQZXizLnFjxMzkEPrCJcyRRFzcsjPSzbAMCUcDlrEemPDK
+ 7e+tOvsQ6F+7GuSy5oKnmO7QraSYsQ2kZKPRgzrNKKsj3fQ=
+X-Google-Smtp-Source: ABdhPJzOKA6Ap2QcmCeF5qP1ksTK27Jp7JI3tTLjDD9Hwym5B7oAdmYbzAipLZon8pvsozNATDoQ/0iOMOl4JyEFGDA=
+X-Received: by 2002:a0d:f0c3:0:b0:2f4:d291:9dde with SMTP id
+ z186-20020a0df0c3000000b002f4d2919ddemr7130911ywe.437.1650665480938; Fri, 22
+ Apr 2022 15:11:20 -0700 (PDT)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20220422073505.810084-2-boon.leong.ong@intel.com>
-Cc: kbuild-all@lists.01.org, netdev@vger.kernel.org, llvm@lists.linux.dev,
- linux-kernel@vger.kernel.org, Ong Boon Leong <boon.leong.ong@intel.com>,
+References: <20220421140827.214088-1-marex@denx.de>
+In-Reply-To: <20220421140827.214088-1-marex@denx.de>
+From: Linus Walleij <linus.walleij@linaro.org>
+Date: Sat, 23 Apr 2022 00:11:10 +0200
+Message-ID: <CACRpkdboaSzhduydSzqK+m1WyXz8ZWF43Ey0bxHKWujROSuDew@mail.gmail.com>
+To: Marek Vasut <marex@denx.de>
+Cc: Marc Zyngier <maz@kernel.org>, linux-gpio@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next 1/4] net: pcs: xpcs: add CL37
- 1000BASE-X AN support
+Subject: Re: [Linux-stm32] [PATCH] irqchip/stm32: Keep pinctrl block clock
+ enabled when LEVEL IRQ requested
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,187 +71,67 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Ong,
+On Thu, Apr 21, 2022 at 4:08 PM Marek Vasut <marex@denx.de> wrote:
 
-Thank you for the patch! Yet something to improve:
+> The current EOI handler for LEVEL triggered interrupts calls clk_enable(),
+> register IO, clk_disable(). The clock manipulation requires locking which
+> happens with IRQs disabled in clk_enable_lock(). Instead of turning the
+> clock on and off all the time, enable the clock in case LEVEL interrupt is
+> requested and keep the clock enabled until all LEVEL interrupts are freed.
+> The LEVEL interrupts are an exception on this platform and seldom used, so
+> this does not affect the common case.
+>
+> This simplifies the LEVEL interrupt handling considerably and also fixes
+> the following splat found when using preempt-rt:
+>  ------------[ cut here ]------------
+>  WARNING: CPU: 0 PID: 0 at kernel/locking/rtmutex.c:2040 __rt_mutex_trylock+0x37/0x62
+>  Modules linked in:
+>  CPU: 0 PID: 0 Comm: swapper/0 Not tainted 5.10.109-rt65-stable-standard-00068-g6a5afc4b1217 #85
+>  Hardware name: STM32 (Device Tree Support)
+>  [<c010a45d>] (unwind_backtrace) from [<c010766f>] (show_stack+0xb/0xc)
+>  [<c010766f>] (show_stack) from [<c06353ab>] (dump_stack+0x6f/0x84)
+>  [<c06353ab>] (dump_stack) from [<c01145e3>] (__warn+0x7f/0xa4)
+>  [<c01145e3>] (__warn) from [<c063386f>] (warn_slowpath_fmt+0x3b/0x74)
+>  [<c063386f>] (warn_slowpath_fmt) from [<c063b43d>] (__rt_mutex_trylock+0x37/0x62)
+>  [<c063b43d>] (__rt_mutex_trylock) from [<c063c053>] (rt_spin_trylock+0x7/0x16)
+>  [<c063c053>] (rt_spin_trylock) from [<c036a2f3>] (clk_enable_lock+0xb/0x80)
+>  [<c036a2f3>] (clk_enable_lock) from [<c036ba69>] (clk_core_enable_lock+0x9/0x18)
+>  [<c036ba69>] (clk_core_enable_lock) from [<c034e9f3>] (stm32_gpio_get+0x11/0x24)
+>  [<c034e9f3>] (stm32_gpio_get) from [<c034ef43>] (stm32_gpio_irq_trigger+0x1f/0x48)
+>  [<c034ef43>] (stm32_gpio_irq_trigger) from [<c014aa53>] (handle_fasteoi_irq+0x71/0xa8)
+>  [<c014aa53>] (handle_fasteoi_irq) from [<c0147111>] (generic_handle_irq+0x19/0x22)
+>  [<c0147111>] (generic_handle_irq) from [<c014752d>] (__handle_domain_irq+0x55/0x64)
+>  [<c014752d>] (__handle_domain_irq) from [<c0346f13>] (gic_handle_irq+0x53/0x64)
+>  [<c0346f13>] (gic_handle_irq) from [<c0100ba5>] (__irq_svc+0x65/0xc0)
+>  Exception stack(0xc0e01f18 to 0xc0e01f60)
+>  1f00:                                                       0000300c 00000000
+>  1f20: 0000300c c010ff01 00000000 00000000 c0e00000 c0e07714 00000001 c0e01f78
+>  1f40: c0e07758 00000000 ef7cd0ff c0e01f68 c010554b c0105542 40000033 ffffffff
+>  [<c0100ba5>] (__irq_svc) from [<c0105542>] (arch_cpu_idle+0xc/0x1e)
+>  [<c0105542>] (arch_cpu_idle) from [<c063be95>] (default_idle_call+0x21/0x3c)
+>  [<c063be95>] (default_idle_call) from [<c01324f7>] (do_idle+0xe3/0x1e4)
+>  [<c01324f7>] (do_idle) from [<c01327b3>] (cpu_startup_entry+0x13/0x14)
+>  [<c01327b3>] (cpu_startup_entry) from [<c0a00c13>] (start_kernel+0x397/0x3d4)
+>  [<c0a00c13>] (start_kernel) from [<00000000>] (0x0)
+>  ---[ end trace 0000000000000002 ]---
+>
+> Power consumption measured on STM32MP157C DHCOM SoM is not increased or
+> is below noise threshold.
+>
+> Fixes: 47beed513a85b ("pinctrl: stm32: Add level interrupt support to gpio irq chip")
+> Signed-off-by: Marek Vasut <marex@denx.de>
+> Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
+> Cc: Fabien Dessenne <fabien.dessenne@foss.st.com>
+> Cc: Linus Walleij <linus.walleij@linaro.org>
+> Cc: Marc Zyngier <maz@kernel.org>
+> Cc: linux-stm32@st-md-mailman.stormreply.com
+> Cc: linux-arm-kernel@lists.infradead.org
+> To: linux-gpio@vger.kernel.org
 
-[auto build test ERROR on net-next/master]
+Patch applied to fixes, tweaked subject to pinctrl: stm32:
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Ong-Boon-Leong/pcs-xpcs-stmmac-add-1000BASE-X-AN-for-network-switch/20220422-154446
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/davem/net-next.git 9c8774e629a1950c24b44e3c8fb93d76fb644b49
-config: i386-randconfig-a013 (https://download.01.org/0day-ci/archive/20220423/202204230159.Tixm42oR-lkp@intel.com/config)
-compiler: clang version 15.0.0 (https://github.com/llvm/llvm-project 5bd87350a5ae429baf8f373cb226a57b62f87280)
-reproduce (this is a W=1 build):
-        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
-        chmod +x ~/bin/make.cross
-        # https://github.com/intel-lab-lkp/linux/commit/dc88c5b7c183eeaff9db0e88d7b0d1d7f73e830b
-        git remote add linux-review https://github.com/intel-lab-lkp/linux
-        git fetch --no-tags linux-review Ong-Boon-Leong/pcs-xpcs-stmmac-add-1000BASE-X-AN-for-network-switch/20220422-154446
-        git checkout dc88c5b7c183eeaff9db0e88d7b0d1d7f73e830b
-        # save the config file
-        mkdir build_dir && cp config build_dir/.config
-        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=clang make.cross W=1 O=build_dir ARCH=i386 SHELL=/bin/bash drivers/net/dsa/sja1105/
-
-If you fix the issue, kindly add following tag as appropriate
-Reported-by: kernel test robot <lkp@intel.com>
-
-All errors (new ones prefixed by >>):
-
->> drivers/net/dsa/sja1105/sja1105_main.c:2334:52: error: too few arguments to function call, expected 4, have 3
-                   rc = xpcs_do_config(xpcs, priv->phy_mode[i], mode);
-                        ~~~~~~~~~~~~~~                              ^
-   include/linux/pcs/pcs-xpcs.h:33:5: note: 'xpcs_do_config' declared here
-   int xpcs_do_config(struct dw_xpcs *xpcs, phy_interface_t interface,
-       ^
-   1 error generated.
-
-
-vim +2334 drivers/net/dsa/sja1105/sja1105_main.c
-
-2eea1fa82f681b Vladimir Oltean 2019-11-12  2224  
-6666cebc5e306f Vladimir Oltean 2019-05-02  2225  /* For situations where we need to change a setting at runtime that is only
-6666cebc5e306f Vladimir Oltean 2019-05-02  2226   * available through the static configuration, resetting the switch in order
-6666cebc5e306f Vladimir Oltean 2019-05-02  2227   * to upload the new static config is unavoidable. Back up the settings we
-6666cebc5e306f Vladimir Oltean 2019-05-02  2228   * modify at runtime (currently only MAC) and restore them after uploading,
-6666cebc5e306f Vladimir Oltean 2019-05-02  2229   * such that this operation is relatively seamless.
-6666cebc5e306f Vladimir Oltean 2019-05-02  2230   */
-2eea1fa82f681b Vladimir Oltean 2019-11-12  2231  int sja1105_static_config_reload(struct sja1105_private *priv,
-2eea1fa82f681b Vladimir Oltean 2019-11-12  2232  				 enum sja1105_reset_reason reason)
-6666cebc5e306f Vladimir Oltean 2019-05-02  2233  {
-6cf99c13ea07b5 Vladimir Oltean 2019-11-09  2234  	struct ptp_system_timestamp ptp_sts_before;
-6cf99c13ea07b5 Vladimir Oltean 2019-11-09  2235  	struct ptp_system_timestamp ptp_sts_after;
-82760d7f2ea638 Vladimir Oltean 2021-05-24  2236  	int speed_mbps[SJA1105_MAX_NUM_PORTS];
-84db00f2c04338 Vladimir Oltean 2021-05-31  2237  	u16 bmcr[SJA1105_MAX_NUM_PORTS] = {0};
-6666cebc5e306f Vladimir Oltean 2019-05-02  2238  	struct sja1105_mac_config_entry *mac;
-6cf99c13ea07b5 Vladimir Oltean 2019-11-09  2239  	struct dsa_switch *ds = priv->ds;
-6cf99c13ea07b5 Vladimir Oltean 2019-11-09  2240  	s64 t1, t2, t3, t4;
-6cf99c13ea07b5 Vladimir Oltean 2019-11-09  2241  	s64 t12, t34;
-6666cebc5e306f Vladimir Oltean 2019-05-02  2242  	int rc, i;
-6cf99c13ea07b5 Vladimir Oltean 2019-11-09  2243  	s64 now;
-6666cebc5e306f Vladimir Oltean 2019-05-02  2244  
-af580ae2dcb250 Vladimir Oltean 2019-11-09  2245  	mutex_lock(&priv->mgmt_lock);
-af580ae2dcb250 Vladimir Oltean 2019-11-09  2246  
-6666cebc5e306f Vladimir Oltean 2019-05-02  2247  	mac = priv->static_config.tables[BLK_IDX_MAC_CONFIG].entries;
-6666cebc5e306f Vladimir Oltean 2019-05-02  2248  
-8400cff60b472c Vladimir Oltean 2019-06-08  2249  	/* Back up the dynamic link speed changed by sja1105_adjust_port_config
-8400cff60b472c Vladimir Oltean 2019-06-08  2250  	 * in order to temporarily restore it to SJA1105_SPEED_AUTO - which the
-8400cff60b472c Vladimir Oltean 2019-06-08  2251  	 * switch wants to see in the static config in order to allow us to
-8400cff60b472c Vladimir Oltean 2019-06-08  2252  	 * change it through the dynamic interface later.
-6666cebc5e306f Vladimir Oltean 2019-05-02  2253  	 */
-542043e91df452 Vladimir Oltean 2021-05-24  2254  	for (i = 0; i < ds->num_ports; i++) {
-3ad1d171548e85 Vladimir Oltean 2021-06-11  2255  		u32 reg_addr = mdiobus_c45_addr(MDIO_MMD_VEND2, MDIO_CTRL1);
-3ad1d171548e85 Vladimir Oltean 2021-06-11  2256  
-41fed17fdbe531 Vladimir Oltean 2021-05-31  2257  		speed_mbps[i] = sja1105_port_speed_to_ethtool(priv,
-41fed17fdbe531 Vladimir Oltean 2021-05-31  2258  							      mac[i].speed);
-41fed17fdbe531 Vladimir Oltean 2021-05-31  2259  		mac[i].speed = priv->info->port_speed[SJA1105_SPEED_AUTO];
-6666cebc5e306f Vladimir Oltean 2019-05-02  2260  
-3ad1d171548e85 Vladimir Oltean 2021-06-11  2261  		if (priv->xpcs[i])
-3ad1d171548e85 Vladimir Oltean 2021-06-11  2262  			bmcr[i] = mdiobus_read(priv->mdio_pcs, i, reg_addr);
-84db00f2c04338 Vladimir Oltean 2021-05-31  2263  	}
-ffe10e679cec9a Vladimir Oltean 2020-03-20  2264  
-6cf99c13ea07b5 Vladimir Oltean 2019-11-09  2265  	/* No PTP operations can run right now */
-6cf99c13ea07b5 Vladimir Oltean 2019-11-09  2266  	mutex_lock(&priv->ptp_data.lock);
-6cf99c13ea07b5 Vladimir Oltean 2019-11-09  2267  
-6cf99c13ea07b5 Vladimir Oltean 2019-11-09  2268  	rc = __sja1105_ptp_gettimex(ds, &now, &ptp_sts_before);
-61c77533b82ba8 Vladimir Oltean 2021-06-18  2269  	if (rc < 0) {
-61c77533b82ba8 Vladimir Oltean 2021-06-18  2270  		mutex_unlock(&priv->ptp_data.lock);
-61c77533b82ba8 Vladimir Oltean 2021-06-18  2271  		goto out;
-61c77533b82ba8 Vladimir Oltean 2021-06-18  2272  	}
-6cf99c13ea07b5 Vladimir Oltean 2019-11-09  2273  
-6666cebc5e306f Vladimir Oltean 2019-05-02  2274  	/* Reset switch and send updated static configuration */
-6666cebc5e306f Vladimir Oltean 2019-05-02  2275  	rc = sja1105_static_config_upload(priv);
-61c77533b82ba8 Vladimir Oltean 2021-06-18  2276  	if (rc < 0) {
-61c77533b82ba8 Vladimir Oltean 2021-06-18  2277  		mutex_unlock(&priv->ptp_data.lock);
-61c77533b82ba8 Vladimir Oltean 2021-06-18  2278  		goto out;
-61c77533b82ba8 Vladimir Oltean 2021-06-18  2279  	}
-6cf99c13ea07b5 Vladimir Oltean 2019-11-09  2280  
-6cf99c13ea07b5 Vladimir Oltean 2019-11-09  2281  	rc = __sja1105_ptp_settime(ds, 0, &ptp_sts_after);
-61c77533b82ba8 Vladimir Oltean 2021-06-18  2282  	if (rc < 0) {
-61c77533b82ba8 Vladimir Oltean 2021-06-18  2283  		mutex_unlock(&priv->ptp_data.lock);
-61c77533b82ba8 Vladimir Oltean 2021-06-18  2284  		goto out;
-61c77533b82ba8 Vladimir Oltean 2021-06-18  2285  	}
-6cf99c13ea07b5 Vladimir Oltean 2019-11-09  2286  
-6cf99c13ea07b5 Vladimir Oltean 2019-11-09  2287  	t1 = timespec64_to_ns(&ptp_sts_before.pre_ts);
-6cf99c13ea07b5 Vladimir Oltean 2019-11-09  2288  	t2 = timespec64_to_ns(&ptp_sts_before.post_ts);
-6cf99c13ea07b5 Vladimir Oltean 2019-11-09  2289  	t3 = timespec64_to_ns(&ptp_sts_after.pre_ts);
-6cf99c13ea07b5 Vladimir Oltean 2019-11-09  2290  	t4 = timespec64_to_ns(&ptp_sts_after.post_ts);
-6cf99c13ea07b5 Vladimir Oltean 2019-11-09  2291  	/* Mid point, corresponds to pre-reset PTPCLKVAL */
-6cf99c13ea07b5 Vladimir Oltean 2019-11-09  2292  	t12 = t1 + (t2 - t1) / 2;
-6cf99c13ea07b5 Vladimir Oltean 2019-11-09  2293  	/* Mid point, corresponds to post-reset PTPCLKVAL, aka 0 */
-6cf99c13ea07b5 Vladimir Oltean 2019-11-09  2294  	t34 = t3 + (t4 - t3) / 2;
-6cf99c13ea07b5 Vladimir Oltean 2019-11-09  2295  	/* Advance PTPCLKVAL by the time it took since its readout */
-6cf99c13ea07b5 Vladimir Oltean 2019-11-09  2296  	now += (t34 - t12);
-6cf99c13ea07b5 Vladimir Oltean 2019-11-09  2297  
-6cf99c13ea07b5 Vladimir Oltean 2019-11-09  2298  	__sja1105_ptp_adjtime(ds, now);
-6cf99c13ea07b5 Vladimir Oltean 2019-11-09  2299  
-6cf99c13ea07b5 Vladimir Oltean 2019-11-09  2300  	mutex_unlock(&priv->ptp_data.lock);
-6666cebc5e306f Vladimir Oltean 2019-05-02  2301  
-2eea1fa82f681b Vladimir Oltean 2019-11-12  2302  	dev_info(priv->ds->dev,
-2eea1fa82f681b Vladimir Oltean 2019-11-12  2303  		 "Reset switch and programmed static config. Reason: %s\n",
-2eea1fa82f681b Vladimir Oltean 2019-11-12  2304  		 sja1105_reset_reasons[reason]);
-2eea1fa82f681b Vladimir Oltean 2019-11-12  2305  
-6666cebc5e306f Vladimir Oltean 2019-05-02  2306  	/* Configure the CGU (PLLs) for MII and RMII PHYs.
-6666cebc5e306f Vladimir Oltean 2019-05-02  2307  	 * For these interfaces there is no dynamic configuration
-6666cebc5e306f Vladimir Oltean 2019-05-02  2308  	 * needed, since PLLs have same settings at all speeds.
-6666cebc5e306f Vladimir Oltean 2019-05-02  2309  	 */
-cb5a82d2b9aaca Vladimir Oltean 2021-06-18  2310  	if (priv->info->clocking_setup) {
-c50376783f23ff Vladimir Oltean 2021-05-24  2311  		rc = priv->info->clocking_setup(priv);
-6666cebc5e306f Vladimir Oltean 2019-05-02  2312  		if (rc < 0)
-6666cebc5e306f Vladimir Oltean 2019-05-02  2313  			goto out;
-cb5a82d2b9aaca Vladimir Oltean 2021-06-18  2314  	}
-6666cebc5e306f Vladimir Oltean 2019-05-02  2315  
-542043e91df452 Vladimir Oltean 2021-05-24  2316  	for (i = 0; i < ds->num_ports; i++) {
-3ad1d171548e85 Vladimir Oltean 2021-06-11  2317  		struct dw_xpcs *xpcs = priv->xpcs[i];
-3ad1d171548e85 Vladimir Oltean 2021-06-11  2318  		unsigned int mode;
-84db00f2c04338 Vladimir Oltean 2021-05-31  2319  
-8400cff60b472c Vladimir Oltean 2019-06-08  2320  		rc = sja1105_adjust_port_config(priv, i, speed_mbps[i]);
-6666cebc5e306f Vladimir Oltean 2019-05-02  2321  		if (rc < 0)
-6666cebc5e306f Vladimir Oltean 2019-05-02  2322  			goto out;
-ffe10e679cec9a Vladimir Oltean 2020-03-20  2323  
-3ad1d171548e85 Vladimir Oltean 2021-06-11  2324  		if (!xpcs)
-84db00f2c04338 Vladimir Oltean 2021-05-31  2325  			continue;
-84db00f2c04338 Vladimir Oltean 2021-05-31  2326  
-3ad1d171548e85 Vladimir Oltean 2021-06-11  2327  		if (bmcr[i] & BMCR_ANENABLE)
-3ad1d171548e85 Vladimir Oltean 2021-06-11  2328  			mode = MLO_AN_INBAND;
-3ad1d171548e85 Vladimir Oltean 2021-06-11  2329  		else if (priv->fixed_link[i])
-3ad1d171548e85 Vladimir Oltean 2021-06-11  2330  			mode = MLO_AN_FIXED;
-3ad1d171548e85 Vladimir Oltean 2021-06-11  2331  		else
-3ad1d171548e85 Vladimir Oltean 2021-06-11  2332  			mode = MLO_AN_PHY;
-ffe10e679cec9a Vladimir Oltean 2020-03-20  2333  
-3ad1d171548e85 Vladimir Oltean 2021-06-11 @2334  		rc = xpcs_do_config(xpcs, priv->phy_mode[i], mode);
-3ad1d171548e85 Vladimir Oltean 2021-06-11  2335  		if (rc < 0)
-3ad1d171548e85 Vladimir Oltean 2021-06-11  2336  			goto out;
-ffe10e679cec9a Vladimir Oltean 2020-03-20  2337  
-3ad1d171548e85 Vladimir Oltean 2021-06-11  2338  		if (!phylink_autoneg_inband(mode)) {
-ffe10e679cec9a Vladimir Oltean 2020-03-20  2339  			int speed = SPEED_UNKNOWN;
-ffe10e679cec9a Vladimir Oltean 2020-03-20  2340  
-56b63466333b25 Vladimir Oltean 2021-06-11  2341  			if (priv->phy_mode[i] == PHY_INTERFACE_MODE_2500BASEX)
-56b63466333b25 Vladimir Oltean 2021-06-11  2342  				speed = SPEED_2500;
-56b63466333b25 Vladimir Oltean 2021-06-11  2343  			else if (bmcr[i] & BMCR_SPEED1000)
-ffe10e679cec9a Vladimir Oltean 2020-03-20  2344  				speed = SPEED_1000;
-84db00f2c04338 Vladimir Oltean 2021-05-31  2345  			else if (bmcr[i] & BMCR_SPEED100)
-ffe10e679cec9a Vladimir Oltean 2020-03-20  2346  				speed = SPEED_100;
-053d8ad10d585a Vladimir Oltean 2021-03-04  2347  			else
-ffe10e679cec9a Vladimir Oltean 2020-03-20  2348  				speed = SPEED_10;
-ffe10e679cec9a Vladimir Oltean 2020-03-20  2349  
-3ad1d171548e85 Vladimir Oltean 2021-06-11  2350  			xpcs_link_up(&xpcs->pcs, mode, priv->phy_mode[i],
-3ad1d171548e85 Vladimir Oltean 2021-06-11  2351  				     speed, DUPLEX_FULL);
-ffe10e679cec9a Vladimir Oltean 2020-03-20  2352  		}
-ffe10e679cec9a Vladimir Oltean 2020-03-20  2353  	}
-4d7525085a9ba8 Vladimir Oltean 2020-05-28  2354  
-4d7525085a9ba8 Vladimir Oltean 2020-05-28  2355  	rc = sja1105_reload_cbs(priv);
-4d7525085a9ba8 Vladimir Oltean 2020-05-28  2356  	if (rc < 0)
-4d7525085a9ba8 Vladimir Oltean 2020-05-28  2357  		goto out;
-6666cebc5e306f Vladimir Oltean 2019-05-02  2358  out:
-af580ae2dcb250 Vladimir Oltean 2019-11-09  2359  	mutex_unlock(&priv->mgmt_lock);
-af580ae2dcb250 Vladimir Oltean 2019-11-09  2360  
-6666cebc5e306f Vladimir Oltean 2019-05-02  2361  	return rc;
-6666cebc5e306f Vladimir Oltean 2019-05-02  2362  }
-6666cebc5e306f Vladimir Oltean 2019-05-02  2363  
-
--- 
-0-DAY CI Kernel Test Service
-https://01.org/lkp
+Yours,
+Linus Walleij
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
