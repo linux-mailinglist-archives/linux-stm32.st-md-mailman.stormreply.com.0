@@ -2,60 +2,46 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7606050B3EA
-	for <lists+linux-stm32@lfdr.de>; Fri, 22 Apr 2022 11:21:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1F6FC50B426
+	for <lists+linux-stm32@lfdr.de>; Fri, 22 Apr 2022 11:32:50 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2B42EC6049A;
-	Fri, 22 Apr 2022 09:21:16 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C9EA5C6049A;
+	Fri, 22 Apr 2022 09:32:49 +0000 (UTC)
+Received: from phobos.denx.de (phobos.denx.de [85.214.62.61])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AA045C6047D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E7D94C60492
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 22 Apr 2022 09:21:15 +0000 (UTC)
-Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 23M96RAT004664;
- Fri, 22 Apr 2022 11:20:58 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=J8qVrIPOY95i1a03vU5JIp+/D57iP6RoE2zEy4FREEw=;
- b=eiDE6CEe0c0WPzLNpExT9nMglu4jruwYn7sa2GhZ8e4IBOGXF1DQ0+zcko7JnpxB1gI6
- ahSyPVgDw2sZpuoe8dDcp5mq4Mf7POAO9wpghXGmtI4F11Nyzbqu9BA8KDR8GevQkaEq
- adoYWLxzhWZMz2FAdr01ObbUvxWBp9Ws9ZYx3DM2svjNpgmNpjYOJsrWrzLnkKyqm7p6
- PUgQzdTyBJ4BUaaV3vfl53li+CbCtiE/PF0juRpCi0S8rao6snnd5DG2ImJnMmynETb0
- WBL7iti1BE2xEmqxtVwsjWIa6f0E025guq0zlrqDewgsCJcIv1abPoc8c0of6dd+3F5m xQ== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3ffpqe83rv-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 22 Apr 2022 11:20:58 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 77F2110002A;
- Fri, 22 Apr 2022 11:20:57 +0200 (CEST)
-Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 67DF921A23C;
- Fri, 22 Apr 2022 11:20:57 +0200 (CEST)
-Received: from [10.211.7.146] (10.75.127.46) by SFHDAG2NODE2.st.com
- (10.75.127.5) with Microsoft SMTP Server (TLS) id 15.0.1497.26; Fri, 22 Apr
- 2022 11:20:56 +0200
-Message-ID: <5f3aa91e-0ca3-a13a-1ea3-daae982b3d8f@foss.st.com>
-Date: Fri, 22 Apr 2022 11:20:36 +0200
+ Fri, 22 Apr 2022 09:32:48 +0000 (UTC)
+Received: from [127.0.0.1] (p578adb1c.dip0.t-ipconnect.de [87.138.219.28])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits))
+ (No client certificate requested)
+ (Authenticated sender: marex@denx.de)
+ by phobos.denx.de (Postfix) with ESMTPSA id C931B839DF;
+ Fri, 22 Apr 2022 11:32:47 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de;
+ s=phobos-20191101; t=1650619968;
+ bh=JbGTNZwd9lcqdffpJ+pj7qbPnUDv9sIHgm5/fBFqYnU=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=Cqz1oEy8r9+sn7VY6idmCpGKzsFqtAySazNs3kuYS/xjH7JaASK/h3tXgWZWTJhr2
+ X8CavPeIcIpEU47COF1g9EYUzkcPdwLkl1O0wkKQ3D8Ab/a4gbMQzW0q36LBw/jb1h
+ +tg3olEXi+xyT0YH5J52R1A6APbcM9JEGyYJF6qcyUqaFoXTYGuIFSFCfsdEcIQRrx
+ OqaKAL1wVIh2TOHlWTDCAJavfbe2WEKPZVmseTDj7zIw3AF0FRaFEieJ9ZzwXwqhLF
+ EjvMYiz10vXKmZB6dcNVbccqpFqwoKnbwJlOG09L+1JNzFHFZctydeRYCetSE3stlq
+ fqPF2/qDYkmPQ==
+Message-ID: <edecbfc6-23b5-ce1b-579d-f93713e35338@denx.de>
+Date: Fri, 22 Apr 2022 11:32:47 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.7.0
+ Thunderbird/91.8.0
 Content-Language: en-US
-To: Marek Vasut <marex@denx.de>, <linux-gpio@vger.kernel.org>
+To: Fabien DESSENNE <fabien.dessenne@foss.st.com>, linux-gpio@vger.kernel.org
 References: <20220421140827.214088-1-marex@denx.de>
-From: Fabien DESSENNE <fabien.dessenne@foss.st.com>
-In-Reply-To: <20220421140827.214088-1-marex@denx.de>
-X-Originating-IP: [10.75.127.46]
-X-ClientProxiedBy: SFHDAG2NODE2.st.com (10.75.127.5) To SFHDAG2NODE2.st.com
- (10.75.127.5)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.858,Hydra:6.0.486,FMLib:17.11.64.514
- definitions=2022-04-22_02,2022-04-21_01,2022-02-23_01
+ <5f3aa91e-0ca3-a13a-1ea3-daae982b3d8f@foss.st.com>
+From: Marek Vasut <marex@denx.de>
+In-Reply-To: <5f3aa91e-0ca3-a13a-1ea3-daae982b3d8f@foss.st.com>
+X-Virus-Scanned: clamav-milter 0.103.5 at phobos.denx.de
+X-Virus-Status: Clean
 Cc: Marc Zyngier <maz@kernel.org>, Linus Walleij <linus.walleij@linaro.org>,
  linux-arm-kernel@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
 Subject: Re: [Linux-stm32] [PATCH] irqchip/stm32: Keep pinctrl block clock
@@ -71,151 +57,147 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Marek,
-
-I agree there is something wrong with the clock management in IRQ 
-context here and your patch goes in the right way.
-There are also some other problems regarding performance (enabling / 
-disabling clock each time we want to change the IO value, ...).
-For these both issues I have a patch, which basically keeps the GPIO 
-clocks enabled from probe.
-I did not have time to submit it, but, considering your concerns, I will 
-do it in the coming days.
-For the time being I suggest that we do not apply your patch.
-
-BR
-Fabien
-
-On 21/04/2022 16:08, Marek Vasut wrote:
-> The current EOI handler for LEVEL triggered interrupts calls clk_enable(),
-> register IO, clk_disable(). The clock manipulation requires locking which
-> happens with IRQs disabled in clk_enable_lock(). Instead of turning the
-> clock on and off all the time, enable the clock in case LEVEL interrupt is
-> requested and keep the clock enabled until all LEVEL interrupts are freed.
-> The LEVEL interrupts are an exception on this platform and seldom used, so
-> this does not affect the common case.
-> 
-> This simplifies the LEVEL interrupt handling considerably and also fixes
-> the following splat found when using preempt-rt:
->   ------------[ cut here ]------------
->   WARNING: CPU: 0 PID: 0 at kernel/locking/rtmutex.c:2040 __rt_mutex_trylock+0x37/0x62
->   Modules linked in:
->   CPU: 0 PID: 0 Comm: swapper/0 Not tainted 5.10.109-rt65-stable-standard-00068-g6a5afc4b1217 #85
->   Hardware name: STM32 (Device Tree Support)
->   [<c010a45d>] (unwind_backtrace) from [<c010766f>] (show_stack+0xb/0xc)
->   [<c010766f>] (show_stack) from [<c06353ab>] (dump_stack+0x6f/0x84)
->   [<c06353ab>] (dump_stack) from [<c01145e3>] (__warn+0x7f/0xa4)
->   [<c01145e3>] (__warn) from [<c063386f>] (warn_slowpath_fmt+0x3b/0x74)
->   [<c063386f>] (warn_slowpath_fmt) from [<c063b43d>] (__rt_mutex_trylock+0x37/0x62)
->   [<c063b43d>] (__rt_mutex_trylock) from [<c063c053>] (rt_spin_trylock+0x7/0x16)
->   [<c063c053>] (rt_spin_trylock) from [<c036a2f3>] (clk_enable_lock+0xb/0x80)
->   [<c036a2f3>] (clk_enable_lock) from [<c036ba69>] (clk_core_enable_lock+0x9/0x18)
->   [<c036ba69>] (clk_core_enable_lock) from [<c034e9f3>] (stm32_gpio_get+0x11/0x24)
->   [<c034e9f3>] (stm32_gpio_get) from [<c034ef43>] (stm32_gpio_irq_trigger+0x1f/0x48)
->   [<c034ef43>] (stm32_gpio_irq_trigger) from [<c014aa53>] (handle_fasteoi_irq+0x71/0xa8)
->   [<c014aa53>] (handle_fasteoi_irq) from [<c0147111>] (generic_handle_irq+0x19/0x22)
->   [<c0147111>] (generic_handle_irq) from [<c014752d>] (__handle_domain_irq+0x55/0x64)
->   [<c014752d>] (__handle_domain_irq) from [<c0346f13>] (gic_handle_irq+0x53/0x64)
->   [<c0346f13>] (gic_handle_irq) from [<c0100ba5>] (__irq_svc+0x65/0xc0)
->   Exception stack(0xc0e01f18 to 0xc0e01f60)
->   1f00:                                                       0000300c 00000000
->   1f20: 0000300c c010ff01 00000000 00000000 c0e00000 c0e07714 00000001 c0e01f78
->   1f40: c0e07758 00000000 ef7cd0ff c0e01f68 c010554b c0105542 40000033 ffffffff
->   [<c0100ba5>] (__irq_svc) from [<c0105542>] (arch_cpu_idle+0xc/0x1e)
->   [<c0105542>] (arch_cpu_idle) from [<c063be95>] (default_idle_call+0x21/0x3c)
->   [<c063be95>] (default_idle_call) from [<c01324f7>] (do_idle+0xe3/0x1e4)
->   [<c01324f7>] (do_idle) from [<c01327b3>] (cpu_startup_entry+0x13/0x14)
->   [<c01327b3>] (cpu_startup_entry) from [<c0a00c13>] (start_kernel+0x397/0x3d4)
->   [<c0a00c13>] (start_kernel) from [<00000000>] (0x0)
->   ---[ end trace 0000000000000002 ]---
-> 
-> Power consumption measured on STM32MP157C DHCOM SoM is not increased or
-> is below noise threshold.
-> 
-> Fixes: 47beed513a85b ("pinctrl: stm32: Add level interrupt support to gpio irq chip")
-> Signed-off-by: Marek Vasut <marex@denx.de>
-> Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
-> Cc: Fabien Dessenne <fabien.dessenne@foss.st.com>
-> Cc: Linus Walleij <linus.walleij@linaro.org>
-> Cc: Marc Zyngier <maz@kernel.org>
-> Cc: linux-stm32@st-md-mailman.stormreply.com
-> Cc: linux-arm-kernel@lists.infradead.org
-> To: linux-gpio@vger.kernel.org
-> ---
->   drivers/pinctrl/stm32/pinctrl-stm32.c | 19 +++++++++++++++++--
->   1 file changed, 17 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/pinctrl/stm32/pinctrl-stm32.c b/drivers/pinctrl/stm32/pinctrl-stm32.c
-> index 242d1c37c6e4..7aecd0efde07 100644
-> --- a/drivers/pinctrl/stm32/pinctrl-stm32.c
-> +++ b/drivers/pinctrl/stm32/pinctrl-stm32.c
-> @@ -226,6 +226,13 @@ static void stm32_gpio_free(struct gpio_chip *chip, unsigned offset)
->   	pinctrl_gpio_free(chip->base + offset);
->   }
->   
-> +static int stm32_gpio_get_noclk(struct gpio_chip *chip, unsigned int offset)
-> +{
-> +	struct stm32_gpio_bank *bank = gpiochip_get_data(chip);
-> +
-> +	return !!(readl_relaxed(bank->base + STM32_GPIO_IDR) & BIT(offset));
-> +}
-> +
->   static int stm32_gpio_get(struct gpio_chip *chip, unsigned offset)
->   {
->   	struct stm32_gpio_bank *bank = gpiochip_get_data(chip);
-> @@ -233,7 +240,7 @@ static int stm32_gpio_get(struct gpio_chip *chip, unsigned offset)
->   
->   	clk_enable(bank->clk);
->   
-> -	ret = !!(readl_relaxed(bank->base + STM32_GPIO_IDR) & BIT(offset));
-> +	ret = stm32_gpio_get_noclk(chip, offset);
->   
->   	clk_disable(bank->clk);
->   
-> @@ -317,7 +324,7 @@ static void stm32_gpio_irq_trigger(struct irq_data *d)
->   		return;
->   
->   	/* If level interrupt type then retrig */
-> -	level = stm32_gpio_get(&bank->gpio_chip, d->hwirq);
-> +	level = stm32_gpio_get_noclk(&bank->gpio_chip, d->hwirq);
->   	if ((level == 0 && bank->irq_type[d->hwirq] == IRQ_TYPE_LEVEL_LOW) ||
->   	    (level == 1 && bank->irq_type[d->hwirq] == IRQ_TYPE_LEVEL_HIGH))
->   		irq_chip_retrigger_hierarchy(d);
-> @@ -359,6 +366,7 @@ static int stm32_gpio_irq_request_resources(struct irq_data *irq_data)
->   {
->   	struct stm32_gpio_bank *bank = irq_data->domain->host_data;
->   	struct stm32_pinctrl *pctl = dev_get_drvdata(bank->gpio_chip.parent);
-> +	unsigned long flags;
->   	int ret;
->   
->   	ret = stm32_gpio_direction_input(&bank->gpio_chip, irq_data->hwirq);
-> @@ -372,6 +380,10 @@ static int stm32_gpio_irq_request_resources(struct irq_data *irq_data)
->   		return ret;
->   	}
->   
-> +	flags = irqd_get_trigger_type(irq_data);
-> +	if (flags & IRQ_TYPE_LEVEL_MASK)
-> +		clk_enable(bank->clk);
-> +
->   	return 0;
->   }
->   
-> @@ -379,6 +391,9 @@ static void stm32_gpio_irq_release_resources(struct irq_data *irq_data)
->   {
->   	struct stm32_gpio_bank *bank = irq_data->domain->host_data;
->   
-> +	if (bank->irq_type[irq_data->hwirq] & IRQ_TYPE_LEVEL_MASK)
-> +		clk_disable(bank->clk);
-> +
->   	gpiochip_unlock_as_irq(&bank->gpio_chip, irq_data->hwirq);
->   }
->   
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gNC8yMi8yMiAxMToyMCwgRmFiaWVuIERFU1NFTk5FIHdyb3RlOgo+IEhpIE1hcmVrLAoKSGks
+Cgo+IEkgYWdyZWUgdGhlcmUgaXMgc29tZXRoaW5nIHdyb25nIHdpdGggdGhlIGNsb2NrIG1hbmFn
+ZW1lbnQgaW4gSVJRIAo+IGNvbnRleHQgaGVyZSBhbmQgeW91ciBwYXRjaCBnb2VzIGluIHRoZSBy
+aWdodCB3YXkuCj4gVGhlcmUgYXJlIGFsc28gc29tZSBvdGhlciBwcm9ibGVtcyByZWdhcmRpbmcg
+cGVyZm9ybWFuY2UgKGVuYWJsaW5nIC8gCj4gZGlzYWJsaW5nIGNsb2NrIGVhY2ggdGltZSB3ZSB3
+YW50IHRvIGNoYW5nZSB0aGUgSU8gdmFsdWUsIC4uLikuCgpUaGVzZSBhcmUgYWxyZWFkeSBmaXhl
+ZCBieSBzZXBhcmF0ZSBwYXRjaDoKW1BBVENIXSBpcnFjaGlwL3N0bTMyOiBEbyBub3QgY2FsbCBz
+dG0zMl9ncGlvX2dldCgpIGZvciBlZGdlIHRyaWdnZXJlZCAKSVJRcyBpbiBFT0kKCj4gRm9yIHRo
+ZXNlIGJvdGggaXNzdWVzIEkgaGF2ZSBhIHBhdGNoLCB3aGljaCBiYXNpY2FsbHkga2VlcHMgdGhl
+IEdQSU8gCj4gY2xvY2tzIGVuYWJsZWQgZnJvbSBwcm9iZS4KPiBJIGRpZCBub3QgaGF2ZSB0aW1l
+IHRvIHN1Ym1pdCBpdCwgYnV0LCBjb25zaWRlcmluZyB5b3VyIGNvbmNlcm5zLCBJIHdpbGwgCj4g
+ZG8gaXQgaW4gdGhlIGNvbWluZyBkYXlzLgo+IEZvciB0aGUgdGltZSBiZWluZyBJIHN1Z2dlc3Qg
+dGhhdCB3ZSBkbyBub3QgYXBwbHkgeW91ciBwYXRjaC4KCklzIHRoZXJlIGFueXRoaW5nIHNwZWNp
+ZmljYWxseSB3cm9uZyB3aXRoIHRoaXMgcGF0Y2ggPwoKSSB0aGluayB5b3Ugc2hvdWxkIGJlIGVh
+c2lseSBhYmxlIHRvIGFwcGx5IHlvdXIgcGF0Y2ggd2hpY2gga2VlcHMgdGhlIApjbG9jayBlbmFi
+bGVkIGFsbCB0aGUgdGltZSBvbiB0b3Agb2YgdGhpcyBvbmUuIFRoZSBhZGRlZCBib251cyBpcyB0
+aGF0IAp0aGUgY29tbWl0IG1lc3NhZ2Ugb2YgdGhpcyBwYXRjaCAtIHdoaWNoIGV4cGxhaW5zIHdo
+YXQgdGhlIHByb2JsZW0gaXMgCndpdGggdGhlIExFVkVMIElSUXMgLSB3b3VsZCBiZSByZXRhaW5l
+ZCwgYW5kIHNvIHdvdWxkIGJpc2VjdGFiaWxpdHkgaW4gCmNhc2UgeW91ciBwYXRjaCBjYXVzZXMg
+c29tZSBzb3J0IG9mIHByb2JsZW0uCgo+IEJSCj4gRmFiaWVuCj4gCj4gT24gMjEvMDQvMjAyMiAx
+NjowOCwgTWFyZWsgVmFzdXQgd3JvdGU6Cj4+IFRoZSBjdXJyZW50IEVPSSBoYW5kbGVyIGZvciBM
+RVZFTCB0cmlnZ2VyZWQgaW50ZXJydXB0cyBjYWxscyAKPj4gY2xrX2VuYWJsZSgpLAo+PiByZWdp
+c3RlciBJTywgY2xrX2Rpc2FibGUoKS4gVGhlIGNsb2NrIG1hbmlwdWxhdGlvbiByZXF1aXJlcyBs
+b2NraW5nIHdoaWNoCj4+IGhhcHBlbnMgd2l0aCBJUlFzIGRpc2FibGVkIGluIGNsa19lbmFibGVf
+bG9jaygpLiBJbnN0ZWFkIG9mIHR1cm5pbmcgdGhlCj4+IGNsb2NrIG9uIGFuZCBvZmYgYWxsIHRo
+ZSB0aW1lLCBlbmFibGUgdGhlIGNsb2NrIGluIGNhc2UgTEVWRUwgCj4+IGludGVycnVwdCBpcwo+
+PiByZXF1ZXN0ZWQgYW5kIGtlZXAgdGhlIGNsb2NrIGVuYWJsZWQgdW50aWwgYWxsIExFVkVMIGlu
+dGVycnVwdHMgYXJlIAo+PiBmcmVlZC4KPj4gVGhlIExFVkVMIGludGVycnVwdHMgYXJlIGFuIGV4
+Y2VwdGlvbiBvbiB0aGlzIHBsYXRmb3JtIGFuZCBzZWxkb20gCj4+IHVzZWQsIHNvCj4+IHRoaXMg
+ZG9lcyBub3QgYWZmZWN0IHRoZSBjb21tb24gY2FzZS4KPj4KPj4gVGhpcyBzaW1wbGlmaWVzIHRo
+ZSBMRVZFTCBpbnRlcnJ1cHQgaGFuZGxpbmcgY29uc2lkZXJhYmx5IGFuZCBhbHNvIGZpeGVzCj4+
+IHRoZSBmb2xsb3dpbmcgc3BsYXQgZm91bmQgd2hlbiB1c2luZyBwcmVlbXB0LXJ0Ogo+PiDCoCAt
+LS0tLS0tLS0tLS1bIGN1dCBoZXJlIF0tLS0tLS0tLS0tLS0KPj4gwqAgV0FSTklORzogQ1BVOiAw
+IFBJRDogMCBhdCBrZXJuZWwvbG9ja2luZy9ydG11dGV4LmM6MjA0MCAKPj4gX19ydF9tdXRleF90
+cnlsb2NrKzB4MzcvMHg2Mgo+PiDCoCBNb2R1bGVzIGxpbmtlZCBpbjoKPj4gwqAgQ1BVOiAwIFBJ
+RDogMCBDb21tOiBzd2FwcGVyLzAgTm90IHRhaW50ZWQgCj4+IDUuMTAuMTA5LXJ0NjUtc3RhYmxl
+LXN0YW5kYXJkLTAwMDY4LWc2YTVhZmM0YjEyMTcgIzg1Cj4+IMKgIEhhcmR3YXJlIG5hbWU6IFNU
+TTMyIChEZXZpY2UgVHJlZSBTdXBwb3J0KQo+PiDCoCBbPGMwMTBhNDVkPl0gKHVud2luZF9iYWNr
+dHJhY2UpIGZyb20gWzxjMDEwNzY2Zj5dIChzaG93X3N0YWNrKzB4Yi8weGMpCj4+IMKgIFs8YzAx
+MDc2NmY+XSAoc2hvd19zdGFjaykgZnJvbSBbPGMwNjM1M2FiPl0gKGR1bXBfc3RhY2srMHg2Zi8w
+eDg0KQo+PiDCoCBbPGMwNjM1M2FiPl0gKGR1bXBfc3RhY2spIGZyb20gWzxjMDExNDVlMz5dIChf
+X3dhcm4rMHg3Zi8weGE0KQo+PiDCoCBbPGMwMTE0NWUzPl0gKF9fd2FybikgZnJvbSBbPGMwNjMz
+ODZmPl0gKHdhcm5fc2xvd3BhdGhfZm10KzB4M2IvMHg3NCkKPj4gwqAgWzxjMDYzMzg2Zj5dICh3
+YXJuX3Nsb3dwYXRoX2ZtdCkgZnJvbSBbPGMwNjNiNDNkPl0gCj4+IChfX3J0X211dGV4X3RyeWxv
+Y2srMHgzNy8weDYyKQo+PiDCoCBbPGMwNjNiNDNkPl0gKF9fcnRfbXV0ZXhfdHJ5bG9jaykgZnJv
+bSBbPGMwNjNjMDUzPl0gCj4+IChydF9zcGluX3RyeWxvY2srMHg3LzB4MTYpCj4+IMKgIFs8YzA2
+M2MwNTM+XSAocnRfc3Bpbl90cnlsb2NrKSBmcm9tIFs8YzAzNmEyZjM+XSAKPj4gKGNsa19lbmFi
+bGVfbG9jaysweGIvMHg4MCkKPj4gwqAgWzxjMDM2YTJmMz5dIChjbGtfZW5hYmxlX2xvY2spIGZy
+b20gWzxjMDM2YmE2OT5dIAo+PiAoY2xrX2NvcmVfZW5hYmxlX2xvY2srMHg5LzB4MTgpCj4+IMKg
+IFs8YzAzNmJhNjk+XSAoY2xrX2NvcmVfZW5hYmxlX2xvY2spIGZyb20gWzxjMDM0ZTlmMz5dIAo+
+PiAoc3RtMzJfZ3Bpb19nZXQrMHgxMS8weDI0KQo+PiDCoCBbPGMwMzRlOWYzPl0gKHN0bTMyX2dw
+aW9fZ2V0KSBmcm9tIFs8YzAzNGVmNDM+XSAKPj4gKHN0bTMyX2dwaW9faXJxX3RyaWdnZXIrMHgx
+Zi8weDQ4KQo+PiDCoCBbPGMwMzRlZjQzPl0gKHN0bTMyX2dwaW9faXJxX3RyaWdnZXIpIGZyb20g
+WzxjMDE0YWE1Mz5dIAo+PiAoaGFuZGxlX2Zhc3Rlb2lfaXJxKzB4NzEvMHhhOCkKPj4gwqAgWzxj
+MDE0YWE1Mz5dIChoYW5kbGVfZmFzdGVvaV9pcnEpIGZyb20gWzxjMDE0NzExMT5dIAo+PiAoZ2Vu
+ZXJpY19oYW5kbGVfaXJxKzB4MTkvMHgyMikKPj4gwqAgWzxjMDE0NzExMT5dIChnZW5lcmljX2hh
+bmRsZV9pcnEpIGZyb20gWzxjMDE0NzUyZD5dIAo+PiAoX19oYW5kbGVfZG9tYWluX2lycSsweDU1
+LzB4NjQpCj4+IMKgIFs8YzAxNDc1MmQ+XSAoX19oYW5kbGVfZG9tYWluX2lycSkgZnJvbSBbPGMw
+MzQ2ZjEzPl0gCj4+IChnaWNfaGFuZGxlX2lycSsweDUzLzB4NjQpCj4+IMKgIFs8YzAzNDZmMTM+
+XSAoZ2ljX2hhbmRsZV9pcnEpIGZyb20gWzxjMDEwMGJhNT5dIChfX2lycV9zdmMrMHg2NS8weGMw
+KQo+PiDCoCBFeGNlcHRpb24gc3RhY2soMHhjMGUwMWYxOCB0byAweGMwZTAxZjYwKQo+PiDCoCAx
+ZjAwOsKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAw
+MDAwMzAwYyAKPj4gMDAwMDAwMDAKPj4gwqAgMWYyMDogMDAwMDMwMGMgYzAxMGZmMDEgMDAwMDAw
+MDAgMDAwMDAwMDAgYzBlMDAwMDAgYzBlMDc3MTQgMDAwMDAwMDEgCj4+IGMwZTAxZjc4Cj4+IMKg
+IDFmNDA6IGMwZTA3NzU4IDAwMDAwMDAwIGVmN2NkMGZmIGMwZTAxZjY4IGMwMTA1NTRiIGMwMTA1
+NTQyIDQwMDAwMDMzIAo+PiBmZmZmZmZmZgo+PiDCoCBbPGMwMTAwYmE1Pl0gKF9faXJxX3N2Yykg
+ZnJvbSBbPGMwMTA1NTQyPl0gKGFyY2hfY3B1X2lkbGUrMHhjLzB4MWUpCj4+IMKgIFs8YzAxMDU1
+NDI+XSAoYXJjaF9jcHVfaWRsZSkgZnJvbSBbPGMwNjNiZTk1Pl0gCj4+IChkZWZhdWx0X2lkbGVf
+Y2FsbCsweDIxLzB4M2MpCj4+IMKgIFs8YzA2M2JlOTU+XSAoZGVmYXVsdF9pZGxlX2NhbGwpIGZy
+b20gWzxjMDEzMjRmNz5dIChkb19pZGxlKzB4ZTMvMHgxZTQpCj4+IMKgIFs8YzAxMzI0Zjc+XSAo
+ZG9faWRsZSkgZnJvbSBbPGMwMTMyN2IzPl0gKGNwdV9zdGFydHVwX2VudHJ5KzB4MTMvMHgxNCkK
+Pj4gwqAgWzxjMDEzMjdiMz5dIChjcHVfc3RhcnR1cF9lbnRyeSkgZnJvbSBbPGMwYTAwYzEzPl0g
+Cj4+IChzdGFydF9rZXJuZWwrMHgzOTcvMHgzZDQpCj4+IMKgIFs8YzBhMDBjMTM+XSAoc3RhcnRf
+a2VybmVsKSBmcm9tIFs8MDAwMDAwMDA+XSAoMHgwKQo+PiDCoCAtLS1bIGVuZCB0cmFjZSAwMDAw
+MDAwMDAwMDAwMDAyIF0tLS0KPj4KPj4gUG93ZXIgY29uc3VtcHRpb24gbWVhc3VyZWQgb24gU1RN
+MzJNUDE1N0MgREhDT00gU29NIGlzIG5vdCBpbmNyZWFzZWQgb3IKPj4gaXMgYmVsb3cgbm9pc2Ug
+dGhyZXNob2xkLgo+Pgo+PiBGaXhlczogNDdiZWVkNTEzYTg1YiAoInBpbmN0cmw6IHN0bTMyOiBB
+ZGQgbGV2ZWwgaW50ZXJydXB0IHN1cHBvcnQgdG8gCj4+IGdwaW8gaXJxIGNoaXAiKQo+PiBTaWdu
+ZWQtb2ZmLWJ5OiBNYXJlayBWYXN1dCA8bWFyZXhAZGVueC5kZT4KPj4gQ2M6IEFsZXhhbmRyZSBU
+b3JndWUgPGFsZXhhbmRyZS50b3JndWVAZm9zcy5zdC5jb20+Cj4+IENjOiBGYWJpZW4gRGVzc2Vu
+bmUgPGZhYmllbi5kZXNzZW5uZUBmb3NzLnN0LmNvbT4KPj4gQ2M6IExpbnVzIFdhbGxlaWogPGxp
+bnVzLndhbGxlaWpAbGluYXJvLm9yZz4KPj4gQ2M6IE1hcmMgWnluZ2llciA8bWF6QGtlcm5lbC5v
+cmc+Cj4+IENjOiBsaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCj4+IENj
+OiBsaW51eC1hcm0ta2VybmVsQGxpc3RzLmluZnJhZGVhZC5vcmcKPj4gVG86IGxpbnV4LWdwaW9A
+dmdlci5rZXJuZWwub3JnCj4+IC0tLQo+PiDCoCBkcml2ZXJzL3BpbmN0cmwvc3RtMzIvcGluY3Ry
+bC1zdG0zMi5jIHwgMTkgKysrKysrKysrKysrKysrKystLQo+PiDCoCAxIGZpbGUgY2hhbmdlZCwg
+MTcgaW5zZXJ0aW9ucygrKSwgMiBkZWxldGlvbnMoLSkKPj4KPj4gZGlmZiAtLWdpdCBhL2RyaXZl
+cnMvcGluY3RybC9zdG0zMi9waW5jdHJsLXN0bTMyLmMgCj4+IGIvZHJpdmVycy9waW5jdHJsL3N0
+bTMyL3BpbmN0cmwtc3RtMzIuYwo+PiBpbmRleCAyNDJkMWMzN2M2ZTQuLjdhZWNkMGVmZGUwNyAx
+MDA2NDQKPj4gLS0tIGEvZHJpdmVycy9waW5jdHJsL3N0bTMyL3BpbmN0cmwtc3RtMzIuYwo+PiAr
+KysgYi9kcml2ZXJzL3BpbmN0cmwvc3RtMzIvcGluY3RybC1zdG0zMi5jCj4+IEBAIC0yMjYsNiAr
+MjI2LDEzIEBAIHN0YXRpYyB2b2lkIHN0bTMyX2dwaW9fZnJlZShzdHJ1Y3QgZ3Bpb19jaGlwIAo+
+PiAqY2hpcCwgdW5zaWduZWQgb2Zmc2V0KQo+PiDCoMKgwqDCoMKgIHBpbmN0cmxfZ3Bpb19mcmVl
+KGNoaXAtPmJhc2UgKyBvZmZzZXQpOwo+PiDCoCB9Cj4+ICtzdGF0aWMgaW50IHN0bTMyX2dwaW9f
+Z2V0X25vY2xrKHN0cnVjdCBncGlvX2NoaXAgKmNoaXAsIHVuc2lnbmVkIGludCAKPj4gb2Zmc2V0
+KQo+PiArewo+PiArwqDCoMKgIHN0cnVjdCBzdG0zMl9ncGlvX2JhbmsgKmJhbmsgPSBncGlvY2hp
+cF9nZXRfZGF0YShjaGlwKTsKPj4gKwo+PiArwqDCoMKgIHJldHVybiAhIShyZWFkbF9yZWxheGVk
+KGJhbmstPmJhc2UgKyBTVE0zMl9HUElPX0lEUikgJiBCSVQob2Zmc2V0KSk7Cj4+ICt9Cj4+ICsK
+Pj4gwqAgc3RhdGljIGludCBzdG0zMl9ncGlvX2dldChzdHJ1Y3QgZ3Bpb19jaGlwICpjaGlwLCB1
+bnNpZ25lZCBvZmZzZXQpCj4+IMKgIHsKPj4gwqDCoMKgwqDCoCBzdHJ1Y3Qgc3RtMzJfZ3Bpb19i
+YW5rICpiYW5rID0gZ3Bpb2NoaXBfZ2V0X2RhdGEoY2hpcCk7Cj4+IEBAIC0yMzMsNyArMjQwLDcg
+QEAgc3RhdGljIGludCBzdG0zMl9ncGlvX2dldChzdHJ1Y3QgZ3Bpb19jaGlwICpjaGlwLCAKPj4g
+dW5zaWduZWQgb2Zmc2V0KQo+PiDCoMKgwqDCoMKgIGNsa19lbmFibGUoYmFuay0+Y2xrKTsKPj4g
+LcKgwqDCoCByZXQgPSAhIShyZWFkbF9yZWxheGVkKGJhbmstPmJhc2UgKyBTVE0zMl9HUElPX0lE
+UikgJiBCSVQob2Zmc2V0KSk7Cj4+ICvCoMKgwqAgcmV0ID0gc3RtMzJfZ3Bpb19nZXRfbm9jbGso
+Y2hpcCwgb2Zmc2V0KTsKPj4gwqDCoMKgwqDCoCBjbGtfZGlzYWJsZShiYW5rLT5jbGspOwo+PiBA
+QCAtMzE3LDcgKzMyNCw3IEBAIHN0YXRpYyB2b2lkIHN0bTMyX2dwaW9faXJxX3RyaWdnZXIoc3Ry
+dWN0IGlycV9kYXRhIAo+PiAqZCkKPj4gwqDCoMKgwqDCoMKgwqDCoMKgIHJldHVybjsKPj4gwqDC
+oMKgwqDCoCAvKiBJZiBsZXZlbCBpbnRlcnJ1cHQgdHlwZSB0aGVuIHJldHJpZyAqLwo+PiAtwqDC
+oMKgIGxldmVsID0gc3RtMzJfZ3Bpb19nZXQoJmJhbmstPmdwaW9fY2hpcCwgZC0+aHdpcnEpOwo+
+PiArwqDCoMKgIGxldmVsID0gc3RtMzJfZ3Bpb19nZXRfbm9jbGsoJmJhbmstPmdwaW9fY2hpcCwg
+ZC0+aHdpcnEpOwo+PiDCoMKgwqDCoMKgIGlmICgobGV2ZWwgPT0gMCAmJiBiYW5rLT5pcnFfdHlw
+ZVtkLT5od2lycV0gPT0gCj4+IElSUV9UWVBFX0xFVkVMX0xPVykgfHwKPj4gwqDCoMKgwqDCoMKg
+wqDCoMKgIChsZXZlbCA9PSAxICYmIGJhbmstPmlycV90eXBlW2QtPmh3aXJxXSA9PSAKPj4gSVJR
+X1RZUEVfTEVWRUxfSElHSCkpCj4+IMKgwqDCoMKgwqDCoMKgwqDCoCBpcnFfY2hpcF9yZXRyaWdn
+ZXJfaGllcmFyY2h5KGQpOwo+PiBAQCAtMzU5LDYgKzM2Niw3IEBAIHN0YXRpYyBpbnQgc3RtMzJf
+Z3Bpb19pcnFfcmVxdWVzdF9yZXNvdXJjZXMoc3RydWN0IAo+PiBpcnFfZGF0YSAqaXJxX2RhdGEp
+Cj4+IMKgIHsKPj4gwqDCoMKgwqDCoCBzdHJ1Y3Qgc3RtMzJfZ3Bpb19iYW5rICpiYW5rID0gaXJx
+X2RhdGEtPmRvbWFpbi0+aG9zdF9kYXRhOwo+PiDCoMKgwqDCoMKgIHN0cnVjdCBzdG0zMl9waW5j
+dHJsICpwY3RsID0gCj4+IGRldl9nZXRfZHJ2ZGF0YShiYW5rLT5ncGlvX2NoaXAucGFyZW50KTsK
+Pj4gK8KgwqDCoCB1bnNpZ25lZCBsb25nIGZsYWdzOwo+PiDCoMKgwqDCoMKgIGludCByZXQ7Cj4+
+IMKgwqDCoMKgwqAgcmV0ID0gc3RtMzJfZ3Bpb19kaXJlY3Rpb25faW5wdXQoJmJhbmstPmdwaW9f
+Y2hpcCwgCj4+IGlycV9kYXRhLT5od2lycSk7Cj4+IEBAIC0zNzIsNiArMzgwLDEwIEBAIHN0YXRp
+YyBpbnQgCj4+IHN0bTMyX2dwaW9faXJxX3JlcXVlc3RfcmVzb3VyY2VzKHN0cnVjdCBpcnFfZGF0
+YSAqaXJxX2RhdGEpCj4+IMKgwqDCoMKgwqDCoMKgwqDCoCByZXR1cm4gcmV0Owo+PiDCoMKgwqDC
+oMKgIH0KPj4gK8KgwqDCoCBmbGFncyA9IGlycWRfZ2V0X3RyaWdnZXJfdHlwZShpcnFfZGF0YSk7
+Cj4+ICvCoMKgwqAgaWYgKGZsYWdzICYgSVJRX1RZUEVfTEVWRUxfTUFTSykKPj4gK8KgwqDCoMKg
+wqDCoMKgIGNsa19lbmFibGUoYmFuay0+Y2xrKTsKPj4gKwo+PiDCoMKgwqDCoMKgIHJldHVybiAw
+Owo+PiDCoCB9Cj4+IEBAIC0zNzksNiArMzkxLDkgQEAgc3RhdGljIHZvaWQgCj4+IHN0bTMyX2dw
+aW9faXJxX3JlbGVhc2VfcmVzb3VyY2VzKHN0cnVjdCBpcnFfZGF0YSAqaXJxX2RhdGEpCj4+IMKg
+IHsKPj4gwqDCoMKgwqDCoCBzdHJ1Y3Qgc3RtMzJfZ3Bpb19iYW5rICpiYW5rID0gaXJxX2RhdGEt
+PmRvbWFpbi0+aG9zdF9kYXRhOwo+PiArwqDCoMKgIGlmIChiYW5rLT5pcnFfdHlwZVtpcnFfZGF0
+YS0+aHdpcnFdICYgSVJRX1RZUEVfTEVWRUxfTUFTSykKPj4gK8KgwqDCoMKgwqDCoMKgIGNsa19k
+aXNhYmxlKGJhbmstPmNsayk7Cj4+ICsKPj4gwqDCoMKgwqDCoCBncGlvY2hpcF91bmxvY2tfYXNf
+aXJxKCZiYW5rLT5ncGlvX2NoaXAsIGlycV9kYXRhLT5od2lycSk7Cj4+IMKgIH0KX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGlu
+ZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9z
+dC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
