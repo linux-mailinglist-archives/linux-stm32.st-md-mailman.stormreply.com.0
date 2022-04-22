@@ -2,67 +2,46 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 626E050B4F1
-	for <lists+linux-stm32@lfdr.de>; Fri, 22 Apr 2022 12:25:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 004D250B7CA
+	for <lists+linux-stm32@lfdr.de>; Fri, 22 Apr 2022 14:59:09 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1419FC6049A;
-	Fri, 22 Apr 2022 10:25:44 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A493EC6049A;
+	Fri, 22 Apr 2022 12:59:08 +0000 (UTC)
+Received: from vps0.lunn.ch (vps0.lunn.ch [185.16.172.187])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 23327C60492
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8FAD1C6047D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 22 Apr 2022 10:25:43 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 23M9H37f028185;
- Fri, 22 Apr 2022 12:25:32 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=8wWAgJP7/dwDs/xoLVcxe4nIqREZiN+wBYa1KXpuRmg=;
- b=6Q6XD2F7blTKGNKtrJkuBSgcIBay7/WHXALf5SbnlaHEVWmrwcpe2Dt/v6qP1TcQwm/L
- FzSDOCoajGN3N2Fb2jFiwuzkZlrJuMPlAUq191jsxSTkoK0COhmgZRxqUk88t85WC2iw
- OGzIPUmOYfGUOJs1IAjXdi1W76vXRcr2uJhgpMrnwgziRiaupIEIy7C6YIkHJSD7rIqJ
- P0P1C+W/WU/I75p01hM9aKcgdAApUXFZPOzUCTVL9Exz5M7npacYtGBa43k4x2jnNEts
- xjYajYWaE4HXZIXkbiwpmjoOo1NWy06/qSxYsE+QeH/Aiy7N1UmAtpHlqBZB7QCHElLf zg== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3fkskgrcdy-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 22 Apr 2022 12:25:32 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 8E57D100034;
- Fri, 22 Apr 2022 12:25:31 +0200 (CEST)
-Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 83FC721FE9A;
- Fri, 22 Apr 2022 12:25:31 +0200 (CEST)
-Received: from [10.211.7.146] (10.75.127.49) by SFHDAG2NODE2.st.com
- (10.75.127.5) with Microsoft SMTP Server (TLS) id 15.0.1497.26; Fri, 22 Apr
- 2022 12:25:30 +0200
-Message-ID: <85d3b83b-4c2c-7cd8-2147-0a58c5bb8251@foss.st.com>
-Date: Fri, 22 Apr 2022 12:25:30 +0200
+ Fri, 22 Apr 2022 12:59:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+ s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+ References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+ Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+ Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+ bh=N8vHuTwPATpwwlOw/DsH67ghNaVvbs3LtAD5h9mrBs0=; b=FkZysAF1vf7oMtSIe49s+Drqah
+ QT72I2uYhUKJYYy8t+JhZQCTdP0HBm9GzVPy744j32ZD9nfwavIWrNMP+snINiiYj3zWgD5l+wr+D
+ xWK3yh7YIaGzNYThvjigGHyvZUQna0BvABZYyOH2Ucx/iXK3RE7xpoSTiANOebh1sE7U=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+ (envelope-from <andrew@lunn.ch>)
+ id 1nhss6-00GyU2-09; Fri, 22 Apr 2022 14:58:50 +0200
+Date: Fri, 22 Apr 2022 14:58:49 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Ong Boon Leong <boon.leong.ong@intel.com>
+Message-ID: <YmKmifSfqRdjOXSd@lunn.ch>
+References: <20220422073505.810084-1-boon.leong.ong@intel.com>
+ <20220422073505.810084-3-boon.leong.ong@intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.7.0
-Content-Language: en-US
-To: Marc Zyngier <maz@kernel.org>
-References: <20220421140827.214088-1-marex@denx.de>
- <5f3aa91e-0ca3-a13a-1ea3-daae982b3d8f@foss.st.com>
- <878rrxa0rr.wl-maz@kernel.org>
-From: Fabien DESSENNE <fabien.dessenne@foss.st.com>
-In-Reply-To: <878rrxa0rr.wl-maz@kernel.org>
-X-Originating-IP: [10.75.127.49]
-X-ClientProxiedBy: SFHDAG2NODE1.st.com (10.75.127.4) To SFHDAG2NODE2.st.com
- (10.75.127.5)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.858,Hydra:6.0.486,FMLib:17.11.64.514
- definitions=2022-04-22_02,2022-04-22_01,2022-02-23_01
-Cc: Marek Vasut <marex@denx.de>, Linus Walleij <linus.walleij@linaro.org>,
- linux-gpio@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] irqchip/stm32: Keep pinctrl block clock
- enabled when LEVEL IRQ requested
+Content-Disposition: inline
+In-Reply-To: <20220422073505.810084-3-boon.leong.ong@intel.com>
+Cc: linux-kernel@vger.kernel.org, Alexandre Torgue <alexandre.torgue@st.com>,
+ netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Russell King <linux@armlinux.org.uk>, Jose Abreu <joabreu@synopsys.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "David S . Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org, Heiner Kallweit <hkallweit1@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH net-next 2/4] net: stmmac: introduce
+ PHY-less setup support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,47 +53,28 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Mark and Marek,
-
-My intention was to have a single commit, instead of two commits with 
-the second one making a part of the previous one obsolete.
-
-Nevertheless I understand your points which are valid, so I will review 
-Marek's patch first before submitting another patch.
-
-BR
-Fabien
-
-
-On 22/04/2022 12:08, Marc Zyngier wrote:
-> On Fri, 22 Apr 2022 10:20:36 +0100,
-> Fabien DESSENNE <fabien.dessenne@foss.st.com> wrote:
->>
->> Hi Marek,
->>
->> I agree there is something wrong with the clock management in IRQ
->> context here and your patch goes in the right way.
->> There are also some other problems regarding performance (enabling /
->> disabling clock each time we want to change the IO value, ...).
->> For these both issues I have a patch, which basically keeps the GPIO
->> clocks enabled from probe.
->> I did not have time to submit it, but, considering your concerns, I
->> will do it in the coming days.
->> For the time being I suggest that we do not apply your patch.
+On Fri, Apr 22, 2022 at 03:35:03PM +0800, Ong Boon Leong wrote:
+> Certain platform uses PHY-less configuration whereby the MAC controller
+> is connected to network switch chip directly over SGMII or 1000BASE-X.
 > 
-> Why? This fixes a glaring issue, and there are no alternatives at the
-> moment. So if there is something to improve on, please base your patch
-> on top of Marek's.
-> 
-> Thanks,
-> 
-> 	M.
-> 
+> This patch prepares the stmmac driver to support PHY-less configuration
+> described above.
+
+The normal way to do a PHY less setup is to use a fixed-PHY. It offers
+the same API to the MAC as a real PHY but is fixed speed, dupex
+etc. The MAC sees a PHY as usual, and you don't need anything special
+in the MAC.
+
+What you need to do is extend your DSD to list the fixed-link. See
+
+https://www.kernel.org/doc/html/latest/firmware-guide/acpi/dsd/phy.html#mac-node-example-with-a-fixed-link-subnode
+
+	Andrew
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
