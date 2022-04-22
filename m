@@ -2,56 +2,64 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4446950B282
-	for <lists+linux-stm32@lfdr.de>; Fri, 22 Apr 2022 10:01:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7606050B3EA
+	for <lists+linux-stm32@lfdr.de>; Fri, 22 Apr 2022 11:21:16 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F2E06C6049A;
-	Fri, 22 Apr 2022 08:01:11 +0000 (UTC)
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2B42EC6049A;
+	Fri, 22 Apr 2022 09:21:16 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 91C76C60492
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AA045C6047D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 22 Apr 2022 08:01:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=USmguGtRv7OyG/vAnutBvtLlevB2Qy+jsc9UPAQ49fo=; b=l/0DHe7zGO6IzmY4XrVlBXV+ZP
- UIRAGL/FOGkgN8tHZPXIbHwhEaaWdqf6dCjWt1qzpkHq3dfoMaRdw6w1O5bdaeV6LDEtM13EVISPx
- p8cBXMZYzaJT8zdsF81GhzjsZI7O8g951uKy0hdzBUdtbG3wqqIweJpi8Z1Xm2ZjB2EMhkwtUbzHv
- 8N5m+ICLj5c0XmmcOjjzEnFKADejHe1LagakFnLt54IS3s6u4wMeB9EM3KB7HcAuZFhw3Od/i+Gs2
- rG4tWNBYVMA7Lk1KQzntKBtsGtlobTTp0hyIv6NZdSxc1wcYe4hBM2SNblrZ3uoFzSk2gpkFHQAR/
- ZaYUDehA==;
-Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:58366)
- by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.94.2)
- (envelope-from <linux@armlinux.org.uk>)
- id 1nhoDg-0004KA-BE; Fri, 22 Apr 2022 09:00:48 +0100
-Received: from linux by shell.armlinux.org.uk with local (Exim 4.94.2)
- (envelope-from <linux@shell.armlinux.org.uk>)
- id 1nhoDZ-0003VE-F0; Fri, 22 Apr 2022 09:00:41 +0100
-Date: Fri, 22 Apr 2022 09:00:41 +0100
-From: "Russell King (Oracle)" <linux@armlinux.org.uk>
-To: Ong Boon Leong <boon.leong.ong@intel.com>
-Message-ID: <YmJgqSdF7LMxoSXv@shell.armlinux.org.uk>
-References: <20220422073505.810084-1-boon.leong.ong@intel.com>
- <20220422073505.810084-2-boon.leong.ong@intel.com>
+ Fri, 22 Apr 2022 09:21:15 +0000 (UTC)
+Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 23M96RAT004664;
+ Fri, 22 Apr 2022 11:20:58 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=J8qVrIPOY95i1a03vU5JIp+/D57iP6RoE2zEy4FREEw=;
+ b=eiDE6CEe0c0WPzLNpExT9nMglu4jruwYn7sa2GhZ8e4IBOGXF1DQ0+zcko7JnpxB1gI6
+ ahSyPVgDw2sZpuoe8dDcp5mq4Mf7POAO9wpghXGmtI4F11Nyzbqu9BA8KDR8GevQkaEq
+ adoYWLxzhWZMz2FAdr01ObbUvxWBp9Ws9ZYx3DM2svjNpgmNpjYOJsrWrzLnkKyqm7p6
+ PUgQzdTyBJ4BUaaV3vfl53li+CbCtiE/PF0juRpCi0S8rao6snnd5DG2ImJnMmynETb0
+ WBL7iti1BE2xEmqxtVwsjWIa6f0E025guq0zlrqDewgsCJcIv1abPoc8c0of6dd+3F5m xQ== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3ffpqe83rv-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 22 Apr 2022 11:20:58 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 77F2110002A;
+ Fri, 22 Apr 2022 11:20:57 +0200 (CEST)
+Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 67DF921A23C;
+ Fri, 22 Apr 2022 11:20:57 +0200 (CEST)
+Received: from [10.211.7.146] (10.75.127.46) by SFHDAG2NODE2.st.com
+ (10.75.127.5) with Microsoft SMTP Server (TLS) id 15.0.1497.26; Fri, 22 Apr
+ 2022 11:20:56 +0200
+Message-ID: <5f3aa91e-0ca3-a13a-1ea3-daae982b3d8f@foss.st.com>
+Date: Fri, 22 Apr 2022 11:20:36 +0200
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20220422073505.810084-2-boon.leong.ong@intel.com>
-Cc: Andrew Lunn <andrew@lunn.ch>, linux-kernel@vger.kernel.org,
- Alexandre Torgue <alexandre.torgue@st.com>, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, Jose Abreu <joabreu@synopsys.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, "David S . Miller" <davem@davemloft.net>,
- linux-arm-kernel@lists.infradead.org, Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH net-next 1/4] net: pcs: xpcs: add CL37
- 1000BASE-X AN support
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.7.0
+Content-Language: en-US
+To: Marek Vasut <marex@denx.de>, <linux-gpio@vger.kernel.org>
+References: <20220421140827.214088-1-marex@denx.de>
+From: Fabien DESSENNE <fabien.dessenne@foss.st.com>
+In-Reply-To: <20220421140827.214088-1-marex@denx.de>
+X-Originating-IP: [10.75.127.46]
+X-ClientProxiedBy: SFHDAG2NODE2.st.com (10.75.127.5) To SFHDAG2NODE2.st.com
+ (10.75.127.5)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.858,Hydra:6.0.486,FMLib:17.11.64.514
+ definitions=2022-04-22_02,2022-04-21_01,2022-02-23_01
+Cc: Marc Zyngier <maz@kernel.org>, Linus Walleij <linus.walleij@linaro.org>,
+ linux-arm-kernel@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH] irqchip/stm32: Keep pinctrl block clock
+ enabled when LEVEL IRQ requested
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -63,150 +71,150 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi,
+Hi Marek,
 
-On Fri, Apr 22, 2022 at 03:35:02PM +0800, Ong Boon Leong wrote:
-> @@ -774,6 +788,58 @@ static int xpcs_config_aneg_c37_sgmii(struct dw_xpcs *xpcs, unsigned int mode)
->  	return ret;
->  }
->  
-> +static int xpcs_config_aneg_c37_1000basex(struct dw_xpcs *xpcs, unsigned int mode,
-> +					  const unsigned long *advertising)
+I agree there is something wrong with the clock management in IRQ 
+context here and your patch goes in the right way.
+There are also some other problems regarding performance (enabling / 
+disabling clock each time we want to change the IO value, ...).
+For these both issues I have a patch, which basically keeps the GPIO 
+clocks enabled from probe.
+I did not have time to submit it, but, considering your concerns, I will 
+do it in the coming days.
+For the time being I suggest that we do not apply your patch.
+
+BR
+Fabien
+
+On 21/04/2022 16:08, Marek Vasut wrote:
+> The current EOI handler for LEVEL triggered interrupts calls clk_enable(),
+> register IO, clk_disable(). The clock manipulation requires locking which
+> happens with IRQs disabled in clk_enable_lock(). Instead of turning the
+> clock on and off all the time, enable the clock in case LEVEL interrupt is
+> requested and keep the clock enabled until all LEVEL interrupts are freed.
+> The LEVEL interrupts are an exception on this platform and seldom used, so
+> this does not affect the common case.
+> 
+> This simplifies the LEVEL interrupt handling considerably and also fixes
+> the following splat found when using preempt-rt:
+>   ------------[ cut here ]------------
+>   WARNING: CPU: 0 PID: 0 at kernel/locking/rtmutex.c:2040 __rt_mutex_trylock+0x37/0x62
+>   Modules linked in:
+>   CPU: 0 PID: 0 Comm: swapper/0 Not tainted 5.10.109-rt65-stable-standard-00068-g6a5afc4b1217 #85
+>   Hardware name: STM32 (Device Tree Support)
+>   [<c010a45d>] (unwind_backtrace) from [<c010766f>] (show_stack+0xb/0xc)
+>   [<c010766f>] (show_stack) from [<c06353ab>] (dump_stack+0x6f/0x84)
+>   [<c06353ab>] (dump_stack) from [<c01145e3>] (__warn+0x7f/0xa4)
+>   [<c01145e3>] (__warn) from [<c063386f>] (warn_slowpath_fmt+0x3b/0x74)
+>   [<c063386f>] (warn_slowpath_fmt) from [<c063b43d>] (__rt_mutex_trylock+0x37/0x62)
+>   [<c063b43d>] (__rt_mutex_trylock) from [<c063c053>] (rt_spin_trylock+0x7/0x16)
+>   [<c063c053>] (rt_spin_trylock) from [<c036a2f3>] (clk_enable_lock+0xb/0x80)
+>   [<c036a2f3>] (clk_enable_lock) from [<c036ba69>] (clk_core_enable_lock+0x9/0x18)
+>   [<c036ba69>] (clk_core_enable_lock) from [<c034e9f3>] (stm32_gpio_get+0x11/0x24)
+>   [<c034e9f3>] (stm32_gpio_get) from [<c034ef43>] (stm32_gpio_irq_trigger+0x1f/0x48)
+>   [<c034ef43>] (stm32_gpio_irq_trigger) from [<c014aa53>] (handle_fasteoi_irq+0x71/0xa8)
+>   [<c014aa53>] (handle_fasteoi_irq) from [<c0147111>] (generic_handle_irq+0x19/0x22)
+>   [<c0147111>] (generic_handle_irq) from [<c014752d>] (__handle_domain_irq+0x55/0x64)
+>   [<c014752d>] (__handle_domain_irq) from [<c0346f13>] (gic_handle_irq+0x53/0x64)
+>   [<c0346f13>] (gic_handle_irq) from [<c0100ba5>] (__irq_svc+0x65/0xc0)
+>   Exception stack(0xc0e01f18 to 0xc0e01f60)
+>   1f00:                                                       0000300c 00000000
+>   1f20: 0000300c c010ff01 00000000 00000000 c0e00000 c0e07714 00000001 c0e01f78
+>   1f40: c0e07758 00000000 ef7cd0ff c0e01f68 c010554b c0105542 40000033 ffffffff
+>   [<c0100ba5>] (__irq_svc) from [<c0105542>] (arch_cpu_idle+0xc/0x1e)
+>   [<c0105542>] (arch_cpu_idle) from [<c063be95>] (default_idle_call+0x21/0x3c)
+>   [<c063be95>] (default_idle_call) from [<c01324f7>] (do_idle+0xe3/0x1e4)
+>   [<c01324f7>] (do_idle) from [<c01327b3>] (cpu_startup_entry+0x13/0x14)
+>   [<c01327b3>] (cpu_startup_entry) from [<c0a00c13>] (start_kernel+0x397/0x3d4)
+>   [<c0a00c13>] (start_kernel) from [<00000000>] (0x0)
+>   ---[ end trace 0000000000000002 ]---
+> 
+> Power consumption measured on STM32MP157C DHCOM SoM is not increased or
+> is below noise threshold.
+> 
+> Fixes: 47beed513a85b ("pinctrl: stm32: Add level interrupt support to gpio irq chip")
+> Signed-off-by: Marek Vasut <marex@denx.de>
+> Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
+> Cc: Fabien Dessenne <fabien.dessenne@foss.st.com>
+> Cc: Linus Walleij <linus.walleij@linaro.org>
+> Cc: Marc Zyngier <maz@kernel.org>
+> Cc: linux-stm32@st-md-mailman.stormreply.com
+> Cc: linux-arm-kernel@lists.infradead.org
+> To: linux-gpio@vger.kernel.org
+> ---
+>   drivers/pinctrl/stm32/pinctrl-stm32.c | 19 +++++++++++++++++--
+>   1 file changed, 17 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/pinctrl/stm32/pinctrl-stm32.c b/drivers/pinctrl/stm32/pinctrl-stm32.c
+> index 242d1c37c6e4..7aecd0efde07 100644
+> --- a/drivers/pinctrl/stm32/pinctrl-stm32.c
+> +++ b/drivers/pinctrl/stm32/pinctrl-stm32.c
+> @@ -226,6 +226,13 @@ static void stm32_gpio_free(struct gpio_chip *chip, unsigned offset)
+>   	pinctrl_gpio_free(chip->base + offset);
+>   }
+>   
+> +static int stm32_gpio_get_noclk(struct gpio_chip *chip, unsigned int offset)
 > +{
-> +	int ret, mdio_ctrl;
+> +	struct stm32_gpio_bank *bank = gpiochip_get_data(chip);
 > +
-> +	/* For AN for 1000BASE-X mode, the settings are :-
-> +	 * 1) VR_MII_MMD_CTRL Bit(12) [AN_ENABLE] = 0b (Disable C37 AN in case
-> +	 *    it is already enabled)
-> +	 * 2) VR_MII_AN_CTRL Bit(2:1)[PCS_MODE] = 00b (1000BASE-X C37)
-> +	 * 3) SR_MII_AN_ADV Bit(6)[FD] = 1b (Full Duplex)
-> +	 *    Note: Half Duplex is rarely used, so don't advertise.
-> +	 * 4) VR_MII_MMD_CTRL Bit(12) [AN_ENABLE] = 1b (Enable C37 AN)
-
-So if this function gets called to update the advertisement - even if
-there is no actual change - we go through a AN-disable..AN-enable
-dance and cause the link to re-negotiate. That doesn't sound like nice
-behaviour.
-
-> +	 */
-> +	mdio_ctrl = xpcs_read(xpcs, MDIO_MMD_VEND2, DW_VR_MII_MMD_CTRL);
-> +	if (mdio_ctrl < 0)
-> +		return mdio_ctrl;
+> +	return !!(readl_relaxed(bank->base + STM32_GPIO_IDR) & BIT(offset));
+> +}
 > +
-> +	if (mdio_ctrl & AN_CL37_EN) {
-> +		ret = xpcs_write(xpcs, MDIO_MMD_VEND2, DW_VR_MII_MMD_CTRL,
-> +				 mdio_ctrl & ~AN_CL37_EN);
-> +		if (ret < 0)
-> +			return ret;
-> +	}
+>   static int stm32_gpio_get(struct gpio_chip *chip, unsigned offset)
+>   {
+>   	struct stm32_gpio_bank *bank = gpiochip_get_data(chip);
+> @@ -233,7 +240,7 @@ static int stm32_gpio_get(struct gpio_chip *chip, unsigned offset)
+>   
+>   	clk_enable(bank->clk);
+>   
+> -	ret = !!(readl_relaxed(bank->base + STM32_GPIO_IDR) & BIT(offset));
+> +	ret = stm32_gpio_get_noclk(chip, offset);
+>   
+>   	clk_disable(bank->clk);
+>   
+> @@ -317,7 +324,7 @@ static void stm32_gpio_irq_trigger(struct irq_data *d)
+>   		return;
+>   
+>   	/* If level interrupt type then retrig */
+> -	level = stm32_gpio_get(&bank->gpio_chip, d->hwirq);
+> +	level = stm32_gpio_get_noclk(&bank->gpio_chip, d->hwirq);
+>   	if ((level == 0 && bank->irq_type[d->hwirq] == IRQ_TYPE_LEVEL_LOW) ||
+>   	    (level == 1 && bank->irq_type[d->hwirq] == IRQ_TYPE_LEVEL_HIGH))
+>   		irq_chip_retrigger_hierarchy(d);
+> @@ -359,6 +366,7 @@ static int stm32_gpio_irq_request_resources(struct irq_data *irq_data)
+>   {
+>   	struct stm32_gpio_bank *bank = irq_data->domain->host_data;
+>   	struct stm32_pinctrl *pctl = dev_get_drvdata(bank->gpio_chip.parent);
+> +	unsigned long flags;
+>   	int ret;
+>   
+>   	ret = stm32_gpio_direction_input(&bank->gpio_chip, irq_data->hwirq);
+> @@ -372,6 +380,10 @@ static int stm32_gpio_irq_request_resources(struct irq_data *irq_data)
+>   		return ret;
+>   	}
+>   
+> +	flags = irqd_get_trigger_type(irq_data);
+> +	if (flags & IRQ_TYPE_LEVEL_MASK)
+> +		clk_enable(bank->clk);
 > +
-> +	ret = xpcs_read(xpcs, MDIO_MMD_VEND2, DW_VR_MII_AN_CTRL);
-> +	if (ret < 0)
-> +		return ret;
+>   	return 0;
+>   }
+>   
+> @@ -379,6 +391,9 @@ static void stm32_gpio_irq_release_resources(struct irq_data *irq_data)
+>   {
+>   	struct stm32_gpio_bank *bank = irq_data->domain->host_data;
+>   
+> +	if (bank->irq_type[irq_data->hwirq] & IRQ_TYPE_LEVEL_MASK)
+> +		clk_disable(bank->clk);
 > +
-> +	ret &= ~DW_VR_MII_PCS_MODE_MASK;
-> +	ret = xpcs_write(xpcs, MDIO_MMD_VEND2, DW_VR_MII_AN_CTRL, ret);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	ret = xpcs_read(xpcs, MDIO_MMD_VEND2, MII_ADVERTISE);
-> +	ret |= ADVERTISE_1000XFULL;
-> +	ret = xpcs_write(xpcs, MDIO_MMD_VEND2, MII_ADVERTISE, ret);
-
-What if other bits are already set in the MII_ADVERTISE register?
-Maybe consider using phylink_mii_c22_pcs_encode_advertisement()?
-
-The pcs_config() method is also supposed to return either a negative
-error, 0 for no advertisement change, or positive for an advertisement
-change, in which case phylink will trigger a call to pcs_an_restart().
-
-> +static int xpcs_get_state_c37_1000basex(struct dw_xpcs *xpcs,
-> +					struct phylink_link_state *state)
-> +{
-> +	int lpa, adv;
-> +	int ret;
-> +
-> +	ret = xpcs_read(xpcs, MDIO_MMD_VEND2, DW_VR_MII_MMD_CTRL);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	if (ret & AN_CL37_EN) {
-> +		/* Reset link_state */
-> +		state->link = false;
-> +		state->speed = SPEED_UNKNOWN;
-> +		state->duplex = DUPLEX_UNKNOWN;
-> +		state->pause = 0;
-
-Phylink guarantees that speed, duplex and pause are set to something
-sensible - please remove these. The only one you probably need here
-is state->link.
-
-> +
-> +		lpa = xpcs_read(xpcs, MDIO_MMD_VEND2, MII_LPA);
-> +		if (lpa < 0 || lpa & LPA_RFAULT)
-> +			return false;
-
-This function does not return a boolean. Returning "false" is the same
-as returning 0, which means "no error" but an error has occurred.
-
-> +
-> +		adv = xpcs_read(xpcs, MDIO_MMD_VEND2, MII_ADVERTISE);
-> +		if (adv < 0)
-> +			return false;
-
-Ditto.
-
-> +
-> +		if (lpa & ADVERTISE_1000XFULL &&
-> +		    adv & ADVERTISE_1000XFULL) {
-> +			state->speed = SPEED_1000;
-> +			state->duplex = DUPLEX_FULL;
-> +			state->link = true;
-> +		}
-> +
-> +		/* Clear CL37 AN complete status */
-> +		ret = xpcs_write(xpcs, MDIO_MMD_VEND2, DW_VR_MII_AN_INTR_STS, 0);
-> +	} else {
-> +		state->link = true;
-> +		state->speed = SPEED_1000;
-> +		state->duplex = DUPLEX_FULL;
-> +		state->pause = 0;
-
-If we're in AN-disabled mode, phylink will set state->speed and
-state->duplex according to the user's parameters, so there should be no
-need to do it here.
-
-> @@ -994,9 +1143,21 @@ void xpcs_link_up(struct phylink_pcs *pcs, unsigned int mode,
->  		return xpcs_config_usxgmii(xpcs, speed);
->  	if (interface == PHY_INTERFACE_MODE_SGMII)
->  		return xpcs_link_up_sgmii(xpcs, mode, speed, duplex);
-> +	if (interface == PHY_INTERFACE_MODE_1000BASEX)
-> +		return xpcs_link_up_1000basex(xpcs, speed, duplex);
->  }
->  EXPORT_SYMBOL_GPL(xpcs_link_up);
->  
-> +static void xpcs_an_restart(struct phylink_pcs *pcs)
-> +{
-> +	struct dw_xpcs *xpcs = phylink_pcs_to_xpcs(pcs);
-> +	int ret;
-> +
-> +	ret = xpcs_read(xpcs, MDIO_MMD_VEND2, MDIO_CTRL1);
-> +	ret |= BMCR_ANRESTART;
-> +	ret = xpcs_write(xpcs, MDIO_MMD_VEND2, MDIO_CTRL1, ret);
-
-If xpcs_read() returns an error, we try to write the error back to
-the control register? Is that a good idea/
-
-Thanks.
-
--- 
-RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-FTTP is here! 40Mbps down 10Mbps up. Decent connectivity at last!
+>   	gpiochip_unlock_as_irq(&bank->gpio_chip, irq_data->hwirq);
+>   }
+>   
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
