@@ -2,46 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 761C450E709
-	for <lists+linux-stm32@lfdr.de>; Mon, 25 Apr 2022 19:24:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0769350E937
+	for <lists+linux-stm32@lfdr.de>; Mon, 25 Apr 2022 21:11:18 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2649BC60462;
-	Mon, 25 Apr 2022 17:24:54 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B0F44C60462;
+	Mon, 25 Apr 2022 19:11:17 +0000 (UTC)
+Received: from mail-ot1-f45.google.com (mail-ot1-f45.google.com
+ [209.85.210.45])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AEA42C5F1EB
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CC7A8C5F1EB
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 25 Apr 2022 17:24:52 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 9972861584;
- Mon, 25 Apr 2022 17:24:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E85AC385AC;
- Mon, 25 Apr 2022 17:24:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1650907491;
- bh=6XynIAUlKU+eIGdXdXHnMxNzWfnJXAp5GLggB05OTNI=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=tJvKNcYpc2VeO1yqs/QUZ6q3AoGTTb4kXSVUMT5rqCCKZIdvEzdlt2iVTOz0kVThG
- UBjz40RVxYTuclx2/V4ObQiVOX7W8w31gYmN7piMU0bhbJ4SKhmE3MCniKuxK04WiF
- i3uHJ7owWC+Ko7yjMedRHFnELWeQYUPHmHThBmwGf/WigV+hyNvt/HbLOwLazH0NGN
- R5el3RbcDhArM8DJF8B2I8iWyoLWZbW+QygJ2VpXJS3Da6Va9nDRLv7cBmMc73zqAE
- FuKTcAdoEnr8BmTAhLHkPhpWFcQIBtUfnm9jwuCil8JqtZgIo4qeZWvGWSVUaV+eAb
- hjCrOrjo4pjGA==
-From: Mark Brown <broonie@kernel.org>
-To: cgel.zte@gmail.com, alain.volmat@foss.st.com
-In-Reply-To: <20220420090452.2588930-1-chi.minghao@zte.com.cn>
-References: <20220420090452.2588930-1-chi.minghao@zte.com.cn>
-Message-Id: <165090748917.584172.18257693792767365784.b4-ty@kernel.org>
-Date: Mon, 25 Apr 2022 18:24:49 +0100
+ Mon, 25 Apr 2022 19:11:15 +0000 (UTC)
+Received: by mail-ot1-f45.google.com with SMTP id
+ i3-20020a056830010300b00605468119c3so11434220otp.11
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 25 Apr 2022 12:11:15 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=KfvsdaNrqzE1BZExO2gpU9gM5Zw3mrEmzjGsDm/IN7Y=;
+ b=FvFyTzdXctHvnseMBDXeHXND3VNirJwt8SlsepIjCHJPyAQVPSD0tgO1cm8oN2FVlr
+ /VhkW1qOeN5Q6/+EEnLOKKrA3gX+5cnbiy3LAPyqXYRw8u45jggJXoCc48R9EXFXdlzt
+ y+O35Zw3HKpID8a51hY78aV5bR6nK4L/Dqz1fl/1GTJNdNTZm5/xwEZMFoiFddbfmbkc
+ yAzo5DUk5BL6mVDl+g/KmM4Iag3KHu5xbj3oY6EJS7A3+55ErRteRfK6DlaVl67rtPUn
+ kaGVtTNLmgkhR3+eT4n20fCEq7vCiob8FbJy2IOv3LVLc7gKxJy28+tYbIs9yknitqUh
+ 6FjA==
+X-Gm-Message-State: AOAM533OgJflLjbMrtQXgH9jIKqiCjbxvjnKcZiVfDAGlmtbCoRUmaNv
+ ONiNpdSFUPiFTDvzT3bgrQ==
+X-Google-Smtp-Source: ABdhPJw9uxpUO9LKnG040QuMwHyOzS4tHc0WimyBmaTy2/e4n1V3ST1BXyUY9YaMQrHV8DrvaiVaAQ==
+X-Received: by 2002:a05:6830:18f:b0:605:433b:c568 with SMTP id
+ q15-20020a056830018f00b00605433bc568mr6954877ota.46.1650913874611; 
+ Mon, 25 Apr 2022 12:11:14 -0700 (PDT)
+Received: from robh.at.kernel.org (66-90-144-107.dyn.grandenetworks.net.
+ [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
+ e26-20020a056820061a00b0035e46250f56sm4020495oow.13.2022.04.25.12.11.13
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 25 Apr 2022 12:11:14 -0700 (PDT)
+Received: (nullmailer pid 83469 invoked by uid 1000);
+ Mon, 25 Apr 2022 19:11:13 -0000
+Date: Mon, 25 Apr 2022 14:11:13 -0500
+From: Rob Herring <robh@kernel.org>
+To: Marek Vasut <marex@denx.de>
+Message-ID: <YmbyUc5uTXoTD/nt@robh.at.kernel.org>
+References: <20220422150952.20587-1-alexandre.torgue@foss.st.com>
+ <20220422150952.20587-3-alexandre.torgue@foss.st.com>
+ <dd48a7b5-ce08-5fb2-8236-8802ac91d827@denx.de>
 MIME-Version: 1.0
-Cc: zealci@zte.com.cn, linux-kernel@vger.kernel.org, chi.minghao@zte.com.cn,
- linux-spi@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] spi: stm32: using
-	pm_runtime_resume_and_get instead of pm_runtime_get_sync
+Content-Disposition: inline
+In-Reply-To: <dd48a7b5-ce08-5fb2-8236-8802ac91d827@denx.de>
+Cc: etienne.carriere@st.com, devicetree@vger.kernel.org, arnd@arndb.de,
+ Stephen Boyd <sboyd@kernel.org>, linux-kernel@vger.kernel.org, soc@kernel.org,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 2/8] dt-bindings: clock: stm32mp1:
+ describes clocks if "st, stm32mp1-rcc-secure"
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -58,43 +75,45 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, 20 Apr 2022 09:04:52 +0000, cgel.zte@gmail.com wrote:
-> From: Minghao Chi <chi.minghao@zte.com.cn>
+On Fri, Apr 22, 2022 at 06:31:25PM +0200, Marek Vasut wrote:
+> On 4/22/22 17:09, Alexandre Torgue wrote:
+> > In case of "st,stm32mp1-rcc-secure" (stm32mp1 clock driver with RCC
+> > security support hardened), "clocks" and "clock-names" describe oscillators
+> > and are required.
+> > 
+> > Signed-off-by: Alexandre Torgue <alexandre.torgue@foss.st.com>
+> > 
+> > diff --git a/Documentation/devicetree/bindings/clock/st,stm32mp1-rcc.yaml b/Documentation/devicetree/bindings/clock/st,stm32mp1-rcc.yaml
+> > index 7a251264582d..bb0e0b92e907 100644
+> > --- a/Documentation/devicetree/bindings/clock/st,stm32mp1-rcc.yaml
+> > +++ b/Documentation/devicetree/bindings/clock/st,stm32mp1-rcc.yaml
+> > @@ -58,14 +58,8 @@ properties:
+> >             - st,stm32mp1-rcc-secure
+> >             - st,stm32mp1-rcc
+> >         - const: syscon
+> > -
+> > -  clocks:
+> > -    description:
+> > -      Specifies the external RX clock for ethernet MAC.
+> > -    maxItems: 1
+> > -
+> > -  clock-names:
+> > -    const: ETH_RX_CLK/ETH_REF_CLK
+> > +  clocks: true
+> > +  clock-names: true
 > 
-> Using pm_runtime_resume_and_get() to replace pm_runtime_get_sync and
-> pm_runtime_put_noidle. This change is just to simplify the code, no
-> actual functional changes.
+> It looks like this should rather be a property than a compatible string --
+> the compatible string is used by the OS to determine which hardware is
+> represented by a node, but here it is the same hardware in either case,
+> "st,stm32mp1-rcc" and "st,stm32mp1-rcc-secure", it is still the same
+> STM32MP1 RCC block, just configured differently by some bootloader stage.
 > 
-> 
-> [...]
+> So why not just add one-liner property of the RCC block like ?
+> st,rcc-in-secure-configuration
 
-Applied to
+Because using compatible was already decided.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-next
-
-Thanks!
-
-[1/1] spi: stm32: using pm_runtime_resume_and_get instead of pm_runtime_get_sync
-      commit: 1af2fb6283fb82755a6fe819f863e4c3d9772e69
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+Rob
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
