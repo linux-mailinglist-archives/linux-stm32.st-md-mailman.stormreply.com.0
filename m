@@ -2,131 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6B8B750DEAE
-	for <lists+linux-stm32@lfdr.de>; Mon, 25 Apr 2022 13:20:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F2D750DF75
+	for <lists+linux-stm32@lfdr.de>; Mon, 25 Apr 2022 13:55:56 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 118CDC5F1F2;
-	Mon, 25 Apr 2022 11:20:19 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2040.outbound.protection.outlook.com [40.107.244.40])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EE90BC5F1F2;
+	Mon, 25 Apr 2022 11:55:55 +0000 (UTC)
+Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.131])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EB22BC5F1EB
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EA859C5F1EE
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 25 Apr 2022 11:20:16 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=cPAl6LdxtTEKI3WFS++egJusBbkXaii8IkLnZEOV1jGUZ86qirgDVnAjj2W2AbDbpSJsYBqqzT+2/7qDRE739avUmLpxxCy4AOTdN+dyyJTumX79/0C/khsf1KgiLBx42xoWvxFqLPYzOQFrqUqd7QNEgNb0/QYgjlaD+a/dq+oJFLc2r5xAHlVuMAg1m1hhzaw7OzTEtQB+nKLFLouaq0S8vfDWN2orWDSI3G1CLyIHqcA3q0b90pIew23OgeVFN9hGxMiV8SOZPvGSiDEnqTuHylTrIu3YRE9Nc7Uz57GiXiYjBgsViMTSa/L8w95XN2kdMES+yttpdNWobir2YA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=h5Rp1v1IocZCPs29O+2faMQ6BGtqzTGVvxpLCE1pwOQ=;
- b=B7wR6Vz3EyNG5aWYa8PvoywIHT6nrriULAfqSe259sOMNGfIx4ddHuXx4qEaSEMRHaEDD9T64AumPti6VLCZWNFSRJbjbCBcDk5IxErtF7ENqa/mz6URnWSFNmP4tNNH2KBgdP+vmyNv5KvNaNbj7NUPdsXROY4re0KN9x3ojzOJ+yWoKu3y0LYv6Z2voeucx8x8nTz+zg47beF/1odMvKY0So19VE2HzuPHmbxS8IFbElgTIdi4RfaaxiVOAuB6RHWny8DG7oW4dfqJHcUSrHGzPu7KacL0xcZrHTH99yH68JZygNjY+3cCLGo4KwwhXb2ooUrmAYyYc00cipS5mQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=h5Rp1v1IocZCPs29O+2faMQ6BGtqzTGVvxpLCE1pwOQ=;
- b=EEZjBxA6GO415/vNh3elHNapNhcxGJTUao19ToN/Z1YHq3hVXXYJ7xZ/CdT2gDr7A928cxCPCQsOC2Slm3jMwqI2IKGnn5ChmRy6nEEHE9e1t9MICyTmc1pAGNPf+cNeymc/+LRsTGHl6rC5YhVjkPOeaYc9zS8I0t45zdJZF4jIZ1inx0sUcnuh1EjzHcroMoczVl85LV5AKiJSxp+1oaCGFxodRAkc2jPDnrQutztBWKumfwAeBIBNW5mczs7/gNDZ9Jq03z2uhhnpEfC5+miwaiJXtc7p/L0/M7pSJVTAX2eeZ6uyOuIWvlQv68hW2a50aVQ6t2h6on/CnyaCqw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from CO6PR12MB5444.namprd12.prod.outlook.com (2603:10b6:5:35e::8) by
- MN2PR12MB4190.namprd12.prod.outlook.com (2603:10b6:208:1dd::24) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5186.14; Mon, 25 Apr
- 2022 11:20:12 +0000
-Received: from CO6PR12MB5444.namprd12.prod.outlook.com
- ([fe80::a4b2:cd18:51b1:57e0]) by CO6PR12MB5444.namprd12.prod.outlook.com
- ([fe80::a4b2:cd18:51b1:57e0%4]) with mapi id 15.20.5186.021; Mon, 25 Apr 2022
- 11:20:12 +0000
-Message-ID: <c5fad2c0-598d-a90c-5272-398ce48399fe@nvidia.com>
-Date: Mon, 25 Apr 2022 12:20:04 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.7.0
-Content-Language: en-US
-To: Thierry Reding <thierry.reding@gmail.com>, Rob Herring <robh@kernel.org>, 
- Arnd Bergmann <arnd@arndb.de>
-References: <Yk3nShkFzNJaI3/Z@robh.at.kernel.org> <YlVAy95eF/9b1nmu@orome>
-From: Jon Hunter <jonathanh@nvidia.com>
-In-Reply-To: <YlVAy95eF/9b1nmu@orome>
-X-ClientProxiedBy: LO2P265CA0029.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:61::17) To CO6PR12MB5444.namprd12.prod.outlook.com
- (2603:10b6:5:35e::8)
+ Mon, 25 Apr 2022 11:55:53 +0000 (UTC)
+Received: from mail-wr1-f44.google.com ([209.85.221.44]) by
+ mrelayeu.kundenserver.de (mreue010 [213.165.67.97]) with ESMTPSA (Nemesis) id
+ 1MMXDj-1nQ37m1fZn-00JYsk for <linux-stm32@st-md-mailman.stormreply.com>; Mon,
+ 25 Apr 2022 13:55:53 +0200
+Received: by mail-wr1-f44.google.com with SMTP id j15so7225690wrb.2
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 25 Apr 2022 04:55:53 -0700 (PDT)
+X-Gm-Message-State: AOAM5335oBEqC8RwU1Dt5+RHavRp74qHKhkOWSmwXpvFL3AX4pp7kMlM
+ kHV30DtSZPzfN8v/z0uCG9mTFpWhLAvvpZblg5g=
+X-Google-Smtp-Source: ABdhPJy6G1KFbKHEzOAredhlniFlHgR99fdfjjNVGzWiR1NENqqdvyAlm9QrDNMIfUNAfKR7gKHmCTAe8oiy/GkxXHY=
+X-Received: by 2002:a5d:6da5:0:b0:20a:8805:6988 with SMTP id
+ u5-20020a5d6da5000000b0020a88056988mr13310843wrs.317.1650887753050; Mon, 25
+ Apr 2022 04:55:53 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 6eda6e54-4dab-447b-37bc-08da26ad90a4
-X-MS-TrafficTypeDiagnostic: MN2PR12MB4190:EE_
-X-Microsoft-Antispam-PRVS: <MN2PR12MB4190F8FFEED92954D5977AC0D9F89@MN2PR12MB4190.namprd12.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 8ZxZFUiceNj01zzQKzQLNaMu+QhNkhLsJxsdLcHIeL9uHwNDv/B66pi/sJzfF0zwojZbBTU3IgSkVTOL4hpOhW1824lJop7wwYs8GoSmjtRmpBa8oaxS+St+djHBuySpFFiIjwXinXBhvbYF6ABannXPznx+Nf3h3zZVCD7kLWI0BGiutBOxx1T/A9O8mgnOS2SLWC52kT2CjNc6JwkwUdFVqlxadudzWC0hTwEmLReTaIH8NAN/xqmJDhNP1AhcR9xbnrHKPfmgTh6arGqjgBFAaR7jMfWIio02W4iY7w+eVL2PEo1VHqKPezLLMTuAxTMGe6I5HL4eZgShE2EERisVCqau4JjbOAQnhfgIkV+oHruMpI4ec4jMzT0aLYOfSf/0FMzNnfyAEuk+oY9ZMZSWj24xDCOcRxHnCZPt7UDbf6pNEcxq4ebvtMNb1zVzlwXJdOhdESVWa1JHNoVoKZwln2fnfLQQJvNpPrrGNxaRpgP4x5Tumg/Hgu3KeJE2EtUpUNCNjd050Ig4pF55wl20He9wympGamIJfkzDEqtfh4b+xJZc6xnPB+m89bDtZg+kwc+d+0YLjaa0B6cIhQrxRdEpo59WKecp5ngmK2btpU7w9TreFbFwV2Gx6UTG9QDd7PncKkNLS6+kX1t4YLs+THeysrLivfdauq7rfXvKvZJ7jFYodih9vgUCos5wj3MOi8YoNMEtQ7h7SFBM0rkdSfHP8Y8VHlRhukrEL9AK50Yq+7fhT7Lbt9zGCVGx
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CO6PR12MB5444.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(6506007)(66946007)(86362001)(26005)(6666004)(8936002)(31696002)(66556008)(36756003)(6512007)(54906003)(110136005)(316002)(8676002)(5660300002)(7416002)(508600001)(4326008)(6486002)(66476007)(31686004)(2906002)(186003)(38100700002)(83380400001)(53546011)(55236004)(2616005)(45980500001)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ekptYWZvZkR2ZU1xTDZKM3lHcTBNdTRvZEUvMlhSL2RJTXl0TFBUdTJiMFRv?=
- =?utf-8?B?TGhIVGJIT2pwYWtSU09RM0liR0VYSkp5bHNmQm9mMTRmWnh5UCtGV0xDVkZv?=
- =?utf-8?B?bWtLVTUrOVVXMi96UFNxSGhsUnRjY05lcmJlMlA4eGRNcCsyVUFSbnQ3MVdM?=
- =?utf-8?B?Z2R5Y0lKZzVLWnd4VXFFdnF3VE1NMHYyM2VQNGZ5TWdVNk1YcDMzZVBPS25X?=
- =?utf-8?B?alJRazVOZG9adTRNUysyd3krOUc5NUI5ZnVwTVlxd0hqN213UFJnUFpvSjhM?=
- =?utf-8?B?bWtwOGRxWFE1RU5aTDdDUG5tazU2Z1FiWFBpRnVva3dSSmFRYURtLzkvVUky?=
- =?utf-8?B?WWlNSGVIaGRJVzJQdTB0aDdPT1dmUko3YkNBem9DRlNNcm4yOXI1dVB4eDVr?=
- =?utf-8?B?Tm1yVUw3eHZGaU40bU4reHZVY2luQm1DcU8rUG1KVlZRV0E3LytIZ0JRZmZX?=
- =?utf-8?B?aHVCT3dTNk9lRld0a2RnNmJadk5NUzF6RGE4dzBiMEhVeVljcy9FdURxbCtS?=
- =?utf-8?B?UEVHSGxPZng0TFFmS0pIN0tpelpPUTdoT2VZQ2E2cEw1c25RRVJJUllQWHZD?=
- =?utf-8?B?VGJqWGhXdkRJNGZGQmR3Zy80N3NNZ2RiYXpvbXdtTzNaU0h3UlFZdHppQU9x?=
- =?utf-8?B?Ym9rcFZtdGIxclNNdTJZMGFFVEFDTTBJVVQwWTI1S2tTWU1zdURzMHpMNkhR?=
- =?utf-8?B?NjN1ZjFxU2k4TkRSbWtUaTlKWk5hN2QwQXVucnF3RUxKVjRkTGZPUUNxVU01?=
- =?utf-8?B?dTh4cWQzRm5lbEZKSGZ6MGpzTVR5S0NsNHdXUjJhc0FyQ05Fc2ZkWXhVM1FQ?=
- =?utf-8?B?NGFCdjBhU3l1aDJNb0VCSmJFcTR0MXhGSXppRzAyUVpkVkYvbGxJb25Ub3RE?=
- =?utf-8?B?dERxdHhFVENuRjd0OGkzR2t2VzdzZ2QvL3YrdlJSVkhNRGdPUEt5S2hmTWdu?=
- =?utf-8?B?Z0VPRmVDa0V4T1N6RWhFMlFaVS9sd2xqc3JleFB1TWgveTdGZDYrN01aUjlx?=
- =?utf-8?B?Y05jVlVWT0kvV0w3RVJydG5qc1Mya3hIODluWDZxRUhIaVhRK1Z5SnBJTVZG?=
- =?utf-8?B?UGRBTEczS1g4SzhuZXVyQTVtVjQxdmREOVBuS2M4S1RMN2Zka01pRGQxbmo4?=
- =?utf-8?B?S09oMFVacG1tVDYydE9tUS9vVVJ4bzdEVmZyS2tyY3lHUUdodU5HaVY3eEoy?=
- =?utf-8?B?M0p0L2lpWlUrMnhFUnJvbHRkM2JkSE53Y2twY0xyQ3dMVEJxUWdKcE04cDZk?=
- =?utf-8?B?TktCNnZnTW5lYW80NmgwVXRnMEluLzlQa0NyVkpGM3lhQllDSkx2NDVkUFdv?=
- =?utf-8?B?MFRnYjREcHpSN280K2JHZTUrNzVzWXczU2lTdXErVkdxK0F4ZFM0cWFJWGYv?=
- =?utf-8?B?eDN5WW9EZjF3ajlIazB4UWNFZVBQNGVsSFJzK2JRUTlKRFJBODNCYkFBYWs2?=
- =?utf-8?B?SG9KckQ0MFZmc3QrdTd1aFNYN1I5KzYvTHhJeWxvd21qL2VPUVJZc0tuN0dj?=
- =?utf-8?B?UWR2T1p6a2Y1UzFTSkhXMGNQNU8yZCtJVE5HNlFHZ2hRWGh2bVA1NnIranli?=
- =?utf-8?B?LzNsVW4vMFI0M2ZBOUJmNWE2Rit6cHBWT2FHSDRXR3NuKys1VmIyV2FhdW9O?=
- =?utf-8?B?UG53K29mRkJ5dWhEK3pyVVdrRXFIVjBoMzRJd2M5SGFDOFdMYTJWK1NrNXVB?=
- =?utf-8?B?aktvSmpxWUdQWGdTV29NRFliTGRFMXUzWkN3S1h6NW1yYnhBUk55SE5UMXQx?=
- =?utf-8?B?Um5jclVEYlhIOXVndlMwblBUdDUzMk52Q25OQ3JhUm1idFpGczRVZTlRT1Ew?=
- =?utf-8?B?bnZ3aWVJa0dTSVVWSng0Rk1yMVB2WXlEaTFGNUh1cTJaZU0rcUNlQ3Z5Rzlh?=
- =?utf-8?B?eFM4SzdLSlNJVlh3L1Z6ZkNGMzlCWElwVkNJZE5qLzRjNFhhQXRSU3dPWVR0?=
- =?utf-8?B?cVdaQ0dLRnZ5Sitac1VYSG5ESnphQXRZdlRHUDlMdGMxRGpOWUxhL0NMQmMx?=
- =?utf-8?B?THhUQUNId29MelIyMG1jaGRxdHpVMFRQNXJ0NGlHZ2JITXJZbUYvYjVLUmpS?=
- =?utf-8?B?V01qU3hJbTkvMWlGZTRkVDdGY3BnRjNCRXN4SUgwbmdVWGFRNWFrcmVZbHRk?=
- =?utf-8?B?alM4eTQyM0l6b0Nrcjc3N1ZhcGd5WEtGeTYwVUVpUDdCRThZaWhVYXRWbmVz?=
- =?utf-8?B?QnVGaEpIdCtyaHN2TElCRklWbDdYKzhLcCs2cDEraS90Wk01emRMVmg1dEI1?=
- =?utf-8?B?cS9LOFFublhheG4xb1cvcVpJN210WHdVcjBpalBuUmVuMFBuM1ZaRHp1NkJQ?=
- =?utf-8?B?cWlDNjg4TWk0dzB1aUF5SVZ2SUNhSEhrSFJqWWNYNjhjMUw2RVNsbFB3NFVV?=
- =?utf-8?Q?eqg6A1RdzvOJCHR4=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6eda6e54-4dab-447b-37bc-08da26ad90a4
-X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5444.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Apr 2022 11:20:12.8130 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 86J9006EG+CRvyf8jR3H9afgl2LHfpd5+P/N/+3w/OdySgyoCwBjuLXD9KGaKhZxYEfrKtgJi+KFf2ZsbBkQtg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4190
-Cc: devicetree@vger.kernel.org, Tomer Maimon <tmaimon77@gmail.com>,
+References: <Yk3nShkFzNJaI3/Z@robh.at.kernel.org> <YlVAy95eF/9b1nmu@orome>
+ <c5fad2c0-598d-a90c-5272-398ce48399fe@nvidia.com>
+In-Reply-To: <c5fad2c0-598d-a90c-5272-398ce48399fe@nvidia.com>
+From: Arnd Bergmann <arnd@arndb.de>
+Date: Mon, 25 Apr 2022 13:55:37 +0200
+X-Gmail-Original-Message-ID: <CAK8P3a1fyibqtkNMXDA6JXFWc2856B40C6oD8hBaieR8jTD-Ng@mail.gmail.com>
+Message-ID: <CAK8P3a1fyibqtkNMXDA6JXFWc2856B40C6oD8hBaieR8jTD-Ng@mail.gmail.com>
+To: Jon Hunter <jonathanh@nvidia.com>
+X-Provags-ID: V03:K1:iJiKb3a+4tLYPQi3wH0rKQiT4l3bztzK+RgYoMayPsNZWtbZP4B
+ yHP1E4+nC+IqBaxZZcSriFqv8vNbbKS00RZGeE5QVp/Up6H6aWLk8wNXO1Pn37RlXIQF6rM
+ y4lQQQIX/1ZCr9FbxNfDm32qSczq7v+Uw5//+a+mWOH7JveTUyM1+MJBwnWYGsKjNDJywQ0
+ GcPh3I0Oib6NEaTyCJX+g==
+X-Spam-Flag: NO
+X-UI-Out-Filterresults: notjunk:1;V03:K0:WdIczUxjD/c=:imlb5xUp0JNhpnyKSekJnm
+ FSjAzASPUe1R34A7bbwgY+2FW3JZACpy3vHwHfxfPc0m7OPTHLK3s9EGl0KPlWn7sNQ9jtfkI
+ HqSvRJ/L0pJh3NViYJiYgkoUZk/szecfzJF3eJDrGTtbgvIjwg+Yhc1wpKIkwmYt1kjBvHKmN
+ mLAOa5ohXt6J7Knn3qpIyAqz6feE/qYZdlR3yrr1pplO9Ygo75W0ugrOKIaNH0VNzfQFjzEB6
+ XyUYBsJeK31YoJ+/1d654gRFLmucMU/V8x4necLpM51W30VchTKKDOMoFfHUBY0CYOCWb8DV8
+ CLge7dlvUTOROrAcCqOkkA+pyhQqoYIgvUzXKPNQOVwtpMlQwm5SqIcyJlfMNN+y7LY5z9Xcr
+ tsXZKpRxu0ZGGN+75jgEq8ZVXvK2AwojJZUjzaGU9APyzoCxi+q00oCMNe82ghgxg96hOY/CO
+ AMiunJFquaOvcU9cZ74YtDMbnkmVTy3rGfKQejLFRsnhuVLb20dFxoLyTaNf7Wa9EhZ4Hh9Yw
+ NwIjjaNACcWyRa1MNMRF958Y+2KEj+3jI5yHsfIuWGaVtCet1F/DGutog/B3ftE62mrdvKcEp
+ qYx9oACWSJVr8hh8CUQr4kE0rcxwueAUfcMAUKhLSWghe7Z+Po4H6B1Qhgek9rdb6G7fJ2ovN
+ fVmANPDMG+vQ2zd8j5X9lHyvYMZjx+G+AMfXb8fNaxuZ4dC9lQoAA0zCIOlOykPYViKA=
+Cc: Rob Herring <robh@kernel.org>, Tomer Maimon <tmaimon77@gmail.com>,
+ Arnd Bergmann <arnd@arndb.de>, DTML <devicetree@vger.kernel.org>,
  Avi Fishman <avifishman70@gmail.com>, Patrick Venture <venture@google.com>,
- Tali Perry <tali.perry1@gmail.com>, Nancy Yuen <yuenn@google.com>,
- soc@kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-tegra@vger.kernel.org, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, Nancy Yuen <yuenn@google.com>,
+ SoC Team <soc@kernel.org>, Thierry Reding <thierry.reding@gmail.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ "open list:TEGRA ARCHITECTURE SUPPORT" <linux-tegra@vger.kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Tali Perry <tali.perry1@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
  Benjamin Fair <benjaminfair@google.com>
 Subject: Re: [Linux-stm32] [RESEND PATCH] arm64: dts: tegra: Fix boolean
- properties with values
+	properties with values
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -138,57 +75,63 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+On Mon, Apr 25, 2022 at 1:20 PM Jon Hunter <jonathanh@nvidia.com> wrote:
+> On 12/04/2022 10:05, Thierry Reding wrote:
+> > On Wed, Apr 06, 2022 at 02:17:30PM -0500, Rob Herring wrote:
+> >> Boolean properties in DT are present or not present and don't take a value.
+> >> A property such as 'foo = <0>;' evaluated to true. IOW, the value doesn't
+> >> matter.
+> >>
+> >> It may have been intended that 0 values are false, but there is no change
+> >> in behavior with this patch.
+> >>
+> >> Signed-off-by: Rob Herring <robh@kernel.org>
+> >> ---
+> >> Can someone apply this for 5.18.
+> >>
+> >>   arch/arm64/boot/dts/nvidia/tegra186-p3310.dtsi            | 8 ++++----
+> >>   .../boot/dts/nvidia/tegra186-p3509-0000+p3636-0001.dts    | 8 ++++----
+> >>   arch/arm64/boot/dts/nvidia/tegra194-p2888.dtsi            | 6 +++---
+> >>   arch/arm64/boot/dts/nvidia/tegra194-p3668.dtsi            | 6 +++---
+> >>   arch/arm64/boot/dts/nvidia/tegra210-p2180.dtsi            | 6 +++---
+> >>   arch/arm64/boot/dts/nvidia/tegra210-p2894.dtsi            | 8 ++++----
+> >>   arch/arm64/boot/dts/nvidia/tegra210-p3450-0000.dts        | 8 ++++----
+> >>   arch/arm64/boot/dts/nvidia/tegra210-smaug.dts             | 4 ++--
+> >>   8 files changed, 27 insertions(+), 27 deletions(-)
+> >
+> > This causes multiple regressions on Tegra boards. The reason for this is
+> > that these properties are not in fact boolean, despite what the DT
+> > bindings say. If you look at the code that handles these, you'll notice
+> > that they are single-cell properties, typically with <0> and <1> values.
+> > What may have led to the conclusion that these are boolean is that there
+> > is also a special case where these can be left out, but the meaning of
+> > that is not the "false" (<0>) value. Instead, leaving these out means
+> > that the values should be left at whatever is currently in the register.
+> >
+> > See pinconf_generic_parse_dt_config() and parse_dt_cfg() specifically in
+> > drivers/pinctrl/pinconf-generic.c.
+> >
+> > Arnd, can you please revert this so that these boards can be unbroken?
+>
+>
+> Arnd, any feedback on this? A lot of Tegra boards are still not booting
+> with v5.18-rc4.
 
-On 12/04/2022 10:05, Thierry Reding wrote:
-> On Wed, Apr 06, 2022 at 02:17:30PM -0500, Rob Herring wrote:
->> Boolean properties in DT are present or not present and don't take a value.
->> A property such as 'foo = <0>;' evaluated to true. IOW, the value doesn't
->> matter.
->>
->> It may have been intended that 0 values are false, but there is no change
->> in behavior with this patch.
->>
->> Signed-off-by: Rob Herring <robh@kernel.org>
->> ---
->> Can someone apply this for 5.18.
->>
->>   arch/arm64/boot/dts/nvidia/tegra186-p3310.dtsi            | 8 ++++----
->>   .../boot/dts/nvidia/tegra186-p3509-0000+p3636-0001.dts    | 8 ++++----
->>   arch/arm64/boot/dts/nvidia/tegra194-p2888.dtsi            | 6 +++---
->>   arch/arm64/boot/dts/nvidia/tegra194-p3668.dtsi            | 6 +++---
->>   arch/arm64/boot/dts/nvidia/tegra210-p2180.dtsi            | 6 +++---
->>   arch/arm64/boot/dts/nvidia/tegra210-p2894.dtsi            | 8 ++++----
->>   arch/arm64/boot/dts/nvidia/tegra210-p3450-0000.dts        | 8 ++++----
->>   arch/arm64/boot/dts/nvidia/tegra210-smaug.dts             | 4 ++--
->>   8 files changed, 27 insertions(+), 27 deletions(-)
-> 
-> This causes multiple regressions on Tegra boards. The reason for this is
-> that these properties are not in fact boolean, despite what the DT
-> bindings say. If you look at the code that handles these, you'll notice
-> that they are single-cell properties, typically with <0> and <1> values.
-> What may have led to the conclusion that these are boolean is that there
-> is also a special case where these can be left out, but the meaning of
-> that is not the "false" (<0>) value. Instead, leaving these out means
-> that the values should be left at whatever is currently in the register.
-> 
-> See pinconf_generic_parse_dt_config() and parse_dt_cfg() specifically in
-> drivers/pinctrl/pinconf-generic.c.
-> 
-> Arnd, can you please revert this so that these boards can be unbroken?
+I have reverted this commit now, sorry for missing the earlier report.
+https://git.kernel.org/pub/scm/linux/kernel/git/soc/soc.git/commit/?h=arm/fixes
 
+> > Adding Bjorn for MSM, the Nuvoton and STM32 folks.
 
-Arnd, any feedback on this? A lot of Tegra boards are still not booting 
-with v5.18-rc4.
+I'll wait for the others to reply, but I do agree that these are likely broken
+as well. Could one of you propose a patch to make the binding
+describe what the kernel code actually expects here?
 
-Jon
-
--- 
-nvpublic
+       Arnd
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
