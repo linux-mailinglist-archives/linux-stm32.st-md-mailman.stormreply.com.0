@@ -2,54 +2,41 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0A348510D6A
-	for <lists+linux-stm32@lfdr.de>; Wed, 27 Apr 2022 02:50:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A6CE7511326
+	for <lists+linux-stm32@lfdr.de>; Wed, 27 Apr 2022 10:03:52 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B220FC60466;
-	Wed, 27 Apr 2022 00:50:15 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7F210C5F1D6
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 27 Apr 2022 00:50:14 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id E5AB8B82455;
- Wed, 27 Apr 2022 00:50:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id F3C28C385A0;
- Wed, 27 Apr 2022 00:50:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1651020612;
- bh=MwmPAc3mXaQAY/JmKfl1Jub/wzo0Wnhd1Nmr194igt8=;
- h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=icpqaKWtspwfdxK9xOUr1MbWPsuY8jjKeZ+UQe+NccevNL7RjOomJBDZFLUxiI5iM
- yNnkz/mRFMFTr96/NjHCzZebJeWAak0+uuC7Vx+vMwg49upQzAQ6Sj4YnOvrJeD9Rd
- T41rUsM7CsVBcZ6vHqojYRMxRGNHiaCpn8AcQqJeu/zTxbIUB/TPTeRDp/3fbaV20x
- ZvhMsTuOHugl9OfSkNMjAa12EvV/V9elKraPz1fr4tPrBT1tnt0+BEMKbREX7yAfNZ
- 4FIiH/+XkhIfGKf6xJceladMSgEtfxAs63NlcLP6Vaikd6UtC9LxMEHm6/6G2DCFvX
- 2F6lFAuJmInYg==
-Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
- D4EB1E8DD67; Wed, 27 Apr 2022 00:50:11 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 58563C6046D;
+	Wed, 27 Apr 2022 08:03:52 +0000 (UTC)
+Received: from mail-m973.mail.163.com (mail-m973.mail.163.com [123.126.97.3])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id
+ 5514FC5F1D6 for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 26 Apr 2022 08:30:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+ s=s110527; h=From:Subject:Date:Message-Id:MIME-Version; bh=d5llz
+ nYDqD4Oykhgm+9HpjyKx1Xg8vbwgBkT6OoYxr4=; b=M+Pbnbq2pPZK1DNgdNwoc
+ NzLXK3RtNBDQJ1vLyLvUrXDQo2Dp950OkQazE9oNuf2ZK1hM5tUxew5tgRrIPQXS
+ esefB5bONX/Zz0/mYd0X88nNvjc2QLgSHkCf+Dnc+/9D9pinUvjKB9VcXU3er1CN
+ jBsjldkI9Xhan8q9q6VFQw=
+Received: from localhost.localdomain (unknown [116.128.244.169])
+ by smtp3 (Coremail) with SMTP id G9xpCgBXi52crWdirrz8DA--.31121S2;
+ Tue, 26 Apr 2022 16:30:22 +0800 (CST)
+From: Clement Wei <clementwei90@163.com>
+To: mcoquelin.stm32@gmail.com
+Date: Tue, 26 Apr 2022 16:30:19 +0800
+Message-Id: <20220426083019.871525-1-clementwei90@163.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <165102061186.18100.14886294105816558907.git-patchwork-notify@kernel.org>
-Date: Wed, 27 Apr 2022 00:50:11 +0000
-References: <20220425154856.169499-1-marcel@ziswiler.com>
-In-Reply-To: <20220425154856.169499-1-marcel@ziswiler.com>
-To: Marcel Ziswiler <marcel@ziswiler.com>
-Cc: fugang.duan@nxp.com, kernel@pengutronix.de, marcel.ziswiler@toradex.com,
- netdev@vger.kernel.org, s.hauer@pengutronix.de,
- linux-stm32@st-md-mailman.stormreply.com, shawnguo@kernel.org,
- linux-kernel@vger.kernel.org, joabreu@synopsys.com, linux-imx@nxp.com,
- mcoquelin.stm32@gmail.com, kuba@kernel.org, peppe.cavallaro@st.com,
- pabeni@redhat.com, festevam@gmail.com, davem@davemloft.net,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v1] net: stmmac: dwmac-imx: comment
-	spelling fix
+X-CM-TRANSID: G9xpCgBXi52crWdirrz8DA--.31121S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7CF18JFyDtr4fJw18ZFW8Zwb_yoW8GFWrpr
+ sFgr909w4jkrW7K3Z7tryrtry3Ga90k3WFqws0vw4qqF4qyr40qr1jvr13JFWDWw4SyrWa
+ qr1qgr4ayr9rGrDanT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jgucNUUUUU=
+X-Originating-IP: [116.128.244.169]
+X-CM-SenderInfo: 5fohzv5qwzvxizq6il2tof0z/1tbiXB7ua1Xl2cxQyAAAs6
+X-Mailman-Approved-At: Wed, 27 Apr 2022 08:03:51 +0000
+Cc: xiaolinkui@kylinos.cn, linux-stm32@st-md-mailman.stormreply.com,
+ Rongguang Wei <weirongguang@kylinos.cn>
+Subject: [Linux-stm32] [PATCH] stmmac: fix typo
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,30 +53,44 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello:
+From: Rongguang Wei <weirongguang@kylinos.cn>
 
-This patch was applied to netdev/net-next.git (master)
-by Jakub Kicinski <kuba@kernel.org>:
+Fix spelling mistake: "clk_scr_i" -> "clk_csr_i"
 
-On Mon, 25 Apr 2022 17:48:56 +0200 you wrote:
-> From: Marcel Ziswiler <marcel.ziswiler@toradex.com>
-> 
-> Fix spelling in comment.
-> 
-> Fixes: 94abdad6974a ("net: ethernet: dwmac: add ethernet glue logic for NXP imx8 chip")
-> Signed-off-by: Marcel Ziswiler <marcel.ziswiler@toradex.com>
-> 
-> [...]
+Signed-off-by: Rongguang Wei <weirongguang@kylinos.cn>
+---
+ include/linux/stmmac.h | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
-Here is the summary with links:
-  - [v1] net: stmmac: dwmac-imx: comment spelling fix
-    https://git.kernel.org/netdev/net-next/c/b1190d5175ac
-
-You are awesome, thank you!
+diff --git a/include/linux/stmmac.h b/include/linux/stmmac.h
+index 24eea1b05ca2..436b5efc08b7 100644
+--- a/include/linux/stmmac.h
++++ b/include/linux/stmmac.h
+@@ -28,12 +28,12 @@
+  * This could also be configured at run time using CPU freq framework. */
+ 
+ /* MDC Clock Selection define*/
+-#define	STMMAC_CSR_60_100M	0x0	/* MDC = clk_scr_i/42 */
+-#define	STMMAC_CSR_100_150M	0x1	/* MDC = clk_scr_i/62 */
+-#define	STMMAC_CSR_20_35M	0x2	/* MDC = clk_scr_i/16 */
+-#define	STMMAC_CSR_35_60M	0x3	/* MDC = clk_scr_i/26 */
+-#define	STMMAC_CSR_150_250M	0x4	/* MDC = clk_scr_i/102 */
+-#define	STMMAC_CSR_250_300M	0x5	/* MDC = clk_scr_i/122 */
++#define	STMMAC_CSR_60_100M	0x0	/* MDC = clk_csr_i/42 */
++#define	STMMAC_CSR_100_150M	0x1	/* MDC = clk_csr_i/62 */
++#define	STMMAC_CSR_20_35M	0x2	/* MDC = clk_csr_i/16 */
++#define	STMMAC_CSR_35_60M	0x3	/* MDC = clk_csr_i/26 */
++#define	STMMAC_CSR_150_250M	0x4	/* MDC = clk_csr_i/102 */
++#define	STMMAC_CSR_250_300M	0x5	/* MDC = clk_csr_i/122 */
+ 
+ /* MTL algorithms identifiers */
+ #define MTL_TX_ALGORITHM_WRR	0x0
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+2.25.1
 
+
+No virus found
+		Checked by Hillstone Network AntiVirus
 
 _______________________________________________
 Linux-stm32 mailing list
