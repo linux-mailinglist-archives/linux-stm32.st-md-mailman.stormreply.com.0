@@ -2,41 +2,72 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A6CE7511326
-	for <lists+linux-stm32@lfdr.de>; Wed, 27 Apr 2022 10:03:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7CAD551292A
+	for <lists+linux-stm32@lfdr.de>; Thu, 28 Apr 2022 03:57:57 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 58563C6046D;
-	Wed, 27 Apr 2022 08:03:52 +0000 (UTC)
-Received: from mail-m973.mail.163.com (mail-m973.mail.163.com [123.126.97.3])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id
- 5514FC5F1D6 for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 26 Apr 2022 08:30:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=From:Subject:Date:Message-Id:MIME-Version; bh=d5llz
- nYDqD4Oykhgm+9HpjyKx1Xg8vbwgBkT6OoYxr4=; b=M+Pbnbq2pPZK1DNgdNwoc
- NzLXK3RtNBDQJ1vLyLvUrXDQo2Dp950OkQazE9oNuf2ZK1hM5tUxew5tgRrIPQXS
- esefB5bONX/Zz0/mYd0X88nNvjc2QLgSHkCf+Dnc+/9D9pinUvjKB9VcXU3er1CN
- jBsjldkI9Xhan8q9q6VFQw=
-Received: from localhost.localdomain (unknown [116.128.244.169])
- by smtp3 (Coremail) with SMTP id G9xpCgBXi52crWdirrz8DA--.31121S2;
- Tue, 26 Apr 2022 16:30:22 +0800 (CST)
-From: Clement Wei <clementwei90@163.com>
-To: mcoquelin.stm32@gmail.com
-Date: Tue, 26 Apr 2022 16:30:19 +0800
-Message-Id: <20220426083019.871525-1-clementwei90@163.com>
-X-Mailer: git-send-email 2.25.1
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 30DF4C60467;
+	Thu, 28 Apr 2022 01:57:57 +0000 (UTC)
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 66D6DC5F1EF
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 28 Apr 2022 01:57:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1651111075; x=1682647075;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=/vhHc0ORGV2b1XZMIu39ZLL/Kp9lOxc3E0MqPGKIEJE=;
+ b=MmjK5U8zwE9fjwx4FRZKtoKA00O2l2yYuYY/zJvpPj+Kkdd6SQkYObqm
+ C9ph47zDHBBygO76kFW26/pIWvjbcE5z6pQQ32fJUem8QMFAkHx8+IUff
+ W7HT9ckziib2dVJFn72kfdMBN35pMm2iHe4GKcMiXoz+FCJ+2mgASmkpn
+ D3Oed5Ye08Yg+P3db/kyvppWHGGwR/1ceN+QtusKcFeCM6WhhtGmAU8Oe
+ B6rE8B4h71X+UblQWtKae/iJWwz6rdUFhiKiSK4S2NnzycD8e0p6k0qjC
+ ZwnowbpsxVPR8glCFCYK7i5rPkOoCHL96tlidEB6Xoc6zDqfeWyMn8PrF Q==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10330"; a="248061159"
+X-IronPort-AV: E=Sophos;i="5.90,294,1643702400"; d="scan'208";a="248061159"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Apr 2022 18:57:53 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.90,294,1643702400"; d="scan'208";a="681605449"
+Received: from linux.intel.com ([10.54.29.200])
+ by orsmga004.jf.intel.com with ESMTP; 27 Apr 2022 18:57:52 -0700
+Received: from linux.intel.com (ssid-ilbpg3-teeminta.png.intel.com
+ [10.88.227.74])
+ (using TLSv1.2 with cipher DHE-RSA-AES128-SHA (128/128 bits))
+ (No client certificate requested)
+ by linux.intel.com (Postfix) with ESMTPS id 00BCC580569;
+ Wed, 27 Apr 2022 18:57:46 -0700 (PDT)
+Date: Thu, 28 Apr 2022 09:55:38 +0800
+From: Tan Tee Min <tee.min.tan@linux.intel.com>
+To: Kurt Kanzenbach <kurt@linutronix.de>
+Message-ID: <20220428015538.GC26326@linux.intel.com>
+References: <20220426074531.4115683-1-tee.min.tan@linux.intel.com>
+ <8735i0ndy7.fsf@kurt>
 MIME-Version: 1.0
-X-CM-TRANSID: G9xpCgBXi52crWdirrz8DA--.31121S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7CF18JFyDtr4fJw18ZFW8Zwb_yoW8GFWrpr
- sFgr909w4jkrW7K3Z7tryrtry3Ga90k3WFqws0vw4qqF4qyr40qr1jvr13JFWDWw4SyrWa
- qr1qgr4ayr9rGrDanT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jgucNUUUUU=
-X-Originating-IP: [116.128.244.169]
-X-CM-SenderInfo: 5fohzv5qwzvxizq6il2tof0z/1tbiXB7ua1Xl2cxQyAAAs6
-X-Mailman-Approved-At: Wed, 27 Apr 2022 08:03:51 +0000
-Cc: xiaolinkui@kylinos.cn, linux-stm32@st-md-mailman.stormreply.com,
- Rongguang Wei <weirongguang@kylinos.cn>
-Subject: [Linux-stm32] [PATCH] stmmac: fix typo
+Content-Disposition: inline
+In-Reply-To: <8735i0ndy7.fsf@kurt>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+Cc: Voon Wei Feng <weifeng.voon@intel.com>,
+ Boon Leong <boon.leong.ong@intel.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Wong Vee Khee <vee.khee.wong@linux.intel.com>,
+ Xiaoliang Yang <xiaoliang.yang_1@nxp.com>, Jose Abreu <joabreu@synopsys.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Bhupesh Sharma <bhupesh.sharma@linaro.org>,
+ Ling Pei Lee <pei.lee.ling@intel.com>, Ong@vger.kernel.org,
+ Tan Tee Min <tee.min.tan@intel.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Michael Sit Wei Hong <michael.wei.hong.sit@intel.com>,
+ linux-arm-kernel@lists.infradead.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ Song Yoong Siang <yoong.siang.song@intel.com>,
+ "David S . Miller" <davem@davemloft.net>
+Subject: Re: [Linux-stm32] [PATCH net 1/1] net: stmmac: disable Split Header
+ (SPH) for Intel platforms
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -53,44 +84,35 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Rongguang Wei <weirongguang@kylinos.cn>
+On Tue, Apr 26, 2022 at 03:58:56PM +0200, Kurt Kanzenbach wrote:
+> Hi,
+> 
+> On Tue Apr 26 2022, Tan Tee Min wrote:
+> > Based on DesignWare Ethernet QoS datasheet, we are seeing the limitation
+> > of Split Header (SPH) feature is not supported for Ipv4 fragmented packet.
+> > This SPH limitation will cause ping failure when the packets size exceed
+> > the MTU size. For example, the issue happens once the basic ping packet
+> > size is larger than the configured MTU size and the data is lost inside
+> > the fragmented packet, replaced by zeros/corrupted values, and leads to
+> > ping fail.
+> >
+> > So, disable the Split Header for Intel platforms.
+> 
+> Does this issue only apply on Intel platforms?
 
-Fix spelling mistake: "clk_scr_i" -> "clk_csr_i"
+According to Synopsys IP support, they have confirmed the header-payload
+splitting for IPv4 fragmented packets is not supported for the Synopsys
+Ether IPs.
 
-Signed-off-by: Rongguang Wei <weirongguang@kylinos.cn>
----
- include/linux/stmmac.h | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+Intel platforms are integrating with GMAC EQoS IP which is impacted by the
+limitation above, so we are changing the default SPH setting to disabled
+for Intel Platforms only.
 
-diff --git a/include/linux/stmmac.h b/include/linux/stmmac.h
-index 24eea1b05ca2..436b5efc08b7 100644
---- a/include/linux/stmmac.h
-+++ b/include/linux/stmmac.h
-@@ -28,12 +28,12 @@
-  * This could also be configured at run time using CPU freq framework. */
- 
- /* MDC Clock Selection define*/
--#define	STMMAC_CSR_60_100M	0x0	/* MDC = clk_scr_i/42 */
--#define	STMMAC_CSR_100_150M	0x1	/* MDC = clk_scr_i/62 */
--#define	STMMAC_CSR_20_35M	0x2	/* MDC = clk_scr_i/16 */
--#define	STMMAC_CSR_35_60M	0x3	/* MDC = clk_scr_i/26 */
--#define	STMMAC_CSR_150_250M	0x4	/* MDC = clk_scr_i/102 */
--#define	STMMAC_CSR_250_300M	0x5	/* MDC = clk_scr_i/122 */
-+#define	STMMAC_CSR_60_100M	0x0	/* MDC = clk_csr_i/42 */
-+#define	STMMAC_CSR_100_150M	0x1	/* MDC = clk_csr_i/62 */
-+#define	STMMAC_CSR_20_35M	0x2	/* MDC = clk_csr_i/16 */
-+#define	STMMAC_CSR_35_60M	0x3	/* MDC = clk_csr_i/26 */
-+#define	STMMAC_CSR_150_250M	0x4	/* MDC = clk_csr_i/102 */
-+#define	STMMAC_CSR_250_300M	0x5	/* MDC = clk_csr_i/122 */
- 
- /* MTL algorithms identifiers */
- #define MTL_TX_ALGORITHM_WRR	0x0
--- 
-2.25.1
+If anyone can confirm on their platform also having the same issues,
+then we would change the SPH default to disable across the IPs.
 
-
-No virus found
-		Checked by Hillstone Network AntiVirus
+Thanks,
+Tee Min
 
 _______________________________________________
 Linux-stm32 mailing list
