@@ -2,47 +2,42 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B601513B7E
-	for <lists+linux-stm32@lfdr.de>; Thu, 28 Apr 2022 20:24:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 40A30513FBF
+	for <lists+linux-stm32@lfdr.de>; Fri, 29 Apr 2022 02:46:14 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C7E9DC6046D;
-	Thu, 28 Apr 2022 18:24:55 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E28CCC6047D;
+	Fri, 29 Apr 2022 00:46:13 +0000 (UTC)
+Received: from mail-m121145.qiye.163.com (mail-m121145.qiye.163.com
+ [115.236.121.145])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BC3F1C5F1EF
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DFAEEC60467
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 28 Apr 2022 18:24:54 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 3D837B82EA7;
- Thu, 28 Apr 2022 18:24:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78E50C385A9;
- Thu, 28 Apr 2022 18:24:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1651170293;
- bh=JXRHqXGYhAN3qdh93Rjj4pMQrePTMavErqL2y6eIzws=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=YQrU1JHRjIWCkra4lxvDexdfa9qtNic2BsHyXxU6j8u49pwBATTGd4HxWgEvzYSig
- CXHPqaP3RhrfMChRdLXuVJT6cRdmhZWuqVNjSacAYsxIwGeA4uhXT1FlhdVQzD0zE6
- Z4S/O7zAPPh+pA5XqwZEZh0WhNaOhIRCRXB4IwCEC8kIviRtVFX9YzZuTz8HDAJjMb
- Uq3kcuLbZlVtQG7gpMYmXTsRzQJdgBMNmwtJQCJwV+F6ShOXgMz0IrmulqVJkj0lmu
- JEL6yZ6upitM4TjwGyFMmaC2OL3lFGVZlrGNyYVdzeJjNQtAIio1bwYCo4MOxgA+lo
- zJ235mQbq24og==
-Date: Thu, 28 Apr 2022 19:33:04 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Message-ID: <20220428193304.016c46a3@jic23-huawei>
-In-Reply-To: <20220413185656.21994-1-andriy.shevchenko@linux.intel.com>
-References: <20220413185656.21994-1-andriy.shevchenko@linux.intel.com>
-X-Mailer: Claws Mail 4.0.0 (GTK+ 3.24.33; x86_64-pc-linux-gnu)
+ Fri, 29 Apr 2022 00:46:12 +0000 (UTC)
+Received: from localhost.localdomain (unknown [58.22.7.114])
+ by mail-m121145.qiye.163.com (Hmail) with ESMTPA id 74245800280;
+ Fri, 29 Apr 2022 08:46:09 +0800 (CST)
+From: Jianqun Xu <jay.xu@rock-chips.com>
+To: kuba@kernel.org, davem@davemloft.net, joabreu@synopsys.com,
+ alexandre.torgue@st.com, peppe.cavallaro@st.com
+Date: Fri, 29 Apr 2022 08:46:05 +0800
+Message-Id: <20220429004605.1010751-1-jay.xu@rock-chips.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20220428010927.526310-1-jay.xu@rock-chips.com>
+References: <20220428010927.526310-1-jay.xu@rock-chips.com>
 MIME-Version: 1.0
-Cc: Lars-Peter Clausen <lars@metafoo.de>, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+X-HM-Spam-Status: e1kfGhgUHx5ZQUtXWQgPGg8OCBgUHx5ZQUlOS1dZCBgUCR5ZQVlLVUtZV1
+ kWDxoPAgseWUFZKDYvK1lXWShZQUlKS0tKN1dZLVlBSVdZDwkaFQgSH1lBWRlDH0NWS0tMTU1PHx
+ hDQx5NVRMBExYaEhckFA4PWVdZFhoPEhUdFFlBWU9LSFVKSktISkNVS1kG
+X-HM-Sender-Digest: e1kMHhlZQR0aFwgeV1kSHx4VD1lBWUc6MRg6GRw5ED02EBEfIxgJN0of
+ TjoKCwhVSlVKTU5KSkJISkxLSk5CVTMWGhIXVREaAlUDDjsJFBgQVhgTEgsIVRgUFkVZV1kSC1lB
+ WU5DVUlJVUxVSkpPWVdZCAFZQUlCSE83Bg++
+X-HM-Tid: 0a8072c84756b03akuuu74245800280
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-rockchip@lists.infradead.org, Jianqun Xu <jay.xu@rock-chips.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v1 1/1] iio: trigger:
- stm32-lptimer-trigger: Make use of device properties
+Subject: [Linux-stm32] [PATCH V2] ethernet: stmmac: support driver work for
+	DTs without child queue node
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,44 +54,50 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, 13 Apr 2022 21:56:56 +0300
-Andy Shevchenko <andriy.shevchenko@linux.intel.com> wrote:
+The driver use the value of property 'snps,rx-queues-to-use' to loop
+same numbers child nodes as queues, such as:
 
-> Convert the module to be property provider agnostic and allow
-> it to be used on non-OF platforms.
-> 
-> Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+    gmac {
+        rx-queues-config {
+            snps,rx-queues-to-use = <1>;
+            queue0 {
+                // nothing need here.
+	    };
+	};
+    };
 
-MAINTAINERS entry for this one uses extensive wild cards so may
-escape scripts...
+Since a patch for dtc from rockchip will delete all node without any
+properties or child node, the queue0 node will be deleted, that caused
+the driver fail to probe:
 
-+CC Fabrice.
+    rk_gmac-dwmac: probe of ffa80000.ethernet failed with error -22
 
-> ---
->  drivers/iio/trigger/stm32-lptimer-trigger.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/iio/trigger/stm32-lptimer-trigger.c b/drivers/iio/trigger/stm32-lptimer-trigger.c
-> index 98cdc7e47f3d..af46c10cea92 100644
-> --- a/drivers/iio/trigger/stm32-lptimer-trigger.c
-> +++ b/drivers/iio/trigger/stm32-lptimer-trigger.c
-> @@ -13,6 +13,7 @@
->  #include <linux/mfd/stm32-lptimer.h>
->  #include <linux/module.h>
->  #include <linux/platform_device.h>
-> +#include <linux/property.h>
->  
->  /* List Low-Power Timer triggers */
->  static const char * const stm32_lptim_triggers[] = {
-> @@ -77,7 +78,7 @@ static int stm32_lptim_trigger_probe(struct platform_device *pdev)
->  	if (!priv)
->  		return -ENOMEM;
->  
-> -	if (of_property_read_u32(pdev->dev.of_node, "reg", &index))
-> +	if (device_property_read_u32(&pdev->dev, "reg", &index))
->  		return -EINVAL;
->  
->  	if (index >= ARRAY_SIZE(stm32_lptim_triggers))
+This patch try to support driver work well for DTs without setting for
+the child queue nodes and then have none child queue nodes.
+
+Signed-off-by: Jianqun Xu <jay.xu@rock-chips.com>
+---
+v2:
+ - change subject and update commit comment, sugguested by Kicinski
+
+ drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+index 2d8c095f3856..4f01a41c485c 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+@@ -279,7 +279,7 @@ static int stmmac_mtl_setup(struct platform_device *pdev,
+ 
+ 		queue++;
+ 	}
+-	if (queue != plat->tx_queues_to_use) {
++	if (queue != plat->tx_queues_to_use && of_get_child_count(tx_node)) {
+ 		ret = -EINVAL;
+ 		dev_err(&pdev->dev, "Not all TX queues were configured\n");
+ 		goto out;
+-- 
+2.25.1
 
 _______________________________________________
 Linux-stm32 mailing list
