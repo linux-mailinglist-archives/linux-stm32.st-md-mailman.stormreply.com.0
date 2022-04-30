@@ -2,65 +2,51 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 49B0B514F11
-	for <lists+linux-stm32@lfdr.de>; Fri, 29 Apr 2022 17:18:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4408F5159D1
+	for <lists+linux-stm32@lfdr.de>; Sat, 30 Apr 2022 04:40:17 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E66DBC6047D;
-	Fri, 29 Apr 2022 15:18:40 +0000 (UTC)
-Received: from mail-oi1-f169.google.com (mail-oi1-f169.google.com
- [209.85.167.169])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EA16BC60494;
+	Sat, 30 Apr 2022 02:40:16 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DCFA5C5F1D6
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EF211C5F1D6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 29 Apr 2022 15:18:39 +0000 (UTC)
-Received: by mail-oi1-f169.google.com with SMTP id q8so8409137oif.13
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 29 Apr 2022 08:18:39 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=h5I147M5SAG5aKSeTFIpJ9Fdg0GC9tCoery/v4BvAoc=;
- b=v/+aNcXX4YR1IoRvtUlakb+LsFM2N+1/QWV4G2u84zMm1cUQvFIYk1k0ibQowWA/Hs
- iTAACc+oQi+/qhuzLD3fS5z/qq7MP72rPjco6FlR+62qFnNI7KvTPwW+sJnLLWc639rO
- btswq6uJ2DtlkAeUnr1QUg7DckFtOqlQGLBQpmJ/bVPpAb/p0MkbNYgSSdyhSeu2RgYW
- d+Y1kDvTk8WkHMNFKXv8P7GdEZXYn/kRwISRU9mTPPE2S4ahiDZ69PNxcknr3uUiVoFT
- UmZqexAFy2rYufNt5gx8W0T8FNVCMA3bLcY6MsVfjZLP+bBvcdUqNQYGMra7dJff6B0R
- 4AjQ==
-X-Gm-Message-State: AOAM5328sK/Nc6aKyRBxd7FnddJoYK658AHN+fDshj2GfdIbyTqyZxMD
- iE5zFaMPG1tCsWv7MDlrtQ==
-X-Google-Smtp-Source: ABdhPJw1fKhbwx6lx70lrdW0UswFjeYAMQ8BdI+q1NecOx0z8DU6TRguS9yHIi1JzMEh2mVexnvGug==
-X-Received: by 2002:a05:6808:1886:b0:322:f55c:133d with SMTP id
- bi6-20020a056808188600b00322f55c133dmr1691725oib.217.1651245518636; 
- Fri, 29 Apr 2022 08:18:38 -0700 (PDT)
-Received: from robh.at.kernel.org (66-90-144-107.dyn.grandenetworks.net.
- [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
- m18-20020a4add12000000b0035eb4e5a6d3sm852822oou.41.2022.04.29.08.18.37
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 29 Apr 2022 08:18:38 -0700 (PDT)
-Received: (nullmailer pid 2284027 invoked by uid 1000);
- Fri, 29 Apr 2022 15:18:36 -0000
-Date: Fri, 29 Apr 2022 10:18:36 -0500
-From: Rob Herring <robh@kernel.org>
-To: Thierry Reding <thierry.reding@gmail.com>
-Message-ID: <YmwBzLrTilOPdX5m@robh.at.kernel.org>
-References: <Yk3nShkFzNJaI3/Z@robh.at.kernel.org>
- <YlVAy95eF/9b1nmu@orome>
+ Sat, 30 Apr 2022 02:40:14 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 9D4F9624D3;
+ Sat, 30 Apr 2022 02:40:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 856F5C385AF;
+ Sat, 30 Apr 2022 02:40:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1651286412;
+ bh=gJ66qBEwi6fImRHOzmZNTdLhzaPPZUa4anUgFG2RYFM=;
+ h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
+ b=qjRGdWUb2rVvisgnKlfUR8hwrLknIuM2HlB/jq5kkMqlo4jH7M2SQ86qXwvxRBxDp
+ cT6aJRFCezr7IuWaW5NhqO9GLf85a5vwKjQFZnh73KGQu5SRqQcnjw+ydeCyJK1Iaa
+ TBVeYEOGK/B0ZiO4wLz15EwzkGGvB8vIdzdHrCBgWpkjJz80B7ZLOJjd+qI9JuLNJb
+ 4A5CmZGxEx0+7fQFRQsffMU9mJdJKqEbDLENWQKPaeK5r6h0R2IVjL8jDiSdK+7Kpu
+ g2SJThl9mCvCa+IIGhWyMhDhiR86JdgxjMgJp0yglmx2YZ1XhDWp41pazUBpcRGnbv
+ 8ex6IqJ2d9ayQ==
+Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
+ 5FBCBF03847; Sat, 30 Apr 2022 02:40:12 +0000 (UTC)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <YlVAy95eF/9b1nmu@orome>
-Cc: devicetree@vger.kernel.org, Tali Perry <tali.perry1@gmail.com>,
- Tomer Maimon <tmaimon77@gmail.com>, Arnd Bergmann <arnd@arndb.de>,
- Avi Fishman <avifishman70@gmail.com>, Patrick Venture <venture@google.com>,
- Bjorn Andersson <bjorn.andersson@linaro.org>, Nancy Yuen <yuenn@google.com>,
- soc@kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-tegra@vger.kernel.org, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
- Benjamin Fair <benjaminfair@google.com>
-Subject: Re: [Linux-stm32] [RESEND PATCH] arm64: dts: tegra: Fix boolean
- properties with values
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: <165128641238.32243.12546342277289932199.git-patchwork-notify@kernel.org>
+Date: Sat, 30 Apr 2022 02:40:12 +0000
+References: <20220428095716.540452-1-yangyingliang@huawei.com>
+In-Reply-To: <20220428095716.540452-1-yangyingliang@huawei.com>
+To: Yang Yingliang <yangyingliang@huawei.com>
+Cc: andrew@lunn.ch, davem@davemloft.net, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-sunxi@lists.linux.dev,
+ clabbe.montjoie@gmail.com, kuba@kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] net: stmmac: dwmac-sun8i: add missing
+ of_node_put() in sun8i_dwmac_register_mdio_mux()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,71 +63,31 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Apr 12, 2022 at 11:05:15AM +0200, Thierry Reding wrote:
-> On Wed, Apr 06, 2022 at 02:17:30PM -0500, Rob Herring wrote:
-> > Boolean properties in DT are present or not present and don't take a value.
-> > A property such as 'foo = <0>;' evaluated to true. IOW, the value doesn't
-> > matter.
-> > 
-> > It may have been intended that 0 values are false, but there is no change
-> > in behavior with this patch.
-> > 
-> > Signed-off-by: Rob Herring <robh@kernel.org>
-> > ---
-> > Can someone apply this for 5.18.
-> > 
-> >  arch/arm64/boot/dts/nvidia/tegra186-p3310.dtsi            | 8 ++++----
-> >  .../boot/dts/nvidia/tegra186-p3509-0000+p3636-0001.dts    | 8 ++++----
-> >  arch/arm64/boot/dts/nvidia/tegra194-p2888.dtsi            | 6 +++---
-> >  arch/arm64/boot/dts/nvidia/tegra194-p3668.dtsi            | 6 +++---
-> >  arch/arm64/boot/dts/nvidia/tegra210-p2180.dtsi            | 6 +++---
-> >  arch/arm64/boot/dts/nvidia/tegra210-p2894.dtsi            | 8 ++++----
-> >  arch/arm64/boot/dts/nvidia/tegra210-p3450-0000.dts        | 8 ++++----
-> >  arch/arm64/boot/dts/nvidia/tegra210-smaug.dts             | 4 ++--
-> >  8 files changed, 27 insertions(+), 27 deletions(-)
+Hello:
+
+This patch was applied to netdev/net.git (master)
+by Jakub Kicinski <kuba@kernel.org>:
+
+On Thu, 28 Apr 2022 17:57:16 +0800 you wrote:
+> The node pointer returned by of_get_child_by_name() with refcount incremented,
+> so add of_node_put() after using it.
 > 
-> This causes multiple regressions on Tegra boards. The reason for this is
-> that these properties are not in fact boolean, despite what the DT
-> bindings say. If you look at the code that handles these, you'll notice
-> that they are single-cell properties, typically with <0> and <1> values.
-> What may have led to the conclusion that these are boolean is that there
-> is also a special case where these can be left out, but the meaning of
-> that is not the "false" (<0>) value. Instead, leaving these out means
-> that the values should be left at whatever is currently in the register.
+> Fixes: 634db83b8265 ("net: stmmac: dwmac-sun8i: Handle integrated/external MDIOs")
+> Reported-by: Hulk Robot <hulkci@huawei.com>
+> Signed-off-by: Yang Yingliang <yangyingliang@huawei.com>
+> 
+> [...]
 
-The majority of users do use boolean in their DT.
+Here is the summary with links:
+  - net: stmmac: dwmac-sun8i: add missing of_node_put() in sun8i_dwmac_register_mdio_mux()
+    https://git.kernel.org/netdev/net/c/1a15267b7be7
 
-Treating these as tri-state doesn't make much sense because what does 
-setting the pin to !push-pull mean? Isn't that just open-drain or 
-open-source for which also have boolean values? Allowing these to have 
-values is unnecessary and enables more invalid combinations.
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
-> See pinconf_generic_parse_dt_config() and parse_dt_cfg() specifically in
-> drivers/pinctrl/pinconf-generic.c.
 
-of_property_read_u32() will return -EOVERFLOW on a boolean value and 
-then the default value (0) is used. However, at least for QCom the value 
-is ignored.
-
-Looking at max77620, the value is used. However, it is clear that 
-push-pull and open-drain operate on the same register bit.
-
-> Arnd, can you please revert this so that these boards can be unbroken?
-
-That's fine for now...
-
-> It's a bit unfortunate because there seem to be other platforms that
-> also employ these in the boolean form that Rob mentioned, but I think it
-> is those that probably need fixing instead. Not sure what the intentions
-> were for those.
-
-I still think it's Tegra that needs fixing. The question is to what 
-extent forwards and backwards compatibity is needed on these platforms? 
-I'm not sure if we can fix new dtb with old kernel. A new dtb with a 
-stable kernel update would be plausible. It may work just replacing 
-'drive-push-pull = <0>' cases with 'drive-open-drain'.
-
-Rob
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
