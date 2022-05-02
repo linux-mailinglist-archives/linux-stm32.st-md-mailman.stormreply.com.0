@@ -2,66 +2,126 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8418A516C4E
-	for <lists+linux-stm32@lfdr.de>; Mon,  2 May 2022 10:44:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BB266516CF9
+	for <lists+linux-stm32@lfdr.de>; Mon,  2 May 2022 11:05:21 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id ACC89C628A9;
-	Mon,  2 May 2022 08:44:27 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1355AC5F1F2
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6BF38C628AC;
+	Mon,  2 May 2022 09:05:20 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 49F86C5F1F2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  2 May 2022 08:44:27 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 2427ifsc018835;
- Mon, 2 May 2022 10:44:18 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=sQ244dn7vjmexo5macp2kveUCjJBaKFtvuCJORvE5yE=;
- b=8J2ZHAYL+ICcb/zOET5vN0aEawXv3Q5AXmR2fpiwTVI/qswZgsnIX4jwhL9mb/+yIFAQ
- mYHu4kFkCyAPiCqM4WIfhrbZRnHrTS7tssje/3rUfg3xyIdjeDaKXkXhf80ydrqHla74
- MOHsPUu7gKkvZg0asZ+kGQsJWJhYqQp54beYsBFnus75ttvgtU37xkdBFil3d09fw53o
- hZtHX9d3Dk3/3+ibRD7Mc5EFYMSd2zlEVCSQuxtaow8xmbbjKx3wfLy6GSipTLOkgj4h
- Co31IxtfB4D9d8ZPexXlMFJzfSRgXNOBZUe64lHl7NTQI9KXB2+DGAOx/5rBXa2gvaNF Mg== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3frv0fyud9-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 02 May 2022 10:44:18 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 27E7F10002A;
- Mon,  2 May 2022 10:44:17 +0200 (CEST)
-Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 209392138FF;
- Mon,  2 May 2022 10:44:17 +0200 (CEST)
-Received: from [10.201.21.169] (10.75.127.50) by SFHDAG2NODE2.st.com
- (10.75.127.5) with Microsoft SMTP Server (TLS) id 15.0.1497.26; Mon, 2 May
- 2022 10:44:16 +0200
-Message-ID: <702dcede-ff97-b074-20bf-7c695f988d40@foss.st.com>
-Date: Mon, 2 May 2022 10:44:15 +0200
+ Mon,  2 May 2022 08:49:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1651481342;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=g1EGMUSX4uhdpumN1AqArSCJZUMcx2qk+SIJN7jkMXI=;
+ b=P0h/w4e8bqfdcfuw0MzVuqo30xCR92VaVbU/cZWVK81Y/aYl1Hulb/zDJv3U8VC527kV4m
+ U3pcdK/902HbQJMV5WWF5w9oFoD/ZwFVMpxmPmcoChf4Hyn5g1NkQU2mmlN8tjAgL6rYg4
+ MfeBdRSBapuQll01D5v+FmDRUTMF3OU=
+Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
+ [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-399-UCsJr6KWPx-izDxeLC14lw-1; Mon, 02 May 2022 04:49:01 -0400
+X-MC-Unique: UCsJr6KWPx-izDxeLC14lw-1
+Received: by mail-wm1-f71.google.com with SMTP id
+ g3-20020a7bc4c3000000b0039409519611so4276960wmk.9
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 02 May 2022 01:49:01 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=g1EGMUSX4uhdpumN1AqArSCJZUMcx2qk+SIJN7jkMXI=;
+ b=ZvVJA5763x5k8DRqoFu2QGxsoc+DFmt/62HpA0s9HPYeqo5rujBBn5YionXDJPYaeB
+ XZzqCB7UjIHofXch1Oap8yBekK1td+VIEXPaRPY/JeSvd68lpgknUFu56hmq74v/cCxS
+ H+njNXfcFl9IiWgeN7oPNFP9KeJYzKOEj2v7AMNHJEYu9V6I2jllnfq/VdRvfSwOkD8J
+ Wb1X0oUzGzvE01nUcdUHzl5IeU3jlBIxnKzcVJz2rF2cQ26pA40QCT7Rul7pXpAaVRUi
+ S9hj6sm8XCwrlb9Ba+uL1O8yTJZuYCZcok/0zMpZ03nHNHXCk4KTIZTAam2y48vkSPb4
+ ZLSg==
+X-Gm-Message-State: AOAM530pvWGdd4cFiAdZ0MZX62wthGUVlOiTZ4UPGHAc7NxgkQZnBf3D
+ h2rVFkYDFynTJvOYZ1EpMbATCN4WyBRCi9yMtkRv3zFl2LwkMIuGUT1Q8bKWG1ZY4WCYw972OQh
+ vTfV7S3PVH2S2kdcYUsoZsf87HfJ438sqh6Fezgk+
+X-Received: by 2002:a1c:7512:0:b0:394:16ee:ab9b with SMTP id
+ o18-20020a1c7512000000b0039416eeab9bmr9917256wmc.176.1651481339941; 
+ Mon, 02 May 2022 01:48:59 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJz1HDOH0L0J59jWzQqe8OCc8OrGCpxEDekTc2b0ViBR9lVxUT3tRNZw5Yfr7Gkyc9Gu0hnOLg==
+X-Received: by 2002:a1c:7512:0:b0:394:16ee:ab9b with SMTP id
+ o18-20020a1c7512000000b0039416eeab9bmr9917168wmc.176.1651481339590; 
+ Mon, 02 May 2022 01:48:59 -0700 (PDT)
+Received: from minerva.. ([90.167.94.74]) by smtp.gmail.com with ESMTPSA id
+ i14-20020adfa50e000000b0020c5253d8c6sm8032307wrb.18.2022.05.02.01.48.52
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 02 May 2022 01:48:59 -0700 (PDT)
+From: Javier Martinez Canillas <javierm@redhat.com>
+To: linux-kernel@vger.kernel.org
+Date: Mon,  2 May 2022 10:48:27 +0200
+Message-Id: <20220502084830.285639-1-javierm@redhat.com>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.7.0
-Content-Language: en-US
-To: Marek Vasut <marex@denx.de>, <linux-serial@vger.kernel.org>
-References: <20220430162845.244655-1-marex@denx.de>
- <20220430162845.244655-2-marex@denx.de>
-From: Erwan LE RAY <erwan.leray@foss.st.com>
-In-Reply-To: <20220430162845.244655-2-marex@denx.de>
-X-Originating-IP: [10.75.127.50]
-X-ClientProxiedBy: SFHDAG2NODE3.st.com (10.75.127.6) To SFHDAG2NODE2.st.com
- (10.75.127.5)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.858,Hydra:6.0.486,FMLib:17.11.64.514
- definitions=2022-05-02_03,2022-04-28_01,2022-02-23_01
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jean Philippe Romain <jean-philippe.romain@foss.st.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 2/2] serial: stm32: Use TC interrupt to
- deassert GPIO RTS in RS485 mode
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=javierm@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+X-Mailman-Approved-At: Mon, 02 May 2022 09:05:17 +0000
+Cc: Xinliang Liu <xinliang.liu@linaro.org>,
+ Linus Walleij <linus.walleij@linaro.org>, dri-devel@lists.freedesktop.org,
+ linux-stm32@st-md-mailman.stormreply.com, Jerome Brunet <jbrunet@baylibre.com>,
+ Samuel Holland <samuel@sholland.org>, Kevin Hilman <khilman@baylibre.com>,
+ Michal Simek <michal.simek@xilinx.com>, NXP Linux Team <linux-imx@nxp.com>,
+ spice-devel@lists.freedesktop.org, linux-sunxi@lists.linux.dev,
+ Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
+ Alain Volmat <alain.volmat@foss.st.com>, Hyun Kwon <hyun.kwon@xilinx.com>,
+ Andrew Jeffery <andrew@aj.id.au>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ =?UTF-8?q?Noralf=20Tr=C3=B8nnes?= <noralf@tronnes.org>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Claudiu Beznea <claudiu.beznea@microchip.com>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ linux-aspeed@lists.ozlabs.org, David Airlie <airlied@linux.ie>,
+ virtualization@lists.linux-foundation.org,
+ Mario Limonciello <mario.limonciello@amd.com>, Sam Ravnborg <sam@ravnborg.org>,
+ Alexey Brodkin <abrodkin@synopsys.com>, Dave Airlie <airlied@redhat.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Maxime Ripard <mripard@kernel.org>, John Stultz <john.stultz@linaro.org>,
+ linux-amlogic@lists.infradead.org, Evan Quan <evan.quan@amd.com>,
+ Yong Wu <yong.wu@mediatek.com>, Boris Brezillon <bbrezillon@kernel.org>,
+ linux-renesas-soc@vger.kernel.org, Solomon Chiu <solomon.chiu@amd.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Brian Starkey <brian.starkey@arm.com>,
+ Neil Armstrong <narmstrong@baylibre.com>, Stefan Agner <stefan@agner.ch>,
+ Javier Martinez Canillas <javierm@redhat.com>,
+ Gerd Hoffmann <kraxel@redhat.com>, Fabio Estevam <festevam@gmail.com>,
+ Hao Fang <fanghao11@huawei.com>, Xinwei Kong <kong.kongxinwei@hisilicon.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Chen-Yu Tsai <wens@csie.org>,
+ Joel Stanley <joel@jms.id.au>, Chia-I Wu <olvaffe@gmail.com>,
+ Chun-Kuang Hu <chunkuang.hu@kernel.org>, Chen Feng <puck.chen@hisilicon.com>,
+ Alison Wang <alison.wang@nxp.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Tomi Valkeinen <tomba@kernel.org>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+ Tian Tao <tiantao6@hisilicon.com>, Shawn Guo <shawnguo@kernel.org>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Emma Anholt <emma@anholt.net>, Liviu Dudau <liviu.dudau@arm.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>,
+ Paul Cercueil <paul@crapouillou.net>, Nirmoy Das <nirmoy.das@amd.com>,
+ Marek Vasut <marex@denx.de>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Hans de Goede <hdegoede@redhat.com>, linux-mediatek@lists.infradead.org,
+ Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ linux-arm-kernel@lists.infradead.org, amd-gfx@lists.freedesktop.org,
+ Yannick Fertre <yannick.fertre@foss.st.com>, linux-mips@vger.kernel.org,
+ Philipp Zabel <p.zabel@pengutronix.de>, Jyri Sarha <jyri.sarha@iki.fi>,
+ Lucas Stach <l.stach@pengutronix.de>
+Subject: [Linux-stm32] [PATCH 0/3] drm: Allow simpledrm to setup its
+	emulated FB as firmware provided
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,148 +133,81 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Marek,
+Hello,
 
-On 4/30/22 18:28, Marek Vasut wrote:
-> In case the RS485 mode is emulated using GPIO RTS, use the TC interrupt
-> to deassert the GPIO RTS, otherwise the GPIO RTS stays asserted after a
-> transmission ended and the RS485 cannot work.
-> 
-Could you please add a cover letter to explain the rational of the first 
-patch ? I understood the goal of the first by reading the commit message 
-of this second patch.
+This series contain patches suggested by Thomas Zimmermannas a feedback for
+"[RFC PATCH v4 00/11] Fix some race between sysfb device registration and
+drivers probe" [0].
 
-> Signed-off-by: Marek Vasut <marex@denx.de>
-> Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
-> Cc: Erwan Le Ray <erwan.leray@foss.st.com>
-> Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> Cc: Jean Philippe Romain <jean-philippe.romain@foss.st.com>
-> Cc: Valentin Caron <valentin.caron@foss.st.com>
-> Cc: linux-arm-kernel@lists.infradead.org
-> Cc: linux-stm32@st-md-mailman.stormreply.com
-> To: linux-serial@vger.kernel.org
-> ---
->   drivers/tty/serial/stm32-usart.c | 42 ++++++++++++++++++++++++++++++--
->   drivers/tty/serial/stm32-usart.h |  1 +
->   2 files changed, 41 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/tty/serial/stm32-usart.c b/drivers/tty/serial/stm32-usart.c
-> index 224f359c6051e..764415b8e8f03 100644
-> --- a/drivers/tty/serial/stm32-usart.c
-> +++ b/drivers/tty/serial/stm32-usart.c
-> @@ -417,6 +417,14 @@ static void stm32_usart_tx_interrupt_enable(struct uart_port *port)
->   		stm32_usart_set_bits(port, ofs->cr1, USART_CR1_TXEIE);
->   }
->   
-> +static void stm32_usart_tc_interrupt_enable(struct uart_port *port)
-> +{
-> +	struct stm32_port *stm32_port = to_stm32_port(port);
-> +	const struct stm32_usart_offsets *ofs = &stm32_port->info->ofs;
-> +
-> +	stm32_usart_set_bits(port, ofs->cr1, USART_CR1_TCIE);
-> +}
-> +
-I don't see the added value of this helper (only 1 instruction used 1 
-time), and other Interrupt Enabled bits are already set/unset in others 
-functions of this driver.
-To keep an homogeneous code in the driver, could you please remove this 
-helper and set TCIE directly when you need it ?
+Since other changes in [0] were more controversial, I decided to just split
+this part in a new patch-set and revisit the rest of the patches later.
 
->   static void stm32_usart_rx_dma_complete(void *arg)
->   {
->   	struct uart_port *port = arg;
-> @@ -442,6 +450,14 @@ static void stm32_usart_tx_interrupt_disable(struct uart_port *port)
->   		stm32_usart_clr_bits(port, ofs->cr1, USART_CR1_TXEIE);
->   }
->   
-> +static void stm32_usart_tc_interrupt_disable(struct uart_port *port)
-> +{
-> +	struct stm32_port *stm32_port = to_stm32_port(port);
-> +	const struct stm32_usart_offsets *ofs = &stm32_port->info->ofs;
-> +
-> +	stm32_usart_clr_bits(port, ofs->cr1, USART_CR1_TCIE);
-> +}
-> +
-Same comment here.
+Patch #1 is just a cleanup since when working on this noticed that some DRM
+drivers were passing as preferred bits per pixel to drm_fbdev_generic_setup()
+the value that is the default anyways.
 
->   static void stm32_usart_rs485_rts_enable(struct uart_port *port)
->   {
->   	struct stm32_port *stm32_port = to_stm32_port(port);
-> @@ -585,6 +601,13 @@ static void stm32_usart_transmit_chars(struct uart_port *port)
->   	u32 isr;
->   	int ret;
->   
-> +	if (!stm32_port->hw_flow_control &&
-> +	    port->rs485.flags & SER_RS485_ENABLED) {
-> +		stm32_port->txdone = false;
-> +		stm32_usart_tc_interrupt_disable(port);
-> +		stm32_usart_rs485_rts_enable(port);
-> +	}
-> +
->   	if (port->x_char) {
->   		if (stm32_usart_tx_dma_started(stm32_port) &&
->   		    stm32_usart_tx_dma_enabled(stm32_port))
-> @@ -625,8 +648,14 @@ static void stm32_usart_transmit_chars(struct uart_port *port)
->   	if (uart_circ_chars_pending(xmit) < WAKEUP_CHARS)
->   		uart_write_wakeup(port);
->   
-> -	if (uart_circ_empty(xmit))
-> +	if (uart_circ_empty(xmit)) {
->   		stm32_usart_tx_interrupt_disable(port);
-> +		if (!stm32_port->hw_flow_control &&
-> +		    port->rs485.flags & SER_RS485_ENABLED) {
-> +			stm32_port->txdone = true;
-> +			stm32_usart_tc_interrupt_enable(port);
-> +		}
-> +	}
->   }
->   
->   static irqreturn_t stm32_usart_interrupt(int irq, void *ptr)
-> @@ -640,6 +669,13 @@ static irqreturn_t stm32_usart_interrupt(int irq, void *ptr)
->   
->   	sr = readl_relaxed(port->membase + ofs->isr);
->   
-> +	if (!stm32_port->hw_flow_control &&
-> +	    port->rs485.flags & SER_RS485_ENABLED &&
-> +	    (sr & USART_SR_TC)) {
-> +		stm32_usart_tc_interrupt_disable(port);
-> +		stm32_usart_rs485_rts_disable(port);
-> +	}
-> +
->   	if ((sr & USART_SR_RTOF) && ofs->icr != UNDEF_REG)
->   		writel_relaxed(USART_ICR_RTOCF,
->   			       port->membase + ofs->icr);
-> @@ -763,8 +799,10 @@ static void stm32_usart_start_tx(struct uart_port *port)
->   {
->   	struct circ_buf *xmit = &port->state->xmit;
->   
-> -	if (uart_circ_empty(xmit) && !port->x_char)
-> +	if (uart_circ_empty(xmit) && !port->x_char) {
-> +		stm32_usart_rs485_rts_disable(port);
->   		return;
-> +	}
->   
->   	stm32_usart_rs485_rts_enable(port);
->   
-> diff --git a/drivers/tty/serial/stm32-usart.h b/drivers/tty/serial/stm32-usart.h
-> index d734c4a5fd24c..ee69c203b926d 100644
-> --- a/drivers/tty/serial/stm32-usart.h
-> +++ b/drivers/tty/serial/stm32-usart.h
-> @@ -271,6 +271,7 @@ struct stm32_port {
->   	bool hw_flow_control;
->   	bool swap;		 /* swap RX & TX pins */
->   	bool fifoen;
-> +	bool txdone;
->   	int rxftcfg;		/* RX FIFO threshold CFG      */
->   	int txftcfg;		/* TX FIFO threshold CFG      */
->   	bool wakeup_src;
+Patch #2 renames the 'preferred_bpp' drm_fbdev_generic_setup() parameter to
+'options', and make this a multi field parameter so that it can be extended
+later to pass other options as well.
 
-Regards, Erwan.
+Patch #3 finally adds the new DRM_FB_FW option and makes simpledrm to use it
+so that the registered framebuffer device is also marked as firmware provided.
+
+[0]: https://lore.kernel.org/lkml/20220429084253.1085911-1-javierm@redhat.com/
+
+
+Javier Martinez Canillas (3):
+  drm: Remove superfluous arg when calling to drm_fbdev_generic_setup()
+  drm/fb-helper: Rename preferred_bpp drm_fbdev_generic_setup()
+    parameter
+  drm: Allow simpledrm to setup its emulated FB as firmware provided
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |  6 +++--
+ drivers/gpu/drm/arm/hdlcd_drv.c               |  2 +-
+ drivers/gpu/drm/arm/malidp_drv.c              |  2 +-
+ drivers/gpu/drm/aspeed/aspeed_gfx_drv.c       |  2 +-
+ drivers/gpu/drm/ast/ast_drv.c                 |  2 +-
+ drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_dc.c  |  2 +-
+ drivers/gpu/drm/drm_drv.c                     |  2 +-
+ drivers/gpu/drm/drm_fb_helper.c               | 25 ++++++++++++++++---
+ drivers/gpu/drm/fsl-dcu/fsl_dcu_drm_drv.c     |  2 +-
+ .../gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c   |  2 +-
+ .../gpu/drm/hisilicon/kirin/kirin_drm_drv.c   |  2 +-
+ drivers/gpu/drm/imx/dcss/dcss-kms.c           |  2 +-
+ drivers/gpu/drm/imx/imx-drm-core.c            |  2 +-
+ drivers/gpu/drm/ingenic/ingenic-drm-drv.c     |  2 +-
+ drivers/gpu/drm/mcde/mcde_drv.c               |  2 +-
+ drivers/gpu/drm/mediatek/mtk_drm_drv.c        |  2 +-
+ drivers/gpu/drm/meson/meson_drv.c             |  2 +-
+ drivers/gpu/drm/mxsfb/mxsfb_drv.c             |  2 +-
+ drivers/gpu/drm/pl111/pl111_drv.c             |  2 +-
+ drivers/gpu/drm/qxl/qxl_drv.c                 |  2 +-
+ drivers/gpu/drm/rcar-du/rcar_du_drv.c         |  2 +-
+ drivers/gpu/drm/sti/sti_drv.c                 |  2 +-
+ drivers/gpu/drm/stm/drv.c                     |  2 +-
+ drivers/gpu/drm/sun4i/sun4i_drv.c             |  2 +-
+ drivers/gpu/drm/tidss/tidss_drv.c             |  2 +-
+ drivers/gpu/drm/tilcdc/tilcdc_drv.c           |  2 +-
+ drivers/gpu/drm/tiny/arcpgu.c                 |  2 +-
+ drivers/gpu/drm/tiny/bochs.c                  |  2 +-
+ drivers/gpu/drm/tiny/cirrus.c                 |  2 +-
+ drivers/gpu/drm/tiny/simpledrm.c              |  2 +-
+ drivers/gpu/drm/tve200/tve200_drv.c           |  2 +-
+ drivers/gpu/drm/vboxvideo/vbox_drv.c          |  2 +-
+ drivers/gpu/drm/vc4/vc4_drv.c                 |  2 +-
+ drivers/gpu/drm/virtio/virtgpu_drv.c          |  2 +-
+ drivers/gpu/drm/xlnx/zynqmp_dpsub.c           |  2 +-
+ include/drm/drm_fb_helper.h                   | 22 ++++++++++++++++
+ 36 files changed, 80 insertions(+), 39 deletions(-)
+
+-- 
+2.35.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
