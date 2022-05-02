@@ -2,121 +2,52 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E8683516E66
-	for <lists+linux-stm32@lfdr.de>; Mon,  2 May 2022 12:50:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 52458516EA3
+	for <lists+linux-stm32@lfdr.de>; Mon,  2 May 2022 13:14:03 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7BDA5C628AB;
-	Mon,  2 May 2022 10:50:00 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BF00EC628A8
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D6AE2C628AB;
+	Mon,  2 May 2022 11:14:02 +0000 (UTC)
+Received: from phobos.denx.de (phobos.denx.de [85.214.62.61])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A5D06C628A8
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  2 May 2022 10:49:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1651488597;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=3TKyHWDgC93OfXdwv3f/QQ+fWpsgCb5Bjp407TIVwrw=;
- b=W9aUkE1bnSxtGZDw6EH4QhshhIoxLy409jEaJmvf3QAeh5yIz3t6/ttF7ZT4jDEoOVHYVV
- F0UEm+bsoseXG7XhR9fEfgRUggywwGNJwaPuwfaveQ4oQ57lnGOd4+y7JrNtXzfVbBzrvY
- GybOlNCAWpcfYtoU1YBpnJkuPxU/VbM=
-Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
- [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-108-10RghQaRPjWeUlfYeYtyAA-1; Mon, 02 May 2022 06:49:56 -0400
-X-MC-Unique: 10RghQaRPjWeUlfYeYtyAA-1
-Received: by mail-wr1-f69.google.com with SMTP id
- o13-20020adfa10d000000b0020c6fa5a77cso158710wro.23
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 02 May 2022 03:49:56 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=3TKyHWDgC93OfXdwv3f/QQ+fWpsgCb5Bjp407TIVwrw=;
- b=IDiqQdaMGrIVhPAI98WJILmzkApe23YnTELsc0DiTlpCqNb5MkiaXraI7LfdbLN/R3
- /intGlqCt7DE2LKeQZQke4On2/u7spHsGa+vIH6Z3I4DtiBE40AQGhgu3qJJQyChUuZ1
- KLkDPnln2ld1dxVDDH1N4PDugyehjMTrmofPNghqp3PNlnbUONy+7kkdpvgziBb58NNR
- PgaDCmjaDSDCqNheB2/HuA4J3MdqunVmvUnX5x+YAukKN1nZeN9AmsOCD43RMDAAkJKz
- 7YtEvrt1d++i/7BJAg3fiBzqBh63cuptM+wot2P3lv4z2ro3eejgnj5brAh8DjWvD8Nf
- GOeg==
-X-Gm-Message-State: AOAM5339vPkgwrJcoIeQyjqy4yvMhRHWgWB5vAhPu4z2jJDBAaO9HqRr
- Cd+iSY6WZ6LjnwjNWzGKp6SDxBp1/5md2Uiiy8G8gjR+GPrQS1lrNPFw8LaPcwE5LVGK8MqVjPB
- xub4Iwz/jog+GT5vv3QLtdUCEwp6sjGZYxeqx/Bc5
-X-Received: by 2002:a5d:5051:0:b0:20a:e005:cca3 with SMTP id
- h17-20020a5d5051000000b0020ae005cca3mr8676763wrt.560.1651488595402; 
- Mon, 02 May 2022 03:49:55 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJznK7MTrWwTm+wtuLbm1AtWbuZrM/hnsYDFHNU2iLGSqHpPTjz/i73gvAXGyZ+XCXckc/fOrQ==
-X-Received: by 2002:a5d:5051:0:b0:20a:e005:cca3 with SMTP id
- h17-20020a5d5051000000b0020ae005cca3mr8676723wrt.560.1651488595161; 
- Mon, 02 May 2022 03:49:55 -0700 (PDT)
-Received: from [192.168.1.129] ([92.176.231.205])
- by smtp.gmail.com with ESMTPSA id
- w7-20020adf8bc7000000b0020c5253d8f9sm6707583wra.69.2022.05.02.03.49.51
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 02 May 2022 03:49:54 -0700 (PDT)
-Message-ID: <1d2a03f7-d4f6-66ac-6e2e-adbd2eaf7d90@redhat.com>
-Date: Mon, 2 May 2022 12:49:50 +0200
+ Mon,  2 May 2022 11:14:01 +0000 (UTC)
+Received: from [127.0.0.1] (p578adb1c.dip0.t-ipconnect.de [87.138.219.28])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits))
+ (No client certificate requested)
+ (Authenticated sender: marex@denx.de)
+ by phobos.denx.de (Postfix) with ESMTPSA id 772BA83D07;
+ Mon,  2 May 2022 13:14:00 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de;
+ s=phobos-20191101; t=1651490041;
+ bh=GYeUZKMtocbMmxb4L7AIL1pIKQna8kVZpFNC+YLY+e4=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=m/4RKntesSV7zzPBjofMnDfi3iQJbggoKREF7VeiBeDO9QIhomoWCSY1nApegAHer
+ pgUBUE00mPByxE8ZXhslInwPd4KtoasjqWHSNYOl3YGCGN8b2mKbo351NinKUNmOar
+ POXESDTBRwhdBbE3gx2qR6j/hrWNVEDq/z29pbOiOvuIy8G24moufAqnPK+GHc/2AY
+ IFcYFnbW9Z6/DKewFm8+yq74BMD4Y0xjccUCxdLWhj9zNdit1fr/w6A0Bw1cLVfIBn
+ FrTvcbDL3ep9SUkNPA8iyq1u1s1mNhh0PQVVoStG4agccgrB7Alepy7AJBRaL8rah/
+ qLTV6nWIVzvlA==
+Message-ID: <18f886d9-924b-e32b-e298-90e998b30662@denx.de>
+Date: Mon, 2 May 2022 13:13:59 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.8.0
-To: Thomas Zimmermann <tzimmermann@suse.de>, linux-kernel@vger.kernel.org
-References: <20220502084830.285639-1-javierm@redhat.com>
- <c120e1c4-ac5c-afd5-8dd1-b4b51e0dcca9@suse.de>
-From: Javier Martinez Canillas <javierm@redhat.com>
-In-Reply-To: <c120e1c4-ac5c-afd5-8dd1-b4b51e0dcca9@suse.de>
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=javierm@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
+ Thunderbird/91.8.1
 Content-Language: en-US
-Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
- linux-aspeed@lists.ozlabs.org, Neil Armstrong <narmstrong@baylibre.com>,
- David Airlie <airlied@linux.ie>, Liviu Dudau <liviu.dudau@arm.com>,
- dri-devel@lists.freedesktop.org, Gurchetan Singh <gurchetansingh@chromium.org>,
- Paul Cercueil <paul@crapouillou.net>, Nirmoy Das <nirmoy.das@amd.com>,
- Gerd Hoffmann <kraxel@redhat.com>, Dave Airlie <airlied@redhat.com>,
- Sam Ravnborg <sam@ravnborg.org>, linux-stm32@st-md-mailman.stormreply.com,
- Jyri Sarha <jyri.sarha@iki.fi>, Jerome Brunet <jbrunet@baylibre.com>,
- Marek Vasut <marex@denx.de>, Hao Fang <fanghao11@huawei.com>,
- Evan Quan <evan.quan@amd.com>, Emma Anholt <emma@anholt.net>,
- Samuel Holland <samuel@sholland.org>, Kevin Hilman <khilman@baylibre.com>,
- Alexey Brodkin <abrodkin@synopsys.com>, Michal Simek <michal.simek@xilinx.com>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Xinliang Liu <xinliang.liu@linaro.org>, Chen-Yu Tsai <wens@csie.org>,
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
- Joel Stanley <joel@jms.id.au>, Alain Volmat <alain.volmat@foss.st.com>,
- spice-devel@lists.freedesktop.org, Xinwei Kong <kong.kongxinwei@hisilicon.com>,
- linux-sunxi@lists.linux.dev, NXP Linux Team <linux-imx@nxp.com>,
- Chun-Kuang Hu <chunkuang.hu@kernel.org>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Chen Feng <puck.chen@hisilicon.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- Alison Wang <alison.wang@nxp.com>, Lucas De Marchi <lucas.demarchi@intel.com>,
- Hans de Goede <hdegoede@redhat.com>, linux-mediatek@lists.infradead.org,
- Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>,
- Matthias Brugger <matthias.bgg@gmail.com>, linux-amlogic@lists.infradead.org,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- virtualization@lists.linux-foundation.org, Yong Wu <yong.wu@mediatek.com>,
- linux-arm-kernel@lists.infradead.org, amd-gfx@lists.freedesktop.org,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Hyun Kwon <hyun.kwon@xilinx.com>, Tomi Valkeinen <tomba@kernel.org>,
- Boris Brezillon <bbrezillon@kernel.org>, Andrew Jeffery <andrew@aj.id.au>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Yannick Fertre <yannick.fertre@foss.st.com>, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>, linux-mips@vger.kernel.org,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- linux-renesas-soc@vger.kernel.org, Solomon Chiu <solomon.chiu@amd.com>,
- =?UTF-8?Q?Noralf_Tr=c3=b8nnes?= <noralf@tronnes.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alex Deucher <alexander.deucher@amd.com>, Tian Tao <tiantao6@hisilicon.com>,
- Shawn Guo <shawnguo@kernel.org>, Claudiu Beznea <claudiu.beznea@microchip.com>,
- Mario Limonciello <mario.limonciello@amd.com>
-Subject: Re: [Linux-stm32] [PATCH 0/3] drm: Allow simpledrm to setup its
- emulated FB as firmware provided
+To: Erwan LE RAY <erwan.leray@foss.st.com>, linux-serial@vger.kernel.org
+References: <20220430162845.244655-1-marex@denx.de>
+ <20220430162845.244655-2-marex@denx.de>
+ <702dcede-ff97-b074-20bf-7c695f988d40@foss.st.com>
+From: Marek Vasut <marex@denx.de>
+In-Reply-To: <702dcede-ff97-b074-20bf-7c695f988d40@foss.st.com>
+X-Virus-Scanned: clamav-milter 0.103.5 at phobos.denx.de
+X-Virus-Status: Clean
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jean Philippe Romain <jean-philippe.romain@foss.st.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 2/2] serial: stm32: Use TC interrupt to
+ deassert GPIO RTS in RS485 mode
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -128,57 +59,44 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello Thomas,
-
-On 5/2/22 12:35, Thomas Zimmermann wrote:
-> Hi Javier
-> 
-> Am 02.05.22 um 10:48 schrieb Javier Martinez Canillas:
->> Hello,
->>
->> This series contain patches suggested by Thomas Zimmermannas a feedback for
-
-Ups, I missed a space here. I meant to write "Zimmermann as a feedback..."
-
->> "[RFC PATCH v4 00/11] Fix some race between sysfb device registration and
->> drivers probe" [0].
->>
->> Since other changes in [0] were more controversial, I decided to just split
->> this part in a new patch-set and revisit the rest of the patches later.
->>
->> Patch #1 is just a cleanup since when working on this noticed that some DRM
->> drivers were passing as preferred bits per pixel to drm_fbdev_generic_setup()
->> the value that is the default anyways.
->>
->> Patch #2 renames the 'preferred_bpp' drm_fbdev_generic_setup() parameter to
->> 'options', and make this a multi field parameter so that it can be extended
->> later to pass other options as well.
->>
->> Patch #3 finally adds the new DRM_FB_FW option and makes simpledrm to use it
->> so that the registered framebuffer device is also marked as firmware provided.
-> 
-> For the whole patchset:
-> 
-> Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
-> 
-> Thanks a lot!
-> 
-
-Thanks for the prompt review!
-
--- 
-Best regards,
-
-Javier Martinez Canillas
-Linux Engineering
-Red Hat
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gNS8yLzIyIDEwOjQ0LCBFcndhbiBMRSBSQVkgd3JvdGU6Cj4gSGkgTWFyZWssCgpIaSwKCj4g
+T24gNC8zMC8yMiAxODoyOCwgTWFyZWsgVmFzdXQgd3JvdGU6Cj4+IEluIGNhc2UgdGhlIFJTNDg1
+IG1vZGUgaXMgZW11bGF0ZWQgdXNpbmcgR1BJTyBSVFMsIHVzZSB0aGUgVEMgaW50ZXJydXB0Cj4+
+IHRvIGRlYXNzZXJ0IHRoZSBHUElPIFJUUywgb3RoZXJ3aXNlIHRoZSBHUElPIFJUUyBzdGF5cyBh
+c3NlcnRlZCBhZnRlciBhCj4+IHRyYW5zbWlzc2lvbiBlbmRlZCBhbmQgdGhlIFJTNDg1IGNhbm5v
+dCB3b3JrLgo+Pgo+IENvdWxkIHlvdSBwbGVhc2UgYWRkIGEgY292ZXIgbGV0dGVyIHRvIGV4cGxh
+aW4gdGhlIHJhdGlvbmFsIG9mIHRoZSBmaXJzdCAKPiBwYXRjaCA/IEkgdW5kZXJzdG9vZCB0aGUg
+Z29hbCBvZiB0aGUgZmlyc3QgYnkgcmVhZGluZyB0aGUgY29tbWl0IG1lc3NhZ2UgCj4gb2YgdGhp
+cyBzZWNvbmQgcGF0Y2guCgpUaGUgcmF0aW9uYWxlIGlzIHRyaXZpYWwgLS0gbWFrZSBzdXJlIHdl
+IGRvbid0IGhhdmUgZml2ZSBjb3BpZXMgb2YgdGhlIApzYW1lIGJsb2NrIG9mIGNvZGUgaW4gdGhl
+IGRyaXZlci4KCj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL3R0eS9zZXJpYWwvc3RtMzItdXNhcnQu
+YyAKPj4gYi9kcml2ZXJzL3R0eS9zZXJpYWwvc3RtMzItdXNhcnQuYwo+PiBpbmRleCAyMjRmMzU5
+YzYwNTFlLi43NjQ0MTViOGU4ZjAzIDEwMDY0NAo+PiAtLS0gYS9kcml2ZXJzL3R0eS9zZXJpYWwv
+c3RtMzItdXNhcnQuYwo+PiArKysgYi9kcml2ZXJzL3R0eS9zZXJpYWwvc3RtMzItdXNhcnQuYwo+
+PiBAQCAtNDE3LDYgKzQxNywxNCBAQCBzdGF0aWMgdm9pZCAKPj4gc3RtMzJfdXNhcnRfdHhfaW50
+ZXJydXB0X2VuYWJsZShzdHJ1Y3QgdWFydF9wb3J0ICpwb3J0KQo+PiDCoMKgwqDCoMKgwqDCoMKg
+wqAgc3RtMzJfdXNhcnRfc2V0X2JpdHMocG9ydCwgb2ZzLT5jcjEsIFVTQVJUX0NSMV9UWEVJRSk7
+Cj4+IMKgIH0KPj4gK3N0YXRpYyB2b2lkIHN0bTMyX3VzYXJ0X3RjX2ludGVycnVwdF9lbmFibGUo
+c3RydWN0IHVhcnRfcG9ydCAqcG9ydCkKPj4gK3sKPj4gK8KgwqDCoCBzdHJ1Y3Qgc3RtMzJfcG9y
+dCAqc3RtMzJfcG9ydCA9IHRvX3N0bTMyX3BvcnQocG9ydCk7Cj4+ICvCoMKgwqAgY29uc3Qgc3Ry
+dWN0IHN0bTMyX3VzYXJ0X29mZnNldHMgKm9mcyA9ICZzdG0zMl9wb3J0LT5pbmZvLT5vZnM7Cj4+
+ICsKPj4gK8KgwqDCoCBzdG0zMl91c2FydF9zZXRfYml0cyhwb3J0LCBvZnMtPmNyMSwgVVNBUlRf
+Q1IxX1RDSUUpOwo+PiArfQo+PiArCj4gSSBkb24ndCBzZWUgdGhlIGFkZGVkIHZhbHVlIG9mIHRo
+aXMgaGVscGVyIChvbmx5IDEgaW5zdHJ1Y3Rpb24gdXNlZCAxIAo+IHRpbWUpLCBhbmQgb3RoZXIg
+SW50ZXJydXB0IEVuYWJsZWQgYml0cyBhcmUgYWxyZWFkeSBzZXQvdW5zZXQgaW4gb3RoZXJzIAo+
+IGZ1bmN0aW9ucyBvZiB0aGlzIGRyaXZlci4KPiBUbyBrZWVwIGFuIGhvbW9nZW5lb3VzIGNvZGUg
+aW4gdGhlIGRyaXZlciwgY291bGQgeW91IHBsZWFzZSByZW1vdmUgdGhpcyAKPiBoZWxwZXIgYW5k
+IHNldCBUQ0lFIGRpcmVjdGx5IHdoZW4geW91IG5lZWQgaXQgPwoKU2hvdWxkIEkgYWxzbyByZW1v
+dmUgc3RtMzJfdXNhcnRfdHhfaW50ZXJydXB0X2VuYWJsZSgpIC8gCnN0bTMyX3VzYXJ0X3R4X2lu
+dGVycnVwdF9kaXNhYmxlKCkgLCB3aGljaCBkb2VzIHRoZSBzYW1lIHRoaW5nIGZvciBvdGhlciAK
+Yml0cyBpbiB0aGUgaW50ZXJydXB0IHJlZ2lzdGVyID8KClRoYXQgc291bmRzIHRvIG1lIGxpa2Ug
+bWFraW5nIHRoZSBjb2RlIGhhcmRlciB0byByZWFkLCBub3QgZWFzaWVyLgoKWy4uLl0KX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFp
+bGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6
+Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3Rt
+MzIK
