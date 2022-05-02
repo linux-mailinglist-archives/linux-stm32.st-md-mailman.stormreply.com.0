@@ -2,62 +2,81 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 360DE517299
-	for <lists+linux-stm32@lfdr.de>; Mon,  2 May 2022 17:32:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A415B5172E7
+	for <lists+linux-stm32@lfdr.de>; Mon,  2 May 2022 17:39:08 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C0D36C60462;
-	Mon,  2 May 2022 15:32:04 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 60D50C5F1F0
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 39075C60462;
+	Mon,  2 May 2022 15:39:08 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 18CF7C5F1F0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  2 May 2022 15:32:03 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 242DcwT8016032;
- Mon, 2 May 2022 17:31:51 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=from : to : cc :
- subject : date : message-id : mime-version : content-transfer-encoding :
- content-type; s=selector1;
- bh=8ralpS6yoB5LO57RRVOsPiKbowhvCD5Zg9HRkpvi//Q=;
- b=amVVkvUB++ArDu1frvMEWiCWegAHeCFncbNip1pkxC/kFaDNO7VQZpScJACiJVd5G10+
- yY99knlCzJLv+Gf34FSTbV85KIAwbFp5I5Yiyw/y3M7foD51HhGFmn5giQdzCJJxbmB6
- eYsLpRFNmsCmnx2kOO/l1b/VYKqyHjul+d14dOPYbskcyyBqLcuMIhOV/8YZ1m5Od9yJ
- c8XmVEblaQNeMmwnEdlxjUsIfZG83gXG+cQrTP89MFnAYNxNksTB3XMX5OVXlfuTPMO/
- OtUfde2YKUtDDS3vpyHYG3laU2cID1W0A2CamWg82no0s8QcnG/7PW52efZrUq+8pEdZ 3w== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3frv0g1wnh-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 02 May 2022 17:31:51 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 6F58210002A;
- Mon,  2 May 2022 17:31:42 +0200 (CEST)
-Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 672CE22ECE6;
- Mon,  2 May 2022 17:31:42 +0200 (CEST)
-Received: from localhost (10.75.127.45) by SFHDAG2NODE2.st.com (10.75.127.5)
- with Microsoft SMTP Server (TLS) id 15.0.1497.26; Mon, 2 May 2022 17:31:41
- +0200
-From: Fabien Dessenne <fabien.dessenne@foss.st.com>
-To: Linus Walleij <linus.walleij@linaro.org>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- <linux-gpio@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
- <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
-Date: Mon, 2 May 2022 17:31:14 +0200
-Message-ID: <20220502153114.283618-1-fabien.dessenne@foss.st.com>
-X-Mailer: git-send-email 2.25.1
+ Mon,  2 May 2022 15:39:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1651505946;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=RxZ1zA8nQC01DJB3x+D5mWs5PQSC8mjj8OCqdkOk8ik=;
+ b=HQL0q8OlJFvZxLhXHBOs7DesawYrqiwKzzVtH3EeWkeKNv2LPjmxWV9NA+kyf4PSU3MKI6
+ y0O30ZhbnFxh0LZa2YnaebOJxKRPsUBdozO6KZINoif8NXQ9lg9anm4y3dHM42cR2Vp68/
+ AtbfydBZUg7jhQbIniAMnzlKKCuksrM=
+Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
+ [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-119-SaUl4ztLNUaathPg_i6w4w-1; Mon, 02 May 2022 11:39:05 -0400
+X-MC-Unique: SaUl4ztLNUaathPg_i6w4w-1
+Received: by mail-wr1-f71.google.com with SMTP id
+ b10-20020adfc74a000000b0020ab029d5edso5394089wrh.18
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 02 May 2022 08:39:04 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=RxZ1zA8nQC01DJB3x+D5mWs5PQSC8mjj8OCqdkOk8ik=;
+ b=Sb7JivYKWKtTgRxKrjRw08xGsLnv7Hvn0sg9eBd0gxzXDf7bUIhbGokjqXVAt6UIlW
+ 1sQZPP4uf2EIjYOcY65LFPCov0NKvA1e7b7wEiYsTL6nSJBfoAlHWoohseABW4pqExbu
+ M5Tystl191qX2du5gY4Sp0riIpEdm9pqNthdkH7Ev7ni+kdI5MOwRugwSfrqJFqOceGX
+ iYWr6k+sBV2y75xTWL1khtkK7F0fKe+qlYshCtqCr8FB7BeBsdTTYo04myH6rfHWNCXI
+ 6B6l3LiyFlpH4WLAGdTeTyDmoMgBmoVpQQq8VHQkzX+HPfBiTdY5j8prLyxULXxkodfI
+ TbOA==
+X-Gm-Message-State: AOAM532CKI8nDbIcKrbmgbwgDnyKAS7ahnWl4NkXadrIbdV4iYpOKX+y
+ u+Y3cqH/fIz40dXDse4PFVeuySLWNuX2e8BWhEJRP2R2yruoAv3lMsx2eQxG+x6moDqXmKv29nH
+ WRrWE/vGh8Rv5KfSMTMC9s8KFmTwP5neRve5zVrqF
+X-Received: by 2002:a05:600c:4f56:b0:394:3fa3:97bb with SMTP id
+ m22-20020a05600c4f5600b003943fa397bbmr3455843wmq.83.1651505943848; 
+ Mon, 02 May 2022 08:39:03 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJx5iF7k5TDSOSlgHfyQz+pcyPcHCX6LV3RnlxGS89mLob4h+ZdMgib1ArSojImIhdyBYcuzBw==
+X-Received: by 2002:a05:600c:4f56:b0:394:3fa3:97bb with SMTP id
+ m22-20020a05600c4f5600b003943fa397bbmr3455805wmq.83.1651505943296; 
+ Mon, 02 May 2022 08:39:03 -0700 (PDT)
+Received: from minerva.home ([92.176.231.205])
+ by smtp.gmail.com with ESMTPSA id
+ v28-20020adfa1dc000000b0020c5253d923sm7294489wrv.111.2022.05.02.08.39.02
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 02 May 2022 08:39:02 -0700 (PDT)
+From: Javier Martinez Canillas <javierm@redhat.com>
+To: linux-kernel@vger.kernel.org
+Date: Mon,  2 May 2022 17:38:57 +0200
+Message-Id: <20220502153900.408522-1-javierm@redhat.com>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.45]
-X-ClientProxiedBy: SFHDAG2NODE2.st.com (10.75.127.5) To SFHDAG2NODE2.st.com
- (10.75.127.5)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.858,Hydra:6.0.486,FMLib:17.11.64.514
- definitions=2022-05-02_04,2022-05-02_03,2022-02-23_01
-Subject: [Linux-stm32] [PATCH] pinctrl: stm32: prevent the use of the secure
-	protected pins
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=javierm@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Cc: linux-aspeed@lists.ozlabs.org, Daniel Vetter <daniel.vetter@ffwll.ch>,
+ Javier Martinez Canillas <javierm@redhat.com>, dri-devel@lists.freedesktop.org,
+ linux-mips@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+ linux-mediatek@lists.infradead.org, amd-gfx@lists.freedesktop.org,
+ Thomas Zimmermann <tzimmermann@suse.de>, spice-devel@lists.freedesktop.org,
+ linux-amlogic@lists.infradead.org, virtualization@lists.linux-foundation.org,
+ linux-sunxi@lists.linux.dev, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Subject: [Linux-stm32] [PATCH v2 0/3] drm: Allow simpledrm to setup its
+	emulated FB as firmware provided
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,183 +93,82 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The hardware denies any access from the Linux non-secure world to the
-secure-protected pins. Hence, prevent any driver to request such a pin.
+Hello,
 
-Mark the secure-protected GPIO lines as invalid (.init_valid_mask) and
-prevent the pinmux request / pinconf setting operations.
-Identify the secure pins with "NO ACCESS" in the pinconf sysfs.
+This series contain patches suggested by Thomas Zimmermann as a feedback for
+"[RFC PATCH v4 00/11] Fix some race between sysfb device registration and
+drivers probe" [0].
 
-Signed-off-by: Fabien Dessenne <fabien.dessenne@foss.st.com>
----
- drivers/pinctrl/stm32/pinctrl-stm32.c      | 64 ++++++++++++++++++++++
- drivers/pinctrl/stm32/pinctrl-stm32.h      |  1 +
- drivers/pinctrl/stm32/pinctrl-stm32mp135.c |  1 +
- 3 files changed, 66 insertions(+)
+Since other changes in [0] were more controversial, I decided to just split
+this part in a new patch-set and revisit the rest of the patches later.
 
-diff --git a/drivers/pinctrl/stm32/pinctrl-stm32.c b/drivers/pinctrl/stm32/pinctrl-stm32.c
-index b308e7bb7487..e81772255e43 100644
---- a/drivers/pinctrl/stm32/pinctrl-stm32.c
-+++ b/drivers/pinctrl/stm32/pinctrl-stm32.c
-@@ -43,6 +43,7 @@
- #define STM32_GPIO_LCKR		0x1c
- #define STM32_GPIO_AFRL		0x20
- #define STM32_GPIO_AFRH		0x24
-+#define STM32_GPIO_SECCFGR	0x30
- 
- /* custom bitfield to backup pin status */
- #define STM32_GPIO_BKP_MODE_SHIFT	0
-@@ -94,6 +95,7 @@ struct stm32_gpio_bank {
- 	u32 bank_ioport_nr;
- 	u32 pin_backup[STM32_GPIO_PINS_PER_BANK];
- 	u8 irq_type[STM32_GPIO_PINS_PER_BANK];
-+	bool secure_control;
- };
- 
- struct stm32_pinctrl {
-@@ -283,6 +285,33 @@ static int stm32_gpio_get_direction(struct gpio_chip *chip, unsigned int offset)
- 	return ret;
- }
- 
-+static int stm32_gpio_init_valid_mask(struct gpio_chip *chip,
-+				      unsigned long *valid_mask,
-+				      unsigned int ngpios)
-+{
-+	struct stm32_gpio_bank *bank = gpiochip_get_data(chip);
-+	struct stm32_pinctrl *pctl = dev_get_drvdata(bank->gpio_chip.parent);
-+	unsigned int i;
-+	u32 sec;
-+
-+	/* All gpio are valid per default */
-+	bitmap_fill(valid_mask, ngpios);
-+
-+	if (bank->secure_control) {
-+		/* Tag secured pins as invalid */
-+		sec = readl_relaxed(bank->base + STM32_GPIO_SECCFGR);
-+
-+		for (i = 0; i < ngpios; i++) {
-+			if (sec & BIT(i)) {
-+				clear_bit(i, valid_mask);
-+				dev_dbg(pctl->dev, "No access to gpio %d - %d\n", bank->bank_nr, i);
-+			}
-+		}
-+	}
-+
-+	return 0;
-+}
-+
- static const struct gpio_chip stm32_gpio_template = {
- 	.request		= stm32_gpio_request,
- 	.free			= stm32_gpio_free,
-@@ -293,6 +322,7 @@ static const struct gpio_chip stm32_gpio_template = {
- 	.to_irq			= stm32_gpio_to_irq,
- 	.get_direction		= stm32_gpio_get_direction,
- 	.set_config		= gpiochip_generic_config,
-+	.init_valid_mask	= stm32_gpio_init_valid_mask,
- };
- 
- static void stm32_gpio_irq_trigger(struct irq_data *d)
-@@ -837,12 +867,32 @@ static int stm32_pmx_gpio_set_direction(struct pinctrl_dev *pctldev,
- 	return stm32_pmx_set_mode(bank, pin, !input, 0);
- }
- 
-+static int stm32_pmx_request(struct pinctrl_dev *pctldev, unsigned int gpio)
-+{
-+	struct stm32_pinctrl *pctl = pinctrl_dev_get_drvdata(pctldev);
-+	struct pinctrl_gpio_range *range;
-+
-+	range = pinctrl_find_gpio_range_from_pin_nolock(pctldev, gpio);
-+	if (!range) {
-+		dev_err(pctl->dev, "No gpio range defined.\n");
-+		return -EINVAL;
-+	}
-+
-+	if (!gpiochip_line_is_valid(range->gc, stm32_gpio_pin(gpio))) {
-+		dev_warn(pctl->dev, "Can't access gpio %d\n", gpio);
-+		return -EACCES;
-+	}
-+
-+	return 0;
-+}
-+
- static const struct pinmux_ops stm32_pmx_ops = {
- 	.get_functions_count	= stm32_pmx_get_funcs_cnt,
- 	.get_function_name	= stm32_pmx_get_func_name,
- 	.get_function_groups	= stm32_pmx_get_func_groups,
- 	.set_mux		= stm32_pmx_set_mux,
- 	.gpio_set_direction	= stm32_pmx_gpio_set_direction,
-+	.request		= stm32_pmx_request,
- 	.strict			= true,
- };
- 
-@@ -1039,6 +1089,11 @@ static int stm32_pconf_parse_conf(struct pinctrl_dev *pctldev,
- 	bank = gpiochip_get_data(range->gc);
- 	offset = stm32_gpio_pin(pin);
- 
-+	if (!gpiochip_line_is_valid(range->gc, offset)) {
-+		dev_warn(pctl->dev, "Can't access gpio %d\n", pin);
-+		return -EACCES;
-+	}
-+
- 	switch (param) {
- 	case PIN_CONFIG_DRIVE_PUSH_PULL:
- 		ret = stm32_pconf_set_driving(bank, offset, 0);
-@@ -1141,6 +1196,11 @@ static void stm32_pconf_dbg_show(struct pinctrl_dev *pctldev,
- 	bank = gpiochip_get_data(range->gc);
- 	offset = stm32_gpio_pin(pin);
- 
-+	if (!gpiochip_line_is_valid(range->gc, offset)) {
-+		seq_puts(s, "NO ACCESS");
-+		return;
-+	}
-+
- 	stm32_pmx_get_mode(bank, offset, &mode, &alt);
- 	bias = stm32_pconf_get_bias(bank, offset);
- 
-@@ -1253,6 +1313,7 @@ static int stm32_gpiolib_register_bank(struct stm32_pinctrl *pctl,
- 	bank->gpio_chip.parent = dev;
- 	bank->bank_nr = bank_nr;
- 	bank->bank_ioport_nr = bank_ioport_nr;
-+	bank->secure_control = pctl->match_data->secure_control;
- 	spin_lock_init(&bank->lock);
- 
- 	/* create irq hierarchical domain */
-@@ -1567,6 +1628,9 @@ static int __maybe_unused stm32_pinctrl_restore_gpio_regs(
- 	if (!range)
- 		return 0;
- 
-+	if (!gpiochip_line_is_valid(range->gc, offset))
-+		return 0;
-+
- 	pin_is_irq = gpiochip_line_is_irq(range->gc, offset);
- 
- 	if (!desc || (!pin_is_irq && !desc->gpio_owner))
-diff --git a/drivers/pinctrl/stm32/pinctrl-stm32.h b/drivers/pinctrl/stm32/pinctrl-stm32.h
-index b9584039cdf5..d078c3ac5815 100644
---- a/drivers/pinctrl/stm32/pinctrl-stm32.h
-+++ b/drivers/pinctrl/stm32/pinctrl-stm32.h
-@@ -58,6 +58,7 @@ struct stm32_desc_pin {
- struct stm32_pinctrl_match_data {
- 	const struct stm32_desc_pin *pins;
- 	const unsigned int npins;
-+	bool secure_control;
- };
- 
- struct stm32_gpio_bank;
-diff --git a/drivers/pinctrl/stm32/pinctrl-stm32mp135.c b/drivers/pinctrl/stm32/pinctrl-stm32mp135.c
-index f98717fe23ed..fde1df191c24 100644
---- a/drivers/pinctrl/stm32/pinctrl-stm32mp135.c
-+++ b/drivers/pinctrl/stm32/pinctrl-stm32mp135.c
-@@ -1649,6 +1649,7 @@ static const struct stm32_desc_pin stm32mp135_pins[] = {
- static struct stm32_pinctrl_match_data stm32mp135_match_data = {
- 	.pins = stm32mp135_pins,
- 	.npins = ARRAY_SIZE(stm32mp135_pins),
-+	.secure_control = true,
- };
- 
- static const struct of_device_id stm32mp135_pctrl_match[] = {
+This is a v2 that addresses issues pointed out in v1.
+
+Patch #1 is just a cleanup since when working on this noticed that some DRM
+drivers were passing as preferred bits per pixel to drm_fbdev_generic_setup()
+the value that is the default anyways.
+
+Patch #2 renames the 'preferred_bpp' drm_fbdev_generic_setup() parameter to
+'options', and make this a multi field parameter so that it can be extended
+later to pass other options as well.
+
+Patch #3 finally adds the new DRM_FB_FW option and makes simpledrm to use it
+so that the registered framebuffer device is also marked as firmware provided.
+
+[0]: https://lore.kernel.org/lkml/20220429084253.1085911-1-javierm@redhat.com/
+
+Changes in v2:
+- Rename DRM_FB_SET_OPTION() to DRM_FB_SET() and make more clear in the
+  kernel-doc what this macro does (Laurent Pinchart).
+- Fix some kernel-doc issues I didn't notice in v1.
+- Add Reviewed-by tags from Thomas and Laurent.
+
+Javier Martinez Canillas (3):
+  drm: Remove superfluous arg when calling to drm_fbdev_generic_setup()
+  drm/fb-helper: Rename preferred_bpp drm_fbdev_generic_setup()
+    parameter
+  drm: Allow simpledrm to setup its emulated FB as firmware provided
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |  6 +++--
+ drivers/gpu/drm/arm/hdlcd_drv.c               |  2 +-
+ drivers/gpu/drm/arm/malidp_drv.c              |  2 +-
+ drivers/gpu/drm/aspeed/aspeed_gfx_drv.c       |  2 +-
+ drivers/gpu/drm/ast/ast_drv.c                 |  2 +-
+ drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_dc.c  |  2 +-
+ drivers/gpu/drm/drm_drv.c                     |  2 +-
+ drivers/gpu/drm/drm_fb_helper.c               | 26 ++++++++++++++++---
+ drivers/gpu/drm/fsl-dcu/fsl_dcu_drm_drv.c     |  2 +-
+ .../gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c   |  2 +-
+ .../gpu/drm/hisilicon/kirin/kirin_drm_drv.c   |  2 +-
+ drivers/gpu/drm/imx/dcss/dcss-kms.c           |  2 +-
+ drivers/gpu/drm/imx/imx-drm-core.c            |  2 +-
+ drivers/gpu/drm/ingenic/ingenic-drm-drv.c     |  2 +-
+ drivers/gpu/drm/mcde/mcde_drv.c               |  2 +-
+ drivers/gpu/drm/mediatek/mtk_drm_drv.c        |  2 +-
+ drivers/gpu/drm/meson/meson_drv.c             |  2 +-
+ drivers/gpu/drm/mxsfb/mxsfb_drv.c             |  2 +-
+ drivers/gpu/drm/pl111/pl111_drv.c             |  2 +-
+ drivers/gpu/drm/qxl/qxl_drv.c                 |  2 +-
+ drivers/gpu/drm/rcar-du/rcar_du_drv.c         |  2 +-
+ drivers/gpu/drm/sti/sti_drv.c                 |  2 +-
+ drivers/gpu/drm/stm/drv.c                     |  2 +-
+ drivers/gpu/drm/sun4i/sun4i_drv.c             |  2 +-
+ drivers/gpu/drm/tidss/tidss_drv.c             |  2 +-
+ drivers/gpu/drm/tilcdc/tilcdc_drv.c           |  2 +-
+ drivers/gpu/drm/tiny/arcpgu.c                 |  2 +-
+ drivers/gpu/drm/tiny/bochs.c                  |  2 +-
+ drivers/gpu/drm/tiny/cirrus.c                 |  2 +-
+ drivers/gpu/drm/tiny/simpledrm.c              |  2 +-
+ drivers/gpu/drm/tve200/tve200_drv.c           |  2 +-
+ drivers/gpu/drm/vboxvideo/vbox_drv.c          |  2 +-
+ drivers/gpu/drm/vc4/vc4_drv.c                 |  2 +-
+ drivers/gpu/drm/virtio/virtgpu_drv.c          |  2 +-
+ drivers/gpu/drm/xlnx/zynqmp_dpsub.c           |  2 +-
+ include/drm/drm_fb_helper.h                   | 22 ++++++++++++++++
+ 36 files changed, 81 insertions(+), 39 deletions(-)
+
 -- 
-2.25.1
+2.35.1
 
 _______________________________________________
 Linux-stm32 mailing list
