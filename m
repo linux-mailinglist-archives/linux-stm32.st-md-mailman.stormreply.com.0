@@ -2,48 +2,48 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9623F51A6CC
-	for <lists+linux-stm32@lfdr.de>; Wed,  4 May 2022 18:57:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0897B51AF08
+	for <lists+linux-stm32@lfdr.de>; Wed,  4 May 2022 22:27:52 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5DD5CC6047D;
-	Wed,  4 May 2022 16:57:37 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B7249C6047D;
+	Wed,  4 May 2022 20:27:51 +0000 (UTC)
+Received: from relay8-d.mail.gandi.net (relay8-d.mail.gandi.net
+ [217.70.183.201])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D0250C60467
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8B92DC5F1F1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  4 May 2022 16:57:35 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id C59B56193E;
- Wed,  4 May 2022 16:57:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 83C0AC385B0;
- Wed,  4 May 2022 16:57:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1651683453;
- bh=/A+odwv5Yvew3AOTh02sjc0/Z7SqTQ27aOwXw5tyGf4=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=D6T/1G2m9kGJT17n+ITDhN7kxkknbV9u9qlSb17HimpYEwRvk7N5nAEjMZZ8imMHv
- iE9Twp2vgbkXHJtB5SMAujXpsxKi4opuK2jzsSqtRxC5JKC0tDlq9MeklrHpU8AgXb
- o34+1OORKedsDsKJwFg02Pdr6vGF7V46OPEkiA38=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: linux-kernel@vger.kernel.org,
-	linux-gpio@vger.kernel.org
-Date: Wed,  4 May 2022 18:45:44 +0200
-Message-Id: <20220504153120.111947447@linuxfoundation.org>
-X-Mailer: git-send-email 2.36.0
-In-Reply-To: <20220504153110.096069935@linuxfoundation.org>
-References: <20220504153110.096069935@linuxfoundation.org>
-User-Agent: quilt/0.66
+ Wed,  4 May 2022 20:27:49 +0000 (UTC)
+Received: (Authenticated sender: alexandre.belloni@bootlin.com)
+ by mail.gandi.net (Postfix) with ESMTPSA id 3E3B01BF205;
+ Wed,  4 May 2022 20:27:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
+ t=1651696069;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=+hUwQLI04KRlF0eu0GKC8X4hwLKHloFuBKJTjH0IlCc=;
+ b=fqvBj59ZoYRwrHWryJr471246MpSLAYY4m41aJ6HilGtIRQMWbqhO4hmBKkhHwBBvF2lTV
+ Jt91bcWKFse6faQY3nlsQQ7xmv8CUWvhkFoTd8objUhzv8KlNljP5hTbi+zRk72j+9PpgP
+ nuH9ZziWeuOSsCz1jvLoNyE+PToIiocvRcWuPPaG7lWSU5cF1eOM5fg6UwaB1baMV3GMdC
+ no8PHNvic3bFE6ynZBW0/aY5s7wYX4HLY62AOd0mRURakV8OSg9WopjsPzmj2MTSIYIg87
+ 9iOIuqog9D3C3zbA1szY1klVwOD62J7lbtrBCwOCHeEeGeYshsiRJVOMco7BxQ==
+Date: Wed, 4 May 2022 22:27:47 +0200
+From: Alexandre Belloni <alexandre.belloni@bootlin.com>
+To: Valentin Caron <valentin.caron@foss.st.com>
+Message-ID: <YnLhw+Y7m8G2xJpK@mail.local>
+References: <20220504130233.330983-1-valentin.caron@foss.st.com>
+ <20220504130617.331290-1-valentin.caron@foss.st.com>
 MIME-Version: 1.0
-Cc: Marek Vasut <marex@denx.de>, Sasha Levin <sashal@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Linus Walleij <linus.walleij@linaro.org>, stable@vger.kernel.org,
- Marc Zyngier <maz@kernel.org>, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 5.17 106/225] pinctrl: stm32: Keep pinctrl
-	block clock enabled when LEVEL IRQ requested
+Content-Disposition: inline
+In-Reply-To: <20220504130617.331290-1-valentin.caron@foss.st.com>
+Cc: linux-rtc@vger.kernel.org, Alessandro Zummo <a.zummo@towertech.it>,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Gabriel Fernandez <gabriel.fernandez@foss.st.com>,
+ Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 2/6] dt-bindings: rtc: stm32: add alarm A
+ out property to select output
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,142 +60,85 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Marek Vasut <marex@denx.de>
+Hello,
 
-[ Upstream commit 05d8af449d93e04547b4c6b328e39c890bc803f4 ]
+On 04/05/2022 15:06:13+0200, Valentin Caron wrote:
+> STM32 RTC can pulse some SOC pins when an alarm of RTC expires.
+> 
+> This patch adds property to activate alarm A output. The pulse can
+> output on three pins RTC_OUT1, RTC_OUT2, RTC_OUT2_RMP
+> (PC13, PB2, PI8 on stm32mp15) (PC13, PB2, PI1 on stm32mp13).
+> 
+> Signed-off-by: Valentin Caron <valentin.caron@foss.st.com>
+> ---
+>  .../devicetree/bindings/rtc/st,stm32-rtc.yaml | 19 ++++++++++++++++++-
+>  1 file changed, 18 insertions(+), 1 deletion(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/rtc/st,stm32-rtc.yaml b/Documentation/devicetree/bindings/rtc/st,stm32-rtc.yaml
+> index 56d46ea35c5d..71e02604e8de 100644
+> --- a/Documentation/devicetree/bindings/rtc/st,stm32-rtc.yaml
+> +++ b/Documentation/devicetree/bindings/rtc/st,stm32-rtc.yaml
+> @@ -59,6 +59,13 @@ properties:
+>        Refer to <include/dt-bindings/rtc/rtc-stm32.h> for the supported values.
+>        Pinctrl state named "default" may be defined to reserve pin for RTC output.
+>  
+> +  st,alarm:
+> +    $ref: "/schemas/types.yaml#/definitions/uint32"
+> +    description: |
+> +      To select and enable RTC Alarm A output.
+> +      Refer to <include/dt-bindings/rtc/rtc-stm32.h> for the supported values.
+> +      Pinctrl state named "default" may be defined to reserve pin for RTC output.
+> +
+>  allOf:
+>    - if:
+>        properties:
+> @@ -75,6 +82,9 @@ allOf:
+>          st,lsco:
+>            maxItems: 0
+>  
+> +        st,alarm:
+> +          maxItems: 0
+> +
+>          clock-names: false
+>  
+>        required:
+> @@ -95,6 +105,9 @@ allOf:
+>          st,lsco:
+>            maxItems: 0
+>  
+> +        st,alarm:
+> +          maxItems: 0
+> +
+>        required:
+>          - clock-names
+>          - st,syscfg
+> @@ -117,6 +130,9 @@ allOf:
+>          st,lsco:
+>            maxItems: 1
+>  
+> +        st,alarm:
+> +          maxItems: 1
+> +
+>        required:
+>          - clock-names
+>  
+> @@ -153,8 +169,9 @@ examples:
+>        clocks = <&rcc RTCAPB>, <&rcc RTC>;
+>        clock-names = "pclk", "rtc_ck";
+>        interrupts = <GIC_SPI 3 IRQ_TYPE_LEVEL_HIGH>;
+> +      st,alarm = <RTC_OUT1>;
+>        st,lsco = <RTC_OUT2_RMP>;
 
-The current EOI handler for LEVEL triggered interrupts calls clk_enable(),
-register IO, clk_disable(). The clock manipulation requires locking which
-happens with IRQs disabled in clk_enable_lock(). Instead of turning the
-clock on and off all the time, enable the clock in case LEVEL interrupt is
-requested and keep the clock enabled until all LEVEL interrupts are freed.
-The LEVEL interrupts are an exception on this platform and seldom used, so
-this does not affect the common case.
+Shouldn't that be exactly the opposite? You have two pins that can
+output different functions. The property should be the pin and the value
+the function. I'd go even further and I would say this is actually
+pinmuxing.
 
-This simplifies the LEVEL interrupt handling considerably and also fixes
-the following splat found when using preempt-rt:
- ------------[ cut here ]------------
- WARNING: CPU: 0 PID: 0 at kernel/locking/rtmutex.c:2040 __rt_mutex_trylock+0x37/0x62
- Modules linked in:
- CPU: 0 PID: 0 Comm: swapper/0 Not tainted 5.10.109-rt65-stable-standard-00068-g6a5afc4b1217 #85
- Hardware name: STM32 (Device Tree Support)
- [<c010a45d>] (unwind_backtrace) from [<c010766f>] (show_stack+0xb/0xc)
- [<c010766f>] (show_stack) from [<c06353ab>] (dump_stack+0x6f/0x84)
- [<c06353ab>] (dump_stack) from [<c01145e3>] (__warn+0x7f/0xa4)
- [<c01145e3>] (__warn) from [<c063386f>] (warn_slowpath_fmt+0x3b/0x74)
- [<c063386f>] (warn_slowpath_fmt) from [<c063b43d>] (__rt_mutex_trylock+0x37/0x62)
- [<c063b43d>] (__rt_mutex_trylock) from [<c063c053>] (rt_spin_trylock+0x7/0x16)
- [<c063c053>] (rt_spin_trylock) from [<c036a2f3>] (clk_enable_lock+0xb/0x80)
- [<c036a2f3>] (clk_enable_lock) from [<c036ba69>] (clk_core_enable_lock+0x9/0x18)
- [<c036ba69>] (clk_core_enable_lock) from [<c034e9f3>] (stm32_gpio_get+0x11/0x24)
- [<c034e9f3>] (stm32_gpio_get) from [<c034ef43>] (stm32_gpio_irq_trigger+0x1f/0x48)
- [<c034ef43>] (stm32_gpio_irq_trigger) from [<c014aa53>] (handle_fasteoi_irq+0x71/0xa8)
- [<c014aa53>] (handle_fasteoi_irq) from [<c0147111>] (generic_handle_irq+0x19/0x22)
- [<c0147111>] (generic_handle_irq) from [<c014752d>] (__handle_domain_irq+0x55/0x64)
- [<c014752d>] (__handle_domain_irq) from [<c0346f13>] (gic_handle_irq+0x53/0x64)
- [<c0346f13>] (gic_handle_irq) from [<c0100ba5>] (__irq_svc+0x65/0xc0)
- Exception stack(0xc0e01f18 to 0xc0e01f60)
- 1f00:                                                       0000300c 00000000
- 1f20: 0000300c c010ff01 00000000 00000000 c0e00000 c0e07714 00000001 c0e01f78
- 1f40: c0e07758 00000000 ef7cd0ff c0e01f68 c010554b c0105542 40000033 ffffffff
- [<c0100ba5>] (__irq_svc) from [<c0105542>] (arch_cpu_idle+0xc/0x1e)
- [<c0105542>] (arch_cpu_idle) from [<c063be95>] (default_idle_call+0x21/0x3c)
- [<c063be95>] (default_idle_call) from [<c01324f7>] (do_idle+0xe3/0x1e4)
- [<c01324f7>] (do_idle) from [<c01327b3>] (cpu_startup_entry+0x13/0x14)
- [<c01327b3>] (cpu_startup_entry) from [<c0a00c13>] (start_kernel+0x397/0x3d4)
- [<c0a00c13>] (start_kernel) from [<00000000>] (0x0)
- ---[ end trace 0000000000000002 ]---
 
-Power consumption measured on STM32MP157C DHCOM SoM is not increased or
-is below noise threshold.
-
-Fixes: 47beed513a85b ("pinctrl: stm32: Add level interrupt support to gpio irq chip")
-Signed-off-by: Marek Vasut <marex@denx.de>
-Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
-Cc: Fabien Dessenne <fabien.dessenne@foss.st.com>
-Cc: Linus Walleij <linus.walleij@linaro.org>
-Cc: Marc Zyngier <maz@kernel.org>
-Cc: linux-stm32@st-md-mailman.stormreply.com
-Cc: linux-arm-kernel@lists.infradead.org
-To: linux-gpio@vger.kernel.org
-Reviewed-by: Fabien Dessenne <fabien.dessenne@foss.st.com>
-Link: https://lore.kernel.org/r/20220421140827.214088-1-marex@denx.de
-Signed-off-by: Linus Walleij <linus.walleij@linaro.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/pinctrl/stm32/pinctrl-stm32.c | 19 +++++++++++++++++--
- 1 file changed, 17 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/pinctrl/stm32/pinctrl-stm32.c b/drivers/pinctrl/stm32/pinctrl-stm32.c
-index df1d6b466fb7..f7c9459f6628 100644
---- a/drivers/pinctrl/stm32/pinctrl-stm32.c
-+++ b/drivers/pinctrl/stm32/pinctrl-stm32.c
-@@ -225,6 +225,13 @@ static void stm32_gpio_free(struct gpio_chip *chip, unsigned offset)
- 	pinctrl_gpio_free(chip->base + offset);
- }
- 
-+static int stm32_gpio_get_noclk(struct gpio_chip *chip, unsigned int offset)
-+{
-+	struct stm32_gpio_bank *bank = gpiochip_get_data(chip);
-+
-+	return !!(readl_relaxed(bank->base + STM32_GPIO_IDR) & BIT(offset));
-+}
-+
- static int stm32_gpio_get(struct gpio_chip *chip, unsigned offset)
- {
- 	struct stm32_gpio_bank *bank = gpiochip_get_data(chip);
-@@ -232,7 +239,7 @@ static int stm32_gpio_get(struct gpio_chip *chip, unsigned offset)
- 
- 	clk_enable(bank->clk);
- 
--	ret = !!(readl_relaxed(bank->base + STM32_GPIO_IDR) & BIT(offset));
-+	ret = stm32_gpio_get_noclk(chip, offset);
- 
- 	clk_disable(bank->clk);
- 
-@@ -316,7 +323,7 @@ static void stm32_gpio_irq_trigger(struct irq_data *d)
- 		return;
- 
- 	/* If level interrupt type then retrig */
--	level = stm32_gpio_get(&bank->gpio_chip, d->hwirq);
-+	level = stm32_gpio_get_noclk(&bank->gpio_chip, d->hwirq);
- 	if ((level == 0 && bank->irq_type[d->hwirq] == IRQ_TYPE_LEVEL_LOW) ||
- 	    (level == 1 && bank->irq_type[d->hwirq] == IRQ_TYPE_LEVEL_HIGH))
- 		irq_chip_retrigger_hierarchy(d);
-@@ -358,6 +365,7 @@ static int stm32_gpio_irq_request_resources(struct irq_data *irq_data)
- {
- 	struct stm32_gpio_bank *bank = irq_data->domain->host_data;
- 	struct stm32_pinctrl *pctl = dev_get_drvdata(bank->gpio_chip.parent);
-+	unsigned long flags;
- 	int ret;
- 
- 	ret = stm32_gpio_direction_input(&bank->gpio_chip, irq_data->hwirq);
-@@ -371,6 +379,10 @@ static int stm32_gpio_irq_request_resources(struct irq_data *irq_data)
- 		return ret;
- 	}
- 
-+	flags = irqd_get_trigger_type(irq_data);
-+	if (flags & IRQ_TYPE_LEVEL_MASK)
-+		clk_enable(bank->clk);
-+
- 	return 0;
- }
- 
-@@ -378,6 +390,9 @@ static void stm32_gpio_irq_release_resources(struct irq_data *irq_data)
- {
- 	struct stm32_gpio_bank *bank = irq_data->domain->host_data;
- 
-+	if (bank->irq_type[irq_data->hwirq] & IRQ_TYPE_LEVEL_MASK)
-+		clk_disable(bank->clk);
-+
- 	gpiochip_unlock_as_irq(&bank->gpio_chip, irq_data->hwirq);
- }
- 
 -- 
-2.35.1
-
-
-
+Alexandre Belloni, co-owner and COO, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
