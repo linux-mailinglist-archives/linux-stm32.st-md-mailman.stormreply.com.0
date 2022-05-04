@@ -2,51 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9D79251AF69
-	for <lists+linux-stm32@lfdr.de>; Wed,  4 May 2022 22:37:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9872B51B191
+	for <lists+linux-stm32@lfdr.de>; Thu,  5 May 2022 00:03:23 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 593CCC6047D;
-	Wed,  4 May 2022 20:37:40 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 138F5C6047D;
+	Wed,  4 May 2022 22:03:23 +0000 (UTC)
+Received: from mail-yw1-f169.google.com (mail-yw1-f169.google.com
+ [209.85.128.169])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 55A2CC60467
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C9C6EC5F1F1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  4 May 2022 20:37:39 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id C1F4AB828CE;
- Wed,  4 May 2022 20:37:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E1C5DC385A5;
- Wed,  4 May 2022 20:37:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1651696657;
- bh=x2k8eLmpAI5MhrBnDOm1e2daghSZLAuKoipmd98NfjA=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=p6PPDNMR45buGLAqUlEo0R6GwTHIYs79XWGXpoLi589fZEP/Qqa/eZUhrK2UAEwQo
- 7Z2YFBuTgCDFjuvhy9tdxQA8pccHhv3Pb+3NDAiXN9+xjbMxsLxkBU70uyz6Tbr9aF
- gPSFS1jw9aH8BJFn3zM6V6lEAZtIWlPCp16MMHUNYcGGcNVxLp5ScLRJieQpVVWpu2
- MlqhqkX3qMrM63SRLKORcpd4hSq9/fBk4J9bFBPDAwOlf3qqGoOiVpeohxFn7ipl2A
- roj8Ye6wjzgCiaJUAqTX2AprJXMcOsLgCajQHCwsHuDlqhxcNqIl8XMCww2HQtJITT
- rItsnS9Kk5T0g==
-Date: Wed, 4 May 2022 21:45:57 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-Message-ID: <20220504214557.6a075da7@jic23-huawei>
-In-Reply-To: <28627ccb-21ef-1b86-e5d7-460daf672d6d@foss.st.com>
-References: <20220413185656.21994-1-andriy.shevchenko@linux.intel.com>
- <20220428193304.016c46a3@jic23-huawei>
- <YnEB97YfPYpe2aCn@smile.fi.intel.com>
- <28627ccb-21ef-1b86-e5d7-460daf672d6d@foss.st.com>
-X-Mailer: Claws Mail 4.0.0 (GTK+ 3.24.33; x86_64-pc-linux-gnu)
+ Wed,  4 May 2022 22:03:21 +0000 (UTC)
+Received: by mail-yw1-f169.google.com with SMTP id
+ 00721157ae682-2f83983782fso30739697b3.6
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 04 May 2022 15:03:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=4Op8es569RzvtJx0t1HAgKK6+F0dCry24CEKKr27rhw=;
+ b=YpEazHzrG3OrKDD792Y+Ce65dO3svHKo+t8eTblPJlkPv7mx0Hi6FUn/maUA01DsDT
+ YN6wImNIZVkB3x2NFutEPQRWBGR3V7q8eYzLmhBNMXyGRhYlWurl8gLON4jWX/jlIfSk
+ x7R13SPo5LgJBnM0PSJ3HyutFTeKbDvWCR7AroFzNQ3UOSAEDY7zT+r8sbHza0VcKWPZ
+ eLqTnbbyjFb6HoFzZ6fvD7nkSsIWAUFE/RSInIvkQ8pPXcgkSP1c/CGqbsdYDf4DWcWd
+ POFgXJPHlxF/3hIroXtOd4LkCDhM+j1HSL3kZ0TbXXXzH41BWgvsECFDu3hjQojX95Sx
+ nvug==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=4Op8es569RzvtJx0t1HAgKK6+F0dCry24CEKKr27rhw=;
+ b=saD6YSlu7yi3MnRSprKVCV1aAMR1DNX5E2OfnkJoiQvj5b/nkeOCAAo3X0tjnrZlgG
+ NvwRrEecwLTcCMRd1DaKVglk0bOoqs1lleQzjBiOX5v7SkZdB6j4B3xvVJrnGMLjbNtJ
+ ib7GmPaBapFzSsixVuiSIugfwV0428SvpEfBs8749CSNe8vrAbeX/PXBtluUkA+ZUoeQ
+ M+dYVBHPSuMZWkKDGgKzV7FW0DuVPpemoikqYnJtfIpcTufnjJzihiDg/Ti+5o48U7eW
+ QtoaDLqrR5Sza4IIs4m6GFdXoTqRtvplTTk5iWtDaNVYSgAY7LaZK5/IYNI71dKams95
+ qwfA==
+X-Gm-Message-State: AOAM532FVP0G1HpdMJjVMetSKHpX4J0ZwiwSciUumjsO3rU4/6YyrYZd
+ WwgUWFEIcf1CwyOQAyibMjky7EZc/xhZom7XYudGQQ==
+X-Google-Smtp-Source: ABdhPJyvbi6MVvka8oPb7oENkUao5IYEFHPUP3rcp9F5m8eqX5HuAA2xZymNtvXrq1hctCuXd2fwUyA6KBl6ff48FYs=
+X-Received: by 2002:a0d:e612:0:b0:2fb:103f:4067 with SMTP id
+ p18-20020a0de612000000b002fb103f4067mr4331120ywe.151.1651701800743; Wed, 04
+ May 2022 15:03:20 -0700 (PDT)
 MIME-Version: 1.0
-Cc: Lars-Peter Clausen <lars@metafoo.de>, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+References: <20220502152524.283374-1-fabien.dessenne@foss.st.com>
+In-Reply-To: <20220502152524.283374-1-fabien.dessenne@foss.st.com>
+From: Linus Walleij <linus.walleij@linaro.org>
+Date: Thu, 5 May 2022 00:03:09 +0200
+Message-ID: <CACRpkdY7kQ0Fg_9C2kpQug0P=qHrfCu6eu04CugU-e5dO+P4WQ@mail.gmail.com>
+To: Fabien Dessenne <fabien.dessenne@foss.st.com>
+Cc: linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v1 1/1] iio: trigger:
- stm32-lptimer-trigger: Make use of device properties
+Subject: Re: [Linux-stm32] [PATCH] pinctrl: stm32: improve debugfs
+ information of pinconf-pins entry
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -63,48 +72,20 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, 3 May 2022 14:25:37 +0200
-Fabrice Gasnier <fabrice.gasnier@foss.st.com> wrote:
+On Mon, May 2, 2022 at 5:25 PM Fabien Dessenne
+<fabien.dessenne@foss.st.com> wrote:
 
-> On 5/3/22 12:20, Andy Shevchenko wrote:
-> > On Thu, Apr 28, 2022 at 07:33:04PM +0100, Jonathan Cameron wrote:  
-> >> On Wed, 13 Apr 2022 21:56:56 +0300
-> >> Andy Shevchenko <andriy.shevchenko@linux.intel.com> wrote:
-> >>  
-> >>> Convert the module to be property provider agnostic and allow
-> >>> it to be used on non-OF platforms.
-> >>>
-> >>> Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>  
-> >>
-> >> MAINTAINERS entry for this one uses extensive wild cards so may
-> >> escape scripts...
-> >>
-> >> +CC Fabrice.  
-> > 
-> > Thanks!
-> > 
-> > Not sure it might break anything, it's quite straightforward conversion.  
-> 
-> Hi Andy, Jonathan,
-> 
-> You can add my:
-> Reviewed-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+> Print the name of the selected alternate function in addition to its
+> number. Ex:
+>    "pin 135 (PI7): alternate 10 (SAI2_FS_A) - ..."
+>
+> Signed-off-by: Fabien Dessenne <fabien.dessenne@foss.st.com>
+> Signed-off-by: Alexandre Torgue <alexandre.torgue@foss.st.com>
 
-Applied to the togreg branch of iio.git and pushed out as testing to
-let 0-day see if it can find anything we missed.
+Patch applied.
 
-Thanks,
-
-Jonathan
-
-
-> 
-> Thanks,
-> Best Regards,
-> Fabrice
-> 
-> >   
-
+Yours,
+Linus Walleij
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
