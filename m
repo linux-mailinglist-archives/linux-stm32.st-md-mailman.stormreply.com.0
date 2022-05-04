@@ -2,44 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C4869519FF4
-	for <lists+linux-stm32@lfdr.de>; Wed,  4 May 2022 14:49:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 96D7C51A026
+	for <lists+linux-stm32@lfdr.de>; Wed,  4 May 2022 15:03:02 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6D568C6047D;
-	Wed,  4 May 2022 12:49:59 +0000 (UTC)
-Received: from phobos.denx.de (phobos.denx.de [85.214.62.61])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3E9C2C6047D;
+	Wed,  4 May 2022 13:03:02 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D4CC7C60467
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1D87AC60467
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  4 May 2022 12:49:57 +0000 (UTC)
-Received: from tr.lan (ip-86-49-12-201.net.upcbroadband.cz [86.49.12.201])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
- (No client certificate requested)
- (Authenticated sender: marex@denx.de)
- by phobos.denx.de (Postfix) with ESMTPSA id 357E483988;
- Wed,  4 May 2022 14:49:57 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de;
- s=phobos-20191101; t=1651668597;
- bh=GBzLa65YYXoh+oi1jR5mzYULxZeiXyV3aBPD+iXH3Rw=;
- h=From:To:Cc:Subject:Date:From;
- b=VfG1IuXaIpT+64Hz6Jl14MZnq+oo3uhC2cyw3XZVQjM6plkTb3smDG0D/OhS0m8VK
- ClxPFWTn6LI01GuaO0QVnCFFlGf5mLZ0M+GCRDMxGl0MDmWxBCuCqSDX5Id8/YiQ0h
- RJ6k7dmtzJ12SNLBdztEd1ZITHvtnpQtjjKq56FnVViZ5tiIxkU00mrV0W2rykL2VZ
- oSsR3Y18zn9/fQl7QZlJeMkmGWn4d+jVWMjMPLHqWpgc1qWjdJ+OCpS9Rk0ts6u7OK
- 2u/2jJa39f5L+H4oQV59pnoEOMlY2picvLtqRzQL6Qq/qU48MGUXAhL7bZJbj+UyJF
- cV3FLtTA/Q/Xw==
-From: Marek Vasut <marex@denx.de>
-To: linux-arm-kernel@lists.infradead.org
-Date: Wed,  4 May 2022 14:49:45 +0200
-Message-Id: <20220504124945.77331-1-marex@denx.de>
-X-Mailer: git-send-email 2.35.1
+ Wed,  4 May 2022 13:03:01 +0000 (UTC)
+Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 244A6Oxs016063;
+ Wed, 4 May 2022 15:02:41 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=selector1;
+ bh=thMF4CPlkTsnZstfuDPh8HVl0o2Yyz4DhhVhNaGVUps=;
+ b=2qokIaFqOEp/FXAivRHLXQwfKtxNjCCZENfb4vNYvO/+VzMxONx79mBqLl3SMjLaGaGE
+ mP3Fc9FLIUNTzD5ePCe9yefrHAKFfrEnrUnpKBC7KHFvjezEsLEkfGjys50xJHnUQklD
+ HMP5KoJ5tuLTcP6OkKXwu4jgPIV1GQuhP2OJ9kzkAP+NMawrCgIcIZ1zsVyJcslKqsGr
+ yLkDPyNW+i2TYAg1jxuTofrbZCLPUrUaZw7MczHBKKBHHE1Y1mGF2jTSyDMIsgEijErp
+ 3TqNf2ZzhGT41UpLkR6VPTnXU0erM80zilESEUNqB+UxWN5pamwsmHuh/wM4ZuywMXmp Qg== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3frvf0m4ed-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 04 May 2022 15:02:41 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 7DEE810002A;
+ Wed,  4 May 2022 15:02:40 +0200 (CEST)
+Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 6A50B21FE9E;
+ Wed,  4 May 2022 15:02:40 +0200 (CEST)
+Received: from localhost (10.75.127.45) by SFHDAG2NODE2.st.com (10.75.127.5)
+ with Microsoft SMTP Server (TLS) id 15.0.1497.26; Wed, 4 May 2022 15:02:39
+ +0200
+From: Valentin Caron <valentin.caron@foss.st.com>
+To: Alessandro Zummo <a.zummo@towertech.it>, Alexandre Belloni
+ <alexandre.belloni@bootlin.com>, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>
+Date: Wed, 4 May 2022 15:02:27 +0200
+Message-ID: <20220504130233.330983-1-valentin.caron@foss.st.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.103.5 at phobos.denx.de
-X-Virus-Status: Clean
-Cc: Marek Vasut <marex@denx.de>, linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH] ARM: dts: stm32: Move DHCOR BUCK3 VDD 2V9
-	adjustment to 1V8 DTSI
+X-Originating-IP: [10.75.127.45]
+X-ClientProxiedBy: SFHDAG2NODE2.st.com (10.75.127.5) To SFHDAG2NODE2.st.com
+ (10.75.127.5)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.858,Hydra:6.0.486,FMLib:17.11.64.514
+ definitions=2022-05-04_04,2022-05-04_01,2022-02-23_01
+Cc: linux-rtc@vger.kernel.org, devicetree@vger.kernel.org,
+ Gabriel Fernandez <gabriel.fernandez@foss.st.com>,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH 0/6] rtc: stm32: add alarm out and LSCO
+	features.
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -56,57 +77,42 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The Buck3 on DHCOR is used to supply IO voltage. It can output either 3V3
-in the default DHCOR configuration, or 2V9 in case of AV96 DHCOR variant
-which has extra Empirion DCDC converter in front of the 1V8 IO supply, or
-outright 1V8 in case of 1V8 IO DHCOR without the Empirion DCDC converter.
+On STM32MP1x SOCs, RTC is able to output some signals on its own pins.
 
-The 2V9 mode in case of AV96 DHCOR variant is used to reduce unnecessarily
-high input voltage to the Empirion DCDC converter, so move it into matching
-DTSI to stop confusing users.
+This series add the possibility to select two of these signals on
+RTC pins :
+ - LSCO (Low Speed Clock Output) that allow to output LSE clock on a pin.
+   On STM32MP1x Discovery boards this feature is used to generate a clock
+   to Wifi/Bluetooth module.
+ - Alarm out that allow to send a pulse on a pin when alarm A of the RTC
+   expires.
 
-Signed-off-by: Marek Vasut <marex@denx.de>
-Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
-Cc: linux-stm32@st-md-mailman.stormreply.com
-To: linux-arm-kernel@lists.infradead.org
----
- arch/arm/boot/dts/stm32mp15xx-dhcor-io1v8.dtsi | 5 +++++
- arch/arm/boot/dts/stm32mp15xx-dhcor-som.dtsi   | 4 ++--
- 2 files changed, 7 insertions(+), 2 deletions(-)
+Amelie Delaunay (2):
+  dt-bindings: rtc: stm32: add st,lsco optional property to select
+    output
+  rtc: stm32: add Low Speed Clock Output (LSCO) support
 
-diff --git a/arch/arm/boot/dts/stm32mp15xx-dhcor-io1v8.dtsi b/arch/arm/boot/dts/stm32mp15xx-dhcor-io1v8.dtsi
-index 75172314d7afd..9937b28548c23 100644
---- a/arch/arm/boot/dts/stm32mp15xx-dhcor-io1v8.dtsi
-+++ b/arch/arm/boot/dts/stm32mp15xx-dhcor-io1v8.dtsi
-@@ -18,6 +18,11 @@ vdd_io: regulator-buck-io {
- 	};
- };
- 
-+&vdd {
-+	regulator-min-microvolt = <2900000>;
-+	regulator-max-microvolt = <2900000>;
-+};
-+
- &pwr_regulators {
- 	vdd-supply = <&vdd_io>;
- };
-diff --git a/arch/arm/boot/dts/stm32mp15xx-dhcor-som.dtsi b/arch/arm/boot/dts/stm32mp15xx-dhcor-som.dtsi
-index 6336c3ca0f0e2..134a798ad3f23 100644
---- a/arch/arm/boot/dts/stm32mp15xx-dhcor-som.dtsi
-+++ b/arch/arm/boot/dts/stm32mp15xx-dhcor-som.dtsi
-@@ -119,8 +119,8 @@ vdd_ddr: buck2 {
- 
- 			vdd: buck3 {
- 				regulator-name = "vdd";
--				regulator-min-microvolt = <2900000>;
--				regulator-max-microvolt = <2900000>;
-+				regulator-min-microvolt = <3300000>;
-+				regulator-max-microvolt = <3300000>;
- 				regulator-always-on;
- 				regulator-initial-mode = <0>;
- 				regulator-over-current-protection;
+Gabriel Fernandez (2):
+  ARM: dts: stm32: add RTC LSCO support on stm32mp157c-dk2
+  ARM: dts: stm32: add RTC LSCO support on stm32mp135f-dk
+
+Valentin Caron (2):
+  dt-bindings: rtc: stm32: add alarm A out property to select output
+  rtc: stm32: add alarm A out feature
+
+ .../devicetree/bindings/rtc/st,stm32-rtc.yaml |  37 +++
+ arch/arm/boot/dts/stm32mp13-pinctrl.dtsi      |   6 +
+ arch/arm/boot/dts/stm32mp135f-dk.dts          |   4 +
+ arch/arm/boot/dts/stm32mp15-pinctrl.dtsi      |   6 +
+ arch/arm/boot/dts/stm32mp157c-dk2.dts         |   7 +
+ drivers/rtc/Kconfig                           |   1 +
+ drivers/rtc/rtc-stm32.c                       | 210 ++++++++++++++++++
+ include/dt-bindings/rtc/rtc-stm32.h           |  14 ++
+ 8 files changed, 285 insertions(+)
+ create mode 100644 include/dt-bindings/rtc/rtc-stm32.h
+
 -- 
-2.35.1
+2.25.1
 
 _______________________________________________
 Linux-stm32 mailing list
