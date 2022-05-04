@@ -2,60 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9872B51B191
-	for <lists+linux-stm32@lfdr.de>; Thu,  5 May 2022 00:03:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6945351B195
+	for <lists+linux-stm32@lfdr.de>; Thu,  5 May 2022 00:04:39 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 138F5C6047D;
-	Wed,  4 May 2022 22:03:23 +0000 (UTC)
-Received: from mail-yw1-f169.google.com (mail-yw1-f169.google.com
- [209.85.128.169])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 311EDC6047D;
+	Wed,  4 May 2022 22:04:39 +0000 (UTC)
+Received: from mail-yw1-f176.google.com (mail-yw1-f176.google.com
+ [209.85.128.176])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C9C6EC5F1F1
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6594DC5F1F1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  4 May 2022 22:03:21 +0000 (UTC)
-Received: by mail-yw1-f169.google.com with SMTP id
- 00721157ae682-2f83983782fso30739697b3.6
+ Wed,  4 May 2022 22:04:38 +0000 (UTC)
+Received: by mail-yw1-f176.google.com with SMTP id
+ 00721157ae682-2f7c424c66cso30905297b3.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 04 May 2022 15:03:21 -0700 (PDT)
+ Wed, 04 May 2022 15:04:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=4Op8es569RzvtJx0t1HAgKK6+F0dCry24CEKKr27rhw=;
- b=YpEazHzrG3OrKDD792Y+Ce65dO3svHKo+t8eTblPJlkPv7mx0Hi6FUn/maUA01DsDT
- YN6wImNIZVkB3x2NFutEPQRWBGR3V7q8eYzLmhBNMXyGRhYlWurl8gLON4jWX/jlIfSk
- x7R13SPo5LgJBnM0PSJ3HyutFTeKbDvWCR7AroFzNQ3UOSAEDY7zT+r8sbHza0VcKWPZ
- eLqTnbbyjFb6HoFzZ6fvD7nkSsIWAUFE/RSInIvkQ8pPXcgkSP1c/CGqbsdYDf4DWcWd
- POFgXJPHlxF/3hIroXtOd4LkCDhM+j1HSL3kZ0TbXXXzH41BWgvsECFDu3hjQojX95Sx
- nvug==
+ :cc; bh=zqlpLuQfBXsLF0pGTV7F8Lqm0D+MDLdu0OmDcVtwIY4=;
+ b=uOk/SO4PYBMT+8q1dA1TD5ptS5xd/kbbzQLYE6iespzhwRZycMKu5S3Qhyiz6F+i+1
+ 3cOJMgPCVoECy5RD3/Qtqqi0Dgd8cNVtxDpH7cyysA9bWJtaBzWNzqAT35Kh8PpgeUp0
+ LEwxjERbI/QnoiGBnKxyEE3BpPH5Cdrf+zKObdobq0SKBeWIaWkut6AZ2IU6fQ/sYQ6c
+ nTwHHjF0AO+2SNGg7wY3qPOsZREgDpQwjEuQq+eL8Uzo9fApS54erILmrbEOxlBVyUSs
+ NovjMz5MjUjUdq+1l8a+JM44tWm5RCCtn/vOHA36VSTza1cRyofX77vYLvS1C7rEPbK8
+ lHJQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=4Op8es569RzvtJx0t1HAgKK6+F0dCry24CEKKr27rhw=;
- b=saD6YSlu7yi3MnRSprKVCV1aAMR1DNX5E2OfnkJoiQvj5b/nkeOCAAo3X0tjnrZlgG
- NvwRrEecwLTcCMRd1DaKVglk0bOoqs1lleQzjBiOX5v7SkZdB6j4B3xvVJrnGMLjbNtJ
- ib7GmPaBapFzSsixVuiSIugfwV0428SvpEfBs8749CSNe8vrAbeX/PXBtluUkA+ZUoeQ
- M+dYVBHPSuMZWkKDGgKzV7FW0DuVPpemoikqYnJtfIpcTufnjJzihiDg/Ti+5o48U7eW
- QtoaDLqrR5Sza4IIs4m6GFdXoTqRtvplTTk5iWtDaNVYSgAY7LaZK5/IYNI71dKams95
- qwfA==
-X-Gm-Message-State: AOAM532FVP0G1HpdMJjVMetSKHpX4J0ZwiwSciUumjsO3rU4/6YyrYZd
- WwgUWFEIcf1CwyOQAyibMjky7EZc/xhZom7XYudGQQ==
-X-Google-Smtp-Source: ABdhPJyvbi6MVvka8oPb7oENkUao5IYEFHPUP3rcp9F5m8eqX5HuAA2xZymNtvXrq1hctCuXd2fwUyA6KBl6ff48FYs=
-X-Received: by 2002:a0d:e612:0:b0:2fb:103f:4067 with SMTP id
- p18-20020a0de612000000b002fb103f4067mr4331120ywe.151.1651701800743; Wed, 04
- May 2022 15:03:20 -0700 (PDT)
+ bh=zqlpLuQfBXsLF0pGTV7F8Lqm0D+MDLdu0OmDcVtwIY4=;
+ b=q6TkH+xyblYwuSMMli1X0Mua3kcZgFXcyBrRcf9RqiRLI5PBDFZ0xacEh1SwbLN14b
+ FgNZGVCT6+tQr0hvlRKDImxlKntfbV/dA764zCU+k6MAOp2Wy3TqZjwyFbaET/Ze+SGo
+ 7xfFtoGGOE0WxEWdR/9QRh4OgV1jJ3nazMlWGo5FikPdIaXC/lTUYlCFm/+N19h1sMCT
+ Ry2mfCWLUjXutGGMHgy0woFFimzQIbkfi5b7mMWmwVljYYEAKB8pjzB+3SsqEcHtihZV
+ +HuKn6RwlSLeEGJsRqFeGy7T+vQ9rLfxRABpVFH/QmvyliFuKpCdZVTdy9zsfwvdk1Dm
+ elxQ==
+X-Gm-Message-State: AOAM530v8JcB9K+Ucy5uOsMSZ//Iqb9b6iLFcIojaurpv782TRRxuoCr
+ rKPQKu3OIvYLR4EiEMd8VPemP1eUejZfW4kgpvy3lQ==
+X-Google-Smtp-Source: ABdhPJwa3Zp+INs9eIYA3vmkO66opZgtx8fKINwCtGXZ3pcba1YTMqSjlpx5Z4gASQOH6KsNIBd0fjydcV+hsZ93qI4=
+X-Received: by 2002:a0d:ddc6:0:b0:2f8:a506:a5c0 with SMTP id
+ g189-20020a0dddc6000000b002f8a506a5c0mr22606554ywe.140.1651701877405; Wed, 04
+ May 2022 15:04:37 -0700 (PDT)
 MIME-Version: 1.0
-References: <20220502152524.283374-1-fabien.dessenne@foss.st.com>
-In-Reply-To: <20220502152524.283374-1-fabien.dessenne@foss.st.com>
+References: <20220502153114.283618-1-fabien.dessenne@foss.st.com>
+In-Reply-To: <20220502153114.283618-1-fabien.dessenne@foss.st.com>
 From: Linus Walleij <linus.walleij@linaro.org>
-Date: Thu, 5 May 2022 00:03:09 +0200
-Message-ID: <CACRpkdY7kQ0Fg_9C2kpQug0P=qHrfCu6eu04CugU-e5dO+P4WQ@mail.gmail.com>
+Date: Thu, 5 May 2022 00:04:26 +0200
+Message-ID: <CACRpkdZNS4N9q5whUT3fHh6M1xzuWYWGfr_EvRuDePpNP4QPzg@mail.gmail.com>
 To: Fabien Dessenne <fabien.dessenne@foss.st.com>
 Cc: linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] pinctrl: stm32: improve debugfs
- information of pinconf-pins entry
+Subject: Re: [Linux-stm32] [PATCH] pinctrl: stm32: prevent the use of the
+	secure protected pins
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,17 +72,19 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, May 2, 2022 at 5:25 PM Fabien Dessenne
+On Mon, May 2, 2022 at 5:31 PM Fabien Dessenne
 <fabien.dessenne@foss.st.com> wrote:
 
-> Print the name of the selected alternate function in addition to its
-> number. Ex:
->    "pin 135 (PI7): alternate 10 (SAI2_FS_A) - ..."
+> The hardware denies any access from the Linux non-secure world to the
+> secure-protected pins. Hence, prevent any driver to request such a pin.
+>
+> Mark the secure-protected GPIO lines as invalid (.init_valid_mask) and
+> prevent the pinmux request / pinconf setting operations.
+> Identify the secure pins with "NO ACCESS" in the pinconf sysfs.
 >
 > Signed-off-by: Fabien Dessenne <fabien.dessenne@foss.st.com>
-> Signed-off-by: Alexandre Torgue <alexandre.torgue@foss.st.com>
 
-Patch applied.
+Patch applied!
 
 Yours,
 Linus Walleij
