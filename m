@@ -2,67 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8D26C51DD7B
-	for <lists+linux-stm32@lfdr.de>; Fri,  6 May 2022 18:21:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5AA7E51DE31
+	for <lists+linux-stm32@lfdr.de>; Fri,  6 May 2022 19:12:29 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 31E1FC628AB;
-	Fri,  6 May 2022 16:21:24 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0A496C628AB;
+	Fri,  6 May 2022 17:12:29 +0000 (UTC)
+Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com
+ [209.85.214.176])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 194B5C5E2CC
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5DA2AC628A8
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  6 May 2022 16:21:22 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id D17BD61FA9
+ Fri,  6 May 2022 17:12:27 +0000 (UTC)
+Received: by mail-pl1-f176.google.com with SMTP id q4so5145424plr.11
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  6 May 2022 16:21:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 446CDC385A8
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  6 May 2022 16:21:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1651854080;
- bh=AxLsv+MlHDtR4Ba4/1Hd2BjJXSVz5vOpyyeEN0wDR9o=;
- h=References:In-Reply-To:From:Date:Subject:To:List-Id:Cc:From;
- b=NiroyEcvo4HRxc6pDtp969iTGKsGbIqAxNjv2wzaS/L76OtmvBpBFbx7h9IVECfpN
- +S+/fGWAeTN5NzWGYWQNY5xCY3YWkd1V6TnoHGCWwgJUXI/BD5BOcU4BChQ45FAAKd
- IQh/q1AQZdgVM6NGh7Vjo4apFlS3LuVBWTscSsPWDlndWUswy4PAffWl+CtIK37Pkz
- Na3q3/fcpmiGwOVZOtVfy0aChBdpWlcTfNNrwPlDQsaFtBmMCHMcTQ7iKLJtmoduQz
- CfUCdKCnoUIq8Qdq/WjNWmQ0fG1BU8bKO4IXRvt2DFyFcgkIIgeztoRSgs6yorYx91
- mnvSGI5i9IJsw==
-Received: by mail-pl1-f174.google.com with SMTP id c9so7201622plh.2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 06 May 2022 09:21:20 -0700 (PDT)
-X-Gm-Message-State: AOAM5337K+7fgGZNGRMYatxA0BTdDpW1c504zZ3WqdDk7bBNnDxnUZEW
- OVnpXgyRuyEpdY376tLqRpu7kiaudrvcTut+Zg==
-X-Google-Smtp-Source: ABdhPJxGBIsMUehaVlYli55Vk/6Ka2uimhuHRzDr+nnDieEXfg2/cpKCg5fNCcM3zaajVlgGtUfkMrVQQc38ZioO7wU=
-X-Received: by 2002:a17:902:7884:b0:15e:e6a8:346 with SMTP id
- q4-20020a170902788400b0015ee6a80346mr4487227pll.151.1651854079794; Fri, 06
- May 2022 09:21:19 -0700 (PDT)
+ Fri, 06 May 2022 10:12:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=Y5j094DPRHeZY99oesAJ3jD7eRhZ4vMFwjoZ+Ryi1tg=;
+ b=PLWqkvfpBIz0YAKpzE8d7HqkW2be22+6wtRGeNO8rkofc+vVMVudpF9Vq5h3qfqvZe
+ +Y97bEJYqTW+r+glnIE75TBr+6VysuOgDD0T/P6U4K3rHzjc/N8B52SwFBsO55KO7V28
+ UH4edqC9e2bYKQ1IaI8gd0NGs7tvXen7wnh93P2uzEiIvZo265ZIApY9WdAgG920MI8+
+ ix32KFwU91g1eCKIiFIbJrsASzTU90TWIDBhVE/iekvVovPqPZtuWRD+LMzKIXhNxhS5
+ dQOYVBl6kk0attyw1yNZNl+j43uITlZkHCsSeAEqyHKLaqHOwvpzSeZm3BLlRgUvRDX+
+ 5srA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=Y5j094DPRHeZY99oesAJ3jD7eRhZ4vMFwjoZ+Ryi1tg=;
+ b=o125jT90XSDHpfOJEwu+lpuAUchubxfey9JDIZuPWaRLYHmUAPXAfR7Fxsk6ipnPxG
+ 6nCxPH0NJBnj7nI5fzs+DsLRqIdMCrEcQEBVTgEDYrZ4HrQ2vQRh2p8jm5A3tc9sP0Xu
+ rzCwlF+c24FmOfhangpB2aHLyLWd9dcjr1SPhJ99kgPd3mM1v9kb5xRCVhYQ877hQi42
+ fGQDpYt/O6IgJm5ZFhVwcYtT73R3pJBje9d15NXebEVdalb7cY2v6Vvm8DC2TxWlu3/a
+ RPbFMq637mK0PGS7pdBkS0VfB+MT2WCXz1rOldBTmy8B/g33n1K6Ulh5FiSQvklfmEcz
+ UkPw==
+X-Gm-Message-State: AOAM5303iZGpAJiX7UqxSE+A+LcGBL8UKmw9SPrd98P+NIyWhbibdb2o
+ J4aLtIfD3DNiW5j1Tl7TDbSfnw==
+X-Google-Smtp-Source: ABdhPJyxvbn7xQx6eD34L504pFKRwq5Xji91lr3nz7ShqfmYHAW1qdEgkx4ky5S4KKsF7POvptuBgQ==
+X-Received: by 2002:a17:90b:1bc3:b0:1dc:61fd:7ea4 with SMTP id
+ oa3-20020a17090b1bc300b001dc61fd7ea4mr13197467pjb.31.1651857145904; 
+ Fri, 06 May 2022 10:12:25 -0700 (PDT)
+Received: from p14s (S0106889e681aac74.cg.shawcable.net. [68.147.0.187])
+ by smtp.gmail.com with ESMTPSA id
+ a7-20020a1709027e4700b0015e8d4eb222sm1168856pln.108.2022.05.06.10.12.24
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 06 May 2022 10:12:24 -0700 (PDT)
+Date: Fri, 6 May 2022 11:12:22 -0600
+From: Mathieu Poirier <mathieu.poirier@linaro.org>
+To: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+Message-ID: <20220506171222.GA2816011@p14s>
+References: <20220315153856.3117676-1-arnaud.pouliquen@foss.st.com>
 MIME-Version: 1.0
-References: <20220422150952.20587-1-alexandre.torgue@foss.st.com>
- <20220422150952.20587-3-alexandre.torgue@foss.st.com>
- <CAL_JsqKU28BNrozg20_a_XMUmBhaoDHdodWkzyRoH=VcM2pDjg@mail.gmail.com>
- <edf8f01b-e850-1734-2909-f31cd8b082c5@foss.st.com>
-In-Reply-To: <edf8f01b-e850-1734-2909-f31cd8b082c5@foss.st.com>
-From: Rob Herring <robh+dt@kernel.org>
-Date: Fri, 6 May 2022 11:21:08 -0500
-X-Gmail-Original-Message-ID: <CAL_JsqK5ox681qQFz6b4a8eSaNHJ08XmB2bTE=EZ2Pch0YDJqA@mail.gmail.com>
-Message-ID: <CAL_JsqK5ox681qQFz6b4a8eSaNHJ08XmB2bTE=EZ2Pch0YDJqA@mail.gmail.com>
-To: Alexandre TORGUE <alexandre.torgue@foss.st.com>
-Cc: Marek Vasut <marex@denx.de>, devicetree@vger.kernel.org,
- Etienne Carriere <etienne.carriere@st.com>, Arnd Bergmann <arnd@arndb.de>,
- Stephen Boyd <sboyd@kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- SoC Team <soc@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- "moderated list:ARM/STM32 ARCHITECTURE"
- <linux-stm32@st-md-mailman.stormreply.com>,
- linux-arm-kernel <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH 2/8] dt-bindings: clock: stm32mp1:
-	describes clocks if "st, stm32mp1-rcc-secure"
+Content-Disposition: inline
+In-Reply-To: <20220315153856.3117676-1-arnaud.pouliquen@foss.st.com>
+Cc: linux-stm32@st-md-mailman.stormreply.com, linux-remoteproc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Bjorn Andersson <bjorn.andersson@linaro.org>
+Subject: Re: [Linux-stm32] [PATCH] rpmsg: virtio: set dst address on first
+	message received
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,102 +77,85 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, May 6, 2022 at 5:02 AM Alexandre TORGUE
-<alexandre.torgue@foss.st.com> wrote:
->
-> Hi Rob
->
-> On 5/5/22 16:11, Rob Herring wrote:
-> > On Fri, Apr 22, 2022 at 10:10 AM Alexandre Torgue
-> > <alexandre.torgue@foss.st.com> wrote:
-> >>
-> >> In case of "st,stm32mp1-rcc-secure" (stm32mp1 clock driver with RCC
-> >> security support hardened), "clocks" and "clock-names" describe oscillators
-> >> and are required.
-> >>
-> >> Signed-off-by: Alexandre Torgue <alexandre.torgue@foss.st.com>
-> >
-> > This is now failing in linux-next:
-> >
-> > make[1]: *** Deleting file
-> > 'Documentation/devicetree/bindings/clock/st,stm32mp1-rcc.example.dts'
-> > Documentation/devicetree/bindings/clock/st,stm32mp1-rcc.yaml: found
-> > duplicate key "clocks" with value "{}" (original value: "True")
-> > make[1]: *** [Documentation/devicetree/bindings/Makefile:26:
-> > Documentation/devicetree/bindings/clock/st,stm32mp1-rcc.example.dts]
-> > Error 1
-> > ./Documentation/devicetree/bindings/clock/st,stm32mp1-rcc.yaml:64:3:
-> > [error] duplication of key "clocks" in mapping (key-duplicates)
-> > ./Documentation/devicetree/bindings/clock/st,stm32mp1-rcc.yaml:69:3:
-> > [error] duplication of key "clock-names" in mapping (key-duplicates)
-> > Traceback (most recent call last):
-> >    File "/usr/local/bin/dt-doc-validate", line 25, in check_doc
-> >      testtree = dtschema.load(filename, line_number=line_number)
-> >    File "/usr/local/lib/python3.10/dist-packages/dtschema/lib.py", line
-> > 914, in load
-> >      return yaml.load(f.read())
-> >    File "/usr/local/lib/python3.10/dist-packages/ruamel/yaml/main.py",
-> > line 434, in load
-> >      return constructor.get_single_data()
-> >    File "/usr/local/lib/python3.10/dist-packages/ruamel/yaml/constructor.py",
-> > line 121, in get_single_data
-> >      return self.construct_document(node)
-> >    File "/usr/local/lib/python3.10/dist-packages/ruamel/yaml/constructor.py",
-> > line 131, in construct_document
-> >      for _dummy in generator:
-> >    File "/usr/local/lib/python3.10/dist-packages/ruamel/yaml/constructor.py",
-> > line 674, in construct_yaml_map
-> >      value = self.construct_mapping(node)
-> >    File "/usr/local/lib/python3.10/dist-packages/ruamel/yaml/constructor.py",
-> > line 445, in construct_mapping
-> >      return BaseConstructor.construct_mapping(self, node, deep=deep)
-> >    File "/usr/local/lib/python3.10/dist-packages/ruamel/yaml/constructor.py",
-> > line 263, in construct_mapping
-> >      if self.check_mapping_key(node, key_node, mapping, key, value):
-> >    File "/usr/local/lib/python3.10/dist-packages/ruamel/yaml/constructor.py",
-> > line 294, in check_mapping_key
-> >      raise DuplicateKeyError(*args)
-> > ruamel.yaml.constructor.DuplicateKeyError: while constructing a mapping
-> >    in "<unicode string>", line 49, column 3
-> > found duplicate key "clocks" with value "{}" (original value: "True")
-> >    in "<unicode string>", line 64, column 3
-> > To suppress this check see:
-> >      http://yaml.readthedocs.io/en/latest/api.html#duplicate-keys
-> > During handling of the above exception, another exception occurred:
-> > Traceback (most recent call last):
-> >    File "/usr/local/bin/dt-doc-validate", line 74, in <module>
-> >      ret = check_doc(f)
-> >    File "/usr/local/bin/dt-doc-validate", line 30, in check_doc
-> >      print(filename + ":", exc.path[-1], exc.message, file=sys.stderr)
-> > AttributeError: 'DuplicateKeyError' object has no attribute 'path'
->
-> It seems that we have a merge issue between:
->
-> patch "dt-bindings: rcc: Add optional external ethernet RX clock properties"
-> https://lore.kernel.org/r/20220410220514.21779-1-marex@denx.de
->
-> and this one (dt-bindings: clock: stm32mp1: describes clocks if
-> "st,stm32mp1-rcc-secure)
->
-> On linux-next following part remains and creates issue above:
->
->    clocks:
->      description:
->        Specifies the external RX clock for ethernet MAC.
->      maxItems: 1
->
->    clock-names:
->      const: ETH_RX_CLK/ETH_REF_CLK
->
-> I don't know why this part is remaining. In my tree, I took care to take
-> Marek patch first to avoid this kind of issue.
->
-> Btw, how to fix that ?
+On Tue, Mar 15, 2022 at 04:38:56PM +0100, Arnaud Pouliquen wrote:
+> when a rpmsg channel has been locally created with a destination address
 
-Looks like I applied "dt-bindings: rcc: Add optional external ethernet
-RX clock properties" too. I've reverted it in my tree.
+s/when/Wen
 
-Rob
+Also, please be more specific about the "locally created" part, i.e
+rpmsg_ctrldev_ioctl() -> rpmsg_create_channel().  Otherwise it is really hard to
+understand the context of this change.
+
+> set to RPMSG_ADDR_ANY, a name service announcement message is sent to
+> the remote side. Then the destination address is never updated, making it
+> impossible to send messages to the remote.
+> 
+> An example of kernel trace observed:
+> rpmsg_tty virtio0.rpmsg-tty.29.-1: invalid addr (src 0x1d, dst 0xffffffff)
+> 
+> Implement same strategy than the open-amp library:
+> On the reception of the first message, if the destination address is
+> RPMSG_ADDR_ANY, then set it to address of the remote endpoint that
+> send the message.
+>
+
+I would have expected a "Fixes:" tag.
+
+> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+> 
+> ---
+> Remark:
+> An alternative (or a complement?) could be to add a NS bind/unbind in
+> the NS announcement channel (in rpmsg_ns.c).
+> This would allow the local and/or the remote processor to inform the
+> remote side the the service announced in bound.
+> ---
+>  drivers/rpmsg/virtio_rpmsg_bus.c | 10 ++++++++++
+>  1 file changed, 10 insertions(+)
+> 
+> diff --git a/drivers/rpmsg/virtio_rpmsg_bus.c b/drivers/rpmsg/virtio_rpmsg_bus.c
+> index 3ede25b1f2e4..99d2119cc164 100644
+> --- a/drivers/rpmsg/virtio_rpmsg_bus.c
+> +++ b/drivers/rpmsg/virtio_rpmsg_bus.c
+> @@ -708,6 +708,7 @@ static ssize_t virtio_rpmsg_get_mtu(struct rpmsg_endpoint *ept)
+>  static int rpmsg_recv_single(struct virtproc_info *vrp, struct device *dev,
+>  			     struct rpmsg_hdr *msg, unsigned int len)
+>  {
+> +	struct rpmsg_device *rpdev;
+>  	struct rpmsg_endpoint *ept;
+>  	struct scatterlist sg;
+>  	bool little_endian = virtio_is_little_endian(vrp->vdev);
+> @@ -746,6 +747,15 @@ static int rpmsg_recv_single(struct virtproc_info *vrp, struct device *dev,
+>  	mutex_unlock(&vrp->endpoints_lock);
+>  
+>  	if (ept) {
+> +		rpdev = ept->rpdev;
+> +		if (rpdev->ept == ept && rpdev->dst == RPMSG_ADDR_ANY) {
+
+Please add a comment to explain the first part of the if() clause.  It took me
+quite some time to understand. 
+
+> +			/*
+> +			 * First message received from the remote side on the default endpoint,
+> +			 * update channel destination address.
+> +			 */
+> +			rpdev->dst = msg->src;
+
+This triggers a bot warning and should be addressed.  If it can't be addressed add
+a comment that clearly explains why so that we don't end up receiving patches
+for it every 4 weeks.
+
+Thanks,
+Mathieu
+
+> +		}
+> +
+>  		/* make sure ept->cb doesn't go away while we use it */
+>  		mutex_lock(&ept->cb_lock);
+>  
+> -- 
+> 2.25.1
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
