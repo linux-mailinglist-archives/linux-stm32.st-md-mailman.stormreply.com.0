@@ -2,48 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3FF8F51E7B1
-	for <lists+linux-stm32@lfdr.de>; Sat,  7 May 2022 16:11:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6C9C051F58A
+	for <lists+linux-stm32@lfdr.de>; Mon,  9 May 2022 09:46:55 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E6089C5F1F2;
-	Sat,  7 May 2022 14:11:11 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 10905C5F1D3;
+	Mon,  9 May 2022 07:46:55 +0000 (UTC)
+Received: from mail-qv1-f42.google.com (mail-qv1-f42.google.com
+ [209.85.219.42])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AEC8EC5EC56
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BC3C6C6049F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat,  7 May 2022 14:11:10 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 6F25861234;
- Sat,  7 May 2022 14:11:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B80BDC385A5;
- Sat,  7 May 2022 14:11:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1651932668;
- bh=yYbW1VYEkBgjUdJEWnHpf9fQF+9II7U7hTlVk4opQww=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=DZaQZ602znpG9kKXvb6U3e1b76WAn84ZMPGk96M+A8YTLWZfwQBTKM2VzF34a5NPm
- xE8ZgFMZebGSGTtzARm52yrtc7RkcYtqGaNKXHedPnnk0nJDxmSQaZf1+us2w7bRRW
- 3Q2mUyUlOo/bZ0BirakaLJ4rvo8KwBdhrbVSl/tkSvOmOx1N2+SOd521O2mGqfq86o
- 2xS9EavlzWbQ9gji/Z5aM+a/4i0UYTbHVlG9ufFKWIDAJdSRYEihs5iOtiqsk0Bov/
- E+T/dWiQxLA3pxWNEW8ccSIjTpNa9SvsB6NP39eP8MgZzCxooXsreTa+krPwBUqrkG
- NZtajDqUQzZ7Q==
-Date: Sat, 7 May 2022 15:19:35 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Yannick Brosseau <yannick.brosseau@gmail.com>
-Message-ID: <20220507151935.3d3fa270@jic23-huawei>
-In-Reply-To: <20220506225617.1774604-3-yannick.brosseau@gmail.com>
-References: <20220506225617.1774604-1-yannick.brosseau@gmail.com>
- <20220506225617.1774604-3-yannick.brosseau@gmail.com>
-X-Mailer: Claws Mail 4.1.0 (GTK 3.24.33; x86_64-pc-linux-gnu)
+ Fri,  6 May 2022 22:56:56 +0000 (UTC)
+Received: by mail-qv1-f42.google.com with SMTP id f3so2099580qvi.2
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 06 May 2022 15:56:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=jiMx1KNAzuMIgpn6LqdJi2ADhn7OHgQMCNsj9Mwa3ZA=;
+ b=c/5NIlXsr1gsCXmvQZIu/ByrkSBvSPA+5yIMedNUlzuk0MlGc4OaZfDOL1mNTAOxlG
+ kUR+qWhdKmBqEsad++XyNSmPXNZINRJLp/aTCcX4fwqnOurEq1imV3EQJJQTBuNxqHtX
+ GE6jQqe/c/M8+QxdNfKZe26Gu1GvyqLT3fdgzRTn1wo6hx8UodL0REqq8g2YqCXaEzb3
+ p85wKzLzRDYEJirBjxl8wueyU07H2uKTQLC4SASiotQOubBiMc8aRw9mDisu4UY5y/Yi
+ UxyEF8F5a0q4ihRGht34Y65uVdkB+4Y8slAKx15y19kq/f7mq8hPaUn63xGxHISKcdBZ
+ GcEw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=jiMx1KNAzuMIgpn6LqdJi2ADhn7OHgQMCNsj9Mwa3ZA=;
+ b=IaBP2yev6JV+Qt2GRJiv8IqQbK00yaKSkhYz/jjr5CVJYhkrMxnexDtjVp4ZG7TdY8
+ BzaYd8fIq4VzW1KJITbMB2ctykVDEQTUAQdeiI+Cvy6pl0yoIyOMtBoRERjn/zt9VHJu
+ 4m7SUsGF8GEpNaXvgoo4ifeO7eEvj8TFeWaaovkjgt5663pTpheqFfp24on7inmQ5uXD
+ nrykZjLSdo8SdlI24V3kCLXlw2NvWh9W8W8FURj4ssZryNlk/kQmjfL+7Dmcfr4kEFbn
+ lFSBjlaoI6XRbvqvWlvrxnNPPW8pxYQ8P/BPdqVQqrH4oUISM2qeeWSAWa7IFhpw+EyD
+ fT1w==
+X-Gm-Message-State: AOAM533hICuNICHgbsVEfmYK6JR948uSsKhArOcWjBhcOvvOM+6SGcfH
+ LTqkx2wl56ilQgt2qycfEJg=
+X-Google-Smtp-Source: ABdhPJxrDUwu4Z10IRKqRVGhaH8iLkEjQy2GN2YKD3abQzhKTiYSjD2JqGul25opJn2AVjn8yU3jhA==
+X-Received: by 2002:a05:6214:1d08:b0:45a:a692:3bb2 with SMTP id
+ e8-20020a0562141d0800b0045aa6923bb2mr4501663qvd.24.1651877815661; 
+ Fri, 06 May 2022 15:56:55 -0700 (PDT)
+Received: from grrm.lan
+ (bras-base-mtrlpq4809w-grc-17-70-53-205-21.dsl.bell.ca. [70.53.205.21])
+ by smtp.gmail.com with ESMTPSA id
+ q188-20020a37a7c5000000b0069fc13ce208sm3187880qke.57.2022.05.06.15.56.54
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 06 May 2022 15:56:54 -0700 (PDT)
+From: Yannick Brosseau <yannick.brosseau@gmail.com>
+To: jic23@kernel.org, lars@metafoo.de, mcoquelin.stm32@gmail.com,
+ alexandre.torgue@foss.st.com, fabrice.gasnier@foss.st.com,
+ olivier.moysan@foss.st.com
+Date: Fri,  6 May 2022 18:56:15 -0400
+Message-Id: <20220506225617.1774604-1-yannick.brosseau@gmail.com>
+X-Mailer: git-send-email 2.36.0
 MIME-Version: 1.0
-Cc: lars@metafoo.de, mcoquelin.stm32@gmail.com, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org, paul@crapouillou.net,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 2/2] iio: adc: stm32: Fix check for
- spurious IRQs on STM32F4
+X-Mailman-Approved-At: Mon, 09 May 2022 07:46:53 +0000
+Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+ paul@crapouillou.net, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH 0/2] iio: adc: stm32: Fix ADC IRQ handling on
+	STM32F4
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,71 +80,19 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri,  6 May 2022 18:56:17 -0400
-Yannick Brosseau <yannick.brosseau@gmail.com> wrote:
+Recent changes to the STM32 ADC irq handling broke the STM32F4 platforms
+These two patches bring it back to a working state.
 
-> The check for spurious IRQs introduced in 695e2f5c289bb assumed that the bits
-> in the control and status registers are aligned. This is true for the H7 and MP1
-> version, but not the F4.
-> 
-> Instead of comparing both registers bitwise, we check the bit in the status and control
-> for each interrupt we are interested in.
-> 
-> Signed-off-by: Yannick Brosseau <yannick.brosseau@gmail.com>
+Yannick Brosseau (2):
+  iio: adc: stm32: Iterate through all ADCs in irq handler
+  iio: adc: stm32: Fix check for spurious IRQs on STM32F4
 
-I don't entirely follow the flow here, so will be relying on the driver
-maintainers for feedback on this one (even more than normal!)
+ drivers/iio/adc/stm32-adc-core.c | 7 ++++++-
+ drivers/iio/adc/stm32-adc.c      | 9 ++++++---
+ 2 files changed, 12 insertions(+), 4 deletions(-)
 
-One question inline.
-
-Jonathan
-
-> ---
->  drivers/iio/adc/stm32-adc.c | 9 ++++++---
->  1 file changed, 6 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/iio/adc/stm32-adc.c b/drivers/iio/adc/stm32-adc.c
-> index a68ecbda6480..5b0f138333ee 100644
-> --- a/drivers/iio/adc/stm32-adc.c
-> +++ b/drivers/iio/adc/stm32-adc.c
-> @@ -1422,9 +1422,10 @@ static irqreturn_t stm32_adc_threaded_isr(int irq, void *data)
->  		return IRQ_HANDLED;
->  	}
->  
-> -	if (!(status & mask))
-> +	if(!((status & regs->isr_eoc.mask) && (mask & regs->ier_eoc.mask)) ||
-> +           ((status & regs->isr_ovr.mask) && (mask & regs->ier_ovr.mask)))
-
-For this second condition if it is true, have we not already entered the previous
-if (status & regs->isr_ovr.mask) and hence never reached this check?
-There is a comment above that to say if we get there over mask should already be
-disable. If that's not true for some reason then we should also adjust that check
-and the comment.
-
-Or perhaps I'm getting confused by the bracketing and operator precedence.
-Should this not be...
-
-> +	if(!(((status & regs->isr_eoc.mask) && (mask & regs->ier_eoc.mask)) ||
-> +          ((status & regs->isr_ovr.mask) && (mask & regs->ier_ovr.mask))))
-? So as to be the equivalent of the !(status & mask) just checking bits separately.
-
->  		dev_err_ratelimited(&indio_dev->dev,
-> -				    "Unexpected IRQ: IER=0x%08x, ISR=0x%08x\n",
-> +				    "Unexpected IRQ: CR1/IER=0x%08x, SR/ISR=0x%08x\n",
->  				    mask, status);
->  
->  	return IRQ_NONE;
-> @@ -1438,7 +1439,9 @@ static irqreturn_t stm32_adc_isr(int irq, void *data)
->  	u32 status = stm32_adc_readl(adc, regs->isr_eoc.reg);
->  	u32 mask = stm32_adc_readl(adc, regs->ier_eoc.reg);
->  
-> -	if (!(status & mask))
-> +	/* Check that we have the interrupt we care about are enabled and active */
-> +        if(!((status & regs->isr_eoc.mask) && (mask & regs->ier_eoc.mask)) ||
-> +           ((status & regs->isr_ovr.mask) && (mask & regs->ier_ovr.mask)))
->  		return IRQ_WAKE_THREAD;
->  
->  	if (status & regs->isr_ovr.mask) {
+-- 
+2.36.0
 
 _______________________________________________
 Linux-stm32 mailing list
