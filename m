@@ -2,74 +2,58 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6157E51D51D
-	for <lists+linux-stm32@lfdr.de>; Fri,  6 May 2022 12:02:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6F2B451DA52
+	for <lists+linux-stm32@lfdr.de>; Fri,  6 May 2022 16:15:50 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1FF09C628AA;
-	Fri,  6 May 2022 10:02:35 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 19810C628AB;
+	Fri,  6 May 2022 14:15:50 +0000 (UTC)
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [85.220.165.71])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DD34DC5E2CC
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id ECF68C5E2CC
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  6 May 2022 10:02:33 +0000 (UTC)
-Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 2467Y07k015868;
- Fri, 6 May 2022 12:02:13 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=3m0mw1nBjzDm+VBX3E2ez2EscVLtrOMj3hZ9LGKIYvI=;
- b=av6DvpN0ABdk6r6R1R3POxkZs1JjpU1qKDY6IVVoUtipgGWLu3IWroKgeKaibkNUkhm6
- tf5JhMUURsISmllmKZBUAFGI9eli6oACSW6j24CyLlqeMyL+h8tPe01kChPyan3uAXzo
- +50DjdH+BGUyjGu7Uy1qyZp8ppFy/BP15C20844nfXnxgiKBHy6jRNxyFjU+X5CC3Bni
- SuCO1/QMmJY/hML6CkG7sXNF8oUhQDxSA/VbPt27DDNlXlcywQmHO17KfBjCq4n/pjKN
- Cl05PfULMFHYUXVccloj/xSOXGUB129kSzEB+POJzMpjF9uKTe9DYtKatbQtgD/2GqZX +g== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3frvf104sc-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 06 May 2022 12:02:13 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 7421E100034;
- Fri,  6 May 2022 12:02:12 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 5BD7A2171E1;
- Fri,  6 May 2022 12:02:12 +0200 (CEST)
-Received: from [10.201.21.93] (10.75.127.45) by SHFDAG1NODE1.st.com
- (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2308.20; Fri, 6 May
- 2022 12:02:11 +0200
-Message-ID: <edf8f01b-e850-1734-2909-f31cd8b082c5@foss.st.com>
-Date: Fri, 6 May 2022 12:02:11 +0200
+ Fri,  6 May 2022 14:15:48 +0000 (UTC)
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+ by metis.ext.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1nmykE-0000Ai-1W; Fri, 06 May 2022 16:15:46 +0200
+Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
+ by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.94.2)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1nmykD-000ivN-BC; Fri, 06 May 2022 16:15:43 +0200
+Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.94.2)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1nmykB-007yBe-9K; Fri, 06 May 2022 16:15:43 +0200
+From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+To: Thierry Reding <thierry.reding@gmail.com>,
+ Lee Jones <lee.jones@linaro.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>
+Date: Fri,  6 May 2022 16:15:35 +0200
+Message-Id: <20220506141535.133179-1-u.kleine-koenig@pengutronix.de>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.7.0
-Content-Language: en-US
-To: Rob Herring <robh+dt@kernel.org>
-References: <20220422150952.20587-1-alexandre.torgue@foss.st.com>
- <20220422150952.20587-3-alexandre.torgue@foss.st.com>
- <CAL_JsqKU28BNrozg20_a_XMUmBhaoDHdodWkzyRoH=VcM2pDjg@mail.gmail.com>
-From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
-In-Reply-To: <CAL_JsqKU28BNrozg20_a_XMUmBhaoDHdodWkzyRoH=VcM2pDjg@mail.gmail.com>
-X-Originating-IP: [10.75.127.45]
-X-ClientProxiedBy: SFHDAG2NODE2.st.com (10.75.127.5) To SHFDAG1NODE1.st.com
- (10.75.129.69)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.858,Hydra:6.0.486,FMLib:17.11.64.514
- definitions=2022-05-06_03,2022-05-05_01,2022-02-23_01
-Cc: Marek Vasut <marex@denx.de>, devicetree@vger.kernel.org,
- Etienne Carriere <etienne.carriere@st.com>, Arnd Bergmann <arnd@arndb.de>,
- Stephen Boyd <sboyd@kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- SoC Team <soc@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- "moderated list:ARM/STM32 ARCHITECTURE"
- <linux-stm32@st-md-mailman.stormreply.com>,
- linux-arm-kernel <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH 2/8] dt-bindings: clock: stm32mp1:
- describes clocks if "st, stm32mp1-rcc-secure"
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1583; h=from:subject;
+ bh=FAOBqMIoOdc95FM7wSI4U3A+BzZmPhK2DrzIajwueWo=;
+ b=owGbwMvMwMV48I9IxdpTbzgZT6slMSSV6rYET/zZLTgh+1mLVJaAoM15iW7H5Bfcf3XqirZKzmjI
+ +uvcyWjMwsDIxSArpshSV6QlNkFizX+7kiXcMINYmUCmMHBxCsBENm3lYOi6qXG9QX/OX70XWTyPZ5
+ x2q5+RnC4VcHZpeZhmYaNahuO7qAWCn03Ddflr0p+uXRzvHtBg42u9d+W0clYDtx0bfHse/NecFZz2
+ W+hu30abJcHH0xUVdU2k53fePM91rb0joc5wYvqfdeoOO3viXi2RyNq/wMZV4vOdI8vVp8fHNl2fsz
+ 5Ug01Uzre79gTv8aILxhs+WG4+J9pqJHN8Wr0BQ1Pad6balw+fSa57XvCy+F2R6Km7f7hf9kmFZapq
+ P31xvL20y7XIX9Zi6ZSiDQtrZ05oalw5JS0o8J3aJxHNmfwaXxYd27z61Fy1rVbza6I8d5d3m2+US9
+ y+q1Y2yWNjRIpbeLPlztbAXQ+0AA==
+X-Developer-Key: i=u.kleine-koenig@pengutronix.de; a=openpgp;
+ fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: ukl@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
+Cc: linux-pwm@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ kernel@pengutronix.de
+Subject: [Linux-stm32] [PATCH] pwm: stmpe: Implement .apply() callback
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,113 +65,38 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Rob
-
-On 5/5/22 16:11, Rob Herring wrote:
-> On Fri, Apr 22, 2022 at 10:10 AM Alexandre Torgue
-> <alexandre.torgue@foss.st.com> wrote:
->>
->> In case of "st,stm32mp1-rcc-secure" (stm32mp1 clock driver with RCC
->> security support hardened), "clocks" and "clock-names" describe oscillators
->> and are required.
->>
->> Signed-off-by: Alexandre Torgue <alexandre.torgue@foss.st.com>
-> 
-> This is now failing in linux-next:
-> 
-> make[1]: *** Deleting file
-> 'Documentation/devicetree/bindings/clock/st,stm32mp1-rcc.example.dts'
-> Documentation/devicetree/bindings/clock/st,stm32mp1-rcc.yaml: found
-> duplicate key "clocks" with value "{}" (original value: "True")
-> make[1]: *** [Documentation/devicetree/bindings/Makefile:26:
-> Documentation/devicetree/bindings/clock/st,stm32mp1-rcc.example.dts]
-> Error 1
-> ./Documentation/devicetree/bindings/clock/st,stm32mp1-rcc.yaml:64:3:
-> [error] duplication of key "clocks" in mapping (key-duplicates)
-> ./Documentation/devicetree/bindings/clock/st,stm32mp1-rcc.yaml:69:3:
-> [error] duplication of key "clock-names" in mapping (key-duplicates)
-> Traceback (most recent call last):
->    File "/usr/local/bin/dt-doc-validate", line 25, in check_doc
->      testtree = dtschema.load(filename, line_number=line_number)
->    File "/usr/local/lib/python3.10/dist-packages/dtschema/lib.py", line
-> 914, in load
->      return yaml.load(f.read())
->    File "/usr/local/lib/python3.10/dist-packages/ruamel/yaml/main.py",
-> line 434, in load
->      return constructor.get_single_data()
->    File "/usr/local/lib/python3.10/dist-packages/ruamel/yaml/constructor.py",
-> line 121, in get_single_data
->      return self.construct_document(node)
->    File "/usr/local/lib/python3.10/dist-packages/ruamel/yaml/constructor.py",
-> line 131, in construct_document
->      for _dummy in generator:
->    File "/usr/local/lib/python3.10/dist-packages/ruamel/yaml/constructor.py",
-> line 674, in construct_yaml_map
->      value = self.construct_mapping(node)
->    File "/usr/local/lib/python3.10/dist-packages/ruamel/yaml/constructor.py",
-> line 445, in construct_mapping
->      return BaseConstructor.construct_mapping(self, node, deep=deep)
->    File "/usr/local/lib/python3.10/dist-packages/ruamel/yaml/constructor.py",
-> line 263, in construct_mapping
->      if self.check_mapping_key(node, key_node, mapping, key, value):
->    File "/usr/local/lib/python3.10/dist-packages/ruamel/yaml/constructor.py",
-> line 294, in check_mapping_key
->      raise DuplicateKeyError(*args)
-> ruamel.yaml.constructor.DuplicateKeyError: while constructing a mapping
->    in "<unicode string>", line 49, column 3
-> found duplicate key "clocks" with value "{}" (original value: "True")
->    in "<unicode string>", line 64, column 3
-> To suppress this check see:
->      http://yaml.readthedocs.io/en/latest/api.html#duplicate-keys
-> During handling of the above exception, another exception occurred:
-> Traceback (most recent call last):
->    File "/usr/local/bin/dt-doc-validate", line 74, in <module>
->      ret = check_doc(f)
->    File "/usr/local/bin/dt-doc-validate", line 30, in check_doc
->      print(filename + ":", exc.path[-1], exc.message, file=sys.stderr)
-> AttributeError: 'DuplicateKeyError' object has no attribute 'path'
-
-It seems that we have a merge issue between:
-
-patch "dt-bindings: rcc: Add optional external ethernet RX clock properties"
-https://lore.kernel.org/r/20220410220514.21779-1-marex@denx.de
-
-and this one (dt-bindings: clock: stm32mp1: describes clocks if 
-"st,stm32mp1-rcc-secure)
-
-On linux-next following part remains and creates issue above:
-
-   clocks:
-     description:
-       Specifies the external RX clock for ethernet MAC.
-     maxItems: 1
-
-   clock-names:
-     const: ETH_RX_CLK/ETH_REF_CLK
-
-I don't know why this part is remaining. In my tree, I took care to take 
-Marek patch first to avoid this kind of issue.
-
-Btw, how to fix that ?
-
-Note, that as soon as we will fix this point I'll send a fix to avoid 
-issue in example build.
-
-cheers
-Alex
-
-
-
-
-
-
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+VG8gZXZlbnR1YWxseSBnZXQgcmlkIG9mIGFsbCBsZWdhY3kgZHJpdmVycyBjb252ZXJ0IHRoaXMg
+ZHJpdmVyIHRvIHRoZQptb2Rlcm4gd29ybGQgaW1wbGVtZW50aW5nIC5hcHBseSgpLgpUaGlzIGp1
+c3QgcHVzaGVkIGEgdmFyaWFudCBvZiBwd21fYXBwbHlfbGVnYWN5KCkgaW50byB0aGUgZHJpdmVy
+IHRoYXQgd2FzCnNsaWdodGx5IHNpbXBsaWZpZWQgYmVjYXVzZSB0aGUgZHJpdmVyIGRvZXNuJ3Qg
+cHJvdmlkZSBhIC5zZXRfcG9sYXJpdHkoKQpjYWxsYmFjay4KClNpZ25lZC1vZmYtYnk6IFV3ZSBL
+bGVpbmUtS8O2bmlnIDx1LmtsZWluZS1rb2VuaWdAcGVuZ3V0cm9uaXguZGU+Ci0tLQogZHJpdmVy
+cy9wd20vcHdtLXN0bXBlLmMgfCAyOSArKysrKysrKysrKysrKysrKysrKysrKysrKy0tLQogMSBm
+aWxlIGNoYW5nZWQsIDI2IGluc2VydGlvbnMoKyksIDMgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0
+IGEvZHJpdmVycy9wd20vcHdtLXN0bXBlLmMgYi9kcml2ZXJzL3B3bS9wd20tc3RtcGUuYwppbmRl
+eCBjNDMzNmQzYmFjZTMuLjVkNGE0NzYyY2UwYyAxMDA2NDQKLS0tIGEvZHJpdmVycy9wd20vcHdt
+LXN0bXBlLmMKKysrIGIvZHJpdmVycy9wd20vcHdtLXN0bXBlLmMKQEAgLTI1OSwxMCArMjU5LDMz
+IEBAIHN0YXRpYyBpbnQgc3RtcGVfMjR4eF9wd21fY29uZmlnKHN0cnVjdCBwd21fY2hpcCAqY2hp
+cCwgc3RydWN0IHB3bV9kZXZpY2UgKnB3bSwKIAlyZXR1cm4gMDsKIH0KIAorc3RhdGljIGludCBz
+dG1wZV8yNHh4X3B3bV9hcHBseShzdHJ1Y3QgcHdtX2NoaXAgKmNoaXAsIHN0cnVjdCBwd21fZGV2
+aWNlICpwd20sCisJCQkJY29uc3Qgc3RydWN0IHB3bV9zdGF0ZSAqc3RhdGUpCit7CisJaW50IGVy
+cjsKKworCWlmIChzdGF0ZS0+cG9sYXJpdHkgIT0gUFdNX1BPTEFSSVRZX05PUk1BTCkKKwkJcmV0
+dXJuIC1FSU5WQUw7CisKKwlpZiAoIXN0YXRlLT5lbmFibGVkKSB7CisJCWlmIChwd20tPnN0YXRl
+LmVuYWJsZWQpCisJCQlzdG1wZV8yNHh4X3B3bV9kaXNhYmxlKGNoaXAsIHB3bSk7CisKKwkJcmV0
+dXJuIDA7CisJfQorCisJZXJyID0gc3RtcGVfMjR4eF9wd21fY29uZmlnKHB3bS0+Y2hpcCwgcHdt
+LCBzdGF0ZS0+ZHV0eV9jeWNsZSwgc3RhdGUtPnBlcmlvZCk7CisJaWYgKGVycikKKwkJcmV0dXJu
+IGVycjsKKworCWlmICghcHdtLT5zdGF0ZS5lbmFibGVkKQorCQllcnIgPSBzdG1wZV8yNHh4X3B3
+bV9lbmFibGUoY2hpcCwgcHdtKTsKKworCXJldHVybiBlcnI7Cit9CisKIHN0YXRpYyBjb25zdCBz
+dHJ1Y3QgcHdtX29wcyBzdG1wZV8yNHh4X3B3bV9vcHMgPSB7Ci0JLmNvbmZpZyA9IHN0bXBlXzI0
+eHhfcHdtX2NvbmZpZywKLQkuZW5hYmxlID0gc3RtcGVfMjR4eF9wd21fZW5hYmxlLAotCS5kaXNh
+YmxlID0gc3RtcGVfMjR4eF9wd21fZGlzYWJsZSwKKwkuYXBwbHkgPSBzdG1wZV8yNHh4X3B3bV9h
+cHBseSwKIAkub3duZXIgPSBUSElTX01PRFVMRSwKIH07CiAKCmJhc2UtY29tbWl0OiAyYmY4ZWUw
+ZmFhOTg4YjVjZWMzNTAzZWJmMmY5NzBhMGU4NGQyNGVlCi0tIAoyLjM1LjEKCl9fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcg
+bGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3Qt
+bWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
