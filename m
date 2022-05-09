@@ -2,70 +2,67 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7E16A51F58C
-	for <lists+linux-stm32@lfdr.de>; Mon,  9 May 2022 09:46:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EE53051F55C
+	for <lists+linux-stm32@lfdr.de>; Mon,  9 May 2022 09:40:19 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2EA6FC6049F;
-	Mon,  9 May 2022 07:46:55 +0000 (UTC)
-Received: from mail-qv1-f42.google.com (mail-qv1-f42.google.com
- [209.85.219.42])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 96D9CC5F1D3;
+	Mon,  9 May 2022 07:40:19 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EC6FFC628A8
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 768C5C5A4FD
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  6 May 2022 22:57:13 +0000 (UTC)
-Received: by mail-qv1-f42.google.com with SMTP id kj8so6420043qvb.6
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 06 May 2022 15:57:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=BGM4e8dlW2rnY5tjhs9oiiib3imBRnPsRxxY6qM+kZ4=;
- b=Cv7nqR/tLqVTBsytmAQLGkwrOSuyqjm9iJALV8wRpxzyMxwLGuvaxVOBblpzJdiQkr
- lCI6oDGbUiipN5u9wBh/WD5G3ZEVmbbk/NuaoAczXPucBVI/Q3/81679OvLoGosOn0Ms
- 6w+j96cFj08P6QyRK264+FYtPJZ+6b9HgAhOw5AJTysJudS+l1FZGCdcLUfxMCnCtVn0
- OqDLaqgEFe189lgdb34G6dDmobZ0BtWgqv/HopPqRApa/OBc+bA2nM3l2JZfLkIqbPF5
- tFQY+kx3Ji5mBO7mKOd1zNS+/3LeTKjkUSSA8r0bZA07+d0pM2JeJdOTA7gdXboJsey9
- cAEQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=BGM4e8dlW2rnY5tjhs9oiiib3imBRnPsRxxY6qM+kZ4=;
- b=KbL8Xsh1j0dtYiod2DQI9kvGi7UuXKrGviqb8VIWs1azCcCUS+jG5XA/bM75KqT/1P
- 1NDP6uUzSZ8DNOEKH/jw5KbXjdW6I+gIllzpGzfP9p1+LT4YWIxDO7pM+mVDKhh3kaB9
- 1WF5c9tQpQN/P01xEElHOp6gAvyyQ7TW/qja73txoQy8pWu4jaCoEKKHkzxwKqgsnpEB
- 1v2Wh8Q2ohMdgOKw/KAjw0Y7OUQkD2jeTmrfZf3fn3bryEatXUieZFzqbREtbv7JzJqw
- VSacmYq0bmcI6ATo5d3GwUjHATbaVxvZieHGGhLcpvADTyEkYDd9ax4Hrb3PnfLYJIda
- 9e9A==
-X-Gm-Message-State: AOAM530r25huonOVazl7lUGdpdvA4jbkXITLN4ZO+xQ2i1J6YGJI/iD7
- XK3k7MR6ysOAUu+E0F8QK1g=
-X-Google-Smtp-Source: ABdhPJyA6WWf4fVWUYojRIP+BmLp52WJkFjnyvtqNqoebTb6GRjKlflgRAV3EUUYrS3J1hQsfNXsxA==
-X-Received: by 2002:a05:6214:b94:b0:456:38b2:2d76 with SMTP id
- fe20-20020a0562140b9400b0045638b22d76mr4403222qvb.70.1651877833036; 
- Fri, 06 May 2022 15:57:13 -0700 (PDT)
-Received: from grrm.lan
- (bras-base-mtrlpq4809w-grc-17-70-53-205-21.dsl.bell.ca. [70.53.205.21])
- by smtp.gmail.com with ESMTPSA id
- q188-20020a37a7c5000000b0069fc13ce208sm3187880qke.57.2022.05.06.15.57.12
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 06 May 2022 15:57:12 -0700 (PDT)
-From: Yannick Brosseau <yannick.brosseau@gmail.com>
-To: jic23@kernel.org, lars@metafoo.de, mcoquelin.stm32@gmail.com,
- alexandre.torgue@foss.st.com, fabrice.gasnier@foss.st.com,
- olivier.moysan@foss.st.com
-Date: Fri,  6 May 2022 18:56:17 -0400
-Message-Id: <20220506225617.1774604-3-yannick.brosseau@gmail.com>
-X-Mailer: git-send-email 2.36.0
-In-Reply-To: <20220506225617.1774604-1-yannick.brosseau@gmail.com>
-References: <20220506225617.1774604-1-yannick.brosseau@gmail.com>
+ Mon,  9 May 2022 07:40:18 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 248LUshn011815;
+ Mon, 9 May 2022 09:40:00 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=/j0WtA1ZdUqRFV99pN+qeJH/+Z3kUlv2gElgYxTejVo=;
+ b=nheer9I1FTvVEUlIHIa+vmqDDa2ea18u3DYv8HLTTLLdlgA2AVZnYKk0/D27meek9lfW
+ zeUL+xlMDvTrxf1HfDpdVnWYALfvq79gUfbWa3/U39fMYMH6GmvIJVeFlg6nyY29tIVe
+ eHwih2uk5kGBu9qy1PQLjAGax9/gii97BiWqgvCiXIzmNiI7hE5FCXj2jRBClVMHydDP
+ lox/zazXN9xcaKU0E3R6/7XQozmEnGK19mjogQamOpYn4n0oF5jbayYh9PWbmhxXVkpL
+ tI3YDl5OQmpBtz9VU7A8IfCF361bD1Ja6+2K7zy58bCLzZc2vQC/X4PADkkI54DOZRN1 Nw== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3fwfng9hsh-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 09 May 2022 09:40:00 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 94AFF100034;
+ Mon,  9 May 2022 09:39:58 +0200 (CEST)
+Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 8C30F2122E7;
+ Mon,  9 May 2022 09:39:58 +0200 (CEST)
+Received: from [10.48.1.150] (10.75.127.47) by SFHDAG2NODE2.st.com
+ (10.75.127.5) with Microsoft SMTP Server (TLS) id 15.0.1497.26; Mon, 9 May
+ 2022 09:39:57 +0200
+Message-ID: <30a2c669-693f-45ec-df0e-610e1f94bffd@foss.st.com>
+Date: Mon, 9 May 2022 09:39:57 +0200
 MIME-Version: 1.0
-X-Mailman-Approved-At: Mon, 09 May 2022 07:46:53 +0000
-Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
- paul@crapouillou.net, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 2/2] iio: adc: stm32: Fix check for spurious
-	IRQs on STM32F4
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.7.0
+Content-Language: en-US
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Linus Walleij
+ <linus.walleij@linaro.org>, <linux-gpio@vger.kernel.org>,
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
+References: <20220507102257.26414-1-andriy.shevchenko@linux.intel.com>
+From: Fabien DESSENNE <fabien.dessenne@foss.st.com>
+In-Reply-To: <20220507102257.26414-1-andriy.shevchenko@linux.intel.com>
+X-Originating-IP: [10.75.127.47]
+X-ClientProxiedBy: SFHDAG2NODE2.st.com (10.75.127.5) To SFHDAG2NODE2.st.com
+ (10.75.127.5)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.858,Hydra:6.0.486,FMLib:17.11.64.514
+ definitions=2022-05-09_02,2022-05-06_01,2022-02-23_01
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ kernel test robot <lkp@intel.com>
+Subject: Re: [Linux-stm32] [PATCH v1 1/1] pinctrl: stm32: Unshadow np
+ variable in stm32_pctl_probe()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,54 +74,111 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The check for spurious IRQs introduced in 695e2f5c289bb assumed that the bits
-in the control and status registers are aligned. This is true for the H7 and MP1
-version, but not the F4.
+Hi Andy
 
-Instead of comparing both registers bitwise, we check the bit in the status and control
-for each interrupt we are interested in.
 
-Signed-off-by: Yannick Brosseau <yannick.brosseau@gmail.com>
----
- drivers/iio/adc/stm32-adc.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+Thank you for the patch.
 
-diff --git a/drivers/iio/adc/stm32-adc.c b/drivers/iio/adc/stm32-adc.c
-index a68ecbda6480..5b0f138333ee 100644
---- a/drivers/iio/adc/stm32-adc.c
-+++ b/drivers/iio/adc/stm32-adc.c
-@@ -1422,9 +1422,10 @@ static irqreturn_t stm32_adc_threaded_isr(int irq, void *data)
- 		return IRQ_HANDLED;
- 	}
- 
--	if (!(status & mask))
-+	if(!((status & regs->isr_eoc.mask) && (mask & regs->ier_eoc.mask)) ||
-+           ((status & regs->isr_ovr.mask) && (mask & regs->ier_ovr.mask)))
- 		dev_err_ratelimited(&indio_dev->dev,
--				    "Unexpected IRQ: IER=0x%08x, ISR=0x%08x\n",
-+				    "Unexpected IRQ: CR1/IER=0x%08x, SR/ISR=0x%08x\n",
- 				    mask, status);
- 
- 	return IRQ_NONE;
-@@ -1438,7 +1439,9 @@ static irqreturn_t stm32_adc_isr(int irq, void *data)
- 	u32 status = stm32_adc_readl(adc, regs->isr_eoc.reg);
- 	u32 mask = stm32_adc_readl(adc, regs->ier_eoc.reg);
- 
--	if (!(status & mask))
-+	/* Check that we have the interrupt we care about are enabled and active */
-+        if(!((status & regs->isr_eoc.mask) && (mask & regs->ier_eoc.mask)) ||
-+           ((status & regs->isr_ovr.mask) && (mask & regs->ier_ovr.mask)))
- 		return IRQ_WAKE_THREAD;
- 
- 	if (status & regs->isr_ovr.mask) {
--- 
-2.36.0
+Will this patch be applied in Linus pinctrl tree, or in the gpio-intel 
+tree before being merged (linux-next) in the pinctrl tree?
 
+BR
+
+Fabien
+
+
+
+On 07/05/2022 12:22, Andy Shevchenko wrote:
+> The np variable is used globally for stm32_pctl_probe() and in one of
+> its code branches. cppcheck is not happy with that:
+> 
+>    pinctrl-stm32.c:1530:23: warning: Local variable 'np' shadows outer variable [shadowVariable]
+> 
+> Instead of simply renaming one of the variables convert some code to
+> use a device pointer directly.
+> 
+> Fixes: bb949ed9b16b ("pinctrl: stm32: Switch to use for_each_gpiochip_node() helper")
+> Reported-by: kernel test robot <lkp@intel.com>
+> Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+
+Reviewed-by: Fabien Dessenne <fabien.dessenne@foss.st.com>
+
+
+
+> ---
+>   drivers/pinctrl/stm32/pinctrl-stm32.c | 21 +++++++++------------
+>   1 file changed, 9 insertions(+), 12 deletions(-)
+> 
+> diff --git a/drivers/pinctrl/stm32/pinctrl-stm32.c b/drivers/pinctrl/stm32/pinctrl-stm32.c
+> index e73f2d24611f..5d1d067b2247 100644
+> --- a/drivers/pinctrl/stm32/pinctrl-stm32.c
+> +++ b/drivers/pinctrl/stm32/pinctrl-stm32.c
+> @@ -1364,8 +1364,9 @@ static int stm32_gpiolib_register_bank(struct stm32_pinctrl *pctl, struct fwnode
+>   	return err;
+>   }
+>   
+> -static struct irq_domain *stm32_pctrl_get_irq_domain(struct device_node *np)
+> +static struct irq_domain *stm32_pctrl_get_irq_domain(struct platform_device *pdev)
+>   {
+> +	struct device_node *np = pdev->dev.of_node;
+>   	struct device_node *parent;
+>   	struct irq_domain *domain;
+>   
+> @@ -1482,23 +1483,19 @@ static int stm32_pctrl_create_pins_tab(struct stm32_pinctrl *pctl,
+>   
+>   int stm32_pctl_probe(struct platform_device *pdev)
+>   {
+> -	struct device_node *np = pdev->dev.of_node;
+> +	const struct stm32_pinctrl_match_data *match_data;
+>   	struct fwnode_handle *child;
+> -	const struct of_device_id *match;
+>   	struct device *dev = &pdev->dev;
+>   	struct stm32_pinctrl *pctl;
+>   	struct pinctrl_pin_desc *pins;
+>   	int i, ret, hwlock_id;
+>   	unsigned int banks;
+>   
+> -	if (!np)
+> -		return -EINVAL;
+> -
+> -	match = of_match_device(dev->driver->of_match_table, dev);
+> -	if (!match || !match->data)
+> +	match_data = device_get_match_data(dev);
+> +	if (!match_data)
+>   		return -EINVAL;
+>   
+> -	if (!of_find_property(np, "pins-are-numbered", NULL)) {
+> +	if (!device_property_present(dev, "pins-are-numbered")) {
+>   		dev_err(dev, "only support pins-are-numbered format\n");
+>   		return -EINVAL;
+>   	}
+> @@ -1510,7 +1507,7 @@ int stm32_pctl_probe(struct platform_device *pdev)
+>   	platform_set_drvdata(pdev, pctl);
+>   
+>   	/* check for IRQ controller (may require deferred probe) */
+> -	pctl->domain = stm32_pctrl_get_irq_domain(np);
+> +	pctl->domain = stm32_pctrl_get_irq_domain(pdev);
+>   	if (IS_ERR(pctl->domain))
+>   		return PTR_ERR(pctl->domain);
+>   
+> @@ -1526,10 +1523,10 @@ int stm32_pctl_probe(struct platform_device *pdev)
+>   	spin_lock_init(&pctl->irqmux_lock);
+>   
+>   	pctl->dev = dev;
+> -	pctl->match_data = match->data;
+> +	pctl->match_data = match_data;
+>   
+>   	/*  get optional package information */
+> -	if (!of_property_read_u32(np, "st,package", &pctl->pkg))
+> +	if (!device_property_read_u32(dev, "st,package", &pctl->pkg))
+>   		dev_dbg(pctl->dev, "package detected: %x\n", pctl->pkg);
+>   
+>   	pctl->pins = devm_kcalloc(pctl->dev, pctl->match_data->npins,
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
