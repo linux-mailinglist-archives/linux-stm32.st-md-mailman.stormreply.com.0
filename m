@@ -2,67 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id EE53051F55C
-	for <lists+linux-stm32@lfdr.de>; Mon,  9 May 2022 09:40:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BF8DA51F7D1
+	for <lists+linux-stm32@lfdr.de>; Mon,  9 May 2022 11:18:38 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 96D9CC5F1D3;
-	Mon,  9 May 2022 07:40:19 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 719F4C5F1D3;
+	Mon,  9 May 2022 09:18:38 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
  [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 768C5C5A4FD
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 44ED0C57183
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  9 May 2022 07:40:18 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 248LUshn011815;
- Mon, 9 May 2022 09:40:00 +0200
+ Mon,  9 May 2022 09:18:36 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 2498UabE017146;
+ Mon, 9 May 2022 11:18:35 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
  h=message-id : date :
  mime-version : subject : to : cc : references : from : in-reply-to :
  content-type : content-transfer-encoding; s=selector1;
- bh=/j0WtA1ZdUqRFV99pN+qeJH/+Z3kUlv2gElgYxTejVo=;
- b=nheer9I1FTvVEUlIHIa+vmqDDa2ea18u3DYv8HLTTLLdlgA2AVZnYKk0/D27meek9lfW
- zeUL+xlMDvTrxf1HfDpdVnWYALfvq79gUfbWa3/U39fMYMH6GmvIJVeFlg6nyY29tIVe
- eHwih2uk5kGBu9qy1PQLjAGax9/gii97BiWqgvCiXIzmNiI7hE5FCXj2jRBClVMHydDP
- lox/zazXN9xcaKU0E3R6/7XQozmEnGK19mjogQamOpYn4n0oF5jbayYh9PWbmhxXVkpL
- tI3YDl5OQmpBtz9VU7A8IfCF361bD1Ja6+2K7zy58bCLzZc2vQC/X4PADkkI54DOZRN1 Nw== 
+ bh=C3wiR7qnEracRhKpAOx6YtBI+f6gCjQnqQN7TEosXEg=;
+ b=z4glVLFgaqVLSpAbV0C/Y+xgGVW14z9XjRfrPXP0nwtS45E5FSNi+uyJ9oBpuwwQUR4e
+ wUtLT/i/oAVJlHVSDSNJFCL6o6+4D3U1OgiwE9iILIjv6P38TwsaA7taUkCGWawqhEcz
+ u2lT3y5wAPOJ6XVvqYHmcdgAH91TJ+gcD7v/y+8wKHDnx1Xldzfk6Qx+eOBSlMJlUohX
+ YIeft7N+pD7u5McO6wc3zT01184mjh86EKB9hgvzTyC6OvKVTuqJBivhNI1AMihC1uf5
+ I4gA97fE/1SJI1jhW6LgaZC5r/j3I3C32YBTrEJrNAzKJJ6d73MdIzIM9q8e4J7Sz/BC MQ== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3fwfng9hsh-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3fwdw8tfu2-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 09 May 2022 09:40:00 +0200
+ Mon, 09 May 2022 11:18:35 +0200
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 94AFF100034;
- Mon,  9 May 2022 09:39:58 +0200 (CEST)
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id E0B78100038;
+ Mon,  9 May 2022 11:18:34 +0200 (CEST)
 Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 8C30F2122E7;
- Mon,  9 May 2022 09:39:58 +0200 (CEST)
-Received: from [10.48.1.150] (10.75.127.47) by SFHDAG2NODE2.st.com
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id D793C21513B;
+ Mon,  9 May 2022 11:18:34 +0200 (CEST)
+Received: from [10.201.20.246] (10.75.127.50) by SFHDAG2NODE2.st.com
  (10.75.127.5) with Microsoft SMTP Server (TLS) id 15.0.1497.26; Mon, 9 May
- 2022 09:39:57 +0200
-Message-ID: <30a2c669-693f-45ec-df0e-610e1f94bffd@foss.st.com>
-Date: Mon, 9 May 2022 09:39:57 +0200
+ 2022 11:18:34 +0200
+Message-ID: <b7a3db59-201d-a5fb-f416-e1d60d79762f@foss.st.com>
+Date: Mon, 9 May 2022 11:18:33 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.7.0
+ Thunderbird/91.8.1
 Content-Language: en-US
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Linus Walleij
- <linus.walleij@linaro.org>, <linux-gpio@vger.kernel.org>,
- <linux-stm32@st-md-mailman.stormreply.com>,
- <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
-References: <20220507102257.26414-1-andriy.shevchenko@linux.intel.com>
-From: Fabien DESSENNE <fabien.dessenne@foss.st.com>
-In-Reply-To: <20220507102257.26414-1-andriy.shevchenko@linux.intel.com>
-X-Originating-IP: [10.75.127.47]
-X-ClientProxiedBy: SFHDAG2NODE2.st.com (10.75.127.5) To SFHDAG2NODE2.st.com
+To: Mathieu Poirier <mathieu.poirier@linaro.org>
+References: <20220315153856.3117676-1-arnaud.pouliquen@foss.st.com>
+ <20220506171222.GA2816011@p14s>
+From: Arnaud POULIQUEN <arnaud.pouliquen@foss.st.com>
+In-Reply-To: <20220506171222.GA2816011@p14s>
+X-Originating-IP: [10.75.127.50]
+X-ClientProxiedBy: SFHDAG2NODE3.st.com (10.75.127.6) To SFHDAG2NODE2.st.com
  (10.75.127.5)
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.205,Aquarius:18.0.858,Hydra:6.0.486,FMLib:17.11.64.514
- definitions=2022-05-09_02,2022-05-06_01,2022-02-23_01
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- kernel test robot <lkp@intel.com>
-Subject: Re: [Linux-stm32] [PATCH v1 1/1] pinctrl: stm32: Unshadow np
- variable in stm32_pctl_probe()
+ definitions=2022-05-09_03,2022-05-09_01,2022-02-23_01
+Cc: linux-stm32@st-md-mailman.stormreply.com, linux-remoteproc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Bjorn Andersson <bjorn.andersson@linaro.org>
+Subject: Re: [Linux-stm32] [PATCH] rpmsg: virtio: set dst address on first
+	message received
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,111 +72,124 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Andy
+Hello Mathieu,
 
-
-Thank you for the patch.
-
-Will this patch be applied in Linus pinctrl tree, or in the gpio-intel 
-tree before being merged (linux-next) in the pinctrl tree?
-
-BR
-
-Fabien
-
-
-
-On 07/05/2022 12:22, Andy Shevchenko wrote:
-> The np variable is used globally for stm32_pctl_probe() and in one of
-> its code branches. cppcheck is not happy with that:
+On 5/6/22 19:12, Mathieu Poirier wrote:
+> On Tue, Mar 15, 2022 at 04:38:56PM +0100, Arnaud Pouliquen wrote:
+>> when a rpmsg channel has been locally created with a destination address
 > 
->    pinctrl-stm32.c:1530:23: warning: Local variable 'np' shadows outer variable [shadowVariable]
+> s/when/Wen
 > 
-> Instead of simply renaming one of the variables convert some code to
-> use a device pointer directly.
+> Also, please be more specific about the "locally created" part, i.e
+> rpmsg_ctrldev_ioctl() -> rpmsg_create_channel().  Otherwise it is really hard to
+> understand the context of this change.
 > 
-> Fixes: bb949ed9b16b ("pinctrl: stm32: Switch to use for_each_gpiochip_node() helper")
-> Reported-by: kernel test robot <lkp@intel.com>
-> Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-
-Reviewed-by: Fabien Dessenne <fabien.dessenne@foss.st.com>
-
-
-
-> ---
->   drivers/pinctrl/stm32/pinctrl-stm32.c | 21 +++++++++------------
->   1 file changed, 9 insertions(+), 12 deletions(-)
+>> set to RPMSG_ADDR_ANY, a name service announcement message is sent to
+>> the remote side. Then the destination address is never updated, making it
+>> impossible to send messages to the remote.
+>>
+>> An example of kernel trace observed:
+>> rpmsg_tty virtio0.rpmsg-tty.29.-1: invalid addr (src 0x1d, dst 0xffffffff)
+>>
+>> Implement same strategy than the open-amp library:
+>> On the reception of the first message, if the destination address is
+>> RPMSG_ADDR_ANY, then set it to address of the remote endpoint that
+>> send the message.
+>>
 > 
-> diff --git a/drivers/pinctrl/stm32/pinctrl-stm32.c b/drivers/pinctrl/stm32/pinctrl-stm32.c
-> index e73f2d24611f..5d1d067b2247 100644
-> --- a/drivers/pinctrl/stm32/pinctrl-stm32.c
-> +++ b/drivers/pinctrl/stm32/pinctrl-stm32.c
-> @@ -1364,8 +1364,9 @@ static int stm32_gpiolib_register_bank(struct stm32_pinctrl *pctl, struct fwnode
->   	return err;
->   }
->   
-> -static struct irq_domain *stm32_pctrl_get_irq_domain(struct device_node *np)
-> +static struct irq_domain *stm32_pctrl_get_irq_domain(struct platform_device *pdev)
->   {
-> +	struct device_node *np = pdev->dev.of_node;
->   	struct device_node *parent;
->   	struct irq_domain *domain;
->   
-> @@ -1482,23 +1483,19 @@ static int stm32_pctrl_create_pins_tab(struct stm32_pinctrl *pctl,
->   
->   int stm32_pctl_probe(struct platform_device *pdev)
->   {
-> -	struct device_node *np = pdev->dev.of_node;
-> +	const struct stm32_pinctrl_match_data *match_data;
->   	struct fwnode_handle *child;
-> -	const struct of_device_id *match;
->   	struct device *dev = &pdev->dev;
->   	struct stm32_pinctrl *pctl;
->   	struct pinctrl_pin_desc *pins;
->   	int i, ret, hwlock_id;
->   	unsigned int banks;
->   
-> -	if (!np)
-> -		return -EINVAL;
-> -
-> -	match = of_match_device(dev->driver->of_match_table, dev);
-> -	if (!match || !match->data)
-> +	match_data = device_get_match_data(dev);
-> +	if (!match_data)
->   		return -EINVAL;
->   
-> -	if (!of_find_property(np, "pins-are-numbered", NULL)) {
-> +	if (!device_property_present(dev, "pins-are-numbered")) {
->   		dev_err(dev, "only support pins-are-numbered format\n");
->   		return -EINVAL;
->   	}
-> @@ -1510,7 +1507,7 @@ int stm32_pctl_probe(struct platform_device *pdev)
->   	platform_set_drvdata(pdev, pctl);
->   
->   	/* check for IRQ controller (may require deferred probe) */
-> -	pctl->domain = stm32_pctrl_get_irq_domain(np);
-> +	pctl->domain = stm32_pctrl_get_irq_domain(pdev);
->   	if (IS_ERR(pctl->domain))
->   		return PTR_ERR(pctl->domain);
->   
-> @@ -1526,10 +1523,10 @@ int stm32_pctl_probe(struct platform_device *pdev)
->   	spin_lock_init(&pctl->irqmux_lock);
->   
->   	pctl->dev = dev;
-> -	pctl->match_data = match->data;
-> +	pctl->match_data = match_data;
->   
->   	/*  get optional package information */
-> -	if (!of_property_read_u32(np, "st,package", &pctl->pkg))
-> +	if (!device_property_read_u32(dev, "st,package", &pctl->pkg))
->   		dev_dbg(pctl->dev, "package detected: %x\n", pctl->pkg);
->   
->   	pctl->pins = devm_kcalloc(pctl->dev, pctl->match_data->npins,
+> I would have expected a "Fixes:" tag.
+
+Difficult to give a reference. For me the issue exists since the creation
+of the rpmsg virtio bus. A driver can create a channel that generates a NS
+announcement leading to this issue.
+The issue as been highlighted by the creation of the  RPMSG_CREATE_DEV_IOCTL
+control.
+
+> 
+>> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+>>
+>> ---
+>> Remark:
+>> An alternative (or a complement?) could be to add a NS bind/unbind in
+>> the NS announcement channel (in rpmsg_ns.c).
+>> This would allow the local and/or the remote processor to inform the
+>> remote side the the service announced in bound.
+>> ---
+>>  drivers/rpmsg/virtio_rpmsg_bus.c | 10 ++++++++++
+>>  1 file changed, 10 insertions(+)
+>>
+>> diff --git a/drivers/rpmsg/virtio_rpmsg_bus.c b/drivers/rpmsg/virtio_rpmsg_bus.c
+>> index 3ede25b1f2e4..99d2119cc164 100644
+>> --- a/drivers/rpmsg/virtio_rpmsg_bus.c
+>> +++ b/drivers/rpmsg/virtio_rpmsg_bus.c
+>> @@ -708,6 +708,7 @@ static ssize_t virtio_rpmsg_get_mtu(struct rpmsg_endpoint *ept)
+>>  static int rpmsg_recv_single(struct virtproc_info *vrp, struct device *dev,
+>>  			     struct rpmsg_hdr *msg, unsigned int len)
+>>  {
+>> +	struct rpmsg_device *rpdev;
+>>  	struct rpmsg_endpoint *ept;
+>>  	struct scatterlist sg;
+>>  	bool little_endian = virtio_is_little_endian(vrp->vdev);
+>> @@ -746,6 +747,15 @@ static int rpmsg_recv_single(struct virtproc_info *vrp, struct device *dev,
+>>  	mutex_unlock(&vrp->endpoints_lock);
+>>  
+>>  	if (ept) {
+>> +		rpdev = ept->rpdev;
+>> +		if (rpdev->ept == ept && rpdev->dst == RPMSG_ADDR_ANY) {
+> 
+> Please add a comment to explain the first part of the if() clause.  It took me
+> quite some time to understand. 
+> 
+>> +			/*
+>> +			 * First message received from the remote side on the default endpoint,
+>> +			 * update channel destination address.
+>> +			 */
+>> +			rpdev->dst = msg->src;
+> 
+> This triggers a bot warning and should be addressed.  If it can't be addressed add
+> a comment that clearly explains why so that we don't end up receiving patches
+> for it every 4 weeks.
+
+Oops, I missed it, thanks for pointing it out.
+
+
+Concerning the patch itself as discussed in RP open-amp meeting. I wonder if this issue
+could be addressed by the flow control[1][2][3], or if needed in any case.
+
+I propose to send a V2 when ready to propose in parallel the flow control.
+So both can be addressed at same time to have a global picture of the way to address the
+use case..
+
+Thanks,
+Arnaud
+
+[1] POC Linux code:
+https://github.com/arnopo/linux/commits/signalling
+
+[2] openamp library associated code:
+https://github.com/arnopo/open-amp/commits/flow_ctrl
+
+[3] overview presentation
+https://drive.google.com/file/d/1CLU3ybI3oSBGvor18AQ-HOzOJ2nOppEb/view
+
+
+> 
+> Thanks,
+> Mathieu
+> 
+>> +		}
+>> +
+>>  		/* make sure ept->cb doesn't go away while we use it */
+>>  		mutex_lock(&ept->cb_lock);
+>>  
+>> -- 
+>> 2.25.1
+>>
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
