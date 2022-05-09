@@ -2,62 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C7C0751FEB7
-	for <lists+linux-stm32@lfdr.de>; Mon,  9 May 2022 15:47:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4E7EA5201DC
+	for <lists+linux-stm32@lfdr.de>; Mon,  9 May 2022 18:04:45 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7D276C5F1D3;
-	Mon,  9 May 2022 13:47:10 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 01710C5F1D3;
+	Mon,  9 May 2022 16:04:45 +0000 (UTC)
+Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com
+ [209.85.210.172])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3CA12C5A4FD
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B7156C5A4FD
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  9 May 2022 13:47:09 +0000 (UTC)
-Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 249CkU1q011337;
- Mon, 9 May 2022 15:46:59 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=from : to : cc :
- subject : date : message-id : mime-version : content-type; s=selector1;
- bh=YCUzkBMpATH4oafdkH+ZZgiEl4z5yPbRDWExDNymfS0=;
- b=KU41ueLp4zx7fAW+P0ojjYgNwFdPzVZtCJ9dsjkKsRvTs4tUTPOiW0BwEiNOPIoA6uRb
- TGQnTDv5soQDuXNoLoAffj65sk8hUiAFKWdGqprK2vtJYuWQ1dm+msWDFcnjwlV3Ba6K
- TDiTdoQ6Ld0FCEqfA6OXvk7W5AmrNeVnemlTVUmVphyfXZegmjJd/nJ6c1iofD4m0DDp
- XKVTiWSNJvzF9vXxwv3VhzAXbPm2ISwYyZxm8S85zbX6ZaC7sMDmmwWQBatRYEgxB+Ql
- pixTqTG4thhLgKfOsCEZzux4A93g6OCG9y7N0JQbB5Cyj+mGaNejBGUb71QQsmN+2709 Rw== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3fwe6kjfgf-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 09 May 2022 15:46:59 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 0970510002A;
- Mon,  9 May 2022 15:46:59 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 02E402248D3;
- Mon,  9 May 2022 15:46:59 +0200 (CEST)
-Received: from localhost (10.75.127.46) by SHFDAG1NODE1.st.com (10.75.129.69)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2308.20; Mon, 9 May
- 2022 15:46:58 +0200
-From: Alexandre Torgue <alexandre.torgue@foss.st.com>
-To: Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>, Stephen
- Boyd <sboyd@kernel.org>
-Date: Mon, 9 May 2022 15:46:58 +0200
-Message-ID: <20220509134658.16267-1-alexandre.torgue@foss.st.com>
-X-Mailer: git-send-email 2.17.1
+ Mon,  9 May 2022 16:04:42 +0000 (UTC)
+Received: by mail-pf1-f172.google.com with SMTP id 204so9831832pfx.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 09 May 2022 09:04:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=UdDrFvMTPlFEuDpVKn6UuLvbfztwhknrVS+8QAPpwmc=;
+ b=J3EEQLp2oqp41altc+Q/q8W3s+Sp3eLTohaUdz2/+Rwdmd4uuvgFyd7339k5RbOF5J
+ i0AaAoLjX0X1wJgDB49H/+8/KghhdbUfVuMXZ6wcyVjMekL1Y4tpKKCuRDSlVjO38mEI
+ kqbccxnmKopU6x3mIy/nRdpyecpwLAQhFCSofqR1aHqCAmthMpMQ5pATK2xOQOOiA3t5
+ kS0E483Ul9E+JueJIPeLdAW7+AqXJqBFvvA8X6iSYaWjtxkdccVYu/7JwmC5bb+fTWfl
+ 3bcuz8MH0oRmoCEcgkEZ+/fcai/GFTzVp9fGDggQyEr+sNilKVrNN0dXynuqcIzL0ed8
+ WPWw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=UdDrFvMTPlFEuDpVKn6UuLvbfztwhknrVS+8QAPpwmc=;
+ b=CWudXuqUd4iJZzTUapFixbodF1x6WVVvA464CUc2XsLEcYumrrI7pJry+5VOIQtJl0
+ 1nL9MsAhycgnuFzjQ7vdzcNBlKLrNyXasgz9XVr7IJaOw4q82OUfl3Ctn8heqrMvt/CM
+ vTnwc8t9w7C5L9QmrHgmwEt+oO319FoZYgJDAlVhxec8W8veQQQxPnqkXQPtqxx6e6QP
+ 8RYd1z1MWXceuYifVGulKTXs0d55n9rKKHXaWuuXTM57TQ/zzeiL1kPzlC5hrKIj+vGG
+ 2YzvNxe2pynHQ2+Is5C1qOqoYjZr04YG2DaoziMwHsAdipW7VyWWCPEtSWqOnCjCwwzI
+ 3uTw==
+X-Gm-Message-State: AOAM530Og4ItEMyjk8mE+hkYoZLI5YI6onrLINr9qnOkZFL5fDSZ0ceF
+ s1aPLx3pJfgcKAIa1wI+SHM3pQ==
+X-Google-Smtp-Source: ABdhPJwMqknPNBUBGaG7wAm1Hvz84PnOG/5jowsuGzw29PwBE4WkdUvnp59PCpFdWkXcrI/bAl0vIA==
+X-Received: by 2002:aa7:9085:0:b0:510:90d1:f445 with SMTP id
+ i5-20020aa79085000000b0051090d1f445mr11764534pfa.67.1652112281331; 
+ Mon, 09 May 2022 09:04:41 -0700 (PDT)
+Received: from p14s (S0106889e681aac74.cg.shawcable.net. [68.147.0.187])
+ by smtp.gmail.com with ESMTPSA id
+ q1-20020a170902dac100b0015e8d4eb2dfsm7330090plx.297.2022.05.09.09.04.39
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 09 May 2022 09:04:39 -0700 (PDT)
+Date: Mon, 9 May 2022 10:04:37 -0600
+From: Mathieu Poirier <mathieu.poirier@linaro.org>
+To: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+Message-ID: <20220509160437.GA3043772@p14s>
+References: <20220505113639.1344281-1-arnaud.pouliquen@foss.st.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.46]
-X-ClientProxiedBy: SFHDAG2NODE2.st.com (10.75.127.5) To SHFDAG1NODE1.st.com
- (10.75.129.69)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.858,Hydra:6.0.486,FMLib:17.11.64.514
- definitions=2022-05-09_03,2022-05-09_01,2022-02-23_01
-Cc: devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH] dt-bindings: clock: stm32mp1: adapt example
-	for "st, stm32mp1-rcc-secure"
+Content-Disposition: inline
+In-Reply-To: <20220505113639.1344281-1-arnaud.pouliquen@foss.st.com>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-remoteproc@vger.kernel.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v2] dt-bindings: remoteproc: st,
+ stm32-rproc: Fix phandle-array parameters description
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,36 +80,73 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-For "st,stm32mp1-rcc-secure" schema, clocks and clock-names entries are now
-required properties.
+On Thu, May 05, 2022 at 01:36:39PM +0200, Arnaud Pouliquen wrote:
+> Replace the FIXME by appropriate description.
+> 
+> Fixes: 39bd2b6a3783 ("dt-bindings: Improve phandle-array schemas")
+> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+> Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> ---
+>  .../bindings/remoteproc/st,stm32-rproc.yaml      | 16 ++++++++--------
+>  1 file changed, 8 insertions(+), 8 deletions(-)
+> 
 
-Signed-off-by: Alexandre Torgue <alexandre.torgue@foss.st.com>
+I have applied this patch.
 
-diff --git a/Documentation/devicetree/bindings/clock/st,stm32mp1-rcc.yaml b/Documentation/devicetree/bindings/clock/st,stm32mp1-rcc.yaml
-index bb0e0b92e907..45b94124366c 100644
---- a/Documentation/devicetree/bindings/clock/st,stm32mp1-rcc.yaml
-+++ b/Documentation/devicetree/bindings/clock/st,stm32mp1-rcc.yaml
-@@ -106,10 +106,17 @@ additionalProperties: false
- 
- examples:
-   - |
-+    #include <dt-bindings/clock/stm32mp1-clks.h>
-     rcc: rcc@50000000 {
-         compatible = "st,stm32mp1-rcc-secure", "syscon";
-         reg = <0x50000000 0x1000>;
-         #clock-cells = <1>;
-         #reset-cells = <1>;
-+        clock-names = "hse", "hsi", "csi", "lse", "lsi";
-+        clocks = <&scmi_clk CK_SCMI_HSE>,
-+                 <&scmi_clk CK_SCMI_HSI>,
-+                 <&scmi_clk CK_SCMI_CSI>,
-+                 <&scmi_clk CK_SCMI_LSE>,
-+                 <&scmi_clk CK_SCMI_LSI>;
-     };
- ...
--- 
-2.17.1
+Thanks,
+Mathieu
 
+> diff --git a/Documentation/devicetree/bindings/remoteproc/st,stm32-rproc.yaml b/Documentation/devicetree/bindings/remoteproc/st,stm32-rproc.yaml
+> index be3d9b0e876b..da50f0e99fe2 100644
+> --- a/Documentation/devicetree/bindings/remoteproc/st,stm32-rproc.yaml
+> +++ b/Documentation/devicetree/bindings/remoteproc/st,stm32-rproc.yaml
+> @@ -43,8 +43,8 @@ properties:
+>      items:
+>        - items:
+>            - description: Phandle of syscon block
+> -          - description: FIXME
+> -          - description: FIXME
+> +          - description: The offset of the trust zone setting register
+> +          - description: The field mask of the trust zone state
+>  
+>    interrupts:
+>      description: Should contain the WWDG1 watchdog reset interrupt
+> @@ -101,8 +101,8 @@ properties:
+>      items:
+>        - items:
+>            - description: Phandle of syscon block
+> -          - description: FIXME
+> -          - description: FIXME
+> +          - description: The offset of the power setting register
+> +          - description: The field mask of the PDDS selection
+>  
+>    st,syscfg-m4-state:
+>      $ref: "/schemas/types.yaml#/definitions/phandle-array"
+> @@ -111,8 +111,8 @@ properties:
+>      items:
+>        - items:
+>            - description: Phandle of syscon block with the tamp register
+> -          - description: FIXME
+> -          - description: FIXME
+> +          - description: The offset of the tamp register
+> +          - description: The field mask of the Cortex-M4 state
+>  
+>    st,syscfg-rsc-tbl:
+>      $ref: "/schemas/types.yaml#/definitions/phandle-array"
+> @@ -122,8 +122,8 @@ properties:
+>      items:
+>        - items:
+>            - description: Phandle of syscon block with the tamp register
+> -          - description: FIXME
+> -          - description: FIXME
+> +          - description: The offset of the tamp register
+> +          - description: The field mask of the Cortex-M4 resource table address
+>  
+>    st,auto-boot:
+>      $ref: /schemas/types.yaml#/definitions/flag
+> -- 
+> 2.25.1
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
