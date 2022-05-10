@@ -2,43 +2,43 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id EAE9A522176
-	for <lists+linux-stm32@lfdr.de>; Tue, 10 May 2022 18:42:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 13A2E522178
+	for <lists+linux-stm32@lfdr.de>; Tue, 10 May 2022 18:42:54 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A6FABC03FC1;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C87F4C5EC6C;
 	Tue, 10 May 2022 16:42:53 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
  [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3A710C035BD
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 16C06C035BD
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 10 May 2022 16:42:52 +0000 (UTC)
+ Tue, 10 May 2022 16:42:53 +0000 (UTC)
 Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 24AF57Dc032368;
- Tue, 10 May 2022 18:42:35 +0200
+ by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 24ADqApE011169;
+ Tue, 10 May 2022 18:42:38 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
  h=from : to : cc :
  subject : date : message-id : in-reply-to : references : mime-version :
  content-transfer-encoding : content-type; s=selector1;
- bh=OnIqBC652dGZO3WZb/2lM8W2Bu2100kdB0YW8gEUpuY=;
- b=B2tiqDASPfzSCX/Z5RU04HGscUpJxkNRsgHSsmFNPsIFhdZQziRfwifYm8N6s50oAF3K
- ptH17hiPnFYOKhXCYK44m7QEgmLwhvenM6QGVW0bhY4bJ/AnzUzdHcd4y7dcms+wstqw
- FWbS7oq/0U+xO2PcRcPjOqj8SFb/hw8teEheBotcd+LtEE/5AAAqKjxfKlUaXK/mvLm+
- wiCY467kL9JiyBBuMaEEB14TjiItN5u+mt1H4jYXzLwl9bbj2jw7P628bbu9eZRVnXVK
- NV0LtlcNyYYBsTTuK65EUzDNnYrLjQ6kZFa2Fnzu/S2Z9fhI2MvJ06Jb565nl41bMxmd LA== 
+ bh=cT5bl4hMyx6MvIaEIWQIuKbjqZzMOn/zldfQYiAYDnY=;
+ b=66oAUaRGuHee/hfzY4M7knaqvFlPa5NDiOIgt932BuJWDKHCt3pYfv1ibxkipjuOG5Rg
+ LFOzU3EfE9ul06gh6UUC1hLOrUFZmeNVdjeuqJr2zfQvTdtU/68VUfKUBU8vIYmlFUqQ
+ 9mnNg23E8fDYFnQw4+E+ZZLj0awOYhKnt5/ZKMA6kYTp2/Ub4taYdTWJE/DUDZUio2rb
+ 8jCAvzmau13x1jBNhaAwA89+fVds5H5K2mIn/XD6T6jIhmxuEO5v7wJ0ZoaMIfo3BciB
+ KjJ1uJly+0oBj2P7xZ0PBC8RI13tY7winl+JC4cdK2ABdvOysexFrznQtzWjcDnmz+xK 2g== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3fwfngkx0f-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3fwfngkx0t-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 10 May 2022 18:42:35 +0200
+ Tue, 10 May 2022 18:42:38 +0200
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id DF9E0100034;
- Tue, 10 May 2022 18:42:34 +0200 (CEST)
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 2C004100038;
+ Tue, 10 May 2022 18:42:38 +0200 (CEST)
 Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id D8CAF23152B;
- Tue, 10 May 2022 18:42:34 +0200 (CEST)
-Received: from localhost (10.75.127.50) by SFHDAG2NODE2.st.com (10.75.127.5)
- with Microsoft SMTP Server (TLS) id 15.0.1497.26; Tue, 10 May 2022 18:42:33
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 25FE823152B;
+ Tue, 10 May 2022 18:42:38 +0200 (CEST)
+Received: from localhost (10.75.127.45) by SFHDAG2NODE2.st.com (10.75.127.5)
+ with Microsoft SMTP Server (TLS) id 15.0.1497.26; Tue, 10 May 2022 18:42:37
  +0200
 From: Antonio Borneo <antonio.borneo@foss.st.com>
 To: Thomas Gleixner <tglx@linutronix.de>, Marc Zyngier <maz@kernel.org>,
@@ -46,23 +46,23 @@ To: Thomas Gleixner <tglx@linutronix.de>, Marc Zyngier <maz@kernel.org>,
  <alexandre.torgue@foss.st.com>, <linux-kernel@vger.kernel.org>,
  <linux-stm32@st-md-mailman.stormreply.com>,
  <linux-arm-kernel@lists.infradead.org>
-Date: Tue, 10 May 2022 18:41:19 +0200
-Message-ID: <20220510164123.557921-3-antonio.borneo@foss.st.com>
+Date: Tue, 10 May 2022 18:41:20 +0200
+Message-ID: <20220510164123.557921-4-antonio.borneo@foss.st.com>
 X-Mailer: git-send-email 2.36.0
 In-Reply-To: <20220510164123.557921-1-antonio.borneo@foss.st.com>
 References: <20220510164123.557921-1-antonio.borneo@foss.st.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.50]
-X-ClientProxiedBy: SFHDAG2NODE3.st.com (10.75.127.6) To SFHDAG2NODE2.st.com
+X-Originating-IP: [10.75.127.45]
+X-ClientProxiedBy: SFHDAG2NODE2.st.com (10.75.127.5) To SFHDAG2NODE2.st.com
  (10.75.127.5)
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.205,Aquarius:18.0.858,Hydra:6.0.486,FMLib:17.11.64.514
  definitions=2022-05-10_04,2022-05-10_01,2022-02-23_01
 Cc: Ludovic Barre <ludovic.barre@foss.st.com>,
- Loic Pallardy <loic.pallardy@foss.st.com>,
- Pascal Paillet <p.paillet@foss.st.com>
-Subject: [Linux-stm32] [PATCH 3/7] irqchip/stm32-exti: remove EMR register
-	access for stm32mp15
+ Pascal Paillet <p.paillet@foss.st.com>,
+ Loic Pallardy <loic.pallardy@foss.st.com>
+Subject: [Linux-stm32] [PATCH 4/7] irqchip/stm32-exti: forward
+	irq_request_resources to parent
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,54 +79,58 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Alexandre Torgue <alexandre.torgue@foss.st.com>
+From: Pascal Paillet <p.paillet@foss.st.com>
 
-C1EMRx registers are not accessible on STM32MP15x.
+Enhance stm32-exti driver to forward request_resources and
+release_resources_parent operations to parent.
+Do not use irq_request_resources_parent because it returns
+an error when the parent does not implement irq_request_resources.
 
-Signed-off-by: Alexandre Torgue <alexandre.torgue@foss.st.com>
+Signed-off-by: Pascal Paillet <p.paillet@foss.st.com>
 Signed-off-by: Antonio Borneo <antonio.borneo@foss.st.com>
 ---
- drivers/irqchip/irq-stm32-exti.c | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
+ drivers/irqchip/irq-stm32-exti.c | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
 diff --git a/drivers/irqchip/irq-stm32-exti.c b/drivers/irqchip/irq-stm32-exti.c
-index 1145f064faa8..c8003f4f0457 100644
+index c8003f4f0457..3f6d524a87fe 100644
 --- a/drivers/irqchip/irq-stm32-exti.c
 +++ b/drivers/irqchip/irq-stm32-exti.c
-@@ -132,7 +132,6 @@ static const struct stm32_exti_drv_data stm32h7xx_drv_data = {
+@@ -550,6 +550,16 @@ static void stm32_exti_h_unmask(struct irq_data *d)
+ 		irq_chip_unmask_parent(d);
+ }
  
- static const struct stm32_exti_bank stm32mp1_exti_b1 = {
- 	.imr_ofst	= 0x80,
--	.emr_ofst	= 0x84,
- 	.rtsr_ofst	= 0x00,
- 	.ftsr_ofst	= 0x04,
- 	.swier_ofst	= 0x08,
-@@ -142,7 +141,6 @@ static const struct stm32_exti_bank stm32mp1_exti_b1 = {
- 
- static const struct stm32_exti_bank stm32mp1_exti_b2 = {
- 	.imr_ofst	= 0x90,
--	.emr_ofst	= 0x94,
- 	.rtsr_ofst	= 0x20,
- 	.ftsr_ofst	= 0x24,
- 	.swier_ofst	= 0x28,
-@@ -152,7 +150,6 @@ static const struct stm32_exti_bank stm32mp1_exti_b2 = {
- 
- static const struct stm32_exti_bank stm32mp1_exti_b3 = {
- 	.imr_ofst	= 0xA0,
--	.emr_ofst	= 0xA4,
- 	.rtsr_ofst	= 0x40,
- 	.ftsr_ofst	= 0x44,
- 	.swier_ofst	= 0x48,
-@@ -792,7 +789,8 @@ stm32_exti_chip_data *stm32_exti_chip_init(struct stm32_exti_host_data *h_data,
- 	 * clear registers to avoid residue
- 	 */
- 	writel_relaxed(0, base + stm32_bank->imr_ofst);
--	writel_relaxed(0, base + stm32_bank->emr_ofst);
-+	if (stm32_bank->emr_ofst)
-+		writel_relaxed(0, base + stm32_bank->emr_ofst);
- 
- 	pr_info("%pOF: bank%d\n", node, bank_idx);
- 
++static int stm32_exti_h_request_resources(struct irq_data *data)
++{
++	data = data->parent_data;
++
++	if (data->chip->irq_request_resources)
++		return data->chip->irq_request_resources(data);
++
++	return 0;
++}
++
+ static int stm32_exti_h_set_type(struct irq_data *d, unsigned int type)
+ {
+ 	struct stm32_exti_chip_data *chip_data = irq_data_get_irq_chip_data(d);
+@@ -677,6 +687,8 @@ static struct irq_chip stm32_exti_h_chip = {
+ 	.irq_eoi		= stm32_exti_h_eoi,
+ 	.irq_mask		= stm32_exti_h_mask,
+ 	.irq_unmask		= stm32_exti_h_unmask,
++	.irq_request_resources	= stm32_exti_h_request_resources,
++	.irq_release_resources	= irq_chip_release_resources_parent,
+ 	.irq_retrigger		= stm32_exti_h_retrigger,
+ 	.irq_set_type		= stm32_exti_h_set_type,
+ 	.irq_set_wake		= stm32_exti_h_set_wake,
+@@ -690,6 +702,8 @@ static struct irq_chip stm32_exti_h_chip_direct = {
+ 	.irq_ack		= irq_chip_ack_parent,
+ 	.irq_mask		= stm32_exti_h_mask,
+ 	.irq_unmask		= stm32_exti_h_unmask,
++	.irq_request_resources	= stm32_exti_h_request_resources,
++	.irq_release_resources	= irq_chip_release_resources_parent,
+ 	.irq_retrigger		= irq_chip_retrigger_hierarchy,
+ 	.irq_set_type		= irq_chip_set_type_parent,
+ 	.irq_set_wake		= stm32_exti_h_set_wake,
 -- 
 2.36.0
 
