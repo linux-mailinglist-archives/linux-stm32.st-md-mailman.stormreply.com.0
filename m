@@ -2,45 +2,46 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3FA47522425
-	for <lists+linux-stm32@lfdr.de>; Tue, 10 May 2022 20:34:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 833A8522438
+	for <lists+linux-stm32@lfdr.de>; Tue, 10 May 2022 20:38:37 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EE036C03FC2;
-	Tue, 10 May 2022 18:34:13 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 40EE2C57B6C;
+	Tue, 10 May 2022 18:38:37 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 633CFC035BD
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8377EC035BD
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 10 May 2022 18:34:12 +0000 (UTC)
+ Tue, 10 May 2022 18:38:36 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 327B360E71;
- Tue, 10 May 2022 18:34:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 891D5C385A6;
- Tue, 10 May 2022 18:34:10 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 11066B81F68;
+ Tue, 10 May 2022 18:38:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C9C0BC385C2;
+ Tue, 10 May 2022 18:38:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1652207650;
- bh=8yNzAfOxKFZjkAMggfSelhh2GARAvKpSF0xNSpEDIYQ=;
+ s=k20201202; t=1652207914;
+ bh=vg/AQo4Tb6myBSReu7aIrGsdQxy3WBI+M6zOfl8oVfg=;
  h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=uEbrKQQUdFIkbepPMbyCL5JcorARGDdFN/pGDV2EptjjyxY52drl7gqNLDaBmPzvy
- uaxpsr+uSrY3Va8lvMv/TUElgH35cZfQe4SGaB139Q8YeTAvpKLhzFRWw0+vsFxHlX
- M2lw1r4k1DCK7wjyIL3an42g2Tq95J6l7dA2rzo0WPd+wU0Ea1CJLonEu71LW04+3U
- zjtbjzhkfAj7OJqoQK4udAZBwSnSiPJjm0MOjC2iSbMLnaA90txP1u9is58XfrApI1
- QdCrvHc87vjE74GU0hMPlTvZkUtXqWGfkovccLqiH+fgrBL1MW4b45NgrQWg0CwBWB
- qcpTc03zcPOxQ==
+ b=e6hEDQ93rEm5p6s157edQCLKPbV4ht/O0WqWtVzty+VBJMoi94JXBad4Bl4H3h/BO
+ yhDuQeYw+EJqkGFFXZSJD9Sv1/T/fRKNDagi5Kbl2g0lCX+YYTeEdHs5sTDLRUSTM6
+ loeMGMrLdfkRVrLX7ASbeZzqO5Mdx6shGxps9zCH5HZm6bxbsxO5smDepR/kRzUG/F
+ So+3RiPv4b6pMYKrFi4mMcn33MLHkeqxgpkYnQxa5EI4SU7jGGFkBuAgnEJQMce/Aa
+ WJZfF7PUmfUyjmvdemMKvkVntlsoGCaP0SZPlpVS91vV/P6fqpbYkzop5o8GcaUJQX
+ aBb65KjEWz0+g==
 Received: from sofa.misterjones.org ([185.219.108.64] helo=why.misterjones.org)
  by disco-boy.misterjones.org with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.94.2)
  (envelope-from <maz@kernel.org>)
- id 1noUgR-00AMpf-QB; Tue, 10 May 2022 19:34:07 +0100
-Date: Tue, 10 May 2022 19:34:07 +0100
-Message-ID: <878rr96xuo.wl-maz@kernel.org>
+ id 1noUki-00AMsa-89; Tue, 10 May 2022 19:38:32 +0100
+Date: Tue, 10 May 2022 19:38:32 +0100
+Message-ID: <877d6t6xnb.wl-maz@kernel.org>
 From: Marc Zyngier <maz@kernel.org>
 To: Antonio Borneo <antonio.borneo@foss.st.com>
-In-Reply-To: <20220510164123.557921-1-antonio.borneo@foss.st.com>
+In-Reply-To: <20220510164123.557921-3-antonio.borneo@foss.st.com>
 References: <20220510164123.557921-1-antonio.borneo@foss.st.com>
+ <20220510164123.557921-3-antonio.borneo@foss.st.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
  FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/27.1
  (x86_64-pc-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -60,8 +61,8 @@ Cc: Ludovic Barre <ludovic.barre@foss.st.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Thomas Gleixner <tglx@linutronix.de>, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 1/7] irqchip/stm32-exti: set_affinity
-	return IRQ_SET_MASK_OK_DONE if no parent
+Subject: Re: [Linux-stm32] [PATCH 3/7] irqchip/stm32-exti: remove EMR
+	register access for stm32mp15
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,58 +79,68 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Antonio,
-
-On Tue, 10 May 2022 17:41:17 +0100,
+On Tue, 10 May 2022 17:41:19 +0100,
 Antonio Borneo <antonio.borneo@foss.st.com> wrote:
 > 
-> From: Ludovic Barre <ludovic.barre@foss.st.com>
+> From: Alexandre Torgue <alexandre.torgue@foss.st.com>
 > 
-> If no parent, there is no specific action to do in
-> stm32 irqchip, and so return IRQ_SET_MASK_OK_DONE.
-> 
-> Signed-off-by: Ludovic Barre <ludovic.barre@foss.st.com>
-> Signed-off-by: Antonio Borneo <antonio.borneo@foss.st.com>
-> ---
->  drivers/irqchip/irq-stm32-exti.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/irqchip/irq-stm32-exti.c b/drivers/irqchip/irq-stm32-exti.c
-> index 9d18f47040eb..10c9c742c216 100644
-> --- a/drivers/irqchip/irq-stm32-exti.c
-> +++ b/drivers/irqchip/irq-stm32-exti.c
-> @@ -614,7 +614,7 @@ static int stm32_exti_h_set_affinity(struct irq_data *d,
->  	if (d->parent_data->chip)
->  		return irq_chip_set_affinity_parent(d, dest, force);
->  
-> -	return -EINVAL;
-> +	return IRQ_SET_MASK_OK_DONE;
->  }
->  
->  static int __maybe_unused stm32_exti_h_suspend(void)
+> C1EMRx registers are not accessible on STM32MP15x.
 
-<rant>
-Can you *please* use a cover-letter when sending more that a single
-patch? I expect there is an overarching motive to this series. Where
-is it described?
+And what happens if they are accessed? What are these registers for?
 
-Also, please look at the way the subject lines are written for most
-irqchip patches:
-
-irqchip/foo: Frobify the bar callback return value
-
-Note the capital letter after the ':', and the fact that it starts
-with a verb. Here, I would have liked to see:
-
-irqchip/stm32-exti: Fix set_affinity() return value
-
-and leave the meat of the description to the commit log (instead of
-saying the exact same thing twice).
-</rant>
-
-Thanks,
+(notice a pattern here?)
 
 	M.
+
+> 
+> Signed-off-by: Alexandre Torgue <alexandre.torgue@foss.st.com>
+> Signed-off-by: Antonio Borneo <antonio.borneo@foss.st.com>
+> ---
+>  drivers/irqchip/irq-stm32-exti.c | 6 ++----
+>  1 file changed, 2 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/irqchip/irq-stm32-exti.c b/drivers/irqchip/irq-stm32-exti.c
+> index 1145f064faa8..c8003f4f0457 100644
+> --- a/drivers/irqchip/irq-stm32-exti.c
+> +++ b/drivers/irqchip/irq-stm32-exti.c
+> @@ -132,7 +132,6 @@ static const struct stm32_exti_drv_data stm32h7xx_drv_data = {
+>  
+>  static const struct stm32_exti_bank stm32mp1_exti_b1 = {
+>  	.imr_ofst	= 0x80,
+> -	.emr_ofst	= 0x84,
+>  	.rtsr_ofst	= 0x00,
+>  	.ftsr_ofst	= 0x04,
+>  	.swier_ofst	= 0x08,
+> @@ -142,7 +141,6 @@ static const struct stm32_exti_bank stm32mp1_exti_b1 = {
+>  
+>  static const struct stm32_exti_bank stm32mp1_exti_b2 = {
+>  	.imr_ofst	= 0x90,
+> -	.emr_ofst	= 0x94,
+>  	.rtsr_ofst	= 0x20,
+>  	.ftsr_ofst	= 0x24,
+>  	.swier_ofst	= 0x28,
+> @@ -152,7 +150,6 @@ static const struct stm32_exti_bank stm32mp1_exti_b2 = {
+>  
+>  static const struct stm32_exti_bank stm32mp1_exti_b3 = {
+>  	.imr_ofst	= 0xA0,
+> -	.emr_ofst	= 0xA4,
+>  	.rtsr_ofst	= 0x40,
+>  	.ftsr_ofst	= 0x44,
+>  	.swier_ofst	= 0x48,
+> @@ -792,7 +789,8 @@ stm32_exti_chip_data *stm32_exti_chip_init(struct stm32_exti_host_data *h_data,
+>  	 * clear registers to avoid residue
+>  	 */
+>  	writel_relaxed(0, base + stm32_bank->imr_ofst);
+> -	writel_relaxed(0, base + stm32_bank->emr_ofst);
+> +	if (stm32_bank->emr_ofst)
+> +		writel_relaxed(0, base + stm32_bank->emr_ofst);
+>  
+>  	pr_info("%pOF: bank%d\n", node, bank_idx);
+>  
+> -- 
+> 2.36.0
+> 
+> 
 
 -- 
 Without deviation from the norm, progress is not possible.
