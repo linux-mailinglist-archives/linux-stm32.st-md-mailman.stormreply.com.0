@@ -2,46 +2,46 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 833A8522438
-	for <lists+linux-stm32@lfdr.de>; Tue, 10 May 2022 20:38:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E155C522446
+	for <lists+linux-stm32@lfdr.de>; Tue, 10 May 2022 20:44:19 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 40EE2C57B6C;
-	Tue, 10 May 2022 18:38:37 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 94020C5A4FD;
+	Tue, 10 May 2022 18:44:19 +0000 (UTC)
 Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8377EC035BD
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 14128C57B6C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 10 May 2022 18:38:36 +0000 (UTC)
+ Tue, 10 May 2022 18:44:18 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 11066B81F68;
- Tue, 10 May 2022 18:38:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C9C0BC385C2;
- Tue, 10 May 2022 18:38:34 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 83F93B81D0B;
+ Tue, 10 May 2022 18:44:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43472C385A6;
+ Tue, 10 May 2022 18:44:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1652207914;
- bh=vg/AQo4Tb6myBSReu7aIrGsdQxy3WBI+M6zOfl8oVfg=;
+ s=k20201202; t=1652208256;
+ bh=nteh6AJ0r/mVoLGErlwN08kpu+PDPyjBwrscK6E6gMM=;
  h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=e6hEDQ93rEm5p6s157edQCLKPbV4ht/O0WqWtVzty+VBJMoi94JXBad4Bl4H3h/BO
- yhDuQeYw+EJqkGFFXZSJD9Sv1/T/fRKNDagi5Kbl2g0lCX+YYTeEdHs5sTDLRUSTM6
- loeMGMrLdfkRVrLX7ASbeZzqO5Mdx6shGxps9zCH5HZm6bxbsxO5smDepR/kRzUG/F
- So+3RiPv4b6pMYKrFi4mMcn33MLHkeqxgpkYnQxa5EI4SU7jGGFkBuAgnEJQMce/Aa
- WJZfF7PUmfUyjmvdemMKvkVntlsoGCaP0SZPlpVS91vV/P6fqpbYkzop5o8GcaUJQX
- aBb65KjEWz0+g==
+ b=c8ITZL1dSmm+7KIcn1BE2SWdv4gJmLG8b4yxs8UnXP3SxRmmJ9JRnsJbtwL3EyMkg
+ fa5VyY2+UtEZWLnnlmKodN5xfltqzKp4Cd2HOIMxY0ImV2CrpCBm0IWkwPyXxeqaKu
+ MeZy8laibpfybPOPGyyHLsAKsXzmLV9FEFogAetD6ugOzI4yVKrO7zwSoZDxVMmrah
+ pBR7974MbvYolLWeTyvL/1JH2hej+mIX2J8z7iausKwb7czjJrDS3VPlVItgicsZVj
+ 846XtbM3YYldPLoAOkDe15V3LDCT+ry/jPfufEPWnMM8SL+bsXpWce7U0SMiqik3u8
+ TcaQq8tZhXrBw==
 Received: from sofa.misterjones.org ([185.219.108.64] helo=why.misterjones.org)
  by disco-boy.misterjones.org with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.94.2)
  (envelope-from <maz@kernel.org>)
- id 1noUki-00AMsa-89; Tue, 10 May 2022 19:38:32 +0100
-Date: Tue, 10 May 2022 19:38:32 +0100
-Message-ID: <877d6t6xnb.wl-maz@kernel.org>
+ id 1noUqD-00AMwc-NU; Tue, 10 May 2022 19:44:13 +0100
+Date: Tue, 10 May 2022 19:44:13 +0100
+Message-ID: <875ymd6xdu.wl-maz@kernel.org>
 From: Marc Zyngier <maz@kernel.org>
 To: Antonio Borneo <antonio.borneo@foss.st.com>
-In-Reply-To: <20220510164123.557921-3-antonio.borneo@foss.st.com>
+In-Reply-To: <20220510164123.557921-4-antonio.borneo@foss.st.com>
 References: <20220510164123.557921-1-antonio.borneo@foss.st.com>
- <20220510164123.557921-3-antonio.borneo@foss.st.com>
+ <20220510164123.557921-4-antonio.borneo@foss.st.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
  FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/27.1
  (x86_64-pc-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -50,8 +50,8 @@ X-SA-Exim-Connect-IP: 185.219.108.64
 X-SA-Exim-Rcpt-To: antonio.borneo@foss.st.com, tglx@linutronix.de,
  mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
  linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, ludovic.barre@foss.st.com,
- loic.pallardy@foss.st.com, p.paillet@foss.st.com
+ linux-arm-kernel@lists.infradead.org, p.paillet@foss.st.com,
+ ludovic.barre@foss.st.com, loic.pallardy@foss.st.com
 X-SA-Exim-Mail-From: maz@kernel.org
 X-SA-Exim-Scanned: No (on disco-boy.misterjones.org);
  SAEximRunCond expanded to false
@@ -61,8 +61,8 @@ Cc: Ludovic Barre <ludovic.barre@foss.st.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Thomas Gleixner <tglx@linutronix.de>, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 3/7] irqchip/stm32-exti: remove EMR
-	register access for stm32mp15
+Subject: Re: [Linux-stm32] [PATCH 4/7] irqchip/stm32-exti: forward
+	irq_request_resources to parent
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,68 +79,52 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, 10 May 2022 17:41:19 +0100,
+On Tue, 10 May 2022 17:41:20 +0100,
 Antonio Borneo <antonio.borneo@foss.st.com> wrote:
 > 
-> From: Alexandre Torgue <alexandre.torgue@foss.st.com>
+> From: Pascal Paillet <p.paillet@foss.st.com>
 > 
-> C1EMRx registers are not accessible on STM32MP15x.
-
-And what happens if they are accessed? What are these registers for?
-
-(notice a pattern here?)
-
-	M.
-
+> Enhance stm32-exti driver to forward request_resources and
+> release_resources_parent operations to parent.
+> Do not use irq_request_resources_parent because it returns
+> an error when the parent does not implement irq_request_resources.
 > 
-> Signed-off-by: Alexandre Torgue <alexandre.torgue@foss.st.com>
+> Signed-off-by: Pascal Paillet <p.paillet@foss.st.com>
 > Signed-off-by: Antonio Borneo <antonio.borneo@foss.st.com>
 > ---
->  drivers/irqchip/irq-stm32-exti.c | 6 ++----
->  1 file changed, 2 insertions(+), 4 deletions(-)
+>  drivers/irqchip/irq-stm32-exti.c | 14 ++++++++++++++
+>  1 file changed, 14 insertions(+)
 > 
 > diff --git a/drivers/irqchip/irq-stm32-exti.c b/drivers/irqchip/irq-stm32-exti.c
-> index 1145f064faa8..c8003f4f0457 100644
+> index c8003f4f0457..3f6d524a87fe 100644
 > --- a/drivers/irqchip/irq-stm32-exti.c
 > +++ b/drivers/irqchip/irq-stm32-exti.c
-> @@ -132,7 +132,6 @@ static const struct stm32_exti_drv_data stm32h7xx_drv_data = {
+> @@ -550,6 +550,16 @@ static void stm32_exti_h_unmask(struct irq_data *d)
+>  		irq_chip_unmask_parent(d);
+>  }
 >  
->  static const struct stm32_exti_bank stm32mp1_exti_b1 = {
->  	.imr_ofst	= 0x80,
-> -	.emr_ofst	= 0x84,
->  	.rtsr_ofst	= 0x00,
->  	.ftsr_ofst	= 0x04,
->  	.swier_ofst	= 0x08,
-> @@ -142,7 +141,6 @@ static const struct stm32_exti_bank stm32mp1_exti_b1 = {
->  
->  static const struct stm32_exti_bank stm32mp1_exti_b2 = {
->  	.imr_ofst	= 0x90,
-> -	.emr_ofst	= 0x94,
->  	.rtsr_ofst	= 0x20,
->  	.ftsr_ofst	= 0x24,
->  	.swier_ofst	= 0x28,
-> @@ -152,7 +150,6 @@ static const struct stm32_exti_bank stm32mp1_exti_b2 = {
->  
->  static const struct stm32_exti_bank stm32mp1_exti_b3 = {
->  	.imr_ofst	= 0xA0,
-> -	.emr_ofst	= 0xA4,
->  	.rtsr_ofst	= 0x40,
->  	.ftsr_ofst	= 0x44,
->  	.swier_ofst	= 0x48,
-> @@ -792,7 +789,8 @@ stm32_exti_chip_data *stm32_exti_chip_init(struct stm32_exti_host_data *h_data,
->  	 * clear registers to avoid residue
->  	 */
->  	writel_relaxed(0, base + stm32_bank->imr_ofst);
-> -	writel_relaxed(0, base + stm32_bank->emr_ofst);
-> +	if (stm32_bank->emr_ofst)
-> +		writel_relaxed(0, base + stm32_bank->emr_ofst);
->  
->  	pr_info("%pOF: bank%d\n", node, bank_idx);
->  
-> -- 
-> 2.36.0
-> 
-> 
+> +static int stm32_exti_h_request_resources(struct irq_data *data)
+> +{
+> +	data = data->parent_data;
+> +
+> +	if (data->chip->irq_request_resources)
+> +		return data->chip->irq_request_resources(data);
+> +
+> +	return 0;
+> +}
+
+Why do you need to reinvent the whole thing? Why isn't it just:
+
+static int stm32_exti_h_request_resources(struct irq_data *data)
+{
+	irq_chip_request_resources_parent(data);
+	return 0;
+}
+
+And this really deserves a comment. I also wonder whether we should
+change this behaviour to always return 0.
+
+	M.
 
 -- 
 Without deviation from the norm, progress is not possible.
