@@ -2,46 +2,47 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C1582522DDB
-	for <lists+linux-stm32@lfdr.de>; Wed, 11 May 2022 10:04:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 25A4A522DE1
+	for <lists+linux-stm32@lfdr.de>; Wed, 11 May 2022 10:10:01 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 71F1BC56630;
-	Wed, 11 May 2022 08:04:52 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CF06DC5A4FD;
+	Wed, 11 May 2022 08:10:00 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6DE46C035BE
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 06101C57B6C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 11 May 2022 08:04:50 +0000 (UTC)
+ Wed, 11 May 2022 08:09:59 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 3EC26619F1;
- Wed, 11 May 2022 08:04:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E698C2BBE4;
- Wed, 11 May 2022 08:04:48 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id A8BE361A00;
+ Wed, 11 May 2022 08:09:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 17280C385DB;
+ Wed, 11 May 2022 08:09:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1652256288;
- bh=wPc1LGBt4XJQB6/voooZDx15ohpwrUXWrmK2sHt6Avo=;
+ s=k20201202; t=1652256598;
+ bh=FVh96bdERwMwqAkQyYyRnk6K/ep94wX0XFLfJEym+cM=;
  h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=lrZLrGsHXxR4FyLnpDwdcYBrQbAfvx8Lu5swuQC8TaBSEo1qyNVoW9zldNOfwYMhM
- ndbj34di5bRSaP4rAA2Bbl36Rse6xP05r0Y3XygR78WyAe6Cs6pldQg6nhimIzQCm8
- P3x7ELPJOa4lciRmExhsMd9BO1wC/E9/5sJazhzNgXi+8MiQLO4GNPPvCt0cs7yr+m
- cP/jRSwNQFTXUcsnCTcZiMVxLMgG81ZAWGfLfmqyIKL7G7Ui2+1QDxD7pl6atixBGs
- x1S1TMlFqIiep1dFhmQjqdiyXe5p8RVfoda8pfF7dsAqp3vS7/+z1j6BaYAAU6ywyj
- rmIBhHqi6J4Eg==
+ b=iJ1axJyM4OoVOVXWrUWJWgalkzdJrg8vdUgHhLNZyhrb9hR4j3wOVNEGMMnCjrfSo
+ 4/HKJ8Il5TRRp9TS2Dq9XY2UMPvQs2PPSjcm0UEvTb2yqFWA6/jkAjTitCMDn1K0Sy
+ 032dD9XBXxCjiRBP89Gz6AXrnHakLOZkETxewYphqv6so3v+5LChhIYrqtUNzJ+p2f
+ FURE+6mIYrrkiOk8Tpub/P4uCtf+TLzbSnlxAVadc0ox9OwHoNNDEQx4ZOs9pR4L3U
+ 7hZAJLK/L0lv0uhrnBQAaTYcCTfPfZIidGhkCpUhaYBQ3btQ5wFPqJ4VsNMJlRGpg8
+ b33ij/WUNm+NQ==
 Received: from sofa.misterjones.org ([185.219.108.64] helo=why.misterjones.org)
  by disco-boy.misterjones.org with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.94.2)
  (envelope-from <maz@kernel.org>)
- id 1nohKv-00ATnS-S9; Wed, 11 May 2022 09:04:46 +0100
-Date: Wed, 11 May 2022 09:04:45 +0100
-Message-ID: <874k1w7aw2.wl-maz@kernel.org>
+ id 1nohPv-00ATrM-Gm; Wed, 11 May 2022 09:09:55 +0100
+Date: Wed, 11 May 2022 09:09:55 +0100
+Message-ID: <8735hg7ang.wl-maz@kernel.org>
 From: Marc Zyngier <maz@kernel.org>
 To: Antonio Borneo <antonio.borneo@foss.st.com>
-In-Reply-To: <20220510164123.557921-2-antonio.borneo@foss.st.com>
+In-Reply-To: <05d9a88de4a7c415545043fab1e577e7f6151b8c.camel@foss.st.com>
 References: <20220510164123.557921-1-antonio.borneo@foss.st.com>
- <20220510164123.557921-2-antonio.borneo@foss.st.com>
+ <878rr96xuo.wl-maz@kernel.org>
+ <05d9a88de4a7c415545043fab1e577e7f6151b8c.camel@foss.st.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
  FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/27.1
  (x86_64-pc-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -50,8 +51,8 @@ X-SA-Exim-Connect-IP: 185.219.108.64
 X-SA-Exim-Rcpt-To: antonio.borneo@foss.st.com, tglx@linutronix.de,
  mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
  linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, loic.pallardy@foss.st.com,
- ludovic.barre@foss.st.com, p.paillet@foss.st.com
+ linux-arm-kernel@lists.infradead.org, ludovic.barre@foss.st.com,
+ loic.pallardy@foss.st.com, p.paillet@foss.st.com
 X-SA-Exim-Mail-From: maz@kernel.org
 X-SA-Exim-Scanned: No (on disco-boy.misterjones.org);
  SAEximRunCond expanded to false
@@ -61,8 +62,8 @@ Cc: Ludovic Barre <ludovic.barre@foss.st.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Thomas Gleixner <tglx@linutronix.de>, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 2/7] irqchip/stm32-exti: manage IMR at
-	each mask/unmask for direct event
+Subject: Re: [Linux-stm32] [PATCH 1/7] irqchip/stm32-exti: set_affinity
+	return IRQ_SET_MASK_OK_DONE if no parent
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,53 +75,51 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, 10 May 2022 17:41:18 +0100,
-Antonio Borneo <antonio.borneo@foss.st.com> wrote:
-> 
-> From: Loic Pallardy <loic.pallardy@foss.st.com>
-> 
-> Enable EXTI line through IMR also on direct event.
-
-Notice how none of the words above say *anything* about mask/unmask?
-What happens? What breaks? Is it a fix? If so, what does it fix?
-
-	M.
-
-> 
-> Signed-off-by: Loic Pallardy <loic.pallardy@foss.st.com>
-> Signed-off-by: Antonio Borneo <antonio.borneo@foss.st.com>
-> ---
->  drivers/irqchip/irq-stm32-exti.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/irqchip/irq-stm32-exti.c b/drivers/irqchip/irq-stm32-exti.c
-> index 10c9c742c216..1145f064faa8 100644
-> --- a/drivers/irqchip/irq-stm32-exti.c
-> +++ b/drivers/irqchip/irq-stm32-exti.c
-> @@ -691,8 +691,8 @@ static struct irq_chip stm32_exti_h_chip_direct = {
->  	.name			= "stm32-exti-h-direct",
->  	.irq_eoi		= irq_chip_eoi_parent,
->  	.irq_ack		= irq_chip_ack_parent,
-> -	.irq_mask		= irq_chip_mask_parent,
-> -	.irq_unmask		= irq_chip_unmask_parent,
-> +	.irq_mask		= stm32_exti_h_mask,
-> +	.irq_unmask		= stm32_exti_h_unmask,
->  	.irq_retrigger		= irq_chip_retrigger_hierarchy,
->  	.irq_set_type		= irq_chip_set_type_parent,
->  	.irq_set_wake		= stm32_exti_h_set_wake,
-> -- 
-> 2.36.0
-> 
-> 
-
--- 
-Without deviation from the norm, progress is not possible.
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gV2VkLCAxMSBNYXkgMjAyMiAwNzozOTo0MyArMDEwMCwKQW50b25pbyBCb3JuZW8gPGFudG9u
+aW8uYm9ybmVvQGZvc3Muc3QuY29tPiB3cm90ZToKPiAKPiBIaSBNYXJjLAo+IAo+IE9uIFR1ZSwg
+MjAyMi0wNS0xMCBhdCAxOTozNCArMDEwMCwgTWFyYyBaeW5naWVyIHdyb3RlOgo+ID4gQW50b25p
+bywKPiA+IAo+ID4gT24gVHVlLCAxMCBNYXkgMjAyMiAxNzo0MToxNyArMDEwMCwKPiA+IEFudG9u
+aW8gQm9ybmVvIDxhbnRvbmlvLmJvcm5lb0Bmb3NzLnN0LmNvbT4gd3JvdGU6Cj4gPiA+IAo+ID4g
+PiBGcm9tOiBMdWRvdmljIEJhcnJlIDxsdWRvdmljLmJhcnJlQGZvc3Muc3QuY29tPgo+ID4gPiAK
+PiA+ID4gSWYgbm8gcGFyZW50LCB0aGVyZSBpcyBubyBzcGVjaWZpYyBhY3Rpb24gdG8gZG8gaW4K
+PiA+ID4gc3RtMzIgaXJxY2hpcCwgYW5kIHNvIHJldHVybiBJUlFfU0VUX01BU0tfT0tfRE9ORS4K
+PiA+ID4gCj4gPiA+IFNpZ25lZC1vZmYtYnk6IEx1ZG92aWMgQmFycmUgPGx1ZG92aWMuYmFycmVA
+Zm9zcy5zdC5jb20+Cj4gPiA+IFNpZ25lZC1vZmYtYnk6IEFudG9uaW8gQm9ybmVvIDxhbnRvbmlv
+LmJvcm5lb0Bmb3NzLnN0LmNvbT4KPiA+ID4gLS0tCj4gPiA+IMKgZHJpdmVycy9pcnFjaGlwL2ly
+cS1zdG0zMi1leHRpLmMgfCAyICstCj4gPiA+IMKgMSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9u
+KCspLCAxIGRlbGV0aW9uKC0pCj4gPiA+IAo+ID4gPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9pcnFj
+aGlwL2lycS1zdG0zMi1leHRpLmMKPiA+ID4gYi9kcml2ZXJzL2lycWNoaXAvaXJxLXN0bTMyLWV4
+dGkuYwo+ID4gPiBpbmRleCA5ZDE4ZjQ3MDQwZWIuLjEwYzljNzQyYzIxNiAxMDA2NDQKPiA+ID4g
+LS0tIGEvZHJpdmVycy9pcnFjaGlwL2lycS1zdG0zMi1leHRpLmMKPiA+ID4gKysrIGIvZHJpdmVy
+cy9pcnFjaGlwL2lycS1zdG0zMi1leHRpLmMKPiA+ID4gQEAgLTYxNCw3ICs2MTQsNyBAQCBzdGF0
+aWMgaW50IHN0bTMyX2V4dGlfaF9zZXRfYWZmaW5pdHkoc3RydWN0Cj4gPiA+IGlycV9kYXRhICpk
+LAo+ID4gPiDCoMKgwqDCoMKgwqDCoMKgaWYgKGQtPnBhcmVudF9kYXRhLT5jaGlwKQo+ID4gPiDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoHJldHVybiBpcnFfY2hpcF9zZXRfYWZmaW5p
+dHlfcGFyZW50KGQsIGRlc3QsCj4gPiA+IGZvcmNlKTsKPiA+ID4gwqAKPiA+ID4gLcKgwqDCoMKg
+wqDCoMKgcmV0dXJuIC1FSU5WQUw7Cj4gPiA+ICvCoMKgwqDCoMKgwqDCoHJldHVybiBJUlFfU0VU
+X01BU0tfT0tfRE9ORTsKPiA+ID4gwqB9Cj4gPiA+IMKgCj4gPiA+IMKgc3RhdGljIGludCBfX21h
+eWJlX3VudXNlZCBzdG0zMl9leHRpX2hfc3VzcGVuZCh2b2lkKQo+ID4gCj4gPiA8cmFudD4KPiA+
+IENhbiB5b3UgKnBsZWFzZSogdXNlIGEgY292ZXItbGV0dGVyIHdoZW4gc2VuZGluZyBtb3JlIHRo
+YXQgYSBzaW5nbGUKPiA+IHBhdGNoPyBJIGV4cGVjdCB0aGVyZSBpcyBhbiBvdmVyYXJjaGluZyBt
+b3RpdmUgdG8gdGhpcyBzZXJpZXMuIFdoZXJlCj4gPiBpcyBpdCBkZXNjcmliZWQ/Cj4gPiAKPiA+
+IEFsc28sIHBsZWFzZSBsb29rIGF0IHRoZSB3YXkgdGhlIHN1YmplY3QgbGluZXMgYXJlIHdyaXR0
+ZW4gZm9yIG1vc3QKPiA+IGlycWNoaXAgcGF0Y2hlczoKPiA+IAo+ID4gaXJxY2hpcC9mb286IEZy
+b2JpZnkgdGhlIGJhciBjYWxsYmFjayByZXR1cm4gdmFsdWUKPiA+IAo+ID4gTm90ZSB0aGUgY2Fw
+aXRhbCBsZXR0ZXIgYWZ0ZXIgdGhlICc6JywgYW5kIHRoZSBmYWN0IHRoYXQgaXQgc3RhcnRzCj4g
+PiB3aXRoIGEgdmVyYi4gSGVyZSwgSSB3b3VsZCBoYXZlIGxpa2VkIHRvIHNlZToKPiA+IAo+ID4g
+aXJxY2hpcC9zdG0zMi1leHRpOiBGaXggc2V0X2FmZmluaXR5KCkgcmV0dXJuIHZhbHVlCj4gPiAK
+PiA+IGFuZCBsZWF2ZSB0aGUgbWVhdCBvZiB0aGUgZGVzY3JpcHRpb24gdG8gdGhlIGNvbW1pdCBs
+b2cgKGluc3RlYWQgb2YKPiA+IHNheWluZyB0aGUgZXhhY3Qgc2FtZSB0aGluZyB0d2ljZSkuCj4g
+PiA8L3JhbnQ+Cj4gCj4gdGhhbmtzIGZvciB5b3VyIHJldmlldyBhbmQgdGhlIGhpbnRzIG9uIHRo
+aXMgc2VyaWVzLgo+IEkgd2lsbCBzaG9ydGx5IHNlbmQgYSBWMi4KCk5vIHJ1c2guIEknbSBhYm91
+dCB0byBjbG9zZSB0aGUgNS4xOSBpcnFjaGlwIHRyZWUuCgpUaGFua3MsCgoJTS4KCi0tIApXaXRo
+b3V0IGRldmlhdGlvbiBmcm9tIHRoZSBub3JtLCBwcm9ncmVzcyBpcyBub3QgcG9zc2libGUuCl9f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMy
+IG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0
+dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4
+LXN0bTMyCg==
