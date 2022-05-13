@@ -2,68 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 53FEB5262B4
-	for <lists+linux-stm32@lfdr.de>; Fri, 13 May 2022 15:14:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 640FD526D61
+	for <lists+linux-stm32@lfdr.de>; Sat, 14 May 2022 01:14:24 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id ED16FC03FCC;
-	Fri, 13 May 2022 13:14:23 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0429CC03FD0;
+	Fri, 13 May 2022 23:14:24 +0000 (UTC)
+Received: from mail-yb1-f178.google.com (mail-yb1-f178.google.com
+ [209.85.219.178])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 30C2FC03FCA
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 96D3FC03FCD
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 13 May 2022 13:14:22 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 24D9bGVa024730;
- Fri, 13 May 2022 15:13:56 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=IzNl3ypvVSCffY9EMumhPtUXRrFQRfuRQsI8WhiD7Bs=;
- b=R9br9S/jj1VNI29zac5haQIXRO7ozP7dOi0w7TqvuXYAN1GirwpWnpRiRnZyEObZdkZy
- eatXHagoKmbDH9F7cOuBvO2R60dtcRAuyyxUdBkx073bI7Eu5tqKUNHGND2+xJQtLSfn
- hVL+fqNg0atIWAeAl9fjmDIDJfq7v38RpD4OdAIwOW09tUF1dCuqRC8KbYm9oCg59XxO
- a3YDRIX6DwZQfe69c8QlI0vWrPd+9v75OPbQRyHcM8CuS+LjZXyAY69Q3euG7oUDCJLi
- uG+T+QGc3OoFGmd5TlM17AF2H2RK3jJ0G/WCkwBb96i0vWSp+cma2ZX3rotUKF+XBobv Lg== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3g1mv1s9xu-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 13 May 2022 15:13:56 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id ED03210002A;
- Fri, 13 May 2022 15:13:54 +0200 (CEST)
-Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id E59E421ED55;
- Fri, 13 May 2022 15:13:54 +0200 (CEST)
-Received: from [10.252.23.200] (10.75.127.47) by SFHDAG2NODE2.st.com
- (10.75.127.5) with Microsoft SMTP Server (TLS) id 15.0.1497.26; Fri, 13 May
- 2022 15:13:53 +0200
-Message-ID: <32a7849b-c631-f80d-b29c-2a790ac641ec@foss.st.com>
-Date: Fri, 13 May 2022 15:13:53 +0200
+ Fri, 13 May 2022 23:14:22 +0000 (UTC)
+Received: by mail-yb1-f178.google.com with SMTP id r11so17723115ybg.6
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 13 May 2022 16:14:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=uJjCKmIV0+PUlw1yN8LzGGtdpY7JQRJT83F9A+chaFQ=;
+ b=THiP8XlKeuATd+sFBtOcYrkM4vfQtgO4vnzZ0czrpsdPkpjchMTT4P/obyYS2u/Ph0
+ +d4NGAg/jxClzjL8HVJs1YAUDTNGgJWRecVdDws5TTDi+gv0iwTmpz+MkqCaUpeAV5AA
+ yF3lhT3KSxCLDQJ9FmJNtviqrwf/aWE8xllwdNkP73HSFcu2JxZfzQwraA3ZMJaktL2/
+ OkzTNpuZEQcIWaejl7sk/YJRrshWH/IN8sd7qW08KjeWOtRqJdYH5DbIBGNlQDidczW+
+ 6kEBBpSeOhUtIg4JxlmhyKAglB0MmRs+oQnBntEgiBPniHirdlTfg443BTKKz6xnZr/V
+ JO8Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=uJjCKmIV0+PUlw1yN8LzGGtdpY7JQRJT83F9A+chaFQ=;
+ b=CUzfq46TFaCWqB7akmKyG7GN+kq9eGMR1rukcsVVu9BRG4jG5WRTqThsap37RQWP34
+ C1n1eiKY4u5TCO62CEtMCYeb4JfZA20O0H3x5wsAgjWu6MqVPVrxJzQhxIxp8+qrmSac
+ b5plahRzclCT/xC24YhzZB+8HGZjNBb9OEWdOSHOe8Y7r58KiPlesDcN5JQui4REijku
+ 6SP32TZvqVbMvyYcAJhHhBeZAtntexRFg/j9540bUMLem4c3B+alCmHQ/j+iEfK/jgvb
+ upeHw1AePjUpbc0zzPdaiaqpZ5sWSq1B2zVAzfZ6bq8N93/2cq84L6u/U3kAmApvcU3f
+ v0mA==
+X-Gm-Message-State: AOAM531fgOwf3k9hDpncALdOdBOJdfFxelE4tBkyuCC2nxtdfrPt2OhW
+ v3MjzfpQdTMkKSXV95CdmYiFYHlCEElKJOYDFL8q3A==
+X-Google-Smtp-Source: ABdhPJyqJOHYby5B4zPz7I69RNcSghbBdax44/7CJOKXFMx9IaAQOi+fUTHLPntFEHAMZ9z/gSOi5OooYyzthLTILkw=
+X-Received: by 2002:a25:aa94:0:b0:648:62f2:ef4e with SMTP id
+ t20-20020a25aa94000000b0064862f2ef4emr6931589ybi.626.1652483661584; Fri, 13
+ May 2022 16:14:21 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.8.1
-Content-Language: en-US
-To: Yannick Brosseau <yannick.brosseau@gmail.com>, <jic23@kernel.org>,
- <lars@metafoo.de>, <mcoquelin.stm32@gmail.com>,
- <alexandre.torgue@foss.st.com>, <olivier.moysan@foss.st.com>
-References: <20220506225617.1774604-1-yannick.brosseau@gmail.com>
- <20220506225617.1774604-3-yannick.brosseau@gmail.com>
-From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-In-Reply-To: <20220506225617.1774604-3-yannick.brosseau@gmail.com>
-X-Originating-IP: [10.75.127.47]
-X-ClientProxiedBy: SFHDAG2NODE2.st.com (10.75.127.5) To SFHDAG2NODE2.st.com
- (10.75.127.5)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.858,Hydra:6.0.486,FMLib:17.11.64.514
- definitions=2022-05-13_04,2022-05-13_01,2022-02-23_01
-Cc: paul@crapouillou.net, linux-iio@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH 2/2] iio: adc: stm32: Fix check for
- spurious IRQs on STM32F4
+References: <20220507102257.26414-1-andriy.shevchenko@linux.intel.com>
+In-Reply-To: <20220507102257.26414-1-andriy.shevchenko@linux.intel.com>
+From: Linus Walleij <linus.walleij@linaro.org>
+Date: Sat, 14 May 2022 01:14:10 +0200
+Message-ID: <CACRpkdYjmAKPb9sHvC+Y0goDBmGXDthJDmgbG2CZ6VO_Y1zEmQ@mail.gmail.com>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: kernel test robot <lkp@intel.com>, linux-kernel@vger.kernel.org,
+ linux-gpio@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v1 1/1] pinctrl: stm32: Unshadow np
+	variable in stm32_pctl_probe()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,98 +71,25 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 5/7/22 00:56, Yannick Brosseau wrote:
-> The check for spurious IRQs introduced in 695e2f5c289bb assumed that the bits
-> in the control and status registers are aligned. This is true for the H7 and MP1
-> version, but not the F4.
-> 
-> Instead of comparing both registers bitwise, we check the bit in the status and control
-> for each interrupt we are interested in.
-> 
+On Sat, May 7, 2022 at 12:23 PM Andy Shevchenko
+<andriy.shevchenko@linux.intel.com> wrote:
 
-Hi Yannick,
+> The np variable is used globally for stm32_pctl_probe() and in one of
+> its code branches. cppcheck is not happy with that:
+>
+>   pinctrl-stm32.c:1530:23: warning: Local variable 'np' shadows outer variable [shadowVariable]
+>
+> Instead of simply renaming one of the variables convert some code to
+> use a device pointer directly.
+>
+> Fixes: bb949ed9b16b ("pinctrl: stm32: Switch to use for_each_gpiochip_node() helper")
+> Reported-by: kernel test robot <lkp@intel.com>
+> Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 
-I propose a different approach, see here after.
+Patch applied!
 
-Same as for patch one,
-Fixes: 695e2f5c289b ("iio: adc: stm32-adc: fix a regression when using
-dma and irq")
-
-> Signed-off-by: Yannick Brosseau <yannick.brosseau@gmail.com>
-> ---
->  drivers/iio/adc/stm32-adc.c | 9 ++++++---
->  1 file changed, 6 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/iio/adc/stm32-adc.c b/drivers/iio/adc/stm32-adc.c
-> index a68ecbda6480..5b0f138333ee 100644
-> --- a/drivers/iio/adc/stm32-adc.c
-> +++ b/drivers/iio/adc/stm32-adc.c
-> @@ -1422,9 +1422,10 @@ static irqreturn_t stm32_adc_threaded_isr(int irq, void *data)
->  		return IRQ_HANDLED;
->  	}
->  
-> -	if (!(status & mask))
-> +	if(!((status & regs->isr_eoc.mask) && (mask & regs->ier_eoc.mask)) ||
-> +           ((status & regs->isr_ovr.mask) && (mask & regs->ier_ovr.mask)))
->  		dev_err_ratelimited(&indio_dev->dev,
-> -				    "Unexpected IRQ: IER=0x%08x, ISR=0x%08x\n",
-> +				    "Unexpected IRQ: CR1/IER=0x%08x, SR/ISR=0x%08x\n",
->  				    mask, status);
-
-
-Here, a slightly different approach could be used... There's a long
-pending discussion, where Olivier or I should push further patches to
-support threadirqs (hopefully soon).
-In this discussion with Jonathan [1], he exposed the need to remove this
-message. Words from Jonathan:
-"This seems 'unusual'.  If this is a spurious interrupt we should be
-returning IRQ_NONE and letting the spurious interrupt protection
-stuff kick in."
-
-[1]
-https://lore.kernel.org/linux-arm-kernel/20210116175333.4d8684c5@archlinux/
-
-So basically, I suggest to completely get rid of this message:
-
--	if (!(status & mask))
--		dev_err_ratelimited(&indio_dev->dev,
--				    "Unexpected IRQ: IER=0x%08x, ISR=0x%08x\n",
--				    mask, status);
-
->  
->  	return IRQ_NONE;
-> @@ -1438,7 +1439,9 @@ static irqreturn_t stm32_adc_isr(int irq, void *data)
->  	u32 status = stm32_adc_readl(adc, regs->isr_eoc.reg);
->  	u32 mask = stm32_adc_readl(adc, regs->ier_eoc.reg);
->  
-> -	if (!(status & mask))
-> +	/* Check that we have the interrupt we care about are enabled and active */
-> +        if(!((status & regs->isr_eoc.mask) && (mask & regs->ier_eoc.mask)) ||
-> +           ((status & regs->isr_ovr.mask) && (mask & regs->ier_ovr.mask)))
->  		return IRQ_WAKE_THREAD;
-
-Here the statement becomes useless, so it could be removed:
--	u32 mask = stm32_adc_readl(adc, regs->ier_eoc.reg);
--
--	if (!(status & mask))
--		return IRQ_WAKE_THREAD;
-
-This would avoid some complexity here (and so headaches or regressions
-like the one you've hit).
-
-This also should serve the two purposes:
-- fall into kernel generic handler for spurious IRQs (by returning
-IRQ_NONE below)
-- by the way fix current issue in stm32f4
-
-
-I Hope this is still inline with Jonathan's words earlier ;-)
-
-Best Regards,
-Fabrice
-
->  
->  	if (status & regs->isr_ovr.mask) {
+Yours,
+Linus Walleij
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
