@@ -2,60 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 16B6C528F85
-	for <lists+linux-stm32@lfdr.de>; Mon, 16 May 2022 22:40:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 29B9A528F86
+	for <lists+linux-stm32@lfdr.de>; Mon, 16 May 2022 22:40:10 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D0BB5C57183;
-	Mon, 16 May 2022 20:40:04 +0000 (UTC)
-Received: from mail-qk1-f170.google.com (mail-qk1-f170.google.com
- [209.85.222.170])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E909FC5A4FD;
+	Mon, 16 May 2022 20:40:09 +0000 (UTC)
+Received: from mail-qt1-f173.google.com (mail-qt1-f173.google.com
+ [209.85.160.173])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 215EAC03FE3
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C8787C57183
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 16 May 2022 20:40:03 +0000 (UTC)
-Received: by mail-qk1-f170.google.com with SMTP id c1so13157631qkf.13
+ Mon, 16 May 2022 20:40:08 +0000 (UTC)
+Received: by mail-qt1-f173.google.com with SMTP id p4so12952335qtq.12
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 16 May 2022 13:40:03 -0700 (PDT)
+ Mon, 16 May 2022 13:40:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=L3le14rhaSocQeKQwxrRTldErgYW+NHKabztIF2/qZ4=;
- b=YwBuId0XmN7JIWITFrXT+8veOWLqw7slTOSwB3fed+CJpB+0z/tm4v5Rf2B+9pj+pQ
- T7mdFXHx9Hg1Ca4MmX/x9HtjhrlDEWLEXPA5auHE2CRdEKkG8fJbYktrABWoYO8nQzNL
- XINzLvXYqqjOseUog68ZikVGx7Rx4ghnE65h2Z7PZ5/ZKKlnWgEqCifCFLgqRpZYM34d
- mYeJAv5soR7JZGQSnd8TGdhPO6Xetsu1JJjy9oSrI1u2bxlbgcUTDgoVmDXExlzVa5gW
- RGqfTRbCbX8CGu4a3gbLIC3EaK8p3r+/PJ5w/5Chu/nZA0Huo/nPxgCBXWt3MjOI/XIh
- CAJg==
+ bh=hKBcyX3Ppfu6XQjIjRejfr2DzYtK4WWEcAa5qty3cHg=;
+ b=oukrXqAAZdBan6tdF/K2D/kCxUwWgPeZLEnHGfR+Ln2zBB1SI+qLLEfyNCPPXVMh22
+ qjUN8mwA7XKNfDNOaSMbYwhl8TJQOibuS9mVrzonAfGAO/iqdUCpyVD7K6RYYt6Ck+09
+ 5I0enB+WW4r5ELpXeKMMneOKTFZK9+adctc1HrJ/lqyJ0JqYaBrrnZfsP4R8kybDxWNY
+ cY+mKVgXNFoEggevYW+sqUyma+gTEVo8vb7W7f/KFatUHvASyI950xDNhsrgxw5WnpKh
+ 2pNj5+4jAfv5YMPMByRTCn6tNxzFhWmWAonNqG+6rB5jM/Qr5rcj4nZzcbgnRhsSq9x6
+ tnxw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=L3le14rhaSocQeKQwxrRTldErgYW+NHKabztIF2/qZ4=;
- b=On55ALeXPs/1a6YSf+8vbIckptkXzwGb95LFCStzWYhmPFzcg5AdKzWSfKxY5xo8er
- HocEkttOLD65l5gidlLpVEZQG/jwHE49+XKKT9BpVLLVWrErbcUo0svS8tZaYCOmyQ31
- 9lij1/cg9mcZ+YRMn356dBs/sCupFr2Lu6BGdmDuP0hogYkJADzkfzUXoDalMoKk1sEJ
- M+u4m5/wDPGqRFX/mnMN/fY+2i+nMsWCdSstGBp2uhecRDVUiM6pbcEm+vMJ+K6o3Z79
- Eyy2p40/KSO5MFQkouhU0JEmjeY+cpcPCnQ82ANHOjKRGIkzpBuZ9ahdT/nGbD4nnt6C
- OMAQ==
-X-Gm-Message-State: AOAM532doCHKbwv1d1hkKwB/70yHLvL53EgDgNU9uJTrlEWbV9CB+Tfm
- STThahvXNzgnuofd1XdyDZU=
-X-Google-Smtp-Source: ABdhPJxJnWTboPrcAFadimt77on92UDhywlvLKxVgUleScXkQ+vnAbz0mZZhuvSEuAjMyTfTw8dscA==
-X-Received: by 2002:a37:a953:0:b0:69f:9314:ba62 with SMTP id
- s80-20020a37a953000000b0069f9314ba62mr13554460qke.398.1652733602008; 
- Mon, 16 May 2022 13:40:02 -0700 (PDT)
+ bh=hKBcyX3Ppfu6XQjIjRejfr2DzYtK4WWEcAa5qty3cHg=;
+ b=cUaOXBvGI1laZg4bLbpTxS8UHAb/qenbW3qZY2hhLJVGM2wKWfN5coe9vfF1B88h5d
+ 1+Xetq/HaAH9lv2K8Ee9T8xeI06toC9kv8XwKn1Lw1hn2Kbfo0EtrID+KRYeLlHyiau2
+ z3nWAA+ENQ2rIBGdvbTgBWzVm/955tidGTnzpsQiuSP9RGrMnY6Rjfvk8LeMIBjZh2lf
+ Y8ibaK5PkA86Ou8QNs3QEJkzXq+WY6jufbP2tKLhKiKUnDSCRQ3QhQKl/QAy2u79Bvnj
+ E1CrshqoL5U6URxlZw/nOEvJTMB403IEmV/T7z7uxVD83ggJwdZtwKrfko91WiO7Vrhq
+ Dgwg==
+X-Gm-Message-State: AOAM530tpFVUVfiTbCcvI8YmDfzrcPiOkoyJkbVzp86YOMtyDA+J9R52
+ wrcVzWSVr/HLoPGPjO+oIbE=
+X-Google-Smtp-Source: ABdhPJyYvbcv8J+a4WY5fmCWaSGt/mt3uew74uDkCuyrQ24GIBr26QFwVCeQkFKfAyRihFdydtDalw==
+X-Received: by 2002:ac8:5f06:0:b0:2f3:cbe5:1e1d with SMTP id
+ x6-20020ac85f06000000b002f3cbe51e1dmr16773074qta.389.1652733607848; 
+ Mon, 16 May 2022 13:40:07 -0700 (PDT)
 Received: from grrm.lan
  (bras-base-mtrlpq4809w-grc-17-70-53-205-21.dsl.bell.ca. [70.53.205.21])
  by smtp.gmail.com with ESMTPSA id
- k67-20020a378846000000b006a00fabde68sm6364016qkd.10.2022.05.16.13.40.01
+ k67-20020a378846000000b006a00fabde68sm6364016qkd.10.2022.05.16.13.40.06
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 16 May 2022 13:40:01 -0700 (PDT)
+ Mon, 16 May 2022 13:40:07 -0700 (PDT)
 From: Yannick Brosseau <yannick.brosseau@gmail.com>
 To: jic23@kernel.org, lars@metafoo.de, mcoquelin.stm32@gmail.com,
  alexandre.torgue@foss.st.com, fabrice.gasnier@foss.st.com,
  olivier.moysan@foss.st.com
-Date: Mon, 16 May 2022 16:39:38 -0400
-Message-Id: <20220516203939.3498673-2-yannick.brosseau@gmail.com>
+Date: Mon, 16 May 2022 16:39:39 -0400
+Message-Id: <20220516203939.3498673-3-yannick.brosseau@gmail.com>
 X-Mailer: git-send-email 2.36.1
 In-Reply-To: <20220516203939.3498673-1-yannick.brosseau@gmail.com>
 References: <20220516203939.3498673-1-yannick.brosseau@gmail.com>
@@ -63,8 +63,8 @@ MIME-Version: 1.0
 Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
  paul@crapouillou.net, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v2 1/2] iio: adc: stm32: Fix ADCs iteration in
-	irq handler
+Subject: [Linux-stm32] [PATCH v2 2/2] iio: adc: stm32: Fix IRQs on STM32F4
+	by removing custom spurious IRQs message
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,73 +81,54 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The irq handler was only checking the mask for the first ADCs in the case of the
-F4 and H7 generation, since it was iterating up to the num_irq value. This patch add
-the maximum number of ADC in the common register, which map to the number of entries of
-eoc_msk and ovr_msk in stm32_adc_common_regs. This allow the handler to check all ADCs in
-that module.
+The check for spurious IRQs introduced in 695e2f5c289bb assumed that the bits
+in the control and status registers are aligned. This is true for the H7 and MP1
+version, but not the F4. The interrupt was then never handled on the F4.
 
-Tested on a STM32F429NIH6.
+Instead of increasing the complexity of the comparison and check each bit specifically,
+we remove this check completely and rely on the generic handler for spurious IRQs.
 
 Fixes: 695e2f5c289b ("iio: adc: stm32-adc: fix a regression when using dma and irq")
 Signed-off-by: Yannick Brosseau <yannick.brosseau@gmail.com>
 ---
- drivers/iio/adc/stm32-adc-core.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ drivers/iio/adc/stm32-adc.c | 10 ----------
+ 1 file changed, 10 deletions(-)
 
-diff --git a/drivers/iio/adc/stm32-adc-core.c b/drivers/iio/adc/stm32-adc-core.c
-index 142656232157..bb04deeb7992 100644
---- a/drivers/iio/adc/stm32-adc-core.c
-+++ b/drivers/iio/adc/stm32-adc-core.c
-@@ -64,6 +64,7 @@ struct stm32_adc_priv;
-  * @max_clk_rate_hz: maximum analog clock rate (Hz, from datasheet)
-  * @has_syscfg: SYSCFG capability flags
-  * @num_irqs:	number of interrupt lines
-+ * @num_adcs:   maximum number of ADC instances in the common registers
-  */
- struct stm32_adc_priv_cfg {
- 	const struct stm32_adc_common_regs *regs;
-@@ -71,6 +72,7 @@ struct stm32_adc_priv_cfg {
- 	u32 max_clk_rate_hz;
- 	unsigned int has_syscfg;
- 	unsigned int num_irqs;
-+	unsigned int num_adcs;
- };
+diff --git a/drivers/iio/adc/stm32-adc.c b/drivers/iio/adc/stm32-adc.c
+index a68ecbda6480..8c5f05f593ab 100644
+--- a/drivers/iio/adc/stm32-adc.c
++++ b/drivers/iio/adc/stm32-adc.c
+@@ -1407,7 +1407,6 @@ static irqreturn_t stm32_adc_threaded_isr(int irq, void *data)
+ 	struct stm32_adc *adc = iio_priv(indio_dev);
+ 	const struct stm32_adc_regspec *regs = adc->cfg->regs;
+ 	u32 status = stm32_adc_readl(adc, regs->isr_eoc.reg);
+-	u32 mask = stm32_adc_readl(adc, regs->ier_eoc.reg);
  
- /**
-@@ -352,7 +354,7 @@ static void stm32_adc_irq_handler(struct irq_desc *desc)
- 	 * before invoking the interrupt handler (e.g. call ISR only for
- 	 * IRQ-enabled ADCs).
- 	 */
--	for (i = 0; i < priv->cfg->num_irqs; i++) {
-+	for (i = 0; i < priv->cfg->num_adcs; i++) {
- 		if ((status & priv->cfg->regs->eoc_msk[i] &&
- 		     stm32_adc_eoc_enabled(priv, i)) ||
- 		     (status & priv->cfg->regs->ovr_msk[i]))
-@@ -792,6 +794,7 @@ static const struct stm32_adc_priv_cfg stm32f4_adc_priv_cfg = {
- 	.clk_sel = stm32f4_adc_clk_sel,
- 	.max_clk_rate_hz = 36000000,
- 	.num_irqs = 1,
-+	.num_adcs = 3,
- };
+ 	/* Check ovr status right now, as ovr mask should be already disabled */
+ 	if (status & regs->isr_ovr.mask) {
+@@ -1422,11 +1421,6 @@ static irqreturn_t stm32_adc_threaded_isr(int irq, void *data)
+ 		return IRQ_HANDLED;
+ 	}
  
- static const struct stm32_adc_priv_cfg stm32h7_adc_priv_cfg = {
-@@ -800,6 +803,7 @@ static const struct stm32_adc_priv_cfg stm32h7_adc_priv_cfg = {
- 	.max_clk_rate_hz = 36000000,
- 	.has_syscfg = HAS_VBOOSTER,
- 	.num_irqs = 1,
-+	.num_adcs = 2,
- };
+-	if (!(status & mask))
+-		dev_err_ratelimited(&indio_dev->dev,
+-				    "Unexpected IRQ: IER=0x%08x, ISR=0x%08x\n",
+-				    mask, status);
+-
+ 	return IRQ_NONE;
+ }
  
- static const struct stm32_adc_priv_cfg stm32mp1_adc_priv_cfg = {
-@@ -808,6 +812,7 @@ static const struct stm32_adc_priv_cfg stm32mp1_adc_priv_cfg = {
- 	.max_clk_rate_hz = 40000000,
- 	.has_syscfg = HAS_VBOOSTER | HAS_ANASWVDD,
- 	.num_irqs = 2,
-+	.num_adcs = 2,
- };
+@@ -1436,10 +1430,6 @@ static irqreturn_t stm32_adc_isr(int irq, void *data)
+ 	struct stm32_adc *adc = iio_priv(indio_dev);
+ 	const struct stm32_adc_regspec *regs = adc->cfg->regs;
+ 	u32 status = stm32_adc_readl(adc, regs->isr_eoc.reg);
+-	u32 mask = stm32_adc_readl(adc, regs->ier_eoc.reg);
+-
+-	if (!(status & mask))
+-		return IRQ_WAKE_THREAD;
  
- static const struct of_device_id stm32_adc_of_match[] = {
+ 	if (status & regs->isr_ovr.mask) {
+ 		/*
 -- 
 2.36.1
 
