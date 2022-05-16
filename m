@@ -2,67 +2,67 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 407DB52884B
-	for <lists+linux-stm32@lfdr.de>; Mon, 16 May 2022 17:16:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1BFEF528F84
+	for <lists+linux-stm32@lfdr.de>; Mon, 16 May 2022 22:40:02 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0304CC03FE2;
-	Mon, 16 May 2022 15:16:28 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B4456C03FDB;
+	Mon, 16 May 2022 20:40:01 +0000 (UTC)
+Received: from mail-qt1-f181.google.com (mail-qt1-f181.google.com
+ [209.85.160.181])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DB6A9C035BF
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 53472C035BF
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 16 May 2022 15:16:26 +0000 (UTC)
-Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 24GAll1q012162;
- Mon, 16 May 2022 17:16:19 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=nVUQxNjE+KH2CgvD7EJIHyi9qAhaJcU0eNUdbFo+DtI=;
- b=6JhbHRKuDTyuLSXMyic1Kj+2MEWBTXjuf1K3dYvskYc09qCiCFWQhQdZBwcz/FgPI9yu
- cC9YS6U3gnYcDf4SKpBrGoCa8VrWfyiTT2ebSSm4yMH33xbdRYob/vC8xIllhO+ZJ87X
- NGFiuz/6TkM7Et8lhLflNJ1Ft3w4kqoZ7wrI3ELqyrZ4aPo0aMWA4Vdj2Jp6N7F3tUn7
- ARSY6iyw3tKzGhKRDq/Qg1T2ZUxPfxDmNvYQroj8C6nV9geIwnppNnw8hiWiv7FoYHto
- 9PlnQdTWgU+HTagSa8KrVFXT3oEnA0U64Pn8UudaQlH00Kb7hxDgDuO4hgOiIHiveGD2 hg== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3g21ukjf6d-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 16 May 2022 17:16:19 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id B49D110002A;
- Mon, 16 May 2022 17:16:18 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id ADF332122E6;
- Mon, 16 May 2022 17:16:18 +0200 (CEST)
-Received: from [10.201.21.93] (10.75.127.47) by SHFDAG1NODE1.st.com
- (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2308.20; Mon, 16 May
- 2022 17:16:18 +0200
-Message-ID: <97a40643-668d-c237-bd03-c5def591fced@foss.st.com>
-Date: Mon, 16 May 2022 17:16:18 +0200
+ Mon, 16 May 2022 20:40:00 +0000 (UTC)
+Received: by mail-qt1-f181.google.com with SMTP id i20so12956827qti.11
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 16 May 2022 13:40:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=qRyYZy7MUY9Z/ZyS1jq+AuFFP7q0GxQUZ1g6iG97tyM=;
+ b=jRAPfAxvk37A+4zg3JePp6ctoOo27aHfPQzvPO/cLLDVov8JMSdbL5Goe5mzQ1GHVI
+ e1KgC/HsHj91CoO2A327UT8DcApUlzJIiPG5K38EJXtL5Vs+JLfh4mAoXfQQ/873B7EG
+ AIrLk+0G9EcwbbiYW2BGLPLYVFzo1g70p+B64FCCRYzTi6CCMkyQzG4rFAtzMZskHrUa
+ g238LZVFMqIHDDcFq8qJOGTvvMVmCyVIsDi3iLIy6iqzK0x4ZHwVnxSDwBlPpA6Uh9JR
+ ZrcCXwJZoMI0V4RLN5EVsFxxHRyuf5sTNC13xv4Btbgo37b+APRDSSp/tmoo+p5j77jI
+ XjLA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=qRyYZy7MUY9Z/ZyS1jq+AuFFP7q0GxQUZ1g6iG97tyM=;
+ b=7hkQ0Q3Tt2fSs4r76EJZByxadV4W/OGQdBuI+bYPCHGuwTO3dtqLYFX4yW9rmjGS1M
+ a7u7kw//ULw/+FmqBwgsJSpyCrTWdrKzje8FQazhD2nNZiIMmNlesPqNvjPE6OYDdaLL
+ e/I80mWlLL6nsOX5ynEcgYZOSbFf4sKGl3nEfp9W5PzZKYDExHZpWV/5+2cNuvOdkFu+
+ 6BadkDKCxrU9i25wxng/nuZtewApbeYVOjXBotkfuvsOdXd8swrLmtdZ1onbx5w/h4Xd
+ wq4ZCJVwILAz4V04QBQ9+dtg7OakeeTCRAbddoWXb5bZBvOJtpHQYcc/5akOESB7OPKa
+ VAIw==
+X-Gm-Message-State: AOAM533B9S9v73avgz+UDqKnnSL+lbkRorjOquRaPbS91OeN6yoCpnlP
+ WXqXPmZNe3E1pmMK5Vd2kHg=
+X-Google-Smtp-Source: ABdhPJzxCGqOh+bB58fssYdqVlJzJSN0fs2Z5kI37E/iSL/1fO8Hyo71gRgar0YDeHHlg4FAjH1MeA==
+X-Received: by 2002:a05:622a:19a2:b0:2f3:cb4d:d4d9 with SMTP id
+ u34-20020a05622a19a200b002f3cb4dd4d9mr16554824qtc.245.1652733599224; 
+ Mon, 16 May 2022 13:39:59 -0700 (PDT)
+Received: from grrm.lan
+ (bras-base-mtrlpq4809w-grc-17-70-53-205-21.dsl.bell.ca. [70.53.205.21])
+ by smtp.gmail.com with ESMTPSA id
+ k67-20020a378846000000b006a00fabde68sm6364016qkd.10.2022.05.16.13.39.58
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 16 May 2022 13:39:58 -0700 (PDT)
+From: Yannick Brosseau <yannick.brosseau@gmail.com>
+To: jic23@kernel.org, lars@metafoo.de, mcoquelin.stm32@gmail.com,
+ alexandre.torgue@foss.st.com, fabrice.gasnier@foss.st.com,
+ olivier.moysan@foss.st.com
+Date: Mon, 16 May 2022 16:39:37 -0400
+Message-Id: <20220516203939.3498673-1-yannick.brosseau@gmail.com>
+X-Mailer: git-send-email 2.36.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.7.0
-Content-Language: en-US
-To: Steffen Trumtrar <s.trumtrar@pengutronix.de>,
- <linux-stm32@st-md-mailman.stormreply.com>,
- <linux-arm-kernel@lists.infradead.org>
-References: <20220516121619.2617401-1-s.trumtrar@pengutronix.de>
- <20220516121619.2617401-2-s.trumtrar@pengutronix.de>
-From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
-In-Reply-To: <20220516121619.2617401-2-s.trumtrar@pengutronix.de>
-X-Originating-IP: [10.75.127.47]
-X-ClientProxiedBy: SFHDAG2NODE2.st.com (10.75.127.5) To SHFDAG1NODE1.st.com
- (10.75.129.69)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.858,Hydra:6.0.486,FMLib:17.11.64.514
- definitions=2022-05-16_14,2022-05-16_02,2022-02-23_01
-Cc: kernel@pengutronix.de, Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH v2 2/3] ARM: dts: stm32: add
-	STM32MP1-based Phytec SoM
+Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+ paul@crapouillou.net, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH v2 0/2] iio: adc: stm32: Fix ADC IRQ handling
+	on STM32F4
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,79 +74,29 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi steffen
+Changes to the STM32 ADC irq handling broke the STM32F4 platforms
+These two patches bring it back to a working state.
 
-On 5/16/22 14:16, Steffen Trumtrar wrote:
-> The Phytec STM32MP1 based SoMs feature up to 1 GB DDR3LP RAM, up to 1 GB eMMC,
-> up to 16 MB QSPI and up to 128 GB NAND flash.
-> 
-> As multiple default pinctrls are overwritten, collect them in one place
-> in stm32mp157c-phycore-stm32mp15-pinctrl.dtsi.
-> 
-> Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
-> ---
->   arch/arm/boot/dts/Makefile                    |   3 +-
->   ...stm32mp157c-phycore-stm32mp15-pinctrl.dtsi | 317 +++++++++
->   .../stm32mp157c-phycore-stm32mp15-som.dtsi    | 653 ++++++++++++++++++
->   3 files changed, 972 insertions(+), 1 deletion(-)
->   create mode 100644 arch/arm/boot/dts/stm32mp157c-phycore-stm32mp15-pinctrl.dtsi
->   create mode 100644 arch/arm/boot/dts/stm32mp157c-phycore-stm32mp15-som.dtsi
-> 
-> diff --git a/arch/arm/boot/dts/Makefile b/arch/arm/boot/dts/Makefile
-> index 7c16f8a2b738..72154fed7e8a 100644
-> --- a/arch/arm/boot/dts/Makefile
-> +++ b/arch/arm/boot/dts/Makefile
-> @@ -1174,7 +1174,8 @@ dtb-$(CONFIG_ARCH_STM32) += \
->   	stm32mp157c-emsbc-argon.dtb \
->   	stm32mp157c-ev1.dtb \
->   	stm32mp157c-lxa-mc1.dtb \
-> -	stm32mp157c-odyssey.dtb
-> +	stm32mp157c-odyssey.dtb \
-> +	stm32mp157c-phycore-stm32mp1-3.dtb
->   dtb-$(CONFIG_MACH_SUN4I) += \
->   	sun4i-a10-a1000.dtb \
->   	sun4i-a10-ba10-tvbox.dtb \
-> diff --git a/arch/arm/boot/dts/stm32mp157c-phycore-stm32mp15-pinctrl.dtsi b/arch/arm/boot/dts/stm32mp157c-phycore-stm32mp15-pinctrl.dtsi
-> new file mode 100644
-> index 000000000000..b0b590df43b6
-> --- /dev/null
-> +++ b/arch/arm/boot/dts/stm32mp157c-phycore-stm32mp15-pinctrl.dtsi
-> @@ -0,0 +1,317 @@
-> +// SPDX-License-Identifier: (GPL-2.0+ OR BSD-3-Clause)
-> +/*
-> + * Copyright (C) Phytec GmbH 2019-2020 - All Rights Reserved
-> + * Author: Dom VOVARD <dom.vovard@linrt.com>.
-> + */
-> +#include "stm32mp15-pinctrl.dtsi"
+Changes:
+ * Removed spurious IRQs detection
+ * Updated comments and commit messages
 
-...
+Yannick Brosseau (2):
+  iio: adc: stm32: Fix ADCs iteration in irq handler
+  iio: adc: stm32: Fix IRQs on STM32F4 by removing custom spurious IRQs
+    message
 
-> +
-> +&dma1 {
-> +	sram = <&dma_pool>;
-> +};
-> +
-> +&dma2 {
-> +	sram = <&dma_pool>;
-> +};
+ drivers/iio/adc/stm32-adc-core.c |  7 ++++++-
+ drivers/iio/adc/stm32-adc.c      | 10 ----------
+ 2 files changed, 6 insertions(+), 11 deletions(-)
 
-Please check STM32 dma yaml schemes. This binding is not acceptable:
-
-stm32mp157c-phycore-stm32mp1-3.dtb: sram@10000000: 'dma_pool@0' does not 
-match any of the regexes: '^([a-z0-9]*-)?sram(-section)?@[a-f0-9]+$', 
-'pinctrl-[0-9]+'
-	From schema: 
-/local/home/frq08678/STLINUX/kernel/my-kernel/stm32/Documentation/devicetree/bindings/sram/sram.yaml
-
-Quick question, what is the aim of this bindings ? Did you check that 
-current driver can handle it ?
-
-Alex
+-- 
+2.36.1
 
 _______________________________________________
 Linux-stm32 mailing list
