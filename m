@@ -2,65 +2,45 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3E63D5280BC
-	for <lists+linux-stm32@lfdr.de>; Mon, 16 May 2022 11:21:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A9215283F4
+	for <lists+linux-stm32@lfdr.de>; Mon, 16 May 2022 14:16:30 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C40FFC03FE4;
-	Mon, 16 May 2022 09:21:24 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 07511C03FE3;
+	Mon, 16 May 2022 12:16:30 +0000 (UTC)
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [85.220.165.71])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6E3ACC03FC9
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4EA4AC03FE2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 16 May 2022 09:21:23 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 24G8E5W1005786;
- Mon, 16 May 2022 11:21:09 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=from : to : cc :
- subject : date : message-id : mime-version : content-transfer-encoding :
- content-type; s=selector1;
- bh=Q4W3Tjig+WlwJ7hKJLTi8rI/emUqtqXFj0FeCqRaQ3Q=;
- b=qsI4yD4DpV+Z45Pez3UNwySlSjWcJ/PvPbwCIRwr0Dd1WZGmEwouNqMRfB16+DQ0tZQM
- xtDh1Fn8SNIoUC1WHCD3bAsETNyoJ2+5FGJa4qye8plxHejH1SFwolBCwq3xJDpPDh51
- EI75uhr/lMRpEoxoygHz/hPZ5TfXe+HNbtrytXiH72IMfVJpTO+zGxOFUxbgIlLxBqv5
- 4rRzUt29spMX2U9kaMsDVgUuFipAG4/8OXQHiASpM566vCDw1glg0VbmF+Fyu14qykQk
- da7T6RQArxsFzrar7zt3rrzpksHW9QPw1ZM4c/4vW6CuT7yZzW8uEB4gQUW0rWEEWmmQ hA== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3g21j8hxph-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 16 May 2022 11:21:09 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id EDCF810002A;
- Mon, 16 May 2022 11:21:06 +0200 (CEST)
-Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id E753F2171DB;
- Mon, 16 May 2022 11:21:06 +0200 (CEST)
-Received: from localhost (10.75.127.45) by SFHDAG2NODE2.st.com (10.75.127.5)
- with Microsoft SMTP Server (TLS) id 15.0.1497.26; Mon, 16 May 2022 11:21:06
- +0200
-From: Hugues Fruchet <hugues.fruchet@foss.st.com>
-To: Alexandre Torgue <alexandre.torgue@foss.st.com>, Mauro Carvalho Chehab
- <mchehab@kernel.org>, Hans Verkuil <hverkuil@xs4all.nl>, Sakari Ailus
- <sakari.ailus@linux.intel.com>
-Date: Mon, 16 May 2022 11:20:48 +0200
-Message-ID: <20220516092048.264036-1-hugues.fruchet@foss.st.com>
-X-Mailer: git-send-email 2.25.1
+ Mon, 16 May 2022 12:16:29 +0000 (UTC)
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+ by metis.ext.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <str@pengutronix.de>)
+ id 1nqZeG-0002ly-JS; Mon, 16 May 2022 14:16:28 +0200
+Received: from [2a0a:edc0:0:1101:1d::28] (helo=dude02.red.stw.pengutronix.de)
+ by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.94.2)
+ (envelope-from <str@pengutronix.de>)
+ id 1nqZeG-002fMV-7g; Mon, 16 May 2022 14:16:26 +0200
+Received: from str by dude02.red.stw.pengutronix.de with local (Exim 4.94.2)
+ (envelope-from <str@pengutronix.de>)
+ id 1nqZeE-00Ayvi-9O; Mon, 16 May 2022 14:16:26 +0200
+From: Steffen Trumtrar <s.trumtrar@pengutronix.de>
+To: linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Date: Mon, 16 May 2022 14:16:17 +0200
+Message-Id: <20220516121619.2617401-1-s.trumtrar@pengutronix.de>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.45]
-X-ClientProxiedBy: SFHDAG2NODE2.st.com (10.75.127.5) To SFHDAG2NODE2.st.com
- (10.75.127.5)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.858,Hydra:6.0.486,FMLib:17.11.64.514
- definitions=2022-05-16_05,2022-05-13_01,2022-02-23_01
-Cc: Hugues Fruchet <hugues.fruchet@foss.st.com>,
- Yannick Fertre <yannick.fertre@foss.st.com>, linux-kernel@vger.kernel.org,
- Alain Volmat <alain.volmat@foss.st.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- linux-media@vger.kernel.org
-Subject: [Linux-stm32] [PATCH] media: stm32-dcmi: add support of 1X16 serial
-	pixel formats variant
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: str@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
+Cc: kernel@pengutronix.de, Steffen Trumtrar <s.trumtrar@pengutronix.de>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Subject: [Linux-stm32] [PATCH v2 1/3] ARM: dts: stm32: add SRAM binding
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,60 +57,35 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Hugues Fruchet <hugues.fruchet@st.com>
+The STM32 has an SRAM from 0x1000000 to 0x10060000.
+Make it available via mmio-sram.
 
-Add support of 1X16 serial pixel formats in order to support
-CSI-2 camera sensor exposing 1x16 pixel formats only.
-
-Signed-off-by: Hugues Fruchet <hugues.fruchet@st.com>
+Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
 ---
- drivers/media/platform/st/stm32/stm32-dcmi.c | 18 ++++++++++++------
- 1 file changed, 12 insertions(+), 6 deletions(-)
+ arch/arm/boot/dts/stm32mp151.dtsi | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/drivers/media/platform/st/stm32/stm32-dcmi.c b/drivers/media/platform/st/stm32/stm32-dcmi.c
-index 09a743cd7004..b2ba4d95bfa3 100644
---- a/drivers/media/platform/st/stm32/stm32-dcmi.c
-+++ b/drivers/media/platform/st/stm32/stm32-dcmi.c
-@@ -1592,25 +1592,31 @@ static int dcmi_set_default_fmt(struct stm32_dcmi *dcmi)
- 	return 0;
- }
+diff --git a/arch/arm/boot/dts/stm32mp151.dtsi b/arch/arm/boot/dts/stm32mp151.dtsi
+index 08708346d583..1816d9b02bb8 100644
+--- a/arch/arm/boot/dts/stm32mp151.dtsi
++++ b/arch/arm/boot/dts/stm32mp151.dtsi
+@@ -122,6 +122,14 @@ soc {
+ 		interrupt-parent = <&intc>;
+ 		ranges;
  
--/*
-- * FIXME: For the time being we only support subdevices
-- * which expose RGB & YUV "parallel form" mbus code (_2X8).
-- * Nevertheless, this allows to support serial source subdevices
-- * and serial to parallel bridges which conform to this.
-- */
- static const struct dcmi_format dcmi_formats[] = {
- 	{
- 		.fourcc = V4L2_PIX_FMT_RGB565,
- 		.mbus_code = MEDIA_BUS_FMT_RGB565_2X8_LE,
- 		.bpp = 2,
-+	}, {
-+		.fourcc = V4L2_PIX_FMT_RGB565,
-+		.mbus_code = MEDIA_BUS_FMT_RGB565_1X16,
-+		.bpp = 2,
- 	}, {
- 		.fourcc = V4L2_PIX_FMT_YUYV,
- 		.mbus_code = MEDIA_BUS_FMT_YUYV8_2X8,
- 		.bpp = 2,
-+	}, {
-+		.fourcc = V4L2_PIX_FMT_YUYV,
-+		.mbus_code = MEDIA_BUS_FMT_YUYV8_1X16,
-+		.bpp = 2,
- 	}, {
- 		.fourcc = V4L2_PIX_FMT_UYVY,
- 		.mbus_code = MEDIA_BUS_FMT_UYVY8_2X8,
- 		.bpp = 2,
-+	}, {
-+		.fourcc = V4L2_PIX_FMT_UYVY,
-+		.mbus_code = MEDIA_BUS_FMT_UYVY8_1X16,
-+		.bpp = 2,
- 	}, {
- 		.fourcc = V4L2_PIX_FMT_JPEG,
- 		.mbus_code = MEDIA_BUS_FMT_JPEG_1X8,
++		sram: sram@10000000 {
++			compatible = "mmio-sram";
++			reg = <0x10000000 0x60000>;
++			#address-cells = <1>;
++			#size-cells = <1>;
++			ranges = <0 0x10000000 0x60000>;
++		};
++
+ 		timers2: timer@40000000 {
+ 			#address-cells = <1>;
+ 			#size-cells = <0>;
 -- 
-2.25.1
+2.30.2
 
 _______________________________________________
 Linux-stm32 mailing list
