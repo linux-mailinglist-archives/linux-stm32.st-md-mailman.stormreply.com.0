@@ -2,60 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 406FD527E5A
-	for <lists+linux-stm32@lfdr.de>; Mon, 16 May 2022 09:14:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3E63D5280BC
+	for <lists+linux-stm32@lfdr.de>; Mon, 16 May 2022 11:21:25 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EF646C0D2BB;
-	Mon, 16 May 2022 07:14:11 +0000 (UTC)
-Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
- (using TLSv1.2 with cipher AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C40FFC03FE4;
+	Mon, 16 May 2022 09:21:24 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 33385C0D2B8
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6E3ACC03FC9
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 16 May 2022 07:14:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1652685250; x=1684221250;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=xEsIPosUyXoJAygrBVu27eU3Ktiq+RnmcB1ep7xCiDc=;
- b=E8zLya2ViMuexsJ/Sc2+p/v7RKIjNcdXP+HrIQz4O8WOzW6zrSIttGjv
- yM7BT6ag0lYyVd6atP6CGAsLaoG6gAVZ6VzYlPLMQMJZaK/+JQYs1olAn
- qjtAvO85Zq4s96ztEK8VFO/lAveAeAKvz+MJ/V87jysQrsWhl3eGKW3R3 o=;
-Received: from ironmsg08-lv.qualcomm.com ([10.47.202.152])
- by alexa-out.qualcomm.com with ESMTP; 16 May 2022 00:14:09 -0700
-X-QCInternal: smtphost
-Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg08-lv.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 May 2022 00:14:08 -0700
-Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
- nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Mon, 16 May 2022 00:14:08 -0700
-Received: from [10.239.133.9] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Mon, 16 May
- 2022 00:14:05 -0700
-Message-ID: <61028345-234b-6e5e-6bd5-e10165dbdf52@quicinc.com>
-Date: Mon, 16 May 2022 15:14:02 +0800
+ Mon, 16 May 2022 09:21:23 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 24G8E5W1005786;
+ Mon, 16 May 2022 11:21:09 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=selector1;
+ bh=Q4W3Tjig+WlwJ7hKJLTi8rI/emUqtqXFj0FeCqRaQ3Q=;
+ b=qsI4yD4DpV+Z45Pez3UNwySlSjWcJ/PvPbwCIRwr0Dd1WZGmEwouNqMRfB16+DQ0tZQM
+ xtDh1Fn8SNIoUC1WHCD3bAsETNyoJ2+5FGJa4qye8plxHejH1SFwolBCwq3xJDpPDh51
+ EI75uhr/lMRpEoxoygHz/hPZ5TfXe+HNbtrytXiH72IMfVJpTO+zGxOFUxbgIlLxBqv5
+ 4rRzUt29spMX2U9kaMsDVgUuFipAG4/8OXQHiASpM566vCDw1glg0VbmF+Fyu14qykQk
+ da7T6RQArxsFzrar7zt3rrzpksHW9QPw1ZM4c/4vW6CuT7yZzW8uEB4gQUW0rWEEWmmQ hA== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3g21j8hxph-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 16 May 2022 11:21:09 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id EDCF810002A;
+ Mon, 16 May 2022 11:21:06 +0200 (CEST)
+Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id E753F2171DB;
+ Mon, 16 May 2022 11:21:06 +0200 (CEST)
+Received: from localhost (10.75.127.45) by SFHDAG2NODE2.st.com (10.75.127.5)
+ with Microsoft SMTP Server (TLS) id 15.0.1497.26; Mon, 16 May 2022 11:21:06
+ +0200
+From: Hugues Fruchet <hugues.fruchet@foss.st.com>
+To: Alexandre Torgue <alexandre.torgue@foss.st.com>, Mauro Carvalho Chehab
+ <mchehab@kernel.org>, Hans Verkuil <hverkuil@xs4all.nl>, Sakari Ailus
+ <sakari.ailus@linux.intel.com>
+Date: Mon, 16 May 2022 11:20:48 +0200
+Message-ID: <20220516092048.264036-1-hugues.fruchet@foss.st.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.1
-Content-Language: en-US
-To: Alexander Shishkin <alexander.shishkin@linux.intel.com>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>
-References: <20220418114658.6491-1-quic_jinlmao@quicinc.com>
-From: Jinlong Mao <quic_jinlmao@quicinc.com>
-In-Reply-To: <20220418114658.6491-1-quic_jinlmao@quicinc.com>
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-Cc: linux-arm-msm@vger.kernel.org, Tingwei Zhang <quic_tingweiz@quicinc.com>,
- linux-kernel@vger.kernel.org, Tao Zhang <quic_taozha@quicinc.com>,
- Yuanfang Zhang <quic_yuanfang@quicinc.com>, Hao Zhang <quic_hazha@quicinc.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] stm class: Fix double add issue when
-	store source_link
+X-Originating-IP: [10.75.127.45]
+X-ClientProxiedBy: SFHDAG2NODE2.st.com (10.75.127.5) To SFHDAG2NODE2.st.com
+ (10.75.127.5)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.858,Hydra:6.0.486,FMLib:17.11.64.514
+ definitions=2022-05-16_05,2022-05-13_01,2022-02-23_01
+Cc: Hugues Fruchet <hugues.fruchet@foss.st.com>,
+ Yannick Fertre <yannick.fertre@foss.st.com>, linux-kernel@vger.kernel.org,
+ Alain Volmat <alain.volmat@foss.st.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ linux-media@vger.kernel.org
+Subject: [Linux-stm32] [PATCH] media: stm32-dcmi: add support of 1X16 serial
+	pixel formats variant
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,96 +72,66 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Reviewers,
+From: Hugues Fruchet <hugues.fruchet@st.com>
 
-Could you please help to review this patch ?
+Add support of 1X16 serial pixel formats in order to support
+CSI-2 camera sensor exposing 1x16 pixel formats only.
 
-Thanks
+Signed-off-by: Hugues Fruchet <hugues.fruchet@st.com>
+---
+ drivers/media/platform/st/stm32/stm32-dcmi.c | 18 ++++++++++++------
+ 1 file changed, 12 insertions(+), 6 deletions(-)
 
-Jinlong Mao
+diff --git a/drivers/media/platform/st/stm32/stm32-dcmi.c b/drivers/media/platform/st/stm32/stm32-dcmi.c
+index 09a743cd7004..b2ba4d95bfa3 100644
+--- a/drivers/media/platform/st/stm32/stm32-dcmi.c
++++ b/drivers/media/platform/st/stm32/stm32-dcmi.c
+@@ -1592,25 +1592,31 @@ static int dcmi_set_default_fmt(struct stm32_dcmi *dcmi)
+ 	return 0;
+ }
+ 
+-/*
+- * FIXME: For the time being we only support subdevices
+- * which expose RGB & YUV "parallel form" mbus code (_2X8).
+- * Nevertheless, this allows to support serial source subdevices
+- * and serial to parallel bridges which conform to this.
+- */
+ static const struct dcmi_format dcmi_formats[] = {
+ 	{
+ 		.fourcc = V4L2_PIX_FMT_RGB565,
+ 		.mbus_code = MEDIA_BUS_FMT_RGB565_2X8_LE,
+ 		.bpp = 2,
++	}, {
++		.fourcc = V4L2_PIX_FMT_RGB565,
++		.mbus_code = MEDIA_BUS_FMT_RGB565_1X16,
++		.bpp = 2,
+ 	}, {
+ 		.fourcc = V4L2_PIX_FMT_YUYV,
+ 		.mbus_code = MEDIA_BUS_FMT_YUYV8_2X8,
+ 		.bpp = 2,
++	}, {
++		.fourcc = V4L2_PIX_FMT_YUYV,
++		.mbus_code = MEDIA_BUS_FMT_YUYV8_1X16,
++		.bpp = 2,
+ 	}, {
+ 		.fourcc = V4L2_PIX_FMT_UYVY,
+ 		.mbus_code = MEDIA_BUS_FMT_UYVY8_2X8,
+ 		.bpp = 2,
++	}, {
++		.fourcc = V4L2_PIX_FMT_UYVY,
++		.mbus_code = MEDIA_BUS_FMT_UYVY8_1X16,
++		.bpp = 2,
+ 	}, {
+ 		.fourcc = V4L2_PIX_FMT_JPEG,
+ 		.mbus_code = MEDIA_BUS_FMT_JPEG_1X8,
+-- 
+2.25.1
 
-On 4/18/2022 7:46 PM, Mao Jinlong wrote:
-> If two threads store the same stm device to stm_source_link
-> at the same time when stm->link_list is empty, it is possible
-> that stm_source_link_add will be called for both of these two
-> threads. Then double add issue below will happen. Add mutex
-> lock for stm_source_link drop and stm_source_link add to avoid
-> this race condition.
->
-> [ 12.386579][ T1024] list_add double add: new=ffffff87b73ebd90,
-> prev=ffffff87b73ebd90, next=ffffffc012737700.
-> [ 12.386657][ T1024] -----------[ cut here ]-----------
-> [ 12.386671][ T1024] kernel BUG at lib/list_debug.c:31!
-> [ 12.388845][ T1024] CPU: 2 PID: 1024 Comm: sh
-> [ 12.389162][ T1024] Call trace:
-> [ 12.389174][ T1024] __list_add_valid+0x68/0x98
-> [ 12.389199][ T1024] stm_source_link_store+0xcc/0x314 [stm_core]
-> [ 12.389213][ T1024] dev_attr_store+0x38/0x8c
-> [ 12.389228][ T1024] sysfs_kf_write+0xa0/0x100
-> [ 12.389239][ T1024] kernfs_fop_write_iter+0x1b0/0x2f8
-> [ 12.389253][ T1024] vfs_write+0x300/0x37c
-> [ 12.389264][ T1024] ksys_write+0x84/0x12c
->
-> Signed-off-by: Yuanfang Zhang <quic_yuanfang@quicinc.com>
-> Signed-off-by: Mao Jinlong <quic_jinlmao@quicinc.com>
-> ---
->   drivers/hwtracing/stm/core.c | 7 ++++++-
->   drivers/hwtracing/stm/stm.h  | 1 +
->   2 files changed, 7 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/hwtracing/stm/core.c b/drivers/hwtracing/stm/core.c
-> index 2712e699ba08..e73ac961acb2 100644
-> --- a/drivers/hwtracing/stm/core.c
-> +++ b/drivers/hwtracing/stm/core.c
-> @@ -1171,11 +1171,14 @@ static ssize_t stm_source_link_store(struct device *dev,
->   	struct stm_device *link;
->   	int err;
->   
-> +	mutex_lock(&src->link_mutex);
->   	stm_source_link_drop(src);
->   
->   	link = stm_find_device(buf);
-> -	if (!link)
-> +	if (!link) {
-> +		mutex_lock(&src->link_mutex);
->   		return -EINVAL;
-> +	}
->   
->   	pm_runtime_get(&link->dev);
->   
-> @@ -1185,6 +1188,7 @@ static ssize_t stm_source_link_store(struct device *dev,
->   		/* matches the stm_find_device() above */
->   		stm_put_device(link);
->   	}
-> +	mutex_unlock(&src->link_mutex);
->   
->   	return err ? : count;
->   }
-> @@ -1251,6 +1255,7 @@ int stm_source_register_device(struct device *parent,
->   
->   	stm_output_init(&src->output);
->   	spin_lock_init(&src->link_lock);
-> +	mutex_init(&src->link_mutex);
->   	INIT_LIST_HEAD(&src->link_entry);
->   	src->data = data;
->   	data->src = src;
-> diff --git a/drivers/hwtracing/stm/stm.h b/drivers/hwtracing/stm/stm.h
-> index a9be49fc7a6b..60b814cc00e0 100644
-> --- a/drivers/hwtracing/stm/stm.h
-> +++ b/drivers/hwtracing/stm/stm.h
-> @@ -79,6 +79,7 @@ void stm_put_device(struct stm_device *stm);
->   struct stm_source_device {
->   	struct device		dev;
->   	struct stm_source_data	*data;
-> +	struct mutex		link_mutex;
->   	spinlock_t		link_lock;
->   	struct stm_device __rcu	*link;
->   	struct list_head	link_entry;
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
