@@ -2,42 +2,42 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9739252B9D1
-	for <lists+linux-stm32@lfdr.de>; Wed, 18 May 2022 14:29:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9EDA952B9D4
+	for <lists+linux-stm32@lfdr.de>; Wed, 18 May 2022 14:30:15 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5BB21C5F1D5;
-	Wed, 18 May 2022 12:29:59 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 69400C03FDB;
+	Wed, 18 May 2022 12:30:15 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EDFAFC5EC6B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A89CEC035BD
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 18 May 2022 12:29:57 +0000 (UTC)
+ Wed, 18 May 2022 12:30:13 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id DE634615FE;
- Wed, 18 May 2022 12:29:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6250C36AE3;
- Wed, 18 May 2022 12:29:54 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id A2EB061688;
+ Wed, 18 May 2022 12:30:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A56BC385A5;
+ Wed, 18 May 2022 12:30:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1652876996;
+ s=k20201202; t=1652877012;
  bh=U3MCaPU4KcqqPQx9TyAhzv+aeX5+rNSIakb60lLPjGQ=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=YEgGsavpmFNllTJ6A+A7tcwVo7yC9fEykOE7ieN0uDPU/CdRY+pvkLwVQ6mdWU0pv
- gIjX3vLxq1280a9V478u7Z5H+I9ZLffmHALU3zIyB6E5bPVnQDv9j3dI9DcMX09lrz
- RkgGPYSCir78QgYesO3Dx99FKXUSk/+bYaA8LasIyZF7III/7vETbz4Os+viOu7B3g
- 8NkJIG3Rx4OQraqmlA1Fiemrclm9mhiM1gnbvjfdPgP5A8ONfDTU2/dk8Tg9Kj8dYK
- /cNsVhfJwOUv2lQw0oeb6mAicbwXoTP4JTg1yO9FuRYuMbH0icVbqvbQk65lUzn+jf
- 5/Ix+D49PQvzA==
+ b=mCFfTjqNZ55el+4Q29UCl86uNw3uXPVFWY+0bMYe0SDMhZQeAt/JrwMnWxNKQME83
+ aTPtw7gykRdLnetsLGbmfEA9Et4Nc/xuXsgTWA7XhvWTE3wD1IrkIx2azLMb8kYFfr
+ IXvvP8u/jH1JVpOz5LnOxaZrf3Pg6tKpjFY0/OIo4vvKVSlbouhFXCvV+Pt+mNQSch
+ 0yciW5AugL9lAXnPzXpoiw/AaAMttMK0u3ruqZMZgvl5ninejuWT8QMaZwWbzUcX17
+ gLq6amQc38ET/BmBNhhMexp//CSA4qd3QlFVPhg0SCDncrEMy31BAPAFJl2nIpeudx
+ qrmlPhGkv0cag==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Wed, 18 May 2022 08:29:44 -0400
-Message-Id: <20220518122946.343712-4-sashal@kernel.org>
+Date: Wed, 18 May 2022 08:29:59 -0400
+Message-Id: <20220518123000.343787-4-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20220518122946.343712-1-sashal@kernel.org>
-References: <20220518122946.343712-1-sashal@kernel.org>
+In-Reply-To: <20220518123000.343787-1-sashal@kernel.org>
+References: <20220518123000.343787-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -47,7 +47,7 @@ Cc: Sasha Levin <sashal@kernel.org>, netdev@vger.kernel.org,
  edumazet@google.com, joabreu@synopsys.com, mcoquelin.stm32@gmail.com,
  Jakub Kicinski <kuba@kernel.org>, peppe.cavallaro@st.com, pabeni@redhat.com,
  davem@davemloft.net, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH AUTOSEL 4.19 4/5] net: stmmac: fix missing
+Subject: [Linux-stm32] [PATCH AUTOSEL 4.14 4/5] net: stmmac: fix missing
 	pci_disable_device() on error in stmmac_pci_probe()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
