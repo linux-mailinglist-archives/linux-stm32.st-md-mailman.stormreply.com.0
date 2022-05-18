@@ -2,42 +2,42 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9EDA952B9D4
-	for <lists+linux-stm32@lfdr.de>; Wed, 18 May 2022 14:30:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A92B752B9DB
+	for <lists+linux-stm32@lfdr.de>; Wed, 18 May 2022 14:30:30 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 69400C03FDB;
-	Wed, 18 May 2022 12:30:15 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7634EC56630;
+	Wed, 18 May 2022 12:30:30 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A89CEC035BD
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D7916C035BD
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 18 May 2022 12:30:13 +0000 (UTC)
+ Wed, 18 May 2022 12:30:28 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id A2EB061688;
- Wed, 18 May 2022 12:30:12 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A56BC385A5;
- Wed, 18 May 2022 12:30:10 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id D959B61688;
+ Wed, 18 May 2022 12:30:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B2711C36AE3;
+ Wed, 18 May 2022 12:30:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1652877012;
- bh=U3MCaPU4KcqqPQx9TyAhzv+aeX5+rNSIakb60lLPjGQ=;
+ s=k20201202; t=1652877027;
+ bh=9r1To4cmU5c4mec6rBMYQpdcINHgYGrxktesEOKlJhI=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=mCFfTjqNZ55el+4Q29UCl86uNw3uXPVFWY+0bMYe0SDMhZQeAt/JrwMnWxNKQME83
- aTPtw7gykRdLnetsLGbmfEA9Et4Nc/xuXsgTWA7XhvWTE3wD1IrkIx2azLMb8kYFfr
- IXvvP8u/jH1JVpOz5LnOxaZrf3Pg6tKpjFY0/OIo4vvKVSlbouhFXCvV+Pt+mNQSch
- 0yciW5AugL9lAXnPzXpoiw/AaAMttMK0u3ruqZMZgvl5ninejuWT8QMaZwWbzUcX17
- gLq6amQc38ET/BmBNhhMexp//CSA4qd3QlFVPhg0SCDncrEMy31BAPAFJl2nIpeudx
- qrmlPhGkv0cag==
+ b=LzIieOT+J4Ht/1eDupq4xr/XthHcsxwioqxECC/pofiFQ6H3j4Rwx3fRExgiXNTpJ
+ CDJbWcSY1hYC3sGZMN45LkltbEe3iGEvSdG8xNOUSMo/MrOAEFbG+Oq20a6Vis0IHQ
+ kidhHV03fq4/OtIsY093x5Lgt/eLVDf5PiymUg8hWfIRb1MBqoWHkLvPB5dmImqUWf
+ 3Ev6K4Zni7a7gM7/EYBfX9fGZXQVp0ZcwzFwC5eF2Ba5uev3Eip0n5A9LOxsobv0g+
+ xhYIF4BdVs88BN5yGXuhIeUz2dUBu8uiNVbCxyvMgaqhpMCVH0EW2OPiPLW7q2uUYf
+ aeWUdbrlv+yWQ==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Wed, 18 May 2022 08:29:59 -0400
-Message-Id: <20220518123000.343787-4-sashal@kernel.org>
+Date: Wed, 18 May 2022 08:30:16 -0400
+Message-Id: <20220518123016.343867-4-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20220518123000.343787-1-sashal@kernel.org>
-References: <20220518123000.343787-1-sashal@kernel.org>
+In-Reply-To: <20220518123016.343867-1-sashal@kernel.org>
+References: <20220518123016.343867-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -47,7 +47,7 @@ Cc: Sasha Levin <sashal@kernel.org>, netdev@vger.kernel.org,
  edumazet@google.com, joabreu@synopsys.com, mcoquelin.stm32@gmail.com,
  Jakub Kicinski <kuba@kernel.org>, peppe.cavallaro@st.com, pabeni@redhat.com,
  davem@davemloft.net, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH AUTOSEL 4.14 4/5] net: stmmac: fix missing
+Subject: [Linux-stm32] [PATCH AUTOSEL 4.9 4/4] net: stmmac: fix missing
 	pci_disable_device() on error in stmmac_pci_probe()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -81,10 +81,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 1 insertion(+), 3 deletions(-)
 
 diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_pci.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_pci.c
-index cc1e887e47b5..3dec109251ad 100644
+index 49eaede34eea..9beb93479e28 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_pci.c
 +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_pci.c
-@@ -261,7 +261,7 @@ static int stmmac_pci_probe(struct pci_dev *pdev,
+@@ -183,7 +183,7 @@ static int stmmac_pci_probe(struct pci_dev *pdev,
  		return -ENOMEM;
  
  	/* Enable pci device */
@@ -93,7 +93,7 @@ index cc1e887e47b5..3dec109251ad 100644
  	if (ret) {
  		dev_err(&pdev->dev, "%s: ERROR: failed to enable device\n",
  			__func__);
-@@ -313,8 +313,6 @@ static void stmmac_pci_remove(struct pci_dev *pdev)
+@@ -241,8 +241,6 @@ static void stmmac_pci_remove(struct pci_dev *pdev)
  		pcim_iounmap_regions(pdev, BIT(i));
  		break;
  	}
@@ -101,7 +101,7 @@ index cc1e887e47b5..3dec109251ad 100644
 -	pci_disable_device(pdev);
  }
  
- static int __maybe_unused stmmac_pci_suspend(struct device *dev)
+ static int stmmac_pci_suspend(struct device *dev)
 -- 
 2.35.1
 
