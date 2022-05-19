@@ -2,46 +2,47 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E4D6652DBBD
-	for <lists+linux-stm32@lfdr.de>; Thu, 19 May 2022 19:49:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EBD3752DBC2
+	for <lists+linux-stm32@lfdr.de>; Thu, 19 May 2022 19:49:44 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A0864C03FE2;
-	Thu, 19 May 2022 17:49:07 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B45ADC56630;
+	Thu, 19 May 2022 17:49:44 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D410FC03FC2
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9CC1EC03FC2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 19 May 2022 17:49:06 +0000 (UTC)
+ Thu, 19 May 2022 17:49:43 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 66006B824A1;
- Thu, 19 May 2022 17:49:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AFAB8C385AA;
- Thu, 19 May 2022 17:49:04 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 684DD618D6;
+ Thu, 19 May 2022 17:49:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 42F71C385AA;
+ Thu, 19 May 2022 17:49:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1652982545;
- bh=ac9xGH+1JIcnCHzru2IWbkDZOfZZiXdeXvfoHhLdoqM=;
+ s=k20201202; t=1652982581;
+ bh=9A5+aIyuXlTlURbYrnNECxCHAE/FESaqMNCsL6/awOI=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=spOW840KGB04EbAqRHdAwCEI4ueJigujG10gmrQZoJohM6H/G5k95LoEo8lMQIRUG
- kb5EgjV5RPlKUXKLzXwJlYXAPbrzUmvcCpkIsEy9yT7mj+kqsXctQyxtnyDoGSfPPR
- vGw9oRS1FSIl4okTHuPOQ27P3GZJb0Bmt537RCgrscZRYwICzTULien/6Av1HMM1Uf
- DuduX7Auy6kWgTAouMt+V/zK487LrCXmjI70yWCZx+rim2RgcJnonMLLim/HxoXn44
- 3WcpcMhtBuuWBLGbev6CQvd8UXSbD2uoT8OpUBO9XydaZDIF6ZBHFHOQdVtSh4Y7aM
- KjdTCTo/HfA6A==
-Date: Thu, 19 May 2022 23:19:00 +0530
+ b=Puppa7FBRvhE6BDdhEDwhEJWvRlwJNek6upoz4Dr5kf0mDHj/ln2DX4S+ztY5+U2P
+ li2U6dtnwbQWT2DzDSeUBXj1B+Ks0lur/ohsr7Zo6HPaXQl1bPK4My2L2oQURzkH61
+ Wygy+6X6rvUAirXy1GXvHbF6nQKFmuDyjZIqN5p4kAYuBpNF9SkqWcBXXOR+AHZJqe
+ 9RM2MvzrVBwE8BZCzeLHjzSV52j2siBqjmr32q2E498BIDkVs1KlBtBF+ouXpEx1hY
+ yxH1Pgb/rzdcgk2/PBiGgx/H1S/B8cVx6ZTWf79pG6NThDKRs8Tt1oWc97caOZqmcl
+ eLd11ncCWxqFw==
+Date: Thu, 19 May 2022 23:19:37 +0530
 From: Vinod Koul <vkoul@kernel.org>
 To: Amelie Delaunay <amelie.delaunay@foss.st.com>
-Message-ID: <YoaDDFtLBjFWAJoQ@matsya>
-References: <20220505115611.38845-1-amelie.delaunay@foss.st.com>
+Message-ID: <YoaDMTRk07ot2p7B@matsya>
+References: <20220504161724.123180-1-amelie.delaunay@foss.st.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20220505115611.38845-1-amelie.delaunay@foss.st.com>
+In-Reply-To: <20220504161724.123180-1-amelie.delaunay@foss.st.com>
 Cc: linux-kernel@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  dmaengine@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 0/4] STM32 DMA pause/resume support
+Subject: Re: [Linux-stm32] [PATCH] dmaengine: stm32-dmamux: avoid reset of
+ dmamux if used by coprocessor
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -58,10 +59,18 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 05-05-22, 13:56, Amelie Delaunay wrote:
-> This patchset introduces pause/resume support in stm32-dma driver.
-> [1/4], [2/4] and [3/4] ease the introduction of device_pause/device_resume
-> ops management in [4/4].
+On 04-05-22, 18:17, Amelie Delaunay wrote:
+> One of the two DMA controllers managed by the DMAMUX can be used by the
+> coprocessor. It is defined in the device tree with dma-masters.
+> When the two DMA controllers are used by the main CPU,
+> dma-masters = <&dma1, &dma2>; is specified in the device tree.
+> When one of the controllers is used by coprocessor (so not managed by
+> Linux), dma-masters = <&dma1>; is specified in the device tree.
+> In this case, Linux driver must not reset the DMAMUX, because it could have
+> been configured by the coprocessor to use the second DMA controller.
+> count is the number of DMA controllers defined in dma-masters property.
+> Reset only if resets property is found and valid in device tree, and if
+> the two DMA controllers are under Linux control.
 
 Applied, thanks
 
