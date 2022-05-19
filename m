@@ -2,35 +2,35 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CE50152D862
-	for <lists+linux-stm32@lfdr.de>; Thu, 19 May 2022 17:44:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 457FE52D866
+	for <lists+linux-stm32@lfdr.de>; Thu, 19 May 2022 17:44:53 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8E32FC6504D;
-	Thu, 19 May 2022 15:44:49 +0000 (UTC)
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 07304C65046;
+	Thu, 19 May 2022 15:44:53 +0000 (UTC)
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 19025C65043
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BD352C65040
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 19 May 2022 15:44:47 +0000 (UTC)
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
- by mx0b-001ae601.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 24JBHtag024228;
+ Thu, 19 May 2022 15:44:48 +0000 (UTC)
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+ by mx0a-001ae601.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 24J6k11s002261;
  Thu, 19 May 2022 10:43:33 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
  h=from : to : cc :
  subject : date : message-id : in-reply-to : references : mime-version :
  content-transfer-encoding : content-type; s=PODMain02222019;
- bh=u8gBawUReRW33h0mniJ3wlAUhVgNuvljzoZnaATo57I=;
- b=M/4dhBalZkqhwecDygq2BOkY14axdf929ROve2KoSnX0Xz9UcvEbE3wGiwMwi1kiuaA1
- KV/6zwkXN4FOTmr50Y2vWCF1WRiXB3xEveCUw6jpw3854voBz1U9U3yQBJMr6MBHNcgk
- AU8XmexMHVVcIoGrbrJJhbDrUndDo4+YlQcJYl5NR32p8hu/deB2uTdEp0SrutRLS1Zm
- yGSIlhBLGn/NERlQ0FTWbIeyw9urYMbgzJib4oxtyODW1dhJ4H5yoN7PEH2CIoV0rybd
- eJwg4PUsSJiBf6D6nS0zKM4pPfhZQP9KUs/SHR/hpYgOkXg07utfiJxbNWs6FVgZwFkd iA== 
+ bh=acSxSHHdEGhP/Pg2fdRdjf1RhdGB8CAjjCO1XuRlCRo=;
+ b=bXcHVLNq1bHnvyVywh+fMEeYkV6xXfOg1Er4VRZwQVddlvaExppL1miEWgEOO5tL665K
+ 802ILUbsA9i4z4o1Wl4e6MJLxpaK2OV53Rp1N7WABAoBLycAId+jp8+5BvBCFJ0+Y9pF
+ Zle0mEs19zAgeT5NiP2cESaXLF64o4g4H+8dVZMv8NZog7JyMAFN4asFBoAilGWtD53F
+ q7uiBWrfb2OlPF+pjM3c1DfDu6VVPTLHn/uJIW2vJ9BO4GMoqtKFNl2oXj/ryfJo3nCc
+ 26Rg3JCBNXl/ZV3FlXvmuo1sUjKrgvgaJiWGcxO0MhYr2pL/oGp/dWyHOYhEnEJCF6wO GQ== 
 Received: from ediex01.ad.cirrus.com ([84.19.233.68])
- by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3g28upf5dm-8
+ by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3g29u37mcf-4
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Thu, 19 May 2022 10:43:32 -0500
+ Thu, 19 May 2022 10:43:33 -0500
 Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
  (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Thu, 19 May
@@ -39,18 +39,18 @@ Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
  (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.24 via
  Frontend Transport; Thu, 19 May 2022 16:43:19 +0100
 Received: from algalon.ad.cirrus.com (algalon.ad.cirrus.com [198.90.251.122])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 6ACBD475;
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 7D737476;
  Thu, 19 May 2022 15:43:19 +0000 (UTC)
 From: Charles Keepax <ckeepax@opensource.cirrus.com>
 To: <broonie@kernel.org>
-Date: Thu, 19 May 2022 16:42:37 +0100
-Message-ID: <20220519154318.2153729-16-ckeepax@opensource.cirrus.com>
+Date: Thu, 19 May 2022 16:42:38 +0100
+Message-ID: <20220519154318.2153729-17-ckeepax@opensource.cirrus.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20220519154318.2153729-1-ckeepax@opensource.cirrus.com>
 References: <20220519154318.2153729-1-ckeepax@opensource.cirrus.com>
 MIME-Version: 1.0
-X-Proofpoint-GUID: _nMYoHwWi3DHMM7mJQrsrBSLpPWKVhs4
-X-Proofpoint-ORIG-GUID: _nMYoHwWi3DHMM7mJQrsrBSLpPWKVhs4
+X-Proofpoint-GUID: tKunTf8kTDNvKWQiO1tF1HTK68q_UWdw
+X-Proofpoint-ORIG-GUID: tKunTf8kTDNvKWQiO1tF1HTK68q_UWdw
 X-Proofpoint-Spam-Reason: safe
 Cc: cezary.rojewski@intel.com, heiko@sntech.de,
  kuninori.morimoto.gx@renesas.com, alsa-devel@alsa-project.org,
@@ -64,8 +64,8 @@ Cc: cezary.rojewski@intel.com, heiko@sntech.de,
  linux-amlogic@lists.infradead.org, linux-omap@vger.kernel.org,
  patches@opensource.cirrus.com, lgirdwood@gmail.com, daniel@zonque.org,
  kernel@pengutronix.de, shawnguo@kernel.org, jarkko.nikula@bitmer.com
-Subject: [Linux-stm32] [PATCH 15/56] ASoC: mxs-saif: Update to use
-	set_fmt_new callback
+Subject: [Linux-stm32] [PATCH 16/56] ASoC: pxa: Update to use set_fmt_new
+	callback
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,38 +83,170 @@ Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 As part of updating the core to directly tell drivers if they are clock
-provider or consumer update this CPU side driver to use the new direct
+provider or consumer update these CPU side drivers to use the new direct
 callback.
 
 Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
 ---
- sound/soc/mxs/mxs-saif.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ sound/soc/pxa/magician.c   |  8 ++++----
+ sound/soc/pxa/mmp-sspa.c   |  8 ++++----
+ sound/soc/pxa/pxa-ssp.c    | 24 ++++++++++++------------
+ sound/soc/pxa/pxa2xx-i2s.c |  8 ++++----
+ 4 files changed, 24 insertions(+), 24 deletions(-)
 
-diff --git a/sound/soc/mxs/mxs-saif.c b/sound/soc/mxs/mxs-saif.c
-index 7afe1a1acc568..38de46ba1583a 100644
---- a/sound/soc/mxs/mxs-saif.c
-+++ b/sound/soc/mxs/mxs-saif.c
-@@ -358,8 +358,8 @@ static int mxs_saif_set_dai_fmt(struct snd_soc_dai *cpu_dai, unsigned int fmt)
- 	 * Saif internally could be slave when working on EXTMASTER mode.
- 	 * We just hide this to machine driver.
- 	 */
+diff --git a/sound/soc/pxa/magician.c b/sound/soc/pxa/magician.c
+index a5f326c97af23..b0df3237d0746 100644
+--- a/sound/soc/pxa/magician.c
++++ b/sound/soc/pxa/magician.c
+@@ -90,13 +90,13 @@ static int magician_playback_hw_params(struct snd_pcm_substream *substream,
+ 
+ 	/* set codec DAI configuration */
+ 	ret = snd_soc_dai_set_fmt(codec_dai, SND_SOC_DAIFMT_MSB |
+-			SND_SOC_DAIFMT_NB_NF | SND_SOC_DAIFMT_CBS_CFS);
++			SND_SOC_DAIFMT_NB_NF | SND_SOC_DAIFMT_BC_FC);
+ 	if (ret < 0)
+ 		return ret;
+ 
+ 	/* set cpu DAI configuration */
+ 	ret = snd_soc_dai_set_fmt(cpu_dai, SND_SOC_DAIFMT_DSP_A |
+-			SND_SOC_DAIFMT_NB_IF | SND_SOC_DAIFMT_CBS_CFS);
++			SND_SOC_DAIFMT_NB_IF | SND_SOC_DAIFMT_BP_FP);
+ 	if (ret < 0)
+ 		return ret;
+ 
+@@ -128,14 +128,14 @@ static int magician_capture_hw_params(struct snd_pcm_substream *substream,
+ 	/* set codec DAI configuration */
+ 	ret = snd_soc_dai_set_fmt(codec_dai,
+ 			SND_SOC_DAIFMT_MSB | SND_SOC_DAIFMT_NB_NF |
+-			SND_SOC_DAIFMT_CBS_CFS);
++			SND_SOC_DAIFMT_BC_FC);
+ 	if (ret < 0)
+ 		return ret;
+ 
+ 	/* set cpu DAI configuration */
+ 	ret = snd_soc_dai_set_fmt(cpu_dai,
+ 			SND_SOC_DAIFMT_MSB | SND_SOC_DAIFMT_NB_NF |
+-			SND_SOC_DAIFMT_CBS_CFS);
++			SND_SOC_DAIFMT_BP_FP);
+ 	if (ret < 0)
+ 		return ret;
+ 
+diff --git a/sound/soc/pxa/mmp-sspa.c b/sound/soc/pxa/mmp-sspa.c
+index 7e39210a0b384..b746e52aaf85f 100644
+--- a/sound/soc/pxa/mmp-sspa.c
++++ b/sound/soc/pxa/mmp-sspa.c
+@@ -171,11 +171,11 @@ static int mmp_sspa_set_dai_fmt(struct snd_soc_dai *cpu_dai,
+ 	sspa->sp   = SSPA_SP_WEN | SSPA_SP_S_RST | SSPA_SP_FFLUSH;
+ 	sspa->ctrl = 0;
+ 
 -	switch (fmt & SND_SOC_DAIFMT_MASTER_MASK) {
 -	case SND_SOC_DAIFMT_CBS_CFS:
 +	switch (fmt & SND_SOC_DAIFMT_CLOCK_PROVIDER_MASK) {
 +	case SND_SOC_DAIFMT_BP_FP:
- 		if (saif->id == saif->master_id)
- 			scr &= ~BM_SAIF_CTRL_SLAVE_MODE;
- 		else
-@@ -642,7 +642,7 @@ static const struct snd_soc_dai_ops mxs_saif_dai_ops = {
- 	.prepare = mxs_saif_prepare,
- 	.hw_params = mxs_saif_hw_params,
- 	.set_sysclk = mxs_saif_set_dai_sysclk,
--	.set_fmt = mxs_saif_set_dai_fmt,
-+	.set_fmt_new = mxs_saif_set_dai_fmt,
+ 		sspa->sp |= SSPA_SP_MSL;
+ 		break;
+-	case SND_SOC_DAIFMT_CBM_CFM:
++	case SND_SOC_DAIFMT_BC_FC:
+ 		break;
+ 	default:
+ 		return -EINVAL;
+@@ -346,7 +346,7 @@ static const struct snd_soc_dai_ops mmp_sspa_dai_ops = {
+ 	.hw_params	= mmp_sspa_hw_params,
+ 	.set_sysclk	= mmp_sspa_set_dai_sysclk,
+ 	.set_pll	= mmp_sspa_set_dai_pll,
+-	.set_fmt	= mmp_sspa_set_dai_fmt,
++	.set_fmt_new	= mmp_sspa_set_dai_fmt,
  };
  
- static struct snd_soc_dai_driver mxs_saif_dai = {
+ static struct snd_soc_dai_driver mmp_sspa_dai = {
+diff --git a/sound/soc/pxa/pxa-ssp.c b/sound/soc/pxa/pxa-ssp.c
+index 7f13a35e9cc14..52124be1778eb 100644
+--- a/sound/soc/pxa/pxa-ssp.c
++++ b/sound/soc/pxa/pxa-ssp.c
+@@ -372,10 +372,10 @@ static int pxa_ssp_set_dai_fmt(struct snd_soc_dai *cpu_dai,
+ {
+ 	struct ssp_priv *priv = snd_soc_dai_get_drvdata(cpu_dai);
+ 
+-	switch (fmt & SND_SOC_DAIFMT_MASTER_MASK) {
+-	case SND_SOC_DAIFMT_CBM_CFM:
+-	case SND_SOC_DAIFMT_CBM_CFS:
+-	case SND_SOC_DAIFMT_CBS_CFS:
++	switch (fmt & SND_SOC_DAIFMT_CLOCK_PROVIDER_MASK) {
++	case SND_SOC_DAIFMT_BC_FC:
++	case SND_SOC_DAIFMT_BC_FP:
++	case SND_SOC_DAIFMT_BP_FP:
+ 		break;
+ 	default:
+ 		return -EINVAL;
+@@ -432,14 +432,14 @@ static int pxa_ssp_configure_dai_fmt(struct ssp_priv *priv)
+ 
+ 	sscr1 |= SSCR1_RxTresh(8) | SSCR1_TxTresh(7);
+ 
+-	switch (priv->dai_fmt & SND_SOC_DAIFMT_MASTER_MASK) {
+-	case SND_SOC_DAIFMT_CBM_CFM:
++	switch (priv->dai_fmt & SND_SOC_DAIFMT_CLOCK_PROVIDER_MASK) {
++	case SND_SOC_DAIFMT_BC_FC:
+ 		sscr1 |= SSCR1_SCLKDIR | SSCR1_SFRMDIR | SSCR1_SCFR;
+ 		break;
+-	case SND_SOC_DAIFMT_CBM_CFS:
++	case SND_SOC_DAIFMT_BC_FP:
+ 		sscr1 |= SSCR1_SCLKDIR | SSCR1_SCFR;
+ 		break;
+-	case SND_SOC_DAIFMT_CBS_CFS:
++	case SND_SOC_DAIFMT_BP_FP:
+ 		break;
+ 	default:
+ 		return -EINVAL;
+@@ -484,9 +484,9 @@ static int pxa_ssp_configure_dai_fmt(struct ssp_priv *priv)
+ 	pxa_ssp_write_reg(ssp, SSCR1, sscr1);
+ 	pxa_ssp_write_reg(ssp, SSPSP, sspsp);
+ 
+-	switch (priv->dai_fmt & SND_SOC_DAIFMT_MASTER_MASK) {
+-	case SND_SOC_DAIFMT_CBM_CFM:
+-	case SND_SOC_DAIFMT_CBM_CFS:
++	switch (priv->dai_fmt & SND_SOC_DAIFMT_CLOCK_PROVIDER_MASK) {
++	case SND_SOC_DAIFMT_BC_FC:
++	case SND_SOC_DAIFMT_BC_FP:
+ 		scfr = pxa_ssp_read_reg(ssp, SSCR1) | SSCR1_SCFR;
+ 		pxa_ssp_write_reg(ssp, SSCR1, scfr);
+ 
+@@ -824,7 +824,7 @@ static const struct snd_soc_dai_ops pxa_ssp_dai_ops = {
+ 	.trigger	= pxa_ssp_trigger,
+ 	.hw_params	= pxa_ssp_hw_params,
+ 	.set_sysclk	= pxa_ssp_set_dai_sysclk,
+-	.set_fmt	= pxa_ssp_set_dai_fmt,
++	.set_fmt_new	= pxa_ssp_set_dai_fmt,
+ 	.set_tdm_slot	= pxa_ssp_set_dai_tdm_slot,
+ 	.set_tristate	= pxa_ssp_set_dai_tristate,
+ };
+diff --git a/sound/soc/pxa/pxa2xx-i2s.c b/sound/soc/pxa/pxa2xx-i2s.c
+index 5bfc1a9665320..09a0d033df6a2 100644
+--- a/sound/soc/pxa/pxa2xx-i2s.c
++++ b/sound/soc/pxa/pxa2xx-i2s.c
+@@ -131,11 +131,11 @@ static int pxa2xx_i2s_set_dai_fmt(struct snd_soc_dai *cpu_dai,
+ 		break;
+ 	}
+ 
+-	switch (fmt & SND_SOC_DAIFMT_MASTER_MASK) {
+-	case SND_SOC_DAIFMT_CBS_CFS:
++	switch (fmt & SND_SOC_DAIFMT_CLOCK_PROVIDER_MASK) {
++	case SND_SOC_DAIFMT_BP_FP:
+ 		pxa_i2s.master = 1;
+ 		break;
+-	case SND_SOC_DAIFMT_CBM_CFS:
++	case SND_SOC_DAIFMT_BC_FP:
+ 		pxa_i2s.master = 0;
+ 		break;
+ 	default:
+@@ -335,7 +335,7 @@ static const struct snd_soc_dai_ops pxa_i2s_dai_ops = {
+ 	.shutdown	= pxa2xx_i2s_shutdown,
+ 	.trigger	= pxa2xx_i2s_trigger,
+ 	.hw_params	= pxa2xx_i2s_hw_params,
+-	.set_fmt	= pxa2xx_i2s_set_dai_fmt,
++	.set_fmt_new	= pxa2xx_i2s_set_dai_fmt,
+ 	.set_sysclk	= pxa2xx_i2s_set_dai_sysclk,
+ };
+ 
 -- 
 2.30.2
 
