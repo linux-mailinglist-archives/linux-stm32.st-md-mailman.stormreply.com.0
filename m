@@ -2,47 +2,46 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id EBD3752DBC2
-	for <lists+linux-stm32@lfdr.de>; Thu, 19 May 2022 19:49:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B76552DBE3
+	for <lists+linux-stm32@lfdr.de>; Thu, 19 May 2022 19:51:45 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B45ADC56630;
-	Thu, 19 May 2022 17:49:44 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DE041C57183;
+	Thu, 19 May 2022 17:51:44 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9CC1EC03FC2
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0E505C5662F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 19 May 2022 17:49:43 +0000 (UTC)
+ Thu, 19 May 2022 17:51:44 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 684DD618D6;
- Thu, 19 May 2022 17:49:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 42F71C385AA;
- Thu, 19 May 2022 17:49:40 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 0A4F8618D6;
+ Thu, 19 May 2022 17:51:43 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB05CC3411E;
+ Thu, 19 May 2022 17:51:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1652982581;
- bh=9A5+aIyuXlTlURbYrnNECxCHAE/FESaqMNCsL6/awOI=;
+ s=k20201202; t=1652982702;
+ bh=4HOH8hGdisT7kvObHMoru1/cjL66qqMhvek5a+tvt8k=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=Puppa7FBRvhE6BDdhEDwhEJWvRlwJNek6upoz4Dr5kf0mDHj/ln2DX4S+ztY5+U2P
- li2U6dtnwbQWT2DzDSeUBXj1B+Ks0lur/ohsr7Zo6HPaXQl1bPK4My2L2oQURzkH61
- Wygy+6X6rvUAirXy1GXvHbF6nQKFmuDyjZIqN5p4kAYuBpNF9SkqWcBXXOR+AHZJqe
- 9RM2MvzrVBwE8BZCzeLHjzSV52j2siBqjmr32q2E498BIDkVs1KlBtBF+ouXpEx1hY
- yxH1Pgb/rzdcgk2/PBiGgx/H1S/B8cVx6ZTWf79pG6NThDKRs8Tt1oWc97caOZqmcl
- eLd11ncCWxqFw==
-Date: Thu, 19 May 2022 23:19:37 +0530
+ b=AI4Pzlgd6rgGA2MBUXLnpQtyJJgNqOZOhfsS5eIObcFDhd+TMl5OgUVUDxE3ihWDY
+ 6KkxbTJJuYKnmcrkzwRveKHAM9zr50hGesj+yPAeSSD+NdSmHQSRV2k7eibI+vum93
+ dG9zDs1n0b2SdE72RcEFfzyWHpUR5QAjq1G+RTV8Yf4wBD49jbCq1Ad2cMO9M6uxUJ
+ ha1m8E/UYcFMfZVFHW3APvyMyUYq/BLIN0TfhlXkkmveWAvBjDArePvITEQh/IsDdk
+ 947AGtvPgaU3uOc03a4yRs9Jp43bWrQpOLoKuidgBum440XPk/mEkeINywsVTK79ce
+ Ay269JkheM9lw==
+Date: Thu, 19 May 2022 23:21:37 +0530
 From: Vinod Koul <vkoul@kernel.org>
 To: Amelie Delaunay <amelie.delaunay@foss.st.com>
-Message-ID: <YoaDMTRk07ot2p7B@matsya>
-References: <20220504161724.123180-1-amelie.delaunay@foss.st.com>
+Message-ID: <YoaDqY4xa/Yq8ECS@matsya>
+References: <20220504155322.121431-1-amelie.delaunay@foss.st.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20220504161724.123180-1-amelie.delaunay@foss.st.com>
+In-Reply-To: <20220504155322.121431-1-amelie.delaunay@foss.st.com>
 Cc: linux-kernel@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  dmaengine@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] dmaengine: stm32-dmamux: avoid reset of
- dmamux if used by coprocessor
+Subject: Re: [Linux-stm32] [PATCH 0/3] STM32 MDMA IRQ handler code cleaning
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,18 +58,12 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 04-05-22, 18:17, Amelie Delaunay wrote:
-> One of the two DMA controllers managed by the DMAMUX can be used by the
-> coprocessor. It is defined in the device tree with dma-masters.
-> When the two DMA controllers are used by the main CPU,
-> dma-masters = <&dma1, &dma2>; is specified in the device tree.
-> When one of the controllers is used by coprocessor (so not managed by
-> Linux), dma-masters = <&dma1>; is specified in the device tree.
-> In this case, Linux driver must not reset the DMAMUX, because it could have
-> been configured by the coprocessor to use the second DMA controller.
-> count is the number of DMA controllers defined in dma-masters property.
-> Reset only if resets property is found and valid in device tree, and if
-> the two DMA controllers are under Linux control.
+On 04-05-22, 17:53, Amelie Delaunay wrote:
+> This patchset cleans stm32-mdma interrupt handler:
+> - GISR1 register is not used on any STM32 SoC with MDMA
+> - Remove chan wrong initialization
+> - Lower the log level to debug instead of warn in case of spurious it
+>   on stopped channel
 
 Applied, thanks
 
