@@ -2,53 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C363852C0FC
-	for <lists+linux-stm32@lfdr.de>; Wed, 18 May 2022 19:31:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 54D6452CCFA
+	for <lists+linux-stm32@lfdr.de>; Thu, 19 May 2022 09:28:59 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6649EC03FE2;
-	Wed, 18 May 2022 17:31:29 +0000 (UTC)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 005BBC03FE2;
+	Thu, 19 May 2022 07:28:58 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A1268C03FCB
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D3BB1C03FC9
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 18 May 2022 17:31:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1652895087; x=1684431087;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=BoOLoJEyDFfO0iEr6PodmlZMpo8kGeXxw5b90DAP5hw=;
- b=fmxNqrDeszMBNtZTzKSziKYe9oO1rKOsB6XGdrYc5ASErO3l3cFSpkkL
- xA2vSMl8T6hWOYxnRnTK7alMySe3/6/2fypsBAZzV3VjDmaWDABDThreH
- Y5UOQhmaAobQgVmury5l+b6LEZSv8EAjn7BakZqGX0EFz3GK5qOzYEqgU
- i02vKbKIwr1/8AE3j8mgt4pRCOoiydlLOyQSs+9LdnZb+zm9TtHZMSHIu
- VK2fT+gC7WYYc009UfWF1WEyyHZou1g5GxyTIrQJ0qUpOdvDqjY/XVFg/
- qwDHaUHRq8yvk2t79Jnl7efRXt+OmF5elOxee2+ALlzePtEoz7HwDxbdh w==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10351"; a="269375169"
-X-IronPort-AV: E=Sophos;i="5.91,235,1647327600"; d="scan'208";a="269375169"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 May 2022 10:09:00 -0700
-X-IronPort-AV: E=Sophos;i="5.91,235,1647327600"; d="scan'208";a="605989915"
-Received: from punajuuri.fi.intel.com (HELO paasikivi.fi.intel.com)
- ([10.237.72.43])
- by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 May 2022 10:08:56 -0700
-Received: from paasikivi.fi.intel.com (localhost [127.0.0.1])
- by paasikivi.fi.intel.com (Postfix) with SMTP id 79AFF20387;
- Wed, 18 May 2022 20:08:53 +0300 (EEST)
-Date: Wed, 18 May 2022 20:08:53 +0300
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Jacopo Mondi <jacopo@jmondi.org>
-Message-ID: <YoUoJRzStCnzhxUK@paasikivi.fi.intel.com>
+ Thu, 19 May 2022 07:28:57 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 24J5qka9024416;
+ Thu, 19 May 2022 09:28:33 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=HnzhgPXI0wRRfbcKCU/LITbeULiyLCcyHIVfQfy09hY=;
+ b=jckhfWnVcR16DbhHd3LV2a9CJ4NEQBGnBpBwi5dJSOqJNPAJlHqc/0aEjCBmBI/n+1HV
+ aIQHpWEi/7wxjOYAM5zrAEQTgtlc3GgktenVIkkpm7dKXNb7LqLsf7TiISwLmZUNHi6X
+ NgzPIVRN+Aj/yu191VCzTb/+4DY9iTYdfTihP0mTnZ2IUAV1XNEpdLR9IpyaZG3p4D9M
+ QoEh5ReOsWpD33eL4eomOotjNA2b1YZkaQl2OiQMx4Dnh3QapCABsgFJ8iuLs4/6ZhVO
+ 1RiGqMBGlufr1N0BEXXBk9Xn4r5qn1CK5znqwWuoHmNLz3zMR+HLQZ1OiwDSpXwKWZ+O qA== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3g23ahy521-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 19 May 2022 09:28:33 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 947D410002A;
+ Thu, 19 May 2022 09:28:32 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 0A1812128A4;
+ Thu, 19 May 2022 09:28:32 +0200 (CEST)
+Received: from [10.48.0.183] (10.75.127.44) by SHFDAG1NODE1.st.com
+ (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2308.20; Thu, 19 May
+ 2022 09:28:31 +0200
+Message-ID: <c04a4e35-15ee-836b-1c9d-46a42abb05d1@foss.st.com>
+Date: Thu, 19 May 2022 09:28:17 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.8.1
+Content-Language: en-US
+To: Sakari Ailus <sakari.ailus@linux.intel.com>, Jacopo Mondi
+ <jacopo@jmondi.org>
 References: <20220516092048.264036-1-hugues.fruchet@foss.st.com>
  <20220516150237.v3xt7onp2lpmellw@uno.localdomain>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20220516150237.v3xt7onp2lpmellw@uno.localdomain>
-Cc: Hugues Fruchet <hugues.fruchet@foss.st.com>,
- Yannick Fertre <yannick.fertre@foss.st.com>, linux-kernel@vger.kernel.org,
+ <YoUoJRzStCnzhxUK@paasikivi.fi.intel.com>
+From: Hugues FRUCHET <hugues.fruchet@foss.st.com>
+In-Reply-To: <YoUoJRzStCnzhxUK@paasikivi.fi.intel.com>
+X-Originating-IP: [10.75.127.44]
+X-ClientProxiedBy: SFHDAG2NODE2.st.com (10.75.127.5) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.874,Hydra:6.0.486,FMLib:17.11.64.514
+ definitions=2022-05-19_01,2022-05-17_02,2022-02-23_01
+Cc: Yannick Fertre <yannick.fertre@foss.st.com>, linux-kernel@vger.kernel.org,
  Hans Verkuil <hverkuil@xs4all.nl>, Alain Volmat <alain.volmat@foss.st.com>,
  Mauro Carvalho Chehab <mchehab@kernel.org>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
@@ -66,36 +78,42 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Jacopo,
+Hi Sakari, Jacopo
 
-On Mon, May 16, 2022 at 05:02:37PM +0200, Jacopo Mondi wrote:
-> Hi Hugues,
+Thanks for all !
+
+On 5/18/22 19:08, Sakari Ailus wrote:
+> Hi Jacopo,
 > 
-> On Mon, May 16, 2022 at 11:20:48AM +0200, Hugues Fruchet wrote:
-> > From: Hugues Fruchet <hugues.fruchet@st.com>
-> >
-> > Add support of 1X16 serial pixel formats in order to support
-> > CSI-2 camera sensor exposing 1x16 pixel formats only.
-> >
-> > Signed-off-by: Hugues Fruchet <hugues.fruchet@st.com>
+> On Mon, May 16, 2022 at 05:02:37PM +0200, Jacopo Mondi wrote:
+>> Hi Hugues,
+>>
+>> On Mon, May 16, 2022 at 11:20:48AM +0200, Hugues Fruchet wrote:
+>>> From: Hugues Fruchet <hugues.fruchet@st.com>
+>>>
+>>> Add support of 1X16 serial pixel formats in order to support
+>>> CSI-2 camera sensor exposing 1x16 pixel formats only.
+>>>
+>>> Signed-off-by: Hugues Fruchet <hugues.fruchet@st.com>
+>>
+>> Reviewed-by: Jacopo Mondi <jacopo@jmondi.org>
+>>
+>> Sakari, if you're sending a new pull request for the ov5640 series,
+>> could you include this one as otherwise dcmi would be broken when used
+>> with that sensor.
 > 
-> Reviewed-by: Jacopo Mondi <jacopo@jmondi.org>
+> Just took this into my tree, with your refreshed ov5640 set.
 > 
-> Sakari, if you're sending a new pull request for the ov5640 series,
-> could you include this one as otherwise dcmi would be broken when used
-> with that sensor.
+> Thanks!
+> 
 
-Just took this into my tree, with your refreshed ov5640 set.
-
-Thanks!
-
--- 
-Sakari Ailus
+BR,
+Hugues.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
