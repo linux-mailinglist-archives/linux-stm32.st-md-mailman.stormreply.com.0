@@ -2,50 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4D57552E775
-	for <lists+linux-stm32@lfdr.de>; Fri, 20 May 2022 10:31:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CC9C852E799
+	for <lists+linux-stm32@lfdr.de>; Fri, 20 May 2022 10:32:34 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 09816C5F1FA;
-	Fri, 20 May 2022 08:31:20 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9328BC0D2BB;
+	Fri, 20 May 2022 08:32:34 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3DC08C5F1F9
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 25C8BC0D2B8
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 20 May 2022 08:31:18 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 24K6OsWj029143;
- Fri, 20 May 2022 10:31:14 +0200
+ Fri, 20 May 2022 08:32:33 +0000 (UTC)
+Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 24K3tLjB028145;
+ Fri, 20 May 2022 10:32:26 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
  h=from : to : cc :
  subject : date : message-id : in-reply-to : references : mime-version :
  content-transfer-encoding : content-type; s=selector1;
- bh=Tqs+xiYCFI/8hHPXJbtrZX5TEbiaS90HqfCz+Xzn8qU=;
- b=GhiDIvS3rGfr2I1AJ0Yyd08HBT/vGRKwQWuxQpg1FOLRh+ClBHMAkcmFKoENL2uVVvJj
- bUL+gX8TSyV8bY0Ox53NEBldyWC5DqmYvxsCH+aNSRQuJS88qvWGz0j2NJImerSTu6Fp
- EOvsGLZUOFHLLTJ4rVzQ8NyMCn5khnnfo94FMIjasmRCn+6orjFWTyvwg3HRjO1D0kj/
- pNHS0ltq+Ce5PqUArGPSZjc7+1KfvKX/Tm4+IJQL5fkku9Mk+WsiuIOOW6zW5M9HOH5E
- VNafwc6GzxlPKHUc/7dzVhVykr6KwETotSUq+zGWTYgjuFjDTT0p4CXPsy5ISel1MAVc 7A== 
+ bh=c/Lq0oy39Sxj5Cf7Ma+CafFIl6MIsyg+0GLBTzXk1No=;
+ b=zRkUXEdtfH8syzUhy3lFopRF1TbdtxZIywyejyCWnUNX26LEVEDLybDrMkuoTAYKQ8/T
+ 653omNVZBb68VWCRg6tGVim8HxtRfYW+cfDoRuVn2Sqo8OaMnlj2cPgA3AKvcIZSiXBC
+ 6/AE7bTSMalsCjyAOEfpcwpgzRTC/XkHo5GGGlPl4XbktN3MYbSGCj/a8KW522zhqPuQ
+ Z1W3/YkC2Si2Ggign9MmSNMJFqNypEXhp4qIQKQfeXOIAijYbuOfpcHDfIVuLUTevTeL
+ X4o+jwGgm252pY5zmExI9C7gL6jCye1DWsZ5i0ovj1h4qPGGYH6ho8dFue9JgrTRLLG9 sQ== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3g21j9f7ha-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3g23s22u1e-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 20 May 2022 10:31:14 +0200
+ Fri, 20 May 2022 10:32:26 +0200
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 22F2D100034;
- Fri, 20 May 2022 10:31:13 +0200 (CEST)
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id D9A8010002A;
+ Fri, 20 May 2022 10:32:23 +0200 (CEST)
 Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 1789221512E;
- Fri, 20 May 2022 10:31:13 +0200 (CEST)
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id D11EB215124;
+ Fri, 20 May 2022 10:32:23 +0200 (CEST)
 Received: from localhost (10.75.127.46) by SHFDAG1NODE2.st.com (10.75.129.70)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2308.20; Fri, 20 May
- 2022 10:31:12 +0200
+ 2022 10:32:22 +0200
 From: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
 To: Bjorn Andersson <bjorn.andersson@linaro.org>, Mathieu Poirier
  <mathieu.poirier@linaro.org>
-Date: Fri, 20 May 2022 10:29:39 +0200
-Message-ID: <20220520082940.2984914-10-arnaud.pouliquen@foss.st.com>
+Date: Fri, 20 May 2022 10:29:40 +0200
+Message-ID: <20220520082940.2984914-11-arnaud.pouliquen@foss.st.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220520082940.2984914-1-arnaud.pouliquen@foss.st.com>
 References: <20220520082940.2984914-1-arnaud.pouliquen@foss.st.com>
@@ -60,8 +60,8 @@ Cc: linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
  Deepak Kumar Singh <quic_deesin@quicinc.com>,
  Chris Lew <quic_clew@quicinc.com>, arnaud.pouliquen@foss.st.com,
  linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [RFC PATCH 09/10] rpmsg: tty : Add the support of the
-	flow control
+Subject: [Linux-stm32] [RFC PATCH 10/10] rpmsg: virtio: Set default dst
+	address on flow control
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,115 +78,48 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add Software flow control support based on the RPMsg flow
-control channel.
+When a rpmsg channel has been created locally with a destination address
+set to RPMSG_ADDR_ANY, a name service announcement message is sent to
+the remote side. Then the destination address is never updated, making it
+impossible to send messages to the remote.
+
+An example of kernel trace observed:
+rpmsg_tty virtio0.rpmsg-tty.29.-1: invalid addr (src 0x1d, dst 0xffffffff)
+
+The flow control can be used to set the rpmsg device address.
+If the destination address is RPMSG_ADDR_ANY, then set it to
+address of the remote endpoint that send the message.
 
 Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
 ---
- drivers/tty/rpmsg_tty.c | 50 +++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 50 insertions(+)
+This patch is an alternative of the fix proposed in patch [1]
 
-diff --git a/drivers/tty/rpmsg_tty.c b/drivers/tty/rpmsg_tty.c
-index 29db413bbc03..fc1dc4a5ca9d 100644
---- a/drivers/tty/rpmsg_tty.c
-+++ b/drivers/tty/rpmsg_tty.c
-@@ -30,6 +30,7 @@ struct rpmsg_tty_port {
- 	struct tty_port		port;	 /* TTY port data */
- 	int			id;	 /* TTY rpmsg index */
- 	struct rpmsg_device	*rpdev;	 /* rpmsg device */
-+	bool			flow_stopped; /* remote device flow control */
- };
+[1] https://lore.kernel.org/lkml/20220316153001.662422-1-arnaud.pouliquen@foss.st.com/
+---
+ drivers/rpmsg/virtio_rpmsg_bus.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
+
+diff --git a/drivers/rpmsg/virtio_rpmsg_bus.c b/drivers/rpmsg/virtio_rpmsg_bus.c
+index a8e60ca4cd08..0337a07e278c 100644
+--- a/drivers/rpmsg/virtio_rpmsg_bus.c
++++ b/drivers/rpmsg/virtio_rpmsg_bus.c
+@@ -393,6 +393,16 @@ static int virtio_rpmsg_remote_flowctrl(struct rpmsg_device *rpdev,
+ 	if (!ept)
+ 		return -EINVAL;
  
- static int rpmsg_tty_cb(struct rpmsg_device *rpdev, void *data, int len, void *priv, u32 src)
-@@ -106,6 +107,9 @@ static unsigned int rpmsg_tty_write_room(struct tty_struct *tty)
- 	struct rpmsg_tty_port *cport = tty->driver_data;
- 	int size;
++	/*
++	 * If the endpoint is the rpmsg device default one, then it can not be yet associated
++	 * to the remote endpoint. This can occur if a ns announcement message has been
++	 * previously sent to the remote side.
++	 * Update the rpmsg device destination address in such case to store the remote
++	 * address as default remote endpoint.
++	 */
++	if (rpdev->ept == ept && rpdev->dst == RPMSG_ADDR_ANY)
++		rpdev->dst = __rpmsg32_to_cpu(virtio_is_little_endian(vrp->vdev), chinfo->src);
++
+ 	/* Make sure ept->sig_cb doesn't go away while we use it */
+ 	mutex_lock(&ept->cb_lock);
  
-+	if (cport->flow_stopped)
-+		return 0;
-+
- 	size = rpmsg_get_mtu(cport->rpdev->ept);
- 	if (size < 0)
- 		return 0;
-@@ -118,6 +122,28 @@ static void rpmsg_tty_hangup(struct tty_struct *tty)
- 	tty_port_hangup(tty->port);
- }
- 
-+static void rpmsg_tty_throttle(struct tty_struct *tty)
-+{
-+	struct rpmsg_tty_port *cport = tty->driver_data;
-+	int ret;
-+
-+	/* Disable remote transmission */
-+	ret = rpmsg_set_flow_control(cport->rpdev->ept, RPMSG_ADDR_ANY, 0);
-+	if (ret && ret != ENXIO)
-+		dev_err(tty->dev, "cannot send control (%d)\n", ret);
-+};
-+
-+static void rpmsg_tty_unthrottle(struct tty_struct *tty)
-+{
-+	struct rpmsg_tty_port *cport = tty->driver_data;
-+	int ret;
-+
-+	/* Enable remote transmission */
-+	ret = rpmsg_set_flow_control(cport->rpdev->ept, RPMSG_ADDR_ANY, 1);
-+	if (ret && ret != ENXIO)
-+		dev_err(tty->dev, "cannot send control (%d)\n", ret);
-+};
-+
- static const struct tty_operations rpmsg_tty_ops = {
- 	.install	= rpmsg_tty_install,
- 	.open		= rpmsg_tty_open,
-@@ -126,6 +152,8 @@ static const struct tty_operations rpmsg_tty_ops = {
- 	.write_room	= rpmsg_tty_write_room,
- 	.hangup		= rpmsg_tty_hangup,
- 	.cleanup	= rpmsg_tty_cleanup,
-+	.throttle	= rpmsg_tty_throttle,
-+	.unthrottle	= rpmsg_tty_unthrottle,
- };
- 
- static struct rpmsg_tty_port *rpmsg_tty_alloc_cport(void)
-@@ -162,11 +190,32 @@ static void rpmsg_tty_destruct_port(struct tty_port *port)
- 	kfree(cport);
- }
- 
-+static void rpmsg_tty_dtr_rts(struct tty_port *port, int raise)
-+{
-+	if (!port->tty)
-+		return;
-+
-+	if (raise)
-+		rpmsg_tty_unthrottle(port->tty);
-+	else
-+		rpmsg_tty_throttle(port->tty);
-+}
-+
- static const struct tty_port_operations rpmsg_tty_port_ops = {
- 	.destruct = rpmsg_tty_destruct_port,
-+	.dtr_rts  = rpmsg_tty_dtr_rts,
- };
- 
- 
-+static int rpmsg_tty_dsr_cts(struct rpmsg_device *rpdev, void *priv, u32 state)
-+{
-+	struct rpmsg_tty_port *cport = dev_get_drvdata(&rpdev->dev);
-+
-+	cport->flow_stopped = !state;
-+
-+	return 0;
-+}
-+
- static int rpmsg_tty_probe(struct rpmsg_device *rpdev)
- {
- 	struct rpmsg_tty_port *cport;
-@@ -225,6 +274,7 @@ static struct rpmsg_driver rpmsg_tty_rpmsg_drv = {
- 	.probe		= rpmsg_tty_probe,
- 	.callback	= rpmsg_tty_cb,
- 	.remove		= rpmsg_tty_remove,
-+	.signals        = rpmsg_tty_dsr_cts,
- };
- 
- static int __init rpmsg_tty_init(void)
 -- 
 2.25.1
 
