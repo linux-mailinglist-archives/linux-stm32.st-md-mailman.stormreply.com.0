@@ -2,79 +2,64 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 454C552E532
-	for <lists+linux-stm32@lfdr.de>; Fri, 20 May 2022 08:45:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ED6CF52E76E
+	for <lists+linux-stm32@lfdr.de>; Fri, 20 May 2022 10:30:24 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EE3E0C03FFB;
-	Fri, 20 May 2022 06:45:18 +0000 (UTC)
-Received: from mail-lj1-f182.google.com (mail-lj1-f182.google.com
- [209.85.208.182])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B3F54C5F1ED;
+	Fri, 20 May 2022 08:30:24 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 918F8C03FCD
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 84209C5F1D3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 20 May 2022 06:45:17 +0000 (UTC)
-Received: by mail-lj1-f182.google.com with SMTP id s5so8597341ljd.10
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 19 May 2022 23:45:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=AnEwnvhKln/QqudtDrsLeq9rcJ9ha/C6wjXnDVo990k=;
- b=O6glMIfzZPcKFuiAIfpgKl4vPS6f/5kKRDEsCZ51jhpn2nvRMnbXG5g+EDHeE904nP
- t7HS+b/93itLD8AaEQHAOU/xrWjqGgTNAbPH9jakVpgMQTIhKd99kpg+p8rnNvdIqwdN
- 6qoJ6hv6rNLvwFxEXHoFISEMQCRvxYIVNP2Tdx5gjSpfV8JASem8ZyxogIrKo+3noZeo
- On3nePrDC2RBv0fxVZnC2PEjR3MvP9xqKuaD0jO5YVuhsa36Q52R9it54/UTpAk0vFOu
- oN03MNBdr3Uh7nMtz9gRp/Uo5idHLu4wjadR99H/ArdkjYBw/HcmyNp38tQ7XXACXvAn
- 7LxQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=AnEwnvhKln/QqudtDrsLeq9rcJ9ha/C6wjXnDVo990k=;
- b=f44LaRWkPnC+Epvr4CgHKCXZ+11Sq9nN+fSArmcKVc88iVK8B4SSYpww+m6aPTkKTS
- SvLdAt/f7CttPzD+E+MVgXcnNbcHvVTvT15CyvUCFF8XpcO3+772yQVi9dME9hPWpA+9
- /GAG41lUF+U6nZJO8HGx1fTq0zGUHxfj+AWVNYUp2I5BUw4XTwCoOiYLYItnyPdG4L7i
- AmsEe5JxGG4phnB/RvghWgxWbwinj8QGefGg5Ipfw2ZI2I+f8I91xWZeBtjeaWsH0bF8
- ixziAPpTNYyvJvE0vNJauvQpJE24VDSp3oPYX7/h48Ma2v/WkS6Go0UcHuzrmCH+boPm
- YMfA==
-X-Gm-Message-State: AOAM533C0ftcDchJ9GXOLNURBbgbumu66S1txWZw4fY/dSQsTlDoOEsb
- lC2rkLXUwesKYPqBhX7edXMTiA==
-X-Google-Smtp-Source: ABdhPJxU0QeXD6emlDZWLebUbtElcVEEa6zD5/lvXQQQBtACmvvZZjPEOav+NOjy2nN8XnxEigbRJQ==
-X-Received: by 2002:a05:651c:158b:b0:250:a056:7e48 with SMTP id
- h11-20020a05651c158b00b00250a0567e48mr4800506ljq.64.1653029116920; 
- Thu, 19 May 2022 23:45:16 -0700 (PDT)
-Received: from [192.168.0.17] (78-11-189-27.static.ip.netia.com.pl.
- [78.11.189.27]) by smtp.gmail.com with ESMTPSA id
- y22-20020a2e95d6000000b0024f3d1dae8esm197255ljh.22.2022.05.19.23.45.15
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 19 May 2022 23:45:16 -0700 (PDT)
-Message-ID: <cab52964-31d5-a545-9856-b298d3cd3c84@linaro.org>
-Date: Fri, 20 May 2022 08:45:14 +0200
+ Fri, 20 May 2022 08:30:23 +0000 (UTC)
+Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 24K3ZQ3p004615;
+ Fri, 20 May 2022 10:29:59 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=selector1;
+ bh=hneNV+UTX/MQsnnJ1NOLYhI1GUf8ZaFIZymZJDulI7Y=;
+ b=bVSQ9bpLAesU4gdQU0NY7YC9ypuO98FoqvhNOA2l0Rhf5a3s228zScK5H/gq2trCQuc3
+ oqSJPMYWZoRd4EEYCDCMV8rgHfCBZ4lhThMhnF61btFjxfFjBVczQEa726hgc0pmOy1M
+ Y84p0AynckK6gqePolG0QuO9NW/TXm7WHmPhgnTFTwWj79PVZIbjbrjEvkz51tlj9CGX
+ oDfoDXfZ8/edYsF0cRzfFBHV0C6ps7//j6tyXfCS92a6Ry/gqX8FrFUT93t81GKlhVPM
+ LHXXO0JMDnsdgfhhRw/u2vSa5O5Od7/clCS1TbPkhBNkuv3zY8NulMdUilILWY3MvYyv kg== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3g23s22tjt-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 20 May 2022 10:29:59 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id DF853100038;
+ Fri, 20 May 2022 10:29:56 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id D8EE1214D2D;
+ Fri, 20 May 2022 10:29:56 +0200 (CEST)
+Received: from localhost (10.75.127.45) by SHFDAG1NODE2.st.com (10.75.129.70)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2308.20; Fri, 20 May
+ 2022 10:29:54 +0200
+From: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+To: Bjorn Andersson <bjorn.andersson@linaro.org>, Mathieu Poirier
+ <mathieu.poirier@linaro.org>
+Date: Fri, 20 May 2022 10:29:30 +0200
+Message-ID: <20220520082940.2984914-1-arnaud.pouliquen@foss.st.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.8.1
-Content-Language: en-US
-To: Charles Keepax <ckeepax@opensource.cirrus.com>, broonie@kernel.org
-References: <20220519154318.2153729-1-ckeepax@opensource.cirrus.com>
- <20220519154318.2153729-47-ckeepax@opensource.cirrus.com>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20220519154318.2153729-47-ckeepax@opensource.cirrus.com>
-Cc: cezary.rojewski@intel.com, heiko@sntech.de,
- kuninori.morimoto.gx@renesas.com, alsa-devel@alsa-project.org,
- nicolas.ferre@microchip.com, srinivas.kandagatla@linaro.org,
- peter.ujfalusi@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
- jbrunet@baylibre.com, pierre-louis.bossart@linux.intel.com,
- linux-rockchip@lists.infradead.org, linux-imx@nxp.com,
- linux-mips@vger.kernel.org, linux-sunxi@lists.linux.dev,
- linux-xtensa@linux-xtensa.org, nsaenz@kernel.org,
- linux-mediatek@lists.infradead.org, linux-tegra@vger.kernel.org,
- linux-amlogic@lists.infradead.org, linux-omap@vger.kernel.org,
- patches@opensource.cirrus.com, lgirdwood@gmail.com, daniel@zonque.org,
- kernel@pengutronix.de, shawnguo@kernel.org, jarkko.nikula@bitmer.com
-Subject: Re: [Linux-stm32] [PATCH 46/56] ASoC: samsung: Rename set_fmt_new
-	back to set_fmt
+X-Originating-IP: [10.75.127.45]
+X-ClientProxiedBy: SFHDAG2NODE2.st.com (10.75.127.5) To SHFDAG1NODE2.st.com
+ (10.75.129.70)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.874,Hydra:6.0.486,FMLib:17.11.64.514
+ definitions=2022-05-20_03,2022-05-19_03,2022-02-23_01
+Cc: linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Deepak Kumar Singh <quic_deesin@quicinc.com>,
+ Chris Lew <quic_clew@quicinc.com>, arnaud.pouliquen@foss.st.com,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [RFC PATCH 00/10] Introduction of rpmsg flow control
+	service
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,19 +76,61 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 19/05/2022 17:43, Charles Keepax wrote:
-> Now the core has been migrated across to the new direct clock
-> specification we can move the drivers back to the normal set_fmt
-> callback.
-> 
-> Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+This series proposes an implementation for the rpmsg virtio transport
+backend, of the signaling API proposed by Deepak Kumar Singh:
+"rpmsg and glink signaling API support" [1]
+
+The aim of the series is to offer the possibility for an endpoint to inform
+a remote endpoint about its state, based on a software flow control[2].
+
+For this a new rpmsg service( with a fixed address 64) is proposed.
+It is responsible for:
+- transmitting local endpoint flow control information to the remote side,
+- informing a local endpoint about a remote endpoint flow control.
+
+For the rpmsg virtio transport layer the service is negotiated thanks to the 
+virtio feature flag: VIRTIO_RPMSG_F_FC
+
+Notice that this pull request introduces new feature in the rpmsg protocol,
+So it has to be aligned with OpenAMP implementation.
+Pending OpenAMP pull request is available here:
+https://github.com/OpenAMP/open-amp/pull/394
 
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+[1]https://lkml.org/lkml/2022/1/18/867
+[2]https://en.wikipedia.org/wiki/Software_flow_control
 
+Arnaud Pouliquen (8):
+  rpmsg: core: Add rpmsg device remote flow control announcement ops
+  rpmsg: virtio: Implement the announce_remote_fc ops
+  rpmsg: Introduce flow control channel driver
+  rpmsg: virtio: Add support of the VIRTIO_RPMSG_F_FC feature
+  rpmsg: virtio: Implement the set_flow_control ops
+  rpmsg: Add the destination address in rpmsg_set_flow_control
+  rpmsg: tty : Add the support of the flow control
+  rpmsg: virtio: Set default dst address on flow control
 
-Best regards,
-Krzysztof
+Deepak Kumar Singh (2):
+  rpmsg: core: Add signal API support
+  rpmsg: char: Add TIOCMGET/TIOCMSET ioctl support
+
+ drivers/rpmsg/Kconfig            |  11 +++
+ drivers/rpmsg/Makefile           |   1 +
+ drivers/rpmsg/rpmsg_char.c       |  56 +++++++++++++--
+ drivers/rpmsg/rpmsg_core.c       |  47 +++++++++++++
+ drivers/rpmsg/rpmsg_fc.c         | 113 +++++++++++++++++++++++++++++++
+ drivers/rpmsg/rpmsg_internal.h   |   9 +++
+ drivers/rpmsg/virtio_rpmsg_bus.c | 111 +++++++++++++++++++++++++++++-
+ drivers/tty/rpmsg_tty.c          |  50 ++++++++++++++
+ include/linux/rpmsg.h            |  15 ++++
+ include/linux/rpmsg/fc.h         |  51 ++++++++++++++
+ 10 files changed, 456 insertions(+), 8 deletions(-)
+ create mode 100644 drivers/rpmsg/rpmsg_fc.c
+ create mode 100644 include/linux/rpmsg/fc.h
+
+-- 
+2.25.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
