@@ -2,72 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 07AF552E9D7
-	for <lists+linux-stm32@lfdr.de>; Fri, 20 May 2022 12:25:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 18A5E52ED44
+	for <lists+linux-stm32@lfdr.de>; Fri, 20 May 2022 15:37:47 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AB9ECC03FFB;
-	Fri, 20 May 2022 10:25:29 +0000 (UTC)
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CF84EC56630;
+	Fri, 20 May 2022 13:37:46 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CE60CC035BF
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 77F37C035BD
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 20 May 2022 10:25:27 +0000 (UTC)
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
- by mx0b-001ae601.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 24K5UCxB026795;
- Fri, 20 May 2022 05:24:49 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=date : from : to : cc
- : subject : message-id : references : mime-version : content-type :
- in-reply-to; s=PODMain02222019;
- bh=WSOvhMBIg+CnexC+Y8X+ZG7BYMkoKeetiZYSiJmE0cw=;
- b=E3MDFwXsbJRiBaE4OT2ai+JBwbYdqbCNDnTM5WTrjlOXZlrikeuJ1tiL+m5bGqsZo03j
- hZNgysmRG2QNG9jfqt9CJyU1HKdQikMi9FpVUiaR7mHeBwbTedb07Mex56RR9EocUbFP
- vjQtPAGfK1wk5RM/9IUs9D/tVUYW0yOqIgk1qYoeQRhBJEla3nFqJiatKvzERFcXHqSI
- Q+/Hno0xMo5/BjF4Kn3iHQ0QMOXFJX9/9GuLbAmIRVv9J84ewdgkmDjMuNAiVSG2dbUO
- otHvJplf8L8ZVHcLm7hZgWu0kIHYmP+5RyytltwUsoK/TaAybqvdQMM8AE7gkhiA4klo dQ== 
-Received: from ediex02.ad.cirrus.com ([84.19.233.68])
- by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3g28upg6de-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Fri, 20 May 2022 05:24:48 -0500
-Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Fri, 20 May
- 2022 11:24:47 +0100
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.24 via
- Frontend Transport; Fri, 20 May 2022 11:24:47 +0100
-Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com [198.61.86.93])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 20F84458;
- Fri, 20 May 2022 10:24:47 +0000 (UTC)
-Date: Fri, 20 May 2022 10:24:47 +0000
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Message-ID: <20220520102447.GL38351@ediswmail.ad.cirrus.com>
-References: <20220519154318.2153729-1-ckeepax@opensource.cirrus.com>
- <20220519154318.2153729-57-ckeepax@opensource.cirrus.com>
- <87czg98193.wl-kuninori.morimoto.gx@renesas.com>
+ Fri, 20 May 2022 13:37:45 +0000 (UTC)
+Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 24KC5lLW004845;
+ Fri, 20 May 2022 15:37:18 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=EWqpQF3gyIEpXuoGoxFjVR5sJZAkS9thASy95mo2gLk=;
+ b=XySLmH8+CsqbK/oh3XOX+GIZuOg40bzGyXtse9RJ/M337Lcxd8wbl/gJVno/7bpYbPDM
+ Tw7QZVhEsM0wXdmpM1xxryOy37lgb5Kipo4RDlXoa4Wdzkf4Qe5I2kRc5mFjX4bib2am
+ fmN3XeoOeemC1pUCBU3GH2vFlWrZq0/AHsvPgH6UaxwjWtAOGOeWKskfYmFHpPDHTpFw
+ C+RZ+cK5igukUmBcDYbcPYVmXc00s2TdCm+ZGt3A/tseyRS285yU8xZxw54j5ybpzUMf
+ rExolZEb3PHeGTjgNIgNNuIPIMVPjcox5sJV2yDbfY6rCAaSDlwSkeEVUvCuWqavINGn GA== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3g21umcwkd-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 20 May 2022 15:37:18 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id A5FB6100040;
+ Fri, 20 May 2022 15:37:16 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 0C0D123301F;
+ Fri, 20 May 2022 15:37:05 +0200 (CEST)
+Received: from [10.48.1.102] (10.75.127.44) by SHFDAG1NODE2.st.com
+ (10.75.129.70) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2308.20; Fri, 20 May
+ 2022 15:37:01 +0200
+Message-ID: <a1b9a37e-a049-136d-5320-9a413873ded3@foss.st.com>
+Date: Fri, 20 May 2022 15:37:01 +0200
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <87czg98193.wl-kuninori.morimoto.gx@renesas.com>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-X-Proofpoint-GUID: EewLKkNvojqM2gQAbwrh9EQ5fKjwiv7u
-X-Proofpoint-ORIG-GUID: EewLKkNvojqM2gQAbwrh9EQ5fKjwiv7u
-X-Proofpoint-Spam-Reason: safe
-Cc: cezary.rojewski@intel.com, heiko@sntech.de, alsa-devel@alsa-project.org,
- nicolas.ferre@microchip.com, srinivas.kandagatla@linaro.org,
- peter.ujfalusi@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
- jbrunet@baylibre.com, pierre-louis.bossart@linux.intel.com, krzk@kernel.org,
- linux-rockchip@lists.infradead.org, linux-imx@nxp.com,
- linux-mips@vger.kernel.org, linux-sunxi@lists.linux.dev,
- linux-xtensa@linux-xtensa.org, nsaenz@kernel.org, broonie@kernel.org,
- linux-mediatek@lists.infradead.org, linux-tegra@vger.kernel.org,
- linux-amlogic@lists.infradead.org, linux-omap@vger.kernel.org,
- patches@opensource.cirrus.com, lgirdwood@gmail.com, daniel@zonque.org,
- kernel@pengutronix.de, shawnguo@kernel.org, jarkko.nikula@bitmer.com
-Subject: Re: [Linux-stm32] [PATCH 56/56] ASoC: simple-card-utils: Move
- snd_soc_component_is_codec to be local
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.8.1
+Content-Language: en-US
+To: =?UTF-8?Q?Uwe_Kleine-K=c3=b6nig?= <u.kleine-koenig@pengutronix.de>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, Rob Herring
+ <robh+dt@kernel.org>
+References: <20220519162838.695404-1-u.kleine-koenig@pengutronix.de>
+From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+In-Reply-To: <20220519162838.695404-1-u.kleine-koenig@pengutronix.de>
+X-Originating-IP: [10.75.127.44]
+X-ClientProxiedBy: SFHDAG2NODE2.st.com (10.75.127.5) To SHFDAG1NODE2.st.com
+ (10.75.129.70)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.874,Hydra:6.0.486,FMLib:17.11.64.514
+ definitions=2022-05-20_04,2022-05-20_02,2022-02-23_01
+Cc: devicetree@vger.kernel.org, kernel@pengutronix.de,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Lee Jones <lee.jones@linaro.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v4 1/2] dt-bindings: mfd: stm32-timers:
+ Document how to specify interrupts
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,74 +75,37 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, May 20, 2022 at 01:02:33AM +0000, Kuninori Morimoto wrote:
-> 
-> Hi
-> 
-> This is not related to this patch, but...
-> 
-> > -static inline int snd_soc_component_is_codec(struct snd_soc_component *component)
-> > -{
-> > -	return component->driver->non_legacy_dai_naming;
-> > -}
-> (snip)
-> > +static inline int asoc_simple_component_is_codec(struct snd_soc_component *component)
-> > +{
-> > +	return component->driver->endianness;
-> > +}
-> 
-> I have added "endianness" "non_legacy_dai_naming" to component
-> when convert old "Codec style" into current "Component style".
-> All codec needs to have these 2.
-> 
-> 	69941bab7c7aeaa7bf7e84397e294c17f0b7c6df
-> 	("ASoC: snd_soc_component_driver has non_legacy_dai_naming")
-> 
-> 	273d778ef38a8861f880e9df5799029dc82bd55d
-> 	("ASoC: snd_soc_component_driver has endianness")
-> 
-> The reason why I didn't use "codec" was that try to keep
-> original style as much as possible.
-> But it seems this is good time to use "codec" for it ?
-> I think the code will be more understandable.
-> 
-> -	.endianness
-> -	.non_legacy_dai_naming
-> +	.is_codec
-
-Yeah I considered this but it didn't really feel like the right
-way to go to me. Firstly, at this stage we almost certainly need
-to keep the endianness and non_legacy_dai_naming flags, there are
-corner cases when endianness probably shouldn't be applied to CODECs
-(as noted in my endianness series), and there are platform drivers
-that use non_legacy_dai_naming.
-
-We could add an is_codec flag along side the other two. But it
-means a whole extra flag and means the the core is still requiring
-a concept of what is a CODEC driver, which really we want to get
-rid of as part of componentisation.
-
-My thinking was that, whilst making this function local to the
-driver isn't perfect, simple card will be used with simple CODECs
-that are likely to exist on a standard audio bus, and thus have
-endianness and the newer graph cards don't require specific
-identification of what is a CODEC driver. So it probably works as
-a solution for now.
-
-> 
-> Thank you for your help !!
-
-Absolutely no problem, thank you for all the work you have done
-on this over the years.
-
-Thanks,
-Charles
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gNS8xOS8yMiAxODoyOCwgVXdlIEtsZWluZS1Lw7ZuaWcgd3JvdGU6Cj4gVGhlIHRpbWVyIHVu
+aXRzIGluIHRoZSBzdG0zMm1wMSBDUFVzIGhhdmUgaW50ZXJydXB0cywgZGVwZW5kaW5nIG9uIHRo
+ZQo+IHRpbWVyIGZsYXZvdXIgZWl0aGVyIG9uZSAiZ2xvYmFsIiBvciBmb3VyIGRlZGljYXRlZCBv
+bmVzLiBEb2N1bWVudCBob3cKPiB0byBmb3JtYWxpemUgdGhlc2UgaW4gYSBkZXZpY2UgdHJlZS4K
+PiAKPiBTaWduZWQtb2ZmLWJ5OiBVd2UgS2xlaW5lLUvDtm5pZyA8dS5rbGVpbmUta29lbmlnQHBl
+bmd1dHJvbml4LmRlPgoKSGkgVXdlLAoKWW91IGNhbiBhZGQgbXk6ClJldmlld2VkLWJ5OiBGYWJy
+aWNlIEdhc25pZXIgPGZhYnJpY2UuZ2FzbmllckBmb3NzLnN0LmNvbT4KCkJlc3QgUmVnYXJkcywK
+VGhhbmtzCkZhYnJpY2UKCj4gLS0tCj4gQ2hhbmdlcyBzaW5jZSB2MzoKPiAgIC0gRG8gdGhlIHRo
+aW5ncyBSb2Igc3VnZ2VzdGVkIGluIHJlcWx5IHRvIHYxIHdoaWNoIEkgZGlkbid0IG5vdGljZQo+
+ICAgICB1bnRpbCBGYWJyaWNlIHRvbGQgbWUgaW4gcmVwbHkgdG8gdjMuCj4gCj4gIC4uLi9kZXZp
+Y2V0cmVlL2JpbmRpbmdzL21mZC9zdCxzdG0zMi10aW1lcnMueWFtbCAgfCAxNSArKysrKysrKysr
+KysrKysKPiAgMSBmaWxlIGNoYW5nZWQsIDE1IGluc2VydGlvbnMoKykKPiAKPiBkaWZmIC0tZ2l0
+IGEvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL21mZC9zdCxzdG0zMi10aW1lcnMu
+eWFtbCBiL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9tZmQvc3Qsc3RtMzItdGlt
+ZXJzLnlhbWwKPiBpbmRleCAxMGIzMzBkNDI5MDEuLjViMDViMmVjMTcyOCAxMDA2NDQKPiAtLS0g
+YS9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvbWZkL3N0LHN0bTMyLXRpbWVycy55
+YW1sCj4gKysrIGIvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL21mZC9zdCxzdG0z
+Mi10aW1lcnMueWFtbAo+IEBAIC00Niw2ICs0NiwyMSBAQCBwcm9wZXJ0aWVzOgo+ICAgICAgbWlu
+SXRlbXM6IDEKPiAgICAgIG1heEl0ZW1zOiA3Cj4gIAo+ICsgIGludGVycnVwdHM6Cj4gKyAgICBv
+bmVPZjoKPiArICAgICAgLSBtYXhJdGVtczogMQo+ICsgICAgICAtIG1heEl0ZW1zOiA0Cj4gKwo+
+ICsgIGludGVycnVwdC1uYW1lczoKPiArICAgIG9uZU9mOgo+ICsgICAgICAtIGl0ZW1zOgo+ICsg
+ICAgICAgICAgLSBjb25zdDogZ2xvYmFsCj4gKyAgICAgIC0gaXRlbXM6Cj4gKyAgICAgICAgICAt
+IGNvbnN0OiBicmsKPiArICAgICAgICAgIC0gY29uc3Q6IHVwCj4gKyAgICAgICAgICAtIGNvbnN0
+OiB0cmctY29tCj4gKyAgICAgICAgICAtIGNvbnN0OiBjYwo+ICsKPiAgICAiI2FkZHJlc3MtY2Vs
+bHMiOgo+ICAgICAgY29uc3Q6IDEKPiAgCj4gCj4gYmFzZS1jb21taXQ6IDMxMjMxMDkyODQxNzZi
+MTUzMjg3NDU5MWY3YzgxZjM4MzdiYmRjMTcKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0
+LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVw
+bHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
