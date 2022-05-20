@@ -2,66 +2,73 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CC9C852E799
-	for <lists+linux-stm32@lfdr.de>; Fri, 20 May 2022 10:32:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 644F852E97D
+	for <lists+linux-stm32@lfdr.de>; Fri, 20 May 2022 11:57:49 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9328BC0D2BB;
-	Fri, 20 May 2022 08:32:34 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1CFCBC03FFB;
+	Fri, 20 May 2022 09:57:49 +0000 (UTC)
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 25C8BC0D2B8
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4C559C035BF
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 20 May 2022 08:32:33 +0000 (UTC)
-Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 24K3tLjB028145;
- Fri, 20 May 2022 10:32:26 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-transfer-encoding : content-type; s=selector1;
- bh=c/Lq0oy39Sxj5Cf7Ma+CafFIl6MIsyg+0GLBTzXk1No=;
- b=zRkUXEdtfH8syzUhy3lFopRF1TbdtxZIywyejyCWnUNX26LEVEDLybDrMkuoTAYKQ8/T
- 653omNVZBb68VWCRg6tGVim8HxtRfYW+cfDoRuVn2Sqo8OaMnlj2cPgA3AKvcIZSiXBC
- 6/AE7bTSMalsCjyAOEfpcwpgzRTC/XkHo5GGGlPl4XbktN3MYbSGCj/a8KW522zhqPuQ
- Z1W3/YkC2Si2Ggign9MmSNMJFqNypEXhp4qIQKQfeXOIAijYbuOfpcHDfIVuLUTevTeL
- X4o+jwGgm252pY5zmExI9C7gL6jCye1DWsZ5i0ovj1h4qPGGYH6ho8dFue9JgrTRLLG9 sQ== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3g23s22u1e-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 20 May 2022 10:32:26 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id D9A8010002A;
- Fri, 20 May 2022 10:32:23 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id D11EB215124;
- Fri, 20 May 2022 10:32:23 +0200 (CEST)
-Received: from localhost (10.75.127.46) by SHFDAG1NODE2.st.com (10.75.129.70)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2308.20; Fri, 20 May
- 2022 10:32:22 +0200
-From: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
-To: Bjorn Andersson <bjorn.andersson@linaro.org>, Mathieu Poirier
- <mathieu.poirier@linaro.org>
-Date: Fri, 20 May 2022 10:29:40 +0200
-Message-ID: <20220520082940.2984914-11-arnaud.pouliquen@foss.st.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220520082940.2984914-1-arnaud.pouliquen@foss.st.com>
-References: <20220520082940.2984914-1-arnaud.pouliquen@foss.st.com>
+ Fri, 20 May 2022 09:57:47 +0000 (UTC)
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+ by mx0b-001ae601.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 24K5UCw9026795;
+ Fri, 20 May 2022 04:56:56 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=date : from : to : cc
+ : subject : message-id : references : mime-version : content-type :
+ in-reply-to; s=PODMain02222019;
+ bh=OE6raZbucX9LQfP+TUClB+u691iV9kBCVX1IaiFUTRE=;
+ b=OZjWqUg2GB9AJ9JqFusRILLr+RJoWNaMdCe9RA8DZ3zC+BqhasJKotr9r087ufLn2CfT
+ ImDGP7AQdM1dEhMs05cuGKULUV2UMVhWKhwv1lv9aIYxP58hsADDle5oYJD73+1i/5E/
+ DJ4PIeWt9ouGrMRIwpVZYIv2N+Hl3NLhwUKoEL7upZzJBlhj+H8WMUIA+0c0utHrFXib
+ 6St0njUEwySoagUHdfOhKQMIhve6czUMiuHZthPtAEsJdIL2UVkqXmo+S/ET4vQeKKCR
+ eK2EWlTLp4WJJ/WhIR7yVYO0bDmrZEz1nQCC+kwy9kogs86oLbScSXA9l5o3Xs/ta2/U LQ== 
+Received: from ediex01.ad.cirrus.com ([84.19.233.68])
+ by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3g28upg5ms-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Fri, 20 May 2022 04:56:55 -0500
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Fri, 20 May
+ 2022 10:56:54 +0100
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.24 via
+ Frontend Transport; Fri, 20 May 2022 10:56:54 +0100
+Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com [198.61.86.93])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 42FB3476;
+ Fri, 20 May 2022 09:56:54 +0000 (UTC)
+Date: Fri, 20 May 2022 09:56:54 +0000
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: Samuel Holland <samuel@sholland.org>
+Message-ID: <20220520095654.GK38351@ediswmail.ad.cirrus.com>
+References: <20220519154318.2153729-1-ckeepax@opensource.cirrus.com>
+ <20220519154318.2153729-23-ckeepax@opensource.cirrus.com>
+ <948d5418-44ca-2e60-0c1c-0b16f315feba@sholland.org>
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.46]
-X-ClientProxiedBy: SFHDAG2NODE2.st.com (10.75.127.5) To SHFDAG1NODE2.st.com
- (10.75.129.70)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.874,Hydra:6.0.486,FMLib:17.11.64.514
- definitions=2022-05-20_03,2022-05-19_03,2022-02-23_01
-Cc: linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
- Deepak Kumar Singh <quic_deesin@quicinc.com>,
- Chris Lew <quic_clew@quicinc.com>, arnaud.pouliquen@foss.st.com,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [RFC PATCH 10/10] rpmsg: virtio: Set default dst
-	address on flow control
+Content-Disposition: inline
+In-Reply-To: <948d5418-44ca-2e60-0c1c-0b16f315feba@sholland.org>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+X-Proofpoint-GUID: 0o2bd6ilE3N_-d0xNvYBerQp3pGSYvGE
+X-Proofpoint-ORIG-GUID: 0o2bd6ilE3N_-d0xNvYBerQp3pGSYvGE
+X-Proofpoint-Spam-Reason: safe
+Cc: cezary.rojewski@intel.com, heiko@sntech.de,
+ kuninori.morimoto.gx@renesas.com, alsa-devel@alsa-project.org,
+ nicolas.ferre@microchip.com, srinivas.kandagatla@linaro.org,
+ peter.ujfalusi@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
+ jbrunet@baylibre.com, pierre-louis.bossart@linux.intel.com, krzk@kernel.org,
+ linux-rockchip@lists.infradead.org, linux-imx@nxp.com,
+ linux-mips@vger.kernel.org, linux-sunxi@lists.linux.dev,
+ linux-xtensa@linux-xtensa.org, nsaenz@kernel.org, broonie@kernel.org,
+ linux-mediatek@lists.infradead.org, linux-tegra@vger.kernel.org,
+ linux-amlogic@lists.infradead.org, linux-omap@vger.kernel.org,
+ patches@opensource.cirrus.com, lgirdwood@gmail.com, jarkko.nikula@bitmer.com,
+ kernel@pengutronix.de, shawnguo@kernel.org, daniel@zonque.org
+Subject: Re: [Linux-stm32] [PATCH 22/56] ASoC: sunxi: Update to use
+	set_fmt_new callback
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,51 +85,39 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-When a rpmsg channel has been created locally with a destination address
-set to RPMSG_ADDR_ANY, a name service announcement message is sent to
-the remote side. Then the destination address is never updated, making it
-impossible to send messages to the remote.
+On Thu, May 19, 2022 at 06:40:11PM -0500, Samuel Holland wrote:
+> On 5/19/22 10:42 AM, Charles Keepax wrote:
+> > As part of updating the core to directly tell drivers if they are clock
+> > provider or consumer update these CPU side drivers to use the new direct
+> > callback.
+> > 
+> > Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+> > ---
+> >  sound/soc/sunxi/sun4i-i2s.c   | 20 ++++++++++----------
+> >  sound/soc/sunxi/sun8i-codec.c |  8 ++++----
+> >  2 files changed, 14 insertions(+), 14 deletions(-)
+> > diff --git a/sound/soc/sunxi/sun8i-codec.c b/sound/soc/sunxi/sun8i-codec.c
+> > index 0bea2162f68d9..6e9ef948d6621 100644
+> > --- a/sound/soc/sunxi/sun8i-codec.c
+> > +++ b/sound/soc/sunxi/sun8i-codec.c
+> > @@ -286,11 +286,11 @@ static int sun8i_codec_set_fmt(struct snd_soc_dai *dai, unsigned int fmt)
+> >  	u32 dsp_format, format, invert, value;
+> >  
+> >  	/* clock masters */
+> > -	switch (fmt & SND_SOC_DAIFMT_MASTER_MASK) {
+> > -	case SND_SOC_DAIFMT_CBS_CFS: /* Codec slave, DAI master */
+> > +	switch (fmt & SND_SOC_DAIFMT_CLOCK_PROVIDER_MASK) {
+> > +	case SND_SOC_DAIFMT_BP_FP: /* Codec slave, DAI master */
+> 
+> This is a codec driver, and it is only ever used on the codec end of a link, so
+> I would not expect it to be changed.
+> 
 
-An example of kernel trace observed:
-rpmsg_tty virtio0.rpmsg-tty.29.-1: invalid addr (src 0x1d, dst 0xffffffff)
+Thanks for spotting that, silly mistake on my part. Will fix for
+a rev 2.
 
-The flow control can be used to set the rpmsg device address.
-If the destination address is RPMSG_ADDR_ANY, then set it to
-address of the remote endpoint that send the message.
-
-Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
----
-This patch is an alternative of the fix proposed in patch [1]
-
-[1] https://lore.kernel.org/lkml/20220316153001.662422-1-arnaud.pouliquen@foss.st.com/
----
- drivers/rpmsg/virtio_rpmsg_bus.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
-
-diff --git a/drivers/rpmsg/virtio_rpmsg_bus.c b/drivers/rpmsg/virtio_rpmsg_bus.c
-index a8e60ca4cd08..0337a07e278c 100644
---- a/drivers/rpmsg/virtio_rpmsg_bus.c
-+++ b/drivers/rpmsg/virtio_rpmsg_bus.c
-@@ -393,6 +393,16 @@ static int virtio_rpmsg_remote_flowctrl(struct rpmsg_device *rpdev,
- 	if (!ept)
- 		return -EINVAL;
- 
-+	/*
-+	 * If the endpoint is the rpmsg device default one, then it can not be yet associated
-+	 * to the remote endpoint. This can occur if a ns announcement message has been
-+	 * previously sent to the remote side.
-+	 * Update the rpmsg device destination address in such case to store the remote
-+	 * address as default remote endpoint.
-+	 */
-+	if (rpdev->ept == ept && rpdev->dst == RPMSG_ADDR_ANY)
-+		rpdev->dst = __rpmsg32_to_cpu(virtio_is_little_endian(vrp->vdev), chinfo->src);
-+
- 	/* Make sure ept->sig_cb doesn't go away while we use it */
- 	mutex_lock(&ept->cb_lock);
- 
--- 
-2.25.1
-
+Thanks,
+Charles
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
