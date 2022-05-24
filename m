@@ -2,41 +2,64 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 146FE532052
-	for <lists+linux-stm32@lfdr.de>; Tue, 24 May 2022 03:43:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EDD5C532C37
+	for <lists+linux-stm32@lfdr.de>; Tue, 24 May 2022 16:31:48 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B2772C03FDB;
-	Tue, 24 May 2022 01:43:47 +0000 (UTC)
-Received: from cmccmta3.chinamobile.com (cmccmta3.chinamobile.com
- [221.176.66.81])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 63C4BC035BF
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 87B3BC03FDB;
+	Tue, 24 May 2022 14:31:48 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 454C8C01577
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 24 May 2022 01:43:45 +0000 (UTC)
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG: 00000000
-Received: from spf.mail.chinamobile.com (unknown[172.16.121.89])
- by rmmx-syy-dmz-app11-12011 (RichMail) with SMTP id 2eeb628c384f931-e9775;
- Tue, 24 May 2022 09:43:43 +0800 (CST)
-X-RM-TRANSID: 2eeb628c384f931-e9775
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG: 00000000
-Received: from [192.168.26.114] (unknown[10.42.68.12])
- by rmsmtp-syy-appsvrnew05-12026 (RichMail) with SMTP id 2efa628c384394f-9b02a; 
- Tue, 24 May 2022 09:43:42 +0800 (CST)
-X-RM-TRANSID: 2efa628c384394f-9b02a
-To: Mark Brown <broonie@kernel.org>,
- Olivier MOYSAN <olivier.moysan@foss.st.com>
+ Tue, 24 May 2022 14:31:47 +0000 (UTC)
+Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 24OD9lI2006610;
+ Tue, 24 May 2022 16:30:42 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=AQKsEZBpRPgvOP9pH7S/TD4toEUBrB462VVqfLm/lIg=;
+ b=5vp8d10b91pQwCDM64drMqKGwHc5+FDSrh6uBPoLyCI0i42OlptsPwe+5J9lyYa8Dk1h
+ GpVs+BkZVx4v3eb7QAELGQebfGvN8ZoiY+dP24PwjD2PlmtUmSEu4ZCOfdsdr+pxISC/
+ TkPctLdGreD7CSfD9skaBTsCvrrNpTZz4x8wOziWNBjFI8aVY7VTT1Bne02vOcb593mF
+ +3MxGBBbnchvs9YXFg5RKF+Mx/vtkCxedo+0cF/vWd0jmdGgMk74zEivMo7Xy3DZ4rdy
+ vnT8pn7p10xwjQzcbkLlvC/SKsFcYGcI9AHKy5YpRvtdziEGpArWDaZgKMO+Yn6RenCf aA== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3g6rv6rfhk-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 24 May 2022 16:30:41 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 9A8C110002A;
+ Tue, 24 May 2022 16:30:40 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 08D1323152E;
+ Tue, 24 May 2022 16:30:40 +0200 (CEST)
+Received: from [10.211.10.185] (10.75.127.46) by SHFDAG1NODE1.st.com
+ (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2308.20; Tue, 24 May
+ 2022 16:30:39 +0200
+Message-ID: <d5ab354a-eb10-d31c-d55e-46a4c4d1a4ce@foss.st.com>
+Date: Tue, 24 May 2022 16:30:38 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.8.1
+Content-Language: en-US
+To: tangbin <tangbin@cmss.chinamobile.com>, Mark Brown <broonie@kernel.org>
 References: <20220519124235.21100-1-tangbin@cmss.chinamobile.com>
  <69d5cef3-57c0-9bc7-a83b-a85ef1c4cf29@foss.st.com>
  <YovZAf4S0XphBsco@sirena.org.uk>
-From: tangbin <tangbin@cmss.chinamobile.com>
-Message-ID: <3fb8d7f8-4506-3b28-22cb-863bda1f21c8@cmss.chinamobile.com>
-Date: Tue, 24 May 2022 09:44:21 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
-MIME-Version: 1.0
-In-Reply-To: <YovZAf4S0XphBsco@sirena.org.uk>
-Content-Language: en-US
+ <3fb8d7f8-4506-3b28-22cb-863bda1f21c8@cmss.chinamobile.com>
+From: Olivier MOYSAN <olivier.moysan@foss.st.com>
+In-Reply-To: <3fb8d7f8-4506-3b28-22cb-863bda1f21c8@cmss.chinamobile.com>
+X-Originating-IP: [10.75.127.46]
+X-ClientProxiedBy: SFHDAG2NODE2.st.com (10.75.127.5) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.874,Hydra:6.0.486,FMLib:17.11.64.514
+ definitions=2022-05-24_07,2022-05-23_01,2022-02-23_01
 Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com,
  linux-kernel@vger.kernel.org, tiwai@suse.com, mcoquelin.stm32@gmail.com,
  arnaud.pouliquen@foss.st.com, perex@perex.cz,
@@ -54,162 +77,38 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============1720789890986045954=="
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-This is a multi-part message in MIME format.
---===============1720789890986045954==
-Content-Type: multipart/alternative;
- boundary="------------95FD8FEA066A031C0B6A88AA"
-Content-Language: en-US
-
-This is a multi-part message in MIME format.
---------------95FD8FEA066A031C0B6A88AA
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-
-Hi Mark & Olivier：
-
-On 2022/5/24 2:57, Mark Brown wrote:
-> On Mon, May 23, 2022 at 03:28:48PM +0200, Olivier MOYSAN wrote:
->
->> The current patch requires a change in the driver.
->> Either changing STM_SAI_x_ID enums, or replacing data by a struct.
->> For instance:
->> struct stm32_sai_comp_data {
->> 	unsigned int id;
->> }
->> struct stm32_sai_comp_data stm32_sai_comp_data_a = {
->> 	.id = STM_SAI_A_ID;
->> }
->> struct of_device_id stm32_sai_sub_ids[] = {
->> 	.data = &stm32_sai_comp_data_a},
->> }
-> Either approach works for me (or a revert for that matter).
-
-     Thanks for your advice, I was thoughtless.
-
-     I think change the date of STM_SAI_x_ID maybe simple. But if we 
-don't change the id,
-
-what about add a "#define" like the line 47:
-
-#define STM_SAI_IS_SUB(x) ((x)->id == STM_SAI_A_ID || (x)->id == 
-STM_SAI_B_ID)
-
-then in the judgement, wu use:
-
-     sai->id = (uintptr_t)of_device_get_match_data(&pdev->dev);
-
-     if (!STM_SAI_IS_SUB(sai))
-
-             return -EINVAL;
-
-
-if you think that's ok, I will send patch v2 for you .
-
-Thanks
-
-Tang Bin
-
-
---------------95FD8FEA066A031C0B6A88AA
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <p>Hi Mark &amp; Olivier：<br>
-    </p>
-    <div class="moz-cite-prefix">On 2022/5/24 2:57, Mark Brown wrote:<br>
-    </div>
-    <blockquote type="cite" cite="mid:YovZAf4S0XphBsco@sirena.org.uk">
-      <pre class="moz-quote-pre" wrap="">On Mon, May 23, 2022 at 03:28:48PM +0200, Olivier MOYSAN wrote:
-
-</pre>
-      <blockquote type="cite">
-        <pre class="moz-quote-pre" wrap="">The current patch requires a change in the driver.
-Either changing STM_SAI_x_ID enums, or replacing data by a struct.
-For instance:
-struct stm32_sai_comp_data {
-	unsigned int id;
-}
-struct stm32_sai_comp_data stm32_sai_comp_data_a = {
-	.id = STM_SAI_A_ID;
-}
-struct of_device_id stm32_sai_sub_ids[] = {
-	.data = &amp;stm32_sai_comp_data_a},
-}
-</pre>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">
-Either approach works for me (or a revert for that matter).</pre>
-    </blockquote>
-    <p>    Thanks for your advice, I was thoughtless.</p>
-    <p>    I think change the date of STM_SAI_x_ID maybe simple. But if
-      we don't change the id,</p>
-    <p>what about add a "#define" like the line 47:</p>
-    <p>#define STM_SAI_IS_SUB(x) ((x)-&gt;id == STM_SAI_A_ID ||
-      (x)-&gt;id == STM_SAI_B_ID)</p>
-    <p>then in the judgement, wu use:</p>
-    <p><span style="color: rgb(128, 128, 128); font-family: 微软雅黑;
-        font-size: 14px; font-style: normal; font-variant: normal;
-        font-weight: normal; letter-spacing: normal; line-height:
-        normal; orphans: auto; text-align: start; text-indent: 0px;
-        text-transform: none; white-space: normal; widows: 1;
-        word-spacing: 0px; -webkit-text-stroke-width: 0px; display:
-        inline !important; float: none; background-color: rgb(255, 255,
-        255);">    sai-&gt;id =
-        (uintptr_t)of_device_get_match_data(&amp;pdev-&gt;dev);</span></p>
-    <p><span style="color: rgb(128, 128, 128); font-family: 微软雅黑;
-        font-size: 14px; font-style: normal; font-variant: normal;
-        font-weight: normal; letter-spacing: normal; line-height:
-        normal; orphans: auto; text-align: start; text-indent: 0px;
-        text-transform: none; white-space: normal; widows: 1;
-        word-spacing: 0px; -webkit-text-stroke-width: 0px; display:
-        inline !important; float: none; background-color: rgb(255, 255,
-        255);">    if (!STM_SAI_IS_SUB(sai))</span></p>
-    <p><span style="color: rgb(128, 128, 128); font-family: 微软雅黑;
-        font-size: 14px; font-style: normal; font-variant: normal;
-        font-weight: normal; letter-spacing: normal; line-height:
-        normal; orphans: auto; text-align: start; text-indent: 0px;
-        text-transform: none; white-space: normal; widows: 1;
-        word-spacing: 0px; -webkit-text-stroke-width: 0px; display:
-        inline !important; float: none; background-color: rgb(255, 255,
-        255);">            return -EINVAL;<br>
-      </span></p>
-    <p><br>
-    </p>
-    <p>if you think that's ok, I will send patch v2 for you .</p>
-    <p>Thanks</p>
-    <p>Tang Bin<br>
-    </p>
-    <blockquote type="cite" cite="mid:YovZAf4S0XphBsco@sirena.org.uk">
-      <pre class="moz-quote-pre" wrap="">
-</pre>
-    </blockquote>
-  </body>
-</html>
-
---------------95FD8FEA066A031C0B6A88AA--
-
-
-
---===============1720789890986045954==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============1720789890986045954==--
-
-
+SGkgVGFuZywKCk9uIDUvMjQvMjIgMDM6NDQsIHRhbmdiaW4gd3JvdGU6Cj4gSGkgTWFyayAmIE9s
+aXZpZXLvvJoKPiAKPiBPbiAyMDIyLzUvMjQgMjo1NywgTWFyayBCcm93biB3cm90ZToKPj4gT24g
+TW9uLCBNYXkgMjMsIDIwMjIgYXQgMDM6Mjg6NDhQTSArMDIwMCwgT2xpdmllciBNT1lTQU4gd3Jv
+dGU6Cj4+Cj4+PiBUaGUgY3VycmVudCBwYXRjaCByZXF1aXJlcyBhIGNoYW5nZSBpbiB0aGUgZHJp
+dmVyLgo+Pj4gRWl0aGVyIGNoYW5naW5nIFNUTV9TQUlfeF9JRCBlbnVtcywgb3IgcmVwbGFjaW5n
+IGRhdGEgYnkgYSBzdHJ1Y3QuCj4+PiBGb3IgaW5zdGFuY2U6Cj4+PiBzdHJ1Y3Qgc3RtMzJfc2Fp
+X2NvbXBfZGF0YSB7Cj4+PiDCoMKgwqDCoHVuc2lnbmVkIGludCBpZDsKPj4+IH0KPj4+IHN0cnVj
+dCBzdG0zMl9zYWlfY29tcF9kYXRhIHN0bTMyX3NhaV9jb21wX2RhdGFfYSA9IHsKPj4+IMKgwqDC
+oMKgLmlkID0gU1RNX1NBSV9BX0lEOwo+Pj4gfQo+Pj4gc3RydWN0IG9mX2RldmljZV9pZCBzdG0z
+Ml9zYWlfc3ViX2lkc1tdID0gewo+Pj4gwqDCoMKgwqAuZGF0YSA9ICZzdG0zMl9zYWlfY29tcF9k
+YXRhX2F9LAo+Pj4gfQo+PiBFaXRoZXIgYXBwcm9hY2ggd29ya3MgZm9yIG1lIChvciBhIHJldmVy
+dCBmb3IgdGhhdCBtYXR0ZXIpLgo+IAo+ICDCoMKgwqAgVGhhbmtzIGZvciB5b3VyIGFkdmljZSwg
+SSB3YXMgdGhvdWdodGxlc3MuCj4gCj4gIMKgwqDCoCBJIHRoaW5rIGNoYW5nZSB0aGUgZGF0ZSBv
+ZiBTVE1fU0FJX3hfSUQgbWF5YmUgc2ltcGxlLiBCdXQgaWYgd2UgCj4gZG9uJ3QgY2hhbmdlIHRo
+ZSBpZCwKPiAKPiB3aGF0IGFib3V0IGFkZCBhICIjZGVmaW5lIiBsaWtlIHRoZSBsaW5lIDQ3Ogo+
+IAo+ICNkZWZpbmUgU1RNX1NBSV9JU19TVUIoeCkgKCh4KS0+aWQgPT0gU1RNX1NBSV9BX0lEIHx8
+ICh4KS0+aWQgPT0gCj4gU1RNX1NBSV9CX0lEKQo+IAo+IHRoZW4gaW4gdGhlIGp1ZGdlbWVudCwg
+d3UgdXNlOgo+IAo+ICDCoMKgwqAgc2FpLT5pZCA9ICh1aW50cHRyX3Qpb2ZfZGV2aWNlX2dldF9t
+YXRjaF9kYXRhKCZwZGV2LT5kZXYpOwo+IAo+ICDCoMKgwqAgaWYgKCFTVE1fU0FJX0lTX1NVQihz
+YWkpKQo+IAo+ICDCoMKgwqAgwqDCoMKgIMKgwqDCoCByZXR1cm4gLUVJTlZBTDsKPiAKPiAKPiBp
+ZiB5b3UgdGhpbmsgdGhhdCdzIG9rLCBJIHdpbGwgc2VuZCBwYXRjaCB2MiBmb3IgeW91IC4KPiAK
+CklmIHdlIGFsbG93IG51bGwgdmFsdWUgaW4gU1RNX1NBSV9JU19TVUIoc2FpKSBjaGVjaywgd2Ug
+Y2FuIG1pc3MgcmVhbCAKTlVMTCBwb2ludGVyIGVycm9yIGZyb20gb2ZfZGV2aWNlX2dldF9tYXRj
+aF9kYXRhKCkuCgpUaGUgc2ltcGxlc3Qgd2F5IGlzIHRvIGNoYW5nZSBTVE1fU0FJX3hfSUQgZW51
+bXMgSSB0aGluay4KQnV0IGhvbm5lc3RseSwgSSBmZWVsIG1vcmUgY29tZm9ydGFibGUgdG8gbGV0
+IHRoZSBkcml2ZXIgdW5jaGFuZ2VkLgoKQlJzCk9saXZpZXIKCj4gVGhhbmtzCj4gCj4gVGFuZyBC
+aW4KPiAKPiAKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18K
+TGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1y
+ZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlz
+dGluZm8vbGludXgtc3RtMzIK
