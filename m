@@ -2,60 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 28013532D9A
-	for <lists+linux-stm32@lfdr.de>; Tue, 24 May 2022 17:34:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A3E6853376A
+	for <lists+linux-stm32@lfdr.de>; Wed, 25 May 2022 09:35:32 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CBBABC03FDB;
-	Tue, 24 May 2022 15:34:48 +0000 (UTC)
-Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com
- [209.85.218.50])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CAFE6C035BF
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 45921C03FCA;
+	Wed, 25 May 2022 07:35:32 +0000 (UTC)
+Received: from cmccmta3.chinamobile.com (cmccmta3.chinamobile.com
+ [221.176.66.81])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2F141C035BF
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 24 May 2022 15:34:47 +0000 (UTC)
-Received: by mail-ej1-f50.google.com with SMTP id rs12so24386102ejb.13
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 24 May 2022 08:34:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=XKQgP4gZTvt4b++ZSM+DxjPg9J0TxcLJRrQHC/0hh0s=;
- b=qOWSHVyq0qvKCiLV6FRf5dYPoK4I2LWG04bQZX9Ixs9fvAkWtsiP4M4uyKV4L3Owf6
- oo/24gsZWsamGHpZduBebduOB08KFZ6VWJ5T4Rc6++e7D2kmtb3TldiP+fsuOoCb58kX
- unaIW9RfOgVRVfnTffoALlAAFpef3zWYDaCnut6LN7Ch51bKU0ykTNcCwHKcazddwjEY
- mI7Th1MC7eFPDtnWbOTS4Yw1UAF9wvJhofUEuwNpDEWy24GA4Kld0vjqW4Ejm7tj1c5N
- JYFsZNb30Nm8y7zM5MZDVk71xzFwlaxKIBdjayG81cNBu82apnYDEGFurYH+1lNSailj
- Xheg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=XKQgP4gZTvt4b++ZSM+DxjPg9J0TxcLJRrQHC/0hh0s=;
- b=3oeHO5gSSM6rWBt30NkxqZSYW9BIpjTQxM9PwoHmtDymDRE4OlQIx/4G8dH5QlJJfi
- JPeHwZc6FpfLKdYl6XOWFRYFq9HbjoED94257zcExpzCo8RcHMlpPxd4y47QM/oIPGvS
- sj9H5uRL9e/xdzCRGQLtpvk+GbEP/DEuXmwY8vVvAs35r7p7CaTaUuvzOWvVT6NJ2mOS
- 9zaV3aSfnp8NEE3S9i+aSHukEWKFH3wtysKQh/leHJOQyJWrhzNSAVWWAb4yJFabz+FA
- x5cH3A1QNTR5k0ZQSeUlFfM6L8bwbT+H1Unk0GAb0mQu0JLbgezuZ/FyFM97qFJ4hd1X
- pbgw==
-X-Gm-Message-State: AOAM533AGbbLBs9wwaGSXehm2unRks/8MDzGc+GIuOjJjESD3rlCP+Zt
- wuW/dbitHN/mrhPSOPunAyc3/a7tVMRJfijL8NTEKQ==
-X-Google-Smtp-Source: ABdhPJyKYl8sTqnTGs974NhxolD0105jjPI+EMpfcxAqya5Yq62Twbhixcyf3O4P7dAR/BlHaFghgyOw2QYDKA6UwPg=
-X-Received: by 2002:a17:907:160e:b0:6f4:54c0:657e with SMTP id
- hb14-20020a170907160e00b006f454c0657emr25501932ejc.253.1653406487255; Tue, 24
- May 2022 08:34:47 -0700 (PDT)
+ Wed, 25 May 2022 07:35:29 +0000 (UTC)
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG: 00000000
+Received: from spf.mail.chinamobile.com (unknown[172.16.121.3])
+ by rmmx-syy-dmz-app09-12009 (RichMail) with SMTP id 2ee9628ddc3ff21-0327b;
+ Wed, 25 May 2022 15:35:28 +0800 (CST)
+X-RM-TRANSID: 2ee9628ddc3ff21-0327b
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG: 00000000
+Received: from [192.168.26.114] (unknown[10.42.68.12])
+ by rmsmtp-syy-appsvr02-12002 (RichMail) with SMTP id 2ee2628ddc3e16d-c8e67;
+ Wed, 25 May 2022 15:35:27 +0800 (CST)
+X-RM-TRANSID: 2ee2628ddc3e16d-c8e67
+To: Olivier MOYSAN <olivier.moysan@foss.st.com>,
+ Mark Brown <broonie@kernel.org>
+References: <20220519124235.21100-1-tangbin@cmss.chinamobile.com>
+ <69d5cef3-57c0-9bc7-a83b-a85ef1c4cf29@foss.st.com>
+ <YovZAf4S0XphBsco@sirena.org.uk>
+ <3fb8d7f8-4506-3b28-22cb-863bda1f21c8@cmss.chinamobile.com>
+ <d5ab354a-eb10-d31c-d55e-46a4c4d1a4ce@foss.st.com>
+From: tangbin <tangbin@cmss.chinamobile.com>
+Message-ID: <cd375914-a3e6-37c7-4a16-551937006f92@cmss.chinamobile.com>
+Date: Wed, 25 May 2022 15:36:13 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
 MIME-Version: 1.0
-References: <20220520082940.2984914-1-arnaud.pouliquen@foss.st.com>
-In-Reply-To: <20220520082940.2984914-1-arnaud.pouliquen@foss.st.com>
-From: Mathieu Poirier <mathieu.poirier@linaro.org>
-Date: Tue, 24 May 2022 09:34:36 -0600
-Message-ID: <CANLsYkw7wjfVPTvA7SniMV8tBommm5E5w2FA0KMyRYn0BKVDyA@mail.gmail.com>
-To: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
-Cc: linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- Deepak Kumar Singh <quic_deesin@quicinc.com>,
- Chris Lew <quic_clew@quicinc.com>, linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [RFC PATCH 00/10] Introduction of rpmsg flow
-	control service
+In-Reply-To: <d5ab354a-eb10-d31c-d55e-46a4c4d1a4ce@foss.st.com>
+Content-Language: en-US
+Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com,
+ linux-kernel@vger.kernel.org, tiwai@suse.com, mcoquelin.stm32@gmail.com,
+ arnaud.pouliquen@foss.st.com, perex@perex.cz,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] ASoC: stm32: sai: Use
+ of_device_get_match_data()tosimplify code
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,79 +56,44 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Arnaud,
-
-I added your patchset to my review list.  Unfortunately it sits behind
-a sizable backlog and as such I won't be able to get to it for some
-time.
-
-Thanks,
-Mathieu
-
-On Fri, 20 May 2022 at 02:30, Arnaud Pouliquen
-<arnaud.pouliquen@foss.st.com> wrote:
->
-> This series proposes an implementation for the rpmsg virtio transport
-> backend, of the signaling API proposed by Deepak Kumar Singh:
-> "rpmsg and glink signaling API support" [1]
->
-> The aim of the series is to offer the possibility for an endpoint to inform
-> a remote endpoint about its state, based on a software flow control[2].
->
-> For this a new rpmsg service( with a fixed address 64) is proposed.
-> It is responsible for:
-> - transmitting local endpoint flow control information to the remote side,
-> - informing a local endpoint about a remote endpoint flow control.
->
-> For the rpmsg virtio transport layer the service is negotiated thanks to the
-> virtio feature flag: VIRTIO_RPMSG_F_FC
->
-> Notice that this pull request introduces new feature in the rpmsg protocol,
-> So it has to be aligned with OpenAMP implementation.
-> Pending OpenAMP pull request is available here:
-> https://github.com/OpenAMP/open-amp/pull/394
->
->
-> [1]https://lkml.org/lkml/2022/1/18/867
-> [2]https://en.wikipedia.org/wiki/Software_flow_control
->
-> Arnaud Pouliquen (8):
->   rpmsg: core: Add rpmsg device remote flow control announcement ops
->   rpmsg: virtio: Implement the announce_remote_fc ops
->   rpmsg: Introduce flow control channel driver
->   rpmsg: virtio: Add support of the VIRTIO_RPMSG_F_FC feature
->   rpmsg: virtio: Implement the set_flow_control ops
->   rpmsg: Add the destination address in rpmsg_set_flow_control
->   rpmsg: tty : Add the support of the flow control
->   rpmsg: virtio: Set default dst address on flow control
->
-> Deepak Kumar Singh (2):
->   rpmsg: core: Add signal API support
->   rpmsg: char: Add TIOCMGET/TIOCMSET ioctl support
->
->  drivers/rpmsg/Kconfig            |  11 +++
->  drivers/rpmsg/Makefile           |   1 +
->  drivers/rpmsg/rpmsg_char.c       |  56 +++++++++++++--
->  drivers/rpmsg/rpmsg_core.c       |  47 +++++++++++++
->  drivers/rpmsg/rpmsg_fc.c         | 113 +++++++++++++++++++++++++++++++
->  drivers/rpmsg/rpmsg_internal.h   |   9 +++
->  drivers/rpmsg/virtio_rpmsg_bus.c | 111 +++++++++++++++++++++++++++++-
->  drivers/tty/rpmsg_tty.c          |  50 ++++++++++++++
->  include/linux/rpmsg.h            |  15 ++++
->  include/linux/rpmsg/fc.h         |  51 ++++++++++++++
->  10 files changed, 456 insertions(+), 8 deletions(-)
->  create mode 100644 drivers/rpmsg/rpmsg_fc.c
->  create mode 100644 include/linux/rpmsg/fc.h
->
-> --
-> 2.25.1
->
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+SGkgT2xpdmllcu+8mgoKT24gMjAyMi81LzI0IDIyOjMwLCBPbGl2aWVyIE1PWVNBTiB3cm90ZToK
+PiBIaSBUYW5nLAo+Cj4gT24gNS8yNC8yMiAwMzo0NCwgdGFuZ2JpbiB3cm90ZToKPj4gSGkgTWFy
+ayAmIE9saXZpZXLvvJoKPj4KPj4gT24gMjAyMi81LzI0IDI6NTcsIE1hcmsgQnJvd24gd3JvdGU6
+Cj4+PiBPbiBNb24sIE1heSAyMywgMjAyMiBhdCAwMzoyODo0OFBNICswMjAwLCBPbGl2aWVyIE1P
+WVNBTiB3cm90ZToKPj4+Cj4+Pj4gVGhlIGN1cnJlbnQgcGF0Y2ggcmVxdWlyZXMgYSBjaGFuZ2Ug
+aW4gdGhlIGRyaXZlci4KPj4+PiBFaXRoZXIgY2hhbmdpbmcgU1RNX1NBSV94X0lEIGVudW1zLCBv
+ciByZXBsYWNpbmcgZGF0YSBieSBhIHN0cnVjdC4KPj4+PiBGb3IgaW5zdGFuY2U6Cj4+Pj4gc3Ry
+dWN0IHN0bTMyX3NhaV9jb21wX2RhdGEgewo+Pj4+IMKgwqDCoMKgdW5zaWduZWQgaW50IGlkOwo+
+Pj4+IH0KPj4+PiBzdHJ1Y3Qgc3RtMzJfc2FpX2NvbXBfZGF0YSBzdG0zMl9zYWlfY29tcF9kYXRh
+X2EgPSB7Cj4+Pj4gwqDCoMKgwqAuaWQgPSBTVE1fU0FJX0FfSUQ7Cj4+Pj4gfQo+Pj4+IHN0cnVj
+dCBvZl9kZXZpY2VfaWQgc3RtMzJfc2FpX3N1Yl9pZHNbXSA9IHsKPj4+PiDCoMKgwqDCoC5kYXRh
+ID0gJnN0bTMyX3NhaV9jb21wX2RhdGFfYX0sCj4+Pj4gfQo+Pj4gRWl0aGVyIGFwcHJvYWNoIHdv
+cmtzIGZvciBtZSAob3IgYSByZXZlcnQgZm9yIHRoYXQgbWF0dGVyKS4KPj4KPj4gwqDCoMKgwqAg
+VGhhbmtzIGZvciB5b3VyIGFkdmljZSwgSSB3YXMgdGhvdWdodGxlc3MuCj4+Cj4+IMKgwqDCoMKg
+IEkgdGhpbmsgY2hhbmdlIHRoZSBkYXRlIG9mIFNUTV9TQUlfeF9JRCBtYXliZSBzaW1wbGUuIEJ1
+dCBpZiB3ZSAKPj4gZG9uJ3QgY2hhbmdlIHRoZSBpZCwKPj4KPj4gd2hhdCBhYm91dCBhZGQgYSAi
+I2RlZmluZSIgbGlrZSB0aGUgbGluZSA0NzoKPj4KPj4gI2RlZmluZSBTVE1fU0FJX0lTX1NVQih4
+KSAoKHgpLT5pZCA9PSBTVE1fU0FJX0FfSUQgfHwgKHgpLT5pZCA9PSAKPj4gU1RNX1NBSV9CX0lE
+KQo+Pgo+PiB0aGVuIGluIHRoZSBqdWRnZW1lbnQsIHd1IHVzZToKPj4KPj4gwqDCoMKgwqAgc2Fp
+LT5pZCA9ICh1aW50cHRyX3Qpb2ZfZGV2aWNlX2dldF9tYXRjaF9kYXRhKCZwZGV2LT5kZXYpOwo+
+Pgo+PiDCoMKgwqDCoCBpZiAoIVNUTV9TQUlfSVNfU1VCKHNhaSkpCj4+Cj4+IMKgwqDCoMKgIMKg
+wqDCoCDCoMKgwqAgcmV0dXJuIC1FSU5WQUw7Cj4+Cj4+Cj4+IGlmIHlvdSB0aGluayB0aGF0J3Mg
+b2ssIEkgd2lsbCBzZW5kIHBhdGNoIHYyIGZvciB5b3UgLgo+Pgo+Cj4gSWYgd2UgYWxsb3cgbnVs
+bCB2YWx1ZSBpbiBTVE1fU0FJX0lTX1NVQihzYWkpIGNoZWNrLCB3ZSBjYW4gbWlzcyByZWFsIAo+
+IE5VTEwgcG9pbnRlciBlcnJvciBmcm9tIG9mX2RldmljZV9nZXRfbWF0Y2hfZGF0YSgpLgo+Cj4g
+VGhlIHNpbXBsZXN0IHdheSBpcyB0byBjaGFuZ2UgU1RNX1NBSV94X0lEIGVudW1zIEkgdGhpbmsu
+Cj4gQnV0IGhvbm5lc3RseSwgSSBmZWVsIG1vcmUgY29tZm9ydGFibGUgdG8gbGV0IHRoZSBkcml2
+ZXIgdW5jaGFuZ2VkLgo+Ck9o77yMeW91IGFyZSByaWdodCwgSSBhbSBzb3JyeS4KClBsZWFzZSBm
+b3JnZXQgdGhpcyBwYXRjaCwgSSdtIHNvcnJ5IHRvIGhhdmUgd2FzdGVkIHlvdXIgdGltZS4KCkJ1
+dCBJIHNhdyBzb21lIGNvZGVzIGlzIHVzZWxlc3MgaW4gdGhlIGxpbmUgNDggJiBsaW5lIDQ5LCBJ
+IHRoaW5rIHdlIGNhbiAKcmVtb3ZlIGl0LgoKSWYgeW91IHRoaW5rIHNvLCBJIHdpbGwgc2VuZCB0
+aGlzIHBhdGNoIGZvciB5b3UuCgoKVGhhbmtzCgpUYW5nIEJpbgoKCj4gQlJzCj4gT2xpdmllcgo+
+Cj4+IFRoYW5rcwo+Pgo+PiBUYW5nIEJpbgo+Pgo+PgoKCl9fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1z
+dG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5z
+dG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
