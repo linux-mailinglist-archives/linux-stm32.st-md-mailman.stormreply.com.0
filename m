@@ -2,42 +2,42 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D756C537C9A
-	for <lists+linux-stm32@lfdr.de>; Mon, 30 May 2022 15:35:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4C92B537D4A
+	for <lists+linux-stm32@lfdr.de>; Mon, 30 May 2022 15:42:21 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 87419C5A4FD;
-	Mon, 30 May 2022 13:35:44 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F1CF6C5C829;
+	Mon, 30 May 2022 13:42:20 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 981A7C57183
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AAF90C57B6C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 30 May 2022 13:35:43 +0000 (UTC)
+ Mon, 30 May 2022 13:42:01 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 5D2AB60F2A;
- Mon, 30 May 2022 13:35:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8EB3CC341C4;
- Mon, 30 May 2022 13:35:40 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 54897B80DB7;
+ Mon, 30 May 2022 13:42:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C6A9BC3411E;
+ Mon, 30 May 2022 13:41:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1653917741;
+ s=k20201202; t=1653918120;
  bh=63KEk9VLTggDHYa7uCWhw1ThCahBRf68liu0x9+Y4Q8=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=sJZxUDSd/zCGqgBknaxliHzfAFhP1qrylxXnllVJj7qYMbBo2MR1z5hfzZ0a6e+We
- ge5dGcXTvAsj47KrU9cgt80chhv9xvxj+PgvRMVzi+42x32Y0SMMaFT0n8YRis4sEL
- DTBL6wJxxe9bsu7A0+cjZnDg9UHHhqyQIe/X3mbMOj+38auHmI7cIvCzaIb4ZDFMaP
- 0aiumuPkhHnjasbuFj22T//dXo/gczg2kOtGOqe+KjopAy9qVyNeas92IeWSkBHnwr
- 3oODxdwlbhfDHU0vtT/MbC1QyhFeOpEObHJh17bevZYIVxC/0REVGT0hU8WXk0jwzz
- g0583iFiUcjyg==
+ b=TTcW2MYvIkbIbrzn/OE2PDUCuW3r3PB2V0fSjrYachInBVGD695908LeEbx1X/c1v
+ RIjTN/XRGQLJDs8zr+jm0OGr7C3rL4UO5lEMNKd8Oudd7OIzlckkPXKIB6xogxAwxU
+ QlqIVImJ3wxbHn5MGu9bmuiyivq6K9YvdscAxV1a63JyLychr8SvBZz3piV4DTVOcH
+ Cvrn4vYOR+xoyy4D9cNQHmyvGUONbuYJ6LC1iP/tIIWxLOWH51O7bbE43ob98t124K
+ aRuwNrBQXF4ir9BBVbmPTnn82tsejVOTmZ28yjkkC60E3rI9Kq+e1DhVdDsjrTM6CS
+ lHZscwjPDH9JA==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Mon, 30 May 2022 09:30:40 -0400
-Message-Id: <20220530133133.1931716-82-sashal@kernel.org>
+Date: Mon, 30 May 2022 09:37:44 -0400
+Message-Id: <20220530133825.1933431-68-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20220530133133.1931716-1-sashal@kernel.org>
-References: <20220530133133.1931716-1-sashal@kernel.org>
+In-Reply-To: <20220530133825.1933431-1-sashal@kernel.org>
+References: <20220530133825.1933431-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -45,7 +45,7 @@ Cc: Sasha Levin <sashal@kernel.org>, linux-stm32@st-md-mailman.stormreply.com,
  eberhard.stoll@kontron.de, linux-spi@vger.kernel.org,
  Mark Brown <broonie@kernel.org>, mcoquelin.stm32@gmail.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH AUTOSEL 5.17 082/135] spi: stm32-qspi: Fix
+Subject: [Linux-stm32] [PATCH AUTOSEL 5.15 068/109] spi: stm32-qspi: Fix
 	wait_cmd timeout in APM mode
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
