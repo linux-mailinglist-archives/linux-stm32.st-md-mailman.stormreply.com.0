@@ -2,42 +2,42 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 88A72537DF2
-	for <lists+linux-stm32@lfdr.de>; Mon, 30 May 2022 15:46:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA2E7537E10
+	for <lists+linux-stm32@lfdr.de>; Mon, 30 May 2022 15:48:39 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 430F5C5C829;
-	Mon, 30 May 2022 13:46:00 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6F396C5C829;
+	Mon, 30 May 2022 13:48:39 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D657FC57B6C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D392CC57B6C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 30 May 2022 13:45:58 +0000 (UTC)
+ Mon, 30 May 2022 13:48:38 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 77148B80D83;
- Mon, 30 May 2022 13:45:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 324D4C3411E;
- Mon, 30 May 2022 13:45:56 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 7988060FD6;
+ Mon, 30 May 2022 13:48:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F71CC36AE5;
+ Mon, 30 May 2022 13:48:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1653918357;
- bh=e3Pj9Oc9GnV/XZYemN+b6N2C1L9t//9yQ3EA+uvjl6A=;
+ s=k20201202; t=1653918517;
+ bh=NA4E3y1t021we4LSyaOq70PfxfQjsWhyAXt2a1xl6e8=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=K6fTg3nk0xs1CFimSU7tI0xYQt8VUAzuyDi5S9KgieJaoZgMHa9SaALeNB6q+5GCg
- n7gPaag5BvHQUz6dMwilESNu0S3+zQNGicvAnwo76qMR7mTxjKffkhUYh/KOW3l9cP
- NnanxD5VriZuZ+fFW8bKgEpG1zcgbqQiCqTHSC6hx9w3Hf/uBqEoSefRGOo2BrbZVH
- W4KHEjXP5Nm+2tXfqa6x/BsJYOW7X5b/o8voUrH4wnsI4FkBpQJr7yIHu4oFwRPt4n
- WNfxF0GEROJfHrHm5bR4pME3clat7HFsfHV7lfpTzfZ2nI9Y2l/rov+MiKdVn40tqA
- /nmAjZ1iNQjFQ==
+ b=MutjqjbtACnvaXtECRHTIb0SuwBPiVt8Bd6TnSnQgfdsPMc9Bwc0RvkB70GfGRSdi
+ p6fPc/a70FdWU6yn0p+sL4nPbw2xqP/Sa9x9x1yZrfQUsO1nu+Bsdd0pPzJbK+4l6b
+ hLA9FfOusC8cWwRzuN0jWd50fRR+JGPM2YMCO2fvxi3+ifsAr8RtNh57UO79toOGnQ
+ HOFqPDhZcfMbCRXAAMsgi/REbHxrLMMpQ1opOMsKHex6f9CZZV29dHABAg4Svj1/HS
+ CRiA5Bmbde8Cmlpmdfqa1bJzuiPzbh8my+LiN1yBOkdtPG6O+ZZt1rFJqeyi4ZQuh4
+ LIS/TbkTvITtg==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Mon, 30 May 2022 09:43:39 -0400
-Message-Id: <20220530134406.1934928-49-sashal@kernel.org>
+Date: Mon, 30 May 2022 09:46:42 -0400
+Message-Id: <20220530134701.1935933-36-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20220530134406.1934928-1-sashal@kernel.org>
-References: <20220530134406.1934928-1-sashal@kernel.org>
+In-Reply-To: <20220530134701.1935933-1-sashal@kernel.org>
+References: <20220530134701.1935933-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -45,7 +45,7 @@ Cc: Sasha Levin <sashal@kernel.org>, linux-stm32@st-md-mailman.stormreply.com,
  eberhard.stoll@kontron.de, linux-spi@vger.kernel.org,
  Mark Brown <broonie@kernel.org>, mcoquelin.stm32@gmail.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH AUTOSEL 5.10 49/76] spi: stm32-qspi: Fix
+Subject: [Linux-stm32] [PATCH AUTOSEL 5.4 36/55] spi: stm32-qspi: Fix
 	wait_cmd timeout in APM mode
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -80,10 +80,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/spi/spi-stm32-qspi.c b/drivers/spi/spi-stm32-qspi.c
-index 4f24f6392212..9c58dcd7b324 100644
+index ea77d915216a..8070b7420217 100644
 --- a/drivers/spi/spi-stm32-qspi.c
 +++ b/drivers/spi/spi-stm32-qspi.c
-@@ -295,7 +295,8 @@ static int stm32_qspi_wait_cmd(struct stm32_qspi *qspi,
+@@ -293,7 +293,8 @@ static int stm32_qspi_wait_cmd(struct stm32_qspi *qspi,
  	if (!op->data.nbytes)
  		goto wait_nobusy;
  
