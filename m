@@ -2,52 +2,61 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3191A53B467
-	for <lists+linux-stm32@lfdr.de>; Thu,  2 Jun 2022 09:35:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 733F553B577
+	for <lists+linux-stm32@lfdr.de>; Thu,  2 Jun 2022 10:56:25 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B3852C03FE0;
-	Thu,  2 Jun 2022 07:35:46 +0000 (UTC)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2297FC03FE0;
+	Thu,  2 Jun 2022 08:56:25 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 823DBC03FC1
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9D240C03FC4
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  2 Jun 2022 07:35:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1654155344; x=1685691344;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=guW2S9dJLzjEzn/tbSdMDgpb8Z56ie57XqS2+J+2Pe0=;
- b=c6bG4aBNqOpv17/JjRk2ViLb+zuSQqhWVNYeE+T8ND4OWXjsiSaBtdYT
- ZrkCaE/hTrGmwXVoiGn/MH9lelH7aMp1T5E8ct5LNXB1BoC3iz6REC4/6
- YRpSMe+atKkosjKkUJef5Gj2f+jVekQw6zaCzs7BglfCi8cqcV+MpLOPV
- AK109PJRTVM5JbyemUWFLbe3z7jA+rIWtKp6tpAkR79v/KgF+wp69FVUz
- hA7z0e8VeTHrvM0mpBnILW1oCB1pStVzuFYZ+CpwY2DfwsSsbPdLzCjPz
- Lb5AbktuT8gtu7MMdH7chqwJT77kivXA0Jn9wjRmWpcR1+t8lwtWiHX8a w==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10365"; a="275935054"
-X-IronPort-AV: E=Sophos;i="5.91,270,1647327600"; d="scan'208";a="275935054"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Jun 2022 00:35:27 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.91,270,1647327600"; d="scan'208";a="606706523"
-Received: from mike-ilbpg1.png.intel.com ([10.88.227.76])
- by orsmga008.jf.intel.com with ESMTP; 02 Jun 2022 00:35:21 -0700
-From: Michael Sit Wei Hong <michael.wei.hong.sit@intel.com>
-To: "David S . Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Date: Thu,  2 Jun 2022 15:35:07 +0800
-Message-Id: <20220602073507.3955721-1-michael.wei.hong.sit@intel.com>
+ Thu,  2 Jun 2022 08:56:24 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 2528k8tv032217;
+ Thu, 2 Jun 2022 10:56:05 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=selector1;
+ bh=B4TQo6lZfzJdRFdBCfEZqydC5FD70BlyNWZ9oCSp3pY=;
+ b=6u+xn+UwC6mQPCVGx+40UEfB5C2oB7l50HhaPPr895y/+Cgf5GaXfzxTCebv0Ifvhnua
+ OpYBuJ1KVsg02CaIG1/98ZGb4qdu6hXq5HISlkgW1AqjeZjpqY9VWcfkMX2UhAj2N9+Y
+ Kyo6QqsHlRNtaFtN/Cj5oMp3PqyKzm68Y9fksmTuxJnLG3AkEUg00BhIBps5J+68xIk4
+ 8wZ/9w5jwvNgIYqId8cMXD2M/OcvQGZqizroi/wy2EpiOya4U0PdLkMEDDql8/zaRahm
+ XbPvDuLfzW8U+dpxaZd1NR1fHdkoAdia1l7oa1GdzH9CXcEcnuWqbDbFeYMDvShNhSYP QQ== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3get03g253-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 02 Jun 2022 10:56:05 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id BB4E510002A;
+ Thu,  2 Jun 2022 10:56:04 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id A610E216EF2;
+ Thu,  2 Jun 2022 10:56:04 +0200 (CEST)
+Received: from localhost (10.75.127.48) by SHFDAG1NODE1.st.com (10.75.129.69)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2308.20; Thu, 2 Jun
+ 2022 10:56:04 +0200
+From: <patrice.chotard@foss.st.com>
+To: Mark Brown <broonie@kernel.org>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>
+Date: Thu, 2 Jun 2022 10:55:54 +0200
+Message-ID: <20220602085556.348139-1-patrice.chotard@foss.st.com>
 X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Cc: Wong Vee Khee <vee.khee.wong@linux.intel.com>,
- Voon Weifeng <weifeng.voon@intel.com>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, Eric Dumazet <edumazet@google.com>,
- Jose Abreu <joabreu@synopsys.com>, Tan Tee Min <tee.min.tan@intel.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>, Paolo Abeni <pabeni@redhat.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [net-next 1/1] stmmac: intel: Add RPL-P PCI ID
+X-Originating-IP: [10.75.127.48]
+X-ClientProxiedBy: SFHDAG2NODE3.st.com (10.75.127.6) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.874,Hydra:6.0.517,FMLib:17.11.64.514
+ definitions=2022-06-02_01,2022-06-01_01,2022-02-23_01
+Cc: linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-spi@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [0/2] spi: stm32-qspi: Remove unused parameters
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -64,33 +73,17 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add PCI ID for Ethernet TSN Controller on RPL-P.
+From: Patrice Chotard <patrice.chotard@foss.st.com>
 
-Signed-off-by: Michael Sit Wei Hong <michael.wei.hong.sit@intel.com>
----
- drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c | 2 ++
- 1 file changed, 2 insertions(+)
+This series cleans up spi-stm32-qspi driver by removing unused parameters
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
-index 0b0be0898ac5..f9f80933e0c9 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
-@@ -1161,6 +1161,7 @@ static SIMPLE_DEV_PM_OPS(intel_eth_pm_ops, intel_eth_pci_suspend,
- #define PCI_DEVICE_ID_INTEL_ADLS_SGMII1G_0	0x7aac
- #define PCI_DEVICE_ID_INTEL_ADLS_SGMII1G_1	0x7aad
- #define PCI_DEVICE_ID_INTEL_ADLN_SGMII1G	0x54ac
-+#define PCI_DEVICE_ID_INTEL_RPLP_SGMII1G	0x51ac
- 
- static const struct pci_device_id intel_eth_pci_id_table[] = {
- 	{ PCI_DEVICE_DATA(INTEL, QUARK, &quark_info) },
-@@ -1179,6 +1180,7 @@ static const struct pci_device_id intel_eth_pci_id_table[] = {
- 	{ PCI_DEVICE_DATA(INTEL, ADLS_SGMII1G_0, &adls_sgmii1g_phy0_info) },
- 	{ PCI_DEVICE_DATA(INTEL, ADLS_SGMII1G_1, &adls_sgmii1g_phy1_info) },
- 	{ PCI_DEVICE_DATA(INTEL, ADLN_SGMII1G, &tgl_sgmii1g_phy0_info) },
-+	{ PCI_DEVICE_DATA(INTEL, RPLP_SGMII1G, &tgl_sgmii1g_phy0_info) },
- 	{}
- };
- MODULE_DEVICE_TABLE(pci, intel_eth_pci_id_table);
+Patrice Chotard (2):
+  spi: stm32-qspi: Remove stm32_qspi_get_mode() unused parameter
+  spi: stm32-qspi: Remove stm32_qspi_wait_cmd() unused parameter
+
+ drivers/spi/spi-stm32-qspi.c | 13 ++++++-------
+ 1 file changed, 6 insertions(+), 7 deletions(-)
+
 -- 
 2.25.1
 
