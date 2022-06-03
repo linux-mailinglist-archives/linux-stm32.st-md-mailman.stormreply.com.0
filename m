@@ -2,70 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1F74C53C997
-	for <lists+linux-stm32@lfdr.de>; Fri,  3 Jun 2022 13:54:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 25A1C53CC38
+	for <lists+linux-stm32@lfdr.de>; Fri,  3 Jun 2022 17:21:57 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BED53C03FD5;
-	Fri,  3 Jun 2022 11:54:06 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CCD5AC03FCD;
+	Fri,  3 Jun 2022 15:21:56 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 565D0C32E8F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1F4A4C32E8F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  3 Jun 2022 11:54:05 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 253APJir032493;
- Fri, 3 Jun 2022 13:53:57 +0200
+ Fri,  3 Jun 2022 15:21:55 +0000 (UTC)
+Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 253FFQEC017973;
+ Fri, 3 Jun 2022 17:21:25 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=FKNUpyVIm2CLWGCn06bJoa+bMwjpTz6taBDfFnjmWeM=;
- b=eYu69aYxSK7uvhzjWMBLonngbwhJqsInLXxLFQkcNQUidE0rdJshCx4SI/AmDT9RfKSt
- 3S5ouF4FstHIp22BXpCJ6pXCnaVsiqAeK1c6LeRFf+EmZcdhyGotbviWXeAGvV6lPaWJ
- FY7VBcd/3EwWzqj/fDfH+qn/ZVUWpS4O4FvgNEaFbosWte7vqKf22HnfECmE7NArUrL0
- 93Lp/nKp7kqfcqRQhhQ7rF5olAXELOUlMr3D7eb/IYR9CuLPnobcRPWRw3qa3G4khKun
- IfFy4LqjSDXqDKQJYzbg2QK2/5Bw2KphgvihQyeSIEZxfcV0vI202wh4J9nBuaawPbHQ dw== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3get03qg0n-1
+ h=from : to : subject
+ : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=selector1;
+ bh=7RCLFoGqMwTmWEP7WwIcV4ALshtLZtePe1d/3kYJpfU=;
+ b=KrC/+YrEsWQe42iiuS+l4zU073QLJc54Ep69vmPu+ecGLUdIsLhBJy44BsCf1DMn5x4/
+ AGyWyWEV7MqqXiJswP/VHYVd8X7jWkKanR9NFJ0l4FcCnfOCwh7OGH9cPzbXQ7XDE9Tg
+ VB4KgVEvGl5I05OtTLR3UVsNYicuoX3QVjWkw9TkaNULE+wWMsVEQXMa5L7r/kqb/8iH
+ sis7944pWyd32hcWbhx6fLJOP3mq+s6AIrm/J5YrhEQiz5NEeYQR9AsUvP8wq3P6TJ3K
+ U0J7khybIeMsZ5LybP4qDrK1aIzXXpla4qkEpnnjNv1MiCSqrfbKrDotz3KF4wi8PyWL sA== 
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3gbc2w747p-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 03 Jun 2022 13:53:57 +0200
+ Fri, 03 Jun 2022 17:21:25 +0200
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id C29C1100034;
- Fri,  3 Jun 2022 13:53:54 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 4095421E69A;
- Fri,  3 Jun 2022 13:53:54 +0200 (CEST)
-Received: from [10.211.10.149] (10.75.127.44) by SHFDAG1NODE2.st.com
- (10.75.129.70) with Microsoft SMTP Server (version=TLS1_2,
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id AAE4540128;
+ Fri,  3 Jun 2022 15:42:54 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id F34E3226FAA;
+ Fri,  3 Jun 2022 15:42:03 +0200 (CEST)
+Received: from localhost (10.75.127.51) by SHFDAG1NODE1.st.com (10.75.129.69)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2308.20; Fri, 3 Jun
- 2022 13:53:51 +0200
-Message-ID: <b85c7526-80a4-35f2-7629-319d172bc734@foss.st.com>
-Date: Fri, 3 Jun 2022 13:53:50 +0200
+ 2022 15:42:03 +0200
+From: Yannick Fertre <yannick.fertre@foss.st.com>
+To: Yannick Fertre <yannick.fertre@foss.st.com>, Philippe Cornu
+ <philippe.cornu@foss.st.com>, Raphael Gallais-Pou
+ <raphael.gallais-pou@foss.st.com>, David Airlie <airlied@linux.ie>, Daniel
+ Vetter <daniel@ffwll.ch>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ <dri-devel@lists.freedesktop.org>,
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
+Date: Fri, 3 Jun 2022 15:41:51 +0200
+Message-ID: <20220603134151.591997-1-yannick.fertre@foss.st.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.9.1
-Content-Language: en-US
-To: Mathieu Poirier <mathieu.poirier@linaro.org>
-References: <20220406095446.1187968-1-arnaud.pouliquen@foss.st.com>
- <20220406095446.1187968-3-arnaud.pouliquen@foss.st.com>
- <20220601174159.GD531268@p14s>
-From: Arnaud POULIQUEN <arnaud.pouliquen@foss.st.com>
-In-Reply-To: <20220601174159.GD531268@p14s>
-X-Originating-IP: [10.75.127.44]
-X-ClientProxiedBy: SFHDAG2NODE2.st.com (10.75.127.5) To SHFDAG1NODE2.st.com
- (10.75.129.70)
+X-Originating-IP: [10.75.127.51]
+X-ClientProxiedBy: SFHDAG2NODE3.st.com (10.75.127.6) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.205,Aquarius:18.0.874,Hydra:6.0.517,FMLib:17.11.64.514
- definitions=2022-06-03_03,2022-06-03_01,2022-02-23_01
-Cc: Rob Herring <robh@kernel.org>, Bruce Ashfield <bruce.ashfield@xilinx.com>,
- Stefano Stabellini <stefanos@xilinx.com>, linux-remoteproc@vger.kernel.org,
- linux-kernel@vger.kernel.org, Christoph Hellwig <hch@lst.de>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [RFC PATCH v5 2/4] remoteproc: core: Introduce
- rproc_register_rvdev function
+ definitions=2022-06-03_05,2022-06-03_01,2022-02-23_01
+Subject: [Linux-stm32] [PATCH] drm/stm: ltdc: disable all layers before crtc
+	shutdown
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,87 +78,40 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello Mathieu,
+All plans must be disabled before the CRTC shutdown helping
+the crtc to restart from a clean situation (without unwanted
+planes already enable).
 
-On 6/1/22 19:41, Mathieu Poirier wrote:
-> On Wed, Apr 06, 2022 at 11:54:44AM +0200, Arnaud Pouliquen wrote:
->> The rproc structure contains a list of registered rproc_vdev structure.
-> 
-> This should be rproc_rvdev.
+Signed-off-by: Yannick Fertre <yannick.fertre@foss.st.com>
+---
+ drivers/gpu/drm/stm/ltdc.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-Thanks for your review!
+diff --git a/drivers/gpu/drm/stm/ltdc.c b/drivers/gpu/drm/stm/ltdc.c
+index 6bd45df8f5a7..eeefc3260c07 100644
+--- a/drivers/gpu/drm/stm/ltdc.c
++++ b/drivers/gpu/drm/stm/ltdc.c
+@@ -787,11 +787,17 @@ static void ltdc_crtc_atomic_disable(struct drm_crtc *crtc,
+ {
+ 	struct ltdc_device *ldev = crtc_to_ltdc(crtc);
+ 	struct drm_device *ddev = crtc->dev;
++	int layer_index = 0;
+ 
+ 	DRM_DEBUG_DRIVER("\n");
+ 
+ 	drm_crtc_vblank_off(crtc);
+ 
++	/* Disable all layers */
++	for (layer_index = 0; layer_index < ldev->caps.nb_layers; layer_index++)
++		regmap_write_bits(ldev->regmap, LTDC_L1CR + layer_index * LAY_OFS,
++				  LXCR_CLUTEN | LXCR_LEN, 0);
++
+ 	/* disable IRQ */
+ 	regmap_clear_bits(ldev->regmap, LTDC_IER, IER_RRIE | IER_FUIE | IER_TERRIE);
+ 
+-- 
+2.25.1
 
-I will send a new version according to your comments except
-this one.
-The structure name rproc_vdev is the good one, or
-or maybe I'm missing something?
-
-Thanks,
-Arnaud
-
-> 
->> To be able to move the management of the rproc_vdev structure in
->> remoteproc_virtio.c (i.e rproc_rvdev_add_device and
->> rproc_rvdev_remove_device functions), introduce the rproc_register_rvdev
->> and rproc_unregister_rvdev functions.
-> 
-> The name of those functions doesn't match the content of the patch.
-> 
->>
->> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
->> ---
->>  drivers/remoteproc/remoteproc_core.c | 16 ++++++++++++++--
->>  1 file changed, 14 insertions(+), 2 deletions(-)
->>
->> diff --git a/drivers/remoteproc/remoteproc_core.c b/drivers/remoteproc/remoteproc_core.c
->> index 3a469220ac73..081bea39daf4 100644
->> --- a/drivers/remoteproc/remoteproc_core.c
->> +++ b/drivers/remoteproc/remoteproc_core.c
->> @@ -484,6 +484,18 @@ static int copy_dma_range_map(struct device *to, struct device *from)
->>  	return 0;
->>  }
->>  
->> +static void rproc_add_rvdev(struct rproc *rproc, struct rproc_vdev *rvdev)
->> +{
->> +	if (rvdev && rproc)
->> +		list_add_tail(&rvdev->node, &rproc->rvdevs);
->> +}
->> +
->> +static void rproc_remove_rvdev(struct rproc_vdev *rvdev)
->> +{
->> +	if (rvdev)
->> +		list_del(&rvdev->node);
->> +}
->> +
->>  static struct rproc_vdev *
->>  rproc_rvdev_add_device(struct rproc *rproc, struct rproc_vdev_data *rvdev_data)
->>  {
->> @@ -547,7 +559,7 @@ rproc_rvdev_add_device(struct rproc *rproc, struct rproc_vdev_data *rvdev_data)
->>  			goto unwind_vring_allocations;
->>  	}
->>  
->> -	list_add_tail(&rvdev->node, &rproc->rvdevs);
->> +	rproc_add_rvdev(rproc, rvdev);
->>  
->>  	rvdev->subdev.start = rproc_vdev_do_start;
->>  	rvdev->subdev.stop = rproc_vdev_do_stop;
->> @@ -576,7 +588,7 @@ static void rproc_rvdev_remove_device(struct rproc_vdev *rvdev)
->>  	}
->>  
->>  	rproc_remove_subdev(rproc, &rvdev->subdev);
->> -	list_del(&rvdev->node);
->> +	rproc_remove_rvdev(rvdev);
-> 
-> With the above:
-> 
-> Reviewed-by: Mathieu Poirier <mathieu.poirier@linaro.org>
-> 
->>  	device_unregister(&rvdev->dev);
->>  }
->>  
->> -- 
->> 2.25.1
->>
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
