@@ -2,42 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DFC8A53DE41
-	for <lists+linux-stm32@lfdr.de>; Sun,  5 Jun 2022 22:50:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4999E53E108
+	for <lists+linux-stm32@lfdr.de>; Mon,  6 Jun 2022 08:28:20 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 708A1C0D2BB;
-	Sun,  5 Jun 2022 20:50:56 +0000 (UTC)
-Received: from smtp.smtpout.orange.fr (smtp03.smtpout.orange.fr
- [80.12.242.125])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DEFB1C0D2BC;
+	Mon,  6 Jun 2022 06:28:19 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 63663C32E8F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B52C2C03FC8
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun,  5 Jun 2022 20:50:54 +0000 (UTC)
-Received: from pop-os.home ([90.11.190.129]) by smtp.orange.fr with ESMTPA
- id xxCznHYei4LtqxxD0nIPNF; Sun, 05 Jun 2022 22:50:53 +0200
-X-ME-Helo: pop-os.home
-X-ME-Auth: YWZlNiIxYWMyZDliZWIzOTcwYTEyYzlhMmU3ZiQ1M2U2MzfzZDfyZTMxZTBkMTYyNDBjNDJlZmQ3ZQ==
-X-ME-Date: Sun, 05 Jun 2022 22:50:53 +0200
-X-ME-IP: 90.11.190.129
-From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-To: Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Jose Abreu <joabreu@synopsys.com>, "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Wong Vee Khee <vee.khee.wong@linux.intel.com>
-Date: Sun,  5 Jun 2022 22:50:48 +0200
-Message-Id: <1ac9b6787b0db83b0095711882c55c77c8ea8da0.1654462241.git.christophe.jaillet@wanadoo.fr>
-X-Mailer: git-send-email 2.34.1
+ Mon,  6 Jun 2022 06:28:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1654496897; x=1686032897;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=wdDYJ5XqGQgotDlH0rFCdHOAVHtDqbqcv/4oCjtcY4I=;
+ b=I/FmjtDcadEXg4OTD8KxCfpzxMkWNZIL8+WJsUWtQMSBCqIu4n9q2A2v
+ F9GmrW4DmO7p2wqR7FotmgPwuArvcDhL5MfvVEVWVCUyzuaktfEU6Askk
+ Nq5LnSmqdElRfdKAQmnFiFKcvfw+p6X5n6P3uBN9VI7LwWM32FyQc7Y+N
+ p8SpYcCO8jCFVRUG34/7466jLBVvEhc6aZA9j+uKWxT4mCa2G2elha6FJ
+ FMeaFkciFkS9hmL1eXNLW2OWHnDbmV6egNCzgArclbFyZuC25sWxjNAOn
+ LHLeRntP5ToM1wpg6+EJSzh0pQQ/G/mZ7Lz/ZKhsXegybRuTgX6lIy7Ym w==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10369"; a="264435226"
+X-IronPort-AV: E=Sophos;i="5.91,280,1647327600"; d="scan'208";a="264435226"
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Jun 2022 23:26:57 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.91,280,1647327600"; d="scan'208";a="532005010"
+Received: from linux.intel.com ([10.54.29.200])
+ by orsmga003.jf.intel.com with ESMTP; 05 Jun 2022 23:26:56 -0700
+Received: from linux.intel.com (vwong3-iLBPG3.png.intel.com [10.88.229.80])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by linux.intel.com (Postfix) with ESMTPS id 953F658068A;
+ Sun,  5 Jun 2022 23:26:53 -0700 (PDT)
+Date: Mon, 6 Jun 2022 14:26:50 +0800
+From: Wong Vee Khee <vee.khee.wong@linux.intel.com>
+To: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+Message-ID: <20220606062650.GA31937@linux.intel.com>
+References: <1ac9b6787b0db83b0095711882c55c77c8ea8da0.1654462241.git.christophe.jaillet@wanadoo.fr>
 MIME-Version: 1.0
-Cc: netdev@vger.kernel.org, kernel-janitors@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH] stmmac: intel: Fix an error handling path in
-	intel_eth_pci_probe()
+Content-Disposition: inline
+In-Reply-To: <1ac9b6787b0db83b0095711882c55c77c8ea8da0.1654462241.git.christophe.jaillet@wanadoo.fr>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+Cc: linux-stm32@st-md-mailman.stormreply.com, netdev@vger.kernel.org,
+ kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>, Paolo Abeni <pabeni@redhat.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] stmmac: intel: Fix an error handling path
+ in intel_eth_pci_probe()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -54,41 +72,25 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-When the managed API is used, there is no need to explicitly call
-pci_free_irq_vectors().
+On Sun, Jun 05, 2022 at 10:50:48PM +0200, Christophe JAILLET wrote:
+> When the managed API is used, there is no need to explicitly call
+> pci_free_irq_vectors().
+> 
+> This looks to be a left-over from the commit in the Fixes tag. Only the
+> .remove() function had been updated.
+> 
+> So remove this unused function call and update goto label accordingly.
+> 
+> Fixes: 8accc467758e ("stmmac: intel: use managed PCI function on probe and resume")
+> Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+> ---
+>  drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c | 4 +---
+>  1 file changed, 1 insertion(+), 3 deletions(-)
+> 
 
-This looks to be a left-over from the commit in the Fixes tag. Only the
-.remove() function had been updated.
+LGTM
 
-So remove this unused function call and update goto label accordingly.
-
-Fixes: 8accc467758e ("stmmac: intel: use managed PCI function on probe and resume")
-Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
----
- drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
-
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
-index f9f80933e0c9..38fe77d1035e 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
-@@ -1072,13 +1072,11 @@ static int intel_eth_pci_probe(struct pci_dev *pdev,
- 
- 	ret = stmmac_dvr_probe(&pdev->dev, plat, &res);
- 	if (ret) {
--		goto err_dvr_probe;
-+		goto err_alloc_irq;
- 	}
- 
- 	return 0;
- 
--err_dvr_probe:
--	pci_free_irq_vectors(pdev);
- err_alloc_irq:
- 	clk_disable_unprepare(plat->stmmac_clk);
- 	clk_unregister_fixed_rate(plat->stmmac_clk);
--- 
-2.34.1
+Reviewed-by: Wong Vee Khee <vee.khee.wong@linux.intel.com>
 
 _______________________________________________
 Linux-stm32 mailing list
