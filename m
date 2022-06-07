@@ -2,41 +2,42 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 164AE53F760
-	for <lists+linux-stm32@lfdr.de>; Tue,  7 Jun 2022 09:38:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6195653F773
+	for <lists+linux-stm32@lfdr.de>; Tue,  7 Jun 2022 09:43:15 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C4B56C5EC56;
-	Tue,  7 Jun 2022 07:38:29 +0000 (UTC)
-Received: from mail-4325.protonmail.ch (mail-4325.protonmail.ch [185.70.43.25])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1B050C5EC56;
+	Tue,  7 Jun 2022 07:43:15 +0000 (UTC)
+Received: from mail-40141.protonmail.ch (mail-40141.protonmail.ch
+ [185.70.40.141])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7770BC0D2C0
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 18914C0D2C0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  7 Jun 2022 07:38:28 +0000 (UTC)
-Date: Tue, 07 Jun 2022 07:38:20 +0000
+ Tue,  7 Jun 2022 07:43:14 +0000 (UTC)
+Date: Tue, 07 Jun 2022 07:43:04 +0000
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
- s=protonmail3; t=1654587507; x=1654846707;
+ s=protonmail3; t=1654587793; x=1654846993;
  bh=D9FtRQsL64UZzeNlDSZGhV3sxAUQRz/jzb9A2KCTcNc=;
  h=Date:To:From:Cc:Reply-To:Subject:Message-ID:Feedback-ID:From:To:
  Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID;
- b=lprYmJZmwMJvTYN0JJVzs8F7A0ZlKvZQjbW63QrWTgcjshwNqOYQ/cxsJQk/rm3zq
- 6y8S6HvRriarbwUhAO01eym7shmHUYNgq/q0FRm4HKmuhi4Dbcj5+PnKTb3QzIL35x
- /JoZk/vUka8VsfNL5bH0brICZepJ4wNHuRQVwSI8LNFdRPj/3e/JKVvXtHLLDs07r1
- f0BUwG2VU8ePeu2ojyE2Rg/Ryu3e1EEF1YSnnowar60Epx9iQTy1QYBSpRE/B6h367
- 8JRyvo4KVZB8lt900CqQr6qe18iNeH9Jz/EjlH7E9v7ke39eY/de6U/sy4jEtLx0lA
- 9j6OsaTM/hkAw==
+ b=i6mTSUcTRPosAWilhmCAwd5mvCKSmf+X6domJ9XNYgWu3XZzkkHWiVAPQ03pqcISA
+ tvSLTTF7a5+Gzy6Tus1NrtlT1gSep4rDK0fETn2N0fjRn6lTsWtnDabdtEGZRZKN6g
+ 0S2tL+Cisllizz5L7QOdUeg4rnan6P/LgWgQuLb6H5Tlnx82IONYb+5d5XXKkZNZ2o
+ Hi82zZiQC3r6/3hsEFJ/3C5s1bKKgMmKKGbBcMGjEZ6ZeblGYJL+0hikwtSRCbTVTZ
+ zqQhMPWsNgvfbK+UBnqDrghDbTOJ/SX9UJvlSeVBs/KjBiAT9HnkgYnhEjzWietluv
+ M5C1LbFSYs61w==
 To: linux-kernel@vger.kernel.org
 From: "Lin, Meng-Bo" <linmengbo0689@protonmail.com>
-Message-ID: <20220607073809.21458-1-linmengbo0689@protonmail.com>
+Message-ID: <20220607074249.21763-1-linmengbo0689@protonmail.com>
 Feedback-ID: 40467236:user:proton
 MIME-Version: 1.0
-Cc: nikita@trvn.ru, dmitry.torokhov@gmail.com, stephan@gerhold.net,
- rydberg@bitmath.org, andi.shyti@samsung.com, zhengyongjun3@huawei.com,
+Cc: nikita@trvn.ru, dmitry.torokhov@gmail.com, andi@etezian.org,
+ stephan@gerhold.net, rydberg@bitmath.org, zhengyongjun3@huawei.com,
  ~postmarketos/upstreaming@lists.sr.ht, mcoquelin.stm32@gmail.com,
  linux-input@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH] input: stmfts: Add #define STMFTS_RETRY_COUNT
-	3
+Subject: [Linux-stm32] [RESEND PATCH] input: stmfts: Add #define
+	STMFTS_RETRY_COUNT 3
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
