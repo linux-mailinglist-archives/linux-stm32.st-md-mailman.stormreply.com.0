@@ -2,46 +2,46 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5F547540F94
-	for <lists+linux-stm32@lfdr.de>; Tue,  7 Jun 2022 21:11:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 263845405C8
+	for <lists+linux-stm32@lfdr.de>; Tue,  7 Jun 2022 19:30:47 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0B3E2C0D2C0;
-	Tue,  7 Jun 2022 19:11:18 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BC8E6C0D2C0;
+	Tue,  7 Jun 2022 17:30:46 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D7025C03FC1
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E5595C03FC1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  7 Jun 2022 19:11:16 +0000 (UTC)
+ Tue,  7 Jun 2022 17:30:45 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 72FC2B8220B;
- Tue,  7 Jun 2022 19:11:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF7BDC385A5;
- Tue,  7 Jun 2022 19:11:14 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id B2A6A614AE;
+ Tue,  7 Jun 2022 17:30:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF400C385A5;
+ Tue,  7 Jun 2022 17:30:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1654629075;
- bh=F5vc2z5PopVkJ8A8MZC70EPgQB/h1zcxegZ4uIkJRU4=;
+ s=korg; t=1654623044;
+ bh=HGid1XrBFiuEU2dfBMmkMybhN0uqevvKAEF3rJBDG4k=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=pmTdBiNpeqPYixelxqRPqaUQTFP0fKf+8Nb8tJxfhY6DvjHj7vKEj2hrnDc8vvH2u
- O23J6JweUkYRCWcqJOe84c4CZXSkQqxqRzLaUxbZuSs+LZtxZ99Ckjv8bAGsukuwfV
- +1sJyaEa2Xz4d0/x3G2dxipQ5KzYTXViQaOxLMr8=
+ b=08CAwF3iT8d5sIeLvMhMm7b/2fJWnE/WsPo4wrMztF6GnLvNY7xAy4fBQuDl1gJ5+
+ /eKUSMkLYigxGy4PUkjsC9cY2goOJCGGIMO1KwF1+FbCDErPsoAC8sBC/4d6q3JKEi
+ +kIFFG9hwIBll6of2rqApUd+4ZamuLt0szp4rbRg=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: linux-kernel@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org
-Date: Tue,  7 Jun 2022 19:01:19 +0200
-Message-Id: <20220607165019.146590485@linuxfoundation.org>
+Date: Tue,  7 Jun 2022 19:02:11 +0200
+Message-Id: <20220607164916.715597691@linuxfoundation.org>
 X-Mailer: git-send-email 2.36.1
-In-Reply-To: <20220607165002.659942637@linuxfoundation.org>
-References: <20220607165002.659942637@linuxfoundation.org>
+In-Reply-To: <20220607164908.521895282@linuxfoundation.org>
+References: <20220607164908.521895282@linuxfoundation.org>
 User-Agent: quilt/0.66
 MIME-Version: 1.0
 Cc: Marek Vasut <marex@denx.de>, Sasha Levin <sashal@kernel.org>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com,
  Patrick Delaunay <patrick.delaunay@foss.st.com>
-Subject: [Linux-stm32] [PATCH 5.18 561/879] ARM: dts: stm32: Fix PHY
+Subject: [Linux-stm32] [PATCH 5.10 274/452] ARM: dts: stm32: Fix PHY
 	post-reset delay on Avenger96
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -77,7 +77,7 @@ aGEgTGV2aW4gPHNhc2hhbEBrZXJuZWwub3JnPgotLS0KIGFyY2gvYXJtL2Jvb3QvZHRzL3N0bTMy
 bXAxNXh4LWRoY29yLWF2ZW5nZXI5Ni5kdHNpIHwgMSArCiAxIGZpbGUgY2hhbmdlZCwgMSBpbnNl
 cnRpb24oKykKCmRpZmYgLS1naXQgYS9hcmNoL2FybS9ib290L2R0cy9zdG0zMm1wMTV4eC1kaGNv
 ci1hdmVuZ2VyOTYuZHRzaSBiL2FyY2gvYXJtL2Jvb3QvZHRzL3N0bTMybXAxNXh4LWRoY29yLWF2
-ZW5nZXI5Ni5kdHNpCmluZGV4IDYxZTE3ZjQ0Y2U4MS4uNzZjNTRiMDA2ZDg3IDEwMDY0NAotLS0g
+ZW5nZXI5Ni5kdHNpCmluZGV4IDk0NGQzOGI4NWVlZi4uZjNlMGM3OTBhNGIxIDEwMDY0NAotLS0g
 YS9hcmNoL2FybS9ib290L2R0cy9zdG0zMm1wMTV4eC1kaGNvci1hdmVuZ2VyOTYuZHRzaQorKysg
 Yi9hcmNoL2FybS9ib290L2R0cy9zdG0zMm1wMTV4eC1kaGNvci1hdmVuZ2VyOTYuZHRzaQpAQCAt
 MTQxLDYgKzE0MSw3IEBACiAJCWNvbXBhdGlibGUgPSAic25wcyxkd21hYy1tZGlvIjsKIAkJcmVz
