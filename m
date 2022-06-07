@@ -2,47 +2,46 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B1D6853FBB5
-	for <lists+linux-stm32@lfdr.de>; Tue,  7 Jun 2022 12:45:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A4EF053FBB9
+	for <lists+linux-stm32@lfdr.de>; Tue,  7 Jun 2022 12:45:36 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 57062C5E2CC;
-	Tue,  7 Jun 2022 10:45:26 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6D5D7C5E2CC;
+	Tue,  7 Jun 2022 10:45:36 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6397EC56630
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CC1E5C56630
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  7 Jun 2022 10:45:24 +0000 (UTC)
+ Tue,  7 Jun 2022 10:45:34 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 3246E61531;
- Tue,  7 Jun 2022 10:45:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1780BC3411E;
- Tue,  7 Jun 2022 10:45:19 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 53A31B81F03;
+ Tue,  7 Jun 2022 10:45:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D5D83C385A5;
+ Tue,  7 Jun 2022 10:45:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1654598722;
- bh=H7439HAhKBiBU5PJ0wEYhH+/aj2uOXs88io1cN6Ww+I=;
+ s=k20201202; t=1654598734;
+ bh=39oGiysk6PLHAMAwWPILJB+GlGqroBrBPZj4jX62IB4=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=IZJSFxF3NIi3cewoR1VlvJQkQVHSUj3nrlHYEWLewWIaLDLl3OCLisXwJk8+U6N7k
- xAbXEtMyKf/faeh1lawU5kwfT3E6Wy0rTQ5QERHAt6NVjJ1DdVKsNtwmmB4eXkZumX
- s0qkSMeKyQbAiOT5ozjwAxPlyPDV7Zg+to24SS0nvp7oex+F10NyB+ax9Vn5ShVvzK
- Z8te27GrRgIwob/Vi5X2zadr+Q2ACUKhB7gIN56o+pBApMCXIO8IYkSbX8jz5zYd0m
- MMukOD4clitxdcEa2BeAq79ezlu9vZ9bFljGbxJpy3pQ63EFOdkNheKmQL3yMnzbUJ
- c5nRjaoG4seVw==
+ b=o94csVCXA+OwXNOQeRM+Bvnmap9v9MZ0rAAiHeWFL1aM57kgBrU8rl+uGc18tGsvV
+ OftBZx5fImxQ8t3sK67imRGgDrbACv+1tfNjFJSYZQH75lX2K6zpSodINglcz8RvU+
+ y/BDNnbQDVXBW+QLi8d6t9QHec23sag2Grd2XBIw5vX7JH8NREmorK7FZojhhpggmM
+ sYpNTxGyyCn+sMbmOMuKkxPNZ8HuqI5Vg8RorUAYmxHJt7CDoEPTec9+M9s9ai9IJ4
+ RSQIKbGzd0MiKsd3VajiCxndmGi+PAhrRBv9zkzyBcomvfix9A2E61F/+KkArL8QoP
+ CClHN1pNEKXVQ==
 From: Mark Brown <broonie@kernel.org>
-To: olivier.moysan@foss.st.com, Julia.Lawall@inria.fr
-In-Reply-To: <20220521111145.81697-76-Julia.Lawall@inria.fr>
-References: <20220521111145.81697-76-Julia.Lawall@inria.fr>
-Message-Id: <165459871980.301808.7235614685174421255.b4-ty@kernel.org>
-Date: Tue, 07 Jun 2022 11:45:19 +0100
+To: tiwai@suse.com, arnaud.pouliquen@foss.st.com, tangbin@cmss.chinamobile.com,
+ alexandre.torgue@foss.st.com, lgirdwood@gmail.com, olivier.moysan@foss.st.com,
+ mcoquelin.stm32@gmail.com, perex@perex.cz
+In-Reply-To: <20220525135023.6792-1-tangbin@cmss.chinamobile.com>
+References: <20220525135023.6792-1-tangbin@cmss.chinamobile.com>
+Message-Id: <165459873158.301808.10178152616958894169.b4-ty@kernel.org>
+Date: Tue, 07 Jun 2022 11:45:31 +0100
 MIME-Version: 1.0
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, kernel-janitors@vger.kernel.org,
- Liam Girdwood <lgirdwood@gmail.com>, mcoquelin.stm32@gmail.com,
- arnaud.pouliquen@foss.st.com, Jaroslav Kysela <perex@perex.cz>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] ASoC: stm32: dfsdm: fix typo in comment
+Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH] ASoC: stm32: sai: Remove useless define
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,9 +58,9 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Sat, 21 May 2022 13:11:26 +0200, Julia Lawall wrote:
-> Spelling mistake (triple letters) in comment.
-> Detected with the help of Coccinelle.
+On Wed, 25 May 2022 21:50:23 +0800, Tang Bin wrote:
+> STM_SAI_IS_SUB_B(x) and STM_SAI_BLOCK_NAME(x) are
+> not being used, so remove them.
 > 
 > 
 
@@ -71,8 +70,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: stm32: dfsdm: fix typo in comment
-      commit: 2685d5046962f018b1a155b3eef316562414638b
+[1/1] ASoC: stm32: sai: Remove useless define
+      commit: bf1ebcddcb19a1b6d6d8b75b75626197a5a76d4f
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during
