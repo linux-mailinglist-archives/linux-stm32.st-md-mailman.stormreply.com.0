@@ -2,46 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B0C05423C3
-	for <lists+linux-stm32@lfdr.de>; Wed,  8 Jun 2022 08:51:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A9A1A54408F
+	for <lists+linux-stm32@lfdr.de>; Thu,  9 Jun 2022 02:28:55 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3B7C3C03FFF;
-	Wed,  8 Jun 2022 06:51:44 +0000 (UTC)
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
- [85.220.165.71])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1F24DC5E2C6;
+	Thu,  9 Jun 2022 00:28:55 +0000 (UTC)
+Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com
+ [209.85.218.46])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AAAAFC035BC
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B1A87C5662F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  8 Jun 2022 06:51:43 +0000 (UTC)
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
- by metis.ext.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <ukl@pengutronix.de>)
- id 1nypXY-0000mV-3Y; Wed, 08 Jun 2022 08:51:40 +0200
-Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
- by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.94.2)
- (envelope-from <ukl@pengutronix.de>)
- id 1nypXU-0078Sz-To; Wed, 08 Jun 2022 08:51:35 +0200
-Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.94.2)
- (envelope-from <ukl@pengutronix.de>)
- id 1nypXS-00EvGb-Qb; Wed, 08 Jun 2022 08:51:34 +0200
-Date: Wed, 8 Jun 2022 08:51:31 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
-To: Jilin Yuan <yuanjilin@cdjrlc.com>
-Message-ID: <20220608065131.svkxcwfgzdd7cs57@pengutronix.de>
-References: <20220608010318.18040-1-yuanjilin@cdjrlc.com>
+ Thu,  9 Jun 2022 00:28:53 +0000 (UTC)
+Received: by mail-ej1-f46.google.com with SMTP id o7so11172699eja.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 08 Jun 2022 17:28:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=MmMak1g0Or5/SPEB3988q7jPgBcZiEs6ACLIGroSnsk=;
+ b=YJ/+S4sd6V5TTpWe3HozJ6aT4U5QrdBRDxy8HERqMCsYOduLGF+IeYdUMu+4WjQZD4
+ yCD6viR0tZPk0htv+QHuhU4aP0/ScEGIBAfR0JeTpEQdrXpOwyoM87SEMJOSuydFpgyc
+ WxfUVoYrqoHZP0RAfW60Fx+T9BGiKjbvOQVIhvA3gYlsnYrqQc+2T70o51iwjrmb8n+g
+ 54a0g302y2sIOnkLe+syaOvH4+qUPNy5dorI0qUTjo+oHq8a1mmaYa6vFKtmOxrVF2hJ
+ 8ev5j8lGyxWTA9LSg7TVUyN7XRNmoxv4jvSI3OHwcglSqxX6BLMQaJWbSNP/cv0OAe10
+ kczw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=MmMak1g0Or5/SPEB3988q7jPgBcZiEs6ACLIGroSnsk=;
+ b=mRFfZA56AeWCTrJ4HwhnA7PGqZK0M6FPACck7HePKBVwIecUa3vLKortQaMNGdhODl
+ 3P2NEwpTCEk0ZAESjP3w6iFVfJz5GCFW7MyZQDRwEO5PaMo6xVLv3SKuPb12FizQGArl
+ rGVVgQqTzH2IM5NK/pwmv1GvVY8PsGsDyj9pV+A88M+/n5wTsrJ1n76YPjNKuB3Ao0kB
+ qgMk6RMxhJJXl/ZuTuXfrIHK8vT5mt2REwxHIXgQ2BaRw3jBK0gTm9N1eHDqLb/RN+MN
+ p+EpO4PfR6puWLy3R3sgz3yNeQmXfwZdE7xQa6oO4CmBhviMdhka3g+mQlASKZ5E0GyS
+ 8OPw==
+X-Gm-Message-State: AOAM533zvpbNvQf+u8WEOhu2hQO8LUjv9Q1esAAlPQXEehBVZyJAABMl
+ IABIk8Dqv8MeZzRUXL2pkpk=
+X-Google-Smtp-Source: ABdhPJxWiOTBDATWmUT0/XEHaIWadZNAuHe/ThI65GnYp+/wA5AuZbJ+tHEdwZOg2U0+MZ8IrjhN9w==
+X-Received: by 2002:a17:906:5d07:b0:6ff:40d2:1ff9 with SMTP id
+ g7-20020a1709065d0700b006ff40d21ff9mr34588933ejt.435.1654734532957; 
+ Wed, 08 Jun 2022 17:28:52 -0700 (PDT)
+Received: from localhost.localdomain (93-42-70-190.ip85.fastwebnet.it.
+ [93.42.70.190]) by smtp.googlemail.com with ESMTPSA id
+ g22-20020aa7c596000000b0042deea0e961sm13110325edq.67.2022.06.08.17.28.51
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 08 Jun 2022 17:28:52 -0700 (PDT)
+From: Christian 'Ansuel' Marangi <ansuelsmth@gmail.com>
+To: Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Jose Abreu <joabreu@synopsys.com>, "David S. Miller" <davem@davemloft.net>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Date: Thu,  9 Jun 2022 02:28:30 +0200
+Message-Id: <20220609002831.24236-1-ansuelsmth@gmail.com>
+X-Mailer: git-send-email 2.36.1
 MIME-Version: 1.0
-In-Reply-To: <20220608010318.18040-1-yuanjilin@cdjrlc.com>
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: ukl@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
-Cc: linux-pwm@vger.kernel.org, linux-kernel@vger.kernel.org,
- thierry.reding@gmail.com, mcoquelin.stm32@gmail.com, lee.jones@linaro.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] pwm: stmpe: Deleted extra {}
+Cc: Christian 'Ansuel' Marangi <ansuelsmth@gmail.com>
+Subject: [Linux-stm32] [net-next PATCH 1/2] net: ethernet: stmmac: add
+	missing sgmii configure for ipq806x
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -53,87 +75,162 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============2601987841860383756=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+The different gmacid require different configuration based on the soc
+and on the gmac id. Add these missing configuration taken from the
+original driver.
 
---===============2601987841860383756==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="7azeu5p4ver3v3re"
-Content-Disposition: inline
+Signed-off-by: Christian 'Ansuel' Marangi <ansuelsmth@gmail.com>
+---
+ drivers/net/ethernet/stmicro/stmmac/Kconfig   |  1 +
+ .../ethernet/stmicro/stmmac/dwmac-ipq806x.c   | 93 +++++++++++++++----
+ 2 files changed, 78 insertions(+), 16 deletions(-)
 
-
---7azeu5p4ver3v3re
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Wed, Jun 08, 2022 at 09:03:18AM +0800, Jilin Yuan wrote:
-> Remove unnecessary braces
->=20
-> Signed-off-by: Jilin Yuan <yuanjilin@cdjrlc.com>
-> ---
->  drivers/pwm/pwm-stmpe.c | 3 +--
->  1 file changed, 1 insertion(+), 2 deletions(-)
->=20
-> diff --git a/drivers/pwm/pwm-stmpe.c b/drivers/pwm/pwm-stmpe.c
-> index 2df526fe9c38..c45fe27859de 100644
-> --- a/drivers/pwm/pwm-stmpe.c
-> +++ b/drivers/pwm/pwm-stmpe.c
-> @@ -78,10 +78,9 @@ static void stmpe_24xx_pwm_disable(struct pwm_chip *ch=
-ip,
->  	value =3D ret & ~BIT(pwm->hwpwm);
-> =20
->  	ret =3D stmpe_reg_write(stmpe_pwm->stmpe, STMPE24XX_PWMCS, value);
-> -	if (ret) {
-> +	if (ret)
->  		dev_err(chip->dev, "error writing PWM#%u control\n",
->  			pwm->hwpwm);
-> -	}
->  }
-
-This doesn't apply to neither next nor on the pwm tree nor on Linus
-Torvald's tree. Please always mention preconditions of your patches,
-preferably using git format-patch's --base option.
-
-In this case it builds on top of a patch that was sent to only some
-maintainers, but no public list. Please squash these patches together
-and send them to (at least) linux-pwm@vger.kernel.org.
-
-Best regards
-Uwe
-
---=20
-Pengutronix e.K.                           | Uwe Kleine-K=F6nig            |
-Industrial Linux Solutions                 | https://www.pengutronix.de/ |
-
---7azeu5p4ver3v3re
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEfnIqFpAYrP8+dKQLwfwUeK3K7AkFAmKgRvAACgkQwfwUeK3K
-7Aly8gf+IsXwM8wK6WR96UUHInicXEyDlpcmhCEbr3j0EI3D8JLbzSBwABVFvzVy
-gVCD/rvGtjr5R7jRS3TCshBUoqdSxcf50Rt+aUPvxlUAzs/eqhIVqE0B9kEwI0U/
-vAqW/55RtMNlL/eZV40sm/2OJ8SoSxZMZrI9xyh9BAdvUgGLMnKiWIkRy8ofA7pw
-aUyoMHGL1zGE8s4STMPIQ+s59D4HCSwTksnYJYxHeu+UCAvVYXWIp2XVek52Dh/a
-DyR8PbYvwXIfk26gENsvwXfKg2AQixfVSZukfj3whieoEsEbsfUWHkPdYQAxPnDY
-X31yMqD443j/uEeaCDsmicULvIXdGg==
-=en01
------END PGP SIGNATURE-----
-
---7azeu5p4ver3v3re--
-
---===============2601987841860383756==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+diff --git a/drivers/net/ethernet/stmicro/stmmac/Kconfig b/drivers/net/ethernet/stmicro/stmmac/Kconfig
+index 929cfc22cd0c..c4bca16dae57 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/Kconfig
++++ b/drivers/net/ethernet/stmicro/stmmac/Kconfig
+@@ -83,6 +83,7 @@ config DWMAC_IPQ806X
+ 	default ARCH_QCOM
+ 	depends on OF && (ARCH_QCOM || COMPILE_TEST)
+ 	select MFD_SYSCON
++	select QCOM_SOCINFO
+ 	help
+ 	  Support for QCA IPQ806X DWMAC Ethernet.
+ 
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-ipq806x.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-ipq806x.c
+index f7dc8458cde8..832f442254d8 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-ipq806x.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-ipq806x.c
+@@ -27,6 +27,8 @@
+ #include <linux/stmmac.h>
+ #include <linux/of_mdio.h>
+ #include <linux/module.h>
++#include <linux/sys_soc.h>
++#include <linux/bitfield.h>
+ 
+ #include "stmmac_platform.h"
+ 
+@@ -75,11 +77,20 @@
+ #define QSGMII_PHY_RX_SIGNAL_DETECT_EN		BIT(2)
+ #define QSGMII_PHY_TX_DRIVER_EN			BIT(3)
+ #define QSGMII_PHY_QSGMII_EN			BIT(7)
+-#define QSGMII_PHY_PHASE_LOOP_GAIN_OFFSET	12
+-#define QSGMII_PHY_RX_DC_BIAS_OFFSET		18
+-#define QSGMII_PHY_RX_INPUT_EQU_OFFSET		20
+-#define QSGMII_PHY_CDR_PI_SLEW_OFFSET		22
+-#define QSGMII_PHY_TX_DRV_AMP_OFFSET		28
++#define QSGMII_PHY_DEEMPHASIS_LVL_MASK		GENMASK(11, 10)
++#define QSGMII_PHY_DEEMPHASIS_LVL(x)		FIELD_PREP(QSGMII_PHY_DEEMPHASIS_LVL_MASK, (x))
++#define QSGMII_PHY_PHASE_LOOP_GAIN_MASK		GENMASK(14, 12)
++#define QSGMII_PHY_PHASE_LOOP_GAIN(x)		FIELD_PREP(QSGMII_PHY_PHASE_LOOP_GAIN_MASK, (x))
++#define QSGMII_PHY_RX_DC_BIAS_MASK		GENMASK(19, 18)
++#define QSGMII_PHY_RX_DC_BIAS(x)		FIELD_PREP(QSGMII_PHY_RX_DC_BIAS_MASK, (x))
++#define QSGMII_PHY_RX_INPUT_EQU_MASK		GENMASK(21, 20)
++#define QSGMII_PHY_RX_INPUT_EQU(x)		FIELD_PREP(QSGMII_PHY_RX_INPUT_EQU_MASK, (x))
++#define QSGMII_PHY_CDR_PI_SLEW_MASK		GENMASK(23, 22)
++#define QSGMII_PHY_CDR_PI_SLEW(x)		FIELD_PREP(QSGMII_PHY_CDR_PI_SLEW_MASK, (x))
++#define QSGMII_PHY_TX_SLEW_MASK			GENMASK(27, 26)
++#define QSGMII_PHY_TX_SLEW(x)			FIELD_PREP(QSGMII_PHY_TX_SLEW_MASK, (x))
++#define QSGMII_PHY_TX_DRV_AMP_MASK		GENMASK(31, 28)
++#define QSGMII_PHY_TX_DRV_AMP(x)		FIELD_PREP(QSGMII_PHY_TX_DRV_AMP_MASK, (x))
+ 
+ struct ipq806x_gmac {
+ 	struct platform_device *pdev;
+@@ -242,6 +253,64 @@ static void ipq806x_gmac_fix_mac_speed(void *priv, unsigned int speed)
+ 	ipq806x_gmac_set_speed(gmac, speed);
+ }
+ 
++static const struct soc_device_attribute ipq806x_gmac_soc_v1[] = {
++	{
++		.revision = "1.*",
++	},
++	{
++		/* sentinel */
++	}
++};
++
++static int
++ipq806x_gmac_configure_qsgmii_params(struct ipq806x_gmac *gmac)
++{
++	struct platform_device *pdev = gmac->pdev;
++	const struct soc_device_attribute *soc;
++	struct device *dev = &pdev->dev;
++	u32 qsgmii_param;
++
++	switch (gmac->id) {
++	case 1:
++		soc = soc_device_match(ipq806x_gmac_soc_v1);
++
++		if (soc)
++			qsgmii_param = QSGMII_PHY_TX_DRV_AMP(0xc) |
++				       QSGMII_PHY_TX_SLEW(0x2) |
++				       QSGMII_PHY_DEEMPHASIS_LVL(0x2);
++		else
++			qsgmii_param = QSGMII_PHY_TX_DRV_AMP(0xd) |
++				       QSGMII_PHY_TX_SLEW(0x0) |
++				       QSGMII_PHY_DEEMPHASIS_LVL(0x0);
++
++		qsgmii_param |= QSGMII_PHY_RX_DC_BIAS(0x2);
++		break;
++	case 2:
++	case 3:
++		qsgmii_param = QSGMII_PHY_RX_DC_BIAS(0x3) |
++			       QSGMII_PHY_TX_DRV_AMP(0xc);
++		break;
++	default: /* gmac 0 can't be set in SGMII mode */
++		dev_err(dev, "gmac id %d can't be in SGMII mode", gmac->id);
++		return -EINVAL;
++	}
++
++	/* Common params across all gmac id */
++	qsgmii_param |= QSGMII_PHY_CDR_EN |
++			QSGMII_PHY_RX_FRONT_EN |
++			QSGMII_PHY_RX_SIGNAL_DETECT_EN |
++			QSGMII_PHY_TX_DRIVER_EN |
++			QSGMII_PHY_QSGMII_EN |
++			QSGMII_PHY_PHASE_LOOP_GAIN(0x4) |
++			QSGMII_PHY_RX_INPUT_EQU(0x1) |
++			QSGMII_PHY_CDR_PI_SLEW(0x2);
++
++	regmap_write(gmac->qsgmii_csr, QSGMII_PHY_SGMII_CTL(gmac->id),
++		     qsgmii_param);
++
++	return 0;
++}
++
+ static int ipq806x_gmac_probe(struct platform_device *pdev)
+ {
+ 	struct plat_stmmacenet_data *plat_dat;
+@@ -328,17 +397,9 @@ static int ipq806x_gmac_probe(struct platform_device *pdev)
+ 	regmap_write(gmac->nss_common, NSS_COMMON_CLK_GATE, val);
+ 
+ 	if (gmac->phy_mode == PHY_INTERFACE_MODE_SGMII) {
+-		regmap_write(gmac->qsgmii_csr, QSGMII_PHY_SGMII_CTL(gmac->id),
+-			     QSGMII_PHY_CDR_EN |
+-			     QSGMII_PHY_RX_FRONT_EN |
+-			     QSGMII_PHY_RX_SIGNAL_DETECT_EN |
+-			     QSGMII_PHY_TX_DRIVER_EN |
+-			     QSGMII_PHY_QSGMII_EN |
+-			     0x4ul << QSGMII_PHY_PHASE_LOOP_GAIN_OFFSET |
+-			     0x3ul << QSGMII_PHY_RX_DC_BIAS_OFFSET |
+-			     0x1ul << QSGMII_PHY_RX_INPUT_EQU_OFFSET |
+-			     0x2ul << QSGMII_PHY_CDR_PI_SLEW_OFFSET |
+-			     0xCul << QSGMII_PHY_TX_DRV_AMP_OFFSET);
++		err = ipq806x_gmac_configure_qsgmii_params(gmac);
++		if (err)
++			goto err_remove_config_dt;
+ 	}
+ 
+ 	plat_dat->has_gmac = true;
+-- 
+2.36.1
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============2601987841860383756==--
