@@ -2,53 +2,53 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A9A1A54408F
-	for <lists+linux-stm32@lfdr.de>; Thu,  9 Jun 2022 02:28:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A568544090
+	for <lists+linux-stm32@lfdr.de>; Thu,  9 Jun 2022 02:28:57 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1F24DC5E2C6;
-	Thu,  9 Jun 2022 00:28:55 +0000 (UTC)
-Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com
- [209.85.218.46])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2C034C5EC56;
+	Thu,  9 Jun 2022 00:28:57 +0000 (UTC)
+Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com
+ [209.85.218.44])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B1A87C5662F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B9475C5662F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  9 Jun 2022 00:28:53 +0000 (UTC)
-Received: by mail-ej1-f46.google.com with SMTP id o7so11172699eja.1
+ Thu,  9 Jun 2022 00:28:54 +0000 (UTC)
+Received: by mail-ej1-f44.google.com with SMTP id kq6so31427097ejb.11
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 08 Jun 2022 17:28:53 -0700 (PDT)
+ Wed, 08 Jun 2022 17:28:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=MmMak1g0Or5/SPEB3988q7jPgBcZiEs6ACLIGroSnsk=;
- b=YJ/+S4sd6V5TTpWe3HozJ6aT4U5QrdBRDxy8HERqMCsYOduLGF+IeYdUMu+4WjQZD4
- yCD6viR0tZPk0htv+QHuhU4aP0/ScEGIBAfR0JeTpEQdrXpOwyoM87SEMJOSuydFpgyc
- WxfUVoYrqoHZP0RAfW60Fx+T9BGiKjbvOQVIhvA3gYlsnYrqQc+2T70o51iwjrmb8n+g
- 54a0g302y2sIOnkLe+syaOvH4+qUPNy5dorI0qUTjo+oHq8a1mmaYa6vFKtmOxrVF2hJ
- 8ev5j8lGyxWTA9LSg7TVUyN7XRNmoxv4jvSI3OHwcglSqxX6BLMQaJWbSNP/cv0OAe10
- kczw==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=iZYilu8fPT/X0/rC3yI2GAgJU7tXE0lBGVOQjpp6qfg=;
+ b=Eh/MIYG2mfr8DWBEbA8RjQdvZyriooYS+sRRTbmbx0KeybrKZe2Gds8SidizZcl0uF
+ Zwc0bNBw5DWZ/f3vwVvZ028NZj5qUltbENvd+jrl5410z2/pp3tbV02gdER9psqVPkf5
+ /fSDZi+VeSIs3ktCmBGrGjWyOVJwfAY3zzDz4vyQHi9dB/lb9GO6VdrTPW0I5nu2DEWi
+ 1YgxaJEhnXrWpmMWwcu5TnUutF/t/br69v1D52bMEi89GFcZyXWxcdOIHAwuLeCKPey3
+ cy8VMJXGmdGls+p7Fz4gC4vTljIMM3kIwsZtbx90SBiBSt3oxn+FeahKrNRNb1q6RBkf
+ LYrg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=MmMak1g0Or5/SPEB3988q7jPgBcZiEs6ACLIGroSnsk=;
- b=mRFfZA56AeWCTrJ4HwhnA7PGqZK0M6FPACck7HePKBVwIecUa3vLKortQaMNGdhODl
- 3P2NEwpTCEk0ZAESjP3w6iFVfJz5GCFW7MyZQDRwEO5PaMo6xVLv3SKuPb12FizQGArl
- rGVVgQqTzH2IM5NK/pwmv1GvVY8PsGsDyj9pV+A88M+/n5wTsrJ1n76YPjNKuB3Ao0kB
- qgMk6RMxhJJXl/ZuTuXfrIHK8vT5mt2REwxHIXgQ2BaRw3jBK0gTm9N1eHDqLb/RN+MN
- p+EpO4PfR6puWLy3R3sgz3yNeQmXfwZdE7xQa6oO4CmBhviMdhka3g+mQlASKZ5E0GyS
- 8OPw==
-X-Gm-Message-State: AOAM533zvpbNvQf+u8WEOhu2hQO8LUjv9Q1esAAlPQXEehBVZyJAABMl
- IABIk8Dqv8MeZzRUXL2pkpk=
-X-Google-Smtp-Source: ABdhPJxWiOTBDATWmUT0/XEHaIWadZNAuHe/ThI65GnYp+/wA5AuZbJ+tHEdwZOg2U0+MZ8IrjhN9w==
-X-Received: by 2002:a17:906:5d07:b0:6ff:40d2:1ff9 with SMTP id
- g7-20020a1709065d0700b006ff40d21ff9mr34588933ejt.435.1654734532957; 
- Wed, 08 Jun 2022 17:28:52 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=iZYilu8fPT/X0/rC3yI2GAgJU7tXE0lBGVOQjpp6qfg=;
+ b=AhIv9riYQNByAuWFZo5xdkkfTXyrGeBpuB8insj3E42t3NZGf+UOuCvbA9wa2hb1lj
+ X1eIKYM2/da2275DxSNMPa8XsZEMPC5BHgRyxGkdHq3p9TxI+B/jLfNZ2JIBMFMqMabA
+ BeANRamEkUL3Lt2M1nPDakQb98daXC4R5frcQfB84UVvKTBpRVwZVkHuq+UrQ+7l45Qd
+ B/oDQ3ushTZrlCYDv+QfsjEtaLtmZldJw88QW74+wDJqFZrx3q73yk58CnNPDftdXZYM
+ zyjoxz50eDgc40FMFB8qEEHFp/6uRXBmbFdXGQoog/c9lzZiimjSOhW6atQzpzNmQNGl
+ HYFA==
+X-Gm-Message-State: AOAM5323YrAjdp/GxQSNO3SGjRrWdSvChoYecPXBsXBbq9jGGhRf3Jy9
+ O5VNIXRgV2RByE4zMTPhlLE=
+X-Google-Smtp-Source: ABdhPJz+2lELdvabfIWbfohoHH9dl6Q+0YhytqLPBbaw5WQ97ArKPw0ZDiQDPP9b2Y9CzTJCpKNLEg==
+X-Received: by 2002:a17:906:4784:b0:6ff:34ea:d824 with SMTP id
+ cw4-20020a170906478400b006ff34ead824mr34687999ejc.526.1654734534147; 
+ Wed, 08 Jun 2022 17:28:54 -0700 (PDT)
 Received: from localhost.localdomain (93-42-70-190.ip85.fastwebnet.it.
  [93.42.70.190]) by smtp.googlemail.com with ESMTPSA id
- g22-20020aa7c596000000b0042deea0e961sm13110325edq.67.2022.06.08.17.28.51
+ g22-20020aa7c596000000b0042deea0e961sm13110325edq.67.2022.06.08.17.28.53
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 08 Jun 2022 17:28:52 -0700 (PDT)
+ Wed, 08 Jun 2022 17:28:53 -0700 (PDT)
 From: Christian 'Ansuel' Marangi <ansuelsmth@gmail.com>
 To: Giuseppe Cavallaro <peppe.cavallaro@st.com>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>,
@@ -57,13 +57,16 @@ To: Giuseppe Cavallaro <peppe.cavallaro@st.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Date: Thu,  9 Jun 2022 02:28:30 +0200
-Message-Id: <20220609002831.24236-1-ansuelsmth@gmail.com>
+Date: Thu,  9 Jun 2022 02:28:31 +0200
+Message-Id: <20220609002831.24236-2-ansuelsmth@gmail.com>
 X-Mailer: git-send-email 2.36.1
+In-Reply-To: <20220609002831.24236-1-ansuelsmth@gmail.com>
+References: <20220609002831.24236-1-ansuelsmth@gmail.com>
 MIME-Version: 1.0
-Cc: Christian 'Ansuel' Marangi <ansuelsmth@gmail.com>
-Subject: [Linux-stm32] [net-next PATCH 1/2] net: ethernet: stmmac: add
-	missing sgmii configure for ipq806x
+Cc: Christian 'Ansuel' Marangi <ansuelsmth@gmail.com>,
+ Mark Mentovai <mark@moxienet.com>
+Subject: [Linux-stm32] [net-next PATCH 2/2] net: ethernet: stmmac: reset
+	force speed bit for ipq806x
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,148 +83,107 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The different gmacid require different configuration based on the soc
-and on the gmac id. Add these missing configuration taken from the
-original driver.
+Some bootloader may set the force speed regs even if the actual
+interface should use autonegotiation between PCS and PHY.
+This cause the complete malfuction of the interface.
 
+To fix this correctly reset the force speed regs if a fixed-link is not
+defined in the DTS. With a fixed-link node correctly configure the
+forced speed regs to handle any misconfiguration by the bootloader.
+
+Reported-by: Mark Mentovai <mark@moxienet.com>
+Co-developed-by: Mark Mentovai <mark@moxienet.com>
+Signed-off-by: Mark Mentovai <mark@moxienet.com>
 Signed-off-by: Christian 'Ansuel' Marangi <ansuelsmth@gmail.com>
 ---
- drivers/net/ethernet/stmicro/stmmac/Kconfig   |  1 +
- .../ethernet/stmicro/stmmac/dwmac-ipq806x.c   | 93 +++++++++++++++----
- 2 files changed, 78 insertions(+), 16 deletions(-)
+ .../ethernet/stmicro/stmmac/dwmac-ipq806x.c   | 65 +++++++++++++++++++
+ 1 file changed, 65 insertions(+)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/Kconfig b/drivers/net/ethernet/stmicro/stmmac/Kconfig
-index 929cfc22cd0c..c4bca16dae57 100644
---- a/drivers/net/ethernet/stmicro/stmmac/Kconfig
-+++ b/drivers/net/ethernet/stmicro/stmmac/Kconfig
-@@ -83,6 +83,7 @@ config DWMAC_IPQ806X
- 	default ARCH_QCOM
- 	depends on OF && (ARCH_QCOM || COMPILE_TEST)
- 	select MFD_SYSCON
-+	select QCOM_SOCINFO
- 	help
- 	  Support for QCA IPQ806X DWMAC Ethernet.
- 
 diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-ipq806x.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-ipq806x.c
-index f7dc8458cde8..832f442254d8 100644
+index 832f442254d8..0f2f2bc6873d 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-ipq806x.c
 +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-ipq806x.c
-@@ -27,6 +27,8 @@
- #include <linux/stmmac.h>
- #include <linux/of_mdio.h>
- #include <linux/module.h>
-+#include <linux/sys_soc.h>
-+#include <linux/bitfield.h>
+@@ -66,6 +66,17 @@
+ #define NSS_COMMON_CLK_DIV_SGMII_100		4
+ #define NSS_COMMON_CLK_DIV_SGMII_10		49
  
- #include "stmmac_platform.h"
++#define QSGMII_PCS_ALL_CH_CTL			0x80
++#define QSGMII_PCS_CH_SPEED_FORCE		BIT(1)
++#define QSGMII_PCS_CH_SPEED_10			0x0
++#define QSGMII_PCS_CH_SPEED_100			BIT(2)
++#define QSGMII_PCS_CH_SPEED_1000		BIT(3)
++#define QSGMII_PCS_CH_SPEED_MASK		(QSGMII_PCS_CH_SPEED_FORCE | \
++						 QSGMII_PCS_CH_SPEED_10 | \
++						 QSGMII_PCS_CH_SPEED_100 | \
++						 QSGMII_PCS_CH_SPEED_1000)
++#define QSGMII_PCS_CH_SPEED_SHIFT(x)		((x) * 4)
++
+ #define QSGMII_PCS_CAL_LCKDT_CTL		0x120
+ #define QSGMII_PCS_CAL_LCKDT_CTL_RST		BIT(19)
  
-@@ -75,11 +77,20 @@
- #define QSGMII_PHY_RX_SIGNAL_DETECT_EN		BIT(2)
- #define QSGMII_PHY_TX_DRIVER_EN			BIT(3)
- #define QSGMII_PHY_QSGMII_EN			BIT(7)
--#define QSGMII_PHY_PHASE_LOOP_GAIN_OFFSET	12
--#define QSGMII_PHY_RX_DC_BIAS_OFFSET		18
--#define QSGMII_PHY_RX_INPUT_EQU_OFFSET		20
--#define QSGMII_PHY_CDR_PI_SLEW_OFFSET		22
--#define QSGMII_PHY_TX_DRV_AMP_OFFSET		28
-+#define QSGMII_PHY_DEEMPHASIS_LVL_MASK		GENMASK(11, 10)
-+#define QSGMII_PHY_DEEMPHASIS_LVL(x)		FIELD_PREP(QSGMII_PHY_DEEMPHASIS_LVL_MASK, (x))
-+#define QSGMII_PHY_PHASE_LOOP_GAIN_MASK		GENMASK(14, 12)
-+#define QSGMII_PHY_PHASE_LOOP_GAIN(x)		FIELD_PREP(QSGMII_PHY_PHASE_LOOP_GAIN_MASK, (x))
-+#define QSGMII_PHY_RX_DC_BIAS_MASK		GENMASK(19, 18)
-+#define QSGMII_PHY_RX_DC_BIAS(x)		FIELD_PREP(QSGMII_PHY_RX_DC_BIAS_MASK, (x))
-+#define QSGMII_PHY_RX_INPUT_EQU_MASK		GENMASK(21, 20)
-+#define QSGMII_PHY_RX_INPUT_EQU(x)		FIELD_PREP(QSGMII_PHY_RX_INPUT_EQU_MASK, (x))
-+#define QSGMII_PHY_CDR_PI_SLEW_MASK		GENMASK(23, 22)
-+#define QSGMII_PHY_CDR_PI_SLEW(x)		FIELD_PREP(QSGMII_PHY_CDR_PI_SLEW_MASK, (x))
-+#define QSGMII_PHY_TX_SLEW_MASK			GENMASK(27, 26)
-+#define QSGMII_PHY_TX_SLEW(x)			FIELD_PREP(QSGMII_PHY_TX_SLEW_MASK, (x))
-+#define QSGMII_PHY_TX_DRV_AMP_MASK		GENMASK(31, 28)
-+#define QSGMII_PHY_TX_DRV_AMP(x)		FIELD_PREP(QSGMII_PHY_TX_DRV_AMP_MASK, (x))
- 
- struct ipq806x_gmac {
- 	struct platform_device *pdev;
-@@ -242,6 +253,64 @@ static void ipq806x_gmac_fix_mac_speed(void *priv, unsigned int speed)
+@@ -253,6 +264,56 @@ static void ipq806x_gmac_fix_mac_speed(void *priv, unsigned int speed)
  	ipq806x_gmac_set_speed(gmac, speed);
  }
  
-+static const struct soc_device_attribute ipq806x_gmac_soc_v1[] = {
-+	{
-+		.revision = "1.*",
-+	},
-+	{
-+		/* sentinel */
-+	}
-+};
-+
 +static int
-+ipq806x_gmac_configure_qsgmii_params(struct ipq806x_gmac *gmac)
++ipq806x_gmac_configure_qsgmii_pcs_speed(struct ipq806x_gmac *gmac)
 +{
 +	struct platform_device *pdev = gmac->pdev;
-+	const struct soc_device_attribute *soc;
 +	struct device *dev = &pdev->dev;
-+	u32 qsgmii_param;
++	struct device_node *dn;
++	int link_speed;
++	int val = 0;
++	int ret;
 +
-+	switch (gmac->id) {
-+	case 1:
-+		soc = soc_device_match(ipq806x_gmac_soc_v1);
++	/* Some bootloader may apply wrong configuration and cause
++	 * not functioning port. If fixed link is not set,
++	 * reset the force speed bit.
++	 */
++	if (!of_phy_is_fixed_link(pdev->dev.of_node))
++		goto write;
 +
-+		if (soc)
-+			qsgmii_param = QSGMII_PHY_TX_DRV_AMP(0xc) |
-+				       QSGMII_PHY_TX_SLEW(0x2) |
-+				       QSGMII_PHY_DEEMPHASIS_LVL(0x2);
-+		else
-+			qsgmii_param = QSGMII_PHY_TX_DRV_AMP(0xd) |
-+				       QSGMII_PHY_TX_SLEW(0x0) |
-+				       QSGMII_PHY_DEEMPHASIS_LVL(0x0);
-+
-+		qsgmii_param |= QSGMII_PHY_RX_DC_BIAS(0x2);
-+		break;
-+	case 2:
-+	case 3:
-+		qsgmii_param = QSGMII_PHY_RX_DC_BIAS(0x3) |
-+			       QSGMII_PHY_TX_DRV_AMP(0xc);
-+		break;
-+	default: /* gmac 0 can't be set in SGMII mode */
-+		dev_err(dev, "gmac id %d can't be in SGMII mode", gmac->id);
-+		return -EINVAL;
++	dn = of_get_child_by_name(pdev->dev.of_node, "fixed-link");
++	ret = of_property_read_u32(dn, "speed", &link_speed);
++	if (ret) {
++		dev_err(dev, "found fixed-link node with no speed");
++		return ret;
 +	}
 +
-+	/* Common params across all gmac id */
-+	qsgmii_param |= QSGMII_PHY_CDR_EN |
-+			QSGMII_PHY_RX_FRONT_EN |
-+			QSGMII_PHY_RX_SIGNAL_DETECT_EN |
-+			QSGMII_PHY_TX_DRIVER_EN |
-+			QSGMII_PHY_QSGMII_EN |
-+			QSGMII_PHY_PHASE_LOOP_GAIN(0x4) |
-+			QSGMII_PHY_RX_INPUT_EQU(0x1) |
-+			QSGMII_PHY_CDR_PI_SLEW(0x2);
++	of_node_put(dn);
 +
-+	regmap_write(gmac->qsgmii_csr, QSGMII_PHY_SGMII_CTL(gmac->id),
-+		     qsgmii_param);
++	val = QSGMII_PCS_CH_SPEED_FORCE;
++
++	switch (link_speed) {
++	case SPEED_1000:
++		val |= QSGMII_PCS_CH_SPEED_1000;
++		break;
++	case SPEED_100:
++		val |= QSGMII_PCS_CH_SPEED_100;
++		break;
++	case SPEED_10:
++		val |= QSGMII_PCS_CH_SPEED_10;
++		break;
++	}
++
++write:
++	regmap_update_bits(gmac->qsgmii_csr, QSGMII_PCS_ALL_CH_CTL,
++			   QSGMII_PCS_CH_SPEED_MASK <<
++			   QSGMII_PCS_CH_SPEED_SHIFT(gmac->id),
++			   val <<
++			   QSGMII_PCS_CH_SPEED_SHIFT(gmac->id));
 +
 +	return 0;
 +}
 +
- static int ipq806x_gmac_probe(struct platform_device *pdev)
- {
- 	struct plat_stmmacenet_data *plat_dat;
-@@ -328,17 +397,9 @@ static int ipq806x_gmac_probe(struct platform_device *pdev)
- 	regmap_write(gmac->nss_common, NSS_COMMON_CLK_GATE, val);
- 
- 	if (gmac->phy_mode == PHY_INTERFACE_MODE_SGMII) {
--		regmap_write(gmac->qsgmii_csr, QSGMII_PHY_SGMII_CTL(gmac->id),
--			     QSGMII_PHY_CDR_EN |
--			     QSGMII_PHY_RX_FRONT_EN |
--			     QSGMII_PHY_RX_SIGNAL_DETECT_EN |
--			     QSGMII_PHY_TX_DRIVER_EN |
--			     QSGMII_PHY_QSGMII_EN |
--			     0x4ul << QSGMII_PHY_PHASE_LOOP_GAIN_OFFSET |
--			     0x3ul << QSGMII_PHY_RX_DC_BIAS_OFFSET |
--			     0x1ul << QSGMII_PHY_RX_INPUT_EQU_OFFSET |
--			     0x2ul << QSGMII_PHY_CDR_PI_SLEW_OFFSET |
--			     0xCul << QSGMII_PHY_TX_DRV_AMP_OFFSET);
-+		err = ipq806x_gmac_configure_qsgmii_params(gmac);
+ static const struct soc_device_attribute ipq806x_gmac_soc_v1[] = {
+ 	{
+ 		.revision = "1.*",
+@@ -400,6 +461,10 @@ static int ipq806x_gmac_probe(struct platform_device *pdev)
+ 		err = ipq806x_gmac_configure_qsgmii_params(gmac);
+ 		if (err)
+ 			goto err_remove_config_dt;
++
++		err = ipq806x_gmac_configure_qsgmii_pcs_speed(gmac);
 +		if (err)
 +			goto err_remove_config_dt;
  	}
