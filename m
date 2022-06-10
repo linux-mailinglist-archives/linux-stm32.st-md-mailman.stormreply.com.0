@@ -2,99 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8CCC254606E
-	for <lists+linux-stm32@lfdr.de>; Fri, 10 Jun 2022 10:50:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EF09E546631
+	for <lists+linux-stm32@lfdr.de>; Fri, 10 Jun 2022 14:03:25 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5013DC6046D;
-	Fri, 10 Jun 2022 08:50:17 +0000 (UTC)
-Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com
- [148.163.135.77])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 63F49C5F1D7;
+	Fri, 10 Jun 2022 12:03:25 +0000 (UTC)
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AE1B5C03FFF
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 10 Jun 2022 12:03:22 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4F018C60465
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 10 Jun 2022 08:50:15 +0000 (UTC)
-Received: from pps.filterd (m0167088.ppops.net [127.0.0.1])
- by mx0a-00128a01.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 25A8fboE010559;
- Fri, 10 Jun 2022 04:49:25 -0400
-Received: from nwd2mta3.analog.com ([137.71.173.56])
- by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 3gm00mh299-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 10 Jun 2022 04:49:25 -0400
-Received: from ASHBMBX9.ad.analog.com (ASHBMBX9.ad.analog.com [10.64.17.10])
- by nwd2mta3.analog.com (8.14.7/8.14.7) with ESMTP id 25A8nOwt023362
- (version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL); 
- Fri, 10 Jun 2022 04:49:24 -0400
-Received: from ASHBCASHYB5.ad.analog.com (10.64.17.133) by
- ASHBMBX9.ad.analog.com (10.64.17.10) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.14; Fri, 10 Jun 2022 04:49:23 -0400
-Received: from ASHBMBX8.ad.analog.com (10.64.17.5) by
- ASHBCASHYB5.ad.analog.com (10.64.17.133) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.14; Fri, 10 Jun 2022 04:49:23 -0400
-Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx8.ad.analog.com
- (10.64.17.5) with Microsoft SMTP Server id 15.2.986.14 via Frontend
- Transport; Fri, 10 Jun 2022 04:49:23 -0400
-Received: from nsa.ad.analog.com ([10.44.3.70])
- by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 25A8imiu014275;
- Fri, 10 Jun 2022 04:49:12 -0400
-From: =?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>
-To: <linux-imx@nxp.com>, <linux-renesas-soc@vger.kernel.org>,
- <linux-mips@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
- <chrome-platform@lists.linux.dev>, Lad Prabhakar
- <prabhakar.mahadev-lad.rj@bp.renesas.com>,
- <linux-mediatek@lists.infradead.org>,
- <linux-stm32@st-md-mailman.stormreply.com>,
- <linux-arm-msm@vger.kernel.org>, <linux-iio@vger.kernel.org>,
- <openbmc@lists.ozlabs.org>
-Date: Fri, 10 Jun 2022 10:45:45 +0200
-Message-ID: <20220610084545.547700-35-nuno.sa@analog.com>
-X-Mailer: git-send-email 2.36.1
-In-Reply-To: <20220610084545.547700-1-nuno.sa@analog.com>
-References: <20220610084545.547700-1-nuno.sa@analog.com>
+ by sin.source.kernel.org (Postfix) with ESMTPS id A4AC5CE35D7;
+ Fri, 10 Jun 2022 12:03:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9656BC3411D;
+ Fri, 10 Jun 2022 12:03:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1654862598;
+ bh=f91prLddVZ6W3Wxb6Hqxhw4VdV2kGrg/IH7kR4PdhnY=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=U1znS8ABzt3/7+3tW8r9w0ODLWoHYuds726WAKeoahr9hFltRLm81H0CA03oc5Onx
+ 23VM+SJfFghn425BmH1i2xpNVPDVsNSvEL/cpHEuCZoyxDGEaAo989Whdcq+w8Xr0x
+ eM1QnspuhULq9B32zaxPnZEYYuRFsh5AvVkZYA+n9Rb1/XRe3sNm605YjInqypuQGf
+ Ct0RLvUATkkDNkfEu+LaV/yPbv5tU1dN7tRgiZFdckQmCpZSAeMflyqASdKidO9ISp
+ ZlUgqPC+kRCvY06U7U1bpuV5knThQEuewmaR79v8OzQme2AWBWAAH0vkrEzq39r705
+ METMJ1sJh6Oyg==
+Date: Fri, 10 Jun 2022 13:03:08 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Samuel Holland <samuel@sholland.org>
+Message-ID: <YqMy/FkxDPKmzdrB@sirena.org.uk>
+References: <20220519154318.2153729-1-ckeepax@opensource.cirrus.com>
+ <165478153064.1052094.1721875477574787769.b4-ty@kernel.org>
+ <2a498819-dbbf-31c1-4145-bbd2d7179bd8@sholland.org>
 MIME-Version: 1.0
-X-ADIRuleOP-NewSCL: Rule Triggered
-X-Proofpoint-ORIG-GUID: z0tgKmiEePpg_dowAY_aI8d3iIGfILTP
-X-Proofpoint-GUID: z0tgKmiEePpg_dowAY_aI8d3iIGfILTP
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.874,Hydra:6.0.517,FMLib:17.11.64.514
- definitions=2022-06-10_02,2022-06-09_02,2022-02-23_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 mlxscore=0
- malwarescore=0 mlxlogscore=768 lowpriorityscore=0 suspectscore=0
- bulkscore=0 adultscore=0 priorityscore=1501 clxscore=1015 spamscore=0
- impostorscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2204290000 definitions=main-2206100032
-Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Daniel Lezcano <daniel.lezcano@linaro.org>, Tomer Maimon <tmaimon77@gmail.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>, Linus
- Walleij <linus.walleij@linaro.org>, Amit Kucheria <amitk@kernel.org>,
- Tali Perry <tali.perry1@gmail.com>, Paul Cercueil <paul@crapouillou.net>,
- Miquel Raynal <miquel.raynal@bootlin.com>, Guenter Roeck <groeck@chromium.org>,
- Fabio Estevam <festevam@gmail.com>, Lars-Peter Clausen <lars@metafoo.de>,
- Benjamin Fair <benjaminfair@google.com>,
- Jishnu Prakash <quic_jprakash@quicinc.com>, Haibo Chen <haibo.chen@nxp.com>,
- Nancy Yuen <yuenn@google.com>, Andy Shevchenko <andy.shevchenko@gmail.com>,
- Andy Gross <agross@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
- Christophe Branchereau <cbranchereau@gmail.com>,
- Saravanan Sekar <sravanhome@gmail.com>,
- Michael Hennerich <Michael.Hennerich@analog.com>,
- Sascha Hauer <s.hauer@pengutronix.de>, Cai Huoqing <cai.huoqing@linux.dev>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Gwendal Grignou <gwendal@chromium.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- Benson Leung <bleung@chromium.org>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Lorenzo Bianconi <lorenzo@kernel.org>, Avi Fishman <avifishman70@gmail.com>,
- Patrick Venture <venture@google.com>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- Thara Gopinath <thara.gopinath@linaro.org>, Arnd Bergmann <arnd@arndb.de>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Eugen Hristev <eugen.hristev@microchip.com>, Shawn Guo <shawnguo@kernel.org>,
- Claudiu Beznea <claudiu.beznea@microchip.com>,
- Jonathan Cameron <jic23@kernel.org>
-Subject: [Linux-stm32] [PATCH 34/34] iio: inkern: fix coding style warnings
+In-Reply-To: <2a498819-dbbf-31c1-4145-bbd2d7179bd8@sholland.org>
+X-Cookie: Teachers have class.
+Cc: cezary.rojewski@intel.com, heiko@sntech.de,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, lgirdwood@gmail.com,
+ alsa-devel@alsa-project.org, linux-mips@vger.kernel.org,
+ srinivas.kandagatla@linaro.org, peter.ujfalusi@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com, jbrunet@baylibre.com,
+ pierre-louis.bossart@linux.intel.com, krzk@kernel.org,
+ linux-rockchip@lists.infradead.org, linux-imx@nxp.com,
+ linux-sunxi@lists.linux.dev, linux-xtensa@linux-xtensa.org, nsaenz@kernel.org,
+ ckeepax@opensource.cirrus.com, linux-mediatek@lists.infradead.org,
+ linux-tegra@vger.kernel.org, linux-amlogic@lists.infradead.org,
+ linux-omap@vger.kernel.org, patches@opensource.cirrus.com,
+ nicolas.ferre@microchip.com, jarkko.nikula@bitmer.com, kernel@pengutronix.de,
+ shawnguo@kernel.org, daniel@zonque.org
+Subject: Re: [Linux-stm32] [PATCH 00/56] Specify clock provider directly to
+	CPU DAIs
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -106,156 +66,67 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0641056400367845282=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SnVzdCBjb3NtZXRpY3MuIE5vIGZ1bmN0aW9uYWwgY2hhbmdlIGludGVuZGVkLi4uCgpTaWduZWQt
-b2ZmLWJ5OiBOdW5vIFPDoSA8bnVuby5zYUBhbmFsb2cuY29tPgotLS0KIGRyaXZlcnMvaWlvL2lu
-a2Vybi5jIHwgNjQgKysrKysrKysrKysrKysrKysrKysrKy0tLS0tLS0tLS0tLS0tLS0tLS0tLS0K
-IDEgZmlsZSBjaGFuZ2VkLCAzMiBpbnNlcnRpb25zKCspLCAzMiBkZWxldGlvbnMoLSkKCmRpZmYg
-LS1naXQgYS9kcml2ZXJzL2lpby9pbmtlcm4uYyBiL2RyaXZlcnMvaWlvL2lua2Vybi5jCmluZGV4
-IDdlYjUzNjU2MGRlZC4uNTI2NTE5Y2VmY2I5IDEwMDY0NAotLS0gYS9kcml2ZXJzL2lpby9pbmtl
-cm4uYworKysgYi9kcml2ZXJzL2lpby9pbmtlcm4uYwpAQCAtNDUsMTMgKzQ1LDEzIEBAIGludCBp
-aW9fbWFwX2FycmF5X3JlZ2lzdGVyKHN0cnVjdCBpaW9fZGV2ICppbmRpb19kZXYsIHN0cnVjdCBp
-aW9fbWFwICptYXBzKQogCWludCBpID0gMCwgcmV0ID0gMDsKIAlzdHJ1Y3QgaWlvX21hcF9pbnRl
-cm5hbCAqbWFwaTsKIAotCWlmIChtYXBzID09IE5VTEwpCisJaWYgKCFtYXBzKQogCQlyZXR1cm4g
-MDsKIAogCW11dGV4X2xvY2soJmlpb19tYXBfbGlzdF9sb2NrKTsKLQl3aGlsZSAobWFwc1tpXS5j
-b25zdW1lcl9kZXZfbmFtZSAhPSBOVUxMKSB7CisJd2hpbGUgKCFtYXBzW2ldLmNvbnN1bWVyX2Rl
-dl9uYW1lKSB7CiAJCW1hcGkgPSBremFsbG9jKHNpemVvZigqbWFwaSksIEdGUF9LRVJORUwpOwot
-CQlpZiAobWFwaSA9PSBOVUxMKSB7CisJCWlmICghbWFwaSkgewogCQkJcmV0ID0gLUVOT01FTTsK
-IAkJCWdvdG8gZXJyb3JfcmV0OwogCQl9CkBAIC02OSw3ICs2OSw2IEBAIGludCBpaW9fbWFwX2Fy
-cmF5X3JlZ2lzdGVyKHN0cnVjdCBpaW9fZGV2ICppbmRpb19kZXYsIHN0cnVjdCBpaW9fbWFwICpt
-YXBzKQogfQogRVhQT1JUX1NZTUJPTF9HUEwoaWlvX21hcF9hcnJheV9yZWdpc3Rlcik7CiAKLQog
-LyoKICAqIFJlbW92ZSBhbGwgbWFwIGVudHJpZXMgYXNzb2NpYXRlZCB3aXRoIHRoZSBnaXZlbiBp
-aW8gZGV2aWNlCiAgKi8KQEAgLTE2Myw3ICsxNjIsNyBAQCBzdGF0aWMgaW50IF9fZndub2RlX2lp
-b19jaGFubmVsX2dldChzdHJ1Y3QgaWlvX2NoYW5uZWwgKmNoYW5uZWwsCiAKIAlpZGV2ID0gYnVz
-X2ZpbmRfZGV2aWNlKCZpaW9fYnVzX3R5cGUsIE5VTEwsIGlpb3NwZWMuZndub2RlLAogCQkJICAg
-ICAgIGlpb19kZXZfbm9kZV9tYXRjaCk7Ci0JaWYgKGlkZXYgPT0gTlVMTCkgeworCWlmICghaWRl
-dikgewogCQlmd25vZGVfaGFuZGxlX3B1dChpaW9zcGVjLmZ3bm9kZSk7CiAJCXJldHVybiAtRVBS
-T0JFX0RFRkVSOwogCX0KQEAgLTE5Niw3ICsxOTUsNyBAQCBzdGF0aWMgc3RydWN0IGlpb19jaGFu
-bmVsICpmd25vZGVfaWlvX2NoYW5uZWxfZ2V0KHN0cnVjdCBmd25vZGVfaGFuZGxlICpmd25vZGUs
-CiAJCXJldHVybiBFUlJfUFRSKC1FSU5WQUwpOwogCiAJY2hhbm5lbCA9IGt6YWxsb2Moc2l6ZW9m
-KCpjaGFubmVsKSwgR0ZQX0tFUk5FTCk7Ci0JaWYgKGNoYW5uZWwgPT0gTlVMTCkKKwlpZiAoIWNo
-YW5uZWwpCiAJCXJldHVybiBFUlJfUFRSKC1FTk9NRU0pOwogCiAJZXJyID0gX19md25vZGVfaWlv
-X2NoYW5uZWxfZ2V0KGNoYW5uZWwsIGZ3bm9kZSwgaW5kZXgpOwpAQCAtMjkzLDcgKzI5Miw3IEBA
-IHN0YXRpYyBzdHJ1Y3QgaWlvX2NoYW5uZWwgKmZ3bm9kZV9paW9fY2hhbm5lbF9nZXRfYWxsKHN0
-cnVjdCBkZXZpY2UgKmRldikKIAogCS8qIE5VTEwgdGVybWluYXRlZCBhcnJheSB0byBzYXZlIHBh
-c3Npbmcgc2l6ZSAqLwogCWNoYW5zID0ga2NhbGxvYyhudW1tYXBzICsgMSwgc2l6ZW9mKCpjaGFu
-cyksIEdGUF9LRVJORUwpOwotCWlmIChjaGFucyA9PSBOVUxMKQorCWlmICghY2hhbnMpCiAJCXJl
-dHVybiBFUlJfUFRSKC1FTk9NRU0pOwogCiAJLyogU2VhcmNoIGZvciBGVyBtYXRjaGVzICovCkBA
-IC0zMTgsNyArMzE3LDcgQEAgc3RhdGljIHN0cnVjdCBpaW9fY2hhbm5lbCAqaWlvX2NoYW5uZWxf
-Z2V0X3N5cyhjb25zdCBjaGFyICpuYW1lLAogCXN0cnVjdCBpaW9fY2hhbm5lbCAqY2hhbm5lbDsK
-IAlpbnQgZXJyOwogCi0JaWYgKG5hbWUgPT0gTlVMTCAmJiBjaGFubmVsX25hbWUgPT0gTlVMTCkK
-KwlpZiAoIW5hbWUgJiYgIWNoYW5uZWxfbmFtZSkKIAkJcmV0dXJuIEVSUl9QVFIoLUVOT0RFVik7
-CiAKIAkvKiBmaXJzdCBmaW5kIG1hdGNoaW5nIGVudHJ5IHRoZSBjaGFubmVsIG1hcCAqLwpAQCAt
-MzMzLDExICszMzIsMTEgQEAgc3RhdGljIHN0cnVjdCBpaW9fY2hhbm5lbCAqaWlvX2NoYW5uZWxf
-Z2V0X3N5cyhjb25zdCBjaGFyICpuYW1lLAogCQlicmVhazsKIAl9CiAJbXV0ZXhfdW5sb2NrKCZp
-aW9fbWFwX2xpc3RfbG9jayk7Ci0JaWYgKGMgPT0gTlVMTCkKKwlpZiAoIWMpCiAJCXJldHVybiBF
-UlJfUFRSKC1FTk9ERVYpOwogCiAJY2hhbm5lbCA9IGt6YWxsb2Moc2l6ZW9mKCpjaGFubmVsKSwg
-R0ZQX0tFUk5FTCk7Ci0JaWYgKGNoYW5uZWwgPT0gTlVMTCkgeworCWlmICghY2hhbm5lbCkgewog
-CQllcnIgPSAtRU5PTUVNOwogCQlnb3RvIGVycm9yX25vX21lbTsKIAl9CkBAIC0zNDksNyArMzQ4
-LDcgQEAgc3RhdGljIHN0cnVjdCBpaW9fY2hhbm5lbCAqaWlvX2NoYW5uZWxfZ2V0X3N5cyhjb25z
-dCBjaGFyICpuYW1lLAogCQkJaWlvX2NoYW5fc3BlY19mcm9tX25hbWUoY2hhbm5lbC0+aW5kaW9f
-ZGV2LAogCQkJCQkJYy0+bWFwLT5hZGNfY2hhbm5lbF9sYWJlbCk7CiAKLQkJaWYgKGNoYW5uZWwt
-PmNoYW5uZWwgPT0gTlVMTCkgeworCQlpZiAoIWNoYW5uZWwtPmNoYW5uZWwpIHsKIAkJCWVyciA9
-IC1FSU5WQUw7CiAJCQlnb3RvIGVycm9yX25vX2NoYW47CiAJCX0KQEAgLTQ0MSw3ICs0NDAsNyBA
-QCBzdHJ1Y3QgaWlvX2NoYW5uZWwgKmlpb19jaGFubmVsX2dldF9hbGwoc3RydWN0IGRldmljZSAq
-ZGV2KQogCWludCBtYXBpbmQgPSAwOwogCWludCBpLCByZXQ7CiAKLQlpZiAoZGV2ID09IE5VTEwp
-CisJaWYgKCFkZXYpCiAJCXJldHVybiBFUlJfUFRSKC1FSU5WQUwpOwogCiAJY2hhbnMgPSBmd25v
-ZGVfaWlvX2NoYW5uZWxfZ2V0X2FsbChkZXYpOwpAQCAtNDY1LDcgKzQ2NCw3IEBAIHN0cnVjdCBp
-aW9fY2hhbm5lbCAqaWlvX2NoYW5uZWxfZ2V0X2FsbChzdHJ1Y3QgZGV2aWNlICpkZXYpCiAKIAkv
-KiBOVUxMIHRlcm1pbmF0ZWQgYXJyYXkgdG8gc2F2ZSBwYXNzaW5nIHNpemUgKi8KIAljaGFucyA9
-IGtjYWxsb2MobnVtbWFwcyArIDEsIHNpemVvZigqY2hhbnMpLCBHRlBfS0VSTkVMKTsKLQlpZiAo
-Y2hhbnMgPT0gTlVMTCkgeworCWlmICghY2hhbnMpIHsKIAkJcmV0ID0gLUVOT01FTTsKIAkJZ290
-byBlcnJvcl9yZXQ7CiAJfQpAQCAtNDc5LDcgKzQ3OCw3IEBAIHN0cnVjdCBpaW9fY2hhbm5lbCAq
-aWlvX2NoYW5uZWxfZ2V0X2FsbChzdHJ1Y3QgZGV2aWNlICpkZXYpCiAJCWNoYW5zW21hcGluZF0u
-Y2hhbm5lbCA9CiAJCQlpaW9fY2hhbl9zcGVjX2Zyb21fbmFtZShjaGFuc1ttYXBpbmRdLmluZGlv
-X2RldiwKIAkJCQkJCWMtPm1hcC0+YWRjX2NoYW5uZWxfbGFiZWwpOwotCQlpZiAoY2hhbnNbbWFw
-aW5kXS5jaGFubmVsID09IE5VTEwpIHsKKwkJaWYgKCFjaGFuc1ttYXBpbmRdLmNoYW5uZWwpIHsK
-IAkJCXJldCA9IC1FSU5WQUw7CiAJCQlnb3RvIGVycm9yX2ZyZWVfY2hhbnM7CiAJCX0KQEAgLTU0
-MSwxNCArNTQwLDE0IEBAIHN0cnVjdCBpaW9fY2hhbm5lbCAqZGV2bV9paW9fY2hhbm5lbF9nZXRf
-YWxsKHN0cnVjdCBkZXZpY2UgKmRldikKIEVYUE9SVF9TWU1CT0xfR1BMKGRldm1faWlvX2NoYW5u
-ZWxfZ2V0X2FsbCk7CiAKIHN0YXRpYyBpbnQgaWlvX2NoYW5uZWxfcmVhZChzdHJ1Y3QgaWlvX2No
-YW5uZWwgKmNoYW4sIGludCAqdmFsLCBpbnQgKnZhbDIsCi0JZW51bSBpaW9fY2hhbl9pbmZvX2Vu
-dW0gaW5mbykKKwkJCSAgICBlbnVtIGlpb19jaGFuX2luZm9fZW51bSBpbmZvKQogewogCWludCB1
-bnVzZWQ7CiAJaW50IHZhbHNbSU5ESU9fTUFYX1JBV19FTEVNRU5UU107CiAJaW50IHJldDsKIAlp
-bnQgdmFsX2xlbiA9IDI7CiAKLQlpZiAodmFsMiA9PSBOVUxMKQorCWlmICghdmFsMikKIAkJdmFs
-MiA9ICZ1bnVzZWQ7CiAKIAlpZiAoIWlpb19jaGFubmVsX2hhc19pbmZvKGNoYW4tPmNoYW5uZWws
-IGluZm8pKQpAQCAtNTYwLDkgKzU1OSwxMCBAQCBzdGF0aWMgaW50IGlpb19jaGFubmVsX3JlYWQo
-c3RydWN0IGlpb19jaGFubmVsICpjaGFuLCBpbnQgKnZhbCwgaW50ICp2YWwyLAogCQkJCQl2YWxz
-LCAmdmFsX2xlbiwgaW5mbyk7CiAJCSp2YWwgPSB2YWxzWzBdOwogCQkqdmFsMiA9IHZhbHNbMV07
-Ci0JfSBlbHNlCisJfSBlbHNlIHsKIAkJcmV0ID0gY2hhbi0+aW5kaW9fZGV2LT5pbmZvLT5yZWFk
-X3JhdyhjaGFuLT5pbmRpb19kZXYsCiAJCQkJCWNoYW4tPmNoYW5uZWwsIHZhbCwgdmFsMiwgaW5m
-byk7CisJfQogCiAJcmV0dXJuIHJldDsKIH0KQEAgLTU3Myw3ICs1NzMsNyBAQCBpbnQgaWlvX3Jl
-YWRfY2hhbm5lbF9yYXcoc3RydWN0IGlpb19jaGFubmVsICpjaGFuLCBpbnQgKnZhbCkKIAlpbnQg
-cmV0OwogCiAJbXV0ZXhfbG9jaygmaWlvX2Rldl9vcGFxdWUtPmluZm9fZXhpc3RfbG9jayk7Ci0J
-aWYgKGNoYW4tPmluZGlvX2Rldi0+aW5mbyA9PSBOVUxMKSB7CisJaWYgKCFjaGFuLT5pbmRpb19k
-ZXYtPmluZm8pIHsKIAkJcmV0ID0gLUVOT0RFVjsKIAkJZ290byBlcnJfdW5sb2NrOwogCX0KQEAg
-LTU5Miw3ICs1OTIsNyBAQCBpbnQgaWlvX3JlYWRfY2hhbm5lbF9hdmVyYWdlX3JhdyhzdHJ1Y3Qg
-aWlvX2NoYW5uZWwgKmNoYW4sIGludCAqdmFsKQogCWludCByZXQ7CiAKIAltdXRleF9sb2NrKCZp
-aW9fZGV2X29wYXF1ZS0+aW5mb19leGlzdF9sb2NrKTsKLQlpZiAoY2hhbi0+aW5kaW9fZGV2LT5p
-bmZvID09IE5VTEwpIHsKKwlpZiAoIWNoYW4tPmluZGlvX2Rldi0+aW5mbykgewogCQlyZXQgPSAt
-RU5PREVWOwogCQlnb3RvIGVycl91bmxvY2s7CiAJfQpAQCAtNjA2LDcgKzYwNiw4IEBAIGludCBp
-aW9fcmVhZF9jaGFubmVsX2F2ZXJhZ2VfcmF3KHN0cnVjdCBpaW9fY2hhbm5lbCAqY2hhbiwgaW50
-ICp2YWwpCiBFWFBPUlRfU1lNQk9MX0dQTChpaW9fcmVhZF9jaGFubmVsX2F2ZXJhZ2VfcmF3KTsK
-IAogc3RhdGljIGludCBpaW9fY29udmVydF9yYXdfdG9fcHJvY2Vzc2VkX3VubG9ja2VkKHN0cnVj
-dCBpaW9fY2hhbm5lbCAqY2hhbiwKLQlpbnQgcmF3LCBpbnQgKnByb2Nlc3NlZCwgdW5zaWduZWQg
-aW50IHNjYWxlKQorCQkJCQkJIGludCByYXcsIGludCAqcHJvY2Vzc2VkLAorCQkJCQkJIHVuc2ln
-bmVkIGludCBzY2FsZSkKIHsKIAlpbnQgc2NhbGVfdHlwZSwgc2NhbGVfdmFsLCBzY2FsZV92YWwy
-OwogCWludCBvZmZzZXRfdHlwZSwgb2Zmc2V0X3ZhbCwgb2Zmc2V0X3ZhbDI7CkBAIC02MzksNyAr
-NjQwLDcgQEAgc3RhdGljIGludCBpaW9fY29udmVydF9yYXdfdG9fcHJvY2Vzc2VkX3VubG9ja2Vk
-KHN0cnVjdCBpaW9fY2hhbm5lbCAqY2hhbiwKIAl9CiAKIAlzY2FsZV90eXBlID0gaWlvX2NoYW5u
-ZWxfcmVhZChjaGFuLCAmc2NhbGVfdmFsLCAmc2NhbGVfdmFsMiwKLQkJCQkJSUlPX0NIQU5fSU5G
-T19TQ0FMRSk7CisJCQkJICAgICAgSUlPX0NIQU5fSU5GT19TQ0FMRSk7CiAJaWYgKHNjYWxlX3R5
-cGUgPCAwKSB7CiAJCS8qCiAJCSAqIElmIG5vIGNoYW5uZWwgc2NhbGluZyBpcyBhdmFpbGFibGUg
-YXBwbHkgY29uc3VtZXIgc2NhbGUgdG8KQEAgLTY4NCwxOSArNjg1LDE5IEBAIHN0YXRpYyBpbnQg
-aWlvX2NvbnZlcnRfcmF3X3RvX3Byb2Nlc3NlZF91bmxvY2tlZChzdHJ1Y3QgaWlvX2NoYW5uZWwg
-KmNoYW4sCiB9CiAKIGludCBpaW9fY29udmVydF9yYXdfdG9fcHJvY2Vzc2VkKHN0cnVjdCBpaW9f
-Y2hhbm5lbCAqY2hhbiwgaW50IHJhdywKLQlpbnQgKnByb2Nlc3NlZCwgdW5zaWduZWQgaW50IHNj
-YWxlKQorCQkJCSBpbnQgKnByb2Nlc3NlZCwgdW5zaWduZWQgaW50IHNjYWxlKQogewogCXN0cnVj
-dCBpaW9fZGV2X29wYXF1ZSAqaWlvX2Rldl9vcGFxdWUgPSB0b19paW9fZGV2X29wYXF1ZShjaGFu
-LT5pbmRpb19kZXYpOwogCWludCByZXQ7CiAKIAltdXRleF9sb2NrKCZpaW9fZGV2X29wYXF1ZS0+
-aW5mb19leGlzdF9sb2NrKTsKLQlpZiAoY2hhbi0+aW5kaW9fZGV2LT5pbmZvID09IE5VTEwpIHsK
-KwlpZiAoIWNoYW4tPmluZGlvX2Rldi0+aW5mbykgewogCQlyZXQgPSAtRU5PREVWOwogCQlnb3Rv
-IGVycl91bmxvY2s7CiAJfQogCiAJcmV0ID0gaWlvX2NvbnZlcnRfcmF3X3RvX3Byb2Nlc3NlZF91
-bmxvY2tlZChjaGFuLCByYXcsIHByb2Nlc3NlZCwKLQkJCQkJCQlzY2FsZSk7CisJCQkJCQkgICAg
-c2NhbGUpOwogZXJyX3VubG9jazoKIAltdXRleF91bmxvY2soJmlpb19kZXZfb3BhcXVlLT5pbmZv
-X2V4aXN0X2xvY2spOwogCkBAIC03MTEsNyArNzEyLDcgQEAgaW50IGlpb19yZWFkX2NoYW5uZWxf
-YXR0cmlidXRlKHN0cnVjdCBpaW9fY2hhbm5lbCAqY2hhbiwgaW50ICp2YWwsIGludCAqdmFsMiwK
-IAlpbnQgcmV0OwogCiAJbXV0ZXhfbG9jaygmaWlvX2Rldl9vcGFxdWUtPmluZm9fZXhpc3RfbG9j
-ayk7Ci0JaWYgKGNoYW4tPmluZGlvX2Rldi0+aW5mbyA9PSBOVUxMKSB7CisJaWYgKCFjaGFuLT5p
-bmRpb19kZXYtPmluZm8pIHsKIAkJcmV0ID0gLUVOT0RFVjsKIAkJZ290byBlcnJfdW5sb2NrOwog
-CX0KQEAgLTczNyw3ICs3MzgsNyBAQCBpbnQgaWlvX3JlYWRfY2hhbm5lbF9wcm9jZXNzZWRfc2Nh
-bGUoc3RydWN0IGlpb19jaGFubmVsICpjaGFuLCBpbnQgKnZhbCwKIAlpbnQgcmV0OwogCiAJbXV0
-ZXhfbG9jaygmaWlvX2Rldl9vcGFxdWUtPmluZm9fZXhpc3RfbG9jayk7Ci0JaWYgKGNoYW4tPmlu
-ZGlvX2Rldi0+aW5mbyA9PSBOVUxMKSB7CisJaWYgKCFjaGFuLT5pbmRpb19kZXYtPmluZm8pIHsK
-IAkJcmV0ID0gLUVOT0RFVjsKIAkJZ290byBlcnJfdW5sb2NrOwogCX0KQEAgLTgxNSw3ICs4MTYs
-NyBAQCBpbnQgaWlvX3JlYWRfYXZhaWxfY2hhbm5lbF9yYXcoc3RydWN0IGlpb19jaGFubmVsICpj
-aGFuLAogCWludCB0eXBlOwogCiAJcmV0ID0gaWlvX3JlYWRfYXZhaWxfY2hhbm5lbF9hdHRyaWJ1
-dGUoY2hhbiwgdmFscywgJnR5cGUsIGxlbmd0aCwKLQkJCQkJIElJT19DSEFOX0lORk9fUkFXKTsK
-KwkJCQkJICAgICAgIElJT19DSEFOX0lORk9fUkFXKTsKIAogCWlmIChyZXQgPj0gMCAmJiB0eXBl
-ICE9IElJT19WQUxfSU5UKQogCQkvKiByYXcgdmFsdWVzIGFyZSBhc3N1bWVkIHRvIGJlIElJT19W
-QUxfSU5UICovCkBAIC04OTksNyArOTAwLDcgQEAgaW50IGlpb19nZXRfY2hhbm5lbF90eXBlKHN0
-cnVjdCBpaW9fY2hhbm5lbCAqY2hhbiwgZW51bSBpaW9fY2hhbl90eXBlICp0eXBlKQogCS8qIE5l
-ZWQgdG8gdmVyaWZ5IHVuZGVybHlpbmcgZHJpdmVyIGhhcyBub3QgZ29uZSBhd2F5ICovCiAKIAlt
-dXRleF9sb2NrKCZpaW9fZGV2X29wYXF1ZS0+aW5mb19leGlzdF9sb2NrKTsKLQlpZiAoY2hhbi0+
-aW5kaW9fZGV2LT5pbmZvID09IE5VTEwpIHsKKwlpZiAoIWNoYW4tPmluZGlvX2Rldi0+aW5mbykg
-ewogCQlyZXQgPSAtRU5PREVWOwogCQlnb3RvIGVycl91bmxvY2s7CiAJfQpAQCAtOTI2LDcgKzky
-Nyw3IEBAIGludCBpaW9fd3JpdGVfY2hhbm5lbF9hdHRyaWJ1dGUoc3RydWN0IGlpb19jaGFubmVs
-ICpjaGFuLCBpbnQgdmFsLCBpbnQgdmFsMiwKIAlpbnQgcmV0OwogCiAJbXV0ZXhfbG9jaygmaWlv
-X2Rldl9vcGFxdWUtPmluZm9fZXhpc3RfbG9jayk7Ci0JaWYgKGNoYW4tPmluZGlvX2Rldi0+aW5m
-byA9PSBOVUxMKSB7CisJaWYgKCFjaGFuLT5pbmRpb19kZXYtPmluZm8pIHsKIAkJcmV0ID0gLUVO
-T0RFVjsKIAkJZ290byBlcnJfdW5sb2NrOwogCX0KQEAgLTk2MCw5ICs5NjEsOCBAQCB1bnNpZ25l
-ZCBpbnQgaWlvX2dldF9jaGFubmVsX2V4dF9pbmZvX2NvdW50KHN0cnVjdCBpaW9fY2hhbm5lbCAq
-Y2hhbikKIH0KIEVYUE9SVF9TWU1CT0xfR1BMKGlpb19nZXRfY2hhbm5lbF9leHRfaW5mb19jb3Vu
-dCk7CiAKLXN0YXRpYyBjb25zdCBzdHJ1Y3QgaWlvX2NoYW5fc3BlY19leHRfaW5mbyAqaWlvX2xv
-b2t1cF9leHRfaW5mbygKLQkJCQkJCWNvbnN0IHN0cnVjdCBpaW9fY2hhbm5lbCAqY2hhbiwKLQkJ
-CQkJCWNvbnN0IGNoYXIgKmF0dHIpCitzdGF0aWMgY29uc3Qgc3RydWN0IGlpb19jaGFuX3NwZWNf
-ZXh0X2luZm8gKgoraWlvX2xvb2t1cF9leHRfaW5mbyhjb25zdCBzdHJ1Y3QgaWlvX2NoYW5uZWwg
-KmNoYW4sIGNvbnN0IGNoYXIgKmF0dHIpCiB7CiAJY29uc3Qgc3RydWN0IGlpb19jaGFuX3NwZWNf
-ZXh0X2luZm8gKmV4dF9pbmZvOwogCi0tIAoyLjM2LjEKCl9fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1z
-dG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5z
-dG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+
+--===============0641056400367845282==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="uQXJNv1MQUHjV+R+"
+Content-Disposition: inline
+
+
+--uQXJNv1MQUHjV+R+
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+
+On Thu, Jun 09, 2022 at 09:03:15PM -0500, Samuel Holland wrote:
+> On 6/9/22 8:32 AM, Mark Brown wrote:
+> > On Thu, 19 May 2022 16:42:22 +0100, Charles Keepax wrote:
+
+Please delete unneeded context from mails when replying.  Doing this
+makes it much easier to find your reply in the message, helping ensure
+it won't be missed by people scrolling through the irrelevant quoted
+material.
+
+> > [22/56] ASoC: sunxi: Update to use set_fmt_new callback
+> >         commit: 7cc3965fde74c9c725ed01de4ac35bc7d562d16a
+
+> This patch is wrong, which I pointed out earlier[1]. It will break audio on the
+> Allwinner A33 and A64 SoCs. Charles said he would send a v2[2]. Excluding the
+> changes to sound/soc/sunxi/sun8i-codec.c from the patch would fix it.
+
+Your mail doesn't say that this will break, it says the change is
+unexpected.  In any case, please send an incremental fix - there's no
+need to revert the entire series for this.
+
+--uQXJNv1MQUHjV+R+
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmKjMvsACgkQJNaLcl1U
+h9DEiwgAg5/u/EffroYC0gc/E++OVOkz3gwInEgNAC9hOiZUubIV0pLgHmDWF03b
+jPn25vdDiJrTgFiUmwAYyaI1N8iwXmd1UllhVOv/gLkFfltVeVeI5bb7VHjskvpU
+Xx9nbpqcM0LhbDF9NG+WYAoVy5NB/aJZRKoCWoc2qbqyxE4kHlcQ+uGmXHyJDseS
+8BmRAzbUgyMhj1H2rxUsdSJBv07mGmLozTE9V6Ah8CM/7n4PVN9VjDs29qDcs1v2
+4cxYC5JHT+tbp1KldMeaAv50v0292Sfvps0RbW8zrLY4WwXo5mYJWrS+TYv1UQ+M
+XNVup9oVA23wO2KVtvmWoirnwl8blg==
+=hG/3
+-----END PGP SIGNATURE-----
+
+--uQXJNv1MQUHjV+R+--
+
+--===============0641056400367845282==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============0641056400367845282==--
