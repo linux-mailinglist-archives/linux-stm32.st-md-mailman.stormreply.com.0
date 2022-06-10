@@ -2,38 +2,38 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 91DC9545AAC
-	for <lists+linux-stm32@lfdr.de>; Fri, 10 Jun 2022 05:41:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A1664545AAD
+	for <lists+linux-stm32@lfdr.de>; Fri, 10 Jun 2022 05:41:11 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 58DAEC5F1D7;
-	Fri, 10 Jun 2022 03:41:06 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 66B62C5F1D7;
+	Fri, 10 Jun 2022 03:41:11 +0000 (UTC)
 Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3D10BC5F1D5
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E5584C5F1D3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 10 Jun 2022 03:41:04 +0000 (UTC)
+ Fri, 10 Jun 2022 03:41:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1654832464; x=1686368464;
+ t=1654832469; x=1686368469;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=VsECB4rGQ9AOMk/R4KLPANHo0BZNISsxKzENHkPxCnY=;
- b=DRgF9R+NYwkTy4d/chdQfMLKtuss4IuHnLSDghZ7G3UCcEtGcxD5l4Wl
- xEDBKZyLkDMX4Rm4e5cyeii3esWxR63z2Pm7pS5yeK5BunOyyUObmatDG
- RVGcipp96CkawHg11dKnyH4Ofv0ebhM9zcu3prPkk2VSQX+8lYZns7HV2
- L176legQUS6il6Iu9Cy/xmx6mEufLUmreFaWuPjFv/AMsgeVpwiga1H/W
- zEidhBCieeyhc+yuLfCSOkIUgW2edL7VVqWyqRCNF6PXoR27KTEGLraeV
- 0b4HjkYV+8vr7Z26EQIDIxAVt7y46I6Jyu6vICQHqNwC7oKi93mRc4Qzk Q==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10373"; a="277530309"
-X-IronPort-AV: E=Sophos;i="5.91,288,1647327600"; d="scan'208";a="277530309"
+ bh=5EE9Irt/xFP6OZxqCU9pzSV6Tdyhia7NhlBMrgRnlk4=;
+ b=VW2I/qdfCoGHuGjWXhobGIPs6Psh4sX/tInqqvixOc/SUHsAEB5GyCPx
+ 1PgfGAO0b7n+n4Kcr2L7ipLd3dVCe5QYqkd1YFUMi9YOO1eUKSliVPpmO
+ /b/WAJYY5N3OglhIkathW/30eyXnjZtdchGKJXZY5nZGiSd2YkLzrA4FL
+ qLyPwomP2BPaPTPQUUz7/6eFy/U3yMizKIiFop0w4AKW97+oycIVjqbcU
+ 9sG5OuYPG7ClxQjyqp7/x1IRavbjrUezZptDC0CYOuS+OXdp7+2m35adV
+ pXUPHTryZVG28wExX8aI2PmfCLxPqSZk5/AUrnEAxxdFw66eQoazAU9qR g==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10373"; a="277530322"
+X-IronPort-AV: E=Sophos;i="5.91,288,1647327600"; d="scan'208";a="277530322"
 Received: from fmsmga006.fm.intel.com ([10.253.24.20])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Jun 2022 20:41:03 -0700
+ 09 Jun 2022 20:41:08 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.91,288,1647327600"; d="scan'208";a="827993991"
+X-IronPort-AV: E=Sophos;i="5.91,288,1647327600"; d="scan'208";a="827994009"
 Received: from p12hl98bong5.png.intel.com ([10.158.65.178])
- by fmsmga006.fm.intel.com with ESMTP; 09 Jun 2022 20:40:59 -0700
+ by fmsmga006.fm.intel.com with ESMTP; 09 Jun 2022 20:41:04 -0700
 From: Ong Boon Leong <boon.leong.ong@intel.com>
 To: Alexandre Torgue <alexandre.torgue@foss.st.com>,
  Jose Abreu <Jose.Abreu@synopsys.com>, Andrew Lunn <andrew@lunn.ch>,
@@ -46,8 +46,8 @@ To: Alexandre Torgue <alexandre.torgue@foss.st.com>,
  Florian Fainelli <f.fainelli@gmail.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Giuseppe Cavallaro <peppe.cavallaro@st.com>
-Date: Fri, 10 Jun 2022 11:36:08 +0800
-Message-Id: <20220610033610.114084-6-boon.leong.ong@intel.com>
+Date: Fri, 10 Jun 2022 11:36:09 +0800
+Message-Id: <20220610033610.114084-7-boon.leong.ong@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220610033610.114084-1-boon.leong.ong@intel.com>
 References: <20220610033610.114084-1-boon.leong.ong@intel.com>
@@ -55,8 +55,8 @@ MIME-Version: 1.0
 Cc: netdev@vger.kernel.org, Emilio Riva <emilio.riva@ericsson.com>,
  linux-kernel@vger.kernel.org, Ong Boon Leong <boon.leong.ong@intel.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next v3 5/7] net: phylink: unset
-	ovr_an_inband if fixed-link is selected
+Subject: [Linux-stm32] [PATCH net-next v3 6/7] stmmac: intel: add phy-mode
+	ACPI _DSD setting support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,32 +73,54 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-If "fixed-link" DT or ACPI _DSD subnode is selected, it should take
-precedence over the value of ovr_an_inband passed by MAC driver.
+Currently, phy_interface for TSN controller instance is set based on its
+PCI Device ID. For SGMII PHY interface, phy_interface default to
+PHY_INTERFACE_MODE_SGMII. As C37 AN supports both SGMII and 1000BASE-X
+mode, we add support for 'phy-mode' ACPI _DSD for port-specific
+and customer platform specific customization.
 
-Fixes: ab39385021d1 ("net: phylink: make phylink_parse_mode() support non-DT platform")
+Thanks to Andrew Lunn's guidance in
+https://patchwork.kernel.org/comment/24827101/
+
 Tested-by: Emilio Riva <emilio.riva@ericsson.com>
 Signed-off-by: Ong Boon Leong <boon.leong.ong@intel.com>
 ---
- drivers/net/phy/phylink.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
 
-diff --git a/drivers/net/phy/phylink.c b/drivers/net/phy/phylink.c
-index 066684b8091..566852815e0 100644
---- a/drivers/net/phy/phylink.c
-+++ b/drivers/net/phy/phylink.c
-@@ -609,8 +609,10 @@ static int phylink_parse_mode(struct phylink *pl, struct fwnode_handle *fwnode)
- 	const char *managed;
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
+index 675dfb89b76..e5f3d7deec3 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
+@@ -442,6 +442,7 @@ static void common_default_data(struct plat_stmmacenet_data *plat)
+ static int intel_mgbe_common_data(struct pci_dev *pdev,
+ 				  struct plat_stmmacenet_data *plat)
+ {
++	struct fwnode_handle *fwnode;
+ 	char clk_name[20];
+ 	int ret;
+ 	int i;
+@@ -560,6 +561,20 @@ static int intel_mgbe_common_data(struct pci_dev *pdev,
+ 	/* Use the last Rx queue */
+ 	plat->vlan_fail_q = plat->rx_queues_to_use - 1;
  
- 	dn = fwnode_get_named_child_node(fwnode, "fixed-link");
--	if (dn || fwnode_property_present(fwnode, "fixed-link"))
-+	if (dn || fwnode_property_present(fwnode, "fixed-link")) {
- 		pl->cfg_link_an_mode = MLO_AN_FIXED;
-+		pl->config->ovr_an_inband = false;
++	/* For fixed-link setup, we allow phy-mode setting */
++	fwnode = dev_fwnode(&pdev->dev);
++	if (fwnode) {
++		const char *phy_mode;
++
++		if (!fwnode_property_read_string(fwnode, "phy-mode",
++						 &phy_mode)) {
++			if (!strcmp(phy_mode, "sgmii"))
++				plat->phy_interface = PHY_INTERFACE_MODE_SGMII;
++			if (!strcmp(phy_mode, "1000base-x"))
++				plat->phy_interface = PHY_INTERFACE_MODE_1000BASEX;
++		}
 +	}
- 	fwnode_handle_put(dn);
- 
- 	if ((fwnode_property_read_string(fwnode, "managed", &managed) == 0 &&
++
+ 	/* Intel mgbe SGMII interface uses pcs-xcps */
+ 	if (plat->phy_interface == PHY_INTERFACE_MODE_SGMII ||
+ 	    plat->phy_interface == PHY_INTERFACE_MODE_1000BASEX) {
 -- 
 2.25.1
 
