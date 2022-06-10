@@ -2,55 +2,55 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6A07D54694A
-	for <lists+linux-stm32@lfdr.de>; Fri, 10 Jun 2022 17:21:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 229F854695D
+	for <lists+linux-stm32@lfdr.de>; Fri, 10 Jun 2022 17:29:04 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3303FC5F1D7;
-	Fri, 10 Jun 2022 15:21:11 +0000 (UTC)
-Received: from mail-lf1-f52.google.com (mail-lf1-f52.google.com
- [209.85.167.52])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A8A47C5F1D7;
+	Fri, 10 Jun 2022 15:29:03 +0000 (UTC)
+Received: from mail-lj1-f169.google.com (mail-lj1-f169.google.com
+ [209.85.208.169])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7D4B4C5F1D3
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CFA20C5F1D3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 10 Jun 2022 15:21:09 +0000 (UTC)
-Received: by mail-lf1-f52.google.com with SMTP id a29so14855140lfk.2
+ Fri, 10 Jun 2022 15:29:02 +0000 (UTC)
+Received: by mail-lj1-f169.google.com with SMTP id m25so26664249lji.11
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 10 Jun 2022 08:21:09 -0700 (PDT)
+ Fri, 10 Jun 2022 08:29:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
  :cc:content-transfer-encoding;
- bh=H+ga1sC9+ntYYTy6ffK9GjlUeE88A0FzNz+Ar82l8uE=;
- b=QuszwAyXszuHI8ReemXfLsvKVbRYP/Ciej6NodQS4f4DxB0dYCz1JKt3Z8KqRQdbVX
- Jqbo5bZLYC1v1EbQmqJbF588+MBvfJAEhBinRuB3cCDUahi9/8/q3PAe0W2Vgs45ckLW
- /hiuFN/v5rZ/itjafx60G3maggGA2cuzdXxWkUwbpLNnOq8CiWcKz0KQDvAWhjQwa/9r
- QOtElc4xrfhvBjGu9rsXtW8n9+fhA5ojdEZ/+ut9V4+pZWnRJ1pOf+C00H4egWSGhIy5
- cr1goHKSiGEFoiuomtuXSN8DfgxD+HYZKIUFs35eLE9qua0p+q3zFgLJ1Xe+CnTMsAx4
- 6A2A==
+ bh=v+jZ6r+UjKDKeJGUYw7c5giWLtAjtBGzVupfZsrUfPw=;
+ b=YftxElw48vAzTMHF/1nfU7VfFHsJSYUmrN1ldESryIJDZgWI62xwEtnFBnCOtU1dBy
+ hugT6puqW7XaZIJXo1TEsfOzKiAxZbj7elvsLJSguBWcH268hWJLPJ9n6csgtT0bsFAu
+ oG+5atjoQLcNfaqFj1A/1giu0nztBRDoV5yyzxGAH+WDdZW8PWD5NPRMy9Jb68+jEOas
+ rO7SvIZAjGbxr/an2qmDZHU6GyFFqKxmQkILq2u14xvgnxAOPDhGLNNy8IiKfsMtIYqY
+ o3DiP0TqRJiGuuR8sP4NOpGYv3F2oz+tU1K7wiqJ+zfYH/pArdVyPDp3VHieI+PB2M76
+ nAtg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc:content-transfer-encoding;
- bh=H+ga1sC9+ntYYTy6ffK9GjlUeE88A0FzNz+Ar82l8uE=;
- b=HbI3KDfoGr4dvC0kaSN0Psb18nQ8fJy7ONF8Yz8HRIV+4ar5obQlwZGTRKtSNfwXTt
- TPez/My+j+RufVPQDW6TeN7/uRg42Qy6ePTWYieJXONspNDN7l8jbUMDD44a/he5zK0j
- UV2sf0f38i0QnYAnZGDL4bUxpUu8Bfivg9exSTLQ3aqDp4EHn14clICY7LSCiwn8T9Ct
- emA23Z41HyO3y48oCiPA3opkD2yak7mXJIjZPyZP2d9N7lF6XUq1+4GenONiJ/d9FHfS
- jNhFMxgg6ZCmmyZm+aLweNjtGK03rAjuAcGVoqAp35gCBg811gbFIWi5qf6HKL+2f0uF
- 1BvA==
-X-Gm-Message-State: AOAM533+caYkWTmNeDDQAP/Wp6bgn7LQ8ukDSk8pWSJU+dDVtuhTOnrU
- pTNVryd4egTtyJ8YKbPZNg9g9UvdysoxKJWFvsw=
-X-Google-Smtp-Source: ABdhPJy+kvE8MxchmBmksNafSpi+qANBoJkttBTTtDBUpDtpcRk/iOf7pFYhhSUgUCkmvGrvjJK5StTzheGUp//PDx4=
-X-Received: by 2002:a05:6512:308c:b0:479:54c2:c91 with SMTP id
- z12-20020a056512308c00b0047954c20c91mr13940269lfd.565.1654874468712; Fri, 10
- Jun 2022 08:21:08 -0700 (PDT)
+ bh=v+jZ6r+UjKDKeJGUYw7c5giWLtAjtBGzVupfZsrUfPw=;
+ b=Ky6Fj5F3McBg+UcQcB51TdymNaa7xyuCqh2Ou0j5sB/TLUhkQWO+U0yi1pnKgpGuRZ
+ 9gju/c71xvlD2bB/7F9fdUlMSXac6vqiMtEjwvLtiQBGXLvaUsdOlfbrKAJ2BsD8Um0w
+ XoDOWudMGfQXeJzTnkDB+i/ClOAT2JyqhsiDy7Sx/DQP1lS7o7W3lmnCRZ754xGKA9Uo
+ Z7vPAr5AzujLPdfl0Fk2wsjmgmDHIoyCEqXXZBdy1Ca21EGh+QVleryzUsJFpQqfU+xs
+ C5U7BDv1NPMSxw85CfH/JqMb+1rtL4lHGVKjY20IY/ZtGISKQI4JaHI6EYK5TGlnaj+w
+ GIJg==
+X-Gm-Message-State: AOAM532bRRlpeinVRQG2hvNkmTDpvFPsoyW47MDiXYFAVGUyIz5f5uLM
+ qW7Jn6Xyj2kMGSakmSBuKTWpAvpLL4/d1Ca7X6k=
+X-Google-Smtp-Source: ABdhPJwl2v2/H6OLQAJbbAo++RAUaoWbhTiq/DJO2nyXA23eqXmg6t46Wkkb2wH2XOIksQG/+e42V+8jRbh1NeB2EQY=
+X-Received: by 2002:a2e:b8d1:0:b0:255:bfef:7212 with SMTP id
+ s17-20020a2eb8d1000000b00255bfef7212mr8012769ljp.378.1654874942164; Fri, 10
+ Jun 2022 08:29:02 -0700 (PDT)
 MIME-Version: 1.0
 References: <20220610084545.547700-1-nuno.sa@analog.com>
- <20220610084545.547700-26-nuno.sa@analog.com>
-In-Reply-To: <20220610084545.547700-26-nuno.sa@analog.com>
+ <CAHp75VfhRoDupB2rFS+hg1zFN3=8RhnBcXrg0O72bKJYQz+8Kg@mail.gmail.com>
+In-Reply-To: <CAHp75VfhRoDupB2rFS+hg1zFN3=8RhnBcXrg0O72bKJYQz+8Kg@mail.gmail.com>
 From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Fri, 10 Jun 2022 17:20:28 +0200
-Message-ID: <CAHp75VdYsPAS_1KZCrWvK5=By020Xxtw_FtogZwJQ=Srajdjbg@mail.gmail.com>
+Date: Fri, 10 Jun 2022 17:28:24 +0200
+Message-ID: <CAHp75VevzkT-WYz=BiWhDAETx==Sswe-rYCo_qxy7vyL2qRwVA@mail.gmail.com>
 To: =?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>
 Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
  Daniel Lezcano <daniel.lezcano@linaro.org>, Tomer Maimon <tmaimon77@gmail.com>,
@@ -89,8 +89,8 @@ Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
  Cai Huoqing <cai.huoqing@linux.dev>, Shawn Guo <shawnguo@kernel.org>,
  Claudiu Beznea <claudiu.beznea@microchip.com>,
  Jonathan Cameron <jic23@kernel.org>
-Subject: Re: [Linux-stm32] [PATCH 25/34] thermal: qcom: qcom-spmi-adc-tm5:
- convert to IIO fwnode API
+Subject: Re: [Linux-stm32] [PATCH 00/34] make iio inkern interface firmware
+	agnostic
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -107,11 +107,12 @@ Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gRnJpLCBKdW4gMTAsIDIwMjIgYXQgMTA6NDggQU0gTnVubyBTw6EgPG51bm8uc2FAYW5hbG9n
-LmNvbT4gd3JvdGU6Cj4KPiBNYWtlIHVzYWdlIG9mIHRoZSBuZXcgZmlybXdhcmUgYWdub3N0aWMg
-QVBJCj4gJ2Rldm1fb2ZfaWlvX2NoYW5uZWxfZ2V0X2J5X25hbWUoKScgdG8gZ2V0IHRoZSBJSU8g
-Y2hhbm5lbC4KCl9vZl8gPyEKCi0tIApXaXRoIEJlc3QgUmVnYXJkcywKQW5keSBTaGV2Y2hlbmtv
-Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0
-bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29t
-Cmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xp
-bnV4LXN0bTMyCg==
+T24gRnJpLCBKdW4gMTAsIDIwMjIgYXQgNDo0OCBQTSBBbmR5IFNoZXZjaGVua28KPGFuZHkuc2hl
+dmNoZW5rb0BnbWFpbC5jb20+IHdyb3RlOgo+IE9uIEZyaSwgSnVuIDEwLCAyMDIyIGF0IDEwOjQ1
+IEFNIE51bm8gU8OhIDxudW5vLnNhQGFuYWxvZy5jb20+IHdyb3RlOgoKPiBSZXZpZXdlZC1ieTog
+QW5keSBTaGV2Y2hlbmtvIDxhbmR5LnNoZXZjaGVua29AZ21haWwuY29tPgoKRGl0dG8gZm9yIHBh
+dGNoZXMgMjYtMzQuCgotLSAKV2l0aCBCZXN0IFJlZ2FyZHMsCkFuZHkgU2hldmNoZW5rbwpfX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBt
+YWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRw
+czovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1z
+dG0zMgo=
