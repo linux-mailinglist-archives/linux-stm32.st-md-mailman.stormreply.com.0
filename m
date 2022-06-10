@@ -2,39 +2,39 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id EA9E5545F98
-	for <lists+linux-stm32@lfdr.de>; Fri, 10 Jun 2022 10:46:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 06FAD545F99
+	for <lists+linux-stm32@lfdr.de>; Fri, 10 Jun 2022 10:47:00 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 98D30C5F1D7;
-	Fri, 10 Jun 2022 08:46:58 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B31EFC5F1F1;
+	Fri, 10 Jun 2022 08:46:59 +0000 (UTC)
 Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com
  [148.163.135.77])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9B5EAC5EC6B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 197A6C5EC6B
  for <linux-stm32@st-md-mailman.stormreply.com>;
  Fri, 10 Jun 2022 08:46:57 +0000 (UTC)
 Received: from pps.filterd (m0167088.ppops.net [127.0.0.1])
- by mx0a-00128a01.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 25A8Ze3Y010624;
- Fri, 10 Jun 2022 04:45:36 -0400
+ by mx0a-00128a01.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 25A5dXqe010565;
+ Fri, 10 Jun 2022 04:45:43 -0400
 Received: from nwd2mta4.analog.com ([137.71.173.58])
- by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 3gm00mh1hx-1
+ by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 3gm00mh1jd-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 10 Jun 2022 04:45:36 -0400
+ Fri, 10 Jun 2022 04:45:43 -0400
 Received: from ASHBMBX8.ad.analog.com (ASHBMBX8.ad.analog.com [10.64.17.5])
- by nwd2mta4.analog.com (8.14.7/8.14.7) with ESMTP id 25A8jYPp027438
+ by nwd2mta4.analog.com (8.14.7/8.14.7) with ESMTP id 25A8jfhg027444
  (version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL); 
- Fri, 10 Jun 2022 04:45:34 -0400
-Received: from ASHBMBX9.ad.analog.com (10.64.17.10) by ASHBMBX8.ad.analog.com
+ Fri, 10 Jun 2022 04:45:41 -0400
+Received: from ASHBMBX8.ad.analog.com (10.64.17.5) by ASHBMBX8.ad.analog.com
  (10.64.17.5) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.14; Fri, 10 Jun
- 2022 04:45:33 -0400
-Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx9.ad.analog.com
- (10.64.17.10) with Microsoft SMTP Server id 15.2.986.14 via Frontend
- Transport; Fri, 10 Jun 2022 04:45:33 -0400
+ 2022 04:45:40 -0400
+Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx8.ad.analog.com
+ (10.64.17.5) with Microsoft SMTP Server id 15.2.986.14 via Frontend
+ Transport; Fri, 10 Jun 2022 04:45:40 -0400
 Received: from nsa.ad.analog.com ([10.44.3.70])
- by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 25A8imiN014275;
- Fri, 10 Jun 2022 04:45:25 -0400
+ by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 25A8imiO014275;
+ Fri, 10 Jun 2022 04:45:31 -0400
 From: =?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>
 To: <linux-imx@nxp.com>, <linux-renesas-soc@vger.kernel.org>,
  <linux-mips@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
@@ -44,21 +44,21 @@ To: <linux-imx@nxp.com>, <linux-renesas-soc@vger.kernel.org>,
  <linux-stm32@st-md-mailman.stormreply.com>,
  <linux-arm-msm@vger.kernel.org>, <linux-iio@vger.kernel.org>,
  <openbmc@lists.ozlabs.org>
-Date: Fri, 10 Jun 2022 10:45:12 +0200
-Message-ID: <20220610084545.547700-2-nuno.sa@analog.com>
+Date: Fri, 10 Jun 2022 10:45:13 +0200
+Message-ID: <20220610084545.547700-3-nuno.sa@analog.com>
 X-Mailer: git-send-email 2.36.1
 In-Reply-To: <20220610084545.547700-1-nuno.sa@analog.com>
 References: <20220610084545.547700-1-nuno.sa@analog.com>
 MIME-Version: 1.0
 X-ADIRuleOP-NewSCL: Rule Triggered
-X-Proofpoint-ORIG-GUID: mR1xkOVmFu610z7Jttmfjr9CQOxQtSCo
-X-Proofpoint-GUID: mR1xkOVmFu610z7Jttmfjr9CQOxQtSCo
+X-Proofpoint-ORIG-GUID: L46BpwneyhtI3GNdFP6pjW7i3IWCTReN
+X-Proofpoint-GUID: L46BpwneyhtI3GNdFP6pjW7i3IWCTReN
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.205,Aquarius:18.0.874,Hydra:6.0.517,FMLib:17.11.64.514
  definitions=2022-06-10_02,2022-06-09_02,2022-02-23_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
  phishscore=0 mlxscore=0
- malwarescore=0 mlxlogscore=763 lowpriorityscore=0 suspectscore=0
+ malwarescore=0 mlxlogscore=827 lowpriorityscore=0 suspectscore=0
  bulkscore=0 adultscore=0 priorityscore=1501 clxscore=1015 spamscore=0
  impostorscore=0 classifier=spam adjust=0 reason=mlx scancount=1
  engine=8.12.0-2204290000 definitions=main-2206100031
@@ -90,8 +90,8 @@ Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
  Eugen Hristev <eugen.hristev@microchip.com>, Shawn Guo <shawnguo@kernel.org>,
  Claudiu Beznea <claudiu.beznea@microchip.com>,
  Jonathan Cameron <jic23@kernel.org>
-Subject: [Linux-stm32] [PATCH 01/34] iio: adc: ad7606: explicitly add proper
-	header files
+Subject: [Linux-stm32] [PATCH 02/34] iio: adc: ad7606_par: explicitly add
+	proper header files
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -112,15 +112,14 @@ RG8gbm90IHRydXN0IHRoZSBmYWN0IHRoYXQgaWlvLmggaW5jbHVkZXMgb2YuaCB3aGljaCBpbiB0
 dXJuIGluY2x1ZGVzCmFsbCB0aGUgaGVhZGVycyB3ZSBhcmUgcmVseWluZyBvbi4KClRoZSB1bHRp
 bWF0ZSBnb2FsIGlzIHRvIGFjdHVhbGx5IGRyb3Agb2YuaCBmcm9tIGlpby5oLgoKU2lnbmVkLW9m
 Zi1ieTogTnVubyBTw6EgPG51bm8uc2FAYW5hbG9nLmNvbT4KLS0tCiBkcml2ZXJzL2lpby9hZGMv
-YWQ3NjA2LmMgfCAxICsKIDEgZmlsZSBjaGFuZ2VkLCAxIGluc2VydGlvbigrKQoKZGlmZiAtLWdp
-dCBhL2RyaXZlcnMvaWlvL2FkYy9hZDc2MDYuYyBiL2RyaXZlcnMvaWlvL2FkYy9hZDc2MDYuYwpp
-bmRleCAzYjE5M2RjMjY0MzguLmJhMjRmOTk1MjNlMCAxMDA2NDQKLS0tIGEvZHJpdmVycy9paW8v
-YWRjL2FkNzYwNi5jCisrKyBiL2RyaXZlcnMvaWlvL2FkYy9hZDc2MDYuYwpAQCAtMTIsNiArMTIs
-NyBAQAogI2luY2x1ZGUgPGxpbnV4L2ludGVycnVwdC5oPgogI2luY2x1ZGUgPGxpbnV4L2tlcm5l
-bC5oPgogI2luY2x1ZGUgPGxpbnV4L21vZHVsZS5oPgorI2luY2x1ZGUgPGxpbnV4L3Byb3BlcnR5
-Lmg+CiAjaW5jbHVkZSA8bGludXgvcmVndWxhdG9yL2NvbnN1bWVyLmg+CiAjaW5jbHVkZSA8bGlu
-dXgvc2NoZWQuaD4KICNpbmNsdWRlIDxsaW51eC9zbGFiLmg+Ci0tIAoyLjM2LjEKCl9fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxp
-bmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8v
-c3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMy
-Cg==
+YWQ3NjA2X3Bhci5jIHwgMSArCiAxIGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKykKCmRpZmYg
+LS1naXQgYS9kcml2ZXJzL2lpby9hZGMvYWQ3NjA2X3Bhci5jIGIvZHJpdmVycy9paW8vYWRjL2Fk
+NzYwNl9wYXIuYwppbmRleCA4ODg4ZTU2YjVlOTAuLmI5MTJiNGRmOWI1NiAxMDA2NDQKLS0tIGEv
+ZHJpdmVycy9paW8vYWRjL2FkNzYwNl9wYXIuYworKysgYi9kcml2ZXJzL2lpby9hZGMvYWQ3NjA2
+X3Bhci5jCkBAIC01LDYgKzUsNyBAQAogICogQ29weXJpZ2h0IDIwMTEgQW5hbG9nIERldmljZXMg
+SW5jLgogICovCiAKKyNpbmNsdWRlIDxsaW51eC9tb2RfZGV2aWNldGFibGUuaD4KICNpbmNsdWRl
+IDxsaW51eC9tb2R1bGUuaD4KICNpbmNsdWRlIDxsaW51eC9wbGF0Zm9ybV9kZXZpY2UuaD4KICNp
+bmNsdWRlIDxsaW51eC90eXBlcy5oPgotLSAKMi4zNi4xCgpfX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgt
+c3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4u
+c3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
