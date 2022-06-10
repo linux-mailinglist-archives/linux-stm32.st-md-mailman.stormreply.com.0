@@ -2,92 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C77255459D2
-	for <lists+linux-stm32@lfdr.de>; Fri, 10 Jun 2022 04:03:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 706C6545A87
+	for <lists+linux-stm32@lfdr.de>; Fri, 10 Jun 2022 05:34:33 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7FB16C5EC76;
-	Fri, 10 Jun 2022 02:03:21 +0000 (UTC)
-Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
- [66.111.4.25])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 27127C5EC76;
+	Fri, 10 Jun 2022 03:34:33 +0000 (UTC)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4C431C5E2CC
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id ABCB5C5E2CC
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 10 Jun 2022 02:03:20 +0000 (UTC)
-Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
- by mailout.nyi.internal (Postfix) with ESMTP id 283EC5C012B;
- Thu,  9 Jun 2022 22:03:19 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute1.internal (MEProxy); Thu, 09 Jun 2022 22:03:19 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sholland.org; h=
- cc:cc:content-transfer-encoding:content-type:date:date:from:from
- :in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:sender:subject:subject:to:to; s=fm3; t=1654826599; x=
- 1654912999; bh=auv2y1q/XHGLdEIrA+k3tJpicIXejmP+D7ve/EoZ7GM=; b=T
- lueWR2anscPTLp0GLpyNG2+xRDvlxqL4hHB649GKDVxE+83H0KogHLzK7+y7p1tl
- DhCwJiGfhsexGpVmouxwk198ga4JMmAxvc0MPItUHh02vk4LRvUraBFLAjEYzL7H
- gZcuiRXlvoicEFjgLzVXW800HjEb+HDIcWMTDaizkpQmKHhL77Q8uKOOZz707O40
- TIz9C4thfrQn3s2q2+xaIwggUvQqHrFUz2TqGq1d4nIqw7xfdbXSW30edDJyuQuH
- yq3ZTH9aWoSA/finyesptEcxaUPQUKI96Nsq8jdr1mMFqphTsaDNhASvslpIpCZs
- KuHK82wLrkBr7ibytLhow==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-transfer-encoding
- :content-type:date:date:feedback-id:feedback-id:from:from
- :in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:sender:subject:subject:to:to:x-me-proxy:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1654826599; x=
- 1654912999; bh=auv2y1q/XHGLdEIrA+k3tJpicIXejmP+D7ve/EoZ7GM=; b=H
- jaQGVAUFJ+o43qxljJhhhS7u5lZVx5+WEwMvXkqqfGfjYrY4QoCjutwZAnmZEjoi
- UJkCS7XhYJDA1P48qBCrVwgj71pEU+N52OHb1JTH/DSvb0m3ai5Jy+f+uP4ewgto
- jCgSFGjRPxUxrZo4gX98NmnppaNPRvC2tURk1H/pTCigjKDBHM6600/pBBy/aDtQ
- 9gG2FmWceVGLRo4xsWSTNiAqaow9F80mCByr562WBl+Sm9MDBq92NOgaHEbLJ8nM
- mDr5zac63XZVJmWiVE5oiukoidXAgr8j4l85vEPJ0c54Qu3kFJMG2Pyy78sK4Rqo
- pcjUqTi4+Fa8a0sfFqWAg==
-X-ME-Sender: <xms:ZaaiYna9xxSUqWwOqN2o4LbFxDQu91IYyvn7Ey86UqV2RrC2yZzEfw>
- <xme:ZaaiYmbLAZJMC-YelQXR7lHVv9B0EGQgCOn61JOLlB4fAvLGnPCLxIQuJS_Jqc5nd
- -t5T7a4wtpCMDnIsA>
-X-ME-Received: <xmr:ZaaiYp-W6bS5nyInJAR8JRslpyj4PadpQGE-IaOz_bAAWC1bMSMRGVDiT8TLXsxwNr-Y84i1EqQRN_fQ5uv3dGFQwBe77L4PBugRC1gmugy_d1ux0NXfRXQrdw>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedruddutddgheegucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucenucfjughrpefuvfevfhfhkffffgggjggtgfesth
- ejredttdefjeenucfhrhhomhepufgrmhhuvghlucfjohhllhgrnhguuceoshgrmhhuvghl
- sehshhholhhlrghnugdrohhrgheqnecuggftrfgrthhtvghrnhepleetjeffvdegheektd
- ekveeuueetffetffehudefueejvddufeduteeiieejveelnecuffhomhgrihhnpehkvghr
- nhgvlhdrohhrghenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfh
- hrohhmpehsrghmuhgvlhesshhhohhllhgrnhgurdhorhhg
-X-ME-Proxy: <xmx:ZaaiYtpnP-ZI6-J9uVGSSPK2oule0PiJy9MQZ77TQHt5ROhcNr4NMg>
- <xmx:ZaaiYirYiAV5Vy1rURPPL3TX0xJdFr7XYP3Sz-8v6317Kmg3HYStWg>
- <xmx:ZaaiYjRiGIEvtRQGbryJCwl4Mz2lfRVOT8dq1v23yOQq8Q4SKY931A>
- <xmx:Z6aiYvq427nOQFMRmcwWTUq6YZyNTbWxjVLldeY5Zj6xsbSPPt914Q>
-Feedback-ID: i0ad843c9:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 9 Jun 2022 22:03:15 -0400 (EDT)
-To: Mark Brown <broonie@kernel.org>, ckeepax@opensource.cirrus.com
-References: <20220519154318.2153729-1-ckeepax@opensource.cirrus.com>
- <165478153064.1052094.1721875477574787769.b4-ty@kernel.org>
-From: Samuel Holland <samuel@sholland.org>
-Message-ID: <2a498819-dbbf-31c1-4145-bbd2d7179bd8@sholland.org>
-Date: Thu, 9 Jun 2022 21:03:15 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.6.0
+ Fri, 10 Jun 2022 03:34:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1654832071; x=1686368071;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=hYDsR4TQbviXC62T26WO5bArOW3LiQlcMfbeilBZIJc=;
+ b=gG2p/buz79J18+CIB/JO95mTCHMoN09oGkbYowcQpDPX3fxITFJF4BXw
+ N3n2bVAAaCculgGiyRcl+U3hFGGasSuXivVYYvxDIsh6gnqCHSj2dM8XJ
+ 1C5KhdbRUdh9fouVtPg4HyAP7uQjSu/UqViI027RoIUGL8In7Vq16fX3F
+ vKN09NiLMReErT6Omwc2ZN1gFdNdMeq1mGgyN7VBVNSkUH9x2CGMmIZv9
+ 1Uhv2bZKRxSE58WghtA5pGsy+6mP3uyGFsuLb0htdcHAMRs5t013rfFaJ
+ xYKdLTYe/OdLeZgwRxuKU/fu1qKhvBJyFw3kwa82rG20oAjOqYo8gEzko A==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10373"; a="341564085"
+X-IronPort-AV: E=Sophos;i="5.91,288,1647327600"; d="scan'208";a="341564085"
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Jun 2022 20:34:29 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.91,288,1647327600"; d="scan'208";a="585971579"
+Received: from p12hl98bong5.png.intel.com ([10.158.65.178])
+ by fmsmga007.fm.intel.com with ESMTP; 09 Jun 2022 20:34:24 -0700
+From: Ong Boon Leong <boon.leong.ong@intel.com>
+To: Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Jose Abreu <Jose.Abreu@synopsys.com>, Andrew Lunn <andrew@lunn.ch>,
+ Heiner Kallweit <hkallweit1@gmail.com>,
+ Russell King <linux@armlinux.org.uk>, Paolo Abeni <pabeni@redhat.com>,
+ "David S . Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Vladimir Oltean <olteanv@gmail.com>,
+ Vivien Didelot <vivien.didelot@gmail.com>,
+ Florian Fainelli <f.fainelli@gmail.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>
+Date: Fri, 10 Jun 2022 11:29:35 +0800
+Message-Id: <20220610032941.113690-1-boon.leong.ong@intel.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-In-Reply-To: <165478153064.1052094.1721875477574787769.b4-ty@kernel.org>
-Content-Language: en-US
-Cc: cezary.rojewski@intel.com, heiko@sntech.de,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, lgirdwood@gmail.com,
- alsa-devel@alsa-project.org, linux-mips@vger.kernel.org,
- srinivas.kandagatla@linaro.org, peter.ujfalusi@gmail.com,
- linux-stm32@st-md-mailman.stormreply.com, jbrunet@baylibre.com,
- pierre-louis.bossart@linux.intel.com, krzk@kernel.org,
- linux-rockchip@lists.infradead.org, linux-imx@nxp.com,
- linux-sunxi@lists.linux.dev, linux-xtensa@linux-xtensa.org, nsaenz@kernel.org,
- linux-mediatek@lists.infradead.org, linux-tegra@vger.kernel.org,
- linux-amlogic@lists.infradead.org, linux-omap@vger.kernel.org,
- patches@opensource.cirrus.com, nicolas.ferre@microchip.com,
- jarkko.nikula@bitmer.com, kernel@pengutronix.de, shawnguo@kernel.org,
- daniel@zonque.org
-Subject: Re: [Linux-stm32] [PATCH 00/56] Specify clock provider directly to
-	CPU DAIs
+Cc: netdev@vger.kernel.org, Emilio Riva <emilio.riva@ericsson.com>,
+ linux-kernel@vger.kernel.org, Ong Boon Leong <boon.leong.ong@intel.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH net-next v2 0/7] pcs-xpcs,
+	stmmac: add 1000BASE-X AN for network switch
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,86 +71,226 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Mark,
+Hi,
 
-On 6/9/22 8:32 AM, Mark Brown wrote:
-> On Thu, 19 May 2022 16:42:22 +0100, Charles Keepax wrote:
->> Currently the set_fmt callback always passes clock provider/consumer
->> with respect to the CODEC. This made sense when the framework was
->> directly broken down into platforms and CODECs. However, as things
->> are now broken down into components which can be connected as either
->> the CPU or CODEC side of a DAI link it simplifies things if each
->> side of the link is just told if it is provider or consumer of the
->> clocks. Making this change allows us to remove one of the last parts
->> of the ASoC core that needs to know if a driver is a CODEC driver,
->> where it flips the clock format specifier if a CODEC driver is used on
->> the CPU side of a DAI link, as well as just being conceptually more
->> consistent with componentisation.
->>
->> [...]
-> 
-> Applied to
-> 
->    https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
-> 
-> Thanks!
-> 
-> [01/56] ASoC: core: Add set_fmt_new callback that directly specifies provider
->         commit: 905f3a04e184854555fc248ca4e692fdbf2f2547
-> [02/56] ASoC: amd: vangogh: Update to use set_fmt_new callback
->         commit: ab890e0f83a65624d20b0ca4a7cb6306b8511558
-> [03/56] ASoC: atmel: Update to use set_fmt_new callback
->         commit: 0fd054a577180cd807992e32c7cd394e54c85903
-> [04/56] ASoC: au1x: Update to use set_fmt_new callback
->         commit: fee11f70849b21a244e6e27d281f3858b671bfea
-> [05/56] ASoC: bcm: Update to use set_fmt_new callback
->         commit: 04ea2404468b7885c560c3673f6f2fd368f305a2
-> [06/56] ASoC: ep93xx: Update to use set_fmt_new callback
->         commit: 5d6124e58d56818249a6266f56d9c3739e72e1bd
-> [07/56] ASoC: dwc: Update to use set_fmt_new callback
->         commit: ca0444f1f7b228ae3b8d1a5c0f0d1b4463171f98
-> [08/56] ASoC: fsl: Update to use set_fmt_new callback
->         commit: 3b14c15a333b8225ea38479e13c0366539d3374a
-> [09/56] ASoC: hisilicon: Update to use set_fmt_new callback
->         commit: 0f362524dd3face4865077a4f7e7e640a95702aa
-> [10/56] ASoC: img: Update to use set_fmt_new callback
->         commit: ed2b384082a678a0c4c8c56deff9e5f46d5e3fca
-> [11/56] ASoC: Intel: Update to use set_fmt_new callback
->         commit: add9ee8c64c617f561a309cdda50104e9e2c12f6
-> [12/56] ASoC: js4740-i2s: Update to use set_fmt_new callback
->         commit: cbb3a19f090d5a41b822caf9ff2058e1c6bc7ea3
-> [13/56] ASoC: mediatek: Update to use set_fmt_new callback
->         commit: 3af99430f8d948a41556156155b0295dec274d41
-> [14/56] ASoC: meson: Update to use set_fmt_new callback
->         commit: f60442bf6eab47aa4ab127aab88afdcc29a09a73
-> [15/56] ASoC: mxs-saif: Update to use set_fmt_new callback
->         commit: f3c0064f1f8e358799c70c7905a09d15c5ec5e5a
-> [16/56] ASoC: pxa: Update to use set_fmt_new callback
->         commit: 84c5b47c8ce4d5059d5e7539d3b44922cc0390e9
-> [17/56] ASoC: qcom: Update to use set_fmt_new callback
->         commit: 1148e16b335f341f36475b646c692b4a71a1855e
-> [18/56] ASoC: rockchip: Update to use set_fmt_new callback
->         commit: 27646d265da1745b2d1d10fec18465631cb1135f
-> [19/56] ASoC: samsung: Update to use set_fmt_new callback
->         commit: 0b491c7c1b2555ef08285fd49a8567f2f9f34ff8
-> [20/56] ASoC: sh: Update to use set_fmt_new callback
->         commit: 2d4dd776e902546389f2d7808ece7fd815aa829c
-> [21/56] ASoC: stm: Update to use set_fmt_new callback
->         commit: 0092dac91ec1c404787841bdd9ecbf3404d1a41c
-> [22/56] ASoC: sunxi: Update to use set_fmt_new callback
->         commit: 7cc3965fde74c9c725ed01de4ac35bc7d562d16a
+Thanks Russell King [1] and Andrew Lunn [2] for v1 review and suggestion.
+Since then, I have worked on refactoring the implementation as follow:
 
-This patch is wrong, which I pointed out earlier[1]. It will break audio on the
-Allwinner A33 and A64 SoCs. Charles said he would send a v2[2]. Excluding the
-changes to sound/soc/sunxi/sun8i-codec.c from the patch would fix it.
+v2 changes:
+1/7 - [New] Update xpcs_do_config to accept advertising input
+2/7 - [New] Fix to compilation issue introduced v1. Update xpcs_do_config
+            for sja1105.
+3/7 - Same as 3/4 of v1 series.
+4/7 - [Fix] Fix numerous issues identified by Russell King [1].
+5/7 - [New] Make fixed-link setting takes precedence over ovr_an_inband.
+            This is a fix to a bug introduced earlier. Separate patch
+            will be sent later.
+6/7 - [New] Allow phy-mode ACPI _DSD setting for dwmac-intel to overwrite
+            the phy_interface detected through PCI DevID.
+7/7 - [New] Make mdio register flow to skip PHY scanning if fixed-link
+            is specified.
 
-Regards,
-Samuel
+I have tested the patch-series on a 3-port SGMII Ethernet on Elkhart Lake
+customer platform and PSE GbE1 (0000:00:1d.2) is setup for fixed-link
+with below ACPI _DSD modification based on [3]:-
 
-[1]:
-https://lore.kernel.org/alsa-devel/948d5418-44ca-2e60-0c1c-0b16f315feba@sholland.org/
-[2]:
-https://lore.kernel.org/linux-sunxi/20220520095654.GK38351@ediswmail.ad.cirrus.com/
+        Device (OTN1)
+        {
+            <snippet-remove>
+
+            Name (_DSD, Package () {
+                ToUUID("daffd814-6eba-4d8c-8a91-bc9bbf4aa301"),
+                    Package () {
+                        Package () {"phy-mode", "1000base-x"},
+                    },
+                ToUUID("dbb8e3e6-5886-4ba6-8795-1319f52a966b"),
+                    Package () {
+                        Package () {"fixed-link", "LNK0"}
+                    }
+            })
+
+            Name (LNK0, Package(){ // Data-only subnode of port
+                ToUUID("daffd814-6eba-4d8c-8a91-bc9bbf4aa301"),
+                    Package () {
+                        Package () {"speed", 1000},
+                        Package () {"full-duplex", 1}
+                    }
+            })
+        }
+
+The modified ACPI DSDT table is inserted into OS based on [4] for
+testing purpose. This method will not be required if respective BIOS has
+the matching ACPI _DSD changes. In gist, we avoid the need to add board
+specific DMI based configuration to Linux driver and let ACPI DSDT table
+customized according to hardware/port configuration design to decide how
+the driver is loaded up per port-basis.
+
+From dmesg below (whereby non-relevant section removed), we can see that:-
+
+[    4.112037] intel-eth-pci 0000:00:1d.1 eno1: configuring for inband/sgmii link mode
+[    4.132016] intel-eth-pci 0000:00:1d.2 eno2: configuring for fixed/1000base-x link mode
+[    4.162069] intel-eth-pci 0000:00:1e.4 eno3: configuring for inband/sgmii link mode
+
+-----------------------------------------------------------------------------------------------------------
+[    1.471347] intel-eth-pci 0000:00:1d.1: stmmac_config_multi_msi: multi MSI enablement successful
+[    1.471518] intel-eth-pci 0000:00:1d.1: User ID: 0x51, Synopsys ID: 0x52
+[    1.471525] intel-eth-pci 0000:00:1d.1:      DWMAC4/5
+[    1.471531] intel-eth-pci 0000:00:1d.1: DMA HW capability register supported
+[    1.471533] intel-eth-pci 0000:00:1d.1: RX Checksum Offload Engine supported
+[    1.471535] intel-eth-pci 0000:00:1d.1: TX Checksum insertion supported
+[    1.471536] intel-eth-pci 0000:00:1d.1: TSO supported
+[    1.471537] intel-eth-pci 0000:00:1d.1: Enable RX Mitigation via HW Watchdog Timer
+[    1.471542] intel-eth-pci 0000:00:1d.1: device MAC address a8:a1:59:9d:2b:64
+[    1.471545] intel-eth-pci 0000:00:1d.1: Enabled L3L4 Flow TC (entries=2)
+[    1.471547] intel-eth-pci 0000:00:1d.1: Enabled RFS Flow TC (entries=10)
+[    1.471552] intel-eth-pci 0000:00:1d.1: Enabling HW TC (entries=256, max_off=256)
+[    1.471555] intel-eth-pci 0000:00:1d.1: TSO feature enabled
+[    1.471556] intel-eth-pci 0000:00:1d.1: Using 32 bits DMA width
+[    1.471770] mdio_bus stmmac-2: GPIO lookup for consumer reset
+[    1.471774] mdio_bus stmmac-2: using lookup tables for GPIO lookup
+[    1.471777] mdio_bus stmmac-2: No GPIO consumer reset found
+[    1.481872] mdio_bus stmmac-2:01: GPIO lookup for consumer reset
+[    1.481879] mdio_bus stmmac-2:01: using lookup tables for GPIO lookup
+[    1.481881] mdio_bus stmmac-2:01: No GPIO consumer reset found
+[    1.483206] Maxlinear Ethernet GPY215B stmmac-2:01: Firmware Version: 0x8764 (release)
+
+[    1.683631] Maxlinear Ethernet GPY215B stmmac-2:01: attached PHY driver (mii_bus:phy_addr=stmmac-2:01, irq=POLL)
+
+[    1.749607] intel-eth-pci 0000:00:1d.2: stmmac_config_multi_msi: multi MSI enablement successful
+[    1.749677] intel-eth-pci 0000:00:1d.2: User ID: 0x51, Synopsys ID: 0x52
+[    1.749681] intel-eth-pci 0000:00:1d.2:      DWMAC4/5
+[    1.749688] intel-eth-pci 0000:00:1d.2: DMA HW capability register supported
+[    1.749690] intel-eth-pci 0000:00:1d.2: RX Checksum Offload Engine supported
+[    1.749692] intel-eth-pci 0000:00:1d.2: TX Checksum insertion supported
+[    1.749693] intel-eth-pci 0000:00:1d.2: TSO supported
+[    1.749694] intel-eth-pci 0000:00:1d.2: Enable RX Mitigation via HW Watchdog Timer
+[    1.749701] intel-eth-pci 0000:00:1d.2: device MAC address a8:a1:59:9d:2b:46
+[    1.749703] intel-eth-pci 0000:00:1d.2: Enabled L3L4 Flow TC (entries=2)
+[    1.749705] intel-eth-pci 0000:00:1d.2: Enabled RFS Flow TC (entries=10)
+[    1.749710] intel-eth-pci 0000:00:1d.2: Enabling HW TC (entries=256, max_off=256)
+[    1.749712] intel-eth-pci 0000:00:1d.2: TSO feature enabled
+[    1.749714] intel-eth-pci 0000:00:1d.2: Using 32 bits DMA width
+
+[    1.749821] mdio_bus stmmac-3: GPIO lookup for consumer reset
+[    1.749823] mdio_bus stmmac-3: using lookup tables for GPIO lookup
+[    1.749825] mdio_bus stmmac-3: No GPIO consumer reset found
+[    1.759184] mdio_bus stmmac-3:01: GPIO lookup for consumer reset
+[    1.759188] mdio_bus stmmac-3:01: using lookup tables for GPIO lookup
+[    1.759190] mdio_bus stmmac-3:01: No GPIO consumer reset found
+[    1.760419] Maxlinear Ethernet GPY215B stmmac-3:01: Firmware Version: 0x8764 (release)
+
+[    2.025792] intel-eth-pci 0000:00:1e.4: stmmac_config_multi_msi: multi MSI enablement successful
+[    2.025876] intel-eth-pci 0000:00:1e.4: User ID: 0x51, Synopsys ID: 0x52
+[    2.025881] intel-eth-pci 0000:00:1e.4:      DWMAC4/5
+[    2.025887] sdhci-pci 0000:00:1a.1: No GPIO consumer (null) found
+[    2.025888] intel-eth-pci 0000:00:1e.4: DMA HW capability register supported
+[    2.025891] intel-eth-pci 0000:00:1e.4: RX Checksum Offload Engine supported
+[    2.025893] intel-eth-pci 0000:00:1e.4: TX Checksum insertion supported
+[    2.025894] intel-eth-pci 0000:00:1e.4: TSO supported
+[    2.025896] intel-eth-pci 0000:00:1e.4: Enable RX Mitigation via HW Watchdog Timer
+[    2.025913] intel-eth-pci 0000:00:1e.4: device MAC address a8:a1:59:9d:2b:7a
+[    2.025915] intel-eth-pci 0000:00:1e.4: Enabled L3L4 Flow TC (entries=2)
+[    2.025917] intel-eth-pci 0000:00:1e.4: Enabled RFS Flow TC (entries=10)
+[    2.025924] intel-eth-pci 0000:00:1e.4: Enabling HW TC (entries=256, max_off=256)
+[    2.025926] intel-eth-pci 0000:00:1e.4: TSO feature enabled
+[    2.025928] intel-eth-pci 0000:00:1e.4: Using 40 bits DMA width
+[    2.026024] mdio_bus stmmac-1: GPIO lookup for consumer reset
+[    2.026027] mdio_bus stmmac-1: using lookup tables for GPIO lookup
+[    2.026029] mdio_bus stmmac-1: No GPIO consumer reset found
+[    2.035547] mdio_bus stmmac-1:01: GPIO lookup for consumer reset
+[    2.035551] mdio_bus stmmac-1:01: using lookup tables for GPIO lookup
+[    2.035553] mdio_bus stmmac-1:01: No GPIO consumer reset found
+[    2.036905] Maxlinear Ethernet GPY215B stmmac-1:01: Firmware Version: 0x8764 (release)
+
+[    2.239477] Maxlinear Ethernet GPY215B stmmac-1:01: attached PHY driver (mii_bus:phy_addr=stmmac-1:01, irq=POLL)
+
+[    2.305510] intel-eth-pci 0000:00:1d.2 eno2: renamed from eth1
+[    2.315038] intel-eth-pci 0000:00:1d.1 eno1: renamed from eth0
+[    2.320776] intel-eth-pci 0000:00:1e.4 eno3: renamed from eth2
+
+[    4.098137] intel-eth-pci 0000:00:1d.1 eno1: Register MEM_TYPE_PAGE_POOL RxQ-0
+[    4.098647] intel-eth-pci 0000:00:1d.1 eno1: Register MEM_TYPE_PAGE_POOL RxQ-1
+[    4.099187] intel-eth-pci 0000:00:1d.1 eno1: Register MEM_TYPE_PAGE_POOL RxQ-2
+[    4.099695] intel-eth-pci 0000:00:1d.1 eno1: Register MEM_TYPE_PAGE_POOL RxQ-3
+[    4.100168] intel-eth-pci 0000:00:1d.1 eno1: Register MEM_TYPE_PAGE_POOL RxQ-4
+[    4.100636] intel-eth-pci 0000:00:1d.1 eno1: Register MEM_TYPE_PAGE_POOL RxQ-5
+[    4.101114] intel-eth-pci 0000:00:1d.1 eno1: Register MEM_TYPE_PAGE_POOL RxQ-6
+[    4.101586] intel-eth-pci 0000:00:1d.1 eno1: Register MEM_TYPE_PAGE_POOL RxQ-7
+[    4.111664] dwmac4: Master AXI performs any burst length
+[    4.111750] intel-eth-pci 0000:00:1d.1 eno1: Enabling Safety Features
+[    4.111795] intel-eth-pci 0000:00:1d.1 eno1: IEEE 1588-2008 Advanced Timestamp supported
+[    4.111897] intel-eth-pci 0000:00:1d.1 eno1: registered PTP clock
+[    4.112033] intel-eth-pci 0000:00:1d.1 eno1: FPE workqueue start
+[    4.112037] intel-eth-pci 0000:00:1d.1 eno1: configuring for inband/sgmii link mode
+[    4.113621] 8021q: adding VLAN 0 to HW filter on device eno1
+
+[    4.118316] intel-eth-pci 0000:00:1d.2 eno2: Register MEM_TYPE_PAGE_POOL RxQ-0
+[    4.118835] intel-eth-pci 0000:00:1d.2 eno2: Register MEM_TYPE_PAGE_POOL RxQ-1
+[    4.119338] intel-eth-pci 0000:00:1d.2 eno2: Register MEM_TYPE_PAGE_POOL RxQ-2
+[    4.119815] intel-eth-pci 0000:00:1d.2 eno2: Register MEM_TYPE_PAGE_POOL RxQ-3
+[    4.120282] intel-eth-pci 0000:00:1d.2 eno2: Register MEM_TYPE_PAGE_POOL RxQ-4
+[    4.120758] intel-eth-pci 0000:00:1d.2 eno2: Register MEM_TYPE_PAGE_POOL RxQ-5
+[    4.121228] intel-eth-pci 0000:00:1d.2 eno2: Register MEM_TYPE_PAGE_POOL RxQ-6
+[    4.121706] intel-eth-pci 0000:00:1d.2 eno2: Register MEM_TYPE_PAGE_POOL RxQ-7
+[    4.131662] dwmac4: Master AXI performs any burst length
+[    4.131744] intel-eth-pci 0000:00:1d.2 eno2: Enabling Safety Features
+[    4.131790] intel-eth-pci 0000:00:1d.2 eno2: IEEE 1588-2008 Advanced Timestamp supported
+[    4.131873] intel-eth-pci 0000:00:1d.2 eno2: registered PTP clock
+[    4.132010] intel-eth-pci 0000:00:1d.2 eno2: FPE workqueue start
+[    4.132016] intel-eth-pci 0000:00:1d.2 eno2: configuring for fixed/1000base-x link mode
+[    4.133517] 8021q: adding VLAN 0 to HW filter on device eno2
+[    4.133677] intel-eth-pci 0000:00:1d.2 eno2: Link is Up - 1Gbps/Full - flow control off
+[    4.133687] IPv6: ADDRCONF(NETDEV_CHANGE): eno2: link becomes ready
+
+[    4.138058] intel-eth-pci 0000:00:1e.4 eno3: Register MEM_TYPE_PAGE_POOL RxQ-0
+[    4.138557] intel-eth-pci 0000:00:1e.4 eno3: Register MEM_TYPE_PAGE_POOL RxQ-1
+[    4.139105] intel-eth-pci 0000:00:1e.4 eno3: Register MEM_TYPE_PAGE_POOL RxQ-2
+[    4.139581] intel-eth-pci 0000:00:1e.4 eno3: Register MEM_TYPE_PAGE_POOL RxQ-3
+[    4.140071] intel-eth-pci 0000:00:1e.4 eno3: Register MEM_TYPE_PAGE_POOL RxQ-4
+[    4.140547] intel-eth-pci 0000:00:1e.4 eno3: Register MEM_TYPE_PAGE_POOL RxQ-5
+[    4.141041] intel-eth-pci 0000:00:1e.4 eno3: Register MEM_TYPE_PAGE_POOL RxQ-6
+[    4.141519] intel-eth-pci 0000:00:1e.4 eno3: Register MEM_TYPE_PAGE_POOL RxQ-7
+[    4.151671] dwmac4: Master AXI performs any burst length
+[    4.151751] intel-eth-pci 0000:00:1e.4 eno3: Enabling Safety Features
+[    4.161830] intel-eth-pci 0000:00:1e.4 eno3: IEEE 1588-2008 Advanced Timestamp supported
+[    4.161916] intel-eth-pci 0000:00:1e.4 eno3: registered PTP clock
+[    4.162063] intel-eth-pci 0000:00:1e.4 eno3: FPE workqueue start
+[    4.162069] intel-eth-pci 0000:00:1e.4 eno3: configuring for inband/sgmii link mode
+-----------------------------------------------------------------------------------------------------------
+
+Also, thanks to Emilio Riva from Ericsson who has been helping me in testing the patch
+on his system too.
+
+Reference:
+[1] https://patchwork.kernel.org/comment/24826650/
+[2] https://patchwork.kernel.org/comment/24827101/
+[3] https://www.kernel.org/doc/html/latest/firmware-guide/acpi/dsd/phy.html#mac-node-example-with-a-fixed-link-subnode
+[4] https://www.kernel.org/doc/html/latest/admin-guide/acpi/initrd_table_override.html
+
+Thanks
+Boon Leong
+
+Ong Boon Leong (7):
+  net: pcs: xpcs: prepare xpcs_do_config to accept advertising input
+  net: dsa: sja1105: update xpcs_do_config additional input
+  stmmac: intel: prepare to support 1000BASE-X phy interface setting
+  net: pcs: xpcs: add CL37 1000BASE-X AN support
+  net: phylink: unset ovr_an_inband if fixed-link is selected
+  stmmac: intel: add phy-mode ACPI _DSD setting support
+  net: stmmac: make mdio register skips PHY scanning for fixed-link
+
+ drivers/net/dsa/sja1105/sja1105_main.c        |   2 +-
+ .../net/ethernet/stmicro/stmmac/dwmac-intel.c |  19 +-
+ .../net/ethernet/stmicro/stmmac/stmmac_main.c |  11 +-
+ .../net/ethernet/stmicro/stmmac/stmmac_mdio.c |  14 ++
+ drivers/net/pcs/pcs-xpcs.c                    | 186 +++++++++++++++++-
+ drivers/net/phy/phylink.c                     |   4 +-
+ include/linux/pcs/pcs-xpcs.h                  |   3 +-
+ 7 files changed, 226 insertions(+), 13 deletions(-)
+
+--
+2.25.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
