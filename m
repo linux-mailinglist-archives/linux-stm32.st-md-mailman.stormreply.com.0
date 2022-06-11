@@ -2,41 +2,41 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 51ED754752E
-	for <lists+linux-stm32@lfdr.de>; Sat, 11 Jun 2022 16:04:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 60A8E547534
+	for <lists+linux-stm32@lfdr.de>; Sat, 11 Jun 2022 16:06:01 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 092B7C5F1F1;
-	Sat, 11 Jun 2022 14:04:33 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2908CC5F1F1;
+	Sat, 11 Jun 2022 14:06:01 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 32C42C0AA15
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F2C03C5F1D7
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 11 Jun 2022 14:04:32 +0000 (UTC)
+ Sat, 11 Jun 2022 14:05:59 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id D023CB816AD;
- Sat, 11 Jun 2022 14:04:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0DDF2C34116;
- Sat, 11 Jun 2022 14:04:16 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id A95F560F31;
+ Sat, 11 Jun 2022 14:05:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF9E0C34116;
+ Sat, 11 Jun 2022 14:05:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1654956270;
- bh=d9D7e+WZkIA/adW/2EztrhviBrUsEZ6lldHRAkcxlLg=;
+ s=k20201202; t=1654956358;
+ bh=OmUfGkRF4xL7PgWSrSTnTjbph9RD9p9o9gWv8vjGSHg=;
  h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=sOydrQcbKBjQgzE3F72Iyppe4CDIF8AEAAEHeB2f+bUpQggh+8WsvmpbzbNyY5xoc
- yOjsuLsual44D+Z2b/doMw9J662ELtE69RKLE91Pa5kSnKP4FPy55NkL02x3HnJzWF
- w4Ir64yV0/kKMcSVXhyDt5pNv5oHiyHnbu9ZLl4yKwmSA0mdQcDVEzFxNK/Sh8q8LV
- OZFNyLG3gXv0ETKQx7QHLu5OvW70lG4SH0Sm9018pQTd246Z/g5P9kl6/22VKgjqDR
- CJxQPvJMmNVUApYMYMVjGtjnOoDha+ymqkmCmfZH+xfbJUAVk2dtoWP8VEIc88R93h
- zA+hemHCKyhyw==
-Date: Sat, 11 Jun 2022 15:13:28 +0100
+ b=s/NwO96uBMX+o2nM9eGSnt7eVSX4jqvSEZqkM27RqMGCzysNXsmCNSfHKYk+2w1DX
+ xW62AVOwiXdjLZYAD4tkKKX1EOq8YmkjNrD09fdjwNuWfawr0w9HEgLV0u11un8IoI
+ jiXlPZJ/OoqzgbhcnXWXzKJ1Al9KVFSJxpZaUaRMO3rYoB8DtHOQhRTmIqJF5Wq1Ls
+ DHdq9fD+W0XqUUNJdDNRMkgK/FuVBkEolBiw1uQzLdoAsIaasmVFhCt0fIophTyLSD
+ XbSJyDSBJ91XzayfJgSHvIrQYXIIoFAU7WtAnId+BDpo4Md91AZg3TKvCuxbHrz1aG
+ YELoLDy88lQ7g==
+Date: Sat, 11 Jun 2022 15:14:56 +0100
 From: Jonathan Cameron <jic23@kernel.org>
 To: Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>
-Message-ID: <20220611151328.2c7eb7db@jic23-huawei>
-In-Reply-To: <20220610084545.547700-11-nuno.sa@analog.com>
+Message-ID: <20220611151456.24c66aa2@jic23-huawei>
+In-Reply-To: <20220610084545.547700-12-nuno.sa@analog.com>
 References: <20220610084545.547700-1-nuno.sa@analog.com>
- <20220610084545.547700-11-nuno.sa@analog.com>
+ <20220610084545.547700-12-nuno.sa@analog.com>
 X-Mailer: Claws Mail 4.1.0 (GTK 3.24.34; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
 Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
@@ -72,8 +72,8 @@ Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
  Arnd Bergmann <arnd@arndb.de>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Cai Huoqing <cai.huoqing@linux.dev>, Shawn Guo <shawnguo@kernel.org>,
  Claudiu Beznea <claudiu.beznea@microchip.com>
-Subject: Re: [Linux-stm32] [PATCH 10/34] iio: adc: rzg2l_adc: explicitly add
- proper header files
+Subject: Re: [Linux-stm32] [PATCH 11/34] iio: common: cros_ec_lid_angle:
+ explicitly add proper header files
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,20 +90,24 @@ Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gRnJpLCAxMCBKdW4gMjAyMiAxMDo0NToyMSArMDIwMApOdW5vIFPDoSA8bnVuby5zYUBhbmFs
+T24gRnJpLCAxMCBKdW4gMjAyMiAxMDo0NToyMiArMDIwMApOdW5vIFPDoSA8bnVuby5zYUBhbmFs
 b2cuY29tPiB3cm90ZToKCj4gRG8gbm90IHRydXN0IHRoZSBmYWN0IHRoYXQgaWlvLmggaW5jbHVk
 ZXMgb2YuaCB3aGljaCBpbiB0dXJuIGluY2x1ZGVzCj4gYWxsIHRoZSBoZWFkZXJzIHdlIGFyZSBy
 ZWx5aW5nIG9uLgo+IAo+IFRoZSB1bHRpbWF0ZSBnb2FsIGlzIHRvIGFjdHVhbGx5IGRyb3Agb2Yu
 aCBmcm9tIGlpby5oLgo+IAo+IFNpZ25lZC1vZmYtYnk6IE51bm8gU8OhIDxudW5vLnNhQGFuYWxv
-Zy5jb20+CkFwcGxpZWQuCj4gLS0tCj4gIGRyaXZlcnMvaWlvL2FkYy9yemcybF9hZGMuYyB8IDEg
-Kwo+ICAxIGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKykKPiAKPiBkaWZmIC0tZ2l0IGEvZHJp
-dmVycy9paW8vYWRjL3J6ZzJsX2FkYy5jIGIvZHJpdmVycy9paW8vYWRjL3J6ZzJsX2FkYy5jCj4g
-aW5kZXggYmVlNWY5ODYxYWNiLi5jOTQwM2FiNTIwZDggMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9p
-aW8vYWRjL3J6ZzJsX2FkYy5jCj4gKysrIGIvZHJpdmVycy9paW8vYWRjL3J6ZzJsX2FkYy5jCj4g
-QEAgLTE4LDYgKzE4LDcgQEAKPiAgI2luY2x1ZGUgPGxpbnV4L21vZHVsZS5oPgo+ICAjaW5jbHVk
-ZSA8bGludXgvcGxhdGZvcm1fZGV2aWNlLmg+Cj4gICNpbmNsdWRlIDxsaW51eC9wbV9ydW50aW1l
-Lmg+Cj4gKyNpbmNsdWRlIDxsaW51eC9wcm9wZXJ0eS5oPgo+ICAjaW5jbHVkZSA8bGludXgvcmVz
-ZXQuaD4KPiAgCj4gICNkZWZpbmUgRFJJVkVSX05BTUUJCSJyemcybC1hZGMiCgpfX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5n
-IGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0
-LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
+Zy5jb20+CkFwcGxpZWQuCgo+IC0tLQo+ICBkcml2ZXJzL2lpby9jb21tb24vY3Jvc19lY19zZW5z
+b3JzL2Nyb3NfZWNfbGlkX2FuZ2xlLmMgfCAxICsKPiAgMSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0
+aW9uKCspCj4gCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvaWlvL2NvbW1vbi9jcm9zX2VjX3NlbnNv
+cnMvY3Jvc19lY19saWRfYW5nbGUuYyBiL2RyaXZlcnMvaWlvL2NvbW1vbi9jcm9zX2VjX3NlbnNv
+cnMvY3Jvc19lY19saWRfYW5nbGUuYwo+IGluZGV4IGFmODAxZTIwMzYyMy4uOWY3ODBmYWZhZWQ5
+IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvaWlvL2NvbW1vbi9jcm9zX2VjX3NlbnNvcnMvY3Jvc19l
+Y19saWRfYW5nbGUuYwo+ICsrKyBiL2RyaXZlcnMvaWlvL2NvbW1vbi9jcm9zX2VjX3NlbnNvcnMv
+Y3Jvc19lY19saWRfYW5nbGUuYwo+IEBAIC0yMCw2ICsyMCw3IEBACj4gICNpbmNsdWRlIDxsaW51
+eC9paW8vdHJpZ2dlcmVkX2J1ZmZlci5oPgo+ICAjaW5jbHVkZSA8bGludXgvaWlvL3RyaWdnZXJf
+Y29uc3VtZXIuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L2tlcm5lbC5oPgo+ICsjaW5jbHVkZSA8bGlu
+dXgvbW9kX2RldmljZXRhYmxlLmg+Cj4gICNpbmNsdWRlIDxsaW51eC9tb2R1bGUuaD4KPiAgI2lu
+Y2x1ZGUgPGxpbnV4L3BsYXRmb3JtX2RhdGEvY3Jvc19lY19jb21tYW5kcy5oPgo+ICAjaW5jbHVk
+ZSA8bGludXgvcGxhdGZvcm1fZGV2aWNlLmg+CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJA
+c3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1y
+ZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
