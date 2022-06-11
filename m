@@ -2,41 +2,41 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7B8FF54753B
-	for <lists+linux-stm32@lfdr.de>; Sat, 11 Jun 2022 16:07:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CD554547540
+	for <lists+linux-stm32@lfdr.de>; Sat, 11 Jun 2022 16:08:48 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4433DC5F1F1;
-	Sat, 11 Jun 2022 14:07:21 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6A19CC5F1F1;
+	Sat, 11 Jun 2022 14:08:48 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C5154C5F1D7
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 13BBCC5F1D7
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 11 Jun 2022 14:07:19 +0000 (UTC)
+ Sat, 11 Jun 2022 14:08:47 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 537C8B816AD;
- Sat, 11 Jun 2022 14:07:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C6736C34116;
- Sat, 11 Jun 2022 14:07:05 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 2F52F60F2F;
+ Sat, 11 Jun 2022 14:08:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1CAEC34116;
+ Sat, 11 Jun 2022 14:08:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1654956438;
- bh=sYrcnctOT1kg2rtUoj2m7nGi8WnuwpUPezuz5OO1NN8=;
+ s=k20201202; t=1654956524;
+ bh=Q7uH/mCGyoXGFFwms09+N94nX0bdHOZzM/yZaIfh6Ek=;
  h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=bbXSpdcwgal7gAnf16jULcsmRlfACXBw6a77ZvEr6NSlsLv+8lH4Yw73ue78Q7laW
- 1x5yo0RCc5QtnxdmW3e85EDzoCUuj1EM/CPL4UXXvN0gL7/o3gzK/BLN1gcY/2KMvt
- +9rTVuTl2t+2wYPgXvmT+Jh482GId+ORxUmnhvhy9ArQJqsF5uUxR+hXwJLMyYjLG6
- W/p4U5bCmJNubnlMpHySZnyO7oo2IqtsZ+KTMcIZXQL6OXcCZvpOdCg3rJlO1eFh0U
- 7Bnf5TWv+Mnf59isUCSVFHpCkbFmjMmtcFTFcdusioLsSrRcxByVGMRo8q8SAuLUf/
- wj9VhvuX6sEcA==
-Date: Sat, 11 Jun 2022 15:16:18 +0100
+ b=mZj2i59NBcNyLK9USNCmcc1bzITeUpD3QKgVzEY4jDQIz3WyWb6loWFtj2/B4PMnV
+ Q2NnH0i0Eelnp6LRaQ89gn6nnMVd8wNTmcqIFfRtwMucJpn6Cp9yrVjEOXo8baKh9b
+ t1ECjO/F1j4lQ5dz216APLJEvHRTQkGFrYNxLWvlieRy7+mmPVhnp/wOiaoGoMHQI1
+ OlsPe3saDNO9pHRjsqt8/u/8bos4Ws3iejxRgUWDoqpx3cPpXi/V7eBfh4kleZI9CB
+ T+Z1QKjXbYYgWAgjJVB+VG7qiuKScjMZdk+FcBTpA5wbP03GYVXNg5QJrq0SgrSa/O
+ XkUC1hJaP07FQ==
+Date: Sat, 11 Jun 2022 15:17:43 +0100
 From: Jonathan Cameron <jic23@kernel.org>
 To: Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>
-Message-ID: <20220611151618.10be5e3e@jic23-huawei>
-In-Reply-To: <20220610084545.547700-13-nuno.sa@analog.com>
+Message-ID: <20220611151743.25da39e2@jic23-huawei>
+In-Reply-To: <20220610084545.547700-14-nuno.sa@analog.com>
 References: <20220610084545.547700-1-nuno.sa@analog.com>
- <20220610084545.547700-13-nuno.sa@analog.com>
+ <20220610084545.547700-14-nuno.sa@analog.com>
 X-Mailer: Claws Mail 4.1.0 (GTK 3.24.34; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
 Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
@@ -65,15 +65,15 @@ Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
  Bjorn Andersson <bjorn.andersson@linaro.org>,
  Benson Leung <bleung@chromium.org>,
  Pengutronix Kernel Team <kernel@pengutronix.de>,
- linux-arm-kernel@lists.infradead.org, Lorenzo
- Bianconi <lorenzo@kernel.org>, Avi Fishman <avifishman70@gmail.com>,
- Patrick Venture <venture@google.com>, linux-mips@vger.kernel.org,
- Thara Gopinath <thara.gopinath@linaro.org>, linux-renesas-soc@vger.kernel.org,
- Arnd Bergmann <arnd@arndb.de>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-arm-kernel@lists.infradead.org, Lorenzo Bianconi <lorenzo@kernel.org>,
+ Avi Fishman <avifishman70@gmail.com>, Patrick Venture <venture@google.com>,
+ linux-mips@vger.kernel.org, Thara Gopinath <thara.gopinath@linaro.org>,
+ linux-renesas-soc@vger.kernel.org, Arnd Bergmann <arnd@arndb.de>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Cai Huoqing <cai.huoqing@linux.dev>, Shawn Guo <shawnguo@kernel.org>,
  Claudiu Beznea <claudiu.beznea@microchip.com>
-Subject: Re: [Linux-stm32] [PATCH 12/34] iio: common: cros_ec_sensors:
- explicitly add proper header files
+Subject: Re: [Linux-stm32] [PATCH 13/34] iio: dac: stm32-dac: explicitly add
+ proper header files
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,24 +90,21 @@ Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gRnJpLCAxMCBKdW4gMjAyMiAxMDo0NToyMyArMDIwMApOdW5vIFPDoSA8bnVuby5zYUBhbmFs
+T24gRnJpLCAxMCBKdW4gMjAyMiAxMDo0NToyNCArMDIwMApOdW5vIFPDoSA8bnVuby5zYUBhbmFs
 b2cuY29tPiB3cm90ZToKCj4gRG8gbm90IHRydXN0IHRoZSBmYWN0IHRoYXQgaWlvLmggaW5jbHVk
 ZXMgb2YuaCB3aGljaCBpbiB0dXJuIGluY2x1ZGVzCj4gYWxsIHRoZSBoZWFkZXJzIHdlIGFyZSBy
 ZWx5aW5nIG9uLgo+IAo+IFRoZSB1bHRpbWF0ZSBnb2FsIGlzIHRvIGFjdHVhbGx5IGRyb3Agb2Yu
 aCBmcm9tIGlpby5oLgo+IAo+IFNpZ25lZC1vZmYtYnk6IE51bm8gU8OhIDxudW5vLnNhQGFuYWxv
-Zy5jb20+CkFwcGxpZWQKCj4gLS0tCj4gIGRyaXZlcnMvaWlvL2NvbW1vbi9jcm9zX2VjX3NlbnNv
-cnMvY3Jvc19lY19zZW5zb3JzLmMgfCAxICsKPiAgMSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9u
-KCspCj4gCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvaWlvL2NvbW1vbi9jcm9zX2VjX3NlbnNvcnMv
-Y3Jvc19lY19zZW5zb3JzLmMgYi9kcml2ZXJzL2lpby9jb21tb24vY3Jvc19lY19zZW5zb3JzL2Ny
-b3NfZWNfc2Vuc29ycy5jCj4gaW5kZXggMzc2YTViMzAwMTBhLi42MWUwN2E3YmIxOTkgMTAwNjQ0
-Cj4gLS0tIGEvZHJpdmVycy9paW8vY29tbW9uL2Nyb3NfZWNfc2Vuc29ycy9jcm9zX2VjX3NlbnNv
-cnMuYwo+ICsrKyBiL2RyaXZlcnMvaWlvL2NvbW1vbi9jcm9zX2VjX3NlbnNvcnMvY3Jvc19lY19z
-ZW5zb3JzLmMKPiBAQCAtMTYsNiArMTYsNyBAQAo+ICAjaW5jbHVkZSA8bGludXgvaWlvL3RyaWdn
-ZXJfY29uc3VtZXIuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L2lpby90cmlnZ2VyZWRfYnVmZmVyLmg+
-Cj4gICNpbmNsdWRlIDxsaW51eC9rZXJuZWwuaD4KPiArI2luY2x1ZGUgPGxpbnV4L21vZF9kZXZp
-Y2V0YWJsZS5oPgo+ICAjaW5jbHVkZSA8bGludXgvbW9kdWxlLmg+Cj4gICNpbmNsdWRlIDxsaW51
-eC9wbGF0Zm9ybV9kYXRhL2Nyb3NfZWNfY29tbWFuZHMuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L3Bs
-YXRmb3JtX2RhdGEvY3Jvc19lY19wcm90by5oPgoKX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMy
-QHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3Jt
-cmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+Zy5jb20+CkFwcGxpZWQKCj4gLS0tCj4gIGRyaXZlcnMvaWlvL2RhYy9zdG0zMi1kYWMuYyB8IDIg
+KysKPiAgMSBmaWxlIGNoYW5nZWQsIDIgaW5zZXJ0aW9ucygrKQo+IAo+IGRpZmYgLS1naXQgYS9k
+cml2ZXJzL2lpby9kYWMvc3RtMzItZGFjLmMgYi9kcml2ZXJzL2lpby9kYWMvc3RtMzItZGFjLmMK
+PiBpbmRleCBkYWE0MmJjYmFlODMuLjBkZTFiMDliOTJmNyAxMDA2NDQKPiAtLS0gYS9kcml2ZXJz
+L2lpby9kYWMvc3RtMzItZGFjLmMKPiArKysgYi9kcml2ZXJzL2lpby9kYWMvc3RtMzItZGFjLmMK
+PiBAQCAtMTIsNiArMTIsOCBAQAo+ICAjaW5jbHVkZSA8bGludXgvaWlvL2lpby5oPgo+ICAjaW5j
+bHVkZSA8bGludXgva2VybmVsLmg+Cj4gICNpbmNsdWRlIDxsaW51eC9tb2R1bGUuaD4KPiArI2lu
+Y2x1ZGUgPGxpbnV4L21vZF9kZXZpY2V0YWJsZS5oPgo+ICsjaW5jbHVkZSA8bGludXgvb2YuaD4K
+PiAgI2luY2x1ZGUgPGxpbnV4L3BsYXRmb3JtX2RldmljZS5oPgo+ICAjaW5jbHVkZSA8bGludXgv
+cG1fcnVudGltZS5oPgo+ICAKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWls
+bWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9t
+YWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
