@@ -2,61 +2,108 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5656354804E
-	for <lists+linux-stm32@lfdr.de>; Mon, 13 Jun 2022 09:19:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6662F54804D
+	for <lists+linux-stm32@lfdr.de>; Mon, 13 Jun 2022 09:19:39 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 17587C6047C;
-	Mon, 13 Jun 2022 07:19:47 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F2B34C6047C;
+	Mon, 13 Jun 2022 07:19:38 +0000 (UTC)
+Received: from mail-qk1-f172.google.com (mail-qk1-f172.google.com
+ [209.85.222.172])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D8BA9C6046A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8BC01C6046A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 13 Jun 2022 07:19:44 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 25D78Sav015146;
- Mon, 13 Jun 2022 09:19:23 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=from : to : cc :
- subject : date : message-id : mime-version : content-type; s=selector1;
- bh=kdVZYAd0tDeUovCSDpA/Yy3+qR3t4oBUZfPK8nPFW/w=;
- b=mQ5OpWw8/TLbsDrmjkksDg4B1/t/OY/Y9MZB3OprONQnJZdDLp24cSa9iwoQ5aZzYVtF
- DTXqRe6MiaaD9psOCO1hFczDgFoI+GMryfH9lsT6W4TOY9zqAq2xCFVL80GHc5l32/Sz
- zKQK1Gqqf34SvFYNRLe1UuPjTGX4afCeG+8Qe9Fw+0yRzCYeRcNFdaci9ptyah8VAsmb
- yPCq4pRMN4NA8gRoCIn3XIpx807JeHAQdXnr/hk7LikiINEy5d3CwV1sK18TMD0BXo9x
- 0YsWfzuQE9MMUkR03SFQg8t6AcWq5FNwoTPJ06yhjn7lYRZrPFkGEUvUaLFsMr9+1OfP 2w== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3gmg6a25g0-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 13 Jun 2022 09:19:23 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id A141010002A;
- Mon, 13 Jun 2022 09:19:21 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 84C66210F8C;
- Mon, 13 Jun 2022 09:19:21 +0200 (CEST)
-Received: from localhost (10.75.127.49) by SHFDAG1NODE1.st.com (10.75.129.69)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2308.20; Mon, 13 Jun
- 2022 09:19:21 +0200
-From: Alexandre Torgue <alexandre.torgue@foss.st.com>
-To: Arnd Bergmann <arnd@arndb.de>, Olof Johansson <olof@lixom.net>, Kevin
- Hilman <khilman@baylibre.com>, <soc@kernel.org>, <arm@kernel.org>
-Date: Mon, 13 Jun 2022 09:19:20 +0200
-Message-ID: <20220613071920.5463-1-alexandre.torgue@foss.st.com>
-X-Mailer: git-send-email 2.17.1
+ Mon, 13 Jun 2022 07:19:37 +0000 (UTC)
+Received: by mail-qk1-f172.google.com with SMTP id g15so2047643qke.4
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 13 Jun 2022 00:19:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=message-id:subject:from:to:cc:date:in-reply-to:references
+ :content-transfer-encoding:user-agent:mime-version;
+ bh=GB+StqyTCKj2HdFboJFVKMCJDxe3eEc2lGFDv1Opjlc=;
+ b=X68PW8XVsxQon0pHG8Sz5eBs3OS4NqSoIFXXe/2G6Nvk/Ompk2l/aeSLop0xsWcJ5E
+ r+imyj6yRhl2ZBY5gXu6epRIquTOxi5XRXkt8chNvQ9i2e6cKF0ixckJovb4CewVtw3a
+ u7m+l85fbDcOwBkr5wl8/iEJyWb9SDi2BND4tt8QxC/8hYJ+QSWoTwQJlI3MpdiaP0TW
+ 6yNqcyKDvDSBqqDXyxsrnQmuDJ/Wm3MGqXQnOht4OpdpbeKyiQUmXcJUjIazEsf3nvgc
+ erjP+lgqHr0T63epVk4DXJ3R/zBrJtNJPJZug+u1Hzggan083EJkQVJsbMGQXRTKtTRs
+ dKKg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:subject:from:to:cc:date:in-reply-to
+ :references:content-transfer-encoding:user-agent:mime-version;
+ bh=GB+StqyTCKj2HdFboJFVKMCJDxe3eEc2lGFDv1Opjlc=;
+ b=Zvb5LxFqU/zKixpZhiWHxPovgG6ap0Hyo70Q1J1w82VT6wOQND1qCLmmsqmZ2Ak5vv
+ nvZqbqFTGyLbSjrAjG8RgQFKmEc8/9maEHbxpr92foemr2yOZcjx1TsxOqnGHTeXXXml
+ qwalnRFv/aW1SHtpn2iKP0cRGwlffGbR7HtQd4ipwnRYNsK6ULh/c/ao52fzXpChMLKX
+ 7UP+BgU+dC0bFWJVChEAYe0XV7v9OLuqZYrnIauls1JwSPsqufuBOMfQ1xGRjq8DcffN
+ QlHM92LmeTuzEgjOFjuAV52ma11GsGyrLP59Sz5POiM4PA+iAIFBm8YUfylSC+xxgmdx
+ ZtGQ==
+X-Gm-Message-State: AOAM532jPOuChqC9oBxAAKNfwpwYYHEex1lPvq20C+UOwgObBdQXF3M5
+ neRyUSzEscxUF8gqgG7fc4Y=
+X-Google-Smtp-Source: ABdhPJzkwQ8Lh4v8HmiyNYZX3CyfRLZco1LI0RmoLkuXuUs3JtU60bnSz/zcTWm7wmCt5lo+xJyqEQ==
+X-Received: by 2002:a37:4454:0:b0:69f:c339:e2dc with SMTP id
+ r81-20020a374454000000b0069fc339e2dcmr36709053qka.771.1655104776463; 
+ Mon, 13 Jun 2022 00:19:36 -0700 (PDT)
+Received: from p200300f6ef062c0090c03b551078f99d.dip0.t-ipconnect.de
+ (p200300f6ef062c0090c03b551078f99d.dip0.t-ipconnect.de.
+ [2003:f6:ef06:2c00:90c0:3b55:1078:f99d])
+ by smtp.gmail.com with ESMTPSA id
+ f8-20020a05620a408800b006a77e6df09asm4182070qko.24.2022.06.13.00.19.29
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 13 Jun 2022 00:19:35 -0700 (PDT)
+Message-ID: <5e81f73b996de80445c2e905c44ebb18c63a739b.camel@gmail.com>
+From: Nuno =?ISO-8859-1?Q?S=E1?= <noname.nuno@gmail.com>
+To: Jonathan Cameron <jic23@kernel.org>
+Date: Mon, 13 Jun 2022 09:20:26 +0200
+In-Reply-To: <20220611155902.2a5a7738@jic23-huawei>
+References: <20220610084545.547700-1-nuno.sa@analog.com>
+ <20220610084545.547700-21-nuno.sa@analog.com>
+ <CAHp75VcdwjTYDF2c-StsL7-pLKtV3vGxinX8+1nJydqB_WNXiA@mail.gmail.com>
+ <ef73aa5801ae1c8078e6a930f22feb6214038176.camel@gmail.com>
+ <20220611155902.2a5a7738@jic23-huawei>
+User-Agent: Evolution 3.44.2 
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.49]
-X-ClientProxiedBy: SFHDAG2NODE3.st.com (10.75.127.6) To SHFDAG1NODE1.st.com
- (10.75.129.69)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.874,Hydra:6.0.517,FMLib:17.11.64.514
- definitions=2022-06-13_02,2022-06-09_02,2022-02-23_01
-Cc: linux-arm-kernel@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH] ARM: dts: stm32: move SCMI related nodes in a
-	dedicated file for stm32mp15
+Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Daniel Lezcano <daniel.lezcano@linaro.org>, Tomer Maimon <tmaimon77@gmail.com>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, linux-iio <linux-iio@vger.kernel.org>,
+ Linus Walleij <linus.walleij@linaro.org>, Amit Kucheria <amitk@kernel.org>,
+ Nuno =?ISO-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+ Paul Cercueil <paul@crapouillou.net>,
+ Miquel Raynal <miquel.raynal@bootlin.com>, Guenter Roeck <groeck@chromium.org>,
+ Fabio Estevam <festevam@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
+ chrome-platform@lists.linux.dev, Lars-Peter Clausen <lars@metafoo.de>,
+ Benjamin Fair <benjaminfair@google.com>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Jishnu Prakash <quic_jprakash@quicinc.com>, Haibo Chen <haibo.chen@nxp.com>,
+ Nancy Yuen <yuenn@google.com>, Andy Shevchenko <andy.shevchenko@gmail.com>,
+ Andy Gross <agross@kernel.org>, dl-linux-imx <linux-imx@nxp.com>,
+ Zhang Rui <rui.zhang@intel.com>,
+ Christophe Branchereau <cbranchereau@gmail.com>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Saravanan Sekar <sravanhome@gmail.com>,
+ Michael Hennerich <Michael.Hennerich@analog.com>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>, "moderated
+ list:ARM/Mediatek SoC support" <linux-mediatek@lists.infradead.org>,
+ Eugen Hristev <eugen.hristev@microchip.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Gwendal Grignou <gwendal@chromium.org>, Tali Perry <tali.perry1@gmail.com>,
+ Benson Leung <bleung@chromium.org>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ linux-arm Mailing List <linux-arm-kernel@lists.infradead.org>,
+ Lorenzo Bianconi <lorenzo@kernel.org>, Avi Fishman <avifishman70@gmail.com>,
+ Patrick Venture <venture@google.com>,
+ "open list:BROADCOM NVRAM DRIVER" <linux-mips@vger.kernel.org>,
+ Thara Gopinath <thara.gopinath@linaro.org>,
+ Linux-Renesas <linux-renesas-soc@vger.kernel.org>,
+ Mark Brown <broonie@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Cai Huoqing <cai.huoqing@linux.dev>, Shawn Guo <shawnguo@kernel.org>,
+ Claudiu Beznea <claudiu.beznea@microchip.com>
+Subject: Re: [Linux-stm32] [PATCH 20/34] iio: inkern: only relase the device
+ node when done with it
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -68,306 +115,67 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Adding a "secure" version of STM32 boards (DK1/DK2/ED1/EV1), SCMI (clock/
-reset) protocol and OP-TEE node have been added in SoC dtsi file
-(stm32mp151.dtsi). They have been added with a status disabled in order to
-keep our legacy unchanged. It is actually not enough to keep our legacy
-unchanged.
-
-First, just a reminder about our use case: TF-A (BL2) loads and starts
-OP-TEE, then loads and runs U-Boot. U-Boot code checks if an OP-TEE is
-running, if yes it searches in Kernel device tree if an OP-TEE node is
-present:
-
--If the OP-TEE node is not present then U-Boot copies OP-TEE node and its
-reserved memory region from U-Boot device tree to the kernel device tree.
-
--If the OP-TEE node is present then it does nothing (this OP-TEE node will
-be used by Linux). So U-Boot lets the kernel device tree unchanged thinking
-it is correct for an OP-TEE usage. It is the case for our legacy boards,
-the OP-TEE node is present (although disabled) but the reserved memory
-region is not declared. As no memory region has been reserved for OP-TEE,
-the end of DDR is seen by the kernel as free and then used for CMA. But as
-OP-TEE is running, this end of DDR is already used by OP-TEE. So as soon as
-kernel tries to access to the CMA region OP-TEE raises an error.
-
-To fix it, all OP-TEE node and SCMI is moved in a dedicated file.
-
-Fixes: 40b4157dbd8c ("ARM: dts: stm32: enable optee firmware and SCMI support on STM32MP15")
-Signed-off-by: Alexandre Torgue <alexandre.torgue@foss.st.com>
-
----
-
-Hi ARM SoC Maintainers,
-
-Can you please consider this patch as a fixe for v5.19 cycle.
-
-Thanks
-Alex
-
-
-
-diff --git a/arch/arm/boot/dts/stm32mp15-scmi.dtsi b/arch/arm/boot/dts/stm32mp15-scmi.dtsi
-new file mode 100644
-index 000000000000..e90cf3acd0b3
---- /dev/null
-+++ b/arch/arm/boot/dts/stm32mp15-scmi.dtsi
-@@ -0,0 +1,47 @@
-+// SPDX-License-Identifier: (GPL-2.0+ OR BSD-3-Clause)
-+/*
-+ * Copyright (C) STMicroelectronics 2022 - All Rights Reserved
-+ * Author: Alexandre Torgue <alexandre.torgue@foss.st.com> for STMicroelectronics.
-+ */
-+
-+/ {
-+	firmware {
-+		optee: optee {
-+			compatible = "linaro,optee-tz";
-+			method = "smc";
-+		};
-+
-+		scmi: scmi {
-+			compatible = "linaro,scmi-optee";
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			linaro,optee-channel-id = <0>;
-+			shmem = <&scmi_shm>;
-+
-+			scmi_clk: protocol@14 {
-+				reg = <0x14>;
-+				#clock-cells = <1>;
-+			};
-+
-+			scmi_reset: protocol@16 {
-+				reg = <0x16>;
-+				#reset-cells = <1>;
-+			};
-+		};
-+	};
-+
-+	soc {
-+		scmi_sram: sram@2ffff000 {
-+			compatible = "mmio-sram";
-+			reg = <0x2ffff000 0x1000>;
-+			#address-cells = <1>;
-+			#size-cells = <1>;
-+			ranges = <0 0x2ffff000 0x1000>;
-+
-+			scmi_shm: scmi-sram@0 {
-+				compatible = "arm,scmi-shmem";
-+				reg = <0 0x80>;
-+			};
-+		};
-+	};
-+};
-diff --git a/arch/arm/boot/dts/stm32mp151.dtsi b/arch/arm/boot/dts/stm32mp151.dtsi
-index 1b2fd3426a81..7fdc324b3cf9 100644
---- a/arch/arm/boot/dts/stm32mp151.dtsi
-+++ b/arch/arm/boot/dts/stm32mp151.dtsi
-@@ -115,33 +115,6 @@
- 		status = "disabled";
- 	};
- 
--	firmware {
--		optee: optee {
--			compatible = "linaro,optee-tz";
--			method = "smc";
--			status = "disabled";
--		};
--
--		scmi: scmi {
--			compatible = "linaro,scmi-optee";
--			#address-cells = <1>;
--			#size-cells = <0>;
--			linaro,optee-channel-id = <0>;
--			shmem = <&scmi_shm>;
--			status = "disabled";
--
--			scmi_clk: protocol@14 {
--				reg = <0x14>;
--				#clock-cells = <1>;
--			};
--
--			scmi_reset: protocol@16 {
--				reg = <0x16>;
--				#reset-cells = <1>;
--			};
--		};
--	};
--
- 	soc {
- 		compatible = "simple-bus";
- 		#address-cells = <1>;
-@@ -149,20 +122,6 @@
- 		interrupt-parent = <&intc>;
- 		ranges;
- 
--		scmi_sram: sram@2ffff000 {
--			compatible = "mmio-sram";
--			reg = <0x2ffff000 0x1000>;
--			#address-cells = <1>;
--			#size-cells = <1>;
--			ranges = <0 0x2ffff000 0x1000>;
--
--			scmi_shm: scmi-sram@0 {
--				compatible = "arm,scmi-shmem";
--				reg = <0 0x80>;
--				status = "disabled";
--			};
--		};
--
- 		timers2: timer@40000000 {
- 			#address-cells = <1>;
- 			#size-cells = <0>;
-diff --git a/arch/arm/boot/dts/stm32mp157a-dk1-scmi.dts b/arch/arm/boot/dts/stm32mp157a-dk1-scmi.dts
-index e3d3f3f30c7d..36371d6ed660 100644
---- a/arch/arm/boot/dts/stm32mp157a-dk1-scmi.dts
-+++ b/arch/arm/boot/dts/stm32mp157a-dk1-scmi.dts
-@@ -7,6 +7,7 @@
- /dts-v1/;
- 
- #include "stm32mp157a-dk1.dts"
-+#include "stm32mp15-scmi.dtsi"
- 
- / {
- 	model = "STMicroelectronics STM32MP157A-DK1 SCMI Discovery Board";
-@@ -54,10 +55,6 @@
- 	resets = <&scmi_reset RST_SCMI_MCU>;
- };
- 
--&optee {
--	status = "okay";
--};
--
- &rcc {
- 	compatible = "st,stm32mp1-rcc-secure", "syscon";
- 	clock-names = "hse", "hsi", "csi", "lse", "lsi";
-@@ -76,11 +73,3 @@
- &rtc {
- 	clocks = <&scmi_clk CK_SCMI_RTCAPB>, <&scmi_clk CK_SCMI_RTC>;
- };
--
--&scmi {
--	status = "okay";
--};
--
--&scmi_shm {
--	status = "okay";
--};
-diff --git a/arch/arm/boot/dts/stm32mp157c-dk2-scmi.dts b/arch/arm/boot/dts/stm32mp157c-dk2-scmi.dts
-index 45dcd299aa9e..03226a596904 100644
---- a/arch/arm/boot/dts/stm32mp157c-dk2-scmi.dts
-+++ b/arch/arm/boot/dts/stm32mp157c-dk2-scmi.dts
-@@ -7,6 +7,7 @@
- /dts-v1/;
- 
- #include "stm32mp157c-dk2.dts"
-+#include "stm32mp15-scmi.dtsi"
- 
- / {
- 	model = "STMicroelectronics STM32MP157C-DK2 SCMI Discovery Board";
-@@ -63,10 +64,6 @@
- 	resets = <&scmi_reset RST_SCMI_MCU>;
- };
- 
--&optee {
--	status = "okay";
--};
--
- &rcc {
- 	compatible = "st,stm32mp1-rcc-secure", "syscon";
- 	clock-names = "hse", "hsi", "csi", "lse", "lsi";
-@@ -85,11 +82,3 @@
- &rtc {
- 	clocks = <&scmi_clk CK_SCMI_RTCAPB>, <&scmi_clk CK_SCMI_RTC>;
- };
--
--&scmi {
--	status = "okay";
--};
--
--&scmi_shm {
--	status = "okay";
--};
-diff --git a/arch/arm/boot/dts/stm32mp157c-ed1-scmi.dts b/arch/arm/boot/dts/stm32mp157c-ed1-scmi.dts
-index 458e0ca3cded..c1a79272c068 100644
---- a/arch/arm/boot/dts/stm32mp157c-ed1-scmi.dts
-+++ b/arch/arm/boot/dts/stm32mp157c-ed1-scmi.dts
-@@ -7,6 +7,7 @@
- /dts-v1/;
- 
- #include "stm32mp157c-ed1.dts"
-+#include "stm32mp15-scmi.dtsi"
- 
- / {
- 	model = "STMicroelectronics STM32MP157C-ED1 SCMI eval daughter";
-@@ -59,10 +60,6 @@
- 	resets = <&scmi_reset RST_SCMI_MCU>;
- };
- 
--&optee {
--	status = "okay";
--};
--
- &rcc {
- 	compatible = "st,stm32mp1-rcc-secure", "syscon";
- 	clock-names = "hse", "hsi", "csi", "lse", "lsi";
-@@ -81,11 +78,3 @@
- &rtc {
- 	clocks = <&scmi_clk CK_SCMI_RTCAPB>, <&scmi_clk CK_SCMI_RTC>;
- };
--
--&scmi {
--	status = "okay";
--};
--
--&scmi_shm {
--	status = "okay";
--};
-diff --git a/arch/arm/boot/dts/stm32mp157c-ev1-scmi.dts b/arch/arm/boot/dts/stm32mp157c-ev1-scmi.dts
-index df9c113edb4b..7842384ddbe4 100644
---- a/arch/arm/boot/dts/stm32mp157c-ev1-scmi.dts
-+++ b/arch/arm/boot/dts/stm32mp157c-ev1-scmi.dts
-@@ -7,6 +7,7 @@
- /dts-v1/;
- 
- #include "stm32mp157c-ev1.dts"
-+#include "stm32mp15-scmi.dtsi"
- 
- / {
- 	model = "STMicroelectronics STM32MP157C-EV1 SCMI eval daughter on eval mother";
-@@ -68,10 +69,6 @@
- 	resets = <&scmi_reset RST_SCMI_MCU>;
- };
- 
--&optee {
--	status = "okay";
--};
--
- &rcc {
- 	compatible = "st,stm32mp1-rcc-secure", "syscon";
- 	clock-names = "hse", "hsi", "csi", "lse", "lsi";
-@@ -90,11 +87,3 @@
- &rtc {
- 	clocks = <&scmi_clk CK_SCMI_RTCAPB>, <&scmi_clk CK_SCMI_RTC>;
- };
--
--&scmi {
--	status = "okay";
--};
--
--&scmi_shm {
--	status = "okay";
--};
--- 
-2.17.1
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gU2F0LCAyMDIyLTA2LTExIGF0IDE1OjU5ICswMTAwLCBKb25hdGhhbiBDYW1lcm9uIHdyb3Rl
+Ogo+IAo+ICtDYyBNYXJrIEJyb3duIGZvciBhIHF1ZXJ5IG9uIG9yZGVyaW5nIGluIGRldmljZSB0
+cmVlIGJhc2VkIFNQSQo+IHNldHVwLgo+IAo+IE9uIEZyaSwgMTAgSnVuIDIwMjIgMjI6MDg6NDEg
+KzAyMDAKPiBOdW5vIFPDoSA8bm9uYW1lLm51bm9AZ21haWwuY29tPiB3cm90ZToKPiAKPiA+IE9u
+IEZyaSwgMjAyMi0wNi0xMCBhdCAxNjo1NiArMDIwMCwgQW5keSBTaGV2Y2hlbmtvIHdyb3RlOgo+
+ID4gPiBPbiBGcmksIEp1biAxMCwgMjAyMiBhdCAxMDo0OCBBTSBOdW5vIFPDoSA8bnVuby5zYUBh
+bmFsb2cuY29tPgo+ID4gPiB3cm90ZTrCoCAKPiA+ID4gPiAKPiA+ID4gPiAnb2Zfbm9kZV9wdXQo
+KScgY2FuIHBvdGVudGlhbGx5IHJlbGVhc2UgdGhlIG1lbW9yeSBwb2ludGVkIHRvCj4gPiA+ID4g
+YnkKPiA+ID4gPiAnaWlvc3BlYy5ucCcgd2hpY2ggd291bGQgbGVhdmUgdXMgd2l0aCBhbiBpbnZh
+bGlkIHBvaW50ZXIgKGFuZAo+ID4gPiA+IHdlCj4gPiA+ID4gd291bGQKPiA+ID4gPiBzdGlsbCBw
+YXNzIGl0IGluICdvZl94bGF0ZSgpJykuIEFzIHN1Y2gsIHdlIGNhbiBvbmx5IHJlbGVhc2UKPiA+
+ID4gPiB0aGUKPiA+ID4gPiBub2RlCj4gPiA+ID4gYWZ0ZXIgd2UgYXJlIGRvbmUgd2l0aCBpdC7C
+oCAKPiA+ID4gCj4gPiA+IFRoZSBxdWVzdGlvbiB5b3Ugc2hvdWxkIGFuc3dlciBpbiB0aGUgY29t
+bWl0IG1lc3NhZ2UgaXMgdGhlCj4gPiA+IGZvbGxvd2luZzoKPiA+ID4gIkNhbiBhbiBPRiBub2Rl
+LCBhdHRhY2hlZCB0byBhIHN0cnVjdCBkZXZpY2UsIGJlIGdvbmUgYmVmb3JlIHRoZQo+ID4gPiBk
+ZXZpY2UgaXRzZWxmPyIgSWYgaXQgc28sIHRoZW4gcGF0Y2ggaXMgZ29vZCwgb3RoZXJ3aXNlIHRo
+ZXJlIGlzCj4gPiA+IG5vCj4gPiA+IHBvaW50IGluIHRoaXMgcGF0Y2ggaW4gdGhlIGZpcnN0IHBs
+YWNlLgo+ID4gPiDCoCAKPiA+IAo+ID4gWWVhaCwgSSBtaWdodCBiZSB3cm9uZyBidXQgZnJvbSBh
+IHF1aWNrIGxvb2suLi4geWVzLCBJIHRoaW5rIHRoZQo+ID4gbm9kZQo+ID4gY2FuIGJlIGdvbmUg
+YmVmb3JlIHRoZSBkZXZpY2UuIFRha2UgYSBsb29rIG9uIHRoZSBzcGkgb3IgaTJjCj4gPiBvZl9u
+b3RpZnkKPiA+IGhhbmRsaW5nIGFuZCB5b3UgY2FuIHNlZSB0aGF0IHRoZSBub2RlcyBhcmUgZ2V0
+L3B1dCBvbiB0aGUKPiA+IGFkZC9yZW1vdmUKPiA+IG5vdGlmY2F0aW9uLiBNZWFuaW5nIHRoYXQg
+dGhlIG5vZGUgbGlmZXNwYW4gaXMgbm90IHJlYWxseSBhdHRhY2hlZAo+ID4gdG8KPiA+IHRoZSBk
+ZXZpY2UgbGlmZXNwYW4uIElmIGl0IHdhcywgSSB3b3VsZCBleHBlY3QgdG8gc2VlIG9mX25vZGVf
+cHV0KCkKPiA+IG9uCj4gPiB0aGUgZGV2aWNlIHJlbGVhc2UoKSBmdW5jdGlvbi4uLgo+IAo+IEkg
+aGFkIGEgbG9vayBhdCBzcGlfb2Zfbm90aWZ5KCkgYW5kIGluZGVlZCB2aWEKPiBzcGlfdW5yZWdp
+c3Rlcl9kZXZpY2UoKQo+IHRoZSBub2RlIGlzIHB1dCBqdXN0IGJlZm9yZSBkZXZpY2VfZGVsKCkg
+c28gSSBhZ3JlZSB0aGF0IGF0IGZpcnN0Cj4gZ2xhbmNlCj4gaXQgc2VlbXMgbGlrZSB0aGVyZSBt
+YXkgYmUgYSByYWNlIHRoZXJlIGFnYWluc3QgdGhlIHVzZWFnZSBoZXJlLgo+IE1hcmsgKCtDQykg
+b3V0IG9mIGludGVyZXN0IHdoeSBhcmUgdGhlIG5vZGUgZ2V0cyBiZWZvcmUgdGhlCj4gZGV2aWNl
+X2FkZCgpCj4gaW4gc3BpX2FkZF9kZXZpY2UoKSBjYWxsZWQgZnJvbSBvZl9yZWdpc3Rlcl9zcGlf
+ZGV2aWNlKCkgYnV0IHRoZQo+IG1hdGNoaW5nCj4gbm9kZSBwdXRzIGJlZm9yZSB0aGUgZGV2aWNl
+X2RlbCgpIGluIHNwaV91bnJlZ2lzdGVyX2RldmljZSgpPwo+IFNlZW1zIGxpa2UgaW5jb25zaXN0
+ZW50IG9yZGVyaW5nLi4uCj4gCj4gV2hpY2ggaXMgbm90IHRvIHNheSB3ZSBzaG91bGRuJ3QgZml4
+IHRoZSBJSU8gdXNhZ2UgYXMgdGhpcyBwYXRjaAo+IGRvZXMhCj4gCgpKdXN0IHRvIGFkZCBzb21l
+dGhpbmcgdGhhdCBjYW1lIHRvIG15IGF0dGVudGlvbi4gSW4gdGhlIElJTyBjYXNlLCBpdApkb2Vz
+IG5vdCBldmVuIG1hdHRlciBpZiB0aGUgcGFyZW50IGRldmljZSBoYXMgdGhlIE9GIG5vZGUgbGlm
+ZXRpbWUKImxpbmtlZCIgdG8gaXQgKGFzIGl0IGFjdHVhbGx5IGhhcHBlbnMgZm9yIHBsYXRmb3Jt
+IGRldmljZXMpLiBUaGUKcmVhc29uIGlzIHRoYXQgaWlvX2RldiBvbmx5IGhhcyBhIHdlYWsgcmVm
+ZXJlbmNlIHRvIGl0J3MgcGFyZW50IGFuZCAoSQp0aGluaykgdGhlIHBhcmVudCBjYW4gYWN0dWFs
+bHkgZ28gYXdheSB3aGlsZSB0aGUgaWlvX2RldiBpcyBzdGlsbAphcm91bmQgKGVnOiBzb21lb25l
+IGhhcyBhbiBvcGVuIGZkIHRvIHRoZSBpaW9fZGV2IGNkZXYpLgoKPiA+IAo+ID4gQWdhaW4sIEkg
+bWlnaHQgYmUgd3JvbmcgYW5kIEkgYWRtaXQgSSB3YXMgbm90IHN1cmUgYWJvdXQgaW5jbHVkaW5n
+Cj4gPiB0aGlzCj4gPiBwYXRjaCBiZWNhdXNlIGl0J3MgYSB2ZXJ5IHVubGlrZWx5IHNjZW5hcmlv
+IGV2ZW4gdGhvdWdoIEkgdGhpbmssIGluCj4gPiB0aGVvcnksIGEgcG9zc2libGUgb25lLgo+IAo+
+IFRoZSBwYXRjaCBpcyBjdXJyZW50bHkgdmFsaWQgZXZlbiBpZiBpdCdzIG5vdCBhICdyZWFsJyBi
+dWcuCj4gR2l2ZW4gd2UgYXJlIGRvaW5nIGEgcHV0IG9uIHRoYXQgZGV2aWNlX25vZGUsIGl0IG1h
+a2VzIHNlbnNlIGZvciB0aGF0Cj4gdG8gb2NjdXIgYWZ0ZXIgdGhlIGxvY2FsIHVzZSBoYXMgZmlu
+aXNoZWQgLSB3ZSBzaG91bGRuJ3QgYmUgcmVseWluZwo+IG9uCj4gd2hhdCBoYXBwZW5zIHRvIGJl
+IHRoZSBjYXNlIGZvciBsaWZldGltZXMgdG9kYXkuCj4gCj4gTm93LCBJIGRpZCB3b25kZXIgaWYg
+YW55IGRyaXZlcnMgYWN0dWFsbHkgdXNlIGl0IGluIHRoZWlyIHhsYXRlCj4gY2FsbGJhY2tzLgo+
+IE9uZSBkb2VzIGZvciBhbiBlcnJvciBwcmludCwgc28gdGhpcyBpcyBwb3RlbnRpYWxseSByZWFs
+IChpZiB2ZXJ5Cj4gdW5saWtlbHkhKQo+IAo+IFRoaXMgaXNuJ3QgYSAnZml4JyBJJ2QgZXhwZWN0
+IHRvIHJ1c2ggaW4sIG9yIG5lY2Vzc2FyaWx5IGJhY2twb3J0IHRvCj4gc3RhYmxlCj4gYnV0IEkg
+dGhpbmsgaXQncyBhIHZhbGlkIGZpeC4KPiAKClNob3VsZCBJIGRyb3AgdGhlIGZpeGVzIHRhZz8K
+Ci0gTnVubyBTw6EKCgoKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFu
+LnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWls
+bWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
