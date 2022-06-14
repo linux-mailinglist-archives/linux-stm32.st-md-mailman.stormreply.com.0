@@ -2,38 +2,38 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9096E54A74E
-	for <lists+linux-stm32@lfdr.de>; Tue, 14 Jun 2022 05:05:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9930654A74F
+	for <lists+linux-stm32@lfdr.de>; Tue, 14 Jun 2022 05:05:28 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 52B30C5F1F0;
-	Tue, 14 Jun 2022 03:05:24 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5F339C5F1F1;
+	Tue, 14 Jun 2022 03:05:28 +0000 (UTC)
 Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 448A4C5F1EE
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D5653C5F1F0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 14 Jun 2022 03:05:21 +0000 (UTC)
+ Tue, 14 Jun 2022 03:05:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1655175922; x=1686711922;
+ t=1655175927; x=1686711927;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=QTih4n+LUKkMXxjri4Y8ogF4Hm7HSCKIapLEftReW7s=;
- b=ZpndlxR2Flg1zvm2lvMBgsI48HGZFDenYC5Wtr3IG+YABfK09I8+6wJT
- 2CMx6JcGEfZw0OBvwIkyH6UGv/iIqBKIq2lQL6Az7Cr+t0ruTvqGWIC7s
- /M9f3NzXeQG3HcOB7idjNHyoc8Gxp1BTJ7Avp/MYVEMQKCPbVUjAy6p1h
- v3psFBr3Q9d/G1slCL1uVkyhlI61MfNmaa6DxWnytdYLVSnjM7ejkZiTE
- 7K9O79fVzAA3QuiFpl5x/WcLQwmUAJ/dxEPDxxuYZSexagAFInv+2z4RN
- kzJjrEJg3n6s5knsPDtjZppcu9wtee/Igr6T+F12MFjpyDXA2x2N3hBwQ w==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10377"; a="258315686"
-X-IronPort-AV: E=Sophos;i="5.91,298,1647327600"; d="scan'208";a="258315686"
+ bh=Tk/dObL96dn44VuoBZwZZKZdR9ldP5FCMS13exwOSO0=;
+ b=MyhJ5lLGX43mxA0PzPGVpk1YrDb4ZcL7cdm0fAqJbUc2yFv+I52EA5O8
+ EHp/pRo8vwn4H/URLNCOkdwaSNUi9lLKnL8Op63kiDg5JSOUJ2ZZ52QMC
+ frAGsO586ROdlhUY8o9UT4r74FSlTMkn8V3NoMscV3FzC+zz3HFlneNzu
+ oETvrvefIn14o8MVJXGH1d5f3V7EZTRMoEApyBtmnY0eMg3qkLyXOyV28
+ u0cci2KiYSKWz95DjlmeB1PNg9t6G9zRvmdzp6nQRWDAuOVtKnFoySGKp
+ Ag7Eq/Y7M/a6VCEi0tDbm74dzU346wigFnF14W0+DA6FHb65SrBVlWBwx w==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10377"; a="258315697"
+X-IronPort-AV: E=Sophos;i="5.91,298,1647327600"; d="scan'208";a="258315697"
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jun 2022 20:05:21 -0700
+ 13 Jun 2022 20:05:26 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.91,298,1647327600"; d="scan'208";a="761787727"
+X-IronPort-AV: E=Sophos;i="5.91,298,1647327600"; d="scan'208";a="761787736"
 Received: from p12hl98bong5.png.intel.com ([10.158.65.178])
- by orsmga005.jf.intel.com with ESMTP; 13 Jun 2022 20:05:16 -0700
+ by orsmga005.jf.intel.com with ESMTP; 13 Jun 2022 20:05:21 -0700
 From: Ong Boon Leong <boon.leong.ong@intel.com>
 To: Alexandre Torgue <alexandre.torgue@foss.st.com>,
  Jose Abreu <Jose.Abreu@synopsys.com>, Andrew Lunn <andrew@lunn.ch>,
@@ -46,8 +46,8 @@ To: Alexandre Torgue <alexandre.torgue@foss.st.com>,
  Florian Fainelli <f.fainelli@gmail.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Giuseppe Cavallaro <peppe.cavallaro@st.com>
-Date: Tue, 14 Jun 2022 11:00:28 +0800
-Message-Id: <20220614030030.1249850-4-boon.leong.ong@intel.com>
+Date: Tue, 14 Jun 2022 11:00:29 +0800
+Message-Id: <20220614030030.1249850-5-boon.leong.ong@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220614030030.1249850-1-boon.leong.ong@intel.com>
 References: <20220614030030.1249850-1-boon.leong.ong@intel.com>
@@ -55,8 +55,8 @@ MIME-Version: 1.0
 Cc: netdev@vger.kernel.org, Emilio Riva <emilio.riva@ericsson.com>,
  linux-kernel@vger.kernel.org, Ong Boon Leong <boon.leong.ong@intel.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next v4 3/5] net: pcs: xpcs: add CL37
-	1000BASE-X AN support
+Subject: [Linux-stm32] [PATCH net-next v4 4/5] stmmac: intel: add phy-mode
+	and fixed-link ACPI _DSD setting support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,328 +73,78 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-For CL37 1000BASE-X AN, DW xPCS does not support C22 method but offers
-C45 vendor-specific MII MMD for programming.
+Currently, phy_interface for TSN controller instance is set based on its
+PCI Device ID. For SGMII PHY interface, phy_interface default to
+PHY_INTERFACE_MODE_SGMII. As C37 AN supports both SGMII and 1000BASE-X
+mode, we add support for 'phy-mode' ACPI _DSD for port-specific
+and customer platform specific customization.
 
-We also add the ability to disable Autoneg (through ethtool for certain
-network switch that supports 1000BASE-X (1000Mbps and Full-Duplex) but
-not Autoneg capability.
+v2:
+For platform that sets 'fixed-link' using ACPI _DSD, we will unset
+xpcs_an_inband within stmmac. Thanks to Russell King for his comment in
+https://patchwork.kernel.org/comment/24890222/
 
-v3: Fixes to issues spotted by Russell King. Thanks!
-    https://patchwork.kernel.org/comment/24890210/
-    Use phylink_mii_c22_pcs_decode_state(), remove unnecessary
-    interrupt clearing and skip speed & duplex setting if AN
-    is enabled.
-
-v2: Fixes to issues spotted by Russell King in v1. Thanks!
-    https://patchwork.kernel.org/comment/24826650/
-    Use phylink_mii_c22_pcs_encode_advertisement() and implement
-    C45 MII ADV handling since IP only support C45 access.
+v1:
+Thanks to Andrew Lunn's guidance in
+https://patchwork.kernel.org/comment/24827101/
 
 Tested-by: Emilio Riva <emilio.riva@ericsson.com>
 Signed-off-by: Ong Boon Leong <boon.leong.ong@intel.com>
 ---
- drivers/net/pcs/pcs-xpcs.c   | 172 +++++++++++++++++++++++++++++++++++
- drivers/net/pcs/pcs-xpcs.h   |   3 +-
- include/linux/pcs/pcs-xpcs.h |   1 +
- 3 files changed, 175 insertions(+), 1 deletion(-)
+ .../net/ethernet/stmicro/stmmac/dwmac-intel.c | 26 +++++++++++++++++++
+ 1 file changed, 26 insertions(+)
 
-diff --git a/drivers/net/pcs/pcs-xpcs.c b/drivers/net/pcs/pcs-xpcs.c
-index 48d81c40aab..edd0c1e40a7 100644
---- a/drivers/net/pcs/pcs-xpcs.c
-+++ b/drivers/net/pcs/pcs-xpcs.c
-@@ -77,6 +77,14 @@ static const int xpcs_sgmii_features[] = {
- 	__ETHTOOL_LINK_MODE_MASK_NBITS,
- };
- 
-+static const int xpcs_1000basex_features[] = {
-+	ETHTOOL_LINK_MODE_Pause_BIT,
-+	ETHTOOL_LINK_MODE_Asym_Pause_BIT,
-+	ETHTOOL_LINK_MODE_Autoneg_BIT,
-+	ETHTOOL_LINK_MODE_1000baseX_Full_BIT,
-+	__ETHTOOL_LINK_MODE_MASK_NBITS,
-+};
-+
- static const int xpcs_2500basex_features[] = {
- 	ETHTOOL_LINK_MODE_Pause_BIT,
- 	ETHTOOL_LINK_MODE_Asym_Pause_BIT,
-@@ -102,6 +110,10 @@ static const phy_interface_t xpcs_sgmii_interfaces[] = {
- 	PHY_INTERFACE_MODE_SGMII,
- };
- 
-+static const phy_interface_t xpcs_1000basex_interfaces[] = {
-+	PHY_INTERFACE_MODE_1000BASEX,
-+};
-+
- static const phy_interface_t xpcs_2500basex_interfaces[] = {
- 	PHY_INTERFACE_MODE_2500BASEX,
- 	PHY_INTERFACE_MODE_MAX,
-@@ -112,6 +124,7 @@ enum {
- 	DW_XPCS_10GKR,
- 	DW_XPCS_XLGMII,
- 	DW_XPCS_SGMII,
-+	DW_XPCS_1000BASEX,
- 	DW_XPCS_2500BASEX,
- 	DW_XPCS_INTERFACE_MAX,
- };
-@@ -189,6 +202,16 @@ int xpcs_write(struct dw_xpcs *xpcs, int dev, u32 reg, u16 val)
- 	return mdiobus_c45_write(bus, addr, dev, reg, val);
- }
- 
-+int xpcs_modify_changed(struct dw_xpcs *xpcs, int dev, u32 reg,
-+			u16 mask, u16 set)
-+{
-+	u32 reg_addr = mdiobus_c45_addr(dev, reg);
-+	struct mii_bus *bus = xpcs->mdiodev->bus;
-+	int addr = xpcs->mdiodev->addr;
-+
-+	return mdiobus_modify_changed(bus, addr, reg_addr, mask, set);
-+}
-+
- static int xpcs_read_vendor(struct dw_xpcs *xpcs, int dev, u32 reg)
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
+index 675dfb89b76..97b357dd468 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
+@@ -442,6 +442,7 @@ static void common_default_data(struct plat_stmmacenet_data *plat)
+ static int intel_mgbe_common_data(struct pci_dev *pdev,
+ 				  struct plat_stmmacenet_data *plat)
  {
- 	return xpcs_read(xpcs, dev, DW_VENDOR | reg);
-@@ -237,6 +260,7 @@ static int xpcs_soft_reset(struct dw_xpcs *xpcs,
- 		break;
- 	case DW_AN_C37_SGMII:
- 	case DW_2500BASEX:
-+	case DW_AN_C37_1000BASEX:
- 		dev = MDIO_MMD_VEND2;
- 		break;
- 	default:
-@@ -772,6 +796,68 @@ static int xpcs_config_aneg_c37_sgmii(struct dw_xpcs *xpcs, unsigned int mode)
- 	return ret;
- }
- 
-+static int xpcs_config_aneg_c37_1000basex(struct dw_xpcs *xpcs, unsigned int mode,
-+					  const unsigned long *advertising)
-+{
-+	phy_interface_t interface = PHY_INTERFACE_MODE_1000BASEX;
-+	int ret, mdio_ctrl, adv;
-+	bool changed = 0;
-+
-+	/* According to Chap 7.12, to set 1000BASE-X C37 AN, AN must
-+	 * be disabled first:-
-+	 * 1) VR_MII_MMD_CTRL Bit(12)[AN_ENABLE] = 0b
-+	 * 2) VR_MII_AN_CTRL Bit(2:1)[PCS_MODE] = 00b (1000BASE-X C37)
-+	 */
-+	mdio_ctrl = xpcs_read(xpcs, MDIO_MMD_VEND2, DW_VR_MII_MMD_CTRL);
-+	if (mdio_ctrl < 0)
-+		return mdio_ctrl;
-+
-+	if (mdio_ctrl & AN_CL37_EN) {
-+		ret = xpcs_write(xpcs, MDIO_MMD_VEND2, DW_VR_MII_MMD_CTRL,
-+				 mdio_ctrl & ~AN_CL37_EN);
-+		if (ret < 0)
-+			return ret;
-+	}
-+
-+	ret = xpcs_read(xpcs, MDIO_MMD_VEND2, DW_VR_MII_AN_CTRL);
-+	if (ret < 0)
-+		return ret;
-+
-+	ret &= ~DW_VR_MII_PCS_MODE_MASK;
-+	ret = xpcs_write(xpcs, MDIO_MMD_VEND2, DW_VR_MII_AN_CTRL, ret);
-+	if (ret < 0)
-+		return ret;
-+
-+	/* Check for advertising changes and update the C45 MII ADV
-+	 * register accordingly.
-+	 */
-+	adv = phylink_mii_c22_pcs_encode_advertisement(interface,
-+						       advertising);
-+	if (adv >= 0) {
-+		ret = xpcs_modify_changed(xpcs, MDIO_MMD_VEND2,
-+					  MII_ADVERTISE, 0xffff, adv);
-+		if (ret < 0)
-+			return ret;
-+
-+		changed = ret;
-+	}
-+
-+	/* Clear CL37 AN complete status */
-+	ret = xpcs_write(xpcs, MDIO_MMD_VEND2, DW_VR_MII_AN_INTR_STS, 0);
-+	if (ret < 0)
-+		return ret;
-+
-+	if (phylink_autoneg_inband(mode) &&
-+	    linkmode_test_bit(ETHTOOL_LINK_MODE_Autoneg_BIT, advertising)) {
-+		ret = xpcs_write(xpcs, MDIO_MMD_VEND2, DW_VR_MII_MMD_CTRL,
-+				 mdio_ctrl | AN_CL37_EN);
-+		if (ret < 0)
-+			return ret;
-+	}
-+
-+	return changed;
-+}
-+
- static int xpcs_config_2500basex(struct dw_xpcs *xpcs)
- {
++	struct fwnode_handle *fwnode;
+ 	char clk_name[20];
  	int ret;
-@@ -817,6 +903,12 @@ int xpcs_do_config(struct dw_xpcs *xpcs, phy_interface_t interface,
- 		if (ret)
- 			return ret;
- 		break;
-+	case DW_AN_C37_1000BASEX:
-+		ret = xpcs_config_aneg_c37_1000basex(xpcs, mode,
-+						     advertising);
-+		if (ret)
-+			return ret;
-+		break;
- 	case DW_2500BASEX:
- 		ret = xpcs_config_2500basex(xpcs);
- 		if (ret)
-@@ -921,6 +1013,29 @@ static int xpcs_get_state_c37_sgmii(struct dw_xpcs *xpcs,
- 	return 0;
- }
+ 	int i;
+@@ -560,6 +561,20 @@ static int intel_mgbe_common_data(struct pci_dev *pdev,
+ 	/* Use the last Rx queue */
+ 	plat->vlan_fail_q = plat->rx_queues_to_use - 1;
  
-+static int xpcs_get_state_c37_1000basex(struct dw_xpcs *xpcs,
-+					struct phylink_link_state *state)
-+{
-+	int lpa, bmsr;
++	/* For fixed-link setup, we allow phy-mode setting */
++	fwnode = dev_fwnode(&pdev->dev);
++	if (fwnode) {
++		const char *phy_mode;
 +
-+	if (state->an_enabled) {
-+		/* Reset link state */
-+		state->link = false;
-+
-+		lpa = xpcs_read(xpcs, MDIO_MMD_VEND2, MII_LPA);
-+		if (lpa < 0 || lpa & LPA_RFAULT)
-+			return lpa;
-+
-+		bmsr = xpcs_read(xpcs, MDIO_MMD_VEND2, MII_BMSR);
-+		if (bmsr < 0)
-+			return bmsr;
-+
-+		phylink_mii_c22_pcs_decode_state(state, bmsr, lpa);
-+	}
-+
-+	return 0;
-+}
-+
- static void xpcs_get_state(struct phylink_pcs *pcs,
- 			   struct phylink_link_state *state)
- {
-@@ -948,6 +1063,13 @@ static void xpcs_get_state(struct phylink_pcs *pcs,
- 			       ERR_PTR(ret));
- 		}
- 		break;
-+	case DW_AN_C37_1000BASEX:
-+		ret = xpcs_get_state_c37_1000basex(xpcs, state);
-+		if (ret) {
-+			pr_err("xpcs_get_state_c37_1000basex returned %pe\n",
-+			       ERR_PTR(ret));
++		if (!fwnode_property_read_string(fwnode, "phy-mode",
++						 &phy_mode)) {
++			if (!strcmp(phy_mode, "sgmii"))
++				plat->phy_interface = PHY_INTERFACE_MODE_SGMII;
++			if (!strcmp(phy_mode, "1000base-x"))
++				plat->phy_interface = PHY_INTERFACE_MODE_1000BASEX;
 +		}
-+		break;
- 	default:
- 		return;
++	}
++
+ 	/* Intel mgbe SGMII interface uses pcs-xcps */
+ 	if (plat->phy_interface == PHY_INTERFACE_MODE_SGMII ||
+ 	    plat->phy_interface == PHY_INTERFACE_MODE_1000BASEX) {
+@@ -567,6 +582,17 @@ static int intel_mgbe_common_data(struct pci_dev *pdev,
+ 		plat->mdio_bus_data->xpcs_an_inband = true;
  	}
-@@ -983,6 +1105,35 @@ static void xpcs_link_up_sgmii(struct dw_xpcs *xpcs, unsigned int mode,
- 		pr_err("%s: xpcs_write returned %pe\n", __func__, ERR_PTR(ret));
- }
  
-+static void xpcs_link_up_1000basex(struct dw_xpcs *xpcs, unsigned int mode,
-+				   int speed, int duplex)
-+{
-+	int val, ret;
++	/* For fixed-link setup, we clear xpcs_an_inband */
++	if (fwnode) {
++		struct fwnode_handle *fixed_node;
 +
-+	if (phylink_autoneg_inband(mode))
-+		return;
++		fixed_node = fwnode_get_named_child_node(fwnode, "fixed-link");
++		if (fixed_node)
++			plat->mdio_bus_data->xpcs_an_inband = false;
 +
-+	switch (speed) {
-+	case SPEED_1000:
-+		val = BMCR_SPEED1000;
-+		break;
-+	case SPEED_100:
-+	case SPEED_10:
-+	default:
-+		pr_err("%s: speed = %d\n", __func__, speed);
-+		return;
++		fwnode_handle_put(fixed_node);
 +	}
 +
-+	if (duplex == DUPLEX_FULL)
-+		val |= BMCR_FULLDPLX;
-+	else
-+		pr_err("%s: half duplex not supported\n", __func__);
-+
-+	ret = xpcs_write(xpcs, MDIO_MMD_VEND2, MDIO_CTRL1, val);
-+	if (ret)
-+		pr_err("%s: xpcs_write returned %pe\n", __func__, ERR_PTR(ret));
-+}
-+
- void xpcs_link_up(struct phylink_pcs *pcs, unsigned int mode,
- 		  phy_interface_t interface, int speed, int duplex)
- {
-@@ -992,9 +1143,23 @@ void xpcs_link_up(struct phylink_pcs *pcs, unsigned int mode,
- 		return xpcs_config_usxgmii(xpcs, speed);
- 	if (interface == PHY_INTERFACE_MODE_SGMII)
- 		return xpcs_link_up_sgmii(xpcs, mode, speed, duplex);
-+	if (interface == PHY_INTERFACE_MODE_1000BASEX)
-+		return xpcs_link_up_1000basex(xpcs, mode, speed, duplex);
- }
- EXPORT_SYMBOL_GPL(xpcs_link_up);
- 
-+static void xpcs_an_restart(struct phylink_pcs *pcs)
-+{
-+	struct dw_xpcs *xpcs = phylink_pcs_to_xpcs(pcs);
-+	int ret;
-+
-+	ret = xpcs_read(xpcs, MDIO_MMD_VEND2, MDIO_CTRL1);
-+	if (ret >= 0) {
-+		ret |= BMCR_ANRESTART;
-+		xpcs_write(xpcs, MDIO_MMD_VEND2, MDIO_CTRL1, ret);
-+	}
-+}
-+
- static u32 xpcs_get_id(struct dw_xpcs *xpcs)
- {
- 	int ret;
-@@ -1060,6 +1225,12 @@ static const struct xpcs_compat synopsys_xpcs_compat[DW_XPCS_INTERFACE_MAX] = {
- 		.num_interfaces = ARRAY_SIZE(xpcs_sgmii_interfaces),
- 		.an_mode = DW_AN_C37_SGMII,
- 	},
-+	[DW_XPCS_1000BASEX] = {
-+		.supported = xpcs_1000basex_features,
-+		.interface = xpcs_1000basex_interfaces,
-+		.num_interfaces = ARRAY_SIZE(xpcs_1000basex_interfaces),
-+		.an_mode = DW_AN_C37_1000BASEX,
-+	},
- 	[DW_XPCS_2500BASEX] = {
- 		.supported = xpcs_2500basex_features,
- 		.interface = xpcs_2500basex_interfaces,
-@@ -1115,6 +1286,7 @@ static const struct phylink_pcs_ops xpcs_phylink_ops = {
- 	.pcs_validate = xpcs_validate,
- 	.pcs_config = xpcs_config,
- 	.pcs_get_state = xpcs_get_state,
-+	.pcs_an_restart = xpcs_an_restart,
- 	.pcs_link_up = xpcs_link_up,
- };
- 
-diff --git a/drivers/net/pcs/pcs-xpcs.h b/drivers/net/pcs/pcs-xpcs.h
-index 35651d32a22..5164f2e9584 100644
---- a/drivers/net/pcs/pcs-xpcs.h
-+++ b/drivers/net/pcs/pcs-xpcs.h
-@@ -109,7 +109,8 @@
- 
- int xpcs_read(struct dw_xpcs *xpcs, int dev, u32 reg);
- int xpcs_write(struct dw_xpcs *xpcs, int dev, u32 reg, u16 val);
--
-+int xpcs_modify_changed(struct dw_xpcs *xpcs, int dev, u32 reg,
-+			u16 mask, u16 set);
- int nxp_sja1105_sgmii_pma_config(struct dw_xpcs *xpcs);
- int nxp_sja1110_sgmii_pma_config(struct dw_xpcs *xpcs);
- int nxp_sja1110_2500basex_pma_config(struct dw_xpcs *xpcs);
-diff --git a/include/linux/pcs/pcs-xpcs.h b/include/linux/pcs/pcs-xpcs.h
-index 37eb97cc228..d2da1e0b4a9 100644
---- a/include/linux/pcs/pcs-xpcs.h
-+++ b/include/linux/pcs/pcs-xpcs.h
-@@ -17,6 +17,7 @@
- #define DW_AN_C73			1
- #define DW_AN_C37_SGMII			2
- #define DW_2500BASEX			3
-+#define DW_AN_C37_1000BASEX		4
- 
- struct xpcs_id;
- 
+ 	/* Ensure mdio bus scan skips intel serdes and pcs-xpcs */
+ 	plat->mdio_bus_data->phy_mask = 1 << INTEL_MGBE_ADHOC_ADDR;
+ 	plat->mdio_bus_data->phy_mask |= 1 << INTEL_MGBE_XPCS_ADDR;
 -- 
 2.25.1
 
