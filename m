@@ -2,59 +2,71 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D5BB254AC4E
-	for <lists+linux-stm32@lfdr.de>; Tue, 14 Jun 2022 10:48:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DA0DE54AE94
+	for <lists+linux-stm32@lfdr.de>; Tue, 14 Jun 2022 12:40:39 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8B3FCC6046A;
-	Tue, 14 Jun 2022 08:48:14 +0000 (UTC)
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 88431C6046A;
+	Tue, 14 Jun 2022 10:40:39 +0000 (UTC)
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com
+ [209.85.221.47])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7AA77C0D2C1
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0D4E1C0D2C1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 14 Jun 2022 08:48:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=QQ2FpvP0XV43LJGQiHOvInjKVg2YYiLABEA2FkVs+fk=; b=H41eTaT/754zEkzjyGDSVV1jae
- NNcAaAFkn2nj5kVBye7Xrc5jCnBKmuWzqfoSEajL5c2nmamLHVN+jFZgVvHs5bNoaiZMif52X2otu
- Jw5IYlO39N7sntceRpmlnQ5XVxvpOsMDXV0aHnqAA+PdnUa6gDhJov1Ir4LopBP2soO/rO8IzsIJ5
- Q5+z7pgeBYKBs1GU8ENeU6PWCN9gdTjueFQd2sXZm0lVP2sBYOnxsWIXCZYd+FJkekq250wOqPjNd
- pRrAQCz9tngYKedFAeNrgCWSMv0dtbODygMkcegk922LMqxHGOvcnJa78NjPvmIQ1huISRUX90vpR
- FW40c+iw==;
-Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:32858)
- by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.94.2)
- (envelope-from <linux@armlinux.org.uk>)
- id 1o12DA-0002xL-M9; Tue, 14 Jun 2022 09:47:44 +0100
-Received: from linux by shell.armlinux.org.uk with local (Exim 4.94.2)
- (envelope-from <linux@shell.armlinux.org.uk>)
- id 1o12Cx-0007Ly-ES; Tue, 14 Jun 2022 09:47:31 +0100
-Date: Tue, 14 Jun 2022 09:47:31 +0100
-From: "Russell King (Oracle)" <linux@armlinux.org.uk>
-To: Ong Boon Leong <boon.leong.ong@intel.com>
-Message-ID: <YqhLI0vWuDWNTQ8h@shell.armlinux.org.uk>
-References: <20220614030030.1249850-1-boon.leong.ong@intel.com>
- <20220614030030.1249850-4-boon.leong.ong@intel.com>
+ Tue, 14 Jun 2022 10:40:38 +0000 (UTC)
+Received: by mail-wr1-f47.google.com with SMTP id m24so10640281wrb.10
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 14 Jun 2022 03:40:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=message-id:date:from:to:cc:subject:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=BJB3Jj+W5NRHZEZPtOT6087E76LkDf+KkklgOlWVWzg=;
+ b=Vx9jgtkwFhdUaWrGkqkzajXjR7Jmjk7cSeF52w5i5LknZZbrFOqcOkF7qZRpf/ga3x
+ d4GtXKlDEaZ6mXMxClErNdgkth+XYPu0uG4P+rJYx9ylxK0o7iQLa8gOlrfTHjmi98j4
+ Wh3H5GjFpxFsh9e16Xkmk89ceigDXefdv+XRR5mutiF6b4UrUZRWW2zO+CT9U2c24EoI
+ Vj0q8tsyTfqWc6bBlRA8OXESzZXZR9iOzujRPJeEmNxr9w8h3N1uQh/li+mOiQ52xxAb
+ A9rzOsVoaRmihLMnVqP4J5eu+vcoqxX9S6jVuIU8jRwG6CQ4TC1M5mJuwHKBkQHjVQzm
+ A97g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:date:from:to:cc:subject:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=BJB3Jj+W5NRHZEZPtOT6087E76LkDf+KkklgOlWVWzg=;
+ b=TVNx0JGmmHrbBAxcqbsHLmsI8J48ae6vu81NbCeWw9bnkegfQrLaacgevNjRqLVflG
+ KNExDwahhPbMwVHGKigPQXJWy6DGdIz67AhP9C7euUvVDF1/ZyURf/ML7RK0qv0iMTUj
+ f6AVB6gII2ux6AJbDPd5/gmdBxCT3m9+unRqwLfRpbJpOIrjM04GVtZ8kZ0YF+z9vr1V
+ yJ9Bfaj55YT0Zr0qOMbyd2bqTmZx0x/la7VekzCdCS48A7qt7VzcDxsVLhn6dLoz7uXE
+ c52wghrB2r9EoKeHxPIsBT0tt1rrFAVapP0sVreLEOCWFdiNWGXsQRl3RmrEeiC/qjZS
+ azeA==
+X-Gm-Message-State: AJIora+UEYWDDvugz7bGUpG/hOIndB7pLABm2PEgXS32l9homgJSQeMx
+ fxlpnIs/qg6SzVFjhpGlPS8=
+X-Google-Smtp-Source: AGRyM1uoZWrC1W/k512tGAzARKScdtlh9G+N0yFoFFFZiLcqKJi4jpBJsGpSKHqWRKl+/5ViIFOUHg==
+X-Received: by 2002:a05:6000:1866:b0:218:40cc:a26e with SMTP id
+ d6-20020a056000186600b0021840cca26emr4270476wri.678.1655203237290; 
+ Tue, 14 Jun 2022 03:40:37 -0700 (PDT)
+Received: from Ansuel-xps. (93-42-70-190.ip85.fastwebnet.it. [93.42.70.190])
+ by smtp.gmail.com with ESMTPSA id
+ f6-20020a05600c154600b0039c5ab7167dsm18006041wmg.48.2022.06.14.03.40.36
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 14 Jun 2022 03:40:36 -0700 (PDT)
+Message-ID: <62a865a4.1c69fb81.81506.21c5@mx.google.com>
+X-Google-Original-Message-ID: <Yqhlo8WayYq+68ex@Ansuel-xps.>
+Date: Tue, 14 Jun 2022 12:40:35 +0200
+From: Ansuel Smith <ansuelsmth@gmail.com>
+To: Jakub Kicinski <kuba@kernel.org>
+References: <20220609002831.24236-1-ansuelsmth@gmail.com>
+ <20220609002831.24236-2-ansuelsmth@gmail.com>
+ <20220613224917.325aca0a@kernel.org>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20220614030030.1249850-4-boon.leong.ong@intel.com>
-Cc: Jose Abreu <Jose.Abreu@synopsys.com>, Andrew Lunn <andrew@lunn.ch>,
- Vladimir Oltean <olteanv@gmail.com>, linux-kernel@vger.kernel.org,
- netdev@vger.kernel.org, Emilio Riva <emilio.riva@ericsson.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Vivien Didelot <vivien.didelot@gmail.com>, Eric Dumazet <edumazet@google.com>,
- Florian Fainelli <f.fainelli@gmail.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, "David S . Miller" <davem@davemloft.net>,
- linux-arm-kernel@lists.infradead.org, Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH net-next v4 3/5] net: pcs: xpcs: add CL37
- 1000BASE-X AN support
+In-Reply-To: <20220613224917.325aca0a@kernel.org>
+Cc: linux-kernel@vger.kernel.org, Mark Mentovai <mark@moxienet.com>,
+ netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>, Paolo Abeni <pabeni@redhat.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [net-next PATCH 2/2] net: ethernet: stmmac: reset
+ force speed bit for ipq806x
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,28 +83,26 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Jun 14, 2022 at 11:00:28AM +0800, Ong Boon Leong wrote:
-> +int xpcs_modify_changed(struct dw_xpcs *xpcs, int dev, u32 reg,
-> +			u16 mask, u16 set)
+On Mon, Jun 13, 2022 at 10:49:17PM -0700, Jakub Kicinski wrote:
+> On Thu,  9 Jun 2022 02:28:31 +0200 Christian 'Ansuel' Marangi wrote:
+> > +	dn = of_get_child_by_name(pdev->dev.of_node, "fixed-link");
+> > +	ret = of_property_read_u32(dn, "speed", &link_speed);
+> > +	if (ret) {
+> > +		dev_err(dev, "found fixed-link node with no speed");
+> > +		return ret;
+> 
+> Doesn't this return potentially leak the reference on dn?
+> You move the of_node_put() right before the if (ret) {
+>
 
-Why is this globally visible? I can find no reason for it in this patch
-set.
+Totally right. Will fix in v2.
 
-> +{
-> +	u32 reg_addr = mdiobus_c45_addr(dev, reg);
-> +	struct mii_bus *bus = xpcs->mdiodev->bus;
-> +	int addr = xpcs->mdiodev->addr;
-> +
-> +	return mdiobus_modify_changed(bus, addr, reg_addr, mask, set);
-
-There is a mdiodev_modify_changed() which would be slightly cleaner
-here.
-
-Thanks!
+> > +	}
+> > +
+> > +	of_node_put(dn);
 
 -- 
-RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-FTTP is here! 40Mbps down 10Mbps up. Decent connectivity at last!
+	Ansuel
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
