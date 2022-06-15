@@ -2,66 +2,43 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B93E154D41C
-	for <lists+linux-stm32@lfdr.de>; Thu, 16 Jun 2022 00:01:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8274254D55F
+	for <lists+linux-stm32@lfdr.de>; Thu, 16 Jun 2022 01:33:21 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4588CC5E2C6;
-	Wed, 15 Jun 2022 22:01:44 +0000 (UTC)
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com
- [209.85.216.49])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1BB41C5E2C6;
+	Wed, 15 Jun 2022 23:33:21 +0000 (UTC)
+Received: from phobos.denx.de (phobos.denx.de [85.214.62.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0D024C03FDD
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1C378C03FDD
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 15 Jun 2022 22:01:41 +0000 (UTC)
-Received: by mail-pj1-f49.google.com with SMTP id z14so7629533pjb.4
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 15 Jun 2022 15:01:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:content-transfer-encoding:in-reply-to;
- bh=kJzZPwhMKjOWBCIigpbSF9J8bajdVzfVoc3uDXQW95Q=;
- b=Cj08PqxuzpVVhXXh9YrJ4jX+ng1DznIaTS8jjwd8bJDdUt+McGQf9d60X+SFrohetr
- xQPXCAn3LLqD4bAo8U2YhlKsIoCrDwme576BY+Tw0ixfkHRXey2jKP2TXWrw1TXjBO6Y
- NZYkNEZyZa7dT3QgDHHqT2k5gsNjsb7dVnkRwcGrKBcGY7G3dlsvqAU8yonj0Zae8qS1
- gftbfrFL+3WB9gd39pJsJS9bBrharUYJGEWA4lkuDtIM01pO2ryKr6fWuCvK5fk+47Ce
- gTt+LOZiHhHKHx2P9Hs+xjTFaTUwo2ykiSy1xz72/yUPL0Y2n0YQONASgzfTtcPyX1TS
- iVZQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:content-transfer-encoding
- :in-reply-to;
- bh=kJzZPwhMKjOWBCIigpbSF9J8bajdVzfVoc3uDXQW95Q=;
- b=MxaXpnwVgRaAgmBWQZiPQl6ZpX+LFvOsYWjWQHNHV+zRwYCAkgi9I+OjKD/E6XMhtW
- BRzWgWcLJhJdtkb/GblbI6WMHlSfIyO2fXdeIqic3eHCp/cwITof0b8cGyBWKcu8pnrw
- LJubaJ1OBDVy4qGF2Y3IvsgXFc9jYPlENSRC1Y7vCiR85IqQ1KdCjEJ4f1Z7hrja57i3
- fkamqKbMB4xUFVI8di0PW85mTgRLFZrH6SasvZdeNuYhNwqeVx/O6GVvsirYZYHXr9IY
- nakV4nVQBDXbC769RmhUl0CbVVUTxMXHG2Ai6XcjDfmCSd68XGQXBDk2f0Fn9Fk9ADEP
- fZ7g==
-X-Gm-Message-State: AJIora9X19vQTZ36Oyvs+UhXyL90lMVcdrVeW4YyPz9Ir4PNxyng1Dmn
- ombdiL2W5xSSHj/dJgQ4yzjtkw==
-X-Google-Smtp-Source: AGRyM1tB/7rxj1PsrZbLttdzJ6N39++gXEeBXcuBdRQ9WFZYl1LBho6PCNK+K4HVQ1fuZnvJNAs8qw==
-X-Received: by 2002:a17:903:2645:b0:167:92f1:15c0 with SMTP id
- je5-20020a170903264500b0016792f115c0mr1589014plb.100.1655330500612; 
- Wed, 15 Jun 2022 15:01:40 -0700 (PDT)
-Received: from google.com ([192.77.111.2]) by smtp.gmail.com with ESMTPSA id
- q22-20020a17090a431600b001eae86cf683sm63878pjg.42.2022.06.15.15.01.39
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 15 Jun 2022 15:01:40 -0700 (PDT)
-Date: Wed, 15 Jun 2022 23:01:38 +0100
-From: Lee Jones <lee.jones@linaro.org>
-To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>
-Message-ID: <YqpWwqNBgfK5nHr0@google.com>
-References: <20220519162838.695404-1-u.kleine-koenig@pengutronix.de>
+ Wed, 15 Jun 2022 23:33:20 +0000 (UTC)
+Received: from tr.lan (ip-86-49-12-201.net.upcbroadband.cz [86.49.12.201])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
+ (No client certificate requested)
+ (Authenticated sender: marex@denx.de)
+ by phobos.denx.de (Postfix) with ESMTPSA id 540BB81E79;
+ Thu, 16 Jun 2022 01:33:19 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de;
+ s=phobos-20191101; t=1655335999;
+ bh=oTWUfjxvN7yETqRsyRKIBXSdHMg47QKxsnbCd72l+NY=;
+ h=From:To:Cc:Subject:Date:From;
+ b=cDDpiQDCzd/ggksEX2KlLQG9DN/MVoe40h3W5ZVyewYnrDgYO7Hl8UUYqIM3FeYEq
+ nUjFz3myyJA9CEDh5YETDz0bMf3Jb3OAvo+4pETYXQb+uZkL1XdlR1wAZBndfVCaby
+ XT//ZZ3HVVMUSZDc2tj32vN/WcHm9jZIeaIIFP+rIWQ5DTNYrblF0FR5C9TZphx6pr
+ YPp60wbJTe6ejrfyIUkxxGXb0EGHp476JCmY6YOAomT/wtgcWbPTce1QLHYltIg1c6
+ HeO3UVhoDY4sr0PLBUDQdiSTgQM1hFtUvCwKr+qBUSH3ZcDyeX5uh4xRGZ5kV7wvAI
+ iiRrN1YW0amXA==
+From: Marek Vasut <marex@denx.de>
+To: linux-arm-kernel@lists.infradead.org
+Date: Thu, 16 Jun 2022 01:33:10 +0200
+Message-Id: <20220615233310.90593-1-marex@denx.de>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20220519162838.695404-1-u.kleine-koenig@pengutronix.de>
-Cc: devicetree@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Rob Herring <robh+dt@kernel.org>, kernel@pengutronix.de,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v4 1/2] dt-bindings: mfd: stm32-timers:
- Document how to specify interrupts
+X-Virus-Scanned: clamav-milter 0.103.5 at phobos.denx.de
+X-Virus-Status: Clean
+Cc: Marek Vasut <marex@denx.de>, linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [PATCH] ARM: dts: stm32: Fix SPI2 pinmux pin comments
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,25 +50,67 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gVGh1LCAxOSBNYXkgMjAyMiwgVXdlIEtsZWluZS1Lw7ZuaWcgd3JvdGU6Cgo+IFRoZSB0aW1l
-ciB1bml0cyBpbiB0aGUgc3RtMzJtcDEgQ1BVcyBoYXZlIGludGVycnVwdHMsIGRlcGVuZGluZyBv
-biB0aGUKPiB0aW1lciBmbGF2b3VyIGVpdGhlciBvbmUgImdsb2JhbCIgb3IgZm91ciBkZWRpY2F0
-ZWQgb25lcy4gRG9jdW1lbnQgaG93Cj4gdG8gZm9ybWFsaXplIHRoZXNlIGluIGEgZGV2aWNlIHRy
-ZWUuCj4gCj4gU2lnbmVkLW9mZi1ieTogVXdlIEtsZWluZS1Lw7ZuaWcgPHUua2xlaW5lLWtvZW5p
-Z0BwZW5ndXRyb25peC5kZT4KPiAtLS0KPiBDaGFuZ2VzIHNpbmNlIHYzOgo+ICAgLSBEbyB0aGUg
-dGhpbmdzIFJvYiBzdWdnZXN0ZWQgaW4gcmVxbHkgdG8gdjEgd2hpY2ggSSBkaWRuJ3Qgbm90aWNl
-Cj4gICAgIHVudGlsIEZhYnJpY2UgdG9sZCBtZSBpbiByZXBseSB0byB2My4KPiAKPiAgLi4uL2Rl
-dmljZXRyZWUvYmluZGluZ3MvbWZkL3N0LHN0bTMyLXRpbWVycy55YW1sICB8IDE1ICsrKysrKysr
-KysrKysrKwo+ICAxIGZpbGUgY2hhbmdlZCwgMTUgaW5zZXJ0aW9ucygrKQoKQXBwbGllZCwgdGhh
-bmtzLgoKLS0gCkxlZSBKb25lcyBb5p2O55C85pavXQpQcmluY2lwYWwgVGVjaG5pY2FsIExlYWQg
-LSBEZXZlbG9wZXIgU2VydmljZXMKTGluYXJvLm9yZyDilIIgT3BlbiBzb3VyY2Ugc29mdHdhcmUg
-Zm9yIEFybSBTb0NzCkZvbGxvdyBMaW5hcm86IEZhY2Vib29rIHwgVHdpdHRlciB8IEJsb2cKX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIg
-bWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0
-cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgt
-c3RtMzIK
+Those pin comments refer to SPI2 pins, not SPI1 pins, update the comments.
+No functional change.
+
+Signed-off-by: Marek Vasut <marex@denx.de>
+Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
+Cc: linux-stm32@st-md-mailman.stormreply.com
+To: linux-arm-kernel@lists.infradead.org
+---
+ arch/arm/boot/dts/stm32mp15-pinctrl.dtsi | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
+
+diff --git a/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi b/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
+index 4f671045a0818..2cc9341d43d29 100644
+--- a/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
++++ b/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
+@@ -1866,30 +1866,30 @@ pins {
+ 
+ 	spi2_pins_a: spi2-0 {
+ 		pins1 {
+-			pinmux = <STM32_PINMUX('B', 10, AF5)>, /* SPI1_SCK */
+-				 <STM32_PINMUX('I', 3, AF5)>; /* SPI1_MOSI */
++			pinmux = <STM32_PINMUX('B', 10, AF5)>, /* SPI2_SCK */
++				 <STM32_PINMUX('I', 3, AF5)>; /* SPI2_MOSI */
+ 			bias-disable;
+ 			drive-push-pull;
+ 			slew-rate = <1>;
+ 		};
+ 
+ 		pins2 {
+-			pinmux = <STM32_PINMUX('I', 2, AF5)>; /* SPI1_MISO */
++			pinmux = <STM32_PINMUX('I', 2, AF5)>; /* SPI2_MISO */
+ 			bias-disable;
+ 		};
+ 	};
+ 
+ 	spi2_pins_b: spi2-1 {
+ 		pins1 {
+-			pinmux = <STM32_PINMUX('I', 1, AF5)>, /* SPI1_SCK */
+-				 <STM32_PINMUX('I', 3, AF5)>; /* SPI1_MOSI */
++			pinmux = <STM32_PINMUX('I', 1, AF5)>, /* SPI2_SCK */
++				 <STM32_PINMUX('I', 3, AF5)>; /* SPI2_MOSI */
+ 			bias-disable;
+ 			drive-push-pull;
+ 			slew-rate = <1>;
+ 		};
+ 
+ 		pins2 {
+-			pinmux = <STM32_PINMUX('I', 2, AF5)>; /* SPI1_MISO */
++			pinmux = <STM32_PINMUX('I', 2, AF5)>; /* SPI2_MISO */
+ 			bias-disable;
+ 		};
+ 	};
+-- 
+2.35.1
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
