@@ -2,38 +2,38 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A744354C3CB
-	for <lists+linux-stm32@lfdr.de>; Wed, 15 Jun 2022 10:44:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B774B54C3CC
+	for <lists+linux-stm32@lfdr.de>; Wed, 15 Jun 2022 10:44:06 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6DACBC5E2CC;
-	Wed, 15 Jun 2022 08:44:01 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7B85FC5EC56;
+	Wed, 15 Jun 2022 08:44:06 +0000 (UTC)
 Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2FCEEC5E2CC
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D52AEC5E2C6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 15 Jun 2022 08:43:59 +0000 (UTC)
+ Wed, 15 Jun 2022 08:44:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1655282639; x=1686818639;
+ t=1655282644; x=1686818644;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=AO7NWdmA1E8wyzZ3AoQe7BdaShBWyUdh37nufgPzdq0=;
- b=Scjhc79PnojGqoQOCQfzmo8ZC6nHamwVEDymI/mnausMTryc0BCtUkVF
- 71LJV4o2HsDBjNJeKzzj0IvJLBTJTg1wfWvStkqP0jN8KBosPHdtyX/6x
- D6I4nzy8XQER3WqbyAVt9Gd+quED7F0Afm87z26fXtOLq40gIcUMJGbEh
- d693tYBR52k7FUlYZDRCC9BmUGXHKVE8nub63VcR9EHh0Uxx3TbR+OXdE
- sARwsX1i1kKbnIeXswuAM1UGo09dlMIt5pGWjY+09oECnIFr1HSJjAXGD
- sssm+YXzIDVxiGwMR9C/x3XcfcrE9Nhb8UCrXpMWQjdIQfRds8tjyzvCH w==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10378"; a="258736896"
-X-IronPort-AV: E=Sophos;i="5.91,300,1647327600"; d="scan'208";a="258736896"
+ bh=YKMttFBPE2wCzfsgWycExPpf2Tu2U5inMYPLhQKTMdY=;
+ b=GsAuWFUWVO2Wt/rUyVT+jqaEIM6K4PDL2BOk/tKWhCiRf5IbsanivMdG
+ nKHvfJmzNOJzEq8JvzcKm7njHQ/kdvP32tBbVnUCzdvSRXVMm0E86OeDk
+ bgpcDQzaus6re0pzxOzfP8vWkt+BXaZc33RcXlrMJnkAGv2HHIzdM0N3q
+ gygdOtvY5Gqn9LfU25UIhAGFPaqpMn2OhWZjEqlwvkpqe17s+MtsniBAR
+ TUfNuZ45MXR+q1nVv7+qPEaVEC4uDh4a9o3wSx7zx44lLWaOQxhSQyxvG
+ xx6js5BGWsbGXtgCirRJTTKNVf3AmhWWzOYDgBwVWpZXp8r8DJrPMlU/V A==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10378"; a="258736914"
+X-IronPort-AV: E=Sophos;i="5.91,300,1647327600"; d="scan'208";a="258736914"
 Received: from orsmga004.jf.intel.com ([10.7.209.38])
  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Jun 2022 01:43:58 -0700
+ 15 Jun 2022 01:44:03 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.91,300,1647327600"; d="scan'208";a="712849357"
+X-IronPort-AV: E=Sophos;i="5.91,300,1647327600"; d="scan'208";a="712849391"
 Received: from p12hl98bong5.png.intel.com ([10.158.65.178])
- by orsmga004.jf.intel.com with ESMTP; 15 Jun 2022 01:43:54 -0700
+ by orsmga004.jf.intel.com with ESMTP; 15 Jun 2022 01:43:58 -0700
 From: Ong Boon Leong <boon.leong.ong@intel.com>
 To: Alexandre Torgue <alexandre.torgue@foss.st.com>,
  Jose Abreu <Jose.Abreu@synopsys.com>, Andrew Lunn <andrew@lunn.ch>,
@@ -46,8 +46,8 @@ To: Alexandre Torgue <alexandre.torgue@foss.st.com>,
  Florian Fainelli <f.fainelli@gmail.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Giuseppe Cavallaro <peppe.cavallaro@st.com>
-Date: Wed, 15 Jun 2022 16:39:04 +0800
-Message-Id: <20220615083908.1651975-2-boon.leong.ong@intel.com>
+Date: Wed, 15 Jun 2022 16:39:05 +0800
+Message-Id: <20220615083908.1651975-3-boon.leong.ong@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220615083908.1651975-1-boon.leong.ong@intel.com>
 References: <20220615083908.1651975-1-boon.leong.ong@intel.com>
@@ -55,8 +55,8 @@ MIME-Version: 1.0
 Cc: netdev@vger.kernel.org, Emilio Riva <emilio.riva@ericsson.com>,
  linux-kernel@vger.kernel.org, Ong Boon Leong <boon.leong.ong@intel.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next v5 1/5] net: make xpcs_do_config to
-	accept advertising for pcs-xpcs and sja1105
+Subject: [Linux-stm32] [PATCH net-next v5 2/5] stmmac: intel: prepare to
+	support 1000BASE-X phy interface setting
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,77 +73,42 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-xpcs_config() has 'advertising' input that is required for C37 1000BASE-X
-AN in later patch series. So, we prepare xpcs_do_config() for it.
+Currently, intel_speed_mode_2500() redundantly fix-up phy_interface to
+PHY_INTERFACE_MODE_SGMII if the underlying controller is in 1000Mbps
+SGMII mode. The value of phy_interface has been initialized earlier.
 
-For sja1105, xpcs_do_config() is used for xpcs configuration without
-depending on advertising input, so set to NULL.
+This patch removes such redundancy to prepare for setting 1000BASE-X
+mode for certain hardware platform configuration.
 
-Reported-by: kernel test robot <lkp@intel.com>
+Also update the intel_mgbe_common_data() to include 1000BASE-X setup.
+
 Signed-off-by: Ong Boon Leong <boon.leong.ong@intel.com>
 ---
- drivers/net/dsa/sja1105/sja1105_main.c | 2 +-
- drivers/net/pcs/pcs-xpcs.c             | 6 +++---
- include/linux/pcs/pcs-xpcs.h           | 2 +-
- 3 files changed, 5 insertions(+), 5 deletions(-)
+ drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/net/dsa/sja1105/sja1105_main.c b/drivers/net/dsa/sja1105/sja1105_main.c
-index 72b6fc1932b..b253e27bcfb 100644
---- a/drivers/net/dsa/sja1105/sja1105_main.c
-+++ b/drivers/net/dsa/sja1105/sja1105_main.c
-@@ -2330,7 +2330,7 @@ int sja1105_static_config_reload(struct sja1105_private *priv,
- 		else
- 			mode = MLO_AN_PHY;
- 
--		rc = xpcs_do_config(xpcs, priv->phy_mode[i], mode);
-+		rc = xpcs_do_config(xpcs, priv->phy_mode[i], mode, NULL);
- 		if (rc < 0)
- 			goto out;
- 
-diff --git a/drivers/net/pcs/pcs-xpcs.c b/drivers/net/pcs/pcs-xpcs.c
-index 4cfd05c15ae..48d81c40aab 100644
---- a/drivers/net/pcs/pcs-xpcs.c
-+++ b/drivers/net/pcs/pcs-xpcs.c
-@@ -795,7 +795,7 @@ static int xpcs_config_2500basex(struct dw_xpcs *xpcs)
- }
- 
- int xpcs_do_config(struct dw_xpcs *xpcs, phy_interface_t interface,
--		   unsigned int mode)
-+		   unsigned int mode, const unsigned long *advertising)
- {
- 	const struct xpcs_compat *compat;
- 	int ret;
-@@ -843,7 +843,7 @@ static int xpcs_config(struct phylink_pcs *pcs, unsigned int mode,
- {
- 	struct dw_xpcs *xpcs = phylink_pcs_to_xpcs(pcs);
- 
--	return xpcs_do_config(xpcs, interface, mode);
-+	return xpcs_do_config(xpcs, interface, mode, advertising);
- }
- 
- static int xpcs_get_state_c73(struct dw_xpcs *xpcs,
-@@ -864,7 +864,7 @@ static int xpcs_get_state_c73(struct dw_xpcs *xpcs,
- 
- 		state->link = 0;
- 
--		return xpcs_do_config(xpcs, state->interface, MLO_AN_INBAND);
-+		return xpcs_do_config(xpcs, state->interface, MLO_AN_INBAND, NULL);
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
+index 38fe77d1035..675dfb89b76 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
+@@ -251,7 +251,6 @@ static void intel_speed_mode_2500(struct net_device *ndev, void *intel_data)
+ 		priv->plat->mdio_bus_data->xpcs_an_inband = false;
+ 	} else {
+ 		priv->plat->max_speed = 1000;
+-		priv->plat->phy_interface = PHY_INTERFACE_MODE_SGMII;
+ 		priv->plat->mdio_bus_data->xpcs_an_inband = true;
  	}
+ }
+@@ -562,7 +561,8 @@ static int intel_mgbe_common_data(struct pci_dev *pdev,
+ 	plat->vlan_fail_q = plat->rx_queues_to_use - 1;
  
- 	if (state->an_enabled && xpcs_aneg_done_c73(xpcs, state, compat)) {
-diff --git a/include/linux/pcs/pcs-xpcs.h b/include/linux/pcs/pcs-xpcs.h
-index 266eb26fb02..37eb97cc228 100644
---- a/include/linux/pcs/pcs-xpcs.h
-+++ b/include/linux/pcs/pcs-xpcs.h
-@@ -30,7 +30,7 @@ int xpcs_get_an_mode(struct dw_xpcs *xpcs, phy_interface_t interface);
- void xpcs_link_up(struct phylink_pcs *pcs, unsigned int mode,
- 		  phy_interface_t interface, int speed, int duplex);
- int xpcs_do_config(struct dw_xpcs *xpcs, phy_interface_t interface,
--		   unsigned int mode);
-+		   unsigned int mode, const unsigned long *advertising);
- void xpcs_get_interfaces(struct dw_xpcs *xpcs, unsigned long *interfaces);
- int xpcs_config_eee(struct dw_xpcs *xpcs, int mult_fact_100ns,
- 		    int enable);
+ 	/* Intel mgbe SGMII interface uses pcs-xcps */
+-	if (plat->phy_interface == PHY_INTERFACE_MODE_SGMII) {
++	if (plat->phy_interface == PHY_INTERFACE_MODE_SGMII ||
++	    plat->phy_interface == PHY_INTERFACE_MODE_1000BASEX) {
+ 		plat->mdio_bus_data->has_xpcs = true;
+ 		plat->mdio_bus_data->xpcs_an_inband = true;
+ 	}
 -- 
 2.25.1
 
