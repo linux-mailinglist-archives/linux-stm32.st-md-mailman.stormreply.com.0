@@ -2,53 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E54AB54C16B
-	for <lists+linux-stm32@lfdr.de>; Wed, 15 Jun 2022 08:01:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A9EE054C3C9
+	for <lists+linux-stm32@lfdr.de>; Wed, 15 Jun 2022 10:43:58 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 95BE4C5E2C6;
-	Wed, 15 Jun 2022 06:01:19 +0000 (UTC)
-Received: from mail-oi1-f172.google.com (mail-oi1-f172.google.com
- [209.85.167.172])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4E4B3C5E2C6;
+	Wed, 15 Jun 2022 08:43:58 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CF0F4C03FDF
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F3FDCC03FDD
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 15 Jun 2022 05:41:03 +0000 (UTC)
-Received: by mail-oi1-f172.google.com with SMTP id p8so9858538oip.8
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 14 Jun 2022 22:41:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:from:date:message-id:subject:to;
- bh=D2EWwlUlr5NDApMuW0QW5eqZ1KcFUZhOJoWNpNGn5UQ=;
- b=inABKqLUisCRzrq/R/nmX9NqfNIphA3UYq3YfV+uAxg5j4Fvh4RG9wil4TyMXR3qAH
- o5hBr510hyAF2EljwlDhWP0QBeSsGNBFi2bVTv8h+NEUP0mHZ/XIYKw6j11s5tYRy7q3
- dCWdsJCmOEdFW4gToXCcYH/WjBAUHkP3yqyX6kmlg+2rCugL1KymATuqnDDvcnmYQGnL
- m4TEefvFPvlmDuhX+lccSqH6SEEaf7/4Miy0oB7piiw18nmRqGuoAGiHPzGksZpUZm/0
- +532eHUV0ZZ3eLCBSdd+9KcCBYmEykzJl19X9Ip5A1aCDMvebvaJxvI3nIJH7HULUUA4
- gp1A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
- bh=D2EWwlUlr5NDApMuW0QW5eqZ1KcFUZhOJoWNpNGn5UQ=;
- b=qKerOGyDRjNDLR1dedfabDPES3pTquWvlWUbLkLHYMrJE6y3AB2QGxYtRjcIv3TJR5
- 8oh0Wc7sMpZvngXFr+pA5n76HQKLM2zzYzIdL5jBvNS2/vlUzLF1LDr4DMqulrEWD3is
- WNp8aXEBJgq/vNTLuPY35+BixobhOhApXNBXXLIj9k2k31OVoqKt/SrWNUUWu9a9UxJG
- xPAy+bfm4zj8FqSTCKJXcuVH7AARUUeBIgQJOq/m3QpRuPAC2D5zBlj+dEzq1ehJHHaL
- kW+BEMfJrCtsJRpgeAJwTx+NK2q9tjugNcYvVx805r2Q9UpgUfsU4lWFgEUPf/tBJByo
- jpDA==
-X-Gm-Message-State: AOAM533aVLOHFBuO9ETcaDhbyI2Wa9pshQb8u8m6dR8aI4osooQo9F4L
- +3+50+nrjtUKkut2ZapRJxPbAemwpfJJHK8zHFQ/zaqzqX8=
-X-Google-Smtp-Source: ABdhPJw8RtVVJfw9YkiVAkBY4Rvi6bgpr7DXPgB3cE9NN59VHQCcKoC8hxTPWHBroI27FUPjbqBkckYWrjCbOrnjNEI=
-X-Received: by 2002:a05:6808:2012:b0:32f:31d2:499a with SMTP id
- q18-20020a056808201200b0032f31d2499amr3869483oiw.15.1655271662733; Tue, 14
- Jun 2022 22:41:02 -0700 (PDT)
+ Wed, 15 Jun 2022 08:43:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1655282636; x=1686818636;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=9BCmaDXuxZ78d4GhPN+LZuRqgQk4eGFz2he5NDkGKa4=;
+ b=mCCHKCM21FJnIc4dzvHH93pTnROJG/VKYN/ySmVdSrBgIqAsRggxJpm4
+ DjAOGqSpVjuvqIAtTkdUOdlGwNYeGrn/Pw5znh0Crthj3n6zZE9wkJDsI
+ zdWH44Q+L55AbDC/5+iuJa+XxQnALs9J+8zAxVExaSyP1yhIuDCUWqKym
+ 5d0gGoCcsN/Zl+cK9fbmLVScbtY7j1YAUI+cjslwCfzLjOqouboogtR66
+ 1VQqZOzTSiujlvXyRCmY4cHT87XBMTwGfkjchU/cxX+Qskrs9GMeHVsDP
+ 11j2x2tgNCQAGVY1vyJUXbcsFPUbqR18AoUX5OVjlSJn7aIrs1+CrRGKH w==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10378"; a="258736862"
+X-IronPort-AV: E=Sophos;i="5.91,300,1647327600"; d="scan'208";a="258736862"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Jun 2022 01:43:54 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.91,300,1647327600"; d="scan'208";a="712849326"
+Received: from p12hl98bong5.png.intel.com ([10.158.65.178])
+ by orsmga004.jf.intel.com with ESMTP; 15 Jun 2022 01:43:49 -0700
+From: Ong Boon Leong <boon.leong.ong@intel.com>
+To: Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Jose Abreu <Jose.Abreu@synopsys.com>, Andrew Lunn <andrew@lunn.ch>,
+ Heiner Kallweit <hkallweit1@gmail.com>,
+ Russell King <linux@armlinux.org.uk>, Paolo Abeni <pabeni@redhat.com>,
+ "David S . Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Vladimir Oltean <olteanv@gmail.com>,
+ Vivien Didelot <vivien.didelot@gmail.com>,
+ Florian Fainelli <f.fainelli@gmail.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>
+Date: Wed, 15 Jun 2022 16:39:03 +0800
+Message-Id: <20220615083908.1651975-1-boon.leong.ong@intel.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-From: Kegl Rohit <keglrohit@gmail.com>
-Date: Wed, 15 Jun 2022 07:41:59 +0200
-Message-ID: <CAMeyCbhVim1AxYGD76yezzkfx6+cXrdpGOOfgPYhB4p7yPtdWQ@mail.gmail.com>
-To: linux-stm32@st-md-mailman.stormreply.com
-X-Mailman-Approved-At: Wed, 15 Jun 2022 06:01:18 +0000
-Subject: [Linux-stm32] STM32MP151A sysfs
+Cc: netdev@vger.kernel.org, Emilio Riva <emilio.riva@ericsson.com>,
+ linux-kernel@vger.kernel.org, Ong Boon Leong <boon.leong.ong@intel.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH net-next v5 0/5] pcs-xpcs,
+	stmmac: add 1000BASE-X AN for network switch
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -65,41 +71,59 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello!
+Thanks for v4 review feedback in [1] and [2]. I have changed the v5
+implementation as follow.
 
-I could notice following issue with kernel version 5.10.61:
-Exporting GPIO PB12 and PD12 via sysfs triggers a kernel ERROR.
-After the error happend the gpio still got exported and seem to function.
+v5 changes:
+1/5 - No change from v4.
+2/5 - No change from v4.
+3/5 - [Fix] make xpcs_modify_changed() static and use
+      mdiodev_modify_changed() for cleaner code as suggested by
+      Russell King.
+4/5 - [Fix] Use fwnode_get_phy_mode() as recommended by Andrew Lunn.
+5/5 - [Fix] Make fwnode = of_fwnode_handle(priv->plat->phylink_node)
+      order after priv = netdev_priv(dev).
 
-Both Pins are unclaimed:
-grep -e PB12 -e PD12
-/sys/kernel/debug/pinctrl/soc\:pin-controller@50002000/pinmux-pins
-pin 28 (PB12): UNCLAIMED
-pin 60 (PD12): UNCLAIMED
+v4 changes:
+1/5 - Squash v3:1/7 & 2/7 patches into v4:1/6 so that it passes build.
+2/5 - [No change] same as v3:3/7
+3/5 - [Fix] Fix issues identified by Russell in [1]
+4/5 - [Fix] Drop v3:5/7 patch per input by Russell in [2] and make
+            dwmac-intel clear the ovr_an_inband flag if fixed-link
+            is used in ACPI _DSD.
+5/5 - [No change] same as v3:7/7
 
-root@dev:/sys/class/gpio# echo 60 > export
-root@dev:/sys/class/gpio# echo 28 > export
-[   30.467370] stm32mp157-pinctrl soc:pin-controller@50002000: irq
-line 12 already requested.
+For the steps to setup ACPI _DSD and checking, they are the same
+as in [3]
 
-The order does not matter:
-root@dev:/sys/class/gpio# echo 60 > export
-root@dev:/sys/class/gpio# echo 28 > export
-[   20.768493] stm32mp157-pinctrl soc:pin-controller@50002000: irq
-line 12 already requested.
+Reference:
+[1] https://patchwork.kernel.org/comment/24894239/
+[2] https://patchwork.kernel.org/comment/24895330/
+[3] https://patchwork.kernel.org/project/netdevbpf/cover/20220610033610.114084-1-boon.leong.ong@intel.com/
 
-This is the dev_err code part:
-https://github.com/STMicroelectronics/linux/commit/8eb2dfee9fb1277f635ce369ef8669df0ec421bc#diff-549d83503a258940ffa6617dbbf4859d463fcac94f376b45b1744d243ffe9b16R381
+Thanks
+Boon Leong
 
-Seems that gpio sysfs requests an IRQ every time and there is some
-shared IRQ limitation which is not implemented / handled yet.
+Ong Boon Leong (5):
+  net: make xpcs_do_config to accept advertising for pcs-xpcs and
+    sja1105
+  stmmac: intel: prepare to support 1000BASE-X phy interface setting
+  net: pcs: xpcs: add CL37 1000BASE-X AN support
+  stmmac: intel: add phy-mode and fixed-link ACPI _DSD setting support
+  net: stmmac: make mdio register skips PHY scanning for fixed-link
 
-Can someone reproduce this? Maybe it is only a usage / kernel /
-devicetree setup error by me...
-Or is this a STM32MP1 limitation? gpio sysfs bug with STM32MP1? ...
+ drivers/net/dsa/sja1105/sja1105_main.c        |   2 +-
+ .../net/ethernet/stmicro/stmmac/dwmac-intel.c |  34 +++-
+ .../net/ethernet/stmicro/stmmac/stmmac_main.c |  12 +-
+ .../net/ethernet/stmicro/stmmac/stmmac_mdio.c |  14 ++
+ drivers/net/pcs/pcs-xpcs.c                    | 176 +++++++++++++++++-
+ drivers/net/pcs/pcs-xpcs.h                    |   1 -
+ include/linux/pcs/pcs-xpcs.h                  |   3 +-
+ 7 files changed, 229 insertions(+), 13 deletions(-)
 
+--
+2.25.1
 
-Thanks in advance.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
