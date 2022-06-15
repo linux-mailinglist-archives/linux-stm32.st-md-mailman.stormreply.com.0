@@ -2,92 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF7E554CB4C
-	for <lists+linux-stm32@lfdr.de>; Wed, 15 Jun 2022 16:27:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D903054CB99
+	for <lists+linux-stm32@lfdr.de>; Wed, 15 Jun 2022 16:43:17 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 98C1CC5E2C6;
-	Wed, 15 Jun 2022 14:27:45 +0000 (UTC)
-Received: from mail-yb1-f180.google.com (mail-yb1-f180.google.com
- [209.85.219.180])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 829D6C5E2C6;
+	Wed, 15 Jun 2022 14:43:17 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 634BCC03FDD
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2A50CC0D2BC
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 15 Jun 2022 14:27:44 +0000 (UTC)
-Received: by mail-yb1-f180.google.com with SMTP id p13so20855331ybm.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 15 Jun 2022 07:27:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=fsun78rWieFnLaLeD83Q2xWjxjOs241/wdwG/0QCsic=;
- b=M0lG3b8vfMcZ/7Ka36O1ZxSsUemkOvvlFAQXkpVQ4QpCs+1BTt67QSw4HKiQD5WOcb
- 52snuFlKH/21oU1OKHImIEHhsr/qfhoQOlanFV+m4TeEl8ICjJe2Sd491tUIQIDSw5Bq
- xHExXe7XqUhLlIhXKD4i9kKCqB5PLrMMw5aIrSuv673UinrPE2m5a9fMdvB5OZ6CYFIq
- /u1FbiRcfzMPM33M1qWbZlUZBeX0dAiMnD8nksss+jrH8U5wAD3bdbqxbououS4Wce5+
- si5vaEILsaJTJRlA5Tvc5IU5RHPyGLfiWb4X0xjPRiEJMgOmZeod+1F/8J2LCdxK/urt
- bp3Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=fsun78rWieFnLaLeD83Q2xWjxjOs241/wdwG/0QCsic=;
- b=ngJdhTquxMRrtBY2OpH1VOVvoVJS1x7CFieNAYWqnUHW8NgZQQlK8j2ETFrtmyLjBC
- fNApg3vsSPwb9ggr3+4UtgnW50/NTMk4YA/6mQqE4NM8LKslfvxPor+AlvmCOkBpHdY8
- RjrWedT5CIbXi2AS7wQoxvNrGVXpVrKbz97kTRVXqqBBrHf1CDbIv+2skfHl05B2fSNF
- X2mlC+PiCN2ZHbcdVRUazO7Fv/7j0z2A8rqokjV/U7KIQ9US861OYRWqbD4AwM+1Y6Dw
- fGGA7cjJ/hhy/2NJgwDjkIW4DLxgpViQpdhCkt5UnJEQw4DhuXvLlEw7WMID8uZr6Zah
- au6Q==
-X-Gm-Message-State: AJIora/PbKUWzlU98GrmYCPI8Y3XPbrkZCNk1sSGOhDV7H2neFZ1Mmwn
- k+vHsbTcl0QbVweZy/YYZK1bfF86MR9DwS+dZIwQzA==
-X-Google-Smtp-Source: AGRyM1t0twq2NH5TwVMffJ95BCvjUqTPe1/bY9PSUuCjeVYRJKVWPPGecH5Bnr87yp5uioRcTcWI/9qkOUV49rzlV5c=
-X-Received: by 2002:a25:8387:0:b0:664:7589:27b9 with SMTP id
- t7-20020a258387000000b00664758927b9mr86691ybk.291.1655303263361; Wed, 15 Jun
- 2022 07:27:43 -0700 (PDT)
+ Wed, 15 Jun 2022 14:43:16 +0000 (UTC)
+Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 25FEZlfH027682;
+ Wed, 15 Jun 2022 16:42:37 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=vmIbzfHV8QCPsylH3acjPZckKaAd10y9kHOAHMRBN/8=;
+ b=4YZX6vcGkbt5oKxM3eDdiEOpqgR4bfflwlSbNgAhOUezMeq4j9I6I6l2jrPS+7F31BY3
+ GsyDMTLTfLySB4h+/6qMfUo+Bdg4nsDEzJZcM+BRKgkhT6M6on9apaiSRd+JD3330L8O
+ oLtOiUV/AKL4Ib9vDctwTq5sI3IzCWqV1NYQIFgqnhbfKp6zZusCWGOI0/R2S3YOO5fg
+ PdowHfVZMEiWp2ykKT/jIs+OqxonoyhPlVz77WwTRW4iFJqzs5Q3lEO8H/r7+QzUbDQz
+ YfpF+1cwZHMuBKoYw98qF8Ap1KUSG2K400Pa+cPxbsasMvQkz3yW2W1TKe9Vz5FVEGDB GA== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3gqd17sua1-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 15 Jun 2022 16:42:37 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 54F9510002A;
+ Wed, 15 Jun 2022 16:42:36 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 123652278B2;
+ Wed, 15 Jun 2022 16:42:36 +0200 (CEST)
+Received: from [10.211.13.69] (10.211.13.69) by SHFDAG1NODE2.st.com
+ (10.75.129.70) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.20; Wed, 15 Jun
+ 2022 16:42:35 +0200
+Message-ID: <6e1f0081-5f1c-4865-cb66-dd2cf9a5c868@foss.st.com>
+Date: Wed, 15 Jun 2022 16:42:34 +0200
 MIME-Version: 1.0
-References: <20220610084545.547700-1-nuno.sa@analog.com>
- <20220610084545.547700-30-nuno.sa@analog.com>
-In-Reply-To: <20220610084545.547700-30-nuno.sa@analog.com>
-From: Linus Walleij <linus.walleij@linaro.org>
-Date: Wed, 15 Jun 2022 16:27:32 +0200
-Message-ID: <CACRpkdYtBY9bWevrWNL+mXz8LbsdDEFmGvrmPQ85Mn=yZ=FyHg@mail.gmail.com>
-To: =?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>
-Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Daniel Lezcano <daniel.lezcano@linaro.org>, Tomer Maimon <tmaimon77@gmail.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>, linux-iio@vger.kernel.org,
- Amit Kucheria <amitk@kernel.org>, Tali Perry <tali.perry1@gmail.com>,
- Paul Cercueil <paul@crapouillou.net>,
- Miquel Raynal <miquel.raynal@bootlin.com>, Guenter Roeck <groeck@chromium.org>,
- Fabio Estevam <festevam@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
- chrome-platform@lists.linux.dev, Lars-Peter Clausen <lars@metafoo.de>,
- Benjamin Fair <benjaminfair@google.com>, openbmc@lists.ozlabs.org,
- Jishnu Prakash <quic_jprakash@quicinc.com>, Haibo Chen <haibo.chen@nxp.com>,
- Nancy Yuen <yuenn@google.com>, Andy Shevchenko <andy.shevchenko@gmail.com>,
- Andy Gross <agross@kernel.org>, linux-imx@nxp.com,
- Zhang Rui <rui.zhang@intel.com>,
- Christophe Branchereau <cbranchereau@gmail.com>,
- Saravanan Sekar <sravanhome@gmail.com>,
- Michael Hennerich <Michael.Hennerich@analog.com>,
- linux-arm-msm@vger.kernel.org, Sascha Hauer <s.hauer@pengutronix.de>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
- linux-mediatek@lists.infradead.org,
- Eugen Hristev <eugen.hristev@microchip.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Gwendal Grignou <gwendal@chromium.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- Benson Leung <bleung@chromium.org>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- linux-arm-kernel@lists.infradead.org, Lorenzo Bianconi <lorenzo@kernel.org>,
- Avi Fishman <avifishman70@gmail.com>, Patrick Venture <venture@google.com>,
- linux-mips@vger.kernel.org, Thara Gopinath <thara.gopinath@linaro.org>,
- linux-renesas-soc@vger.kernel.org, Arnd Bergmann <arnd@arndb.de>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Cai Huoqing <cai.huoqing@linux.dev>, Shawn Guo <shawnguo@kernel.org>,
- Claudiu Beznea <claudiu.beznea@microchip.com>,
- Jonathan Cameron <jic23@kernel.org>
-Subject: Re: [Linux-stm32] [PATCH 29/34] iio: adc: qcom-pm8xxx-xoadc:
-	convert to device properties
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.9.1
+Content-Language: en-US
+To: Alexey Khoroshilov <khoroshilov@ispras.ru>, Vinod Koul <vkoul@kernel.org>, 
+ Amelie Delaunay <amelie.delaunay@st.com>
+References: <1655072638-9103-1-git-send-email-khoroshilov@ispras.ru>
+From: Amelie Delaunay <amelie.delaunay@foss.st.com>
+In-Reply-To: <1655072638-9103-1-git-send-email-khoroshilov@ispras.ru>
+X-Originating-IP: [10.211.13.69]
+X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE2.st.com
+ (10.75.129.70)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.874,Hydra:6.0.517,FMLib:17.11.64.514
+ definitions=2022-06-15_13,2022-06-15_01,2022-02-23_01
+Cc: dmaengine@vger.kernel.org, ldv-project@linuxtesting.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH] dmaengine: stm32-mdma: Remove dead code
+ in stm32_mdma_irq_handler()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,19 +73,48 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gRnJpLCBKdW4gMTAsIDIwMjIgYXQgMTA6NDkgQU0gTnVubyBTw6EgPG51bm8uc2FAYW5hbG9n
-LmNvbT4gd3JvdGU6Cgo+IE1ha2UgdGhlIGNvbnZlcnNpb24gdG8gZmlybXdhcmUgYWdub3N0aWMg
-ZGV2aWNlIHByb3BlcnRpZXMuIEFzIHBhcnQgb2YKPiB0aGUgY29udmVyc2lvbiB0aGUgSUlPIGlu
-a2VybiBpbnRlcmZhY2UgJ29mX3hsYXRlKCknIGlzIGFsc28gY29udmVydGVkIHRvCj4gJ2Z3bm9k
-ZV94bGF0ZSgpJy4gVGhlIGdvYWwgaXMgdG8gY29tcGxldGVseSBkcm9wICdvZl94bGF0ZScgYW5k
-IGhlbmNlIE9GCj4gZGVwZW5kZW5jaWVzIGZyb20gSUlPLgo+Cj4gU2lnbmVkLW9mZi1ieTogTnVu
-byBTw6EgPG51bm8uc2FAYW5hbG9nLmNvbT4KCkFja2VkLWJ5OiBMaW51cyBXYWxsZWlqIDxsaW51
-cy53YWxsZWlqQGxpbmFyby5vcmc+CgpZb3VycywKTGludXMgV2FsbGVpagpfX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxp
-c3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1k
-LW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
+Hi Alexey,
+
+On 6/13/22 00:23, Alexey Khoroshilov wrote:
+> Local variable chan is initialized by an address of element of chan array
+> that is part of stm32_mdma_device struct, so it does not make sense to
+> compare chan with NULL.
+> 
+> Found by Linux Verification Center (linuxtesting.org) with SVACE.
+> 
+> Signed-off-by: Alexey Khoroshilov <khoroshilov@ispras.ru>
+> Fixes: a4ffb13c8946 ("dmaengine: Add STM32 MDMA driver")
+> ---
+>   drivers/dma/stm32-mdma.c | 5 -----
+>   1 file changed, 5 deletions(-)
+> 
+> diff --git a/drivers/dma/stm32-mdma.c b/drivers/dma/stm32-mdma.c
+> index caf0cce8f528..b11927ed4367 100644
+> --- a/drivers/dma/stm32-mdma.c
+> +++ b/drivers/dma/stm32-mdma.c
+> @@ -1328,12 +1328,7 @@ static irqreturn_t stm32_mdma_irq_handler(int irq, void *devid)
+>   		return IRQ_NONE;
+>   	}
+>   	id = __ffs(status);
+> -
+>   	chan = &dmadev->chan[id];
+> -	if (!chan) {
+> -		dev_warn(mdma2dev(dmadev), "MDMA channel not initialized\n");
+> -		return IRQ_NONE;
+> -	}
+>   
+>   	/* Handle interrupt for the channel */
+>   	spin_lock(&chan->vchan.lock);
+
+Thanks for your patch,
+
+Reviewed-by: Amelie Delaunay <amelie.delaunay@foss.st.com>
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
