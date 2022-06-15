@@ -2,61 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E703D54C3CF
-	for <lists+linux-stm32@lfdr.de>; Wed, 15 Jun 2022 10:44:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3965554C759
+	for <lists+linux-stm32@lfdr.de>; Wed, 15 Jun 2022 13:23:57 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AE082C5F1F2;
-	Wed, 15 Jun 2022 08:44:19 +0000 (UTC)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D13BFC5E2C6;
+	Wed, 15 Jun 2022 11:23:56 +0000 (UTC)
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BC166C5F1D7
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 92046C0D2BC
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 15 Jun 2022 08:44:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1655282658; x=1686818658;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=1ppb5FxYShlXnSIAV6m7rwzN8W1OiV0FA7dnw79u850=;
- b=VOY48dJ9MhrgSgexS8JPulAJhW17xnnYRISY3I4yul7gjWcEPq/DVtFq
- R6JhVCb8bWaW4g33mdYN4H907NLbTrRPPPFr+Qoda7nH6HIauis9XRudG
- pdDlg/wHURXeJqobNgyrHAgpwsgCqMKHJiSqODLH/Yw1Lk9Ka5ndAwX/6
- 4UhkynJlhvQf3/2Mpy0NM0ctCsONZhgTx+Br0suFwd1ceuUplwe/Gqxnq
- zEfwhqJXtDPF35eqIg7XeC6kGiDZN+gVZZD2/XUykVoRGQDo398nANUAX
- DxF/pnMLwyspadV+nCpp1/N8w05kqR1sppBSsKNnLh8uxeV6gPBanvY4l w==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10378"; a="365234871"
-X-IronPort-AV: E=Sophos;i="5.91,300,1647327600"; d="scan'208";a="365234871"
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Jun 2022 01:44:18 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.91,300,1647327600"; d="scan'208";a="712849505"
-Received: from p12hl98bong5.png.intel.com ([10.158.65.178])
- by orsmga004.jf.intel.com with ESMTP; 15 Jun 2022 01:44:13 -0700
-From: Ong Boon Leong <boon.leong.ong@intel.com>
-To: Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Jose Abreu <Jose.Abreu@synopsys.com>, Andrew Lunn <andrew@lunn.ch>,
- Heiner Kallweit <hkallweit1@gmail.com>,
- Russell King <linux@armlinux.org.uk>, Paolo Abeni <pabeni@redhat.com>,
- "David S . Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Vladimir Oltean <olteanv@gmail.com>,
- Vivien Didelot <vivien.didelot@gmail.com>,
+ Wed, 15 Jun 2022 11:23:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=8YSiJRfVSCRx99U4o4ghQCn9P4N6/d/6pd8/bsVzP/w=; b=sJwyns6OubrMfUYLSJE9YUhSxl
+ wFZOMo2Z/Ni92QoRvJWfpTrl50shcYJRQoRf6+xu3smxsaJwBLyoAFl0cIt98vqOX602Z8LieV9vU
+ PsOx1fBdGMxUIke/5Angd2vgYfh+iihFxLe8vQWP5d3PHNJaQvg4czO+2nakqXpuA7V3W31+tAOV7
+ 4iA1twudj5/aUk4LbxTfn0JjdZStskGbKVRNtGZBsfyHVV9ZS8Jk162BisR4LCe80i0K8EXhOPYl/
+ b5a9WvpqAwJbFTMk5ZfSXLc+IOYUjvxPIpFal5ts0ytY9peeFpniCR+61OWtXM30YHsnroirYhcmw
+ K4wzjD0w==;
+Received: from shell.armlinux.org.uk
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:32876)
+ by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.94.2)
+ (envelope-from <linux@armlinux.org.uk>)
+ id 1o1R7U-0004QB-Vo; Wed, 15 Jun 2022 12:23:33 +0100
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.94.2)
+ (envelope-from <linux@shell.armlinux.org.uk>)
+ id 1o1R7J-0008NQ-LM; Wed, 15 Jun 2022 12:23:21 +0100
+Date: Wed, 15 Jun 2022 12:23:21 +0100
+From: "Russell King (Oracle)" <linux@armlinux.org.uk>
+To: Ong Boon Leong <boon.leong.ong@intel.com>
+Message-ID: <YqnBKTpbhx+quBIc@shell.armlinux.org.uk>
+References: <20220615083908.1651975-1-boon.leong.ong@intel.com>
+ <20220615083908.1651975-4-boon.leong.ong@intel.com>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20220615083908.1651975-4-boon.leong.ong@intel.com>
+Cc: Jose Abreu <Jose.Abreu@synopsys.com>, Andrew Lunn <andrew@lunn.ch>,
+ Vladimir Oltean <olteanv@gmail.com>, linux-kernel@vger.kernel.org,
+ netdev@vger.kernel.org, Emilio Riva <emilio.riva@ericsson.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Vivien Didelot <vivien.didelot@gmail.com>, Eric Dumazet <edumazet@google.com>,
  Florian Fainelli <f.fainelli@gmail.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>
-Date: Wed, 15 Jun 2022 16:39:08 +0800
-Message-Id: <20220615083908.1651975-6-boon.leong.ong@intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220615083908.1651975-1-boon.leong.ong@intel.com>
-References: <20220615083908.1651975-1-boon.leong.ong@intel.com>
-MIME-Version: 1.0
-Cc: netdev@vger.kernel.org, Emilio Riva <emilio.riva@ericsson.com>,
- linux-kernel@vger.kernel.org, Ong Boon Leong <boon.leong.ong@intel.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next v5 5/5] net: stmmac: make mdio
-	register skips PHY scanning for fixed-link
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "David S . Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org, Heiner Kallweit <hkallweit1@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH net-next v5 3/5] net: pcs: xpcs: add CL37
+ 1000BASE-X AN support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,88 +71,40 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-stmmac_mdio_register() lacks fixed-link consideration and only skip PHY
-scanning if it has done DT style PHY discovery. So, for DT or ACPI _DSD
-setting of fixed-link, the PHY scanning should not happen.
+On Wed, Jun 15, 2022 at 04:39:06PM +0800, Ong Boon Leong wrote:
+> For CL37 1000BASE-X AN, DW xPCS does not support C22 method but offers
+> C45 vendor-specific MII MMD for programming.
+> 
+> We also add the ability to disable Autoneg (through ethtool for certain
+> network switch that supports 1000BASE-X (1000Mbps and Full-Duplex) but
+> not Autoneg capability.
+> 
+> v4: Fixes to comment from Russell King. Thanks!
+>     https://patchwork.kernel.org/comment/24894239/
+>     Make xpcs_modify_changed() as private, change to use
+>     mdiodev_modify_changed() for cleaner code.
+> 
+> v3: Fixes to issues spotted by Russell King. Thanks!
+>     https://patchwork.kernel.org/comment/24890210/
+>     Use phylink_mii_c22_pcs_decode_state(), remove unnecessary
+>     interrupt clearing and skip speed & duplex setting if AN
+>     is enabled.
+> 
+> v2: Fixes to issues spotted by Russell King in v1. Thanks!
+>     https://patchwork.kernel.org/comment/24826650/
+>     Use phylink_mii_c22_pcs_encode_advertisement() and implement
+>     C45 MII ADV handling since IP only support C45 access.
+> 
+> Tested-by: Emilio Riva <emilio.riva@ericsson.com>
+> Signed-off-by: Ong Boon Leong <boon.leong.ong@intel.com>
 
-v2: fix incorrect order related to fwnode that is not caught in non-DT
-    platform.
+Reviewed-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 
-Tested-by: Emilio Riva <emilio.riva@ericsson.com>
-Signed-off-by: Ong Boon Leong <boon.leong.ong@intel.com>
----
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 12 +++++++-----
- drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c | 14 ++++++++++++++
- 2 files changed, 21 insertions(+), 5 deletions(-)
+Thanks!
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 73cae2938f6..50867e5d0d9 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -1142,18 +1142,20 @@ static void stmmac_check_pcs_mode(struct stmmac_priv *priv)
- static int stmmac_init_phy(struct net_device *dev)
- {
- 	struct stmmac_priv *priv = netdev_priv(dev);
--	struct device_node *node;
-+	struct fwnode_handle *fwnode;
- 	int ret;
- 
--	node = priv->plat->phylink_node;
-+	fwnode = of_fwnode_handle(priv->plat->phylink_node);
-+	if (!fwnode)
-+		fwnode = dev_fwnode(priv->device);
- 
--	if (node)
--		ret = phylink_of_phy_connect(priv->phylink, node, 0);
-+	if (fwnode)
-+		ret = phylink_fwnode_phy_connect(priv->phylink, fwnode, 0);
- 
- 	/* Some DT bindings do not set-up the PHY handle. Let's try to
- 	 * manually parse it
- 	 */
--	if (!node || ret) {
-+	if (!fwnode || ret) {
- 		int addr = priv->plat->phy_addr;
- 		struct phy_device *phydev;
- 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
-index 03d3d1f7aa4..5f177ea8072 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
-@@ -434,9 +434,11 @@ int stmmac_mdio_register(struct net_device *ndev)
- 	int err = 0;
- 	struct mii_bus *new_bus;
- 	struct stmmac_priv *priv = netdev_priv(ndev);
-+	struct fwnode_handle *fwnode = of_fwnode_handle(priv->plat->phylink_node);
- 	struct stmmac_mdio_bus_data *mdio_bus_data = priv->plat->mdio_bus_data;
- 	struct device_node *mdio_node = priv->plat->mdio_node;
- 	struct device *dev = ndev->dev.parent;
-+	struct fwnode_handle *fixed_node;
- 	int addr, found, max_addr;
- 
- 	if (!mdio_bus_data)
-@@ -490,6 +492,18 @@ int stmmac_mdio_register(struct net_device *ndev)
- 	if (priv->plat->has_xgmac)
- 		stmmac_xgmac2_mdio_read(new_bus, 0, MII_ADDR_C45);
- 
-+	/* If fixed-link is set, skip PHY scanning */
-+	if (!fwnode)
-+		fwnode = dev_fwnode(priv->device);
-+
-+	if (fwnode) {
-+		fixed_node = fwnode_get_named_child_node(fwnode, "fixed-link");
-+		if (fixed_node) {
-+			fwnode_handle_put(fixed_node);
-+			goto bus_register_done;
-+		}
-+	}
-+
- 	if (priv->plat->phy_node || mdio_node)
- 		goto bus_register_done;
- 
 -- 
-2.25.1
-
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTP is here! 40Mbps down 10Mbps up. Decent connectivity at last!
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
