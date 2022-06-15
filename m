@@ -2,66 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D903054CB99
-	for <lists+linux-stm32@lfdr.de>; Wed, 15 Jun 2022 16:43:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B93E154D41C
+	for <lists+linux-stm32@lfdr.de>; Thu, 16 Jun 2022 00:01:44 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 829D6C5E2C6;
-	Wed, 15 Jun 2022 14:43:17 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4588CC5E2C6;
+	Wed, 15 Jun 2022 22:01:44 +0000 (UTC)
+Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com
+ [209.85.216.49])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2A50CC0D2BC
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0D024C03FDD
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 15 Jun 2022 14:43:16 +0000 (UTC)
-Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 25FEZlfH027682;
- Wed, 15 Jun 2022 16:42:37 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=vmIbzfHV8QCPsylH3acjPZckKaAd10y9kHOAHMRBN/8=;
- b=4YZX6vcGkbt5oKxM3eDdiEOpqgR4bfflwlSbNgAhOUezMeq4j9I6I6l2jrPS+7F31BY3
- GsyDMTLTfLySB4h+/6qMfUo+Bdg4nsDEzJZcM+BRKgkhT6M6on9apaiSRd+JD3330L8O
- oLtOiUV/AKL4Ib9vDctwTq5sI3IzCWqV1NYQIFgqnhbfKp6zZusCWGOI0/R2S3YOO5fg
- PdowHfVZMEiWp2ykKT/jIs+OqxonoyhPlVz77WwTRW4iFJqzs5Q3lEO8H/r7+QzUbDQz
- YfpF+1cwZHMuBKoYw98qF8Ap1KUSG2K400Pa+cPxbsasMvQkz3yW2W1TKe9Vz5FVEGDB GA== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3gqd17sua1-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 15 Jun 2022 16:42:37 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 54F9510002A;
- Wed, 15 Jun 2022 16:42:36 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 123652278B2;
- Wed, 15 Jun 2022 16:42:36 +0200 (CEST)
-Received: from [10.211.13.69] (10.211.13.69) by SHFDAG1NODE2.st.com
- (10.75.129.70) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.20; Wed, 15 Jun
- 2022 16:42:35 +0200
-Message-ID: <6e1f0081-5f1c-4865-cb66-dd2cf9a5c868@foss.st.com>
-Date: Wed, 15 Jun 2022 16:42:34 +0200
+ Wed, 15 Jun 2022 22:01:41 +0000 (UTC)
+Received: by mail-pj1-f49.google.com with SMTP id z14so7629533pjb.4
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 15 Jun 2022 15:01:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:content-transfer-encoding:in-reply-to;
+ bh=kJzZPwhMKjOWBCIigpbSF9J8bajdVzfVoc3uDXQW95Q=;
+ b=Cj08PqxuzpVVhXXh9YrJ4jX+ng1DznIaTS8jjwd8bJDdUt+McGQf9d60X+SFrohetr
+ xQPXCAn3LLqD4bAo8U2YhlKsIoCrDwme576BY+Tw0ixfkHRXey2jKP2TXWrw1TXjBO6Y
+ NZYkNEZyZa7dT3QgDHHqT2k5gsNjsb7dVnkRwcGrKBcGY7G3dlsvqAU8yonj0Zae8qS1
+ gftbfrFL+3WB9gd39pJsJS9bBrharUYJGEWA4lkuDtIM01pO2ryKr6fWuCvK5fk+47Ce
+ gTt+LOZiHhHKHx2P9Hs+xjTFaTUwo2ykiSy1xz72/yUPL0Y2n0YQONASgzfTtcPyX1TS
+ iVZQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to;
+ bh=kJzZPwhMKjOWBCIigpbSF9J8bajdVzfVoc3uDXQW95Q=;
+ b=MxaXpnwVgRaAgmBWQZiPQl6ZpX+LFvOsYWjWQHNHV+zRwYCAkgi9I+OjKD/E6XMhtW
+ BRzWgWcLJhJdtkb/GblbI6WMHlSfIyO2fXdeIqic3eHCp/cwITof0b8cGyBWKcu8pnrw
+ LJubaJ1OBDVy4qGF2Y3IvsgXFc9jYPlENSRC1Y7vCiR85IqQ1KdCjEJ4f1Z7hrja57i3
+ fkamqKbMB4xUFVI8di0PW85mTgRLFZrH6SasvZdeNuYhNwqeVx/O6GVvsirYZYHXr9IY
+ nakV4nVQBDXbC769RmhUl0CbVVUTxMXHG2Ai6XcjDfmCSd68XGQXBDk2f0Fn9Fk9ADEP
+ fZ7g==
+X-Gm-Message-State: AJIora9X19vQTZ36Oyvs+UhXyL90lMVcdrVeW4YyPz9Ir4PNxyng1Dmn
+ ombdiL2W5xSSHj/dJgQ4yzjtkw==
+X-Google-Smtp-Source: AGRyM1tB/7rxj1PsrZbLttdzJ6N39++gXEeBXcuBdRQ9WFZYl1LBho6PCNK+K4HVQ1fuZnvJNAs8qw==
+X-Received: by 2002:a17:903:2645:b0:167:92f1:15c0 with SMTP id
+ je5-20020a170903264500b0016792f115c0mr1589014plb.100.1655330500612; 
+ Wed, 15 Jun 2022 15:01:40 -0700 (PDT)
+Received: from google.com ([192.77.111.2]) by smtp.gmail.com with ESMTPSA id
+ q22-20020a17090a431600b001eae86cf683sm63878pjg.42.2022.06.15.15.01.39
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 15 Jun 2022 15:01:40 -0700 (PDT)
+Date: Wed, 15 Jun 2022 23:01:38 +0100
+From: Lee Jones <lee.jones@linaro.org>
+To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>
+Message-ID: <YqpWwqNBgfK5nHr0@google.com>
+References: <20220519162838.695404-1-u.kleine-koenig@pengutronix.de>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.9.1
-Content-Language: en-US
-To: Alexey Khoroshilov <khoroshilov@ispras.ru>, Vinod Koul <vkoul@kernel.org>, 
- Amelie Delaunay <amelie.delaunay@st.com>
-References: <1655072638-9103-1-git-send-email-khoroshilov@ispras.ru>
-From: Amelie Delaunay <amelie.delaunay@foss.st.com>
-In-Reply-To: <1655072638-9103-1-git-send-email-khoroshilov@ispras.ru>
-X-Originating-IP: [10.211.13.69]
-X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE2.st.com
- (10.75.129.70)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.874,Hydra:6.0.517,FMLib:17.11.64.514
- definitions=2022-06-15_13,2022-06-15_01,2022-02-23_01
-Cc: dmaengine@vger.kernel.org, ldv-project@linuxtesting.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH] dmaengine: stm32-mdma: Remove dead code
- in stm32_mdma_irq_handler()
+Content-Disposition: inline
+In-Reply-To: <20220519162838.695404-1-u.kleine-koenig@pengutronix.de>
+Cc: devicetree@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Rob Herring <robh+dt@kernel.org>, kernel@pengutronix.de,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v4 1/2] dt-bindings: mfd: stm32-timers:
+ Document how to specify interrupts
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,48 +73,25 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Alexey,
-
-On 6/13/22 00:23, Alexey Khoroshilov wrote:
-> Local variable chan is initialized by an address of element of chan array
-> that is part of stm32_mdma_device struct, so it does not make sense to
-> compare chan with NULL.
-> 
-> Found by Linux Verification Center (linuxtesting.org) with SVACE.
-> 
-> Signed-off-by: Alexey Khoroshilov <khoroshilov@ispras.ru>
-> Fixes: a4ffb13c8946 ("dmaengine: Add STM32 MDMA driver")
-> ---
->   drivers/dma/stm32-mdma.c | 5 -----
->   1 file changed, 5 deletions(-)
-> 
-> diff --git a/drivers/dma/stm32-mdma.c b/drivers/dma/stm32-mdma.c
-> index caf0cce8f528..b11927ed4367 100644
-> --- a/drivers/dma/stm32-mdma.c
-> +++ b/drivers/dma/stm32-mdma.c
-> @@ -1328,12 +1328,7 @@ static irqreturn_t stm32_mdma_irq_handler(int irq, void *devid)
->   		return IRQ_NONE;
->   	}
->   	id = __ffs(status);
-> -
->   	chan = &dmadev->chan[id];
-> -	if (!chan) {
-> -		dev_warn(mdma2dev(dmadev), "MDMA channel not initialized\n");
-> -		return IRQ_NONE;
-> -	}
->   
->   	/* Handle interrupt for the channel */
->   	spin_lock(&chan->vchan.lock);
-
-Thanks for your patch,
-
-Reviewed-by: Amelie Delaunay <amelie.delaunay@foss.st.com>
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gVGh1LCAxOSBNYXkgMjAyMiwgVXdlIEtsZWluZS1Lw7ZuaWcgd3JvdGU6Cgo+IFRoZSB0aW1l
+ciB1bml0cyBpbiB0aGUgc3RtMzJtcDEgQ1BVcyBoYXZlIGludGVycnVwdHMsIGRlcGVuZGluZyBv
+biB0aGUKPiB0aW1lciBmbGF2b3VyIGVpdGhlciBvbmUgImdsb2JhbCIgb3IgZm91ciBkZWRpY2F0
+ZWQgb25lcy4gRG9jdW1lbnQgaG93Cj4gdG8gZm9ybWFsaXplIHRoZXNlIGluIGEgZGV2aWNlIHRy
+ZWUuCj4gCj4gU2lnbmVkLW9mZi1ieTogVXdlIEtsZWluZS1Lw7ZuaWcgPHUua2xlaW5lLWtvZW5p
+Z0BwZW5ndXRyb25peC5kZT4KPiAtLS0KPiBDaGFuZ2VzIHNpbmNlIHYzOgo+ICAgLSBEbyB0aGUg
+dGhpbmdzIFJvYiBzdWdnZXN0ZWQgaW4gcmVxbHkgdG8gdjEgd2hpY2ggSSBkaWRuJ3Qgbm90aWNl
+Cj4gICAgIHVudGlsIEZhYnJpY2UgdG9sZCBtZSBpbiByZXBseSB0byB2My4KPiAKPiAgLi4uL2Rl
+dmljZXRyZWUvYmluZGluZ3MvbWZkL3N0LHN0bTMyLXRpbWVycy55YW1sICB8IDE1ICsrKysrKysr
+KysrKysrKwo+ICAxIGZpbGUgY2hhbmdlZCwgMTUgaW5zZXJ0aW9ucygrKQoKQXBwbGllZCwgdGhh
+bmtzLgoKLS0gCkxlZSBKb25lcyBb5p2O55C85pavXQpQcmluY2lwYWwgVGVjaG5pY2FsIExlYWQg
+LSBEZXZlbG9wZXIgU2VydmljZXMKTGluYXJvLm9yZyDilIIgT3BlbiBzb3VyY2Ugc29mdHdhcmUg
+Zm9yIEFybSBTb0NzCkZvbGxvdyBMaW5hcm86IEZhY2Vib29rIHwgVHdpdHRlciB8IEJsb2cKX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIg
+bWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0
+cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgt
+c3RtMzIK
