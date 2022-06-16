@@ -2,35 +2,35 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E9D0A54E476
-	for <lists+linux-stm32@lfdr.de>; Thu, 16 Jun 2022 16:36:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 154D854E3D0
+	for <lists+linux-stm32@lfdr.de>; Thu, 16 Jun 2022 16:35:43 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B08EDC6904B;
-	Thu, 16 Jun 2022 14:36:40 +0000 (UTC)
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C8977C6411B;
+	Thu, 16 Jun 2022 14:35:42 +0000 (UTC)
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E66B8C69056
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 60261C64103
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 16 Jun 2022 14:36:38 +0000 (UTC)
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
- by mx0b-001ae601.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 25G8o9fW009500;
+ Thu, 16 Jun 2022 14:35:39 +0000 (UTC)
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+ by mx0a-001ae601.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 25G4igBl030693;
  Thu, 16 Jun 2022 09:34:50 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
  h=from : to : cc :
  subject : date : message-id : in-reply-to : references : mime-version :
  content-transfer-encoding : content-type; s=PODMain02222019;
- bh=FkLf0EtaO/Wlr40PHCKBnepFxEPRj9BcKFU4t6wlv3U=;
- b=KOtAXToqURdSV3JdWTioXK5/aiXWGeuBI11nLb0XuTMFOypEEC1rbM7Swf70G48Ho+oA
- fxk3QZsSxw2896UwLmuYYvtrWj/dEeD7bBV5XLjzU6Yoh7Q3vGg7xvRINCi6XQy3wkZe
- lreWRxBUpknkRfieMk1S81mXDWo6QJt3GRpl/z8/KpVgGNXwjAV4KmJ1d1vL7ZTwQNLC
- JNp+S/fHSi0jaiCwUQOMIZEzeRTfJCXEQb/VEr5Xg0sW51xbdAGm3rIbsSIE8XkP13C/
- dB10/i1xPBYVBj92lZpSj2a8DXtKFHenLieyh/OsQ96tyMFq8lXtN/zoXMVqVfTBHTx2 Sw== 
+ bh=xdF4YDhZ4w4zOj7PPUNU1RDXQ9HdkgKMF96WzVRvWg8=;
+ b=ZQ5axMduLKy21qcanYbSrl2hCE5xebqHo9qC3TmclaG/6lpeZsgCbUYfIpuvnLlzVA+A
+ E80y9jlLOFFtmk4n8dleL11+sLCI4CD/FO2pRAwX2TAsFUpMVCvmh4k9Eo5hjFub+5nu
+ +OxoB/9Nr6DrchUidMKLhKfcKMSG41+CLP1OgbQRW9OFvLYySkturWSzYFsTCQ5enzp5
+ FVe7OrJVdf53nCqx9mu0l4sc8zcwW8rRvZg/PYDxhcaOjZ2ZIFmV/G7S9JJmd6IVYFts
+ LOxdmO/UL5/p6kOSJvXrf6OsKSEkCVuCnvPkJEls+0tgaA/Iv/OP/zWwsBDkFeLeJkKo Hg== 
 Received: from ediex02.ad.cirrus.com ([84.19.233.68])
- by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3gmqfq5w3u-4
+ by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3gmrf35vuw-15
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Thu, 16 Jun 2022 09:34:49 -0500
+ Thu, 16 Jun 2022 09:34:50 -0500
 Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
  (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Thu, 16 Jun
@@ -39,18 +39,18 @@ Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
  (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.28 via
  Frontend Transport; Thu, 16 Jun 2022 15:34:35 +0100
 Received: from algalon.ad.cirrus.com (algalon.ad.cirrus.com [198.90.251.122])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 792FF11D3;
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 8E19111D4;
  Thu, 16 Jun 2022 14:34:35 +0000 (UTC)
 From: Charles Keepax <ckeepax@opensource.cirrus.com>
 To: <broonie@kernel.org>
-Date: Thu, 16 Jun 2022 15:34:03 +0100
-Message-ID: <20220616143429.1324494-71-ckeepax@opensource.cirrus.com>
+Date: Thu, 16 Jun 2022 15:34:04 +0100
+Message-ID: <20220616143429.1324494-72-ckeepax@opensource.cirrus.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20220616143429.1324494-1-ckeepax@opensource.cirrus.com>
 References: <20220616143429.1324494-1-ckeepax@opensource.cirrus.com>
 MIME-Version: 1.0
-X-Proofpoint-ORIG-GUID: Oeg_6prJuEz1iRa1pqe_Uq7m-eDF1bX9
-X-Proofpoint-GUID: Oeg_6prJuEz1iRa1pqe_Uq7m-eDF1bX9
+X-Proofpoint-GUID: EDP9V8_z4syHgneb6sNt5JsYzzDOa3Kl
+X-Proofpoint-ORIG-GUID: EDP9V8_z4syHgneb6sNt5JsYzzDOa3Kl
 X-Proofpoint-Spam-Reason: safe
 Cc: cezary.rojewski@intel.com, heiko@sntech.de,
  kuninori.morimoto.gx@renesas.com, airlied@linux.ie,
@@ -66,7 +66,7 @@ Cc: cezary.rojewski@intel.com, heiko@sntech.de,
  linux-omap@vger.kernel.org, patches@opensource.cirrus.com, lgirdwood@gmail.com,
  vkoul@kernel.org, jarkko.nikula@bitmer.com, daniel@ffwll.ch,
  shawnguo@kernel.org, daniel@zonque.org
-Subject: [Linux-stm32] [PATCH 70/96] ASoC: bd28623: Remove now redundant
+Subject: [Linux-stm32] [PATCH 71/96] ASoC: bt-sco: Remove now redundant
 	non_legacy_dai_naming flag
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -90,21 +90,21 @@ the non_legacy_dai_naming flag.
 
 Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
 ---
- sound/soc/codecs/bd28623.c | 1 -
+ sound/soc/codecs/bt-sco.c | 1 -
  1 file changed, 1 deletion(-)
 
-diff --git a/sound/soc/codecs/bd28623.c b/sound/soc/codecs/bd28623.c
-index a6267cb86d860..82a94211d0123 100644
---- a/sound/soc/codecs/bd28623.c
-+++ b/sound/soc/codecs/bd28623.c
-@@ -161,7 +161,6 @@ static const struct snd_soc_component_driver soc_codec_bd = {
+diff --git a/sound/soc/codecs/bt-sco.c b/sound/soc/codecs/bt-sco.c
+index cf17b9741bd83..4086b6a53de8c 100644
+--- a/sound/soc/codecs/bt-sco.c
++++ b/sound/soc/codecs/bt-sco.c
+@@ -69,7 +69,6 @@ static const struct snd_soc_component_driver soc_component_dev_bt_sco = {
  	.idle_bias_on		= 1,
  	.use_pmdown_time	= 1,
  	.endianness		= 1,
 -	.non_legacy_dai_naming	= 1,
  };
  
- static struct snd_soc_dai_driver soc_dai_bd = {
+ static int bt_sco_probe(struct platform_device *pdev)
 -- 
 2.30.2
 
