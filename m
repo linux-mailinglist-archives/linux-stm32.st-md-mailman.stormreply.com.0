@@ -2,70 +2,92 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D81C954E081
-	for <lists+linux-stm32@lfdr.de>; Thu, 16 Jun 2022 14:04:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8CFB754E1A4
+	for <lists+linux-stm32@lfdr.de>; Thu, 16 Jun 2022 15:16:00 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 877DAC03FE0;
-	Thu, 16 Jun 2022 12:04:08 +0000 (UTC)
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com
- [209.85.221.42])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3D83AC56630;
+	Thu, 16 Jun 2022 13:16:00 +0000 (UTC)
+Received: from mail-yb1-f175.google.com (mail-yb1-f175.google.com
+ [209.85.219.175])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2BCE3C03FC8
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E51C0C03FCB
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 16 Jun 2022 12:04:07 +0000 (UTC)
-Received: by mail-wr1-f42.google.com with SMTP id g4so1572343wrh.11
+ Thu, 16 Jun 2022 13:15:58 +0000 (UTC)
+Received: by mail-yb1-f175.google.com with SMTP id t1so2145525ybd.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 16 Jun 2022 05:04:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=message-id:date:from:to:cc:subject:references:mime-version
- :content-disposition:in-reply-to;
- bh=NvTotWv8XnzVZu+pHQebgM4bWsTTZKNeIdjOwDoju7E=;
- b=FW7I1cA/aAcawnoclOF3N/CI0+ENH8qb6obcOzoQ6ODb2/OGq0INjFy8zF8ZxnNa20
- XLceFXJ3I08a7I7hyt26nZjN+3I4pehoxfIVgpkM11DhEh3oef7rnCC5X0ile71OJtCN
- xaBtR2bmdVgf8LreqXb4Ahr+9eqK6QePgB1O6OxUudDYvuk7EZASerj/LCDO9nJJvLBb
- 7Hju6O1R+SHO/mTFJ4/V3GxBq2l1IZzF6EDusy63YRAMNLbhyRLIpa4/yDWq9PuCnMa2
- AEvKYYTowKDUBPWQCc8VlqIyLVWBINn/5sxWbrFJssiHVtuC7/AW6NidGcJcuk1zLBnT
- /SXw==
+ Thu, 16 Jun 2022 06:15:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=fsun78rWieFnLaLeD83Q2xWjxjOs241/wdwG/0QCsic=;
+ b=PZJxPerUVnWQ+ZJJXabeQPCvU+odG2XM/cCiTR2s9bg1u+Kq80JX5ApFI/RzXK0+5N
+ 91YSIyl3oArnIPhPglVuZa3e9yXet958I4d/aO29mbsfdc4wxqC+2Ha3GHxRa7P+C/W0
+ /MeUW3hhtK1/8mt84BKomTg927useCl9wQUSKU9FmvhKIMrNLBmnrhUc6Q4NF8cAc8mk
+ ISrwiouIgmkW9h2OrdhUIyQlvlxunlAeC03V1t+VlOn4UBEozATF/u6cpGazZNV0c/oJ
+ OgqMMNyBlhjXRfOdGukXu/bRFb/aQF/PlDjPiPinMUucqHC6ndgFmuTlQ5RWfPsM5sUQ
+ QFyA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:from:to:cc:subject:references
- :mime-version:content-disposition:in-reply-to;
- bh=NvTotWv8XnzVZu+pHQebgM4bWsTTZKNeIdjOwDoju7E=;
- b=VvXvInuWv88rMWmXKRiliakvvCmVqWEJgSp5OCahXbSOK7zrjaby7yrvz5NPA4GHU8
- 5H4GS98/VqxB/794wB4dSbfGfA9byDT4J/2c0uzuJykJL2MWNgDqjyJJDkd9Bfd9oXnU
- s0XwMASILErn5DWH6vt26DJSt/4hvlb/wyGg38ONmsFmv5x1Xp/qfEisk0u8ca5MjzU1
- pm5CO+P9pxlVj+FmtVINfZ6/yQIaSHS7itV9DG/7QAq0HyMB2FNOyCCk6lxLSlxM5jMM
- v5hRbZSyiRiEsUzNV9g1TdLJteQHRkmqjEc4G6VF536ZeTetkj2/6sKK3+qZ3xynpAvR
- bpSQ==
-X-Gm-Message-State: AJIora/6KexHeK3tKQIvpEinQNoZMaokYhRPi0PXTWkPNJhXy6gKu/Z/
- a/ClwG7y9KE8A32kfIEtZ7A=
-X-Google-Smtp-Source: AGRyM1vGe0hqTNQlFi19vRGu0VDlfq55drHnbDnjclViV5t5NFO8MwRfAtbD0ugYV3SFtgr/4mg+fw==
-X-Received: by 2002:a5d:6a0e:0:b0:213:1f7f:e1cc with SMTP id
- m14-20020a5d6a0e000000b002131f7fe1ccmr4373123wru.31.1655381046289; 
- Thu, 16 Jun 2022 05:04:06 -0700 (PDT)
-Received: from Ansuel-xps. (93-42-70-190.ip85.fastwebnet.it. [93.42.70.190])
- by smtp.gmail.com with ESMTPSA id
- f3-20020adff583000000b002100316b126sm1700890wro.6.2022.06.16.05.04.05
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 16 Jun 2022 05:04:05 -0700 (PDT)
-Message-ID: <62ab1c35.1c69fb81.9ea8e.2cb0@mx.google.com>
-X-Google-Original-Message-ID: <YqscMzlPDIT0mbTQ@Ansuel-xps.>
-Date: Thu, 16 Jun 2022 14:04:03 +0200
-From: Ansuel Smith <ansuelsmth@gmail.com>
-To: Jakub Kicinski <kuba@kernel.org>
-References: <20220614224141.23576-1-ansuelsmth@gmail.com>
- <20220615195507.52ee19df@kernel.org>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=fsun78rWieFnLaLeD83Q2xWjxjOs241/wdwG/0QCsic=;
+ b=qx3ILZmq2WRoh0AFTAirBSMxDHf+ntUhI7mDdmEWnCkctiduQAt1rM7woAvwiPpmOq
+ KaeCxjjOKPl5mZ30yNuLz7H5z7R5CFcg8IW1yYqTVdF9UmRkw46puH4eBSkfQo1Zo2Eu
+ l4MM2SxXIylomOyLzgHP5ithEs6E+38yUn2EBgHQhdjoj0jq4E+3ZC/lYnfgep2iNPlg
+ qhjO2nhEcJBjhaKMdgHBZz5qokLi6aBU28AwlvYIgiuj90dNuNqfuTYcNYp3PMT9leGu
+ wDwPUGHi9n06Vjta6th963C7KWEk2rktsmdwVCXIsJ2xE3LD6Y4MyomIroCh/DSArb9M
+ Gdhw==
+X-Gm-Message-State: AJIora8nmtpFrz/NG2LxP5Vjw0VVmgpt35WEVcfLwcHVfM7aL2XjDkdI
+ mFM1+SyXBC6OWYo+4AO5pivrjVNZZRSDdDW3I+YryQ==
+X-Google-Smtp-Source: AGRyM1tKpRdJdPfQy0oaslWa7sXFz+A5JxujSmEL8Ch+XWKV8Tm8gJp6YIJusqmVvKOdq2xVRX8SI1z84IJEfDM3b38=
+X-Received: by 2002:a25:3417:0:b0:664:aab3:7c44 with SMTP id
+ b23-20020a253417000000b00664aab37c44mr5143357yba.533.1655385357716; Thu, 16
+ Jun 2022 06:15:57 -0700 (PDT)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20220615195507.52ee19df@kernel.org>
-Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
- Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>, Paolo Abeni <pabeni@redhat.com>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [net-next PATCH] net: ethernet: stmicro: stmmac:
- permit MTU change with interface up
+References: <20220610084545.547700-1-nuno.sa@analog.com>
+ <20220610084545.547700-31-nuno.sa@analog.com>
+In-Reply-To: <20220610084545.547700-31-nuno.sa@analog.com>
+From: Linus Walleij <linus.walleij@linaro.org>
+Date: Thu, 16 Jun 2022 15:15:46 +0200
+Message-ID: <CACRpkdbTkyd0zwXU-7O-n3HejHhY+Vg-QKuSpatZ+O0QPgqbag@mail.gmail.com>
+To: =?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>
+Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Daniel Lezcano <daniel.lezcano@linaro.org>, Tomer Maimon <tmaimon77@gmail.com>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, linux-iio@vger.kernel.org,
+ Amit Kucheria <amitk@kernel.org>, Tali Perry <tali.perry1@gmail.com>,
+ Paul Cercueil <paul@crapouillou.net>,
+ Miquel Raynal <miquel.raynal@bootlin.com>, Guenter Roeck <groeck@chromium.org>,
+ Fabio Estevam <festevam@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
+ chrome-platform@lists.linux.dev, Lars-Peter Clausen <lars@metafoo.de>,
+ Benjamin Fair <benjaminfair@google.com>, openbmc@lists.ozlabs.org,
+ Jishnu Prakash <quic_jprakash@quicinc.com>, Haibo Chen <haibo.chen@nxp.com>,
+ Nancy Yuen <yuenn@google.com>, Andy Shevchenko <andy.shevchenko@gmail.com>,
+ Andy Gross <agross@kernel.org>, linux-imx@nxp.com,
+ Zhang Rui <rui.zhang@intel.com>,
+ Christophe Branchereau <cbranchereau@gmail.com>,
+ Saravanan Sekar <sravanhome@gmail.com>,
+ Michael Hennerich <Michael.Hennerich@analog.com>,
+ linux-arm-msm@vger.kernel.org, Sascha Hauer <s.hauer@pengutronix.de>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+ linux-mediatek@lists.infradead.org,
+ Eugen Hristev <eugen.hristev@microchip.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Gwendal Grignou <gwendal@chromium.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Benson Leung <bleung@chromium.org>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ linux-arm-kernel@lists.infradead.org, Lorenzo Bianconi <lorenzo@kernel.org>,
+ Avi Fishman <avifishman70@gmail.com>, Patrick Venture <venture@google.com>,
+ linux-mips@vger.kernel.org, Thara Gopinath <thara.gopinath@linaro.org>,
+ linux-renesas-soc@vger.kernel.org, Arnd Bergmann <arnd@arndb.de>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Cai Huoqing <cai.huoqing@linux.dev>, Shawn Guo <shawnguo@kernel.org>,
+ Claudiu Beznea <claudiu.beznea@microchip.com>,
+ Jonathan Cameron <jic23@kernel.org>
+Subject: Re: [Linux-stm32] [PATCH 30/34] iio: adc: qcom-spmi-vadc: convert
+	to device properties
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,35 +99,19 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, Jun 15, 2022 at 07:55:07PM -0700, Jakub Kicinski wrote:
-> On Wed, 15 Jun 2022 00:41:41 +0200 Christian 'Ansuel' Marangi wrote:
-> > +	if (netif_running(dev)) {
-> > +		netdev_dbg(priv->dev, "restarting interface to change its MTU\n");
-> > +		stmmac_release(dev);
-> > +
-> > +		stmmac_open(dev);
-> > +		stmmac_set_filter(priv, priv->hw, dev);
-> 
-> What if stmmac_open() fails because the memory is low or is fragmented?
-> 
-> You'd need to invest more effort into this change and try to allocate
-> all the resources before shutting the device down.
-
-Well what I'm doing here is following what is done with other similar
-function in stmmac. For example the reinit_queues and reinit_ringparam
-doesn't do such check.
-
-But ok you are right, will see a good solution to change stmmac_open to
-preallocate the buffers.
-
--- 
-	Ansuel
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gRnJpLCBKdW4gMTAsIDIwMjIgYXQgMTA6NDkgQU0gTnVubyBTw6EgPG51bm8uc2FAYW5hbG9n
+LmNvbT4gd3JvdGU6Cgo+IE1ha2UgdGhlIGNvbnZlcnNpb24gdG8gZmlybXdhcmUgYWdub3N0aWMg
+ZGV2aWNlIHByb3BlcnRpZXMuIEFzIHBhcnQgb2YKPiB0aGUgY29udmVyc2lvbiB0aGUgSUlPIGlu
+a2VybiBpbnRlcmZhY2UgJ29mX3hsYXRlKCknIGlzIGFsc28gY29udmVydGVkIHRvCj4gJ2Z3bm9k
+ZV94bGF0ZSgpJy4gVGhlIGdvYWwgaXMgdG8gY29tcGxldGVseSBkcm9wICdvZl94bGF0ZScgYW5k
+IGhlbmNlIE9GCj4gZGVwZW5kZW5jaWVzIGZyb20gSUlPLgo+Cj4gU2lnbmVkLW9mZi1ieTogTnVu
+byBTw6EgPG51bm8uc2FAYW5hbG9nLmNvbT4KCkFja2VkLWJ5OiBMaW51cyBXYWxsZWlqIDxsaW51
+cy53YWxsZWlqQGxpbmFyby5vcmc+CgpZb3VycywKTGludXMgV2FsbGVpagpfX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxp
+c3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1k
+LW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
