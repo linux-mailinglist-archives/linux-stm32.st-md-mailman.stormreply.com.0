@@ -2,65 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 500FE54D998
-	for <lists+linux-stm32@lfdr.de>; Thu, 16 Jun 2022 07:15:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0720554DBFE
+	for <lists+linux-stm32@lfdr.de>; Thu, 16 Jun 2022 09:40:24 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id ECD60C5C829;
-	Thu, 16 Jun 2022 05:15:30 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AECB3C5E2CC;
+	Thu, 16 Jun 2022 07:40:23 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 147EDC035BF
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 433C1C57B6C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 16 Jun 2022 05:15:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1655356529; x=1686892529;
- h=date:from:to:cc:subject:in-reply-to:message-id:
- references:mime-version;
- bh=w5f/uRo7VAfu2ZSH1O1BKsd51bCmWG6WWb8H4rj04YI=;
- b=mQndEkhGYzWMkIpZOUUvyiFxtMQ3nIz5PptNUdMF2rzkPPoivn0AUkwC
- zzFFXVEqHSFXDiHleYRuHlAG2o1GOFkR7F1Y9XJ0l4UvoKltIB6yZRrul
- bio+cpMLNqhok/eTF/jhUeAxDqQMzDEp+wQX1glreFIqVpdW0bFAUp6zu
- eCmtKk7miM0PiuXaSVeFTXmQIWo1+Mrnh5PC/zpPbCqEPgbq90Mzv1Am0
- 5kCBBa8kXWtymPxJZvd/i7Sa4K8Wd4XH/+B/BTI3rSIxmprDE6ogCUVEQ
- 5e1TM7m2MpMhEwa3bgsxMIM4EOuTPrXdko8IQnj8XIO5L3Fv2ZfsaXoUo A==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10379"; a="267856836"
-X-IronPort-AV: E=Sophos;i="5.91,304,1647327600"; d="scan'208";a="267856836"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Jun 2022 22:15:27 -0700
-X-IronPort-AV: E=Sophos;i="5.91,304,1647327600"; d="scan'208";a="641366171"
-Received: from mngueron-mobl1.amr.corp.intel.com ([10.252.60.248])
- by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Jun 2022 22:15:19 -0700
-Date: Thu, 16 Jun 2022 08:15:16 +0300 (EEST)
-From: =?ISO-8859-15?Q?Ilpo_J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-In-Reply-To: <YqnnKQYAnqORpdBJ@smile.fi.intel.com>
-Message-ID: <ddc178b-1292-248c-21a1-4cf990d0b1c@linux.intel.com>
-References: <20220615124829.34516-1-ilpo.jarvinen@linux.intel.com>
- <20220615124829.34516-5-ilpo.jarvinen@linux.intel.com>
- <YqnnKQYAnqORpdBJ@smile.fi.intel.com>
+ Thu, 16 Jun 2022 07:40:22 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 25G4cRO8008239;
+ Thu, 16 Jun 2022 09:40:04 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=selector1;
+ bh=SipFXcGwtRjKmtMkah7OgGa+SDsq/sC6LlzRtxjzz1Q=;
+ b=Iu1xrDjMQnngH3NDjfLk7RYH1PcGlevXAJbB6+ZGPPGw/jcqkMTCxjXFDUHaz7kH4eqX
+ 0l787Yz7xLO+ayJ0xMFYxd6XSPiC3ktbb0Gz8J2276Ab4BHI4zP8V7xhapNSYMmEUf7A
+ S2hr9MBoSfHE6kl21tdKDeX9FtnlUOEFhjEv+f+bFGK5nhp761/ldV4XtkCDqaOV+K3T
+ xz1S9HOiR3mHHDH92IBXy+JAT2iZGjAVQKo5NlVFFDqKzwQNxlgY0/s++EvydvAvB0q4
+ UgHENjluQ/B4PyRyTD/vT7sDiPUpTHYwHbe9lNwh0Uwb8xW9Brhp0mt8SnuNcQoeizL6 QQ== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3gqeb0wy48-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 16 Jun 2022 09:40:04 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id EE7EC10002A;
+ Thu, 16 Jun 2022 09:40:01 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id DA24421160A;
+ Thu, 16 Jun 2022 09:40:01 +0200 (CEST)
+Received: from localhost (10.48.0.175) by SHFDAG1NODE2.st.com (10.75.129.70)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.20; Thu, 16 Jun
+ 2022 09:39:59 +0200
+From: Christophe Kerello <christophe.kerello@foss.st.com>
+To: <miquel.raynal@bootlin.com>, <richard@nod.at>, <vigneshr@ti.com>
+Date: Thu, 16 Jun 2022 09:39:43 +0200
+Message-ID: <20220616073943.669332-1-christophe.kerello@foss.st.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-1748112325-1655356526=:1693"
-Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
- LKML <linux-kernel@vger.kernel.org>, Fabio Estevam <festevam@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, Jiri Slaby <jirislaby@kernel.org>,
- Russell King <linux@armlinux.org.uk>, Lino Sanfilippo <LinoSanfilippo@gmx.de>,
- NXP Linux Team <linux-imx@nxp.com>,
- linux-serial <linux-serial@vger.kernel.org>,
- =?ISO-8859-15?Q?Uwe_Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Sascha Hauer <s.hauer@pengutronix.de>, Vladimir Zapolskiy <vz@mleia.com>,
- linux-arm-kernel@lists.infradead.org,
- Richard Genoud <richard.genoud@gmail.com>,
- Greg KH <gregkh@linuxfoundation.org>,
- Nicolas Ferre <nicolas.ferre@microchip.com>, Lukas Wunner <lukas@wunner.de>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
- Claudiu Beznea <claudiu.beznea@microchip.com>
-Subject: Re: [Linux-stm32] [PATCH v7 4/6] serial: take termios_rwsem for
- .rs485_config() & pass termios as param
+X-Originating-IP: [10.48.0.175]
+X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE2.st.com
+ (10.75.129.70)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.874,Hydra:6.0.517,FMLib:17.11.64.514
+ definitions=2022-06-16_03,2022-06-15_01,2022-02-23_01
+Cc: linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [PATCH mtd-utils] nandflipbits: fix corrupted oob
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,63 +67,40 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+If a bit is flipped in block 1 or higher, the OOB is corrupted with the
+OOB of block 0. Mtd_read_oob API has to take into account the block number
+to be able to calculate the right offset.
 
---8323329-1748112325-1655356526=:1693
-Content-Type: text/plain; charset=iso-8859-1
-Content-Transfer-Encoding: 8BIT
+Fixes: 9fc8db29cf62 ("mtd-utils: Add nandflipbits tool")
+Signed-off-by: Christophe Kerello <christophe.kerello@foss.st.com>
+---
+ nand-utils/nandflipbits.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-On Wed, 15 Jun 2022, Andy Shevchenko wrote:
-
-> On Wed, Jun 15, 2022 at 03:48:27PM +0300, Ilpo Järvinen wrote:
-> > To be able to alter ADDRB within .rs485_config(), take termios_rwsem
-> > before calling .rs485_config() and pass termios.
-> 
-> I would use ->rs485_config() as a reference to the callback.
-> 
-> ...
-> 
-> > -	ret = port->rs485_config(port, rs485);
-> > +	ret = port->rs485_config(port, rs485, NULL);
-> 
-> > +
-> 
-> Stray change?
-
-Yes it was.
-
-> >  	if (ret)
-> >  		memset(rs485, 0, sizeof(*rs485));
-> 
-> ...
-> 
-> >  	void			(*handle_break)(struct uart_port *);
-> >  	int			(*rs485_config)(struct uart_port *,
-> > -						struct serial_rs485 *rs485);
-> > +						struct serial_rs485 *rs485,
-> > +						struct ktermios *termios);
-> 
-> Dunno if termios has to be second parameter. The idea is to pass input data
-> followed by (auxiliary) output as usual pattern.
-
-I guess I can make termios 2nd param.
-
+diff --git a/nand-utils/nandflipbits.c b/nand-utils/nandflipbits.c
+index aa6850f..cd66d0b 100644
+--- a/nand-utils/nandflipbits.c
++++ b/nand-utils/nandflipbits.c
+@@ -249,7 +249,9 @@ int main(int argc, char **argv)
+ 
+ 			bufoffs += mtd.min_io_size;
+ 
+-			ret = mtd_read_oob(mtd_desc, &mtd, fd, blkoffs,
++			ret = mtd_read_oob(mtd_desc, &mtd, fd,
++					   bit_to_flip->block * mtd.eb_size +
++					   blkoffs,
+ 					   mtd.oob_size, buffer + bufoffs);
+ 			if (ret) {
+ 				fprintf(stderr, "MTD OOB read failure\n");
 -- 
- i.
-
---8323329-1748112325-1655356526=:1693
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+2.25.1
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---8323329-1748112325-1655356526=:1693--
