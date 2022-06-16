@@ -2,33 +2,33 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 161F754E40C
-	for <lists+linux-stm32@lfdr.de>; Thu, 16 Jun 2022 16:36:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A245754E3CB
+	for <lists+linux-stm32@lfdr.de>; Thu, 16 Jun 2022 16:35:42 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CA8C6C69042;
-	Thu, 16 Jun 2022 14:36:02 +0000 (UTC)
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5CC61C64101;
+	Thu, 16 Jun 2022 14:35:42 +0000 (UTC)
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9EDC2C65E47
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4119CC640FD
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 16 Jun 2022 14:35:54 +0000 (UTC)
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
- by mx0a-001ae601.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 25G4igBp030693;
+ Thu, 16 Jun 2022 14:35:39 +0000 (UTC)
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+ by mx0b-001ae601.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 25G8o9fc009500;
  Thu, 16 Jun 2022 09:34:54 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
  h=from : to : cc :
  subject : date : message-id : in-reply-to : references : mime-version :
  content-transfer-encoding : content-type; s=PODMain02222019;
- bh=CoOVGpqGnoSZU6Q3CKzELkkPwnCyCYjSBf0+fD7T35U=;
- b=SdbVxVX49pDwQMViv3Z+CV/Uap86Y3iFEHZnxwbcXJtp3RbCvFd4qCcuUxBX/XTB0Cj4
- abuvkOVBFpTJZwV6q/dqaJV57jyutRBQCzakCMk0lHk69vqCjNi6jmgf3IEq5RPmk8+W
- svROh5ywa056Zib1HAPnXFJPClYsHHGFyTVc7RxGOW6z7YYsBU8K1vMA1FEkX8UFVR7r
- ACsBUs/HcFaT0fyLhjAFsfwRe8sk3aoYQuufKnVo3xzzT+obufGJFKMiLnH6MZQ5Ii+M
- mQlibEmzQU+UBS7dM8gHqyUeSz/xytHcF/TNlMOTExDXP7wtHrMfV9a72kbAwKNbBUbz wA== 
+ bh=lh7UQEX0kU+iQnt9yjv/Ak7Aj+spwbbMvg6HY5Ou4c8=;
+ b=T3lNCs32CvmRwC+vJXdIjpU2bk4lO986NtotvdeJEe1E1gEVydhXjHs83cyGIECvbnoW
+ 06m5hEmpmilnB46/Xq1+8NeawaOYIiAFcEpmoPKcgIiYElQMU7NJRg/j9c/6nzorg36g
+ awpcqEPRod6yvfcbCH147Az8P2Wrtn52TpadKpn4khunqNsXjpn6O20tBw4RY+mRdMHs
+ lmuVWEKc+nn+cR5/G1hxsMNtSg4bFaPL3/syE+tQleIp9sLJipm4uddqadMrQ64HUFrf
+ b82dZ6wrGb7jtQ6Tl3N70wZD+jRPfcfUHlbGKcJ7DZZmBeVOeUz5p1fFtNZWxzdxigkj VA== 
 Received: from ediex02.ad.cirrus.com ([84.19.233.68])
- by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3gmrf35vuw-19
+ by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3gmqfq5w3u-10
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
  Thu, 16 Jun 2022 09:34:54 -0500
 Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
@@ -39,18 +39,18 @@ Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
  (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.28 via
  Frontend Transport; Thu, 16 Jun 2022 15:34:37 +0100
 Received: from algalon.ad.cirrus.com (algalon.ad.cirrus.com [198.90.251.122])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 3A2D411D4;
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 4F43A11D3;
  Thu, 16 Jun 2022 14:34:37 +0000 (UTC)
 From: Charles Keepax <ckeepax@opensource.cirrus.com>
 To: <broonie@kernel.org>
-Date: Thu, 16 Jun 2022 15:34:23 +0100
-Message-ID: <20220616143429.1324494-91-ckeepax@opensource.cirrus.com>
+Date: Thu, 16 Jun 2022 15:34:24 +0100
+Message-ID: <20220616143429.1324494-92-ckeepax@opensource.cirrus.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20220616143429.1324494-1-ckeepax@opensource.cirrus.com>
 References: <20220616143429.1324494-1-ckeepax@opensource.cirrus.com>
 MIME-Version: 1.0
-X-Proofpoint-GUID: 68q_NP5dNVZg5i9AXBAXCdVdtrItjxb2
-X-Proofpoint-ORIG-GUID: 68q_NP5dNVZg5i9AXBAXCdVdtrItjxb2
+X-Proofpoint-ORIG-GUID: 52GKgpDm3KmMR0TFZncqEQ7Eux8mKfaD
+X-Proofpoint-GUID: 52GKgpDm3KmMR0TFZncqEQ7Eux8mKfaD
 X-Proofpoint-Spam-Reason: safe
 Cc: cezary.rojewski@intel.com, heiko@sntech.de,
  kuninori.morimoto.gx@renesas.com, airlied@linux.ie,
@@ -66,7 +66,7 @@ Cc: cezary.rojewski@intel.com, heiko@sntech.de,
  linux-omap@vger.kernel.org, patches@opensource.cirrus.com, lgirdwood@gmail.com,
  vkoul@kernel.org, jarkko.nikula@bitmer.com, daniel@ffwll.ch,
  shawnguo@kernel.org, daniel@zonque.org
-Subject: [Linux-stm32] [PATCH 90/96] ASoC: si476x: Remove now redundant
+Subject: [Linux-stm32] [PATCH 91/96] ASoC: stac9766: Remove now redundant
 	non_legacy_dai_naming flag
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -90,21 +90,22 @@ the non_legacy_dai_naming flag.
 
 Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
 ---
- sound/soc/codecs/si476x.c | 1 -
- 1 file changed, 1 deletion(-)
+ sound/soc/codecs/stac9766.c | 2 --
+ 1 file changed, 2 deletions(-)
 
-diff --git a/sound/soc/codecs/si476x.c b/sound/soc/codecs/si476x.c
-index 8bd2edf70f137..d87141ba84388 100644
---- a/sound/soc/codecs/si476x.c
-+++ b/sound/soc/codecs/si476x.c
-@@ -239,7 +239,6 @@ static const struct snd_soc_component_driver soc_component_dev_si476x = {
+diff --git a/sound/soc/codecs/stac9766.c b/sound/soc/codecs/stac9766.c
+index d99f6e466d0a3..1824a71fe053d 100644
+--- a/sound/soc/codecs/stac9766.c
++++ b/sound/soc/codecs/stac9766.c
+@@ -313,8 +313,6 @@ static const struct snd_soc_component_driver soc_component_dev_stac9766 = {
  	.idle_bias_on		= 1,
  	.use_pmdown_time	= 1,
  	.endianness		= 1,
 -	.non_legacy_dai_naming	= 1,
+-
  };
  
- static int si476x_platform_probe(struct platform_device *pdev)
+ static int stac9766_probe(struct platform_device *pdev)
 -- 
 2.30.2
 
