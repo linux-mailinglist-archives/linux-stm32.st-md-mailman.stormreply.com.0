@@ -2,55 +2,55 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id BAB9454E3CC
-	for <lists+linux-stm32@lfdr.de>; Thu, 16 Jun 2022 16:35:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C9E8C54E409
+	for <lists+linux-stm32@lfdr.de>; Thu, 16 Jun 2022 16:36:02 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 75751C64111;
-	Thu, 16 Jun 2022 14:35:42 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 89179C6905B;
+	Thu, 16 Jun 2022 14:36:02 +0000 (UTC)
 Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
  [67.231.152.168])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4F16EC64100
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7BC84C65E45
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 16 Jun 2022 14:35:39 +0000 (UTC)
+ Thu, 16 Jun 2022 14:35:53 +0000 (UTC)
 Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
- by mx0b-001ae601.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 25GBnCaK029573;
- Thu, 16 Jun 2022 09:34:42 -0500
+ by mx0b-001ae601.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 25GC0DJe015765;
+ Thu, 16 Jun 2022 09:34:39 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
  h=from : to : cc :
  subject : date : message-id : in-reply-to : references : mime-version :
  content-transfer-encoding : content-type; s=PODMain02222019;
- bh=p4b3o5kDt00nbOXkB/wSFZ40euKlk9+NY+jWhS/CA1E=;
- b=U9Y4rV6ZfNoQVfaLCWbG+EfodPaWLasDohKoTQWCcwl7mBqpXdtlCc9rd6/A7eH80U2L
- Jqcfx0vc1qLGju94nQmRAZfNXrqPo1ZRRmTl1yg2fEa8j04/pBsI/mO2Z6Dhf0Ot3wlg
- NjKcPgBoqqcGW4nh5owZhdqh2wKJc+JG21owknAiL4MSMJgY9/yv9Zrx0S1StznFE1OS
- dHxr6zxhQtOtdJrmow8iAYcKcamg5wG4ngz98RZn03C6LQYehG8ynQeCN9E2j08LTQ2u
- u9Mt5z2+dls16G5uCuH6EvGQxScxS9hSKPzTlz1DE+PvLf2RYl/EHhd8yew9XHQl+uB7 hw== 
-Received: from ediex01.ad.cirrus.com ([84.19.233.68])
- by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3gmqfq5w3m-4
+ bh=ywxDxyPYvrEKuL+MgnDui0khdcCuhp+qKYexP3Zb2Og=;
+ b=V3x6YxqB+qnMMAPs3Co5fjPda804QIKTfyFpTKz+t1I+tEUdjlYqpKfzjts6byM7XRks
+ RVljc/yi1IQWPMk8qqcxDW1HCw64X8ZmX2n8HyQQP6U77U5mzIKVbmERTgiv+4kUiRnh
+ HhW/HN8JCPKYAuoPy9kcmjBOGEtrZy1jNeqHEerNA49oSzD0SVdCZ3DdeVS817qvAFhI
+ YICN9yBYM9EOTrUP55eWWNLIwXWrpScBaDp7/cvlLQwOFu4dyDPOKj6ffpCUKQMeFmKP
+ jOI9dExRRuCWD/k54V95pPvlp/4HeO0yQDxQpdQdPgBqiii0qWyS3PHNcSl7Dp0rlQm3 mg== 
+Received: from ediex02.ad.cirrus.com ([84.19.233.68])
+ by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3gmqfq5w3h-12
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Thu, 16 Jun 2022 09:34:42 -0500
-Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ Thu, 16 Jun 2022 09:34:39 -0500
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
+ (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Thu, 16 Jun
  2022 15:34:32 +0100
 Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
  (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.28 via
  Frontend Transport; Thu, 16 Jun 2022 15:34:32 +0100
 Received: from algalon.ad.cirrus.com (algalon.ad.cirrus.com [198.90.251.122])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 5AA4011D4;
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 6F79811DA;
  Thu, 16 Jun 2022 14:34:32 +0000 (UTC)
 From: Charles Keepax <ckeepax@opensource.cirrus.com>
 To: <broonie@kernel.org>
-Date: Thu, 16 Jun 2022 15:33:23 +0100
-Message-ID: <20220616143429.1324494-31-ckeepax@opensource.cirrus.com>
+Date: Thu, 16 Jun 2022 15:33:24 +0100
+Message-ID: <20220616143429.1324494-32-ckeepax@opensource.cirrus.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20220616143429.1324494-1-ckeepax@opensource.cirrus.com>
 References: <20220616143429.1324494-1-ckeepax@opensource.cirrus.com>
 MIME-Version: 1.0
-X-Proofpoint-ORIG-GUID: mNcV6kYZq5aybH4K89I7ojoeC1EHBJk2
-X-Proofpoint-GUID: mNcV6kYZq5aybH4K89I7ojoeC1EHBJk2
+X-Proofpoint-ORIG-GUID: kGoXYMhDsKFWJHfjEh22Y1Gt_QnQ90zz
+X-Proofpoint-GUID: kGoXYMhDsKFWJHfjEh22Y1Gt_QnQ90zz
 X-Proofpoint-Spam-Reason: safe
 Cc: cezary.rojewski@intel.com, heiko@sntech.de,
  kuninori.morimoto.gx@renesas.com, airlied@linux.ie,
@@ -66,8 +66,8 @@ Cc: cezary.rojewski@intel.com, heiko@sntech.de,
  linux-omap@vger.kernel.org, patches@opensource.cirrus.com, lgirdwood@gmail.com,
  vkoul@kernel.org, jarkko.nikula@bitmer.com, daniel@ffwll.ch,
  shawnguo@kernel.org, daniel@zonque.org
-Subject: [Linux-stm32] [PATCH 30/96] ASoC: ux500: Migrate to new style
-	legacy DAI naming flag
+Subject: [Linux-stm32] [PATCH 31/96] ASoC: ti: Migrate to new style legacy
+	DAI naming flag
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,28 +86,120 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 Change the legacy DAI naming flag from opting in to the new scheme
 (non_legacy_dai_naming), to opting out of it (legacy_dai_naming).
-This driver appears to be on the CPU side of the DAI link and
+These drivers appear to be on the CPU side of the DAI link and
 currently uses the legacy naming, so add the new flag.
 
 Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
 ---
- sound/soc/ux500/ux500_msp_dai.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ sound/soc/ti/davinci-i2s.c   | 3 ++-
+ sound/soc/ti/davinci-mcasp.c | 3 ++-
+ sound/soc/ti/davinci-vcif.c  | 3 ++-
+ sound/soc/ti/omap-dmic.c     | 3 ++-
+ sound/soc/ti/omap-hdmi.c     | 1 +
+ sound/soc/ti/omap-mcbsp.c    | 3 ++-
+ sound/soc/ti/omap-mcpdm.c    | 7 ++++---
+ 7 files changed, 15 insertions(+), 8 deletions(-)
 
-diff --git a/sound/soc/ux500/ux500_msp_dai.c b/sound/soc/ux500/ux500_msp_dai.c
-index e48098f039d90..9d99ea6d7f30e 100644
---- a/sound/soc/ux500/ux500_msp_dai.c
-+++ b/sound/soc/ux500/ux500_msp_dai.c
-@@ -729,7 +729,8 @@ static struct snd_soc_dai_driver ux500_msp_dai_drv = {
+diff --git a/sound/soc/ti/davinci-i2s.c b/sound/soc/ti/davinci-i2s.c
+index fe572b720b094..e6e77a5f3c1e7 100644
+--- a/sound/soc/ti/davinci-i2s.c
++++ b/sound/soc/ti/davinci-i2s.c
+@@ -640,7 +640,8 @@ static struct snd_soc_dai_driver davinci_i2s_dai = {
  };
  
- static const struct snd_soc_component_driver ux500_msp_component = {
--	.name		= "ux500-msp",
-+	.name			= "ux500-msp",
+ static const struct snd_soc_component_driver davinci_i2s_component = {
+-	.name		= DRV_NAME,
++	.name			= DRV_NAME,
 +	.legacy_dai_naming	= 1,
  };
  
+ static int davinci_i2s_probe(struct platform_device *pdev)
+diff --git a/sound/soc/ti/davinci-mcasp.c b/sound/soc/ti/davinci-mcasp.c
+index e2aab4729f3ab..45ffcc7aadc93 100644
+--- a/sound/soc/ti/davinci-mcasp.c
++++ b/sound/soc/ti/davinci-mcasp.c
+@@ -1765,7 +1765,8 @@ static struct snd_soc_dai_driver davinci_mcasp_dai[] = {
+ };
  
+ static const struct snd_soc_component_driver davinci_mcasp_component = {
+-	.name		= "davinci-mcasp",
++	.name			= "davinci-mcasp",
++	.legacy_dai_naming	= 1,
+ };
+ 
+ /* Some HW specific values and defaults. The rest is filled in from DT. */
+diff --git a/sound/soc/ti/davinci-vcif.c b/sound/soc/ti/davinci-vcif.c
+index f810123cc4070..36fa97e2b9e22 100644
+--- a/sound/soc/ti/davinci-vcif.c
++++ b/sound/soc/ti/davinci-vcif.c
+@@ -185,7 +185,8 @@ static struct snd_soc_dai_driver davinci_vcif_dai = {
+ };
+ 
+ static const struct snd_soc_component_driver davinci_vcif_component = {
+-	.name		= "davinci-vcif",
++	.name			= "davinci-vcif",
++	.legacy_dai_naming	= 1,
+ };
+ 
+ static int davinci_vcif_probe(struct platform_device *pdev)
+diff --git a/sound/soc/ti/omap-dmic.c b/sound/soc/ti/omap-dmic.c
+index f3eed20611a3f..825c70a443dad 100644
+--- a/sound/soc/ti/omap-dmic.c
++++ b/sound/soc/ti/omap-dmic.c
+@@ -453,7 +453,8 @@ static struct snd_soc_dai_driver omap_dmic_dai = {
+ };
+ 
+ static const struct snd_soc_component_driver omap_dmic_component = {
+-	.name		= "omap-dmic",
++	.name			= "omap-dmic",
++	.legacy_dai_naming	= 1,
+ };
+ 
+ static int asoc_dmic_probe(struct platform_device *pdev)
+diff --git a/sound/soc/ti/omap-hdmi.c b/sound/soc/ti/omap-hdmi.c
+index 3328c02f93c74..0dc0475670ffe 100644
+--- a/sound/soc/ti/omap-hdmi.c
++++ b/sound/soc/ti/omap-hdmi.c
+@@ -275,6 +275,7 @@ static const struct snd_soc_dai_ops hdmi_dai_ops = {
+ 
+ static const struct snd_soc_component_driver omap_hdmi_component = {
+ 	.name = "omapdss_hdmi",
++	.legacy_dai_naming = 1,
+ };
+ 
+ static struct snd_soc_dai_driver omap5_hdmi_dai = {
+diff --git a/sound/soc/ti/omap-mcbsp.c b/sound/soc/ti/omap-mcbsp.c
+index 58d8e200a7b97..76df0e7844f8f 100644
+--- a/sound/soc/ti/omap-mcbsp.c
++++ b/sound/soc/ti/omap-mcbsp.c
+@@ -1317,7 +1317,8 @@ static struct snd_soc_dai_driver omap_mcbsp_dai = {
+ };
+ 
+ static const struct snd_soc_component_driver omap_mcbsp_component = {
+-	.name		= "omap-mcbsp",
++	.name			= "omap-mcbsp",
++	.legacy_dai_naming	= 1,
+ };
+ 
+ static struct omap_mcbsp_platform_data omap2420_pdata = {
+diff --git a/sound/soc/ti/omap-mcpdm.c b/sound/soc/ti/omap-mcpdm.c
+index fafb2998ad0df..0b18a7bfd3fd7 100644
+--- a/sound/soc/ti/omap-mcpdm.c
++++ b/sound/soc/ti/omap-mcpdm.c
+@@ -524,9 +524,10 @@ static struct snd_soc_dai_driver omap_mcpdm_dai = {
+ };
+ 
+ static const struct snd_soc_component_driver omap_mcpdm_component = {
+-	.name		= "omap-mcpdm",
+-	.suspend	= omap_mcpdm_suspend,
+-	.resume		= omap_mcpdm_resume,
++	.name			= "omap-mcpdm",
++	.suspend		= omap_mcpdm_suspend,
++	.resume			= omap_mcpdm_resume,
++	.legacy_dai_naming	= 1,
+ };
+ 
+ void omap_mcpdm_configure_dn_offsets(struct snd_soc_pcm_runtime *rtd,
 -- 
 2.30.2
 
