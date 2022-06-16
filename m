@@ -2,33 +2,33 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5A8F454E3EC
-	for <lists+linux-stm32@lfdr.de>; Thu, 16 Jun 2022 16:36:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A18CC54E3FB
+	for <lists+linux-stm32@lfdr.de>; Thu, 16 Jun 2022 16:36:01 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1C49DC65E43;
-	Thu, 16 Jun 2022 14:36:00 +0000 (UTC)
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 60857C65E75;
+	Thu, 16 Jun 2022 14:36:01 +0000 (UTC)
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BAAA2C65042
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5B4B4C65E47
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 16 Jun 2022 14:35:47 +0000 (UTC)
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
- by mx0b-001ae601.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 25GC0DJf015765;
- Thu, 16 Jun 2022 09:34:40 -0500
+ Thu, 16 Jun 2022 14:35:51 +0000 (UTC)
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+ by mx0a-001ae601.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 25G4igBb030693;
+ Thu, 16 Jun 2022 09:34:41 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
  h=from : to : cc :
  subject : date : message-id : in-reply-to : references : mime-version :
  content-transfer-encoding : content-type; s=PODMain02222019;
- bh=/OMdhXcsYqZcTE4Jgb/VhFYJ4Ynjb6jiPAj/sWZDfIM=;
- b=dxLEgYUivTIu7nkU3bcr+h40MtfUSuiMMJRkE1dgGKHi8+KAFIQegHWVKQ09BV97NarO
- XBaQso6YiS8V2zmY0Smv941b0v9Zmij7Ecjq+b/9F3sQtbC5/lLlgrSuF+UK/1O7Wc1B
- x9grXSoV8XwFpA3H0+Ph6PLnmC4FtntikRfgJlY5FUgzEVrFTiSnJYzMXVAiZff+4/1+
- b895Dx/1do6U+rr5xDPWciHrkUVltUMUhJGyj4jVRZUsOLonqheZsJzoeYgxspK38Z4k
- AVPFuY9N6fx8ao3R/soH2OZ2wnOBcIM5skUFvLM8srghhq429+1JpXwS4ZFmHgEBmZG4 tQ== 
+ bh=lqoRHHMFIgIRfllvN5faHs45FcRKNS8aA5VFm9IyeX0=;
+ b=EXYkDl5DZtSX5yFG8rdWUmqR3uWcOW929GGq+uPnQj/6c4pn077mS/7kkLtL9sg0ArZ1
+ ao1tHaxJWDNwiT9jgJppVvZ02uH7uEN1imBGhGY39DJa2ZQgJNKBd1o/IY5OvmsZltwF
+ xuKJ2kTsokLbE2nzbymIBy2Rd1JV6mPx10oRusfBr8W+r/OwYaIsrphA/haZqtWell8q
+ S0R8JDG9yBKAr62+4vgLPNHguspPgjE+stt+KVJF2sE6iMJBEOGVjaOn5aexlRmo4cGd
+ k4Js07y33S6EbDAnJOE9wQqWUN1Dkvij2GusKT03ULg6ON58enFB8RK97yJw9Rlrival HQ== 
 Received: from ediex02.ad.cirrus.com ([84.19.233.68])
- by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3gmqfq5w3h-13
+ by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3gmrf35vuw-6
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
  Thu, 16 Jun 2022 09:34:40 -0500
 Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
@@ -39,18 +39,18 @@ Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
  (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.28 via
  Frontend Transport; Thu, 16 Jun 2022 15:34:32 +0100
 Received: from algalon.ad.cirrus.com (algalon.ad.cirrus.com [198.90.251.122])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id AF63211DA;
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id BB05411DB;
  Thu, 16 Jun 2022 14:34:32 +0000 (UTC)
 From: Charles Keepax <ckeepax@opensource.cirrus.com>
 To: <broonie@kernel.org>
-Date: Thu, 16 Jun 2022 15:33:27 +0100
-Message-ID: <20220616143429.1324494-35-ckeepax@opensource.cirrus.com>
+Date: Thu, 16 Jun 2022 15:33:28 +0100
+Message-ID: <20220616143429.1324494-36-ckeepax@opensource.cirrus.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20220616143429.1324494-1-ckeepax@opensource.cirrus.com>
 References: <20220616143429.1324494-1-ckeepax@opensource.cirrus.com>
 MIME-Version: 1.0
-X-Proofpoint-ORIG-GUID: Q4LsWqzZadA8Y31Ql8B7HUtp73F-6jml
-X-Proofpoint-GUID: Q4LsWqzZadA8Y31Ql8B7HUtp73F-6jml
+X-Proofpoint-GUID: 15T4vG9PNYUITCohKksVNcfIB2iiKG-V
+X-Proofpoint-ORIG-GUID: 15T4vG9PNYUITCohKksVNcfIB2iiKG-V
 X-Proofpoint-Spam-Reason: safe
 Cc: cezary.rojewski@intel.com, heiko@sntech.de,
  kuninori.morimoto.gx@renesas.com, airlied@linux.ie,
@@ -66,8 +66,8 @@ Cc: cezary.rojewski@intel.com, heiko@sntech.de,
  linux-omap@vger.kernel.org, patches@opensource.cirrus.com, lgirdwood@gmail.com,
  vkoul@kernel.org, jarkko.nikula@bitmer.com, daniel@ffwll.ch,
  shawnguo@kernel.org, daniel@zonque.org
-Subject: [Linux-stm32] [PATCH 34/96] ASoC: core: Switch core to new DAI
-	naming flag
+Subject: [Linux-stm32] [PATCH 35/96] media: TDA1997x: Remove now redundant
+	non_legacy_dai_naming flag
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,49 +84,27 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Now all the drivers are updated to have the new legacy_dai_naming
-flag, update the core code so it also uses the new flag. Paving
-the way for the old non_legacy_dai_naming flag to be removed.
-
-It should be noted this patch will affect the CODEC drivers that don't
-specify the non_legacy_dai_naming flag. These drivers will update from
-using legacy DAI naming to the new scheme after this patch, this is
-being considered a fix as the intention was for all CODEC drivers to use
-the new scheme and all existing CODEC drivers were updated to do so
-before componentisation. This just corrects those devices that have
-snuck in since componentisation. The corrected devices are as
-follows:
-
-adau1372, cros_ec_codec, cs35l41, cs35l45, cx2072x, hdac_hda,
-jz4725/60/70, lpass-rx/tx/va/wsa-macro, max98504, max9877,
-mt6351/58/59, mt6660, pcm3060, rk3328, rt1308/16, rt5514,
-rt5677, rt700/11/15, rt9120, sdw-mockup, tlv320adc3xxx, tscs454,
-wcd9335/4x/8x, wsa881x
-
-Some of these devices are used in some in kernel machine drivers,
-however it appears all the usages use the actual DAI driver name
-(since snd_soc_find_dai checks both the DAI name and the DAI driver
-name). So it is not believed this change will break any in tree
-machine drivers.
+The ASoC core has now been changed to default to the non-legacy DAI
+naming, as such drivers using the new scheme no longer need to specify
+the non_legacy_dai_naming flag.
 
 Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
 ---
- sound/soc/soc-core.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/media/i2c/tda1997x.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
-index 57f7105c12b76..469c7cfe6240c 100644
---- a/sound/soc/soc-core.c
-+++ b/sound/soc/soc-core.c
-@@ -2490,7 +2490,7 @@ static int snd_soc_register_dais(struct snd_soc_component *component,
+diff --git a/drivers/media/i2c/tda1997x.c b/drivers/media/i2c/tda1997x.c
+index 8fafce26d62fa..965c7afec57d3 100644
+--- a/drivers/media/i2c/tda1997x.c
++++ b/drivers/media/i2c/tda1997x.c
+@@ -2517,7 +2517,6 @@ static struct snd_soc_component_driver tda1997x_codec_driver = {
+ 	.idle_bias_on		= 1,
+ 	.use_pmdown_time	= 1,
+ 	.endianness		= 1,
+-	.non_legacy_dai_naming	= 1,
+ };
  
- 	for (i = 0; i < count; i++) {
- 		dai = snd_soc_register_dai(component, dai_drv + i, count == 1 &&
--					   !component->driver->non_legacy_dai_naming);
-+					   component->driver->legacy_dai_naming);
- 		if (dai == NULL) {
- 			ret = -ENOMEM;
- 			goto err;
+ static int tda1997x_probe(struct i2c_client *client,
 -- 
 2.30.2
 
