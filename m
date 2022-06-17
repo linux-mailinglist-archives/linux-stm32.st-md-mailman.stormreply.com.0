@@ -2,54 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 451D054F4F9
-	for <lists+linux-stm32@lfdr.de>; Fri, 17 Jun 2022 12:10:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 72DC554F948
+	for <lists+linux-stm32@lfdr.de>; Fri, 17 Jun 2022 16:38:46 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CDF99C5F1F9;
-	Fri, 17 Jun 2022 10:10:18 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C8E77C5C829
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 17 Jun 2022 10:10:16 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 14E70C5F1F9;
+	Fri, 17 Jun 2022 14:38:46 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id A1AE561D55;
- Fri, 17 Jun 2022 10:10:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id AE9C3C341C6;
- Fri, 17 Jun 2022 10:10:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1655460614;
- bh=52/+SN6B+LFLyhgNHFfrjORprDXjBmbr0acNX3B3atA=;
- h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=DPznx/ogu/fxQ9dBt1h2G0/NTLaABcU3+4J1HY7VsFpLRdTXyJfIXBh+SpvF8HEqh
- zCRdei24qxitcSEgYhCJAtEVWRiJzvSU8L9AnocQ3WJssDhShiTjxjT9TaSB/ZXFfs
- CrX9jw5fnmyrO6ltRKAYvlTWcmJuWtVc2mlWduCUbFu38YZuHekmC09KEiUwJEoQtB
- fgAGoE1aYt2lADkraQAp1J5ZXb8JaRZ4tRVo1Y5iqfQ8f6qMclnu8qS7nPZKQl/7vJ
- 0GfwUL+Kt7PVeTZMMJSNxi/2xqHidEaroXZHHRTIzWFdPEg3uVTfIr8BXtKk/3jb2f
- xygf9hBDER/fA==
-Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
- 925EEE56ADF; Fri, 17 Jun 2022 10:10:14 +0000 (UTC)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 922A4C035BF
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 17 Jun 2022 14:38:44 +0000 (UTC)
+Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 25HDU16D027696;
+ Fri, 17 Jun 2022 16:38:22 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=selector1;
+ bh=MrCSWINS2GfAc4BiOcRjdRsIo2RBOjPuhfPkTDR+o4E=;
+ b=kqp0tkFourtjKPnGdVNU+vmUxAaa5nd+cSC+CGQIwcUTRCJJ9xG24Mly8kCNMbbmfQhh
+ viqqbu6ZxpM4Iay9Wrd7OGI0LgDHel4Yb5PUwl9vvHxHnyWjvB9wb/9hQBX9ILopR8bb
+ MlwCAiQFEGgq+g7/q6q/OfVAKAEtvYg24UUbp2UCky/uMCcj60CJKqYOYmlzLqMaKiOk
+ e6SWx3MiDD4IBqHhYmdPUgMLPmNSSyQzIOIm/VvYODblkbcnHddYEQRVFdLmZgzO/rv2
+ GDQX1iZOSlVm+Qhu0ouOg2S2ULaFPRf60sQGhcZRoXyeqKxqEgK2oexIgBHozO9C5eDD aw== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3gqd18763v-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 17 Jun 2022 16:38:22 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 2FFFF10002A;
+ Fri, 17 Jun 2022 16:38:20 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id A33CF21BF79;
+ Fri, 17 Jun 2022 16:38:20 +0200 (CEST)
+Received: from localhost (10.75.127.50) by SHFDAG1NODE1.st.com (10.75.129.69)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2308.20; Fri, 17 Jun
+ 2022 16:38:20 +0200
+From: Antonio Borneo <antonio.borneo@foss.st.com>
+To: Jan Kiszka <jan.kiszka@siemens.com>, Kieran Bingham <kbingham@kernel.org>, 
+ John Ogness <john.ogness@linutronix.de>, Petr Mladek <pmladek@suse.com>
+Date: Fri, 17 Jun 2022 16:37:58 +0200
+Message-ID: <20220617143758.137307-1-antonio.borneo@foss.st.com>
+X-Mailer: git-send-email 2.36.1
 MIME-Version: 1.0
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <165546061459.1839.10863742646357502516.git-patchwork-notify@kernel.org>
-Date: Fri, 17 Jun 2022 10:10:14 +0000
-References: <20220615083908.1651975-1-boon.leong.ong@intel.com>
-In-Reply-To: <20220615083908.1651975-1-boon.leong.ong@intel.com>
-To: Ong Boon Leong <boon.leong.ong@intel.com>
-Cc: Jose.Abreu@synopsys.com, andrew@lunn.ch, olteanv@gmail.com,
- linux-kernel@vger.kernel.org, netdev@vger.kernel.org, emilio.riva@ericsson.com,
- linux-stm32@st-md-mailman.stormreply.com, vivien.didelot@gmail.com,
- linux@armlinux.org.uk, edumazet@google.com, f.fainelli@gmail.com,
- mcoquelin.stm32@gmail.com, peppe.cavallaro@st.com, kuba@kernel.org,
- pabeni@redhat.com, davem@davemloft.net, linux-arm-kernel@lists.infradead.org,
- hkallweit1@gmail.com
-Subject: Re: [Linux-stm32] [PATCH net-next v5 0/5] pcs-xpcs,
- stmmac: add 1000BASE-X AN for network switch
+X-Originating-IP: [10.75.127.50]
+X-ClientProxiedBy: SFHDAG2NODE3.st.com (10.75.127.6) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.883,Hydra:6.0.517,FMLib:17.11.64.514
+ definitions=2022-06-17_10,2022-06-17_01,2022-02-23_01
+Cc: linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [PATCH] scripts/gdb: fix 'lx-dmesg' on 32 bits arch
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,44 +72,62 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello:
+The type atomic_long_t can have size 4 or 8 bytes, depending on
+CONFIG_64BIT; it's only content, the field 'counter', is either an
+int or a s64 value.
 
-This series was applied to netdev/net-next.git (master)
-by David S. Miller <davem@davemloft.net>:
+Current code incorrectly uses the fixed size utils.read_u64() to
+read the field 'counter' inside atomic_long_t.
 
-On Wed, 15 Jun 2022 16:39:03 +0800 you wrote:
-> Thanks for v4 review feedback in [1] and [2]. I have changed the v5
-> implementation as follow.
-> 
-> v5 changes:
-> 1/5 - No change from v4.
-> 2/5 - No change from v4.
-> 3/5 - [Fix] make xpcs_modify_changed() static and use
->       mdiodev_modify_changed() for cleaner code as suggested by
->       Russell King.
-> 4/5 - [Fix] Use fwnode_get_phy_mode() as recommended by Andrew Lunn.
-> 5/5 - [Fix] Make fwnode = of_fwnode_handle(priv->plat->phylink_node)
->       order after priv = netdev_priv(dev).
-> 
-> [...]
+On 32 bits architectures reading the last element 'tail_id' of the
+struct prb_desc_ring:
+	struct prb_desc_ring {
+		...
+		atomic_long_t tail_id;
+	};
+causes the utils.read_u64() to access outside the boundary of the
+struct and the gdb command 'lx-dmesg' exits with error:
+	Python Exception <class 'IndexError'>: index out of range
+	Error occurred in Python: index out of range
 
-Here is the summary with links:
-  - [net-next,v5,1/5] net: make xpcs_do_config to accept advertising for pcs-xpcs and sja1105
-    https://git.kernel.org/netdev/net-next/c/fa9c562f9735
-  - [net-next,v5,2/5] stmmac: intel: prepare to support 1000BASE-X phy interface setting
-    https://git.kernel.org/netdev/net-next/c/c82386310d95
-  - [net-next,v5,3/5] net: pcs: xpcs: add CL37 1000BASE-X AN support
-    https://git.kernel.org/netdev/net-next/c/b47aec885bcd
-  - [net-next,v5,4/5] stmmac: intel: add phy-mode and fixed-link ACPI _DSD setting support
-    https://git.kernel.org/netdev/net-next/c/72edaf39fc65
-  - [net-next,v5,5/5] net: stmmac: make mdio register skips PHY scanning for fixed-link
-    https://git.kernel.org/netdev/net-next/c/ab21cf920928
+Use the existing utils.read_ulong() to read 'counter' inside the
+atomic_long_t.
 
-You are awesome, thank you!
+Fixes: e60768311af8 ("scripts/gdb: update for lockless printk ringbuffer")
+Signed-off-by: Antonio Borneo <antonio.borneo@foss.st.com>
+---
+ scripts/gdb/linux/dmesg.py | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/scripts/gdb/linux/dmesg.py b/scripts/gdb/linux/dmesg.py
+index d5983cf3db7d..e2d9ab3aa836 100644
+--- a/scripts/gdb/linux/dmesg.py
++++ b/scripts/gdb/linux/dmesg.py
+@@ -89,9 +89,9 @@ class LxDmesg(gdb.Command):
+ 
+         # read in tail and head descriptor ids
+         off = prb_desc_ring_type.get_type()['tail_id'].bitpos // 8
+-        tail_id = utils.read_u64(desc_ring, off + counter_off)
++        tail_id = utils.read_ulong(desc_ring, off + counter_off)
+         off = prb_desc_ring_type.get_type()['head_id'].bitpos // 8
+-        head_id = utils.read_u64(desc_ring, off + counter_off)
++        head_id = utils.read_ulong(desc_ring, off + counter_off)
+ 
+         did = tail_id
+         while True:
+@@ -102,7 +102,7 @@ class LxDmesg(gdb.Command):
+             desc = utils.read_memoryview(inf, desc_addr + desc_off, desc_sz).tobytes()
+ 
+             # skip non-committed record
+-            state = 3 & (utils.read_u64(desc, sv_off + counter_off) >> desc_flags_shift)
++            state = 3 & (utils.read_ulong(desc, sv_off + counter_off) >> desc_flags_shift)
+             if state != desc_committed and state != desc_finalized:
+                 if did == head_id:
+                     break
+
+base-commit: b13baccc3850ca8b8cccbf8ed9912dbaa0fdf7f3
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+2.36.1
 
 _______________________________________________
 Linux-stm32 mailing list
