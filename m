@@ -2,37 +2,37 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id AA09C55077C
+	by mail.lfdr.de (Postfix) with ESMTPS id 9F8C255077B
 	for <lists+linux-stm32@lfdr.de>; Sun, 19 Jun 2022 01:29:35 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 38CCAC60494;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 50534C6049A;
 	Sat, 18 Jun 2022 23:29:35 +0000 (UTC)
 Received: from phobos.denx.de (phobos.denx.de [85.214.62.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0921DC5F1F9
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 48303C5F1EE
  for <linux-stm32@st-md-mailman.stormreply.com>;
  Sat, 18 Jun 2022 23:29:33 +0000 (UTC)
 Received: from tr.lan (ip-86-49-12-201.net.upcbroadband.cz [86.49.12.201])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
  (No client certificate requested)
  (Authenticated sender: marex@denx.de)
- by phobos.denx.de (Postfix) with ESMTPSA id 982AB842D4;
+ by phobos.denx.de (Postfix) with ESMTPSA id C9FFB842F2;
  Sun, 19 Jun 2022 01:29:32 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de;
  s=phobos-20191101; t=1655594972;
- bh=TNhgBHAJnNIWxYKwXfJiUI44xqPJY8pR2+WrOf9bit4=;
+ bh=BU3MpM8jzgeznTymj2QIP2BdmK1PiLmYf/X2yPNRWBE=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=daIxjZ9U/4Yyc0B9Mrdtj/2AApoCCMWnKUxgQTu64ALv8Wxd7CFbBOhw4gKQgoIb1
- OGrcazOK4LZorBld4OKlNEP0WOiJYZmg/p+zcA/uHiVSalXgJ4d7GfoOGdrVqdRBdZ
- erqitRcb0fRvj95v5aqL/vH0Ezh4NmQEbDppZUMVN+L1G3Bi4OebjDwZxk7VuDxwNk
- 4YXuzGJOrYTAT4L9rdmIVy766H6m/tT7oG8ZwmHaRFycIwuOWRMv/9RgWOooH8HJFu
- 8W54fQvBDzY8a+iBscVFtKPAQECSltzUcBvcW/XtvVSO47EXZxaH9/8mixN9lVCCe3
- +0b16hJyFuW2A==
+ b=ulqBO893Phu3p9i2gLr3ImKegQAq2KAabqpz01TKkIc6bIeNC/jbwyLBo5CTXUCRS
+ GlTxVVjI4qkGtHeAZP0Jg+fYjctxrBHCYMt5X8vJXlfBybbOXnKxp2gzIS7nnScCUG
+ YOhI12BALyXnnIGh5lUvJ7z33zLjhSHooFS8YP9XQh8qkQYjYtDjzck1z4EiZVmXU6
+ 8cdAVHyespwJLbzZvH79++CAs/YgHfupEhJmLKkemEqaSW+xUwxb4aixH8KneUZ9Sh
+ DCarq2Tprt3vdCn6/DfgAoP4JFUGjxXSoYfjNO3Kv/mtUOmRJnIDqltlQxM9l4P353
+ wn5ojRoWWUZBw==
 From: Marek Vasut <marex@denx.de>
 To: linux-arm-kernel@lists.infradead.org
-Date: Sun, 19 Jun 2022 01:29:13 +0200
-Message-Id: <20220618232915.542616-5-marex@denx.de>
+Date: Sun, 19 Jun 2022 01:29:14 +0200
+Message-Id: <20220618232915.542616-6-marex@denx.de>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220618232915.542616-1-marex@denx.de>
 References: <20220618232915.542616-1-marex@denx.de>
@@ -40,8 +40,8 @@ MIME-Version: 1.0
 X-Virus-Scanned: clamav-milter 0.103.5 at phobos.denx.de
 X-Virus-Status: Clean
 Cc: Marek Vasut <marex@denx.de>, linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH v2 5/7] ARM: dts: stm32: Add alternate pinmux
-	for UART5 pins
+Subject: [Linux-stm32] [PATCH v2 6/7] ARM: dts: stm32: Add alternate pinmux
+	for UART3 pins
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -58,7 +58,7 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add another mux option for UART5 pins, this is used on DRC Compact board.
+Add another mux option for UART3 pins, this is used on DRC Compact board.
 
 Signed-off-by: Marek Vasut <marex@denx.de>
 Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
@@ -67,33 +67,61 @@ To: linux-arm-kernel@lists.infradead.org
 ---
 V2: No change
 ---
- arch/arm/boot/dts/stm32mp15-pinctrl.dtsi | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
+ arch/arm/boot/dts/stm32mp15-pinctrl.dtsi | 41 ++++++++++++++++++++++++
+ 1 file changed, 41 insertions(+)
 
 diff --git a/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi b/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
-index dd0609fbd88e0..e18b6729a1813 100644
+index e18b6729a1813..4f671045a0818 100644
 --- a/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
 +++ b/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
-@@ -2001,6 +2001,19 @@ pins {
+@@ -2313,6 +2313,47 @@ pins {
  		};
  	};
  
-+	uart5_pins_a: uart5-0 {
++	usart3_pins_e: usart3-4 {
 +		pins1 {
-+			pinmux = <STM32_PINMUX('B', 13, AF14)>; /* UART5_TX */
++			pinmux = <STM32_PINMUX('B', 10, AF7)>, /* USART3_TX */
++				 <STM32_PINMUX('G', 8, AF8)>; /* USART3_RTS */
 +			bias-disable;
 +			drive-push-pull;
 +			slew-rate = <0>;
 +		};
 +		pins2 {
-+			pinmux = <STM32_PINMUX('B', 5, AF12)>; /* UART5_RX */
-+			bias-disable;
++			pinmux = <STM32_PINMUX('B', 11, AF7)>, /* USART3_RX */
++				 <STM32_PINMUX('D', 11, AF7)>; /* USART3_CTS_NSS */
++			bias-pull-up;
 +		};
 +	};
 +
- 	uart7_pins_a: uart7-0 {
- 		pins1 {
- 			pinmux = <STM32_PINMUX('E', 8, AF7)>; /* UART7_TX */
++	usart3_idle_pins_e: usart3-idle-4 {
++		pins1 {
++			pinmux = <STM32_PINMUX('B', 10, ANALOG)>, /* USART3_TX */
++				 <STM32_PINMUX('D', 11, ANALOG)>; /* USART3_CTS_NSS */
++		};
++		pins2 {
++			pinmux = <STM32_PINMUX('G', 8, AF8)>; /* USART3_RTS */
++			bias-disable;
++			drive-push-pull;
++			slew-rate = <0>;
++		};
++		pins3 {
++			pinmux = <STM32_PINMUX('B', 11, AF7)>; /* USART3_RX */
++			bias-pull-up;
++		};
++	};
++
++	usart3_sleep_pins_e: usart3-sleep-4 {
++		pins {
++			pinmux = <STM32_PINMUX('B', 10, ANALOG)>, /* USART3_TX */
++				 <STM32_PINMUX('G', 8, ANALOG)>, /* USART3_RTS */
++				 <STM32_PINMUX('D', 11, ANALOG)>, /* USART3_CTS_NSS */
++				 <STM32_PINMUX('B', 11, ANALOG)>; /* USART3_RX */
++		};
++	};
++
+ 	usbotg_hs_pins_a: usbotg-hs-0 {
+ 		pins {
+ 			pinmux = <STM32_PINMUX('A', 10, ANALOG)>; /* OTG_ID */
 -- 
 2.35.1
 
