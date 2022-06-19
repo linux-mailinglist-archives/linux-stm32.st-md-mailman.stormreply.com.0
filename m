@@ -2,54 +2,52 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D00C35507C5
-	for <lists+linux-stm32@lfdr.de>; Sun, 19 Jun 2022 02:43:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4003055096D
+	for <lists+linux-stm32@lfdr.de>; Sun, 19 Jun 2022 11:00:16 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7B4EBC03FC4;
-	Sun, 19 Jun 2022 00:43:16 +0000 (UTC)
-Received: from phobos.denx.de (phobos.denx.de [85.214.62.61])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BCC2EC03FC7;
+	Sun, 19 Jun 2022 09:00:15 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6A849C035BC
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8D34DC03FC1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 19 Jun 2022 00:43:15 +0000 (UTC)
-Received: from [127.0.0.1] (p578adb1c.dip0.t-ipconnect.de [87.138.219.28])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits))
+ Sun, 19 Jun 2022 09:00:14 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- (Authenticated sender: marex@denx.de)
- by phobos.denx.de (Postfix) with ESMTPSA id 54811802F2;
- Sun, 19 Jun 2022 02:43:14 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de;
- s=phobos-20191101; t=1655599394;
- bh=SOQGCoiDn8kkksFAf1u1Hrd+/451xgwgewxZP6/kWLU=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=w/znIk3cWxKEl/174h7bhuty9LiHb/e/nY7BD3WaqPdvaPoNNUplb0rpZntjUUapa
- kSZPiAlY+eyjusDxP2YDWxSFSzePvvfNh61UFSvmbI6UIVjJG47DTrvNLaYJgzu1xw
- kLl9BxuFgaSYPaROQM339xct0rE+Ztj3QBOqP1eXyOyGVl+tGO6Uh+tLfz+jvcuuzC
- fI1hzeD9DvCWGFGibvNH84e6rwSWWvyxwUKsvJoBRS0Wn5p3xbD7ZccxM1AC+ljbAh
- sCaQFlvekC89x402R/pgXoqDhdeC4kchRRUZ7qDRbO76UWdnomugwP4Z77GcyKgE2A
- CyMn1DF5MmPMw==
-Message-ID: <da593513-fc1e-b993-4476-2137b0cf3338@denx.de>
-Date: Sun, 19 Jun 2022 02:43:13 +0200
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 4994C60FD0;
+ Sun, 19 Jun 2022 09:00:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 97FCAC341C6;
+ Sun, 19 Jun 2022 09:00:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1655629212;
+ bh=ZhYCdmPIkvBb4HiRdGew2hPBVtn9FRzBnCVE2BGxsRA=;
+ h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
+ b=hYe2MYazvyublmt1ixzcq923LmVnDEdkkvnqgdvDIGqFWp42osp/nXF+UvgDXQFmG
+ bDLJMaUN4pPhOBMPuhkKMj3/+HHun4fcmrhD6WGC5iMthMtwHs+ylPW+98zE2JEIWK
+ elqxQXAyuz6ZwWRR9h/389RkXGsZ1XEoOGSNvz2lqb2zFRoQtt9OLs0qhsHwX3h0ss
+ To9I+vnqI9YbfIAutQLa5hJ1cDLa/pEUV9hHXSReX8yr9P8UBEJ9+0v6mt8IVs2c/4
+ LXHFSbEIYx5kwnit4oORiNbkhO+xZA/6wnCuLtPgZhzwlA9tJKqbaKXv8AMi9QFlIQ
+ hot8l6tweGRvQ==
+Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
+ 80133E7387A; Sun, 19 Jun 2022 09:00:12 +0000 (UTC)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.10.0
-Content-Language: en-US
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-References: <20220618222335.478205-1-marex@denx.de>
- <Yq5dtc3MHz5gp5BK@pendragon.ideasonboard.com>
- <4dc7b39c-35cd-663a-98f8-6034693df3c8@denx.de>
- <Yq5u8sPxZoSVKZ7w@pendragon.ideasonboard.com>
-From: Marek Vasut <marex@denx.de>
-In-Reply-To: <Yq5u8sPxZoSVKZ7w@pendragon.ideasonboard.com>
-X-Virus-Scanned: clamav-milter 0.103.5 at phobos.denx.de
-X-Virus-Status: Clean
-Cc: Hugues FRUCHET <hugues.fruchet@foss.st.com>,
- Alain Volmat <alain.volmat@foss.st.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- linux-media@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH] media: stm32: dcmi: Register V4L2 subdev
-	nodes
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: <165562921252.21034.212967862593750465.git-patchwork-notify@kernel.org>
+Date: Sun, 19 Jun 2022 09:00:12 +0000
+References: <20220616221554.22040-1-ansuelsmth@gmail.com>
+In-Reply-To: <20220616221554.22040-1-ansuelsmth@gmail.com>
+To: Christian Marangi <ansuelsmth@gmail.com>
+Cc: linux-kernel@vger.kernel.org, lkp@intel.com, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, edumazet@google.com,
+ joabreu@synopsys.com, mcoquelin.stm32@gmail.com, kuba@kernel.org,
+ peppe.cavallaro@st.com, pabeni@redhat.com, davem@davemloft.net,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [net-next PATCH] net: ethernet: stmmac: remove
+ select QCOM_SOCINFO and make it optional
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -61,36 +59,39 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 6/19/22 02:33, Laurent Pinchart wrote:
-> On Sun, Jun 19, 2022 at 02:28:55AM +0200, Marek Vasut wrote:
->> On 6/19/22 01:20, Laurent Pinchart wrote:
->>> Hi Marek,
->>>
->>> Thank you for the patch.
->>>
->>> On Sun, Jun 19, 2022 at 12:23:35AM +0200, Marek Vasut wrote:
->>>> Unless the V4L2 device calls v4l2_device_register_subdev_nodes(),
->>>> the /dev/v4l-subdev* sub-device nodes are not registered and thus
->>>> not created. Add the missing call.
->>>
->>> This driver configures the subdevs internally. Exposing the subdev nodes
->>> to userspace would conflict with driver operation.
->>>
->>> If you need the subdev nodes only to query subdev information, you can
->>> use v4l2_device_register_ro_subdev_nodes(). Ideally I'd prefer this
->>> driver to expose subdev nodes to userspace and stop propagating formats
->>> internally, but that may break applications :-(
->>
->> I need those subdevs to configure e.g. test pattern on the sensor side.
-> 
-> Doesn't the dcmi driver expose the sensor controls on the video node ?
+Hello:
 
-Apparently it does, so, discard this patch.
+This patch was applied to netdev/net-next.git (master)
+by David S. Miller <davem@davemloft.net>:
+
+On Fri, 17 Jun 2022 00:15:54 +0200 you wrote:
+> QCOM_SOCINFO depends on QCOM_SMEM but is not selected, this cause some
+> problems with QCOM_SOCINFO getting selected with the dependency of
+> QCOM_SMEM not met.
+> To fix this remove the select in Kconfig and add additional info in the
+> DWMAC_IPQ806X config description.
+> 
+> Reported-by: kernel test robot <lkp@intel.com>
+> Fixes: 9ec092d2feb6 ("net: ethernet: stmmac: add missing sgmii configure for ipq806x")
+> Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+> 
+> [...]
+
+Here is the summary with links:
+  - [net-next] net: ethernet: stmmac: remove select QCOM_SOCINFO and make it optional
+    https://git.kernel.org/netdev/net-next/c/c205035e3adb
+
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
