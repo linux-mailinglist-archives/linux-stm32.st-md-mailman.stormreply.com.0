@@ -2,42 +2,42 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D84CC55217F
-	for <lists+linux-stm32@lfdr.de>; Mon, 20 Jun 2022 17:48:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 15D54552181
+	for <lists+linux-stm32@lfdr.de>; Mon, 20 Jun 2022 17:48:40 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9007BC5EC56;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B9969C5F1D7;
 	Mon, 20 Jun 2022 15:48:39 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 07445C5662F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AFDACC5662F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 20 Jun 2022 15:48:37 +0000 (UTC)
-Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 25KEiC4t002735;
+ Mon, 20 Jun 2022 15:48:38 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 25KDwmdg019734;
  Mon, 20 Jun 2022 17:48:13 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
  h=from : to : cc :
- subject : date : message-id : mime-version : content-transfer-encoding :
- content-type; s=selector1;
- bh=Xzx/tv6bJhRXsHs2EJ2uFBylLwfelibhKq16XkROMIU=;
- b=E/35fsXZ4RjYXbP8T40Q9onMSyQ6nQ4Mf2K/j56UtyXf1ihPaBxVigkBACgVgiXe5rWW
- DxtOgkeSznwxUY4dkb/CMLSlPkHvFu4KeeRy/8ys5/T6j6NR6t8QKEGQJXgAgjKQtj7J
- iguMLXsBUPKeSnI7iRnfSRdkVMkQ/zmMJZQVX/YHRs9v52V8TFAisTpRq9KCGgbk2oYG
- DFoNsWZZv7BeD/eU+FW01jSeZboudjHAmwALNMYZj/DIBgY+dSIBERAb3bTwTToi8gmK
- Ei4KIOA9NmuUdKQiQbwbjmPGg1NfsofubVTzpyNg82csj256TrIbiaLOLF5nMWzZNrdg 7A== 
+ subject : date : message-id : in-reply-to : references : mime-version :
+ content-transfer-encoding : content-type; s=selector1;
+ bh=FeTP5mpYBlwck24RxxFaADdquu3d8hoF9bo+/tGwtA8=;
+ b=T04xrHjVLE3XGpmoZyScFR5nlgBdVk72P7oBI7vaQjdrWSy3tm8+mx1U1P6oK3G9uv/y
+ 41A8zvfceliOrPBxUm2py2VIoqIfdE//ac5gKMyCzDUzai0pj9hzgOSF+YyA8yj+mjoe
+ mS96LUV7k8UjS8z3SJeeiTol8NetRV7TpwvZykIZzxHEOpb5kT3f8rDmIs6vopr4onDj
+ 31JPd90wd0nen3ZNTJRmvvLkc0Ahj+QJwkd4X+xY73PO0NrCrwiijZffqYyEqB5szmoN
+ XPhLlQsFJijCYHzkLdB1YHNdQxOPmgMsc6cztl0B7vlRCnEoCKhfAHJWv4IU6ftQi824 Yw== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3gs71tmch6-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3gtp31tepn-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
  Mon, 20 Jun 2022 17:48:13 +0200
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 7F23910002A;
- Mon, 20 Jun 2022 17:48:12 +0200 (CEST)
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 117CE100034;
+ Mon, 20 Jun 2022 17:48:13 +0200 (CEST)
 Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 622E122ECEF;
- Mon, 20 Jun 2022 17:48:12 +0200 (CEST)
-Received: from localhost (10.75.127.117) by SHFDAG1NODE1.st.com (10.75.129.69)
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 0CCF122ECEF;
+ Mon, 20 Jun 2022 17:48:13 +0200 (CEST)
+Received: from localhost (10.75.127.116) by SHFDAG1NODE1.st.com (10.75.129.69)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2308.20; Mon, 20 Jun
  2022 17:48:12 +0200
@@ -47,11 +47,13 @@ To: Alexandre Torgue <alexandre.torgue@foss.st.com>, Fabrice Gasnier
  Lars-Peter Clausen <lars@metafoo.de>, Maxime Coquelin
  <mcoquelin.stm32@gmail.com>, Olivier Moysan <olivier.moysan@foss.st.com>,
  Paul Cercueil <paul@crapouillou.net>, Wan Jiabing <wanjiabing@vivo.com>
-Date: Mon, 20 Jun 2022 17:47:36 +0200
-Message-ID: <20220620154738.801706-1-olivier.moysan@foss.st.com>
+Date: Mon, 20 Jun 2022 17:47:37 +0200
+Message-ID: <20220620154738.801706-2-olivier.moysan@foss.st.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20220620154738.801706-1-olivier.moysan@foss.st.com>
+References: <20220620154738.801706-1-olivier.moysan@foss.st.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.117]
+X-Originating-IP: [10.75.127.116]
 X-ClientProxiedBy: GPXDAG2NODE5.st.com (10.75.127.69) To SHFDAG1NODE1.st.com
  (10.75.129.69)
 X-Proofpoint-Virus-Version: vendor=baseguard
@@ -59,8 +61,7 @@ X-Proofpoint-Virus-Version: vendor=baseguard
  definitions=2022-06-20_05,2022-06-17_01,2022-02-23_01
 Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH 0/2] iio: adc: stm32-adc: add checks on adc
-	state
+Subject: [Linux-stm32] [PATCH 1/2] iio: adc: stm32-adc: make safe adc disable
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,20 +78,29 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On ADC startup a calibration is launched.
-A prerequisite for ADC calibration is to have ADC in disabled state.
-After kernel boot, the ADC state may be unknown as the ADC may have been left enabled by boot stage.
+From ADC reference manual the software is allowed to write the
+control bit ADDIS of the ADC_CR register only if the ADC is enabled.
+Return immediately from stm32h7_adc_disable() if ADC is already disabled.
 
-Call ADC disable routine systematically before launching calibration.
-Adapt ADC disable routine to perform disabling sequence according to current ADC state.
+Signed-off-by: Olivier Moysan <olivier.moysan@foss.st.com>
+---
+ drivers/iio/adc/stm32-adc.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-Olivier Moysan (2):
-  iio: adc: stm32-adc: make safe adc disable
-  iio: adc: stm32-adc: disable adc before calibration
-
- drivers/iio/adc/stm32-adc.c | 6 ++++++
- 1 file changed, 6 insertions(+)
-
+diff --git a/drivers/iio/adc/stm32-adc.c b/drivers/iio/adc/stm32-adc.c
+index a68ecbda6480..80e333f65ddd 100644
+--- a/drivers/iio/adc/stm32-adc.c
++++ b/drivers/iio/adc/stm32-adc.c
+@@ -876,6 +876,9 @@ static void stm32h7_adc_disable(struct iio_dev *indio_dev)
+ 	int ret;
+ 	u32 val;
+ 
++	if (!(stm32_adc_readl(adc, STM32H7_ADC_CR) & STM32H7_ADEN))
++		return;
++
+ 	/* Disable ADC and wait until it's effectively disabled */
+ 	stm32_adc_set_bits(adc, STM32H7_ADC_CR, STM32H7_ADDIS);
+ 	ret = stm32_adc_readl_poll_timeout(STM32H7_ADC_CR, val,
 -- 
 2.25.1
 
