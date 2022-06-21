@@ -2,45 +2,44 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8EA2A55346B
-	for <lists+linux-stm32@lfdr.de>; Tue, 21 Jun 2022 16:23:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8F090553470
+	for <lists+linux-stm32@lfdr.de>; Tue, 21 Jun 2022 16:24:30 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3DA44C5E2C6;
-	Tue, 21 Jun 2022 14:23:25 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5903CC5EC6B;
+	Tue, 21 Jun 2022 14:24:30 +0000 (UTC)
 Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B8E7CC56630
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 370D1C56630
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 21 Jun 2022 14:23:23 +0000 (UTC)
+ Tue, 21 Jun 2022 14:24:29 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 4BC30B817C7;
- Tue, 21 Jun 2022 14:23:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B0FBFC3411C;
- Tue, 21 Jun 2022 14:23:21 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id CDABEB817C7;
+ Tue, 21 Jun 2022 14:24:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 22398C341C7;
+ Tue, 21 Jun 2022 14:24:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1655821402;
- bh=/7FHu/l1P2AIpjzv1z9rW00tsNnYYhYf7Z3/9CtVBlQ=;
+ s=korg; t=1655821467;
+ bh=350SJzImgIdaQO22/bjHSMxrvFtKkYmGp2AdM9fujMU=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=r77Y8UbJMdEM3NMc6q4lW0erRfnRQ+oZlU55aji2tP5hf/74PGWUSvRUhveaAoZMM
- dT4kymsdwPSXz723uWyKJThFv4YEi07+N+OW5JGT2oV436sPZRhAN/obp2A+vT9k6R
- 7PuzlLTk7/pa+yFHPfevNuY/HCA1Gtm9pdIddA6c=
-Date: Tue, 21 Jun 2022 16:23:19 +0200
+ b=xxCobeWV9PFpl1ZnS9rM84etHQCLfr61o3fPRFUyc8MvOdlikTDRjxIEwitXu/AHr
+ T87HxR5UfXRfbZWidBvNqqDt8LFrpzy+PwrGo8QBshRqBVanJ+ykcqKtUkTQCjGRcI
+ EaC8VOHo78caHZARBfV27O9sJNshdS1vPjQ1XMTM=
+Date: Tue, 21 Jun 2022 16:24:24 +0200
 From: Greg KH <gregkh@linuxfoundation.org>
 To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-Message-ID: <YrHUV2MeCQ0vAnfd@kroah.com>
+Message-ID: <YrHUmIpydvNYeRou@kroah.com>
 References: <20220621130506.85424-1-fabrice.gasnier@foss.st.com>
- <20220621130506.85424-2-fabrice.gasnier@foss.st.com>
+ <20220621130506.85424-4-fabrice.gasnier@foss.st.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20220621130506.85424-2-fabrice.gasnier@foss.st.com>
+In-Reply-To: <20220621130506.85424-4-fabrice.gasnier@foss.st.com>
 Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
  stern@rowland.harvard.edu, hminas@synopsys.com,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 1/3] usb: host: ohci-platform: add TPL
-	support
+Subject: Re: [Linux-stm32] [PATCH 3/3] usb: dwc2: host: add TPL support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -57,15 +56,13 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Jun 21, 2022 at 03:05:04PM +0200, Fabrice Gasnier wrote:
+On Tue, Jun 21, 2022 at 03:05:06PM +0200, Fabrice Gasnier wrote:
 > From: Amelie Delaunay <amelie.delaunay@foss.st.com>
 > 
 > The TPL support is used to identify targeted devices during EH compliance
 > test. The user can add "tpl-support" in the device tree to enable it.
 
-What is "TPL" support?  What is "EH"?
-
-Please spell things out.
+Is that already documented in the proper bindings somewhere?
 
 thanks,
 
