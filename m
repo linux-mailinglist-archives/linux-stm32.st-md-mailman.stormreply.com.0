@@ -2,35 +2,35 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6CE3F552F82
+	by mail.lfdr.de (Postfix) with ESMTPS id 729F6552F83
 	for <lists+linux-stm32@lfdr.de>; Tue, 21 Jun 2022 12:15:57 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 24DF8C5EC6B;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 063E0C57B6C;
 	Tue, 21 Jun 2022 10:15:57 +0000 (UTC)
 Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
  [85.220.165.71])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E26B4C57183
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E0594C03FC0
  for <linux-stm32@st-md-mailman.stormreply.com>;
  Tue, 21 Jun 2022 10:15:54 +0000 (UTC)
 Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
  by metis.ext.pengutronix.de with esmtps
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <str@pengutronix.de>)
- id 1o3avK-0007EV-6B; Tue, 21 Jun 2022 12:15:54 +0200
+ id 1o3avK-0007EW-69; Tue, 21 Jun 2022 12:15:54 +0200
 Received: from [2a0a:edc0:0:1101:1d::28] (helo=dude02.red.stw.pengutronix.de)
  by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.94.2)
  (envelope-from <str@pengutronix.de>)
- id 1o3avD-001oZZ-Ds; Tue, 21 Jun 2022 12:15:48 +0200
+ id 1o3avD-001oZY-Dv; Tue, 21 Jun 2022 12:15:48 +0200
 Received: from str by dude02.red.stw.pengutronix.de with local (Exim 4.94.2)
  (envelope-from <str@pengutronix.de>)
- id 1o3avD-002OWD-Tj; Tue, 21 Jun 2022 12:15:47 +0200
+ id 1o3avD-002OWP-UN; Tue, 21 Jun 2022 12:15:47 +0200
 From: Steffen Trumtrar <s.trumtrar@pengutronix.de>
 To: linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org
-Date: Tue, 21 Jun 2022 12:15:37 +0200
-Message-Id: <20220621101538.481143-2-s.trumtrar@pengutronix.de>
+Date: Tue, 21 Jun 2022 12:15:38 +0200
+Message-Id: <20220621101538.481143-3-s.trumtrar@pengutronix.de>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20220621101538.481143-1-s.trumtrar@pengutronix.de>
 References: <20220621101538.481143-1-s.trumtrar@pengutronix.de>
@@ -44,8 +44,8 @@ Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Rob Herring <robh+dt@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
  Steffen Trumtrar <s.trumtrar@pengutronix.de>, kernel@pengutronix.de
-Subject: [Linux-stm32] [PATCH v3 2/3] ARM: dts: stm32: add STM32MP1-based
-	Phytec board
+Subject: [Linux-stm32] [PATCH v3 3/3] dt-bindings: arm: stm32: Add Phytec
+	STM32MP1 board
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -62,76 +62,31 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add the Phytec STM32MP1-3 Dev board. The devboard uses a Phytec stm32m15-som.
+The Phytec STM32MP1 based SoMs feature up to 1 GB DDR3LP RAM, up to 1 GB eMMC,
+up to 16 MB QSPI and up to 128 GB NAND flash.
 
 Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
 ---
- .../dts/stm32mp157c-phycore-stm32mp1-3.dts    | 56 +++++++++++++++++++
- 1 file changed, 56 insertions(+)
- create mode 100644 arch/arm/boot/dts/stm32mp157c-phycore-stm32mp1-3.dts
+ Documentation/devicetree/bindings/arm/stm32/stm32.yaml | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/arch/arm/boot/dts/stm32mp157c-phycore-stm32mp1-3.dts b/arch/arm/boot/dts/stm32mp157c-phycore-stm32mp1-3.dts
-new file mode 100644
-index 000000000000..e91c0ef499c9
---- /dev/null
-+++ b/arch/arm/boot/dts/stm32mp157c-phycore-stm32mp1-3.dts
-@@ -0,0 +1,56 @@
-+// SPDX-License-Identifier: (GPL-2.0+ OR BSD-3-Clause)
-+/*
-+ * Copyright (C) Phytec GmbH 2019-2020 - All Rights Reserved
-+ * Author: Dom VOVARD <dom.vovard@linrt.com>.
-+ */
+diff --git a/Documentation/devicetree/bindings/arm/stm32/stm32.yaml b/Documentation/devicetree/bindings/arm/stm32/stm32.yaml
+index 8b31565fee59..4bae21769ca1 100644
+--- a/Documentation/devicetree/bindings/arm/stm32/stm32.yaml
++++ b/Documentation/devicetree/bindings/arm/stm32/stm32.yaml
+@@ -143,6 +143,12 @@ properties:
+           - const: seeed,stm32mp157c-odyssey-som
+           - const: st,stm32mp157
+ 
++      - description: Phytec STM32MP1 SoM based Boards
++        items:
++          - enum:
++              - phytec,phycore-stm32mp1-3
++          - const: st,stm32mp157
 +
-+/dts-v1/;
-+
-+#include <dt-bindings/pinctrl/stm32-pinfunc.h>
-+#include "stm32mp157.dtsi"
-+#include "stm32mp15xc.dtsi"
-+#include "stm32mp15xxac-pinctrl.dtsi"
-+#include "stm32mp157c-phycore-stm32mp15-som.dtsi"
-+
-+/ {
-+	model = "PHYTEC phyCORE-STM32MP1-3 Dev Board";
-+	compatible = "phytec,phycore-stm32mp1-3", "st,stm32mp157";
-+};
-+
-+&cryp1 {
-+	status = "okay";
-+};
-+
-+&dts {
-+	status = "okay";
-+};
-+
-+&fmc {
-+	status = "disabled";
-+};
-+
-+&gpu {
-+	status = "okay";
-+	contiguous-area = <&gpu_reserved>;
-+};
-+
-+&i2c4_eeprom {
-+	status = "okay";
-+};
-+
-+&i2c4_rtc {
-+	status = "okay";
-+};
-+
-+&qspi {
-+	status = "okay";
-+};
-+
-+&sdmmc1 {
-+	secure-status = "disabled";
-+};
-+
-+&sdmmc2 {
-+	status = "okay";
-+	secure-status = "disabled";
-+};
+ additionalProperties: true
+ 
+ ...
 -- 
 2.30.2
 
