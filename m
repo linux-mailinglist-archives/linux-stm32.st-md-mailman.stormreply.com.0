@@ -2,31 +2,41 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7DF9A5545C3
+	by mail.lfdr.de (Postfix) with ESMTPS id 850515545C4
 	for <lists+linux-stm32@lfdr.de>; Wed, 22 Jun 2022 13:37:14 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 25184C5662F;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 37A78C5E2C6;
 	Wed, 22 Jun 2022 11:37:14 +0000 (UTC)
-Received: from netrider.rowland.org (netrider.rowland.org [192.131.102.5])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with SMTP id 58B64C03FC0
+Received: from mail.nfschina.com (mail.nfschina.com [124.16.136.209])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B5EC9C57183
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 21 Jun 2022 14:19:26 +0000 (UTC)
-Received: (qmail 876385 invoked by uid 1000); 21 Jun 2022 10:19:25 -0400
-Date: Tue, 21 Jun 2022 10:19:25 -0400
-From: Alan Stern <stern@rowland.harvard.edu>
-To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-Message-ID: <YrHTba9s2NhBfQT2@rowland.harvard.edu>
-References: <20220621130506.85424-1-fabrice.gasnier@foss.st.com>
- <20220621130506.85424-2-fabrice.gasnier@foss.st.com>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20220621130506.85424-2-fabrice.gasnier@foss.st.com>
+ Wed, 22 Jun 2022 02:03:24 +0000 (UTC)
+Received: from localhost (unknown [127.0.0.1])
+ by mail.nfschina.com (Postfix) with ESMTP id 9C70D1E80CD1;
+ Wed, 22 Jun 2022 10:03:15 +0800 (CST)
+X-Virus-Scanned: amavisd-new at test.com
+Received: from mail.nfschina.com ([127.0.0.1])
+ by localhost (mail.nfschina.com [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id B_IKXUawNFvw; Wed, 22 Jun 2022 10:03:13 +0800 (CST)
+Received: from localhost.localdomain (unknown [180.167.10.98])
+ (Authenticated sender: liqiong@nfschina.com)
+ by mail.nfschina.com (Postfix) with ESMTPA id 5DBFA1E80C7D;
+ Wed, 22 Jun 2022 10:03:12 +0800 (CST)
+From: Li Qiong <liqiong@nfschina.com>
+To: Herbert Xu <herbert@gondor.apana.org.au>,
+ "David S . Miller" <davem@davemloft.net>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ "Rafael J . Wysocki" <rafael.j.wysocki@intel.com>
+Date: Wed, 22 Jun 2022 10:02:08 +0800
+Message-Id: <20220622020208.25776-1-liqiong@nfschina.com>
+X-Mailer: git-send-email 2.11.0
 X-Mailman-Approved-At: Wed, 22 Jun 2022 11:37:12 +0000
-Cc: gregkh@linuxfoundation.org, linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org, hminas@synopsys.com,
+Cc: renyu@nfschina.com, yuzhe@nfschina.com, linux-kernel@vger.kernel.org,
+ Li Qiong <liqiong@nfschina.com>, linux-crypto@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 1/3] usb: host: ohci-platform: add TPL
-	support
+Subject: [Linux-stm32] [PATCH] crypto: stm32 - Handle failure of
+	kmalloc_array()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -38,52 +48,36 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Jun 21, 2022 at 03:05:04PM +0200, Fabrice Gasnier wrote:
-> From: Amelie Delaunay <amelie.delaunay@foss.st.com>
-> 
-> The TPL support is used to identify targeted devices during EH compliance
-> test. The user can add "tpl-support" in the device tree to enable it.
-> 
-> Signed-off-by: Amelie Delaunay <amelie.delaunay@foss.st.com>
-> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-> ---
+As the possible failure of the kmalloc_array(), therefore it
+should be better to check it and return '-ENOMEM' on error.
 
-For this patch and the 2/3 ehci-platform patch:
+Signed-off-by: Li Qiong <liqiong@nfschina.com>
+---
+ drivers/crypto/stm32/stm32-hash.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-Acked-by: Alan Stern <stern@rowland.harvard.edu>
+diff --git a/drivers/crypto/stm32/stm32-hash.c b/drivers/crypto/stm32/stm32-hash.c
+index d33006d43f76..fc03e32e364f 100644
+--- a/drivers/crypto/stm32/stm32-hash.c
++++ b/drivers/crypto/stm32/stm32-hash.c
+@@ -970,6 +970,8 @@ static int stm32_hash_export(struct ahash_request *req, void *out)
+ 	rctx->hw_context = kmalloc_array(3 + HASH_CSR_REGISTER_NUMBER,
+ 					 sizeof(u32),
+ 					 GFP_KERNEL);
++	if (!rctx->hw_context)
++		return -ENOMEM;
+ 
+ 	preg = rctx->hw_context;
+ 
+-- 
+2.11.0
 
->  drivers/usb/host/ohci-platform.c | 3 +++
->  1 file changed, 3 insertions(+)
-> 
-> diff --git a/drivers/usb/host/ohci-platform.c b/drivers/usb/host/ohci-platform.c
-> index 47dfbfe9e5190..0adae62651276 100644
-> --- a/drivers/usb/host/ohci-platform.c
-> +++ b/drivers/usb/host/ohci-platform.c
-> @@ -28,6 +28,7 @@
->  #include <linux/usb/ohci_pdriver.h>
->  #include <linux/usb.h>
->  #include <linux/usb/hcd.h>
-> +#include <linux/usb/of.h>
->  
->  #include "ohci.h"
->  
-> @@ -210,6 +211,8 @@ static int ohci_platform_probe(struct platform_device *dev)
->  	hcd->rsrc_start = res_mem->start;
->  	hcd->rsrc_len = resource_size(res_mem);
->  
-> +	hcd->tpl_support = of_usb_host_tpl_support(dev->dev.of_node);
-> +
->  	err = usb_add_hcd(hcd, irq, IRQF_SHARED);
->  	if (err)
->  		goto err_power;
-> -- 
-> 2.25.1
-> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
