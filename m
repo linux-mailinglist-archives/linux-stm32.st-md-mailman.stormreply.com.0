@@ -2,65 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 57F465570C6
-	for <lists+linux-stm32@lfdr.de>; Thu, 23 Jun 2022 04:00:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 07A755572F1
+	for <lists+linux-stm32@lfdr.de>; Thu, 23 Jun 2022 08:17:40 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EB731C57B6C;
-	Thu, 23 Jun 2022 02:00:13 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8AAB0C57B6C;
+	Thu, 23 Jun 2022 06:17:39 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 60800C0D2C1
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2E546C03FD3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 23 Jun 2022 02:00:11 +0000 (UTC)
+ Wed, 22 Jun 2022 18:53:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1655949611; x=1687485611;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=KbeXCVtz+edFvopo5p5QoDn9huAgw0qHkMWWoFBLhXA=;
- b=K4kdcK7tmv8yFX/iIaqarcIT6CwPf/oxpAj+grArdKEqpFy2ZcSQ9did
- oqZ2xXHxsg7VaaEFyrmDaOw0KMdqonTayRX5PksTtQvscVosqSs7+Mr47
- G4qU+JPvrooqDk52Hi/6nhkJRshaLfPD42dn3RmO7Q0ntmZyUtosQFq4D
- V8lkO9QBgrCcrecdWqupsJWLZ3kI62vd9bXcAVb9quUYi09Wc3dw9yIxf
- SfzU30lBdNALut4U/9iGnjsz31iG33GFjUtwaU8I8N02XqGwZVrlwNY/4
- 6ryOUA8tgbFFCUs5TGcaTSh5s0DPuimxrMgdLWWpyAFl+2vhxB6Lvh18c g==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10386"; a="279365138"
-X-IronPort-AV: E=Sophos;i="5.92,215,1650956400"; d="scan'208";a="279365138"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Jun 2022 19:00:09 -0700
+ t=1655923982; x=1687459982;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=/jbAjt44pNdw2EPdmHuXf3wGiQ3od3Q+gNDKXfIaZ3c=;
+ b=I+FoGSSP7pLe8VRsIXRfNP6/aUBLrKbkbByv7sfIigA+Hs6IxaUpzagr
+ iZwAHQlGHkvQPVCa6x444HV0IwVfpUtCKhFGYH78Lhc8k/duVTa0lu1e5
+ PP43ffpcCWQqEsZ5mLIA3vVlSiohhLpwK6J8kvU93FxYK8DClostk+w2h
+ TT6T/tEtBcUzPnJuXcGtyPGnZYQI9KTR+0w2XSwpmIZDx4gERNUOpR0Qw
+ pp0sG+Dz1raFA2R8vhiJgVbheMx3KrWgK7KvSLZZi1Ovas7HpVRtezMB9
+ nnpXWIiE38b3p8gqiuDBRx6k+B8OZmdSaM2LYQrRlDA1gYZKLwibrMQno g==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10386"; a="260334229"
+X-IronPort-AV: E=Sophos;i="5.92,212,1650956400"; d="scan'208";a="260334229"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Jun 2022 11:52:59 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.92,215,1650956400"; d="scan'208";a="615398908"
-Received: from lkp-server01.sh.intel.com (HELO 68b931ab7ac1) ([10.239.97.150])
- by orsmga008.jf.intel.com with ESMTP; 22 Jun 2022 19:00:02 -0700
-Received: from kbuild by 68b931ab7ac1 with local (Exim 4.95)
- (envelope-from <lkp@intel.com>) id 1o4C8X-0000LT-BJ;
- Thu, 23 Jun 2022 02:00:01 +0000
-Date: Thu, 23 Jun 2022 09:59:06 +0800
-From: kernel test robot <lkp@intel.com>
-To: Charles Keepax <ckeepax@opensource.cirrus.com>, broonie@kernel.org
-Message-ID: <202206230910.wUXKFP3z-lkp@intel.com>
-References: <20220616143429.1324494-28-ckeepax@opensource.cirrus.com>
+X-IronPort-AV: E=Sophos;i="5.92,212,1650956400"; d="scan'208";a="715528336"
+Received: from bwalker-desk.ch.intel.com ([143.182.136.162])
+ by orsmga004.jf.intel.com with ESMTP; 22 Jun 2022 11:52:59 -0700
+From: Ben Walker <benjamin.walker@intel.com>
+To: vkoul@kernel.org
+Date: Wed, 22 Jun 2022 11:52:48 -0700
+Message-Id: <20220622185248.3043534-1-benjamin.walker@intel.com>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20220616143429.1324494-28-ckeepax@opensource.cirrus.com>
-Cc: cezary.rojewski@intel.com, heiko@sntech.de,
- kuninori.morimoto.gx@renesas.com, airlied@linux.ie,
- alsa-devel@alsa-project.org, nicolas.ferre@microchip.com,
- srinivas.kandagatla@linaro.org, peter.ujfalusi@gmail.com,
- linux-stm32@st-md-mailman.stormreply.com, jbrunet@baylibre.com,
- pierre-louis.bossart@linux.intel.com, krzk@kernel.org,
- linux-rockchip@lists.infradead.org, linux-imx@nxp.com,
- linux-mips@vger.kernel.org, linux-sunxi@lists.linux.dev,
- linux-xtensa@linux-xtensa.org, nsaenz@kernel.org, kernel@pengutronix.de,
- mripard@kernel.org, linux-tegra@vger.kernel.org,
- linux-amlogic@lists.infradead.org, linux-omap@vger.kernel.org,
- kbuild-all@lists.01.org, lgirdwood@gmail.com, vkoul@kernel.org,
- jarkko.nikula@bitmer.com, daniel@ffwll.ch, shawnguo@kernel.org,
- daniel@zonque.org
-Subject: Re: [Linux-stm32] [PATCH 27/96] ASoC: au1x: Migrate to new style
- legacy DAI naming flag
+X-Mailman-Approved-At: Thu, 23 Jun 2022 06:17:38 +0000
+Cc: linux-kernel@vger.kernel.org, linux-crypto@vger.kernel.org,
+ dmaengine@vger.kernel.org, mporter@kernel.crashing.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-media@vger.kernel.org
+Subject: [Linux-stm32] [PATCH v3 00/15] dmaengine: Support polling for out
+	of order completions
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,58 +62,78 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Charles,
+This series adds support for polling async transactions for completion
+even if interrupts are disabled and transactions can complete out of
+order.
 
-I love your patch! Yet something to improve:
+To do this, all DMA client assumptions about the behavior of
+dma_cookie_t have to be removed. Prior to this series, dma_cookie_t was
+a monotonically increasing integer and cookies could be compared to one
+another to determine if earlier operations had completed (up until the
+cookie wraps around, then it would break).
 
-[auto build test ERROR on broonie-sound/for-next]
-[also build test ERROR on tegra/for-next sunxi/sunxi/for-next linus/master v5.19-rc3 next-20220622]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch]
+Fortunately, only one out of the many, many DMA clients had any
+dependency on dma_cookie_t being anything more than an opaque handle.
+This is the pxa_camera driver and it is dealt with in patch 7 of this
+series.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Charles-Keepax/Refactor-non_legacy_dai_naming-flag/20220616-224300
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
-config: mips-db1xxx_defconfig (https://download.01.org/0day-ci/archive/20220623/202206230910.wUXKFP3z-lkp@intel.com/config)
-compiler: mipsel-linux-gcc (GCC) 11.3.0
-reproduce (this is a W=1 build):
-        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
-        chmod +x ~/bin/make.cross
-        # https://github.com/intel-lab-lkp/linux/commit/794205d61285d0921e564e722daf9b20df82ed57
-        git remote add linux-review https://github.com/intel-lab-lkp/linux
-        git fetch --no-tags linux-review Charles-Keepax/Refactor-non_legacy_dai_naming-flag/20220616-224300
-        git checkout 794205d61285d0921e564e722daf9b20df82ed57
-        # save the config file
-        mkdir build_dir && cp config build_dir/.config
-        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-11.3.0 make.cross W=1 O=build_dir ARCH=mips SHELL=/bin/bash sound/soc/au1x/
+The series also does some API clean up and documents how dma_cookie_t
+should behave (i.e. there are no rules, it's just a handle).
 
-If you fix the issue, kindly add following tag where applicable
-Reported-by: kernel test robot <lkp@intel.com>
+This closes out by adding support for .device_tx_status() to the idxd
+driver and then reverting the DMA_OUT_OF_ORDER patch that previously
+allowed idxd to opt-out of support for polling, which I think is a nice
+overall simplification to the dmaengine API.
 
-All error/warnings (new ones prefixed by >>):
+Changes since version 2:
+ - None. Rebased as requested without conflict.
 
->> sound/soc/au1x/ac97c.c:227:10: error: 'const struct snd_soc_component_driver' has no member named 'legacy_dai_name'; did you mean 'legacy_dai_naming'?
-     227 |         .legacy_dai_name        = 1,
-         |          ^~~~~~~~~~~~~~~
-         |          legacy_dai_naming
->> sound/soc/au1x/ac97c.c:227:35: warning: initialization of 'const struct snd_kcontrol_new *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
-     227 |         .legacy_dai_name        = 1,
-         |                                   ^
-   sound/soc/au1x/ac97c.c:227:35: note: (near initialization for 'au1xac97c_component.controls')
+Changes since version 1:
+ - Broke up the change to remove dma_async_is_tx_complete into a single
+   patch for each driver
+ - Renamed dma_async_is_tx_complete to dmaengine_async_is_tx_complete.
 
+Ben Walker (15):
+  dmaengine: Remove dma_async_is_complete from client API
+  dmaengine: Move dma_set_tx_state to the provider API header
+  dmaengine: Add dmaengine_async_is_tx_complete
+  crypto: stm32/hash: Use dmaengine_async_is_tx_complete
+  media: omap_vout: Use dmaengine_async_is_tx_complete
+  rapidio: Use dmaengine_async_is_tx_complete
+  media: pxa_camera: Use dmaengine_async_is_tx_complete
+  dmaengine: Remove dma_async_is_tx_complete
+  dmaengine: Remove last, used from dma_tx_state
+  dmaengine: Providers should prefer dma_set_residue over
+    dma_set_tx_state
+  dmaengine: Remove dma_set_tx_state
+  dmaengine: Add provider documentation on cookie assignment
+  dmaengine: idxd: idxd_desc.id is now a u16
+  dmaengine: idxd: Support device_tx_status
+  dmaengine: Revert "cookie bypass for out of order completion"
 
-vim +227 sound/soc/au1x/ac97c.c
-
-   224	
-   225	static const struct snd_soc_component_driver au1xac97c_component = {
-   226		.name			= "au1xac97c",
- > 227		.legacy_dai_name	= 1,
-   228	};
-   229	
+ Documentation/driver-api/dmaengine/client.rst | 24 ++----
+ .../driver-api/dmaengine/provider.rst         | 64 ++++++++------
+ drivers/crypto/stm32/stm32-hash.c             |  3 +-
+ drivers/dma/amba-pl08x.c                      |  1 -
+ drivers/dma/at_hdmac.c                        |  3 +-
+ drivers/dma/dmaengine.c                       |  2 +-
+ drivers/dma/dmaengine.h                       | 12 ++-
+ drivers/dma/dmatest.c                         | 14 +--
+ drivers/dma/idxd/device.c                     |  1 +
+ drivers/dma/idxd/dma.c                        | 86 ++++++++++++++++++-
+ drivers/dma/idxd/idxd.h                       |  3 +-
+ drivers/dma/imx-sdma.c                        |  3 +-
+ drivers/dma/mmp_tdma.c                        |  3 +-
+ drivers/dma/mxs-dma.c                         |  3 +-
+ drivers/media/platform/intel/pxa_camera.c     | 15 +++-
+ .../media/platform/ti/omap/omap_vout_vrfb.c   |  2 +-
+ drivers/rapidio/devices/rio_mport_cdev.c      |  3 +-
+ include/linux/dmaengine.h                     | 58 +------------
+ 18 files changed, 164 insertions(+), 136 deletions(-)
 
 -- 
-0-DAY CI Kernel Test Service
-https://01.org/lkp
+2.35.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
