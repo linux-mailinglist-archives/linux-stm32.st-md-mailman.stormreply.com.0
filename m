@@ -2,50 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 07A755572F1
-	for <lists+linux-stm32@lfdr.de>; Thu, 23 Jun 2022 08:17:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 020AD5572EF
+	for <lists+linux-stm32@lfdr.de>; Thu, 23 Jun 2022 08:17:39 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8AAB0C57B6C;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 99B30C5E2CC;
 	Thu, 23 Jun 2022 06:17:39 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2E546C03FD3
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 37ADFC03FD3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 22 Jun 2022 18:53:01 +0000 (UTC)
+ Wed, 22 Jun 2022 18:53:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1655923982; x=1687459982;
+ t=1655924014; x=1687460014;
  h=from:to:cc:subject:date:message-id:mime-version:
  content-transfer-encoding;
- bh=/jbAjt44pNdw2EPdmHuXf3wGiQ3od3Q+gNDKXfIaZ3c=;
- b=I+FoGSSP7pLe8VRsIXRfNP6/aUBLrKbkbByv7sfIigA+Hs6IxaUpzagr
- iZwAHQlGHkvQPVCa6x444HV0IwVfpUtCKhFGYH78Lhc8k/duVTa0lu1e5
- PP43ffpcCWQqEsZ5mLIA3vVlSiohhLpwK6J8kvU93FxYK8DClostk+w2h
- TT6T/tEtBcUzPnJuXcGtyPGnZYQI9KTR+0w2XSwpmIZDx4gERNUOpR0Qw
- pp0sG+Dz1raFA2R8vhiJgVbheMx3KrWgK7KvSLZZi1Ovas7HpVRtezMB9
- nnpXWIiE38b3p8gqiuDBRx6k+B8OZmdSaM2LYQrRlDA1gYZKLwibrMQno g==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10386"; a="260334229"
-X-IronPort-AV: E=Sophos;i="5.92,212,1650956400"; d="scan'208";a="260334229"
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Jun 2022 11:52:59 -0700
+ bh=prwrS1jSAxwYJXS6zrdVXKa0GwZvymzpmn7Mdh5vPkw=;
+ b=ILCBXc5UIrvKI+nm0d4KWeEE6FqcTk63SWo72d456o1IGYlfG2HemXx8
+ y1zyqZL+jpwNy0Wltsbo5Q30FYxVn05RQcckqvklE2yrMf8rzdwoCoRoA
+ R+YHY+vII6ECA3UdvLun8ch/bzdKMyJaUjA5je6uj00B/Ekhtvq0TIvxT
+ Qa52TE0EBVtByRzjHm40uYToL5HRYiBP5kVJwNbxBVRQSE/M6heYGIQBp
+ ugwNlV1o05R7/3S7ZpoohtiEqjTz3si5/zv7f8HBbnyRZH6R4lwebcobC
+ 0p0ANcPE8gM8Qx6c4GUsj0VBf7aeZ/ARw8Ud4mYAiTKkFiFxohO/t7XMO g==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10386"; a="278063641"
+X-IronPort-AV: E=Sophos;i="5.92,212,1650956400"; d="scan'208";a="278063641"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Jun 2022 11:53:32 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.92,212,1650956400"; d="scan'208";a="715528336"
+X-IronPort-AV: E=Sophos;i="5.92,212,1650956400"; d="scan'208";a="677700660"
 Received: from bwalker-desk.ch.intel.com ([143.182.136.162])
- by orsmga004.jf.intel.com with ESMTP; 22 Jun 2022 11:52:59 -0700
+ by FMSMGA003.fm.intel.com with ESMTP; 22 Jun 2022 11:53:32 -0700
 From: Ben Walker <benjamin.walker@intel.com>
 To: vkoul@kernel.org
-Date: Wed, 22 Jun 2022 11:52:48 -0700
-Message-Id: <20220622185248.3043534-1-benjamin.walker@intel.com>
+Date: Wed, 22 Jun 2022 11:53:30 -0700
+Message-Id: <20220622185330.3043566-1-benjamin.walker@intel.com>
 X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
 X-Mailman-Approved-At: Thu, 23 Jun 2022 06:17:38 +0000
-Cc: linux-kernel@vger.kernel.org, linux-crypto@vger.kernel.org,
- dmaengine@vger.kernel.org, mporter@kernel.crashing.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-media@vger.kernel.org
-Subject: [Linux-stm32] [PATCH v3 00/15] dmaengine: Support polling for out
-	of order completions
+Cc: dmaengine@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-kernel@vger.kernel.org, linux-crypto@vger.kernel.org
+Subject: [Linux-stm32] [PATCH v3 04/15] crypto: stm32/hash: Use
+	dmaengine_async_is_tx_complete
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -62,75 +61,28 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-This series adds support for polling async transactions for completion
-even if interrupts are disabled and transactions can complete out of
-order.
+Replace dma_async_is_tx_complete with dmaengine_async_is_tx_complete.
+The previous API will be removed in favor of the new one.
 
-To do this, all DMA client assumptions about the behavior of
-dma_cookie_t have to be removed. Prior to this series, dma_cookie_t was
-a monotonically increasing integer and cookies could be compared to one
-another to determine if earlier operations had completed (up until the
-cookie wraps around, then it would break).
+Signed-off-by: Ben Walker <benjamin.walker@intel.com>
+---
+ drivers/crypto/stm32/stm32-hash.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-Fortunately, only one out of the many, many DMA clients had any
-dependency on dma_cookie_t being anything more than an opaque handle.
-This is the pxa_camera driver and it is dealt with in patch 7 of this
-series.
-
-The series also does some API clean up and documents how dma_cookie_t
-should behave (i.e. there are no rules, it's just a handle).
-
-This closes out by adding support for .device_tx_status() to the idxd
-driver and then reverting the DMA_OUT_OF_ORDER patch that previously
-allowed idxd to opt-out of support for polling, which I think is a nice
-overall simplification to the dmaengine API.
-
-Changes since version 2:
- - None. Rebased as requested without conflict.
-
-Changes since version 1:
- - Broke up the change to remove dma_async_is_tx_complete into a single
-   patch for each driver
- - Renamed dma_async_is_tx_complete to dmaengine_async_is_tx_complete.
-
-Ben Walker (15):
-  dmaengine: Remove dma_async_is_complete from client API
-  dmaengine: Move dma_set_tx_state to the provider API header
-  dmaengine: Add dmaengine_async_is_tx_complete
-  crypto: stm32/hash: Use dmaengine_async_is_tx_complete
-  media: omap_vout: Use dmaengine_async_is_tx_complete
-  rapidio: Use dmaengine_async_is_tx_complete
-  media: pxa_camera: Use dmaengine_async_is_tx_complete
-  dmaengine: Remove dma_async_is_tx_complete
-  dmaengine: Remove last, used from dma_tx_state
-  dmaengine: Providers should prefer dma_set_residue over
-    dma_set_tx_state
-  dmaengine: Remove dma_set_tx_state
-  dmaengine: Add provider documentation on cookie assignment
-  dmaengine: idxd: idxd_desc.id is now a u16
-  dmaengine: idxd: Support device_tx_status
-  dmaengine: Revert "cookie bypass for out of order completion"
-
- Documentation/driver-api/dmaengine/client.rst | 24 ++----
- .../driver-api/dmaengine/provider.rst         | 64 ++++++++------
- drivers/crypto/stm32/stm32-hash.c             |  3 +-
- drivers/dma/amba-pl08x.c                      |  1 -
- drivers/dma/at_hdmac.c                        |  3 +-
- drivers/dma/dmaengine.c                       |  2 +-
- drivers/dma/dmaengine.h                       | 12 ++-
- drivers/dma/dmatest.c                         | 14 +--
- drivers/dma/idxd/device.c                     |  1 +
- drivers/dma/idxd/dma.c                        | 86 ++++++++++++++++++-
- drivers/dma/idxd/idxd.h                       |  3 +-
- drivers/dma/imx-sdma.c                        |  3 +-
- drivers/dma/mmp_tdma.c                        |  3 +-
- drivers/dma/mxs-dma.c                         |  3 +-
- drivers/media/platform/intel/pxa_camera.c     | 15 +++-
- .../media/platform/ti/omap/omap_vout_vrfb.c   |  2 +-
- drivers/rapidio/devices/rio_mport_cdev.c      |  3 +-
- include/linux/dmaengine.h                     | 58 +------------
- 18 files changed, 164 insertions(+), 136 deletions(-)
-
+diff --git a/drivers/crypto/stm32/stm32-hash.c b/drivers/crypto/stm32/stm32-hash.c
+index d33006d43f761..aef447847c499 100644
+--- a/drivers/crypto/stm32/stm32-hash.c
++++ b/drivers/crypto/stm32/stm32-hash.c
+@@ -453,8 +453,7 @@ static int stm32_hash_xmit_dma(struct stm32_hash_dev *hdev,
+ 					 msecs_to_jiffies(100)))
+ 		err = -ETIMEDOUT;
+ 
+-	if (dma_async_is_tx_complete(hdev->dma_lch, cookie,
+-				     NULL, NULL) != DMA_COMPLETE)
++	if (dmaengine_async_is_tx_complete(hdev->dma_lch, cookie) != DMA_COMPLETE)
+ 		err = -ETIMEDOUT;
+ 
+ 	if (err) {
 -- 
 2.35.1
 
