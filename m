@@ -2,89 +2,170 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CEF0B553BEC
-	for <lists+linux-stm32@lfdr.de>; Tue, 21 Jun 2022 22:50:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 105E155424A
+	for <lists+linux-stm32@lfdr.de>; Wed, 22 Jun 2022 07:32:52 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 55C3AC5E2C6;
-	Tue, 21 Jun 2022 20:50:20 +0000 (UTC)
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
- [85.220.165.71])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B0F01C57B6C;
+	Wed, 22 Jun 2022 05:32:51 +0000 (UTC)
+Received: from smtprelay-out1.synopsys.com (smtprelay-out1.synopsys.com
+ [149.117.73.133])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 12255C57183
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9DA79C03FC0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 21 Jun 2022 20:50:18 +0000 (UTC)
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
- by metis.ext.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <ukl@pengutronix.de>)
- id 1o3koX-0003Nu-CG; Tue, 21 Jun 2022 22:49:33 +0200
-Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
- by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.94.2)
- (envelope-from <ukl@pengutronix.de>)
- id 1o3koE-001tq7-4E; Tue, 21 Jun 2022 22:49:15 +0200
-Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.94.2)
- (envelope-from <ukl@pengutronix.de>)
- id 1o3koE-000HIi-Od; Tue, 21 Jun 2022 22:49:14 +0200
-Date: Tue, 21 Jun 2022 22:49:14 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
-To: Jon Hunter <jonathanh@nvidia.com>, Stephen Boyd <sboyd@kernel.org>
-Message-ID: <20220621204914.byokkrxiznvod7vq@pengutronix.de>
-References: <20220314141643.22184-1-u.kleine-koenig@pengutronix.de>
- <20220314141643.22184-2-u.kleine-koenig@pengutronix.de>
- <d6b890c8-bfb5-cfa5-c6d8-ee245701c077@nvidia.com>
+ Wed, 22 Jun 2022 05:32:49 +0000 (UTC)
+Received: from mailhost.synopsys.com (us03-mailhost2.synopsys.com [10.4.17.18])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
+ (Client CN "mailhost.synopsys.com", Issuer "SNPSica2" (verified OK))
+ by smtprelay-out1.synopsys.com (Postfix) with ESMTPS id D44F3466FA;
+ Wed, 22 Jun 2022 05:32:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=synopsys.com; s=mail;
+ t=1655875968; bh=HP76/gSwnAkyFVl/uJx6bpzI2apXRTsx/O7pdev8eNE=;
+ h=From:To:CC:Subject:Date:References:In-Reply-To:From;
+ b=dV8tfRvuGY2tLCEtLZZHJLWU12Xng7fwwhzebKmy5eiTtsICSYdozNpliyMkRqCAF
+ ZE6/Ku4niRc0NC3iK5j3D+f33FTFLrpY80By5/vsMAzRQXdO+vPuCErKoKBQjVG9N0
+ VLF2gg9sk0fNlfYOXr0azmGyU2NWG6i5+I+1B9ey4bhKfsmGGD94YWimnzI/Vo/3tV
+ rx6dgK7x+Dt4FJTirhUG82fiFteCWN1jQMVMAVxhYm/hUnsiLTaXYjW9gTKo2vq40r
+ 4E8ILxMoNCl+mQbXSuC+ewThJLyYvsexHmfGAK+R7QIsaP3IF/DvE7voCXkXxZMEej
+ sTfV4dKF6ZXTQ==
+Received: from o365relay-in.synopsys.com (us03-o365relay3.synopsys.com
+ [10.4.161.139])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
+ (Client CN "o365relay-in.synopsys.com",
+ Issuer "Entrust Certification Authority - L1K" (verified OK))
+ by mailhost.synopsys.com (Postfix) with ESMTPS id ADE61A0087;
+ Wed, 22 Jun 2022 05:32:42 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12lp2047.outbound.protection.outlook.com [104.47.66.47])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (Client CN "mail.protection.outlook.com",
+ Issuer "DigiCert Cloud Services CA-1" (verified OK))
+ by o365relay-in.synopsys.com (Postfix) with ESMTPS id F200B800BC;
+ Wed, 22 Jun 2022 05:32:37 +0000 (UTC)
+Authentication-Results: o365relay-in.synopsys.com;
+ dmarc=pass (p=reject dis=none) header.from=synopsys.com
+Authentication-Results: o365relay-in.synopsys.com;
+ spf=pass smtp.mailfrom=hminas@synopsys.com
+Authentication-Results: o365relay-in.synopsys.com; dkim=pass (1024-bit key;
+ unprotected) header.d=synopsys.com header.i=@synopsys.com header.b="HCtLDumY";
+ dkim-atps=neutral
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=C6wN8P6oCXGagh3M/qBgYKB0IgmLnaUwn/GYvCDtWBiVm5TCPNzOUd98ks7lh2mzbriioG7CoDPbiObGalnf6IW4v3PGFw51rJC4vHtuzGCyaHvdsHO2mSf/Wl2a+mx6wH7/ayhZUuv+ILprMTk1CvggGZGpulPgLIQEk/aqtbk45nl9J1HKX2JdFOdH73run6e8lnong2pOHW6RjaHsOB9lq3yWVpwbEZLanX79HR56+hLBRy8MtsAtAaTIoIWWO3N5aDjfxO+3cK7Yb0SQ72sAarVePCvmUlPwbqu6kp3cl9PEB0gAVGCx6pxMXvryiRhV8YXr9dur4m5wzFH/kw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=HP76/gSwnAkyFVl/uJx6bpzI2apXRTsx/O7pdev8eNE=;
+ b=SDlKSj4Sqf9mXD4SfhXUY0HOkcC/MjYvUQG1u7sCq5bV4k5CQ7dYfbV5iMw6STdq2x+DCLyqtGwHsZkt8L5uDjau/r6R/L5mBjyzp/TPP8R6t45iVSH+DQNfMV+9mTjstxAadhfQ2sXgvGwOuXT3ibQbcEYLoy77/hrDpnpq3LipLwBS2PBwhZPuVyD7D0T+NhAvM8Mcq/WRqpojd7CWgXCkOYi02DlyGeifPzyEZFC+1imNOsD0xygTGdq8lzWrWMnGIV761GGoeM5BlUEERF/+K5WjxyxLtR5p8roWRjt9F2xwkbSQANXfQtrEn2SiOxl1mx6QwI+IOb9jcD/zGg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=synopsys.com; dmarc=pass action=none header.from=synopsys.com;
+ dkim=pass header.d=synopsys.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=synopsys.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=HP76/gSwnAkyFVl/uJx6bpzI2apXRTsx/O7pdev8eNE=;
+ b=HCtLDumYtpfR0eJ/+cAfN9s3ymascKv5GmD7PQj3a+PcEbffM4f/1Zpn6ngTyQqgbGWp8W3a0pAeCZoH3FSAOTlUiKQp6hnlLQLT726CbFxGc32t9vkwXhC7xZrCwW7QVJDR+qX6D+z8vtAWrDiV9IVEov1CpHBQFtwDUK8F9lw=
+Received: from BYAPR12MB3399.namprd12.prod.outlook.com (2603:10b6:a03:ad::22)
+ by CY4PR12MB1126.namprd12.prod.outlook.com (2603:10b6:903:3d::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5353.18; Wed, 22 Jun
+ 2022 05:32:35 +0000
+Received: from BYAPR12MB3399.namprd12.prod.outlook.com
+ ([fe80::d935:48d3:b77b:b291]) by BYAPR12MB3399.namprd12.prod.outlook.com
+ ([fe80::d935:48d3:b77b:b291%5]) with mapi id 15.20.5353.022; Wed, 22 Jun 2022
+ 05:32:35 +0000
+X-SNPS-Relay: synopsys.com
+From: Minas Harutyunyan <Minas.Harutyunyan@synopsys.com>
+To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>,
+ "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
+ "robh+dt@kernel.org" <robh+dt@kernel.org>
+Thread-Topic: [PATCH v2 4/4] usb: dwc2: host: add TPL support
+Thread-Index: AQHYhYMUH+NjAmwQ8Eu8XWG32NLgdK1a5+uA
+Date: Wed, 22 Jun 2022 05:32:34 +0000
+Message-ID: <e465c321-1d92-9f93-4e89-d9dde472d2e9@synopsys.com>
+References: <20220621152350.145745-1-fabrice.gasnier@foss.st.com>
+ <20220621152350.145745-5-fabrice.gasnier@foss.st.com>
+In-Reply-To: <20220621152350.145745-5-fabrice.gasnier@foss.st.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.9.0
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=synopsys.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: e0bf1e4a-db64-462c-30f6-08da54109c53
+x-ms-traffictypediagnostic: CY4PR12MB1126:EE_
+x-microsoft-antispam-prvs: <CY4PR12MB11265EF55CADF04963B9B437A7B29@CY4PR12MB1126.namprd12.prod.outlook.com>
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: NNEYzZee6yhXT6TFDdYZAxkXENirgZDDIiW98nZ5xuQrQ+EtEVpu3DpnbOFk/kM9shKBayULkBiVRnsY3zYoyhat+Vl2L+PHugN/Bu9wtrbIuM55QZim0TmGeA3poswUfzA9Inp2SC2OQVfztyiXfYkZWqIgYVpQBUQuQGIZmZ+wymjgeURTVwTB7YBsy8dUCYjjYY5XSfEGmruL0FeBprwp3f+gC4ixlceP44vjdN4VCsb3ZXK6jEMxls9gcxTPrfiS0iUSEJaoRYJ/5PzPl0p9nNSdnRyNn/FIspVJyOtOo72Wzsz8ilTiRbZKLaIaQ2bacDNdtulczbMrogv/Q7WLWtsZ5yu6fJyDh7t/8x40WCELAP5e5ZWr2lByuQTPDuaC1sDbY6E1hswWHBwe/m3Mk80hMYhcdILQ2nGVTSQ1XzBDdKCzl7kiO54JxGsX+GoCX427liLr7m0qSOn4/IYow5jdjylTcblfA7gigpf1TgylWZpmLUjuMmXr3E0rJbW13QaBzcYxfmIiVcqEWvd/HN+/tUT/hHvu5WeMogH8nN2gTl79UQyKTdHr0fU3YMj3nvmfxoZTHaHXCTQQyOOhx7OVYBodz+4VUuu1p9sd6m0/wPZmHoICRQ5Lpniy8viQoVn0Aw+iwqasM7FomgRxkHHWSietLGDqL32/VpRKR45uZzLFc5Q8GYyvrXhEy1TTmuaBW4cuESnczydijYPkD3gXLjJ8zP5Ni1SB3TgmXvbApRSCvVV4QBrvXOykMAqfzF/cmZY0N6u3K31nSA==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BYAPR12MB3399.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230016)(376002)(366004)(346002)(39860400002)(396003)(136003)(38070700005)(186003)(83380400001)(71200400001)(122000001)(2616005)(5660300002)(8936002)(7416002)(4326008)(31686004)(36756003)(2906002)(54906003)(110136005)(66556008)(478600001)(66446008)(66946007)(8676002)(76116006)(66476007)(64756008)(91956017)(6512007)(316002)(41300700001)(26005)(53546011)(6506007)(38100700002)(31696002)(6486002)(86362001)(45980500001)(43740500002);
+ DIR:OUT; SFP:1102; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?OWhsZVM5Qkd4UnJwekd1KzE2UGowdHMzMlhMOGFlOXVPTC9HYmZiV3NrbUsv?=
+ =?utf-8?B?ZGZNanNaZTZVaTIzeXJWM2RXQm83aU9jZ2ZQQnlsNWR0THB0dlNJYnlxWnp6?=
+ =?utf-8?B?RndiNVl1em1DOS9kYWE5ZjloL3ZWSG5FS05RM3pYQTZVcWd1enJjOWRNakI4?=
+ =?utf-8?B?ZWEyV2Q4cnBnUEd1MXp5Q0V1Q2VKS0ZkQ2dPZUc3UU5nWWcvckd6bUF4RmZO?=
+ =?utf-8?B?OFN0MUpGQVVZcStmUE01M2d1RGNlOWFsMGFESzVsS20vZmlHd3JranBzVEln?=
+ =?utf-8?B?QXdnNnhLNlNJSWlUNlcyNzRrcGVHSStXcVh3UVdhRzU4Q3k5YkpuNXBHNk8r?=
+ =?utf-8?B?NlhaRTZBRWlOSDhDRGh2OWRNdk0yWmkvNGFZZzVrQmFiRU10THZhbC9DKzlS?=
+ =?utf-8?B?cE0yQzRIOHlxZEFnRzBBVzBqNWhobkhjTWZJNTRoTWw5ZjZHOTkxNkVhOHpk?=
+ =?utf-8?B?UFJWSXNqa0owMjhORkFjUjVrZWsyR1FLajVLWWlDQVdyVUVraEx4V0pPS0FQ?=
+ =?utf-8?B?VmZXNFlPdTlrU2JnM0lKUkR0eFZjT1VBY21Ub0N5bHJ5MjJKU3BJT1I3cEZK?=
+ =?utf-8?B?c0NROVU5T25tekV0Qk9GZWZWOFRBMGx5ZjVOZXA5QXgrZnNzemlZZDZWRWxJ?=
+ =?utf-8?B?MU5sYzYvcDFQVE5md0dyM0VqTk5lczdwWTByVkNjTk1HYjJZRHJIVjZKY2hK?=
+ =?utf-8?B?QnMySCtZeGhwem91bkxWRENpbytSSGRzY1NqZEg5aXgzaWNiRWhsSXlNM3NE?=
+ =?utf-8?B?ejBJejRKVFo2MURiV0RoQ2V0c0piME5kSFdXWnRvZ3VjSmhoQjIrZXBPWEIx?=
+ =?utf-8?B?T1FVUVdSUEczeG5UWENOQWo5ejUwK2JjbU50dktMdjQxYlBMSmpMUHVrYTds?=
+ =?utf-8?B?bUk5c3FvVXJ6Z0tlSlR3RS90UHl6N2V1a0x6a2p6dWhtL2lUN2l6QzlJYjQw?=
+ =?utf-8?B?ZEdDclFrS0pKdDk1K2Q5eEdWV1NkWlFNMHpmZUg1L1hqbjFyRWM3bitOTXJR?=
+ =?utf-8?B?bVVkaGRDcDVEOWV3OTNJTVVVRXBYa25aTVRYdVdpSjJ5N3NOcFl4NnlwTnJs?=
+ =?utf-8?B?Uk1ENjlTTGpzNEdobDd1UDZhYW1WVk5SK2dvVlgyUURXenBIa0dMR3F1YkpD?=
+ =?utf-8?B?QWIyUEhrRU5aeGp2ODg3UitWNE5raWtEbEFaVVdibmJSU1NVMXBTbEFES2hs?=
+ =?utf-8?B?bmVVZ1pHSzFKSVA3K0xBd2FvNTVWbDNYdVlLKzk1a0tCbHNZY1VaZUdZdWk3?=
+ =?utf-8?B?eEhOQ3A3RUNHYVhzS3JjRlhPWVgyaURrZU5IU2ZVYk5MYkVQWnZPaVFIandB?=
+ =?utf-8?B?VktId05wUEdNNWJ2ZFh1SFlBVE4zTkNISlBBbXZoSU5sU3A5akFBL09kL1dl?=
+ =?utf-8?B?OUZGSXZ1N2pWaEZ6VzQ4M3ArL21vVThPd0RmR2p5V29aT3JzRERLNDdESytl?=
+ =?utf-8?B?NXdKN3FQK05jQzNEOG5ZTGI5dGJTWXNNYlVRYnFBMTQvdjJ4UmJIK3VJeVlQ?=
+ =?utf-8?B?RW1oYVM1YkpiOEJ1Y1Y4am8wMVJMNmRyNmN6VlpnV3lDQ3ZidldlQ2R4Z2Vt?=
+ =?utf-8?B?WlNLeVJNcUpDTisyS3VkWmFWMEpXaGs0dDZuSzl4SkE5Zm05VFNwMGFxeHJP?=
+ =?utf-8?B?ZUpmZGEyVytoejViYjlHWFg2MVNkQUdqYnQ3RFd0elhDeElLU2N4ZDVFR00v?=
+ =?utf-8?B?RTV1dTlCbGlkaGp3bjhreG16dWVpYWk0a2hLZUVnWXE2eG5rVjcvaGF3emRS?=
+ =?utf-8?B?akt1dVlXby9pU20rZHhnRk52S3BqR0tieXBpVFFGclVpWUZXejN3OVlrbkg0?=
+ =?utf-8?B?alo1dHlhNFF6NFVSbXRXbzBjMEk0cEswdUpxOGl0TlZHdEpCaVFPaW5hcndM?=
+ =?utf-8?B?NlY3TzJPZHRZTWswQnF3Sm1yb0UzQnV6ZDZFbmpFZTFrVTZ6STdya3RJS1dF?=
+ =?utf-8?B?VTdlcHVNTGZUNW9CdUxBWHdoNmxUbFJxak12U1R0WGRhWWpaMlYyMFIvN2tF?=
+ =?utf-8?B?Tkx2MDZNZWxPVXB2ZTI5Y1NBc1B5djBtYWNYem1wVEdSTUdIZVZ3RnJpTGtJ?=
+ =?utf-8?B?M3Q2b2U5dzV2QUt2d0R2TlhZRG5OMkFwSW04QzNUcXREc2JlSklIRFpqaGFM?=
+ =?utf-8?B?S3JrQ0ZWRHRRUXJaa3h3bEU4Wk9oYjd3SEtJNE1TbExkUHpzUzNRT05IQ0cx?=
+ =?utf-8?B?MUJFdGFVQzI0ZVlnVk9FTDFTNmRMenBCcFdOQmhoRnRzZXEvNmx6eWsxOXRs?=
+ =?utf-8?B?WWc5cFF2QnNKK2FHMWNTMVlzeWI1SDhUS2xWY2M5UEZBcFYvak1nbTZPSzhB?=
+ =?utf-8?B?azc1SUFpNUJndmtuQkx0eStZalkwRDNFQ0s0MjQ0N0pxQ05KSXcwQT09?=
+Content-ID: <F66081E342140246B1BDCDA1962F5E0E@namprd12.prod.outlook.com>
 MIME-Version: 1.0
-In-Reply-To: <d6b890c8-bfb5-cfa5-c6d8-ee245701c077@nvidia.com>
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: ukl@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
-Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Heiko Stuebner <heiko@sntech.de>, Neil Armstrong <narmstrong@baylibre.com>,
- David Airlie <airlied@linux.ie>, Alexandru Ardelean <aardelean@deviqon.com>,
- Linus Walleij <linus.walleij@linaro.org>,
- Tomislav Denis <tomislav.denis@avl.com>, dri-devel@lists.freedesktop.org,
- Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>,
- Paul Cercueil <paul@crapouillou.net>, Vladimir Zapolskiy <vz@mleia.com>,
- Thierry Reding <thierry.reding@gmail.com>, linux-i2c@vger.kernel.org,
- Nobuhiro Iwamatsu <nobuhiro1.iwamatsu@toshiba.co.jp>,
- Oleksij Rempel <linux@rempel-privat.de>, Lee Jones <lee.jones@linaro.org>,
- linux-clk@vger.kernel.org, Jerome Brunet <jbrunet@baylibre.com>,
- linux-rtc@vger.kernel.org, Lars-Peter Clausen <lars@metafoo.de>,
- Herbert Xu <herbert@gondor.apana.org.au>,
- =?utf-8?B?QW5kcsOp?= Gustavo Nakagomi Lopez <andregnl@usp.br>,
- Kevin Hilman <khilman@baylibre.com>, Bartosz Golaszewski <brgl@bgdev.pl>,
- Russell King <linux@armlinux.org.uk>,
- Claudiu Beznea <claudiu.beznea@microchip.com>, linux-iio@vger.kernel.org,
- Andy Gross <agross@kernel.org>, linux-arm-kernel@lists.infradead.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Cai Huoqing <caihuoqing@baidu.com>, linux-mips@vger.kernel.org,
- Keguang Zhang <keguang.zhang@gmail.com>,
- Michael Turquette <mturquette@baylibre.com>,
- Guenter Roeck <linux@roeck-us.net>, NXP Linux Team <linux-imx@nxp.com>,
- linux-pwm@vger.kernel.org, Jean Delvare <jdelvare@suse.com>,
- Michal Simek <michal.simek@xilinx.com>, linux-watchdog@vger.kernel.org,
- Michael Hennerich <Michael.Hennerich@analog.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- linux-arm-msm@vger.kernel.org, linux-spi@vger.kernel.org,
- Anand Ashok Dumbre <anand.ashok.dumbre@xilinx.com>, linux-gpio@vger.kernel.org,
- Mark Brown <broonie@kernel.org>, Fabio Estevam <festevam@gmail.com>,
- Jonathan Cameron <Jonathan.Cameron@huawei.com>,
- "linux-tegra@vger.kernel.org" <linux-tegra@vger.kernel.org>,
- linux-amlogic@lists.infradead.org, Wim Van Sebroeck <wim@linux-watchdog.org>,
- kernel@pengutronix.de, Lars Povlsen <lars.povlsen@microchip.com>,
- linux-hwmon@vger.kernel.org, Alessandro Zummo <a.zummo@towertech.it>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, dmaengine@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- Nicolas Ferre <nicolas.ferre@microchip.com>, UNGLinuxDriver@microchip.com,
- Vinod Koul <vkoul@kernel.org>, Bjorn Andersson <bjorn.andersson@linaro.org>,
- Amireddy Mallikarjuna reddy <mallikarjunax.reddy@linux.intel.com>,
- Daniel Vetter <daniel@ffwll.ch>, linux-crypto@vger.kernel.org,
- Shawn Guo <shawnguo@kernel.org>, Steen Hegelund <Steen.Hegelund@microchip.com>,
- Jonathan Cameron <jic23@kernel.org>
-Subject: Re: [Linux-stm32] [PATCH v8 01/16] clk: generalize devm_clk_get() a
-	bit
+X-OriginatorOrg: synopsys.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB3399.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e0bf1e4a-db64-462c-30f6-08da54109c53
+X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Jun 2022 05:32:34.4629 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: c33c9f88-1eb7-4099-9700-16013fd9e8aa
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: GSeLM9UfxX3J2uefWm72GX1ZPr1F2JtDFNQ53lSH4AuXtJvQF9E0oLTJmbgJ/RkFRtSygmAJt6+vDH2UYBRORg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR12MB1126
+Cc: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "stern@rowland.harvard.edu" <stern@rowland.harvard.edu>,
+ "krzysztof.kozlowski+dt@linaro.org" <krzysztof.kozlowski+dt@linaro.org>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH v2 4/4] usb: dwc2: host: add TPL support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,172 +177,54 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============1884069941652434825=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+On 6/21/2022 7:23 PM, Fabrice Gasnier wrote:
+> From: Amelie Delaunay <amelie.delaunay@foss.st.com>
+> 
+> The Target Peripheral List (TPL) is used to identify targeted devices
+> during Embedded Host compliance testing. The user can add "tpl-support"
+> in the device tree to enable it.
+> 
+> Signed-off-by: Amelie Delaunay <amelie.delaunay@foss.st.com>
+> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
 
---===============1884069941652434825==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="uzxszqlixhftbuhf"
-Content-Disposition: inline
+Acked-by: Minas Harutyunyan <hminas@synopsys.com>
 
-
---uzxszqlixhftbuhf
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Tue, Jun 21, 2022 at 08:57:00PM +0100, Jon Hunter wrote:
-> Some of our Tegra boards are not booting with the current -next and
-> bisect is pointing to this commit. Looking at the boot log I am
-> seeing the following panic ...
->=20
-> [    2.097048] 8<--- cut here ---
-> [    2.097053] Unable to handle kernel paging request at virtual address =
-c216c810
-> [    2.097060] [c216c810] *pgd=3D0201141e(bad)
-> [    2.097079] Internal error: Oops: 8000000d [#1] SMP ARM
-> [    2.097088] Modules linked in:
-> [    2.097097] CPU: 1 PID: 1 Comm: swapper/0 Not tainted 5.19.0-rc3-next-=
-20220621-g34d1d36073ea #1
-> [    2.097107] Hardware name: NVIDIA Tegra SoC (Flattened Device Tree)
-> [    2.097113] PC is at 0xc216c810
-> [    2.097123] LR is at devm_clk_release+0x18/0x24
-> [    2.097150] pc : [<c216c810>]    lr : [<c088cb04>]    psr: a0000013
-> [    2.097155] sp : f080dde8  ip : 000006cf  fp : c18d4854
-> [    2.097161] r10: c1501850  r9 : c1a04d10  r8 : c1c4efa0
-> [    2.097166] r7 : c216c810  r6 : f080de1c  r5 : c2737680  r4 : c26a9680
-> [    2.097172] r3 : c216c810  r2 : 00000000  r1 : c2737840  r0 : c2082840
-> [    2.097179] Flags: NzCv  IRQs on  FIQs on  Mode SVC_32  ISA ARM  Segme=
-nt none
-> [    2.097187] Control: 10c5387d  Table: 0020404a  DAC: 00000051
-> [    2.097191] Register r0 information: slab kmalloc-192 start c2082840 p=
-ointer offset 0 size 192
-> [    2.097216] Register r1 information: slab kmalloc-128 start c2737800 p=
-ointer offset 64 size 128
-> [    2.097236] Register r2 information: NULL pointer
-> [    2.097244] Register r3 information: slab kmalloc-1k start c216c800 po=
-inter offset 16 size 1024
-> [    2.097263] Register r4 information: slab kmalloc-64 start c26a9680 po=
-inter offset 0 size 64
-> [    2.097282] Register r5 information: slab kmalloc-128 start c2737680 p=
-ointer offset 0 size 128
-> [    2.097301] Register r6 information: 2-page vmalloc region starting at=
- 0xf080c000 allocated at kernel_clone+0xb4/0x3e8
-> [    2.097321] Register r7 information: slab kmalloc-1k start c216c800 po=
-inter offset 16 size 1024
-> [    2.097341] Register r8 information: non-slab/vmalloc memory
-> [    2.097348] Register r9 information: non-slab/vmalloc memory
-> [    2.097355] Register r10 information: non-slab/vmalloc memory
-> [    2.097362] Register r11 information: non-slab/vmalloc memory
-> [    2.097369] Register r12 information: non-paged memory
-> [    2.097375] Process swapper/0 (pid: 1, stack limit =3D 0x(ptrval))
-> [    2.097384] Stack: (0xf080dde8 to 0xf080e000)
-> [    2.097394] dde0:                   c2737800 c0a72d38 c18d4854 c053049=
-0 c216c810 f080de1c
-> [    2.097404] de00: c2120000 00000005 c216c9c0 80000013 0000017e c0a73d6=
-8 00000008 c2629e00
-> [    2.097413] de20: c2737880 5640e141 c216c810 c216c810 00000205 c1c09dd=
-4 00000000 c27375b8
-> [    2.097422] de40: c2091700 c0a6e9a0 c216c810 c0a6f288 c216c810 c1c09dd=
-4 c216c810 00000000
-> [    2.097430] de60: c27375b8 c0a6f3c0 c1caa8e0 c216c810 c216c810 c0a6f45=
-0 00000000 c216c810
-> [    2.097439] de80: c1c09dd4 c2120000 c27375b8 c0a6f850 00000000 c1c09dd=
-4 c0a6f7c4 c0a6d4c0
-> [    2.097447] dea0: 00000000 c2091458 c2286434 5640e141 c1be7f08 c1c09dd=
-4 c2737580 c1be7f08
-> [    2.097455] dec0: 00000000 c0a6e484 c1615714 c1be7c50 c1c09dd4 c212000=
-0 c189a99c 00000000
-> [    2.097464] dee0: c2120000 c0a701a0 c1c494e0 c2120000 c189a99c c030214=
-4 0000017d c0364438
-> [    2.097472] df00: c16da8bc c1626700 00000000 00000006 00000006 c16554c=
-8 00000000 c2120000
-> [    2.097480] df20: c15105bc c14f9778 c2091700 c20917d9 00000000 5640e14=
-1 c1a88930 c16da8bc
-> [    2.097488] df40: c1c59000 5640e141 c16da8bc c1c59000 c1953b4c c18d483=
-4 00000007 c1801340
-> [    2.097497] df60: 00000006 00000006 00000000 c18004dc c2120000 c18004d=
-c f080df74 c1a04cc0
-> [    2.097505] df80: c106bbf0 00000000 00000000 00000000 00000000 0000000=
-0 00000000 c106bc08
-> [    2.097513] dfa0: 00000000 c106bbf0 00000000 c03001a8 00000000 0000000=
-0 00000000 00000000
-> [    2.097520] dfc0: 00000000 00000000 00000000 00000000 00000000 0000000=
-0 00000000 00000000
-> [    2.097528] dfe0: 00000000 00000000 00000000 00000000 00000013 0000000=
-0 00000000 00000000
-> [    2.097542]  devm_clk_release from release_nodes+0x58/0xc0
-> [    2.097575]  release_nodes from devres_release_all+0x7c/0xc0
-> [    2.097596]  devres_release_all from device_unbind_cleanup+0xc/0x60
-> [    2.097626]  device_unbind_cleanup from really_probe+0x1f4/0x2a8
-> [    2.097650]  really_probe from __driver_probe_device+0x84/0xe4
-> [    2.097673]  __driver_probe_device from driver_probe_device+0x30/0xd0
-> [    2.097696]  driver_probe_device from __driver_attach+0x8c/0xf0
-> [    2.097713]  __driver_attach from bus_for_each_dev+0x70/0xb0
-> [    2.097729]  bus_for_each_dev from bus_add_driver+0x168/0x1f4
-> [    2.097749]  bus_add_driver from driver_register+0x7c/0x118
-> [    2.097766]  driver_register from do_one_initcall+0x44/0x1ec
-> [    2.097784]  do_one_initcall from kernel_init_freeable+0x1d4/0x224
-> [    2.097803]  kernel_init_freeable from kernel_init+0x18/0x12c
-> [    2.097820]  kernel_init from ret_from_fork+0x14/0x2c
-> [    2.097831] Exception stack(0xf080dfb0 to 0xf080dff8)
-> [    2.097839] dfa0:                                     00000000 0000000=
-0 00000000 00000000
-> [    2.097847] dfc0: 00000000 00000000 00000000 00000000 00000000 0000000=
-0 00000000 00000000
-> [    2.097854] dfe0: 00000000 00000000 00000000 00000000 00000013 00000000
-> [    2.097862] Code: c2288680 ffffffff 00000000 00000000 (c2288680)
-> [    2.097872] ---[ end trace 0000000000000000 ]---
->=20
->=20
-> Let me know if you have any thoughts.
-
-Yeah, sorry, there is already a fix at
-https://lore.kernel.org/linux-clk/20220620171815.114212-1-u.kleine-koenig@p=
-engutronix.de
-
-(Pro tipp: The commit in next has a Link: footer. If you follow the
-link, you find the thread that was actually applied (i.e. v9) and where
-the fix is also contained.)
-
-@Stephen: It would be a great favour to our testers if you could apply
-the fix ...
-
-Best regards
-Uwe
-
---=20
-Pengutronix e.K.                           | Uwe Kleine-K=F6nig            |
-Industrial Linux Solutions                 | https://www.pengutronix.de/ |
-
---uzxszqlixhftbuhf
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEfnIqFpAYrP8+dKQLwfwUeK3K7AkFAmKyLscACgkQwfwUeK3K
-7AnhOwgAoJ7+WVNat5QtQxPAov0GgQ/NeeLpTVS16heM9RAVaRuezJxOr7k7z/AN
-DSNd0SEFBPDE8PkdUrAbIY607zkPkKaLrKQFpjhDciHceMDazKEoKdALu/lMM409
-sCiY8s2KTYhosNBXTORdQ2ItBXOWazKLe6M+WWiIWu9Sa83Ulagv5CifqiCvUBrc
-g1x7kXPbQDMorRwwT+nuQ5Ph03wEef0UMGyS/20yU966XafejCZCkfTALLJWiGzt
-NRO6lO+0NlxhEY8ccLGw+Lu3svkIMOX08s829MM0IF3GwWi5ktZmZ/QN291tKRlT
-xZbpiGeH4vZPdETbfxbl1w7F+4JFmQ==
-=qUR3
------END PGP SIGNATURE-----
-
---uzxszqlixhftbuhf--
-
---===============1884069941652434825==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+> ---
+> Changes in v2:
+> - added dt-bindings precursor patch
+> - update commit message to clarify TPL and EH meaning
+> ---
+>   drivers/usb/dwc2/hcd.c | 3 +++
+>   1 file changed, 3 insertions(+)
+> 
+> diff --git a/drivers/usb/dwc2/hcd.c b/drivers/usb/dwc2/hcd.c
+> index f63a27d11fac8..4567f3c24d225 100644
+> --- a/drivers/usb/dwc2/hcd.c
+> +++ b/drivers/usb/dwc2/hcd.c
+> @@ -52,6 +52,7 @@
+>   
+>   #include <linux/usb/hcd.h>
+>   #include <linux/usb/ch11.h>
+> +#include <linux/usb/of.h>
+>   
+>   #include "core.h"
+>   #include "hcd.h"
+> @@ -5339,6 +5340,8 @@ int dwc2_hcd_init(struct dwc2_hsotg *hsotg)
+>   	/* Don't support SG list at this point */
+>   	hcd->self.sg_tablesize = 0;
+>   
+> +	hcd->tpl_support = of_usb_host_tpl_support(hsotg->dev->of_node);
+> +
+>   	if (!IS_ERR_OR_NULL(hsotg->uphy))
+>   		otg_set_host(hsotg->uphy->otg, &hcd->self);
+>   
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============1884069941652434825==--
