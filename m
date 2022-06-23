@@ -2,72 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6752A557008
-	for <lists+linux-stm32@lfdr.de>; Thu, 23 Jun 2022 03:44:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 57F465570C6
+	for <lists+linux-stm32@lfdr.de>; Thu, 23 Jun 2022 04:00:14 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 071DCC57B6C;
-	Thu, 23 Jun 2022 01:44:17 +0000 (UTC)
-Received: from mail-pg1-f194.google.com (mail-pg1-f194.google.com
- [209.85.215.194])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EB731C57B6C;
+	Thu, 23 Jun 2022 02:00:13 +0000 (UTC)
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 12ACBC0D2C1
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 60800C0D2C1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 23 Jun 2022 01:44:15 +0000 (UTC)
-Received: by mail-pg1-f194.google.com with SMTP id e63so16215543pgc.5
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 22 Jun 2022 18:44:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=message-id:date:mime-version:user-agent:subject:content-language
- :from:to:cc:references:in-reply-to:content-transfer-encoding;
- bh=8OYLl95mf9+YxDcCBNvZSRU5aHDebQNBoQMTob1Sdeg=;
- b=qxZY0UQ4su1To4vMkojOPanPe2kdRw7d+t26ToDi4Y0iFSVfRLSE6Iw+BVSwpTU2Eh
- FnuMaWl20DljeYow8xp8Qp+pQ5FqDyV+jenzjIo3mGkEx+DtJQcNHddsF5PrcbEyZAxH
- WNgPuuh+he0G6agaZ73XzSWcEz+T+11DSFTReZBqn7UNJ2iTaIY9sfLqmOvnQusyPMOY
- nG5PXoIlJfR/xY26TxpqYluvBYG7GITfQryoq+trWXP92Ea/+K/wU02NsXaizU7MD97+
- 2PXgjMPOsmzyA7W42p5+mjmIC1BjKmFzAKGn52q7wDflbOzcG1UEfbjBSZjlsPaiBOGw
- xOnw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:from:to:cc:references:in-reply-to
- :content-transfer-encoding;
- bh=8OYLl95mf9+YxDcCBNvZSRU5aHDebQNBoQMTob1Sdeg=;
- b=NEbe+jXf8Jriyt3RO7k2xG5hEhbUx0l1TEYhR1Xn6G9UQaLMeaUMbws02cF1BSfzMQ
- pyofgDgD4DVdJDuWMS0ZM0FiCPNJhgiVTsOUegIasr8VDGrz+pGCGJNQLfR7Y+ITcsTP
- HQeGRBxCeMRAVOc4XO5LueGzex+CaHjFajr1CI8KFW7EOx4eN0cINy9KBsnm6CS5YSPE
- 5n4zSYdc41kch9C8BqSoxi5V64nLhSDxRbWYxGgN7T88ajG5uc2HmlvsCf00QPLJkjkI
- oRBCa+869XC34CbQEcwanGlGKkR75I1T1+5tzufF1jMaEiADiUDeOfptPhQNx3jBEwx3
- m32g==
-X-Gm-Message-State: AJIora+Qf0y8pffJIXZTvA1mmK4+zeKymhDlUOcSqyGjnr8uKt9l80bV
- ngNuBqM5O/Tv5SvkR8/WypA=
-X-Google-Smtp-Source: AGRyM1tHsth2D+8SWRUl0QfIlT0e02ZW+58iaAtiK8+/XIA/PjhfGZ3Heo+y2rA3m1jZN6lfLstExg==
-X-Received: by 2002:a05:6a00:179e:b0:518:9e1d:1cbd with SMTP id
- s30-20020a056a00179e00b005189e1d1cbdmr38052645pfg.12.1655948653642; 
- Wed, 22 Jun 2022 18:44:13 -0700 (PDT)
-Received: from [192.168.50.247] ([103.84.139.165])
- by smtp.gmail.com with ESMTPSA id
- h8-20020aa79f48000000b00525251ce47esm7117430pfr.103.2022.06.22.18.44.11
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 22 Jun 2022 18:44:13 -0700 (PDT)
-Message-ID: <17b9ef27-028c-06ac-a2d9-7cb46b3951cb@gmail.com>
-Date: Thu, 23 Jun 2022 09:44:09 +0800
+ Thu, 23 Jun 2022 02:00:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1655949611; x=1687485611;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=KbeXCVtz+edFvopo5p5QoDn9huAgw0qHkMWWoFBLhXA=;
+ b=K4kdcK7tmv8yFX/iIaqarcIT6CwPf/oxpAj+grArdKEqpFy2ZcSQ9did
+ oqZ2xXHxsg7VaaEFyrmDaOw0KMdqonTayRX5PksTtQvscVosqSs7+Mr47
+ G4qU+JPvrooqDk52Hi/6nhkJRshaLfPD42dn3RmO7Q0ntmZyUtosQFq4D
+ V8lkO9QBgrCcrecdWqupsJWLZ3kI62vd9bXcAVb9quUYi09Wc3dw9yIxf
+ SfzU30lBdNALut4U/9iGnjsz31iG33GFjUtwaU8I8N02XqGwZVrlwNY/4
+ 6ryOUA8tgbFFCUs5TGcaTSh5s0DPuimxrMgdLWWpyAFl+2vhxB6Lvh18c g==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10386"; a="279365138"
+X-IronPort-AV: E=Sophos;i="5.92,215,1650956400"; d="scan'208";a="279365138"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Jun 2022 19:00:09 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.92,215,1650956400"; d="scan'208";a="615398908"
+Received: from lkp-server01.sh.intel.com (HELO 68b931ab7ac1) ([10.239.97.150])
+ by orsmga008.jf.intel.com with ESMTP; 22 Jun 2022 19:00:02 -0700
+Received: from kbuild by 68b931ab7ac1 with local (Exim 4.95)
+ (envelope-from <lkp@intel.com>) id 1o4C8X-0000LT-BJ;
+ Thu, 23 Jun 2022 02:00:01 +0000
+Date: Thu, 23 Jun 2022 09:59:06 +0800
+From: kernel test robot <lkp@intel.com>
+To: Charles Keepax <ckeepax@opensource.cirrus.com>, broonie@kernel.org
+Message-ID: <202206230910.wUXKFP3z-lkp@intel.com>
+References: <20220616143429.1324494-28-ckeepax@opensource.cirrus.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.9.1
-Content-Language: en-US
-From: Hangyu Hua <hbh25y@gmail.com>
-To: alexander.shishkin@linux.intel.com, mcoquelin.stm32@gmail.com,
- alexandre.torgue@foss.st.com, gregkh@linuxfoundation.org,
- mathieu.poirier@linaro.org
-References: <20220418081632.35121-1-hbh25y@gmail.com>
- <3e01d35c-e748-3e03-4417-8b7dea09075e@gmail.com>
- <45ae7332-074e-cb76-2674-7431fc58b886@gmail.com>
-In-Reply-To: <45ae7332-074e-cb76-2674-7431fc58b886@gmail.com>
-Cc: linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH] hwtracing: stm: fix possible double free
- in stm_register_device()
+Content-Disposition: inline
+In-Reply-To: <20220616143429.1324494-28-ckeepax@opensource.cirrus.com>
+Cc: cezary.rojewski@intel.com, heiko@sntech.de,
+ kuninori.morimoto.gx@renesas.com, airlied@linux.ie,
+ alsa-devel@alsa-project.org, nicolas.ferre@microchip.com,
+ srinivas.kandagatla@linaro.org, peter.ujfalusi@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com, jbrunet@baylibre.com,
+ pierre-louis.bossart@linux.intel.com, krzk@kernel.org,
+ linux-rockchip@lists.infradead.org, linux-imx@nxp.com,
+ linux-mips@vger.kernel.org, linux-sunxi@lists.linux.dev,
+ linux-xtensa@linux-xtensa.org, nsaenz@kernel.org, kernel@pengutronix.de,
+ mripard@kernel.org, linux-tegra@vger.kernel.org,
+ linux-amlogic@lists.infradead.org, linux-omap@vger.kernel.org,
+ kbuild-all@lists.01.org, lgirdwood@gmail.com, vkoul@kernel.org,
+ jarkko.nikula@bitmer.com, daniel@ffwll.ch, shawnguo@kernel.org,
+ daniel@zonque.org
+Subject: Re: [Linux-stm32] [PATCH 27/96] ASoC: au1x: Migrate to new style
+ legacy DAI naming flag
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,30 +72,64 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gMjAyMi81LzIzIDA5OjU1LCBIYW5neXUgSHVhIHdyb3RlOgo+IEdlbnRlbCBwaW5nLgo+IAo+
-IE9uIDIwMjIvNS81IDA5OjI5LCBIYW5neXUgSHVhIHdyb3RlOgo+PiBQaW5nCj4+Cj4+IE9uIDIw
-MjIvNC8xOCAxNjoxNiwgSGFuZ3l1IEh1YSB3cm90ZToKPj4+IHB1dF9kZXZpY2UoKSB3aWxsIGNh
-bGwgc3RtX2RldmljZV9yZWxlYXNlKCkgdG8gZnJlZSBzdG0gd2hlbgo+Pj4gc3RtX3JlZ2lzdGVy
-X2RldmljZSgpIGZhaWxzLiBTbyB0aGVyZSBpcyBubyBuZWVkIHRvIGNhbGwgdmZyZWUoKSBhZ2Fp
-bi4KPj4+Cj4+PiBGaXggdGhpcyBieSBhZGRpbmcgYSByZXR1cm4gYWZ0ZXIgcHV0X2RldmljZSgp
-Lgo+Pj4KPj4+IEZpeGVzOiA3YmQxZDQwOTNjMmYgKCJzdG0gY2xhc3M6IEludHJvZHVjZSBhbiBh
-YnN0cmFjdGlvbiBmb3IgU3lzdGVtIAo+Pj4gVHJhY2UgTW9kdWxlIGRldmljZXMiKQo+Pj4gU2ln
-bmVkLW9mZi1ieTogSGFuZ3l1IEh1YSA8aGJoMjV5QGdtYWlsLmNvbT4KPj4+IC0tLQo+Pj4gwqAg
-ZHJpdmVycy9od3RyYWNpbmcvc3RtL2NvcmUuYyB8IDEgKwo+Pj4gwqAgMSBmaWxlIGNoYW5nZWQs
-IDEgaW5zZXJ0aW9uKCspCj4+Pgo+Pj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvaHd0cmFjaW5nL3N0
-bS9jb3JlLmMgYi9kcml2ZXJzL2h3dHJhY2luZy9zdG0vY29yZS5jCj4+PiBpbmRleCAyNzEyZTY5
-OWJhMDguLjQwM2I0ZjQxYmIxYiAxMDA2NDQKPj4+IC0tLSBhL2RyaXZlcnMvaHd0cmFjaW5nL3N0
-bS9jb3JlLmMKPj4+ICsrKyBiL2RyaXZlcnMvaHd0cmFjaW5nL3N0bS9jb3JlLmMKPj4+IEBAIC05
-MTUsNiArOTE1LDcgQEAgaW50IHN0bV9yZWdpc3Rlcl9kZXZpY2Uoc3RydWN0IGRldmljZSAqcGFy
-ZW50LCAKPj4+IHN0cnVjdCBzdG1fZGF0YSAqc3RtX2RhdGEsCj4+PiDCoMKgwqDCoMKgIC8qIG1h
-dGNoZXMgZGV2aWNlX2luaXRpYWxpemUoKSBhYm92ZSAqLwo+Pj4gwqDCoMKgwqDCoCBwdXRfZGV2
-aWNlKCZzdG0tPmRldik7Cj4+PiArwqDCoMKgIHJldHVybiBlcnI7Cj4+PiDCoCBlcnJfZnJlZToK
-Pj4+IMKgwqDCoMKgwqAgdmZyZWUoc3RtKTsKCkdlbnRlbCBwaW5nLgpfX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QK
-TGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1h
-aWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
+Hi Charles,
+
+I love your patch! Yet something to improve:
+
+[auto build test ERROR on broonie-sound/for-next]
+[also build test ERROR on tegra/for-next sunxi/sunxi/for-next linus/master v5.19-rc3 next-20220622]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Charles-Keepax/Refactor-non_legacy_dai_naming-flag/20220616-224300
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+config: mips-db1xxx_defconfig (https://download.01.org/0day-ci/archive/20220623/202206230910.wUXKFP3z-lkp@intel.com/config)
+compiler: mipsel-linux-gcc (GCC) 11.3.0
+reproduce (this is a W=1 build):
+        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
+        chmod +x ~/bin/make.cross
+        # https://github.com/intel-lab-lkp/linux/commit/794205d61285d0921e564e722daf9b20df82ed57
+        git remote add linux-review https://github.com/intel-lab-lkp/linux
+        git fetch --no-tags linux-review Charles-Keepax/Refactor-non_legacy_dai_naming-flag/20220616-224300
+        git checkout 794205d61285d0921e564e722daf9b20df82ed57
+        # save the config file
+        mkdir build_dir && cp config build_dir/.config
+        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-11.3.0 make.cross W=1 O=build_dir ARCH=mips SHELL=/bin/bash sound/soc/au1x/
+
+If you fix the issue, kindly add following tag where applicable
+Reported-by: kernel test robot <lkp@intel.com>
+
+All error/warnings (new ones prefixed by >>):
+
+>> sound/soc/au1x/ac97c.c:227:10: error: 'const struct snd_soc_component_driver' has no member named 'legacy_dai_name'; did you mean 'legacy_dai_naming'?
+     227 |         .legacy_dai_name        = 1,
+         |          ^~~~~~~~~~~~~~~
+         |          legacy_dai_naming
+>> sound/soc/au1x/ac97c.c:227:35: warning: initialization of 'const struct snd_kcontrol_new *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+     227 |         .legacy_dai_name        = 1,
+         |                                   ^
+   sound/soc/au1x/ac97c.c:227:35: note: (near initialization for 'au1xac97c_component.controls')
+
+
+vim +227 sound/soc/au1x/ac97c.c
+
+   224	
+   225	static const struct snd_soc_component_driver au1xac97c_component = {
+   226		.name			= "au1xac97c",
+ > 227		.legacy_dai_name	= 1,
+   228	};
+   229	
+
+-- 
+0-DAY CI Kernel Test Service
+https://01.org/lkp
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
