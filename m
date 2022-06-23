@@ -2,55 +2,55 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DC97B557BCA
-	for <lists+linux-stm32@lfdr.de>; Thu, 23 Jun 2022 14:54:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 30CA5557B64
+	for <lists+linux-stm32@lfdr.de>; Thu, 23 Jun 2022 14:54:33 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9D5B6C640F2;
-	Thu, 23 Jun 2022 12:54:50 +0000 (UTC)
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DCD64C640FF;
+	Thu, 23 Jun 2022 12:54:32 +0000 (UTC)
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7AF42C640F0
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E164BC640E8
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 23 Jun 2022 12:54:48 +0000 (UTC)
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
- by mx0b-001ae601.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 25N5mxlI032604;
- Thu, 23 Jun 2022 07:53:10 -0500
+ Thu, 23 Jun 2022 12:54:29 +0000 (UTC)
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+ by mx0a-001ae601.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 25NAKUtE006859;
+ Thu, 23 Jun 2022 07:53:11 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
  h=from : to : cc :
  subject : date : message-id : in-reply-to : references : mime-version :
  content-transfer-encoding : content-type; s=PODMain02222019;
- bh=W56hwLi4SAMCgZXDthTP0ck73M711wAsUs9++90Zjl0=;
- b=VN6gse+A3EmNtiL+idf/SOT5rEqBMz+GK9gdgjp+rkXvN47FFN0fsTaloyuI+WgKn1sv
- 87HlMFfah6mJP+R5BNp99RTDLjZm6h9YLbHmi8K3hV3GGp+czlG/JqH0lWogUJseLUlP
- 34zbxkZxNTAWNefyKWUHTt+KLpXZEzIyHUOOmQTPWGeI1q24glnXNyNvCHhX+Db4sqFJ
- nZk+6f3yD5uZNfF2VJQq7I1nW9NkTU/b3b6bek9IyupuJM3fiSjiizFrj1lx0vLzhIUC
- KvSToRJ10kVeQRz4Px9g95dOYBR5cd79zs6t7NrpTmAIr+bjhb3g+cA0GcsTHt/s0RnW 8w== 
-Received: from ediex01.ad.cirrus.com ([84.19.233.68])
- by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3gsb4p6wvu-17
+ bh=PTP0VGxQptvCXp26N2iV4AnKY7UMF6SODHbSK4xE09c=;
+ b=dRT5oRxzSN3LpRS4fXbjpTQSoA+0epFsssS1EbN2ahEdZ3DOXAzNve3KZ7JFdvTAp03B
+ 41nGVDOryDV46k3HZeJ5ifeXCKvMpSWM3bTo7ZKHxqMqTF/FWMW9Yhi6LbHP8fuo6LhW
+ LbcRbEIcCLXr/zFx2VRbnjD8ULtGrAjjniPFSGgw6tj4SPMcLthtcec2uImKcaSvK0+x
+ sqeJxn77B+LPdvKzo1126NjIpUdmJScPe56j6EoaSSh+qAkYa7Cl3O2jUj8BLaggbFZZ
+ b9tJnBY/+NicRnsrSbueViNQvgeLNiBjeme6sME3rRt/TGogYXzpWrf9YoggC5IQ7oWf 6Q== 
+Received: from ediex02.ad.cirrus.com ([84.19.233.68])
+ by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3gsc41fa4u-12
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Thu, 23 Jun 2022 07:53:10 -0500
-Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ Thu, 23 Jun 2022 07:53:11 -0500
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
+ (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Thu, 23 Jun
  2022 13:52:57 +0100
 Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
  (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.28 via
  Frontend Transport; Thu, 23 Jun 2022 13:52:57 +0100
 Received: from algalon.ad.cirrus.com (algalon.ad.cirrus.com [198.90.251.122])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 82BC511D1;
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 97DBB11D3;
  Thu, 23 Jun 2022 12:52:57 +0000 (UTC)
 From: Charles Keepax <ckeepax@opensource.cirrus.com>
 To: <broonie@kernel.org>
-Date: Thu, 23 Jun 2022 13:52:30 +0100
-Message-ID: <20220623125250.2355471-77-ckeepax@opensource.cirrus.com>
+Date: Thu, 23 Jun 2022 13:52:31 +0100
+Message-ID: <20220623125250.2355471-78-ckeepax@opensource.cirrus.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20220623125250.2355471-1-ckeepax@opensource.cirrus.com>
 References: <20220623125250.2355471-1-ckeepax@opensource.cirrus.com>
 MIME-Version: 1.0
-X-Proofpoint-GUID: 5W3-TfdwwGovIOy8gJUgs8-4H-ZaLUb-
-X-Proofpoint-ORIG-GUID: 5W3-TfdwwGovIOy8gJUgs8-4H-ZaLUb-
+X-Proofpoint-GUID: F533nTJ_LfjqDWYnuO914-F_6wKf3qRg
+X-Proofpoint-ORIG-GUID: F533nTJ_LfjqDWYnuO914-F_6wKf3qRg
 X-Proofpoint-Spam-Reason: safe
 Cc: cezary.rojewski@intel.com, heiko@sntech.de,
  kuninori.morimoto.gx@renesas.com, airlied@linux.ie,
@@ -66,8 +66,8 @@ Cc: cezary.rojewski@intel.com, heiko@sntech.de,
  linux-omap@vger.kernel.org, patches@opensource.cirrus.com, lgirdwood@gmail.com,
  vkoul@kernel.org, jarkko.nikula@bitmer.com, daniel@ffwll.ch,
  shawnguo@kernel.org, daniel@zonque.org
-Subject: [Linux-stm32] [PATCH v2 76/96] ASoC: gtm601: Remove now redundant
-	non_legacy_dai_naming flag
+Subject: [Linux-stm32] [PATCH v2 77/96] ASoC: hdac_hdmi: Remove now
+	redundant non_legacy_dai_naming flag
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,21 +90,21 @@ the non_legacy_dai_naming flag.
 
 Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
 ---
- sound/soc/codecs/gtm601.c | 1 -
+ sound/soc/codecs/hdac_hdmi.c | 1 -
  1 file changed, 1 deletion(-)
 
-diff --git a/sound/soc/codecs/gtm601.c b/sound/soc/codecs/gtm601.c
-index e1235e695b0fb..c6b1e77ffccd0 100644
---- a/sound/soc/codecs/gtm601.c
-+++ b/sound/soc/codecs/gtm601.c
-@@ -73,7 +73,6 @@ static const struct snd_soc_component_driver soc_component_dev_gtm601 = {
- 	.idle_bias_on		= 1,
+diff --git a/sound/soc/codecs/hdac_hdmi.c b/sound/soc/codecs/hdac_hdmi.c
+index 66408a98298be..cb23650ad5223 100644
+--- a/sound/soc/codecs/hdac_hdmi.c
++++ b/sound/soc/codecs/hdac_hdmi.c
+@@ -2058,7 +2058,6 @@ static const struct snd_soc_component_driver hdmi_hda_codec = {
+ 	.remove			= hdmi_codec_remove,
  	.use_pmdown_time	= 1,
  	.endianness		= 1,
 -	.non_legacy_dai_naming	= 1,
  };
  
- static int gtm601_platform_probe(struct platform_device *pdev)
+ static void hdac_hdmi_get_chmap(struct hdac_device *hdev, int pcm_idx,
 -- 
 2.30.2
 
