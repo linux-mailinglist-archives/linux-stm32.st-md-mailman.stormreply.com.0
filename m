@@ -2,55 +2,55 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id EEFC7557B48
-	for <lists+linux-stm32@lfdr.de>; Thu, 23 Jun 2022 14:54:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0121D557BEA
+	for <lists+linux-stm32@lfdr.de>; Thu, 23 Jun 2022 14:55:32 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id ACF45C640F2;
-	Thu, 23 Jun 2022 12:54:27 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B8038C640EA;
+	Thu, 23 Jun 2022 12:55:31 +0000 (UTC)
 Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
  [67.231.149.25])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 45A3CC640F0
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 89570C640E8
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 23 Jun 2022 12:54:26 +0000 (UTC)
+ Thu, 23 Jun 2022 12:55:30 +0000 (UTC)
 Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
- by mx0a-001ae601.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 25NAKUtH006859;
- Thu, 23 Jun 2022 07:53:14 -0500
+ by mx0a-001ae601.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 25N6FQeZ013924;
+ Thu, 23 Jun 2022 07:53:12 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
  h=from : to : cc :
  subject : date : message-id : in-reply-to : references : mime-version :
  content-transfer-encoding : content-type; s=PODMain02222019;
- bh=UpVtM3GhDa8LxnMJynyFTiJGRkwOtaAZVwvm7j+y7i4=;
- b=JkCWsmb5YvVhUXHqJxD5368znUoCdT3dYlqIq9dUi2+xePH+p61zeHyfFNL28fSFFGc0
- 6qowzYR3ybVeDEnzgW7RdFP2vsryH0qRhUvoNJsl3Gu/Sw6H59ifdG31lDe8WdFbdqJ4
- eDt29h2VcLSOWyjNNXcXUVZtYijZ01bIOjU2hXek8UV+OkBmMeCItGP65hcxLiSFi4QQ
- cU9bjho3k5yAXzxWInlN3lbOx3i3bTmopo141N57qeWrG01GwpHv6ZA0st8uUuC10q7f
- 08rI7TiX7nDat6Jv1OKuaKDuAu5THs4HIlo/23yjOe+FjTPq/zmM8rY9scwXaQmf7b/Z RQ== 
-Received: from ediex02.ad.cirrus.com ([84.19.233.68])
- by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3gsc41fa4u-15
+ bh=xY4xsRe/jm0kTWlxz5PklVpNc7pAIqqRFHsrc/CWjnk=;
+ b=jt29CdWrWSWfKr3GZUhIf8QgQmkYFFwfa6sXhqt5Hb44GE4jbrASSXLQIg5Y0el7YgmZ
+ CKvAUIkIiTH+yDvEsPxx7v6pXvBIIlP5j6ybSnaQaV9/ZqChkighQJP/i8lTmsIOUd23
+ 3MQtNbzQnvym9oYwyZ3ODNq8SHNWO+9t/f4kV5oyYmJYL0N+YbEgBualnyOY0bduLdIk
+ 0morg5+ol/RkVZEaemBu6PvrDbko3RiCzw3DYqRpIq4zwOooswUl2Jk8+IWe8L9iEkNQ
+ h1IqfPd+oD+cfFiLhxAokePofuAqLj0iBAV3bsXWlo4cVx/Hjuv5jwEf/F7vpPCdeZtx ug== 
+Received: from ediex01.ad.cirrus.com ([84.19.233.68])
+ by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3gsc41fa4x-11
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Thu, 23 Jun 2022 07:53:13 -0500
-Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
+ Thu, 23 Jun 2022 07:53:12 -0500
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Thu, 23 Jun
  2022 13:52:58 +0100
 Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
  (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.28 via
  Frontend Transport; Thu, 23 Jun 2022 13:52:58 +0100
 Received: from algalon.ad.cirrus.com (algalon.ad.cirrus.com [198.90.251.122])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 25DC711D3;
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 3C39211D1;
  Thu, 23 Jun 2022 12:52:58 +0000 (UTC)
 From: Charles Keepax <ckeepax@opensource.cirrus.com>
 To: <broonie@kernel.org>
-Date: Thu, 23 Jun 2022 13:52:37 +0100
-Message-ID: <20220623125250.2355471-84-ckeepax@opensource.cirrus.com>
+Date: Thu, 23 Jun 2022 13:52:38 +0100
+Message-ID: <20220623125250.2355471-85-ckeepax@opensource.cirrus.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20220623125250.2355471-1-ckeepax@opensource.cirrus.com>
 References: <20220623125250.2355471-1-ckeepax@opensource.cirrus.com>
 MIME-Version: 1.0
-X-Proofpoint-GUID: LlDNOpc3I-8TWl9BHoqD91cIdV6cWDtK
-X-Proofpoint-ORIG-GUID: LlDNOpc3I-8TWl9BHoqD91cIdV6cWDtK
+X-Proofpoint-GUID: XHvTX0m-iPXG2kAAB051DJjgEXEsWkzw
+X-Proofpoint-ORIG-GUID: XHvTX0m-iPXG2kAAB051DJjgEXEsWkzw
 X-Proofpoint-Spam-Reason: safe
 Cc: cezary.rojewski@intel.com, heiko@sntech.de,
  kuninori.morimoto.gx@renesas.com, airlied@linux.ie,
@@ -66,7 +66,7 @@ Cc: cezary.rojewski@intel.com, heiko@sntech.de,
  linux-omap@vger.kernel.org, patches@opensource.cirrus.com, lgirdwood@gmail.com,
  vkoul@kernel.org, jarkko.nikula@bitmer.com, daniel@ffwll.ch,
  shawnguo@kernel.org, daniel@zonque.org
-Subject: [Linux-stm32] [PATCH v2 83/96] ASoC: jz4740: Remove now redundant
+Subject: [Linux-stm32] [PATCH v2 84/96] ASoC: lm49453: Remove now redundant
 	non_legacy_dai_naming flag
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -90,22 +90,21 @@ the non_legacy_dai_naming flag.
 
 Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
 ---
- sound/soc/codecs/jz4740.c | 2 --
- 1 file changed, 2 deletions(-)
+ sound/soc/codecs/lm49453.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/sound/soc/codecs/jz4740.c b/sound/soc/codecs/jz4740.c
-index 081485f784e9b..7c25acf6ff0de 100644
---- a/sound/soc/codecs/jz4740.c
-+++ b/sound/soc/codecs/jz4740.c
-@@ -291,8 +291,6 @@ static const struct snd_soc_component_driver soc_codec_dev_jz4740_codec = {
- 	.idle_bias_on		= 1,
+diff --git a/sound/soc/codecs/lm49453.c b/sound/soc/codecs/lm49453.c
+index c4900ada86184..a2e782cc4276a 100644
+--- a/sound/soc/codecs/lm49453.c
++++ b/sound/soc/codecs/lm49453.c
+@@ -1399,7 +1399,6 @@ static const struct snd_soc_component_driver soc_component_dev_lm49453 = {
+ 	.num_dapm_routes	= ARRAY_SIZE(lm49453_audio_map),
  	.use_pmdown_time	= 1,
  	.endianness		= 1,
 -	.non_legacy_dai_naming	= 1,
--
  };
  
- static const struct regmap_config jz4740_codec_regmap_config = {
+ static const struct regmap_config lm49453_regmap_config = {
 -- 
 2.30.2
 
