@@ -2,55 +2,55 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 801B2557B0F
-	for <lists+linux-stm32@lfdr.de>; Thu, 23 Jun 2022 14:54:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AE693557AF7
+	for <lists+linux-stm32@lfdr.de>; Thu, 23 Jun 2022 14:53:49 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4A925C640EA;
-	Thu, 23 Jun 2022 12:54:04 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 73E04C628A0;
+	Thu, 23 Jun 2022 12:53:49 +0000 (UTC)
 Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
  [67.231.149.25])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0E78AC640E8
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6EFF0C60467
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 23 Jun 2022 12:54:02 +0000 (UTC)
+ Thu, 23 Jun 2022 12:53:48 +0000 (UTC)
 Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
- by mx0a-001ae601.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 25N6FQeY013924;
- Thu, 23 Jun 2022 07:53:11 -0500
+ by mx0a-001ae601.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 25NAKUtF006859;
+ Thu, 23 Jun 2022 07:53:12 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
  h=from : to : cc :
  subject : date : message-id : in-reply-to : references : mime-version :
  content-transfer-encoding : content-type; s=PODMain02222019;
- bh=SrABh16h3tGxB1yv98FDK9mGxjpUcpJfHk25js15UBw=;
- b=bGFTo1A3U3+TFxMwz7u/b1vKxG1+2CNOmGsEDTmpDPyKm8ziRDwfJvpxIQzggR7/CLLc
- oYQJgSfLeMb5G5BhLVzQn+2ydZg5mro7ruviNwvodWtrOUZPA73Jl5G38bBp4yLcNiIT
- D/kxVZLG7k+2/vrt3BYdomBziyDQQqE8ZVtMo+kJ1Z/SfmJkwDNygBaAWHQoIuqvjiu5
- A4lKP17PQMGV3XcTMruywCMJw0/w9cm6oQWCQL8Jxo7TskOjXkofHwDcruA0lN5K/KpU
- OxBhsH41qFFwQxtC2ZKGHA4vD+T/GxyntiSqCGOPSkkKjqVGUgq+sAP4hxXJujc2Mf1X bw== 
-Received: from ediex01.ad.cirrus.com ([84.19.233.68])
- by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3gsc41fa4x-10
+ bh=5u1RRmu7INaJEddTKiCr8kHZ6DSlTxPNQ7NYNisLbCw=;
+ b=iBxSxi6KOTzmmQ4m/avnR15qrhFBWvfbRG3AZKwMfqNdEtH8gxjDRNNEO94MVRSD07J2
+ EujJozJpduWQUNLS6tUPDjVHK0ruveEobUITqbdhZAP1Oud4Nh/d2ELnUfis53lLxUSA
+ dVcOWs+PdSsbrgV9aK25lkwD6dMr2WSeUGDjrXkgDCtS2df/8bo5kpA1CTJ9zKCpwx5X
+ /cVJ5MSUMmwGfKEi75RLZ3DHt6X4yhYT5Rdu89Ech+hbmf01KXmT9sIVaUAjTVMWavE4
+ ZgRbjd8DHtMtmtA+I9Hvua4cuXo6+O/yIMDWzLC45YicKHHYNL7gY6dLRnwx8h1NXms7 TA== 
+Received: from ediex02.ad.cirrus.com ([84.19.233.68])
+ by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3gsc41fa4u-13
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Thu, 23 Jun 2022 07:53:11 -0500
-Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ Thu, 23 Jun 2022 07:53:12 -0500
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
+ (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Thu, 23 Jun
  2022 13:52:57 +0100
 Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
  (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.28 via
  Frontend Transport; Thu, 23 Jun 2022 13:52:57 +0100
 Received: from algalon.ad.cirrus.com (algalon.ad.cirrus.com [198.90.251.122])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id B176A11D1;
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id C636011D4;
  Thu, 23 Jun 2022 12:52:57 +0000 (UTC)
 From: Charles Keepax <ckeepax@opensource.cirrus.com>
 To: <broonie@kernel.org>
-Date: Thu, 23 Jun 2022 13:52:32 +0100
-Message-ID: <20220623125250.2355471-79-ckeepax@opensource.cirrus.com>
+Date: Thu, 23 Jun 2022 13:52:33 +0100
+Message-ID: <20220623125250.2355471-80-ckeepax@opensource.cirrus.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20220623125250.2355471-1-ckeepax@opensource.cirrus.com>
 References: <20220623125250.2355471-1-ckeepax@opensource.cirrus.com>
 MIME-Version: 1.0
-X-Proofpoint-GUID: MtCncSoXQqkeNMtMFSVTvaxfeze7GvIs
-X-Proofpoint-ORIG-GUID: MtCncSoXQqkeNMtMFSVTvaxfeze7GvIs
+X-Proofpoint-GUID: iOhvv9QaDLA8tp1Ym0coFdTSfHLc0mqR
+X-Proofpoint-ORIG-GUID: iOhvv9QaDLA8tp1Ym0coFdTSfHLc0mqR
 X-Proofpoint-Spam-Reason: safe
 Cc: cezary.rojewski@intel.com, heiko@sntech.de,
  kuninori.morimoto.gx@renesas.com, airlied@linux.ie,
@@ -66,8 +66,8 @@ Cc: cezary.rojewski@intel.com, heiko@sntech.de,
  linux-omap@vger.kernel.org, patches@opensource.cirrus.com, lgirdwood@gmail.com,
  vkoul@kernel.org, jarkko.nikula@bitmer.com, daniel@ffwll.ch,
  shawnguo@kernel.org, daniel@zonque.org
-Subject: [Linux-stm32] [PATCH v2 78/96] ASoC: hdmi-codec: Remove now
-	redundant non_legacy_dai_naming flag
+Subject: [Linux-stm32] [PATCH v2 79/96] ASoC: ics43432: Remove now redundant
+	non_legacy_dai_naming flag
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,21 +90,21 @@ the non_legacy_dai_naming flag.
 
 Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
 ---
- sound/soc/codecs/hdmi-codec.c | 1 -
+ sound/soc/codecs/ics43432.c | 1 -
  1 file changed, 1 deletion(-)
 
-diff --git a/sound/soc/codecs/hdmi-codec.c b/sound/soc/codecs/hdmi-codec.c
-index 7d1e351f863a4..5679102de91f8 100644
---- a/sound/soc/codecs/hdmi-codec.c
-+++ b/sound/soc/codecs/hdmi-codec.c
-@@ -977,7 +977,6 @@ static const struct snd_soc_component_driver hdmi_driver = {
+diff --git a/sound/soc/codecs/ics43432.c b/sound/soc/codecs/ics43432.c
+index de4c8460ab3df..58a3822547189 100644
+--- a/sound/soc/codecs/ics43432.c
++++ b/sound/soc/codecs/ics43432.c
+@@ -41,7 +41,6 @@ static const struct snd_soc_component_driver ics43432_component_driver = {
  	.idle_bias_on		= 1,
  	.use_pmdown_time	= 1,
  	.endianness		= 1,
 -	.non_legacy_dai_naming	= 1,
- 	.set_jack		= hdmi_codec_set_jack,
  };
  
+ static int ics43432_probe(struct platform_device *pdev)
 -- 
 2.30.2
 
