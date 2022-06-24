@@ -2,68 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 892845595F1
-	for <lists+linux-stm32@lfdr.de>; Fri, 24 Jun 2022 11:01:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2C824559682
+	for <lists+linux-stm32@lfdr.de>; Fri, 24 Jun 2022 11:27:36 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2EF1CC5E2C6;
-	Fri, 24 Jun 2022 09:01:56 +0000 (UTC)
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
- [209.85.128.44])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E7D5EC5E2C6;
+	Fri, 24 Jun 2022 09:27:35 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 95A67C03FC4
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4F40AC0D2C1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 24 Jun 2022 09:01:55 +0000 (UTC)
-Received: by mail-wm1-f44.google.com with SMTP id
- i67-20020a1c3b46000000b003a03567d5e9so1310168wma.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 24 Jun 2022 02:01:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=DYqi+SGcB0+t2X+VYlC5fZRvt40T3yhMiNazUS1RDXg=;
- b=KTYM3gqN0dbVx0MMpORszENXRVGhqUN/bTd+qbPxDHuW4jPEtauSJwiVkn98ROISpr
- idy6ijgKO6qKA0rE95x5zivQtOETae5BhPw1v4j0c646Qc/6i3unmDqArgdPI4e9hLoI
- MN7bC75nrHoxtLMWdIi+tXEHI52cjL61npeOLG1TP5owvNFkVxOdSauASv73mvfrKQoq
- C9GYBei1j3zCBHlu99Mgwc9i+BZdlSqTur0naohCBXLYYvvI6PddLqqEsIKEJG737wjB
- bE3EmaCI6ft4CWSLe+XkdpKbapkmLgcd/j3BheqsousuJcAcVv1ZysNs4ymDF0mTouMn
- NcSg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=DYqi+SGcB0+t2X+VYlC5fZRvt40T3yhMiNazUS1RDXg=;
- b=qWLGeABpfx1+AX/f7SABtWhm+YgB1li5Z0tL/pMgMvHcNa1tyAi4PG8GHNtXEUTKCi
- bDXcGsjeUL9J/1Q3/3L7MOqQtaWSH5WjUFESoIUvz2PxcPVqeEI9pwye9y/l4zx/jIK4
- mu0OuM1VRZAQcJCv0lBFGE23lDc8RfzMHdKAoXFuGSzZvjeSTydxbkB2NyI9Sj07oceQ
- OHOtFcvKS5s9h3//WeAqJ75bspC5VSAOcf0ObZTjDvnQH+K2r4gO/CVzZFrBWTMSjDf4
- QmqEP92ZgvivfhH29uqfeyTGuLVaGAIUgKVMnWTb5njSGxc8iyWs83dlUA66/rNiH7dB
- 8ULA==
-X-Gm-Message-State: AJIora/91QxSzLbEjdyM+6hmTnbD/rsj5rD9aoZ8gwdnpb4XSbqnPMfn
- mghovLBVJK3P6wC9rdhUq5qpsA==
-X-Google-Smtp-Source: AGRyM1vJblVpTyNWcE6m4PbaUdDUJM1SUYRY98T5uH//0OhEeRyez3qBnHqTgu2Krcaa4KOZaxCo9A==
-X-Received: by 2002:a05:600c:3b1f:b0:3a0:2f82:7d6b with SMTP id
- m31-20020a05600c3b1f00b003a02f827d6bmr2476743wms.3.1656061315059; 
- Fri, 24 Jun 2022 02:01:55 -0700 (PDT)
-Received: from lmecxl1178.lme.st.com
- ([2a04:cec0:11eb:7fe2:cb1a:9cd7:1545:5dfc])
- by smtp.gmail.com with ESMTPSA id
- j9-20020a05600c1c0900b0039c7f790f6asm6717084wms.30.2022.06.24.02.01.53
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 24 Jun 2022 02:01:54 -0700 (PDT)
-From: Etienne Carriere <etienne.carriere@linaro.org>
-To: linux-kernel@vger.kernel.org
-Date: Fri, 24 Jun 2022 11:00:55 +0200
-Message-Id: <20220624090055.569400-1-etienne.carriere@linaro.org>
+ Fri, 24 Jun 2022 09:27:35 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 25O7qemY003113;
+ Fri, 24 Jun 2022 11:27:19 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=selector1;
+ bh=usLNLotBGToCxJsJXsHAoM3bXkIn5CHECuPg1mXKElQ=;
+ b=EPRVskc/YVHx0Ckg3qx6WjkgSp1H8a6m2eEErT1aU5At0w36rnxGCZ6Ck7IY1akfMjWQ
+ lLxGY5sE5ZAJCC/3EU4ZXnKIFSWvU58VORz9eX+JFY6aYWoStJHHoosHv/DG0CX8Uk3u
+ jtf4n7I2TqfCYwXVHPo7uhCWZNF4WUrWi57zoPKTS88q+8D6rORQtAAKiOjzJkcZatJ7
+ WRpybOYFt0hNKieVGICag5DaHAjhdDPhGc2ou6Lu4YoGUKgNeDkL+sVG4wfuDjhp2dBN
+ stoPY7WQxDEsTQJtO0SG0IcIGjL0eiUqv0i7VfDyf0j152mWnVSskmsOCKDaIPgeU01P fw== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3gvn8s7r4a-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 24 Jun 2022 11:27:19 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 367E010002A;
+ Fri, 24 Jun 2022 11:27:18 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 307922138D8;
+ Fri, 24 Jun 2022 11:27:18 +0200 (CEST)
+Received: from localhost (10.75.127.50) by SHFDAG1NODE1.st.com (10.75.129.69)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2308.20; Fri, 24 Jun
+ 2022 11:27:17 +0200
+From: <gabriel.fernandez@foss.st.com>
+To: Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski
+ <krzysztof.kozlowski+dt@linaro.org>, Maxime Coquelin
+ <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>
+Date: Fri, 24 Jun 2022 11:27:12 +0200
+Message-ID: <20220624092715.1397827-1-gabriel.fernandez@foss.st.com>
 X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
+X-Originating-IP: [10.75.127.50]
+X-ClientProxiedBy: SFHDAG2NODE3.st.com (10.75.127.6) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.883,Hydra:6.0.517,FMLib:17.11.122.1
+ definitions=2022-06-24_05,2022-06-23_01,2022-06-22_01
 Cc: devicetree@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Rob Herring <robh+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Etienne Carriere <etienne.carriere@linaro.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH] ARM: dts: stm32: fix pwr regulators
-	references to use scmi
+ Gabriel Fernandez <gabriel.fernandez@foss.st.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Subject: [Linux-stm32] [PATCH 0/3] SCMI Update for STM32MP15 boards
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,115 +77,24 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Fixes stm32mp15*-scmi DTS files introduced in [1] to also access PWR
-regulators through SCMI service. This is needed since enabling secure
-only access to RCC clock and reset controllers also enables secure
-access only on PWR voltage regulators reg11, reg18 and usb33 hence
-these must also be accessed through SCMI Voltage Domain protocol.
-This change applies on commit [2] that already corrects issues from
-commit [1].
+From: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
 
-Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
-Link: [1] https://lore.kernel.org/linux-arm-kernel/20220422150952.20587-7-alexandre.torgue@foss.st.com
-Link: [2] https://lore.kernel.org/linux-arm-kernel/20220613071920.5463-1-alexandre.torgue@foss.st.com
-Signed-off-by: Etienne Carriere <etienne.carriere@linaro.org>
----
- arch/arm/boot/dts/stm32mp15-scmi.dtsi      | 52 ++++++++++++++++++++++
- arch/arm/boot/dts/stm32mp157c-dk2-scmi.dts |  1 +
- arch/arm/boot/dts/stm32mp157c-ev1-scmi.dts |  1 +
- 3 files changed, 54 insertions(+)
+Update for SCMI version of ST boards:
+- delete fixed clocks because there are now provided by SCMI
+- add missing SCMI impact for DSI IP on DK1/ED1 STM32 board
+- fix peripheral clock for CEC 
 
-diff --git a/arch/arm/boot/dts/stm32mp15-scmi.dtsi b/arch/arm/boot/dts/stm32mp15-scmi.dtsi
-index e90cf3acd0b3..d2afb6667479 100644
---- a/arch/arm/boot/dts/stm32mp15-scmi.dtsi
-+++ b/arch/arm/boot/dts/stm32mp15-scmi.dtsi
-@@ -27,6 +27,37 @@ scmi_reset: protocol@16 {
- 				reg = <0x16>;
- 				#reset-cells = <1>;
- 			};
-+
-+			scmi_voltd: protocol@17 {
-+				reg = <0x17>;
-+
-+				scmi_reguls: regulators {
-+					#address-cells = <1>;
-+					#size-cells = <0>;
-+
-+					scmi_reg11: reg11@0 {
-+						reg = <0>;
-+						regulator-name = "reg11";
-+						regulator-min-microvolt = <1100000>;
-+						regulator-max-microvolt = <1100000>;
-+					};
-+
-+					scmi_reg18: reg18@1 {
-+						voltd-name = "reg18";
-+						reg = <1>;
-+						regulator-name = "reg18";
-+						regulator-min-microvolt = <1800000>;
-+						regulator-max-microvolt = <1800000>;
-+					};
-+
-+					scmi_usb33: usb33@2 {
-+						reg = <2>;
-+						regulator-name = "usb33";
-+						regulator-min-microvolt = <3300000>;
-+						regulator-max-microvolt = <3300000>;
-+					};
-+				};
-+			};
- 		};
- 	};
- 
-@@ -45,3 +76,24 @@ scmi_shm: scmi-sram@0 {
- 		};
- 	};
- };
-+
-+&reg11 {
-+	status = "disabled";
-+};
-+
-+&reg18 {
-+	status = "disabled";
-+};
-+
-+&usb33 {
-+	status = "disabled";
-+};
-+
-+&usbotg_hs {
-+	usb33d-supply = <&scmi_usb33>;
-+};
-+
-+&usbphyc {
-+	vdda1v1-supply = <&scmi_reg11>;
-+	vdda1v8-supply = <&scmi_reg18>;
-+};
-diff --git a/arch/arm/boot/dts/stm32mp157c-dk2-scmi.dts b/arch/arm/boot/dts/stm32mp157c-dk2-scmi.dts
-index 03226a596904..97e4f94b0a24 100644
---- a/arch/arm/boot/dts/stm32mp157c-dk2-scmi.dts
-+++ b/arch/arm/boot/dts/stm32mp157c-dk2-scmi.dts
-@@ -35,6 +35,7 @@ &cryp1 {
- };
- 
- &dsi {
-+	phy-dsi-supply = <&scmi_reg18>;
- 	clocks = <&rcc DSI_K>, <&scmi_clk CK_SCMI_HSE>, <&rcc DSI_PX>;
- };
- 
-diff --git a/arch/arm/boot/dts/stm32mp157c-ev1-scmi.dts b/arch/arm/boot/dts/stm32mp157c-ev1-scmi.dts
-index 7842384ddbe4..3b9dd6f4ccc9 100644
---- a/arch/arm/boot/dts/stm32mp157c-ev1-scmi.dts
-+++ b/arch/arm/boot/dts/stm32mp157c-ev1-scmi.dts
-@@ -36,6 +36,7 @@ &cryp1 {
- };
- 
- &dsi {
-+	phy-dsi-supply = <&scmi_reg18>;
- 	clocks = <&rcc DSI_K>, <&scmi_clk CK_SCMI_HSE>, <&rcc DSI_PX>;
- };
- 
+Gabriel Fernandez (3):
+  ARM: dts: stm32: use the correct clock source for CEC on stm32mp151
+  ARM: dts: stm32: DSI should use LSE SCMI clock on DK1/ED1 STM32 board
+  ARM: dts: stm32: delete fixed clock node on STM32MP15-SCMI
+
+ arch/arm/boot/dts/stm32mp15-scmi.dtsi      | 6 ++++++
+ arch/arm/boot/dts/stm32mp151.dtsi          | 2 +-
+ arch/arm/boot/dts/stm32mp157a-dk1-scmi.dts | 4 ++++
+ arch/arm/boot/dts/stm32mp157c-ed1-scmi.dts | 4 ++++
+ 4 files changed, 15 insertions(+), 1 deletion(-)
+
 -- 
 2.25.1
 
