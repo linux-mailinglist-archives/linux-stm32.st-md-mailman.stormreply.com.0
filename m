@@ -2,71 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B7C6C559E65
-	for <lists+linux-stm32@lfdr.de>; Fri, 24 Jun 2022 18:16:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 30344559EEB
+	for <lists+linux-stm32@lfdr.de>; Fri, 24 Jun 2022 19:04:19 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 50FF4C03FC5;
-	Fri, 24 Jun 2022 16:16:31 +0000 (UTC)
-Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com
- [209.85.208.51])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D32D5C03FC7;
+	Fri, 24 Jun 2022 17:04:18 +0000 (UTC)
+Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com
+ [209.85.215.176])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 00BD6C03FC1
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5C068C03FC3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 24 Jun 2022 16:16:29 +0000 (UTC)
-Received: by mail-ed1-f51.google.com with SMTP id e2so4195063edv.3
+ Fri, 24 Jun 2022 17:04:17 +0000 (UTC)
+Received: by mail-pg1-f176.google.com with SMTP id r66so2975239pgr.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 24 Jun 2022 09:16:29 -0700 (PDT)
+ Fri, 24 Jun 2022 10:04:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=YocsH/SCIFBtqFkbbqYZ9NPO0UIAT3/bIxNj7wG+byE=;
- b=yhdKSJLG78moAYzJ88cQkhH/Hj5st2xbcRGlEiwd0dUxqsNyyB7j3EJGWPeIUgohrw
- vx7twc6VO4e5ryjWo8HD3Wu3vpxXVbeoTYKzYFhl08J0gKex+mXu/mgeNrrsAY3ZM6sW
- ZfE/T+ddDwm97PYBRken2rgWFIfj9dppAXIhbg8rnqOqVtaG3CiBSc9R0JsymSKxPnik
- LhyNphKCPMTtVlZR9LkrqwWVANaJlRr7W9oROdhI4bb/zRzCrRYifa76XKZKrZLMsWVq
- fkJdb2ukyNt6MCxrdbgQjjU1n8bUBYQx7ortZngOVow2D1b81R6+zdK6bIUpkR2JpewG
- W5Dg==
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=px0NDP+xMP/FC6x3oq/ZqsG3as1hiZ0Zx10SR0gFPhw=;
+ b=Kfjbdfkm0W6Zdy+6MK69FVKokZMdg9L72sU5ZFsa3Erau208+5AqAmdwvFMsFY55I+
+ s/scJ1Bj7SkUJSLUVnKzH+nf0Vclteum+FaY3IvrLOvQlNoTvkZ+dKuuKLhfm254o0iL
+ Fy3Oy5yEY20TL784MKYQC2IZOxnrb+OgU/TBvKGOS8n6HcIu4fM97s1Q4RjevgLokS16
+ yDaTUEX/MqXSl+En9pAv1A2/V8fehscmUhps2kAEf5p8CFQ9EfZnqVij1IuMdFrWMNd+
+ wLlHqBOOZZrlZ3JqsHL7dQfmilNLsCTrnlhbEQRmr1lRCp0pZluh6lYDpkAnSFk1t9Eb
+ 0r3w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=YocsH/SCIFBtqFkbbqYZ9NPO0UIAT3/bIxNj7wG+byE=;
- b=4Ajy5XcMxCwr1FFKbBWOHRtjQ4IJMrlKRBgOTocRGf79yrUSCpWTpOat6dw8obTKLI
- pVbN+jJ5bj/QnwyNTFAL48m/Kzd4t6Bz1SARyLYaSuNYbeEPq1/tz8XvpRbcHuGaXY9A
- 7BTNdeA5G+KHQVueEo2ycdiwcuRbQoVU0PI8lTTRJXQBygdvtozrJi0ahmQgXPBXW5ZX
- kFvznx+igfSTaQbL7KKerQVT9qwqs2AVax2SygX/AsU3pGajOSzBPL5vLFJ8/defY6L1
- kGSG/B0s3EmpE3CJTpqYlcl6INGerbaPPZbOQuTgkqshESPKStKxxCBRF8gje6EythNU
- FXuA==
-X-Gm-Message-State: AJIora8mDxOwBIJ7siLpI6/cndTlLvFyvyExglNmpx4PMP3FPrGxXrYT
- LaSnHH81XIgC0tU3exwoFRHZkA==
-X-Google-Smtp-Source: AGRyM1sRGlX6n9a00k4nlkcTq8GcVHrv/VdC8qA06SSsZy9JjDIaeQFaarDYrDBySHNlCTH2NeO2uA==
-X-Received: by 2002:a05:6402:4248:b0:435:9150:ccfb with SMTP id
- g8-20020a056402424800b004359150ccfbmr18736992edb.374.1656087389569; 
- Fri, 24 Jun 2022 09:16:29 -0700 (PDT)
-Received: from [192.168.0.237] (xdsl-188-155-176-92.adslplus.ch.
- [188.155.176.92]) by smtp.gmail.com with ESMTPSA id
- k12-20020a17090666cc00b007041e969a8asm1350125ejp.97.2022.06.24.09.16.28
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 24 Jun 2022 09:16:29 -0700 (PDT)
-Message-ID: <ddb0e946-c955-1404-c1cd-c2548f34ec35@linaro.org>
-Date: Fri, 24 Jun 2022 18:16:27 +0200
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=px0NDP+xMP/FC6x3oq/ZqsG3as1hiZ0Zx10SR0gFPhw=;
+ b=ZkeANvrNUP4DaEIRZ4HQtF1se8BlRs2j43bxjbIwZ6hzm0/gLrNxtxMUBW3k1mFWFR
+ MKmNIjl2qeYcvuQ0XXKdHakOd5P44wF5FUcbkfm1hU+TE0UWRVeXopZzs9AO9Yp+22hd
+ 27mwOKwSf6wwXa0NOhKTYIlUt/2x+eNLK5kfzqLjRPE7DaT2xJvSQb/zQOJP12zMaqu/
+ XtrPfILjJvndn37e4cHtKLAxcA9W/vW/a7GwVdTasTT/gkmrnouIdPPoFOH4RCcBINaV
+ bhmVusrpoYd294Jst9+RqASn46vaHvHb7KIWqyfxRgNUTNaRcHuADpiOx5DTxls1iD7/
+ fRqw==
+X-Gm-Message-State: AJIora8T1YfL6VI4aXYLOrp7hVaVrnSjHkAlxbCatQNF83ICSqnmyKkc
+ 7dorGkyZE8T02XPrcDzClOs/6Q==
+X-Google-Smtp-Source: AGRyM1sOrG404HSLruVfY9X5ggzvzt4b2Sj0s8owzQLffqnbgAWCJjQShwdIzThq4iEnPG37oxJ3SQ==
+X-Received: by 2002:a62:4ed3:0:b0:525:5a10:d5ac with SMTP id
+ c202-20020a624ed3000000b005255a10d5acmr8721428pfb.65.1656090255892; 
+ Fri, 24 Jun 2022 10:04:15 -0700 (PDT)
+Received: from p14s (S0106889e681aac74.cg.shawcable.net. [68.147.0.187])
+ by smtp.gmail.com with ESMTPSA id
+ k63-20020a632442000000b003fd3a3db089sm1839687pgk.11.2022.06.24.10.04.10
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 24 Jun 2022 10:04:11 -0700 (PDT)
+Date: Fri, 24 Jun 2022 11:04:07 -0600
+From: Mathieu Poirier <mathieu.poirier@linaro.org>
+To: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+Message-ID: <20220624170407.GB1736477@p14s>
+References: <20220425071723.774050-1-arnaud.pouliquen@foss.st.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.10.0
-Content-Language: en-US
-To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>, robh+dt@kernel.org,
- heikki.krogerus@linux.intel.com, gregkh@linuxfoundation.org
-References: <20220624155413.399190-1-fabrice.gasnier@foss.st.com>
- <20220624155413.399190-2-fabrice.gasnier@foss.st.com>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20220624155413.399190-2-fabrice.gasnier@foss.st.com>
-Cc: devicetree@vger.kernel.org, linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org, krzysztof.kozlowski+dt@linaro.org,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH 1/4] dt-bindings: usb: typec: add bindings
- for stm32g0 controller
+Content-Disposition: inline
+In-Reply-To: <20220425071723.774050-1-arnaud.pouliquen@foss.st.com>
+Cc: linux-stm32@st-md-mailman.stormreply.com, linux-remoteproc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Bjorn Andersson <bjorn.andersson@linaro.org>
+Subject: Re: [Linux-stm32] [PATCH] rpmsg: Fix parameter naming for
+ announce_create/destroy ops.
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,143 +77,51 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 24/06/2022 17:54, Fabrice Gasnier wrote:
-> This patch adds DT schema documentation for the STM32G0 Type-C controller.
-
-No "This patch"
-
-https://elixir.bootlin.com/linux/v5.17.1/source/Documentation/process/submitting-patches.rst#L95
-
-> STM32G0 provides an integrated USB Type-C and power delivery interface.
-> It can be programmed with a firmware to handle UCSI protocol over I2C
-> interface. A GPIO is used as an interrupt line.
-> It may be used as a wakeup source, so use optional "wakeup-source" and
-> "power-domains" properties to support wakeup.
+On Mon, Apr 25, 2022 at 09:17:23AM +0200, Arnaud Pouliquen wrote:
+> The parameter associated to the announce_create and
+> announce_destroy ops functions is not an endpoint but a rpmsg device.
 > 
-> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
 > ---
->  .../bindings/usb/st,typec-stm32g0.yaml        | 83 +++++++++++++++++++
->  1 file changed, 83 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/usb/st,typec-stm32g0.yaml
+> No fixed sha1 indicated in commit message as issue is present since a
+> while, it does not fix a specific sha1.
 > 
-> diff --git a/Documentation/devicetree/bindings/usb/st,typec-stm32g0.yaml b/Documentation/devicetree/bindings/usb/st,typec-stm32g0.yaml
-> new file mode 100644
-> index 0000000000000..b2729bd015a1a
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/usb/st,typec-stm32g0.yaml
-> @@ -0,0 +1,83 @@
-> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: "http://devicetree.org/schemas/usb/st,typec-stm32g0.yaml#"
-> +$schema: "http://devicetree.org/meta-schemas/core.yaml#"
+> git blame highlight the sha1 [1], but issue was present before.
+> The commit [1] just moves declaration from rpmsg.h to rpmsg_internal.
+> 
+> [1] fade037e0fd5 ("rpmsg: Hide rpmsg indirection tables")
 
-No quotes.
+This patch is not a candidate for the stable kernel and as such a "Fixes" tag
+isn't needed.
 
-> +
-> +title: STMicroelectronics STM32G0 Type-C controller bindings
+> ---
+>  drivers/rpmsg/rpmsg_internal.h | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/rpmsg/rpmsg_internal.h b/drivers/rpmsg/rpmsg_internal.h
+> index d4b23fd019a8..ff0b12122235 100644
+> --- a/drivers/rpmsg/rpmsg_internal.h
+> +++ b/drivers/rpmsg/rpmsg_internal.h
+> @@ -41,8 +41,8 @@ struct rpmsg_device_ops {
+>  					    rpmsg_rx_cb_t cb, void *priv,
+>  					    struct rpmsg_channel_info chinfo);
+>  
+> -	int (*announce_create)(struct rpmsg_device *ept);
+> -	int (*announce_destroy)(struct rpmsg_device *ept);
+> +	int (*announce_create)(struct rpmsg_device *rpdev);
+> +	int (*announce_destroy)(struct rpmsg_device *rpdev);
 
-s/bindings//
+I have applied this patch.
 
-> +
-> +description: |
-> +  The STM32G0 MCU can be programmed to control Type-C connector(s) through I2C
-> +  typically using the UCSI protocol over I2C, with a dedicated alert
-> +  (interrupt) pin.
-> +
-> +maintainers:
-> +  - Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-> +
-> +properties:
-> +  compatible:
-> +    const: st,stm32g0-typec
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  interrupts:
-> +    maxItems: 1
-> +
-> +  connector:
-> +    type: object> +    allOf:
-> +      - $ref: ../connector/usb-connector.yaml#
+Thanks,
+Mathieu
 
-Full path, so /schemas/connector/...
-
-unevaluatedProperties: false
-
-> +
-> +  firmware-name:
-> +    description: |
-> +      Should contain the name of the default firmware image
-> +      file located on the firmware search path
-> +
-> +  wakeup-source: true
-> +  power-domains: true
-
-maxItems
-
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - interrupts
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/interrupt-controller/irq.h>
-> +    i2c5 {
-
-Just "i2c"
-
-> +      #address-cells = <1>;
-> +      #size-cells = <0>;
-> +
-> +      stm32g0@53 {
-
-Generic node name describing class of the device.
-
-> +        compatible = "st,stm32g0-typec";
-> +        reg = <0x53>;
-> +        /* Alert pin on GPIO PE12 */
-> +        interrupts = <12 IRQ_TYPE_EDGE_FALLING>;
-> +        interrupt-parent = <&gpioe>;
-> +
-> +        /* Example with one type-C connector */
-> +        connector {
-> +          compatible = "usb-c-connector";
-> +          label = "USB-C";
-> +
-> +          port {
-
-This does not look like proper schema of connector.yaml.
-
-> +            con_usb_c_ep: endpoint {
-> +              remote-endpoint = <&usbotg_hs_ep>;
-> +            };
-> +          };
-> +        };
-> +      };
-> +    };
-> +
-> +    usbotg_hs {
-
-Generic node names, no underscores in node names.
-
-> +      usb-role-switch;
-> +      port {
-> +        usbotg_hs_ep: endpoint {
-> +          remote-endpoint = <&con_usb_c_ep>;
-> +        };
-> +      };
-> +    };
-> +...
-
-
-Best regards,
-Krzysztof
+>  };
+>  
+>  /**
+> -- 
+> 2.24.3
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
