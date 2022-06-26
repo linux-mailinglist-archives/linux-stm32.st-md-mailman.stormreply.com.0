@@ -2,49 +2,46 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id AA16555ADB9
+	by mail.lfdr.de (Postfix) with ESMTPS id B133755ADBA
 	for <lists+linux-stm32@lfdr.de>; Sun, 26 Jun 2022 02:21:22 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3978DC5EC6B;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4C894C5F1D5;
 	Sun, 26 Jun 2022 00:21:22 +0000 (UTC)
 Received: from phobos.denx.de (phobos.denx.de [85.214.62.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7BA46C0D2C1
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8FFA2C5E2C6
  for <linux-stm32@st-md-mailman.stormreply.com>;
  Sun, 26 Jun 2022 00:21:20 +0000 (UTC)
 Received: from tr.lan (ip-86-49-12-201.net.upcbroadband.cz [86.49.12.201])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
  (No client certificate requested)
  (Authenticated sender: marex@denx.de)
- by phobos.denx.de (Postfix) with ESMTPSA id A4EDE81A02;
+ by phobos.denx.de (Postfix) with ESMTPSA id 03FD883D9C;
  Sun, 26 Jun 2022 02:21:19 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de;
- s=phobos-20191101; t=1656202879;
- bh=2+VzDUUThiI1ROiEciRv+pLrxIIEoD+pHIMT2yd+Fxs=;
- h=From:To:Cc:Subject:Date:From;
- b=I3EuzIGCf3zrPzZ7AubGI3pt16yq5UUcQt+bFa0MnP6q2s/US/7mKYkSzCzDxUtj8
- llAqJ7uvNvtNHUbGzuSD+6Cx/Pgp/3i1hdd/LqpT5pgklzK7GiVklBCZrXW9oYT11f
- N05DnQ58C1gN8Y7mIRzIQfNNrNNC74fvs1W+dGFoormsfOF0ZHRsfeNIb9oBcAu5xG
- ftmKHZQ0ijzqKLDt1YUHBLD4FVkM++iIj1e7PQVsKIYxb2z+50bFPkXaIs8sKm7cnj
- 95G5Iqx/lLox0SWBZGqqaXsbLEznYOJCBxPk2K8mxfvWTgQEzmNnMuFa2oyc1FAtGs
- 9fQi37PBvhlVg==
+ s=phobos-20191101; t=1656202880;
+ bh=Xjtf1ETt/1csbANbKEhaq/IqoWUQLWmt0OgiUCF4ork=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=YbAltr2md4XfzpH+YN311/DYRs7KO32zcnfhLzBkVYlvPvPQWBE0Qf1ZLmNhixQeK
+ EyosRW19XaxEfQIcCMdY7z6uLQ2tYWsXV3bL53Xponm6MiaRZwqKd0CTGy9yW6Z5AW
+ iIMt+MnpzKkL5a5cANgUhPeS2kVbusYdfPLDZSeWOoMPaqntmWfbr/JzlW9EueXa2F
+ tpo5AIwKPE8e5W78P1Cgnr+QvjcwDrSMwTxV6MSli7Je1vNs03thzP+zCpgH7Rqqlp
+ FnYd+1SauiVQkg/LZ9g/Ehte6HHU6JUhGDnFbHWIqT44xb4+V21nb3Dw066dcopeTm
+ 6xyGc6tXGTQoA==
 From: Marek Vasut <marex@denx.de>
 To: linux-arm-kernel@lists.infradead.org
-Date: Sun, 26 Jun 2022 02:20:59 +0200
-Message-Id: <20220626002105.198854-1-marex@denx.de>
+Date: Sun, 26 Jun 2022 02:21:00 +0200
+Message-Id: <20220626002105.198854-2-marex@denx.de>
 X-Mailer: git-send-email 2.35.1
+In-Reply-To: <20220626002105.198854-1-marex@denx.de>
+References: <20220626002105.198854-1-marex@denx.de>
 MIME-Version: 1.0
 X-Virus-Scanned: clamav-milter 0.103.6 at phobos.denx.de
 X-Virus-Status: Clean
-Cc: Marek Vasut <marex@denx.de>, devicetree@vger.kernel.org,
- Alexandre Torgue <alexandre.torgue@st.com>,
- Patrice Chotard <patrice.chotard@st.com>,
- Patrick Delaunay <patrick.delaunay@st.com>, Rob Herring <robh+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH v3 1/7] dt-bindings: arm: stm32: Add
-	compatible string for DH electronics DHCOR DRC Compact
+Cc: Marek Vasut <marex@denx.de>, linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [PATCH v3 2/7] ARM: dts: stm32: Add alternate pinmux
+	for CAN1 pins
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -61,50 +58,50 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add DT compatible string for DH electronics STM32MP15xx DHCOR on DRC Compact
-carrier board into YAML DT binding document. This system is a general purpose
-DIN Rail Controller design.
+Add another mux option for CAN1 pins, this is used on DRC Compact board.
 
 Signed-off-by: Marek Vasut <marex@denx.de>
-Cc: Alexandre Torgue <alexandre.torgue@st.com>
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Cc: Patrice Chotard <patrice.chotard@st.com>
-Cc: Patrick Delaunay <patrick.delaunay@st.com>
-Cc: Rob Herring <robh+dt@kernel.org>
-Cc: devicetree@vger.kernel.org
+Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
 Cc: linux-stm32@st-md-mailman.stormreply.com
 To: linux-arm-kernel@lists.infradead.org
 ---
-V2: Split DHCOM and DHCOR SoM entries
+V2: No change
 V3: No change
 ---
- Documentation/devicetree/bindings/arm/stm32/stm32.yaml | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+ arch/arm/boot/dts/stm32mp15-pinctrl.dtsi | 20 ++++++++++++++++++++
+ 1 file changed, 20 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/arm/stm32/stm32.yaml b/Documentation/devicetree/bindings/arm/stm32/stm32.yaml
-index 8b31565fee591..4c605bccc474e 100644
---- a/Documentation/devicetree/bindings/arm/stm32/stm32.yaml
-+++ b/Documentation/devicetree/bindings/arm/stm32/stm32.yaml
-@@ -59,12 +59,18 @@ properties:
-               - prt,prtt1s   # Protonic PRTT1S
-           - const: st,stm32mp151
+diff --git a/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi b/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
+index 3c77234b51ac3..b4cfa11fc9be9 100644
+--- a/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
++++ b/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
+@@ -1030,6 +1030,26 @@ pins {
+ 		};
+ 	};
  
--      - description: DH STM32MP153 SoM based Boards
-+      - description: DH STM32MP153 DHCOM SoM based Boards
-         items:
-           - const: dh,stm32mp153c-dhcom-drc02
-           - const: dh,stm32mp153c-dhcom-som
-           - const: st,stm32mp153
- 
-+      - description: DH STM32MP153 DHCOR SoM based Boards
-+        items:
-+          - const: dh,stm32mp153c-dhcor-drc-compact
-+          - const: dh,stm32mp153c-dhcor-som
-+          - const: st,stm32mp153
++	m_can1_pins_c: m-can1-2 {
++		pins1 {
++			pinmux = <STM32_PINMUX('H', 13, AF9)>; /* CAN1_TX */
++			slew-rate = <1>;
++			drive-push-pull;
++			bias-disable;
++		};
++		pins2 {
++			pinmux = <STM32_PINMUX('H', 14, AF9)>; /* CAN1_RX */
++			bias-disable;
++		};
++	};
 +
-       - items:
-           - enum:
-               - shiratech,stm32mp157a-iot-box # IoT Box
++	m_can1_sleep_pins_c: m_can1-sleep-2 {
++		pins {
++			pinmux = <STM32_PINMUX('H', 13, ANALOG)>, /* CAN1_TX */
++				 <STM32_PINMUX('H', 14, ANALOG)>; /* CAN1_RX */
++		};
++	};
++
+ 	m_can2_pins_a: m-can2-0 {
+ 		pins1 {
+ 			pinmux = <STM32_PINMUX('B', 13, AF9)>; /* CAN2_TX */
 -- 
 2.35.1
 
