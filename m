@@ -2,33 +2,33 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C5BF55B8A1
+	by mail.lfdr.de (Postfix) with ESMTPS id 7788755B8A0
 	for <lists+linux-stm32@lfdr.de>; Mon, 27 Jun 2022 10:32:27 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 38505C5E2CC;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 26B76C04004;
 	Mon, 27 Jun 2022 08:32:27 +0000 (UTC)
 Received: from www.linuxtv.org (www.linuxtv.org [130.149.80.248])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6438BC04003
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 627A9C035BF
  for <linux-stm32@st-md-mailman.stormreply.com>;
  Mon, 27 Jun 2022 08:32:26 +0000 (UTC)
 Received: from mchehab by www.linuxtv.org with local (Exim 4.92)
  (envelope-from <mchehab@linuxtv.org>)
- id 1o5kAS-003xKe-2U; Mon, 27 Jun 2022 08:32:24 +0000
+ id 1o5kAR-003xKC-Uy; Mon, 27 Jun 2022 08:32:23 +0000
 From: Mauro Carvalho Chehab <mchehab@kernel.org>
-Date: Mon, 27 Jun 2022 08:15:07 +0000
+Date: Mon, 27 Jun 2022 08:15:37 +0000
 To: linuxtv-commits@linuxtv.org
 Mail-followup-to: linux-media@vger.kernel.org
 Forward-to: linux-media@vger.kernel.org
-Message-Id: <E1o5kAS-003xKe-2U@www.linuxtv.org>
+Message-Id: <E1o5kAR-003xKC-Uy@www.linuxtv.org>
 Cc: Marek Vasut <marex@denx.de>, Hugues FRUCHET <hugues.fruchet@foss.st.com>,
  Hans Verkuil <hverkuil-cisco@xs4all.nl>,
  Alain Volmat <alain.volmat@foss.st.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
  Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Subject: [Linux-stm32] [git:media_stage/master] media: stm32: dcmi: Fill in
-	remaining Bayer formats
+Subject: [Linux-stm32] [git:media_stage/master] media: stm32: dcmi: Drop
+	always NULL sd_state from dcmi_pipeline_s_fmt()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -49,12 +49,11 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 This is an automatic generated email to let you know that the following patch were queued:
 
-Subject: media: stm32: dcmi: Fill in remaining Bayer formats
+Subject: media: stm32: dcmi: Drop always NULL sd_state from dcmi_pipeline_s_fmt()
 Author:  Marek Vasut <marex@denx.de>
-Date:    Sat Jun 18 23:23:17 2022 +0100
+Date:    Sat Jun 18 23:23:54 2022 +0100
 
-Fill in 10, 12, 14 bit Bayer formats into the DCMI driver.
-Those are useful e.g. when MT9P006 sensor is connected.
+The second argument is always NULL, stop passing it to the function.
 
 Signed-off-by: Marek Vasut <marex@denx.de>
 Cc: Alain Volmat <alain.volmat@foss.st.com>
@@ -68,69 +67,40 @@ Cc: linux-arm-kernel@lists.infradead.org
 Signed-off-by: Hans Verkuil <hverkuil-cisco@xs4all.nl>
 Signed-off-by: Mauro Carvalho Chehab <mchehab@kernel.org>
 
- drivers/media/platform/st/stm32/stm32-dcmi.c | 48 ++++++++++++++++++++++++++++
- 1 file changed, 48 insertions(+)
+ drivers/media/platform/st/stm32/stm32-dcmi.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
 ---
 
 diff --git a/drivers/media/platform/st/stm32/stm32-dcmi.c b/drivers/media/platform/st/stm32/stm32-dcmi.c
-index 09a743cd7004..5f08ba47ea96 100644
+index 5f08ba47ea96..c604d672c215 100644
 --- a/drivers/media/platform/st/stm32/stm32-dcmi.c
 +++ b/drivers/media/platform/st/stm32/stm32-dcmi.c
-@@ -1631,6 +1631,54 @@ static const struct dcmi_format dcmi_formats[] = {
- 		.fourcc = V4L2_PIX_FMT_SRGGB8,
- 		.mbus_code = MEDIA_BUS_FMT_SRGGB8_1X8,
- 		.bpp = 1,
-+	}, {
-+		.fourcc = V4L2_PIX_FMT_SBGGR10,
-+		.mbus_code = MEDIA_BUS_FMT_SBGGR10_1X10,
-+		.bpp = 2,
-+	}, {
-+		.fourcc = V4L2_PIX_FMT_SGBRG10,
-+		.mbus_code = MEDIA_BUS_FMT_SGBRG10_1X10,
-+		.bpp = 2,
-+	}, {
-+		.fourcc = V4L2_PIX_FMT_SGRBG10,
-+		.mbus_code = MEDIA_BUS_FMT_SGRBG10_1X10,
-+		.bpp = 2,
-+	}, {
-+		.fourcc = V4L2_PIX_FMT_SRGGB10,
-+		.mbus_code = MEDIA_BUS_FMT_SRGGB10_1X10,
-+		.bpp = 2,
-+	}, {
-+		.fourcc = V4L2_PIX_FMT_SBGGR12,
-+		.mbus_code = MEDIA_BUS_FMT_SBGGR12_1X12,
-+		.bpp = 2,
-+	}, {
-+		.fourcc = V4L2_PIX_FMT_SGBRG12,
-+		.mbus_code = MEDIA_BUS_FMT_SGBRG12_1X12,
-+		.bpp = 2,
-+	}, {
-+		.fourcc = V4L2_PIX_FMT_SGRBG12,
-+		.mbus_code = MEDIA_BUS_FMT_SGRBG12_1X12,
-+		.bpp = 2,
-+	}, {
-+		.fourcc = V4L2_PIX_FMT_SRGGB12,
-+		.mbus_code = MEDIA_BUS_FMT_SRGGB12_1X12,
-+		.bpp = 2,
-+	}, {
-+		.fourcc = V4L2_PIX_FMT_SBGGR14,
-+		.mbus_code = MEDIA_BUS_FMT_SBGGR14_1X14,
-+		.bpp = 2,
-+	}, {
-+		.fourcc = V4L2_PIX_FMT_SGBRG14,
-+		.mbus_code = MEDIA_BUS_FMT_SGBRG14_1X14,
-+		.bpp = 2,
-+	}, {
-+		.fourcc = V4L2_PIX_FMT_SGRBG14,
-+		.mbus_code = MEDIA_BUS_FMT_SGRBG14_1X14,
-+		.bpp = 2,
-+	}, {
-+		.fourcc = V4L2_PIX_FMT_SRGGB14,
-+		.mbus_code = MEDIA_BUS_FMT_SRGGB14_1X14,
-+		.bpp = 2,
- 	},
- };
+@@ -622,7 +622,6 @@ static struct media_entity *dcmi_find_source(struct stm32_dcmi *dcmi)
+ }
+ 
+ static int dcmi_pipeline_s_fmt(struct stm32_dcmi *dcmi,
+-			       struct v4l2_subdev_state *sd_state,
+ 			       struct v4l2_subdev_format *format)
+ {
+ 	struct media_entity *entity = &dcmi->source->entity;
+@@ -664,7 +663,7 @@ static int dcmi_pipeline_s_fmt(struct stm32_dcmi *dcmi,
+ 			format->format.width, format->format.height);
+ 
+ 		fmt.pad = pad->index;
+-		ret = v4l2_subdev_call(subdev, pad, set_fmt, sd_state, &fmt);
++		ret = v4l2_subdev_call(subdev, pad, set_fmt, NULL, &fmt);
+ 		if (ret < 0) {
+ 			dev_err(dcmi->dev, "%s: Failed to set format 0x%x %ux%u on \"%s\":%d pad (%d)\n",
+ 				__func__, format->format.code,
+@@ -1115,7 +1114,7 @@ static int dcmi_set_fmt(struct stm32_dcmi *dcmi, struct v4l2_format *f)
+ 	mf->width = sd_framesize.width;
+ 	mf->height = sd_framesize.height;
+ 
+-	ret = dcmi_pipeline_s_fmt(dcmi, NULL, &format);
++	ret = dcmi_pipeline_s_fmt(dcmi, &format);
+ 	if (ret < 0)
+ 		return ret;
  
 _______________________________________________
 Linux-stm32 mailing list
