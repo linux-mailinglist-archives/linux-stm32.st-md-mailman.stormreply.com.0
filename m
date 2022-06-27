@@ -2,69 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8481055BA59
-	for <lists+linux-stm32@lfdr.de>; Mon, 27 Jun 2022 16:13:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 16BC655BA76
+	for <lists+linux-stm32@lfdr.de>; Mon, 27 Jun 2022 16:21:34 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 458E2C5F1EE;
-	Mon, 27 Jun 2022 14:13:17 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BBF9EC04004;
+	Mon, 27 Jun 2022 14:21:33 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 04AB2C5F1D5
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A9CC3C035BF
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 27 Jun 2022 14:13:15 +0000 (UTC)
-Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 25RDMsWJ021792;
- Mon, 27 Jun 2022 16:13:08 +0200
+ Mon, 27 Jun 2022 14:21:32 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 25RDUGvG019903;
+ Mon, 27 Jun 2022 16:21:19 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
  h=message-id : date :
- mime-version : subject : to : references : from : in-reply-to :
+ mime-version : subject : to : cc : references : from : in-reply-to :
  content-type : content-transfer-encoding; s=selector1;
- bh=S67RHgyySSh/dLSqLzz5PGyoQ38J8KujtB8DpByq90U=;
- b=dT3Cs36VjCNoMJC4bBlv0xwcSWTNbCVfye3mcg12pgickgmtMP7xp0FWeJsqZ1MeR7Qc
- +REHIHMlGFVAELe0SapSurPtAT++TlMpoFXQ+tGqQePQbBXtOF/ma1ev5ZGgD/R+cUfU
- 5I8/zL1d/fQQPEZT9zzAlw+5SbUbAGb4xMVDAiBxWiNsV3ztA5rjAbumu972b6s9/f0Y
- NhNY4vf7lwvTADqMU1ZRw1iB3erxTukgjno8aNKA584DE05yiQnI0cz0WZCv02lbBJPB
- 2LSi5DDw04nc0vjXvt5saWECKVKiEF5vObdCVBa7uNrzKjrii2/d0S169KplNmeg/0iL ew== 
+ bh=zspda62bHDTpbxjlx3pNU8tSQuN0TE9W+gSeJGZZuks=;
+ b=CJOwTPStfgOH01/tErFc9mX2FtMPxEgWXNsuMoccQbNKRzQPePFi9DpEtzx7nh60FMps
+ dJTznLO0Fi967vOnp/DL8NW+2afa84PtIuf5GG5BV/V+brvXLOLor/eE18Law97gpcHy
+ UommIdmZnnR/KbR1tCR7R7D7S2XUqJdLHCPX1vlXbKvqbrKTBcLwCOYQM0UbLIBIZAvU
+ nCz2Ha0fbEbWbpNcWxrPx/ba82XtHtUGXI/ksExNt7yBunLO4TXPXbOGwmD64Xh7E7X/
+ POjR/jYnD8uXL1wxkm/m6+2eh09jqw8UL/qukvFvEtUA5yCMdJWHm0Wvza0NCtngbPbq mw== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3gydcu08e9-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3gy9mr1sd3-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 27 Jun 2022 16:13:08 +0200
+ Mon, 27 Jun 2022 16:21:19 +0200
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 3293D10002A;
- Mon, 27 Jun 2022 16:13:08 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 2E184221777;
- Mon, 27 Jun 2022 16:13:08 +0200 (CEST)
-Received: from [10.48.1.86] (10.75.127.50) by SHFDAG1NODE1.st.com
- (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 7F97F10002A;
+ Mon, 27 Jun 2022 16:21:17 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id F318822177F;
+ Mon, 27 Jun 2022 16:21:16 +0200 (CEST)
+Received: from [10.48.1.102] (10.75.127.46) by SHFDAG1NODE2.st.com
+ (10.75.129.70) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2308.20; Mon, 27 Jun
- 2022 16:13:07 +0200
-Message-ID: <ca6de04c-4547-f068-6b29-194d3d256926@foss.st.com>
-Date: Mon, 27 Jun 2022 16:13:06 +0200
+ 2022 16:21:15 +0200
+Message-ID: <845d6817-d2e4-7925-f7f5-da1102514636@foss.st.com>
+Date: Mon, 27 Jun 2022 16:21:15 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.9.1
 Content-Language: en-US
-To: Yannick Fertre <yannick.fertre@foss.st.com>, Raphael Gallais-Pou
- <raphael.gallais-pou@foss.st.com>, David Airlie <airlied@linux.ie>, Daniel
- Vetter <daniel@ffwll.ch>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- <dri-devel@lists.freedesktop.org>,
- <linux-stm32@st-md-mailman.stormreply.com>,
- <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
-References: <20220603134654.594373-1-yannick.fertre@foss.st.com>
-From: Philippe CORNU <philippe.cornu@foss.st.com>
-In-Reply-To: <20220603134654.594373-1-yannick.fertre@foss.st.com>
-X-Originating-IP: [10.75.127.50]
-X-ClientProxiedBy: SFHDAG2NODE3.st.com (10.75.127.6) To SHFDAG1NODE1.st.com
- (10.75.129.69)
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, <robh+dt@kernel.org>,
+ <heikki.krogerus@linux.intel.com>, <gregkh@linuxfoundation.org>
+References: <20220624155413.399190-1-fabrice.gasnier@foss.st.com>
+ <20220624155413.399190-2-fabrice.gasnier@foss.st.com>
+ <ddb0e946-c955-1404-c1cd-c2548f34ec35@linaro.org>
+From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+In-Reply-To: <ddb0e946-c955-1404-c1cd-c2548f34ec35@linaro.org>
+X-Originating-IP: [10.75.127.46]
+X-ClientProxiedBy: SFHDAG2NODE3.st.com (10.75.127.6) To SHFDAG1NODE2.st.com
+ (10.75.129.70)
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.205,Aquarius:18.0.883,Hydra:6.0.517,FMLib:17.11.122.1
  definitions=2022-06-27_06,2022-06-24_01,2022-06-22_01
-Subject: Re: [Linux-stm32] [PATCH] drm/stm: ltdc: update hardware error
-	management
+Cc: devicetree@vger.kernel.org, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org, krzysztof.kozlowski+dt@linaro.org,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH 1/4] dt-bindings: usb: typec: add bindings
+ for stm32g0 controller
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,272 +76,211 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+On 6/24/22 18:16, Krzysztof Kozlowski wrote:
+> On 24/06/2022 17:54, Fabrice Gasnier wrote:
+>> This patch adds DT schema documentation for the STM32G0 Type-C controller.
+> 
+> No "This patch"
+
+Hi Krzysztof,
+
+ack,
+
+> 
+> https://elixir.bootlin.com/linux/v5.17.1/source/Documentation/process/submitting-patches.rst#L95
+> 
+>> STM32G0 provides an integrated USB Type-C and power delivery interface.
+>> It can be programmed with a firmware to handle UCSI protocol over I2C
+>> interface. A GPIO is used as an interrupt line.
+>> It may be used as a wakeup source, so use optional "wakeup-source" and
+>> "power-domains" properties to support wakeup.
+>>
+>> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+>> ---
+>>  .../bindings/usb/st,typec-stm32g0.yaml        | 83 +++++++++++++++++++
+>>  1 file changed, 83 insertions(+)
+>>  create mode 100644 Documentation/devicetree/bindings/usb/st,typec-stm32g0.yaml
+>>
+>> diff --git a/Documentation/devicetree/bindings/usb/st,typec-stm32g0.yaml b/Documentation/devicetree/bindings/usb/st,typec-stm32g0.yaml
+>> new file mode 100644
+>> index 0000000000000..b2729bd015a1a
+>> --- /dev/null
+>> +++ b/Documentation/devicetree/bindings/usb/st,typec-stm32g0.yaml
+>> @@ -0,0 +1,83 @@
+>> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+>> +%YAML 1.2
+>> +---
+>> +$id: "http://devicetree.org/schemas/usb/st,typec-stm32g0.yaml#"
+>> +$schema: "http://devicetree.org/meta-schemas/core.yaml#"
+> 
+> No quotes.
+
+ack,
+
+> 
+>> +
+>> +title: STMicroelectronics STM32G0 Type-C controller bindings
+> 
+> s/bindings//
+
+ack,
+
+> 
+>> +
+>> +description: |
+>> +  The STM32G0 MCU can be programmed to control Type-C connector(s) through I2C
+>> +  typically using the UCSI protocol over I2C, with a dedicated alert
+>> +  (interrupt) pin.
+>> +
+>> +maintainers:
+>> +  - Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+>> +
+>> +properties:
+>> +  compatible:
+>> +    const: st,stm32g0-typec
+>> +
+>> +  reg:
+>> +    maxItems: 1
+>> +
+>> +  interrupts:
+>> +    maxItems: 1
+>> +
+>> +  connector:
+>> +    type: object> +    allOf:
+>> +      - $ref: ../connector/usb-connector.yaml#
+> 
+> Full path, so /schemas/connector/...
+> 
+> unevaluatedProperties: false
+
+ack,
+
+> 
+>> +
+>> +  firmware-name:
+>> +    description: |
+>> +      Should contain the name of the default firmware image
+>> +      file located on the firmware search path
+>> +
+>> +  wakeup-source: true
+>> +  power-domains: true
+> 
+> maxItems
+
+Do you mean maxItems regarding the "power-domains" property ?
+This will depend on the user platform, where it's used as an I2C device.
+So I'm not sure this can / should be specified here.
+Could please you clarify ?
+
+> 
+>> +
+>> +required:
+>> +  - compatible
+>> +  - reg
+>> +  - interrupts
+>> +
+>> +additionalProperties: false
+>> +
+>> +examples:
+>> +  - |
+>> +    #include <dt-bindings/interrupt-controller/irq.h>
+>> +    i2c5 {
+> 
+> Just "i2c"
+
+ack,
+
+> 
+>> +      #address-cells = <1>;
+>> +      #size-cells = <0>;
+>> +
+>> +      stm32g0@53 {
+> 
+> Generic node name describing class of the device.
 
 
-On 6/3/22 15:46, Yannick Fertre wrote:
-> The latest hardware version (0x40100) supports a hardware threshold
-> register (aka FUTR) to trigger a fifo underrun interrupt.
-> A software threshold has been implemented for other hardware versions.
-> The threshold is set to 128 by default.
+I wasn't aware of generic node name for an I2C device (not talking of
+the controller). I may have missed it.
+
+Could you please clarify ?
+
 > 
-> Signed-off-by: Yannick Fertre <yannick.fertre@foss.st.com>
-> ---
->   drivers/gpu/drm/stm/ltdc.c | 90 ++++++++++++++++++++++++++++++--------
->   drivers/gpu/drm/stm/ltdc.h |  6 ++-
->   2 files changed, 77 insertions(+), 19 deletions(-)
+>> +        compatible = "st,stm32g0-typec";
+>> +        reg = <0x53>;
+>> +        /* Alert pin on GPIO PE12 */
+>> +        interrupts = <12 IRQ_TYPE_EDGE_FALLING>;
+>> +        interrupt-parent = <&gpioe>;
+>> +
+>> +        /* Example with one type-C connector */
+>> +        connector {
+>> +          compatible = "usb-c-connector";
+>> +          label = "USB-C";
+>> +
+>> +          port {
 > 
-> diff --git a/drivers/gpu/drm/stm/ltdc.c b/drivers/gpu/drm/stm/ltdc.c
-> index ff2075dd9474..42a3bd515477 100644
-> --- a/drivers/gpu/drm/stm/ltdc.c
-> +++ b/drivers/gpu/drm/stm/ltdc.c
-> @@ -162,16 +162,20 @@
->   #define BCCR_BCWHITE	GENMASK(23, 0)	/* Background Color WHITE */
->   
->   #define IER_LIE		BIT(0)		/* Line Interrupt Enable */
-> -#define IER_FUIE	BIT(1)		/* Fifo Underrun Interrupt Enable */
-> +#define IER_FUWIE	BIT(1)		/* Fifo Underrun Warning Interrupt Enable */
->   #define IER_TERRIE	BIT(2)		/* Transfer ERRor Interrupt Enable */
-> -#define IER_RRIE	BIT(3)		/* Register Reload Interrupt enable */
-> +#define IER_RRIE	BIT(3)		/* Register Reload Interrupt Enable */
-> +#define IER_FUEIE	BIT(6)		/* Fifo Underrun Error Interrupt Enable */
-> +#define IER_CRCIE	BIT(7)		/* CRC Error Interrupt Enable */
->   
->   #define CPSR_CYPOS	GENMASK(15, 0)	/* Current Y position */
->   
->   #define ISR_LIF		BIT(0)		/* Line Interrupt Flag */
-> -#define ISR_FUIF	BIT(1)		/* Fifo Underrun Interrupt Flag */
-> +#define ISR_FUWIF	BIT(1)		/* Fifo Underrun Warning Interrupt Flag */
->   #define ISR_TERRIF	BIT(2)		/* Transfer ERRor Interrupt Flag */
->   #define ISR_RRIF	BIT(3)		/* Register Reload Interrupt Flag */
-> +#define ISR_FUEIF	BIT(6)		/* Fifo Underrun Error Interrupt Flag */
-> +#define ISR_CRCIF	BIT(7)		/* CRC Error Interrupt Flag */
->   
->   #define EDCR_OCYEN	BIT(25)		/* Output Conversion to YCbCr 422: ENable */
->   #define EDCR_OCYSEL	BIT(26)		/* Output Conversion to YCbCr 422: SELection of the CCIR */
-> @@ -231,6 +235,8 @@
->   
->   #define NB_PF		8		/* Max nb of HW pixel format */
->   
-> +#define FUT_DFT		128		/* Default value of fifo underrun threshold */
-> +
->   /*
->    * Skip the first value and the second in case CRC was enabled during
->    * the thread irq. This is to be sure CRC value is relevant for the
-> @@ -711,12 +717,13 @@ static irqreturn_t ltdc_irq_thread(int irq, void *arg)
->   			ltdc_irq_crc_handle(ldev, crtc);
->   	}
->   
-> -	/* Save FIFO Underrun & Transfer Error status */
->   	mutex_lock(&ldev->err_lock);
-> -	if (ldev->irq_status & ISR_FUIF)
-> -		ldev->error_status |= ISR_FUIF;
->   	if (ldev->irq_status & ISR_TERRIF)
-> -		ldev->error_status |= ISR_TERRIF;
-> +		ldev->transfer_err++;
-> +	if (ldev->irq_status & ISR_FUEIF)
-> +		ldev->fifo_err++;
-> +	if (ldev->irq_status & ISR_FUWIF)
-> +		ldev->fifo_warn++;
->   	mutex_unlock(&ldev->err_lock);
->   
->   	return IRQ_HANDLED;
-> @@ -775,7 +782,7 @@ static void ltdc_crtc_atomic_enable(struct drm_crtc *crtc,
->   	regmap_write(ldev->regmap, LTDC_BCCR, BCCR_BCBLACK);
->   
->   	/* Enable IRQ */
-> -	regmap_set_bits(ldev->regmap, LTDC_IER, IER_RRIE | IER_FUIE | IER_TERRIE);
-> +	regmap_set_bits(ldev->regmap, LTDC_IER, IER_FUWIE | IER_FUEIE | IER_RRIE | IER_TERRIE);
->   
->   	/* Commit shadow registers = update planes at next vblank */
->   	if (!ldev->caps.plane_reg_shadow)
-> @@ -801,13 +808,20 @@ static void ltdc_crtc_atomic_disable(struct drm_crtc *crtc,
->   				  LXCR_CLUTEN | LXCR_LEN, 0);
->   
->   	/* disable IRQ */
-> -	regmap_clear_bits(ldev->regmap, LTDC_IER, IER_RRIE | IER_FUIE | IER_TERRIE);
-> +	regmap_clear_bits(ldev->regmap, LTDC_IER, IER_FUWIE | IER_FUEIE | IER_RRIE | IER_TERRIE);
->   
->   	/* immediately commit disable of layers before switching off LTDC */
->   	if (!ldev->caps.plane_reg_shadow)
->   		regmap_set_bits(ldev->regmap, LTDC_SRCR, SRCR_IMR);
->   
->   	pm_runtime_put_sync(ddev->dev);
-> +
-> +	/*  clear interrupt error counters */
-> +	mutex_lock(&ldev->err_lock);
-> +	ldev->transfer_err = 0;
-> +	ldev->fifo_err = 0;
-> +	ldev->fifo_warn = 0;
-> +	mutex_unlock(&ldev->err_lock);
->   }
->   
->   #define CLK_TOLERANCE_HZ 50
-> @@ -1168,6 +1182,18 @@ static int ltdc_crtc_verify_crc_source(struct drm_crtc *crtc,
->   	return 0;
->   }
->   
-> +static void ltdc_crtc_atomic_print_state(struct drm_printer *p,
-> +					 const struct drm_crtc_state *state)
-> +{
-> +	struct drm_crtc *crtc = state->crtc;
-> +	struct ltdc_device *ldev = crtc_to_ltdc(crtc);
-> +
-> +	drm_printf(p, "\ttransfer_error=%d\n", ldev->transfer_err);
-> +	drm_printf(p, "\tfifo_underrun_error=%d\n", ldev->fifo_err);
-> +	drm_printf(p, "\tfifo_underrun_warning=%d\n", ldev->fifo_warn);
-> +	drm_printf(p, "\tfifo_underrun_threshold=%d\n", ldev->fifo_threshold);
-> +}
-> +
->   static const struct drm_crtc_funcs ltdc_crtc_funcs = {
->   	.destroy = drm_crtc_cleanup,
->   	.set_config = drm_atomic_helper_set_config,
-> @@ -1178,6 +1204,7 @@ static const struct drm_crtc_funcs ltdc_crtc_funcs = {
->   	.enable_vblank = ltdc_crtc_enable_vblank,
->   	.disable_vblank = ltdc_crtc_disable_vblank,
->   	.get_vblank_timestamp = drm_crtc_vblank_helper_get_vblank_timestamp,
-> +	.atomic_print_state = ltdc_crtc_atomic_print_state,
->   };
->   
->   static const struct drm_crtc_funcs ltdc_crtc_with_crc_support_funcs = {
-> @@ -1192,6 +1219,7 @@ static const struct drm_crtc_funcs ltdc_crtc_with_crc_support_funcs = {
->   	.get_vblank_timestamp = drm_crtc_vblank_helper_get_vblank_timestamp,
->   	.set_crc_source = ltdc_crtc_set_crc_source,
->   	.verify_crc_source = ltdc_crtc_verify_crc_source,
-> +	.atomic_print_state = ltdc_crtc_atomic_print_state,
->   };
->   
->   /*
-> @@ -1452,13 +1480,21 @@ static void ltdc_plane_atomic_update(struct drm_plane *plane,
->   	ldev->plane_fpsi[plane->index].counter++;
->   
->   	mutex_lock(&ldev->err_lock);
-> -	if (ldev->error_status & ISR_FUIF) {
-> -		DRM_WARN("ltdc fifo underrun: please verify display mode\n");
-> -		ldev->error_status &= ~ISR_FUIF;
-> +	if (ldev->transfer_err) {
-> +		DRM_WARN("ltdc transfer error: %d\n", ldev->transfer_err);
-> +		ldev->transfer_err = 0;
->   	}
-> -	if (ldev->error_status & ISR_TERRIF) {
-> -		DRM_WARN("ltdc transfer error\n");
-> -		ldev->error_status &= ~ISR_TERRIF;
-> +
-> +	if (ldev->caps.fifo_threshold) {
-> +		if (ldev->fifo_err) {
-> +			DRM_WARN("ltdc fifo underrun: please verify display mode\n");
-> +			ldev->fifo_err = 0;
-> +		}
-> +	} else {
-> +		if (ldev->fifo_warn >= ldev->fifo_threshold) {
-> +			DRM_WARN("ltdc fifo underrun: please verify display mode\n");
-> +			ldev->fifo_warn = 0;
-> +		}
->   	}
->   	mutex_unlock(&ldev->err_lock);
->   }
-> @@ -1700,6 +1736,10 @@ static void ltdc_encoder_enable(struct drm_encoder *encoder)
->   
->   	DRM_DEBUG_DRIVER("\n");
->   
-> +	/* set fifo underrun threshold register */
-> +	if (ldev->caps.fifo_threshold)
-> +		regmap_write(ldev->regmap, LTDC_FUT, ldev->fifo_threshold);
-> +
->   	/* Enable LTDC */
->   	regmap_set_bits(ldev->regmap, LTDC_GCR, GCR_LTDCEN);
->   }
-> @@ -1801,6 +1841,7 @@ static int ltdc_get_caps(struct drm_device *ddev)
->   		ldev->caps.crc = false;
->   		ldev->caps.dynamic_zorder = false;
->   		ldev->caps.plane_rotation = false;
-> +		ldev->caps.fifo_threshold = false;
->   		break;
->   	case HWVER_20101:
->   		ldev->caps.layer_ofs = LAY_OFS_0;
-> @@ -1818,6 +1859,7 @@ static int ltdc_get_caps(struct drm_device *ddev)
->   		ldev->caps.crc = false;
->   		ldev->caps.dynamic_zorder = false;
->   		ldev->caps.plane_rotation = false;
-> +		ldev->caps.fifo_threshold = false;
->   		break;
->   	case HWVER_40100:
->   		ldev->caps.layer_ofs = LAY_OFS_1;
-> @@ -1835,6 +1877,7 @@ static int ltdc_get_caps(struct drm_device *ddev)
->   		ldev->caps.crc = true;
->   		ldev->caps.dynamic_zorder = true;
->   		ldev->caps.plane_rotation = true;
-> +		ldev->caps.fifo_threshold = true;
->   		break;
->   	default:
->   		return -ENODEV;
-> @@ -1959,9 +2002,6 @@ int ltdc_load(struct drm_device *ddev)
->   		goto err;
->   	}
->   
-> -	/* Disable interrupts */
-> -	regmap_clear_bits(ldev->regmap, LTDC_IER, IER_LIE | IER_RRIE | IER_FUIE | IER_TERRIE);
-> -
->   	ret = ltdc_get_caps(ddev);
->   	if (ret) {
->   		DRM_ERROR("hardware identifier (0x%08x) not supported!\n",
-> @@ -1969,8 +2009,22 @@ int ltdc_load(struct drm_device *ddev)
->   		goto err;
->   	}
->   
-> +	/* Disable interrupts */
-> +	if (ldev->caps.fifo_threshold)
-> +		regmap_clear_bits(ldev->regmap, LTDC_IER, IER_LIE | IER_RRIE | IER_FUWIE |
-> +				  IER_TERRIE);
-> +	else
-> +		regmap_clear_bits(ldev->regmap, LTDC_IER, IER_LIE | IER_RRIE | IER_FUWIE |
-> +				  IER_TERRIE | IER_FUEIE);
-> +
->   	DRM_DEBUG_DRIVER("ltdc hw version 0x%08x\n", ldev->caps.hw_version);
->   
-> +	/* initialize default value for fifo underrun threshold & clear interrupt error counters */
-> +	ldev->transfer_err = 0;
-> +	ldev->fifo_err = 0;
-> +	ldev->fifo_warn = 0;
-> +	ldev->fifo_threshold = FUT_DFT;
-> +
->   	for (i = 0; i < ldev->caps.nb_irq; i++) {
->   		irq = platform_get_irq(pdev, i);
->   		if (irq < 0) {
-> diff --git a/drivers/gpu/drm/stm/ltdc.h b/drivers/gpu/drm/stm/ltdc.h
-> index 15139980d8ea..9d488043ffdb 100644
-> --- a/drivers/gpu/drm/stm/ltdc.h
-> +++ b/drivers/gpu/drm/stm/ltdc.h
-> @@ -30,6 +30,7 @@ struct ltdc_caps {
->   	bool crc;		/* cyclic redundancy check supported */
->   	bool dynamic_zorder;	/* dynamic z-order */
->   	bool plane_rotation;	/* plane rotation */
-> +	bool fifo_threshold;	/* fifo underrun threshold supported */
->   };
->   
->   #define LTDC_MAX_LAYER	4
-> @@ -45,8 +46,11 @@ struct ltdc_device {
->   	struct clk *pixel_clk;	/* lcd pixel clock */
->   	struct mutex err_lock;	/* protecting error_status */
->   	struct ltdc_caps caps;
-> -	u32 error_status;
->   	u32 irq_status;
-> +	u32 fifo_err;		/* fifo underrun error counter */
-> +	u32 fifo_warn;		/* fifo underrun warning counter */
-> +	u32 fifo_threshold;	/* fifo underrun threshold */
-> +	u32 transfer_err;	/* transfer error counter */
->   	struct fps_info plane_fpsi[LTDC_MAX_LAYER];
->   	struct drm_atomic_state *suspend_state;
->   	int crc_skip_count;
-Dear Yannick,
-Many thanks for your patch,
-Applied on drm-misc-next.
-Have a good day
-Philippe :-)
+> This does not look like proper schema of connector.yaml.
+
+This refers to graph.yaml [1], where similar example is seen [2].
+
+https://github.com/devicetree-org/dt-schema/blob/main/dtschema/schemas/graph.yaml#L79
+
+https://github.com/devicetree-org/dt-schema/blob/main/dtschema/schemas/graph.yaml#L207
+
+    device-1 {
+        port {
+            device_1_output: endpoint {
+                remote-endpoint = <&device_2_input>;
+            };
+        };
+    };
+    device-2 {
+        port {
+            device_2_input: endpoint {
+                remote-endpoint = <&device_1_output>;
+            };
+        };
+    };
+
+
+Could you please clarify this point too ?
+
+> 
+>> +            con_usb_c_ep: endpoint {
+>> +              remote-endpoint = <&usbotg_hs_ep>;
+>> +            };
+>> +          };
+>> +        };
+>> +      };
+>> +    };
+>> +
+>> +    usbotg_hs {
+> 
+> Generic node names, no underscores in node names.
+
+ack, I guess you'd recommend "usb" here. I'll update it.
+
+Thanks for reviewing,
+Best Regards,
+Fabrice
+
+> 
+>> +      usb-role-switch;
+>> +      port {
+>> +        usbotg_hs_ep: endpoint {
+>> +          remote-endpoint = <&con_usb_c_ep>;
+>> +        };
+>> +      };
+>> +    };
+>> +...
+> 
+> 
+> Best regards,
+> Krzysztof
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
