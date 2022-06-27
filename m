@@ -2,53 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 15BD655BA10
-	for <lists+linux-stm32@lfdr.de>; Mon, 27 Jun 2022 15:30:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 47E1155BA4E
+	for <lists+linux-stm32@lfdr.de>; Mon, 27 Jun 2022 16:11:14 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 98D36C04004;
-	Mon, 27 Jun 2022 13:30:23 +0000 (UTC)
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C55EBC04004;
+	Mon, 27 Jun 2022 14:11:13 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A041BC035BF
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 01093C035BF
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 27 Jun 2022 13:30:22 +0000 (UTC)
-Received: from [192.168.1.111] (91-158-154-79.elisa-laajakaista.fi
- [91.158.154.79])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id 28C971C82;
- Mon, 27 Jun 2022 15:30:21 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1656336621;
- bh=zLlmoxf66qaWQT370p2CS4eQLa681tT2iL2yvsfFIa8=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=GZ7c9yxkaqQlFds3EFrEa8od2JyxO3LDbtc8kNTm2VNWXkPw8ifck3OqYL70lW6dK
- pU8sVe32VBF6AJL+g+0AT0ZSv4GtJgsoOTyb3UeuXw16JuJZL2HxmbKtGfm+cYF0rO
- 5KxMA/cuuKBgoaG9Z0LNjSgJ6+nUqKU7fn4t0r8o=
-Message-ID: <b9c450b1-96d2-1ac5-0dec-04387903ebf2@ideasonboard.com>
-Date: Mon, 27 Jun 2022 16:30:18 +0300
+ Mon, 27 Jun 2022 14:11:12 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 25RDaXfB019798;
+ Mon, 27 Jun 2022 16:11:01 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=message-id : date :
+ mime-version : subject : to : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=KA93Yrp+xPz518APBCgPzL+batU4MawOKzjpozAPkos=;
+ b=RpX71VXo/1vChdwxOyzJRNqLy51suo4m9XStA9Ppxo1Z4Qnq/nFoUU7iaJLZuHV/AUKw
+ IRtVnEJGpcQVuQCPtpgNonVEYJgYtX/QRryTWafcAHunszudRyOiiBeN65QujjPj0X3Z
+ x2CiB3A5kR1dX4ADz7U7FsL0baUeZ2PQ5zRWTyXmSPzJmiuPRx4v6tplZilDPOlxpga0
+ 1xK0DkPuFKsb6xW6Vu2hir3edDQQE9+hV3HTr7Nb4iNkiVxfqGzECaq2WsMvybWPp2hu
+ RDTM48yjZEqfrWKD/iyFy8SKNOivjHXDC9QpOsY6OyGUe6P7y1RPDsywSxBEKtk/HVcV oQ== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3gy9mr1qqf-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 27 Jun 2022 16:11:01 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 9A89A10002A;
+ Mon, 27 Jun 2022 16:10:59 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 50BD022176B;
+ Mon, 27 Jun 2022 16:10:59 +0200 (CEST)
+Received: from [10.48.1.86] (10.75.127.51) by SHFDAG1NODE1.st.com
+ (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2308.20; Mon, 27 Jun
+ 2022 16:10:58 +0200
+Message-ID: <51843c58-82ac-6b81-99b6-75c267ff1a59@foss.st.com>
+Date: Mon, 27 Jun 2022 16:10:54 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.9.1
 Content-Language: en-US
-To: Marek Vasut <marex@denx.de>, Hugues FRUCHET <hugues.fruchet@foss.st.com>, 
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Hans Verkuil <hverkuil@xs4all.nl>
-References: <20220618222442.478285-1-marex@denx.de>
- <Yq5c6dObTlmZr95P@pendragon.ideasonboard.com>
- <0dc2d603-586e-be49-8f8d-1f52f1915813@ideasonboard.com>
- <4d5b5c59-f3d5-ad5a-ae61-73277b4adefa@denx.de>
- <5ee6c0c0-8ab0-561c-e1f6-b26e4ec438af@foss.st.com>
- <39657445-e5ac-bfd6-c122-b18088fa4b41@denx.de>
- <733f9689-b4d7-8f23-37d3-920aa6a5a7ea@foss.st.com>
- <c92f1a8d-6439-d494-5779-70619ec94760@denx.de>
-From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-In-Reply-To: <c92f1a8d-6439-d494-5779-70619ec94760@denx.de>
-Cc: Alain Volmat <alain.volmat@foss.st.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- linux-media@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH] media: stm32: dcmi: Switch to
-	__v4l2_subdev_state_alloc()
+To: Yannick Fertre <yannick.fertre@foss.st.com>, Raphael Gallais-Pou
+ <raphael.gallais-pou@foss.st.com>, David Airlie <airlied@linux.ie>, Daniel
+ Vetter <daniel@ffwll.ch>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ <dri-devel@lists.freedesktop.org>,
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
+References: <20220603134151.591997-1-yannick.fertre@foss.st.com>
+From: Philippe CORNU <philippe.cornu@foss.st.com>
+In-Reply-To: <20220603134151.591997-1-yannick.fertre@foss.st.com>
+X-Originating-IP: [10.75.127.51]
+X-ClientProxiedBy: SFHDAG2NODE3.st.com (10.75.127.6) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.883,Hydra:6.0.517,FMLib:17.11.122.1
+ definitions=2022-06-27_06,2022-06-24_01,2022-06-22_01
+Subject: Re: [Linux-stm32] [PATCH] drm/stm: ltdc: disable all layers before
+	crtc shutdown
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,57 +76,52 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gMjcvMDYvMjAyMiAxNjowMSwgTWFyZWsgVmFzdXQgd3JvdGU6Cj4gT24gNi8yNy8yMiAxNDo1
-MywgSHVndWVzIEZSVUNIRVQgd3JvdGU6Cj4+IEhpIE1hcmVrLAo+IAo+IEhpLAo+IAo+PiBUaGFu
-a3MgZm9yIGV4cGxhbmF0aW9uLCBJIHVuZGVyc3RhbmQgbm93Lgo+Pgo+PiBQbGVhc2Ugbm90ZSB0
-aGF0IGRjbWkgaXMgbm90IGF0bWVsLWlzaS5jIGhhcyBzYW1lIGNvZGUgc3RydWN0dXJlLCAKPj4g
-aGVuY2Ugc2FtZSBwcm9ibGVtOgo+Pgo+PiBzdGF0aWMgaW50IGlzaV90cnlfZm10KHN0cnVjdCBh
-dG1lbF9pc2kgKmlzaSwgc3RydWN0IHY0bDJfZm9ybWF0ICpmLAo+PiDCoMKgwqDCoMKgc3RydWN0
-IHY0bDJfc3ViZGV2X3N0YXRlIHBhZF9zdGF0ZSA9IHsKPj4gwqDCoMKgwqDCoMKgwqDCoCAucGFk
-cyA9ICZwYWRfY2ZnCj4+IMKgwqDCoMKgwqDCoMKgwqAgfTsKPj4gWy4uLl0KPj4gwqDCoMKgwqDC
-oHJldCA9IHY0bDJfc3ViZGV2X2NhbGwoaXNpLT5lbnRpdHkuc3ViZGV2LCBwYWQsIHNldF9mbXQs
-Cj4+Cj4+Cj4+IE1vcmVvdmVyLCBzZWFyY2hpbmcgZm9yIF9fdjRsMl9zdWJkZXZfc3RhdGVfYWxs
-b2MoKSBJIHNlZSB0aG9zZSAiRklYTUUiOgo+Pgo+PiBkcml2ZXJzL21lZGlhL3BsYXRmb3JtL3Jl
-bmVzYXMvdnNwMS92c3AxX2VudGl0eS5jCj4+IMKgwqDCoMKgwqAvKgo+PiDCoMKgwqDCoMKgICog
-RklYTUU6IERyb3AgdGhpcyBjYWxsLCBkcml2ZXJzIGFyZSBub3Qgc3VwcG9zZWQgdG8gdXNlCj4+
-IMKgwqDCoMKgwqAgKiBfX3Y0bDJfc3ViZGV2X3N0YXRlX2FsbG9jKCkuCj4+IMKgwqDCoMKgwqAg
-Ki8KPj4gwqDCoMKgwqDCoGVudGl0eS0+Y29uZmlnID0gX192NGwyX3N1YmRldl9zdGF0ZV9hbGxv
-YygmZW50aXR5LT5zdWJkZXYsCj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoCAidnNwMTpjb25maWctPmxvY2siLCAma2V5KTsKPj4KPj4KPj4g
-ZHJpdmVycy9tZWRpYS9wbGF0Zm9ybS9yZW5lc2FzL3JjYXItdmluL3JjYXItdjRsMi5jCj4+IMKg
-wqDCoMKgwqAvKgo+PiDCoMKgwqDCoMKgICogRklYTUU6IERyb3AgdGhpcyBjYWxsLCBkcml2ZXJz
-IGFyZSBub3Qgc3VwcG9zZWQgdG8gdXNlCj4+IMKgwqDCoMKgwqAgKiBfX3Y0bDJfc3ViZGV2X3N0
-YXRlX2FsbG9jKCkuCj4+IMKgwqDCoMKgwqAgKi8KPj4gwqDCoMKgwqDCoHNkX3N0YXRlID0gX192
-NGwyX3N1YmRldl9zdGF0ZV9hbGxvYyhzZCwgInJ2aW46c3RhdGUtPmxvY2siLCAma2V5KTsKPj4K
-Pj4KPj4gU28gSSB3b25kZXIgYWJvdXQgaW50cm9kdWNpbmcgdGhpcyBuZXcgY2hhbmdlIGluIGRj
-bWkgd2hpbGUgaXQgaXMgCj4+IG1hcmtlZCBhcyAiRklYTUUiIGluIG90aGVyIGNhbWVyYSBpbnRl
-cmZhY2UgZHJpdmVycyA/Cj4gCj4gVGhpcyBpcyBwcm9iYWJseSBzb21ldGhpbmcgVG9taS9MYXVy
-ZW50IGNhbiBhbnN3ZXIgYmV0dGVyLiBJdCBzaG91bGQgYmUgCj4gT0sgZm9yIHRoaXMgZHJpdmVy
-IGFzIGZhciBhcyBJIHVuZGVyc3RhbmQgdGhlIGRpc2N1c3Npb24gaW4gdGhpcyB0aHJlYWQuCgpZ
-ZXMgYW5kIG5vLiBXZSBzaG91bGRuJ3QgdXNlIF9fIGZ1bmNzIGluIHRoZSBkcml2ZXJzLiAKX192
-NGwyX3N1YmRldl9zdGF0ZV9hbGxvYygpIGNhbGxzIGV4aXN0IGluIHRoZSBjdXJyZW50IGRyaXZl
-cnMgYXMgaXQgCndhc24ndCB0cml2aWFsIHRvIGNoYW5nZSB0aGUgZHJpdmVyIHRvIGRvIGl0IG90
-aGVyd2lzZSB3aGlsZSBhZGRpbmcgdGhlIApzdWJkZXYgc3RhdGUgZmVhdHVyZS4KCklmIEkgcmVj
-YWxsIHJpZ2h0LCB0aGUgb3RoZXIgdXNlcnMgKGF0IGxlYXN0IHNvbWUgb2YgdGhlbSkgd2VyZSBz
-dG9yaW5nIAppbnRlcm5hbCBzdGF0ZSBpbiB0aGUgc3RhdGUsIG5vdCBwYXNzaW5nIGl0IGZvcndh
-cmQuIEFuZCwgb2YgY291cnNlLCB0aGUgCmRyaXZlcnMgd2VyZSB0aGVtc2VsdmVzIGludGVyZXN0
-ZWQgaW4gdGhlIHN0YXRlIHN0b3JlZCB0aGVyZS4KCkhlcmUsIHdlIG9ubHkgbmVlZCB0byBhbGxv
-Y2F0ZSB0aGUgc3RhdGUgc28gdGhhdCB0aGUgZHJpdmVyIGlzIGFibGUgdG8gCmNhbGwgc2V0X2Zt
-dCBvbiBhbm90aGVyIHN1YmRldiwgc28gaXQncyBhIGJpdCBkaWZmZXJlbnQgY2FzZS4KCkFueXdh
-eSwgSSB0aGluayBpdCdzIF9ub3RfIG9rIHRvIGFkZCBfX3Y0bDJfc3ViZGV2X3N0YXRlX2FsbG9j
-KCkgd2l0aG91dCAKYSBGSVhNRSBjb21tZW50LiBIb3dldmVyLCBJIHRoaW5rIGl0J3Mgb2sgdG8g
-YWRkIGEgaGVscGVyIGZ1bmMsIHNpbWlsYXIgCnRvIHY0bDJfc3ViZGV2X2NhbGxfc3RhdGVfYWN0
-aXZlKCksIHdoaWNoIGluIHR1cm4gdXNlcyAKX192NGwyX3N1YmRldl9zdGF0ZV9hbGxvYy4KCkhv
-d2V2ZXIsIGlmIHdlIGVuZCB1cCBpbiBhIHNpdHVhdGlvbiB3aGVyZSB3ZSB0aGluayBpdCdzICJu
-b3JtYWwiIGZvciAKZHJpdmVycyB0byBjYWxsIF9fdjRsMl9zdWJkZXZfc3RhdGVfYWxsb2MsIHdl
-IG5lZWQgdG8gcmVuYW1lIGl0IGFuZCBkcm9wIAp0aGUgdHdvIHVuZGVyc2NvcmVzLiBCdXQgSSB0
-aGluayB3ZSdyZSBub3QgdGhlcmUgeWV0IChhbmQgaG9wZWZ1bGx5IG5ldmVyKS4KCiAgVG9taQpf
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0z
-MiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpo
-dHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51
-eC1zdG0zMgo=
+
+
+On 6/3/22 15:41, Yannick Fertre wrote:
+> All plans must be disabled before the CRTC shutdown helping
+> the crtc to restart from a clean situation (without unwanted
+> planes already enable).
+> 
+> Signed-off-by: Yannick Fertre <yannick.fertre@foss.st.com>
+> ---
+>   drivers/gpu/drm/stm/ltdc.c | 6 ++++++
+>   1 file changed, 6 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/stm/ltdc.c b/drivers/gpu/drm/stm/ltdc.c
+> index 6bd45df8f5a7..eeefc3260c07 100644
+> --- a/drivers/gpu/drm/stm/ltdc.c
+> +++ b/drivers/gpu/drm/stm/ltdc.c
+> @@ -787,11 +787,17 @@ static void ltdc_crtc_atomic_disable(struct drm_crtc *crtc,
+>   {
+>   	struct ltdc_device *ldev = crtc_to_ltdc(crtc);
+>   	struct drm_device *ddev = crtc->dev;
+> +	int layer_index = 0;
+>   
+>   	DRM_DEBUG_DRIVER("\n");
+>   
+>   	drm_crtc_vblank_off(crtc);
+>   
+> +	/* Disable all layers */
+> +	for (layer_index = 0; layer_index < ldev->caps.nb_layers; layer_index++)
+> +		regmap_write_bits(ldev->regmap, LTDC_L1CR + layer_index * LAY_OFS,
+> +				  LXCR_CLUTEN | LXCR_LEN, 0);
+> +
+>   	/* disable IRQ */
+>   	regmap_clear_bits(ldev->regmap, LTDC_IER, IER_RRIE | IER_FUIE | IER_TERRIE);
+>   
+
+Dear Yannick,
+Many thanks for your patch,
+Applied on drm-misc-next.
+Have a good day
+Philippe :-)
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
