@@ -2,68 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E38D855B99C
-	for <lists+linux-stm32@lfdr.de>; Mon, 27 Jun 2022 14:53:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 64B5355B9A9
+	for <lists+linux-stm32@lfdr.de>; Mon, 27 Jun 2022 15:01:17 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 892CBC04004;
-	Mon, 27 Jun 2022 12:53:53 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0A5AFC04004;
+	Mon, 27 Jun 2022 13:01:17 +0000 (UTC)
+Received: from phobos.denx.de (phobos.denx.de [85.214.62.61])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AA065C03FC5
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 916D6C03FC5
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 27 Jun 2022 12:53:51 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 25R96lQv019780;
- Mon, 27 Jun 2022 14:53:41 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=BfrcbyphL92wNGL5f2Cs5xfyme8A3kjpM20PQz3c3Qw=;
- b=DVeRjzK1Vw4M8nf83Yxz1oqL/5oaeUhGK/C9igqdaH/HsWgXTfS11nzrWUbmTZ4/9KkI
- RcKUwPuSbljTkkqZY1mzv4Ga03ky8L3rQgn7lPCztVoSBX207gAqDWE9vs3suuRLlGfE
- 5+oJkC+NwbKtKJvDGmdzisIMVz/IOpU2xSfBA3iV6JQm0WqC4eq3bC/bty4JcWhSDUbG
- uKfxMn4BLR3ICGFN2dosKBVqcol/XJsZ0/d3J+iL5xVZxAchpxCFrxKLRM8XCPEuHyeZ
- MFiCjLeJgS0hv/+Gb7WUhc1b5v1V1BT2SWedR/q0TdovM2elUxHNLPtz60boCnHzZr5V Fg== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3gy9mr19au-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 27 Jun 2022 14:53:41 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 391E610002A;
- Mon, 27 Jun 2022 14:53:40 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 25AD421D3A5;
- Mon, 27 Jun 2022 14:53:40 +0200 (CEST)
-Received: from [10.201.21.143] (10.75.127.47) by SHFDAG1NODE1.st.com
- (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2308.20; Mon, 27 Jun
- 2022 14:53:39 +0200
-Message-ID: <733f9689-b4d7-8f23-37d3-920aa6a5a7ea@foss.st.com>
-Date: Mon, 27 Jun 2022 14:53:39 +0200
+ Mon, 27 Jun 2022 13:01:15 +0000 (UTC)
+Received: from [127.0.0.1] (p578adb1c.dip0.t-ipconnect.de [87.138.219.28])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits))
+ (No client certificate requested)
+ (Authenticated sender: marex@denx.de)
+ by phobos.denx.de (Postfix) with ESMTPSA id 673B583C70;
+ Mon, 27 Jun 2022 15:01:14 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de;
+ s=phobos-20191101; t=1656334875;
+ bh=fvsZdqOHcEHLRk+gSlC5dE2r+9LJ3zFrX01feX2Y0/k=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=nZDGZbgTtVIBvlnkupAv0AJrRcJABnmt2HpTmD2KMGUIuUXYabCr8VMNS++nMogEU
+ dIQ1VRl9/XPG3TWCFzRO6M5NcMVzXcHwKz08ddyVRGHIHGUmF6G7MQ7Uoo/fv5I9HZ
+ DLXhjW5vGNHtNKdzOR3qwqEjAOGgdHcdR2lTqTiC9tr+z6Mti+q0cOuRMcRiJrlRvD
+ gswIZGfEDWZJb8RxU4n+8m22ke2RIz7FFQpEpCGwbE+EX8xK+a5Hr2SqCKMnIpvAVo
+ fJuf6YCnpPxGvfraL3po50bTmaTZB+DBilHSi73r0AsBnnjB2ne86U6Vdn8CvaqYgJ
+ 9IVAemzDSa3ZA==
+Message-ID: <c92f1a8d-6439-d494-5779-70619ec94760@denx.de>
+Date: Mon, 27 Jun 2022 15:01:13 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.9.1
+ Thunderbird/91.10.0
 Content-Language: en-US
-To: Marek Vasut <marex@denx.de>, Tomi Valkeinen
- <tomi.valkeinen@ideasonboard.com>, Laurent Pinchart
- <laurent.pinchart@ideasonboard.com>, Hans Verkuil <hverkuil@xs4all.nl>
+To: Hugues FRUCHET <hugues.fruchet@foss.st.com>,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Hans Verkuil <hverkuil@xs4all.nl>
 References: <20220618222442.478285-1-marex@denx.de>
  <Yq5c6dObTlmZr95P@pendragon.ideasonboard.com>
  <0dc2d603-586e-be49-8f8d-1f52f1915813@ideasonboard.com>
  <4d5b5c59-f3d5-ad5a-ae61-73277b4adefa@denx.de>
  <5ee6c0c0-8ab0-561c-e1f6-b26e4ec438af@foss.st.com>
  <39657445-e5ac-bfd6-c122-b18088fa4b41@denx.de>
-From: Hugues FRUCHET <hugues.fruchet@foss.st.com>
-In-Reply-To: <39657445-e5ac-bfd6-c122-b18088fa4b41@denx.de>
-X-Originating-IP: [10.75.127.47]
-X-ClientProxiedBy: SFHDAG2NODE3.st.com (10.75.127.6) To SHFDAG1NODE1.st.com
- (10.75.129.69)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.883,Hydra:6.0.517,FMLib:17.11.122.1
- definitions=2022-06-27_06,2022-06-24_01,2022-06-22_01
+ <733f9689-b4d7-8f23-37d3-920aa6a5a7ea@foss.st.com>
+From: Marek Vasut <marex@denx.de>
+In-Reply-To: <733f9689-b4d7-8f23-37d3-920aa6a5a7ea@foss.st.com>
+X-Virus-Scanned: clamav-milter 0.103.6 at phobos.denx.de
+X-Virus-Status: Clean
 Cc: Alain Volmat <alain.volmat@foss.st.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
  linux-media@vger.kernel.org
@@ -80,111 +66,37 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Marek,
-
-Thanks for explanation, I understand now.
-
-Please note that dcmi is not atmel-isi.c has same code structure, hence 
-same problem:
-
-static int isi_try_fmt(struct atmel_isi *isi, struct v4l2_format *f,
-	struct v4l2_subdev_state pad_state = {
-		.pads = &pad_cfg
-		};
-[...]
-	ret = v4l2_subdev_call(isi->entity.subdev, pad, set_fmt,
-
-
-Moreover, searching for __v4l2_subdev_state_alloc() I see those "FIXME":
-
-drivers/media/platform/renesas/vsp1/vsp1_entity.c
-	/*
-	 * FIXME: Drop this call, drivers are not supposed to use
-	 * __v4l2_subdev_state_alloc().
-	 */
-	entity->config = __v4l2_subdev_state_alloc(&entity->subdev,
-						   "vsp1:config->lock", &key);
-
-
-drivers/media/platform/renesas/rcar-vin/rcar-v4l2.c
-	/*
-	 * FIXME: Drop this call, drivers are not supposed to use
-	 * __v4l2_subdev_state_alloc().
-	 */
-	sd_state = __v4l2_subdev_state_alloc(sd, "rvin:state->lock", &key);
-
-
-So I wonder about introducing this new change in dcmi while it is marked 
-as "FIXME" in other camera interface drivers ?
-
-Best regards,
-Hugues.
-
-On 6/27/22 13:30, Marek Vasut wrote:
-> On 6/27/22 11:14, Hugues FRUCHET wrote:
->> Hi Marek,
-> 
-> Hi,
-> 
->>>>> On Sun, Jun 19, 2022 at 12:24:42AM +0200, Marek Vasut wrote:
->>>>>> Any local subdev state should be allocated and free'd using
->>>>>> __v4l2_subdev_state_alloc()/__v4l2_subdev_state_free(), which
->>>>>> takes care of calling .init_cfg() subdev op. Without this,
->>>>>> subdev internal state might be uninitialized by the time
->>>>>> any other subdev op is called.
->>>>
->>>> Does this fix a bug you have?
->>>
->>> Yes
->>
->> Which bug did you encounter exactly ?
-> 
-> The DCMI driver does set_fmt subdev call on the sensor driver instance.
-> 
-> The mt9p031 sensor driver set_fmt depends on crop rectangle to be 
-> initialized _before_ set_fmt subdev call is made. Currently this 
-> initialization is done in open callback, which is too late, so when the 
-> DCMI does set_fmt subdev call, it operates on uninitialized private data.
-> 
-> There is patch to mt9p031 driver which move the initialization to the 
-> right place in .init_cfg:
-> [PATCH v2] media: mt9p031: Move open subdev op init code into init_cfg
-> 
-> However, the .init_cfg is not called by DCMI right now. For that to be 
-> called in the right place, __v4l2_subdev_state_alloc() must be added, 
-> hence this patch.
-> 
-> You won't trigger the problem on OV5640 because that one driver does not 
-> implement .init_cfg v4l2_subdev_ops .
-> 
->> This is strange that we have not yet encounter any problems around 
->> that through our tests campaigns... or we have to enforce with a new 
->> test, so better to know what your problem was exactly.
-> 
-> You need a sensor driver which implements struct v4l2_subdev_ops 
-> .init_cfg and then have something in set_fmt depend on the 
-> initialization done in the .init_cfg callback . Then you would see the 
-> problem.
-> 
->>>> Wasn't this broken even before the active state, as init_cfg was not 
->>>> called?
->>>
->>> Yes, this was always broken. I suspect nobody tested this mode of 
->>> operation before. In my case, I have this DCMI driver connected 
->>> directly to MT9P006 sensor.
->>
->> As far as I see, MT9P006 sensor is a 12 bits parallel interface sensor.
->> I don't see the difference with our OV5640 used in parallel mode which 
->> is a mainline config on our side, so one more time I wonder what the 
->> problem was.
-> 
-> See above.
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gNi8yNy8yMiAxNDo1MywgSHVndWVzIEZSVUNIRVQgd3JvdGU6Cj4gSGkgTWFyZWssCgpIaSwK
+Cj4gVGhhbmtzIGZvciBleHBsYW5hdGlvbiwgSSB1bmRlcnN0YW5kIG5vdy4KPiAKPiBQbGVhc2Ug
+bm90ZSB0aGF0IGRjbWkgaXMgbm90IGF0bWVsLWlzaS5jIGhhcyBzYW1lIGNvZGUgc3RydWN0dXJl
+LCBoZW5jZSAKPiBzYW1lIHByb2JsZW06Cj4gCj4gc3RhdGljIGludCBpc2lfdHJ5X2ZtdChzdHJ1
+Y3QgYXRtZWxfaXNpICppc2ksIHN0cnVjdCB2NGwyX2Zvcm1hdCAqZiwKPiAgwqDCoMKgwqBzdHJ1
+Y3QgdjRsMl9zdWJkZXZfc3RhdGUgcGFkX3N0YXRlID0gewo+ICDCoMKgwqDCoMKgwqDCoCAucGFk
+cyA9ICZwYWRfY2ZnCj4gIMKgwqDCoMKgwqDCoMKgIH07Cj4gWy4uLl0KPiAgwqDCoMKgwqByZXQg
+PSB2NGwyX3N1YmRldl9jYWxsKGlzaS0+ZW50aXR5LnN1YmRldiwgcGFkLCBzZXRfZm10LAo+IAo+
+IAo+IE1vcmVvdmVyLCBzZWFyY2hpbmcgZm9yIF9fdjRsMl9zdWJkZXZfc3RhdGVfYWxsb2MoKSBJ
+IHNlZSB0aG9zZSAiRklYTUUiOgo+IAo+IGRyaXZlcnMvbWVkaWEvcGxhdGZvcm0vcmVuZXNhcy92
+c3AxL3ZzcDFfZW50aXR5LmMKPiAgwqDCoMKgwqAvKgo+ICDCoMKgwqDCoCAqIEZJWE1FOiBEcm9w
+IHRoaXMgY2FsbCwgZHJpdmVycyBhcmUgbm90IHN1cHBvc2VkIHRvIHVzZQo+ICDCoMKgwqDCoCAq
+IF9fdjRsMl9zdWJkZXZfc3RhdGVfYWxsb2MoKS4KPiAgwqDCoMKgwqAgKi8KPiAgwqDCoMKgwqBl
+bnRpdHktPmNvbmZpZyA9IF9fdjRsMl9zdWJkZXZfc3RhdGVfYWxsb2MoJmVudGl0eS0+c3ViZGV2
+LAo+ICDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+ICJ2c3AxOmNvbmZpZy0+bG9jayIsICZrZXkpOwo+IAo+IAo+IGRyaXZlcnMvbWVkaWEvcGxhdGZv
+cm0vcmVuZXNhcy9yY2FyLXZpbi9yY2FyLXY0bDIuYwo+ICDCoMKgwqDCoC8qCj4gIMKgwqDCoMKg
+ICogRklYTUU6IERyb3AgdGhpcyBjYWxsLCBkcml2ZXJzIGFyZSBub3Qgc3VwcG9zZWQgdG8gdXNl
+Cj4gIMKgwqDCoMKgICogX192NGwyX3N1YmRldl9zdGF0ZV9hbGxvYygpLgo+ICDCoMKgwqDCoCAq
+Lwo+ICDCoMKgwqDCoHNkX3N0YXRlID0gX192NGwyX3N1YmRldl9zdGF0ZV9hbGxvYyhzZCwgInJ2
+aW46c3RhdGUtPmxvY2siLCAma2V5KTsKPiAKPiAKPiBTbyBJIHdvbmRlciBhYm91dCBpbnRyb2R1
+Y2luZyB0aGlzIG5ldyBjaGFuZ2UgaW4gZGNtaSB3aGlsZSBpdCBpcyBtYXJrZWQgCj4gYXMgIkZJ
+WE1FIiBpbiBvdGhlciBjYW1lcmEgaW50ZXJmYWNlIGRyaXZlcnMgPwoKVGhpcyBpcyBwcm9iYWJs
+eSBzb21ldGhpbmcgVG9taS9MYXVyZW50IGNhbiBhbnN3ZXIgYmV0dGVyLiBJdCBzaG91bGQgYmUg
+Ck9LIGZvciB0aGlzIGRyaXZlciBhcyBmYXIgYXMgSSB1bmRlcnN0YW5kIHRoZSBkaXNjdXNzaW9u
+IGluIHRoaXMgdGhyZWFkLgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1h
+bi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFp
+bG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
