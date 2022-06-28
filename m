@@ -2,86 +2,84 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4937155EBDE
-	for <lists+linux-stm32@lfdr.de>; Tue, 28 Jun 2022 20:05:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 689C755ECCF
+	for <lists+linux-stm32@lfdr.de>; Tue, 28 Jun 2022 20:44:08 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D5DDDC5F1EF;
-	Tue, 28 Jun 2022 18:05:56 +0000 (UTC)
-Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com
- [209.85.215.174])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E6DBFC5F1EF;
+	Tue, 28 Jun 2022 18:44:07 +0000 (UTC)
+Received: from mail-qv1-f44.google.com (mail-qv1-f44.google.com
+ [209.85.219.44])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0D466C5F1D5
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2A3C4C5F1D7
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 28 Jun 2022 18:05:56 +0000 (UTC)
-Received: by mail-pg1-f174.google.com with SMTP id d129so12911427pgc.9
+ Tue, 28 Jun 2022 18:44:07 +0000 (UTC)
+Received: by mail-qv1-f44.google.com with SMTP id o43so21402331qvo.4
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 28 Jun 2022 11:05:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ Tue, 28 Jun 2022 11:44:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ziepe.ca; s=google;
  h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:content-transfer-encoding:in-reply-to;
- bh=pTcGgtfSu6n7KkCWKQ4ciWe5XeKK5S4riO8KfNVW7Ig=;
- b=F/CZTCTDOlhkWqZ+vOzW0DaoZ/EZ1dOhoCSSJ2RrwBNwuY7CCyvEtaLLk8DO+FYVI8
- oY1bh2Rw2NH/e7uwuajkABgxQQynq/vb9wDrQT1ziurYSmeBDoqa9s9XGmGLyXXXVu1m
- Ptj/OKkdrLcBprdD9gQ9RffSNU26yKh9HCJiI=
+ :content-disposition:in-reply-to;
+ bh=srd0vxfduo9pXREXizXvQ1Gwi/kEACFP1rdXcY0Aglg=;
+ b=QDfPPT0fYl+zbzIvYII9znFGb4s02ZWc7rdJXgoVlQii3pb6MPHXUbo2NQcshGpobE
+ dWlWXPBgu4AcM4BoWih7Z1Nr6ImLeGEz2FZoCblM4qyf8MsycIzs6ej4nXX7nwNpGP6Q
+ WS2wAoLm7tunOmWFHsCTXENR5aJ2dwangh3Hiy+KajaZLCQ31/GJ39i5LG+HlW0f/4Yp
+ DzCT3gMR3JvAVHruRt3NJZXTCo87e7XIf3RRiCTD40KLgGYQ8Oy9U016RK3fPhyNykEI
+ VcI+7whSObzV9gDqoR9iwpi6V1hWpQPbHnX1dl7fE5ec/owdsM9r7W03JXKpNXxaLmSi
+ lJng==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:content-transfer-encoding
- :in-reply-to;
- bh=pTcGgtfSu6n7KkCWKQ4ciWe5XeKK5S4riO8KfNVW7Ig=;
- b=ftzTpaBxgzhU0NPYHEa1PVEoE4DhyA1XdrtJeWGi+u3xFJrPz5NoK9LSX+zWVa0oCw
- LZKANa7uPoa6LISmHd+UGvyc4fRYl1TL4S6qDcki6eoMVhWvpgRkqZFj5+7E7/XyaCvQ
- hM+l/qHpWePqP3j4+UrSPauDaWb0ncU3G5LTPdlxbj8TdhAyZDXM4yVOgkhVEgekP94A
- OTdFRLGWgfLhEJDN8WDLnDOVMP3VcTEh9Z//9pIZO+LFSB/dAKW7GcEDhjoXjujZ3B8G
- hPEfGQ3JHDLISlPis5+0QsUD3u75eZXWGCLpHJMywt5z7Kdyo6nMZ1jASZbQAkvPO4Dc
- 9YrA==
-X-Gm-Message-State: AJIora8FYopb7HxxxoCsBYrik9InNj+BxDoI9tWkDA83PwMPHnNzQdKT
- yvWFigFVS0EPO1I6+4Fxpde/bw==
-X-Google-Smtp-Source: AGRyM1v6cdnwBfGpeB2JnkCbahQ14YUYaqjRd3VUKbR8YPBigZjfWVkzlvmFIFzfbBj+r2XqbA+86w==
-X-Received: by 2002:a63:7412:0:b0:40c:fa27:9d07 with SMTP id
- p18-20020a637412000000b0040cfa279d07mr18441815pgc.27.1656439554674; 
- Tue, 28 Jun 2022 11:05:54 -0700 (PDT)
-Received: from www.outflux.net (smtp.outflux.net. [198.145.64.163])
- by smtp.gmail.com with ESMTPSA id
- i3-20020a170902cf0300b0016a0ac06424sm9669985plg.51.2022.06.28.11.05.54
+ :mime-version:content-disposition:in-reply-to;
+ bh=srd0vxfduo9pXREXizXvQ1Gwi/kEACFP1rdXcY0Aglg=;
+ b=75bAHRQHFC7p8lPoQzd+uqvE6sMDZ48lft/WR2YQJE/hAh0JjxqBD2yNjoAsaxtqaS
+ cThCR+/tKsqkDCf8uwTr3r++dm0l0EhFLcky3wOGJB+BEbhD/Louz1n0DxLSRjxYONMq
+ vTxHnkyY8yAjn10AnrcHqr/yljEyGzWm2ay0mvjzY6zxlKF577OTw/eOP9vQX3aOBZqn
+ gWaHOEmloxk1BxfztEnIFGZBl4vR/y6Qkhi0+ojX6XqhFyWyA+LffZrUZvA3nXoaebP6
+ lRjNuTOmDkHqRAtKoKEbDFuq92EfokaUw5rW/zDme14qbaA4UzLJM3CTeVTEg5phySI0
+ skpg==
+X-Gm-Message-State: AJIora+thFsn4ZxESviWNyqJGjRVPrGBzj6ejEKBizEfCTKy7G59I27n
+ lugi74+DL6e4rIRkuh33DHug8w==
+X-Google-Smtp-Source: AGRyM1uBRJ6m7mmrK5Ju1JW1doBHC+UzIgAGX/xwYqaVx3XSmh4juFCDP3TjiYp7BZ5iZ3elpoeXxg==
+X-Received: by 2002:a05:622a:7:b0:31b:74bd:1597 with SMTP id
+ x7-20020a05622a000700b0031b74bd1597mr6494688qtw.677.1656441846052; 
+ Tue, 28 Jun 2022 11:44:06 -0700 (PDT)
+Received: from ziepe.ca
+ (hlfxns017vw-142-162-113-129.dhcp-dynamic.fibreop.ns.bellaliant.net.
+ [142.162.113.129]) by smtp.gmail.com with ESMTPSA id
+ h9-20020ac85149000000b003050bd1f7c9sm9708477qtn.76.2022.06.28.11.44.04
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 28 Jun 2022 11:05:54 -0700 (PDT)
-Date: Tue, 28 Jun 2022 11:05:53 -0700
-From: Kees Cook <keescook@chromium.org>
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Message-ID: <202206281104.7CC3935@keescook>
+ Tue, 28 Jun 2022 11:44:05 -0700 (PDT)
+Received: from jgg by mlx with local (Exim 4.94) (envelope-from <jgg@ziepe.ca>)
+ id 1o6GBw-0035y2-Fs; Tue, 28 Jun 2022 15:44:04 -0300
+Date: Tue, 28 Jun 2022 15:44:04 -0300
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Kees Cook <keescook@chromium.org>
+Message-ID: <20220628184404.GS23621@ziepe.ca>
 References: <20220627180432.GA136081@embeddedor>
- <CAMuHMdU27TG_rpd=WTRPRcY22A4j4aN-6d_8OmK2aNpX06G3ig@mail.gmail.com>
+ <6bc1e94c-ce1d-a074-7d0c-8dbe6ce22637@iogearbox.net>
+ <20220628004052.GM23621@ziepe.ca> <202206281009.4332AA33@keescook>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <CAMuHMdU27TG_rpd=WTRPRcY22A4j4aN-6d_8OmK2aNpX06G3ig@mail.gmail.com>
-Cc: nvdimm@lists.linux.dev,
- ALSA Development Mailing List <alsa-devel@alsa-project.org>,
- "Gustavo A. R. Silva" <gustavoars@kernel.org>, KVM list <kvm@vger.kernel.org>,
- DRI Development <dri-devel@lists.freedesktop.org>,
- "open list:BROADCOM NVRAM DRIVER" <linux-mips@vger.kernel.org>,
- dm-devel@redhat.com, target-devel <target-devel@vger.kernel.org>,
- MTD Maling List <linux-mtd@lists.infradead.org>,
- linux-hardening@vger.kernel.org, linux1394-devel@lists.sourceforge.net,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-s390 <linux-s390@vger.kernel.org>, scsi <linux-scsi@vger.kernel.org>,
- linux-rdma <linux-rdma@vger.kernel.org>,
- the arch/x86 maintainers <x86@kernel.org>,
- kasan-dev <kasan-dev@googlegroups.com>, lvs-devel@vger.kernel.org,
- coreteam@netfilter.org, V9FS Developers <v9fs-developer@lists.sourceforge.net>,
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+In-Reply-To: <202206281009.4332AA33@keescook>
+Cc: nvdimm@lists.linux.dev, alsa-devel@alsa-project.org, kvm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+ dm-devel@redhat.com, target-devel@vger.kernel.org,
+ linux-mtd@lists.infradead.org, linux-hardening@vger.kernel.org,
+ linux1394-devel@lists.sourceforge.net,
+ linux-stm32@st-md-mailman.stormreply.com, linux-s390@vger.kernel.org,
+ Daniel Borkmann <daniel@iogearbox.net>, linux-rdma@vger.kernel.org,
+ x86@kernel.org, kasan-dev@googlegroups.com, lvs-devel@vger.kernel.org,
+ coreteam@netfilter.org, v9fs-developer@lists.sourceforge.net,
+ linux-mips@vger.kernel.org, intel-gfx@lists.freedesktop.org,
  linux-can@vger.kernel.org, linux-raid@vger.kernel.org,
- linux-m68k <linux-m68k@lists.linux-m68k.org>,
- virtualization@lists.linux-foundation.org, io-uring@vger.kernel.org,
- Linux ARM <linux-arm-kernel@lists.infradead.org>,
- netdev <netdev@vger.kernel.org>, USB list <linux-usb@vger.kernel.org>,
- Linux MMC List <linux-mmc@vger.kernel.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ linux-m68k@lists.linux-m68k.org, virtualization@lists.linux-foundation.org,
+ io-uring@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-scsi@vger.kernel.org, netdev@vger.kernel.org, linux-usb@vger.kernel.org,
+ linux-mmc@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-perf-users@vger.kernel.org, linux-sctp@vger.kernel.org,
- NetFilter <netfilter-devel@vger.kernel.org>,
- Linux FS Devel <linux-fsdevel@vger.kernel.org>, bpf <bpf@vger.kernel.org>,
- linux-btrfs <linux-btrfs@vger.kernel.org>
+ netfilter-devel@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ bpf@vger.kernel.org, linux-btrfs@vger.kernel.org
 Subject: Re: [Linux-stm32] [PATCH][next] treewide: uapi: Replace zero-length
  arrays with flexible-array members
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
@@ -95,31 +93,24 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gVHVlLCBKdW4gMjgsIDIwMjIgYXQgMDk6Mjc6MjFBTSArMDIwMCwgR2VlcnQgVXl0dGVyaG9l
-dmVuIHdyb3RlOgo+IEhpIEd1c3Rhdm8sCj4gCj4gVGhhbmtzIGZvciB5b3VyIHBhdGNoIQo+IAo+
-IE9uIE1vbiwgSnVuIDI3LCAyMDIyIGF0IDg6MDQgUE0gR3VzdGF2byBBLiBSLiBTaWx2YQo+IDxn
-dXN0YXZvYXJzQGtlcm5lbC5vcmc+IHdyb3RlOgo+ID4gVGhlcmUgaXMgYSByZWd1bGFyIG5lZWQg
-aW4gdGhlIGtlcm5lbCB0byBwcm92aWRlIGEgd2F5IHRvIGRlY2xhcmUKPiA+IGhhdmluZyBhIGR5
-bmFtaWNhbGx5IHNpemVkIHNldCBvZiB0cmFpbGluZyBlbGVtZW50cyBpbiBhIHN0cnVjdHVyZS4K
-PiA+IEtlcm5lbCBjb2RlIHNob3VsZCBhbHdheXMgdXNlIOKAnGZsZXhpYmxlIGFycmF5IG1lbWJl
-cnPigJ1bMV0gZm9yIHRoZXNlCj4gPiBjYXNlcy4gVGhlIG9sZGVyIHN0eWxlIG9mIG9uZS1lbGVt
-ZW50IG9yIHplcm8tbGVuZ3RoIGFycmF5cyBzaG91bGQKPiA+IG5vIGxvbmdlciBiZSB1c2VkWzJd
-Lgo+IAo+IFRoZXNlIHJ1bGVzIGFwcGx5IHRvIHRoZSBrZXJuZWwsIGJ1dCB1YXBpIGlzIG5vdCBj
-b25zaWRlcmVkIHBhcnQgb2YgdGhlCj4ga2VybmVsLCBzbyBkaWZmZXJlbnQgcnVsZXMgYXBwbHku
-ICBVYXBpIGhlYWRlciBmaWxlcyBzaG91bGQgd29yayB3aXRoCj4gd2hhdGV2ZXIgY29tcGlsZXIg
-dGhhdCBjYW4gYmUgdXNlZCBmb3IgY29tcGlsaW5nIHVzZXJzcGFjZS4KClJpZ2h0LCB1c2Vyc3Bh
-Y2UgaXNuJ3QgYm91bmQgYnkgdGhlc2UgcnVsZXMsIGJ1dCB0aGUga2VybmVsIGVuZHMgdXAKY29u
-c3VtaW5nIHRoZXNlIHN0cnVjdHVyZXMsIHNvIHdlIG5lZWQgdG8gZml4IHRoZW0uIFRoZSBbMF0g
-LT4gW10KY2hhbmdlcyAod2hlbiB0aGV5IGFyZSBub3QgZXJyb25lb3VzbHkgYmVpbmcgdXNlZCB3
-aXRoaW4gb3RoZXIKc3RydWN0dXJlcykgaXMgdmFsaWQgZm9yIGFsbCBjb21waWxlcnMuIEZsZXhp
-YmxlIGFycmF5cyBhcmUgQzk5OyBpdCdzCmJlZW4gMjMgeWVhcnMuIDopCgpCdXQsIHllcywgd2hl
-cmUgd2UgRE8gYnJlYWsgc3R1ZmYgd2UgbmVlZCB0byB3b3JrYXJvdW5kIGl0LCBldGMuCgotLSAK
-S2VlcyBDb29rCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-CkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3Jt
-cmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xp
-c3RpbmZvL2xpbnV4LXN0bTMyCg==
+On Tue, Jun 28, 2022 at 10:54:58AM -0700, Kees Cook wrote:
+
+ 
+> which must also be assuming it's a header. So probably better to just
+> drop the driver_data field? I don't see anything using it (that I can
+> find) besides as a sanity-check that the field exists and is at the end
+> of the struct.
+
+The field is guaranteeing alignment of the following structure. IIRC
+there are a few cases that we don't have a u64 already to force this.
+
+Jason
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
