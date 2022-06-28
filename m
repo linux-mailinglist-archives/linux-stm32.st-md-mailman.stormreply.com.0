@@ -2,122 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 866B555BD69
-	for <lists+linux-stm32@lfdr.de>; Tue, 28 Jun 2022 04:23:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9407155BF07
+	for <lists+linux-stm32@lfdr.de>; Tue, 28 Jun 2022 09:21:31 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4D699C56630;
-	Tue, 28 Jun 2022 02:23:06 +0000 (UTC)
-Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com
- [209.85.215.178])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2500AC5F1EE;
+	Tue, 28 Jun 2022 07:21:31 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 963FEC035BF
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1819DC5F1D5
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 28 Jun 2022 02:23:04 +0000 (UTC)
-Received: by mail-pg1-f178.google.com with SMTP id 184so10782990pga.12
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 27 Jun 2022 19:23:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=HJxtqab0/tMiakWNEyC3nFz1/Ap3ZwjlyjInjl9oQ08=;
- b=GtISRQAw32VwWkIqJjbS6kPz10YSeb/J+R05thf6bFPMAOY82jKQN3UdU/3Xm5A6wE
- tMPJ9jiXwXd5WIpoNmuhYObSQi+a4vbyn3XjCacf3FIX++nTWeWgUHF+xWdV2kFekLbZ
- 0OzYqNi1FmudYoMCCJZeGvG2ye4sCgduv0rk2Zt4nVkQ98BfuFa3NPGjGKGgPVG9KtHY
- DntPc1msd2JalXRAlzsxyFpEjwPnKkzTvOPkfaVuXEaP+ZKelLBEm4Nr7ZrcOOgm/4RV
- HPa6kkD+OJGFCcd57tIyozXxW7wCGRkiieRac/DfVSrfyK1ch327OFoWU4ImG2SclPJ9
- uIig==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=HJxtqab0/tMiakWNEyC3nFz1/Ap3ZwjlyjInjl9oQ08=;
- b=gh0yYOCfqo0qWuFzaqtb0mwdupSLDnnDy/2Y0DjgS1zseAblrGo4/3doWCSxlQ7P5T
- IS/s7r2xzi53OzS69XYqhvkUlQx/ZwoPXwHzwhH9O2kBmlb3sNDppoBC3FJ64Hbs80xc
- uHiXJNz3K4H/jYl9S8K8mzt3yZDTVCc+wDbdsk+Awluze2iitEbb9GflugSmhN/uScoc
- Dmi3ioPIfDgUMf1HCVVbk0LxZywOCr4gvSrRosLe5sVAsl+HW95XbxCfK3tEs89ajCil
- 1eCmEs0ztYi43zIDpCTta7a9Fo02b21sR9+R5TUgJRwfV0P1I7q9jtW6IGGvvq+yqJBJ
- KT8g==
-X-Gm-Message-State: AJIora/s5Psb9VuEIiKiAP+6s6Y5Ylf6Q7N3Dao43ulfLTkS22hd0Kq5
- jcnMmqx7Rm0yLmpPWJFlifvtzQ90G37jCeuiN6Y=
-X-Google-Smtp-Source: AGRyM1tkELEQsXZZ9rCiYz26Ox2Bo3COuaabo0ODviEYu2B5j99coTUXvXqjCJz9EcYG+uOHPMvd9KNaBAGlSJExO9A=
-X-Received: by 2002:a65:6a0e:0:b0:405:2310:22d0 with SMTP id
- m14-20020a656a0e000000b00405231022d0mr15760605pgu.290.1656382983124; Mon, 27
- Jun 2022 19:23:03 -0700 (PDT)
+ Tue, 28 Jun 2022 07:21:30 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 25S11cMf020483;
+ Tue, 28 Jun 2022 09:21:16 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=vrWQmttz471sHMcNs5New/QqP5VqrpeycGKyDRxFuXY=;
+ b=pqL1gw129gHc/+EfyrjHYyJnva20mjgFlZoccs1i0eS8PFtns+Tmqt+RNNIt1w6DSd0D
+ AftgGD14+iRqV/DafxjzPQPnmFaTXO2EWhEoTDBz12T+V+3Au9D9eNORESqTyxXrjanb
+ fXH1eZ9whgH6r0k75jLsk65g2fN5EfCV+kRIYssJufv0QRXvNbHLUF0aF86QRIKIZ9WW
+ zYBCZi5M4XLO+vJ6IkM6hscFk0yRoUB1otVHxxBgfONDdZ65glQ5WZA2XCPLMPjRVZyw
+ ZWwZ4bO9aqqA6kQJK/GZowpdtKOgjtHASvXemup4PO8E8UxJyqzn2lIqCweMo8r66Zbb 7Q== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3gwqg9ggac-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 28 Jun 2022 09:21:16 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 5733710002A;
+ Tue, 28 Jun 2022 09:21:14 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 4348220FA3B;
+ Tue, 28 Jun 2022 09:21:14 +0200 (CEST)
+Received: from [10.48.1.102] (10.75.127.47) by SHFDAG1NODE2.st.com
+ (10.75.129.70) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2308.20; Tue, 28 Jun
+ 2022 09:21:13 +0200
+Message-ID: <bd35eb19-cfda-4799-1ab0-0578d3c79466@foss.st.com>
+Date: Tue, 28 Jun 2022 09:21:12 +0200
 MIME-Version: 1.0
-References: <20220628020110.1601693-1-saravanak@google.com>
-In-Reply-To: <20220628020110.1601693-1-saravanak@google.com>
-From: Fabio Estevam <festevam@gmail.com>
-Date: Mon, 27 Jun 2022 23:22:52 -0300
-Message-ID: <CAOMZO5D29QqH_-pktht6yO_Ga7B7KgeGXxzyUHJWGYfGTJr4pw@mail.gmail.com>
-To: Saravana Kannan <saravanak@google.com>
-Cc: andrew lunn <andrew@lunn.ch>, peng fan <peng.fan@nxp.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>,
- Benjamin Herrenschmidt <benh@kernel.crashing.org>,
- linus walleij <linus.walleij@linaro.org>, Paul Mackerras <paulus@samba.org>,
- Alim Akhtar <alim.akhtar@samsung.com>, Peter Korsgaard <jacmet@sunsite.dk>,
- linux-stm32@st-md-mailman.stormreply.com, Karol Gugala <kgugala@antmicro.com>,
- Jerome Brunet <jbrunet@baylibre.com>, linux-samsung-soc@vger.kernel.org,
- Michael Ellerman <mpe@ellerman.id.au>, Michal Simek <michal.simek@xilinx.com>,
- Hammer Hsieh <hammerh0314@gmail.com>, NXP Linux Team <linux-imx@nxp.com>,
- Vineet Gupta <vgupta@kernel.org>, len brown <len.brown@intel.com>,
- Nicolas Saenz Julienne <nsaenz@kernel.org>, linux-pm@vger.kernel.org,
- Sascha Hauer <s.hauer@pengutronix.de>, linux-unisoc@lists.infradead.org,
- Scott Branden <sbranden@broadcom.com>, Andrew Jeffery <andrew@aj.id.au>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- linux-kernel <linux-kernel@vger.kernel.org>,
- Richard Genoud <richard.genoud@gmail.com>,
- Masami Hiramatsu <mhiramat@kernel.org>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Claudiu Beznea <claudiu.beznea@microchip.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>, pavel machek <pavel@ucw.cz>,
- Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
- eric dumazet <edumazet@google.com>, Thierry Reding <thierry.reding@gmail.com>,
- sascha hauer <sha@pengutronix.de>, Chunyan Zhang <zhang.lyra@gmail.com>,
- Jonathan Hunter <jonathanh@nvidia.com>, Gabriel Somlo <gsomlo@gmail.com>,
- Tobias Klauser <tklauser@distanz.ch>, linux-mips@vger.kernel.org,
- kernel-team@android.com,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- linux-arm-msm@vger.kernel.org, linux-actions@lists.infradead.org,
- "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
- linux-rpi-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
- "moderated list:ARM/FREESCALE IMX / MXC ARM ARCHITECTURE"
- <linux-arm-kernel@lists.infradead.org>, Andreas Farber <afaerber@suse.de>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Kevin Hilman <khilman@baylibre.com>, Pali Rohar <pali@kernel.org>,
- heiner kallweit <hkallweit1@gmail.com>, ulf hansson <ulf.hansson@linaro.org>,
- Neil Armstrong <narmstrong@baylibre.com>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>, Al Cooper <alcooperx@gmail.com>,
- linux-tegra@vger.kernel.org, Jiri Slaby <jirislaby@kernel.org>,
- linux-aspeed@lists.ozlabs.org, Rob Herring <robh@kernel.org>,
- Florian Fainelli <f.fainelli@gmail.com>,
- Mateusz Holenko <mholenko@antmicro.com>, Alexander Shiyan <shc_work@mail.ru>,
- kevin hilman <khilman@kernel.org>,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
- Joel Stanley <joel@jms.id.au>, Orson Zhai <orsonzhai@gmail.com>,
- paolo abeni <pabeni@redhat.com>, Ray Jui <rjui@broadcom.com>,
- Vladimir Zapolskiy <vz@mleia.com>, linux-snps-arc@lists.infradead.org,
- Timur Tabi <timur@kernel.org>, hideaki yoshifuji <yoshfuji@linux-ipv6.org>,
- iommu@lists.linux-foundation.org, Laxman Dewangan <ldewangan@nvidia.com>,
- Sudeep Holla <sudeep.holla@arm.com>, Baolin Wang <baolin.wang7@gmail.com>,
- Shawn Guo <shawnguo@kernel.org>, "David S. Miller" <davem@davemloft.net>,
- Baruch Siach <baruch@tkos.co.il>, Liviu Dudau <liviu.dudau@arm.com>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- Paul Cercueil <paul@crapouillou.net>, sparclinux@vger.kernel.org,
- linux-riscv@lists.infradead.org, joerg roedel <joro@8bytes.org>,
- Russell King <linux@armlinux.org.uk>, Andy Gross <agross@kernel.org>,
- linux-serial@vger.kernel.org, jakub kicinski <kuba@kernel.org>,
- will deacon <will@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>,
- linux-mediatek@lists.infradead.org, Paul Walmsley <paul.walmsley@sifive.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Laurentiu Tudor <laurentiu.tudor@nxp.com>,
- Taichi Sugaya <sugaya.taichi@socionext.com>, netdev <netdev@vger.kernel.org>,
- david ahern <dsahern@kernel.org>, Nicolas Ferre <nicolas.ferre@microchip.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Palmer Dabbelt <palmer@dabbelt.com>, Takao Orito <orito.takao@socionext.com>,
- linuxppc-dev <linuxppc-dev@lists.ozlabs.org>
-Subject: Re: [Linux-stm32] [PATCH v1 0/2] Fix console probe delay when
-	stdout-path isn't set
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.9.1
+Content-Language: en-US
+To: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+References: <20220624155413.399190-1-fabrice.gasnier@foss.st.com>
+ <20220624155413.399190-3-fabrice.gasnier@foss.st.com>
+ <YrmtzDfFm17PFl2r@kuha.fi.intel.com>
+From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+In-Reply-To: <YrmtzDfFm17PFl2r@kuha.fi.intel.com>
+X-Originating-IP: [10.75.127.47]
+X-ClientProxiedBy: SFHDAG2NODE3.st.com (10.75.127.6) To SHFDAG1NODE2.st.com
+ (10.75.129.70)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.883,Hydra:6.0.517,FMLib:17.11.122.1
+ definitions=2022-06-27_09,2022-06-24_01,2022-06-22_01
+Cc: devicetree@vger.kernel.org, gregkh@linuxfoundation.org,
+ linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, robh+dt@kernel.org,
+ krzysztof.kozlowski+dt@linaro.org, linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH 2/4] usb: typec: ucsi: stm32g0: add
+ support for stm32g0 i2c controller
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -134,24 +80,72 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Saravana,
+On 6/27/22 15:17, Heikki Krogerus wrote:
+> Hi,
+> 
+> On Fri, Jun 24, 2022 at 05:54:11PM +0200, Fabrice Gasnier wrote:
+>> +static int ucsi_stm32g0_probe(struct i2c_client *client, const struct i2c_device_id *id)
+>> +{
+>> +	struct device *dev = &client->dev;
+>> +	struct ucsi_stm32g0 *g0;
+>> +	int ret;
+>> +
+>> +	g0 = devm_kzalloc(dev, sizeof(*g0), GFP_KERNEL);
+>> +	if (!g0)
+>> +		return -ENOMEM;
+>> +
+>> +	g0->dev = dev;
+>> +	g0->client = client;
+>> +	init_completion(&g0->complete);
+>> +	i2c_set_clientdata(client, g0);
+>> +
+>> +	g0->ucsi = ucsi_create(dev, &ucsi_stm32g0_ops);
+>> +	if (IS_ERR(g0->ucsi))
+>> +		return PTR_ERR(g0->ucsi);
+>> +
+>> +	ucsi_set_drvdata(g0->ucsi, g0);
+>> +
+>> +	/* Request alert interrupt */
+>> +	ret = request_threaded_irq(client->irq, NULL, ucsi_stm32g0_irq_handler, IRQF_ONESHOT,
+>> +				   dev_name(&client->dev), g0);
+>> +	if (ret) {
+>> +		dev_err_probe(dev, ret, "request IRQ failed\n");
+>> +		goto destroy;
+>> +	}
+>> +
+>> +	ret = ucsi_register(g0->ucsi);
+>> +	if (ret) {
+>> +		dev_err_probe(dev, ret, "ucsi_register failed\n");
+>> +		goto freeirq;
+>> +	}
+> 
+> If there isn't UCSI firmware, then ucsi_register() will always safely
+> fail here, right?
 
-On Mon, Jun 27, 2022 at 11:03 PM Saravana Kannan <saravanak@google.com> wrote:
->
-> Since the series that fixes console probe delay based on stdout-path[1] got
-> pulled into driver-core-next, I made these patches on top of them.
->
-> Even if stdout-path isn't set in DT, this patch should take console
-> probe times back to how they were before the deferred_probe_timeout
-> clean up series[2].
->
-> Fabio/Ahmad/Sascha,
->
-> Can you give this a shot please?
+Hi Heikki,
 
-This series works fine for me (with and without stdout-path), thanks:
+Yes, in such a case, the first i2c read (UCSI_VERSION) in
+ucsi_register() will return an error and safely fail here.
 
-Tested-by: Fabio Estevam <festevam@gmail.com>
+Thanks for reviewing,
+Best Regards,
+Fabrice
+
+> 
+> 
+>> +	return 0;
+>> +
+>> +freeirq:
+>> +	free_irq(client->irq, g0);
+>> +destroy:
+>> +	ucsi_destroy(g0->ucsi);
+>> +
+>> +	return ret;
+>> +}
+> 
+> 
+> thanks,
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
