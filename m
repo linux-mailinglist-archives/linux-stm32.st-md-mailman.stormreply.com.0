@@ -2,60 +2,67 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7AC3A55E508
-	for <lists+linux-stm32@lfdr.de>; Tue, 28 Jun 2022 15:41:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B71E55E51D
+	for <lists+linux-stm32@lfdr.de>; Tue, 28 Jun 2022 15:56:32 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3A580C5F1EE;
-	Tue, 28 Jun 2022 13:41:21 +0000 (UTC)
-Received: from mail-io1-f44.google.com (mail-io1-f44.google.com
- [209.85.166.44])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 196A5C5F1EE;
+	Tue, 28 Jun 2022 13:56:32 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0077AC035BF
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9C83CC035BF
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 28 Jun 2022 13:41:19 +0000 (UTC)
-Received: by mail-io1-f44.google.com with SMTP id p128so12866728iof.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 28 Jun 2022 06:41:19 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=mwOBShGTICMgOdqz3MT5Sv+scZgbcai7ONXkEa1E170=;
- b=YAOrG9KdAHDPo3qBDR+AyUU8D1tZFQd6uYdcbT2Bc0lSSWf06BuY32zkWeEVQUgeed
- w1VkM5NzB+S0sbct2JnZ20tzT+t5JjfUhRQVjH5oqhd8ctfkE6Zjz1MoHf8K8qH3hhXT
- lxEpqn0wytaCVVOrZQWbgDMIcF7CQ1IQSi8XKly+xlq2aFYdHX8mr7w+a9S3ww37LJUy
- 9lX721EcNDrDW4lS2/X8LTv5dlbj1GsMjxJzrxtGSmz65Svjxw2imJZdDZgjIz4wS2K6
- yQQqJMQQoJXdjhbceRyvBuNHwKbFK7+MnjWWcGDmxTGGLOHT1ag+mFl/E5NhQQ+BNcJz
- /VVg==
-X-Gm-Message-State: AJIora8xCdgfWcxPJ2sCvYq/QaOmwOW0DwBEfwc2Vw9dOfrC9fkhh4Bo
- 8Kg9dxJimfticPFLCyycBQ==
-X-Google-Smtp-Source: AGRyM1vezFgpYiRSAOEMIGspLW0FyDakiQT+VyWz3hQV83fc87ID8ATA7tp7O9Lc6ulOVPgPAdG4Sg==
-X-Received: by 2002:a05:6638:2481:b0:331:e12a:5e32 with SMTP id
- x1-20020a056638248100b00331e12a5e32mr11010467jat.90.1656423678724; 
- Tue, 28 Jun 2022 06:41:18 -0700 (PDT)
-Received: from robh.at.kernel.org ([64.188.179.253])
- by smtp.gmail.com with ESMTPSA id
- c13-20020a02330d000000b00334748f85easm6124556jae.106.2022.06.28.06.41.17
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 28 Jun 2022 06:41:18 -0700 (PDT)
-Received: (nullmailer pid 348635 invoked by uid 1000);
- Tue, 28 Jun 2022 13:41:15 -0000
-Date: Tue, 28 Jun 2022 07:41:15 -0600
-From: Rob Herring <robh@kernel.org>
-To: Alain Volmat <alain.volmat@foss.st.com>
-Message-ID: <20220628134115.GA345270-robh@kernel.org>
-References: <20220620105405.145959-1-alain.volmat@foss.st.com>
- <20220620105405.145959-2-alain.volmat@foss.st.com>
+ Tue, 28 Jun 2022 13:56:30 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 0A731B81B97;
+ Tue, 28 Jun 2022 13:56:30 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C80ADC341CA;
+ Tue, 28 Jun 2022 13:56:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1656424588;
+ bh=b5FsKFMrP1+S6zwgUlKhr8WAIjk2qEr4j/i4jiXKeUI=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=ipH9xLLON/wfF1+doX0YwzWNurZbGyHCLx43ahE7WR8jLi1R48cI2m2yJAsZCWDQT
+ Un4VNsnpjcqqdwdfvJBWhdCzCR6kAmILST6sGe+QmxtUWHpxGj2/l2NK930cX7S1Vb
+ ck1tdm9dVL3hHqJ5pPK6X9u94v/kg7IeqTTrypuenoyOXdLstD1jm9a1r2/Mn+hjvK
+ A5gIe8GNT4XoGXRtGng12sB0ehpNIhwjOmzNMxwSBDvTu3O5JPGVxOwJ5SG66up68M
+ dTuMxAaqVKV5rVpkj9AWHYexDQNYp0rXQRl//EEgGVYdOgnC2OLlmpTSGeWpC665ae
+ t2Abf09RRIvCQ==
+Date: Tue, 28 Jun 2022 15:56:23 +0200
+From: "Gustavo A. R. Silva" <gustavoars@kernel.org>
+To: Jason Gunthorpe <jgg@ziepe.ca>
+Message-ID: <20220628135623.GA25163@embeddedor>
+References: <20220627180432.GA136081@embeddedor>
+ <6bc1e94c-ce1d-a074-7d0c-8dbe6ce22637@iogearbox.net>
+ <20220628004052.GM23621@ziepe.ca>
+ <20220628005825.GA161566@embeddedor>
+ <20220628022129.GA8452@embeddedor>
+ <20220628133651.GO23621@ziepe.ca>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20220620105405.145959-2-alain.volmat@foss.st.com>
-Cc: mark.rutland@arm.com, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, wsa@kernel.org, linux-i2c@vger.kernel.org,
- mcoquelin.stm32@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 1/4] dt-bindings: i2c: st,
- stm32-i2c: don't mandate a reset line
+In-Reply-To: <20220628133651.GO23621@ziepe.ca>
+Cc: nvdimm@lists.linux.dev, alsa-devel@alsa-project.org, kvm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-mips@vger.kernel.org,
+ dm-devel@redhat.com, target-devel@vger.kernel.org,
+ linux-mtd@lists.infradead.org, linux-hardening@vger.kernel.org,
+ linux1394-devel@lists.sourceforge.net,
+ linux-stm32@st-md-mailman.stormreply.com, linux-s390@vger.kernel.org,
+ Daniel Borkmann <daniel@iogearbox.net>, linux-rdma@vger.kernel.org,
+ x86@kernel.org, kasan-dev@googlegroups.com, lvs-devel@vger.kernel.org,
+ coreteam@netfilter.org, v9fs-developer@lists.sourceforge.net,
+ Kees Cook <keescook@chromium.org>, intel-gfx@lists.freedesktop.org,
+ linux-can@vger.kernel.org, linux-raid@vger.kernel.org,
+ linux-m68k@lists.linux-m68k.org, virtualization@lists.linux-foundation.org,
+ io-uring@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-scsi@vger.kernel.org, netdev@vger.kernel.org, linux-usb@vger.kernel.org,
+ linux-mmc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-perf-users@vger.kernel.org, linux-sctp@vger.kernel.org,
+ netfilter-devel@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ bpf@vger.kernel.org, linux-btrfs@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH][next] treewide: uapi: Replace zero-length
+ arrays with flexible-array members
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,36 +79,48 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Jun 20, 2022 at 12:54:02PM +0200, Alain Volmat wrote:
-> Update the dt-bindings of the i2c-stm32 drivers to avoid the
-> needs for a reset property in the device-tree.
+On Tue, Jun 28, 2022 at 10:36:51AM -0300, Jason Gunthorpe wrote:
+> On Tue, Jun 28, 2022 at 04:21:29AM +0200, Gustavo A. R. Silva wrote:
+> 
+> > > > Though maybe we could just switch off -Wgnu-variable-sized-type-not-at-end  during configuration ?
+> 
+> > We need to think in a different strategy.
+> 
+> I think we will need to switch off the warning in userspace - this is
+> doable for rdma-core.
+> 
+> On the other hand, if the goal is to enable the array size check
+> compiler warning I would suggest focusing only on those structs that
+> actually hit that warning in the kernel. IIRC infiniband doesn't
+> trigger it because it just pointer casts the flex array to some other
+> struct.
 
-That is clear from the diff, but why. Some chips don't have a reset? 
-If so, this should be combined with patch 2 as part of changes needed 
-for a new version.
+Yep; this is actually why I reverted those changes in rdma (before
+sending out the patch) when 0-day reported the same problems you pointed
+out[1].
+
+Also, that's the strategy I'm following right now with the one-element
+array into flex-array member transformations. I'm addressing those cases
+in which the trailing array is actually being iterated over, first.
+
+I just added the patch to my -next tree, so it can be build-tested by
+other people, and let's see what else is reported this week. :)
+
+--
+Gustavo
+
+[1] https://lore.kernel.org/lkml/620ca2a5.NkAEIDEfiYoxE9%2Fu%25lkp@intel.com/
 
 > 
-> Signed-off-by: Alain Volmat <alain.volmat@foss.st.com>
-> ---
->  Documentation/devicetree/bindings/i2c/st,stm32-i2c.yaml | 1 -
->  1 file changed, 1 deletion(-)
+> It isn't actually an array it is a placeholder for a trailing
+> structure, so it is never indexed.
 > 
-> diff --git a/Documentation/devicetree/bindings/i2c/st,stm32-i2c.yaml b/Documentation/devicetree/bindings/i2c/st,stm32-i2c.yaml
-> index dccbb18b6dc0..8879144fbbfb 100644
-> --- a/Documentation/devicetree/bindings/i2c/st,stm32-i2c.yaml
-> +++ b/Documentation/devicetree/bindings/i2c/st,stm32-i2c.yaml
-> @@ -94,7 +94,6 @@ required:
->    - compatible
->    - reg
->    - interrupts
-> -  - resets
->    - clocks
->  
->  unevaluatedProperties: false
-> -- 
-> 2.25.1
+> This is also why we hit the warning because the convient way for
+> userspace to compose the message is to squash the header and trailer
+> structs together in a super struct on the stack, then invoke the
+> ioctl.
 > 
-> 
+> Jason 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
