@@ -2,88 +2,56 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id EC30755BF11
-	for <lists+linux-stm32@lfdr.de>; Tue, 28 Jun 2022 09:27:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 43F2C55BFEE
+	for <lists+linux-stm32@lfdr.de>; Tue, 28 Jun 2022 11:56:38 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 829BCC5F1EE;
-	Tue, 28 Jun 2022 07:27:37 +0000 (UTC)
-Received: from mail-qk1-f182.google.com (mail-qk1-f182.google.com
- [209.85.222.182])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A60F4C5F1EE;
+	Tue, 28 Jun 2022 09:56:37 +0000 (UTC)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8D862C5F1D5
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 30FEDC035BF
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 28 Jun 2022 07:27:36 +0000 (UTC)
-Received: by mail-qk1-f182.google.com with SMTP id z7so8990086qko.8
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 28 Jun 2022 00:27:36 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=hwgLtruPC06mcRCnQAsf+kJqHCP1mf00hTNnpiQ34M0=;
- b=4mu7RoG0ctOFH1gW11s4lvLHEwD+5LuK0RRsDzLvt0Y5eH+FrN7//G/0pIm8WW/abD
- 9CQe+HOEkJUHwMWa9gu0m9SNu8J2Isah22+MZGeUwtzEeCbwqNi1QvP/7PE4mIJkkyU+
- jnIH39WnK0/NEXEmdE1YlULuwSCVoB576Fj0hdrR95URccnA+2jF02yLZQgX0d9OgHkF
- CPRH/y4/o8oWXsAbFyiSBdmee8XR3etw6tmHiloxAGhgtMB1zUtLpx+JIPPHJlbTSahp
- 2ZoeCFdNqEhQmXHkRtfhh5UEYuF1LBaX0C7tGmRXaTZBo47YB8ISjJ3ya5sfvj9uOVXS
- BKDw==
-X-Gm-Message-State: AJIora/1BOjzphS1Bs+5e3y+JcRrWJa9Yf/WvAaiWn0lPUcXmir2ezB0
- JviTdCg+vPa7/FX8rBh82SoiGDcpJRZH/C6r
-X-Google-Smtp-Source: AGRyM1s8rTc8UNVQDN/IqoAzBsniQnP4tw0eedh8RQfmSyhngna4a99LA6bSt1GjjERcCwgdUgncZw==
-X-Received: by 2002:ae9:e209:0:b0:6af:122:b34e with SMTP id
- c9-20020ae9e209000000b006af0122b34emr10329329qkc.126.1656401255347; 
- Tue, 28 Jun 2022 00:27:35 -0700 (PDT)
-Received: from mail-yw1-f172.google.com (mail-yw1-f172.google.com.
- [209.85.128.172]) by smtp.gmail.com with ESMTPSA id
- k20-20020a05620a07f400b006a6ab259261sm9502426qkk.29.2022.06.28.00.27.33
- for <linux-stm32@st-md-mailman.stormreply.com>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 28 Jun 2022 00:27:34 -0700 (PDT)
-Received: by mail-yw1-f172.google.com with SMTP id
- 00721157ae682-3176d94c236so107800827b3.3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 28 Jun 2022 00:27:33 -0700 (PDT)
-X-Received: by 2002:a81:a092:0:b0:318:5c89:a935 with SMTP id
- x140-20020a81a092000000b003185c89a935mr20762801ywg.383.1656401253054; Tue, 28
- Jun 2022 00:27:33 -0700 (PDT)
+ Tue, 28 Jun 2022 09:56:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1656410196; x=1687946196;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=E8g6oATwOn9T0Tp0qEpsI5CmgdS7Yl7GaxAoiXWVZNk=;
+ b=XSTIopeFoxS7x38RM+21JkF3y7endnCEOjVVwVBfRrE2XCDbYZntydFA
+ qnOmQN4Te0hA/34HKNe8O+BY4LZXyN2KyezJp42ofkLgD5nhYmMIcMyrY
+ 1B9oAdkPH+t28Abd8pvN48MQIBVzV57PluBfZlbu+mkBKMHkBRnPNxbPS
+ A8yXuPREizex5HNlBHNb01WfB3KdQuWVFH4ZgeSdJlGuFj4j4IBixMZtK
+ jo6Vu6NMLpEuyDH2A6po7fsM21CsIBIZL8FKY7CVT/7GDfzn6BpUaPH2w
+ y2BEJpw5eqEGieOPUhcPYrpRLXqpK2qejBw/0UyijOl881JVfKUFj3A5s g==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10391"; a="281734400"
+X-IronPort-AV: E=Sophos;i="5.92,227,1650956400"; d="scan'208";a="281734400"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Jun 2022 02:56:34 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.92,227,1650956400"; d="scan'208";a="732691163"
+Received: from kuha.fi.intel.com ([10.237.72.185])
+ by fmsmga001.fm.intel.com with SMTP; 28 Jun 2022 02:56:30 -0700
+Received: by kuha.fi.intel.com (sSMTP sendmail emulation);
+ Tue, 28 Jun 2022 12:56:30 +0300
+Date: Tue, 28 Jun 2022 12:56:30 +0300
+From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+Message-ID: <YrrQTiCWsnRKAzn7@kuha.fi.intel.com>
+References: <20220624155413.399190-1-fabrice.gasnier@foss.st.com>
+ <20220624155413.399190-3-fabrice.gasnier@foss.st.com>
+ <YrmtzDfFm17PFl2r@kuha.fi.intel.com>
+ <bd35eb19-cfda-4799-1ab0-0578d3c79466@foss.st.com>
 MIME-Version: 1.0
-References: <20220627180432.GA136081@embeddedor>
-In-Reply-To: <20220627180432.GA136081@embeddedor>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Tue, 28 Jun 2022 09:27:21 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdU27TG_rpd=WTRPRcY22A4j4aN-6d_8OmK2aNpX06G3ig@mail.gmail.com>
-Message-ID: <CAMuHMdU27TG_rpd=WTRPRcY22A4j4aN-6d_8OmK2aNpX06G3ig@mail.gmail.com>
-To: "Gustavo A. R. Silva" <gustavoars@kernel.org>
-Cc: nvdimm@lists.linux.dev,
- ALSA Development Mailing List <alsa-devel@alsa-project.org>,
- KVM list <kvm@vger.kernel.org>,
- DRI Development <dri-devel@lists.freedesktop.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, dm-devel@redhat.com,
- target-devel <target-devel@vger.kernel.org>,
- MTD Maling List <linux-mtd@lists.infradead.org>,
- linux-hardening@vger.kernel.org, linux1394-devel@lists.sourceforge.net,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-s390 <linux-s390@vger.kernel.org>, scsi <linux-scsi@vger.kernel.org>,
- linux-rdma <linux-rdma@vger.kernel.org>,
- the arch/x86 maintainers <x86@kernel.org>,
- kasan-dev <kasan-dev@googlegroups.com>, lvs-devel@vger.kernel.org,
- coreteam@netfilter.org, V9FS Developers <v9fs-developer@lists.sourceforge.net>,
- Kees Cook <keescook@chromium.org>,
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- linux-can@vger.kernel.org, linux-raid@vger.kernel.org,
- linux-m68k <linux-m68k@lists.linux-m68k.org>,
- virtualization@lists.linux-foundation.org, io-uring@vger.kernel.org,
- Linux ARM <linux-arm-kernel@lists.infradead.org>,
- netdev <netdev@vger.kernel.org>, USB list <linux-usb@vger.kernel.org>,
- Linux MMC List <linux-mmc@vger.kernel.org>,
- "open list:BROADCOM NVRAM DRIVER" <linux-mips@vger.kernel.org>,
- linux-perf-users@vger.kernel.org, linux-sctp@vger.kernel.org,
- NetFilter <netfilter-devel@vger.kernel.org>,
- Linux FS Devel <linux-fsdevel@vger.kernel.org>, bpf <bpf@vger.kernel.org>,
- linux-btrfs <linux-btrfs@vger.kernel.org>
-Subject: Re: [Linux-stm32] [PATCH][next] treewide: uapi: Replace zero-length
- arrays with flexible-array members
+Content-Disposition: inline
+In-Reply-To: <bd35eb19-cfda-4799-1ab0-0578d3c79466@foss.st.com>
+Cc: devicetree@vger.kernel.org, gregkh@linuxfoundation.org,
+ linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, robh+dt@kernel.org,
+ krzysztof.kozlowski+dt@linaro.org, linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH 2/4] usb: typec: ucsi: stm32g0: add
+ support for stm32g0 i2c controller
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,29 +63,64 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SGkgR3VzdGF2bywKClRoYW5rcyBmb3IgeW91ciBwYXRjaCEKCk9uIE1vbiwgSnVuIDI3LCAyMDIy
-IGF0IDg6MDQgUE0gR3VzdGF2byBBLiBSLiBTaWx2YQo8Z3VzdGF2b2Fyc0BrZXJuZWwub3JnPiB3
-cm90ZToKPiBUaGVyZSBpcyBhIHJlZ3VsYXIgbmVlZCBpbiB0aGUga2VybmVsIHRvIHByb3ZpZGUg
-YSB3YXkgdG8gZGVjbGFyZQo+IGhhdmluZyBhIGR5bmFtaWNhbGx5IHNpemVkIHNldCBvZiB0cmFp
-bGluZyBlbGVtZW50cyBpbiBhIHN0cnVjdHVyZS4KPiBLZXJuZWwgY29kZSBzaG91bGQgYWx3YXlz
-IHVzZSDigJxmbGV4aWJsZSBhcnJheSBtZW1iZXJz4oCdWzFdIGZvciB0aGVzZQo+IGNhc2VzLiBU
-aGUgb2xkZXIgc3R5bGUgb2Ygb25lLWVsZW1lbnQgb3IgemVyby1sZW5ndGggYXJyYXlzIHNob3Vs
-ZAo+IG5vIGxvbmdlciBiZSB1c2VkWzJdLgoKVGhlc2UgcnVsZXMgYXBwbHkgdG8gdGhlIGtlcm5l
-bCwgYnV0IHVhcGkgaXMgbm90IGNvbnNpZGVyZWQgcGFydCBvZiB0aGUKa2VybmVsLCBzbyBkaWZm
-ZXJlbnQgcnVsZXMgYXBwbHkuICBVYXBpIGhlYWRlciBmaWxlcyBzaG91bGQgd29yayB3aXRoCndo
-YXRldmVyIGNvbXBpbGVyIHRoYXQgY2FuIGJlIHVzZWQgZm9yIGNvbXBpbGluZyB1c2Vyc3BhY2Uu
-CgpHcntvZXRqZSxlZXRpbmd9cywKCiAgICAgICAgICAgICAgICAgICAgICAgIEdlZXJ0CgotLQpH
-ZWVydCBVeXR0ZXJob2V2ZW4gLS0gVGhlcmUncyBsb3RzIG9mIExpbnV4IGJleW9uZCBpYTMyIC0t
-IGdlZXJ0QGxpbnV4LW02OGsub3JnCgpJbiBwZXJzb25hbCBjb252ZXJzYXRpb25zIHdpdGggdGVj
-aG5pY2FsIHBlb3BsZSwgSSBjYWxsIG15c2VsZiBhIGhhY2tlci4gQnV0CndoZW4gSSdtIHRhbGtp
-bmcgdG8gam91cm5hbGlzdHMgSSBqdXN0IHNheSAicHJvZ3JhbW1lciIgb3Igc29tZXRoaW5nIGxp
-a2UgdGhhdC4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAtLSBMaW51cyBUb3J2YWxk
-cwpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1z
-dG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNv
-bQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9s
-aW51eC1zdG0zMgo=
+On Tue, Jun 28, 2022 at 09:21:12AM +0200, Fabrice Gasnier wrote:
+> On 6/27/22 15:17, Heikki Krogerus wrote:
+> > Hi,
+> > 
+> > On Fri, Jun 24, 2022 at 05:54:11PM +0200, Fabrice Gasnier wrote:
+> >> +static int ucsi_stm32g0_probe(struct i2c_client *client, const struct i2c_device_id *id)
+> >> +{
+> >> +	struct device *dev = &client->dev;
+> >> +	struct ucsi_stm32g0 *g0;
+> >> +	int ret;
+> >> +
+> >> +	g0 = devm_kzalloc(dev, sizeof(*g0), GFP_KERNEL);
+> >> +	if (!g0)
+> >> +		return -ENOMEM;
+> >> +
+> >> +	g0->dev = dev;
+> >> +	g0->client = client;
+> >> +	init_completion(&g0->complete);
+> >> +	i2c_set_clientdata(client, g0);
+> >> +
+> >> +	g0->ucsi = ucsi_create(dev, &ucsi_stm32g0_ops);
+> >> +	if (IS_ERR(g0->ucsi))
+> >> +		return PTR_ERR(g0->ucsi);
+> >> +
+> >> +	ucsi_set_drvdata(g0->ucsi, g0);
+> >> +
+> >> +	/* Request alert interrupt */
+> >> +	ret = request_threaded_irq(client->irq, NULL, ucsi_stm32g0_irq_handler, IRQF_ONESHOT,
+> >> +				   dev_name(&client->dev), g0);
+> >> +	if (ret) {
+> >> +		dev_err_probe(dev, ret, "request IRQ failed\n");
+> >> +		goto destroy;
+> >> +	}
+> >> +
+> >> +	ret = ucsi_register(g0->ucsi);
+> >> +	if (ret) {
+> >> +		dev_err_probe(dev, ret, "ucsi_register failed\n");
+> >> +		goto freeirq;
+> >> +	}
+> > 
+> > If there isn't UCSI firmware, then ucsi_register() will always safely
+> > fail here, right?
+> 
+> Hi Heikki,
+> 
+> Yes, in such a case, the first i2c read (UCSI_VERSION) in
+> ucsi_register() will return an error and safely fail here.
+
+Okay, thanks.
+
+-- 
+heikki
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
