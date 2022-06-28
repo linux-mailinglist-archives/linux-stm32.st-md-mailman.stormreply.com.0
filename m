@@ -2,121 +2,71 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 528E855E5E3
-	for <lists+linux-stm32@lfdr.de>; Tue, 28 Jun 2022 18:17:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B8F5655EA6D
+	for <lists+linux-stm32@lfdr.de>; Tue, 28 Jun 2022 19:02:10 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0905EC5F1EF;
-	Tue, 28 Jun 2022 16:17:04 +0000 (UTC)
-Received: from mail-yb1-f169.google.com (mail-yb1-f169.google.com
- [209.85.219.169])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 694F0C5F1EF;
+	Tue, 28 Jun 2022 17:02:10 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 15044C5F1D5
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A2E3FC5F1D7
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 28 Jun 2022 16:17:01 +0000 (UTC)
-Received: by mail-yb1-f169.google.com with SMTP id g4so11506983ybg.9
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 28 Jun 2022 09:17:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=a+P6wSeN2x0ZvD2/JjzHKyqS9/n/5A6tY5jiA6Lhnb8=;
- b=svPPiUXmjLu4A2+b3rJgoCqrzxWVmAH7KXTvVP4AwaLTDrIN9AN3BtNG2XiV2ycJ8x
- 6Y9oMX5BQlCl6K+KL9J1KxqNRcb1MdTb/c18nJgwvmc5rVyOe8EKUyj+KrCbNC70iJoL
- OlJOsi9x5Scvw9W8cP8d/OYBAk6luTiA/PE8w/jzj7tOJ+ICpHFzyCnfh2xqrRn3YVLo
- nvgpT4pJzONw4hikJOgq/y8DRHjrG2lOfrc2hEWRc02ovhuxlfgkK9/gOnTwVGME5DOU
- 4AXMX65QfUYiz76GEkrT/465op3M51kj45IkhJmeQobRe1+J32FVHZumFFaJBd9Gan88
- /wYA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=a+P6wSeN2x0ZvD2/JjzHKyqS9/n/5A6tY5jiA6Lhnb8=;
- b=x/1w23KDzRJlI9RS3Y4n7A1+u3Pw4MafavGRd3IZoRyP5J1yWQOfu9/q07PYArOg/Q
- vekGisr/lqwWQFpzUFMedDwg6llpdZpGmELDSjNlu9z4Ruse9/Y9FJsy3lNZ3SPAz/R2
- PFPpt1msA8t+GwmCmnDt2vZ9T50skfU1u5/+v4iWyNiRN6FhgTqOVZ3c3fbiqeyreCfS
- vQ+dWBkRRdLrs9ALO6gxMxgROQ2tgNlPLTXLZI+xqpIcHpkSfXx9zAVsc9ma/I0XLC1y
- FrD7DTfQ8PaOLTW4UVtWhfvYKG4BewlJIj/TfDnZ1uFCxZbJbeeujUsBgHGTa3F0bhvM
- rAbg==
-X-Gm-Message-State: AJIora+STtXl7g29Aq0phx/WmmenecCai6et+/JTpEoSPn/6MCIMf40m
- vZhhW4bzbx6PQCHkfQrFAt4uui6cWn7bUMMgKfSLfA==
-X-Google-Smtp-Source: AGRyM1vHa4WRnJlk4sln0xuJGdVhcpu8QS15R2N9PrbVvkglI7Nzwr0PBFdp1lTun6HJ/nUSS1O/TmeoEjFZPidRK0U=
-X-Received: by 2002:a25:5bc3:0:b0:669:b722:beb8 with SMTP id
- p186-20020a255bc3000000b00669b722beb8mr20258885ybb.447.1656433020483; Tue, 28
- Jun 2022 09:17:00 -0700 (PDT)
+ Tue, 28 Jun 2022 17:02:08 +0000 (UTC)
+Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 25SCst7f003744;
+ Tue, 28 Jun 2022 19:01:48 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=BMotZWpCCfiO7PWNHjygZuqAvONIxCQdUg4VBGbS1Bk=;
+ b=5W4XksWskcYGpqTB/7PPVNM2j59Uq8tmHtokmRoieiG+GLhnfzIKc8GOE8lwy72wwr3x
+ b+KYTjGpT8y3kDbSoO1JjQhbSPAJ/OYK0i8r7NO8sJxhKDz3zD6GaUm47ytNREb8xtiI
+ 8t/1zLFt0IUrmN0ctH9VLVJObE/pcnW0GdwxY/3bWu3QHrOpMfzwaijyKgfSpuv2iirR
+ wclQn1degeZ6BwxwYCpEVlhdrad9BTW4a0+/nVrOGD5qoOCc3SGckt++qR6bG12OC8o0
+ j+7nBQHgLoFbXcxZL5M5zFpJzsif4sfZQe8mqzz4aDairB5KA4lSv0mPoCBLUaC6i8QO uA== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3gydcu7k2t-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 28 Jun 2022 19:01:48 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id E90DE10002A;
+ Tue, 28 Jun 2022 19:01:46 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 04786226FDF;
+ Tue, 28 Jun 2022 19:01:46 +0200 (CEST)
+Received: from [10.48.1.102] (10.75.127.47) by SHFDAG1NODE2.st.com
+ (10.75.129.70) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2308.20; Tue, 28 Jun
+ 2022 19:01:42 +0200
+Message-ID: <6ef58f1f-ee8a-b060-6fda-d1388b3ede6d@foss.st.com>
+Date: Tue, 28 Jun 2022 19:01:42 +0200
 MIME-Version: 1.0
-References: <20220628020110.1601693-1-saravanak@google.com>
- <20220628020110.1601693-3-saravanak@google.com>
- <20220628140025.qpom64ptru4ub6fu@distanz.ch>
-In-Reply-To: <20220628140025.qpom64ptru4ub6fu@distanz.ch>
-From: Saravana Kannan <saravanak@google.com>
-Date: Tue, 28 Jun 2022 09:16:24 -0700
-Message-ID: <CAGETcx_7jS3H2cphiXdk=NBfmuPzsusEwPBx75n3PrP6YTnjnA@mail.gmail.com>
-To: Tobias Klauser <tklauser@distanz.ch>
-Cc: andrew lunn <andrew@lunn.ch>, peng fan <peng.fan@nxp.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>,
- Benjamin Herrenschmidt <benh@kernel.crashing.org>,
- linus walleij <linus.walleij@linaro.org>, Paul Mackerras <paulus@samba.org>,
- Alim Akhtar <alim.akhtar@samsung.com>, Peter Korsgaard <jacmet@sunsite.dk>,
- linux-stm32@st-md-mailman.stormreply.com, Karol Gugala <kgugala@antmicro.com>,
- Jerome Brunet <jbrunet@baylibre.com>, linux-samsung-soc@vger.kernel.org,
- Michael Ellerman <mpe@ellerman.id.au>, Michal Simek <michal.simek@xilinx.com>,
- Hammer Hsieh <hammerh0314@gmail.com>, NXP Linux Team <linux-imx@nxp.com>,
- Vineet Gupta <vgupta@kernel.org>, len brown <len.brown@intel.com>,
- Nicolas Saenz Julienne <nsaenz@kernel.org>, linux-pm@vger.kernel.org,
- Sascha Hauer <s.hauer@pengutronix.de>, linux-unisoc@lists.infradead.org,
- Scott Branden <sbranden@broadcom.com>, Andrew Jeffery <andrew@aj.id.au>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-kernel@vger.kernel.org,
- Richard Genoud <richard.genoud@gmail.com>,
- Masami Hiramatsu <mhiramat@kernel.org>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Claudiu Beznea <claudiu.beznea@microchip.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>, pavel machek <pavel@ucw.cz>,
- Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
- eric dumazet <edumazet@google.com>, Thierry Reding <thierry.reding@gmail.com>,
- sascha hauer <sha@pengutronix.de>, Chunyan Zhang <zhang.lyra@gmail.com>,
- Jonathan Hunter <jonathanh@nvidia.com>, Gabriel Somlo <gsomlo@gmail.com>,
- linux-mips@vger.kernel.org, kernel-team@android.com,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- linux-arm-msm@vger.kernel.org, linux-actions@lists.infradead.org,
- linux-gpio@vger.kernel.org, linux-rpi-kernel@lists.infradead.org,
- linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- Andreas Farber <afaerber@suse.de>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Kevin Hilman <khilman@baylibre.com>, Pali Rohar <pali@kernel.org>,
- heiner kallweit <hkallweit1@gmail.com>, ulf hansson <ulf.hansson@linaro.org>,
- Neil Armstrong <narmstrong@baylibre.com>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>, Al Cooper <alcooperx@gmail.com>,
- linux-tegra@vger.kernel.org, Jiri Slaby <jirislaby@kernel.org>,
- linux-aspeed@lists.ozlabs.org, Rob Herring <robh@kernel.org>,
- Florian Fainelli <f.fainelli@gmail.com>,
- Mateusz Holenko <mholenko@antmicro.com>, Alexander Shiyan <shc_work@mail.ru>,
- kevin hilman <khilman@kernel.org>,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
- Joel Stanley <joel@jms.id.au>, Orson Zhai <orsonzhai@gmail.com>,
- paolo abeni <pabeni@redhat.com>, Ray Jui <rjui@broadcom.com>,
- Vladimir Zapolskiy <vz@mleia.com>, linux-snps-arc@lists.infradead.org,
- Timur Tabi <timur@kernel.org>, hideaki yoshifuji <yoshfuji@linux-ipv6.org>,
- iommu@lists.linux-foundation.org, Laxman Dewangan <ldewangan@nvidia.com>,
- Sudeep Holla <sudeep.holla@arm.com>, Baolin Wang <baolin.wang7@gmail.com>,
- Shawn Guo <shawnguo@kernel.org>, "David S. Miller" <davem@davemloft.net>,
- Baruch Siach <baruch@tkos.co.il>, Liviu Dudau <liviu.dudau@arm.com>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- Paul Cercueil <paul@crapouillou.net>, sparclinux@vger.kernel.org,
- linux-riscv@lists.infradead.org, joerg roedel <joro@8bytes.org>,
- Russell King <linux@armlinux.org.uk>, Andy Gross <agross@kernel.org>,
- linux-serial@vger.kernel.org, jakub kicinski <kuba@kernel.org>,
- will deacon <will@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>,
- linux-mediatek@lists.infradead.org, Fabio Estevam <festevam@gmail.com>,
- Paul Walmsley <paul.walmsley@sifive.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Laurentiu Tudor <laurentiu.tudor@nxp.com>,
- Taichi Sugaya <sugaya.taichi@socionext.com>, netdev@vger.kernel.org,
- david ahern <dsahern@kernel.org>, Nicolas Ferre <nicolas.ferre@microchip.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Palmer Dabbelt <palmer@dabbelt.com>, Takao Orito <orito.takao@socionext.com>,
- linuxppc-dev@lists.ozlabs.org
-Subject: Re: [Linux-stm32] [PATCH v1 2/2] serial: Set probe_no_timeout for
-	all DT based drivers
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.9.1
+Content-Language: en-US
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, <robh+dt@kernel.org>,
+ <heikki.krogerus@linux.intel.com>, <gregkh@linuxfoundation.org>
+References: <20220624155413.399190-1-fabrice.gasnier@foss.st.com>
+ <20220624155413.399190-2-fabrice.gasnier@foss.st.com>
+ <ddb0e946-c955-1404-c1cd-c2548f34ec35@linaro.org>
+ <845d6817-d2e4-7925-f7f5-da1102514636@foss.st.com>
+ <286633b2-43d2-655e-b3f1-54bf5c7a4a21@linaro.org>
+From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+In-Reply-To: <286633b2-43d2-655e-b3f1-54bf5c7a4a21@linaro.org>
+X-Originating-IP: [10.75.127.47]
+X-ClientProxiedBy: SFHDAG2NODE3.st.com (10.75.127.6) To SHFDAG1NODE2.st.com
+ (10.75.129.70)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.883,Hydra:6.0.517,FMLib:17.11.122.1
+ definitions=2022-06-28_10,2022-06-28_01,2022-06-22_01
+Cc: devicetree@vger.kernel.org, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org, krzysztof.kozlowski+dt@linaro.org,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH 1/4] dt-bindings: usb: typec: add bindings
+ for stm32g0 controller
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -133,26 +83,278 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Jun 28, 2022 at 7:00 AM Tobias Klauser <tklauser@distanz.ch> wrote:
->
-> On 2022-06-28 at 04:01:03 +0200, Saravana Kannan <saravanak@google.com> wrote:
-> > diff --git a/drivers/tty/serial/8250/8250_acorn.c b/drivers/tty/serial/8250/8250_acorn.c
-> > index 758c4aa203ab..5a6f2f67de4f 100644
-> > --- a/drivers/tty/serial/8250/8250_acorn.c
-> > +++ b/drivers/tty/serial/8250/8250_acorn.c
-> > @@ -114,7 +114,6 @@ static const struct ecard_id serial_cids[] = {
-> >  static struct ecard_driver serial_card_driver = {
-> >       .probe          = serial_card_probe,
-> >       .remove         = serial_card_remove,
-> > -     .id_table       = serial_cids,
->
-> Is this change intentional? All other drivers are only changed to set
-> .probe_no_time and I don't see anything mentioned in the commit message
-> re. this driver's change.
+On 6/28/22 12:28, Krzysztof Kozlowski wrote:
+> On 27/06/2022 16:21, Fabrice Gasnier wrote:
+>> On 6/24/22 18:16, Krzysztof Kozlowski wrote:
+>>> On 24/06/2022 17:54, Fabrice Gasnier wrote:
+>>>> This patch adds DT schema documentation for the STM32G0 Type-C controller.
+>>>
+>>> No "This patch"
+>>
+>> Hi Krzysztof,
+>>
+>> ack,
+>>
+>>>
+>>> https://elixir.bootlin.com/linux/v5.17.1/source/Documentation/process/submitting-patches.rst#L95
+>>>
+>>>> STM32G0 provides an integrated USB Type-C and power delivery interface.
+>>>> It can be programmed with a firmware to handle UCSI protocol over I2C
+>>>> interface. A GPIO is used as an interrupt line.
+>>>> It may be used as a wakeup source, so use optional "wakeup-source" and
+>>>> "power-domains" properties to support wakeup.
+>>>>
+>>>> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+>>>> ---
+>>>>  .../bindings/usb/st,typec-stm32g0.yaml        | 83 +++++++++++++++++++
+>>>>  1 file changed, 83 insertions(+)
+>>>>  create mode 100644 Documentation/devicetree/bindings/usb/st,typec-stm32g0.yaml
+>>>>
+>>>> diff --git a/Documentation/devicetree/bindings/usb/st,typec-stm32g0.yaml b/Documentation/devicetree/bindings/usb/st,typec-stm32g0.yaml
+>>>> new file mode 100644
+>>>> index 0000000000000..b2729bd015a1a
+>>>> --- /dev/null
+>>>> +++ b/Documentation/devicetree/bindings/usb/st,typec-stm32g0.yaml
+>>>> @@ -0,0 +1,83 @@
+>>>> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+>>>> +%YAML 1.2
+>>>> +---
+>>>> +$id: "http://devicetree.org/schemas/usb/st,typec-stm32g0.yaml#"
+>>>> +$schema: "http://devicetree.org/meta-schemas/core.yaml#"
+>>>
+>>> No quotes.
+>>
+>> ack,
+>>
+>>>
+>>>> +
+>>>> +title: STMicroelectronics STM32G0 Type-C controller bindings
+>>>
+>>> s/bindings//
+>>
+>> ack,
+>>
+>>>
+>>>> +
+>>>> +description: |
+>>>> +  The STM32G0 MCU can be programmed to control Type-C connector(s) through I2C
+>>>> +  typically using the UCSI protocol over I2C, with a dedicated alert
+>>>> +  (interrupt) pin.
+>>>> +
+>>>> +maintainers:
+>>>> +  - Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+>>>> +
+>>>> +properties:
+>>>> +  compatible:
+>>>> +    const: st,stm32g0-typec
+>>>> +
+>>>> +  reg:
+>>>> +    maxItems: 1
+>>>> +
+>>>> +  interrupts:
+>>>> +    maxItems: 1
+>>>> +
+>>>> +  connector:
+>>>> +    type: object> +    allOf:
+>>>> +      - $ref: ../connector/usb-connector.yaml#
+>>>
+>>> Full path, so /schemas/connector/...
+>>>
+>>> unevaluatedProperties: false
 
-No, that's a mistake. Thanks for catching it! I'll check this patch again.
+Hi Krzysztof,
 
--Saravana
+I Just figured out usb-connector schema has "additionalProperties:
+true". Adding "unevaluatedProperties: false" here seem to be useless.
+At least at my end, this make any dummy property added in the example
+below to be validated without error by the schema.
+
+Should this be updated in usb-connector.yaml instead ?
+
+Shall I omit it here in the end ?
+
+>>
+>> ack,
+>>
+>>>
+>>>> +
+>>>> +  firmware-name:
+>>>> +    description: |
+>>>> +      Should contain the name of the default firmware image
+>>>> +      file located on the firmware search path
+>>>> +
+>>>> +  wakeup-source: true
+>>>> +  power-domains: true
+>>>
+>>> maxItems
+>>
+>> Do you mean maxItems regarding the "power-domains" property ?
+> 
+> Yes.
+> 
+>> This will depend on the user platform, where it's used as an I2C device.
+>> So I'm not sure this can / should be specified here.
+>> Could please you clarify ?
+> 
+> Then maybe this property is not valid here. Power domains usually are
+> used for blocks of a SoC, having common power source and power gating.
+> In your case it looks much more like a regulator supply.
+
+This property is used in our implementation to refer to SOC PM domain
+for GPIO that is used to wakeup the system. This isn't only a regulator,
+this PM domain serves various IPs such as I2C, GPIO, UART... (it manages
+regulator and clocks used in low power).
+
+I can limit to 1 item if this is fine for you ?
+
+e.g. maxItems: 1
+
+> 
+>>
+>>>
+>>>> +
+>>>> +required:
+>>>> +  - compatible
+>>>> +  - reg
+>>>> +  - interrupts
+>>>> +
+>>>> +additionalProperties: false
+>>>> +
+>>>> +examples:
+>>>> +  - |
+>>>> +    #include <dt-bindings/interrupt-controller/irq.h>
+>>>> +    i2c5 {
+>>>
+>>> Just "i2c"
+>>
+>> ack,
+>>
+>>>
+>>>> +      #address-cells = <1>;
+>>>> +      #size-cells = <0>;
+>>>> +
+>>>> +      stm32g0@53 {
+>>>
+>>> Generic node name describing class of the device.
+>>
+>>
+>> I wasn't aware of generic node name for an I2C device (not talking of
+>> the controller). I may have missed it.
+>>
+>> Could you please clarify ?
+> 
+> The class of a device is not a I2C device. I2C is just a bus. For
+> example the generic name for Power Management IC connected over I2C
+> (quite common case) is "pmic".
+> 
+> For USB HCD controllers the generic name is "usb". For USB
+> ports/connectors this is "connector". So what is your hardware?
+> "interface" is a bit too unspecific to figure it out.
+
+Thanks, I better understand your point now.
+
+A common definition for the hardware here could be "USB Type-C PD
+controller". I'll improve this schema title by the way.
+
+I had a quick look in various .dts files. I could find mainly:
+- typec-portc@hh
+- usb-typec@hh
+- typec@hh
+
+Not sure if this has already been discussed in other reviews, it lacks
+the "controller" idea in the naming IMHO.
+Perhaps something like "typec-pd-controller" or
+"usb-typec-pd-controller" could be used here ?
+
+Otherwise, I could adopt the shortest "typec" name if it's fine for you ?
+
+> 
+>>
+>>>
+>>>> +        compatible = "st,stm32g0-typec";
+>>>> +        reg = <0x53>;
+>>>> +        /* Alert pin on GPIO PE12 */
+>>>> +        interrupts = <12 IRQ_TYPE_EDGE_FALLING>;
+>>>> +        interrupt-parent = <&gpioe>;
+>>>> +
+>>>> +        /* Example with one type-C connector */
+>>>> +        connector {
+>>>> +          compatible = "usb-c-connector";
+>>>> +          label = "USB-C";
+>>>> +
+>>>> +          port {
+>>>
+>>> This does not look like proper schema of connector.yaml.
+>>
+>> This refers to graph.yaml [1], where similar example is seen [2].
+>>
+>> https://github.com/devicetree-org/dt-schema/blob/main/dtschema/schemas/graph.yaml#L79
+>>
+>> https://github.com/devicetree-org/dt-schema/blob/main/dtschema/schemas/graph.yaml#L207
+> 
+> Just look at the usb-conector schema. It's different. You miss ports.
+> Maybe other properties as well.
+
+
+(I may miss something, and got confused around port/ports earlier)
+The graph properties seems to allow both the 'port' and 'ports' syntax
+thanks to the graph definition.
+The "port" syntax is also used in other typec controller schemas.
+
+There's only one port in this example. Of course other example could use
+two or more ports (like for USB HS / SS / aux) which would require using
+the "ports" node (with port@0/1/2 childs).
+
+I can adopt the "ports" node if you prefer. As I see it just doesn't
+bring much in the current example (The only drawback is this adds one
+indentation/node level w.r.t. the bellow example, so not a big deal).
+
+Please advise,
+
+Thanks for reviewing,
+Best Regards,
+Fabrice
+
+> 
+>>
+>>     device-1 {
+>>         port {
+>>             device_1_output: endpoint {
+>>                 remote-endpoint = <&device_2_input>;
+>>             };
+>>         };
+>>     };
+>>     device-2 {
+>>         port {
+>>             device_2_input: endpoint {
+>>                 remote-endpoint = <&device_1_output>;
+>>             };
+>>         };
+>>     };
+>>
+>>
+>> Could you please clarify this point too ?
+>>
+>>>
+>>>> +            con_usb_c_ep: endpoint {
+>>>> +              remote-endpoint = <&usbotg_hs_ep>;
+>>>> +            };
+>>>> +          };
+>>>> +        };
+>>>> +      };
+>>>> +    };
+>>>> +
+>>>> +    usbotg_hs {
+>>>
+>>> Generic node names, no underscores in node names.
+>>
+>> ack, I guess you'd recommend "usb" here. I'll update it.
+> 
+> Yes, looks like usb.
+> 
+> 
+> Best regards,
+> Krzysztof
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
