@@ -2,73 +2,115 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CCCC555C02C
-	for <lists+linux-stm32@lfdr.de>; Tue, 28 Jun 2022 12:28:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 52A3755C096
+	for <lists+linux-stm32@lfdr.de>; Tue, 28 Jun 2022 13:15:43 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 67C1DC5F1EE;
-	Tue, 28 Jun 2022 10:28:21 +0000 (UTC)
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com
- [209.85.221.54])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EF70DC5F1EE;
+	Tue, 28 Jun 2022 11:15:42 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C1D41C035BF
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 01992C5F1D5
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 28 Jun 2022 10:28:19 +0000 (UTC)
-Received: by mail-wr1-f54.google.com with SMTP id d17so11354113wrc.10
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 28 Jun 2022 03:28:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=p/DPfFSM3jMKKRZmtfjvPDQnkcVkhnWQ37ffkh65f6Y=;
- b=kbqssuFbstijiBxN6ukx6bRt4t+S2ydyiIOa+5yRebAeQDj9rv1637vsz8qbYjSvzY
- 1prScvFpP1aja07+ePjJLLSe0tcobzljhMEsQQ4HI4HrLoN+1E0WP6QJkMZpQm+3RqRt
- JMAZ52JEFjzGjqKjextdPoPKNm+4ScuxsFvfA8DtYvRhIH/Owjmmn7p3+A4mJqESf8JM
- JWK00NjnN3UGfMeOLoqNz6sHkONVnRBi+zWo7civeBkmuNb37qef44uOR0eVq136DO8y
- TK16/3aXaOchaTNSlk8X7o51ojZvqdjD8HNrP+HOx6/ygJ5IDjTv31qhrwLbb4ePzLV/
- lKSg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=p/DPfFSM3jMKKRZmtfjvPDQnkcVkhnWQ37ffkh65f6Y=;
- b=vcSpm+k6iqPzaFpoZeQjJy8TzKHdDafQQYF/QVAjYhdfGMHnwrzw4R43VI7fhYjOXp
- WBhqzWprtNCpW+rBwv2HyhC7pfDDzWCX5DmewTazspDW1sZBYbCx4ccDSHz3163fFhWy
- 53O89vVCc6gSb0yt3v/sc47wV5H5UG/PYZDkK++6eETHzcNjOo3TvHI2cBCVT7tHre9j
- 2bl8mqWrEfNYC14MwL32td7D7SUJd4Ltw+IcuC6OFhDs7be0VK9lY0RLuPddxX3nTKyo
- u30gOLMYjR7MCjShz0oDQwQxHwMflwjsGEnO62hjsyx4vvi2N9lwFMwaVWWfMPBkTeQc
- uduQ==
-X-Gm-Message-State: AJIora93QVV9zWSrLiFHeOFxKprOsFo9toq1LKgbpYIvMVCdurro3H1v
- N7QT5dpMTZDB/Q/VWj0F5NWMlw==
-X-Google-Smtp-Source: AGRyM1uVApxImBBVLBU8ZUemhn0pYLASxjCLbV2ScD5PAtjEBQfdswOb8laC00d1cYSYxMIRRCoQjQ==
-X-Received: by 2002:a5d:5483:0:b0:21b:88d5:e725 with SMTP id
- h3-20020a5d5483000000b0021b88d5e725mr17344077wrv.82.1656412099281; 
- Tue, 28 Jun 2022 03:28:19 -0700 (PDT)
-Received: from [192.168.0.252] (xdsl-188-155-176-92.adslplus.ch.
- [188.155.176.92]) by smtp.gmail.com with ESMTPSA id
- 4-20020a1c1904000000b0039c4506bd25sm19611110wmz.14.2022.06.28.03.28.17
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 28 Jun 2022 03:28:18 -0700 (PDT)
-Message-ID: <286633b2-43d2-655e-b3f1-54bf5c7a4a21@linaro.org>
-Date: Tue, 28 Jun 2022 12:28:17 +0200
+ Tue, 28 Jun 2022 11:15:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1656414941; x=1687950941;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=VAm8GqMxSVbXa5l11MJLdH5RISvLfde2v1QEXHVyiio=;
+ b=GEg1q2WzVcVftjH0G/nvSJf9eOCrZhqLNXJuPb50WgWTclEvIJp4/6ej
+ hONJtU/Fg5iC74zFjTFfaWhCQI1Jg51rbNee8+5tr6dCrbgE9ZWxtFfAE
+ OfBfufSdljk7LhbtYRRBv/GLjUuzHSTrAEG3hOjToOU8QimOpShkmRe+m
+ tI3ITnnzBgZdeSIZYD9g/yy6VNJmPa9b0pEA6P0uGgSv03KQ5T9P9C3Lj
+ Cz/iADqaw3B4Z9iQB/lXYSGDPpxngwAYOt8lp3vR/b+TkOBdpTjeB2+hk
+ lzUH2Icwokb/cHkc5Bg89L/16ll8byQuJ6koRzlbk/pLvoxTFATyBLFq9 g==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10391"; a="282804370"
+X-IronPort-AV: E=Sophos;i="5.92,227,1650956400"; d="scan'208";a="282804370"
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Jun 2022 04:15:38 -0700
+X-IronPort-AV: E=Sophos;i="5.92,227,1650956400"; d="scan'208";a="540456672"
+Received: from smile.fi.intel.com ([10.237.72.54])
+ by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Jun 2022 04:15:17 -0700
+Received: from andy by smile.fi.intel.com with local (Exim 4.95)
+ (envelope-from <andriy.shevchenko@linux.intel.com>)
+ id 1o69BV-000wl7-8C; Tue, 28 Jun 2022 14:15:09 +0300
+Date: Tue, 28 Jun 2022 14:15:09 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Saravana Kannan <saravanak@google.com>
+Message-ID: <Yrrivbk2NSK3loBW@smile.fi.intel.com>
+References: <20220628020110.1601693-1-saravanak@google.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.10.0
-Content-Language: en-US
-To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>, robh+dt@kernel.org,
- heikki.krogerus@linux.intel.com, gregkh@linuxfoundation.org
-References: <20220624155413.399190-1-fabrice.gasnier@foss.st.com>
- <20220624155413.399190-2-fabrice.gasnier@foss.st.com>
- <ddb0e946-c955-1404-c1cd-c2548f34ec35@linaro.org>
- <845d6817-d2e4-7925-f7f5-da1102514636@foss.st.com>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <845d6817-d2e4-7925-f7f5-da1102514636@foss.st.com>
-Cc: devicetree@vger.kernel.org, linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org, krzysztof.kozlowski+dt@linaro.org,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH 1/4] dt-bindings: usb: typec: add bindings
- for stm32g0 controller
+Content-Disposition: inline
+In-Reply-To: <20220628020110.1601693-1-saravanak@google.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+Cc: andrew lunn <andrew@lunn.ch>, peng fan <peng.fan@nxp.com>,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+ linus walleij <linus.walleij@linaro.org>, Paul Mackerras <paulus@samba.org>,
+ Alim Akhtar <alim.akhtar@samsung.com>, Peter Korsgaard <jacmet@sunsite.dk>,
+ linux-stm32@st-md-mailman.stormreply.com, Karol Gugala <kgugala@antmicro.com>,
+ Jerome Brunet <jbrunet@baylibre.com>, linux-samsung-soc@vger.kernel.org,
+ Michael Ellerman <mpe@ellerman.id.au>, Michal Simek <michal.simek@xilinx.com>,
+ Hammer Hsieh <hammerh0314@gmail.com>, NXP Linux Team <linux-imx@nxp.com>,
+ Vineet Gupta <vgupta@kernel.org>, len brown <len.brown@intel.com>,
+ Nicolas Saenz Julienne <nsaenz@kernel.org>, linux-pm@vger.kernel.org,
+ Sascha Hauer <s.hauer@pengutronix.de>, linux-unisoc@lists.infradead.org,
+ Scott Branden <sbranden@broadcom.com>, Andrew Jeffery <andrew@aj.id.au>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-kernel@vger.kernel.org,
+ Richard Genoud <richard.genoud@gmail.com>,
+ Masami Hiramatsu <mhiramat@kernel.org>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Claudiu Beznea <claudiu.beznea@microchip.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>, pavel machek <pavel@ucw.cz>,
+ Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
+ eric dumazet <edumazet@google.com>, Thierry Reding <thierry.reding@gmail.com>,
+ sascha hauer <sha@pengutronix.de>, Chunyan Zhang <zhang.lyra@gmail.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>, Gabriel Somlo <gsomlo@gmail.com>,
+ Tobias Klauser <tklauser@distanz.ch>, linux-mips@vger.kernel.org,
+ kernel-team@android.com,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ linux-arm-msm@vger.kernel.org, linux-actions@lists.infradead.org,
+ linux-gpio@vger.kernel.org, linux-rpi-kernel@lists.infradead.org,
+ linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ Andreas Farber <afaerber@suse.de>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Kevin Hilman <khilman@baylibre.com>, Pali Rohar <pali@kernel.org>,
+ heiner kallweit <hkallweit1@gmail.com>, ulf hansson <ulf.hansson@linaro.org>,
+ Neil Armstrong <narmstrong@baylibre.com>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>, Al Cooper <alcooperx@gmail.com>,
+ linux-tegra@vger.kernel.org, Jiri Slaby <jirislaby@kernel.org>,
+ linux-aspeed@lists.ozlabs.org, Rob Herring <robh@kernel.org>,
+ Florian Fainelli <f.fainelli@gmail.com>,
+ Mateusz Holenko <mholenko@antmicro.com>, Alexander Shiyan <shc_work@mail.ru>,
+ kevin hilman <khilman@kernel.org>,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+ Joel Stanley <joel@jms.id.au>, Orson Zhai <orsonzhai@gmail.com>,
+ paolo abeni <pabeni@redhat.com>, Ray Jui <rjui@broadcom.com>,
+ Vladimir Zapolskiy <vz@mleia.com>, linux-snps-arc@lists.infradead.org,
+ Timur Tabi <timur@kernel.org>, hideaki yoshifuji <yoshfuji@linux-ipv6.org>,
+ iommu@lists.linux-foundation.org, Laxman Dewangan <ldewangan@nvidia.com>,
+ Sudeep Holla <sudeep.holla@arm.com>, Baolin Wang <baolin.wang7@gmail.com>,
+ Shawn Guo <shawnguo@kernel.org>, "David S. Miller" <davem@davemloft.net>,
+ Baruch Siach <baruch@tkos.co.il>, Liviu Dudau <liviu.dudau@arm.com>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Paul Cercueil <paul@crapouillou.net>, sparclinux@vger.kernel.org,
+ linux-riscv@lists.infradead.org, joerg roedel <joro@8bytes.org>,
+ Russell King <linux@armlinux.org.uk>, Andy Gross <agross@kernel.org>,
+ linux-serial@vger.kernel.org, jakub kicinski <kuba@kernel.org>,
+ will deacon <will@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>,
+ linux-mediatek@lists.infradead.org, Fabio Estevam <festevam@gmail.com>,
+ Paul Walmsley <paul.walmsley@sifive.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Laurentiu Tudor <laurentiu.tudor@nxp.com>,
+ Taichi Sugaya <sugaya.taichi@socionext.com>, netdev@vger.kernel.org,
+ david ahern <dsahern@kernel.org>, Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Palmer Dabbelt <palmer@dabbelt.com>, Takao Orito <orito.takao@socionext.com>,
+ linuxppc-dev@lists.ozlabs.org
+Subject: Re: [Linux-stm32] [PATCH v1 0/2] Fix console probe delay when
+	stdout-path isn't set
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,216 +127,22 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 27/06/2022 16:21, Fabrice Gasnier wrote:
-> On 6/24/22 18:16, Krzysztof Kozlowski wrote:
->> On 24/06/2022 17:54, Fabrice Gasnier wrote:
->>> This patch adds DT schema documentation for the STM32G0 Type-C controller.
->>
->> No "This patch"
+On Mon, Jun 27, 2022 at 07:01:01PM -0700, Saravana Kannan wrote:
+> Since the series that fixes console probe delay based on stdout-path[1] got
+> pulled into driver-core-next, I made these patches on top of them.
 > 
-> Hi Krzysztof,
-> 
-> ack,
-> 
->>
->> https://elixir.bootlin.com/linux/v5.17.1/source/Documentation/process/submitting-patches.rst#L95
->>
->>> STM32G0 provides an integrated USB Type-C and power delivery interface.
->>> It can be programmed with a firmware to handle UCSI protocol over I2C
->>> interface. A GPIO is used as an interrupt line.
->>> It may be used as a wakeup source, so use optional "wakeup-source" and
->>> "power-domains" properties to support wakeup.
->>>
->>> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
->>> ---
->>>  .../bindings/usb/st,typec-stm32g0.yaml        | 83 +++++++++++++++++++
->>>  1 file changed, 83 insertions(+)
->>>  create mode 100644 Documentation/devicetree/bindings/usb/st,typec-stm32g0.yaml
->>>
->>> diff --git a/Documentation/devicetree/bindings/usb/st,typec-stm32g0.yaml b/Documentation/devicetree/bindings/usb/st,typec-stm32g0.yaml
->>> new file mode 100644
->>> index 0000000000000..b2729bd015a1a
->>> --- /dev/null
->>> +++ b/Documentation/devicetree/bindings/usb/st,typec-stm32g0.yaml
->>> @@ -0,0 +1,83 @@
->>> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
->>> +%YAML 1.2
->>> +---
->>> +$id: "http://devicetree.org/schemas/usb/st,typec-stm32g0.yaml#"
->>> +$schema: "http://devicetree.org/meta-schemas/core.yaml#"
->>
->> No quotes.
-> 
-> ack,
-> 
->>
->>> +
->>> +title: STMicroelectronics STM32G0 Type-C controller bindings
->>
->> s/bindings//
-> 
-> ack,
-> 
->>
->>> +
->>> +description: |
->>> +  The STM32G0 MCU can be programmed to control Type-C connector(s) through I2C
->>> +  typically using the UCSI protocol over I2C, with a dedicated alert
->>> +  (interrupt) pin.
->>> +
->>> +maintainers:
->>> +  - Fabrice Gasnier <fabrice.gasnier@foss.st.com>
->>> +
->>> +properties:
->>> +  compatible:
->>> +    const: st,stm32g0-typec
->>> +
->>> +  reg:
->>> +    maxItems: 1
->>> +
->>> +  interrupts:
->>> +    maxItems: 1
->>> +
->>> +  connector:
->>> +    type: object> +    allOf:
->>> +      - $ref: ../connector/usb-connector.yaml#
->>
->> Full path, so /schemas/connector/...
->>
->> unevaluatedProperties: false
-> 
-> ack,
-> 
->>
->>> +
->>> +  firmware-name:
->>> +    description: |
->>> +      Should contain the name of the default firmware image
->>> +      file located on the firmware search path
->>> +
->>> +  wakeup-source: true
->>> +  power-domains: true
->>
->> maxItems
-> 
-> Do you mean maxItems regarding the "power-domains" property ?
+> Even if stdout-path isn't set in DT, this patch should take console
+> probe times back to how they were before the deferred_probe_timeout
+> clean up series[2].
 
-Yes.
+Are you sure it's only limited to the serial drivers?
+(just asking, I don't know myself the answer)
 
-> This will depend on the user platform, where it's used as an I2C device.
-> So I'm not sure this can / should be specified here.
-> Could please you clarify ?
-
-Then maybe this property is not valid here. Power domains usually are
-used for blocks of a SoC, having common power source and power gating.
-In your case it looks much more like a regulator supply.
-
-> 
->>
->>> +
->>> +required:
->>> +  - compatible
->>> +  - reg
->>> +  - interrupts
->>> +
->>> +additionalProperties: false
->>> +
->>> +examples:
->>> +  - |
->>> +    #include <dt-bindings/interrupt-controller/irq.h>
->>> +    i2c5 {
->>
->> Just "i2c"
-> 
-> ack,
-> 
->>
->>> +      #address-cells = <1>;
->>> +      #size-cells = <0>;
->>> +
->>> +      stm32g0@53 {
->>
->> Generic node name describing class of the device.
-> 
-> 
-> I wasn't aware of generic node name for an I2C device (not talking of
-> the controller). I may have missed it.
-> 
-> Could you please clarify ?
-
-The class of a device is not a I2C device. I2C is just a bus. For
-example the generic name for Power Management IC connected over I2C
-(quite common case) is "pmic".
-
-For USB HCD controllers the generic name is "usb". For USB
-ports/connectors this is "connector". So what is your hardware?
-"interface" is a bit too unspecific to figure it out.
-
-> 
->>
->>> +        compatible = "st,stm32g0-typec";
->>> +        reg = <0x53>;
->>> +        /* Alert pin on GPIO PE12 */
->>> +        interrupts = <12 IRQ_TYPE_EDGE_FALLING>;
->>> +        interrupt-parent = <&gpioe>;
->>> +
->>> +        /* Example with one type-C connector */
->>> +        connector {
->>> +          compatible = "usb-c-connector";
->>> +          label = "USB-C";
->>> +
->>> +          port {
->>
->> This does not look like proper schema of connector.yaml.
-> 
-> This refers to graph.yaml [1], where similar example is seen [2].
-> 
-> https://github.com/devicetree-org/dt-schema/blob/main/dtschema/schemas/graph.yaml#L79
-> 
-> https://github.com/devicetree-org/dt-schema/blob/main/dtschema/schemas/graph.yaml#L207
-
-Just look at the usb-conector schema. It's different. You miss ports.
-Maybe other properties as well.
-
-> 
->     device-1 {
->         port {
->             device_1_output: endpoint {
->                 remote-endpoint = <&device_2_input>;
->             };
->         };
->     };
->     device-2 {
->         port {
->             device_2_input: endpoint {
->                 remote-endpoint = <&device_1_output>;
->             };
->         };
->     };
-> 
-> 
-> Could you please clarify this point too ?
-> 
->>
->>> +            con_usb_c_ep: endpoint {
->>> +              remote-endpoint = <&usbotg_hs_ep>;
->>> +            };
->>> +          };
->>> +        };
->>> +      };
->>> +    };
->>> +
->>> +    usbotg_hs {
->>
->> Generic node names, no underscores in node names.
-> 
-> ack, I guess you'd recommend "usb" here. I'll update it.
-
-Yes, looks like usb.
+-- 
+With Best Regards,
+Andy Shevchenko
 
 
-Best regards,
-Krzysztof
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
