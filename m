@@ -2,40 +2,44 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D787255FB48
-	for <lists+linux-stm32@lfdr.de>; Wed, 29 Jun 2022 11:05:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3371D55FE13
+	for <lists+linux-stm32@lfdr.de>; Wed, 29 Jun 2022 13:04:33 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 85F10C5F1EE;
-	Wed, 29 Jun 2022 09:05:34 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B187CC628A0;
+	Wed, 29 Jun 2022 11:04:32 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id ABE38C035BC
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B5A0FC035BC
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 29 Jun 2022 09:05:33 +0000 (UTC)
+ Wed, 29 Jun 2022 09:21:48 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 9D11961DF0;
- Wed, 29 Jun 2022 09:05:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 99008C34114;
- Wed, 29 Jun 2022 09:05:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1656493530;
- bh=DF7ifwMvy/zr0ws6n5xa6qx29WuQeaDvG3cYaYrZw0c=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=1CtT3KidxkD/ZCMGyM8VfGmg78oJYirmbsAGV/8dIUa4lEVuGdXcK+MS4YcTrgZBg
- oQbPZ3B+1mxuF8j8bTx2zwHx8JyS8mkQJzcWE2hUZkz4U6AbV5lg3HzwrW0t6S7/92
- H5XbZIYlrrQlOHArA3QEsSQHAPT2+Udnjc8t8CwQ=
-Date: Wed, 29 Jun 2022 11:05:24 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>
-Message-ID: <YrwV1LsLXUjjAInZ@kroah.com>
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 51CEF61E0F;
+ Wed, 29 Jun 2022 09:21:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A6A5C34114;
+ Wed, 29 Jun 2022 09:20:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1656494506;
+ bh=HQ25Ow2lpsqgoUrUW/nG+URV4v3uVvi69tP+dqJVwS8=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=KDGJ+ZX0QDwKOanqLEHq4R3Rgk4gw7YBpXQ1tp5J2PbFlN9SFFfxpykmheKoDEBKH
+ GZdb6/Vu19P209bnRNGK3ZFDu4CTBf7M/1tGbAgk0qvALDE6m6bUxa1i55igZp5mYn
+ M9nKXnXHahfEJ1/gD9uIZsD8u8SACyrjQAA5RstBhscMb/v3jVsSe8amKh8qkDuMrS
+ GSpJXwgYiOg6nUIYiiXl948rxcrWW3Rc1By0vwkqaGsbNa0kxgo7uX8LQpEE5EFJvC
+ lXPBmC+HFU37tkvSye7TN5YXt1OC7tohvK8VYqANalwO76xOIXwCRjtMw86pXFhld/
+ h03Us4Elobz6g==
+Date: Wed, 29 Jun 2022 11:20:42 +0200
+From: Marek =?UTF-8?B?QmVow7pu?= <kabel@kernel.org>
+To: Uwe =?UTF-8?B?S2xlaW5lLUvDtm5pZw==?= <u.kleine-koenig@pengutronix.de>
+Message-ID: <20220629112042.221af80b@thinkpad>
+In-Reply-To: <20220628140313.74984-7-u.kleine-koenig@pengutronix.de>
 References: <20220628140313.74984-1-u.kleine-koenig@pengutronix.de>
  <20220628140313.74984-7-u.kleine-koenig@pengutronix.de>
+X-Mailer: Claws Mail 3.18.0 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20220628140313.74984-7-u.kleine-koenig@pengutronix.de>
+X-Mailman-Approved-At: Wed, 29 Jun 2022 11:04:29 +0000
 Cc: Andrew Lunn <andrew@lunn.ch>, Ricardo Ribalda <ribalda@kernel.org>,
  Jimmy Su <jimmy.su@intel.com>,
  Benjamin Herrenschmidt <benh@kernel.crashing.org>,
@@ -62,7 +66,7 @@ Cc: Andrew Lunn <andrew@lunn.ch>, Ricardo Ribalda <ribalda@kernel.org>,
  Dan Carpenter <dan.carpenter@oracle.com>,
  Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>,
  Viorel Suman <viorel.suman@nxp.com>, Petr Machata <petrm@nvidia.com>,
- Guido =?iso-8859-1?Q?G=FCnther?= <agx@sigxcpu.org>,
+ Guido =?UTF-8?B?R8O8bnRoZXI=?= <agx@sigxcpu.org>,
  Jean Delvare <jdelvare@suse.com>, linux-serial@vger.kernel.org,
  linux-pm@vger.kernel.org, Eddie James <eajames@linux.ibm.com>,
  Riku Voipio <riku.voipio@iki.fi>, James Schulman <james.schulman@cirrus.com>,
@@ -101,8 +105,7 @@ Cc: Andrew Lunn <andrew@lunn.ch>, Ricardo Ribalda <ribalda@kernel.org>,
  Martiros Shakhzadyan <vrzh@vrzh.net>, Guenter Roeck <groeck@chromium.org>,
  Matthias Schwarzott <zzam@gentoo.org>,
  Sylwester Nawrocki <s.nawrocki@samsung.com>,
- Eric Dumazet <edumazet@google.com>,
- Marek =?iso-8859-1?Q?Beh=FAn?= <kabel@kernel.org>,
+ Eric Dumazet <edumazet@google.com>, Leon Luo <leonl@leopardimaging.com>,
  Saranya Gopal <saranya.gopal@intel.com>, Lars-Peter Clausen <lars@metafoo.de>,
  Corey Minyard <minyard@acm.org>, Evgeny Novikov <novikov@ispras.ru>,
  Frank Rowand <frowand.list@gmail.com>, Bartosz Golaszewski <brgl@bgdev.pl>,
@@ -126,18 +129,18 @@ Cc: Andrew Lunn <andrew@lunn.ch>, Ricardo Ribalda <ribalda@kernel.org>,
  linux-rpi-kernel@lists.infradead.org, Biju Das <biju.das.jz@bp.renesas.com>,
  Wayne Chang <waynec@nvidia.com>, Chen-Yu Tsai <wens@csie.org>,
  Sing-Han Chen <singhanc@nvidia.com>, linux-arm-kernel@lists.infradead.org,
- Niklas =?iso-8859-1?Q?S=F6derlund?= <niklas.soderlund+renesas@ragnatech.se>,
+ Niklas =?UTF-8?B?U8O2ZGVybHVuZA==?= <niklas.soderlund+renesas@ragnatech.se>,
  Hans de Goede <hdegoede@redhat.com>, Stephen Boyd <sboyd@kernel.org>,
  Maslov Dmitry <maslovdmitry@seeed.cc>, linux-gpio@vger.kernel.org,
  Jens Frederich <jfrederich@gmail.com>,
- Douglas Anderson <dianders@chromium.org>, linux-media@vger.kernel.org,
+ Douglas Anderson <dianders@chromium.org>,
  "David S. Miller" <davem@davemloft.net>, Wolfram Sang <wsa@kernel.org>,
  Jarkko Sakkinen <jarkko@kernel.org>, linux-usb@vger.kernel.org,
  Jacopo Mondi <jacopo+renesas@jmondi.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, CGEL ZTE <cgel.zte@gmail.com>,
  Colin Leroy <colin@colino.net>, platform-driver-x86@vger.kernel.org,
  linux-integrity@vger.kernel.org, Kevin Tsai <ktsai@capellamicro.com>,
- Pali =?iso-8859-1?Q?Roh=E1r?= <pali@kernel.org>,
+ Pali =?UTF-8?B?Um9ow6Fy?= <pali@kernel.org>,
  Jonathan Cameron <jic23@kernel.org>, Heiner Kallweit <hkallweit1@gmail.com>,
  Daniel Palmer <daniel@0x0f.com>, Arec Kao <arec.kao@intel.com>,
  Crt Mori <cmo@melexis.com>, Jose Cazarin <joseespiriki@gmail.com>,
@@ -145,7 +148,7 @@ Cc: Andrew Lunn <andrew@lunn.ch>, Ricardo Ribalda <ribalda@kernel.org>,
  Tom Rix <trix@redhat.com>, Michael Turquette <mturquette@baylibre.com>,
  Peter Senna Tschudin <peter.senna@gmail.com>,
  Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
- Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+ Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>,
  Jan-Simon Moeller <jansimon.moeller@gmx.de>,
  Wei Yongjun <weiyongjun1@huawei.com>,
  Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
@@ -168,7 +171,7 @@ Cc: Andrew Lunn <andrew@lunn.ch>, Ricardo Ribalda <ribalda@kernel.org>,
  Alexey Dobriyan <adobriyan@gmail.com>, Joel Stanley <joel@jms.id.au>,
  linux-input@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
  Lyude Paul <lyude@redhat.com>, Kees Cook <keescook@chromium.org>,
- Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <uwe@kleine-koenig.org>,
+ Uwe =?UTF-8?B?S2xlaW5lLUvDtm5pZw==?= <uwe@kleine-koenig.org>,
  Jonas Karlman <jonas@kwiboo.se>, Yang Li <yang.lee@linux.alibaba.com>,
  Tim Harvey <tharvey@gateworks.com>, Jiri Kosina <jikos@kernel.org>,
  Akinobu Mita <akinobu.mita@gmail.com>, Mark Gross <markgross@kernel.org>,
@@ -194,7 +197,8 @@ Cc: Andrew Lunn <andrew@lunn.ch>, Ricardo Ribalda <ribalda@kernel.org>,
  Alejandro Tafalla <atafalla@dnyon.com>, Peter Rosin <peda@axentia.se>,
  Arnaud Ferraris <arnaud.ferraris@collabora.com>,
  Hector Martin <marcan@marcan.st>, Vignesh Raghavendra <vigneshr@ti.com>,
- Nick Dyer <nick@shmanahar.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Nick Dyer <nick@shmanahar.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  Tony Lindgren <tony@atomide.com>, Takashi Iwai <tiwai@suse.com>,
  Paul Cercueil <paul@crapouillou.net>,
  George McCollister <george.mccollister@gmail.com>,
@@ -215,14 +219,14 @@ Cc: Andrew Lunn <andrew@lunn.ch>, Ricardo Ribalda <ribalda@kernel.org>,
  Thomas Zimmermann <tzimmermann@suse.de>, Bastien Nocera <hadess@hadess.net>,
  Jingoo Han <jingoohan1@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
  Vivien Didelot <vivien.didelot@gmail.com>, Yizhuo <yzhai003@ucr.edu>,
- Shawn Tu <shawnx.tu@intel.com>, Leon Luo <leonl@leopardimaging.com>,
+ Shawn Tu <shawnx.tu@intel.com>, linux-media@vger.kernel.org,
  Yan Lei <yan_lei@dahuatech.com>, Akihiro Tsukada <tskd08@gmail.com>,
  Tudor Ambarus <tudor.ambarus@microchip.com>,
  Dmitry Rokosov <DDRokosov@sberdevices.ru>,
  Oliver Graute <oliver.graute@kococonnector.com>,
  Alistair Francis <alistair@alistair23.me>,
  Dongliang Mu <mudongliangabcd@gmail.com>,
- Jonathan =?iso-8859-1?Q?Neusch=E4fer?= <j.neuschaefer@gmx.net>,
+ Jonathan =?UTF-8?B?TmV1c2Now6RmZXI=?= <j.neuschaefer@gmx.net>,
  Eduardo Valentin <edubezval@gmail.com>, Rui Miguel Silva <rmfrfs@gmail.com>,
  Michael Srba <Michael.Srba@seznam.cz>, Rob Herring <robh+dt@kernel.org>,
  linux-mediatek@lists.infradead.org, Fabio Estevam <festevam@gmail.com>,
@@ -232,15 +236,15 @@ Cc: Andrew Lunn <andrew@lunn.ch>, Ricardo Ribalda <ribalda@kernel.org>,
  Daniele Alessandrelli <daniele.alessandrelli@intel.com>,
  Dmitry Vyukov <dvyukov@google.com>,
  Ramesh Shanmugasundaram <rashanmu@gmail.com>,
- Juerg Haefliger <juergh@gmail.com>, Oder Chiou <oder_chiou@realtek.com>,
- Shengjiu Wang <shengjiu.wang@nxp.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Juerg Haefliger <juergh@gmail.com>,
+ Oder Chiou <oder_chiou@realtek.com>, Shengjiu Wang <shengjiu.wang@nxp.com>,
  Nicolas Ferre <nicolas.ferre@microchip.com>,
  Robert Foss <robert.foss@linaro.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
  Daniel Vetter <daniel@ffwll.ch>,
- Alvin =?utf-8?Q?=C5=A0ipraga?= <alsi@bang-olufsen.dk>,
+ Alvin =?UTF-8?B?xaBpcHJhZ2E=?= <alsi@bang-olufsen.dk>,
  Luca Ceresoli <luca@lucaceresoli.net>,
- =?iso-8859-1?Q?Jos=E9_Exp=F3sito?= <jose.exposito89@gmail.com>,
+ =?UTF-8?B?Sm9zw6kgRXhww7NzaXRv?= <jose.exposito89@gmail.com>,
  Johannes Berg <johannes@sipsolutions.net>,
  Colin Ian King <colin.king@intel.com>,
  Maximilian Luz <luzmaximilian@gmail.com>, Helge Deller <deller@gmx.de>,
@@ -257,31 +261,26 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Jun 28, 2022 at 04:03:12PM +0200, Uwe Kleine-K=F6nig wrote:
-> From: Uwe Kleine-K=F6nig <uwe@kleine-koenig.org>
-> =
-
-> The value returned by an i2c driver's remove function is mostly ignored.
-> (Only an error message is printed if the value is non-zero that the
-> error is ignored.)
-> =
-
-> So change the prototype of the remove function to return no value. This
-> way driver authors are not tempted to assume that passing an error to
-> the upper layer is a good idea. All drivers are adapted accordingly.
-> There is no intended change of behaviour, all callbacks were prepared to
-> return 0 before.
-> =
-
-> Signed-off-by: Uwe Kleine-K=F6nig <u.kleine-koenig@pengutronix.de>
-
-Acked-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gVHVlLCAyOCBKdW4gMjAyMiAxNjowMzoxMiArMDIwMApVd2UgS2xlaW5lLUvDtm5pZyA8dS5r
+bGVpbmUta29lbmlnQHBlbmd1dHJvbml4LmRlPiB3cm90ZToKCj4gRnJvbTogVXdlIEtsZWluZS1L
+w7ZuaWcgPHV3ZUBrbGVpbmUta29lbmlnLm9yZz4KPiAKPiBUaGUgdmFsdWUgcmV0dXJuZWQgYnkg
+YW4gaTJjIGRyaXZlcidzIHJlbW92ZSBmdW5jdGlvbiBpcyBtb3N0bHkgaWdub3JlZC4KPiAoT25s
+eSBhbiBlcnJvciBtZXNzYWdlIGlzIHByaW50ZWQgaWYgdGhlIHZhbHVlIGlzIG5vbi16ZXJvIHRo
+YXQgdGhlCj4gZXJyb3IgaXMgaWdub3JlZC4pCj4gCj4gU28gY2hhbmdlIHRoZSBwcm90b3R5cGUg
+b2YgdGhlIHJlbW92ZSBmdW5jdGlvbiB0byByZXR1cm4gbm8gdmFsdWUuIFRoaXMKPiB3YXkgZHJp
+dmVyIGF1dGhvcnMgYXJlIG5vdCB0ZW1wdGVkIHRvIGFzc3VtZSB0aGF0IHBhc3NpbmcgYW4gZXJy
+b3IgdG8KPiB0aGUgdXBwZXIgbGF5ZXIgaXMgYSBnb29kIGlkZWEuIEFsbCBkcml2ZXJzIGFyZSBh
+ZGFwdGVkIGFjY29yZGluZ2x5Lgo+IFRoZXJlIGlzIG5vIGludGVuZGVkIGNoYW5nZSBvZiBiZWhh
+dmlvdXIsIGFsbCBjYWxsYmFja3Mgd2VyZSBwcmVwYXJlZCB0bwo+IHJldHVybiAwIGJlZm9yZS4K
+PiAKPiBTaWduZWQtb2ZmLWJ5OiBVd2UgS2xlaW5lLUvDtm5pZyA8dS5rbGVpbmUta29lbmlnQHBl
+bmd1dHJvbml4LmRlPgoKRm9yCgo+ICBkcml2ZXJzL2xlZHMvbGVkcy10dXJyaXMtb21uaWEuYyAg
+ICAgICAgICAgICAgICAgICAgICAgICAgfCA0ICstLS0KCkFja2VkLWJ5OiBNYXJlayBCZWjDum4g
+PGthYmVsQGtlcm5lbC5vcmc+Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWls
+bWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9t
+YWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
