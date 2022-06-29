@@ -2,40 +2,40 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5366A5605B7
-	for <lists+linux-stm32@lfdr.de>; Wed, 29 Jun 2022 18:24:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 35DF35605B9
+	for <lists+linux-stm32@lfdr.de>; Wed, 29 Jun 2022 18:24:07 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D4701C5F1EE;
-	Wed, 29 Jun 2022 16:23:59 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EEC19C5F1EE;
+	Wed, 29 Jun 2022 16:24:06 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CDB1BC035BC
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 96775C035BC
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 29 Jun 2022 16:23:58 +0000 (UTC)
+ Wed, 29 Jun 2022 16:24:05 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 6C79061AC0;
+ by ams.source.kernel.org (Postfix) with ESMTPS id B4607B82584;
+ Wed, 29 Jun 2022 16:24:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E892C341CC;
  Wed, 29 Jun 2022 16:23:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF816C341C8;
- Wed, 29 Jun 2022 16:23:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1656519836;
- bh=RFV17kA2etM59yr+SN253bVf49eBdGjyy0t6B21oRjo=;
+ s=k20201202; t=1656519843;
+ bh=BQk96XPXhMlTi13f6yCCrvn/8gYix9PjnzJYL42TN7s=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=cGr5NPOZVjoOE9RiyqdUubbitwp2BzC8tMvMAchRhOZ3AwMNZOD6GZRS6IePuY2ym
- 88NyXFPS3JBVchIAXJh5ullSO22rYW5Hb5jmqdMInVOFc+PkCtAMrCt4Y43CpMQT/U
- sxLBtnHOT6tZhVfystwT9SGmEr2bx6COWmnT16ySPc/cDlxOD+4aJAEq9mymcmAzl5
- 8rBBb4wIwf0xWhOENpfmIHGp2nRY/l8aVuGxJ5IuRJwSqH/Avqb7be/UD8XUBnXoLQ
- VX2yCnpK0z0fYjL62FBOewa8Y/hkS9djRysBIzQQpUOvC85ML8nRm17EcGWgfJgIqH
- Hf7b6rO7jXDwg==
+ b=VW2yy9wHGEB3RwMgTdrsQaoW/Ma/abZbffXSLvQ9Zqp6Axo0G2D24TTx5/Yl9FGE7
+ 4kFmiAHHKB7kXVfcoaKTk/CtYcJ9rLFHAYy3RpCkDV8fggVH41eMn8hAa5vNFK50/U
+ llHsfbIinN/MnhVCEfLf+e3cGGKyAVnxuT98gfaRko7gmvnfiDj15NQZAcj/hD3pSZ
+ c9YhVwSDPiwPZ+VaIkPJozCDt5Jx8KY5wSv0RxPiAM5EXlg/XnXRqNjB+EseDxBoa0
+ 7MpQjBJokUnMJysNj3I64tS+Eie2bZgRhLxqgyDq0vJ4S4hKUnrijIeYvNSkW/Qwcp
+ qIxPAH3f/PEtw==
 From: Mark Brown <broonie@kernel.org>
 To: ckeepax@opensource.cirrus.com
-In-Reply-To: <20220616143429.1324494-1-ckeepax@opensource.cirrus.com>
-References: <20220616143429.1324494-1-ckeepax@opensource.cirrus.com>
-Message-Id: <165651983041.2058781.2369056940647429242.b4-ty@kernel.org>
-Date: Wed, 29 Jun 2022 17:23:50 +0100
+In-Reply-To: <20220623125250.2355471-1-ckeepax@opensource.cirrus.com>
+References: <20220623125250.2355471-1-ckeepax@opensource.cirrus.com>
+Message-Id: <165651983704.2058781.8213227099502123936.b4-ty@kernel.org>
+Date: Wed, 29 Jun 2022 17:23:57 +0100
 MIME-Version: 1.0
 Cc: alsa-devel@alsa-project.org, heiko@sntech.de,
  Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, airlied@linux.ie,
@@ -43,15 +43,16 @@ Cc: alsa-devel@alsa-project.org, heiko@sntech.de,
  lgirdwood@gmail.com, srinivas.kandagatla@linaro.org, peter.ujfalusi@gmail.com,
  linux-stm32@st-md-mailman.stormreply.com, jbrunet@baylibre.com,
  pierre-louis.bossart@linux.intel.com, krzk@kernel.org,
- linux-rockchip@lists.infradead.org, linux-imx@nxp.com,
- linux-mips@vger.kernel.org, linux-sunxi@lists.linux.dev,
+ frattaroli.nicolas@gmail.com, linux-rockchip@lists.infradead.org,
+ linux-imx@nxp.com, linux-mips@vger.kernel.org, linux-sunxi@lists.linux.dev,
  linux-xtensa@linux-xtensa.org, nsaenz@kernel.org, daniel@ffwll.ch,
  mripard@kernel.org, linux-rpi-kernel@lists.infradead.org,
  linux-tegra@vger.kernel.org, linux-amlogic@lists.infradead.org,
  linux-omap@vger.kernel.org, patches@opensource.cirrus.com,
  nicolas.ferre@microchip.com, vkoul@kernel.org, jarkko.nikula@bitmer.com,
  kernel@pengutronix.de, shawnguo@kernel.org, daniel@zonque.org
-Subject: Re: [Linux-stm32] [PATCH 00/96] Refactor non_legacy_dai_naming flag
+Subject: Re: [Linux-stm32] [PATCH v2 00/96] Refactor non_legacy_dai_naming
+	flag
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -68,7 +69,7 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, 16 Jun 2022 15:32:53 +0100, Charles Keepax wrote:
+On Thu, 23 Jun 2022 13:51:14 +0100, Charles Keepax wrote:
 > Historically, the legacy DAI naming scheme was applied to platform
 > drivers and the newer scheme to CODEC drivers. During componentisation
 > the core lost the knowledge of if a driver was a CODEC or platform, they
