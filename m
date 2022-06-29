@@ -2,41 +2,40 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3E7E055F459
-	for <lists+linux-stm32@lfdr.de>; Wed, 29 Jun 2022 05:54:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 52BA555F4A4
+	for <lists+linux-stm32@lfdr.de>; Wed, 29 Jun 2022 05:58:10 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C9782C5F1EF;
-	Wed, 29 Jun 2022 03:54:40 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 107D3C5F1EF;
+	Wed, 29 Jun 2022 03:58:10 +0000 (UTC)
 Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 32501C5F1D5
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3463DC5F1D5
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 29 Jun 2022 03:54:39 +0000 (UTC)
+ Wed, 29 Jun 2022 03:58:08 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 845CEB82142;
- Wed, 29 Jun 2022 03:54:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C218AC34114;
- Wed, 29 Jun 2022 03:54:36 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id D0CB9B81E05;
+ Wed, 29 Jun 2022 03:58:07 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0EB26C341C8;
+ Wed, 29 Jun 2022 03:58:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1656474877;
- bh=uGe21oy82tSdMA/YvpYvQVzqQbNQiBgl0vADr1AFTdY=;
+ s=k20201202; t=1656475086;
+ bh=xlGxS8eUt1OwTO8mhrcABYeSBWBaRvP4l//S4lU2bl4=;
  h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=lNSlP1p+ukhqJtiPg2ozJ5MLFhq2KeadAUOnIaxqNjPNALtINmszC1a778vlk/+Jv
- QAi+R+5uceMsmtAbOx35LGxwwsPcG0N2aZ+xHf4OAHNKpYqjQWLHKDy+z8GsRcpjI2
- XfxkCtqrEMAYKbPBm+8t/6UpYntRTKDFFD3oQXjdANESi/s6807MUxASlB3AZJguBc
- ulLXwIGHyiIFe+nY3V7+XDNQVP4q316rjalagSZzFQqTObTNvShUZ5jr84p16jxDJo
- 9ztfUwwO77UzYDDz5UlTNYCA8E+GCGUhlAfZE0N8k8A/72C6N87rVJhy9/HJOQ0JE0
- u89rPBXslFfCg==
-Date: Tue, 28 Jun 2022 20:54:35 -0700
+ b=hrDTwX6hYGWX/wgcmW07d4J74gC6BeBtRFns102uUolRM4RhY87XGIMtBDXnwSuZo
+ zgikn6BHii6BDtqCWa0ZAt2uCIsUoUVUy5VcmPHP2qEWinJShYe25rpOQkjWM8Ta/f
+ Bid2Cycq6yAiVf5ydN0IE5ySyzVO3by6Y8asE2RMkpC/sIPc1qdysigyK8Lshr6sNj
+ vHlEA2nrTCPpzoKy8HGNgbVzca98fMuzeJIh5FhgYMdeIesIiYpfJqjbgutyJmy2KL
+ enCqF25Nsy6URxQ0hBhdpCtauUDvSEd3QhMUlEkuBT5xwET31rK+vYjrJmP1ZbvrqH
+ YZLBkpUxllcUg==
+Date: Tue, 28 Jun 2022 20:58:05 -0700
 From: Jakub Kicinski <kuba@kernel.org>
 To: Christian Marangi <ansuelsmth@gmail.com>
-Message-ID: <20220628205435.44b0c78c@kernel.org>
-In-Reply-To: <20220628013342.13581-3-ansuelsmth@gmail.com>
+Message-ID: <20220628205805.2e105b5a@kernel.org>
+In-Reply-To: <20220628013342.13581-1-ansuelsmth@gmail.com>
 References: <20220628013342.13581-1-ansuelsmth@gmail.com>
- <20220628013342.13581-3-ansuelsmth@gmail.com>
 MIME-Version: 1.0
 Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, Russell King <linux@armlinux.org.uk>,
@@ -45,8 +44,8 @@ Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
  Giuseppe Cavallaro <peppe.cavallaro@st.com>, Paolo Abeni <pabeni@redhat.com>,
  "David
  S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [net-next PATCH RFC 2/5] net: ethernet: stmicro:
- stmmac: first disable all queues in release
+Subject: Re: [Linux-stm32] [net-next PATCH RFC 0/5] Add MTU change with
+ stmmac interface running
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -58,33 +57,18 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, 28 Jun 2022 03:33:39 +0200 Christian Marangi wrote:
-> +	stmmac_disable_all_queues(priv);
-> +
-> +	for (chan = 0; chan < priv->plat->tx_queues_to_use; chan++)
-> +		hrtimer_cancel(&priv->tx_queue[chan].txtimer);
-
-IIRC this hrtimer is to check for completions. Canceling it before
-netif_tx_disable() looks odd, presumably until the queues are stopped
-the timer can get scheduled again, no?
-
->  	netif_tx_disable(dev);
->  
->  	if (device_may_wakeup(priv->device))
-> @@ -3764,11 +3769,6 @@ static int stmmac_release(struct net_device *dev)
->  	phylink_stop(priv->phylink);
->  	phylink_disconnect_phy(priv->phylink);
->  
-> -	stmmac_disable_all_queues(priv);
-> -
-> -	for (chan = 0; chan < priv->plat->tx_queues_to_use; chan++)
-> -		hrtimer_cancel(&priv->tx_queue[chan].txtimer);
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gVHVlLCAyOCBKdW4gMjAyMiAwMzozMzozNyArMDIwMCBDaHJpc3RpYW4gTWFyYW5naSB3cm90
+ZToKPiBUaGlzIHNlcmllcyBpcyB0byBwZXJtaXQgTVRVIGNoYW5nZSB3aGlsZSB0aGUgaW50ZXJm
+YWNlIGlzIHJ1bm5pbmcuCj4gTWFqb3IgcmV3b3JrIGFyZSBuZWVkZWQgdG8gcGVybWl0IHRvIGFs
+bG9jYXRlIGEgbmV3IGRtYSBjb25mIGJhc2VkIG9uCj4gdGhlIG5ldyBNVFUgYmVmb3JlIGFwcGx5
+aW5nIGl0LiBUaGlzIGlzIHRvIG1ha2Ugc3VyZSB0aGVyZSBpcyBlbm91Z2gKPiBzcGFjZSB0byBh
+bGxvY2F0ZSBhbGwgdGhlIERNQSBxdWV1ZSBiZWZvcmUgcmVsZWFzaW5nIHRoZSBzdG1tYWMgZHJp
+dmVyLgoK8J+RjSBMb29rcyBnb29kLgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQt
+bWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5j
+b20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
