@@ -2,271 +2,51 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 555A65603B6
-	for <lists+linux-stm32@lfdr.de>; Wed, 29 Jun 2022 17:01:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 593AB560125
+	for <lists+linux-stm32@lfdr.de>; Wed, 29 Jun 2022 15:19:54 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 06EACC5F1EE;
-	Wed, 29 Jun 2022 15:01:44 +0000 (UTC)
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com
- [209.85.221.44])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 003C9C5F1EE;
+	Wed, 29 Jun 2022 13:19:53 +0000 (UTC)
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+ [213.167.242.64])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C4BAEC04001
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D8AE0C04001
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 29 Jun 2022 13:10:47 +0000 (UTC)
-Received: by mail-wr1-f44.google.com with SMTP id e28so17250531wra.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 29 Jun 2022 06:10:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=VlYfBx7EBUtDE6uBFY9byn1Ncu+EZBKbWlzwPeBiTVc=;
- b=frD1ngE13/en6394O8XepcZvUrZBA03m6xml3were+xCmvmDUuk1J0NNZRwyoKaZsM
- 5+4VUSvngflolWxauJlu+LvSXiFmOUcfgeF2nk+hKLvW3M/lD+KAnQAe/K2tJyDJNegQ
- Ml4xaICVivn+SaBPSKOxO4SmTbW0RFR+qm9YIHEndJDANW5s32CjRG3ZqGqYACVr1zR6
- IBW3FQPZupJPgkXzmHbMjtbyyoh3Y9pEFiV7KvrmTrDSDw51VwJE0C5uxESvGhzsr89I
- E9VGjTtKiCGJQOwgLuXTvIGM2V5wOy6ufN5mi08u68das+YgUBakXmDUnQl5m6THNyEw
- AA9A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=VlYfBx7EBUtDE6uBFY9byn1Ncu+EZBKbWlzwPeBiTVc=;
- b=eG13J1NtGu4nc7AS0FGFqbnM79/AxRNBFM87vi30kIIZUq5zS/mwhPBnegOesJOcqL
- KVfR3gBKS27rRkqvpjCkEI6N5ga+aQqW54KHj+T85oPwzGr46H7ktfaNkNXitwsCew7y
- I9FtKSEixH7J6iDcDBOHEeceClRqkPUH6f4mIVREpFa2JVwl18GOIlabTM57tVpE1KWL
- TRkBn7bsY7n5fHWCcfUHu/e1fNu9eZju4DHu/3AMpZLEQK/xLTWmtG8xcKLLq71OV+r8
- d/dtB7rRL8qNl9HtMNlviZDGwtKuXbYLzOkxtVwMIdemoc769pIpXT6HgMa5WJ9FLvr5
- tsLg==
-X-Gm-Message-State: AJIora8mdXklALc3Yy6W4phhbD+XGfWok5wM8QMFB7N7lwXADa13hG68
- Y7bbzZ4/Kvvvd6ehPcgPWnic/m562aHu2+6J8k4=
-X-Google-Smtp-Source: AGRyM1vJ4Bhi7JcB3Mk7ILH8mUAA6z2j2UT+Dyfz1mp+09MukaINS6AUVoLreV/hTUTvHyU7PGpRXM+ZDF1zXQd6nAY=
-X-Received: by 2002:adf:f90c:0:b0:21a:3dcb:d106 with SMTP id
- b12-20020adff90c000000b0021a3dcbd106mr3045617wrr.448.1656508246749; Wed, 29
- Jun 2022 06:10:46 -0700 (PDT)
+ Wed, 29 Jun 2022 13:19:52 +0000 (UTC)
+Received: from [192.168.1.111] (91-158-154-79.elisa-laajakaista.fi
+ [91.158.154.79])
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id 801913D7;
+ Wed, 29 Jun 2022 15:19:51 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+ s=mail; t=1656508792;
+ bh=bB5fdSAc1we82ey8DR3H+I99xnRTr8h981Ct2V1ysfY=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=lcsc540vQaQtkM7W+ZM9W3Y80qfGaGp2QCgNHi01hZMRy40qgRGJzMjXSGRYR+G1v
+ HkpvIo4N/1ZMeK9Ppc0ydwBRmliJsl/RowlLMNOmJ5C/fmg6f5puD41ujfRLdcOXRK
+ tnWYyn+ppK+oZqyh1fNHi/NX3kN6MZfqs7APFwjA=
+Message-ID: <bc25d400-abb9-0980-ef93-6af8f5a2e42c@ideasonboard.com>
+Date: Wed, 29 Jun 2022 16:19:48 +0300
 MIME-Version: 1.0
-References: <20220628140313.74984-1-u.kleine-koenig@pengutronix.de>
- <20220628140313.74984-7-u.kleine-koenig@pengutronix.de>
-In-Reply-To: <20220628140313.74984-7-u.kleine-koenig@pengutronix.de>
-From: Andrey Ryabinin <ryabinin.a.a@gmail.com>
-Date: Wed, 29 Jun 2022 16:11:26 +0300
-Message-ID: <CAPAsAGwP4Mw_CJfsi7oapABdTBwO1HfiQux6X4UahspU74VjtQ@mail.gmail.com>
-To: =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <u.kleine-koenig@pengutronix.de>, 
- Wolfram Sang <wsa@kernel.org>
-X-Mailman-Approved-At: Wed, 29 Jun 2022 15:01:43 +0000
-Cc: Andrew Lunn <andrew@lunn.ch>, Ricardo Ribalda <ribalda@kernel.org>,
- Jimmy Su <jimmy.su@intel.com>,
- Benjamin Herrenschmidt <benh@kernel.crashing.org>,
- Linus Walleij <linus.walleij@linaro.org>, Sekhar Nori <nsekhar@ti.com>,
- Gwendal Grignou <gwendal@chromium.org>, dri-devel@lists.freedesktop.org,
- Jaroslav Kysela <perex@perex.cz>,
- Benjamin Tissoires <benjamin.tissoires@redhat.com>,
- Paul Mackerras <paulus@samba.org>,
- Moses Christopher Bollavarapu <mosescb.dev@gmail.com>,
- Pavel Machek <pavel@ucw.cz>, Miquel Raynal <miquel.raynal@bootlin.com>,
- Heikki Krogerus <heikki.krogerus@linux.intel.com>,
- Evgeniy Polyakov <zbr@ioremap.net>, Matt Johnston <matt@codeconstruct.com.au>,
- Olli Salonen <olli.salonen@iki.fi>, Angela Czubak <acz@semihalf.com>,
- Robert Marko <robert.marko@sartura.hr>, Luka Perkov <luka.perkov@sartura.hr>,
- Sean Young <sean@mess.org>, Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Michael Ellerman <mpe@ellerman.id.au>, Zheyu Ma <zheyuma97@gmail.com>,
- Javier Martinez Canillas <javierm@redhat.com>,
- Christophe Leroy <christophe.leroy@csgroup.eu>,
- Chanwoo Choi <cw00.choi@samsung.com>, linux-omap@vger.kernel.org,
- Antti Palosaari <crope@iki.fi>, Wenyou Yang <wenyou.yang@microchip.com>,
- Dongchun Zhu <dongchun.zhu@mediatek.com>, Miaoqian Lin <linmq006@gmail.com>,
- Steve Longerbeam <slongerbeam@gmail.com>, Bingbu Cao <bingbu.cao@intel.com>,
- Shunqian Zheng <zhengsq@rock-chips.com>, lijian <lijian@yulong.com>,
- Dan Carpenter <dan.carpenter@oracle.com>,
- Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>,
- Viorel Suman <viorel.suman@nxp.com>, Petr Machata <petrm@nvidia.com>,
- =?UTF-8?Q?Guido_G=C3=BCnther?= <agx@sigxcpu.org>,
- Jean Delvare <jdelvare@suse.com>, linux-serial@vger.kernel.org,
- linux-pm@vger.kernel.org, Eddie James <eajames@linux.ibm.com>,
- Riku Voipio <riku.voipio@iki.fi>, James Schulman <james.schulman@cirrus.com>,
- Scott Wood <oss@buserror.net>, Cai Huoqing <cai.huoqing@linux.dev>,
- Jonas Malaco <jonas@protocubo.io>, Hsin-Yi Wang <hsinyi@chromium.org>,
- Haibo Chen <haibo.chen@nxp.com>, Petr Cvek <petrcvekcz@gmail.com>,
- linux-leds@vger.kernel.org, Joe Tessler <jrt@google.com>,
- Andrey Konovalov <andreyknvl@gmail.com>, Andy Shevchenko <andy@kernel.org>,
- Robert Jones <rjones@gateworks.com>,
- George Joseph <george.joseph@fairview5.com>,
- Vincent Knecht <vincent.knecht@mailoo.org>,
- Robin van der Gracht <robin@protonic.nl>, Randy Dunlap <rdunlap@infradead.org>,
- linux-stm32@st-md-mailman.stormreply.com,
- Michael Tretter <m.tretter@pengutronix.de>,
- Geert Uytterhoeven <geert@linux-m68k.org>, Phong LE <ple@baylibre.com>,
- Daniel Beer <daniel.beer@igorinstitute.com>,
- Krzysztof Opasiak <k.opasiak@samsung.com>,
- Bjorn Andersson <bjorn.andersson@linaro.org>, linux-crypto@vger.kernel.org,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Heungjun Kim <riverful.kim@samsung.com>,
- Hans Verkuil <hverkuil-cisco@xs4all.nl>, David Lin <CTLIN0@nuvoton.com>,
- Vladimir Oltean <olteanv@gmail.com>, David Rhodes <david.rhodes@cirrus.com>,
- Claudiu Beznea <claudiu.beznea@microchip.com>,
- Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Dan Robertson <dan@dlrobertson.com>,
- Martyn Welch <martyn.welch@collabora.co.uk>, Jiri Slaby <jirislaby@kernel.org>,
- devicetree@vger.kernel.org, David Airlie <airlied@linux.ie>,
- Jon Nettleton <jon.nettleton@gmail.com>,
- Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
- Marco Felsch <m.felsch@pengutronix.de>,
- Wim Van Sebroeck <wim@linux-watchdog.org>, Sebastian Reichel <sre@kernel.org>,
- Max Filippov <jcmvbkbc@gmail.com>, "Lad,
- Prabhakar" <prabhakar.csengg@gmail.com>,
- Thierry Reding <thierry.reding@gmail.com>, linux-i2c@vger.kernel.org,
- Martiros Shakhzadyan <vrzh@vrzh.net>, Guenter Roeck <groeck@chromium.org>,
- Matthias Schwarzott <zzam@gentoo.org>,
- Sylwester Nawrocki <s.nawrocki@samsung.com>,
- Eric Dumazet <edumazet@google.com>,
- =?UTF-8?B?TWFyZWsgQmVow7pu?= <kabel@kernel.org>,
- Saranya Gopal <saranya.gopal@intel.com>, Lars-Peter Clausen <lars@metafoo.de>,
- Corey Minyard <minyard@acm.org>, Evgeny Novikov <novikov@ispras.ru>,
- Frank Rowand <frowand.list@gmail.com>, Bartosz Golaszewski <brgl@bgdev.pl>,
- Manivannan Sadhasivam <mani@kernel.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Minghao Chi <chi.minghao@zte.com.cn>, linux-clk@vger.kernel.org,
- Nathan Chancellor <nathan@kernel.org>, MyungJoo Ham <myungjoo.ham@samsung.com>,
- Charles Gorand <charles.gorand@effinnov.com>,
- Jagan Teki <jagan@amarulasolutions.com>,
- Vijendar Mukunda <Vijendar.Mukunda@amd.com>, Miguel Ojeda <ojeda@kernel.org>,
- Kyungmin Park <kyungmin.park@samsung.com>,
- Tianshu Qiu <tian.shu.qiu@intel.com>, Martin Donnelly <martin.donnelly@ge.com>,
- Woojung Huh <woojung.huh@microchip.com>, Rudolf Marek <r.marek@assembler.cz>,
- Charles Keepax <ckeepax@opensource.cirrus.com>, linux-watchdog@vger.kernel.org,
- Michael Hennerich <michael.hennerich@analog.com>,
- Ido Schimmel <idosch@nvidia.com>, acpi4asus-user@lists.sourceforge.net,
- Simon Trimmer <simont@opensource.cirrus.com>,
- Ricard Wanderlof <ricardw@axis.com>,
- Rikard Falkeborn <rikard.falkeborn@gmail.com>,
- Alex Deucher <alexander.deucher@amd.com>, Jiri Valek - 2N <valek@2n.cz>,
- linux-rpi-kernel@lists.infradead.org, Biju Das <biju.das.jz@bp.renesas.com>,
- Wayne Chang <waynec@nvidia.com>, Chen-Yu Tsai <wens@csie.org>,
- Sing-Han Chen <singhanc@nvidia.com>, linux-arm-kernel@lists.infradead.org,
- =?UTF-8?Q?Niklas_S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>,
- Hans de Goede <hdegoede@redhat.com>, Stephen Boyd <sboyd@kernel.org>,
- Maslov Dmitry <maslovdmitry@seeed.cc>, linux-gpio@vger.kernel.org,
- Jens Frederich <jfrederich@gmail.com>,
- Douglas Anderson <dianders@chromium.org>,
- linux-media <linux-media@vger.kernel.org>,
- "David S. Miller" <davem@davemloft.net>,
- Paul Kocialkowski <paul.kocialkowski@bootlin.com>,
- Jarkko Sakkinen <jarkko@kernel.org>, linux-usb@vger.kernel.org,
- Jacopo Mondi <jacopo+renesas@jmondi.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, CGEL ZTE <cgel.zte@gmail.com>,
- Colin Leroy <colin@colino.net>, platform-driver-x86@vger.kernel.org,
- linux-integrity@vger.kernel.org, Kevin Tsai <ktsai@capellamicro.com>,
- =?UTF-8?Q?Pali_Roh=C3=A1r?= <pali@kernel.org>,
- Jonathan Cameron <jic23@kernel.org>, Heiner Kallweit <hkallweit1@gmail.com>,
- Daniel Palmer <daniel@0x0f.com>, Arec Kao <arec.kao@intel.com>,
- Crt Mori <cmo@melexis.com>, Jose Cazarin <joseespiriki@gmail.com>,
- Neil Armstrong <narmstrong@baylibre.com>, linux-iio@vger.kernel.org,
- Tom Rix <trix@redhat.com>, Michael Turquette <mturquette@baylibre.com>,
- Peter Senna Tschudin <peter.senna@gmail.com>,
- Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
- =?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>,
- Jan-Simon Moeller <jansimon.moeller@gmx.de>,
- Wei Yongjun <weiyongjun1@huawei.com>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>, Nikita Travkin <nikita@trvn.ru>,
- Jeremy Kerr <jk@codeconstruct.com.au>, Jasmin Jessich <jasmin@anw.at>,
- Sam Ravnborg <sam@ravnborg.org>, Kevin Cernekee <cernekee@chromium.org>,
- Alyssa Rosenzweig <alyssa@rosenzweig.io>, linux-rtc@vger.kernel.org,
- Daniel Thompson <daniel.thompson@linaro.org>,
- Florian Fainelli <f.fainelli@gmail.com>,
- Lucas Tanure <tanureal@opensource.cirrus.com>,
- Stefan Mavrodiev <stefan@olimex.com>, Masahiro Yamada <masahiroy@kernel.org>,
- Sylvain Petinot <sylvain.petinot@foss.st.com>, netdev@vger.kernel.org,
- Kieran Bingham <kieran.bingham@ideasonboard.com>,
- Jernej Skrabec <jernej.skrabec@gmail.com>, Xin Ji <xji@analogixsemi.com>,
- Seven Lee <wtli@nuvoton.com>, Matt Ranostay <matt.ranostay@konsulko.com>,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
- Adrien Grassein <adrien.grassein@gmail.com>,
- Yang Yingliang <yangyingliang@huawei.com>, chrome-platform@lists.linux.dev,
- Mats Randgaard <matrandg@cisco.com>, Paolo Abeni <pabeni@redhat.com>,
- Alexey Dobriyan <adobriyan@gmail.com>, Joel Stanley <joel@jms.id.au>,
- linux-input@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
- Lyude Paul <lyude@redhat.com>, Kees Cook <keescook@chromium.org>,
- =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <uwe@kleine-koenig.org>,
- Jonas Karlman <jonas@kwiboo.se>, Yang Li <yang.lee@linux.alibaba.com>,
- Tim Harvey <tharvey@gateworks.com>, Jiri Kosina <jikos@kernel.org>,
- Akinobu Mita <akinobu.mita@gmail.com>, Mark Gross <markgross@kernel.org>,
- Richard Fitzgerald <rf@opensource.cirrus.com>, Mark Brown <broonie@kernel.org>,
- wengjianfeng <wengjianfeng@yulong.com>, Maxime Ripard <maxime@cerno.tech>,
- Sven Peter <sven@svenpeter.dev>, Martin Kepplinger <martink@posteo.de>,
- openipmi-developer@lists.sourceforge.net,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Benson Leung <bleung@chromium.org>,
- "Daniel W. S. Almeida" <dwlsalmeida@gmail.com>,
- Chiranjeevi Rapolu <chiranjeevi.rapolu@intel.com>,
- Alessandro Zummo <a.zummo@towertech.it>, linux-hwmon@vger.kernel.org,
- Felipe Balbi <balbi@kernel.org>, Stephan Gerhold <stephan@gerhold.net>,
- Support Opensource <support.opensource@diasemi.com>,
- Alexandru Ardelean <ardeleanalex@gmail.com>,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>,
- Marc Hulsman <m.hulsman@tudelft.nl>, Corentin Chary <corentin.chary@gmail.com>,
- Stephen Kitt <steve@sk2.org>, Daniel Scally <djrscally@gmail.com>,
- linux-fbdev@vger.kernel.org, Arnd Bergmann <arnd@arndb.de>,
- Kirill Shilimanov <kirill.shilimanov@huawei.com>,
- Sakari Ailus <sakari.ailus@linux.intel.com>, patches@opensource.cirrus.com,
- Zheng Yongjun <zhengyongjun3@huawei.com>,
- Alejandro Tafalla <atafalla@dnyon.com>, Peter Rosin <peda@axentia.se>,
- Arnaud Ferraris <arnaud.ferraris@collabora.com>,
- Hector Martin <marcan@marcan.st>, Vignesh Raghavendra <vigneshr@ti.com>,
- Nick Dyer <nick@shmanahar.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Tony Lindgren <tony@atomide.com>, Takashi Iwai <tiwai@suse.com>,
- Paul Cercueil <paul@crapouillou.net>,
- George McCollister <george.mccollister@gmail.com>,
- Mac Chiang <mac.chiang@intel.com>,
- Antoniu Miclaus <antoniu.miclaus@analog.com>,
- Alexander Potapenko <glider@google.com>, linux-staging@lists.linux.dev,
- Adam Ford <aford173@gmail.com>, Peter Huewe <peterhuewe@gmx.de>,
- UNGLinuxDriver@microchip.com, Lee Jones <lee.jones@linaro.org>,
- linux-mtd@lists.infradead.org, Alexey Khoroshilov <khoroshilov@ispras.ru>,
- Marek Vasut <marex@denx.de>, Yizhuo <yzhai003@ucr.edu>,
- alsa-devel@alsa-project.org, Vincenzo Frascino <vincenzo.frascino@arm.com>,
- Eric Piel <eric.piel@tremplin-utc.net>,
- Herbert Xu <herbert@gondor.apana.org.au>,
- Tobias Schrammm <t.schramm@manjaro.org>, Richard Weinberger <richard@nod.at>,
- Tomasz Duszynski <tduszyns@gmail.com>,
- Janusz Krzysztofik <jmkrzyszt@gmail.com>, Russell King <linux@armlinux.org.uk>,
- linux-pwm@vger.kernel.org, Jason Gunthorpe <jgg@ziepe.ca>,
- Thomas Zimmermann <tzimmermann@suse.de>, Bastien Nocera <hadess@hadess.net>,
- Jingoo Han <jingoohan1@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- Vivien Didelot <vivien.didelot@gmail.com>, Shawn Tu <shawnx.tu@intel.com>,
- Leon Luo <leonl@leopardimaging.com>, Yan Lei <yan_lei@dahuatech.com>,
- Akihiro Tsukada <tskd08@gmail.com>,
- Tudor Ambarus <tudor.ambarus@microchip.com>,
- Dmitry Rokosov <DDRokosov@sberdevices.ru>,
- Oliver Graute <oliver.graute@kococonnector.com>,
- Alistair Francis <alistair@alistair23.me>,
- Dongliang Mu <mudongliangabcd@gmail.com>,
- =?UTF-8?Q?Jonathan_Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>,
- Eduardo Valentin <edubezval@gmail.com>, Rui Miguel Silva <rmfrfs@gmail.com>,
- Michael Srba <Michael.Srba@seznam.cz>, Rob Herring <robh+dt@kernel.org>,
- linux-mediatek@lists.infradead.org, Fabio Estevam <festevam@gmail.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- kasan-dev <kasan-dev@googlegroups.com>,
- "Paul J. Murphy" <paul.j.murphy@intel.com>,
- Nicola Lunghi <nick83ola@gmail.com>,
- Daniele Alessandrelli <daniele.alessandrelli@intel.com>,
- Dmitry Vyukov <dvyukov@google.com>,
- Ramesh Shanmugasundaram <rashanmu@gmail.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Juerg Haefliger <juergh@gmail.com>,
- Oder Chiou <oder_chiou@realtek.com>, Shengjiu Wang <shengjiu.wang@nxp.com>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- Robert Foss <robert.foss@linaro.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Daniel Vetter <daniel@ffwll.ch>,
- =?UTF-8?Q?Alvin_=C5=A0ipraga?= <alsi@bang-olufsen.dk>,
- Luca Ceresoli <luca@lucaceresoli.net>,
- =?UTF-8?B?Sm9zw6kgRXhww7NzaXRv?= <jose.exposito89@gmail.com>,
- Johannes Berg <johannes@sipsolutions.net>,
- Colin Ian King <colin.king@intel.com>,
- Maximilian Luz <luzmaximilian@gmail.com>, Helge Deller <deller@gmx.de>,
- Lucas Stach <l.stach@pengutronix.de>
-Subject: Re: [Linux-stm32] [PATCH 6/6] i2c: Make remove callback return void
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.9.1
+Content-Language: en-US
+To: Marek Vasut <marex@denx.de>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+References: <20220627174156.66919-1-marex@denx.de>
+ <3ef88906-188d-52a6-c3bf-647bc4e36732@xs4all.nl>
+ <32f04271-4a9a-3291-cf36-ead0383db9ca@ideasonboard.com>
+ <YrxDq5I3ZsEf8ruO@pendragon.ideasonboard.com>
+ <df7060aa-b201-3d39-72e9-fcb575e7b43e@ideasonboard.com>
+ <a2e45188-54d2-1ef2-1d21-cf60d47aeb43@denx.de>
+From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+In-Reply-To: <a2e45188-54d2-1ef2-1d21-cf60d47aeb43@denx.de>
+Cc: Hugues FRUCHET <hugues.fruchet@foss.st.com>,
+ Hans Verkuil <hverkuil@xs4all.nl>, Alain Volmat <alain.volmat@foss.st.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ linux-media@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH v2] media: stm32: dcmi: Switch to
+ __v4l2_subdev_state_alloc()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -278,34 +58,129 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gNi8yOC8yMiAxNzowMywgVXdlIEtsZWluZS1Lw7ZuaWcgd3JvdGU6Cj4gRnJvbTogVXdlIEts
-ZWluZS1Lw7ZuaWcgPHV3ZUBrbGVpbmUta29lbmlnLm9yZz4KPgo+IFRoZSB2YWx1ZSByZXR1cm5l
-ZCBieSBhbiBpMmMgZHJpdmVyJ3MgcmVtb3ZlIGZ1bmN0aW9uIGlzIG1vc3RseSBpZ25vcmVkLgo+
-IChPbmx5IGFuIGVycm9yIG1lc3NhZ2UgaXMgcHJpbnRlZCBpZiB0aGUgdmFsdWUgaXMgbm9uLXpl
-cm8gdGhhdCB0aGUKPiBlcnJvciBpcyBpZ25vcmVkLikKPgo+IFNvIGNoYW5nZSB0aGUgcHJvdG90
-eXBlIG9mIHRoZSByZW1vdmUgZnVuY3Rpb24gdG8gcmV0dXJuIG5vIHZhbHVlLiBUaGlzCj4gd2F5
-IGRyaXZlciBhdXRob3JzIGFyZSBub3QgdGVtcHRlZCB0byBhc3N1bWUgdGhhdCBwYXNzaW5nIGFu
-IGVycm9yIHRvCj4gdGhlIHVwcGVyIGxheWVyIGlzIGEgZ29vZCBpZGVhLiBBbGwgZHJpdmVycyBh
-cmUgYWRhcHRlZCBhY2NvcmRpbmdseS4KPiBUaGVyZSBpcyBubyBpbnRlbmRlZCBjaGFuZ2Ugb2Yg
-YmVoYXZpb3VyLCBhbGwgY2FsbGJhY2tzIHdlcmUgcHJlcGFyZWQgdG8KPiByZXR1cm4gMCBiZWZv
-cmUuCj4KPiBTaWduZWQtb2ZmLWJ5OiBVd2UgS2xlaW5lLUvDtm5pZyA8dS5rbGVpbmUta29lbmln
-QHBlbmd1dHJvbml4LmRlPgo+IC0tLQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICB8IDIgKy0KPiAgbGliL0tjb25maWcua2FzYW4gICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgIHwgMSArCgo+IGRpZmYgLS1naXQgYS9saWIvS2NvbmZpZy5rYXNhbiBiL2xp
-Yi9LY29uZmlnLmthc2FuCj4gaW5kZXggZjA5NzNkYTU4M2UwLi4zNjZlNjE2MzljYjIgMTAwNjQ0
-Cj4gLS0tIGEvbGliL0tjb25maWcua2FzYW4KPiArKysgYi9saWIvS2NvbmZpZy5rYXNhbgo+IEBA
-IC0xNDksNiArMTQ5LDcgQEAgY29uZmlnIEtBU0FOX1NUQUNLCj4gICAgICAgZGVwZW5kcyBvbiBL
-QVNBTl9HRU5FUklDIHx8IEtBU0FOX1NXX1RBR1MKPiAgICAgICBkZXBlbmRzIG9uICFBUkNIX0RJ
-U0FCTEVfS0FTQU5fSU5MSU5FCj4gICAgICAgZGVmYXVsdCB5IGlmIENDX0lTX0dDQwo+ICsgICAg
-IGRlcGVuZHMgb24gIUFSTQo+ICAgICAgIGhlbHAKPiAgICAgICAgIERpc2FibGVzIHN0YWNrIGlu
-c3RydW1lbnRhdGlvbiBhbmQgdGh1cyBLQVNBTidzIGFiaWxpdHkgdG8gZGV0ZWN0Cj4gICAgICAg
-ICBvdXQtb2YtYm91bmRzIGJ1Z3MgaW4gc3RhY2sgdmFyaWFibGVzLgoKCldoYXQgaXMgdGhpcyBk
-b2luZyBoZXJlPwpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-XwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9y
-bXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9s
-aXN0aW5mby9saW51eC1zdG0zMgo=
+On 29/06/2022 15:39, Marek Vasut wrote:
+> On 6/29/22 14:26, Tomi Valkeinen wrote:
+> 
+> [...]
+> 
+>>>> Perhaps the best way to solve this is just to remove the underscores
+>>>> from __v4l2_subdev_state_alloc, and change all the drivers which create
+>>>> temporary v4l2_subdev_states to use that (and the free) functions. And
+>>>> also create the helper macro which can be used in those cases where the
+>>>> call is simple (the state is not modified or accessed by the caller).
+>>>
+>>> As long as we prevent any new driver from using that API, that's fine
+>>> with me.
+>>
+>> An alternative would be to keep the v4l2_subdev_state as a local 
+>> variable (allocated in the stack), and add a new function, 
+>> v4l2_subdev_state_local_init() or such. The function would initialize 
+>> the given state, expecting the allocatable fields to be already 
+>> allocated (state->pads, which in the above cases points to another 
+>> local variable, i.e. stack).
+>>
+>> This would prevent the need of a free call, which, while not complex 
+>> as such, might cause a bigger amount of changes in some cases to 
+>> handle the error paths correctly.
+>>
+>> Of course, if the above-mentioned macro works, then that's the easiest 
+>> solution. But that won't work for all drivers.
+> 
+> Don't you think a driver fix shouldn't involve "rework the subsystem" 
+> requirement to be applicable ?
+
+No, but we should think what's the best way to do the fix, if the fix
+is controversial. Otherwise we might just break things even worse.
+Adding the macro seems like a much better way, and far from "rework the
+subsystem". Granted, this was just a quick edit without testing so it may
+fail miserably...
+
+Can you try this out?
+
+Also, a bit unrelated thing: dcmi_get_sensor_format gets the active format
+from the source subdev, but dcmi_set_sensor_format sets the try format. That
+sounds like a bug. Is it on purpose?
+
+
+diff --git a/drivers/media/platform/st/stm32/stm32-dcmi.c b/drivers/media/platform/st/stm32/stm32-dcmi.c
+index 09a743cd7004..eb831b5932e7 100644
+--- a/drivers/media/platform/st/stm32/stm32-dcmi.c
++++ b/drivers/media/platform/st/stm32/stm32-dcmi.c
+@@ -999,10 +999,6 @@ static int dcmi_try_fmt(struct stm32_dcmi *dcmi, struct v4l2_format *f,
+  	const struct dcmi_format *sd_fmt;
+  	struct dcmi_framesize sd_fsize;
+  	struct v4l2_pix_format *pix = &f->fmt.pix;
+-	struct v4l2_subdev_pad_config pad_cfg;
+-	struct v4l2_subdev_state pad_state = {
+-		.pads = &pad_cfg
+-		};
+  	struct v4l2_subdev_format format = {
+  		.which = V4L2_SUBDEV_FORMAT_TRY,
+  	};
+@@ -1037,8 +1033,7 @@ static int dcmi_try_fmt(struct stm32_dcmi *dcmi, struct v4l2_format *f,
+  	}
+  
+  	v4l2_fill_mbus_format(&format.format, pix, sd_fmt->mbus_code);
+-	ret = v4l2_subdev_call(dcmi->source, pad, set_fmt,
+-			       &pad_state, &format);
++	ret = v4l2_subdev_call_state_try(dcmi->source, pad, set_fmt, &format);
+  	if (ret < 0)
+  		return ret;
+  
+@@ -1187,10 +1182,6 @@ static int dcmi_set_sensor_format(struct stm32_dcmi *dcmi,
+  	struct v4l2_subdev_format format = {
+  		.which = V4L2_SUBDEV_FORMAT_TRY,
+  	};
+-	struct v4l2_subdev_pad_config pad_cfg;
+-	struct v4l2_subdev_state pad_state = {
+-		.pads = &pad_cfg
+-		};
+  	int ret;
+  
+  	sd_fmt = find_format_by_fourcc(dcmi, pix->pixelformat);
+@@ -1203,8 +1194,7 @@ static int dcmi_set_sensor_format(struct stm32_dcmi *dcmi,
+  	}
+  
+  	v4l2_fill_mbus_format(&format.format, pix, sd_fmt->mbus_code);
+-	ret = v4l2_subdev_call(dcmi->source, pad, set_fmt,
+-			       &pad_state, &format);
++	ret = v4l2_subdev_call_state_try(dcmi->source, pad, set_fmt, &format);
+  	if (ret < 0)
+  		return ret;
+  
+diff --git a/include/media/v4l2-subdev.h b/include/media/v4l2-subdev.h
+index b661e1817470..68676d173047 100644
+--- a/include/media/v4l2-subdev.h
++++ b/include/media/v4l2-subdev.h
+@@ -1433,6 +1433,19 @@ extern const struct v4l2_subdev_ops v4l2_subdev_call_wrappers;
+  		__result;						\
+  	})
+  
++#define v4l2_subdev_call_state_try(sd, o, f, args...)                 \
++	({                                                            \
++		int __result;                                         \
++		static struct lock_class_key __key;                   \
++		const char *name = KBUILD_BASENAME                    \
++			":" __stringify(__LINE__) ":state->lock";     \
++		struct v4l2_subdev_state *state =                     \
++			__v4l2_subdev_state_alloc(sd, name, &__key);  \
++		__result = v4l2_subdev_call(sd, o, f, state, ##args); \
++		__v4l2_subdev_state_free(state);                      \
++		__result;                                             \
++	})
++
+  /**
+   * v4l2_subdev_has_op - Checks if a subdev defines a certain operation.
+   *
+
+
+  Tomi
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
