@@ -2,58 +2,37 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 29F10560E0F
-	for <lists+linux-stm32@lfdr.de>; Thu, 30 Jun 2022 02:31:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 816CF5612B7
+	for <lists+linux-stm32@lfdr.de>; Thu, 30 Jun 2022 08:48:35 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CD8D0C5F1D7;
-	Thu, 30 Jun 2022 00:31:52 +0000 (UTC)
-Received: from phobos.denx.de (phobos.denx.de [85.214.62.61])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 19F59C04001;
+	Thu, 30 Jun 2022 06:48:35 +0000 (UTC)
+Received: from fornost.hmeau.com (helcar.hmeau.com [216.24.177.18])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 240CAC03FC0
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7A90AC03FC0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 30 Jun 2022 00:31:52 +0000 (UTC)
-Received: from [127.0.0.1] (p578adb1c.dip0.t-ipconnect.de [87.138.219.28])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits))
- (No client certificate requested)
- (Authenticated sender: marex@denx.de)
- by phobos.denx.de (Postfix) with ESMTPSA id 94B3183A1C;
- Thu, 30 Jun 2022 02:31:50 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de;
- s=phobos-20191101; t=1656549111;
- bh=tVLvSda3Qj47bsCkOqwNC9U/U5+2aIfXr0bDqC5Gudo=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=ihHv2IBGL3T09PJeJvJWZQbs0j3KbhQ4bqHnC5oiJoJmWzhaTpXXC8VWcct88hacp
- UNCgWvFz0KZ1MBX1pd/YonrdYUjpsRKN+zqic0/XSjizx06QMmOrrtjfb1O/jpUzv9
- 63KJDlS/+POpvbmpICOSk69H+9fbbTxSQ9pgHQViw5q79xgJHygB2hcqIUlKuj109Y
- 1gIThpfN7e9f1ZMD4HH4S0MT4x9pvo89syLejckJCbX7usrOJPLinQ3m7vKClom1Vz
- RhUx8zLxqlhFsAfgFpLBmLMqHpgvtZREVlYb18K/xWytD0ADLYoPrjTAHm+UsJ0zBQ
- TD8AocgD4lJqA==
-Message-ID: <cfebef46-0b37-f54c-ec9a-9283eaa54a87@denx.de>
-Date: Thu, 30 Jun 2022 02:31:50 +0200
+ Thu, 30 Jun 2022 06:48:33 +0000 (UTC)
+Received: from gwarestrin.arnor.me.apana.org.au ([192.168.103.7])
+ by fornost.hmeau.com with smtp (Exim 4.94.2 #2 (Debian))
+ id 1o6nyJ-00CwRv-5u; Thu, 30 Jun 2022 16:48:16 +1000
+Received: by gwarestrin.arnor.me.apana.org.au (sSMTP sendmail emulation);
+ Thu, 30 Jun 2022 14:48:15 +0800
+Date: Thu, 30 Jun 2022 14:48:15 +0800
+From: Herbert Xu <herbert@gondor.apana.org.au>
+To: Li Qiong <liqiong@nfschina.com>
+Message-ID: <Yr1HL5dr/zUyx+5q@gondor.apana.org.au>
+References: <20220622020208.25776-1-liqiong@nfschina.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.10.0
-Content-Language: en-US
-To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-References: <20220627174156.66919-1-marex@denx.de>
- <3ef88906-188d-52a6-c3bf-647bc4e36732@xs4all.nl>
- <32f04271-4a9a-3291-cf36-ead0383db9ca@ideasonboard.com>
- <YrxDq5I3ZsEf8ruO@pendragon.ideasonboard.com>
- <df7060aa-b201-3d39-72e9-fcb575e7b43e@ideasonboard.com>
- <a2e45188-54d2-1ef2-1d21-cf60d47aeb43@denx.de>
- <bc25d400-abb9-0980-ef93-6af8f5a2e42c@ideasonboard.com>
-From: Marek Vasut <marex@denx.de>
-In-Reply-To: <bc25d400-abb9-0980-ef93-6af8f5a2e42c@ideasonboard.com>
-X-Virus-Scanned: clamav-milter 0.103.6 at phobos.denx.de
-X-Virus-Status: Clean
-Cc: Hugues FRUCHET <hugues.fruchet@foss.st.com>,
- Hans Verkuil <hverkuil@xs4all.nl>, Alain Volmat <alain.volmat@foss.st.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- linux-media@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH v2] media: stm32: dcmi: Switch to
- __v4l2_subdev_state_alloc()
+Content-Disposition: inline
+In-Reply-To: <20220622020208.25776-1-liqiong@nfschina.com>
+Cc: renyu@nfschina.com, yuzhe@nfschina.com, linux-kernel@vger.kernel.org,
+ "Rafael J . Wysocki" <rafael.j.wysocki@intel.com>,
+ "David S . Miller" <davem@davemloft.net>, linux-crypto@vger.kernel.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] crypto: stm32 - Handle failure of
+	kmalloc_array()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -65,54 +44,43 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 6/29/22 15:19, Tomi Valkeinen wrote:
-> On 29/06/2022 15:39, Marek Vasut wrote:
->> On 6/29/22 14:26, Tomi Valkeinen wrote:
->>
->> [...]
->>
->>>>> Perhaps the best way to solve this is just to remove the underscores
->>>>> from __v4l2_subdev_state_alloc, and change all the drivers which 
->>>>> create
->>>>> temporary v4l2_subdev_states to use that (and the free) functions. And
->>>>> also create the helper macro which can be used in those cases where 
->>>>> the
->>>>> call is simple (the state is not modified or accessed by the caller).
->>>>
->>>> As long as we prevent any new driver from using that API, that's fine
->>>> with me.
->>>
->>> An alternative would be to keep the v4l2_subdev_state as a local 
->>> variable (allocated in the stack), and add a new function, 
->>> v4l2_subdev_state_local_init() or such. The function would initialize 
->>> the given state, expecting the allocatable fields to be already 
->>> allocated (state->pads, which in the above cases points to another 
->>> local variable, i.e. stack).
->>>
->>> This would prevent the need of a free call, which, while not complex 
->>> as such, might cause a bigger amount of changes in some cases to 
->>> handle the error paths correctly.
->>>
->>> Of course, if the above-mentioned macro works, then that's the 
->>> easiest solution. But that won't work for all drivers.
->>
->> Don't you think a driver fix shouldn't involve "rework the subsystem" 
->> requirement to be applicable ?
+On Wed, Jun 22, 2022 at 10:02:08AM +0800, Li Qiong wrote:
+> As the possible failure of the kmalloc_array(), therefore it
+> should be better to check it and return '-ENOMEM' on error.
 > 
-> No, but we should think what's the best way to do the fix, if the fix
-> is controversial. Otherwise we might just break things even worse.
-> Adding the macro seems like a much better way, and far from "rework the
-> subsystem". Granted, this was just a quick edit without testing so it may
-> fail miserably...
+> Signed-off-by: Li Qiong <liqiong@nfschina.com>
+> ---
+>  drivers/crypto/stm32/stm32-hash.c | 2 ++
+>  1 file changed, 2 insertions(+)
 > 
-> Can you try this out?
+> diff --git a/drivers/crypto/stm32/stm32-hash.c b/drivers/crypto/stm32/stm32-hash.c
+> index d33006d43f76..fc03e32e364f 100644
+> --- a/drivers/crypto/stm32/stm32-hash.c
+> +++ b/drivers/crypto/stm32/stm32-hash.c
+> @@ -970,6 +970,8 @@ static int stm32_hash_export(struct ahash_request *req, void *out)
+>  	rctx->hw_context = kmalloc_array(3 + HASH_CSR_REGISTER_NUMBER,
+>  					 sizeof(u32),
+>  					 GFP_KERNEL);
+> +	if (!rctx->hw_context)
+> +		return -ENOMEM;
 
-It seems to work as well. How shall we proceed ?
+Actually the problem is bigger than that.  The driver should not be
+allocating memory in the export function at all.  This memory will
+be leaked as exported requests won't be finalized.
+
+We need to fix this driver to do export properly, or if that's not
+possible, we should delete this driver.
+
+Cheers,
+-- 
+Email: Herbert Xu <herbert@gondor.apana.org.au>
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
