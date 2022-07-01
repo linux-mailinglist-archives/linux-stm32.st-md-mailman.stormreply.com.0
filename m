@@ -2,53 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1130856343D
-	for <lists+linux-stm32@lfdr.de>; Fri,  1 Jul 2022 15:18:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 799E8563453
+	for <lists+linux-stm32@lfdr.de>; Fri,  1 Jul 2022 15:25:53 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B46A3C640EB;
-	Fri,  1 Jul 2022 13:18:15 +0000 (UTC)
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2C2FEC640EB;
+	Fri,  1 Jul 2022 13:25:53 +0000 (UTC)
+Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.135])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 69DFDC03FDF
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F0D93C03FDF
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  1 Jul 2022 13:18:14 +0000 (UTC)
-Received: from [192.168.1.111] (91-158-154-79.elisa-laajakaista.fi
- [91.158.154.79])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id 0559325C;
- Fri,  1 Jul 2022 15:18:12 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1656681493;
- bh=c1wV0qsybfqq4tQiPpltSZ5XU6g0E5VTYrw+dXiMMrU=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=a8WQ0wO8BpugIuy/R8MHx9iZ0FYkkGucbKYM7ubuUlMPWY6TLgbJzeybiWSWBeJPK
- Ex1qXlxS6ZYBPedlrvmYCRc42TWIU5Ysup9zEp95ceX9DLlW5/ESMsqMYpMocZbF7y
- 1dk2d2wS249NwPnDzqWiEhmT17SrXGzxhTs10QHg=
-Message-ID: <a4491f8e-f8f0-6333-03bb-152f7f396129@ideasonboard.com>
-Date: Fri, 1 Jul 2022 16:18:10 +0300
+ Fri,  1 Jul 2022 13:25:51 +0000 (UTC)
+Received: from mail-yb1-f171.google.com ([209.85.219.171]) by
+ mrelayeu.kundenserver.de (mreue009 [213.165.67.97]) with ESMTPSA (Nemesis) id
+ 1M9npV-1o21Jy1B81-005raa for <linux-stm32@st-md-mailman.stormreply.com>; Fri,
+ 01 Jul 2022 15:25:51 +0200
+Received: by mail-yb1-f171.google.com with SMTP id r3so4042936ybr.6
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 01 Jul 2022 06:25:51 -0700 (PDT)
+X-Gm-Message-State: AJIora/HWZoYLvdi8ZmR4dZfLmFrMMYGgplmTQLU/YPD4RqO7nx9LQab
+ uXQFGYT6B2h9e6d1U4DYzc29vscjv82BeTEV43g=
+X-Google-Smtp-Source: AGRyM1v50P5NPGozA3wyPyk4TcCAReOb9wjqGQSZyh2WJyG0U+W5GErPSuI2I+An1Dwcn17/8FW8lW4eU5gRRNDEo3g=
+X-Received: by 2002:a25:8202:0:b0:66b:15cc:cacd with SMTP id
+ q2-20020a258202000000b0066b15cccacdmr15837633ybk.452.1656681950096; Fri, 01
+ Jul 2022 06:25:50 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.9.1
-Content-Language: en-US
-To: Marek Vasut <marex@denx.de>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-References: <20220627174156.66919-1-marex@denx.de>
- <3ef88906-188d-52a6-c3bf-647bc4e36732@xs4all.nl>
- <32f04271-4a9a-3291-cf36-ead0383db9ca@ideasonboard.com>
- <YrxDq5I3ZsEf8ruO@pendragon.ideasonboard.com>
- <df7060aa-b201-3d39-72e9-fcb575e7b43e@ideasonboard.com>
- <a2e45188-54d2-1ef2-1d21-cf60d47aeb43@denx.de>
- <bc25d400-abb9-0980-ef93-6af8f5a2e42c@ideasonboard.com>
- <cfebef46-0b37-f54c-ec9a-9283eaa54a87@denx.de>
-From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-In-Reply-To: <cfebef46-0b37-f54c-ec9a-9283eaa54a87@denx.de>
-Cc: Hugues FRUCHET <hugues.fruchet@foss.st.com>,
- Hans Verkuil <hverkuil@xs4all.nl>, Alain Volmat <alain.volmat@foss.st.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- linux-media@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH v2] media: stm32: dcmi: Switch to
- __v4l2_subdev_state_alloc()
+References: <85e47007-bfba-7a64-db75-893b0d20d025@foss.st.com>
+In-Reply-To: <85e47007-bfba-7a64-db75-893b0d20d025@foss.st.com>
+From: Arnd Bergmann <arnd@arndb.de>
+Date: Fri, 1 Jul 2022 15:25:33 +0200
+X-Gmail-Original-Message-ID: <CAK8P3a2OC=G-gw_Nny-ATj5dHtVcLrGHTK9qvs+QPUw52RWxhw@mail.gmail.com>
+Message-ID: <CAK8P3a2OC=G-gw_Nny-ATj5dHtVcLrGHTK9qvs+QPUw52RWxhw@mail.gmail.com>
+To: Alexandre TORGUE <alexandre.torgue@foss.st.com>
+X-Provags-ID: V03:K1:aSyHELo9u8vV7eatTdIiU4vdBlp+xRG5BFgIU7J1jpjcq59xeqe
+ tS6mMAES+thxun4Phola0FqhDmXQbpItB1V3DkMKd99bJNIzidcSxbYCk8IhbHWni6nI/gl
+ MaYIrKvMPF6Idl7BUfnTpCIU7Pp7wA0VGmlhrN9N4cGTZd+I/k+xIUnb6YeqcEXLegqme4x
+ k2U9cal903UH5w2+TYYVg==
+X-Spam-Flag: NO
+X-UI-Out-Filterresults: notjunk:1;V03:K0:bN8aOBDMEbc=:qy+sUyVVO1STn1n1lDfiA+
+ hgW0F+2Bd5vNU00fiEj0Eet70Zo7X+bzs4KJtt1WW0uSfya+yoHSNOWOGwwESGdDA0AuRDPff
+ Eo4P0OE7uXMkw7fvQnNjWl885g0dzTWRjKOUfVWai2z7a4Uqh+PhIETzFapP5AHm5u6TgHtB+
+ Ouo/OHsoYY84qJM4H2DMhz1g54fFqKPF7MTCuSlJ612g3P0WA4j7hJpTqUKhg+cw0rd/YRlEJ
+ cUr4rTcPrcZkYiL3qywNUqCKnPVi5ZNpVRCSpanUELp5p4evZwNcC25Vpt17hpzw6WZj3Zsnp
+ OfDSzYIB8tsg2lE+7Iu1rFjGULSDHWjoc0HSaVO5irhC2dDCLAj/faKvKAfBeMSj+b79+g07d
+ iB8M7Ja82N6Fos7/cJBJpVZv+WiFAKUs1XJVeVsYzZ+xokqneHeyHFl/uQs1PMYE3oecX4QDv
+ ToHKwWlMDLplOKePrx9g/oJO/qrLR9IeayujPorG/Sy2Zo+nwxSBcDa89Jnizt2LjCVg5yyvG
+ KQCMSoCHM8wlPHBnZGO30PctpfnPDVthtXdTg8YR8kQa6vpJjX2M0DfweLh2bjKG98EPIzQbY
+ RnKbwFbpyKBgHjy5qx8XXwYBEAjfb9kWVusoDqDykioOhgTxdVWLs5YUAGGZN2h9xdi0FxQnc
+ dUmqbHgoqQAessW9x4GjxQ/naJwRCnwFeiu5IhckxXydfWpMxtiHApzLO9AZ2qyt0l1IVKu1W
+ fIC8aiDzNPpyIgjF5MkPSR+NksBs1bbpSzbUeWliqoSR2l28hQKcjDMTN7rA8Hcl8vLeDf2TX
+ xbwiS2vcQ4+YmnSTD/+SiHtnYyN6hWM2b3U55iXTxCEar4+XEycfdCxyrQHWGq/Qyw4QLD2AC
+ bFayx1G8j0NwOqo3omwg==
+Cc: Arnd Bergmann <arnd@arndb.de>, Kevin Hilman <khilman@baylibre.com>,
+ SoC Team <soc@kernel.org>, arm-soc <arm@kernel.org>,
+ Olof Johansson <olof@lixom.net>, "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [GIT PULL] STM32 DT fixes for v5.19 #2
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,63 +70,41 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 30/06/2022 03:31, Marek Vasut wrote:
-> On 6/29/22 15:19, Tomi Valkeinen wrote:
->> On 29/06/2022 15:39, Marek Vasut wrote:
->>> On 6/29/22 14:26, Tomi Valkeinen wrote:
->>>
->>> [...]
->>>
->>>>>> Perhaps the best way to solve this is just to remove the underscores
->>>>>> from __v4l2_subdev_state_alloc, and change all the drivers which 
->>>>>> create
->>>>>> temporary v4l2_subdev_states to use that (and the free) functions. 
->>>>>> And
->>>>>> also create the helper macro which can be used in those cases 
->>>>>> where the
->>>>>> call is simple (the state is not modified or accessed by the caller).
->>>>>
->>>>> As long as we prevent any new driver from using that API, that's fine
->>>>> with me.
->>>>
->>>> An alternative would be to keep the v4l2_subdev_state as a local 
->>>> variable (allocated in the stack), and add a new function, 
->>>> v4l2_subdev_state_local_init() or such. The function would 
->>>> initialize the given state, expecting the allocatable fields to be 
->>>> already allocated (state->pads, which in the above cases points to 
->>>> another local variable, i.e. stack).
->>>>
->>>> This would prevent the need of a free call, which, while not complex 
->>>> as such, might cause a bigger amount of changes in some cases to 
->>>> handle the error paths correctly.
->>>>
->>>> Of course, if the above-mentioned macro works, then that's the 
->>>> easiest solution. But that won't work for all drivers.
->>>
->>> Don't you think a driver fix shouldn't involve "rework the subsystem" 
->>> requirement to be applicable ?
->>
->> No, but we should think what's the best way to do the fix, if the fix
->> is controversial. Otherwise we might just break things even worse.
->> Adding the macro seems like a much better way, and far from "rework the
->> subsystem". Granted, this was just a quick edit without testing so it may
->> fail miserably...
->>
->> Can you try this out?
-> 
-> It seems to work as well. How shall we proceed ?
+On Fri, Jul 1, 2022 at 2:05 PM Alexandre TORGUE
+<alexandre.torgue@foss.st.com> wrote:
+>
+> Hi ARM SoC maintainers,
+>
+> Please consider this second round of STM32 DT fixes for v5.19 cycle. It
+> mainly concerns fixes for SCMI version of ST boards introduced in v5.19-rc1.
+>
+> The following changes since commit ea3414e1249ea35bc02debe28d4cbfeb6261657c:
+>
+>    ARM: dts: stm32: move SCMI related nodes in a dedicated file for
+> stm32mp15 (2022-06-07 17:22:21 +0200)
+>
+> are available in the Git repository at:
 
-I haven't had to look at this more closely, but I made proper patches of 
-this and sent them for review. Note that they're not exactly the same as 
-the diff here: the macro was missing lock and unlock for the subdev 
-state, which I've added. Again, only compile tested.
+Hi Alex,
 
-  Tomi
+I get a merge conflict because I had picked up the "ARM: dts: stm32: move SCMI
+related nodes in a dedicated file for stm32mp15" commit from the mailing
+list, so it now has a different commit ID from the one you are based on.
+
+As far as I can tell, the patches are identical, but since the files
+are modified
+further in your tree, this confuses the git merge algorithm and leads to a
+somewhat ugly git history with two identical commits if I fix it up.
+
+Can you rebase this pull request on top of v5.19-rc4 and resend?
+(note: don't rebase the non-fixes pull requests unless you have to).
+
+      Arnd
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
