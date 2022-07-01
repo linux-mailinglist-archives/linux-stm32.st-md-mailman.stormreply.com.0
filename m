@@ -2,65 +2,73 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CD918562F9E
-	for <lists+linux-stm32@lfdr.de>; Fri,  1 Jul 2022 11:16:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6BA6D5630EA
+	for <lists+linux-stm32@lfdr.de>; Fri,  1 Jul 2022 12:04:30 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 780EBC640EB;
-	Fri,  1 Jul 2022 09:16:01 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 176D1C640EB;
+	Fri,  1 Jul 2022 10:04:30 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C525BC03FC3
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D4C24C03FDF
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  1 Jul 2022 09:15:59 +0000 (UTC)
-Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 26166ZWN001686;
- Fri, 1 Jul 2022 11:15:40 +0200
+ Fri,  1 Jul 2022 10:04:28 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 2619A93D011383;
+ Fri, 1 Jul 2022 12:04:13 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=message-id : subject
- : from : to : cc : date : in-reply-to : references : content-type :
- content-transfer-encoding : mime-version; s=selector1;
- bh=o0olzbdVKCsh3B8+C9VTiibErlNPcqW0TEQ2eYNJVkM=;
- b=VieBnb28i9MzHjfrsP+Lsvd8JAWeAhfngLv5IpfO4IhOzDEXX0CaK7zQ9Jd424lCTX2e
- eH2wsnGPThjm4drnQjiGuqSpyDwRYEw/2v4sHbGHGPPTvfo6zjuvAB+d7W/jW9EQFv7H
- 8VWQPR43M6YxPG+Yliff7SVNWmkY1A3CcWLl1SGQBmWfbD0Tvvee3m6v2Y+M2FuQBsO/
- KCQYMANpclTHs53mOvvb7ImWGDUcGP32cIQyDhb+m29qGjVW1zlq+LqoapJNfUYBPgMo
- isLdjmK0752DBDUwtyDBF9c7uxfHPDddSyGGBkAUuhPtgqKKGm5ImImYdcDoXv8h6eJN QQ== 
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=s/3+jV9+O1IBVlCw2ZX4h54WPSBF1jcAeoBhVxWXd80=;
+ b=TWaVWDsXcFHXhqQeFX8SPdZ0XTgUOPUYYi3oKyWzagcQVVq3oVwzv2VKGFEvWOy7D6k3
+ cogzJfDp3/tjAQxoOuuyclfhca2cGNC5I16fHxMccbMQe86x79gQ5jzexYkSjqT6049a
+ ZsJQi3dzUoqw73BBK8mHNGulFRZ++vv7O1FTYaYt0tWL14Ngr1ABj1rMt+J4tZ9YSzZT
+ YDN0DuaEZ2IZnSIiCXdDs13cUEl54dWRjgBcmL/7heqfWkMonLB88nMPo/NoIA7sYVRr
+ V0EQbWD/Q1nOzo1m4VRZrOge7YN3N1yefwijgjEj1ps7aIzSefZtEc/VWSxS95gV4HC3 ZQ== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3h1cy9nqbv-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3h1x2brajt-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 01 Jul 2022 11:15:40 +0200
+ Fri, 01 Jul 2022 12:04:13 +0200
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id B330D10002A;
- Fri,  1 Jul 2022 11:15:39 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id AA908215141;
- Fri,  1 Jul 2022 11:15:39 +0200 (CEST)
-Received: from [192.168.8.15] (10.75.127.48) by SHFDAG1NODE1.st.com
- (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id E1D2310002A;
+ Fri,  1 Jul 2022 12:04:11 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 65001216EDE;
+ Fri,  1 Jul 2022 12:04:11 +0200 (CEST)
+Received: from [10.252.5.136] (10.75.127.48) by SHFDAG1NODE2.st.com
+ (10.75.129.70) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2308.20; Fri, 1 Jul
- 2022 11:15:39 +0200
-Message-ID: <65069ee9b3b92d92773fa556c45507158eb9c84f.camel@foss.st.com>
-From: Antonio Borneo <antonio.borneo@foss.st.com>
-To: Petr Mladek <pmladek@suse.com>
-Date: Fri, 1 Jul 2022 11:15:38 +0200
-In-Reply-To: <Yr2hcGLDNT0k91aS@alley>
-References: <20220617143758.137307-1-antonio.borneo@foss.st.com>
- <Yr2hcGLDNT0k91aS@alley>
-User-Agent: Evolution 3.44.2 
+ 2022 12:04:07 +0200
+Message-ID: <dfad8fb5-6205-d620-81eb-5d44b9175e05@foss.st.com>
+Date: Fri, 1 Jul 2022 12:04:06 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.9.1
+Content-Language: en-US
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, <robh+dt@kernel.org>
+References: <20220624155413.399190-1-fabrice.gasnier@foss.st.com>
+ <20220624155413.399190-2-fabrice.gasnier@foss.st.com>
+ <ddb0e946-c955-1404-c1cd-c2548f34ec35@linaro.org>
+ <845d6817-d2e4-7925-f7f5-da1102514636@foss.st.com>
+ <286633b2-43d2-655e-b3f1-54bf5c7a4a21@linaro.org>
+ <6ef58f1f-ee8a-b060-6fda-d1388b3ede6d@foss.st.com>
+ <f86dd47c-0fc5-6c93-a49e-534610d10c49@linaro.org>
+From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+In-Reply-To: <f86dd47c-0fc5-6c93-a49e-534610d10c49@linaro.org>
 X-Originating-IP: [10.75.127.48]
-X-ClientProxiedBy: SFHDAG2NODE3.st.com (10.75.127.6) To SHFDAG1NODE1.st.com
- (10.75.129.69)
+X-ClientProxiedBy: SFHDAG2NODE3.st.com (10.75.127.6) To SHFDAG1NODE2.st.com
+ (10.75.129.70)
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.205,Aquarius:18.0.883,Hydra:6.0.517,FMLib:17.11.122.1
- definitions=2022-07-01_05,2022-06-28_01,2022-06-22_01
-Cc: Jan Kiszka <jan.kiszka@siemens.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
- John Ogness <john.ogness@linutronix.de>, Kieran Bingham <kbingham@kernel.org>
-Subject: Re: [Linux-stm32] [PATCH] scripts/gdb: fix 'lx-dmesg' on 32 bits
-	arch
+ definitions=2022-07-01_06,2022-06-28_01,2022-06-22_01
+Cc: devicetree@vger.kernel.org, heikki.krogerus@linux.intel.com,
+ gregkh@linuxfoundation.org, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org, krzysztof.kozlowski+dt@linaro.org,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH 1/4] dt-bindings: usb: typec: add bindings
+ for stm32g0 controller
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,126 +80,300 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gVGh1LCAyMDIyLTA2LTMwIGF0IDE1OjEzICswMjAwLCBQZXRyIE1sYWRlayB3cm90ZToKPiBP
-biBGcmkgMjAyMi0wNi0xNyAxNjozNzo1OCwgQW50b25pbyBCb3JuZW8gd3JvdGU6Cj4gPiBUaGUg
-dHlwZSBhdG9taWNfbG9uZ190IGNhbiBoYXZlIHNpemUgNCBvciA4IGJ5dGVzLCBkZXBlbmRpbmcg
-b24KPiA+IENPTkZJR182NEJJVDsgaXQncyBvbmx5IGNvbnRlbnQsIHRoZSBmaWVsZCAnY291bnRl
-cicsIGlzIGVpdGhlciBhbgo+ID4gaW50IG9yIGEgczY0IHZhbHVlLgo+ID4gCj4gPiBDdXJyZW50
-IGNvZGUgaW5jb3JyZWN0bHkgdXNlcyB0aGUgZml4ZWQgc2l6ZSB1dGlscy5yZWFkX3U2NCgpIHRv
-Cj4gPiByZWFkIHRoZSBmaWVsZCAnY291bnRlcicgaW5zaWRlIGF0b21pY19sb25nX3QuCj4gPiAK
-PiA+IE9uIDMyIGJpdHMgYXJjaGl0ZWN0dXJlcyByZWFkaW5nIHRoZSBsYXN0IGVsZW1lbnQgJ3Rh
-aWxfaWQnIG9mIHRoZQo+ID4gc3RydWN0IHByYl9kZXNjX3Jpbmc6Cj4gPiDCoMKgwqDCoMKgwqDC
-oMKgc3RydWN0IHByYl9kZXNjX3Jpbmcgewo+ID4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqAuLi4KPiA+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgYXRvbWljX2xvbmdf
-dCB0YWlsX2lkOwo+ID4gwqDCoMKgwqDCoMKgwqDCoH07Cj4gPiBjYXVzZXMgdGhlIHV0aWxzLnJl
-YWRfdTY0KCkgdG8gYWNjZXNzIG91dHNpZGUgdGhlIGJvdW5kYXJ5IG9mIHRoZQo+ID4gc3RydWN0
-IGFuZCB0aGUgZ2RiIGNvbW1hbmQgJ2x4LWRtZXNnJyBleGl0cyB3aXRoIGVycm9yOgo+ID4gwqDC
-oMKgwqDCoMKgwqDCoFB5dGhvbiBFeGNlcHRpb24gPGNsYXNzICdJbmRleEVycm9yJz46IGluZGV4
-IG91dCBvZiByYW5nZQo+ID4gwqDCoMKgwqDCoMKgwqDCoEVycm9yIG9jY3VycmVkIGluIFB5dGhv
-bjogaW5kZXggb3V0IG9mIHJhbmdlCj4gPiAKPiA+IFVzZSB0aGUgZXhpc3RpbmcgdXRpbHMucmVh
-ZF91bG9uZygpIHRvIHJlYWQgJ2NvdW50ZXInIGluc2lkZSB0aGUKPiA+IGF0b21pY19sb25nX3Qu
-Cj4gCj4gSSB3YXMgYWJvdXQgdG8gYWNjZXB0IHRoaXMuIEJ1dCB0aGVuIEkgd29uZGVyZWQgaWYg
-d2UgY291bGQgc29tZWhvdwo+IGRldGVjdCB0aGUgcmVhbGx5IHVzZWQgYXRvbWljX2xvbmdfdCBj
-b3VudGVyIHR5cGUgc2l6ZS4KPiAKPiBJIGhhdmUgdXBkYXRlZCB5b3VyIHBhdGNoLiBJdCB3b3Jr
-cyBmb3IgbWUgb24geDg2XzY0Lgo+IENvdWxkIHlvdSBwbGVhc2UgY2hlY2sgaXQgb24gMzItYml0
-IHN5c3RlbT8KClRlc3RlZCBvbiAzMiBiaXRzIENvcnRleC1BNyBTVE0zMk1QMTU3LCBpdCB3b3Jr
-cyBmaW5lLgpZZXMsIGFncmVlIG9uIHlvdXIgcmV3b3JrOyBkZWZpbml0aXZlbHkgY2xlYW5lci4K
-ClRoYW5rcywKQW50b25pbwoKPiBIZXJlIGlzIHRoZSBwYXRjaDoKPiAKPiBGcm9tIGJiNWI2YTdh
-ZDZmNDMzOWExMTAyNTg1YzY5MWNiNzI1MTgyYzBhY2YgTW9uIFNlcCAxNyAwMDowMDowMAo+IDIw
-MDEKPiBGcm9tOiBBbnRvbmlvIEJvcm5lbyA8YW50b25pby5ib3JuZW9AZm9zcy5zdC5jb20+Cj4g
-RGF0ZTogRnJpLCAxNyBKdW4gMjAyMiAxNjozNzo1OCArMDIwMAo+IFN1YmplY3Q6IFtQQVRDSF0g
-c2NyaXB0cy9nZGI6IGZpeCAnbHgtZG1lc2cnIG9uIDMyIGJpdHMgYXJjaAo+IAo+IFRoZSB0eXBl
-IGF0b21pY19sb25nX3QgY2FuIGhhdmUgc2l6ZSA0IG9yIDggYnl0ZXMsIGRlcGVuZGluZyBvbgo+
-IENPTkZJR182NEJJVDsgaXQncyBvbmx5IGNvbnRlbnQsIHRoZSBmaWVsZCAnY291bnRlcicsIGlz
-IGVpdGhlciBhbgo+IGludCBvciBhIHM2NCB2YWx1ZS4KPiAKPiBDdXJyZW50IGNvZGUgaW5jb3Jy
-ZWN0bHkgdXNlcyB0aGUgZml4ZWQgc2l6ZSB1dGlscy5yZWFkX3U2NCgpIHRvCj4gcmVhZCB0aGUg
-ZmllbGQgJ2NvdW50ZXInIGluc2lkZSBhdG9taWNfbG9uZ190Lgo+IAo+IE9uIDMyIGJpdHMgYXJj
-aGl0ZWN0dXJlcyByZWFkaW5nIHRoZSBsYXN0IGVsZW1lbnQgJ3RhaWxfaWQnIG9mIHRoZQo+IHN0
-cnVjdCBwcmJfZGVzY19yaW5nOgo+IMKgwqDCoMKgwqDCoMKgwqBzdHJ1Y3QgcHJiX2Rlc2Nfcmlu
-ZyB7Cj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAuLi4KPiDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoGF0b21pY19sb25nX3QgdGFpbF9pZDsKPiDCoMKgwqDCoMKgwqDC
-oMKgfTsKPiBjYXVzZXMgdGhlIHV0aWxzLnJlYWRfdTY0KCkgdG8gYWNjZXNzIG91dHNpZGUgdGhl
-IGJvdW5kYXJ5IG9mIHRoZQo+IHN0cnVjdCBhbmQgdGhlIGdkYiBjb21tYW5kICdseC1kbWVzZycg
-ZXhpdHMgd2l0aCBlcnJvcjoKPiDCoMKgwqDCoMKgwqDCoMKgUHl0aG9uIEV4Y2VwdGlvbiA8Y2xh
-c3MgJ0luZGV4RXJyb3InPjogaW5kZXggb3V0IG9mIHJhbmdlCj4gwqDCoMKgwqDCoMKgwqDCoEVy
-cm9yIG9jY3VycmVkIGluIFB5dGhvbjogaW5kZXggb3V0IG9mIHJhbmdlCj4gCj4gUXVlcnkgdGhl
-IHJlYWxseSB1c2VkIGF0b21pY19sb25nX3QgY291bnRlciB0eXBlIHNpemUuCj4gCj4gRml4ZXM6
-IGU2MDc2ODMxMWFmOCAoInNjcmlwdHMvZ2RiOiB1cGRhdGUgZm9yIGxvY2tsZXNzIHByaW50awo+
-IHJpbmdidWZmZXIiKQo+IFNpZ25lZC1vZmYtYnk6IEFudG9uaW8gQm9ybmVvIDxhbnRvbmlvLmJv
-cm5lb0Bmb3NzLnN0LmNvbT4KPiBbcG1sYWRla0BzdXNlLmNvbTogUXVlcnkgdGhlIHJlYWxseSB1
-c2VkIGF0b21pY19sb25nX3QgY291bnRlciB0eXBlCj4gc2l6ZV0KPiBMaW5rOgo+IGh0dHBzOi8v
-bG9yZS5rZXJuZWwub3JnL3IvMjAyMjA2MTcxNDM3NTguMTM3MzA3LTEtYW50b25pby5ib3JuZW9A
-Zm9zcy5zdC5jb20KPiAtLS0KPiDCoHNjcmlwdHMvZ2RiL2xpbnV4L2RtZXNnLnB5IHzCoCA5ICsr
-Ky0tLS0tLQo+IMKgc2NyaXB0cy9nZGIvbGludXgvdXRpbHMucHkgfCAxNCArKysrKysrKysrKyst
-LQo+IMKgMiBmaWxlcyBjaGFuZ2VkLCAxNSBpbnNlcnRpb25zKCspLCA4IGRlbGV0aW9ucygtKQo+
-IAo+IGRpZmYgLS1naXQgYS9zY3JpcHRzL2dkYi9saW51eC9kbWVzZy5weSBiL3NjcmlwdHMvZ2Ri
-L2xpbnV4L2RtZXNnLnB5Cj4gaW5kZXggZDU5ODNjZjNkYjdkLi5jNzcxODMxZWIwNzcgMTAwNjQ0
-Cj4gLS0tIGEvc2NyaXB0cy9nZGIvbGludXgvZG1lc2cucHkKPiArKysgYi9zY3JpcHRzL2dkYi9s
-aW51eC9kbWVzZy5weQo+IEBAIC0yMiw3ICsyMiw2IEBAIHByYl9kZXNjX3R5cGUgPSB1dGlscy5D
-YWNoZWRUeXBlKCJzdHJ1Y3QgcHJiX2Rlc2MiKQo+IMKgcHJiX2Rlc2NfcmluZ190eXBlID0gdXRp
-bHMuQ2FjaGVkVHlwZSgic3RydWN0IHByYl9kZXNjX3JpbmciKQo+IMKgcHJiX2RhdGFfcmluZ190
-eXBlID0gdXRpbHMuQ2FjaGVkVHlwZSgic3RydWN0IHByYl9kYXRhX3JpbmciKQo+IMKgcHJpbnRr
-X3JpbmdidWZmZXJfdHlwZSA9IHV0aWxzLkNhY2hlZFR5cGUoInN0cnVjdAo+IHByaW50a19yaW5n
-YnVmZmVyIikKPiAtYXRvbWljX2xvbmdfdHlwZSA9IHV0aWxzLkNhY2hlZFR5cGUoImF0b21pY19s
-b25nX3QiKQo+IMKgCj4gwqBjbGFzcyBMeERtZXNnKGdkYi5Db21tYW5kKToKPiDCoMKgwqDCoCAi
-IiJQcmludCBMaW51eCBrZXJuZWwgbG9nIGJ1ZmZlci4iIiIKPiBAQCAtNjgsOCArNjcsNiBAQCBj
-bGFzcyBMeERtZXNnKGdkYi5Db21tYW5kKToKPiDCoMKgwqDCoMKgwqDCoMKgIG9mZiA9IHByYl9k
-YXRhX3JpbmdfdHlwZS5nZXRfdHlwZSgpWydkYXRhJ10uYml0cG9zIC8vIDgKPiDCoMKgwqDCoMKg
-wqDCoMKgIHRleHRfZGF0YV9hZGRyID0gdXRpbHMucmVhZF91bG9uZyh0ZXh0X2RhdGFfcmluZywg
-b2ZmKQo+IMKgCj4gLcKgwqDCoMKgwqDCoMKgIGNvdW50ZXJfb2ZmID0gYXRvbWljX2xvbmdfdHlw
-ZS5nZXRfdHlwZSgpWydjb3VudGVyJ10uYml0cG9zCj4gLy8gOAo+IC0KPiDCoMKgwqDCoMKgwqDC
-oMKgIHN2X29mZiA9IHByYl9kZXNjX3R5cGUuZ2V0X3R5cGUoKVsnc3RhdGVfdmFyJ10uYml0cG9z
-IC8vIDgKPiDCoAo+IMKgwqDCoMKgwqDCoMKgwqAgb2ZmID0gcHJiX2Rlc2NfdHlwZS5nZXRfdHlw
-ZSgpWyd0ZXh0X2Jsa19scG9zJ10uYml0cG9zIC8vIDgKPiBAQCAtODksOSArODYsOSBAQCBjbGFz
-cyBMeERtZXNnKGdkYi5Db21tYW5kKToKPiDCoAo+IMKgwqDCoMKgwqDCoMKgwqAgIyByZWFkIGlu
-IHRhaWwgYW5kIGhlYWQgZGVzY3JpcHRvciBpZHMKPiDCoMKgwqDCoMKgwqDCoMKgIG9mZiA9IHBy
-Yl9kZXNjX3JpbmdfdHlwZS5nZXRfdHlwZSgpWyd0YWlsX2lkJ10uYml0cG9zIC8vIDgKPiAtwqDC
-oMKgwqDCoMKgwqAgdGFpbF9pZCA9IHV0aWxzLnJlYWRfdTY0KGRlc2NfcmluZywgb2ZmICsgY291
-bnRlcl9vZmYpCj4gK8KgwqDCoMKgwqDCoMKgIHRhaWxfaWQgPSB1dGlscy5yZWFkX2F0b21pY19s
-b25nKGRlc2NfcmluZywgb2ZmKQo+IMKgwqDCoMKgwqDCoMKgwqAgb2ZmID0gcHJiX2Rlc2Nfcmlu
-Z190eXBlLmdldF90eXBlKClbJ2hlYWRfaWQnXS5iaXRwb3MgLy8gOAo+IC3CoMKgwqDCoMKgwqDC
-oCBoZWFkX2lkID0gdXRpbHMucmVhZF91NjQoZGVzY19yaW5nLCBvZmYgKyBjb3VudGVyX29mZikK
-PiArwqDCoMKgwqDCoMKgwqAgaGVhZF9pZCA9IHV0aWxzLnJlYWRfYXRvbWljX2xvbmcoZGVzY19y
-aW5nLCBvZmYpCj4gwqAKPiDCoMKgwqDCoMKgwqDCoMKgIGRpZCA9IHRhaWxfaWQKPiDCoMKgwqDC
-oMKgwqDCoMKgIHdoaWxlIFRydWU6Cj4gQEAgLTEwMiw3ICs5OSw3IEBAIGNsYXNzIEx4RG1lc2co
-Z2RiLkNvbW1hbmQpOgo+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBkZXNjID0gdXRpbHMucmVh
-ZF9tZW1vcnl2aWV3KGluZiwgZGVzY19hZGRyICsgZGVzY19vZmYsCj4gZGVzY19zeikudG9ieXRl
-cygpCj4gwqAKPiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgIyBza2lwIG5vbi1jb21taXR0ZWQg
-cmVjb3JkCj4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgc3RhdGUgPSAzICYgKHV0aWxzLnJlYWRf
-dTY0KGRlc2MsIHN2X29mZiArIGNvdW50ZXJfb2ZmKQo+ID4+IGRlc2NfZmxhZ3Nfc2hpZnQpCj4g
-K8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgc3RhdGUgPSAzICYgKHV0aWxzLnJlYWRfYXRvbWljX2xv
-bmcoZGVzYywgc3Zfb2ZmKSA+Pgo+IGRlc2NfZmxhZ3Nfc2hpZnQpCj4gwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgIGlmIHN0YXRlICE9IGRlc2NfY29tbWl0dGVkIGFuZCBzdGF0ZSAhPSBkZXNjX2Zp
-bmFsaXplZDoKPiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBpZiBkaWQgPT0gaGVh
-ZF9pZDoKPiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGJyZWFrCj4g
-ZGlmZiAtLWdpdCBhL3NjcmlwdHMvZ2RiL2xpbnV4L3V0aWxzLnB5IGIvc2NyaXB0cy9nZGIvbGlu
-dXgvdXRpbHMucHkKPiBpbmRleCBmZjdjMTc5OWQ1ODguLjE1NTNmNjg3MTZjYyAxMDA2NDQKPiAt
-LS0gYS9zY3JpcHRzL2dkYi9saW51eC91dGlscy5weQo+ICsrKyBiL3NjcmlwdHMvZ2RiL2xpbnV4
-L3V0aWxzLnB5Cj4gQEAgLTM1LDEzICszNSwxMiBAQCBjbGFzcyBDYWNoZWRUeXBlOgo+IMKgCj4g
-wqAKPiDCoGxvbmdfdHlwZSA9IENhY2hlZFR5cGUoImxvbmciKQo+IC0KPiArYXRvbWljX2xvbmdf
-dHlwZSA9IENhY2hlZFR5cGUoImF0b21pY19sb25nX3QiKQo+IMKgCj4gwqBkZWYgZ2V0X2xvbmdf
-dHlwZSgpOgo+IMKgwqDCoMKgIGdsb2JhbCBsb25nX3R5cGUKPiDCoMKgwqDCoCByZXR1cm4gbG9u
-Z190eXBlLmdldF90eXBlKCkKPiDCoAo+IC0KPiDCoGRlZiBvZmZzZXRfb2YodHlwZW9iaiwgZmll
-bGQpOgo+IMKgwqDCoMKgIGVsZW1lbnQgPSBnZGIuVmFsdWUoMCkuY2FzdCh0eXBlb2JqKQo+IMKg
-wqDCoMKgIHJldHVybiBpbnQoc3RyKGVsZW1lbnRbZmllbGRdLmFkZHJlc3MpLnNwbGl0KClbMF0s
-IDE2KQo+IEBAIC0xMjksNiArMTI4LDE3IEBAIGRlZiByZWFkX3Vsb25nKGJ1ZmZlciwgb2Zmc2V0
-KToKPiDCoMKgwqDCoCBlbHNlOgo+IMKgwqDCoMKgwqDCoMKgwqAgcmV0dXJuIHJlYWRfdTMyKGJ1
-ZmZlciwgb2Zmc2V0KQo+IMKgCj4gK2F0b21pY19sb25nX2NvdW50ZXJfb2Zmc2V0ID0KPiBhdG9t
-aWNfbG9uZ190eXBlLmdldF90eXBlKClbJ2NvdW50ZXInXS5iaXRwb3MKPiArYXRvbWljX2xvbmdf
-Y291bnRlcl9zaXplb2YgPQo+IGF0b21pY19sb25nX3R5cGUuZ2V0X3R5cGUoKVsnY291bnRlcidd
-LnR5cGUuc2l6ZW9mCj4gKwo+ICtkZWYgcmVhZF9hdG9taWNfbG9uZyhidWZmZXIsIG9mZnNldCk6
-Cj4gK8KgwqDCoCBnbG9iYWwgYXRvbWljX2xvbmdfY291bnRlcl9vZmZzZXQKPiArwqDCoMKgIGds
-b2JhbCBhdG9taWNfbG9uZ19jb3VudGVyX3NpemVvZgo+ICsKPiArwqDCoMKgIGlmIGF0b21pY19s
-b25nX2NvdW50ZXJfc2l6ZW9mID09IDg6Cj4gK8KgwqDCoMKgwqDCoMKgIHJldHVybiByZWFkX3U2
-NChidWZmZXIsIG9mZnNldCArIGF0b21pY19sb25nX2NvdW50ZXJfb2Zmc2V0KQo+ICvCoMKgwqAg
-ZWxzZToKPiArwqDCoMKgwqDCoMKgwqAgcmV0dXJuIHJlYWRfdTMyKGJ1ZmZlciwgb2Zmc2V0ICsg
-YXRvbWljX2xvbmdfY291bnRlcl9vZmZzZXQpCj4gwqAKPiDCoHRhcmdldF9hcmNoID0gTm9uZQo+
-IMKgCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4
-LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHku
-Y29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZv
-L2xpbnV4LXN0bTMyCg==
+On 6/29/22 07:54, Krzysztof Kozlowski wrote:
+> On 28/06/2022 19:01, Fabrice Gasnier wrote:
+> 
+>>>>>> +  connector:
+>>>>>> +    type: object> +    allOf:
+>>>>>> +      - $ref: ../connector/usb-connector.yaml#
+>>>>>
+>>>>> Full path, so /schemas/connector/...
+>>>>>
+>>>>> unevaluatedProperties: false
+>>
+>> Hi Krzysztof,
+>>
+>> I Just figured out usb-connector schema has "additionalProperties:
+>> true". Adding "unevaluatedProperties: false" here seem to be useless.
+>> At least at my end, this make any dummy property added in the example
+>> below to be validated without error by the schema.
+> 
+> No, it's expected. The common schema allows additional properties. You
+> specific device schema (including common) should not allow anything more
+> and this is expressed like you mentioned.
+> 
+> However depending on the version of dtschema, the
+> unevaluatedProperties:false might still be not implemented. AFAIK, Rob
+> added it quite recently.
+> 
+>>
+>> Should this be updated in usb-connector.yaml instead ?
+> 
+> No
+> 
+>>
+>> Shall I omit it here in the end ?
+> 
+> You need to add here unevaluatedProperties: false (on the level of this
+> $ref)
+> 
+>>
+>>>>
+>>>> ack,
+>>>>
+>>>>>
+>>>>>> +
+>>>>>> +  firmware-name:
+>>>>>> +    description: |
+>>>>>> +      Should contain the name of the default firmware image
+>>>>>> +      file located on the firmware search path
+>>>>>> +
+>>>>>> +  wakeup-source: true
+>>>>>> +  power-domains: true
+>>>>>
+>>>>> maxItems
+>>>>
+>>>> Do you mean maxItems regarding the "power-domains" property ?
+>>>
+>>> Yes.
+>>>
+>>>> This will depend on the user platform, where it's used as an I2C device.
+>>>> So I'm not sure this can / should be specified here.
+>>>> Could please you clarify ?
+>>>
+>>> Then maybe this property is not valid here. Power domains usually are
+>>> used for blocks of a SoC, having common power source and power gating.
+>>> In your case it looks much more like a regulator supply.
+>>
+>> This property is used in our implementation to refer to SOC PM domain
+>> for GPIO that is used to wakeup the system. This isn't only a regulator,
+>> this PM domain serves various IPs such as I2C, GPIO, UART... (it manages
+>> regulator and clocks used in low power).
+>>
+>> I can limit to 1 item if this is fine for you ?
+>>
+>> e.g. maxItems: 1
+> 
+> Yes, it's good (assuming it is true :) ).
+> 
+>>
+>>>
+>>>>
+>>>>>
+>>>>>> +
+>>>>>> +required:
+>>>>>> +  - compatible
+>>>>>> +  - reg
+>>>>>> +  - interrupts
+>>>>>> +
+>>>>>> +additionalProperties: false
+>>>>>> +
+>>>>>> +examples:
+>>>>>> +  - |
+>>>>>> +    #include <dt-bindings/interrupt-controller/irq.h>
+>>>>>> +    i2c5 {
+>>>>>
+>>>>> Just "i2c"
+>>>>
+>>>> ack,
+>>>>
+>>>>>
+>>>>>> +      #address-cells = <1>;
+>>>>>> +      #size-cells = <0>;
+>>>>>> +
+>>>>>> +      stm32g0@53 {
+>>>>>
+>>>>> Generic node name describing class of the device.
+>>>>
+>>>>
+>>>> I wasn't aware of generic node name for an I2C device (not talking of
+>>>> the controller). I may have missed it.
+>>>>
+>>>> Could you please clarify ?
+>>>
+>>> The class of a device is not a I2C device. I2C is just a bus. For
+>>> example the generic name for Power Management IC connected over I2C
+>>> (quite common case) is "pmic".
+>>>
+>>> For USB HCD controllers the generic name is "usb". For USB
+>>> ports/connectors this is "connector". So what is your hardware?
+>>> "interface" is a bit too unspecific to figure it out.
+>>
+>> Thanks, I better understand your point now.
+>>
+>> A common definition for the hardware here could be "USB Type-C PD
+>> controller". I'll improve this schema title by the way.
+>>
+>> I had a quick look in various .dts files. I could find mainly:
+>> - typec-portc@hh
+>> - usb-typec@hh
+>> - typec@hh
+>>
+>> Not sure if this has already been discussed in other reviews, it lacks
+>> the "controller" idea in the naming IMHO.
+>> Perhaps something like "typec-pd-controller" or
+>> "usb-typec-pd-controller" could be used here ?
+>>
+>> Otherwise, I could adopt the shortest "typec" name if it's fine for you ?
+> 
+> typec sounds good.
+> 
+>>
+>>>
+>>>>
+>>>>>
+>>>>>> +        compatible = "st,stm32g0-typec";
+>>>>>> +        reg = <0x53>;
+>>>>>> +        /* Alert pin on GPIO PE12 */
+>>>>>> +        interrupts = <12 IRQ_TYPE_EDGE_FALLING>;
+>>>>>> +        interrupt-parent = <&gpioe>;
+>>>>>> +
+>>>>>> +        /* Example with one type-C connector */
+>>>>>> +        connector {
+>>>>>> +          compatible = "usb-c-connector";
+>>>>>> +          label = "USB-C";
+>>>>>> +
+>>>>>> +          port {
+>>>>>
+>>>>> This does not look like proper schema of connector.yaml.
+>>>>
+>>>> This refers to graph.yaml [1], where similar example is seen [2].
+>>>>
+>>>> https://github.com/devicetree-org/dt-schema/blob/main/dtschema/schemas/graph.yaml#L79
+>>>>
+>>>> https://github.com/devicetree-org/dt-schema/blob/main/dtschema/schemas/graph.yaml#L207
+>>>
+>>> Just look at the usb-conector schema. It's different. You miss ports.
+>>> Maybe other properties as well.
+>>
+>>
+>> (I may miss something, and got confused around port/ports earlier)
+>> The graph properties seems to allow both the 'port' and 'ports' syntax
+>> thanks to the graph definition.
+>> The "port" syntax is also used in other typec controller schemas.
+>>
+>> There's only one port in this example. Of course other example could use
+>> two or more ports (like for USB HS / SS / aux) which would require using
+>> the "ports" node (with port@0/1/2 childs).
+>>
+>> I can adopt the "ports" node if you prefer. As I see it just doesn't
+>> bring much in the current example (The only drawback is this adds one
+>> indentation/node level w.r.t. the bellow example, so not a big deal).
+> 
+> The graph schema allows, but you include here usb-connector schema which
+> requires to put it under "ports". You should not use it differently, so
+> I expect here "ports" property, even with one port.
+
+Hi Krzysztof,
+
+This makes senses. I've updated this locally and also put this in .dts
+file (not sent yet with this series as I lack some dependencies not yet
+upstream).
+
+I'm able to validate the schema, with your statement, by using
+dt_binding_check.
+
+/* Example with one type-C connector */
+connector {
+  compatible = "usb-c-connector";
+  label = "USB-C";
+
+  ports {
+    #address-cells = <1>;
+    #size-cells = <0>;
+    port@0 {
+      reg = <0>;
+      con_usb_c_ep: endpoint {
+        remote-endpoint = <&usb_ep>;
+      };
+    };
+  };
+};
+
+Still when build the .dts (in my downstream, with W=1) I observe various
+case, for a single port usage (e.g. USB HS only).
+
+
+With above example I get:
+---
+Warning (graph_child_address): /soc/..../connector/ports: graph node has
+single child node 'port@0', #address-cells/#size-cells are not necessary
+
+Remove them as not necessary (suggested by this warning):
+---
+/* Example with one type-C connector */
+connector {
+  compatible = "usb-c-connector";
+  label = "USB-C";
+
+  ports {
+    port {
+      con_usb_c_ep: endpoint {
+        remote-endpoint = <&usb_ep>;
+      };
+    };
+  };
+};
+
+Then I no longer get this warning upon build. But the dtbs_check complains:
+---
+connector: ports: 'port@0' is a required property
+	From schema: ..
+Documentation/devicetree/bindings/connector/usb-connector.yaml
+
+So It looks like to me there's something missing to handle the single
+port case in usb-connector.yaml, when using the "ports".
+
+Maybe usb-connector could be updated to handle "port" (w/o unit-addr) ?
+I'm talking about:
+    required:
+      - port@0
+
+So, I came up with:
+
+--- a/Documentation/devicetree/bindings/connector/usb-connector.yaml
++++ b/Documentation/devicetree/bindings/connector/usb-connector.yaml
+@@ -176,6 +176,9 @@ properties:
+       port number as described below.
+
+     properties:
++      port:
++        $ref: /schemas/graph.yaml#/properties/port
++
+       port@0:
+         $ref: /schemas/graph.yaml#/properties/port
+         description: High Speed (HS), present in all connectors.
+@@ -189,8 +192,11 @@ properties:
+         description: Sideband Use (SBU), present in USB-C. This
+describes the
+           alternate mode connection of which SBU is a part.
+
+-    required:
+-      - port@0
++    oneOf:
++      - required:
++          - port
++      - required:
++          - port@0
+
+
+Do you agree on this approach ? (I can add a pre-cursor patch to this
+series, to handle the single port case)
+
+
+Please advise,
+Best Regards,
+Fabrice
+
+> 
+> Best regards,
+> Krzysztof
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
