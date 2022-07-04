@@ -2,69 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C98B856563C
-	for <lists+linux-stm32@lfdr.de>; Mon,  4 Jul 2022 14:56:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 146C7565D2F
+	for <lists+linux-stm32@lfdr.de>; Mon,  4 Jul 2022 19:48:55 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 89B02C640EF;
-	Mon,  4 Jul 2022 12:56:51 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 932FCC640EF;
+	Mon,  4 Jul 2022 17:48:54 +0000 (UTC)
+Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com
+ [209.85.215.174])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 32FC2C640ED
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A13A2C640ED
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  4 Jul 2022 12:56:50 +0000 (UTC)
-Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 264AHs5e008697;
- Mon, 4 Jul 2022 14:56:34 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=message-id : subject
- : from : to : cc : date : in-reply-to : references : content-type :
- content-transfer-encoding : mime-version; s=selector1;
- bh=/xn9WTxm3J+BhSPtpIQTJNXDo4Fe/OymRKXzxlOXDTA=;
- b=rh+plKvW9YVXlfBodCYoSFhJE7wCWujRZ8eqmBePb13lcaaz5pMgg+AaF2w73XgSRtf+
- t/gC9J95mqtsj71L/mT4j1WMpIBIOYLlyV93iS5NyXTxB7OUmpKy5jyPhuAdRzaHSyiF
- mw36Yys+IxnYRcXsRrsRMHPOmOJNT4a84MLIqFe1BoVi1KKmQ5b+WSDA7emJTigvmU9v
- zcHsUok2y6FxGB72HcSvtd3cf2xA+Xk3RFATy83SWzImuf48KrPjMlm/kTCap3oyQVXc
- HCrodpAQQFMqTyV4U4qQSH0q9P/g7pvftr+yWMH4FTt9esQ+iAiw8X/dDerMfwFAhQqN 9Q== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3h2ben1n6m-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 04 Jul 2022 14:56:34 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 9913910002A;
- Mon,  4 Jul 2022 14:56:33 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 9401C21E691;
- Mon,  4 Jul 2022 14:56:33 +0200 (CEST)
-Received: from [192.168.8.15] (10.75.127.48) by SHFDAG1NODE1.st.com
- (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2308.20; Mon, 4 Jul
- 2022 14:56:32 +0200
-Message-ID: <d42a1360b522585dfa214c3152da4aa018bd6013.camel@foss.st.com>
-From: Antonio Borneo <antonio.borneo@foss.st.com>
-To: Thomas Gleixner <tglx@linutronix.de>, Marc Zyngier <maz@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
- <alexandre.torgue@foss.st.com>,
- <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
- <linux-stm32@st-md-mailman.stormreply.com>
-Date: Mon, 4 Jul 2022 14:56:29 +0200
-In-Reply-To: <20220606162757.415354-1-antonio.borneo@foss.st.com>
-References: <20220510164123.557921-1-antonio.borneo@foss.st.com>
- <20220606162757.415354-1-antonio.borneo@foss.st.com>
-User-Agent: Evolution 3.44.2 
+ Mon,  4 Jul 2022 17:48:52 +0000 (UTC)
+Received: by mail-pg1-f174.google.com with SMTP id r22so2547457pgr.2
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 04 Jul 2022 10:48:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=Udd4R3ZrMYiNGLqIpE7ggk+XAAQ35MqvZZnbwebCtH0=;
+ b=ywwgPuQETUb0XKgmY6N8kbYzlczDZlOgpvxcJbu5idjcakvBApLm8foq6ddCSFC0Ge
+ Wk3scbhyna/+OwEM2m4e9YLbB9Ycc8Q3MjydiudyvccO+YCwADgPkHsn+kN1igv4inHs
+ yqJxtUSgRPZcj3VbKRbdFj6wON/mjKxXVgdDpvkliicFFhqDTd8tX/NcKr0jQPNLVDmz
+ f1s1HzI0LQb9rYKssLkBZmMLo2mMC25UB99OHAsi35DXkCUTAMj7vRZ0t3Zmz/3BAioK
+ FKMYL129R2wm1paNi/n/ElkJe1rXisYE/XVGHSgsE3C4DhiyQOsSttc5gkM41X94i0LO
+ KpAg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=Udd4R3ZrMYiNGLqIpE7ggk+XAAQ35MqvZZnbwebCtH0=;
+ b=WCsQq8/nLf+UgiSrLYJmK6Nm+ZeD0mdsFgHpIJaaLEQVA7HvKTnqtPsxPKMlsJ5EqW
+ 8qHRSXmdQYO+lF9o5cF8uVGvsb01boRQnqjTLblJ09A1gybmOqJK0tH5KteU+HncCf7O
+ jNJOH09ubuXBGexrRRURaAub2XfiHKmbq1Bz1LdIxXzURDdiFgupzVXvUpqBfbc0LnIx
+ Sp+scD3wfIyIRSaTyd0Mv21i9WOBz+svLo+P5BQ6qthHCd9uRRx9T8ozJWnGUFqRow4R
+ KsiDBRNrICfw5EpIBJiLFKCDd0dSXUT8C1+ivWST2cxMl8UfXwVPd2JWOCupFcdBr7s2
+ 707Q==
+X-Gm-Message-State: AJIora+ix3VjSzss9q//V7KtOQosb8vfpKQ9tzQ9GMThDr5SEPFUqGuO
+ zPNOUekj3yJer0Vfo1d60a4S6g==
+X-Google-Smtp-Source: AGRyM1uf4yCHruMaBFnncT3Rtuctls7yZWm6tVxELQFCsmBfuHdLgzQ/6Y8Qu5Zfe803boexULTN9w==
+X-Received: by 2002:a63:8741:0:b0:411:6ef8:18ec with SMTP id
+ i62-20020a638741000000b004116ef818ecmr26917433pge.258.1656956931272; 
+ Mon, 04 Jul 2022 10:48:51 -0700 (PDT)
+Received: from p14s (S0106889e681aac74.cg.shawcable.net. [68.147.0.187])
+ by smtp.gmail.com with ESMTPSA id
+ z13-20020a17090a8b8d00b001ec798b0dc4sm12986101pjn.38.2022.07.04.10.48.48
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 04 Jul 2022 10:48:49 -0700 (PDT)
+Date: Mon, 4 Jul 2022 11:48:47 -0600
+From: Mathieu Poirier <mathieu.poirier@linaro.org>
+To: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+Message-ID: <20220704174847.GC2375750@p14s>
+References: <20220603163158.612513-1-arnaud.pouliquen@foss.st.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.48]
-X-ClientProxiedBy: SFHDAG2NODE3.st.com (10.75.127.6) To SHFDAG1NODE1.st.com
- (10.75.129.69)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.883,Hydra:6.0.517,FMLib:17.11.122.1
- definitions=2022-07-04_11,2022-06-28_01,2022-06-22_01
-Cc: Ludovic Barre <ludovic.barre@foss.st.com>,
- Loic Pallardy <loic.pallardy@foss.st.com>,
- Pascal Paillet <p.paillet@foss.st.com>
-Subject: Re: [Linux-stm32] [PATCH v2 0/6] irqchip/stm32-exti: Fixes and
-	simplifications
+Content-Disposition: inline
+In-Reply-To: <20220603163158.612513-1-arnaud.pouliquen@foss.st.com>
+Cc: Rob Herring <robh@kernel.org>, Bruce Ashfield <bruce.ashfield@xilinx.com>,
+ Stefano Stabellini <stefanos@xilinx.com>, linux-remoteproc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Christoph Hellwig <hch@lst.de>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH v6 0/4] remoteproc: restructure the
+ remoteproc VirtIO device
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,38 +75,110 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gTW9uLCAyMDIyLTA2LTA2IGF0IDE4OjI3ICswMjAwLCBBbnRvbmlvIEJvcm5lbyB3cm90ZToK
-PiBUaGlzIHNlcmllcyBhZGRyZXNzIHNvbWUgY29kZSBmaXggZm9yIGlycS1zdG0zMi1leHRpIGRy
-aXZlciBhbmQKPiBzaW1wbGlmaWVzIHRoZSB0YWJsZSB0aGF0IHJlbWFwcyB0aGUgaW50ZXJydXB0
-cyBmcm9tIGV4dGkgdG8gZ2ljLgo+IAoKR2VudGxlIHBpbmcgZm9yIHRoaXMgc2VyaWVzLgpJZiB0
-aGVyZSBpcyBhbnl0aGluZyBJIGNhbiBkbyB0byBsZXQgdGhpcyBzZXJpZXMgcHJvY2VlZCwgcGxl
-YXNlIGxldCBtZQprbm93LgoKVGhhbmtzLApBbnRvbmlvCgo+IHYxLT52Mgo+IMKgLSBQcm9wZXJs
-eSBmb3JtYXQgdGhlIGNvbW1pdCB0aXRsZSBhbmQgZXhwYW5kIHRoZSBjb21taXQgbXNnOwo+IMKg
-LSBkcm9wIHRoZSBwYXRjaCB2MSA0Lzc6Cj4gwqDCoCAiaXJxY2hpcC9zdG0zMi1leHRpOiBmb3J3
-YXJkIGlycV9yZXF1ZXN0X3Jlc291cmNlcyB0byBwYXJlbnQiCj4gwqDCoCBpbiBmYXZvciBvZiB0
-aGUgZ2VuZXJpYzoKPiDCoMKgCj4gaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvbGttbC8yMDIyMDUx
-MjE2MDU0NC4xMzU2MS0xLWFudG9uaW8uYm9ybmVvQGZvc3Muc3QuY29tLwo+IMKgwqAgImdlbmly
-cTogRG9uJ3QgcmV0dXJuIGVycm9yIG9uIG1pc3Npbmcgb3B0aW9uYWwKPiDCoMKgIGlycV9yZXF1
-ZXN0X3Jlc291cmNlcygpIjsKPiDCoC0gdXNlIGNvbnNpc3RlbnRseSBVTkRFRl9SRUcgZm9yIG5v
-biBleGlzdGluZyBFTVIgcmVnaXN0ZXJzOwo+IMKgLSByZWJhc2Ugb24gdjUuMTktcmMxLgo+IAo+
-IAo+IEFsZXhhbmRyZSBUb3JndWUgKDEpOgo+IMKgIGlycWNoaXAvc3RtMzItZXh0aTogVGFnIGVt
-ciByZWdpc3RlciBhcyB1bmRlZmluZWQgZm9yIHN0bTMybXAxNQo+IAo+IEFudG9uaW8gQm9ybmVv
-ICgzKToKPiDCoCBpcnFjaGlwL3N0bTMyLWV4dGk6IFByZXZlbnQgaWxsZWdhbCByZWFkIGR1ZSB0
-byB1bmJvdW5kZWQgRFQgdmFsdWUKPiDCoCBpcnFjaGlwL3N0bTMyLWV4dGk6IFJlYWQgZXZlbnQg
-dHJpZ2dlciB0eXBlIGZyb20gZXZlbnRfdHJnIHJlZ2lzdGVyCj4gwqAgaXJxY2hpcC9zdG0zMi1l
-eHRpOiBTaW1wbGlmeSBpcnEgZGVzY3JpcHRpb24gdGFibGUKPiAKPiBMb2ljIFBhbGxhcmR5ICgx
-KToKPiDCoCBpcnFjaGlwL3N0bTMyLWV4dGk6IEZpeCBpcnFfbWFzay9pcnFfdW5tYXNrIGZvciBk
-aXJlY3QgZXZlbnRzCj4gCj4gTHVkb3ZpYyBCYXJyZSAoMSk6Cj4gwqAgaXJxY2hpcC9zdG0zMi1l
-eHRpOiBGaXggaXJxX3NldF9hZmZpbml0eSByZXR1cm4gdmFsdWUKPiAKPiDCoGRyaXZlcnMvaXJx
-Y2hpcC9pcnEtc3RtMzItZXh0aS5jIHwgMjUwICsrKysrKysrKysrKysrKy0tLS0tLS0tLS0tLS0t
-Cj4gLS0KPiDCoDEgZmlsZSBjaGFuZ2VkLCAxMjQgaW5zZXJ0aW9ucygrKSwgMTI2IGRlbGV0aW9u
-cygtKQo+IAo+IAo+IGJhc2UtY29tbWl0OiBmMjkwNmFhODYzMzgxYWZiMDAxNWE5ZWI3ZmVmYWQ4
-ODVkNGU1YTU2CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-XwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9y
-bXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9s
-aXN0aW5mby9saW51eC1zdG0zMgo=
+I have started reviewing this set.
+
+Thanks,
+Mathieu
+
+On Fri, Jun 03, 2022 at 06:31:54PM +0200, Arnaud Pouliquen wrote:
+> 1) Update from V5 [1]:
+> 
+> Updates based on Mathieu's comments.
+> Updates are listed in the commit message of each patch.
+> 
+> [1] https://lkml.org/lkml/2022/4/6/597
+> 
+> 2) Patchset description:
+> 
+> This series is a part of the work initiated a long time ago in 
+> the series "remoteproc: Decorelate virtio from core"[2]
+> 
+> Objective of the work:
+> - Update the remoteproc VirtIO device creation (use platform device)
+> - Allow to declare remoteproc VirtIO device in DT
+>     - declare resources associated to a remote proc VirtIO
+>     - declare a list of VirtIO supported by the platform.
+> - Prepare the enhancement to more VirtIO devices (e.g I2C, audio, video, ...).
+>   For instance be able to declare a I2C device in a virtio-i2C node.
+> - Keep the legacy working!
+> - Try to improve the picture about concerns reported by Christoph Hellwing [3][4]
+> 
+> [2] https://lkml.org/lkml/2020/4/16/1817
+> [3] https://lkml.org/lkml/2021/6/23/607
+> [4] https://patchwork.kernel.org/project/linux-remoteproc/patch/AOKowLclCbOCKxyiJ71WeNyuAAj2q8EUtxrXbyky5E@cp7-web-042.plabs.ch/
+> 
+> In term of device tree this would result in such hierarchy (stm32mp1 example with 2 virtio RPMSG):
+> 
+> 	m4_rproc: m4@10000000 {
+> 		compatible = "st,stm32mp1-m4";
+> 		reg = <0x10000000 0x40000>,
+> 		      <0x30000000 0x40000>,
+> 		      <0x38000000 0x10000>;
+>         memory-region = <&retram>, <&mcuram>,<&mcuram2>;
+>         mboxes = <&ipcc 2>, <&ipcc 3>;
+>         mbox-names = "shutdown", "detach";
+>         status = "okay";
+> 
+>         #address-cells = <1>;
+>         #size-cells = <0>;
+>         
+>         vdev@0 {
+> 		compatible = "rproc-virtio";
+> 		reg = <0>;
+> 		virtio,id = <7>;  /* RPMSG */
+> 		memory-region = <&vdev0vring0>, <&vdev0vring1>, <&vdev0buffer>;
+> 		mboxes = <&ipcc 0>, <&ipcc 1>;
+> 		mbox-names = "vq0", "vq1";
+> 		status = "okay";
+>         };
+> 
+>         vdev@1 {
+> 		compatible = "rproc-virtio";
+> 		reg = <1>;
+> 		virtio,id = <7>;  /*RPMSG */
+> 		memory-region = <&vdev1vring0>, <&vdev1vring1>, <&vdev1buffer>;
+> 		mboxes = <&ipcc 4>, <&ipcc 5>;
+> 		mbox-names = "vq0", "vq1";
+> 		status = "okay";
+>         };
+> };
+> 
+> I have divided the work in 4 steps to simplify the review, This series implements only
+> the step 1:
+> step 1:  redefine the remoteproc VirtIO device as a platform device
+>   - migrate rvdev management in remoteproc virtio.c,
+>   - create a remotproc virtio config ( can be disabled for platform that not use VirtIO IPC.
+> step 2: add possibility to declare and probe a VirtIO sub node
+>   - VirtIO bindings declaration,
+>   - multi DT VirtIO devices support,
+>   - introduction of a remote proc virtio bind device mechanism ,
+> => https://github.com/arnopo/linux/commits/step2-virtio-in-DT
+> step 3: Add memory declaration in VirtIO subnode
+> => https://github.com/arnopo/linux/commits/step3-virtio-memories
+> step 4: Add mailbox declaration in VirtIO subnode
+> => https://github.com/arnopo/linux/commits/step4-virtio-mailboxes
+> 
+> Arnaud Pouliquen (4):
+>   remoteproc: core: Introduce rproc_rvdev_add_device function
+>   remoteproc: core: Introduce rproc_add_rvdev function
+>   remoteproc: Move rproc_vdev management to remoteproc_virtio.c
+>   remoteproc: virtio: Create platform device for the remoteproc_virtio
+> 
+>  drivers/remoteproc/remoteproc_core.c     | 153 +++---------------
+>  drivers/remoteproc/remoteproc_internal.h |  23 ++-
+>  drivers/remoteproc/remoteproc_virtio.c   | 188 ++++++++++++++++++++---
+>  include/linux/remoteproc.h               |   6 +-
+>  4 files changed, 209 insertions(+), 161 deletions(-)
+> 
+> -- 
+> 2.24.3
+> 
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
