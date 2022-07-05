@@ -2,66 +2,64 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 16EEA5667A2
-	for <lists+linux-stm32@lfdr.de>; Tue,  5 Jul 2022 12:17:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 31C69566810
+	for <lists+linux-stm32@lfdr.de>; Tue,  5 Jul 2022 12:36:33 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BCB56C640F4;
-	Tue,  5 Jul 2022 10:17:28 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CC20BC640F4;
+	Tue,  5 Jul 2022 10:36:32 +0000 (UTC)
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [85.220.165.71])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CF685C640F0
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 82153C640F2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  5 Jul 2022 10:17:26 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 26593Bb3007813;
- Tue, 5 Jul 2022 12:17:09 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=message-id : date :
- mime-version : from : subject : to : cc : content-type :
- content-transfer-encoding; s=selector1;
- bh=o6YsxP/OCipW+Jn/MvOSlmSg78huV5S6y373JluOE9M=;
- b=HkB/bqI2U+S8WG9fdiIlqYvsd+IZQZir3ZNJFo5+BIfoCGSelUXIl66UD+YVfKlXNCYV
- seGkQMjQbpniJ8zqCJZq0fo8WwXv6/MFWPlx7cuBpgB1NYAO4DVjsO8xuSHZhth+47wg
- Ks3D7fjNScQse257ok8EjDCd0MLCcUeU0PQILeJPD+B4ernkwzRHryufszcfK5Y+kA53
- ncDgZNMzLUBh4C/adgK3FqzC4dRp/DqCfy2GBH329GP8vfJUIX+hhk1DydFmHk97VnHP
- wVhLvo2WLbZwYHSwk+LZyE8uvsh2VYqNaHqLUXjJK1BGKd4we7XsauyQFFe4bTPGUy6m 8g== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3h2cwj01yk-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 05 Jul 2022 12:17:09 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 5131610002A;
- Tue,  5 Jul 2022 12:17:08 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 3AFC421BF51;
- Tue,  5 Jul 2022 12:17:08 +0200 (CEST)
-Received: from [10.201.21.93] (10.75.127.48) by SHFDAG1NODE1.st.com
- (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2308.20; Tue, 5 Jul
- 2022 12:17:07 +0200
-Message-ID: <a250f32b-f67c-2922-0748-e39dc791e95c@foss.st.com>
-Date: Tue, 5 Jul 2022 12:17:07 +0200
+ Tue,  5 Jul 2022 10:36:31 +0000 (UTC)
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+ by metis.ext.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1o8fuq-0001LC-19; Tue, 05 Jul 2022 12:36:24 +0200
+Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
+ by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.94.2)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1o8fue-004XxA-J7; Tue, 05 Jul 2022 12:36:16 +0200
+Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.94.2)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1o8fuh-0038F6-8t; Tue, 05 Jul 2022 12:36:15 +0200
+Date: Tue, 5 Jul 2022 12:36:15 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+To: Jean Delvare <jdelvare@suse.de>
+Message-ID: <20220705103615.ceeq7rku53x743ps@pengutronix.de>
+References: <20220628140313.74984-1-u.kleine-koenig@pengutronix.de>
+ <20220628140313.74984-7-u.kleine-koenig@pengutronix.de>
+ <20220705120852.049dc235@endymion.delvare>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.8.1
-Content-Language: en-US
-From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
-To: Arnd Bergmann <arnd@arndb.de>, Olof Johansson <olof@lixom.net>, Kevin
- Hilman <khilman@baylibre.com>, SoC Team <soc@kernel.org>, arm-soc
- <arm@kernel.org>
-X-Originating-IP: [10.75.127.48]
-X-ClientProxiedBy: SFHDAG2NODE3.st.com (10.75.127.6) To SHFDAG1NODE1.st.com
- (10.75.129.69)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.883,Hydra:6.0.517,FMLib:17.11.122.1
- definitions=2022-07-05_08,2022-06-28_01,2022-06-22_01
-Cc: "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>
-Subject: [Linux-stm32] [GIT PULL] STM32 DT changes for v5.20 #1
+In-Reply-To: <20220705120852.049dc235@endymion.delvare>
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: ukl@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
+Cc: alsa-devel@alsa-project.org, linux-pwm@vger.kernel.org,
+ linux-iio@vger.kernel.org, linux-fbdev@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, platform-driver-x86@vger.kernel.org,
+ linux-mtd@lists.infradead.org, linux-i2c@vger.kernel.org,
+ Guenter Roeck <groeck@chromium.org>, linux-stm32@st-md-mailman.stormreply.com,
+ linux-leds@vger.kernel.org, linux-rtc@vger.kernel.org,
+ chrome-platform@lists.linux.dev, linux-staging@lists.linux.dev,
+ kasan-dev@googlegroups.com, linux-clk@vger.kernel.org,
+ linux-serial@vger.kernel.org, linux-input@vger.kernel.org,
+ linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-watchdog@vger.kernel.org, linux-pm@vger.kernel.org,
+ acpi4asus-user@lists.sourceforge.net, linux-gpio@vger.kernel.org,
+ linux-mediatek@lists.infradead.org, linux-rpi-kernel@lists.infradead.org,
+ openipmi-developer@lists.sourceforge.net, linux-omap@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-hwmon@vger.kernel.org,
+ patches@opensource.cirrus.com, linux-usb@vger.kernel.org,
+ Wolfram Sang <wsa@kernel.org>, linux-crypto@vger.kernel.org,
+ netdev@vger.kernel.org, linux-integrity@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org
+Subject: Re: [Linux-stm32] [PATCH 6/6] i2c: Make remove callback return void
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,91 +71,113 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: multipart/mixed; boundary="===============8144091487164217317=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SGkgQVJNIFNvQyBtYWludGFpbmVycywKClBsZWFzZSBjb25zaWRlciB0aGlzIGZpcnN0IHJvdW5k
-IG9mIFNUTTMyIERUIHVwZGF0ZXMgZm9yIHY1LjIwLiBJdCAKbWFpbmx5IGFkZHMgYSBuZXcgREgg
-Ym9hcmQgYW5kIGVuYWJsZXMgU0NNSSAvIE9QVEVFIGZvciBTVE0zMk1QMTMuClRoaXMgUFIgaXMg
-YmFzZWQgb24gdGhlIFBSIHNlbnQgZm9yIGZpeGVzICh0YWc6IHN0bTMyLWR0LWZvci12NS4xOS1m
-aXhlcy0yKS4KClRoYW5rcwpBbGV4CgpUaGUgZm9sbG93aW5nIGNoYW5nZXMgc2luY2UgY29tbWl0
-IDFkMGMxYWFkZjFmZDlmM2RlOTVkMTUzMmIzNjUxZTg2MzQ1NDZlNzE6CgogICBBUk06IGR0czog
-c3RtMzI6IGFkZCBtaXNzaW5nIHVzYmggY2xvY2sgYW5kIGZpeCBjbGsgb3JkZXIgb24gCnN0bTMy
-bXAxNSAoMjAyMi0wNy0wNCAwOToxMDoyNCArMDIwMCkKCmFyZSBhdmFpbGFibGUgaW4gdGhlIEdp
-dCByZXBvc2l0b3J5IGF0OgoKICAgZ2l0Oi8vZ2l0Lmtlcm5lbC5vcmcvcHViL3NjbS9saW51eC9r
-ZXJuZWwvZ2l0L2F0b3JndWUvc3RtMzIuZ2l0IAp0YWdzL3N0bTMyLWR0LWZvci12NS4yMC0xCgpm
-b3IgeW91IHRvIGZldGNoIGNoYW5nZXMgdXAgdG8gY2M2MjgwY2Y4ODVjZTlhYjkyM2I5Zjk3Nzlh
-YThmYmUxMDk4M2QyMDoKCiAgIEFSTTogZHRzOiBzdG0zMjogQWRkIFNUIE1JUElEMDIgYmluZGlu
-Z3MgdG8gQVY5NiAoMjAyMi0wNy0wNSAxMTo0MjoxMSAKKzAyMDApCgotLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tClNUTTMyIERU
-IGZvciB2NS4yMCwgcm91bmQgMQoKSGlnaGxpZ2h0czoKLS0tLS0tLS0tLQoKLSBNQ1U6CiAgIC1G
-aXggd2hpdGVzcGFjZSBjb2Rpbmcgc3R5bGUuIE5vIGZ1bmN0aW9uYWwgY2hhbmdlcy4KCi0gTVBV
-OgogICAtIEdlbmVyYWw6CiAgICAgLSBSZW1vdmUgc3BlY2lmaWMgSVBDQyB3YWtldXAgaW50ZXJy
-dXB0IG9uIFNUTTMyTVAxNS4KICAgICAtIEVuYWJsZSBPUFRFRSBmaXJtd2FyZSBhbmQgc2NtaSBz
-dXBwb3J0IChjbG9jay9yZXNldCkgb24KICAgICAgIFNUTTMyTVAxMy4gSXQgYWxsb3dzIHRvIGVu
-YWJsZSBSQ0MgY2xvY2sgZHJpdmVyLgogICAgIC0gQWRkIG5ldyBwaW5zIGNvbmZpZ3VyYXRpb25z
-IGdyb3Vwcy4KCiAgIC0gREggYm9hcmRzOgogICAgIC0gQWRkIERIQ09SIGJhc2VkIERSQyBDb21w
-YWN0IGJvYXJkLiBJdCBlbWJlZHM6IDJ4RVRILCAxeENBTiwKICAgICAgIHVTRCwgVVNCLCBlTU1D
-IGFuZCBTRElPIHdpZmkuCiAgICAgLSBBZGQgU1QgTUlQSUQwMiBiaW5kaW5ncyB0byBBVjk2IChu
-b3QgZW5hYmxlZCBieSBkZWZhdWx0KQoKICAgLSBPU0QzMjoKICAgICAtIENvcnJlY3QgdmNjLXN1
-cHBseSBmb3IgZWVwcm9tLgogICAgIC0gZml4IG1pc3NpbmcgaW50ZXJuYWxseSBjb25uZWN0ZWQg
-dm9sdGFnZSByZWd1bGF0b3IgKGxkbzMKICAgICAgIHN1cHBsaWVkIGJ5IHZkZF9kZHIpLgoKLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLQpBbGV4YW5kcmUgVG9yZ3VlICgxKToKICAgICAgIGR0LWJpbmRpbmdzOiByY2M6IHN0bTMy
-OiBzZWxlY3QgdGhlICJzZWN1cmUiIHBhdGggZm9yIHN0bTMybXAxMwoKRmFiaWVuIERlc3Nlbm5l
-ICgxKToKICAgICAgIEFSTTogZHRzOiBzdG0zMjogcmVtb3ZlIHRoZSBJUENDICJ3YWtldXAiIElS
-USBvbiBzdG0zMm1wMTUxCgpHYWJyaWVsIEZlcm5hbmRleiAoMyk6CiAgICAgICBBUk06IGR0czog
-c3RtMzI6IGVuYWJsZSBvcHRlZSBmaXJtd2FyZSBhbmQgU0NNSSBzdXBwb3J0IG9uIFNUTTMyTVAx
-MwogICAgICAgQVJNOiBkdHM6IHN0bTMyOiBhZGQgUkNDIG9uIFNUTTMyTVAxM3ggU29DIGZhbWls
-eQogICAgICAgQVJNOiBkdHM6IHN0bTMyOiBhZGQgb3B0ZWUgcmVzZXJ2ZWQgbWVtb3J5IG9uIHN0
-bTMybXAxMzVmLWRrCgpLcnp5c3p0b2YgS296bG93c2tpICgxKToKICAgICAgIEFSTTogZHRzOiBz
-dG0zMjogYWRqdXN0IHdoaXRlc3BhY2UgYXJvdW5kICc9JyBvbiBNQ1UgYm9hcmRzCgpMZW9uYXJk
-IEfDtmhycyAoMik6CiAgICAgICBBUk06IGR0czogc3RtMzI6IGZpeCBtaXNzaW5nIGludGVybmFs
-bHkgY29ubmVjdGVkIHZvbHRhZ2UgCnJlZ3VsYXRvciBmb3IgT1NEMzJNUDEKICAgICAgIEFSTTog
-ZHRzOiBzdG0zMjogY29ycmVjdCB2Y2Mtc3VwcGx5IGZvciBlZXByb20gb24gc3RtMzJtcDE1eHgt
-b3NkMzIKCk1hcmVrIFZhc3V0ICgxMik6CiAgICAgICBBUk06IGR0czogc3RtMzI6IE1vdmUgREhD
-T1IgQlVDSzMgVkREIDJWOSBhZGp1c3RtZW50IHRvIDFWOCBEVFNJCiAgICAgICBBUk06IGR0czog
-c3RtMzI6IEZpeCBTUEkyIHBpbm11eCBwaW4gY29tbWVudHMgb24gc3RtMzJtcDE1CiAgICAgICBk
-dC1iaW5kaW5nczogYXJtOiBzdG0zMjogQWRkIGNvbXBhdGlibGUgc3RyaW5nIGZvciBESCBlbGVj
-dHJvbmljcyAKREhDT1IgRFJDIENvbXBhY3QKICAgICAgIEFSTTogZHRzOiBzdG0zMjogQWRkIGFs
-dGVybmF0ZSBwaW5tdXggZm9yIENBTjEgcGlucwogICAgICAgQVJNOiBkdHM6IHN0bTMyOiBBZGQg
-YWx0ZXJuYXRlIHBpbm11eCBmb3IgU1BJMiBwaW5zCiAgICAgICBBUk06IGR0czogc3RtMzI6IEFk
-ZCBhbHRlcm5hdGUgcGlubXV4IGZvciBVQVJUMyBwaW5zCiAgICAgICBBUk06IGR0czogc3RtMzI6
-IEFkZCBhbHRlcm5hdGUgcGlubXV4IGZvciBVQVJUNCBwaW5zCiAgICAgICBBUk06IGR0czogc3Rt
-MzI6IEFkZCBhbHRlcm5hdGUgcGlubXV4IGZvciBVQVJUNSBwaW5zCiAgICAgICBBUk06IGR0czog
-c3RtMzI6IEFkZCBESENPUiBiYXNlZCBEUkMgQ29tcGFjdCBib2FyZAogICAgICAgQVJNOiBkdHM6
-IHN0bTMyOiBBZGQgYWx0ZXJuYXRlIHBpbm11eCBmb3IgRENNSSBwaW5zCiAgICAgICBBUk06IGR0
-czogc3RtMzI6IEFkZCBhbHRlcm5hdGUgcGlubXV4IGZvciBSQ0MgcGluCiAgICAgICBBUk06IGR0
-czogc3RtMzI6IEFkZCBTVCBNSVBJRDAyIGJpbmRpbmdzIHRvIEFWOTYKCiAgLi4uL2RldmljZXRy
-ZWUvYmluZGluZ3MvYXJtL3N0bTMyL3N0bTMyLnlhbWwgICAgICAgfCAgIDggKy0KICAuLi4vZGV2
-aWNldHJlZS9iaW5kaW5ncy9jbG9jay9zdCxzdG0zMm1wMS1yY2MueWFtbCB8ICAgMSArCiAgYXJj
-aC9hcm0vYm9vdC9kdHMvTWFrZWZpbGUgICAgICAgICAgICAgICAgICAgICAgICAgfCAgIDEgKwog
-IGFyY2gvYXJtL2Jvb3QvZHRzL3N0bTMyNDI5aS1ldmFsLmR0cyAgICAgICAgICAgICAgIHwgICA4
-ICstCiAgYXJjaC9hcm0vYm9vdC9kdHMvc3RtMzJoNzQzLmR0c2kgICAgICAgICAgICAgICAgICAg
-fCAgIDQgKy0KICBhcmNoL2FybS9ib290L2R0cy9zdG0zMmg3NDNpLWRpc2NvLmR0cyAgICAgICAg
-ICAgICB8ICAgOCArLQogIGFyY2gvYXJtL2Jvb3QvZHRzL3N0bTMyaDc0M2ktZXZhbC5kdHMgICAg
-ICAgICAgICAgIHwgICA4ICstCiAgYXJjaC9hcm0vYm9vdC9kdHMvc3RtMzJoNzUwaS1hcnQtcGku
-ZHRzICAgICAgICAgICAgfCAgIDggKy0KICBhcmNoL2FybS9ib290L2R0cy9zdG0zMm1wMTMxLmR0
-c2kgICAgICAgICAgICAgICAgICB8IDE0MCArKysrLS0tLS0KICBhcmNoL2FybS9ib290L2R0cy9z
-dG0zMm1wMTMzLmR0c2kgICAgICAgICAgICAgICAgICB8ICAgNCArLQogIGFyY2gvYXJtL2Jvb3Qv
-ZHRzL3N0bTMybXAxMzVmLWRrLmR0cyAgICAgICAgICAgICAgIHwgIDExICsKICBhcmNoL2FybS9i
-b290L2R0cy9zdG0zMm1wMTN4Yy5kdHNpICAgICAgICAgICAgICAgICB8ICAgMyArLQogIGFyY2gv
-YXJtL2Jvb3QvZHRzL3N0bTMybXAxM3hmLmR0c2kgICAgICAgICAgICAgICAgIHwgICAzICstCiAg
-YXJjaC9hcm0vYm9vdC9kdHMvc3RtMzJtcDE1LXBpbmN0cmwuZHRzaSAgICAgICAgICAgfCAxNzcg
-KysrKysrKysrKy0KICBhcmNoL2FybS9ib290L2R0cy9zdG0zMm1wMTUxLmR0c2kgICAgICAgICAg
-ICAgICAgICB8ICAgNyArLQogIC4uLi9hcm0vYm9vdC9kdHMvc3RtMzJtcDE1M2MtZGhjb3ItZHJj
-LWNvbXBhY3QuZHRzIHwgIDMwICsrCiAgYXJjaC9hcm0vYm9vdC9kdHMvc3RtMzJtcDE1eHgtZGhj
-b3ItYXZlbmdlcjk2LmR0c2kgfCAgNTUgKysrKwogIC4uLi9ib290L2R0cy9zdG0zMm1wMTV4eC1k
-aGNvci1kcmMtY29tcGFjdC5kdHNpICAgIHwgMzIyIAorKysrKysrKysrKysrKysrKysrKysKICBh
-cmNoL2FybS9ib290L2R0cy9zdG0zMm1wMTV4eC1kaGNvci1pbzF2OC5kdHNpICAgICB8ICAgNSAr
-CiAgYXJjaC9hcm0vYm9vdC9kdHMvc3RtMzJtcDE1eHgtZGhjb3Itc29tLmR0c2kgICAgICAgfCAg
-IDQgKy0KICBhcmNoL2FybS9ib290L2R0cy9zdG0zMm1wMTV4eC1vc2QzMi5kdHNpICAgICAgICAg
-ICB8ICAgOSArLQogIDIxIGZpbGVzIGNoYW5nZWQsIDcwOSBpbnNlcnRpb25zKCspLCAxMDcgZGVs
-ZXRpb25zKC0pCiAgY3JlYXRlIG1vZGUgMTAwNjQ0IGFyY2gvYXJtL2Jvb3QvZHRzL3N0bTMybXAx
-NTNjLWRoY29yLWRyYy1jb21wYWN0LmR0cwogIGNyZWF0ZSBtb2RlIDEwMDY0NCBhcmNoL2FybS9i
-b290L2R0cy9zdG0zMm1wMTV4eC1kaGNvci1kcmMtY29tcGFjdC5kdHNpCl9fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlz
-dApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQt
-bWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+
+--===============8144091487164217317==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="gut2agzhpaayxotv"
+Content-Disposition: inline
+
+
+--gut2agzhpaayxotv
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Tue, Jul 05, 2022 at 12:08:52PM +0200, Jean Delvare wrote:
+> On Tue, 28 Jun 2022 16:03:12 +0200, Uwe Kleine-K=F6nig wrote:
+> > From: Uwe Kleine-K=F6nig <uwe@kleine-koenig.org>
+> >=20
+> > The value returned by an i2c driver's remove function is mostly ignored.
+> > (Only an error message is printed if the value is non-zero that the
+> > error is ignored.)
+> >=20
+> > So change the prototype of the remove function to return no value. This
+> > way driver authors are not tempted to assume that passing an error to
+> > the upper layer is a good idea. All drivers are adapted accordingly.
+> > There is no intended change of behaviour, all callbacks were prepared to
+> > return 0 before.
+> >=20
+> > Signed-off-by: Uwe Kleine-K=F6nig <u.kleine-koenig@pengutronix.de>
+> > ---
+>=20
+> That's a huge change for a relatively small benefit, but if this is
+> approved by the I2C core maintainer then fine with me. For:
+
+Agreed, it's huge. The benefit isn't really measureable, the motivation
+is to improve the situation for driver authors who with the change
+cannot make wrong assumptions about what to return in .remove(). During
+the preparation this uncovered a few bugs. See for example
+bbc126ae381cf0a27822c1f822d0aeed74cc40d9.
+
+> >  drivers/hwmon/adc128d818.c                                | 4 +---
+> >  drivers/hwmon/adt7470.c                                   | 3 +--
+> >  drivers/hwmon/asb100.c                                    | 6 ++----
+> >  drivers/hwmon/asc7621.c                                   | 4 +---
+> >  drivers/hwmon/dme1737.c                                   | 4 +---
+> >  drivers/hwmon/f75375s.c                                   | 5 ++---
+> >  drivers/hwmon/fschmd.c                                    | 6 ++----
+> >  drivers/hwmon/ftsteutates.c                               | 3 +--
+> >  drivers/hwmon/ina209.c                                    | 4 +---
+> >  drivers/hwmon/ina3221.c                                   | 4 +---
+> >  drivers/hwmon/jc42.c                                      | 3 +--
+> >  drivers/hwmon/mcp3021.c                                   | 4 +---
+> >  drivers/hwmon/occ/p8_i2c.c                                | 4 +---
+> >  drivers/hwmon/pcf8591.c                                   | 3 +--
+> >  drivers/hwmon/smm665.c                                    | 3 +--
+> >  drivers/hwmon/tps23861.c                                  | 4 +---
+> >  drivers/hwmon/w83781d.c                                   | 4 +---
+> >  drivers/hwmon/w83791d.c                                   | 6 ++----
+> >  drivers/hwmon/w83792d.c                                   | 6 ++----
+> >  drivers/hwmon/w83793.c                                    | 6 ++----
+> >  drivers/hwmon/w83795.c                                    | 4 +---
+> >  drivers/hwmon/w83l785ts.c                                 | 6 ++----
+> >  drivers/i2c/i2c-core-base.c                               | 6 +-----
+> >  drivers/i2c/i2c-slave-eeprom.c                            | 4 +---
+> >  drivers/i2c/i2c-slave-testunit.c                          | 3 +--
+> >  drivers/i2c/i2c-smbus.c                                   | 3 +--
+> >  drivers/i2c/muxes/i2c-mux-ltc4306.c                       | 4 +---
+> >  drivers/i2c/muxes/i2c-mux-pca9541.c                       | 3 +--
+> >  drivers/i2c/muxes/i2c-mux-pca954x.c                       | 3 +--
+>=20
+> Reviewed-by: Jean Delvare <jdelvare@suse.de>
+
+Thanks
+Uwe
+
+--=20
+Pengutronix e.K.                           | Uwe Kleine-K=F6nig            |
+Industrial Linux Solutions                 | https://www.pengutronix.de/ |
+
+--gut2agzhpaayxotv
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEfnIqFpAYrP8+dKQLwfwUeK3K7AkFAmLEFBwACgkQwfwUeK3K
+7AkavggAgLmynakXX/rOF4Jwy2OuBXH29kecKqPd6xj4yHsu3ggy8kd/hlU4jJib
+vV0H9ioq69hhMqjme5AHJJsueLFi/t/iwuQwuWUKluCBBlx0RXBsVx8qxV7A0uWa
+mdKU3ApPaN7y0cS1jccdN7ydsL3H2ayzIwfQuNqx1G3P/uqXfkusV0fjwQ/rQct3
+qs4t2/QiHUd0tStlGw2eSKxp1z5KRrDMstK17fiZSsw/SYoMyldV8Ame6+gaxx0X
+e93FqM5jj67ovjD3jJanfOwI5vesu4+szu4GK6vHRWvpsieHsSeyS+GNgfM5oLA7
+iguZ0rauzy0je3hrHuKgp1maJ59ibQ==
+=fYiS
+-----END PGP SIGNATURE-----
+
+--gut2agzhpaayxotv--
+
+--===============8144091487164217317==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============8144091487164217317==--
