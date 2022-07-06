@@ -2,64 +2,57 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5F3A856837F
-	for <lists+linux-stm32@lfdr.de>; Wed,  6 Jul 2022 11:31:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 90215569430
+	for <lists+linux-stm32@lfdr.de>; Wed,  6 Jul 2022 23:20:33 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0FDD6C5F1ED;
-	Wed,  6 Jul 2022 09:31:48 +0000 (UTC)
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
- [85.220.165.71])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 450F5C04005;
+	Wed,  6 Jul 2022 21:20:33 +0000 (UTC)
+Received: from mail-qk1-f173.google.com (mail-qk1-f173.google.com
+ [209.85.222.173])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E5A2AC03FDB
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E9FC6C03FC3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  6 Jul 2022 09:31:46 +0000 (UTC)
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
- by metis.ext.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <ukl@pengutronix.de>)
- id 1o91Nj-0005lo-Ss; Wed, 06 Jul 2022 11:31:39 +0200
-Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
- by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.94.2)
- (envelope-from <ukl@pengutronix.de>)
- id 1o91Na-004jSK-Sg; Wed, 06 Jul 2022 11:31:34 +0200
-Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.94.2)
- (envelope-from <ukl@pengutronix.de>)
- id 1o91Nd-003KbY-Gm; Wed, 06 Jul 2022 11:31:33 +0200
-Date: Wed, 6 Jul 2022 11:31:30 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
-To: Vladimir Oltean <olteanv@gmail.com>
-Message-ID: <20220706093130.cet7y7upl76rp6ug@pengutronix.de>
-References: <20220628140313.74984-1-u.kleine-koenig@pengutronix.de>
- <20220628140313.74984-7-u.kleine-koenig@pengutronix.de>
- <20220706091315.p5k2jck3rmyjhvqw@skbuf>
+ Wed,  6 Jul 2022 21:20:31 +0000 (UTC)
+Received: by mail-qk1-f173.google.com with SMTP id f14so12081821qkm.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 06 Jul 2022 14:20:31 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=UhZoitLijiPNAqkv3CxoYd+Lpg8Yl4Q/B3mulaHhdfA=;
+ b=1+vePiCDlRvnU4WFzk3h1EkwqND0wS6GmCATBJ4ziXKCtvab+3POiTUyx14A0Pxoc6
+ j7Zeg6VrFiaRXE2p7r+MgL2Zq5ZiZ9p638oEWGjWT09IDGK8fr7KMEIRCdtDzk3XSYq9
+ LZrjNUGm2p1MJge8xwnZ0jOcPzQVBto9G2iY8vXR5CCci85bc8zdreKpQeCS8oVrmyRz
+ 4ZrVcB45GavnH5uxbTqO3tNtRsAs1HOLKPLGtxcN5DEgdWAJ9vF5kPba7LkgKUM6IUdW
+ XHbvDZZCH3jMzqrhlJG9T5lT2uH/nvTRuBvu2hlnFjyFEDwO3lLx9yvgTqAAJuM2UqPZ
+ kpnA==
+X-Gm-Message-State: AJIora/4Q6zGW7iM5Jv7CNzNblxctkI+5vpK3GawMUVOrp5dFnruQ1c/
+ gZj9V01k2RAoZV/HZMeINQ==
+X-Google-Smtp-Source: AGRyM1vLksfEbmgZTWC3JTIY/XUPlZEUEUJd/Qvv4YtXmYQAiWVfNp/9Xu+RP+Hxr0ST8igasPl8Og==
+X-Received: by 2002:a05:620a:1924:b0:6b2:85c1:7c7e with SMTP id
+ bj36-20020a05620a192400b006b285c17c7emr13557929qkb.142.1657142430724; 
+ Wed, 06 Jul 2022 14:20:30 -0700 (PDT)
+Received: from xps15.. ([172.58.107.140])
+ by smtp.googlemail.com with ESMTPSA id
+ c7-20020a05620a268700b006aef1e5eb87sm31500678qkp.24.2022.07.06.14.20.11
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 06 Jul 2022 14:20:30 -0700 (PDT)
+From: Rob Herring <robh@kernel.org>
+To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>,
+ Lee Jones <lee.jones@linaro.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>
+Date: Wed,  6 Jul 2022 15:19:33 -0600
+Message-Id: <20220706211934.567432-1-robh@kernel.org>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-In-Reply-To: <20220706091315.p5k2jck3rmyjhvqw@skbuf>
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: ukl@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
-Cc: alsa-devel@alsa-project.org, linux-pwm@vger.kernel.org,
- linux-iio@vger.kernel.org, linux-fbdev@vger.kernel.org,
- dri-devel@lists.freedesktop.org, platform-driver-x86@vger.kernel.org,
- linux-mtd@lists.infradead.org, linux-i2c@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-leds@vger.kernel.org,
- linux-rtc@vger.kernel.org, chrome-platform@lists.linux.dev,
- linux-staging@lists.linux.dev, kasan-dev@googlegroups.com,
- linux-clk@vger.kernel.org, linux-serial@vger.kernel.org,
- linux-input@vger.kernel.org, linux-media@vger.kernel.org,
- devicetree@vger.kernel.org, linux-watchdog@vger.kernel.org,
- Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <uwe@kleine-koenig.org>,
- linux-pm@vger.kernel.org, acpi4asus-user@lists.sourceforge.net,
- linux-gpio@vger.kernel.org, linux-mediatek@lists.infradead.org,
- linux-rpi-kernel@lists.infradead.org, openipmi-developer@lists.sourceforge.net,
- linux-omap@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-hwmon@vger.kernel.org, patches@opensource.cirrus.com,
- linux-usb@vger.kernel.org, Wolfram Sang <wsa@kernel.org>,
- linux-crypto@vger.kernel.org, netdev@vger.kernel.org,
- linux-integrity@vger.kernel.org, linuxppc-dev@lists.ozlabs.org
-Subject: Re: [Linux-stm32] [PATCH 6/6] i2c: Make remove callback return void
+Cc: devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: [Linux-stm32] [PATCH] dt-bindings: mfd: stm32-timers: Move fixed
+	string node names under 'properties'
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,79 +64,128 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============1975674828581832206=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+Fixed string node names should be under 'properties' rather than
+'patternProperties'. Additionally, without beginning and end of line
+anchors, any prefix or suffix is allowed on the specified node name.
 
---===============1975674828581832206==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="yp3ilhvx53xygi7l"
-Content-Disposition: inline
+Move the stm32 timers 'counter' and 'timer' nodes to the 'properties'
+section.
 
+Signed-off-by: Rob Herring <robh@kernel.org>
+---
+ .../bindings/mfd/st,stm32-lptimer.yaml        | 28 +++++++++----------
+ .../bindings/mfd/st,stm32-timers.yaml         | 20 ++++++-------
+ 2 files changed, 24 insertions(+), 24 deletions(-)
 
---yp3ilhvx53xygi7l
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Wed, Jul 06, 2022 at 12:13:15PM +0300, Vladimir Oltean wrote:
-> On Tue, Jun 28, 2022 at 04:03:12PM +0200, Uwe Kleine-K=F6nig wrote:
-> > From: Uwe Kleine-K=F6nig <uwe@kleine-koenig.org>
-> >=20
-> > The value returned by an i2c driver's remove function is mostly ignored.
-> > (Only an error message is printed if the value is non-zero that the
-> > error is ignored.)
-> >=20
-> > So change the prototype of the remove function to return no value. This
-> > way driver authors are not tempted to assume that passing an error to
-> > the upper layer is a good idea. All drivers are adapted accordingly.
-> > There is no intended change of behaviour, all callbacks were prepared to
-> > return 0 before.
-> >=20
-> > Signed-off-by: Uwe Kleine-K=F6nig <u.kleine-koenig@pengutronix.de>
-> > ---
->=20
-> Assuming you remove the spurious kasan change:
-
-It's already gone in my tree, see
-https://git.pengutronix.de/cgit/ukl/linux/commit/?h=3Di2c-remove-void
-
-> Reviewed-by: Vladimir Oltean <olteanv@gmail.com>
-
-Thanks
-Uwe
-
---=20
-Pengutronix e.K.                           | Uwe Kleine-K=F6nig            |
-Industrial Linux Solutions                 | https://www.pengutronix.de/ |
-
---yp3ilhvx53xygi7l
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEfnIqFpAYrP8+dKQLwfwUeK3K7AkFAmLFVmcACgkQwfwUeK3K
-7AkOwAgAkt7aZ38n1lpOoBzXslSDQyp/lKc47Ehs+a1LTESfOP6+4frSHSJhaIMw
-WX2bIAZO2kfHd2GJJ1+miP0YO3eys+YJus7vlVp9LsZCtTrR7uUlJ9PhG4eVmYxD
-ZPZMbP533Mkp9Tj201PJRSbnOlhRhKnwpl4kQfj9nXD478yP1zbT/7CDh4Im1isE
-dOUnNdPTAnT17u0fIRREu6TIC/hKy5Lh772ukCBsHwkBWQD4WTtLmdL1uZrspPa3
-fKxI4tIGoKufFCNMNNzK8li/dghhpkn4uy8iNwyjkkmjfCXAkNdwNJiCDlo6qPwb
-idJ3DvpJEEx44L8KdcjzBYUHdSNUkQ==
-=ZnQL
------END PGP SIGNATURE-----
-
---yp3ilhvx53xygi7l--
-
---===============1975674828581832206==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+diff --git a/Documentation/devicetree/bindings/mfd/st,stm32-lptimer.yaml b/Documentation/devicetree/bindings/mfd/st,stm32-lptimer.yaml
+index ec7f0190f46e..a58f08aa430d 100644
+--- a/Documentation/devicetree/bindings/mfd/st,stm32-lptimer.yaml
++++ b/Documentation/devicetree/bindings/mfd/st,stm32-lptimer.yaml
+@@ -58,43 +58,43 @@ properties:
+       - "#pwm-cells"
+       - compatible
+ 
+-patternProperties:
+-  "^trigger@[0-9]+$":
++  counter:
+     type: object
+ 
+     properties:
+       compatible:
+-        const: st,stm32-lptimer-trigger
+-
+-      reg:
+-        description: Identify trigger hardware block.
+-        items:
+-          minimum: 0
+-          maximum: 2
++        const: st,stm32-lptimer-counter
+ 
+     required:
+       - compatible
+-      - reg
+ 
+-  counter:
++  timer:
+     type: object
+ 
+     properties:
+       compatible:
+-        const: st,stm32-lptimer-counter
++        const: st,stm32-lptimer-timer
+ 
+     required:
+       - compatible
+ 
+-  timer:
++patternProperties:
++  "^trigger@[0-9]+$":
+     type: object
+ 
+     properties:
+       compatible:
+-        const: st,stm32-lptimer-timer
++        const: st,stm32-lptimer-trigger
++
++      reg:
++        description: Identify trigger hardware block.
++        items:
++          minimum: 0
++          maximum: 2
+ 
+     required:
+       - compatible
++      - reg
+ 
+ required:
+   - "#address-cells"
+diff --git a/Documentation/devicetree/bindings/mfd/st,stm32-timers.yaml b/Documentation/devicetree/bindings/mfd/st,stm32-timers.yaml
+index 10b330d42901..1bd663f886dc 100644
+--- a/Documentation/devicetree/bindings/mfd/st,stm32-timers.yaml
++++ b/Documentation/devicetree/bindings/mfd/st,stm32-timers.yaml
+@@ -87,6 +87,16 @@ properties:
+       - "#pwm-cells"
+       - compatible
+ 
++  counter:
++    type: object
++
++    properties:
++      compatible:
++        const: st,stm32-timer-counter
++
++    required:
++      - compatible
++
+ patternProperties:
+   "^timer@[0-9]+$":
+     type: object
+@@ -107,16 +117,6 @@ patternProperties:
+       - compatible
+       - reg
+ 
+-  counter:
+-    type: object
+-
+-    properties:
+-      compatible:
+-        const: st,stm32-timer-counter
+-
+-    required:
+-      - compatible
+-
+ required:
+   - compatible
+   - reg
+-- 
+2.34.1
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============1975674828581832206==--
