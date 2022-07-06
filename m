@@ -2,57 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 90215569430
-	for <lists+linux-stm32@lfdr.de>; Wed,  6 Jul 2022 23:20:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DA718569591
+	for <lists+linux-stm32@lfdr.de>; Thu,  7 Jul 2022 01:01:24 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 450F5C04005;
-	Wed,  6 Jul 2022 21:20:33 +0000 (UTC)
-Received: from mail-qk1-f173.google.com (mail-qk1-f173.google.com
- [209.85.222.173])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 73912C5F1ED;
+	Wed,  6 Jul 2022 23:01:24 +0000 (UTC)
+Received: from mail-ot1-f52.google.com (mail-ot1-f52.google.com
+ [209.85.210.52])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E9FC6C03FC3
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 01A8EC03FC3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  6 Jul 2022 21:20:31 +0000 (UTC)
-Received: by mail-qk1-f173.google.com with SMTP id f14so12081821qkm.0
+ Wed,  6 Jul 2022 23:01:22 +0000 (UTC)
+Received: by mail-ot1-f52.google.com with SMTP id
+ 73-20020a9d084f000000b00616b04c7656so12841477oty.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 06 Jul 2022 14:20:31 -0700 (PDT)
+ Wed, 06 Jul 2022 16:01:22 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=UhZoitLijiPNAqkv3CxoYd+Lpg8Yl4Q/B3mulaHhdfA=;
- b=1+vePiCDlRvnU4WFzk3h1EkwqND0wS6GmCATBJ4ziXKCtvab+3POiTUyx14A0Pxoc6
- j7Zeg6VrFiaRXE2p7r+MgL2Zq5ZiZ9p638oEWGjWT09IDGK8fr7KMEIRCdtDzk3XSYq9
- LZrjNUGm2p1MJge8xwnZ0jOcPzQVBto9G2iY8vXR5CCci85bc8zdreKpQeCS8oVrmyRz
- 4ZrVcB45GavnH5uxbTqO3tNtRsAs1HOLKPLGtxcN5DEgdWAJ9vF5kPba7LkgKUM6IUdW
- XHbvDZZCH3jMzqrhlJG9T5lT2uH/nvTRuBvu2hlnFjyFEDwO3lLx9yvgTqAAJuM2UqPZ
- kpnA==
-X-Gm-Message-State: AJIora/4Q6zGW7iM5Jv7CNzNblxctkI+5vpK3GawMUVOrp5dFnruQ1c/
- gZj9V01k2RAoZV/HZMeINQ==
-X-Google-Smtp-Source: AGRyM1vLksfEbmgZTWC3JTIY/XUPlZEUEUJd/Qvv4YtXmYQAiWVfNp/9Xu+RP+Hxr0ST8igasPl8Og==
-X-Received: by 2002:a05:620a:1924:b0:6b2:85c1:7c7e with SMTP id
- bj36-20020a05620a192400b006b285c17c7emr13557929qkb.142.1657142430724; 
- Wed, 06 Jul 2022 14:20:30 -0700 (PDT)
-Received: from xps15.. ([172.58.107.140])
- by smtp.googlemail.com with ESMTPSA id
- c7-20020a05620a268700b006aef1e5eb87sm31500678qkp.24.2022.07.06.14.20.11
+ h=x-gm-message-state:date:from:to:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=rpwT695sri6PiwsIkplM0soIt4K0mTDGGLf39HX2spg=;
+ b=uKjdq0V5eouKVnrAAYAbsAu3IBu4GWoTr43gC/txIyOiyoDdYSq4NSWMfHNr16VW5I
+ qhG3M6Pph86HRsSdxnaqAuW6Jtl9vnvqR2zOFam2ThLCyeuxpchA2I5V97ahx0ndaKrF
+ 5OCJEwvjUIjvQfGVrfMp24EuX1385IaBQcnEiyeR7PRsUr+C/OO6LUaJoD5/94Jr01XU
+ lZ7NZWsMQR104HBk32qEm18kyhQr+UXMpbSo5ukAOG15/tAE0hD1A4jbbhIE2S4ZfviC
+ TieI/v5ReU8cJBDi1L/0SnzhQixKeH+DKdM6KCzCpfi8cfsBJmFBoe5lALy3CCo+31In
+ Nizg==
+X-Gm-Message-State: AJIora8x9dup1S/X5N8b4JFifs2BR4TmXXEhMLa80wZJzdqLXHtuIKhY
+ M4ByBtSPwCNOibYm11Rzsw==
+X-Google-Smtp-Source: AGRyM1sZ6SEM/+/Qq2SjdTe5pzaMC4OLV2H6/yij1GibQKAOaL4bQj6xoE8l6Oe89u5hgaHGcDS/tQ==
+X-Received: by 2002:a9d:7646:0:b0:616:c17c:7d26 with SMTP id
+ o6-20020a9d7646000000b00616c17c7d26mr19384810otl.83.1657148481842; 
+ Wed, 06 Jul 2022 16:01:21 -0700 (PDT)
+Received: from robh.at.kernel.org ([2607:fb90:5fe0:199f:283a:d3be:fc5c:70cd])
+ by smtp.gmail.com with ESMTPSA id
+ v39-20020a05687070a700b0010c3b371098sm25324oae.27.2022.07.06.16.01.18
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 06 Jul 2022 14:20:30 -0700 (PDT)
+ Wed, 06 Jul 2022 16:01:21 -0700 (PDT)
+Received: (nullmailer pid 673503 invoked by uid 1000);
+ Wed, 06 Jul 2022 22:46:13 -0000
+Date: Wed, 6 Jul 2022 16:46:13 -0600
 From: Rob Herring <robh@kernel.org>
-To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>,
- Lee Jones <lee.jones@linaro.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-Date: Wed,  6 Jul 2022 15:19:33 -0600
-Message-Id: <20220706211934.567432-1-robh@kernel.org>
-X-Mailer: git-send-email 2.34.1
+To: Wolfram Sang <wsa@kernel.org>, Alain Volmat <alain.volmat@foss.st.com>,
+ mark.rutland@arm.com, pierre-yves.mordret@foss.st.com,
+ mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
+ linux-i2c@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, fabrice.gasnier@foss.st.com,
+ amelie.delaunay@foss.st.com
+Message-ID: <20220706224613.GD572635-robh@kernel.org>
+References: <20220620105405.145959-1-alain.volmat@foss.st.com>
+ <20220620105405.145959-2-alain.volmat@foss.st.com>
+ <20220628134115.GA345270-robh@kernel.org>
+ <YryrpbBKsAKcL865@shikoro>
 MIME-Version: 1.0
-Cc: devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: [Linux-stm32] [PATCH] dt-bindings: mfd: stm32-timers: Move fixed
-	string node names under 'properties'
+Content-Disposition: inline
+In-Reply-To: <YryrpbBKsAKcL865@shikoro>
+Subject: Re: [Linux-stm32] [PATCH 1/4] dt-bindings: i2c: st,
+ stm32-i2c: don't mandate a reset line
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,122 +77,24 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Fixed string node names should be under 'properties' rather than
-'patternProperties'. Additionally, without beginning and end of line
-anchors, any prefix or suffix is allowed on the specified node name.
+On Wed, Jun 29, 2022 at 09:44:37PM +0200, Wolfram Sang wrote:
+> On Tue, Jun 28, 2022 at 07:41:15AM -0600, Rob Herring wrote:
+> > On Mon, Jun 20, 2022 at 12:54:02PM +0200, Alain Volmat wrote:
+> > > Update the dt-bindings of the i2c-stm32 drivers to avoid the
+> > > needs for a reset property in the device-tree.
+> > 
+> > That is clear from the diff, but why. Some chips don't have a reset? 
+> > If so, this should be combined with patch 2 as part of changes needed 
+> > for a new version.
+> 
+> What do you mean? Patches 1+2 should be squashed together? I can do this
+> when applying. Or do you mean something else?
 
-Move the stm32 timers 'counter' and 'timer' nodes to the 'properties'
-section.
+Sorry, I meant combined with patch 3. If the new chip added in patch 3 
+doesn't have a reset, then 1 and 3 should be 1 patch. IOW, all the 
+changes needed for a new chip in 1 patch.
 
-Signed-off-by: Rob Herring <robh@kernel.org>
----
- .../bindings/mfd/st,stm32-lptimer.yaml        | 28 +++++++++----------
- .../bindings/mfd/st,stm32-timers.yaml         | 20 ++++++-------
- 2 files changed, 24 insertions(+), 24 deletions(-)
-
-diff --git a/Documentation/devicetree/bindings/mfd/st,stm32-lptimer.yaml b/Documentation/devicetree/bindings/mfd/st,stm32-lptimer.yaml
-index ec7f0190f46e..a58f08aa430d 100644
---- a/Documentation/devicetree/bindings/mfd/st,stm32-lptimer.yaml
-+++ b/Documentation/devicetree/bindings/mfd/st,stm32-lptimer.yaml
-@@ -58,43 +58,43 @@ properties:
-       - "#pwm-cells"
-       - compatible
- 
--patternProperties:
--  "^trigger@[0-9]+$":
-+  counter:
-     type: object
- 
-     properties:
-       compatible:
--        const: st,stm32-lptimer-trigger
--
--      reg:
--        description: Identify trigger hardware block.
--        items:
--          minimum: 0
--          maximum: 2
-+        const: st,stm32-lptimer-counter
- 
-     required:
-       - compatible
--      - reg
- 
--  counter:
-+  timer:
-     type: object
- 
-     properties:
-       compatible:
--        const: st,stm32-lptimer-counter
-+        const: st,stm32-lptimer-timer
- 
-     required:
-       - compatible
- 
--  timer:
-+patternProperties:
-+  "^trigger@[0-9]+$":
-     type: object
- 
-     properties:
-       compatible:
--        const: st,stm32-lptimer-timer
-+        const: st,stm32-lptimer-trigger
-+
-+      reg:
-+        description: Identify trigger hardware block.
-+        items:
-+          minimum: 0
-+          maximum: 2
- 
-     required:
-       - compatible
-+      - reg
- 
- required:
-   - "#address-cells"
-diff --git a/Documentation/devicetree/bindings/mfd/st,stm32-timers.yaml b/Documentation/devicetree/bindings/mfd/st,stm32-timers.yaml
-index 10b330d42901..1bd663f886dc 100644
---- a/Documentation/devicetree/bindings/mfd/st,stm32-timers.yaml
-+++ b/Documentation/devicetree/bindings/mfd/st,stm32-timers.yaml
-@@ -87,6 +87,16 @@ properties:
-       - "#pwm-cells"
-       - compatible
- 
-+  counter:
-+    type: object
-+
-+    properties:
-+      compatible:
-+        const: st,stm32-timer-counter
-+
-+    required:
-+      - compatible
-+
- patternProperties:
-   "^timer@[0-9]+$":
-     type: object
-@@ -107,16 +117,6 @@ patternProperties:
-       - compatible
-       - reg
- 
--  counter:
--    type: object
--
--    properties:
--      compatible:
--        const: st,stm32-timer-counter
--
--    required:
--      - compatible
--
- required:
-   - compatible
-   - reg
--- 
-2.34.1
-
+Rob
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
