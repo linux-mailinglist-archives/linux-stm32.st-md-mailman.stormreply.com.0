@@ -2,63 +2,72 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA718569591
-	for <lists+linux-stm32@lfdr.de>; Thu,  7 Jul 2022 01:01:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 29594569A97
+	for <lists+linux-stm32@lfdr.de>; Thu,  7 Jul 2022 08:38:38 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 73912C5F1ED;
-	Wed,  6 Jul 2022 23:01:24 +0000 (UTC)
-Received: from mail-ot1-f52.google.com (mail-ot1-f52.google.com
- [209.85.210.52])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CC93CC5F1ED;
+	Thu,  7 Jul 2022 06:38:37 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 01A8EC03FC3
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BC0C2C03FC3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  6 Jul 2022 23:01:22 +0000 (UTC)
-Received: by mail-ot1-f52.google.com with SMTP id
- 73-20020a9d084f000000b00616b04c7656so12841477oty.3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 06 Jul 2022 16:01:22 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=rpwT695sri6PiwsIkplM0soIt4K0mTDGGLf39HX2spg=;
- b=uKjdq0V5eouKVnrAAYAbsAu3IBu4GWoTr43gC/txIyOiyoDdYSq4NSWMfHNr16VW5I
- qhG3M6Pph86HRsSdxnaqAuW6Jtl9vnvqR2zOFam2ThLCyeuxpchA2I5V97ahx0ndaKrF
- 5OCJEwvjUIjvQfGVrfMp24EuX1385IaBQcnEiyeR7PRsUr+C/OO6LUaJoD5/94Jr01XU
- lZ7NZWsMQR104HBk32qEm18kyhQr+UXMpbSo5ukAOG15/tAE0hD1A4jbbhIE2S4ZfviC
- TieI/v5ReU8cJBDi1L/0SnzhQixKeH+DKdM6KCzCpfi8cfsBJmFBoe5lALy3CCo+31In
- Nizg==
-X-Gm-Message-State: AJIora8x9dup1S/X5N8b4JFifs2BR4TmXXEhMLa80wZJzdqLXHtuIKhY
- M4ByBtSPwCNOibYm11Rzsw==
-X-Google-Smtp-Source: AGRyM1sZ6SEM/+/Qq2SjdTe5pzaMC4OLV2H6/yij1GibQKAOaL4bQj6xoE8l6Oe89u5hgaHGcDS/tQ==
-X-Received: by 2002:a9d:7646:0:b0:616:c17c:7d26 with SMTP id
- o6-20020a9d7646000000b00616c17c7d26mr19384810otl.83.1657148481842; 
- Wed, 06 Jul 2022 16:01:21 -0700 (PDT)
-Received: from robh.at.kernel.org ([2607:fb90:5fe0:199f:283a:d3be:fc5c:70cd])
- by smtp.gmail.com with ESMTPSA id
- v39-20020a05687070a700b0010c3b371098sm25324oae.27.2022.07.06.16.01.18
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 06 Jul 2022 16:01:21 -0700 (PDT)
-Received: (nullmailer pid 673503 invoked by uid 1000);
- Wed, 06 Jul 2022 22:46:13 -0000
-Date: Wed, 6 Jul 2022 16:46:13 -0600
-From: Rob Herring <robh@kernel.org>
-To: Wolfram Sang <wsa@kernel.org>, Alain Volmat <alain.volmat@foss.st.com>,
+ Thu,  7 Jul 2022 06:38:36 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 26715pJ4025688;
+ Thu, 7 Jul 2022 08:38:20 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=date : from : to :
+ cc : subject : message-id : references : mime-version : content-type :
+ in-reply-to; s=selector1; bh=zVSoqRqzuyLq0LopHTrb8YdEclj7FIl5rpVJUrthI2k=;
+ b=w+uiFBF0FBVSp44RBV9b1Kcfs3BdqUZ74D9ShD5VGMkXXK0mYTb9Arap/KCgCGIifmWI
+ rtdiT0iWPg8Vyyh4Nqo9U29dp9QAyeIzaTSI+DqR2Fb2jm7ykJgjknkPN4voXBu9PkG+
+ FDOzzLYb2JDKTg+t2meV++Sg1eUAQ4Ea7Gj9mGEPFs9NC3RwXkUMIIh04LuGNbAKy5jV
+ X1NbnD2ju33Gx4yMCguebN2TgG/M+zmKeEIziaciSOOcmIztE8XraC8AZsrGQ99QN7T+
+ YH9a4vBLKTDi+cwFJE3xmNb5fe9asU7Chmc1uW9mLV+hs2uYcoR/IMG5Mp+jUEDOPxGa rg== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3h58bp6h7c-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 07 Jul 2022 08:38:20 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id D979810002A;
+ Thu,  7 Jul 2022 08:38:18 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id B5B6420F570;
+ Thu,  7 Jul 2022 08:38:18 +0200 (CEST)
+Received: from gnbcxd0016.gnb.st.com (10.75.127.49) by SHFDAG1NODE1.st.com
+ (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2308.20; Thu, 7 Jul
+ 2022 08:38:18 +0200
+Date: Thu, 7 Jul 2022 08:38:13 +0200
+From: Alain Volmat <alain.volmat@foss.st.com>
+To: Rob Herring <robh@kernel.org>
+Message-ID: <20220707063813.GA2428347@gnbcxd0016.gnb.st.com>
+Mail-Followup-To: Rob Herring <robh@kernel.org>, wsa@kernel.org,
  mark.rutland@arm.com, pierre-yves.mordret@foss.st.com,
  mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
  linux-i2c@vger.kernel.org, devicetree@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, fabrice.gasnier@foss.st.com,
- amelie.delaunay@foss.st.com
-Message-ID: <20220706224613.GD572635-robh@kernel.org>
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ fabrice.gasnier@foss.st.com, amelie.delaunay@foss.st.com
 References: <20220620105405.145959-1-alain.volmat@foss.st.com>
  <20220620105405.145959-2-alain.volmat@foss.st.com>
  <20220628134115.GA345270-robh@kernel.org>
- <YryrpbBKsAKcL865@shikoro>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <YryrpbBKsAKcL865@shikoro>
+In-Reply-To: <20220628134115.GA345270-robh@kernel.org>
+X-Disclaimer: ce message est personnel / this message is private
+X-Originating-IP: [10.75.127.49]
+X-ClientProxiedBy: SFHDAG2NODE3.st.com (10.75.127.6) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.883,Hydra:6.0.517,FMLib:17.11.122.1
+ definitions=2022-07-07_04,2022-06-28_01,2022-06-22_01
+Cc: mark.rutland@arm.com, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, wsa@kernel.org, linux-i2c@vger.kernel.org,
+ mcoquelin.stm32@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
 Subject: Re: [Linux-stm32] [PATCH 1/4] dt-bindings: i2c: st,
  stm32-i2c: don't mandate a reset line
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
@@ -77,24 +86,49 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, Jun 29, 2022 at 09:44:37PM +0200, Wolfram Sang wrote:
-> On Tue, Jun 28, 2022 at 07:41:15AM -0600, Rob Herring wrote:
-> > On Mon, Jun 20, 2022 at 12:54:02PM +0200, Alain Volmat wrote:
-> > > Update the dt-bindings of the i2c-stm32 drivers to avoid the
-> > > needs for a reset property in the device-tree.
-> > 
-> > That is clear from the diff, but why. Some chips don't have a reset? 
-> > If so, this should be combined with patch 2 as part of changes needed 
-> > for a new version.
+Hi Rob,
+
+On Tue, Jun 28, 2022 at 07:41:15AM -0600, Rob Herring wrote:
+> On Mon, Jun 20, 2022 at 12:54:02PM +0200, Alain Volmat wrote:
+> > Update the dt-bindings of the i2c-stm32 drivers to avoid the
+> > needs for a reset property in the device-tree.
 > 
-> What do you mean? Patches 1+2 should be squashed together? I can do this
-> when applying. Or do you mean something else?
+> That is clear from the diff, but why. Some chips don't have a reset? 
+> If so, this should be combined with patch 2 as part of changes needed 
+> for a new version.
 
-Sorry, I meant combined with patch 3. If the new chip added in patch 3 
-doesn't have a reset, then 1 and 3 should be 1 patch. IOW, all the 
-changes needed for a new chip in 1 patch.
+Alexandre has just pushed a pull-request enabling support for the
+clock/reset [1] so I will shortly push a v2 of the serie dropping the
+first 2 patches.
 
-Rob
+Thanks
+Alain
+
+[1] https://lore.kernel.org/all/a250f32b-f67c-2922-0748-e39dc791e95c@foss.st.com/
+
+> 
+> > 
+> > Signed-off-by: Alain Volmat <alain.volmat@foss.st.com>
+> > ---
+> >  Documentation/devicetree/bindings/i2c/st,stm32-i2c.yaml | 1 -
+> >  1 file changed, 1 deletion(-)
+> > 
+> > diff --git a/Documentation/devicetree/bindings/i2c/st,stm32-i2c.yaml b/Documentation/devicetree/bindings/i2c/st,stm32-i2c.yaml
+> > index dccbb18b6dc0..8879144fbbfb 100644
+> > --- a/Documentation/devicetree/bindings/i2c/st,stm32-i2c.yaml
+> > +++ b/Documentation/devicetree/bindings/i2c/st,stm32-i2c.yaml
+> > @@ -94,7 +94,6 @@ required:
+> >    - compatible
+> >    - reg
+> >    - interrupts
+> > -  - resets
+> >    - clocks
+> >  
+> >  unevaluatedProperties: false
+> > -- 
+> > 2.25.1
+> > 
+> > 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
