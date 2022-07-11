@@ -2,56 +2,56 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2B38C5703DE
-	for <lists+linux-stm32@lfdr.de>; Mon, 11 Jul 2022 15:10:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E45F570401
+	for <lists+linux-stm32@lfdr.de>; Mon, 11 Jul 2022 15:16:34 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D6D66C0C921;
-	Mon, 11 Jul 2022 13:10:18 +0000 (UTC)
-Received: from mail-yw1-f180.google.com (mail-yw1-f180.google.com
- [209.85.128.180])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4560CC0C921;
+	Mon, 11 Jul 2022 13:16:34 +0000 (UTC)
+Received: from mail-yw1-f171.google.com (mail-yw1-f171.google.com
+ [209.85.128.171])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A492EC03FC7
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E4ECBC03FC7
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 11 Jul 2022 13:10:17 +0000 (UTC)
-Received: by mail-yw1-f180.google.com with SMTP id
- 00721157ae682-31caffa4a45so48295857b3.3
+ Mon, 11 Jul 2022 13:16:32 +0000 (UTC)
+Received: by mail-yw1-f171.google.com with SMTP id
+ 00721157ae682-31c9b70c382so48375307b3.6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 11 Jul 2022 06:10:17 -0700 (PDT)
+ Mon, 11 Jul 2022 06:16:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
  :cc:content-transfer-encoding;
- bh=0ZOXSRSmgwM/8CfCPUrZ7l+OIh1asVluDdyFXnWqD8E=;
- b=dJra3IJxOrzyO+7mkYfwJM+xkVjzbjwnshtKynJEY1d9HigyxWdhK/P3oXcEKtAwf2
- n0DGV/ppHdqO8+FJPsHVKM2viLcDrzrD/8N47vVpcxI8crZMoTcyG7GabZh66TgDQt5K
- vR/OejvhThCm/ej8J+wkLbdDy4W/ha21NgDgri/u9j0L83H7+q9NKgUOANZtb3iQeb5m
- p5azi6yuxgVK5tVtUrkEqXMghbb7Ofd2Wahz6HtCDfF99Vp1EADGzIX2hVaA1X+UFnUO
- Wv0TU96HYsKm2m1KnTL59Uo73M2HzpiYTf5Uqn3AdcZn42/FTSzvlq1rPQklocqPCM7c
- omEA==
+ bh=ECHKwgZspv8UJP39cVbtbsQnGobQ6/Wz0Usn92hQ97A=;
+ b=ZCLmgeg2tag0WI6PMv2dX5P6iXXKcdTl5Rjn3td1aaWFfg1rfbsiHVRsa4MA7RVDPi
+ yZda18xMSj7gVReNgpkVS3IYfW2y4Yq9wBa4dHtxiS4ukAsi/+lbDWOqaRNhryL27qRN
+ M8fdWOoG7e31my6wi3XYydpQ2QFFja+qmUq57YGYfq84IG56VWa8Y58yfZEvxGNmkdeS
+ ROcmY65fp6mPo55MlG8kVk6cUjR/y+GmDOpFEWJ/AXDhnsAinq1CBLWopeF8ovwQO9wL
+ pbNewu1TdO3bS8ZUkDr6fOjwRalFcjVymsMPQXeHZi+UiTUoMir4hJJt3YfEmkDseAno
+ V+dg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc:content-transfer-encoding;
- bh=0ZOXSRSmgwM/8CfCPUrZ7l+OIh1asVluDdyFXnWqD8E=;
- b=3Jp+dcPEMMZxLnMjd2y2qViA6Z6T/0kFK8t39zzIoDxy7AVfFbkFbcmBOEb2mmjb/h
- YQxljQ0J0fx6J/9R1fVVgAC4jsCksATV/A6RvRb+Zn6KyQvtchblCo8OVPOnnHWpPlT3
- dOXLYgjyCdZQ4mlQry1sxC1gDKkfJPGj/0dauVfUKg/bTkiYZQd5sw++KrlE0uXAczEP
- YIV6t24QNP3ObKxO9f0/56IErAatvKtBijyqVpj4ACNHyuIDGXdWMcCu0L5+SVufXrgv
- m4KUMI9MkUsVOlo0n0x39VIxJySlzqRVE7kH5/sUqSfEbczb4aJA/21WtFm7wpB/HFoy
- DnVQ==
-X-Gm-Message-State: AJIora9db3qI4Ijt9S+dFQ8MxCopu+Q4xG5q1NkZrT8am79kA8Yvx9KR
- /Jh6R2NESQgpRIhVASx6TNvv4AFXwGAfx3uyt80=
-X-Google-Smtp-Source: AGRyM1u1pNjRlMbjWdZEYceQFq+a842D/zBdsYQozhXo4zH7jPGpQ6tqGeQop8qO1ntORr3Ei1MkK2BI3EBjQhr2i6c=
-X-Received: by 2002:a81:4bd7:0:b0:31c:91da:5a20 with SMTP id
- y206-20020a814bd7000000b0031c91da5a20mr20757632ywa.131.1657545016097; Mon, 11
- Jul 2022 06:10:16 -0700 (PDT)
+ bh=ECHKwgZspv8UJP39cVbtbsQnGobQ6/Wz0Usn92hQ97A=;
+ b=neyDf0TX0N9ECmWoVzGbWFRp7g3ThnVvcVG9HZoAmrT54mArRLU6uSmnnCjOmw1oSt
+ ED8RJKU4z5f4oW54MtuhjlbIM4JJeH39eKpPW0KfKkF0S/+zklm8+kRG6+ot7Z/W1Vv8
+ ir8S7kOLjyq+DXx8GQrNvhJ5hkEZYc/Im4dxx6tLaVw2uObSCgj08zSFX6/NxzNlIOnM
+ 0s0vloEwX75/d+Yuks11T9/bx4dXqAQFqBeD0Uv9xEWa5dTg7U91U9Bar7dvOh2sR3le
+ ATAA0jQYvcdYR8I2Ehzt7WLEwgtPQNbAVe07D1xHYtpDR28kUsyejXp6eEy0TDITLrSR
+ IjBg==
+X-Gm-Message-State: AJIora/Ihsg6Z8omgJk6kwKW3pNz2fLY9Ooxm7M4T8Q9rPXdahcSEr9R
+ tvauuc6jkz52ws64LkHamQGm96PLJAd7XEMwYNk=
+X-Google-Smtp-Source: AGRyM1s4R+hHsfAdGALiyefnWI51ka7x2bN1wgGP0eXwiLSnuO4ulGqtLU/InSVBkkY/IMtwOpEFg5YKLeC9E1Jy29w=
+X-Received: by 2002:a81:108f:0:b0:31c:d7ae:9ff1 with SMTP id
+ 137-20020a81108f000000b0031cd7ae9ff1mr18792069ywq.18.1657545391770; Mon, 11
+ Jul 2022 06:16:31 -0700 (PDT)
 MIME-Version: 1.0
 References: <20220711123835.811358-1-nuno.sa@analog.com>
- <20220711123835.811358-2-nuno.sa@analog.com>
-In-Reply-To: <20220711123835.811358-2-nuno.sa@analog.com>
+ <20220711123835.811358-16-nuno.sa@analog.com>
+In-Reply-To: <20220711123835.811358-16-nuno.sa@analog.com>
 From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Mon, 11 Jul 2022 15:09:39 +0200
-Message-ID: <CAHp75VfUNNAEDuxMfYeg=ZkD-nrUcnc13g+zGBLufayavm-QUw@mail.gmail.com>
+Date: Mon, 11 Jul 2022 15:15:55 +0200
+Message-ID: <CAHp75VcnuAtc+n+nhQ16yP9S-veX2c6ruquSewtPJdcqQwpyAQ@mail.gmail.com>
 To: =?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>
 Cc: Cai Huoqing <cai.huoqing@linux.dev>,
  Alexandre Belloni <alexandre.belloni@bootlin.com>,
@@ -90,8 +90,8 @@ Cc: Cai Huoqing <cai.huoqing@linux.dev>,
  Eugen Hristev <eugen.hristev@microchip.com>, Shawn Guo <shawnguo@kernel.org>,
  Claudiu Beznea <claudiu.beznea@microchip.com>,
  Jonathan Cameron <jic23@kernel.org>
-Subject: Re: [Linux-stm32] [PATCH v2 01/15] iio: inkern: only release the
- device node when done with it
+Subject: Re: [Linux-stm32] [PATCH v2 15/15] iio: inkern: fix coding style
+	warnings
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -108,20 +108,14 @@ Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gTW9uLCBKdWwgMTEsIDIwMjIgYXQgMjozOCBQTSBOdW5vIFPDoSA8bnVuby5zYUBhbmFsb2cu
-Y29tPiB3cm90ZToKPgo+ICdvZl9ub2RlX3B1dCgpJyBjYW4gcG90ZW50aWFsbHkgcmVsZWFzZSB0
-aGUgbWVtb3J5IHBvaW50ZWQgdG8gYnkKPiAnaWlvc3BlYy5ucCcgd2hpY2ggd291bGQgbGVhdmUg
-dXMgd2l0aCBhbiBpbnZhbGlkIHBvaW50ZXIgKGFuZCB3ZSB3b3VsZAo+IHN0aWxsIHBhc3MgaXQg
-aW4gJ29mX3hsYXRlKCknKS4gTm90ZSB0aGF0IGl0IGlzIG5vdCBndWFyYW50ZWVkIGZvciB0aGUK
-PiBvZl9ub2RlIGxpZmVzcGFuIHRvIGJlIGF0dGFjaGVkIHRvIHRoZSBkZXZpY2UgKHRvIHdoaWNo
-IGlzIGF0dGFjaGVkKQo+IGxpZmVzcGFuIHNvIHRoYXQgdGhlcmUgaXMgKGV2ZW4gdGhvdWdoIHZl
-cnkgdW5saWtlbHkpIHRoZSBwb3NzaWJpbGl0eQo+IGZvciB0aGUgbm9kZSB0byBmcmVlZCB3aGls
-ZSB0aGUgZGV2aWNlIGlzIHN0aWxsIGFyb3VuZC4gVGh1cywgYXMgdGhlcmUKCmJlIGZyZWVkCgo+
-IGFyZSBpbmRlZWQgc29tZSBvZl94bGF0ZSB1c2VycyB3aGljaCBkbyBhY2Nlc3MgdGhlIG5vZGUs
-IGEgcG9zc2libGUgcmFjZQo+IGlzIGluZGVlZCBwb3NzaWJsZS4KCnBvc3NpYmxlIC4uLiBwb3Nz
-aWJsZS4KCihJIHdvdWxkIGRyb3AgdGhlIGZpcnN0IG9uZSkKCj4gQXMgc3VjaCwgd2UgY2FuIG9u
-bHkgcmVsZWFzZSB0aGUgbm9kZSBhZnRlciB3ZSBhcmUgZG9uZSB3aXRoIGl0LgoKLS0gCldpdGgg
-QmVzdCBSZWdhcmRzLApBbmR5IFNoZXZjaGVua28KX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMy
-QHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3Jt
-cmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+T24gTW9uLCBKdWwgMTEsIDIwMjIgYXQgMjo0MCBQTSBOdW5vIFPDoSA8bnVuby5zYUBhbmFsb2cu
+Y29tPiB3cm90ZToKPgo+IEp1c3QgY29zbWV0aWNzLiBObyBmdW5jdGlvbmFsIGNoYW5nZSBpbnRl
+bmRlZC4uLgoKLi4uCgo+IC0gICAgICAgaWYgKG5hbWUgPT0gTlVMTCAmJiBjaGFubmVsX25hbWUg
+PT0gTlVMTCkKPiArICAgICAgIGlmICghbmFtZSAmJiAhY2hhbm5lbF9uYW1lKQo+ICAgICAgICAg
+ICAgICAgICByZXR1cm4gRVJSX1BUUigtRU5PREVWKTsKCkFmdGVyIHRoaXMgY2hhbmdlIGluIHBs
+YWNlLCBJIHRoaW5rIGl0J3MgYmV0dGVyIHRvIGNvbnZlcnQgaXQgdG8KCiAgaWYgKCEobmFtZSB8
+fCBjaGFubmVsX25hbWUpKQoKd2hpY2ggc2hvd3MgaW50ZW50aW9ucyBjbGVhcmVyLgoKLS0gCldp
+dGggQmVzdCBSZWdhcmRzLApBbmR5IFNoZXZjaGVua28KX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0
+bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0
+b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
