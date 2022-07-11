@@ -2,107 +2,48 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B079B570507
-	for <lists+linux-stm32@lfdr.de>; Mon, 11 Jul 2022 16:05:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F5575706B1
+	for <lists+linux-stm32@lfdr.de>; Mon, 11 Jul 2022 17:11:31 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 74E71C035BF;
-	Mon, 11 Jul 2022 14:05:51 +0000 (UTC)
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com
- [209.85.221.52])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 078E3C0C921;
+	Mon, 11 Jul 2022 15:11:31 +0000 (UTC)
+Received: from ms.lwn.net (ms.lwn.net [45.79.88.28])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2CFDAC035BF
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CDC8CC03FC7
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 11 Jul 2022 14:05:50 +0000 (UTC)
-Received: by mail-wr1-f52.google.com with SMTP id d16so7139374wrv.10
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 11 Jul 2022 07:05:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=message-id:subject:from:to:cc:date:in-reply-to:references
- :content-transfer-encoding:user-agent:mime-version;
- bh=OpuAbJzOZmkFVUVRYRfhJb2EZ79ErPrcazI4dJRRIZw=;
- b=AxqKn1jFCUvR9r8eF6G9LQNJai0j26cooZSTaW/y5LjqtvcEM/8McIf/+yQzlzaUFd
- LwcEnbV3x0T98SP3+BJlr0dZ/4NoEFEHYkvinYuvlXRJ/rScOUvz84TzCH0CqciB5xr3
- 70JCY+zxyG19vqUL7fnu7cTlKI0FIx088QGgbn+DUglz7JpgcVQ5PpQGbQcOhaZFlPbl
- Sj/1dCgEulNZFTYu6gtOT+azXEODMFcBsZXMw1Holn5VdIjBppSACDRDbXOOwlKV+GrT
- gUqBD8ESK3VZeUfDigHKr2IQSaYpAIV6HBehOLe57cJG8VwM+8e6vaZ86/RiS+6W3xCR
- PgeQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:subject:from:to:cc:date:in-reply-to
- :references:content-transfer-encoding:user-agent:mime-version;
- bh=OpuAbJzOZmkFVUVRYRfhJb2EZ79ErPrcazI4dJRRIZw=;
- b=xyBiU/mVD5mZ5Jj9P9tXpCP4d7xdkW+MISxq2zGDo2sE6wxnEqn0kZPOtwRoHdOG5U
- xKpQ23+ER7Xn1NLZI6K1OOve4EzOmn/8wOqzj/q5fujN0Yxm8xBlw0VpQgt9LQivsmcm
- xyAK78haQTrz3a8xz99/GhKB+EWf+IQKOfMn4s0bv1WEEu2xgmvDMdByAwD0hdPS/7aZ
- 82G0twFCuQt1Kbj2JZ0SFduXjbc5nKnqo1CPZk+YwAwTlS2YF8rqDA1CoG57UerQIBeA
- ppyJIfTiE2Nzinc0pFQuavqeM9PcFRP2dienpLnj2t5p+x3EP7Vi5MDO+Gpj+WS7jwL/
- BvTg==
-X-Gm-Message-State: AJIora919DViHZ49rpKhZ5ik4SreiD0vuziyFl7KeOvroGMRFmMEPyAz
- /t8UzRZTzDw3aObbaw6FRMM=
-X-Google-Smtp-Source: AGRyM1vjxZ3LaYt2iroYaYC6yqBPM5QdYtXuGkJjk8H9N1njA0MUYRP5ggIbz4O4J7Zmd/vjCEw/YA==
-X-Received: by 2002:adf:f581:0:b0:21d:1e01:e9b7 with SMTP id
- f1-20020adff581000000b0021d1e01e9b7mr16555540wro.529.1657548349537; 
- Mon, 11 Jul 2022 07:05:49 -0700 (PDT)
-Received: from p200300f6ef036f005de6a4d0d791ed01.dip0.t-ipconnect.de
- (p200300f6ef036f005de6a4d0d791ed01.dip0.t-ipconnect.de.
- [2003:f6:ef03:6f00:5de6:a4d0:d791:ed01])
- by smtp.gmail.com with ESMTPSA id
- g1-20020a05600c000100b00397623ff335sm6700494wmc.10.2022.07.11.07.05.46
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 11 Jul 2022 07:05:49 -0700 (PDT)
-Message-ID: <bb0aaee46261295e333c02d771a627d3695fdba2.camel@gmail.com>
-From: Nuno =?ISO-8859-1?Q?S=E1?= <noname.nuno@gmail.com>
-To: Andy Shevchenko <andy.shevchenko@gmail.com>, Nuno =?ISO-8859-1?Q?S=E1?=
- <nuno.sa@analog.com>
-Date: Mon, 11 Jul 2022 16:06:50 +0200
-In-Reply-To: <CAHp75VcxcmH5QoheyERAXrUeqMtJidKLBYH1T6dr6vb7yGKqWg@mail.gmail.com>
-References: <20220711123835.811358-1-nuno.sa@analog.com>
- <20220711123835.811358-4-nuno.sa@analog.com>
- <CAHp75VcxcmH5QoheyERAXrUeqMtJidKLBYH1T6dr6vb7yGKqWg@mail.gmail.com>
-User-Agent: Evolution 3.44.3 
+ Mon, 11 Jul 2022 15:11:29 +0000 (UTC)
+Received: from localhost (unknown [IPv6:2601:281:8300:73::5f6])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ms.lwn.net (Postfix) with ESMTPSA id 0D5272DC;
+ Mon, 11 Jul 2022 15:11:28 +0000 (UTC)
+DKIM-Filter: OpenDKIM Filter v2.11.0 ms.lwn.net 0D5272DC
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lwn.net; s=20201203;
+ t=1657552288; bh=hSeU9FXMoITez72aytKTs7KEhJYRCmp8Bx8U2+pCzbI=;
+ h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
+ b=V2AmnJYfF9ZWxEnWfd1sgkIJ6uzTaV240/uLdk1LNrvHOg1VW/nRW+QrYVkBW0GHe
+ 8V6u8tijpGygd+4R1Gf8gFTjKAQH2AnRUdG/ON/NTwlOOFp6EtH/QafxT+E3Rho+Py
+ SAYJjO/yo8WbiwkIScQfSkNOSMuSwv1Vs84YPwlDs/W8y1s7o1njjQBTNS1TycmSTQ
+ HQ9l+ZTIgtFiDpzzEsD+2qSxDyQzOqD+62hl3oaMryaPjFc34gnDtYoK0NmpIVlDCo
+ pmPbEDLDULYENcpDQ9e7mvjLyQscjNb3FOjPg/cG2B+ExDkCfGmf1ts2lAjr6yWPyB
+ cm93bj6KL4Npg==
+From: Jonathan Corbet <corbet@lwn.net>
+To: Amelie Delaunay <amelie.delaunay@foss.st.com>, Vinod Koul
+ <vkoul@kernel.org>, Maxime
+ Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>
+In-Reply-To: <20220711084703.268481-2-amelie.delaunay@foss.st.com>
+References: <20220711084703.268481-1-amelie.delaunay@foss.st.com>
+ <20220711084703.268481-2-amelie.delaunay@foss.st.com>
+Date: Mon, 11 Jul 2022 09:11:27 -0600
+Message-ID: <87a69ffzvk.fsf@meer.lwn.net>
 MIME-Version: 1.0
-Cc: Cai Huoqing <cai.huoqing@linux.dev>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Daniel Lezcano <daniel.lezcano@linaro.org>, Tomer Maimon <tmaimon77@gmail.com>,
- "Rafael J.
- Wysocki" <rafael@kernel.org>, linux-iio <linux-iio@vger.kernel.org>,
- Linus Walleij <linus.walleij@linaro.org>, Amit Kucheria <amitk@kernel.org>,
- "open list:BROADCOM NVRAM DRIVER" <linux-mips@vger.kernel.org>,
- Paul Cercueil <paul@crapouillou.net>,
- Miquel Raynal <miquel.raynal@bootlin.com>, Guenter Roeck <groeck@chromium.org>,
- Fabio Estevam <festevam@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
- chrome-platform@lists.linux.dev, Lars-Peter Clausen <lars@metafoo.de>,
- Benjamin Fair <benjaminfair@google.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Jishnu Prakash <quic_jprakash@quicinc.com>, Haibo Chen <haibo.chen@nxp.com>,
- Nancy Yuen <yuenn@google.com>, Andy Gross <agross@kernel.org>,
- dl-linux-imx <linux-imx@nxp.com>, Zhang Rui <rui.zhang@intel.com>,
- Christophe Branchereau <cbranchereau@gmail.com>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- Saravanan Sekar <sravanhome@gmail.com>,
- Michael Hennerich <Michael.Hennerich@analog.com>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
- "moderated list:ARM/Mediatek SoC
- support" <linux-mediatek@lists.infradead.org>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Gwendal Grignou <gwendal@chromium.org>, Tali Perry <tali.perry1@gmail.com>,
- Benson Leung <bleung@chromium.org>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- linux-arm Mailing List <linux-arm-kernel@lists.infradead.org>,
- Lorenzo Bianconi <lorenzo@kernel.org>, Avi Fishman <avifishman70@gmail.com>,
- Patrick Venture <venture@google.com>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- Thara Gopinath <thara.gopinath@linaro.org>,
- Linux-Renesas <linux-renesas-soc@vger.kernel.org>,
- Arnd Bergmann <arnd@arndb.de>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Eugen Hristev <eugen.hristev@microchip.com>, Shawn Guo <shawnguo@kernel.org>,
- Claudiu Beznea <claudiu.beznea@microchip.com>,
- Jonathan Cameron <jic23@kernel.org>
-Subject: Re: [Linux-stm32] [PATCH v2 03/15] iio: inkern: only return error
- codes in iio_channel_get_*() APIs
+Cc: Marek Vasut <marex@denx.de>, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dmaengine@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 1/4] docs: arm: stm32: introduce STM32
+ DMA-MDMA chaining feature
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -114,49 +55,111 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gTW9uLCAyMDIyLTA3LTExIGF0IDE1OjI5ICswMjAwLCBBbmR5IFNoZXZjaGVua28gd3JvdGU6
-Cj4gT24gTW9uLCBKdWwgMTEsIDIwMjIgYXQgMjozOCBQTSBOdW5vIFPDoSA8bnVuby5zYUBhbmFs
-b2cuY29tPiB3cm90ZToKPiA+IAo+ID4gQVBJcyBsaWtlIG9mX2lpb19jaGFubmVsX2dldF9ieV9u
-YW1lKCkgYW5kIG9mX2lpb19jaGFubmVsX2dldF9hbGwoKQo+ID4gd2VyZQo+ID4gcmV0dXJuaW5n
-IGEgbWl4IG9mIE5VTEwgYW5kIHBvaW50ZXJzIHdpdGggTlVMTCBiZWluZyB0aGUgd2F5IHRvCj4g
-PiAibm90aWZ5IiB0aGF0IHdlIHNob3VsZCBkbyBhICJzeXN0ZW0iIGxvb2t1cCBmb3IgY2hhbm5l
-bHMuIFRoaXMKPiA+IG1ha2UKPiA+IGl0IHZlcnkgY29uZnVzaW5nIGFuZCBwcm9uZSB0byBlcnJv
-cnMgYXMgY29tbWl0IDlmNjNjYzA5MjFlYwo+ID4gKCJpaW86IGlua2VybjogZml4IHJldHVybiB2
-YWx1ZSBpbgo+ID4gZGV2bV9vZl9paW9fY2hhbm5lbF9nZXRfYnlfbmFtZSgpIikKPiA+IHByb3Zl
-cy4gT24gdG9wIG9mIHRoaXMsIHBhdHRlcm5zIGxpa2UgJ2lmIChjaGFubmVsICE9IE5VTEwpIHJl
-dHVybgo+ID4gY2hhbm5lbCcgd2VyZSBiZWluZyB1c2VkIHdoZXJlIGNoYW5uZWwgY291bGQgYWN0
-dWFsbHkgYmUgYW4gZXJyb3IKPiA+IGNvZGUKPiA+IHdoaWNoIG1ha2VzIHRoZSBjb2RlIGhhcmQg
-dG8gcmVhZC4KPiA+IAo+ID4gVGhpcyBjaGFuZ2UgYWxzbyBtYWtlcyBzb21lIGZ1bmN0aW9uYWwg
-Y2hhbmdlcyBvbiBob3cgZXJyb3JzIHdlcmUKPiA+IGJlaW5nCj4gPiBoYW5kbGVkLiBJbiB0aGUg
-b3JpZ2luYWwgYmVoYXZpb3IsIGV2ZW4gaWYgd2UgZ2V0IGFuIGVycm9yIGxpa2UgJy0KPiA+IEVO
-T01FTScsCj4gPiB3ZSBzdGlsbCBjb250aW51ZSB3aXRoIHRoZSBzZWFyY2guIFdlIHNob3VsZCBv
-bmx5IGNvbnRpbnVlIHRvCj4gPiBsb29rdXAgZm9yCj4gPiB0aGUgY2hhbm5lbCB3aGVuIGl0IG1h
-a2VzIHNlbnNlIHRvIGRvIHNvLiBIZW5jZSwgdGhlIG1haW4gZXJyb3IKPiA+IGhhbmRsaW5nCj4g
-PiBpbiAnb2ZfaWlvX2NoYW5uZWxfZ2V0X2J5X25hbWUoKScgaXMgY2hhbmdlZCB0byB0aGUgZm9s
-bG93aW5nCj4gPiBsb2dpYzoKPiA+IAo+ID4gwqAqIElmIGEgY2hhbm5lbCAnbmFtZScgaXMgcHJv
-dmlkZWQgYW5kIHdlIGRvIGZpbmQgaXQgdmlhCj4gPiAnaW8tY2hhbm5lbC1uYW1lcycsIHdlIHNo
-b3VsZCBiZSBhYmxlIHRvIGdldCBpdC4gSWYgd2UgZ2V0IGFueQo+ID4gZXJyb3IsCj4gPiB3ZSBz
-aG91bGQgbm90IHByb2NlZWQgd2l0aCB0aGUgbG9va3VwLiBNb3Jlb3Zlciwgd2Ugc2hvdWxkIHJl
-dHVybgo+ID4gYW4gZXJyb3IKPiA+IHNvIHRoYXQgY2FsbGVycyB3b24ndCBwcm9jZWVkIHdpdGgg
-YSBzeXN0ZW0gbG9va3VwLgo+ID4gwqAqIElmIGEgY2hhbm5lbCAnbmFtZScgaXMgcHJvdmlkZWQg
-YW5kIHdlIGNhbm5vdCBmaW5kIGl0ICgnaW5kZXggPAo+ID4gMCcpLAo+ID4gJ29mX3BhcnNlX3Bo
-YW5kbGVfd2l0aF9hcmdzKCknIGlzIGV4cGVjdGVkIHRvIGZhaWwgd2l0aCAnLUVJTlZBTCcuCj4g
-PiBIZW5jZSwKPiA+IHdlIHNob3VsZCBvbmx5IGNvbnRpbnVlIGlmIHdlIGdldCB0aGF0IGVycm9y
-Lgo+ID4gwqAqIElmIGEgY2hhbm5lbCAnbmFtZScgaXMgbm90IHByb3ZpZGVkIHdlIHNob3VsZCBv
-bmx5IGNhcnJ5IG9uIHdpdGgKPiA+IHRoZQo+ID4gc2VhcmNoIGlmICdvZl9wYXJzZV9waGFuZGxl
-X3dpdGhfYXJncygpJyByZXR1cm5zICctRU5PRU5UJy4KPiA+IAo+ID4gQWxzbyBub3RlIHRoYXQg
-YSBzeXN0ZW0gY2hhbm5lbCBsb29rdXAgaXMgb25seSBkb25lIGlmIHRoZSByZXR1cm5lZAo+ID4g
-ZXJyb3IgY29kZSAoZnJvbSAnb2ZfaWlvX2NoYW5uZWxfZ2V0X2J5X25hbWUoKScgb3IKPiA+ICdv
-Zl9paW9fY2hhbm5lbF9nZXRfYWxsKCknIGlzIC1FTk9ERVYuCj4gCj4gTEdUTSAoYnV0IEkgbWln
-aHQgbWlzcyBzb21ldGhpbmcsIGl0J3MgYSBiaXQgdG9vIG1hbnkgY29uZGl0aW9uYWxzKSwKPiBS
-ZXZpZXdlZC1ieTogQW5keSBTaGV2Y2hlbmtvIDxhbmR5LnNoZXZjaGVua29AZ21haWwuY29tPgo+
-IAoKQWdyZWVkLiBJdCBlbmRlZCB1cCBiZWluZyBtb3JlIGNvbXBsaWNhdGVkIHRoYW4gSSB0aG91
-Z2h0Li4uCgotIE51bm8gU8OhCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWls
-bWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9t
-YWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+Amelie Delaunay <amelie.delaunay@foss.st.com> writes:
+
+> STM32 DMA-MDMA chaining feature is available on STM32 SoCs which embed
+> STM32 DMAMUX, DMA and MDMA controllers. It is the case on STM32MP1 SoCs but
+> also on STM32H7 SoCs. But focus is on STM32MP1 SoCs, using DDR.
+> This documentation aims to explain how to use STM32 DMA-MDMA chaining
+> feature in drivers of STM32 peripheral having request lines on STM32 DMA.
+>
+> Signed-off-by: Amelie Delaunay <amelie.delaunay@foss.st.com>
+> ---
+>  .../arm/stm32/stm32-dma-mdma-chaining.rst     | 365 ++++++++++++++++++
+>  1 file changed, 365 insertions(+)
+>  create mode 100644 Documentation/arm/stm32/stm32-dma-mdma-chaining.rst
+
+When you add a new RST file you also need to add it to index.rst
+somewhere so that it becomes part of the docs build.
+
+> diff --git a/Documentation/arm/stm32/stm32-dma-mdma-chaining.rst b/Documentation/arm/stm32/stm32-dma-mdma-chaining.rst
+> new file mode 100644
+> index 000000000000..bfbbadc45aa7
+> --- /dev/null
+> +++ b/Documentation/arm/stm32/stm32-dma-mdma-chaining.rst
+> @@ -0,0 +1,365 @@
+> +.. SPDX-License-Identifier: GPL-2.0
+> +
+> +=======================
+> +STM32 DMA-MDMA chaining
+> +=======================
+> +
+> +
+> +Introduction
+> +------------
+> +
+> +  This document describes the STM32 DMA-MDMA chaining feature. But before going further, let's
+> +  introduce the peripherals involved.
+
+Please keep to the 80-column limit for documentation, it makes it easier
+to read.
+
+> +  To offload data transfers from the CPU, STM32 microprocessors (MPUs) embed direct memory access
+> +  controllers (DMA).
+> +
+> +  STM32MP1 SoCs embed both STM32 DMA and STM32 MDMA controllers. STM32 DMA request routing
+> +  capabilities are enhanced by a DMA request multiplexer (STM32 DMAMUX).
+> +
+> +  **STM32 DMAMUX**
+> +
+> +  STM32 DMAMUX routes any DMA request from a given peripheral to any STM32 DMA controller (STM32MP1
+> +  counts two STM32 DMA controllers) channels.
+> +
+> +  **STM32 DMA**
+> +
+> +  STM32 DMA is mainly used to implement central data buffer storage (usually in the system SRAM) for
+> +  different peripheral. It can access external RAMs but without the ability to generate convenient
+> +  burst transfer ensuring the best load of the AXI.
+> +
+> +  **STM32 MDMA**
+> +
+> +  STM32 MDMA (Master DMA) is mainly used to manage direct data transfers between RAM data buffers
+> +  without CPU intervention. It can also be used in a hierarchical structure that uses STM32 DMA as
+> +  first level data buffer interfaces for AHB peripherals, while the STM32 MDMA acts as a second
+> +  level DMA with better performance. As a AXI/AHB master, STM32 MDMA can take control of the AXI/AHB
+> +  bus.
+> +
+> +
+> +Principles
+> +----------
+> +
+> +  STM32 DMA-MDMA chaining feature relies on the strengths of STM32 DMA and STM32 MDMA controllers.
+> +
+> +  STM32 DMA has a circular Double Buffer Mode (DBM). At each end of transaction (when DMA data
+> +  counter - DMA_SxNDTR - reaches 0), the memory pointers (configured with DMA_SxSM0AR and
+> +  DMA_SxM1AR) are swapped and the DMA data counter is automatically reloaded. This allows the SW or
+> +  the STM32 MDMA to process one memory area while the second memory area is being filled/used by the
+> +  STM32 DMA transfer.
+> +
+> +  With STM32 MDMA linked-list mode, a single request initiates the data array (collection of nodes)
+> +  to be transferred until the linked-list pointer for the channel is null. The channel transfer
+> +  complete of the last node is the end of transfer, unless first and last nodes are linked to each
+> +  other, in such a case, the linked-list loops on to create a circular MDMA transfer.
+> +
+> +  STM32 MDMA has direct connections with STM32 DMA. This enables autonomous communication and
+> +  synchronization between peripherals, thus saving CPU resources and bus congestion. Transfer
+> +  Complete signal of STM32 DMA channel can triggers STM32 MDMA transfer. STM32 MDMA can clear the
+> +  request generated by the STM32 DMA by writing to its Interrupt Clear register (whose address is
+> +  stored in MDMA_CxMAR, and bit mask in MDMA_CxMDR).
+> +
+> +  .. csv-table:: STM32 MDMA interconnect table with STM32 DMA
+> +        :header: "STM32 DMAMUX channels", "STM32 DMA controllers channels",
+> +                 "STM32 DMA Transfer Complete signal", "STM32 MDMA request"
+
+If at all possible, please use simple tables; that makes the plain text
+documentation much easier to read.
+
+[...]
+
+Thanks,
+
+jon
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
