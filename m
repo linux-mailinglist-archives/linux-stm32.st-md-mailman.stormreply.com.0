@@ -2,48 +2,52 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4F5575706B1
-	for <lists+linux-stm32@lfdr.de>; Mon, 11 Jul 2022 17:11:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 16717570D57
+	for <lists+linux-stm32@lfdr.de>; Tue, 12 Jul 2022 00:31:39 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 078E3C0C921;
-	Mon, 11 Jul 2022 15:11:31 +0000 (UTC)
-Received: from ms.lwn.net (ms.lwn.net [45.79.88.28])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8320BC640F0;
+	Mon, 11 Jul 2022 22:31:38 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CDC8CC03FC7
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0A157C03FE1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 11 Jul 2022 15:11:29 +0000 (UTC)
-Received: from localhost (unknown [IPv6:2601:281:8300:73::5f6])
+ Mon, 11 Jul 2022 22:31:37 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ms.lwn.net (Postfix) with ESMTPSA id 0D5272DC;
- Mon, 11 Jul 2022 15:11:28 +0000 (UTC)
-DKIM-Filter: OpenDKIM Filter v2.11.0 ms.lwn.net 0D5272DC
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lwn.net; s=20201203;
- t=1657552288; bh=hSeU9FXMoITez72aytKTs7KEhJYRCmp8Bx8U2+pCzbI=;
- h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
- b=V2AmnJYfF9ZWxEnWfd1sgkIJ6uzTaV240/uLdk1LNrvHOg1VW/nRW+QrYVkBW0GHe
- 8V6u8tijpGygd+4R1Gf8gFTjKAQH2AnRUdG/ON/NTwlOOFp6EtH/QafxT+E3Rho+Py
- SAYJjO/yo8WbiwkIScQfSkNOSMuSwv1Vs84YPwlDs/W8y1s7o1njjQBTNS1TycmSTQ
- HQ9l+ZTIgtFiDpzzEsD+2qSxDyQzOqD+62hl3oaMryaPjFc34gnDtYoK0NmpIVlDCo
- pmPbEDLDULYENcpDQ9e7mvjLyQscjNb3FOjPg/cG2B+ExDkCfGmf1ts2lAjr6yWPyB
- cm93bj6KL4Npg==
-From: Jonathan Corbet <corbet@lwn.net>
-To: Amelie Delaunay <amelie.delaunay@foss.st.com>, Vinod Koul
- <vkoul@kernel.org>, Maxime
- Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
- <alexandre.torgue@foss.st.com>
-In-Reply-To: <20220711084703.268481-2-amelie.delaunay@foss.st.com>
-References: <20220711084703.268481-1-amelie.delaunay@foss.st.com>
- <20220711084703.268481-2-amelie.delaunay@foss.st.com>
-Date: Mon, 11 Jul 2022 09:11:27 -0600
-Message-ID: <87a69ffzvk.fsf@meer.lwn.net>
+ by ams.source.kernel.org (Postfix) with ESMTPS id 81E08B815F3;
+ Mon, 11 Jul 2022 22:31:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A7317C34115;
+ Mon, 11 Jul 2022 22:31:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1657578695;
+ bh=ZL3TQAfBSmk88tbrJpOmYI/DhBKsXihG4ur1c9u/6CE=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=QtJ45TwDZh+xTseD9Q7Supflim9NOmwQnMYu1GnBsZen5AI4G88aNxeC08vWmvjSp
+ fNsYmzSznBL72MKmU2EAVwkuPE+QISPpc/NP7g0ZEVAqa7TocWxGfDYz4a/U/vO8mi
+ nvDV87fgN2s6Rt0pVAPruKZJBBvPjCVeASosS7loZwKJFb/2wJBhDNRZk8Y6Wmd8ze
+ PNh9klXnqkV4gjjI3SYVne02mJ+IrIeshlIQyQVwXsNEZ1Ka0gReOMBRUmMMKcV71M
+ VGrUcwGf2n2hst0JLqHPH7SJX+xegIde9+jvPPelECh/swLvBxIPMhbGnigPVIT+6q
+ FKAIKevSOy06g==
+Date: Mon, 11 Jul 2022 15:31:25 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Biao Huang <biao.huang@mediatek.com>
+Message-ID: <20220711153125.74442bce@kernel.org>
+In-Reply-To: <20220708083937.27334-2-biao.huang@mediatek.com>
+References: <20220708083937.27334-1-biao.huang@mediatek.com>
+ <20220708083937.27334-2-biao.huang@mediatek.com>
 MIME-Version: 1.0
-Cc: Marek Vasut <marex@denx.de>, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, dmaengine@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 1/4] docs: arm: stm32: introduce STM32
- DMA-MDMA chaining feature
+Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
+ Jose Abreu <joabreu@synopsys.com>, linux-mediatek@lists.infradead.org,
+ macpaul.lin@mediatek.com, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>, Paolo Abeni <pabeni@redhat.com>,
+ David Miller <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Subject: Re: [Linux-stm32] [PATCH net v3] stmmac: dwmac-mediatek: fix clock
+	issue
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,105 +64,15 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Amelie Delaunay <amelie.delaunay@foss.st.com> writes:
+On Fri, 8 Jul 2022 16:39:37 +0800 Biao Huang wrote:
+> Since clocks are handled in mediatek_dwmac_clks_config(),
+> remove the clocks configuration in init()/exit(), and
+> invoke mediatek_dwmac_clks_config instead.
+> 
+> This issue is found in suspend/resume test.
 
-> STM32 DMA-MDMA chaining feature is available on STM32 SoCs which embed
-> STM32 DMAMUX, DMA and MDMA controllers. It is the case on STM32MP1 SoCs but
-> also on STM32H7 SoCs. But focus is on STM32MP1 SoCs, using DDR.
-> This documentation aims to explain how to use STM32 DMA-MDMA chaining
-> feature in drivers of STM32 peripheral having request lines on STM32 DMA.
->
-> Signed-off-by: Amelie Delaunay <amelie.delaunay@foss.st.com>
-> ---
->  .../arm/stm32/stm32-dma-mdma-chaining.rst     | 365 ++++++++++++++++++
->  1 file changed, 365 insertions(+)
->  create mode 100644 Documentation/arm/stm32/stm32-dma-mdma-chaining.rst
-
-When you add a new RST file you also need to add it to index.rst
-somewhere so that it becomes part of the docs build.
-
-> diff --git a/Documentation/arm/stm32/stm32-dma-mdma-chaining.rst b/Documentation/arm/stm32/stm32-dma-mdma-chaining.rst
-> new file mode 100644
-> index 000000000000..bfbbadc45aa7
-> --- /dev/null
-> +++ b/Documentation/arm/stm32/stm32-dma-mdma-chaining.rst
-> @@ -0,0 +1,365 @@
-> +.. SPDX-License-Identifier: GPL-2.0
-> +
-> +=======================
-> +STM32 DMA-MDMA chaining
-> +=======================
-> +
-> +
-> +Introduction
-> +------------
-> +
-> +  This document describes the STM32 DMA-MDMA chaining feature. But before going further, let's
-> +  introduce the peripherals involved.
-
-Please keep to the 80-column limit for documentation, it makes it easier
-to read.
-
-> +  To offload data transfers from the CPU, STM32 microprocessors (MPUs) embed direct memory access
-> +  controllers (DMA).
-> +
-> +  STM32MP1 SoCs embed both STM32 DMA and STM32 MDMA controllers. STM32 DMA request routing
-> +  capabilities are enhanced by a DMA request multiplexer (STM32 DMAMUX).
-> +
-> +  **STM32 DMAMUX**
-> +
-> +  STM32 DMAMUX routes any DMA request from a given peripheral to any STM32 DMA controller (STM32MP1
-> +  counts two STM32 DMA controllers) channels.
-> +
-> +  **STM32 DMA**
-> +
-> +  STM32 DMA is mainly used to implement central data buffer storage (usually in the system SRAM) for
-> +  different peripheral. It can access external RAMs but without the ability to generate convenient
-> +  burst transfer ensuring the best load of the AXI.
-> +
-> +  **STM32 MDMA**
-> +
-> +  STM32 MDMA (Master DMA) is mainly used to manage direct data transfers between RAM data buffers
-> +  without CPU intervention. It can also be used in a hierarchical structure that uses STM32 DMA as
-> +  first level data buffer interfaces for AHB peripherals, while the STM32 MDMA acts as a second
-> +  level DMA with better performance. As a AXI/AHB master, STM32 MDMA can take control of the AXI/AHB
-> +  bus.
-> +
-> +
-> +Principles
-> +----------
-> +
-> +  STM32 DMA-MDMA chaining feature relies on the strengths of STM32 DMA and STM32 MDMA controllers.
-> +
-> +  STM32 DMA has a circular Double Buffer Mode (DBM). At each end of transaction (when DMA data
-> +  counter - DMA_SxNDTR - reaches 0), the memory pointers (configured with DMA_SxSM0AR and
-> +  DMA_SxM1AR) are swapped and the DMA data counter is automatically reloaded. This allows the SW or
-> +  the STM32 MDMA to process one memory area while the second memory area is being filled/used by the
-> +  STM32 DMA transfer.
-> +
-> +  With STM32 MDMA linked-list mode, a single request initiates the data array (collection of nodes)
-> +  to be transferred until the linked-list pointer for the channel is null. The channel transfer
-> +  complete of the last node is the end of transfer, unless first and last nodes are linked to each
-> +  other, in such a case, the linked-list loops on to create a circular MDMA transfer.
-> +
-> +  STM32 MDMA has direct connections with STM32 DMA. This enables autonomous communication and
-> +  synchronization between peripherals, thus saving CPU resources and bus congestion. Transfer
-> +  Complete signal of STM32 DMA channel can triggers STM32 MDMA transfer. STM32 MDMA can clear the
-> +  request generated by the STM32 DMA by writing to its Interrupt Clear register (whose address is
-> +  stored in MDMA_CxMAR, and bit mask in MDMA_CxMDR).
-> +
-> +  .. csv-table:: STM32 MDMA interconnect table with STM32 DMA
-> +        :header: "STM32 DMAMUX channels", "STM32 DMA controllers channels",
-> +                 "STM32 DMA Transfer Complete signal", "STM32 MDMA request"
-
-If at all possible, please use simple tables; that makes the plain text
-documentation much easier to read.
-
-[...]
-
-Thanks,
-
-jon
+Please improve the commit message so that it answers the questions
+Matthias had and repost.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
