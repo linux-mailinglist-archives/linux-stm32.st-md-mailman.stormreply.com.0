@@ -2,66 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 63B3D56D8AB
-	for <lists+linux-stm32@lfdr.de>; Mon, 11 Jul 2022 10:47:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BCC15570116
+	for <lists+linux-stm32@lfdr.de>; Mon, 11 Jul 2022 13:49:15 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 29D22C640F4;
-	Mon, 11 Jul 2022 08:47:50 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5D8F4C03FE1;
+	Mon, 11 Jul 2022 11:49:15 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
  [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A0CF5C640EF
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AD929C035BF
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 11 Jul 2022 08:47:48 +0000 (UTC)
+ Mon, 11 Jul 2022 11:49:13 +0000 (UTC)
 Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 26B8JJnG027600;
- Mon, 11 Jul 2022 10:47:23 +0200
+ by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 26B8GhDu023853;
+ Mon, 11 Jul 2022 13:48:48 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
  h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-transfer-encoding : content-type; s=selector1;
- bh=fQkDSe4YJDnm5bdjjWIF+vwsj55oeTNPgJCPMUTOmgE=;
- b=qW781KtVjArfSUJuX/E++exNcwV4Tppc1JWo/DZozkObwHwWURGZCiV6nVgNr5PLUH4S
- 5ZPQX+dbOCVJnMJUuucSZtht7U2yNkVa0pukwkVlpqMUNbMA5jvjBvhxoBfIVp0+WtpE
- 4INuz0+cnnkhUldFOI4Np/HCqojqdV6pPzQFFQHgk2scKS81Acw3TApRavgPMDfu6Lfj
- CpQGgPmY/MmGDSnIz64rFAo4cINRpDog2G7Li1Ezxds9XvMngMmESjnjtt7tkxJzmYIW
- vT97ievk7gHbMeROZHTkU3Q9tVf/p04T+V4UdSO6gQcyVHt/ZuZyNQoWEJRMksERuX8L bA== 
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=selector1;
+ bh=IBdPZD/lgcjOqxf5WRf16r/XmqP10xUsJSLa25j+xfA=;
+ b=q5Z5UPwAbRwN0wgwvmFjR8apZhP7Beg8MBFKZ3jAatKXy0zj0iG1LLJ+TpVCWXYGHJ4u
+ x8YWumDgNLUd+JCBXNTKcwTsgDspuNjx8c+R5ZS7LfSJuRAyfKqoOym4gTLi4Jm5HDCX
+ uM+2Imkm+gziVTW9vIzPp3fAb0fidJTdH7Sah4AcV1M3kLwCF4H3mF/gk16P6OTRSc8p
+ yRdK0oYHRJgOu8pCoRdNv0XoDPeHRmSH6cgacwyO2qosMClnwbJY0ADTqXiwoTJD8IAk
+ WUWmkz2jIbwFY0JD+GKeV29auv5EpKyv5JPVbnWX6DOVUkC9GK9LPF82niTg/CiKtV/I Gg== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3h6xtaj4k3-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3h6xtak3vt-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 11 Jul 2022 10:47:23 +0200
+ Mon, 11 Jul 2022 13:48:48 +0200
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 7CFEC10003A;
- Mon, 11 Jul 2022 10:47:22 +0200 (CEST)
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id E3D3C10002A;
+ Mon, 11 Jul 2022 13:48:46 +0200 (CEST)
 Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 7883321513F;
- Mon, 11 Jul 2022 10:47:22 +0200 (CEST)
-Received: from localhost (10.75.127.48) by SHFDAG1NODE2.st.com (10.75.129.70)
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id DB69C21D384;
+ Mon, 11 Jul 2022 13:48:46 +0200 (CEST)
+Received: from localhost (10.75.127.50) by SHFDAG1NODE2.st.com (10.75.129.70)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2308.20; Mon, 11 Jul
- 2022 10:47:22 +0200
-From: Amelie Delaunay <amelie.delaunay@foss.st.com>
-To: Jonathan Corbet <corbet@lwn.net>, Vinod Koul <vkoul@kernel.org>, Maxime
- Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
- <alexandre.torgue@foss.st.com>
-Date: Mon, 11 Jul 2022 10:47:03 +0200
-Message-ID: <20220711084703.268481-5-amelie.delaunay@foss.st.com>
+ 2022 13:48:46 +0200
+From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+To: <krzysztof.kozlowski+dt@linaro.org>, <robh+dt@kernel.org>,
+ <heikki.krogerus@linux.intel.com>, <gregkh@linuxfoundation.org>
+Date: Mon, 11 Jul 2022 13:48:27 +0200
+Message-ID: <20220711114831.25205-1-fabrice.gasnier@foss.st.com>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220711084703.268481-1-amelie.delaunay@foss.st.com>
-References: <20220711084703.268481-1-amelie.delaunay@foss.st.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.48]
+X-Originating-IP: [10.75.127.50]
 X-ClientProxiedBy: SFHDAG2NODE3.st.com (10.75.127.6) To SHFDAG1NODE2.st.com
  (10.75.129.70)
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.205,Aquarius:18.0.883,Hydra:6.0.517,FMLib:17.11.122.1
- definitions=2022-07-11_14,2022-07-08_01,2022-06-22_01
-Cc: Marek Vasut <marex@denx.de>, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, dmaengine@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 4/4] dmaengine: stm32-mdma: add support to be
-	triggered by STM32 DMA
+ definitions=2022-07-11_17,2022-07-08_01,2022-06-22_01
+Cc: devicetree@vger.kernel.org, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org, christophe.jaillet@wanadoo.fr,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [PATCH v2 0/4] usb: typec: ucsi: add support for
+	stm32g0
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,201 +75,41 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-STM32 MDMA can be triggered by STM32 DMA channels transfer complete.
+STM32G0 provides an integrated USB Type-C and power delivery interface [1].
+It can be programmed with a firmware [2] to act as a PPM. Currently it
+implements UCSI protocol over I2C interface. A GPIO is used as an interrupt
+line.
 
-In case of non-null struct dma_slave_config .peripheral_size, it means the
-DMA client wants the DMA to trigger the MDMA.
+This series adds a driver to support it, including:
+- dt-bindings documentation
+- optional STM32G0 firmware control and update, over a secondary I2C address
+- power management
 
-stm32-mdma driver gets the request id, the mask_addr, and the mask_data in
-struct stm32_mdma_dma_config passed by DMA with struct dma_slave_config
-.peripheral_config/.peripheral_size.
+[1] https://wiki.st.com/stm32mcu/wiki/Introduction_to_USB_Power_Delivery_with_STM32
+[2] https://github.com/STMicroelectronics/x-cube-ucsi
 
-Then, as DMA is configured in Double-Buffer mode, and MDMA channel will
-transfer data from/to SRAM to/from DDR, then bursts are optimized.
+Changes in v2:
+- Krzysztof's review comments on dt-bindings: update commit message, use ports,
+  use unevaluatedProperties: false for usb-connector schema, define maxItems
+  for power-domains, adopt generic node names, remove quotes.
+- Christophe's comments on driver:
+  use kmalloc instead of kzalloc
+  Use-after-free of buf: directly print the offset
 
-Signed-off-by: Amelie Delaunay <amelie.delaunay@foss.st.com>
----
- drivers/dma/stm32-mdma.c | 70 +++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 69 insertions(+), 1 deletion(-)
+Fabrice Gasnier (4):
+  dt-bindings: usb: typec: add bindings for stm32g0 controller
+  usb: typec: ucsi: stm32g0: add support for stm32g0 i2c controller
+  usb: typec: ucsi: stm32g0: add bootloader support
+  usb: typec: ucsi: stm32g0: add support for power management
 
-diff --git a/drivers/dma/stm32-mdma.c b/drivers/dma/stm32-mdma.c
-index b11927ed4367..e28acbcb53f4 100644
---- a/drivers/dma/stm32-mdma.c
-+++ b/drivers/dma/stm32-mdma.c
-@@ -199,6 +199,7 @@ struct stm32_mdma_chan_config {
- 	u32 transfer_config;
- 	u32 mask_addr;
- 	u32 mask_data;
-+	bool m2m_hw; /* True when MDMA is triggered by STM32 DMA */
- };
- 
- struct stm32_mdma_hwdesc {
-@@ -227,6 +228,12 @@ struct stm32_mdma_desc {
- 	struct stm32_mdma_desc_node node[];
- };
- 
-+struct stm32_mdma_dma_config {
-+	u32 request;	/* STM32 DMA channel stream id, triggering MDMA */
-+	u32 cmar;	/* STM32 DMA interrupt flag clear register address */
-+	u32 cmdr;	/* STM32 DMA Transfer Complete flag */
-+};
-+
- struct stm32_mdma_chan {
- 	struct virt_dma_chan vchan;
- 	struct dma_pool *desc_pool;
-@@ -539,13 +546,23 @@ static int stm32_mdma_set_xfer_param(struct stm32_mdma_chan *chan,
- 		dst_addr = chan->dma_config.dst_addr;
- 
- 		/* Set device data size */
-+		if (chan_config->m2m_hw)
-+			dst_addr_width = stm32_mdma_get_max_width(dst_addr, buf_len,
-+								  STM32_MDMA_MAX_BUF_LEN);
- 		dst_bus_width = stm32_mdma_get_width(chan, dst_addr_width);
- 		if (dst_bus_width < 0)
- 			return dst_bus_width;
- 		ctcr &= ~STM32_MDMA_CTCR_DSIZE_MASK;
- 		ctcr |= STM32_MDMA_CTCR_DSIZE(dst_bus_width);
-+		if (chan_config->m2m_hw) {
-+			ctcr &= ~STM32_MDMA_CTCR_DINCOS_MASK;
-+			ctcr |= STM32_MDMA_CTCR_DINCOS(dst_bus_width);
-+		}
- 
- 		/* Set device burst value */
-+		if (chan_config->m2m_hw)
-+			dst_maxburst = STM32_MDMA_MAX_BUF_LEN / dst_addr_width;
-+
- 		dst_best_burst = stm32_mdma_get_best_burst(buf_len, tlen,
- 							   dst_maxburst,
- 							   dst_addr_width);
-@@ -588,13 +605,24 @@ static int stm32_mdma_set_xfer_param(struct stm32_mdma_chan *chan,
- 		src_addr = chan->dma_config.src_addr;
- 
- 		/* Set device data size */
-+		if (chan_config->m2m_hw)
-+			src_addr_width = stm32_mdma_get_max_width(src_addr, buf_len,
-+								  STM32_MDMA_MAX_BUF_LEN);
-+
- 		src_bus_width = stm32_mdma_get_width(chan, src_addr_width);
- 		if (src_bus_width < 0)
- 			return src_bus_width;
- 		ctcr &= ~STM32_MDMA_CTCR_SSIZE_MASK;
- 		ctcr |= STM32_MDMA_CTCR_SSIZE(src_bus_width);
-+		if (chan_config->m2m_hw) {
-+			ctcr &= ~STM32_MDMA_CTCR_SINCOS_MASK;
-+			ctcr |= STM32_MDMA_CTCR_SINCOS(src_bus_width);
-+		}
- 
- 		/* Set device burst value */
-+		if (chan_config->m2m_hw)
-+			src_maxburst = STM32_MDMA_MAX_BUF_LEN / src_addr_width;
-+
- 		src_best_burst = stm32_mdma_get_best_burst(buf_len, tlen,
- 							   src_maxburst,
- 							   src_addr_width);
-@@ -702,11 +730,15 @@ static int stm32_mdma_setup_xfer(struct stm32_mdma_chan *chan,
- {
- 	struct stm32_mdma_device *dmadev = stm32_mdma_get_dev(chan);
- 	struct dma_slave_config *dma_config = &chan->dma_config;
-+	struct stm32_mdma_chan_config *chan_config = &chan->chan_config;
- 	struct scatterlist *sg;
- 	dma_addr_t src_addr, dst_addr;
--	u32 ccr, ctcr, ctbr;
-+	u32 m2m_hw_period, ccr, ctcr, ctbr;
- 	int i, ret = 0;
- 
-+	if (chan_config->m2m_hw)
-+		m2m_hw_period = sg_dma_len(sgl);
-+
- 	for_each_sg(sgl, sg, sg_len, i) {
- 		if (sg_dma_len(sg) > STM32_MDMA_MAX_BLOCK_LEN) {
- 			dev_err(chan2dev(chan), "Invalid block len\n");
-@@ -716,6 +748,8 @@ static int stm32_mdma_setup_xfer(struct stm32_mdma_chan *chan,
- 		if (direction == DMA_MEM_TO_DEV) {
- 			src_addr = sg_dma_address(sg);
- 			dst_addr = dma_config->dst_addr;
-+			if (chan_config->m2m_hw && (i & 1))
-+				dst_addr += m2m_hw_period;
- 			ret = stm32_mdma_set_xfer_param(chan, direction, &ccr,
- 							&ctcr, &ctbr, src_addr,
- 							sg_dma_len(sg));
-@@ -723,6 +757,8 @@ static int stm32_mdma_setup_xfer(struct stm32_mdma_chan *chan,
- 					   src_addr);
- 		} else {
- 			src_addr = dma_config->src_addr;
-+			if (chan_config->m2m_hw && (i & 1))
-+				src_addr += m2m_hw_period;
- 			dst_addr = sg_dma_address(sg);
- 			ret = stm32_mdma_set_xfer_param(chan, direction, &ccr,
- 							&ctcr, &ctbr, dst_addr,
-@@ -755,6 +791,7 @@ stm32_mdma_prep_slave_sg(struct dma_chan *c, struct scatterlist *sgl,
- 			 unsigned long flags, void *context)
- {
- 	struct stm32_mdma_chan *chan = to_stm32_mdma_chan(c);
-+	struct stm32_mdma_chan_config *chan_config = &chan->chan_config;
- 	struct stm32_mdma_desc *desc;
- 	int i, ret;
- 
-@@ -777,6 +814,21 @@ stm32_mdma_prep_slave_sg(struct dma_chan *c, struct scatterlist *sgl,
- 	if (ret < 0)
- 		goto xfer_setup_err;
- 
-+	/*
-+	 * In case of M2M HW transfer triggered by STM32 DMA, we do not have to clear the
-+	 * transfer complete flag by hardware in order to let the CPU rearm the STM32 DMA
-+	 * with the next sg element and update some data in dmaengine framework.
-+	 */
-+	if (chan_config->m2m_hw && direction == DMA_MEM_TO_DEV) {
-+		struct stm32_mdma_hwdesc *hwdesc;
-+
-+		for (i = 0; i < sg_len; i++) {
-+			hwdesc = desc->node[i].hwdesc;
-+			hwdesc->cmar = 0;
-+			hwdesc->cmdr = 0;
-+		}
-+	}
-+
- 	desc->cyclic = false;
- 
- 	return vchan_tx_prep(&chan->vchan, &desc->vdesc, flags);
-@@ -798,6 +850,7 @@ stm32_mdma_prep_dma_cyclic(struct dma_chan *c, dma_addr_t buf_addr,
- 	struct stm32_mdma_chan *chan = to_stm32_mdma_chan(c);
- 	struct stm32_mdma_device *dmadev = stm32_mdma_get_dev(chan);
- 	struct dma_slave_config *dma_config = &chan->dma_config;
-+	struct stm32_mdma_chan_config *chan_config = &chan->chan_config;
- 	struct stm32_mdma_desc *desc;
- 	dma_addr_t src_addr, dst_addr;
- 	u32 ccr, ctcr, ctbr, count;
-@@ -858,8 +911,12 @@ stm32_mdma_prep_dma_cyclic(struct dma_chan *c, dma_addr_t buf_addr,
- 		if (direction == DMA_MEM_TO_DEV) {
- 			src_addr = buf_addr + i * period_len;
- 			dst_addr = dma_config->dst_addr;
-+			if (chan_config->m2m_hw && (i & 1))
-+				dst_addr += period_len;
- 		} else {
- 			src_addr = dma_config->src_addr;
-+			if (chan_config->m2m_hw && (i & 1))
-+				src_addr += period_len;
- 			dst_addr = buf_addr + i * period_len;
- 		}
- 
-@@ -1244,6 +1301,17 @@ static int stm32_mdma_slave_config(struct dma_chan *c,
- 
- 	memcpy(&chan->dma_config, config, sizeof(*config));
- 
-+	/* Check if user is requesting STM32 DMA to trigger MDMA */
-+	if (config->peripheral_size) {
-+		struct stm32_mdma_dma_config *mdma_config;
-+
-+		mdma_config = (struct stm32_mdma_dma_config *)chan->dma_config.peripheral_config;
-+		chan->chan_config.request = mdma_config->request;
-+		chan->chan_config.mask_addr = mdma_config->cmar;
-+		chan->chan_config.mask_data = mdma_config->cmdr;
-+		chan->chan_config.m2m_hw = true;
-+	}
-+
- 	return 0;
- }
- 
+ .../bindings/usb/st,typec-stm32g0.yaml        |  90 ++
+ drivers/usb/typec/ucsi/Kconfig                |  10 +
+ drivers/usb/typec/ucsi/Makefile               |   1 +
+ drivers/usb/typec/ucsi/ucsi_stm32g0.c         | 777 ++++++++++++++++++
+ 4 files changed, 878 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/usb/st,typec-stm32g0.yaml
+ create mode 100644 drivers/usb/typec/ucsi/ucsi_stm32g0.c
+
 -- 
 2.25.1
 
