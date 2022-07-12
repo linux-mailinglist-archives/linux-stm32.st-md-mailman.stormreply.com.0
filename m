@@ -2,69 +2,70 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB42E571B5B
-	for <lists+linux-stm32@lfdr.de>; Tue, 12 Jul 2022 15:33:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D876571B71
+	for <lists+linux-stm32@lfdr.de>; Tue, 12 Jul 2022 15:38:04 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 747F3C640F8;
-	Tue, 12 Jul 2022 13:33:17 +0000 (UTC)
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com
- [209.85.221.44])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C9018C640F8;
+	Tue, 12 Jul 2022 13:38:03 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1F8D3C03FD4
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DB9EBC03FD4
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 12 Jul 2022 13:33:16 +0000 (UTC)
-Received: by mail-wr1-f44.google.com with SMTP id q9so11201559wrd.8
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 12 Jul 2022 06:33:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:content-transfer-encoding:in-reply-to;
- bh=1FNQrGGLfgdOgMRKiUwsbzE3SGEjtGBgzxsXljwQUHE=;
- b=hTDsqLoXRixjt/Sxz4pnsbxPZ2ChVkl5G3Efink/BugEruXacu1c14dFTFwKa0c3gY
- o/+eryoGjW9zyuyJ7wemDQirD4D04/nXfYPkHa1G3NtRldyCDQ/2zs/zyzMfMEI8HTWr
- iYlsUd6VZ1BdSYB6OpRejTRfbS/3+NfNcv56pt8/W3na5GXCHJ5oq4VO25FksgV9cQFP
- OOzwUmFoXuLhNwWST4eb5B14ImeEhE4+FdqOm1DF6nMbC5rCYGWDPXDwqd7SkScILR7N
- gec2/C7+2gfE3s/eAraUC8ItcbP1D33rLOfkl66gtcp/BtJDaEyGPr/I+63MxweebsQZ
- wKaQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:content-transfer-encoding
- :in-reply-to;
- bh=1FNQrGGLfgdOgMRKiUwsbzE3SGEjtGBgzxsXljwQUHE=;
- b=DSh6Eylpc6W0wkA9On1u/HEh/fBii19dvc0KrIFHX+AavkMluGyPMAcKeIEgv+ktgT
- GYRvGbY38xYdp5Jj/7N3w94mu9vXJo5KjXF05pEUray6pvBTbnLQkBxe3zoitCFIPGeK
- xcd1juULgYqLXem6fdd0VQKRsGaXm4goJymIwhy0PdwooEElG0fQLBl//l5ZCHwkN9uc
- MnEmyO3TeQSVmneL4vF0nP6lCU4rTrNzj/vcpPq0b0+O2Yy5R7CxM7pYQBais+7npPJl
- qp1FP0n4DezjlnZa62W0P8AYdtXYnb8Hf1GI9o7YvAAmWuUQUUbkZg9V2xkOfFFAYh4Z
- yC8Q==
-X-Gm-Message-State: AJIora+F5RO06cIhhnx47wYheQBka8uDrfT9b1vTwA67putZefV6QpaA
- b6hT0xTfEYc0Am/zdM0kXWD6Ag==
-X-Google-Smtp-Source: AGRyM1tDxqUM6cVCSs98mVzMblL7DYw1ebw4b5m50i0FuBi3jTzjyS1F+201+kxSFQ4/IZUzwFtrpw==
-X-Received: by 2002:a05:6000:178c:b0:21d:b6d0:11a8 with SMTP id
- e12-20020a056000178c00b0021db6d011a8mr1741057wrg.547.1657632795572; 
- Tue, 12 Jul 2022 06:33:15 -0700 (PDT)
-Received: from google.com (cpc155339-bagu17-2-0-cust87.1-3.cable.virginm.net.
- [86.27.177.88]) by smtp.gmail.com with ESMTPSA id
- g4-20020adff404000000b0021d87798237sm8320371wro.20.2022.07.12.06.33.14
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 12 Jul 2022 06:33:14 -0700 (PDT)
-Date: Tue, 12 Jul 2022 14:33:13 +0100
-From: Lee Jones <lee.jones@linaro.org>
-To: Francesco Dolcini <francesco.dolcini@toradex.com>
-Message-ID: <Ys14GboRr4+GVMX1@google.com>
-References: <20220712110232.329164-1-francesco.dolcini@toradex.com>
- <20220712110232.329164-2-francesco.dolcini@toradex.com>
+ Tue, 12 Jul 2022 13:38:01 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 26C9Fa5x002441;
+ Tue, 12 Jul 2022 15:37:45 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=h4xD17V7DTR/YNErBVRjs3G7RJZlt2Jn4LyRZD6px+4=;
+ b=FJAxMZeSr66ZY5WN87Yvn3qR9Bemn1VfFdpQ5//MFtocWtSe/WNGaytc90QqANxrAOmV
+ sVNWVMUxdB0Qp3jJtUYNOaRtnzjlLv2XEsfQpqJi6ahJ5RcZmfLewH9GhOvz8Tvv4PDW
+ FRXQQ9z/REk2wuTE60sKbb1YQrJ3t5YIXIg/Xvr3O1yFYbOCn9rCebilXSMTKT2yq909
+ sCmudFgylUs+nXKUme55+ptXcb9LliRuGoTgNcp2IFT/BBwb3uBtdtwq6z8Izc0Vhk3E
+ hvljL3gcXV617KkptqhybuOqqKw7eanAvWgvjJD0Y98xpTaF5Gr17xDtmFYnR1wZQXKB 5w== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3h9173k3qb-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 12 Jul 2022 15:37:45 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 30356100034;
+ Tue, 12 Jul 2022 15:37:44 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 2179321FEBB;
+ Tue, 12 Jul 2022 15:37:44 +0200 (CEST)
+Received: from [10.211.14.207] (10.75.127.45) by SHFDAG1NODE2.st.com
+ (10.75.129.70) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2308.20; Tue, 12 Jul
+ 2022 15:37:42 +0200
+Message-ID: <e51bed47-b3fd-a328-a545-2810072e2bb8@foss.st.com>
+Date: Tue, 12 Jul 2022 15:37:41 +0200
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20220712110232.329164-2-francesco.dolcini@toradex.com>
-Cc: devicetree@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-kernel@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.9.1
+Content-Language: en-US
+To: Jonathan Corbet <corbet@lwn.net>, Vinod Koul <vkoul@kernel.org>, Maxime
+ Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>
+References: <20220711084703.268481-1-amelie.delaunay@foss.st.com>
+ <20220711084703.268481-2-amelie.delaunay@foss.st.com>
+ <87a69ffzvk.fsf@meer.lwn.net>
+From: Amelie Delaunay <amelie.delaunay@foss.st.com>
+In-Reply-To: <87a69ffzvk.fsf@meer.lwn.net>
+X-Originating-IP: [10.75.127.45]
+X-ClientProxiedBy: SFHDAG2NODE3.st.com (10.75.127.6) To SHFDAG1NODE2.st.com
+ (10.75.129.70)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.883,Hydra:6.0.517,FMLib:17.11.122.1
+ definitions=2022-07-12_08,2022-07-12_01,2022-06-22_01
+Cc: Marek Vasut <marex@denx.de>, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dmaengine@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v1 1/4] mfd: stmpe: Probe sub-function by
-	compatible
+Subject: Re: [Linux-stm32] [PATCH 1/4] docs: arm: stm32: introduce STM32
+ DMA-MDMA chaining feature
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,98 +77,128 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gVHVlLCAxMiBKdWwgMjAyMiwgRnJhbmNlc2NvIERvbGNpbmkgd3JvdGU6Cgo+IFVzZSBzdWIt
-ZnVuY3Rpb24gb2ZfY29tcGF0aWJsZSBkdXJpbmcgcHJvYmUsIGluc3RlYWQgb2YgdXNpbmcgdGhl
-IG5vZGUKPiBuYW1lLiBUaGUgY29kZSBzaG91bGQgbm90IHJlbHkgb24gdGhlIG5vZGUgbmFtZXMg
-ZHVyaW5nIHByb2JlLCBpbgo+IGFkZGl0aW9uIHRvIHRoYXQgdGhlIHByZXZpb3VzbHkgaGFyZC1j
-b2RlZCBub2RlIG5hbWVzIGFyZSBub3QgY29tcGxpYW50Cj4gdG8gdGhlIGxhdGVzdCBuYW1pbmcg
-Y29udmVudGlvbiAodGhleSBhcmUgbm90IGdlbmVyaWMgYW5kIHRoZXkgdXNlCj4gdW5kZXJzY29y
-ZXMpLCBhbmQgaXQgd2FzIGJyb2tlbiBieSBtaXN0YWtlIGFscmVhZHkgb25jZSBbMV0uCj4gCj4g
-V2hpbGUgZG9pbmcgdGhpcyBjaGFuZ2UgYHJvdGF0b3JgIGVudHJ5IHdhcyByZW1vdmVkLCBpdCBp
-cyBub3QKPiB1c2VkIGluIGFueSBkZXZpY2UgdHJlZSBmaWxlLCB0aGVyZSBpcyBubyBjZWxsIGRl
-ZmluZWQsIGl0J3MganVzdCBkZWFkCj4gbm9uLXdvcmtpbmcgY29kZSB3aXRoIG5vIG9mX2NvbXBh
-dGlibGUgZm9yIGl0Lgo+IAo+IFsxXSBjb21taXQgNTYwODZiNWU4MDRmICgiQVJNOiBkdHM6IGlt
-eDZxZGwtYXBhbGlzOiBBdm9pZCB1bmRlcnNjb3JlIGluIG5vZGUgbmFtZSIpCj4gCj4gU3VnZ2Vz
-dGVkLWJ5OiBBaG1hZCBGYXRvdW0gPGEuZmF0b3VtQHBlbmd1dHJvbml4LmRlPgo+IFNpZ25lZC1v
-ZmYtYnk6IEZyYW5jZXNjbyBEb2xjaW5pIDxmcmFuY2VzY28uZG9sY2luaUB0b3JhZGV4LmNvbT4K
-PiAtLS0KPiAgZHJpdmVycy9tZmQvc3RtcGUuYyB8IDMxICsrKysrKysrKysrKysrKysrLS0tLS0t
-LS0tLS0tLS0KPiAgMSBmaWxlIGNoYW5nZWQsIDE3IGluc2VydGlvbnMoKyksIDE0IGRlbGV0aW9u
-cygtKQo+IAo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL21mZC9zdG1wZS5jIGIvZHJpdmVycy9tZmQv
-c3RtcGUuYwo+IGluZGV4IGFlYjllYTU1Zjk3ZC4uOTBhMDdhOTQ0NTVmIDEwMDY0NAo+IC0tLSBh
-L2RyaXZlcnMvbWZkL3N0bXBlLmMKPiArKysgYi9kcml2ZXJzL21mZC9zdG1wZS5jCj4gQEAgLTIz
-LDYgKzIzLDEyIEBACj4gICNpbmNsdWRlIDxsaW51eC9yZWd1bGF0b3IvY29uc3VtZXIuaD4KPiAg
-I2luY2x1ZGUgInN0bXBlLmgiCj4gIAo+ICsjZGVmaW5lIFNUTVBFX0dQSU9fQ09NUEFUSUJMRSAg
-ICJzdCxzdG1wZS1ncGlvIgo+ICsjZGVmaW5lIFNUTVBFX0tFWVBBRF9DT01QQVRJQkxFICJzdCxz
-dG1wZS1rZXlwYWQiCj4gKyNkZWZpbmUgU1RNUEVfUFdNX0NPTVBBVElCTEUgICAgInN0LHN0bXBl
-LXB3bSIKPiArI2RlZmluZSBTVE1QRV9UU19DT01QQVRJQkxFICAgICAic3Qsc3RtcGUtdHMiCj4g
-KyNkZWZpbmUgU1RNUEVfQURDX0NPTVBBVElCTEUgICAgInN0LHN0bXBlLWFkYyIKClRoaXMgaXMg
-aG9ycmlibGUuCgpQbGVhc2UgcmVmcmFpbiBmcm9tIGRlZmluaW5nIGRldmljZS9jb21wYXRpYmxl
-IHN0cmluZ3MuCgo+ICAvKioKPiAgICogc3RydWN0IHN0bXBlX3BsYXRmb3JtX2RhdGEgLSBTVE1Q
-RSBwbGF0Zm9ybSBkYXRhCj4gICAqIEBpZDogZGV2aWNlIGlkIHRvIGRpc3Rpbmd1aXNoIGJldHdl
-ZW4gbXVsdGlwbGUgU1RNUEVzIG9uIHRoZSBzYW1lIGJvYXJkCj4gQEAgLTMyMSwxNCArMzI3LDE0
-IEBAIHN0YXRpYyBzdHJ1Y3QgcmVzb3VyY2Ugc3RtcGVfZ3Bpb19yZXNvdXJjZXNbXSA9IHsKPiAg
-Cj4gIHN0YXRpYyBjb25zdCBzdHJ1Y3QgbWZkX2NlbGwgc3RtcGVfZ3Bpb19jZWxsID0gewo+ICAJ
-Lm5hbWUJCT0gInN0bXBlLWdwaW8iLAo+IC0JLm9mX2NvbXBhdGlibGUJPSAic3Qsc3RtcGUtZ3Bp
-byIsCj4gKwkub2ZfY29tcGF0aWJsZQk9IFNUTVBFX0dQSU9fQ09NUEFUSUJMRSwKPiAgCS5yZXNv
-dXJjZXMJPSBzdG1wZV9ncGlvX3Jlc291cmNlcywKPiAgCS5udW1fcmVzb3VyY2VzCT0gQVJSQVlf
-U0laRShzdG1wZV9ncGlvX3Jlc291cmNlcyksCj4gIH07Cj4gIAo+ICBzdGF0aWMgY29uc3Qgc3Ry
-dWN0IG1mZF9jZWxsIHN0bXBlX2dwaW9fY2VsbF9ub2lycSA9IHsKPiAgCS5uYW1lCQk9ICJzdG1w
-ZS1ncGlvIiwKPiAtCS5vZl9jb21wYXRpYmxlCT0gInN0LHN0bXBlLWdwaW8iLAo+ICsJLm9mX2Nv
-bXBhdGlibGUJPSBTVE1QRV9HUElPX0NPTVBBVElCTEUsCj4gIAkvKiBncGlvIGNlbGwgcmVzb3Vy
-Y2VzIGNvbnNpc3Qgb2YgYW4gaXJxIG9ubHkgc28gbm8gcmVzb3VyY2VzIGhlcmUgKi8KPiAgfTsK
-PiAgCj4gQEAgLTM1MCw3ICszNTYsNyBAQCBzdGF0aWMgc3RydWN0IHJlc291cmNlIHN0bXBlX2tl
-eXBhZF9yZXNvdXJjZXNbXSA9IHsKPiAgCj4gIHN0YXRpYyBjb25zdCBzdHJ1Y3QgbWZkX2NlbGwg
-c3RtcGVfa2V5cGFkX2NlbGwgPSB7Cj4gIAkubmFtZQkJPSAic3RtcGUta2V5cGFkIiwKPiAtCS5v
-Zl9jb21wYXRpYmxlICA9ICJzdCxzdG1wZS1rZXlwYWQiLAo+ICsJLm9mX2NvbXBhdGlibGUgID0g
-U1RNUEVfS0VZUEFEX0NPTVBBVElCTEUsCj4gIAkucmVzb3VyY2VzCT0gc3RtcGVfa2V5cGFkX3Jl
-c291cmNlcywKPiAgCS5udW1fcmVzb3VyY2VzCT0gQVJSQVlfU0laRShzdG1wZV9rZXlwYWRfcmVz
-b3VyY2VzKSwKPiAgfTsKPiBAQCAtMzc2LDcgKzM4Miw3IEBAIHN0YXRpYyBzdHJ1Y3QgcmVzb3Vy
-Y2Ugc3RtcGVfcHdtX3Jlc291cmNlc1tdID0gewo+ICAKPiAgc3RhdGljIGNvbnN0IHN0cnVjdCBt
-ZmRfY2VsbCBzdG1wZV9wd21fY2VsbCA9IHsKPiAgCS5uYW1lCQk9ICJzdG1wZS1wd20iLAo+IC0J
-Lm9mX2NvbXBhdGlibGUgID0gInN0LHN0bXBlLXB3bSIsCj4gKwkub2ZfY29tcGF0aWJsZSAgPSBT
-VE1QRV9QV01fQ09NUEFUSUJMRSwKPiAgCS5yZXNvdXJjZXMJPSBzdG1wZV9wd21fcmVzb3VyY2Vz
-LAo+ICAJLm51bV9yZXNvdXJjZXMJPSBBUlJBWV9TSVpFKHN0bXBlX3B3bV9yZXNvdXJjZXMpLAo+
-ICB9Owo+IEBAIC00NjEsNyArNDY3LDcgQEAgc3RhdGljIHN0cnVjdCByZXNvdXJjZSBzdG1wZV90
-c19yZXNvdXJjZXNbXSA9IHsKPiAgCj4gIHN0YXRpYyBjb25zdCBzdHJ1Y3QgbWZkX2NlbGwgc3Rt
-cGVfdHNfY2VsbCA9IHsKPiAgCS5uYW1lCQk9ICJzdG1wZS10cyIsCj4gLQkub2ZfY29tcGF0aWJs
-ZQk9ICJzdCxzdG1wZS10cyIsCj4gKwkub2ZfY29tcGF0aWJsZQk9IFNUTVBFX1RTX0NPTVBBVElC
-TEUsCj4gIAkucmVzb3VyY2VzCT0gc3RtcGVfdHNfcmVzb3VyY2VzLAo+ICAJLm51bV9yZXNvdXJj
-ZXMJPSBBUlJBWV9TSVpFKHN0bXBlX3RzX3Jlc291cmNlcyksCj4gIH07Cj4gQEAgLTQ4NCw3ICs0
-OTAsNyBAQCBzdGF0aWMgc3RydWN0IHJlc291cmNlIHN0bXBlX2FkY19yZXNvdXJjZXNbXSA9IHsK
-PiAgCj4gIHN0YXRpYyBjb25zdCBzdHJ1Y3QgbWZkX2NlbGwgc3RtcGVfYWRjX2NlbGwgPSB7Cj4g
-IAkubmFtZQkJPSAic3RtcGUtYWRjIiwKPiAtCS5vZl9jb21wYXRpYmxlCT0gInN0LHN0bXBlLWFk
-YyIsCj4gKwkub2ZfY29tcGF0aWJsZQk9IFNUTVBFX0FEQ19DT01QQVRJQkxFLAo+ICAJLnJlc291
-cmNlcwk9IHN0bXBlX2FkY19yZXNvdXJjZXMsCj4gIAkubnVtX3Jlc291cmNlcwk9IEFSUkFZX1NJ
-WkUoc3RtcGVfYWRjX3Jlc291cmNlcyksCj4gIH07Cj4gQEAgLTEzNjIsMTkgKzEzNjgsMTYgQEAg
-c3RhdGljIHZvaWQgc3RtcGVfb2ZfcHJvYmUoc3RydWN0IHN0bXBlX3BsYXRmb3JtX2RhdGEgKnBk
-YXRhLAo+ICAJcGRhdGEtPmF1dG9zbGVlcCA9IChwZGF0YS0+YXV0b3NsZWVwX3RpbWVvdXQpID8g
-dHJ1ZSA6IGZhbHNlOwo+ICAKPiAgCWZvcl9lYWNoX2F2YWlsYWJsZV9jaGlsZF9vZl9ub2RlKG5w
-LCBjaGlsZCkgewo+IC0JCWlmIChvZl9ub2RlX25hbWVfZXEoY2hpbGQsICJzdG1wZV9ncGlvIikp
-IHsKPiArCQlpZiAob2ZfZGV2aWNlX2lzX2NvbXBhdGlibGUoY2hpbGQsIFNUTVBFX0dQSU9fQ09N
-UEFUSUJMRSkpCj4gIAkJCXBkYXRhLT5ibG9ja3MgfD0gU1RNUEVfQkxPQ0tfR1BJTzsKPiAtCQl9
-IGVsc2UgaWYgKG9mX25vZGVfbmFtZV9lcShjaGlsZCwgInN0bXBlX2tleXBhZCIpKSB7Cj4gKwkJ
-ZWxzZSBpZiAob2ZfZGV2aWNlX2lzX2NvbXBhdGlibGUoY2hpbGQsIFNUTVBFX0tFWVBBRF9DT01Q
-QVRJQkxFKSkKPiAgCQkJcGRhdGEtPmJsb2NrcyB8PSBTVE1QRV9CTE9DS19LRVlQQUQ7Cj4gLQkJ
-fSBlbHNlIGlmIChvZl9ub2RlX25hbWVfZXEoY2hpbGQsICJzdG1wZV90b3VjaHNjcmVlbiIpKSB7
-Cj4gKwkJZWxzZSBpZiAob2ZfZGV2aWNlX2lzX2NvbXBhdGlibGUoY2hpbGQsIFNUTVBFX1RTX0NP
-TVBBVElCTEUpKQo+ICAJCQlwZGF0YS0+YmxvY2tzIHw9IFNUTVBFX0JMT0NLX1RPVUNIU0NSRUVO
-Owo+IC0JCX0gZWxzZSBpZiAob2Zfbm9kZV9uYW1lX2VxKGNoaWxkLCAic3RtcGVfYWRjIikpIHsK
-PiArCQllbHNlIGlmIChvZl9kZXZpY2VfaXNfY29tcGF0aWJsZShjaGlsZCwgU1RNUEVfQURDX0NP
-TVBBVElCTEUpKQo+ICAJCQlwZGF0YS0+YmxvY2tzIHw9IFNUTVBFX0JMT0NLX0FEQzsKPiAtCQl9
-IGVsc2UgaWYgKG9mX25vZGVfbmFtZV9lcShjaGlsZCwgInN0bXBlX3B3bSIpKSB7Cj4gKwkJZWxz
-ZSBpZiAob2ZfZGV2aWNlX2lzX2NvbXBhdGlibGUoY2hpbGQsIFNUTVBFX1BXTV9DT01QQVRJQkxF
-KSkKPiAgCQkJcGRhdGEtPmJsb2NrcyB8PSBTVE1QRV9CTE9DS19QV007Cj4gLQkJfSBlbHNlIGlm
-IChvZl9ub2RlX25hbWVfZXEoY2hpbGQsICJzdG1wZV9yb3RhdG9yIikpIHsKPiAtCQkJcGRhdGEt
-PmJsb2NrcyB8PSBTVE1QRV9CTE9DS19ST1RBVE9SOwo+IC0JCX0KClRoaXMgc2hvdWxkIGJlIGEg
-c2VwYXJhdGUgcGF0Y2guCgo+ICAJfQo+ICB9Cj4gIAoKLS0gCkxlZSBKb25lcyBb5p2O55C85pav
-XQpQcmluY2lwYWwgVGVjaG5pY2FsIExlYWQgLSBEZXZlbG9wZXIgU2VydmljZXMKTGluYXJvLm9y
-ZyDilIIgT3BlbiBzb3VyY2Ugc29mdHdhcmUgZm9yIEFybSBTb0NzCkZvbGxvdyBMaW5hcm86IEZh
-Y2Vib29rIHwgVHdpdHRlciB8IEJsb2cKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1k
-LW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHku
-Y29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+
+
+On 7/11/22 17:11, Jonathan Corbet wrote:
+> Amelie Delaunay <amelie.delaunay@foss.st.com> writes:
+> 
+>> STM32 DMA-MDMA chaining feature is available on STM32 SoCs which embed
+>> STM32 DMAMUX, DMA and MDMA controllers. It is the case on STM32MP1 SoCs but
+>> also on STM32H7 SoCs. But focus is on STM32MP1 SoCs, using DDR.
+>> This documentation aims to explain how to use STM32 DMA-MDMA chaining
+>> feature in drivers of STM32 peripheral having request lines on STM32 DMA.
+>>
+>> Signed-off-by: Amelie Delaunay <amelie.delaunay@foss.st.com>
+>> ---
+>>   .../arm/stm32/stm32-dma-mdma-chaining.rst     | 365 ++++++++++++++++++
+>>   1 file changed, 365 insertions(+)
+>>   create mode 100644 Documentation/arm/stm32/stm32-dma-mdma-chaining.rst
+> 
+> When you add a new RST file you also need to add it to index.rst
+> somewhere so that it becomes part of the docs build.
+> 
+
+Thanks for you review.
+
+I'll add it to index.rst, with other stm32 documentations.
+
+>> diff --git a/Documentation/arm/stm32/stm32-dma-mdma-chaining.rst b/Documentation/arm/stm32/stm32-dma-mdma-chaining.rst
+>> new file mode 100644
+>> index 000000000000..bfbbadc45aa7
+>> --- /dev/null
+>> +++ b/Documentation/arm/stm32/stm32-dma-mdma-chaining.rst
+>> @@ -0,0 +1,365 @@
+>> +.. SPDX-License-Identifier: GPL-2.0
+>> +
+>> +=======================
+>> +STM32 DMA-MDMA chaining
+>> +=======================
+>> +
+>> +
+>> +Introduction
+>> +------------
+>> +
+>> +  This document describes the STM32 DMA-MDMA chaining feature. But before going further, let's
+>> +  introduce the peripherals involved.
+> 
+> Please keep to the 80-column limit for documentation, it makes it easier
+> to read.
+> 
+
+OK, I prepare a v2 with a 80-column limit for the documentation patch.
+
+>> +  To offload data transfers from the CPU, STM32 microprocessors (MPUs) embed direct memory access
+>> +  controllers (DMA).
+>> +
+>> +  STM32MP1 SoCs embed both STM32 DMA and STM32 MDMA controllers. STM32 DMA request routing
+>> +  capabilities are enhanced by a DMA request multiplexer (STM32 DMAMUX).
+>> +
+>> +  **STM32 DMAMUX**
+>> +
+>> +  STM32 DMAMUX routes any DMA request from a given peripheral to any STM32 DMA controller (STM32MP1
+>> +  counts two STM32 DMA controllers) channels.
+>> +
+>> +  **STM32 DMA**
+>> +
+>> +  STM32 DMA is mainly used to implement central data buffer storage (usually in the system SRAM) for
+>> +  different peripheral. It can access external RAMs but without the ability to generate convenient
+>> +  burst transfer ensuring the best load of the AXI.
+>> +
+>> +  **STM32 MDMA**
+>> +
+>> +  STM32 MDMA (Master DMA) is mainly used to manage direct data transfers between RAM data buffers
+>> +  without CPU intervention. It can also be used in a hierarchical structure that uses STM32 DMA as
+>> +  first level data buffer interfaces for AHB peripherals, while the STM32 MDMA acts as a second
+>> +  level DMA with better performance. As a AXI/AHB master, STM32 MDMA can take control of the AXI/AHB
+>> +  bus.
+>> +
+>> +
+>> +Principles
+>> +----------
+>> +
+>> +  STM32 DMA-MDMA chaining feature relies on the strengths of STM32 DMA and STM32 MDMA controllers.
+>> +
+>> +  STM32 DMA has a circular Double Buffer Mode (DBM). At each end of transaction (when DMA data
+>> +  counter - DMA_SxNDTR - reaches 0), the memory pointers (configured with DMA_SxSM0AR and
+>> +  DMA_SxM1AR) are swapped and the DMA data counter is automatically reloaded. This allows the SW or
+>> +  the STM32 MDMA to process one memory area while the second memory area is being filled/used by the
+>> +  STM32 DMA transfer.
+>> +
+>> +  With STM32 MDMA linked-list mode, a single request initiates the data array (collection of nodes)
+>> +  to be transferred until the linked-list pointer for the channel is null. The channel transfer
+>> +  complete of the last node is the end of transfer, unless first and last nodes are linked to each
+>> +  other, in such a case, the linked-list loops on to create a circular MDMA transfer.
+>> +
+>> +  STM32 MDMA has direct connections with STM32 DMA. This enables autonomous communication and
+>> +  synchronization between peripherals, thus saving CPU resources and bus congestion. Transfer
+>> +  Complete signal of STM32 DMA channel can triggers STM32 MDMA transfer. STM32 MDMA can clear the
+>> +  request generated by the STM32 DMA by writing to its Interrupt Clear register (whose address is
+>> +  stored in MDMA_CxMAR, and bit mask in MDMA_CxMDR).
+>> +
+>> +  .. csv-table:: STM32 MDMA interconnect table with STM32 DMA
+>> +        :header: "STM32 DMAMUX channels", "STM32 DMA controllers channels",
+>> +                 "STM32 DMA Transfer Complete signal", "STM32 MDMA request"
+> 
+> If at all possible, please use simple tables; that makes the plain text
+> documentation much easier to read.
+> 
+
+It is possible, with some extra lines. I'll update it in v2 coming soon.
+
+> [...]
+> 
+> Thanks,
+> 
+> jon
+
+Regards,
+Amelie
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
