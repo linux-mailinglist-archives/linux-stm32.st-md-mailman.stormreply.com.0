@@ -2,51 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C400A57382A
-	for <lists+linux-stm32@lfdr.de>; Wed, 13 Jul 2022 16:00:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 144595738A0
+	for <lists+linux-stm32@lfdr.de>; Wed, 13 Jul 2022 16:22:16 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4F0EDC640FE;
-	Wed, 13 Jul 2022 14:00:19 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 514CEC06F81
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 13 Jul 2022 14:00:17 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BEB84C64105;
+	Wed, 13 Jul 2022 14:22:15 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 0453061D9B;
- Wed, 13 Jul 2022 14:00:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id D2BD9C3411E;
- Wed, 13 Jul 2022 14:00:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1657720814;
- bh=0PczgnRAsUni8FhdXd7dUovVQEbHB53hDhpjR6g6koA=;
- h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=FY6Xi7+vjU+PQ0Hj18jJFFzU+nOFduhKr/HnZ+wtwUCJqQEsaQI3fwf+T/W1BCxJI
- cj8EW+WX8lLE2cXLKdqjautuf6xRJW763HEnOxwLDvNiMFhc6u3kAUI0RuK0zhfTkZ
- Ba0MyAjQ7TRCx7XRiOG2qhkgrllJBx4FgueA1xmoVFha/weuSP7rU2SHKqh9yShyW2
- 1Jmc0XzaGUu8crOKFcieyRK3h62BcgQDb92XbFv8xYMt9rMB7Sus/dv3Ri/GA33Nnk
- mJlRNUL/1YbPoXw0bpgG3XRQCfKLI5lvTAlTmHJzALc9RFAe4lsZ+h+u/Mt7mxbNzM
- FvYXdIcaJ6R1w==
-Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
- B030DE45227; Wed, 13 Jul 2022 14:00:14 +0000 (UTC)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 762B6C06F81
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 13 Jul 2022 14:22:14 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 26DCwFt2023204;
+ Wed, 13 Jul 2022 16:21:56 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=selector1;
+ bh=8StrFdxqKvIx4QP9Pz3BRbHaQVEul95a7IIOW+3FDyE=;
+ b=mbd8/DRWSAHB9fs2osy45tUAP9aL1EgVM8p4JRWkOHnMse5S8fPVRE+mEBZDnozs/4Hk
+ 2ZTjabVz4IC6PX3in8W4UJF0wXXrcebeeU8wCTjEaDr0d661vcY5zSXdcMLQ/L4bePDL
+ Rir995zjFoUrIkZ0GOZxdkr2E6V8sJFBe98QCj401h5+kc/QyrWL5w4J8R5xBGmbXYQx
+ qCKNSDgZUuZ1UfizPzbImlpKO5D7kwAgcZbV5z7G0hxYH8homz4W72ZCohXmKMfd1yng
+ mgdj/Ah8dMv7U59G0hQu7bY1LztQlM8DkhW02WJL7D7dJAveqPHIK9IhnhvjvR6k0M0j GA== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3h94guhnam-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 13 Jul 2022 16:21:56 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id CEF9410002A;
+ Wed, 13 Jul 2022 16:21:55 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id C1BD3226FC5;
+ Wed, 13 Jul 2022 16:21:55 +0200 (CEST)
+Received: from localhost (10.75.127.45) by SHFDAG1NODE2.st.com (10.75.129.70)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2308.20; Wed, 13 Jul
+ 2022 16:21:54 +0200
+From: Amelie Delaunay <amelie.delaunay@foss.st.com>
+To: Jonathan Corbet <corbet@lwn.net>, Vinod Koul <vkoul@kernel.org>, Maxime
+ Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>
+Date: Wed, 13 Jul 2022 16:21:44 +0200
+Message-ID: <20220713142148.239253-1-amelie.delaunay@foss.st.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <165772081471.13863.9875407606261109151.git-patchwork-notify@kernel.org>
-Date: Wed, 13 Jul 2022 14:00:14 +0000
-References: <Ys2IUUhvm2sfLEps@kili>
-In-Reply-To: <Ys2IUUhvm2sfLEps@kili>
-To: Dan Carpenter <dan.carpenter@oracle.com>
-Cc: andrew@lunn.ch, kernel-janitors@vger.kernel.org, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, zhouyanjie@wanyeetech.com,
- edumazet@google.com, joabreu@synopsys.com, mcoquelin.stm32@gmail.com,
- kuba@kernel.org, peppe.cavallaro@st.com, pabeni@redhat.com,
- davem@davemloft.net
-Subject: Re: [Linux-stm32] [PATCH net] net: stmmac: fix leaks in probe
+X-Originating-IP: [10.75.127.45]
+X-ClientProxiedBy: SFHDAG2NODE3.st.com (10.75.127.6) To SHFDAG1NODE2.st.com
+ (10.75.129.70)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.883,Hydra:6.0.517,FMLib:17.11.122.1
+ definitions=2022-07-13_03,2022-07-13_03,2022-06-22_01
+Cc: Marek Vasut <marex@denx.de>, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dmaengine@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH v2 0/4] STM32 DMA-MDMA chaining feature
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -63,30 +75,49 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello:
+This patchset (re)introduces STM32 DMA-MDMA chaining feature.
 
-This patch was applied to netdev/net.git (master)
-by David S. Miller <davem@davemloft.net>:
+As the DMA is not able to generate convenient burst transfer on the DDR,
+it penalises the AXI bus when accessing the DDR. While it accesses
+optimally the SRAM. The DMA-MDMA chaining then consists in having an SRAM
+buffer between DMA and MDMA, so the DMA deals with peripheral and SRAM,
+and the MDMA with SRAM and DDR.
 
-On Tue, 12 Jul 2022 17:42:25 +0300 you wrote:
-> These two error paths should clean up before returning.
-> 
-> Fixes: 2bb4b98b60d7 ("net: stmmac: Add Ingenic SoCs MAC support.")
-> Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
-> ---
-> From static analysis, not tested.
-> 
-> [...]
+The feature relies on the fact that DMA channel Transfer Complete signal
+can trigger a MDMA channel transfer and MDMA can clear the DMA request by
+writing to DMA Interrupt Clear register.
 
-Here is the summary with links:
-  - [net] net: stmmac: fix leaks in probe
-    https://git.kernel.org/netdev/net/c/23aa6d5088e3
+A deeper introduction can be found in patch 1.
 
-You are awesome, thank you!
+Previous implementation [1] has been dropped as nacked.
+Unlike this previous implementation (where all the stuff was embedded in
+stm32-dma driver), the user (in peripheral drivers using dma) has now to
+configure the MDMA channel.
+
+[1] https://lore.kernel.org/lkml/1538139715-24406-1-git-send-email-pierre-yves.mordret@st.com/
+
+Changes in v2:
+- wrap to 80-column limit for documentation
+- add an entry for this documentation in index.rst
+- use simple table instead of csv-table in documentation
+
+Amelie Delaunay (4):
+  docs: arm: stm32: introduce STM32 DMA-MDMA chaining feature
+  dmaengine: stm32-dmamux: set dmamux channel id in dma features
+    bitfield
+  dmaengine: stm32-dma: add support to trigger STM32 MDMA
+  dmaengine: stm32-mdma: add support to be triggered by STM32 DMA
+
+ Documentation/arm/index.rst                   |   1 +
+ .../arm/stm32/stm32-dma-mdma-chaining.rst     | 415 ++++++++++++++++++
+ drivers/dma/stm32-dma.c                       |  56 ++-
+ drivers/dma/stm32-dmamux.c                    |   2 +-
+ drivers/dma/stm32-mdma.c                      |  70 ++-
+ 5 files changed, 541 insertions(+), 3 deletions(-)
+ create mode 100644 Documentation/arm/stm32/stm32-dma-mdma-chaining.rst
+
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+2.25.1
 
 _______________________________________________
 Linux-stm32 mailing list
