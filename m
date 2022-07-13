@@ -2,76 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB10A57287E
-	for <lists+linux-stm32@lfdr.de>; Tue, 12 Jul 2022 23:23:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8873A572F67
+	for <lists+linux-stm32@lfdr.de>; Wed, 13 Jul 2022 09:43:16 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 91408C640FB;
-	Tue, 12 Jul 2022 21:23:17 +0000 (UTC)
-Received: from mail-lf1-f46.google.com (mail-lf1-f46.google.com
- [209.85.167.46])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 26CFFC640FE;
+	Wed, 13 Jul 2022 07:43:16 +0000 (UTC)
+Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com
+ [209.85.218.47])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D8CC5C640F9
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 144CBC06F81
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 12 Jul 2022 21:23:16 +0000 (UTC)
-Received: by mail-lf1-f46.google.com with SMTP id n18so14342344lfq.1
+ Wed, 13 Jul 2022 07:43:15 +0000 (UTC)
+Received: by mail-ej1-f47.google.com with SMTP id j22so18403142ejs.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 12 Jul 2022 14:23:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=ZIixC2bV5bk0+HIicGoB7Neycw0Y+e5g1F3XyfSlUow=;
- b=lEd2am2qFIvJv6mvwUPXijftjd8L/Wyv9Yx+kKh+EvPQy2tACUdBFYr9SBMhe52bh4
- oypuIStUzdaV9hnFKV8CZx6YYvxyWyBt+hdEKrL0xT8OBGD7oRh55m4WKmqzfkbzj5Dp
- XMjQMxMW8vWxEpXgr3S5Y1Ti7r5bCIkZ4ftbbTBEg93nORt5WH5trqMQe35/+EvhDdak
- RVOBEB9WpNO4QJ8LX7couSF9n0zEMJpevFZOlFiQKveOzKA8dDVowBooFkhWIfiz5GRv
- kiov8wQwDs2OA8iiTDK4cv5moIrCKR7v3VOys92mWJTzS/unkodYL9b7uHt/oeRUfBuP
- lbBg==
+ Wed, 13 Jul 2022 00:43:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=bgdev-pl.20210112.gappssmtp.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=/VlnmlHCQfW3p97UCy5YcE83IQ1M7mTcSHN9rJn92L0=;
+ b=DMmVsyTnzW/ZzHy/WNEhXKuJ/wvbeUmmgXu5noAA5OBSdWDoQXacYqh811HBuPUcB2
+ 1704vMKky0r/XykIbgErzhYfAUaQwcS9in9Iyv7UDr89rtWYHrjgAoS4/ftDM13e6zET
+ 6Zq3W/iDUAstij4E96pl6A4dFBehNRT4BC9T4B+TDbUnPluj2ffkyJngYthP+RTyypoS
+ 8Ngpxqp4L5W5uQXKECMiWjztav+0/GDWvhzTqjfXmJSqE4LeJbCOxop9s0KYRQHCvYwi
+ E53Ud0ve7qzEcCxNGVvfN7QIMwZ7/wVNGUlwjNS+1AxhR4BSF0jl8P02UdhUEjzq2usI
+ 6Yhw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=ZIixC2bV5bk0+HIicGoB7Neycw0Y+e5g1F3XyfSlUow=;
- b=h8SS/qE1jSqd4E/bgjcyf7sVDIjxXzC1x/pyO952IqZg5q5E1z29sNYufH60z1o3T/
- UtW8fHfVNx0JuSA5ewlq/NviKVGm4otSlyhLureoOB1fPi27jP7TTiixjE9bn7zzxT6s
- O9ViuTTflMl6JnB/ii+AKOlvGlVXCKrBkozJIi81kn5Cia+1xW1gP4J92Cz4aldo3Blx
- A9kiwD19qglScuxQrG8r7Kv2507Q2Lb/ci2I5OmGGizDuEWzfBFE7Vu+sJgI8MhdW1U6
- tZVYwNx8+1SdBz5SSTromnfdX/FYInHm4GUNVvSG9some+EYW3gpgRnIGJX/zzRFjdht
- Ywmw==
-X-Gm-Message-State: AJIora+4t45DT2vJSbeb9Y3lk6Z+PoMJgNV8gvIz2K3Op2qLwC4x0jxm
- 5qhgBix9dNNcGLAgbka19MKCR4HfUpFYFQ==
-X-Google-Smtp-Source: AGRyM1sLfpcYmbiEjWfaKm08jr8ScrE2GfPqP64cecPIr1DDlLCmyOl86WwUnjYrA+y/rjH/i6DnAQ==
-X-Received: by 2002:a05:6512:3b8f:b0:489:c6c9:f522 with SMTP id
- g15-20020a0565123b8f00b00489c6c9f522mr11797lfv.244.1657660996339; 
- Tue, 12 Jul 2022 14:23:16 -0700 (PDT)
-Received: from [10.0.0.8] (fwa5da9-171.bb.online.no. [88.93.169.171])
- by smtp.gmail.com with ESMTPSA id
- v11-20020ac2560b000000b0047f9dca3708sm2391737lfd.51.2022.07.12.14.23.14
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 12 Jul 2022 14:23:15 -0700 (PDT)
-Message-ID: <ca26630c-a09c-6f4d-51de-7a2ba615bd58@linaro.org>
-Date: Tue, 12 Jul 2022 23:23:13 +0200
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=/VlnmlHCQfW3p97UCy5YcE83IQ1M7mTcSHN9rJn92L0=;
+ b=MMp7Sinv6tKac90eQ0wig5T4+WabF25u20qOQS4dSWLyQM9057B1MYB4ufKuPAsi82
+ ajUV08VJEPJQ4Yrc4mRrL7l8RftAmc2lyB2TlAlFdlltLRU9Vf4/hDEZPr4XU3Mvcmte
+ iRmGkhh0ev77ekoz9RwhdZ2tW7Fin5rCIYINauzE9qS4fS1I2yT6NZHuvwGy13HsPye7
+ lOoYt0I0zrv04BEEazO59vcNC7xPbRaqzycaOyvq9kNdphDp7LI7Dvedf3FZO5+Q1N64
+ i3gKWUbNAii5ehjG0PZObTlNMMm5waQD/dky3onjIXqrlD5Uc05KUw5smRSL6FSyMap6
+ 8uYQ==
+X-Gm-Message-State: AJIora/FU81O+y5C2BPPgpwrl/hyNykfWI19h5tbaQolDe82t+L7UYKM
+ 007X2A7wmKGXX6G3CNZIKoDu0GIuWrw7ldWRp9QIwA==
+X-Google-Smtp-Source: AGRyM1sqqwrs67V0xYX+vIkQzt1SsBz/eWMrr7ikKraa6psgwLTFp/02ZOU5oQQud0MALSLXgtkrRGzhBoT1X0IdY9c=
+X-Received: by 2002:a17:907:87b0:b0:72b:9f0d:3f89 with SMTP id
+ qv48-20020a17090787b000b0072b9f0d3f89mr1053322ejc.734.1657698194579; Wed, 13
+ Jul 2022 00:43:14 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Content-Language: en-US
-To: Francesco Dolcini <francesco.dolcini@toradex.com>,
- Lee Jones <lee.jones@linaro.org>, Dmitry Torokhov
- <dmitry.torokhov@gmail.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
 References: <20220712163345.445811-1-francesco.dolcini@toradex.com>
- <20220712163345.445811-6-francesco.dolcini@toradex.com>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20220712163345.445811-6-francesco.dolcini@toradex.com>
-Cc: devicetree@vger.kernel.org, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
- linux-input@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2 5/5] dt-bindings: input: touchscreen:
- stmpe: Remove node name requirement
+ <20220712163345.445811-4-francesco.dolcini@toradex.com>
+In-Reply-To: <20220712163345.445811-4-francesco.dolcini@toradex.com>
+From: Bartosz Golaszewski <brgl@bgdev.pl>
+Date: Wed, 13 Jul 2022 09:43:04 +0200
+Message-ID: <CAMRc=McUdeXSNwE9WBVh_ZrsL+-WusEQjqcuE2v=m1exHS6_eA@mail.gmail.com>
+To: Francesco Dolcini <francesco.dolcini@toradex.com>
+Cc: devicetree <devicetree@vger.kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-iio <linux-iio@vger.kernel.org>,
+ Linus Walleij <linus.walleij@linaro.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Linux Input <linux-input@vger.kernel.org>, Lee Jones <lee.jones@linaro.org>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH v2 3/5] dt-bindings: gpio: stmpe: Remove
+	node name requirement
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,21 +81,36 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 12/07/2022 18:33, Francesco Dolcini wrote:
+On Tue, Jul 12, 2022 at 6:33 PM Francesco Dolcini
+<francesco.dolcini@toradex.com> wrote:
+>
 > STMPE driver does not require a specific node name anymore, only the
 > compatible is checked, update binding according to this.
-> 
+>
 > Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
 > ---
->  Documentation/devicetree/bindings/input/touchscreen/stmpe.txt | 3 +--
+>  Documentation/devicetree/bindings/gpio/gpio-stmpe.txt | 3 +--
 >  1 file changed, 1 insertion(+), 2 deletions(-)
+>
+> diff --git a/Documentation/devicetree/bindings/gpio/gpio-stmpe.txt b/Documentation/devicetree/bindings/gpio/gpio-stmpe.txt
+> index a0e4cf885213..b33f8f02c0d7 100644
+> --- a/Documentation/devicetree/bindings/gpio/gpio-stmpe.txt
+> +++ b/Documentation/devicetree/bindings/gpio/gpio-stmpe.txt
+> @@ -8,8 +8,7 @@ Optional properties:
+>   - st,norequest-mask: bitmask specifying which GPIOs should _not_ be requestable
+>     due to different usage (e.g. touch, keypad)
+>
+> -Node name must be stmpe_gpio and should be child node of stmpe node to which it
+> -belongs.
+> +Node should be child node of stmpe node to which it belongs.
+>
+>  Example:
+>         stmpe_gpio {
+> --
+> 2.25.1
+>
 
-
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-
-
-Best regards,
-Krzysztof
+Acked-by: Bartosz Golaszewski <brgl@bgdev.pl>
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
