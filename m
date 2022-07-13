@@ -2,76 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B7C1F57361A
-	for <lists+linux-stm32@lfdr.de>; Wed, 13 Jul 2022 14:11:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 971C857364D
+	for <lists+linux-stm32@lfdr.de>; Wed, 13 Jul 2022 14:25:47 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7859BC640FE;
-	Wed, 13 Jul 2022 12:11:48 +0000 (UTC)
-Received: from mail-qt1-f181.google.com (mail-qt1-f181.google.com
- [209.85.160.181])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 48214C640FD;
+	Wed, 13 Jul 2022 12:25:47 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BF732C640FC
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2A8E6C06F81
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 13 Jul 2022 12:11:46 +0000 (UTC)
-Received: by mail-qt1-f181.google.com with SMTP id a21so10434888qtw.10
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 13 Jul 2022 05:11:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=mQ/hcGr/I/V5gOxH9+3HtKc0WRnaD95esCjmTcO4bQ0=;
- b=FojwuT6sStHpE+uVYaLsaIIQad4I8HewXV7sDZTXbpuvLEXufIWG1ufnuRB4cMYyrz
- kPOha1HctNi444O/CECbg2EoAhrjZmGgxNVFHD7lVLdK/PjolGofJE+qgGrOlW1woIlQ
- JYGpYoVSxSjDrFE5ImvMQW+sEj+hNdRAYU6+/EU7ibVtPwJOake8jcjZ5xTfPSsdChIZ
- rfKZQzXtJzQlYU821MXv/QWkkZhUhL5xT/bTMvVhfQeeO9MCgoXK8WnblnnfdxOagYex
- G8U5s7/vMXpdFqGlPBx6CZMa0+adjTZHfVn/kHN+8qI4SM8geqkQmo8uZnFT0urSGFo/
- XVMg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=mQ/hcGr/I/V5gOxH9+3HtKc0WRnaD95esCjmTcO4bQ0=;
- b=h5OhvucAwBnhGpeDoV+gg95BDYuEFuy4WZearlTRHnak5zLgjdPu7KYri9op0AZcNc
- MlVDC5yaCPVFsumCvSV8kVr2MugkzojTLTEn0Gnh6vX8uXX99Vdyr7QE5lzHRFlSc+XB
- VMcRXki0Njo6C9rQbaiOk8G9tA0OAD/Q0tJSfHyVmkRdjb5bGlsf97NUfqrdhZPUym6C
- 43U/mDFO+os/JigV0ofJ11PO7590VWRk3fAhI124fuWZ7V2R4ElMMmFgv6ISSGMLpIbj
- aiI+WTJNYOEFbXexc1qbUIzgR5/2JlYRIt8oL2+SdX85Q9IRlc/SUtsBOuAWEXGQYhty
- Zhjg==
-X-Gm-Message-State: AJIora9VWPq2l0YvRpRS7GRaHiTyQmeD5JMqZS5Pe/HOTpUgEfNjFJI5
- R2kExcwNu5D4NmVznBZt/3I=
-X-Google-Smtp-Source: AGRyM1tQvQdoyjFYZfS1liJSgb+wrsI4bYFX7V+tmV4z8j3UvfsmISCnmKU2aLt9KbpEZgAIYIuBuQ==
-X-Received: by 2002:ac8:5cd3:0:b0:316:f772:f0b8 with SMTP id
- s19-20020ac85cd3000000b00316f772f0b8mr2587700qta.162.1657714305566; 
- Wed, 13 Jul 2022 05:11:45 -0700 (PDT)
-Received: from [192.168.43.228] ([193.86.92.180])
- by smtp.gmail.com with ESMTPSA id
- h13-20020a05620a400d00b006b5bbd8cb92sm630846qko.55.2022.07.13.05.11.41
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 13 Jul 2022 05:11:44 -0700 (PDT)
-Message-ID: <c8fdfa7b-f4eb-8308-4064-b868ce945e3a@gmail.com>
-Date: Wed, 13 Jul 2022 14:11:39 +0200
+ Wed, 13 Jul 2022 12:25:46 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 26D8uJAv023228;
+ Wed, 13 Jul 2022 14:25:30 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=hY/DzheLCg0VbuBOH1SoR4Jn7G8LgrCI2a6S3S81Qto=;
+ b=gGZulg3bmSVzyMBi2Psy94w+lwfECK73kPsXyKle4m0kmGpa0dJ4OZxP8hFAHKJeReIM
+ /Gbs8FDoD+A3EABBqsSoStMGo5lP8q3yNBmJMTTcNVK9sEQqoYNzAPzAn0u54Xre79SK
+ K6NpGbYnvs9fcp9mLK8MSgz2wUIvm6UrD2CpYEPbG056aG6F/rOExf37tmNxH806gixm
+ Va+t/LRIxJwSTGKstDGPAndqcZi0OzZ6Us0j6k+1CY8rPi7uxfbS0AzPEpmkiiRqN0EP
+ 0noRPZ5RCjOSwUC6VyUCNJu13MiCtBdnKbamjsYNIY5CJ4ujiS7yPQFSp7Ko2vwXYzbV Ww== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3h94gugy74-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 13 Jul 2022 14:25:29 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 0FC6610002A;
+ Wed, 13 Jul 2022 14:25:29 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 09B8221F14C;
+ Wed, 13 Jul 2022 14:25:29 +0200 (CEST)
+Received: from [10.48.1.102] (10.75.127.49) by SHFDAG1NODE2.st.com
+ (10.75.129.70) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2308.20; Wed, 13 Jul
+ 2022 14:25:28 +0200
+Message-ID: <077731cf-0525-56af-c615-27cbb5f6e089@foss.st.com>
+Date: Wed, 13 Jul 2022 14:25:28 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
+ Thunderbird/91.9.1
 Content-Language: en-US
-To: Biao Huang <biao.huang@mediatek.com>, David Miller <davem@davemloft.net>
-References: <20220713101002.10970-1-biao.huang@mediatek.com>
- <20220713101002.10970-2-biao.huang@mediatek.com>
-From: Matthias Brugger <matthias.bgg@gmail.com>
-In-Reply-To: <20220713101002.10970-2-biao.huang@mediatek.com>
-Cc: Mohammad Athari Bin Ismail <mohammad.athari.ismail@intel.com>,
- Jisheng Zhang <jszhang@kernel.org>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, Eric Dumazet <edumazet@google.com>,
- Jose Abreu <joabreu@synopsys.com>, linux-mediatek@lists.infradead.org,
- macpaul.lin@mediatek.com, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Jakub Kicinski <kuba@kernel.org>, Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Paolo Abeni <pabeni@redhat.com>, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Subject: Re: [Linux-stm32] [PATCH net v4 1/3] stmmac: dwmac-mediatek: fix
-	clock issue
+To: Rob Herring <robh@kernel.org>, Lee Jones <lee.jones@linaro.org>, Krzysztof
+ Kozlowski <krzysztof.kozlowski+dt@linaro.org>, Maxime Coquelin
+ <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>
+References: <20220706211934.567432-1-robh@kernel.org>
+From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+In-Reply-To: <20220706211934.567432-1-robh@kernel.org>
+X-Originating-IP: [10.75.127.49]
+X-ClientProxiedBy: SFHDAG2NODE3.st.com (10.75.127.6) To SHFDAG1NODE2.st.com
+ (10.75.129.70)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.883,Hydra:6.0.517,FMLib:17.11.122.1
+ definitions=2022-07-12_14,2022-07-13_02,2022-06-22_01
+Cc: devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH] dt-bindings: mfd: stm32-timers: Move
+ fixed string node names under 'properties'
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,127 +75,134 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+On 7/6/22 23:19, Rob Herring wrote:
+> Fixed string node names should be under 'properties' rather than
+> 'patternProperties'. Additionally, without beginning and end of line
+> anchors, any prefix or suffix is allowed on the specified node name.
+> 
+> Move the stm32 timers 'counter' and 'timer' nodes to the 'properties'
+> section.
+> 
+> Signed-off-by: Rob Herring <robh@kernel.org>
 
+Hi Rob,
 
-On 13/07/2022 12:10, Biao Huang wrote:
-> The pm_runtime takes care of the clock handling in current
-> stmmac drivers, and dwmac-mediatek implement the
-> mediatek_dwmac_clks_config() as the callback for pm_runtime.
-> 
-> Then, stripping duplicated clocks handling in old init()/exit()
-> to fix clock issue in suspend/resume test.
-> 
-> As to clocks in probe/remove, vendor need symmetric handling to
-> ensure clocks balance.
-> 
-> Test pass, including suspend/resume and ko insertion/remove.
-> 
-> Fixes: 3186bdad97d5 ("stmmac: dwmac-mediatek: add platform level clocks management")
-> Signed-off-by: Biao Huang <biao.huang@mediatek.com>
+You can add my:
+Reviewed-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+
+Thanks and Best Regards,
+Fabrice
+
 > ---
->   .../ethernet/stmicro/stmmac/dwmac-mediatek.c  | 49 ++++++++-----------
->   1 file changed, 21 insertions(+), 28 deletions(-)
+>  .../bindings/mfd/st,stm32-lptimer.yaml        | 28 +++++++++----------
+>  .../bindings/mfd/st,stm32-timers.yaml         | 20 ++++++-------
+>  2 files changed, 24 insertions(+), 24 deletions(-)
 > 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
-> index 6ff88df58767..ca8ab290013c 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
-> @@ -576,32 +576,7 @@ static int mediatek_dwmac_init(struct platform_device *pdev, void *priv)
->   		}
->   	}
->   
-> -	ret = clk_bulk_prepare_enable(variant->num_clks, plat->clks);
-> -	if (ret) {
-> -		dev_err(plat->dev, "failed to enable clks, err = %d\n", ret);
-> -		return ret;
-> -	}
+> diff --git a/Documentation/devicetree/bindings/mfd/st,stm32-lptimer.yaml b/Documentation/devicetree/bindings/mfd/st,stm32-lptimer.yaml
+> index ec7f0190f46e..a58f08aa430d 100644
+> --- a/Documentation/devicetree/bindings/mfd/st,stm32-lptimer.yaml
+> +++ b/Documentation/devicetree/bindings/mfd/st,stm32-lptimer.yaml
+> @@ -58,43 +58,43 @@ properties:
+>        - "#pwm-cells"
+>        - compatible
+>  
+> -patternProperties:
+> -  "^trigger@[0-9]+$":
+> +  counter:
+>      type: object
+>  
+>      properties:
+>        compatible:
+> -        const: st,stm32-lptimer-trigger
 > -
-> -	ret = clk_prepare_enable(plat->rmii_internal_clk);
-> -	if (ret) {
-> -		dev_err(plat->dev, "failed to enable rmii internal clk, err = %d\n", ret);
-> -		goto err_clk;
-> -	}
+> -      reg:
+> -        description: Identify trigger hardware block.
+> -        items:
+> -          minimum: 0
+> -          maximum: 2
+> +        const: st,stm32-lptimer-counter
+>  
+>      required:
+>        - compatible
+> -      - reg
+>  
+> -  counter:
+> +  timer:
+>      type: object
+>  
+>      properties:
+>        compatible:
+> -        const: st,stm32-lptimer-counter
+> +        const: st,stm32-lptimer-timer
+>  
+>      required:
+>        - compatible
+>  
+> -  timer:
+> +patternProperties:
+> +  "^trigger@[0-9]+$":
+>      type: object
+>  
+>      properties:
+>        compatible:
+> -        const: st,stm32-lptimer-timer
+> +        const: st,stm32-lptimer-trigger
+> +
+> +      reg:
+> +        description: Identify trigger hardware block.
+> +        items:
+> +          minimum: 0
+> +          maximum: 2
+>  
+>      required:
+>        - compatible
+> +      - reg
+>  
+>  required:
+>    - "#address-cells"
+> diff --git a/Documentation/devicetree/bindings/mfd/st,stm32-timers.yaml b/Documentation/devicetree/bindings/mfd/st,stm32-timers.yaml
+> index 10b330d42901..1bd663f886dc 100644
+> --- a/Documentation/devicetree/bindings/mfd/st,stm32-timers.yaml
+> +++ b/Documentation/devicetree/bindings/mfd/st,stm32-timers.yaml
+> @@ -87,6 +87,16 @@ properties:
+>        - "#pwm-cells"
+>        - compatible
+>  
+> +  counter:
+> +    type: object
+> +
+> +    properties:
+> +      compatible:
+> +        const: st,stm32-timer-counter
+> +
+> +    required:
+> +      - compatible
+> +
+>  patternProperties:
+>    "^timer@[0-9]+$":
+>      type: object
+> @@ -107,16 +117,6 @@ patternProperties:
+>        - compatible
+>        - reg
+>  
+> -  counter:
+> -    type: object
 > -
->   	return 0;
+> -    properties:
+> -      compatible:
+> -        const: st,stm32-timer-counter
 > -
-> -err_clk:
-> -	clk_bulk_disable_unprepare(variant->num_clks, plat->clks);
-> -	return ret;
-> -}
+> -    required:
+> -      - compatible
 > -
-> -static void mediatek_dwmac_exit(struct platform_device *pdev, void *priv)
-> -{
-> -	struct mediatek_dwmac_plat_data *plat = priv;
-> -	const struct mediatek_dwmac_variant *variant = plat->variant;
-> -
-> -	clk_disable_unprepare(plat->rmii_internal_clk);
-> -	clk_bulk_disable_unprepare(variant->num_clks, plat->clks);
->   }
->   
->   static int mediatek_dwmac_clks_config(void *priv, bool enabled)
-> @@ -643,7 +618,6 @@ static int mediatek_dwmac_common_data(struct platform_device *pdev,
->   	plat->addr64 = priv_plat->variant->dma_bit_mask;
->   	plat->bsp_priv = priv_plat;
->   	plat->init = mediatek_dwmac_init;
-> -	plat->exit = mediatek_dwmac_exit;
->   	plat->clks_config = mediatek_dwmac_clks_config;
->   	if (priv_plat->variant->dwmac_fix_mac_speed)
->   		plat->fix_mac_speed = priv_plat->variant->dwmac_fix_mac_speed;
-> @@ -712,13 +686,32 @@ static int mediatek_dwmac_probe(struct platform_device *pdev)
->   	mediatek_dwmac_common_data(pdev, plat_dat, priv_plat);
->   	mediatek_dwmac_init(pdev, priv_plat);
->   
-> +	ret = mediatek_dwmac_clks_config(priv_plat, true);
-> +	if (ret)
-> +		return ret;
-> +
->   	ret = stmmac_dvr_probe(&pdev->dev, plat_dat, &stmmac_res);
->   	if (ret) {
->   		stmmac_remove_config_dt(pdev, plat_dat);
-> -		return ret;
-> +		goto err_drv_probe;
->   	}
->   
->   	return 0;
-> +
-> +err_drv_probe:
-> +	mediatek_dwmac_clks_config(priv_plat, false);
-> +	return ret;
-> +}
-> +
-> +static int mediatek_dwmac_remove(struct platform_device *pdev)
-> +{
-> +	struct mediatek_dwmac_plat_data *priv_plat = get_stmmac_bsp_priv(&pdev->dev);
-> +	int ret;
-> +
-> +	ret = stmmac_pltfr_remove(pdev);
-> +	mediatek_dwmac_clks_config(priv_plat, false);
-> +
-
-We enalbe the clocks after calling stmmac_probe_config_dt(), so we should 
-disable them before calling stmmac_pltfr_remove(), correct?
-
-Other then that:
-Reviewed-by: Matthias Brugger <matthias.bgg@gmail.com>
-
-> +	return ret;
->   }
->   
->   static const struct of_device_id mediatek_dwmac_match[] = {
-> @@ -733,7 +726,7 @@ MODULE_DEVICE_TABLE(of, mediatek_dwmac_match);
->   
->   static struct platform_driver mediatek_dwmac_driver = {
->   	.probe  = mediatek_dwmac_probe,
-> -	.remove = stmmac_pltfr_remove,
-> +	.remove = mediatek_dwmac_remove,
->   	.driver = {
->   		.name           = "dwmac-mediatek",
->   		.pm		= &stmmac_pltfr_pm_ops,
+>  required:
+>    - compatible
+>    - reg
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
