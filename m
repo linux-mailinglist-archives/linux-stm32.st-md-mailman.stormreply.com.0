@@ -2,55 +2,55 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8873A572F67
-	for <lists+linux-stm32@lfdr.de>; Wed, 13 Jul 2022 09:43:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 79D1E572F6D
+	for <lists+linux-stm32@lfdr.de>; Wed, 13 Jul 2022 09:44:07 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 26CFFC640FE;
-	Wed, 13 Jul 2022 07:43:16 +0000 (UTC)
-Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com
- [209.85.218.47])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 48A81C640FE;
+	Wed, 13 Jul 2022 07:44:07 +0000 (UTC)
+Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com
+ [209.85.208.46])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 144CBC06F81
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AF66DC06F81
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 13 Jul 2022 07:43:15 +0000 (UTC)
-Received: by mail-ej1-f47.google.com with SMTP id j22so18403142ejs.2
+ Wed, 13 Jul 2022 07:44:05 +0000 (UTC)
+Received: by mail-ed1-f46.google.com with SMTP id r6so12991611edd.7
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 13 Jul 2022 00:43:15 -0700 (PDT)
+ Wed, 13 Jul 2022 00:44:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=bgdev-pl.20210112.gappssmtp.com; s=20210112;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=/VlnmlHCQfW3p97UCy5YcE83IQ1M7mTcSHN9rJn92L0=;
- b=DMmVsyTnzW/ZzHy/WNEhXKuJ/wvbeUmmgXu5noAA5OBSdWDoQXacYqh811HBuPUcB2
- 1704vMKky0r/XykIbgErzhYfAUaQwcS9in9Iyv7UDr89rtWYHrjgAoS4/ftDM13e6zET
- 6Zq3W/iDUAstij4E96pl6A4dFBehNRT4BC9T4B+TDbUnPluj2ffkyJngYthP+RTyypoS
- 8Ngpxqp4L5W5uQXKECMiWjztav+0/GDWvhzTqjfXmJSqE4LeJbCOxop9s0KYRQHCvYwi
- E53Ud0ve7qzEcCxNGVvfN7QIMwZ7/wVNGUlwjNS+1AxhR4BSF0jl8P02UdhUEjzq2usI
- 6Yhw==
+ :cc; bh=XpXyhJ4QNFnL4f5EJCGYwB18DxuLMU3vuswmDUU/6LM=;
+ b=dv3RBfCUzpoDhS6Aea9fT3Naw2N/mY3ENtgcsvmkZHsy0KNLqjQJD/v4UUGYYT65Bv
+ L42ePuEoaXv/CD2/0uxp4pR+Hk1qomsNDWmfSSncSfwjW74/Uy4iVCSiFHpQHjYU1jjR
+ NGrqCSVjggpKE46fk3cabnS3319GztqOzcgIkw/Lncbgn7eBhO4m1ffr7mATJwIWL1LJ
+ N2pPTmCI2kAMFJ3m5VnH6tFz8nYeAukT1AoyfYmrO4nVWXA51RstI6RO8+9iK5gPRGMR
+ a2F6/+etVy9DY7zf0MJF6p/PRDsRk6EtY/DxEGWsFb+KqZDKhBN1si7KrDXIuTAT5fDL
+ 8SGA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=/VlnmlHCQfW3p97UCy5YcE83IQ1M7mTcSHN9rJn92L0=;
- b=MMp7Sinv6tKac90eQ0wig5T4+WabF25u20qOQS4dSWLyQM9057B1MYB4ufKuPAsi82
- ajUV08VJEPJQ4Yrc4mRrL7l8RftAmc2lyB2TlAlFdlltLRU9Vf4/hDEZPr4XU3Mvcmte
- iRmGkhh0ev77ekoz9RwhdZ2tW7Fin5rCIYINauzE9qS4fS1I2yT6NZHuvwGy13HsPye7
- lOoYt0I0zrv04BEEazO59vcNC7xPbRaqzycaOyvq9kNdphDp7LI7Dvedf3FZO5+Q1N64
- i3gKWUbNAii5ehjG0PZObTlNMMm5waQD/dky3onjIXqrlD5Uc05KUw5smRSL6FSyMap6
- 8uYQ==
-X-Gm-Message-State: AJIora/FU81O+y5C2BPPgpwrl/hyNykfWI19h5tbaQolDe82t+L7UYKM
- 007X2A7wmKGXX6G3CNZIKoDu0GIuWrw7ldWRp9QIwA==
-X-Google-Smtp-Source: AGRyM1sqqwrs67V0xYX+vIkQzt1SsBz/eWMrr7ikKraa6psgwLTFp/02ZOU5oQQud0MALSLXgtkrRGzhBoT1X0IdY9c=
-X-Received: by 2002:a17:907:87b0:b0:72b:9f0d:3f89 with SMTP id
- qv48-20020a17090787b000b0072b9f0d3f89mr1053322ejc.734.1657698194579; Wed, 13
- Jul 2022 00:43:14 -0700 (PDT)
+ bh=XpXyhJ4QNFnL4f5EJCGYwB18DxuLMU3vuswmDUU/6LM=;
+ b=LxBl9xXXPuRt/bb5QdYEIEpX+Sd9fkFgUqiU3qBxbgwrZs+AOn8EX2uX44IJx51AjF
+ JuTV7F/DCYPThEW66pmHNjTC9n5NT2A8ipIz8ecqKS0YCOO+w1cC+u+d2Ujvy3x3H1Hq
+ DfMqaiNFwfQ15Z1ECncIGTQX3tCaYHVuWH/rIuXEMOlAwVsRlyCzXlZm//IJqC1PAyBA
+ GbDv8mqD7w1nRRMA9HA6VYvQUpkTfY1HPUijH9JDl/EGWBQNC8rqva/wv6eu2Jfdx5iK
+ iQoPQ7xORUy+5km6Qfqwl/xF44DR8FYnypUy0sM5yvzsUQfRKjd/fD6vdkQNhD7jOmS+
+ Vj0w==
+X-Gm-Message-State: AJIora98b80QNXtQDMqiAbuuWxzQbNEizxNf7XSMElsvTSbj2euPMtTS
+ eWnP0Vz/ULPwVEX3Alv9Nwr3DORfEnhOvrC9i2LraA==
+X-Google-Smtp-Source: AGRyM1sX4F6SiKqMB+JxZ5Wx2Pmtxkg3bpG8fzVwjszy4OPlIxdaH/u7IdCdfjlRCKG7QJCUEHdRq0RDeziupAcS4J8=
+X-Received: by 2002:a05:6402:430f:b0:43a:d521:bda with SMTP id
+ m15-20020a056402430f00b0043ad5210bdamr3077496edc.69.1657698245380; Wed, 13
+ Jul 2022 00:44:05 -0700 (PDT)
 MIME-Version: 1.0
-References: <20220712163345.445811-1-francesco.dolcini@toradex.com>
- <20220712163345.445811-4-francesco.dolcini@toradex.com>
-In-Reply-To: <20220712163345.445811-4-francesco.dolcini@toradex.com>
+References: <20220712110232.329164-1-francesco.dolcini@toradex.com>
+ <20220712110232.329164-3-francesco.dolcini@toradex.com>
+In-Reply-To: <20220712110232.329164-3-francesco.dolcini@toradex.com>
 From: Bartosz Golaszewski <brgl@bgdev.pl>
-Date: Wed, 13 Jul 2022 09:43:04 +0200
-Message-ID: <CAMRc=McUdeXSNwE9WBVh_ZrsL+-WusEQjqcuE2v=m1exHS6_eA@mail.gmail.com>
+Date: Wed, 13 Jul 2022 09:43:54 +0200
+Message-ID: <CAMRc=MeBE=V8cE2ZnuHzw65i5mx2S6iM9LDC8=M-Pa0RWHR7yg@mail.gmail.com>
 To: Francesco Dolcini <francesco.dolcini@toradex.com>
 Cc: devicetree <devicetree@vger.kernel.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
@@ -63,7 +63,7 @@ Cc: devicetree <devicetree@vger.kernel.org>,
  Linux Input <linux-input@vger.kernel.org>, Lee Jones <lee.jones@linaro.org>,
  linux-stm32@st-md-mailman.stormreply.com,
  Linux ARM <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH v2 3/5] dt-bindings: gpio: stmpe: Remove
+Subject: Re: [Linux-stm32] [PATCH v1 2/4] dt-bindings: gpio: stmpe: Remove
 	node name requirement
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -81,7 +81,7 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Jul 12, 2022 at 6:33 PM Francesco Dolcini
+On Tue, Jul 12, 2022 at 1:02 PM Francesco Dolcini
 <francesco.dolcini@toradex.com> wrote:
 >
 > STMPE driver does not require a specific node name anymore, only the
