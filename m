@@ -2,42 +2,42 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0A14E5742A4
-	for <lists+linux-stm32@lfdr.de>; Thu, 14 Jul 2022 06:25:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1E4595742B3
+	for <lists+linux-stm32@lfdr.de>; Thu, 14 Jul 2022 06:26:09 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C4DFAC640FE;
-	Thu, 14 Jul 2022 04:25:22 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DAD53C640FE;
+	Thu, 14 Jul 2022 04:26:08 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4E7CAC06F81
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 27F91C06F81
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 14 Jul 2022 04:25:21 +0000 (UTC)
+ Thu, 14 Jul 2022 04:26:07 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 2EB8861E5C;
- Thu, 14 Jul 2022 04:25:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A822C341C8;
- Thu, 14 Jul 2022 04:25:18 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 2339061EB7;
+ Thu, 14 Jul 2022 04:26:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA537C341C6;
+ Thu, 14 Jul 2022 04:26:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1657772719;
- bh=MwrqexhpLf/SooKdi98I/BD1VAoLu+JvpTmN4MR5/aA=;
+ s=k20201202; t=1657772765;
+ bh=bzbVxfGTgAIhLd0rJ+eOVVGcWCnwBstTz8yP8KQqUrI=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=eNdSJxUYEbVJKM/4kfCXOmAM7Z3YHqW2L3CfgJq7L7xyvWROfh5CVxsC4GUuA8IEL
- diTeQ7wXdXp1yZKjI7izhVFHBtmzAFc7vPcF0XDYlpkJerwzzaxoQWMW5pHwj2PLIo
- uWeKh7VyK57UCwzy/qUUuI7pJ5iaXsbOwzX9sEX9kAdhTl1wk29EpwfQVYzt4173np
- /oLEw+iIbzKNYDbMVKcFswL/ORa1U9ZA+QiIkmlmQ+PqcQhjki0XIfOpXPsHvt25IR
- eAi7sDvTAz5pColCkFwrPvInKYsmHdI9ouh4hQ67X+XeJqK1detOHSbu/qZLl4aXjC
- wfVoYYx6/dttQ==
+ b=X+F9sJmnZd0PfeJV/6q2inDU8vZuhCXp1mT7ctv0Iu+m2eTSWv1LuP6wDpUwnaI8J
+ xGoeBDDn7N6rHMv+PUUq80l0VqFUv/cV83BEhipBmU/DMtBZxvbvLPRAKykr9FK0vY
+ ViUVE5fY5P6br1uLAOq+U8jZdg91ddoh42Gio48flU4fqRaKeHhcC/WZAER2Vh1XQs
+ CA/6k8Hh1CNSrBvHrCY78klBx39EKqGQuNK6Z6I5YbxF6XcMb1VKCHRD3NBg7+1MMx
+ lOAgfH4P3hYmqYdvTSA7BZ70sa3AkHzul9rk4Fl82omQlI3Vi0Std4wbohQV4bEeNs
+ aNkRvGoxJT3bQ==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Thu, 14 Jul 2022 00:24:23 -0400
-Message-Id: <20220714042429.281816-22-sashal@kernel.org>
+Date: Thu, 14 Jul 2022 00:25:37 -0400
+Message-Id: <20220714042541.282175-12-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20220714042429.281816-1-sashal@kernel.org>
-References: <20220714042429.281816-1-sashal@kernel.org>
+In-Reply-To: <20220714042541.282175-1-sashal@kernel.org>
+References: <20220714042541.282175-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -46,7 +46,7 @@ Cc: Sasha Levin <sashal@kernel.org>, devicetree@vger.kernel.org,
  Gabriel Fernandez <gabriel.fernandez@foss.st.com>, robh+dt@kernel.org,
  mcoquelin.stm32@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH AUTOSEL 5.15 22/28] ARM: dts: stm32: use the
+Subject: [Linux-stm32] [PATCH AUTOSEL 5.10 12/15] ARM: dts: stm32: use the
 	correct clock source for CEC on stm32mp151
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -78,10 +78,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/arch/arm/boot/dts/stm32mp151.dtsi b/arch/arm/boot/dts/stm32mp151.dtsi
-index 6992a4b0ba79..714ecd339c68 100644
+index 7a0ef01de969..9919fc86bdc3 100644
 --- a/arch/arm/boot/dts/stm32mp151.dtsi
 +++ b/arch/arm/boot/dts/stm32mp151.dtsi
-@@ -553,7 +553,7 @@ cec: cec@40016000 {
+@@ -543,7 +543,7 @@ cec: cec@40016000 {
  			compatible = "st,stm32-cec";
  			reg = <0x40016000 0x400>;
  			interrupts = <GIC_SPI 94 IRQ_TYPE_LEVEL_HIGH>;
