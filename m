@@ -2,53 +2,100 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 18274576885
-	for <lists+linux-stm32@lfdr.de>; Fri, 15 Jul 2022 22:52:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 20E66576910
+	for <lists+linux-stm32@lfdr.de>; Fri, 15 Jul 2022 23:40:18 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BD715C640EF;
-	Fri, 15 Jul 2022 20:52:04 +0000 (UTC)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9977AC640F4;
+	Fri, 15 Jul 2022 21:40:17 +0000 (UTC)
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com
+ [209.85.221.53])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B5B38C08D1F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 64867C640F1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 15 Jul 2022 20:52:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1657918322; x=1689454322;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=sQXlsF0dU0h7TKwhfyBx9K7vKWjShXkwHIUD/Ch8sf8=;
- b=NTeBJ4AHNysZ+ohkzwulHoIh/4VZWIDOmCy3RpoCFpxiG0Y45zsj98X9
- +y5ApyrsutoJt2lE6N4TGSTeYh3M6yl0sb3m8Jzg9ZZP32s+lYuH328ov
- SyJNGuaSdznPidNmFzx4zm5pHd4Tgo4P22meK/VKZhWOuwiHt+VBXUMOv
- 30eCviBil4LQgCEcIn/XHF5MFueMjyIm2575jd+x55ODmjnx5F1y3Kg4q
- fHwWv0L/cg7AH0lVuXjGe4uDrF0PbyWFo4U0olKftS0fZHw2D917v4/YO
- TJ6dmoeDObxj3B045G2XzwfmmvVzup1x6aRdkGEVmOP5o8NgnTeo3TMeK g==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10409"; a="268918698"
-X-IronPort-AV: E=Sophos;i="5.92,274,1650956400"; d="scan'208";a="268918698"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Jul 2022 13:52:00 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.92,274,1650956400"; d="scan'208";a="654494812"
-Received: from black.fi.intel.com ([10.237.72.28])
- by fmsmga008.fm.intel.com with ESMTP; 15 Jul 2022 13:51:58 -0700
-Received: by black.fi.intel.com (Postfix, from userid 1003)
- id AC51A1A0; Fri, 15 Jul 2022 23:52:06 +0300 (EEST)
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Marc Zyngier <maz@kernel.org>, Antonio Borneo <antonio.borneo@foss.st.com>,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Date: Fri, 15 Jul 2022 23:52:03 +0300
-Message-Id: <20220715205203.82591-1-andriy.shevchenko@linux.intel.com>
-X-Mailer: git-send-email 2.35.1
+ Fri, 15 Jul 2022 21:40:16 +0000 (UTC)
+Received: by mail-wr1-f53.google.com with SMTP id j1so3969699wrs.4
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 15 Jul 2022 14:40:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :cc:references:from:in-reply-to:content-transfer-encoding;
+ bh=J6BSJtpNWZ2Z1cUANVaPa8k/01zDYr+V4xutkYf54NQ=;
+ b=EiZ/Jmkz5DdkNRwJGtK9gVoZ3BcJ8ejMk3yeeSneUGJiCM2csICY8AdW61vGapRVcY
+ UVEs2lvDUtUmSWhTy5Riy+DiODr1rNBvvUK4wbrRLT25XjOXefr0/051txgAy4PBorpi
+ GKNcSgswr6pLYwYHFSVzvB34JMrg+jT1ikpzno4L0ZOP0gQXJvWnMhCAGwkPbk+zk4T6
+ NHUHFy/WsEuLp1Gd3GTwIoolQEUdfvT1tqqUGbfp80W8fFmVfSTmouc1u2k89r7uyeR9
+ nYK4zK2wqlmEsLRHEwqRtcub6mC9oo2ROYXHqnHla+d+LumXFIkgFPThdJfozfzXSQFb
+ VGhA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=J6BSJtpNWZ2Z1cUANVaPa8k/01zDYr+V4xutkYf54NQ=;
+ b=uGJIuyB3W8BQ1Nd3WiUXUPd7+Ht4FgAywPHndzTzhyR9YY0GfypUutdEHe/ogdItgJ
+ bNoUaQwYv5XgE7eyTgAdZy/QCbDTB69I7cSoe6SxncpDwciCOyeP+OGfZEjXrRs27gya
+ 0y1sD/6Oaj0bJL5DuOh6NInnouOWeFPqz+bus7v1razpLqwdxqMhcIe5Bhsjrv8mzddR
+ 6VMfgApS6uzYZ8Fevpx1f7NT5igmiprVzdfLs0Xo78I1+Jer6G1ag5AMaxc//LL2Vdry
+ ckysUtECUP8mbKKVTl3SvXn6rH3lXfOhddcwyaGJNXFKEfQJ79mJ/KfH/3AbWz6VWCN0
+ zRbQ==
+X-Gm-Message-State: AJIora9fBpvNuaa29lmrcjvIrp2BCQ8H72NgnxVu6GsPDwXPung9cib6
+ twlOAwaRADa3fpxGdbara34XMA==
+X-Google-Smtp-Source: AGRyM1vl55wMLC6v4FE7361A1EgLL5IjuxGDiU+pOGyn8ZoWrdHGmzM+ZMQkW7lv66vojAGIB7e/MQ==
+X-Received: by 2002:a5d:4e04:0:b0:21d:6ec3:38a2 with SMTP id
+ p4-20020a5d4e04000000b0021d6ec338a2mr14182586wrt.362.1657921215858; 
+ Fri, 15 Jul 2022 14:40:15 -0700 (PDT)
+Received: from ?IPV6:2a05:6e02:1041:c10:a223:f4b3:40c9:43fa?
+ ([2a05:6e02:1041:c10:a223:f4b3:40c9:43fa])
+ by smtp.googlemail.com with ESMTPSA id
+ j27-20020a05600c1c1b00b0039c4ba160absm17678280wms.2.2022.07.15.14.40.12
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 15 Jul 2022 14:40:15 -0700 (PDT)
+Message-ID: <563e92de-68aa-7382-2564-c1ccc270c571@linaro.org>
+Date: Fri, 15 Jul 2022 23:40:11 +0200
 MIME-Version: 1.0
-Cc: Thomas Gleixner <tglx@linutronix.de>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Subject: [Linux-stm32] [PATCH v1 1/1] irqchip/stm32-exti: Use INVALID_HWIRQ
-	definition
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.9.1
+Content-Language: en-US
+To: =?UTF-8?Q?Nuno_S=c3=a1?= <nuno.sa@analog.com>, openbmc@lists.ozlabs.org,
+ linux-imx@nxp.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux-iio@vger.kernel.org, linux-mips@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org, linux-mediatek@lists.infradead.org,
+ chrome-platform@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+ linux-arm-msm@vger.kernel.org
+References: <20220715122903.332535-1-nuno.sa@analog.com>
+ <20220715122903.332535-7-nuno.sa@analog.com>
+From: Daniel Lezcano <daniel.lezcano@linaro.org>
+In-Reply-To: <20220715122903.332535-7-nuno.sa@analog.com>
+Cc: Gwendal Grignou <gwendal@chromium.org>, Tomer Maimon <tmaimon77@gmail.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ Linus Walleij <linus.walleij@linaro.org>, Amit Kucheria <amitk@kernel.org>,
+ Tali Perry <tali.perry1@gmail.com>, Paul Cercueil <paul@crapouillou.net>,
+ Miquel Raynal <miquel.raynal@bootlin.com>, Guenter Roeck <groeck@chromium.org>,
+ Fabio Estevam <festevam@gmail.com>,
+ Michael Hennerich <Michael.Hennerich@analog.com>,
+ Lars-Peter Clausen <lars@metafoo.de>, Benjamin Fair <benjaminfair@google.com>,
+ Jishnu Prakash <quic_jprakash@quicinc.com>, Haibo Chen <haibo.chen@nxp.com>,
+ Christophe Branchereau <cbranchereau@gmail.com>, Nancy Yuen <yuenn@google.com>,
+ Andy Shevchenko <andy.shevchenko@gmail.com>, Andy Gross <agross@kernel.org>,
+ Zhang Rui <rui.zhang@intel.com>, Lorenzo Bianconi <lorenzo@kernel.org>,
+ Saravanan Sekar <sravanhome@gmail.com>, Arnd Bergmann <arnd@arndb.de>,
+ Sascha Hauer <s.hauer@pengutronix.de>, Cai Huoqing <cai.huoqing@linux.dev>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Benson Leung <bleung@chromium.org>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Avi Fishman <avifishman70@gmail.com>, Patrick Venture <venture@google.com>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Thara Gopinath <thara.gopinath@linaro.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Eugen Hristev <eugen.hristev@microchip.com>, Shawn Guo <shawnguo@kernel.org>,
+ Claudiu Beznea <claudiu.beznea@microchip.com>,
+ Jonathan Cameron <jic23@kernel.org>
+Subject: Re: [Linux-stm32] [PATCH v3 06/15] thermal: qcom:
+ qcom-spmi-adc-tm5: convert to IIO fwnode API
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,37 +107,35 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Use specific definition for invalid IRQ. It makes the
-code uniform in respect to the constant used for that.
-No functional change intended.
-
-Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
----
- drivers/irqchip/irq-stm32-exti.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/irqchip/irq-stm32-exti.c b/drivers/irqchip/irq-stm32-exti.c
-index a73763d475f0..a6ae9f38aaf0 100644
---- a/drivers/irqchip/irq-stm32-exti.c
-+++ b/drivers/irqchip/irq-stm32-exti.c
-@@ -170,7 +170,7 @@ static const struct stm32_exti_bank *stm32mp1_exti_banks[] = {
- static struct irq_chip stm32_exti_h_chip;
- static struct irq_chip stm32_exti_h_chip_direct;
- 
--#define EXTI_INVALID_IRQ       U8_MAX
-+#define EXTI_INVALID_IRQ       ((u8)INVALID_HWIRQ)
- #define STM32MP1_DESC_IRQ_SIZE (ARRAY_SIZE(stm32mp1_exti_banks) * IRQS_PER_BANK)
- 
- static const u8 stm32mp1_desc_irq[] = {
--- 
-2.35.1
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gMTUvMDcvMjAyMiAxNDoyOCwgTnVubyBTw6Egd3JvdGU6Cj4gTWFrZSB1c2FnZSBvZiB0aGUg
+bmV3IGZpcm13YXJlIGFnbm9zdGljIEFQSQo+ICdkZXZtX29mX2lpb19jaGFubmVsX2dldF9ieV9u
+YW1lKCknIHRvIGdldCB0aGUgSUlPIGNoYW5uZWwuCj4gCj4gU2lnbmVkLW9mZi1ieTogTnVubyBT
+w6EgPG51bm8uc2FAYW5hbG9nLmNvbT4KPiBSZXZpZXdlZC1ieTogQW5keSBTaGV2Y2hlbmtvIDxh
+bmR5LnNoZXZjaGVua29AZ21haWwuY29tPgoKQWNrZWQtYnk6IERhbmllbCBMZXpjYW5vIDxkYW5p
+ZWwubGV6Y2Fub0BsaW5hcm8ub3JnPgoKPiAtLS0KPiAgIGRyaXZlcnMvdGhlcm1hbC9xY29tL3Fj
+b20tc3BtaS1hZGMtdG01LmMgfCAzICsrLQo+ICAgMSBmaWxlIGNoYW5nZWQsIDIgaW5zZXJ0aW9u
+cygrKSwgMSBkZWxldGlvbigtKQo+IAo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL3RoZXJtYWwvcWNv
+bS9xY29tLXNwbWktYWRjLXRtNS5jIGIvZHJpdmVycy90aGVybWFsL3Fjb20vcWNvbS1zcG1pLWFk
+Yy10bTUuYwo+IGluZGV4IGQ5YzljOTc1ZjkzMS4uMGI4NTQzYzYyN2YwIDEwMDY0NAo+IC0tLSBh
+L2RyaXZlcnMvdGhlcm1hbC9xY29tL3Fjb20tc3BtaS1hZGMtdG01LmMKPiArKysgYi9kcml2ZXJz
+L3RoZXJtYWwvcWNvbS9xY29tLXNwbWktYWRjLXRtNS5jCj4gQEAgLTgyNSw3ICs4MjUsOCBAQCBz
+dGF0aWMgaW50IGFkY190bTVfZ2V0X2R0X2NoYW5uZWxfZGF0YShzdHJ1Y3QgYWRjX3RtNV9jaGlw
+ICphZGNfdG0sCj4gICAJfQo+ICAgCWNoYW5uZWwtPmFkY19jaGFubmVsID0gYXJncy5hcmdzWzBd
+Owo+ICAgCj4gLQljaGFubmVsLT5paW8gPSBkZXZtX29mX2lpb19jaGFubmVsX2dldF9ieV9uYW1l
+KGFkY190bS0+ZGV2LCBub2RlLCBOVUxMKTsKPiArCWNoYW5uZWwtPmlpbyA9IGRldm1fZndub2Rl
+X2lpb19jaGFubmVsX2dldF9ieV9uYW1lKGFkY190bS0+ZGV2LAo+ICsJCQkJCQkJICAgb2ZfZndu
+b2RlX2hhbmRsZShub2RlKSwgTlVMTCk7Cj4gICAJaWYgKElTX0VSUihjaGFubmVsLT5paW8pKSB7
+Cj4gICAJCXJldCA9IFBUUl9FUlIoY2hhbm5lbC0+aWlvKTsKPiAgIAkJaWYgKHJldCAhPSAtRVBS
+T0JFX0RFRkVSKQoKCi0tIAo8aHR0cDovL3d3dy5saW5hcm8ub3JnLz4gTGluYXJvLm9yZyDilIIg
+T3BlbiBzb3VyY2Ugc29mdHdhcmUgZm9yIEFSTSBTb0NzCgpGb2xsb3cgTGluYXJvOiAgPGh0dHA6
+Ly93d3cuZmFjZWJvb2suY29tL3BhZ2VzL0xpbmFybz4gRmFjZWJvb2sgfAo8aHR0cDovL3R3aXR0
+ZXIuY29tLyMhL2xpbmFyb29yZz4gVHdpdHRlciB8CjxodHRwOi8vd3d3LmxpbmFyby5vcmcvbGlu
+YXJvLWJsb2cvPiBCbG9nCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFu
+LnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWls
+bWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
