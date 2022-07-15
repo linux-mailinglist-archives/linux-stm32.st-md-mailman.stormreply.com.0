@@ -2,71 +2,58 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8CE895765A5
-	for <lists+linux-stm32@lfdr.de>; Fri, 15 Jul 2022 19:05:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 07CD857667E
+	for <lists+linux-stm32@lfdr.de>; Fri, 15 Jul 2022 20:01:47 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4E9BAC640EF;
-	Fri, 15 Jul 2022 17:05:36 +0000 (UTC)
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com
- [209.85.214.169])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9E93FC5A4FD;
+	Fri, 15 Jul 2022 18:01:46 +0000 (UTC)
+Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 73703C08D1F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 57D87C06F81
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 15 Jul 2022 17:05:34 +0000 (UTC)
-Received: by mail-pl1-f169.google.com with SMTP id l12so3701441plk.13
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 15 Jul 2022 10:05:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=3F2Dyav1qJ5Ymnprccu3h+/op3LDhQRCn24iGv/mXi4=;
- b=B6RV0gNkNpL7CxjM3yr5/X6s39SewbqYQW5lBBG63+Pefp2pE1SgxSsyV5UWh1vt3+
- rc0ZbJoKBVU8xX99s9CTItshFLGPMoYa+E99ErWDIjWaAZ1jgJPLSzjsyjMco48S+EPt
- aFt9LtETeZbniwfBHE4T7EuFAblDAeNUaq7VP7bZc6b8aNmh/F2v5xfOMb93Io1QWhLW
- Xbz8bnTqvFMPOL/yHrpt85OXu/GLmZRoGLEs9dqf3QQqAkP6/Ako8wsqpTZoRHffBqdQ
- kabwqqsgNVeVRq1stWL4UPMNVNZWEz4A2H5wCrWBwn+yLGOpuO2A6I4wIQmLy7jQZ730
- 8+4g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=3F2Dyav1qJ5Ymnprccu3h+/op3LDhQRCn24iGv/mXi4=;
- b=s4iUaIyh/vNDRw96BYPge8O325/Gl+gOpNDa3PcuArzOXhcy+Bi5YFkvGU3uVOeeGf
- l1BkYEWEJQiQIgRK5OVxquOIgksN0Gx/UHbkK1V/v4UmDOS/+JWe1EA0N/cYHXVQhsqj
- 8E+lN+MvgyfHnGaBP07+huWT2ti6l9jFN6SbbTifwy+QAqmkHgFV3q+0/LmgEkkNO6st
- FYdA5UwGoGz0WFnwbe8inIPHAx5V5kYWvR6OO7cX2n7JhiYU67c6G0gML3Cg4r8pARh9
- ZZGBXRLmR7sGz57nppBGv3rx7F3Hqj15riaGmmyRox+gBNgRfTkOgJZiEfgbYWwdYhwa
- XStQ==
-X-Gm-Message-State: AJIora+47q/d8ivhDXfafpgXitz3Y/+meJM+i/Gs1GA+9YbZVODfXOfw
- ZEdywniO6oxrNgM3wfuFgM8=
-X-Google-Smtp-Source: AGRyM1tz3FRIhzFUz7drLCRi9SZYYj78Ri/KA5ucb3y6J4xkZkTjaL58Eq1AQTUzIxBY0wYQmkr4Rg==
-X-Received: by 2002:a17:902:cece:b0:16c:3683:8835 with SMTP id
- d14-20020a170902cece00b0016c36838835mr14824814plg.104.1657904732702; 
- Fri, 15 Jul 2022 10:05:32 -0700 (PDT)
-Received: from [10.67.48.245] ([192.19.223.252])
- by smtp.googlemail.com with ESMTPSA id
- u9-20020a170903124900b0016cabb9d77dsm3902963plh.169.2022.07.15.10.05.31
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 15 Jul 2022 10:05:32 -0700 (PDT)
-Message-ID: <8b875407-0321-8d50-7e34-077f48e11de2@gmail.com>
-Date: Fri, 15 Jul 2022 10:05:30 -0700
+ Fri, 15 Jul 2022 18:01:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1657908105; x=1689444105;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=2oOfC55LrtmXB2jCaFUlj9F/z3nDDWKlHIARcSj/KtA=;
+ b=YdtltKU89TQ8MxVhzFbC9bjj7UwDm69/He7/S+tJVGZN2SZLQH6i2JUV
+ oLO2r11AIoXUbR230dwZ6a4r2qA66XJnBXZnmSGlAmt8dfLBMHmxYLavq
+ 43ZzDLYK+dzL5FzJlXkylUbt5kv7xW2Tuf9Brcth1xG0MemFd1EX4rjFm
+ YrdIdDNH8Kpp/s7BEHOH53Fbq2YWngKa9lcLgJH7OwJki+px9yu8q2tVB
+ 7yLCzeZf4FQo08//uyseqt3bsKt+1V8lmFwxjsr94IrNY58kpT4786l8j
+ FDhDUwKheDIujgBsiic0H1KLtZmCtYHbo6r4zIk/6s3vLohMqIpBMxn6C g==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10409"; a="347550678"
+X-IronPort-AV: E=Sophos;i="5.92,274,1650956400"; d="scan'208";a="347550678"
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Jul 2022 11:01:43 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.92,274,1650956400"; d="scan'208";a="546742759"
+Received: from lkp-server02.sh.intel.com (HELO ff137eb26ff1) ([10.239.97.151])
+ by orsmga003.jf.intel.com with ESMTP; 15 Jul 2022 11:01:40 -0700
+Received: from kbuild by ff137eb26ff1 with local (Exim 4.95)
+ (envelope-from <lkp@intel.com>) id 1oCPdD-0000c6-GP;
+ Fri, 15 Jul 2022 18:01:39 +0000
+Date: Sat, 16 Jul 2022 02:01:20 +0800
+From: kernel test robot <lkp@intel.com>
+To: Amelie Delaunay <amelie.delaunay@foss.st.com>,
+ Jonathan Corbet <corbet@lwn.net>, Vinod Koul <vkoul@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>
+Message-ID: <202207160125.oxFFO8ZQ-lkp@intel.com>
+References: <20220713142148.239253-4-amelie.delaunay@foss.st.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Content-Language: en-US
-To: Junxiao Chang <junxiao.chang@intel.com>, peppe.cavallaro@st.com,
- alexandre.torgue@foss.st.com, joabreu@synopsys.com, davem@davemloft.net,
- netdev@vger.kernel.org
-References: <20220715074701.194776-1-junxiao.chang@intel.com>
-From: Florian Fainelli <f.fainelli@gmail.com>
-In-Reply-To: <20220715074701.194776-1-junxiao.chang@intel.com>
-Cc: Joao.Pinto@synopsys.com, edumazet@google.com, mcoquelin.stm32@gmail.com,
- cedric@bytespeed.nl, kuba@kernel.org, pabeni@redhat.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net] net: stmmac: fix dma queue left shift
-	overflow issue
+Content-Disposition: inline
+In-Reply-To: <20220713142148.239253-4-amelie.delaunay@foss.st.com>
+Cc: Marek Vasut <marex@denx.de>, kbuild-all@lists.01.org,
+ linux-doc@vger.kernel.org, llvm@lists.linux.dev, linux-kernel@vger.kernel.org,
+ dmaengine@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v2 3/4] dmaengine: stm32-dma: add support
+ to trigger STM32 MDMA
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,62 +70,59 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 7/15/22 00:47, Junxiao Chang wrote:
-> When queue number is > 4, left shift overflows due to 32 bits
-> integer variable. Mask calculation is wrong for MTL_RXQ_DMA_MAP1.
-> 
-> If CONFIG_UBSAN is enabled, kernel dumps below warning:
-> [   10.363842] ==================================================================
-> [   10.363882] UBSAN: shift-out-of-bounds in /build/linux-intel-iotg-5.15-8e6Tf4/
-> linux-intel-iotg-5.15-5.15.0/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c:224:12
-> [   10.363929] shift exponent 40 is too large for 32-bit type 'unsigned int'
-> [   10.363953] CPU: 1 PID: 599 Comm: NetworkManager Not tainted 5.15.0-1003-intel-iotg
-> [   10.363956] Hardware name: ADLINK Technology Inc. LEC-EL/LEC-EL, BIOS 0.15.11 12/22/2021
-> [   10.363958] Call Trace:
-> [   10.363960]  <TASK>
-> [   10.363963]  dump_stack_lvl+0x4a/0x5f
-> [   10.363971]  dump_stack+0x10/0x12
-> [   10.363974]  ubsan_epilogue+0x9/0x45
-> [   10.363976]  __ubsan_handle_shift_out_of_bounds.cold+0x61/0x10e
-> [   10.363979]  ? wake_up_klogd+0x4a/0x50
-> [   10.363983]  ? vprintk_emit+0x8f/0x240
-> [   10.363986]  dwmac4_map_mtl_dma.cold+0x42/0x91 [stmmac]
-> [   10.364001]  stmmac_mtl_configuration+0x1ce/0x7a0 [stmmac]
-> [   10.364009]  ? dwmac410_dma_init_channel+0x70/0x70 [stmmac]
-> [   10.364020]  stmmac_hw_setup.cold+0xf/0xb14 [stmmac]
-> [   10.364030]  ? page_pool_alloc_pages+0x4d/0x70
-> [   10.364034]  ? stmmac_clear_tx_descriptors+0x6e/0xe0 [stmmac]
-> [   10.364042]  stmmac_open+0x39e/0x920 [stmmac]
-> [   10.364050]  __dev_open+0xf0/0x1a0
-> [   10.364054]  __dev_change_flags+0x188/0x1f0
-> [   10.364057]  dev_change_flags+0x26/0x60
-> [   10.364059]  do_setlink+0x908/0xc40
-> [   10.364062]  ? do_setlink+0xb10/0xc40
-> [   10.364064]  ? __nla_validate_parse+0x4c/0x1a0
-> [   10.364068]  __rtnl_newlink+0x597/0xa10
-> [   10.364072]  ? __nla_reserve+0x41/0x50
-> [   10.364074]  ? __kmalloc_node_track_caller+0x1d0/0x4d0
-> [   10.364079]  ? pskb_expand_head+0x75/0x310
-> [   10.364082]  ? nla_reserve_64bit+0x21/0x40
-> [   10.364086]  ? skb_free_head+0x65/0x80
-> [   10.364089]  ? security_sock_rcv_skb+0x2c/0x50
-> [   10.364094]  ? __cond_resched+0x19/0x30
-> [   10.364097]  ? kmem_cache_alloc_trace+0x15a/0x420
-> [   10.364100]  rtnl_newlink+0x49/0x70
-> 
-> This change fixes MTL_RXQ_DMA_MAP1 mask issue and channel/queue
-> mapping warning.
-> 
-> Fixes: d43042f4da3e ("net: stmmac: mapping mtl rx to dma channel")
-> BugLink: https://bugzilla.kernel.org/show_bug.cgi?id=216195
-> Reported-by: Cedric Wassenaar <cedric@bytespeed.nl>
-> Signed-off-by: Junxiao Chang <junxiao.chang@intel.com>
+Hi Amelie,
 
-Reviewed-by: Florian Fainelli <f.fainelli@gmail.com>
+Thank you for the patch! Perhaps something to improve:
 
-Thank you!
+[auto build test WARNING on atorgue-stm32/stm32-next]
+[also build test WARNING on lwn-2.6/docs-next vkoul-dmaengine/next linus/master v5.19-rc6 next-20220715]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Amelie-Delaunay/STM32-DMA-MDMA-chaining-feature/20220713-222358
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/atorgue/stm32.git stm32-next
+config: hexagon-buildonly-randconfig-r004-20220715 (https://download.01.org/0day-ci/archive/20220716/202207160125.oxFFO8ZQ-lkp@intel.com/config)
+compiler: clang version 15.0.0 (https://github.com/llvm/llvm-project 2da550140aa98cf6a3e96417c87f1e89e3a26047)
+reproduce (this is a W=1 build):
+        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
+        chmod +x ~/bin/make.cross
+        # https://github.com/intel-lab-lkp/linux/commit/e1f4515659df0475a1e4d6dafd8559771c2b49b0
+        git remote add linux-review https://github.com/intel-lab-lkp/linux
+        git fetch --no-tags linux-review Amelie-Delaunay/STM32-DMA-MDMA-chaining-feature/20220713-222358
+        git checkout e1f4515659df0475a1e4d6dafd8559771c2b49b0
+        # save the config file
+        mkdir build_dir && cp config build_dir/.config
+        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=clang make.cross W=1 O=build_dir ARCH=hexagon SHELL=/bin/bash drivers/dma/ drivers/iio/adc/
+
+If you fix the issue, kindly add following tag where applicable
+Reported-by: kernel test robot <lkp@intel.com>
+
+All warnings (new ones prefixed by >>):
+
+>> drivers/dma/stm32-dma.c:211: warning: expecting prototype for struct stm32_dma_mdma_cfg. Prototype was for struct stm32_dma_mdma_config instead
+
+
+vim +211 drivers/dma/stm32-dma.c
+
+   199	
+   200	/**
+   201	 * struct stm32_dma_mdma_cfg - STM32 DMA MDMA configuration
+   202	 * @stream_id: DMA request to trigger STM32 MDMA transfer
+   203	 * @ifcr: DMA interrupt flag clear register address,
+   204	 *        used by STM32 MDMA to clear DMA Transfer Complete flag
+   205	 * @tcf: DMA Transfer Complete flag
+   206	 */
+   207	struct stm32_dma_mdma_config {
+   208		u32 stream_id;
+   209		u32 ifcr;
+   210		u32 tcf;
+ > 211	};
+   212	
+
 -- 
-Florian
+0-DAY CI Kernel Test Service
+https://01.org/lkp
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
