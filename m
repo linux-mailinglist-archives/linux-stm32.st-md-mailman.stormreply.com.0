@@ -2,56 +2,70 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id EC4D1576DE4
-	for <lists+linux-stm32@lfdr.de>; Sat, 16 Jul 2022 14:25:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 243855770CC
+	for <lists+linux-stm32@lfdr.de>; Sat, 16 Jul 2022 20:47:57 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B1058C64101;
-	Sat, 16 Jul 2022 12:25:17 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id ADD2CC64101;
+	Sat, 16 Jul 2022 18:47:56 +0000 (UTC)
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com
+ [209.85.221.53])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2A5D8C640F1
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 20018C03FC4
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 16 Jul 2022 12:25:17 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id B64BCB80187;
- Sat, 16 Jul 2022 12:25:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AAD92C34114;
- Sat, 16 Jul 2022 12:25:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1657974315;
- bh=4Hh0Hb1VmNIO85liwlyCNlhINhQwN+E6mmhpqNPCkg8=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=q4RNjKn423TevH0wC1Iieib6bDyZsDEvoDRnm9+rlqi/l/QieimSfxvC60Ej/m2P9
- niEDaooV5IeLikFGm9A0dJfi6R375PyvThdgmpMp3vtlAe/bpMjHpwAQKJmqSEEC9c
- Gi6CitLuaDIciPK6ZpsNeaK8fbE/qmn7G321iXd0Qw3pGAqk4x8N3m//wSJv7ze5PC
- EtmbTaadkpBxnMDFlNIU+iOOzUHatpOHKgCti4gqyDGOoqF/lgM3Umv5lHFItMwmXJ
- sSKM4D4VSXQczgWwSikQd5XZlms6xEBn1dir5sfQ5iAvhu9YHiksd2eLonGsUkHq87
- t67V+3zqH90aA==
-Date: Sat, 16 Jul 2022 14:25:11 +0200
-From: Wolfram Sang <wsa@kernel.org>
-To: Alain Volmat <alain.volmat@foss.st.com>
-Message-ID: <YtKuJ6YFQtMFi5jD@shikoro>
-Mail-Followup-To: Wolfram Sang <wsa@kernel.org>,
- Alain Volmat <alain.volmat@foss.st.com>, robh+dt@kernel.org,
- mark.rutland@arm.com, pierre-yves.mordret@foss.st.com,
- mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
- linux-i2c@vger.kernel.org, devicetree@vger.kernel.org,
+ Sat, 16 Jul 2022 18:47:55 +0000 (UTC)
+Received: by mail-wr1-f53.google.com with SMTP id v16so11112051wrd.13
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Sat, 16 Jul 2022 11:47:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=c0H4SZGJGUqTZkEbdcEov2Q3qqoTqkSn+ntdBtnS/KM=;
+ b=WTP+PwRdz3/NeNA3azbbdQYgZuEHW+wCcX2zlJdgKdgCavP8KQVX7cgpbz8xbvg9dT
+ CVCAjaCCKXsI51eH04MoxFh9pYCNiprUc+6DB/upF+ts+HmJYWsJ8/n4jL6prVfsPgwC
+ UJkJQY9TJWWP+85XiJJIV6loYx1w9jSI/8wYw1KIUuZKQMNTMyJO9lVC4e2fA/tMW/Dk
+ z6K7wkAKoSw9NJuSGNCJUZdiuzNcYV4WCuuXaJCnotrTC1qX4PsXAtefwndQM9RQNutl
+ 2iZwuMppDNyTDakxaANhHlHz/33xeYlZtmWYmHPA7uIBBL4cHP1XBjMATBLmrFNX3x19
+ 4fEQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=c0H4SZGJGUqTZkEbdcEov2Q3qqoTqkSn+ntdBtnS/KM=;
+ b=eX5kyFkSgYgbiuJf8GozT+HurboG7geDUjqYIg+G1c3Eof3apIHBKiTvbTQmH/zZP5
+ mVBe9cn++r66gWVtak+DMrAYqXuHuADF1B2kqHrCAQO3k+EspDGI+RAUGKCw0/f0KRRd
+ L4j1baxbc20yCyib1HB7t8IUIDp9qPeonYXq2X+dgkNRM2K5QVtN4Om5et3KFNi3gaGD
+ H0X3nubkwJ1lxFuQoqq/rWlE8r3e8rZT+rjOyuvT2AvGjo2M/3dc0NnFE3Mrk5lORkiN
+ gL8pyyaJdE2PlDtbJA+KnrE8TqTPeLshNaf8LixyrcxwJDHtusCGfdzxr3mY2HzKU1DE
+ vP7g==
+X-Gm-Message-State: AJIora/Hga+VmUSm137Sn6L5UfLxJ2HIj7DVsy+8yey4MnfmS8F6BDwv
+ Xudi1QK6XrVqXDyjcX+c8SM=
+X-Google-Smtp-Source: AGRyM1vxWmXVZdIyvKjsfCiLfQST70cTYy6Zs18aWyI1GzP13g44mwZBjouRPWLAxAgn0Di1wM0E3g==
+X-Received: by 2002:adf:e604:0:b0:21d:6ddb:d0ec with SMTP id
+ p4-20020adfe604000000b0021d6ddbd0ecmr17520358wrm.177.1657997274381; 
+ Sat, 16 Jul 2022 11:47:54 -0700 (PDT)
+Received: from localhost.localdomain (93-42-70-190.ip85.fastwebnet.it.
+ [93.42.70.190]) by smtp.googlemail.com with ESMTPSA id
+ u18-20020a05600c19d200b003973c54bd69sm13649961wmq.1.2022.07.16.11.47.53
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 16 Jul 2022 11:47:54 -0700 (PDT)
+From: Christian Marangi <ansuelsmth@gmail.com>
+To: Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Jose Abreu <joabreu@synopsys.com>, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Russell King <linux@armlinux.org.uk>, netdev@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- fabrice.gasnier@foss.st.com, amelie.delaunay@foss.st.com
-References: <20220707074402.2429786-1-alain.volmat@foss.st.com>
- <20220707074402.2429786-3-alain.volmat@foss.st.com>
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Date: Sat, 16 Jul 2022 20:45:28 +0200
+Message-Id: <20220716184533.2962-1-ansuelsmth@gmail.com>
+X-Mailer: git-send-email 2.36.1
 MIME-Version: 1.0
-In-Reply-To: <20220707074402.2429786-3-alain.volmat@foss.st.com>
-Cc: mark.rutland@arm.com, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, robh+dt@kernel.org, linux-i2c@vger.kernel.org,
- mcoquelin.stm32@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2 2/2] i2c: stm32: add support for the
-	STM32MP13 soc
+Cc: Christian Marangi <ansuelsmth@gmail.com>
+Subject: [Linux-stm32] [net-next PATCH v2 0/5] Add MTU change with stmmac
+	interface running
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -63,63 +77,58 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============1739918531218916669=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+This series is to permit MTU change while the interface is running.
+Major rework are needed to permit to allocate a new dma conf based on
+the new MTU before applying it. This is to make sure there is enough
+space to allocate all the DMA queue before releasing the stmmac driver.
 
---===============1739918531218916669==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="UmV9tOl/xeljXOjt"
-Content-Disposition: inline
+This was tested with a simple way to stress the network while the
+interface is running.
 
+2 ssh connection to the device:
+- One generating simple traffic with while true; do free; done
+- The other making the mtu change with a delay of 1 second
 
---UmV9tOl/xeljXOjt
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+The connection is correctly stopped and recovered after the MTU is changed.
 
-On Thu, Jul 07, 2022 at 09:44:02AM +0200, Alain Volmat wrote:
-> Add a new compatible for the stm32mp13.  Fast Mode Plus control
-> register address differ from the one for STM32MP15.
->=20
-> Signed-off-by: Alain Volmat <alain.volmat@foss.st.com>
-> Reviewed-by: Pierre-Yves MORDRET <pierre-yves.mordret@foss.st.com>
+The first 2 patch of this series are minor fixup that fix problems presented
+while testing this. One fix a problem when we renable a queue while we are
+generating a new dma conf. The other is a corner case that was notice while
+stressing the driver and turning down the interface while there was some
+traffic.
 
-Applied to for-next, thanks!
+(this is a follow-up of a simpler patch that wanted to add the same feature.
+It was suggested to first try to check if it was possible to apply the new
+configuration. Posting as RFC as it does major rework for the new concept of
+DMA conf)
 
+v2:
+- Put it out of RFC
 
---UmV9tOl/xeljXOjt
-Content-Type: application/pgp-signature; name="signature.asc"
+Christian Marangi (5):
+  net: ethernet: stmicro: stmmac: move queue reset to dedicated
+    functions
+  net: ethernet: stmicro: stmmac: first disable all queues in release
+  net: ethernet: stmicro: stmmac: move dma conf to dedicated struct
+  net: ethernet: stmicro: stmmac: generate stmmac dma conf before open
+  net: ethernet: stmicro: stmmac: permit MTU change with interface up
 
------BEGIN PGP SIGNATURE-----
+ .../net/ethernet/stmicro/stmmac/chain_mode.c  |   6 +-
+ .../net/ethernet/stmicro/stmmac/ring_mode.c   |   4 +-
+ drivers/net/ethernet/stmicro/stmmac/stmmac.h  |  21 +-
+ .../ethernet/stmicro/stmmac/stmmac_ethtool.c  |   4 +-
+ .../net/ethernet/stmicro/stmmac/stmmac_main.c | 722 +++++++++++-------
+ 5 files changed, 450 insertions(+), 307 deletions(-)
 
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmLSricACgkQFA3kzBSg
-KbY79Q//a303XMkTPCd5Gq21pbNS57rqo0RkC0kqvj6VCM7IhAeJbX6Acuy9+0Hv
-TuBYxWFkBFiF5sMqGmz7ouhYpo0faNHNkN+8Mrg9VHyUjS5B4S2ke3FeRki7pwiq
-X+D2Or++MGSYatoXlM/D2quG9fie4KxZG7B3c6+oNbm6UkPMDiER+KciC+TMssJP
-RDWpDFkoi0pXUHkhb66LwioccIQd1BFChQWDzINz/c6D0oqITN1zgt4tV+42WTYn
-H+xq+qaoRg73Pdnf1MlS9Zdh32Dh5qFKXz+iFK7dBbGmNWKl1a4DSEniusBbWQY2
-3PDxNSM6tIyVcfqNqrjoqkm1knYRx9UInuiX7Xy93nAp9vDM6+zV1l/PXfumYooL
-FX6Rm2duQd5NlBtXW/kq/130o/NEzZn7P6y2iAOaVjCUqxc3okxRotTNXxmbiq87
-oaqs0uz5svq8+EpbhzSfrbWtgqL11dzEkZaeQFqDwKAFI07p55H4JBl4FzTmh3sK
-nQcBln2qKeSNZA6wWaBSeQOBb/6qwi7CnIPMeBnKkPHjBV5O7w2d4ofM6nhypkFM
-SIy0MtJZnOFi7Iio5Rq9YGr9SDanq6U9Cqg0T2/AApKJYTvqK35Xynxk0iPT8sBv
-gRGkEI+I13AEI83RDCU7AkNcSPUmpeqjzLUlw2snZaukyParbMI=
-=BHXX
------END PGP SIGNATURE-----
-
---UmV9tOl/xeljXOjt--
-
---===============1739918531218916669==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+-- 
+2.36.1
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============1739918531218916669==--
