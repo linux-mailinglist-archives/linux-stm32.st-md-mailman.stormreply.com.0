@@ -2,100 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 20E66576910
-	for <lists+linux-stm32@lfdr.de>; Fri, 15 Jul 2022 23:40:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5B6F3576D29
+	for <lists+linux-stm32@lfdr.de>; Sat, 16 Jul 2022 11:42:09 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9977AC640F4;
-	Fri, 15 Jul 2022 21:40:17 +0000 (UTC)
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com
- [209.85.221.53])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0D2D2C64101;
+	Sat, 16 Jul 2022 09:42:09 +0000 (UTC)
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 64867C640F1
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E18B5C640F1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 15 Jul 2022 21:40:16 +0000 (UTC)
-Received: by mail-wr1-f53.google.com with SMTP id j1so3969699wrs.4
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 15 Jul 2022 14:40:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=J6BSJtpNWZ2Z1cUANVaPa8k/01zDYr+V4xutkYf54NQ=;
- b=EiZ/Jmkz5DdkNRwJGtK9gVoZ3BcJ8ejMk3yeeSneUGJiCM2csICY8AdW61vGapRVcY
- UVEs2lvDUtUmSWhTy5Riy+DiODr1rNBvvUK4wbrRLT25XjOXefr0/051txgAy4PBorpi
- GKNcSgswr6pLYwYHFSVzvB34JMrg+jT1ikpzno4L0ZOP0gQXJvWnMhCAGwkPbk+zk4T6
- NHUHFy/WsEuLp1Gd3GTwIoolQEUdfvT1tqqUGbfp80W8fFmVfSTmouc1u2k89r7uyeR9
- nYK4zK2wqlmEsLRHEwqRtcub6mC9oo2ROYXHqnHla+d+LumXFIkgFPThdJfozfzXSQFb
- VGhA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=J6BSJtpNWZ2Z1cUANVaPa8k/01zDYr+V4xutkYf54NQ=;
- b=uGJIuyB3W8BQ1Nd3WiUXUPd7+Ht4FgAywPHndzTzhyR9YY0GfypUutdEHe/ogdItgJ
- bNoUaQwYv5XgE7eyTgAdZy/QCbDTB69I7cSoe6SxncpDwciCOyeP+OGfZEjXrRs27gya
- 0y1sD/6Oaj0bJL5DuOh6NInnouOWeFPqz+bus7v1razpLqwdxqMhcIe5Bhsjrv8mzddR
- 6VMfgApS6uzYZ8Fevpx1f7NT5igmiprVzdfLs0Xo78I1+Jer6G1ag5AMaxc//LL2Vdry
- ckysUtECUP8mbKKVTl3SvXn6rH3lXfOhddcwyaGJNXFKEfQJ79mJ/KfH/3AbWz6VWCN0
- zRbQ==
-X-Gm-Message-State: AJIora9fBpvNuaa29lmrcjvIrp2BCQ8H72NgnxVu6GsPDwXPung9cib6
- twlOAwaRADa3fpxGdbara34XMA==
-X-Google-Smtp-Source: AGRyM1vl55wMLC6v4FE7361A1EgLL5IjuxGDiU+pOGyn8ZoWrdHGmzM+ZMQkW7lv66vojAGIB7e/MQ==
-X-Received: by 2002:a5d:4e04:0:b0:21d:6ec3:38a2 with SMTP id
- p4-20020a5d4e04000000b0021d6ec338a2mr14182586wrt.362.1657921215858; 
- Fri, 15 Jul 2022 14:40:15 -0700 (PDT)
-Received: from ?IPV6:2a05:6e02:1041:c10:a223:f4b3:40c9:43fa?
- ([2a05:6e02:1041:c10:a223:f4b3:40c9:43fa])
- by smtp.googlemail.com with ESMTPSA id
- j27-20020a05600c1c1b00b0039c4ba160absm17678280wms.2.2022.07.15.14.40.12
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 15 Jul 2022 14:40:15 -0700 (PDT)
-Message-ID: <563e92de-68aa-7382-2564-c1ccc270c571@linaro.org>
-Date: Fri, 15 Jul 2022 23:40:11 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.9.1
-Content-Language: en-US
-To: =?UTF-8?Q?Nuno_S=c3=a1?= <nuno.sa@analog.com>, openbmc@lists.ozlabs.org,
- linux-imx@nxp.com, linux-stm32@st-md-mailman.stormreply.com,
- linux-iio@vger.kernel.org, linux-mips@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org, linux-mediatek@lists.infradead.org,
- chrome-platform@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
- Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
- linux-arm-msm@vger.kernel.org
-References: <20220715122903.332535-1-nuno.sa@analog.com>
- <20220715122903.332535-7-nuno.sa@analog.com>
-From: Daniel Lezcano <daniel.lezcano@linaro.org>
-In-Reply-To: <20220715122903.332535-7-nuno.sa@analog.com>
-Cc: Gwendal Grignou <gwendal@chromium.org>, Tomer Maimon <tmaimon77@gmail.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>,
- Linus Walleij <linus.walleij@linaro.org>, Amit Kucheria <amitk@kernel.org>,
- Tali Perry <tali.perry1@gmail.com>, Paul Cercueil <paul@crapouillou.net>,
- Miquel Raynal <miquel.raynal@bootlin.com>, Guenter Roeck <groeck@chromium.org>,
- Fabio Estevam <festevam@gmail.com>,
- Michael Hennerich <Michael.Hennerich@analog.com>,
- Lars-Peter Clausen <lars@metafoo.de>, Benjamin Fair <benjaminfair@google.com>,
- Jishnu Prakash <quic_jprakash@quicinc.com>, Haibo Chen <haibo.chen@nxp.com>,
- Christophe Branchereau <cbranchereau@gmail.com>, Nancy Yuen <yuenn@google.com>,
- Andy Shevchenko <andy.shevchenko@gmail.com>, Andy Gross <agross@kernel.org>,
- Zhang Rui <rui.zhang@intel.com>, Lorenzo Bianconi <lorenzo@kernel.org>,
- Saravanan Sekar <sravanhome@gmail.com>, Arnd Bergmann <arnd@arndb.de>,
- Sascha Hauer <s.hauer@pengutronix.de>, Cai Huoqing <cai.huoqing@linux.dev>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- Benson Leung <bleung@chromium.org>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Avi Fishman <avifishman70@gmail.com>, Patrick Venture <venture@google.com>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- Thara Gopinath <thara.gopinath@linaro.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Eugen Hristev <eugen.hristev@microchip.com>, Shawn Guo <shawnguo@kernel.org>,
- Claudiu Beznea <claudiu.beznea@microchip.com>,
- Jonathan Cameron <jic23@kernel.org>
-Subject: Re: [Linux-stm32] [PATCH v3 06/15] thermal: qcom:
- qcom-spmi-adc-tm5: convert to IIO fwnode API
+ Sat, 16 Jul 2022 09:42:07 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by sin.source.kernel.org (Postfix) with ESMTPS id 1E968CE3260;
+ Sat, 16 Jul 2022 09:42:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 82B13C34114;
+ Sat, 16 Jul 2022 09:42:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1657964524;
+ bh=G7vrycS8jIH6nYlm9Kst7bOhdSSjtay89I3eNL5Em8E=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=DA8Mi6XiF5qTUvt4BGv/G+aleDLA4akgFnwjL/PYvGzxeVz43L5NNiAJsFyJltZl3
+ y4FtmGYe8pKMAaodrU3WY7dorT+Eax8bPm9E7qm3BTaXnXkkeWwd9GX6Z08gESmFdt
+ J3IVyHaHxqZnmNF6PFAZ7gZvHXq9kcvDdsb9DKzDOpH/bUpo2DGCCryDZ+vZOT2XDa
+ CJIs7hnYqUF4zqYirqODcrlrVggUBlSQqZOtyYnzkw3J8NEALn2qDP8dLFNVnQrTpN
+ Q7xqxCWdrLN8/t/g29zlemXdgD+0z+zPlUt99ebWxyjgUP8tvNfwfB8wV7wTN6m/Pl
+ rhUDdugLckOZQ==
+Received: from sofa.misterjones.org ([185.219.108.64]
+ helo=wait-a-minute.misterjones.org)
+ by disco-boy.misterjones.org with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.95)
+ (envelope-from <maz@kernel.org>) id 1oCeJG-007quR-7a;
+ Sat, 16 Jul 2022 10:42:02 +0100
+Date: Sat, 16 Jul 2022 10:41:59 +0100
+Message-ID: <87sfn14cns.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+In-Reply-To: <20220715205203.82591-1-andriy.shevchenko@linux.intel.com>
+References: <20220715205203.82591-1-andriy.shevchenko@linux.intel.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/27.1
+ (x86_64-pc-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: andriy.shevchenko@linux.intel.com,
+ antonio.borneo@foss.st.com, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ tglx@linutronix.de, mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org);
+ SAEximRunCond expanded to false
+Cc: linux-kernel@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Thomas Gleixner <tglx@linutronix.de>, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v1 1/1] irqchip/stm32-exti: Use
+	INVALID_HWIRQ definition
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -107,35 +70,47 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gMTUvMDcvMjAyMiAxNDoyOCwgTnVubyBTw6Egd3JvdGU6Cj4gTWFrZSB1c2FnZSBvZiB0aGUg
-bmV3IGZpcm13YXJlIGFnbm9zdGljIEFQSQo+ICdkZXZtX29mX2lpb19jaGFubmVsX2dldF9ieV9u
-YW1lKCknIHRvIGdldCB0aGUgSUlPIGNoYW5uZWwuCj4gCj4gU2lnbmVkLW9mZi1ieTogTnVubyBT
-w6EgPG51bm8uc2FAYW5hbG9nLmNvbT4KPiBSZXZpZXdlZC1ieTogQW5keSBTaGV2Y2hlbmtvIDxh
-bmR5LnNoZXZjaGVua29AZ21haWwuY29tPgoKQWNrZWQtYnk6IERhbmllbCBMZXpjYW5vIDxkYW5p
-ZWwubGV6Y2Fub0BsaW5hcm8ub3JnPgoKPiAtLS0KPiAgIGRyaXZlcnMvdGhlcm1hbC9xY29tL3Fj
-b20tc3BtaS1hZGMtdG01LmMgfCAzICsrLQo+ICAgMSBmaWxlIGNoYW5nZWQsIDIgaW5zZXJ0aW9u
-cygrKSwgMSBkZWxldGlvbigtKQo+IAo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL3RoZXJtYWwvcWNv
-bS9xY29tLXNwbWktYWRjLXRtNS5jIGIvZHJpdmVycy90aGVybWFsL3Fjb20vcWNvbS1zcG1pLWFk
-Yy10bTUuYwo+IGluZGV4IGQ5YzljOTc1ZjkzMS4uMGI4NTQzYzYyN2YwIDEwMDY0NAo+IC0tLSBh
-L2RyaXZlcnMvdGhlcm1hbC9xY29tL3Fjb20tc3BtaS1hZGMtdG01LmMKPiArKysgYi9kcml2ZXJz
-L3RoZXJtYWwvcWNvbS9xY29tLXNwbWktYWRjLXRtNS5jCj4gQEAgLTgyNSw3ICs4MjUsOCBAQCBz
-dGF0aWMgaW50IGFkY190bTVfZ2V0X2R0X2NoYW5uZWxfZGF0YShzdHJ1Y3QgYWRjX3RtNV9jaGlw
-ICphZGNfdG0sCj4gICAJfQo+ICAgCWNoYW5uZWwtPmFkY19jaGFubmVsID0gYXJncy5hcmdzWzBd
-Owo+ICAgCj4gLQljaGFubmVsLT5paW8gPSBkZXZtX29mX2lpb19jaGFubmVsX2dldF9ieV9uYW1l
-KGFkY190bS0+ZGV2LCBub2RlLCBOVUxMKTsKPiArCWNoYW5uZWwtPmlpbyA9IGRldm1fZndub2Rl
-X2lpb19jaGFubmVsX2dldF9ieV9uYW1lKGFkY190bS0+ZGV2LAo+ICsJCQkJCQkJICAgb2ZfZndu
-b2RlX2hhbmRsZShub2RlKSwgTlVMTCk7Cj4gICAJaWYgKElTX0VSUihjaGFubmVsLT5paW8pKSB7
-Cj4gICAJCXJldCA9IFBUUl9FUlIoY2hhbm5lbC0+aWlvKTsKPiAgIAkJaWYgKHJldCAhPSAtRVBS
-T0JFX0RFRkVSKQoKCi0tIAo8aHR0cDovL3d3dy5saW5hcm8ub3JnLz4gTGluYXJvLm9yZyDilIIg
-T3BlbiBzb3VyY2Ugc29mdHdhcmUgZm9yIEFSTSBTb0NzCgpGb2xsb3cgTGluYXJvOiAgPGh0dHA6
-Ly93d3cuZmFjZWJvb2suY29tL3BhZ2VzL0xpbmFybz4gRmFjZWJvb2sgfAo8aHR0cDovL3R3aXR0
-ZXIuY29tLyMhL2xpbmFyb29yZz4gVHdpdHRlciB8CjxodHRwOi8vd3d3LmxpbmFyby5vcmcvbGlu
-YXJvLWJsb2cvPiBCbG9nCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFu
-LnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWls
-bWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+On Fri, 15 Jul 2022 21:52:03 +0100,
+Andy Shevchenko <andriy.shevchenko@linux.intel.com> wrote:
+> 
+> Use specific definition for invalid IRQ. It makes the
+> code uniform in respect to the constant used for that.
+> No functional change intended.
+> 
+> Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+> ---
+>  drivers/irqchip/irq-stm32-exti.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/irqchip/irq-stm32-exti.c b/drivers/irqchip/irq-stm32-exti.c
+> index a73763d475f0..a6ae9f38aaf0 100644
+> --- a/drivers/irqchip/irq-stm32-exti.c
+> +++ b/drivers/irqchip/irq-stm32-exti.c
+> @@ -170,7 +170,7 @@ static const struct stm32_exti_bank *stm32mp1_exti_banks[] = {
+>  static struct irq_chip stm32_exti_h_chip;
+>  static struct irq_chip stm32_exti_h_chip_direct;
+>  
+> -#define EXTI_INVALID_IRQ       U8_MAX
+> +#define EXTI_INVALID_IRQ       ((u8)INVALID_HWIRQ)
+
+This looks like a terrible idea. It gives the impression that you can
+now rely on comparing the internal data structure field to
+INVALID_HWIRQ. Which is of course bound to fail.
+
+To be honest, I'd rather *kill* INVALID_HWIRQ, because apart from
+cherryview, nobody even *checks* for this value by that name. So much
+for the "code uniformity"...
+
+	M.
+
+-- 
+Without deviation from the norm, progress is not possible.
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
