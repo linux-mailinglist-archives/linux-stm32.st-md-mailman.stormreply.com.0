@@ -2,38 +2,38 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0139E576DE0
-	for <lists+linux-stm32@lfdr.de>; Sat, 16 Jul 2022 14:25:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EC4D1576DE4
+	for <lists+linux-stm32@lfdr.de>; Sat, 16 Jul 2022 14:25:17 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A0748C64101;
-	Sat, 16 Jul 2022 12:25:08 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B1058C64101;
+	Sat, 16 Jul 2022 12:25:17 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F11F7C640F1
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2A5D8C640F1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 16 Jul 2022 12:25:07 +0000 (UTC)
+ Sat, 16 Jul 2022 12:25:17 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id A4CA560BFF;
- Sat, 16 Jul 2022 12:25:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 490FBC34114;
- Sat, 16 Jul 2022 12:25:05 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id B64BCB80187;
+ Sat, 16 Jul 2022 12:25:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AAD92C34114;
+ Sat, 16 Jul 2022 12:25:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1657974306;
- bh=b73l71pfnctP3sh0f5boOKGEDg8OKCQBQOgeRaAVgNc=;
+ s=k20201202; t=1657974315;
+ bh=4Hh0Hb1VmNIO85liwlyCNlhINhQwN+E6mmhpqNPCkg8=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=iW0CN0q4wN/okmwYfRluhoDdZYpd5Y6pNUH5aP58Qaae1FlVkDwPCfKpPgIWYYxrU
- EtTR4Vm5ndWS0ZA+5QNKeAzT2NjbvwBpc5N0NACj9DucAn31jITzzQeAKBFdqpm5b9
- yEf8MMtAKfHNc/XiUWDdn5DBzBgc5/o3GmJCGNDJDuy8ynHcS3M4M1/74r39zxqX/s
- 4k9QLbHlJYex4LHxYzxdbtApCQLfxUpKyV+EMhQrz+UwrTKSnVncw2KyZnJMew+A95
- UCTfRJDvgcY3CXXx1IqvFlLhAdz0CwrOjtwFdqKr7Drr/pNT8dex3c7LrYnX5mWUu4
- YNNGH0ItxHH2w==
-Date: Sat, 16 Jul 2022 14:25:01 +0200
+ b=q4RNjKn423TevH0wC1Iieib6bDyZsDEvoDRnm9+rlqi/l/QieimSfxvC60Ej/m2P9
+ niEDaooV5IeLikFGm9A0dJfi6R375PyvThdgmpMp3vtlAe/bpMjHpwAQKJmqSEEC9c
+ Gi6CitLuaDIciPK6ZpsNeaK8fbE/qmn7G321iXd0Qw3pGAqk4x8N3m//wSJv7ze5PC
+ EtmbTaadkpBxnMDFlNIU+iOOzUHatpOHKgCti4gqyDGOoqF/lgM3Umv5lHFItMwmXJ
+ sSKM4D4VSXQczgWwSikQd5XZlms6xEBn1dir5sfQ5iAvhu9YHiksd2eLonGsUkHq87
+ t67V+3zqH90aA==
+Date: Sat, 16 Jul 2022 14:25:11 +0200
 From: Wolfram Sang <wsa@kernel.org>
 To: Alain Volmat <alain.volmat@foss.st.com>
-Message-ID: <YtKuHdUjtBvqagfT@shikoro>
+Message-ID: <YtKuJ6YFQtMFi5jD@shikoro>
 Mail-Followup-To: Wolfram Sang <wsa@kernel.org>,
  Alain Volmat <alain.volmat@foss.st.com>, robh+dt@kernel.org,
  mark.rutland@arm.com, pierre-yves.mordret@foss.st.com,
@@ -43,15 +43,15 @@ Mail-Followup-To: Wolfram Sang <wsa@kernel.org>,
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
  fabrice.gasnier@foss.st.com, amelie.delaunay@foss.st.com
 References: <20220707074402.2429786-1-alain.volmat@foss.st.com>
- <20220707074402.2429786-2-alain.volmat@foss.st.com>
+ <20220707074402.2429786-3-alain.volmat@foss.st.com>
 MIME-Version: 1.0
-In-Reply-To: <20220707074402.2429786-2-alain.volmat@foss.st.com>
+In-Reply-To: <20220707074402.2429786-3-alain.volmat@foss.st.com>
 Cc: mark.rutland@arm.com, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, robh+dt@kernel.org, linux-i2c@vger.kernel.org,
  mcoquelin.stm32@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2 1/2] dt-bindings: i2c: st,
- stm32-i2c: add entry for stm32mp13
+Subject: Re: [Linux-stm32] [PATCH v2 2/2] i2c: stm32: add support for the
+	STM32MP13 soc
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -63,53 +63,55 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============4017127367935471919=="
+Content-Type: multipart/mixed; boundary="===============1739918531218916669=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 
---===============4017127367935471919==
+--===============1739918531218916669==
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="XpthpirdDmCJyjsk"
+	protocol="application/pgp-signature"; boundary="UmV9tOl/xeljXOjt"
 Content-Disposition: inline
 
 
---XpthpirdDmCJyjsk
+--UmV9tOl/xeljXOjt
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Jul 07, 2022 at 09:44:01AM +0200, Alain Volmat wrote:
-> Add the new compatible for the stm32mp13.
+On Thu, Jul 07, 2022 at 09:44:02AM +0200, Alain Volmat wrote:
+> Add a new compatible for the stm32mp13.  Fast Mode Plus control
+> register address differ from the one for STM32MP15.
 >=20
 > Signed-off-by: Alain Volmat <alain.volmat@foss.st.com>
+> Reviewed-by: Pierre-Yves MORDRET <pierre-yves.mordret@foss.st.com>
 
 Applied to for-next, thanks!
 
 
---XpthpirdDmCJyjsk
+--UmV9tOl/xeljXOjt
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmLSrh0ACgkQFA3kzBSg
-Kba3jA/9GtapGevKUWhLHwFzzZUXb1n9jcmDm79L2zwP6UeNj6q+N5X3ELVst0BG
-QaX0t6+JrvgxqDJteIx38X6UsCfxXW6I1RLJKqSRthuGa47YImufQrk0RFitTwXA
-ybUB+Q3o58vOEIFcRE0AGM2NXhK/9+hUxzzDEtLK5BOkVu3U3bduSOzGDFpbSL+Z
-M78hijbwnahYBXrZqRbzF+HZhWjw65+E5HIuEfPBpzOW1aHrCol5AjPziVNhKKt6
-15oE/k7k5Zeb+pKD+G/kQENM3yqN0OjFh9tElb+Xj1cFRO43x0gVsqLgBABCB6bq
-d0BZ4I0pan5IAkFhcBmslbdMmA6R6rLTifOm4MGF8A8LWAXwPVBqFaMjWgJEpE60
-SzWioUyTm3poCHEN5r0XKxMz7qvbfnNZQY3D+YLtR2pNsU6unLblVs5A59sFC4Gu
-y34tmmtF3oXvIi+9oQdeifo/t8fKd+hsRfIGYQv7/iI42IsD+9kKL+QeT6bQy81D
-dZEsUQREkzNok/yjEa1LbWM26aGexztubystFdR3Ol2iPlBc5se1BuvTvJM+zPBz
-jAi6jqWJ69+EBAuVHfGGc/a2v5o0c2b2bwrel1vbXvQ0L1qBzuJ6Dbw9Aqc9qcoy
-6CGRGLRWWSBj9Sn7ObY6UNjg46KvSm45V1r27dHaayKGmco6EB4=
-=zQzc
+iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmLSricACgkQFA3kzBSg
+KbY79Q//a303XMkTPCd5Gq21pbNS57rqo0RkC0kqvj6VCM7IhAeJbX6Acuy9+0Hv
+TuBYxWFkBFiF5sMqGmz7ouhYpo0faNHNkN+8Mrg9VHyUjS5B4S2ke3FeRki7pwiq
+X+D2Or++MGSYatoXlM/D2quG9fie4KxZG7B3c6+oNbm6UkPMDiER+KciC+TMssJP
+RDWpDFkoi0pXUHkhb66LwioccIQd1BFChQWDzINz/c6D0oqITN1zgt4tV+42WTYn
+H+xq+qaoRg73Pdnf1MlS9Zdh32Dh5qFKXz+iFK7dBbGmNWKl1a4DSEniusBbWQY2
+3PDxNSM6tIyVcfqNqrjoqkm1knYRx9UInuiX7Xy93nAp9vDM6+zV1l/PXfumYooL
+FX6Rm2duQd5NlBtXW/kq/130o/NEzZn7P6y2iAOaVjCUqxc3okxRotTNXxmbiq87
+oaqs0uz5svq8+EpbhzSfrbWtgqL11dzEkZaeQFqDwKAFI07p55H4JBl4FzTmh3sK
+nQcBln2qKeSNZA6wWaBSeQOBb/6qwi7CnIPMeBnKkPHjBV5O7w2d4ofM6nhypkFM
+SIy0MtJZnOFi7Iio5Rq9YGr9SDanq6U9Cqg0T2/AApKJYTvqK35Xynxk0iPT8sBv
+gRGkEI+I13AEI83RDCU7AkNcSPUmpeqjzLUlw2snZaukyParbMI=
+=BHXX
 -----END PGP SIGNATURE-----
 
---XpthpirdDmCJyjsk--
+--UmV9tOl/xeljXOjt--
 
---===============4017127367935471919==
+--===============1739918531218916669==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -120,4 +122,4 @@ Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
 
---===============4017127367935471919==--
+--===============1739918531218916669==--
