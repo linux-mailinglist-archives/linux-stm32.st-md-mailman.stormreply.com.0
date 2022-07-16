@@ -2,62 +2,70 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6128C577210
-	for <lists+linux-stm32@lfdr.de>; Sun, 17 Jul 2022 00:51:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 520AE57721D
+	for <lists+linux-stm32@lfdr.de>; Sun, 17 Jul 2022 01:08:11 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 00A7CC0C921;
-	Sat, 16 Jul 2022 22:51:05 +0000 (UTC)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id ECF9AC640FF;
+	Sat, 16 Jul 2022 23:08:10 +0000 (UTC)
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com
+ [209.85.128.53])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2D9B8C035BF
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A9B69C035BF
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 16 Jul 2022 22:51:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1658011863; x=1689547863;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=eMZB5HTy1IP+QRRyebpuxHhRvBKz1HhDrHDYvMYNKVk=;
- b=JKuMkW0ytNq7bVCiU96jD2npAGYkYLbig2tNw0rorB5FRnZu99szHP2A
- Zswp1wg5T3u22nfJkHLNIHtvSGLIvU84rcHFeHoRX2A3F/cPC2C2wz0M1
- c+4jQq27KB5yoqQkOzJzcD9pU1ymkkaj4DI8oQWV4uPczlToXg6x2zEFH
- SejGy1XW+jTb9YUHBClOFLFEeNcYEEjcoofzZnqCfXR8vhet7A1ukL4Dz
- gzgaQCel4jsa4Gs3i9jWaKqFgNdT+p8aRdEDKFLzppABHXbiuxEzEMt2x
- 3SkwK5SBRqxQti/Uk58BrXNonE+PRSxBcWEku2mRPLKYR2H3NluKbFysG g==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10410"; a="283575846"
-X-IronPort-AV: E=Sophos;i="5.92,277,1650956400"; d="scan'208";a="283575846"
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Jul 2022 15:51:01 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.92,277,1650956400"; d="scan'208";a="842889559"
-Received: from lkp-server02.sh.intel.com (HELO ff137eb26ff1) ([10.239.97.151])
- by fmsmga006.fm.intel.com with ESMTP; 16 Jul 2022 15:50:57 -0700
-Received: from kbuild by ff137eb26ff1 with local (Exim 4.95)
- (envelope-from <lkp@intel.com>) id 1oCqcj-0002GK-AI;
- Sat, 16 Jul 2022 22:50:57 +0000
-Date: Sun, 17 Jul 2022 06:50:02 +0800
-From: kernel test robot <lkp@intel.com>
-To: Christian Marangi <ansuelsmth@gmail.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Sat, 16 Jul 2022 23:08:09 +0000 (UTC)
+Received: by mail-wm1-f53.google.com with SMTP id l68so4966982wml.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Sat, 16 Jul 2022 16:08:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=zH/D31uMSDW0xhMnNPteLenGrNsKNhRXe32KFuNIx54=;
+ b=iZCU+4efLqXnq7Fn8jro1X0cVxj0VBLooeeeXriBNAUQRJ5KyBA2M97X91wmiG/oaL
+ 6Ut21qKdcF3a0p5Uqc/UVkYgeS84GcfXye5rZeyGzGjuWg+wVDoXmyI4Meotz/12EfN8
+ GzJRq8QRMMDyKmALey0oX7mGQO9SMu7tXjAKYhrF8mms5VwoKIQv2DjxGzJ7nIS/veSX
+ m3QDvSsBYTncKjN0+v4DFsUW87Wds72GcdkSnDxH5+/EPVj+smJYjvecznd+ogMch6fQ
+ Zfro105mmvsVXvpD9sVKJ9dMJvydQ4Prar2hUcpy6PL4PGgwpuyCN2FEPEqinp0I0lQy
+ iRpA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=zH/D31uMSDW0xhMnNPteLenGrNsKNhRXe32KFuNIx54=;
+ b=d4ygEuv1Esue8yxxAkiYcwnuH+//g7itj/HPCLZkt+v/xI2Ha17Cx10x9T1KV9k2Mg
+ u1XZK360SAOs9dlmFOr5IG8Q3xB6R16D2/aV1WCyyM+Jd1DzMZqc8idpTo+5gMMPyrCa
+ t99+fQE75wa0sbUlG0D6/yWTzlJnjncIh6tW715z2bIpsDWZmKF8sqPz5zoOMf2BN31U
+ M+iVnld+EaOxOQKK0sL6KkJ8Q0xPjEhw8x2WzbbTfaFRVb5KOaEa4nCNEcKOOYohG7uh
+ Ph9PMLNtmsgnrBtuag6/w/A1VFbaaWe4EDX7bxvebYGQqzx36/TXoViNflzzFBI1XSOw
+ Afwg==
+X-Gm-Message-State: AJIora/n+dXsO01S0lf/j33UYNB0mSBl1JzZlZhthgiF9Ut2PXMsjhXC
+ PYnLzYDCIdx7Mswm3dTfG+s=
+X-Google-Smtp-Source: AGRyM1tX5E+vmOz3erLPVIca2091fu8LsjFwOgXT2gVUO09ywIM7eSr9s3eFBZFtgcMVYQtNmeF5UA==
+X-Received: by 2002:a1c:4b09:0:b0:3a2:ff2a:e543 with SMTP id
+ y9-20020a1c4b09000000b003a2ff2ae543mr16170708wma.93.1658012889078; 
+ Sat, 16 Jul 2022 16:08:09 -0700 (PDT)
+Received: from localhost.localdomain (93-42-70-190.ip85.fastwebnet.it.
+ [93.42.70.190]) by smtp.googlemail.com with ESMTPSA id
+ l13-20020a05600c2ccd00b003a2f2bb72d5sm15150755wmc.45.2022.07.16.16.08.07
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 16 Jul 2022 16:08:08 -0700 (PDT)
+From: Christian Marangi <ansuelsmth@gmail.com>
+To: Giuseppe Cavallaro <peppe.cavallaro@st.com>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>,
  Jose Abreu <joabreu@synopsys.com>, "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Russell King <linux@armlinux.org.uk>,
+ Russell King <linux@armlinux.org.uk>, netdev@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Message-ID: <202207170639.k8cXFREA-lkp@intel.com>
-References: <20220716184533.2962-4-ansuelsmth@gmail.com>
+Date: Sun, 17 Jul 2022 01:07:57 +0200
+Message-Id: <20220716230802.20788-1-ansuelsmth@gmail.com>
+X-Mailer: git-send-email 2.36.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20220716184533.2962-4-ansuelsmth@gmail.com>
-Cc: netdev@vger.kernel.org, llvm@lists.linux.dev, kbuild-all@lists.01.org,
- Christian Marangi <ansuelsmth@gmail.com>
-Subject: Re: [Linux-stm32] [net-next PATCH v2 3/5] net: ethernet: stmicro:
- stmmac: move dma conf to dedicated struct
+Cc: Christian Marangi <ansuelsmth@gmail.com>
+Subject: [Linux-stm32] [net-next PATCH v3 0/5] Add MTU change with stmmac
+	interface running
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,71 +82,57 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Christian,
+This series is to permit MTU change while the interface is running.
+Major rework are needed to permit to allocate a new dma conf based on
+the new MTU before applying it. This is to make sure there is enough
+space to allocate all the DMA queue before releasing the stmmac driver.
 
-Thank you for the patch! Yet something to improve:
+This was tested with a simple way to stress the network while the
+interface is running.
 
-[auto build test ERROR on net-next/master]
+2 ssh connection to the device:
+- One generating simple traffic with while true; do free; done
+- The other making the mtu change with a delay of 1 second
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Christian-Marangi/Add-MTU-change-with-stmmac-interface-running/20220717-025128
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/davem/net-next.git 2acd1022549e210edc4cfc9fc65b07b88751f0d9
-config: x86_64-randconfig-a003 (https://download.01.org/0day-ci/archive/20220717/202207170639.k8cXFREA-lkp@intel.com/config)
-compiler: clang version 15.0.0 (https://github.com/llvm/llvm-project 07022e6cf9b5b3baa642be53d0b3c3f1c403dbfd)
-reproduce (this is a W=1 build):
-        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
-        chmod +x ~/bin/make.cross
-        # https://github.com/intel-lab-lkp/linux/commit/acdac2fef543d7b7fc85c7a5627e5e833ee756d8
-        git remote add linux-review https://github.com/intel-lab-lkp/linux
-        git fetch --no-tags linux-review Christian-Marangi/Add-MTU-change-with-stmmac-interface-running/20220717-025128
-        git checkout acdac2fef543d7b7fc85c7a5627e5e833ee756d8
-        # save the config file
-        mkdir build_dir && cp config build_dir/.config
-        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=clang make.cross W=1 O=build_dir ARCH=x86_64 SHELL=/bin/bash drivers/net/ethernet/stmicro/stmmac/
+The connection is correctly stopped and recovered after the MTU is changed.
 
-If you fix the issue, kindly add following tag where applicable
-Reported-by: kernel test robot <lkp@intel.com>
+The first 2 patch of this series are minor fixup that fix problems
+presented while testing this. One fix a problem when we renable a queue
+while we are generating a new dma conf. The other is a corner case that
+was notice while stressing the driver and turning down the interface while
+there was some traffic.
 
-All errors (new ones prefixed by >>):
+(this is a follow-up of a simpler patch that wanted to add the same
+feature. It was suggested to first try to check if it was possible to
+apply the new configuration. Posting as RFC as it does major rework for
+the new concept of DMA conf)
 
->> drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c:1094:14: error: no member named 'tx_queue' in 'struct stmmac_priv'
-           if (!(priv->tx_queue[qopt->queue].tbs & STMMAC_TBS_AVAIL))
-                 ~~~~  ^
-   drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c:1098:9: error: no member named 'tx_queue' in 'struct stmmac_priv'
-                   priv->tx_queue[qopt->queue].tbs |= STMMAC_TBS_EN;
-                   ~~~~  ^
-   drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c:1100:9: error: no member named 'tx_queue' in 'struct stmmac_priv'
-                   priv->tx_queue[qopt->queue].tbs &= ~STMMAC_TBS_EN;
-                   ~~~~  ^
-   3 errors generated.
+v3:
+- Fix compilation error reported by kernel test bot
+  (missing dma_confg changes to tc and selftest source)
+v2:
+- Put it out of RFC
 
+Christian Marangi (5):
+  net: ethernet: stmicro: stmmac: move queue reset to dedicated
+    functions
+  net: ethernet: stmicro: stmmac: first disable all queues in release
+  net: ethernet: stmicro: stmmac: move dma conf to dedicated struct
+  net: ethernet: stmicro: stmmac: generate stmmac dma conf before open
+  net: ethernet: stmicro: stmmac: permit MTU change with interface up
 
-vim +1094 drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
-
-b60189e0392fa0 Jose Abreu 2019-12-18  1086  
-430b383c737ca0 Jose Abreu 2020-01-13  1087  static int tc_setup_etf(struct stmmac_priv *priv,
-430b383c737ca0 Jose Abreu 2020-01-13  1088  			struct tc_etf_qopt_offload *qopt)
-430b383c737ca0 Jose Abreu 2020-01-13  1089  {
-430b383c737ca0 Jose Abreu 2020-01-13  1090  	if (!priv->dma_cap.tbssel)
-430b383c737ca0 Jose Abreu 2020-01-13  1091  		return -EOPNOTSUPP;
-430b383c737ca0 Jose Abreu 2020-01-13  1092  	if (qopt->queue >= priv->plat->tx_queues_to_use)
-430b383c737ca0 Jose Abreu 2020-01-13  1093  		return -EINVAL;
-430b383c737ca0 Jose Abreu 2020-01-13 @1094  	if (!(priv->tx_queue[qopt->queue].tbs & STMMAC_TBS_AVAIL))
-430b383c737ca0 Jose Abreu 2020-01-13  1095  		return -EINVAL;
-430b383c737ca0 Jose Abreu 2020-01-13  1096  
-430b383c737ca0 Jose Abreu 2020-01-13  1097  	if (qopt->enable)
-430b383c737ca0 Jose Abreu 2020-01-13  1098  		priv->tx_queue[qopt->queue].tbs |= STMMAC_TBS_EN;
-430b383c737ca0 Jose Abreu 2020-01-13  1099  	else
-430b383c737ca0 Jose Abreu 2020-01-13  1100  		priv->tx_queue[qopt->queue].tbs &= ~STMMAC_TBS_EN;
-430b383c737ca0 Jose Abreu 2020-01-13  1101  
-430b383c737ca0 Jose Abreu 2020-01-13  1102  	netdev_info(priv->dev, "%s ETF for Queue %d\n",
-430b383c737ca0 Jose Abreu 2020-01-13  1103  		    qopt->enable ? "enabled" : "disabled", qopt->queue);
-430b383c737ca0 Jose Abreu 2020-01-13  1104  	return 0;
-430b383c737ca0 Jose Abreu 2020-01-13  1105  }
-430b383c737ca0 Jose Abreu 2020-01-13  1106  
+ .../net/ethernet/stmicro/stmmac/chain_mode.c  |   6 +-
+ .../net/ethernet/stmicro/stmmac/ring_mode.c   |   4 +-
+ drivers/net/ethernet/stmicro/stmmac/stmmac.h  |  21 +-
+ .../ethernet/stmicro/stmmac/stmmac_ethtool.c  |   4 +-
+ .../net/ethernet/stmicro/stmmac/stmmac_main.c | 722 +++++++++++-------
+ .../stmicro/stmmac/stmmac_selftests.c         |   8 +-
+ .../net/ethernet/stmicro/stmmac/stmmac_tc.c   |   6 +-
+ 7 files changed, 457 insertions(+), 314 deletions(-)
 
 -- 
-0-DAY CI Kernel Test Service
-https://01.org/lkp
+2.36.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
