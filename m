@@ -2,52 +2,106 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3B6BB577FE3
-	for <lists+linux-stm32@lfdr.de>; Mon, 18 Jul 2022 12:40:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7FC9D577FFB
+	for <lists+linux-stm32@lfdr.de>; Mon, 18 Jul 2022 12:43:34 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EE219C0AA15;
-	Mon, 18 Jul 2022 10:40:15 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B762FC03FDA
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 37754C0AA15;
+	Mon, 18 Jul 2022 10:43:34 +0000 (UTC)
+Received: from de-smtp-delivery-113.mimecast.com
+ (de-smtp-delivery-113.mimecast.com [194.104.109.113])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 21A43C03FDA
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 18 Jul 2022 10:40:14 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 903756113B;
- Mon, 18 Jul 2022 10:40:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id E9CC1C341CA;
- Mon, 18 Jul 2022 10:40:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1658140813;
- bh=EeKXZ6CcPVkLtdX1V9Ln6BwMwvbGoPwYHlkZCajCNJ8=;
- h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=TBFQJ44emheuMue5Q3vr5PCUanER4SCc1fAP68JJnCA1IAlGw5iL5TnX+qQuUnjz+
- 4EE/e9D9S/7Jc7a4KXo5Bh+OWawYkXMOBTqF9Cx+nqyfpCE2xHHqVy1FUtvzEx2yHh
- Jdq9DehfOsRbnBcmBGPGnvuQciyw6CzcxjaNRQo6WbGYy/3QvdVoaPnWMB76Ze0MDR
- qcB+fuAQQuiXK5I9hI3q4RpQGf3bIoEfpO390bmPtgw/JDqdP5vtjzOg4EG4dDAH1r
- bOqIkitKHRr97plFwdFNb/HtOpSVB6jo+kfDrwiGqH5q5O/MWEAlp45/2LRqsLlO7X
- hmAxD6ZKagvng==
-Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
- CBE25E451B0; Mon, 18 Jul 2022 10:40:12 +0000 (UTC)
+ Mon, 18 Jul 2022 10:43:33 +0000 (UTC)
+Received: from CHE01-GV0-obe.outbound.protection.outlook.com
+ (mail-gv0che01lp2044.outbound.protection.outlook.com [104.47.22.44]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ de-mta-17-lQ7POjJ9OjKiaGcSFSrp1Q-2; Mon, 18 Jul 2022 12:43:31 +0200
+X-MC-Unique: lQ7POjJ9OjKiaGcSFSrp1Q-2
+Received: from ZRAP278MB0495.CHEP278.PROD.OUTLOOK.COM (2603:10a6:910:2e::8) by
+ ZRAP278MB0253.CHEP278.PROD.OUTLOOK.COM (2603:10a6:910:28::10) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.5438.12; Mon, 18 Jul 2022 10:43:29 +0000
+Received: from ZRAP278MB0495.CHEP278.PROD.OUTLOOK.COM
+ ([fe80::3d:ca30:8c24:1a95]) by ZRAP278MB0495.CHEP278.PROD.OUTLOOK.COM
+ ([fe80::3d:ca30:8c24:1a95%8]) with mapi id 15.20.5438.023; Mon, 18 Jul 2022
+ 10:43:29 +0000
+Date: Mon, 18 Jul 2022 12:43:28 +0200
+From: Francesco Dolcini <francesco.dolcini@toradex.com>
+To: Lee Jones <lee.jones@linaro.org>, Linus Walleij <linus.walleij@linaro.org>
+Message-ID: <20220718104328.GA18450@francesco-nb.int.toradex.com>
+References: <20220712163345.445811-1-francesco.dolcini@toradex.com>
+ <20220712163345.445811-4-francesco.dolcini@toradex.com>
+In-Reply-To: <20220712163345.445811-4-francesco.dolcini@toradex.com>
+X-ClientProxiedBy: MR2P264CA0115.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:500:33::31) To ZRAP278MB0495.CHEP278.PROD.OUTLOOK.COM
+ (2603:10a6:910:2e::8)
 MIME-Version: 1.0
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <165814081283.19605.8778988230924846190.git-patchwork-notify@kernel.org>
-Date: Mon, 18 Jul 2022 10:40:12 +0000
-References: <20220715074701.194776-1-junxiao.chang@intel.com>
-In-Reply-To: <20220715074701.194776-1-junxiao.chang@intel.com>
-To: Junxiao Chang <junxiao.chang@intel.com>
-Cc: Joao.Pinto@synopsys.com, netdev@vger.kernel.org, f.fainelli@gmail.com,
- linux-stm32@st-md-mailman.stormreply.com, edumazet@google.com,
- joabreu@synopsys.com, mcoquelin.stm32@gmail.com, kuba@kernel.org,
- cedric@bytespeed.nl, peppe.cavallaro@st.com, pabeni@redhat.com,
- davem@davemloft.net, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net] net: stmmac: fix dma queue left shift
-	overflow issue
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: ec061669-4ac4-4df9-450b-08da68aa5a63
+X-MS-TrafficTypeDiagnostic: ZRAP278MB0253:EE_
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0
+X-Microsoft-Antispam-Message-Info: wN41uCMDgXs+6xMxOBAH/LkJ2AV+fpk5oCrCFqRk2p0rWMJpAf+4SDh+17QI77ydhqiYocMg0L8sxRoTV6qHl/1qh330qavbUZWfI1aLhSr6k2WR9wQ+kO2AGoNa2TaHMpOaaCBtBM2Opfy2k3y+cBGKz8iOs4lSj9V50TD8ujvEb9pMdsZLlwiIYfcAuzkQApiLcBC9ELuU4vbTQz6P45HKUH/V8AwbZEk/Vd0QogB2NglwsAYeQNdFHqyEMZfZ4jwt6max8sQhqWlZC+/rUOT9V+9WwtZ9znfS81jQD0rQGyYFRF+2yLqN4WIvNxolKVAt1Av9U3KnyoG+gANxmISMbmpkaHWDGIsYppIHwRIDZaYcS7ujUBS8qJzMRFyQk84xF+EEXB/V97+DNzWkgyFxwYfecpUuliKfu3MJ9t5kZkMncKshrGyqDQzZiHRS3YCvc0ZBTs9Q+OZEks/JZpexbYm281DCQkPcwpoetKFxafcRp5CfW8piEPy+DrTU9HuzjSQVjF8antOHt/6BlDx0kVyKX5gIvT/GFSIxeCPZFynvtKrvRh3uPkgkcW1UzB83y1m+Ll9rASYoqiki7fIqs5/gYvob5KAoSCpRCSifhKGtZKUXR8oRTj5o8NcaukOROT3yuwWXgHTh35gV8OH/s5j3PwMbrFxlthcWDaExwTJ/AJ5yPJtGd1KIb0yN7WTEEeaUjL8hunpcR1zxCBeK1R38h7kyvXIQIYbZQOB8oVcNecnYjx18WDOp0wkflWvGBbpQ6LBxiaDFDDfchJTnfF0PmRUi8q9GaHWqIt8SGVTPPfUfI8t2JCgHwrQwgq+PO4qzmoCOgTU9p5aWYg==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:ZRAP278MB0495.CHEP278.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
+ SFS:(13230016)(4636009)(346002)(366004)(136003)(396003)(39840400004)(376002)(966005)(186003)(83380400001)(66476007)(4326008)(110136005)(66556008)(66946007)(316002)(8676002)(54906003)(8936002)(6506007)(2906002)(52116002)(86362001)(6512007)(5660300002)(6486002)(1076003)(41300700001)(4744005)(44832011)(33656002)(26005)(7416002)(38350700002)(38100700002)(478600001);
+ DIR:OUT; SFP:1102
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?DI42IpsX/NUGs6rDnzLC1Oxw/h3AUC6xslAaVK3P7qGivCDLiiK58MEYXUP5?=
+ =?us-ascii?Q?qHngdHZ4Oobb1bWQaBk+cqxXcplM3/0Db4TkOc8zoUsVHKGoIk0ekjVd4Vv6?=
+ =?us-ascii?Q?vHM3/CKEtH9JR6fuG/zOt7hdJNt2p4WQCP8yNmxwEhFjigq8Erkv57xgK40V?=
+ =?us-ascii?Q?Hr3GiyV9QZPe/H54ibcAmvjYxtNr8PgCOFj70YertqKLtj0ZhSNOnbwtZLbr?=
+ =?us-ascii?Q?HxyMkO0TS7DUEX6gJSaBLNWPN3FzEaLl4cuBi1qaqOEKxA91K0t82Ob5Bksh?=
+ =?us-ascii?Q?j0d7mrXoNw+xx4phPm+ORkWvsLYUjjZGjTKrGKe1Pez4mIZBe3TbNipsuS/P?=
+ =?us-ascii?Q?k+z5EAJvMVtw7yG2cEjPsXVYW9tqLV+8aQG28QDBTMVYLmYutegat+Jr/Sa+?=
+ =?us-ascii?Q?QCIcInwqqO3n4G6EwuCXwCWVR8+gPd3th6tYOuHe60JfobTjCHzWBLiMhYdr?=
+ =?us-ascii?Q?amEdZitmRCg7Kynsl2N7AWlMTFwUA7w92sGAjiwLSmIjpbYJF2GaXN3LgovS?=
+ =?us-ascii?Q?Wz14d7s+ntYqfRSwClnWju6JjIFiJrmfUv+Lma3sVSPacizBpqSCZdzNXjHS?=
+ =?us-ascii?Q?J+zqvsGRflUHc4WrFC7eKyYM1rvxB9jY6kagr/ym6BDZjaFZd50bfDQRJQPQ?=
+ =?us-ascii?Q?xAOh+eaRC/J+BbtMCy6jVBqlL/cfYy1EAYBvDmxWFg8ie6cx6CmmEAeYQggH?=
+ =?us-ascii?Q?ZKYUokhgNICVVX2VMM76ItJV/uWA88FN0mf8UEyzusJ26Oqwv0W7DHg6k4VF?=
+ =?us-ascii?Q?0A4FMTfPGt8dSpZoowj3SNs/hbpAaP+Hltvbe/P+RWiMmGY/o2r3OHou2G1B?=
+ =?us-ascii?Q?y1B8fdawJjBgTiNnuIcTu0U2wvGIWr0eW1rNoJM9hhyOd/HF2sjVQaaBSFS2?=
+ =?us-ascii?Q?Z+VChbU7HMocMenambEaO+5Rryz4Okgf0JTzLpwSRiu2nPyEIa9tECyS/S8j?=
+ =?us-ascii?Q?lHTwEx3YrRVtcVqQ7y4UgWBHLd1MPyfX3xNrKkHRx9SCiHW+A1zcEo+4nLkV?=
+ =?us-ascii?Q?Px/xh/OyxV9nN6wzTkZPQ7Q2VcmSWIF+QiGCywSX05l4cmneTfStBHVTA0U4?=
+ =?us-ascii?Q?NVmAPU/mZ0hW1osPfMeb6BjHp/N5rzw1Kdg2Ybbhqp06xbmDbt0GpGvcB926?=
+ =?us-ascii?Q?vFupUwrK/kxxBNd84yeUWHSPu3vXxeCsHFwI5ujHarGXj3SZtFCYJw/oSga6?=
+ =?us-ascii?Q?YsW2OPyRCikMuxkWXmaaxMioC/yPeOIlVgsxoHf2ptGU2NMRYJjGi+VZw2l+?=
+ =?us-ascii?Q?avoYotuhZ5vDOuwM3mbJ3Y6B8nlUrB/IqsrkjV1hfxfYoxDdeuijAMVAJNb0?=
+ =?us-ascii?Q?bEHRiZcvN1mHupx9WigIhqX7oFxTAZe8DbL9Sb8759Uu8T1ohbzrR7U/LHSz?=
+ =?us-ascii?Q?MGLts5gb/PWIqwNMSYekSlzP8KrBc1Onhw2kBkPjtJzGBoWxUcCUEXbozj1X?=
+ =?us-ascii?Q?K9i820THqHd40JpfXKGBDU5jvVtf8yy4nnKxjj/Lupc9rmqW8T4roKYgzGCB?=
+ =?us-ascii?Q?GinPzK08YaNOLtcJKh1gN0qMkuhhFWOkHmtckB4+Tj+YFCovLBLFL9f8zVax?=
+ =?us-ascii?Q?ZVtcGd1Ifn/4STcUKqimd6zK3fCk/7hO3aBe+0V/Kug63c4sGXeU5+qe6DO8?=
+ =?us-ascii?Q?BQ=3D=3D?=
+X-OriginatorOrg: toradex.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ec061669-4ac4-4df9-450b-08da68aa5a63
+X-MS-Exchange-CrossTenant-AuthSource: ZRAP278MB0495.CHEP278.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Jul 2022 10:43:29.7155 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: d9995866-0d9b-4251-8315-093f062abab4
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 0oBhnJb1jNO/FdaJk+sEAIW2JpJ5sExObE15Nkxz24quzfy2/UqGzN425aPkZRG/2q3JMNEToSgvSB1Gvtfsn0T3X/QQIcXaSDct0FVAzms=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZRAP278MB0253
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CDE13A77 smtp.mailfrom=francesco.dolcini@toradex.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: toradex.com
+Content-Disposition: inline
+Cc: devicetree@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-iio@vger.kernel.org, Bartosz Golaszewski <brgl@bgdev.pl>,
+ linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ linux-input@vger.kernel.org, Francesco Dolcini <francesco.dolcini@toradex.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v2 3/5] dt-bindings: gpio: stmpe: Remove
+ node name requirement
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -64,65 +118,15 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello:
-
-This patch was applied to netdev/net.git (master)
-by David S. Miller <davem@davemloft.net>:
-
-On Fri, 15 Jul 2022 15:47:01 +0800 you wrote:
-> When queue number is > 4, left shift overflows due to 32 bits
-> integer variable. Mask calculation is wrong for MTL_RXQ_DMA_MAP1.
+On Tue, Jul 12, 2022 at 06:33:43PM +0200, Francesco Dolcini wrote:
+> STMPE driver does not require a specific node name anymore, only the
+> compatible is checked, update binding according to this.
 > 
-> If CONFIG_UBSAN is enabled, kernel dumps below warning:
-> [   10.363842] ==================================================================
-> [   10.363882] UBSAN: shift-out-of-bounds in /build/linux-intel-iotg-5.15-8e6Tf4/
-> linux-intel-iotg-5.15-5.15.0/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c:224:12
-> [   10.363929] shift exponent 40 is too large for 32-bit type 'unsigned int'
-> [   10.363953] CPU: 1 PID: 599 Comm: NetworkManager Not tainted 5.15.0-1003-intel-iotg
-> [   10.363956] Hardware name: ADLINK Technology Inc. LEC-EL/LEC-EL, BIOS 0.15.11 12/22/2021
-> [   10.363958] Call Trace:
-> [   10.363960]  <TASK>
-> [   10.363963]  dump_stack_lvl+0x4a/0x5f
-> [   10.363971]  dump_stack+0x10/0x12
-> [   10.363974]  ubsan_epilogue+0x9/0x45
-> [   10.363976]  __ubsan_handle_shift_out_of_bounds.cold+0x61/0x10e
-> [   10.363979]  ? wake_up_klogd+0x4a/0x50
-> [   10.363983]  ? vprintk_emit+0x8f/0x240
-> [   10.363986]  dwmac4_map_mtl_dma.cold+0x42/0x91 [stmmac]
-> [   10.364001]  stmmac_mtl_configuration+0x1ce/0x7a0 [stmmac]
-> [   10.364009]  ? dwmac410_dma_init_channel+0x70/0x70 [stmmac]
-> [   10.364020]  stmmac_hw_setup.cold+0xf/0xb14 [stmmac]
-> [   10.364030]  ? page_pool_alloc_pages+0x4d/0x70
-> [   10.364034]  ? stmmac_clear_tx_descriptors+0x6e/0xe0 [stmmac]
-> [   10.364042]  stmmac_open+0x39e/0x920 [stmmac]
-> [   10.364050]  __dev_open+0xf0/0x1a0
-> [   10.364054]  __dev_change_flags+0x188/0x1f0
-> [   10.364057]  dev_change_flags+0x26/0x60
-> [   10.364059]  do_setlink+0x908/0xc40
-> [   10.364062]  ? do_setlink+0xb10/0xc40
-> [   10.364064]  ? __nla_validate_parse+0x4c/0x1a0
-> [   10.364068]  __rtnl_newlink+0x597/0xa10
-> [   10.364072]  ? __nla_reserve+0x41/0x50
-> [   10.364074]  ? __kmalloc_node_track_caller+0x1d0/0x4d0
-> [   10.364079]  ? pskb_expand_head+0x75/0x310
-> [   10.364082]  ? nla_reserve_64bit+0x21/0x40
-> [   10.364086]  ? skb_free_head+0x65/0x80
-> [   10.364089]  ? security_sock_rcv_skb+0x2c/0x50
-> [   10.364094]  ? __cond_resched+0x19/0x30
-> [   10.364097]  ? kmem_cache_alloc_trace+0x15a/0x420
-> [   10.364100]  rtnl_newlink+0x49/0x70
-> 
-> [...]
+> Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
 
-Here is the summary with links:
-  - [net] net: stmmac: fix dma queue left shift overflow issue
-    https://git.kernel.org/netdev/net/c/613b065ca32e
+Reviewed-by: Linus Walleij <linus.walleij@linaro.org>
 
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+from v1 https://lore.kernel.org/all/CACRpkdZDRjadHc4TBHouWPSYhLoCAynXzKejKi+H98C5ioCW6A@mail.gmail.com/
 
 _______________________________________________
 Linux-stm32 mailing list
