@@ -2,55 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CA915577E80
-	for <lists+linux-stm32@lfdr.de>; Mon, 18 Jul 2022 11:19:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CC76C577E83
+	for <lists+linux-stm32@lfdr.de>; Mon, 18 Jul 2022 11:20:49 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 81ECAC0AA15;
-	Mon, 18 Jul 2022 09:19:50 +0000 (UTC)
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A0649C0AA15;
+	Mon, 18 Jul 2022 09:20:49 +0000 (UTC)
+Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com
+ [209.85.208.41])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9A489C03FDA
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D7BE5C03FDA
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 18 Jul 2022 09:19:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=g+aTLzc5WOjLByrM2aIBjE7jce/TtjRUMlCv6WTaasE=; b=FZU13y12dR3Vgw1hfnZzrtwg2F
- EaTspZRJJMBfg7ahQoT+uqQhdFMzARu3j0eunEwGF39D/BuvTRE0dxk4WFQ3OJn6gfNOOSk9aT3Gb
- +GknrDjVtkhYnXAA3H5kQotvoSa3cl6s6EmR8HfoK6xIxDa1y/0YXmvGkaNfb1A+VuZNxbpVgbRuh
- Z0dgfCitFIA2ZW3maldWMZQWXCDKLP6m3IXCH2SvPwLqP2USPg6U65cZrSQsgBtGv6PnUNMpE4kke
- vLQfR8ldIRKHp06tlrW9iZmqMhnDVzbhoaB99lRNF4UvGCJ1Amx4HGweQptOhCXk7ICuT2JvtMZ9h
- NRzKxgFw==;
-Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:33402)
- by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.94.2)
- (envelope-from <linux@armlinux.org.uk>)
- id 1oDMuf-0001Lw-6u; Mon, 18 Jul 2022 10:19:37 +0100
-Received: from linux by shell.armlinux.org.uk with local (Exim 4.94.2)
- (envelope-from <linux@shell.armlinux.org.uk>)
- id 1oDMuX-0001r0-Ht; Mon, 18 Jul 2022 10:19:29 +0100
-Date: Mon, 18 Jul 2022 10:19:29 +0100
-From: "Russell King (Oracle)" <linux@armlinux.org.uk>
-To: Christian Marangi <ansuelsmth@gmail.com>
-Message-ID: <YtUloYvDtTxX1MQA@shell.armlinux.org.uk>
-References: <20220716230802.20788-1-ansuelsmth@gmail.com>
- <20220716230802.20788-3-ansuelsmth@gmail.com>
+ Mon, 18 Jul 2022 09:20:48 +0000 (UTC)
+Received: by mail-ed1-f41.google.com with SMTP id x91so14413654ede.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 18 Jul 2022 02:20:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=ekBvsCl8tLKRAhRxJqGXywTj2TNw0INMK1oBW7njZa8=;
+ b=lUrC2exnFGAMhW9f1cEy3vN207RjeJWPpUMpCBlmirV9EVbL/aNuqLBe/50KhjVkJ2
+ hci7HW+DoU6ROue1ds2Cw8EMPXd1OBACzPk9FHyAnk9Jwj1sJ5D/b5UcwaW8R7dl7bDz
+ F2Umx9nNeoiMxxjr+/38cAf80XT/CQq8QwNdiJ7FpWCZWsTQ/cjk0p/0Bj1rHT2c1hEr
+ N1gko1IQ39qLTWzkYTwnYJWyqcDTeuHm//NB665cMKDA/XpQcv1JZwO77gA4v86zow7F
+ A2q9kak+EdVfAcSpam69LoeGeUr9gcuWSK9V+f102ohM89YS2klSmp6eOQykdZwzMY9X
+ IFfQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=ekBvsCl8tLKRAhRxJqGXywTj2TNw0INMK1oBW7njZa8=;
+ b=xwN0qcENpSpKHQy9o78upeQVcpMQF05lVO2YVM/3p0YYvTZO3JvnHKlILQkPCgrjUA
+ 4eLiD2qeS/CdC0MTe/UWgfjWdVzxQnlltHmr/sagw5UibHzS2DkpKAwI8Zylp/cAlCpe
+ rIx0+DoYNA2Tz1eNuak9NtfPUQhFQUcUpjogKq2lfyAMpI+fWGmBF34phQZyQZLpfsck
+ NahEPzOa28dWI3knLmQKOBDgOW/0YlPrmkJwq9BK2mSEgDW+cLF468BCeZWN6P9/qJ+U
+ 2tJH3/z1kzJTMrlWZXOMOtwUmCYB1f8jRyyWKm80PicL35xCnhgoJW8x/neO+HFNv83u
+ +wKw==
+X-Gm-Message-State: AJIora/L4aE/uBJU69pVzUQlqKVgaYOcZ8eBsfNB8m43mPJ7sYRlR7Kp
+ Jcteb8GyiUENKLrG6aTFhFn3n0iE9Cb9z5c0Lf4AFw==
+X-Google-Smtp-Source: AGRyM1sKDeO3oY5retnedorjemb+XBD4ir+Vd2E8sIvSAqj2LxUEW9bOClUAgOnVKsx44I+9jjPR1B3irrU2VJnyqoU=
+X-Received: by 2002:a05:6402:3307:b0:43a:826c:d8b4 with SMTP id
+ e7-20020a056402330700b0043a826cd8b4mr36456660eda.32.1658136048498; Mon, 18
+ Jul 2022 02:20:48 -0700 (PDT)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20220716230802.20788-3-ansuelsmth@gmail.com>
-Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
- Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Jakub Kicinski <kuba@kernel.org>, Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
+References: <20220712163345.445811-1-francesco.dolcini@toradex.com>
+ <20220712163345.445811-3-francesco.dolcini@toradex.com>
+In-Reply-To: <20220712163345.445811-3-francesco.dolcini@toradex.com>
+From: Linus Walleij <linus.walleij@linaro.org>
+Date: Mon, 18 Jul 2022 11:20:37 +0200
+Message-ID: <CACRpkdbSVOR6RA5Ji4qQm2OvMPjHHbe=hM5a6cv9M4tb21LALA@mail.gmail.com>
+To: Francesco Dolcini <francesco.dolcini@toradex.com>
+Cc: devicetree@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-kernel@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Lee Jones <lee.jones@linaro.org>, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [net-next PATCH v3 2/5] net: ethernet: stmicro:
- stmmac: first disable all queues in release
+Subject: Re: [Linux-stm32] [PATCH v2 2/5] mfd: stmpe: Probe sub-function by
+	compatible
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,42 +74,29 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Sun, Jul 17, 2022 at 01:07:59AM +0200, Christian Marangi wrote:
-> Disable all queues before tx_disable in stmmac_release to prevent a
-> corner case where packet may be still queued at the same time tx_disable
-> is called resulting in kernel panic if some packet still has to be
-> processed.
-> 
-> Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+On Tue, Jul 12, 2022 at 6:36 PM Francesco Dolcini
+<francesco.dolcini@toradex.com> wrote:
+
+> Use sub-function of_compatible during probe, instead of using the node
+> name. The code should not rely on the node names during probe, in
+> addition to that the previously hard-coded node names are not compliant
+> to the latest naming convention (they are not generic and they use
+> underscores), and it was broken by mistake already once [1].
+>
+> [1] commit 56086b5e804f ("ARM: dts: imx6qdl-apalis: Avoid underscore in node name")
+>
+> Suggested-by: Ahmad Fatoum <a.fatoum@pengutronix.de>
+> Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
 > ---
->  drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 10 +++++-----
->  1 file changed, 5 insertions(+), 5 deletions(-)
-> 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> index 5578abb14949..1854dcdd6095 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> @@ -3758,6 +3758,11 @@ static int stmmac_release(struct net_device *dev)
->  	struct stmmac_priv *priv = netdev_priv(dev);
->  	u32 chan;
->  
-> +	stmmac_disable_all_queues(priv);
-> +
-> +	for (chan = 0; chan < priv->plat->tx_queues_to_use; chan++)
-> +		hrtimer_cancel(&priv->tx_queue[chan].txtimer);
-> +
->  	netif_tx_disable(dev);
+> v2:
+>  - remove define usage for compatible strings
+>  - moved rotator removal from probe to a separate patch
 
-Is there a reason not to call phylink_stop() as the very first thing in
-this function? That will bring the link (and therefore carrier) down
-before phylink_stop() returns which should also prevent packets being
-queued into the driver for transmission.
+v2 LGTM
+Reviewed-by: Linus Walleij <linus.walleij@linaro.org>
 
-Thanks.
-
--- 
-RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-FTTP is here! 40Mbps down 10Mbps up. Decent connectivity at last!
+Yours,
+Linus Walleij
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
