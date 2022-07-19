@@ -2,42 +2,42 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3A8B757A373
-	for <lists+linux-stm32@lfdr.de>; Tue, 19 Jul 2022 17:48:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 62C3057A375
+	for <lists+linux-stm32@lfdr.de>; Tue, 19 Jul 2022 17:48:15 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0C010C640F6;
-	Tue, 19 Jul 2022 15:48:12 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 35347C640FA;
+	Tue, 19 Jul 2022 15:48:15 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
  [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A3BE6C640F4
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D3844C640F6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 19 Jul 2022 15:48:10 +0000 (UTC)
+ Tue, 19 Jul 2022 15:48:13 +0000 (UTC)
 Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 26JFMe81030928;
+ by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 26JFknfG031017;
  Tue, 19 Jul 2022 17:47:57 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
  h=from : to : cc :
- subject : date : message-id : mime-version : content-transfer-encoding :
- content-type; s=selector1;
- bh=1ralePF7NZgiuaaEZtba9R7/B4WF8Zv4f9q+QOtg1so=;
- b=p7alzx8ATWRqHMwq63kuR9a7iTHwgoLPGSyYr/j6JOqf3T7JZp8iWZjk+9QllAyd9BBz
- FEzw4TEgLdlMiaQHCRhyF/E84Ah9dWUUrBLv7J4btdwhn18XecS3TsfRAtQE7dLEHZ/l
- 72RVw+SNfrJZT5w8nKZvVY4M5WEQoH/PN33cLE9f1nuExvZUFkFmlcUKsXc/VwYrgFdb
- eraf0txmD1oyGN04Cf07wh4ruPAli40xs8XJiTTVC1LWegYoBwPST4KWyV6h1/20G0cP
- 3f/eadgF7+VvnPLT+h0uQo01wJMI4s7dXoYG5oadsMY2ivcNSQfyiJtpry7Sj3cpfEmu Ig== 
+ subject : date : message-id : in-reply-to : references : mime-version :
+ content-transfer-encoding : content-type; s=selector1;
+ bh=agcaLyf9kTtMbLkC1PuPB3aViViREA9KZ4jkslZJ50E=;
+ b=vmbvecia2cPjrJtkRtvucgCOIDeCerxpqQS60tFwECfXgjI1rSXP5yb3Bze1RwXu749t
+ 70co4Y+GQg0sVohvoat+Zma2Kf2C22WqSfBoObC+taC4LEP0Aw3MwSdVq4xFk6d9+U+q
+ /bnOX9VdO8T44d2MP/nvf1GrmF4qymoP7Uwkhn6tBU1debA/tdNCDvk3OnvGCR5U78Sc
+ IC6saKtRquK2LgonIGC6i4PdOgo+FpMo7JkmoNti+Iu7L+2annTcMhf+GCz7h2rCZlrq
+ Aktg4zP89HDKQZ/H7o/FgwbcrF5QyjPL5YkPstB2VKJNM4hB4UHYRFRRQtlQALTxLUi+ 7A== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3hbnhy0prh-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3hbnhy0prg-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
  Tue, 19 Jul 2022 17:47:57 +0200
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 03F95100034;
- Tue, 19 Jul 2022 17:47:57 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id F2FC222D17C;
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id F18AB10002A;
  Tue, 19 Jul 2022 17:47:56 +0200 (CEST)
-Received: from localhost (10.75.127.48) by SHFDAG1NODE2.st.com (10.75.129.70)
+Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id EBA2A22D17B;
+ Tue, 19 Jul 2022 17:47:56 +0200 (CEST)
+Received: from localhost (10.75.127.49) by SHFDAG1NODE2.st.com (10.75.129.70)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2308.20; Tue, 19 Jul
  2022 17:47:56 +0200
@@ -45,11 +45,13 @@ From: Amelie Delaunay <amelie.delaunay@foss.st.com>
 To: Jonathan Corbet <corbet@lwn.net>, Vinod Koul <vkoul@kernel.org>, Maxime
  Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
  <alexandre.torgue@foss.st.com>
-Date: Tue, 19 Jul 2022 17:47:39 +0200
-Message-ID: <20220719154745.623204-1-amelie.delaunay@foss.st.com>
+Date: Tue, 19 Jul 2022 17:47:40 +0200
+Message-ID: <20220719154745.623204-2-amelie.delaunay@foss.st.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20220719154745.623204-1-amelie.delaunay@foss.st.com>
+References: <20220719154745.623204-1-amelie.delaunay@foss.st.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.48]
+X-Originating-IP: [10.75.127.49]
 X-ClientProxiedBy: SFHDAG2NODE3.st.com (10.75.127.6) To SHFDAG1NODE2.st.com
  (10.75.129.70)
 X-Proofpoint-Virus-Version: vendor=baseguard
@@ -58,7 +60,8 @@ X-Proofpoint-Virus-Version: vendor=baseguard
 Cc: Marek Vasut <marex@denx.de>, linux-doc@vger.kernel.org,
  linux-kernel@vger.kernel.org, dmaengine@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v3 0/6] STM32 DMA-MDMA chaining feature
+Subject: [Linux-stm32] [PATCH v3 1/6] dmaengine: stm32-dma: introduce 3
+	helpers to address channel flags
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,54 +78,95 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-This patchset (re)introduces STM32 DMA-MDMA chaining feature.
+Channels 0 to 3 flags are described in DMA_LISR and DMA_LIFCR (L as Low).
+Channels 4 to 7 flags are described in DMA_HISR and DMA_HIFCR (H as High).
+Macro STM32_DMA_ISR(n) returns the interrupt status register offset for the
+channel id (n).
+Macro STM32_DMA_IFCR(n) returns the interrupt flag clear register offset
+for the channel id (n).
 
-As the DMA is not able to generate convenient burst transfer on the DDR,
-it penalises the AXI bus when accessing the DDR. While it accesses
-optimally the SRAM. The DMA-MDMA chaining then consists in having an SRAM
-buffer between DMA and MDMA, so the DMA deals with peripheral and SRAM,
-and the MDMA with SRAM and DDR.
+If chan->id % 4 = 2 or 3, then its flags are left-shifted by 16 bits.
+If chan->id % 4 = 1 or 3, then its flags are additionally left-shifted by 6
+bits.
+If chan->id % 4 = 0, then its flags are not shifted.
+Macro STM32_DMA_FLAGS_SHIFT(n) returns the required shift to get or set the
+channel flags mask.
 
-The feature relies on the fact that DMA channel Transfer Complete signal
-can trigger a MDMA channel transfer and MDMA can clear the DMA request by
-writing to DMA Interrupt Clear register.
+Signed-off-by: Amelie Delaunay <amelie.delaunay@foss.st.com>
+---
+Introduced in patchset v3 to ease readibility of code.
+---
+ drivers/dma/stm32-dma.c | 29 ++++++++++++-----------------
+ 1 file changed, 12 insertions(+), 17 deletions(-)
 
-A deeper introduction can be found in patch 1.
-
-Previous implementation [1] has been dropped as nacked.
-Unlike this previous implementation (where all the stuff was embedded in
-stm32-dma driver), the user (in peripheral drivers using dma) has now to
-configure the MDMA channel.
-
-[1] https://lore.kernel.org/lkml/1538139715-24406-1-git-send-email-pierre-yves.mordret@st.com/
-
-Changes in v3:
-- introduce two prior patches to help readibility
-- fix stm32-dma struct stm32_dma_mdma_config documentation
-
-Changes in v2:
-- wrap to 80-column limit for documentation
-- add an entry for this documentation in index.rst
-- use simple table instead of csv-table in documentation
-
-
-Amelie Delaunay (6):
-  dmaengine: stm32-dma: introduce 3 helpers to address channel flags
-  dmaengine: stm32-dma: use bitfield helpers
-  docs: arm: stm32: introduce STM32 DMA-MDMA chaining feature
-  dmaengine: stm32-dmamux: set dmamux channel id in dma features
-    bitfield
-  dmaengine: stm32-dma: add support to trigger STM32 MDMA
-  dmaengine: stm32-mdma: add support to be triggered by STM32 DMA
-
- Documentation/arm/index.rst                   |   1 +
- .../arm/stm32/stm32-dma-mdma-chaining.rst     | 415 ++++++++++++++++++
- drivers/dma/stm32-dma.c                       | 136 +++---
- drivers/dma/stm32-dmamux.c                    |   2 +-
- drivers/dma/stm32-mdma.c                      |  70 ++-
- 5 files changed, 569 insertions(+), 55 deletions(-)
- create mode 100644 Documentation/arm/stm32/stm32-dma-mdma-chaining.rst
-
+diff --git a/drivers/dma/stm32-dma.c b/drivers/dma/stm32-dma.c
+index adb25a11c70f..5d67e168aaee 100644
+--- a/drivers/dma/stm32-dma.c
++++ b/drivers/dma/stm32-dma.c
+@@ -32,8 +32,10 @@
+ 
+ #define STM32_DMA_LISR			0x0000 /* DMA Low Int Status Reg */
+ #define STM32_DMA_HISR			0x0004 /* DMA High Int Status Reg */
++#define STM32_DMA_ISR(n)		(((n) & 4) ? STM32_DMA_HISR : STM32_DMA_LISR)
+ #define STM32_DMA_LIFCR			0x0008 /* DMA Low Int Flag Clear Reg */
+ #define STM32_DMA_HIFCR			0x000c /* DMA High Int Flag Clear Reg */
++#define STM32_DMA_IFCR(n)		(((n) & 4) ? STM32_DMA_HIFCR : STM32_DMA_LIFCR)
+ #define STM32_DMA_TCI			BIT(5) /* Transfer Complete Interrupt */
+ #define STM32_DMA_HTI			BIT(4) /* Half Transfer Interrupt */
+ #define STM32_DMA_TEI			BIT(3) /* Transfer Error Interrupt */
+@@ -43,6 +45,12 @@
+ 					 | STM32_DMA_TEI \
+ 					 | STM32_DMA_DMEI \
+ 					 | STM32_DMA_FEI)
++/*
++ * If (chan->id % 4) is 2 or 3, left shift the mask by 16 bits;
++ * if (ch % 4) is 1 or 3, additionally left shift the mask by 6 bits.
++ */
++#define STM32_DMA_FLAGS_SHIFT(n)	({ typeof(n) (_n) = (n); \
++					   (((_n) & 2) << 3) | (((_n) & 1) * 6); })
+ 
+ /* DMA Stream x Configuration Register */
+ #define STM32_DMA_SCR(x)		(0x0010 + 0x18 * (x)) /* x = 0..7 */
+@@ -401,17 +409,10 @@ static u32 stm32_dma_irq_status(struct stm32_dma_chan *chan)
+ 	/*
+ 	 * Read "flags" from DMA_xISR register corresponding to the selected
+ 	 * DMA channel at the correct bit offset inside that register.
+-	 *
+-	 * If (ch % 4) is 2 or 3, left shift the mask by 16 bits.
+-	 * If (ch % 4) is 1 or 3, additionally left shift the mask by 6 bits.
+ 	 */
+ 
+-	if (chan->id & 4)
+-		dma_isr = stm32_dma_read(dmadev, STM32_DMA_HISR);
+-	else
+-		dma_isr = stm32_dma_read(dmadev, STM32_DMA_LISR);
+-
+-	flags = dma_isr >> (((chan->id & 2) << 3) | ((chan->id & 1) * 6));
++	dma_isr = stm32_dma_read(dmadev, STM32_DMA_ISR(chan->id));
++	flags = dma_isr >> STM32_DMA_FLAGS_SHIFT(chan->id);
+ 
+ 	return flags & STM32_DMA_MASKI;
+ }
+@@ -424,17 +425,11 @@ static void stm32_dma_irq_clear(struct stm32_dma_chan *chan, u32 flags)
+ 	/*
+ 	 * Write "flags" to the DMA_xIFCR register corresponding to the selected
+ 	 * DMA channel at the correct bit offset inside that register.
+-	 *
+-	 * If (ch % 4) is 2 or 3, left shift the mask by 16 bits.
+-	 * If (ch % 4) is 1 or 3, additionally left shift the mask by 6 bits.
+ 	 */
+ 	flags &= STM32_DMA_MASKI;
+-	dma_ifcr = flags << (((chan->id & 2) << 3) | ((chan->id & 1) * 6));
++	dma_ifcr = flags << STM32_DMA_FLAGS_SHIFT(chan->id);
+ 
+-	if (chan->id & 4)
+-		stm32_dma_write(dmadev, STM32_DMA_HIFCR, dma_ifcr);
+-	else
+-		stm32_dma_write(dmadev, STM32_DMA_LIFCR, dma_ifcr);
++	stm32_dma_write(dmadev, STM32_DMA_IFCR(chan->id), dma_ifcr);
+ }
+ 
+ static int stm32_dma_disable_chan(struct stm32_dma_chan *chan)
 -- 
 2.25.1
 
