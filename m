@@ -2,54 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 64BD0579002
-	for <lists+linux-stm32@lfdr.de>; Tue, 19 Jul 2022 03:49:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 70649579004
+	for <lists+linux-stm32@lfdr.de>; Tue, 19 Jul 2022 03:49:34 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0D22FC640ED;
-	Tue, 19 Jul 2022 01:49:32 +0000 (UTC)
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com
- [209.85.128.49])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 238D0C640F2;
+	Tue, 19 Jul 2022 01:49:34 +0000 (UTC)
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
+ [209.85.128.41])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9DD69C03FDB
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A67EEC640F2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 19 Jul 2022 01:49:31 +0000 (UTC)
-Received: by mail-wm1-f49.google.com with SMTP id
- f24-20020a1cc918000000b003a30178c022so8963752wmb.3
+ Tue, 19 Jul 2022 01:49:32 +0000 (UTC)
+Received: by mail-wm1-f41.google.com with SMTP id
+ a18-20020a05600c349200b003a30de68697so295143wmq.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 18 Jul 2022 18:49:31 -0700 (PDT)
+ Mon, 18 Jul 2022 18:49:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=dtK+f+e69ktRtm1DfmKkH7OgqSKD4ay2ViO2yXXI+mw=;
- b=OYKSxoRDJYuxotTPJtxxiPnclu2w1eM3+9GEhvCYItsaVb6YJUTB8NQdP4nX0ZFrco
- cznxAeMIVrDZMxbUEp2cldX7igHPO0e7TMyvGXDPYnaveHF9Yht+3bvBvW2hdTHzIIhA
- a1K98xfJ/2qPfkoo1EgMlJh0aQqerVxUnjddSsiQnldDyzC1ECbEV2F6RrGi7iweb2Km
- iV0vZxlbQ71eMx0tRwtVqBPXleCVeb28qhS5wzw0gGqFBkTLlBAiay6p6zRMy7FvssjT
- Up1hU8+wDjMNy+9GS+UVyv6yAZT7Y2derqUogNge0mAMI0Ai/9oW6nZAJ4Af64PqLxwm
- ZMdA==
+ bh=rjiJgm+ePUWk4K7ivlZ0MC/qqioPkcS003xuwMGC70A=;
+ b=NtpRkIjh4Bv37C970xdAVWthPTrnmEQdyeT0ewXV1A6lqhFkPcNO+5MKYUefXEfip/
+ Z4kOZTMSZth5cO6KoeWvSMI/DKggvO/X2cj6ljs8DTle6dZ6eB74+k7ucfBHtFZFQ6Nt
+ AKTD3l/8jIrhDeHSscaJxc3kW1uBVNOzRm1eU2Y8+WnGbzbKmMjlip5ajtlVGr3Lr/Ft
+ Yt0MGalcSuQP6bx3ZF02e2zToXzh6jfbd31tV0gk8+8skJQTq3hAT1/1sVZZ30mhrHWn
+ /BEFoLD7lamYXtuLTkNF+BiDBgFxcGUGeNyLPlsavs8TDhonuuTvYty/kmhqLu6yh0u0
+ PB8w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=dtK+f+e69ktRtm1DfmKkH7OgqSKD4ay2ViO2yXXI+mw=;
- b=YfvAwWJXHVYFeGt144QG+32VT8KmNxAQacdQw1u/JZ6J6eljlD+VT8mvXxEjvsy/Z9
- paV1xmGjS/tu0KRRU5ghuN9IzjTtOKtH55P9C1F7oq+r09E8+5usn/vmNtN03Xe/abQX
- ADAKKrejB3KI5gE/My7AedKN/JAEiRcS/Zooo4M4+8zlUPvUM1ZkzWpC4Ef9rNNpR3eZ
- VdLUduYcWNhEpebwo2rsrxxMJzqPg1kXwFxC7YJRtRouoQ40BFK84TraZAZdbLO8eTzA
- 5ACPy+kmK/vUtyt9czaxsa/+sCt7FW87fY7pL6hTo5NNhvo7Z0sU/bi2sayzJRI+Dr0F
- M3Gw==
-X-Gm-Message-State: AJIora+2hrxAjlArYuzlaQMDjYmdDwfItCr6wusLiH+lZezIHaACB4qv
- HwhBYiKs9H2rGXMQ9XGV+2M=
-X-Google-Smtp-Source: AGRyM1tRyEwBlbxo7SYBnXsREwjJTGZXVDlD3ka1KEa3mWXGiK5BhVBTxs17G3Uja9WKV2JW1JzS6Q==
-X-Received: by 2002:a05:600c:3ac3:b0:3a0:45b6:7efb with SMTP id
- d3-20020a05600c3ac300b003a045b67efbmr34460294wms.183.1658195371085; 
- Mon, 18 Jul 2022 18:49:31 -0700 (PDT)
+ bh=rjiJgm+ePUWk4K7ivlZ0MC/qqioPkcS003xuwMGC70A=;
+ b=0UI8G64h/H4b7D+tRD0Zh3Cbd/s4cqPd0UnJ4XbM44tvAnMXW4tNOeuhjk4DJU63OA
+ hCnoZ18ORpi5TNXZNhzlAa4Pezmc3WQ4RbvrGXjV/K2bEq7LpB21BMy35R94WOSmeFNS
+ 84Rt++SRxy7nkXb+uP/AiGmqJg6v7WHSRdWJjSIY4NJIvjQqUMUs75dBSB+wvStZl7fU
+ 8rYMswkB+8uZswVhhEltzcnaYWIm1Gbp5aQpeaRPSDvx0coQLhj1bgOgun7eUw7veD0F
+ TxNt7IotjbZHyaMM7n9j3lB65m8+i9clRyS/QlolZu/2woitM9HJiontVAG4PMGc5gNT
+ vAaA==
+X-Gm-Message-State: AJIora9nHP7Mvx9+CW3Mwl4bjqvMR4zPaoDCd94wuZzqJrFp5RNSa+Ex
+ wHHKypPMkwDghgIlmKfjEzg=
+X-Google-Smtp-Source: AGRyM1uFusY3dtICtBSOeVqJQdNbnOtjEtjon/nrmPJkBA+X+LnTpmvBYjkGQrIU6MLFLmVgr5zd+A==
+X-Received: by 2002:a7b:cb03:0:b0:39e:e826:ce6d with SMTP id
+ u3-20020a7bcb03000000b0039ee826ce6dmr34636738wmj.102.1658195372239; 
+ Mon, 18 Jul 2022 18:49:32 -0700 (PDT)
 Received: from localhost.localdomain (93-42-70-190.ip85.fastwebnet.it.
  [93.42.70.190]) by smtp.googlemail.com with ESMTPSA id
- v10-20020a05600c428a00b003a2fc754313sm16193600wmc.10.2022.07.18.18.49.30
+ v10-20020a05600c428a00b003a2fc754313sm16193600wmc.10.2022.07.18.18.49.31
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 18 Jul 2022 18:49:30 -0700 (PDT)
+ Mon, 18 Jul 2022 18:49:31 -0700 (PDT)
 From: Christian Marangi <ansuelsmth@gmail.com>
 To: Giuseppe Cavallaro <peppe.cavallaro@st.com>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>,
@@ -60,15 +60,15 @@ To: Giuseppe Cavallaro <peppe.cavallaro@st.com>,
  Russell King <linux@armlinux.org.uk>, netdev@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Date: Tue, 19 Jul 2022 03:32:15 +0200
-Message-Id: <20220719013219.11843-2-ansuelsmth@gmail.com>
+Date: Tue, 19 Jul 2022 03:32:16 +0200
+Message-Id: <20220719013219.11843-3-ansuelsmth@gmail.com>
 X-Mailer: git-send-email 2.36.1
 In-Reply-To: <20220719013219.11843-1-ansuelsmth@gmail.com>
 References: <20220719013219.11843-1-ansuelsmth@gmail.com>
 MIME-Version: 1.0
 Cc: Christian Marangi <ansuelsmth@gmail.com>
-Subject: [Linux-stm32] [net-next PATCH v4 1/5] net: ethernet: stmicro:
-	stmmac: move queue reset to dedicated functions
+Subject: [Linux-stm32] [net-next PATCH v4 2/5] net: ethernet: stmicro:
+	stmmac: first disable all queues and disconnect in release
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,143 +85,38 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Move queue reset to dedicated functions. This aside from a simple
-cleanup is also required to allocate a dma conf without resetting the tx
-queue while the device is temporarily detached as now the reset is not
-part of the dma init function and can be done later in the code flow.
+Disable all queues and disconnect before tx_disable in stmmac_release to
+prevent a corner case where packet may be still queued at the same time
+tx_disable is called resulting in kernel panic if some packet still has
+to be processed.
 
 Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
 ---
- .../net/ethernet/stmicro/stmmac/stmmac_main.c | 59 ++++++++++---------
- 1 file changed, 31 insertions(+), 28 deletions(-)
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 6f14b00c0b14..5578abb14949 100644
+index 5578abb14949..96e55dadcfba 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
 +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -130,6 +130,9 @@ static irqreturn_t stmmac_mac_interrupt(int irq, void *dev_id);
- static irqreturn_t stmmac_safety_interrupt(int irq, void *dev_id);
- static irqreturn_t stmmac_msi_intr_tx(int irq, void *data);
- static irqreturn_t stmmac_msi_intr_rx(int irq, void *data);
-+static void stmmac_reset_rx_queue(struct stmmac_priv *priv, u32 queue);
-+static void stmmac_reset_tx_queue(struct stmmac_priv *priv, u32 queue);
-+static void stmmac_reset_queues_param(struct stmmac_priv *priv);
- static void stmmac_tx_timer_arm(struct stmmac_priv *priv, u32 queue);
- static void stmmac_flush_tx_descriptors(struct stmmac_priv *priv, int queue);
- static void stmmac_set_dma_operation_mode(struct stmmac_priv *priv, u32 txmode,
-@@ -1648,9 +1651,6 @@ static int __init_dma_rx_desc_rings(struct stmmac_priv *priv, u32 queue, gfp_t f
- 			return -ENOMEM;
- 	}
+@@ -3758,8 +3758,6 @@ static int stmmac_release(struct net_device *dev)
+ 	struct stmmac_priv *priv = netdev_priv(dev);
+ 	u32 chan;
  
--	rx_q->cur_rx = 0;
--	rx_q->dirty_rx = 0;
+-	netif_tx_disable(dev);
 -
- 	/* Setup the chained descriptor addresses */
- 	if (priv->mode == STMMAC_CHAIN_MODE) {
- 		if (priv->extend_desc)
-@@ -1753,12 +1753,6 @@ static int __init_dma_tx_desc_rings(struct stmmac_priv *priv, u32 queue)
- 		tx_q->tx_skbuff[i] = NULL;
- 	}
+ 	if (device_may_wakeup(priv->device))
+ 		phylink_speed_down(priv->phylink, false);
+ 	/* Stop and disconnect the PHY */
+@@ -3771,6 +3769,8 @@ static int stmmac_release(struct net_device *dev)
+ 	for (chan = 0; chan < priv->plat->tx_queues_to_use; chan++)
+ 		hrtimer_cancel(&priv->tx_queue[chan].txtimer);
  
--	tx_q->dirty_tx = 0;
--	tx_q->cur_tx = 0;
--	tx_q->mss = 0;
--
--	netdev_tx_reset_queue(netdev_get_tx_queue(priv->dev, queue));
--
- 	return 0;
- }
- 
-@@ -2644,10 +2638,7 @@ static void stmmac_tx_err(struct stmmac_priv *priv, u32 chan)
- 	stmmac_stop_tx_dma(priv, chan);
- 	dma_free_tx_skbufs(priv, chan);
- 	stmmac_clear_tx_descriptors(priv, chan);
--	tx_q->dirty_tx = 0;
--	tx_q->cur_tx = 0;
--	tx_q->mss = 0;
--	netdev_tx_reset_queue(netdev_get_tx_queue(priv->dev, chan));
-+	stmmac_reset_tx_queue(priv, chan);
- 	stmmac_init_tx_chan(priv, priv->ioaddr, priv->plat->dma_cfg,
- 			    tx_q->dma_tx_phy, chan);
- 	stmmac_start_tx_dma(priv, chan);
-@@ -3706,6 +3697,8 @@ static int stmmac_open(struct net_device *dev)
- 		goto init_error;
- 	}
- 
-+	stmmac_reset_queues_param(priv);
++	netif_tx_disable(dev);
 +
- 	ret = stmmac_hw_setup(dev, true);
- 	if (ret < 0) {
- 		netdev_err(priv->dev, "%s: Hw setup failed\n", __func__);
-@@ -6332,6 +6325,7 @@ void stmmac_enable_rx_queue(struct stmmac_priv *priv, u32 queue)
- 		return;
- 	}
+ 	/* Free the IRQ lines */
+ 	stmmac_free_irq(dev, REQ_IRQ_ERR_ALL, 0);
  
-+	stmmac_reset_rx_queue(priv, queue);
- 	stmmac_clear_rx_descriptors(priv, queue);
- 
- 	stmmac_init_rx_chan(priv, priv->ioaddr, priv->plat->dma_cfg,
-@@ -6393,6 +6387,7 @@ void stmmac_enable_tx_queue(struct stmmac_priv *priv, u32 queue)
- 		return;
- 	}
- 
-+	stmmac_reset_tx_queue(priv, queue);
- 	stmmac_clear_tx_descriptors(priv, queue);
- 
- 	stmmac_init_tx_chan(priv, priv->ioaddr, priv->plat->dma_cfg,
-@@ -7319,6 +7314,25 @@ int stmmac_suspend(struct device *dev)
- }
- EXPORT_SYMBOL_GPL(stmmac_suspend);
- 
-+static void stmmac_reset_rx_queue(struct stmmac_priv *priv, u32 queue)
-+{
-+	struct stmmac_rx_queue *rx_q = &priv->rx_queue[queue];
-+
-+	rx_q->cur_rx = 0;
-+	rx_q->dirty_rx = 0;
-+}
-+
-+static void stmmac_reset_tx_queue(struct stmmac_priv *priv, u32 queue)
-+{
-+	struct stmmac_tx_queue *tx_q = &priv->tx_queue[queue];
-+
-+	tx_q->cur_tx = 0;
-+	tx_q->dirty_tx = 0;
-+	tx_q->mss = 0;
-+
-+	netdev_tx_reset_queue(netdev_get_tx_queue(priv->dev, queue));
-+}
-+
- /**
-  * stmmac_reset_queues_param - reset queue parameters
-  * @priv: device pointer
-@@ -7329,22 +7343,11 @@ static void stmmac_reset_queues_param(struct stmmac_priv *priv)
- 	u32 tx_cnt = priv->plat->tx_queues_to_use;
- 	u32 queue;
- 
--	for (queue = 0; queue < rx_cnt; queue++) {
--		struct stmmac_rx_queue *rx_q = &priv->rx_queue[queue];
--
--		rx_q->cur_rx = 0;
--		rx_q->dirty_rx = 0;
--	}
--
--	for (queue = 0; queue < tx_cnt; queue++) {
--		struct stmmac_tx_queue *tx_q = &priv->tx_queue[queue];
-+	for (queue = 0; queue < rx_cnt; queue++)
-+		stmmac_reset_rx_queue(priv, queue);
- 
--		tx_q->cur_tx = 0;
--		tx_q->dirty_tx = 0;
--		tx_q->mss = 0;
--
--		netdev_tx_reset_queue(netdev_get_tx_queue(priv->dev, queue));
--	}
-+	for (queue = 0; queue < tx_cnt; queue++)
-+		stmmac_reset_tx_queue(priv, queue);
- }
- 
- /**
 -- 
 2.36.1
 
