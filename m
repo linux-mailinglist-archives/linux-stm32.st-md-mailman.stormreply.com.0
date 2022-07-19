@@ -2,56 +2,70 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 214E8578A65
-	for <lists+linux-stm32@lfdr.de>; Mon, 18 Jul 2022 21:13:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6941F579003
+	for <lists+linux-stm32@lfdr.de>; Tue, 19 Jul 2022 03:49:32 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B42AAC0D2B9;
-	Mon, 18 Jul 2022 19:13:26 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EF022C0D2B9;
+	Tue, 19 Jul 2022 01:49:31 +0000 (UTC)
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com
+ [209.85.221.52])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3DDE4C04005
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9E799C03FDB
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 18 Jul 2022 19:13:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1658171605; x=1689707605;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=jfpGMUuM81j/VW9iWBnOI0YIldx7GwCl3+DCAYabqc4=;
- b=DYIz6190igDMgcCqKAE88usF2lyOQ7oiqCj8M4h2yF+HMt9MoeZ4WFSC
- 0yBjZ+4BzV/PPSobYgNXoo5q6+srQ1+9NiirAlbVuifEXwP1oXcsGLkgx
- ctV9nOB6SqLlP83AeLgmmWPI8k0ERBHprGVbvsixovPpyYvTtym9y3h1C
- sZZvCXc4O6evDkDxOsn+dNZ0/HXNA3r2TQ0sMzD2ox4v68kMjoFUh+/QH
- Ub2+dtAof9jwpACLsRyn/GL/jycp4ubCfZlpHPOMclH7H16FelhhflKUU
- Tm9TCMx27B0tBCVkiV15vWkbfl71fayrOHq2LXM85ALR1+PmnRiXemEMt g==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10412"; a="350262052"
-X-IronPort-AV: E=Sophos;i="5.92,281,1650956400"; d="scan'208";a="350262052"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Jul 2022 12:13:23 -0700
-X-IronPort-AV: E=Sophos;i="5.92,281,1650956400"; d="scan'208";a="630037408"
-Received: from smile.fi.intel.com ([10.237.72.54])
- by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Jul 2022 12:13:20 -0700
-Received: from andy by smile.fi.intel.com with local (Exim 4.96)
- (envelope-from <andriy.shevchenko@linux.intel.com>)
- id 1oDWBB-001OPS-1s; Mon, 18 Jul 2022 22:13:17 +0300
-Date: Mon, 18 Jul 2022 22:13:17 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Marc Zyngier <maz@kernel.org>
-Message-ID: <YtWwzW/Cou3/aia1@smile.fi.intel.com>
-References: <20220715205203.82591-1-andriy.shevchenko@linux.intel.com>
- <87sfn14cns.wl-maz@kernel.org>
+ Tue, 19 Jul 2022 01:49:30 +0000 (UTC)
+Received: by mail-wr1-f52.google.com with SMTP id z12so19532071wrq.7
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 18 Jul 2022 18:49:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=NRlQ3mxg3RzKLJEGPG1n3tE2Reyt0PmZbkS9Sk9bMTs=;
+ b=I7xGQX4QrHDZwh9zLKLOg9R55Dz23nFRbAU+JW9KAV99wmpuzTbVctG72+amjQ5Zzw
+ tZ4wbHPrtnnViOPfQ7SiQPjReHaBxnVGlTQ7GjKNMVIyx84+AgDRZ4/Nxuk7AimnMNst
+ xqkGPM9AiGMpLeBFsacUWDmFPMS+ocjBx9QynIdO/h/30vdeEM9VRh1pyR9n0UPUyV4w
+ HOmqAPiDnN8d0eIf4zBEGgMgcFLaZONHiDokMYrhwc/dRqKd2JNfAcjSQVIu4ua0XUvH
+ LOVBI3lVHTXrzHx2hcRz4SI1XTO2+T49wm0+XQCuriIebz2Dx7535QYHyhmBdREnE3jr
+ rBIg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=NRlQ3mxg3RzKLJEGPG1n3tE2Reyt0PmZbkS9Sk9bMTs=;
+ b=lIL4Z17VpgJ2tdhuWsBN7Y7CZ5t+XmLx0+F1eUfbWIrvkwFJXN3GtyrzB6I40R0Trh
+ +QisfKZPWZNcwvEcqTnw+pm+ByJquvJSW6qShs/3iGkDnTXMmZpsMYF0CITUY/fXq3Lm
+ 47E0aAfWNGz/C9sJ4mO72PS9cp75k9i6ENC0WURnH4Hwh8IP00JN08z3GcPBddKO/b23
+ 6jRor17jdFTmj890iuuquppgz3gZXNh7JYt4+nq+QGqftfs0JFTo+Uz03u7wbzRLSTXB
+ 1CCDAoVpoMRBxM7JUXpCJVPN2R/ApK9thqLAFWvb4b8XYtHApmRaTrttNpehfncP0BqM
+ VEwg==
+X-Gm-Message-State: AJIora9Wjxz657na3fS9fnXB8UaokF2INSAozRt6l1OgESubk4ziezNg
+ wOegx18DJgWJNGI2yhmltYI=
+X-Google-Smtp-Source: AGRyM1sgPFrzN1+aui8l4wS4BVl7j70f+1Uo9TEgTIrEo9LFJKayW9/hAmm/cUeLt51/PEU8QtbbvQ==
+X-Received: by 2002:a05:6000:1367:b0:21d:75cd:5ae8 with SMTP id
+ q7-20020a056000136700b0021d75cd5ae8mr24932292wrz.282.1658195370030; 
+ Mon, 18 Jul 2022 18:49:30 -0700 (PDT)
+Received: from localhost.localdomain (93-42-70-190.ip85.fastwebnet.it.
+ [93.42.70.190]) by smtp.googlemail.com with ESMTPSA id
+ v10-20020a05600c428a00b003a2fc754313sm16193600wmc.10.2022.07.18.18.49.29
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 18 Jul 2022 18:49:29 -0700 (PDT)
+From: Christian Marangi <ansuelsmth@gmail.com>
+To: Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Jose Abreu <joabreu@synopsys.com>, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Russell King <linux@armlinux.org.uk>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Date: Tue, 19 Jul 2022 03:32:14 +0200
+Message-Id: <20220719013219.11843-1-ansuelsmth@gmail.com>
+X-Mailer: git-send-email 2.36.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <87sfn14cns.wl-maz@kernel.org>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Cc: linux-kernel@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Thomas Gleixner <tglx@linutronix.de>, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v1 1/1] irqchip/stm32-exti: Use
-	INVALID_HWIRQ definition
+Cc: Christian Marangi <ansuelsmth@gmail.com>
+Subject: [Linux-stm32] [net-next PATCH v4 0/5] Add MTU change with stmmac
+	interface running
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -68,35 +82,60 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Sat, Jul 16, 2022 at 10:41:59AM +0100, Marc Zyngier wrote:
-> On Fri, 15 Jul 2022 21:52:03 +0100,
-> Andy Shevchenko <andriy.shevchenko@linux.intel.com> wrote:
-> > 
-> > Use specific definition for invalid IRQ. It makes the
-> > code uniform in respect to the constant used for that.
-> > No functional change intended.
+This series is to permit MTU change while the interface is running.
+Major rework are needed to permit to allocate a new dma conf based on
+the new MTU before applying it. This is to make sure there is enough
+space to allocate all the DMA queue before releasing the stmmac driver.
 
-...
+This was tested with a simple way to stress the network while the
+interface is running.
 
-> > -#define EXTI_INVALID_IRQ       U8_MAX
-> > +#define EXTI_INVALID_IRQ       ((u8)INVALID_HWIRQ)
-> 
-> This looks like a terrible idea. It gives the impression that you can
-> now rely on comparing the internal data structure field to
-> INVALID_HWIRQ. Which is of course bound to fail.
+2 ssh connection to the device:
+- One generating simple traffic with while true; do free; done
+- The other making the mtu change with a delay of 1 second
 
-I don't know how one can go to that conclusion, but okay, I understood you.
+The connection is correctly stopped and recovered after the MTU is changed.
 
-> To be honest, I'd rather *kill* INVALID_HWIRQ, because apart from
-> cherryview, nobody even *checks* for this value by that name. So much
-> for the "code uniformity"...
+The first 2 patch of this series are minor fixup that fix problems
+presented while testing this. One fix a problem when we renable a queue
+while we are generating a new dma conf. The other is a corner case that
+was notice while stressing the driver and turning down the interface while
+there was some traffic.
 
-It's used by two or three, I don't remember by heart.
+(this is a follow-up of a simpler patch that wanted to add the same
+feature. It was suggested to first try to check if it was possible to
+apply the new configuration. Posting as RFC as it does major rework for
+the new concept of DMA conf)
+
+v4:
+- Add additional stmmac_set_rx_mode after stmmac_open
+- Disconnect phylink first on stmmac release
+v3:
+- Fix compilation error reported by kernel test bot
+  (missing dma_confg changes to tc and selftest source)
+v2:
+- Put it out of RFC
+
+Christian Marangi (5):
+  net: ethernet: stmicro: stmmac: move queue reset to dedicated
+    functions
+  net: ethernet: stmicro: stmmac: first disable all queues and
+    disconnect in release
+  net: ethernet: stmicro: stmmac: move dma conf to dedicated struct
+  net: ethernet: stmicro: stmmac: generate stmmac dma conf before open
+  net: ethernet: stmicro: stmmac: permit MTU change with interface up
+
+ .../net/ethernet/stmicro/stmmac/chain_mode.c  |   6 +-
+ .../net/ethernet/stmicro/stmmac/ring_mode.c   |   4 +-
+ drivers/net/ethernet/stmicro/stmmac/stmmac.h  |  21 +-
+ .../ethernet/stmicro/stmmac/stmmac_ethtool.c  |   4 +-
+ .../net/ethernet/stmicro/stmmac/stmmac_main.c | 720 +++++++++++-------
+ .../stmicro/stmmac/stmmac_selftests.c         |   8 +-
+ .../net/ethernet/stmicro/stmmac/stmmac_tc.c   |   6 +-
+ 7 files changed, 457 insertions(+), 312 deletions(-)
 
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.36.1
 
 _______________________________________________
 Linux-stm32 mailing list
