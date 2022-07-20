@@ -2,50 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5C0DC57B193
-	for <lists+linux-stm32@lfdr.de>; Wed, 20 Jul 2022 09:18:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 39AE057B211
+	for <lists+linux-stm32@lfdr.de>; Wed, 20 Jul 2022 09:48:42 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DAC61C640F4;
-	Wed, 20 Jul 2022 07:18:54 +0000 (UTC)
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
- [85.220.165.71])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A2F53C640F5;
+	Wed, 20 Jul 2022 07:48:41 +0000 (UTC)
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com
+ [209.85.221.42])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3C9BAC03FC9
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A1E5DC640F2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 20 Jul 2022 07:18:53 +0000 (UTC)
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
- by metis.ext.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <ukl@pengutronix.de>)
- id 1oE3yp-0001cx-Bh; Wed, 20 Jul 2022 09:18:47 +0200
-Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
- by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.94.2)
- (envelope-from <ukl@pengutronix.de>)
- id 1oE3yl-0024QQ-TS; Wed, 20 Jul 2022 09:18:43 +0200
-Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.94.2)
- (envelope-from <ukl@pengutronix.de>)
- id 1oE3yk-006KrZ-UB; Wed, 20 Jul 2022 09:18:42 +0200
-Date: Wed, 20 Jul 2022 09:18:34 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
-To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Rob Herring <robh+dt@kernel.org>
-Message-ID: <20220720071834.augn2mtytqzqcixo@pengutronix.de>
-References: <20220519162838.695404-1-u.kleine-koenig@pengutronix.de>
- <20220519162838.695404-2-u.kleine-koenig@pengutronix.de>
+ Wed, 20 Jul 2022 07:48:40 +0000 (UTC)
+Received: by mail-wr1-f42.google.com with SMTP id b26so24923388wrc.2
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 20 Jul 2022 00:48:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:content-transfer-encoding:in-reply-to;
+ bh=9ElSeSk614sHvQ21Olszx7/fOD72S3pdEjMKoWVvV70=;
+ b=vhSEKJmVmMARaRWH0xaA2l+kCtoc5Zx/reprZlY45YpxW3DQg9C4qONfodIx8+o4FZ
+ 158sB+03Rej/8Yf3e7gYSweZ3QyCmBdBh0VytqYAKE+oZyQSUaBygJar2jiBAzoEkfDm
+ Xy7z/6IV1uZa5/UMmF0q2rzbG46hJGLHu0glLNe/8bl6J3YbSzA9dXRv9XD4fKfjMchv
+ ndvMvmrncYAgprfLQrycI45wKDPfJwlwoaICFQ+hwF1gknT6bSptzTNKEdB+SKsj12Tg
+ LRCrO1tXEf1JQAWFoFemlZHgH/7yuZxocrMVCc5L3QF30Q1OI+1IHZ05vmaUDeusjeDV
+ n+1g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to;
+ bh=9ElSeSk614sHvQ21Olszx7/fOD72S3pdEjMKoWVvV70=;
+ b=zPX6vm4zUakXOL3j16I/G7G2o6o55PP4s8ORTMijdJ28xdoT6HCgeSTB7VBfCLeb4k
+ MCymvAJFYG4vwlZyefWsENBiWE2UTxQn0LHAKcrCNMzMmGCs7eE/+2NmaCzii9N+tLJ/
+ 5NItNzZ8/fqVDMT9KJw/gNGzQ6Bd3TGiy3iXWGE9VJziOYuAFIJNqFCCjX0oy/jSA/68
+ E74DF8X9ad4vjN0sdt+p6QlyCSyuD2I8FTEMD43c7wnAuHeYagylBxphuk4vqWsXO8NI
+ sxbnXV1vG/eiPUTmETQ4u1XG+xdvqC+u3PAR2AyOobNMc5ATRt/KfJ7cTTIPpqsQ4GcU
+ y+9Q==
+X-Gm-Message-State: AJIora+726EMUPbhvOMhizmnhI/7Ka/pOCCr/BEDaik81b/v1GKMHXgU
+ tTt190MaWxSAIJqEIkq4cF+0Ug==
+X-Google-Smtp-Source: AGRyM1vuPStHxI48eylnYSZO/6tJTXBaSbjnGnKmJlNTa/CBji3je23kXPmhNPY4cFUIPz3Fu06IOQ==
+X-Received: by 2002:a5d:4e49:0:b0:21d:6e8a:fa3 with SMTP id
+ r9-20020a5d4e49000000b0021d6e8a0fa3mr28469922wrt.528.1658303320157; 
+ Wed, 20 Jul 2022 00:48:40 -0700 (PDT)
+Received: from google.com (cpc155339-bagu17-2-0-cust87.1-3.cable.virginm.net.
+ [86.27.177.88]) by smtp.gmail.com with ESMTPSA id
+ a20-20020a05600c225400b003a32167b8d4sm1444891wmm.13.2022.07.20.00.48.39
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 20 Jul 2022 00:48:39 -0700 (PDT)
+Date: Wed, 20 Jul 2022 08:48:37 +0100
+From: Lee Jones <lee.jones@linaro.org>
+To: Rob Herring <robh@kernel.org>
+Message-ID: <YtezVaZGhEZ1ZEKL@google.com>
+References: <20220719215125.1877138-1-robh@kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <20220519162838.695404-2-u.kleine-koenig@pengutronix.de>
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: ukl@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
-Cc: devicetree@vger.kernel.org, kernel@pengutronix.de,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Lee Jones <lee.jones@linaro.org>,
+Content-Disposition: inline
+In-Reply-To: <20220719215125.1877138-1-robh@kernel.org>
+Cc: devicetree@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ linux-kernel@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v4 2/2] ARM: dts: stm32mp15x: Add timer
-	interrupts
+Subject: Re: [Linux-stm32] [PATCH] dt-bindings: mfd: st,
+ stm32-timers: Correct 'resets' property name
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -57,67 +75,20 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============0743334208929840492=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-
---===============0743334208929840492==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ltqjj27tuoy3n3jq"
-Content-Disposition: inline
-
-
---ltqjj27tuoy3n3jq
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-Hello,
-
-On Thu, May 19, 2022 at 06:28:38PM +0200, Uwe Kleine-K=F6nig wrote:
-> The timer units in the stm32mp15x CPUs have interrupts, depending on the
-> timer flavour either one "global" or four dedicated ones. Add the irqs
-> to the timer units on stm32mp15x.
->=20
-> Signed-off-by: Uwe Kleine-K=F6nig <u.kleine-koenig@pengutronix.de>
-
-This patch wasn't picked up yet (at least nobody told to have done it
-and it's not in next). Is there a problem other than no maintainer time?
-
-Best regards
-Uwe
-
---=20
-Pengutronix e.K.                           | Uwe Kleine-K=F6nig            |
-Industrial Linux Solutions                 | https://www.pengutronix.de/ |
-
---ltqjj27tuoy3n3jq
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEfnIqFpAYrP8+dKQLwfwUeK3K7AkFAmLXrEcACgkQwfwUeK3K
-7Ang7gf/Rd5W5Jg4hMwhnAke3rNUDJnYzTaAWUL1IKCO8ZYgddNv1gojlRjoTSm6
-GVti+ACsAd+34xDdLQ9GDJ1JgvM4nlrg5HvGjmtMe9SIM/fVQNzlezA3bp5Q0zW9
-US94zB9DlTEGY1T1YEPrUw6//gJ/IQ7wZPlIe8dsZbsze7AIWOcbLlPYRZE4GUBo
-MjjC23hL0+GPVDrRF8sxIybxAlq7szjqICgCsmemw7KH1ooF9tFLMOh5jgg0JxJE
-5RCjaJTVinzp3Ysuxx8m8hnxgBbkXMsfmw5rwqK1mGZZJMxUk8NRQEaGj+4HFSxH
-CCoxbujOBFCCCw047z8X2MIB2PDnFg==
-=ijww
------END PGP SIGNATURE-----
-
---ltqjj27tuoy3n3jq--
-
---===============0743334208929840492==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============0743334208929840492==--
+T24gVHVlLCAxOSBKdWwgMjAyMiwgUm9iIEhlcnJpbmcgd3JvdGU6Cgo+IFRoZSBjb3JyZWN0IHBy
+b3BlcnR5IG5hbWUgZm9yIHRoZSByZXNldCBiaW5kaW5nIGlzICdyZXNldHMnLCBub3QgJ3Jlc2V0
+Jy4KPiBGaXggdGhlIG5hbWUuCj4gCj4gU2lnbmVkLW9mZi1ieTogUm9iIEhlcnJpbmcgPHJvYmhA
+a2VybmVsLm9yZz4KPiAtLS0KPiAgRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL21m
+ZC9zdCxzdG0zMi10aW1lcnMueWFtbCB8IDIgKy0KPiAgMSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0
+aW9uKCspLCAxIGRlbGV0aW9uKC0pCgpBcHBsaWVkLCB0aGFua3MuCgotLSAKTGVlIEpvbmVzIFvm
+nY7nkLzmlq9dClByaW5jaXBhbCBUZWNobmljYWwgTGVhZCAtIERldmVsb3BlciBTZXJ2aWNlcwpM
+aW5hcm8ub3JnIOKUgiBPcGVuIHNvdXJjZSBzb2Z0d2FyZSBmb3IgQXJtIFNvQ3MKRm9sbG93IExp
+bmFybzogRmFjZWJvb2sgfCBUd2l0dGVyIHwgQmxvZwpfX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3Rt
+MzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rv
+cm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
