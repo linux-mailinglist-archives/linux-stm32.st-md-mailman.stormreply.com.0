@@ -2,48 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9404957CE95
-	for <lists+linux-stm32@lfdr.de>; Thu, 21 Jul 2022 17:06:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 488A457CEBA
+	for <lists+linux-stm32@lfdr.de>; Thu, 21 Jul 2022 17:16:58 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2E21AC5A4FD;
-	Thu, 21 Jul 2022 15:06:52 +0000 (UTC)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E7185C03FC3
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BC8E3C03FD6;
+	Thu, 21 Jul 2022 15:16:57 +0000 (UTC)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0EFDDC03FC3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 21 Jul 2022 15:06:50 +0000 (UTC)
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 9A1B6339DE;
- Thu, 21 Jul 2022 15:06:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
- t=1658416010; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=oSBrM4FdSKRCKBsymNl6arKewQhlbJQ1SN7EpKFfZ0w=;
- b=jygmK9DbdsCtPtWwOlIr22Oe1AR8xr1mPnbGxf9zV/2/FwYYhM/FSacjzhuNv6ZGTUnoB2
- v0wFBNuVFa+3gOuJSYAS6O8t7774cpWCRmK4DugQExOihYzFUYZLKeOkUizabzkZUyyvJZ
- yGbohJ3RS/C2LCfTfXPwrqW1QVrjCgg=
-Received: from suse.cz (pathway.suse.cz [10.100.12.24])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by relay2.suse.de (Postfix) with ESMTPS id 4C5F72C14B;
- Thu, 21 Jul 2022 15:06:50 +0000 (UTC)
-Date: Thu, 21 Jul 2022 17:06:49 +0200
-From: Petr Mladek <pmladek@suse.com>
-To: John Ogness <john.ogness@linutronix.de>
-Message-ID: <20220721150649.GA23294@pathway.suse.cz>
-References: <20220719122831.19890-1-pmladek@suse.com>
- <878ropw7h9.fsf@jogness.linutronix.de>
+ Thu, 21 Jul 2022 15:16:56 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 8036B23A;
+ Thu, 21 Jul 2022 08:16:55 -0700 (PDT)
+Received: from bogus (e103737-lin.cambridge.arm.com [10.1.197.49])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 347213F70D;
+ Thu, 21 Jul 2022 08:16:49 -0700 (PDT)
+Date: Thu, 21 Jul 2022 16:16:46 +0100
+From: Sudeep Holla <sudeep.holla@arm.com>
+To: Arnd Bergmann <arnd@kernel.org>
+Message-ID: <20220721151646.3xnptk72qhgnrwqw@bogus>
+References: <20220721141325.2413920-1-arnd@kernel.org>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <878ropw7h9.fsf@jogness.linutronix.de>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: Jan Kiszka <jan.kiszka@siemens.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
- Kieran Bingham <kbingham@kernel.org>
-Subject: Re: [Linux-stm32] [PATCH v2] scripts/gdb: fix 'lx-dmesg' on 32 bits
-	arch
+In-Reply-To: <20220721141325.2413920-1-arnd@kernel.org>
+Cc: Andrew Lunn <andrew@lunn.ch>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ linux-aspeed@lists.ozlabs.org, Neil Armstrong <narmstrong@baylibre.com>,
+ Tony Lindgren <tony@atomide.com>, Catalin Marinas <catalin.marinas@arm.com>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>, Liviu Dudau <liviu.dudau@arm.com>,
+ linux-kernel@vger.kernel.org, Thierry Reding <thierry.reding@gmail.com>,
+ Alim Akhtar <alim.akhtar@samsung.com>, Fabio Estevam <festevam@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Florian Fainelli <f.fainelli@gmail.com>, Alexander Shiyan <shc_work@mail.ru>,
+ Aaro Koskinen <aaro.koskinen@iki.fi>, Will Deacon <will@kernel.org>,
+ Gregory Clement <gregory.clement@bootlin.com>, linux-sh@vger.kernel.org,
+ Janusz Krzysztofik <jmkrzyszt@gmail.com>, Russell King <linux@armlinux.org.uk>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>, Chen-Yu Tsai <wens@csie.org>,
+ bcm-kernel-feedback-list@broadcom.com, NXP Linux Team <linux-imx@nxp.com>,
+ linux-sunxi@lists.linux.dev,
+ Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Arnd Bergmann <arnd@arndb.de>,
+ Ray Jui <rjui@broadcom.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Vladimir Zapolskiy <vz@mleia.com>, linux-samsung-soc@vger.kernel.org,
+ linux-rpi-kernel@lists.infradead.org, linux-tegra@vger.kernel.org,
+ linux-omap@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ Scott Branden <sbranden@broadcom.com>,
+ Taichi Sugaya <sugaya.taichi@socionext.com>,
+ Samuel Holland <samuel@sholland.org>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>, Dinh Nguyen <dinguyen@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Takao Orito <orito.takao@socionext.com>, linux-oxnas@groups.io,
+ Shawn Guo <shawnguo@kernel.org>, Claudiu Beznea <claudiu.beznea@microchip.com>
+Subject: Re: [Linux-stm32] [PATCH 0/6] ARM: defconfig cleanups
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,26 +72,45 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue 2022-07-19 15:41:30, John Ogness wrote:
-> On 2022-07-19, Petr Mladek <pmladek@suse.com> wrote:
-> > From: Antonio Borneo <antonio.borneo@foss.st.com>
-> >
-> ...
-> >
-> > Query the really used atomic_long_t counter type size.
-> >
-> > Fixes: e60768311af8 ("scripts/gdb: update for lockless printk ringbuffer")
-> > Signed-off-by: Antonio Borneo <antonio.borneo@foss.st.com>
-> > [pmladek@suse.com: Query the really used atomic_long_t counter type size]
-> > Tested-by: Antonio Borneo <antonio.borneo@foss.st.com>
-> > Link: https://lore.kernel.org/r/20220617143758.137307-1-antonio.borneo@foss.st.com
+On Thu, Jul 21, 2022 at 04:13:19PM +0200, Arnd Bergmann wrote:
+> From: Arnd Bergmann <arnd@arndb.de>
 > 
-> Reviewed-by: John Ogness <john.ogness@linutronix.de>
+> In the process of deprecating board files, I had to modify some defconfig
+> files and ran into the same problem as everyone else that a lot of
+> them are rather outdated. With some scripting, I managed to split out
+> a preparation patch that puts all lines into the expected order without
+> actually changing the contents.
+> 
+> This helped doing the cleanup separately per Kconfig option that needed
+> to be addressed. I only did a small portion of the follow-up changes
+> to get to the point of being able to rebase my board changes on top,
+> but I did manage to address some bugs that have crept in.
+> 
+> If there are no objections, I'd apply this set to the arm/defconfig
+> branch of the soc tree directly.
+> 
+>       Arnd
+> 
+> Arnd Bergmann (6):
+>   ARM: refresh defconfig files
+>   ARM: defconfig: remove irda remnants
+>   ARM: defconfig: remove stale CONFIG_ZBOOT_ROM entries
+>   ARM: defconfig: address renamed CONFIG_DEBUG_INFO=y
+>   ARM: defconfig: remove broken CONFIG_THUMB disables
+>   ARM: defconfig: kill remnants of CONFIG_LEDS
+> 
 
-The patch has been committed into printk/linux.git, branch for-5.20.
+[...]
 
-Best Regards,
-Petr
+>  arch/arm/configs/vexpress_defconfig       |   8 +-
+
+For vexpress,
+
+Acked-by: Sudeep Holla <sudeep.holla@arm.com>
+
+-- 
+Regards,
+Sudeep
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
