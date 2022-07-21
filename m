@@ -2,65 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4E58257CFA5
-	for <lists+linux-stm32@lfdr.de>; Thu, 21 Jul 2022 17:39:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4CA3957CFF6
+	for <lists+linux-stm32@lfdr.de>; Thu, 21 Jul 2022 17:42:13 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AA128C640F0;
-	Thu, 21 Jul 2022 15:39:35 +0000 (UTC)
-Received: from mail-lj1-f175.google.com (mail-lj1-f175.google.com
- [209.85.208.175])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DA019C640F0;
+	Thu, 21 Jul 2022 15:42:12 +0000 (UTC)
+Received: from mail-lf1-f46.google.com (mail-lf1-f46.google.com
+ [209.85.167.46])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1B798C640ED
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CF5E4C640ED
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 21 Jul 2022 15:39:35 +0000 (UTC)
-Received: by mail-lj1-f175.google.com with SMTP id o12so2295838ljc.3
+ Thu, 21 Jul 2022 15:42:11 +0000 (UTC)
+Received: by mail-lf1-f46.google.com with SMTP id o7so3388787lfq.9
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 21 Jul 2022 08:39:35 -0700 (PDT)
+ Thu, 21 Jul 2022 08:42:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=message-id:date:mime-version:user-agent:subject:content-language:to
  :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=oqVQwNQbcwLQWg6kfm6rj9WKvgY4OIEgQOzUXlpBlmg=;
- b=bUbA0eHhlHZLz/7ERfxE+ujHsrXIi/1BLF0UUgCTGD2Op4a9uPqxE8PfjDUnh0vkrM
- NoiNYlMDhoMOEIMth1a4LodxokvPtNEiBNqvhrTtMsiqk5AvOOTWVvtkX0vcdar+TZ9P
- cuHmDRDRj/iCTgpFnlWFwejofmUcNLUdW+0FeB/h2HYA1p1jGTJseRZ/c1Dk0fKehi12
- XzY95w37ZgrMXEVRmU96gkg5e/DspC1gFPZ/ekbdgflGdDWjEXquopvsQwGp1I4qEgn7
- d7QKdgpNbpN8vahcEQWCFuFNkozJDOmGqU5v/udTFpQ1oOJ+f117PzP28vOHlt71WwUc
- 35AQ==
+ bh=DbAlny0t1Z1mEp76q3Ok9AdQU6F9gRBoHTbQLXF/2lk=;
+ b=hvMY/wKgqNkLwMGAA1veSwXkHAGy+A6V3WOkfUKYAdhYB8ptxzUPD7n35rsO9Jcvr7
+ 6UDVHo0V37fnqX2S0c15nIq3n4z6ArkAWtF+lGEg9BC5qQf+mEDT2UuywuO/+AFrwg6P
+ jFuYVRrXQ21UhwdbV388q5sUMCQU465XKUyiSp0BPn/vBPSJN9lK2KzWUZE7tRuBCkcF
+ ewxg0NMWAaa3d+T2QRhzgxExRIc5ACCOcQ3/ppkPQ5wo0swP5SjDLy8L+XwpArxrJ0Q/
+ eeAmdqXFlUazj++UKjdRTrln8X4SOrsW3BodSCOU0+mbJsZrrBRXQKEnIdrhHN8un0RW
+ grAg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
  :content-language:to:cc:references:from:in-reply-to
  :content-transfer-encoding;
- bh=oqVQwNQbcwLQWg6kfm6rj9WKvgY4OIEgQOzUXlpBlmg=;
- b=PqtuzkaPCU7nN0i4zyRd+451ih+QY0p11e+0xXBMEi0LHND6r4JBE3SRZ3DwMUAImK
- tZMQNfX46im+bHDe5e63WCIocmEScQAFiwjogr3qrIm0EJn8RcynxMRNViW0Nn6Iwz4s
- 9NhQsMnKaiD6GPFqs1DsJumQYqP5cA5c94v+1PP4dpgB9QOk6ZUOfNMuW7CvQG1rKv1B
- 6ysXH4l5qJN0EnA6CDPo0ZY9dVci7VJGYG/cBqD5XtYVlwWOXVhhvUr4ft0sIhMa+vQ+
- 6uY2+5H6rrz/bH/jnc1A0R0oJEG9JDwuMzLfs5geiqQlnsxnIWEPzTvfrO9t5twWQ9G7
- G34w==
-X-Gm-Message-State: AJIora9E+AUQ4oVUJkMLn5tAvuZ9lPBmBXRuuYM3m4DzGNQuKbMsUPlo
- /L9+OceuZw55awu+YvWzKnsPaA==
-X-Google-Smtp-Source: AGRyM1u1EiuENGOYTFtFOFvt+gosoK/tppAX7Zpo5TZqB7ckZKOx3LwixuugOACtM48KFq3goni/DQ==
-X-Received: by 2002:a2e:953:0:b0:25d:5c20:2265 with SMTP id
- 80-20020a2e0953000000b0025d5c202265mr18734344ljj.348.1658417974213; 
- Thu, 21 Jul 2022 08:39:34 -0700 (PDT)
+ bh=DbAlny0t1Z1mEp76q3Ok9AdQU6F9gRBoHTbQLXF/2lk=;
+ b=wa/O/IrHYJLd4FX9JMjni5iODjBPCT4EmLAqCMCFodN/dzb8fWIJg3XzPfCtNsAOQS
+ Vvq4RGVk1VZ4fmPGlZ2S4nBftCOuw8HRBs9Bm1q0hFDqXVKal2l7EbA0MUo6fMgbLqZs
+ 57iOt/S20PqzPzsRZN9HaL7VS78qCa588Sn9QAheXmfNdvglG6QCm9UT/vSUE6VS+Pma
+ /9QLZgr50uaXrSOeeO+PIZ801Qp++OX6uaDDSiEinhRjc0ZymubcmKQAJnsTkwdv3eUb
+ RYI0tHnL9umfNZHV4QNOOZk1i0bHFoyeB7TJKTfvCvZ8hANx4f/W7yO+eyagQ7kKAR3O
+ fUXg==
+X-Gm-Message-State: AJIora+u1ZxvwbA61xuwpQO60a8l1aJ72peU6CRjZnhAFipKuij9qR5O
+ GbNNHaGoGpGRCUGihnj0RpDcZg==
+X-Google-Smtp-Source: AGRyM1uH+KevGsKWyG8Df61xvPgqfo29eVC+LR/aED9QzOXzzbztIiUFTSzFYEZjDIchb6h/N4lCSg==
+X-Received: by 2002:a05:6512:3409:b0:489:c549:4693 with SMTP id
+ i9-20020a056512340900b00489c5494693mr21503245lfr.26.1658418131160; 
+ Thu, 21 Jul 2022 08:42:11 -0700 (PDT)
 Received: from [192.168.115.193] (89-162-31-138.fiber.signal.no.
  [89.162.31.138]) by smtp.gmail.com with ESMTPSA id
- o23-20020a05651205d700b0048a35b93b24sm504903lfo.181.2022.07.21.08.39.31
+ s4-20020a056512314400b00488333b6515sm499662lfi.305.2022.07.21.08.42.08
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 21 Jul 2022 08:39:33 -0700 (PDT)
-Message-ID: <e3b0a57b-e987-9be0-75e5-40c0d7e41310@linaro.org>
-Date: Thu, 21 Jul 2022 17:39:31 +0200
+ Thu, 21 Jul 2022 08:42:10 -0700 (PDT)
+Message-ID: <e83c98f9-f32a-6bfd-71b6-9aba22aa7abb@linaro.org>
+Date: Thu, 21 Jul 2022 17:42:07 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.11.0
 Content-Language: en-US
 To: Arnd Bergmann <arnd@kernel.org>, linux-arm-kernel@lists.infradead.org
 References: <20220721141325.2413920-1-arnd@kernel.org>
- <20220721141325.2413920-4-arnd@kernel.org>
+ <20220721141325.2413920-5-arnd@kernel.org>
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20220721141325.2413920-4-arnd@kernel.org>
+In-Reply-To: <20220721141325.2413920-5-arnd@kernel.org>
 Cc: Andrew Lunn <andrew@lunn.ch>,
  Alexandre Belloni <alexandre.belloni@bootlin.com>,
  linux-aspeed@lists.ozlabs.org, Neil Armstrong <narmstrong@baylibre.com>,
@@ -90,8 +90,8 @@ Cc: Andrew Lunn <andrew@lunn.ch>,
  Pengutronix Kernel Team <kernel@pengutronix.de>,
  Sudeep Holla <sudeep.holla@arm.com>, linux-oxnas@groups.io,
  Shawn Guo <shawnguo@kernel.org>, Claudiu Beznea <claudiu.beznea@microchip.com>
-Subject: Re: [Linux-stm32] [PATCH 3/6] ARM: defconfig: remove stale
-	CONFIG_ZBOOT_ROM entries
+Subject: Re: [Linux-stm32] [PATCH 4/6] ARM: defconfig: address renamed
+	CONFIG_DEBUG_INFO=y
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -111,15 +111,20 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 On 21/07/2022 16:13, Arnd Bergmann wrote:
 > From: Arnd Bergmann <arnd@arndb.de>
 > 
-> The default is always 0x0 after commit 39c3e304567a ("ARM: 8984/1:
-> Kconfig: set default ZBOOT_ROM_TEXT/BSS value to 0x0"), so any
-> defconfig file that has these two lines can now drop them to reduce
-> the diff against the 'make savedefconfig' version.
+> CONFIG_DEBUG_INFO is now implicitly selected if one picks one of the
+> explicit options that could be DEBUG_INFO_DWARF_TOOLCHAIN_DEFAULT,
+> DEBUG_INFO_DWARF4, DEBUG_INFO_DWARF5.
 > 
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+> This was actually not what I had in mind when I suggested making
+> it a 'choice' statement, but it's too late to change again now,
+> and the Kconfig logic is more sensible in the new form.
+> 
+> Change any defconfig file that had CONFIG_DEBUG_INFO enabled
+> but did not pick DWARF4 or DWARF5 explicitly to now pick the toolchain
+> default.
 
-
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+I think this should be split - into remove DEBUG_INFO (noop) and into
+selecting CONFIG_DEBUG_INFO_DWARF_TOOLCHAIN_DEFAULT (a fix).
 
 Best regards,
 Krzysztof
