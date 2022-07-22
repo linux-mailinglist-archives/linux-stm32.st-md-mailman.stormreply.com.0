@@ -2,51 +2,51 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 063E657E201
-	for <lists+linux-stm32@lfdr.de>; Fri, 22 Jul 2022 15:07:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BF49E57E1FF
+	for <lists+linux-stm32@lfdr.de>; Fri, 22 Jul 2022 15:07:08 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AE000C640EF;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 860E7C0D2B9;
 	Fri, 22 Jul 2022 13:07:08 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
  [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7B464C5A4FD
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 74820C0AA15
  for <linux-stm32@st-md-mailman.stormreply.com>;
  Fri, 22 Jul 2022 13:07:06 +0000 (UTC)
-Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 26M9svFk006924;
- Fri, 22 Jul 2022 15:06:41 +0200
+Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 26M9diql007493;
+ Fri, 22 Jul 2022 15:06:40 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
  h=from : to : cc :
  subject : date : message-id : in-reply-to : references : mime-version :
  content-transfer-encoding : content-type; s=selector1;
- bh=cw2AD1st0JuNEu+P5TanJG8XAn7GOmY0IA1vt5jOvSc=;
- b=VUWjrAGK2D/FJgQjr81KKp7RIqvI+3GqWZ4x8XEvZPsxnme2Wop+iVg3JMKrvrF/kqDM
- 3XAUP6cY0Rzmph++qU5dppvGelfOUd4ISoOqXsVcj6mLeqbCSIgNgRKZF+c39zGTnC09
- mhkMJXUJEdTRRws0qhHaEHD7sJffcuZRfxV0EYDmUTH3CGYIMJ+izRPUujWiqgDs1+Un
- s4odqOG5aO1exwDeINeGhsZoZmegFQDfRmWYnwyUhuhtAta9NxfzVLkFw8ti0C5qAH7G
- Rb67acMhGs0FKLOGEWMWSKb99+8zyh28XLlj1aHMW+Rns2R35jP+lMLCt8EGRIu0fwBg GA== 
+ bh=rZGMaCGT+QWwhjB97OshVz0J5bXJNoL0frSiaq3759A=;
+ b=bRAxQgZr8ERngjOp2I8pX9zdHP1TkBlCntTzq2f5bNmwqLMGmwCDa4vAW523AzGsd+Jd
+ UxSR0Onp2YJL639eme7BSRj5/sdy23/fCdQUgpeYWpktef/kAMdMkMwJ+YktIEV5mjJT
+ LpMA7mtyeLIKT7mJIohL3oHr5CDUNjw7cUyBKzSb5wdjq75pkqBPL1D8eUZkQrddVegw
+ pusCm5YcS18IYQ5ooBGGx5hVzpTl3emLU7rEr1gdUzEpGeahdWnGXoD28/UrDFa3o6Kv
+ uSH9pXYd2mxiD3+cOjGwf6oz4+o22X1k/lRZupXENmy8E7qmHhDHvNViqOZ9BTBsIHhH VA== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3hbnp6jxv2-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3hf41ry05x-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 22 Jul 2022 15:06:41 +0200
+ Fri, 22 Jul 2022 15:06:40 +0200
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 23FB810002A;
- Fri, 22 Jul 2022 15:06:41 +0200 (CEST)
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 58A42100034;
+ Fri, 22 Jul 2022 15:06:40 +0200 (CEST)
 Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 1EC46228A4F;
- Fri, 22 Jul 2022 15:06:41 +0200 (CEST)
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 53C18228A4F;
+ Fri, 22 Jul 2022 15:06:40 +0200 (CEST)
 Received: from localhost (10.75.127.51) by SHFDAG1NODE2.st.com (10.75.129.70)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2308.20; Fri, 22 Jul
- 2022 15:06:38 +0200
+ 2022 15:06:39 +0200
 From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
 To: <gregkh@linuxfoundation.org>, <robh+dt@kernel.org>,
  <krzysztof.kozlowski+dt@linaro.org>, <mka@chromium.org>,
  <alexandre.torgue@foss.st.com>
-Date: Fri, 22 Jul 2022 15:05:51 +0200
-Message-ID: <20220722130554.236925-2-fabrice.gasnier@foss.st.com>
+Date: Fri, 22 Jul 2022 15:05:52 +0200
+Message-ID: <20220722130554.236925-3-fabrice.gasnier@foss.st.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220722130554.236925-1-fabrice.gasnier@foss.st.com>
 References: <20220722130554.236925-1-fabrice.gasnier@foss.st.com>
@@ -60,8 +60,8 @@ X-Proofpoint-Virus-Version: vendor=baseguard
 Cc: devicetree@vger.kernel.org, arnd@arndb.de, linux-usb@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 1/4] dt-bindings: usb: generic-ehci: allow
-	usb-hcd schema properties
+Subject: [Linux-stm32] [PATCH 2/4] usb: misc: onboard-hub: add support for
+	Microchip USB2514B USB 2.0 hub
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,57 +78,52 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Allow properties and usb-device child nodes as defined in usb-hcd.yaml, by
-using unevaluatedProperties: false. By the way, remove the "companion"
-property as it's redundant with usb-hcd.yaml.
-As example, this allows an onboard hub, to be described in generic-ehci
-controller node:
-usb {
-  compatible = "generic-ehci";
-  #address-cells = <1>;
-  #size-cells = <0>;
-  /* onboard HUB */
-  hub@1 {
-    compatible = "usb424,2514";
-    reg = <1>;
-    vdd-supply = <&v3v3>;
-  };
-};
+Add support for Microchip USB2514B USB 2.0 hub to the onboard usb hub
+driver. Adopt the generic usb-device compatible ("usbVID,PID") as
+discussed with Matthias in [1].
+Some STM32MP1 boards have this hub on-board, with a supply that needs to
+be enabled for proper operation.
 
-Without this, dtbs_check complains on '#address-cells', '#size-cells',
-'hub@1' do not match any of the regexes: 'pinctrl-[0-9]+'
-From schema: ..../generic-ehci.yaml
+[1] https://lore.kernel.org/lkml/YW9CUabfA0HrtTAq@google.com/
 
 Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
 ---
- Documentation/devicetree/bindings/usb/generic-ehci.yaml | 7 +------
- 1 file changed, 1 insertion(+), 6 deletions(-)
+ drivers/usb/misc/onboard_usb_hub.c | 2 ++
+ drivers/usb/misc/onboard_usb_hub.h | 1 +
+ 2 files changed, 3 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/usb/generic-ehci.yaml b/Documentation/devicetree/bindings/usb/generic-ehci.yaml
-index 1e84e1b7ab271..e50c1cfaa1972 100644
---- a/Documentation/devicetree/bindings/usb/generic-ehci.yaml
-+++ b/Documentation/devicetree/bindings/usb/generic-ehci.yaml
-@@ -130,11 +130,6 @@ properties:
-       Set this flag to indicate that the hardware sometimes turns on
-       the OC bit when an over-current isn't actually present.
+diff --git a/drivers/usb/misc/onboard_usb_hub.c b/drivers/usb/misc/onboard_usb_hub.c
+index 6b9b949d17d30..929a4e724ec12 100644
+--- a/drivers/usb/misc/onboard_usb_hub.c
++++ b/drivers/usb/misc/onboard_usb_hub.c
+@@ -310,6 +310,7 @@ static struct platform_driver onboard_hub_driver = {
+ /************************** USB driver **************************/
  
--  companion:
--    $ref: /schemas/types.yaml#/definitions/phandle
--    description:
--      Phandle of a companion.
--
-   phys:
-     minItems: 1
-     maxItems: 3
-@@ -155,7 +150,7 @@ required:
-   - reg
-   - interrupts
+ #define VENDOR_ID_REALTEK	0x0bda
++#define VENDOR_ID_MICROCHIP	0x0424
  
--additionalProperties: false
-+unevaluatedProperties: false
+ /*
+  * Returns the onboard_hub platform device that is associated with the USB
+@@ -387,6 +388,7 @@ static const struct usb_device_id onboard_hub_id_table[] = {
+ 	{ USB_DEVICE(VENDOR_ID_REALTEK, 0x5411) }, /* RTS5411 USB 2.1 */
+ 	{ USB_DEVICE(VENDOR_ID_REALTEK, 0x0414) }, /* RTS5414 USB 3.2 */
+ 	{ USB_DEVICE(VENDOR_ID_REALTEK, 0x5414) }, /* RTS5414 USB 2.1 */
++	{ USB_DEVICE(VENDOR_ID_MICROCHIP, 0x2514) }, /* USB2514B USB 2.0 */
+ 	{}
+ };
+ MODULE_DEVICE_TABLE(usb, onboard_hub_id_table);
+diff --git a/drivers/usb/misc/onboard_usb_hub.h b/drivers/usb/misc/onboard_usb_hub.h
+index d3a5b6938582e..43d6af4230dfd 100644
+--- a/drivers/usb/misc/onboard_usb_hub.h
++++ b/drivers/usb/misc/onboard_usb_hub.h
+@@ -11,6 +11,7 @@ static const struct of_device_id onboard_hub_match[] = {
+ 	{ .compatible = "usbbda,5411" },
+ 	{ .compatible = "usbbda,414" },
+ 	{ .compatible = "usbbda,5414" },
++	{ .compatible = "usb424,2514" },
+ 	{}
+ };
  
- examples:
-   - |
 -- 
 2.25.1
 
