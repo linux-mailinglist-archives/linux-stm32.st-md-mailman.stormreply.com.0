@@ -2,61 +2,95 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D3BA357D7B1
-	for <lists+linux-stm32@lfdr.de>; Fri, 22 Jul 2022 02:25:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4333257DA8B
+	for <lists+linux-stm32@lfdr.de>; Fri, 22 Jul 2022 09:02:44 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4BE30C03FEA;
-	Fri, 22 Jul 2022 00:25:51 +0000 (UTC)
-Received: from mail-io1-f49.google.com (mail-io1-f49.google.com
- [209.85.166.49])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B0BF7C04005;
+	Fri, 22 Jul 2022 07:02:43 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8002BC03FD3
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E65A8C03FD6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 22 Jul 2022 00:25:49 +0000 (UTC)
-Received: by mail-io1-f49.google.com with SMTP id l24so2614114ion.13
+ Fri, 22 Jul 2022 07:02:42 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id BD13B62163
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 21 Jul 2022 17:25:49 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=5rm4BFsSvYv37lsR3SyeGRLmP7dFOqjTJ+9txhzXmzk=;
- b=NkvKIuK+DWsQoq1AaEUoVlGouBSZghbJyD3pAdYWU6YxmueABlaAsEu2Ixi8Njdwqp
- RSti4jJuYDUQNvVUd98CmflMHJ9nzYBSfJtheor5HZbbv0Bvr1wNmPbWG67gIwlgLajs
- Yn6fq4GsLPdvP08xH3GSBtZYMPNPo9rDb8EGKUkM5XhPXvGyS8aMR7aGaOezoeU3Cmv2
- a0MSI364KWeB+w42Bafx6JeIkjXC3WlTCQDre2Ot0XN3VaOkoDpAEpE+Bosn9FcxhtKY
- +1BKc58Pvkos+ybhoniRt0qvVRYUpb+wZ8np9+UnPagZP8SGqXT9VKVN69VgQnO91+it
- +NMw==
-X-Gm-Message-State: AJIora8CV8i+pl8a36y085lhx9c9DV5nYM2jCbDASdJyXqLemKn8QX3C
- /qdYlNYcTNLvzV2Ki4KNlA==
-X-Google-Smtp-Source: AGRyM1sU8bwcGjBEm0B3fkhvJdN7Glv0yQo9ZDLlq0aLwwezKmTVfOOZZ4cOs/i+bFBJvmc/Hb+Lgg==
-X-Received: by 2002:a6b:fe13:0:b0:67c:3ed1:3cd0 with SMTP id
- x19-20020a6bfe13000000b0067c3ed13cd0mr381193ioh.53.1658449548266; 
- Thu, 21 Jul 2022 17:25:48 -0700 (PDT)
-Received: from robh.at.kernel.org ([64.188.179.248])
- by smtp.gmail.com with ESMTPSA id
- k83-20020a6bba56000000b0067beb49f801sm1498462iof.2.2022.07.21.17.25.47
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 21 Jul 2022 17:25:47 -0700 (PDT)
-Received: (nullmailer pid 2240200 invoked by uid 1000);
- Fri, 22 Jul 2022 00:25:46 -0000
-Date: Thu, 21 Jul 2022 18:25:46 -0600
-From: Rob Herring <robh@kernel.org>
-To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-Message-ID: <20220722002546.GA2240166-robh@kernel.org>
-References: <20220713120842.560902-1-fabrice.gasnier@foss.st.com>
- <20220713120842.560902-2-fabrice.gasnier@foss.st.com>
+ Fri, 22 Jul 2022 07:02:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28C2CC341D0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 22 Jul 2022 07:02:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1658473361;
+ bh=iotqH2KQue2AiSu+Cjadhr0GvbjJVQjBtGSTWOoab/U=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=csPHM7UUPMgnnpmrq0eP44ROWe289Uv5gBIMKr5JRPFWBo/Nlr8ILbmJ4f36eKG6r
+ v8AVC73hwjVUIPp9uj1mz1As8NUsg744UdB6qUex0JzEz06jgX7LpYrfL9rvkq4+A5
+ naNl6uOSzXDwWQEHvDIQQsOyei+sqoIzDGi9Opl8UjIrf9oDgJcC/3NTv/vRQ6cfM+
+ Z/PzFJlnsjWMgQLbf4qLR5eTZftn+1VsBoC9wo3UicxwRa/yOI8wgGXeA2ENwq/fGm
+ Xn2J/7pJUVPlPf9P7tWmVKyESIZzZLmOArA7Pe3goLljTMT38XkANiwZMf2RCJ0dnk
+ e8b8nBE6pnVWQ==
+Received: by mail-yb1-f178.google.com with SMTP id f73so6577217yba.10
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 22 Jul 2022 00:02:41 -0700 (PDT)
+X-Gm-Message-State: AJIora8nHIH65JD97NbObr906lV06zYctWSkuqMowCDX7+gkh7Cah+8d
+ vOwbaWxhqiE1a11aFlhQlQv/BNVFVoSB3Bm+P8s=
+X-Google-Smtp-Source: AGRyM1tWrEXcUTSnTrmZZLEQML12zznS5gM3uAMpW8cF4DVN1GJxIS8qAIorEs3cjMnhQmpiC3ITqi37eiY9KARJUac=
+X-Received: by 2002:a25:3841:0:b0:670:a1b9:f18e with SMTP id
+ f62-20020a253841000000b00670a1b9f18emr1789926yba.480.1658473349878; Fri, 22
+ Jul 2022 00:02:29 -0700 (PDT)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20220713120842.560902-2-fabrice.gasnier@foss.st.com>
-Cc: devicetree@vger.kernel.org, heikki.krogerus@linux.intel.com,
- gregkh@linuxfoundation.org, linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org, robh+dt@kernel.org,
- christophe.jaillet@wanadoo.fr, krzysztof.kozlowski+dt@linaro.org,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH v3 1/3] dt-bindings: usb: typec: add
- bindings for stm32g0 controller
+References: <20220721141325.2413920-1-arnd@kernel.org>
+ <20220721141325.2413920-2-arnd@kernel.org>
+ <9321ce6c-7565-a7eb-2bfe-dac144ab7733@broadcom.com>
+ <9e872a00-966a-aaf8-7bb9-6627fcb0cf83@linaro.org>
+In-Reply-To: <9e872a00-966a-aaf8-7bb9-6627fcb0cf83@linaro.org>
+From: Arnd Bergmann <arnd@kernel.org>
+Date: Fri, 22 Jul 2022 09:02:11 +0200
+X-Gmail-Original-Message-ID: <CAK8P3a3jF=7atLkWKwrvgYLcZuEObbMF79cbj0XaFEiVw40Piw@mail.gmail.com>
+Message-ID: <CAK8P3a3jF=7atLkWKwrvgYLcZuEObbMF79cbj0XaFEiVw40Piw@mail.gmail.com>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Cc: Andrew Lunn <andrew@lunn.ch>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ linux-aspeed <linux-aspeed@lists.ozlabs.org>,
+ Neil Armstrong <narmstrong@baylibre.com>, Tony Lindgren <tony@atomide.com>,
+ Catalin Marinas <catalin.marinas@arm.com>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>, Liviu Dudau <liviu.dudau@arm.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Alim Akhtar <alim.akhtar@samsung.com>, Fabio Estevam <festevam@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Florian Fainelli <f.fainelli@gmail.com>, Alexander Shiyan <shc_work@mail.ru>,
+ Aaro Koskinen <aaro.koskinen@iki.fi>, Will Deacon <will@kernel.org>,
+ Gregory Clement <gregory.clement@bootlin.com>,
+ Linux-sh list <linux-sh@vger.kernel.org>,
+ Janusz Krzysztofik <jmkrzyszt@gmail.com>, Russell King <linux@armlinux.org.uk>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>, Chen-Yu Tsai <wens@csie.org>,
+ bcm-kernel-feedback-list <bcm-kernel-feedback-list@broadcom.com>,
+ NXP Linux Team <linux-imx@nxp.com>, linux-sunxi@lists.linux.dev,
+ Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Arnd Bergmann <arnd@arndb.de>,
+ Scott Branden <scott.branden@broadcom.com>, Ray Jui <rjui@broadcom.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>, Takao Orito <orito.takao@socionext.com>,
+ Vladimir Zapolskiy <vz@mleia.com>,
+ "moderated list:ARM/SAMSUNG EXYNOS ARM ARCHITECTURES"
+ <linux-samsung-soc@vger.kernel.org>,
+ "moderated list:BROADCOM BCM2835 ARM ARCHITECTURE"
+ <linux-rpi-kernel@lists.infradead.org>,
+ "open list:TEGRA ARCHITECTURE SUPPORT" <linux-tegra@vger.kernel.org>,
+ linux-omap <linux-omap@vger.kernel.org>,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>,
+ Scott Branden <sbranden@broadcom.com>,
+ Taichi Sugaya <sugaya.taichi@socionext.com>,
+ Samuel Holland <samuel@sholland.org>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>, Dinh Nguyen <dinguyen@kernel.org>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Sudeep Holla <sudeep.holla@arm.com>, linux-oxnas@groups.io,
+ Shawn Guo <shawnguo@kernel.org>, Claudiu Beznea <claudiu.beznea@microchip.com>
+Subject: Re: [Linux-stm32] [PATCH 1/6] ARM: refresh defconfig files
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,35 +107,93 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, 13 Jul 2022 14:08:40 +0200, Fabrice Gasnier wrote:
-> Add DT schema documentation for the STM32G0 Type-C PD (Power Delivery)
-> controller.
-> STM32G0 provides an integrated USB Type-C and power delivery interface.
-> It can be programmed with a firmware to handle UCSI protocol over I2C
-> interface. A GPIO is used as an interrupt line.
-> It may be used as a wakeup source, so use optional "wakeup-source" and
-> "power-domains" properties to support wakeup.
-> The firmware itself may be flashed or later updated (optional). Choice is
-> let to the application to allow firmware update. A default firmware could
-> be already programmed in production and be customized (to not allow it).
-> So the firmware-name is made optional to represent this option.
-> 
-> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-> ---
-> Changes in v3:
-> - Add connector to the required properties as pointed out by Krzysztof.
->   Update commit message to explain why the firmware-name is optional.
-> Changes in v2:
-> - Krzysztof's review comments: update commit message, use ports, use
->   unevaluatedProperties: false for usb-connector schema, define maxItems
->   for power-domains, adopt generic node names, remove quotes
-> ---
->  .../bindings/usb/st,typec-stm32g0.yaml        | 91 +++++++++++++++++++
->  1 file changed, 91 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/usb/st,typec-stm32g0.yaml
-> 
+On Thu, Jul 21, 2022 at 5:36 PM Krzysztof Kozlowski
+<krzysztof.kozlowski@linaro.org> wrote:
+>
+> On 21/07/2022 17:33, Scott Branden wrote:
+> > Hi Arnd,
+> >
+> > On 2022-07-21 07:13, Arnd Bergmann wrote:
+> >> From: Arnd Bergmann <arnd@arndb.de>
+> >>
+> >> A lot of Kconfig options have changed over the years, and we tend
+> >> to not do a blind 'make defconfig' to refresh the files, to ensure
+> >> we catch options that should not have gone away.
+> >>
+> >> I used some a bit of scripting to only rework the bits where an
+> >> option moved around in any of the defconfig files, without also
+> >> dropping any of the other lines, to make it clearer which options
+> >> we no longer have.
+> > Resync is fine.  But, it would be great if the defconfig files were kept
+> > in sync. Almost every kernel version kconfig options change which affect
+> > these files. Could we put in place a defconfig refresh per kernel
+> > version to keep them all in sync going forward?
+> >
+>
+> Not entirely, because some Kconfig changes are causing symbols to
+> disappear. Also defconfig is expected to include user-visible options,
+> even if savedefconfig would drop them.
+>
+> This is why blind savedefconfig is not acceptable.
 
-Reviewed-by: Rob Herring <robh@kernel.org>
+Right. I mostly scripted the changes to move the options around, but
+had to do a few files manually so I can't fully automate this, and
+the removed options always need manual inspection. There are still
+around 400 lines in the defconfig files that go away after a
+savedefconfig, and it's a lot of work to go through those.
+
+I might do a few more of these, but if anyone wants to help, these
+are the most common lines that get dropped, sorted by frequency:
+
+     34 -# CONFIG_VGA_CONSOLE is not set
+     32 -CONFIG_NET_ETHERNET=y
+     26 -CONFIG_NFS_V3=y
+     22 -# CONFIG_CRYPTO_ANSI_CPRNG is not set
+     20 -CONFIG_PM=y
+     18 -CONFIG_FPE_NWFPE=y
+     18 -# CONFIG_INET_XFRM_MODE_TUNNEL is not set
+     18 -# CONFIG_INET_XFRM_MODE_TRANSPORT is not set
+     18 -# CONFIG_INET_XFRM_MODE_BEET is not set
+     15 -CONFIG_SYSFS_DEPRECATED_V2=y
+     15 -CONFIG_DEBUG_KERNEL=y
+     15 -# CONFIG_BLK_DEV_BSG is not set
+     14 -# CONFIG_INPUT_MOUSEDEV_PSAUX is not set
+     14 -# CONFIG_INPUT_MOUSEDEV is not set
+     12 -CONFIG_LEDS=y
+     12 -CONFIG_AEABI=y
+     11 -CONFIG_NET_PCMCIA=y
+     11 -CONFIG_GPIO_SYSFS=y
+     10 -# CONFIG_ENABLE_MUST_CHECK is not set
+      9 -CONFIG_LEDS_CPU=y
+      9 -# CONFIG_EXT3_FS_XATTR is not set
+      8 -CONFIG_CRYPTO_SHA512=m
+      8 -CONFIG_BINFMT_AOUT=y
+      8 -# CONFIG_CC_OPTIMIZE_FOR_SIZE is not set
+      7 -CONFIG_SND_PCM_OSS=m
+      7 -CONFIG_SND_MIXER_OSS=m
+      7 -CONFIG_SMB_FS=m
+      7 -CONFIG_MTD_M25P80=y
+      6 -CONFIG_NET_PCI=y
+      6 -CONFIG_CRYPTO_ECB=m
+      5 -CONFIG_SECCOMP=y
+      5 -CONFIG_MEDIA_CAMERA_SUPPORT=y
+      5 -CONFIG_IPV6=y
+      5 -CONFIG_CRYPTO_TEA=m
+      5 -CONFIG_CRYPTO_SHA256=m
+      5 -CONFIG_CRYPTO_KHAZAD=m
+      5 -CONFIG_CRYPTO_ARC4=m
+      5 -CONFIG_BACKLIGHT_PWM=y
+      5 -# CONFIG_NET_CADENCE is not set
+
+The majority of these lines are options that no longer exist and are
+not needed, or things that dropped off because they get selected by
+something else.
+
+The interesting ones we need to catch are the ones that should be
+enabled but are either renamed to something else or gained a
+dependency that now also needs to be turned on.
+
+           Arnd
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
