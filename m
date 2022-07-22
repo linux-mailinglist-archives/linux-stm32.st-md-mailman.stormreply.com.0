@@ -2,38 +2,64 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 59C8457DC7C
-	for <lists+linux-stm32@lfdr.de>; Fri, 22 Jul 2022 10:35:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D137A57E200
+	for <lists+linux-stm32@lfdr.de>; Fri, 22 Jul 2022 15:07:08 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C4ADFC04005;
-	Fri, 22 Jul 2022 08:35:32 +0000 (UTC)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 675DBC03FD6
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9478CC03FCB;
+	Fri, 22 Jul 2022 13:07:08 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7FDE9C5C829
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 22 Jul 2022 08:35:31 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 17E981063;
- Fri, 22 Jul 2022 01:35:31 -0700 (PDT)
-Received: from bogus (unknown [10.57.14.16])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 3996C3F766;
- Fri, 22 Jul 2022 01:35:24 -0700 (PDT)
-Date: Fri, 22 Jul 2022 09:35:20 +0100
-From: Sudeep Holla <sudeep.holla@arm.com>
-To: Rob Herring <robh@kernel.org>
-Message-ID: <20220722083520.coovqsa2pv7mnifp@bogus>
-References: <20220721212718.1980905-1-robh@kernel.org>
+ Fri, 22 Jul 2022 13:07:06 +0000 (UTC)
+Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 26M9svFj006924;
+ Fri, 22 Jul 2022 15:06:40 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=selector1;
+ bh=FhrNx+4+JOjQW89HIHGVVBlDYUJXAfCGDiAxKAfPtus=;
+ b=hlfZ1EE+wt1OOsKGZ7jOskbuhjqMJwr4VdS0D4dqt0s48Q6QPk2Z80hd8YFVXVMYY6/n
+ TUQQAQf0JO8iVnmWDFuX6EJTs5V2ohr3keSZ2umB3ZZis8VgOlaZkZUNbcp38xIKLJQH
+ HlGT2a6CQN8htfPktetRHJy8xkqb0BKwtiC0otLv6W67o3jlpHJG0X9pWvH+1M5RHcnG
+ PQbKaK0KuZ+cA+pyp1lH7KqTsvc76tEkJldtWKceVaul4J4e6PTzbB1VURU0dObqi4PH
+ bTm57i9WhpGV1YMszlysk8mRhNkXE+Cvf+8fsfSkFHZZKc3hDRR8RgtcezqvsYcodPGe +g== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3hbnp6jxut-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 22 Jul 2022 15:06:39 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 1CDCD10002A;
+ Fri, 22 Jul 2022 15:06:38 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 0798E228A4F;
+ Fri, 22 Jul 2022 15:06:38 +0200 (CEST)
+Received: from localhost (10.75.127.49) by SHFDAG1NODE2.st.com (10.75.129.70)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2308.20; Fri, 22 Jul
+ 2022 15:06:37 +0200
+From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+To: <gregkh@linuxfoundation.org>, <robh+dt@kernel.org>,
+ <krzysztof.kozlowski+dt@linaro.org>, <mka@chromium.org>,
+ <alexandre.torgue@foss.st.com>
+Date: Fri, 22 Jul 2022 15:05:50 +0200
+Message-ID: <20220722130554.236925-1-fabrice.gasnier@foss.st.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20220721212718.1980905-1-robh@kernel.org>
-Cc: devicetree@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Mathieu Poirier <mathieu.poirier@linaro.org>,
- Suzuki K Poulose <suzuki.poulose@arm.com>, coresight@lists.linaro.org,
- Sudeep Holla <sudeep.holla@arm.com>, linux-kernel@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Leo Yan <leo.yan@linaro.org>, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, Mike Leach <mike.leach@linaro.org>
-Subject: Re: [Linux-stm32] [PATCH 1/2] dt-bindings: arm: coresight: Add
- 'power-domains' property
+X-Originating-IP: [10.75.127.49]
+X-ClientProxiedBy: SFHDAG2NODE3.st.com (10.75.127.6) To SHFDAG1NODE2.st.com
+ (10.75.129.70)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.883,Hydra:6.0.517,FMLib:17.11.122.1
+ definitions=2022-07-22_04,2022-07-21_02,2022-06-22_01
+Cc: devicetree@vger.kernel.org, arnd@arndb.de, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH 0/4] usb: misc: adopt onboard hub support on
+	stm32mp1 boards
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -50,21 +76,31 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, Jul 21, 2022 at 03:27:14PM -0600, Rob Herring wrote:
-> Coresight components may be in a power domain which is the case for the Arm
-> Juno board. Allow a single 'power-domains' entry for Coresight components.
->
+Add support for USB2514B HUB found on stm32mp1 boards:
+- Extend the ehci-generic dt-binding to fully use the usb-hcd.yaml, and so
+  the usb-device.yaml.
+- Add usb-device compatible ("usbVID,PID") for the USB2514B USB2.0 HUB to
+  the onboard_usb_hub driver.
+- Add relevant device tree node to stm32mp15 DK boards.
+- Enable the onboard_usb_hub driver on multi_v7 platforms.
 
-I assume the maxItems can be changed in case if some platforms have multiple
-power domains especially for some per CPU coresight ETR/debug components.
+Fabrice Gasnier (4):
+  dt-bindings: usb: generic-ehci: allow usb-hcd schema properties
+  usb: misc: onboard-hub: add support for Microchip USB2514B USB 2.0 hub
+  ARM: dts: stm32: add support for USB2514B onboard hub on
+    stm32mp15xx-dkx
+  ARM: multi_v7_defconfig: enable USB onboard HUB driver
 
-But for now, it looks good.
+ Documentation/devicetree/bindings/usb/generic-ehci.yaml | 7 +------
+ arch/arm/boot/dts/stm32mp15xx-dkx.dtsi                  | 8 ++++++++
+ arch/arm/configs/multi_v7_defconfig                     | 1 +
+ drivers/usb/misc/onboard_usb_hub.c                      | 2 ++
+ drivers/usb/misc/onboard_usb_hub.h                      | 1 +
+ 5 files changed, 13 insertions(+), 6 deletions(-)
 
-Reviewed-by: Sudeep Holla <sudeep.holla@arm.com>
+-- 
+2.25.1
 
---
-Regards,
-Sudeep
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
