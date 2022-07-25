@@ -2,66 +2,80 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A123D5868CF
-	for <lists+linux-stm32@lfdr.de>; Mon,  1 Aug 2022 13:53:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1313D586951
+	for <lists+linux-stm32@lfdr.de>; Mon,  1 Aug 2022 14:00:13 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 63BF1C6410F;
-	Mon,  1 Aug 2022 11:53:44 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C21B0C64109;
+	Mon,  1 Aug 2022 12:00:12 +0000 (UTC)
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com
+ [209.85.221.47])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2204CC5C829
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C2A0DC5C829
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 25 Jul 2022 07:53:28 +0000 (UTC)
-Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 26P7FAwf006147;
- Mon, 25 Jul 2022 09:53:19 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-transfer-encoding : content-type; s=selector1;
- bh=6razgSe0W2c3Jx+HKO5kPTMtBrHCoPC0SPCdLXo7BWw=;
- b=sdYSfLRwuIhHV0AMaExjlCQ7MlJ3z8UNHpzTzQnSLc/S0wbW9dtRBdfKCjWTnJvDSh5E
- yV1DbhZQl7ZuS1fIelRpkQSM0QAtj4w0/GanZTCTB/RX2ATxNvsQzzllNNj3kVOACS9y
- l3/tQVV+6kzeRx5IVQ+zkJLVBnCUJp1w70OYGXqaixNF2yBrDfnneCDzrDdw2XwjFvgK
- diDe2pE8Gkk5cv46bpQ3q21OPeGl5LwV9SHFkK62F/EATneh/yci62Bovj+u1WIe67tP
- evLZnQ5+LpKNSD92W3e2HXGS3qpwYpzhdJel8KyEf8Lr32TKmKMcQYO82Il1h7M6oA7L WA== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3hg8b0qu3g-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 25 Jul 2022 09:53:19 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 6E993100039;
- Mon, 25 Jul 2022 09:53:19 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 691602122FA;
- Mon, 25 Jul 2022 09:53:19 +0200 (CEST)
-Received: from localhost (10.75.127.48) by SHFDAG1NODE1.st.com (10.75.129.69)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2308.20; Mon, 25 Jul
- 2022 09:53:19 +0200
-From: Alain Volmat <alain.volmat@foss.st.com>
-To: <alexandre.torgue@foss.st.com>
-Date: Mon, 25 Jul 2022 09:52:55 +0200
-Message-ID: <20220725075255.429869-3-alain.volmat@foss.st.com>
+ Mon, 25 Jul 2022 21:27:27 +0000 (UTC)
+Received: by mail-wr1-f47.google.com with SMTP id k11so17261134wrx.5
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 25 Jul 2022 14:27:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linexp-org.20210112.gappssmtp.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=Dxp2C7hOahM111jOQKxvW4vMPiwlgfAm7+eoRoP/H0c=;
+ b=s0JsTCXNvt2WXkcPVxGiAIXsDZBIj5/AZesH2AAmCTyIEv16R//Vuw19MnW0bj3ZRG
+ XuDTksIpw4MlrYs/cjNUee35Kgmoe3mzLas8SPOGTENfmGVbH62AekMDGcRqLfQfWx47
+ QHIJhEK+pvoQ3OsvU0bIKjNE0bSLJAMh1vWLYkZRZ1FM0BBm/fy51sDs8JmlHV2m1ZWk
+ uGOZ46cC8LTcgJ2lt0ZmOzv5Is22R7LxCyO8G3Ly7NxpLMANhOBsRN4SMSvI3Ld25F+S
+ /xlPKQnTOzN6Ag/mIT7OrSfged+na2T1jYMqAO/K8bndS3mUwyKaqU4VBTJR8Fqq3L01
+ eW7A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=Dxp2C7hOahM111jOQKxvW4vMPiwlgfAm7+eoRoP/H0c=;
+ b=MccUSCCyUg2y0HBE6qwiCkKyTrrnbeuAdq7T13m0wUPYqZ4xcRtZle18olxuUtWfbE
+ 292SLIbKG2hADKnd0K8Ewvhwq4RGSiX1deWYmFUbXjN/LbHsCEewlsYu59SEyCVwPfQ9
+ lW6B7t84ToWpv74StKu42FVa99n+0FwjPR6t3UNCtpEhq9pfWVM1YOBl5ZsrOZ9iHKFI
+ oXA8OYpziimnStNWTKuZQa5+7KdFCEOmJbKjj3UMCEDMgcX9CNdyPTrmf24ft4uTkXbV
+ 68XfC6oQ/TjVUW9YWGxYeuZNfq0u5on78wF+9QyImyjLvIA1G8xp6ScuHlt6LEv+CH71
+ 0H3A==
+X-Gm-Message-State: AJIora+dYFxXFrOlmXyEvq9eX86cHp+aan/0dsUpgo15Koxyzo3exY/Z
+ F9IGHagU7SzausRhuSY8uBpDSw==
+X-Google-Smtp-Source: AGRyM1tLUg/TxD3ibkRz8emLONGbMJ+9j8IhiFQVSF+CzEDj/RrI348CxZMU0187ugCaQfxFAjyrsQ==
+X-Received: by 2002:a05:6000:1a85:b0:21e:88f9:848d with SMTP id
+ f5-20020a0560001a8500b0021e88f9848dmr4392788wry.82.1658784447240; 
+ Mon, 25 Jul 2022 14:27:27 -0700 (PDT)
+Received: from mai.box.freepro.com ([2a05:6e02:1041:c10:1780:8e54:dd38:6668])
+ by smtp.gmail.com with ESMTPSA id
+ r17-20020a5d52d1000000b0021d68a504cbsm12668772wrv.94.2022.07.25.14.27.25
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 25 Jul 2022 14:27:26 -0700 (PDT)
+From: Daniel Lezcano <daniel.lezcano@linexp.org>
+To: daniel.lezcano@linaro.org,
+	rafael@kernel.org
+Date: Mon, 25 Jul 2022 23:26:17 +0200
+Message-Id: <20220725212637.2818207-13-daniel.lezcano@linexp.org>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220725075255.429869-1-alain.volmat@foss.st.com>
-References: <20220725075255.429869-1-alain.volmat@foss.st.com>
+In-Reply-To: <20220725212637.2818207-1-daniel.lezcano@linexp.org>
+References: <20220725212637.2818207-1-daniel.lezcano@linexp.org>
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.48]
-X-ClientProxiedBy: SFHDAG2NODE3.st.com (10.75.127.6) To SHFDAG1NODE1.st.com
- (10.75.129.69)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.883,Hydra:6.0.517,FMLib:17.11.122.1
- definitions=2022-07-23_02,2022-07-21_02,2022-06-22_01
-X-Mailman-Approved-At: Mon, 01 Aug 2022 11:53:41 +0000
-Cc: devicetree@vger.kernel.org, mcoquelin.stm32@gmail.com,
- linux-kernel@vger.kernel.org, robh+dt@kernel.org,
- krzysztof.kozlowski+dt@linaro.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v2 2/2] ARM: dts: stm32: add pinctrl and
-	disabled spi5 node in stm32mp135f-dk
+X-Mailman-Approved-At: Mon, 01 Aug 2022 12:00:10 +0000
+Cc: heiko@sntech.de, hayashi.kunihiko@socionext.com, tiny.windzz@gmail.com,
+ Amit Kucheria <amitk@kernel.org>, bjorn.andersson@linaro.org,
+ thierry.reding@gmail.com, glaroque@baylibre.com, abailon@baylibre.com,
+ miquel.raynal@bootlin.com, digetx@gmail.com,
+ "moderated list:ARM/STM32 ARCHITECTURE"
+ <linux-stm32@st-md-mailman.stormreply.com>, f.fainelli@gmail.com,
+ khilman@baylibre.com, damien.lemoal@opensource.wdc.com, jonathanh@nvidia.com,
+ anarsoul@gmail.com, rui.zhang@intel.com, linux-pm@vger.kernel.org,
+ niklas.soderlund@ragnatech.se, broonie@kernel.org, matthias.bgg@gmail.com,
+ talel@amazon.com,
+ "moderated list:ARM/STM32 ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>,
+ j-keerthy@ti.com, linux-kernel@vger.kernel.org, mhiramat@kernel.org,
+ mcoquelin.stm32@gmail.com, baolin.wang7@gmail.com, shawnguo@kernel.org,
+ lukasz.luba@arm.com
+Subject: [Linux-stm32] [PATCH v2 12/32] thermal/drivers/st: Switch to new of
+	API
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,68 +92,68 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add pinctrl information and a disabled spi5 node within
-stm32mp135f-dk.dts in order to use the spi5 bus which is
-available via the GPIO expansion pins of the STM32MP135 Discovery board.
+The thermal OF code has a new API allowing to migrate the OF
+initialization to a simpler approach. The ops are no longer device
+tree specific and are the generic ones provided by the core code.
 
-Signed-off-by: Alain Volmat <alain.volmat@foss.st.com>
+Convert the ops to the thermal_zone_device_ops format and use the new
+API to register the thermal zone with these generic ops.
+
+Signed-off-by: Daniel Lezcano <daniel.lezcano@linexp.org>
 ---
- arch/arm/boot/dts/stm32mp13-pinctrl.dtsi | 23 +++++++++++++++++++++++
- arch/arm/boot/dts/stm32mp135f-dk.dts     |  7 +++++++
- 2 files changed, 30 insertions(+)
+ drivers/thermal/st/stm_thermal.c | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
 
-diff --git a/arch/arm/boot/dts/stm32mp13-pinctrl.dtsi b/arch/arm/boot/dts/stm32mp13-pinctrl.dtsi
-index 749078ba9d42..efdd163eba30 100644
---- a/arch/arm/boot/dts/stm32mp13-pinctrl.dtsi
-+++ b/arch/arm/boot/dts/stm32mp13-pinctrl.dtsi
-@@ -142,6 +142,29 @@ pins {
- 		};
- 	};
+diff --git a/drivers/thermal/st/stm_thermal.c b/drivers/thermal/st/stm_thermal.c
+index 5fd3fb8912a6..e4ca0d504a4f 100644
+--- a/drivers/thermal/st/stm_thermal.c
++++ b/drivers/thermal/st/stm_thermal.c
+@@ -302,9 +302,9 @@ static int stm_disable_irq(struct stm_thermal_sensor *sensor)
+ 	return 0;
+ }
  
-+	spi5_pins_a: spi5-0 {
-+		pins1 {
-+			pinmux = <STM32_PINMUX('H', 7, AF6)>, /* SPI5_SCK */
-+				 <STM32_PINMUX('H', 3, AF5)>; /* SPI5_MOSI */
-+			bias-disable;
-+			drive-push-pull;
-+			slew-rate = <1>;
-+		};
-+
-+		pins2 {
-+			pinmux = <STM32_PINMUX('A', 8, AF5)>; /* SPI5_MISO */
-+			bias-disable;
-+		};
-+	};
-+
-+	spi5_sleep_pins_a: spi5-sleep-0 {
-+		pins {
-+			pinmux = <STM32_PINMUX('H', 7, ANALOG)>, /* SPI5_SCK */
-+				 <STM32_PINMUX('A', 8, ANALOG)>, /* SPI5_MISO */
-+				 <STM32_PINMUX('H', 3, ANALOG)>; /* SPI5_MOSI */
-+		};
-+	};
-+
- 	uart4_pins_a: uart4-0 {
- 		pins1 {
- 			pinmux = <STM32_PINMUX('D', 6, AF8)>; /* UART4_TX */
-diff --git a/arch/arm/boot/dts/stm32mp135f-dk.dts b/arch/arm/boot/dts/stm32mp135f-dk.dts
-index 3e2823332d51..de341d17e87d 100644
---- a/arch/arm/boot/dts/stm32mp135f-dk.dts
-+++ b/arch/arm/boot/dts/stm32mp135f-dk.dts
-@@ -116,6 +116,13 @@ &sdmmc1 {
- 	status = "okay";
+-static int stm_thermal_set_trips(void *data, int low, int high)
++static int stm_thermal_set_trips(struct thermal_zone_device *tz, int low, int high)
+ {
+-	struct stm_thermal_sensor *sensor = data;
++	struct stm_thermal_sensor *sensor = tz->devdata;
+ 	u32 itr1, th;
+ 	int ret;
+ 
+@@ -350,9 +350,9 @@ static int stm_thermal_set_trips(void *data, int low, int high)
+ }
+ 
+ /* Callback to get temperature from HW */
+-static int stm_thermal_get_temp(void *data, int *temp)
++static int stm_thermal_get_temp(struct thermal_zone_device *tz, int *temp)
+ {
+-	struct stm_thermal_sensor *sensor = data;
++	struct stm_thermal_sensor *sensor = tz->devdata;
+ 	u32 periods;
+ 	int freqM, ret;
+ 
+@@ -474,7 +474,7 @@ static int stm_thermal_resume(struct device *dev)
+ static SIMPLE_DEV_PM_OPS(stm_thermal_pm_ops,
+ 			 stm_thermal_suspend, stm_thermal_resume);
+ 
+-static const struct thermal_zone_of_device_ops stm_tz_ops = {
++static const struct thermal_zone_device_ops stm_tz_ops = {
+ 	.get_temp	= stm_thermal_get_temp,
+ 	.set_trips	= stm_thermal_set_trips,
  };
+@@ -539,9 +539,9 @@ static int stm_thermal_probe(struct platform_device *pdev)
+ 		return ret;
+ 	}
  
-+&spi5 {
-+	pinctrl-names = "default", "sleep";
-+	pinctrl-0 = <&spi5_pins_a>;
-+	pinctrl-1 = <&spi5_sleep_pins_a>;
-+	status = "disabled";
-+};
-+
- &uart4 {
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&uart4_pins_a>;
+-	sensor->th_dev = devm_thermal_zone_of_sensor_register(&pdev->dev, 0,
+-							      sensor,
+-							      &stm_tz_ops);
++	sensor->th_dev = devm_thermal_of_zone_register(&pdev->dev, 0,
++						       sensor,
++						       &stm_tz_ops);
+ 
+ 	if (IS_ERR(sensor->th_dev)) {
+ 		dev_err(&pdev->dev, "%s: thermal zone sensor registering KO\n",
 -- 
 2.25.1
 
