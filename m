@@ -2,66 +2,75 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E86BA58694F
-	for <lists+linux-stm32@lfdr.de>; Mon,  1 Aug 2022 14:00:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7693C5868CD
+	for <lists+linux-stm32@lfdr.de>; Mon,  1 Aug 2022 13:53:44 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AB406C64106;
-	Mon,  1 Aug 2022 12:00:12 +0000 (UTC)
-Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com
- [209.85.210.181])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2E336C6410B;
+	Mon,  1 Aug 2022 11:53:44 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1A49CC035BF
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 749C6C5C829
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 22 Jul 2022 16:00:10 +0000 (UTC)
-Received: by mail-pf1-f181.google.com with SMTP id 17so4862884pfy.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 22 Jul 2022 09:00:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=J4ZhqBj8u5Lze6oGnxKkGLM9ZzOx9hvE2Nh2ZpNRSvs=;
- b=PNAs3OZ09qihfaX1VzQXYD1QM9ufbRcbZ0A7jLPsa8U0QP5IfyNo0NPx+uM8wVPe/7
- +gbJMpuWRyWDX+lLCV5IEmDU/J9OKGqvMFmXqU+lJzMJQbtCvVocYMCV6VsMdglmqnEn
- NSzwUcEX8HWL8I3rmxmr6Tqk8cQhAKLw7JZ5U=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=J4ZhqBj8u5Lze6oGnxKkGLM9ZzOx9hvE2Nh2ZpNRSvs=;
- b=pm4KoA07ySYcmpGawS7vKEB3t/lJH1G0yu0AO9FM8nB7dc2RSZz3JxFOxsYxqyoh8/
- r0HCwiFH2q5mkAmIWynSQt8ANxBX50qDjTkeUT9sPW+NSzQeR1aouy/a9NV5xKAyyRSK
- OdPKbA5oVU7dW088Bhzv72w+tto/lieOB6akGssLSFvCHVp4sARcylWb15a7TI+su2oE
- 0yxgAQTDhDhcpQ3faWiGrthEQ2POVj/xdJ6SW0PKg8e1C8Pby8CyKaiWvPASedEVp10/
- 5BGNNHj0fRz/VeLsMq8PMuOopFejA3O0CbjfLUz83YUKeVdD50GknMnmtPm3qPPTIFsr
- KcgQ==
-X-Gm-Message-State: AJIora9npFONCF/XzoxFpW2JisVS/mdIQXYfduMzdGXptbP0939sgBJf
- rX/3PIPhzWmVY/Y/ksDVKDc6hg==
-X-Google-Smtp-Source: AGRyM1tgKqIrMyj2L4X/1T63jTUda2P7qFegf2dygZBc2HK52m3PF385tbAOmbv7b8/r5kyI3xdmcg==
-X-Received: by 2002:a05:6a00:1703:b0:52b:39a4:4632 with SMTP id
- h3-20020a056a00170300b0052b39a44632mr450427pfc.29.1658505607778; 
- Fri, 22 Jul 2022 09:00:07 -0700 (PDT)
-Received: from localhost ([2620:15c:11a:202:42b0:2897:3725:985a])
- by smtp.gmail.com with UTF8SMTPSA id
- j13-20020a170902da8d00b0015e8d4eb285sm3995951plx.207.2022.07.22.09.00.06
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 22 Jul 2022 09:00:07 -0700 (PDT)
-Date: Fri, 22 Jul 2022 09:00:05 -0700
-From: Matthias Kaehlcke <mka@chromium.org>
-To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-Message-ID: <YtrJhQD2FbqhS+5e@google.com>
-References: <20220722130554.236925-1-fabrice.gasnier@foss.st.com>
- <20220722130554.236925-3-fabrice.gasnier@foss.st.com>
+ Mon, 25 Jul 2022 07:51:46 +0000 (UTC)
+Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 26P7F7lZ006902;
+ Mon, 25 Jul 2022 09:51:27 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=date : from : to :
+ cc : subject : message-id : references : mime-version : content-type :
+ in-reply-to; s=selector1; bh=Oy9dBYlQek27bG4HQfXQQ/9dXXCgDDTWpiS8zzZ74YI=;
+ b=w8Y7mn4jZK6ZOlbh93MdunWAmLoxdYTAfBWD/r9F4+JdDdM1UyV0yrZi5Bp+388pNQlA
+ ZLd1ExU7EhyLsRbf+MfsoTUueL645FDAXfxG4TzWvLDJeDGR1zCCDfNsECZU6HJCOURY
+ p7SKI5GW4cPNTwg9deWEc2Zl7qKh6lEYbvg3kWKzUtopGj/vCaMfqiSQ5hbqMNZwsaJR
+ 0UMOPhFA2U2/bgcCasX6dOfbxEZORN/IWDmSHGfYjvo2QBmbPqIZxdAG/FoGq1uEzmxg
+ Ad8EFKZTOyu2mrazTfqgFHhFWmZN2VMOeLNKyMIFiYQcoLDrV7kWDpFOkT5jGXkRsIqr vw== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3hg6dkg543-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 25 Jul 2022 09:51:27 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 93F7910002A;
+ Mon, 25 Jul 2022 09:51:26 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 8E7CD212302;
+ Mon, 25 Jul 2022 09:51:26 +0200 (CEST)
+Received: from gnbcxd0016.gnb.st.com (10.75.127.51) by SHFDAG1NODE1.st.com
+ (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2308.20; Mon, 25 Jul
+ 2022 09:51:26 +0200
+Date: Mon, 25 Jul 2022 09:51:20 +0200
+From: Alain Volmat <alain.volmat@foss.st.com>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Message-ID: <20220725075120.GA429410@gnbcxd0016.gnb.st.com>
+Mail-Followup-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ alexandre.torgue@foss.st.com, robh+dt@kernel.org,
+ mcoquelin.stm32@gmail.com, krzysztof.kozlowski+dt@linaro.org,
+ linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ amelie.delaunay@foss.st.com
+References: <20220721153455.3805586-1-alain.volmat@foss.st.com>
+ <20220721153455.3805586-2-alain.volmat@foss.st.com>
+ <c7e13adb-8584-6e24-11f3-9a27c7122da4@linaro.org>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20220722130554.236925-3-fabrice.gasnier@foss.st.com>
-X-Mailman-Approved-At: Mon, 01 Aug 2022 12:00:11 +0000
-Cc: devicetree@vger.kernel.org, arnd@arndb.de, gregkh@linuxfoundation.org,
- linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, robh+dt@kernel.org,
+In-Reply-To: <c7e13adb-8584-6e24-11f3-9a27c7122da4@linaro.org>
+X-Disclaimer: ce message est personnel / this message is private
+X-Originating-IP: [10.75.127.51]
+X-ClientProxiedBy: SFHDAG2NODE3.st.com (10.75.127.6) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.883,Hydra:6.0.517,FMLib:17.11.122.1
+ definitions=2022-07-23_02,2022-07-21_02,2022-06-22_01
+X-Mailman-Approved-At: Mon, 01 Aug 2022 11:53:41 +0000
+Cc: devicetree@vger.kernel.org, mcoquelin.stm32@gmail.com,
+ linux-kernel@vger.kernel.org, robh+dt@kernel.org,
  krzysztof.kozlowski+dt@linaro.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 2/4] usb: misc: onboard-hub: add support
- for Microchip USB2514B USB 2.0 hub
+Subject: Re: [Linux-stm32] [PATCH 1/2] ARM: dts: stm32: add spi nodes into
+	stm32mp131.dtsi
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,65 +87,39 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Fabrice
+Hi Krzysztof,
 
-On Fri, Jul 22, 2022 at 03:05:52PM +0200, Fabrice Gasnier wrote:
-> Add support for Microchip USB2514B USB 2.0 hub to the onboard usb hub
-> driver. Adopt the generic usb-device compatible ("usbVID,PID") as
-> discussed with Matthias in [1].
+thanks for the review. Will push a v2 fixing those points.
 
-The reference isn't really relevant in the commit message.
+Alain
 
-> Some STM32MP1 boards have this hub on-board, with a supply that needs to
-> be enabled for proper operation.
+On Thu, Jul 21, 2022 at 06:32:18PM +0200, Krzysztof Kozlowski wrote:
+> On 21/07/2022 17:34, Alain Volmat wrote:
+> > Add the 5 instances of spi busses supported by the stm32mp131.
+> > 
+> > Signed-off-by: Alain Volmat <alain.volmat@foss.st.com>
+> > ---
+> >  arch/arm/boot/dts/stm32mp131.dtsi | 70 +++++++++++++++++++++++++++++++
+> >  1 file changed, 70 insertions(+)
+> > 
+> > diff --git a/arch/arm/boot/dts/stm32mp131.dtsi b/arch/arm/boot/dts/stm32mp131.dtsi
+> > index da9e8a6ca663..db3d1b900d5c 100644
+> > --- a/arch/arm/boot/dts/stm32mp131.dtsi
+> > +++ b/arch/arm/boot/dts/stm32mp131.dtsi
+> > @@ -97,6 +97,34 @@ scmi_shm: scmi-sram@0 {
+> >  			};
+> >  		};
+> >  
+> > +		spi2: spi@4000b000 {
+> > +			#address-cells = <1>;
+> > +			#size-cells = <0>;
+> > +			compatible = "st,stm32h7-spi";
+> > +			reg = <0x4000b000 0x400>;
 > 
-> [1] https://lore.kernel.org/lkml/YW9CUabfA0HrtTAq@google.com/
+> Unusual order... rather first compatible then reg.
 > 
-> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-> ---
->  drivers/usb/misc/onboard_usb_hub.c | 2 ++
->  drivers/usb/misc/onboard_usb_hub.h | 1 +
->  2 files changed, 3 insertions(+)
-> 
-> diff --git a/drivers/usb/misc/onboard_usb_hub.c b/drivers/usb/misc/onboard_usb_hub.c
-> index 6b9b949d17d30..929a4e724ec12 100644
-> --- a/drivers/usb/misc/onboard_usb_hub.c
-> +++ b/drivers/usb/misc/onboard_usb_hub.c
-> @@ -310,6 +310,7 @@ static struct platform_driver onboard_hub_driver = {
->  /************************** USB driver **************************/
->  
->  #define VENDOR_ID_REALTEK	0x0bda
-> +#define VENDOR_ID_MICROCHIP	0x0424
-
-nit: let's sort the vendor ids alphabetically
-
->  
->  /*
->   * Returns the onboard_hub platform device that is associated with the USB
-> @@ -387,6 +388,7 @@ static const struct usb_device_id onboard_hub_id_table[] = {
->  	{ USB_DEVICE(VENDOR_ID_REALTEK, 0x5411) }, /* RTS5411 USB 2.1 */
->  	{ USB_DEVICE(VENDOR_ID_REALTEK, 0x0414) }, /* RTS5414 USB 3.2 */
->  	{ USB_DEVICE(VENDOR_ID_REALTEK, 0x5414) }, /* RTS5414 USB 2.1 */
-> +	{ USB_DEVICE(VENDOR_ID_MICROCHIP, 0x2514) }, /* USB2514B USB 2.0 */
-
-ditto
-
->  	{}
->  };
->  MODULE_DEVICE_TABLE(usb, onboard_hub_id_table);
-> diff --git a/drivers/usb/misc/onboard_usb_hub.h b/drivers/usb/misc/onboard_usb_hub.h
-> index d3a5b6938582e..43d6af4230dfd 100644
-> --- a/drivers/usb/misc/onboard_usb_hub.h
-> +++ b/drivers/usb/misc/onboard_usb_hub.h
-> @@ -11,6 +11,7 @@ static const struct of_device_id onboard_hub_match[] = {
->  	{ .compatible = "usbbda,5411" },
->  	{ .compatible = "usbbda,414" },
->  	{ .compatible = "usbbda,5414" },
-> +	{ .compatible = "usb424,2514" },
-
-Let's also sort the vendor ids alphanumerically (not necessarily applicable for
-the product ids, here it makes sense to group the PIDs of the same hub chip
-together).
+> Best regards,
+> Krzysztof
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
