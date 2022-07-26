@@ -2,61 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7E7C9580E0B
-	for <lists+linux-stm32@lfdr.de>; Tue, 26 Jul 2022 09:40:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2EB32580E8A
+	for <lists+linux-stm32@lfdr.de>; Tue, 26 Jul 2022 10:08:01 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0B576C640EF;
-	Tue, 26 Jul 2022 07:40:50 +0000 (UTC)
-Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com
- [209.85.208.44])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C6656C640F4;
+	Tue, 26 Jul 2022 08:08:00 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4E6D6C035BE
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8B510C035BE
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 26 Jul 2022 07:40:48 +0000 (UTC)
-Received: by mail-ed1-f44.google.com with SMTP id o13so1768789edc.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 26 Jul 2022 00:40:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=T9AkE22NC0dR2ypursI2fN61qW/1wSf5rUvH6q53xFE=;
- b=ge7laRItcMaYz8CbVUmxu6fySWP6WV1vCNqQjPey7pCqpDVmXSL/OKsjz2cyQR0AZB
- MJGMng4U2M+FPryqWHApgaW+gVXE00zgoy2GtuaysBpIJC1AIHHBCAtAsyqKW02GIJaz
- StxWUCuuCnpCJkR9fp42qXCLB70UdwMTqQZU98XHIljorRNAn/RwBWrLhy0Zhqz0tlng
- a8dOSU7fFBjc7T/ut6wAkgbfOiEvp5bd+vEANLcBbfEjzwjoaf0bNkzLjiESwvhtL6gT
- o1NwdOhjDA05V3grNzlr4IbrNcISLiYuHF0fGau8O1dH2RDVQzDWRYpMkY4PIfuVgnuD
- Tmkg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=T9AkE22NC0dR2ypursI2fN61qW/1wSf5rUvH6q53xFE=;
- b=G/Txy5Lpev5QQNDMYvPyURPAL1n15swDAGC+FUX298Njprs2i/Ch/UI/einAkeEw/b
- xdzl/d6bNfbH3tj8L3/4xSSKHQUovk76/otYmKCu5mxnRApSzlIl47ETiwaKiYMDImJy
- KOkJFimV0S4t3PcDyIEembH1Ku4ozhWJ5TSze+HYaV+C+Pfm5DcNo/IXzArU7N/LR1t+
- sTArbszhHNbrIKesCfFc+dfCowCao+19k9X+WtiB2zPAx4Irc5lgDzy9qQRnIrOzkyJj
- UmFa8J1VXld9YTiiw4mKJ8hbX5nbhbmxRK+5YEhx7HNJdztyJEpufMYxq/J/HlF/KdWB
- zB5g==
-X-Gm-Message-State: AJIora8Cf9SsfLepnw0hyVxnovYKtrfU81KFglNupt6vk1M/S09lpuGq
- BAiW0Y5/1uNp4cRKtKNmQSjoKlZytWBvgqnaaLvkJg==
-X-Google-Smtp-Source: AGRyM1vwZzhnBcWkZffdETCQmqtRoad3oPyepW/LJhXmMjspkJKij3hGNnPFM101r9JRUaT57ut9pk6wGB+tFiiLJ38=
-X-Received: by 2002:a05:6402:2696:b0:43b:eb8b:d0da with SMTP id
- w22-20020a056402269600b0043beb8bd0damr10704544edd.158.1658821247900; Tue, 26
- Jul 2022 00:40:47 -0700 (PDT)
+ Tue, 26 Jul 2022 08:07:58 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 26Q6Zgok008998;
+ Tue, 26 Jul 2022 10:07:33 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=selector1;
+ bh=HVvobxygxJWw+3L3+H2mjH9wVwihqtM6fjUpIWckSr0=;
+ b=0eOSvSD6ZebQSx5nuxxu2Cd4cqj9q4mxGTMdkLuLCclGcNRaBRSUdr43ifPf4PGk/8+d
+ +JOtYZzj+J9gwlpDceC8PvPisoPpJBw/RSeb3k8l2Qcc/1N6PFLuMJ9KKgQaLnYG6q/T
+ /fc2cxrUZjbUQCFKP3D4+1KPqZj/gRTrz2rL6bhQCGVKpts6Sdg0kB66XCmHApIo6rR/
+ PCaDdu/gpUtQIdH9f/ub85PFjrGyYR0kX9wbM79/6EU19mw2heOSA6PNQdTxWVlrYj8R
+ q32Rj3r7UfP7NrWkShitdpwASfYEoCkQXeuNVFzLC7PsePsGM0WYuwh4CIRSNlv/vmid 3g== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3hg7vhen7f-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 26 Jul 2022 10:07:33 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 8ED1610002A;
+ Tue, 26 Jul 2022 10:07:30 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id C55412128A3;
+ Tue, 26 Jul 2022 10:07:30 +0200 (CEST)
+Received: from localhost (10.75.127.47) by SHFDAG1NODE2.st.com (10.75.129.70)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2308.20; Tue, 26 Jul
+ 2022 10:07:29 +0200
+From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+To: <gregkh@linuxfoundation.org>, <robh+dt@kernel.org>, <mka@chromium.org>,
+ <alexandre.torgue@foss.st.com>
+Date: Tue, 26 Jul 2022 10:07:04 +0200
+Message-ID: <20220726080708.162547-1-fabrice.gasnier@foss.st.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-References: <20220719214955.1875020-1-robh@kernel.org>
-In-Reply-To: <20220719214955.1875020-1-robh@kernel.org>
-From: Linus Walleij <linus.walleij@linaro.org>
-Date: Tue, 26 Jul 2022 09:40:36 +0200
-Message-ID: <CACRpkda+pLvw1AUxERdVaXooH0VFtSHAj6qJ97H4JKx0p1MdkA@mail.gmail.com>
-To: Rob Herring <robh@kernel.org>
-Cc: devicetree@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+X-Originating-IP: [10.75.127.47]
+X-ClientProxiedBy: SFHDAG2NODE3.st.com (10.75.127.6) To SHFDAG1NODE2.st.com
+ (10.75.129.70)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.883,Hydra:6.0.517,FMLib:17.11.122.1
+ definitions=2022-07-26_02,2022-07-25_03,2022-06-22_01
+Cc: devicetree@vger.kernel.org, arnd@arndb.de, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org, krzysztof.kozlowski+dt@linaro.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] dt-bindings: pinctrl: st,
-	stm32: Correct 'resets' property name
+Subject: [Linux-stm32] [PATCH v2 0/4] usb: misc: adopt onboard hub support
+	on stm32mp1 boards
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,19 +75,35 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Jul 19, 2022 at 11:50 PM Rob Herring <robh@kernel.org> wrote:
+Add support for USB2514B HUB found on stm32mp1 boards:
+- Extend the ehci-generic dt-binding to fully use the usb-hcd.yaml, and so
+  the usb-device.yaml.
+- Add usb-device compatible ("usbVID,PID") for the USB2514B USB2.0 HUB to
+  the onboard_usb_hub driver.
+- Add relevant device tree node to stm32mp15 DK boards.
+- Enable the onboard_usb_hub driver on multi_v7 platforms.
 
-> The correct property name for the reset binding is 'resets', not 'reset'.
-> Assuming actual users are correct, this error didn't show up due to
-> missing 'additionalProperties: false'. Fix the name and add missing
-> 'additionalProperties'.
->
-> Signed-off-by: Rob Herring <robh@kernel.org>
+Changes in v2:
+- Follow Matthias review comments
+- dt-bindings reviewed by Rob
 
-Patch applied, thanks for hashing out this mess!
+Fabrice Gasnier (4):
+  dt-bindings: usb: generic-ehci: allow usb-hcd schema properties
+  usb: misc: onboard-hub: add support for Microchip USB2514B USB 2.0 hub
+  ARM: dts: stm32: add support for USB2514B onboard hub on
+    stm32mp15xx-dkx
+  ARM: multi_v7_defconfig: enable USB onboard HUB driver
 
-Yours,
-Linus Walleij
+ Documentation/devicetree/bindings/usb/generic-ehci.yaml | 7 +------
+ arch/arm/boot/dts/stm32mp15xx-dkx.dtsi                  | 8 ++++++++
+ arch/arm/configs/multi_v7_defconfig                     | 1 +
+ drivers/usb/misc/onboard_usb_hub.c                      | 2 ++
+ drivers/usb/misc/onboard_usb_hub.h                      | 1 +
+ 5 files changed, 13 insertions(+), 6 deletions(-)
+
+-- 
+2.25.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
