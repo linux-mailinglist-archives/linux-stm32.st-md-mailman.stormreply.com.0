@@ -2,42 +2,42 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 46047585C5F
-	for <lists+linux-stm32@lfdr.de>; Sat, 30 Jul 2022 23:40:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1DCC2585C70
+	for <lists+linux-stm32@lfdr.de>; Sat, 30 Jul 2022 23:50:57 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 06C4AC03FE0;
-	Sat, 30 Jul 2022 21:40:58 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AF092C03FE0;
+	Sat, 30 Jul 2022 21:50:56 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B9324C03FC9
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 73E4DC03FC9
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 30 Jul 2022 21:40:55 +0000 (UTC)
+ Sat, 30 Jul 2022 21:50:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1659217255; x=1690753255;
+ t=1659217855; x=1690753855;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:in-reply-to;
- bh=V5fo+ZjN6qVh2ehdMQ8scHgdijFwALwamZEruMT0vWg=;
- b=cZTfbcggU7CLAA+roqFGSEJMFA2/S05aEChG4c7Iwn5poZqgOrsAi4AV
- wPA7dIAFwE/HdmVwqeTsr6eyGnciNVgZTLJI0vcGVNRjPSs2GgSq9/EJP
- J0V1axDc+HftGvElwF7WjvvEQe1hRmom8Ut6Ac7K5ON9n096CJy4QsFCK
- i7m/fNvHIm0PcmAvC9IPYvWGaaJLiO0jVDLl8vU99JtyYbZ1kixQ9ZG3+
- 24Rn0jQyk0cK6X3DTGM3LJ23onHMo9jhgqH2WxQEEPpRGmPNEguqS1f3d
- jxOJ9GuEDt0EWtOiD3wJMCPQgMhi4qrK8LyHSIGyY8Aoy+QrSgMFIC1b0 Q==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10424"; a="289719243"
-X-IronPort-AV: E=Sophos;i="5.93,205,1654585200"; d="scan'208";a="289719243"
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Jul 2022 14:40:53 -0700
+ bh=rND8XXV4IHwYTrk9ylOpb5YEXKqPDzYplKhRlcJ1akw=;
+ b=SmzRMxEqGDOA+IhK2L3+0OsF6Xy8K9XyoD+eW9HOjaZbfqcnmDHQZCOd
+ 38Iyb7xQwS/jL+J4BtTq67CPFLG2rjsWlN3tf2Nmmzck/yqbONh8DJVfa
+ IvwU7cTCvlpkBm+JQX0cDxsrKjYvxFI5sqKBitO/E4MkUdxo+nIgkWUA3
+ KMVcicyou+zBgfzwBQpq//0m9Hd7iISiPC/yZ0s17Fa2pSjf+FlYLGxK6
+ B4BwGwWhG9UhdzsIRtnDWZK+FDq6/XKlytZU8fu1DYceLRzVe2G4IiAwF
+ NWHBbtYNcDljKdXmbkAC5NWWdzKxXlf3v/LBrUOQ3TpuCCFj0EP8LAaXH w==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10424"; a="269330712"
+X-IronPort-AV: E=Sophos;i="5.93,205,1654585200"; d="scan'208";a="269330712"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Jul 2022 14:50:53 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.93,205,1654585200"; d="scan'208";a="605278720"
+X-IronPort-AV: E=Sophos;i="5.93,205,1654585200"; d="scan'208";a="704554267"
 Received: from lkp-server01.sh.intel.com (HELO e0eace57cfef) ([10.239.97.150])
- by fmsmga007.fm.intel.com with ESMTP; 30 Jul 2022 14:40:49 -0700
+ by fmsmga002.fm.intel.com with ESMTP; 30 Jul 2022 14:50:49 -0700
 Received: from kbuild by e0eace57cfef with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1oHuCW-000DN9-0o;
- Sat, 30 Jul 2022 21:40:48 +0000
-Date: Sun, 31 Jul 2022 05:40:05 +0800
+ (envelope-from <lkp@intel.com>) id 1oHuMC-000DNX-1N;
+ Sat, 30 Jul 2022 21:50:48 +0000
+Date: Sun, 31 Jul 2022 05:50:22 +0800
 From: kernel test robot <lkp@intel.com>
 To: Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
  andriy.shevchenko@linux.intel.com, vee.khee.wong@intel.com,
@@ -48,7 +48,7 @@ To: Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
  Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Joakim Zhang <qiangqing.zhang@nxp.com>, Andrew Lunn <andrew@lunn.ch>
-Message-ID: <202207310531.48IGPx8Z-lkp@intel.com>
+Message-ID: <202207310545.hHU5SagS-lkp@intel.com>
 References: <b5b44a0c025d0fdddd9b9d23153261363089a06a.1659204745.git.christophe.jaillet@wanadoo.fr>
 MIME-Version: 1.0
 Content-Disposition: inline
@@ -87,7 +87,7 @@ https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
 url:    https://github.com/intel-lab-lkp/linux/commits/Christophe-JAILLET/stmmac-intel-Add-a-missing-clk_disable_unprepare-call-in-intel_eth_pci_remove/20220731-022139
 base:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git 620725263f4222b3c94d4ee19846835feec0ad69
-config: x86_64-randconfig-a003 (https://download.01.org/0day-ci/archive/20220731/202207310531.48IGPx8Z-lkp@intel.com/config)
+config: x86_64-randconfig-a016 (https://download.01.org/0day-ci/archive/20220731/202207310545.hHU5SagS-lkp@intel.com/config)
 compiler: clang version 16.0.0 (https://github.com/llvm/llvm-project 52cd00cabf479aa7eb6dbb063b7ba41ea57bce9e)
 reproduce (this is a W=1 build):
         wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
@@ -98,7 +98,7 @@ reproduce (this is a W=1 build):
         git checkout 2d1d09034cc62ee19f799b92bb67640ba86ca557
         # save the config file
         mkdir build_dir && cp config build_dir/.config
-        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=clang make.cross W=1 O=build_dir ARCH=x86_64 SHELL=/bin/bash drivers/net/ethernet/stmicro/stmmac/
+        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=clang make.cross W=1 O=build_dir ARCH=x86_64 SHELL=/bin/bash
 
 If you fix the issue, kindly add following tag where applicable
 Reported-by: kernel test robot <lkp@intel.com>
