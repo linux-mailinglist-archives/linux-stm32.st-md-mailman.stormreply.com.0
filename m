@@ -2,105 +2,43 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 38A9F5848EC
-	for <lists+linux-stm32@lfdr.de>; Fri, 29 Jul 2022 02:14:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C0911585B98
+	for <lists+linux-stm32@lfdr.de>; Sat, 30 Jul 2022 20:19:56 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D86F9C640F5;
-	Fri, 29 Jul 2022 00:14:50 +0000 (UTC)
-Received: from new2-smtp.messagingengine.com (new2-smtp.messagingengine.com
- [66.111.4.224])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 55D67C03FFF;
+	Sat, 30 Jul 2022 18:19:56 +0000 (UTC)
+Received: from smtp.smtpout.orange.fr (smtp02.smtpout.orange.fr
+ [80.12.242.124])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C8E9AC57183
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 41668C03FC9
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 29 Jul 2022 00:14:49 +0000 (UTC)
-Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
- by mailnew.nyi.internal (Postfix) with ESMTP id 77CB758099B;
- Thu, 28 Jul 2022 20:14:48 -0400 (EDT)
-Received: from imap50 ([10.202.2.100])
- by compute3.internal (MEProxy); Thu, 28 Jul 2022 20:14:48 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
- :cc:content-type:date:date:from:from:in-reply-to:in-reply-to
- :message-id:mime-version:references:reply-to:sender:subject
- :subject:to:to; s=fm2; t=1659053688; x=1659060888; bh=1CqIgEzBLY
- 47OHaV4sSf/xZhANJWym0dF7Lbe51Gho8=; b=Prja2fJywNoccXxpjpow3zGOJ2
- xOO4vfXVawIaKmJc0bhYtRFydLKuH0fHCgcVLRM1lUuLNu9BBN//3X9ouCnjhWE/
- h6CzOrA/fHh2fcolx+w5V5tq6TCq2bQIPsf3ZACWLAKEpf25e8ZY9XU3KFQic2se
- Jtce8nCqDD9jE+OjT6DxHmtBE41TY8DYxcrHiNxcyS8kN3p2GQxDzYsllntF8mJS
- FS2T7PKKNAKPR8aJRiKi728rbnqI8yzpnLur/gXgoHLFMmia3zmPWCK9KTleynRy
- jOxuw5ngIWElnzlSjMqsH07YSliZTA7wCA1cjU76B4SvQw24/jF2rPXTu1qg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
- :feedback-id:from:from:in-reply-to:in-reply-to:message-id
- :mime-version:references:reply-to:sender:subject:subject:to:to
- :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm3; t=1659053688; x=1659060888; bh=1CqIgEzBLY47OHaV4sSf/xZhANJW
- ym0dF7Lbe51Gho8=; b=rk1BZHZ1UaKHog5lKRuUrUckMq4BFSl4BtoMl4GVeEqA
- uP8Q/U4l30FCDS6Lcw3xoSku/ZK/qU0Ppk3IwCHStdpczFzStmnmO+vC8fgdqtMF
- L/9J11RH73L9sx+hzEM7Eu5L2OQZDiRt+J4fkyFq50/7oqrhR+fyh3f2zJfKWvbX
- G5oB1PIDRUU4HJ25E1M0KtG9dyqUyrQTA3jbvGkorG2/yaqJAjlBAAjd5Q2fWxl8
- Itq4r/XIBs9hQu2qdc6/UCMqpnavTMvAaMxWwoxGtCPMptiR3o/ZgbZKMSuVjAu9
- GxafBtrfUIcHJLVFoN5Y5kI4k3zq1mPqBv0rN8j4eQ==
-X-ME-Sender: <xms:dibjYq61WULSSvHAb-Fw6g_a4fXhuLh8dvOAfkntuhZvcfdlvl7Pww>
- <xme:dibjYj7LyoGVphHU_BmO-2rYwgaulvBbRFulbawl0I52oSGsa9-e4LnjM3ZcB2utm
- iqBTBR4VqJXRHgcMw>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrvdduhedgudefiecutefuodetggdotefrod
- ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
- necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
- enucfjughrpefofgggkfgjfhffhffvvefutgesthdtredtreertdenucfhrhhomhepfdet
- nhgurhgvficulfgvfhhfvghrhidfuceorghnughrvgifsegrjhdrihgurdgruheqnecugg
- ftrfgrthhtvghrnhepkedvkeejkefgjeduffetteegjeekteetudevtdfftdeluddthfeh
- veefteekieetnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrh
- homheprghnughrvgifsegrjhdrihgurdgruh
-X-ME-Proxy: <xmx:dibjYpeVeo5Y5h9hpZreusiUaYr9cd-GNjqdKKjoELpg2MwQwS2j_g>
- <xmx:dibjYnLHruoskZDhofIBZdqd2L6PUeOuHZh_12EOvd8nk4fKXELcKA>
- <xmx:dibjYuIb9-it4epXA9PpIvUcVGm0Og35TN2M0qLz4e-5zACCQcRfjQ>
- <xmx:eCbjYsQMVZNaGfoD93vj0O0QSde7ARYF5pisHwVHhhgcCI35mR2OAg>
-Feedback-ID: idfb84289:Fastmail
-Received: by mailuser.nyi.internal (Postfix, from userid 501)
- id 183BA1700083; Thu, 28 Jul 2022 20:14:45 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
-User-Agent: Cyrus-JMAP/3.7.0-alpha0-757-gc3ad9c75d3-fm-20220722.001-gc3ad9c75
-Mime-Version: 1.0
-Message-Id: <833e10d7-ceb1-4859-8028-e724d41421f1@www.fastmail.com>
-In-Reply-To: <20220721141325.2413920-2-arnd@kernel.org>
-References: <20220721141325.2413920-1-arnd@kernel.org>
- <20220721141325.2413920-2-arnd@kernel.org>
-Date: Fri, 29 Jul 2022 09:44:25 +0930
-From: "Andrew Jeffery" <andrew@aj.id.au>
-To: "Arnd Bergmann" <arnd@kernel.org>, linux-arm-kernel@lists.infradead.org
-Cc: Andrew Lunn <andrew@lunn.ch>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- linux-aspeed@lists.ozlabs.org, Neil Armstrong <narmstrong@baylibre.com>,
- Tony Lindgren <tony@atomide.com>, Catalin Marinas <catalin.marinas@arm.com>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>, Liviu Dudau <liviu.dudau@arm.com>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- Thierry Reding <thierry.reding@gmail.com>,
- Alim Akhtar <alim.akhtar@samsung.com>, Will Deacon <will@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com,
- Florian Fainelli <f.fainelli@gmail.com>, Alexander Shiyan <shc_work@mail.ru>,
- Aaro Koskinen <aaro.koskinen@iki.fi>, Fabio Estevam <festevam@gmail.com>,
- Gregory Clement <gregory.clement@bootlin.com>, linux-sh@vger.kernel.org,
- Janusz Krzysztofik <jmkrzyszt@gmail.com>, Russell King <linux@armlinux.org.uk>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Jonathan Hunter <jonathanh@nvidia.com>, Chen-Yu Tsai <wens@csie.org>,
- bcm-kernel-feedback-list@broadcom.com, NXP Linux Team <linux-imx@nxp.com>,
- linux-sunxi@lists.linux.dev,
- Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
- Pengutronix Kernel Team <kernel@pengutronix.de>, Arnd Bergmann <arnd@arndb.de>,
- Ray Jui <rjui@broadcom.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- Sudeep Holla <sudeep.holla@arm.com>, Vladimir Zapolskiy <vz@mleia.com>,
- linux-samsung-soc@vger.kernel.org, linux-rpi-kernel@lists.infradead.org,
- linux-tegra@vger.kernel.org, linux-omap@vger.kernel.org,
- Scott Branden <sbranden@broadcom.com>,
- Taichi Sugaya <sugaya.taichi@socionext.com>,
- Samuel Holland <samuel@sholland.org>, linux-kernel@vger.kernel.org,
- Dinh Nguyen <dinguyen@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Sat, 30 Jul 2022 18:19:54 +0000 (UTC)
+Received: from pop-os.home ([90.11.190.129]) by smtp.orange.fr with ESMTPA
+ id Hr41oSyrhBDYDHr41oo8rt; Sat, 30 Jul 2022 20:19:53 +0200
+X-ME-Helo: pop-os.home
+X-ME-Auth: YWZlNiIxYWMyZDliZWIzOTcwYTEyYzlhMmU3ZiQ1M2U2MzfzZDfyZTMxZTBkMTYyNDBjNDJlZmQ3ZQ==
+X-ME-Date: Sat, 30 Jul 2022 20:19:53 +0200
+X-ME-IP: 90.11.190.129
+From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+To: andriy.shevchenko@linux.intel.com, vee.khee.wong@intel.com,
+ weifeng.voon@intel.com, Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Jose Abreu <joabreu@synopsys.com>, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Takao Orito <orito.takao@socionext.com>, linux-oxnas@groups.io,
- Shawn Guo <shawnguo@kernel.org>, Claudiu Beznea <claudiu.beznea@microchip.com>
-Subject: Re: [Linux-stm32] [PATCH 1/6] ARM: refresh defconfig files
+ Joakim Zhang <qiangqing.zhang@nxp.com>, Andrew Lunn <andrew@lunn.ch>
+Date: Sat, 30 Jul 2022 20:19:47 +0200
+Message-Id: <b5b44a0c025d0fdddd9b9d23153261363089a06a.1659204745.git.christophe.jaillet@wanadoo.fr>
+X-Mailer: git-send-email 2.34.1
+MIME-Version: 1.0
+Cc: netdev@vger.kernel.org, kernel-janitors@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH 1/2] stmmac: intel: Add a missing
+	clk_disable_unprepare() call in intel_eth_pci_remove()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -117,29 +55,63 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+Commit 09f012e64e4b ("stmmac: intel: Fix clock handling on error and remove
+paths") removed this clk_disable_unprepare()
+
+This was partly revert by commit ac322f86b56c ("net: stmmac: Fix clock
+handling on remove path") which removed this clk_disable_unprepare()
+because:
+"
+   While unloading the dwmac-intel driver, clk_disable_unprepare() is
+   being called twice in stmmac_dvr_remove() and
+   intel_eth_pci_remove(). This causes kernel panic on the second call.
+"
+
+However later on, commit 5ec55823438e8 ("net: stmmac: add clocks management
+for gmac driver") has updated stmmac_dvr_remove() which do not call
+clk_disable_unprepare() anymore.
+
+So this call should now be called from intel_eth_pci_remove().
+
+Fixes: 5ec55823438e8 ("net: stmmac: add clocks management for gmac driver")
+Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+---
+/!\     This patch is HIGHLY speculative.     /!\
+
+The corresponding clk_disable_unprepare() is still called within the pm
+related stmmac_bus_clks_config() function.
+
+However, with my limited understanding of the pm API, I think it that the
+patch is valid.
+(in other word, does the pm_runtime_put() and/or pm_runtime_disable()
+and/or stmmac_dvr_remove() can end up calling .runtime_suspend())
+
+So please review with care, as I'm not able to test the change by myself.
 
 
-On Thu, 21 Jul 2022, at 23:43, Arnd Bergmann wrote:
-> From: Arnd Bergmann <arnd@arndb.de>
->
-> A lot of Kconfig options have changed over the years, and we tend
-> to not do a blind 'make defconfig' to refresh the files, to ensure
-> we catch options that should not have gone away.
->
-> I used some a bit of scripting to only rework the bits where an
-> option moved around in any of the defconfig files, without also
-> dropping any of the other lines, to make it clearer which options
-> we no longer have.
->
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
-> ---
->  arch/arm/configs/am200epdkit_defconfig    |  26 ++---
->  arch/arm/configs/aspeed_g4_defconfig      |  16 +--
->  arch/arm/configs/aspeed_g5_defconfig      |  16 +--
+If I'm wrong, maybe a comment explaining why it is safe to have this
+call in the error handling path of the probe and not in the remove function
+would avoid erroneous patches generated from static code analyzer to be
+sent.
+---
+ drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-For the Aspeed bits:
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
+index 52f9ed8db9c9..9f38642f86ce 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
+@@ -1134,6 +1134,7 @@ static void intel_eth_pci_remove(struct pci_dev *pdev)
+ 
+ 	stmmac_dvr_remove(&pdev->dev);
+ 
++	clk_disable_unprepare(plat->stmmac_clk);
+ 	clk_unregister_fixed_rate(priv->plat->stmmac_clk);
+ 
+ 	pcim_iounmap_regions(pdev, BIT(0));
+-- 
+2.34.1
 
-Reviewed-by: Andrew Jeffery <andrew@aj.id.au>
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
