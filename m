@@ -2,71 +2,79 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id ACA2D586BF9
-	for <lists+linux-stm32@lfdr.de>; Mon,  1 Aug 2022 15:29:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A2B8A587312
+	for <lists+linux-stm32@lfdr.de>; Mon,  1 Aug 2022 23:23:45 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 384D6C640F5;
-	Mon,  1 Aug 2022 13:29:04 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 38555C640F2;
+	Mon,  1 Aug 2022 21:23:38 +0000 (UTC)
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com
+ [209.85.221.51])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DE833C03FD5
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 88E03C03FD5
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  1 Aug 2022 13:29:02 +0000 (UTC)
-Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 2719pgGx003239;
- Mon, 1 Aug 2022 15:28:47 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=a1HMbAEdWLn+FNF0+2Ws3CrNvw3tnB1rE4cGaL0xKU0=;
- b=qol5DtfArmU94z+/2n3ug/4IRssv3XMghvPVAM8f2WKpRltEuz/GXnQRqgP/yZkUwlhm
- djib4mYZb5bf7yQv8z4fNHsqrRQY6d8J26oHW909/0z6o9iDDXbZlh8vLAAo8KT+VPrF
- jHh9VoAxvwejpyJaiQDlNUrIxi4iINMsvLwxv7gdbZMVmcpAMWrFxkozfSkw39YHuzfL
- qVINoTOgQJU5qEdk9itVyUbUVMyFMzXGOCJ11K3ek+gJAYruazcVbYXXehvKLl3mZbBI
- sHqztlzSGja0qIuqhXsbjhZyF8xAprR0vGyRQyRbFTM632ughhiGGX8cnHUIlJvqiFva sg== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3hmv01527w-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 01 Aug 2022 15:28:47 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id DE51910002A;
- Mon,  1 Aug 2022 15:28:45 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id D7E4922D18D;
- Mon,  1 Aug 2022 15:28:45 +0200 (CEST)
-Received: from [10.201.21.93] (10.75.127.47) by SHFDAG1NODE1.st.com
- (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2308.20; Mon, 1 Aug
- 2022 15:28:44 +0200
-Message-ID: <0323004a-c948-d3a6-03b0-480b2171ee67@foss.st.com>
-Date: Mon, 1 Aug 2022 15:28:44 +0200
+ Mon,  1 Aug 2022 21:23:36 +0000 (UTC)
+Received: by mail-wr1-f51.google.com with SMTP id z16so15554298wrh.12
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 01 Aug 2022 14:23:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linexp-org.20210112.gappssmtp.com; s=20210112;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc;
+ bh=Dxp2C7hOahM111jOQKxvW4vMPiwlgfAm7+eoRoP/H0c=;
+ b=pcZJblaRye/CU2ZG2aS4bfkarrAJPR8cXC0LFsksRkWtGR161vS7ze8cLfF1rEfblK
+ rQ6kSCvE+KyYpyEs/GNjMbzN2/vz1n3UU6EulgZbrKdFKdW0sXzesEUMR5J8thSwWXoU
+ yX++xLcaVyfCdUB5Gyvw8PuyqMbFDcp0wCA1saq8q5/jyY3IRW7xRin8SuVw0/MFAt2n
+ QqfyQ3Whi2/+mM4SkTIeFUEdb07Ej4EMCr2PEeEktE5U8f4wjm8RKXfA+v7rEYj+0zN6
+ Cd4rLRzeBBmGZSKrxOXEYaEgNfAIV3r3FMQwTHHy7ZzK2l5Bld6ikof1C13L5ArqnNPT
+ 3oZQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc;
+ bh=Dxp2C7hOahM111jOQKxvW4vMPiwlgfAm7+eoRoP/H0c=;
+ b=ubKtVOC937M3IImNySdtfTQ7+quwYD5TgabRMyMFXQ30axhvG6jrH6ldnbxdm2hkLq
+ S7vpCn1WoPRRwIHY4NyE8t6UilmQuPsG+KhLkMf2uWkNhIIsND9IcZP0Iwm/6XDCQ4YC
+ uouhTqjHVOpvCeXU/EtjD5f9SjHEYRBYqcNig9yU7P7uCxFtnI6MSPeivXU8jV2Z3u2Q
+ OexMuaAjVGdCHLPhSfO7gEH7GFChwEHV86fCNvWZY//RXNAZgR6fDiMhTD4MvIu9ue0q
+ bl0gQf7A8vvgwznF7eMeV3qVl7eAXcI+6PtqG+mdd7I5JP/vsPFe4W1+zH5NknQyaPrW
+ /Jog==
+X-Gm-Message-State: ACgBeo0NLCnop36uoNiuULQ1tsqtghsKGbmXHpBPBLJnlJPsCBXwRWmV
+ r9iP0WPSfNlljJQ52eAI84uuFg==
+X-Google-Smtp-Source: AA6agR6btACMuEpyA6/viNcHMHjs1GPLsxuLBfadlyEO6Vct9/gpgVno3agbcYvw+AmU0aYsslXq1Q==
+X-Received: by 2002:a5d:6dad:0:b0:21e:903f:f45e with SMTP id
+ u13-20020a5d6dad000000b0021e903ff45emr11488602wrs.385.1659389016074; 
+ Mon, 01 Aug 2022 14:23:36 -0700 (PDT)
+Received: from mai.box.freepro.com ([2a05:6e02:1041:c10:d00:ceb8:9c09:1302])
+ by smtp.gmail.com with ESMTPSA id
+ c7-20020adffb07000000b0021e501519d3sm12995285wrr.67.2022.08.01.14.23.33
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 01 Aug 2022 14:23:35 -0700 (PDT)
+From: Daniel Lezcano <daniel.lezcano@linexp.org>
+To: daniel.lezcano@linaro.org,
+	rafael@kernel.org
+Date: Mon,  1 Aug 2022 23:22:24 +0200
+Message-Id: <20220801212244.1124867-13-daniel.lezcano@linexp.org>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20220801212244.1124867-1-daniel.lezcano@linexp.org>
+References: <20220801212244.1124867-1-daniel.lezcano@linexp.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.8.1
-Content-Language: en-US
-To: =?UTF-8?Q?Uwe_Kleine-K=c3=b6nig?= <u.kleine-koenig@pengutronix.de>
-References: <20220519162838.695404-1-u.kleine-koenig@pengutronix.de>
- <20220519162838.695404-2-u.kleine-koenig@pengutronix.de>
- <20220720071834.augn2mtytqzqcixo@pengutronix.de>
- <dcb245b7-1d2f-0f90-8be8-26688d184b5a@foss.st.com>
- <20220801095308.5ueokezguhfcug3u@pengutronix.de>
-From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
-In-Reply-To: <20220801095308.5ueokezguhfcug3u@pengutronix.de>
-X-Originating-IP: [10.75.127.47]
-X-ClientProxiedBy: SFHDAG2NODE3.st.com (10.75.127.6) To SHFDAG1NODE1.st.com
- (10.75.129.69)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.883,Hydra:6.0.517,FMLib:17.11.122.1
- definitions=2022-08-01_07,2022-08-01_01,2022-06-22_01
-Cc: devicetree@vger.kernel.org, kernel@pengutronix.de,
- Rob Herring <robh+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Lee Jones <lee.jones@linaro.org>, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v4 2/2] ARM: dts: stm32mp15x: Add timer
-	interrupts
+Cc: heiko@sntech.de, hayashi.kunihiko@socionext.com, tiny.windzz@gmail.com,
+ Amit Kucheria <amitk@kernel.org>, bjorn.andersson@linaro.org,
+ thierry.reding@gmail.com, glaroque@baylibre.com, abailon@baylibre.com,
+ miquel.raynal@bootlin.com, digetx@gmail.com,
+ "moderated list:ARM/STM32 ARCHITECTURE"
+ <linux-stm32@st-md-mailman.stormreply.com>, f.fainelli@gmail.com,
+ khilman@baylibre.com, damien.lemoal@opensource.wdc.com, jonathanh@nvidia.com,
+ anarsoul@gmail.com, rui.zhang@intel.com, linux-pm@vger.kernel.org,
+ niklas.soderlund@ragnatech.se, broonie@kernel.org, matthias.bgg@gmail.com,
+ talel@amazon.com,
+ "moderated list:ARM/STM32 ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>,
+ j-keerthy@ti.com, linux-kernel@vger.kernel.org, mhiramat@kernel.org,
+ mcoquelin.stm32@gmail.com, baolin.wang7@gmail.com, shawnguo@kernel.org,
+ lukasz.luba@arm.com
+Subject: [Linux-stm32] [PATCH v4 12/32] thermal/drivers/st: Switch to new of
+	API
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,32 +86,77 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gOC8xLzIyIDExOjUzLCBVd2UgS2xlaW5lLUvDtm5pZyB3cm90ZToKPiBPbiBNb24sIEF1ZyAw
-MSwgMjAyMiBhdCAxMDo0NDoyOEFNICswMjAwLCBBbGV4YW5kcmUgVE9SR1VFIHdyb3RlOgo+PiBI
-aSBVd2UKPj4KPj4gT24gNy8yMC8yMiAwOToxOCwgVXdlIEtsZWluZS1Lw7ZuaWcgd3JvdGU6Cj4+
-PiBIZWxsbywKPj4+Cj4+PiBPbiBUaHUsIE1heSAxOSwgMjAyMiBhdCAwNjoyODozOFBNICswMjAw
-LCBVd2UgS2xlaW5lLUvDtm5pZyB3cm90ZToKPj4+PiBUaGUgdGltZXIgdW5pdHMgaW4gdGhlIHN0
-bTMybXAxNXggQ1BVcyBoYXZlIGludGVycnVwdHMsIGRlcGVuZGluZyBvbiB0aGUKPj4+PiB0aW1l
-ciBmbGF2b3VyIGVpdGhlciBvbmUgImdsb2JhbCIgb3IgZm91ciBkZWRpY2F0ZWQgb25lcy4gQWRk
-IHRoZSBpcnFzCj4+Pj4gdG8gdGhlIHRpbWVyIHVuaXRzIG9uIHN0bTMybXAxNXguCj4+Pj4KPj4+
-PiBTaWduZWQtb2ZmLWJ5OiBVd2UgS2xlaW5lLUvDtm5pZyA8dS5rbGVpbmUta29lbmlnQHBlbmd1
-dHJvbml4LmRlPgo+Pj4KPj4+IFRoaXMgcGF0Y2ggd2Fzbid0IHBpY2tlZCB1cCB5ZXQgKGF0IGxl
-YXN0IG5vYm9keSB0b2xkIHRvIGhhdmUgZG9uZSBpdAo+Pj4gYW5kIGl0J3Mgbm90IGluIG5leHQp
-LiBJcyB0aGVyZSBhIHByb2JsZW0gb3RoZXIgdGhhbiBubyBtYWludGFpbmVyIHRpbWU/Cj4+Pgo+
-Pj4gQmVzdCByZWdhcmRzCj4+PiBVd2UKPj4+Cj4+Cj4+IEkgd2FzIHdhaXRpbmcgZm9yIGEgcmV2
-aWV3IGZyb20gUm9iIG9yIEtyenlzenRvZiBvbiBiaW5kaW5ncyBwYXRjaCBbMV0uIExldAo+PiBt
-ZSBrbm93IGlmIEkgbWlzc2VkIGl0Lgo+IAo+IFlvdSBkaWQ6Cj4gCj4gUGF0Y2ggIzEgd2FzIHJl
-dmlld2VkIGJ5IFJvYiBhbmQgdGFrZW4gYnkgTGVlLCBjdXJyZW50bHkgd2FpdGluZyBpbgo+ICdm
-b3ItbWZkLW5leHQnIG9mCj4gZ2l0Oi8vZ2l0Lmtlcm5lbC5vcmcvcHViL3NjbS9saW51eC9rZXJu
-ZWwvZ2l0L2xlZS9tZmQuZ2l0IGFzCj4gOTg3NWFiNTNjOGFlICgiZHQtYmluZGluZ3M6IG1mZDog
-c3RtMzItdGltZXJzOiBEb2N1bWVudCBob3cgdG8gc3BlY2lmeQo+IGludGVycnVwdHMiKS4KCk9r
-LCBteSBtaXN0YWtlLiBJJ2xsIGFwcGx5IGl0IGZvciB2NS4yMS4KCkNoZWVycwpBbGV4Cgo+IAo+
-IEJlc3QgcmVnYXJkcwo+IFV3ZQo+IAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1k
-LW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHku
-Y29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+The thermal OF code has a new API allowing to migrate the OF
+initialization to a simpler approach. The ops are no longer device
+tree specific and are the generic ones provided by the core code.
+
+Convert the ops to the thermal_zone_device_ops format and use the new
+API to register the thermal zone with these generic ops.
+
+Signed-off-by: Daniel Lezcano <daniel.lezcano@linexp.org>
+---
+ drivers/thermal/st/stm_thermal.c | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
+
+diff --git a/drivers/thermal/st/stm_thermal.c b/drivers/thermal/st/stm_thermal.c
+index 5fd3fb8912a6..e4ca0d504a4f 100644
+--- a/drivers/thermal/st/stm_thermal.c
++++ b/drivers/thermal/st/stm_thermal.c
+@@ -302,9 +302,9 @@ static int stm_disable_irq(struct stm_thermal_sensor *sensor)
+ 	return 0;
+ }
+ 
+-static int stm_thermal_set_trips(void *data, int low, int high)
++static int stm_thermal_set_trips(struct thermal_zone_device *tz, int low, int high)
+ {
+-	struct stm_thermal_sensor *sensor = data;
++	struct stm_thermal_sensor *sensor = tz->devdata;
+ 	u32 itr1, th;
+ 	int ret;
+ 
+@@ -350,9 +350,9 @@ static int stm_thermal_set_trips(void *data, int low, int high)
+ }
+ 
+ /* Callback to get temperature from HW */
+-static int stm_thermal_get_temp(void *data, int *temp)
++static int stm_thermal_get_temp(struct thermal_zone_device *tz, int *temp)
+ {
+-	struct stm_thermal_sensor *sensor = data;
++	struct stm_thermal_sensor *sensor = tz->devdata;
+ 	u32 periods;
+ 	int freqM, ret;
+ 
+@@ -474,7 +474,7 @@ static int stm_thermal_resume(struct device *dev)
+ static SIMPLE_DEV_PM_OPS(stm_thermal_pm_ops,
+ 			 stm_thermal_suspend, stm_thermal_resume);
+ 
+-static const struct thermal_zone_of_device_ops stm_tz_ops = {
++static const struct thermal_zone_device_ops stm_tz_ops = {
+ 	.get_temp	= stm_thermal_get_temp,
+ 	.set_trips	= stm_thermal_set_trips,
+ };
+@@ -539,9 +539,9 @@ static int stm_thermal_probe(struct platform_device *pdev)
+ 		return ret;
+ 	}
+ 
+-	sensor->th_dev = devm_thermal_zone_of_sensor_register(&pdev->dev, 0,
+-							      sensor,
+-							      &stm_tz_ops);
++	sensor->th_dev = devm_thermal_of_zone_register(&pdev->dev, 0,
++						       sensor,
++						       &stm_tz_ops);
+ 
+ 	if (IS_ERR(sensor->th_dev)) {
+ 		dev_err(&pdev->dev, "%s: thermal zone sensor registering KO\n",
+-- 
+2.25.1
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
