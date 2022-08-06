@@ -2,78 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 969F958B7AE
-	for <lists+linux-stm32@lfdr.de>; Sat,  6 Aug 2022 20:28:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3DC3D58B7BC
+	for <lists+linux-stm32@lfdr.de>; Sat,  6 Aug 2022 20:39:29 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 38624C03FC8;
-	Sat,  6 Aug 2022 18:28:11 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E57EAC03FC8;
+	Sat,  6 Aug 2022 18:39:28 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C77F4C035BD
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 40C80C01577
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat,  6 Aug 2022 18:28:10 +0000 (UTC)
+ Sat,  6 Aug 2022 18:39:28 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 34582B80819;
- Sat,  6 Aug 2022 18:28:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 74E54C433D6;
- Sat,  6 Aug 2022 18:27:55 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id CF2C76115D;
+ Sat,  6 Aug 2022 18:39:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 898C9C433D6;
+ Sat,  6 Aug 2022 18:39:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1659810488;
- bh=iCVWwAWSuOVXi4+hP+43X1j+qHEOeQGzNfyGNM8ZHlc=;
+ s=k20201202; t=1659811166;
+ bh=1nxy2+EMukkR2gSWYRMBlAV6EjYfDMI0H3oB1FQKqrA=;
  h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=KlscbrYnUaVdHIBuJBN81x/XEFLtGKpriuNiG3TIj5xAofhQh18XT5SVajLATPRXt
- kQGbEQhKcBA2xhXmdT7ZL4kusndKKO3JefSGMMDd57Q5QfD1wkWJdiwwXGNbp5AYW4
- /NPqWyb4Skpm7IRTwQknAwUiQuD/FHHjm47osNQMZyFW2yLduPZm231zZD7LLHJxo/
- dHP3+Cvo5l+MeLdd6HX0hj38x56VQseF4+LzZ6x9TDiH1HUFABXiplhZiuxzgHa+uB
- 03dlv22z29Scht3HXgZGArNewPIPyeIM8cDbRyB2TxarEfg/XHD9ndtiQNG0Sk0LXy
- WA6QW93Z4GDOA==
-Date: Sat, 6 Aug 2022 19:38:16 +0100
+ b=gRWZNgj60+7OibFgqj+1KPSlYeza9zTyo8nruOuXXGmGW9nIOaTKRx7LJgrdc7CuC
+ 4V8DhTOBYnFKm7cWzWwJmKsbWBIdQBMmdJ6GV4QkcXnuiMztTspZ9Y/opP8SqIRilp
+ oyV9+f6Ro9z+pFQsyKFD5FV2dv5prL3CZEbcN9MZBpQDmeKowigZEq4bPA3208Uy4u
+ qXs9x6i1qXNk60c55e+73yFZNnbwApMOVRoBIkK/uPmw6mGUd7+S3NAuDR+UOKOTiu
+ cBnN24w7Voxfdzlo8GsE0dacm9/IQmb9UYdKNL/UxwX7WzxHocD8ySj/Y8lUnI9twD
+ nF8xnw8HDl+rg==
+Date: Sat, 6 Aug 2022 19:49:35 +0100
 From: Jonathan Cameron <jic23@kernel.org>
-To: Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>
-Message-ID: <20220806193816.780188da@jic23-huawei>
-In-Reply-To: <20220715122903.332535-6-nuno.sa@analog.com>
+To: <Claudiu.Beznea@microchip.com>
+Message-ID: <20220806194935.383bf393@jic23-huawei>
+In-Reply-To: <ada4c2a2-e13d-77aa-f489-7cc0a063adbd@microchip.com>
 References: <20220715122903.332535-1-nuno.sa@analog.com>
- <20220715122903.332535-6-nuno.sa@analog.com>
+ <20220715122903.332535-10-nuno.sa@analog.com>
+ <ada4c2a2-e13d-77aa-f489-7cc0a063adbd@microchip.com>
 X-Mailer: Claws Mail 4.1.0 (GTK 3.24.34; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Cc: Gwendal Grignou <gwendal@chromium.org>,
- Jishnu Prakash <quic_jprakash@quicinc.com>, Tomer Maimon <tmaimon77@gmail.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>, linux-iio@vger.kernel.org,
- Linus Walleij <linus.walleij@linaro.org>, Amit Kucheria <amitk@kernel.org>,
- Tali Perry <tali.perry1@gmail.com>, Paul Cercueil <paul@crapouillou.net>,
- Miquel Raynal <miquel.raynal@bootlin.com>, Guenter Roeck <groeck@chromium.org>,
- Fabio Estevam <festevam@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
- Michael Hennerich <Michael.Hennerich@analog.com>,
- chrome-platform@lists.linux.dev, Lars-Peter Clausen <lars@metafoo.de>,
- Benjamin Fair <benjaminfair@google.com>, openbmc@lists.ozlabs.org,
- Daniel Lezcano <daniel.lezcano@linaro.org>, Haibo Chen <haibo.chen@nxp.com>,
- Christophe Branchereau <cbranchereau@gmail.com>, Nancy Yuen <yuenn@google.com>,
- Andy
- Shevchenko <andy.shevchenko@gmail.com>, Andy Gross <agross@kernel.org>,
- linux-imx@nxp.com, Zhang Rui <rui.zhang@intel.com>,
- Lorenzo Bianconi <lorenzo@kernel.org>, Saravanan Sekar <sravanhome@gmail.com>,
- Arnd Bergmann <arnd@arndb.de>, linux-arm-msm@vger.kernel.org,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
- linux-mediatek@lists.infradead.org,
- Eugen Hristev <eugen.hristev@microchip.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- Benson Leung <bleung@chromium.org>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- linux-arm-kernel@lists.infradead.org, Avi Fishman <avifishman70@gmail.com>,
- Patrick Venture <venture@google.com>, linux-mips@vger.kernel.org,
- Thara Gopinath <thara.gopinath@linaro.org>, linux-renesas-soc@vger.kernel.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Cai Huoqing <cai.huoqing@linux.dev>, Shawn Guo <shawnguo@kernel.org>,
- Claudiu Beznea <claudiu.beznea@microchip.com>
-Subject: Re: [Linux-stm32] [PATCH v3 05/15] iio: inkern: move to fwnode
-	properties
+Cc: gwendal@chromium.org, quic_jprakash@quicinc.com, tmaimon77@gmail.com,
+ alexandre.belloni@bootlin.com, rafael@kernel.org, linux-iio@vger.kernel.org,
+ linus.walleij@linaro.org, amitk@kernel.org, tali.perry1@gmail.com,
+ paul@crapouillou.net, miquel.raynal@bootlin.com, groeck@chromium.org,
+ festevam@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
+ Michael.Hennerich@analog.com, chrome-platform@lists.linux.dev, lars@metafoo.de,
+ benjaminfair@google.com, openbmc@lists.ozlabs.org, daniel.lezcano@linaro.org,
+ haibo.chen@nxp.com, cbranchereau@gmail.com, yuenn@google.com,
+ andy.shevchenko@gmail.com, agross@kernel.org, linux-imx@nxp.com,
+ rui.zhang@intel.com, lorenzo@kernel.org, sravanhome@gmail.com, arnd@arndb.de,
+ linux-arm-msm@vger.kernel.org, s.hauer@pengutronix.de,
+ Nicolas.Ferre@microchip.com, prabhakar.mahadev-lad.rj@bp.renesas.com,
+ linux-mediatek@lists.infradead.org, Eugen.Hristev@microchip.com,
+ matthias.bgg@gmail.com, nuno.sa@analog.com, bleung@chromium.org,
+ kernel@pengutronix.de, linux-arm-kernel@lists.infradead.org,
+ avifishman70@gmail.com, venture@google.com, linux-mips@vger.kernel.org,
+ thara.gopinath@linaro.org, linux-renesas-soc@vger.kernel.org,
+ bjorn.andersson@linaro.org, mcoquelin.stm32@gmail.com, cai.huoqing@linux.dev,
+ shawnguo@kernel.org
+Subject: Re: [Linux-stm32] [PATCH v3 09/15] iio: adc: at91-sama5d2_adc:
+ convert to device properties
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,22 +72,109 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
->  
-> -struct iio_channel *__of_iio_channel_get_by_name(struct device_node *np,
-> -						 const char *name)
-> +struct iio_channel *
-> +__fwnode_iio_channel_get_by_name(struct fwnode_handle *fwnode, const char *name)
-static
-
-fixed up.
-
-J
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gTW9uLCAxOCBKdWwgMjAyMiAwNToyMTo0NyArMDAwMAo8Q2xhdWRpdS5CZXpuZWFAbWljcm9j
+aGlwLmNvbT4gd3JvdGU6Cgo+IE9uIDE1LjA3LjIwMjIgMTU6MjgsIE51bm8gU8OhIHdyb3RlOgo+
+ID4gRVhURVJOQUwgRU1BSUw6IERvIG5vdCBjbGljayBsaW5rcyBvciBvcGVuIGF0dGFjaG1lbnRz
+IHVubGVzcyB5b3Uga25vdyB0aGUgY29udGVudCBpcyBzYWZlCj4gPiAKPiA+IE1ha2UgdGhlIGNv
+bnZlcnNpb24gdG8gZmlybXdhcmUgYWdub3N0aWMgZGV2aWNlIHByb3BlcnRpZXMuIEFzIHBhcnQg
+b2YKPiA+IHRoZSBjb252ZXJzaW9uIHRoZSBJSU8gaW5rZXJuIGludGVyZmFjZSAnb2ZfeGxhdGUo
+KScgaXMgYWxzbyBjb252ZXJ0ZWQgdG8KPiA+ICdmd25vZGVfeGxhdGUoKScuIFRoZSBnb2FsIGlz
+IHRvIGNvbXBsZXRlbHkgZHJvcCAnb2ZfeGxhdGUnIGFuZCBoZW5jZSBPRgo+ID4gZGVwZW5kZW5j
+aWVzIGZyb20gSUlPLgo+ID4gCj4gPiBTaWduZWQtb2ZmLWJ5OiBOdW5vIFPDoSA8bnVuby5zYUBh
+bmFsb2cuY29tPgo+ID4gUmV2aWV3ZWQtYnk6IEFuZHkgU2hldmNoZW5rbyA8YW5keS5zaGV2Y2hl
+bmtvQGdtYWlsLmNvbT4gIAo+IAo+IFJldmlld2VkLWJ5OiBDbGF1ZGl1IEJlem5lYSA8Y2xhdWRp
+dS5iZXpuZWFAbWljcm9jaGlwLmNvbT4KPiAKCkhpIE51bm8gLyBDbGF1ZGl1CgpMb3RzIG9mIGZ1
+enogb24gdGhpcyBvbmUgYmVjYXVzZSBvZiBDbGF1ZGl1J3Mgc2VyaWVzIHRoYXQgSSB0b29rIHdo
+aWxzdCB0aGlzIHdhcyB1bmRlciByZXZpZXcKSSBoYXZlbid0IHJlYWxseSBjaGVja2VkIHRoZSBy
+ZXN1bHQgb2YgZm9yY2luZyBpdCBpbiBidXQgcGxlYXNlIHRha2UgYSBsb29rIGF0IHRoZQp0ZXN0
+aW5nIGJyYW5jaCBvZiBpaW8uZ2l0IGZvciBhbnl0aGluZyBzaWxseSB0aGF0IGhhcHBlbmVkLgoK
+Sm9uYXRoYW4KCj4gCj4gPiAtLS0KPiA+ICBkcml2ZXJzL2lpby9hZGMvYXQ5MS1zYW1hNWQyX2Fk
+Yy5jIHwgMzAgKysrKysrKysrKysrKysrLS0tLS0tLS0tLS0tLS0tCj4gPiAgMSBmaWxlIGNoYW5n
+ZWQsIDE1IGluc2VydGlvbnMoKyksIDE1IGRlbGV0aW9ucygtKQo+ID4gCj4gPiBkaWZmIC0tZ2l0
+IGEvZHJpdmVycy9paW8vYWRjL2F0OTEtc2FtYTVkMl9hZGMuYyBiL2RyaXZlcnMvaWlvL2FkYy9h
+dDkxLXNhbWE1ZDJfYWRjLmMKPiA+IGluZGV4IGZlMzEzMWM5NTkzYy4uZGY3MTY1ODRjMTE3IDEw
+MDY0NAo+ID4gLS0tIGEvZHJpdmVycy9paW8vYWRjL2F0OTEtc2FtYTVkMl9hZGMuYwo+ID4gKysr
+IGIvZHJpdmVycy9paW8vYWRjL2F0OTEtc2FtYTVkMl9hZGMuYwo+ID4gQEAgLTE2LDggKzE2LDkg
+QEAKPiA+ICAjaW5jbHVkZSA8bGludXgvaW50ZXJydXB0Lmg+Cj4gPiAgI2luY2x1ZGUgPGxpbnV4
+L2lvLmg+Cj4gPiAgI2luY2x1ZGUgPGxpbnV4L21vZHVsZS5oPgo+ID4gLSNpbmNsdWRlIDxsaW51
+eC9vZl9kZXZpY2UuaD4KPiA+ICsjaW5jbHVkZSA8bGludXgvbW9kX2RldmljZXRhYmxlLmg+Cj4g
+PiAgI2luY2x1ZGUgPGxpbnV4L3BsYXRmb3JtX2RldmljZS5oPgo+ID4gKyNpbmNsdWRlIDxsaW51
+eC9wcm9wZXJ0eS5oPgo+ID4gICNpbmNsdWRlIDxsaW51eC9zY2hlZC5oPgo+ID4gICNpbmNsdWRl
+IDxsaW51eC93YWl0Lmg+Cj4gPiAgI2luY2x1ZGUgPGxpbnV4L2lpby9paW8uaD4KPiA+IEBAIC02
+NTAsOCArNjUxLDggQEAgYXQ5MV9hZGNfY2hhbl9nZXQoc3RydWN0IGlpb19kZXYgKmluZGlvX2Rl
+diwgaW50IGNoYW4pCj4gPiAgICAgICAgIHJldHVybiBpbmRpb19kZXYtPmNoYW5uZWxzICsgaW5k
+ZXg7Cj4gPiAgfQo+ID4gCj4gPiAtc3RhdGljIGlubGluZSBpbnQgYXQ5MV9hZGNfb2ZfeGxhdGUo
+c3RydWN0IGlpb19kZXYgKmluZGlvX2RldiwKPiA+IC0gICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgIGNvbnN0IHN0cnVjdCBvZl9waGFuZGxlX2FyZ3MgKmlpb3NwZWMpCj4gPiArc3Rh
+dGljIGlubGluZSBpbnQgYXQ5MV9hZGNfZndub2RlX3hsYXRlKHN0cnVjdCBpaW9fZGV2ICppbmRp
+b19kZXYsCj4gPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgY29uc3Qg
+c3RydWN0IGZ3bm9kZV9yZWZlcmVuY2VfYXJncyAqaWlvc3BlYykKPiA+ICB7Cj4gPiAgICAgICAg
+IHJldHVybiBhdDkxX2FkY19jaGFuX3hsYXRlKGluZGlvX2RldiwgaWlvc3BlYy0+YXJnc1swXSk7
+Cj4gPiAgfQo+ID4gQEAgLTE4NzYsNyArMTg3Nyw3IEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3QgaWlv
+X2luZm8gYXQ5MV9hZGNfaW5mbyA9IHsKPiA+ICAgICAgICAgLnJlYWRfcmF3ID0gJmF0OTFfYWRj
+X3JlYWRfcmF3LAo+ID4gICAgICAgICAud3JpdGVfcmF3ID0gJmF0OTFfYWRjX3dyaXRlX3JhdywK
+PiA+ICAgICAgICAgLnVwZGF0ZV9zY2FuX21vZGUgPSAmYXQ5MV9hZGNfdXBkYXRlX3NjYW5fbW9k
+ZSwKPiA+IC0gICAgICAgLm9mX3hsYXRlID0gJmF0OTFfYWRjX29mX3hsYXRlLAo+ID4gKyAgICAg
+ICAuZndub2RlX3hsYXRlID0gJmF0OTFfYWRjX2Z3bm9kZV94bGF0ZSwKPiA+ICAgICAgICAgLmh3
+Zmlmb19zZXRfd2F0ZXJtYXJrID0gJmF0OTFfYWRjX3NldF93YXRlcm1hcmssCj4gPiAgfTsKPiA+
+IAo+ID4gQEAgLTE5MjAsNiArMTkyMSw3IEBAIHN0YXRpYyBpbnQgYXQ5MV9hZGNfYnVmZmVyX2Fu
+ZF90cmlnZ2VyX2luaXQoc3RydWN0IGRldmljZSAqZGV2LAo+ID4gCj4gPiAgc3RhdGljIGludCBh
+dDkxX2FkY19wcm9iZShzdHJ1Y3QgcGxhdGZvcm1fZGV2aWNlICpwZGV2KQo+ID4gIHsKPiA+ICsg
+ICAgICAgc3RydWN0IGRldmljZSAqZGV2ID0gJnBkZXYtPmRldjsKPiA+ICAgICAgICAgc3RydWN0
+IGlpb19kZXYgKmluZGlvX2RldjsKPiA+ICAgICAgICAgc3RydWN0IGF0OTFfYWRjX3N0YXRlICpz
+dDsKPiA+ICAgICAgICAgc3RydWN0IHJlc291cmNlICpyZXM7Cj4gPiBAQCAtMTkzMyw3ICsxOTM1
+LDcgQEAgc3RhdGljIGludCBhdDkxX2FkY19wcm9iZShzdHJ1Y3QgcGxhdGZvcm1fZGV2aWNlICpw
+ZGV2KQo+ID4gICAgICAgICBzdCA9IGlpb19wcml2KGluZGlvX2Rldik7Cj4gPiAgICAgICAgIHN0
+LT5pbmRpb19kZXYgPSBpbmRpb19kZXY7Cj4gPiAKPiA+IC0gICAgICAgc3QtPnNvY19pbmZvLnBs
+YXRmb3JtID0gb2ZfZGV2aWNlX2dldF9tYXRjaF9kYXRhKCZwZGV2LT5kZXYpOwo+ID4gKyAgICAg
+ICBzdC0+c29jX2luZm8ucGxhdGZvcm0gPSBkZXZpY2VfZ2V0X21hdGNoX2RhdGEoZGV2KTsKPiA+
+IAo+ID4gICAgICAgICBpbmRpb19kZXYtPm5hbWUgPSBkZXZfbmFtZSgmcGRldi0+ZGV2KTsKPiA+
+ICAgICAgICAgaW5kaW9fZGV2LT5tb2RlcyA9IElORElPX0RJUkVDVF9NT0RFIHwgSU5ESU9fQlVG
+RkVSX1NPRlRXQVJFOwo+ID4gQEAgLTE5NTAsMzQgKzE5NTIsMzIgQEAgc3RhdGljIGludCBhdDkx
+X2FkY19wcm9iZShzdHJ1Y3QgcGxhdGZvcm1fZGV2aWNlICpwZGV2KQo+ID4gCj4gPiAgICAgICAg
+IHN0LT5vdmVyc2FtcGxpbmdfcmF0aW8gPSBBVDkxX09TUl8xU0FNUExFUzsKPiA+IAo+ID4gLSAg
+ICAgICByZXQgPSBvZl9wcm9wZXJ0eV9yZWFkX3UzMihwZGV2LT5kZXYub2Zfbm9kZSwKPiA+IC0g
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgImF0bWVsLG1pbi1zYW1wbGUtcmF0ZS1o
+eiIsCj4gPiAtICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICZzdC0+c29jX2luZm8u
+bWluX3NhbXBsZV9yYXRlKTsKPiA+ICsgICAgICAgcmV0ID0gZGV2aWNlX3Byb3BlcnR5X3JlYWRf
+dTMyKGRldiwgImF0bWVsLG1pbi1zYW1wbGUtcmF0ZS1oeiIsCj4gPiArICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAmc3QtPnNvY19pbmZvLm1pbl9zYW1wbGVfcmF0ZSk7Cj4g
+PiAgICAgICAgIGlmIChyZXQpIHsKPiA+ICAgICAgICAgICAgICAgICBkZXZfZXJyKCZwZGV2LT5k
+ZXYsCj4gPiAgICAgICAgICAgICAgICAgICAgICAgICAiaW52YWxpZCBvciBtaXNzaW5nIHZhbHVl
+IGZvciBhdG1lbCxtaW4tc2FtcGxlLXJhdGUtaHpcbiIpOwo+ID4gICAgICAgICAgICAgICAgIHJl
+dHVybiByZXQ7Cj4gPiAgICAgICAgIH0KPiA+IAo+ID4gLSAgICAgICByZXQgPSBvZl9wcm9wZXJ0
+eV9yZWFkX3UzMihwZGV2LT5kZXYub2Zfbm9kZSwKPiA+IC0gICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgImF0bWVsLG1heC1zYW1wbGUtcmF0ZS1oeiIsCj4gPiAtICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICZzdC0+c29jX2luZm8ubWF4X3NhbXBsZV9yYXRlKTsKPiA+
+ICsgICAgICAgcmV0ID0gZGV2aWNlX3Byb3BlcnR5X3JlYWRfdTMyKGRldiwgImF0bWVsLG1heC1z
+YW1wbGUtcmF0ZS1oeiIsCj4gPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAmc3QtPnNvY19pbmZvLm1heF9zYW1wbGVfcmF0ZSk7Cj4gPiAgICAgICAgIGlmIChyZXQpIHsK
+PiA+ICAgICAgICAgICAgICAgICBkZXZfZXJyKCZwZGV2LT5kZXYsCj4gPiAgICAgICAgICAgICAg
+ICAgICAgICAgICAiaW52YWxpZCBvciBtaXNzaW5nIHZhbHVlIGZvciBhdG1lbCxtYXgtc2FtcGxl
+LXJhdGUtaHpcbiIpOwo+ID4gICAgICAgICAgICAgICAgIHJldHVybiByZXQ7Cj4gPiAgICAgICAg
+IH0KPiA+IAo+ID4gLSAgICAgICByZXQgPSBvZl9wcm9wZXJ0eV9yZWFkX3UzMihwZGV2LT5kZXYu
+b2Zfbm9kZSwgImF0bWVsLHN0YXJ0dXAtdGltZS1tcyIsCj4gPiAtICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICZzdC0+c29jX2luZm8uc3RhcnR1cF90aW1lKTsKPiA+ICsgICAgICAg
+cmV0ID0gZGV2aWNlX3Byb3BlcnR5X3JlYWRfdTMyKGRldiwgImF0bWVsLHN0YXJ0dXAtdGltZS1t
+cyIsCj4gPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAmc3QtPnNvY19p
+bmZvLnN0YXJ0dXBfdGltZSk7Cj4gPiAgICAgICAgIGlmIChyZXQpIHsKPiA+ICAgICAgICAgICAg
+ICAgICBkZXZfZXJyKCZwZGV2LT5kZXYsCj4gPiAgICAgICAgICAgICAgICAgICAgICAgICAiaW52
+YWxpZCBvciBtaXNzaW5nIHZhbHVlIGZvciBhdG1lbCxzdGFydHVwLXRpbWUtbXNcbiIpOwo+ID4g
+ICAgICAgICAgICAgICAgIHJldHVybiByZXQ7Cj4gPiAgICAgICAgIH0KPiA+IAo+ID4gLSAgICAg
+ICByZXQgPSBvZl9wcm9wZXJ0eV9yZWFkX3UzMihwZGV2LT5kZXYub2Zfbm9kZSwKPiA+IC0gICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgImF0bWVsLHRyaWdnZXItZWRnZS10eXBlIiwg
+JmVkZ2VfdHlwZSk7Cj4gPiArICAgICAgIHJldCA9IGRldmljZV9wcm9wZXJ0eV9yZWFkX3UzMihk
+ZXYsICJhdG1lbCx0cmlnZ2VyLWVkZ2UtdHlwZSIsCj4gPiArICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAmZWRnZV90eXBlKTsKPiA+ICAgICAgICAgaWYgKHJldCkgewo+ID4g
+ICAgICAgICAgICAgICAgIGRldl9kYmcoJnBkZXYtPmRldiwKPiA+ICAgICAgICAgICAgICAgICAg
+ICAgICAgICJhdG1lbCx0cmlnZ2VyLWVkZ2UtdHlwZSBub3Qgc3BlY2lmaWVkLCBvbmx5IHNvZnR3
+YXJlIHRyaWdnZXIgYXZhaWxhYmxlXG4iKTsKPiA+IC0tCj4gPiAyLjM3LjEKPiA+ICAgCj4gCgpf
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0z
+MiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpo
+dHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51
+eC1zdG0zMgo=
