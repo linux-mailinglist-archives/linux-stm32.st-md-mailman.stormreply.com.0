@@ -2,50 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id EFF2058BBDD
-	for <lists+linux-stm32@lfdr.de>; Sun,  7 Aug 2022 18:42:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 98C4858BBEE
+	for <lists+linux-stm32@lfdr.de>; Sun,  7 Aug 2022 19:13:49 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9635DC04001;
-	Sun,  7 Aug 2022 16:42:47 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4A59FC04001;
+	Sun,  7 Aug 2022 17:13:49 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 08EA7C03FC6
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 71ED4C03FC6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun,  7 Aug 2022 16:42:45 +0000 (UTC)
+ Sun,  7 Aug 2022 17:13:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1659890566; x=1691426566;
+ t=1659892427; x=1691428427;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:in-reply-to;
- bh=m7UDkbcSJofd2FzwIFR35QKztaXGo8SNOzvGgY8tgg4=;
- b=FNinD3NJE0TUeF5nranrvgEYbaG0HFlY7Y7dr2VCN2+z+HFsv37RWJga
- VGi/R5kIBbEjswr0B9Fe4i85c+2HDOCdIBcy/NpgfXiISDzsVWqcywXly
- uXf2CqYnNqErX14kc4zqApWXqrpP43FKAmC/DOOF1wcgSL+8YuWLkGMQc
- ENdmWlbpN8vmCSurWRBsbpMZ0QjKddx1knyVhFYBrWLEX4SRSoMd17AZA
- l7V1hY03py9ZLXLtcPeQxsZPhuU9fwkrkLg6dMnC8m0h37U7gudyinY6s
- Itwb9mwGSjPUmkWbJRu63e6BmloFRGFqbxJDoB2d6cLazp4fplaUJRdT3 Q==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10432"; a="316353524"
-X-IronPort-AV: E=Sophos;i="5.93,220,1654585200"; d="scan'208";a="316353524"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Aug 2022 09:42:44 -0700
+ bh=NElEcQw9ZRxqyFgN5yMpPdXrJCyEfJVYIuIlecHucOo=;
+ b=TdhLNsttUzv8B95/ht57QHalkLxmkDfKibKj6H+TOYBikkPCtk70JUhh
+ G7rRblCPx6nb+2R38XVAJIpouVE5kJkRgKzcWkInKenyXbgYFCcxSymn0
+ b+bXlDgejRiPMMBq9fQbXdPM7ZUOpJEHqumKZJ23eYF7QR1IU0VG4UFr9
+ PriPm/hYKubzLgMD6UTBb4RucqS1Rfz+bm01WOVyUcXsFQ+PZjpCZJBME
+ RMDbUqjwm6y5p3uf0rmHmZ8h5weeKfPP6g2FT+ACqxkfuIqdSnAE7U6HP
+ FzoAo4HO1kgpplgL5BsgkqGHAuRt/Ai/ts/+IqqkMXOpbFz4EfJiWj2qk Q==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10432"; a="270837839"
+X-IronPort-AV: E=Sophos;i="5.93,220,1654585200"; d="scan'208";a="270837839"
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Aug 2022 10:13:45 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.93,220,1654585200"; d="scan'208";a="707165521"
+X-IronPort-AV: E=Sophos;i="5.93,220,1654585200"; d="scan'208";a="672213150"
 Received: from lkp-server01.sh.intel.com (HELO e0eace57cfef) ([10.239.97.150])
- by fmsmga002.fm.intel.com with ESMTP; 07 Aug 2022 09:42:42 -0700
+ by fmsmga004.fm.intel.com with ESMTP; 07 Aug 2022 10:13:43 -0700
 Received: from kbuild by e0eace57cfef with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1oKjMP-000LTg-2a;
- Sun, 07 Aug 2022 16:42:41 +0000
-Date: Mon, 8 Aug 2022 00:42:00 +0800
+ (envelope-from <lkp@intel.com>) id 1oKjqQ-000LVV-2V;
+ Sun, 07 Aug 2022 17:13:42 +0000
+Date: Mon, 8 Aug 2022 01:13:06 +0800
 From: kernel test robot <lkp@intel.com>
 To: Paul Cercueil <paul@crapouillou.net>, Lee Jones <lee.jones@linaro.org>
-Message-ID: <202208080002.oJGJBzP5-lkp@intel.com>
+Message-ID: <202208080127.BXcJl3Wk-lkp@intel.com>
 References: <20220807145247.46107-27-paul@crapouillou.net>
 MIME-Version: 1.0
 Content-Disposition: inline
 In-Reply-To: <20220807145247.46107-27-paul@crapouillou.net>
-Cc: kbuild-all@lists.01.org, linux-kernel@vger.kernel.org,
+Cc: kbuild-all@lists.01.org, llvm@lists.linux.dev, linux-kernel@vger.kernel.org,
  Paul Cercueil <paul@crapouillou.net>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
@@ -79,8 +79,8 @@ https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
 url:    https://github.com/intel-lab-lkp/linux/commits/Paul-Cercueil/mfd-Remove-ifdef-guards-for-PM-functions/20220807-225947
 base:    3d7cb6b04c3f3115719235cc6866b10326de34cd
-config: openrisc-randconfig-r015-20220807 (https://download.01.org/0day-ci/archive/20220808/202208080002.oJGJBzP5-lkp@intel.com/config)
-compiler: or1k-linux-gcc (GCC) 12.1.0
+config: i386-randconfig-a015 (https://download.01.org/0day-ci/archive/20220808/202208080127.BXcJl3Wk-lkp@intel.com/config)
+compiler: clang version 16.0.0 (https://github.com/llvm/llvm-project 5f1c7e2cc5a3c07cbc2412e851a7283c1841f520)
 reproduce (this is a W=1 build):
         wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
         chmod +x ~/bin/make.cross
@@ -90,19 +90,29 @@ reproduce (this is a W=1 build):
         git checkout e94df3ff809e588320625b95a2ef6485965ddc02
         # save the config file
         mkdir build_dir && cp config build_dir/.config
-        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-12.1.0 make.cross W=1 O=build_dir ARCH=openrisc SHELL=/bin/bash drivers/mfd/
+        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=clang make.cross W=1 O=build_dir ARCH=i386 SHELL=/bin/bash drivers/mfd/
 
 If you fix the issue, kindly add following tag where applicable
 Reported-by: kernel test robot <lkp@intel.com>
 
 All warnings (new ones prefixed by >>):
 
->> drivers/mfd/stmpe.c:1531:1: warning: 'static' is not at beginning of declaration [-Wold-style-declaration]
-    1531 | const EXPORT_GPL_SIMPLE_DEV_PM_OPS(stmpe_dev_pm_ops,
-         | ^~~~~
+>> drivers/mfd/stmpe.c:1531:7: warning: duplicate 'const' declaration specifier [-Wduplicate-decl-specifier]
+   const EXPORT_GPL_SIMPLE_DEV_PM_OPS(stmpe_dev_pm_ops,
+         ^
+   include/linux/pm.h:404:2: note: expanded from macro 'EXPORT_GPL_SIMPLE_DEV_PM_OPS'
+           _EXPORT_DEV_PM_OPS(name, suspend_fn, resume_fn, NULL, NULL, NULL, "_gpl", "")
+           ^
+   include/linux/pm.h:380:2: note: expanded from macro '_EXPORT_DEV_PM_OPS'
+           _DEFINE_DEV_PM_OPS(name, suspend_fn, resume_fn, runtime_suspend_fn, \
+           ^
+   include/linux/pm.h:371:55: note: expanded from macro '_DEFINE_DEV_PM_OPS'
+                              runtime_suspend_fn, runtime_resume_fn, idle_fn) \
+                                                                              ^
+   1 warning generated.
 
 
-vim +/static +1531 drivers/mfd/stmpe.c
+vim +/const +1531 drivers/mfd/stmpe.c
 
   1530	
 > 1531	const EXPORT_GPL_SIMPLE_DEV_PM_OPS(stmpe_dev_pm_ops,
