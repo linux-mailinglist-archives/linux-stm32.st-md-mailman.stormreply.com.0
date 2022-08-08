@@ -2,51 +2,38 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 19B8358CBF5
-	for <lists+linux-stm32@lfdr.de>; Mon,  8 Aug 2022 18:15:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A003B58CCD7
+	for <lists+linux-stm32@lfdr.de>; Mon,  8 Aug 2022 19:41:49 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B5431C04001;
-	Mon,  8 Aug 2022 16:15:37 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 40B6DC04003;
+	Mon,  8 Aug 2022 17:41:49 +0000 (UTC)
+Received: from aposti.net (aposti.net [89.234.176.197])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BCDBEC03FDB
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3ED96C03FDB
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  8 Aug 2022 16:15:36 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 817566111B;
- Mon,  8 Aug 2022 16:15:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1DE6EC433C1;
- Mon,  8 Aug 2022 16:15:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1659975334;
- bh=XSBNzbT6LXKAr8IpvipaSnA2f5Z9VpcdM9dEEX8beb8=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=brRulXjV7S/0t0z/EaJxObEiPu1kZTXIMbkxiRKI61TYA7zex7B53B55Cr4qqH0yU
- TSN3MqtwvcbfEYL7PP5SNxJGCiTjvOhDiOPKWeYIZOV+0rGXzXJAYwxNMNQKDxhQC7
- Swq8XleUL3JYsZfEDzTpx6eS2SbWWJAI0U5G6JByAstSB71/CJrzB9H+/WpzUmLnfL
- XNgvePW9QpveDKEk2towuejHl9LXrR0PfX5zk2GSlEskEzYRxKRQMnoCtEWHr6Bazu
- vdd1euNH1wHIZqwME/l3M7mgCVCeNFShlu5wMc6zvUTPvWL+GM2YOn96+j+G+L9oTt
- putHF/JjQNwSw==
-Date: Mon, 8 Aug 2022 17:15:28 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Patrice CHOTARD <patrice.chotard@foss.st.com>
-Message-ID: <YvE2oN7EDDFLlxyv@sirena.org.uk>
-References: <20220808074051.44736-1-patrice.chotard@foss.st.com>
- <20220808074051.44736-3-patrice.chotard@foss.st.com>
- <YvEP15/7KmQGyPgL@sirena.org.uk>
- <bbe8f91e-35f4-fe80-4b6e-25d21a6547fc@foss.st.com>
+ Mon,  8 Aug 2022 17:41:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=crapouillou.net;
+ s=mail; t=1659980507; h=from:from:sender:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=Z0TOf7NCTCNZLEJUd0n3YWp93p2MEOQ2XhRWmHJulpk=;
+ b=rMgv++6XK2xdJknO31ryPaoawJDkx77mVzmGwzj1bCiQbqPpOKQuY7Snak2IVPYIeIcZTX
+ J/6sWTX0o9bKJSo7eIPrlIm9B6LAPwIKxrng0Kwg4o6n0IuTTfMoytD0WULKBOEuD9zKN6
+ h2ctYA8WDLGslUmH4V0KrHt1I7BVoQ0=
+From: Paul Cercueil <paul@crapouillou.net>
+To: Lee Jones <lee.jones@linaro.org>
+Date: Mon,  8 Aug 2022 19:41:03 +0200
+Message-Id: <20220808174107.38676-27-paul@crapouillou.net>
+In-Reply-To: <20220808174107.38676-1-paul@crapouillou.net>
+References: <20220808174107.38676-1-paul@crapouillou.net>
 MIME-Version: 1.0
-In-Reply-To: <bbe8f91e-35f4-fe80-4b6e-25d21a6547fc@foss.st.com>
-X-Cookie: Flee at once, all is discovered.
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-spi@vger.kernel.org, robh+dt@kernel.org,
- krzysztof.kozlowski+dt@linaro.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 2/3] spi: stm32_qspi: Add
- transfer_one_message() spi callback
+Cc: linux-kernel@vger.kernel.org, Paul Cercueil <paul@crapouillou.net>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH v2 26/30] mfd: stmfx: Remove #ifdef guards for
+	PM related functions
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -58,63 +45,87 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============2598779036981862019=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+Use the new DEFINE_SIMPLE_DEV_PM_OPS() and pm_sleep_ptr() macros
+to handle the .suspend/.resume callbacks.
 
---===============2598779036981862019==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="uC8gnb5PKUmB6mjc"
-Content-Disposition: inline
+These macros allow the suspend and resume functions to be automatically
+dropped by the compiler when CONFIG_SUSPEND is disabled, without having
+to use #ifdef guards.
 
+This has the advantage of always compiling these functions in,
+independently of any Kconfig option. Thanks to that, bugs and other
+regressions are subsequently easier to catch.
 
---uC8gnb5PKUmB6mjc
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Signed-off-by: Paul Cercueil <paul@crapouillou.net>
+---
 
-On Mon, Aug 08, 2022 at 06:09:51PM +0200, Patrice CHOTARD wrote:
-> On 8/8/22 15:29, Mark Brown wrote:
-> > On Mon, Aug 08, 2022 at 09:40:50AM +0200, patrice.chotard@foss.st.com wrote:
+V2: remove CONFIG_PM wrapper around fields in private struct
 
-> >> +	ret = pm_runtime_get_sync(qspi->dev);
-> >> +	if (ret < 0) {
-> >> +		pm_runtime_put_noidle(qspi->dev);
-> >> +		return ret;
-> >> +	}
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
+Cc: linux-stm32@st-md-mailman.stormreply.com
+Cc: linux-arm-kernel@lists.infradead.org
 
-> > Use the core runtime PM, there should be no need to open code.
+ drivers/mfd/stmfx.c       | 6 ++----
+ include/linux/mfd/stmfx.h | 2 --
+ 2 files changed, 2 insertions(+), 6 deletions(-)
 
-> Right, i will use pm_runtime_resume_and_get() instead.
-
-There's also core SPI support for calling this - set auto_runtime_pm.
-
---uC8gnb5PKUmB6mjc
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmLxNp8ACgkQJNaLcl1U
-h9AyFAf/c/JlPakgNi2pE4cLX1TuxOSGJ8lGkAMOizwJksSpHV6k+e1iN+dhc9NK
-fSxOjFkXL6gKyzPwpoO1hgr09RdmibswfrpsqZ9S8YdZ3F2DTZusCayYJKM7qHku
-Kjh8ZcTqk1rWhJqzMB6I6V+zRzJgvFkim48znIMJ1iNdkvHjS0NbTAhy3spmCR5D
-yUu2eejgpD3rgKTMd92KOXKabBMUAcVekHCXOjVrcx3Z2Yr9C4X3+TXY6N3eh5SS
-+v6OMOjAHGlv8msMj3t+b68Zt4+kQ0/IVnIRHenhU1rmOL3PAKH7+FtTFchVA0UT
-PphizwOFmcTie/b8CHLMS32uIYEbKA==
-=fz/n
------END PGP SIGNATURE-----
-
---uC8gnb5PKUmB6mjc--
-
---===============2598779036981862019==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+diff --git a/drivers/mfd/stmfx.c b/drivers/mfd/stmfx.c
+index 122f96094410..94af27346669 100644
+--- a/drivers/mfd/stmfx.c
++++ b/drivers/mfd/stmfx.c
+@@ -476,7 +476,6 @@ static int stmfx_remove(struct i2c_client *client)
+ 	return 0;
+ }
+ 
+-#ifdef CONFIG_PM_SLEEP
+ static int stmfx_suspend(struct device *dev)
+ {
+ 	struct stmfx *stmfx = dev_get_drvdata(dev);
+@@ -542,9 +541,8 @@ static int stmfx_resume(struct device *dev)
+ 
+ 	return 0;
+ }
+-#endif
+ 
+-static SIMPLE_DEV_PM_OPS(stmfx_dev_pm_ops, stmfx_suspend, stmfx_resume);
++static DEFINE_SIMPLE_DEV_PM_OPS(stmfx_dev_pm_ops, stmfx_suspend, stmfx_resume);
+ 
+ static const struct of_device_id stmfx_of_match[] = {
+ 	{ .compatible = "st,stmfx-0300", },
+@@ -556,7 +554,7 @@ static struct i2c_driver stmfx_driver = {
+ 	.driver = {
+ 		.name = "stmfx-core",
+ 		.of_match_table = stmfx_of_match,
+-		.pm = &stmfx_dev_pm_ops,
++		.pm = pm_sleep_ptr(&stmfx_dev_pm_ops),
+ 	},
+ 	.probe = stmfx_probe,
+ 	.remove = stmfx_remove,
+diff --git a/include/linux/mfd/stmfx.h b/include/linux/mfd/stmfx.h
+index 744dce63946e..967a2e486800 100644
+--- a/include/linux/mfd/stmfx.h
++++ b/include/linux/mfd/stmfx.h
+@@ -113,10 +113,8 @@ struct stmfx {
+ 	struct irq_domain *irq_domain;
+ 	struct mutex lock; /* IRQ bus lock */
+ 	u8 irq_src;
+-#ifdef CONFIG_PM
+ 	u8 bkp_sysctrl;
+ 	u8 bkp_irqoutpin;
+-#endif
+ };
+ 
+ int stmfx_function_enable(struct stmfx *stmfx, u32 func);
+-- 
+2.35.1
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============2598779036981862019==--
