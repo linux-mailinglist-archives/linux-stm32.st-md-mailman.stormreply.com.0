@@ -2,38 +2,75 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9418B58CCD8
-	for <lists+linux-stm32@lfdr.de>; Mon,  8 Aug 2022 19:41:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 105A858D2B1
+	for <lists+linux-stm32@lfdr.de>; Tue,  9 Aug 2022 06:18:39 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 55AE1C04001;
-	Mon,  8 Aug 2022 17:41:55 +0000 (UTC)
-Received: from aposti.net (aposti.net [89.234.176.197])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BAC14C04003;
+	Tue,  9 Aug 2022 04:18:38 +0000 (UTC)
+Received: from mail-lj1-f178.google.com (mail-lj1-f178.google.com
+ [209.85.208.178])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DBCF5C03FDB
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BF888C03FDB
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  8 Aug 2022 17:41:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=crapouillou.net;
- s=mail; t=1659980507; h=from:from:sender:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=MyfIVzDAtyS9hNaCn1YQzhz/dCI8btmYd/18EkdPbzo=;
- b=0qjLM33ZN78rAyxl5Ult69Aag/DNLTqw1GpoeCuiYoyOQG6qKJh2ww5gStMaysCI8iAD5w
- zWRuQMDH5GvdAxxsWR2AviEyWynKFP460/0GLI3aXYkl/uV5UgqJdD4tJ7tOREWpwDFPuL
- xa1ixTyhbCVNKRNxi9Zeh85ScXqb3fI=
-From: Paul Cercueil <paul@crapouillou.net>
-To: Lee Jones <lee.jones@linaro.org>
-Date: Mon,  8 Aug 2022 19:41:04 +0200
-Message-Id: <20220808174107.38676-28-paul@crapouillou.net>
-In-Reply-To: <20220808174107.38676-1-paul@crapouillou.net>
-References: <20220808174107.38676-1-paul@crapouillou.net>
+ Tue,  9 Aug 2022 04:18:36 +0000 (UTC)
+Received: by mail-lj1-f178.google.com with SMTP id l21so344501ljj.2
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 08 Aug 2022 21:18:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :cc:references:from:in-reply-to:content-transfer-encoding;
+ bh=ktjbOwbUIz6JZWGLIYlF9Qv19zLsmQ14nlnBHaQqtKY=;
+ b=fQbtoJUe4jFNbbbhRZa3Tv3NjHw8InWX5xP/yg0r7db2IBJyPK2LkV+4jCyhbDQxTw
+ rS0bRSG/hcpK0Ii5M7QHqSc7nbfDNrH8nq39KCCP42jnpx40OMM+sayFO5PvyZL97k8k
+ dJPX3sQtCrl/8Qx3b30gxzLIBFrnvQmGjPPpXLRAzFUHKw+plgD8zpAbIcjExJ3qS74q
+ 5pNKgzTmMakgmVu14v4B5GKshfCaFDntqrRboBU4fdj8b4KF09hpLWQ15iTdEnNKwlNN
+ HQB0Ff1f5ldnZOq1TZ4UtvFSTmp5mgvhGd8oCI99ROxC6dFDMXGfpQQszUFs0uSzBXNK
+ nDdw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=ktjbOwbUIz6JZWGLIYlF9Qv19zLsmQ14nlnBHaQqtKY=;
+ b=oUAMtOAIRV8OvbWo+jPPLNsYct3C8owx5hS8gXDu+mjczjbSyThAdkP3e7Hx7VLBej
+ D96i+7M13779mb0P5oA4frmMmBwKvmu5LIhE2MoHrYratVFYbvqyvgM2o46GLu7HdV6e
+ C1YX3PoHUghVS/QXLvqxA6+NztbZd9YLPVHefb9B+Rxjc4oomLytTHkvAuUu68ZSCFck
+ wRP/bz8hcHyFFL88yN+vpHVzVX7klk/yP9a9aWzcfJBmPtV32S3IQ07aJGZw5zGu9zMy
+ gDXtYR2F9oqViiik8EeY26G/o27zzLS2fOV/HbUxPppJsZ56DBAR1/UDpCCcpx31mLR9
+ Yrxw==
+X-Gm-Message-State: ACgBeo2j39N05oF917KxnzVpCiry09E1XpN4BDbE2FCnpN27JZ7cMrng
+ djgVVm2ChaPI5mQAS3VzYjk4iQ==
+X-Google-Smtp-Source: AA6agR7anU7Jd1Qacvlqh82YFYxyDO1oFmXIYlQYQsIHymSU5X0Uh7ffWNrP57hUs0cBE78V8Gi8pQ==
+X-Received: by 2002:a2e:bea8:0:b0:25f:e9ab:5a1b with SMTP id
+ a40-20020a2ebea8000000b0025fe9ab5a1bmr1592141ljr.448.1660018716032; 
+ Mon, 08 Aug 2022 21:18:36 -0700 (PDT)
+Received: from [192.168.1.39] ([83.146.140.105])
+ by smtp.gmail.com with ESMTPSA id
+ t15-20020a2e9d0f000000b0025e2e70b41fsm1529430lji.71.2022.08.08.21.18.34
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 08 Aug 2022 21:18:35 -0700 (PDT)
+Message-ID: <38c3977a-0196-1832-ff94-317064cbc439@linaro.org>
+Date: Tue, 9 Aug 2022 07:18:34 +0300
 MIME-Version: 1.0
-Cc: linux-kernel@vger.kernel.org, Paul Cercueil <paul@crapouillou.net>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v2 27/30] mfd: stmpe: Remove #ifdef guards for
-	PM related functions
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.12.0
+Content-Language: en-US
+To: Patrice CHOTARD <patrice.chotard@foss.st.com>,
+ Mark Brown <broonie@kernel.org>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, robh+dt@kernel.org,
+ krzysztof.kozlowski+dt@linaro.org
+References: <20220808074051.44736-1-patrice.chotard@foss.st.com>
+ <20220808074051.44736-2-patrice.chotard@foss.st.com>
+ <9ad4b4a8-988e-f185-f80c-6f15f341ce8c@linaro.org>
+ <79fd7e19-ceef-14fb-5a83-603740735f8f@foss.st.com>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <79fd7e19-ceef-14fb-5a83-603740735f8f@foss.st.com>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-spi@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 1/3] dt-bindings: spi: stm32: Add st,
+ dual-flash property in st, stm32-qspi.yaml
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -50,88 +87,47 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Use the new EXPORT_GPL_SIMPLE_DEV_PM_OPS() and pm_sleep_ptr() macros
-to handle the .suspend/.resume callbacks.
+On 08/08/2022 19:08, Patrice CHOTARD wrote:
+> Hi Krzystof
+> 
+> On 8/8/22 11:01, Krzysztof Kozlowski wrote:
+>> On 08/08/2022 10:40, patrice.chotard@foss.st.com wrote:
+>>> From: Patrice Chotard <patrice.chotard@foss.st.com>
+>>>
+>>> Add new property st,dual-flash which allows to use the QSPI interface as a
+>>> communication channel using up to 8 qspi line.
+>>> This mode can only be used if cs-gpios property is defined.
+>>>
+>>> Signed-off-by: Patrice Chotard <patrice.chotard@foss.st.com>
+>>> ---
+>>>  Documentation/devicetree/bindings/spi/st,stm32-qspi.yaml | 8 ++++++++
+>>>  1 file changed, 8 insertions(+)
+>>>
+>>> diff --git a/Documentation/devicetree/bindings/spi/st,stm32-qspi.yaml b/Documentation/devicetree/bindings/spi/st,stm32-qspi.yaml
+>>> index 6ec6f556182f..5e4f9109799e 100644
+>>> --- a/Documentation/devicetree/bindings/spi/st,stm32-qspi.yaml
+>>> +++ b/Documentation/devicetree/bindings/spi/st,stm32-qspi.yaml
+>>> @@ -46,6 +46,14 @@ properties:
+>>>        - const: tx
+>>>        - const: rx
+>>>  
+>>> +  st,dual-flash:
+>>> +    type: boolean
+>>> +    description:
+>>> +      Allows to use 8 data lines in case cs-gpios property is defined.
+>>
+>> It's named dual-flash, but what if you want to use QSPI to connect for
+>> example to FPGA?
+>>
+>> Also how is this related to parallel-memories property?
+> 
+> I called it "dual-flash" simply because it enable the dual flash feature of the QSPI block (bit CR_DFM : Dual Flash Mode)
+> which allows to use the 8 lines simultaneously of our dual QSPI block.
 
-These macros allow the suspend and resume functions to be automatically
-dropped by the compiler when CONFIG_SUSPEND is disabled, without having
-to use #ifdef guards.
+And how is it related to existing parallel-memories property?
 
-This has the advantage of always compiling these functions in,
-independently of any Kconfig option. Thanks to that, bugs and other
-regressions are subsequently easier to catch.
-
-Signed-off-by: Paul Cercueil <paul@crapouillou.net>
----
-
-V2: remove duplicated "const".
-
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
-Cc: linux-stm32@st-md-mailman.stormreply.com
-Cc: linux-arm-kernel@lists.infradead.org
-
- drivers/mfd/stmpe-i2c.c | 4 +---
- drivers/mfd/stmpe-spi.c | 4 +---
- drivers/mfd/stmpe.c     | 8 ++------
- 3 files changed, 4 insertions(+), 12 deletions(-)
-
-diff --git a/drivers/mfd/stmpe-i2c.c b/drivers/mfd/stmpe-i2c.c
-index d3eedf3d607e..bf094cc9f9de 100644
---- a/drivers/mfd/stmpe-i2c.c
-+++ b/drivers/mfd/stmpe-i2c.c
-@@ -116,9 +116,7 @@ MODULE_DEVICE_TABLE(i2c, stmpe_i2c_id);
- static struct i2c_driver stmpe_i2c_driver = {
- 	.driver = {
- 		.name = "stmpe-i2c",
--#ifdef CONFIG_PM
--		.pm = &stmpe_dev_pm_ops,
--#endif
-+		.pm = pm_sleep_ptr(&stmpe_dev_pm_ops),
- 		.of_match_table = stmpe_of_match,
- 	},
- 	.probe		= stmpe_i2c_probe,
-diff --git a/drivers/mfd/stmpe-spi.c b/drivers/mfd/stmpe-spi.c
-index ad8055a0e286..e9cbf33502b3 100644
---- a/drivers/mfd/stmpe-spi.c
-+++ b/drivers/mfd/stmpe-spi.c
-@@ -135,9 +135,7 @@ static struct spi_driver stmpe_spi_driver = {
- 	.driver = {
- 		.name	= "stmpe-spi",
- 		.of_match_table = of_match_ptr(stmpe_spi_of_match),
--#ifdef CONFIG_PM
--		.pm	= &stmpe_dev_pm_ops,
--#endif
-+		.pm	= pm_sleep_ptr(&stmpe_dev_pm_ops),
- 	},
- 	.probe		= stmpe_spi_probe,
- 	.remove		= stmpe_spi_remove,
-diff --git a/drivers/mfd/stmpe.c b/drivers/mfd/stmpe.c
-index aeb9ea55f97d..89ffd5a7fab8 100644
---- a/drivers/mfd/stmpe.c
-+++ b/drivers/mfd/stmpe.c
-@@ -1508,7 +1508,6 @@ void stmpe_remove(struct stmpe *stmpe)
- 	mfd_remove_devices(stmpe->dev);
- }
- 
--#ifdef CONFIG_PM
- static int stmpe_suspend(struct device *dev)
- {
- 	struct stmpe *stmpe = dev_get_drvdata(dev);
-@@ -1529,8 +1528,5 @@ static int stmpe_resume(struct device *dev)
- 	return 0;
- }
- 
--const struct dev_pm_ops stmpe_dev_pm_ops = {
--	.suspend	= stmpe_suspend,
--	.resume		= stmpe_resume,
--};
--#endif
-+EXPORT_GPL_SIMPLE_DEV_PM_OPS(stmpe_dev_pm_ops,
-+			     stmpe_suspend, stmpe_resume);
--- 
-2.35.1
-
+Best regards,
+Krzysztof
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
