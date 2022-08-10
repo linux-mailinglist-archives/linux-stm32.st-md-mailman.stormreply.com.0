@@ -2,73 +2,64 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D3B3A58DB38
-	for <lists+linux-stm32@lfdr.de>; Tue,  9 Aug 2022 17:37:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A678858E9AA
+	for <lists+linux-stm32@lfdr.de>; Wed, 10 Aug 2022 11:32:44 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 68D0FC03FDB;
-	Tue,  9 Aug 2022 15:37:33 +0000 (UTC)
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com
- [209.85.221.54])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 58DADC04001;
+	Wed, 10 Aug 2022 09:32:44 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 578B7C035BC
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 215F9C035BF
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  9 Aug 2022 15:37:31 +0000 (UTC)
-Received: by mail-wr1-f54.google.com with SMTP id z12so14735767wrs.9
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 09 Aug 2022 08:37:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc;
- bh=PtkDAKuLYtipKso/qtzcAxoyZFXE+gtPjmSjF2+dZT8=;
- b=B4aSdALX+HOfDoK2RMhVxwCMY75Lvw/KvYO3H2Pp836XdkT7RwzrmfbytDbKOOJQIE
- kiMgeho3WTxF0lRCKxiry19SGg4wVqXaXWhIpPGTRLVtf24VQH2yQ1da/InL1+a/vFUT
- vbQh2m+R4oXo/CnacHGLNfs3MZc8MugsgbKxkPIWF++cNeCS8W+dju0WKSHHbQ4QDmd/
- MVhzo3+9dqoCYaptzlMx78HrArs6dvvz/PAOgJSyNAmjOE4FneuFdiuYPoghL10e9mHF
- V/Dw+/z785JI4VGewE/j8verPHsuw6KdmoWbb6Bb75cmiHRPxU2ONacU7fcILAbXcwcT
- LXuA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc;
- bh=PtkDAKuLYtipKso/qtzcAxoyZFXE+gtPjmSjF2+dZT8=;
- b=DgvAm87dUxT072pp7ERFouxjKl1gYr6lYrm+g0iw/TyOt1+XJimaDiJtxYO9nx0HWa
- zzNY/VZshmABXlnMiAxLjkb2s02xGWJk0L9mCOXZEQVW+s7mHVKytNQpktoyXUoCBz+L
- g7azDiMpQIiJPNRAfHTF6s2uicmGnPznK0S0TA5eTSPcsgW4DBhowN4iTZnlva9PN2lz
- oncFYZDkM//J6oNWVrptWv95lHA0k1a1nYSiHeCSLzaUAOJWe+BmLKoVr2nsy6LOJc6b
- p0tiW2VFuqUAgHbqHz9XNv5zhrqeuKgQQIbTRhPj+c46IXQ3uqM2pDteaMMfjlTsapZx
- br1g==
-X-Gm-Message-State: ACgBeo1whJFfwTYVeRU6MJ9J2pM5ZY4uYpOzJQChavTHoy+jOQvNTjiR
- grTzulbKCFW2hrM1iWAfSbcnlQ==
-X-Google-Smtp-Source: AA6agR7Rl6LrXJMccHtrODxJmUsBl/OXTkCxpvd9qLdL2g6K1oFbc81PrOCebZAftVyGx6FprERcaw==
-X-Received: by 2002:adf:fc08:0:b0:21e:d133:3500 with SMTP id
- i8-20020adffc08000000b0021ed1333500mr15478038wrr.353.1660059450864; 
- Tue, 09 Aug 2022 08:37:30 -0700 (PDT)
-Received: from google.com (cpc155339-bagu17-2-0-cust87.1-3.cable.virginm.net.
- [86.27.177.88]) by smtp.gmail.com with ESMTPSA id
- l8-20020a05600c4f0800b003a17ab4e7c8sm24014628wmq.39.2022.08.09.08.37.29
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 09 Aug 2022 08:37:29 -0700 (PDT)
-Date: Tue, 9 Aug 2022 16:37:27 +0100
-From: Lee Jones <lee.jones@linaro.org>
-To: Francesco Dolcini <francesco.dolcini@toradex.com>
-Message-ID: <YvJ/N2zulizbiU6u@google.com>
-References: <20220712163345.445811-1-francesco.dolcini@toradex.com>
- <20220712163345.445811-5-francesco.dolcini@toradex.com>
- <20220809134607.GA44926@francesco-nb.int.toradex.com>
+ Wed, 10 Aug 2022 09:32:43 +0000 (UTC)
+Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 27A68jdC004798;
+ Wed, 10 Aug 2022 11:32:21 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=selector1;
+ bh=JGY5zWrfCCK8U/3zgAroqF0FgJuxZGbZAnLQqoBRrso=;
+ b=0j8S3SNqXOkek34mkUPW7uFbheMJ/q/UayZS01EQTvKX2ZCKctNple+tOvUt6NQ3XLgy
+ iflhYECKtF1WaeZkpZa7A2PzvLnKvBSfKcYcnyoPUHeMxaIH0o2ttriPdHBOZojroaeW
+ +R930MK1dlNNsgsbpbrJDhrc1c9ERT7wW1bTVTYSFBvAErdiYoWKTFnv13DItzFUo7ht
+ VOczuZv9+G37EtoMeFnkwukUOC1VQnpWfnrjx2iCkeFgDx/9gbflsMtE/l0ko4Q/eTN2
+ Uids09E37dl1rnUjsntBDXd0iw5cv5S/k0aSaZ9l+vVfDaUgshaxn/rocxeYTc9OPDud AQ== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3huwpmbmm8-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 10 Aug 2022 11:32:21 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id E49A110002A;
+ Wed, 10 Aug 2022 11:32:20 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id CF39421B52F;
+ Wed, 10 Aug 2022 11:32:20 +0200 (CEST)
+Received: from localhost (10.75.127.46) by SHFDAG1NODE1.st.com (10.75.129.69)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2308.20; Wed, 10 Aug
+ 2022 11:32:20 +0200
+From: <patrice.chotard@foss.st.com>
+To: Mark Brown <broonie@kernel.org>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>, <robh+dt@kernel.org>,
+ <krzysztof.kozlowski+dt@linaro.org>
+Date: Wed, 10 Aug 2022 11:32:13 +0200
+Message-ID: <20220810093215.794977-1-patrice.chotard@foss.st.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20220809134607.GA44926@francesco-nb.int.toradex.com>
-Cc: devicetree@vger.kernel.org, Lars-Peter Clausen <lars@metafoo.de>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-iio@vger.kernel.org,
- Lee Jones <lee@kernel.org>, linux-kernel@vger.kernel.org,
- linux-gpio@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
- linux-arm-kernel@lists.infradead.org,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- linux-input@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Jonathan Cameron <jic23@kernel.org>
-Subject: Re: [Linux-stm32] [PATCH v2 4/5] dt-bindings: iio: adc: stmpe:
- Remove node name requirement
+X-Originating-IP: [10.75.127.46]
+X-ClientProxiedBy: SFHDAG2NODE3.st.com (10.75.127.6) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.883,Hydra:6.0.517,FMLib:17.11.122.1
+ definitions=2022-08-10_03,2022-08-09_02,2022-06-22_01
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-spi@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH v2 0/2] spi: stm32_qspi: use QSPI bus as 8
+	lines communication channel
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,44 +76,28 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, 09 Aug 2022, Francesco Dolcini wrote:
+From: Patrice Chotard <patrice.chotard@foss.st.com>
 
-> Hello Jonathan, can you pick this? Patches 1 and 2 were applied to MFD
-> tree.
 
-Sending out nags whilst the merge-window is open is seldom helpful.
+The goal of this series is to allow to use QSPI bus as a 8 lines communication 
+channel for specific purpose.
 
-Also, please refrain from top-posting.
+The QSPI block offers the possibility to communicate with 2 flashes in 
+parrallel using the dual flash mode, 8 data lines are then used.
+Usage of DT parallel-memories property is needed to enable dual flash mode.
 
-Thanks.
+The addition of the legacy transfer_one_message() spi callback is also needed
+as currently the stm32-qspi driver only supports spi_controller_mem_ops API.
 
-> On Tue, Jul 12, 2022 at 06:33:44PM +0200, Francesco Dolcini wrote:
-> > STMPE driver does not require a specific node name anymore, only the
-> > compatible is checked, update binding according to this.
-> > 
-> > Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
-> > ---
-> >  Documentation/devicetree/bindings/iio/adc/st,stmpe-adc.yaml | 3 +--
-> >  1 file changed, 1 insertion(+), 2 deletions(-)
-> > 
-> > diff --git a/Documentation/devicetree/bindings/iio/adc/st,stmpe-adc.yaml b/Documentation/devicetree/bindings/iio/adc/st,stmpe-adc.yaml
-> > index 9049c699152f..333744a2159c 100644
-> > --- a/Documentation/devicetree/bindings/iio/adc/st,stmpe-adc.yaml
-> > +++ b/Documentation/devicetree/bindings/iio/adc/st,stmpe-adc.yaml
-> > @@ -13,8 +13,7 @@ description:
-> >    This ADC forms part of an ST microelectronics STMPE multifunction device .
-> >    The ADC is shared with the STMPE touchscreen. As a result some ADC related
-> >    settings are specified in the parent node.
-> > -  The node name myst be stmpe_adc and should be a child node of the stmpe node
-> > -  to which it belongs.
-> > +  The node should be a child node of the stmpe node to which it belongs.
-> >  
-> >  properties:
-> >    compatible:
-> 
+
+ arch/arm/boot/dts/stm32mp15-pinctrl.dtsi |  50 +++++++----
+ arch/arm/boot/dts/stm32mp157c-ev1.dts    |  12 ++-
+ drivers/spi/spi-stm32-qspi.c             | 103 +++++++++++++++++++++--
+ 3 files changed, 139 insertions(+), 26 deletions(-)
 
 -- 
-DEPRECATED: Please use lee@kernel.org
+2.25.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
