@@ -2,53 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CC51F58EDB5
-	for <lists+linux-stm32@lfdr.de>; Wed, 10 Aug 2022 15:57:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4DEF758FADF
+	for <lists+linux-stm32@lfdr.de>; Thu, 11 Aug 2022 12:48:46 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9E321C04000;
-	Wed, 10 Aug 2022 13:57:44 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C96D1C04004;
+	Thu, 11 Aug 2022 10:48:45 +0000 (UTC)
+Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com
+ [209.85.218.49])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AB4F3C035BF
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D4832C03FDB
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 10 Aug 2022 13:57:42 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 84ADA614C0;
- Wed, 10 Aug 2022 13:57:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BD2AC433C1;
- Wed, 10 Aug 2022 13:57:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1660139860;
- bh=8U9yFOGIsXPYWmmnHIYLkHpeD5RKwBawgrNQqyoYFfM=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=N2HOEhRqGwBfJPfdmKK0Bn6Nzt07oLlpSXiNyADoQ7PN0jhltBCRr6m1p6CtP/XE0
- UO0ylwcggBYllVAIfR4Lihsq2rGG1HaPBug1pa50c8GpEvmmUPzMJ+xDyMhwUfiU+r
- oiJ11orrOdDYtHDX3fjUqeaFvcziXD9V8JTufeieE0LDb/PYDxyk0Qgw9vy8VWve76
- y1J+BBupGRONFNsNFXt4syOMPrkC8wcKGh/QNft8y8LbHjebDyYzcAlUo6KBpIkheV
- pc6IHhdr2K24E4mBJ8sI+VDFDwn85QTCzuj5/meMCk2tevBN9B7vdcSSTCo2mRVKco
- 04I0CZHGv7CXw==
-Date: Wed, 10 Aug 2022 14:57:36 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Patrice CHOTARD <patrice.chotard@foss.st.com>
-Message-ID: <YvO5UKACe2FMa5K4@sirena.org.uk>
-References: <20220810093215.794977-1-patrice.chotard@foss.st.com>
- <20220810093215.794977-2-patrice.chotard@foss.st.com>
- <YvOtZtrRHd4AT+j+@sirena.org.uk>
- <d41e3814-3fab-18a3-7218-d5c28eaecff8@foss.st.com>
- <YvOxOg0vXSGrZLfP@sirena.org.uk>
- <38200a6f-fdc1-fa94-7bc6-91ca528235ed@foss.st.com>
- <YvO1U7VB7WQv0oKR@sirena.org.uk>
- <cfc882a2-c8f3-0ec8-706e-a16dccc9fda7@foss.st.com>
+ Thu, 11 Aug 2022 10:48:44 +0000 (UTC)
+Received: by mail-ej1-f49.google.com with SMTP id w19so32819355ejc.7
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 11 Aug 2022 03:48:44 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc;
+ bh=2psXapoZ13xPQOZjFEvN9Z4DOi1cREWK0pz2T2YJtmo=;
+ b=RdsDMTJ+KT8VrOdb82UpTxvYIZ1q9aGS4M/q+hdZHUSt8kHZzUB+wU7VCzuZBqWNPO
+ ikS6xQA2OmuSDX/Mu7t/5K4FSgdZc5sp+tZiaJ5O69DHeQzTng4P/bMhVDDg6nBVpkbe
+ EIoN9JGAxIc1F2Bk4BM6/WxnscQJptJrrNHBE9YY8E2BewZZRLxJmR+o/hC0y5QkhbQH
+ aZdwivJEcXWDSpUqmXjcIMDHbMhIWcxOQ4/UEDdofahGpkO9gpHuPNBjiEDV0gq47a+o
+ cITLTXA4Ow2EOWw4l9MFAOsCbG2An7gzon9E+tHX/aaD9r/k93kE4nQdXQroWjeuSEZ6
+ 3cnw==
+X-Gm-Message-State: ACgBeo2BTPA6557kbhh6E1JZxhZE6d5IE9mLw4175iGYwcLjEUD5jbl8
+ s/siTr286K9alSVaIghijaQ=
+X-Google-Smtp-Source: AA6agR7YlDJTfvAKpbFW/hQM6n5lS76ql3UMmCt24HIKcucEnGQwv4lfDeC9lNHbbPYUxsv5aMUahQ==
+X-Received: by 2002:a17:907:2e19:b0:730:acf0:4921 with SMTP id
+ ig25-20020a1709072e1900b00730acf04921mr21902909ejc.416.1660214924186; 
+ Thu, 11 Aug 2022 03:48:44 -0700 (PDT)
+Received: from ?IPV6:2a0b:e7c0:0:107::70f? ([2a0b:e7c0:0:107::70f])
+ by smtp.gmail.com with ESMTPSA id
+ f15-20020a50ee8f000000b0043bc4b28464sm9002313edr.34.2022.08.11.03.48.43
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 11 Aug 2022 03:48:43 -0700 (PDT)
+Message-ID: <2fd0f4e5-8b5d-4257-4700-71e68cff29f6@kernel.org>
+Date: Thu, 11 Aug 2022 12:48:41 +0200
 MIME-Version: 1.0
-In-Reply-To: <cfc882a2-c8f3-0ec8-706e-a16dccc9fda7@foss.st.com>
-X-Cookie: First pull up, then pull down.
-Cc: linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2 1/2] spi: stm32_qspi: Add
- transfer_one_message() spi callback
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.1.0
+Content-Language: en-US
+To: Ben Dooks <ben-linux@fluff.org>, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-serial@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com
+References: <20220721212430.453192-1-ben-linux@fluff.org>
+From: Jiri Slaby <jirislaby@kernel.org>
+In-Reply-To: <20220721212430.453192-1-ben-linux@fluff.org>
+Cc: gregkh@linuxfoundation.org, mcoquelin.stm32@gmail.com
+Subject: Re: [Linux-stm32] [PATCH] serial: stm32: make info structs static
+ to avoid sparse warnings
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,66 +66,196 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============8116080532707110974=="
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+On 21. 07. 22, 23:24, Ben Dooks wrote:
+> The info structs are local only to the stm32-usart.c driver and are
+> triggering sparse warnings about being undecalred. Move these into
+> the main driver code and make them static to avoid the following
+> warnings:
+> 
+> drivers/tty/serial/stm32-usart.h:42:25: warning: symbol 'stm32f4_info' was not declared. Should it be static?
+> drivers/tty/serial/stm32-usart.h:63:25: warning: symbol 'stm32f7_info' was not declared. Should it be static?
+> drivers/tty/serial/stm32-usart.h:85:25: warning: symbol 'stm32h7_info' was not declared. Should it be static?
 
---===============8116080532707110974==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="qp2XHivCik8DSJHB"
-Content-Disposition: inline
+Right, I would go even further. There is no point in having a separate 
+header. So could you move the whole content to .c?
 
+> Signed-off-by: Ben Dooks <ben-linux@fluff.org>
+> ---
+>   drivers/tty/serial/stm32-usart.c | 69 ++++++++++++++++++++++++++++++++
+>   drivers/tty/serial/stm32-usart.h | 68 -------------------------------
+>   2 files changed, 69 insertions(+), 68 deletions(-)
+> 
+> diff --git a/drivers/tty/serial/stm32-usart.c b/drivers/tty/serial/stm32-usart.c
+> index 0973b03eeeaa..01f1ab2c18c0 100644
+> --- a/drivers/tty/serial/stm32-usart.c
+> +++ b/drivers/tty/serial/stm32-usart.c
+> @@ -35,6 +35,75 @@
+>   #include "serial_mctrl_gpio.h"
+>   #include "stm32-usart.h"
+>   
+> +
+> +/* Register offsets */
+> +static struct stm32_usart_info stm32f4_info = {
+> +	.ofs = {
+> +		.isr	= 0x00,
+> +		.rdr	= 0x04,
+> +		.tdr	= 0x04,
+> +		.brr	= 0x08,
+> +		.cr1	= 0x0c,
+> +		.cr2	= 0x10,
+> +		.cr3	= 0x14,
+> +		.gtpr	= 0x18,
+> +		.rtor	= UNDEF_REG,
+> +		.rqr	= UNDEF_REG,
+> +		.icr	= UNDEF_REG,
+> +	},
+> +	.cfg = {
+> +		.uart_enable_bit = 13,
+> +		.has_7bits_data = false,
+> +		.fifosize = 1,
+> +	}
+> +};
+> +
+> +static struct stm32_usart_info stm32f7_info = {
+> +	.ofs = {
+> +		.cr1	= 0x00,
+> +		.cr2	= 0x04,
+> +		.cr3	= 0x08,
+> +		.brr	= 0x0c,
+> +		.gtpr	= 0x10,
+> +		.rtor	= 0x14,
+> +		.rqr	= 0x18,
+> +		.isr	= 0x1c,
+> +		.icr	= 0x20,
+> +		.rdr	= 0x24,
+> +		.tdr	= 0x28,
+> +	},
+> +	.cfg = {
+> +		.uart_enable_bit = 0,
+> +		.has_7bits_data = true,
+> +		.has_swap = true,
+> +		.fifosize = 1,
+> +	}
+> +};
+> +
+> +static struct stm32_usart_info stm32h7_info = {
+> +	.ofs = {
+> +		.cr1	= 0x00,
+> +		.cr2	= 0x04,
+> +		.cr3	= 0x08,
+> +		.brr	= 0x0c,
+> +		.gtpr	= 0x10,
+> +		.rtor	= 0x14,
+> +		.rqr	= 0x18,
+> +		.isr	= 0x1c,
+> +		.icr	= 0x20,
+> +		.rdr	= 0x24,
+> +		.tdr	= 0x28,
+> +	},
+> +	.cfg = {
+> +		.uart_enable_bit = 0,
+> +		.has_7bits_data = true,
+> +		.has_swap = true,
+> +		.has_wakeup = true,
+> +		.has_fifo = true,
+> +		.fifosize = 16,
+> +	}
+> +};
+> +
+>   static void stm32_usart_stop_tx(struct uart_port *port);
+>   static void stm32_usart_transmit_chars(struct uart_port *port);
+>   static void __maybe_unused stm32_usart_console_putchar(struct uart_port *port, unsigned char ch);
+> diff --git a/drivers/tty/serial/stm32-usart.h b/drivers/tty/serial/stm32-usart.h
+> index ee69c203b926..0ec41a732c88 100644
+> --- a/drivers/tty/serial/stm32-usart.h
+> +++ b/drivers/tty/serial/stm32-usart.h
+> @@ -38,74 +38,6 @@ struct stm32_usart_info {
+>   
+>   #define UNDEF_REG 0xff
+>   
+> -/* Register offsets */
+> -struct stm32_usart_info stm32f4_info = {
+> -	.ofs = {
+> -		.isr	= 0x00,
+> -		.rdr	= 0x04,
+> -		.tdr	= 0x04,
+> -		.brr	= 0x08,
+> -		.cr1	= 0x0c,
+> -		.cr2	= 0x10,
+> -		.cr3	= 0x14,
+> -		.gtpr	= 0x18,
+> -		.rtor	= UNDEF_REG,
+> -		.rqr	= UNDEF_REG,
+> -		.icr	= UNDEF_REG,
+> -	},
+> -	.cfg = {
+> -		.uart_enable_bit = 13,
+> -		.has_7bits_data = false,
+> -		.fifosize = 1,
+> -	}
+> -};
+> -
+> -struct stm32_usart_info stm32f7_info = {
+> -	.ofs = {
+> -		.cr1	= 0x00,
+> -		.cr2	= 0x04,
+> -		.cr3	= 0x08,
+> -		.brr	= 0x0c,
+> -		.gtpr	= 0x10,
+> -		.rtor	= 0x14,
+> -		.rqr	= 0x18,
+> -		.isr	= 0x1c,
+> -		.icr	= 0x20,
+> -		.rdr	= 0x24,
+> -		.tdr	= 0x28,
+> -	},
+> -	.cfg = {
+> -		.uart_enable_bit = 0,
+> -		.has_7bits_data = true,
+> -		.has_swap = true,
+> -		.fifosize = 1,
+> -	}
+> -};
+> -
+> -struct stm32_usart_info stm32h7_info = {
+> -	.ofs = {
+> -		.cr1	= 0x00,
+> -		.cr2	= 0x04,
+> -		.cr3	= 0x08,
+> -		.brr	= 0x0c,
+> -		.gtpr	= 0x10,
+> -		.rtor	= 0x14,
+> -		.rqr	= 0x18,
+> -		.isr	= 0x1c,
+> -		.icr	= 0x20,
+> -		.rdr	= 0x24,
+> -		.tdr	= 0x28,
+> -	},
+> -	.cfg = {
+> -		.uart_enable_bit = 0,
+> -		.has_7bits_data = true,
+> -		.has_swap = true,
+> -		.has_wakeup = true,
+> -		.has_fifo = true,
+> -		.fifosize = 16,
+> -	}
+> -};
+> -
+>   /* USART_SR (F4) / USART_ISR (F7) */
+>   #define USART_SR_PE		BIT(0)
+>   #define USART_SR_FE		BIT(1)
 
---qp2XHivCik8DSJHB
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-
-On Wed, Aug 10, 2022 at 03:52:39PM +0200, Patrice CHOTARD wrote:
-> On 8/10/22 15:40, Mark Brown wrote:
-
-> > Can't the controller figure this out by looking at the properties of the
-> > connected devices?  You'd need to just return an error if we ever
-> > triggered transfer_one_message() on a device that can't support the
-> > operation.
-
-> It should be a solution.
-
-> I just noticed another point, property parallel-memories is an array of uint64 which represent device's size.
-> In case a FPGA is connected to the qspi 8 line bus, parallel-memories property will be set with what ?
-> simply random value to make dtbs_check happy ?
-
-> IMHO, adding a new proprietary property would be cleaner.
-
-I tend to agree that this is all rather unclear for things that aren't
-actually storage.
-
---qp2XHivCik8DSJHB
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmLzuU8ACgkQJNaLcl1U
-h9C8lgf/Ty/PVO0gORA+r8yXkatIJMlVbunpNkmNDYE+OPE1h59+rHpcNnt4pzcv
-JACDJhEStqwIsqNOfBxHD5J7D4+jbRvCXhiL70yqKhOTw64DkUa65AJY136SSqLS
-XGvpjz1QMv98fljk/zS1PBDAQ8ysQ7xtY2wxQh+aqelNiTgsDb8TFC/T22C/iDxF
-2tRbU6HlL6VKoUUKHOvB4lBuTOo2gyMuloxVASblBnOqOO8Sb9er8P1ka4R1+BxE
-76U+2YCwNiDOZaug7c39cUKHWwYXwArj7TUlSszHiROFyHe0pkW0m/G550FVa9uF
-r5LLiJ7asVOVuuRyf5ow2bvxvAl6Yw==
-=Ovrt
------END PGP SIGNATURE-----
-
---qp2XHivCik8DSJHB--
-
---===============8116080532707110974==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+thanks,
+-- 
+js
+suse labs
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============8116080532707110974==--
