@@ -2,39 +2,39 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id F40525900A7
-	for <lists+linux-stm32@lfdr.de>; Thu, 11 Aug 2022 17:46:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D90B590156
+	for <lists+linux-stm32@lfdr.de>; Thu, 11 Aug 2022 17:55:14 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AA830C04004;
-	Thu, 11 Aug 2022 15:46:00 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3D443C03FDB;
+	Thu, 11 Aug 2022 15:55:14 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A60FEC03FCB
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CD8FCC03FCB
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 11 Aug 2022 15:45:58 +0000 (UTC)
+ Thu, 11 Aug 2022 15:55:12 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 7E8D5616F3;
- Thu, 11 Aug 2022 15:45:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3C6DC433C1;
- Thu, 11 Aug 2022 15:45:54 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 96204612DB;
+ Thu, 11 Aug 2022 15:55:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E96AC433D6;
+ Thu, 11 Aug 2022 15:55:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1660232756;
- bh=OglZk3lvIIpnspeCkp4O55N82sJMle/dH7SfPmuFBaY=;
+ s=k20201202; t=1660233311;
+ bh=9DyU2OUNIXlnp/IMSrdvrogl4JUXt2JFXlz4ErufCU0=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=JYOehzT9X85fswKuvbsO9M4ql9ayRVfEPXOcZA7sf1U5aZSDgsd/hJmNBXU0c7pbW
- gjw0TXPe5b7qM4DieN46C1bhaWT9BiHe5suZa37Wq4+s0kl+VM3v4kopJjaspayWnI
- imD1KOvut8OI7svCfXy2FOftpPPzesB2Q+yWPlqhasue8odl9NhVuZGcKMk2R5wiHm
- WnW6DETUNaZmB4e+To6ggsW+A7LGGVQZNtLYQQy1hpk85T0sY/P6QueAj1naJ+zqEr
- ZrNgatR6MfYVt5yFzPE/PqwoYym2sFY+RvZsupkbEMXhrRLzE0s4apv6ettg9qhRbG
- zL0cTnBn0adig==
+ b=lNeeMXzVTR8C8jmR28Whl/kJh0eRAJk7UCd0NNEQExmpV9Uy304KKN1ya64YQuaIh
+ qt+G9UkoT4uH1412EwIJ9E20GH9TS7sHiRyllfZ1kcAkI58gT0R7fFSJE1A4YYBbGQ
+ VlQzbrFzDjuIFYbEWLdUblzMrE3wmYAMuZmXZt4CmyBRgdg39jxq/B+YmDDO20O5VX
+ uzd1H/tPS8Wor4EI3zkTBwnCoikRoppa/z1p6QjIPcFf2Q4Si6b2egDaSTo/hB4SP0
+ XfWPcv4bk50P//ahB69JykV8ah4PjVsnptarrj+bzwz/pFfHb7m6USG9FQyXJ4rr9H
+ gTV0XvKsM9oVg==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Thu, 11 Aug 2022 11:41:22 -0400
-Message-Id: <20220811154237.1531313-28-sashal@kernel.org>
+Date: Thu, 11 Aug 2022 11:42:19 -0400
+Message-Id: <20220811154237.1531313-85-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220811154237.1531313-1-sashal@kernel.org>
 References: <20220811154237.1531313-1-sashal@kernel.org>
@@ -42,14 +42,12 @@ MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Cc: Sasha Levin <sashal@kernel.org>, netdev@vger.kernel.org,
- Emilio Riva <emilio.riva@ericsson.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux@armlinux.org.uk,
+ linux-stm32@st-md-mailman.stormreply.com, davem@davemloft.net,
  edumazet@google.com, joabreu@synopsys.com, mcoquelin.stm32@gmail.com,
- kuba@kernel.org, Ong Boon Leong <boon.leong.ong@intel.com>,
- peppe.cavallaro@st.com, pabeni@redhat.com,
- "David S . Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH AUTOSEL 5.18 28/93] net: stmmac: make mdio
-	register skips PHY scanning for fixed-link
+ peppe.cavallaro@st.com, Jakub Kicinski <kuba@kernel.org>, pabeni@redhat.com,
+ Christian Marangi <ansuelsmth@gmail.com>, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH AUTOSEL 5.18 85/93] net: ethernet: stmicro:
+	stmmac: first disable all queues and disconnect in release
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,90 +64,43 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Ong Boon Leong <boon.leong.ong@intel.com>
+From: Christian Marangi <ansuelsmth@gmail.com>
 
-[ Upstream commit ab21cf920928a791aa70b8665b395294da17667c ]
+[ Upstream commit 7028471edb646bfc532fec0973e50e784cdcb7c6 ]
 
-stmmac_mdio_register() lacks fixed-link consideration and only skip PHY
-scanning if it has done DT style PHY discovery. So, for DT or ACPI _DSD
-setting of fixed-link, the PHY scanning should not happen.
+Disable all queues and disconnect before tx_disable in stmmac_release to
+prevent a corner case where packet may be still queued at the same time
+tx_disable is called resulting in kernel panic if some packet still has
+to be processed.
 
-v2: fix incorrect order related to fwnode that is not caught in non-DT
-    platform.
-
-Tested-by: Emilio Riva <emilio.riva@ericsson.com>
-Signed-off-by: Ong Boon Leong <boon.leong.ong@intel.com>
-Signed-off-by: David S. Miller <davem@davemloft.net>
+Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 12 +++++++-----
- drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c | 14 ++++++++++++++
- 2 files changed, 21 insertions(+), 5 deletions(-)
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 6a7f63a58aef..98c4abbcd469 100644
+index 98c4abbcd469..fd3671f1bad0 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
 +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -1119,18 +1119,20 @@ static void stmmac_check_pcs_mode(struct stmmac_priv *priv)
- static int stmmac_init_phy(struct net_device *dev)
- {
+@@ -3766,8 +3766,6 @@ static int stmmac_release(struct net_device *dev)
  	struct stmmac_priv *priv = netdev_priv(dev);
--	struct device_node *node;
-+	struct fwnode_handle *fwnode;
- 	int ret;
+ 	u32 chan;
  
--	node = priv->plat->phylink_node;
-+	fwnode = of_fwnode_handle(priv->plat->phylink_node);
-+	if (!fwnode)
-+		fwnode = dev_fwnode(priv->device);
+-	netif_tx_disable(dev);
+-
+ 	if (device_may_wakeup(priv->device))
+ 		phylink_speed_down(priv->phylink, false);
+ 	/* Stop and disconnect the PHY */
+@@ -3779,6 +3777,8 @@ static int stmmac_release(struct net_device *dev)
+ 	for (chan = 0; chan < priv->plat->tx_queues_to_use; chan++)
+ 		hrtimer_cancel(&priv->tx_queue[chan].txtimer);
  
--	if (node)
--		ret = phylink_of_phy_connect(priv->phylink, node, 0);
-+	if (fwnode)
-+		ret = phylink_fwnode_phy_connect(priv->phylink, fwnode, 0);
- 
- 	/* Some DT bindings do not set-up the PHY handle. Let's try to
- 	 * manually parse it
- 	 */
--	if (!node || ret) {
-+	if (!fwnode || ret) {
- 		int addr = priv->plat->phy_addr;
- 		struct phy_device *phydev;
- 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
-index a5d150c5f3d8..971e287aeb05 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
-@@ -442,9 +442,11 @@ int stmmac_mdio_register(struct net_device *ndev)
- 	int err = 0;
- 	struct mii_bus *new_bus;
- 	struct stmmac_priv *priv = netdev_priv(ndev);
-+	struct fwnode_handle *fwnode = of_fwnode_handle(priv->plat->phylink_node);
- 	struct stmmac_mdio_bus_data *mdio_bus_data = priv->plat->mdio_bus_data;
- 	struct device_node *mdio_node = priv->plat->mdio_node;
- 	struct device *dev = ndev->dev.parent;
-+	struct fwnode_handle *fixed_node;
- 	int addr, found, max_addr;
- 
- 	if (!mdio_bus_data)
-@@ -498,6 +500,18 @@ int stmmac_mdio_register(struct net_device *ndev)
- 	if (priv->plat->has_xgmac)
- 		stmmac_xgmac2_mdio_read(new_bus, 0, MII_ADDR_C45);
- 
-+	/* If fixed-link is set, skip PHY scanning */
-+	if (!fwnode)
-+		fwnode = dev_fwnode(priv->device);
++	netif_tx_disable(dev);
 +
-+	if (fwnode) {
-+		fixed_node = fwnode_get_named_child_node(fwnode, "fixed-link");
-+		if (fixed_node) {
-+			fwnode_handle_put(fixed_node);
-+			goto bus_register_done;
-+		}
-+	}
-+
- 	if (priv->plat->phy_node || mdio_node)
- 		goto bus_register_done;
+ 	/* Free the IRQ lines */
+ 	stmmac_free_irq(dev, REQ_IRQ_ERR_ALL, 0);
  
 -- 
 2.35.1
