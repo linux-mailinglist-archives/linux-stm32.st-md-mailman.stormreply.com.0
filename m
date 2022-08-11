@@ -2,42 +2,42 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 231435901FC
-	for <lists+linux-stm32@lfdr.de>; Thu, 11 Aug 2022 18:03:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 739D5590244
+	for <lists+linux-stm32@lfdr.de>; Thu, 11 Aug 2022 18:08:08 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C5811C04004;
-	Thu, 11 Aug 2022 16:03:34 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2F5A4C03FDB;
+	Thu, 11 Aug 2022 16:08:08 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E6E33C03FCB
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 16FC5C03FCB
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 11 Aug 2022 16:03:32 +0000 (UTC)
+ Thu, 11 Aug 2022 16:08:06 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 8EED7B821A4;
- Thu, 11 Aug 2022 16:03:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 69AA5C433D7;
- Thu, 11 Aug 2022 16:03:30 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 16B58612F0;
+ Thu, 11 Aug 2022 16:08:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 22665C43142;
+ Thu, 11 Aug 2022 16:08:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1660233812;
- bh=D5hKPEg7EA5umWGwy1OZWtz442FFe0TMYJXhD8I1R6A=;
+ s=k20201202; t=1660234084;
+ bh=EWa3bwI+V1YrVciEjnomw0UKhr33J/rWdkBvFxADRlE=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=ZAxm7beqKhXUxYZ6mVIYYpKdEKo0Ou9K7YHxWiESGHycUnErAZ5ipMkogE5CiQ76o
- T747rpP/1taNSn0Xzwucx+/qrABp4vESq1PLZrMH3EzZUfRQ7vnHKOHKJ2uqI0/sqK
- cNoOKtdSE3AuoefNM5ndxTHEc/T2jUwSoQlSJ7PZ5r/k6692Iqim9+np6xKHbdB/Fg
- NJXR4iDPgsyyEVYB4D39qaLM1gCwp3QjHTQHOrIfJGLQA/2gfki1HS6Jzdgo6o8wFE
- PZqhmOY0lx/mVU4B6n598hB8KNnOq/dyjSGWlIsitMBfoVxsV6yRp8SQApMc9yEd5x
- iTq88N+Psay1w==
+ b=XxUEQNF4gpjsej6BV5By0babKMI23NkNV0ocd5gKVrnFOOnkw4L40nvgTXx9wL60X
+ 6csMJ6cz/X5pAJfKHEY0GfTuB6JWKO0IHOh+HCBR+l4K5ssWk0/ai3ZUzITjdAwA6a
+ Z92JrwdFNH8Ea5fLF6/cIof5Kh1ma7JdeNyXE1THr3e/KKJOlX5HQBqTVbKooISOQn
+ EOOLhx0CLJ+I2hmTjgrNsNyw9bS1B+a2Jg6MoVqjsAlvFDcU+dcPvA2GtmkYJvNZix
+ 01ZiGZFYLVp4wmOet1SljGwLU+XvuF5WpU9Xncv2k/tJO78QR8+pqzaYn6TgfslXfZ
+ CL1hv7C6sSjyw==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Thu, 11 Aug 2022 11:56:11 -0400
-Message-Id: <20220811155632.1536867-62-sashal@kernel.org>
+Date: Thu, 11 Aug 2022 12:04:05 -0400
+Message-Id: <20220811160421.1539956-41-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20220811155632.1536867-1-sashal@kernel.org>
-References: <20220811155632.1536867-1-sashal@kernel.org>
+In-Reply-To: <20220811160421.1539956-1-sashal@kernel.org>
+References: <20220811160421.1539956-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -46,7 +46,7 @@ Cc: Sasha Levin <sashal@kernel.org>, netdev@vger.kernel.org,
  edumazet@google.com, joabreu@synopsys.com, mcoquelin.stm32@gmail.com,
  peppe.cavallaro@st.com, Jakub Kicinski <kuba@kernel.org>, pabeni@redhat.com,
  Christian Marangi <ansuelsmth@gmail.com>, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH AUTOSEL 5.15 62/69] net: ethernet: stmicro:
+Subject: [Linux-stm32] [PATCH AUTOSEL 5.10 41/46] net: ethernet: stmicro:
 	stmmac: first disable all queues and disconnect in release
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -77,31 +77,22 @@ Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
 Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
 diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 3a6283cf8fd4..f53a0588fefb 100644
+index 27b7bb64a028..46c2db220542 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
 +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -3817,8 +3817,6 @@ static int stmmac_release(struct net_device *dev)
- 	struct stmmac_priv *priv = netdev_priv(dev);
- 	u32 chan;
- 
--	netif_tx_disable(dev);
--
- 	if (device_may_wakeup(priv->device))
- 		phylink_speed_down(priv->phylink, false);
- 	/* Stop and disconnect the PHY */
-@@ -3830,6 +3828,8 @@ static int stmmac_release(struct net_device *dev)
+@@ -3001,6 +3001,8 @@ static int stmmac_release(struct net_device *dev)
  	for (chan = 0; chan < priv->plat->tx_queues_to_use; chan++)
- 		hrtimer_cancel(&priv->tx_queue[chan].txtimer);
+ 		del_timer_sync(&priv->tx_queue[chan].txtimer);
  
 +	netif_tx_disable(dev);
 +
  	/* Free the IRQ lines */
- 	stmmac_free_irq(dev, REQ_IRQ_ERR_ALL, 0);
- 
+ 	free_irq(dev->irq, dev);
+ 	if (priv->wol_irq != dev->irq)
 -- 
 2.35.1
 
