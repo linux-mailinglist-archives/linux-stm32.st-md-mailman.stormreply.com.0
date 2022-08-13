@@ -2,52 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 739D5590244
-	for <lists+linux-stm32@lfdr.de>; Thu, 11 Aug 2022 18:08:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 447B8591B29
+	for <lists+linux-stm32@lfdr.de>; Sat, 13 Aug 2022 16:54:44 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2F5A4C03FDB;
-	Thu, 11 Aug 2022 16:08:08 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DA16EC04004;
+	Sat, 13 Aug 2022 14:54:43 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 16FC5C03FCB
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BDE21C035BD
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 11 Aug 2022 16:08:06 +0000 (UTC)
+ Sat, 13 Aug 2022 14:54:41 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 16B58612F0;
- Thu, 11 Aug 2022 16:08:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 22665C43142;
- Thu, 11 Aug 2022 16:08:03 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 617CC60EA5;
+ Sat, 13 Aug 2022 14:54:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A87AC433D6;
+ Sat, 13 Aug 2022 14:54:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1660234084;
- bh=EWa3bwI+V1YrVciEjnomw0UKhr33J/rWdkBvFxADRlE=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=XxUEQNF4gpjsej6BV5By0babKMI23NkNV0ocd5gKVrnFOOnkw4L40nvgTXx9wL60X
- 6csMJ6cz/X5pAJfKHEY0GfTuB6JWKO0IHOh+HCBR+l4K5ssWk0/ai3ZUzITjdAwA6a
- Z92JrwdFNH8Ea5fLF6/cIof5Kh1ma7JdeNyXE1THr3e/KKJOlX5HQBqTVbKooISOQn
- EOOLhx0CLJ+I2hmTjgrNsNyw9bS1B+a2Jg6MoVqjsAlvFDcU+dcPvA2GtmkYJvNZix
- 01ZiGZFYLVp4wmOet1SljGwLU+XvuF5WpU9Xncv2k/tJO78QR8+pqzaYn6TgfslXfZ
- CL1hv7C6sSjyw==
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Date: Thu, 11 Aug 2022 12:04:05 -0400
-Message-Id: <20220811160421.1539956-41-sashal@kernel.org>
-X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20220811160421.1539956-1-sashal@kernel.org>
-References: <20220811160421.1539956-1-sashal@kernel.org>
+ s=k20201202; t=1660402479;
+ bh=N4kjUi4PTo0aa0MQR9hcV00wsscIFyN4QydIKOaekVE=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=vEWAmtylEsAaz9sRfKNI1rrv/BMqyZ4ZJUF1H1orjJXnEyhYNUeE3pI3zpwCr1kTf
+ BmLuFWw3QxsmuiIgUibCYimqbg2pRi0hmXfK27e/S9yKgHbBJyNv51mJiueVzi2pGA
+ U04Lz/yNTfJ1h2u7GBohGoVlEyCHbdbWyAwFeCo1HitQxQgnkZFkNs+lEyjv3eKJkF
+ w2rzkXCU+06L7LJj75hdt5SdpYQjTJ1WUEfwNyWAVdLhR7ATMlyo2vbEfzvOa9jLsO
+ q2wO/uAKz7hjsHqnxzsBIMfc/DtXsmGrO/pyepz98F2HELOBVpaRSx4J4rNPsmiCCD
+ zdQRipfyv2FYg==
+Date: Sat, 13 Aug 2022 16:05:06 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Lee Jones <lee.jones@linaro.org>
+Message-ID: <20220813160506.04be3760@jic23-huawei>
+In-Reply-To: <YvJ/N2zulizbiU6u@google.com>
+References: <20220712163345.445811-1-francesco.dolcini@toradex.com>
+ <20220712163345.445811-5-francesco.dolcini@toradex.com>
+ <20220809134607.GA44926@francesco-nb.int.toradex.com>
+ <YvJ/N2zulizbiU6u@google.com>
+X-Mailer: Claws Mail 4.1.0 (GTK 3.24.34; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-Cc: Sasha Levin <sashal@kernel.org>, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, davem@davemloft.net,
- edumazet@google.com, joabreu@synopsys.com, mcoquelin.stm32@gmail.com,
- peppe.cavallaro@st.com, Jakub Kicinski <kuba@kernel.org>, pabeni@redhat.com,
- Christian Marangi <ansuelsmth@gmail.com>, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH AUTOSEL 5.10 41/46] net: ethernet: stmicro:
-	stmmac: first disable all queues and disconnect in release
+Cc: devicetree@vger.kernel.org, Lars-Peter Clausen <lars@metafoo.de>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-iio@vger.kernel.org,
+ Lee Jones <lee@kernel.org>, linux-kernel@vger.kernel.org,
+ linux-gpio@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ linux-input@vger.kernel.org, Francesco Dolcini <francesco.dolcini@toradex.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v2 4/5] dt-bindings: iio: adc: stmpe:
+ Remove node name requirement
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -64,37 +66,52 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Christian Marangi <ansuelsmth@gmail.com>
+On Tue, 9 Aug 2022 16:37:27 +0100
+Lee Jones <lee.jones@linaro.org> wrote:
 
-[ Upstream commit 7028471edb646bfc532fec0973e50e784cdcb7c6 ]
+> On Tue, 09 Aug 2022, Francesco Dolcini wrote:
+> 
+> > Hello Jonathan, can you pick this? Patches 1 and 2 were applied to MFD
+> > tree.  
+> 
+> Sending out nags whilst the merge-window is open is seldom helpful.
 
-Disable all queues and disconnect before tx_disable in stmmac_release to
-prevent a corner case where packet may be still queued at the same time
-tx_disable is called resulting in kernel panic if some packet still has
-to be processed.
+Agreed, next week would have been better.  I happen to be queuing stuff
+up ready for a rebase this cycle though so applied this one to what will
+be the togreg branch of iio.git after rc1 is available and I've rebased.
 
-Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 2 ++
- 1 file changed, 2 insertions(+)
+Jonathan
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 27b7bb64a028..46c2db220542 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -3001,6 +3001,8 @@ static int stmmac_release(struct net_device *dev)
- 	for (chan = 0; chan < priv->plat->tx_queues_to_use; chan++)
- 		del_timer_sync(&priv->tx_queue[chan].txtimer);
- 
-+	netif_tx_disable(dev);
-+
- 	/* Free the IRQ lines */
- 	free_irq(dev->irq, dev);
- 	if (priv->wol_irq != dev->irq)
--- 
-2.35.1
+> 
+> Also, please refrain from top-posting.
+> 
+> Thanks.
+> 
+> > On Tue, Jul 12, 2022 at 06:33:44PM +0200, Francesco Dolcini wrote:  
+> > > STMPE driver does not require a specific node name anymore, only the
+> > > compatible is checked, update binding according to this.
+> > > 
+> > > Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
+> > > ---
+> > >  Documentation/devicetree/bindings/iio/adc/st,stmpe-adc.yaml | 3 +--
+> > >  1 file changed, 1 insertion(+), 2 deletions(-)
+> > > 
+> > > diff --git a/Documentation/devicetree/bindings/iio/adc/st,stmpe-adc.yaml b/Documentation/devicetree/bindings/iio/adc/st,stmpe-adc.yaml
+> > > index 9049c699152f..333744a2159c 100644
+> > > --- a/Documentation/devicetree/bindings/iio/adc/st,stmpe-adc.yaml
+> > > +++ b/Documentation/devicetree/bindings/iio/adc/st,stmpe-adc.yaml
+> > > @@ -13,8 +13,7 @@ description:
+> > >    This ADC forms part of an ST microelectronics STMPE multifunction device .
+> > >    The ADC is shared with the STMPE touchscreen. As a result some ADC related
+> > >    settings are specified in the parent node.
+> > > -  The node name myst be stmpe_adc and should be a child node of the stmpe node
+> > > -  to which it belongs.
+> > > +  The node should be a child node of the stmpe node to which it belongs.
+> > >  
+> > >  properties:
+> > >    compatible:  
+> >   
+> 
 
 _______________________________________________
 Linux-stm32 mailing list
