@@ -2,43 +2,71 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 08E8C59538B
+	by mail.lfdr.de (Postfix) with ESMTPS id 1132C59538C
 	for <lists+linux-stm32@lfdr.de>; Tue, 16 Aug 2022 09:17:08 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A5E97C640F7;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B8DA8C640FA;
 	Tue, 16 Aug 2022 07:17:07 +0000 (UTC)
-Received: from bg5.exmail.qq.com (bg4.exmail.qq.com [43.154.54.12])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk1-f178.google.com (mail-qk1-f178.google.com
+ [209.85.222.178])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7B589C03FCB
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7D7BEC035BF
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 11 Aug 2022 12:10:35 +0000 (UTC)
-X-QQ-mid: bizesmtp84t1660219808t257rave
-Received: from localhost.localdomain ( [182.148.14.53])
- by bizesmtp.qq.com (ESMTP) with 
- id ; Thu, 11 Aug 2022 20:10:06 +0800 (CST)
-X-QQ-SSF: 01000000002000G0V000B00A0000020
-X-QQ-FEAT: BlCEEhbwceZ42iDDS+I2K7ro8/+dFD8sE1sTUHBVmhgwuWhcj0cbasPVVbJor
- Qs3xKyCCpBzHh/keBR+fbW5nZvbZaXWuLzsfkY2uPvw7W3SeDA5sFdG5jxS002eCS+yLIfB
- p2vQWb9UNzrga+EJzXNcH+7ypDa/Y1ATrVWHVBo2fctEYIxjrks5t68Y7a97MAl+KNeCr/d
- 8Tm0AfswwCu19trE4ZHVO/jylTiESaBv2vV5Z397ZUV6yPZ9wwGW3rY2mJRg/r1+l51NTXe
- P+znsBJa1dY9pwTCRZUUg+PMDAKV1l09HrNxXwJdol25pw5JRcQHW4iN2rcWY23gc1yv07h
- MkKlKrcTjf2z/cOHYX013yXgTGqKW8jDkNj65e59WrYo0G01z5eEbYs4xk9PSrsPEZLPaFK
- RbmmTn4KOlE=
-X-QQ-GoodBg: 0
-From: Jason Wang <wangborong@cdjrlc.com>
-To: mcoquelin.stm32@gmail.com
-Date: Thu, 11 Aug 2022 20:09:59 +0800
-Message-Id: <20220811120959.18752-1-wangborong@cdjrlc.com>
-X-Mailer: git-send-email 2.36.1
+ Mon, 15 Aug 2022 22:03:26 +0000 (UTC)
+Received: by mail-qk1-f178.google.com with SMTP id j6so6739829qkl.10
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 15 Aug 2022 15:03:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc;
+ bh=ikVyv3Nj/OCfAyLRBroKSzO1rCNd6fD5hCL0P0dEi4w=;
+ b=WElxrXXwMY01hED9C3n34QZdS5lGbKgu51+mv/JViPAV4w25oBAWNZlUzKpz4douBe
+ PbtZuEhrb6DD5u3PFC5O4lJQlaX6Q2+zIDljN8gn2gcvSovaRtO+cKmntlpJ56HgcRRL
+ 5lKSKd2bHBAY+P7wNJ9ySX+NECdgq/15WDADQJL6JLxhOdBx4AEjpdSAsc75rstZ+2AT
+ clwbswHEaakCW1hYYNWdZGenxOqQJdr8kB7IG3Dtuqsst6pcfeFX+mQJI/FaagEKbN1i
+ cJP6LiSW40aVSKcaG8lAUWD+srJtBO8dZcPeHTVlkCk3T9g4gY9YzHqaOaAwZc0aPkay
+ uKqw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc;
+ bh=ikVyv3Nj/OCfAyLRBroKSzO1rCNd6fD5hCL0P0dEi4w=;
+ b=xSrUaijXc1VAV9h6DJYCe8b+kZVKN8oAi0ig44tVjG33R8HUgsCCdDwo31yinogIug
+ zLnxHJUN2h/l7jL59df6iJ6iMdfx6Ptd3EjpIAaAQofJYYy/Fxw835UAOOvZMxtO6FKV
+ QBnPqQB6NpZ1ezYeZJ4FoCnqgj1ju8FWmpUWD/ubp0SObLjiiCR0rCAbSR86jalS4eU7
+ DkjjcMIVSUz7+lIX1Qqgg5X31q6q++kpttUZFIagaEFP++PqW0Izea1voszY/y/wIaCU
+ kfvCqBzp1x7jwz7071AeGXOoEgXyXRmBKqW9KF1xcyz4UjMXQtmBuCyTVTGLqlUHD8rT
+ HBGA==
+X-Gm-Message-State: ACgBeo25deGr6jquqGc0HzXTmGYclDZDJrp3cprjrLIXuB8x+p8s9o8w
+ 9VHlos+KY+PV2MgGkl0n4PvmJA==
+X-Google-Smtp-Source: AA6agR7aFgUUiNSzVKx3EPZYfHModod2MDuo96s8nq0O3+F5wM8X0UjbCfH2Rd0mBkPoimTBsicvSg==
+X-Received: by 2002:a05:620a:4384:b0:6bb:268c:1c3c with SMTP id
+ a4-20020a05620a438400b006bb268c1c3cmr5318691qkp.16.1660601005346; 
+ Mon, 15 Aug 2022 15:03:25 -0700 (PDT)
+Received: from fedora.attlocal.net
+ (69-109-179-158.lightspeed.dybhfl.sbcglobal.net. [69.109.179.158])
+ by smtp.gmail.com with ESMTPSA id
+ gd24-20020a05622a5c1800b003445bb107basm3667300qtb.75.2022.08.15.15.03.23
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 15 Aug 2022 15:03:24 -0700 (PDT)
+From: William Breathitt Gray <william.gray@linaro.org>
+To: linux-iio@vger.kernel.org
+Date: Mon, 15 Aug 2022 18:03:21 -0400
+Message-Id: <20220815220321.74161-1-william.gray@linaro.org>
+X-Mailer: git-send-email 2.37.2
 MIME-Version: 1.0
-X-QQ-SENDSIZE: 520
-Feedback-ID: bizesmtp:cdjrlc.com:qybglogicsvr:qybglogicsvr6
 X-Mailman-Approved-At: Tue, 16 Aug 2022 07:17:06 +0000
-Cc: linux-kernel@vger.kernel.org, Jason Wang <wangborong@cdjrlc.com>,
- vkoul@kernel.org, dmaengine@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH] dmaengine: stm32-dmamux: Fix comment typo
+Cc: Kamel Bouhara <kamel.bouhara@bootlin.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Patrick Havelange <patrick.havelange@essensium.com>,
+ William Breathitt Gray <william.gray@linaro.org>, linux-kernel@vger.kernel.org,
+ Oleksij Rempel <linux@rempel-privat.de>,
+ Jarkko Nikula <jarkko.nikula@linux.intel.com>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ David Lechner <david@lechnology.com>
+Subject: [Linux-stm32] [PATCH] counter: Move symbols into COUNTER namespace
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -55,28 +83,184 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The double `end' is duplicated in the comment, remove one.
+Counter subsystem symbols are only relevant to counter drivers. A
+COUNTER namespace is created to control the availability of these
+symbols to modules that import this namespace explicitly.
 
-Signed-off-by: Jason Wang <wangborong@cdjrlc.com>
+Cc: Patrick Havelange <patrick.havelange@essensium.com>
+Cc: Jarkko Nikula <jarkko.nikula@linux.intel.com>
+Cc: Oleksij Rempel <linux@rempel-privat.de>
+Cc: Pengutronix Kernel Team <kernel@pengutronix.de>
+Cc: Kamel Bouhara <kamel.bouhara@bootlin.com>
+Cc: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
+Cc: David Lechner <david@lechnology.com>
+Signed-off-by: William Breathitt Gray <william.gray@linaro.org>
 ---
- drivers/dma/stm32-dmamux.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/counter/104-quad-8.c            |  1 +
+ drivers/counter/counter-chrdev.c        |  2 +-
+ drivers/counter/counter-core.c          | 14 +++++++-------
+ drivers/counter/ftm-quaddec.c           |  1 +
+ drivers/counter/intel-qep.c             |  1 +
+ drivers/counter/interrupt-cnt.c         |  1 +
+ drivers/counter/microchip-tcb-capture.c |  1 +
+ drivers/counter/stm32-lptimer-cnt.c     |  1 +
+ drivers/counter/stm32-timer-cnt.c       |  1 +
+ drivers/counter/ti-eqep.c               |  1 +
+ 10 files changed, 16 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/dma/stm32-dmamux.c b/drivers/dma/stm32-dmamux.c
-index eee0c5aa5fb5..ca18dee3ccc0 100644
---- a/drivers/dma/stm32-dmamux.c
-+++ b/drivers/dma/stm32-dmamux.c
-@@ -45,7 +45,7 @@ struct stm32_dmamux_data {
- 						 */
- 	u32 dma_reqs[]; /* Number of DMA Request per DMA masters.
- 			 *  [0] holds number of DMA Masters.
--			 *  To be kept at very end end of this structure
-+			 *  To be kept at very end of this structure
- 			 */
- };
+diff --git a/drivers/counter/104-quad-8.c b/drivers/counter/104-quad-8.c
+index 62c2b7ac4339..1323edfbe40c 100644
+--- a/drivers/counter/104-quad-8.c
++++ b/drivers/counter/104-quad-8.c
+@@ -1241,3 +1241,4 @@ module_isa_driver(quad8_driver, num_quad8);
+ MODULE_AUTHOR("William Breathitt Gray <vilhelm.gray@gmail.com>");
+ MODULE_DESCRIPTION("ACCES 104-QUAD-8 driver");
+ MODULE_LICENSE("GPL v2");
++MODULE_IMPORT_NS(COUNTER);
+diff --git a/drivers/counter/counter-chrdev.c b/drivers/counter/counter-chrdev.c
+index 69d340be9c93..4e71a19d7e6a 100644
+--- a/drivers/counter/counter-chrdev.c
++++ b/drivers/counter/counter-chrdev.c
+@@ -574,4 +574,4 @@ void counter_push_event(struct counter_device *const counter, const u8 event,
+ 	if (copied)
+ 		wake_up_poll(&counter->events_wait, EPOLLIN);
+ }
+-EXPORT_SYMBOL_GPL(counter_push_event);
++EXPORT_SYMBOL_NS_GPL(counter_push_event, COUNTER);
+diff --git a/drivers/counter/counter-core.c b/drivers/counter/counter-core.c
+index 938651f9e9e0..09c77afb33ca 100644
+--- a/drivers/counter/counter-core.c
++++ b/drivers/counter/counter-core.c
+@@ -73,7 +73,7 @@ void *counter_priv(const struct counter_device *const counter)
  
+ 	return &ch->privdata;
+ }
+-EXPORT_SYMBOL_GPL(counter_priv);
++EXPORT_SYMBOL_NS_GPL(counter_priv, COUNTER);
+ 
+ /**
+  * counter_alloc - allocate a counter_device
+@@ -133,13 +133,13 @@ struct counter_device *counter_alloc(size_t sizeof_priv)
+ 
+ 	return NULL;
+ }
+-EXPORT_SYMBOL_GPL(counter_alloc);
++EXPORT_SYMBOL_NS_GPL(counter_alloc, COUNTER);
+ 
+ void counter_put(struct counter_device *counter)
+ {
+ 	put_device(&counter->dev);
+ }
+-EXPORT_SYMBOL_GPL(counter_put);
++EXPORT_SYMBOL_NS_GPL(counter_put, COUNTER);
+ 
+ /**
+  * counter_add - complete registration of a counter
+@@ -166,7 +166,7 @@ int counter_add(struct counter_device *counter)
+ 	/* implies device_add(dev) */
+ 	return cdev_device_add(&counter->chrdev, dev);
+ }
+-EXPORT_SYMBOL_GPL(counter_add);
++EXPORT_SYMBOL_NS_GPL(counter_add, COUNTER);
+ 
+ /**
+  * counter_unregister - unregister Counter from the system
+@@ -188,7 +188,7 @@ void counter_unregister(struct counter_device *const counter)
+ 
+ 	mutex_unlock(&counter->ops_exist_lock);
+ }
+-EXPORT_SYMBOL_GPL(counter_unregister);
++EXPORT_SYMBOL_NS_GPL(counter_unregister, COUNTER);
+ 
+ static void devm_counter_release(void *counter)
+ {
+@@ -223,7 +223,7 @@ struct counter_device *devm_counter_alloc(struct device *dev, size_t sizeof_priv
+ 
+ 	return counter;
+ }
+-EXPORT_SYMBOL_GPL(devm_counter_alloc);
++EXPORT_SYMBOL_NS_GPL(devm_counter_alloc, COUNTER);
+ 
+ /**
+  * devm_counter_add - complete registration of a counter
+@@ -244,7 +244,7 @@ int devm_counter_add(struct device *dev,
+ 
+ 	return devm_add_action_or_reset(dev, devm_counter_release, counter);
+ }
+-EXPORT_SYMBOL_GPL(devm_counter_add);
++EXPORT_SYMBOL_NS_GPL(devm_counter_add, COUNTER);
+ 
+ #define COUNTER_DEV_MAX 256
+ 
+diff --git a/drivers/counter/ftm-quaddec.c b/drivers/counter/ftm-quaddec.c
+index 2a58582a9df4..aea6622a9b13 100644
+--- a/drivers/counter/ftm-quaddec.c
++++ b/drivers/counter/ftm-quaddec.c
+@@ -325,3 +325,4 @@ module_platform_driver(ftm_quaddec_driver);
+ MODULE_LICENSE("GPL");
+ MODULE_AUTHOR("Kjeld Flarup <kfa@deif.com>");
+ MODULE_AUTHOR("Patrick Havelange <patrick.havelange@essensium.com>");
++MODULE_IMPORT_NS(COUNTER);
+diff --git a/drivers/counter/intel-qep.c b/drivers/counter/intel-qep.c
+index 47a6a9dfc9e8..af5942e66f7d 100644
+--- a/drivers/counter/intel-qep.c
++++ b/drivers/counter/intel-qep.c
+@@ -523,3 +523,4 @@ MODULE_AUTHOR("Jarkko Nikula <jarkko.nikula@linux.intel.com>");
+ MODULE_AUTHOR("Raymond Tan <raymond.tan@intel.com>");
+ MODULE_LICENSE("GPL");
+ MODULE_DESCRIPTION("Intel Quadrature Encoder Peripheral driver");
++MODULE_IMPORT_NS(COUNTER);
+diff --git a/drivers/counter/interrupt-cnt.c b/drivers/counter/interrupt-cnt.c
+index 3b13f56bbb11..5a11b65fc0e5 100644
+--- a/drivers/counter/interrupt-cnt.c
++++ b/drivers/counter/interrupt-cnt.c
+@@ -242,3 +242,4 @@ MODULE_ALIAS("platform:interrupt-counter");
+ MODULE_AUTHOR("Oleksij Rempel <o.rempel@pengutronix.de>");
+ MODULE_DESCRIPTION("Interrupt counter driver");
+ MODULE_LICENSE("GPL v2");
++MODULE_IMPORT_NS(COUNTER);
+diff --git a/drivers/counter/microchip-tcb-capture.c b/drivers/counter/microchip-tcb-capture.c
+index 00844445143b..f9dee15d9777 100644
+--- a/drivers/counter/microchip-tcb-capture.c
++++ b/drivers/counter/microchip-tcb-capture.c
+@@ -394,3 +394,4 @@ module_platform_driver(mchp_tc_driver);
+ MODULE_AUTHOR("Kamel Bouhara <kamel.bouhara@bootlin.com>");
+ MODULE_DESCRIPTION("Microchip TCB Capture driver");
+ MODULE_LICENSE("GPL v2");
++MODULE_IMPORT_NS(COUNTER);
+diff --git a/drivers/counter/stm32-lptimer-cnt.c b/drivers/counter/stm32-lptimer-cnt.c
+index 68031d93ce89..d6b80b6dfc28 100644
+--- a/drivers/counter/stm32-lptimer-cnt.c
++++ b/drivers/counter/stm32-lptimer-cnt.c
+@@ -520,3 +520,4 @@ MODULE_AUTHOR("Fabrice Gasnier <fabrice.gasnier@st.com>");
+ MODULE_ALIAS("platform:stm32-lptimer-counter");
+ MODULE_DESCRIPTION("STMicroelectronics STM32 LPTIM counter driver");
+ MODULE_LICENSE("GPL v2");
++MODULE_IMPORT_NS(COUNTER);
+diff --git a/drivers/counter/stm32-timer-cnt.c b/drivers/counter/stm32-timer-cnt.c
+index 5779ae7c73cf..9bf20a5d6bda 100644
+--- a/drivers/counter/stm32-timer-cnt.c
++++ b/drivers/counter/stm32-timer-cnt.c
+@@ -417,3 +417,4 @@ MODULE_AUTHOR("Benjamin Gaignard <benjamin.gaignard@st.com>");
+ MODULE_ALIAS("platform:stm32-timer-counter");
+ MODULE_DESCRIPTION("STMicroelectronics STM32 TIMER counter driver");
+ MODULE_LICENSE("GPL v2");
++MODULE_IMPORT_NS(COUNTER);
+diff --git a/drivers/counter/ti-eqep.c b/drivers/counter/ti-eqep.c
+index 0489d26eb47c..b0f24cf3e891 100644
+--- a/drivers/counter/ti-eqep.c
++++ b/drivers/counter/ti-eqep.c
+@@ -456,3 +456,4 @@ module_platform_driver(ti_eqep_driver);
+ MODULE_AUTHOR("David Lechner <david@lechnology.com>");
+ MODULE_DESCRIPTION("TI eQEP counter driver");
+ MODULE_LICENSE("GPL v2");
++MODULE_IMPORT_NS(COUNTER);
+
+base-commit: 568035b01cfb107af8d2e4bd2fb9aea22cf5b868
 -- 
-2.36.1
+2.37.2
 
 _______________________________________________
 Linux-stm32 mailing list
