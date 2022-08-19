@@ -2,59 +2,55 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D837D599859
-	for <lists+linux-stm32@lfdr.de>; Fri, 19 Aug 2022 11:17:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 026ED59998F
+	for <lists+linux-stm32@lfdr.de>; Fri, 19 Aug 2022 12:17:53 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7D536C5E2C2;
-	Fri, 19 Aug 2022 09:17:58 +0000 (UTC)
-Received: from mail-vk1-f172.google.com (mail-vk1-f172.google.com
- [209.85.221.172])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A73FAC5E2C2;
+	Fri, 19 Aug 2022 10:17:52 +0000 (UTC)
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AFD6EC03FDB
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5E214C03FEA
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 19 Aug 2022 09:17:57 +0000 (UTC)
-Received: by mail-vk1-f172.google.com with SMTP id h3so176494vko.13
+ Fri, 19 Aug 2022 10:17:51 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by sin.source.kernel.org (Postfix) with ESMTPS id 9B5E8CE25E4
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 19 Aug 2022 02:17:57 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc;
- bh=p1fTT14mThGLEnUJzebZNUEmZIwatmKiQNsPLBHI5iY=;
- b=XR21uy40mHLPtSTKAqdJKVL9MwMeWLFV4ooUajs4MA13OTg801f8tRjFXKx+Ld8j9n
- 1fabusKbSEbno2jvmIIhGhn8+G784QEEtX5IDZaoBlT/WZPt9Ns8/QirPBLEeDmnIciO
- eZM0kgNk2Nn0MvzlFg0flqwTIPX+ZYlraT+9z5voW3WJgMMcu91WruvvD6Xx5OaIsAa+
- PvPyY7QYq/uufsS5b2XYcI9B1Ge1fZyWXMkwQkvOrbgBTcEQaASUpLx7zbZBn4FA5yio
- K8uT60bZndJeJAGya7JKePX3tY/EGpMZ4+C0Dp6cazsZeN5obGXbK+rYLl52c048/ZJ0
- HLlA==
-X-Gm-Message-State: ACgBeo1LCI9oQNkUf5fOuuanJWMrimRtSKm7oMSrcPy07Gmb4920L4im
- v4AW4JywTd+taylouVNWMhwedYAWyqT+aYYO
-X-Google-Smtp-Source: AA6agR6Azq/Oh1iC+2LsB9V871DsyIz64lblg12hQFjECH0I1u1csap5O6ouCrEPAYCZtfmOTJOWqA==
-X-Received: by 2002:a05:6122:154:b0:377:ebed:7e5d with SMTP id
- r20-20020a056122015400b00377ebed7e5dmr2686447vko.41.1660900676385; 
- Fri, 19 Aug 2022 02:17:56 -0700 (PDT)
-Received: from mail-ua1-f42.google.com (mail-ua1-f42.google.com.
- [209.85.222.42]) by smtp.gmail.com with ESMTPSA id
- h7-20020a056102214700b0038ab671b8afsm2117295vsg.16.2022.08.19.02.17.55
- for <linux-stm32@st-md-mailman.stormreply.com>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 19 Aug 2022 02:17:56 -0700 (PDT)
-Received: by mail-ua1-f42.google.com with SMTP id s5so1566667uar.1
+ Fri, 19 Aug 2022 10:17:49 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A5203C433B5
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 19 Aug 2022 02:17:55 -0700 (PDT)
-X-Received: by 2002:a25:cbcf:0:b0:695:2d3b:366 with SMTP id
- b198-20020a25cbcf000000b006952d3b0366mr1673997ybg.365.1660900664907; Fri, 19
- Aug 2022 02:17:44 -0700 (PDT)
+ Fri, 19 Aug 2022 10:17:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1660904267;
+ bh=bBGGs+VaVwa9GZVrl+mfip/PNxqOhyRiV5mtJK9gULA=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=LSwaVI8rUzMmO/Ct43XNW9RruD+qxBI8tnG2OoF/s63ywpKDgUlWIi/aLX949UKPN
+ jM20X3grcEAWH38fx5/oYHEV7F5sTeuvwCDPVnMMG53ff2UByclp++LklueQkXypFU
+ H7c9/JJp/RjyIB8BwC52gvvAYZIk2WNxpCZz5cJXuJNC06FJis2sLmU6k3EGL09lKc
+ Jb0xsF7kl1AKAIK0xmR/ofWHEdPxStI2V1NvsgZa+z5y1Ow/2cxRWkgNKh/52pgoWK
+ DCt8ZOZFDA7eTYb7MHgMkmQVIDOYTuxR00NmLv1qFt7npxJhkX1i5DzsxxCLPXCGpY
+ yOQjDCPKxSuDQ==
+Received: by mail-lf1-f47.google.com with SMTP id d23so1164727lfl.13
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 19 Aug 2022 03:17:47 -0700 (PDT)
+X-Gm-Message-State: ACgBeo0WoYBaE2g1LRp2xsDYL2DYmAxd74b9FS5E5glofJ2RYkBECztD
+ J9C7d3Bwkj8LTV0U04ERx7XrproZ4nlpKf6lQ/s=
+X-Google-Smtp-Source: AA6agR5J9QREsVSQar6+cAcI+eQkL21ldizqJ/P5eBUIHXbbNTd/IG0qShM+KxoLNU3uFpfrKuXX255VS5DFZKFqEjU=
+X-Received: by 2002:a05:6402:2751:b0:443:d90a:43d4 with SMTP id
+ z17-20020a056402275100b00443d90a43d4mr5657123edd.368.1660904254658; Fri, 19
+ Aug 2022 03:17:34 -0700 (PDT)
 MIME-Version: 1.0
 References: <20220818135522.3143514-1-arnd@kernel.org>
  <20220818135522.3143514-2-arnd@kernel.org>
-In-Reply-To: <20220818135522.3143514-2-arnd@kernel.org>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Fri, 19 Aug 2022 11:17:33 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdXEXQNeOQGnYTQG58nHwB8YwLQ5q1vaje7kPQexrAMsRA@mail.gmail.com>
-Message-ID: <CAMuHMdXEXQNeOQGnYTQG58nHwB8YwLQ5q1vaje7kPQexrAMsRA@mail.gmail.com>
-To: Arnd Bergmann <arnd@kernel.org>
+ <CAMuHMdXEXQNeOQGnYTQG58nHwB8YwLQ5q1vaje7kPQexrAMsRA@mail.gmail.com>
+In-Reply-To: <CAMuHMdXEXQNeOQGnYTQG58nHwB8YwLQ5q1vaje7kPQexrAMsRA@mail.gmail.com>
+From: Arnd Bergmann <arnd@kernel.org>
+Date: Fri, 19 Aug 2022 12:17:16 +0200
+X-Gmail-Original-Message-ID: <CAK8P3a0kJVLEFqS0E=Lv2=HE9dbmjgA=_T2NX4zhq7EHvk4DBg@mail.gmail.com>
+Message-ID: <CAK8P3a0kJVLEFqS0E=Lv2=HE9dbmjgA=_T2NX4zhq7EHvk4DBg@mail.gmail.com>
+To: Geert Uytterhoeven <geert@linux-m68k.org>
 Cc: Richard Cochran <richardcochran@gmail.com>, Andrew Lunn <andrew@lunn.ch>,
  Alexandre Belloni <alexandre.belloni@bootlin.com>,
  Randy Dunlap <rdunlap@infradead.org>,
@@ -113,57 +109,24 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Arnd,
-
-On Thu, Aug 18, 2022 at 3:55 PM Arnd Bergmann <arnd@kernel.org> wrote:
-> From: Arnd Bergmann <arnd@arndb.de>
+On Fri, Aug 19, 2022 at 11:17 AM Geert Uytterhoeven
+<geert@linux-m68k.org> wrote:
 >
-> The debug-info and can subystem options have moved around in the
-> 'savedefconfig' output, so fix these up to reduce the clutter
-> from the savedefconfig command.
+> This may cause conflicts with the usual refresh I plan to do for
+> v6.0-rc1, which will be very similar to
+> https://git.kernel.org/pub/scm/linux/kernel/git/geert/renesas-drivers.git/commit/?id=517d634d376042ab797d9feeb94236ad4cb03396
+> So it may be better to drop this part.
 >
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+> However, that decision is up to you, as you will have to handle the
+> conflict when merging renesas-arm-defconfig-for-v6.0-tag1 later ;-)
+> But sfr might complain before...
 
-Thanks for your patch!
+I'm not too worried here, if you just do the 'savedefconfig' step, you
+should get
+the same change and the mergetool will figure it out. In case there is a nasty
+context conflict, you could just send that part early so I can resolve it.
 
-> --- a/arch/arm/configs/shmobile_defconfig
-> +++ b/arch/arm/configs/shmobile_defconfig
-> @@ -33,7 +33,6 @@ CONFIG_INET=y
->  CONFIG_IP_PNP=y
->  CONFIG_IP_PNP_DHCP=y
->  CONFIG_CAN=y
-> -CONFIG_CAN_RCAR=y
->  CONFIG_PCI=y
->  CONFIG_PCI_MSI=y
->  CONFIG_PCI_RCAR_GEN2=y
-> @@ -57,6 +56,7 @@ CONFIG_RAVB=y
->  CONFIG_SMSC911X=y
->  CONFIG_MICREL_PHY=y
->  CONFIG_SMSC_PHY=y
-> +CONFIG_CAN_RCAR=y
->  CONFIG_INPUT_EVDEV=y
->  CONFIG_KEYBOARD_GPIO=y
->  # CONFIG_INPUT_MOUSE is not set
-
-This may cause conflicts with the usual refresh I plan to do for
-v6.0-rc1, which will be very similar to
-https://git.kernel.org/pub/scm/linux/kernel/git/geert/renesas-drivers.git/commit/?id=517d634d376042ab797d9feeb94236ad4cb03396
-So it may be better to drop this part.
-
-However, that decision is up to you, as you will have to handle the
-conflict when merging renesas-arm-defconfig-for-v6.0-tag1 later ;-)
-But sfr might complain before...
-
-Gr{oetje,eeting}s,
-
-                        Geert
-
---
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+       Arnd
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
