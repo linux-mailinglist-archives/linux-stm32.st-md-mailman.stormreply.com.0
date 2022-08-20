@@ -2,70 +2,53 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 28B5159AC95
-	for <lists+linux-stm32@lfdr.de>; Sat, 20 Aug 2022 10:30:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2AF4F59ADB3
+	for <lists+linux-stm32@lfdr.de>; Sat, 20 Aug 2022 13:58:28 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E04C9C64100;
-	Sat, 20 Aug 2022 08:30:10 +0000 (UTC)
-Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com
- [209.85.208.46])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9D02EC640FE;
+	Sat, 20 Aug 2022 11:58:27 +0000 (UTC)
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8002EC035BC
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3E0DDC06F81
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 20 Aug 2022 08:30:09 +0000 (UTC)
-Received: by mail-ed1-f46.google.com with SMTP id s11so8062346edd.13
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 20 Aug 2022 01:30:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amarulasolutions.com; s=google;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc;
- bh=lWZi59XScjXJ80MDC5jcujdInKKUzRF+AceVZxJZy/4=;
- b=Pl93p40mRr8ZVgXAZEBtmxL0RVPcWJvjmkqG8a948yFu/ef/W2+raIBtyhHGdWm09s
- nU6ic8dp1mnqm5/vjmuSHXbsApqkyjH8ItftqqFupeIyM9/DD0XnM8OYLB73hvXTbU22
- cK+rXh91VdHklECBq3ziG39pN/2/+f7GjRiMU=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc;
- bh=lWZi59XScjXJ80MDC5jcujdInKKUzRF+AceVZxJZy/4=;
- b=maD86eQbM2IeIH+P0qKegCRKT309rNOpoQwyIES+xjICvq9z+YQFKuEU2gKBkk0e0e
- Tnoboi5aW/8YuFo6fhUAMZdMkdz8EKnFxkr3rimD9bg3zPUeQhY3Z2gi9ku0pmEuq9CY
- CTx8oB9V0fF/QgLfOHW0g78rEv8k3d7THSyEu/N32qXLqnkQ9QPyS665Xi89PI3KT/g2
- 13Hpt8Hn8yZxbxng7XelVLhteQyPA3jkjsUvMje9XL6i/90+czVZZzS5B9ivW4VtD/vR
- Uz+aiqcoL5u5Yrn+wUun0jUeB6OK6cqdPSTqPhYYJ/8fyT9YoPDXBF/UbTLf/zbFH352
- UQ9A==
-X-Gm-Message-State: ACgBeo3y+9fVoSB9Vkdt1poDEEOswVr/GIWkBBlTz/qFeaJNbTFhV23w
- EOp/jEppBHT7SsKnifzqtgbBAg==
-X-Google-Smtp-Source: AA6agR6HoVv6K1JfDzqNlGHyOC7s8UkuUTM/czwKoSt7sLoTofnhIwzulOB9wBrhLPMwFJfWrreqVw==
-X-Received: by 2002:a05:6402:3288:b0:446:5d0b:1b26 with SMTP id
- f8-20020a056402328800b004465d0b1b26mr3270132eda.379.1660984209209; 
- Sat, 20 Aug 2022 01:30:09 -0700 (PDT)
-Received: from dario-ThinkPad-T14s-Gen-2i.homenet.telecomitalia.it
- (host-79-31-31-9.retail.telecomitalia.it. [79.31.31.9])
- by smtp.gmail.com with ESMTPSA id
- gx14-20020a1709068a4e00b0072b33e91f96sm3336112ejc.190.2022.08.20.01.30.08
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 20 Aug 2022 01:30:08 -0700 (PDT)
-From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
-To: linux-kernel@vger.kernel.org
-Date: Sat, 20 Aug 2022 10:29:35 +0200
-Message-Id: <20220820082936.686924-4-dario.binacchi@amarulasolutions.com>
-X-Mailer: git-send-email 2.32.0
-In-Reply-To: <20220820082936.686924-1-dario.binacchi@amarulasolutions.com>
-References: <20220820082936.686924-1-dario.binacchi@amarulasolutions.com>
+ Sat, 20 Aug 2022 11:58:26 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by sin.source.kernel.org (Postfix) with ESMTPS id 98C3ECE0945;
+ Sat, 20 Aug 2022 11:58:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D86EC433D6;
+ Sat, 20 Aug 2022 11:58:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1660996702;
+ bh=IYMBEBmZvHHQ3M0wfJWctteV1udRO4RyU3hBgvn/yts=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=nnNMkbHpeJ+yFppGPHQpoEiv1ReEAoUAuZUg8Ifae7i3GL9tOk2fIRO0THNcLWQxS
+ asWnR8FPikI5ZUYWN0BFOd+zUb/s6nYFATiZor6TTZMCabVDvVDzzwOjaifXnKLrtT
+ LuVJlGBvJ+a9XLY5SGtwo+h1gPuKEEferk0qEskq66BavYFFDIJ0tYpQcEDY2aQUA2
+ MfFhzSRxy/OeT0L/NuL7MG4D7gLJvjlInmrmpM6e/OFcbimTSzzMAvUmA3/F2rZ1oI
+ 33zv8AtN9bwkbTmNImXoqtUANBV3/m6ZD1rNv2ktlB+sDLrG3kUap9D3k2hvapQQhc
+ Qe7CyZtHpxoDQ==
+Date: Sat, 20 Aug 2022 13:08:56 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: William Breathitt Gray <william.gray@linaro.org>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>
+Message-ID: <20220820130856.52c3ff04@jic23-huawei>
+In-Reply-To: <20220815220321.74161-1-william.gray@linaro.org>
+References: <20220815220321.74161-1-william.gray@linaro.org>
+X-Mailer: Claws Mail 4.1.0 (GTK 3.24.34; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Cc: devicetree@vger.kernel.org,
- Dario Binacchi <dario.binacchi@amarulasolutions.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Rob Herring <robh+dt@kernel.org>,
- Marc Kleine-Budde <mkl@pengutronix.de>, linux-arm-kernel@lists.infradead.org,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- michael@amarulasolutions.com,
- Amarula patchwork <linux-amarula@amarulasolutions.com>,
- linux-stm32@st-md-mailman.stormreply.com, Dario Binacchi <dariobin@libero.it>
-Subject: [Linux-stm32] [RFC PATCH v2 3/4] ARM: dts: stm32: add pin map for
-	CAN controller on stm32f4
+Cc: Kamel Bouhara <kamel.bouhara@bootlin.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-iio@vger.kernel.org,
+ Patrick Havelange <patrick.havelange@essensium.com>,
+ linux-kernel@vger.kernel.org, Oleksij Rempel <linux@rempel-privat.de>,
+ Jarkko Nikula <jarkko.nikula@linux.intel.com>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ David Lechner <david@lechnology.com>
+Subject: Re: [Linux-stm32] [PATCH] counter: Move symbols into COUNTER
+	namespace
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,65 +65,192 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add pin configurations for using CAN controller on stm32f469-disco
-board. They are located on the Arduino compatible connector CN5 (CAN1)
-and on the extension connector CN12 (CAN2).
+On Mon, 15 Aug 2022 18:03:21 -0400
+William Breathitt Gray <william.gray@linaro.org> wrote:
 
-Signed-off-by: Dario Binacchi <dariobin@libero.it>
-Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+> Counter subsystem symbols are only relevant to counter drivers. A
+> COUNTER namespace is created to control the availability of these
+> symbols to modules that import this namespace explicitly.
+> 
+> Cc: Patrick Havelange <patrick.havelange@essensium.com>
+> Cc: Jarkko Nikula <jarkko.nikula@linux.intel.com>
+> Cc: Oleksij Rempel <linux@rempel-privat.de>
+> Cc: Pengutronix Kernel Team <kernel@pengutronix.de>
+> Cc: Kamel Bouhara <kamel.bouhara@bootlin.com>
+> Cc: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+> Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+> Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
+> Cc: David Lechner <david@lechnology.com>
+> Signed-off-by: William Breathitt Gray <william.gray@linaro.org>
 
----
+I'm kind of amazed the interface is this small :)
 
-Changes in v2:
-- Remove a blank line.
+Definitely a good thing to do.  Sometime soon I'll finish
+doing equivalent for IIO.
 
- arch/arm/boot/dts/stm32f4-pinctrl.dtsi | 31 ++++++++++++++++++++++++++
- 1 file changed, 31 insertions(+)
-
-diff --git a/arch/arm/boot/dts/stm32f4-pinctrl.dtsi b/arch/arm/boot/dts/stm32f4-pinctrl.dtsi
-index 500bcc302d42..3a9c3180fbf9 100644
---- a/arch/arm/boot/dts/stm32f4-pinctrl.dtsi
-+++ b/arch/arm/boot/dts/stm32f4-pinctrl.dtsi
-@@ -448,6 +448,37 @@ pins2 {
- 					slew-rate = <2>;
- 				};
- 			};
-+
-+			can1_pins_a: can1-0 {
-+				pins1 {
-+					pinmux = <STM32_PINMUX('B', 9, AF9)>; /* CAN1_TX */
-+				};
-+				pins2 {
-+					pinmux = <STM32_PINMUX('B', 8, AF9)>; /* CAN1_RX */
-+					bias-pull-up;
-+				};
-+			};
-+
-+			can2_pins_a: can2-0 {
-+				pins1 {
-+					pinmux = <STM32_PINMUX('B', 13, AF9)>; /* CAN2_TX */
-+				};
-+				pins2 {
-+					pinmux = <STM32_PINMUX('B', 5, AF9)>; /* CAN2_RX */
-+					bias-pull-up;
-+				};
-+			};
-+
-+			can2_pins_b: can2-1 {
-+				pins1 {
-+					pinmux = <STM32_PINMUX('B', 13, AF9)>; /* CAN2_TX */
-+				};
-+				pins2 {
-+					pinmux = <STM32_PINMUX('B', 12, AF9)>; /* CAN2_RX */
-+					bias-pull-up;
-+				};
-+			};
-+
- 		};
- 	};
- };
--- 
-2.32.0
+Reviewed-by: Jonathan Cameron <Jonathan.Cameron@huawei.com>
+> ---
+>  drivers/counter/104-quad-8.c            |  1 +
+>  drivers/counter/counter-chrdev.c        |  2 +-
+>  drivers/counter/counter-core.c          | 14 +++++++-------
+>  drivers/counter/ftm-quaddec.c           |  1 +
+>  drivers/counter/intel-qep.c             |  1 +
+>  drivers/counter/interrupt-cnt.c         |  1 +
+>  drivers/counter/microchip-tcb-capture.c |  1 +
+>  drivers/counter/stm32-lptimer-cnt.c     |  1 +
+>  drivers/counter/stm32-timer-cnt.c       |  1 +
+>  drivers/counter/ti-eqep.c               |  1 +
+>  10 files changed, 16 insertions(+), 8 deletions(-)
+> 
+> diff --git a/drivers/counter/104-quad-8.c b/drivers/counter/104-quad-8.c
+> index 62c2b7ac4339..1323edfbe40c 100644
+> --- a/drivers/counter/104-quad-8.c
+> +++ b/drivers/counter/104-quad-8.c
+> @@ -1241,3 +1241,4 @@ module_isa_driver(quad8_driver, num_quad8);
+>  MODULE_AUTHOR("William Breathitt Gray <vilhelm.gray@gmail.com>");
+>  MODULE_DESCRIPTION("ACCES 104-QUAD-8 driver");
+>  MODULE_LICENSE("GPL v2");
+> +MODULE_IMPORT_NS(COUNTER);
+> diff --git a/drivers/counter/counter-chrdev.c b/drivers/counter/counter-chrdev.c
+> index 69d340be9c93..4e71a19d7e6a 100644
+> --- a/drivers/counter/counter-chrdev.c
+> +++ b/drivers/counter/counter-chrdev.c
+> @@ -574,4 +574,4 @@ void counter_push_event(struct counter_device *const counter, const u8 event,
+>  	if (copied)
+>  		wake_up_poll(&counter->events_wait, EPOLLIN);
+>  }
+> -EXPORT_SYMBOL_GPL(counter_push_event);
+> +EXPORT_SYMBOL_NS_GPL(counter_push_event, COUNTER);
+> diff --git a/drivers/counter/counter-core.c b/drivers/counter/counter-core.c
+> index 938651f9e9e0..09c77afb33ca 100644
+> --- a/drivers/counter/counter-core.c
+> +++ b/drivers/counter/counter-core.c
+> @@ -73,7 +73,7 @@ void *counter_priv(const struct counter_device *const counter)
+>  
+>  	return &ch->privdata;
+>  }
+> -EXPORT_SYMBOL_GPL(counter_priv);
+> +EXPORT_SYMBOL_NS_GPL(counter_priv, COUNTER);
+>  
+>  /**
+>   * counter_alloc - allocate a counter_device
+> @@ -133,13 +133,13 @@ struct counter_device *counter_alloc(size_t sizeof_priv)
+>  
+>  	return NULL;
+>  }
+> -EXPORT_SYMBOL_GPL(counter_alloc);
+> +EXPORT_SYMBOL_NS_GPL(counter_alloc, COUNTER);
+>  
+>  void counter_put(struct counter_device *counter)
+>  {
+>  	put_device(&counter->dev);
+>  }
+> -EXPORT_SYMBOL_GPL(counter_put);
+> +EXPORT_SYMBOL_NS_GPL(counter_put, COUNTER);
+>  
+>  /**
+>   * counter_add - complete registration of a counter
+> @@ -166,7 +166,7 @@ int counter_add(struct counter_device *counter)
+>  	/* implies device_add(dev) */
+>  	return cdev_device_add(&counter->chrdev, dev);
+>  }
+> -EXPORT_SYMBOL_GPL(counter_add);
+> +EXPORT_SYMBOL_NS_GPL(counter_add, COUNTER);
+>  
+>  /**
+>   * counter_unregister - unregister Counter from the system
+> @@ -188,7 +188,7 @@ void counter_unregister(struct counter_device *const counter)
+>  
+>  	mutex_unlock(&counter->ops_exist_lock);
+>  }
+> -EXPORT_SYMBOL_GPL(counter_unregister);
+> +EXPORT_SYMBOL_NS_GPL(counter_unregister, COUNTER);
+>  
+>  static void devm_counter_release(void *counter)
+>  {
+> @@ -223,7 +223,7 @@ struct counter_device *devm_counter_alloc(struct device *dev, size_t sizeof_priv
+>  
+>  	return counter;
+>  }
+> -EXPORT_SYMBOL_GPL(devm_counter_alloc);
+> +EXPORT_SYMBOL_NS_GPL(devm_counter_alloc, COUNTER);
+>  
+>  /**
+>   * devm_counter_add - complete registration of a counter
+> @@ -244,7 +244,7 @@ int devm_counter_add(struct device *dev,
+>  
+>  	return devm_add_action_or_reset(dev, devm_counter_release, counter);
+>  }
+> -EXPORT_SYMBOL_GPL(devm_counter_add);
+> +EXPORT_SYMBOL_NS_GPL(devm_counter_add, COUNTER);
+>  
+>  #define COUNTER_DEV_MAX 256
+>  
+> diff --git a/drivers/counter/ftm-quaddec.c b/drivers/counter/ftm-quaddec.c
+> index 2a58582a9df4..aea6622a9b13 100644
+> --- a/drivers/counter/ftm-quaddec.c
+> +++ b/drivers/counter/ftm-quaddec.c
+> @@ -325,3 +325,4 @@ module_platform_driver(ftm_quaddec_driver);
+>  MODULE_LICENSE("GPL");
+>  MODULE_AUTHOR("Kjeld Flarup <kfa@deif.com>");
+>  MODULE_AUTHOR("Patrick Havelange <patrick.havelange@essensium.com>");
+> +MODULE_IMPORT_NS(COUNTER);
+> diff --git a/drivers/counter/intel-qep.c b/drivers/counter/intel-qep.c
+> index 47a6a9dfc9e8..af5942e66f7d 100644
+> --- a/drivers/counter/intel-qep.c
+> +++ b/drivers/counter/intel-qep.c
+> @@ -523,3 +523,4 @@ MODULE_AUTHOR("Jarkko Nikula <jarkko.nikula@linux.intel.com>");
+>  MODULE_AUTHOR("Raymond Tan <raymond.tan@intel.com>");
+>  MODULE_LICENSE("GPL");
+>  MODULE_DESCRIPTION("Intel Quadrature Encoder Peripheral driver");
+> +MODULE_IMPORT_NS(COUNTER);
+> diff --git a/drivers/counter/interrupt-cnt.c b/drivers/counter/interrupt-cnt.c
+> index 3b13f56bbb11..5a11b65fc0e5 100644
+> --- a/drivers/counter/interrupt-cnt.c
+> +++ b/drivers/counter/interrupt-cnt.c
+> @@ -242,3 +242,4 @@ MODULE_ALIAS("platform:interrupt-counter");
+>  MODULE_AUTHOR("Oleksij Rempel <o.rempel@pengutronix.de>");
+>  MODULE_DESCRIPTION("Interrupt counter driver");
+>  MODULE_LICENSE("GPL v2");
+> +MODULE_IMPORT_NS(COUNTER);
+> diff --git a/drivers/counter/microchip-tcb-capture.c b/drivers/counter/microchip-tcb-capture.c
+> index 00844445143b..f9dee15d9777 100644
+> --- a/drivers/counter/microchip-tcb-capture.c
+> +++ b/drivers/counter/microchip-tcb-capture.c
+> @@ -394,3 +394,4 @@ module_platform_driver(mchp_tc_driver);
+>  MODULE_AUTHOR("Kamel Bouhara <kamel.bouhara@bootlin.com>");
+>  MODULE_DESCRIPTION("Microchip TCB Capture driver");
+>  MODULE_LICENSE("GPL v2");
+> +MODULE_IMPORT_NS(COUNTER);
+> diff --git a/drivers/counter/stm32-lptimer-cnt.c b/drivers/counter/stm32-lptimer-cnt.c
+> index 68031d93ce89..d6b80b6dfc28 100644
+> --- a/drivers/counter/stm32-lptimer-cnt.c
+> +++ b/drivers/counter/stm32-lptimer-cnt.c
+> @@ -520,3 +520,4 @@ MODULE_AUTHOR("Fabrice Gasnier <fabrice.gasnier@st.com>");
+>  MODULE_ALIAS("platform:stm32-lptimer-counter");
+>  MODULE_DESCRIPTION("STMicroelectronics STM32 LPTIM counter driver");
+>  MODULE_LICENSE("GPL v2");
+> +MODULE_IMPORT_NS(COUNTER);
+> diff --git a/drivers/counter/stm32-timer-cnt.c b/drivers/counter/stm32-timer-cnt.c
+> index 5779ae7c73cf..9bf20a5d6bda 100644
+> --- a/drivers/counter/stm32-timer-cnt.c
+> +++ b/drivers/counter/stm32-timer-cnt.c
+> @@ -417,3 +417,4 @@ MODULE_AUTHOR("Benjamin Gaignard <benjamin.gaignard@st.com>");
+>  MODULE_ALIAS("platform:stm32-timer-counter");
+>  MODULE_DESCRIPTION("STMicroelectronics STM32 TIMER counter driver");
+>  MODULE_LICENSE("GPL v2");
+> +MODULE_IMPORT_NS(COUNTER);
+> diff --git a/drivers/counter/ti-eqep.c b/drivers/counter/ti-eqep.c
+> index 0489d26eb47c..b0f24cf3e891 100644
+> --- a/drivers/counter/ti-eqep.c
+> +++ b/drivers/counter/ti-eqep.c
+> @@ -456,3 +456,4 @@ module_platform_driver(ti_eqep_driver);
+>  MODULE_AUTHOR("David Lechner <david@lechnology.com>");
+>  MODULE_DESCRIPTION("TI eQEP counter driver");
+>  MODULE_LICENSE("GPL v2");
+> +MODULE_IMPORT_NS(COUNTER);
+> 
+> base-commit: 568035b01cfb107af8d2e4bd2fb9aea22cf5b868
 
 _______________________________________________
 Linux-stm32 mailing list
