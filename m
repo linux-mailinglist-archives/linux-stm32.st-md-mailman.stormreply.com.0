@@ -2,44 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E414059B9D2
+	by mail.lfdr.de (Postfix) with ESMTPS id F2AD159B9D3
 	for <lists+linux-stm32@lfdr.de>; Mon, 22 Aug 2022 08:51:24 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 97E14C6504C;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B298EC65050;
 	Mon, 22 Aug 2022 06:51:24 +0000 (UTC)
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C9667C64112
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DAFF3C64114
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 22 Aug 2022 03:33:21 +0000 (UTC)
-X-UUID: 4243819ea2ef4a08bdf49d5928fc1a02-20220822
+ Mon, 22 Aug 2022 03:33:25 +0000 (UTC)
+X-UUID: 489d75bd58b84859b460eeb28e0120f0-20220822
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com;
  s=dk; 
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:CC:To:From;
- bh=nAkSeMAfPFJatVTQO+bBWU7+tr6EEDaIG4aLqZFD4aU=; 
- b=QyHm2tkdWV87/4ptmW20lN1qAZXg4Zn23IpiggdBpRdGbVIq2PCCfzwjdnPIE1ubCaFJ0F1Ht3fGGot/8qlydLlqvttrZD4JY7V5YySdEZfWZ0oIKRZYC8Q7TV5JPMw26jQCGKOyvFaPptDMU4xcZppEmlfW5UfZFBybTmOg1VI=;
+ h=Content-Type:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:CC:To:From;
+ bh=Epd5x+w/IBsmNgNnkhZpQpKLSVQX6CfGdIGTOvRcUdk=; 
+ b=aRRUzblQEKW2/mcAe311PVqTrMmYpYrQE4xh/kkYltr2sdYHKsoWzzUvCwQr7CVtGPXbMUCgh7f70pPhE8b7BMDpzOKfHYvNgd/7MMY2fL7wpwVMsqn7Yjza0Y8eE2nl32XCCz14CC9OTwRbWcIYllXV9QceBgeX2qdRKSFg7ik=;
+X-CID-UNFAMILIAR: 1
 X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.1.10, REQID:b679c131-166b-4ff1-a240-00686d2123e5, OB:0,
+X-CID-O-INFO: VERSION:1.1.10, REQID:0acaad98-3aed-4910-86fc-fcf33788bc48, OB:0,
  L
- OB:0,IP:0,URL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_
- Ham,ACTION:release,TS:0
-X-CID-META: VersionHash:84eae18, CLOUDID:03dd2dcf-20bd-4e5e-ace8-00692b7ab380,
+ OB:0,IP:0,URL:0,TC:0,Content:0,EDM:0,RT:0,SF:100,FILE:0,BULK:0,RULE:Releas
+ e_Ham,ACTION:release,TS:100
+X-CID-INFO: VERSION:1.1.10, REQID:0acaad98-3aed-4910-86fc-fcf33788bc48, OB:0,
+ LOB
+ :0,IP:0,URL:0,TC:0,Content:0,EDM:0,RT:0,SF:100,FILE:0,BULK:0,RULE:Spam_GS9
+ 81B3D,ACTION:quarantine,TS:100
+X-CID-META: VersionHash:84eae18, CLOUDID:b25de067-a9d9-4672-a3c8-12721739a220,
  C
- OID:IGNORED,Recheck:0,SF:nil,TC:nil,Content:0,EDM:-3,IP:nil,URL:11|1,File:
- nil,Bulk:nil,QS:nil,BEC:nil,COL:0
-X-UUID: 4243819ea2ef4a08bdf49d5928fc1a02-20220822
-Received: from mtkmbs11n2.mediatek.inc [(172.21.101.187)] by
- mailgw02.mediatek.com (envelope-from <nathan.lu@mediatek.com>)
+ OID:67c7db7de1d0,Recheck:0,SF:28|16|19|48,TC:nil,Content:0,EDM:-3,IP:nil,U
+ RL:11|1,File:nil,Bulk:nil,QS:nil,BEC:nil,COL:0
+X-UUID: 489d75bd58b84859b460eeb28e0120f0-20220822
+Received: from mtkmbs10n1.mediatek.inc [(172.21.101.34)] by
+ mailgw01.mediatek.com (envelope-from <nathan.lu@mediatek.com>)
  (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
- with ESMTP id 1144258654; Mon, 22 Aug 2022 11:33:15 +0800
+ with ESMTP id 898073463; Mon, 22 Aug 2022 11:33:20 +0800
 Received: from mtkmbs11n2.mediatek.inc (172.21.101.187) by
- mtkmbs11n2.mediatek.inc (172.21.101.187) with Microsoft SMTP Server
+ mtkmbs10n1.mediatek.inc (172.21.101.34) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.792.15; Mon, 22 Aug 2022 11:33:13 +0800
+ 15.2.792.15; Mon, 22 Aug 2022 11:33:19 +0800
 Received: from mtksdccf07.mediatek.inc (172.21.84.99) by
  mtkmbs11n2.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
- 15.2.792.15 via Frontend Transport; Mon, 22 Aug 2022 11:33:13 +0800
+ 15.2.792.15 via Frontend Transport; Mon, 22 Aug 2022 11:33:19 +0800
 From: nathan.lu <nathan.lu@mediatek.com>
 To: Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski
  <krzysztof.kozlowski+dt@linaro.org>, Chun-Kuang Hu <chunkuang.hu@kernel.org>, 
@@ -47,8 +52,8 @@ To: Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski
  Daniel Vetter <daniel@ffwll.ch>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
  Alexandre Torgue <alexandre.torgue@foss.st.com>, Matthias Brugger
  <matthias.bgg@gmail.com>
-Date: Mon, 22 Aug 2022 11:32:10 +0800
-Message-ID: <20220822033213.15769-2-nathan.lu@mediatek.com>
+Date: Mon, 22 Aug 2022 11:32:11 +0800
+Message-ID: <20220822033213.15769-3-nathan.lu@mediatek.com>
 X-Mailer: git-send-email 2.18.0
 In-Reply-To: <20220822033213.15769-1-nathan.lu@mediatek.com>
 References: <20220822033213.15769-1-nathan.lu@mediatek.com>
@@ -59,14 +64,14 @@ Cc: Nathan Lu <nathan.lu@mediatek.com>,
  Enric Balletbo i Serra <enric.balletbo@collabora.com>,
  wsd_upstream@mediatek.com, srv_heupstream@mediatek.com,
  devicetree@vger.kernel.org, "jason-jh . lin" <jason-jh.lin@mediatek.com>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Rex-BC Chen <rex-bc.chen@mediatek.com>, Moudy Ho <moudy.ho@mediatek.com>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, Rex-BC
+ Chen <rex-bc.chen@mediatek.com>, Moudy Ho <moudy.ho@mediatek.com>,
  linux-mediatek@lists.infradead.org, CK Hu <ck.hu@mediatek.com>,
- lancelot.wu@mediatek.com, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org,
+ lancelot.wu@mediatek.com, amy zhang <Amy.Zhang@mediatek.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
  AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Subject: [Linux-stm32] [PATCH v1 1/4] dt-bindings: mediatek: modify VDOSYS0
-	device tree Documentations for MT8188
+Subject: [Linux-stm32] [PATCH v1 2/4] soc: mediatek: add mtk-mmsys support
+	for mt8188 vdosys0
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,144 +83,227 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-RnJvbTogTmF0aGFuIEx1IDxuYXRoYW4ubHVAbWVkaWF0ZWsuY29tPgoKbW9kaWZ5IFZET1NZUzAg
-ZGV2aWNlIHRyZWUgRG9jdW1lbnRhdGlvbnMgZm9yIE1UODE4OC4KClNpZ25lZC1vZmYtYnk6IE5h
-dGhhbiBMdSA8bmF0aGFuLmx1QG1lZGlhdGVrLmNvbT4KLS0tCiAuLi4vZGV2aWNldHJlZS9iaW5k
-aW5ncy9hcm0vbWVkaWF0ZWsvbWVkaWF0ZWssbW1zeXMueWFtbCAgICAgICB8IDEgKwogLi4uL2Rl
-dmljZXRyZWUvYmluZGluZ3MvZGlzcGxheS9tZWRpYXRlay9tZWRpYXRlayxhYWwueWFtbCAgICAg
-fCAxICsKIC4uLi9kZXZpY2V0cmVlL2JpbmRpbmdzL2Rpc3BsYXkvbWVkaWF0ZWsvbWVkaWF0ZWss
-Y2NvcnIueWFtbCAgIHwgMSArCiAuLi4vZGV2aWNldHJlZS9iaW5kaW5ncy9kaXNwbGF5L21lZGlh
-dGVrL21lZGlhdGVrLGNvbG9yLnlhbWwgICB8IDEgKwogLi4uL2RldmljZXRyZWUvYmluZGluZ3Mv
-ZGlzcGxheS9tZWRpYXRlay9tZWRpYXRlayxkaXRoZXIueWFtbCAgfCAxICsKIC4uLi9kZXZpY2V0
-cmVlL2JpbmRpbmdzL2Rpc3BsYXkvbWVkaWF0ZWsvbWVkaWF0ZWssZ2FtbWEueWFtbCAgIHwgMyAr
-Ky0KIC4uLi9kZXZpY2V0cmVlL2JpbmRpbmdzL2Rpc3BsYXkvbWVkaWF0ZWsvbWVkaWF0ZWssb3Zs
-LnlhbWwgICAgIHwgMSArCiAuLi4vYmluZGluZ3MvZGlzcGxheS9tZWRpYXRlay9tZWRpYXRlayxw
-b3N0bWFzay55YW1sICAgICAgICAgICB8IDEgKwogLi4uL2RldmljZXRyZWUvYmluZGluZ3MvZGlz
-cGxheS9tZWRpYXRlay9tZWRpYXRlayxyZG1hLnlhbWwgICAgfCAyICsrCiAuLi4vZGV2aWNldHJl
-ZS9iaW5kaW5ncy9zb2MvbWVkaWF0ZWsvbWVkaWF0ZWssbXV0ZXgueWFtbCAgICAgICB8IDEgKwog
-MTAgZmlsZXMgY2hhbmdlZCwgMTIgaW5zZXJ0aW9ucygrKSwgMSBkZWxldGlvbigtKQoKZGlmZiAt
-LWdpdCBhL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9hcm0vbWVkaWF0ZWsvbWVk
-aWF0ZWssbW1zeXMueWFtbCBiL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9hcm0v
-bWVkaWF0ZWsvbWVkaWF0ZWssbW1zeXMueWFtbAppbmRleCA2YWQwMjNlZWMxOTMuLmYyNmY2MTA2
-OTE4MSAxMDA2NDQKLS0tIGEvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL2FybS9t
-ZWRpYXRlay9tZWRpYXRlayxtbXN5cy55YW1sCisrKyBiL0RvY3VtZW50YXRpb24vZGV2aWNldHJl
-ZS9iaW5kaW5ncy9hcm0vbWVkaWF0ZWsvbWVkaWF0ZWssbW1zeXMueWFtbApAQCAtMzAsNiArMzAs
-NyBAQCBwcm9wZXJ0aWVzOgogICAgICAgICAgICAgICAtIG1lZGlhdGVrLG10ODE3My1tbXN5cwog
-ICAgICAgICAgICAgICAtIG1lZGlhdGVrLG10ODE4My1tbXN5cwogICAgICAgICAgICAgICAtIG1l
-ZGlhdGVrLG10ODE4Ni1tbXN5cworICAgICAgICAgICAgICAtIG1lZGlhdGVrLG10ODE4OC1tbXN5
-cwogICAgICAgICAgICAgICAtIG1lZGlhdGVrLG10ODE5Mi1tbXN5cwogICAgICAgICAgICAgICAt
-IG1lZGlhdGVrLG10ODE5NS1tbXN5cwogICAgICAgICAgICAgICAtIG1lZGlhdGVrLG10ODM2NS1t
-bXN5cwpkaWZmIC0tZ2l0IGEvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL2Rpc3Bs
-YXkvbWVkaWF0ZWsvbWVkaWF0ZWssYWFsLnlhbWwgYi9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUv
-YmluZGluZ3MvZGlzcGxheS9tZWRpYXRlay9tZWRpYXRlayxhYWwueWFtbAppbmRleCBkNGQ1ODU0
-ODVlN2IuLjkyNzQxNDg2YzI0ZCAxMDA2NDQKLS0tIGEvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVl
-L2JpbmRpbmdzL2Rpc3BsYXkvbWVkaWF0ZWsvbWVkaWF0ZWssYWFsLnlhbWwKKysrIGIvRG9jdW1l
-bnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL2Rpc3BsYXkvbWVkaWF0ZWsvbWVkaWF0ZWssYWFs
-LnlhbWwKQEAgLTMxLDYgKzMxLDcgQEAgcHJvcGVydGllczoKICAgICAgIC0gaXRlbXM6CiAgICAg
-ICAgICAgLSBlbnVtOgogICAgICAgICAgICAgICAtIG1lZGlhdGVrLG10ODE4Ni1kaXNwLWFhbAor
-ICAgICAgICAgICAgICAtIG1lZGlhdGVrLG10ODE4OC1kaXNwLWFhbAogICAgICAgICAgICAgICAt
-IG1lZGlhdGVrLG10ODE5Mi1kaXNwLWFhbAogICAgICAgICAgICAgICAtIG1lZGlhdGVrLG10ODE5
-NS1kaXNwLWFhbAogICAgICAgICAgIC0gY29uc3Q6IG1lZGlhdGVrLG10ODE4My1kaXNwLWFhbApk
-aWZmIC0tZ2l0IGEvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL2Rpc3BsYXkvbWVk
-aWF0ZWsvbWVkaWF0ZWssY2NvcnIueWFtbCBiL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5k
-aW5ncy9kaXNwbGF5L21lZGlhdGVrL21lZGlhdGVrLGNjb3JyLnlhbWwKaW5kZXggNjNmYjAyMDE0
-YTU2Li5mZTQ0NGJlZmY1NTggMTAwNjQ0Ci0tLSBhL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9i
-aW5kaW5ncy9kaXNwbGF5L21lZGlhdGVrL21lZGlhdGVrLGNjb3JyLnlhbWwKKysrIGIvRG9jdW1l
-bnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL2Rpc3BsYXkvbWVkaWF0ZWsvbWVkaWF0ZWssY2Nv
-cnIueWFtbApAQCAtMjcsNiArMjcsNyBAQCBwcm9wZXJ0aWVzOgogICAgICAgICAgIC0gY29uc3Q6
-IG1lZGlhdGVrLG10ODE5Mi1kaXNwLWNjb3JyCiAgICAgICAtIGl0ZW1zOgogICAgICAgICAgIC0g
-ZW51bToKKyAgICAgICAgICAgICAgLSBtZWRpYXRlayxtdDgxODgtZGlzcC1jY29ycgogICAgICAg
-ICAgICAgICAtIG1lZGlhdGVrLG10ODE5NS1kaXNwLWNjb3JyCiAgICAgICAgICAgLSBjb25zdDog
-bWVkaWF0ZWssbXQ4MTkyLWRpc3AtY2NvcnIKICAgICAgIC0gaXRlbXM6CmRpZmYgLS1naXQgYS9E
-b2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvZGlzcGxheS9tZWRpYXRlay9tZWRpYXRl
-ayxjb2xvci55YW1sIGIvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL2Rpc3BsYXkv
-bWVkaWF0ZWsvbWVkaWF0ZWssY29sb3IueWFtbAppbmRleCBkMmY4OWVlNzk5NmYuLjYyMzA2Yzg4
-ZjQ4NSAxMDA2NDQKLS0tIGEvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL2Rpc3Bs
-YXkvbWVkaWF0ZWsvbWVkaWF0ZWssY29sb3IueWFtbAorKysgYi9Eb2N1bWVudGF0aW9uL2Rldmlj
-ZXRyZWUvYmluZGluZ3MvZGlzcGxheS9tZWRpYXRlay9tZWRpYXRlayxjb2xvci55YW1sCkBAIC0z
-Nyw2ICszNyw3IEBAIHByb3BlcnRpZXM6CiAgICAgICAgICAgLSBlbnVtOgogICAgICAgICAgICAg
-ICAtIG1lZGlhdGVrLG10ODE4My1kaXNwLWNvbG9yCiAgICAgICAgICAgICAgIC0gbWVkaWF0ZWss
-bXQ4MTg2LWRpc3AtY29sb3IKKyAgICAgICAgICAgICAgLSBtZWRpYXRlayxtdDgxODgtZGlzcC1j
-b2xvcgogICAgICAgICAgICAgICAtIG1lZGlhdGVrLG10ODE5Mi1kaXNwLWNvbG9yCiAgICAgICAg
-ICAgICAgIC0gbWVkaWF0ZWssbXQ4MTk1LWRpc3AtY29sb3IKICAgICAgICAgICAtIGNvbnN0OiBt
-ZWRpYXRlayxtdDgxNzMtZGlzcC1jb2xvcgpkaWZmIC0tZ2l0IGEvRG9jdW1lbnRhdGlvbi9kZXZp
-Y2V0cmVlL2JpbmRpbmdzL2Rpc3BsYXkvbWVkaWF0ZWsvbWVkaWF0ZWssZGl0aGVyLnlhbWwgYi9E
-b2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvZGlzcGxheS9tZWRpYXRlay9tZWRpYXRl
-ayxkaXRoZXIueWFtbAppbmRleCA4YWQ4MTg3YzAyZDEuLjVjNzQ0NWMxNzRlNSAxMDA2NDQKLS0t
-IGEvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL2Rpc3BsYXkvbWVkaWF0ZWsvbWVk
-aWF0ZWssZGl0aGVyLnlhbWwKKysrIGIvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdz
-L2Rpc3BsYXkvbWVkaWF0ZWsvbWVkaWF0ZWssZGl0aGVyLnlhbWwKQEAgLTI3LDYgKzI3LDcgQEAg
-cHJvcGVydGllczoKICAgICAgIC0gaXRlbXM6CiAgICAgICAgICAgLSBlbnVtOgogICAgICAgICAg
-ICAgICAtIG1lZGlhdGVrLG10ODE4Ni1kaXNwLWRpdGhlcgorICAgICAgICAgICAgICAtIG1lZGlh
-dGVrLG10ODE4OC1kaXNwLWRpdGhlcgogICAgICAgICAgICAgICAtIG1lZGlhdGVrLG10ODE5Mi1k
-aXNwLWRpdGhlcgogICAgICAgICAgICAgICAtIG1lZGlhdGVrLG10ODE5NS1kaXNwLWRpdGhlcgog
-ICAgICAgICAgIC0gY29uc3Q6IG1lZGlhdGVrLG10ODE4My1kaXNwLWRpdGhlcgpkaWZmIC0tZ2l0
-IGEvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL2Rpc3BsYXkvbWVkaWF0ZWsvbWVk
-aWF0ZWssZ2FtbWEueWFtbCBiL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9kaXNw
-bGF5L21lZGlhdGVrL21lZGlhdGVrLGdhbW1hLnlhbWwKaW5kZXggYTg5ZWEwZWE3NTQyLi4zZDZl
-MjBmNmViMDUgMTAwNjQ0Ci0tLSBhL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9k
-aXNwbGF5L21lZGlhdGVrL21lZGlhdGVrLGdhbW1hLnlhbWwKKysrIGIvRG9jdW1lbnRhdGlvbi9k
-ZXZpY2V0cmVlL2JpbmRpbmdzL2Rpc3BsYXkvbWVkaWF0ZWsvbWVkaWF0ZWssZ2FtbWEueWFtbApA
-QCAtMTIsNyArMTIsNyBAQCBtYWludGFpbmVyczoKIAogZGVzY3JpcHRpb246IHwKICAgTWVkaWF0
-ZWsgZGlzcGxheSBnYW1tYSBjb3JyZWN0aW9uLCBuYW1lbHkgR0FNTUEsIHByb3ZpZGVzIGEgbm9u
-bGluZWFyCi0gIG9wZXJhdGlvbiB1c2VkIHRvIGFkanVzdCBsdW1pbmFuY2UgaW7CoGRpc3BsYXkg
-c3lzdGVtLgorICBvcGVyYXRpb24gdXNlZCB0byBhZGp1c3QgbHVtaW5hbmNlIGluP2Rpc3BsYXkg
-c3lzdGVtLgogICBHQU1NQSBkZXZpY2Ugbm9kZSBtdXN0IGJlIHNpYmxpbmdzIHRvIHRoZSBjZW50
-cmFsIE1NU1lTX0NPTkZJRyBub2RlLgogICBGb3IgYSBkZXNjcmlwdGlvbiBvZiB0aGUgTU1TWVNf
-Q09ORklHIGJpbmRpbmcsIHNlZQogICBEb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3Mv
-YXJtL21lZGlhdGVrL21lZGlhdGVrLG1tc3lzLnlhbWwKQEAgLTI4LDYgKzI4LDcgQEAgcHJvcGVy
-dGllczoKICAgICAgIC0gaXRlbXM6CiAgICAgICAgICAgLSBlbnVtOgogICAgICAgICAgICAgICAt
-IG1lZGlhdGVrLG10ODE4Ni1kaXNwLWdhbW1hCisgICAgICAgICAgICAgIC0gbWVkaWF0ZWssbXQ4
-MTg4LWRpc3AtZ2FtbWEKICAgICAgICAgICAgICAgLSBtZWRpYXRlayxtdDgxOTItZGlzcC1nYW1t
-YQogICAgICAgICAgICAgICAtIG1lZGlhdGVrLG10ODE5NS1kaXNwLWdhbW1hCiAgICAgICAgICAg
-LSBjb25zdDogbWVkaWF0ZWssbXQ4MTgzLWRpc3AtZ2FtbWEKZGlmZiAtLWdpdCBhL0RvY3VtZW50
-YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9kaXNwbGF5L21lZGlhdGVrL21lZGlhdGVrLG92bC55
-YW1sIGIvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL2Rpc3BsYXkvbWVkaWF0ZWsv
-bWVkaWF0ZWssb3ZsLnlhbWwKaW5kZXggYTJhMjdkMGNhMDM4Li4wNjVlNTI2Zjk1MGUgMTAwNjQ0
-Ci0tLSBhL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9kaXNwbGF5L21lZGlhdGVr
-L21lZGlhdGVrLG92bC55YW1sCisrKyBiL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5n
-cy9kaXNwbGF5L21lZGlhdGVrL21lZGlhdGVrLG92bC55YW1sCkBAIC0zNiw2ICszNiw3IEBAIHBy
-b3BlcnRpZXM6CiAgICAgICAgICAgLSBjb25zdDogbWVkaWF0ZWssbXQyNzAxLWRpc3Atb3ZsCiAg
-ICAgICAtIGl0ZW1zOgogICAgICAgICAgIC0gZW51bToKKyAgICAgICAgICAgICAgLSBtZWRpYXRl
-ayxtdDgxODgtZGlzcC1vdmwKICAgICAgICAgICAgICAgLSBtZWRpYXRlayxtdDgxOTUtZGlzcC1v
-dmwKICAgICAgICAgICAtIGNvbnN0OiBtZWRpYXRlayxtdDgxODMtZGlzcC1vdmwKICAgICAgIC0g
-aXRlbXM6CmRpZmYgLS1naXQgYS9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvZGlz
-cGxheS9tZWRpYXRlay9tZWRpYXRlayxwb3N0bWFzay55YW1sIGIvRG9jdW1lbnRhdGlvbi9kZXZp
-Y2V0cmVlL2JpbmRpbmdzL2Rpc3BsYXkvbWVkaWF0ZWsvbWVkaWF0ZWsscG9zdG1hc2sueWFtbApp
-bmRleCA2NTQwODBiZmJkZmIuLjI3ZGU2NDQ5NTQwMSAxMDA2NDQKLS0tIGEvRG9jdW1lbnRhdGlv
-bi9kZXZpY2V0cmVlL2JpbmRpbmdzL2Rpc3BsYXkvbWVkaWF0ZWsvbWVkaWF0ZWsscG9zdG1hc2su
-eWFtbAorKysgYi9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvZGlzcGxheS9tZWRp
-YXRlay9tZWRpYXRlayxwb3N0bWFzay55YW1sCkBAIC0yNiw2ICsyNiw3IEBAIHByb3BlcnRpZXM6
-CiAgICAgICAtIGl0ZW1zOgogICAgICAgICAgIC0gZW51bToKICAgICAgICAgICAgICAgLSBtZWRp
-YXRlayxtdDgxODYtZGlzcC1wb3N0bWFzaworICAgICAgICAgICAgICAtIG1lZGlhdGVrLG10ODE4
-OC1kaXNwLXBvc3RtYXNrCiAgICAgICAgICAgLSBjb25zdDogbWVkaWF0ZWssbXQ4MTkyLWRpc3At
-cG9zdG1hc2sKIAogICByZWc6CmRpZmYgLS1naXQgYS9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUv
-YmluZGluZ3MvZGlzcGxheS9tZWRpYXRlay9tZWRpYXRlayxyZG1hLnlhbWwgYi9Eb2N1bWVudGF0
-aW9uL2RldmljZXRyZWUvYmluZGluZ3MvZGlzcGxheS9tZWRpYXRlay9tZWRpYXRlayxyZG1hLnlh
-bWwKaW5kZXggMDg4MmFlODZlNmM0Li5kMGU2YzBkZDRkZmIgMTAwNjQ0Ci0tLSBhL0RvY3VtZW50
-YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9kaXNwbGF5L21lZGlhdGVrL21lZGlhdGVrLHJkbWEu
-eWFtbAorKysgYi9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvZGlzcGxheS9tZWRp
-YXRlay9tZWRpYXRlayxyZG1hLnlhbWwKQEAgLTMwLDYgKzMwLDggQEAgcHJvcGVydGllczoKICAg
-ICAgIC0gaXRlbXM6CiAgICAgICAgICAgLSBjb25zdDogbWVkaWF0ZWssbXQ4MTgzLWRpc3AtcmRt
-YQogICAgICAgLSBpdGVtczoKKyAgICAgICAgICAtIGVudW06CisgICAgICAgICAgICAgIC0gbWVk
-aWF0ZWssbXQ4MTg4LWRpc3AtcmRtYQogICAgICAgICAgIC0gY29uc3Q6IG1lZGlhdGVrLG10ODE5
-NS1kaXNwLXJkbWEKICAgICAgIC0gaXRlbXM6CiAgICAgICAgICAgLSBlbnVtOgpkaWZmIC0tZ2l0
-IGEvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL3NvYy9tZWRpYXRlay9tZWRpYXRl
-ayxtdXRleC55YW1sIGIvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL3NvYy9tZWRp
-YXRlay9tZWRpYXRlayxtdXRleC55YW1sCmluZGV4IDYyN2RjYzNlOGIzMi4uYTUyMTJhMmE0ZGNj
-IDEwMDY0NAotLS0gYS9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3Mvc29jL21lZGlh
-dGVrL21lZGlhdGVrLG11dGV4LnlhbWwKKysrIGIvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2Jp
-bmRpbmdzL3NvYy9tZWRpYXRlay9tZWRpYXRlayxtdXRleC55YW1sCkBAIC0zMCw2ICszMCw3IEBA
-IHByb3BlcnRpZXM6CiAgICAgICAtIG1lZGlhdGVrLG10ODE3My1kaXNwLW11dGV4CiAgICAgICAt
-IG1lZGlhdGVrLG10ODE4My1kaXNwLW11dGV4CiAgICAgICAtIG1lZGlhdGVrLG10ODE4Ni1kaXNw
-LW11dGV4CisgICAgICAtIG1lZGlhdGVrLG10ODE4OC1kaXNwLW11dGV4CiAgICAgICAtIG1lZGlh
-dGVrLG10ODE5Mi1kaXNwLW11dGV4CiAgICAgICAtIG1lZGlhdGVrLG10ODE5NS1kaXNwLW11dGV4
-CiAKLS0gCjIuMTguMAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4u
-c3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxt
-YW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+From: Nathan Lu <nathan.lu@mediatek.com>
+
+1. add mt8188 mmsys
+2. add mt8188 vdosys0 routing table settings
+
+Signed-off-by: amy zhang <Amy.Zhang@mediatek.com>
+Signed-off-by: Nathan Lu <nathan.lu@mediatek.com>
+---
+ drivers/soc/mediatek/mt8188-mmsys.h | 149 ++++++++++++++++++++++++++++
+ drivers/soc/mediatek/mtk-mmsys.c    |  19 ++++
+ 2 files changed, 168 insertions(+)
+ create mode 100644 drivers/soc/mediatek/mt8188-mmsys.h
+
+diff --git a/drivers/soc/mediatek/mt8188-mmsys.h b/drivers/soc/mediatek/mt8188-mmsys.h
+new file mode 100644
+index 000000000000..e1ab318c9192
+--- /dev/null
++++ b/drivers/soc/mediatek/mt8188-mmsys.h
+@@ -0,0 +1,149 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++
++#ifndef __SOC_MEDIATEK_MT8188_MMSYS_H
++#define __SOC_MEDIATEK_MT8188_MMSYS_H
++
++#define MT8188_VDO0_OVL_MOUT_EN				0xf14
++#define MT8188_MOUT_DISP_OVL0_TO_DISP_RDMA0		BIT(0)
++#define MT8188_MOUT_DISP_OVL0_TO_DISP_WDMA0		BIT(1)
++#define MT8188_MOUT_DISP_OVL0_TO_DISP_OVL1		BIT(2)
++#define MT8188_MOUT_DISP_OVL1_TO_DISP_RDMA1		BIT(4)
++#define MT8188_MOUT_DISP_OVL1_TO_DISP_WDMA1		BIT(5)
++#define MT8188_MOUT_DISP_OVL1_TO_DISP_OVL0		BIT(6)
++
++#define MT8188_VDO0_SEL_IN				0xf34
++#define MT8188_VDO0_SEL_OUT				0xf38
++
++#define MT8188_VDO0_DISP_RDMA_SEL			0xf40
++#define MT8188_SOUT_DISP_RDMA0_TO_MASK			GENMASK(2, 0)
++#define MT8188_SOUT_DISP_RDMA0_TO_DISP_COLOR0		(0 << 0)
++#define MT8188_SOUT_DISP_RDMA0_TO_DISP_DSI0		(1 << 0)
++#define MT8188_SOUT_DISP_RDMA0_TO_DISP_DP_INTF0		(5 << 0)
++#define MT8188_SEL_IN_DISP_RDMA0_FROM_MASK		GENMASK(8, 8)
++#define MT8188_SEL_IN_DISP_RDMA0_FROM_DISP_OVL0		(0 << 8)
++#define MT8188_SEL_IN_DISP_RDMA0_FROM_DISP_RSZ0		(1 << 8)
++
++
++#define MT8188_VDO0_DSI0_SEL_IN				0xf44
++#define MT8188_SEL_IN_DSI0_FROM_MASK			GENMASK(16, 16)
++#define MT8188_SEL_IN_DSI0_FROM_DSC_WRAP0_OUT		(0 << 16)
++#define MT8188_SEL_IN_DSI0_FROM_DISP_DITHER0		(1 << 16)
++
++#define MT8188_VDO0_DP_INTF0_SEL_IN			0xf4C
++#define MT8188_SEL_IN_DP_INTF0_FROM_MASK		GENMASK(2, 0)
++#define MT8188_SEL_IN_DP_INTF0_FROM_DSC_WRAP0C1_OUT	(0 << 0)
++#define MT8188_SEL_IN_DP_INTF0_FROM_VPP_MERGE		(1 << 0)
++#define MT8188_SEL_IN_DP_INTF0_FROM_DISP_DITHER0	(3 << 0)
++
++#define MT8188_VDO0_DISP_DITHER0_SEL_OUT		0xf58
++#define MT8188_SOUT_DISP_DITHER0_TO_MASK		BIT(0)
++#define MT8188_SOUT_DISP_DITHER0_TO_DSC_WRAP0_IN	(0 << 0)
++#define MT8188_SOUT_DISP_DITHER0_TO_DSI0		(1 << 0)
++#define MT8188_SOUT_DISP_DITHER0_TO_VPP_MERGE0		(6 << 0)
++#define MT8188_SOUT_DISP_DITHER0_TO_DP_INTF0		(7 << 0)
++
++#define MT8188_VDO0_VPP_MERGE_SEL			0xf60
++#define MT8188_SEL_IN_VPP_MERGE_FROM_MASK		GENMASK(1, 0)
++#define MT8188_SEL_IN_VPP_MERGE_FROM_DSC_WRAP0_OUT	(0 << 0)
++#define MT8188_SEL_IN_VPP_MERGE_FROM_DITHER0_OUT	(3 << 0)
++
++#define MT8188_SOUT_VPP_MERGE_TO_MASK			GENMASK(6, 4)
++#define MT8188_SOUT_VPP_MERGE_TO_DSI1			(0 << 4)
++#define MT8188_SOUT_VPP_MERGE_TO_DP_INTF0		(1 << 4)
++#define MT8188_SOUT_VPP_MERGE_TO_SINA_VIRTUAL0		(2 << 4)
++#define MT8188_SOUT_VPP_MERGE_TO_DISP_WDMA1		(3 << 4)
++#define MT8188_SOUT_VPP_MERGE_TO_DSC_WRAP0_IN		(4 << 4)
++#define MT8188_SOUT_VPP_MERGE_TO_DISP_WDMA0		(5 << 4)
++#define MT8188_SOUT_VPP_MERGE_TO_DSC_WRAP1_IN_MASK	GENMASK(11, 11)
++#define MT8188_SOUT_VPP_MERGE_TO_DSC_WRAP1_IN		(0 << 11)
++
++#define MT8188_VDO0_DSC_WARP_SEL			0xf64
++#define MT8188_SEL_IN_DSC_WRAP0C0_IN_FROM_MASK		GENMASK(0, 0)
++#define MT8188_SEL_IN_DSC_WRAP0C0_IN_FROM_DISP_DITHER0	(0 << 0)
++#define MT8188_SEL_IN_DSC_WRAP0C0_IN_FROM_VPP_MERGE	(1 << 0)
++#define MT8188_SOUT_DSC_WRAP0_OUT_TO_MASK		GENMASK(19, 16)
++#define MT8188_SOUT_DSC_WRAP0_OUT_TO_DSI0		BIT(16)
++#define MT8188_SOUT_DSC_WRAP0_OUT_TO_SINB_VIRTUAL0	BIT(17)
++#define MT8188_SOUT_DSC_WRAP0_OUT_TO_VPP_MERGE		BIT(18)
++#define MT8188_SOUT_DSC_WRAP0_OUT_TO_DISP_WDMA0		BIT(19)
++
++static const struct mtk_mmsys_routes mmsys_mt8188_routing_table[] = {
++	{
++		DDP_COMPONENT_OVL0, DDP_COMPONENT_RDMA0,
++		MT8188_VDO0_OVL_MOUT_EN, MT8188_MOUT_DISP_OVL0_TO_DISP_RDMA0,
++		MT8188_MOUT_DISP_OVL0_TO_DISP_RDMA0
++	}, {
++		DDP_COMPONENT_OVL0, DDP_COMPONENT_WDMA0,
++		MT8188_VDO0_OVL_MOUT_EN, MT8188_MOUT_DISP_OVL0_TO_DISP_WDMA0,
++		MT8188_MOUT_DISP_OVL0_TO_DISP_WDMA0
++	}, {
++		DDP_COMPONENT_OVL0, DDP_COMPONENT_RDMA0,
++		MT8188_VDO0_DISP_RDMA_SEL, MT8188_SEL_IN_DISP_RDMA0_FROM_MASK,
++		MT8188_SEL_IN_DISP_RDMA0_FROM_DISP_OVL0
++	}, {
++		DDP_COMPONENT_DITHER0, DDP_COMPONENT_DSI0,
++		MT8188_VDO0_DSI0_SEL_IN, MT8188_SEL_IN_DSI0_FROM_MASK,
++		MT8188_SEL_IN_DSI0_FROM_DISP_DITHER0
++	}, {
++		DDP_COMPONENT_DITHER0, DDP_COMPONENT_MERGE0,
++		MT8188_VDO0_VPP_MERGE_SEL, MT8188_SEL_IN_VPP_MERGE_FROM_MASK,
++		MT8188_SEL_IN_VPP_MERGE_FROM_DITHER0_OUT
++	}, {
++		DDP_COMPONENT_DITHER0, DDP_COMPONENT_DSC0,
++		MT8188_VDO0_DSC_WARP_SEL,
++		MT8188_SEL_IN_DSC_WRAP0C0_IN_FROM_MASK,
++		MT8188_SEL_IN_DSC_WRAP0C0_IN_FROM_DISP_DITHER0
++	}, {
++		DDP_COMPONENT_DITHER0, DDP_COMPONENT_DP_INTF0,
++		MT8188_VDO0_DP_INTF0_SEL_IN, MT8188_SEL_IN_DP_INTF0_FROM_MASK,
++		MT8188_SEL_IN_DP_INTF0_FROM_DISP_DITHER0
++	}, {
++		DDP_COMPONENT_DSC0, DDP_COMPONENT_MERGE0,
++		MT8188_VDO0_VPP_MERGE_SEL, MT8188_SEL_IN_VPP_MERGE_FROM_MASK,
++		MT8188_SEL_IN_VPP_MERGE_FROM_DSC_WRAP0_OUT
++	}, {
++		DDP_COMPONENT_DSC0, DDP_COMPONENT_DSI0,
++		MT8188_VDO0_DSI0_SEL_IN, MT8188_SEL_IN_DSI0_FROM_MASK,
++		MT8188_SEL_IN_DSI0_FROM_DSC_WRAP0_OUT
++	}, {
++		DDP_COMPONENT_RDMA0, DDP_COMPONENT_COLOR0,
++		MT8188_VDO0_DISP_RDMA_SEL, MT8188_SOUT_DISP_RDMA0_TO_MASK,
++		MT8188_SOUT_DISP_RDMA0_TO_DISP_COLOR0
++	},  {
++		DDP_COMPONENT_DITHER0, DDP_COMPONENT_DSI0,
++		MT8188_VDO0_DISP_DITHER0_SEL_OUT,
++		MT8188_SOUT_DISP_DITHER0_TO_MASK,
++		MT8188_SOUT_DISP_DITHER0_TO_DSI0
++	},  {
++		DDP_COMPONENT_DITHER0, DDP_COMPONENT_DP_INTF0,
++		MT8188_VDO0_DISP_DITHER0_SEL_OUT,
++		MT8188_SOUT_DISP_DITHER0_TO_MASK,
++		MT8188_SOUT_DISP_DITHER0_TO_DP_INTF0
++	}, {
++		DDP_COMPONENT_MERGE0, DDP_COMPONENT_DP_INTF0,
++		MT8188_VDO0_VPP_MERGE_SEL, MT8188_SOUT_VPP_MERGE_TO_MASK,
++		MT8188_SOUT_VPP_MERGE_TO_DP_INTF0
++	}, {
++		DDP_COMPONENT_MERGE0, DDP_COMPONENT_DPI0,
++		MT8188_VDO0_VPP_MERGE_SEL, MT8188_SOUT_VPP_MERGE_TO_MASK,
++		MT8188_SOUT_VPP_MERGE_TO_SINA_VIRTUAL0
++	}, {
++		DDP_COMPONENT_MERGE0, DDP_COMPONENT_WDMA0,
++		MT8188_VDO0_VPP_MERGE_SEL, MT8188_SOUT_VPP_MERGE_TO_MASK,
++		MT8188_SOUT_VPP_MERGE_TO_DISP_WDMA0
++	}, {
++		DDP_COMPONENT_MERGE0, DDP_COMPONENT_DSC0,
++		MT8188_VDO0_VPP_MERGE_SEL, MT8188_SOUT_VPP_MERGE_TO_MASK,
++		MT8188_SOUT_VPP_MERGE_TO_DSC_WRAP0_IN
++	}, {
++		DDP_COMPONENT_DSC0, DDP_COMPONENT_DSI0,
++		MT8188_VDO0_DSC_WARP_SEL, MT8188_SOUT_DSC_WRAP0_OUT_TO_MASK,
++		MT8188_SOUT_DSC_WRAP0_OUT_TO_DSI0
++	}, {
++		DDP_COMPONENT_DSC0, DDP_COMPONENT_MERGE0,
++		MT8188_VDO0_DSC_WARP_SEL, MT8188_SOUT_DSC_WRAP0_OUT_TO_MASK,
++		MT8188_SOUT_DSC_WRAP0_OUT_TO_VPP_MERGE
++	},
++};
++
++#endif /* __SOC_MEDIATEK_MT8188_MMSYS_H */
+diff --git a/drivers/soc/mediatek/mtk-mmsys.c b/drivers/soc/mediatek/mtk-mmsys.c
+index 114defd48298..9b9c105c4221 100644
+--- a/drivers/soc/mediatek/mtk-mmsys.c
++++ b/drivers/soc/mediatek/mtk-mmsys.c
+@@ -16,6 +16,7 @@
+ #include "mt8167-mmsys.h"
+ #include "mt8183-mmsys.h"
+ #include "mt8186-mmsys.h"
++#include "mt8188-mmsys.h"
+ #include "mt8192-mmsys.h"
+ #include "mt8195-mmsys.h"
+ #include "mt8365-mmsys.h"
+@@ -128,6 +129,20 @@ static const struct mtk_mmsys_match_data mt8186_mmsys_match_data = {
+ 	},
+ };
+ 
++static const struct mtk_mmsys_driver_data mt8188_vdosys0_driver_data = {
++	.io_start = 0x1c01d000,
++	.clk_driver = "clk-mt8188-vdo0",
++	.routes = mmsys_mt8188_routing_table,
++	.num_routes = ARRAY_SIZE(mmsys_mt8188_routing_table),
++};
++
++static const struct mtk_mmsys_match_data mt8188_mmsys_match_data = {
++	.num_drv_data = 1,
++	.drv_data = {
++		&mt8188_vdosys0_driver_data,
++	},
++};
++
+ static const struct mtk_mmsys_driver_data mt8192_mmsys_driver_data = {
+ 	.clk_driver = "clk-mt8192-mm",
+ 	.routes = mmsys_mt8192_routing_table,
+@@ -453,6 +468,10 @@ static const struct of_device_id of_match_mtk_mmsys[] = {
+ 		.compatible = "mediatek,mt8186-mmsys",
+ 		.data = &mt8186_mmsys_match_data,
+ 	},
++	{
++		.compatible = "mediatek,mt8188-mmsys",
++		.data = &mt8188_mmsys_match_data,
++	},
+ 	{
+ 		.compatible = "mediatek,mt8192-mmsys",
+ 		.data = &mt8192_mmsys_match_data,
+-- 
+2.18.0
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
