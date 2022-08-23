@@ -2,56 +2,56 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 58DC759E493
-	for <lists+linux-stm32@lfdr.de>; Tue, 23 Aug 2022 15:41:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B35059E497
+	for <lists+linux-stm32@lfdr.de>; Tue, 23 Aug 2022 15:43:17 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0F093C640F3;
-	Tue, 23 Aug 2022 13:41:53 +0000 (UTC)
-Received: from mail-lf1-f52.google.com (mail-lf1-f52.google.com
- [209.85.167.52])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 37A96C640F3;
+	Tue, 23 Aug 2022 13:43:17 +0000 (UTC)
+Received: from mail-lf1-f43.google.com (mail-lf1-f43.google.com
+ [209.85.167.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B6D65C04003
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 14A98C04003
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 23 Aug 2022 13:41:51 +0000 (UTC)
-Received: by mail-lf1-f52.google.com with SMTP id l1so19201083lfk.8
+ Tue, 23 Aug 2022 13:43:16 +0000 (UTC)
+Received: by mail-lf1-f43.google.com with SMTP id bt10so6751593lfb.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 23 Aug 2022 06:41:51 -0700 (PDT)
+ Tue, 23 Aug 2022 06:43:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc; bh=94ObA0sxNMfnUjuPe8k5nNJuRKk7+0BvBgJlyDjNB6U=;
- b=MDkEhUd3g66BHtv8ayb5PFnYCSFsUOgMs1J3OFRtFIDpx5xhG7xgYbSmjimRv6ufky
- 0wfiKTXYXbklnpVEt8tDV6m2bVs5LPglAFfaoUDTPIGO+GoX/RuIhFzfuv6ktR2mq6Bm
- XslsG1lxC6yywPsVcLVlAjbeWcpCz2+qrLnSTa7/rLHuRufNM/MTRldUkatcSxYQuae7
- 4G8OafImliELiwM/yF4BMHPZa6QWfkELACZZ74akC/cKMfVHwJ1t5R4ZXZDHXtC3EhHW
- DMI7bWkl64txNuxh2FKPvy0o+5mFvYDc7zCn7cjkMOtZFrBAJALhoUCrkv9loDPHUF1f
- 8SkA==
+ :from:to:cc; bh=h32xyk5qVyHWCWQbdLOYmYDB3SfGv1Ihtw0UlxutFSs=;
+ b=j7WUm0iTG96tPDzGkHP6hVuPCpr84UKH3TJFLWMgVEmePKBlnIJ84/ybGASHI/Mra0
+ RWoBVYr8ozv7fj7kVw9sz/+jeSaeJmZhqxjpClB6Y4Pc+TyxU6fwxL69LB6ZsgZVRpt4
+ +67/Na/EvQDPdnAMEKtFkqfBZswAXsGGgVkMUrh3xQhkqgayWbeoGv4EiDoKTDvt+g8m
+ 7hnjfSGwI1hsTBEgbKg1rbjlb+j9eohQ8kbCn3L4Yx3sUt5sRi6aT75MLtTIBbihnk1+
+ mBcHTr2H03kYnjC9aBF8s/sJoqSZF4kD1p4pgs+Euu2pRgwNJ8d/HJ5bsCMgn8mWlLbR
+ +QmA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc;
- bh=94ObA0sxNMfnUjuPe8k5nNJuRKk7+0BvBgJlyDjNB6U=;
- b=Dnt2w9NKsMR3mxvTXFX+r77+AAtFR9UxLVlA/ybeXxUIh6YKS5R/OyIfSGWg/1dPw1
- 9LvaLMf6RnlmqZa6c5LBH87HuBUUGvXd2IWYPX+ur3eBNzpPRZ3v0BhVRM7zz9vvOuxQ
- vkFbxEzu7aJko4oHc5kG+MLimnif0t/DTnE3j3lqqQWVyRtyTxrXCL/k2jrJRUX+hnTt
- 6NduUPMINGsAMjXK9LSH/4JlkmyS94zaImCnAxehqspuutSe8fUhtHT1pJOy8cC1WnnX
- FjxSywDIeo+QYAvM8OqL0hmLLsjRQzn54MyQuCsrAsS0IFpvpCaxdBOQsLCwfu3VYeqD
- wIBw==
-X-Gm-Message-State: ACgBeo1pdw6+QkgSNOwNLzAtvS3Xwk50VPH76HW9iasNI/ziZhmPcTEg
- WaiMcmiAFTcOI7JH3X0i/6qw/g==
-X-Google-Smtp-Source: AA6agR54aEjYHox84XnSc1aRIIM9Si6SlFqPQS60naXJqyyEDfTdI9sa1/BQZa7FkPZn6RojlDJEQQ==
-X-Received: by 2002:a05:6512:39d3:b0:492:e172:e313 with SMTP id
- k19-20020a05651239d300b00492e172e313mr3623919lfu.628.1661262111019; 
- Tue, 23 Aug 2022 06:41:51 -0700 (PDT)
+ bh=h32xyk5qVyHWCWQbdLOYmYDB3SfGv1Ihtw0UlxutFSs=;
+ b=nul7beDTPa2Pc71OIB9QrBRp8vjmepL5m4TR/tgr9H3wDuB//wFsQJB7zfPKvkRAQG
+ UsQoKAd1sWUWUmopGoHw+6hMKUtu6pB0n5ZNw2D5uhAuPVvtV3kg8SZ+gPk4mfJQm2Qh
+ /chRAkbtLRSPWx/TW7GQoHft9HT2U0rMQMNZx+q9dXOjm0tENLf04Zu918Ga41o6B6hL
+ xbvNC/bsNd3JEqKEx5r6BT9kKuhZuQb9rZXk0famHa4rH7girju5CLBWmEp+OLXB/yQr
+ RRF+SJzPCkjEcJGgOBfuRGf0KzYkjPYJ/Ql0mzsYOxibi+AjdK/B+0lRC2lLUehTj4jc
+ dhdw==
+X-Gm-Message-State: ACgBeo18YsplpoRs9h1bmiBNMXzQcp+pCcXla7bPpVrT9EeYGjfJLpTy
+ 8SbS1MsrDqWc0iGXu1NCBK56gQ==
+X-Google-Smtp-Source: AA6agR5RZdIPZVcwdu1iI8zwdbElK6Q10jk3CELdg44yE6uN2YcKJda0sTTtvNcx5OKPyyPxtJP3ow==
+X-Received: by 2002:ac2:5097:0:b0:493:109:f190 with SMTP id
+ f23-20020ac25097000000b004930109f190mr355159lfm.180.1661262195492; 
+ Tue, 23 Aug 2022 06:43:15 -0700 (PDT)
 Received: from [192.168.0.11] (89-27-92-210.bb.dnainternet.fi. [89.27.92.210])
  by smtp.gmail.com with ESMTPSA id
- p16-20020ac24ed0000000b0048b1b2233ddsm1493031lfr.120.2022.08.23.06.41.46
+ f1-20020a056512360100b00493014c3d7csm107114lfs.309.2022.08.23.06.43.14
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 23 Aug 2022 06:41:49 -0700 (PDT)
-Message-ID: <fe2041cc-dd8b-6695-1fc8-6c1c49dd7220@linaro.org>
-Date: Tue, 23 Aug 2022 16:41:44 +0300
+ Tue, 23 Aug 2022 06:43:14 -0700 (PDT)
+Message-ID: <c74b4464-ec28-eff6-86e2-2b0e5e9e992b@linaro.org>
+Date: Tue, 23 Aug 2022 16:43:13 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.12.0
@@ -59,21 +59,18 @@ Content-Language: en-US
 To: Dario Binacchi <dario.binacchi@amarulasolutions.com>,
  linux-kernel@vger.kernel.org
 References: <20220820082936.686924-1-dario.binacchi@amarulasolutions.com>
- <20220820082936.686924-2-dario.binacchi@amarulasolutions.com>
+ <20220820082936.686924-4-dario.binacchi@amarulasolutions.com>
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20220820082936.686924-2-dario.binacchi@amarulasolutions.com>
-Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
- Paolo Abeni <pabeni@redhat.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-can@vger.kernel.org, Eric Dumazet <edumazet@google.com>,
+In-Reply-To: <20220820082936.686924-4-dario.binacchi@amarulasolutions.com>
+Cc: devicetree@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Rob Herring <robh+dt@kernel.org>, Marc Kleine-Budde <mkl@pengutronix.de>,
- Wolfgang Grandegger <wg@grandegger.com>,
+ linux-arm-kernel@lists.infradead.org,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Jakub Kicinski <kuba@kernel.org>, michael@amarulasolutions.com,
+ michael@amarulasolutions.com,
  Amarula patchwork <linux-amarula@amarulasolutions.com>,
- "David S. Miller" <davem@davemloft.net>, Dario Binacchi <dariobin@libero.it>
-Subject: Re: [Linux-stm32] [RFC PATCH v2 1/4] dt-bindings: net: can: add
- STM32 bxcan DT bindings
+ linux-stm32@st-md-mailman.stormreply.com, Dario Binacchi <dariobin@libero.it>
+Subject: Re: [Linux-stm32] [RFC PATCH v2 3/4] ARM: dts: stm32: add pin map
+ for CAN controller on stm32f4
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,97 +88,33 @@ Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 On 20/08/2022 11:29, Dario Binacchi wrote:
-> Add documentation of device tree bindings for the STM32 basic extended
-> CAN (bxcan) controller.
+> Add pin configurations for using CAN controller on stm32f469-disco
+> board. They are located on the Arduino compatible connector CN5 (CAN1)
+> and on the extension connector CN12 (CAN2).
 > 
 > Signed-off-by: Dario Binacchi <dariobin@libero.it>
 > Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
-> 
-> ---
-> 
-> Changes in v2:
-> - Change the file name into 'st,stm32-bxcan-core.yaml'.
-> - Rename compatibles:
->   - st,stm32-bxcan-core -> st,stm32f4-bxcan-core
->   - st,stm32-bxcan -> st,stm32f4-bxcan
-> - Rename master property to st,can-master.
-> - Remove the status property from the example.
-> - Put the node child properties as required.
-> 
->  .../bindings/net/can/st,stm32-bxcan.yaml      | 136 ++++++++++++++++++
->  1 file changed, 136 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/net/can/st,stm32-bxcan.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/net/can/st,stm32-bxcan.yaml b/Documentation/devicetree/bindings/net/can/st,stm32-bxcan.yaml
-> new file mode 100644
-> index 000000000000..288631b5556d
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/net/can/st,stm32-bxcan.yaml
-> @@ -0,0 +1,136 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/net/can/st,stm32-bxcan.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: STMicroelectronics bxCAN controller
-> +
-> +description: STMicroelectronics BxCAN controller for CAN bus
-> +
-> +maintainers:
-> +  - Dario Binacchi <dario.binacchi@amarulasolutions.com>
-> +
-> +allOf:
-> +  - $ref: can-controller.yaml#
-> +
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - st,stm32f4-bxcan-core
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  resets:
-> +    maxItems: 1
-> +
-> +  clocks:
-> +    description:
-> +      Input clock for registers access
-> +    maxItems: 1
-> +
-> +  '#address-cells':
-> +    const: 1
-> +
-> +  '#size-cells':
-> +    const: 0
-> +
-> +additionalProperties: false
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - resets
-> +  - clocks
-> +  - '#address-cells'
-> +  - '#size-cells'
-> +
-> +patternProperties:
 
-No improvements here, so my comment stay. Please fix it.
+Do not ignore review. This is not correct. You are mixing copyright with
+SoC...
+
+> 
 
 
-> +  "^can@[0-9]+$":
-> +    type: object
-> +    description:
-> +      A CAN block node contains two subnodes, representing each one a CAN
-> +      instance available on the machine.
+> +			can2_pins_b: can2-1 {
+> +				pins1 {
+> +					pinmux = <STM32_PINMUX('B', 13, AF9)>; /* CAN2_TX */
+> +				};
+> +				pins2 {
+> +					pinmux = <STM32_PINMUX('B', 12, AF9)>; /* CAN2_RX */
+> +					bias-pull-up;
+> +				};
+> +			};
+> +
 
-I still do not understand why you need children. You did not CC me on
-driver change, so difficult to say. You did not describe the parent
-device - there is no description. Why do you need parent device at all?
-This looks like some driver-driven-bindings instead of just real
-hardware description.
+Don't ignore review.
+
+That's second one, so that's a no.. :(
 
 Best regards,
 Krzysztof
