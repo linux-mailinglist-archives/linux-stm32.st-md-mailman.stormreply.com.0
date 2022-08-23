@@ -2,82 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B378259E3F6
-	for <lists+linux-stm32@lfdr.de>; Tue, 23 Aug 2022 14:51:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C3E2459E3FA
+	for <lists+linux-stm32@lfdr.de>; Tue, 23 Aug 2022 14:55:31 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4A87BC640F3;
-	Tue, 23 Aug 2022 12:51:41 +0000 (UTC)
-Received: from mail-lj1-f174.google.com (mail-lj1-f174.google.com
- [209.85.208.174])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8BE35C640F3;
+	Tue, 23 Aug 2022 12:55:31 +0000 (UTC)
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com
+ [209.85.216.42])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 900FDC03FC7
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7E63EC03FC7
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 23 Aug 2022 12:51:40 +0000 (UTC)
-Received: by mail-lj1-f174.google.com with SMTP id l23so2364532lji.1
+ Tue, 23 Aug 2022 12:55:30 +0000 (UTC)
+Received: by mail-pj1-f42.google.com with SMTP id e19so12746514pju.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 23 Aug 2022 05:51:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc; bh=2CjazNJKWxawIRrAspwhPS6UmjSbXOY3YGzYB4E+Plc=;
- b=PPLvIhXyebaOzt5ZAgHRARuDpjE3QXcTZv8jgbNY3zvBxdR5T0KE8RXbL3ML0vLwwB
- utCyLkgq11HaiFzWK0PFjwBSeIkes+bOWEYJ3CaofriBJbCbD9Qhx0lN8j5/GtjKwYYb
- m2K9YR+tgW5R1pBYPlAQJkVPKATZjYOH/NCSBf2RhfXcTCWroHyMVa6FoWqCo3dP3inn
- CjTL8urZ46DjEbFoimD1Pr29eOLhWBHVc5d6dIC6RNja2OZ8AZ2wUPeQ61HgB2f6EfKk
- PETJTyGEGsqOX15mWMZcrVeKFaWM0VtdOfIdJzvG0XJ0xpUUwCviiqf1gi1dVUDnqb17
- Os5w==
+ Tue, 23 Aug 2022 05:55:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amarulasolutions.com; s=google;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc;
+ bh=ntf8pJ/mCr/PN47lvfeT07hvZTemlqDjjhowOXyjUhk=;
+ b=hm6IiuLSPsReps3SjptCRALv42PeBxuhXENo4NYyT96hYgc/3YuX3j2l4yDgToVTe8
+ YH6fn4Efl6Q/6ATSSI17iRz3b/Z9LT7rv6rJKp+4vwgovQrBWVhN+S+mU7JPwYoUyBki
+ ICws51cofqZQ06ZLr3RM//t1oucS6LBx0+fMc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc;
- bh=2CjazNJKWxawIRrAspwhPS6UmjSbXOY3YGzYB4E+Plc=;
- b=DSq9MkVTCvsQl69p7BSXwYnyZk6VPCV54dAdf1waDx0CmNa6StyfDApyxYLNsQjt7z
- TDlYyYP0NwOqwR81V0NOarYujlbx5ksD4GofTP6iu8rPYftHUPTQtgZo2NNfnp4Ou7a4
- lLAu3LAuLJeOSArX2X3N/ngHURLqzWXUsrd/F2R6Qgk86D2dCK/ipAmuah56XpLtvY1o
- UAm538HntBwkjZMcYbwKaICS+PZ4IdBEY4/w3WQKmFGRLydKaEnefX1q3mCBUOSna7R1
- XLOJSF67yIKwRmnp9mRQY5M6cwHXhyTt9XlO6n5TpjdSXtbIIu0kGackvA9xBK/RKCO3
- Ln+w==
-X-Gm-Message-State: ACgBeo122ga+ZPJ80fMegKNB5+mPkdWm4UxFXA7SW7qdpRJadNoZAZtE
- 2X5nEJeXnQUZy6DP95KCJQF1qg==
-X-Google-Smtp-Source: AA6agR58Hgvt7z3DYujhjrD2ZnvOcvvv4OymBiELF8Edk9l9F6qF62D2kPrhZN7V9Fcd3PvG3QDT+A==
-X-Received: by 2002:a05:651c:b29:b0:261:d351:9dc4 with SMTP id
- b41-20020a05651c0b2900b00261d3519dc4mr1840748ljr.409.1661259099827; 
- Tue, 23 Aug 2022 05:51:39 -0700 (PDT)
-Received: from [192.168.0.11] (89-27-92-210.bb.dnainternet.fi. [89.27.92.210])
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc;
+ bh=ntf8pJ/mCr/PN47lvfeT07hvZTemlqDjjhowOXyjUhk=;
+ b=WshcMGcdRZQkR4ZKw0dh2dbPYzHeCwVg4kh5f3q8GLf4sfLcB+3E1CeN76aHN0tD8l
+ vVH3hjwgafsx7TBOZpXINKky8HM+6DvWGgRxotc7Z3WppEsK9ipWTOCXIy4vPiI+YuAf
+ ZpmFunPlMmxbiU3rEWYeQuuRoN98mww+rPBTvYLlyO5WI1KGHDcuIGhFOMhjYDG8w3/A
+ Z5Ck3wgaiF7Wyrp+hurFbx2C/zhVhdFucNYBEs9xJ0/XDlr3eRsfSWguqCsOc3XQQFny
+ 4Cz/EI8oGQlfHozknV64ELgTmTRI0kKIyqAhLeRXsAcuDEMhjpfbumM5P20KI9KeQqlq
+ kt+g==
+X-Gm-Message-State: ACgBeo2lTro7iP2lRSP0w1TkMt4JRCEIadwhYrqzl8rC5y84OQSLnm/t
+ Wwi4z+/Nm/R7DjGW6LMFaMSFfQ==
+X-Google-Smtp-Source: AA6agR7TxdZmV+a+y/3/0TEcrQx6vCajTGFAzpTn21kgQ1258WwCkmIwU0MZ/ed1Gr0Rsrv0x3coyA==
+X-Received: by 2002:a17:90b:1a8f:b0:1fb:6f83:81b3 with SMTP id
+ ng15-20020a17090b1a8f00b001fb6f8381b3mr1311638pjb.205.1661259328942; 
+ Tue, 23 Aug 2022 05:55:28 -0700 (PDT)
+Received: from localhost.localdomain ([94.140.8.41])
  by smtp.gmail.com with ESMTPSA id
- e9-20020a05651236c900b00492e148365fsm1234663lfs.294.2022.08.23.05.51.37
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 23 Aug 2022 05:51:38 -0700 (PDT)
-Message-ID: <05f99396-f6e9-a315-7264-c659e3ec507c@linaro.org>
-Date: Tue, 23 Aug 2022 15:51:37 +0300
+ n11-20020a63a50b000000b0041c8e489cc2sm9055134pgf.19.2022.08.23.05.55.25
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 23 Aug 2022 05:55:28 -0700 (PDT)
+From: Jagan Teki <jagan@amarulasolutions.com>
+To: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>
+Date: Tue, 23 Aug 2022 18:25:17 +0530
+Message-Id: <20220823125517.1232448-1-jagan@amarulasolutions.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.12.0
-Content-Language: en-US
-To: "nathan.lu" <nathan.lu@mediatek.com>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Chun-Kuang Hu <chunkuang.hu@kernel.org>,
- Philipp Zabel <p.zabel@pengutronix.de>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>, Alexandre Torgue
- <alexandre.torgue@foss.st.com>, Matthias Brugger <matthias.bgg@gmail.com>
-References: <20220822033213.15769-1-nathan.lu@mediatek.com>
- <20220822033213.15769-2-nathan.lu@mediatek.com>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20220822033213.15769-2-nathan.lu@mediatek.com>
-Cc: Enric Balletbo i Serra <enric.balletbo@collabora.com>,
- wsd_upstream@mediatek.com, srv_heupstream@mediatek.com,
- devicetree@vger.kernel.org, "jason-jh . lin" <jason-jh.lin@mediatek.com>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Rex-BC Chen <rex-bc.chen@mediatek.com>, Moudy Ho <moudy.ho@mediatek.com>,
- linux-mediatek@lists.infradead.org, CK Hu <ck.hu@mediatek.com>,
- lancelot.wu@mediatek.com, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Subject: Re: [Linux-stm32] [PATCH v1 1/4] dt-bindings: mediatek: modify
- VDOSYS0 device tree Documentations for MT8188
+Cc: devicetree@vger.kernel.org, linux-amarula@amarulasolutions.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ Jagan Teki <jagan@amarulasolutions.com>
+Subject: [Linux-stm32] [PATCH v2] ARM: dts: stm32: Fix typo in license text
+	for Engicam boards
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,29 +75,132 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 22/08/2022 06:32, nathan.lu wrote:
-> From: Nathan Lu <nathan.lu@mediatek.com>
-> 
-> modify VDOSYS0 device tree Documentations for MT8188.
+Fix the Amarula Solutions typo mistake in license text added in below
+commits.
 
-(...)
+commit <3ff0810ffc479> ("ARM: dts: stm32: Add Engicam i.Core STM32MP1
+C.TOUCH 2.0 10.1" OF")
+commit <6ca2898df59f7> ("ARM: dts: stm32: Add Engicam i.Core STM32MP1
+C.TOUCH 2.0")
+commit <adc0496104b64> ("ARM: dts: stm32: Add Engicam i.Core STM32MP1
+EDIMM2.2 Starter Kit")
+commit <30f9a9da4ee13> ("ARM: dts: stm32: Add Engicam i.Core STM32MP1
+SoM")
+commit <1d278204cbaa1> ("ARM: dts: stm32: Add Engicam MicroGEA STM32MP1
+MicroDev 2.0 7" OF")
+commit <f838dae7afd00> ("ARM: dts: stm32: Add Engicam MicroGEA STM32MP1
+MicroDev 2.0 board")
+commit <0be81dfaeaf89> ("ARM: dts: stm32: Add Engicam MicroGEA STM32MP1
+SoM")
 
-> diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,rdma.yaml b/Documentation/devicetree/bindings/display/mediatek/mediatek,rdma.yaml
-> index 0882ae86e6c4..d0e6c0dd4dfb 100644
-> --- a/Documentation/devicetree/bindings/display/mediatek/mediatek,rdma.yaml
-> +++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,rdma.yaml
-> @@ -30,6 +30,8 @@ properties:
->        - items:
->            - const: mediatek,mt8183-disp-rdma
->        - items:
-> +          - enum:
-> +              - mediatek,mt8188-disp-rdma
->            - const: mediatek,mt8195-disp-rdma
+Signed-off-by: Jagan Teki <jagan@amarulasolutions.com>
+---
+Changes for v2:
+- s/lisense/license/ 
 
-Why do you change existing bindings?
+ arch/arm/boot/dts/stm32mp157a-icore-stm32mp1-ctouch2-of10.dts   | 2 +-
+ arch/arm/boot/dts/stm32mp157a-icore-stm32mp1-ctouch2.dts        | 2 +-
+ arch/arm/boot/dts/stm32mp157a-icore-stm32mp1-edimm2.2.dts       | 2 +-
+ arch/arm/boot/dts/stm32mp157a-icore-stm32mp1.dtsi               | 2 +-
+ .../boot/dts/stm32mp157a-microgea-stm32mp1-microdev2.0-of7.dts  | 2 +-
+ arch/arm/boot/dts/stm32mp157a-microgea-stm32mp1-microdev2.0.dts | 2 +-
+ arch/arm/boot/dts/stm32mp157a-microgea-stm32mp1.dtsi            | 2 +-
+ 7 files changed, 7 insertions(+), 7 deletions(-)
 
-Best regards,
-Krzysztof
+diff --git a/arch/arm/boot/dts/stm32mp157a-icore-stm32mp1-ctouch2-of10.dts b/arch/arm/boot/dts/stm32mp157a-icore-stm32mp1-ctouch2-of10.dts
+index 2a2829283456..9a2a4bc7d079 100644
+--- a/arch/arm/boot/dts/stm32mp157a-icore-stm32mp1-ctouch2-of10.dts
++++ b/arch/arm/boot/dts/stm32mp157a-icore-stm32mp1-ctouch2-of10.dts
+@@ -2,7 +2,7 @@
+ /*
+  * Copyright (c) STMicroelectronics 2019 - All Rights Reserved
+  * Copyright (c) 2020 Engicam srl
+- * Copyright (c) 2020 Amarula Solutons(India)
++ * Copyright (c) 2020 Amarula Solutions(India)
+  */
+ 
+ /dts-v1/;
+diff --git a/arch/arm/boot/dts/stm32mp157a-icore-stm32mp1-ctouch2.dts b/arch/arm/boot/dts/stm32mp157a-icore-stm32mp1-ctouch2.dts
+index 1f75f1d45181..60ce4425a7fd 100644
+--- a/arch/arm/boot/dts/stm32mp157a-icore-stm32mp1-ctouch2.dts
++++ b/arch/arm/boot/dts/stm32mp157a-icore-stm32mp1-ctouch2.dts
+@@ -2,7 +2,7 @@
+ /*
+  * Copyright (c) STMicroelectronics 2019 - All Rights Reserved
+  * Copyright (c) 2020 Engicam srl
+- * Copyright (c) 2020 Amarula Solutons(India)
++ * Copyright (c) 2020 Amarula Solutions(India)
+  */
+ 
+ /dts-v1/;
+diff --git a/arch/arm/boot/dts/stm32mp157a-icore-stm32mp1-edimm2.2.dts b/arch/arm/boot/dts/stm32mp157a-icore-stm32mp1-edimm2.2.dts
+index ba92d7d8ed00..390ee8c05754 100644
+--- a/arch/arm/boot/dts/stm32mp157a-icore-stm32mp1-edimm2.2.dts
++++ b/arch/arm/boot/dts/stm32mp157a-icore-stm32mp1-edimm2.2.dts
+@@ -2,7 +2,7 @@
+ /*
+  * Copyright (c) STMicroelectronics 2019 - All Rights Reserved
+  * Copyright (c) 2020 Engicam srl
+- * Copyright (c) 2020 Amarula Solutons(India)
++ * Copyright (c) 2020 Amarula Solutions(India)
+  */
+ 
+ /dts-v1/;
+diff --git a/arch/arm/boot/dts/stm32mp157a-icore-stm32mp1.dtsi b/arch/arm/boot/dts/stm32mp157a-icore-stm32mp1.dtsi
+index 01166ccacf2b..9de893101b40 100644
+--- a/arch/arm/boot/dts/stm32mp157a-icore-stm32mp1.dtsi
++++ b/arch/arm/boot/dts/stm32mp157a-icore-stm32mp1.dtsi
+@@ -2,7 +2,7 @@
+ /*
+  * Copyright (c) STMicroelectronics 2019 - All Rights Reserved
+  * Copyright (c) 2020 Engicam srl
+- * Copyright (c) 2020 Amarula Solutons(India)
++ * Copyright (c) 2020 Amarula Solutions(India)
+  */
+ 
+ / {
+diff --git a/arch/arm/boot/dts/stm32mp157a-microgea-stm32mp1-microdev2.0-of7.dts b/arch/arm/boot/dts/stm32mp157a-microgea-stm32mp1-microdev2.0-of7.dts
+index fae656edd820..0d7560ba2950 100644
+--- a/arch/arm/boot/dts/stm32mp157a-microgea-stm32mp1-microdev2.0-of7.dts
++++ b/arch/arm/boot/dts/stm32mp157a-microgea-stm32mp1-microdev2.0-of7.dts
+@@ -2,7 +2,7 @@
+ /*
+  * Copyright (c) STMicroelectronics 2019 - All Rights Reserved
+  * Copyright (c) 2020 Engicam srl
+- * Copyright (c) 2020 Amarula Solutons(India)
++ * Copyright (c) 2020 Amarula Solutions(India)
+  */
+ 
+ /dts-v1/;
+diff --git a/arch/arm/boot/dts/stm32mp157a-microgea-stm32mp1-microdev2.0.dts b/arch/arm/boot/dts/stm32mp157a-microgea-stm32mp1-microdev2.0.dts
+index b9d0d3d6ad15..d949559be020 100644
+--- a/arch/arm/boot/dts/stm32mp157a-microgea-stm32mp1-microdev2.0.dts
++++ b/arch/arm/boot/dts/stm32mp157a-microgea-stm32mp1-microdev2.0.dts
+@@ -2,7 +2,7 @@
+ /*
+  * Copyright (c) STMicroelectronics 2019 - All Rights Reserved
+  * Copyright (c) 2020 Engicam srl
+- * Copyright (c) 2020 Amarula Solutons(India)
++ * Copyright (c) 2020 Amarula Solutions(India)
+  */
+ 
+ /dts-v1/;
+diff --git a/arch/arm/boot/dts/stm32mp157a-microgea-stm32mp1.dtsi b/arch/arm/boot/dts/stm32mp157a-microgea-stm32mp1.dtsi
+index 0b85175f151e..fb4600a59869 100644
+--- a/arch/arm/boot/dts/stm32mp157a-microgea-stm32mp1.dtsi
++++ b/arch/arm/boot/dts/stm32mp157a-microgea-stm32mp1.dtsi
+@@ -2,7 +2,7 @@
+ /*
+  * Copyright (c) STMicroelectronics 2019 - All Rights Reserved
+  * Copyright (c) 2020 Engicam srl
+- * Copyright (c) 2020 Amarula Solutons(India)
++ * Copyright (c) 2020 Amarula Solutions(India)
+  */
+ 
+ / {
+-- 
+2.25.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
