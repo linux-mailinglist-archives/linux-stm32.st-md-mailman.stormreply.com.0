@@ -2,74 +2,72 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id EA3C359F9F5
-	for <lists+linux-stm32@lfdr.de>; Wed, 24 Aug 2022 14:30:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BCA6959FA4E
+	for <lists+linux-stm32@lfdr.de>; Wed, 24 Aug 2022 14:47:46 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 76239C6410D;
-	Wed, 24 Aug 2022 12:30:05 +0000 (UTC)
-Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com
- [209.85.218.51])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 70294C6410D;
+	Wed, 24 Aug 2022 12:47:46 +0000 (UTC)
+Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com
+ [209.85.167.48])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CBD57C0D2BF
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 792D7C0D2BF
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 24 Aug 2022 12:30:04 +0000 (UTC)
-Received: by mail-ej1-f51.google.com with SMTP id ca13so21950083ejb.9
+ Wed, 24 Aug 2022 12:47:45 +0000 (UTC)
+Received: by mail-lf1-f48.google.com with SMTP id z25so23862614lfr.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 24 Aug 2022 05:30:04 -0700 (PDT)
+ Wed, 24 Aug 2022 05:47:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc;
- bh=A4ebziFGIGKWedk4/E9Y9YHWqlnnQT7eJEB+itOg6jY=;
- b=JV4NxLJrrSRlvhdBCQR0BmBXWvBPD2WWY57yL9lQtZiNURXqJpW+V5TxKtgglU8sfr
- 8h0saIQScUeus/RY4HdeNiEsA6CqBZsV5Z9pDrACaY0tZcAxGuVb7q083EomrLNDC40e
- odwPYLn28lzNGxZNRAjiuAPURDYf9lpPS9WKBAGU5Ly214gBijHGAUB5XOWefa2WXJTh
- I4V+h/62ngM8TNNQUcvs4g16JwsYe9ZtdRvwBVyGQqgULED08G3uMVf1nyDa14i+tesK
- 7IHifg30XF+EjhDYcPgPLX+unpTE3yx0aumKCsZoelIzFF3+cnpPGECjoTxRKYH5Khuq
- e3Dw==
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc; bh=HCkgWRsW68okr3HXj1aoAUOQtm+hBGu9v0QWmb8CPe0=;
+ b=dWZ3lQkmAteiBhKIEs/l5SZZCUZ8+DJHs4otLWuEp1SbpTaZMfllrzHhq/mFEmZKV1
+ LqkkfKqSJRt3ev3DV5xT0uCY+vPYIQIp2xelATaYKsNjcC2VaqaVDOZASKrYV9GUHk+u
+ NGWbqEo00loFNO8FqKz67PHSIS+7q2nFag2WMRX0FmgX/xHr8hyE8ikCqrXNsOVl7Dhm
+ w+MjdLXOUozbIBTCsOsIKDn2hZzsuTGZj30Dmtu/oASHN8wU5if4RptL8yPwWkzOIKB8
+ 90X5WJJaEXaeOLfBz+v5NGi0g0y4OCI9xibJAF2F53ib6vbc9eF/iI5ZRtzG3uaIsdMz
+ LUDQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc;
- bh=A4ebziFGIGKWedk4/E9Y9YHWqlnnQT7eJEB+itOg6jY=;
- b=w/LOWce6e8u7t3KJICqIiH+Vlov+jan5ICTbE8AqRTM/zEnwid4bD4BlR03iupgM+8
- TTuTALdRnteXsGknjkt4UR/CMqGLIsYP8kuIqbHt6BkJfp5w3tQZzqxTlqzLt9/8tbj8
- 7J9X/ob7DYQ6mfM23XgFcd/kkpjFVFwrTyRVe+MpxGxHzwCWcx2mF6hrX2FQdoH49ROi
- Rd3GrnJjaqSyAT9KW5DEsQkhmDpFa40z1js+T3vXWsS4LyJ0a+RY5D2t/Toh3c01jTHg
- oxMspZYxsVLVHDGTB88/jc2gzmTBdj9OD6CtNEqyReI84sHx87aLcoVT68EzsqyGEExQ
- csKQ==
-X-Gm-Message-State: ACgBeo26nnSGcDG6or3BWJMRD2LEaivAZUzM8x189vnenavf8RuORIoK
- Q3ymcVlD4+hL5BniZILX3mS4phNuzpAKwzZsdp3hSA==
-X-Google-Smtp-Source: AA6agR4y8IkROVTTFYuvJGLyuFpJlX7rUg/lBd9WKIqzPf1600ZmKhkQ1tKmij2PmJr9CSFfVIP2c0YYAvxPH8SXo4Y=
-X-Received: by 2002:a17:907:6293:b0:73d:b27b:e594 with SMTP id
- nd19-20020a170907629300b0073db27be594mr2746905ejc.526.1661344204322; Wed, 24
- Aug 2022 05:30:04 -0700 (PDT)
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc;
+ bh=HCkgWRsW68okr3HXj1aoAUOQtm+hBGu9v0QWmb8CPe0=;
+ b=cveJ4rRRux+O+AW/IKvqcSKM4nT3cMKcwpezgnNGBhrmjqteLHmKVD6x+NOfDhUfrp
+ EEhJAmeXE41/NsOioUxwovuRSUiWEpAZQUnUpRAMzFEHNzClB6Oxh8I3TlsKVhQQUaHp
+ XKTUESMTCE4onUhzbPJ11Nq0ctw4n0SSCYE9yersWVAS6/5aUZzfIJavWlXXlJTg/L6e
+ qjSsC42JgAN8DO732Ub611jl1pDJ4T8F0sIEuh2/fbP9XYWZgTYT7+0iCPeV2jI1Mahz
+ +c7pcIuC2XB1mx4r6FbMFl3wZi4W9zU+lVu5Z0pbo7yb5K8KJk46u9/KWPxF9cB1PlBq
+ hXoQ==
+X-Gm-Message-State: ACgBeo03y8wxZydARUlKKkdCx7EIW79fivPVmxGl9S/EleXUINCCwBF6
+ aeW291K/SI6qCGMZ+dj0J78kbg==
+X-Google-Smtp-Source: AA6agR4eNUBQjn5HPo5JYDP4s9gU6xJOSJTUVA4FpSM9g3v69U0V1OpMhgoWrItrdVqemUex9AHSKQ==
+X-Received: by 2002:a05:6512:2284:b0:492:ca50:d857 with SMTP id
+ f4-20020a056512228400b00492ca50d857mr8249169lfu.209.1661345264775; 
+ Wed, 24 Aug 2022 05:47:44 -0700 (PDT)
+Received: from [10.243.4.185] ([194.157.23.230])
+ by smtp.gmail.com with ESMTPSA id
+ p3-20020a056512138300b0048b07e82b8csm2996630lfa.55.2022.08.24.05.47.41
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 24 Aug 2022 05:47:44 -0700 (PDT)
+Message-ID: <91c2bf5f-8bbf-22be-bd57-a535bf4b95e0@linaro.org>
+Date: Wed, 24 Aug 2022 15:47:40 +0300
 MIME-Version: 1.0
-References: <20220823145649.3118479-4-robh@kernel.org>
-In-Reply-To: <20220823145649.3118479-4-robh@kernel.org>
-From: Linus Walleij <linus.walleij@linaro.org>
-Date: Wed, 24 Aug 2022 14:29:52 +0200
-Message-ID: <CACRpkdb28sHn3XOEJD_rqYRWU1GxWGX1udMpk8Cdu3Qn-rxS0g@mail.gmail.com>
-To: Rob Herring <robh@kernel.org>
-Cc: Heiko Stuebner <heiko@sntech.de>, Krzysztof Kozlowski <krzk@kernel.org>,
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.12.0
+Content-Language: en-US
+To: Wolfram Sang <wsa+renesas@sang-engineering.com>, linux-spi@vger.kernel.org
+References: <20220824082130.21934-1-wsa+renesas@sang-engineering.com>
+ <20220824082130.21934-2-wsa+renesas@sang-engineering.com>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20220824082130.21934-2-wsa+renesas@sang-engineering.com>
+Cc: devicetree@vger.kernel.org,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Chris Zhong <zyw@rock-chips.com>, linux-stm32@st-md-mailman.stormreply.com,
- Renner Berthing <kernel@esmil.dk>, Samuel Holland <samuel@sholland.org>,
- Lee Jones <lee@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Chanwoo Choi <cw00.choi@samsung.com>, Chen-Yu Tsai <wens@csie.org>,
- linux-rockchip@lists.infradead.org, linux-sunxi@lists.linux.dev,
- devicetree@vger.kernel.org, Alistair Francis <alistair@alistair23.me>,
- Charles Keepax <ckeepax@opensource.cirrus.com>,
- Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>,
- Tim Harvey <tharvey@gateworks.com>, Zhang Qing <zhangqing@rock-chips.com>,
- Maxime Ripard <mripard@kernel.org>,
- Richard Fitzgerald <rf@opensource.cirrus.com>,
- linux-arm-kernel@lists.infradead.org, Robert Jones <rjones@gateworks.com>,
- - <patches@opensource.cirrus.com>, linux-kernel@vger.kernel.org,
- Steve Twiss <stwiss.opensource@diasemi.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH] dt-bindings: mfd: Add missing
- (unevaluated|additional)Properties on child nodes
+ Reinhold Mueller <reinhold.mueller@emtrion.com>, linux-kernel@vger.kernel.org,
+ Rob Herring <robh+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 1/2] ARM: dts: stm32: argon: remove spidev
+	node
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,18 +84,23 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Aug 23, 2022 at 4:57 PM Rob Herring <robh@kernel.org> wrote:
+On 24/08/2022 11:21, Wolfram Sang wrote:
+> Commit 956b200a846e ("spi: spidev: Warn loudly if instantiated from DT
+> as "spidev"") states that there should not be spidev nodes in DTs.
+> Remove this non-HW description. There won't be a regression because it
+> won't bind since 2015 anyhow.
+> 
+> Fixes: 16e3e44c5b87 ("ARM: dts: stm32: Add support for the emtrion emSBC-Argon")
+> Cc: Reinhold Mueller <reinhold.mueller@emtrion.com>
+> Signed-off-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+> ---
 
-> In order to ensure only documented properties are present, node schemas
-> must have unevaluatedProperties or additionalProperties set to false
-> (typically).
->
-> Signed-off-by: Rob Herring <robh@kernel.org>
 
-Acked-by: Linus Walleij <linus.walleij@linaro.org>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 
-Yours,
-Linus Walleij
+
+Best regards,
+Krzysztof
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
