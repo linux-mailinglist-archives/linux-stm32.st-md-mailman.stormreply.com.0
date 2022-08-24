@@ -2,38 +2,43 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E508A59F507
-	for <lists+linux-stm32@lfdr.de>; Wed, 24 Aug 2022 10:21:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A85FE59F508
+	for <lists+linux-stm32@lfdr.de>; Wed, 24 Aug 2022 10:21:36 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5F023C6410D;
-	Wed, 24 Aug 2022 08:21:34 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7109FC6410E;
+	Wed, 24 Aug 2022 08:21:36 +0000 (UTC)
 Received: from mail.zeus03.de (www.zeus03.de [194.117.254.33])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 68C30C640FA
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D7D65C640FA
  for <linux-stm32@st-md-mailman.stormreply.com>;
  Wed, 24 Aug 2022 08:21:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple; d=sang-engineering.com; h=
- from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding; s=k1; bh=QZSYy9ZOyYNn4Sbj+9d4hyd/rRC
- F0R9pMJ4odvD5koQ=; b=YjWlbqTLtYbUvEIgtlAow9FBUx0ubdew9ifp0+2omMx
- FhVJfSolrADooA0wev9GAqSeQvf0h1vL9Qw0sk6rhYMzYf8MEkeFpg5xZJ8w17Oc
- 9zrhSfi3HRJ4MNe0KSQV6cuA7P9KPPtoejQ4CLkAHtfzSsk9WSW30CEEv2LvW2aQ
- =
-Received: (qmail 2131763 invoked from network); 24 Aug 2022 10:21:31 +0200
+ from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding; s=k1; bh=ZA6NZznO17pPAf
+ YQn+ZaPqoOw1BDdgUMYqc4V7ZjXXg=; b=LkNpW3WqCHqPoO8EInfjd3/x72/QnH
+ 4Zj6qMFpQjV9YIR/mgRhoWukUl98f8JiXBunAC1mj7eyTbbRBFeNxB3zPgopeunJ
+ JRakwpUwx9Qm3iZW0mKMkGGWOZuc0vGaNgld9Q7Aij4yNZLqPLhxxTVuRj2B600+
+ qXWfeSHwgXXbs=
+Received: (qmail 2131806 invoked from network); 24 Aug 2022 10:21:32 +0200
 Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted,
- authenticated); 24 Aug 2022 10:21:31 +0200
-X-UD-Smtp-Session: l3s3148p1@jehDXvjm1OcgAwDPXxw3AFlguiwjsjwa
+ authenticated); 24 Aug 2022 10:21:32 +0200
+X-UD-Smtp-Session: l3s3148p1@SHFQXvjm5OcgAwDPXxw3AFlguiwjsjwa
 From: Wolfram Sang <wsa+renesas@sang-engineering.com>
 To: linux-spi@vger.kernel.org
-Date: Wed, 24 Aug 2022 10:21:27 +0200
-Message-Id: <20220824082130.21934-1-wsa+renesas@sang-engineering.com>
+Date: Wed, 24 Aug 2022 10:21:28 +0200
+Message-Id: <20220824082130.21934-2-wsa+renesas@sang-engineering.com>
 X-Mailer: git-send-email 2.35.1
+In-Reply-To: <20220824082130.21934-1-wsa+renesas@sang-engineering.com>
+References: <20220824082130.21934-1-wsa+renesas@sang-engineering.com>
 MIME-Version: 1.0
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Wolfram Sang <wsa+renesas@sang-engineering.com>, linuxppc-dev@lists.ozlabs.org,
+Cc: devicetree@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Reinhold Mueller <reinhold.mueller@emtrion.com>, linux-kernel@vger.kernel.org,
+ Wolfram Sang <wsa+renesas@sang-engineering.com>,
+ Rob Herring <robh+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 0/2] spi: remove "spidev" nodes from DTs
+Subject: [Linux-stm32] [PATCH 1/2] ARM: dts: stm32: argon: remove spidev node
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -50,16 +55,38 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-There were two DTs left specifying "spidev" directly. Remove them.
+Commit 956b200a846e ("spi: spidev: Warn loudly if instantiated from DT
+as "spidev"") states that there should not be spidev nodes in DTs.
+Remove this non-HW description. There won't be a regression because it
+won't bind since 2015 anyhow.
 
-Wolfram Sang (2):
-  ARM: dts: stm32: argon: remove spidev node
-  powerpc/82xx: remove spidev node from mgcoge
+Fixes: 16e3e44c5b87 ("ARM: dts: stm32: Add support for the emtrion emSBC-Argon")
+Cc: Reinhold Mueller <reinhold.mueller@emtrion.com>
+Signed-off-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+---
+
+Please take it via your platform tree.
 
  arch/arm/boot/dts/stm32mp157c-emstamp-argon.dtsi | 6 ------
- arch/powerpc/boot/dts/mgcoge.dts                 | 7 -------
- 2 files changed, 13 deletions(-)
+ 1 file changed, 6 deletions(-)
 
+diff --git a/arch/arm/boot/dts/stm32mp157c-emstamp-argon.dtsi b/arch/arm/boot/dts/stm32mp157c-emstamp-argon.dtsi
+index ac53ee3c496b..30156b7546ed 100644
+--- a/arch/arm/boot/dts/stm32mp157c-emstamp-argon.dtsi
++++ b/arch/arm/boot/dts/stm32mp157c-emstamp-argon.dtsi
+@@ -435,12 +435,6 @@ &spi1 {
+ 	pinctrl-0 = <&spi1_pins_a>;
+ 	cs-gpios = <&gpioz 3 0>;
+ 	status = "disabled";
+-
+-	spidev@0  {
+-		compatible = "spidev";
+-		reg = <0>;
+-		spi-max-frequency = <100000>;
+-	};
+ };
+ 
+ &timers1 {
 -- 
 2.35.1
 
