@@ -2,43 +2,53 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A85FE59F508
-	for <lists+linux-stm32@lfdr.de>; Wed, 24 Aug 2022 10:21:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0FF9659F596
+	for <lists+linux-stm32@lfdr.de>; Wed, 24 Aug 2022 10:47:04 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7109FC6410E;
-	Wed, 24 Aug 2022 08:21:36 +0000 (UTC)
-Received: from mail.zeus03.de (www.zeus03.de [194.117.254.33])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id ACD35C6410D;
+	Wed, 24 Aug 2022 08:47:03 +0000 (UTC)
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D7D65C640FA
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0B73EC0D2BF
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 24 Aug 2022 08:21:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple; d=sang-engineering.com; h=
- from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding; s=k1; bh=ZA6NZznO17pPAf
- YQn+ZaPqoOw1BDdgUMYqc4V7ZjXXg=; b=LkNpW3WqCHqPoO8EInfjd3/x72/QnH
- 4Zj6qMFpQjV9YIR/mgRhoWukUl98f8JiXBunAC1mj7eyTbbRBFeNxB3zPgopeunJ
- JRakwpUwx9Qm3iZW0mKMkGGWOZuc0vGaNgld9Q7Aij4yNZLqPLhxxTVuRj2B600+
- qXWfeSHwgXXbs=
-Received: (qmail 2131806 invoked from network); 24 Aug 2022 10:21:32 +0200
-Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted,
- authenticated); 24 Aug 2022 10:21:32 +0200
-X-UD-Smtp-Session: l3s3148p1@SHFQXvjm5OcgAwDPXxw3AFlguiwjsjwa
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: linux-spi@vger.kernel.org
-Date: Wed, 24 Aug 2022 10:21:28 +0200
-Message-Id: <20220824082130.21934-2-wsa+renesas@sang-engineering.com>
-X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20220824082130.21934-1-wsa+renesas@sang-engineering.com>
-References: <20220824082130.21934-1-wsa+renesas@sang-engineering.com>
-MIME-Version: 1.0
-Cc: devicetree@vger.kernel.org,
+ Wed, 24 Aug 2022 08:47:01 +0000 (UTC)
+Received: from ip5b412258.dynamic.kabel-deutschland.de ([91.65.34.88]
+ helo=diego.localnet) by gloria.sntech.de with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.94.2)
+ (envelope-from <heiko@sntech.de>)
+ id 1oQm1r-0001su-EQ; Wed, 24 Aug 2022 10:46:27 +0200
+From: Heiko =?ISO-8859-1?Q?St=FCbner?= <heiko@sntech.de>
+To: Lee Jones <lee@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Reinhold Mueller <reinhold.mueller@emtrion.com>, linux-kernel@vger.kernel.org,
- Wolfram Sang <wsa+renesas@sang-engineering.com>,
- Rob Herring <robh+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 1/2] ARM: dts: stm32: argon: remove spidev node
+ Chen-Yu Tsai <wens@csie.org>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Samuel Holland <samuel@sholland.org>,
+ Charles Keepax <ckeepax@opensource.cirrus.com>,
+ Richard Fitzgerald <rf@opensource.cirrus.com>,
+ Tim Harvey <tharvey@gateworks.com>, Robert Jones <rjones@gateworks.com>,
+ Chanwoo Choi <cw00.choi@samsung.com>,
+ Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>,
+ Fabrice Gasnier <fabrice.gasnier@foss.st.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Maxime Ripard <mripard@kernel.org>, - <patches@opensource.cirrus.com>,
+ Steve Twiss <stwiss.opensource@diasemi.com>, Chris Zhong <zyw@rock-chips.com>,
+ Zhang Qing <zhangqing@rock-chips.com>,
+ Alistair Francis <alistair@alistair23.me>,
+ Amelie Delaunay <amelie.delaunay@foss.st.com>,
+ Linus Walleij <linus.walleij@linaro.org>, Renner Berthing <kernel@esmil.dk>,
+ Rob Herring <robh@kernel.org>
+Date: Wed, 24 Aug 2022 10:46:26 +0200
+Message-ID: <3510508.BEx9A2HvPv@diego>
+In-Reply-To: <20220823145649.3118479-4-robh@kernel.org>
+References: <20220823145649.3118479-4-robh@kernel.org>
+MIME-Version: 1.0
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-rockchip@lists.infradead.org,
+ linux-sunxi@lists.linux.dev, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] dt-bindings: mfd: Add missing
+	(unevaluated|additional)Properties on child nodes
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -55,40 +65,39 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Commit 956b200a846e ("spi: spidev: Warn loudly if instantiated from DT
-as "spidev"") states that there should not be spidev nodes in DTs.
-Remove this non-HW description. There won't be a regression because it
-won't bind since 2015 anyhow.
+Am Dienstag, 23. August 2022, 16:56:35 CEST schrieb Rob Herring:
+> In order to ensure only documented properties are present, node schemas
+> must have unevaluatedProperties or additionalProperties set to false
+> (typically).
+> 
+> Signed-off-by: Rob Herring <robh@kernel.org>
+> ---
 
-Fixes: 16e3e44c5b87 ("ARM: dts: stm32: Add support for the emtrion emSBC-Argon")
-Cc: Reinhold Mueller <reinhold.mueller@emtrion.com>
-Signed-off-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
----
+>  .../bindings/mfd/rockchip,rk817.yaml          |  2 +
 
-Please take it via your platform tree.
+> diff --git a/Documentation/devicetree/bindings/mfd/rockchip,rk817.yaml b/Documentation/devicetree/bindings/mfd/rockchip,rk817.yaml
+> index bfc1720adc43..9b2378312ce2 100644
+> --- a/Documentation/devicetree/bindings/mfd/rockchip,rk817.yaml
+> +++ b/Documentation/devicetree/bindings/mfd/rockchip,rk817.yaml
+> @@ -87,6 +87,7 @@ properties:
+>      patternProperties:
+>        "^(LDO_REG[1-9]|DCDC_REG[1-4]|BOOST|OTG_SWITCH)$":
+>          type: object
+> +        unevaluatedProperties: false
+>          $ref: ../regulator/regulator.yaml#
+>      unevaluatedProperties: false
+>  
+> @@ -111,6 +112,7 @@ properties:
+>        additional properties are required for the codec, this node can be
+>        omitted.
+>      type: object
+> +    additionalProperties: false
+>      properties:
+>        rockchip,mic-in-differential:
+>          type: boolean
 
- arch/arm/boot/dts/stm32mp157c-emstamp-argon.dtsi | 6 ------
- 1 file changed, 6 deletions(-)
+Acked-by: Heiko Stuebner <heiko@sntech.de>
 
-diff --git a/arch/arm/boot/dts/stm32mp157c-emstamp-argon.dtsi b/arch/arm/boot/dts/stm32mp157c-emstamp-argon.dtsi
-index ac53ee3c496b..30156b7546ed 100644
---- a/arch/arm/boot/dts/stm32mp157c-emstamp-argon.dtsi
-+++ b/arch/arm/boot/dts/stm32mp157c-emstamp-argon.dtsi
-@@ -435,12 +435,6 @@ &spi1 {
- 	pinctrl-0 = <&spi1_pins_a>;
- 	cs-gpios = <&gpioz 3 0>;
- 	status = "disabled";
--
--	spidev@0  {
--		compatible = "spidev";
--		reg = <0>;
--		spi-max-frequency = <100000>;
--	};
- };
- 
- &timers1 {
--- 
-2.35.1
 
 _______________________________________________
 Linux-stm32 mailing list
