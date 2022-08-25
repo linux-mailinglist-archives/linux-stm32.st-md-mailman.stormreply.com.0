@@ -2,58 +2,58 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E65365A0AC4
-	for <lists+linux-stm32@lfdr.de>; Thu, 25 Aug 2022 09:53:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EAAC15A0AC5
+	for <lists+linux-stm32@lfdr.de>; Thu, 25 Aug 2022 09:53:43 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B70FBC640F9;
-	Thu, 25 Aug 2022 07:53:42 +0000 (UTC)
-Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com
- [209.85.208.45])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C6494C640FC;
+	Thu, 25 Aug 2022 07:53:43 +0000 (UTC)
+Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com
+ [209.85.208.42])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 80AC6C03FCB
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 98892C03FCB
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 25 Aug 2022 07:53:41 +0000 (UTC)
-Received: by mail-ed1-f45.google.com with SMTP id z2so25033927edc.1
+ Thu, 25 Aug 2022 07:53:42 +0000 (UTC)
+Received: by mail-ed1-f42.google.com with SMTP id m1so117200edb.7
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 25 Aug 2022 00:53:41 -0700 (PDT)
+ Thu, 25 Aug 2022 00:53:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ionos.com; s=google;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc;
- bh=78LV1OFXn4kU+Li1Jo3v1pAvNQIAGmy0sk/6bF76fRQ=;
- b=Wd51wZvW5WFwaIoYN+lZ7WHoYz8LAT/LPsPSjAobWsPxeAy1SqWwSgQXNTbCFJEEFN
- dTuv8fiTkttDgJ+zDqXUQeTmFin9tS1kg3LomvI5oh0xcddf71DyXfveF39TixR4DFxu
- hRv+fJxhv+j9rRQqeUIqwJdFXp/gz2MKdQZ34HsnWsPDKV8Q8eHBxuC1P1GC5+3VcuO1
- V8j+cHHxip61cL0sUUkKKMjZn25Dy9eHrHWW2KQR3wVa/Gy0MXSsERnN8iNyTpYkxiTI
- 7pzltRRgFUBUU2HudbKJ/l9Iz4WZwQhzAGhVZS8aqWN/dybO0mS+upWrof4DYmhTSpK8
- BxMQ==
+ bh=Lc3v8hBHsCf49bYVex16KFSKbVG0hlFgO3dkVBUtLng=;
+ b=e6L6q0BJUH+0W1pJctd5mNfbN9fET2DENNXVuhELy/kF0phr1KgPmbFrEL6S4XysGM
+ ENOkFXDnlTf0HOOXyds250s4+e1nZ2S5t+l5rV5GknHKbwpwF6O1m1hlgSlTqwKshIfX
+ qN5WrWKcNdQUeCq47fNrJljeHZ8YDMoqz900JcLJAUW0RDTMCs7DXcu6ob3YpWHQN5pj
+ MxgcRgZFdqYKrj/le87dmCMrQZsXfgZvKns67C1hqEKSmcZ6LvTmBnZvphVn7aebsrBe
+ XwkKOEgJUO8H/YDCOF7FaMrBMN/aSMBZ/ZivCIvOjBrywuiGm3PrCtSNjj6DwGlKw0cU
+ MW7g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc;
- bh=78LV1OFXn4kU+Li1Jo3v1pAvNQIAGmy0sk/6bF76fRQ=;
- b=0d5UzURjezNBDx0asU9IzOabPEeAt5zS4AzaTNi7UrI91GytxjPV0ZmM7Stm1Ze6pG
- BWsiQZNn0Za0RQcHBBJgBTKbjvgjdcEgn7lx2TUNdpZW8Tkewt4WYApBdJ0ddnwZumfG
- 48dfJILqCxlAnXjBT6zxPiZwi5dWU4Jh20VsemrdtSqAyF7W2TvZqypI+m6oZAZ2HN45
- +C8TviSvn6bHUjZ1kqeiEeP5B7rJIr4rfk38bhMeIGXFLHXtJSDW+zgl6kCLlB2jVq/u
- naFqDRkOtACMYBCDiRDXf51TsONNfL65do1gl55cOTqj1iCg91ZmzR4WH/JswC0M0vQS
- JTbg==
-X-Gm-Message-State: ACgBeo1La1OxKQafzRIy5DnjZeyT2KJ64QpPEzJQj8hmFnp+19tVwcnM
- 8iouPwnCfAOrBZGpRVj5EIM8MA==
-X-Google-Smtp-Source: AA6agR5W9ulp4PdYSwLAp/6nQblVWJxOhoKk/OJmVAtEANwcbeTL0n2XJqbo+/Dr37lNINquqWbUNQ==
-X-Received: by 2002:a05:6402:3509:b0:43e:d80b:44a8 with SMTP id
- b9-20020a056402350900b0043ed80b44a8mr2174857edd.255.1661414021084; 
- Thu, 25 Aug 2022 00:53:41 -0700 (PDT)
+ bh=Lc3v8hBHsCf49bYVex16KFSKbVG0hlFgO3dkVBUtLng=;
+ b=g+FmonPeXREzgzLN6Fz0VAgxjbPNyD0g/3vLqp7HJKY3b7mAUU0ZEOqiL+onRSP/A5
+ CYAdDt/cRTG6kmIJIo3f4UqaQl6SY1cdMWWznJQ16gcDDDYp5AYXw/FmzZY215Y/GsVn
+ Bp94+tx7zFVN1Gs3ba8PYwhBNp9RvYXMdloIANNElf5dP1NMljpqvE0c5RP9GutJ8kEV
+ AaFX+vjdwDyTi9nRGx11J2CJngqAkTaQU0C9pbnQccCdDf3h31CqQhJRbGJdxF9c+Nbi
+ COff9owviQ4imbXW1r7C9E4wdQNcsByO68WYDz00Pq5QNcUogu2WEK5b1rsN3DvK76D1
+ C9Bg==
+X-Gm-Message-State: ACgBeo0vgEq5r4o+j7RwQpvcizp8I8RDLoXgAOGymggIdQBTc5VxozRQ
+ qTWCC+53CRhqiFKV7VBP02w3Ww==
+X-Google-Smtp-Source: AA6agR6Wb3bI3r2PWMumq/hRNZ1lgycNJckeEnHdbCXKdsWIg069biDuqP8AkDqmL9yidwsSFdF9nQ==
+X-Received: by 2002:aa7:cc97:0:b0:445:afab:2634 with SMTP id
+ p23-20020aa7cc97000000b00445afab2634mr2190277edt.54.1661414022265; 
+ Thu, 25 Aug 2022 00:53:42 -0700 (PDT)
 Received: from lb02065.fritz.box ([2001:9e8:142d:a900:eab:b5b1:a064:1d0d])
  by smtp.gmail.com with ESMTPSA id
- x22-20020a170906b09600b0073dbfd33a8dsm1491736ejy.21.2022.08.25.00.53.39
+ x22-20020a170906b09600b0073dbfd33a8dsm1491736ejy.21.2022.08.25.00.53.41
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 25 Aug 2022 00:53:40 -0700 (PDT)
+ Thu, 25 Aug 2022 00:53:41 -0700 (PDT)
 From: Jack Wang <jinpu.wang@ionos.com>
 To: miquel.raynal@bootlin.com,
 	linux-mtd@lists.infradead.org
-Date: Thu, 25 Aug 2022 09:53:37 +0200
-Message-Id: <20220825075338.35338-2-jinpu.wang@ionos.com>
+Date: Thu, 25 Aug 2022 09:53:38 +0200
+Message-Id: <20220825075338.35338-3-jinpu.wang@ionos.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220825075338.35338-1-jinpu.wang@ionos.com>
 References: <20220825075338.35338-1-jinpu.wang@ionos.com>
@@ -63,8 +63,8 @@ Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  linux-kernel@vger.kernel.org, Cai Huoqing <cai.huoqing@linux.dev>,
  Philipp Zabel <p.zabel@pengutronix.de>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 1/2] mtd: rawnand: stm32_fmc2: Fix dma_map_sg
-	error check
+Subject: [Linux-stm32] [PATCH 2/2] mtd: rawnand: marvell: Fix error handle
+	regarding dma_map_sg
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,7 +81,8 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-dma_map_sg return 0 on error, in case of error return -EIO.
+dma_map_sg return 0 on error, in case of error return -ENXIO,
+also add the dma_unmap_sg as rollback on the following error.
 
 Cc: Miquel Raynal <miquel.raynal@bootlin.com>
 Cc: Richard Weinberger <richard@nod.at>
@@ -95,39 +96,37 @@ Cc: linux-mtd@lists.infradead.org
 Cc: linux-stm32@st-md-mailman.stormreply.com
 Cc: linux-arm-kernel@lists.infradead.org
 Cc: linux-kernel@vger.kernel.org
-Fixes: 2cd457f328c1 ("mtd: rawnand: stm32_fmc2: add STM32 FMC2 NAND flash controller driver")
+Fixes: 02f26ecf8c77 ("mtd: nand: add reworked Marvell NAND controller driver")
 Signed-off-by: Jack Wang <jinpu.wang@ionos.com>
 ---
- drivers/mtd/nand/raw/stm32_fmc2_nand.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+ drivers/mtd/nand/raw/marvell_nand.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/mtd/nand/raw/stm32_fmc2_nand.c b/drivers/mtd/nand/raw/stm32_fmc2_nand.c
-index 87c1c7dd97eb..a0c825af19fa 100644
---- a/drivers/mtd/nand/raw/stm32_fmc2_nand.c
-+++ b/drivers/mtd/nand/raw/stm32_fmc2_nand.c
-@@ -862,8 +862,8 @@ static int stm32_fmc2_nfc_xfer(struct nand_chip *chip, const u8 *buf,
+diff --git a/drivers/mtd/nand/raw/marvell_nand.c b/drivers/mtd/nand/raw/marvell_nand.c
+index 2455a581fd70..d9f2f1d0b5ef 100644
+--- a/drivers/mtd/nand/raw/marvell_nand.c
++++ b/drivers/mtd/nand/raw/marvell_nand.c
+@@ -865,13 +865,19 @@ static int marvell_nfc_xfer_data_dma(struct marvell_nfc *nfc,
+ 	marvell_nfc_enable_dma(nfc);
+ 	/* Prepare the DMA transfer */
+ 	sg_init_one(&sg, nfc->dma_buf, dma_len);
+-	dma_map_sg(nfc->dma_chan->device->dev, &sg, 1, direction);
++	ret = dma_map_sg(nfc->dma_chan->device->dev, &sg, 1, direction);
++	if (!ret) {
++		dev_err(nfc->dev, "Could not map DMA S/G list\n");
++		return -ENXIO;
++	}
++
+ 	tx = dmaengine_prep_slave_sg(nfc->dma_chan, &sg, 1,
+ 				     direction == DMA_FROM_DEVICE ?
+ 				     DMA_DEV_TO_MEM : DMA_MEM_TO_DEV,
+ 				     DMA_PREP_INTERRUPT);
+ 	if (!tx) {
+ 		dev_err(nfc->dev, "Could not prepare DMA S/G list\n");
++		dma_unmap_sg(nfc->dma_chan->device->dev, &sg, 1, direction);
+ 		return -ENXIO;
+ 	}
  
- 	ret = dma_map_sg(nfc->dev, nfc->dma_data_sg.sgl,
- 			 eccsteps, dma_data_dir);
--	if (ret < 0)
--		return ret;
-+	if (!ret)
-+		return -EIO;
- 
- 	desc_data = dmaengine_prep_slave_sg(dma_ch, nfc->dma_data_sg.sgl,
- 					    eccsteps, dma_transfer_dir,
-@@ -893,8 +893,10 @@ static int stm32_fmc2_nfc_xfer(struct nand_chip *chip, const u8 *buf,
- 
- 		ret = dma_map_sg(nfc->dev, nfc->dma_ecc_sg.sgl,
- 				 eccsteps, dma_data_dir);
--		if (ret < 0)
-+		if (!ret) {
-+			ret = -EIO;
- 			goto err_unmap_data;
-+		}
- 
- 		desc_ecc = dmaengine_prep_slave_sg(nfc->dma_ecc_ch,
- 						   nfc->dma_ecc_sg.sgl,
 -- 
 2.34.1
 
