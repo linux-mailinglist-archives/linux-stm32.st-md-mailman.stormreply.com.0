@@ -2,79 +2,88 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8ED1B5A02DD
-	for <lists+linux-stm32@lfdr.de>; Wed, 24 Aug 2022 22:36:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 65E345A08A9
+	for <lists+linux-stm32@lfdr.de>; Thu, 25 Aug 2022 08:13:14 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 53816C6410E;
-	Wed, 24 Aug 2022 20:36:36 +0000 (UTC)
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
- [209.85.128.44])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 10802C5EC76;
+	Thu, 25 Aug 2022 06:13:14 +0000 (UTC)
+Received: from mail-lj1-f181.google.com (mail-lj1-f181.google.com
+ [209.85.208.181])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4CCF1C640FA
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2CE1CC03FCB
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 24 Aug 2022 20:36:34 +0000 (UTC)
-Received: by mail-wm1-f44.google.com with SMTP id
- c187-20020a1c35c4000000b003a30d88fe8eso1564211wma.2
+ Thu, 25 Aug 2022 06:13:12 +0000 (UTC)
+Received: by mail-lj1-f181.google.com with SMTP id u24so12851444lji.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 24 Aug 2022 13:36:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ Wed, 24 Aug 2022 23:13:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc; bh=PHwTuCnEL7EtB2rU0ZKm2AoGKO0cbH9wf0XuAB8In50=;
- b=jS0OlYQI0Zplep4Ed4lMnqtdkDh40PLTcf6EeIDIlwiNXwTOKErL+p8HbdM2fk5Ckn
- l5eZIkjVtiWgcadwvtz/U6auUIRNobBA97as2BuE8E0gG3ojYAXRpd3o3lx5cqJssTfs
- spVaPDijVyq6UD2hvgGdM3DE7RKbZjoWn04mzcKt/V5qVyFgBdJxwn4XRlKCa98OHIDO
- FMdRHHVnlNdO/fUO/r84C++gHF1WwO4J4tTiaOUbAzSsqRkU6nq6RRK450r6vNgEGR3J
- 3smItmJjxekSn/7b+Nf1JAGA5h5jxbLZqk36Wo4QEX3OL2EPFHtBANMtpMVXUuPyheuw
- VR1w==
+ :from:to:cc; bh=wXqYQNt6cQwwovEWaPctQuIwu12r6o/ryFEQHXvmidw=;
+ b=Z8V/D1iHr+3qt3pSFcQ5ZOeH0iO4G/pHn+XoNotaIYjxtt+oIh0RJD9YL3fzn6NmF2
+ keRguEOY+JCT3rPJ4clH8kP1+xBJEQvelpo2RA91EyugRKUr7jACpJxh49EkA75pYy+R
+ 4u1FzXdV5fEX3vnN7Uuu1Tcxfrs4J3riE0OLKIGGS8Wuio93l6VtWFG3NUMbWDRZ2XIj
+ m3cArYVlka9n7JbWg2A0+Pbrvx+Afr3ku+XlfM8+eqZ6HURCFjdxteLrXE0IuPmQJzai
+ lUJDfZtzcC0W0+lYdbZeAgdnRKGwUbTbD/6hq31m3HOs5yzAyK5n0yqIel30J6Tw8bSs
+ OHBQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc;
- bh=PHwTuCnEL7EtB2rU0ZKm2AoGKO0cbH9wf0XuAB8In50=;
- b=5mpJ6pnhpE4ReZRaqEbptkRm17vyzE62VzhCHuiMSYWvd6aDrGfLrvI0o5ULZ7JReM
- 72Yss8IYVhWGGNDQSiPSxeXc68aESX85UIkpkBVMmCaRgazV5KpddcMqi+88C7D7XStU
- dGkQa5gR9KqShD4mrVE3BruI/s6MFl+NVh1L5jMGQumriqC56LLmrXOKgFJVhRAuuG4k
- kDkPNRGHYx1ZO2FS2fc9mZQ0F4OKqcXwxBHjM96eK7K2DdFalYLwC4IqmZLy8aGxaI1w
- RHcGVoRuvx5Xavb/nJ36h2+S9s+71w8RJ61D/NboeYgN9qYkSgAs9QAgT8lOfBQ/uGn4
- dzow==
-X-Gm-Message-State: ACgBeo1hhecGVzlPzeF7jPVjKAcCipkCRqgbM+GXv7m2Hft/nYGsRdaM
- ChQCuJfYPfp2l0RuCMXJ3RQ=
-X-Google-Smtp-Source: AA6agR7iDVcDClHA4R60UnKf6VHm8MI5AZ7TR4qlLMkKRcInxtkl24wT3rFQ9Rjrr/7DSPqxBkZPew==
-X-Received: by 2002:a05:600c:3b92:b0:3a6:8d6:9a2f with SMTP id
- n18-20020a05600c3b9200b003a608d69a2fmr6342451wms.159.1661373393818; 
- Wed, 24 Aug 2022 13:36:33 -0700 (PDT)
-Received: from ?IPV6:2a01:c22:7aa2:100:8857:e17a:56:c2b2?
- (dynamic-2a01-0c22-7aa2-0100-8857-e17a-0056-c2b2.c22.pool.telefonica.de.
- [2a01:c22:7aa2:100:8857:e17a:56:c2b2])
- by smtp.googlemail.com with ESMTPSA id
- bh19-20020a05600c3d1300b003a54d610e5fsm3168381wmb.26.2022.08.24.13.36.32
+ bh=wXqYQNt6cQwwovEWaPctQuIwu12r6o/ryFEQHXvmidw=;
+ b=xoCSVSgpypRjXMfNH8Kq8P7U6781x+dFt2m+Y+W1mgfJZvpfkjMspOk0wNaEtaXlKS
+ XpURoVOz6l8aEDeIUkOoa/g4oMB7VkldQLm5HFzJR+7iqli6y0fL3i/XEvW/xPy8o6IF
+ wSeqbFpCbzajSP8sFgsx8CXs4TMVcCw8AIGPBNg+t314vNTmyqu/8iwmq83OUXWxjkN9
+ ojoFJyuGGpQSH9kizZCfvlBMPg/tSvcQQgKZOnjOQTlglmTA3AzlDYnDGws/VxjNXuZB
+ lULT1g/GMuP02ugA1CXE13o7p8q+p9bmnV5aMjb2D4KhYoSdZ4nYNsmGfoHT2CwZ3bMj
+ FuSg==
+X-Gm-Message-State: ACgBeo3Cnu+/TAUt5LPGFPCEJAzRDkEUDRBavDeNZkZpHdseAoVU6I27
+ OBfpdkfjQ5kY790HogOmawYYmg==
+X-Google-Smtp-Source: AA6agR4m4Z9GwEQ+k4jSc0Z8Nk2/b5GFxRJY/8LmssR1LVZFSvwsKEH0v/tzq4so1SvajWcwWWcQxw==
+X-Received: by 2002:a2e:9913:0:b0:261:ccfa:da6d with SMTP id
+ v19-20020a2e9913000000b00261ccfada6dmr580559lji.269.1661407991448; 
+ Wed, 24 Aug 2022 23:13:11 -0700 (PDT)
+Received: from [192.168.0.71] (82.131.98.15.cable.starman.ee. [82.131.98.15])
+ by smtp.gmail.com with ESMTPSA id
+ p3-20020ac24ec3000000b00492b494c4e8sm301859lfr.298.2022.08.24.23.13.09
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 24 Aug 2022 13:36:33 -0700 (PDT)
-Message-ID: <776ece87-e24c-bb19-e472-8a04d1cbbaa3@gmail.com>
-Date: Wed, 24 Aug 2022 22:36:27 +0200
+ Wed, 24 Aug 2022 23:13:10 -0700 (PDT)
+Message-ID: <9f293197-b4f9-c53c-ead4-08e2113d9c8d@linaro.org>
+Date: Thu, 25 Aug 2022 09:13:09 +0300
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.13.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.12.0
 Content-Language: en-US
-To: Jakub Kicinski <kuba@kernel.org>
-References: <72755b6b-f071-1c54-c2fd-5ea0376effe1@gmail.com>
- <20220823162259.36401af0@kernel.org>
-From: Heiner Kallweit <hkallweit1@gmail.com>
-In-Reply-To: <20220823162259.36401af0@kernel.org>
-Cc: Da Xue <da@lessconfused.com>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- Qi Duan <qi.duan@amlogic.com>, "moderated list:ARM/STM32 ARCHITECTURE"
- <linux-stm32@st-md-mailman.stormreply.com>, Eric Dumazet <edumazet@google.com>,
- Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>, Paolo Abeni <pabeni@redhat.com>,
- "David S. Miller" <davem@davemloft.net>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
- Jerome Brunet <jbrunet@baylibre.com>
-Subject: Re: [Linux-stm32] [PATCH net] net: stmmac: work around sporadic tx
-	issue on link-up
+To: Rob Herring <robh@kernel.org>, Lee Jones <lee@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Chen-Yu Tsai <wens@csie.org>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Samuel Holland <samuel@sholland.org>,
+ Charles Keepax <ckeepax@opensource.cirrus.com>,
+ Richard Fitzgerald <rf@opensource.cirrus.com>,
+ Tim Harvey <tharvey@gateworks.com>, Robert Jones <rjones@gateworks.com>,
+ Chanwoo Choi <cw00.choi@samsung.com>,
+ Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>,
+ Heiko Stuebner <heiko@sntech.de>,
+ Fabrice Gasnier <fabrice.gasnier@foss.st.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Maxime Ripard <mripard@kernel.org>, - <patches@opensource.cirrus.com>,
+ Steve Twiss <stwiss.opensource@diasemi.com>, Chris Zhong
+ <zyw@rock-chips.com>, Zhang Qing <zhangqing@rock-chips.com>,
+ Alistair Francis <alistair@alistair23.me>,
+ Amelie Delaunay <amelie.delaunay@foss.st.com>,
+ Linus Walleij <linus.walleij@linaro.org>, Renner Berthing <kernel@esmil.dk>
+References: <20220823145649.3118479-4-robh@kernel.org>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20220823145649.3118479-4-robh@kernel.org>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-rockchip@lists.infradead.org,
+ linux-sunxi@lists.linux.dev, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] dt-bindings: mfd: Add missing
+ (unevaluated|additional)Properties on child nodes
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,34 +100,20 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 24.08.2022 01:22, Jakub Kicinski wrote:
-> On Sat, 20 Aug 2022 17:20:37 +0200 Heiner Kallweit wrote:
->> This is a follow-up to the discussion in [0]. It seems to me that
->> at least the IP version used on Amlogic SoC's sometimes has a problem
->> if register MAC_CTRL_REG is written whilst the chip is still processing
->> a previous write. But that's just a guess.
->> Adding a delay between two writes to this register helps, but we can
->> also simply omit the offending second write. This patch uses the second
->> approach and is based on a suggestion from Qi Duan.
->> Benefit of this approach is that we can save few register writes, also
->> on not affected chip versions.
->>
->> This patch doesn't apply cleanly before the commit marked as fixed.
->> There's nothing wrong with this commit.
+On 23/08/2022 17:56, Rob Herring wrote:
+> In order to ensure only documented properties are present, node schemas
+> must have unevaluatedProperties or additionalProperties set to false
+> (typically).
 > 
-> I don't think this is right, please do your best to identify where
-> the bug was actually introduced and put that in the Fixes tag.
-> 
-> IIRC this is not the first time you've made this choice so let's
-> sort this out, we can bring it up with Greg if you would like,
-> I don't see it clarified in the docs.
-> 
-> My understanding and experience doing backports for my employer is 
-> that cutting off the Fixes tag at the place patch application fails 
-> is very counter productive. Better to go too far back and let 
-> the person maintaining the tree decide if the backport is needed.
-> 
-OK, I changed the Fixes tag accordingly and submitted a v2.
+> Signed-off-by: Rob Herring <robh@kernel.org>
+> ---
+
+
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+
+
+Best regards,
+Krzysztof
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
