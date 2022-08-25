@@ -2,84 +2,67 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3A8EA5A1A8B
-	for <lists+linux-stm32@lfdr.de>; Thu, 25 Aug 2022 22:48:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A82C15A1AD6
+	for <lists+linux-stm32@lfdr.de>; Thu, 25 Aug 2022 23:12:45 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EFD55C640FC;
-	Thu, 25 Aug 2022 20:48:57 +0000 (UTC)
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com
- [209.85.221.44])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4D01EC640FC;
+	Thu, 25 Aug 2022 21:12:45 +0000 (UTC)
+Received: from mail-oa1-f46.google.com (mail-oa1-f46.google.com
+ [209.85.160.46])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C5609C03FDB
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4FA39C03FDB
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 25 Aug 2022 20:48:56 +0000 (UTC)
-Received: by mail-wr1-f44.google.com with SMTP id n17so1432221wrm.4
+ Thu, 25 Aug 2022 21:12:44 +0000 (UTC)
+Received: by mail-oa1-f46.google.com with SMTP id
+ 586e51a60fabf-11c5ee9bf43so26538833fac.5
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 25 Aug 2022 13:48:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc;
- bh=6UzUCNgt4y0AHaBNJHl0u/FLrxd0vX2AFvB+HEQd8NM=;
- b=E96RMdPc6kX9TtDJzrOqo1gGRHBzfP6XCPrz5N8u6kh2oo7pX+NvWTtXitAGAyhOYZ
- dLItkLw4f906wzOWubVOl/F2SWCkaHk/7bPn+J3AUOnkJCWEAVLrTFRlPF9ems0p6hJ3
- rqSs+G7ZXvCYbMxGQdTxdVkLQuSAS6snMZ7uZ7YmuI5cL9Qd6Kl17IYR8qF65hLEIzAz
- D7fnTM3kkZKCh29/6g/AIk87eu0ky3FNRGVFb95NdU1qt+007aFXG+0xtNjdzOgUvERN
- q5HP8HsJWwKJm/sRFdO/V+N0yfalBVs6XtPel5rDvkIRQifRPC/ddv7c1LEI1dUkh+5b
- R61w==
+ Thu, 25 Aug 2022 14:12:44 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc;
- bh=6UzUCNgt4y0AHaBNJHl0u/FLrxd0vX2AFvB+HEQd8NM=;
- b=N3Kss7UJ0GMRpX/M758ZckJIw1Vh0Zy2MuDV5pFYkw+6rGDxpp7jQ0zgRGnc7qzCwz
- xvJoTfgELdXT1tBryK4UO1qAM2xTeTTEM1XLXUi6QxnT12VhkVIUOPhEAU+M2FY5QoN5
- MWaKf4C8mh8FCYq4p9Y1aBzLRiTYCDrwiEcysWr/iQdUSalfOtX4TT2ggcagJY5IZw+c
- 89OE9varL61WBHXyCezBN95z8nJxPwJfwhiCDFr+tGv464h09jwCOjiArKAdG3I3nD6H
- nJD4gluyZgoNIPXKNjQbp/K7IfIeKk/Syo4G+KYhKy0f/WAlwU7QWMq6v8NxQhIUaVJE
- BpHg==
-X-Gm-Message-State: ACgBeo0UGYx6ClMw/K/prlyKG7TEj4zZ7+NIqTk+EtzLdIBfZnG2O7qt
- klQKgPL4Non6yb4NmNzBxs0=
-X-Google-Smtp-Source: AA6agR5luFniLeLJR/gpv3f8y8PSO9iYmRy9xopByet6i9pxvH109nYNZOhflEi5Ej+3VAkPWavVHw==
-X-Received: by 2002:a5d:64e1:0:b0:225:5495:ff75 with SMTP id
- g1-20020a5d64e1000000b002255495ff75mr3216411wri.21.1661460536349; 
- Thu, 25 Aug 2022 13:48:56 -0700 (PDT)
-Received: from kista.localnet (82-149-1-172.dynamic.telemach.net.
- [82.149.1.172]) by smtp.gmail.com with ESMTPSA id
- l14-20020a5d668e000000b002253fd19a6asm266939wru.18.2022.08.25.13.48.54
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc;
+ bh=7cYyxg+Rjs2OKuzQlOjAlSHEpxBggE7h7LYSTjnsFQY=;
+ b=Xf7t5S1yKFHdrs3WMXlc100WZZ41HIRd83rOLdYkoPh8VvXylxccwhYQ/0oEYP6Ug/
+ 936ZtE75PYBwWlDK0PoUjoZMwCwj0KcI2HUno2+YgQkJAFUuO6J5cY+5uCO7gJuzRt0O
+ pu9KI3zvfYOHNMNJkVEjOZ/MfUf2BinR0SHXh/IyQhc1quqWrR4BgIRrH1LlQKP+ToE3
+ EguAGgu8EXbQXc2LId2nZclCo9PZO3Kv/hyvPHnM7UNNXvMf+gHNeJ14ILCy5Uo8/Lxb
+ LCoDe+QpRQtmt2AvtiyHtprLiXf+lylnWVOcsov1WzmZI4JIZ05w3TER4B4HTzKFxnEL
+ SVbQ==
+X-Gm-Message-State: ACgBeo3XnTObcXu1ttNl7SDVOL/49gKLXLCVk9Tqa7aXirLyBptTFdCd
+ cjtnsc1kcq42UXa4DjGhyQ==
+X-Google-Smtp-Source: AA6agR7L4kQd6z1UzBVG2YOwp2flBq48abWOo4dTD4AKZRma54US5SS++O70oOI3XePD8j7/qDEheA==
+X-Received: by 2002:a05:6870:438b:b0:11c:ecf2:e4ca with SMTP id
+ r11-20020a056870438b00b0011cecf2e4camr449518oah.122.1661461963080; 
+ Thu, 25 Aug 2022 14:12:43 -0700 (PDT)
+Received: from robh.at.kernel.org (66-90-144-107.dyn.grandenetworks.net.
+ [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
+ o12-20020a9d5c0c000000b0061d31170573sm92760otk.20.2022.08.25.14.12.42
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 25 Aug 2022 13:48:55 -0700 (PDT)
-From: Jernej =?utf-8?B?xaBrcmFiZWM=?= <jernej.skrabec@gmail.com>
-To: Lee Jones <lee@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Chen-Yu Tsai <wens@csie.org>, Samuel Holland <samuel@sholland.org>,
- Charles Keepax <ckeepax@opensource.cirrus.com>,
- Richard Fitzgerald <rf@opensource.cirrus.com>,
- Tim Harvey <tharvey@gateworks.com>, Robert Jones <rjones@gateworks.com>,
- Chanwoo Choi <cw00.choi@samsung.com>,
- Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>,
- Heiko Stuebner <heiko@sntech.de>,
- Fabrice Gasnier <fabrice.gasnier@foss.st.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Maxime Ripard <mripard@kernel.org>, - <patches@opensource.cirrus.com>,
- Steve Twiss <stwiss.opensource@diasemi.com>, Chris Zhong <zyw@rock-chips.com>,
- Zhang Qing <zhangqing@rock-chips.com>,
- Alistair Francis <alistair@alistair23.me>,
- Amelie Delaunay <amelie.delaunay@foss.st.com>,
- Linus Walleij <linus.walleij@linaro.org>, Renner Berthing <kernel@esmil.dk>,
- Rob Herring <robh@kernel.org>
-Date: Thu, 25 Aug 2022 22:48:54 +0200
-Message-ID: <13083804.uLZWGnKmhe@kista>
-In-Reply-To: <20220823145649.3118479-4-robh@kernel.org>
-References: <20220823145649.3118479-4-robh@kernel.org>
+ Thu, 25 Aug 2022 14:12:42 -0700 (PDT)
+Received: (nullmailer pid 1696440 invoked by uid 1000);
+ Thu, 25 Aug 2022 21:12:41 -0000
+Date: Thu, 25 Aug 2022 16:12:41 -0500
+From: Rob Herring <robh@kernel.org>
+To: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+Message-ID: <20220825211241.GA1688421-robh@kernel.org>
+References: <20220820082936.686924-1-dario.binacchi@amarulasolutions.com>
+ <20220820082936.686924-2-dario.binacchi@amarulasolutions.com>
 MIME-Version: 1.0
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Krzysztof Kozlowski <krzk@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-rockchip@lists.infradead.org,
- linux-sunxi@lists.linux.dev, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] dt-bindings: mfd: Add missing
-	(unevaluated|additional)Properties on child nodes
+Content-Disposition: inline
+In-Reply-To: <20220820082936.686924-2-dario.binacchi@amarulasolutions.com>
+Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+ Paolo Abeni <pabeni@redhat.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ netdev@vger.kernel.org, linux-can@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
+ Eric Dumazet <edumazet@google.com>, Marc Kleine-Budde <mkl@pengutronix.de>,
+ Wolfgang Grandegger <wg@grandegger.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Jakub Kicinski <kuba@kernel.org>, michael@amarulasolutions.com,
+ Amarula patchwork <linux-amarula@amarulasolutions.com>,
+ "David S. Miller" <davem@davemloft.net>, Dario Binacchi <dariobin@libero.it>
+Subject: Re: [Linux-stm32] [RFC PATCH v2 1/4] dt-bindings: net: can: add
+ STM32 bxcan DT bindings
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,107 +79,180 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Dne torek, 23. avgust 2022 ob 16:56:35 CEST je Rob Herring napisal(a):
-> In order to ensure only documented properties are present, node schemas
-> must have unevaluatedProperties or additionalProperties set to false
-> (typically).
+On Sat, Aug 20, 2022 at 10:29:33AM +0200, Dario Binacchi wrote:
+> Add documentation of device tree bindings for the STM32 basic extended
+> CAN (bxcan) controller.
 > 
-> Signed-off-by: Rob Herring <robh@kernel.org>
+> Signed-off-by: Dario Binacchi <dariobin@libero.it>
+> Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+> 
 > ---
->  .../mfd/allwinner,sun6i-a31-prcm.yaml         | 40 +++++++++++++++++++
->  .../mfd/allwinner,sun8i-a23-prcm.yaml         | 10 +++++
->  .../bindings/mfd/cirrus,lochnagar.yaml        |  5 +++
->  .../devicetree/bindings/mfd/dlg,da9063.yaml   |  7 ++--
->  .../bindings/mfd/gateworks-gsc.yaml           |  5 ++-
->  .../bindings/mfd/maxim,max14577.yaml          |  1 +
->  .../bindings/mfd/maxim,max77843.yaml          |  1 +
->  .../bindings/mfd/rockchip,rk817.yaml          |  2 +
->  .../bindings/mfd/silergy,sy7636a.yaml         |  1 +
->  .../bindings/mfd/st,stm32-lptimer.yaml        |  4 ++
->  .../bindings/mfd/st,stm32-timers.yaml         |  3 ++
->  .../devicetree/bindings/mfd/st,stmfx.yaml     |  1 +
->  .../bindings/mfd/stericsson,ab8500.yaml       | 22 ++++++++++
->  .../devicetree/bindings/mfd/ti,tps65086.yaml  |  1 +
->  .../bindings/mfd/x-powers,axp152.yaml         |  1 +
->  15 files changed, 100 insertions(+), 4 deletions(-)
 > 
-> diff --git
-> a/Documentation/devicetree/bindings/mfd/allwinner,sun6i-a31-prcm.yaml
-> b/Documentation/devicetree/bindings/mfd/allwinner,sun6i-a31-prcm.yaml index
-> d131759ccaf3..021d33cb3dd6 100644
-> --- a/Documentation/devicetree/bindings/mfd/allwinner,sun6i-a31-prcm.yaml
-> +++ b/Documentation/devicetree/bindings/mfd/allwinner,sun6i-a31-prcm.yaml
-> @@ -22,6 +22,7 @@ properties:
->  patternProperties:
->    "^.*_(clk|rst)$":
->      type: object
-> +    unevaluatedProperties: false
+> Changes in v2:
+> - Change the file name into 'st,stm32-bxcan-core.yaml'.
+> - Rename compatibles:
+>   - st,stm32-bxcan-core -> st,stm32f4-bxcan-core
+>   - st,stm32-bxcan -> st,stm32f4-bxcan
+> - Rename master property to st,can-master.
+> - Remove the status property from the example.
+> - Put the node child properties as required.
 > 
->      properties:
->        compatible:
-> @@ -34,6 +35,45 @@ patternProperties:
->            - fixed-factor-clock
+>  .../bindings/net/can/st,stm32-bxcan.yaml      | 136 ++++++++++++++++++
+>  1 file changed, 136 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/net/can/st,stm32-bxcan.yaml
 > 
->      allOf:
-> +      - if:
-> +          properties:
-> +            compatible:
-> +              contains:
-> +                const: fixed-factor-clock
+> diff --git a/Documentation/devicetree/bindings/net/can/st,stm32-bxcan.yaml b/Documentation/devicetree/bindings/net/can/st,stm32-bxcan.yaml
+> new file mode 100644
+> index 000000000000..288631b5556d
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/net/can/st,stm32-bxcan.yaml
+> @@ -0,0 +1,136 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/net/can/st,stm32-bxcan.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
 > +
-> +        then:
-> +          $ref: /schemas/clock/fixed-factor-clock.yaml#
+> +title: STMicroelectronics bxCAN controller
 > +
-> +      - if:
-> +          properties:
-> +            compatible:
-> +              contains:
-> +                const: allwinner,sun4i-a10-mod0-clk
+> +description: STMicroelectronics BxCAN controller for CAN bus
 > +
-> +        then:
-> +          properties:
-> +            "#clock-cells":
-> +              const: 0
+> +maintainers:
+> +  - Dario Binacchi <dario.binacchi@amarulasolutions.com>
 > +
-> +            # Already checked in the main schema
-> +            compatible: true
+> +allOf:
+> +  - $ref: can-controller.yaml#
 > +
-> +            clocks:
-> +              maxItems: 2
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - st,stm32f4-bxcan-core
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  resets:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    description:
+> +      Input clock for registers access
+> +    maxItems: 1
+> +
+> +  '#address-cells':
+> +    const: 1
+> +
+> +  '#size-cells':
+> +    const: 0
+> +
+> +additionalProperties: false
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - resets
+> +  - clocks
+> +  - '#address-cells'
+> +  - '#size-cells'
+> +
+> +patternProperties:
+> +  "^can@[0-9]+$":
+> +    type: object
+> +    description:
+> +      A CAN block node contains two subnodes, representing each one a CAN
+> +      instance available on the machine.
+> +
+> +    properties:
+> +      compatible:
+> +        enum:
+> +          - st,stm32f4-bxcan
+> +
+> +      st,can-master:
+> +        description:
+> +          Master and slave mode of the bxCAN peripheral is only relevant
+> +          if the chip has two CAN peripherals. In that case they share
+> +          some of the required logic, and that means you cannot use the
+> +          slave CAN without the master CAN.
+> +        type: boolean
+> +
+> +      reg:
+> +        description: |
+> +          Offset of CAN instance in CAN block. Valid values are:
+> +            - 0x0:   CAN1
+> +            - 0x400: CAN2
+> +        maxItems: 1
+> +
+> +      interrupts:
+> +        items:
+> +          - description: transmit interrupt
+> +          - description: FIFO 0 receive interrupt
+> +          - description: FIFO 1 receive interrupt
+> +          - description: status change error interrupt
+> +
+> +      interrupt-names:
+> +        items:
+> +          - const: tx
+> +          - const: rx0
+> +          - const: rx1
+> +          - const: sce
+> +
+> +      resets:
+> +        maxItems: 1
+> +
+> +      clocks:
+> +        description:
+> +          Input clock for registers access
+> +        maxItems: 1
+> +
+> +    additionalProperties: false
+> +
+> +    required:
+> +      - compatible
+> +      - reg
+> +      - interrupts
+> +      - resets
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/clock/stm32fx-clock.h>
+> +    #include <dt-bindings/mfd/stm32f4-rcc.h>
+> +
+> +    can: can@40006400 {
+> +        compatible = "st,stm32f4-bxcan-core";
+> +        reg = <0x40006400 0x800>;
+> +        resets = <&rcc STM32F4_APB1_RESET(CAN1)>;
+> +        clocks = <&rcc 0 STM32F4_APB1_CLOCK(CAN1)>;
+> +        #address-cells = <1>;
+> +        #size-cells = <0>;
+> +
 
-Last time node with allwinner,sun4i-a10-mod0-clk compatible was used, it had 3 
-clocks. See:
-https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/
-arm/boot/dts/sun4i-a10.dtsi?id=f18698e1c66338b902de386e4ad97b8b1b9d999d#n406
+Missing 'ranges'.
 
-Once that fixed, allwinner,sun6i-a31-prcm.yaml and allwinner,sun8i-a23-
-prcm.yaml  are:
-Reviewed-by: Jernej Skrabec <jernej.skrabec@gmail.com>
+> +        can1: can@0 {
+> +            compatible = "st,stm32f4-bxcan";
+> +            reg = <0x0>;
+> +            interrupts = <19>, <20>, <21>, <22>;
+> +            interrupt-names = "tx", "rx0", "rx1", "sce";
+> +            resets = <&rcc STM32F4_APB1_RESET(CAN1)>;
+> +            st,can-master;
 
-Best regards,
-Jernej
+No clocks?
 
-
+> +        };
 > +
-> +            clock-output-names:
-> +              maxItems: 1
-> +
-> +            phandle: true
-> +
-> +          required:
-> +            - "#clock-cells"
-> +            - compatible
-> +            - clocks
-> +            - clock-output-names
-> +
-> +          additionalProperties: false
-> +
->        - if:
->            properties:
->              compatible:
-
-
-
+> +        can2: can@400 {
+> +            compatible = "st,stm32f4-bxcan";
+> +            reg = <0x400>;
+> +            interrupts = <63>, <64>, <65>, <66>;
+> +            interrupt-names = "tx", "rx0", "rx1", "sce";
+> +            resets = <&rcc STM32F4_APB1_RESET(CAN2)>;
+> +            clocks = <&rcc 0 STM32F4_APB1_CLOCK(CAN2)>;
+> +        };
+> +    };
+> -- 
+> 2.32.0
+> 
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
