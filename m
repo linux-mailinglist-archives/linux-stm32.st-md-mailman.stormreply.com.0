@@ -2,67 +2,81 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A82C15A1AD6
-	for <lists+linux-stm32@lfdr.de>; Thu, 25 Aug 2022 23:12:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 585A75A1B00
+	for <lists+linux-stm32@lfdr.de>; Thu, 25 Aug 2022 23:25:38 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4D01EC640FC;
-	Thu, 25 Aug 2022 21:12:45 +0000 (UTC)
-Received: from mail-oa1-f46.google.com (mail-oa1-f46.google.com
- [209.85.160.46])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0A39DC640FC;
+	Thu, 25 Aug 2022 21:25:38 +0000 (UTC)
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
+ [209.85.128.54])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4FA39C03FDB
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 33DBEC03FDB
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 25 Aug 2022 21:12:44 +0000 (UTC)
-Received: by mail-oa1-f46.google.com with SMTP id
- 586e51a60fabf-11c5ee9bf43so26538833fac.5
+ Thu, 25 Aug 2022 21:25:36 +0000 (UTC)
+Received: by mail-wm1-f54.google.com with SMTP id
+ l33-20020a05600c1d2100b003a645240a95so3151961wms.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 25 Aug 2022 14:12:44 -0700 (PDT)
+ Thu, 25 Aug 2022 14:25:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc;
+ bh=nls6DGbfFRAP957pxJ4lCmbOvdtMF+yoGyK/eIAHqyg=;
+ b=dlpbM58i2Zl35pjmx5L7mRNtdc5YCm71F9sFmlELYER6ov9p1Zhw7Uryp66w+fECkw
+ uWkzwI4ANxiJqV2NAH5qiBvSocnn8gCiQ2esbEPyK9VfrLMG6MP+UW57WsLhfQeb18Xm
+ ywTHy3WQy2y0FYikqc1VoN0s6VRtWmBPqvQ7ayhaGh2a543N2UKdV/DJLzBcZZCckZJ6
+ ioibCRuSXHClGOmbzN9j5ra8iRima6daMxIf45aGXMyoGgBcf5Q8AplMooQ7YxG8j1KJ
+ +wVv5gF0Swo9gXi4Wnksh6Jhf6DtKC3uqCuZv3IfpxDnq0EW8o52F4JCeA7KQe1HLfXz
+ RrSQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc;
- bh=7cYyxg+Rjs2OKuzQlOjAlSHEpxBggE7h7LYSTjnsFQY=;
- b=Xf7t5S1yKFHdrs3WMXlc100WZZ41HIRd83rOLdYkoPh8VvXylxccwhYQ/0oEYP6Ug/
- 936ZtE75PYBwWlDK0PoUjoZMwCwj0KcI2HUno2+YgQkJAFUuO6J5cY+5uCO7gJuzRt0O
- pu9KI3zvfYOHNMNJkVEjOZ/MfUf2BinR0SHXh/IyQhc1quqWrR4BgIRrH1LlQKP+ToE3
- EguAGgu8EXbQXc2LId2nZclCo9PZO3Kv/hyvPHnM7UNNXvMf+gHNeJ14ILCy5Uo8/Lxb
- LCoDe+QpRQtmt2AvtiyHtprLiXf+lylnWVOcsov1WzmZI4JIZ05w3TER4B4HTzKFxnEL
- SVbQ==
-X-Gm-Message-State: ACgBeo3XnTObcXu1ttNl7SDVOL/49gKLXLCVk9Tqa7aXirLyBptTFdCd
- cjtnsc1kcq42UXa4DjGhyQ==
-X-Google-Smtp-Source: AA6agR7L4kQd6z1UzBVG2YOwp2flBq48abWOo4dTD4AKZRma54US5SS++O70oOI3XePD8j7/qDEheA==
-X-Received: by 2002:a05:6870:438b:b0:11c:ecf2:e4ca with SMTP id
- r11-20020a056870438b00b0011cecf2e4camr449518oah.122.1661461963080; 
- Thu, 25 Aug 2022 14:12:43 -0700 (PDT)
-Received: from robh.at.kernel.org (66-90-144-107.dyn.grandenetworks.net.
- [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
- o12-20020a9d5c0c000000b0061d31170573sm92760otk.20.2022.08.25.14.12.42
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc;
+ bh=nls6DGbfFRAP957pxJ4lCmbOvdtMF+yoGyK/eIAHqyg=;
+ b=paO764TLVBVlNDvZsUKLMlqqCikPcZmIh9PcAH3qj8q1VCBoWwsmhTRADiq6+dds9n
+ jq6HaryPH+4TkUEQCLuL2LCPZ1y78CeqnFHS5q8OgJZihBjDY0AUQRdJVRY/XAhfO5kw
+ BiUAUI//HG8KLX7Mk3/6h7/L7CW2BTQ2mCvrpHHB4oNQs/u/+VhsmHP2ik9Q446vVDy0
+ TIyXC7XpBjKD3SJypGGgHRMSGEwtFF2/xj6/x57ezfKC+D6/CpXws4BM7CiKL4NNKCDi
+ WD4yqZTLv0L0mT/RdaYPJDYarDG9oBRA3CcA9Igdjty7lSkYCYr3csoFlo/Vhi6VIs4b
+ htVA==
+X-Gm-Message-State: ACgBeo0P9riLYPpmm5QTD3wL8HEk9NYYgYoT9QqOlCLrLUy1PDdMwWJn
+ kCiLnTBu1lSTisWVbztU8fw=
+X-Google-Smtp-Source: AA6agR4u4BAmHRat5LFEkPb1QUEY6oOp43RCL7jbGC6PWwiKhCvUcU/tuSQkwukDJ89Tw4ddFY+90Q==
+X-Received: by 2002:a05:600c:b47:b0:3a5:a431:ce36 with SMTP id
+ k7-20020a05600c0b4700b003a5a431ce36mr3484083wmr.89.1661462735769; 
+ Thu, 25 Aug 2022 14:25:35 -0700 (PDT)
+Received: from kista.localnet (82-149-1-172.dynamic.telemach.net.
+ [82.149.1.172]) by smtp.gmail.com with ESMTPSA id
+ m5-20020a05600c4f4500b003a64f684704sm7324411wmq.40.2022.08.25.14.25.33
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 25 Aug 2022 14:12:42 -0700 (PDT)
-Received: (nullmailer pid 1696440 invoked by uid 1000);
- Thu, 25 Aug 2022 21:12:41 -0000
-Date: Thu, 25 Aug 2022 16:12:41 -0500
-From: Rob Herring <robh@kernel.org>
-To: Dario Binacchi <dario.binacchi@amarulasolutions.com>
-Message-ID: <20220825211241.GA1688421-robh@kernel.org>
-References: <20220820082936.686924-1-dario.binacchi@amarulasolutions.com>
- <20220820082936.686924-2-dario.binacchi@amarulasolutions.com>
+ Thu, 25 Aug 2022 14:25:35 -0700 (PDT)
+From: Jernej =?utf-8?B?xaBrcmFiZWM=?= <jernej.skrabec@gmail.com>
+To: vkoul@kernel.org, Tudor Ambarus <tudor.ambarus@microchip.com>
+Date: Thu, 25 Aug 2022 23:25:33 +0200
+Message-ID: <1922204.usQuhbGJ8B@kista>
+In-Reply-To: <20220820130925.589472-1-tudor.ambarus@microchip.com>
+References: <20220820130925.589472-1-tudor.ambarus@microchip.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20220820082936.686924-2-dario.binacchi@amarulasolutions.com>
-Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
- Paolo Abeni <pabeni@redhat.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- netdev@vger.kernel.org, linux-can@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
- Eric Dumazet <edumazet@google.com>, Marc Kleine-Budde <mkl@pengutronix.de>,
- Wolfgang Grandegger <wg@grandegger.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Jakub Kicinski <kuba@kernel.org>, michael@amarulasolutions.com,
- Amarula patchwork <linux-amarula@amarulasolutions.com>,
- "David S. Miller" <davem@davemloft.net>, Dario Binacchi <dariobin@libero.it>
-Subject: Re: [Linux-stm32] [RFC PATCH v2 1/4] dt-bindings: net: can: add
- STM32 bxcan DT bindings
+Cc: tony@atomide.com, trix@redhat.com, konrad.dybcio@somainline.org,
+ bjorn.andersson@linaro.org, linux-tegra@vger.kernel.org, ldewangan@nvidia.com,
+ alim.akhtar@samsung.com, festevam@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com, f.fainelli@gmail.com,
+ samuel@sholland.org, robert.jarzmik@free.fr, michal.simek@xilinx.com,
+ peter.ujfalusi@gmail.com, jonathanh@nvidia.com,
+ linux-samsung-soc@vger.kernel.org, wens@csie.org, agross@kernel.org,
+ bcm-kernel-feedback-list@broadcom.com, linux-imx@nxp.com,
+ linux-arm-msm@vger.kernel.org, Eugeniy.Paltsev@synopsys.com,
+ linux-sunxi@lists.linux.dev, radhey.shyam.pandey@xilinx.com,
+ kernel@pengutronix.de, Tudor Ambarus <tudor.ambarus@microchip.com>,
+ rjui@broadcom.com, s.hauer@pengutronix.de, sean.wang@mediatek.com,
+ green.wan@sifive.com, lars@metafoo.de, linux-mediatek@lists.infradead.org,
+ haojian.zhuang@gmail.com, matthias.bgg@gmail.com,
+ linux-arm-kernel@lists.infradead.org, sbranden@broadcom.com,
+ linux-kernel@vger.kernel.org, thierry.reding@gmail.com,
+ mcoquelin.stm32@gmail.com, dmaengine@vger.kernel.org, shawnguo@kernel.org,
+ daniel@zonque.org
+Subject: Re: [Linux-stm32] [PATCH] dmaengine: drivers: Use
+	devm_platform_ioremap_resource()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,180 +93,55 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Sat, Aug 20, 2022 at 10:29:33AM +0200, Dario Binacchi wrote:
-> Add documentation of device tree bindings for the STM32 basic extended
-> CAN (bxcan) controller.
+Dne sobota, 20. avgust 2022 ob 15:09:25 CEST je Tudor Ambarus napisal(a):
+> platform_get_resource() and devm_ioremap_resource() are wrapped up in the
+> devm_platform_ioremap_resource() helper. Use the helper and get rid of the
+> local variable for struct resource *. We now have a function call less.
 > 
-> Signed-off-by: Dario Binacchi <dariobin@libero.it>
-> Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
-> 
+> Signed-off-by: Tudor Ambarus <tudor.ambarus@microchip.com>
 > ---
-> 
-> Changes in v2:
-> - Change the file name into 'st,stm32-bxcan-core.yaml'.
-> - Rename compatibles:
->   - st,stm32-bxcan-core -> st,stm32f4-bxcan-core
->   - st,stm32-bxcan -> st,stm32f4-bxcan
-> - Rename master property to st,can-master.
-> - Remove the status property from the example.
-> - Put the node child properties as required.
-> 
->  .../bindings/net/can/st,stm32-bxcan.yaml      | 136 ++++++++++++++++++
->  1 file changed, 136 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/net/can/st,stm32-bxcan.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/net/can/st,stm32-bxcan.yaml b/Documentation/devicetree/bindings/net/can/st,stm32-bxcan.yaml
-> new file mode 100644
-> index 000000000000..288631b5556d
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/net/can/st,stm32-bxcan.yaml
-> @@ -0,0 +1,136 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/net/can/st,stm32-bxcan.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: STMicroelectronics bxCAN controller
-> +
-> +description: STMicroelectronics BxCAN controller for CAN bus
-> +
-> +maintainers:
-> +  - Dario Binacchi <dario.binacchi@amarulasolutions.com>
-> +
-> +allOf:
-> +  - $ref: can-controller.yaml#
-> +
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - st,stm32f4-bxcan-core
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  resets:
-> +    maxItems: 1
-> +
-> +  clocks:
-> +    description:
-> +      Input clock for registers access
-> +    maxItems: 1
-> +
-> +  '#address-cells':
-> +    const: 1
-> +
-> +  '#size-cells':
-> +    const: 0
-> +
-> +additionalProperties: false
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - resets
-> +  - clocks
-> +  - '#address-cells'
-> +  - '#size-cells'
-> +
-> +patternProperties:
-> +  "^can@[0-9]+$":
-> +    type: object
-> +    description:
-> +      A CAN block node contains two subnodes, representing each one a CAN
-> +      instance available on the machine.
-> +
-> +    properties:
-> +      compatible:
-> +        enum:
-> +          - st,stm32f4-bxcan
-> +
-> +      st,can-master:
-> +        description:
-> +          Master and slave mode of the bxCAN peripheral is only relevant
-> +          if the chip has two CAN peripherals. In that case they share
-> +          some of the required logic, and that means you cannot use the
-> +          slave CAN without the master CAN.
-> +        type: boolean
-> +
-> +      reg:
-> +        description: |
-> +          Offset of CAN instance in CAN block. Valid values are:
-> +            - 0x0:   CAN1
-> +            - 0x400: CAN2
-> +        maxItems: 1
-> +
-> +      interrupts:
-> +        items:
-> +          - description: transmit interrupt
-> +          - description: FIFO 0 receive interrupt
-> +          - description: FIFO 1 receive interrupt
-> +          - description: status change error interrupt
-> +
-> +      interrupt-names:
-> +        items:
-> +          - const: tx
-> +          - const: rx0
-> +          - const: rx1
-> +          - const: sce
-> +
-> +      resets:
-> +        maxItems: 1
-> +
-> +      clocks:
-> +        description:
-> +          Input clock for registers access
-> +        maxItems: 1
-> +
-> +    additionalProperties: false
-> +
-> +    required:
-> +      - compatible
-> +      - reg
-> +      - interrupts
-> +      - resets
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/clock/stm32fx-clock.h>
-> +    #include <dt-bindings/mfd/stm32f4-rcc.h>
-> +
-> +    can: can@40006400 {
-> +        compatible = "st,stm32f4-bxcan-core";
-> +        reg = <0x40006400 0x800>;
-> +        resets = <&rcc STM32F4_APB1_RESET(CAN1)>;
-> +        clocks = <&rcc 0 STM32F4_APB1_CLOCK(CAN1)>;
-> +        #address-cells = <1>;
-> +        #size-cells = <0>;
-> +
+>  drivers/dma/bcm2835-dma.c                      |  4 +---
+>  drivers/dma/dma-axi-dmac.c                     |  4 +---
+>  drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c |  4 +---
+>  drivers/dma/fsl-edma.c                         |  8 +++-----
+>  drivers/dma/fsl-qdma.c                         | 10 +++-------
+>  drivers/dma/idma64.c                           |  4 +---
+>  drivers/dma/img-mdc-dma.c                      |  4 +---
+>  drivers/dma/imx-dma.c                          |  4 +---
+>  drivers/dma/imx-sdma.c                         |  4 +---
+>  drivers/dma/mcf-edma.c                         |  5 +----
+>  drivers/dma/mediatek/mtk-hsdma.c               |  4 +---
+>  drivers/dma/mmp_pdma.c                         |  4 +---
+>  drivers/dma/mmp_tdma.c                         |  4 +---
+>  drivers/dma/moxart-dma.c                       |  4 +---
+>  drivers/dma/mv_xor_v2.c                        |  7 ++-----
+>  drivers/dma/mxs-dma.c                          |  4 +---
+>  drivers/dma/nbpfaxi.c                          |  4 +---
+>  drivers/dma/pxa_dma.c                          |  4 +---
+>  drivers/dma/qcom/bam_dma.c                     |  4 +---
+>  drivers/dma/s3c24xx-dma.c                      |  4 +---
+>  drivers/dma/sf-pdma/sf-pdma.c                  |  4 +---
+>  drivers/dma/sh/usb-dmac.c                      |  4 +---
+>  drivers/dma/stm32-dma.c                        |  4 +---
+>  drivers/dma/stm32-dmamux.c                     |  4 +---
+>  drivers/dma/stm32-mdma.c                       |  4 +---
+>  drivers/dma/sun4i-dma.c                        |  4 +---
+>  drivers/dma/sun6i-dma.c                        |  4 +---
 
-Missing 'ranges'.
+For sun4i-dma.c and sun6i-dma.c:
+Acked-by: Jernej Skrabec <jernej.skrabec@gmail.com>
 
-> +        can1: can@0 {
-> +            compatible = "st,stm32f4-bxcan";
-> +            reg = <0x0>;
-> +            interrupts = <19>, <20>, <21>, <22>;
-> +            interrupt-names = "tx", "rx0", "rx1", "sce";
-> +            resets = <&rcc STM32F4_APB1_RESET(CAN1)>;
-> +            st,can-master;
+Best regards,
+Jernej
 
-No clocks?
+>  drivers/dma/tegra210-adma.c                    |  4 +---
+>  drivers/dma/ti/cppi41.c                        | 10 +++-------
+>  drivers/dma/ti/omap-dma.c                      |  4 +---
+>  drivers/dma/xilinx/zynqmp_dma.c                |  4 +---
+>  31 files changed, 38 insertions(+), 106 deletions(-)
 
-> +        };
-> +
-> +        can2: can@400 {
-> +            compatible = "st,stm32f4-bxcan";
-> +            reg = <0x400>;
-> +            interrupts = <63>, <64>, <65>, <66>;
-> +            interrupt-names = "tx", "rx0", "rx1", "sce";
-> +            resets = <&rcc STM32F4_APB1_RESET(CAN2)>;
-> +            clocks = <&rcc 0 STM32F4_APB1_CLOCK(CAN2)>;
-> +        };
-> +    };
-> -- 
-> 2.32.0
-> 
-> 
+
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
