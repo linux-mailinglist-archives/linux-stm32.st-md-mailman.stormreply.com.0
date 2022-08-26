@@ -2,67 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9C5425A21CE
-	for <lists+linux-stm32@lfdr.de>; Fri, 26 Aug 2022 09:27:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F36665A2254
+	for <lists+linux-stm32@lfdr.de>; Fri, 26 Aug 2022 09:53:14 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3AF4EC640F6;
-	Fri, 26 Aug 2022 07:27:22 +0000 (UTC)
-Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com
- [209.85.167.48])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 941ECC640F6;
+	Fri, 26 Aug 2022 07:53:14 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 99677C04004
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D98FDC06F81
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 26 Aug 2022 07:27:20 +0000 (UTC)
-Received: by mail-lf1-f48.google.com with SMTP id d8so957337lfq.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 26 Aug 2022 00:27:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amarulasolutions.com; s=google;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc;
- bh=7Wpx+azOCmq8UWW2j/ZjozWWfYLuvQ/dJ2IBmBpdWss=;
- b=TOQwSM1L/RF+yXaRDCUQYlUJus/Tw4LGwAI9gnJuDgxgneIiuNxDtJQUq921EiZJfO
- 6Dmes3IRFlur/abjm85bDJh9XMTVE49ZkxKc3huzutWlXdRpnGx5X1ffKOArfYm5yV0b
- Gz5rDS7CEOyD0SKiqFK+NmrQHUUHAYxnErIeQ=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc;
- bh=7Wpx+azOCmq8UWW2j/ZjozWWfYLuvQ/dJ2IBmBpdWss=;
- b=Pl+sjJEd0B/u+R0rKjaxTKTsQ0dyoRac7+WXEYRYdhav+HL/j38UdrWT5hu5DhTdj2
- sCgd/mqPBxKCliuJAW7sYhlu7Ags5yIS9B6OnEsi22JziD5zzp0TFyRtzzK14PNGbUlo
- ZY/NyUOaNFjkWfdPfWULIrJLCv8XinV4mXKKy/VoOEHigLXZlfp+DeV0++ntpMzdJaui
- y71V2vYaWln09gavB4O7p2o7kfXqVSXDtM48VqIkVqGOchH2NwWFmJ1kOaJtbPOHIEGk
- dQNfBNt6DwIS0cAG8p+Yb0Pz+IsUJSb4oHfw0wH8JwZobVe3jlZgzp0b+mwMUy2EQADn
- d6bw==
-X-Gm-Message-State: ACgBeo1RRv14zyzwsyybFKyBRJHMrcTa52eTedIq2Rtxxvgprsb9V1Vo
- cHkG6D5sj5cNFvpfzb9V/DMeInkV8mLBb0tUjlDKLA==
-X-Google-Smtp-Source: AA6agR5oEwkixZT704+Lw+lqx2WWt/3lpORR1HbM3w6LfSZCulylQ5eX97DDcE4Roa5vETDy6vZZ3olRn8KtffbU0XI=
-X-Received: by 2002:a05:6512:1103:b0:492:f0b1:282f with SMTP id
- l3-20020a056512110300b00492f0b1282fmr2005934lfg.172.1661498839946; Fri, 26
- Aug 2022 00:27:19 -0700 (PDT)
+ Fri, 26 Aug 2022 07:53:12 +0000 (UTC)
+Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 27Q4BrUw029243;
+ Fri, 26 Aug 2022 09:52:53 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=ookSdX10s6McVPFxAp5HE80ngw+811erW+VzbFTf1Nw=;
+ b=P3WE8Dt00QZ9LjDWdelLsEkE0Cam0tx18Ij0WsIKbYIN+EwQZGGqcco+WTt+rZ151/S/
+ bIN0zCoLm69qCnwO7FIlGY7VRTRjkKdFl8Ejh44FStaSYb97cYhhPk8lcPN9CQDJBd8D
+ pzhS19GxbZ96uQMcXubQZstUS4M+hM9v9sFx1D9k5AlS+JWJZQLmznUuO9WnKFU6LZdd
+ 4yGfppIa0+cuDlS1W+HTEjfpnyso6Nn54IZUFE/T40fZEFfp03WKaocPb/biEc0pDAlt
+ Q7NkrhPUAL4n0FnQhXR9GWWekcM3BFaGSon+jlF7hGsGHOVEmN//G5ygqnRpMmjs9l3J 0w== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3j4w3djv0e-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 26 Aug 2022 09:52:53 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id D67EF100039;
+ Fri, 26 Aug 2022 09:52:51 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id D135B215123;
+ Fri, 26 Aug 2022 09:52:51 +0200 (CEST)
+Received: from [10.201.21.93] (10.75.127.46) by SHFDAG1NODE1.st.com
+ (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2308.20; Fri, 26 Aug
+ 2022 09:52:51 +0200
+Message-ID: <c8a72852-3398-fa27-bc11-07342c88fe3d@foss.st.com>
+Date: Fri, 26 Aug 2022 09:52:50 +0200
 MIME-Version: 1.0
-References: <20220820082936.686924-1-dario.binacchi@amarulasolutions.com>
- <20220820082936.686924-2-dario.binacchi@amarulasolutions.com>
- <20220825211241.GA1688421-robh@kernel.org>
-In-Reply-To: <20220825211241.GA1688421-robh@kernel.org>
-From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
-Date: Fri, 26 Aug 2022 09:27:09 +0200
-Message-ID: <CABGWkvobb7yLdBZ+RsJ=oiRsgfmDo0DJ-pvnsFndUE0qRmoHOA@mail.gmail.com>
-To: Rob Herring <robh@kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
- Paolo Abeni <pabeni@redhat.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- netdev@vger.kernel.org, linux-can@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
- Eric Dumazet <edumazet@google.com>, Marc Kleine-Budde <mkl@pengutronix.de>,
- Wolfgang Grandegger <wg@grandegger.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Jakub Kicinski <kuba@kernel.org>, michael@amarulasolutions.com,
- Amarula patchwork <linux-amarula@amarulasolutions.com>,
- "David S. Miller" <davem@davemloft.net>, Dario Binacchi <dariobin@libero.it>
-Subject: Re: [Linux-stm32] [RFC PATCH v2 1/4] dt-bindings: net: can: add
-	STM32 bxcan DT bindings
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Content-Language: en-US
+To: Alain Volmat <alain.volmat@foss.st.com>
+References: <20220721152933.3805272-1-alain.volmat@foss.st.com>
+From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
+In-Reply-To: <20220721152933.3805272-1-alain.volmat@foss.st.com>
+X-Originating-IP: [10.75.127.46]
+X-ClientProxiedBy: SFHDAG2NODE3.st.com (10.75.127.6) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.517,FMLib:17.11.122.1
+ definitions=2022-08-26_02,2022-08-25_01,2022-06-22_01
+Cc: devicetree@vger.kernel.org, mcoquelin.stm32@gmail.com,
+ linux-kernel@vger.kernel.org, robh+dt@kernel.org,
+ krzysztof.kozlowski+dt@linaro.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 0/2] ARM: dts: stm32: add i2c in STM32MP13
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,222 +73,31 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Rob,
+Hi Alain
 
-On Thu, Aug 25, 2022 at 11:12 PM Rob Herring <robh@kernel.org> wrote:
->
-> On Sat, Aug 20, 2022 at 10:29:33AM +0200, Dario Binacchi wrote:
-> > Add documentation of device tree bindings for the STM32 basic extended
-> > CAN (bxcan) controller.
-> >
-> > Signed-off-by: Dario Binacchi <dariobin@libero.it>
-> > Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
-> >
-> > ---
-> >
-> > Changes in v2:
-> > - Change the file name into 'st,stm32-bxcan-core.yaml'.
-> > - Rename compatibles:
-> >   - st,stm32-bxcan-core -> st,stm32f4-bxcan-core
-> >   - st,stm32-bxcan -> st,stm32f4-bxcan
-> > - Rename master property to st,can-master.
-> > - Remove the status property from the example.
-> > - Put the node child properties as required.
-> >
-> >  .../bindings/net/can/st,stm32-bxcan.yaml      | 136 ++++++++++++++++++
-> >  1 file changed, 136 insertions(+)
-> >  create mode 100644 Documentation/devicetree/bindings/net/can/st,stm32-bxcan.yaml
-> >
-> > diff --git a/Documentation/devicetree/bindings/net/can/st,stm32-bxcan.yaml b/Documentation/devicetree/bindings/net/can/st,stm32-bxcan.yaml
-> > new file mode 100644
-> > index 000000000000..288631b5556d
-> > --- /dev/null
-> > +++ b/Documentation/devicetree/bindings/net/can/st,stm32-bxcan.yaml
-> > @@ -0,0 +1,136 @@
-> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> > +%YAML 1.2
-> > +---
-> > +$id: http://devicetree.org/schemas/net/can/st,stm32-bxcan.yaml#
-> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > +
-> > +title: STMicroelectronics bxCAN controller
-> > +
-> > +description: STMicroelectronics BxCAN controller for CAN bus
-> > +
-> > +maintainers:
-> > +  - Dario Binacchi <dario.binacchi@amarulasolutions.com>
-> > +
-> > +allOf:
-> > +  - $ref: can-controller.yaml#
-> > +
-> > +properties:
-> > +  compatible:
-> > +    enum:
-> > +      - st,stm32f4-bxcan-core
-> > +
-> > +  reg:
-> > +    maxItems: 1
-> > +
-> > +  resets:
-> > +    maxItems: 1
-> > +
-> > +  clocks:
-> > +    description:
-> > +      Input clock for registers access
-> > +    maxItems: 1
-> > +
-> > +  '#address-cells':
-> > +    const: 1
-> > +
-> > +  '#size-cells':
-> > +    const: 0
-> > +
-> > +additionalProperties: false
-> > +
-> > +required:
-> > +  - compatible
-> > +  - reg
-> > +  - resets
-> > +  - clocks
-> > +  - '#address-cells'
-> > +  - '#size-cells'
-> > +
-> > +patternProperties:
-> > +  "^can@[0-9]+$":
-> > +    type: object
-> > +    description:
-> > +      A CAN block node contains two subnodes, representing each one a CAN
-> > +      instance available on the machine.
-> > +
-> > +    properties:
-> > +      compatible:
-> > +        enum:
-> > +          - st,stm32f4-bxcan
-> > +
-> > +      st,can-master:
-> > +        description:
-> > +          Master and slave mode of the bxCAN peripheral is only relevant
-> > +          if the chip has two CAN peripherals. In that case they share
-> > +          some of the required logic, and that means you cannot use the
-> > +          slave CAN without the master CAN.
-> > +        type: boolean
-> > +
-> > +      reg:
-> > +        description: |
-> > +          Offset of CAN instance in CAN block. Valid values are:
-> > +            - 0x0:   CAN1
-> > +            - 0x400: CAN2
-> > +        maxItems: 1
-> > +
-> > +      interrupts:
-> > +        items:
-> > +          - description: transmit interrupt
-> > +          - description: FIFO 0 receive interrupt
-> > +          - description: FIFO 1 receive interrupt
-> > +          - description: status change error interrupt
-> > +
-> > +      interrupt-names:
-> > +        items:
-> > +          - const: tx
-> > +          - const: rx0
-> > +          - const: rx1
-> > +          - const: sce
-> > +
-> > +      resets:
-> > +        maxItems: 1
-> > +
-> > +      clocks:
-> > +        description:
-> > +          Input clock for registers access
-> > +        maxItems: 1
-> > +
-> > +    additionalProperties: false
-> > +
-> > +    required:
-> > +      - compatible
-> > +      - reg
-> > +      - interrupts
-> > +      - resets
-> > +
-> > +examples:
-> > +  - |
-> > +    #include <dt-bindings/clock/stm32fx-clock.h>
-> > +    #include <dt-bindings/mfd/stm32f4-rcc.h>
-> > +
-> > +    can: can@40006400 {
-> > +        compatible = "st,stm32f4-bxcan-core";
-> > +        reg = <0x40006400 0x800>;
-> > +        resets = <&rcc STM32F4_APB1_RESET(CAN1)>;
-> > +        clocks = <&rcc 0 STM32F4_APB1_CLOCK(CAN1)>;
-> > +        #address-cells = <1>;
-> > +        #size-cells = <0>;
-> > +
->
-> Missing 'ranges'.
+On 7/21/22 17:29, Alain Volmat wrote:
+> This series adds all i2c nodes for the stm32mp131 platform and
+> enables i2c1 and i2c5 on the stm32mp135 discovery board.
+> 
+> Alain Volmat (2):
+>    ARM: dts: stm32: add i2c nodes into stm32mp131.dtsi
+>    ARM: dts: stm32: enable i2c1 and i2c5 on stm32mp135f-dk.dts
+> 
+>   arch/arm/boot/dts/stm32mp13-pinctrl.dtsi | 34 +++++++++
+>   arch/arm/boot/dts/stm32mp131.dtsi        | 90 ++++++++++++++++++++++++
+>   arch/arm/boot/dts/stm32mp135f-dk.dts     | 26 +++++++
+>   3 files changed, 150 insertions(+)
+> 
 
-In the file arch/arm/boot/dts/stm32f429.dtsi, I didn't find any other
-node using the 'ranges' property, so
-I didn't use it for the CAN node either.
+Series applied on stm32-next.
 
->
-> > +        can1: can@0 {
-> > +            compatible = "st,stm32f4-bxcan";
-> > +            reg = <0x0>;
-> > +            interrupts = <19>, <20>, <21>, <22>;
-> > +            interrupt-names = "tx", "rx0", "rx1", "sce";
-> > +            resets = <&rcc STM32F4_APB1_RESET(CAN1)>;
-> > +            st,can-master;
->
-> No clocks?
-
-It uses the parent node clock, since it is in master mode.
-
-Thanks and regards,
-Dario
-
->
-> > +        };
-> > +
-> > +        can2: can@400 {
-> > +            compatible = "st,stm32f4-bxcan";
-> > +            reg = <0x400>;
-> > +            interrupts = <63>, <64>, <65>, <66>;
-> > +            interrupt-names = "tx", "rx0", "rx1", "sce";
-> > +            resets = <&rcc STM32F4_APB1_RESET(CAN2)>;
-> > +            clocks = <&rcc 0 STM32F4_APB1_CLOCK(CAN2)>;
-> > +        };
-> > +    };
-> > --
-> > 2.32.0
-> >
-> >
-
-
-
--- 
-
-Dario Binacchi
-
-Embedded Linux Developer
-
-dario.binacchi@amarulasolutions.com
-
-__________________________________
-
-
-Amarula Solutions SRL
-
-Via Le Canevare 30, 31100 Treviso, Veneto, IT
-
-T. +39 042 243 5310
-info@amarulasolutions.com
-
-www.amarulasolutions.com
+Regards
+Alex
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
