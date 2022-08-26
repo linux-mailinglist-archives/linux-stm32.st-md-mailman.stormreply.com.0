@@ -2,66 +2,64 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D516F5A2429
-	for <lists+linux-stm32@lfdr.de>; Fri, 26 Aug 2022 11:21:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D365D5A2720
+	for <lists+linux-stm32@lfdr.de>; Fri, 26 Aug 2022 13:53:32 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 999C9C640F6;
-	Fri, 26 Aug 2022 09:21:52 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 71457C640F6;
+	Fri, 26 Aug 2022 11:53:32 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BC20EC5E2C2
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BB849C06F81
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 26 Aug 2022 09:21:50 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 27Q7FCEs022515;
- Fri, 26 Aug 2022 11:21:41 +0200
+ Fri, 26 Aug 2022 11:53:31 +0000 (UTC)
+Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 27QA5Wv5031074;
+ Fri, 26 Aug 2022 13:53:25 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=CVBSjOH/bwtlQxmEDweF2DMTVjTpkvUK2sI9jy9nqCc=;
- b=oNuU5Uyj1VSnFR0+pfXTcPFm2jxipKb2ey6H7RtbKGYfLb/05llcdnKOkny9/BT1R+JB
- DcuH1dMsKg6cRJ0v+sTIBViWb4JZwTn7lpBiPocVSkOOWXwlaWgHLXqTYP95wxuYDY6K
- L2ihI+dsM/uE9vnZKL83IkqKhMyBazIUWCA6okh4UbZJozj4kjiYTZUMggMPaLUttkiV
- r03x44LMzwsuSaFJqQivlJOxLXi5Fx9vbSiMdmUpRLhCh4HImYjb7hPc9BhE1iPkymd0
- U1nAjerMbfr3zPAjCllMPlcxUOIHf9vf0UkuYhBlgTQZP44QbItVXzjIyN4qlnrTIGdR kQ== 
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=selector1;
+ bh=iEo1T84Vz7FQCvQtWZ4+CglEzwVQiGhNUWl6R0IhKeg=;
+ b=MKi3grh6NUAmdOl1U/z9GlQWL9ABoYOKABPbV1sW32qLOMaqM+ljiHwjx4fIQd69dqqt
+ u8GYJryaxdZ/Vhzjg5xHkYAtNsKnolLld0+4thMZbogp1GSP5bAVEUF0IeNVojTqARQk
+ fxfzfMuvYUi2Z66MgaOEuEwGkagw1NBPz10Dv2/Znzph2WMiK9A79XjiXZ5w/IOGB+wY
+ vMkebrTMsLvMtzMcCzX5KcGVjI4fgl/qf+Z3hFnlMPdx8MDW66ZsGgV5J2UdsdhT37Bp
+ A6B0lb1F8poRpJIQQiy1nD+vd1kJmIqhp47W1ub/GEIMoVv1ATnKTAs6khZjzNsIgW8+ iQ== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3j58m5r4v2-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3j4w3dm2yn-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 26 Aug 2022 11:21:41 +0200
+ Fri, 26 Aug 2022 13:53:24 +0200
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id D0D3F10002A;
- Fri, 26 Aug 2022 11:21:40 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id CBD39217B7B;
- Fri, 26 Aug 2022 11:21:40 +0200 (CEST)
-Received: from [10.201.21.72] (10.75.127.122) by SHFDAG1NODE1.st.com
- (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 3074010002A;
+ Fri, 26 Aug 2022 13:53:22 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 9BE08222CA8;
+ Fri, 26 Aug 2022 13:53:22 +0200 (CEST)
+Received: from localhost (10.75.127.117) by SHFDAG1NODE2.st.com (10.75.129.70)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2308.20; Fri, 26 Aug
- 2022 11:21:40 +0200
-Message-ID: <5bd8dfad-de31-a5ac-2efc-a9a3d80650f0@foss.st.com>
-Date: Fri, 26 Aug 2022 11:21:39 +0200
+ 2022 13:53:21 +0200
+From: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+To: Bjorn Andersson <bjorn.andersson@linaro.org>, Mathieu Poirier
+ <mathieu.poirier@linaro.org>
+Date: Fri, 26 Aug 2022 13:52:28 +0200
+Message-ID: <20220826115232.2163130-1-arnaud.pouliquen@foss.st.com>
+X-Mailer: git-send-email 2.24.3
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Content-Language: en-US
-To: Mark Brown <broonie@kernel.org>
-References: <20220826091851.1393266-1-patrice.chotard@foss.st.com>
-From: Patrice CHOTARD <patrice.chotard@foss.st.com>
-In-Reply-To: <20220826091851.1393266-1-patrice.chotard@foss.st.com>
-X-Originating-IP: [10.75.127.122]
-X-ClientProxiedBy: GPXDAG2NODE4.st.com (10.75.127.68) To SHFDAG1NODE1.st.com
- (10.75.129.69)
+X-Originating-IP: [10.75.127.117]
+X-ClientProxiedBy: GPXDAG2NODE4.st.com (10.75.127.68) To SHFDAG1NODE2.st.com
+ (10.75.129.70)
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.517,FMLib:17.11.122.1
- definitions=2022-08-26_04,2022-08-25_01,2022-06-22_01
-Cc: linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
- Dan Carpenter <dan.carpenter@oracle.com>
-Subject: Re: [Linux-stm32] spi: stm32-qspi: Fix
-	stm32_qspi_transfer_one_message() error path
+ definitions=2022-08-26_05,2022-08-25_01,2022-06-22_01
+Cc: Rob Herring <robh@kernel.org>, Bruce Ashfield <bruce.ashfield@xilinx.com>,
+ Stefano Stabellini <stefanos@xilinx.com>, linux-remoteproc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ arnaud.pouliquen@foss.st.com, Christoph Hellwig <hch@lst.de>
+Subject: [Linux-stm32] [PATCH v8 0/4] remoteproc: restructure the remoteproc
+	VirtIO device
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,55 +76,102 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Mark
+1) Update from V7 [1]:
 
-Patch sent with incorrect commit title, a new one is in the pipe.
-Sorry for that
+- rebase on rproc-next branch [2], commit 729c16326b7f ("remoteproc: imx_dsp_rproc: fix argument 2 of rproc_mem_entry_init")
+  The updates take into account the integration of the
+  commit 1404acbb7f68 ("remoteproc: Fix dma_mem leak after rproc_shutdown")
+- add Reviewed-by: Mathieu Poirier <mathieu.poirier@linaro.org> according to reviews on V7
 
-Patrice
 
-On 8/26/22 11:18, patrice.chotard@foss.st.com wrote:
-> From: Patrice Chotard <patrice.chotard@foss.st.com>
-> 
-> The patch a557fca630cc: "spi: stm32_qspi: Add transfer_one_message()
-> spi callback" from Aug 23, 2022, leads to the following Smatch static
-> checker warning:
-> 
-> drivers/spi/spi-stm32-qspi.c:627 stm32_qspi_transfer_one_message()
-> error: uninitialized symbol 'ret'.Fix the following Smatch static checker warning:
-> 
-> Fixes: a557fca630cc ("spi: stm32_qspi: Add transfer_one_message() spi callback")
-> Reported-by: Dan Carpenter <dan.carpenter@oracle.com>
-> Signed-off-by: Patrice Chotard <patrice.chotard@foss.st.com>
-> ---
->  drivers/spi/spi-stm32-qspi.c | 6 ++++--
->  1 file changed, 4 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/spi/spi-stm32-qspi.c b/drivers/spi/spi-stm32-qspi.c
-> index 92459daca95f..679fd1c34f7e 100644
-> --- a/drivers/spi/spi-stm32-qspi.c
-> +++ b/drivers/spi/spi-stm32-qspi.c
-> @@ -562,7 +562,7 @@ static int stm32_qspi_transfer_one_message(struct spi_controller *ctrl,
->  	struct spi_transfer *transfer;
->  	struct spi_device *spi = msg->spi;
->  	struct spi_mem_op op;
-> -	int ret;
-> +	int ret = 0;
->  
->  	if (!spi->cs_gpiod)
->  		return -EOPNOTSUPP;
-> @@ -592,8 +592,10 @@ static int stm32_qspi_transfer_one_message(struct spi_controller *ctrl,
->  			dummy_bytes = transfer->len;
->  
->  			/* if happens, means that message is not correctly built */
-> -			if (list_is_last(&transfer->transfer_list, &msg->transfers))
-> +			if (list_is_last(&transfer->transfer_list, &msg->transfers)) {
-> +				ret = -EINVAL;
->  				goto end_of_transfer;
-> +			}
->  
->  			transfer = list_next_entry(transfer, transfer_list);
->  		}
+[1] https://lkml.org/lkml/2022/7/13/663
+[2] https://git.kernel.org/pub/scm/linux/kernel/git/remoteproc/linux.git/log/?h=for-next
+
+2) Patchset description:
+
+This series is a part of the work initiated a long time ago in 
+the series "remoteproc: Decorelate virtio from core"[3]
+
+Objective of the work:
+- Update the remoteproc VirtIO device creation (use platform device)
+- Allow to declare remoteproc VirtIO device in DT
+    - declare resources associated to a remote proc VirtIO
+    - declare a list of VirtIO supported by the platform.
+- Prepare the enhancement to more VirtIO devices (e.g I2C, audio, video, ...).
+  For instance be able to declare a I2C device in a virtio-i2C node.
+- Keep the legacy working!
+- Try to improve the picture about concerns reported by Christoph Hellwing [4][5]
+
+[3] https://lkml.org/lkml/2020/4/16/1817
+[4] https://lkml.org/lkml/2021/6/23/607
+[5] https://patchwork.kernel.org/project/linux-remoteproc/patch/AOKowLclCbOCKxyiJ71WeNyuAAj2q8EUtxrXbyky5E@cp7-web-042.plabs.ch/
+
+In term of device tree this would result in such hierarchy (stm32mp1 example with 2 virtio RPMSG):
+
+	m4_rproc: m4@10000000 {
+		compatible = "st,stm32mp1-m4";
+		reg = <0x10000000 0x40000>,
+		      <0x30000000 0x40000>,
+		      <0x38000000 0x10000>;
+        memory-region = <&retram>, <&mcuram>,<&mcuram2>;
+        mboxes = <&ipcc 2>, <&ipcc 3>;
+        mbox-names = "shutdown", "detach";
+        status = "okay";
+
+        #address-cells = <1>;
+        #size-cells = <0>;
+        
+        vdev@0 {
+		compatible = "rproc-virtio";
+		reg = <0>;
+		virtio,id = <7>;  /* RPMSG */
+		memory-region = <&vdev0vring0>, <&vdev0vring1>, <&vdev0buffer>;
+		mboxes = <&ipcc 0>, <&ipcc 1>;
+		mbox-names = "vq0", "vq1";
+		status = "okay";
+        };
+
+        vdev@1 {
+		compatible = "rproc-virtio";
+		reg = <1>;
+		virtio,id = <7>;  /*RPMSG */
+		memory-region = <&vdev1vring0>, <&vdev1vring1>, <&vdev1buffer>;
+		mboxes = <&ipcc 4>, <&ipcc 5>;
+		mbox-names = "vq0", "vq1";
+		status = "okay";
+        };
+};
+
+I have divided the work in 4 steps to simplify the review, This series implements only
+the step 1:
+step 1: Redefine the remoteproc VirtIO device as a platform device
+  - migrate rvdev management in remoteproc virtio.c,
+  - create a remotproc virtio config ( can be disabled for platform that not use VirtIO IPC.
+step 2: Add possibility to declare and probe a VirtIO sub node
+  - VirtIO bindings declaration,
+  - multi DT VirtIO devices support,
+  - introduction of a remote proc virtio bind device mechanism ,
+=> https://github.com/arnopo/linux/commits/step2-virtio-in-DT
+step 3: Add memory declaration in VirtIO subnode
+=> https://github.com/arnopo/linux/commits/step3-virtio-memories
+step 4: Add mailbox declaration in VirtIO subnode
+=> https://github.com/arnopo/linux/commits/step4-virtio-mailboxes
+
+Arnaud Pouliquen (4):
+  remoteproc: core: Introduce rproc_rvdev_add_device function
+  remoteproc: core: Introduce rproc_add_rvdev function
+  remoteproc: Move rproc_vdev management to remoteproc_virtio.c
+  remoteproc: virtio: Create platform device for the remoteproc_virtio
+
+ drivers/remoteproc/remoteproc_core.c     | 154 +++---------------
+ drivers/remoteproc/remoteproc_internal.h |  23 ++-
+ drivers/remoteproc/remoteproc_virtio.c   | 189 ++++++++++++++++++++---
+ include/linux/remoteproc.h               |   6 +-
+ 4 files changed, 210 insertions(+), 162 deletions(-)
+
+-- 
+2.24.3
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
