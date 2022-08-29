@@ -2,93 +2,67 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B35315A457E
-	for <lists+linux-stm32@lfdr.de>; Mon, 29 Aug 2022 10:53:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 20DEB5A4B1A
+	for <lists+linux-stm32@lfdr.de>; Mon, 29 Aug 2022 14:09:19 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 59981C03FE1;
-	Mon, 29 Aug 2022 08:53:10 +0000 (UTC)
-Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.17.10])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C4220C04001;
+	Mon, 29 Aug 2022 12:09:18 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2BE21C035BD
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 287F9C03FDA
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 29 Aug 2022 08:53:09 +0000 (UTC)
-Received: from mail-ed1-f52.google.com ([209.85.208.52]) by
- mrelayeu.kundenserver.de (mreue107 [213.165.67.113]) with ESMTPSA (Nemesis)
- id 1N0nOF-1pN0YD2bQ5-00wkv0 for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 29 Aug 2022 10:53:08 +0200
-Received: by mail-ed1-f52.google.com with SMTP id e18so1700262edj.3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 29 Aug 2022 01:53:08 -0700 (PDT)
-X-Gm-Message-State: ACgBeo2KzbxKyymoDrMhiZ/9H/cR10kxq/Q8iO6vxX7KsCIp5UuInwyJ
- loCD46K/xNkcTT0vKKfk0ICZEvIXWHAGr7HBVh4=
-X-Google-Smtp-Source: AA6agR4dO9Qog99EOhFMYD2/TUvDUFPeLAFKpCKJySAtY2CWxJsmH8fvbDozC2seipJY5siIbg1N/2rhc6q5GDAswIQ=
-X-Received: by 2002:a17:907:d0b:b0:741:7ca6:a2b with SMTP id
- gn11-20020a1709070d0b00b007417ca60a2bmr3580848ejc.654.1661763177783; Mon, 29
- Aug 2022 01:52:57 -0700 (PDT)
+ Mon, 29 Aug 2022 12:09:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1661774957; x=1693310957;
+ h=date:from:to:cc:subject:in-reply-to:message-id:
+ references:mime-version;
+ bh=oxQnpIC7Es3fbk5Y7KL1o+zPbw4eWKeljrhF6pZeVsU=;
+ b=HSxvDbZTSkzfLYlmPM0aZyhTf3HYIKdQ5gZO4zwt4Leq9XxAajm1AqeZ
+ P4BcXTltjC6fYIXsGkOKiNex3onmXhfUli0NV6r+U4QOTZGIPcP1iJ/mT
+ NUIAeR9CSVCLgrjsI661C3dylNVs1YfC/WLsWSVuESkeG0JSvgoCtJyH4
+ M4DJ1uVuZoyaSlbjPOSAkdDUJhVpNJ1VwycQyG40T0PgNK2Eev8VE+Pig
+ 2B/5Igy1VC1xWoC8k2A1FMJwTr98/Wqn28jeU9d58O0GYJPfvyPkjr62J
+ nFeeUSyLTrwKQqDaG9YRv0IJoD7V7DLyN+kV7sUMH+kzhtHQDwLQpbHlZ g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10454"; a="320997396"
+X-IronPort-AV: E=Sophos;i="5.93,272,1654585200"; d="scan'208";a="320997396"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Aug 2022 05:09:15 -0700
+X-IronPort-AV: E=Sophos;i="5.93,272,1654585200"; d="scan'208";a="588142891"
+Received: from kvehmane-mobl1.ger.corp.intel.com ([10.251.220.41])
+ by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Aug 2022 05:09:08 -0700
+Date: Mon, 29 Aug 2022 15:09:09 +0300 (EEST)
+From: =?ISO-8859-15?Q?Ilpo_J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>
+To: Andy Shevchenko <andy.shevchenko@gmail.com>
+In-Reply-To: <CAHp75Vc4NfZE6DxFnfeAS9fxnZHpxMjacHy1TsG8ib+FiCqFLQ@mail.gmail.com>
+Message-ID: <1712a4c5-638-4e63-af29-32bdcbaab443@linux.intel.com>
+References: <20220826144629.11507-1-ilpo.jarvinen@linux.intel.com>
+ <20220826144629.11507-4-ilpo.jarvinen@linux.intel.com>
+ <CAHp75Vc4NfZE6DxFnfeAS9fxnZHpxMjacHy1TsG8ib+FiCqFLQ@mail.gmail.com>
 MIME-Version: 1.0
-References: <20220818135522.3143514-1-arnd@kernel.org>
-In-Reply-To: <20220818135522.3143514-1-arnd@kernel.org>
-From: Arnd Bergmann <arnd@arndb.de>
-Date: Mon, 29 Aug 2022 10:52:41 +0200
-X-Gmail-Original-Message-ID: <CAK8P3a1tsby7+xfKTQaaBQZ4t-=uWG5Dtbcn_jPEsSMG_YVHgA@mail.gmail.com>
-Message-ID: <CAK8P3a1tsby7+xfKTQaaBQZ4t-=uWG5Dtbcn_jPEsSMG_YVHgA@mail.gmail.com>
-To: linux-arm-kernel@lists.infradead.org
-X-Provags-ID: V03:K1:EZiW+9lo5BpA1GGQvq0aNFjPKX2/WYp75iylJ/veM6NRewpeQyl
- VOIU3SSL76IP754+zs/bRKnvmRwAYN2nK2PhakcoFRDWz5ntPZSeWUe95bmPPx46e2UUd02
- jxh0pJ6hLqRHTIcnUtWNp+d14zbFNebG8Hn+u/JWDhDp47SKFvSlsTYp2OFVA7NzEuM01D0
- 8psqVG8rpL6ooo7WMilig==
-X-Spam-Flag: NO
-X-UI-Out-Filterresults: notjunk:1;V03:K0:4F4IDsJqAug=:osElwZNCnlvKlaIbJWOvkA
- AE+fzotxkGOMO/1xO/NrNORX6hD+PFk/NA5mDe6r8OarPKghbtnpTmcvUGyWY/sy3fm1X4XyK
- G4CsufRlYw3jnHms6nNkSkVKwWv/KE44arO1vfRm8ab5LdoIJ96WmSvF0dguqVhkyYJwnVz0T
- bPm6p63/pawlkONRmMd4TwemHhQoZZy7dmsNSwIGCM2pVQRbUGb9HxsfARd9VkIL7hUkLo4sf
- RXfh944hnGy4BBQr+KYFcpa3zLSE7PNf0VFhOKkI1otXG4jJpPzzAWM0fiTsZ57lfsVKKOeNA
- JskECyl55nw5meOuxu7G0BUpK7HRaQmRkaXguet/ncbDdCmVaM0Gurk+EIa8CMrTRWEXLnr24
- cFOikOy1oFHOmWul1zNov3V7RoamGfySNWdKjOKjyFqBqQKasdeb/dQGvfLzi+CqBEiZHv8L/
- sb/qSWiQgM6feoq2TCTDDbdKsKWoNn3uvE1Xd390kI62giwTYMxPxLZUj66MM+WaZE8iiu4Pv
- +dzc87nv2dAM7Cz804E+AlUOwtk4kUr72Yd+aGhRKYbL6ITVfL/tLRYpdXFbm7ZQlcJxoaJwi
- vY6rVJGS4WB0/rFvr02IPF/8AEn2v4+Ivrgm4leQTkcc5TUO9sptol5/AQeNTp4wq6U4ZfSk5
- 3AZ409+PIWCs2OGqDPqMcNcoGMfoMt8dERiAF5XCGuFTMPqZr8DDtYe3VAo1W7hrHRyYeBGXJ
- ozs+fml4+hBwmoZjKE/OB3NXww3a0n4Ymu44dwNnLIax0rqCF3xRANmvK069hpI2cnBWdY5XV
- gDSCuJH1t7Qc+9IKWMJSF2GuVi1J51ankt1Mcnz6pLqtWLSU8D714vdWUnzLQ/Fz9jTGtezY7
- 0sffA08JW5sT70DalviA==
-Cc: Richard Cochran <richardcochran@gmail.com>, Andrew Lunn <andrew@lunn.ch>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Randy Dunlap <rdunlap@infradead.org>,
- Geert Uytterhoeven <geert+renesas@glider.be>, Peter Chen <peter.chen@nxp.com>,
- Tony Lindgren <tony@atomide.com>, Magnus Damm <magnus.damm@gmail.com>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>, Liviu Dudau <liviu.dudau@arm.com>,
- linux-kernel@vger.kernel.org, Thierry Reding <thierry.reding@gmail.com>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Alim Akhtar <alim.akhtar@samsung.com>, Fabio Estevam <festevam@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Stefan Wahren <stefan.wahren@i2se.com>, linux-samsung-soc@vger.kernel.org,
- Aaro Koskinen <aaro.koskinen@iki.fi>,
- Gregory Clement <gregory.clement@bootlin.com>,
- Janusz Krzysztofik <jmkrzyszt@gmail.com>, Russell King <linux@armlinux.org.uk>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Jonathan Hunter <jonathanh@nvidia.com>, Chen-Yu Tsai <wens@csie.org>,
- NXP Linux Team <linux-imx@nxp.com>, Vladimir Oltean <vladimir.oltean@nxp.com>,
- Jakub Kicinski <kuba@kernel.org>, Linus Walleij <linus.walleij@linaro.org>,
- Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Arnd Bergmann <arnd@arndb.de>,
- Tudor Ambarus <tudor.ambarus@microchip.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- =?UTF-8?Q?=C5=81ukasz_Stelmach?= <l.stelmach@samsung.com>,
- Vladimir Zapolskiy <vz@mleia.com>, Mark Brown <broonie@kernel.org>,
- linux-tegra@vger.kernel.org, linux-omap@vger.kernel.org,
- Bin Liu <b-liu@ti.com>, Qin Jian <qinjian@cqplus1.com>,
+Content-Type: multipart/mixed; boundary="8323329-174262208-1661774957=:1928"
+Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Linux Documentation List <linux-doc@vger.kernel.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Fabio Estevam <festevam@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
+ Jonathan Corbet <corbet@lwn.net>, Jiri Slaby <jirislaby@kernel.org>,
+ Russell King <linux@armlinux.org.uk>, Lino Sanfilippo <LinoSanfilippo@gmx.de>,
+ NXP Linux Team <linux-imx@nxp.com>,
+ "open list:SERIAL DRIVERS" <linux-serial@vger.kernel.org>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Sascha Hauer <s.hauer@pengutronix.de>, Vladimir Zapolskiy <vz@mleia.com>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ linux-arm Mailing List <linux-arm-kernel@lists.infradead.org>,
+ Richard Genoud <richard.genoud@gmail.com>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Samuel Holland <samuel@sholland.org>,
- Nicolas Ferre <nicolas.ferre@microchip.com>, Felipe Balbi <balbi@ti.com>,
- linux-sunxi@lists.linux.dev, linux-renesas-soc@vger.kernel.org,
- Dinh Nguyen <dinguyen@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- linux-usb@vger.kernel.org, Pengutronix Kernel Team <kernel@pengutronix.de>,
- Sudeep Holla <sudeep.holla@arm.com>, Shannon Nelson <snelson@pensando.io>,
- Shawn Guo <shawnguo@kernel.org>, Claudiu Beznea <claudiu.beznea@microchip.com>
-Subject: Re: [Linux-stm32] [PATCH 00/11] ARM: defconfig cleanup
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
+ Claudiu Beznea <claudiu.beznea@microchip.com>
+Subject: Re: [Linux-stm32] [PATCH 3/3] serial: Add kserial_rs485 to avoid
+ wasted space due to .padding
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,43 +74,70 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, Aug 18, 2022 at 3:55 PM Arnd Bergmann <arnd@kernel.org> wrote:
->
-> From: Arnd Bergmann <arnd@arndb.de>
->
-> I have continued the cleanup of the multi_*_defconfig files, and
-> reordered the other files according to the 'make savedefconfig'
-> output as before.
->
-> I would like to queue these up for 6.1, though the last two
-> should probably be considered bugfixes and merged for 6.0.
->
-> Since a third of the defconfig files are for machines that
-> are now marked as unused, I skipped those files. There are still
-> a few things that get removed by 'make savedefconfig' as they
-> now get selected by some driver:
->
-> -CONFIG_SERIAL_BCM63XX=y
-> -CONFIG_SND_AUDIO_GRAPH_CARD=m
-> -CONFIG_NEW_LEDS=y
-> -CONFIG_LEDS_TRIGGERS=y
-> -CONFIG_TEGRA20_APB_DMA=y
->
-> I think for those we should follow up with patches to remove the
-> 'select' statements.
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-I dropped the last patch that Greg has already picked up, and merged the
-rest into the arm/defconfig branch of the soc tree.
+--8323329-174262208-1661774957=:1928
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8BIT
 
-Thanks for the Acks.
+On Fri, 26 Aug 2022, Andy Shevchenko wrote:
 
-        Arnd
+> On Fri, Aug 26, 2022 at 5:51 PM Ilpo Järvinen
+> <ilpo.jarvinen@linux.intel.com> wrote:
+> 
+> > -static int user_rs485_to_kernel_serial_rs485(struct serial_rs485 *rs485,
+> > +static int user_rs485_to_kernel_serial_rs485(struct kserial_rs485 *rs485,
+> >                                              const struct serial_rs485 __user *rs485_user)
+> >  {
+> > -       if (copy_from_user(rs485, rs485_user, sizeof(*rs485)))
+> > +       struct serial_rs485 rs485_uapi;
+> > +
+> > +       if (copy_from_user(&rs485_uapi, rs485_user, sizeof(*rs485)))
+> >                 return -EFAULT;
+> 
+> > +       *rs485 = *((struct kserial_rs485 *)&rs485_uapi);
+> 
+> So with all assets we have we can be sure that on BE64 / BE32 machines
+> this will be flawless. Is this assumption correct?
+
+I think so. At worst it could trigger a build fail assuming the kernel 
+would do some really odd struct layout reordering (which, according to 
+the build bot, doesn't occur for any currently tested arch).
+
+Now that you highlighted this line though, I started to wonder if it would 
+be just better to use memcpy() instead as it would avoid those casts.
+
+> > + * padding.
+> > + */
+> > +struct kserial_rs485 {
+> > +       __u32   flags;                  /* RS485 feature flags */
+> > +       __u32   delay_rts_before_send;  /* Delay before send (milliseconds) */
+> > +       __u32   delay_rts_after_send;   /* Delay after send (milliseconds) */
+> > +       struct {
+> > +               __u8    addr_recv;
+> > +               __u8    addr_dest;
+> > +       };
+> 
+> Btw, can't we convert them to kernel doc?
+
+Yes, why not.
+
+-- 
+ i.
+
+--8323329-174262208-1661774957=:1928
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--8323329-174262208-1661774957=:1928--
