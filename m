@@ -2,73 +2,93 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0C6F05A4592
-	for <lists+linux-stm32@lfdr.de>; Mon, 29 Aug 2022 10:58:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B35315A457E
+	for <lists+linux-stm32@lfdr.de>; Mon, 29 Aug 2022 10:53:10 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B5260C57B6C;
-	Mon, 29 Aug 2022 08:58:26 +0000 (UTC)
-Received: from mail-pg1-f170.google.com (mail-pg1-f170.google.com
- [209.85.215.170])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 59981C03FE1;
+	Mon, 29 Aug 2022 08:53:10 +0000 (UTC)
+Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.17.10])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B0C8DC035BD
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2BE21C035BD
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 29 Aug 2022 06:54:01 +0000 (UTC)
-Received: by mail-pg1-f170.google.com with SMTP id 12so6899502pga.1
+ Mon, 29 Aug 2022 08:53:09 +0000 (UTC)
+Received: from mail-ed1-f52.google.com ([209.85.208.52]) by
+ mrelayeu.kundenserver.de (mreue107 [213.165.67.113]) with ESMTPSA (Nemesis)
+ id 1N0nOF-1pN0YD2bQ5-00wkv0 for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 29 Aug 2022 10:53:08 +0200
+Received: by mail-ed1-f52.google.com with SMTP id e18so1700262edj.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 28 Aug 2022 23:54:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=edgeble-ai.20210112.gappssmtp.com; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc;
- bh=u6R40n8MPoARVm3Mtks2apAeDMP4MZtDTuXM3b5bDPA=;
- b=eWHaczqLrzgoEHImGmPZ94RG4Z6HNHjYySRyrtbvt+VMSj9GgY04Dxl3peOnUMbERM
- T0wxrzo2EvmsBZmntKsbHO/63kZHcX4rpqsUn9G8neYsYGMct3J3ZO3lp6v5WspmCJFV
- iD6CVqTySLQKsoHLzKglTu1dJKce/Jf7/baFS/3t+o1l3siQjN3AjG+dPZAaOfHGwS9V
- E+Zxmy57ACr0LBFW1d2+WUw+CX0eo2CMWE3avHdyWM1+bPrqGX9PDJR/IxYGS3ZlsOY6
- 3NgVEEtXpguVkaN4/e8aii685vpB/rr5zZdaGprhqMQU/Z2n3gS81+htckrizvEXgTsa
- 4jpA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc;
- bh=u6R40n8MPoARVm3Mtks2apAeDMP4MZtDTuXM3b5bDPA=;
- b=FbNaXt9ehCfqBUYJHfVGVpoB4JrFtKnd5IMV7qjg7AknnW5xZn1c6VdtnZGW57YBdX
- 1ByQMKI0c0wBlhXJIr0ctAlRm6EqenaIj1V1dQdGNHKaeGYWeaVF9jPvIQVB8WUfZfVy
- oJ9Wg3n57rDXYrRoF2CSIXVw6ZeJz58OySGOt8tJZFe8kYUim6AYks2eRovMheke6fcQ
- Ves6EhOn03czatXwjI89gT5CUBq/kjQpyyvcUMO6hktqWWbjvhyUq93OndnZYW00f07W
- DiMJs5XBXqdGS6VvafEYcFcVvDcsgw5GCHO/Knjz6tp2kNyUAKOKE0skFfqM4CzZ8n2I
- YO4w==
-X-Gm-Message-State: ACgBeo3WOIjBQQqVlDjJiaITorgwiHcBGhQxaCYkoLx53D51d/yavXUu
- wxHnp1a8El+NAjwYBhgmIOj3ww==
-X-Google-Smtp-Source: AA6agR50cryByjgHlJMx73H+k8NWoxtPwbincNgW2C4keQjTpRA+15aCO/PZwkF3DzqNIeBhukYV9g==
-X-Received: by 2002:a63:d00a:0:b0:42a:3d80:10a with SMTP id
- z10-20020a63d00a000000b0042a3d80010amr12459203pgf.288.1661756040268; 
- Sun, 28 Aug 2022 23:54:00 -0700 (PDT)
-Received: from archl-hc1b.. ([103.51.72.9]) by smtp.gmail.com with ESMTPSA id
- k3-20020aa79d03000000b00537d4a3aec9sm5687314pfp.104.2022.08.28.23.53.55
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 28 Aug 2022 23:54:00 -0700 (PDT)
-From: Anand Moon <anand@edgeble.ai>
-To: Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Jose Abreu <joabreu@synopsys.com>, "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Date: Mon, 29 Aug 2022 06:50:42 +0000
-Message-Id: <20220829065044.1736-2-anand@edgeble.ai>
-X-Mailer: git-send-email 2.37.2
-In-Reply-To: <20220829065044.1736-1-anand@edgeble.ai>
-References: <20220829065044.1736-1-anand@edgeble.ai>
+ Mon, 29 Aug 2022 01:53:08 -0700 (PDT)
+X-Gm-Message-State: ACgBeo2KzbxKyymoDrMhiZ/9H/cR10kxq/Q8iO6vxX7KsCIp5UuInwyJ
+ loCD46K/xNkcTT0vKKfk0ICZEvIXWHAGr7HBVh4=
+X-Google-Smtp-Source: AA6agR4dO9Qog99EOhFMYD2/TUvDUFPeLAFKpCKJySAtY2CWxJsmH8fvbDozC2seipJY5siIbg1N/2rhc6q5GDAswIQ=
+X-Received: by 2002:a17:907:d0b:b0:741:7ca6:a2b with SMTP id
+ gn11-20020a1709070d0b00b007417ca60a2bmr3580848ejc.654.1661763177783; Mon, 29
+ Aug 2022 01:52:57 -0700 (PDT)
 MIME-Version: 1.0
-X-Mailman-Approved-At: Mon, 29 Aug 2022 08:58:25 +0000
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- Jagan Teki <jagan@edgeble.ai>, Sugar Zhang <sugar.zhang@rock-chips.com>,
- David Wu <david.wu@rock-chips.com>, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 2/2] net: ethernet: stmicro: stmmac: dwmac-rk:
-	Add rv1126 support
+References: <20220818135522.3143514-1-arnd@kernel.org>
+In-Reply-To: <20220818135522.3143514-1-arnd@kernel.org>
+From: Arnd Bergmann <arnd@arndb.de>
+Date: Mon, 29 Aug 2022 10:52:41 +0200
+X-Gmail-Original-Message-ID: <CAK8P3a1tsby7+xfKTQaaBQZ4t-=uWG5Dtbcn_jPEsSMG_YVHgA@mail.gmail.com>
+Message-ID: <CAK8P3a1tsby7+xfKTQaaBQZ4t-=uWG5Dtbcn_jPEsSMG_YVHgA@mail.gmail.com>
+To: linux-arm-kernel@lists.infradead.org
+X-Provags-ID: V03:K1:EZiW+9lo5BpA1GGQvq0aNFjPKX2/WYp75iylJ/veM6NRewpeQyl
+ VOIU3SSL76IP754+zs/bRKnvmRwAYN2nK2PhakcoFRDWz5ntPZSeWUe95bmPPx46e2UUd02
+ jxh0pJ6hLqRHTIcnUtWNp+d14zbFNebG8Hn+u/JWDhDp47SKFvSlsTYp2OFVA7NzEuM01D0
+ 8psqVG8rpL6ooo7WMilig==
+X-Spam-Flag: NO
+X-UI-Out-Filterresults: notjunk:1;V03:K0:4F4IDsJqAug=:osElwZNCnlvKlaIbJWOvkA
+ AE+fzotxkGOMO/1xO/NrNORX6hD+PFk/NA5mDe6r8OarPKghbtnpTmcvUGyWY/sy3fm1X4XyK
+ G4CsufRlYw3jnHms6nNkSkVKwWv/KE44arO1vfRm8ab5LdoIJ96WmSvF0dguqVhkyYJwnVz0T
+ bPm6p63/pawlkONRmMd4TwemHhQoZZy7dmsNSwIGCM2pVQRbUGb9HxsfARd9VkIL7hUkLo4sf
+ RXfh944hnGy4BBQr+KYFcpa3zLSE7PNf0VFhOKkI1otXG4jJpPzzAWM0fiTsZ57lfsVKKOeNA
+ JskECyl55nw5meOuxu7G0BUpK7HRaQmRkaXguet/ncbDdCmVaM0Gurk+EIa8CMrTRWEXLnr24
+ cFOikOy1oFHOmWul1zNov3V7RoamGfySNWdKjOKjyFqBqQKasdeb/dQGvfLzi+CqBEiZHv8L/
+ sb/qSWiQgM6feoq2TCTDDbdKsKWoNn3uvE1Xd390kI62giwTYMxPxLZUj66MM+WaZE8iiu4Pv
+ +dzc87nv2dAM7Cz804E+AlUOwtk4kUr72Yd+aGhRKYbL6ITVfL/tLRYpdXFbm7ZQlcJxoaJwi
+ vY6rVJGS4WB0/rFvr02IPF/8AEn2v4+Ivrgm4leQTkcc5TUO9sptol5/AQeNTp4wq6U4ZfSk5
+ 3AZ409+PIWCs2OGqDPqMcNcoGMfoMt8dERiAF5XCGuFTMPqZr8DDtYe3VAo1W7hrHRyYeBGXJ
+ ozs+fml4+hBwmoZjKE/OB3NXww3a0n4Ymu44dwNnLIax0rqCF3xRANmvK069hpI2cnBWdY5XV
+ gDSCuJH1t7Qc+9IKWMJSF2GuVi1J51ankt1Mcnz6pLqtWLSU8D714vdWUnzLQ/Fz9jTGtezY7
+ 0sffA08JW5sT70DalviA==
+Cc: Richard Cochran <richardcochran@gmail.com>, Andrew Lunn <andrew@lunn.ch>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Randy Dunlap <rdunlap@infradead.org>,
+ Geert Uytterhoeven <geert+renesas@glider.be>, Peter Chen <peter.chen@nxp.com>,
+ Tony Lindgren <tony@atomide.com>, Magnus Damm <magnus.damm@gmail.com>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>, Liviu Dudau <liviu.dudau@arm.com>,
+ linux-kernel@vger.kernel.org, Thierry Reding <thierry.reding@gmail.com>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Alim Akhtar <alim.akhtar@samsung.com>, Fabio Estevam <festevam@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Stefan Wahren <stefan.wahren@i2se.com>, linux-samsung-soc@vger.kernel.org,
+ Aaro Koskinen <aaro.koskinen@iki.fi>,
+ Gregory Clement <gregory.clement@bootlin.com>,
+ Janusz Krzysztofik <jmkrzyszt@gmail.com>, Russell King <linux@armlinux.org.uk>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>, Chen-Yu Tsai <wens@csie.org>,
+ NXP Linux Team <linux-imx@nxp.com>, Vladimir Oltean <vladimir.oltean@nxp.com>,
+ Jakub Kicinski <kuba@kernel.org>, Linus Walleij <linus.walleij@linaro.org>,
+ Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Arnd Bergmann <arnd@arndb.de>,
+ Tudor Ambarus <tudor.ambarus@microchip.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ =?UTF-8?Q?=C5=81ukasz_Stelmach?= <l.stelmach@samsung.com>,
+ Vladimir Zapolskiy <vz@mleia.com>, Mark Brown <broonie@kernel.org>,
+ linux-tegra@vger.kernel.org, linux-omap@vger.kernel.org,
+ Bin Liu <b-liu@ti.com>, Qin Jian <qinjian@cqplus1.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Samuel Holland <samuel@sholland.org>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>, Felipe Balbi <balbi@ti.com>,
+ linux-sunxi@lists.linux.dev, linux-renesas-soc@vger.kernel.org,
+ Dinh Nguyen <dinguyen@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ linux-usb@vger.kernel.org, Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Sudeep Holla <sudeep.holla@arm.com>, Shannon Nelson <snelson@pensando.io>,
+ Shawn Guo <shawnguo@kernel.org>, Claudiu Beznea <claudiu.beznea@microchip.com>
+Subject: Re: [Linux-stm32] [PATCH 00/11] ARM: defconfig cleanup
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,166 +105,37 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Rockchip RV1126 has GMAC 10/100/1000M ethernet controller
-via RGMII and RMII interfaces are configured via M0 and M1 pinmux.
+On Thu, Aug 18, 2022 at 3:55 PM Arnd Bergmann <arnd@kernel.org> wrote:
+>
+> From: Arnd Bergmann <arnd@arndb.de>
+>
+> I have continued the cleanup of the multi_*_defconfig files, and
+> reordered the other files according to the 'make savedefconfig'
+> output as before.
+>
+> I would like to queue these up for 6.1, though the last two
+> should probably be considered bugfixes and merged for 6.0.
+>
+> Since a third of the defconfig files are for machines that
+> are now marked as unused, I skipped those files. There are still
+> a few things that get removed by 'make savedefconfig' as they
+> now get selected by some driver:
+>
+> -CONFIG_SERIAL_BCM63XX=y
+> -CONFIG_SND_AUDIO_GRAPH_CARD=m
+> -CONFIG_NEW_LEDS=y
+> -CONFIG_LEDS_TRIGGERS=y
+> -CONFIG_TEGRA20_APB_DMA=y
+>
+> I think for those we should follow up with patches to remove the
+> 'select' statements.
 
-This patch adds rv1126 support by adding delay lines of M0 and M1
-simultaneously.
+I dropped the last patch that Greg has already picked up, and merged the
+rest into the arm/defconfig branch of the soc tree.
 
-Signed-off-by: Sugar Zhang <sugar.zhang@rock-chips.com>
-Signed-off-by: David Wu <david.wu@rock-chips.com>
-Signed-off-by: Anand Moon <anand@edgeble.ai>
-Signed-off-by: Jagan Teki <jagan@edgeble.ai>
----
- .../net/ethernet/stmicro/stmmac/dwmac-rk.c    | 125 ++++++++++++++++++
- 1 file changed, 125 insertions(+)
+Thanks for the Acks.
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
-index c469abc91fa1..93be3efb5fff 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
-@@ -1153,6 +1153,130 @@ static const struct rk_gmac_ops rv1108_ops = {
- 	.set_rmii_speed = rv1108_set_rmii_speed,
- };
- 
-+#define RV1126_GRF_GMAC_CON0		0X0070
-+#define RV1126_GRF_GMAC_CON1		0X0074
-+#define RV1126_GRF_GMAC_CON2		0X0078
-+
-+/* RV1126_GRF_GMAC_CON0 */
-+#define RV1126_GMAC_PHY_INTF_SEL_RGMII	\
-+		(GRF_BIT(4) | GRF_CLR_BIT(5) | GRF_CLR_BIT(6))
-+#define RV1126_GMAC_PHY_INTF_SEL_RMII	\
-+		(GRF_CLR_BIT(4) | GRF_CLR_BIT(5) | GRF_BIT(6))
-+#define RV1126_GMAC_FLOW_CTRL			GRF_BIT(7)
-+#define RV1126_GMAC_FLOW_CTRL_CLR		GRF_CLR_BIT(7)
-+#define RV1126_GMAC_M0_RXCLK_DLY_ENABLE		GRF_BIT(1)
-+#define RV1126_GMAC_M0_RXCLK_DLY_DISABLE	GRF_CLR_BIT(1)
-+#define RV1126_GMAC_M0_TXCLK_DLY_ENABLE		GRF_BIT(0)
-+#define RV1126_GMAC_M0_TXCLK_DLY_DISABLE	GRF_CLR_BIT(0)
-+#define RV1126_GMAC_M1_RXCLK_DLY_ENABLE		GRF_BIT(3)
-+#define RV1126_GMAC_M1_RXCLK_DLY_DISABLE	GRF_CLR_BIT(3)
-+#define RV1126_GMAC_M1_TXCLK_DLY_ENABLE		GRF_BIT(2)
-+#define RV1126_GMAC_M1_TXCLK_DLY_DISABLE	GRF_CLR_BIT(2)
-+
-+/* RV1126_GRF_GMAC_CON1 */
-+#define RV1126_GMAC_M0_CLK_RX_DL_CFG(val)	HIWORD_UPDATE(val, 0x7F, 8)
-+#define RV1126_GMAC_M0_CLK_TX_DL_CFG(val)	HIWORD_UPDATE(val, 0x7F, 0)
-+/* RV1126_GRF_GMAC_CON2 */
-+#define RV1126_GMAC_M1_CLK_RX_DL_CFG(val)	HIWORD_UPDATE(val, 0x7F, 8)
-+#define RV1126_GMAC_M1_CLK_TX_DL_CFG(val)	HIWORD_UPDATE(val, 0x7F, 0)
-+
-+static void rv1126_set_to_rgmii(struct rk_priv_data *bsp_priv,
-+				int tx_delay, int rx_delay)
-+{
-+	struct device *dev = &bsp_priv->pdev->dev;
-+
-+	if (IS_ERR(bsp_priv->grf)) {
-+		dev_err(dev, "Missing rockchip,grf property\n");
-+		return;
-+	}
-+
-+	regmap_write(bsp_priv->grf, RV1126_GRF_GMAC_CON0,
-+		     RV1126_GMAC_PHY_INTF_SEL_RGMII |
-+		     RV1126_GMAC_M0_RXCLK_DLY_ENABLE |
-+		     RV1126_GMAC_M0_TXCLK_DLY_ENABLE |
-+		     RV1126_GMAC_M1_RXCLK_DLY_ENABLE |
-+		     RV1126_GMAC_M1_TXCLK_DLY_ENABLE);
-+
-+	regmap_write(bsp_priv->grf, RV1126_GRF_GMAC_CON1,
-+		     RV1126_GMAC_M0_CLK_RX_DL_CFG(rx_delay) |
-+		     RV1126_GMAC_M0_CLK_TX_DL_CFG(tx_delay));
-+
-+	regmap_write(bsp_priv->grf, RV1126_GRF_GMAC_CON2,
-+		     RV1126_GMAC_M1_CLK_RX_DL_CFG(rx_delay) |
-+		     RV1126_GMAC_M1_CLK_TX_DL_CFG(tx_delay));
-+}
-+
-+static void rv1126_set_to_rmii(struct rk_priv_data *bsp_priv)
-+{
-+	struct device *dev = &bsp_priv->pdev->dev;
-+
-+	if (IS_ERR(bsp_priv->grf)) {
-+		dev_err(dev, "%s: Missing rockchip,grf property\n", __func__);
-+		return;
-+	}
-+
-+	regmap_write(bsp_priv->grf, RV1126_GRF_GMAC_CON0,
-+		     RV1126_GMAC_PHY_INTF_SEL_RMII);
-+}
-+
-+static void rv1126_set_rgmii_speed(struct rk_priv_data *bsp_priv, int speed)
-+{
-+	struct device *dev = &bsp_priv->pdev->dev;
-+	unsigned long rate;
-+	int ret;
-+
-+	switch (speed) {
-+	case 10:
-+		rate = 2500000;
-+		break;
-+	case 100:
-+		rate = 25000000;
-+		break;
-+	case 1000:
-+		rate = 125000000;
-+		break;
-+	default:
-+		dev_err(dev, "unknown speed value for RGMII speed=%d", speed);
-+		return;
-+	}
-+
-+	ret = clk_set_rate(bsp_priv->clk_mac_speed, rate);
-+	if (ret)
-+		dev_err(dev, "%s: set clk_mac_speed rate %ld failed %d\n",
-+			__func__, rate, ret);
-+}
-+
-+static void rv1126_set_rmii_speed(struct rk_priv_data *bsp_priv, int speed)
-+{
-+	struct device *dev = &bsp_priv->pdev->dev;
-+	unsigned long rate;
-+	int ret;
-+
-+	switch (speed) {
-+	case 10:
-+		rate = 2500000;
-+		break;
-+	case 100:
-+		rate = 25000000;
-+		break;
-+	default:
-+		dev_err(dev, "unknown speed value for RGMII speed=%d", speed);
-+		return;
-+	}
-+
-+	ret = clk_set_rate(bsp_priv->clk_mac_speed, rate);
-+	if (ret)
-+		dev_err(dev, "%s: set clk_mac_speed rate %ld failed %d\n",
-+			__func__, rate, ret);
-+}
-+
-+static const struct rk_gmac_ops rv1126_ops = {
-+	.set_to_rgmii = rv1126_set_to_rgmii,
-+	.set_to_rmii = rv1126_set_to_rmii,
-+	.set_rgmii_speed = rv1126_set_rgmii_speed,
-+	.set_rmii_speed = rv1126_set_rmii_speed,
-+};
-+
- #define RK_GRF_MACPHY_CON0		0xb00
- #define RK_GRF_MACPHY_CON1		0xb04
- #define RK_GRF_MACPHY_CON2		0xb08
-@@ -1681,6 +1805,7 @@ static const struct of_device_id rk_gmac_dwmac_match[] = {
- 	{ .compatible = "rockchip,rk3399-gmac", .data = &rk3399_ops },
- 	{ .compatible = "rockchip,rk3568-gmac", .data = &rk3568_ops },
- 	{ .compatible = "rockchip,rv1108-gmac", .data = &rv1108_ops },
-+	{ .compatible = "rockchip,rv1126-gmac", .data = &rv1126_ops },
- 	{ }
- };
- MODULE_DEVICE_TABLE(of, rk_gmac_dwmac_match);
--- 
-2.37.2
-
+        Arnd
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
