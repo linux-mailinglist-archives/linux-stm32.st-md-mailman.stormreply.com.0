@@ -2,62 +2,47 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CFA3C5A51DE
-	for <lists+linux-stm32@lfdr.de>; Mon, 29 Aug 2022 18:34:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AF9725A5221
+	for <lists+linux-stm32@lfdr.de>; Mon, 29 Aug 2022 18:50:22 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7F0BBC04004;
-	Mon, 29 Aug 2022 16:34:21 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5DBE2C04004;
+	Mon, 29 Aug 2022 16:50:22 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6D8C8C03FE1
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 77F49C03FE1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 29 Aug 2022 16:34:19 +0000 (UTC)
+ Mon, 29 Aug 2022 16:50:20 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 3B31EB81160;
- Mon, 29 Aug 2022 16:34:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 79BADC433C1;
- Mon, 29 Aug 2022 16:34:08 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 2F71B6126B;
+ Mon, 29 Aug 2022 16:50:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 232C1C43140;
+ Mon, 29 Aug 2022 16:50:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1661790853;
- bh=EHNP4RzQnuQOX+7RxLEAqc1syZDl49UGa8ehhKTXRQg=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=cDp7X8gBmpAOAKJ8Rlu6UmYCh/TwfAd+Jwhm1G1Jt0ADl/0+xpDQqwt1xfPELrpMx
- ldgBmtZYVf7Ppsyy3Pytt6xBmXCK6ejuba3d7PxD8NolqsJPBsZepd0w9dBLtnRFfV
- ONSDgqTK/PV84hBTcRtABTBs1RaIeKNRoOpAa3CJOPACNNqoRQ8KCvkDNT7jCAuU0S
- kb2ekjtAWyRQD1WjoPZRpVw+FP+Oe+/QVHD6QAmMR/6FyMdCw2MqByS5BbA8lB9y4G
- 04a3AvVZ9ZNMS6LkZqYUQinoBzbvgdpDDaze8B1XDISXxfQSH8AviJsLmWtCdeHzfX
- fOJH30FPzz/NQ==
-Date: Mon, 29 Aug 2022 16:59:50 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Rob Herring <robh@kernel.org>
-Message-ID: <20220829165950.268433ca@jic23-huawei>
-In-Reply-To: <20220829141029.GA1470207-robh@kernel.org>
-References: <20220823145649.3118479-2-robh@kernel.org>
- <99dfcc39-ab1b-1b24-c6b2-67de5509f5ac@linaro.org>
- <20220828180050.51c3e857@jic23-huawei>
- <20220829141029.GA1470207-robh@kernel.org>
-X-Mailer: Claws Mail 4.1.0 (GTK 3.24.34; x86_64-pc-linux-gnu)
+ s=k20201202; t=1661791819;
+ bh=t4wMul9vxfMvuUg8UI41DbmTAkYSK1yPK94NKJG8a+4=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=AOkVqZMNHdQziyPJMVzg7Yp67/LOAN0l6Z4abhJmwpvjIcKMX8ClVYkDUW5c4KLbR
+ t3Kkv4AfYhJ7jOea8Ho8NL6Wgcveo5xmBjHYV2wgH58ZkTw+rCb1lol2rOxxv74kZr
+ dMf/bZi9PlEdFnCTU+K2ktiIzrghD+YJoYLptFB2g1YeGrnpJc7iZwfDcgllEByka4
+ YhlV4TkuZVxkEm+t678KidmkOoB4SpDXbS9rTAI7R+cCRt4JY9KMSLnTATharY486r
+ iRzY1qDSy8C6vVP67eY6KKYSwpyaEE06VpuKGq68dt7i3xMwFCxgKKlEWt9vbD+ro4
+ iHKU0zF8+FDIA==
+From: Mark Brown <broonie@kernel.org>
+To: patrice.chotard@foss.st.com
+In-Reply-To: <20220829123250.2170562-1-patrice.chotard@foss.st.com>
+References: <20220829123250.2170562-1-patrice.chotard@foss.st.com>
+Message-Id: <166179181682.898839.326483296605925659.b4-ty@kernel.org>
+Date: Mon, 29 Aug 2022 17:50:16 +0100
 MIME-Version: 1.0
-Cc: alsa-devel@alsa-project.org, linux-iio@vger.kernel.org,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- linux-stm32@st-md-mailman.stormreply.com, Lars-Peter Clausen <lars@metafoo.de>,
- Michal Simek <michal.simek@xilinx.com>, Andy Gross <agross@kernel.org>,
- Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
- Alexandru Tachici <alexandru.tachici@analog.com>, devicetree@vger.kernel.org,
- Michael Hennerich <Michael.Hennerich@analog.com>,
- Cosmin Tanislav <cosmin.tanislav@analog.com>,
- Anand Ashok Dumbre <anand.ashok.dumbre@xilinx.com>,
- Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>,
- Daniel Baluta <daniel.baluta@nxp.com>, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH] dt-bindings: iio: Add missing
- (unevaluated|additional)Properties on child nodes
+X-Mailer: b4 0.10.0-dev-65ba7
+Cc: linux-arm-kernel@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
+ linux-spi@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH] spi: stm32-qspi: Fix pm_runtime
+	management in stm32_qspi_transfer_one_message()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,45 +59,43 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, 29 Aug 2022 09:10:29 -0500
-Rob Herring <robh@kernel.org> wrote:
-
-> On Sun, Aug 28, 2022 at 06:01:41PM +0100, Jonathan Cameron wrote:
-> > On Thu, 25 Aug 2022 15:04:33 +0300
-> > Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org> wrote:
-> >   
-> > > On 23/08/2022 17:56, Rob Herring wrote:  
-> > > > In order to ensure only documented properties are present, node schemas
-> > > > must have unevaluatedProperties or additionalProperties set to false
-> > > > (typically).
-> > > >     
-> > > 
-> > > 
-> > > Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>  
-> > 
-> > Applied to the togreg branch of iio.git and pushed out as testing for 0-day
-> > to poke at it before I push out as togreg for linux-next to pick up.  
+On Mon, 29 Aug 2022 14:32:50 +0200, patrice.chotard@foss.st.com wrote:
+> From: Patrice Chotard <patrice.chotard@foss.st.com>
 > 
-> Thanks.
+> ctrl->auto_runtime_pm was wrongly set to true when adding
+> transfer_one_message() callback.
+> As explained in commit 6e6ccb3d4cdc ("spi: stm32-qspi: Add pm_runtime support")
+> the expected behavior is to prevent runtime suspends between each transfer.
 > 
-> > Side note. Some odd entries in your cc list...  alsa-devel?  
-> 
-> Blame MAINTAINERS:
-> 
-> STM32 AUDIO (ASoC) DRIVERS
-> M:      Olivier Moysan <olivier.moysan@foss.st.com>
-> M:      Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
-> L:      alsa-devel@alsa-project.org (moderated for non-subscribers)
-> S:      Maintained
-> F:      Documentation/devicetree/bindings/iio/adc/st,stm32-dfsdm-adc.yaml
-> F:      Documentation/devicetree/bindings/sound/st,stm32-*.yaml
-> F:      sound/soc/stm/
+> [...]
 
-There is some logic to that entry I suppose.
+Applied to
 
-Thanks for explanation!
+   broonie/spi.git for-next
 
-Jonathan
+Thanks!
+
+[1/1] spi: stm32-qspi: Fix pm_runtime management in stm32_qspi_transfer_one_message()
+      commit: 47c32b2b7fcfa97f7224df222f439fc0ccf94ffe
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
