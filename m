@@ -2,48 +2,51 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 48A995A5F7D
-	for <lists+linux-stm32@lfdr.de>; Tue, 30 Aug 2022 11:34:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 94D8D5A6077
+	for <lists+linux-stm32@lfdr.de>; Tue, 30 Aug 2022 12:14:38 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0D6DFC5EC6B;
-	Tue, 30 Aug 2022 09:34:12 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3381EC5EC6B;
+	Tue, 30 Aug 2022 10:14:38 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C0F01C03FD4
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 23958C03FD4
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 30 Aug 2022 09:34:09 +0000 (UTC)
+ Tue, 30 Aug 2022 10:14:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1661852049; x=1693388049;
+ t=1661854476; x=1693390476;
  h=date:from:to:cc:subject:in-reply-to:message-id:
- references:mime-version;
- bh=BZlFP+2gMdlipVyXYzNcamg3THGOdoHRiZzKamrAIYY=;
- b=jv4SkrtHGqLF3daSd5ScPRGXlLOmFID8C67JL5Dq6R2917xRNKoX/73/
- Zg9aUSPe0w5uaBjttG7HD2aceWPWvOIquszKvLqSIjt/eg2H1NLh9EhRU
- hXhQIf3GjFI0rhDaUe0pF3sYoQMB8h6b0gPOMI8ppLWlaD594+u3vzI+E
- ndXCKKg1sgOzb/CJo2aXAtDsKxXHDjQsLrVwuvbcvGpOlfOny+oqD0VOK
- HLONp+Pyo6gglZl+mNdRZbaS7gMNhcVQGhc/FsxR1kMa92V8xCwY1gDYR
- HTSr5T6xIOzpgWNtTXDEZ/ErOcpqiaV9P8qnujoA/4h2ESNYrNCQbKGVc w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10454"; a="274879183"
-X-IronPort-AV: E=Sophos;i="5.93,274,1654585200"; d="scan'208";a="274879183"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Aug 2022 02:34:07 -0700
-X-IronPort-AV: E=Sophos;i="5.93,274,1654585200"; d="scan'208";a="588532455"
+ references:mime-version:content-id;
+ bh=UgNERPcJtkcZ6uHTT9C3QVaF5md5rEDPHJWxiZf1opY=;
+ b=IrkxTkxFoHVLqCTKIaRUi9Y9oPtxChd9F7CJWlVcC9K3O6622DGTtk+a
+ nWZ1Fwb7JvTdDn7Okn/hxBqs95+KK+38SegOISODA+Pk8dCf0ox29Qz1K
+ qjTOlWXIl5X0tyJqhsrMzTTnxM+IRIxBJkha+DDGF9tt18U2LUl8sMPr/
+ xFQ5+EoWqeolJtkR/vU9j41VDubqhgDzokU+6SdrZL54hj7gsaI/eZFno
+ 3YRI5YcEMWqC+2o37rPF3NCUmjAPCCSkzSf+QOBaH3PFxFWJwfeXM32VM
+ cjkqEcbEg8Eoo2xVbszdvV+bKIkyPvXeQ1SOTkRkE8P0ynOCzv5GBzgyh A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10454"; a="275538182"
+X-IronPort-AV: E=Sophos;i="5.93,274,1654585200"; d="scan'208";a="275538182"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Aug 2022 03:14:34 -0700
+X-IronPort-AV: E=Sophos;i="5.93,274,1654585200"; d="scan'208";a="672797149"
 Received: from arnesgom-mobl.ger.corp.intel.com ([10.252.54.235])
- by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Aug 2022 02:34:01 -0700
-Date: Tue, 30 Aug 2022 12:34:00 +0300 (EEST)
+ by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Aug 2022 03:14:28 -0700
+Date: Tue, 30 Aug 2022 13:14:27 +0300 (EEST)
 From: =?ISO-8859-15?Q?Ilpo_J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-In-Reply-To: <Yw3PHg0imhJyb9sf@kroah.com>
-Message-ID: <31865b7-22f3-c07b-c934-83b44269eb3@linux.intel.com>
+In-Reply-To: <Yw3Zf5cwJIlBAV2z@kroah.com>
+Message-ID: <55e7b5d8-9bf7-4186-fa5d-29e1e1b3a1d3@linux.intel.com>
 References: <20220830072956.3630-1-ilpo.jarvinen@linux.intel.com>
  <20220830072956.3630-5-ilpo.jarvinen@linux.intel.com>
- <Yw3PHg0imhJyb9sf@kroah.com>
+ <Yw3Pw9kwDDKXuqC+@kroah.com>
+ <58d6748-ebd-e637-c1b2-b8e469e6d86d@linux.intel.com>
+ <Yw3Zf5cwJIlBAV2z@kroah.com>
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-437881220-1661852048=:1864"
+Content-Type: multipart/mixed; BOUNDARY="8323329-1914567423-1661852593=:1864"
+Content-ID: <e212410-9396-e748-6f82-3fb0839d31@linux.intel.com>
 Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
  linux-doc@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>,
  Fabio Estevam <festevam@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
@@ -78,71 +81,79 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
   This message is in MIME format.  The first part should be readable text,
   while the remaining parts are likely unreadable without MIME-aware tools.
 
---8323329-437881220-1661852048=:1864
-Content-Type: text/plain; charset=iso-8859-1
+--8323329-1914567423-1661852593=:1864
+Content-Type: text/plain; CHARSET=ISO-8859-15
 Content-Transfer-Encoding: 8BIT
+Content-ID: <1aefe4bc-c222-7b33-216c-7cd023ce365@linux.intel.com>
 
 On Tue, 30 Aug 2022, Greg Kroah-Hartman wrote:
 
-> On Tue, Aug 30, 2022 at 10:29:56AM +0300, Ilpo Järvinen wrote:
-> > The struct serial_rs485 has a .padding field to make uapi updates
-> > easier. It wastes space, however. Create struct kserial_rs485 which is
-> > a kerner counterpart w/o padding.
+> On Tue, Aug 30, 2022 at 12:26:29PM +0300, Ilpo Järvinen wrote:
+> > On Tue, 30 Aug 2022, Greg Kroah-Hartman wrote:
+
+> > > Ah, you are mapping this on top of the existing structure, so there was
+> > > no padding in the original one, why say that?
+> > 
+> > While I'm not exactly sure what you tried to say with this, I'll try to 
+> > answer regardless.
+> > 
+> > It's the opposite, there's padding in rs485_user, and therefore also in 
+> > rs485_uapi. Struct serial_rs485 has padding and is part of uapi so it 
+> > cannot be changed to remove the extra padding.
+> > 
+> > I cannot directly copy_from_user into *rs485 because it lacks the padding. 
+> > Thus, the immediate rs485_uapi and then assign to rs485.
 > 
-> "kernel"?
+> Padding could be in the middle of the structure, it's not obvious that
+> it is not there.  You are just trying to drop the trailing "unused
+> space", while all of the fields are identical otherwise.
 > 
-> And what is the size difference now?
+> So be specific about that, as padding is often in the middle of a
+> structure.
 
-Roughly 16B of padding is eliminated. That saving is then multiplied by 
-the times it appears in in-kernel structs (2x per uart_port, 1x per rs485 
-supporting driver). As said in my other reply, if you feel it's too 
-little gained by eliminating the padding, I can drop this patch, just let 
-me know.
+Ah, sorry. I didn't realize there would be such a way to misunderstand
+the message because I knew too well where the padding with this particular 
+struct is.
 
-> > +/**
-> > + * struct kserial_rs485 - kernel-side struct for controlling RS485 settings.
-> > + * @flags:			RS485 feature flags
-> > + * @delay_rts_before_send:	Delay before send (milliseconds)
-> > + * @delay_rts_after_send:	Delay after send (milliseconds)
-> > + * @addr_recv:			Receive filter for RS485 addressing mode
-> > + *				(used only when %SER_RS485_ADDR_RECV is set).
-> > + * @addr_dest:			Destination address for RS485 addressing mode
-> > + *				(used only when %SER_RS485_ADDR_DEST is set).
-> > + *
-> > + * Must match with struct serial_rs485 in include/uapi/linux/serial.h excluding
-> > + * the padding.
+> > If you feel ~32B per uart_port too little to be useful (and a little 
+> > more per driver), I can just drop this patch.
 > 
-> Why must this match?
+> I think 32 bytes per serial port is totally lost in the noise and would
+> not even be able to be measured at all due to how slabs are aligned
+> (meaning you are not actually saving any memory at all.)
+>
+> Can you notice any measurable savings on your systems?
 
-Because serial_rs485_from_user() and serial_rs485_to_user() just copy 
-things over from one struct type to another w/o considering the fields 
-individually. If that's not acceptable, I could make it copy field by 
-field but it didn't feel necessary to allow "real" fields to differ to 
-achieve padding elimination...
+It's not that straightforward. Many uart_ports are embedded into arrays
+like this:
 
-> And how is that going to be enforced?
+static struct ...[N];
 
-With static_assert()s in serial_core.c. I'll add a note about that into 
-the comment.
+...But then one could again say that, e.g., module alignment eats up all 
+potential benefits, etc.
 
-> > + */
-> > +struct kserial_rs485 {
-> > +	__u32	flags;
-> > +	__u32	delay_rts_before_send;
-> > +	__u32	delay_rts_after_send;
-> > +	struct {
-> > +		__u8    addr_recv;
-> > +		__u8    addr_dest;
-> > +	};
-> 
-> As this is an in-kernel structure, this should be "u32" and "u8" now.
+Obviously with big systems and small number of ports, this would never 
+matter much so while I believe likely could get some small looking number 
+for you I don't feel the effort needed to be anymore justified.
 
-Right, I'll change those.
+> And what is the code increase overall with this patch series?  :)
+
+The series was mostly shuffling existing code around, the only thing added 
+was that those struct copies so probably less than it looked.
+
+> I'm all for making things const, to prevent errors, but that could
+> probably be done without this type of change, right?
+
+OK, I'll drop this last patch. For the first three though, there's useful 
+stuff in them making some things more cleaner/consistent, I'll sort that 
+out.
+
+Thanks for your comments.
+
 
 -- 
  i.
-
---8323329-437881220-1661852048=:1864
+--8323329-1914567423-1661852593=:1864
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -153,4 +164,4 @@ Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
 
---8323329-437881220-1661852048=:1864--
+--8323329-1914567423-1661852593=:1864--
