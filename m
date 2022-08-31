@@ -2,56 +2,56 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 669EA5A7CB0
+	by mail.lfdr.de (Postfix) with ESMTPS id 771A55A7CB1
 	for <lists+linux-stm32@lfdr.de>; Wed, 31 Aug 2022 13:58:37 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1B2FEC640FB;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2C6C1C640FE;
 	Wed, 31 Aug 2022 11:58:37 +0000 (UTC)
-Received: from mail-oa1-f48.google.com (mail-oa1-f48.google.com
- [209.85.160.48])
+Received: from mail-oa1-f53.google.com (mail-oa1-f53.google.com
+ [209.85.160.53])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 718A5C03FC7
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 33285C03FC7
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 31 Aug 2022 09:32:40 +0000 (UTC)
-Received: by mail-oa1-f48.google.com with SMTP id
- 586e51a60fabf-11dca1c9c01so22842187fac.2
+ Wed, 31 Aug 2022 09:51:50 +0000 (UTC)
+Received: by mail-oa1-f53.google.com with SMTP id
+ 586e51a60fabf-11e7e0a63e2so22044244fac.4
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 31 Aug 2022 02:32:40 -0700 (PDT)
+ Wed, 31 Aug 2022 02:51:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc;
- bh=r0pqxpxh0JXFJUKOyW8tX5PwY1Kx10iibAkBXkH5gns=;
- b=mhMPjIXWxbZyoN+JAVHx2pWRBNiqzWWUwzVdtSZXBaSKRX3YS4q6/aXB7NhUjqEGWX
- S03WMXZjmh/hZNmx2tBVwn5WoAu/cRw1JGHJQ4nxkjrurzGCopwWwB9hmQqKEi80bJKs
- a4dRoWnrn3FxfidK/02OEDCils4LzdcnT4rMcMkh+qpoXMSqUsQvrCvHyOSl+bInIkeQ
- VoKAunQwjOjopmipQTjj798ZIpGYf8YuUt5mU//RsR015OZzRIdhGr60pEr6bISqfH74
- gG35TUknAu0/wu1DHV0mSd0HL7ifz46UDo/CHwpFG/Qt1lWprF++G15Z1mHnlzrnZBFZ
- 8M3A==
+ bh=RmpUgc6XDmD5QB1XT1I/+fphZcaEbXGhXbqQ4P66lZE=;
+ b=SVPqjV1MR9rD/OpYyoUjEbPKPY6cKL1i5EVoo4LHAP/MYiyB7GAxhIkNRa49axeLbT
+ 1wg0OeTj37m3JcXjD6P5Ec2xb/jhIMmjrJKt0kdpqEw+7Q5sig2nK9HK6hrUCIVu9bDW
+ 4whljtZR5Iv4OCKD2AhzfzCfnNYqjgffIEO+lBW+ywf5yxm1m+CaZPXVl6KVN0iHClQh
+ VJ+5ajLg5ukTP/lIVelebEii4JJCFCEwsyTvM77QdeMsdXwjn6cej/PSniNgk9Gy/3JS
+ Qk78AIct7usUEtBGp07ipGipnvorGRU3lI2ZZsT3VgknmvQJ4opWrUR1/SK5vB3jaqxU
+ gbtg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc;
- bh=r0pqxpxh0JXFJUKOyW8tX5PwY1Kx10iibAkBXkH5gns=;
- b=pV07uOGimbdDSO21bmoARtoJtO0KNtoNQw2/edUFbZjn8HhwshUPvzb2/RkXdDVUXH
- +d/FoU/nyDM25HIe2MJXSscaWnJonTk37L/xvqRg185VFnIumPKNZl2WF26IT6UU9QKb
- YEYsP+suPY2RdirESQLzGDmdvwsnuQqJW9dCvTz3nN5wFn142NXWkUMP0/2dUTG6t3Rm
- Ecf8rvmg9qFuh5rYK5NcGpyKzAfeHz47DN/s+9d0MMHsDIGhletYXf6SeIuOsux59mLS
- mcVd6LMLG9BkuFCupl/eP5hhyhd47UZn09MNO8CxOv8ClG+LJGFySBpLGrqEw7FtHUNV
- 6u7Q==
-X-Gm-Message-State: ACgBeo27ySfncYAEbMOUeTl6C2m1EKyIcTKM8YO72OVUKvWmFzAJozt6
- jRRUyEQtMTrbyHF1k0SvjgOpT71BX+Bo0iXj1tSkyA==
-X-Google-Smtp-Source: AA6agR4G2DS+hj+ntbazk41f0aGksxClIUZBQtd06Y92Xq52+NX9dJTb0pJ2RpugqWGNQ9HRl+QvTxRkozrFOeLh/g0=
-X-Received: by 2002:a05:6808:8db:b0:344:fb71:2159 with SMTP id
- k27-20020a05680808db00b00344fb712159mr799223oij.34.1661938359203; Wed, 31 Aug
- 2022 02:32:39 -0700 (PDT)
+ bh=RmpUgc6XDmD5QB1XT1I/+fphZcaEbXGhXbqQ4P66lZE=;
+ b=4RvdrIfhlhO7VyAr4AzwaOrX+Zw8bRGmCh9ZnnCol8hb/SI2sLoRtTeT2/7ZqwdS1Q
+ fU/mdESblMqSKKOUrz0eDB1f4+rkO/UklemiOJ3hG4vvPfMjRX0aHeDxk6HrAqgwHoQ8
+ 7e7zpthWINVOJgMXFDOUu0RUtg4T6VE7/IPNxX2FOI403S8eKO2eq8rMPQCCykasfeU3
+ H3cU9NdLSEf3+NHw2rC15MhGAKQhLxe9W5mqc0MpzulqHASj8pa/7A5QXPlSHdZBfGng
+ U5TZsHPjFovyxIm179T+rybbnTwRtXmyo6kVAF5MZv5lZGIPbrLVlNJMwd1OkFX0kQNB
+ Gcyw==
+X-Gm-Message-State: ACgBeo3xpEAQZfWSaZNLiaeEd4ncA0P7OTPlosXp77/stKyL4KW57xkp
+ i0We83CtAE0VnqOC3Xy7GDrjtESlRS+u+293SCgfNw==
+X-Google-Smtp-Source: AA6agR5OKR5YEj8I9EOVCVeHY9CkUvekFBbneDWV9LtANMPcENZR78gaPHfx0Dp4sJCkD80XnSGltjA7FpggkAGm+zo=
+X-Received: by 2002:a05:6870:58a4:b0:11c:9b6d:f066 with SMTP id
+ be36-20020a05687058a400b0011c9b6df066mr988863oab.155.1661939508991; Wed, 31
+ Aug 2022 02:51:48 -0700 (PDT)
 MIME-Version: 1.0
 References: <20220830172614.340962-1-james.clark@arm.com>
- <20220830172614.340962-4-james.clark@arm.com>
-In-Reply-To: <20220830172614.340962-4-james.clark@arm.com>
+ <20220830172614.340962-5-james.clark@arm.com>
+In-Reply-To: <20220830172614.340962-5-james.clark@arm.com>
 From: Mike Leach <mike.leach@linaro.org>
-Date: Wed, 31 Aug 2022 10:32:28 +0100
-Message-ID: <CAJ9a7VgxF1tr6yoE-k=+VnYi9suELk7EacJFxSDFxW_-XG=UKA@mail.gmail.com>
+Date: Wed, 31 Aug 2022 10:51:38 +0100
+Message-ID: <CAJ9a7Vig1HYip=0GHzhmBce3pgNZ74oDR7q4m72+Brs-URtOUA@mail.gmail.com>
 To: James Clark <james.clark@arm.com>
 X-Mailman-Approved-At: Wed, 31 Aug 2022 11:58:36 +0000
 Cc: mathieu.poirier@linaro.org, suzuki.poulose@arm.com,
@@ -60,8 +60,8 @@ Cc: mathieu.poirier@linaro.org, suzuki.poulose@arm.com,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, leo.yan@linaro.org,
  german.gomez@arm.com, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2 3/5] coresight: Re-use same function
- for similar sysfs register accessors
+Subject: Re: [Linux-stm32] [PATCH v2 4/5] coresight: cti-sysfs: Re-use same
+ functions for similar sysfs register accessors
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,350 +81,288 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 On Tue, 30 Aug 2022 at 18:26, James Clark <james.clark@arm.com> wrote:
 >
 > Currently each accessor macro creates an identical function which wastes
-> space in the text area and pollutes the ftrace function names. Change it
-> so that the same function is used, but the register to access is passed
-> in as parameter rather than baked into each function.
+> space in the text area and pollutes the ftrace function name list.
+> Change it so that the same function is used, but the register to access
+> is passed in as parameter rather than baked into each function.
+>
+> Note that only the single accessor is used here and not
+> csdev_access_relaxed_read_pair() like in the previous commit, so
+> so a single unsigned offset value is stored instead.
 >
 > Signed-off-by: James Clark <james.clark@arm.com>
 > ---
->  drivers/hwtracing/coresight/coresight-catu.c  | 25 ++++-------
->  drivers/hwtracing/coresight/coresight-core.c  | 14 ++++++
->  drivers/hwtracing/coresight/coresight-etb10.c | 25 ++++-------
->  .../coresight/coresight-etm3x-sysfs.c         | 31 +++++--------
->  drivers/hwtracing/coresight/coresight-priv.h  | 40 +++++++++--------
->  .../coresight/coresight-replicator.c          |  7 +--
->  drivers/hwtracing/coresight/coresight-stm.c   | 37 ++++++----------
->  .../hwtracing/coresight/coresight-tmc-core.c  | 43 ++++++-------------
->  8 files changed, 91 insertions(+), 131 deletions(-)
+>  .../hwtracing/coresight/coresight-cti-sysfs.c | 213 +++++++-----------
+>  drivers/hwtracing/coresight/coresight-priv.h  |   5 +
+>  2 files changed, 91 insertions(+), 127 deletions(-)
 >
-> diff --git a/drivers/hwtracing/coresight/coresight-catu.c b/drivers/hwtracing/coresight/coresight-catu.c
-> index 9d89c4054046..bc90a03f478f 100644
-> --- a/drivers/hwtracing/coresight/coresight-catu.c
-> +++ b/drivers/hwtracing/coresight/coresight-catu.c
-> @@ -365,24 +365,15 @@ static const struct etr_buf_operations etr_catu_buf_ops = {
->         .get_data = catu_get_data_etr_buf,
->  };
+> diff --git a/drivers/hwtracing/coresight/coresight-cti-sysfs.c b/drivers/hwtracing/coresight/coresight-cti-sysfs.c
+> index 7ff7e7780bbf..478b8d38b744 100644
+> --- a/drivers/hwtracing/coresight/coresight-cti-sysfs.c
+> +++ b/drivers/hwtracing/coresight/coresight-cti-sysfs.c
+> @@ -163,48 +163,82 @@ static struct attribute *coresight_cti_attrs[] = {
 >
-> -coresight_simple_reg32(devid, CORESIGHT_DEVID);
-> -coresight_simple_reg32(control, CATU_CONTROL);
-> -coresight_simple_reg32(status, CATU_STATUS);
-> -coresight_simple_reg32(mode, CATU_MODE);
-> -coresight_simple_reg32(axictrl, CATU_AXICTRL);
-> -coresight_simple_reg32(irqen, CATU_IRQEN);
-> -coresight_simple_reg64(sladdr, CATU_SLADDRLO, CATU_SLADDRHI);
-> -coresight_simple_reg64(inaddr, CATU_INADDRLO, CATU_INADDRHI);
-> -
->  static struct attribute *catu_mgmt_attrs[] = {
-> -       &dev_attr_devid.attr,
-> -       &dev_attr_control.attr,
-> -       &dev_attr_status.attr,
-> -       &dev_attr_mode.attr,
-> -       &dev_attr_axictrl.attr,
-> -       &dev_attr_irqen.attr,
-> -       &dev_attr_sladdr.attr,
-> -       &dev_attr_inaddr.attr,
-> +       coresight_simple_reg32(devid, CORESIGHT_DEVID),
-> +       coresight_simple_reg32(control, CATU_CONTROL),
-> +       coresight_simple_reg32(status, CATU_STATUS),
-> +       coresight_simple_reg32(mode, CATU_MODE),
-> +       coresight_simple_reg32(axictrl, CATU_AXICTRL),
-> +       coresight_simple_reg32(irqen, CATU_IRQEN),
-> +       coresight_simple_reg64(sladdr, CATU_SLADDRLO, CATU_SLADDRHI),
-> +       coresight_simple_reg64(inaddr, CATU_INADDRLO, CATU_INADDRHI),
->         NULL,
->  };
+>  /* register based attributes */
 >
-> diff --git a/drivers/hwtracing/coresight/coresight-core.c b/drivers/hwtracing/coresight/coresight-core.c
-> index 1edfec1e9d18..c63b2167a69f 100644
-> --- a/drivers/hwtracing/coresight/coresight-core.c
-> +++ b/drivers/hwtracing/coresight/coresight-core.c
-> @@ -60,6 +60,20 @@ EXPORT_SYMBOL_GPL(coresight_barrier_pkt);
->
->  static const struct cti_assoc_op *cti_assoc_ops;
->
-> +ssize_t coresight_simple_show(struct device *_dev,
-> +                             struct device_attribute *attr, char *buf)
-> +{
-> +       struct coresight_device *csdev = container_of(_dev, struct coresight_device, dev);
-> +       struct cs_pair_attribute *cs_attr = container_of(attr, struct cs_pair_attribute, attr);
-> +       u64 val;
-> +
-> +       pm_runtime_get_sync(_dev->parent);
-> +       val = csdev_access_relaxed_read_pair(&csdev->access, cs_attr->lo_off, cs_attr->hi_off);
-> +       pm_runtime_put_sync(_dev->parent);
-> +       return sysfs_emit(buf, "0x%llx\n", val);
-> +}
-> +EXPORT_SYMBOL_GPL(coresight_simple_show);
-> +
->  void coresight_set_cti_ops(const struct cti_assoc_op *cti_op)
->  {
->         cti_assoc_ops = cti_op;
-> diff --git a/drivers/hwtracing/coresight/coresight-etb10.c b/drivers/hwtracing/coresight/coresight-etb10.c
-> index 405bb3355cb1..8aa6e4f83e42 100644
-> --- a/drivers/hwtracing/coresight/coresight-etb10.c
-> +++ b/drivers/hwtracing/coresight/coresight-etb10.c
-> @@ -655,24 +655,15 @@ static const struct file_operations etb_fops = {
->         .llseek         = no_llseek,
->  };
->
-> -coresight_simple_reg32(rdp, ETB_RAM_DEPTH_REG);
-> -coresight_simple_reg32(sts, ETB_STATUS_REG);
-> -coresight_simple_reg32(rrp, ETB_RAM_READ_POINTER);
-> -coresight_simple_reg32(rwp, ETB_RAM_WRITE_POINTER);
-> -coresight_simple_reg32(trg, ETB_TRG);
-> -coresight_simple_reg32(ctl, ETB_CTL_REG);
-> -coresight_simple_reg32(ffsr, ETB_FFSR);
-> -coresight_simple_reg32(ffcr, ETB_FFCR);
-> -
->  static struct attribute *coresight_etb_mgmt_attrs[] = {
-> -       &dev_attr_rdp.attr,
-> -       &dev_attr_sts.attr,
-> -       &dev_attr_rrp.attr,
-> -       &dev_attr_rwp.attr,
-> -       &dev_attr_trg.attr,
-> -       &dev_attr_ctl.attr,
-> -       &dev_attr_ffsr.attr,
-> -       &dev_attr_ffcr.attr,
-> +       coresight_simple_reg32(rdp, ETB_RAM_DEPTH_REG),
-> +       coresight_simple_reg32(sts, ETB_STATUS_REG),
-> +       coresight_simple_reg32(rrp, ETB_RAM_READ_POINTER),
-> +       coresight_simple_reg32(rwp, ETB_RAM_WRITE_POINTER),
-> +       coresight_simple_reg32(trg, ETB_TRG),
-> +       coresight_simple_reg32(ctl, ETB_CTL_REG),
-> +       coresight_simple_reg32(ffsr, ETB_FFSR),
-> +       coresight_simple_reg32(ffcr, ETB_FFCR),
->         NULL,
->  };
->
-> diff --git a/drivers/hwtracing/coresight/coresight-etm3x-sysfs.c b/drivers/hwtracing/coresight/coresight-etm3x-sysfs.c
-> index 12f8e8176c7e..fd81eca3ec18 100644
-> --- a/drivers/hwtracing/coresight/coresight-etm3x-sysfs.c
-> +++ b/drivers/hwtracing/coresight/coresight-etm3x-sysfs.c
-> @@ -1252,28 +1252,17 @@ static struct attribute *coresight_etm_attrs[] = {
->         NULL,
->  };
->
-> -coresight_simple_reg32(etmccr, ETMCCR);
-> -coresight_simple_reg32(etmccer, ETMCCER);
-> -coresight_simple_reg32(etmscr, ETMSCR);
-> -coresight_simple_reg32(etmidr, ETMIDR);
-> -coresight_simple_reg32(etmcr, ETMCR);
-> -coresight_simple_reg32(etmtraceidr, ETMTRACEIDR);
-> -coresight_simple_reg32(etmteevr, ETMTEEVR);
-> -coresight_simple_reg32(etmtssvr, ETMTSSCR);
-> -coresight_simple_reg32(etmtecr1, ETMTECR1);
-> -coresight_simple_reg32(etmtecr2, ETMTECR2);
-> -
->  static struct attribute *coresight_etm_mgmt_attrs[] = {
-> -       &dev_attr_etmccr.attr,
-> -       &dev_attr_etmccer.attr,
-> -       &dev_attr_etmscr.attr,
-> -       &dev_attr_etmidr.attr,
-> -       &dev_attr_etmcr.attr,
-> -       &dev_attr_etmtraceidr.attr,
-> -       &dev_attr_etmteevr.attr,
-> -       &dev_attr_etmtssvr.attr,
-> -       &dev_attr_etmtecr1.attr,
-> -       &dev_attr_etmtecr2.attr,
-> +       coresight_simple_reg32(etmccr, ETMCCR),
-> +       coresight_simple_reg32(etmccer, ETMCCER),
-> +       coresight_simple_reg32(etmscr, ETMSCR),
-> +       coresight_simple_reg32(etmidr, ETMIDR),
-> +       coresight_simple_reg32(etmcr, ETMCR),
-> +       coresight_simple_reg32(etmtraceidr, ETMTRACEIDR),
-> +       coresight_simple_reg32(etmteevr, ETMTEEVR),
-> +       coresight_simple_reg32(etmtssvr, ETMTSSCR),
-> +       coresight_simple_reg32(etmtecr1, ETMTECR1),
-> +       coresight_simple_reg32(etmtecr2, ETMTECR2),
->         NULL,
->  };
->
-> diff --git a/drivers/hwtracing/coresight/coresight-priv.h b/drivers/hwtracing/coresight/coresight-priv.h
-> index cf8ae768106e..07b392bfdbcd 100644
-> --- a/drivers/hwtracing/coresight/coresight-priv.h
-> +++ b/drivers/hwtracing/coresight/coresight-priv.h
-> @@ -39,24 +39,30 @@
->
->  #define ETM_MODE_EXCL_KERN     BIT(30)
->  #define ETM_MODE_EXCL_USER     BIT(31)
-> +struct cs_pair_attribute {
-> +       struct device_attribute attr;
-> +       s32 lo_off;
-> +       s32 hi_off;
-> +};
->
-> -#define __coresight_simple_show(name, lo_off, hi_off)          \
-> -static ssize_t name##_show(struct device *_dev,                                \
+> -/* macro to access RO registers with power check only (no enable check). */
+> -#define coresight_cti_reg(name, offset)                        \
+> -static ssize_t name##_show(struct device *dev,                         \
 > -                          struct device_attribute *attr, char *buf)    \
 > -{                                                                      \
-> -       struct coresight_device *csdev = container_of(_dev, struct coresight_device, dev); \
-> -       u64 val;                                                        \
-> -       pm_runtime_get_sync(_dev->parent);                              \
-> -       val = csdev_access_relaxed_read_pair(&csdev->access, lo_off, hi_off);   \
-> -       pm_runtime_put_sync(_dev->parent);                              \
-> -       return scnprintf(buf, PAGE_SIZE, "0x%llx\n", val);              \
+> -       struct cti_drvdata *drvdata = dev_get_drvdata(dev->parent);     \
+> -       u32 val = 0;                                                    \
+> -       pm_runtime_get_sync(dev->parent);                               \
+> -       spin_lock(&drvdata->spinlock);                                  \
+> -       if (drvdata->config.hw_powered)                                 \
+> -               val = readl_relaxed(drvdata->base + offset);            \
+> -       spin_unlock(&drvdata->spinlock);                                \
+> -       pm_runtime_put_sync(dev->parent);                               \
+> -       return sprintf(buf, "0x%x\n", val);                             \
 > -}                                                                      \
 > -static DEVICE_ATTR_RO(name)
-> -
-> -#define coresight_simple_reg32(name, offset)                   \
-> -       __coresight_simple_show(name, offset, -1)
-> -#define coresight_simple_reg64(name, lo_off, hi_off)           \
-> -       __coresight_simple_show(name, lo_off, hi_off)
-> +extern ssize_t coresight_simple_show(struct device *_dev,
-> +                                    struct device_attribute *attr, char *buf);
+> +/* Read registers with power check only (no enable check). */
+> +static ssize_t coresight_cti_reg_show(struct device *dev,
+> +                          struct device_attribute *attr, char *buf)
+> +{
+> +       struct cti_drvdata *drvdata = dev_get_drvdata(dev->parent);
+> +       struct cs_off_attribute *cti_attr = container_of(attr, struct cs_off_attribute, attr);
+> +       u32 val = 0;
+>
+> -/* coresight management registers */
+> -coresight_cti_reg(devaff0, CTIDEVAFF0);
+> -coresight_cti_reg(devaff1, CTIDEVAFF1);
+> -coresight_cti_reg(authstatus, CORESIGHT_AUTHSTATUS);
+> -coresight_cti_reg(devarch, CORESIGHT_DEVARCH);
+> -coresight_cti_reg(devid, CORESIGHT_DEVID);
+> -coresight_cti_reg(devtype, CORESIGHT_DEVTYPE);
+> -coresight_cti_reg(pidr0, CORESIGHT_PERIPHIDR0);
+> -coresight_cti_reg(pidr1, CORESIGHT_PERIPHIDR1);
+> -coresight_cti_reg(pidr2, CORESIGHT_PERIPHIDR2);
+> -coresight_cti_reg(pidr3, CORESIGHT_PERIPHIDR3);
+> -coresight_cti_reg(pidr4, CORESIGHT_PERIPHIDR4);
+> +       pm_runtime_get_sync(dev->parent);
+> +       spin_lock(&drvdata->spinlock);
+> +       if (drvdata->config.hw_powered)
+> +               val = readl_relaxed(drvdata->base + cti_attr->off);
+> +       spin_unlock(&drvdata->spinlock);
+> +       pm_runtime_put_sync(dev->parent);
+> +       return sysfs_emit(buf, "0x%x\n", val);
+> +}
 > +
-> +#define coresight_simple_reg32(name, offset)                           \
-> +       (&((struct cs_pair_attribute[]) {                               \
+> +/* Write registers with power check only (no enable check). */
+> +static ssize_t coresight_cti_reg_store(struct device *dev,
+> +                                      struct device_attribute *attr,
+> +                                      const char *buf, size_t size)
+> +{
+> +       struct cti_drvdata *drvdata = dev_get_drvdata(dev->parent);
+> +       struct cs_off_attribute *cti_attr = container_of(attr, struct cs_off_attribute, attr);
+> +       unsigned long val = 0;
+> +
+> +       if (kstrtoul(buf, 0, &val))
+> +               return -EINVAL;
+>
+> +       pm_runtime_get_sync(dev->parent);
+> +       spin_lock(&drvdata->spinlock);
+> +       if (drvdata->config.hw_powered)
+> +               cti_write_single_reg(drvdata, cti_attr->off, val);
+> +       spin_unlock(&drvdata->spinlock);
+> +       pm_runtime_put_sync(dev->parent);
+> +       return size;
+> +}
+> +
+> +#define coresight_cti_reg(name, offset)                                        \
+> +       (&((struct cs_off_attribute[]) {                                \
 > +          {                                                            \
-> +               __ATTR(name, 0444, coresight_simple_show, NULL),        \
-> +               offset, -1                                              \
+> +               __ATTR(name, 0444, coresight_cti_reg_show, NULL),       \
+> +               offset                                                  \
 > +          }                                                            \
 > +       })[0].attr.attr)
 > +
-> +#define coresight_simple_reg64(name, lo_off, hi_off)                   \
-> +       (&((struct cs_pair_attribute[]) {                               \
+> +#define coresight_cti_reg_rw(name, offset)                             \
+> +       (&((struct cs_off_attribute[]) {                                \
 > +          {                                                            \
-> +               __ATTR(name, 0444, coresight_simple_show, NULL),        \
-> +               lo_off, hi_off                                          \
+> +               __ATTR(name, 0644, coresight_cti_reg_show,              \
+> +                      coresight_cti_reg_store),                        \
+> +               offset                                                  \
 > +          }                                                            \
 > +       })[0].attr.attr)
->
->  extern const u32 coresight_barrier_pkt[4];
->  #define CORESIGHT_BARRIER_PKT_SIZE (sizeof(coresight_barrier_pkt))
-> diff --git a/drivers/hwtracing/coresight/coresight-replicator.c b/drivers/hwtracing/coresight/coresight-replicator.c
-> index 7cffcbb2ec42..4dd50546d7e4 100644
-> --- a/drivers/hwtracing/coresight/coresight-replicator.c
-> +++ b/drivers/hwtracing/coresight/coresight-replicator.c
-> @@ -196,12 +196,9 @@ static const struct coresight_ops replicator_cs_ops = {
->         .link_ops       = &replicator_link_ops,
->  };
->
-> -coresight_simple_reg32(idfilter0, REPLICATOR_IDFILTER0);
-> -coresight_simple_reg32(idfilter1, REPLICATOR_IDFILTER1);
-> -
->  static struct attribute *replicator_mgmt_attrs[] = {
-> -       &dev_attr_idfilter0.attr,
-> -       &dev_attr_idfilter1.attr,
-> +       coresight_simple_reg32(idfilter0, REPLICATOR_IDFILTER0),
-> +       coresight_simple_reg32(idfilter1, REPLICATOR_IDFILTER1),
->         NULL,
->  };
->
-> diff --git a/drivers/hwtracing/coresight/coresight-stm.c b/drivers/hwtracing/coresight/coresight-stm.c
-> index 4a31905604fe..463f449cfb79 100644
-> --- a/drivers/hwtracing/coresight/coresight-stm.c
-> +++ b/drivers/hwtracing/coresight/coresight-stm.c
-> @@ -634,19 +634,6 @@ static ssize_t traceid_store(struct device *dev,
->  }
->  static DEVICE_ATTR_RW(traceid);
->
-> -coresight_simple_reg32(tcsr, STMTCSR);
-> -coresight_simple_reg32(tsfreqr, STMTSFREQR);
-> -coresight_simple_reg32(syncr, STMSYNCR);
-> -coresight_simple_reg32(sper, STMSPER);
-> -coresight_simple_reg32(spter, STMSPTER);
-> -coresight_simple_reg32(privmaskr, STMPRIVMASKR);
-> -coresight_simple_reg32(spscr, STMSPSCR);
-> -coresight_simple_reg32(spmscr, STMSPMSCR);
-> -coresight_simple_reg32(spfeat1r, STMSPFEAT1R);
-> -coresight_simple_reg32(spfeat2r, STMSPFEAT2R);
-> -coresight_simple_reg32(spfeat3r, STMSPFEAT3R);
-> -coresight_simple_reg32(devid, CORESIGHT_DEVID);
-> -
->  static struct attribute *coresight_stm_attrs[] = {
->         &dev_attr_hwevent_enable.attr,
->         &dev_attr_hwevent_select.attr,
-> @@ -657,18 +644,18 @@ static struct attribute *coresight_stm_attrs[] = {
->  };
->
->  static struct attribute *coresight_stm_mgmt_attrs[] = {
-> -       &dev_attr_tcsr.attr,
-> -       &dev_attr_tsfreqr.attr,
-> -       &dev_attr_syncr.attr,
-> -       &dev_attr_sper.attr,
-> -       &dev_attr_spter.attr,
-> -       &dev_attr_privmaskr.attr,
-> -       &dev_attr_spscr.attr,
-> -       &dev_attr_spmscr.attr,
-> -       &dev_attr_spfeat1r.attr,
-> -       &dev_attr_spfeat2r.attr,
-> -       &dev_attr_spfeat3r.attr,
-> -       &dev_attr_devid.attr,
-> +       coresight_simple_reg32(tcsr, STMTCSR),
-> +       coresight_simple_reg32(tsfreqr, STMTSFREQR),
-> +       coresight_simple_reg32(syncr, STMSYNCR),
-> +       coresight_simple_reg32(sper, STMSPER),
-> +       coresight_simple_reg32(spter, STMSPTER),
-> +       coresight_simple_reg32(privmaskr, STMPRIVMASKR),
-> +       coresight_simple_reg32(spscr, STMSPSCR),
-> +       coresight_simple_reg32(spmscr, STMSPMSCR),
-> +       coresight_simple_reg32(spfeat1r, STMSPFEAT1R),
-> +       coresight_simple_reg32(spfeat2r, STMSPFEAT2R),
-> +       coresight_simple_reg32(spfeat3r, STMSPFEAT3R),
-> +       coresight_simple_reg32(devid, CORESIGHT_DEVID),
->         NULL,
->  };
->
-> diff --git a/drivers/hwtracing/coresight/coresight-tmc-core.c b/drivers/hwtracing/coresight/coresight-tmc-core.c
-> index 781d213526b7..07abf28ad725 100644
-> --- a/drivers/hwtracing/coresight/coresight-tmc-core.c
-> +++ b/drivers/hwtracing/coresight/coresight-tmc-core.c
-> @@ -251,36 +251,21 @@ static enum tmc_mem_intf_width tmc_get_memwidth(u32 devid)
->         return memwidth;
->  }
->
-> -coresight_simple_reg32(rsz, TMC_RSZ);
-> -coresight_simple_reg32(sts, TMC_STS);
-> -coresight_simple_reg32(trg, TMC_TRG);
-> -coresight_simple_reg32(ctl, TMC_CTL);
-> -coresight_simple_reg32(ffsr, TMC_FFSR);
-> -coresight_simple_reg32(ffcr, TMC_FFCR);
-> -coresight_simple_reg32(mode, TMC_MODE);
-> -coresight_simple_reg32(pscr, TMC_PSCR);
-> -coresight_simple_reg32(axictl, TMC_AXICTL);
-> -coresight_simple_reg32(authstatus, TMC_AUTHSTATUS);
-> -coresight_simple_reg32(devid, CORESIGHT_DEVID);
-> -coresight_simple_reg64(rrp, TMC_RRP, TMC_RRPHI);
-> -coresight_simple_reg64(rwp, TMC_RWP, TMC_RWPHI);
-> -coresight_simple_reg64(dba, TMC_DBALO, TMC_DBAHI);
-> -
->  static struct attribute *coresight_tmc_mgmt_attrs[] = {
-> -       &dev_attr_rsz.attr,
-> -       &dev_attr_sts.attr,
-> -       &dev_attr_rrp.attr,
-> -       &dev_attr_rwp.attr,
-> -       &dev_attr_trg.attr,
-> -       &dev_attr_ctl.attr,
-> -       &dev_attr_ffsr.attr,
-> -       &dev_attr_ffcr.attr,
-> -       &dev_attr_mode.attr,
-> -       &dev_attr_pscr.attr,
-> -       &dev_attr_devid.attr,
-> -       &dev_attr_dba.attr,
-> -       &dev_attr_axictl.attr,
+> +
+> +#define coresight_cti_reg_wo(name, offset)                             \
+> +       (&((struct cs_off_attribute[]) {                                \
+> +          {                                                            \
+> +               __ATTR(name, 0200, NULL, coresight_cti_reg_store),      \
+> +               offset                                                  \
+> +          }                                                            \
+> +       })[0].attr.attr)
+> +
+> +/* coresight management registers */
+>  static struct attribute *coresight_cti_mgmt_attrs[] = {
+> -       &dev_attr_devaff0.attr,
+> -       &dev_attr_devaff1.attr,
 > -       &dev_attr_authstatus.attr,
-> +       coresight_simple_reg32(rsz, TMC_RSZ),
-> +       coresight_simple_reg32(sts, TMC_STS),
-> +       coresight_simple_reg64(rrp, TMC_RRP, TMC_RRPHI),
-> +       coresight_simple_reg64(rwp, TMC_RWP, TMC_RWPHI),
-> +       coresight_simple_reg32(trg, TMC_TRG),
-> +       coresight_simple_reg32(ctl, TMC_CTL),
-> +       coresight_simple_reg32(ffsr, TMC_FFSR),
-> +       coresight_simple_reg32(ffcr, TMC_FFCR),
-> +       coresight_simple_reg32(mode, TMC_MODE),
-> +       coresight_simple_reg32(pscr, TMC_PSCR),
-> +       coresight_simple_reg32(devid, CORESIGHT_DEVID),
-> +       coresight_simple_reg64(dba, TMC_DBALO, TMC_DBAHI),
-> +       coresight_simple_reg32(axictl, TMC_AXICTL),
-> +       coresight_simple_reg32(authstatus, TMC_AUTHSTATUS),
+> -       &dev_attr_devarch.attr,
+> -       &dev_attr_devid.attr,
+> -       &dev_attr_devtype.attr,
+> -       &dev_attr_pidr0.attr,
+> -       &dev_attr_pidr1.attr,
+> -       &dev_attr_pidr2.attr,
+> -       &dev_attr_pidr3.attr,
+> -       &dev_attr_pidr4.attr,
+> +       coresight_cti_reg(devaff0, CTIDEVAFF0),
+> +       coresight_cti_reg(devaff1, CTIDEVAFF1),
+> +       coresight_cti_reg(authstatus, CORESIGHT_AUTHSTATUS),
+> +       coresight_cti_reg(devarch, CORESIGHT_DEVARCH),
+> +       coresight_cti_reg(devid, CORESIGHT_DEVID),
+> +       coresight_cti_reg(devtype, CORESIGHT_DEVTYPE),
+> +       coresight_cti_reg(pidr0, CORESIGHT_PERIPHIDR0),
+> +       coresight_cti_reg(pidr1, CORESIGHT_PERIPHIDR1),
+> +       coresight_cti_reg(pidr2, CORESIGHT_PERIPHIDR2),
+> +       coresight_cti_reg(pidr3, CORESIGHT_PERIPHIDR3),
+> +       coresight_cti_reg(pidr4, CORESIGHT_PERIPHIDR4),
 >         NULL,
 >  };
+>
+> @@ -454,86 +488,11 @@ static ssize_t apppulse_store(struct device *dev,
+>  }
+>  static DEVICE_ATTR_WO(apppulse);
+>
+> -coresight_cti_reg(triginstatus, CTITRIGINSTATUS);
+> -coresight_cti_reg(trigoutstatus, CTITRIGOUTSTATUS);
+> -coresight_cti_reg(chinstatus, CTICHINSTATUS);
+> -coresight_cti_reg(choutstatus, CTICHOUTSTATUS);
+> -
+>  /*
+>   * Define CONFIG_CORESIGHT_CTI_INTEGRATION_REGS to enable the access to the
+>   * integration control registers. Normally only used to investigate connection
+>   * data.
+>   */
+> -#ifdef CONFIG_CORESIGHT_CTI_INTEGRATION_REGS
+> -
+> -/* macro to access RW registers with power check only (no enable check). */
+> -#define coresight_cti_reg_rw(name, offset)                             \
+> -static ssize_t name##_show(struct device *dev,                         \
+> -                          struct device_attribute *attr, char *buf)    \
+> -{                                                                      \
+> -       struct cti_drvdata *drvdata = dev_get_drvdata(dev->parent);     \
+> -       u32 val = 0;                                                    \
+> -       pm_runtime_get_sync(dev->parent);                               \
+> -       spin_lock(&drvdata->spinlock);                                  \
+> -       if (drvdata->config.hw_powered)                                 \
+> -               val = readl_relaxed(drvdata->base + offset);            \
+> -       spin_unlock(&drvdata->spinlock);                                \
+> -       pm_runtime_put_sync(dev->parent);                               \
+> -       return sprintf(buf, "0x%x\n", val);                             \
+> -}                                                                      \
+> -                                                                       \
+> -static ssize_t name##_store(struct device *dev,                                \
+> -                           struct device_attribute *attr,              \
+> -                           const char *buf, size_t size)               \
+> -{                                                                      \
+> -       struct cti_drvdata *drvdata = dev_get_drvdata(dev->parent);     \
+> -       unsigned long val = 0;                                          \
+> -       if (kstrtoul(buf, 0, &val))                                     \
+> -               return -EINVAL;                                         \
+> -                                                                       \
+> -       pm_runtime_get_sync(dev->parent);                               \
+> -       spin_lock(&drvdata->spinlock);                                  \
+> -       if (drvdata->config.hw_powered)                                 \
+> -               cti_write_single_reg(drvdata, offset, val);             \
+> -       spin_unlock(&drvdata->spinlock);                                \
+> -       pm_runtime_put_sync(dev->parent);                               \
+> -       return size;                                                    \
+> -}                                                                      \
+> -static DEVICE_ATTR_RW(name)
+> -
+> -/* macro to access WO registers with power check only (no enable check). */
+> -#define coresight_cti_reg_wo(name, offset)                             \
+> -static ssize_t name##_store(struct device *dev,                                \
+> -                           struct device_attribute *attr,              \
+> -                           const char *buf, size_t size)               \
+> -{                                                                      \
+> -       struct cti_drvdata *drvdata = dev_get_drvdata(dev->parent);     \
+> -       unsigned long val = 0;                                          \
+> -       if (kstrtoul(buf, 0, &val))                                     \
+> -               return -EINVAL;                                         \
+> -                                                                       \
+> -       pm_runtime_get_sync(dev->parent);                               \
+> -       spin_lock(&drvdata->spinlock);                                  \
+> -       if (drvdata->config.hw_powered)                                 \
+> -               cti_write_single_reg(drvdata, offset, val);             \
+> -       spin_unlock(&drvdata->spinlock);                                \
+> -       pm_runtime_put_sync(dev->parent);                               \
+> -       return size;                                                    \
+> -}                                                                      \
+> -static DEVICE_ATTR_WO(name)
+> -
+> -coresight_cti_reg_rw(itchout, ITCHOUT);
+> -coresight_cti_reg_rw(ittrigout, ITTRIGOUT);
+> -coresight_cti_reg_rw(itctrl, CORESIGHT_ITCTRL);
+> -coresight_cti_reg_wo(itchinack, ITCHINACK);
+> -coresight_cti_reg_wo(ittriginack, ITTRIGINACK);
+> -coresight_cti_reg(ittrigin, ITTRIGIN);
+> -coresight_cti_reg(itchin, ITCHIN);
+> -coresight_cti_reg(itchoutack, ITCHOUTACK);
+> -coresight_cti_reg(ittrigoutack, ITTRIGOUTACK);
+> -
+> -#endif /* CORESIGHT_CTI_INTEGRATION_REGS */
+> -
+>  static struct attribute *coresight_cti_regs_attrs[] = {
+>         &dev_attr_inout_sel.attr,
+>         &dev_attr_inen.attr,
+> @@ -544,20 +503,20 @@ static struct attribute *coresight_cti_regs_attrs[] = {
+>         &dev_attr_appset.attr,
+>         &dev_attr_appclear.attr,
+>         &dev_attr_apppulse.attr,
+> -       &dev_attr_triginstatus.attr,
+> -       &dev_attr_trigoutstatus.attr,
+> -       &dev_attr_chinstatus.attr,
+> -       &dev_attr_choutstatus.attr,
+> +       coresight_cti_reg(triginstatus, CTITRIGINSTATUS),
+> +       coresight_cti_reg(trigoutstatus, CTITRIGOUTSTATUS),
+> +       coresight_cti_reg(chinstatus, CTICHINSTATUS),
+> +       coresight_cti_reg(choutstatus, CTICHOUTSTATUS),
+>  #ifdef CONFIG_CORESIGHT_CTI_INTEGRATION_REGS
+> -       &dev_attr_itctrl.attr,
+> -       &dev_attr_ittrigin.attr,
+> -       &dev_attr_itchin.attr,
+> -       &dev_attr_ittrigout.attr,
+> -       &dev_attr_itchout.attr,
+> -       &dev_attr_itchoutack.attr,
+> -       &dev_attr_ittrigoutack.attr,
+> -       &dev_attr_ittriginack.attr,
+> -       &dev_attr_itchinack.attr,
+> +       coresight_cti_reg_rw(itctrl, CORESIGHT_ITCTRL),
+> +       coresight_cti_reg(ittrigin, ITTRIGIN),
+> +       coresight_cti_reg(itchin, ITCHIN),
+> +       coresight_cti_reg_rw(ittrigout, ITTRIGOUT),
+> +       coresight_cti_reg_rw(itchout, ITCHOUT),
+> +       coresight_cti_reg(itchoutack, ITCHOUTACK),
+> +       coresight_cti_reg(ittrigoutack, ITTRIGOUTACK),
+> +       coresight_cti_reg_wo(ittriginack, ITTRIGINACK),
+> +       coresight_cti_reg_wo(itchinack, ITCHINACK),
+>  #endif
+>         NULL,
+>  };
+> diff --git a/drivers/hwtracing/coresight/coresight-priv.h b/drivers/hwtracing/coresight/coresight-priv.h
+> index 07b392bfdbcd..c211979deca5 100644
+> --- a/drivers/hwtracing/coresight/coresight-priv.h
+> +++ b/drivers/hwtracing/coresight/coresight-priv.h
+> @@ -45,6 +45,11 @@ struct cs_pair_attribute {
+>         s32 hi_off;
+>  };
+>
+> +struct cs_off_attribute {
+> +       struct device_attribute attr;
+> +       u32 off;
+> +};
+> +
+>  extern ssize_t coresight_simple_show(struct device *_dev,
+>                                      struct device_attribute *attr, char *buf);
 >
 > --
 > 2.28.0
 >
-
 Reviewed-by: Mike Leach <mike.leach@linaro.org>
+
 
 -- 
 Mike Leach
