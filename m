@@ -2,68 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2436B5A7872
-	for <lists+linux-stm32@lfdr.de>; Wed, 31 Aug 2022 10:05:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 524395A7CAF
+	for <lists+linux-stm32@lfdr.de>; Wed, 31 Aug 2022 13:58:37 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A5C0AC04001;
-	Wed, 31 Aug 2022 08:05:06 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E7DE4C04001;
+	Wed, 31 Aug 2022 11:58:36 +0000 (UTC)
+Received: from mail-oa1-f54.google.com (mail-oa1-f54.google.com
+ [209.85.160.54])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AE826C03FC7
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8AD48C03FC7
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 31 Aug 2022 08:05:04 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 27V4PuOg001748;
- Wed, 31 Aug 2022 10:03:51 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=Nk2MZAhvJXb3CoaTgq8LEaBG5RYc8Ufzp5+Z0j3aUnc=;
- b=TewhhTweiPPNzw3Ma2RluJ3yXIZ4wxWDXod4J7dF+nhZGsgyfTFX/EBtN+5DhYmZDM/+
- SW7NTa0OCSu1Yyw6EJbLBNhFjrj1XI2X1QOvMF1Hr3dHT2gswyp33VVdfP2KfiM/QIme
- mC4NzXiEfQQv44KBXTt8vh9Ouh+kx8XCHHFp7xTCtobfq7WKqZXOj6WpW1ZV5MX2AHFJ
- gMwPcrzvabk6J1bx9XsfU0kLDRVtGdEU50kKGEM21wtzpYBdq0nT3fPUYl5Rgn1EkPay
- TDp9oVirlrEN8RcjGzvHIGrjn+AEyVlm/Y/MLU2QmIrzm/4bY93mzQtKTXuJ6Ol8TfLD 1g== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3j9fmy5w5x-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 31 Aug 2022 10:03:51 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 70D4F10002A;
- Wed, 31 Aug 2022 10:03:50 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 6CEE5216EC0;
- Wed, 31 Aug 2022 10:03:50 +0200 (CEST)
-Received: from [10.201.21.72] (10.75.127.47) by SHFDAG1NODE1.st.com
- (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2375.7; Wed, 31 Aug
- 2022 10:03:49 +0200
-Message-ID: <b6b13f40-346c-5d48-f9c3-56b49356e4e0@foss.st.com>
-Date: Wed, 31 Aug 2022 10:03:48 +0200
+ Wed, 31 Aug 2022 08:11:26 +0000 (UTC)
+Received: by mail-oa1-f54.google.com with SMTP id
+ 586e51a60fabf-11eb8b133fbso18041272fac.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 31 Aug 2022 01:11:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc;
+ bh=IThx7ewIU6azW3sLn1BeaFcNjprihRTPt0DjgsNUm7k=;
+ b=pM7HEjYq3ykY2Jtr2/pjZObHyCoUdu3gmLHwwYTyyGhI5HMOpq+emabjGGqdY1r+ue
+ f+rekOkFSEEubZgRhOVX3vwbDwq21m5x/k/YOPLKvDCewEgANxOsxnZrEGGFufaIUeJP
+ n+VIlK8Pditi8CWIXKv0WNOoHH77LWW2vpESN4l/1K81ltcYKF2TwqbMEYpGyKtRTajB
+ kJcZFbRyNesHZSjH5iITgTSOFuGuoFI24BwGVCmCZ/uXgaSLaReTjAQnHlhuIAQMgPHj
+ h2jJCDzkk9DcwQdnNoxps/OFFq+tn7UWc5c5aZST5kx3gs2tOnelJrKuJEZEMowK3Fhw
+ pA2Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc;
+ bh=IThx7ewIU6azW3sLn1BeaFcNjprihRTPt0DjgsNUm7k=;
+ b=Cs2UXtnUtfKqEu0T8/CUgslGlXESm6VGhV1DD7FDTknR1g3baZGv9cl5isSDCJnjIV
+ ulFoZbmoz3qvo3hxG4H9aNrqNg5H2yS/qWPtCGbdwHnZYKnWb0qJ4P0hvVfsYLdxEkLW
+ eKhsuzLwgdZYsxZVOmIAW29gw8GytdHywzBsUc6luP8mjDnLfChHqzUgBqc414rpeSqD
+ MouJ9L3JFDWmKJscVU+T3e5kx6YJ3bVgbzR2ZggaKlEns2NnQKHsAQXpnDCe6+LM7OL9
+ wYLrva332W93UOA9pUSmfiu9uLfN9Cc3DeNANYnC+d1gobrrgBMO4vGxaucLqMl1HfsH
+ sJZA==
+X-Gm-Message-State: ACgBeo2PiL7Id/SOrmpINErQ4TRg8MbF0bJPYC5Dk9aoVGxbuUsMBLyX
+ 9vfXSMMy3IvcaOa4ag4N4jMhuueEla61jot5HX6xFg==
+X-Google-Smtp-Source: AA6agR5BQP0YZDeoqoxupBK9/08QOD/DF2ceSgx9W2keBirZJCnci8BcWoypJX+YJum+Aqx9YzC7yXn5ejpJwAzFuCY=
+X-Received: by 2002:a05:6808:8db:b0:344:fb71:2159 with SMTP id
+ k27-20020a05680808db00b00344fb712159mr706259oij.34.1661933485314; Wed, 31 Aug
+ 2022 01:11:25 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Content-Language: en-US
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Mark Brown
- <broonie@kernel.org>, <linux-spi@vger.kernel.org>,
- <linux-stm32@st-md-mailman.stormreply.com>,
- <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
-References: <20220830182821.47919-1-andriy.shevchenko@linux.intel.com>
- <20220830182821.47919-2-andriy.shevchenko@linux.intel.com>
-From: Patrice CHOTARD <patrice.chotard@foss.st.com>
-In-Reply-To: <20220830182821.47919-2-andriy.shevchenko@linux.intel.com>
-X-Originating-IP: [10.75.127.47]
-X-ClientProxiedBy: SFHDAG2NODE3.st.com (10.75.127.6) To SHFDAG1NODE1.st.com
- (10.75.129.69)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.517,FMLib:17.11.122.1
- definitions=2022-08-31_04,2022-08-31_01,2022-06-22_01
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH v1 2/2] spi: stm32-qspi: Refactor dual
- flash mode enable check in ->setup()
+References: <20220830172614.340962-1-james.clark@arm.com>
+ <20220830172614.340962-2-james.clark@arm.com>
+In-Reply-To: <20220830172614.340962-2-james.clark@arm.com>
+From: Mike Leach <mike.leach@linaro.org>
+Date: Wed, 31 Aug 2022 09:11:14 +0100
+Message-ID: <CAJ9a7Vg41LZSLYvvk440-rR=BqU=qn80ZqHCJSfHUfkEQb8_UA@mail.gmail.com>
+To: James Clark <james.clark@arm.com>
+X-Mailman-Approved-At: Wed, 31 Aug 2022 11:58:36 +0000
+Cc: mathieu.poirier@linaro.org, suzuki.poulose@arm.com,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ coresight@lists.linaro.org, linux-kernel@vger.kernel.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, leo.yan@linaro.org,
+ german.gomez@arm.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v2 1/5] coresight: Remove unused function
+	parameter
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,40 +78,68 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-HI Andy
-
-On 8/30/22 20:28, Andy Shevchenko wrote:
-> gpiod_count() either returns positive number of the CS or negative
-> error code. In the stm32_qspi_setup() we check that configuration
-> has enough CS for the dual flash mode and SPI mode is not changing
-> over the lines of the code. Taking all above into considertion,
-> refactor dual flash mode enable check by dropping unneeded CS check
-> and reusing local mode variable.
-> 
-> Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+On Tue, 30 Aug 2022 at 18:26, James Clark <james.clark@arm.com> wrote:
+>
+> The ability to use a custom function in this sysfs show function isn't
+> used so remove it.
+>
+> No functional changes.
+>
+> Signed-off-by: James Clark <james.clark@arm.com>
 > ---
->  drivers/spi/spi-stm32-qspi.c | 3 +--
->  1 file changed, 1 insertion(+), 2 deletions(-)
-> 
-> diff --git a/drivers/spi/spi-stm32-qspi.c b/drivers/spi/spi-stm32-qspi.c
-> index 5858f5f9c758..9131660c1afb 100644
-> --- a/drivers/spi/spi-stm32-qspi.c
-> +++ b/drivers/spi/spi-stm32-qspi.c
-> @@ -680,8 +680,7 @@ static int stm32_qspi_setup(struct spi_device *spi)
->  	 * Dual flash mode is only enable in case SPI_TX_OCTAL and SPI_TX_OCTAL
->  	 * are both set in spi->mode and "cs-gpios" properties is found in DT
->  	 */
-> -	if (((spi->mode & (SPI_TX_OCTAL | SPI_RX_OCTAL)) == (SPI_TX_OCTAL | SPI_RX_OCTAL)) &&
-> -	    gpiod_count(qspi->dev, "cs")) {
-> +	if (mode == (SPI_TX_OCTAL | SPI_RX_OCTAL)) {
->  		qspi->cr_reg |= CR_DFM;
->  		dev_dbg(qspi->dev, "Dual flash mode enable");
->  	}
+>  drivers/hwtracing/coresight/coresight-priv.h | 16 ++++------------
+>  1 file changed, 4 insertions(+), 12 deletions(-)
+>
+> diff --git a/drivers/hwtracing/coresight/coresight-priv.h b/drivers/hwtracing/coresight/coresight-priv.h
+> index ff1dd2092ac5..f2458b794ef3 100644
+> --- a/drivers/hwtracing/coresight/coresight-priv.h
+> +++ b/drivers/hwtracing/coresight/coresight-priv.h
+> @@ -40,31 +40,23 @@
+>  #define ETM_MODE_EXCL_KERN     BIT(30)
+>  #define ETM_MODE_EXCL_USER     BIT(31)
+>
+> -typedef u32 (*coresight_read_fn)(const struct device *, u32 offset);
+> -#define __coresight_simple_func(type, func, name, lo_off, hi_off)      \
+> +#define __coresight_simple_show(type, name, lo_off, hi_off)            \
+>  static ssize_t name##_show(struct device *_dev,                                \
+>                            struct device_attribute *attr, char *buf)    \
+>  {                                                                      \
+>         type *drvdata = dev_get_drvdata(_dev->parent);                  \
+> -       coresight_read_fn fn = func;                                    \
+>         u64 val;                                                        \
+>         pm_runtime_get_sync(_dev->parent);                              \
+> -       if (fn)                                                         \
+> -               val = (u64)fn(_dev->parent, lo_off);                    \
+> -       else                                                            \
+> -               val = coresight_read_reg_pair(drvdata->base,            \
+> -                                                lo_off, hi_off);       \
+> +       val = coresight_read_reg_pair(drvdata->base, lo_off, hi_off);   \
+>         pm_runtime_put_sync(_dev->parent);                              \
+>         return scnprintf(buf, PAGE_SIZE, "0x%llx\n", val);              \
+>  }                                                                      \
+>  static DEVICE_ATTR_RO(name)
+>
+> -#define coresight_simple_func(type, func, name, offset)                        \
+> -       __coresight_simple_func(type, func, name, offset, -1)
+>  #define coresight_simple_reg32(type, name, offset)                     \
+> -       __coresight_simple_func(type, NULL, name, offset, -1)
+> +       __coresight_simple_show(type, name, offset, -1)
+>  #define coresight_simple_reg64(type, name, lo_off, hi_off)             \
+> -       __coresight_simple_func(type, NULL, name, lo_off, hi_off)
+> +       __coresight_simple_show(type, name, lo_off, hi_off)
+>
+>  extern const u32 coresight_barrier_pkt[4];
+>  #define CORESIGHT_BARRIER_PKT_SIZE (sizeof(coresight_barrier_pkt))
+> --
+> 2.28.0
+>
 
-Reviewed-by: Patrice Chotard <patrice.chotard@foss.st.com>
+Reviewed-by: Mike Leach <mike.leach@linaro.org>
 
-Thanks
-Patrice
+-- 
+Mike Leach
+Principal Engineer, ARM Ltd.
+Manchester Design Centre. UK
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
