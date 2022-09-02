@@ -2,69 +2,76 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 589905AAAA1
-	for <lists+linux-stm32@lfdr.de>; Fri,  2 Sep 2022 10:52:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0D9995AB41D
+	for <lists+linux-stm32@lfdr.de>; Fri,  2 Sep 2022 16:51:23 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E7313C5EC6B;
-	Fri,  2 Sep 2022 08:52:02 +0000 (UTC)
-Received: from mail-io1-f48.google.com (mail-io1-f48.google.com
- [209.85.166.48])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8AB05C640FC;
+	Fri,  2 Sep 2022 14:51:22 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CC530C03FC3
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EBFE6C640F1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  2 Sep 2022 08:52:00 +0000 (UTC)
-Received: by mail-io1-f48.google.com with SMTP id q81so1071707iod.9
+ Fri,  2 Sep 2022 14:51:20 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id C4DE361AA6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 02 Sep 2022 01:52:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=edgeble-ai.20210112.gappssmtp.com; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date;
- bh=fP5QUufc8/nDF8+DKG6kWqz0eNAOkgRskOzTNgrAPTY=;
- b=EVSQlDtpd3k83YmFx7EANYTPSj6pRkjkBpZTnZ3YsQVqwLh5bkWw04Rsq4WALtMlQP
- bNUxfYGeuwsjlw1cc4NZ95JJJgWqtpvU1UKFRR0GuLTyMCUFkza77EXIIkYAyjyfmnxJ
- r5SGXWd3T2Zogth/tQwHhtDjoHGVQ9hc3xloflJ0xO74TrzfsWxebKIbINXZyvxZrdsP
- PLD8EAAfKJ4HapDpsx2AqDi9zT0L9mB6B2ai/Ow77OA4oIZLqCq/e/aEo0XoIOkIh2FY
- M2drf6KSfMSCb9EDvfql4lqIo1d6pChqjGpdvar4l55XiWDo5pkDJlO8+uj5el7u4FH6
- djDg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date;
- bh=fP5QUufc8/nDF8+DKG6kWqz0eNAOkgRskOzTNgrAPTY=;
- b=k47P4SkpZu0tqHlSn1IcphrsCKex6W8MALtIL978XYupg+5f1bUSQWYWbhstSQoldp
- 8zuQHjicAI1ocWepMLnNVYOe98h6ccO7p5n467LQT1YfSkygS+VGNB4FhnzkA6fftDGu
- AjuBzpR58hS7zuwYiESeyUx5HeTQNp0zJ9MzwG7+Pyo06lc4eCzScJ6PK6QnBxPIt3cX
- 1eNjhkfGQyQgjOFFH5Rz/oYtxJ6hPfj7ZM74ZhT7j19lop+GBXwJCwFdd8UHYmT4fFtW
- dMOFRlUGD0tpZFgsU5IA68VQh/NbmTiM3np1CbHmQTeTiupMZ/vZYZoUpqIEd+lJ5sS5
- jf8Q==
-X-Gm-Message-State: ACgBeo3lpsRo/0wKxklq98QeTdJCo+ntbf+4n42SrGkkO2KKlfdo6KTS
- 8/fWvFVbe9UW4GgolkhsE/98Xw0WJ9wve4Wpyr8uig==
-X-Google-Smtp-Source: AA6agR4w6j8Z8678KqWSVpdc1/Jc0po1marz2l8xOyZP+RhwkUrNvN3wWEP5gPchjuSBEMB+vtt29IjvqNLQVmup2mg=
-X-Received: by 2002:a02:ce8e:0:b0:349:ce44:38dc with SMTP id
- y14-20020a02ce8e000000b00349ce4438dcmr20231978jaq.298.1662108719577; Fri, 02
- Sep 2022 01:51:59 -0700 (PDT)
+ Fri,  2 Sep 2022 14:51:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 37353C433B5
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri,  2 Sep 2022 14:51:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1662130279;
+ bh=4Hkr87g3PnzCLM9ZxFNQa5qADO4ZTPUXVLBqOM+przo=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=h89XrqJuOXVQ4/8j/RjAq2NaBhz3+B4MWMgpH+S85BBgwuJpO7HMyGFtHxu9/UISb
+ Ooo9ElCQqawa3/ew19xm+Tz8ntL2NNlg5mAxSK0mq26A0evpSb4NxGfhghyXeznQXl
+ /aHP8dyeitoacHRZMR1sxLILr14GNLypUZxk2V5lEPeSv+9Ou0tnxKyOviLCLvJGqH
+ nCTIO4INBz1uA6d8Mp3wUvJL8ixuaiePPI1AhxbL4ojKFomWDsXe4zwK1IqJNXOipd
+ sHAb2Ql5+ML2QYQ8EHQtg0orVkUV23sLA/WQA20OOSIVe1Qav+eGismKrmZ/GiiczB
+ WC/lWgSOFhgew==
+Received: by mail-vk1-f177.google.com with SMTP id b63so1091478vkh.5
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 02 Sep 2022 07:51:19 -0700 (PDT)
+X-Gm-Message-State: ACgBeo1SGsJNRC/lAbG3XV9SFskitSWBdJ8XhMTubd9JMRKY0wACnjr7
+ nWXNJht8jrcndsbXyIquNTsVHRggUZbHS8ZYAg==
+X-Google-Smtp-Source: AA6agR7gPR2eoNK8OlOt6H6YcAAUxzaXErLPZTaQL7XqzgtAc9mBmf8rXIp3NGDWwMeU3NPODBPf4sb4u9Hs3ebXLSY=
+X-Received: by 2002:a05:6122:d86:b0:37d:3fe:df43 with SMTP id
+ bc6-20020a0561220d8600b0037d03fedf43mr10496067vkb.15.1662130278184; Fri, 02
+ Sep 2022 07:51:18 -0700 (PDT)
 MIME-Version: 1.0
-References: <20220829065044.1736-1-anand@edgeble.ai>
- <20220829065044.1736-2-anand@edgeble.ai> <Ywy6o2d9j4Z7+WYX@lunn.ch>
- <CA+VMnFzNcPesS8Mn2mwr-RDXf5sRz-2A3K+syDmpCo1va6JwMw@mail.gmail.com>
- <YxChtBzavS1Fooxs@lunn.ch>
-In-Reply-To: <YxChtBzavS1Fooxs@lunn.ch>
-From: Jagan Teki <jagan@edgeble.ai>
-Date: Fri, 2 Sep 2022 14:21:48 +0530
-Message-ID: <CA+VMnFy7KUzY_Hj5sX16XR1K=FouA+J7hCKu5j_94khHVmbEJg@mail.gmail.com>
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
- David Wu <david.wu@rock-chips.com>, Anand Moon <anand@edgeble.ai>,
- linux-stm32@st-md-mailman.stormreply.com,
- Sugar Zhang <sugar.zhang@rock-chips.com>, Eric Dumazet <edumazet@google.com>,
- Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Jakub Kicinski <kuba@kernel.org>, Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 2/2] net: ethernet: stmicro: stmmac:
-	dwmac-rk: Add rv1126 support
+References: <20220823145649.3118479-4-robh@kernel.org>
+ <13083804.uLZWGnKmhe@kista>
+In-Reply-To: <13083804.uLZWGnKmhe@kista>
+From: Rob Herring <robh@kernel.org>
+Date: Fri, 2 Sep 2022 09:51:07 -0500
+X-Gmail-Original-Message-ID: <CAL_JsqJTgrSZcKNr1ky5LAXRQbj3MADMpCCYVC26rcZvzwY1Xw@mail.gmail.com>
+Message-ID: <CAL_JsqJTgrSZcKNr1ky5LAXRQbj3MADMpCCYVC26rcZvzwY1Xw@mail.gmail.com>
+To: =?UTF-8?Q?Jernej_=C5=A0krabec?= <jernej.skrabec@gmail.com>
+Cc: Heiko Stuebner <heiko@sntech.de>, Linus Walleij <linus.walleij@linaro.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Chris Zhong <zyw@rock-chips.com>, "moderated list:ARM/STM32 ARCHITECTURE"
+ <linux-stm32@st-md-mailman.stormreply.com>, Renner Berthing <kernel@esmil.dk>,
+ Samuel Holland <samuel@sholland.org>, Lee Jones <lee@kernel.org>,
+ Krzysztof Kozlowski <krzk@kernel.org>, Chanwoo Choi <cw00.choi@samsung.com>,
+ Chen-Yu Tsai <wens@csie.org>,
+ "open list:ARM/Rockchip SoC..." <linux-rockchip@lists.infradead.org>,
+ linux-sunxi@lists.linux.dev, devicetree@vger.kernel.org,
+ Alistair Francis <alistair@alistair23.me>,
+ Charles Keepax <ckeepax@opensource.cirrus.com>,
+ Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>,
+ Tim Harvey <tharvey@gateworks.com>, Zhang Qing <zhangqing@rock-chips.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Richard Fitzgerald <rf@opensource.cirrus.com>,
+ linux-arm-kernel <linux-arm-kernel@lists.infradead.org>,
+ Robert Jones <rjones@gateworks.com>, - <patches@opensource.cirrus.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Steve Twiss <stwiss.opensource@diasemi.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH] dt-bindings: mfd: Add missing
+ (unevaluated|additional)Properties on child nodes
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,62 +83,66 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, 1 Sept 2022 at 17:42, Andrew Lunn <andrew@lunn.ch> wrote:
->
-> On Thu, Sep 01, 2022 at 12:56:09PM +0530, Jagan Teki wrote:
-> > On Mon, 29 Aug 2022 at 18:40, Andrew Lunn <andrew@lunn.ch> wrote:
-> > >
-> > > On Mon, Aug 29, 2022 at 06:50:42AM +0000, Anand Moon wrote:
-> > > > Rockchip RV1126 has GMAC 10/100/1000M ethernet controller
-> > > > via RGMII and RMII interfaces are configured via M0 and M1 pinmux.
-> > > >
-> > > > This patch adds rv1126 support by adding delay lines of M0 and M1
-> > > > simultaneously.
-> > >
-> > > What does 'delay lines' mean with respect to RGMII?
-> >
-> > These are MAC receive clock delay lengths.
-> >
-> > >
-> > > The RGMII signals need a 2ns delay between the clock and the data
-> > > lines. There are three places this can happen:
-> > >
-> > > 1) In the PHY
-> > > 2) Extra long lines on the PCB
-> > > 3) In the MAC
-> > >
-> > > Generally, 1) is used, and controlled via phy-mode. A value of
-> > > PHY_INTERFACE_MODE_RGMII_ID passed to the PHY driver means it will add
-> > > these delays.
-> > >
-> > > You don't want both the MAC and the PHY adding delays.
-> >
-> > Yes, but these are specific to MAC, not related to PHY delays. Similar
-> > to what is there in other Rockchip SoC families like RK3366, 3368,
-> > 3399, 3128, but these MAC clock delay lengths are grouped based on the
-> > iomux group in RV1126. We have iomux group 0 (M0) and group 1 (M1), so
-> > the rgmii has to set these lengths irrespective of whether PHY add's
-> > or not.
->
-> So this is just fine tuning, in the order of pico seconds?
->
-> If that is all it is, then this is fine. It becomes a problem when it
-> is 2ns.
-
-Yes, it is fine I think. We have tested the delay mentioned as per the
-documentation.
-
-tx_delay: Range value is 0~0x7F
-rx_delay: Range value is 0~0x7F
-
-Thanks,
-Jagan.
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gVGh1LCBBdWcgMjUsIDIwMjIgYXQgMzo0OSBQTSBKZXJuZWogxaBrcmFiZWMgPGplcm5lai5z
+a3JhYmVjQGdtYWlsLmNvbT4gd3JvdGU6Cj4KPiBEbmUgdG9yZWssIDIzLiBhdmd1c3QgMjAyMiBv
+YiAxNjo1NjozNSBDRVNUIGplIFJvYiBIZXJyaW5nIG5hcGlzYWwoYSk6Cj4gPiBJbiBvcmRlciB0
+byBlbnN1cmUgb25seSBkb2N1bWVudGVkIHByb3BlcnRpZXMgYXJlIHByZXNlbnQsIG5vZGUgc2No
+ZW1hcwo+ID4gbXVzdCBoYXZlIHVuZXZhbHVhdGVkUHJvcGVydGllcyBvciBhZGRpdGlvbmFsUHJv
+cGVydGllcyBzZXQgdG8gZmFsc2UKPiA+ICh0eXBpY2FsbHkpLgo+ID4KPiA+IFNpZ25lZC1vZmYt
+Ynk6IFJvYiBIZXJyaW5nIDxyb2JoQGtlcm5lbC5vcmc+Cj4gPiAtLS0KPiA+ICAuLi4vbWZkL2Fs
+bHdpbm5lcixzdW42aS1hMzEtcHJjbS55YW1sICAgICAgICAgfCA0MCArKysrKysrKysrKysrKysr
+KysrCj4gPiAgLi4uL21mZC9hbGx3aW5uZXIsc3VuOGktYTIzLXByY20ueWFtbCAgICAgICAgIHwg
+MTAgKysrKysKPiA+ICAuLi4vYmluZGluZ3MvbWZkL2NpcnJ1cyxsb2NobmFnYXIueWFtbCAgICAg
+ICAgfCAgNSArKysKPiA+ICAuLi4vZGV2aWNldHJlZS9iaW5kaW5ncy9tZmQvZGxnLGRhOTA2My55
+YW1sICAgfCAgNyArKy0tCj4gPiAgLi4uL2JpbmRpbmdzL21mZC9nYXRld29ya3MtZ3NjLnlhbWwg
+ICAgICAgICAgIHwgIDUgKystCj4gPiAgLi4uL2JpbmRpbmdzL21mZC9tYXhpbSxtYXgxNDU3Ny55
+YW1sICAgICAgICAgIHwgIDEgKwo+ID4gIC4uLi9iaW5kaW5ncy9tZmQvbWF4aW0sbWF4Nzc4NDMu
+eWFtbCAgICAgICAgICB8ICAxICsKPiA+ICAuLi4vYmluZGluZ3MvbWZkL3JvY2tjaGlwLHJrODE3
+LnlhbWwgICAgICAgICAgfCAgMiArCj4gPiAgLi4uL2JpbmRpbmdzL21mZC9zaWxlcmd5LHN5NzYz
+NmEueWFtbCAgICAgICAgIHwgIDEgKwo+ID4gIC4uLi9iaW5kaW5ncy9tZmQvc3Qsc3RtMzItbHB0
+aW1lci55YW1sICAgICAgICB8ICA0ICsrCj4gPiAgLi4uL2JpbmRpbmdzL21mZC9zdCxzdG0zMi10
+aW1lcnMueWFtbCAgICAgICAgIHwgIDMgKysKPiA+ICAuLi4vZGV2aWNldHJlZS9iaW5kaW5ncy9t
+ZmQvc3Qsc3RtZngueWFtbCAgICAgfCAgMSArCj4gPiAgLi4uL2JpbmRpbmdzL21mZC9zdGVyaWNz
+c29uLGFiODUwMC55YW1sICAgICAgIHwgMjIgKysrKysrKysrKwo+ID4gIC4uLi9kZXZpY2V0cmVl
+L2JpbmRpbmdzL21mZC90aSx0cHM2NTA4Ni55YW1sICB8ICAxICsKPiA+ICAuLi4vYmluZGluZ3Mv
+bWZkL3gtcG93ZXJzLGF4cDE1Mi55YW1sICAgICAgICAgfCAgMSArCj4gPiAgMTUgZmlsZXMgY2hh
+bmdlZCwgMTAwIGluc2VydGlvbnMoKyksIDQgZGVsZXRpb25zKC0pCj4gPgo+ID4gZGlmZiAtLWdp
+dAo+ID4gYS9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvbWZkL2FsbHdpbm5lcixz
+dW42aS1hMzEtcHJjbS55YW1sCj4gPiBiL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5n
+cy9tZmQvYWxsd2lubmVyLHN1bjZpLWEzMS1wcmNtLnlhbWwgaW5kZXgKPiA+IGQxMzE3NTljY2Fm
+My4uMDIxZDMzY2IzZGQ2IDEwMDY0NAo+ID4gLS0tIGEvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVl
+L2JpbmRpbmdzL21mZC9hbGx3aW5uZXIsc3VuNmktYTMxLXByY20ueWFtbAo+ID4gKysrIGIvRG9j
+dW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL21mZC9hbGx3aW5uZXIsc3VuNmktYTMxLXBy
+Y20ueWFtbAo+ID4gQEAgLTIyLDYgKzIyLDcgQEAgcHJvcGVydGllczoKPiA+ICBwYXR0ZXJuUHJv
+cGVydGllczoKPiA+ICAgICJeLipfKGNsa3xyc3QpJCI6Cj4gPiAgICAgIHR5cGU6IG9iamVjdAo+
+ID4gKyAgICB1bmV2YWx1YXRlZFByb3BlcnRpZXM6IGZhbHNlCj4gPgo+ID4gICAgICBwcm9wZXJ0
+aWVzOgo+ID4gICAgICAgIGNvbXBhdGlibGU6Cj4gPiBAQCAtMzQsNiArMzUsNDUgQEAgcGF0dGVy
+blByb3BlcnRpZXM6Cj4gPiAgICAgICAgICAgIC0gZml4ZWQtZmFjdG9yLWNsb2NrCj4gPgo+ID4g
+ICAgICBhbGxPZjoKPiA+ICsgICAgICAtIGlmOgo+ID4gKyAgICAgICAgICBwcm9wZXJ0aWVzOgo+
+ID4gKyAgICAgICAgICAgIGNvbXBhdGlibGU6Cj4gPiArICAgICAgICAgICAgICBjb250YWluczoK
+PiA+ICsgICAgICAgICAgICAgICAgY29uc3Q6IGZpeGVkLWZhY3Rvci1jbG9jawo+ID4gKwo+ID4g
+KyAgICAgICAgdGhlbjoKPiA+ICsgICAgICAgICAgJHJlZjogL3NjaGVtYXMvY2xvY2svZml4ZWQt
+ZmFjdG9yLWNsb2NrLnlhbWwjCj4gPiArCj4gPiArICAgICAgLSBpZjoKPiA+ICsgICAgICAgICAg
+cHJvcGVydGllczoKPiA+ICsgICAgICAgICAgICBjb21wYXRpYmxlOgo+ID4gKyAgICAgICAgICAg
+ICAgY29udGFpbnM6Cj4gPiArICAgICAgICAgICAgICAgIGNvbnN0OiBhbGx3aW5uZXIsc3VuNGkt
+YTEwLW1vZDAtY2xrCj4gPiArCj4gPiArICAgICAgICB0aGVuOgo+ID4gKyAgICAgICAgICBwcm9w
+ZXJ0aWVzOgo+ID4gKyAgICAgICAgICAgICIjY2xvY2stY2VsbHMiOgo+ID4gKyAgICAgICAgICAg
+ICAgY29uc3Q6IDAKPiA+ICsKPiA+ICsgICAgICAgICAgICAjIEFscmVhZHkgY2hlY2tlZCBpbiB0
+aGUgbWFpbiBzY2hlbWEKPiA+ICsgICAgICAgICAgICBjb21wYXRpYmxlOiB0cnVlCj4gPiArCj4g
+PiArICAgICAgICAgICAgY2xvY2tzOgo+ID4gKyAgICAgICAgICAgICAgbWF4SXRlbXM6IDIKPgo+
+IExhc3QgdGltZSBub2RlIHdpdGggYWxsd2lubmVyLHN1bjRpLWExMC1tb2QwLWNsayBjb21wYXRp
+YmxlIHdhcyB1c2VkLCBpdCBoYWQgMwo+IGNsb2Nrcy4gU2VlOgo+IGh0dHBzOi8vZ2l0Lmtlcm5l
+bC5vcmcvcHViL3NjbS9saW51eC9rZXJuZWwvZ2l0L3RvcnZhbGRzL2xpbnV4LmdpdC90cmVlL2Fy
+Y2gvCj4gYXJtL2Jvb3QvZHRzL3N1bjRpLWExMC5kdHNpP2lkPWYxODY5OGUxYzY2MzM4YjkwMmRl
+Mzg2ZTRhZDk3YjhiMWI5ZDk5OWQjbjQwNgoKSHVtbSwgd2UgYWxyZWFkeSBoYXZlIGNvbnN0cmFp
+bnRzIGluCmJpbmRpbmdzL2Nsb2NrL2FsbHdpbm5lcixzdW40aS1hMTAtbW9kMC1jbGsueWFtbC4g
+SSdsbCBqdXN0IG1ha2UgaXQKJ2Nsb2NrczogdHJ1ZScgaGVyZSBpbnN0ZWFkLgoKUm9iCl9fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1h
+aWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBz
+Oi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0
+bTMyCg==
