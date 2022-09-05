@@ -2,65 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 493CF5ADB81
-	for <lists+linux-stm32@lfdr.de>; Tue,  6 Sep 2022 00:49:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9AD575ADB93
+	for <lists+linux-stm32@lfdr.de>; Tue,  6 Sep 2022 00:55:01 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EA2A2C640F0;
-	Mon,  5 Sep 2022 22:49:49 +0000 (UTC)
-Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com
- [209.85.216.51])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4A79AC640F0;
+	Mon,  5 Sep 2022 22:55:01 +0000 (UTC)
+Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com
+ [209.85.214.169])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 186BBC0C920
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BFBA5C0C920
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  5 Sep 2022 22:49:49 +0000 (UTC)
-Received: by mail-pj1-f51.google.com with SMTP id o4so9460945pjp.4
+ Mon,  5 Sep 2022 22:54:59 +0000 (UTC)
+Received: by mail-pl1-f169.google.com with SMTP id x23so9578262pll.7
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 05 Sep 2022 15:49:48 -0700 (PDT)
+ Mon, 05 Sep 2022 15:54:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=in-reply-to:content-transfer-encoding:content-disposition
  :mime-version:references:message-id:subject:cc:to:from:date:from:to
  :cc:subject:date;
- bh=Nz+uqA7e4/P8W1+vztFIrzinPtJHEHUsBZrInKc0qlM=;
- b=QV/OF44k3joZDZETl0+ZlAcG808nTpQ+6yaZoVIx1EasnMTt4l9JtEqbk6ylV1sjPH
- CpsCnzKXD1yaRjJY8yjGFM/Rgnq9yiszyTc8TCHLEugHFhpgglTtFg/61iYR6lNKhfNX
- n+f8CJcsIFbu92wir0N7hH/bTYw1QemkS4mo8z9i7RazUS8WbaVUlDCuaya5GJBZu9IE
- QvA+bSBWFp0EO1XhWI8AaZpOPguSsXCXaTdXXwJTBB7rNsozxl6OvfDIM+wu5p0E19qV
- /OGRMYL6CRqyQ5aXHZUHHnxJTRmKFDJXhnoU6eq51SznMODXDCf9krZ5aKy7RCOTOjHC
- Ptlg==
+ bh=QRQkxIGFI3OF3amcRlbkZf4vgkek6ggFXyd9zidvB8c=;
+ b=gsorC9ciDElqLq5gq0tq73oj5nMDX/AJm+EMEt5M9j7Nw6OucD0+TVGBzuQn+rrtls
+ 0loRnw7UzHrgMM28KIGVLo7qn/bZoumg2qTw3CfDMDdQmf0bgbzpShi+kGjU7raGyx6P
+ sToiGUYujxqPyCybICNsYdfYAa2jOurTif72VImXpZhCttvifys7wIqhFIW1PJR8dY03
+ UzvU99z5GubsoABcuAk5rbAMv44acUIXmY5P0ep133FiqLgOHtVg+wzuulxPweHG+ula
+ IzdWZ5ta3aGiqrNbwgZATXaEEWNGQRgzb+HrP6NXzuvsc0zd1wPa546sY9tkILtVErqR
+ hUbA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=in-reply-to:content-transfer-encoding:content-disposition
  :mime-version:references:message-id:subject:cc:to:from:date
  :x-gm-message-state:from:to:cc:subject:date;
- bh=Nz+uqA7e4/P8W1+vztFIrzinPtJHEHUsBZrInKc0qlM=;
- b=Gan5q1bPUuC4CWFFU9vQG9cqnpidLCsmxX/lajnXoEqn+9ti4aFfTkZLFVhJxTEs4c
- B5ufbrODSW1HomSYirSuR9Gm/79mio01/8PNYiKWmSsSPx36svluamg3xfc12oY6tlex
- XWmPxsmFdiKmJd8B1E22a/yXdF0KVDh0JnL3GBMgYikTW8Z38TWqKaeu2L8D2bB6U8oi
- KqcPSygGByFPeTt4/Qdnpr0wvDNJgbtNopVXt2MdAiC6miO33ioNJY1+Gtgs0yJQH6SN
- p1AkOCfSDZXBRCNVDFf0+mRS7KWSrsOfEVpt2wjX3cR9j5N3KsXxJ9pznNKzJLNFudHP
- Xv9g==
-X-Gm-Message-State: ACgBeo0rvvMtYfwWNxAFIl4JSS7bpqszOUK/CLOlZBqAFuxcNd1lPXS8
- AXfUk9lurUtqz+2NNFJcwMk=
-X-Google-Smtp-Source: AA6agR4K6lIuAxsSdVJ0oNphFJqoDM1Qz4a/ewauw+FqqlvVaYz09d/58GCWTrClE39lnwuTI3+EHg==
-X-Received: by 2002:a17:902:d4c4:b0:172:f328:e474 with SMTP id
- o4-20020a170902d4c400b00172f328e474mr51321307plg.144.1662418187481; 
- Mon, 05 Sep 2022 15:49:47 -0700 (PDT)
+ bh=QRQkxIGFI3OF3amcRlbkZf4vgkek6ggFXyd9zidvB8c=;
+ b=51iPEyFU9mDC1ZcVuxAeqsnX5v3sGZs4k/Nb2QeWoEjhwFi6ARH+MkGeMKxLOkLlgE
+ uYlRNgALQJ8o939mfR/XWCCoUZitBHz4VMxI9rH/J7pOHjWfTqM17EzAAYqv3jjZ9PDK
+ OPMg5Io/QtcOee+0OBmWDp8XzhR5LCpda4jTW4RSUi5Xllg3CiEpOclI+tb6eqQyj5Pw
+ JQ0Ovjt59mEm7C2dliRL4ag+o00Ldv4vp0jlOME9xSIMmKsq7R8hiJr9nKZjNs2eoU/U
+ VayRTcEEB6LNtsGjMFBc97gvSo4ZAvZrTMUm38MIc9VyFkW+bx15RyYNIwQiZhdBvpyF
+ y3DQ==
+X-Gm-Message-State: ACgBeo3OgFXiN90XSfwby5Ludt0TFap4TTXLqyA/eUNQ2Mp6Y5QVeTET
+ 39MComnETN5m3M7EDaaB338=
+X-Google-Smtp-Source: AA6agR6BVwijybUmJvKefzrwHZ9dDsULsMfqVmOf8/ecx+Q6qQipxqieCoJRYSCXP05TF0ANy6CnCA==
+X-Received: by 2002:a17:902:be03:b0:175:6397:9425 with SMTP id
+ r3-20020a170902be0300b0017563979425mr21493671pls.26.1662418498231; 
+ Mon, 05 Sep 2022 15:54:58 -0700 (PDT)
 Received: from google.com ([2620:15c:202:201:1190:fbfa:ae95:111c])
  by smtp.gmail.com with ESMTPSA id
- x10-20020a170902a38a00b0017300ec80b0sm8054511pla.308.2022.09.05.15.49.44
+ d21-20020a630e15000000b0042c2def703asm6833366pgl.22.2022.09.05.15.54.55
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 05 Sep 2022 15:49:46 -0700 (PDT)
-Date: Mon, 5 Sep 2022 15:49:42 -0700
+ Mon, 05 Sep 2022 15:54:57 -0700 (PDT)
+Date: Mon, 5 Sep 2022 15:54:53 -0700
 From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
 To: Pali =?iso-8859-1?Q?Roh=E1r?= <pali@kernel.org>
-Message-ID: <YxZ9BkBnQOUpXt/O@google.com>
+Message-ID: <YxZ+PSDRYZnVKfFO@google.com>
 References: <20220903-gpiod_get_from_of_node-remove-v1-0-b29adfb27a6c@gmail.com>
- <20220903-gpiod_get_from_of_node-remove-v1-1-b29adfb27a6c@gmail.com>
- <20220905071902.fv4uozrsttk3mosu@pali>
+ <20220903-gpiod_get_from_of_node-remove-v1-6-b29adfb27a6c@gmail.com>
+ <20220905070046.46nlhczkck2ufr4x@pali>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20220905071902.fv4uozrsttk3mosu@pali>
+In-Reply-To: <20220905070046.46nlhczkck2ufr4x@pali>
 Cc: Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kw@linux.com>,
  Alexandre Belloni <alexandre.belloni@bootlin.com>,
  Vignesh Raghavendra <vigneshr@ti.com>, David Airlie <airlied@linux.ie>,
@@ -83,8 +83,8 @@ Cc: Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kw@linux.com>,
  Nicolas Ferre <nicolas.ferre@microchip.com>, linux-kernel@vger.kernel.org,
  Daniel Vetter <daniel@ffwll.ch>, Richard Weinberger <richard@nod.at>,
  Claudiu Beznea <claudiu.beznea@microchip.com>
-Subject: Re: [Linux-stm32] [PATCH v1 01/11] PCI: tegra: switch to using
- devm_fwnode_gpiod_get
+Subject: Re: [Linux-stm32] [PATCH v1 06/11] PCI: aardvark: switch to using
+ devm_gpiod_get_optional()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,50 +101,82 @@ Content-Transfer-Encoding: quoted-printable
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Sep 05, 2022 at 09:19:02AM +0200, Pali Roh=E1r wrote:
-> On Sunday 04 September 2022 23:30:53 Dmitry Torokhov wrote:
-> > I would like to limit (or maybe even remove) use of
-> > [devm_]gpiod_get_from_of_node in drivers so that gpiolib can be cleaned
-> > a bit, so let's switch to the generic device property API. It may even
-> > help with handling secondary fwnodes when gpiolib is taught to handle
-> > gpios described by swnodes.
+On Mon, Sep 05, 2022 at 09:00:46AM +0200, Pali Roh=E1r wrote:
+> On Sunday 04 September 2022 23:30:58 Dmitry Torokhov wrote:
+> > I would like to stop exporting OF-specific devm_gpiod_get_from_of_node()
+> > so that gpiolib can be cleaned a bit, so let's switch to the generic
+> > device property API.
+> > =
+
+> > I believe that the only reason the driver, instead of the standard
+> > devm_gpiod_get_optional(), used devm_gpiod_get_from_of_node() is
+> > because it wanted to set up a pretty consumer name for the GPIO,
+> =
+
+> IIRC consumer name is not used at all.
+> =
+
+> The reason was to specify full name of DTS property, for easier
+> identification of the code. DTS property is "reset-gpios" but API
+> specify only "reset".
+
+I see. Do you want me to reset the patch with updated desctiption as to
+the reason devm_gpiod_get_from_of_node() was used?
+
+> =
+
+> > and we now have a special API for that.
 > > =
 
 > > Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
 > > =
 
-> > diff --git a/drivers/pci/controller/pci-tegra.c b/drivers/pci/controlle=
-r/pci-tegra.c
-> > index 8e323e93be91..929f9363e94b 100644
-> > --- a/drivers/pci/controller/pci-tegra.c
-> > +++ b/drivers/pci/controller/pci-tegra.c
-> > @@ -2202,10 +2202,11 @@ static int tegra_pcie_parse_dt(struct tegra_pci=
-e *pcie)
-> >  		 * and in this case fall back to using AFI per port register
-> >  		 * to toggle PERST# SFIO line.
-> >  		 */
-> > -		rp->reset_gpio =3D devm_gpiod_get_from_of_node(dev, port,
-> > -							     "reset-gpios", 0,
-> > -							     GPIOD_OUT_LOW,
-> > -							     label);
-> > +		rp->reset_gpio =3D devm_fwnode_gpiod_get(dev,
-> > +						       of_fwnode_handle(port),
-> > +						       "reset",
-> > +						       GPIOD_OUT_LOW,
-> > +						       label);
-> =
+> > diff --git a/drivers/pci/controller/pci-aardvark.c b/drivers/pci/contro=
+ller/pci-aardvark.c
+> > index 4834198cc86b..4a8a4a8522cb 100644
+> > --- a/drivers/pci/controller/pci-aardvark.c
+> > +++ b/drivers/pci/controller/pci-aardvark.c
+> > @@ -1856,20 +1856,19 @@ static int advk_pcie_probe(struct platform_devi=
+ce *pdev)
+> >  		return ret;
+> >  	}
+> >  =
 
-> Why in pci-aardvark.c for PERST# reset-gpio you have used
-> devm_gpiod_get_optional() and here in pci-tegra.c you have used
-> devm_fwnode_gpiod_get()? I think that PERST# logic is same in both
-> drivers.
+> > -	pcie->reset_gpio =3D devm_gpiod_get_from_of_node(dev, dev->of_node,
+> > -						       "reset-gpios", 0,
+> > -						       GPIOD_OUT_LOW,
+> > -						       "pcie1-reset");
+> > +	pcie->reset_gpio =3D devm_gpiod_get_optional(dev, "reset", GPIOD_OUT_=
+LOW);
+> >  	ret =3D PTR_ERR_OR_ZERO(pcie->reset_gpio);
+> >  	if (ret) {
+> > -		if (ret =3D=3D -ENOENT) {
+> > -			pcie->reset_gpio =3D NULL;
+> > -		} else {
+> > -			if (ret !=3D -EPROBE_DEFER)
+> > -				dev_err(dev, "Failed to get reset-gpio: %i\n",
+> > -					ret);
+> > -			return ret;
+> > -		}
+> > +		if (ret !=3D -EPROBE_DEFER)
+> > +			dev_err(dev, "Failed to get reset-gpio: %i\n",
+> > +				ret);
+> > +		return ret;
+> > +	}
+> > +
+> > +	ret =3D gpiod_set_consumer_name(pcie->reset_gpio, "pcie1-reset");
+> > +	if (ret) {
+> > +		dev_err(dev, "Failed to set reset gpio name: %d\n", ret);
+> > +		return ret;
+> >  	}
+> >  =
 
-I believe Andy already answered that, but in this driver we can have
-several root ports described via subnodes of dev->of_node, and reset
-GPIOs are attached to those subnodes. We are forced to use
-devm_fwnode_gpiod_get() instead of devm_gpiod_get_optional() as we need
-to supply the exact fwnode we need to look up GPIO in, and can not infer
-it from the 'dev' parameter of devm_gpiod_get().
+> >  	ret =3D of_pci_get_max_link_speed(dev->of_node);
+> > =
+
+> > -- =
+
+> > b4 0.10.0-dev-fc921
 
 Thanks.
 
