@@ -2,87 +2,52 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id BB7A55AD139
-	for <lists+linux-stm32@lfdr.de>; Mon,  5 Sep 2022 13:13:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 00F145AD363
+	for <lists+linux-stm32@lfdr.de>; Mon,  5 Sep 2022 15:02:29 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 77248C640F0;
-	Mon,  5 Sep 2022 11:13:46 +0000 (UTC)
-Received: from mail-qv1-f44.google.com (mail-qv1-f44.google.com
- [209.85.219.44])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 91841C0C920;
+	Mon,  5 Sep 2022 13:02:28 +0000 (UTC)
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 425E3C0AA15
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E1F2DC03FC9
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  5 Sep 2022 11:13:45 +0000 (UTC)
-Received: by mail-qv1-f44.google.com with SMTP id c6so3833385qvn.6
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 05 Sep 2022 04:13:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date;
- bh=7iAktJHc3w6rPsnzClYi6h63eWPfDzaVzHqTBIckRp4=;
- b=R7t2Qcp1lBflY1vcWSAvFGDpL1wm70fCepnWH+zrAbiof4E0R0r6MaodmK99KC/uqU
- lkRNi47VWEdS1Mh0Cq7rMIeuWmncJJ2cOty+OFE/rSCBYVUer1tDhNIt1xJajNoN+pha
- 9hYFjgcUDhUv9vg4Rsjx4Td0f/j+c8XAElCdXPkz1XbyGCnZFSRjvecB8Dt/V/2ytwns
- pr0+QJCk5ml5PiGLXoq+OBMZT8nSbzyKkmBD4jlfWYYC6/a2AVD44sThrAdLIlOLbLDI
- BjJuCJ4ppbMAAjAsrBVEK+NW8M6uu3+DQvsU1sl/6kNwDh7BxhDa793GpPoaKD+rDvK/
- /Y2g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date;
- bh=7iAktJHc3w6rPsnzClYi6h63eWPfDzaVzHqTBIckRp4=;
- b=4zN3V+udVyMP2JKqdC/V7oquTjkEqlpvJprX0hR1v6dU0l80SRaoRHLE1NiDxf/x7D
- GyQDFkz6cO/Y8MYFCbYap9qB9LJMvf9757rduY4AEsXWhxoPPJBbVRkkWXottAL7vsQ7
- kbNrZN6+Hp6eWHyv0KghnFFKSiQyyI3L8ylr0P2z2mCDygp2oBo1V7VZebvrlLIcvJd2
- qbViINfeoctxCV5zAFH5PniaGJ1JtvLkvHHnKAwQwEEP/asEb5bC9S7hW4uMAe6DheB3
- z2hTA/Y8x8hHNxLwmJVXZh7n8MFWyFbQK6TqO5qK1qP15j3K1g2yLUGe2dvmGRRYKzh1
- kkew==
-X-Gm-Message-State: ACgBeo095E6OuoEzBTSEfzCK2I/jzDNtqsiNn3mY1hVLz7yd3Y0APoBr
- RrxY+1EhDW001L/Fj1XE5rMqqlxdwglBGr6BgS0=
-X-Google-Smtp-Source: AA6agR7NrRmeK1sjqt1ZjgVXwez7kxeuRCTCLwTPPcAUxaHLOiRLXkVvjX6xUtf8npwaMKmSjSHhnRIt4pJmIe7SA1s=
-X-Received: by 2002:a05:6214:19cf:b0:4a9:4241:2399 with SMTP id
- j15-20020a05621419cf00b004a942412399mr1093930qvc.64.1662376424240; Mon, 05
- Sep 2022 04:13:44 -0700 (PDT)
+ Mon,  5 Sep 2022 13:02:26 +0000 (UTC)
+From: Kurt Kanzenbach <kurt@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+ s=2020; t=1662382946;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=uob+P8q9quYC6NGXIMXYJmtyFVoDmR3GgfDGB8nzl/4=;
+ b=AFv9wxeAuABJC6uuMsrmPKjgfQChH/HvrGkhIPisjgqOdT+0/tAL/6VjOuGe9kHDTtLWfa
+ 3/4fxQQLYGz8hAlEJKwCfaCVuqg5I7l0SMCfnXO2G3d0rzguK1+hyhmAoBLGDtNSBOrnfU
+ ict+Fe6fksHPU3h+JEz0QDFs1QpuhfI4XgBnO4/y3xAs7vEnIZ8b4KVsVfsMaoJzUEh4b7
+ OJP0aPKJlgvlPaeVbYnF8DiKl7dPePFbeTsvICfXRKIJC3RwVkAjZiySIGPC4D8knL0TR7
+ JZnZqmghvdw8ejbUCyuBF0fa5KLghvc4qO47JQutjcSyiVsZUF6bl8QF9tb17w==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+ s=2020e; t=1662382946;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=uob+P8q9quYC6NGXIMXYJmtyFVoDmR3GgfDGB8nzl/4=;
+ b=9IftrWaSljh+TIY5UxLe/05+hayKP5Lx1geXmHmjIjVOWXNf6e0wso96HxuAxApcDBxAfi
+ HTr2Wh7HdjjkffCw==
+To: "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>
+Date: Mon,  5 Sep 2022 15:01:55 +0200
+Message-Id: <20220905130155.193640-1-kurt@linutronix.de>
 MIME-Version: 1.0
-References: <20220903-gpiod_get_from_of_node-remove-v1-0-b29adfb27a6c@gmail.com>
-In-Reply-To: <20220903-gpiod_get_from_of_node-remove-v1-0-b29adfb27a6c@gmail.com>
-From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Mon, 5 Sep 2022 14:13:08 +0300
-Message-ID: <CAHp75Vc5cEs6mPSL1fkHBT2hw-CbmbELFwkEGvwxkrdEVF2K_Q@mail.gmail.com>
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kw@linux.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Vignesh Raghavendra <vigneshr@ti.com>, David Airlie <airlied@linux.ie>,
- linux-pci <linux-pci@vger.kernel.org>,
- Linus Walleij <linus.walleij@linaro.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Liam Girdwood <lgirdwood@gmail.com>, linux-tegra <linux-tegra@vger.kernel.org>,
- Thierry Reding <thierry.reding@gmail.com>,
- "open list:MEMORY TECHNOLOGY..." <linux-mtd@lists.infradead.org>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- Miquel Raynal <miquel.raynal@bootlin.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Alyssa Rosenzweig <alyssa@rosenzweig.io>,
- LINUXWATCHDOG <linux-watchdog@vger.kernel.org>, Rob Herring <robh@kernel.org>,
- Marc Zyngier <maz@kernel.org>, Bartosz Golaszewski <brgl@bgdev.pl>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>, Guenter Roeck <linux@roeck-us.net>,
+Cc: Andrew Lunn <andrew@lunn.ch>, Florian Fainelli <f.fainelli@gmail.com>,
+ netdev@vger.kernel.org, Kurt Kanzenbach <kurt@linutronix.de>,
+ linux-stm32@st-md-mailman.stormreply.com, Jose Abreu <joabreu@synopsys.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Matti Vaittinen <mazziesaccount@gmail.com>,
- "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
- Mark Brown <broonie@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
- Wim Van Sebroeck <wim@linux-watchdog.org>,
- linux-arm Mailing List <linux-arm-kernel@lists.infradead.org>,
- Felipe Balbi <balbi@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- USB <linux-usb@vger.kernel.org>, Nicolas Ferre <nicolas.ferre@microchip.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Daniel Vetter <daniel@ffwll.ch>, Richard Weinberger <richard@nod.at>,
- =?UTF-8?Q?Pali_Roh=C3=A1r?= <pali@kernel.org>,
- Claudiu Beznea <claudiu.beznea@microchip.com>
-Subject: Re: [Linux-stm32] [PATCH v1 00/11] Get rid of
- [devm_]gpiod_get_from_of_node() public APIs
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Vladimir Oltean <olteanv@gmail.com>, Vivien Didelot <vivien.didelot@gmail.com>,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH net-next v1] net: stmmac: Disable automatic
+	FCS/Pad stripping
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,23 +64,176 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Sep 5, 2022 at 9:32 AM Dmitry Torokhov
-<dmitry.torokhov@gmail.com> wrote:
->
-> I would like to stop exporting OF-specific [devm_]gpiod_get_from_of_node()
-> so that gpiolib can be cleaned a bit. We can do that by switching drivers
-> to use generic fwnode API ([devm_]fwnode_gpiod_get()). By doing so we open
-> the door to augmenting device tree and ACPI information through secondary
-> software properties (once we teach gpiolib how to handle those).
->
-> I hope that relevant maintainers will take patches through their trees and
-> then we could merge the last one some time after -rc1.
+The stmmac has the possibility to automatically strip the padding/FCS for IEEE
+802.3 type frames. This feature is enabled conditionally. Therefore, the stmmac
+receive path has to have a determination logic whether the FCS has to be
+stripped in software or not.
 
-I'm in favour of the series, but some comments would be good to be addressed.
+In fact, for DSA this ACS feature is disabled and the determination logic
+doesn't check for it properly. For instance, when using DSA in combination with
+an older stmmac (pre version 4), the FCS is not stripped by hardware or software
+which is problematic.
 
+So either add another check for DSA to the fast path or simply disable ACS
+feature completely. The latter approach has been chosen, because most of the
+time the FCS is stripped in software anyway and it removes conditionals from the
+receive fast path.
+
+Signed-off-by: Kurt Kanzenbach <kurt@linutronix.de>
+Reviewed-by: Florian Fainelli <f.fainelli@gmail.com>
+Link: https://lore.kernel.org/r/87v8q8jjgh.fsf@kurt/
+---
+ .../net/ethernet/stmicro/stmmac/dwmac100.h    |  2 +-
+ .../net/ethernet/stmicro/stmmac/dwmac1000.h   |  2 +-
+ .../ethernet/stmicro/stmmac/dwmac1000_core.c  |  9 -------
+ .../ethernet/stmicro/stmmac/dwmac100_core.c   |  8 -------
+ .../net/ethernet/stmicro/stmmac/dwmac4_core.c |  1 -
+ .../net/ethernet/stmicro/stmmac/stmmac_main.c | 24 ++++---------------
+ 6 files changed, 6 insertions(+), 40 deletions(-)
+
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac100.h b/drivers/net/ethernet/stmicro/stmmac/dwmac100.h
+index 35ab8d0bdce7..7ab791c8d355 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac100.h
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac100.h
+@@ -56,7 +56,7 @@
+ #define MAC_CONTROL_TE		0x00000008	/* Transmitter Enable */
+ #define MAC_CONTROL_RE		0x00000004	/* Receiver Enable */
+ 
+-#define MAC_CORE_INIT (MAC_CONTROL_HBD | MAC_CONTROL_ASTP)
++#define MAC_CORE_INIT (MAC_CONTROL_HBD)
+ 
+ /* MAC FLOW CTRL defines */
+ #define MAC_FLOW_CTRL_PT_MASK	0xffff0000	/* Pause Time Mask */
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac1000.h b/drivers/net/ethernet/stmicro/stmmac/dwmac1000.h
+index 3c73453725f9..4296ddda8aaa 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac1000.h
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac1000.h
+@@ -126,7 +126,7 @@ enum inter_frame_gap {
+ #define GMAC_CONTROL_TE		0x00000008	/* Transmitter Enable */
+ #define GMAC_CONTROL_RE		0x00000004	/* Receiver Enable */
+ 
+-#define GMAC_CORE_INIT (GMAC_CONTROL_JD | GMAC_CONTROL_PS | GMAC_CONTROL_ACS | \
++#define GMAC_CORE_INIT (GMAC_CONTROL_JD | GMAC_CONTROL_PS | \
+ 			GMAC_CONTROL_BE | GMAC_CONTROL_DCRS)
+ 
+ /* GMAC Frame Filter defines */
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac1000_core.c b/drivers/net/ethernet/stmicro/stmmac/dwmac1000_core.c
+index 76edb9b72675..0e00dd83d027 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac1000_core.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac1000_core.c
+@@ -15,7 +15,6 @@
+ #include <linux/crc32.h>
+ #include <linux/slab.h>
+ #include <linux/ethtool.h>
+-#include <net/dsa.h>
+ #include <asm/io.h>
+ #include "stmmac.h"
+ #include "stmmac_pcs.h"
+@@ -24,7 +23,6 @@
+ static void dwmac1000_core_init(struct mac_device_info *hw,
+ 				struct net_device *dev)
+ {
+-	struct stmmac_priv *priv = netdev_priv(dev);
+ 	void __iomem *ioaddr = hw->pcsr;
+ 	u32 value = readl(ioaddr + GMAC_CONTROL);
+ 	int mtu = dev->mtu;
+@@ -32,13 +30,6 @@ static void dwmac1000_core_init(struct mac_device_info *hw,
+ 	/* Configure GMAC core */
+ 	value |= GMAC_CORE_INIT;
+ 
+-	/* Clear ACS bit because Ethernet switch tagging formats such as
+-	 * Broadcom tags can look like invalid LLC/SNAP packets and cause the
+-	 * hardware to truncate packets on reception.
+-	 */
+-	if (netdev_uses_dsa(dev) || !priv->plat->enh_desc)
+-		value &= ~GMAC_CONTROL_ACS;
+-
+ 	if (mtu > 1500)
+ 		value |= GMAC_CONTROL_2K;
+ 	if (mtu > 2000)
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac100_core.c b/drivers/net/ethernet/stmicro/stmmac/dwmac100_core.c
+index 75071a7d551a..a6e8d7bd9588 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac100_core.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac100_core.c
+@@ -15,7 +15,6 @@
+ *******************************************************************************/
+ 
+ #include <linux/crc32.h>
+-#include <net/dsa.h>
+ #include <asm/io.h>
+ #include "stmmac.h"
+ #include "dwmac100.h"
+@@ -28,13 +27,6 @@ static void dwmac100_core_init(struct mac_device_info *hw,
+ 
+ 	value |= MAC_CORE_INIT;
+ 
+-	/* Clear ASTP bit because Ethernet switch tagging formats such as
+-	 * Broadcom tags can look like invalid LLC/SNAP packets and cause the
+-	 * hardware to truncate packets on reception.
+-	 */
+-	if (netdev_uses_dsa(dev))
+-		value &= ~MAC_CONTROL_ASTP;
+-
+ 	writel(value, ioaddr + MAC_CONTROL);
+ 
+ #ifdef STMMAC_VLAN_TAG_USED
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c b/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
+index d8f1fbc25bdd..c25bfecb4a2d 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
+@@ -14,7 +14,6 @@
+ #include <linux/slab.h>
+ #include <linux/ethtool.h>
+ #include <linux/io.h>
+-#include <net/dsa.h>
+ #include "stmmac.h"
+ #include "stmmac_pcs.h"
+ #include "dwmac4.h"
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index 592d29abcb1c..8418e795cc21 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -5076,16 +5076,8 @@ static int stmmac_rx_zc(struct stmmac_priv *priv, int limit, u32 queue)
+ 		buf1_len = stmmac_rx_buf1_len(priv, p, status, len);
+ 		len += buf1_len;
+ 
+-		/* ACS is set; GMAC core strips PAD/FCS for IEEE 802.3
+-		 * Type frames (LLC/LLC-SNAP)
+-		 *
+-		 * llc_snap is never checked in GMAC >= 4, so this ACS
+-		 * feature is always disabled and packets need to be
+-		 * stripped manually.
+-		 */
+-		if (likely(!(status & rx_not_ls)) &&
+-		    (likely(priv->synopsys_id >= DWMAC_CORE_4_00) ||
+-		     unlikely(status != llc_snap))) {
++		/* ACS is disabled; strip manually. */
++		if (likely(!(status & rx_not_ls))) {
+ 			buf1_len -= ETH_FCS_LEN;
+ 			len -= ETH_FCS_LEN;
+ 		}
+@@ -5262,16 +5254,8 @@ static int stmmac_rx(struct stmmac_priv *priv, int limit, u32 queue)
+ 		buf2_len = stmmac_rx_buf2_len(priv, p, status, len);
+ 		len += buf2_len;
+ 
+-		/* ACS is set; GMAC core strips PAD/FCS for IEEE 802.3
+-		 * Type frames (LLC/LLC-SNAP)
+-		 *
+-		 * llc_snap is never checked in GMAC >= 4, so this ACS
+-		 * feature is always disabled and packets need to be
+-		 * stripped manually.
+-		 */
+-		if (likely(!(status & rx_not_ls)) &&
+-		    (likely(priv->synopsys_id >= DWMAC_CORE_4_00) ||
+-		     unlikely(status != llc_snap))) {
++		/* ACS is disabled; strip manually. */
++		if (likely(!(status & rx_not_ls))) {
+ 			if (buf2_len) {
+ 				buf2_len -= ETH_FCS_LEN;
+ 				len -= ETH_FCS_LEN;
 -- 
-With Best Regards,
-Andy Shevchenko
+2.30.2
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
