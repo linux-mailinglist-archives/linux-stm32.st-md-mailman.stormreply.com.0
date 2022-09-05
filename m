@@ -2,80 +2,73 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E259D5ADB14
-	for <lists+linux-stm32@lfdr.de>; Tue,  6 Sep 2022 00:07:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DEDFB5ADB21
+	for <lists+linux-stm32@lfdr.de>; Tue,  6 Sep 2022 00:08:37 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 86B58C640F0;
-	Mon,  5 Sep 2022 22:07:55 +0000 (UTC)
-Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com
- [209.85.210.171])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9EAEEC640F0;
+	Mon,  5 Sep 2022 22:08:37 +0000 (UTC)
+Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com
+ [209.85.210.169])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2606BC0AA15
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6A360C0AA15
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  5 Sep 2022 22:07:54 +0000 (UTC)
-Received: by mail-pf1-f171.google.com with SMTP id r12so348241pfl.10
+ Mon,  5 Sep 2022 22:08:36 +0000 (UTC)
+Received: by mail-pf1-f169.google.com with SMTP id r12so349303pfl.10
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 05 Sep 2022 15:07:54 -0700 (PDT)
+ Mon, 05 Sep 2022 15:08:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:in-reply-to:subject:from:references:cc:to
- :content-language:user-agent:mime-version:date:message-id:sender
- :from:to:cc:subject:date;
- bh=DI+EGf5Iiw4yLnQOM0iLSEUhYarB1qtVETYwX3ATTlI=;
- b=KDxaSPeOmIAHodHZoxO7+rPppr+0nc84E7WjJr09aHXf0y70VUqQeiGwM4ZbMT1+IG
- aswpW6qIia4RuP0oy/zixSqOkdUMGcBdQBZ+zCXrSbs5gzJjxQbyCJKm+qaEmHP0fbLr
- p+VnLtgDb/UqRnZ5jH6rY49caFH+X+TV7pDArSwV7zY/jQ9Qvi10MQT7HP3yHqCz6Ymq
- 3ER0a2FyOYkl9+aJiUSNvNKZnQFKEXdO6qjVPIArqiSCS2eFf74FcrePSlFKeiFjZiPh
- a3swNk1c3KCQbDFwBwgMcHrg1CM/Xc0KnXfSUNi2LqKeA1gvQb715UJnDwV5eFIZMn4E
- JSRA==
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date;
+ bh=5z1ooZsxXJhukGg5jtTnKIsDm0LxvDPLLdQBFIOg9Mo=;
+ b=YgTpoNtQskYKJFiEm9roM8UsHLvYEBNA1mL8ijvR43dcIl3qE9TJ2QJ31Crw3ouUSM
+ iI8m5cQ7oncVgCHnH06GZ7ixBdCItXBCOTQ0lnmtukCsaxmucAabTpdrPK7wJWhoEWT7
+ cgfEiI7IXkgrurTPX8XkkJoSsKsg9OzznrhVAXoVVoMju1sc4m7PY17g3MSbb/mrzdVs
+ e0eC6TEC3Uajc8BSqN8s3bXjyqbHUencfLf3ZSqIc6lxiBQcd3c3TAVmvjecPrYNaR0z
+ fbBCLNGPTSjT+MdQuaaUYKGVdpkhWWf3pd/I4UIY2tn2zmhrhfXgmb3XRio80gdSixHJ
+ PRBQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:subject:from:references:cc:to
- :content-language:user-agent:mime-version:date:message-id:sender
- :x-gm-message-state:from:to:cc:subject:date;
- bh=DI+EGf5Iiw4yLnQOM0iLSEUhYarB1qtVETYwX3ATTlI=;
- b=mFiEONUmQ8dSCLtfVaGs/oPDMwHphxAntkrDmFMLr7ldcEB2kgpNlGCaYMywCoz73M
- IvpJyKAnbyqBBkzwJJxndIM5v3DTGLlW6uaRhrkcD6GrK9iJ6RrrztgpWj2x0PuT7+3N
- cupDinENxV0zyCyNrtzmEM+z9QOeuUKtcIYoQVk9UJmRscOwTXiPHbTKvVo+j5BEGZyf
- aVMMrq/xaRur46TnzX3rqJ8eaiC2tztZEXiur5dZ9ND+fOnJV7GvEFvNwknVrG691KRM
- eCfwdEtqGsEUY7pTWAaPcgjsexsFAbs8NdiuFvCOOyDpKpU5j1mT1Y2XwW85khirVsYO
- 7baw==
-X-Gm-Message-State: ACgBeo0Vw+EPyeX5GYbUrXLUy6N6ldApwqYxchLs+AuD601HS/piRTAf
- jL5oohwAWrQ1XVanw6Wp2XY=
-X-Google-Smtp-Source: AA6agR5VFvTDdUbzbYgkiV1tQs8QlnywRsbF0wBwVMI81k5tziGUND19h0NyYI/NQTVei/R57vjcgw==
-X-Received: by 2002:a63:2cc2:0:b0:41c:681d:60d2 with SMTP id
- s185-20020a632cc2000000b0041c681d60d2mr41816293pgs.502.1662415672598; 
- Mon, 05 Sep 2022 15:07:52 -0700 (PDT)
-Received: from ?IPV6:2600:1700:e321:62f0:329c:23ff:fee3:9d7c?
- ([2600:1700:e321:62f0:329c:23ff:fee3:9d7c])
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date;
+ bh=5z1ooZsxXJhukGg5jtTnKIsDm0LxvDPLLdQBFIOg9Mo=;
+ b=Dgx6/yeasP6wLz4yL8UDMEPi3UonPbK+YXyrnf6g8F24wvuUAzHQ03npoptQj414FU
+ OiO985FdEVB5t9f2XxsTfLYETOGveBWzgNTC5b9QdNwwjTlSxNEDYZXZsCBrPiuDMQJ0
+ Cq96QKFo81EtfhDr4BFKKbHwbYB+jh6zNg0cBlJ43IM4oA5ZdKKA8EyaQ/4R5ly8uDQT
+ RhK/1N86wNDAplHS+bd52UHfhMiX5QwvBhOeUBEaDlTm9uFuLpZUPwluctYPCHkQABuy
+ eIBWQ5+rrBN9oHhs48QGvLO9tDd9/e0MnzaemxGMEgZbXUnzkXEWwUXG+puUDjpZSwi2
+ o/Aw==
+X-Gm-Message-State: ACgBeo1knKpZfb35DNxK0s9zKdG5BN5/om6C9JjpQMsbpEo6FSuIa/c/
+ Xn7osbDb9FGRBt1tZV0IyQk=
+X-Google-Smtp-Source: AA6agR7YbREIA01VRSmP+zvXlY2q8iiOZpKUEqi6KFy5cemoOzMeF56ZDQMRUefeyhXXs1gJaKAhsA==
+X-Received: by 2002:a63:4719:0:b0:42c:5586:de2 with SMTP id
+ u25-20020a634719000000b0042c55860de2mr31993067pga.158.1662415714908; 
+ Mon, 05 Sep 2022 15:08:34 -0700 (PDT)
+Received: from google.com ([2620:15c:202:201:1190:fbfa:ae95:111c])
  by smtp.gmail.com with ESMTPSA id
- m16-20020a170902db1000b00172dd10f64fsm8157821plx.263.2022.09.05.15.07.49
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 05 Sep 2022 15:07:51 -0700 (PDT)
-Message-ID: <4a0d089d-6ac6-b92e-6ac7-3d3de0144b4b@roeck-us.net>
-Date: Mon, 5 Sep 2022 15:07:48 -0700
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Content-Language: en-US
-To: Andy Shevchenko <andy.shevchenko@gmail.com>,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>
+ a12-20020a170902710c00b00172f1d0825esm8092373pll.113.2022.09.05.15.08.32
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 05 Sep 2022 15:08:34 -0700 (PDT)
+Date: Mon, 5 Sep 2022 15:08:30 -0700
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: Linus Walleij <linus.walleij@linaro.org>
+Message-ID: <YxZzXqJiOPDVmACo@google.com>
 References: <20220903-gpiod_get_from_of_node-remove-v1-0-b29adfb27a6c@gmail.com>
- <20220903-gpiod_get_from_of_node-remove-v1-4-b29adfb27a6c@gmail.com>
- <CAHp75VdMr7wru-2hD1HH3OS5JTNdzt6VRqB6OFoCp2JkiuiTjw@mail.gmail.com>
- <YxZQj8bwJCx5rqDv@google.com>
- <CAHp75VdHJS4YgrTK15OuY5sxodxKObUtzturL+YPXFQ3_wpxig@mail.gmail.com>
- <YxZTS3Nl1YaMGoBC@google.com>
- <CAHp75VeNajcf-Y6xvDDVwZijg6U53ggg1HQox1AZ74=wRut+1Q@mail.gmail.com>
-From: Guenter Roeck <linux@roeck-us.net>
-In-Reply-To: <CAHp75VeNajcf-Y6xvDDVwZijg6U53ggg1HQox1AZ74=wRut+1Q@mail.gmail.com>
-Cc: =?UTF-8?Q?Krzysztof_Wilczy=c5=84ski?= <kw@linux.com>,
+ <20220903-gpiod_get_from_of_node-remove-v1-2-b29adfb27a6c@gmail.com>
+ <CAHp75Vc4yfh0JcY0B-vNawHTay5QNuhd7GAm86QZZZvUnQaMzQ@mail.gmail.com>
+ <YxZP/exeVD7DQ5Hx@google.com>
+ <CACRpkda0iUTV=71eQf5_FdKWLe3Bu=U+Zny9_uJJL=5xXtnrnQ@mail.gmail.com>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <CACRpkda0iUTV=71eQf5_FdKWLe3Bu=U+Zny9_uJJL=5xXtnrnQ@mail.gmail.com>
+Cc: Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kw@linux.com>,
  Alexandre Belloni <alexandre.belloni@bootlin.com>,
  Vignesh Raghavendra <vigneshr@ti.com>, David Airlie <airlied@linux.ie>,
  linux-pci <linux-pci@vger.kernel.org>,
- Linus Walleij <linus.walleij@linaro.org>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>,
  dri-devel <dri-devel@lists.freedesktop.org>,
- Liam Girdwood <lgirdwood@gmail.com>, linux-tegra <linux-tegra@vger.kernel.org>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ linux-tegra <linux-tegra@vger.kernel.org>,
  Thierry Reding <thierry.reding@gmail.com>,
  "open list:MEMORY TECHNOLOGY..." <linux-mtd@lists.infradead.org>,
  Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
@@ -85,8 +78,10 @@ Cc: =?UTF-8?Q?Krzysztof_Wilczy=c5=84ski?= <kw@linux.com>,
  LINUXWATCHDOG <linux-watchdog@vger.kernel.org>, Rob Herring <robh@kernel.org>,
  Marc Zyngier <maz@kernel.org>, Bartosz Golaszewski <brgl@bgdev.pl>,
  Jonathan Hunter <jonathanh@nvidia.com>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ Andy Shevchenko <andy.shevchenko@gmail.com>,
+ Guenter Roeck <linux@roeck-us.net>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Mathias Nyman <mathias.nyman@intel.com>,
  Matti Vaittinen <mazziesaccount@gmail.com>,
  "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
  Mark Brown <broonie@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
@@ -94,13 +89,13 @@ Cc: =?UTF-8?Q?Krzysztof_Wilczy=c5=84ski?= <kw@linux.com>,
  linux-arm Mailing List <linux-arm-kernel@lists.infradead.org>,
  Felipe Balbi <balbi@kernel.org>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- USB <linux-usb@vger.kernel.org>, Nicolas Ferre <nicolas.ferre@microchip.com>,
+ USB <linux-usb@vger.kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
  Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
  Daniel Vetter <daniel@ffwll.ch>, Richard Weinberger <richard@nod.at>,
- =?UTF-8?Q?Pali_Roh=c3=a1r?= <pali@kernel.org>,
+ Pali =?iso-8859-1?Q?Roh=E1r?= <pali@kernel.org>,
  Claudiu Beznea <claudiu.beznea@microchip.com>
-Subject: Re: [Linux-stm32] [PATCH v1 04/11] usb: phy: tegra: switch to using
- devm_gpiod_get()
+Subject: Re: [Linux-stm32] [PATCH v1 02/11] drm/tegra: switch to using
+	devm_fwnode_gpiod_get
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -112,64 +107,49 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 9/5/22 12:55, Andy Shevchenko wrote:
-> On Mon, Sep 5, 2022 at 10:51 PM Dmitry Torokhov
+On Mon, Sep 05, 2022 at 11:03:38PM +0200, Linus Walleij wrote:
+> On Mon, Sep 5, 2022 at 9:37 PM Dmitry Torokhov
 > <dmitry.torokhov@gmail.com> wrote:
->> On Mon, Sep 05, 2022 at 10:41:40PM +0300, Andy Shevchenko wrote:
->>> On Mon, Sep 5, 2022 at 10:40 PM Dmitry Torokhov
->>> <dmitry.torokhov@gmail.com> wrote:
->>>> On Mon, Sep 05, 2022 at 01:59:44PM +0300, Andy Shevchenko wrote:
->>>>> On Mon, Sep 5, 2022 at 9:32 AM Dmitry Torokhov
->>>>> <dmitry.torokhov@gmail.com> wrote:
+> > On Mon, Sep 05, 2022 at 01:57:01PM +0300, Andy Shevchenko wrote:
+> > > On Mon, Sep 5, 2022 at 9:32 AM Dmitry Torokhov
+> > > <dmitry.torokhov@gmail.com> wrote:
+> > > >
+> > > > I would like to limit (or maybe even remove) use of
+> > > > [devm_]gpiod_get_from_of_node in drivers so that gpiolib can be cleaned
+> > > > a bit, so let's switch to the generic device property API.
+> > >
+> > > > It may even
+> > > > help with handling secondary fwnodes when gpiolib is taught to handle
+> > > > gpios described by swnodes.
+> > >
+> > > I would remove this sentence from all commit messages since it's a
+> > > debatable thing and might even not happen, so the above is a pure
+> > > speculation.
+> >
+> > I have the patches. Granted, I had them since '19 ;) but I'm rebasing
+> > them and going to push them. I need them to convert bunch of input
+> > drivers away from platform data.
 > 
-> ...
+> That's good news!
 > 
->>>>>> -               gpiod = devm_gpiod_get_from_of_node(&pdev->dev, np,
->>>>>> -                                                   "nvidia,phy-reset-gpio",
->>>>>> -                                                   0, GPIOD_OUT_HIGH,
->>>>>> -                                                   "ulpi_phy_reset_b");
->>>>>> +               gpiod = devm_gpiod_get(&pdev->dev, "nvidia,phy-reset",
->>>>>> +                                      GPIOD_OUT_HIGH);
->>>>>>                  err = PTR_ERR_OR_ZERO(gpiod);
->>>>>
->>>>> What does _OR_ZERO mean now?
->>>>
->>>> This converts a pointer to an error code if a pointer represents
->>>> ERR_PTR() encoded error, or 0 to indicate success.
->>>
->>> Yes, I know that. My point is, how is it useful now (or even before)?
->>> I mean that devm_gpio_get() never returns NULL, right?
->>
->> What does returning NULL have to do with anything.
+> Are you referring to this patch set mentioned in a discussion
+> from 2017 thru 2020?
+> https://lore.kernel.org/linux-input/20200826161222.GA1665100@dtor-ws/
 > 
-> It has to do with a dead code. If defm_gpiod_get() does not return
-> NULL, then why do we even bother to check?
-> 
+> I put aside GPIO descriptor conversion for input devices (keys, buttons)
+> in board files anticipating a swnode mechanism.
 
-PTR_ERR_OR_ZERO() converts into an error code (if the pointer is an
-ERR_PTR) or 0 if it is a real pointer. Its purpose is not to convert
-NULL into 0, its purpose is to convert a pointer either into an error
-code or 0. That is what is done here, and it is done all over the place
-in the kernel. I don't see your problem with it. Care to explain ?
+Yep, that one, exactly. It is taking a bit longer than I anticipated ;)
 
->> It converts a pointer
->> to a "classic" return code, with negative errors and 0 on success.
->>
->> It allows to not use multiple IS_ERR/PTR_ERR in the code (I'd need 1
->> IS_ERR and 2 PTR_ERR, one in dev_err() and another to return).
-> 
-> I don't see how this is relevant.
-> 
+Thanks.
 
-You lost me. Really, please explain your problem with PTR_ERR_OR_ZERO().
-
-Thanks,
-Guenter
+-- 
+Dmitry
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
