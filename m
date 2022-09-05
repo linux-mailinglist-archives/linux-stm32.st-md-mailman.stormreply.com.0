@@ -2,48 +2,67 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A8D305ADBB9
-	for <lists+linux-stm32@lfdr.de>; Tue,  6 Sep 2022 01:10:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 14EC45ADBCD
+	for <lists+linux-stm32@lfdr.de>; Tue,  6 Sep 2022 01:18:52 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 460FDC640F0;
-	Mon,  5 Sep 2022 23:10:16 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C30F0C640F0;
+	Mon,  5 Sep 2022 23:18:51 +0000 (UTC)
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com
+ [209.85.214.172])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 631DFC0C920
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0A2D3C0C920
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  5 Sep 2022 23:10:15 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id C60E3B81598;
- Mon,  5 Sep 2022 23:10:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 323CBC433D7;
- Mon,  5 Sep 2022 23:10:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1662419413;
- bh=QhxqwrmKqk3hcDpE+kAWZJMWXWXiMx7OLmYa5+ea15I=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=cRSoeEfIVpvF6cCwlub3pnSJQf8zKCY4aEUPtHMtOkNaxfZe1+RUfK+stOROQ5pnl
- 7FbU956qU800+Jb6U6hwdOBoxO4x2FzlbVVVUaZEp0hQquPlSpxbMl7gPJHmGlip/q
- WXeDk2lh/TK49oBj/AAQP6Dst1Z5bl84IrLyRgMJAafIN0kMLxsIsEAjQNvYyihGG9
- h4xRjXdkiTaHf2hIJ2Yatpca7TxPs6KBGxO+xPjerqLTUmJvu4k28lZ30772rihPEH
- I7n720bv3M7ihVFZNddbLANnIMiG1BrKlgvb+eKgjpWzR8KT6CpP2IYFa+iRtTPNF6
- YocV+oaaQMIFA==
-Received: by pali.im (Postfix)
- id 400A37D7; Tue,  6 Sep 2022 01:10:10 +0200 (CEST)
-Date: Tue, 6 Sep 2022 01:10:10 +0200
-From: Pali =?utf-8?B?Um9ow6Fy?= <pali@kernel.org>
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Message-ID: <20220905231010.ojl4i4ph27qtebiy@pali>
+ Mon,  5 Sep 2022 23:18:51 +0000 (UTC)
+Received: by mail-pl1-f172.google.com with SMTP id t3so4550684ply.2
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 05 Sep 2022 16:18:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date:from:to
+ :cc:subject:date;
+ bh=/jqGrlOkEmBNjfkgs8nQW3ROS8ZrNR4/ALxdUn5IrPk=;
+ b=ilcjNtA9e+sPl0lsYgQkDwLCllTb2CiNUB5lHZ6JeNqUXFPhLppke4bm+tXK6piFK1
+ OXX3EAUgJSmDrfpfXWx/gxfIHEm2Ll5i3Co8kZmFkD+xJ+3h2g4/t3iiwcCHTb2nJzBQ
+ lbOD/k+fLbzcC8HBgysilDjSnQ1ZbXkHWL+70V9Wt9ed7HVcmNaLtsVWn3S7QudoyNrm
+ Tq2TeNuUosg71GwV6fxG+rz0aEcyELSi2RShJByRv/vyFIdszNuT6j8i8+cZEV+vX59E
+ NXtPK9gzYwxXVVePAldhDwWgJuboRZn5lOgdBc1/dRtrt2Cv4uHi9z8kuWuYzv1zT79p
+ tLxg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date;
+ bh=/jqGrlOkEmBNjfkgs8nQW3ROS8ZrNR4/ALxdUn5IrPk=;
+ b=SehoNmLDbV8ep+sN/Td6ccqxgli8WGZDHK+w23pB7jUkCnEXwUvoQuJs08bHPiSj23
+ hHD8rAIXQCjjGN8Nih8k0wai9JHFcvPQfoWMpsVPJIEQEW+pLFsJP0WvD3PUH0DFPwM6
+ evuntUPbxDdyuRwsjg46f1hIlVrvUagU4BI/hr8t7CjWqcjN6KNb+MiTIJg+HjJKxUaX
+ O6Vb2ZSv5B0A8//q1ESo3pZ7yoGp1kZnSQZpXynbsEz5jugb63OiAMVn+310aCHUB6PM
+ gs+V/D7NIp40K2UXJOwN8l9nrBtDnmsVgP5vyK2IeG7fxvUGY7nXlQrNwwDI4RwHXDA7
+ i9lw==
+X-Gm-Message-State: ACgBeo2D7xJ5AG0Qj1dTPS4L45eYfG1+LYe5Eh6/PnHKloMic78A1sda
+ TcJws7SWkECK/koCPEI/9+o=
+X-Google-Smtp-Source: AA6agR7SONkgr8pjyY4NZ8VXkSKoPY330/BgoAO00Ts+AQQkwdonx5V0WIHgyPBEPyBYuNfJLCJm0Q==
+X-Received: by 2002:a17:903:186:b0:176:6615:cb8d with SMTP id
+ z6-20020a170903018600b001766615cb8dmr19721305plg.135.1662419929430; 
+ Mon, 05 Sep 2022 16:18:49 -0700 (PDT)
+Received: from google.com ([2620:15c:202:201:1190:fbfa:ae95:111c])
+ by smtp.gmail.com with ESMTPSA id
+ 5-20020a17090a190500b001fe444b2245sm7375447pjg.25.2022.09.05.16.18.47
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 05 Sep 2022 16:18:48 -0700 (PDT)
+Date: Mon, 5 Sep 2022 16:18:44 -0700
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: Pali =?iso-8859-1?Q?Roh=E1r?= <pali@kernel.org>
+Message-ID: <YxaD1Luja4T/osP5@google.com>
 References: <20220903-gpiod_get_from_of_node-remove-v1-0-b29adfb27a6c@gmail.com>
  <20220903-gpiod_get_from_of_node-remove-v1-6-b29adfb27a6c@gmail.com>
  <20220905070046.46nlhczkck2ufr4x@pali>
  <YxZ+PSDRYZnVKfFO@google.com>
+ <20220905231010.ojl4i4ph27qtebiy@pali>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <YxZ+PSDRYZnVKfFO@google.com>
-User-Agent: NeoMutt/20180716
+In-Reply-To: <20220905231010.ojl4i4ph27qtebiy@pali>
 Cc: Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kw@linux.com>,
  Alexandre Belloni <alexandre.belloni@bootlin.com>,
  Vignesh Raghavendra <vigneshr@ti.com>, David Airlie <airlied@linux.ie>,
@@ -79,63 +98,88 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gTW9uZGF5IDA1IFNlcHRlbWJlciAyMDIyIDE1OjU0OjUzIERtaXRyeSBUb3Jva2hvdiB3cm90
-ZToKPiBPbiBNb24sIFNlcCAwNSwgMjAyMiBhdCAwOTowMDo0NkFNICswMjAwLCBQYWxpIFJvaMOh
-ciB3cm90ZToKPiA+IE9uIFN1bmRheSAwNCBTZXB0ZW1iZXIgMjAyMiAyMzozMDo1OCBEbWl0cnkg
-VG9yb2tob3Ygd3JvdGU6Cj4gPiA+IEkgd291bGQgbGlrZSB0byBzdG9wIGV4cG9ydGluZyBPRi1z
-cGVjaWZpYyBkZXZtX2dwaW9kX2dldF9mcm9tX29mX25vZGUoKQo+ID4gPiBzbyB0aGF0IGdwaW9s
-aWIgY2FuIGJlIGNsZWFuZWQgYSBiaXQsIHNvIGxldCdzIHN3aXRjaCB0byB0aGUgZ2VuZXJpYwo+
-ID4gPiBkZXZpY2UgcHJvcGVydHkgQVBJLgo+ID4gPiAKPiA+ID4gSSBiZWxpZXZlIHRoYXQgdGhl
-IG9ubHkgcmVhc29uIHRoZSBkcml2ZXIsIGluc3RlYWQgb2YgdGhlIHN0YW5kYXJkCj4gPiA+IGRl
-dm1fZ3Bpb2RfZ2V0X29wdGlvbmFsKCksIHVzZWQgZGV2bV9ncGlvZF9nZXRfZnJvbV9vZl9ub2Rl
-KCkgaXMKPiA+ID4gYmVjYXVzZSBpdCB3YW50ZWQgdG8gc2V0IHVwIGEgcHJldHR5IGNvbnN1bWVy
-IG5hbWUgZm9yIHRoZSBHUElPLAo+ID4gCj4gPiBJSVJDIGNvbnN1bWVyIG5hbWUgaXMgbm90IHVz
-ZWQgYXQgYWxsLgo+ID4gCj4gPiBUaGUgcmVhc29uIHdhcyB0byBzcGVjaWZ5IGZ1bGwgbmFtZSBv
-ZiBEVFMgcHJvcGVydHksIGZvciBlYXNpZXIKPiA+IGlkZW50aWZpY2F0aW9uIG9mIHRoZSBjb2Rl
-LiBEVFMgcHJvcGVydHkgaXMgInJlc2V0LWdwaW9zIiBidXQgQVBJCj4gPiBzcGVjaWZ5IG9ubHkg
-InJlc2V0Ii4KPiAKPiBJIHNlZS4gRG8geW91IHdhbnQgbWUgdG8gcmVzZXQgdGhlIHBhdGNoIHdp
-dGggdXBkYXRlZCBkZXNjdGlwdGlvbiBhcyB0bwo+IHRoZSByZWFzb24gZGV2bV9ncGlvZF9nZXRf
-ZnJvbV9vZl9ub2RlKCkgd2FzIHVzZWQ/CgpJIHRoaW5rIGl0IGlzIGZpbmUuIFNvIGFkZCBteToK
-CkFja2VkLWJ5OiBQYWxpIFJvaMOhciA8cGFsaUBrZXJuZWwub3JnPgoKQW55d2F5IGFzIGFub3Ro
-ZXIgaW1wcm92ZW1lbnQgZm9yIGZ1dHVyZSBJIHdvdWxkIHN1Z2dlc3Qgc29tZSBBUEkKZnVuY3Rp
-b24gd2l0aCBfb3B0aW9uYWxfIGxvZ2ljLCBzbyBpdCBjb3VsZCBiZSB1c2VkIGZvciBtb3JlIFBD
-SWUKY29udHJvbGxlciBkcml2ZXJzIChlLmcuIGFsc28gdGVncmEpIHdpdGhvdXQgbmVlZCB0byBy
-ZWltcGxlbWVudAotRU5PRU5UIGhhbmRsaW5nLiBJdCBpcyByZWFsbHkgc3RyYW5nZSBpZiBmb3Ig
-YWNxdWlyaW5nIHNhbWUgUEVSU1QjCmxpbmUgdmlhIEdQSU8gKCJyZXNldC1ncGlvcyIgRFQgcHJv
-cGVydHkpIGFyZSB1c2VkIG1vcmUgQVBJIGZ1bmN0aW9ucwppbiBkaWZmZXJlbnQgUENJZSBkcml2
-ZXJzLgoKPiA+IAo+ID4gPiBhbmQgd2Ugbm93IGhhdmUgYSBzcGVjaWFsIEFQSSBmb3IgdGhhdC4K
-PiA+ID4gCj4gPiA+IFNpZ25lZC1vZmYtYnk6IERtaXRyeSBUb3Jva2hvdiA8ZG1pdHJ5LnRvcm9r
-aG92QGdtYWlsLmNvbT4KPiA+ID4gCj4gPiA+IGRpZmYgLS1naXQgYS9kcml2ZXJzL3BjaS9jb250
-cm9sbGVyL3BjaS1hYXJkdmFyay5jIGIvZHJpdmVycy9wY2kvY29udHJvbGxlci9wY2ktYWFyZHZh
-cmsuYwo+ID4gPiBpbmRleCA0ODM0MTk4Y2M4NmIuLjRhOGE0YTg1MjJjYiAxMDA2NDQKPiA+ID4g
-LS0tIGEvZHJpdmVycy9wY2kvY29udHJvbGxlci9wY2ktYWFyZHZhcmsuYwo+ID4gPiArKysgYi9k
-cml2ZXJzL3BjaS9jb250cm9sbGVyL3BjaS1hYXJkdmFyay5jCj4gPiA+IEBAIC0xODU2LDIwICsx
-ODU2LDE5IEBAIHN0YXRpYyBpbnQgYWR2a19wY2llX3Byb2JlKHN0cnVjdCBwbGF0Zm9ybV9kZXZp
-Y2UgKnBkZXYpCj4gPiA+ICAJCXJldHVybiByZXQ7Cj4gPiA+ICAJfQo+ID4gPiAgCj4gPiA+IC0J
-cGNpZS0+cmVzZXRfZ3BpbyA9IGRldm1fZ3Bpb2RfZ2V0X2Zyb21fb2Zfbm9kZShkZXYsIGRldi0+
-b2Zfbm9kZSwKPiA+ID4gLQkJCQkJCSAgICAgICAicmVzZXQtZ3Bpb3MiLCAwLAo+ID4gPiAtCQkJ
-CQkJICAgICAgIEdQSU9EX09VVF9MT1csCj4gPiA+IC0JCQkJCQkgICAgICAgInBjaWUxLXJlc2V0
-Iik7Cj4gPiA+ICsJcGNpZS0+cmVzZXRfZ3BpbyA9IGRldm1fZ3Bpb2RfZ2V0X29wdGlvbmFsKGRl
-diwgInJlc2V0IiwgR1BJT0RfT1VUX0xPVyk7Cj4gPiA+ICAJcmV0ID0gUFRSX0VSUl9PUl9aRVJP
-KHBjaWUtPnJlc2V0X2dwaW8pOwo+ID4gPiAgCWlmIChyZXQpIHsKPiA+ID4gLQkJaWYgKHJldCA9
-PSAtRU5PRU5UKSB7Cj4gPiA+IC0JCQlwY2llLT5yZXNldF9ncGlvID0gTlVMTDsKPiA+ID4gLQkJ
-fSBlbHNlIHsKPiA+ID4gLQkJCWlmIChyZXQgIT0gLUVQUk9CRV9ERUZFUikKPiA+ID4gLQkJCQlk
-ZXZfZXJyKGRldiwgIkZhaWxlZCB0byBnZXQgcmVzZXQtZ3BpbzogJWlcbiIsCj4gPiA+IC0JCQkJ
-CXJldCk7Cj4gPiA+IC0JCQlyZXR1cm4gcmV0Owo+ID4gPiAtCQl9Cj4gPiA+ICsJCWlmIChyZXQg
-IT0gLUVQUk9CRV9ERUZFUikKPiA+ID4gKwkJCWRldl9lcnIoZGV2LCAiRmFpbGVkIHRvIGdldCBy
-ZXNldC1ncGlvOiAlaVxuIiwKPiA+ID4gKwkJCQlyZXQpOwo+ID4gPiArCQlyZXR1cm4gcmV0Owo+
-ID4gPiArCX0KPiA+ID4gKwo+ID4gPiArCXJldCA9IGdwaW9kX3NldF9jb25zdW1lcl9uYW1lKHBj
-aWUtPnJlc2V0X2dwaW8sICJwY2llMS1yZXNldCIpOwo+ID4gPiArCWlmIChyZXQpIHsKPiA+ID4g
-KwkJZGV2X2VycihkZXYsICJGYWlsZWQgdG8gc2V0IHJlc2V0IGdwaW8gbmFtZTogJWRcbiIsIHJl
-dCk7Cj4gPiA+ICsJCXJldHVybiByZXQ7Cj4gPiA+ICAJfQo+ID4gPiAgCj4gPiA+ICAJcmV0ID0g
-b2ZfcGNpX2dldF9tYXhfbGlua19zcGVlZChkZXYtPm9mX25vZGUpOwo+ID4gPiAKPiA+ID4gLS0g
-Cj4gPiA+IGI0IDAuMTAuMC1kZXYtZmM5MjEKPiAKPiBUaGFua3MuCj4gCj4gLS0gCj4gRG1pdHJ5
-Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0
-bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29t
-Cmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xp
-bnV4LXN0bTMyCg==
+On Tue, Sep 06, 2022 at 01:10:10AM +0200, Pali Roh=E1r wrote:
+> On Monday 05 September 2022 15:54:53 Dmitry Torokhov wrote:
+> > On Mon, Sep 05, 2022 at 09:00:46AM +0200, Pali Roh=E1r wrote:
+> > > On Sunday 04 September 2022 23:30:58 Dmitry Torokhov wrote:
+> > > > I would like to stop exporting OF-specific devm_gpiod_get_from_of_n=
+ode()
+> > > > so that gpiolib can be cleaned a bit, so let's switch to the generic
+> > > > device property API.
+> > > > =
+
+> > > > I believe that the only reason the driver, instead of the standard
+> > > > devm_gpiod_get_optional(), used devm_gpiod_get_from_of_node() is
+> > > > because it wanted to set up a pretty consumer name for the GPIO,
+> > > =
+
+> > > IIRC consumer name is not used at all.
+> > > =
+
+> > > The reason was to specify full name of DTS property, for easier
+> > > identification of the code. DTS property is "reset-gpios" but API
+> > > specify only "reset".
+> > =
+
+> > I see. Do you want me to reset the patch with updated desctiption as to
+> > the reason devm_gpiod_get_from_of_node() was used?
+> =
+
+> I think it is fine. So add my:
+> =
+
+> Acked-by: Pali Roh=E1r <pali@kernel.org>
+> =
+
+> Anyway as another improvement for future I would suggest some API
+> function with _optional_ logic, so it could be used for more PCIe
+
+I think we need to see how many are attaching reset lines to subnodes.
+If there are multiple then I agree we could add _optional. So far I see:
+
+dtor@dtor-ws:~/kernel/linux-next (gpiod_get_from_of_node-remove)$ git grep =
+'"reset"' -- drivers/pci/controller/
+drivers/pci/controller/cadence/pci-j721e.c:             gpiod =3D devm_gpio=
+d_get_optional(dev, "reset", GPIOD_OUT_LOW);
+drivers/pci/controller/dwc/pci-keystone.c:      gpiod =3D devm_gpiod_get_op=
+tional(dev, "reset",
+drivers/pci/controller/dwc/pci-meson.c: mp->reset_gpio =3D devm_gpiod_get(d=
+ev, "reset", GPIOD_OUT_LOW);
+drivers/pci/controller/dwc/pcie-dw-rockchip.c:  rockchip->rst_gpio =3D devm=
+_gpiod_get_optional(&pdev->dev, "reset",
+drivers/pci/controller/dwc/pcie-fu740.c:        afp->reset =3D devm_gpiod_g=
+et_optional(dev, "reset", GPIOD_OUT_LOW);
+drivers/pci/controller/dwc/pcie-intel-gw.c:     pcie->reset_gpio =3D devm_g=
+piod_get(dev, "reset", GPIOD_OUT_LOW);
+drivers/pci/controller/dwc/pcie-keembay.c:      pcie->reset =3D devm_gpiod_=
+get(dev, "reset", GPIOD_OUT_HIGH);
+drivers/pci/controller/dwc/pcie-qcom-ep.c:      pcie_ep->reset =3D devm_gpi=
+od_get(dev, "reset", GPIOD_IN);
+drivers/pci/controller/dwc/pcie-tegra194.c:     pcie->pex_rst_gpiod =3D dev=
+m_gpiod_get(pcie->dev, "reset", GPIOD_IN);
+drivers/pci/controller/pci-aardvark.c:  pcie->reset_gpio =3D devm_gpiod_get=
+_optional(dev, "reset", GPIOD_OUT_LOW);
+drivers/pci/controller/pci-tegra.c:                                        =
+            "reset",
+drivers/pci/controller/pcie-apple.c:                                   "res=
+et", 0, GPIOD_OUT_LOW, "PERST#");
+drivers/pci/controller/pcie-mt7621.c:   port->gpio_rst =3D devm_gpiod_get_i=
+ndex_optional(dev, "reset", slot,
+
+So majority have reset lines attached to the "main" node and thus can use
+devm_gpiod_get_optional().
+
+Thanks.
+
+-- =
+
+Dmitry
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
