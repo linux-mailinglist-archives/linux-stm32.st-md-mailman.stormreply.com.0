@@ -2,71 +2,95 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4631B5ACF2B
-	for <lists+linux-stm32@lfdr.de>; Mon,  5 Sep 2022 11:50:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 051FA5AD1DA
+	for <lists+linux-stm32@lfdr.de>; Mon,  5 Sep 2022 13:53:31 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EA2CBC640FE;
-	Mon,  5 Sep 2022 09:50:40 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A8E00C55596;
+	Mon,  5 Sep 2022 11:53:30 +0000 (UTC)
+Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com
+ [209.85.167.42])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A3CA0C04003
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C6C04C035BF
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  5 Sep 2022 07:19:06 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 7E5BB61041;
- Mon,  5 Sep 2022 07:19:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B0A82C433C1;
- Mon,  5 Sep 2022 07:19:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1662362344;
- bh=19nxD2OgHF2QVoth2PFq3CxZH5zVFIqpZyEzuI/YHbw=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=A5IVl+JOjFxfodqmnjA5/iplAcU9jdP05wWuvEqZCUxiPZuyoNor7xgxpbYXB6NVK
- 7DcajL5+Q4Jwv4XR1AvPOAXkUgrwSH/Ov7HM3KXUEl/b4BKQG5MdZ5GTO8igdjjVEV
- HR2BrWQ7cSeUZcnhf0SNpLKhbJC0AEjYvFObLKGjaI4ohnPRXMXtOd+2eSUbXERAnn
- Wt+aJ6+72CZQwxjMiKfr0QzSL2qh96wXclEVsX5h4ma+908Zyb6OVtZsD0AEGTokvq
- Z4gsx2A9lpZW+2kJWomwEZtX41BXuoB9ZUs+w+vRDjrWEAYqK9IYV1wftZ4A4k/PEn
- RnEC8ylDHE6IA==
-Received: by pali.im (Postfix)
- id 32DB27D7; Mon,  5 Sep 2022 09:19:02 +0200 (CEST)
-Date: Mon, 5 Sep 2022 09:19:02 +0200
-From: Pali =?utf-8?B?Um9ow6Fy?= <pali@kernel.org>
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Message-ID: <20220905071902.fv4uozrsttk3mosu@pali>
-References: <20220903-gpiod_get_from_of_node-remove-v1-0-b29adfb27a6c@gmail.com>
- <20220903-gpiod_get_from_of_node-remove-v1-1-b29adfb27a6c@gmail.com>
+ Mon,  5 Sep 2022 09:55:29 +0000 (UTC)
+Received: by mail-lf1-f42.google.com with SMTP id g7so12325887lfe.11
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 05 Sep 2022 02:55:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date;
+ bh=m6bwvWKIYsYkkQiw6WkHW3VenkfYyqcqiN7fetf2fKA=;
+ b=IHLIbQ5vHZQVIyqqjxII8xfEjM3Q6fZoeMqDFdIiU0vsFp6oi7h0IwMdNfx1vPlnFp
+ ZPEemHQtgtDg6DfHplUdQ9jQ9sLqz7D7QN4FLqbsDi3rJNDxpjjlWDcgUMOkA9w2Tjs9
+ x9VWcOV0/2DW1Hg36LsG6DteksM93YpJyP0rfadAndCJKb/yY4pF55KE51FqNTxioDRe
+ KBJzVpsAFs2k6LKzsnJmjaNF0PAQrTJoMhIKZekTRu34MSjNFM9c+GyRzLjBHe1ybOQZ
+ eLbeL6kyIXJDXmENmbtGhQKPn5KPfZrIYSXNEMQPhMhg5ikHY+XI6LCK0LoPM/K1/Mnt
+ uzTQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date;
+ bh=m6bwvWKIYsYkkQiw6WkHW3VenkfYyqcqiN7fetf2fKA=;
+ b=Vv3hzT2f18n3SVu/inBBNitqR5glY3U/NFbPKv2/GZtMLzhF2kj5z8UK6qcDmKUM54
+ 5H+c882GpUzFM1OSLAnUDJK+m6VmuYK7Sz8QSIdNDJ+Me7BfldcdpGCx/lTuTT0pO30o
+ 4Kgl6wBlsu1I8Seh2D+gGCm8OmSqwYegIpAWYVUQkRj1PEGz9gTu5HvCjqk/Q8QC44pG
+ 4vmRn51KBEs8mB9jJRgt8LXekHyY6MS9vEjbSXrTF66+kUmpJVYkVp4vJlaV9y9dqmsu
+ n0W2frdI/fd1KnWzaSthH5zERi9kQGV2uQ99UwY8jucm48DKFhyfItoYkqQOQ2r//oei
+ af9Q==
+X-Gm-Message-State: ACgBeo1ZT2DWW9qksS9UzNAW2jpGHYj74IOrzA9XQhwQI9sI1o3ONZSx
+ FMRJ/NWoAT7wp0hbvYf1x28=
+X-Google-Smtp-Source: AA6agR4gwPt5aivllJzzHsjCuIDbWlzFIp6/PHCkmSvNiw6IUsaZdTaionvGINkVRjZdKCtkzi3jFA==
+X-Received: by 2002:a19:6b16:0:b0:48c:e218:7c51 with SMTP id
+ d22-20020a196b16000000b0048ce2187c51mr15164353lfa.681.1662371728951; 
+ Mon, 05 Sep 2022 02:55:28 -0700 (PDT)
+Received: from [172.16.194.135] ([213.255.186.46])
+ by smtp.gmail.com with ESMTPSA id
+ v27-20020ac258fb000000b0048b13d0b896sm1141980lfo.141.2022.09.05.02.55.27
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 05 Sep 2022 02:55:28 -0700 (PDT)
+Message-ID: <4a536310-3f79-d248-dc48-5cdbd640e04a@gmail.com>
+Date: Mon, 5 Sep 2022 12:55:26 +0300
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20220903-gpiod_get_from_of_node-remove-v1-1-b29adfb27a6c@gmail.com>
-User-Agent: NeoMutt/20180716
-X-Mailman-Approved-At: Mon, 05 Sep 2022 09:50:40 +0000
-Cc: Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kw@linux.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Vignesh Raghavendra <vigneshr@ti.com>, David Airlie <airlied@linux.ie>,
- linux-pci@vger.kernel.org, Linus Walleij <linus.walleij@linaro.org>,
- dri-devel@lists.freedesktop.org, Liam Girdwood <lgirdwood@gmail.com>,
- linux-tegra@vger.kernel.org, Thierry Reding <thierry.reding@gmail.com>,
- linux-mtd@lists.infradead.org, Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- Miquel Raynal <miquel.raynal@bootlin.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Alyssa Rosenzweig <alyssa@rosenzweig.io>, linux-watchdog@vger.kernel.org,
- Rob Herring <robh@kernel.org>, Marc Zyngier <maz@kernel.org>,
- Bartosz Golaszewski <brgl@bgdev.pl>, Jonathan Hunter <jonathanh@nvidia.com>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>, Guenter Roeck <linux@roeck-us.net>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Matti Vaittinen <mazziesaccount@gmail.com>, linux-gpio@vger.kernel.org,
- Mark Brown <broonie@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.12.0
+Content-Language: en-US
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+ Thierry Reding <thierry.reding@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ Claudiu Beznea <claudiu.beznea@microchip.com>,
+ Liam Girdwood <lgirdwood@gmail.com>,
  Wim Van Sebroeck <wim@linux-watchdog.org>,
- linux-arm-kernel@lists.infradead.org, Felipe Balbi <balbi@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
- Nicolas Ferre <nicolas.ferre@microchip.com>, linux-kernel@vger.kernel.org,
- Daniel Vetter <daniel@ffwll.ch>, Richard Weinberger <richard@nod.at>,
- Claudiu Beznea <claudiu.beznea@microchip.com>
-Subject: Re: [Linux-stm32] [PATCH v1 01/11] PCI: tegra: switch to using
- devm_fwnode_gpiod_get
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Guenter Roeck <linux@roeck-us.net>, Miquel Raynal
+ <miquel.raynal@bootlin.com>, Linus Walleij <linus.walleij@linaro.org>,
+ Felipe Balbi <balbi@kernel.org>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ =?UTF-8?Q?Krzysztof_Wilczy=c5=84ski?= <kw@linux.com>,
+ Vignesh Raghavendra <vigneshr@ti.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Marc Zyngier <maz@kernel.org>, Richard Weinberger <richard@nod.at>,
+ David Airlie <airlied@linux.ie>, Nicolas Ferre
+ <nicolas.ferre@microchip.com>, Alyssa Rosenzweig <alyssa@rosenzweig.io>,
+ Bartosz Golaszewski <brgl@bgdev.pl>, Jonathan Hunter <jonathanh@nvidia.com>,
+ Rob Herring <robh@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Bjorn Helgaas <bhelgaas@google.com>, =?UTF-8?Q?Pali_Roh=c3=a1r?=
+ <pali@kernel.org>
+References: <20220903-gpiod_get_from_of_node-remove-v1-0-b29adfb27a6c@gmail.com>
+ <20220903-gpiod_get_from_of_node-remove-v1-8-b29adfb27a6c@gmail.com>
+From: Matti Vaittinen <mazziesaccount@gmail.com>
+In-Reply-To: <20220903-gpiod_get_from_of_node-remove-v1-8-b29adfb27a6c@gmail.com>
+X-Mailman-Approved-At: Mon, 05 Sep 2022 11:53:29 +0000
+Cc: linux-watchdog@vger.kernel.org, linux-pci@vger.kernel.org,
+ linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-gpio@vger.kernel.org,
+ linux-mtd@lists.infradead.org, linux-tegra@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v1 08/11] regulator: bd71815: switch to
+ using devm_fwnode_gpiod_get()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,49 +102,49 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Sunday 04 September 2022 23:30:53 Dmitry Torokhov wrote:
-> I would like to limit (or maybe even remove) use of
-> [devm_]gpiod_get_from_of_node in drivers so that gpiolib can be cleaned
-> a bit, so let's switch to the generic device property API. It may even
-> help with handling secondary fwnodes when gpiolib is taught to handle
-> gpios described by swnodes.
+On 9/5/22 09:31, Dmitry Torokhov wrote:
+> I would like to stop exporting OF-specific devm_gpiod_get_from_of_node()
+> so that gpiolib can be cleaned a bit, so let's switch to the generic
+> fwnode property API.
 > 
 > Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-> 
-> diff --git a/drivers/pci/controller/pci-tegra.c b/drivers/pci/controller/pci-tegra.c
-> index 8e323e93be91..929f9363e94b 100644
-> --- a/drivers/pci/controller/pci-tegra.c
-> +++ b/drivers/pci/controller/pci-tegra.c
-> @@ -2202,10 +2202,11 @@ static int tegra_pcie_parse_dt(struct tegra_pcie *pcie)
->  		 * and in this case fall back to using AFI per port register
->  		 * to toggle PERST# SFIO line.
->  		 */
-> -		rp->reset_gpio = devm_gpiod_get_from_of_node(dev, port,
-> -							     "reset-gpios", 0,
-> -							     GPIOD_OUT_LOW,
-> -							     label);
-> +		rp->reset_gpio = devm_fwnode_gpiod_get(dev,
-> +						       of_fwnode_handle(port),
-> +						       "reset",
-> +						       GPIOD_OUT_LOW,
-> +						       label);
 
-Why in pci-aardvark.c for PERST# reset-gpio you have used
-devm_gpiod_get_optional() and here in pci-tegra.c you have used
-devm_fwnode_gpiod_get()? I think that PERST# logic is same in both
-drivers.
+Reviewed-by: Matti Vaittinen <mazziesaccount@gmail.com>
 
->  		if (IS_ERR(rp->reset_gpio)) {
->  			if (PTR_ERR(rp->reset_gpio) == -ENOENT) {
->  				rp->reset_gpio = NULL;
 > 
-> -- 
-> b4 0.10.0-dev-fc921
+> diff --git a/drivers/regulator/bd71815-regulator.c b/drivers/regulator/bd71815-regulator.c
+> index acaa6607898e..c2b8b8be7824 100644
+> --- a/drivers/regulator/bd71815-regulator.c
+> +++ b/drivers/regulator/bd71815-regulator.c
+> @@ -571,11 +571,10 @@ static int bd7181x_probe(struct platform_device *pdev)
+>   		dev_err(&pdev->dev, "No parent regmap\n");
+>   		return -ENODEV;
+>   	}
+> -	ldo4_en = devm_gpiod_get_from_of_node(&pdev->dev,
+> -					      pdev->dev.parent->of_node,
+> -						 "rohm,vsel-gpios", 0,
+> -						 GPIOD_ASIS, "ldo4-en");
+>   
+> +	ldo4_en = devm_fwnode_gpiod_get(&pdev->dev,
+> +					dev_fwnode(pdev->dev.parent),
+> +					"rohm,vsel", GPIOD_ASIS, "ldo4-en");
+>   	if (IS_ERR(ldo4_en)) {
+>   		ret = PTR_ERR(ldo4_en);
+>   		if (ret != -ENOENT)
+> 
+
+
+-- 
+Matti Vaittinen
+Linux kernel developer at ROHM Semiconductors
+Oulu Finland
+
+~~ When things go utterly wrong vim users can always type :help! ~~
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
