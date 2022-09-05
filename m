@@ -2,68 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5D6895AD0B3
-	for <lists+linux-stm32@lfdr.de>; Mon,  5 Sep 2022 12:55:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 997645AD0DA
+	for <lists+linux-stm32@lfdr.de>; Mon,  5 Sep 2022 12:57:40 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 26E70C640FE;
-	Mon,  5 Sep 2022 10:55:14 +0000 (UTC)
-Received: from mail-qk1-f177.google.com (mail-qk1-f177.google.com
- [209.85.222.177])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5B4FDC640FE;
+	Mon,  5 Sep 2022 10:57:40 +0000 (UTC)
+Received: from mail-qt1-f182.google.com (mail-qt1-f182.google.com
+ [209.85.160.182])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9A4DDC640F0
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 31CB8C640F0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  5 Sep 2022 10:55:12 +0000 (UTC)
-Received: by mail-qk1-f177.google.com with SMTP id a10so6042081qkl.13
+ Mon,  5 Sep 2022 10:57:38 +0000 (UTC)
+Received: by mail-qt1-f182.google.com with SMTP id j17so5855554qtp.12
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 05 Sep 2022 03:55:12 -0700 (PDT)
+ Mon, 05 Sep 2022 03:57:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date;
- bh=u5wXdybY4V4FdQrWKDhVN8YtAVKPzLButJ1sTRP8l1Y=;
- b=fN9ls9YPkyuUBAxr4wBmegmBCd5C9P/xaFPwXqy2FgkVzhIWNFNVR0bIehn1eXCf3d
- zobAQyMxj0Z6zjuSqQChSLqXx/lGBZnOoXZuh0swZ9USSGOks25+oXU6FAesXBD3v2DQ
- L68l4C/DyY0LtBFJIREWTz0QAYiKWOW4FJBp9fKNmjWxzb09XWs8F+aM06q4SUWIESBO
- xHTM6IpS/sM1qQMre3AApRlHWbfBdhbDuAOnnGrdzMosW5f0QYLusQvgZq38fCbtCj8+
- st+OCZ16eP1EI4yU9tRWvtbyzF+xtAD5mGA4eMQrLw3MtKQV7zXu1TtVJ7pKICr8G27y
- D+Cg==
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date;
+ bh=SceFooGsQvk4/DBXpk/M7nv2E1Tqfm+MkuaSRZ3qev8=;
+ b=QgN1fKt4DP2kb7sAiv+5KFok8U8dxv0x5611ZTop3HKEETihbtz9RufJ5RUJvT6oy3
+ NsDYXvFgWk/79gT0t031cWuTJ9+0anNKT0/QMVUymrmw27VD2+Q9Fvf/a4F1TUNnaeSG
+ rqxNiZxP2226FfdS2mZJiVeLEcQ2F7NOQTCivGpJw3EJafbSCKZtnmajkVfO//JmwESc
+ OQ+A5m2uZ9uWB9V0ddapJ9/fH/JlBtRhD0Pv/BF1sgrOUoMmJeKFvXNsijHb3izSghCC
+ dWQbrWPcWtAWtUFpsLJaj3WsvtsNYlDXfe5EMqd/eXC/8JZqf2A/mHdQZ+FdhXMyXOQX
+ cbsA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date;
- bh=u5wXdybY4V4FdQrWKDhVN8YtAVKPzLButJ1sTRP8l1Y=;
- b=N8DR6Xgr0WKjzsZKytd2YLq9TOir2KGMPsNQBxBVP6bwkb9SbGnJfrqEK6KBoHb0RI
- 1WgUQeyfg2XWYGdac5tUv7fO5cFmt083+18UqSIQzhagCk7nakpvYYeKxNrtmbGxrMSk
- aR8HHp4kWOn23mee06XdltXCgQqNU4jmdJyvV79KHzrNs1dwrAnw720Zz0oKkUx8knYW
- jP+pSkkqJabHchiuQADcZVW+dXpZUeBxL8XpBoUeCvcLc3jdffBWSZ1KRPdDCm+bTKEJ
- W4KEnQrhxGKYRrwDTjIPZkZaivIwjhzPTR5ef5n/2eszWXn/B9DM577C0ZM5xqUpkKZd
- aH9A==
-X-Gm-Message-State: ACgBeo1thyL2En3lLp8526pKol8qUUslkWJVEXbLPXQOck2V6ZpBgrwK
- yiDJZsQtHhW8ZXLz6bSBgCC9e1i6cFUysifgHNU=
-X-Google-Smtp-Source: AA6agR4kYjGXWf3gIvqIWbBUJGizexBviWISl//lL9gbx6ZDHQvEVsxtbzoy40VfO0zOsVmlCvX9hRiizwzJ1xcnYOU=
-X-Received: by 2002:a05:620a:2987:b0:6ba:dc04:11ae with SMTP id
- r7-20020a05620a298700b006badc0411aemr31582222qkp.748.1662375311598; Mon, 05
- Sep 2022 03:55:11 -0700 (PDT)
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date;
+ bh=SceFooGsQvk4/DBXpk/M7nv2E1Tqfm+MkuaSRZ3qev8=;
+ b=5celbDmGmEHJv/JYhs/QPQBHlu78OWrWYHckSYwCSwi6X8wdz9UW6EunudkofuX88t
+ geu+thMAvOV2z6StritdebQfLMPF4ulx424dVA7iBYoKv3dsRp5p1/XI16uNH+qA+mcA
+ BTKEp0z/qk4qUQ+p1ChOVO4jW0uHQ4xVwTiAiAYRO3GWLDHEP7O3zzwjWU5B0KGJgmng
+ KUeOXss3iHQjjLwxj7h9F5UGPUI0xQlQaRilSbw/IIDUDBljMP/M99LwJ94f4spkDHPv
+ evzzwD5F5tD3Leg8DhqOLXuqNTactP1zO7cSPyCykFlKLih2plbDYFDCGpwidez35iMJ
+ anXw==
+X-Gm-Message-State: ACgBeo3wiwJCR0TRHCnGcHTd6GxDJREeRZ0deRKz/PteEg5qptm7A1G7
+ yVoInWRvhE3bH5dMo3EFAwY/cUFlUMJMVnBuBP0=
+X-Google-Smtp-Source: AA6agR60W0s2Xg2TAEJ7W+zD52eGjGAMZEZ33WklScUG5wc6dHREuBxFFHnQsCibmN0jWps5VKuSjG68kRfEhV6Vu4I=
+X-Received: by 2002:a05:622a:40a:b0:343:77ba:727f with SMTP id
+ n10-20020a05622a040a00b0034377ba727fmr39279991qtx.481.1662375457185; Mon, 05
+ Sep 2022 03:57:37 -0700 (PDT)
 MIME-Version: 1.0
 References: <20220903-gpiod_get_from_of_node-remove-v1-0-b29adfb27a6c@gmail.com>
- <20220903-gpiod_get_from_of_node-remove-v1-1-b29adfb27a6c@gmail.com>
- <20220905071902.fv4uozrsttk3mosu@pali>
- <CAHp75Vf5R03nq6JmpVcVNX9L5CwM-uOmF39oHSZFP3QJe+GExQ@mail.gmail.com>
- <20220905105341.z2pjlpljitws3j6l@pali>
-In-Reply-To: <20220905105341.z2pjlpljitws3j6l@pali>
+ <20220903-gpiod_get_from_of_node-remove-v1-2-b29adfb27a6c@gmail.com>
+In-Reply-To: <20220903-gpiod_get_from_of_node-remove-v1-2-b29adfb27a6c@gmail.com>
 From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Mon, 5 Sep 2022 13:54:35 +0300
-Message-ID: <CAHp75VedhWXbEG6kpObbpnyPE3M3dCM7nEyupJr+rwKj0kVC8w@mail.gmail.com>
-To: =?UTF-8?Q?Pali_Roh=C3=A1r?= <pali@kernel.org>
+Date: Mon, 5 Sep 2022 13:57:01 +0300
+Message-ID: <CAHp75Vc4yfh0JcY0B-vNawHTay5QNuhd7GAm86QZZZvUnQaMzQ@mail.gmail.com>
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
 Cc: =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kw@linux.com>,
  Alexandre Belloni <alexandre.belloni@bootlin.com>,
- USB <linux-usb@vger.kernel.org>, Vignesh Raghavendra <vigneshr@ti.com>,
- David Airlie <airlied@linux.ie>, linux-pci <linux-pci@vger.kernel.org>,
+ Vignesh Raghavendra <vigneshr@ti.com>, David Airlie <airlied@linux.ie>,
+ linux-pci <linux-pci@vger.kernel.org>,
  Linus Walleij <linus.walleij@linaro.org>,
  dri-devel <dri-devel@lists.freedesktop.org>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- linux-tegra <linux-tegra@vger.kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, linux-tegra <linux-tegra@vger.kernel.org>,
  Thierry Reding <thierry.reding@gmail.com>,
  "open list:MEMORY TECHNOLOGY..." <linux-mtd@lists.infradead.org>,
  Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
@@ -82,12 +77,12 @@ Cc: =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kw@linux.com>,
  linux-arm Mailing List <linux-arm-kernel@lists.infradead.org>,
  Felipe Balbi <balbi@kernel.org>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>,
- Liam Girdwood <lgirdwood@gmail.com>,
+ USB <linux-usb@vger.kernel.org>, Nicolas Ferre <nicolas.ferre@microchip.com>,
  Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
  Daniel Vetter <daniel@ffwll.ch>, Richard Weinberger <richard@nod.at>,
+ =?UTF-8?Q?Pali_Roh=C3=A1r?= <pali@kernel.org>,
  Claudiu Beznea <claudiu.beznea@microchip.com>
-Subject: Re: [Linux-stm32] [PATCH v1 01/11] PCI: tegra: switch to using
+Subject: Re: [Linux-stm32] [PATCH v1 02/11] drm/tegra: switch to using
 	devm_fwnode_gpiod_get
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -100,19 +95,31 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gTW9uLCBTZXAgNSwgMjAyMiBhdCAxOjUzIFBNIFBhbGkgUm9ow6FyIDxwYWxpQGtlcm5lbC5v
-cmc+IHdyb3RlOgo+IE9uIE1vbmRheSAwNSBTZXB0ZW1iZXIgMjAyMiAxMzo0OToyMSBBbmR5IFNo
-ZXZjaGVua28gd3JvdGU6CgouLi4KCj4gPiBJdCdzIG5vdCB0aGUgc2FtZSBkZXYgYW5kIGl0cyBu
-b2RlIGluIHRoaXMgY2FzZS4gVGhlcmUgaXMgb25lIHJlc2V0Cj4gPiBmb3IgX2FsbF8gcG9ydHMs
-IGhlcmUgaXMgdGhlIHJlc2V0IG9uIF9wZXIgcG9ydF8gYmFzaXMuCj4KPiBhYXJkdmFyayBpcyBz
-aW5nbGUgcG9ydCBjb250cm9sbGVyLiBTbyBpdCBpcyBiYXNpY2FsbHkgc2FtZS4KClllcCwganVz
-dCByZXBsaWVkIHRvIG15IG1lc3NhZ2UuCgotLSAKV2l0aCBCZXN0IFJlZ2FyZHMsCkFuZHkgU2hl
-dmNoZW5rbwpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpM
-aW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJl
-cGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0
-aW5mby9saW51eC1zdG0zMgo=
+On Mon, Sep 5, 2022 at 9:32 AM Dmitry Torokhov
+<dmitry.torokhov@gmail.com> wrote:
+>
+> I would like to limit (or maybe even remove) use of
+> [devm_]gpiod_get_from_of_node in drivers so that gpiolib can be cleaned
+> a bit, so let's switch to the generic device property API.
+
+> It may even
+> help with handling secondary fwnodes when gpiolib is taught to handle
+> gpios described by swnodes.
+
+I would remove this sentence from all commit messages since it's a
+debatable thing and might even not happen, so the above is a pure
+speculation.
+
+
+-- 
+With Best Regards,
+Andy Shevchenko
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
