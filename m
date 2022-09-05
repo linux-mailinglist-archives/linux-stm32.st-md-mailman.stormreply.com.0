@@ -2,55 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A6A9A5AD12F
-	for <lists+linux-stm32@lfdr.de>; Mon,  5 Sep 2022 13:09:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BB7A55AD139
+	for <lists+linux-stm32@lfdr.de>; Mon,  5 Sep 2022 13:13:46 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 31844C0C920;
-	Mon,  5 Sep 2022 11:09:48 +0000 (UTC)
-Received: from mail-qv1-f51.google.com (mail-qv1-f51.google.com
- [209.85.219.51])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 77248C640F0;
+	Mon,  5 Sep 2022 11:13:46 +0000 (UTC)
+Received: from mail-qv1-f44.google.com (mail-qv1-f44.google.com
+ [209.85.219.44])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A19F6C55596
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 425E3C0AA15
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  5 Sep 2022 11:09:46 +0000 (UTC)
-Received: by mail-qv1-f51.google.com with SMTP id u5so1861495qvv.3
+ Mon,  5 Sep 2022 11:13:45 +0000 (UTC)
+Received: by mail-qv1-f44.google.com with SMTP id c6so3833385qvn.6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 05 Sep 2022 04:09:46 -0700 (PDT)
+ Mon, 05 Sep 2022 04:13:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date;
- bh=ZD4YC1HXrtSaQEFJiBqrgz0UPEGxSAaPa+lNAJ8WZi0=;
- b=W0LYg/x6oLLMVr5A9MMBVb+TxN0pk4+3xuh3Q/ipfqH1hrq5kvR4C13ZGg+8+DEqSd
- gi1J5ByiQnS+4NrTCIvUT/kKaXn5hL9zW9YV18N0SnlPLU0irWOq7beGGmmV2it9I/V8
- TSz0IwHJZsNw1mnLJ+EmjO0aVsfTD6x8QeroaNTk/ISAjEimxSO9AuqJQS/RTnqxI8me
- UqWOiBI+Wn0HCU5QQ9nYXLzwM0PBRWriqZaCP3K1erw3D5FZR6d/x6x4b60TAHtECET6
- J6AxXbDHgN6gXzpMM9fNWwiGiQLT2KqoyWZt7c52eyHpDdJ+EY+BURgwhcI9q/0V9kVd
- TT/Q==
+ bh=7iAktJHc3w6rPsnzClYi6h63eWPfDzaVzHqTBIckRp4=;
+ b=R7t2Qcp1lBflY1vcWSAvFGDpL1wm70fCepnWH+zrAbiof4E0R0r6MaodmK99KC/uqU
+ lkRNi47VWEdS1Mh0Cq7rMIeuWmncJJ2cOty+OFE/rSCBYVUer1tDhNIt1xJajNoN+pha
+ 9hYFjgcUDhUv9vg4Rsjx4Td0f/j+c8XAElCdXPkz1XbyGCnZFSRjvecB8Dt/V/2ytwns
+ pr0+QJCk5ml5PiGLXoq+OBMZT8nSbzyKkmBD4jlfWYYC6/a2AVD44sThrAdLIlOLbLDI
+ BjJuCJ4ppbMAAjAsrBVEK+NW8M6uu3+DQvsU1sl/6kNwDh7BxhDa793GpPoaKD+rDvK/
+ /Y2g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date;
- bh=ZD4YC1HXrtSaQEFJiBqrgz0UPEGxSAaPa+lNAJ8WZi0=;
- b=cPoCKA8USbjNl1liDWCnOt0stzfZQBkThmqSUWCM2jxkuATJIViPC95TrbA2F9fvrr
- dLh4DN6+jJ/MYLZpy0eRo7n3h81GO3W/z/y7TGVWOJOkRO+JHwfglBRqmqIsKCG0gfaD
- QY0ncpA7zlhYZ8uw37Tt08TWvV8P8KlZdddwvRI3a/+EZZKrpKx7uhB8JS7Upf5Uuq7r
- ceBRo9i2no4uSEv0/d/geK82BsUjiqFvAfAu1ykYwxBzuHnMsTZa9D64UMTZcz8smqoU
- //4fn9ugJkgIJTQXDbuX4ZoCGqg1XmQkRlm9dqY9mRrRdvA6Oys0+gPIAWLT7RMikPEd
- l2zg==
-X-Gm-Message-State: ACgBeo3UpXsmHf3Pt0KlEiB9iiNjiLGjIEaNsVgbnAkUsGUAV2ePKbDN
- PySdAPls9nbjrDWJsxPYwSUVILJJyhdMA2Jf6mU=
-X-Google-Smtp-Source: AA6agR5jCq5/GjKb+apw06fa/2t9tC05H0ZPM5KdsjnljOtEm1B4hEVBpVM1iH3NQHKg14ReUnIBjf+3AuFTQfBZ7lg=
-X-Received: by 2002:a0c:e24b:0:b0:4a1:d41b:e280 with SMTP id
- x11-20020a0ce24b000000b004a1d41be280mr5474897qvl.11.1662376185481; Mon, 05
- Sep 2022 04:09:45 -0700 (PDT)
+ bh=7iAktJHc3w6rPsnzClYi6h63eWPfDzaVzHqTBIckRp4=;
+ b=4zN3V+udVyMP2JKqdC/V7oquTjkEqlpvJprX0hR1v6dU0l80SRaoRHLE1NiDxf/x7D
+ GyQDFkz6cO/Y8MYFCbYap9qB9LJMvf9757rduY4AEsXWhxoPPJBbVRkkWXottAL7vsQ7
+ kbNrZN6+Hp6eWHyv0KghnFFKSiQyyI3L8ylr0P2z2mCDygp2oBo1V7VZebvrlLIcvJd2
+ qbViINfeoctxCV5zAFH5PniaGJ1JtvLkvHHnKAwQwEEP/asEb5bC9S7hW4uMAe6DheB3
+ z2hTA/Y8x8hHNxLwmJVXZh7n8MFWyFbQK6TqO5qK1qP15j3K1g2yLUGe2dvmGRRYKzh1
+ kkew==
+X-Gm-Message-State: ACgBeo095E6OuoEzBTSEfzCK2I/jzDNtqsiNn3mY1hVLz7yd3Y0APoBr
+ RrxY+1EhDW001L/Fj1XE5rMqqlxdwglBGr6BgS0=
+X-Google-Smtp-Source: AA6agR7NrRmeK1sjqt1ZjgVXwez7kxeuRCTCLwTPPcAUxaHLOiRLXkVvjX6xUtf8npwaMKmSjSHhnRIt4pJmIe7SA1s=
+X-Received: by 2002:a05:6214:19cf:b0:4a9:4241:2399 with SMTP id
+ j15-20020a05621419cf00b004a942412399mr1093930qvc.64.1662376424240; Mon, 05
+ Sep 2022 04:13:44 -0700 (PDT)
 MIME-Version: 1.0
 References: <20220903-gpiod_get_from_of_node-remove-v1-0-b29adfb27a6c@gmail.com>
- <20220903-gpiod_get_from_of_node-remove-v1-10-b29adfb27a6c@gmail.com>
-In-Reply-To: <20220903-gpiod_get_from_of_node-remove-v1-10-b29adfb27a6c@gmail.com>
+In-Reply-To: <20220903-gpiod_get_from_of_node-remove-v1-0-b29adfb27a6c@gmail.com>
 From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Mon, 5 Sep 2022 14:09:09 +0300
-Message-ID: <CAHp75Vd35EOy=mP25=9fmYfqQnbafgotHw1fxk-TdGk6Oc8g8Q@mail.gmail.com>
+Date: Mon, 5 Sep 2022 14:13:08 +0300
+Message-ID: <CAHp75Vc5cEs6mPSL1fkHBT2hw-CbmbELFwkEGvwxkrdEVF2K_Q@mail.gmail.com>
 To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
 Cc: =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kw@linux.com>,
  Alexandre Belloni <alexandre.belloni@bootlin.com>,
@@ -82,8 +81,8 @@ Cc: =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kw@linux.com>,
  Daniel Vetter <daniel@ffwll.ch>, Richard Weinberger <richard@nod.at>,
  =?UTF-8?Q?Pali_Roh=C3=A1r?= <pali@kernel.org>,
  Claudiu Beznea <claudiu.beznea@microchip.com>
-Subject: Re: [Linux-stm32] [PATCH v1 10/11] watchdog: bd9576_wdt: switch to
-	using devm_fwnode_gpiod_get()
+Subject: Re: [Linux-stm32] [PATCH v1 00/11] Get rid of
+ [devm_]gpiod_get_from_of_node() public APIs
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,64 +99,19 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Sep 5, 2022 at 9:33 AM Dmitry Torokhov
+On Mon, Sep 5, 2022 at 9:32 AM Dmitry Torokhov
 <dmitry.torokhov@gmail.com> wrote:
 >
-> I would like to stop exporting OF-specific devm_gpiod_get_from_of_node()
-> so that gpiolib can be cleaned a bit, so let's switch to the generic
-> fwnode property API.
+> I would like to stop exporting OF-specific [devm_]gpiod_get_from_of_node()
+> so that gpiolib can be cleaned a bit. We can do that by switching drivers
+> to use generic fwnode API ([devm_]fwnode_gpiod_get()). By doing so we open
+> the door to augmenting device tree and ACPI information through secondary
+> software properties (once we teach gpiolib how to handle those).
 >
-> While at it switch the rest of the calls to read properties in
+> I hope that relevant maintainers will take patches through their trees and
+> then we could merge the last one some time after -rc1.
 
-it, switch
-
-> bd9576_wdt_probe() to the generic device property API as well.
-
-...
-
->         struct device *dev = &pdev->dev;
-
-struct device *parent = dev->parent;
-
-can make your code slightly neater.
-
-...
-
-> +       count = device_property_count_u32(dev->parent, "rohm,hw-timeout-ms");
-> +       if (count < 0 && count != -EINVAL)
-> +               return count;
-> +
-> +       if (count > 0) {
-
-> +               if (count > ARRAY_SIZE(hw_margin))
-> +                       return -EINVAL;
-
-Why double check? You may move it out of the (count > 0).
-
-...
-
-> -       if (ret == 1)
-> -               hw_margin_max = hw_margin[0];
-
-> +               ret = device_property_read_u32_array(dev->parent,
-> +                                                    "rohm,hw-timeout-ms",
-> +                                                    hw_margin, count);
-> +               if (ret < 0)
-> +                       return ret;
-
-So, only this needs the count > 0 check since below already has it implicitly.
-
-> -       if (ret == 2) {
-> -               hw_margin_max = hw_margin[1];
-> -               hw_margin_min = hw_margin[0];
-> +               if (count == 1)
-> +                       hw_margin_max = hw_margin[0];
-> +
-> +               if (count == 2) {
-> +                       hw_margin_max = hw_margin[1];
-> +                       hw_margin_min = hw_margin[0];
-> +               }
->         }
+I'm in favour of the series, but some comments would be good to be addressed.
 
 -- 
 With Best Regards,
