@@ -2,55 +2,55 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 631A05ACAA6
-	for <lists+linux-stm32@lfdr.de>; Mon,  5 Sep 2022 08:31:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 846775ACAA9
+	for <lists+linux-stm32@lfdr.de>; Mon,  5 Sep 2022 08:31:19 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 28474C0C920;
-	Mon,  5 Sep 2022 06:31:17 +0000 (UTC)
-Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com
- [209.85.215.174])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 44ABFC640FE;
+	Mon,  5 Sep 2022 06:31:19 +0000 (UTC)
+Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com
+ [209.85.210.180])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6F987C04003
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0B82DC55596
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  5 Sep 2022 06:31:15 +0000 (UTC)
-Received: by mail-pg1-f174.google.com with SMTP id x80so7349435pgx.0
+ Mon,  5 Sep 2022 06:31:18 +0000 (UTC)
+Received: by mail-pf1-f180.google.com with SMTP id 199so7757623pfz.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 04 Sep 2022 23:31:15 -0700 (PDT)
+ Sun, 04 Sep 2022 23:31:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date;
- bh=U194c+dv3L8PGxjQRUqmKsyVJlhonDrX8vTPY/i9hXs=;
- b=Fkbc/qOj6ZS7IqaqFcyPDPM8EDvYCU7OGChWB/9DpWkiWqS2dcKh9l1ojNoGhPTnaD
- njtjyQXo+Rn/WKjPbWSgQwcSRXqdDOgJDGXNJQq5SFjXCfctlSjW18o5uDca1l2zvr9s
- qI1PzrfdfgBUibYLHx0f78UFpIn7lM4srMFlpQG6GGUAs+9ir4zw3UO2CcA6EiK7Fjf1
- bf4cjTs1g6ppz8vMIVX34VakImJ62Z/3L44MxW6WWlAwFP7SjkuSosBV+uw4t/dQJPMK
- jdTwvre314VlwpC1eofIVn09IiP/lYmwjM75pESkwXfDC4BXtIhlz1s+2S/HOBFZhOcr
- KREw==
+ bh=JcNarHX5vDGjVT4u3bJlQD1+cgrqWKhTPjcJ8WgPV+Y=;
+ b=DxvplDrIsh+KijXXFdPyzxvt874fwO8Mrl8/8AeOKCJE+XbHxvUZFRKCE2GWxXKh/D
+ umFYRihOe+jne0ztML2y6mc0jbRPpGBhC1g0NvUfpp6EeLk7jk01cUaRoaJOQGKx5afd
+ lMrQqjCzBLO0lmmWRuQTMiLdS80KFr2EMlRBbDQ43Cvwei0LgWRjAJ8gs1Hh7H+I8nL+
+ T7StbBazi7jgrWFhxeXo3Gac0AKQAJdX41kNsF1jErc6zj3GvAoSXS8rPqIvQoiy9CfD
+ STWwhnuDN61n/ngUeJ4+XMum2eLhXHNuROQUxZWikj/bqGNqJIg0uK7dakXt3T7vhKRj
+ +Zvg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date;
- bh=U194c+dv3L8PGxjQRUqmKsyVJlhonDrX8vTPY/i9hXs=;
- b=xz9Ngia1jkuVOaEJApPFa9koAwUtNbpBgZcpKnXyAhuNu7uFj4Fzhetmm7FjXhPqqo
- Z+reZZY/4ccNXX8LkDc/ZC2tyF+f6NRe0jAEAGYZIq7wS91qG/SM4KBRVeeU2kBD7o/O
- AoYS9aAhNtxwThjPioqQx7TUuthfLPlvrNPoa/UgwDFC/0dSu90k9PF5wJDf16ZHowhk
- iyLpmMYewWOdU0mP+I/fqdTHGRxp2x9GlcwpYHWoVWbdUDDoQQVq1LrxIcQ4oVFOwHhX
- 2xR9MWnzYO1O3iYArHUqgeEG1+2FjqYbncUX1ggFkcOUHzbNk06VnJ8Thu1ufOq7gNGo
- sZkg==
-X-Gm-Message-State: ACgBeo3OcVZdhX2DTSbfcRISGHy+IL8IvysTYvSbThkr0nkzerAN7lKv
- r5ydWEuL+kbXguFy1aoflIA=
-X-Google-Smtp-Source: AA6agR5AcoEUClPAM45JZ1w1Bqqw5txpdGe6Mc9rimWxG6gO38z3tQNrUedFo00QOImtqhFwVKAqJg==
-X-Received: by 2002:a63:914c:0:b0:42b:a8fa:eb4a with SMTP id
- l73-20020a63914c000000b0042ba8faeb4amr34343614pge.481.1662359473959; 
- Sun, 04 Sep 2022 23:31:13 -0700 (PDT)
+ bh=JcNarHX5vDGjVT4u3bJlQD1+cgrqWKhTPjcJ8WgPV+Y=;
+ b=zgWz9Ilw68vZd7WLo7s8J9wddaUu5uRcp04FsacJzw5RNLlqL4l6ceTs67pPYPLzac
+ F4xsxwLJ7O0zDMOXumUyPxbOJcwPSAkS7StgH86D1G733zaI3In9mRmiwWT+TLneCW9w
+ kH8tm9xFC7N48l0J2dr3P61nWd2jcd7yDMi4zOh5o63aC1TTZ/frcibLrHSNLQWyoGL1
+ Xj9Y8MyqY0mufRp5ZexhOJ1LnZ7E0F4t/HCeR2zGKcuMt4ik2nySpQohJWfH81rYU3pn
+ KMJawbsvMMpmc9RKeQggAEn74VJmdGKVfEOEAAJSY/A7bjU/ykFUKksk+EQ2gFUCLchT
+ TzHQ==
+X-Gm-Message-State: ACgBeo0bxonb2H0yCMnhjzfvoYnjJgl3bzGxTtM0Fqez8eFJ6l/ONjMr
+ 7kfjuwyKJl2a4miMHFdQRFQ=
+X-Google-Smtp-Source: AA6agR7ElJwXFJbXTWS13gywL0+xg7ynmUWpG94uiTchE1mDeAqtJvkeWg4KKm6lqy6WE6s/yuBdHA==
+X-Received: by 2002:a63:fc11:0:b0:430:41b4:acf5 with SMTP id
+ j17-20020a63fc11000000b0043041b4acf5mr19872386pgi.408.1662359476546; 
+ Sun, 04 Sep 2022 23:31:16 -0700 (PDT)
 Received: from dtor-ws.mtv.corp.google.com
  ([2620:15c:202:201:7332:f188:2984:5930])
  by smtp.gmail.com with ESMTPSA id
- d197-20020a6336ce000000b0042254fce5e7sm5710653pga.50.2022.09.04.23.31.11
+ d197-20020a6336ce000000b0042254fce5e7sm5710653pga.50.2022.09.04.23.31.14
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 04 Sep 2022 23:31:13 -0700 (PDT)
+ Sun, 04 Sep 2022 23:31:16 -0700 (PDT)
 From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
 To: Thierry Reding <thierry.reding@gmail.com>, Mark Brown <broonie@kernel.org>,
  Matti Vaittinen <mazziesaccount@gmail.com>,
@@ -76,8 +76,8 @@ To: Thierry Reding <thierry.reding@gmail.com>, Mark Brown <broonie@kernel.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Bjorn Helgaas <bhelgaas@google.com>,
  =?UTF-8?q?Pali=20Roh=C3=A1r?= <pali@kernel.org>
-Date: Sun,  4 Sep 2022 23:30:54 -0700
-Message-Id: <20220903-gpiod_get_from_of_node-remove-v1-2-b29adfb27a6c@gmail.com>
+Date: Sun,  4 Sep 2022 23:30:55 -0700
+Message-Id: <20220903-gpiod_get_from_of_node-remove-v1-3-b29adfb27a6c@gmail.com>
 X-Mailer: git-send-email 2.37.2.789.g6183377224-goog
 In-Reply-To: <20220903-gpiod_get_from_of_node-remove-v1-0-b29adfb27a6c@gmail.com>
 References: <20220903-gpiod_get_from_of_node-remove-v1-0-b29adfb27a6c@gmail.com>
@@ -88,8 +88,8 @@ Cc: linux-watchdog@vger.kernel.org, linux-pci@vger.kernel.org,
  dri-devel@lists.freedesktop.org, linux-gpio@vger.kernel.org,
  linux-mtd@lists.infradead.org, linux-tegra@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v1 02/11] drm/tegra: switch to using
-	devm_fwnode_gpiod_get
+Subject: [Linux-stm32] [PATCH v1 03/11] mtd: rawnand: stm32_fmc2: switch to
+	using devm_fwnode_gpiod_get()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -106,35 +106,28 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-I would like to limit (or maybe even remove) use of
-[devm_]gpiod_get_from_of_node in drivers so that gpiolib can be cleaned
-a bit, so let's switch to the generic device property API. It may even
-help with handling secondary fwnodes when gpiolib is taught to handle
-gpios described by swnodes.
+I would like to stop exporting OF-specific devm_gpiod_get_from_of_node()
+so that gpiolib can be cleaned a bit, so let's switch to the generic
+fwnode property API.
 
 Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
 
-diff --git a/drivers/gpu/drm/tegra/output.c b/drivers/gpu/drm/tegra/output.c
-index 47d26b5d9945..a8925dcd7edd 100644
---- a/drivers/gpu/drm/tegra/output.c
-+++ b/drivers/gpu/drm/tegra/output.c
-@@ -133,11 +133,11 @@ int tegra_output_probe(struct tegra_output *output)
- 		}
+diff --git a/drivers/mtd/nand/raw/stm32_fmc2_nand.c b/drivers/mtd/nand/raw/stm32_fmc2_nand.c
+index 87c1c7dd97eb..7e466b840368 100644
+--- a/drivers/mtd/nand/raw/stm32_fmc2_nand.c
++++ b/drivers/mtd/nand/raw/stm32_fmc2_nand.c
+@@ -1799,9 +1799,8 @@ static int stm32_fmc2_nfc_parse_child(struct stm32_fmc2_nfc *nfc,
+ 		nand->cs_used[i] = cs;
  	}
  
--	output->hpd_gpio = devm_gpiod_get_from_of_node(output->dev,
--						       output->of_node,
--						       "nvidia,hpd-gpio", 0,
--						       GPIOD_IN,
--						       "HDMI hotplug detect");
-+	output->hpd_gpio = devm_fwnode_gpiod_get(output->dev,
-+					of_fwnode_handle(output->of_node),
-+					"nvidia,hpd",
-+					GPIOD_IN,
-+					"HDMI hotplug detect");
- 	if (IS_ERR(output->hpd_gpio)) {
- 		if (PTR_ERR(output->hpd_gpio) != -ENOENT)
- 			return PTR_ERR(output->hpd_gpio);
+-	nand->wp_gpio = devm_gpiod_get_from_of_node(nfc->dev, dn,
+-						    "wp-gpios", 0,
+-						    GPIOD_OUT_HIGH, "wp");
++	nand->wp_gpio = devm_fwnode_gpiod_get(nfc->dev, of_fwnode_handle(dn),
++					      "wp", GPIOD_OUT_HIGH, "wp");
+ 	if (IS_ERR(nand->wp_gpio)) {
+ 		ret = PTR_ERR(nand->wp_gpio);
+ 		if (ret != -ENOENT)
 
 -- 
 b4 0.10.0-dev-fc921
