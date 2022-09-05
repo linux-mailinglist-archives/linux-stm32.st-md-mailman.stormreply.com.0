@@ -2,64 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 84E875AD9CA
-	for <lists+linux-stm32@lfdr.de>; Mon,  5 Sep 2022 21:40:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BBDDF5AD9CF
+	for <lists+linux-stm32@lfdr.de>; Mon,  5 Sep 2022 21:42:58 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3768CC0AA15;
-	Mon,  5 Sep 2022 19:40:07 +0000 (UTC)
-Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com
- [209.85.215.181])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6DC10C640F0;
+	Mon,  5 Sep 2022 19:42:58 +0000 (UTC)
+Received: from mail-vs1-f48.google.com (mail-vs1-f48.google.com
+ [209.85.217.48])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6307CC03FC6
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2D87BC03FC6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  5 Sep 2022 19:40:05 +0000 (UTC)
-Received: by mail-pg1-f181.google.com with SMTP id 73so8799365pga.1
+ Mon,  5 Sep 2022 19:42:57 +0000 (UTC)
+Received: by mail-vs1-f48.google.com with SMTP id b128so9699919vsc.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 05 Sep 2022 12:40:05 -0700 (PDT)
+ Mon, 05 Sep 2022 12:42:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date;
- bh=CBRkTEdupwBv7lUysuAAHCWeUeGOXoPs3goZlUKIChI=;
- b=AoB/BB+wDCEOf3ollKTlkOpFH5ZdJcaYtYObH7F+USml96PL05nQZdIxn7ekRew/5b
- 7EIcLBlc3MsHwZ5Sf25zmIO3Px5fO4gvhdDaBRhf9uOzwFLARLpmd1bM870f8lIBNHD3
- gytJZ2ifVtaupmJ3QTM9/NdK15W4dYwrMCBg6SW65U1OqgtNyXc84pbod89bIQ6BXjDU
- 8DjK9Glh1ftaKc4OO8CDr320e11XRL2oTkt0sdDZYfOg6PUIpHo4y/CMFZXvXzFkVUsb
- WSwJf6gJvfOXaQ8gaip6aWRNOqu2Fi4hdJAIEf0y3X+J6pOHAoM+5/JGDwZcC7JNH7er
- c8og==
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date;
+ bh=wO/CS8iR8KxuQ0QSMzm6/WiY5ujYMWA4u/2Kf3nOOU4=;
+ b=JSci26HogKWKQ4bQAPYj/qj3KQoQKdAM0djoTD3V3pfJRNYBkb/crHGNg1ZxmTaRZt
+ Y2OeStRuHo3E/9wsjJPHVnMww72oojhAo7UJLNnJ0gRUC+nhaCUEHH9ZmDdynKfHloX2
+ 0bjx9qX1YL+G8A4rsdAU0h6gp40P8lRhXVGDtlCWUMjl1D8b39ZkjvsqK3cSjapHLUZz
+ EVRCqi1r10xb9iSsdWdvvlb6dzMQ8cDz9uv1Pe05ngskplsNCt6Z3TRknJQasbAHVJ+g
+ GwNPbWO8101YPtZqf6x/GwXmJmCDOz+EBKotqmHSc5fKyGy5JGnKrxr8z/8BsuU8OywW
+ Yx7g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date;
- bh=CBRkTEdupwBv7lUysuAAHCWeUeGOXoPs3goZlUKIChI=;
- b=nMiojDvyeU/kcwKdJjV0I9m398WWYCHcz3J9LJWWEZyu0d8D4DP+M+Nh4mGvvNmklF
- fZS8pAyqX7cq3NJ8woYM+qHIkCFFMSAWxUWC2vxYq94SIz58tcfkH0QbOoGUOYIq9Uyu
- hHXtOi4Bet/MiPa15ZODbcdb/KugvuERbJJF46ekBBausOD/Yl7alHlb2R5yDaE56pOk
- 0VYKOvvkMbWn85CdW9qU5xrf4vIXZsykPCKKZMU3C5aY3FEdKtP7s71rpnGrxMkrq0os
- BY+/8ohPD0/YTiaEVWQWX6gXd2TmeYlMMSU6mVB7YvdyTpkmLYSwEtT1LRQH86ksW/Em
- 6NAQ==
-X-Gm-Message-State: ACgBeo1rgpnxOYtxntMdvkLKgpynouPXGeUhGYauGT04gKKQq5MwPNgU
- 1AoqXz7vVFatw+b+S9jb51o=
-X-Google-Smtp-Source: AA6agR57aEnMQb2MM+YsWuK1Qvz4a+9OpUI4vj1PStOfsBOdRv0ywrZ084st51jWLHlWq8m5GTSO4g==
-X-Received: by 2002:a65:6255:0:b0:42c:87b1:485b with SMTP id
- q21-20020a656255000000b0042c87b1485bmr29214848pgv.491.1662406803892; 
- Mon, 05 Sep 2022 12:40:03 -0700 (PDT)
-Received: from google.com ([2620:15c:202:201:7332:f188:2984:5930])
- by smtp.gmail.com with ESMTPSA id
- p14-20020a170902780e00b00176b4f9d871sm2199498pll.70.2022.09.05.12.40.01
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 05 Sep 2022 12:40:03 -0700 (PDT)
-Date: Mon, 5 Sep 2022 12:39:59 -0700
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: Andy Shevchenko <andy.shevchenko@gmail.com>
-Message-ID: <YxZQj8bwJCx5rqDv@google.com>
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date;
+ bh=wO/CS8iR8KxuQ0QSMzm6/WiY5ujYMWA4u/2Kf3nOOU4=;
+ b=Uvvu+D9l7n3rBt5xbrfdw8/fsT3+vbW/4vBqMeaT0f5KgubRVbF1RMvvVypLe3eny7
+ k+1f4f15daj7GdRZi9INBjpwJNyBqA+CrsFsXTAPDxLHdtu1iCLYbusBYJJIYWXkQk+s
+ mU0AhAsnFEel2LqNTpZLHrnnEl3WTvBTBmTXKet4vhJVQhgA9DPYKZDVIKv+6hQFXqrE
+ XFJ2fKKdQEi3hD3pa3T+n0Oaummy7AMDqY4SbiQOut2keducMq9o8IOWqkKp6LRDSuDr
+ mMCzaT4rJj5L5OyM5EN9vhDE04j0cOcWSPySFPEtuqOAdW8eTE0LnxxjjEWgBU3xxtHY
+ ZcVQ==
+X-Gm-Message-State: ACgBeo1pWPxm28bIylIMUAwbrMHfi3J39D5r5raUGyRd4bqGv755KGi9
+ ORScmchP0s28+20wqqmBF+gGIYyGTIyo84uy5FE=
+X-Google-Smtp-Source: AA6agR5H6mS5M0XhYTx5eUbgZC+0kKZN7MbCqjw2PbBKrxMbH7D52IRk52ma02TgJgjEDCJnQoQg6/wvHDVlYSC2VyU=
+X-Received: by 2002:a67:c097:0:b0:390:d097:df91 with SMTP id
+ x23-20020a67c097000000b00390d097df91mr12625663vsi.85.1662406976034; Mon, 05
+ Sep 2022 12:42:56 -0700 (PDT)
+MIME-Version: 1.0
 References: <20220903-gpiod_get_from_of_node-remove-v1-0-b29adfb27a6c@gmail.com>
  <20220903-gpiod_get_from_of_node-remove-v1-4-b29adfb27a6c@gmail.com>
  <CAHp75VdMr7wru-2hD1HH3OS5JTNdzt6VRqB6OFoCp2JkiuiTjw@mail.gmail.com>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <CAHp75VdMr7wru-2hD1HH3OS5JTNdzt6VRqB6OFoCp2JkiuiTjw@mail.gmail.com>
-Cc: Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kw@linux.com>,
+ <YxZQj8bwJCx5rqDv@google.com>
+In-Reply-To: <YxZQj8bwJCx5rqDv@google.com>
+From: Andy Shevchenko <andy.shevchenko@gmail.com>
+Date: Mon, 5 Sep 2022 22:41:40 +0300
+Message-ID: <CAHp75VdHJS4YgrTK15OuY5sxodxKObUtzturL+YPXFQ3_wpxig@mail.gmail.com>
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kw@linux.com>,
  Alexandre Belloni <alexandre.belloni@bootlin.com>,
  Vignesh Raghavendra <vigneshr@ti.com>, David Airlie <airlied@linux.ie>,
  linux-pci <linux-pci@vger.kernel.org>,
@@ -87,10 +82,10 @@ Cc: Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kw@linux.com>,
  USB <linux-usb@vger.kernel.org>, Nicolas Ferre <nicolas.ferre@microchip.com>,
  Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
  Daniel Vetter <daniel@ffwll.ch>, Richard Weinberger <richard@nod.at>,
- Pali =?iso-8859-1?Q?Roh=E1r?= <pali@kernel.org>,
+ =?UTF-8?Q?Pali_Roh=C3=A1r?= <pali@kernel.org>,
  Claudiu Beznea <claudiu.beznea@microchip.com>
 Subject: Re: [Linux-stm32] [PATCH v1 04/11] usb: phy: tegra: switch to using
- devm_gpiod_get()
+	devm_gpiod_get()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -107,46 +102,33 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Sep 05, 2022 at 01:59:44PM +0300, Andy Shevchenko wrote:
-> On Mon, Sep 5, 2022 at 9:32 AM Dmitry Torokhov
-> <dmitry.torokhov@gmail.com> wrote:
+On Mon, Sep 5, 2022 at 10:40 PM Dmitry Torokhov
+<dmitry.torokhov@gmail.com> wrote:
+> On Mon, Sep 05, 2022 at 01:59:44PM +0300, Andy Shevchenko wrote:
+> > On Mon, Sep 5, 2022 at 9:32 AM Dmitry Torokhov
+> > <dmitry.torokhov@gmail.com> wrote:
+
+...
+
+> > > -               gpiod = devm_gpiod_get_from_of_node(&pdev->dev, np,
+> > > -                                                   "nvidia,phy-reset-gpio",
+> > > -                                                   0, GPIOD_OUT_HIGH,
+> > > -                                                   "ulpi_phy_reset_b");
+> > > +               gpiod = devm_gpiod_get(&pdev->dev, "nvidia,phy-reset",
+> > > +                                      GPIOD_OUT_HIGH);
+> > >                 err = PTR_ERR_OR_ZERO(gpiod);
 > >
-> > I would like to stop exporting OF-specific devm_gpiod_get_from_of_node()
-> > so that gpiolib can be cleaned a bit, so let's switch to the generic
-> > device property API.
-> >
-> > I believe that the only reason the driver, instead of the standard
-> > devm_gpiod_get(), used devm_gpiod_get_from_of_node() is because it
-> > wanted to set up a pretty consumer name for the GPIO, and we now have
-> > a special API for that.
-> 
-> ...
-> 
-> > -               gpiod = devm_gpiod_get_from_of_node(&pdev->dev, np,
-> > -                                                   "nvidia,phy-reset-gpio",
-> > -                                                   0, GPIOD_OUT_HIGH,
-> > -                                                   "ulpi_phy_reset_b");
-> > +               gpiod = devm_gpiod_get(&pdev->dev, "nvidia,phy-reset",
-> > +                                      GPIOD_OUT_HIGH);
-> >                 err = PTR_ERR_OR_ZERO(gpiod);
-> 
-> What does _OR_ZERO mean now?
+> > What does _OR_ZERO mean now?
+>
+> This converts a pointer to an error code if a pointer represents
+> ERR_PTR() encoded error, or 0 to indicate success.
 
-This converts a pointer to an error code if a pointer represents
-ERR_PTR() encoded error, or 0 to indicate success.
-
-static inline int __must_check PTR_ERR_OR_ZERO(__force const void *ptr)
-{
-	if (IS_ERR(ptr))
-		return PTR_ERR(ptr);
-	else
-		return 0;
-}
-
-Thanks.
+Yes, I know that. My point is, how is it useful now (or even before)?
+I mean that devm_gpio_get() never returns NULL, right?
 
 -- 
-Dmitry
+With Best Regards,
+Andy Shevchenko
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
