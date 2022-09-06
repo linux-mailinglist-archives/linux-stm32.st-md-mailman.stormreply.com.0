@@ -2,61 +2,101 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3BDE85AE47D
-	for <lists+linux-stm32@lfdr.de>; Tue,  6 Sep 2022 11:41:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E3EA95AE50A
+	for <lists+linux-stm32@lfdr.de>; Tue,  6 Sep 2022 12:11:33 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EE9B9C63326;
-	Tue,  6 Sep 2022 09:41:55 +0000 (UTC)
-Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5EA04C63324
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8A238C63324;
+	Tue,  6 Sep 2022 10:11:33 +0000 (UTC)
+Received: from de-smtp-delivery-113.mimecast.com
+ (de-smtp-delivery-113.mimecast.com [194.104.111.113])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D32B6C03FC4
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  6 Sep 2022 09:41:54 +0000 (UTC)
-Received: from [192.168.1.100] (2-237-20-237.ip236.fastwebnet.it
- [2.237.20.237])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits))
- (No client certificate requested) (Authenticated sender: kholk11)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id 8B21D6601EF9;
- Tue,  6 Sep 2022 10:41:52 +0100 (BST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1662457313;
- bh=7pEeYix4E4mRwD8IkrPe/sydx5F80OmM4j61hvpJHDo=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=Atz850aqdqnVP4OlM865gUC2IfObKvqgM12LzdJyn/95T3UwH9DBsSurrIoOR8tQE
- uOJUQtGcVE8ItupeK1l0jrqsabMEiRhUL0R+tni/mheB2wzL/47zfoKwAXdxEYrxtj
- ifnWiXmptF0GpptgWiXu0QP1dVgBpF1OtCFdO42POyDbmGoOuXvFDaZh6LnR28arOL
- usWYocvC/7yq5H1AmOFWmp6Mo7voZ9hy7pr41GeuG+K8jMPUhs89jqmKpztovPv1F+
- 1cBRzhhXzWyi3rZGvTPvbPJEwKvjh72xl7j46sKOCn/pggWzajazWhYMearHWw37ZG
- J+zCjZ4PNDLyQ==
-Message-ID: <fa26f4f5-032e-f5cf-8e67-c4a34d963e70@collabora.com>
-Date: Tue, 6 Sep 2022 11:41:49 +0200
+ Tue,  6 Sep 2022 10:11:32 +0000 (UTC)
+Received: from CHE01-ZR0-obe.outbound.protection.outlook.com
+ (mail-zr0che01lp2111.outbound.protection.outlook.com [104.47.22.111]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ de-mta-54-8ipGG-8tNcKaQQcKb3yxGw-1; Tue, 06 Sep 2022 12:11:28 +0200
+X-MC-Unique: 8ipGG-8tNcKaQQcKb3yxGw-1
+Received: from ZRAP278MB0495.CHEP278.PROD.OUTLOOK.COM (2603:10a6:910:2e::8) by
+ GVAP278MB0906.CHEP278.PROD.OUTLOOK.COM (2603:10a6:710:55::8) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.5588.10; Tue, 6 Sep 2022 10:11:27 +0000
+Received: from ZRAP278MB0495.CHEP278.PROD.OUTLOOK.COM
+ ([fe80::6c6d:333:ab23:3f5b]) by ZRAP278MB0495.CHEP278.PROD.OUTLOOK.COM
+ ([fe80::6c6d:333:ab23:3f5b%2]) with mapi id 15.20.5588.018; Tue, 6 Sep 2022
+ 10:11:27 +0000
+Date: Tue, 6 Sep 2022 12:11:26 +0200
+From: Francesco Dolcini <francesco.dolcini@toradex.com>
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Message-ID: <20220906101126.GA8061@francesco-nb.int.toradex.com>
+References: <YxbUO7WM0TbUBatv@google.com>
+In-Reply-To: <YxbUO7WM0TbUBatv@google.com>
+X-ClientProxiedBy: ZR0P278CA0005.CHEP278.PROD.OUTLOOK.COM
+ (2603:10a6:910:16::15) To ZRAP278MB0495.CHEP278.PROD.OUTLOOK.COM
+ (2603:10a6:910:2e::8)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.2.0
-Content-Language: en-US
-To: "nathan.lu" <nathan.lu@mediatek.com>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Chun-Kuang Hu <chunkuang.hu@kernel.org>,
- Philipp Zabel <p.zabel@pengutronix.de>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>, Alexandre Torgue
- <alexandre.torgue@foss.st.com>, Matthias Brugger <matthias.bgg@gmail.com>
-References: <20220906084449.20124-1-nathan.lu@mediatek.com>
- <20220906084449.20124-6-nathan.lu@mediatek.com>
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-In-Reply-To: <20220906084449.20124-6-nathan.lu@mediatek.com>
-Cc: devicetree@vger.kernel.org, wsd_upstream@mediatek.com,
- "jason-jh . lin" <jason-jh.lin@mediatek.com>, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org,
- Project_Global_Chrome_Upstream_Group@mediatek.com,
- Rex-BC Chen <rex-bc.chen@mediatek.com>, Moudy Ho <moudy.ho@mediatek.com>,
- linux-mediatek@lists.infradead.org, CK Hu <ck.hu@mediatek.com>,
- lancelot.wu@mediatek.com, amy zhang <Amy.Zhang@mediatek.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2 5/6] soc: mediatek: add mtk-mutex
- support for mt8188 vdosys0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: ba1a3756-333f-458a-b19d-08da8ff028f0
+X-MS-TrafficTypeDiagnostic: GVAP278MB0906:EE_
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0
+X-Microsoft-Antispam-Message-Info: iUxjzJBt5i2dUyCdoaWoIoUJwnoENqKMNzjoKd0XXdE/XWPofCqd0Drg4Mf0k2M6iWZuHBVwZZtlakaJI+lW2hW7w1k5yueE+yJVltr+9pYzaDtI/CvgLQ7D+QjxtOT6JGYOm/Dz725AkH4IlKwxUWkjjvxn4KzzEVN1OWDtIuRxQGAFNk1IYanWweKCmGZ0lmSB2UBJ/jOA2OeNoHDSverbpQWdgeIUecxzhGqGwinarhYG8RUXHnuy8eVDfB5G/sG1APxupJWvVjMrJ5DKQ1aYNeFgnB2rSnR/cPBLe1gJ/Id1NkAVdvhY5ukqavtHjIFjSfxC+Nq1vp0FRzrOaoumJGJvgxRnFb8Df2bycvnpIEFfVLuVti0eiUXGPwScDCP1xqK1Ax/uIcVaMlJixi69PvtSB0BjyqibKY9u0ughJLNvojRzAihRKgL+Jr9w2RM4UOdPhOOwJU9A3J1sC5Cv5xRYdWFMy+5POFsZDzF3ApF0SXAyofvYwFY/3Tqo7d6vUt34YB2n2pa3aBWXFdOtiq1kFAx73Z6vYXL5qp3wPbj2jdblHUlUZPDjiIcU6YPE4picTGESJMLNH7Mcgl77EVgvYYEP9/SlJe54WMPwYsFiYC1AmlZD0f0roX5ss3bf0Pvh7KuUcdbDv0fzs6xbwITK5FUAspnzMauKsxz204GMSbrMyVVwVctc255BRjJo2Z2q/Hk8K9gtvokwhNZddFfcY43k23z0lQ65tP2jAnUlcPqSCQUjzv1yBSmLChobHE1PUCmy23Snv1IHXg==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:ZRAP278MB0495.CHEP278.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
+ SFS:(13230016)(4636009)(136003)(39840400004)(376002)(346002)(396003)(366004)(38100700002)(6512007)(6486002)(1076003)(41300700001)(186003)(86362001)(478600001)(6506007)(38350700002)(83380400001)(52116002)(26005)(4326008)(66946007)(66556008)(8676002)(66476007)(2906002)(54906003)(6916009)(316002)(33656002)(8936002)(5660300002)(44832011)(4744005);
+ DIR:OUT; SFP:1102
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?RV/YK+EmYG61kyIk+XkQ+en/iHw7uIPxEI+kAt58IK0bxXHWizeQ3xrx9Tp1?=
+ =?us-ascii?Q?1p4a5i3/IFwvru23Y8TDo7v+FLEkW8rVqWZs5qzsFSERiguzUlY7nXA3BeRr?=
+ =?us-ascii?Q?yhErlnsfy1uYPzD0m5XNFmFh4oWQRdWmtyNJkmpMekT/SRiohZ6xsW8FxvGF?=
+ =?us-ascii?Q?C7VP5Vk/d23eu5hsgQ07ylIW9YZ3oClhuKG78TX8Kjnc3MKuGRfrsvgtHIXO?=
+ =?us-ascii?Q?IkigOJBLGCsjlDxV9OGdG7SXRfuJ8Gie76iiykJKRvo5WBUhYJ7gI2Bt7qI1?=
+ =?us-ascii?Q?D9pbcmYXXb6mPtPNARvaeYcnPiTw2txDlBkzWXBGU/Ja+NHdVqZ9lUXVrEoH?=
+ =?us-ascii?Q?ZaZKu7MKH3HChXKpn9tRZDSDvPYeQo6V+MY19d1/TQSA/NvutC4/ClKcXHqU?=
+ =?us-ascii?Q?EIHC+IlqcN9maB11Ur3tF+SaN8mFVnFnOMoOjfhrMOGa/7ZbXkEoovhRzD7T?=
+ =?us-ascii?Q?FQynNlWjBriorVklVyHVH+PU+dtjEqXKa9aMZC21K/CHq8hiwaK0bSukL3GR?=
+ =?us-ascii?Q?pUElAz+t7dE3+sJIlUIg6j2spfCxt25zBNjyWo/MeSZ4xzi8j5hLyzX5AFt7?=
+ =?us-ascii?Q?nIphuEfdeORsdon/ZU/X9EVuluogPiFKxe8ZaRr4ftK8pqSLdzpChNqTnhuv?=
+ =?us-ascii?Q?E57VXESgKutUm4alhGt2ZbgwCPhyfTVxCG5MQBdyQxaybrI5ObX5mQDlvRIN?=
+ =?us-ascii?Q?Tnfsch9vykaOd6foU3yC9xE+k65YIQlmJBCea2aoNCp+omnqLd/68e9NcxUi?=
+ =?us-ascii?Q?zcUtIjwGnuXJX8MxgbE4xY0SyCUQE8rwy36BtCwW47dDHh6bWzqC8GB1Kbip?=
+ =?us-ascii?Q?3aRq6Own4lJptoi0zwf/Z13jFymAQIC9Unp/CdMa/ZewLaBvVy5vMKwXENOB?=
+ =?us-ascii?Q?HOPFACbvVjsCBOPThmX+U3dPMPrPDsLMRrZTj8HJaU5FfwdmjJd6JMVRf16W?=
+ =?us-ascii?Q?qIC0WeSWNwiKMneRjjtv97PNq6VT4XvDdkgatpmOtoBeqqS9bJW6yHGOF1qY?=
+ =?us-ascii?Q?u1pE4EbGQ97EcA7B+X12XXAlKE32BY3TkYOdb60Y/d98402qb/8XHI0DmiTf?=
+ =?us-ascii?Q?JzdKMz/eHhWnC2um/Ap99J2Mz6zSCDMnzi5kmVeJTUF+YP/z1Vihr74Z5e6+?=
+ =?us-ascii?Q?ziv1qVDb9nFPstmi80BuQh1l/9sRZoSd5V63pkKJpINOBwBIQTK9Lx0TU5Oo?=
+ =?us-ascii?Q?v3iXEczUHIRWdLWm5CeaHwHM67ulV2ALCAYP9Ar7tLz1Mjrl12bs2smXB56y?=
+ =?us-ascii?Q?iPOParQiKX1/srfgF7Qfw8UXY4EPoTILKrm3X1A/3X5S47ZenMDsjxM4ZFOG?=
+ =?us-ascii?Q?+oYVE9K/SlhwvLbslL9LEfaMxEst4YskKHVNzf1971Xu5vZLxv4YzIk4IVzD?=
+ =?us-ascii?Q?r4cuehzK5nwK8WUOWp38UZo9Nfh0nfDNz86TqrvSIkMVPXD+X0vInct2qqeD?=
+ =?us-ascii?Q?GTPmuYvJrOWKbsPr24Ui8bjVXwSsupdf9jobWLcTZO5eb1VFGHu4/gqAnGsX?=
+ =?us-ascii?Q?4z+Yp4yMzS1MRppInno3rM/97rkY/Cpc6wL28/S86/BgBsbLyfkCLyEMf2ZO?=
+ =?us-ascii?Q?CoQTD6lmtM1FnZX4kUvEbFrbSKZA+vlRlUj2f6+OoKcf86ZBb65RQBchQc4k?=
+ =?us-ascii?Q?5A=3D=3D?=
+X-OriginatorOrg: toradex.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ba1a3756-333f-458a-b19d-08da8ff028f0
+X-MS-Exchange-CrossTenant-AuthSource: ZRAP278MB0495.CHEP278.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Sep 2022 10:11:26.9537 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: d9995866-0d9b-4251-8315-093f062abab4
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 4WOumnhx2BH6bA0fxYcb3IxkDMny6FgdHeNkIpt0heRWx0MBnEbNtX3OS0jjMXPwLae2aO9IKnQ0O/2Nx6z+6aBvO33k6uWdr88f4j2aVNk=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVAP278MB0906
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: toradex.com
+Content-Disposition: inline
+Cc: Marcel Ziswiler <marcel.ziswiler@toradex.com>, linux-kernel@vger.kernel.org,
+ Linus Walleij <linus.walleij@linaro.org>, Lee Jones <lee@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Francesco Dolcini <francesco.dolcini@toradex.com>,
+ Bartosz Golaszewski <brgl@bgdev.pl>, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] mfd: stmpe: switch to using gpiod API
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -68,20 +108,42 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Il 06/09/22 10:44, nathan.lu ha scritto:
-> From: Nathan Lu <nathan.lu@mediatek.com>
+On Mon, Sep 05, 2022 at 10:01:47PM -0700, Dmitry Torokhov wrote:
+> This patch switches the driver away from legacy gpio/of_gpio API to
+> gpiod API, and removes use of of_get_named_gpio_flags() which I want to
+> make private to gpiolib.
 > 
-> add mtk-mutex support for mt8188 vdosys0.
+> Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+> ---
+>  drivers/mfd/stmpe.c | 36 +++++++++++++-----------------------
+>  1 file changed, 13 insertions(+), 23 deletions(-)
 > 
-> Signed-off-by: amy zhang <Amy.Zhang@mediatek.com>
-> Signed-off-by: Nathan Lu <nathan.lu@mediatek.com>
+> diff --git a/drivers/mfd/stmpe.c b/drivers/mfd/stmpe.c
+> index 987e251d90ae..0c4f74197d3e 100644
+> --- a/drivers/mfd/stmpe.c
+> +++ b/drivers/mfd/stmpe.c
+> @@ -8,14 +8,13 @@
+>   */
+>  
 
-Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+<snip>
+
+> -	pdata->irq_gpio = of_get_named_gpio_flags(np, "irq-gpio", 0,
+<snip>
+> +	irq_gpio = devm_gpiod_get_optional(ci->dev, "irq", GPIOD_ASIS);
+isn't this changing from irq-gpio to irq-gpios property name?
+
+in the DTS files we do have something like that:
+
+ irq-gpio = <&gpio TEGRA_GPIO(V, 0) IRQ_TYPE_LEVEL_LOW>;
+
+
+Francesco
 
 _______________________________________________
 Linux-stm32 mailing list
