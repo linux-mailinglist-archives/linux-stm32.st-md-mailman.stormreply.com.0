@@ -2,101 +2,37 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5374B5AF995
-	for <lists+linux-stm32@lfdr.de>; Wed,  7 Sep 2022 04:01:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EAEEE5AFE56
+	for <lists+linux-stm32@lfdr.de>; Wed,  7 Sep 2022 10:01:14 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EBCCCC63326;
-	Wed,  7 Sep 2022 02:01:05 +0000 (UTC)
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com
- [209.85.214.169])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E0545C03FCD
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A91AAC62D6D;
+	Wed,  7 Sep 2022 08:01:09 +0000 (UTC)
+Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
+ [210.160.252.171])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 22F24C03FC0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  7 Sep 2022 02:01:03 +0000 (UTC)
-Received: by mail-pl1-f169.google.com with SMTP id x1so8705700plv.5
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 06 Sep 2022 19:01:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date;
- bh=YaCijregOqOjgcZeIED7JVmldRewR4dEphbJlxDQblY=;
- b=S9pRunUxPC7r0e1w9yj0o8783wojVpjNhKP8jsT71wWMuWPsfUFzdJz0TJMPpqTsPB
- M+Ae8ANyYrV4Sep3x0VbDc+EnMue4OoEN8RpFTpOjPkluJnGT2cqlVh1JYNiO5h/tDGK
- RGVJLwVuP7GISwNRAdT5OiqdenVIGFNKEJzKBNq2q1BXIKHlp8tWKx0fxbOK8GA6DZwQ
- TZfa9JbPfMPcxWCYQlbaTpn5opve5VlejEuuBRLWTpxblG8WQDMhb5np+dyWJJ6kAEEW
- rXWcB3V4lQHvMssIFHI0kdZjP9pomfXdXnH1i/sJC8kJC91PlHbGOcBl6u1/CPq1k3ff
- 5tAg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date;
- bh=YaCijregOqOjgcZeIED7JVmldRewR4dEphbJlxDQblY=;
- b=jc6KH45veqZApLXq5wYuSPaS4j7Gf6wtfNMCrMvxmtEqbLIo5El+KdPDKfNn1MPqAw
- 8zoPyhVlRH35IRPwV9zIkThfPvlyDT4UEPlPvhBpKK+KLcc2vNEyvfClZM7OT0tBBWyK
- MQsiRKFQvR3sVK7vqn2a4poRnKDwVI8pijVgDgyIkDosVnvme2LLbeaqGrI4qrHBZRCU
- 7mRSgKfJrYr9VwbzXqiwfCCZAqaQwtBgZG1yfKl4q35noX24dPHu22pJLrDeGF5AmNzw
- rZh/YwVwMq531c43A9nPQPu+QgE0Uj33sTO6djRUu6JoGSvSFRYbV2i0tEoxzEZ9HMUN
- ghfQ==
-X-Gm-Message-State: ACgBeo3U2OaalIO4prYrKpLXBUlcUm20FrH9CPTCmxxmQUEAJ9dCeg0I
- xO/xy9sOiNB8iJfWW07gz8E=
-X-Google-Smtp-Source: AA6agR4W7OfcLFzEOrvTrf5AWbvTtcvq1nW6dbnnaSOnulUmzjwEL9HxLO3xrl5g0PyDmCwuPzMlMg==
-X-Received: by 2002:a17:90b:3ec7:b0:1fa:cdc1:f66 with SMTP id
- rm7-20020a17090b3ec700b001facdc10f66mr28531683pjb.167.1662516062292; 
- Tue, 06 Sep 2022 19:01:02 -0700 (PDT)
-Received: from google.com ([2620:15c:202:201:abc4:5d24:5a73:a96b])
- by smtp.gmail.com with ESMTPSA id
- a206-20020a621ad7000000b00537d74f58cbsm2322985pfa.69.2022.09.06.19.00.59
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 06 Sep 2022 19:01:01 -0700 (PDT)
-Date: Tue, 6 Sep 2022 19:00:57 -0700
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: Guenter Roeck <linux@roeck-us.net>
-Message-ID: <Yxf7WTFG7xEh2Gv6@google.com>
-References: <20220903-gpiod_get_from_of_node-remove-v1-0-b29adfb27a6c@gmail.com>
- <20220903-gpiod_get_from_of_node-remove-v1-10-b29adfb27a6c@gmail.com>
- <CAHp75Vd35EOy=mP25=9fmYfqQnbafgotHw1fxk-TdGk6Oc8g8Q@mail.gmail.com>
- <75e60144-9fa2-d6ba-bc92-edd23f7e7189@roeck-us.net>
- <CAHp75VcisCTYoRp-=713YKtwi7BQyPKGiUhF4DkpfAFtvDXCiQ@mail.gmail.com>
- <c696b9bf-d0ce-1c6a-0ee3-939b180891be@roeck-us.net>
- <YxZSUlCPEE9o/s4G@google.com>
- <73749107-35aa-0720-1a30-02a90c0540fa@roeck-us.net>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <73749107-35aa-0720-1a30-02a90c0540fa@roeck-us.net>
-Cc: Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kw@linux.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Vignesh Raghavendra <vigneshr@ti.com>, David Airlie <airlied@linux.ie>,
- linux-pci <linux-pci@vger.kernel.org>,
- Linus Walleij <linus.walleij@linaro.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Liam Girdwood <lgirdwood@gmail.com>, linux-tegra <linux-tegra@vger.kernel.org>,
- Thierry Reding <thierry.reding@gmail.com>,
- "open list:MEMORY TECHNOLOGY..." <linux-mtd@lists.infradead.org>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- Miquel Raynal <miquel.raynal@bootlin.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Alyssa Rosenzweig <alyssa@rosenzweig.io>,
- LINUXWATCHDOG <linux-watchdog@vger.kernel.org>, Rob Herring <robh@kernel.org>,
- Marc Zyngier <maz@kernel.org>, Bartosz Golaszewski <brgl@bgdev.pl>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Andy Shevchenko <andy.shevchenko@gmail.com>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ Wed,  7 Sep 2022 08:01:06 +0000 (UTC)
+X-IronPort-AV: E=Sophos;i="5.93,296,1654527600"; d="scan'208";a="131952805"
+Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
+ by relmlie5.idc.renesas.com with ESMTP; 07 Sep 2022 17:01:04 +0900
+Received: from localhost.localdomain (unknown [10.226.36.204])
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id 3CA06400A8A2;
+ Wed,  7 Sep 2022 17:01:00 +0900 (JST)
+From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+To: Daniel Lezcano <daniel.lezcano@linaro.org>,
+ Thomas Gleixner <tglx@linutronix.de>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Matti Vaittinen <mazziesaccount@gmail.com>,
- "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
- Mark Brown <broonie@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
- Wim Van Sebroeck <wim@linux-watchdog.org>,
- linux-arm Mailing List <linux-arm-kernel@lists.infradead.org>,
- Felipe Balbi <balbi@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- USB <linux-usb@vger.kernel.org>, Nicolas Ferre <nicolas.ferre@microchip.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Daniel Vetter <daniel@ffwll.ch>, Richard Weinberger <richard@nod.at>,
- Pali =?iso-8859-1?Q?Roh=E1r?= <pali@kernel.org>,
- Claudiu Beznea <claudiu.beznea@microchip.com>
-Subject: Re: [Linux-stm32] [PATCH v1 10/11] watchdog: bd9576_wdt: switch to
- using devm_fwnode_gpiod_get()
+ Alexandre Torgue <alexandre.torgue@foss.st.com>
+Date: Wed,  7 Sep 2022 09:00:56 +0100
+Message-Id: <20220907080056.3460-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+X-Mailer: git-send-email 2.17.1
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>, linux-kernel@vger.kernel.org,
+ Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+ linux-renesas-soc@vger.kernel.org, Prabhakar <prabhakar.csengg@gmail.com>,
+ Biju Das <biju.das.jz@bp.renesas.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [RESEND PATCH] clocksource/drivers/renesas-ostm: Add
+	support for RZ/V2L SoC
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -108,43 +44,52 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Sep 05, 2022 at 03:09:05PM -0700, Guenter Roeck wrote:
-> On 9/5/22 12:47, Dmitry Torokhov wrote:
-> [ ... ]
-> > > We know that count is either 1 or 2 here, so strictly speaking
-> > > 	if (count == 1) {
-> > > 	} else {
-> > > 	}
-> > > would be sufficient. On the other side, that depends on ARRAY_SIZE() being
-> > > exactly 2, so
-> > > 	if (count == 1) {
-> > > 	} else if (count == 2) {
-> > > 	}
-> > > would also make sense. Either way is fine with me. I'll leave it up
-> > > to Dmitry to decide what he wants to do.
-> > 
-> > My goal is to drop usage of devm_gpiod_get_from_of_node(), beyond that I
-> > do not have strong preferences either way really. It is probing code, so
-> > performance is not critical, but I'm obviously satisfied with how the
-> > code looks now, or I would not have sent it.
-> > 
-> 
-> Good point.
-> 
-> Reviewed-by: Guenter Roeck <linux@roeck-us.net>
+The OSTM block is identical on Renesas RZ/G2L and RZ/V2L SoC's, so instead
+of adding dependency for each SoC's add dependency on ARCH_RZG2L. The
+ARCH_RZG2L config option is already selected by ARCH_R9A07G044 and
+ARCH_R9A07G054.
 
-Guenter, individual patches are going through maintainer's trees, will
-you take this one?
+With the above change OSTM will be enabled on RZ/V2L SoC.
 
-Thanks.
+Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+---
+Hi All,
 
+Resending this patch as this hasn't been merged and I haven't received any
+feedback from the maintainer. There are no code changes as compared to v1
+[0] (I have included the RB tag from Geert).
+
+[0] https://patchwork.kernel.org/project/linux-renesas-soc/patch/20220406072417.14185-1-prabhakar.mahadev-lad.rj@bp.renesas.com/
+
+Cheers,
+Prabhakar
+---
+ drivers/clocksource/renesas-ostm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/clocksource/renesas-ostm.c b/drivers/clocksource/renesas-ostm.c
+index 21d1392637b8..8da972dc1713 100644
+--- a/drivers/clocksource/renesas-ostm.c
++++ b/drivers/clocksource/renesas-ostm.c
+@@ -224,7 +224,7 @@ static int __init ostm_init(struct device_node *np)
+ 
+ TIMER_OF_DECLARE(ostm, "renesas,ostm", ostm_init);
+ 
+-#ifdef CONFIG_ARCH_R9A07G044
++#ifdef CONFIG_ARCH_RZG2L
+ static int __init ostm_probe(struct platform_device *pdev)
+ {
+ 	struct device *dev = &pdev->dev;
 -- 
-Dmitry
+2.17.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
