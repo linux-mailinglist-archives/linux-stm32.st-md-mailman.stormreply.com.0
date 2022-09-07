@@ -2,64 +2,101 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E88E05AF401
-	for <lists+linux-stm32@lfdr.de>; Tue,  6 Sep 2022 20:58:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5374B5AF995
+	for <lists+linux-stm32@lfdr.de>; Wed,  7 Sep 2022 04:01:06 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8B5C5C63326;
-	Tue,  6 Sep 2022 18:58:53 +0000 (UTC)
-Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com
- [209.85.218.51])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EBCCCC63326;
+	Wed,  7 Sep 2022 02:01:05 +0000 (UTC)
+Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com
+ [209.85.214.169])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 08729C03FCD
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E0545C03FCD
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  6 Sep 2022 18:58:51 +0000 (UTC)
-Received: by mail-ej1-f51.google.com with SMTP id gh9so3485572ejc.8
+ Wed,  7 Sep 2022 02:01:03 +0000 (UTC)
+Received: by mail-pl1-f169.google.com with SMTP id x1so8705700plv.5
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 06 Sep 2022 11:58:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date;
- bh=YhCD2BUnvk+EART+qJYRghEdCBWvNx4ju2rtPfEiOI4=;
- b=y+siq/RM3RjL+a1SK0nGMlaEWNEBEQpvol3sAC7TSLKfqrvgrwE+jUGmQgB/MUNllk
- jnsMr1WTUb1cZLxUcNNORCDaeZfQt3O1dgZahrjHwLFy0N6vd6qrvqlsy4AEpQ/4VXsf
- zWotv3g4A24afILYTS/uVTv4MQrVjjn09OpgSxusqSom94LbqJNvu50DCuu0P9ro/JId
- GkTk05VU3tLi5ADw6VkS0s49SNsT77h2jqjtOZEWVI40YVhpkHSt19Z8JmMq67O9jUmd
- fUm9c2Qa9pCn4G5/mzAkrd7N5g1tRPHblr6ND74ND6KX6C6xDtOakIOOqteQoziPUM4L
- N3jA==
+ Tue, 06 Sep 2022 19:01:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date;
+ bh=YaCijregOqOjgcZeIED7JVmldRewR4dEphbJlxDQblY=;
+ b=S9pRunUxPC7r0e1w9yj0o8783wojVpjNhKP8jsT71wWMuWPsfUFzdJz0TJMPpqTsPB
+ M+Ae8ANyYrV4Sep3x0VbDc+EnMue4OoEN8RpFTpOjPkluJnGT2cqlVh1JYNiO5h/tDGK
+ RGVJLwVuP7GISwNRAdT5OiqdenVIGFNKEJzKBNq2q1BXIKHlp8tWKx0fxbOK8GA6DZwQ
+ TZfa9JbPfMPcxWCYQlbaTpn5opve5VlejEuuBRLWTpxblG8WQDMhb5np+dyWJJ6kAEEW
+ rXWcB3V4lQHvMssIFHI0kdZjP9pomfXdXnH1i/sJC8kJC91PlHbGOcBl6u1/CPq1k3ff
+ 5tAg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date;
- bh=YhCD2BUnvk+EART+qJYRghEdCBWvNx4ju2rtPfEiOI4=;
- b=d8NcZAFBvFHSYnORjXfpUWBvIcDSAUkcWb4i7biTIBQo1KAltOLJLh2JURSsBWWflW
- 0w3DzOl5cCaY5+GagMCf1NdRqIZ9VDUl6JFk/9BLWbxCwF14inN/BgVcjwGhh/NLPgVe
- 6BJBdSQMR2HqOv3xhJqhR114rMEbNWz9ybQQYRSq2+V338XT9KKe/MjUyVX51THga24J
- ZAE0b3kz+0HOjKXtEk75Ty+jhesYLumik5+mm0JDvZOTCLsrpFRcqMiRbf3BkYhoo7CQ
- Q2Sy3bEgnbYDQoSRYAQBxIW6o1KqCL0jZKTa/0vO3/MV+RrzdJaeI7KQ/9uXQafW9Gmv
- lIaQ==
-X-Gm-Message-State: ACgBeo00NDwhznXu/PI5ieoZDVTTaNMUdzJiZH01Q/1ylF/dnGhtM8p2
- Zs4PReFSWDrNDjKd9M8Y0MKhA28+EL18bvNbmbTnlQ==
-X-Google-Smtp-Source: AA6agR5AOS8szLUYRUywxgPElU/nyOQWQJSIyBhejwRqUbyMNY9SBFGhCIk8wI4FG9Qv8YfYQiDR8F4+fwjKMWs/ojo=
-X-Received: by 2002:a17:906:58c8:b0:6fe:91d5:18d2 with SMTP id
- e8-20020a17090658c800b006fe91d518d2mr41006298ejs.190.1662490731615; Tue, 06
- Sep 2022 11:58:51 -0700 (PDT)
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date;
+ bh=YaCijregOqOjgcZeIED7JVmldRewR4dEphbJlxDQblY=;
+ b=jc6KH45veqZApLXq5wYuSPaS4j7Gf6wtfNMCrMvxmtEqbLIo5El+KdPDKfNn1MPqAw
+ 8zoPyhVlRH35IRPwV9zIkThfPvlyDT4UEPlPvhBpKK+KLcc2vNEyvfClZM7OT0tBBWyK
+ MQsiRKFQvR3sVK7vqn2a4poRnKDwVI8pijVgDgyIkDosVnvme2LLbeaqGrI4qrHBZRCU
+ 7mRSgKfJrYr9VwbzXqiwfCCZAqaQwtBgZG1yfKl4q35noX24dPHu22pJLrDeGF5AmNzw
+ rZh/YwVwMq531c43A9nPQPu+QgE0Uj33sTO6djRUu6JoGSvSFRYbV2i0tEoxzEZ9HMUN
+ ghfQ==
+X-Gm-Message-State: ACgBeo3U2OaalIO4prYrKpLXBUlcUm20FrH9CPTCmxxmQUEAJ9dCeg0I
+ xO/xy9sOiNB8iJfWW07gz8E=
+X-Google-Smtp-Source: AA6agR4W7OfcLFzEOrvTrf5AWbvTtcvq1nW6dbnnaSOnulUmzjwEL9HxLO3xrl5g0PyDmCwuPzMlMg==
+X-Received: by 2002:a17:90b:3ec7:b0:1fa:cdc1:f66 with SMTP id
+ rm7-20020a17090b3ec700b001facdc10f66mr28531683pjb.167.1662516062292; 
+ Tue, 06 Sep 2022 19:01:02 -0700 (PDT)
+Received: from google.com ([2620:15c:202:201:abc4:5d24:5a73:a96b])
+ by smtp.gmail.com with ESMTPSA id
+ a206-20020a621ad7000000b00537d74f58cbsm2322985pfa.69.2022.09.06.19.00.59
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 06 Sep 2022 19:01:01 -0700 (PDT)
+Date: Tue, 6 Sep 2022 19:00:57 -0700
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: Guenter Roeck <linux@roeck-us.net>
+Message-ID: <Yxf7WTFG7xEh2Gv6@google.com>
+References: <20220903-gpiod_get_from_of_node-remove-v1-0-b29adfb27a6c@gmail.com>
+ <20220903-gpiod_get_from_of_node-remove-v1-10-b29adfb27a6c@gmail.com>
+ <CAHp75Vd35EOy=mP25=9fmYfqQnbafgotHw1fxk-TdGk6Oc8g8Q@mail.gmail.com>
+ <75e60144-9fa2-d6ba-bc92-edd23f7e7189@roeck-us.net>
+ <CAHp75VcisCTYoRp-=713YKtwi7BQyPKGiUhF4DkpfAFtvDXCiQ@mail.gmail.com>
+ <c696b9bf-d0ce-1c6a-0ee3-939b180891be@roeck-us.net>
+ <YxZSUlCPEE9o/s4G@google.com>
+ <73749107-35aa-0720-1a30-02a90c0540fa@roeck-us.net>
 MIME-Version: 1.0
-References: <YxeS1BK2OBH1P/kO@google.com>
-In-Reply-To: <YxeS1BK2OBH1P/kO@google.com>
-From: Linus Walleij <linus.walleij@linaro.org>
-Date: Tue, 6 Sep 2022 20:58:40 +0200
-Message-ID: <CACRpkdY1DmywF3UdzBQHSp6N_uwK5MK93Do8TkKExtCVVQHZ2w@mail.gmail.com>
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: devicetree@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- linux-kernel@vger.kernel.org, Lee Jones <lee@kernel.org>,
- Rob Herring <robh+dt@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>,
+Content-Disposition: inline
+In-Reply-To: <73749107-35aa-0720-1a30-02a90c0540fa@roeck-us.net>
+Cc: Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kw@linux.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Vignesh Raghavendra <vigneshr@ti.com>, David Airlie <airlied@linux.ie>,
+ linux-pci <linux-pci@vger.kernel.org>,
+ Linus Walleij <linus.walleij@linaro.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, linux-tegra <linux-tegra@vger.kernel.org>,
  Thierry Reding <thierry.reding@gmail.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-tegra@vger.kernel.org,
- Francesco Dolcini <francesco.dolcini@toradex.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2] mfd: stmpe: switch to using gpiod API
+ "open list:MEMORY TECHNOLOGY..." <linux-mtd@lists.infradead.org>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ Miquel Raynal <miquel.raynal@bootlin.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Alyssa Rosenzweig <alyssa@rosenzweig.io>,
+ LINUXWATCHDOG <linux-watchdog@vger.kernel.org>, Rob Herring <robh@kernel.org>,
+ Marc Zyngier <maz@kernel.org>, Bartosz Golaszewski <brgl@bgdev.pl>,
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ Andy Shevchenko <andy.shevchenko@gmail.com>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Matti Vaittinen <mazziesaccount@gmail.com>,
+ "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
+ Mark Brown <broonie@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
+ Wim Van Sebroeck <wim@linux-watchdog.org>,
+ linux-arm Mailing List <linux-arm-kernel@lists.infradead.org>,
+ Felipe Balbi <balbi@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ USB <linux-usb@vger.kernel.org>, Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Daniel Vetter <daniel@ffwll.ch>, Richard Weinberger <richard@nod.at>,
+ Pali =?iso-8859-1?Q?Roh=E1r?= <pali@kernel.org>,
+ Claudiu Beznea <claudiu.beznea@microchip.com>
+Subject: Re: [Linux-stm32] [PATCH v1 10/11] watchdog: bd9576_wdt: switch to
+ using devm_fwnode_gpiod_get()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,37 +113,38 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Sep 6, 2022 at 8:35 PM Dmitry Torokhov
-<dmitry.torokhov@gmail.com> wrote:
+On Mon, Sep 05, 2022 at 03:09:05PM -0700, Guenter Roeck wrote:
+> On 9/5/22 12:47, Dmitry Torokhov wrote:
+> [ ... ]
+> > > We know that count is either 1 or 2 here, so strictly speaking
+> > > 	if (count == 1) {
+> > > 	} else {
+> > > 	}
+> > > would be sufficient. On the other side, that depends on ARRAY_SIZE() being
+> > > exactly 2, so
+> > > 	if (count == 1) {
+> > > 	} else if (count == 2) {
+> > > 	}
+> > > would also make sense. Either way is fine with me. I'll leave it up
+> > > to Dmitry to decide what he wants to do.
+> > 
+> > My goal is to drop usage of devm_gpiod_get_from_of_node(), beyond that I
+> > do not have strong preferences either way really. It is probing code, so
+> > performance is not critical, but I'm obviously satisfied with how the
+> > code looks now, or I would not have sent it.
+> > 
+> 
+> Good point.
+> 
+> Reviewed-by: Guenter Roeck <linux@roeck-us.net>
 
-> This patch switches the driver away from legacy gpio/of_gpio API to
-> gpiod API, and removes use of of_get_named_gpio_flags() which I want to
-> make private to gpiolib.
->
-> We also need to patch relevant DTS files, as the original code relied on
-> the fact that of_get_named_gpio_flags() would fetch any data encoded in
-> GPIO flags, even if it does not reflect valid flags for a GPIO.
->
-> Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Guenter, individual patches are going through maintainer's trees, will
+you take this one?
 
-Reviewed-by: Linus Walleij <linus.walleij@linaro.org>
+Thanks.
 
-> ---
->
-> v1->v2:
->  - add DTS changes, as noticed by Francesco Dolcini.
->
-> I guess we could do a dance of changing stmpe to check the flags coming
-> from DTS and try to distinguish IRQ flags from proper GPIO flags, then
-> have a separate patch changing DTSes, and finally a 2nd patch to stmpe
-> to use GPIOD API, but I am hoping we could apply this in one go...
-
-It's a mess, let's just apply it and forget about it. It's one of those
-trees falling in the forest and noone is there to hear it fall-type of
-things.
-
-Yours,
-Linus Walleij
+-- 
+Dmitry
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
