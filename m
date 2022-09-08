@@ -2,81 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0DFA75B1743
-	for <lists+linux-stm32@lfdr.de>; Thu,  8 Sep 2022 10:38:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A360B5B192F
+	for <lists+linux-stm32@lfdr.de>; Thu,  8 Sep 2022 11:48:04 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A49B4C6334A;
-	Thu,  8 Sep 2022 08:38:44 +0000 (UTC)
-Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com
- [209.85.218.53])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 39390C6334A;
+	Thu,  8 Sep 2022 09:48:04 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3AA23C63327
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7CC17C63325
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  8 Sep 2022 08:38:43 +0000 (UTC)
-Received: by mail-ej1-f53.google.com with SMTP id bj12so36288940ejb.13
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 08 Sep 2022 01:38:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date;
- bh=SqPML+unsouuIp4FVHK4Uf7DFvDcdAzoCu01LQ5xtJU=;
- b=SAoPOQWnZqu89mgLfBmiK5MrA8YCX5o9aGmYu4qqPNVoBkVnERkpNhCjHVCDQ9Zla1
- dwqjtxWA+cJ6EDML6KOuvVZ4R6NIPdCxT8QAEB80mIcXpDf2Zf9m7S4FsFoMJ51USitH
- Qd1pfZ4aI8HWIB9O1qt8jwZQ6YhUw0CUeBplhf899+yVwxpGxiGqmmXQn83Kl/G4s1eI
- C+ZSChYFtQHAmgSz+vgZPMqj3wcCWnPZrWj/U9r/3gRuxpP0SGbraorsJPs29Q973tKF
- kAzOfKhkV3IcUs1n2dwba5aeil8pWoUhDW7HjrjRLDXn9ByPmVyCvnNoBZTuKajNSFhw
- VwcQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date;
- bh=SqPML+unsouuIp4FVHK4Uf7DFvDcdAzoCu01LQ5xtJU=;
- b=4gm573dMx/DDxryN3mR4gzn/6uW3jPRWL9o+Hzjs7UTvs68UfuwmeWXBcdPepYNnmi
- KxbryrA0gko25N4yMZeuZ3DX95/1zJ/QFcYnYtmVVGzSLtwPj6HBADrKEvn36/AEvgtR
- N/vI54p1oLJrCWHl5d+GLK1LbQt5x5ZOG8mlZjhB+UxKJPN09UjKxCml3mSzcWUDkW9P
- WS4cIa6kMPjkfLYPhkfq+jPrPpwWgLWxKbaQ/xMUeyzwr9Bl1uuS3fWFiSINTF/JQ4qJ
- zHCvhdIWR86218F1O073ScJZAYHa+zTJP13MCtUs3jQa2Wd3W3RJn5zqV4YziAFWXgey
- vc/w==
-X-Gm-Message-State: ACgBeo1KOCmX9Rs+S5TCaICzpc2M4u4ToVAoO9I+gXcjUqbK3QeYDh/B
- 8wJgVvciG4tbOLj3IC1+UTHxX4ievSZB4jNU9SPPuw==
-X-Google-Smtp-Source: AA6agR5Qlu6bHigQRlsF7FnyAifGVWu07Yimovaj6W3A7lzSYgEVwFSZi08eyLAuAWp+B7C3eLgpufDg+xQ7EBPkK+Y=
-X-Received: by 2002:a17:907:a420:b0:765:70a4:c101 with SMTP id
- sg32-20020a170907a42000b0076570a4c101mr5281501ejc.526.1662626322796; Thu, 08
- Sep 2022 01:38:42 -0700 (PDT)
+ Thu,  8 Sep 2022 09:48:02 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 05738B82051;
+ Thu,  8 Sep 2022 09:48:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15870C433D6;
+ Thu,  8 Sep 2022 09:47:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1662630480;
+ bh=twVKFDNBiJV5imqH0rJ1FX3tasybHNqPAbjuEtEEwBo=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=FTq/jmjllxhZf4zqdTbijiuwMtav33tMrjaok6lXSDwstIvkbH0YUMS4yDf20f60i
+ ZVdSXww5SMFHSElQwpEitJ9FoqjQZ/g4EkeyQPPUI4epDqcZs9o3EOIdfmhDAdMH6s
+ YEItpf+8/16v3s554D+vQ39R+LZgo0XQmgjJ3bnbJeI9DmBSt/4PIr9tbPQz7deN6T
+ krbmFeljz554fQy/FmUfKvuJxkUqcxkXN6f60A+LJy6KsdS90OIev6KZ6oW5cPDebA
+ gQqyywgAeG4xCdRFKRyTA4LgOblHtVFa2LL71xeynVJxwELW4CkSkO9t+VgKvREazq
+ m2yHENAGjSIgw==
+Date: Thu, 8 Sep 2022 10:47:51 +0100
+From: Lee Jones <lee@kernel.org>
+To: Rob Herring <robh@kernel.org>
+Message-ID: <Yxm6R21Uw0/ghRsn@google.com>
+References: <20220823145649.3118479-4-robh@kernel.org>
 MIME-Version: 1.0
-References: <20220903-gpiod_get_from_of_node-remove-v1-0-b29adfb27a6c@gmail.com>
- <20220903-gpiod_get_from_of_node-remove-v1-10-b29adfb27a6c@gmail.com>
-In-Reply-To: <20220903-gpiod_get_from_of_node-remove-v1-10-b29adfb27a6c@gmail.com>
-From: Linus Walleij <linus.walleij@linaro.org>
-Date: Thu, 8 Sep 2022 10:38:31 +0200
-Message-ID: <CACRpkdaeQFP+H786D=SG4s+sQmxScUzve-uWkm-Sg7xFDK_Syw@mail.gmail.com>
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kw@linux.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Vignesh Raghavendra <vigneshr@ti.com>, David Airlie <airlied@linux.ie>,
- linux-pci@vger.kernel.org, Lorenzo Pieralisi <lpieralisi@kernel.org>,
- dri-devel@lists.freedesktop.org, Liam Girdwood <lgirdwood@gmail.com>,
- linux-tegra@vger.kernel.org, Thierry Reding <thierry.reding@gmail.com>,
- linux-mtd@lists.infradead.org, Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- Miquel Raynal <miquel.raynal@bootlin.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Alyssa Rosenzweig <alyssa@rosenzweig.io>, linux-watchdog@vger.kernel.org,
- Rob Herring <robh@kernel.org>, Marc Zyngier <maz@kernel.org>,
- Bartosz Golaszewski <brgl@bgdev.pl>, Jonathan Hunter <jonathanh@nvidia.com>,
- Guenter Roeck <linux@roeck-us.net>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Matti Vaittinen <mazziesaccount@gmail.com>, linux-gpio@vger.kernel.org,
- Mark Brown <broonie@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
- Wim Van Sebroeck <wim@linux-watchdog.org>,
- linux-arm-kernel@lists.infradead.org, Felipe Balbi <balbi@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
- Nicolas Ferre <nicolas.ferre@microchip.com>, linux-kernel@vger.kernel.org,
- Daniel Vetter <daniel@ffwll.ch>, Richard Weinberger <richard@nod.at>,
- =?UTF-8?Q?Pali_Roh=C3=A1r?= <pali@kernel.org>,
- Claudiu Beznea <claudiu.beznea@microchip.com>
-Subject: Re: [Linux-stm32] [PATCH v1 10/11] watchdog: bd9576_wdt: switch to
-	using devm_fwnode_gpiod_get()
+Content-Disposition: inline
+In-Reply-To: <20220823145649.3118479-4-robh@kernel.org>
+Cc: Heiko Stuebner <heiko@sntech.de>, Linus Walleij <linus.walleij@linaro.org>,
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Chris Zhong <zyw@rock-chips.com>, linux-stm32@st-md-mailman.stormreply.com,
+ Renner Berthing <kernel@esmil.dk>, Samuel Holland <samuel@sholland.org>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Chanwoo Choi <cw00.choi@samsung.com>, Chen-Yu Tsai <wens@csie.org>,
+ linux-rockchip@lists.infradead.org, linux-sunxi@lists.linux.dev,
+ devicetree@vger.kernel.org, Alistair Francis <alistair@alistair23.me>,
+ Charles Keepax <ckeepax@opensource.cirrus.com>,
+ Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>,
+ Tim Harvey <tharvey@gateworks.com>, Zhang Qing <zhangqing@rock-chips.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Richard Fitzgerald <rf@opensource.cirrus.com>,
+ linux-arm-kernel@lists.infradead.org, Robert Jones <rjones@gateworks.com>,
+ - <patches@opensource.cirrus.com>, linux-kernel@vger.kernel.org,
+ Steve Twiss <stwiss.opensource@diasemi.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH] dt-bindings: mfd: Add missing
+ (unevaluated|additional)Properties on child nodes
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,28 +69,33 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Sep 5, 2022 at 8:31 AM Dmitry Torokhov
-<dmitry.torokhov@gmail.com> wrote:
-
-> I would like to stop exporting OF-specific devm_gpiod_get_from_of_node()
-> so that gpiolib can be cleaned a bit, so let's switch to the generic
-> fwnode property API.
->
-> While at it switch the rest of the calls to read properties in
-> bd9576_wdt_probe() to the generic device property API as well.
->
-> Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-
-Reviewed-by: Linus Walleij <linus.walleij@linaro.org>
-
-Yours,
-Linus Walleij
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gVHVlLCAyMyBBdWcgMjAyMiwgUm9iIEhlcnJpbmcgd3JvdGU6Cgo+IEluIG9yZGVyIHRvIGVu
+c3VyZSBvbmx5IGRvY3VtZW50ZWQgcHJvcGVydGllcyBhcmUgcHJlc2VudCwgbm9kZSBzY2hlbWFz
+Cj4gbXVzdCBoYXZlIHVuZXZhbHVhdGVkUHJvcGVydGllcyBvciBhZGRpdGlvbmFsUHJvcGVydGll
+cyBzZXQgdG8gZmFsc2UKPiAodHlwaWNhbGx5KS4KPiAKPiBTaWduZWQtb2ZmLWJ5OiBSb2IgSGVy
+cmluZyA8cm9iaEBrZXJuZWwub3JnPgo+IC0tLQo+ICAuLi4vbWZkL2FsbHdpbm5lcixzdW42aS1h
+MzEtcHJjbS55YW1sICAgICAgICAgfCA0MCArKysrKysrKysrKysrKysrKysrCj4gIC4uLi9tZmQv
+YWxsd2lubmVyLHN1bjhpLWEyMy1wcmNtLnlhbWwgICAgICAgICB8IDEwICsrKysrCj4gIC4uLi9i
+aW5kaW5ncy9tZmQvY2lycnVzLGxvY2huYWdhci55YW1sICAgICAgICB8ICA1ICsrKwo+ICAuLi4v
+ZGV2aWNldHJlZS9iaW5kaW5ncy9tZmQvZGxnLGRhOTA2My55YW1sICAgfCAgNyArKy0tCj4gIC4u
+Li9iaW5kaW5ncy9tZmQvZ2F0ZXdvcmtzLWdzYy55YW1sICAgICAgICAgICB8ICA1ICsrLQo+ICAu
+Li4vYmluZGluZ3MvbWZkL21heGltLG1heDE0NTc3LnlhbWwgICAgICAgICAgfCAgMSArCj4gIC4u
+Li9iaW5kaW5ncy9tZmQvbWF4aW0sbWF4Nzc4NDMueWFtbCAgICAgICAgICB8ICAxICsKPiAgLi4u
+L2JpbmRpbmdzL21mZC9yb2NrY2hpcCxyazgxNy55YW1sICAgICAgICAgIHwgIDIgKwo+ICAuLi4v
+YmluZGluZ3MvbWZkL3NpbGVyZ3ksc3k3NjM2YS55YW1sICAgICAgICAgfCAgMSArCj4gIC4uLi9i
+aW5kaW5ncy9tZmQvc3Qsc3RtMzItbHB0aW1lci55YW1sICAgICAgICB8ICA0ICsrCj4gIC4uLi9i
+aW5kaW5ncy9tZmQvc3Qsc3RtMzItdGltZXJzLnlhbWwgICAgICAgICB8ICAzICsrCj4gIC4uLi9k
+ZXZpY2V0cmVlL2JpbmRpbmdzL21mZC9zdCxzdG1meC55YW1sICAgICB8ICAxICsKPiAgLi4uL2Jp
+bmRpbmdzL21mZC9zdGVyaWNzc29uLGFiODUwMC55YW1sICAgICAgIHwgMjIgKysrKysrKysrKwo+
+ICAuLi4vZGV2aWNldHJlZS9iaW5kaW5ncy9tZmQvdGksdHBzNjUwODYueWFtbCAgfCAgMSArCj4g
+IC4uLi9iaW5kaW5ncy9tZmQveC1wb3dlcnMsYXhwMTUyLnlhbWwgICAgICAgICB8ICAxICsKPiAg
+MTUgZmlsZXMgY2hhbmdlZCwgMTAwIGluc2VydGlvbnMoKyksIDQgZGVsZXRpb25zKC0pCgpBcHBs
+aWVkLCB0aGFua3MuCgotLSAKTGVlIEpvbmVzIFvmnY7nkLzmlq9dCl9fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApM
+aW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFp
+bG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
