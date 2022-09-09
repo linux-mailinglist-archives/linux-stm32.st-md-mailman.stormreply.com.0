@@ -2,82 +2,64 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 880725B1E48
-	for <lists+linux-stm32@lfdr.de>; Thu,  8 Sep 2022 15:14:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7B7A45B3D87
+	for <lists+linux-stm32@lfdr.de>; Fri,  9 Sep 2022 19:01:18 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 203B3C6410E;
-	Thu,  8 Sep 2022 13:14:12 +0000 (UTC)
-Received: from mail-lf1-f52.google.com (mail-lf1-f52.google.com
- [209.85.167.52])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3CD06C64118;
+	Fri,  9 Sep 2022 17:01:18 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 34875C64107
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3E66EC64115
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  8 Sep 2022 13:14:10 +0000 (UTC)
-Received: by mail-lf1-f52.google.com with SMTP id f11so13646487lfa.6
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 08 Sep 2022 06:14:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date;
- bh=d6L8J87aB1v86b8RgudDsS+xKsHjOOrMMFG5XtkLsqo=;
- b=KHawKIkFgPkUxVPkrjS1pBxHZgetgHTNXzqxeOnAcSGLyIQMDySoPJY0z20Bkyivns
- RPFgcCuGjz4+xShlNPgjCl+R9EueMyB2ktLSK2dZpqECBuL0feaVHYpwNepFy7K7tYSu
- 2KvMpZD6jpzhfIwYGIZKHCxFgYI5bGqvoTmZWHyH8sMHA5ne2vHmdeHMcUdzXfZxdrrB
- DrvjEFNw6NB0C4OcfJ7W298bdxJKmhSiODQpTt1GczHtkKhnZfrsDf26fCWUok8Y0zbT
- DyXGnZFjOllz5290Yz1gzA/LcwKkLPd4YWczB9p99j3HJhONBxS5BBuVJOE3kBfLtayx
- ge8A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date;
- bh=d6L8J87aB1v86b8RgudDsS+xKsHjOOrMMFG5XtkLsqo=;
- b=0kdacu0rxotQmmNzelrCwvs8ooJhmF0oElORwWgjJcLwohmq5xQPZweZ2XYINrrPfF
- Pwbv/KiqKitSRadDE0iN+UOKHW0TpT2z4PdENu87KlV6is9A5ZLbBPRV2iFG/zY7n+4k
- palEMGLHwOtWv63DoP+b3lh48wGUJcAytYsN7LmGM0b+oE7bAe+CsCJ0zsNXy5Eti8MW
- Wp+4Xppvi6woRT8rNNaY5R6kHvBlb+CqZ9TrcuANCvANJXxLLer0AfJfSKGOPAYV+iTw
- 76mAjpoTyxn3j43b2yBQNI7dt1QCsbnxzpN/YTy3qzaCtgclbclR2CLSQJoaH0QcmQkZ
- uROw==
-X-Gm-Message-State: ACgBeo0Lk7TH3TOEwEPZSGSc2f4zvf+zt3M/VQIY+LVazNMKundTP8PV
- aHoe8EPK/agUzNZAeeWmrJvZ1g==
-X-Google-Smtp-Source: AA6agR4avfuGtI4mV/LW9eH4t+t9Zcbij4SZp+wKUzY4VSoj42JgpHx8sPN67mwk8vwBWDoNPbikJg==
-X-Received: by 2002:a05:6512:3f05:b0:497:9e06:255b with SMTP id
- y5-20020a0565123f0500b004979e06255bmr2549468lfa.175.1662642849511; 
- Thu, 08 Sep 2022 06:14:09 -0700 (PDT)
-Received: from [192.168.0.21] (78-11-189-27.static.ip.netia.com.pl.
- [78.11.189.27]) by smtp.gmail.com with ESMTPSA id
- w22-20020a0565120b1600b004946d1f3cc4sm3028045lfu.164.2022.09.08.06.14.08
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 08 Sep 2022 06:14:09 -0700 (PDT)
-Message-ID: <cd896ff3-47b7-43eb-c821-8c5fb53c6ae6@linaro.org>
-Date: Thu, 8 Sep 2022 15:14:07 +0200
+ Fri,  9 Sep 2022 17:01:16 +0000 (UTC)
+Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 289BqkmR029793;
+ Fri, 9 Sep 2022 19:00:51 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=selector1;
+ bh=q/uLk2C4YAYCjm8Y2f3l6OalwpedwC0kgbV9b74cLpY=;
+ b=ZW+oiDHrorD5l1WT7feJ5PPNz8EYYfiWZG88HqmKK/zqHSXPJrxfPi1gDNGb251gUvxu
+ 1FT1Zyej7vJqUerGnany/xO7rXw1Q6SLINumkHM6UGA9uU6QL3D3dqbbnRj5tzzqahSH
+ oWvCN1fH2uBbgqHDaCdsw5YtMmr5SeEotiih0ZlrPsjW5KPwAeY3ZgtcGFwNhgSnKcmH
+ Qj1R99DfWwGmDI6EAeT5erhOM12gFu/LEEdEzWEAfq6/md8GHzGXG+S6BJJNdR11z3Fj
+ pwVsiy3rKqXOwayZehG5CVZGFrm+uisL8oOvVwt226sAjxiTlvgjiba24ouZ3cXwrRR1 hw== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3jfd5j29a9-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 09 Sep 2022 19:00:51 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id DB94510002A;
+ Fri,  9 Sep 2022 19:00:49 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 586CE24551C;
+ Fri,  9 Sep 2022 19:00:49 +0200 (CEST)
+Received: from localhost (10.75.127.121) by SHFDAG1NODE1.st.com (10.75.129.69)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2375.7; Fri, 9 Sep 2022
+ 19:00:48 +0200
+From: Hugues Fruchet <hugues.fruchet@foss.st.com>
+To: Alexandre Torgue <alexandre.torgue@foss.st.com>, Mauro Carvalho Chehab
+ <mchehab@kernel.org>, Hans Verkuil <hverkuil@xs4all.nl>, Sakari Ailus
+ <sakari.ailus@linux.intel.com>, Rob Herring <robh+dt@kernel.org>
+Date: Fri, 9 Sep 2022 18:59:54 +0200
+Message-ID: <20220909165959.5899-1-hugues.fruchet@foss.st.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.13.0
-Content-Language: en-US
-To: "nathan.lu" <nathan.lu@mediatek.com>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Chun-Kuang Hu <chunkuang.hu@kernel.org>,
- Philipp Zabel <p.zabel@pengutronix.de>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>, Alexandre Torgue
- <alexandre.torgue@foss.st.com>, Matthias Brugger <matthias.bgg@gmail.com>
-References: <20220906084449.20124-1-nathan.lu@mediatek.com>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20220906084449.20124-1-nathan.lu@mediatek.com>
-Cc: devicetree@vger.kernel.org, wsd_upstream@mediatek.com,
- "jason-jh . lin" <jason-jh.lin@mediatek.com>, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org,
- Project_Global_Chrome_Upstream_Group@mediatek.com,
- Rex-BC Chen <rex-bc.chen@mediatek.com>, Moudy Ho <moudy.ho@mediatek.com>,
- linux-mediatek@lists.infradead.org, CK Hu <ck.hu@mediatek.com>,
- lancelot.wu@mediatek.com, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Subject: Re: [Linux-stm32] [PATCH v2 0/6] Add first version mt8188 vdosys0
-	driver
+X-Originating-IP: [10.75.127.121]
+X-ClientProxiedBy: GPXDAG2NODE4.st.com (10.75.127.68) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.528,FMLib:17.11.122.1
+ definitions=2022-09-09_08,2022-09-09_01,2022-06-22_01
+Cc: devicetree@vger.kernel.org, Hugues Fruchet <hugues.fruchet@foss.st.com>,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org
+Subject: [Linux-stm32] [PATCH 0/5] Add support for DCMIPP camera interface
+	of STMicroelectronics STM32 SoC series
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,25 +76,579 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 06/09/2022 10:44, nathan.lu wrote:
-> From: Nathan Lu <nathan.lu@mediatek.com>
-> 
-> This path is based on [1] and [2]
-> [1] Add MediaTek SoC(vdosys1) support for mt8195
->     - https://patchwork.kernel.org/project/linux-mediatek/list/?series=658416
-> [2] Add MediaTek SoC DRM (vdosys1) support for mt8195
->     - https://patchwork.kernel.org/project/linux-mediatek/list/?series=665269
-> 
+This patchset introduces support for Digital Camera Memory Interface
+Pixel Processor (DCMIPP) of STMicroelectronics STM32 SoC series.
 
-Can you stop ccing internal/fake/non-existing email addresses?
+This initial support implements a single capture pipe
+allowing RGB565, YUV, Y, RAW8 and JPEG capture with
+frame skipping, prescaling and cropping.
 
-Your message couldn't be delivered to wsd_upstream@mediatek.com because
-the remote server is misconfigured. See the technical details below for
-more information.
+DCMIPP is exposed through 3 subdevices:
+- dcmipp_dump_parallel: parallel interface handling
+- dcmipp_dump_postproc: frame skipping, prescaling and cropping control
+- dcmipp_dump_capture: video device capture node
+
+This has been tested on STM32MP135F-DK discovery board with OV5640
+CSI-2 camera sensor. OV5640 is connected to DCMIPP through the
+MIPID02 CSI-2 to parallel bridge of the discovery board.
 
 
-Best regards,
-Krzysztof
+===================
+= v4l2-compliance =
+===================
+v4l2-compliance --media-device /dev/media0
+v4l2-compliance 1.22.1-7, 32 bits, 32-bit time_t
+
+Compliance test for dcmipp device /dev/media0:
+
+Media Driver Info:
+        Driver name      : dcmipp
+        Model            : DCMIPP MDEV
+        Serial           :
+        Bus info         : platform:dcmipp
+        Media version    : 5.15.53
+        Hardware revision: 0x00000000 (0)
+        Driver version   : 5.15.53
+
+Required ioctls:
+        test MEDIA_IOC_DEVICE_INFO: OK
+        test invalid ioctls: OK
+
+Allow for multiple opens:
+        test second /dev/media0 open: OK
+        test MEDIA_IOC_DEVICE_INFO: OK
+        test for unlimited opens: OK
+
+Media Controller ioctls:
+        test MEDIA_IOC_G_TOPOLOGY: OK
+        Entities: 5 Interfaces: 5 Pads: 9 Links: 9
+        test MEDIA_IOC_ENUM_ENTITIES/LINKS: OK
+        test MEDIA_IOC_SETUP_LINK: OK
+
+Total for dcmipp device /dev/media0: 8, Succeeded: 8, Failed: 0, Warnings: 0
+--------------------------------------------------------------------------------
+Compliance test for dcmipp device /dev/video0:
+
+Driver Info:
+        Driver name      : dcmipp
+        Card type        : dcmipp_bytecap
+        Bus info         : platform:dcmipp
+        Driver version   : 5.15.53
+        Capabilities     : 0x85200001
+                Video Capture
+                Read/Write
+                Streaming
+                Extended Pix Format
+                Device Capabilities
+        Device Caps      : 0x05200001
+                Video Capture
+                Read/Write
+                Streaming
+                Extended Pix Format
+Media Driver Info:
+        Driver name      : dcmipp
+        Model            : DCMIPP MDEV
+        Serial           : 
+        Bus info         : platform:dcmipp
+        Media version    : 5.15.53
+        Hardware revision: 0x00000000 (0)
+        Driver version   : 5.15.53
+Interface Info:
+        ID               : 0x03000009
+        Type             : V4L Video
+Entity Info:
+        ID               : 0x00000007 (7)
+        Name             : dcmipp_dump_capture
+        Function         : V4L2 I/O
+        Pad 0x01000008   : 0: Sink
+          Link 0x0200000d: from remote pad 0x1000006 of entity 'dcmipp_dump_postproc' (Video Pixel Formatter): Data, Enabled, Immutable
+
+Required ioctls:
+        test MC information (see 'Media Driver Info' above): OK
+        test VIDIOC_QUERYCAP: OK
+        test invalid ioctls: OK
+
+Allow for multiple opens:
+        test second /dev/video0 open: OK
+        test VIDIOC_QUERYCAP: OK
+        test VIDIOC_G/S_PRIORITY: OK
+        test for unlimited opens: OK
+
+Debug ioctls:
+        test VIDIOC_DBG_G/S_REGISTER: OK (Not Supported)
+        test VIDIOC_LOG_STATUS: OK (Not Supported)
+
+Input ioctls:
+        test VIDIOC_G/S_TUNER/ENUM_FREQ_BANDS: OK (Not Supported)
+        test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+        test VIDIOC_S_HW_FREQ_SEEK: OK (Not Supported)
+        test VIDIOC_ENUMAUDIO: OK (Not Supported)
+        test VIDIOC_G/S/ENUMINPUT: OK (Not Supported)
+        test VIDIOC_G/S_AUDIO: OK (Not Supported)
+        Inputs: 0 Audio Inputs: 0 Tuners: 0
+
+Output ioctls:
+        test VIDIOC_G/S_MODULATOR: OK (Not Supported)
+        test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+        test VIDIOC_ENUMAUDOUT: OK (Not Supported)
+        test VIDIOC_G/S/ENUMOUTPUT: OK (Not Supported)
+        test VIDIOC_G/S_AUDOUT: OK (Not Supported)
+        Outputs: 0 Audio Outputs: 0 Modulators: 0
+
+Input/Output configuration ioctls:
+        test VIDIOC_ENUM/G/S/QUERY_STD: OK (Not Supported)
+        test VIDIOC_ENUM/G/S/QUERY_DV_TIMINGS: OK (Not Supported)
+        test VIDIOC_DV_TIMINGS_CAP: OK (Not Supported)
+        test VIDIOC_G/S_EDID: OK (Not Supported)
+
+Control ioctls:
+        test VIDIOC_QUERY_EXT_CTRL/QUERYMENU: OK (Not Supported)
+        test VIDIOC_QUERYCTRL: OK (Not Supported)
+        test VIDIOC_G/S_CTRL: OK (Not Supported)
+        test VIDIOC_G/S/TRY_EXT_CTRLS: OK (Not Supported)
+        test VIDIOC_(UN)SUBSCRIBE_EVENT/DQEVENT: OK (Not Supported)
+        test VIDIOC_G/S_JPEGCOMP: OK (Not Supported)
+        Standard Controls: 0 Private Controls: 0
+
+Format ioctls:
+        test VIDIOC_ENUM_FMT/FRAMESIZES/FRAMEINTERVALS: OK
+        test VIDIOC_G/S_PARM: OK (Not Supported)
+        test VIDIOC_G_FBUF: OK (Not Supported)
+        test VIDIOC_G_FMT: OK
+        test VIDIOC_TRY_FMT: OK
+        test VIDIOC_S_FMT: OK
+        test VIDIOC_G_SLICED_VBI_CAP: OK (Not Supported)
+        test Cropping: OK (Not Supported)
+        test Composing: OK (Not Supported)
+        test Scaling: OK
+
+Codec ioctls:
+        test VIDIOC_(TRY_)ENCODER_CMD: OK (Not Supported)
+        test VIDIOC_G_ENC_INDEX: OK (Not Supported)
+        test VIDIOC_(TRY_)DECODER_CMD: OK (Not Supported)
+
+Buffer ioctls:
+        test VIDIOC_REQBUFS/CREATE_BUFS/QUERYBUF: OK
+        test VIDIOC_EXPBUF: OK
+        test Requests: OK (Not Supported)
+        test TIME32/64: OK
+
+Total for dcmipp device /dev/video0: 47, Succeeded: 47, Failed: 0, Warnings: 0
+--------------------------------------------------------------------------------
+Compliance test for dcmipp device /dev/v4l-subdev0:
+
+Driver Info:
+        Driver version   : 5.15.53
+        Capabilities     : 0x00000000
+Media Driver Info:
+        Driver name      : dcmipp
+        Model            : DCMIPP MDEV
+        Serial           : 
+        Bus info         : platform:dcmipp
+        Media version    : 5.15.53
+        Hardware revision: 0x00000000 (0)
+        Driver version   : 5.15.53
+Interface Info:
+        ID               : 0x03000019
+        Type             : V4L Sub-Device
+Entity Info:
+        ID               : 0x00000001 (1)
+        Name             : dcmipp_parallel
+        Function         : Video Interface Bridge
+        Pad 0x01000002   : 0: Sink
+          Link 0x02000013: from remote pad 0x1000012 of entity 'st-mipid02 1-0014' (Video Interface Bridge): Data, Enabled, Immutable
+        Pad 0x01000003   : 1: Source
+          Link 0x0200000b: to remote pad 0x1000005 of entity 'dcmipp_dump_postproc' (Video Pixel Formatter): Data, Enabled, Immutable
+
+Required ioctls:
+        test MC information (see 'Media Driver Info' above): OK
+        test VIDIOC_SUDBEV_QUERYCAP: OK
+        test invalid ioctls: OK
+
+Allow for multiple opens:
+        test second /dev/v4l-subdev0 open: OK
+        test VIDIOC_SUBDEV_QUERYCAP: OK
+        test for unlimited opens: OK
+
+Debug ioctls:
+        test VIDIOC_LOG_STATUS: OK (Not Supported)
+
+Input ioctls:
+        test VIDIOC_G/S_TUNER/ENUM_FREQ_BANDS: OK (Not Supported)
+        test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+        test VIDIOC_S_HW_FREQ_SEEK: OK (Not Supported)
+        test VIDIOC_ENUMAUDIO: OK (Not Supported)
+        test VIDIOC_G/S/ENUMINPUT: OK (Not Supported)
+        test VIDIOC_G/S_AUDIO: OK (Not Supported)
+        Inputs: 0 Audio Inputs: 0 Tuners: 0
+
+Output ioctls:
+        test VIDIOC_G/S_MODULATOR: OK (Not Supported)
+        test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+        test VIDIOC_ENUMAUDOUT: OK (Not Supported)
+        test VIDIOC_G/S/ENUMOUTPUT: OK (Not Supported)
+        test VIDIOC_G/S_AUDOUT: OK (Not Supported)
+        Outputs: 0 Audio Outputs: 0 Modulators: 0
+
+Input/Output configuration ioctls:
+        test VIDIOC_ENUM/G/S/QUERY_STD: OK (Not Supported)
+        test VIDIOC_ENUM/G/S/QUERY_DV_TIMINGS: OK (Not Supported)
+        test VIDIOC_DV_TIMINGS_CAP: OK (Not Supported)
+        test VIDIOC_G/S_EDID: OK (Not Supported)
+
+Sub-Device ioctls (Sink Pad 0):
+        test Try VIDIOC_SUBDEV_ENUM_MBUS_CODE/FRAME_SIZE/FRAME_INTERVAL: OK
+        test Try VIDIOC_SUBDEV_G/S_FMT: OK
+        test Try VIDIOC_SUBDEV_G/S_SELECTION/CROP: OK (Not Supported)
+        test Active VIDIOC_SUBDEV_ENUM_MBUS_CODE/FRAME_SIZE/FRAME_INTERVAL: OK
+        test Active VIDIOC_SUBDEV_G/S_FMT: OK
+        test Active VIDIOC_SUBDEV_G/S_SELECTION/CROP: OK (Not Supported)
+        test VIDIOC_SUBDEV_G/S_FRAME_INTERVAL: OK (Not Supported)
+
+Sub-Device ioctls (Source Pad 1):
+        test Try VIDIOC_SUBDEV_ENUM_MBUS_CODE/FRAME_SIZE/FRAME_INTERVAL: OK
+        test Try VIDIOC_SUBDEV_G/S_FMT: OK
+        test Try VIDIOC_SUBDEV_G/S_SELECTION/CROP: OK (Not Supported)
+        test Active VIDIOC_SUBDEV_ENUM_MBUS_CODE/FRAME_SIZE/FRAME_INTERVAL: OK
+        test Active VIDIOC_SUBDEV_G/S_FMT: OK
+        test Active VIDIOC_SUBDEV_G/S_SELECTION/CROP: OK (Not Supported)
+        test VIDIOC_SUBDEV_G/S_FRAME_INTERVAL: OK (Not Supported)
+
+Control ioctls:
+        test VIDIOC_QUERY_EXT_CTRL/QUERYMENU: OK (Not Supported)
+        test VIDIOC_QUERYCTRL: OK (Not Supported)
+        test VIDIOC_G/S_CTRL: OK (Not Supported)
+        test VIDIOC_G/S/TRY_EXT_CTRLS: OK (Not Supported)
+        test VIDIOC_(UN)SUBSCRIBE_EVENT/DQEVENT: OK (Not Supported)
+        test VIDIOC_G/S_JPEGCOMP: OK (Not Supported)
+        Standard Controls: 0 Private Controls: 0
+
+Format ioctls:
+        test VIDIOC_ENUM_FMT/FRAMESIZES/FRAMEINTERVALS: OK (Not Supported)
+        test VIDIOC_G/S_PARM: OK (Not Supported)
+        test VIDIOC_G_FBUF: OK (Not Supported)
+        test VIDIOC_G_FMT: OK (Not Supported)
+        test VIDIOC_TRY_FMT: OK (Not Supported)
+        test VIDIOC_S_FMT: OK (Not Supported)
+        test VIDIOC_G_SLICED_VBI_CAP: OK (Not Supported)
+        test Cropping: OK (Not Supported)
+        test Composing: OK (Not Supported)
+        test Scaling: OK (Not Supported)
+
+Codec ioctls:
+        test VIDIOC_(TRY_)ENCODER_CMD: OK (Not Supported)
+        test VIDIOC_G_ENC_INDEX: OK (Not Supported)
+        test VIDIOC_(TRY_)DECODER_CMD: OK (Not Supported)
+
+Buffer ioctls:
+        test VIDIOC_REQBUFS/CREATE_BUFS/QUERYBUF: OK (Not Supported)
+        test VIDIOC_EXPBUF: OK (Not Supported)
+        test Requests: OK (Not Supported)
+        test TIME32/64: OK
+
+Total for dcmipp device /dev/v4l-subdev0: 59, Succeeded: 59, Failed: 0, Warnings: 0
+--------------------------------------------------------------------------------
+Compliance test for dcmipp device /dev/v4l-subdev1:
+
+Driver Info:
+        Driver version   : 5.15.53
+        Capabilities     : 0x00000000
+Media Driver Info:
+        Driver name      : dcmipp
+        Model            : DCMIPP MDEV
+        Serial           : 
+        Bus info         : platform:dcmipp
+        Media version    : 5.15.53
+        Hardware revision: 0x00000000 (0)
+        Driver version   : 5.15.53
+Interface Info:
+        ID               : 0x0300001b
+        Type             : V4L Sub-Device
+Entity Info:
+        ID               : 0x00000004 (4)
+        Name             : dcmipp_dump_postproc
+        Function         : Video Pixel Formatter
+        Pad 0x01000005   : 0: Sink
+          Link 0x0200000b: from remote pad 0x1000003 of entity 'dcmipp_parallel' (Video Interface Bridge): Data, Enabled, Immutable
+        Pad 0x01000006   : 1: Source
+          Link 0x0200000d: to remote pad 0x1000008 of entity 'dcmipp_dump_capture' (V4L2 I/O): Data, Enabled, Immutable
+
+Required ioctls:
+        test MC information (see 'Media Driver Info' above): OK
+        test VIDIOC_SUDBEV_QUERYCAP: OK
+        test invalid ioctls: OK
+
+Allow for multiple opens:
+        test second /dev/v4l-subdev1 open: OK
+        test VIDIOC_SUBDEV_QUERYCAP: OK
+        test for unlimited opens: OK
+
+Debug ioctls:
+        test VIDIOC_LOG_STATUS: OK (Not Supported)
+
+Input ioctls:
+        test VIDIOC_G/S_TUNER/ENUM_FREQ_BANDS: OK (Not Supported)
+        test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+        test VIDIOC_S_HW_FREQ_SEEK: OK (Not Supported)
+        test VIDIOC_ENUMAUDIO: OK (Not Supported)
+        test VIDIOC_G/S/ENUMINPUT: OK (Not Supported)
+        test VIDIOC_G/S_AUDIO: OK (Not Supported)
+        Inputs: 0 Audio Inputs: 0 Tuners: 0
+
+Output ioctls:
+        test VIDIOC_G/S_MODULATOR: OK (Not Supported)
+        test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+        test VIDIOC_ENUMAUDOUT: OK (Not Supported)
+        test VIDIOC_G/S/ENUMOUTPUT: OK (Not Supported)
+        test VIDIOC_G/S_AUDOUT: OK (Not Supported)
+        Outputs: 0 Audio Outputs: 0 Modulators: 0
+
+Input/Output configuration ioctls:
+        test VIDIOC_ENUM/G/S/QUERY_STD: OK (Not Supported)
+        test VIDIOC_ENUM/G/S/QUERY_DV_TIMINGS: OK (Not Supported)
+        test VIDIOC_DV_TIMINGS_CAP: OK (Not Supported)
+        test VIDIOC_G/S_EDID: OK (Not Supported)
+
+Sub-Device ioctls (Sink Pad 0):
+        test Try VIDIOC_SUBDEV_ENUM_MBUS_CODE/FRAME_SIZE/FRAME_INTERVAL: OK
+        test Try VIDIOC_SUBDEV_G/S_FMT: OK
+        test Try VIDIOC_SUBDEV_G/S_SELECTION/CROP: OK (Not Supported)
+        test Active VIDIOC_SUBDEV_ENUM_MBUS_CODE/FRAME_SIZE/FRAME_INTERVAL: OK
+        test Active VIDIOC_SUBDEV_G/S_FMT: OK
+        test Active VIDIOC_SUBDEV_G/S_SELECTION/CROP: OK (Not Supported)
+        test VIDIOC_SUBDEV_G/S_FRAME_INTERVAL: OK
+
+Sub-Device ioctls (Source Pad 1):
+        test Try VIDIOC_SUBDEV_ENUM_MBUS_CODE/FRAME_SIZE/FRAME_INTERVAL: OK
+        test Try VIDIOC_SUBDEV_G/S_FMT: OK
+        test Try VIDIOC_SUBDEV_G/S_SELECTION/CROP: OK
+        test Active VIDIOC_SUBDEV_ENUM_MBUS_CODE/FRAME_SIZE/FRAME_INTERVAL: OK
+        test Active VIDIOC_SUBDEV_G/S_FMT: OK
+        test Active VIDIOC_SUBDEV_G/S_SELECTION/CROP: OK
+        test VIDIOC_SUBDEV_G/S_FRAME_INTERVAL: OK
+
+Control ioctls:
+        test VIDIOC_QUERY_EXT_CTRL/QUERYMENU: OK (Not Supported)
+        test VIDIOC_QUERYCTRL: OK (Not Supported)
+        test VIDIOC_G/S_CTRL: OK (Not Supported)
+        test VIDIOC_G/S/TRY_EXT_CTRLS: OK (Not Supported)
+        test VIDIOC_(UN)SUBSCRIBE_EVENT/DQEVENT: OK (Not Supported)
+        test VIDIOC_G/S_JPEGCOMP: OK (Not Supported)
+        Standard Controls: 0 Private Controls: 0
+
+Format ioctls:
+        test VIDIOC_ENUM_FMT/FRAMESIZES/FRAMEINTERVALS: OK (Not Supported)
+        test VIDIOC_G/S_PARM: OK (Not Supported)
+        test VIDIOC_G_FBUF: OK (Not Supported)
+        test VIDIOC_G_FMT: OK (Not Supported)
+        test VIDIOC_TRY_FMT: OK (Not Supported)
+        test VIDIOC_S_FMT: OK (Not Supported)
+        test VIDIOC_G_SLICED_VBI_CAP: OK (Not Supported)
+        test Cropping: OK (Not Supported)
+        test Composing: OK (Not Supported)
+        test Scaling: OK (Not Supported)
+
+Codec ioctls:
+        test VIDIOC_(TRY_)ENCODER_CMD: OK (Not Supported)
+        test VIDIOC_G_ENC_INDEX: OK (Not Supported)
+        test VIDIOC_(TRY_)DECODER_CMD: OK (Not Supported)
+
+Buffer ioctls:
+        test VIDIOC_REQBUFS/CREATE_BUFS/QUERYBUF: OK (Not Supported)
+        test VIDIOC_EXPBUF: OK (Not Supported)
+        test Requests: OK (Not Supported)
+        test TIME32/64: OK
+
+Total for dcmipp device /dev/v4l-subdev1: 59, Succeeded: 59, Failed: 0, Warnings: 0
+--------------------------------------------------------------------------------
+Compliance test for device /dev/v4l-subdev2:
+
+Driver Info:
+        Driver version   : 5.15.53
+        Capabilities     : 0x00000000
+
+Required ioctls:
+        test VIDIOC_SUDBEV_QUERYCAP: OK
+        test invalid ioctls: OK
+
+Allow for multiple opens:
+        test second /dev/v4l-subdev2 open: OK
+        test VIDIOC_SUBDEV_QUERYCAP: OK
+        test for unlimited opens: OK
+
+Debug ioctls:
+        test VIDIOC_LOG_STATUS: OK (Not Supported)
+
+Input ioctls:
+        test VIDIOC_G/S_TUNER/ENUM_FREQ_BANDS: OK (Not Supported)
+        test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+        test VIDIOC_S_HW_FREQ_SEEK: OK (Not Supported)
+        test VIDIOC_ENUMAUDIO: OK (Not Supported)
+        test VIDIOC_G/S/ENUMINPUT: OK (Not Supported)
+        test VIDIOC_G/S_AUDIO: OK (Not Supported)
+        Inputs: 0 Audio Inputs: 0 Tuners: 0
+
+Output ioctls:
+        test VIDIOC_G/S_MODULATOR: OK (Not Supported)
+        test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+        test VIDIOC_ENUMAUDOUT: OK (Not Supported)
+        test VIDIOC_G/S/ENUMOUTPUT: OK (Not Supported)
+        test VIDIOC_G/S_AUDOUT: OK (Not Supported)
+        Outputs: 0 Audio Outputs: 0 Modulators: 0
+
+Input/Output configuration ioctls:
+        test VIDIOC_ENUM/G/S/QUERY_STD: OK (Not Supported)
+        test VIDIOC_ENUM/G/S/QUERY_DV_TIMINGS: OK (Not Supported)
+        test VIDIOC_DV_TIMINGS_CAP: OK (Not Supported)
+        test VIDIOC_G/S_EDID: OK (Not Supported)
+
+Control ioctls:
+        test VIDIOC_QUERY_EXT_CTRL/QUERYMENU: OK (Not Supported)
+        test VIDIOC_QUERYCTRL: OK (Not Supported)
+        test VIDIOC_G/S_CTRL: OK (Not Supported)
+        test VIDIOC_G/S/TRY_EXT_CTRLS: OK (Not Supported)
+        test VIDIOC_(UN)SUBSCRIBE_EVENT/DQEVENT: OK (Not Supported)
+        test VIDIOC_G/S_JPEGCOMP: OK (Not Supported)
+        Standard Controls: 0 Private Controls: 0
+
+Format ioctls:
+        test VIDIOC_ENUM_FMT/FRAMESIZES/FRAMEINTERVALS: OK (Not Supported)
+        test VIDIOC_G/S_PARM: OK (Not Supported)
+        test VIDIOC_G_FBUF: OK (Not Supported)
+        test VIDIOC_G_FMT: OK (Not Supported)
+        test VIDIOC_TRY_FMT: OK (Not Supported)
+        test VIDIOC_S_FMT: OK (Not Supported)
+        test VIDIOC_G_SLICED_VBI_CAP: OK (Not Supported)
+        test Cropping: OK (Not Supported)
+        test Composing: OK (Not Supported)
+        test Scaling: OK (Not Supported)
+
+Codec ioctls:
+        test VIDIOC_(TRY_)ENCODER_CMD: OK (Not Supported)
+        test VIDIOC_G_ENC_INDEX: OK (Not Supported)
+        test VIDIOC_(TRY_)DECODER_CMD: OK (Not Supported)
+
+Buffer ioctls:
+        test VIDIOC_REQBUFS/CREATE_BUFS/QUERYBUF: OK (Not Supported)
+        test VIDIOC_EXPBUF: OK (Not Supported)
+        test Requests: OK (Not Supported)
+        test TIME32/64: OK
+
+Total for device /dev/v4l-subdev2: 44, Succeeded: 44, Failed: 0, Warnings: 0
+--------------------------------------------------------------------------------
+Compliance test for device /dev/v4l-subdev3:
+
+Driver Info:
+        Driver version   : 5.15.53
+        Capabilities     : 0x00000000
+
+Required ioctls:
+        test VIDIOC_SUDBEV_QUERYCAP: OK
+        test invalid ioctls: OK
+
+Allow for multiple opens:
+        test second /dev/v4l-subdev3 open: OK
+        test VIDIOC_SUBDEV_QUERYCAP: OK
+        test for unlimited opens: OK
+
+Debug ioctls:
+        test VIDIOC_LOG_STATUS: OK
+
+Input ioctls:
+        test VIDIOC_G/S_TUNER/ENUM_FREQ_BANDS: OK (Not Supported)
+        test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+        test VIDIOC_S_HW_FREQ_SEEK: OK (Not Supported)
+        test VIDIOC_ENUMAUDIO: OK (Not Supported)
+        test VIDIOC_G/S/ENUMINPUT: OK (Not Supported)
+        test VIDIOC_G/S_AUDIO: OK (Not Supported)
+        Inputs: 0 Audio Inputs: 0 Tuners: 0
+
+Output ioctls:
+        test VIDIOC_G/S_MODULATOR: OK (Not Supported)
+        test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+        test VIDIOC_ENUMAUDOUT: OK (Not Supported)
+        test VIDIOC_G/S/ENUMOUTPUT: OK (Not Supported)
+        test VIDIOC_G/S_AUDOUT: OK (Not Supported)
+        Outputs: 0 Audio Outputs: 0 Modulators: 0
+
+Input/Output configuration ioctls:
+        test VIDIOC_ENUM/G/S/QUERY_STD: OK (Not Supported)
+        test VIDIOC_ENUM/G/S/QUERY_DV_TIMINGS: OK (Not Supported)
+        test VIDIOC_DV_TIMINGS_CAP: OK (Not Supported)
+        test VIDIOC_G/S_EDID: OK (Not Supported)
+
+Control ioctls:
+        test VIDIOC_QUERY_EXT_CTRL/QUERYMENU: OK
+        test VIDIOC_QUERYCTRL: OK
+        test VIDIOC_G/S_CTRL: OK
+        test VIDIOC_G/S/TRY_EXT_CTRLS: OK
+        test VIDIOC_(UN)SUBSCRIBE_EVENT/DQEVENT: OK
+        test VIDIOC_G/S_JPEGCOMP: OK (Not Supported)
+        Standard Controls: 17 Private Controls: 0
+
+Format ioctls:
+        test VIDIOC_ENUM_FMT/FRAMESIZES/FRAMEINTERVALS: OK (Not Supported)
+        test VIDIOC_G/S_PARM: OK (Not Supported)
+        test VIDIOC_G_FBUF: OK (Not Supported)
+        test VIDIOC_G_FMT: OK (Not Supported)
+        test VIDIOC_TRY_FMT: OK (Not Supported)
+        test VIDIOC_S_FMT: OK (Not Supported)
+        test VIDIOC_G_SLICED_VBI_CAP: OK (Not Supported)
+        test Cropping: OK (Not Supported)
+        test Composing: OK (Not Supported)
+        test Scaling: OK (Not Supported)
+
+Codec ioctls:
+        test VIDIOC_(TRY_)ENCODER_CMD: OK (Not Supported)
+        test VIDIOC_G_ENC_INDEX: OK (Not Supported)
+        test VIDIOC_(TRY_)DECODER_CMD: OK (Not Supported)
+
+Buffer ioctls:
+        test VIDIOC_REQBUFS/CREATE_BUFS/QUERYBUF: OK (Not Supported)
+        test VIDIOC_EXPBUF: OK (Not Supported)
+        test Requests: OK (Not Supported)
+        test TIME32/64: OK
+
+Total for device /dev/v4l-subdev3: 44, Succeeded: 44, Failed: 0, Warnings: 0
+
+Grand Total for dcmipp device /dev/media0: 261, Succeeded: 261, Failed: 0, Warnings: 0
+
+
+Alain Volmat (2):
+  dt-bindings: media: add bindings for dcmipp driver
+  media: MAINTAINERS: add entry for STM32 DCMIPP driver
+
+Hugues Fruchet (3):
+  media: stm32-dcmipp: STM32 DCMIPP camera interface driver
+  ARM: dts: stm32: add dcmipp support to stm32mp135
+  ARM: multi_v7_defconfig: enable STM32 DCMIPP media support
+
+ .../bindings/media/st,stm32-dcmipp.yaml       |   96 ++
+ MAINTAINERS                                   |    9 +
+ arch/arm/boot/dts/stm32mp135.dtsi             |    9 +
+ arch/arm/configs/multi_v7_defconfig           |    1 +
+ drivers/media/platform/st/stm32/Kconfig       |   15 +
+ drivers/media/platform/st/stm32/Makefile      |    1 +
+ .../platform/st/stm32/stm32-dcmipp/Makefile   |    5 +
+ .../st/stm32/stm32-dcmipp/dcmipp-bytecap.c    | 1112 +++++++++++++++++
+ .../st/stm32/stm32-dcmipp/dcmipp-byteproc.c   |  790 ++++++++++++
+ .../st/stm32/stm32-dcmipp/dcmipp-common.c     |  116 ++
+ .../st/stm32/stm32-dcmipp/dcmipp-common.h     |  240 ++++
+ .../st/stm32/stm32-dcmipp/dcmipp-core.c       |  682 ++++++++++
+ .../st/stm32/stm32-dcmipp/dcmipp-parallel.c   |  497 ++++++++
+ 13 files changed, 3573 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/media/st,stm32-dcmipp.yaml
+ create mode 100644 drivers/media/platform/st/stm32/stm32-dcmipp/Makefile
+ create mode 100644 drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-bytecap.c
+ create mode 100644 drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c
+ create mode 100644 drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-common.c
+ create mode 100644 drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-common.h
+ create mode 100644 drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-core.c
+ create mode 100644 drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-parallel.c
+
+-- 
+2.25.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
