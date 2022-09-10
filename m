@@ -2,66 +2,61 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4B04B5B46F0
-	for <lists+linux-stm32@lfdr.de>; Sat, 10 Sep 2022 16:41:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2A7515B4705
+	for <lists+linux-stm32@lfdr.de>; Sat, 10 Sep 2022 16:53:59 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0A8BCC6411A;
-	Sat, 10 Sep 2022 14:41:31 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BCEC9C64117;
+	Sat, 10 Sep 2022 14:53:58 +0000 (UTC)
+Received: from mail-oa1-f44.google.com (mail-oa1-f44.google.com
+ [209.85.160.44])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 39143C64115
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 86E05C64115
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 10 Sep 2022 14:41:30 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 28ABQh1N000770;
- Sat, 10 Sep 2022 16:40:21 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-transfer-encoding : content-type; s=selector1;
- bh=sERDejrMQ7a07/9+h5otEUi4YoJw3dLxFd3+jBKQQHA=;
- b=6peXMTS7re7f/bQN8LqzYbfmO53AssWXigqxfYTcJvA1Km8OchwrTuGdUOTDRM7Hf7Cg
- 5z/Kf+DM3WVjSHrUIM5Ko1EB+qE3H8+aKuCu5EztNn0KM6GsGYe7hfqcI3qK70iiqYuP
- dX69Kuoq7FJer6OBbPZXVGl/v7A5JYEe6Z8MjvEqmlefuPLbfkNFDjIK84zAZfCAAXAd
- w3ekmN5wyUNfYwb/ZpyXMKWXsUE2fIzufJtwe5kr1hqHodQt8r/Jc8Ix/TPY6HrVexlK
- esl3GqUcFoEgODu/mplEINRUS0nN2C/kU50GM8N9YiT0cBd2eIGhb8ybVRCc3cyL/T5p dA== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3jgjtt1uuw-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Sat, 10 Sep 2022 16:40:21 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id E48A310002A;
- Sat, 10 Sep 2022 16:40:20 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id E03CB22D164;
- Sat, 10 Sep 2022 16:40:20 +0200 (CEST)
-Received: from localhost (10.75.127.120) by SHFDAG1NODE1.st.com (10.75.129.69)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2375.31; Sat, 10 Sep
- 2022 16:40:20 +0200
-From: Hugues Fruchet <hugues.fruchet@foss.st.com>
-To: Alexandre Torgue <alexandre.torgue@foss.st.com>, Mauro Carvalho Chehab
- <mchehab@kernel.org>, Hans Verkuil <hverkuil@xs4all.nl>, Sakari Ailus
- <sakari.ailus@linux.intel.com>, Rob Herring <robh+dt@kernel.org>
-Date: Sat, 10 Sep 2022 16:40:10 +0200
-Message-ID: <20220910144010.34272-6-hugues.fruchet@foss.st.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220910144010.34272-1-hugues.fruchet@foss.st.com>
-References: <20220910144010.34272-1-hugues.fruchet@foss.st.com>
-MIME-Version: 1.0
-X-Originating-IP: [10.75.127.120]
-X-ClientProxiedBy: GPXDAG2NODE4.st.com (10.75.127.68) To SHFDAG1NODE1.st.com
- (10.75.129.69)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.528,FMLib:17.11.122.1
- definitions=2022-09-10_06,2022-09-09_01,2022-06-22_01
-Cc: devicetree@vger.kernel.org, Hugues Fruchet <hugues.fruchet@foss.st.com>,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org
-Subject: [Linux-stm32] [PATCH v1 5/5] ARM: multi_v7_defconfig: enable STM32
-	DCMIPP media support
+ Sat, 10 Sep 2022 14:53:57 +0000 (UTC)
+Received: by mail-oa1-f44.google.com with SMTP id
+ 586e51a60fabf-12803ac8113so11466671fac.8
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Sat, 10 Sep 2022 07:53:57 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=message-id:date:subject:references:in-reply-to:cc:to:from
+ :x-gm-message-state:from:to:cc:subject:date;
+ bh=85ahIlvo8IWoFxRTWFFF8AdVN61dvRZSed2EwF8yXgA=;
+ b=UCxEEqEZFGYWdIWGkWWQB0pSCsCDxCUJhN71Wlk1NMRPL95xTYKtQNyfnt3Y5ZtSen
+ aSdwZvzdqMyEo1rpVoOL56g6kZ3owMmcF61nH2qmHN/XADD1XGixEO0US5qlYnuyadRv
+ VLl3FubD3hw9anTc67FnjQNjTZsC+uJzJwZOfGSMOJLyESfiOD8sykXw1TqpIftI9i/9
+ QSV0XPQzqA4MwVxDmpqcosw6lQLjzyaGVo0ekkNIQa4chfQQdwF5Q5X7gxQ6xabVWAUu
+ xCy/JkuhPpFn23CZkB+g0SFbLXrOZMwyzJC05h8ulnE5/mpLfQzFqQgy+1UaCu/e1yW2
+ DmjA==
+X-Gm-Message-State: ACgBeo2U+nBcwBpSaXDlMYQJGYzemfj77t9bSKPznnD/IlORI4RRYI5z
+ xfHb+xwEeTu1S9deBKVcYA==
+X-Google-Smtp-Source: AA6agR6kT6NFsonaHXPp4wpmeYYYkkqwuksA7+CErrbYE2vW+nLoubjG+79eHSGEFoGioIpoRwr0qw==
+X-Received: by 2002:a05:6870:58a6:b0:127:86d4:6707 with SMTP id
+ be38-20020a05687058a600b0012786d46707mr7387223oab.88.1662821636301; 
+ Sat, 10 Sep 2022 07:53:56 -0700 (PDT)
+Received: from robh.at.kernel.org (66-90-144-107.dyn.grandenetworks.net.
+ [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
+ l2-20020a056808020200b00344f28a7a4csm1251362oie.22.2022.09.10.07.53.55
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 10 Sep 2022 07:53:55 -0700 (PDT)
+Received: (nullmailer pid 34694 invoked by uid 1000);
+ Sat, 10 Sep 2022 14:53:55 -0000
+From: Rob Herring <robh@kernel.org>
+To: Hugues Fruchet <hugues.fruchet@foss.st.com>
+In-Reply-To: <20220909165959.5899-2-hugues.fruchet@foss.st.com>
+References: <20220909165959.5899-1-hugues.fruchet@foss.st.com>
+ <20220909165959.5899-2-hugues.fruchet@foss.st.com>
+Date: Sat, 10 Sep 2022 09:53:55 -0500
+Message-Id: <1662821635.155935.34693.nullmailer@robh.at.kernel.org>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Hans Verkuil <hverkuil@xs4all.nl>, Rob Herring <robh+dt@kernel.org>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ linux-media@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH 1/5] dt-bindings: media: add bindings for
+	dcmipp driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,32 +68,47 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Enables support of STM32 DCMIPP V4L2 media driver.
+On Fri, 09 Sep 2022 18:59:55 +0200, Hugues Fruchet wrote:
+> From: Alain Volmat <alain.volmat@foss.st.com>
+> 
+> Add the yaml binding for the DCMIPP driver.
+> 
+> Signed-off-by: Alain Volmat <alain.volmat@foss.st.com>
+> ---
+>  .../bindings/media/st,stm32-dcmipp.yaml       | 96 +++++++++++++++++++
+>  1 file changed, 96 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/media/st,stm32-dcmipp.yaml
+> 
 
-Signed-off-by: Hugues Fruchet <hugues.fruchet@foss.st.com>
----
- arch/arm/configs/multi_v7_defconfig | 1 +
- 1 file changed, 1 insertion(+)
+My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
+on your patch (DT_CHECKER_FLAGS is new in v5.13):
 
-diff --git a/arch/arm/configs/multi_v7_defconfig b/arch/arm/configs/multi_v7_defconfig
-index 12b35008571f..9bd503233966 100644
---- a/arch/arm/configs/multi_v7_defconfig
-+++ b/arch/arm/configs/multi_v7_defconfig
-@@ -691,6 +691,7 @@ CONFIG_VIDEO_STI_BDISP=m
- CONFIG_VIDEO_STI_DELTA=m
- CONFIG_VIDEO_STI_HVA=m
- CONFIG_VIDEO_STM32_DCMI=m
-+CONFIG_VIDEO_STM32_DCMIPP=m
- CONFIG_V4L_TEST_DRIVERS=y
- CONFIG_VIDEO_VIVID=m
- CONFIG_VIDEO_ADV7180=m
--- 
-2.25.1
+yamllint warnings/errors:
+
+dtschema/dtc warnings/errors:
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/media/st,stm32-dcmipp.example.dtb: dcmipp@5a000000: port:endpoint: Unevaluated properties are not allowed ('pclk-max-frequency' was unexpected)
+	From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/media/st,stm32-dcmipp.yaml
+
+doc reference errors (make refcheckdocs):
+
+See https://patchwork.ozlabs.org/patch/
+
+This check can fail if there are any dependencies. The base for a patch
+series is generally the most recent rc1.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit.
 
 _______________________________________________
 Linux-stm32 mailing list
