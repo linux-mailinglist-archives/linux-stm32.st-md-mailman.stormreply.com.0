@@ -2,67 +2,67 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 126155B548B
+	by mail.lfdr.de (Postfix) with ESMTPS id 2720A5B548C
 	for <lists+linux-stm32@lfdr.de>; Mon, 12 Sep 2022 08:33:23 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B492FC65043;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CD5F1C6504E;
 	Mon, 12 Sep 2022 06:33:22 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E279FC64112
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BC275C64115
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  9 Sep 2022 17:01:19 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 289FBBGd031497;
- Fri, 9 Sep 2022 19:00:53 +0200
+ Sat, 10 Sep 2022 14:41:25 +0000 (UTC)
+Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 28A3j2Mm016423;
+ Sat, 10 Sep 2022 16:40:20 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
  h=from : to : cc :
  subject : date : message-id : in-reply-to : references : mime-version :
  content-transfer-encoding : content-type; s=selector1;
- bh=sCQ5DDn4+DUZ64e/2LIg43/de8dky8y1u0HTHP5oZ/g=;
- b=PmwSACMazykJzHx4o1OR/RFctoqizQvaFI39daefcRpBz3oPSFBqdLiZBXIiL7JBti5c
- vAygrY2G40ydfH3Bbc/jFQFuK41pDv6Hah49Z9rOPcIvwDI9AnZHCSrlgifOlGMwkC5G
- wVRslqYbXFNFgqYXQpPoqfFI1BmdyN/GyhE1qoTJeR7FWMOsaEdYG2Rzzx53kKiwoKeP
- n46QdFTMnSL9VewjYDumWSdL6EUKGcuxpHNZbLpp1sgzgnV+KTTSbi/sfaK++z2Pfl5H
- UeW7mg0KBuqXQowCPEcxw4iW9zlj2EFb/9UmOKd+TqE4SeUOBqCnGhgP5P+08Nj/LEee lA== 
+ bh=mFilX8UDFVc4fPFyg2OiOoRQEAIPBpyaoo5/rlffKd8=;
+ b=NIHZl44JNAsW3Y9Baj+SI9AgyGdwkXopIaRvFKfkL61k4ABRcsDjeha2TqCf2WbnPBHV
+ tslEqx1HTron+u+f5sAerHVaC2foZ5eUCTNVnDmHOKJftMy3KqSih6wgjx0ueLxZAd2m
+ 4YR6NCOO+UY6rDVhQQJYWKgXxdMmC+34Jcn2X33VR/ROaOcrQ3Y5LT/TGdhiVhHjAw9F
+ rq1MyQnF8hXn4gTsbjp63hA7DNffxqrLisF8vy2cU7F+2fpwMo2EOWubHlXnJK7m1ppP
+ GGOFICS/IMKKUJSKroTkT/bZdBl0OlZlJtAr5UdeLZGb//esgNcODK30YujimH8n2Lds Ug== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3jergbjcu6-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3jgjxnhq4t-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 09 Sep 2022 19:00:52 +0200
+ Sat, 10 Sep 2022 16:40:20 +0200
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 3FE8210002A;
- Fri,  9 Sep 2022 19:00:52 +0200 (CEST)
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id A284510002A;
+ Sat, 10 Sep 2022 16:40:19 +0200 (CEST)
 Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 3A8E724551C;
- Fri,  9 Sep 2022 19:00:52 +0200 (CEST)
-Received: from localhost (10.75.127.120) by SHFDAG1NODE1.st.com (10.75.129.69)
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 9CA9622D164;
+ Sat, 10 Sep 2022 16:40:19 +0200 (CEST)
+Received: from localhost (10.75.127.123) by SHFDAG1NODE1.st.com (10.75.129.69)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2375.7; Fri, 9 Sep 2022
- 19:00:51 +0200
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2375.31; Sat, 10 Sep
+ 2022 16:40:19 +0200
 From: Hugues Fruchet <hugues.fruchet@foss.st.com>
 To: Alexandre Torgue <alexandre.torgue@foss.st.com>, Mauro Carvalho Chehab
  <mchehab@kernel.org>, Hans Verkuil <hverkuil@xs4all.nl>, Sakari Ailus
  <sakari.ailus@linux.intel.com>, Rob Herring <robh+dt@kernel.org>
-Date: Fri, 9 Sep 2022 18:59:57 +0200
-Message-ID: <20220909165959.5899-4-hugues.fruchet@foss.st.com>
+Date: Sat, 10 Sep 2022 16:40:08 +0200
+Message-ID: <20220910144010.34272-4-hugues.fruchet@foss.st.com>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220909165959.5899-1-hugues.fruchet@foss.st.com>
-References: <20220909165959.5899-1-hugues.fruchet@foss.st.com>
+In-Reply-To: <20220910144010.34272-1-hugues.fruchet@foss.st.com>
+References: <20220910144010.34272-1-hugues.fruchet@foss.st.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.120]
+X-Originating-IP: [10.75.127.123]
 X-ClientProxiedBy: GPXDAG2NODE4.st.com (10.75.127.68) To SHFDAG1NODE1.st.com
  (10.75.129.69)
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.528,FMLib:17.11.122.1
- definitions=2022-09-09_08,2022-09-09_01,2022-06-22_01
+ definitions=2022-09-10_07,2022-09-09_01,2022-06-22_01
 X-Mailman-Approved-At: Mon, 12 Sep 2022 06:33:19 +0000
 Cc: devicetree@vger.kernel.org, Hugues Fruchet <hugues.fruchet@foss.st.com>,
  linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org
-Subject: [Linux-stm32] [PATCH 3/5] media: stm32-dcmipp: STM32 DCMIPP camera
-	interface driver
+Subject: [Linux-stm32] [PATCH v1 3/5] media: stm32-dcmipp: STM32 DCMIPP
+	camera interface driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -151,7 +151,7 @@ index 000000000000..cbddc98141a4
 +obj-$(CONFIG_VIDEO_STM32_DCMIPP) += dcmipp-parallel.o dcmipp-byteproc.o dcmipp-bytecap.o
 diff --git a/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-bytecap.c b/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-bytecap.c
 new file mode 100644
-index 000000000000..e8cbfee9da94
+index 000000000000..ae7841913000
 --- /dev/null
 +++ b/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-bytecap.c
 @@ -0,0 +1,1112 @@
@@ -614,7 +614,7 @@ index 000000000000..e8cbfee9da94
 +		if (!(pad->flags & MEDIA_PAD_FL_SINK))
 +			break;
 +
-+		pad = media_entity_remote_pad(pad);
++		pad = media_pad_remote_pad_first(pad);
 +		if (!pad || !is_media_entity_v4l2_subdev(pad->entity))
 +			break;
 +
@@ -2187,7 +2187,7 @@ index 000000000000..f070690ccbb1
 +EXPORT_SYMBOL_GPL(dcmipp_ent_sd_unregister);
 diff --git a/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-common.h b/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-common.h
 new file mode 100644
-index 000000000000..648a2c53647f
+index 000000000000..a8c162193de6
 --- /dev/null
 +++ b/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-common.h
 @@ -0,0 +1,240 @@
@@ -2310,8 +2310,8 @@ index 000000000000..648a2c53647f
 +				struct v4l2_pix_format *fmt);
 +
 +	/* Parallel input device */
-+	struct v4l2_fwnode_bus_parallel	bus;
-+	enum v4l2_mbus_type		bus_type;
++	struct v4l2_mbus_config_parallel bus;
++	enum v4l2_mbus_type bus_type;
 +	irq_handler_t handler;
 +	irqreturn_t handler_ret;
 +	irq_handler_t thread_fn;
@@ -2433,7 +2433,7 @@ index 000000000000..648a2c53647f
 +
 diff --git a/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-core.c b/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-core.c
 new file mode 100644
-index 000000000000..26635963550c
+index 000000000000..aa7ae9a5b1a8
 --- /dev/null
 +++ b/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-core.c
 @@ -0,0 +1,682 @@
@@ -2661,8 +2661,8 @@ index 000000000000..26635963550c
 +{
 +	struct dcmipp_device *dcmipp = platform_get_drvdata(to_platform_device(master));
 +
-+	v4l2_async_notifier_unregister(&dcmipp->notifier);
-+	v4l2_async_notifier_cleanup(&dcmipp->notifier);
++	v4l2_async_nf_unregister(&dcmipp->notifier);
++	v4l2_async_nf_cleanup(&dcmipp->notifier);
 +
 +	media_device_unregister(&dcmipp->mdev);
 +	media_device_cleanup(&dcmipp->mdev);
@@ -2901,9 +2901,9 @@ index 000000000000..26635963550c
 +		return -EINVAL;
 +	}
 +
-+	v4l2_async_notifier_init(&dcmipp->notifier);
++	v4l2_async_nf_init(&dcmipp->notifier);
 +
-+	asd = v4l2_async_notifier_add_fwnode_remote_subdev
++	asd = v4l2_async_nf_add_fwnode_remote
 +		(&dcmipp->notifier, of_fwnode_handle(ep),
 +		 struct v4l2_async_subdev);
 +
@@ -2916,10 +2916,10 @@ index 000000000000..26635963550c
 +
 +	dcmipp->notifier.ops = &dcmipp_graph_notify_ops;
 +
-+	ret = v4l2_async_notifier_register(&dcmipp->v4l2_dev, &dcmipp->notifier);
++	ret = v4l2_async_nf_register(&dcmipp->v4l2_dev, &dcmipp->notifier);
 +	if (ret < 0) {
 +		dev_err(dcmipp->dev, "Failed to register notifier\n");
-+		v4l2_async_notifier_cleanup(&dcmipp->notifier);
++		v4l2_async_nf_cleanup(&dcmipp->notifier);
 +		return ret;
 +	}
 +
