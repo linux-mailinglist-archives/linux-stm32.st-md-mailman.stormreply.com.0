@@ -2,42 +2,42 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 986295B4902
-	for <lists+linux-stm32@lfdr.de>; Sat, 10 Sep 2022 23:16:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 84C6D5B4937
+	for <lists+linux-stm32@lfdr.de>; Sat, 10 Sep 2022 23:18:12 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2C849C64116;
-	Sat, 10 Sep 2022 21:16:49 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4BD96C64116;
+	Sat, 10 Sep 2022 21:18:12 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C3226C03FC9
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F3AB9C03FC9
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 10 Sep 2022 21:16:47 +0000 (UTC)
+ Sat, 10 Sep 2022 21:18:10 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 4B0D6B8094B;
- Sat, 10 Sep 2022 21:16:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F312C43470;
- Sat, 10 Sep 2022 21:16:44 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id CB26160DD4;
+ Sat, 10 Sep 2022 21:18:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4EA53C43140;
+ Sat, 10 Sep 2022 21:18:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1662844605;
- bh=AzSnHITp5t6kjGJzlorCsejjfhK4RLQGh1dl9cKmYFM=;
+ s=k20201202; t=1662844689;
+ bh=hMxM1YEIO7UInQ24yBlGre3/fNP2hbA+v0IGhcgNjAk=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=src69G4Cq485jR5zs8tM1npeZUmi8CGsr9faL2nGpeN8esS+qnRQN1ATatjmwpHp3
- mDfRGkAfcuFXUWP/GZJ0ekQMvthYw+31/Tt+bvRbuyUSDb9ANtrIVaY1FFhwDjy2Ge
- WExIynGVWBJ8Bx+6A8xCIjW3jQCyjVqKAtqvGJscRYUk7NFOTzcVxohxGlx+tCgXXA
- raYHJHYF/TT/3CC/lq6/f26OtAuKJ7gCkGMsKCdsk4mjSn8poseStd5hABbbnGV7VH
- AdiA8mUDsuP5SmBC2yItvQE7BW7ASuDqu7rJNKgFEcw0IEwgB0H7X7CN7XE2AhEzi0
- IYSi8jEC7TPGw==
+ b=l3yRNDbdBej7WcCJlZuorr8l/DK3YmioRQwYh6mWeQ9vAeK2Hcj+A2WFgp099J8lA
+ lwyOBLk37/JahHwh1mA2XFtAZNjVdWk+jE0x8KNTr1ngjxVHFc6vj3AZQq4+LzUP0e
+ u0kWGcuhsHfn9R5wH9HzM4Ae2HoZImff53LFjsts0QH8gblNZtiVljbo4D6AISKASV
+ Xos6yp1KVf1LPD5H5pQWlKdpvdr6b87dQpeOW0/kPG/6skG4HCiEyubvitps5D23Mz
+ LqV6oEyRvMXd6TphnUt7TRrl9+4JrpZANJ/Cg+Vyi4eJzNRe8tGzR7za9qomXCyP3S
+ YsJJuVy6HNt6g==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Sat, 10 Sep 2022 17:15:57 -0400
-Message-Id: <20220910211623.69825-12-sashal@kernel.org>
+Date: Sat, 10 Sep 2022 17:17:40 -0400
+Message-Id: <20220910211752.70291-9-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20220910211623.69825-1-sashal@kernel.org>
-References: <20220910211623.69825-1-sashal@kernel.org>
+In-Reply-To: <20220910211752.70291-1-sashal@kernel.org>
+References: <20220910211752.70291-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -46,7 +46,7 @@ Cc: Sasha Levin <sashal@kernel.org>, linux-input@vger.kernel.org,
  mcoquelin.stm32@gmail.com,
  =?UTF-8?q?Michael=20H=C3=BCbner?= <michaelh.95@t-online.de>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH AUTOSEL 5.19 12/38] HID: thrustmaster: Add
+Subject: [Linux-stm32] [PATCH AUTOSEL 5.15 09/21] HID: thrustmaster: Add
 	sparco wheel and fix array length
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -73,8 +73,8 @@ aW5lLmRlPgpTaWduZWQtb2ZmLWJ5OiBKaXJpIEtvc2luYSA8amtvc2luYUBzdXNlLmN6PgpTaWdu
 ZWQtb2ZmLWJ5OiBTYXNoYSBMZXZpbiA8c2FzaGFsQGtlcm5lbC5vcmc+Ci0tLQogZHJpdmVycy9o
 aWQvaGlkLXRocnVzdG1hc3Rlci5jIHwgMyArKy0KIDEgZmlsZSBjaGFuZ2VkLCAyIGluc2VydGlv
 bnMoKyksIDEgZGVsZXRpb24oLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2hpZC9oaWQtdGhydXN0
-bWFzdGVyLmMgYi9kcml2ZXJzL2hpZC9oaWQtdGhydXN0bWFzdGVyLmMKaW5kZXggYzNlNmQ2OWZk
-ZmJkOS4uY2YxNjc5YjBkNGZiYiAxMDA2NDQKLS0tIGEvZHJpdmVycy9oaWQvaGlkLXRocnVzdG1h
+bWFzdGVyLmMgYi9kcml2ZXJzL2hpZC9oaWQtdGhydXN0bWFzdGVyLmMKaW5kZXggYTI4YzNlNTc1
+NjUwNi4uMjIyMWJjMjZlNjExYSAxMDA2NDQKLS0tIGEvZHJpdmVycy9oaWQvaGlkLXRocnVzdG1h
 c3Rlci5jCisrKyBiL2RyaXZlcnMvaGlkL2hpZC10aHJ1c3RtYXN0ZXIuYwpAQCAtNjcsMTIgKzY3
 LDEzIEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3QgdG1fd2hlZWxfaW5mbyB0bV93aGVlbHNfaW5mb3Nb
 XSA9IHsKIAl7MHgwMjAwLCAweDAwMDUsICJUaHJ1c3RtYXN0ZXIgVDMwMFJTIChNaXNzaW5nIEF0
