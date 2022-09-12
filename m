@@ -2,59 +2,70 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 831B95B59AC
-	for <lists+linux-stm32@lfdr.de>; Mon, 12 Sep 2022 13:52:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7763F5B5AFA
+	for <lists+linux-stm32@lfdr.de>; Mon, 12 Sep 2022 15:17:17 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 39923C04004;
-	Mon, 12 Sep 2022 11:52:50 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 37775C035BE
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 12 Sep 2022 11:52:48 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D109BC04004;
+	Mon, 12 Sep 2022 13:17:16 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id EFDF461199;
- Mon, 12 Sep 2022 11:52:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95CA9C433C1;
- Mon, 12 Sep 2022 11:52:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1662983566;
- bh=AvA6TgPUAVeyXLqYp+8Bg4Oa2Z6Als9d4E+bEmPak0o=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=jZM0/drk+x0laRAb59LlFYkv6q5lTomulnBKT1HsEcB43LFDNJwPfNPbDjWnHDPzi
- RwDZABlj4xgXfi7MmWA0qn92sumOh3IAcLL0RN+7OnntmFElFj990/TZKbnj9K9Dv5
- wfnoTx9yc33qw8zzeNakcZWiLEvV5ytVS2LNmvJfCLu8NjCuw9DWT/Nsd8vUhylkLa
- LuZCtQtHZwlrxuN8SSMfWy62JPnha2LPZa++3+hRjac2Un6MP0v7umWZXq+73g0qDR
- WcCGg6S+ssMSKy3GhN2mTtpp8aZBPhmEANjBKGUJynRwNRGF7VPaGEwgWSQ3OFsQjf
- JMq/0PxULG+mw==
-Date: Mon, 12 Sep 2022 12:52:41 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Sergiu Moga <sergiu.moga@microchip.com>
-Message-ID: <Yx8didL1aFc4XxGa@sirena.org.uk>
-References: <20220911174551.653599-1-sergiu.moga@microchip.com>
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4EAD7C03FD5
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 12 Sep 2022 13:17:16 +0000 (UTC)
+Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 28C9kN1F026955;
+ Mon, 12 Sep 2022 15:16:53 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=DJv34owWXbp7wiiVh54Yb8R/LId3v7mQgsIrzElrNlE=;
+ b=LBasRIrueL6b7XRNxyuUr3IiD7719JjzKhV7OCtI57RP61Ck+7qsT4q9bP42g6HGD0oh
+ IvWDO69Z0Wa+9wPbqAhXsao8srTV4oP0YLQT/q8PaLeprBFWyHT4YIWkgNqqw6L9ZNl+
+ Se39iiZgdX6Ll6B/hQWDUwfLL87VrJ9r3RJeKPjbZXbDIpx96BMtwcqkXpqRk6KwbcAB
+ ELyQE0rWxzqdHIKJ/bTuEudUocw4jA8ZmVg6pO04VltDxhKljyxztxMZYn1pPphxAu3Y
+ MzdwphUU+zNhyVjlJwXxWyh5LbPTvvQCpmCUE8HhDRDRI4esvoUFsS6AzWBUnk+cvCVO mg== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3jgjwv261a-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 12 Sep 2022 15:16:53 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id ED02910002A;
+ Mon, 12 Sep 2022 15:16:51 +0200 (CEST)
+Received: from Webmail-eu.st.com (eqndag1node4.st.com [10.75.129.133])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id E0CC122FA29;
+ Mon, 12 Sep 2022 15:16:51 +0200 (CEST)
+Received: from [10.201.21.93] (10.75.127.123) by EQNDAG1NODE4.st.com
+ (10.75.129.133) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2375.31; Mon, 12 Sep
+ 2022 15:16:51 +0200
+Message-ID: <be86a79c-253e-2054-4cfa-37b950f578d7@foss.st.com>
+Date: Mon, 12 Sep 2022 15:16:50 +0200
 MIME-Version: 1.0
-In-Reply-To: <20220911174551.653599-1-sergiu.moga@microchip.com>
-X-Cookie: One FISHWICH coming up!!
-Cc: alexandre.belloni@bootlin.com, vigneshr@ti.com,
- linux-aspeed@lists.ozlabs.org, tali.perry1@gmail.com,
- linux-mtd@lists.infradead.org, miquel.raynal@bootlin.com,
- linux-spi@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- tmaimon77@gmail.com, benjaminfair@google.com, kdasu.kdev@gmail.com,
- richard@nod.at, chin-ting_kuo@aspeedtech.com, michal.simek@xilinx.com,
- haibo.chen@nxp.com, openbmc@lists.ozlabs.org, yuenn@google.com,
- bcm-kernel-feedback-list@broadcom.com, joel@jms.id.au, yogeshgaur.83@gmail.com,
- linux-rockchip@lists.infradead.org, tudor.ambarus@microchip.com,
- john.garry@huawei.com, linux-mediatek@lists.infradead.org, clg@kaod.org,
- matthias.bgg@gmail.com, han.xu@nxp.com, linux-arm-kernel@lists.infradead.org,
- andrew@aj.id.au, venture@google.com, heiko@sntech.de,
- nicolas.ferre@microchip.com, fancer.lancer@gmail.com,
- linux-kernel@vger.kernel.org, avifishman70@gmail.com, michael@walle.cc,
- mcoquelin.stm32@gmail.com, claudiu.beznea@microchip.com, pratyush@kernel.org
-Subject: Re: [Linux-stm32] [PATCH] spi: Replace `dummy.nbytes` with
-	`dummy.ncycles`
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Content-Language: en-US
+To: Wolfram Sang <wsa+renesas@sang-engineering.com>,
+ <linux-spi@vger.kernel.org>
+References: <20220824082130.21934-1-wsa+renesas@sang-engineering.com>
+ <20220824082130.21934-2-wsa+renesas@sang-engineering.com>
+From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
+In-Reply-To: <20220824082130.21934-2-wsa+renesas@sang-engineering.com>
+X-Originating-IP: [10.75.127.123]
+X-ClientProxiedBy: GPXDAG2NODE4.st.com (10.75.127.68) To EQNDAG1NODE4.st.com
+ (10.75.129.133)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.528,FMLib:17.11.122.1
+ definitions=2022-09-12_08,2022-09-12_01,2022-06-22_01
+Cc: devicetree@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Reinhold Mueller <reinhold.mueller@emtrion.com>, linux-kernel@vger.kernel.org,
+ Rob Herring <robh+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 1/2] ARM: dts: stm32: argon: remove spidev
+	node
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,59 +77,50 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============5282396543544201619=="
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+On 8/24/22 10:21, Wolfram Sang wrote:
+> Commit 956b200a846e ("spi: spidev: Warn loudly if instantiated from DT
+> as "spidev"") states that there should not be spidev nodes in DTs.
+> Remove this non-HW description. There won't be a regression because it
+> won't bind since 2015 anyhow.
+> 
+> Fixes: 16e3e44c5b87 ("ARM: dts: stm32: Add support for the emtrion emSBC-Argon")
+> Cc: Reinhold Mueller <reinhold.mueller@emtrion.com>
+> Signed-off-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+> ---
+> 
+> Please take it via your platform tree.
+> 
+>   arch/arm/boot/dts/stm32mp157c-emstamp-argon.dtsi | 6 ------
+>   1 file changed, 6 deletions(-)
+> 
+> diff --git a/arch/arm/boot/dts/stm32mp157c-emstamp-argon.dtsi b/arch/arm/boot/dts/stm32mp157c-emstamp-argon.dtsi
+> index ac53ee3c496b..30156b7546ed 100644
+> --- a/arch/arm/boot/dts/stm32mp157c-emstamp-argon.dtsi
+> +++ b/arch/arm/boot/dts/stm32mp157c-emstamp-argon.dtsi
+> @@ -435,12 +435,6 @@ &spi1 {
+>   	pinctrl-0 = <&spi1_pins_a>;
+>   	cs-gpios = <&gpioz 3 0>;
+>   	status = "disabled";
+> -
+> -	spidev@0  {
+> -		compatible = "spidev";
+> -		reg = <0>;
+> -		spi-max-frequency = <100000>;
+> -	};
+>   };
+>   
+>   &timers1 {
 
---===============5282396543544201619==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="tsMpd7wbAJx2xcTL"
-Content-Disposition: inline
+Applied on stm32-next.
 
-
---tsMpd7wbAJx2xcTL
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-
-On Sun, Sep 11, 2022 at 08:45:53PM +0300, Sergiu Moga wrote:
-> In order to properly represent the hardware functionality
-> in the core, avoid reconverting the number of dummy cycles
-> to the number of bytes and only work with the former.
-> Instead, let the drivers that do need this conversion do
-> it themselves.
-
-Acked-by: Mark Brown <broonie@kernel.org>
-
-If this gets applied it might be good to have a tag in case we
-need it for any SPI updates.
-
---tsMpd7wbAJx2xcTL
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmMfHYUACgkQJNaLcl1U
-h9BR0ggAgkV1J8/o/vgLngoRQlQriv74OFxhNN5+lL+Ue4so/rZcuKbaX7fW6yVN
-5WwRPm0joSHJslzR37N/Q1ajnX5ZooQm33WIVzToQBU0liUpwIC9pn84Em0ebD1T
-yRd21CVYYsPcwrRr3STSzjZpMq+CRQMfe4hvBOHirS+hQqQ9gnfpQ6NJyhkF4w6P
-rUiOb9TYvfLqi8usgPC20TbdPjQxz+a3LoKzZokU2CgnnjSTUTRHf9BfCfuyOqZE
-18MRkCDY7zUwO7D580ojgXe0kAAIQIxaN4QAZSG6e/hC9BziHeHJOMua0S56E4Xw
-WIP/Lcq6BWueOZUfZglx7aACizALEA==
-=BL9e
------END PGP SIGNATURE-----
-
---tsMpd7wbAJx2xcTL--
-
---===============5282396543544201619==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+Thanks.
+Alex
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============5282396543544201619==--
