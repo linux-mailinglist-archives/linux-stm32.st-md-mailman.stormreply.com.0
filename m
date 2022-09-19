@@ -2,63 +2,71 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9DAA85BC5E0
-	for <lists+linux-stm32@lfdr.de>; Mon, 19 Sep 2022 11:56:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 189755BC603
+	for <lists+linux-stm32@lfdr.de>; Mon, 19 Sep 2022 12:06:09 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3603AC0D2C1;
-	Mon, 19 Sep 2022 09:56:40 +0000 (UTC)
-Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BF60AC0D2C1;
+	Mon, 19 Sep 2022 10:06:08 +0000 (UTC)
+Received: from mail-lf1-f49.google.com (mail-lf1-f49.google.com
+ [209.85.167.49])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 50907C03FD5
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CBF9CC03FD5
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 19 Sep 2022 09:56:38 +0000 (UTC)
-X-UUID: 101d3b21a1dc457199d685683f194011-20220919
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com;
- s=dk; 
- h=Content-Transfer-Encoding:MIME-Version:Content-Type:References:In-Reply-To:Date:CC:To:From:Subject:Message-ID;
- bh=dPMTiREpH/Df3NZCKHTlKTh2R54/xEmjH9I8g+NM+/4=; 
- b=KE0V/xRyxbGADXlo3T21L8BshSv1CfdKR5VJRseYYDa4VRdcgdwxJryrF8WI9mAPfbKjzSJXhHAB9ZRxJzVJ6MmJKSBMGRepnJYO6uAVf7rW1NPhRmNqp54v5PCjguDf5Pz/qLba533JCqcNGGWC7EBiQqgwwDPfi8AGWf5Y+Mk=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.1.11, REQID:5b87dbec-6f38-4589-8e94-6d8670d076a5, IP:0,
- U
- RL:0,TC:0,Content:0,EDM:0,RT:0,SF:22,FILE:0,BULK:0,RULE:Release_Ham,ACTION
- :release,TS:22
-X-CID-INFO: VERSION:1.1.11, REQID:5b87dbec-6f38-4589-8e94-6d8670d076a5, IP:0,
- URL
- :0,TC:0,Content:0,EDM:0,RT:0,SF:22,FILE:0,BULK:0,RULE:Release_Ham,ACTION:r
- elease,TS:22
-X-CID-META: VersionHash:39a5ff1, CLOUDID:915bdc18-0314-4ae7-b2d1-7295be49255e,
- B
- ulkID:220919161938HV8SMIES,BulkQuantity:277,Recheck:0,SF:28|100|17|19|48|1
- 01|823|824,TC:nil,Content:0,EDM:-3,IP:nil,URL:0,File:nil,Bulk:40,QS:nil,BE
- C:nil,COL:0
-X-UUID: 101d3b21a1dc457199d685683f194011-20220919
-Received: from mtkcas11.mediatek.inc [(172.21.101.40)] by mailgw01.mediatek.com
- (envelope-from <jianguo.zhang@mediatek.com>)
- (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
- with ESMTP id 1207044010; Mon, 19 Sep 2022 17:56:33 +0800
-Received: from mtkcas10.mediatek.inc (172.21.101.39) by
- mtkmbs10n1.mediatek.inc (172.21.101.34) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
- 15.2.792.15; Mon, 19 Sep 2022 17:56:31 +0800
-Received: from mhfsdcap04 (10.17.3.154) by mtkcas10.mediatek.inc
- (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via Frontend
- Transport; Mon, 19 Sep 2022 17:56:31 +0800
-Message-ID: <f72e133e9aec70724702054e5f6a8712b649d34f.camel@mediatek.com>
-From: Jianguo Zhang <jianguo.zhang@mediatek.com>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, "David S . Miller"
- <davem@davemloft.net>, Rob Herring <robh+dt@kernel.org>
-Date: Mon, 19 Sep 2022 17:56:30 +0800
-In-Reply-To: <88412fcc-96be-cd9d-8805-086c7f09c03b@linaro.org>
+ Mon, 19 Sep 2022 10:06:06 +0000 (UTC)
+Received: by mail-lf1-f49.google.com with SMTP id x27so12855179lfu.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 19 Sep 2022 03:06:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date;
+ bh=E/6rguEg/ZdWc1ukf7xlwUxy6XdvsLO+DoWiEuYD7Kc=;
+ b=R/d5F8iQ5A3MJQq2a2urDyF3hOpf96JRd6MMVeuZytNnN38d+CMzYHcqO67WLlgjrF
+ 1YOTkwdBXx89EEa5IHZCIOnsH/D7ixYq0fnqz7E6WzF9juomojx3oI04uV+WLIpC7pSq
+ VUlPCpXDbtXt1bOBZICVgjdP5lDuEF6FW9ya//+jjjjvV4Rdu1Io9wwK6PShHtWVk05C
+ myyCftKiYalXiuQf3wsSfCHOD5hrDwaw9Dy4z1o7/Lkli8O3u6KPW46z/bDhJILuJ5Ea
+ qFQ/gGWd+eX6p+JCLsf4mZezgCkL2wP/f0kkg5zBeR73KILKAfNYbrWR6TYXWl5SvOyO
+ YuDA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date;
+ bh=E/6rguEg/ZdWc1ukf7xlwUxy6XdvsLO+DoWiEuYD7Kc=;
+ b=p8k7XTtF+k7XxGowAuX4pPZwjqLd4u/FLeeY8WOP+eHL1TEGfs3krLIBj8PKSJ96Td
+ UmW+bT6wzy3NwABrwx+5pXS6jb0GLnpwZL+HdeJd3+Q6JdhFUT6chp6KMNyE5N9tX8Te
+ hkpAm+lkwE8JxagI/QXAhgHF74BbeRnPt4r4uPxXGCRDhhceVYalLVTZIlIsnrFSlYOR
+ nsHozqnFfKxc17IXTw9AR1aF5yPGfeIHvBJ3U6ASSby54PEtj10kpXgs+tqw62nuRJFY
+ 5cGDXC5mpG7xJ8cb98+GHUhTCX0BQQBgGjrxJBK/QQdlQo6xsVO5CygPlZmNoXyX8KZ1
+ Klhw==
+X-Gm-Message-State: ACrzQf2SOInK+rHvpi6G0g6O3wC0Anx0Uyyc+NOSRRpT73UzVLfl09ft
+ X3Yaha3H3ag3km834pK6LQx4xA==
+X-Google-Smtp-Source: AMsMyM7gfRP2Gkver1jK03ZgtDxTkEMoPJyKiDo+jioBxtwYyq894VSIuGwOrIApkwapq8djpspI7g==
+X-Received: by 2002:a05:6512:e9a:b0:498:ff3b:4639 with SMTP id
+ bi26-20020a0565120e9a00b00498ff3b4639mr5805175lfb.388.1663581966082; 
+ Mon, 19 Sep 2022 03:06:06 -0700 (PDT)
+Received: from [192.168.0.21] (78-11-189-27.static.ip.netia.com.pl.
+ [78.11.189.27]) by smtp.gmail.com with ESMTPSA id
+ n4-20020a05651203e400b00492d064e8f8sm5141134lfq.263.2022.09.19.03.06.04
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 19 Sep 2022 03:06:05 -0700 (PDT)
+Message-ID: <b343e4c7-a247-28b8-3d16-cb7cea7ba36b@linaro.org>
+Date: Mon, 19 Sep 2022 12:06:04 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.13.0
+Content-Language: en-US
+To: Jianguo Zhang <jianguo.zhang@mediatek.com>,
+ "David S . Miller" <davem@davemloft.net>, Rob Herring <robh+dt@kernel.org>
 References: <20220919080410.11270-1-jianguo.zhang@mediatek.com>
  <20220919080410.11270-2-jianguo.zhang@mediatek.com>
  <d28ce676-ed6e-98da-9761-ed46f2fa4a95@linaro.org>
  <4c537b63f609ae974dfb468ebc31225d45f785e8.camel@mediatek.com>
  <88412fcc-96be-cd9d-8805-086c7f09c03b@linaro.org>
-X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.2 
-MIME-Version: 1.0
-X-MTK: N
+ <f72e133e9aec70724702054e5f6a8712b649d34f.camel@mediatek.com>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <f72e133e9aec70724702054e5f6a8712b649d34f.camel@mediatek.com>
 Cc: devicetree@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Biao Huang <biao.huang@mediatek.com>, netdev@vger.kernel.org,
  linux-kernel@vger.kernel.org, Eric Dumazet <edumazet@google.com>,
@@ -86,68 +94,25 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Dear Krzysztof,
+On 19/09/2022 11:56, Jianguo Zhang wrote:
+>> No, this does not justify new entry. You need specific compatible,
+>> but
+>> not new entry.
+>>
+>>> On the other hand, mt8188 and mt8195 have same ethernet design, so
+>>> the
+>>> private data "mt8195_gmac_variant" can be resued to reduce
+>>> redundant
+>>> info in driver.
+>>
+>> And you do not need new entry in the driver.
+> Do you mean that I can use "mediatek,mt8195-gmac" as compatible for
+> ethernet in mt8188 DTS file?
 
-On Mon, 2022-09-19 at 11:27 +0200, Krzysztof Kozlowski wrote:
-> On 19/09/2022 10:37, Jianguo Zhang wrote:
-> > Dear Krzysztof,
-> > 
-> > 	Thanks for your comments.
-> > 
-> > 
-> > On Mon, 2022-09-19 at 10:19 +0200, Krzysztof Kozlowski wrote:
-> > > On 19/09/2022 10:04, Jianguo Zhang wrote:
-> > > > Add ethernet support for MediaTek SoCs from mt8188 family.
-> > > > As mt8188 and mt8195 have same ethernet design, so private data
-> > > > "mt8195_gmac_variant" can be reused for mt8188.
-> > > > 
-> > > > Signed-off-by: Jianguo Zhang <jianguo.zhang@mediatek.com>
-> > > > ---
-> > > >  drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c | 2 ++
-> > > >  1 file changed, 2 insertions(+)
-> > > > 
-> > > > diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-
-> > > > mediatek.c
-> > > > b/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
-> > > > index d42e1afb6521..f45be440b6d0 100644
-> > > > --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
-> > > > +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
-> > > > @@ -720,6 +720,8 @@ static const struct of_device_id
-> > > > mediatek_dwmac_match[] = {
-> > > >  	  .data = &mt2712_gmac_variant },
-> > > >  	{ .compatible = "mediatek,mt8195-gmac",
-> > > >  	  .data = &mt8195_gmac_variant },
-> > > > +	{ .compatible = "mediatek,mt8188-gmac",
-> > > > +	  .data = &mt8195_gmac_variant },
-> > > 
-> > > It's the same. No need for new entry.
-> > > 
-> > 
-> > mt8188 and mt8195 are different SoCs and we need to distinguish
-> > mt8188
-> > from mt8195, so I think a new entry is needed for mt8188 with the
-> > specific "compatiable".
-> 
-> No, this does not justify new entry. You need specific compatible,
-> but
-> not new entry.
-> 
-> > On the other hand, mt8188 and mt8195 have same ethernet design, so
-> > the
-> > private data "mt8195_gmac_variant" can be resued to reduce
-> > redundant
-> > info in driver.
-> 
-> And you do not need new entry in the driver.
-Do you mean that I can use "mediatek,mt8195-gmac" as compatible for
-ethernet in mt8188 DTS file?
-> 
-> Best regards,
-> Krzysztof
+Yes, as a fallback. Example schema describes such case.
 
-BRS
-Jianguo
-
+Best regards,
+Krzysztof
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
