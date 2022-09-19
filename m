@@ -2,49 +2,75 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 039D75BD1AF
-	for <lists+linux-stm32@lfdr.de>; Mon, 19 Sep 2022 18:00:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7245A5BD221
+	for <lists+linux-stm32@lfdr.de>; Mon, 19 Sep 2022 18:24:58 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AB17EC04003;
-	Mon, 19 Sep 2022 16:00:28 +0000 (UTC)
-Received: from relay10.mail.gandi.net (relay10.mail.gandi.net [217.70.178.230])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0F191C04003;
+	Mon, 19 Sep 2022 16:24:58 +0000 (UTC)
+Received: from mail-lf1-f43.google.com (mail-lf1-f43.google.com
+ [209.85.167.43])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 774D7C03FCD
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8697BC03FCD
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 19 Sep 2022 16:00:27 +0000 (UTC)
-Received: (Authenticated sender: miquel.raynal@bootlin.com)
- by mail.gandi.net (Postfix) with ESMTPSA id EB70A24000E;
- Mon, 19 Sep 2022 16:00:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1663603227;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=4w2H0/aVozaHmubnqFnPjiPTuYGSRzmbJ5Wwl6IDQwM=;
- b=Lcv42Ss9HGpIaCPVGZlsqSX3b4RETBixGo4uKB9QrhoufMMLiAxBu08X17z+G4slmrlwN9
- Z6WowHP6ZO5LMXhxmBydcyUHnj54Jq2E3Mj4uVzL1yZstEYPbO4zJNE5J4XnvQ0h7POLr8
- oSAVOOn21UXyjWZKkBGyiyp3sXrL7L8tfC7N5kWrIg/0GuF+sF8/rL/SPppLiv8tquBLre
- c5kwjH+1qwDO5GwgW93QEETcLp6ugYlLjWklnhej2XFyve0vxTaS2mL0BsR7l+LoEuJzLp
- 76RsJ5bA3HANiTyTGPiCUSrFbvWdg3bkXLJdQgX7i4ZgC5a+FUR6nlXpiNXjqw==
-Date: Mon, 19 Sep 2022 18:00:22 +0200
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: Jack Wang <jinpu.wang@ionos.com>
-Message-ID: <20220919180022.2c80e2b7@xps-13>
-In-Reply-To: <20220825075338.35338-2-jinpu.wang@ionos.com>
-References: <20220825075338.35338-1-jinpu.wang@ionos.com>
- <20220825075338.35338-2-jinpu.wang@ionos.com>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.0.0 (GTK+ 3.24.33; x86_64-pc-linux-gnu)
+ Mon, 19 Sep 2022 16:24:56 +0000 (UTC)
+Received: by mail-lf1-f43.google.com with SMTP id a2so23791379lfb.6
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 19 Sep 2022 09:24:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date;
+ bh=eAOafVCNVmR9N9v0Yvq51YsgQAP+hB4f5u0L/4nUBKA=;
+ b=ethu0EynC43p9UpiI84ruyAXrMRMdZfuiof4jGWO3COHQkx9EjPMb0Llez11+BLPKc
+ 5EqefT79o5oAfWdTFyJjgnxiKXiq84VSTx1yMZv0TukcBhrSE770dxQz5AgwGe1/wdX2
+ cUJsrSok2ZwMke4mNjZjszTcRrHhEleMa2aQSfFC8yHWRZB04kXsxZz6CdO77YeDIaKv
+ W7FxT0sb23ogGQ7pc/WVP0aKVEqqH7TJDENRj5695hxAabD43bspb6BjFX+2A2W7QhTc
+ h3skjS9SO/0P+2xMjVxsZpwoqFCCIKq/pCYKaq7GoKibRjTOB+55a8piA4ChmXfjbqDC
+ To3Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date;
+ bh=eAOafVCNVmR9N9v0Yvq51YsgQAP+hB4f5u0L/4nUBKA=;
+ b=SUvpZ6Tngy4ZoG1lpf+3gOOXPoPOcTt2Vw9p+Ku0F4PmnGVnezo3fzHXN010wPi02q
+ 9PastAcO9HnQAJYcAPsSxYDsVaqHqXczIPcgOtCKF6WkWkyDFY9/2ykzadCpwLBWV+/Q
+ 55PaGOXihYb6Syp4PYUeqEc1ytl7CzP4PHArTfvyZUppuKiKg/216CCr/zg/iHCBcq88
+ iVnuYB153MBkTcxqUrLdfzVVvtjzksQ0Xd2rhcnJfNnannl2MY8mTtzQbtQUETjH0WDB
+ fxU+zCiHwReXLNo5JCNQmhsgeSXnqjKEisggEWnmaQfS6QV+UHuz3ii+UHQ9uRHeelGl
+ 4cuw==
+X-Gm-Message-State: ACrzQf3YicbK4mvXmPJpU1AcZsptAwBe723uqt70Zy4nVurmoNZa0O6C
+ W4PDY1Bk/3AkMmOmGpfiRLK3zg==
+X-Google-Smtp-Source: AMsMyM7Q5L1McMMFqSUa7fGLN03YMRs0ciA4N40x8PHN9GOTdAWbWDoQN39MejGALAtGiMvhd/RDEg==
+X-Received: by 2002:ac2:4e0d:0:b0:49c:d593:9d6c with SMTP id
+ e13-20020ac24e0d000000b0049cd5939d6cmr6740730lfr.37.1663604695831; 
+ Mon, 19 Sep 2022 09:24:55 -0700 (PDT)
+Received: from krzk-bin (78-11-189-27.static.ip.netia.com.pl. [78.11.189.27])
+ by smtp.gmail.com with ESMTPSA id
+ v23-20020a056512349700b00499d70c0310sm5061842lfr.3.2022.09.19.09.24.54
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 19 Sep 2022 09:24:55 -0700 (PDT)
+Date: Mon, 19 Sep 2022 18:24:53 +0200
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+To: Jianguo Zhang <jianguo.zhang@mediatek.com>
+Message-ID: <20220919162453.4kkphzhc2tu6wzou@krzk-bin>
+References: <20220919080410.11270-1-jianguo.zhang@mediatek.com>
+ <20220919080410.11270-3-jianguo.zhang@mediatek.com>
 MIME-Version: 1.0
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Vignesh Raghavendra <vigneshr@ti.com>, Richard Weinberger <richard@nod.at>,
- linux-kernel@vger.kernel.org, linux-mtd@lists.infradead.org,
- Philipp Zabel <p.zabel@pengutronix.de>, Cai Huoqing <cai.huoqing@linux.dev>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 1/2] mtd: rawnand: stm32_fmc2: Fix
- dma_map_sg error check
+Content-Disposition: inline
+In-Reply-To: <20220919080410.11270-3-jianguo.zhang@mediatek.com>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Biao Huang <biao.huang@mediatek.com>, netdev@vger.kernel.org,
+ Rob Herring <robh+dt@kernel.org>, linux-stm32@st-md-mailman.stormreply.com,
+ Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
+ linux-mediatek@lists.infradead.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "David S . Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 2/2] net: dt-bindings: dwmac: add support
+	for mt8188
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -56,49 +82,33 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SGkgSmFjaywKCmppbnB1LndhbmdAaW9ub3MuY29tIHdyb3RlIG9uIFRodSwgMjUgQXVnIDIwMjIg
-MDk6NTM6MzcgKzAyMDA6Cgo+IGRtYV9tYXBfc2cgcmV0dXJuIDAgb24gZXJyb3IsIGluIGNhc2Ug
-b2YgZXJyb3IgcmV0dXJuIC1FSU8uCj4gCj4gQ2M6IE1pcXVlbCBSYXluYWwgPG1pcXVlbC5yYXlu
-YWxAYm9vdGxpbi5jb20+Cj4gQ2M6IFJpY2hhcmQgV2VpbmJlcmdlciA8cmljaGFyZEBub2QuYXQ+
-Cj4gQ2M6IFZpZ25lc2ggUmFnaGF2ZW5kcmEgPHZpZ25lc2hyQHRpLmNvbT4KPiBDYzogTWF4aW1l
-IENvcXVlbGluIDxtY29xdWVsaW4uc3RtMzJAZ21haWwuY29tPgo+IENjOiBBbGV4YW5kcmUgVG9y
-Z3VlIDxhbGV4YW5kcmUudG9yZ3VlQGZvc3Muc3QuY29tPgo+IENjOiBQaGlsaXBwIFphYmVsIDxw
-LnphYmVsQHBlbmd1dHJvbml4LmRlPgo+IENjOiBDaHJpc3RvcGhlIEtlcmVsbG8gPGNocmlzdG9w
-aGUua2VyZWxsb0Bmb3NzLnN0LmNvbT4KPiBDYzogQ2FpIEh1b3FpbmcgPGNhaS5odW9xaW5nQGxp
-bnV4LmRldj4KPiBDYzogbGludXgtbXRkQGxpc3RzLmluZnJhZGVhZC5vcmcKPiBDYzogbGludXgt
-c3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQo+IENjOiBsaW51eC1hcm0ta2VybmVs
-QGxpc3RzLmluZnJhZGVhZC5vcmcKPiBDYzogbGludXgta2VybmVsQHZnZXIua2VybmVsLm9yZwo+
-IEZpeGVzOiAyY2Q0NTdmMzI4YzEgKCJtdGQ6IHJhd25hbmQ6IHN0bTMyX2ZtYzI6IGFkZCBTVE0z
-MiBGTUMyIE5BTkQgZmxhc2ggY29udHJvbGxlciBkcml2ZXIiKQo+IFNpZ25lZC1vZmYtYnk6IEph
-Y2sgV2FuZyA8amlucHUud2FuZ0Bpb25vcy5jb20+CgpJJ2xsIGFwcGx5IHRoaXMgc2VyaWVzIHNv
-IEkgbmVlZCB0byByZS1hZGQgQ2hyaXN0b3BoZSdzIHRhZyBzZW50IG9uIHRoZQpwYXRjaCBhbG9u
-ZSAod2hpY2ggaXMgaWRlbnRpY2FsIGFzIGZhciBhcyBJIHNlZSk6CgpSZXZpZXdlZC1ieTogQ2hy
-aXN0b3BoZSBLZXJlbGxvIDxjaHJpc3RvcGhlLmtlcmVsbG9AZm9zcy5zdC5jb20+Cgo+IC0tLQo+
-ICBkcml2ZXJzL210ZC9uYW5kL3Jhdy9zdG0zMl9mbWMyX25hbmQuYyB8IDggKysrKystLS0KPiAg
-MSBmaWxlIGNoYW5nZWQsIDUgaW5zZXJ0aW9ucygrKSwgMyBkZWxldGlvbnMoLSkKPiAKPiBkaWZm
-IC0tZ2l0IGEvZHJpdmVycy9tdGQvbmFuZC9yYXcvc3RtMzJfZm1jMl9uYW5kLmMgYi9kcml2ZXJz
-L210ZC9uYW5kL3Jhdy9zdG0zMl9mbWMyX25hbmQuYwo+IGluZGV4IDg3YzFjN2RkOTdlYi4uYTBj
-ODI1YWYxOWZhIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvbXRkL25hbmQvcmF3L3N0bTMyX2ZtYzJf
-bmFuZC5jCj4gKysrIGIvZHJpdmVycy9tdGQvbmFuZC9yYXcvc3RtMzJfZm1jMl9uYW5kLmMKPiBA
-QCAtODYyLDggKzg2Miw4IEBAIHN0YXRpYyBpbnQgc3RtMzJfZm1jMl9uZmNfeGZlcihzdHJ1Y3Qg
-bmFuZF9jaGlwICpjaGlwLCBjb25zdCB1OCAqYnVmLAo+ICAKPiAgCXJldCA9IGRtYV9tYXBfc2co
-bmZjLT5kZXYsIG5mYy0+ZG1hX2RhdGFfc2cuc2dsLAo+ICAJCQkgZWNjc3RlcHMsIGRtYV9kYXRh
-X2Rpcik7Cj4gLQlpZiAocmV0IDwgMCkKPiAtCQlyZXR1cm4gcmV0Owo+ICsJaWYgKCFyZXQpCj4g
-KwkJcmV0dXJuIC1FSU87Cj4gIAo+ICAJZGVzY19kYXRhID0gZG1hZW5naW5lX3ByZXBfc2xhdmVf
-c2coZG1hX2NoLCBuZmMtPmRtYV9kYXRhX3NnLnNnbCwKPiAgCQkJCQkgICAgZWNjc3RlcHMsIGRt
-YV90cmFuc2Zlcl9kaXIsCj4gQEAgLTg5Myw4ICs4OTMsMTAgQEAgc3RhdGljIGludCBzdG0zMl9m
-bWMyX25mY194ZmVyKHN0cnVjdCBuYW5kX2NoaXAgKmNoaXAsIGNvbnN0IHU4ICpidWYsCj4gIAo+
-ICAJCXJldCA9IGRtYV9tYXBfc2cobmZjLT5kZXYsIG5mYy0+ZG1hX2VjY19zZy5zZ2wsCj4gIAkJ
-CQkgZWNjc3RlcHMsIGRtYV9kYXRhX2Rpcik7Cj4gLQkJaWYgKHJldCA8IDApCj4gKwkJaWYgKCFy
-ZXQpIHsKPiArCQkJcmV0ID0gLUVJTzsKPiAgCQkJZ290byBlcnJfdW5tYXBfZGF0YTsKPiArCQl9
-Cj4gIAo+ICAJCWRlc2NfZWNjID0gZG1hZW5naW5lX3ByZXBfc2xhdmVfc2cobmZjLT5kbWFfZWNj
-X2NoLAo+ICAJCQkJCQkgICBuZmMtPmRtYV9lY2Nfc2cuc2dsLAoKClRoYW5rcywKTWlxdcOobApf
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0z
-MiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpo
-dHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51
-eC1zdG0zMgo=
+On Mon, 19 Sep 2022 16:04:10 +0800, Jianguo Zhang wrote:
+> Add binding document for the ethernet on mt8188
+> 
+> Signed-off-by: Jianguo Zhang <jianguo.zhang@mediatek.com>
+> ---
+>  Documentation/devicetree/bindings/net/mediatek-dwmac.yaml | 6 ++++--
+>  1 file changed, 4 insertions(+), 2 deletions(-)
+> 
+
+Running 'make dtbs_check' with the schema in this patch gives the
+following warnings. Consider if they are expected or the schema is
+incorrect. These may not be new warnings.
+
+Note that it is not yet a requirement to have 0 warnings for dtbs_check.
+This will change in the future.
+
+Full log is available here: https://patchwork.ozlabs.org/patch/
+
+
+ethernet@1101c000: Unevaluated properties are not allowed ('clk_csr' was unexpected)
+	arch/arm64/boot/dts/mediatek/mt2712-evb.dtb
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
