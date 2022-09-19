@@ -2,82 +2,72 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 189755BC603
-	for <lists+linux-stm32@lfdr.de>; Mon, 19 Sep 2022 12:06:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 91BEF5BCAC7
+	for <lists+linux-stm32@lfdr.de>; Mon, 19 Sep 2022 13:32:31 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BF60AC0D2C1;
-	Mon, 19 Sep 2022 10:06:08 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5FFECC0D2C1;
+	Mon, 19 Sep 2022 11:32:31 +0000 (UTC)
 Received: from mail-lf1-f49.google.com (mail-lf1-f49.google.com
  [209.85.167.49])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CBF9CC03FD5
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 810DAC03FD5
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 19 Sep 2022 10:06:06 +0000 (UTC)
-Received: by mail-lf1-f49.google.com with SMTP id x27so12855179lfu.0
+ Mon, 19 Sep 2022 11:32:29 +0000 (UTC)
+Received: by mail-lf1-f49.google.com with SMTP id x27so13190976lfu.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 19 Sep 2022 03:06:06 -0700 (PDT)
+ Mon, 19 Sep 2022 04:32:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date;
- bh=E/6rguEg/ZdWc1ukf7xlwUxy6XdvsLO+DoWiEuYD7Kc=;
- b=R/d5F8iQ5A3MJQq2a2urDyF3hOpf96JRd6MMVeuZytNnN38d+CMzYHcqO67WLlgjrF
- 1YOTkwdBXx89EEa5IHZCIOnsH/D7ixYq0fnqz7E6WzF9juomojx3oI04uV+WLIpC7pSq
- VUlPCpXDbtXt1bOBZICVgjdP5lDuEF6FW9ya//+jjjjvV4Rdu1Io9wwK6PShHtWVk05C
- myyCftKiYalXiuQf3wsSfCHOD5hrDwaw9Dy4z1o7/Lkli8O3u6KPW46z/bDhJILuJ5Ea
- qFQ/gGWd+eX6p+JCLsf4mZezgCkL2wP/f0kkg5zBeR73KILKAfNYbrWR6TYXWl5SvOyO
- YuDA==
+ bh=f3dXWg0oh8xL1M1dPWVh4Ebk/AkdK0Pb6P7zeBhDtd8=;
+ b=WNQozphNVQEppxOaUs5pFh0cbqStGednEszBlcHE4tVBgW8Fitzf6RfFqiVg9uSafn
+ NHQBhxyRtXdXJ5Nmy0jbE9fCtb7RLeo6HjmJmcotg2syt95F765PD17poSOqlJ/+3/Pj
+ 3gNKTsPca1DH4ARuIs2M34Lo+TP20QTTV5I/A/p3ubbkNdvVvteVnomRf3m9zwavVmtC
+ e+zRTkNuQ5MZj8hC7keLp8imZRieAuL7xQRi2Bx9idof1dozsQ6r15WXR8N8UFlaSrB/
+ vY5iPx+yJ5ytmyK0O05RDrZ0fjfaFUK+w2oAqPfmwnC8K/iVLk1fRFXVVeHAktxM1j56
+ JMIg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date;
- bh=E/6rguEg/ZdWc1ukf7xlwUxy6XdvsLO+DoWiEuYD7Kc=;
- b=p8k7XTtF+k7XxGowAuX4pPZwjqLd4u/FLeeY8WOP+eHL1TEGfs3krLIBj8PKSJ96Td
- UmW+bT6wzy3NwABrwx+5pXS6jb0GLnpwZL+HdeJd3+Q6JdhFUT6chp6KMNyE5N9tX8Te
- hkpAm+lkwE8JxagI/QXAhgHF74BbeRnPt4r4uPxXGCRDhhceVYalLVTZIlIsnrFSlYOR
- nsHozqnFfKxc17IXTw9AR1aF5yPGfeIHvBJ3U6ASSby54PEtj10kpXgs+tqw62nuRJFY
- 5cGDXC5mpG7xJ8cb98+GHUhTCX0BQQBgGjrxJBK/QQdlQo6xsVO5CygPlZmNoXyX8KZ1
- Klhw==
-X-Gm-Message-State: ACrzQf2SOInK+rHvpi6G0g6O3wC0Anx0Uyyc+NOSRRpT73UzVLfl09ft
- X3Yaha3H3ag3km834pK6LQx4xA==
-X-Google-Smtp-Source: AMsMyM7gfRP2Gkver1jK03ZgtDxTkEMoPJyKiDo+jioBxtwYyq894VSIuGwOrIApkwapq8djpspI7g==
-X-Received: by 2002:a05:6512:e9a:b0:498:ff3b:4639 with SMTP id
- bi26-20020a0565120e9a00b00498ff3b4639mr5805175lfb.388.1663581966082; 
- Mon, 19 Sep 2022 03:06:06 -0700 (PDT)
+ bh=f3dXWg0oh8xL1M1dPWVh4Ebk/AkdK0Pb6P7zeBhDtd8=;
+ b=TcZqtzYKJjWg0QZEnsYKDYmCc5pQhrK2rZ3xlK+IcFPVQ42iFLLXXeXBgKMjeYuko4
+ StwfFX8FDqPX4mRikmvjCUvq7Zief9EQGfAIX0PF43G8q+vsPdLVW6aEXOUrAsQe39QX
+ jPlWrlS23IzcWVm5EAUnLy/pHPhvv5WGB7CfRlU20J5yNIJMXjn7q4iTq/ihq0XmUN2y
+ IN0zxTIm9J3u9o4U3VwPjwLMkqc0ZkSz1GV8yfXARVtHHIRXtWb/uGVVL58nRbhxzBOp
+ igDI87tW/eMXlIChEloK9zODBhMLZKpY2vzZiWlypCeNLYAg8MpheCynNHtlfQT+RMlU
+ ToEA==
+X-Gm-Message-State: ACrzQf00aeZrzoXti3nsifePAZ3yNRytH1gCDlYRkEd7bQbOL3REfv75
+ McckgBS4/MU9aitEFCql26jbAQ==
+X-Google-Smtp-Source: AMsMyM72aSuNbNRXSHuMBnyfRIgi9Sq5tlL62YUtFv6VcV1eQojmbXG0YOwSyj5a45zfpYEjpES+Ag==
+X-Received: by 2002:a05:6512:11c8:b0:497:c19e:c709 with SMTP id
+ h8-20020a05651211c800b00497c19ec709mr6532651lfr.152.1663587148763; 
+ Mon, 19 Sep 2022 04:32:28 -0700 (PDT)
 Received: from [192.168.0.21] (78-11-189-27.static.ip.netia.com.pl.
  [78.11.189.27]) by smtp.gmail.com with ESMTPSA id
- n4-20020a05651203e400b00492d064e8f8sm5141134lfq.263.2022.09.19.03.06.04
+ bf16-20020a056512259000b00494792ea34esm5130747lfb.273.2022.09.19.04.32.27
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 19 Sep 2022 03:06:05 -0700 (PDT)
-Message-ID: <b343e4c7-a247-28b8-3d16-cb7cea7ba36b@linaro.org>
-Date: Mon, 19 Sep 2022 12:06:04 +0200
+ Mon, 19 Sep 2022 04:32:28 -0700 (PDT)
+Message-ID: <9b711a9e-9e63-b69e-fabf-e05c11f145a6@linaro.org>
+Date: Mon, 19 Sep 2022 13:32:27 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.13.0
 Content-Language: en-US
-To: Jianguo Zhang <jianguo.zhang@mediatek.com>,
- "David S . Miller" <davem@davemloft.net>, Rob Herring <robh+dt@kernel.org>
-References: <20220919080410.11270-1-jianguo.zhang@mediatek.com>
- <20220919080410.11270-2-jianguo.zhang@mediatek.com>
- <d28ce676-ed6e-98da-9761-ed46f2fa4a95@linaro.org>
- <4c537b63f609ae974dfb468ebc31225d45f785e8.camel@mediatek.com>
- <88412fcc-96be-cd9d-8805-086c7f09c03b@linaro.org>
- <f72e133e9aec70724702054e5f6a8712b649d34f.camel@mediatek.com>
+To: Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Linus Walleij <linus.walleij@linaro.org>, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>
+References: <20220913074639.31932-1-alexandre.torgue@foss.st.com>
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <f72e133e9aec70724702054e5f6a8712b649d34f.camel@mediatek.com>
-Cc: devicetree@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Biao Huang <biao.huang@mediatek.com>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, Eric Dumazet <edumazet@google.com>,
- Jose Abreu <joabreu@synopsys.com>, linux-mediatek@lists.infradead.org,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Matthias Brugger <matthias.bgg@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, linux-stm32@st-md-mailman.stormreply.com,
+In-Reply-To: <20220913074639.31932-1-alexandre.torgue@foss.st.com>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-gpio@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 1/2] stmmac: dwmac-mediatek: add support
-	for mt8188
+Subject: Re: [Linux-stm32] [PATCH] dt-bindings: pinctrl: stm32: add missing
+ entries for gpio subnodes
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,22 +84,38 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 19/09/2022 11:56, Jianguo Zhang wrote:
->> No, this does not justify new entry. You need specific compatible,
->> but
->> not new entry.
->>
->>> On the other hand, mt8188 and mt8195 have same ethernet design, so
->>> the
->>> private data "mt8195_gmac_variant" can be resued to reduce
->>> redundant
->>> info in driver.
->>
->> And you do not need new entry in the driver.
-> Do you mean that I can use "mediatek,mt8195-gmac" as compatible for
-> ethernet in mt8188 DTS file?
+On 13/09/2022 09:46, Alexandre Torgue wrote:
+> Add "interrupt-controller" and gpio-line-names to gpio subnodes in order to
+> fix dtb validation.
 
-Yes, as a fallback. Example schema describes such case.
+Rebase your patch on recent Linux kernel and use get_maintainers.pl.
+
+> 
+> Signed-off-by: Alexandre Torgue <alexandre.torgue@foss.st.com>
+> 
+> diff --git a/Documentation/devicetree/bindings/pinctrl/st,stm32-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/st,stm32-pinctrl.yaml
+> index d35dcc4f0242..92582cccbb1b 100644
+> --- a/Documentation/devicetree/bindings/pinctrl/st,stm32-pinctrl.yaml
+> +++ b/Documentation/devicetree/bindings/pinctrl/st,stm32-pinctrl.yaml
+> @@ -65,6 +65,10 @@ patternProperties:
+>        '#gpio-cells':
+>          const: 2
+>  
+> +      interrupt-controller: true
+> +      '#interrupt-cells':
+> +        const: 2
+> +
+>        reg:
+>          maxItems: 1
+>        clocks:
+> @@ -80,6 +84,8 @@ patternProperties:
+>          minimum: 1
+>          maximum: 16
+>  
+> +      gpio-line-names: true
+
+maxItems?
+
 
 Best regards,
 Krzysztof
