@@ -2,75 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7245A5BD221
-	for <lists+linux-stm32@lfdr.de>; Mon, 19 Sep 2022 18:24:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D46845BD74E
+	for <lists+linux-stm32@lfdr.de>; Tue, 20 Sep 2022 00:30:34 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0F191C04003;
-	Mon, 19 Sep 2022 16:24:58 +0000 (UTC)
-Received: from mail-lf1-f43.google.com (mail-lf1-f43.google.com
- [209.85.167.43])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8ED68C04003;
+	Mon, 19 Sep 2022 22:30:34 +0000 (UTC)
+Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com
+ [209.85.215.175])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8697BC03FCD
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8FEB2C03FCD
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 19 Sep 2022 16:24:56 +0000 (UTC)
-Received: by mail-lf1-f43.google.com with SMTP id a2so23791379lfb.6
+ Mon, 19 Sep 2022 22:30:32 +0000 (UTC)
+Received: by mail-pg1-f175.google.com with SMTP id 3so700953pga.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 19 Sep 2022 09:24:56 -0700 (PDT)
+ Mon, 19 Sep 2022 15:30:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date;
- bh=eAOafVCNVmR9N9v0Yvq51YsgQAP+hB4f5u0L/4nUBKA=;
- b=ethu0EynC43p9UpiI84ruyAXrMRMdZfuiof4jGWO3COHQkx9EjPMb0Llez11+BLPKc
- 5EqefT79o5oAfWdTFyJjgnxiKXiq84VSTx1yMZv0TukcBhrSE770dxQz5AgwGe1/wdX2
- cUJsrSok2ZwMke4mNjZjszTcRrHhEleMa2aQSfFC8yHWRZB04kXsxZz6CdO77YeDIaKv
- W7FxT0sb23ogGQ7pc/WVP0aKVEqqH7TJDENRj5695hxAabD43bspb6BjFX+2A2W7QhTc
- h3skjS9SO/0P+2xMjVxsZpwoqFCCIKq/pCYKaq7GoKibRjTOB+55a8piA4ChmXfjbqDC
- To3Q==
+ bh=6BkRaoihLoEElFg+IX7ChAv0K/VTWRTZJq+3zEWaWR4=;
+ b=zJ+koiUbsBA6nsMsJVF32pKjvNy/kMK5rlMM1FsSNse5e3DSA7Y0SsJg8C2OBi5OQ0
+ 3CKkyobH21cMqvQlYFDGv9e+YyEQWF5j8/Aw+WU914rB1eX8PgxfExDMHYwhRf0mYzho
+ QEMzMU87Vm8m79L82Rcwh7xbBasJF+O2QSjDrn/2QZEeXdQ2BiPAV2sxQuQduHI9Mf0k
+ oKcLshk7Cqur2Z2v9BkbuG2jaCogpWoX/89bGPxZbfhjyTavclkkAEnFfpcG65AexljC
+ wzXFwxPO0Yj/e4pDOYNljWwfkNHcDR1+fQ5SZvc3L09RO0wjd/UH1RpuboRJfKkCDCd7
+ 3B7A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date;
- bh=eAOafVCNVmR9N9v0Yvq51YsgQAP+hB4f5u0L/4nUBKA=;
- b=SUvpZ6Tngy4ZoG1lpf+3gOOXPoPOcTt2Vw9p+Ku0F4PmnGVnezo3fzHXN010wPi02q
- 9PastAcO9HnQAJYcAPsSxYDsVaqHqXczIPcgOtCKF6WkWkyDFY9/2ykzadCpwLBWV+/Q
- 55PaGOXihYb6Syp4PYUeqEc1ytl7CzP4PHArTfvyZUppuKiKg/216CCr/zg/iHCBcq88
- iVnuYB153MBkTcxqUrLdfzVVvtjzksQ0Xd2rhcnJfNnannl2MY8mTtzQbtQUETjH0WDB
- fxU+zCiHwReXLNo5JCNQmhsgeSXnqjKEisggEWnmaQfS6QV+UHuz3ii+UHQ9uRHeelGl
- 4cuw==
-X-Gm-Message-State: ACrzQf3YicbK4mvXmPJpU1AcZsptAwBe723uqt70Zy4nVurmoNZa0O6C
- W4PDY1Bk/3AkMmOmGpfiRLK3zg==
-X-Google-Smtp-Source: AMsMyM7Q5L1McMMFqSUa7fGLN03YMRs0ciA4N40x8PHN9GOTdAWbWDoQN39MejGALAtGiMvhd/RDEg==
-X-Received: by 2002:ac2:4e0d:0:b0:49c:d593:9d6c with SMTP id
- e13-20020ac24e0d000000b0049cd5939d6cmr6740730lfr.37.1663604695831; 
- Mon, 19 Sep 2022 09:24:55 -0700 (PDT)
-Received: from krzk-bin (78-11-189-27.static.ip.netia.com.pl. [78.11.189.27])
+ bh=6BkRaoihLoEElFg+IX7ChAv0K/VTWRTZJq+3zEWaWR4=;
+ b=jOzDPpN+IZNC47orFaWSk6loyR5wz9YeLgbJKV6UFyaQMGjYcGrs73tcFpMLf/fD7E
+ pAZGRSzQM1UpvQzJz+NjQAFQA+0M/JrxnbRWtji6D7kIU2hd+TCvChNpQ3S9TFdDDkCC
+ uQz3QT3O7QiSWEHu76H0odJh3CCjM+HVXTSSqaxrYpAuyIJKCE5awoQj0T6X1DsvNDFx
+ 0H8FLGtbBt4HKlAkArxM7S5Rj/LZGJ/4sLrWC3KQln/CSYbInSJ+YRtNdd4A9qv4MJbl
+ scXAxL+KUrTE+lTgWz26/B9B3EruSc47Sv4JQQg4q6mmu5YlC+rDTIu/1a30+bbDldDY
+ 6Kag==
+X-Gm-Message-State: ACrzQf3V52Ql5pAH++mBbKT17nYHIFul6U5RkK0QQ+ZlJUYGYUsxbrYw
+ qYnxO9S9r19lwYATEWngpr3x4w==
+X-Google-Smtp-Source: AMsMyM4OPn0S8DVKRo7cq8RhXwQfQL8LATxgVZWL84rVh41CP+oZh/QYqjWbOhyCP3zwiN7oUNwaZw==
+X-Received: by 2002:a05:6a00:1309:b0:535:d421:1347 with SMTP id
+ j9-20020a056a00130900b00535d4211347mr20818684pfu.5.1663626631115; 
+ Mon, 19 Sep 2022 15:30:31 -0700 (PDT)
+Received: from p14s (S0106889e681aac74.cg.shawcable.net. [68.147.0.187])
  by smtp.gmail.com with ESMTPSA id
- v23-20020a056512349700b00499d70c0310sm5061842lfr.3.2022.09.19.09.24.54
+ j16-20020a170902da9000b0016dbdf7b97bsm21143620plx.266.2022.09.19.15.30.29
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 19 Sep 2022 09:24:55 -0700 (PDT)
-Date: Mon, 19 Sep 2022 18:24:53 +0200
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-To: Jianguo Zhang <jianguo.zhang@mediatek.com>
-Message-ID: <20220919162453.4kkphzhc2tu6wzou@krzk-bin>
-References: <20220919080410.11270-1-jianguo.zhang@mediatek.com>
- <20220919080410.11270-3-jianguo.zhang@mediatek.com>
+ Mon, 19 Sep 2022 15:30:29 -0700 (PDT)
+Date: Mon, 19 Sep 2022 16:30:27 -0600
+From: Mathieu Poirier <mathieu.poirier@linaro.org>
+To: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+Message-ID: <20220919223027.GG759648@p14s>
+References: <20220826115232.2163130-1-arnaud.pouliquen@foss.st.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20220919080410.11270-3-jianguo.zhang@mediatek.com>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Biao Huang <biao.huang@mediatek.com>, netdev@vger.kernel.org,
- Rob Herring <robh+dt@kernel.org>, linux-stm32@st-md-mailman.stormreply.com,
- Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
- linux-mediatek@lists.infradead.org,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Matthias Brugger <matthias.bgg@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, "David S . Miller" <davem@davemloft.net>,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 2/2] net: dt-bindings: dwmac: add support
-	for mt8188
+In-Reply-To: <20220826115232.2163130-1-arnaud.pouliquen@foss.st.com>
+Cc: Rob Herring <robh@kernel.org>, Bruce Ashfield <bruce.ashfield@xilinx.com>,
+ Stefano Stabellini <stefanos@xilinx.com>, linux-remoteproc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Christoph Hellwig <hch@lst.de>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH v8 0/4] remoteproc: restructure the
+ remoteproc VirtIO device
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,27 +80,118 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, 19 Sep 2022 16:04:10 +0800, Jianguo Zhang wrote:
-> Add binding document for the ethernet on mt8188
+Hi,
+
+On Fri, Aug 26, 2022 at 01:52:28PM +0200, Arnaud Pouliquen wrote:
+> 1) Update from V7 [1]:
 > 
-> Signed-off-by: Jianguo Zhang <jianguo.zhang@mediatek.com>
-> ---
->  Documentation/devicetree/bindings/net/mediatek-dwmac.yaml | 6 ++++--
->  1 file changed, 4 insertions(+), 2 deletions(-)
+> - rebase on rproc-next branch [2], commit 729c16326b7f ("remoteproc: imx_dsp_rproc: fix argument 2 of rproc_mem_entry_init")
+>   The updates take into account the integration of the
+>   commit 1404acbb7f68 ("remoteproc: Fix dma_mem leak after rproc_shutdown")
+> - add Reviewed-by: Mathieu Poirier <mathieu.poirier@linaro.org> according to reviews on V7
 > 
+> 
+> [1] https://lkml.org/lkml/2022/7/13/663
+> [2] https://git.kernel.org/pub/scm/linux/kernel/git/remoteproc/linux.git/log/?h=for-next
+> 
+> 2) Patchset description:
+> 
+> This series is a part of the work initiated a long time ago in 
+> the series "remoteproc: Decorelate virtio from core"[3]
+> 
+> Objective of the work:
+> - Update the remoteproc VirtIO device creation (use platform device)
+> - Allow to declare remoteproc VirtIO device in DT
+>     - declare resources associated to a remote proc VirtIO
+>     - declare a list of VirtIO supported by the platform.
+> - Prepare the enhancement to more VirtIO devices (e.g I2C, audio, video, ...).
+>   For instance be able to declare a I2C device in a virtio-i2C node.
+> - Keep the legacy working!
+> - Try to improve the picture about concerns reported by Christoph Hellwing [4][5]
+> 
+> [3] https://lkml.org/lkml/2020/4/16/1817
+> [4] https://lkml.org/lkml/2021/6/23/607
+> [5] https://patchwork.kernel.org/project/linux-remoteproc/patch/AOKowLclCbOCKxyiJ71WeNyuAAj2q8EUtxrXbyky5E@cp7-web-042.plabs.ch/
+> 
+> In term of device tree this would result in such hierarchy (stm32mp1 example with 2 virtio RPMSG):
+> 
+> 	m4_rproc: m4@10000000 {
+> 		compatible = "st,stm32mp1-m4";
+> 		reg = <0x10000000 0x40000>,
+> 		      <0x30000000 0x40000>,
+> 		      <0x38000000 0x10000>;
+>         memory-region = <&retram>, <&mcuram>,<&mcuram2>;
+>         mboxes = <&ipcc 2>, <&ipcc 3>;
+>         mbox-names = "shutdown", "detach";
+>         status = "okay";
+> 
+>         #address-cells = <1>;
+>         #size-cells = <0>;
+>         
+>         vdev@0 {
+> 		compatible = "rproc-virtio";
+> 		reg = <0>;
+> 		virtio,id = <7>;  /* RPMSG */
+> 		memory-region = <&vdev0vring0>, <&vdev0vring1>, <&vdev0buffer>;
+> 		mboxes = <&ipcc 0>, <&ipcc 1>;
+> 		mbox-names = "vq0", "vq1";
+> 		status = "okay";
+>         };
+> 
+>         vdev@1 {
+> 		compatible = "rproc-virtio";
+> 		reg = <1>;
+> 		virtio,id = <7>;  /*RPMSG */
+> 		memory-region = <&vdev1vring0>, <&vdev1vring1>, <&vdev1buffer>;
+> 		mboxes = <&ipcc 4>, <&ipcc 5>;
+> 		mbox-names = "vq0", "vq1";
+> 		status = "okay";
+>         };
+> };
 
-Running 'make dtbs_check' with the schema in this patch gives the
-following warnings. Consider if they are expected or the schema is
-incorrect. These may not be new warnings.
+I was in the process of applying this set when the last patch gave me a
+checkpatch warning about "virtio,rproc" not being documented.
 
-Note that it is not yet a requirement to have 0 warnings for dtbs_check.
-This will change in the future.
+I suggest to introduce a new "virtio-rproc.yaml" based on this work[1], with the
+above in the example sections.
 
-Full log is available here: https://patchwork.ozlabs.org/patch/
+Thanks,
+Mathieu
+
+[1]. https://elixir.bootlin.com/linux/v6.0-rc6/source/Documentation/devicetree/bindings/virtio/virtio-device.yaml
 
 
-ethernet@1101c000: Unevaluated properties are not allowed ('clk_csr' was unexpected)
-	arch/arm64/boot/dts/mediatek/mt2712-evb.dtb
+> 
+> I have divided the work in 4 steps to simplify the review, This series implements only
+> the step 1:
+> step 1: Redefine the remoteproc VirtIO device as a platform device
+>   - migrate rvdev management in remoteproc virtio.c,
+>   - create a remotproc virtio config ( can be disabled for platform that not use VirtIO IPC.
+> step 2: Add possibility to declare and probe a VirtIO sub node
+>   - VirtIO bindings declaration,
+>   - multi DT VirtIO devices support,
+>   - introduction of a remote proc virtio bind device mechanism ,
+> => https://github.com/arnopo/linux/commits/step2-virtio-in-DT
+> step 3: Add memory declaration in VirtIO subnode
+> => https://github.com/arnopo/linux/commits/step3-virtio-memories
+> step 4: Add mailbox declaration in VirtIO subnode
+> => https://github.com/arnopo/linux/commits/step4-virtio-mailboxes
+> 
+> Arnaud Pouliquen (4):
+>   remoteproc: core: Introduce rproc_rvdev_add_device function
+>   remoteproc: core: Introduce rproc_add_rvdev function
+>   remoteproc: Move rproc_vdev management to remoteproc_virtio.c
+>   remoteproc: virtio: Create platform device for the remoteproc_virtio
+> 
+>  drivers/remoteproc/remoteproc_core.c     | 154 +++---------------
+>  drivers/remoteproc/remoteproc_internal.h |  23 ++-
+>  drivers/remoteproc/remoteproc_virtio.c   | 189 ++++++++++++++++++++---
+>  include/linux/remoteproc.h               |   6 +-
+>  4 files changed, 210 insertions(+), 162 deletions(-)
+> 
+> -- 
+> 2.24.3
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
