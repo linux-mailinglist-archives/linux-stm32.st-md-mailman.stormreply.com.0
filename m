@@ -2,50 +2,122 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B4B445BBEAD
-	for <lists+linux-stm32@lfdr.de>; Sun, 18 Sep 2022 17:31:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9979E5BC1C9
+	for <lists+linux-stm32@lfdr.de>; Mon, 19 Sep 2022 05:44:41 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 43E1CC57183;
-	Sun, 18 Sep 2022 15:31:52 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 14A81C0D2C1;
+	Mon, 19 Sep 2022 03:44:41 +0000 (UTC)
+Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com
+ [209.85.208.43])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DD606C01E99
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CEAA8C01E98
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 18 Sep 2022 15:31:50 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 894EC61195;
- Sun, 18 Sep 2022 15:31:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B26BC433C1;
- Sun, 18 Sep 2022 15:31:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1663515109;
- bh=Urw5zSSjzhlS0NoVxdxjqpzKwEtwDkvTEQpH87UVT2o=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=cb9sJaqd0vA3K/Tm47XHd5ENC2Z5G4twTD6k8giAGFPwotDcUwQWnCi7ksMMw78+d
- r1UVU1Q5hXUhgGdG6kzNvvHqFiD6UhmkGqACBIVu0JA8lU01KY81evwh8LaXOct8v9
- 53VI7t8GtF+fObmJ2LuiAXw2uF2uggNNePt8kchRXrxWnur5sGAtQUEn3g9y6Q7NZz
- PSWTkdt3Xbz34WZQfLXjbX8B6OHomdI5EAR64/hRtyUK3FF1pLN1NFJLeQ1/9iEgrT
- cNYhKH0q+B7rRIbTi/Ccn9l7732aCifYcBjmWOIK1WTkoKnJ/0HTpmVy7AF7Q9Z/A8
- PMKrraxkofVwQ==
-Date: Sun, 18 Sep 2022 16:31:51 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-Message-ID: <20220918163151.4dfbb714@jic23-huawei>
-In-Reply-To: <588d5730-4763-ce1d-5e91-1e3973f054f5@foss.st.com>
-References: <20220915135452.1712453-1-olivier.moysan@foss.st.com>
- <588d5730-4763-ce1d-5e91-1e3973f054f5@foss.st.com>
-X-Mailer: Claws Mail 4.1.0 (GTK 3.24.34; x86_64-pc-linux-gnu)
+ Mon, 19 Sep 2022 03:44:39 +0000 (UTC)
+Received: by mail-ed1-f43.google.com with SMTP id m3so19601803eda.12
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Sun, 18 Sep 2022 20:44:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=lixom-net.20210112.gappssmtp.com; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date;
+ bh=8wzd/IsQMAz4yliZb1FsJ3OfMRVNZc5tTLnz3lR7QHQ=;
+ b=EuFCJAkszMPKPtxQSyMQ0NoboaeVB7t96eFw9rPXwH9oSHUro5o77bxEeYAtANDzyR
+ I9BMOm4HMiosCb0pcsiSHEAZo2qSCtvZawUq0/zPNIdwAvDvQAPS+8+0uFrWbUJgoTtd
+ ExLo8MeQP7GyQ+rW2rlFvIPPT75kqxCAKPhOGjeDjYZZFhuAOfywggSn5a+jZu6mJGBr
+ cWVHHoToy9UWA6nPxBqZcAZLzmJoxjkbRc1yLhwZYNZgNQEBRnr86m6GI/e/+J8MoRAT
+ suDLw8ILYZpcoPAOh+pvz4Lu/zfiYh6RXQKy+jZAxuRvjXsVxLmt63JqorCueNp9TEEJ
+ 9kQg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date;
+ bh=8wzd/IsQMAz4yliZb1FsJ3OfMRVNZc5tTLnz3lR7QHQ=;
+ b=NH4CNefLKh1GNhADRx/1Qp0arVbwT6RUP4tuki4JID25BHDOq2e48nK4LC95d8/HWy
+ RaegH2BlvtD/WGu+NbqfPBYMi/8vjDTz0oWT83jmalPZVyeQIVnYXE75Lcp8/UDlkVL3
+ zCA7nHlIupK7nbO/JtF7pJkceNctjkM+XDhLx04oVr5ghC246Yk/BMvtoQmvao6Kv5B/
+ OoDbbYZucyIew6kkKH8naAjCcIYwW6pMotDVcoGY0ivnRdriuKsjKMZK2OyQs2aYdV2C
+ QhGDvjNKacDZgtb5p1cLt9lMvKc9vlSo3XjPNuMn8SCGrFt1ezI8828097CHjtwXGKwt
+ 5/MQ==
+X-Gm-Message-State: ACrzQf2ycnlrBnRtN2QcaSOCiqZ5J56cTAfcFLlPQrQWtFSF3hvLPM3c
+ cLsLPUHswunMzIYLUm+DUajhAaF2qdazUFCdMYp0qw==
+X-Google-Smtp-Source: AMsMyM67X4fHgNHGRzRNZ0AalOVh8oZlYNRkDoycvf7zBAcHx4qOwSpxEraLAwYUCmYCoDnGs0xLR1B5pb/N312tK3I=
+X-Received: by 2002:aa7:cc8a:0:b0:446:7668:2969 with SMTP id
+ p10-20020aa7cc8a000000b0044676682969mr13821510edt.206.1663559079248; Sun, 18
+ Sep 2022 20:44:39 -0700 (PDT)
 MIME-Version: 1.0
-Cc: Lars-Peter Clausen <lars@metafoo.de>,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- linux-kernel@vger.kernel.org, Paul Cercueil <paul@crapouillou.net>,
- linux-iio@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 1/1] iio: adc: stm32-adc: add id registers
-	support
+References: <20220701012647.2007122-1-saravanak@google.com>
+ <YwS5J3effuHQJRZ5@kroah.com>
+In-Reply-To: <YwS5J3effuHQJRZ5@kroah.com>
+From: Olof Johansson <olof@lixom.net>
+Date: Sun, 18 Sep 2022 20:44:27 -0700
+Message-ID: <CAOesGMivJ5Q-jdeGKw32yhjmNiYctHjpEAnoMMRghYqWD2m2tw@mail.gmail.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: andrew lunn <andrew@lunn.ch>, peng fan <peng.fan@nxp.com>,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+ linus walleij <linus.walleij@linaro.org>, Paul Mackerras <paulus@samba.org>,
+ Alim Akhtar <alim.akhtar@samsung.com>, Peter Korsgaard <jacmet@sunsite.dk>,
+ linux-stm32@st-md-mailman.stormreply.com, Karol Gugala <kgugala@antmicro.com>,
+ Jerome Brunet <jbrunet@baylibre.com>, linux-samsung-soc@vger.kernel.org,
+ Michael Ellerman <mpe@ellerman.id.au>, Michal Simek <michal.simek@xilinx.com>,
+ Hammer Hsieh <hammerh0314@gmail.com>, NXP Linux Team <linux-imx@nxp.com>,
+ Vineet Gupta <vgupta@kernel.org>, len brown <len.brown@intel.com>,
+ Nicolas Saenz Julienne <nsaenz@kernel.org>, linux-pm@vger.kernel.org,
+ Sascha Hauer <s.hauer@pengutronix.de>, linux-unisoc@lists.infradead.org,
+ Scott Branden <sbranden@broadcom.com>, Andrew Jeffery <andrew@aj.id.au>,
+ linux-kernel@vger.kernel.org, Richard Genoud <richard.genoud@gmail.com>,
+ Masami Hiramatsu <mhiramat@kernel.org>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Claudiu Beznea <claudiu.beznea@microchip.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>, pavel machek <pavel@ucw.cz>,
+ Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
+ eric dumazet <edumazet@google.com>, Thierry Reding <thierry.reding@gmail.com>,
+ sascha hauer <sha@pengutronix.de>, Saravana Kannan <saravanak@google.com>,
+ Chunyan Zhang <zhang.lyra@gmail.com>, Jonathan Hunter <jonathanh@nvidia.com>,
+ Gabriel Somlo <gsomlo@gmail.com>, Tobias Klauser <tklauser@distanz.ch>,
+ linux-mips@vger.kernel.org, kernel-team@android.com,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ linux-arm-msm@vger.kernel.org, linux-actions@lists.infradead.org,
+ linux-gpio@vger.kernel.org, linux-rpi-kernel@lists.infradead.org,
+ linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ Andreas Farber <afaerber@suse.de>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Kevin Hilman <khilman@baylibre.com>, Pali Rohar <pali@kernel.org>,
+ heiner kallweit <hkallweit1@gmail.com>, ulf hansson <ulf.hansson@linaro.org>,
+ Neil Armstrong <narmstrong@baylibre.com>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>, Al Cooper <alcooperx@gmail.com>,
+ linux-tegra@vger.kernel.org, Jiri Slaby <jirislaby@kernel.org>,
+ linux-aspeed@lists.ozlabs.org, Rob Herring <robh@kernel.org>,
+ Florian Fainelli <f.fainelli@gmail.com>,
+ Mateusz Holenko <mholenko@antmicro.com>, Alexander Shiyan <shc_work@mail.ru>,
+ kevin hilman <khilman@kernel.org>,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+ Joel Stanley <joel@jms.id.au>, Orson Zhai <orsonzhai@gmail.com>,
+ paolo abeni <pabeni@redhat.com>, Ray Jui <rjui@broadcom.com>,
+ Vladimir Zapolskiy <vz@mleia.com>, linux-snps-arc@lists.infradead.org,
+ Timur Tabi <timur@kernel.org>, hideaki yoshifuji <yoshfuji@linux-ipv6.org>,
+ iommu@lists.linux-foundation.org, Laxman Dewangan <ldewangan@nvidia.com>,
+ Sudeep Holla <sudeep.holla@arm.com>, Baolin Wang <baolin.wang7@gmail.com>,
+ Shawn Guo <shawnguo@kernel.org>, "David S. Miller" <davem@davemloft.net>,
+ Baruch Siach <baruch@tkos.co.il>, Liviu Dudau <liviu.dudau@arm.com>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Paul Cercueil <paul@crapouillou.net>, sparclinux@vger.kernel.org,
+ linux-riscv@lists.infradead.org, joerg roedel <joro@8bytes.org>,
+ Russell King <linux@armlinux.org.uk>, Andy Gross <agross@kernel.org>,
+ linux-serial@vger.kernel.org, jakub kicinski <kuba@kernel.org>,
+ will deacon <will@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>,
+ linux-mediatek@lists.infradead.org, Fabio Estevam <festevam@gmail.com>,
+ Paul Walmsley <paul.walmsley@sifive.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Laurentiu Tudor <laurentiu.tudor@nxp.com>,
+ Taichi Sugaya <sugaya.taichi@socionext.com>, netdev@vger.kernel.org,
+ david ahern <dsahern@kernel.org>, Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Palmer Dabbelt <palmer@dabbelt.com>, Takao Orito <orito.takao@socionext.com>,
+ linuxppc-dev@lists.ozlabs.org
+Subject: Re: [Linux-stm32] [PATCH v2 0/2] Fix console probe delay when
+	stdout-path isn't set
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -62,238 +134,38 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, 16 Sep 2022 15:43:58 +0200
-Fabrice Gasnier <fabrice.gasnier@foss.st.com> wrote:
+On Tue, Aug 23, 2022 at 8:37 AM Greg Kroah-Hartman
+<gregkh@linuxfoundation.org> wrote:
+>
+> On Thu, Jun 30, 2022 at 06:26:38PM -0700, Saravana Kannan wrote:
+> > These patches are on top of driver-core-next.
+> >
+> > Even if stdout-path isn't set in DT, this patch should take console
+> > probe times back to how they were before the deferred_probe_timeout
+> > clean up series[1].
+>
+> Now dropped from my queue due to lack of a response to other reviewer's
+> questions.
 
-> On 9/15/22 15:54, Olivier Moysan wrote:
-> > Add support of identification registers to STM32 ADC.
-> > 
-> > By default the ADC hardware instance number is retrieved from
-> > the compatible configuration data. Get the available ADC number
-> > per ADC block, from hardware configuration register,
-> > when this register exists.
-> > 
-> > Signed-off-by: Olivier Moysan <olivier.moysan@foss.st.com>  
-> 
-> Hi Olivier,
-> 
-> You can add my:
-> Reviewed-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+What happened to this patch? I have a 10 second timeout on console
+probe on my SiFive Unmatched, and I don't see this flag being set for
+the serial driver. In fact, I don't see it anywhere in-tree. I can't
+seem to locate another patchset from Saravana around this though, so
+I'm not sure where to look for a missing piece for the sifive serial
+driver.
 
-Applied to the togreg branch of iio.git and pushed out as testing for 
-0-day to see if it can find anything we missed.
+This is the second boot time regression (this one not fatal, unlike
+the Layerscape PCIe one) from the fw_devlink patchset.
 
-Thanks,
+Greg, can you revert the whole set for 6.0, please? It's obviously
+nowhere near tested enough to go in and I expect we'll see a bunch of
+-stable fixups due to this if we let it remain in.
 
-Jonathan
+This seems to be one of the worst releases I've encountered in recent
+years on my hardware here due to this patchset. :-(
 
-> 
-> Thanks and Best Regards,
-> Fabrice
-> 
-> > ---
-> >  drivers/iio/adc/stm32-adc-core.c | 59 ++++++++++++++++++++++++++++++--
-> >  drivers/iio/adc/stm32-adc-core.h | 31 +++++++++++++++++
-> >  2 files changed, 87 insertions(+), 3 deletions(-)
-> > 
-> > diff --git a/drivers/iio/adc/stm32-adc-core.c b/drivers/iio/adc/stm32-adc-core.c
-> > index 1ce52af3fe8b..81d5db91c67b 100644
-> > --- a/drivers/iio/adc/stm32-adc-core.c
-> > +++ b/drivers/iio/adc/stm32-adc-core.c
-> > @@ -9,6 +9,7 @@
-> >   *
-> >   */
-> >  
-> > +#include <linux/bitfield.h>
-> >  #include <linux/clk.h>
-> >  #include <linux/interrupt.h>
-> >  #include <linux/irqchip/chained_irq.h>
-> > @@ -62,6 +63,7 @@ struct stm32_adc_priv;
-> >   * @regs:	common registers for all instances
-> >   * @clk_sel:	clock selection routine
-> >   * @max_clk_rate_hz: maximum analog clock rate (Hz, from datasheet)
-> > + * @ipid:	adc identification number
-> >   * @has_syscfg: SYSCFG capability flags
-> >   * @num_irqs:	number of interrupt lines
-> >   * @num_adcs:   maximum number of ADC instances in the common registers
-> > @@ -70,6 +72,7 @@ struct stm32_adc_priv_cfg {
-> >  	const struct stm32_adc_common_regs *regs;
-> >  	int (*clk_sel)(struct platform_device *, struct stm32_adc_priv *);
-> >  	u32 max_clk_rate_hz;
-> > +	u32 ipid;
-> >  	unsigned int has_syscfg;
-> >  	unsigned int num_irqs;
-> >  	unsigned int num_adcs;
-> > @@ -78,6 +81,7 @@ struct stm32_adc_priv_cfg {
-> >  /**
-> >   * struct stm32_adc_priv - stm32 ADC core private data
-> >   * @irq:		irq(s) for ADC block
-> > + * @nb_adc_max:		actual maximum number of instance per ADC block
-> >   * @domain:		irq domain reference
-> >   * @aclk:		clock reference for the analog circuitry
-> >   * @bclk:		bus clock common for all ADCs, depends on part used
-> > @@ -95,6 +99,7 @@ struct stm32_adc_priv_cfg {
-> >   */
-> >  struct stm32_adc_priv {
-> >  	int				irq[STM32_ADC_MAX_ADCS];
-> > +	unsigned int			nb_adc_max;
-> >  	struct irq_domain		*domain;
-> >  	struct clk			*aclk;
-> >  	struct clk			*bclk;
-> > @@ -354,7 +359,7 @@ static void stm32_adc_irq_handler(struct irq_desc *desc)
-> >  	 * before invoking the interrupt handler (e.g. call ISR only for
-> >  	 * IRQ-enabled ADCs).
-> >  	 */
-> > -	for (i = 0; i < priv->cfg->num_adcs; i++) {
-> > +	for (i = 0; i < priv->nb_adc_max; i++) {
-> >  		if ((status & priv->cfg->regs->eoc_msk[i] &&
-> >  		     stm32_adc_eoc_enabled(priv, i)) ||
-> >  		     (status & priv->cfg->regs->ovr_msk[i]))
-> > @@ -424,7 +429,7 @@ static void stm32_adc_irq_remove(struct platform_device *pdev,
-> >  	int hwirq;
-> >  	unsigned int i;
-> >  
-> > -	for (hwirq = 0; hwirq < STM32_ADC_MAX_ADCS; hwirq++)
-> > +	for (hwirq = 0; hwirq < priv->nb_adc_max; hwirq++)
-> >  		irq_dispose_mapping(irq_find_mapping(priv->domain, hwirq));
-> >  	irq_domain_remove(priv->domain);
-> >  
-> > @@ -642,6 +647,49 @@ static int stm32_adc_core_switches_probe(struct device *dev,
-> >  	return 0;
-> >  }
-> >  
-> > +static int stm32_adc_probe_identification(struct platform_device *pdev,
-> > +					  struct stm32_adc_priv *priv)
-> > +{
-> > +	struct device_node *np = pdev->dev.of_node;
-> > +	struct device_node *child;
-> > +	const char *compat;
-> > +	int ret, count = 0;
-> > +	u32 id, val;
-> > +
-> > +	if (!priv->cfg->ipid)
-> > +		return 0;
-> > +
-> > +	id = FIELD_GET(STM32MP1_IPIDR_MASK,
-> > +		       readl_relaxed(priv->common.base + STM32MP1_ADC_IPDR));
-> > +	if (id != priv->cfg->ipid) {
-> > +		dev_err(&pdev->dev, "Unexpected IP version: 0x%x", id);
-> > +		return -EINVAL;
-> > +	}
-> > +
-> > +	for_each_child_of_node(np, child) {
-> > +		ret = of_property_read_string(child, "compatible", &compat);
-> > +		if (ret)
-> > +			continue;
-> > +		/* Count child nodes with stm32 adc compatible */
-> > +		if (strstr(compat, "st,stm32") && strstr(compat, "adc"))
-> > +			count++;
-> > +	}
-> > +
-> > +	val = readl_relaxed(priv->common.base + STM32MP1_ADC_HWCFGR0);
-> > +	priv->nb_adc_max = FIELD_GET(STM32MP1_ADCNUM_MASK, val);
-> > +	if (count > priv->nb_adc_max) {
-> > +		dev_err(&pdev->dev, "Unexpected child number: %d", count);
-> > +		return -EINVAL;
-> > +	}
-> > +
-> > +	val = readl_relaxed(priv->common.base + STM32MP1_ADC_VERR);
-> > +	dev_dbg(&pdev->dev, "ADC version: %lu.%lu\n",
-> > +		FIELD_GET(STM32MP1_MAJREV_MASK, val),
-> > +		FIELD_GET(STM32MP1_MINREV_MASK, val));
-> > +
-> > +	return 0;
-> > +}
-> > +
-> >  static int stm32_adc_probe(struct platform_device *pdev)
-> >  {
-> >  	struct stm32_adc_priv *priv;
-> > @@ -661,6 +709,7 @@ static int stm32_adc_probe(struct platform_device *pdev)
-> >  
-> >  	priv->cfg = (const struct stm32_adc_priv_cfg *)
-> >  		of_match_device(dev->driver->of_match_table, dev)->data;
-> > +	priv->nb_adc_max = priv->cfg->num_adcs;
-> >  	spin_lock_init(&priv->common.lock);
-> >  
-> >  	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
-> > @@ -703,6 +752,10 @@ static int stm32_adc_probe(struct platform_device *pdev)
-> >  	if (ret)
-> >  		goto err_pm_stop;
-> >  
-> > +	ret = stm32_adc_probe_identification(pdev, priv);
-> > +	if (ret < 0)
-> > +		goto err_hw_stop;
-> > +
-> >  	ret = regulator_get_voltage(priv->vref);
-> >  	if (ret < 0) {
-> >  		dev_err(&pdev->dev, "vref get voltage failed, %d\n", ret);
-> > @@ -811,8 +864,8 @@ static const struct stm32_adc_priv_cfg stm32mp1_adc_priv_cfg = {
-> >  	.clk_sel = stm32h7_adc_clk_sel,
-> >  	.max_clk_rate_hz = 36000000,
-> >  	.has_syscfg = HAS_VBOOSTER | HAS_ANASWVDD,
-> > +	.ipid = STM32MP15_IPIDR_NUMBER,
-> >  	.num_irqs = 2,
-> > -	.num_adcs = 2,
-> >  };
-> >  
-> >  static const struct of_device_id stm32_adc_of_match[] = {
-> > diff --git a/drivers/iio/adc/stm32-adc-core.h b/drivers/iio/adc/stm32-adc-core.h
-> > index faedf7a49555..2118ef63843d 100644
-> > --- a/drivers/iio/adc/stm32-adc-core.h
-> > +++ b/drivers/iio/adc/stm32-adc-core.h
-> > @@ -24,6 +24,7 @@
-> >   * | 0x300  |         Master & Slave common regs          |
-> >   * --------------------------------------------------------
-> >   */
-> > +/* Maximum ADC instances number per ADC block for all supported SoCs */
-> >  #define STM32_ADC_MAX_ADCS		3
-> >  #define STM32_ADC_OFFSET		0x100
-> >  #define STM32_ADCX_COMN_OFFSET		0x300
-> > @@ -105,6 +106,12 @@
-> >  /* STM32MP1 - ADC2 instance option register */
-> >  #define STM32MP1_ADC2_OR		0xD0
-> >  
-> > +/* STM32MP1 - Identification registers */
-> > +#define STM32MP1_ADC_HWCFGR0		0x3F0
-> > +#define STM32MP1_ADC_VERR		0x3F4
-> > +#define STM32MP1_ADC_IPDR		0x3F8
-> > +#define STM32MP1_ADC_SIDR		0x3FC
-> > +
-> >  /* STM32H7 - common registers for all ADC instances */
-> >  #define STM32H7_ADC_CSR			(STM32_ADCX_COMN_OFFSET + 0x00)
-> >  #define STM32H7_ADC_CCR			(STM32_ADCX_COMN_OFFSET + 0x08)
-> > @@ -181,6 +188,30 @@ enum stm32h7_adc_dmngt {
-> >  /* STM32MP1_ADC2_OR - bit fields */
-> >  #define STM32MP1_VDDCOREEN		BIT(0)
-> >  
-> > +/* STM32MP1_ADC_HWCFGR0 - bit fields */
-> > +#define STM32MP1_ADCNUM_SHIFT		0
-> > +#define STM32MP1_ADCNUM_MASK		GENMASK(3, 0)
-> > +#define STM32MP1_MULPIPE_SHIFT		4
-> > +#define STM32MP1_MULPIPE_MASK		GENMASK(7, 4)
-> > +#define STM32MP1_OPBITS_SHIFT		8
-> > +#define STM32MP1_OPBITS_MASK		GENMASK(11, 8)
-> > +#define STM32MP1_IDLEVALUE_SHIFT	12
-> > +#define STM32MP1_IDLEVALUE_MASK	GENMASK(15, 12)
-> > +
-> > +/* STM32MP1_ADC_VERR - bit fields */
-> > +#define STM32MP1_MINREV_SHIFT		0
-> > +#define STM32MP1_MINREV_MASK		GENMASK(3, 0)
-> > +#define STM32MP1_MAJREV_SHIFT		4
-> > +#define STM32MP1_MAJREV_MASK		GENMASK(7, 4)
-> > +
-> > +/* STM32MP1_ADC_IPDR - bit fields */
-> > +#define STM32MP1_IPIDR_MASK		GENMASK(31, 0)
-> > +
-> > +/* STM32MP1_ADC_SIDR - bit fields */
-> > +#define STM32MP1_SIDR_MASK		GENMASK(31, 0)
-> > +
-> > +#define STM32MP15_IPIDR_NUMBER		0x00110005
-> > +
-> >  /**
-> >   * struct stm32_adc_common - stm32 ADC driver common data (for all instances)
-> >   * @base:		control registers base cpu addr  
 
+-Olof
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
