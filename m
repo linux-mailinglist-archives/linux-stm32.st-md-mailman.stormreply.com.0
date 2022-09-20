@@ -2,69 +2,75 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9086D5BE771
-	for <lists+linux-stm32@lfdr.de>; Tue, 20 Sep 2022 15:44:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0F4515BE825
+	for <lists+linux-stm32@lfdr.de>; Tue, 20 Sep 2022 16:10:16 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 38962C640F2;
-	Tue, 20 Sep 2022 13:44:47 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A63BEC640F2;
+	Tue, 20 Sep 2022 14:10:15 +0000 (UTC)
+Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com
+ [209.85.216.49])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7F7FFC62D6D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A62C5C62D6D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 20 Sep 2022 13:44:45 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 28KBbDPJ032460;
- Tue, 20 Sep 2022 15:44:33 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=message-id : date :
- mime-version : from : subject : to : cc : references : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=tKe93jKTJuGPYc8RLIZ+qGFMxQwQpY6C7yIqnX+fRxc=;
- b=3Z8juWDfqMB6uBZiRAmuQEJVJVqtZQwkwDpAKixcN9ZBy3PaiYllzdotzthgYeSuiaIf
- jwJ6Z+5tWS4ksM+tmbRXKhglAuW5oJ4qMhenR/t5/EArZAUV3xchypYt9OuxPvceAu3I
- Py+oO79NY5xeFwjbxXHPLm3BBXt30h0HXr3QZvmYQ7eDQ9Bj055HoJFPh92zVPl1I1rT
- uTyslkzuIPalm8HM9KujmDhqCflYHaUQmboZOh7AoO1WEGGPnDV6VIJ29kaNul25CaR4
- rwUk1xLW0eUmUd5fl46SrmPji53X/OmXPZiM/6K6pTDfg+H07oWShx47fCzPlokkHSXT 3w== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3jn6a0u8mp-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 20 Sep 2022 15:44:33 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id D605210002A;
- Tue, 20 Sep 2022 15:44:31 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 54D5123300B;
- Tue, 20 Sep 2022 15:44:31 +0200 (CEST)
-Received: from [10.201.22.245] (10.75.127.44) by SHFDAG1NODE2.st.com
- (10.75.129.70) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2375.31; Tue, 20 Sep
- 2022 15:44:30 +0200
-Message-ID: <66e27df5-7697-446d-df7c-eb50e6d06f46@foss.st.com>
-Date: Tue, 20 Sep 2022 15:44:18 +0200
+ Tue, 20 Sep 2022 14:10:13 +0000 (UTC)
+Received: by mail-pj1-f49.google.com with SMTP id
+ j6-20020a17090a694600b00200bba67dadso2574114pjm.5
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 20 Sep 2022 07:10:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=edgeble-ai.20210112.gappssmtp.com; s=20210112;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date;
+ bh=DSNp/uharmpReYy+YC5O0owair4IDAzJu/dQoMj9EuE=;
+ b=JGndOtlikbTpSUbPqg2ojZV/PXcChJ3VizuBebT9Sawr5R1L0a/3IKUD+C46gPVshH
+ /wQ1wlvkXfiT5X2OdpVJMDYv9ZealAuYXOQXYt9B18G/vmiE+aTapx769Uuj8yEV7TAO
+ XasE/nQj5UZaPTG40sHhoZo3tA2mTvzMWuXVnZ3JfKfxZv03I8yIurRHtFuXVep0J9QS
+ OVmj9HHW3QQcXqDmfW8cgGyFFtOosKlnaJCDXFE/eX04ih7Ob/DY58jASG4w15FEjukz
+ C/XkGWhfQ1RgwyLRpk46pcOtLGZVA8bY4Z1IFmLSLs+KxPCieueXyhi+XQbrWXvA1U/M
+ TXVA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date;
+ bh=DSNp/uharmpReYy+YC5O0owair4IDAzJu/dQoMj9EuE=;
+ b=O0Zr+jc73JiCHpDoyKiNyhqKZpgSLCdg05rsy6/8w3HCSRkWWFIf6DBYu6S++I07qJ
+ AlzoDWqdNhoMlYxKbEBAZ9CuFxxDYC60Iyc0g2+CUCn/RUUwaATjGMFTapfkj3SuR16b
+ rWCiQTvbgQSN8I+VK6hyoK9jI7otV9eLa8yKP3WTnxnaEgkFSv8RbB8RQ+TktTsIN9nc
+ +Nc9T5BI+xCVqCwk5JMQnbWb/6En+x5D4C2zkg5ZjKIy6OR6WBlrxQypJqSIMu7M1WPu
+ zAlE7+6qimwOvN+e6DjskH2u49dgxNH4us6ALCftsRzpIUMV7pqC9LVk61CaUtRIa2m+
+ 4ysg==
+X-Gm-Message-State: ACrzQf06imNKDlpydU+7ARzim6316GmlO/FDG2fcBwP7F8IdFfLEHUuM
+ Sn/d5Gy0bz6CZxHYCe4n0LWIHg==
+X-Google-Smtp-Source: AMsMyM7OQv10cWPYv1yYSPX4pu91pIFT6zRmq1k7wLZMkluTirdpzLCp+HN/D/iOxhB09n7MRWX0Ig==
+X-Received: by 2002:a17:902:6542:b0:172:95d8:a777 with SMTP id
+ d2-20020a170902654200b0017295d8a777mr4917335pln.61.1663683012286; 
+ Tue, 20 Sep 2022 07:10:12 -0700 (PDT)
+Received: from archl-hc1b.. ([103.51.75.120]) by smtp.gmail.com with ESMTPSA id
+ t9-20020a170902e84900b001782a0d3eeasm1499858plg.115.2022.09.20.07.10.07
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 20 Sep 2022 07:10:11 -0700 (PDT)
+From: Anand Moon <anand@edgeble.ai>
+To: Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Jose Abreu <joabreu@synopsys.com>, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Date: Tue, 20 Sep 2022 14:09:41 +0000
+Message-Id: <20220920140944.2535-2-anand@edgeble.ai>
+X-Mailer: git-send-email 2.37.3
+In-Reply-To: <20220920140944.2535-1-anand@edgeble.ai>
+References: <20220920140944.2535-1-anand@edgeble.ai>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-From: Arnaud POULIQUEN <arnaud.pouliquen@foss.st.com>
-To: Mathieu Poirier <mathieu.poirier@linaro.org>
-References: <20220826115232.2163130-1-arnaud.pouliquen@foss.st.com>
- <20220919223027.GG759648@p14s>
-Content-Language: en-US
-In-Reply-To: <20220919223027.GG759648@p14s>
-X-Originating-IP: [10.75.127.44]
-X-ClientProxiedBy: SFHDAG2NODE3.st.com (10.75.127.6) To SHFDAG1NODE2.st.com
- (10.75.129.70)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.528,FMLib:17.11.122.1
- definitions=2022-09-20_05,2022-09-20_02,2022-06-22_01
-Cc: Rob Herring <robh@kernel.org>, Bruce Ashfield <bruce.ashfield@xilinx.com>,
- Stefano Stabellini <stefanos@xilinx.com>, linux-remoteproc@vger.kernel.org,
- linux-kernel@vger.kernel.org, Christoph Hellwig <hch@lst.de>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH v8 0/4] remoteproc: restructure the
- remoteproc VirtIO device
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Anand Moon <anand@edgeble.ai>, Jagan Teki <jagan@edgeble.ai>,
+ Sugar Zhang <sugar.zhang@rock-chips.com>, linux-rockchip@lists.infradead.org,
+ David Wu <david.wu@rock-chips.com>, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH net-next v3 2/2] net: ethernet: stmicro:
+	stmmac: dwmac-rk: Add rv1126 support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,138 +87,171 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Mathieu,
+Rockchip RV1126 has GMAC 10/100/1000M ethernet controller
+via RGMII and RMII interfaces are configured via M0 and M1 pinmux.
 
-On 9/20/22 00:30, Mathieu Poirier wrote:
-> Hi,
-> 
-> On Fri, Aug 26, 2022 at 01:52:28PM +0200, Arnaud Pouliquen wrote:
->> 1) Update from V7 [1]:
->>
->> - rebase on rproc-next branch [2], commit 729c16326b7f ("remoteproc: imx_dsp_rproc: fix argument 2 of rproc_mem_entry_init")
->>   The updates take into account the integration of the
->>   commit 1404acbb7f68 ("remoteproc: Fix dma_mem leak after rproc_shutdown")
->> - add Reviewed-by: Mathieu Poirier <mathieu.poirier@linaro.org> according to reviews on V7
->>
->>
->> [1] https://lkml.org/lkml/2022/7/13/663
->> [2] https://git.kernel.org/pub/scm/linux/kernel/git/remoteproc/linux.git/log/?h=for-next
->>
->> 2) Patchset description:
->>
->> This series is a part of the work initiated a long time ago in 
->> the series "remoteproc: Decorelate virtio from core"[3]
->>
->> Objective of the work:
->> - Update the remoteproc VirtIO device creation (use platform device)
->> - Allow to declare remoteproc VirtIO device in DT
->>     - declare resources associated to a remote proc VirtIO
->>     - declare a list of VirtIO supported by the platform.
->> - Prepare the enhancement to more VirtIO devices (e.g I2C, audio, video, ...).
->>   For instance be able to declare a I2C device in a virtio-i2C node.
->> - Keep the legacy working!
->> - Try to improve the picture about concerns reported by Christoph Hellwing [4][5]
->>
->> [3] https://lkml.org/lkml/2020/4/16/1817
->> [4] https://lkml.org/lkml/2021/6/23/607
->> [5] https://patchwork.kernel.org/project/linux-remoteproc/patch/AOKowLclCbOCKxyiJ71WeNyuAAj2q8EUtxrXbyky5E@cp7-web-042.plabs.ch/
->>
->> In term of device tree this would result in such hierarchy (stm32mp1 example with 2 virtio RPMSG):
->>
->> 	m4_rproc: m4@10000000 {
->> 		compatible = "st,stm32mp1-m4";
->> 		reg = <0x10000000 0x40000>,
->> 		      <0x30000000 0x40000>,
->> 		      <0x38000000 0x10000>;
->>         memory-region = <&retram>, <&mcuram>,<&mcuram2>;
->>         mboxes = <&ipcc 2>, <&ipcc 3>;
->>         mbox-names = "shutdown", "detach";
->>         status = "okay";
->>
->>         #address-cells = <1>;
->>         #size-cells = <0>;
->>         
->>         vdev@0 {
->> 		compatible = "rproc-virtio";
->> 		reg = <0>;
->> 		virtio,id = <7>;  /* RPMSG */
->> 		memory-region = <&vdev0vring0>, <&vdev0vring1>, <&vdev0buffer>;
->> 		mboxes = <&ipcc 0>, <&ipcc 1>;
->> 		mbox-names = "vq0", "vq1";
->> 		status = "okay";
->>         };
->>
->>         vdev@1 {
->> 		compatible = "rproc-virtio";
->> 		reg = <1>;
->> 		virtio,id = <7>;  /*RPMSG */
->> 		memory-region = <&vdev1vring0>, <&vdev1vring1>, <&vdev1buffer>;
->> 		mboxes = <&ipcc 4>, <&ipcc 5>;
->> 		mbox-names = "vq0", "vq1";
->> 		status = "okay";
->>         };
->> };
-> 
-> I was in the process of applying this set when the last patch gave me a
-> checkpatch warning about "virtio,rproc" not being documented.
-> 
-> I suggest to introduce a new "virtio-rproc.yaml" based on this work[1], with the
-> above in the example sections.
+This patch adds rv1126 support by adding delay lines of M0 and M1
+simultaneously.
 
-Yes I saw the warning, but for this first series it is not possible to declare
-the associated "rproc-virtio" device  in device tree.
-So at this step it seems not make senses to create the devicetree bindings file.
-More than that I don't know how I could justify the properties in bindings if
-there is not driver code associated.
+Signed-off-by: Sugar Zhang <sugar.zhang@rock-chips.com>
+Signed-off-by: David Wu <david.wu@rock-chips.com>
+Signed-off-by: Anand Moon <anand@edgeble.ai>
+Signed-off-by: Jagan Teki <jagan@edgeble.ai>
+---
+v3: changes none
+    rebased on linux-net-next
+v2: changes none
+---
+---
+ .../net/ethernet/stmicro/stmmac/dwmac-rk.c    | 125 ++++++++++++++++++
+ 1 file changed, 125 insertions(+)
 
-So i would be in favor of not adding the bindings in this series but to define
-bindings in the first patch of my "step 2" series; as done on my github:
-https://github.com/arnopo/linux/commit/9616d89a4f478cf78865a244efcde108d900f69f
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
+index 15dea1f2a90a..f7269d79a385 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
+@@ -1297,6 +1297,130 @@ static const struct rk_gmac_ops rv1108_ops = {
+ 	.set_rmii_speed = rv1108_set_rmii_speed,
+ };
+ 
++#define RV1126_GRF_GMAC_CON0		0X0070
++#define RV1126_GRF_GMAC_CON1		0X0074
++#define RV1126_GRF_GMAC_CON2		0X0078
++
++/* RV1126_GRF_GMAC_CON0 */
++#define RV1126_GMAC_PHY_INTF_SEL_RGMII	\
++		(GRF_BIT(4) | GRF_CLR_BIT(5) | GRF_CLR_BIT(6))
++#define RV1126_GMAC_PHY_INTF_SEL_RMII	\
++		(GRF_CLR_BIT(4) | GRF_CLR_BIT(5) | GRF_BIT(6))
++#define RV1126_GMAC_FLOW_CTRL			GRF_BIT(7)
++#define RV1126_GMAC_FLOW_CTRL_CLR		GRF_CLR_BIT(7)
++#define RV1126_GMAC_M0_RXCLK_DLY_ENABLE		GRF_BIT(1)
++#define RV1126_GMAC_M0_RXCLK_DLY_DISABLE	GRF_CLR_BIT(1)
++#define RV1126_GMAC_M0_TXCLK_DLY_ENABLE		GRF_BIT(0)
++#define RV1126_GMAC_M0_TXCLK_DLY_DISABLE	GRF_CLR_BIT(0)
++#define RV1126_GMAC_M1_RXCLK_DLY_ENABLE		GRF_BIT(3)
++#define RV1126_GMAC_M1_RXCLK_DLY_DISABLE	GRF_CLR_BIT(3)
++#define RV1126_GMAC_M1_TXCLK_DLY_ENABLE		GRF_BIT(2)
++#define RV1126_GMAC_M1_TXCLK_DLY_DISABLE	GRF_CLR_BIT(2)
++
++/* RV1126_GRF_GMAC_CON1 */
++#define RV1126_GMAC_M0_CLK_RX_DL_CFG(val)	HIWORD_UPDATE(val, 0x7F, 8)
++#define RV1126_GMAC_M0_CLK_TX_DL_CFG(val)	HIWORD_UPDATE(val, 0x7F, 0)
++/* RV1126_GRF_GMAC_CON2 */
++#define RV1126_GMAC_M1_CLK_RX_DL_CFG(val)	HIWORD_UPDATE(val, 0x7F, 8)
++#define RV1126_GMAC_M1_CLK_TX_DL_CFG(val)	HIWORD_UPDATE(val, 0x7F, 0)
++
++static void rv1126_set_to_rgmii(struct rk_priv_data *bsp_priv,
++				int tx_delay, int rx_delay)
++{
++	struct device *dev = &bsp_priv->pdev->dev;
++
++	if (IS_ERR(bsp_priv->grf)) {
++		dev_err(dev, "Missing rockchip,grf property\n");
++		return;
++	}
++
++	regmap_write(bsp_priv->grf, RV1126_GRF_GMAC_CON0,
++		     RV1126_GMAC_PHY_INTF_SEL_RGMII |
++		     RV1126_GMAC_M0_RXCLK_DLY_ENABLE |
++		     RV1126_GMAC_M0_TXCLK_DLY_ENABLE |
++		     RV1126_GMAC_M1_RXCLK_DLY_ENABLE |
++		     RV1126_GMAC_M1_TXCLK_DLY_ENABLE);
++
++	regmap_write(bsp_priv->grf, RV1126_GRF_GMAC_CON1,
++		     RV1126_GMAC_M0_CLK_RX_DL_CFG(rx_delay) |
++		     RV1126_GMAC_M0_CLK_TX_DL_CFG(tx_delay));
++
++	regmap_write(bsp_priv->grf, RV1126_GRF_GMAC_CON2,
++		     RV1126_GMAC_M1_CLK_RX_DL_CFG(rx_delay) |
++		     RV1126_GMAC_M1_CLK_TX_DL_CFG(tx_delay));
++}
++
++static void rv1126_set_to_rmii(struct rk_priv_data *bsp_priv)
++{
++	struct device *dev = &bsp_priv->pdev->dev;
++
++	if (IS_ERR(bsp_priv->grf)) {
++		dev_err(dev, "%s: Missing rockchip,grf property\n", __func__);
++		return;
++	}
++
++	regmap_write(bsp_priv->grf, RV1126_GRF_GMAC_CON0,
++		     RV1126_GMAC_PHY_INTF_SEL_RMII);
++}
++
++static void rv1126_set_rgmii_speed(struct rk_priv_data *bsp_priv, int speed)
++{
++	struct device *dev = &bsp_priv->pdev->dev;
++	unsigned long rate;
++	int ret;
++
++	switch (speed) {
++	case 10:
++		rate = 2500000;
++		break;
++	case 100:
++		rate = 25000000;
++		break;
++	case 1000:
++		rate = 125000000;
++		break;
++	default:
++		dev_err(dev, "unknown speed value for RGMII speed=%d", speed);
++		return;
++	}
++
++	ret = clk_set_rate(bsp_priv->clk_mac_speed, rate);
++	if (ret)
++		dev_err(dev, "%s: set clk_mac_speed rate %ld failed %d\n",
++			__func__, rate, ret);
++}
++
++static void rv1126_set_rmii_speed(struct rk_priv_data *bsp_priv, int speed)
++{
++	struct device *dev = &bsp_priv->pdev->dev;
++	unsigned long rate;
++	int ret;
++
++	switch (speed) {
++	case 10:
++		rate = 2500000;
++		break;
++	case 100:
++		rate = 25000000;
++		break;
++	default:
++		dev_err(dev, "unknown speed value for RGMII speed=%d", speed);
++		return;
++	}
++
++	ret = clk_set_rate(bsp_priv->clk_mac_speed, rate);
++	if (ret)
++		dev_err(dev, "%s: set clk_mac_speed rate %ld failed %d\n",
++			__func__, rate, ret);
++}
++
++static const struct rk_gmac_ops rv1126_ops = {
++	.set_to_rgmii = rv1126_set_to_rgmii,
++	.set_to_rmii = rv1126_set_to_rmii,
++	.set_rgmii_speed = rv1126_set_rgmii_speed,
++	.set_rmii_speed = rv1126_set_rmii_speed,
++};
++
+ #define RK_GRF_MACPHY_CON0		0xb00
+ #define RK_GRF_MACPHY_CON1		0xb04
+ #define RK_GRF_MACPHY_CON2		0xb08
+@@ -1836,6 +1960,7 @@ static const struct of_device_id rk_gmac_dwmac_match[] = {
+ 	{ .compatible = "rockchip,rk3568-gmac", .data = &rk3568_ops },
+ 	{ .compatible = "rockchip,rk3588-gmac", .data = &rk3588_ops },
+ 	{ .compatible = "rockchip,rv1108-gmac", .data = &rv1108_ops },
++	{ .compatible = "rockchip,rv1126-gmac", .data = &rv1126_ops },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(of, rk_gmac_dwmac_match);
+-- 
+2.37.3
 
-Please let me know your preference.
-
-Regards,
-Arnaud
-
-
-> 
-> Thanks,
-> Mathieu
-> 
-> [1]. https://elixir.bootlin.com/linux/v6.0-rc6/source/Documentation/devicetree/bindings/virtio/virtio-device.yaml
-> 
-> 
->>
->> I have divided the work in 4 steps to simplify the review, This series implements only
->> the step 1:
->> step 1: Redefine the remoteproc VirtIO device as a platform device
->>   - migrate rvdev management in remoteproc virtio.c,
->>   - create a remotproc virtio config ( can be disabled for platform that not use VirtIO IPC.
->> step 2: Add possibility to declare and probe a VirtIO sub node
->>   - VirtIO bindings declaration,
->>   - multi DT VirtIO devices support,
->>   - introduction of a remote proc virtio bind device mechanism ,
->> => https://github.com/arnopo/linux/commits/step2-virtio-in-DT
->> step 3: Add memory declaration in VirtIO subnode
->> => https://github.com/arnopo/linux/commits/step3-virtio-memories
->> step 4: Add mailbox declaration in VirtIO subnode
->> => https://github.com/arnopo/linux/commits/step4-virtio-mailboxes
->>
->> Arnaud Pouliquen (4):
->>   remoteproc: core: Introduce rproc_rvdev_add_device function
->>   remoteproc: core: Introduce rproc_add_rvdev function
->>   remoteproc: Move rproc_vdev management to remoteproc_virtio.c
->>   remoteproc: virtio: Create platform device for the remoteproc_virtio
->>
->>  drivers/remoteproc/remoteproc_core.c     | 154 +++---------------
->>  drivers/remoteproc/remoteproc_internal.h |  23 ++-
->>  drivers/remoteproc/remoteproc_virtio.c   | 189 ++++++++++++++++++++---
->>  include/linux/remoteproc.h               |   6 +-
->>  4 files changed, 210 insertions(+), 162 deletions(-)
->>
->> -- 
->> 2.24.3
->>
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
