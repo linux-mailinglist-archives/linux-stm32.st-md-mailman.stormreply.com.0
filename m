@@ -2,71 +2,74 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C3045BDA4B
-	for <lists+linux-stm32@lfdr.de>; Tue, 20 Sep 2022 04:41:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D40215BE027
+	for <lists+linux-stm32@lfdr.de>; Tue, 20 Sep 2022 10:33:50 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 23CCEC5C829;
-	Tue, 20 Sep 2022 02:41:58 +0000 (UTC)
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 84DBCC6410D;
+	Tue, 20 Sep 2022 08:33:50 +0000 (UTC)
+Received: from relay2-d.mail.gandi.net (relay2-d.mail.gandi.net
+ [217.70.183.194])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1C787C03FD5
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 936E4C640F0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 20 Sep 2022 02:41:55 +0000 (UTC)
-X-UUID: ae26f053675141ed849e0a1e610a89fe-20220920
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com;
- s=dk; 
- h=Content-Transfer-Encoding:MIME-Version:Content-Type:References:In-Reply-To:Date:CC:To:From:Subject:Message-ID;
- bh=sIGqGcIRrPYQKpKAtc4/Ah0ogLUo8Srchgvb8OewzRE=; 
- b=aRvQ0VDRfgbGD6rD0Wj566EQJ9zlsbkzJKGh/pNPpEuxrCmVvVbctwupsGNoNCr1IxlPRjst4QgU6qJUtmMBSlQJXiwBtvgmSjec5RgD8tH0Xw5sCt1P7a1ZlA1Af+C2d1B7bKgdDzyYVOj6e6hBOeFpR44rzPYS8Q8M7Ukj68k=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.1.11, REQID:d075e4ed-0c9a-4add-8ddf-a67c62c87db5, IP:0,
- U
- RL:0,TC:0,Content:-5,EDM:0,RT:0,SF:95,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
- N:release,TS:90
-X-CID-INFO: VERSION:1.1.11, REQID:d075e4ed-0c9a-4add-8ddf-a67c62c87db5, IP:0,
- URL
- :0,TC:0,Content:-5,EDM:0,RT:0,SF:95,FILE:0,BULK:0,RULE:Spam_GS981B3D,ACTIO
- N:quarantine,TS:90
-X-CID-META: VersionHash:39a5ff1, CLOUDID:8714365e-5ed4-4e28-8b00-66ed9f042fbd,
- B
- ulkID:220920002500QDDVP7VP,BulkQuantity:70,Recheck:0,SF:28|17|19|48,TC:nil
- ,Content:0,EDM:-3,IP:nil,URL:0,File:nil,Bulk:40,QS:nil,BEC:nil,COL:0
-X-UUID: ae26f053675141ed849e0a1e610a89fe-20220920
-Received: from mtkmbs13n1.mediatek.inc [(172.21.101.193)] by
- mailgw02.mediatek.com (envelope-from <jianguo.zhang@mediatek.com>)
- (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
- with ESMTP id 1121040200; Tue, 20 Sep 2022 10:41:49 +0800
-Received: from mtkmbs11n1.mediatek.inc (172.21.101.185) by
- mtkmbs10n1.mediatek.inc (172.21.101.34) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.792.15; Tue, 20 Sep 2022 10:41:48 +0800
-Received: from mhfsdcap04 (10.17.3.154) by mtkmbs11n1.mediatek.inc
- (172.21.101.73) with Microsoft SMTP Server id 15.2.792.15 via Frontend
- Transport; Tue, 20 Sep 2022 10:41:47 +0800
-Message-ID: <f78e79520b5edc9b477c38131fd97e5e603c0428.camel@mediatek.com>
-From: Jianguo Zhang <jianguo.zhang@mediatek.com>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Date: Tue, 20 Sep 2022 10:41:47 +0800
-In-Reply-To: <20220919162453.4kkphzhc2tu6wzou@krzk-bin>
-References: <20220919080410.11270-1-jianguo.zhang@mediatek.com>
- <20220919080410.11270-3-jianguo.zhang@mediatek.com>
- <20220919162453.4kkphzhc2tu6wzou@krzk-bin>
-X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.2 
-MIME-Version: 1.0
-X-MTK: N
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Tue, 20 Sep 2022 08:33:48 +0000 (UTC)
+Received: (Authenticated sender: miquel.raynal@bootlin.com)
+ by mail.gandi.net (Postfix) with ESMTPSA id 93B0A40008;
+ Tue, 20 Sep 2022 08:33:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
+ t=1663662828;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=WdCBW02Fmd3bjrCh+OZZwzQ5M+jFgiJ3BIAxKxcGchY=;
+ b=Fkc2Mq4Ojmk6fA3bxJPKaJn0WLqyjQT/npMoIhSfZX76aXLoThMbC516XCfnOeiiBamxGC
+ ef/U8lKG8CzN7Q96xUd4LtMIeVblPti2tyyEKtMf32UNp7AfXZFnOGAg+k1ZQGwJQykmDA
+ fPkMuJPLuC8phFSfGeS17s7hENly3KI6ctjaChfKwb4CKjQrsUOoc0MDXBqqdVTbOhXDoh
+ 3wV2R5IcM/BB7UthrsqKmOzknjS7VAp0uOkeJv2MDKwd/JfIjmk/eBV1Xgz128d0vrXrJ+
+ HCs5k8j2cnkQ3Ho73v081g4gSg/IgirZsYsb+6cipakSlYrU6szR8RzXypbq3Q==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+ Thierry Reding <thierry.reding@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Matti Vaittinen <mazziesaccount@gmail.com>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ Claudiu Beznea <claudiu.beznea@microchip.com>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Wim Van Sebroeck <wim@linux-watchdog.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Guenter Roeck <linux@roeck-us.net>,
+ Miquel Raynal <miquel.raynal@bootlin.com>,
+ Linus Walleij <linus.walleij@linaro.org>, Felipe Balbi <balbi@kernel.org>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ =?utf-8?q?Krzysztof_Wilc?= =?utf-8?q?zy=C5=84ski?= <kw@linux.com>,
+ Vignesh Raghavendra <vigneshr@ti.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Marc Zyngier <maz@kernel.org>, Richard Weinberger <richard@nod.at>,
+ David Airlie <airlied@linux.ie>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Alyssa Rosenzweig <alyssa@rosenzweig.io>,
+ Bartosz Golaszewski <brgl@bgdev.pl>,
+ Jonathan Hunter <jonathanh@nvidia.com>, Rob Herring <robh@kernel.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Biao Huang <biao.huang@mediatek.com>, netdev@vger.kernel.org,
- Rob Herring <robh+dt@kernel.org>, linux-stm32@st-md-mailman.stormreply.com,
- Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
- linux-mediatek@lists.infradead.org,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, Giuseppe
- Cavallaro <peppe.cavallaro@st.com>, Matthias Brugger <matthias.bgg@gmail.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- "David S . Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 2/2] net: dt-bindings: dwmac: add support
-	for mt8188
+ Bjorn Helgaas <bhelgaas@google.com>,
+ =?utf-8?q?Pali_Roh=C3=A1r?= <pali@kernel.org>
+Date: Tue, 20 Sep 2022 10:33:42 +0200
+Message-Id: <20220920083342.601039-1-miquel.raynal@bootlin.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20220903-gpiod_get_from_of_node-remove-v1-3-b29adfb27a6c@gmail.com>
+References: 
+MIME-Version: 1.0
+X-linux-mtd-patch-notification: thanks
+X-linux-mtd-patch-commit: b'130bd3cdb880c444005e173485124a7bbf3df9b2'
+Cc: linux-watchdog@vger.kernel.org, linux-pci@vger.kernel.org,
+ linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-gpio@vger.kernel.org,
+ linux-mtd@lists.infradead.org, linux-tegra@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v1 03/11] mtd: rawnand: stm32_fmc2: switch
+	to using devm_fwnode_gpiod_get()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,19 +86,16 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Dear Krzysztof,
+On Mon, 2022-09-05 at 06:30:55 UTC, Dmitry Torokhov wrote:
+> I would like to stop exporting OF-specific devm_gpiod_get_from_of_node()
+> so that gpiolib can be cleaned a bit, so let's switch to the generic
+> fwnode property API.
+> 
+> Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
 
-	Thanks for your comment.
+Applied to https://git.kernel.org/pub/scm/linux/kernel/git/mtd/linux.git nand/next, thanks.
 
-On Mon, 2022-09-19 at 18:24 +0200, Krzysztof Kozlowski wrote:
-> 'clk_csr'
-'clk_csr' properity is parsed in driver, but it is not documented in
-bingings for now. We will push a patch to describe 'clk_csr' in
-snps,dwmac.yaml file in next version patches.
-
-BRS
-Jianguo
-
+Miquel
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
