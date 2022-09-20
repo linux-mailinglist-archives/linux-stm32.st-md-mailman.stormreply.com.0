@@ -2,50 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C1CBE5BE02F
-	for <lists+linux-stm32@lfdr.de>; Tue, 20 Sep 2022 10:34:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 271715BE047
+	for <lists+linux-stm32@lfdr.de>; Tue, 20 Sep 2022 10:36:36 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A0957C6410D;
-	Tue, 20 Sep 2022 08:34:11 +0000 (UTC)
-Received: from relay11.mail.gandi.net (relay11.mail.gandi.net [217.70.178.231])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D5569C6410D;
+	Tue, 20 Sep 2022 08:36:35 +0000 (UTC)
+Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9BEA1C640F0
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6D840C640FC
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 20 Sep 2022 08:34:10 +0000 (UTC)
-Received: (Authenticated sender: miquel.raynal@bootlin.com)
- by mail.gandi.net (Postfix) with ESMTPSA id 1F674100006;
- Tue, 20 Sep 2022 08:34:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1663662850;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=fI6KR2XYkMm0fNXZ4hXvpp4VJ410FJUanuWhIpjAvl4=;
- b=EJbgurdM6G5JlkUnG3NVn6aXa7kFc+M2OS0B0Z48WTxHAh1+0QKyZZopom8W8zFHgCWtj3
- 7svawuzjkBRwzvjblSNJ/tO2lHafieGYBlTXcTbqsBUhh/RRI8JXN4SSJyPm3NrfCnj4RP
- EEHoBiFtF1mTLUKPAlKlsD1NYKf4J0SbQ7GEx3u1948MEbF8WFuzPiPXzHPMR4rEBQZjXw
- D9eanBUo8R1Rx5YqSagJq+PlpvlsNZG6+kcrUXiLgu4Pl8dRzHR1eDoeUwlWfU5ocpR6Xc
- DB4Ug0PGDx0yeyeUn8AHIKj6vgzN6VneYTXY/7k5lYz1cG3r/riPO1Ni2H7W4A==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: Jack Wang <jinpu.wang@ionos.com>,
-	linux-kernel@vger.kernel.org
-Date: Tue, 20 Sep 2022 10:34:06 +0200
-Message-Id: <20220920083406.601177-1-miquel.raynal@bootlin.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20220819060801.10443-5-jinpu.wang@ionos.com>
-References: 
+ Tue, 20 Sep 2022 08:36:33 +0000 (UTC)
+X-UUID: 556fd849ebb249ee95375612a904dcc8-20220920
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com;
+ s=dk; 
+ h=Content-Type:Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:CC:To:From;
+ bh=N9kYMoEGP24/8dmWpfjyXt0EZJ9mDhug10lnYVbrbd0=; 
+ b=dj8TOuCYQDalfGURr/Zlo5FP6cJzxwJqY92JSjgtBMlJc8Abyz4WTMZOmvX4Kfai9unD3rCdr6SQFSRH3XDV67wPH8BD3knUXu/39iI0lrQaaM4avjXwpeF8qEbIu6dQJdwG3C84rTwYpUQqf7Tw+UbtrEt68IVBxvfS6p5eCKE=;
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.1.11, REQID:6c539768-533f-4430-b11c-9de1a6d7f58c, IP:0,
+ U
+ RL:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+ :release,TS:-5
+X-CID-META: VersionHash:39a5ff1, CLOUDID:9bc76570-dafa-4a42-b716-cf2cd4845592,
+ B
+ ulkID:nil,BulkQuantity:0,Recheck:0,SF:nil,TC:nil,Content:0,EDM:-3,IP:nil,U
+ RL:0,File:nil,Bulk:nil,QS:nil,BEC:nil,COL:0
+X-UUID: 556fd849ebb249ee95375612a904dcc8-20220920
+Received: from mtkexhb01.mediatek.inc [(172.21.101.102)] by
+ mailgw02.mediatek.com (envelope-from <jianguo.zhang@mediatek.com>)
+ (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
+ with ESMTP id 1778759383; Tue, 20 Sep 2022 16:36:24 +0800
+Received: from mtkmbs11n1.mediatek.inc (172.21.101.185) by
+ mtkmbs11n2.mediatek.inc (172.21.101.187) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.792.15; Tue, 20 Sep 2022 16:36:22 +0800
+Received: from localhost.localdomain (10.17.3.154) by mtkmbs11n1.mediatek.inc
+ (172.21.101.73) with Microsoft SMTP Server id 15.2.792.15 via
+ Frontend Transport; Tue, 20 Sep 2022 16:36:21 +0800
+From: Jianguo Zhang <jianguo.zhang@mediatek.com>
+To: "David S . Miller" <davem@davemloft.net>, Rob Herring
+ <robh+dt@kernel.org>, Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
+Date: Tue, 20 Sep 2022 16:36:15 +0800
+Message-ID: <20220920083617.4177-1-jianguo.zhang@mediatek.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-X-linux-mtd-patch-notification: thanks
-X-linux-mtd-patch-commit: b'10ca72235c7754f11abca2197a16e0608ff5fc4f'
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Vignesh Raghavendra <vigneshr@ti.com>, Richard Weinberger <richard@nod.at>,
- Cai Huoqing <cai.huoqing@linux.dev>, Philipp Zabel <p.zabel@pengutronix.de>,
- Miquel Raynal <miquel.raynal@bootlin.com>, linux-mtd@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v1 04/19] mtd: rawnand: stm32_fmc2: Fix
-	dma_map_sg error check
+X-MTK: N
+Cc: devicetree@vger.kernel.org, Biao Huang <biao.huang@mediatek.com>,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Jianguo Zhang <jianguo.zhang@mediatek.com>, Eric Dumazet <edumazet@google.com>,
+ Jose Abreu <joabreu@synopsys.com>, linux-mediatek@lists.infradead.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH v2 0/2] Mediatek ethernet patches for mt8188
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -62,27 +74,22 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, 2022-08-19 at 06:07:46 UTC, Jack Wang wrote:
-> dma_map_sg return 0 on error, in case of error return -EIO.
-> 
-> Cc: Miquel Raynal <miquel.raynal@bootlin.com>
-> Cc: Richard Weinberger <richard@nod.at>
-> Cc: Vignesh Raghavendra <vigneshr@ti.com>
-> Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-> Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
-> Cc: Philipp Zabel <p.zabel@pengutronix.de>
-> Cc: Christophe Kerello <christophe.kerello@foss.st.com>
-> Cc: Cai Huoqing <cai.huoqing@linux.dev>
-> Cc: linux-mtd@lists.infradead.org
-> Cc: linux-stm32@st-md-mailman.stormreply.com
-> Cc: linux-arm-kernel@lists.infradead.org
-> Cc: linux-kernel@vger.kernel.org
-> Signed-off-by: Jack Wang <jinpu.wang@ionos.com>
-> Reviewed-by: Christophe Kerello <christophe.kerello@foss.st.com>
+Changes in v2:
 
-Applied to https://git.kernel.org/pub/scm/linux/kernel/git/mtd/linux.git nand/next, thanks.
+v2:
+1) Delete patch 'stmmac: dwmac-mediatek: add support for mt8188' as
+Krzysztof Kozlowski's comment.
+2) Update patch 'dt-bindings: net: mediatek-dwmac: add support for
+mt8188' as Krzysztof Kozlowski's comment.
+3) Add clk_csr property to fix warning ('clk_csr' was unexpected)
+reported by running 'make dtbs_check'.
 
-Miquel
+v1:
+1) Add ethernet driver entry for mt8188.
+2) Add binding document for ethernet on mt8188.
+
+
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
