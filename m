@@ -2,67 +2,40 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9D95B5E5E90
-	for <lists+linux-stm32@lfdr.de>; Thu, 22 Sep 2022 11:28:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 81D545E6286
+	for <lists+linux-stm32@lfdr.de>; Thu, 22 Sep 2022 14:35:20 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 64974C5E2C6;
-	Thu, 22 Sep 2022 09:28:04 +0000 (UTC)
-Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 17967C03FD5;
+	Thu, 22 Sep 2022 12:35:20 +0000 (UTC)
+Received: from szxga03-in.huawei.com (szxga03-in.huawei.com [45.249.212.189])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 18E6BC035BE
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1288EC035BE
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 22 Sep 2022 09:28:00 +0000 (UTC)
-X-UUID: 3f0ee93f6a254ed4aed12f3e38863249-20220922
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com;
- s=dk; 
- h=Content-Type:Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:CC:To:From;
- bh=lzrjHkBPFj0GI6SmNTkiwUGTEKIZ8kvjJWTZ+sfsK88=; 
- b=NHomWRFHbyAcRNKvIUuFOTk++zpyYa2P45oFY/8FFnggH8rDsCbSUi6rLVychikA5GVWIIVgQsYnpopiPWnyeoKtrdEFuI/DF+/srjDFcEDeDJ7bXLCWTXOkvnjDeRIrrUI8PDLNWN8Om8yw9zgbG7/R1ZHc+CQ2xAOXKyW/+vI=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.1.11, REQID:dab12bb9-34df-438e-a3bc-e1c401a6eeb7, IP:0,
- U
- RL:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
- :release,TS:-5
-X-CID-META: VersionHash:39a5ff1, CLOUDID:2904ac06-1cee-4c38-b21b-a45f9682fdc0,
- B
- ulkID:nil,BulkQuantity:0,Recheck:0,SF:nil,TC:nil,Content:0,EDM:-3,IP:nil,U
- RL:0,File:nil,Bulk:nil,QS:nil,BEC:nil,COL:0
-X-UUID: 3f0ee93f6a254ed4aed12f3e38863249-20220922
-Received: from mtkmbs10n2.mediatek.inc [(172.21.101.183)] by
- mailgw01.mediatek.com (envelope-from <jianguo.zhang@mediatek.com>)
- (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
- with ESMTP id 1932522034; Thu, 22 Sep 2022 17:27:54 +0800
-Received: from mtkmbs11n2.mediatek.inc (172.21.101.187) by
- mtkmbs11n1.mediatek.inc (172.21.101.185) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.792.15; Thu, 22 Sep 2022 17:27:53 +0800
-Received: from localhost.localdomain (10.17.3.154) by mtkmbs11n2.mediatek.inc
- (172.21.101.73) with Microsoft SMTP Server id 15.2.792.15 via
- Frontend Transport; Thu, 22 Sep 2022 17:27:52 +0800
-From: Jianguo Zhang <jianguo.zhang@mediatek.com>
-To: "David S . Miller" <davem@davemloft.net>, Rob Herring
- <robh+dt@kernel.org>, Krzysztof Kozlowski
- <krzysztof.kozlowski+dt@linaro.org>, AngeloGioacchino Del Regno
- <angelogioacchino.delregno@collabora.com>
-Date: Thu, 22 Sep 2022 17:27:43 +0800
-Message-ID: <20220922092743.22824-3-jianguo.zhang@mediatek.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220922092743.22824-1-jianguo.zhang@mediatek.com>
-References: <20220922092743.22824-1-jianguo.zhang@mediatek.com>
+ Thu, 22 Sep 2022 11:14:05 +0000 (UTC)
+Received: from dggpeml500023.china.huawei.com (unknown [172.30.72.53])
+ by szxga03-in.huawei.com (SkyGuard) with ESMTP id 4MYCKM6r99zHqKS;
+ Thu, 22 Sep 2022 19:11:51 +0800 (CST)
+Received: from ubuntu1804.huawei.com (10.67.174.58) by
+ dggpeml500023.china.huawei.com (7.185.36.114) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.31; Thu, 22 Sep 2022 19:14:02 +0800
+From: Xiu Jianfeng <xiujianfeng@huawei.com>
+To: <alexander.shishkin@linux.intel.com>, <mcoquelin.stm32@gmail.com>,
+ <alexandre.torgue@foss.st.com>
+Date: Thu, 22 Sep 2022 19:10:22 +0800
+Message-ID: <20220922111022.245236-1-xiujianfeng@huawei.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-X-MTK: N
-Cc: devicetree@vger.kernel.org, Biao Huang <biao.huang@mediatek.com>,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- Jianguo Zhang <jianguo.zhang@mediatek.com>, Eric Dumazet <edumazet@google.com>,
- Jose Abreu <joabreu@synopsys.com>, linux-mediatek@lists.infradead.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Matthias Brugger <matthias.bgg@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [resend PATCH v4 2/2] dt-bindings: net: snps,
-	dwmac: add clk_csr property
+X-Originating-IP: [10.67.174.58]
+X-ClientProxiedBy: dggems702-chm.china.huawei.com (10.3.19.179) To
+ dggpeml500023.china.huawei.com (7.185.36.114)
+X-CFilter-Loop: Reflected
+X-Mailman-Approved-At: Thu, 22 Sep 2022 12:35:18 +0000
+Cc: linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: [Linux-stm32] [PATCH] stm: Add __init/__exit annotations to module
+	init/exit funcs
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,34 +52,120 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The clk_csr property is parsed in driver for generating MDC clock
-with correct frequency. A warning('clk_csr' was unexpeted) is reported
-when runing 'make_dtbs_check' because the clk_csr property
-has been not documented in the binding file.
+Add missing __init/__exit annotations to module init/exit funcs.
 
-Signed-off-by: Jianguo Zhang <jianguo.zhang@mediatek.com>
+Signed-off-by: Xiu Jianfeng <xiujianfeng@huawei.com>
 ---
- Documentation/devicetree/bindings/net/snps,dwmac.yaml | 5 +++++
- 1 file changed, 5 insertions(+)
+ drivers/hwtracing/stm/console.c   | 4 ++--
+ drivers/hwtracing/stm/dummy_stm.c | 4 ++--
+ drivers/hwtracing/stm/heartbeat.c | 4 ++--
+ drivers/hwtracing/stm/p_basic.c   | 4 ++--
+ drivers/hwtracing/stm/p_sys-t.c   | 4 ++--
+ 5 files changed, 10 insertions(+), 10 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/net/snps,dwmac.yaml b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
-index 491597c02edf..8cff30a8125d 100644
---- a/Documentation/devicetree/bindings/net/snps,dwmac.yaml
-+++ b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
-@@ -288,6 +288,11 @@ properties:
-       is supported. For example, this is used in case of SGMII and
-       MAC2MAC connection.
+diff --git a/drivers/hwtracing/stm/console.c b/drivers/hwtracing/stm/console.c
+index a00f65e21747..c324122321b9 100644
+--- a/drivers/hwtracing/stm/console.c
++++ b/drivers/hwtracing/stm/console.c
+@@ -54,12 +54,12 @@ static void stm_console_unlink(struct stm_source_data *data)
+ 	unregister_console(&sc->console);
+ }
  
-+  clk_csr:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    description:
-+      Frequency division factor for MDC clock.
-+
-   mdio:
-     $ref: mdio.yaml#
-     unevaluatedProperties: false
+-static int stm_console_init(void)
++static int __init stm_console_init(void)
+ {
+ 	return stm_source_register_device(NULL, &stm_console.data);
+ }
+ 
+-static void stm_console_exit(void)
++static void __exit stm_console_exit(void)
+ {
+ 	stm_source_unregister_device(&stm_console.data);
+ }
+diff --git a/drivers/hwtracing/stm/dummy_stm.c b/drivers/hwtracing/stm/dummy_stm.c
+index 38528ffdc0b3..992e545559ea 100644
+--- a/drivers/hwtracing/stm/dummy_stm.c
++++ b/drivers/hwtracing/stm/dummy_stm.c
+@@ -66,7 +66,7 @@ static int dummy_stm_link(struct stm_data *data, unsigned int master,
+ 	return 0;
+ }
+ 
+-static int dummy_stm_init(void)
++static int __init dummy_stm_init(void)
+ {
+ 	int i, ret = -ENOMEM;
+ 
+@@ -107,7 +107,7 @@ static int dummy_stm_init(void)
+ 
+ }
+ 
+-static void dummy_stm_exit(void)
++static void __exit dummy_stm_exit(void)
+ {
+ 	int i;
+ 
+diff --git a/drivers/hwtracing/stm/heartbeat.c b/drivers/hwtracing/stm/heartbeat.c
+index 81d7b21d31ec..e2930ab803b4 100644
+--- a/drivers/hwtracing/stm/heartbeat.c
++++ b/drivers/hwtracing/stm/heartbeat.c
+@@ -62,7 +62,7 @@ static void stm_heartbeat_unlink(struct stm_source_data *data)
+ 	hrtimer_cancel(&heartbeat->hrtimer);
+ }
+ 
+-static int stm_heartbeat_init(void)
++static int __init stm_heartbeat_init(void)
+ {
+ 	int i, ret;
+ 
+@@ -102,7 +102,7 @@ static int stm_heartbeat_init(void)
+ 	return ret;
+ }
+ 
+-static void stm_heartbeat_exit(void)
++static void __exit stm_heartbeat_exit(void)
+ {
+ 	int i;
+ 
+diff --git a/drivers/hwtracing/stm/p_basic.c b/drivers/hwtracing/stm/p_basic.c
+index 8980a6a5fd6c..921ad66574c5 100644
+--- a/drivers/hwtracing/stm/p_basic.c
++++ b/drivers/hwtracing/stm/p_basic.c
+@@ -30,12 +30,12 @@ static const struct stm_protocol_driver basic_pdrv = {
+ 	.write	= basic_write,
+ };
+ 
+-static int basic_stm_init(void)
++static int __init basic_stm_init(void)
+ {
+ 	return stm_register_protocol(&basic_pdrv);
+ }
+ 
+-static void basic_stm_exit(void)
++static void __exit basic_stm_exit(void)
+ {
+ 	stm_unregister_protocol(&basic_pdrv);
+ }
+diff --git a/drivers/hwtracing/stm/p_sys-t.c b/drivers/hwtracing/stm/p_sys-t.c
+index 8254971c02e7..f7d05915695a 100644
+--- a/drivers/hwtracing/stm/p_sys-t.c
++++ b/drivers/hwtracing/stm/p_sys-t.c
+@@ -366,12 +366,12 @@ static const struct stm_protocol_driver sys_t_pdrv = {
+ 	.output_close		= sys_t_output_close,
+ };
+ 
+-static int sys_t_stm_init(void)
++static int __init sys_t_stm_init(void)
+ {
+ 	return stm_register_protocol(&sys_t_pdrv);
+ }
+ 
+-static void sys_t_stm_exit(void)
++static void __exit sys_t_stm_exit(void)
+ {
+ 	stm_unregister_protocol(&sys_t_pdrv);
+ }
 -- 
-2.25.1
+2.17.1
 
 _______________________________________________
 Linux-stm32 mailing list
