@@ -2,40 +2,80 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 81D545E6286
-	for <lists+linux-stm32@lfdr.de>; Thu, 22 Sep 2022 14:35:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 808E65E6674
+	for <lists+linux-stm32@lfdr.de>; Thu, 22 Sep 2022 17:07:37 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 17967C03FD5;
-	Thu, 22 Sep 2022 12:35:20 +0000 (UTC)
-Received: from szxga03-in.huawei.com (szxga03-in.huawei.com [45.249.212.189])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1CC98C04003;
+	Thu, 22 Sep 2022 15:07:37 +0000 (UTC)
+Received: from mail-lf1-f47.google.com (mail-lf1-f47.google.com
+ [209.85.167.47])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1288EC035BE
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 42C33C03FCD
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 22 Sep 2022 11:14:05 +0000 (UTC)
-Received: from dggpeml500023.china.huawei.com (unknown [172.30.72.53])
- by szxga03-in.huawei.com (SkyGuard) with ESMTP id 4MYCKM6r99zHqKS;
- Thu, 22 Sep 2022 19:11:51 +0800 (CST)
-Received: from ubuntu1804.huawei.com (10.67.174.58) by
- dggpeml500023.china.huawei.com (7.185.36.114) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.31; Thu, 22 Sep 2022 19:14:02 +0800
-From: Xiu Jianfeng <xiujianfeng@huawei.com>
-To: <alexander.shishkin@linux.intel.com>, <mcoquelin.stm32@gmail.com>,
- <alexandre.torgue@foss.st.com>
-Date: Thu, 22 Sep 2022 19:10:22 +0800
-Message-ID: <20220922111022.245236-1-xiujianfeng@huawei.com>
-X-Mailer: git-send-email 2.17.1
+ Thu, 22 Sep 2022 15:07:35 +0000 (UTC)
+Received: by mail-lf1-f47.google.com with SMTP id s6so15183015lfo.7
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 22 Sep 2022 08:07:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date;
+ bh=AICgMCTu4ugKZVgKKYZSCEgyNXOHBsTus/rL4+rxADE=;
+ b=V6OmMtcM8HwjnmW517gvagdimCQzKh4oEk+jCZREpCpQaMRh+CUYlJnjHhWQjY+sn6
+ O2EMQ4TmRPc0YWA2AXrfK9EAIppOKDmxGDrlHPoDNfxJVW3XtHnP0Fgo5W/reRLAdYHm
+ UVYMEVijD6WYE+JDTgZ0vUoZrmyKJTJtPlgAIrAp/2bsvx+1/X6ph9K33pGARnN0DkAP
+ AgfZpohHy0hyLAk3+mnfVrclwPJDWSjxwZWLrJM9tgAB6aNIiSgHd7ef4jFxWuZMDLPK
+ KNeogYycbDYEqtFUykDyC8n5Xxzcz1p0neVIj97isWerTZuHph+kEpakzCtG+d2YcUpa
+ pKIQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date;
+ bh=AICgMCTu4ugKZVgKKYZSCEgyNXOHBsTus/rL4+rxADE=;
+ b=xm11FiCU5euiFQQX6JF/urouxN90BoAr7zPIUq/wLLon5ZRiTgP6Pb2mjxuCGL7joC
+ coBIm/D+tV+IHQSbLsqMpOD/4bB6ZKPapkkm3scHe//7N7UlswdeaHnWaPVKjE5NL73s
+ ZZOPqdUROAq45gh1hVFriM1NvkJrUkDJjh5iqLcjdz97FVH5lwKssh9JQilX81V2JVnl
+ y6gJjeF57jaa44iFqaLfbQPWAVFJF5Enh9gNq38KhdjY4JHNKSuDEpxdb40YTWzzaYxY
+ TxiJ8SYRAQi5Y/F7Fl8Ixsbj0QBNInE5aaRAXYppM3F1UEnyXJr/jPi8/GJ90lw6YH1P
+ seqQ==
+X-Gm-Message-State: ACrzQf3TlVaSH3iFD0Fpn4myx4ExhQdTuREKBeLiNWTXX73oOYkxcIUB
+ YsogSyOPhtOqI7brPwEsSlGWSw==
+X-Google-Smtp-Source: AMsMyM5wWu4phY9miXzBVbKKyNmCh/6w2BSelex3t5iKGlg/9o62Y81D5nF1RPEPAveTSBkz6dR4Ww==
+X-Received: by 2002:ac2:4422:0:b0:49f:5c95:9525 with SMTP id
+ w2-20020ac24422000000b0049f5c959525mr1506912lfl.1.1663859254520; 
+ Thu, 22 Sep 2022 08:07:34 -0700 (PDT)
+Received: from [192.168.0.21] (78-11-189-27.static.ip.netia.com.pl.
+ [78.11.189.27]) by smtp.gmail.com with ESMTPSA id
+ u6-20020a05651220c600b0049771081b10sm986478lfr.31.2022.09.22.08.07.33
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 22 Sep 2022 08:07:33 -0700 (PDT)
+Message-ID: <04b9e5ef-f3c7-3400-f9df-2f585a084c5d@linaro.org>
+Date: Thu, 22 Sep 2022 17:07:32 +0200
 MIME-Version: 1.0
-X-Originating-IP: [10.67.174.58]
-X-ClientProxiedBy: dggems702-chm.china.huawei.com (10.3.19.179) To
- dggpeml500023.china.huawei.com (7.185.36.114)
-X-CFilter-Loop: Reflected
-X-Mailman-Approved-At: Thu, 22 Sep 2022 12:35:18 +0000
-Cc: linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: [Linux-stm32] [PATCH] stm: Add __init/__exit annotations to module
-	init/exit funcs
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.2.2
+Content-Language: en-US
+To: Jianguo Zhang <jianguo.zhang@mediatek.com>,
+ "David S . Miller" <davem@davemloft.net>, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+References: <20220922092743.22824-1-jianguo.zhang@mediatek.com>
+ <20220922092743.22824-3-jianguo.zhang@mediatek.com>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20220922092743.22824-3-jianguo.zhang@mediatek.com>
+Cc: devicetree@vger.kernel.org, Biao Huang <biao.huang@mediatek.com>,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
+ linux-mediatek@lists.infradead.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [resend PATCH v4 2/2] dt-bindings: net: snps,
+ dwmac: add clk_csr property
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -52,120 +92,29 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add missing __init/__exit annotations to module init/exit funcs.
+On 22/09/2022 11:27, Jianguo Zhang wrote:
+> The clk_csr property is parsed in driver for generating MDC clock
+> with correct frequency. A warning('clk_csr' was unexpeted) is reported
+> when runing 'make_dtbs_check' because the clk_csr property
+> has been not documented in the binding file.
+> 
 
-Signed-off-by: Xiu Jianfeng <xiujianfeng@huawei.com>
----
- drivers/hwtracing/stm/console.c   | 4 ++--
- drivers/hwtracing/stm/dummy_stm.c | 4 ++--
- drivers/hwtracing/stm/heartbeat.c | 4 ++--
- drivers/hwtracing/stm/p_basic.c   | 4 ++--
- drivers/hwtracing/stm/p_sys-t.c   | 4 ++--
- 5 files changed, 10 insertions(+), 10 deletions(-)
+You did not describe the case, but apparently this came with
+81311c03ab4d ("net: ethernet: stmmac: add management of clk_csr
+property") which never brought the bindings change.
 
-diff --git a/drivers/hwtracing/stm/console.c b/drivers/hwtracing/stm/console.c
-index a00f65e21747..c324122321b9 100644
---- a/drivers/hwtracing/stm/console.c
-+++ b/drivers/hwtracing/stm/console.c
-@@ -54,12 +54,12 @@ static void stm_console_unlink(struct stm_source_data *data)
- 	unregister_console(&sc->console);
- }
- 
--static int stm_console_init(void)
-+static int __init stm_console_init(void)
- {
- 	return stm_source_register_device(NULL, &stm_console.data);
- }
- 
--static void stm_console_exit(void)
-+static void __exit stm_console_exit(void)
- {
- 	stm_source_unregister_device(&stm_console.data);
- }
-diff --git a/drivers/hwtracing/stm/dummy_stm.c b/drivers/hwtracing/stm/dummy_stm.c
-index 38528ffdc0b3..992e545559ea 100644
---- a/drivers/hwtracing/stm/dummy_stm.c
-+++ b/drivers/hwtracing/stm/dummy_stm.c
-@@ -66,7 +66,7 @@ static int dummy_stm_link(struct stm_data *data, unsigned int master,
- 	return 0;
- }
- 
--static int dummy_stm_init(void)
-+static int __init dummy_stm_init(void)
- {
- 	int i, ret = -ENOMEM;
- 
-@@ -107,7 +107,7 @@ static int dummy_stm_init(void)
- 
- }
- 
--static void dummy_stm_exit(void)
-+static void __exit dummy_stm_exit(void)
- {
- 	int i;
- 
-diff --git a/drivers/hwtracing/stm/heartbeat.c b/drivers/hwtracing/stm/heartbeat.c
-index 81d7b21d31ec..e2930ab803b4 100644
---- a/drivers/hwtracing/stm/heartbeat.c
-+++ b/drivers/hwtracing/stm/heartbeat.c
-@@ -62,7 +62,7 @@ static void stm_heartbeat_unlink(struct stm_source_data *data)
- 	hrtimer_cancel(&heartbeat->hrtimer);
- }
- 
--static int stm_heartbeat_init(void)
-+static int __init stm_heartbeat_init(void)
- {
- 	int i, ret;
- 
-@@ -102,7 +102,7 @@ static int stm_heartbeat_init(void)
- 	return ret;
- }
- 
--static void stm_heartbeat_exit(void)
-+static void __exit stm_heartbeat_exit(void)
- {
- 	int i;
- 
-diff --git a/drivers/hwtracing/stm/p_basic.c b/drivers/hwtracing/stm/p_basic.c
-index 8980a6a5fd6c..921ad66574c5 100644
---- a/drivers/hwtracing/stm/p_basic.c
-+++ b/drivers/hwtracing/stm/p_basic.c
-@@ -30,12 +30,12 @@ static const struct stm_protocol_driver basic_pdrv = {
- 	.write	= basic_write,
- };
- 
--static int basic_stm_init(void)
-+static int __init basic_stm_init(void)
- {
- 	return stm_register_protocol(&basic_pdrv);
- }
- 
--static void basic_stm_exit(void)
-+static void __exit basic_stm_exit(void)
- {
- 	stm_unregister_protocol(&basic_pdrv);
- }
-diff --git a/drivers/hwtracing/stm/p_sys-t.c b/drivers/hwtracing/stm/p_sys-t.c
-index 8254971c02e7..f7d05915695a 100644
---- a/drivers/hwtracing/stm/p_sys-t.c
-+++ b/drivers/hwtracing/stm/p_sys-t.c
-@@ -366,12 +366,12 @@ static const struct stm_protocol_driver sys_t_pdrv = {
- 	.output_close		= sys_t_output_close,
- };
- 
--static int sys_t_stm_init(void)
-+static int __init sys_t_stm_init(void)
- {
- 	return stm_register_protocol(&sys_t_pdrv);
- }
- 
--static void sys_t_stm_exit(void)
-+static void __exit sys_t_stm_exit(void)
- {
- 	stm_unregister_protocol(&sys_t_pdrv);
- }
--- 
-2.17.1
+Therefore the property was never part of bindings documentation and
+bringing them via driver is not the correct process. It bypasses the
+review and such bypass cannot be an argument to bring the property to
+bindings. It's not how new properties can be added.
+
+Therefore I don't agree. Please make it a property matching bindings, so
+vendor prefix, no underscores in node names.
+
+Driver and DTS need updates.
+
+Best regards,
+Krzysztof
 
 _______________________________________________
 Linux-stm32 mailing list
