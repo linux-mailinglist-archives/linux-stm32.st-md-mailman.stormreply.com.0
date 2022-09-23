@@ -2,69 +2,58 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5A3A55E75D1
-	for <lists+linux-stm32@lfdr.de>; Fri, 23 Sep 2022 10:30:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6C2C85E7683
+	for <lists+linux-stm32@lfdr.de>; Fri, 23 Sep 2022 11:10:54 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D9C34C03FE0;
-	Fri, 23 Sep 2022 08:30:09 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 22B1EC03FE0;
+	Fri, 23 Sep 2022 09:10:54 +0000 (UTC)
+Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 18AA4C03FCD
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 43D94C03FCD
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 23 Sep 2022 08:30:08 +0000 (UTC)
-Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 28N8NuVn008297;
- Fri, 23 Sep 2022 10:29:49 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=0DVET0yqg0ORfnzJuoG/jUYeOp0S+RFad2f1MOPoD2o=;
- b=ftf55e/g/O8czrKa6QDoCm9piO9tMutoL5xtsunXRbhxp/QSZBH2imhyDoVejK9jFnx3
- rlcVjQMRmCiDWvyB03wcstLM1rUmPvxA+FTiB3mIU+0Y1hS0iDAC32Z7FxCYogPVSJAQ
- 7MX629zBlHxo2Vp3fW29KLCUVmwwqZofNo6AFbynCuwz2M/ax9Eb1OOGaAxaQLMwnt8a
- HpmQcFxONfsmwAX+fPQaQB2D4t2j1Q/D8xKsffDqnrNTZftVNd6zl6ybez1L9BqGgnHv
- BXihx+pKwiafyve7NEOVh0/MIjvZJLGl0oxFrGYM9SKNEvTseNuFQv8UHnFB44511WTD JQ== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3jn6g5wc4m-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 23 Sep 2022 10:29:49 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 2CC3410002A;
- Fri, 23 Sep 2022 10:29:47 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 972402171C6;
- Fri, 23 Sep 2022 10:29:47 +0200 (CEST)
-Received: from [10.201.21.93] (10.75.127.119) by SHFDAG1NODE1.st.com
- (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2375.31; Fri, 23 Sep
- 2022 10:29:46 +0200
-Message-ID: <c21b9c95-ae35-fd7e-9e8e-6926703725b4@foss.st.com>
-Date: Fri, 23 Sep 2022 10:29:45 +0200
+ Fri, 23 Sep 2022 09:10:53 +0000 (UTC)
+Received: from [192.168.1.100] (2-237-20-237.ip236.fastwebnet.it
+ [2.237.20.237])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits))
+ (No client certificate requested) (Authenticated sender: kholk11)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id 64B1C6602038;
+ Fri, 23 Sep 2022 10:10:51 +0100 (BST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1663924252;
+ bh=5dQSl61o3/d45Zc6JtCNy5byEWYtp/sXtn/FPR8mee0=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=TcjIIpAmezqk2QInoHN7/joAu1zk07/Kfi7cH9ft9WKzxDKDSNEldxLKkANAX6gGy
+ HAeHai4DWD0fqncMVAK1e3wiBRq2xtkmBGERLqjeGmOyFFn2TisGGgqCCuIFpLJRDu
+ 1i62xgUq8U/9aDBXM4sYqRWTb+smoi/nXRFqVTZmNgaD4Ra1969DyhAckqLVWb9Uvj
+ 3MRMA/JRsEEwGP6M0saTXuzRpkbM6g91Q37wHAtjLF+eAgMp2blQalZvvPRWvO8/Cw
+ Bs+WK5Lq5/QhU4m4l8Kzj191h86d8vUG/fGPYsFnq20sxUB+XG/NAzs7whejtpteYg
+ 3QH9MNcbetMIg==
+Message-ID: <e0fa3ddf-575d-9e25-73d8-e0858782b73f@collabora.com>
+Date: Fri, 23 Sep 2022 11:10:49 +0200
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.2.0
 Content-Language: en-US
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, Linus Walleij
- <linus.walleij@linaro.org>, Rob Herring <robh+dt@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>
-References: <20220913074639.31932-1-alexandre.torgue@foss.st.com>
- <9b711a9e-9e63-b69e-fabf-e05c11f145a6@linaro.org>
-From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
-In-Reply-To: <9b711a9e-9e63-b69e-fabf-e05c11f145a6@linaro.org>
-X-Originating-IP: [10.75.127.119]
-X-ClientProxiedBy: GPXDAG2NODE4.st.com (10.75.127.68) To SHFDAG1NODE1.st.com
- (10.75.129.69)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.528,FMLib:17.11.122.1
- definitions=2022-09-23_02,2022-09-22_02,2022-06-22_01
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-gpio@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+To: Jianguo Zhang <jianguo.zhang@mediatek.com>,
+ "David S . Miller" <davem@davemloft.net>, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
+References: <20220923052828.16581-1-jianguo.zhang@mediatek.com>
+ <20220923052828.16581-5-jianguo.zhang@mediatek.com>
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+In-Reply-To: <20220923052828.16581-5-jianguo.zhang@mediatek.com>
+Cc: devicetree@vger.kernel.org, Biao Huang <biao.huang@mediatek.com>,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
+ linux-mediatek@lists.infradead.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] dt-bindings: pinctrl: stm32: add missing
- entries for gpio subnodes
+Subject: Re: [Linux-stm32] [PATCH v5 4/4] net: stmmac: Update the name of
+	property 'clk_csr'
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,56 +70,38 @@ Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Krzysztof
-
-On 9/19/22 13:32, Krzysztof Kozlowski wrote:
-> On 13/09/2022 09:46, Alexandre Torgue wrote:
->> Add "interrupt-controller" and gpio-line-names to gpio subnodes in order to
->> fix dtb validation.
+Il 23/09/22 07:28, Jianguo Zhang ha scritto:
+> Update the name of property 'clk_csr' as 'snps,clk-csr' to align with
+> the property name in the binding file.
 > 
-> Rebase your patch on recent Linux kernel and use get_maintainers.pl.
-
-I did it on 6.0-rc5 but yes I used your kernel.org address instead of 
-linaro ones. Sorry.
-
+> Signed-off-by: Jianguo Zhang <jianguo.zhang@mediatek.com>
+> ---
+>   drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
 > 
->>
->> Signed-off-by: Alexandre Torgue <alexandre.torgue@foss.st.com>
->>
->> diff --git a/Documentation/devicetree/bindings/pinctrl/st,stm32-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/st,stm32-pinctrl.yaml
->> index d35dcc4f0242..92582cccbb1b 100644
->> --- a/Documentation/devicetree/bindings/pinctrl/st,stm32-pinctrl.yaml
->> +++ b/Documentation/devicetree/bindings/pinctrl/st,stm32-pinctrl.yaml
->> @@ -65,6 +65,10 @@ patternProperties:
->>         '#gpio-cells':
->>           const: 2
->>   
->> +      interrupt-controller: true
->> +      '#interrupt-cells':
->> +        const: 2
->> +
->>         reg:
->>           maxItems: 1
->>         clocks:
->> @@ -80,6 +84,8 @@ patternProperties:
->>           minimum: 1
->>           maximum: 16
->>   
->> +      gpio-line-names: true
-> 
-> maxItems?
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+> index 9f5cac4000da..18f9952d667f 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+> @@ -444,7 +444,7 @@ stmmac_probe_config_dt(struct platform_device *pdev, u8 *mac)
+>   	 * or get clk_csr from device tree.
+>   	 */
+>   	plat->clk_csr = -1;
+> -	of_property_read_u32(np, "clk_csr", &plat->clk_csr);
+> +	of_property_read_u32(np, "snps,clk-csr", &plat->clk_csr);
 
-Generic question, Is it mandatory to add maxItems information for all 
-entries ?
+This is going to break MT2712e on old devicetrees.
 
-For sure I'll send a v2 with it.
+The right way of doing that is to check the return value of of_property_read_u32()
+for "snps,clk-csr": if the property is not found, fall back to the old "clk_csr".
 
-Alex
+Regards,
+Angelo
 
-> 
-> 
-> Best regards,
-> Krzysztof
+>   
+>   	/* "snps,phy-addr" is not a standard property. Mark it as deprecated
+>   	 * and warn of its use. Remove this when phy node support is added.
+
 
 _______________________________________________
 Linux-stm32 mailing list
