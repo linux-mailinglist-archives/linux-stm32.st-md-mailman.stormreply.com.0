@@ -2,69 +2,70 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id EA0AF5E8190
-	for <lists+linux-stm32@lfdr.de>; Fri, 23 Sep 2022 20:11:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0786D5E8199
+	for <lists+linux-stm32@lfdr.de>; Fri, 23 Sep 2022 20:14:12 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 80441C0D2C1;
-	Fri, 23 Sep 2022 18:11:36 +0000 (UTC)
-Received: from mail-lj1-f178.google.com (mail-lj1-f178.google.com
- [209.85.208.178])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B7CC6C04004;
+	Fri, 23 Sep 2022 18:14:11 +0000 (UTC)
+Received: from mail-lj1-f173.google.com (mail-lj1-f173.google.com
+ [209.85.208.173])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D4273C03FD6
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E8BB2C03FD6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 23 Sep 2022 18:11:34 +0000 (UTC)
-Received: by mail-lj1-f178.google.com with SMTP id x29so962689ljq.2
+ Fri, 23 Sep 2022 18:14:09 +0000 (UTC)
+Received: by mail-lj1-f173.google.com with SMTP id l12so924481ljg.9
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 23 Sep 2022 11:11:34 -0700 (PDT)
+ Fri, 23 Sep 2022 11:14:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date;
- bh=bEsiJd/ABJ6GfZVhG9n8srep4jX5Ng0oqWanjXKMf3M=;
- b=wdf0UoY5ODBa65zXyvuXU6004RbmRtmAQtzkUjBFxlpQtsXPB6f8/sO1rqC0ZGgLp3
- 4AMdVPtt9QHPuyI0VxvgIs+5MrEOgv6JoAB8AlLpxgFsMBIOnfWGqJCA6iLMwm3A9N5n
- ZIWhGGwWdLofl2d7Oa0JdtvK+ek0ZFgho+IdjF9Zua3H6P1m8VRuu/tO9eMrcsVF5l11
- CyOBznGHDjwORKYgfJR/Q4p4MPPirUKwQt2U7ZUq1syBcfAYIi47L3cQLBCIvD7tuIti
- xsWsttC3skEp4jaqH1xDk+E1USMXKtinN/Kps+8JXhGImmHsdG5MDsPXMIDqjiMzGcPq
- zmMA==
+ bh=oMvGRyf6B1xSW6jldiB/4L2hCW2oiTVar6DgwfxZevA=;
+ b=joMXbDUN23NrSPuFVRuQxyZ18+85jHWvFlgB5rHkyQB6MuTQv+11Blst3Emk2PKY+n
+ nQnCehdvxQMvsQA4btPpAyPP7A2rskO/wpWNTd326VLi8qNLiaxtGTsbjoX+ObpiCpJm
+ J0XwvrZycGuZOZVovoupWtzvwrgXa8V/+Stgj+L2zVD5+vIf8S8/dQGNT4ECX7/na9dK
+ 5ZrHOBzj5+T0zFen0C0YlgJjDGjqrrYvSllJnoBgLL1qLQEjpVVCO3efy9H6SOOqBcm7
+ TV+wstyMe4wWuqQKw6QpkQHV2tLOj0lk3tSZefrxu3+P5luZKiLRGS3ChfdurG1sEBAZ
+ 2YfA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date;
- bh=bEsiJd/ABJ6GfZVhG9n8srep4jX5Ng0oqWanjXKMf3M=;
- b=IlmHgsNf+NCdfInHfVfGHxqIp8cGMdnGiPCHo//n6/zhzKtW6sGsmQg6tqTTcYGALc
- cC4R1RYAzDw+yn2ivusOu/FfzPLIu9rF2tFT/Y08KVCSXca1Mffi41x4BvEq+FmVUHHN
- oZRt4BZ0I5LIBX0DLqcYa/luvH4WCmVqHmRRsCfIq0Lf9XWJfVgqI6LTKsw33NtNRQ7V
- LIeW3qixWINTcgT6ACrr/khjQPAaHcyB3d7FJqtGGQjWvPIhXcnzdtKRRFsXEIzOm2Jo
- eGzmR4T+TVteH52UzY9cjMIx/7jCQ6Tu+MRH2Y/kM07W+pJoQpcJMBw9R2+5oZCV+QES
- l3DQ==
-X-Gm-Message-State: ACrzQf2BB05X4Jm6KypYjCYdXMn+8J/212HwjeK4DKoormG2wGtpHQVe
- pH+9hCnfvUVVETm9BsNh9PAsdw==
-X-Google-Smtp-Source: AMsMyM5zQjSLuWsd99Ofx6D2TOw4gAeQDb4AO5KB8bpsuR/rhKVETepxlLfDTlGOKwf2sWnZ2pYplA==
-X-Received: by 2002:a2e:92c8:0:b0:25d:6ddf:e71d with SMTP id
- k8-20020a2e92c8000000b0025d6ddfe71dmr3229734ljh.170.1663956694123; 
- Fri, 23 Sep 2022 11:11:34 -0700 (PDT)
+ bh=oMvGRyf6B1xSW6jldiB/4L2hCW2oiTVar6DgwfxZevA=;
+ b=KbdX6KisoYx/UOmSgGmb9XpZFGETyEl36rgB7v5/MUqnhEKHp45JckN0Yrf7VVNBpR
+ KLRbjvKD+ETA5H1M3Dw4G5H3nq9p1Z9zLQ3Y82vFSW3OFoyT0n1z+SY85pCnCGjntD0I
+ Mas2vlXAvRs8Nr6uAw6nLBoSQ2pytYXIKsKxjVGsuaspobf4zBSGxLcAnwevMNsUvHHa
+ LbZZmjQ5rSTUj6fTUPqh2MN4mgI9x6l6FYJ7RYclmMxFOJqbjKyOVYywMoxsXOvTinmb
+ ueocRPTLwmFuXo4Lv+ZUI8SIESfGMAfJdRC37lQh8OKajn1uXJrzDY4jHwwiPkRD+spx
+ MZpg==
+X-Gm-Message-State: ACrzQf0+kGGE+/qmHio48rcq8/X6XYI1gM2+vA8opJH3HbVRxUSjB0vG
+ tlW2rlwNLijgLPdPa6NyNvzRUg==
+X-Google-Smtp-Source: AMsMyM6ZNkXX2AkLZWL390O0wf6Nou5HbOXvCjEuUZ/Qb6dNDl3VBmNR01p6Z/h5HcJXrDEEqprZhA==
+X-Received: by 2002:a05:651c:19a6:b0:26c:4a66:aa42 with SMTP id
+ bx38-20020a05651c19a600b0026c4a66aa42mr3624111ljb.231.1663956849278; 
+ Fri, 23 Sep 2022 11:14:09 -0700 (PDT)
 Received: from [192.168.0.21] (78-11-189-27.static.ip.netia.com.pl.
  [78.11.189.27]) by smtp.gmail.com with ESMTPSA id
- z12-20020a2eb52c000000b00261e2aab7c2sm1491057ljm.58.2022.09.23.11.11.32
+ d8-20020a056512368800b004a0526b11ffsm415225lfs.133.2022.09.23.11.14.08
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 23 Sep 2022 11:11:33 -0700 (PDT)
-Message-ID: <a215ae81-10de-7880-1a15-b7b08d0d80d7@linaro.org>
-Date: Fri, 23 Sep 2022 20:11:32 +0200
+ Fri, 23 Sep 2022 11:14:08 -0700 (PDT)
+Message-ID: <ac24dc0f-0038-5068-3ce6-bbace55c7027@linaro.org>
+Date: Fri, 23 Sep 2022 20:14:07 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.3.0
 Content-Language: en-US
-To: Jianguo Zhang <jianguo.zhang@mediatek.com>,
+To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Jianguo Zhang <jianguo.zhang@mediatek.com>,
  "David S . Miller" <davem@davemloft.net>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
 References: <20220923052828.16581-1-jianguo.zhang@mediatek.com>
- <20220923052828.16581-3-jianguo.zhang@mediatek.com>
+ <20220923052828.16581-5-jianguo.zhang@mediatek.com>
+ <e0fa3ddf-575d-9e25-73d8-e0858782b73f@collabora.com>
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20220923052828.16581-3-jianguo.zhang@mediatek.com>
+In-Reply-To: <e0fa3ddf-575d-9e25-73d8-e0858782b73f@collabora.com>
 Cc: devicetree@vger.kernel.org, Biao Huang <biao.huang@mediatek.com>,
  netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
  Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
@@ -74,8 +75,8 @@ Cc: devicetree@vger.kernel.org, Biao Huang <biao.huang@mediatek.com>,
  Matthias Brugger <matthias.bgg@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
  Paolo Abeni <pabeni@redhat.com>, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v5 2/4] dt-bindings: net: snps,
-	dwmac: add clk_csr property
+Subject: Re: [Linux-stm32] [PATCH v5 4/4] net: stmmac: Update the name of
+	property 'clk_csr'
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,18 +93,40 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 23/09/2022 07:28, Jianguo Zhang wrote:
-> The clk_csr property is parsed in driver for generating MDC clock
-> with correct frequency. A warning('clk_csr' was unexpeted) is reported
-> when runing 'make_dtbs_check' because the clk_csr property
-> has been not documented in the binding file.
+On 23/09/2022 11:10, AngeloGioacchino Del Regno wrote:
+> Il 23/09/22 07:28, Jianguo Zhang ha scritto:
+>> Update the name of property 'clk_csr' as 'snps,clk-csr' to align with
+>> the property name in the binding file.
+>>
+>> Signed-off-by: Jianguo Zhang <jianguo.zhang@mediatek.com>
+>> ---
+>>   drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c | 2 +-
+>>   1 file changed, 1 insertion(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+>> index 9f5cac4000da..18f9952d667f 100644
+>> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+>> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+>> @@ -444,7 +444,7 @@ stmmac_probe_config_dt(struct platform_device *pdev, u8 *mac)
+>>   	 * or get clk_csr from device tree.
+>>   	 */
+>>   	plat->clk_csr = -1;
+>> -	of_property_read_u32(np, "clk_csr", &plat->clk_csr);
+>> +	of_property_read_u32(np, "snps,clk-csr", &plat->clk_csr);
+> 
+> This is going to break MT2712e on old devicetrees.
+> 
+> The right way of doing that is to check the return value of of_property_read_u32()
+> for "snps,clk-csr": if the property is not found, fall back to the old "clk_csr".
 
-Your subject is not accurate anymore. Maybe mention that instead of
-existing clk_csr, you add a different property.
+I must admit - I don't care. That's the effect when submitter bypasses
+DT bindings review (81311c03ab4d ("net: ethernet: stmmac: add management
+of clk_csr property")).
 
-With commit msg fixes:
+If anyone wants ABI, please document the properties.
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+If out-of-tree users complain, please upstream your DTS or do not use
+undocumented features...
 
 Best regards,
 Krzysztof
