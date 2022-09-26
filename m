@@ -2,43 +2,41 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id F1BB95E9D00
-	for <lists+linux-stm32@lfdr.de>; Mon, 26 Sep 2022 11:11:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 693DB5E9DC8
+	for <lists+linux-stm32@lfdr.de>; Mon, 26 Sep 2022 11:36:31 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A2066C5EC6B;
-	Mon, 26 Sep 2022 09:11:13 +0000 (UTC)
-Received: from szxga02-in.huawei.com (szxga02-in.huawei.com [45.249.212.188])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 18860C5F1D3;
+	Mon, 26 Sep 2022 09:36:31 +0000 (UTC)
+Received: from out30-45.freemail.mail.aliyun.com
+ (out30-45.freemail.mail.aliyun.com [115.124.30.45])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9FA56C035BA
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 616D7C03FC7
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 26 Sep 2022 09:11:12 +0000 (UTC)
-Received: from dggemv703-chm.china.huawei.com (unknown [172.30.72.53])
- by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4MbcMb0h3NzWh51;
- Mon, 26 Sep 2022 17:07:07 +0800 (CST)
-Received: from kwepemm600014.china.huawei.com (7.193.23.54) by
- dggemv703-chm.china.huawei.com (10.3.19.46) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.31; Mon, 26 Sep 2022 17:11:10 +0800
-Received: from huawei.com (10.90.53.225) by kwepemm600014.china.huawei.com
- (7.193.23.54) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.31; Mon, 26 Sep
- 2022 17:11:09 +0800
-From: Zhang Qilong <zhangqilong3@huawei.com>
-To: <olivier.moysan@foss.st.com>, <arnaud.pouliquen@foss.st.com>,
- <perex@perex.cz>, <tiwai@suse.com>, <mcoquelin.stm32@gmail.com>,
- <alexandre.torgue@foss.st.com>
-Date: Mon, 26 Sep 2022 17:14:39 +0800
-Message-ID: <20220926091439.103839-1-zhangqilong3@huawei.com>
-X-Mailer: git-send-email 2.26.0.106.g9fadedd
+ Mon, 26 Sep 2022 09:36:29 +0000 (UTC)
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R131e4; CH=green; DM=||false|;
+ DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=ay29a033018045176;
+ MF=tianjia.zhang@linux.alibaba.com; NM=1; PH=DS; RN=13; SR=0;
+ TI=SMTPD_---0VQkQP5U_1664184985; 
+Received: from localhost(mailfrom:tianjia.zhang@linux.alibaba.com
+ fp:SMTPD_---0VQkQP5U_1664184985) by smtp.aliyun-inc.com;
+ Mon, 26 Sep 2022 17:36:25 +0800
+From: Tianjia Zhang <tianjia.zhang@linux.alibaba.com>
+To: Herbert Xu <herbert@gondor.apana.org.au>,
+ "David S. Miller" <davem@davemloft.net>,
+ Jussi Kivilinna <jussi.kivilinna@iki.fi>, Ard Biesheuvel <ardb@kernel.org>,
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Eric Biggers <ebiggers@kernel.org>, linux-crypto@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com
+Date: Mon, 26 Sep 2022 17:36:04 +0800
+Message-Id: <20220926093620.99898-1-tianjia.zhang@linux.alibaba.com>
+X-Mailer: git-send-email 2.24.3 (Apple Git-128)
 MIME-Version: 1.0
-X-Originating-IP: [10.90.53.225]
-X-ClientProxiedBy: dggems706-chm.china.huawei.com (10.3.19.183) To
- kwepemm600014.china.huawei.com (7.193.23.54)
-X-CFilter-Loop: Reflected
-Cc: alsa-devel@alsa-project.org, linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH -next] ASoC: stm: Fix PM disable depth
-	imbalance in stm32_i2s_probe
+Subject: [Linux-stm32] [PATCH 00/16] Optimizing SM3 and SM4 algorithms using
+	NEON/CE/SVE instructions
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -55,39 +53,74 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The pm_runtime_enable will increase power disable depth. Thus
-a pairing decrement is needed on the error handling path to
-keep it balanced according to context.
+This series of patches uses different instruction sets to optimize
+the SM3 and SM4 algorithms, as well as the optimization of different
+modes of SM4.
 
-Fixes:efc162cbd480f ("ASoC: stm: Use dev_err_probe() helper")
-Signed-off-by: Zhang Qilong <zhangqilong3@huawei.com>
----
- sound/soc/stm/stm32_i2s.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+patch 1-2:  NEON instruction set optimization for SM3
+patch 3:    Refactored and streamlined SM4 NEON instruction implementation
+patch 4-5:  support test for new SM4 mode
+patch 6-8:  Refactored and streamlined SM4 CE instruction implementation
+patch 9-12: CE accelerated implementation of SM4 CTS/XTS/ESSIV
+patch 13:   CE accelerated implementation of SM4 CMAC/XCBC/CBCMAC
+patch 14-15: CE accelerated implementation of SM4 CCM/GCM
+patch 16:   SM4 ARMv9 SVE cryptography acceleration implementation
 
-diff --git a/sound/soc/stm/stm32_i2s.c b/sound/soc/stm/stm32_i2s.c
-index 6aafe793eec4..5a717443b105 100644
---- a/sound/soc/stm/stm32_i2s.c
-+++ b/sound/soc/stm/stm32_i2s.c
-@@ -1139,12 +1139,15 @@ static int stm32_i2s_probe(struct platform_device *pdev)
- 	pm_runtime_enable(&pdev->dev);
- 
- 	ret = snd_dmaengine_pcm_register(&pdev->dev, &stm32_i2s_pcm_config, 0);
--	if (ret)
-+	if (ret) {
-+		pm_runtime_disable(&pdev->dev);
- 		return dev_err_probe(&pdev->dev, ret, "PCM DMA register error\n");
-+	}
- 
- 	ret = snd_soc_register_component(&pdev->dev, &stm32_i2s_component,
- 					 i2s->dai_drv, 1);
- 	if (ret) {
-+		pm_runtime_disable(&pdev->dev);
- 		snd_dmaengine_pcm_unregister(&pdev->dev);
- 		return ret;
- 	}
+
+Tianjia Zhang (16):
+  crypto: arm64/sm3 - raise the priority of the CE implementation
+  crypto: arm64/sm3 - add NEON assembly implementation
+  crypto: arm64/sm4 - refactor and simplify NEON implementation
+  crypto: testmgr - add SM4 cts-cbc/essiv/xts/xcbc test vectors
+  crypto: tcrypt - add SM4 cts-cbc/essiv/xts/xcbc test
+  crypto: arm64/sm4 - refactor and simplify CE implementation
+  crypto: arm64/sm4 - simplify sm4_ce_expand_key() of CE implementation
+  crypto: arm64/sm4 - export reusable CE acceleration functions
+  crypto: arm64/sm4 - add CE implementation for CTS-CBC mode
+  crypto: arm64/sm4 - add CE implementation for XTS mode
+  crypto: essiv - allow digestsize to be greater than keysize
+  crypto: arm64/sm4 - add CE implementation for ESSIV mode
+  crypto: arm64/sm4 - add CE implementation for cmac/xcbc/cbcmac
+  crypto: arm64/sm4 - add CE implementation for CCM mode
+  crypto: arm64/sm4 - add CE implementation for GCM mode
+  crypto: arm64/sm4 - add ARMv9 SVE cryptography acceleration
+    implementation
+
+ arch/arm64/crypto/Kconfig           |   66 +-
+ arch/arm64/crypto/Makefile          |   12 +
+ arch/arm64/crypto/sm3-ce-glue.c     |    2 +-
+ arch/arm64/crypto/sm3-neon-core.S   |  600 +++++++++++++
+ arch/arm64/crypto/sm3-neon-glue.c   |  103 +++
+ arch/arm64/crypto/sm4-ce-asm.h      |  209 +++++
+ arch/arm64/crypto/sm4-ce-ccm-core.S |  328 +++++++
+ arch/arm64/crypto/sm4-ce-ccm-glue.c |  303 +++++++
+ arch/arm64/crypto/sm4-ce-core.S     | 1247 ++++++++++++++++++---------
+ arch/arm64/crypto/sm4-ce-gcm-core.S |  741 ++++++++++++++++
+ arch/arm64/crypto/sm4-ce-gcm-glue.c |  286 ++++++
+ arch/arm64/crypto/sm4-ce-glue.c     |  703 ++++++++++++++-
+ arch/arm64/crypto/sm4-ce.h          |   16 +
+ arch/arm64/crypto/sm4-neon-core.S   |  630 +++++++++-----
+ arch/arm64/crypto/sm4-neon-glue.c   |  172 +---
+ arch/arm64/crypto/sm4-sve-ce-core.S | 1028 ++++++++++++++++++++++
+ arch/arm64/crypto/sm4-sve-ce-glue.c |  332 +++++++
+ crypto/essiv.c                      |   11 +-
+ crypto/tcrypt.c                     |   28 +
+ crypto/testmgr.c                    |   25 +
+ crypto/testmgr.h                    | 1161 +++++++++++++++++++++++++
+ 21 files changed, 7234 insertions(+), 769 deletions(-)
+ create mode 100644 arch/arm64/crypto/sm3-neon-core.S
+ create mode 100644 arch/arm64/crypto/sm3-neon-glue.c
+ create mode 100644 arch/arm64/crypto/sm4-ce-asm.h
+ create mode 100644 arch/arm64/crypto/sm4-ce-ccm-core.S
+ create mode 100644 arch/arm64/crypto/sm4-ce-ccm-glue.c
+ create mode 100644 arch/arm64/crypto/sm4-ce-gcm-core.S
+ create mode 100644 arch/arm64/crypto/sm4-ce-gcm-glue.c
+ create mode 100644 arch/arm64/crypto/sm4-ce.h
+ create mode 100644 arch/arm64/crypto/sm4-sve-ce-core.S
+ create mode 100644 arch/arm64/crypto/sm4-sve-ce-glue.c
+
 -- 
-2.25.1
+2.24.3 (Apple Git-128)
 
 _______________________________________________
 Linux-stm32 mailing list
