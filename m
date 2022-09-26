@@ -2,43 +2,57 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1A5E85EA7EC
-	for <lists+linux-stm32@lfdr.de>; Mon, 26 Sep 2022 16:08:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 744185EA84D
+	for <lists+linux-stm32@lfdr.de>; Mon, 26 Sep 2022 16:24:19 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BEB2BC62D6D;
-	Mon, 26 Sep 2022 14:08:07 +0000 (UTC)
-Received: from szxga03-in.huawei.com (szxga03-in.huawei.com [45.249.212.189])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2569DC5EC6B;
+	Mon, 26 Sep 2022 14:24:19 +0000 (UTC)
+Received: from szxga08-in.huawei.com (szxga08-in.huawei.com [45.249.212.255])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0BF23C0D2BB
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4AB1BC03FC7
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 26 Sep 2022 14:08:06 +0000 (UTC)
-Received: from dggemv711-chm.china.huawei.com (unknown [172.30.72.55])
- by szxga03-in.huawei.com (SkyGuard) with ESMTP id 4Mbl0D0n8YzHqTZ;
- Mon, 26 Sep 2022 22:05:48 +0800 (CST)
-Received: from kwepemm600014.china.huawei.com (7.193.23.54) by
- dggemv711-chm.china.huawei.com (10.1.198.66) with Microsoft SMTP Server
+ Mon, 26 Sep 2022 14:24:17 +0000 (UTC)
+Received: from dggemv704-chm.china.huawei.com (unknown [172.30.72.54])
+ by szxga08-in.huawei.com (SkyGuard) with ESMTP id 4MblJc6yfrz1P74b;
+ Mon, 26 Sep 2022 22:20:00 +0800 (CST)
+Received: from kwepemm000015.china.huawei.com (7.193.23.180) by
+ dggemv704-chm.china.huawei.com (10.3.19.47) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.31; Mon, 26 Sep 2022 22:08:03 +0800
-Received: from huawei.com (10.90.53.225) by kwepemm600014.china.huawei.com
- (7.193.23.54) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.31; Mon, 26 Sep
- 2022 22:08:02 +0800
-From: Zhang Qilong <zhangqilong3@huawei.com>
-To: <arnaud.pouliquen@foss.st.com>
-Date: Mon, 26 Sep 2022 22:11:32 +0800
-Message-ID: <20220926141132.124245-3-zhangqilong3@huawei.com>
-X-Mailer: git-send-email 2.26.0.106.g9fadedd
-In-Reply-To: <20220926141132.124245-1-zhangqilong3@huawei.com>
-References: <20220926141132.124245-1-zhangqilong3@huawei.com>
+ 15.1.2375.31; Mon, 26 Sep 2022 22:24:14 +0800
+Received: from kwepemm600014.china.huawei.com (7.193.23.54) by
+ kwepemm000015.china.huawei.com (7.193.23.180) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.31; Mon, 26 Sep 2022 22:24:14 +0800
+Received: from kwepemm600014.china.huawei.com ([7.193.23.54]) by
+ kwepemm600014.china.huawei.com ([7.193.23.54]) with mapi id 15.01.2375.031;
+ Mon, 26 Sep 2022 22:24:14 +0800
+From: zhangqilong <zhangqilong3@huawei.com>
+To: Arnaud POULIQUEN <arnaud.pouliquen@foss.st.com>,
+ "olivier.moysan@foss.st.com" <olivier.moysan@foss.st.com>, "perex@perex.cz"
+ <perex@perex.cz>, "tiwai@suse.com" <tiwai@suse.com>,
+ "mcoquelin.stm32@gmail.com" <mcoquelin.stm32@gmail.com>,
+ "alexandre.torgue@foss.st.com" <alexandre.torgue@foss.st.com>
+Thread-Topic: [PATCH -next] ASoC: stm: Fix PM disable depth imbalance in
+ stm32_i2s_probe
+Thread-Index: AQHY0abuFjw3CB3nU0SvLlv0/xwKZa3xwfcg
+Date: Mon, 26 Sep 2022 14:24:14 +0000
+Message-ID: <baa8d7791be0479d9bfd9e2f0df779d2@huawei.com>
+References: <20220926091439.103839-1-zhangqilong3@huawei.com>
+ <b1cd2763-8914-7bce-8f91-666bae219bf4@foss.st.com>
+In-Reply-To: <b1cd2763-8914-7bce-8f91-666bae219bf4@foss.st.com>
+Accept-Language: zh-CN, en-US
+Content-Language: zh-CN
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.174.177.246]
 MIME-Version: 1.0
-X-Originating-IP: [10.90.53.225]
-X-ClientProxiedBy: dggems701-chm.china.huawei.com (10.3.19.178) To
- kwepemm600014.china.huawei.com (7.193.23.54)
 X-CFilter-Loop: Reflected
-Cc: alsa-devel@alsa-project.org, linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH -next 2/2] ASoC: stm32: spdifrx: Fix PM
-	disable depth imbalance in stm32_spdifrx_probe
+Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>
+Subject: [Linux-stm32] =?utf-8?b?562U5aSNOiBbUEFUQ0ggLW5leHRdIEFTb0M6IHN0?=
+ =?utf-8?q?m=3A_Fix_PM_disable_depth_imbalance_in_stm32=5Fi2s=5Fprobe?=
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -55,42 +69,64 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The pm_runtime_enable will increase power disable depth. Thus
-a pairing decrement is needed on the error handling path to
-keep it balanced according to context. We fix it by moving
-pm_runtime_enable to the endding of stm32_spdifrx_probe.
+> Hello Zhang,
+> 
+> On 9/26/22 11:14, Zhang Qilong wrote:
+> > The pm_runtime_enable will increase power disable depth. Thus a
+> > pairing decrement is needed on the error handling path to keep it
+> > balanced according to context.
+> >
+> > Fixes:efc162cbd480f ("ASoC: stm: Use dev_err_probe() helper")
+> > Signed-off-by: Zhang Qilong <zhangqilong3@huawei.com>
+> > ---
+> >  sound/soc/stm/stm32_i2s.c | 5 ++++-
+> >  1 file changed, 4 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/sound/soc/stm/stm32_i2s.c b/sound/soc/stm/stm32_i2s.c
+> > index 6aafe793eec4..5a717443b105 100644
+> > --- a/sound/soc/stm/stm32_i2s.c
+> > +++ b/sound/soc/stm/stm32_i2s.c
+> > @@ -1139,12 +1139,15 @@ static int stm32_i2s_probe(struct
+> platform_device *pdev)
+> >  	pm_runtime_enable(&pdev->dev);
+> >
+> >  	ret = snd_dmaengine_pcm_register(&pdev->dev,
+> &stm32_i2s_pcm_config, 0);
+> > -	if (ret)
+> > +	if (ret) {
+> > +		pm_runtime_disable(&pdev->dev);
+> >  		return dev_err_probe(&pdev->dev, ret, "PCM DMA register
+> error\n");
+> > +	}
+> >
+> >  	ret = snd_soc_register_component(&pdev->dev,
+> &stm32_i2s_component,
+> >  					 i2s->dai_drv, 1);
+> >  	if (ret) {
+> > +		pm_runtime_disable(&pdev->dev);
+> >  		snd_dmaengine_pcm_unregister(&pdev->dev);
+> >  		return ret;
+> >  	}
+> 
+> Seems that there the error has been introduced in this commit:
+> 32a956a1fadf ("ASoC: stm32: i2s: add pm_runtime support") The
+> pm_runtime_enable should be at the end of the stm32_i2s_probe as
+> done here:
+> https://github.com/STMicroelectronics/linux/blob/v5.15-stm32mp/sound/
+> soc/stm/stm32_i2s.c#L1200
+> 
+> Please, could you update your patch in this way?
+> With also an update of the "Fixes:" reference in the commit message
 
-Fixes:ac5e3efd55868 ("ASoC: stm32: spdifrx: add pm_runtime support")
-Signed-off-by: Zhang Qilong <zhangqilong3@huawei.com>
----
- sound/soc/stm/stm32_spdifrx.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Hi,
 
-diff --git a/sound/soc/stm/stm32_spdifrx.c b/sound/soc/stm/stm32_spdifrx.c
-index 0f7146756717..d399c906bb92 100644
---- a/sound/soc/stm/stm32_spdifrx.c
-+++ b/sound/soc/stm/stm32_spdifrx.c
-@@ -1002,8 +1002,6 @@ static int stm32_spdifrx_probe(struct platform_device *pdev)
- 	udelay(2);
- 	reset_control_deassert(rst);
- 
--	pm_runtime_enable(&pdev->dev);
--
- 	pcm_config = &stm32_spdifrx_pcm_config;
- 	ret = snd_dmaengine_pcm_register(&pdev->dev, pcm_config, 0);
- 	if (ret)
-@@ -1036,6 +1034,8 @@ static int stm32_spdifrx_probe(struct platform_device *pdev)
- 			FIELD_GET(SPDIFRX_VERR_MIN_MASK, ver));
- 	}
- 
-+	pm_runtime_enable(&pdev->dev);
-+
- 	return ret;
- 
- error:
--- 
-2.25.1
+Very useful guide, and I have send v2 version. In addition, I found several similar problems at the same time and fixed it through a patch set.
 
+Thanks,
+Zhang
+> 
+> Thanks,
+> Arnaud
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
