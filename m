@@ -2,48 +2,48 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8E9C95EB31D
-	for <lists+linux-stm32@lfdr.de>; Mon, 26 Sep 2022 23:30:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 12F6B5EB468
+	for <lists+linux-stm32@lfdr.de>; Tue, 27 Sep 2022 00:16:50 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3C650C63327;
-	Mon, 26 Sep 2022 21:30:32 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B369FC63324;
+	Mon, 26 Sep 2022 22:16:49 +0000 (UTC)
 Received: from phobos.denx.de (phobos.denx.de [85.214.62.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8D3BBC5F1ED
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0FE3DC5F1D3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 26 Sep 2022 21:30:30 +0000 (UTC)
+ Mon, 26 Sep 2022 22:16:49 +0000 (UTC)
 Received: from tr.lan (ip-86-49-12-201.bb.vodafone.cz [86.49.12.201])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
  (No client certificate requested)
  (Authenticated sender: marex@denx.de)
- by phobos.denx.de (Postfix) with ESMTPSA id F2F1784B92;
- Mon, 26 Sep 2022 23:30:29 +0200 (CEST)
+ by phobos.denx.de (Postfix) with ESMTPSA id DE0D484BD1;
+ Tue, 27 Sep 2022 00:16:47 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de;
- s=phobos-20191101; t=1664227830;
- bh=JQJ/njyLd90c1WgJnzwDdYi5qvGNekqsH04aQRd867E=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=B+zOxrWlccvhko22tAerggXTne3Ku2iR5dIj9y6nD2sBsMZ4sauqi03FCQnmgi9mR
- u/sE9E+IMcmPTY/+kqK0LywcNOzZLKTfC5D/3EjfDNmX/0G39T6+IRIOt7Er/VxtWp
- sWHl0n/4MovxNjX6/jedCHwzOrrtRcBfifPDjB0qw+s0Lg48n7XeJqzz+rbVhKUCEw
- JUOF91xEhy323k25MT7KK2lJ+LLbMx8FT88/eVMNGQBYgSr4B8kn72Py+vSVwyts5I
- FGMcih2EDxpZNbWxXh94Tbu6XFtTGGevt8BBTI3mmyEEaXoW5Gy3jTFC9aRAfP7X7R
- HHBBx5jk0oQBA==
+ s=phobos-20191101; t=1664230608;
+ bh=X6qp9T/BvglaOyfUDJtjW2VanJEDiASQK1Gprr4SctA=;
+ h=From:To:Cc:Subject:Date:From;
+ b=DTPHvgNvwcwmmEK3APHARCisJ2MWpIxo4xq5rrry2hGMAeyR3IfPGka7NIuhKuvGh
+ 5aPBlW9Rfs62yAFbJE8cq08j7P470EX5sv4jAg46CPlfGgxaQFtrbuhwW9l//6gGjl
+ E3mH6f1us2ksc5IvHQJbpG5RuARHx61qtSybc6dpDFK0zvlOIhxH4EGeyji0B7IPnI
+ n9jCnwLSN48DqospzsqtDK+YauZxS3GfAbQuaAKL0QgQAve2T6BFQ6xqVo+NRyyq39
+ qZW6lHSsdQG9I7S2R96LYuHaFTvt27D78XGL9w+a/Jb4mwuB1x571s9oyjytjUVT9k
+ t+MzeyCUYJ/kQ==
 From: Marek Vasut <marex@denx.de>
 To: linux-arm-kernel@lists.infradead.org
-Date: Mon, 26 Sep 2022 23:29:58 +0200
-Message-Id: <20220926212958.505561-2-marex@denx.de>
+Date: Tue, 27 Sep 2022 00:16:35 +0200
+Message-Id: <20220926221635.526676-1-marex@denx.de>
 X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20220926212958.505561-1-marex@denx.de>
-References: <20220926212958.505561-1-marex@denx.de>
 MIME-Version: 1.0
 X-Virus-Scanned: clamav-milter 0.103.6 at phobos.denx.de
 X-Virus-Status: Clean
-Cc: Marek Vasut <marex@denx.de>,
- Patrick Delaunay <patrick.delaunay@foss.st.com>,
+Cc: Marek Vasut <marex@denx.de>, devicetree@vger.kernel.org,
+ Linus Walleij <linus.walleij@linaro.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Rob Herring <robh+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH 2/2] ARM: dts: stm32: Add DHCOR based
-	Testbench board
+Subject: [Linux-stm32] [PATCH] dt-bindings: memory-controller: st,
+	stm32: Split off MC properties
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,240 +60,392 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add DT for DHCOR Testbench board, which is a testbench for testing of
-DHCOR SoM during manufacturing. This is effectively a trimmed down
-version of AV96 board with CSI-2 bridge, HDMI bridge, WiFi, Audio and
-LEDs removed and used as GPIOs instead. Furthermore, the PMIC Buck3
-is always configured from PMIC NVM to cater for both 1V8 and 3V3 SoM
-variant.
+Split st,stm32-fmc2-ebi.yaml specific properties into st,stm32-fmc2-ebi-props.yaml ,
+split memory-controller bus peripheral properties into mc-peripheral-props.yaml ,
+reference the st,stm32-fmc2-ebi-props.yaml in mc-peripheral-props.yaml and
+reference the mc-peripheral-props.yaml in micrel,ks8851.yaml .
+
+This way, the FMC2 controller properties in Micrel KSZ8851MLL ethernet
+controller node can be properly validated.
+
+Fixes the following warning:
+
+"
+arch/arm/boot/dts/stm32mp153c-dhcor-drc-compact.dtb: ethernet@1,0: Unevaluated properties are not allowed ('bank-width', 'st,fmc2-ebi-cs-mux-enable', 'st,fmc2-ebi-cs-transaction-type', 'st,fmc2-ebi-cs-buswidth', 'st,fmc2-ebi-cs-address-setup-ns', 'st,fmc2-ebi-cs-address-hold-ns', 'st,fmc2-ebi-cs-bus-turnaround-ns', 'st,fmc2-ebi-cs-data-setup-ns', 'st,fmc2-ebi-cs-data-hold-ns', 'st,fmc2-ebi-cs-write-address-setup-ns', 'st,fmc2-ebi-cs-write-address-hold-ns', 'st,fmc2-ebi-cs-write-bus-turnaround-ns', 'st,fmc2-ebi-cs-write-data-setup-ns', 'st,fmc2-ebi-cs-write-data-hold-ns' were unexpected)
+"
 
 Signed-off-by: Marek Vasut <marex@denx.de>
 ---
 Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
-Cc: Patrice Chotard <patrice.chotard@foss.st.com>
-Cc: Patrick Delaunay <patrick.delaunay@foss.st.com>
+Cc: Christophe Kerello <christophe.kerello@foss.st.com>
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Cc: Linus Walleij <linus.walleij@linaro.org>
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Cc: Rob Herring <robh+dt@kernel.org>
+Cc: devicetree@vger.kernel.org
 Cc: linux-stm32@st-md-mailman.stormreply.com
 To: linux-arm-kernel@lists.infradead.org
 ---
- arch/arm/boot/dts/Makefile                    |   1 +
- .../boot/dts/stm32mp151a-dhcor-testbench.dts  |  17 ++
- .../boot/dts/stm32mp15xx-dhcor-testbench.dtsi | 171 ++++++++++++++++++
- 3 files changed, 189 insertions(+)
- create mode 100644 arch/arm/boot/dts/stm32mp151a-dhcor-testbench.dts
- create mode 100644 arch/arm/boot/dts/stm32mp15xx-dhcor-testbench.dtsi
+ .../mc-peripheral-props.yaml                  |  36 +++++
+ .../st,stm32-fmc2-ebi-props.yaml              | 144 ++++++++++++++++++
+ .../memory-controllers/st,stm32-fmc2-ebi.yaml | 137 -----------------
+ .../bindings/net/micrel,ks8851.yaml           |   1 +
+ 4 files changed, 181 insertions(+), 137 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/memory-controllers/mc-peripheral-props.yaml
+ create mode 100644 Documentation/devicetree/bindings/memory-controllers/st,stm32-fmc2-ebi-props.yaml
 
-diff --git a/arch/arm/boot/dts/Makefile b/arch/arm/boot/dts/Makefile
-index 1a718157d1a68..962e0003a8d62 100644
---- a/arch/arm/boot/dts/Makefile
-+++ b/arch/arm/boot/dts/Makefile
-@@ -1214,6 +1214,7 @@ dtb-$(CONFIG_ARCH_STM32) += \
- 	stm32mp151a-prtt1a.dtb \
- 	stm32mp151a-prtt1c.dtb \
- 	stm32mp151a-prtt1s.dtb \
-+	stm32mp151a-dhcor-testbench.dtb \
- 	stm32mp153c-dhcom-drc02.dtb \
- 	stm32mp153c-dhcor-drc-compact.dtb \
- 	stm32mp157a-avenger96.dtb \
-diff --git a/arch/arm/boot/dts/stm32mp151a-dhcor-testbench.dts b/arch/arm/boot/dts/stm32mp151a-dhcor-testbench.dts
+diff --git a/Documentation/devicetree/bindings/memory-controllers/mc-peripheral-props.yaml b/Documentation/devicetree/bindings/memory-controllers/mc-peripheral-props.yaml
 new file mode 100644
-index 0000000000000..e0f828ecc2faf
+index 0000000000000..442744a9b711d
 --- /dev/null
-+++ b/arch/arm/boot/dts/stm32mp151a-dhcor-testbench.dts
-@@ -0,0 +1,17 @@
-+// SPDX-License-Identifier: (GPL-2.0 OR BSD-3-Clause)
-+/*
-+ * Copyright (C) 2022 Marek Vasut <marex@denx.de>
-+ */
++++ b/Documentation/devicetree/bindings/memory-controllers/mc-peripheral-props.yaml
+@@ -0,0 +1,36 @@
++# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/memory-controllers/mc-peripheral-props.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-+/dts-v1/;
++title: Peripheral-specific properties for a Memory Controller bus.
 +
-+#include "stm32mp151.dtsi"
-+#include "stm32mp15xx-dhcor-som.dtsi"
-+#include "stm32mp15xx-dhcor-testbench.dtsi"
++description:
++  Many MC controllers need to add properties to peripheral devices.
++  They could be common properties like reg or they could be controller
++  specific like delay in clock or data lines, etc. These properties need
++  to be defined in the peripheral node because they are per-peripheral
++  and there can be multiple peripherals attached to a controller. All
++  those properties are listed here. The controller specific properties
++  should go in their own separate schema that should be referenced
++  from here.
 +
-+/ {
-+	model = "DH electronics STM32MP151A DHCOR Testbench";
-+	compatible = "dh,stm32mp151a-dhcor-testbench",
-+		     "dh,stm32mp151a-dhcor-som",
-+		     "st,stm32mp151";
-+};
-diff --git a/arch/arm/boot/dts/stm32mp15xx-dhcor-testbench.dtsi b/arch/arm/boot/dts/stm32mp15xx-dhcor-testbench.dtsi
++maintainers:
++  - Marek Vasut <marex@denx.de>
++
++properties:
++  reg:
++    description: Bank number, base address and size of the device.
++
++  bank-width:
++    description: Bank width of the device, in bytes.
++
++required:
++  - reg
++
++# The controller specific properties go here.
++allOf:
++  - $ref: st,stm32-fmc2-ebi-props.yaml#
++
++additionalProperties: true
+diff --git a/Documentation/devicetree/bindings/memory-controllers/st,stm32-fmc2-ebi-props.yaml b/Documentation/devicetree/bindings/memory-controllers/st,stm32-fmc2-ebi-props.yaml
 new file mode 100644
-index 0000000000000..c7dcee4ee3d1d
+index 0000000000000..475e4095068c2
 --- /dev/null
-+++ b/arch/arm/boot/dts/stm32mp15xx-dhcor-testbench.dtsi
-@@ -0,0 +1,171 @@
-+// SPDX-License-Identifier: (GPL-2.0 OR BSD-3-Clause)
-+/*
-+ * Copyright (C) 2022 Marek Vasut <marex@denx.de>
-+ */
++++ b/Documentation/devicetree/bindings/memory-controllers/st,stm32-fmc2-ebi-props.yaml
+@@ -0,0 +1,144 @@
++# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/memory-controllers/st,stm32-fmc2-ebi-props.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-+/ {
-+	aliases {
-+		ethernet0 = &ethernet0;
-+		mmc0 = &sdmmc1;
-+		mmc1 = &sdmmc2;
-+		serial0 = &uart4;
-+		serial1 = &uart7;
-+		spi0 = &qspi;
-+	};
++title: Peripheral properties for ST FMC2 Controller
 +
-+	chosen {
-+		stdout-path = "serial0:115200n8";
-+	};
++maintainers:
++  - Christophe Kerello <christophe.kerello@foss.st.com>
++  - Marek Vasut <marex@denx.de>
 +
-+	sd_switch: regulator-sd_switch {
-+		compatible = "regulator-gpio";
-+		regulator-name = "sd_switch";
-+		regulator-min-microvolt = <1800000>;
-+		regulator-max-microvolt = <2900000>;
-+		regulator-type = "voltage";
-+		regulator-always-on;
++properties:
++  st,fmc2-ebi-cs-transaction-type:
++    description: |
++      Select one of the transactions type supported
++      0: Asynchronous mode 1 SRAM/FRAM.
++      1: Asynchronous mode 1 PSRAM.
++      2: Asynchronous mode A SRAM/FRAM.
++      3: Asynchronous mode A PSRAM.
++      4: Asynchronous mode 2 NOR.
++      5: Asynchronous mode B NOR.
++      6: Asynchronous mode C NOR.
++      7: Asynchronous mode D NOR.
++      8: Synchronous read synchronous write PSRAM.
++      9: Synchronous read asynchronous write PSRAM.
++      10: Synchronous read synchronous write NOR.
++      11: Synchronous read asynchronous write NOR.
++    $ref: /schemas/types.yaml#/definitions/uint32
++    minimum: 0
++    maximum: 11
 +
-+		gpios = <&gpioi 5 GPIO_ACTIVE_HIGH>;
-+		gpios-states = <0>;
-+		states = <1800000 0x1>,
-+			 <2900000 0x0>;
-+	};
-+};
++  st,fmc2-ebi-cs-cclk-enable:
++    description: Continuous clock enable (first bank must be configured
++      in synchronous mode). The FMC_CLK is generated continuously
++      during asynchronous and synchronous access. By default, the
++      FMC_CLK is only generated during synchronous access.
++    $ref: /schemas/types.yaml#/definitions/flag
 +
-+&adc {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&adc12_ain_pins_b>;
-+	vdd-supply = <&vdd>;
-+	vdda-supply = <&vdda>;
-+	vref-supply = <&vdda>;
-+	status = "okay";
++  st,fmc2-ebi-cs-mux-enable:
++    description: Address/Data multiplexed on databus (valid only with
++      NOR and PSRAM transactions type). By default, Address/Data
++      are not multiplexed.
++    $ref: /schemas/types.yaml#/definitions/flag
 +
-+	adc1: adc@0 {
-+		st,adc-channels = <0 1 6>;
-+		st,min-sample-time-nsecs = <5000>;
-+		status = "okay";
-+	};
++  st,fmc2-ebi-cs-buswidth:
++    description: Data bus width
++    $ref: /schemas/types.yaml#/definitions/uint32
++    enum: [ 8, 16 ]
++    default: 16
 +
-+	adc2: adc@100 {
-+		st,adc-channels = <0 1 2>;
-+		st,min-sample-time-nsecs = <5000>;
-+		status = "okay";
-+	};
-+};
++  st,fmc2-ebi-cs-waitpol-high:
++    description: Wait signal polarity (NWAIT signal active high).
++      By default, NWAIT is active low.
++    $ref: /schemas/types.yaml#/definitions/flag
 +
-+&ethernet0 {
-+	status = "okay";
-+	pinctrl-0 = <&ethernet0_rgmii_pins_c>;
-+	pinctrl-1 = <&ethernet0_rgmii_sleep_pins_c>;
-+	pinctrl-names = "default", "sleep";
-+	phy-mode = "rgmii";
-+	max-speed = <1000>;
-+	phy-handle = <&phy0>;
++  st,fmc2-ebi-cs-waitcfg-enable:
++    description: The NWAIT signal indicates wheither the data from the
++      device are valid or if a wait state must be inserted when accessing
++      the device in synchronous mode. By default, the NWAIT signal is
++      active one data cycle before wait state.
++    $ref: /schemas/types.yaml#/definitions/flag
 +
-+	mdio0 {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		compatible = "snps,dwmac-mdio";
-+		reset-gpios = <&gpioz 2 GPIO_ACTIVE_LOW>;
-+		reset-delay-us = <1000>;
-+		reset-post-delay-us = <1000>;
++  st,fmc2-ebi-cs-wait-enable:
++    description: The NWAIT signal is enabled (its level is taken into
++      account after the programmed latency period to insert wait states
++      if asserted). By default, the NWAIT signal is disabled.
++    $ref: /schemas/types.yaml#/definitions/flag
 +
-+		phy0: ethernet-phy@7 {
-+			reg = <7>;
++  st,fmc2-ebi-cs-asyncwait-enable:
++    description: The NWAIT signal is taken into account during asynchronous
++      transactions. By default, the NWAIT signal is not taken into account
++      during asynchronous transactions.
++    $ref: /schemas/types.yaml#/definitions/flag
 +
-+			rxc-skew-ps = <1500>;
-+			rxdv-skew-ps = <540>;
-+			rxd0-skew-ps = <420>;
-+			rxd1-skew-ps = <420>;
-+			rxd2-skew-ps = <420>;
-+			rxd3-skew-ps = <420>;
++  st,fmc2-ebi-cs-cpsize:
++    description: CRAM page size. The controller splits the burst access
++      when the memory page is reached. By default, no burst split when
++      crossing page boundary.
++    $ref: /schemas/types.yaml#/definitions/uint32
++    enum: [ 0, 128, 256, 512, 1024 ]
++    default: 0
 +
-+			txc-skew-ps = <1440>;
-+			txen-skew-ps = <540>;
-+			txd0-skew-ps = <420>;
-+			txd1-skew-ps = <420>;
-+			txd2-skew-ps = <420>;
-+			txd3-skew-ps = <420>;
-+		};
-+	};
-+};
++  st,fmc2-ebi-cs-byte-lane-setup-ns:
++    description: This property configures the byte lane setup timing
++      defined in nanoseconds from NBLx low to Chip Select NEx low.
 +
-+&sdmmc1 {
-+	pinctrl-names = "default", "opendrain", "sleep";
-+	pinctrl-0 = <&sdmmc1_b4_pins_a &sdmmc1_dir_pins_b>;
-+	pinctrl-1 = <&sdmmc1_b4_od_pins_a &sdmmc1_dir_pins_b>;
-+	pinctrl-2 = <&sdmmc1_b4_sleep_pins_a &sdmmc1_dir_sleep_pins_b>;
-+	cd-gpios = <&gpioi 8 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
-+	disable-wp;
-+	st,sig-dir;
-+	st,neg-edge;
-+	st,use-ckin;
-+	bus-width = <4>;
-+	vmmc-supply = <&vdd_sd>;
-+	vqmmc-supply = <&sd_switch>;
-+	status = "okay";
-+};
++  st,fmc2-ebi-cs-address-setup-ns:
++    description: This property defines the duration of the address setup
++      phase in nanoseconds used for asynchronous read/write transactions.
 +
-+&sdmmc2 {
-+	pinctrl-names = "default", "opendrain", "sleep";
-+	pinctrl-0 = <&sdmmc2_b4_pins_a &sdmmc2_d47_pins_c>;
-+	pinctrl-1 = <&sdmmc2_b4_od_pins_a &sdmmc2_d47_pins_c>;
-+	pinctrl-2 = <&sdmmc2_b4_sleep_pins_a &sdmmc2_d47_sleep_pins_c>;
-+	bus-width = <8>;
-+	mmc-ddr-1_8v;
-+	no-sd;
-+	no-sdio;
-+	non-removable;
-+	st,neg-edge;
-+	vmmc-supply = <&v3v3>;
-+	vqmmc-supply = <&v3v3>;
-+	status = "okay";
-+};
++  st,fmc2-ebi-cs-address-hold-ns:
++    description: This property defines the duration of the address hold
++      phase in nanoseconds used for asynchronous multiplexed read/write
++      transactions.
 +
-+&uart4 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&uart4_pins_b>;
-+	/delete-property/dmas;
-+	/delete-property/dma-names;
-+	status = "okay";
-+};
++  st,fmc2-ebi-cs-data-setup-ns:
++    description: This property defines the duration of the data setup phase
++      in nanoseconds used for asynchronous read/write transactions.
 +
-+&uart7 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&uart7_pins_a>;
-+	uart-has-rtscts;
-+	/delete-property/dmas;
-+	/delete-property/dma-names;
-+	status = "okay";
-+};
++  st,fmc2-ebi-cs-bus-turnaround-ns:
++    description: This property defines the delay in nanoseconds between the
++      end of current read/write transaction and the next transaction.
 +
-+&usbh_ehci {
-+	phys = <&usbphyc_port0>;
-+	status = "okay";
-+};
++  st,fmc2-ebi-cs-data-hold-ns:
++    description: This property defines the duration of the data hold phase
++      in nanoseconds used for asynchronous read/write transactions.
 +
-+&usbh_ohci {
-+	phys = <&usbphyc_port0>;
-+	status = "okay";
-+};
++  st,fmc2-ebi-cs-clk-period-ns:
++    description: This property defines the FMC_CLK output signal period in
++      nanoseconds.
 +
-+&usbotg_hs {
-+	pinctrl-0 = <&usbotg_hs_pins_a>;
-+	pinctrl-names = "default";
-+	phy-names = "usb2-phy";
-+	phys = <&usbphyc_port1 0>;
-+	status = "okay";
-+	vbus-supply = <&vbus_otg>;
-+};
++  st,fmc2-ebi-cs-data-latency-ns:
++    description: This property defines the data latency before reading or
++      writing the first data in nanoseconds.
 +
-+&usbphyc {
-+	status = "okay";
-+};
++  st,fmc2-ebi-cs-write-address-setup-ns:
++    description: This property defines the duration of the address setup
++      phase in nanoseconds used for asynchronous write transactions.
 +
-+&usbphyc_port0 {
-+	phy-supply = <&vdd_usb>;
-+};
++  st,fmc2-ebi-cs-write-address-hold-ns:
++    description: This property defines the duration of the address hold
++      phase in nanoseconds used for asynchronous multiplexed write
++      transactions.
 +
-+&usbphyc_port1 {
-+	phy-supply = <&vdd_usb>;
-+};
++  st,fmc2-ebi-cs-write-data-setup-ns:
++    description: This property defines the duration of the data setup
++      phase in nanoseconds used for asynchronous write transactions.
++
++  st,fmc2-ebi-cs-write-bus-turnaround-ns:
++    description: This property defines the delay between the end of current
++      write transaction and the next transaction in nanoseconds.
++
++  st,fmc2-ebi-cs-write-data-hold-ns:
++    description: This property defines the duration of the data hold phase
++      in nanoseconds used for asynchronous write transactions.
++
++  st,fmc2-ebi-cs-max-low-pulse-ns:
++    description: This property defines the maximum chip select low pulse
++      duration in nanoseconds for synchronous transactions. When this timing
++      reaches 0, the controller splits the current access, toggles NE to
++      allow device refresh and restarts a new access.
++
++additionalProperties: true
+diff --git a/Documentation/devicetree/bindings/memory-controllers/st,stm32-fmc2-ebi.yaml b/Documentation/devicetree/bindings/memory-controllers/st,stm32-fmc2-ebi.yaml
+index 6b516d3895af2..49243f447eb90 100644
+--- a/Documentation/devicetree/bindings/memory-controllers/st,stm32-fmc2-ebi.yaml
++++ b/Documentation/devicetree/bindings/memory-controllers/st,stm32-fmc2-ebi.yaml
+@@ -49,143 +49,6 @@ patternProperties:
+   "^.*@[0-4],[a-f0-9]+$":
+     type: object
+ 
+-    properties:
+-      reg:
+-        description: Bank number, base address and size of the device.
+-
+-      st,fmc2-ebi-cs-transaction-type:
+-        description: |
+-          Select one of the transactions type supported
+-          0: Asynchronous mode 1 SRAM/FRAM.
+-          1: Asynchronous mode 1 PSRAM.
+-          2: Asynchronous mode A SRAM/FRAM.
+-          3: Asynchronous mode A PSRAM.
+-          4: Asynchronous mode 2 NOR.
+-          5: Asynchronous mode B NOR.
+-          6: Asynchronous mode C NOR.
+-          7: Asynchronous mode D NOR.
+-          8: Synchronous read synchronous write PSRAM.
+-          9: Synchronous read asynchronous write PSRAM.
+-          10: Synchronous read synchronous write NOR.
+-          11: Synchronous read asynchronous write NOR.
+-        $ref: /schemas/types.yaml#/definitions/uint32
+-        minimum: 0
+-        maximum: 11
+-
+-      st,fmc2-ebi-cs-cclk-enable:
+-        description: Continuous clock enable (first bank must be configured
+-          in synchronous mode). The FMC_CLK is generated continuously
+-          during asynchronous and synchronous access. By default, the
+-          FMC_CLK is only generated during synchronous access.
+-        $ref: /schemas/types.yaml#/definitions/flag
+-
+-      st,fmc2-ebi-cs-mux-enable:
+-        description: Address/Data multiplexed on databus (valid only with
+-          NOR and PSRAM transactions type). By default, Address/Data
+-          are not multiplexed.
+-        $ref: /schemas/types.yaml#/definitions/flag
+-
+-      st,fmc2-ebi-cs-buswidth:
+-        description: Data bus width
+-        $ref: /schemas/types.yaml#/definitions/uint32
+-        enum: [ 8, 16 ]
+-        default: 16
+-
+-      st,fmc2-ebi-cs-waitpol-high:
+-        description: Wait signal polarity (NWAIT signal active high).
+-          By default, NWAIT is active low.
+-        $ref: /schemas/types.yaml#/definitions/flag
+-
+-      st,fmc2-ebi-cs-waitcfg-enable:
+-        description: The NWAIT signal indicates wheither the data from the
+-          device are valid or if a wait state must be inserted when accessing
+-          the device in synchronous mode. By default, the NWAIT signal is
+-          active one data cycle before wait state.
+-        $ref: /schemas/types.yaml#/definitions/flag
+-
+-      st,fmc2-ebi-cs-wait-enable:
+-        description: The NWAIT signal is enabled (its level is taken into
+-          account after the programmed latency period to insert wait states
+-          if asserted). By default, the NWAIT signal is disabled.
+-        $ref: /schemas/types.yaml#/definitions/flag
+-
+-      st,fmc2-ebi-cs-asyncwait-enable:
+-        description: The NWAIT signal is taken into account during asynchronous
+-          transactions. By default, the NWAIT signal is not taken into account
+-          during asynchronous transactions.
+-        $ref: /schemas/types.yaml#/definitions/flag
+-
+-      st,fmc2-ebi-cs-cpsize:
+-        description: CRAM page size. The controller splits the burst access
+-          when the memory page is reached. By default, no burst split when
+-          crossing page boundary.
+-        $ref: /schemas/types.yaml#/definitions/uint32
+-        enum: [ 0, 128, 256, 512, 1024 ]
+-        default: 0
+-
+-      st,fmc2-ebi-cs-byte-lane-setup-ns:
+-        description: This property configures the byte lane setup timing
+-          defined in nanoseconds from NBLx low to Chip Select NEx low.
+-
+-      st,fmc2-ebi-cs-address-setup-ns:
+-        description: This property defines the duration of the address setup
+-          phase in nanoseconds used for asynchronous read/write transactions.
+-
+-      st,fmc2-ebi-cs-address-hold-ns:
+-        description: This property defines the duration of the address hold
+-          phase in nanoseconds used for asynchronous multiplexed read/write
+-          transactions.
+-
+-      st,fmc2-ebi-cs-data-setup-ns:
+-        description: This property defines the duration of the data setup phase
+-          in nanoseconds used for asynchronous read/write transactions.
+-
+-      st,fmc2-ebi-cs-bus-turnaround-ns:
+-        description: This property defines the delay in nanoseconds between the
+-          end of current read/write transaction and the next transaction.
+-
+-      st,fmc2-ebi-cs-data-hold-ns:
+-        description: This property defines the duration of the data hold phase
+-          in nanoseconds used for asynchronous read/write transactions.
+-
+-      st,fmc2-ebi-cs-clk-period-ns:
+-        description: This property defines the FMC_CLK output signal period in
+-          nanoseconds.
+-
+-      st,fmc2-ebi-cs-data-latency-ns:
+-        description: This property defines the data latency before reading or
+-          writing the first data in nanoseconds.
+-
+-      st,fmc2_ebi-cs-write-address-setup-ns:
+-        description: This property defines the duration of the address setup
+-          phase in nanoseconds used for asynchronous write transactions.
+-
+-      st,fmc2-ebi-cs-write-address-hold-ns:
+-        description: This property defines the duration of the address hold
+-          phase in nanoseconds used for asynchronous multiplexed write
+-          transactions.
+-
+-      st,fmc2-ebi-cs-write-data-setup-ns:
+-        description: This property defines the duration of the data setup
+-          phase in nanoseconds used for asynchronous write transactions.
+-
+-      st,fmc2-ebi-cs-write-bus-turnaround-ns:
+-        description: This property defines the delay between the end of current
+-          write transaction and the next transaction in nanoseconds.
+-
+-      st,fmc2-ebi-cs-write-data-hold-ns:
+-        description: This property defines the duration of the data hold phase
+-          in nanoseconds used for asynchronous write transactions.
+-
+-      st,fmc2-ebi-cs-max-low-pulse-ns:
+-        description: This property defines the maximum chip select low pulse
+-          duration in nanoseconds for synchronous transactions. When this timing
+-          reaches 0, the controller splits the current access, toggles NE to
+-          allow device refresh and restarts a new access.
+-
+-    required:
+-      - reg
+-
+ required:
+   - "#address-cells"
+   - "#size-cells"
+diff --git a/Documentation/devicetree/bindings/net/micrel,ks8851.yaml b/Documentation/devicetree/bindings/net/micrel,ks8851.yaml
+index 5aa7cf2eacb1a..b44d83554ef57 100644
+--- a/Documentation/devicetree/bindings/net/micrel,ks8851.yaml
++++ b/Documentation/devicetree/bindings/net/micrel,ks8851.yaml
+@@ -44,6 +44,7 @@ required:
+ 
+ allOf:
+   - $ref: ethernet-controller.yaml#
++  - $ref: /schemas/memory-controllers/mc-peripheral-props.yaml#
+   - if:
+       properties:
+         compatible:
 -- 
 2.35.1
 
