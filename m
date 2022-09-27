@@ -2,48 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A741B5ECC83
-	for <lists+linux-stm32@lfdr.de>; Tue, 27 Sep 2022 20:59:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AE2B05ECCB3
+	for <lists+linux-stm32@lfdr.de>; Tue, 27 Sep 2022 21:17:55 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5A06CC63328;
-	Tue, 27 Sep 2022 18:59:40 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5372EC63328;
+	Tue, 27 Sep 2022 19:17:55 +0000 (UTC)
+Received: from phobos.denx.de (phobos.denx.de [85.214.62.61])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B622BC63325
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B75F9C63325
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 27 Sep 2022 18:59:38 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ Tue, 27 Sep 2022 19:17:53 +0000 (UTC)
+Received: from tr.lan (ip-86-49-12-201.bb.vodafone.cz [86.49.12.201])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 9E52561B41;
- Tue, 27 Sep 2022 18:59:37 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47EA0C433D6;
- Tue, 27 Sep 2022 18:59:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1664305177;
- bh=aWwbM2FcbB4m2ZMOVJGrcGwpXL3zIDpNnuzwy+bKje8=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=PI86W4WQZExn9qPgexr8c3lnxMuukf7lbiKbt5mPsHiL+lSPZ13s/gm0FrZsmUyCY
- HRKD7ZzKmK6WyKLZDsiXkRiWW2PGWN+XkUx2WxZg17P8imjWpx+wbH8eWedUVTry/a
- LGXB3IxTv6jwtKTdqXpSor7eq3KxlXJygDw/AfJWehYcebJSxefW5Cg6J9slByamgN
- DgWtRmh0vRoQU2nb1FkLS+vOJkad5LUqipiujkO+VEECkpGWszIgkpnZbJtZDF9e6W
- JhbcBz0IET5hlMH0e/GEo+BQ9cAiAGaltN7fNnjPwvtAd/pJ3fI+Nu50FHcT02yuEA
- 3dHn8ujhZ4I3w==
-From: Mark Brown <broonie@kernel.org>
-To: arnaud.pouliquen@foss.st.com, olivier.moysan@foss.st.com, tiwai@suse.com,
- perex@perex.cz, 
- Zhang Qilong <zhangqilong3@huawei.com>, mcoquelin.stm32@gmail.com,
- lgirdwood@gmail.com
-In-Reply-To: <20220927142601.64266-1-zhangqilong3@huawei.com>
-References: <20220927142601.64266-1-zhangqilong3@huawei.com>
-Message-Id: <166430517501.513274.13539394672852355316.b4-ty@kernel.org>
-Date: Tue, 27 Sep 2022 19:59:35 +0100
+ (Authenticated sender: marex@denx.de)
+ by phobos.denx.de (Postfix) with ESMTPSA id B425C8484A;
+ Tue, 27 Sep 2022 21:17:52 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de;
+ s=phobos-20191101; t=1664306273;
+ bh=K+LdwArTrNbcDaYPteiwwtTntyntBS6HKK7G0dgHUlY=;
+ h=From:To:Cc:Subject:Date:From;
+ b=Z04jZNIeVlKtVNezCZi6BehtR9o+Z7RJ3KiOo/wRacIFHP5YI3nVn9Kgeq+KebO52
+ HnDgTxFlPAblTPW71U3fL2513IuJ55LKldiTBldFgm7kbFbzkmD3fpWrUPYmyAxanM
+ aCyPHEWIxjeWF9Nklq7WfiPljEmweT8c2hMVkMz0WnBn6vrDpbq8mSZ8VnUm1FxGD4
+ 0o0WxCUw3aiYDmdzVgYbx1Oj5gCV3bpF9J2BMd3FDePR4K0xLVxjSgfeXpSsEW7Fr5
+ uziedMXhr1iKdH3xM0Ug7KwX8wNSsSylV0VesOF8BPvII5dhfApgKJHZJHnK5MtULg
+ bwxUojrKwpm7g==
+From: Marek Vasut <marex@denx.de>
+To: linux-arm-kernel@lists.infradead.org
+Date: Tue, 27 Sep 2022 21:17:34 +0200
+Message-Id: <20220927191736.299702-1-marex@denx.de>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
-X-Mailer: b4 0.10.0-dev-fc921
-Cc: alsa-devel@alsa-project.org, linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH v2 -next 0/2] Fix PM disable depth
-	imbalance in stm32 probe
+X-Virus-Scanned: clamav-milter 0.103.6 at phobos.denx.de
+X-Virus-Status: Clean
+Cc: Marek Vasut <marex@denx.de>, devicetree@vger.kernel.org,
+ Ulf Hansson <ulf.hansson@linaro.org>, linux-mmc@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>, Rob Herring <robh+dt@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, Andy Gross <agross@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ linux-arm-msm@vger.kernel.org, Linus Walleij <linus.walleij@linaro.org>
+Subject: [Linux-stm32] [PATCH 1/3] dt-bindings: mmc: arm,
+	pl18x: Document interrupt-names is ignored
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,45 +62,47 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, 27 Sep 2022 22:25:59 +0800, Zhang Qilong wrote:
-> The pm_runtime_enable will increase power disable depth. Thus
-> a pairing decrement is needed on the error handling path to
-> keep it balanced. We fix it by moving pm_runtime_enable to the
-> endding of probe.
-> v2:
-> - Add reviewed-by
-> 
-> [...]
+Due to inconsistency of existing DTs regarding the content of this IP
+interrupt-names DT property, document this such that interrupt-names
+is not used by this IP bindings.
 
-Applied to
+Signed-off-by: Marek Vasut <marex@denx.de>
+---
+Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
+Cc: Andy Gross <agross@kernel.org>
+Cc: Bjorn Andersson <andersson@kernel.org>
+Cc: Konrad Dybcio <konrad.dybcio@somainline.org>
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
+Cc: Linus Walleij <linus.walleij@linaro.org>
+Cc: Rob Herring <robh+dt@kernel.org>
+Cc: Ulf Hansson <ulf.hansson@linaro.org>
+Cc: Yann Gautier <yann.gautier@foss.st.com>
+Cc: devicetree@vger.kernel.org
+Cc: linux-mmc@vger.kernel.org
+Cc: linux-arm-msm@vger.kernel.org
+Cc: linux-stm32@st-md-mailman.stormreply.com
+To: linux-arm-kernel@lists.infradead.org
+---
+ Documentation/devicetree/bindings/mmc/arm,pl18x.yaml | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+diff --git a/Documentation/devicetree/bindings/mmc/arm,pl18x.yaml b/Documentation/devicetree/bindings/mmc/arm,pl18x.yaml
+index 1e69a5a42439b..a0ddf6495f85e 100644
+--- a/Documentation/devicetree/bindings/mmc/arm,pl18x.yaml
++++ b/Documentation/devicetree/bindings/mmc/arm,pl18x.yaml
+@@ -95,7 +95,8 @@ properties:
+       PIO (polled I/O) interrupt and occurs when the FIFO needs to be
+       emptied as part of a bulk read from the card. Some variants have these
+       two interrupts wired into the same line (logic OR) and in that case
+-      only one interrupt may be provided.
++      only one interrupt may be provided. The interrupt-names property is
++      not used due to inconsistency of existing DTs regarding its content.
+     minItems: 1
+     maxItems: 2
+ 
+-- 
+2.35.1
 
-Thanks!
-
-[1/2] ASoC: stm32: dfsdm: Fix PM disable depth imbalance in stm32_adfsdm_probe
-      commit: b9a0da5b2edcae2a901b85c8cc42efc5bec4bd7b
-[2/2] ASoC: stm32: spdifrx: Fix PM disable depth imbalance in stm32_spdifrx_probe
-      commit: 0325cc0ac7980e1c7b744aab8df59afab6daeb43
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
