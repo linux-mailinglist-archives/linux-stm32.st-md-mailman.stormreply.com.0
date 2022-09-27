@@ -2,66 +2,73 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6BBD45EBDB3
-	for <lists+linux-stm32@lfdr.de>; Tue, 27 Sep 2022 10:45:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CBF4C5EBDBE
+	for <lists+linux-stm32@lfdr.de>; Tue, 27 Sep 2022 10:49:37 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 33D21C63326;
-	Tue, 27 Sep 2022 08:45:51 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7B3FCC63326;
+	Tue, 27 Sep 2022 08:49:37 +0000 (UTC)
+Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6C1CDC5F1D3
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 27AC4C5F1D3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 27 Sep 2022 08:45:50 +0000 (UTC)
-Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 28R61EEc011790;
- Tue, 27 Sep 2022 10:45:35 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=Dyznb/HDuNwOefV0uJggIqu+fF7WsNix9IVaqdVthls=;
- b=KibQCYQoc6G6DQbxAArpZi7N+/JZRmPGy347Orel25+TXOjFsLlL6i0xrdudJpQ3gfdC
- 1yIldoSVwlukkVRyuR+DypIqMzQ1g8kYOZeTrsvlck5NoD5D14nFoyVBcu2JhkPHWs4q
- Yet/A0kWiRmndB8Jar9Kt0lGq76OrveL/K5lnPpr47eIJmu0nPrqcRCWF2gYUUOCNHjY
- qQSkTKMGV11W2Qh+amAGUo8qX1hvvadHMKpunoG8YR9oF9GgEqJSrurRaswI+3BnhimF
- Fc6vdOKrpI8eGMpLp8Vw8H5kCb05l3QljhMPYILlBE5x+pE3VFeq/1fXnNgaQ7ciwpZQ 7Q== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3jss82827j-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 27 Sep 2022 10:45:35 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 55F3F100034;
- Tue, 27 Sep 2022 10:45:35 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 504A7216EF0;
- Tue, 27 Sep 2022 10:45:35 +0200 (CEST)
-Received: from [10.201.20.201] (10.75.127.123) by SHFDAG1NODE2.st.com
- (10.75.129.70) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2375.31; Tue, 27 Sep
- 2022 10:45:32 +0200
-Message-ID: <3f21cc73-c190-7855-b1c6-722098b5fa22@foss.st.com>
-Date: Tue, 27 Sep 2022 10:45:31 +0200
+ Tue, 27 Sep 2022 08:49:35 +0000 (UTC)
+X-UUID: 54547f90f4c24f05a9716be71998a468-20220927
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com;
+ s=dk; 
+ h=Content-Transfer-Encoding:MIME-Version:Content-Type:References:In-Reply-To:Date:CC:To:From:Subject:Message-ID;
+ bh=PWBKd6s+alHmuqMW7zBzYd2csWJfir6MkKHpoQDs4cg=; 
+ b=Ry/6IipgkSU2hqtXGAVjuy+5b5xKfu8wglUEzfr25o/dRZNXDRdrpfArD37Q0c7f24lLrXcY8AdAyJF7tvOW6Gkp1z5HrlGZD8Y7nk99nIf+dxBrOBkWeJ5dOmohV/tOzja0ZcyL9//6S7HvkQQNNFwyRI7EzHI+Bd4AowS9IHk=;
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.1.11, REQID:6147a00e-7c2d-4823-ad3d-bed593ddf9b0, IP:0,
+ U
+ RL:0,TC:0,Content:0,EDM:0,RT:0,SF:45,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+ :release,TS:45
+X-CID-INFO: VERSION:1.1.11, REQID:6147a00e-7c2d-4823-ad3d-bed593ddf9b0, IP:0,
+ URL
+ :0,TC:0,Content:0,EDM:0,RT:0,SF:45,FILE:0,BULK:0,RULE:Release_Ham,ACTION:r
+ elease,TS:45
+X-CID-META: VersionHash:39a5ff1, CLOUDID:1eb737a3-dc04-435c-b19b-71e131a5fc35,
+ B
+ ulkID:220927164931O60JSLKQ,BulkQuantity:0,Recheck:0,SF:38|28|17|19|48,TC:n
+ il,Content:0,EDM:-3,IP:nil,URL:0,File:nil,Bulk:nil,QS:nil,BEC:nil,COL:0
+X-UUID: 54547f90f4c24f05a9716be71998a468-20220927
+Received: from mtkmbs13n1.mediatek.inc [(172.21.101.193)] by
+ mailgw01.mediatek.com (envelope-from <jianguo.zhang@mediatek.com>)
+ (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
+ with ESMTP id 1987659540; Tue, 27 Sep 2022 16:49:30 +0800
+Received: from mtkmbs11n2.mediatek.inc (172.21.101.187) by
+ mtkmbs10n2.mediatek.inc (172.21.101.183) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.792.3; 
+ Tue, 27 Sep 2022 16:49:29 +0800
+Received: from mhfsdcap04 (10.17.3.154) by mtkmbs11n2.mediatek.inc
+ (172.21.101.73) with Microsoft SMTP Server id 15.2.792.15 via Frontend
+ Transport; Tue, 27 Sep 2022 16:49:27 +0800
+Message-ID: <eb6a70844b067f76e8405b937de9408045d569a0.camel@mediatek.com>
+From: Jianguo Zhang <jianguo.zhang@mediatek.com>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, "David S . Miller"
+ <davem@davemloft.net>, Rob Herring <robh+dt@kernel.org>, "Krzysztof
+ Kozlowski" <krzysztof.kozlowski+dt@linaro.org>, AngeloGioacchino Del Regno
+ <angelogioacchino.delregno@collabora.com>
+Date: Tue, 27 Sep 2022 16:49:27 +0800
+In-Reply-To: <a215ae81-10de-7880-1a15-b7b08d0d80d7@linaro.org>
+References: <20220923052828.16581-1-jianguo.zhang@mediatek.com>
+ <20220923052828.16581-3-jianguo.zhang@mediatek.com>
+ <a215ae81-10de-7880-1a15-b7b08d0d80d7@linaro.org>
+X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.2 
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Content-Language: en-US
-To: Marek Vasut <marex@denx.de>, <linux-arm-kernel@lists.infradead.org>
-References: <20220926204708.381741-1-marex@denx.de>
-From: Yann Gautier <yann.gautier@foss.st.com>
-In-Reply-To: <20220926204708.381741-1-marex@denx.de>
-X-Originating-IP: [10.75.127.123]
-X-ClientProxiedBy: GPXDAG2NODE4.st.com (10.75.127.68) To SHFDAG1NODE2.st.com
- (10.75.129.70)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.528,FMLib:17.11.122.1
- definitions=2022-09-27_02,2022-09-22_02,2022-06-22_01
-Cc: devicetree@vger.kernel.org, Ulf Hansson <ulf.hansson@linaro.org>,
- Linus Walleij <linus.walleij@linaro.org>, linux-mmc@vger.kernel.org,
- Rob Herring <robh+dt@kernel.org>, linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH] dt-bindings: mmc: arm,
- pl18x: Document interrupt-names property
+X-MTK: N
+Cc: devicetree@vger.kernel.org, Biao Huang <biao.huang@mediatek.com>,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
+ linux-mediatek@lists.infradead.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v5 2/4] dt-bindings: net: snps,
+ dwmac: add clk_csr property
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,61 +80,37 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 9/26/22 22:47, Marek Vasut wrote:
+Dear Krzysztof,
 
-Hi Marek,
+	Thanks for your comment.
 
-> Document interrupt-names property with "event" and "error" interrupt names.
-Minor: this looks like a wrong copy/paste, the interrupt name is cmd_irq 
-here.
-
-Other than that, you can add my:
-Reviewed-by: Yann Gautier <yann.gautier@foss.st.com>
-
-
-Best regards,
-Yann
-
-> This fixes dtbs_check warnings when building current Linux DTs:
+On Fri, 2022-09-23 at 20:11 +0200, Krzysztof Kozlowski wrote:
+> On 23/09/2022 07:28, Jianguo Zhang wrote:
+> > The clk_csr property is parsed in driver for generating MDC clock
+> > with correct frequency. A warning('clk_csr' was unexpeted) is
+> > reported
+> > when runing 'make_dtbs_check' because the clk_csr property
+> > has been not documented in the binding file.
 > 
-> "
-> arch/arm/boot/dts/stm32mp153c-dhcom-drc02.dtb: mmc@58007000: Unevaluated properties are not allowed ('interrupt-names' was unexpected)
-> "
+> Your subject is not accurate anymore. Maybe mention that instead of
+> existing clk_csr, you add a different property.
 > 
-> Signed-off-by: Marek Vasut <marex@denx.de>
-> ---
-> Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
-> Cc: Linus Walleij <linus.walleij@linaro.org>
-> Cc: Rob Herring <robh+dt@kernel.org>
-> Cc: Ulf Hansson <ulf.hansson@linaro.org>
-> Cc: Yann Gautier <yann.gautier@foss.st.com>
-> Cc: devicetree@vger.kernel.org
-> Cc: linux-mmc@vger.kernel.org
-> Cc: linux-stm32@st-md-mailman.stormreply.com
-> To: linux-arm-kernel@lists.infradead.org
-> ---
->   Documentation/devicetree/bindings/mmc/arm,pl18x.yaml | 3 +++
->   1 file changed, 3 insertions(+)
+> With commit msg fixes:
 > 
-> diff --git a/Documentation/devicetree/bindings/mmc/arm,pl18x.yaml b/Documentation/devicetree/bindings/mmc/arm,pl18x.yaml
-> index 1e69a5a42439b..5f7eae8d57ab9 100644
-> --- a/Documentation/devicetree/bindings/mmc/arm,pl18x.yaml
-> +++ b/Documentation/devicetree/bindings/mmc/arm,pl18x.yaml
-> @@ -99,6 +99,9 @@ properties:
->       minItems: 1
->       maxItems: 2
->   
-> +  interrupt-names:
-> +    const: cmd_irq
-> +
->     st,sig-dir-dat0:
->       $ref: /schemas/types.yaml#/definitions/flag
->       description: ST Micro-specific property, bus signal direction pins used for
+> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> 
+We will fix commit message in next version patches.
+
+> Best regards,
+> Krzysztof
+> 
+BRS
+Jianguo
 
 _______________________________________________
 Linux-stm32 mailing list
