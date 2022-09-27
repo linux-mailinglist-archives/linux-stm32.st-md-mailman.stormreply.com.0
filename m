@@ -2,50 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A7CDE5EBB4B
+	by mail.lfdr.de (Postfix) with ESMTPS id C31855EBB4C
 	for <lists+linux-stm32@lfdr.de>; Tue, 27 Sep 2022 09:14:30 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 66F79C6411F;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7DF80C65042;
 	Tue, 27 Sep 2022 07:14:30 +0000 (UTC)
 Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10olkn2094.outbound.protection.outlook.com [40.92.40.94])
+ (mail-bn7nam10olkn2082.outbound.protection.outlook.com [40.92.40.82])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E9B2BC5F1D3
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CA7A9C5F1D3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 27 Sep 2022 01:31:11 +0000 (UTC)
+ Tue, 27 Sep 2022 01:31:25 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Tcxo4PAT+xECGHquVTF8o50t1Kmy1hxBjawJmrG6JRxdhmQBeblloslJIg0EMRRO8l2tXi9HNRL3pFShl/m7P9i7xY1MGgHiUKemqiOXDqhdEB9O4HXixrzA9CZllGkFMUKKyHDhjtt+17JR3nXfaRotd9NaZ3H3vEoz5oEXj6yFiPZgxrRpbGGq3ldYOeWH/wMB8cdGlRdE41te/nPQZq48UvOddV5+fRgu1N3zPuidIAhIZf+TJyqW5gT3kZ+WJG5aFEqA7Dl/km5bL/rip2nDNxSWnvB1iCaO8XSleyHiMdXzxXcD4k3FcOYDdgSwfhSPlEEwIEoEJCQUh6H6Jw==
+ b=lG9YN+5fmMFYChCLmv09d6DoPz+9mcJbSL02W3HM9qtlpkQfNoZsDh/9pF5DLdyY/6fPblIe9rlWPVAnSvkRVe3+8Z/Fv16P+ZBxIxpYLRQPJu8b31U+/6DAB1UL0BU25SeXt/FQY4Ao2zUO2o8R0EWfh7GHu6Jfuk1uuTY3eksCdRhhrXOcRoVQn8fhfV9THxRUP2diFCty26LbjfO7n59D6WQhRtGrxwwqoPDAteyWPLAFhfKfTIsItxYjby6ugo/2ldtT895WOIVK5cgVrV0jEc+3qVgFsh64lbwuDBYfwXWpgmezvZl27a7BNM3GqPMMlpEtXKQKqQ+sq0hnMQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=82bxiS1cMJNvHhpdmeAgqlsoMLj3ZxlgQECGUF4LHRM=;
- b=KZJgpb5OcdaHiDKzU0LmTUzgsSeWP88/RHYU2WKk1H8UUlr24CxaF6Pgd7QQVkiGsG+KT3o4eJ5txhctHEx7sphUBiYUdsqD7zEvx2CCc3lUSLaD987LPraLnMjUkcB9fcL2GUBw4MW2S53ex7ChGF+gdzxTBDFb1zdbi3/z1DEzmpmTPM3D5kU/3QA2xdbzEtvvLpSE2KJ5pkejIf9xf4CpVlc1ZoFRxseWA6kErE/o5X2OzaiEn50DLBC5Ek/j+7laO2siCc16ndjCxbqesBEOfPYR6aQHP8JmOwy4f/WWA75/FxHNV4DX+kChGs6affQy94gY112Hh4flQ5d0Iw==
+ bh=+4zYF8eV4ctC0Pqe7uaA6ObTP0IcWSN4Fdrifsq30GM=;
+ b=hl9aJB0IoDIsjj1FUU871QT2gRc80VHYy684lMkZ79z0UVCS8e785VopKm4en5Vx5eHsCazBreGDsbt8SdJuFcqqbO5k6omgRZSWlzHHz6mLWFcO+4EtMX7CBAi6QxL2m3TqwZLuWv6CRufp5BMj10BxReNxVhejgbH5/ftkwX+nTgZ4jvG3tv8m/QgfnwogYquQNhbCPQFygArxsUWu2Nm+ErD+N6Fa/8EA3KmOBp/CkFcZgmKiFMWEb1PqTBwdWhLcyv95iHp5URQuIrbP0VqwQNPyLW/OjWsbzOmJ8P4dciXQndp9Agf8t1YbHPgo73NneMniTeEc0uNwhen3vw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
  dkim=none; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=82bxiS1cMJNvHhpdmeAgqlsoMLj3ZxlgQECGUF4LHRM=;
- b=OgU7TzSfyiB0AXVfIGw4yLRsg7PQDJqeJmK1TeOPIRCmVPwJaPbpt7sosgRSBUv+vqxjeALZzIjHUWrPI5E0HxjPOBz+gZp6j3av2QgrzcsfeLgd/eGicguKjam+gjf11wKsTnomvt+xQYiBu1DPf8aF0wr0qCUOvwgY7Ug+UjUYtM2zwWxiHRSvZtrNFYU9wmB3VY31n+pAjT2oF2YZMjKdjHyVjesmoJsZVMvT0coQyCWp1QDqELwpmqSF4qY+tZHX9xeaF+bkT8za2sU9OJF2xizg3coNvhWkJGKGmZ9g0q7Z863opXYh0deyyleDZBcfjysWKRI+ZMzMds5JDA==
+ bh=+4zYF8eV4ctC0Pqe7uaA6ObTP0IcWSN4Fdrifsq30GM=;
+ b=cP5vWltNgsSpvT4vRK0vuMfET9t07dPBV+pBE0siywQqUL9SxoKIoXeuaj0QQLsAuXFkYmD5yBpDSXErsTch3rfBPtqJEB0H1Ah1mTJMfIT/JgZA0wMeIbd8gruSe/v65P36fryTyAfag6eDb4XANh2B1k6/OBZygb0WSE1C831lbgzSPqwXx7xf9ogyRxTrk5F5XCULNKmDaZhH6KW/fxHnUgRNgWIjgpG8MyCanz92jfBEnt7T8EOLqeZfDkp+U4N9r54Xn+FGZm+lyfL/XE4cICkbNUAbEXoELR1kcHqNtOUPGo+Pwmp1tdpb3H02jYsudcS8QUX6+SVeSJUJ8Q==
 Received: from MN2PR17MB3375.namprd17.prod.outlook.com (2603:10b6:208:13c::25)
  by PH0PR17MB4519.namprd17.prod.outlook.com (2603:10b6:510:15::13)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5654.26; Tue, 27 Sep
- 2022 01:31:06 +0000
+ 2022 01:31:21 +0000
 Received: from MN2PR17MB3375.namprd17.prod.outlook.com
  ([fe80::9883:9090:f2c6:24e2]) by MN2PR17MB3375.namprd17.prod.outlook.com
  ([fe80::9883:9090:f2c6:24e2%6]) with mapi id 15.20.5654.025; Tue, 27 Sep 2022
- 01:31:06 +0000
+ 01:31:21 +0000
 From: Vanessa Page <Vebpe@outlook.com>
 To: Serge Semin <fancer.lancer@gmail.com>, "Sergiu.Moga@microchip.com"
  <Sergiu.Moga@microchip.com>, Mark Brown <broonie@kernel.org>, Tudor Ambarus
  <tudor.ambarus@microchip.com>, Pratyush Yadav <pratyush@kernel.org>, Michael
  Walle <michael@walle.cc>
 Thread-Topic: [PATCH] spi: Replace `dummy.nbytes` with `dummy.ncycles`
-Thread-Index: AQHYxgcwXx6nXz60d0aHoDG+CM/mLq3wyR0AgAC5K4CAAItyAIAAhrbGgAAAHAOAAABIu4AAADkkgAAANcKAAABCNA==
-Date: Tue, 27 Sep 2022 01:31:06 +0000
-Message-ID: <MN2PR17MB3375559D3A89204B4AE71B96B8559@MN2PR17MB3375.namprd17.prod.outlook.com>
+Thread-Index: AQHYxgcwXx6nXz60d0aHoDG+CM/mLq3wyR0AgAC5K4CAAItyAIAAhrbGgAAAHAOAAABIu4AAADkkgAAANcKAAABUlw==
+Date: Tue, 27 Sep 2022 01:31:21 +0000
+Message-ID: <MN2PR17MB3375066D8634B83A630F2F73B8559@MN2PR17MB3375.namprd17.prod.outlook.com>
 References: <20220911174551.653599-1-sergiu.moga@microchip.com>
  <20220925220304.buk3yuqoh6vszfci@mobilestation>
  <18e6e8a8-6412-7e31-21e0-6becd4400ac1@microchip.com>
@@ -60,43 +60,43 @@ Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-x-tmn: [0ybY9D6b7P5JnIERtGHjhkKjrovFeoDeosTuGEe0KiM=]
+x-tmn: [JkstNNFqaSzAZeHITY7Kwj2gfxdjeUTA]
 x-ms-publictraffictype: Email
 x-ms-traffictypediagnostic: MN2PR17MB3375:EE_|PH0PR17MB4519:EE_
-x-ms-office365-filtering-correlation-id: bba74ef2-6d12-4fbb-7fd9-08daa027f305
+x-ms-office365-filtering-correlation-id: 7ba952e3-6f31-414a-fd07-08daa027fbee
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: X6ARvpXd4tTXVHlQ6EktjZ3sSuD1lmWkN8pddIvRp5t64db3FPujUnwnZxiu+zzSRV/i2YVO7UsppmcY1KBzYb/OorXeRQ951gT+/3FAlRYpUUzOlerjOUjeCm1036//7YUCzUgxu9RbY2pC3xqs1oo7VVzIysKWnOxhn3G7iXaQGNMhi94lbvUtknRHPm7aGofcxfMLdr/G/RwRJGvJaLF50N2ZVDWvF7Y+qwyXx2ZVWKk2oLqrEnn1C4+2YG8KYu7fZPLLUkMfayBYqifojYJafXxOppTvsNVd553zgKBIbLOl7/B3FKV6RJ9zwrkIZ1cmUYPaPgnWHrwmF+GdiCBajZfunSbyw5my4u2mkNwDnhXdVKLzZX2haRGA+CFmK35En555MMiDWx6TVX+RZ2ZOz94vwNlIYbkAHkrs6soSQNG8AdAenbYF4B5LY0riKcSKAJ8EUdwowyjgafr2RR7TNJNkr1gG4IWil26aXxOi0fjR9DdcsVOI+MXRCTt6zzhSjA65bpX6tR12A4J3JPVUtpT+8gQEhDwty5uX2f4zB5zcuRD2TK7GL/RAFTf5KkNMribI43bv8+rAxgeXb+XC7nJtWTd8BLpkqKX0PRryyKA5VWzEHbZUIZp+SKC62whBOANYQ4MudUIiwiE0NJ0Tlql4JzIEAh9kYLeyhucCKL8auokdPcjmD/NtDX8B
+x-microsoft-antispam-message-info: kWgDWkqQww0VU9NGwdULIhtWquiyLeztyICykpYdhdqZcIGcxZU0POTfSx+dA/hKcf2jzdXFcB7sWIRwdUC7ovdNXpRL+ZzrcynyyShElrE0MtobKWT1zn/4CqUTvPMlfoLu0NCxZx6Mrf4Zad9N1I7gSOyb0gDmhzz1eAWMiJrQSM59EGErZFF9Qg3BhypRjHX1tLcyw/OgiSBzrWzYfxilMSCw7QrC2rPyF8UHu/6sVd2MqgCZOUbO90OK7k+F0GDAo+JtGch2lz1jIc1x1fFimC8UhgobUjOrGCgmmwnIf/YShNqGpPRsfSpCEV4SQiAA8I521MYYTYdLlh4NLd3pdjxdL2iro/Qi5PH8X+BVIUj8h8+3v205tRr8gflm9gzjkQcBesNylVGtlkqAnKa1UOfrci4NnViq8YcwwzAB3N6JETM8z5++QKOWX6JLGyCL6hZSs422xd/aW5L+rts0lwuEQxUFonfKoh8ZsUZoTvYW35A3J1AMr/1vZ6MsdWmWYpBw1cECrSwgLxwdLjy/CroMf4se4hOS/8DPzMzyvnVKteVoTiFODIBfoK7Ox9las61VE10Scl3u5g7cu76FmyQEt3x7veY0ED1pT1sVEKqJd0jaYaaaBI8lvhnkVk90+SUtrp4mQy5wqVniRLSH2zZOhxfwl75on4P/0uJJ2c5hXF/AxW7JBC7r2VWa
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?Windows-1252?Q?W/VleTaKdJrNNcHXcYXtQRGX7OBOzvfDmA+PZIx3rkW4JgxTis4cWAAl?=
- =?Windows-1252?Q?3Pjj8vn8pBxET9d72lWwiqDsvL6mRTC+wyJQwB+IJ+0LnqWJ89VYQFRQ?=
- =?Windows-1252?Q?IvLvghZzzPTBio9FPHBMaJj253iYdIjgo6pCAwY1hkFga53LlR/0i3Du?=
- =?Windows-1252?Q?7shA9rQKkq7YMR6T7JqgiSjK5VizlS6YxEdM08d7g3kEe8pDyeEu0xzy?=
- =?Windows-1252?Q?jHRi/qwnxVgE8CLw3Gs70f2QK1jG7+OQ40Y5F7b+FOoKqmWDgWFfigxL?=
- =?Windows-1252?Q?TYXGAH9w0jo5Tq1f7jLR/332ROI2rjt5c8CLKxgYOq0tYRx3GxF0W2oY?=
- =?Windows-1252?Q?8fGv1AWKs11w68N5Mg/3nrHK/N8O1V+t5NwVVR33zwMK9rEvJNnjiiaq?=
- =?Windows-1252?Q?SQuOjWduK3lRlIfdIWJdVoLJoycEsPyBLkaoHgX/15HwgVQMbLnN861g?=
- =?Windows-1252?Q?Wg9FU+9DCEm1+KSgNYeCWKbU+nhZGhQQ8bvEh4gGzWBTLLKbqZngV5Iu?=
- =?Windows-1252?Q?iUdIa5OoAo/gqa23/81C3faZ0XceN4ecOpWnvZ29QrwRnn+6KBw8ga19?=
- =?Windows-1252?Q?Ge6zwktnagmTmrQfxEsJbtaC0QKh/uX9ANJMZyfQuU1HSwJFi8Vjpyyx?=
- =?Windows-1252?Q?9DUktpZ2MMpJ3sUzfBKSiTYH5yPW0syTg+do3O7GH2EXJ8iA8oB8ZH+N?=
- =?Windows-1252?Q?WuGHI5hr+dgElIJohBr95xpSEndVq/NW4QIhJyN5NQeNootB0F0CXXN8?=
- =?Windows-1252?Q?O/Q5Poj7+xrVOj2tfeLoxADuXM0PUcMtf6TdvRMrYWQWZUe+7wMhLHZ9?=
- =?Windows-1252?Q?PevY8sXE2sTQw1tZ0tn2mT7wJ8BzcNFdWamyJ7/6E7QY3wyRPuF2STHp?=
- =?Windows-1252?Q?zKMX5yRRw2e3e4VMe22IQfbI6K0LoMO3B9rvqmF/VQ/5lDCs0OoNXC7X?=
- =?Windows-1252?Q?0GnAwoeHBv+7DLeZJZ0zxjj64DtWumr1TQkit82rgGcTBv871HOPqdus?=
- =?Windows-1252?Q?DKdEL2prmOKdKRv8/cm8s5ngMKhB5pX8Y88eTXQHQzwQNmu+VZgrW1vJ?=
- =?Windows-1252?Q?D0wCES483T96luLtbGUGMooL36RcpApl8OuPbLLoEPfky0s9G6xbbEi7?=
- =?Windows-1252?Q?YLKsGTccPY82lO5C/99izfdTY66Lcibii6D9xm6ZIsu/Ecyul1CUeMN4?=
- =?Windows-1252?Q?jt10Jsl63Rb+h1AJksTd7t7zqcOYx1AiTCkIygbayFBP0eFYhEnjnMMk?=
- =?Windows-1252?Q?VPBcp5NFxDuS+h5Mk8jtSJ5kMO3OBzgBoq19Anoptf5AbsiUaELyANWz?=
- =?Windows-1252?Q?BFE73k9O8Y5/H3p+X7wUlt953gxa/ayrMu6WY7k/Mmc4ksfa?=
+x-ms-exchange-antispam-messagedata-0: =?Windows-1252?Q?AF0sBgBgIpgZ1Hxi9nheaApRCp26cY/ZEhWEzWlmRZ5oj6q/0PvdYO/p?=
+ =?Windows-1252?Q?c/h2Xyb2quKxSsHMT7mVs/6UjdmSDkdB/mW/7ChXMaiM4yvvSitiIaGF?=
+ =?Windows-1252?Q?Y/Tz/T4hdVMByv8lhapJH7aN9w8Q02h0mA2Pa9fkyy8swl6KZbaidR3x?=
+ =?Windows-1252?Q?z81rZfsYkHLeFbzM9H4Y0zmcasTEDCaGXidgVkMxiGpxt+q9lDQdrslU?=
+ =?Windows-1252?Q?k/yYyU0yiojt+gV8rGLeWgnoScEbJfyJumsB8pFFHRxnlLeKSpF8S7VQ?=
+ =?Windows-1252?Q?6U6EevEmGN7/5in7+n8FQfBVmztw/VjxjI0Pm1mtJEOYV1hATsZjeqkw?=
+ =?Windows-1252?Q?6dFz+wlTdmik3/FUyFtPK3a0WXQgC7dQyZ3uTI2WQ21d4q15SMfu1wz6?=
+ =?Windows-1252?Q?6IQ+ZAGZJZFfuKp1735D3sb5jzYrBHL1q07IKnIRyjWGYHLe31qKnqT3?=
+ =?Windows-1252?Q?4sJZSPCUr+2g9/Vq5xcGFKN5g7k3dhqnqoiAt1z3UKA0vtvCXlSsmk7S?=
+ =?Windows-1252?Q?qdDM1sOhKn8gDkUMWuNfGBpbEK/Hw7nRK3cDBJuQcMoABGjobxG/+VBY?=
+ =?Windows-1252?Q?/LR4RSxfZ7iMc1bA0OH9vE2C2eL/667bIcj2GHrPbWKOFDdQCzireYZN?=
+ =?Windows-1252?Q?5lgp2v07dypLk0hwubzeXk5CRwPS/dF0MpdzypKK+rOtrC88Pm4D4ABX?=
+ =?Windows-1252?Q?2/ZxC0b3j3x3QH/ZHhNnKcH8gJ2gj4L+ssSCRJrZepwfZ2V0Dtu3c2kf?=
+ =?Windows-1252?Q?f2a+XXVtPLpBzflVmvl6DUltlO05R2Z9qeP8nOJfWdeCvIcNG7jKqtq6?=
+ =?Windows-1252?Q?gm6htW3XXZ46/zMU04zGAzk9IsGEZ3nY2pT7uaCu38xLTqxbDbmKK9JE?=
+ =?Windows-1252?Q?RjovHshfXLU7YxcZa01x22ar8Rxy4k5SVDu6Uro83C4QA1GcrPNq9Q1v?=
+ =?Windows-1252?Q?q2aCU7AKA9WhjDDfUk0X7BfcLcjxJRw/WyUHab7VZ0C+3j7ux2Q/zZG6?=
+ =?Windows-1252?Q?IJsmN5rL1YpSe4j7KcMsb79/9OYKs+jIgIP06W/YDRoaGGLJrzLRG51d?=
+ =?Windows-1252?Q?1X96fqOoXgHZJUrK0DlKLXyATrm5WD5D9WTyaOJPsA1at4hXS5388lGJ?=
+ =?Windows-1252?Q?P1rMfLqzHzpiuCkWJBLrGCBIC7XRJXwOzzcIX9k4z0zaSJk+XE+LLm/n?=
+ =?Windows-1252?Q?l5YgTHFsB2O88hcN8c7Lgg0mNPxJZW0id1ccAb+4ttZKc/JkoNPxNOaj?=
+ =?Windows-1252?Q?bYRV09ptYsIMh6Xq87vd0aLXfFP1X7jSUTv+1JEw+Y0byKOL9/yF9dkA?=
+ =?Windows-1252?Q?srFZ4tlhDThJg1oGs9JdtwHiixMtiFu+czYs1Hh9WZViSJJ/?=
 MIME-Version: 1.0
 X-OriginatorOrg: outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: MN2PR17MB3375.namprd17.prod.outlook.com
 X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-CrossTenant-Network-Message-Id: bba74ef2-6d12-4fbb-7fd9-08daa027f305
-X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Sep 2022 01:31:06.7582 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7ba952e3-6f31-414a-fd07-08daa027fbee
+X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Sep 2022 01:31:21.6633 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
 X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
@@ -150,22 +150,20 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============3364253878609203222=="
+Content-Type: multipart/mixed; boundary="===============8965854193851125298=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
---===============3364253878609203222==
+--===============8965854193851125298==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_MN2PR17MB3375559D3A89204B4AE71B96B8559MN2PR17MB3375namp_"
+	boundary="_000_MN2PR17MB3375066D8634B83A630F2F73B8559MN2PR17MB3375namp_"
 
---_000_MN2PR17MB3375559D3A89204B4AE71B96B8559MN2PR17MB3375namp_
+--_000_MN2PR17MB3375066D8634B83A630F2F73B8559MN2PR17MB3375namp_
 Content-Type: text/plain; charset="Windows-1252"
 Content-Transfer-Encoding: quoted-printable
 
-You don=92t understand the world no
-
-You wanna play dumb bitch
+I git something for your ass
 ________________________________
 From: Vanessa Page
 Sent: Monday, September 26, 2022 9:30 PM
@@ -1206,7 +1204,7 @@ ______________________________________________________
 Linux MTD discussion mailing list
 http://lists.infradead.org/mailman/listinfo/linux-mtd/
 
---_000_MN2PR17MB3375559D3A89204B4AE71B96B8559MN2PR17MB3375namp_
+--_000_MN2PR17MB3375066D8634B83A630F2F73B8559MN2PR17MB3375namp_
 Content-Type: text/html; charset="Windows-1252"
 Content-Transfer-Encoding: quoted-printable
 
@@ -1219,12 +1217,7 @@ Content-Transfer-Encoding: quoted-printable
 <div style=3D"font-family: inherit; font-size: inherit; color: rgb(0, 0, 0)=
 ;"></div>
 <div style=3D"font-family: inherit; font-size: inherit; color: rgb(0, 0, 0)=
-;">You don=92t understand the world no</div>
-<div style=3D"font-family: inherit; font-size: inherit; color: rgb(0, 0, 0)=
-;"><br>
-</div>
-<div style=3D"font-family: inherit; font-size: inherit; color: rgb(0, 0, 0)=
-;">You wanna play dumb bitch&nbsp;</div>
+;">I git something for your ass</div>
 <hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
 <div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
 yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Vanessa Page<br>
@@ -2723,9 +2716,9 @@ ists.infradead.org/mailman/listinfo/linux-mtd/</a><br>
 </body>
 </html>
 
---_000_MN2PR17MB3375559D3A89204B4AE71B96B8559MN2PR17MB3375namp_--
+--_000_MN2PR17MB3375066D8634B83A630F2F73B8559MN2PR17MB3375namp_--
 
---===============3364253878609203222==
+--===============8965854193851125298==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -2736,4 +2729,4 @@ Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
 
---===============3364253878609203222==--
+--===============8965854193851125298==--
