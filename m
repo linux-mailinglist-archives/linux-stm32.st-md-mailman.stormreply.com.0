@@ -2,50 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 146585EBB47
+	by mail.lfdr.de (Postfix) with ESMTPS id 2E35F5EBB48
 	for <lists+linux-stm32@lfdr.de>; Tue, 27 Sep 2022 09:14:30 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BBC03C640E7;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E2C01C6411B;
 	Tue, 27 Sep 2022 07:14:29 +0000 (UTC)
 Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12olkn2038.outbound.protection.outlook.com [40.92.21.38])
+ (mail-bn8nam12olkn2070.outbound.protection.outlook.com [40.92.21.70])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8D714C5F1ED
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EC456C63324
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 27 Sep 2022 01:27:58 +0000 (UTC)
+ Tue, 27 Sep 2022 01:28:41 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=gE/7zrdFj0DHPVEVlTjHeGVeA/z0eQuIo3SvdGqoAKmxh3u2y8Wb8g6H378Pc3QbDnXcq6s4b2/M03WnpkaWR9xxsFXlrJLKwPlFVIryjTsqgqnp3WHspI6Cn5kqDGDydF6hVLZVVuYS081jvZYhYZSxN8vXhibDrpl2XF4UXrRtU01FXuwCefrud87GNT1x2ul3tARwxz5NzljDR/z4ivUNSSghA3e1t5xffXHtuG+6kGpcZ8xILCYRHaykHnNx2cDXT1kx2VUHjpYmKHE8rwY/idvHyYaW/6EgqaU/1Rv5IAKlGpIP5OlQ9u/jvPcHRLfPSqwK/WCLpWTfwsQ/sQ==
+ b=ErEEBnx09SPlHlINa0A+nHax7D8R1GaWzeKOSXedzBnzXxmKYhnbaRRPX2nP0KeV7n6VDaT7P1c/6HvcuwgfS+hHceLhKQm+OlMpPpltFZGTKGk3bcPNTNnNfxNZ0t7ifhlCjX07J2n1H90lidRvIa9zfjcs0mKY7vtYAjpngiV18ztu1QQzmj4r1gwo4D+2+v7OR1+g54ZH9MVS24x4CP7ZWPX4vSZjMe+0dyAmeXgauoXdxCrNaLrd+chYuxvDK3l01M0epSKiWRIZVCGjFiYX/bHxxHTmDnKc7g09sdnuk+U9NeNPpAOQmwVgoealG8uTVdRXduc6Ra9aR0pV6g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cpzifllDGWC2sEJ0E6BpXSbTcvWWSmXPBSqHNRnMLDI=;
- b=mTMR9Fpr2cbplnT0Q8O5YitaxehoIOiyal8Qmi/Byp1I4A3pGRg4Orp51RFLu+/KHj8hopoPAonBzmJb+zHhg7njvuTdyO+p8vzUDUOODUwNQ7UjJU/xPzuIhFEmBole/35Oa9vqyQsZ3UuOjRKm/sLYTqWD440+5Z85DgSvV+h5SZXINqCR++kNwYg7YLf/uv7WqVSiSOXiaKOkkmhzD/xjkyrouPaEJEbKAVzNQOY8Gso4aDxRSrzWiLLqkEumign0qrS4+8uHauDDKhLtzZNjMkGsIBifpjJbLEb57E7aX2rF+fnMift/H3SpvLOv5Ckf+4AT+BO3LWD9dOHShg==
+ bh=sDu9PHrIlIbNQV7C/jLuDPZIngLZZJbDpm2RBlyiuIU=;
+ b=lukgrDAm8xuwRzU9RussNCy5QiMYHP2SX4cbUGmZeLkoGw4eQTjRVFNhLofEa3VbS4yEkCB6oGqvOT80LRKR8OPiFbfC2+1sOhqUnraWkznJLMmEbpXA1kZ1ff3xP8HIrfW7jJ1kX5JB1dLbToOQj1gb5uDhr35guqHrnAvNWer7LNbYfeNE/FdNTzJwRKUwzIWC8lv3wO7h5YB0kvf+uzZ2jF48C7GFuE9n/NKkqBKFfm+N+H4lpKde7qeYtlSsbLxgikEAqJXjM5YyfAJIuEirtscPqsF1YtVxedjJdRwnlY1djbxzgtOhnKR8GKRGgv4j5xImcMXnRGnpRYphOA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
  dkim=none; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cpzifllDGWC2sEJ0E6BpXSbTcvWWSmXPBSqHNRnMLDI=;
- b=hC6QSz/5Qa3rlwhfXRHjexG/SmYxuTmsZKN4coSBAxlCugO/xJtDE0N80V0U1VYHUJlkB3HH8dHbf+nK+Y5szkYkDJyn0N9x7q+haNWf7TNRbrUpDMDg18OZB7k0HOkp4naAz5L6uG7yGmWTS4GDXBE2/8wFUhalqrTUc2cWLSkNtObyuxiKVZlouBgR/rC+KSlDh5sjRBzfIPzJKCGP8SG9AieJPc+HLyn5PVd0nTFrwegk0Cw0pJRfjynFKdh4CdupAAPzXLdb8R47izogBKWIlPgVYzxFsi248gFNm52uFbr+57N1rZz7jng6QvC3YcwKblizKqMwJ32u8c/aJg==
+ bh=sDu9PHrIlIbNQV7C/jLuDPZIngLZZJbDpm2RBlyiuIU=;
+ b=MTpx9Qz+KQilwKEJhB6LRyKL/Doez+eNV9d2FZaZ6/PFLAiw5DkXjIIkH51AdLgu7idWh3wpZfPUUxhTdLJ7qSMWU5JHPL/f0ayYg44rMqPcakcg7yxUyYZ6bn4PKcbKjCU7LbFuOhzHl/Z7pOQH676zJnvc522RrHOzKtZ9zLz87lmSlUaPm2McctVy9oixPGNjJCy7XOeQMV9obVRRpnRSwN6cjAFwzxedFMP9cO+NGppD7WrLm4zMWeI+rcwxQZqacYJpVHJr+nOQgjBZ5tqM/+k1qBM7CtJ8qF8TLj1xWFXyr6UKPwMVNIF0wOnxLJuKqtnTbWqDxPhfnxM6vw==
 Received: from MN2PR17MB3375.namprd17.prod.outlook.com (2603:10b6:208:13c::25)
  by MN2PR17MB3887.namprd17.prod.outlook.com (2603:10b6:208:200::20)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5654.16; Tue, 27 Sep
- 2022 01:27:54 +0000
+ 2022 01:28:38 +0000
 Received: from MN2PR17MB3375.namprd17.prod.outlook.com
  ([fe80::9883:9090:f2c6:24e2]) by MN2PR17MB3375.namprd17.prod.outlook.com
  ([fe80::9883:9090:f2c6:24e2%6]) with mapi id 15.20.5654.025; Tue, 27 Sep 2022
- 01:27:54 +0000
+ 01:28:38 +0000
 From: Vanessa Page <Vebpe@outlook.com>
 To: Serge Semin <fancer.lancer@gmail.com>, "Sergiu.Moga@microchip.com"
  <Sergiu.Moga@microchip.com>, Mark Brown <broonie@kernel.org>, Tudor Ambarus
  <tudor.ambarus@microchip.com>, Pratyush Yadav <pratyush@kernel.org>, Michael
  Walle <michael@walle.cc>
 Thread-Topic: [PATCH] spi: Replace `dummy.nbytes` with `dummy.ncycles`
-Thread-Index: AQHYxgcwXx6nXz60d0aHoDG+CM/mLq3wyR0AgAC5K4CAAItyAIAAhrbGgAAAHAOAAAAg/g==
-Date: Tue, 27 Sep 2022 01:27:54 +0000
-Message-ID: <MN2PR17MB337509C3D018AC2954ED4278B8559@MN2PR17MB3375.namprd17.prod.outlook.com>
+Thread-Index: AQHYxgcwXx6nXz60d0aHoDG+CM/mLq3wyR0AgAC5K4CAAItyAIAAhrbGgAAAHAOAAABIuw==
+Date: Tue, 27 Sep 2022 01:28:38 +0000
+Message-ID: <MN2PR17MB33757968B536CFF8072474FDB8559@MN2PR17MB3375.namprd17.prod.outlook.com>
 References: <20220911174551.653599-1-sergiu.moga@microchip.com>
  <20220925220304.buk3yuqoh6vszfci@mobilestation>
  <18e6e8a8-6412-7e31-21e0-6becd4400ac1@microchip.com>
@@ -57,43 +57,42 @@ Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-x-tmn: [Gh3ehLu5M5FNiXwcIPPgO3351jjXUeENHcqqACIY6GA=]
+x-tmn: [tToJeS6TqTRww95fpoKntRo2aST4NSfZJ3ycsE/O1yQ=]
 x-ms-publictraffictype: Email
 x-ms-traffictypediagnostic: MN2PR17MB3375:EE_|MN2PR17MB3887:EE_
-x-ms-office365-filtering-correlation-id: d1635d81-73f7-4268-2cd0-08daa02780a5
+x-ms-office365-filtering-correlation-id: 92aeff1f-224b-406c-535f-08daa0279aa5
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: Lb8ACKm36FeQuI1/XZ39xFSZ5Ehnnk7ockQeiERVQjILw3DEGtfUCArpynj8XFaaGF9dXWm5R7pLGIWehWXPwWjfaEifQIHE7ykUbPs88Ag9XGIn7mubjJTCQIUdEXldr3icxJ6NEszEb5DSD6CcSW688jGsPkLK9X6W21E2vq0mNhg9xScvEn7piTgcnyjQ/5Gj1bd1rJorTkX0Sruf3XVnM+J19deu0Oym2NRXfiJT+kFTE2mh147JF/ALrUALk28wbJlCdlj8d6TooGk0uALqvzElu6QkR8zUVIeGpjfmSdsKTSLPRwjY/z9tupEbOGbe32Hvn7XAVs/hmlZL/PYiTHnyFUAjg4iXYPdqnpFML/lOGJ5DVHA5PUFWzoXLyf/AszXThq9DVQZvQ4OsizA0pGZE+4HCUJMRKBAecNSNTiFf1wqvlajkF8vGq/IhTxARsqN3hfUixV3J4W6Rs05QYHX8Qr3VLNy0cUcbTG/0ZPYIn5UYdRSPapvW/bbjYPKZpN8GjOcE77QMF1Xhs6oiUN4xpEwbNcmiIxDdL+FNp6qj+OTgnDb4GKmAnptlLlk2JUaGg4jBjptct9NEPs9edHoMwH+T+6PqX4UfUVB2UuFA00/0cnfpH+jsFB5iN/M20/L6tMOaYietK+7ICooGSkYCuaoSNDjcmFhrfofb8GAOy/8du3w95XV81ZG4
+x-microsoft-antispam-message-info: gvWEXU/I3aQH3LePj/yhH6+2QYch4XNjZPFhndvGRKd1oMhekxleWv4jYdzffjnAqo9IimYTvPD3xl6TUelnjlBUBJrvevvpjG0kkZ3o+kwDGweSKRkEEQ0v9lJODGV9i/uWhbuzTD5+4kH0DkYbkSzAZgmY6UL0h60RjYa56oVZ4xInpEFhNMCmYClR5nVS5mCTBRucveMr1urG4pbvbYicxN3IkBM931fAfViyBpNzD02ilyfzEab8cTB6N4DrFeG6HpR79H5+XeuLdLE8JdbjAXm4q8eFb+0Ob1hWOkUMHduxqc5TnvsOn47z3nQyS4rcqZQ4gktdnQ2tkko/kd3/MKeAFKY0Wjds69+yAzuLcz/fZb0jNsqCcIVXGmjAoo2mxCTMKHPdsNIGFlG5rrOitalptAsu2BhJyTffB2o8NFQfzgmcaR/VusWb2wHUUGz+ZOiRD/K2XCFoZadCJ6DJYAB1lS++/Mpv8jQ7oIAGbe8O59wQJMctOkLVIpjnimfilgdpdnQ4pcRJu6YIBH87gk1MU88pnMliN/D0VysTYkaq2Chk+G1Frzi+o3vnQvDkrRH3pMl3K5nvu5rc9unzFBVFBFAGrABsiP8Wt8bQ3NuBP6mhI+ZY9Eg4MNBgCuYYiGckSoVrGt8EX3He+gxBdLh+SlX6bp5h9ODTfsK2undOILEEyQpP+tTjOtfr
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?PQh3R1kUmljRNYMg41NTaMaDV9cZ5PaUH4bzMt0jS1GDUIBRz6/K+Np4B2?=
- =?iso-8859-1?Q?Im6zAVaXnS0SG/mZzCnEZlScpXXdBWyOuCW+YPnkuUhekzXKJIuSV7ML7X?=
- =?iso-8859-1?Q?LDmkvtcyxF2up8bHBMGMt62ctwslMg8V05oIinSRsGz6n4/4F9v51q+ClU?=
- =?iso-8859-1?Q?iJ5qhWxfDyRJglwvu9M8Mzqa+QCQdNcpkzUbxs9VoHn+611N3Qs/jbaGZu?=
- =?iso-8859-1?Q?jtup7SXX7ME82X6t9Dop6PFoJlwbKs+vBXgnDYbRHZIz35Y4U4I7LzeSZK?=
- =?iso-8859-1?Q?pXCfGk2SHFm3wCarsHnU+NB0DwPzCDi9bD0uqoCawMs+QfoDI6yObGDa9h?=
- =?iso-8859-1?Q?lDJDTF3ieEzGPYzUz/Ju71euDsSzpgBv55ozuAe7/NZ+Ixecg8JyxVj+md?=
- =?iso-8859-1?Q?ssGpYQ85JP3y5Z5DC6Ai3XGgBv5B0LiFYkm3x6zu9qgjx4eHsRmpo7AMy5?=
- =?iso-8859-1?Q?BjiduGO0t1r5U0OoPfsMK4cclits8IupkWxdpeo90HMD9M08CUGTZuD9zl?=
- =?iso-8859-1?Q?z8ezKJySBHrEUpCpgsbylR6NsVQnDW6auejhTNfm/dqtv3fwUJMjLzwDOf?=
- =?iso-8859-1?Q?soPyAZZJUqxUdPTCR6RSGsP4Z9spMUd9iPya+3xW+of5pzjaqAtAL6nvhf?=
- =?iso-8859-1?Q?sZunwnCaIkFrEwvfTVb3EArHulDAX6i6IJSyiJm0mV72i3aATVI6uf+Qe2?=
- =?iso-8859-1?Q?tEhNBz9WvADUW5nWg3Fg0I6cfUwMkKr+d5dJhAvi0IEEtLPoY61ZLB9KXn?=
- =?iso-8859-1?Q?iqfLXWZ085Onb7Q2Po+a0U0SODsvxaBsWJrKte8Ygnl8gmicEd/4KPTs49?=
- =?iso-8859-1?Q?rCNbkJystu08RtKugcwXZGiaOpQaj1UjIdeXsUhZUkbnfZkk3QdjElqiM+?=
- =?iso-8859-1?Q?SF62hMnZWWtg7c16E+nCy9vx+LyxcQGnjvS0EGs7XNXEF75TgyQAA0Vcd5?=
- =?iso-8859-1?Q?TR31ka6BddWFI62x81IxT3y/H48uFWtYtR4OJBY+UYgQznt3E3/dCOuUuI?=
- =?iso-8859-1?Q?fzl2Bx2LbUuZvtLGqWRQR+xx6L7z+VN2eLUcIPEHog/bUGzFd5uHR7FuZG?=
- =?iso-8859-1?Q?9bkufe3iK1AyhhsCxgmc11ff9aLxI2wOzKEfIf07Ub41phuF1wv846Dm4s?=
- =?iso-8859-1?Q?ouif30xC6m8SNj1YnQrgsygrYASMP3VKWNYZGisvBbZ2wrd649+4xZq5Ba?=
- =?iso-8859-1?Q?nhcVec0GlJgx7NVuwC6SSfqJnCp7oi1LDV0CgSv4Nmjz9ELigT80QpdeRR?=
- =?iso-8859-1?Q?+wP9wl1sLV+S3jys9iUou6TrU5irJmDuFNtuFJtBFtjvaQiZ07qtSPgrGH?=
- =?iso-8859-1?Q?6otW?=
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?XKBvm8m+qlaYvTKO/Uw0W1KznAK8DPsSmlQoS57Nct7pf8jvJy3DWaFBkzcK?=
+ =?us-ascii?Q?/45Tk6uE/cPwD2CzpfZBJRr/BCAYadO5tGsqccFctiJ2Z/iHoxMul3p3TeWN?=
+ =?us-ascii?Q?fc3BcoZmCHiBcYZgaHC3Akl90zBRpNUaMdcY/YAt27Lr5C35kViNCKZOiyjx?=
+ =?us-ascii?Q?xNWRiksOMITgdYSmAy7wutYk4WOtWiwIZ3c0DvMMr9hOXkgwjEqPhEdsjxpg?=
+ =?us-ascii?Q?2fIAWCf8v1yAkGu372P5XIbXWakQzPqIYnAeJNVp7hFs111jQtMDm+ZIjvzC?=
+ =?us-ascii?Q?+srb6ALdJN9LEvyppPrp1AE+XE9tcao2LJNvhPTMQJnuR3PSPBYRxEEg4fYo?=
+ =?us-ascii?Q?NCoCYTOesFXc3yROMIYcrr9WBu0qmXg4TX5s02rcNg4i1hofabhysQ89aUOl?=
+ =?us-ascii?Q?mGWl24stXiSdwblOZcbzApWrlvKiMDVyuunVR8Dw5ucW0KBprVZnaZifqCPh?=
+ =?us-ascii?Q?eDBoOKjMkTal1yU9Vs9Y1gqG5QWP82u28HAdnBdbFEzbFoKeJXFI+HDzwVwr?=
+ =?us-ascii?Q?mXyqiNLYckY2l0yTSloPwzHbyGpQjYQDeg/vcajU3qKSKR7XkPXlINPlBeaB?=
+ =?us-ascii?Q?/4rCwt/uJYC5IodPND4IatnB4agqjGj6JtiuTeprkZSzqP9R4FczFKuDucAH?=
+ =?us-ascii?Q?z2uBkvM/YEUVtymR0QegPU2dW6JTTm7KoFzHNujryVBQqb5E65Hj5VbuuuMA?=
+ =?us-ascii?Q?rVuf63qYGB64fua8R1BMkouiDbK8D21Uo0vzbWU8yH4B+RWxAIl/1x4qBFq8?=
+ =?us-ascii?Q?7rMe90nGzsP8S/QxheNPTb6wd4g8QHN65ksKvf649xP8ty5CwTKS8t3npbW8?=
+ =?us-ascii?Q?nkXa9zD71DZaaTka96ZqF3TlJHdah+MmJdm1VgTOYbVnh7xxBfrOx4ePHN73?=
+ =?us-ascii?Q?UnkNCB4lhZD9sXPKtUl3dO/+XlEfe+qCWu1v+rKu8FCkd7igCgDNONKJZCBx?=
+ =?us-ascii?Q?qZiS+5xRWVU631CNZ4n2DLbAo3fzICIMGk9Pvk0WWPLlccobzie7e996c/Ck?=
+ =?us-ascii?Q?l6hOUUDAoRmChDurLrNxQTFzm8G2Eafevr8iusqwkEH/H5+0bviJO4OyF+yk?=
+ =?us-ascii?Q?aX/Z1NWf50cilm7CpUldnbuEX+ThO6MSmhY8CCEp9Tg8BRXJTWdH2fMjjNrV?=
+ =?us-ascii?Q?NFR89c9RsaF3zlS28YaJhHGRIMDbkmZeHKBX14lyOnBQMXsLpn2Z1wIYeqQ5?=
+ =?us-ascii?Q?9E5DRXUTlTLC0BbrfYd2Z3RobHFw7zwom/U6qSl7P7HK+QZs7Ei4DSeHBQig?=
+ =?us-ascii?Q?tx/Zay4hjB/y3Hj9/aRG?=
 MIME-Version: 1.0
 X-OriginatorOrg: outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: MN2PR17MB3375.namprd17.prod.outlook.com
 X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-CrossTenant-Network-Message-Id: d1635d81-73f7-4268-2cd0-08daa02780a5
-X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Sep 2022 01:27:54.8511 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 92aeff1f-224b-406c-535f-08daa0279aa5
+X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Sep 2022 01:28:38.4416 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
 X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
@@ -147,20 +146,20 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============4809027457046827021=="
+Content-Type: multipart/mixed; boundary="===============7127330313061188336=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
---===============4809027457046827021==
+--===============7127330313061188336==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_MN2PR17MB337509C3D018AC2954ED4278B8559MN2PR17MB3375namp_"
+	boundary="_000_MN2PR17MB33757968B536CFF8072474FDB8559MN2PR17MB3375namp_"
 
---_000_MN2PR17MB337509C3D018AC2954ED4278B8559MN2PR17MB3375namp_
-Content-Type: text/plain; charset="iso-8859-1"
+--_000_MN2PR17MB33757968B536CFF8072474FDB8559MN2PR17MB3375namp_
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
-dIRt ass black ass negros
+Why don't u discuss getting ur country out of poverty
 ________________________________
 From: Vanessa Page
 Sent: Monday, September 26, 2022 9:27 PM
@@ -1093,20 +1092,20 @@ ______________________________________________________
 Linux MTD discussion mailing list
 http://lists.infradead.org/mailman/listinfo/linux-mtd/
 
---_000_MN2PR17MB337509C3D018AC2954ED4278B8559MN2PR17MB3375namp_
-Content-Type: text/html; charset="iso-8859-1"
+--_000_MN2PR17MB33757968B536CFF8072474FDB8559MN2PR17MB3375namp_
+Content-Type: text/html; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
 <html>
 <head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
 </head>
 <body>
 <div style=3D"font-family: inherit; font-size: inherit; color: rgb(0, 0, 0)=
 ;"></div>
 <div style=3D"font-family: inherit; font-size: inherit; color: rgb(0, 0, 0)=
-;">dIRt ass black ass negros</div>
+;">Why don&#8217;t u discuss getting ur country out of poverty&nbsp;</div>
 <hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
 <div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
 yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Vanessa Page<br>
@@ -2446,9 +2445,9 @@ ists.infradead.org/mailman/listinfo/linux-mtd/</a><br>
 </body>
 </html>
 
---_000_MN2PR17MB337509C3D018AC2954ED4278B8559MN2PR17MB3375namp_--
+--_000_MN2PR17MB33757968B536CFF8072474FDB8559MN2PR17MB3375namp_--
 
---===============4809027457046827021==
+--===============7127330313061188336==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -2459,4 +2458,4 @@ Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
 
---===============4809027457046827021==--
+--===============7127330313061188336==--
