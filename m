@@ -2,23 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B54A15EB6E7
-	for <lists+linux-stm32@lfdr.de>; Tue, 27 Sep 2022 03:33:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 902335EB6CA
+	for <lists+linux-stm32@lfdr.de>; Tue, 27 Sep 2022 03:24:58 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6E7ADC63324;
-	Tue, 27 Sep 2022 01:33:43 +0000 (UTC)
-Received: from xgscpjt.cn (unknown [106.75.214.109])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 31C37C63324;
+	Tue, 27 Sep 2022 01:24:58 +0000 (UTC)
+Received: from phobos.denx.de (phobos.denx.de [85.214.62.61])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7378AC5F1D3
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4998CC5EC6B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 27 Sep 2022 01:33:41 +0000 (UTC)
+ Tue, 27 Sep 2022 01:24:56 +0000 (UTC)
+Received: from tr.lan (ip-86-49-12-201.bb.vodafone.cz [86.49.12.201])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
+ (No client certificate requested)
+ (Authenticated sender: marex@denx.de)
+ by phobos.denx.de (Postfix) with ESMTPSA id C4FAD845EF;
+ Tue, 27 Sep 2022 03:24:54 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de;
+ s=phobos-20191101; t=1664241895;
+ bh=Qbar4PN2LNDaYnWve5+IGbY8N/ouTxJqLJBgGyp/dDY=;
+ h=From:To:Cc:Subject:Date:From;
+ b=xq0CJi0mSWcQfknmt8561ovABRtORwgw6khEAAczjDRPLZW+bMdfclkSPtYORp5ib
+ qxlaoiKHk5xcmSjq749r9odlwMyvZJCN8AjQUxf3tnMbjtXDX970S337IvZW7W+pFw
+ SxTC7nzOsoOQAi3FF59OIlV0zpf/FiAwPW9MczCqzUEXFGlPThV8u1IbyXouDVAuwG
+ gHWtqIIZC0foDK3kfqCZI3ZfT83K6QLjEl80YG7T5gs2gK8TxIjNJfkMNz/mMhFdtj
+ hxT4/4nYvE8GjReaHmIZOVTyy3IltjW9xdwUXhB6eWhpuM8OthMGe8guYJmw+ZbgYk
+ mSwBnRCxi65jA==
+From: Marek Vasut <marex@denx.de>
+To: linux-arm-kernel@lists.infradead.org
+Date: Tue, 27 Sep 2022 03:24:49 +0200
+Message-Id: <20220927012449.698915-1-marex@denx.de>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
-From: =?utf-8?b?77ycUGF5UGF56YqA6KGM77ye?= <japannetbank.co.jp@xgscpjt.cn>
-Date: Tue, 27 Sep 2022 09:22:06 +0800
-To: linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] =?utf-8?b?44CQUGF5UGF56YqA6KGM44CR6YCB6YeR5aSx5pWX?=
-	=?utf-8?b?6YCa55+l?=
+X-Virus-Scanned: clamav-milter 0.103.6 at phobos.denx.de
+X-Virus-Status: Clean
+Cc: Marek Vasut <marex@denx.de>, devicetree@vger.kernel.org,
+ netdev@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
+ Jakub Kicinski <kuba@kernel.org>, Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Paolo Abeni <pabeni@redhat.com>, "David S . Miller" <davem@davemloft.net>
+Subject: [Linux-stm32] [PATCH] dt-bindings: net: snps,
+	dwmac: Document stmmac-axi-config subnode
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -30,54 +57,103 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============4661251408412003123=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-Message-Id: <20220927013343.6E7ADC63324@stm-ict-prod-mailman-01.stormreply.prv>
 
---===============4661251408412003123==
-Content-Type: text/html; charset="utf-8"
-Content-Transfer-Encoding: base64
+The stmmac-axi-config subnode is present in multiple dwmac instance DTs,
+document its content per snps,axi-config property description which is
+a phandle to this subnode.
 
-PCFET0NUWVBFIEhUTUwgUFVCTElDICItLy9XM0MvL0RURCBIVE1MIDQuMCBUcmFuc2l0aW9uYWwv
-L0VOIj4NCjxIVE1MPjxIRUFEPg0KPE1FVEEgY29udGVudD0idGV4dC9odG1sOyBjaGFyc2V0PXV0
-Zi04IiBodHRwLWVxdWl2PUNvbnRlbnQtVHlwZT4NCjxNRVRBIG5hbWU9R0VORVJBVE9SIGNvbnRl
-bnQ9Ik1TSFRNTCAxMS4wMC4xMDU3MC4xMDAxIj48L0hFQUQ+DQo8Qk9EWT4NCjxQPuKAu1BheVBh
-eemKgOihjDwvUD4NCjxwPuOBk+OCk+OBq+OBoeOBr+OAgeOBiuWuouanmOOBruWPo+W6p+OBjOeV
-sOW4uOOBruOBn+OCgeOAgeOBiuWuouanmOOBruWPo+W6p+OBq+aMr+OCiui+vOOCgOmam+OBq+OA
-geWFpemHkeOBmeOCi+OBk+OBqOOBjOWujOS6huOBp+OBjeOBvuOBm+OCk+OAgeOAgjxCUj4NCuOB
-lOaMr+i+vOOBv+mHkemhjeOBr+S4gOW/nOOBk+OBoeOCieOBp+mgkOOBi+OCiuOBvuOBmeOBruOB
-p+OAgeS4i+iomOODquODs+OCr+OBi+OCieWItumZkOOCkuino+mZpOOBl+OBpuOBj+OBoOOBleOB
-hOOAgjxCUj4NCuOBlOacrOS6uueiuuiqjeOBruS4iuOAgXBheXBheemKgOihjOOBi+OCiemAgemH
-kemgguOBjeOBvuOBmeOAgjwvcD4NCjxQPjxCUj7ilr3jgYrmiYvntprjgY3jga/jgZPjgaHjgok8
-QlI+PEEgDQpocmVmPSJodHRwczovL3BheXBheS1iYW5rLmhqdnRlci5jbj93Y3R4TkJDVzIxMDEu
-ZG9hLnBocCI+aHR0cHM6Ly9wYXlwYXktYmFuay5oanZ0ZXIuY24/d2N0eE5CQ1cyMTAxLmRvYS5w
-aHA8L0E+PEJSPg0K4oC744Oh44O844Or44KS5Y+X44GR5Y+W44Gj44Gf44GK5a6i44GV44G+5bCC
-55So44Gu44Oa44O844K444Gn44GZ44CC44G744GL44Gu44GK5a6i44GV44G+44Gv44GU5Yip55So
-44GE44Gf44Gg44GR44G+44Gb44KT44CCPEJSPg0KLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tPEJSPg0K5b+D6YWN44Gv44GE44KK44G+44Gb44KT44CC44K544K/44OD44OV44GM
-56K66KqN44GX44Gf5b6M44CB44GK5a6i5qeY44Gu44Ki44Kr44Km44Oz44OI44Gr6YCB6YeR44GE
-44Gf44GX44G+44GZ44CCPEJSPg0K44GT44KM44Gr44Gv5pmC6ZaT44GM44GL44GL44KL5aC05ZCI
-44GM44GC44KK44G+44GZ44CC44GK5omL5pWw44KS44GK44GL44GR44GX44Gm55Sz44GX6Kiz44GC
-44KK44G+44Gb44KT44CCPEJSPg0K5pyf6ZaT5Lit44CB5ouF5b2T6ICF44KI44KK56K66KqN44Gu
-44GK6Zu76Kmx44KS44GV44Gb44Gm44GE44Gf44Gg44GP5aC05ZCI44GM44GU44GW44GE44G+44GZ
-44Gu44Gn44CB44GU5rOo5oSP44GP44Gg44GV44GE44CCDQo8L1A+DQo8UD4tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS08QlI+4oC75pys44Oh44O844Or44G444Gu6L+U5L+h44Gr
-44KI44KL44GU6LOq5ZWP44Gr44Gv44GU5Zue562U44Gn44GN44G+44Gb44KT44CCPEJSPj09PT09
-PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PTxCUj4NClBheVBheemKgOihjOagquW8j+S8
-muekvjxCUj4NCuadseS6rOmDveaWsOWuv+WMuuilv+aWsOWuvzItMS0xPEJSPg0KPT09PT09PT09
-PT09PT09PT09PT09PT09PT09PT09PT09PT09PEJSPjwvUD4NCjxQPiZuYnNwOzwvUD48L0JPRFk+
-PC9IVE1MPg0K
+Signed-off-by: Marek Vasut <marex@denx.de>
+---
+Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
+Cc: David S. Miller <davem@davemloft.net>
+Cc: Eric Dumazet <edumazet@google.com>
+Cc: Giuseppe Cavallaro <peppe.cavallaro@st.com>
+Cc: Jakub Kicinski <kuba@kernel.org>
+Cc: Jose Abreu <joabreu@synopsys.com>
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Cc: Paolo Abeni <pabeni@redhat.com>
+Cc: Rob Herring <robh+dt@kernel.org>
+Cc: devicetree@vger.kernel.org
+Cc: linux-stm32@st-md-mailman.stormreply.com
+Cc: netdev@vger.kernel.org
+To: linux-arm-kernel@lists.infradead.org
+---
+ .../devicetree/bindings/net/snps,dwmac.yaml   | 54 +++++++++++++++++++
+ 1 file changed, 54 insertions(+)
 
---===============4661251408412003123==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+diff --git a/Documentation/devicetree/bindings/net/snps,dwmac.yaml b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+index 2d4e7c7c230a5..be8cd44e6a2aa 100644
+--- a/Documentation/devicetree/bindings/net/snps,dwmac.yaml
++++ b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+@@ -302,6 +302,60 @@ properties:
+     required:
+       - compatible
+ 
++  stmmac-axi-config:
++    type: object
++    unevaluatedProperties: false
++    description:
++      AXI BUS Mode parameters.
++
++    properties:
++      snps,lpi_en:
++        $ref: /schemas/types.yaml#/definitions/flag
++        description:
++          enable Low Power Interface
++
++      snps,xit_frm:
++        $ref: /schemas/types.yaml#/definitions/flag
++        description:
++          unlock on WoL
++
++      snps,wr_osr_lmt:
++        $ref: /schemas/types.yaml#/definitions/uint32
++        description:
++          max write outstanding req. limit
++
++      snps,rd_osr_lmt:
++        $ref: /schemas/types.yaml#/definitions/uint32
++        description:
++          max read outstanding req. limit
++
++      snps,kbbe:
++        $ref: /schemas/types.yaml#/definitions/uint32
++        description:
++          do not cross 1KiB boundary.
++
++      snps,blen:
++        $ref: /schemas/types.yaml#/definitions/uint32-array
++        description:
++          this is a vector of supported burst length.
++        minItems: 7
++        maxItems: 7
++
++      snps,fb:
++        $ref: /schemas/types.yaml#/definitions/flag
++        description:
++          fixed-burst
++
++      snps,mb:
++        $ref: /schemas/types.yaml#/definitions/flag
++        description:
++          mixed-burst
++
++      snps,rb:
++        $ref: /schemas/types.yaml#/definitions/flag
++        description:
++          rebuild INCRx Burst
++
+ required:
+   - compatible
+   - reg
+-- 
+2.35.1
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============4661251408412003123==--
