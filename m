@@ -2,97 +2,98 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C83135EBB46
-	for <lists+linux-stm32@lfdr.de>; Tue, 27 Sep 2022 09:14:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 146585EBB47
+	for <lists+linux-stm32@lfdr.de>; Tue, 27 Sep 2022 09:14:30 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6DFE3C64114;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BBC03C640E7;
 	Tue, 27 Sep 2022 07:14:29 +0000 (UTC)
 Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12olkn2103.outbound.protection.outlook.com [40.92.21.103])
+ (mail-bn8nam12olkn2038.outbound.protection.outlook.com [40.92.21.38])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 57C92C5EC6B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8D714C5F1ED
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 27 Sep 2022 01:27:32 +0000 (UTC)
+ Tue, 27 Sep 2022 01:27:58 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=eeCwLAZvSKO11gKiIJ5X3JV06gpICxqQHoSm+q5XE28aV30LlWQL6FNu/RAORoDhaiwfYYWCbN9Jml15Iee2cs+KFyK4Gl4oYzsjg9faGtcQjB7KTx4kaZCe1jQFs9xS5II8ctlP02qFDPZxYxgP8OauwErKZV0So47PSkGUKjerIuxVABmYfeMI5dgDl6cg/089lQk4iVLV7YMmQf8feC6RGSYJVFraAluFZ2Oy4knQyPoBlnYoTJmZBlOBijwegxwOCdhrbmkHFD53GAJ+3yE3ll8wME+4PxyPixBDTYEbMSNrh7x7G7eMiq/btQnBuCuvu+2rds/ZTcbl2kFQsw==
+ b=gE/7zrdFj0DHPVEVlTjHeGVeA/z0eQuIo3SvdGqoAKmxh3u2y8Wb8g6H378Pc3QbDnXcq6s4b2/M03WnpkaWR9xxsFXlrJLKwPlFVIryjTsqgqnp3WHspI6Cn5kqDGDydF6hVLZVVuYS081jvZYhYZSxN8vXhibDrpl2XF4UXrRtU01FXuwCefrud87GNT1x2ul3tARwxz5NzljDR/z4ivUNSSghA3e1t5xffXHtuG+6kGpcZ8xILCYRHaykHnNx2cDXT1kx2VUHjpYmKHE8rwY/idvHyYaW/6EgqaU/1Rv5IAKlGpIP5OlQ9u/jvPcHRLfPSqwK/WCLpWTfwsQ/sQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=uVnmG+gHxXmcKHALkYTC0SpQADLPZODP0V4eWLvJOME=;
- b=C1PaqjVUsSKYroMxskscFgaGUnrz98Vsa0u9epm/hop4RFgN311DMAnplWBOCAanVLCSAXunRwIOtmCjZnRSNXsV6TFODLQ+Rz3OQIzt63/oHgo7PHp5CMWeNuVjDBIy7sd0pU5vPWPDkgXNW1Ldhi1vNI0QdkPS7WDtw9gL7p8KiU8VoXI6H5/ye8LRVamRWVMNdfMqGlbDAhnRtZra1V+ElrUtl1Lbwme7bzyGjF0ZXrKSNv1do194DqcobH+SoZOEpFUBXv2tEpTHSZZH3nrPhtGSjTgPXar9MfZyzC//t9Dm2pugVhct0nGibA1oA7LfRE5Z5XcFyMsqm9bDPA==
+ bh=cpzifllDGWC2sEJ0E6BpXSbTcvWWSmXPBSqHNRnMLDI=;
+ b=mTMR9Fpr2cbplnT0Q8O5YitaxehoIOiyal8Qmi/Byp1I4A3pGRg4Orp51RFLu+/KHj8hopoPAonBzmJb+zHhg7njvuTdyO+p8vzUDUOODUwNQ7UjJU/xPzuIhFEmBole/35Oa9vqyQsZ3UuOjRKm/sLYTqWD440+5Z85DgSvV+h5SZXINqCR++kNwYg7YLf/uv7WqVSiSOXiaKOkkmhzD/xjkyrouPaEJEbKAVzNQOY8Gso4aDxRSrzWiLLqkEumign0qrS4+8uHauDDKhLtzZNjMkGsIBifpjJbLEb57E7aX2rF+fnMift/H3SpvLOv5Ckf+4AT+BO3LWD9dOHShg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
  dkim=none; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=uVnmG+gHxXmcKHALkYTC0SpQADLPZODP0V4eWLvJOME=;
- b=WpRU/W3Ei/bX7RCeYiAEeP+tsqHMhJn+pBkdzqg8hyE/mc2kkyq05q6gNg7EJrNB41/MtUwXmSbSmxXQ+ZCPezttt7/B1ymx4CvOqqs+RGwdABVlRiamxyt8FLSyIyiK34q7bl0x7DsPOE7MHtHFmIKLJAXog+w1/1OajU1aMcLrKVeIGYuiw9IC7xs5PvPmgJSYKEZf8MWRtisl8LqnOgJCSeDdytfe7PHvx75pFJNWR3eGlrOWBJewXMEgvtO6ajGkX78mE2sZioNfmqCB51sIjh/LnkIyfFxlQdDoCQ9njRc9DP1NI9tpWVeRuMG7GtFF237WVTSA36HQc5HsNw==
+ bh=cpzifllDGWC2sEJ0E6BpXSbTcvWWSmXPBSqHNRnMLDI=;
+ b=hC6QSz/5Qa3rlwhfXRHjexG/SmYxuTmsZKN4coSBAxlCugO/xJtDE0N80V0U1VYHUJlkB3HH8dHbf+nK+Y5szkYkDJyn0N9x7q+haNWf7TNRbrUpDMDg18OZB7k0HOkp4naAz5L6uG7yGmWTS4GDXBE2/8wFUhalqrTUc2cWLSkNtObyuxiKVZlouBgR/rC+KSlDh5sjRBzfIPzJKCGP8SG9AieJPc+HLyn5PVd0nTFrwegk0Cw0pJRfjynFKdh4CdupAAPzXLdb8R47izogBKWIlPgVYzxFsi248gFNm52uFbr+57N1rZz7jng6QvC3YcwKblizKqMwJ32u8c/aJg==
 Received: from MN2PR17MB3375.namprd17.prod.outlook.com (2603:10b6:208:13c::25)
  by MN2PR17MB3887.namprd17.prod.outlook.com (2603:10b6:208:200::20)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5654.16; Tue, 27 Sep
- 2022 01:27:28 +0000
+ 2022 01:27:54 +0000
 Received: from MN2PR17MB3375.namprd17.prod.outlook.com
  ([fe80::9883:9090:f2c6:24e2]) by MN2PR17MB3375.namprd17.prod.outlook.com
  ([fe80::9883:9090:f2c6:24e2%6]) with mapi id 15.20.5654.025; Tue, 27 Sep 2022
- 01:27:28 +0000
+ 01:27:54 +0000
 From: Vanessa Page <Vebpe@outlook.com>
 To: Serge Semin <fancer.lancer@gmail.com>, "Sergiu.Moga@microchip.com"
  <Sergiu.Moga@microchip.com>, Mark Brown <broonie@kernel.org>, Tudor Ambarus
  <tudor.ambarus@microchip.com>, Pratyush Yadav <pratyush@kernel.org>, Michael
  Walle <michael@walle.cc>
 Thread-Topic: [PATCH] spi: Replace `dummy.nbytes` with `dummy.ncycles`
-Thread-Index: AQHYxgcwXx6nXz60d0aHoDG+CM/mLq3wyR0AgAC5K4CAAItyAIAAhrbGgAAAHAM=
-Date: Tue, 27 Sep 2022 01:27:28 +0000
-Message-ID: <MN2PR17MB337522335D55558DA692A3A0B8559@MN2PR17MB3375.namprd17.prod.outlook.com>
+Thread-Index: AQHYxgcwXx6nXz60d0aHoDG+CM/mLq3wyR0AgAC5K4CAAItyAIAAhrbGgAAAHAOAAAAg/g==
+Date: Tue, 27 Sep 2022 01:27:54 +0000
+Message-ID: <MN2PR17MB337509C3D018AC2954ED4278B8559@MN2PR17MB3375.namprd17.prod.outlook.com>
 References: <20220911174551.653599-1-sergiu.moga@microchip.com>
  <20220925220304.buk3yuqoh6vszfci@mobilestation>
  <18e6e8a8-6412-7e31-21e0-6becd4400ac1@microchip.com>
  <20220926172454.kbpzck7med5bopre@mobilestation>
  <MN2PR17MB3375A8ACA1F35E16E3E767C6B8559@MN2PR17MB3375.namprd17.prod.outlook.com>
-In-Reply-To: <MN2PR17MB3375A8ACA1F35E16E3E767C6B8559@MN2PR17MB3375.namprd17.prod.outlook.com>
+ <MN2PR17MB337522335D55558DA692A3A0B8559@MN2PR17MB3375.namprd17.prod.outlook.com>
+In-Reply-To: <MN2PR17MB337522335D55558DA692A3A0B8559@MN2PR17MB3375.namprd17.prod.outlook.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-x-tmn: [q+iIaLC1Cr/rwGNm3/63a2tVjkdssIWNPFUNt/eRdHY=]
+x-tmn: [Gh3ehLu5M5FNiXwcIPPgO3351jjXUeENHcqqACIY6GA=]
 x-ms-publictraffictype: Email
 x-ms-traffictypediagnostic: MN2PR17MB3375:EE_|MN2PR17MB3887:EE_
-x-ms-office365-filtering-correlation-id: 1c22d995-ce03-4c06-aa46-08daa02770de
+x-ms-office365-filtering-correlation-id: d1635d81-73f7-4268-2cd0-08daa02780a5
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 3RZXpBfkUnPFey12drTh//NH0oDvjffH6jwgoHfHxDTye33+HkzrIBu4ZK/6EafrhdsLAtrOuuHR+qdSiXwSTlywYY/JuYxjOMtYZdosXuh8RMVvGziJWpEWP7AQU5GKM6LRKc0sCcGkf7VJEL2jU4xjwa4XXdb6FqSMoNOfIDgTk2lPGT+nHtxcKcZILsriGmKZCT/x9Pz7lRKEyfyRTlFd18us+LLRpELucpqdPs07rsK4YjQmpIHzKQIM9Lh5lCapbFv1oVdwxivltrUx3MXGfkxAuq8g/ZNhqGLztf7wIctV2z+g1SbMD7V6hJ4y63ZPJp8Y4PEP5GR3UdfmG2juIfShQCo+vEPOUBowZee6G8ZuwssUWzVYJYQ9Swj4q9hp1ddZiNOTsjdvP8YyrvuKDCfDPtyMA+xDswIcqysniqJPjbJNOVj6Nd9uMROsUMJvSnETybz4V8T906dbe4MFB3vWS+hN3s6KkfxtnFvG6TYMdrUub0aiYvsFQJWMPjPvlbITjWHWtWRhDox2GK1VINbQBrJinO5NVmsouTPBPIh9iW37iQgjcJFX/XeIwaFOCxbgfLNvjQrfvYJjmxrIr+pR9+USJGdNDFTh0gUqRhhPFlaerLN5N+oN4TkvsMK7eq1H0LhF5Oz6EbtE3vCypOsrX9SCYY/Sz1UBhyNNgyKKi64vcTABt2DL2cWZ
+x-microsoft-antispam-message-info: Lb8ACKm36FeQuI1/XZ39xFSZ5Ehnnk7ockQeiERVQjILw3DEGtfUCArpynj8XFaaGF9dXWm5R7pLGIWehWXPwWjfaEifQIHE7ykUbPs88Ag9XGIn7mubjJTCQIUdEXldr3icxJ6NEszEb5DSD6CcSW688jGsPkLK9X6W21E2vq0mNhg9xScvEn7piTgcnyjQ/5Gj1bd1rJorTkX0Sruf3XVnM+J19deu0Oym2NRXfiJT+kFTE2mh147JF/ALrUALk28wbJlCdlj8d6TooGk0uALqvzElu6QkR8zUVIeGpjfmSdsKTSLPRwjY/z9tupEbOGbe32Hvn7XAVs/hmlZL/PYiTHnyFUAjg4iXYPdqnpFML/lOGJ5DVHA5PUFWzoXLyf/AszXThq9DVQZvQ4OsizA0pGZE+4HCUJMRKBAecNSNTiFf1wqvlajkF8vGq/IhTxARsqN3hfUixV3J4W6Rs05QYHX8Qr3VLNy0cUcbTG/0ZPYIn5UYdRSPapvW/bbjYPKZpN8GjOcE77QMF1Xhs6oiUN4xpEwbNcmiIxDdL+FNp6qj+OTgnDb4GKmAnptlLlk2JUaGg4jBjptct9NEPs9edHoMwH+T+6PqX4UfUVB2UuFA00/0cnfpH+jsFB5iN/M20/L6tMOaYietK+7ICooGSkYCuaoSNDjcmFhrfofb8GAOy/8du3w95XV81ZG4
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?c0CdWfQvuaAcEwH62xTU0lClCLbZBletKKQHRsfYIKnUWEv7nouDowv5T+?=
- =?iso-8859-1?Q?Ki8GhXbzPeSReCXfKqy2+HZQL4e2+hKy52O8H6VfHOsn3zLQlubHtjfNo5?=
- =?iso-8859-1?Q?5UEUcZCclpDFkwJP21AsPAebqeXwkyTHUpIDt8r4zHmfoGHxAIHSyCnsAN?=
- =?iso-8859-1?Q?VZQrEYF+EjEkK/x01swRAXAqNv3rPTugghMRg5+ZbsKFdZneQb+APKn45b?=
- =?iso-8859-1?Q?b4CKfn2aQt7wx5u6OexYW0QxY/VvSBTPYb0IwtX5ulhgLQyCvPw4cDfmaS?=
- =?iso-8859-1?Q?rHyrNT5Rp+9ErMv66xuaJyCy0wDIFO8i3Gzed0IXeAlAhkiwKsnND4QiYe?=
- =?iso-8859-1?Q?CqYNuYTB0Xd+aEjgcV0EPLgGzmo2zjF1vBMGiFwvY2NHWAVXJoIx+F1lPY?=
- =?iso-8859-1?Q?1py70vII58MwV2/OSpRFMM1o90jOXlWiS9A77RSyHELWjN92vxMpJM0z3n?=
- =?iso-8859-1?Q?i4bpjwu89WhvCqKtliZw46vk9GmGR3UmMgAj+hvK5GguGwQxNXGYd5ZIs8?=
- =?iso-8859-1?Q?BOGBQs3vA3lB7sEjRjuhssedUHRWqjmMeBr58355PKvjk2Mvdt0SIe8Zlv?=
- =?iso-8859-1?Q?m08Gng7SpPs/AywpMxNe/Eg4a33zYR2K0U0xN8x3Q6cAhJZImvzG2n3gWF?=
- =?iso-8859-1?Q?dPAhihQHVdZwSFkpTokDNDwsXiPPV8O4E9oML8LntN7c/c7ARgzSrbkrvJ?=
- =?iso-8859-1?Q?IQtAL6Ael8ky+ckbapjs4llcJDFYpLTVoTWR3PctvJMPacN5EAkH3ECWWK?=
- =?iso-8859-1?Q?5bGMiIqfXfybj7tPKBYMFwDGOHTOspvNh4LM81aJx/gRYCN6CSnWIj3SQR?=
- =?iso-8859-1?Q?wPINNniWqSEtFdoFgJZ37WUF+vxll0ZUfq8pqL8DxLXXAsYOzvT9TD9TxA?=
- =?iso-8859-1?Q?+kg7AA6zoPz1VNw66dzS18zT47/7VomS+1YWf0uUukzTG3ZUGzMwAUF1Gl?=
- =?iso-8859-1?Q?zd8cuuptRBh5HIUyeIGw2Jjuk5gHWuYNNgJJq88rxiZfSiGXY7gDf23pWq?=
- =?iso-8859-1?Q?BZxZBLQwZR63twPDMpP1Y7Xszx+zvinn1951tZojSifsYkobXPBCerHcpg?=
- =?iso-8859-1?Q?oafRsP+hMwIDrXNos4I3HafMoLQEdsIpUX4igvR2RoFSlAGzuzeM3vY3IS?=
- =?iso-8859-1?Q?29KTi5UkmkXxU7vDnU8UJU4G5Mb61aCqRrPQ3gnlXgtihvBMggQaWrRuUb?=
- =?iso-8859-1?Q?sBJ6DB9fPj/f5woVG+pqlwTUicLt27U7XcjgRQXCAmhqVN0rIhCZd45adn?=
- =?iso-8859-1?Q?awksPjO4hxakj3p3UxIxBJhh6CjK8A0XJ8i8sIiizHzRP3KKJ+nOnB9HRF?=
- =?iso-8859-1?Q?64fZ?=
+x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?PQh3R1kUmljRNYMg41NTaMaDV9cZ5PaUH4bzMt0jS1GDUIBRz6/K+Np4B2?=
+ =?iso-8859-1?Q?Im6zAVaXnS0SG/mZzCnEZlScpXXdBWyOuCW+YPnkuUhekzXKJIuSV7ML7X?=
+ =?iso-8859-1?Q?LDmkvtcyxF2up8bHBMGMt62ctwslMg8V05oIinSRsGz6n4/4F9v51q+ClU?=
+ =?iso-8859-1?Q?iJ5qhWxfDyRJglwvu9M8Mzqa+QCQdNcpkzUbxs9VoHn+611N3Qs/jbaGZu?=
+ =?iso-8859-1?Q?jtup7SXX7ME82X6t9Dop6PFoJlwbKs+vBXgnDYbRHZIz35Y4U4I7LzeSZK?=
+ =?iso-8859-1?Q?pXCfGk2SHFm3wCarsHnU+NB0DwPzCDi9bD0uqoCawMs+QfoDI6yObGDa9h?=
+ =?iso-8859-1?Q?lDJDTF3ieEzGPYzUz/Ju71euDsSzpgBv55ozuAe7/NZ+Ixecg8JyxVj+md?=
+ =?iso-8859-1?Q?ssGpYQ85JP3y5Z5DC6Ai3XGgBv5B0LiFYkm3x6zu9qgjx4eHsRmpo7AMy5?=
+ =?iso-8859-1?Q?BjiduGO0t1r5U0OoPfsMK4cclits8IupkWxdpeo90HMD9M08CUGTZuD9zl?=
+ =?iso-8859-1?Q?z8ezKJySBHrEUpCpgsbylR6NsVQnDW6auejhTNfm/dqtv3fwUJMjLzwDOf?=
+ =?iso-8859-1?Q?soPyAZZJUqxUdPTCR6RSGsP4Z9spMUd9iPya+3xW+of5pzjaqAtAL6nvhf?=
+ =?iso-8859-1?Q?sZunwnCaIkFrEwvfTVb3EArHulDAX6i6IJSyiJm0mV72i3aATVI6uf+Qe2?=
+ =?iso-8859-1?Q?tEhNBz9WvADUW5nWg3Fg0I6cfUwMkKr+d5dJhAvi0IEEtLPoY61ZLB9KXn?=
+ =?iso-8859-1?Q?iqfLXWZ085Onb7Q2Po+a0U0SODsvxaBsWJrKte8Ygnl8gmicEd/4KPTs49?=
+ =?iso-8859-1?Q?rCNbkJystu08RtKugcwXZGiaOpQaj1UjIdeXsUhZUkbnfZkk3QdjElqiM+?=
+ =?iso-8859-1?Q?SF62hMnZWWtg7c16E+nCy9vx+LyxcQGnjvS0EGs7XNXEF75TgyQAA0Vcd5?=
+ =?iso-8859-1?Q?TR31ka6BddWFI62x81IxT3y/H48uFWtYtR4OJBY+UYgQznt3E3/dCOuUuI?=
+ =?iso-8859-1?Q?fzl2Bx2LbUuZvtLGqWRQR+xx6L7z+VN2eLUcIPEHog/bUGzFd5uHR7FuZG?=
+ =?iso-8859-1?Q?9bkufe3iK1AyhhsCxgmc11ff9aLxI2wOzKEfIf07Ub41phuF1wv846Dm4s?=
+ =?iso-8859-1?Q?ouif30xC6m8SNj1YnQrgsygrYASMP3VKWNYZGisvBbZ2wrd649+4xZq5Ba?=
+ =?iso-8859-1?Q?nhcVec0GlJgx7NVuwC6SSfqJnCp7oi1LDV0CgSv4Nmjz9ELigT80QpdeRR?=
+ =?iso-8859-1?Q?+wP9wl1sLV+S3jys9iUou6TrU5irJmDuFNtuFJtBFtjvaQiZ07qtSPgrGH?=
+ =?iso-8859-1?Q?6otW?=
 MIME-Version: 1.0
 X-OriginatorOrg: outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: MN2PR17MB3375.namprd17.prod.outlook.com
 X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1c22d995-ce03-4c06-aa46-08daa02770de
-X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Sep 2022 01:27:28.3687 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d1635d81-73f7-4268-2cd0-08daa02780a5
+X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Sep 2022 01:27:54.8511 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
 X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
@@ -146,18 +147,54 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============7932264172454340108=="
+Content-Type: multipart/mixed; boundary="===============4809027457046827021=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
---===============7932264172454340108==
+--===============4809027457046827021==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_MN2PR17MB337522335D55558DA692A3A0B8559MN2PR17MB3375namp_"
+	boundary="_000_MN2PR17MB337509C3D018AC2954ED4278B8559MN2PR17MB3375namp_"
 
---_000_MN2PR17MB337522335D55558DA692A3A0B8559MN2PR17MB3375namp_
+--_000_MN2PR17MB337509C3D018AC2954ED4278B8559MN2PR17MB3375namp_
 Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
+
+dIRt ass black ass negros
+________________________________
+From: Vanessa Page
+Sent: Monday, September 26, 2022 9:27 PM
+To: Serge Semin <fancer.lancer@gmail.com>; Sergiu.Moga@microchip.com <Sergi=
+u.Moga@microchip.com>; Mark Brown <broonie@kernel.org>; Tudor Ambarus <tudo=
+r.ambarus@microchip.com>; Pratyush Yadav <pratyush@kernel.org>; Michael Wal=
+le <michael@walle.cc>
+Cc: miquel.raynal@bootlin.com <miquel.raynal@bootlin.com>; richard@nod.at <=
+richard@nod.at>; vigneshr@ti.com <vigneshr@ti.com>; Nicolas.Ferre@microchip=
+.com <Nicolas.Ferre@microchip.com>; alexandre.belloni@bootlin.com <alexandr=
+e.belloni@bootlin.com>; Claudiu.Beznea@microchip.com <Claudiu.Beznea@microc=
+hip.com>; chin-ting_kuo@aspeedtech.com <chin-ting_kuo@aspeedtech.com>; clg@=
+kaod.org <clg@kaod.org>; joel@jms.id.au <joel@jms.id.au>; andrew@aj.id.au <=
+andrew@aj.id.au>; kdasu.kdev@gmail.com <kdasu.kdev@gmail.com>; han.xu@nxp.c=
+om <han.xu@nxp.com>; john.garry@huawei.com <john.garry@huawei.com>; matthia=
+s.bgg@gmail.com <matthias.bgg@gmail.com>; avifishman70@gmail.com <avifishma=
+n70@gmail.com>; tmaimon77@gmail.com <tmaimon77@gmail.com>; tali.perry1@gmai=
+l.com <tali.perry1@gmail.com>; venture@google.com <venture@google.com>; yue=
+nn@google.com <yuenn@google.com>; benjaminfair@google.com <benjaminfair@goo=
+gle.com>; haibo.chen@nxp.com <haibo.chen@nxp.com>; yogeshgaur.83@gmail.com =
+<yogeshgaur.83@gmail.com>; heiko@sntech.de <heiko@sntech.de>; mcoquelin.stm=
+32@gmail.com <mcoquelin.stm32@gmail.com>; alexandre.torgue@foss.st.com <ale=
+xandre.torgue@foss.st.com>; michal.simek@xilinx.com <michal.simek@xilinx.co=
+m>; bcm-kernel-feedback-list@broadcom.com <bcm-kernel-feedback-list@broadco=
+m.com>; linux-mtd@lists.infradead.org <linux-mtd@lists.infradead.org>; linu=
+x-kernel@vger.kernel.org <linux-kernel@vger.kernel.org>; linux-spi@vger.ker=
+nel.org <linux-spi@vger.kernel.org>; linux-arm-kernel@lists.infradead.org <=
+linux-arm-kernel@lists.infradead.org>; linux-aspeed@lists.ozlabs.org <linux=
+-aspeed@lists.ozlabs.org>; openbmc@lists.ozlabs.org <openbmc@lists.ozlabs.o=
+rg>; linux-mediatek@lists.infradead.org <linux-mediatek@lists.infradead.org=
+>; linux-rockchip@lists.infradead.org <linux-rockchip@lists.infradead.org>;=
+ linux-stm32@st-md-mailman.stormreply.com <linux-stm32@st-md-mailman.stormr=
+eply.com>
+Subject: Re: [PATCH] spi: Replace `dummy.nbytes` with `dummy.ncycles`
 
 Poverty minds kill
 ________________________________
@@ -1056,7 +1093,7 @@ ______________________________________________________
 Linux MTD discussion mailing list
 http://lists.infradead.org/mailman/listinfo/linux-mtd/
 
---_000_MN2PR17MB337522335D55558DA692A3A0B8559MN2PR17MB3375namp_
+--_000_MN2PR17MB337509C3D018AC2954ED4278B8559MN2PR17MB3375namp_
 Content-Type: text/html; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 
@@ -1069,7 +1106,7 @@ Content-Transfer-Encoding: quoted-printable
 <div style=3D"font-family: inherit; font-size: inherit; color: rgb(0, 0, 0)=
 ;"></div>
 <div style=3D"font-family: inherit; font-size: inherit; color: rgb(0, 0, 0)=
-;">Poverty minds kill&nbsp;</div>
+;">dIRt ass black ass negros</div>
 <hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
 <div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
 yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Vanessa Page<br>
@@ -1119,13 +1156,64 @@ lman.stormreply.com&gt;<br>
 <div>
 <div style=3D"font-family:inherit; font-size:inherit; color:rgb(0,0,0)"></d=
 iv>
+<div style=3D"font-family:inherit; font-size:inherit; color:rgb(0,0,0)">Pov=
+erty minds kill&nbsp;</div>
+<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
+<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
+color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Vanessa Page<br>
+<b>Sent:</b> Monday, September 26, 2022 9:27 PM<br>
+<b>To:</b> Serge Semin &lt;fancer.lancer@gmail.com&gt;; Sergiu.Moga@microch=
+ip.com &lt;Sergiu.Moga@microchip.com&gt;; Mark Brown &lt;broonie@kernel.org=
+&gt;; Tudor Ambarus &lt;tudor.ambarus@microchip.com&gt;; Pratyush Yadav &lt=
+;pratyush@kernel.org&gt;; Michael Walle &lt;michael@walle.cc&gt;<br>
+<b>Cc:</b> miquel.raynal@bootlin.com &lt;miquel.raynal@bootlin.com&gt;; ric=
+hard@nod.at &lt;richard@nod.at&gt;; vigneshr@ti.com &lt;vigneshr@ti.com&gt;=
+; Nicolas.Ferre@microchip.com &lt;Nicolas.Ferre@microchip.com&gt;; alexandr=
+e.belloni@bootlin.com &lt;alexandre.belloni@bootlin.com&gt;; Claudiu.Beznea=
+@microchip.com
+ &lt;Claudiu.Beznea@microchip.com&gt;; chin-ting_kuo@aspeedtech.com &lt;chi=
+n-ting_kuo@aspeedtech.com&gt;; clg@kaod.org &lt;clg@kaod.org&gt;; joel@jms.=
+id.au &lt;joel@jms.id.au&gt;; andrew@aj.id.au &lt;andrew@aj.id.au&gt;; kdas=
+u.kdev@gmail.com &lt;kdasu.kdev@gmail.com&gt;; han.xu@nxp.com &lt;han.xu@nx=
+p.com&gt;;
+ john.garry@huawei.com &lt;john.garry@huawei.com&gt;; matthias.bgg@gmail.co=
+m &lt;matthias.bgg@gmail.com&gt;; avifishman70@gmail.com &lt;avifishman70@g=
+mail.com&gt;; tmaimon77@gmail.com &lt;tmaimon77@gmail.com&gt;; tali.perry1@=
+gmail.com &lt;tali.perry1@gmail.com&gt;; venture@google.com &lt;venture@goo=
+gle.com&gt;;
+ yuenn@google.com &lt;yuenn@google.com&gt;; benjaminfair@google.com &lt;ben=
+jaminfair@google.com&gt;; haibo.chen@nxp.com &lt;haibo.chen@nxp.com&gt;; yo=
+geshgaur.83@gmail.com &lt;yogeshgaur.83@gmail.com&gt;; heiko@sntech.de &lt;=
+heiko@sntech.de&gt;; mcoquelin.stm32@gmail.com &lt;mcoquelin.stm32@gmail.co=
+m&gt;;
+ alexandre.torgue@foss.st.com &lt;alexandre.torgue@foss.st.com&gt;; michal.=
+simek@xilinx.com &lt;michal.simek@xilinx.com&gt;; bcm-kernel-feedback-list@=
+broadcom.com &lt;bcm-kernel-feedback-list@broadcom.com&gt;; linux-mtd@lists=
+.infradead.org &lt;linux-mtd@lists.infradead.org&gt;; linux-kernel@vger.ker=
+nel.org
+ &lt;linux-kernel@vger.kernel.org&gt;; linux-spi@vger.kernel.org &lt;linux-=
+spi@vger.kernel.org&gt;; linux-arm-kernel@lists.infradead.org &lt;linux-arm=
+-kernel@lists.infradead.org&gt;; linux-aspeed@lists.ozlabs.org &lt;linux-as=
+peed@lists.ozlabs.org&gt;; openbmc@lists.ozlabs.org &lt;openbmc@lists.ozlab=
+s.org&gt;;
+ linux-mediatek@lists.infradead.org &lt;linux-mediatek@lists.infradead.org&=
+gt;; linux-rockchip@lists.infradead.org &lt;linux-rockchip@lists.infradead.=
+org&gt;; linux-stm32@st-md-mailman.stormreply.com &lt;linux-stm32@st-md-mai=
+lman.stormreply.com&gt;<br>
+<b>Subject:</b> Re: [PATCH] spi: Replace `dummy.nbytes` with `dummy.ncycles=
+`</font>
+<div>&nbsp;</div>
+</div>
+<div>
+<div style=3D"font-family:inherit; font-size:inherit; color:rgb(0,0,0)"></d=
+iv>
 <div style=3D"font-family:inherit; font-size:inherit; color:rgb(0,0,0)">You=
  rape infested ass poverty ass dirt niggs</div>
 <hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
-color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> linux-mtd &lt;linux=
--mtd-bounces@lists.infradead.org&gt; on behalf of Serge Semin &lt;fancer.la=
-ncer@gmail.com&gt;<br>
+<div id=3D"x_x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif=
+" color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> linux-mtd &lt;lin=
+ux-mtd-bounces@lists.infradead.org&gt; on behalf of Serge Semin &lt;fancer.=
+lancer@gmail.com&gt;<br>
 <b>Sent:</b> Monday, September 26, 2022 1:24 PM<br>
 <b>To:</b> Sergiu.Moga@microchip.com &lt;Sergiu.Moga@microchip.com&gt;; Mar=
 k Brown &lt;broonie@kernel.org&gt;; Tudor Ambarus &lt;tudor.ambarus@microch=
@@ -1170,10 +1258,10 @@ stormreply.com &lt;linux-stm32@st-md-mailman.stormreply.com&gt;<br>
 `</font>
 <div>&nbsp;</div>
 </div>
-<div class=3D"x_BodyFragment"><font size=3D"2"><span style=3D"font-size:11p=
-t">
-<div class=3D"x_PlainText">@Mark, @Tudor, @Pratyush, @Michael could you ple=
-ase join the<br>
+<div class=3D"x_x_BodyFragment"><font size=3D"2"><span style=3D"font-size:1=
+1pt">
+<div class=3D"x_x_PlainText">@Mark, @Tudor, @Pratyush, @Michael could you p=
+lease join the<br>
 discussion regarding the dummy.buswidth and dummy.dtr fields in the<br>
 spi_mem_op structure?<br>
 <br>
@@ -2354,12 +2442,13 @@ ists.infradead.org/mailman/listinfo/linux-mtd/</a><br>
 </div>
 </span></font></div>
 </div>
+</div>
 </body>
 </html>
 
---_000_MN2PR17MB337522335D55558DA692A3A0B8559MN2PR17MB3375namp_--
+--_000_MN2PR17MB337509C3D018AC2954ED4278B8559MN2PR17MB3375namp_--
 
---===============7932264172454340108==
+--===============4809027457046827021==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -2370,4 +2459,4 @@ Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
 
---===============7932264172454340108==--
+--===============4809027457046827021==--
