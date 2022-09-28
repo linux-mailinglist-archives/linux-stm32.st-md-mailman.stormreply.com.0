@@ -2,68 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F7F35ED724
-	for <lists+linux-stm32@lfdr.de>; Wed, 28 Sep 2022 10:09:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A8F8C5ED875
+	for <lists+linux-stm32@lfdr.de>; Wed, 28 Sep 2022 11:11:15 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 08C08C63328;
-	Wed, 28 Sep 2022 08:09:38 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6D6BBC640F1;
+	Wed, 28 Sep 2022 09:11:15 +0000 (UTC)
+Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4B914C63326
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5AD67C640E7
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 28 Sep 2022 08:09:36 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 28S7sRoI005109;
- Wed, 28 Sep 2022 10:09:25 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=zpp3fXmExbi4zuXL7G0pk9iHInFqa9wgnpuIripZZOY=;
- b=ZrjMK9k616bNbcptsOAzwBK/pJ3FzIzk93p26TXgvNFB8UEq4U86i4c5VBA+t5tD6ier
- tCRJuijTWMeRwcoCJ2xFb/7mA87nv8Jx91Afpp/yBrNJAdTL6ZBcKKo8SIu4S6ZwgLrM
- 9clElgnyrLBKjKHxeJrj5Bp3CvOJ4Am7/ECAyQI97sYBhQTo7JZhGCoEH/nlY5t3YxX5
- q/wO43qG6uQlKcuNcSvnRgqkrwSZs3OA3IW2rjkw9Q2x1XYVoJP+OHfwCp1sTJ9KYvy9
- hQiYosfW5b20Bi1nGEGjDCefVu+BrBp0CuvVVyZ5wkpdTivD7YOU4mAAiDfo08fUJunb Rg== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3jsrsjqk3a-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 28 Sep 2022 10:09:25 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 18EFF10002A;
- Wed, 28 Sep 2022 10:09:25 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 14814214D19;
- Wed, 28 Sep 2022 10:09:25 +0200 (CEST)
-Received: from [10.252.26.214] (10.75.127.44) by SHFDAG1NODE1.st.com
- (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2375.31; Wed, 28 Sep
- 2022 10:09:24 +0200
-Message-ID: <9d2e9e86-f9fa-a019-8cb6-cf6ac9ee9ca8@foss.st.com>
-Date: Wed, 28 Sep 2022 10:09:24 +0200
+ Wed, 28 Sep 2022 09:11:13 +0000 (UTC)
+X-UUID: e624599bd10e49e7a1f6bee25eb90c5c-20220928
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com;
+ s=dk; 
+ h=Content-Type:Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:CC:To:From;
+ bh=6EbUE9eXICSrLDk/g7xuI/oop7XTueJZWuVc89h51mU=; 
+ b=prPVIhzbDU88s18OPlw9HRbyyvGMvOc0FMgzvnkrWu8rHU4VgWR3LEHtEST4NAbwff0QebA/BnWQvdEL3ZnW5MMZE4YS5qP6vUHCNcYJHLT8/i6Ymp/ZSXg6ukF14BUw4Fm7+GQ/L7mdybzXQ7kMEZMhs2RgVHkDKl7QgzCclxc=;
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.1.11, REQID:a180078f-3e6c-4d4b-b2bd-15599b4e9003, IP:0,
+ U
+ RL:0,TC:0,Content:-5,EDM:0,RT:0,SF:95,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
+ N:release,TS:90
+X-CID-INFO: VERSION:1.1.11, REQID:a180078f-3e6c-4d4b-b2bd-15599b4e9003, IP:0,
+ URL
+ :0,TC:0,Content:-5,EDM:0,RT:0,SF:95,FILE:0,BULK:0,RULE:Spam_GS981B3D,ACTIO
+ N:quarantine,TS:90
+X-CID-META: VersionHash:39a5ff1, CLOUDID:81b34d07-1cee-4c38-b21b-a45f9682fdc0,
+ B
+ ulkID:220928171106D7S31BD0,BulkQuantity:0,Recheck:0,SF:38|28|17|19|48|823|
+ 824,TC:nil,Content:0,EDM:-3,IP:nil,URL:0,File:nil,Bulk:nil,QS:nil,BEC:nil,
+ COL:0
+X-UUID: e624599bd10e49e7a1f6bee25eb90c5c-20220928
+Received: from mtkmbs10n1.mediatek.inc [(172.21.101.34)] by
+ mailgw02.mediatek.com (envelope-from <jianguo.zhang@mediatek.com>)
+ (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
+ with ESMTP id 232848167; Wed, 28 Sep 2022 17:11:03 +0800
+Received: from mtkcas11.mediatek.inc (172.21.101.40) by
+ mtkmbs11n2.mediatek.inc (172.21.101.187) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
+ 15.2.792.15; Wed, 28 Sep 2022 17:11:02 +0800
+Received: from localhost.localdomain (10.17.3.154) by mtkcas11.mediatek.inc
+ (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via Frontend
+ Transport; Wed, 28 Sep 2022 17:11:00 +0800
+From: Jianguo Zhang <jianguo.zhang@mediatek.com>
+To: "David S . Miller" <davem@davemloft.net>, Rob Herring
+ <robh+dt@kernel.org>, Krzysztof Kozlowski
+ <krzysztof.kozlowski+dt@linaro.org>, AngeloGioacchino Del Regno
+ <angelogioacchino.delregno@collabora.com>
+Date: Wed, 28 Sep 2022 17:10:48 +0800
+Message-ID: <20220928091052.18490-1-jianguo.zhang@mediatek.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Content-Language: en-US
-To: Marek Vasut <marex@denx.de>, <linux-arm-kernel@lists.infradead.org>
-References: <20220927184657.291714-1-marex@denx.de>
-From: Benjamin MUGNIER <benjamin.mugnier@foss.st.com>
-In-Reply-To: <20220927184657.291714-1-marex@denx.de>
-X-Originating-IP: [10.75.127.44]
-X-ClientProxiedBy: SFHDAG2NODE3.st.com (10.75.127.6) To SHFDAG1NODE1.st.com
- (10.75.129.69)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.528,FMLib:17.11.122.1
- definitions=2022-09-28_03,2022-09-27_01,2022-06-22_01
-Cc: devicetree@vger.kernel.org, Sylvain Petinot <sylvain.petinot@foss.st.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Rob Herring <robh+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-media@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH v2] dt-bindings: media: st,
- stmipid02: Convert the text bindings to YAML
+X-MTK: N
+Cc: devicetree@vger.kernel.org, Biao Huang <biao.huang@mediatek.com>,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Jianguo Zhang <jianguo.zhang@mediatek.com>, Eric Dumazet <edumazet@google.com>,
+ Jose Abreu <joabreu@synopsys.com>, linux-mediatek@lists.infradead.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH v6 0/4] Mediatek ethernet patches for mt8188
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,334 +81,55 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Marek,
+Changes in v6:
 
-Thank you for your patch.
+v6:
+1) Update commit message of patch 'dt-bindings: net: snps,dwmac: add new property snps,clk-csr'
+2) Add a parse for new property 'snps,clk-csr' in patch
+'net: stmmac: add a parse for new property 'snps,clk-csr''
 
-On 9/27/22 20:46, Marek Vasut wrote:
-> Convert the text STMIPID02 DT bindings to YAML DT format to permit
-> validation of DTs using this I2C CSI-2 to CPI bridge.
-> 
-> Signed-off-by: Marek Vasut <marex@denx.de>
+v5:
+1) Rename the property 'clk_csr' as 'snps,clk-csr' in binding
+file as Krzysztof Kozlowski'comment.
+2) Add DTS patch 'arm64: dts: mediatek: mt2712e: Update the name of property 'clk_csr''
+as Krzysztof Kozlowski'comment.
+3) Add driver patch 'net: stmmac: Update the name of property 'clk_csr''
+as Krzysztof Kozlowski'comment.
 
-Reviewed-by: Benjamin Mugnier <benjamin.mugnier@foss.st.com>
+v4:
+1) Update the commit message of patch 'dt-bindings: net: snps,dwmac: add clk_csr property'
+as Krzysztof Kozlowski'comment.
+
+v3:
+1) List the names of SoCs mt8188 and mt8195 in correct order as
+AngeloGioacchino Del Regno's comment.
+2) Add patch version info as Krzysztof Kozlowski'comment.
+
+v2:
+1) Delete patch 'stmmac: dwmac-mediatek: add support for mt8188' as
+Krzysztof Kozlowski's comment.
+2) Update patch 'dt-bindings: net: mediatek-dwmac: add support for
+mt8188' as Krzysztof Kozlowski's comment.
+3) Add clk_csr property to fix warning ('clk_csr' was unexpected) when
+runnig 'make dtbs_check'.
+
+v1:
+1) Add ethernet driver entry for mt8188.
+2) Add binding document for ethernet on mt8188.
+
+Jianguo Zhang (4):
+  dt-bindings: net: mediatek-dwmac: add support for mt8188
+  dt-bindings: net: snps,dwmac: add new property snps,clk-csr
+  arm64: dts: mediatek: mt2712e: Update the name of property 'clk_csr'
+  net: stmmac: add a parse for new property 'snps,clk-csr'
+
+ .../devicetree/bindings/net/mediatek-dwmac.yaml        | 10 ++++++++--
+ Documentation/devicetree/bindings/net/snps,dwmac.yaml  |  5 +++++
+ arch/arm64/boot/dts/mediatek/mt2712e.dtsi              |  2 +-
+ drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c  |  4 +++-
+ 4 files changed, 17 insertions(+), 4 deletions(-)
 
 
-Regards,
-
-Benjamin
-
-> ---
-> Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
-> Cc: Benjamin Mugnier <benjamin.mugnier@foss.st.com>
-> Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-> Cc: Mauro Carvalho Chehab <mchehab@kernel.org>
-> Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-> Cc: Rob Herring <robh+dt@kernel.org>
-> Cc: Sylvain Petinot <sylvain.petinot@foss.st.com>
-> Cc: devicetree@vger.kernel.org
-> Cc: linux-media@vger.kernel.org
-> Cc: linux-stm32@st-md-mailman.stormreply.com
-> To: linux-arm-kernel@lists.infradead.org
-> ---
-> V2: - Update YAML DT schema maintainers, add Benjamin and Sylvain, drop myself
->     - Update MAINTAINERS file, replace st,st-mipid02.txt to st,st-mipid02.yaml
->     - Fix bus-width to be 6,7,8,10,12 and drop default:
->     - Require port@2 and either or both port@0 or port@1
-> ---
->  .../bindings/media/i2c/st,st-mipid02.txt      |  82 --------
->  .../bindings/media/i2c/st,st-mipid02.yaml     | 179 ++++++++++++++++++
->  MAINTAINERS                                   |   2 +-
->  3 files changed, 180 insertions(+), 83 deletions(-)
->  delete mode 100644 Documentation/devicetree/bindings/media/i2c/st,st-mipid02.txt
->  create mode 100644 Documentation/devicetree/bindings/media/i2c/st,st-mipid02.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/media/i2c/st,st-mipid02.txt b/Documentation/devicetree/bindings/media/i2c/st,st-mipid02.txt
-> deleted file mode 100644
-> index 7976e6c40a80a..0000000000000
-> --- a/Documentation/devicetree/bindings/media/i2c/st,st-mipid02.txt
-> +++ /dev/null
-> @@ -1,82 +0,0 @@
-> -STMicroelectronics MIPID02 CSI-2 to PARALLEL bridge
-> -
-> -MIPID02 has two CSI-2 input ports, only one of those ports can be active at a
-> -time. Active port input stream will be de-serialized and its content outputted
-> -through PARALLEL output port.
-> -CSI-2 first input port is a dual lane 800Mbps per lane whereas CSI-2 second
-> -input port is a single lane 800Mbps. Both ports support clock and data lane
-> -polarity swap. First port also supports data lane swap.
-> -PARALLEL output port has a maximum width of 12 bits.
-> -Supported formats are RAW6, RAW7, RAW8, RAW10, RAW12, RGB565, RGB888, RGB444,
-> -YUV420 8-bit, YUV422 8-bit and YUV420 10-bit.
-> -
-> -Required Properties:
-> -- compatible: shall be "st,st-mipid02"
-> -- clocks: reference to the xclk input clock.
-> -- clock-names: shall be "xclk".
-> -- VDDE-supply: sensor digital IO supply. Must be 1.8 volts.
-> -- VDDIN-supply: sensor internal regulator supply. Must be 1.8 volts.
-> -
-> -Optional Properties:
-> -- reset-gpios: reference to the GPIO connected to the xsdn pin, if any.
-> -	       This is an active low signal to the mipid02.
-> -
-> -Required subnodes:
-> -  - ports: A ports node with one port child node per device input and output
-> -	   port, in accordance with the video interface bindings defined in
-> -	   Documentation/devicetree/bindings/media/video-interfaces.txt. The
-> -	   port nodes are numbered as follows:
-> -
-> -	   Port Description
-> -	   -----------------------------
-> -	   0    CSI-2 first input port
-> -	   1    CSI-2 second input port
-> -	   2    PARALLEL output
-> -
-> -Endpoint node required property for CSI-2 connection is:
-> -- data-lanes: shall be <1> for Port 1. for Port 0 dual-lane operation shall be
-> -<1 2> or <2 1>. For Port 0 single-lane operation shall be <1> or <2>.
-> -Endpoint node optional property for CSI-2 connection is:
-> -- lane-polarities: any lane can be inverted or not.
-> -
-> -Endpoint node required property for PARALLEL connection is:
-> -- bus-width: shall be set to <6>, <7>, <8>, <10> or <12>.
-> -Endpoint node optional properties for PARALLEL connection are:
-> -- hsync-active: active state of the HSYNC signal, 0/1 for LOW/HIGH respectively.
-> -LOW being the default.
-> -- vsync-active: active state of the VSYNC signal, 0/1 for LOW/HIGH respectively.
-> -LOW being the default.
-> -
-> -Example:
-> -
-> -mipid02: csi2rx@14 {
-> -	compatible = "st,st-mipid02";
-> -	reg = <0x14>;
-> -	status = "okay";
-> -	clocks = <&clk_ext_camera_12>;
-> -	clock-names = "xclk";
-> -	VDDE-supply = <&vdd>;
-> -	VDDIN-supply = <&vdd>;
-> -	ports {
-> -		#address-cells = <1>;
-> -		#size-cells = <0>;
-> -		port@0 {
-> -			reg = <0>;
-> -
-> -			ep0: endpoint {
-> -				data-lanes = <1 2>;
-> -				remote-endpoint = <&mipi_csi2_in>;
-> -			};
-> -		};
-> -		port@2 {
-> -			reg = <2>;
-> -
-> -			ep2: endpoint {
-> -				bus-width = <8>;
-> -				hsync-active = <0>;
-> -				vsync-active = <0>;
-> -				remote-endpoint = <&parallel_out>;
-> -			};
-> -		};
-> -	};
-> -};
-> diff --git a/Documentation/devicetree/bindings/media/i2c/st,st-mipid02.yaml b/Documentation/devicetree/bindings/media/i2c/st,st-mipid02.yaml
-> new file mode 100644
-> index 0000000000000..367f054fc5cb6
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/media/i2c/st,st-mipid02.yaml
-> @@ -0,0 +1,179 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/media/i2c/st,st-mipid02.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: STMicroelectronics MIPID02 CSI-2 to PARALLEL bridge
-> +
-> +maintainers:
-> +  - Benjamin Mugnier <benjamin.mugnier@foss.st.com>
-> +  - Sylvain Petinot <sylvain.petinot@foss.st.com>
-> +
-> +description:
-> +  MIPID02 has two CSI-2 input ports, only one of those ports can be
-> +  active at a time. Active port input stream will be de-serialized
-> +  and its content outputted through PARALLEL output port.
-> +  CSI-2 first input port is a dual lane 800Mbps per lane whereas CSI-2
-> +  second input port is a single lane 800Mbps. Both ports support clock
-> +  and data lane polarity swap. First port also supports data lane swap.
-> +  PARALLEL output port has a maximum width of 12 bits.
-> +  Supported formats are RAW6, RAW7, RAW8, RAW10, RAW12, RGB565, RGB888,
-> +  RGB444, YUV420 8-bit, YUV422 8-bit and YUV420 10-bit.
-> +
-> +properties:
-> +  compatible:
-> +    const: st,st-mipid02
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  clocks:
-> +    maxItems: 1
-> +
-> +  clock-names:
-> +    description:
-> +      Reference to the xclk input clock.
-> +    items:
-> +      - const: xclk
-> +
-> +  VDDE-supply:
-> +    description:
-> +      Sensor digital IO supply. Must be 1.8 volts.
-> +
-> +  VDDIN-supply:
-> +    description:
-> +      Sensor internal regulator supply. Must be 1.8 volts.
-> +
-> +  reset-gpios:
-> +    description:
-> +      Reference to the GPIO connected to the xsdn pin, if any.
-> +      This is an active low signal to the mipid02.
-> +
-> +  ports:
-> +    $ref: /schemas/graph.yaml#/properties/ports
-> +    properties:
-> +      port@0:
-> +        $ref: /schemas/graph.yaml#/$defs/port-base
-> +        unevaluatedProperties: false
-> +        description: CSI-2 first input port
-> +        properties:
-> +          endpoint:
-> +            $ref: /schemas/media/video-interfaces.yaml#
-> +            unevaluatedProperties: false
-> +
-> +            properties:
-> +              data-lanes:
-> +                description:
-> +                  Single-lane operation shall be <1> or <2> .
-> +                  Dual-lane operation shall be <1 2> or <2 1> .
-> +                minItems: 1
-> +                maxItems: 2
-> +              lane-polarity:
-> +                description:
-> +                  Any lane can be inverted or not.
-> +                minItems: 1
-> +                maxItems: 2
-> +
-> +            required:
-> +              - data-lanes
-> +
-> +      port@1:
-> +        $ref: /schemas/graph.yaml#/$defs/port-base
-> +        unevaluatedProperties: false
-> +        description: CSI-2 second input port
-> +        properties:
-> +          endpoint:
-> +            $ref: /schemas/media/video-interfaces.yaml#
-> +            unevaluatedProperties: false
-> +
-> +            properties:
-> +              data-lanes:
-> +                description:
-> +                  Single-lane operation shall be <1> or <2> .
-> +                maxItems: 1
-> +              lane-polarity:
-> +                description:
-> +                  Any lane can be inverted or not.
-> +                maxItems: 1
-> +
-> +            required:
-> +              - data-lanes
-> +
-> +      port@2:
-> +        $ref: /schemas/graph.yaml#/$defs/port-base
-> +        unevaluatedProperties: false
-> +        description: Output port
-> +        properties:
-> +          endpoint:
-> +            $ref: /schemas/media/video-interfaces.yaml#
-> +            unevaluatedProperties: false
-> +
-> +            properties:
-> +              bus-width:
-> +                enum: [6, 7, 8, 10, 12]
-> +              hsync-active: true
-> +              vsync-active: true
-> +
-> +            required:
-> +              - bus-width
-> +
-> +    anyOf:
-> +      - required:
-> +          - port@0
-> +      - required:
-> +          - port@1
-> +
-> +    required:
-> +      - port@2
-> +
-> +additionalProperties: false
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - clocks
-> +  - clock-names
-> +  - VDDE-supply
-> +  - VDDIN-supply
-> +  - ports
-> +
-> +examples:
-> +  - |
-> +    i2c {
-> +        #address-cells = <1>;
-> +        #size-cells = <0>;
-> +        mipid02: csi2rx@14 {
-> +            compatible = "st,st-mipid02";
-> +            reg = <0x14>;
-> +            status = "okay";
-> +            clocks = <&clk_ext_camera_12>;
-> +            clock-names = "xclk";
-> +            VDDE-supply = <&vdd>;
-> +            VDDIN-supply = <&vdd>;
-> +            ports {
-> +                #address-cells = <1>;
-> +                #size-cells = <0>;
-> +                port@0 {
-> +                    reg = <0>;
-> +
-> +                    ep0: endpoint {
-> +                        data-lanes = <1 2>;
-> +                        remote-endpoint = <&mipi_csi2_in>;
-> +                    };
-> +                };
-> +                port@2 {
-> +                    reg = <2>;
-> +
-> +                    ep2: endpoint {
-> +                        bus-width = <8>;
-> +                        hsync-active = <0>;
-> +                        vsync-active = <0>;
-> +                        remote-endpoint = <&parallel_out>;
-> +                    };
-> +                };
-> +            };
-> +        };
-> +    };
-> +
-> +...
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index a34ec41fbf7a9..0133f746fdf80 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -19439,7 +19439,7 @@ M:	Sylvain Petinot <sylvain.petinot@foss.st.com>
->  L:	linux-media@vger.kernel.org
->  S:	Maintained
->  T:	git git://linuxtv.org/media_tree.git
-> -F:	Documentation/devicetree/bindings/media/i2c/st,st-mipid02.txt
-> +F:	Documentation/devicetree/bindings/media/i2c/st,st-mipid02.yaml
->  F:	drivers/media/i2c/st-mipid02.c
->  
->  ST STM32 I2C/SMBUS DRIVER
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
