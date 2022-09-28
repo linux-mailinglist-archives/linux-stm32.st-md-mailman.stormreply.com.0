@@ -2,69 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D17885EE224
-	for <lists+linux-stm32@lfdr.de>; Wed, 28 Sep 2022 18:43:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E3DC5EE24A
+	for <lists+linux-stm32@lfdr.de>; Wed, 28 Sep 2022 18:51:43 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9725CC640F1;
-	Wed, 28 Sep 2022 16:43:23 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1EA2CC63327;
+	Wed, 28 Sep 2022 16:51:43 +0000 (UTC)
+Received: from mail-qv1-f45.google.com (mail-qv1-f45.google.com
+ [209.85.219.45])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EFBB4C640F1
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BBC41C01E99
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 28 Sep 2022 16:43:21 +0000 (UTC)
-Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 28SGYIku027335;
- Wed, 28 Sep 2022 18:42:58 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-transfer-encoding : content-type; s=selector1;
- bh=Tvv4XSpFVhRAUHCiQIXFXmpFW58v1bKVTxE9iPBGlaM=;
- b=G7cqFUCeLV/D91pWfAawIbRcFtpiQOCGsL7LbRh1spG2BefD9Hmm/XuLs5cwATHBsDLc
- Tb/simSXC+GV5d2TFB3RgVMYuEsyvFmHEMrooIycRaYau1dAlKeqNSgs8VkcksN6Z+Ws
- /ZWfx+n/A4qO+NXsBMyrsmA+FCKYEMSD9hLcK1ia0OAvudSy0J6l/MjjUEjj8P98FaEe
- GYMouMQXpnhMt65PXwfs6GvNLdS3ObBCIEMiDdNGYtoy+xofwMgVlxakBEWdatc7qhXy
- Rvc/YEeKnYheBhSksl/D0GuAiILPJSVr+EC9/D0pZwSccxLp3QeYtMEm3EZqXxioCn76 9A== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3jss82hwd8-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 28 Sep 2022 18:42:58 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id A0D5F100034;
- Wed, 28 Sep 2022 18:42:56 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 9C6EB23C6B5;
- Wed, 28 Sep 2022 18:42:56 +0200 (CEST)
-Received: from localhost (10.75.127.45) by SHFDAG1NODE1.st.com (10.75.129.69)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2375.31; Wed, 28 Sep
- 2022 18:42:56 +0200
-From: Olivier Moysan <olivier.moysan@foss.st.com>
-To: Alexandre Torgue <alexandre.torgue@foss.st.com>, Andy Shevchenko
- <andy.shevchenko@gmail.com>, Fabrice Gasnier <fabrice.gasnier@foss.st.com>,
- Jonathan Cameron <jic23@kernel.org>, Lars-Peter Clausen <lars@metafoo.de>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, <nuno.sa@analog.com>, Olivier
- Moysan <olivier.moysan@foss.st.com>, Paul Cercueil <paul@crapouillou.net>,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>, Wan Jiabing
- <wanjiabing@vivo.com>, Yannick Brosseau <yannick.brosseau@gmail.com>
-Date: Wed, 28 Sep 2022 18:41:14 +0200
-Message-ID: <20220928164114.48339-9-olivier.moysan@foss.st.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220928164114.48339-1-olivier.moysan@foss.st.com>
-References: <20220928164114.48339-1-olivier.moysan@foss.st.com>
+ Wed, 28 Sep 2022 16:51:41 +0000 (UTC)
+Received: by mail-qv1-f45.google.com with SMTP id m18so2771184qvo.12
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 28 Sep 2022 09:51:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date;
+ bh=mbxRn007Ip2c/fdHqU/bp/LXy4PPcd8ySvUFUqzEX6s=;
+ b=KDSVQ1oMBKRLgWEH0InLjPc/aLqNu0zJv9KCeb8pdE0nGiSRyuKb+9DE+EiYJnbcj/
+ 5W1QoMNbFR8fVhpkgXjoUmwOHLLwmX0oCbXvktWasxGC3jQReTgauOcAnmNu6PeNALaT
+ UqcmXt9f/k5KyHbejcWPZGCuaX758i59+J3Ih/oqrzRUSd40tW8vWxku8ZEFNkA5tVAf
+ LlbTu/3PjEkZlVfhoqC/toTBWPSvXO4D+eLotlQz+TXjWh/O8HKOj+XbHQ6/PsZ7mkeh
+ kbW1JxtOwjFtbNfwAa5yVKWxeFkEXKz56IXX77UAuUH5jPopvluRUhwSGTqgneWCsw8d
+ ug9w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date;
+ bh=mbxRn007Ip2c/fdHqU/bp/LXy4PPcd8ySvUFUqzEX6s=;
+ b=qrFZgd1kW6CZRy5kfuV3Te076pScMNt9PaU8LN3s4szQMl0GmmHIbs/jcT/ea5NooY
+ M/fVP/EzJLzuYd54eWxCyFC/p6HvMy19lvxlsoXomyHRIRhaJKofYV08Pbg7cGo+/m5O
+ uN5XlMgTqu639AzVmrbfbdXnH1qWZM+H+3NkDSdHl7h/Y6cVqJA8nQgn9Kb7FKmfHsgh
+ yQFQsn2W1M45kDX9tiNUWuhkqpO7WdrLv3eYaUlRGuTGIu421yXJokm0ANVORo9hMYg0
+ pHa32/9MQwbeKju55JU5p0YCYad6+0rE61QVzi9nAGM9CqecLJUxoKvQjDvHYwBg7Z3w
+ uBXg==
+X-Gm-Message-State: ACrzQf3mE4x6Up3cZXetQbODBqud3KAdOeagGk+iRgDzt5kLEvvMwXgu
+ BI1N7p4aoc841HIHqwwYCMYGTQefComySpEX/W4=
+X-Google-Smtp-Source: AMsMyM7wXSmHKlE03PtWvNbyVtg+Z/ygdLMTLfA2/MG8cnEF6SrXoChIYY1ksHA/b/6JHXHhXq/pPCj/E7DaDVv2w6I=
+X-Received: by 2002:a05:6214:c63:b0:4ad:6b45:8235 with SMTP id
+ t3-20020a0562140c6300b004ad6b458235mr26846114qvj.48.1664383900664; Wed, 28
+ Sep 2022 09:51:40 -0700 (PDT)
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.45]
-X-ClientProxiedBy: SFHDAG2NODE3.st.com (10.75.127.6) To SHFDAG1NODE1.st.com
- (10.75.129.69)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.528,FMLib:17.11.122.1
- definitions=2022-09-28_07,2022-09-28_01,2022-06-22_01
-Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH 8/8] ARM: dts: stm32: add adc support on
-	stm32mp135f-dk
+References: <20220928164114.48339-1-olivier.moysan@foss.st.com>
+ <20220928164114.48339-2-olivier.moysan@foss.st.com>
+In-Reply-To: <20220928164114.48339-2-olivier.moysan@foss.st.com>
+From: Andy Shevchenko <andy.shevchenko@gmail.com>
+Date: Wed, 28 Sep 2022 19:51:04 +0300
+Message-ID: <CAHp75Vf1rJRVK5Emuwk4863DTb9JjTswJefJM-1oX+2gQvLMRg@mail.gmail.com>
+To: Olivier Moysan <olivier.moysan@foss.st.com>
+Cc: Lars-Peter Clausen <lars@metafoo.de>, Wan Jiabing <wanjiabing@vivo.com>,
+ linux-kernel@vger.kernel.org,
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>, nuno.sa@analog.com,
+ Paul Cercueil <paul@crapouillou.net>, linux-iio@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Jonathan Cameron <jic23@kernel.org>
+Subject: Re: [Linux-stm32] [PATCH 1/8] iio: adc: stm32-adc: fix channel
+	sampling time init
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,54 +77,30 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Configure ADC support on stm32mp135f-dk. ADC can be used for
-USB Type-C CC1 & CC2 pins wired to in6 & in12.
+On Wed, Sep 28, 2022 at 7:42 PM Olivier Moysan
+<olivier.moysan@foss.st.com> wrote:
+>
+> Fix channel init for ADC generic channel bindings.
+> In generic channel initialization, stm32_adc_smpr_init() is called
+> to initialize channel sampling time. The "st,min-sample-time-ns"
+> property is an optional property. If it is not defined,
+> stm32_adc_smpr_init() is currently skipped. However stm32_adc_smpr_init()
+> must always be called, to force a minimum sampling time for
+> the internal channels, as the minimum sampling time is known.
+> Make stm32_adc_smpr_init() call unconditional.
 
-Signed-off-by: Olivier Moysan <olivier.moysan@foss.st.com>
----
- arch/arm/boot/dts/stm32mp135f-dk.dts | 26 ++++++++++++++++++++++++++
- 1 file changed, 26 insertions(+)
+What is the text width here? It's okay to use Up to ~72 (or slightly
+more) as a limit and format accordingly.
 
-diff --git a/arch/arm/boot/dts/stm32mp135f-dk.dts b/arch/arm/boot/dts/stm32mp135f-dk.dts
-index 95068231ed57..5b7630a2452e 100644
---- a/arch/arm/boot/dts/stm32mp135f-dk.dts
-+++ b/arch/arm/boot/dts/stm32mp135f-dk.dts
-@@ -76,6 +76,32 @@ vdd_adc: vdd-adc {
- 	};
- };
- 
-+&adc_1 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&adc1_usb_cc_pins_a>;
-+	vdda-supply = <&vdd_adc>;
-+	vref-supply = <&vdd_adc>;
-+	status = "okay";
-+
-+	adc1: adc@0 {
-+		status = "okay";
-+		/*
-+		 * Type-C USB_PWR_CC1 & USB_PWR_CC2 on in6 & in12.
-+		 * Use at least 5 * RC time, e.g. 5 * (Rp + Rd) * C:
-+		 * 5 * (5.1 + 47kOhms) * 5pF => 1.3us.
-+		 * Use arbitrary margin here (e.g. 5us).
-+		 */
-+		channel@6 {
-+			reg = <6>;
-+			st,min-sample-time-ns = <5000>;
-+		};
-+		channel@12 {
-+			reg = <12>;
-+			st,min-sample-time-ns = <5000>;
-+		};
-+	};
-+};
-+
- &iwdg2 {
- 	timeout-sec = <32>;
- 	status = "okay";
+> Fixes: 796e5d0b1e9b ("iio: adc: stm32-adc: use generic binding for sample-time")
+>
+> Signed-off-by: Olivier Moysan <olivier.moysan@foss.st.com>
+
+Tag blocks mustn't have the blank lines.
+
 -- 
-2.25.1
-
+With Best Regards,
+Andy Shevchenko
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
