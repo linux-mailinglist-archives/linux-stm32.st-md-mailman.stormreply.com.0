@@ -2,68 +2,64 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2801B5EE955
-	for <lists+linux-stm32@lfdr.de>; Thu, 29 Sep 2022 00:24:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F062C5EEB21
+	for <lists+linux-stm32@lfdr.de>; Thu, 29 Sep 2022 03:48:13 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CE27BC640E7;
-	Wed, 28 Sep 2022 22:24:46 +0000 (UTC)
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com
- [209.85.221.50])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 804FAC640FB;
+	Thu, 29 Sep 2022 01:48:13 +0000 (UTC)
+Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A2EB2C63327
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0D21DC640E7
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 28 Sep 2022 22:24:45 +0000 (UTC)
-Received: by mail-wr1-f50.google.com with SMTP id x18so21846439wrm.7
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 28 Sep 2022 15:24:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date;
- bh=tOCqao0F0QwSSCGrvEuCDfM8iTqn8ZX98V4N0X8hr3Y=;
- b=XScKVakNg/IrTdv6P6I92z+G9E2jmAA/hory7em/M8GNMUaNnGu22NDfC3NM21+dSo
- EdpCCD5iO0ddI6UiA2j9EtpLRkPYu53XYy/VaLyi9uefs/XXLc9u6wDNLWwDwH1xfCEW
- JbhX97lZ1ssGGLQD735t6HtopU35eXou3UoCFHsP49WjyMOVtIUkq5w7+ig369HovQpa
- azVWKjXdDnyimh3jZvy0HrX8rZ1sBYqceAK82tY64CzOurwCMNy7v+4UKACfCihuARdz
- 9YMt5WlB20cixH1o6i4vi1eYhqfm5ySzUC6GxnXPSwjcKKaLVMzOnbDPNX5cKVaKbDrH
- fRDg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date;
- bh=tOCqao0F0QwSSCGrvEuCDfM8iTqn8ZX98V4N0X8hr3Y=;
- b=3ft93etG9Liu/zOvVx6HPntgdIWIXfP2oXytjFCSMUT7UZjCniI9uorrclCSKfMa5M
- CxRJ8aSuSVvxKs4wGtYU82ybWBN4jpcYAOyta7uQ2DhesucokyDQzoj6VTTAuefAVSSX
- zfNIS2CKTvfwKd+MEZLDuNteowg3S8cVhx5Nh5/dbK5CGTaIOWO5yWcBQUpnw+nV2Vc3
- PEwvZg1E1F6gCpr9RBw7ilH8tc96WlO0BoF9ZARCI7jle24Kko698fvMiJJbW0hnH78f
- nzMX2xdSrpX18DaSzTtQZBCPrIfCIsoKRvO5sZTYezAV1wNhBCcZ59P7HHFd0bN3Hyzm
- z7vw==
-X-Gm-Message-State: ACrzQf3mgkcYHU/79K5U0OTVHd5utlaWA9F14w9Ip1HR/OGXLA13u2hp
- HCNgHPRwdr6YYHf3Nsrhy/k=
-X-Google-Smtp-Source: AMsMyM6Dx3qK/uOKDRkcxuP3IeSlkDVMCFpOi2jj5uBMViSsDQ+R61gatBIT/3Zw/8lMBGlFnvacSQ==
-X-Received: by 2002:a05:6000:10d2:b0:228:d60b:6d5a with SMTP id
- b18-20020a05600010d200b00228d60b6d5amr41346wrx.146.1664403885112; 
- Wed, 28 Sep 2022 15:24:45 -0700 (PDT)
-Received: from localhost (cpc154979-craw9-2-0-cust193.16-3.cable.virginm.net.
- [80.193.200.194]) by smtp.gmail.com with ESMTPSA id
- k1-20020a056000004100b00228dbf15072sm585114wrx.62.2022.09.28.15.24.44
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 28 Sep 2022 15:24:44 -0700 (PDT)
-From: Colin Ian King <colin.i.king@gmail.com>
-To: Herbert Xu <herbert@gondor.apana.org.au>,
- "David S . Miller" <davem@davemloft.net>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Nicolas Toromanoff <nicolas.toromanoff@foss.st.com>,
- linux-crypto@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Date: Wed, 28 Sep 2022 23:24:43 +0100
-Message-Id: <20220928222443.68705-1-colin.i.king@gmail.com>
-X-Mailer: git-send-email 2.37.1
+ Thu, 29 Sep 2022 01:48:10 +0000 (UTC)
+X-UUID: fe686e96c221423996b018b5e88446fe-20220929
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com;
+ s=dk; 
+ h=Content-Type:Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:CC:To:From;
+ bh=urU9CY/wCBejnGxksP6mrJFzU/wIGDM06gPR9xjmFHE=; 
+ b=Ot93pAHU6zIxBjGggHm9r4nKb3Ts6BFXsIHP9SqcKyAFtTxZRJ9INlgGS3dxXWi9wlDAB0SVm7kjIhqZAfdpKbf8zF1ERIWI6V5ltXInkgQcb/x9ZL+x1PDvEYQq773/MZvazunVZ/vhDSFiXFcEeovqrtxjGUUYMscrpl8agx0=;
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.1.11, REQID:d892b09e-5654-4c25-87cd-3c43444bf547, IP:0,
+ U
+ RL:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+ :release,TS:-5
+X-CID-META: VersionHash:39a5ff1, CLOUDID:5c376ca3-dc04-435c-b19b-71e131a5fc35,
+ B
+ ulkID:nil,BulkQuantity:0,Recheck:0,SF:102,TC:nil,Content:0,EDM:-3,IP:nil,U
+ RL:0,File:nil,Bulk:nil,QS:nil,BEC:nil,COL:0
+X-UUID: fe686e96c221423996b018b5e88446fe-20220929
+Received: from mtkmbs10n2.mediatek.inc [(172.21.101.183)] by
+ mailgw02.mediatek.com (envelope-from <jianguo.zhang@mediatek.com>)
+ (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
+ with ESMTP id 1534537709; Thu, 29 Sep 2022 09:48:04 +0800
+Received: from mtkmbs11n2.mediatek.inc (172.21.101.187) by
+ mtkmbs10n1.mediatek.inc (172.21.101.34) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.792.15; Thu, 29 Sep 2022 09:48:03 +0800
+Received: from localhost.localdomain (10.17.3.154) by mtkmbs11n2.mediatek.inc
+ (172.21.101.73) with Microsoft SMTP Server id 15.2.792.15 via
+ Frontend Transport; Thu, 29 Sep 2022 09:48:02 +0800
+From: Jianguo Zhang <jianguo.zhang@mediatek.com>
+To: "David S . Miller" <davem@davemloft.net>, Rob Herring
+ <robh+dt@kernel.org>, Krzysztof Kozlowski
+ <krzysztof.kozlowski+dt@linaro.org>, AngeloGioacchino Del Regno
+ <angelogioacchino.delregno@collabora.com>
+Date: Thu, 29 Sep 2022 09:47:54 +0800
+Message-ID: <20220929014758.12099-1-jianguo.zhang@mediatek.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [Linux-stm32] [PATCH] crypto: stm32 - Fix spelling mistake "wite"
-	-> "write"
+X-MTK: N
+Cc: devicetree@vger.kernel.org, Biao Huang <biao.huang@mediatek.com>,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Jianguo Zhang <jianguo.zhang@mediatek.com>, Eric Dumazet <edumazet@google.com>,
+ Jose Abreu <joabreu@synopsys.com>, linux-mediatek@lists.infradead.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH v7 0/4] Mediatek ethernet patches for mt8188
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,37 +76,65 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-There are a couple of spelling mistakes in dev_err messages. Fix them.
+Changes in v7:
 
-Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
----
- drivers/crypto/stm32/stm32-cryp.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+v7:
+1) Add 'Reviewed-by: AngeloGioacchino Del Regno
+<angelogioacchino.delregno@collabora.com>' info in commit message of
+patch 'dt-bindings: net: snps,dwmac: add new property snps,clk-csr',
+'arm64: dts: mediatek: mt2712e: Update the name of property 'clk_csr''
+and 'net: stmmac: add a parse for new property 'snps,clk-csr''.
 
-diff --git a/drivers/crypto/stm32/stm32-cryp.c b/drivers/crypto/stm32/stm32-cryp.c
-index 59ef541123ae..59638dfce573 100644
---- a/drivers/crypto/stm32/stm32-cryp.c
-+++ b/drivers/crypto/stm32/stm32-cryp.c
-@@ -1400,7 +1400,7 @@ static void stm32_cryp_irq_write_ccm_padded_data(struct stm32_cryp *cryp)
- 	/* wait end of process */
- 	err = stm32_cryp_wait_output(cryp);
- 	if (err) {
--		dev_err(cryp->dev, "Timeout (wite ccm padded data)\n");
-+		dev_err(cryp->dev, "Timeout (write ccm padded data)\n");
- 		return stm32_cryp_finish_req(cryp, err);
- 	}
- 
-@@ -1440,7 +1440,7 @@ static void stm32_cryp_irq_write_ccm_padded_data(struct stm32_cryp *cryp)
- 	/* h) wait for completion */
- 	err = stm32_cryp_wait_busy(cryp);
- 	if (err)
--		dev_err(cryp->dev, "Timeout (wite ccm padded data)\n");
-+		dev_err(cryp->dev, "Timeout (write ccm padded data)\n");
- 
- 	/* i) run the he normal Final phase */
- 	stm32_cryp_finish_req(cryp, err);
--- 
-2.37.1
+v6:
+1) Update commit message of patch 'dt-bindings: net: snps,dwmac: add new property snps,clk-csr'
+2) Add a parse for new property 'snps,clk-csr' in patch
+'net: stmmac: add a parse for new property 'snps,clk-csr''
+
+v5:
+1) Rename the property 'clk_csr' as 'snps,clk-csr' in binding
+file as Krzysztof Kozlowski'comment.
+2) Add DTS patch 'arm64: dts: mediatek: mt2712e: Update the name of property 'clk_csr''
+as Krzysztof Kozlowski'comment.
+3) Add driver patch 'net: stmmac: Update the name of property 'clk_csr''
+as Krzysztof Kozlowski'comment.
+
+v4:
+1) Update the commit message of patch 'dt-bindings: net: snps,dwmac: add clk_csr property'
+as Krzysztof Kozlowski'comment.
+
+v3:
+1) List the names of SoCs mt8188 and mt8195 in correct order as
+AngeloGioacchino Del Regno's comment.
+2) Add patch version info as Krzysztof Kozlowski'comment.
+
+v2:
+1) Delete patch 'stmmac: dwmac-mediatek: add support for mt8188' as
+Krzysztof Kozlowski's comment.
+2) Update patch 'dt-bindings: net: mediatek-dwmac: add support for
+mt8188' as Krzysztof Kozlowski's comment.
+3) Add clk_csr property to fix warning ('clk_csr' was unexpected) when
+runnig 'make dtbs_check'.
+
+v1:
+1) Add ethernet driver entry for mt8188.
+2) Add binding document for ethernet on mt8188.
+
+
+Jianguo Zhang (4):
+  dt-bindings: net: mediatek-dwmac: add support for mt8188
+  dt-bindings: net: snps,dwmac: add new property snps,clk-csr
+  arm64: dts: mediatek: mt2712e: Update the name of property 'clk_csr'
+  net: stmmac: add a parse for new property 'snps,clk-csr'
+
+ .../devicetree/bindings/net/mediatek-dwmac.yaml        | 10 ++++++++--
+ Documentation/devicetree/bindings/net/snps,dwmac.yaml  |  5 +++++
+ arch/arm64/boot/dts/mediatek/mt2712e.dtsi              |  2 +-
+ drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c  |  3 ++-
+ 4 files changed, 16 insertions(+), 4 deletions(-)
+
+--
+2.25.1
+
 
 _______________________________________________
 Linux-stm32 mailing list
