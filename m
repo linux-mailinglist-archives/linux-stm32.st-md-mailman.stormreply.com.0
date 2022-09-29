@@ -2,67 +2,72 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1E71C5EEB25
-	for <lists+linux-stm32@lfdr.de>; Thu, 29 Sep 2022 03:48:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AC5B55EEF2F
+	for <lists+linux-stm32@lfdr.de>; Thu, 29 Sep 2022 09:37:07 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CD426C64105;
-	Thu, 29 Sep 2022 01:48:17 +0000 (UTC)
-Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 499E1C64100;
+	Thu, 29 Sep 2022 07:37:07 +0000 (UTC)
+Received: from mail-lf1-f49.google.com (mail-lf1-f49.google.com
+ [209.85.167.49])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BBB1AC640FF
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 819F7C640FE
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 29 Sep 2022 01:48:15 +0000 (UTC)
-X-UUID: 76f9646934ab4d3794de6a3c0a2dba79-20220929
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com;
- s=dk; 
- h=Content-Type:Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:CC:To:From;
- bh=taZCuPwBhsY8Kw9nE8S/okm+myAZhbbw1AHG39kmDuk=; 
- b=qb2GupGGc0r+19RL5OKvvLeNss0IP4bMDU7OCTyqDhhPkbofM2u6ykvFzPatcGitWxwGcvDOE8ZBBrvdJdjRRP7l0oqtlI/8KZiqSQsFRDvggpzJX8heQHlp89vlCgTXv2LzJHfMAfLXSVH71fDF5w3A2Yh26yvGGaPjdB9zv/g=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.1.11, REQID:2803b7c9-8738-43ce-9394-8eb5948c6a62, IP:0,
- U
- RL:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
- :release,TS:-5
-X-CID-META: VersionHash:39a5ff1, CLOUDID:9d915e07-1cee-4c38-b21b-a45f9682fdc0,
- B
- ulkID:nil,BulkQuantity:0,Recheck:0,SF:102,TC:nil,Content:0,EDM:-3,IP:nil,U
- RL:0,File:nil,Bulk:nil,QS:nil,BEC:nil,COL:0
-X-UUID: 76f9646934ab4d3794de6a3c0a2dba79-20220929
-Received: from mtkmbs11n1.mediatek.inc [(172.21.101.185)] by
- mailgw01.mediatek.com (envelope-from <jianguo.zhang@mediatek.com>)
- (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
- with ESMTP id 672598337; Thu, 29 Sep 2022 09:48:10 +0800
-Received: from mtkmbs11n2.mediatek.inc (172.21.101.187) by
- mtkmbs11n2.mediatek.inc (172.21.101.187) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.792.15; Thu, 29 Sep 2022 09:48:08 +0800
-Received: from localhost.localdomain (10.17.3.154) by mtkmbs11n2.mediatek.inc
- (172.21.101.73) with Microsoft SMTP Server id 15.2.792.15 via
- Frontend Transport; Thu, 29 Sep 2022 09:48:07 +0800
-From: Jianguo Zhang <jianguo.zhang@mediatek.com>
-To: "David S . Miller" <davem@davemloft.net>, Rob Herring
- <robh+dt@kernel.org>, Krzysztof Kozlowski
- <krzysztof.kozlowski+dt@linaro.org>, AngeloGioacchino Del Regno
- <angelogioacchino.delregno@collabora.com>
-Date: Thu, 29 Sep 2022 09:47:58 +0800
-Message-ID: <20220929014758.12099-5-jianguo.zhang@mediatek.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220929014758.12099-1-jianguo.zhang@mediatek.com>
-References: <20220929014758.12099-1-jianguo.zhang@mediatek.com>
+ Thu, 29 Sep 2022 07:37:06 +0000 (UTC)
+Received: by mail-lf1-f49.google.com with SMTP id u18so973926lfo.8
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 29 Sep 2022 00:37:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date;
+ bh=C6HAcFRlUdRVNTmd1+LZDEckWRqIi/Jw90W8yfGFuaM=;
+ b=qrePgKY/Y+Vm7/UZSq1RNCj98EF+ZGGgs4eAocWnvNy3OL+hbXXhm7/hlNBWZtmh+w
+ HHpePbG503tmykGObV5MPrA42fKiouTwqXxUHeY6180cJ+hwMma60u7Mr31ZuIXyZjGk
+ CB9Ko/qcwaZ/9bEzlE5LXclzRuAQ6M7MmVNiSzr1s1P7jPgaWG/x39v200VI0dx3K5Uh
+ QgCNllL/mAQ2nJttbLYW4lxDr/Ce783BOmFE/L4c+jovVnoqxtcBGniMStFJUiG3+JhX
+ b3+WuUBiZHWhsY0POKuA/irYlQuOJ0S2R9kBBDhWDQIDWbm887eHhwRtrapD53VfNVdN
+ mzxg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date;
+ bh=C6HAcFRlUdRVNTmd1+LZDEckWRqIi/Jw90W8yfGFuaM=;
+ b=zoxN0N5MrzNZwfbKihJAA3SN+d/8ZozUCE1JTootNOkHmIIIGac/bfNwXdzJV1ejjO
+ ivjLDwEq6EWsEeMO1YUMFRkFdQwLeaZo0Ols4z7icoD/n3DjyX3NXQc8g11fWc1T7CYX
+ Rbj52PsCU2N4yaMtUo4iHynxwk5n7g86/6ZxZ9hJ+XBTE6RBLnDHcf7XC7gCWEuODWDR
+ 4wRNL4SQgjIEZIgmWfUDUfAbwTeCjbqB/S+yDtWoPmoChuVTVhnhy7v5ypo+Al6lbQdI
+ OgmU49yDZiYg2tHfWJiqkFV+YIIQmOkE7X2Y6eresBdm7a577M1wa751g+V9fLPUGfVx
+ LoaA==
+X-Gm-Message-State: ACrzQf33PLrSx/OiY9CG78Ya1/0cmLDfgK+t47yuxtLFRLWcdwmLmLGm
+ w3ImCo4GFo0isrV8Zg+8JC/gVQ==
+X-Google-Smtp-Source: AMsMyM6auO7zd9V9y6sVWvoa5lOsJCgLzgjIBXw3FHxLXWyMNv86MEkFtRVwKPJbJmzPknh6BFI9cQ==
+X-Received: by 2002:a05:6512:511:b0:4a1:d9f3:ea10 with SMTP id
+ o17-20020a056512051100b004a1d9f3ea10mr863530lfb.555.1664437025680; 
+ Thu, 29 Sep 2022 00:37:05 -0700 (PDT)
+Received: from [192.168.0.21] (78-11-189-27.static.ip.netia.com.pl.
+ [78.11.189.27]) by smtp.gmail.com with ESMTPSA id
+ 10-20020ac25f0a000000b004979e1ff641sm704286lfq.115.2022.09.29.00.37.04
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 29 Sep 2022 00:37:05 -0700 (PDT)
+Message-ID: <65ef5f40-f8bd-045c-a9d7-6a74ceacc8e2@linaro.org>
+Date: Thu, 29 Sep 2022 09:37:04 +0200
 MIME-Version: 1.0
-X-MTK: N
-Cc: devicetree@vger.kernel.org, Biao Huang <biao.huang@mediatek.com>,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- Jianguo Zhang <jianguo.zhang@mediatek.com>, Eric Dumazet <edumazet@google.com>,
- Jose Abreu <joabreu@synopsys.com>, linux-mediatek@lists.infradead.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Matthias Brugger <matthias.bgg@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v7 4/4] net: stmmac: add a parse for new
-	property 'snps, clk-csr'
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.3.0
+Content-Language: en-US
+To: Marek Vasut <marex@denx.de>, linux-arm-kernel@lists.infradead.org
+References: <20220927184657.291714-1-marex@denx.de>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20220927184657.291714-1-marex@denx.de>
+Cc: devicetree@vger.kernel.org, Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
+ Sylvain Petinot <sylvain.petinot@foss.st.com>,
+ Rob Herring <robh+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-media@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH v2] dt-bindings: media: st,
+ stmipid02: Convert the text bindings to YAML
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,32 +84,148 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Parse new property 'snps,clk-csr' firstly because the new property
-is documented in binding file, if failed, fall back to old property
-'clk_csr' for legacy case
+On 27/09/2022 20:46, Marek Vasut wrote:
+> Convert the text STMIPID02 DT bindings to YAML DT format to permit
+> validation of DTs using this I2C CSI-2 to CPI bridge.
+> 
+> Signed-off-by: Marek Vasut <marex@denx.de>
+> ---
 
-Signed-off-by: Jianguo Zhang <jianguo.zhang@mediatek.com>
-Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
----
- drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+Thank you for your patch. There is something to discuss/improve.
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-index 9f5cac4000da..3db6cb0b6124 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-@@ -444,7 +444,8 @@ stmmac_probe_config_dt(struct platform_device *pdev, u8 *mac)
- 	 * or get clk_csr from device tree.
- 	 */
- 	plat->clk_csr = -1;
--	of_property_read_u32(np, "clk_csr", &plat->clk_csr);
-+	if (of_property_read_u32(np, "snps,clk-csr", &plat->clk_csr))
-+		of_property_read_u32(np, "clk_csr", &plat->clk_csr);
- 
- 	/* "snps,phy-addr" is not a standard property. Mark it as deprecated
- 	 * and warn of its use. Remove this when phy node support is added.
--- 
-2.25.1
+> +properties:
+> +  compatible:
+> +    const: st,st-mipid02
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    maxItems: 1
+> +
+> +  clock-names:
+> +    description:
+> +      Reference to the xclk input clock.
+
+This usually goes to "clocks", but on the other hand it does not bring
+any value (xclk is obvious from clock-names), so I propose to skip
+entire description.
+
+> +    items:
+> +      - const: xclk
+> +
+> +  VDDE-supply:
+> +    description:
+> +      Sensor digital IO supply. Must be 1.8 volts.
+> +
+> +  VDDIN-supply:
+> +    description:
+> +      Sensor internal regulator supply. Must be 1.8 volts.
+> +
+> +  reset-gpios:
+> +    description:
+> +      Reference to the GPIO connected to the xsdn pin, if any.
+> +      This is an active low signal to the mipid02.
+> +
+> +  ports:
+> +    $ref: /schemas/graph.yaml#/properties/ports
+> +    properties:
+> +      port@0:
+> +        $ref: /schemas/graph.yaml#/$defs/port-base
+> +        unevaluatedProperties: false
+> +        description: CSI-2 first input port
+> +        properties:
+> +          endpoint:
+> +            $ref: /schemas/media/video-interfaces.yaml#
+> +            unevaluatedProperties: false
+> +
+> +            properties:
+> +              data-lanes:
+> +                description:
+> +                  Single-lane operation shall be <1> or <2> .
+> +                  Dual-lane operation shall be <1 2> or <2 1> .
+> +                minItems: 1
+> +                maxItems: 2
+
+Blank line
+
+> +              lane-polarity:
+
+The property is "lane-polarities"
+
+> +                description:
+> +                  Any lane can be inverted or not.
+> +                minItems: 1
+> +                maxItems: 2
+> +
+> +            required:
+> +              - data-lanes
+> +
+> +      port@1:
+> +        $ref: /schemas/graph.yaml#/$defs/port-base
+> +        unevaluatedProperties: false
+> +        description: CSI-2 second input port
+> +        properties:
+> +          endpoint:
+> +            $ref: /schemas/media/video-interfaces.yaml#
+> +            unevaluatedProperties: false
+> +
+> +            properties:
+> +              data-lanes:
+> +                description:
+> +                  Single-lane operation shall be <1> or <2> .
+> +                maxItems: 1
+
+Blank line
+
+> +              lane-polarity:
+
+lane-polarities
+
+> +                description:
+> +                  Any lane can be inverted or not.
+> +                maxItems: 1
+> +
+> +            required:
+> +              - data-lanes
+> +
+> +      port@2:
+> +        $ref: /schemas/graph.yaml#/$defs/port-base
+> +        unevaluatedProperties: false
+> +        description: Output port
+> +        properties:
+> +          endpoint:
+> +            $ref: /schemas/media/video-interfaces.yaml#
+> +            unevaluatedProperties: false
+> +
+> +            properties:
+> +              bus-width:
+> +                enum: [6, 7, 8, 10, 12]
+
+Blank line
+
+> +              hsync-active: true
+> +              vsync-active: true
+
+You do not need these two - they come from video-interfaces.yaml
+
+
+> +
+> +            required:
+> +              - bus-width
+> +
+> +    anyOf:
+> +      - required:
+> +          - port@0
+> +      - required:
+> +          - port@1
+> +
+> +    required:
+> +      - port@2
+> +
+
+Best regards,
+Krzysztof
 
 _______________________________________________
 Linux-stm32 mailing list
