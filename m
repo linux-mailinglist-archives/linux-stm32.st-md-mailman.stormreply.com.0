@@ -2,53 +2,53 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id ACFF65F0E24
-	for <lists+linux-stm32@lfdr.de>; Fri, 30 Sep 2022 16:57:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E84A35F0E5D
+	for <lists+linux-stm32@lfdr.de>; Fri, 30 Sep 2022 17:02:59 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E7F5FC64104;
-	Fri, 30 Sep 2022 14:57:01 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5EAE3C64104;
+	Fri, 30 Sep 2022 15:02:59 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
  [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5F501C01E98
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1D9ACC01E98
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 30 Sep 2022 14:57:00 +0000 (UTC)
-Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 28UD1kdE007609;
- Fri, 30 Sep 2022 16:56:47 +0200
+ Fri, 30 Sep 2022 15:02:58 +0000 (UTC)
+Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 28UD1mL1007207;
+ Fri, 30 Sep 2022 17:02:45 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
  h=from : to : cc :
  subject : date : message-id : mime-version : content-transfer-encoding :
  content-type; s=selector1;
- bh=FadaheE/qXB2bnG4yvSnAAixXQT0OmQ5u8cTQTAxLbE=;
- b=OZ+AqRcThiq4S2gRGOXpWU3JMFRo0G5cgnSO6jLG7y9MuDzZ4Zk8qXcqyH9/5ngW/JqQ
- vSWxTsMJ/nqpgvdsN3RM4M3U1vGP7Opj2XPaiYKK/ee2VFCUBn/RVGyg/WY9HFK7D/+h
- qZRtsUa4zra5RfmYIXZqRwRihHEEkOjNkY4Am9HzqGMGjfgdCkgbKUG0FfFBU1bERvVY
- R67sAhmRP46+oK/luw4Af4eC1umGX1bx8HCLC1iJPB8j/nkNCzkAzkdEr1dfDfjuzrbo
- iz7+gCVAVtsoyUzO1qh1XNlLIhYIoBljEOE5mfDfut+fpW5DtkZhxNf+5gEcxIcpu3dI /Q== 
+ bh=NOdCqgkd7AQ9V7pD4WOga7YuBycqS81tG6ayojUlWeA=;
+ b=JLW5kiR2flzrYtNSpKMPEeTpI7hdMA9SBA8k6lHQ8p57Pwfn4HozA8X01QBWA3mAjtzh
+ 1rd3Q8rTESN9KNTNJAr6g6pIgjAru0i9QJo3cT/qa1wUMgJHHe4WNesZzjUZjCyKWK7f
+ /+I6dRTWJyK7ozj21md0J1PQ0Lk/qS+6v10aCxoQUsolW/grxJRj3WOiPT8NROqsCuP7
+ /MjokJWBeQNg4U4LQXrlrnDFir1ycrKynnNNXG9S8iGCUksueoRHqW13L0y2BaD/FLP1
+ M/AUpoNNIxjhnPU6xgZV4BZwtPNACLsrHpngXXIWguRvYUi/N22x7w6uyik7Ast6znLV Uw== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3jwxefhkcx-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3jwxc29nsu-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 30 Sep 2022 16:56:47 +0200
+ Fri, 30 Sep 2022 17:02:45 +0200
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 3521F10002A;
- Fri, 30 Sep 2022 16:56:47 +0200 (CEST)
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id EB8A5100038;
+ Fri, 30 Sep 2022 17:02:44 +0200 (CEST)
 Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 2D2A7231DD7;
- Fri, 30 Sep 2022 16:56:47 +0200 (CEST)
-Received: from localhost (10.75.127.46) by SHFDAG1NODE2.st.com (10.75.129.70)
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id E2CB9231DF0;
+ Fri, 30 Sep 2022 17:02:44 +0200 (CEST)
+Received: from localhost (10.75.127.50) by SHFDAG1NODE2.st.com (10.75.129.70)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2375.31; Fri, 30 Sep
- 2022 16:56:46 +0200
+ 2022 17:02:44 +0200
 From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
 To: <alexandre.torgue@foss.st.com>, <robh+dt@kernel.org>,
  <krzysztof.kozlowski+dt@linaro.org>
-Date: Fri, 30 Sep 2022 16:56:43 +0200
-Message-ID: <20220930145643.249099-1-fabrice.gasnier@foss.st.com>
+Date: Fri, 30 Sep 2022 17:02:32 +0200
+Message-ID: <20220930150232.249573-1-fabrice.gasnier@foss.st.com>
 X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.46]
+X-Originating-IP: [10.75.127.50]
 X-ClientProxiedBy: SFHDAG2NODE3.st.com (10.75.127.6) To SHFDAG1NODE2.st.com
  (10.75.129.70)
 X-Proofpoint-Virus-Version: vendor=baseguard
@@ -56,8 +56,8 @@ X-Proofpoint-Virus-Version: vendor=baseguard
  definitions=2022-09-30_04,2022-09-29_03,2022-06-22_01
 Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH] ARM: dts: stm32: add support for USB2514B
-	onboard hub on stm32mp157c-ev1
+Subject: [Linux-stm32] [PATCH] ARM: dts: stm32: update vbus-supply of
+	usbphyc_port0 on stm32mp157c-ev1
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,33 +74,33 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add support for USB2514B onboard hub on stm32mp157c EV1 board. The HUB
-is supplied by a 3v3 PMIC regulator.
+From: Amelie Delaunay <amelie.delaunay@foss.st.com>
 
+phy-stm32-usbphyc bindings uses a connector node with vbus-supply
+property.
+
+Signed-off-by: Amelie Delaunay <amelie.delaunay@foss.st.com>
 Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
 ---
- arch/arm/boot/dts/stm32mp157c-ev1.dts | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ arch/arm/boot/dts/stm32mp157c-ev1.dts | 5 +++++
+ 1 file changed, 5 insertions(+)
 
 diff --git a/arch/arm/boot/dts/stm32mp157c-ev1.dts b/arch/arm/boot/dts/stm32mp157c-ev1.dts
-index e22e394832a8..a0ff92662e02 100644
+index d142dd30e16b..e22e394832a8 100644
 --- a/arch/arm/boot/dts/stm32mp157c-ev1.dts
 +++ b/arch/arm/boot/dts/stm32mp157c-ev1.dts
-@@ -362,6 +362,14 @@ &usart3 {
- &usbh_ehci {
- 	phys = <&usbphyc_port0>;
- 	status = "okay";
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+	/* onboard HUB */
-+	hub@1 {
-+		compatible = "usb424,2514";
-+		reg = <1>;
-+		vdd-supply = <&v3v3>;
+@@ -385,6 +385,11 @@ &usbphyc_port0 {
+ 	st,tune-squelch-level = <3>;
+ 	st,tune-hs-rx-offset = <2>;
+ 	st,no-lsfs-sc;
++
++	connector {
++		compatible = "usb-a-connector";
++		vbus-supply = <&vbus_sw>;
 +	};
  };
  
- &usbotg_hs {
+ &usbphyc_port1 {
 -- 
 2.25.1
 
