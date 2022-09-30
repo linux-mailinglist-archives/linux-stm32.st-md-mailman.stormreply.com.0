@@ -2,52 +2,55 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2637A5F02B0
-	for <lists+linux-stm32@lfdr.de>; Fri, 30 Sep 2022 04:21:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5DF225F0B5C
+	for <lists+linux-stm32@lfdr.de>; Fri, 30 Sep 2022 14:10:21 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9E6AFC64100;
-	Fri, 30 Sep 2022 02:21:12 +0000 (UTC)
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0835EC64104;
+	Fri, 30 Sep 2022 12:10:21 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 66D28C640FE
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 268D9C63325
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 30 Sep 2022 02:21:11 +0000 (UTC)
+ Fri, 30 Sep 2022 12:10:20 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by sin.source.kernel.org (Postfix) with ESMTPS id 6E4C9CE240C;
- Fri, 30 Sep 2022 02:21:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id B4F36C43142;
- Fri, 30 Sep 2022 02:21:06 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 96F0FB8271A;
+ Fri, 30 Sep 2022 12:10:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id D849EC43470;
+ Fri, 30 Sep 2022 12:10:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1664504466;
- bh=ueEwZNI3LGnm0spa0UV7x3J2NHzMX38/TS/8V2AKkGw=;
+ s=k20201202; t=1664539817;
+ bh=Wr9kLRkpR89dsJoFBQYKEU+VDLeRWEFtjxk7UOSaQIY=;
  h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=a75zbWes8dPjQwRmocWdadbZgD/99pxc2Uu64BnD+gNWkZsUsj3g4DbAbcMxiWeaf
- 1tWv/aQHTM9m1oB9FOSkNRliziQNoClrj2Ld/Nls5eAvxvuaqjpuYaQoUJGIWK0xYD
- rsRIR3ZrR1u9E2u/FGxj+xmNWvDHmrUc2sBomGzP4gvKj6hdffPgmLjQMwsMD8mf/S
- C7bHxi+XRErRduteOAm1EFy+axBXHGDIjkgjc8ejSxoyDCiqcanBasq1JqynHIVQO/
- EyomuHrXhqwWv4/EDggnGU2hdm3ahUxSWJ+pCbbOa3xG4q1NFCKqLPCsc7rIB+B5J4
- FXxX9BwGG1oGQ==
+ b=GcJf0GR0bU7IOZnZi7DJA0OYE7pugV3SZD7osq3e1LC6SmOBOTHvkLfAeJCPzLlgx
+ KaTFe6EdbWne43W1pVCDxguRGzeOWcWzXp9kHBkXk01T0jtbXh8OeMT5HJQKU65+O8
+ oTUTeoYh+3oJiGjD59jnwW6YYT2+1E4mSMouo3JgkOFivkYMOC5sfpEAqUYJsw7s8L
+ 9xgtby86T/5oa8QS2BxD42CvKbV7dm68RkBPO4vm7N4G4vCf28sndMHz5N2Dyq5dKV
+ NakcWPPqJMDKn/HEe5LYQofpCghNUUGNMzaE6wYonKF58FS/16483IbroiegSrCJ2h
+ U0E9Hm3LnlDuQ==
 Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
  (localhost.localdomain [127.0.0.1])
  by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
- 9FDEAC395DA; Fri, 30 Sep 2022 02:21:06 +0000 (UTC)
+ B6DD5C395DA; Fri, 30 Sep 2022 12:10:17 +0000 (UTC)
 MIME-Version: 1.0
 From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <166450446665.30186.2865460822947348151.git-patchwork-notify@kernel.org>
-Date: Fri, 30 Sep 2022 02:21:06 +0000
-References: <20220927012449.698915-1-marex@denx.de>
-In-Reply-To: <20220927012449.698915-1-marex@denx.de>
-To: Marek Vasut <marex@denx.de>
-Cc: devicetree@vger.kernel.org, netdev@vger.kernel.org, robh+dt@kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, krzysztof.kozlowski@linaro.org,
- edumazet@google.com, joabreu@synopsys.com, kuba@kernel.org,
- peppe.cavallaro@st.com, pabeni@redhat.com, davem@davemloft.net,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] dt-bindings: net: snps,
- dwmac: Document stmmac-axi-config subnode
+Message-Id: <166453981774.22292.11611575581235201348.git-patchwork-notify@kernel.org>
+Date: Fri, 30 Sep 2022 12:10:17 +0000
+References: <20220929014758.12099-1-jianguo.zhang@mediatek.com>
+In-Reply-To: <20220929014758.12099-1-jianguo.zhang@mediatek.com>
+To: Jianguo Zhang <jianguo.zhang@mediatek.com>
+Cc: joabreu@synopsys.com, mcoquelin.stm32@gmail.com, devicetree@vger.kernel.org,
+ biao.huang@mediatek.com, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
+ edumazet@google.com, robh+dt@kernel.org, linux-mediatek@lists.infradead.org,
+ krzysztof.kozlowski+dt@linaro.org, peppe.cavallaro@st.com,
+ matthias.bgg@gmail.com, kuba@kernel.org, pabeni@redhat.com,
+ davem@davemloft.net, linux-arm-kernel@lists.infradead.org,
+ angelogioacchino.delregno@collabora.com
+Subject: Re: [Linux-stm32] [PATCH v7 0/4] Mediatek ethernet patches for
+	mt8188
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,35 +69,30 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 Hello:
 
-This patch was applied to netdev/net-next.git (master)
-by Jakub Kicinski <kuba@kernel.org>:
+This series was applied to netdev/net-next.git (master)
+by David S. Miller <davem@davemloft.net>:
 
-On Tue, 27 Sep 2022 03:24:49 +0200 you wrote:
-> The stmmac-axi-config subnode is present in multiple dwmac instance DTs,
-> document its content per snps,axi-config property description which is
-> a phandle to this subnode.
+On Thu, 29 Sep 2022 09:47:54 +0800 you wrote:
+> Changes in v7:
 > 
-> Signed-off-by: Marek Vasut <marex@denx.de>
-> ---
-> Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
-> Cc: David S. Miller <davem@davemloft.net>
-> Cc: Eric Dumazet <edumazet@google.com>
-> Cc: Giuseppe Cavallaro <peppe.cavallaro@st.com>
-> Cc: Jakub Kicinski <kuba@kernel.org>
-> Cc: Jose Abreu <joabreu@synopsys.com>
-> Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-> Cc: Paolo Abeni <pabeni@redhat.com>
-> Cc: Rob Herring <robh+dt@kernel.org>
-> Cc: devicetree@vger.kernel.org
-> Cc: linux-stm32@st-md-mailman.stormreply.com
-> Cc: netdev@vger.kernel.org
-> To: linux-arm-kernel@lists.infradead.org
+> v7:
+> 1) Add 'Reviewed-by: AngeloGioacchino Del Regno
+> <angelogioacchino.delregno@collabora.com>' info in commit message of
+> patch 'dt-bindings: net: snps,dwmac: add new property snps,clk-csr',
+> 'arm64: dts: mediatek: mt2712e: Update the name of property 'clk_csr''
+> and 'net: stmmac: add a parse for new property 'snps,clk-csr''.
 > 
 > [...]
 
 Here is the summary with links:
-  - dt-bindings: net: snps,dwmac: Document stmmac-axi-config subnode
-    https://git.kernel.org/netdev/net-next/c/5361660af6d3
+  - [v7,1/4] dt-bindings: net: mediatek-dwmac: add support for mt8188
+    https://git.kernel.org/netdev/net-next/c/c827b7a3fed5
+  - [v7,2/4] dt-bindings: net: snps,dwmac: add new property snps,clk-csr
+    https://git.kernel.org/netdev/net-next/c/22ba1afdec08
+  - [v7,3/4] arm64: dts: mediatek: mt2712e: Update the name of property 'clk_csr'
+    https://git.kernel.org/netdev/net-next/c/7871785ce92d
+  - [v7,4/4] net: stmmac: add a parse for new property 'snps,clk-csr'
+    https://git.kernel.org/netdev/net-next/c/83936ea8d8ad
 
 You are awesome, thank you!
 -- 
