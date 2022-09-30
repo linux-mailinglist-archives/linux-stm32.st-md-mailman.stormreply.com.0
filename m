@@ -2,55 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5DF225F0B5C
-	for <lists+linux-stm32@lfdr.de>; Fri, 30 Sep 2022 14:10:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ACFF65F0E24
+	for <lists+linux-stm32@lfdr.de>; Fri, 30 Sep 2022 16:57:02 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0835EC64104;
-	Fri, 30 Sep 2022 12:10:21 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 268D9C63325
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 30 Sep 2022 12:10:20 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E7F5FC64104;
+	Fri, 30 Sep 2022 14:57:01 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 96F0FB8271A;
- Fri, 30 Sep 2022 12:10:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id D849EC43470;
- Fri, 30 Sep 2022 12:10:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1664539817;
- bh=Wr9kLRkpR89dsJoFBQYKEU+VDLeRWEFtjxk7UOSaQIY=;
- h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=GcJf0GR0bU7IOZnZi7DJA0OYE7pugV3SZD7osq3e1LC6SmOBOTHvkLfAeJCPzLlgx
- KaTFe6EdbWne43W1pVCDxguRGzeOWcWzXp9kHBkXk01T0jtbXh8OeMT5HJQKU65+O8
- oTUTeoYh+3oJiGjD59jnwW6YYT2+1E4mSMouo3JgkOFivkYMOC5sfpEAqUYJsw7s8L
- 9xgtby86T/5oa8QS2BxD42CvKbV7dm68RkBPO4vm7N4G4vCf28sndMHz5N2Dyq5dKV
- NakcWPPqJMDKn/HEe5LYQofpCghNUUGNMzaE6wYonKF58FS/16483IbroiegSrCJ2h
- U0E9Hm3LnlDuQ==
-Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
- B6DD5C395DA; Fri, 30 Sep 2022 12:10:17 +0000 (UTC)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5F501C01E98
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 30 Sep 2022 14:57:00 +0000 (UTC)
+Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 28UD1kdE007609;
+ Fri, 30 Sep 2022 16:56:47 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=selector1;
+ bh=FadaheE/qXB2bnG4yvSnAAixXQT0OmQ5u8cTQTAxLbE=;
+ b=OZ+AqRcThiq4S2gRGOXpWU3JMFRo0G5cgnSO6jLG7y9MuDzZ4Zk8qXcqyH9/5ngW/JqQ
+ vSWxTsMJ/nqpgvdsN3RM4M3U1vGP7Opj2XPaiYKK/ee2VFCUBn/RVGyg/WY9HFK7D/+h
+ qZRtsUa4zra5RfmYIXZqRwRihHEEkOjNkY4Am9HzqGMGjfgdCkgbKUG0FfFBU1bERvVY
+ R67sAhmRP46+oK/luw4Af4eC1umGX1bx8HCLC1iJPB8j/nkNCzkAzkdEr1dfDfjuzrbo
+ iz7+gCVAVtsoyUzO1qh1XNlLIhYIoBljEOE5mfDfut+fpW5DtkZhxNf+5gEcxIcpu3dI /Q== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3jwxefhkcx-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 30 Sep 2022 16:56:47 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 3521F10002A;
+ Fri, 30 Sep 2022 16:56:47 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 2D2A7231DD7;
+ Fri, 30 Sep 2022 16:56:47 +0200 (CEST)
+Received: from localhost (10.75.127.46) by SHFDAG1NODE2.st.com (10.75.129.70)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2375.31; Fri, 30 Sep
+ 2022 16:56:46 +0200
+From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+To: <alexandre.torgue@foss.st.com>, <robh+dt@kernel.org>,
+ <krzysztof.kozlowski+dt@linaro.org>
+Date: Fri, 30 Sep 2022 16:56:43 +0200
+Message-ID: <20220930145643.249099-1-fabrice.gasnier@foss.st.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <166453981774.22292.11611575581235201348.git-patchwork-notify@kernel.org>
-Date: Fri, 30 Sep 2022 12:10:17 +0000
-References: <20220929014758.12099-1-jianguo.zhang@mediatek.com>
-In-Reply-To: <20220929014758.12099-1-jianguo.zhang@mediatek.com>
-To: Jianguo Zhang <jianguo.zhang@mediatek.com>
-Cc: joabreu@synopsys.com, mcoquelin.stm32@gmail.com, devicetree@vger.kernel.org,
- biao.huang@mediatek.com, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
- edumazet@google.com, robh+dt@kernel.org, linux-mediatek@lists.infradead.org,
- krzysztof.kozlowski+dt@linaro.org, peppe.cavallaro@st.com,
- matthias.bgg@gmail.com, kuba@kernel.org, pabeni@redhat.com,
- davem@davemloft.net, linux-arm-kernel@lists.infradead.org,
- angelogioacchino.delregno@collabora.com
-Subject: Re: [Linux-stm32] [PATCH v7 0/4] Mediatek ethernet patches for
-	mt8188
+X-Originating-IP: [10.75.127.46]
+X-ClientProxiedBy: SFHDAG2NODE3.st.com (10.75.127.6) To SHFDAG1NODE2.st.com
+ (10.75.129.70)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.528,FMLib:17.11.122.1
+ definitions=2022-09-30_04,2022-09-29_03,2022-06-22_01
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH] ARM: dts: stm32: add support for USB2514B
+	onboard hub on stm32mp157c-ev1
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,38 +74,35 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello:
+Add support for USB2514B onboard hub on stm32mp157c EV1 board. The HUB
+is supplied by a 3v3 PMIC regulator.
 
-This series was applied to netdev/net-next.git (master)
-by David S. Miller <davem@davemloft.net>:
+Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+---
+ arch/arm/boot/dts/stm32mp157c-ev1.dts | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-On Thu, 29 Sep 2022 09:47:54 +0800 you wrote:
-> Changes in v7:
-> 
-> v7:
-> 1) Add 'Reviewed-by: AngeloGioacchino Del Regno
-> <angelogioacchino.delregno@collabora.com>' info in commit message of
-> patch 'dt-bindings: net: snps,dwmac: add new property snps,clk-csr',
-> 'arm64: dts: mediatek: mt2712e: Update the name of property 'clk_csr''
-> and 'net: stmmac: add a parse for new property 'snps,clk-csr''.
-> 
-> [...]
-
-Here is the summary with links:
-  - [v7,1/4] dt-bindings: net: mediatek-dwmac: add support for mt8188
-    https://git.kernel.org/netdev/net-next/c/c827b7a3fed5
-  - [v7,2/4] dt-bindings: net: snps,dwmac: add new property snps,clk-csr
-    https://git.kernel.org/netdev/net-next/c/22ba1afdec08
-  - [v7,3/4] arm64: dts: mediatek: mt2712e: Update the name of property 'clk_csr'
-    https://git.kernel.org/netdev/net-next/c/7871785ce92d
-  - [v7,4/4] net: stmmac: add a parse for new property 'snps,clk-csr'
-    https://git.kernel.org/netdev/net-next/c/83936ea8d8ad
-
-You are awesome, thank you!
+diff --git a/arch/arm/boot/dts/stm32mp157c-ev1.dts b/arch/arm/boot/dts/stm32mp157c-ev1.dts
+index e22e394832a8..a0ff92662e02 100644
+--- a/arch/arm/boot/dts/stm32mp157c-ev1.dts
++++ b/arch/arm/boot/dts/stm32mp157c-ev1.dts
+@@ -362,6 +362,14 @@ &usart3 {
+ &usbh_ehci {
+ 	phys = <&usbphyc_port0>;
+ 	status = "okay";
++	#address-cells = <1>;
++	#size-cells = <0>;
++	/* onboard HUB */
++	hub@1 {
++		compatible = "usb424,2514";
++		reg = <1>;
++		vdd-supply = <&v3v3>;
++	};
+ };
+ 
+ &usbotg_hs {
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+2.25.1
 
 _______________________________________________
 Linux-stm32 mailing list
