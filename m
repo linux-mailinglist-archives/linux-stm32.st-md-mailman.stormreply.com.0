@@ -2,54 +2,52 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 376A75F0261
-	for <lists+linux-stm32@lfdr.de>; Fri, 30 Sep 2022 03:50:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2637A5F02B0
+	for <lists+linux-stm32@lfdr.de>; Fri, 30 Sep 2022 04:21:13 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E0951C64100;
-	Fri, 30 Sep 2022 01:50:03 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9E6AFC64100;
+	Fri, 30 Sep 2022 02:21:12 +0000 (UTC)
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 25709C640FE
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 66D28C640FE
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 30 Sep 2022 01:50:03 +0000 (UTC)
+ Fri, 30 Sep 2022 02:21:11 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 71C85B826EC;
- Fri, 30 Sep 2022 01:50:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65D83C433D6;
- Fri, 30 Sep 2022 01:50:00 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTPS id 6E4C9CE240C;
+ Fri, 30 Sep 2022 02:21:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id B4F36C43142;
+ Fri, 30 Sep 2022 02:21:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1664502601;
- bh=GLXUi5XMqb9SWFsCHSWdY5rauLl8NCQnmgT8/QW7ew4=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=qzPBI2b8OdPAPM1rPavgrFFu2C3uGkLTrjypl29DiDgI41ll/xIWpMnqHct8Z18+H
- +A2GnxzqismYXm7jKA3q7YN8Ypc5gsw73oAKuOrEeWzieWodb7SdxDrx/Ocv2Og7mI
- 4ine0SqwKroX91BwdXxtDJq4F5pYJLnnnW0qbXDt+nQtmwlWWaQBlyHlex+/J/UfZy
- ZqMhv6XwBc70RQMnoKU2J5+IhVuDWeYpD87xAkg5yqRDVhqMP0+mCsnL/JdKdSYr3Z
- ZH1kufJJ2dmJhbIXPGTfbjdaTv+Rh/xclRAjsJHozB4nHJ1n5FVtZWEgBFBfuZKMwO
- 7eVRNAMTEsVmQ==
-Date: Thu, 29 Sep 2022 18:49:59 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: Jianguo Zhang <jianguo.zhang@mediatek.com>, Krzysztof Kozlowski
- <krzysztof.kozlowski+dt@linaro.org>, AngeloGioacchino Del Regno        
- <angelogioacchino.delregno@collabora.com>
-Message-ID: <20220929184959.2c1458c1@kernel.org>
-In-Reply-To: <20220928092308.26019-1-jianguo.zhang@mediatek.com>
-References: <20220928092308.26019-1-jianguo.zhang@mediatek.com>
+ s=k20201202; t=1664504466;
+ bh=ueEwZNI3LGnm0spa0UV7x3J2NHzMX38/TS/8V2AKkGw=;
+ h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
+ b=a75zbWes8dPjQwRmocWdadbZgD/99pxc2Uu64BnD+gNWkZsUsj3g4DbAbcMxiWeaf
+ 1tWv/aQHTM9m1oB9FOSkNRliziQNoClrj2Ld/Nls5eAvxvuaqjpuYaQoUJGIWK0xYD
+ rsRIR3ZrR1u9E2u/FGxj+xmNWvDHmrUc2sBomGzP4gvKj6hdffPgmLjQMwsMD8mf/S
+ C7bHxi+XRErRduteOAm1EFy+axBXHGDIjkgjc8ejSxoyDCiqcanBasq1JqynHIVQO/
+ EyomuHrXhqwWv4/EDggnGU2hdm3ahUxSWJ+pCbbOa3xG4q1NFCKqLPCsc7rIB+B5J4
+ FXxX9BwGG1oGQ==
+Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
+ 9FDEAC395DA; Fri, 30 Sep 2022 02:21:06 +0000 (UTC)
 MIME-Version: 1.0
-Cc: Jose Abreu <joabreu@synopsys.com>, devicetree@vger.kernel.org,
- Biao Huang <biao.huang@mediatek.com>, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
- Eric Dumazet <edumazet@google.com>, Rob Herring <robh+dt@kernel.org>,
- linux-mediatek@lists.infradead.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>, Paolo Abeni <pabeni@redhat.com>,
- "David S . Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [resend PATCH v6 0/4] Mediatek ethernet patches
-	for mt8188
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: <166450446665.30186.2865460822947348151.git-patchwork-notify@kernel.org>
+Date: Fri, 30 Sep 2022 02:21:06 +0000
+References: <20220927012449.698915-1-marex@denx.de>
+In-Reply-To: <20220927012449.698915-1-marex@denx.de>
+To: Marek Vasut <marex@denx.de>
+Cc: devicetree@vger.kernel.org, netdev@vger.kernel.org, robh+dt@kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, krzysztof.kozlowski@linaro.org,
+ edumazet@google.com, joabreu@synopsys.com, kuba@kernel.org,
+ peppe.cavallaro@st.com, pabeni@redhat.com, davem@davemloft.net,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] dt-bindings: net: snps,
+ dwmac: Document stmmac-axi-config subnode
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,15 +64,44 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, 28 Sep 2022 17:23:04 +0800 Jianguo Zhang wrote:
-> Jianguo Zhang (4):
->   dt-bindings: net: mediatek-dwmac: add support for mt8188
->   dt-bindings: net: snps,dwmac: add new property snps,clk-csr
->   arm64: dts: mediatek: mt2712e: Update the name of property 'clk_csr'
->   net: stmmac: add a parse for new property 'snps,clk-csr'
+Hello:
 
-Are we supposed to drop patch 3 when applying this to net-next?
-Do I understand this correctly?
+This patch was applied to netdev/net-next.git (master)
+by Jakub Kicinski <kuba@kernel.org>:
+
+On Tue, 27 Sep 2022 03:24:49 +0200 you wrote:
+> The stmmac-axi-config subnode is present in multiple dwmac instance DTs,
+> document its content per snps,axi-config property description which is
+> a phandle to this subnode.
+> 
+> Signed-off-by: Marek Vasut <marex@denx.de>
+> ---
+> Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
+> Cc: David S. Miller <davem@davemloft.net>
+> Cc: Eric Dumazet <edumazet@google.com>
+> Cc: Giuseppe Cavallaro <peppe.cavallaro@st.com>
+> Cc: Jakub Kicinski <kuba@kernel.org>
+> Cc: Jose Abreu <joabreu@synopsys.com>
+> Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> Cc: Paolo Abeni <pabeni@redhat.com>
+> Cc: Rob Herring <robh+dt@kernel.org>
+> Cc: devicetree@vger.kernel.org
+> Cc: linux-stm32@st-md-mailman.stormreply.com
+> Cc: netdev@vger.kernel.org
+> To: linux-arm-kernel@lists.infradead.org
+> 
+> [...]
+
+Here is the summary with links:
+  - dt-bindings: net: snps,dwmac: Document stmmac-axi-config subnode
+    https://git.kernel.org/netdev/net-next/c/5361660af6d3
+
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
