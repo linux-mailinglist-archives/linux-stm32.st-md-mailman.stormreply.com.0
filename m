@@ -2,63 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 904F85F0042
-	for <lists+linux-stm32@lfdr.de>; Fri, 30 Sep 2022 00:31:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 376A75F0261
+	for <lists+linux-stm32@lfdr.de>; Fri, 30 Sep 2022 03:50:04 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 50478C64100;
-	Thu, 29 Sep 2022 22:31:15 +0000 (UTC)
-Received: from mail-oa1-f54.google.com (mail-oa1-f54.google.com
- [209.85.160.54])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E0951C64100;
+	Fri, 30 Sep 2022 01:50:03 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E60E8C63324
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 25709C640FE
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 29 Sep 2022 22:31:13 +0000 (UTC)
-Received: by mail-oa1-f54.google.com with SMTP id
- 586e51a60fabf-131dda37dddso2521262fac.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 29 Sep 2022 15:31:13 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date;
- bh=+ppqKUZekTxVrZE6//gc6FmK7Y2dgigVSPtRGAj8nKU=;
- b=jVfT/7q7ExTJBJ0f3AZA/indrtlDvapWEJDj9j5mMxP51Aie17YjorMMWanC7Gkb7F
- R7ymqefBqbZddSiGIFF87MZ/sadKeepky/VeBHz7c1zyNyCJg8ZmDbwNt4zjgzCB9f92
- qwLeM2dd9LNd9MTnvnr/CU/vU0OxBmu/Zc7sMHVrAzDf5nSmZ+Ke5DvSs9EN5g2g3lWt
- vqoobMRaiJvf7yjpTZ7RDpEA7zTjGlsBRSYnHa+Sxz6CdbYsz+ZDCjwH1FunDlC9kiZI
- X69tXBEYxRxNZuQgGc6Vs7RaxICIHC4pfExBLMbHvsLgJqiFB3HV+70ieK7f3gJrxrwS
- 9IuA==
-X-Gm-Message-State: ACrzQf0q9fdftyLlSsVVXyn6yeX5P6viaMKvSnlnQ7IPjguM/Z17LRyw
- 6nvZtaqOAQ41xWEot0lZtA==
-X-Google-Smtp-Source: AMsMyM6VPQStiQxDY3pOVC8hYCgC8vnsmw1bwW+gJ4KDrpxt0NpOa9gHUrAo8NDlWtbXSD65Hd6G9A==
-X-Received: by 2002:a05:6870:55a4:b0:130:c298:46e5 with SMTP id
- n36-20020a05687055a400b00130c29846e5mr9872616oao.216.1664490672775; 
- Thu, 29 Sep 2022 15:31:12 -0700 (PDT)
-Received: from macbook.herring.priv (66-90-144-107.dyn.grandenetworks.net.
- [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
- u36-20020a056870702400b0013125e6a60fsm229085oae.58.2022.09.29.15.31.11
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 29 Sep 2022 15:31:12 -0700 (PDT)
-Received: (nullmailer pid 2882012 invoked by uid 1000);
- Thu, 29 Sep 2022 22:31:11 -0000
-Date: Thu, 29 Sep 2022 17:31:11 -0500
-From: Rob Herring <robh@kernel.org>
-To: Marek Vasut <marex@denx.de>
-Message-ID: <20220929223111.GA2880118-robh@kernel.org>
-References: <20220927191736.299702-1-marex@denx.de>
+ Fri, 30 Sep 2022 01:50:03 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 71C85B826EC;
+ Fri, 30 Sep 2022 01:50:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65D83C433D6;
+ Fri, 30 Sep 2022 01:50:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1664502601;
+ bh=GLXUi5XMqb9SWFsCHSWdY5rauLl8NCQnmgT8/QW7ew4=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=qzPBI2b8OdPAPM1rPavgrFFu2C3uGkLTrjypl29DiDgI41ll/xIWpMnqHct8Z18+H
+ +A2GnxzqismYXm7jKA3q7YN8Ypc5gsw73oAKuOrEeWzieWodb7SdxDrx/Ocv2Og7mI
+ 4ine0SqwKroX91BwdXxtDJq4F5pYJLnnnW0qbXDt+nQtmwlWWaQBlyHlex+/J/UfZy
+ ZqMhv6XwBc70RQMnoKU2J5+IhVuDWeYpD87xAkg5yqRDVhqMP0+mCsnL/JdKdSYr3Z
+ ZH1kufJJ2dmJhbIXPGTfbjdaTv+Rh/xclRAjsJHozB4nHJ1n5FVtZWEgBFBfuZKMwO
+ 7eVRNAMTEsVmQ==
+Date: Thu, 29 Sep 2022 18:49:59 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Jianguo Zhang <jianguo.zhang@mediatek.com>, Krzysztof Kozlowski
+ <krzysztof.kozlowski+dt@linaro.org>, AngeloGioacchino Del Regno        
+ <angelogioacchino.delregno@collabora.com>
+Message-ID: <20220929184959.2c1458c1@kernel.org>
+In-Reply-To: <20220928092308.26019-1-jianguo.zhang@mediatek.com>
+References: <20220928092308.26019-1-jianguo.zhang@mediatek.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20220927191736.299702-1-marex@denx.de>
-Cc: devicetree@vger.kernel.org, Ulf Hansson <ulf.hansson@linaro.org>,
- linux-mmc@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@somainline.org>,
- linux-stm32@st-md-mailman.stormreply.com, Andy Gross <agross@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- linux-arm-msm@vger.kernel.org, Linus Walleij <linus.walleij@linaro.org>,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 1/3] dt-bindings: mmc: arm,
- pl18x: Document interrupt-names is ignored
+Cc: Jose Abreu <joabreu@synopsys.com>, devicetree@vger.kernel.org,
+ Biao Huang <biao.huang@mediatek.com>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
+ Eric Dumazet <edumazet@google.com>, Rob Herring <robh+dt@kernel.org>,
+ linux-mediatek@lists.infradead.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>, Paolo Abeni <pabeni@redhat.com>,
+ "David S . Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [resend PATCH v6 0/4] Mediatek ethernet patches
+	for mt8188
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,53 +66,15 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Sep 27, 2022 at 09:17:34PM +0200, Marek Vasut wrote:
-> Due to inconsistency of existing DTs regarding the content of this IP
-> interrupt-names DT property, document this such that interrupt-names
-> is not used by this IP bindings.
-> 
-> Signed-off-by: Marek Vasut <marex@denx.de>
-> ---
-> Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
-> Cc: Andy Gross <agross@kernel.org>
-> Cc: Bjorn Andersson <andersson@kernel.org>
-> Cc: Konrad Dybcio <konrad.dybcio@somainline.org>
-> Cc: Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
-> Cc: Linus Walleij <linus.walleij@linaro.org>
-> Cc: Rob Herring <robh+dt@kernel.org>
-> Cc: Ulf Hansson <ulf.hansson@linaro.org>
-> Cc: Yann Gautier <yann.gautier@foss.st.com>
-> Cc: devicetree@vger.kernel.org
-> Cc: linux-mmc@vger.kernel.org
-> Cc: linux-arm-msm@vger.kernel.org
-> Cc: linux-stm32@st-md-mailman.stormreply.com
-> To: linux-arm-kernel@lists.infradead.org
-> ---
->  Documentation/devicetree/bindings/mmc/arm,pl18x.yaml | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/mmc/arm,pl18x.yaml b/Documentation/devicetree/bindings/mmc/arm,pl18x.yaml
-> index 1e69a5a42439b..a0ddf6495f85e 100644
-> --- a/Documentation/devicetree/bindings/mmc/arm,pl18x.yaml
-> +++ b/Documentation/devicetree/bindings/mmc/arm,pl18x.yaml
-> @@ -95,7 +95,8 @@ properties:
->        PIO (polled I/O) interrupt and occurs when the FIFO needs to be
->        emptied as part of a bulk read from the card. Some variants have these
->        two interrupts wired into the same line (logic OR) and in that case
-> -      only one interrupt may be provided.
-> +      only one interrupt may be provided. The interrupt-names property is
-> +      not used due to inconsistency of existing DTs regarding its content.
->      minItems: 1
->      maxItems: 2
+On Wed, 28 Sep 2022 17:23:04 +0800 Jianguo Zhang wrote:
+> Jianguo Zhang (4):
+>   dt-bindings: net: mediatek-dwmac: add support for mt8188
+>   dt-bindings: net: snps,dwmac: add new property snps,clk-csr
+>   arm64: dts: mediatek: mt2712e: Update the name of property 'clk_csr'
+>   net: stmmac: add a parse for new property 'snps,clk-csr'
 
-       deprecated: false
-
-
->  
-> -- 
-> 2.35.1
-> 
-> 
+Are we supposed to drop patch 3 when applying this to net-next?
+Do I understand this correctly?
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
