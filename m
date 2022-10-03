@@ -2,52 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 47BE85F2369
-	for <lists+linux-stm32@lfdr.de>; Sun,  2 Oct 2022 15:42:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B79C45F30A8
+	for <lists+linux-stm32@lfdr.de>; Mon,  3 Oct 2022 15:04:50 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CFA5DC640F5;
-	Sun,  2 Oct 2022 13:42:02 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 067A6C5F1D3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun,  2 Oct 2022 13:42:00 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 58E7FC64118;
+	Mon,  3 Oct 2022 13:04:50 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id E233260EB4;
- Sun,  2 Oct 2022 13:41:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B55AC433D6;
- Sun,  2 Oct 2022 13:41:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1664718119;
- bh=UJTWF29awJ/Xbq5Xg+xQ+UmGCzbSkpY9nIUrY+MBJE8=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=afQm++9Avlzt4cpTxwgUzj6QY2j1GTSmg80hJdg2ct/n8vztAps59qeTrxl4Mvs0C
- fdmjY1EuaCdAdaRtuk51TI3Rwbv+9ulblX1PStbojk+pJ4CPJcGxHE3Cs8x/JhlEjK
- pv73v7ERxRHlr8kiF5uMENkGk4Zr3Od7imm4nMA8xaZnTs2IDHREMD6oCI/ZLGY9Q5
- UYsH21f/WztQ1+9erKEqrHbtOU4RkeDdcGkXzDCy5RK9BUIzj2If3MUYT+2EEfjFGs
- LNKl1OJT/21GAD+0aU1p/1DigqgttdhNA2Dvk/0gtX9m5HCONiiS+gN9yAnr4KkUM6
- dRxdKm6Gg8g3g==
-Date: Sun, 2 Oct 2022 14:42:13 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Olivier Moysan <olivier.moysan@foss.st.com>
-Message-ID: <20221002144213.4d6d4363@jic23-huawei>
-In-Reply-To: <20220928164114.48339-4-olivier.moysan@foss.st.com>
-References: <20220928164114.48339-1-olivier.moysan@foss.st.com>
- <20220928164114.48339-4-olivier.moysan@foss.st.com>
-X-Mailer: Claws Mail 4.1.0 (GTK 3.24.34; x86_64-pc-linux-gnu)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 27DF7C64114
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon,  3 Oct 2022 13:04:49 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 2938p6Za026051;
+ Mon, 3 Oct 2022 15:04:27 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=date : from : to :
+ cc : subject : in-reply-to : message-id : references : mime-version :
+ content-type; s=selector1;
+ bh=n2dod6jOO9mn4/av9Xj9sPyCVY0WZR1VS0HeSNd5cvc=;
+ b=VzYkUzBClM6TJ5XnlWb3vQVm9B1+kS6SeKoDnOCx8Y2+QDEixG+9Kyh4TLp1+Xb7RKCB
+ 98bpLrdHSZwNcGch8cQOgSnWRGsY0a6+XnsI57jN12mnCaBcUyupiy8++tyUC6tEwR0i
+ pGGj/DBTj6ivljsVB3XRNEati5gKcvnuvmAO2a411sZWLv/ZvbFu+DPRezboOhT8MAzr
+ luiqTwP7Uaxz/4TY1zMyU0iziEj9qRXAGrhtGAgj0FKlL4zqXd9ZtYVpc+sqqipo2qpZ
+ dtarAHGoA+CeO3Yi8nBmDfZRKJhyWi7rCWp9Pjo+fEyF7LALKzkHgBLn7IQ95VJMWl8a 4Q== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3jxcehtc68-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 03 Oct 2022 15:04:27 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 3C2FF10002A;
+ Mon,  3 Oct 2022 15:04:20 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id F13B722A6E8;
+ Mon,  3 Oct 2022 15:04:19 +0200 (CEST)
+Received: from gnbcxd0088.gnb.st.com (10.75.127.118) by SHFDAG1NODE2.st.com
+ (10.75.129.70) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2375.31; Mon, 3 Oct
+ 2022 15:04:17 +0200
+Date: Mon, 3 Oct 2022 15:03:55 +0200
+From: Nicolas Toromanoff <nicolas.toromanoff@foss.st.com>
+X-X-Sender: toromano@gnbcxd0088.gnb.st.com
+To: Colin Ian King <colin.i.king@gmail.com>
+In-Reply-To: <20220928222443.68705-1-colin.i.king@gmail.com>
+Message-ID: <alpine.DEB.2.21.2210031455360.10257@gnbcxd0088.gnb.st.com>
+References: <20220928222443.68705-1-colin.i.king@gmail.com>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-Cc: Lars-Peter Clausen <lars@metafoo.de>, Wan Jiabing <wanjiabing@vivo.com>,
- linux-kernel@vger.kernel.org,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>, nuno.sa@analog.com,
- Paul Cercueil <paul@crapouillou.net>, linux-iio@vger.kernel.org,
- Andy Shevchenko <andy.shevchenko@gmail.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 3/8] iio: adc: stm32-adc: add stm32mp13
-	support
+X-Originating-IP: [10.75.127.118]
+X-ClientProxiedBy: GPXDAG2NODE4.st.com (10.75.127.68) To SHFDAG1NODE2.st.com
+ (10.75.129.70)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.528,FMLib:17.11.122.1
+ definitions=2022-10-03_02,2022-09-29_03,2022-06-22_01
+Cc: Herbert Xu <herbert@gondor.apana.org.au>, linux-kernel@vger.kernel.org,
+ kernel-janitors@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-crypto@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ "David S . Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] crypto: stm32 - Fix spelling mistake
+	"wite" -> "write"
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,141 +73,25 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, 28 Sep 2022 18:41:09 +0200
-Olivier Moysan <olivier.moysan@foss.st.com> wrote:
+On Thu, 29 Sep 2022, Colin Ian King wrote:
 
-> Add STM32 ADC support for STM32MP13x SOCs family.
+> There are a couple of spelling mistakes in dev_err messages. Fix them.
 > 
-> On STM32MP13x, each ADC peripheral has a single ADC block.
+> Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
 
-Wrap this a bit nearer 80 chars. Personally I go with 75, but anywhere around
-that is fine.
+Hello Colin,
 
-> These ADC peripherals, ADC1 and ADC2, are fully independent.
-> This introduces changes in common registers handling.
-> 
-> Some features such as boost mode, channel preselection and
-> linear calibration are not supported by the STM32MP13x ADC.
-> Add diversity management for these features.
-> 
-> The STM32MP13x ADC introduces registers and bitfield variants
-> on existing features such as calibration factors and internal
-> channels. Add register diversity management.
-> 
-> Add also support of new internal channels VDDCPU and VDDQ_DDR.
-> 
-> Signed-off-by: Olivier Moysan <olivier.moysan@foss.st.com>
-Hi Oliver
+Thanks for the patch.
 
-A few really trivial things inline,
+Acked-by: nicolas.toromanoff@foss.st.com
 
-Jonathan
-
-> ---
->  drivers/iio/adc/stm32-adc-core.c |  21 +++
->  drivers/iio/adc/stm32-adc-core.h |  32 +++++
->  drivers/iio/adc/stm32-adc.c      | 212 +++++++++++++++++++++++++++----
->  3 files changed, 237 insertions(+), 28 deletions(-)
-> 
-> diff --git a/drivers/iio/adc/stm32-adc-core.c b/drivers/iio/adc/stm32-adc-core.c
-> index 81d5db91c67b..6564aa61b595 100644
-> --- a/drivers/iio/adc/stm32-adc-core.c
-> +++ b/drivers/iio/adc/stm32-adc-core.c
-> @@ -322,6 +322,16 @@ static const struct stm32_adc_common_regs stm32h7_adc_common_regs = {
->  	.eocie_msk = STM32H7_EOCIE,
->  };
->  
-> +/* STM32MP13 common registers definitions */
-> +static const struct stm32_adc_common_regs stm32mp13_adc_common_regs = {
-> +	.csr = STM32H7_ADC_CSR,
-> +	.ccr = STM32H7_ADC_CCR,
-> +	.eoc_msk = { STM32H7_EOC_MST},
-
-space before },
-ouch. I see this odd balance is common in this driver.  Don't carry it on and
-if you fancy adding the missing spaces to the rest of the driver that would be
-great!
-
-> +	.ovr_msk = { STM32H7_OVR_MST},
-> +	.ier = STM32H7_ADC_IER,
-> +	.eocie_msk = STM32H7_EOCIE,
-> +};
-> +
->  static const unsigned int stm32_adc_offset[STM32_ADC_MAX_ADCS] = {
->  	0, STM32_ADC_OFFSET, STM32_ADC_OFFSET * 2,
->  };
-> @@ -868,6 +878,14 @@ static const struct stm32_adc_priv_cfg stm32mp1_adc_priv_cfg = {
->  	.num_irqs = 2,
->  };
->  
-> +static const struct stm32_adc_priv_cfg stm32mp13_adc_priv_cfg = {
-> +	.regs = &stm32mp13_adc_common_regs,
-> +	.clk_sel = stm32h7_adc_clk_sel,
-> +	.max_clk_rate_hz = 75000000,
-> +	.ipid = STM32MP13_IPIDR_NUMBER,
-> +	.num_irqs = 1,
-> +};
-> +
->  static const struct of_device_id stm32_adc_of_match[] = {
->  	{
->  		.compatible = "st,stm32f4-adc-core",
-> @@ -878,6 +896,9 @@ static const struct of_device_id stm32_adc_of_match[] = {
->  	}, {
->  		.compatible = "st,stm32mp1-adc-core",
->  		.data = (void *)&stm32mp1_adc_priv_cfg
-> +	}, {
-> +		.compatible = "st,stm32mp13-adc-core",
-> +		.data = (void *)&stm32mp13_adc_priv_cfg
->  	}, {
->  	},
->  };
-> diff --git a/drivers/iio/adc/stm32-adc-core.h b/drivers/iio/adc/stm32-adc-core.h
-> index 2118ef63843d..658fef4308ac 100644
-> --- a/drivers/iio/adc/stm32-adc-core.h
-> +++ b/drivers/iio/adc/stm32-adc-core.h
-> @@ -112,6 +112,11 @@
->  #define STM32MP1_ADC_IPDR		0x3F8
->  #define STM32MP1_ADC_SIDR		0x3FC
->  
-> +/* STM32MP13 - Registers for each ADC instance */
-> +#define STM32MP13_ADC_DIFSEL		0xB0
-> +#define STM32MP13_ADC_CALFACT		0xB4
-> +#define STM32MP13_ADC2_OR		0xC8
-> +
->  /* STM32H7 - common registers for all ADC instances */
->  #define STM32H7_ADC_CSR			(STM32_ADCX_COMN_OFFSET + 0x00)
->  #define STM32H7_ADC_CCR			(STM32_ADCX_COMN_OFFSET + 0x08)
-> @@ -161,6 +166,10 @@ enum stm32h7_adc_dmngt {
->  	STM32H7_DMNGT_DMA_CIRC,		/* DMA circular mode */
->  };
->  
-> +/* STM32H7_ADC_DIFSEL - bit fields */
-> +#define STM32H7_DIFSEL_SHIFT		0
-
-This shift is both unnecessary, as encoded in the mask, and unused
-so you can definitely get rid of it.
-Might be nice to clean the rest of these out as well in favour of
-just using the masks and FIELD_PREP() etc for any places where the mask
-is a compile time constant.
-
-Please check the others are actually useful.
-
-
-> +#define STM32H7_DIFSEL_MASK		GENMASK(19, 0)
-> +
->  /* STM32H7_ADC_CALFACT - bit fields */
->  #define STM32H7_CALFACT_D_SHIFT		16
->  #define STM32H7_CALFACT_D_MASK		GENMASK(26, 16)
-> @@ -210,7 +219,30 @@ enum stm32h7_adc_dmngt {
->  /* STM32MP1_ADC_SIDR - bit fields */
->  #define STM32MP1_SIDR_MASK		GENMASK(31, 0)
-...
-
+-- 
+Nicolas.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
