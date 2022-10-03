@@ -2,66 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B79C45F30A8
-	for <lists+linux-stm32@lfdr.de>; Mon,  3 Oct 2022 15:04:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9238D5F380A
+	for <lists+linux-stm32@lfdr.de>; Mon,  3 Oct 2022 23:46:59 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 58E7FC64118;
-	Mon,  3 Oct 2022 13:04:50 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 29652C64114;
+	Mon,  3 Oct 2022 21:46:59 +0000 (UTC)
+Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com
+ [209.85.208.41])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 27DF7C64114
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 38FDDC5C829
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  3 Oct 2022 13:04:49 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 2938p6Za026051;
- Mon, 3 Oct 2022 15:04:27 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=date : from : to :
- cc : subject : in-reply-to : message-id : references : mime-version :
- content-type; s=selector1;
- bh=n2dod6jOO9mn4/av9Xj9sPyCVY0WZR1VS0HeSNd5cvc=;
- b=VzYkUzBClM6TJ5XnlWb3vQVm9B1+kS6SeKoDnOCx8Y2+QDEixG+9Kyh4TLp1+Xb7RKCB
- 98bpLrdHSZwNcGch8cQOgSnWRGsY0a6+XnsI57jN12mnCaBcUyupiy8++tyUC6tEwR0i
- pGGj/DBTj6ivljsVB3XRNEati5gKcvnuvmAO2a411sZWLv/ZvbFu+DPRezboOhT8MAzr
- luiqTwP7Uaxz/4TY1zMyU0iziEj9qRXAGrhtGAgj0FKlL4zqXd9ZtYVpc+sqqipo2qpZ
- dtarAHGoA+CeO3Yi8nBmDfZRKJhyWi7rCWp9Pjo+fEyF7LALKzkHgBLn7IQ95VJMWl8a 4Q== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3jxcehtc68-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 03 Oct 2022 15:04:27 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 3C2FF10002A;
- Mon,  3 Oct 2022 15:04:20 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id F13B722A6E8;
- Mon,  3 Oct 2022 15:04:19 +0200 (CEST)
-Received: from gnbcxd0088.gnb.st.com (10.75.127.118) by SHFDAG1NODE2.st.com
- (10.75.129.70) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2375.31; Mon, 3 Oct
- 2022 15:04:17 +0200
-Date: Mon, 3 Oct 2022 15:03:55 +0200
-From: Nicolas Toromanoff <nicolas.toromanoff@foss.st.com>
-X-X-Sender: toromano@gnbcxd0088.gnb.st.com
-To: Colin Ian King <colin.i.king@gmail.com>
-In-Reply-To: <20220928222443.68705-1-colin.i.king@gmail.com>
-Message-ID: <alpine.DEB.2.21.2210031455360.10257@gnbcxd0088.gnb.st.com>
-References: <20220928222443.68705-1-colin.i.king@gmail.com>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+ Mon,  3 Oct 2022 21:46:57 +0000 (UTC)
+Received: by mail-ed1-f41.google.com with SMTP id s30so12700401eds.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 03 Oct 2022 14:46:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date;
+ bh=zAYgLaSnCGfa8SU+NH6gwotTtGoSsucybfqj2dUgdAM=;
+ b=RVCHdxanJVyFUUSS93q51N8+I1tKBI9oAEVRe7ilmYWZ9MVp144gXBv1kYTZdfHXIo
+ 9lc93g5a6zAwnxi+IvV2eQNDN8yVYIRsARw/tGeVX/FTGHISN76GQUHSB3tL9GTLt00u
+ eaJXvON2TmHWt2QX/iHVvDkb5d9bfrmez1YjXEUlbBiEdj27TfLdfIFFL5y6gpQ+HB9g
+ 6Kokd8mvIrOqXQULEHmMy46RbGcqbunOiWoiW2Wx86hYFaA4BXH7JGY8TsdecRAaO+fZ
+ zdlQsot4zbqHoFw4uG+RwUovIZPv27RaBx1HSDOxt7kpH+qPCULMl4xg+lh8TgQkDJci
+ hOqw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date;
+ bh=zAYgLaSnCGfa8SU+NH6gwotTtGoSsucybfqj2dUgdAM=;
+ b=6wD4pHr+VtyiT6q7ccZwF0zGxyrAxxVq/lOoCc2nh5a5kPkox+uM6RckW+WeXw7NU6
+ qaj00IJbprU1A36a0Ai6vLl47mjlZQoAAT3tw5iyCkCTcbCs/+71pVLrhGNyWqATPkcW
+ a0m2sRGH4Q2Ei4YuXzhTIw8U0wpyl+CKUUdSiU/aFFASRbpBqyvYhOs9sMSTFVwehK9U
+ 0xNZB8OOCWnJ5sgvgzKJCpo5KMZKFxOtwws2Jj8Y4nMXiB0Yhk9fk+hOaZlz0ZI0YZ4W
+ qvaeyZeGdvgnGeIH5LPo1ANA9OtFu5iG0Q227hUF/k2xIqymZj+AqW3eRmbsKtOJ3QT9
+ pPkg==
+X-Gm-Message-State: ACrzQf03tTLVWdQmcOTINcaEeAT+2MGWO2SRkPhVdU79nGRw1EuCQkT+
+ 41hljzLuMlR65uA3/88C3bE5G9AG1fCIQBfCY6pGkg==
+X-Google-Smtp-Source: AMsMyM5UrjbvOzcq6FmvgXykvlePJByBD7ZIVQlTnIbpQrim0/itLwb6Rh67og69RE+wWbcGISW74QVzBjgoCyQJcgw=
+X-Received: by 2002:a05:6402:2690:b0:452:3a85:8b28 with SMTP id
+ w16-20020a056402269000b004523a858b28mr20040077edd.158.1664833616720; Mon, 03
+ Oct 2022 14:46:56 -0700 (PDT)
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.118]
-X-ClientProxiedBy: GPXDAG2NODE4.st.com (10.75.127.68) To SHFDAG1NODE2.st.com
- (10.75.129.70)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.528,FMLib:17.11.122.1
- definitions=2022-10-03_02,2022-09-29_03,2022-06-22_01
-Cc: Herbert Xu <herbert@gondor.apana.org.au>, linux-kernel@vger.kernel.org,
- kernel-janitors@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-crypto@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- "David S . Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] crypto: stm32 - Fix spelling mistake
-	"wite" -> "write"
+References: <20220927191736.299702-1-marex@denx.de>
+ <20220927191736.299702-2-marex@denx.de>
+In-Reply-To: <20220927191736.299702-2-marex@denx.de>
+From: Linus Walleij <linus.walleij@linaro.org>
+Date: Mon, 3 Oct 2022 23:46:45 +0200
+Message-ID: <CACRpkdZRq0oOXfn0-SHG5Rv0=f_Lb=-+Yy0ST_tY9+JPqxwV6Q@mail.gmail.com>
+To: Marek Vasut <marex@denx.de>
+Cc: devicetree@vger.kernel.org, Ulf Hansson <ulf.hansson@linaro.org>,
+ linux-mmc@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>, Rob Herring <robh+dt@kernel.org>,
+ Andy Gross <agross@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ linux-arm-msm@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 2/3] ARM: dts: qcom: Drop MMCI
+	interrupt-names
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,25 +72,23 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, 29 Sep 2022, Colin Ian King wrote:
+On Tue, Sep 27, 2022 at 9:17 PM Marek Vasut <marex@denx.de> wrote:
 
-> There are a couple of spelling mistakes in dev_err messages. Fix them.
-> 
-> Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
+> The pl18x MMCI driver does not use the interrupt-names property,
+> the binding document has been updated to recommend this property
+> be unused, remove it.
+>
+> Signed-off-by: Marek Vasut <marex@denx.de>
 
-Hello Colin,
+Reviewed-by: Linus Walleij <linus.walleij@linaro.org>
 
-Thanks for the patch.
-
-Acked-by: nicolas.toromanoff@foss.st.com
-
--- 
-Nicolas.
+Yours,
+Linus Walleij
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
