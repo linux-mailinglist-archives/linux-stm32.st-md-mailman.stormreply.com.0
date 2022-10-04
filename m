@@ -2,60 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E50415F3E89
-	for <lists+linux-stm32@lfdr.de>; Tue,  4 Oct 2022 10:39:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F3145F45BC
+	for <lists+linux-stm32@lfdr.de>; Tue,  4 Oct 2022 16:39:57 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AB312C6334A;
-	Tue,  4 Oct 2022 08:39:38 +0000 (UTC)
-Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com
- [209.85.208.42])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D9009C6334A;
+	Tue,  4 Oct 2022 14:39:56 +0000 (UTC)
+Received: from mail-oi1-f180.google.com (mail-oi1-f180.google.com
+ [209.85.167.180])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DF85EC5C829
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A8125C5EC76
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  4 Oct 2022 08:39:36 +0000 (UTC)
-Received: by mail-ed1-f42.google.com with SMTP id m3so17853680eda.12
+ Tue,  4 Oct 2022 14:39:55 +0000 (UTC)
+Received: by mail-oi1-f180.google.com with SMTP id n83so14594598oif.11
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 04 Oct 2022 01:39:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date;
- bh=HbvqDIX9oo5aR0rinPIfG6EwFnlRQIrCG7ZrPltM9Lc=;
- b=YAs5f7a+SVYZc9jo8gHqFvK+zMAcuYKbZ6KbzjlYuTtej3dIzWVWltJrj5VeLGn40Y
- npUP2fYler+Us5soUgncvbdFOV4uzWQNEthG7jf5KUb5W3XE4kY6vJgm/GmJqsUvFmwI
- 69pGxMQukCibbJDelCfI+Sz+CNMiYEiKCBAPWk+YufDyUXnlvTKUh2NciYAItEvJYErl
- IpKIm8RRsxsditVTjLzUPqDWnnT3Ln1xsScopy3oGYucptMzQCgI5C0QqL3GmvBmjbsR
- W8rmGRBq6Yga0Di0dG3rLTH8/qymjpGbP9LJYN9lFevnikzYVZXxNL4QYKGXwfQJUDvh
- ZAlg==
+ Tue, 04 Oct 2022 07:39:55 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date;
- bh=HbvqDIX9oo5aR0rinPIfG6EwFnlRQIrCG7ZrPltM9Lc=;
- b=JbN8IRNy5cJhoIKl+K2P1NthxKy0C2CeCgL6m7SNqGdcjXobWb+6nsLnn81dUVUegB
- TrxA8cTcl2+XSksSlHvNzzeWvJC3Sncb+CScLfGMG3gsm8w9hkhqGJNhC4Va/o8lX3ov
- p2QeO4AfgkuaQitWFvF6yGmH+YS8S0n5CBPxwnFqqBLkhvV2bokTG1Gdy8U8evVHaINL
- q81gakDvaAtt3uop1WJPPhgnp9DCkBi9oDk1k0V3mYjT3n78sYyl9RwfMunppV6r08FI
- 6dXBmoBuwilaSTJy5iaP0Vxd34p+gkjfPWhyBEcBfDZ/erTYcAcac4jXXQCsf1cwKKpG
- gaZg==
-X-Gm-Message-State: ACrzQf16HOfkFQH5GIGNcbe84cFEklnxi8mCrbG5G73RbAu4vvC2F82S
- yy+FBzmzYJHaLsUzLlIZBzf0rOt5PPmjx+eVMjlDxg==
-X-Google-Smtp-Source: AMsMyM7XXeeiChPOkjYqU2QYAwJ1IPbhN43xb08pBTsk70xy7+i7k8gBIK0PAYwLijPvm5c4tRwxEQ8g8/lBrKmdxEw=
-X-Received: by 2002:aa7:c050:0:b0:453:4427:a947 with SMTP id
- k16-20020aa7c050000000b004534427a947mr22460271edo.172.1664872776414; Tue, 04
- Oct 2022 01:39:36 -0700 (PDT)
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date;
+ bh=C9mbynAWhlZLPcnxIkEkUheYSWevkrIWO3ImSHgFO3g=;
+ b=lYOfleTtTYL5KjEHr2GlmWCtH3xON4AXsTQorBrLpRDRn9Z1Y3ICZwnPnMQ3GEG3kP
+ ZvKLFcLkgJnacDXXbpkn6APqEA9g4CeJyo1i35YCIweA77x04/GKBygrScqX82EMEzUu
+ WTJngHZMWa0+u4i60G68aNQoqb/qWwv/ByVBWGvX8aRIMxfTdaoF/jhMF/w9k0UMNGjn
+ 9lJkSiWVeGj9fLyZdCJ9wVRnrGeaFFQIUNTHAwGXe1gdjpvoxGIb18F+iFrtW6r8WnM4
+ OoRmrZVaIITy9Uni6VdwoIm2NGCkWq4gpW/JUREv25ew6Xd1yFZXU8h0tOGcFAVZXMvj
+ sKmw==
+X-Gm-Message-State: ACrzQf1yp4EJg3yOc4NPvPZqBFnDe2X7+y2Z4qA7INtGcbrRnH/ydMVi
+ 8MoM0+1ABWzaoXwD22AaJQ==
+X-Google-Smtp-Source: AMsMyM4dYcbq8JBg1woswaO8pn7/MT/46qINQGQkx4GKIMhjqDJZvKjz8PjYZXzhbcBzLHD36o8Bgw==
+X-Received: by 2002:a05:6808:23c5:b0:34f:bba7:2949 with SMTP id
+ bq5-20020a05680823c500b0034fbba72949mr34434oib.101.1664894394472; 
+ Tue, 04 Oct 2022 07:39:54 -0700 (PDT)
+Received: from robh_at_kernel.org (66-90-144-107.dyn.grandenetworks.net.
+ [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
+ s37-20020a0568302aa500b00636a8dafdc9sm3059486otu.2.2022.10.04.07.39.53
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 04 Oct 2022 07:39:54 -0700 (PDT)
+Received: (nullmailer pid 1480570 invoked by uid 1000);
+ Tue, 04 Oct 2022 14:39:54 -0000
+Date: Tue, 4 Oct 2022 09:39:54 -0500
+From: Rob Herring <robh@kernel.org>
+To: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+Message-ID: <20221004143954.GA1479221-robh@kernel.org>
+References: <20220921135044.917140-1-arnaud.pouliquen@foss.st.com>
+ <20220921135044.917140-5-arnaud.pouliquen@foss.st.com>
 MIME-Version: 1.0
-References: <20220926204752.381798-1-marex@denx.de>
-In-Reply-To: <20220926204752.381798-1-marex@denx.de>
-From: Linus Walleij <linus.walleij@linaro.org>
-Date: Tue, 4 Oct 2022 10:39:25 +0200
-Message-ID: <CACRpkdZq+dirXNxALS9mtCaZqNUFD=FgSRzR3GNr7rpG23kW2g@mail.gmail.com>
-To: Marek Vasut <marex@denx.de>
-Cc: devicetree@vger.kernel.org, linux-gpio@vger.kernel.org,
- Rob Herring <robh+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] dt-bindings: pinctrl: st,
- stm32: Document interrupt-controller property
+Content-Disposition: inline
+In-Reply-To: <20220921135044.917140-5-arnaud.pouliquen@foss.st.com>
+Cc: Stefano Stabellini <stefanos@xilinx.com>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>,
+ Bruce Ashfield <bruce.ashfield@xilinx.com>,
+ Bjorn Andersson <andersson@kernel.org>, linux-remoteproc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Christoph Hellwig <hch@lst.de>
+Subject: Re: [Linux-stm32] [PATCH v9 4/4] remoteproc: virtio: Create
+ platform device for the remoteproc_virtio
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,21 +74,60 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Sep 26, 2022 at 10:47 PM Marek Vasut <marex@denx.de> wrote:
+On Wed, Sep 21, 2022 at 03:50:44PM +0200, Arnaud Pouliquen wrote:
+> Define a platform driver to manage the remoteproc virtio device as
+> a platform devices.
+> 
+> The platform device allows to pass rproc_vdev_data platform data to
+> specify properties that are stored in the rproc_vdev structure.
+> 
+> Such approach will allow to preserve legacy remoteproc virtio device
+> creation but also to probe the device using device tree mechanism.
+> 
+> remoteproc_virtio.c update:
+>   - Add rproc_virtio_driver platform driver. The probe ops replaces
+>     the rproc_rvdev_add_device function.
+>   - All reference to the rvdev->dev has been updated to rvdev-pdev->dev.
+>   - rproc_rvdev_release is removed as associated to the rvdev device.
+>   - The use of rvdev->kref counter is replaced by get/put_device on the
+>     remoteproc virtio platform device.
+>   - The vdev device no longer increments rproc device counter.
+>     increment/decrement is done in rproc_virtio_probe/rproc_virtio_remove
+>     function in charge of the vrings allocation/free.
+> 
+> remoteproc_core.c update:
+>   Migrate from the rvdev device to the rvdev platform device.
+>   From this patch, when a vdev resource is found in the resource table
+>   the remoteproc core register a platform device.
+> 
+> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+> Reviewed-by: Mathieu Poirier <mathieu.poirier@linaro.org>
+> ---
+>  drivers/remoteproc/remoteproc_core.c     |  12 +-
+>  drivers/remoteproc/remoteproc_internal.h |   2 -
+>  drivers/remoteproc/remoteproc_virtio.c   | 143 ++++++++++++-----------
+>  include/linux/remoteproc.h               |   6 +-
+>  4 files changed, 82 insertions(+), 81 deletions(-)
 
-> Document interrupt-controller property and its interrupt-cells.
-> This fixes dtbs_check warnings when building current Linux DTs:
->
-> "
-> arch/arm/boot/dts/stm32mp153c-dhcom-drc02.dtb: pinctrl@50002000: gpio@5000a000: '#interrupt-cells', 'interrupt-controller' do not match any of the regexes: 'pinctrl-[0-9]+'
-> "
->
-> Signed-off-by: Marek Vasut <marex@denx.de>
+[...]
 
-Patch applied.
+> +/* Platform driver */
+> +static const struct of_device_id rproc_virtio_match[] = {
+> +	{ .compatible = "virtio,rproc" },
 
-Yours,
-Linus Walleij
+This is not documented. Add a binding schema if you need DT support.
+
+> +	{},
+> +};
+> +
+> +static struct platform_driver rproc_virtio_driver = {
+> +	.probe		= rproc_virtio_probe,
+> +	.remove		= rproc_virtio_remove,
+> +	.driver		= {
+> +		.name	= "rproc-virtio",
+> +		.of_match_table	= rproc_virtio_match,
+> +	},
+> +};
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
