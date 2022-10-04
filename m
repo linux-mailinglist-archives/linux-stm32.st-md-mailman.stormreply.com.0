@@ -2,60 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D0AAA5F3E7C
-	for <lists+linux-stm32@lfdr.de>; Tue,  4 Oct 2022 10:37:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CD8D75F3E81
+	for <lists+linux-stm32@lfdr.de>; Tue,  4 Oct 2022 10:38:43 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 78203C6334A;
-	Tue,  4 Oct 2022 08:37:45 +0000 (UTC)
-Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com
- [209.85.218.44])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 92FA9C6334A;
+	Tue,  4 Oct 2022 08:38:43 +0000 (UTC)
+Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com
+ [209.85.218.45])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2FEC9C5C829
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4C38CC5C829
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  4 Oct 2022 08:37:44 +0000 (UTC)
-Received: by mail-ej1-f44.google.com with SMTP id kg6so11954862ejc.9
+ Tue,  4 Oct 2022 08:38:42 +0000 (UTC)
+Received: by mail-ej1-f45.google.com with SMTP id bj12so27258216ejb.13
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 04 Oct 2022 01:37:44 -0700 (PDT)
+ Tue, 04 Oct 2022 01:38:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date;
- bh=ThMntxlZppC84O+euxA4gZxiDNeTMFwKEQEGon7lVMM=;
- b=ZySceW4Li9TnmqGFLeuD55ZYytpi0m7IVagTsKxhEo2chhtGAI4pAT3psweDlyou4H
- AeRs9Chjr8RSdNqIIQFpYBhjvThI5qZwxTvm6M4Hq2yfxxj7Nfsj+e3tW8XcQnGDvkcn
- WSXby8/jbNIFBC+TMJ8xpx8+BGWShWPNp6xg1vpMryIyMLSAvdaJkuqLMxzUSstz6tyz
- b2RHpTQsQX+JbZl//vLi2FHsLQ62L/PzryAI3ibCVR0Tt8BdpzgCut4FyVxWsCjoVFXM
- yPXI+YDC0/aWoGlfxCTPB71UTqBo9X9UkpD6y65zlYUUrqlTbLV8X6h+zLRQDu0by2Sv
- 1IOw==
+ bh=Pdti2+VhEQ2CFlIE/PBt8L7tRJaOHxC5L8ndWyKwiZU=;
+ b=elp0SRfKxekqptIq4cG4gkRkrnMlQURZ7afE2SiDE5v44N9xYtH1F94+7TB6DFUIAo
+ S9kdb+SLRpnBcsfWcxwWj1fsnKOGtoZzWKfcJkO2gBKoRYlU6DIsslOze7ds/MGdchNb
+ WyyXd3l9ruuxyK6ErnfpYHTvmEKq9ZB+fuE20f+D/dvDrkj+QQAFe8KZkkkfFkjYOISX
+ 7ASOtgS4pGyk5LqNNqFbn0Oggl9hxVJ4PSf8O3H+xqw9Z/i9DuC0fx2JpfhBPhOA7u2Z
+ upXElt1p/zJcGkST0CRd7uvGPPqwm21q/kEq4VQCGPhx2vZyP45gRxjOCHXAjuQPelgK
+ 9r/g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date;
- bh=ThMntxlZppC84O+euxA4gZxiDNeTMFwKEQEGon7lVMM=;
- b=KK5GRtBt6qrOJeDIMLrO+sSYdOOpdUpzYAI9Qyt5Cm9VIvIOPQ6EElnTf+c4ctNpcV
- wApJk2tZ/9/SXUCXl+lw0F47ZGs1BBidKjaQUrkE8NsrpA7HnJUT3KI7UlP0isv7pnTE
- lIXZrBobVDdj500ITs5i0BL8ljJxTsOB/wYnQFO0UUml7Cfr8aRkSfwyef89yKTmHXqF
- Bq7ptWxlzpazL7SxT7lrRCG2yAYkN3bnO+iZIIVQVY+2dGzT9XrLfM6L/RbpPB5iVLr/
- zwLYsqYWLvVENbgyjhtTbMqUmQNwPLg55T3da7rVjXdCos+EWSuCdQQmZxyZ5sTRBHUh
- 8u4g==
-X-Gm-Message-State: ACrzQf1Wa3HLkX5qyYLC2sr14OeZ0h2W4A6ZWIPZYx3cfi8tAIgAxM25
- BDrCIZLH+FAwRvxzPFR3A5+7Z1PBeHDlnCiM9EtgEg==
-X-Google-Smtp-Source: AMsMyM7V85zjAFnelVm/Nxv7BMiXqOOKajfzBkVDFOrfn7T3xv44/Rtfb/yh+SIcsFZKWmW01f0Om4dqeaEQrijhz1Q=
-X-Received: by 2002:a17:906:58c8:b0:6fe:91d5:18d2 with SMTP id
- e8-20020a17090658c800b006fe91d518d2mr18596049ejs.190.1664872663739; Tue, 04
- Oct 2022 01:37:43 -0700 (PDT)
+ bh=Pdti2+VhEQ2CFlIE/PBt8L7tRJaOHxC5L8ndWyKwiZU=;
+ b=nIyes50msLfew8BSptOOHu4hwm74sLicNGuhplm/PnGpMoB1r/pfkte1uqAWECWxFb
+ 77dMtUbY9au4ytq9PQy6X5PX+hSNBFEeo4RzME/pJYtbgTYTzCvfEgW55f/KYj1xM5RU
+ uIWnE/83bftczJ9/2PZtK9zJNXk9YMnLpeNk2atMaERhochKEk/r51sxbZ011ZXxX3Ea
+ 6EkKV88Gvhp2e13+B0gg+ESpQLMhKeI9NVBYOGNVEdVHNoxAbx2jo8TDNg0l/pauPTcJ
+ NEftaK+cFcFsI+P3bE7Ob/a7QCSw041NtldO9BqQYMLeHHDUFoNB2JiS3bHrE4ZwHK4a
+ uPew==
+X-Gm-Message-State: ACrzQf3dZ0/7PfRM4S4RPf1JK6ZiBRwOg/O+MtNsgEzRDfMLFlumYSls
+ 810oH2+/X935fwaFWOKH9iqBVra7pWxDa5zFPecrUg==
+X-Google-Smtp-Source: AMsMyM4spjtMLizp56G5eP4S4o6K8cWN2P8PGJo/ZmF98Z9LCxo7Fcz3HCJKOpi6prC6ZYE5KdISvOTCqgwzo9uT1Nw=
+X-Received: by 2002:a17:906:9b86:b0:73d:72cf:72af with SMTP id
+ dd6-20020a1709069b8600b0073d72cf72afmr18268600ejc.440.1664872721922; Tue, 04
+ Oct 2022 01:38:41 -0700 (PDT)
 MIME-Version: 1.0
-References: <20220926204724.381760-1-marex@denx.de>
-In-Reply-To: <20220926204724.381760-1-marex@denx.de>
+References: <20220926204735.381779-1-marex@denx.de>
+In-Reply-To: <20220926204735.381779-1-marex@denx.de>
 From: Linus Walleij <linus.walleij@linaro.org>
-Date: Tue, 4 Oct 2022 10:37:31 +0200
-Message-ID: <CACRpkdbpuQY+yjHuNiFuAJogTzE1QAAgmHfGBLyL4gCsd9Wprw@mail.gmail.com>
+Date: Tue, 4 Oct 2022 10:38:30 +0200
+Message-ID: <CACRpkdbYndUNAoQ-bnf8O3Kdx38kt2Czx_N8J5jk0tasM6onTA@mail.gmail.com>
 To: Marek Vasut <marex@denx.de>
 Cc: devicetree@vger.kernel.org, linux-gpio@vger.kernel.org,
  Rob Herring <robh+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
 Subject: Re: [Linux-stm32] [PATCH] dt-bindings: pinctrl: st,
-	stm32: Document gpio-line-names
+	stm32: Document gpio-hog pattern property
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,11 +74,11 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 On Mon, Sep 26, 2022 at 10:47 PM Marek Vasut <marex@denx.de> wrote:
 
-> Document gpio-line-names property as valid property.
+> Document gpio-hog pattern property and its subnodes.
 > This fixes dtbs_check warnings when building current Linux DTs:
 >
 > "
-> arch/arm/boot/dts/stm32mp153c-dhcom-drc02.dtb: pinctrl@50002000: gpio@50009000: 'gpio-line-names' does not match any of the regexes: 'pinctrl-[0-9]+'
+> arch/arm/boot/dts/stm32mp153c-dhcom-drc02.dtb: pinctrl@50002000: gpio@50003000: 'rs485-rx-en-hog' does not match any of the regexes: 'pinctrl-[0-9]+'
 > "
 >
 > Signed-off-by: Marek Vasut <marex@denx.de>
