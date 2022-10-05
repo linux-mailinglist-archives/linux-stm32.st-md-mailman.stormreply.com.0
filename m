@@ -2,67 +2,67 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CAC8D5F5766
-	for <lists+linux-stm32@lfdr.de>; Wed,  5 Oct 2022 17:26:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B3F5D5F5817
+	for <lists+linux-stm32@lfdr.de>; Wed,  5 Oct 2022 18:15:21 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 76B0DC63327;
-	Wed,  5 Oct 2022 15:26:09 +0000 (UTC)
-Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com
- [209.85.216.53])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 612C3C64111;
+	Wed,  5 Oct 2022 16:15:21 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A2604C63324
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1776EC63326
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  5 Oct 2022 15:26:08 +0000 (UTC)
-Received: by mail-pj1-f53.google.com with SMTP id
- x32-20020a17090a38a300b00209dced49cfso2100212pjb.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 05 Oct 2022 08:26:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date;
- bh=b2eDhIzvuJjsHv2/DwfAjBACGmEeoKasF0f+LJfWpy4=;
- b=yDIJ8ZRMEYVCQFO1ONUXGEjRWvVcL4ThiGTz4epVKemVgaY5GzauwMHGAPuPetOFZd
- 1atCE/2CnumELCMAVeQRLc0q96EHO9X+08JgZNM1u4ryBBhLYR+W9J23gpfQ2PKMnxef
- 0J6f1eCd0/a4j2CDQgTJn5zjH9mLBnQNb8aSYf7qPclJdqSABVWrvM1f5nA2LMtUtXFU
- svsrSdo0k7K6EK/uICxNBzkN26XLVDBzevv9Lo8h0ZkQkCnleoj3dypTWfA/aHApymbh
- ybz6EN8VmbxmVT4akpxKjIl2EQEmTr16EbO78zJW2+RXq3Z1qbqeDQjzfr+SvX7KK+rW
- jogw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date;
- bh=b2eDhIzvuJjsHv2/DwfAjBACGmEeoKasF0f+LJfWpy4=;
- b=kk5BK3YPo9JNU57sj5iLlgxRqzy3OkP9ea6GQeeQT4m+6O/swDaW0dtcUoSXOWsOeL
- CYMchB2/7/yUlyaZ3ufxYobTS9viDghwku02etRBcbCB+IrYk27L0s/Gbb8ipl26NI9F
- Xonkb/YdzL8ni/aj/sgeM3dP2DNhL7kjtzGB+0Bx8uyAPuu6SpJAb6julT52TlPEYvh0
- 8tIa3ajddrsvxnTLY2prbaygy+sWYfJaHALuexTBUfIwSktkL2VtgP9BXYVZ9JsyHdIn
- iTMUho8AdeH+rP1saUK+5hpb5dr0Hh4SpVEbNBmJ797Fp+OmtumQEdKl9P5Bd/h7DOTw
- BSug==
-X-Gm-Message-State: ACrzQf1AlgLSJ6NxKwJT8Z0jLI0ewBB6xPc0XRLack+2GJH+xQurfdhC
- 0OZ7vmDR1nkcryAcjFDUhwjB+w==
-X-Google-Smtp-Source: AMsMyM6U1Tjop20XQFBtNuI8reRTz70L8Jz87X/3OM8EuLG/sMQ/s6TIjTbd9f/dOjM1BuBlaJx7AQ==
-X-Received: by 2002:a17:902:b693:b0:178:5fa6:4b3 with SMTP id
- c19-20020a170902b69300b001785fa604b3mr32658463pls.63.1664983567257; 
- Wed, 05 Oct 2022 08:26:07 -0700 (PDT)
-Received: from p14s (S0106889e681aac74.cg.shawcable.net. [68.147.0.187])
- by smtp.gmail.com with ESMTPSA id
- 23-20020a17090a0f1700b001efa9e83927sm1249541pjy.51.2022.10.05.08.26.05
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 05 Oct 2022 08:26:06 -0700 (PDT)
-Date: Wed, 5 Oct 2022 09:26:04 -0600
-From: Mathieu Poirier <mathieu.poirier@linaro.org>
-To: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
-Message-ID: <20221005152604.GA2666639@p14s>
-References: <20221005081317.3411684-1-arnaud.pouliquen@foss.st.com>
+ Wed,  5 Oct 2022 16:15:20 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 295CkD8T028369;
+ Wed, 5 Oct 2022 18:14:48 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=selector1;
+ bh=XgtHQpjxQvPj+OLCP7jbjmWfBajYNRhd5I4Q3UOOaCw=;
+ b=Uu47RFw+r2TaA7Va37JgbNaD+Y/Q/yhg8ZjdPNlonPuCZ2fy6xI5y/L2Gt+epETU8Ro1
+ R41S2Rb87lGm1a6Bn3Qi9sup1jLDtoEg80NInfwJcITAYaMgYBNci3wTreRXeXUtru64
+ OtpmYUIooIVDxTFHWSkd1JrOf71Hm83ISdQIx3DTYhbHEz21fW6c4bwA1UjiBuwDV2DH
+ Y9lKo8s8CQ5twcZqyfHVpUckcRhFERh5HSPR8D0pFGoJFH4wASLYMLqbq/X/qbRrI8h4
+ yCMMi2eMZa3pr3q13/Jl5L0E/+OUbezUBde+VL9wVSDahn6n1nJ8DbJVv20Q7oD7RavW zQ== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3jxapc8pup-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 05 Oct 2022 18:14:48 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id C72ED100038;
+ Wed,  5 Oct 2022 18:14:42 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id B666D235F11;
+ Wed,  5 Oct 2022 18:14:42 +0200 (CEST)
+Received: from localhost (10.75.127.118) by SHFDAG1NODE1.st.com (10.75.129.69)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2375.31; Wed, 5 Oct
+ 2022 18:14:42 +0200
+From: Olivier Moysan <olivier.moysan@foss.st.com>
+To: Alexandre Torgue <alexandre.torgue@foss.st.com>, Andy Shevchenko
+ <andy.shevchenko@gmail.com>, Fabrice Gasnier <fabrice.gasnier@foss.st.com>,
+ Jonathan Cameron <jic23@kernel.org>, Lars-Peter Clausen <lars@metafoo.de>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, <nuno.sa@analog.com>, Olivier
+ Moysan <olivier.moysan@foss.st.com>, Paul Cercueil <paul@crapouillou.net>,
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>, Wan Jiabing
+ <wanjiabing@vivo.com>, Yannick Brosseau <yannick.brosseau@gmail.com>
+Date: Wed, 5 Oct 2022 18:14:16 +0200
+Message-ID: <20221005161424.4537-1-olivier.moysan@foss.st.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20221005081317.3411684-1-arnaud.pouliquen@foss.st.com>
-Cc: Rob Herring <robh@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH v2] remoteproc: virtio: Fix warning on
- bindings by removing the of_match_table
+X-Originating-IP: [10.75.127.118]
+X-ClientProxiedBy: GPXDAG2NODE6.st.com (10.75.127.70) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.528,FMLib:17.11.122.1
+ definitions=2022-10-05_03,2022-10-05_01,2022-06-22_01
+Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [PATCH v3 0/8] iio: stm32-adc: add support of adc for
+	stm32mp13
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,70 +79,57 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, Oct 05, 2022 at 10:13:17AM +0200, Arnaud Pouliquen wrote:
-> The checkpatch tool complains that "virtio,rproc" is not documented.
-> But it is not possible to probe the device "rproc-virtio" by declaring
-> it in the device tree. So documenting it in the bindings does not make
-> sense.
-> This commit solves the checkpatch warning by suppressing the useless
-> of_match_table.
-> 
-> Suggested-by: Rob Herring <robh@kernel.org>
-> Fixes: 1d7b61c06dc3 ("remoteproc: virtio: Create platform device for the remoteproc_virtio")
-> 
-> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
-> Reviewed-by: Rob Herring <robh@kernel.org>
-> 
-> ---
-> Updates vs previous revision:
-> - replace the "of_platform.h" include by "platform_device.h",
-> - replace "Fix-suggested-by" by "Suggested-by",
-> - add Rob's Reviewed-by.
-> ---
->  drivers/remoteproc/remoteproc_virtio.c | 8 +-------
->  1 file changed, 1 insertion(+), 7 deletions(-)
-> 
-> diff --git a/drivers/remoteproc/remoteproc_virtio.c b/drivers/remoteproc/remoteproc_virtio.c
-> index a29e3b8ff69c..0e95525c1158 100644
-> --- a/drivers/remoteproc/remoteproc_virtio.c
-> +++ b/drivers/remoteproc/remoteproc_virtio.c
-> @@ -13,8 +13,8 @@
->  #include <linux/dma-map-ops.h>
->  #include <linux/dma-mapping.h>
->  #include <linux/export.h>
-> -#include <linux/of_platform.h>
->  #include <linux/of_reserved_mem.h>
-> +#include <linux/platform_device.h>
->  #include <linux/remoteproc.h>
->  #include <linux/virtio.h>
->  #include <linux/virtio_config.h>
-> @@ -593,17 +593,11 @@ static int rproc_virtio_remove(struct platform_device *pdev)
->  }
->  
->  /* Platform driver */
-> -static const struct of_device_id rproc_virtio_match[] = {
-> -	{ .compatible = "virtio,rproc" },
-> -	{},
-> -};
-> -
->  static struct platform_driver rproc_virtio_driver = {
->  	.probe		= rproc_virtio_probe,
->  	.remove		= rproc_virtio_remove,
->  	.driver		= {
->  		.name	= "rproc-virtio",
-> -		.of_match_table	= rproc_virtio_match,
+On STM32MP13 SoCs, each ADC peripheral has a single ADC block.
+These ADC peripherals, ADC1 and ADC2, are fully independent.
+The STM32MP131 SoC provides only ADC2, while other STM32MP13x
+SoCs provide both ADC1 and ADC2.
 
-Applied.
+The STM32MP13 ADC features and characteristics are slightly
+different from STM32MP15 ADC ones, requiring a specific support
+in the driver.
 
-Thanks,
-Mathieu
+This patchset enables the ADC peripheral on STM32MP135F-DK board.
 
->  	},
->  };
->  builtin_platform_driver(rproc_virtio_driver);
-> -- 
-> 2.24.3
-> 
+On STM32MP135F-DK board the ADC is connected to VDDA voltage
+provided by the PMIC LOD1 supply, which has to be enabled through
+SCMI regulator framework.
+This serie introduces a fixed regulator to allow ADC probing,
+while SCMI regulators support is not available. This does
+not ensure ADC regulator enabling however.
+
+Changes in v3:
+- Remove blank line in tag block
+- Use HZ_PER_MHZ unit for max frequency definition
+- Coding style updates
+
+v2:
+- Rework commit message length
+- Add missing spaces
+- Remove useless defines
+
+Olivier Moysan (8):
+  iio: adc: stm32-adc: fix channel sampling time init
+  dt-bindings: iio: adc: stm32-adc: add stm32mp13 compatibles
+  iio: adc: stm32-adc: add stm32mp13 support
+  iio: adc: stm32: manage min sampling time on all internal channels
+  ARM: dts: stm32: add adc support to stm32mp13
+  ARM: dts: stm32: add adc pins muxing on stm32mp135f-dk
+  ARM: dts: stm32: add dummy vdd_adc regulator on stm32mp135f-dk
+  ARM: dts: stm32: add adc support on stm32mp135f-dk
+
+ .../bindings/iio/adc/st,stm32-adc.yaml        |  68 ++++-
+ arch/arm/boot/dts/stm32mp13-pinctrl.dtsi      |   7 +
+ arch/arm/boot/dts/stm32mp131.dtsi             |  43 +++
+ arch/arm/boot/dts/stm32mp133.dtsi             |  31 +++
+ arch/arm/boot/dts/stm32mp135f-dk.dts          |  34 +++
+ drivers/iio/adc/stm32-adc-core.c              |  30 ++-
+ drivers/iio/adc/stm32-adc-core.h              |  30 +++
+ drivers/iio/adc/stm32-adc.c                   | 247 +++++++++++++++---
+ 8 files changed, 444 insertions(+), 46 deletions(-)
+
+-- 
+2.25.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
