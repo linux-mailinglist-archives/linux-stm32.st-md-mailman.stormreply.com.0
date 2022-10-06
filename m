@@ -2,85 +2,82 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B49855F672B
-	for <lists+linux-stm32@lfdr.de>; Thu,  6 Oct 2022 15:02:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 146C05F673E
+	for <lists+linux-stm32@lfdr.de>; Thu,  6 Oct 2022 15:06:36 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 67031C64112;
-	Thu,  6 Oct 2022 13:02:30 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CE1D0C64112;
+	Thu,  6 Oct 2022 13:06:35 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1611CC64100
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E3DF6C64111
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  6 Oct 2022 13:02:28 +0000 (UTC)
+ Thu,  6 Oct 2022 13:06:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1665061349; x=1696597349;
+ t=1665061594; x=1696597594;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:in-reply-to;
- bh=Ru6CnBvVhIEhYJCAeuuxpRt9HHeJLOxAuoa9BjBuh8k=;
- b=dOpyMQ3y1f1w8RPlcH2TilxBz7TRtFmwEMrGza4J8W51sHib0myPEM+b
- bf0Z3maB+5z6QLu3KXAXdy0hy8+zHp56Wzpj73Q332kbIzzm0nbDZMveP
- bHFXNsPqwHSWj+Du/v3oWU4eY7y5JWHNOMkVgGpHBmGv1O4k7WzpoxKcw
- mhJv1P8T+YHFKXzq1h/LOKxmOnkR2kiXgVeac1zKoFCGf4DrNJjlDTurt
- a4YFrxU/f92mEKU4ogRWBa2RAA6ZsQTNMwVmybvEsCwxZtBbjTKSpEyJv
- oupbcgbs74pncyZojpM8jNh4VcHwg4/RfaZ0dM+qaf/b/BcmA+KC96CLQ A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10491"; a="304428707"
-X-IronPort-AV: E=Sophos;i="5.95,163,1661842800"; d="scan'208";a="304428707"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Oct 2022 06:01:44 -0700
+ bh=FGTLdaiXSBCapn2JjYMa8Pm3byrwndmRCKrokbx26S8=;
+ b=PJ74xHmYTfdSVQ+kAdMbHUzbpnubrfvDLSPsiwcfi279g/Fw2F51fs63
+ 4BSKcGbVo5swnA5UDrO7xWTovZQ83rG+9Ugik5qj5TsVhN5ts5IlCv6Gg
+ lmPZbbEJlyBB9OpbgfnpffWH8z6aq0V1XadtC+Dp5k7CMoOmVh/tyN7SN
+ VcP0BkiUNwGzYuosaIo811zHr8KKACPS6O1nKCzD+9sZiKBjbB7AVQDje
+ dhZnOrW/UpsJlH80aGaEQ4Ku9mNTryUvzxFYUs5OGvw8rgjLcKgePNBCn
+ guzDhWbUS+rphkmDd51PXZJ6iNTr1xxy/QGW+EfnHA8LOGH3XE7EESnL8 A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10491"; a="283806071"
+X-IronPort-AV: E=Sophos;i="5.95,163,1661842800"; d="scan'208";a="283806071"
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Oct 2022 06:05:55 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10491"; a="767139941"
-X-IronPort-AV: E=Sophos;i="5.95,163,1661842800"; d="scan'208";a="767139941"
+X-IronPort-AV: E=McAfee;i="6500,9779,10491"; a="575816142"
+X-IronPort-AV: E=Sophos;i="5.95,163,1661842800"; d="scan'208";a="575816142"
 Received: from smile.fi.intel.com ([10.237.72.54])
- by fmsmga001.fm.intel.com with ESMTP; 06 Oct 2022 06:01:22 -0700
+ by orsmga003.jf.intel.com with ESMTP; 06 Oct 2022 06:05:33 -0700
 Received: from andy by smile.fi.intel.com with local (Exim 4.96)
  (envelope-from <andriy.shevchenko@linux.intel.com>)
- id 1ogQUx-0039Oq-2J; Thu, 06 Oct 2022 16:01:11 +0300
-Date: Thu, 6 Oct 2022 16:01:11 +0300
+ id 1ogQZ0-0039VB-0C; Thu, 06 Oct 2022 16:05:22 +0300
+Date: Thu, 6 Oct 2022 16:05:21 +0300
 From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: "Jason A. Donenfeld" <Jason@zx2c4.com>
-Message-ID: <Yz7Rl7BXamKQhRzH@smile.fi.intel.com>
+To: Jason Gunthorpe <jgg@ziepe.ca>
+Message-ID: <Yz7SkWBbabFQrecB@smile.fi.intel.com>
 References: <20221005214844.2699-1-Jason@zx2c4.com>
- <20221005214844.2699-4-Jason@zx2c4.com>
- <20221006084331.4bdktc2zlvbaszym@quack3>
- <Yz7LCyIAHC6l5mG9@zx2c4.com>
+ <20221005214844.2699-2-Jason@zx2c4.com>
+ <202210052035.A1020E3@keescook> <Yz7N5WsqmKiUl+6b@zx2c4.com>
+ <Yz7QN3cbKABexzoB@ziepe.ca>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <Yz7LCyIAHC6l5mG9@zx2c4.com>
+In-Reply-To: <Yz7QN3cbKABexzoB@ziepe.ca>
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Cc: Andrew Lunn <andrew@lunn.ch>, "Darrick J . Wong" <djwong@kernel.org>,
- linux-block@vger.kernel.org,
- Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>,
- dri-devel@lists.freedesktop.org, Andrii Nakryiko <andrii@kernel.org>,
- Hans Verkuil <hverkuil@xs4all.nl>, linux-sctp@vger.kernel.org,
- "Md . Haris Iqbal" <haris.iqbal@ionos.com>,
+ Ulf Hansson <ulf.hansson@linaro.org>, dri-devel@lists.freedesktop.org,
+ Andrii Nakryiko <andrii@kernel.org>, Hans Verkuil <hverkuil@xs4all.nl>,
+ linux-sctp@vger.kernel.org, "Md . Haris Iqbal" <haris.iqbal@ionos.com>,
  Miquel Raynal <miquel.raynal@bootlin.com>, Christoph Hellwig <hch@lst.de>,
  Andy Gospodarek <andy@greyhouse.net>, Sergey Matyukevich <geomatsi@gmail.com>,
  Rohit Maheshwari <rohitm@chelsio.com>, Michael Ellerman <mpe@ellerman.id.au>,
- Christophe Leroy <christophe.leroy@csgroup.eu>,
+ ceph-devel@vger.kernel.org, Christophe Leroy <christophe.leroy@csgroup.eu>,
  Jozsef Kadlecsik <kadlec@netfilter.org>, Nilesh Javali <njavali@marvell.com>,
- Jean-Paul Roubelat <jpr@f6fbb.org>, Dan Williams <dan.j.williams@intel.com>,
- Dick Kennedy <dick.kennedy@broadcom.com>, Jay Vosburgh <j.vosburgh@gmail.com>,
- Potnuri Bharat Teja <bharat@chelsio.com>,
- Vinay Kumar Yadav <vinay.yadav@chelsio.com>,
- Arend van Spriel <aspriel@gmail.com>, Nicholas Piggin <npiggin@gmail.com>,
- Igor Mitsyanko <imitsyanko@quantenna.com>, Andy Lutomirski <luto@kernel.org>,
- linux-hams@vger.kernel.org, Thomas Gleixner <tglx@linutronix.de>,
- Trond Myklebust <trond.myklebust@hammerspace.com>,
- "Martin K . Petersen" <martin.petersen@oracle.com>,
+ Jean-Paul Roubelat <jpr@f6fbb.org>, Dick Kennedy <dick.kennedy@broadcom.com>,
+ Jay Vosburgh <j.vosburgh@gmail.com>, Potnuri Bharat Teja <bharat@chelsio.com>,
+ Vinay Kumar Yadav <vinay.yadav@chelsio.com>, linux-nfs@vger.kernel.org,
+ Nicholas Piggin <npiggin@gmail.com>, Igor Mitsyanko <imitsyanko@quantenna.com>,
+ Andy Lutomirski <luto@kernel.org>, linux-hams@vger.kernel.org,
+ Thomas Gleixner <tglx@linutronix.de>,
+ Trond Myklebust <trond.myklebust@hammerspace.com>, linux-raid@vger.kernel.org,
+ Neil Horman <nhorman@tuxdriver.com>,
+ Hante Meuleman <hante.meuleman@broadcom.com>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
  Michael Chan <michael.chan@broadcom.com>, linux-kernel@vger.kernel.org,
- Varun Prakash <varun@chelsio.com>, David Ahern <dsahern@kernel.org>,
- Chuck Lever <chuck.lever@oracle.com>, netfilter-devel@vger.kernel.org,
- linux-crypto@vger.kernel.org, Jiri Olsa <jolsa@kernel.org>,
- Jan Kara <jack@suse.com>, linux-fsdevel@vger.kernel.org,
- Andrew Morton <akpm@linux-foundation.org>,
- Claudiu Beznea <claudiu.beznea@microchip.com>,
- Sharvari Harisangam <sharvari.harisangam@nxp.com>, linux-fbdev@vger.kernel.org,
- linux-doc@vger.kernel.org, Vignesh Raghavendra <vigneshr@ti.com>,
- linux-wireless@vger.kernel.org, Dave Hansen <dave.hansen@linux.intel.com>,
+ Varun Prakash <varun@chelsio.com>, Chuck Lever <chuck.lever@oracle.com>,
+ netfilter-devel@vger.kernel.org, Masami Hiramatsu <mhiramat@kernel.org>,
+ Jiri Olsa <jolsa@kernel.org>, Jan Kara <jack@suse.com>,
+ linux-fsdevel@vger.kernel.org, Lars Ellenberg <lars.ellenberg@linbit.com>,
+ linux-media@vger.kernel.org, Claudiu Beznea <claudiu.beznea@microchip.com>,
+ Sharvari Harisangam <sharvari.harisangam@nxp.com>,
+ "Jason A. Donenfeld" <Jason@zx2c4.com>, linux-doc@vger.kernel.org,
+ linux-mmc@vger.kernel.org, Dave Hansen <dave.hansen@linux.intel.com>,
  Song Liu <song@kernel.org>, Eric Dumazet <edumazet@google.com>,
  target-devel@vger.kernel.org, John Stultz <jstultz@google.com>,
  Stanislav Fomichev <sdf@google.com>,
@@ -92,25 +89,27 @@ Cc: Andrew Lunn <andrew@lunn.ch>, "Darrick J . Wong" <djwong@kernel.org>,
  Pravin B Shelar <pshelar@ovn.org>, Julian Anastasov <ja@ssi.bg>,
  coreteam@netfilter.org, Veaceslav Falico <vfalico@gmail.com>,
  Yonghong Song <yhs@fb.com>, Namjae Jeon <linkinjeon@kernel.org>,
- linux-media@vger.kernel.org, Ganapathi Bhat <ganapathi017@gmail.com>,
- linux-actions@lists.infradead.org, Simon Horman <horms@verge.net.au>,
- Jaegeuk Kim <jaegeuk@kernel.org>,
+ linux-crypto@vger.kernel.org, Santosh Shilimkar <santosh.shilimkar@oracle.com>,
+ Ganapathi Bhat <ganapathi017@gmail.com>, linux-actions@lists.infradead.org,
+ Simon Horman <horms@verge.net.au>, Jaegeuk Kim <jaegeuk@kernel.org>,
  Mika Westerberg <mika.westerberg@linux.intel.com>,
- Lars Ellenberg <lars.ellenberg@linbit.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
  OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>, Hao Luo <haoluo@google.com>,
  Theodore Ts'o <tytso@mit.edu>, Stephen Boyd <sboyd@kernel.org>,
- Jonathan Corbet <corbet@lwn.net>, Florian Westphal <fw@strlen.de>,
- "David S . Miller" <davem@davemloft.net>, Jon Maloy <jmaloy@redhat.com>,
- Anna Schumaker <anna@kernel.org>, Yehezkel Bernat <YehezkelShB@gmail.com>,
- Jeff Layton <jlayton@kernel.org>, Haoyue Xu <xuhaoyue1@hisilicon.com>,
- Heiner Kallweit <hkallweit1@gmail.com>, Ulf Hansson <ulf.hansson@linaro.org>,
- Rasmus Villemoes <linux@rasmusvillemoes.dk>, linux-nvme@lists.infradead.org,
- Michal Januszewski <spock@gentoo.org>, linux-mtd@lists.infradead.org,
- kasan-dev@googlegroups.com, Cong Wang <xiyou.wangcong@gmail.com>,
- Thomas Sailer <t.sailer@alumni.ethz.ch>,
- Ajay Singh <ajay.kathat@microchip.com>, Sagi Grimberg <sagi@grimberg.me>,
- Daniel Borkmann <daniel@iogearbox.net>,
  Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>,
+ Florian Westphal <fw@strlen.de>,
+ Andreas =?iso-8859-1?Q?F=E4rber?= <afaerber@suse.de>,
+ Jon Maloy <jmaloy@redhat.com>, Vlad Yasevich <vyasevich@gmail.com>,
+ Anna Schumaker <anna@kernel.org>, Yehezkel Bernat <YehezkelShB@gmail.com>,
+ Haoyue Xu <xuhaoyue1@hisilicon.com>, Heiner Kallweit <hkallweit1@gmail.com>,
+ linux-wireless@vger.kernel.org,
+ Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>,
+ Rasmus Villemoes <linux@rasmusvillemoes.dk>, linux-fbdev@vger.kernel.org,
+ linux-nvme@lists.infradead.org, Michal Januszewski <spock@gentoo.org>,
+ linux-mtd@lists.infradead.org, kasan-dev@googlegroups.com,
+ Cong Wang <xiyou.wangcong@gmail.com>, Thomas Sailer <t.sailer@alumni.ethz.ch>,
+ Ajay Singh <ajay.kathat@microchip.com>, Sagi Grimberg <sagi@grimberg.me>,
+ Daniel Borkmann <daniel@iogearbox.net>, Jonathan Corbet <corbet@lwn.net>,
  linux-rdma@vger.kernel.org, lvs-devel@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org,
  "Naveen N . Rao" <naveen.n.rao@linux.ibm.com>,
@@ -118,50 +117,49 @@ Cc: Andrew Lunn <andrew@lunn.ch>, "Darrick J . Wong" <djwong@kernel.org>,
  Pablo Neira Ayuso <pablo@netfilter.org>, Marco Elver <elver@google.com>,
  Kees Cook <keescook@chromium.org>, Yury Norov <yury.norov@gmail.com>,
  "James E . J . Bottomley" <jejb@linux.ibm.com>,
- Hante Meuleman <hante.meuleman@broadcom.com>, Borislav Petkov <bp@alien8.de>,
- Keith Busch <kbusch@kernel.org>, ceph-devel@vger.kernel.org,
+ Jamal Hadi Salim <jhs@mojatatu.com>, KP Singh <kpsingh@kernel.org>,
+ Borislav Petkov <bp@alien8.de>, Keith Busch <kbusch@kernel.org>,
+ Dan Williams <dan.j.williams@intel.com>,
  Mauro Carvalho Chehab <mchehab@kernel.org>,
- Franky Lin <franky.lin@broadcom.com>, linux-nfs@vger.kernel.org,
+ Franky Lin <franky.lin@broadcom.com>, Arend van Spriel <aspriel@gmail.com>,
  linux-ext4@vger.kernel.org, Wenpeng Liang <liangwenpeng@huawei.com>,
- Neil Horman <nhorman@tuxdriver.com>, Xinming Hu <huxinming820@gmail.com>,
- linux-mmc@vger.kernel.org, Martin KaFai Lau <martin.lau@linux.dev>,
- linux-xfs@vger.kernel.org, Ying Xue <ying.xue@windriver.com>,
+ "Martin K . Petersen" <martin.petersen@oracle.com>,
+ Xinming Hu <huxinming820@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
+ Jeff Layton <jlayton@kernel.org>, linux-xfs@vger.kernel.org,
+ netdev@vger.kernel.org, Ying Xue <ying.xue@windriver.com>,
  Manish Rangankar <mrangankar@marvell.com>,
- Andreas =?iso-8859-1?Q?F=E4rber?= <afaerber@suse.de>,
+ "David S . Miller" <davem@davemloft.net>,
  Toke =?iso-8859-1?Q?H=F8iland-J=F8rgensen?= <toke@toke.dk>,
- Jan Kara <jack@suse.cz>, linux-stm32@st-md-mailman.stormreply.com,
- Peter Zijlstra <peterz@infradead.org>, Ayush Sawal <ayush.sawal@chelsio.com>,
- KP Singh <kpsingh@kernel.org>, Amitkumar Karwar <amitkarwar@gmail.com>,
+ Vignesh Raghavendra <vigneshr@ti.com>, Peter Zijlstra <peterz@infradead.org>,
+ "H . Peter Anvin" <hpa@zytor.com>, Amitkumar Karwar <amitkarwar@gmail.com>,
  linux-mm@kvack.org, Andreas Dilger <adilger.kernel@dilger.ca>,
- Akinobu Mita <akinobu.mita@gmail.com>, "H . Peter Anvin" <hpa@zytor.com>,
+ Ayush Sawal <ayush.sawal@chelsio.com>,
  Andreas Noever <andreas.noever@gmail.com>, Jiri Pirko <jiri@resnulli.us>,
  linux-f2fs-devel@lists.sourceforge.net, Jack Wang <jinpu.wang@ionos.com>,
  Steffen Klassert <steffen.klassert@secunet.com>, rds-devel@oss.oracle.com,
  Herbert Xu <herbert@gondor.apana.org.au>, linux-scsi@vger.kernel.org,
  dccp@vger.kernel.org, Richard Weinberger <richard@nod.at>,
- Russell King <linux@armlinux.org.uk>, Jason Gunthorpe <jgg@ziepe.ca>,
+ Russell King <linux@armlinux.org.uk>, Jaehoon Chung <jh80.chung@samsung.com>,
  SHA-cyfmac-dev-list@infineon.com, Ingo Molnar <mingo@redhat.com>,
- Jakub Kicinski <kuba@kernel.org>, Masami Hiramatsu <mhiramat@kernel.org>,
- John Fastabend <john.fastabend@gmail.com>,
+ Jakub Kicinski <kuba@kernel.org>, John Fastabend <john.fastabend@gmail.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Manivannan Sadhasivam <mani@kernel.org>,
  Michael Jamet <michael.jamet@intel.com>, Kalle Valo <kvalo@kernel.org>,
- Santosh Shilimkar <santosh.shilimkar@oracle.com>,
- Jamal Hadi Salim <jhs@mojatatu.com>, linux-raid@vger.kernel.org,
- Thomas Graf <tgraf@suug.ch>, Hannes Reinecke <hare@suse.de>,
- Xiubo Li <xiubli@redhat.com>, Dmitry Vyukov <dvyukov@google.com>,
- Jens Axboe <axboe@kernel.dk>, cake@lists.bufferbloat.net,
- brcm80211-dev-list.pdl@broadcom.com, Yishai Hadas <yishaih@nvidia.com>,
- Hideaki YOSHIFUJI <yoshfuji@linux-ipv6.org>, netdev@vger.kernel.org,
- Vlad Yasevich <vyasevich@gmail.com>,
+ Chao Yu <chao@kernel.org>, Akinobu Mita <akinobu.mita@gmail.com>,
+ linux-block@vger.kernel.org, dmaengine@vger.kernel.org,
+ Hannes Reinecke <hare@suse.de>, Xiubo Li <xiubli@redhat.com>,
+ Dmitry Vyukov <dvyukov@google.com>, Jens Axboe <axboe@kernel.dk>,
+ cake@lists.bufferbloat.net, brcm80211-dev-list.pdl@broadcom.com,
+ Yishai Hadas <yishaih@nvidia.com>, Hideaki YOSHIFUJI <yoshfuji@linux-ipv6.org>,
+ linuxppc-dev@lists.ozlabs.org, David Ahern <dsahern@kernel.org>,
  Philipp Reisner <philipp.reisner@linbit.com>,
  Stephen Hemminger <stephen@networkplumber.org>,
  Christoph =?iso-8859-1?Q?B=F6hmwalder?= <christoph.boehmwalder@linbit.com>,
  Vinod Koul <vkoul@kernel.org>, tipc-discussion@lists.sourceforge.net,
- dmaengine@vger.kernel.org, Johannes Berg <johannes@sipsolutions.net>,
- Sungjong Seo <sj1557.seo@samsung.com>, linuxppc-dev@lists.ozlabs.org
-Subject: Re: [Linux-stm32] [f2fs-dev] [PATCH v1 3/5] treewide: use
- get_random_u32() when possible
+ Thomas Graf <tgraf@suug.ch>, Johannes Berg <johannes@sipsolutions.net>,
+ Sungjong Seo <sj1557.seo@samsung.com>, Martin KaFai Lau <martin.lau@linux.dev>
+Subject: Re: [Linux-stm32] [PATCH v1 1/5] treewide: use prandom_u32_max()
+	when possible
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -178,28 +176,45 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, Oct 06, 2022 at 06:33:15AM -0600, Jason A. Donenfeld wrote:
-> On Thu, Oct 06, 2022 at 10:43:31AM +0200, Jan Kara wrote:
-
-...
-
-> > The code here is effectively doing the
+On Thu, Oct 06, 2022 at 09:55:19AM -0300, Jason Gunthorpe wrote:
+> On Thu, Oct 06, 2022 at 06:45:25AM -0600, Jason A. Donenfeld wrote:
+> > On Wed, Oct 05, 2022 at 09:16:50PM -0700, Kees Cook wrote:
+> > > On Wed, Oct 05, 2022 at 11:48:40PM +0200, Jason A. Donenfeld wrote:
+> > > > Rather than incurring a division or requesting too many random bytes for
+> > > > the given range, use the prandom_u32_max() function, which only takes
+> > > > the minimum required bytes from the RNG and avoids divisions.
+> > > 
+> > > Yes please!
+> > > 
+> > > Since this is a treewide patch, it's helpful for (me at least) doing
+> > > reviews to detail the mechanism of the transformation.
 > > 
-> > 	parent_group = prandom_u32_max(ngroups);
+> > This is hand done. There were also various wrong seds done. And then I'd
+> > edit the .diff manually, and then reapply it, as an iterative process.
+> > No internet on the airplane, and oddly no spatch already on my laptop (I
+> > think I had some Gentoo ocaml issues at some point and removed it?).
 > > 
-> > Similarly here we can use prandom_u32_max(ngroups) like:
+> > > e.g. I imagine this could be done with something like Coccinelle and
 > > 
-> > 		if (qstr) {
-> > 			...
-> > 			parent_group = hinfo.hash % ngroups;
-> > 		} else
-> > 			parent_group = prandom_u32_max(ngroups);
+> > Feel free to check the work here by using Coccinelle if you're into
+> > that.
 > 
-> Nice catch. I'll move these to patch #1.
+> Generally these series are a lot easier to review if it is structured
+> as a patches doing all the unusual stuff that had to be by hand
+> followed by an unmodified Coccinelle/sed/etc handling the simple
+> stuff.
+> 
+> Especially stuff that is reworking the logic beyond simple
+> substitution should be one patch per subsystem not rolled into a giant
+> one patch conversion.
+> 
+> This makes the whole workflow better because the hand-done stuff can
+> have a chance to flow through subsystem trees.
 
-I believe coccinelle is able to handle this kind of code as well, so Kees'
-proposal to use it seems more plausible since it's less error prone and more
-flexible / powerful.
++1 to all arguments for the splitting.
+
+I looked a bit into the code I have the interest to, but I won't spam people
+with not-so-important questions / comments / tags, etc.
 
 -- 
 With Best Regards,
