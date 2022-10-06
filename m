@@ -2,49 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 50D395F6655
-	for <lists+linux-stm32@lfdr.de>; Thu,  6 Oct 2022 14:45:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7FA585F6682
+	for <lists+linux-stm32@lfdr.de>; Thu,  6 Oct 2022 14:47:54 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E9EB7C64112;
-	Thu,  6 Oct 2022 12:45:58 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 38351C64112;
+	Thu,  6 Oct 2022 12:47:54 +0000 (UTC)
+Received: from mail-qv1-f53.google.com (mail-qv1-f53.google.com
+ [209.85.219.53])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 70099C64100
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9B3F4C64100
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  6 Oct 2022 12:45:57 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 76259B8208C;
- Thu,  6 Oct 2022 12:45:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6BBD6C433B5;
- Thu,  6 Oct 2022 12:45:39 +0000 (UTC)
-Authentication-Results: smtp.kernel.org;
- dkim=pass (1024-bit key) header.d=zx2c4.com header.i=@zx2c4.com
- header.b="gqKJ5uKA"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zx2c4.com; s=20210105; 
- t=1665060337;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=8dWFI8h4OMBAtrqSOGO78rNNmSB/3Qreg0w0Og/94qc=;
- b=gqKJ5uKA335nUt4dHqz8iF9PLBDcDgx3n0YhiOxMrlk3oPDvs/7yiBJIDKV/E4nv62pdqe
- sPWU3H5aG76qM2evnoA3/Ys8c2HrO6GXFQDfmwl/KqnyJgMuSbwIQZf5GAnNUvK/lVQDpw
- cqr/cVirflho361qsz5SQunwSlNAMYo=
-Received: by mail.zx2c4.com (ZX2C4 Mail Server) with ESMTPSA id c546cd47
- (TLSv1.3:TLS_AES_256_GCM_SHA384:256:NO); 
- Thu, 6 Oct 2022 12:45:37 +0000 (UTC)
-Date: Thu, 6 Oct 2022 06:45:25 -0600
-From: "Jason A. Donenfeld" <Jason@zx2c4.com>
-To: Kees Cook <keescook@chromium.org>
-Message-ID: <Yz7N5WsqmKiUl+6b@zx2c4.com>
+ Thu,  6 Oct 2022 12:47:53 +0000 (UTC)
+Received: by mail-qv1-f53.google.com with SMTP id mx8so1073533qvb.8
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 06 Oct 2022 05:47:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ziepe.ca; s=google;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date;
+ bh=eLAvQxPTrW61bFz1sANG5Y81u18aSgNqwRKiQkasIrQ=;
+ b=Mjk55TEbLntyF5lT9fSI68nVndM1Msdjat/gJGZygPgfzU+WkmD3YJi9WXVGaCzM6v
+ GxLLpAA6PXTqzjvO06yw50CV42lW4n/vIEByFS591YiP94BQoBhbbWQVP56HTGxk5Zgr
+ BOk05yP29axd7oq4HdYwQK9SI5EUWt7gxVDMFJ+wkOreCPIVeriBrHDtpGfIe2ngJppN
+ JQryL8z0uIEMfGv9GgcIhdNpUKCWmtH1vAJbOQzYFsOAjpmcoQIxgv9D+phyeqT1BAZz
+ 6oBo+rhyLIIlr94eqFOQOrHm5nD105nysrFzzWFdbvZC9hK7I+vgzgKfrpoAG3/bFvxl
+ ry9Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date;
+ bh=eLAvQxPTrW61bFz1sANG5Y81u18aSgNqwRKiQkasIrQ=;
+ b=ZbIbk4IBXAeIDazfZiI8OeozEUV/EpC41pCWPFUHsAaAjZeH5P8J6uZL4nGXOc5oZI
+ rcVGKBeHQcm9cl2pKq7C+sJmWSfVZkZcjMwcK9GxceBWMM740drMNP5yrni2yVuhUt03
+ S+qEKqXAK32jA7HR7yxW7Ktrh/1NOML4hzJZ5drPV2TkS63NskfPptxObl45S4xyBFk6
+ ik2WErhI3PVkPTYT8lcjObwbFV8oC5utsFT3OgXyu2NVUWLDaizNxuec6LtMP11kSAXP
+ 8iWY06PT0BCbJEffDlgr2BVEC6QZrzk7h1KYjbPxgbTYhTA5BPdTV2xzd4WW8HBLLLYL
+ euGA==
+X-Gm-Message-State: ACrzQf082V2nMe+fxHWPboWKrsmWTPXuHLKjTMLDGsVYe7AzcMJwZ/i8
+ PdvkPB3BXGkTmAmWRsGA6Rfzag==
+X-Google-Smtp-Source: AMsMyM6E3yRYr1dTGqd6nAazsF/RtsoaWoD6R93kcYIR9nUQ6R8mMrLb2v1joGjgdIDD15O6MaD6sg==
+X-Received: by 2002:a05:6214:d06:b0:4ad:1fe1:9b49 with SMTP id
+ 6-20020a0562140d0600b004ad1fe19b49mr3536957qvh.57.1665060472470; 
+ Thu, 06 Oct 2022 05:47:52 -0700 (PDT)
+Received: from ziepe.ca
+ (hlfxns017vw-47-55-122-23.dhcp-dynamic.fibreop.ns.bellaliant.net.
+ [47.55.122.23]) by smtp.gmail.com with ESMTPSA id
+ j3-20020a05620a410300b006b5bf5d45casm20676675qko.27.2022.10.06.05.47.50
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 06 Oct 2022 05:47:50 -0700 (PDT)
+Received: from jgg by wakko with local (Exim 4.95)
+ (envelope-from <jgg@ziepe.ca>) id 1ogQI1-00A0xr-QZ;
+ Thu, 06 Oct 2022 09:47:49 -0300
+Date: Thu, 6 Oct 2022 09:47:49 -0300
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: "Jason A. Donenfeld" <Jason@zx2c4.com>
+Message-ID: <Yz7OdfKZeGkpZSKb@ziepe.ca>
 References: <20221005214844.2699-1-Jason@zx2c4.com>
- <20221005214844.2699-2-Jason@zx2c4.com>
- <202210052035.A1020E3@keescook>
+ <20221005214844.2699-4-Jason@zx2c4.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <202210052035.A1020E3@keescook>
+In-Reply-To: <20221005214844.2699-4-Jason@zx2c4.com>
 Cc: Andrew Lunn <andrew@lunn.ch>, "Darrick J . Wong" <djwong@kernel.org>,
  Ulf Hansson <ulf.hansson@linaro.org>, dri-devel@lists.freedesktop.org,
  Andrii Nakryiko <andrii@kernel.org>, Hans Verkuil <hverkuil@xs4all.nl>,
@@ -109,7 +126,7 @@ Cc: Andrew Lunn <andrew@lunn.ch>, "Darrick J . Wong" <djwong@kernel.org>,
  "Naveen N . Rao" <naveen.n.rao@linux.ibm.com>,
  Ilya Dryomov <idryomov@gmail.com>, Paolo Abeni <pabeni@redhat.com>,
  Pablo Neira Ayuso <pablo@netfilter.org>, Marco Elver <elver@google.com>,
- Yury Norov <yury.norov@gmail.com>,
+ Kees Cook <keescook@chromium.org>, Yury Norov <yury.norov@gmail.com>,
  "James E . J . Bottomley" <jejb@linux.ibm.com>,
  Jamal Hadi Salim <jhs@mojatatu.com>, KP Singh <kpsingh@kernel.org>,
  Borislav Petkov <bp@alien8.de>, Keith Busch <kbusch@kernel.org>,
@@ -134,9 +151,8 @@ Cc: Andrew Lunn <andrew@lunn.ch>, "Darrick J . Wong" <djwong@kernel.org>,
  Herbert Xu <herbert@gondor.apana.org.au>, linux-scsi@vger.kernel.org,
  dccp@vger.kernel.org, Richard Weinberger <richard@nod.at>,
  Russell King <linux@armlinux.org.uk>, Jaehoon Chung <jh80.chung@samsung.com>,
- Jason Gunthorpe <jgg@ziepe.ca>, SHA-cyfmac-dev-list@infineon.com,
- Ingo Molnar <mingo@redhat.com>, Jakub Kicinski <kuba@kernel.org>,
- John Fastabend <john.fastabend@gmail.com>,
+ SHA-cyfmac-dev-list@infineon.com, Ingo Molnar <mingo@redhat.com>,
+ Jakub Kicinski <kuba@kernel.org>, John Fastabend <john.fastabend@gmail.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Manivannan Sadhasivam <mani@kernel.org>,
  Michael Jamet <michael.jamet@intel.com>, Kalle Valo <kvalo@kernel.org>,
@@ -154,7 +170,7 @@ Cc: Andrew Lunn <andrew@lunn.ch>, "Darrick J . Wong" <djwong@kernel.org>,
  Vinod Koul <vkoul@kernel.org>, tipc-discussion@lists.sourceforge.net,
  Thomas Graf <tgraf@suug.ch>, Johannes Berg <johannes@sipsolutions.net>,
  Sungjong Seo <sj1557.seo@samsung.com>, Martin KaFai Lau <martin.lau@linux.dev>
-Subject: Re: [Linux-stm32] [PATCH v1 1/5] treewide: use prandom_u32_max()
+Subject: Re: [Linux-stm32] [PATCH v1 3/5] treewide: use get_random_u32()
 	when possible
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -172,42 +188,38 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Kees,
+On Wed, Oct 05, 2022 at 11:48:42PM +0200, Jason A. Donenfeld wrote:
 
-On Wed, Oct 05, 2022 at 09:16:50PM -0700, Kees Cook wrote:
-> On Wed, Oct 05, 2022 at 11:48:40PM +0200, Jason A. Donenfeld wrote:
-> > Rather than incurring a division or requesting too many random bytes for
-> > the given range, use the prandom_u32_max() function, which only takes
-> > the minimum required bytes from the RNG and avoids divisions.
-> 
-> Yes please!
-> 
-> Since this is a treewide patch, it's helpful for (me at least) doing
-> reviews to detail the mechanism of the transformation.
+> index 14392c942f49..499a425a3379 100644
+> --- a/drivers/infiniband/hw/cxgb4/cm.c
+> +++ b/drivers/infiniband/hw/cxgb4/cm.c
+> @@ -734,7 +734,7 @@ static int send_connect(struct c4iw_ep *ep)
+>  				   &ep->com.remote_addr;
+>  	int ret;
+>  	enum chip_type adapter_type = ep->com.dev->rdev.lldi.adapter_type;
+> -	u32 isn = (prandom_u32() & ~7UL) - 1;
+> +	u32 isn = (get_random_u32() & ~7UL) - 1;
 
-This is hand done. There were also various wrong seds done. And then I'd
-edit the .diff manually, and then reapply it, as an iterative process.
-No internet on the airplane, and oddly no spatch already on my laptop (I
-think I had some Gentoo ocaml issues at some point and removed it?).
+Maybe this wants to be written as
 
-> e.g. I imagine this could be done with something like Coccinelle and
+(prandom_max(U32_MAX >> 7) << 7) | 7
 
-Feel free to check the work here by using Coccinelle if you're into
-that.
+?
 
-> >  static inline int ubi_dbg_is_bitflip(const struct ubi_device *ubi)
-> >  {
-> >  	if (ubi->dbg.emulate_bitflips)
-> > -		return !(prandom_u32() % 200);
-> > +		return !(prandom_u32_max(200));
-> >  	return 0;
-> >  }
-> >  
-> 
-> Because some looks automated (why the parens?)
+> diff --git a/drivers/infiniband/ulp/ipoib/ipoib_cm.c b/drivers/infiniband/ulp/ipoib/ipoib_cm.c
+> index fd9d7f2c4d64..a605cf66b83e 100644
+> --- a/drivers/infiniband/ulp/ipoib/ipoib_cm.c
+> +++ b/drivers/infiniband/ulp/ipoib/ipoib_cm.c
+> @@ -465,7 +465,7 @@ static int ipoib_cm_req_handler(struct ib_cm_id *cm_id,
+>  		goto err_qp;
+>  	}
+>  
+> -	psn = prandom_u32() & 0xffffff;
+> +	psn = get_random_u32() & 0xffffff;
 
-I saw this before going out and thought I'd fixed it but I guess I sent
-the wrong one.
+ prandom_max(0xffffff + 1) 
+
+?
 
 Jason
 _______________________________________________
