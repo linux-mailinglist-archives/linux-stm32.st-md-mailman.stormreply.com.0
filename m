@@ -2,59 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A867B5F60B9
-	for <lists+linux-stm32@lfdr.de>; Thu,  6 Oct 2022 07:40:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 228CA5F660F
+	for <lists+linux-stm32@lfdr.de>; Thu,  6 Oct 2022 14:28:59 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 581BAC64107;
-	Thu,  6 Oct 2022 05:40:42 +0000 (UTC)
-Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com
- [209.85.216.51])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C2C6FC64112;
+	Thu,  6 Oct 2022 12:28:58 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 45C61C01E99
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 15C3EC6410D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  6 Oct 2022 05:40:40 +0000 (UTC)
-Received: by mail-pj1-f51.google.com with SMTP id fw14so832313pjb.3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 05 Oct 2022 22:40:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date;
- bh=7rD76ImKhWSr9uLkAh+d+zcZYfUm0ip9Vo7hna38oSs=;
- b=HIlnByPTia/JV2Hio0Z3vTGHRO3pP+g3PDOdFVRfXo+4JMSWemnyOHulYs1b2f7JO3
- 4B68mkEwVVg8IQ3IkOWlhCZu1DHmNpOVf5BI7g3+ztCRosIDaXqnmyXn8NbvhlX0kAlJ
- 1+EIMZBflEmYzO5Z7VvIiaOCr5rSQzs8/emFI=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date;
- bh=7rD76ImKhWSr9uLkAh+d+zcZYfUm0ip9Vo7hna38oSs=;
- b=10895BhSVmy5ge3mVJi2shBSkNprUmNlhakWXWLtxxr9ClM3FzORDibG0H3L/qudkN
- GFU2Mr/v/eHVkiOgiY4CopJK8fF9aPnAB9UYRpcWZpMvIA6IMhtnU1BNVdQz/9XGH36S
- Zbu6CnSwS2NvMahipPta+wq9T4/awrqMzxHCiE1I2k/Zvk4lBmkDJrQ+3D575YCPN0V4
- gA51kjR+FZSct7plOzzxSvUEld4E8lSGlLyYgqzMqOhrkUc9OdRzJu5lgTn2kGp1w3Yl
- hw9wtm0JalR6iyySk0EauhEp7t/Or3nVBUYXgUaYqPzcd++bGAE3tH5QcB9vcXLEZRaB
- 7wJA==
-X-Gm-Message-State: ACrzQf0OdhVA0ZX6dNrUwkGjkoLOn9KSRTpkhlmyauLwUiPqCs//qWHP
- gYMjxe+QWLRTKxiaSS1ZyiqCoQ==
-X-Google-Smtp-Source: AMsMyM5d8kq/QLGWHL1lT7d4vvr6wiHcKPw02UiifePzthTJzj01ofprelzHftcv9opKc24+zWNWRw==
-X-Received: by 2002:a17:90b:1943:b0:20a:85e9:f089 with SMTP id
- nk3-20020a17090b194300b0020a85e9f089mr3484011pjb.47.1665034838827; 
- Wed, 05 Oct 2022 22:40:38 -0700 (PDT)
-Received: from www.outflux.net (smtp.outflux.net. [198.145.64.163])
- by smtp.gmail.com with ESMTPSA id
- s9-20020a63ff49000000b0043be31d490dsm776833pgk.67.2022.10.05.22.40.37
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 05 Oct 2022 22:40:38 -0700 (PDT)
-Date: Wed, 5 Oct 2022 22:40:36 -0700
-From: Kees Cook <keescook@chromium.org>
-To: "Jason A. Donenfeld" <Jason@zx2c4.com>
-Message-ID: <202210052240.23F1699@keescook>
+ Thu,  6 Oct 2022 12:28:57 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 9A0216192D;
+ Thu,  6 Oct 2022 12:28:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C9BAC433C1;
+ Thu,  6 Oct 2022 12:28:40 +0000 (UTC)
+Authentication-Results: smtp.kernel.org;
+ dkim=pass (1024-bit key) header.d=zx2c4.com header.i=@zx2c4.com
+ header.b="OS8t32IG"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zx2c4.com; s=20210105; 
+ t=1665059318;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=5CT4nH/m4137cke6a9HxB/7vcArAWSQRa4usYkfKNrg=;
+ b=OS8t32IGu3oCxKhFrKsoTlJdA0ilidFXzfDav1WbEMtetkdGq8zG44OTpAoolbKblRE28x
+ JavSPZ213Zn0QlCC7qiV7HVuoj014/Af3MYIJXK6V6JzJ66H365IrRZBlUnLH9HyqJISSh
+ i7WOLg4+btGeRh3RwCHT+vvVoWgXHqc=
+Received: by mail.zx2c4.com (ZX2C4 Mail Server) with ESMTPSA id 5a4d154b
+ (TLSv1.3:TLS_AES_256_GCM_SHA384:256:NO); 
+ Thu, 6 Oct 2022 12:28:38 +0000 (UTC)
+Date: Thu, 6 Oct 2022 06:28:26 -0600
+From: "Jason A. Donenfeld" <Jason@zx2c4.com>
+To: Kees Cook <keescook@chromium.org>
+Message-ID: <Yz7J6j3cXDLK7O6A@zx2c4.com>
 References: <20221005214844.2699-1-Jason@zx2c4.com>
- <202210052148.B11CBC60@keescook>
+ <20221005214844.2699-3-Jason@zx2c4.com>
+ <202210052126.B34A2C62@keescook>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <202210052148.B11CBC60@keescook>
+In-Reply-To: <202210052126.B34A2C62@keescook>
 Cc: Andrew Lunn <andrew@lunn.ch>, "Darrick J . Wong" <djwong@kernel.org>,
  Ulf Hansson <ulf.hansson@linaro.org>, dri-devel@lists.freedesktop.org,
  Andrii Nakryiko <andrii@kernel.org>, Hans Verkuil <hverkuil@xs4all.nl>,
@@ -102,7 +92,7 @@ Cc: Andrew Lunn <andrew@lunn.ch>, "Darrick J . Wong" <djwong@kernel.org>,
  Theodore Ts'o <tytso@mit.edu>, Stephen Boyd <sboyd@kernel.org>,
  Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>,
  Florian Westphal <fw@strlen.de>,
- Andreas =?iso-8859-1?Q?F=E4rber?= <afaerber@suse.de>,
+ Andreas =?utf-8?Q?F=C3=A4rber?= <afaerber@suse.de>,
  Jon Maloy <jmaloy@redhat.com>, Vlad Yasevich <vyasevich@gmail.com>,
  Anna Schumaker <anna@kernel.org>, Yehezkel Bernat <YehezkelShB@gmail.com>,
  Haoyue Xu <xuhaoyue1@hisilicon.com>, Heiner Kallweit <hkallweit1@gmail.com>,
@@ -133,7 +123,7 @@ Cc: Andrew Lunn <andrew@lunn.ch>, "Darrick J . Wong" <djwong@kernel.org>,
  netdev@vger.kernel.org, Ying Xue <ying.xue@windriver.com>,
  Manish Rangankar <mrangankar@marvell.com>,
  "David S . Miller" <davem@davemloft.net>,
- Toke =?iso-8859-1?Q?H=F8iland-J=F8rgensen?= <toke@toke.dk>,
+ Toke =?utf-8?Q?H=C3=B8iland-J=C3=B8rgensen?= <toke@toke.dk>,
  Vignesh Raghavendra <vigneshr@ti.com>, Peter Zijlstra <peterz@infradead.org>,
  "H . Peter Anvin" <hpa@zytor.com>, Amitkumar Karwar <amitkarwar@gmail.com>,
  linux-mm@kvack.org, Andreas Dilger <adilger.kernel@dilger.ca>,
@@ -160,12 +150,12 @@ Cc: Andrew Lunn <andrew@lunn.ch>, "Darrick J . Wong" <djwong@kernel.org>,
  linuxppc-dev@lists.ozlabs.org, David Ahern <dsahern@kernel.org>,
  Philipp Reisner <philipp.reisner@linbit.com>,
  Stephen Hemminger <stephen@networkplumber.org>,
- Christoph =?iso-8859-1?Q?B=F6hmwalder?= <christoph.boehmwalder@linbit.com>,
+ Christoph =?utf-8?Q?B=C3=B6hmwalder?= <christoph.boehmwalder@linbit.com>,
  Vinod Koul <vkoul@kernel.org>, tipc-discussion@lists.sourceforge.net,
  Thomas Graf <tgraf@suug.ch>, Johannes Berg <johannes@sipsolutions.net>,
  Sungjong Seo <sj1557.seo@samsung.com>, Martin KaFai Lau <martin.lau@linux.dev>
-Subject: Re: [Linux-stm32] [PATCH v1 0/5] treewide cleanup of random integer
-	usage
+Subject: Re: [Linux-stm32] [PATCH v1 2/5] treewide: use get_random_{u8,
+	u16}() when possible
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -182,15 +172,27 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, Oct 05, 2022 at 09:55:43PM -0700, Kees Cook wrote:
-> If any of the subsystems ask you to break this up (I hope not), I've got
-> this[1], which does a reasonable job of splitting a commit up into
-> separate commits for each matching subsystem.
+On Wed, Oct 05, 2022 at 09:38:02PM -0700, Kees Cook wrote:
+> > diff --git a/lib/test_vmalloc.c b/lib/test_vmalloc.c
+> > index 56ffaa8dd3f6..0131ed2cd1bd 100644
+> > --- a/lib/test_vmalloc.c
+> > +++ b/lib/test_vmalloc.c
+> > @@ -80,7 +80,7 @@ static int random_size_align_alloc_test(void)
+> >  	int i;
+> >  
+> >  	for (i = 0; i < test_loop_count; i++) {
+> > -		rnd = prandom_u32();
+> > +		rnd = get_random_u8();
+> >  
+> >  		/*
+> >  		 * Maximum 1024 pages, if PAGE_SIZE is 4096.
+> 
+> This wasn't obvious either, but it looks like it's because it never
+> consumes more than u8?
 
-[1] https://github.com/kees/kernel-tools/blob/trunk/split-on-maintainer
+Right. The only uses of that are %23 and %10 later on down.
 
--- 
-Kees Cook
+Jason
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
