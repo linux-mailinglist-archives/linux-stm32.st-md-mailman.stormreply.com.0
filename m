@@ -2,41 +2,41 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8ADAC5FA49C
-	for <lists+linux-stm32@lfdr.de>; Mon, 10 Oct 2022 22:15:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B4D3D5FA49E
+	for <lists+linux-stm32@lfdr.de>; Mon, 10 Oct 2022 22:15:17 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 48C26C65045;
-	Mon, 10 Oct 2022 20:15:15 +0000 (UTC)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 74DBAC65045;
+	Mon, 10 Oct 2022 20:15:17 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0FC61C6411E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DC579C65042
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 10 Oct 2022 20:15:12 +0000 (UTC)
+ Mon, 10 Oct 2022 20:15:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1665432913; x=1696968913;
+ t=1665432915; x=1696968915;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=5aMlx8MjwRboHF89NLa+7LtdxT0Jr0b4GEWJm8cGkaQ=;
- b=bO7GVckTRC81tjdsrFeq+5AzeHclYE5kYnF5sShHS193mY1w11uqz6L+
- CHT44x+ACvRe03rPMl1Cmnoo3Lj4mt5KoGab3bJAz+aAqgNd7oszWJSt0
- NHVFCVwsm+mM2K16bVFcfbppFmJzs6ZPlKTDnK4YuzhamuBV7vVeLICQ5
- LYG2n0QDV+fFg9QyWuseS09g/d4KRM7WcNHFzuL51EcsmcpsYev6kjFir
- u7Lhtu3pwj01hdZB4lehw25uoSHo2WzV5C43Kdg2CULOIW0WOXlo1us4O
- VV07vyLzk/yDk9353PdbQzcNo9tFkvUsqFhaSKGcxrJ1hGWNaIyLG6Ap1 A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10496"; a="287590366"
-X-IronPort-AV: E=Sophos;i="5.95,173,1661842800"; d="scan'208";a="287590366"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Oct 2022 13:15:11 -0700
+ bh=1RmxBnijmSLNIyL2ITdFJrA7Z6UfQyPxRAWlXDyYJM4=;
+ b=HHswyWoyRWZgzywiQ9IV7Bbcjh+rjOk/a7yNDhDTxIg6aBoFKYULpz9Y
+ 127xF8NLK78nSQWNCoefmzBNIdKwI7lNv8T3GI4P41VLCY1rrqxcxir1H
+ obHCU118cQBG+84Z88chJ98Tp16W1Y/P0KBbjzuy6OWU70Ix2MNs6jJI7
+ ChwQ7iZ6EEa9k5x3G/lJSk8dPJ3NXHXs8+3GbtWpUMnhnU10XDd11ES2d
+ XVJVdDfYWhF0Hm1fn9ovI4uRrf4C5V86zhzmrMTehBZ3BCtI7cy6U0AaB
+ VDDAVq5dmeHIioRh5p4XjUL9Uerio6XsNmgqSkIdVMwkPcfyrheMx+Joy g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10496"; a="301936375"
+X-IronPort-AV: E=Sophos;i="5.95,173,1661842800"; d="scan'208";a="301936375"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Oct 2022 13:15:13 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10496"; a="603862772"
-X-IronPort-AV: E=Sophos;i="5.95,173,1661842800"; d="scan'208";a="603862772"
+X-IronPort-AV: E=McAfee;i="6500,9779,10496"; a="715240688"
+X-IronPort-AV: E=Sophos;i="5.95,173,1661842800"; d="scan'208";a="715240688"
 Received: from black.fi.intel.com ([10.237.72.28])
- by orsmga006.jf.intel.com with ESMTP; 10 Oct 2022 13:14:59 -0700
+ by FMSMGA003.fm.intel.com with ESMTP; 10 Oct 2022 13:15:02 -0700
 Received: by black.fi.intel.com (Postfix, from userid 1003)
- id 8B04A30B; Mon, 10 Oct 2022 23:15:11 +0300 (EEST)
+ id 9D391331; Mon, 10 Oct 2022 23:15:11 +0300 (EEST)
 From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 To: Marc Zyngier <maz@kernel.org>,
  Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
@@ -70,8 +70,8 @@ To: Marc Zyngier <maz@kernel.org>,
  linux-riscv@lists.infradead.org, linux-omap@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-msm@vger.kernel.org,
  linux-renesas-soc@vger.kernel.org, linux-samsung-soc@vger.kernel.org
-Date: Mon, 10 Oct 2022 23:14:19 +0300
-Message-Id: <20221010201453.77401-4-andriy.shevchenko@linux.intel.com>
+Date: Mon, 10 Oct 2022 23:14:20 +0300
+Message-Id: <20221010201453.77401-5-andriy.shevchenko@linux.intel.com>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20221010201453.77401-1-andriy.shevchenko@linux.intel.com>
 References: <20221010201453.77401-1-andriy.shevchenko@linux.intel.com>
@@ -114,7 +114,7 @@ Cc: Andrew Lunn <andrew@lunn.ch>,
  Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
  Shawn Guo <shawnguo@kernel.org>,
  =?UTF-8?q?Andreas=20F=C3=A4rber?= <afaerber@suse.de>
-Subject: [Linux-stm32] [PATCH v2 03/36] media: c8sectpfe: Add missed
+Subject: [Linux-stm32] [PATCH v2 04/36] pinctrl: actions: Add missed
 	header(s)
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -139,35 +139,33 @@ While at it, sort headers alphabetically.
 
 Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 ---
- drivers/media/platform/st/sti/c8sectpfe/c8sectpfe-core.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+ drivers/pinctrl/actions/pinctrl-owl.c | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/media/platform/st/sti/c8sectpfe/c8sectpfe-core.c b/drivers/media/platform/st/sti/c8sectpfe/c8sectpfe-core.c
-index cefe6b7bfdc4..4c5027a0480d 100644
---- a/drivers/media/platform/st/sti/c8sectpfe/c8sectpfe-core.c
-+++ b/drivers/media/platform/st/sti/c8sectpfe/c8sectpfe-core.c
-@@ -24,16 +24,18 @@
+diff --git a/drivers/pinctrl/actions/pinctrl-owl.c b/drivers/pinctrl/actions/pinctrl-owl.c
+index ed46abc15d72..a84ace6e451e 100644
+--- a/drivers/pinctrl/actions/pinctrl-owl.c
++++ b/drivers/pinctrl/actions/pinctrl-owl.c
+@@ -17,13 +17,15 @@
  #include <linux/module.h>
- #include <linux/of_gpio.h>
- #include <linux/of_platform.h>
-+#include <linux/pinctrl/consumer.h>
-+#include <linux/pinctrl/pinctrl.h>
+ #include <linux/of.h>
  #include <linux/platform_device.h>
--#include <linux/usb.h>
- #include <linux/slab.h>
- #include <linux/time.h>
-+#include <linux/usb.h>
- #include <linux/wait.h>
--#include <linux/pinctrl/pinctrl.h>
- 
--#include "c8sectpfe-core.h"
- #include "c8sectpfe-common.h"
-+#include "c8sectpfe-core.h"
- #include "c8sectpfe-debugfs.h"
++#include <linux/seq_file.h>
++#include <linux/slab.h>
++#include <linux/spinlock.h>
 +
- #include <media/dmxdev.h>
- #include <media/dvb_demux.h>
- #include <media/dvb_frontend.h>
+ #include <linux/pinctrl/machine.h>
++#include <linux/pinctrl/pinconf-generic.h>
++#include <linux/pinctrl/pinconf.h>
+ #include <linux/pinctrl/pinctrl.h>
+ #include <linux/pinctrl/pinmux.h>
+-#include <linux/pinctrl/pinconf.h>
+-#include <linux/pinctrl/pinconf-generic.h>
+-#include <linux/slab.h>
+-#include <linux/spinlock.h>
+ 
+ #include "../core.h"
+ #include "../pinctrl-utils.h"
 -- 
 2.35.1
 
