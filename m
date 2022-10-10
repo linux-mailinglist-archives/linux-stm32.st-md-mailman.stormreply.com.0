@@ -2,41 +2,41 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DE3DA5FA4B1
-	for <lists+linux-stm32@lfdr.de>; Mon, 10 Oct 2022 22:15:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 076545FA4B3
+	for <lists+linux-stm32@lfdr.de>; Mon, 10 Oct 2022 22:15:26 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A1C96C65044;
-	Mon, 10 Oct 2022 20:15:24 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BEC2CC65045;
+	Mon, 10 Oct 2022 20:15:25 +0000 (UTC)
 Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9B849C65040
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6324CC65040
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 10 Oct 2022 20:15:22 +0000 (UTC)
+ Mon, 10 Oct 2022 20:15:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1665432922; x=1696968922;
+ t=1665432923; x=1696968923;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=uF7xBeu93M354EETrHSJuoNGE435FvYms9ki+0pIZb8=;
- b=VbPMNTMaT6uyMPPQ6vGctbZcd948si7h4BMa3X/lnte+ei2EuXmXThUy
- MMvc1FRmLHvjXRMLZTH5fmN8ahzAhmB3FI/ZZ//iyOtndCzbqVM4eBOy+
- aP2KPc60OfjVZrEHwaaGbMUpCUf5YmwGA8gmPun3dt5dKWeDLH2GQQHZr
- rEgLikXPJ9IIiwpE973pGxPTipRdICg/yVAZcckoMP1R+Vwn/xiyZnXpu
- hKBSn+o4ZovpvKwKmykqCiEDReNXyoKdPj6+OsKpnPFYmShzJp2PmuDPI
- ntH5JSltUgFFes4uXf3NBFTMQ33dlXiaqXt3AYdzERdudG+KYd4NVG+3G A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10496"; a="366317845"
-X-IronPort-AV: E=Sophos;i="5.95,173,1661842800"; d="scan'208";a="366317845"
+ bh=GZpcdJH5iVJ4VhUCgOZkFVlz2hCRdLAMkf588dd7Ehg=;
+ b=R3O8FTA5zxDhzo4wYt/k+XVZryGnxBOXSrjfAlyBKRvUuaPCmxUG1CmV
+ xrKufE2v4PksXF6+ucHJ35qu4EG7yosf48eV/hlm7IkLFmOdVdnAYMxZS
+ ajqapgpnDkglRa40raTFkjKsg3ONsuKX9SEuwcIw2GE56PnC5B+knoTVz
+ hcBNkfPieP3IfmNy1bvcnyHNPsnA/8arGuyTJ7ASO2U2hbbPJ0kIlvtua
+ 94sr8SMbCemydS1UXWg44VrFaWlk85fQ0huDbQp0e7WG3Jh0UU/f3DyKc
+ vzSEXS2nwAgGX2BV9nL+N8SdnwYCn8gpwommvYxcbR6vTtzKNkW9XR84Z Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10496"; a="366317851"
+X-IronPort-AV: E=Sophos;i="5.95,173,1661842800"; d="scan'208";a="366317851"
 Received: from fmsmga003.fm.intel.com ([10.253.24.29])
  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Oct 2022 13:15:20 -0700
+ 10 Oct 2022 13:15:22 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10496"; a="715240730"
-X-IronPort-AV: E=Sophos;i="5.95,173,1661842800"; d="scan'208";a="715240730"
+X-IronPort-AV: E=McAfee;i="6500,9779,10496"; a="715240736"
+X-IronPort-AV: E=Sophos;i="5.95,173,1661842800"; d="scan'208";a="715240736"
 Received: from black.fi.intel.com ([10.237.72.28])
- by FMSMGA003.fm.intel.com with ESMTP; 10 Oct 2022 13:15:10 -0700
+ by FMSMGA003.fm.intel.com with ESMTP; 10 Oct 2022 13:15:11 -0700
 Received: by black.fi.intel.com (Postfix, from userid 1003)
- id 30918443; Mon, 10 Oct 2022 23:15:12 +0300 (EEST)
+ id 67E7A53C; Mon, 10 Oct 2022 23:15:12 +0300 (EEST)
 From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 To: Marc Zyngier <maz@kernel.org>,
  Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
@@ -70,8 +70,8 @@ To: Marc Zyngier <maz@kernel.org>,
  linux-riscv@lists.infradead.org, linux-omap@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-msm@vger.kernel.org,
  linux-renesas-soc@vger.kernel.org, linux-samsung-soc@vger.kernel.org
-Date: Mon, 10 Oct 2022 23:14:23 +0300
-Message-Id: <20221010201453.77401-8-andriy.shevchenko@linux.intel.com>
+Date: Mon, 10 Oct 2022 23:14:24 +0300
+Message-Id: <20221010201453.77401-9-andriy.shevchenko@linux.intel.com>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20221010201453.77401-1-andriy.shevchenko@linux.intel.com>
 References: <20221010201453.77401-1-andriy.shevchenko@linux.intel.com>
@@ -114,7 +114,7 @@ Cc: Andrew Lunn <andrew@lunn.ch>,
  Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
  Shawn Guo <shawnguo@kernel.org>,
  =?UTF-8?q?Andreas=20F=C3=A4rber?= <afaerber@suse.de>
-Subject: [Linux-stm32] [PATCH v2 07/36] pinctrl: axp209: Add missed header(s)
+Subject: [Linux-stm32] [PATCH v2 08/36] pinctrl: bcm: Add missed header(s)
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -138,32 +138,114 @@ While at it, sort headers alphabetically.
 
 Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 ---
- drivers/pinctrl/pinctrl-axp209.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+ drivers/pinctrl/bcm/pinctrl-bcm281xx.c   | 13 ++++++++-----
+ drivers/pinctrl/bcm/pinctrl-iproc-gpio.c | 12 +++++++-----
+ drivers/pinctrl/bcm/pinctrl-ns2-mux.c    |  8 +++++---
+ drivers/pinctrl/bcm/pinctrl-nsp-mux.c    |  8 +++++---
+ 4 files changed, 25 insertions(+), 16 deletions(-)
 
-diff --git a/drivers/pinctrl/pinctrl-axp209.c b/drivers/pinctrl/pinctrl-axp209.c
-index 7ab20ac15391..0bc1b381a2b8 100644
---- a/drivers/pinctrl/pinctrl-axp209.c
-+++ b/drivers/pinctrl/pinctrl-axp209.c
-@@ -16,13 +16,15 @@
- #include <linux/module.h>
+diff --git a/drivers/pinctrl/bcm/pinctrl-bcm281xx.c b/drivers/pinctrl/bcm/pinctrl-bcm281xx.c
+index fd52a83387ef..73dbf29c002f 100644
+--- a/drivers/pinctrl/bcm/pinctrl-bcm281xx.c
++++ b/drivers/pinctrl/bcm/pinctrl-bcm281xx.c
+@@ -2,16 +2,19 @@
+ // Copyright (C) 2013-2017 Broadcom
+ 
+ #include <linux/err.h>
+-#include <linux/io.h>
+ #include <linux/init.h>
++#include <linux/io.h>
  #include <linux/of.h>
- #include <linux/of_device.h>
--#include <linux/pinctrl/pinconf-generic.h>
+ #include <linux/platform_device.h>
 -#include <linux/pinctrl/pinctrl.h>
 -#include <linux/pinctrl/pinmux.h>
- #include <linux/platform_device.h>
+-#include <linux/pinctrl/pinconf.h>
+-#include <linux/pinctrl/pinconf-generic.h>
  #include <linux/regmap.h>
++#include <linux/seq_file.h>
  #include <linux/slab.h>
- 
-+#include <linux/pinctrl/consumer.h>
++
 +#include <linux/pinctrl/pinconf-generic.h>
++#include <linux/pinctrl/pinconf.h>
 +#include <linux/pinctrl/pinctrl.h>
 +#include <linux/pinctrl/pinmux.h>
 +
- #define AXP20X_GPIO_FUNCTIONS		0x7
- #define AXP20X_GPIO_FUNCTION_OUT_LOW	0
- #define AXP20X_GPIO_FUNCTION_OUT_HIGH	1
+ #include "../core.h"
+ #include "../pinctrl-utils.h"
+ 
+diff --git a/drivers/pinctrl/bcm/pinctrl-iproc-gpio.c b/drivers/pinctrl/bcm/pinctrl-iproc-gpio.c
+index 52fa2f4cd618..3df56a4ea510 100644
+--- a/drivers/pinctrl/bcm/pinctrl-iproc-gpio.c
++++ b/drivers/pinctrl/bcm/pinctrl-iproc-gpio.c
+@@ -16,17 +16,19 @@
+  * SoCs IOMUX controller.
+  */
+ 
+-#include <linux/kernel.h>
+-#include <linux/slab.h>
++#include <linux/gpio/driver.h>
+ #include <linux/interrupt.h>
+ #include <linux/io.h>
+-#include <linux/gpio/driver.h>
+ #include <linux/ioport.h>
++#include <linux/kernel.h>
+ #include <linux/of_device.h>
+ #include <linux/of_irq.h>
+-#include <linux/pinctrl/pinctrl.h>
+-#include <linux/pinctrl/pinconf.h>
++#include <linux/slab.h>
++
++#include <linux/pinctrl/consumer.h>
+ #include <linux/pinctrl/pinconf-generic.h>
++#include <linux/pinctrl/pinconf.h>
++#include <linux/pinctrl/pinctrl.h>
+ 
+ #include "../pinctrl-utils.h"
+ 
+diff --git a/drivers/pinctrl/bcm/pinctrl-ns2-mux.c b/drivers/pinctrl/bcm/pinctrl-ns2-mux.c
+index 960e253f0be4..04f4fca854cc 100644
+--- a/drivers/pinctrl/bcm/pinctrl-ns2-mux.c
++++ b/drivers/pinctrl/bcm/pinctrl-ns2-mux.c
+@@ -9,12 +9,14 @@
+ #include <linux/err.h>
+ #include <linux/io.h>
+ #include <linux/of.h>
+-#include <linux/pinctrl/pinconf.h>
++#include <linux/platform_device.h>
++#include <linux/seq_file.h>
++#include <linux/slab.h>
++
+ #include <linux/pinctrl/pinconf-generic.h>
++#include <linux/pinctrl/pinconf.h>
+ #include <linux/pinctrl/pinctrl.h>
+ #include <linux/pinctrl/pinmux.h>
+-#include <linux/platform_device.h>
+-#include <linux/slab.h>
+ 
+ #include "../core.h"
+ #include "../pinctrl-utils.h"
+diff --git a/drivers/pinctrl/bcm/pinctrl-nsp-mux.c b/drivers/pinctrl/bcm/pinctrl-nsp-mux.c
+index db8f79920ff0..eb6298507c1d 100644
+--- a/drivers/pinctrl/bcm/pinctrl-nsp-mux.c
++++ b/drivers/pinctrl/bcm/pinctrl-nsp-mux.c
+@@ -20,12 +20,14 @@
+ #include <linux/err.h>
+ #include <linux/io.h>
+ #include <linux/of.h>
+-#include <linux/pinctrl/pinconf.h>
++#include <linux/platform_device.h>
++#include <linux/seq_file.h>
++#include <linux/slab.h>
++
+ #include <linux/pinctrl/pinconf-generic.h>
++#include <linux/pinctrl/pinconf.h>
+ #include <linux/pinctrl/pinctrl.h>
+ #include <linux/pinctrl/pinmux.h>
+-#include <linux/platform_device.h>
+-#include <linux/slab.h>
+ 
+ #include "../core.h"
+ #include "../pinctrl-utils.h"
 -- 
 2.35.1
 
