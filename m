@@ -2,41 +2,41 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4A2265FA4B7
-	for <lists+linux-stm32@lfdr.de>; Mon, 10 Oct 2022 22:15:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5DDFF5FA4B8
+	for <lists+linux-stm32@lfdr.de>; Mon, 10 Oct 2022 22:15:28 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 109ACC6504F;
-	Mon, 10 Oct 2022 20:15:27 +0000 (UTC)
-Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2245FC65047;
+	Mon, 10 Oct 2022 20:15:28 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B6849C65046
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1F7A3C6504C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 10 Oct 2022 20:15:24 +0000 (UTC)
+ Mon, 10 Oct 2022 20:15:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1665432924; x=1696968924;
+ t=1665432926; x=1696968926;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=EZ3ygaOLlWwepCuvu84+w4yWIH5OPHvluovAh/nnM6E=;
- b=YZlTRMjH3h5g0v5fGw0BcYs2ZyQ5Vgak08cI2Tts9gZtLVJnurNOnL53
- s1QJ071O8DcP3EWTo/e+KefGoVGVxBUrYlz4icREH7w1z4pJ5mnM6U0cR
- 22uF7qZJWDia/CfYROJje/kTk2TDbZBeQU37ND88wMJWMb958GIs7y76M
- 9jGofyqUa+tjCPClY41+C17u/CMxjKn4X4gofrp1rip0us6exgNegNz1p
- wTlgqt2n0vkqi3P7aCrouGeylFq514yxKkTyIARHwzXJA6Y0fj4AZ8gcR
- BHlgjNb+EiqcvBSH1YgJk7AAKEUsh0GY+J8VcxGHpo9YKja0v5oK7yKf7 Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10496"; a="366317866"
-X-IronPort-AV: E=Sophos;i="5.95,173,1661842800"; d="scan'208";a="366317866"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Oct 2022 13:15:24 -0700
+ bh=mywQvBjWPzHdeWDwbOdj9RNfPWL33cKj0x+3gKEqnbA=;
+ b=e0HeMjcJM+P3DEEclfz/ja7HAuc83qG6swTFhWeUZCt4nnVYraNMT+m2
+ ra/a7gSZiqPrq8la199jyxppFjAzzPzjpoX2bC+cVItJiBKZArX9CJvgW
+ FWXgrgPAe7Ii7AL6L9I6S40ubyzReu9FH0UefM1KR5GAd5TsCxXDqEOf4
+ mr09plvnSu9ybGXdWiP3M3slrl1hsEdSZkRoRnvTpa/cGVEAVXuMIXHKj
+ kOolFHDX0hJs4ku8WoWyIb7R+yhANhheJ/w+9zHVQ137112yIOni0CaWH
+ sXTDDUBx/o6V7mBrBUFOfWak87vOrXY0UgRhRBSJPJqG5if+c2rVPzVkS Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10496"; a="291638417"
+X-IronPort-AV: E=Sophos;i="5.95,173,1661842800"; d="scan'208";a="291638417"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Oct 2022 13:15:25 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10496"; a="715240752"
-X-IronPort-AV: E=Sophos;i="5.95,173,1661842800"; d="scan'208";a="715240752"
+X-IronPort-AV: E=McAfee;i="6500,9779,10496"; a="603862904"
+X-IronPort-AV: E=Sophos;i="5.95,173,1661842800"; d="scan'208";a="603862904"
 Received: from black.fi.intel.com ([10.237.72.28])
- by FMSMGA003.fm.intel.com with ESMTP; 10 Oct 2022 13:15:14 -0700
+ by orsmga006.jf.intel.com with ESMTP; 10 Oct 2022 13:15:14 -0700
 Received: by black.fi.intel.com (Postfix, from userid 1003)
- id E0BF35A3; Mon, 10 Oct 2022 23:15:12 +0300 (EEST)
+ id 105AD5D2; Mon, 10 Oct 2022 23:15:13 +0300 (EEST)
 From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 To: Marc Zyngier <maz@kernel.org>,
  Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
@@ -70,8 +70,8 @@ To: Marc Zyngier <maz@kernel.org>,
  linux-riscv@lists.infradead.org, linux-omap@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-msm@vger.kernel.org,
  linux-renesas-soc@vger.kernel.org, linux-samsung-soc@vger.kernel.org
-Date: Mon, 10 Oct 2022 23:14:28 +0300
-Message-Id: <20221010201453.77401-13-andriy.shevchenko@linux.intel.com>
+Date: Mon, 10 Oct 2022 23:14:29 +0300
+Message-Id: <20221010201453.77401-14-andriy.shevchenko@linux.intel.com>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20221010201453.77401-1-andriy.shevchenko@linux.intel.com>
 References: <20221010201453.77401-1-andriy.shevchenko@linux.intel.com>
@@ -114,7 +114,8 @@ Cc: Andrew Lunn <andrew@lunn.ch>,
  Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
  Shawn Guo <shawnguo@kernel.org>,
  =?UTF-8?q?Andreas=20F=C3=A4rber?= <afaerber@suse.de>
-Subject: [Linux-stm32] [PATCH v2 12/36] pinctrl: k210: Add missed header(s)
+Subject: [Linux-stm32] [PATCH v2 13/36] pinctrl: lochnagar: Add missed
+	header(s)
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -138,30 +139,19 @@ While at it, sort headers alphabetically.
 
 Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 ---
- drivers/pinctrl/pinctrl-k210.c | 12 +++++++-----
- 1 file changed, 7 insertions(+), 5 deletions(-)
+ drivers/pinctrl/cirrus/pinctrl-lochnagar.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/pinctrl/pinctrl-k210.c b/drivers/pinctrl/pinctrl-k210.c
-index ecab6bf63dc6..288e44457fec 100644
---- a/drivers/pinctrl/pinctrl-k210.c
-+++ b/drivers/pinctrl/pinctrl-k210.c
-@@ -3,18 +3,20 @@
-  * Copyright (C) 2020 Sean Anderson <seanga2@gmail.com>
-  * Copyright (c) 2020 Western Digital Corporation or its affiliates.
-  */
--#include <linux/io.h>
--#include <linux/of_device.h>
-+#include <linux/bitfield.h>
- #include <linux/clk.h>
-+#include <linux/io.h>
- #include <linux/mfd/syscon.h>
-+#include <linux/of_device.h>
+diff --git a/drivers/pinctrl/cirrus/pinctrl-lochnagar.c b/drivers/pinctrl/cirrus/pinctrl-lochnagar.c
+index 3fda4446d70b..0b78cf611afe 100644
+--- a/drivers/pinctrl/cirrus/pinctrl-lochnagar.c
++++ b/drivers/pinctrl/cirrus/pinctrl-lochnagar.c
+@@ -15,10 +15,12 @@
+ #include <linux/of.h>
  #include <linux/platform_device.h>
--#include <linux/bitfield.h>
  #include <linux/regmap.h>
-+#include <linux/seq_file.h>
- #include <linux/slab.h>
 +
++#include <linux/pinctrl/consumer.h>
 +#include <linux/pinctrl/pinconf-generic.h>
 +#include <linux/pinctrl/pinconf.h>
  #include <linux/pinctrl/pinctrl.h>
@@ -169,8 +159,8 @@ index ecab6bf63dc6..288e44457fec 100644
 -#include <linux/pinctrl/pinconf.h>
 -#include <linux/pinctrl/pinconf-generic.h>
  
- #include <dt-bindings/pinctrl/k210-fpioa.h>
- 
+ #include <linux/mfd/lochnagar.h>
+ #include <linux/mfd/lochnagar1_regs.h>
 -- 
 2.35.1
 
