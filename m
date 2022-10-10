@@ -2,41 +2,41 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 43AA85FA4C5
+	by mail.lfdr.de (Postfix) with ESMTPS id 1C9B35FA4C3
 	for <lists+linux-stm32@lfdr.de>; Mon, 10 Oct 2022 22:15:38 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 03A89C65050;
-	Mon, 10 Oct 2022 20:15:38 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D6857C65043;
+	Mon, 10 Oct 2022 20:15:37 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5A797C65043
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0A028C65040
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 10 Oct 2022 20:15:36 +0000 (UTC)
+ Mon, 10 Oct 2022 20:15:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1665432936; x=1696968936;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=xi/Nfv8WtOYvT0HZPT8w43GxR/eWjmHTHS8mPgZHjTw=;
- b=mJiSh+hwpsQb43ogy21iL1ldGyanUCn6YquS90GKNHXtu1AJmzELf0Q0
- 1EDdGjgPryvWcL9z3WxaB1Pw3eG9Qj8XtVQD463sK/sfUM5XfcEE0fP4N
- 6GbMUuO7ZypIEeZANC42hNuZnGkNbo327mRklxe4j0E2cNgE/al1rbhhd
- k+rVgGHAVQYrmYIdbxNy20GiZRFRcf2VOEEFSUftYsLFPsPL2uFVBaQOB
- o4jp3fVRTESC0lQR7vkd/+aLDTLSzX4tZuD/4sEkZH6Ck3xuR8uUOGzRB
- 8Y5v5uhIS84u9+s75LSajOhppOBT/oOMqSeB8i6wiewcqksVU3/LmUDNC g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10496"; a="284054716"
-X-IronPort-AV: E=Sophos;i="5.95,173,1661842800"; d="scan'208";a="284054716"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ bh=AsreIjB9ohcA1FwOa1DobNaifLVw+IdxGy66XUJZ0AI=;
+ b=YVOMAbrD2H9lwpdgxK9vJdoakXa6hz7HfYG4Se8JE1zPUrWfEiKyGU6j
+ OEChhUemFkt0zaazZEEBwwhbaWNptTgUpUvaTElTmikcO2TeI2tb2Pw+j
+ VdtVjqYjPUgMHs5dxEAXfAGJ9f4FYAhwpOsx2KfFDakYrrUpT9CX2K8fA
+ PKTlgsHJoMjo4quGmjSFiZ5JiGpKIG5EsbYksSg+SnYZjObWdVCdaXjbd
+ iaE45DZqGwNN8q25WjBo6zK2DjjCoUPxrGepTMcQGMWBe8jjQFX1BgeHI
+ 2/ZTswyPsyf7JF8nKiPkwMMTXKv8PzBfpC6hky4Ndx+yNSlxfdCYqMwfB A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10496"; a="291638475"
+X-IronPort-AV: E=Sophos;i="5.95,173,1661842800"; d="scan'208";a="291638475"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  10 Oct 2022 13:15:34 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10496"; a="603862936"
-X-IronPort-AV: E=Sophos;i="5.95,173,1661842800"; d="scan'208";a="603862936"
+X-IronPort-AV: E=McAfee;i="6500,9779,10496"; a="715240806"
+X-IronPort-AV: E=Sophos;i="5.95,173,1661842800"; d="scan'208";a="715240806"
 Received: from black.fi.intel.com ([10.237.72.28])
- by orsmga006.jf.intel.com with ESMTP; 10 Oct 2022 13:15:23 -0700
+ by FMSMGA003.fm.intel.com with ESMTP; 10 Oct 2022 13:15:24 -0700
 Received: by black.fi.intel.com (Postfix, from userid 1003)
- id 75476781; Mon, 10 Oct 2022 23:15:13 +0300 (EEST)
+ id 8693B87E; Mon, 10 Oct 2022 23:15:13 +0300 (EEST)
 From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 To: Marc Zyngier <maz@kernel.org>,
  Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
@@ -70,8 +70,8 @@ To: Marc Zyngier <maz@kernel.org>,
  linux-riscv@lists.infradead.org, linux-omap@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-msm@vger.kernel.org,
  linux-renesas-soc@vger.kernel.org, linux-samsung-soc@vger.kernel.org
-Date: Mon, 10 Oct 2022 23:14:36 +0300
-Message-Id: <20221010201453.77401-21-andriy.shevchenko@linux.intel.com>
+Date: Mon, 10 Oct 2022 23:14:37 +0300
+Message-Id: <20221010201453.77401-22-andriy.shevchenko@linux.intel.com>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20221010201453.77401-1-andriy.shevchenko@linux.intel.com>
 References: <20221010201453.77401-1-andriy.shevchenko@linux.intel.com>
@@ -114,8 +114,7 @@ Cc: Andrew Lunn <andrew@lunn.ch>,
  Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
  Shawn Guo <shawnguo@kernel.org>,
  =?UTF-8?q?Andreas=20F=C3=A4rber?= <afaerber@suse.de>
-Subject: [Linux-stm32] [PATCH v2 20/36] pinctrl: samsung: Add missed
-	header(s)
+Subject: [Linux-stm32] [PATCH v2 21/36] pinctrl: single: Add missed header(s)
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -139,35 +138,33 @@ While at it, sort headers alphabetically.
 
 Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 ---
- drivers/pinctrl/samsung/pinctrl-samsung.c | 11 ++++++-----
- 1 file changed, 6 insertions(+), 5 deletions(-)
+ drivers/pinctrl/pinctrl-single.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/pinctrl/samsung/pinctrl-samsung.c b/drivers/pinctrl/samsung/pinctrl-samsung.c
-index bd13b5ef246d..5736761927cb 100644
---- a/drivers/pinctrl/samsung/pinctrl-samsung.c
-+++ b/drivers/pinctrl/samsung/pinctrl-samsung.c
-@@ -15,15 +15,16 @@
- // but provides extensions to which platform specific implementation of the gpio
- // and wakeup interrupts can be hooked to.
- 
--#include <linux/init.h>
--#include <linux/platform_device.h>
--#include <linux/io.h>
--#include <linux/property.h>
--#include <linux/slab.h>
+diff --git a/drivers/pinctrl/pinctrl-single.c b/drivers/pinctrl/pinctrl-single.c
+index 67bec7ea0f8b..bed97ac5b848 100644
+--- a/drivers/pinctrl/pinctrl-single.c
++++ b/drivers/pinctrl/pinctrl-single.c
+@@ -16,17 +16,16 @@
  #include <linux/err.h>
- #include <linux/gpio/driver.h>
-+#include <linux/init.h>
-+#include <linux/io.h>
- #include <linux/irqdomain.h>
+ #include <linux/list.h>
+ #include <linux/interrupt.h>
+-
+ #include <linux/irqchip/chained_irq.h>
+-
+ #include <linux/of.h>
  #include <linux/of_device.h>
-+#include <linux/platform_device.h>
-+#include <linux/property.h>
+ #include <linux/of_address.h>
+ #include <linux/of_irq.h>
 +#include <linux/seq_file.h>
-+#include <linux/slab.h>
- #include <linux/spinlock.h>
  
- #include "../core.h"
++#include <linux/pinctrl/pinconf-generic.h>
+ #include <linux/pinctrl/pinctrl.h>
+ #include <linux/pinctrl/pinmux.h>
+-#include <linux/pinctrl/pinconf-generic.h>
+ 
+ #include <linux/platform_data/pinctrl-single.h>
+ 
 -- 
 2.35.1
 
