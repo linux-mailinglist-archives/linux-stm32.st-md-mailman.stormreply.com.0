@@ -2,54 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D481C5FB3A8
-	for <lists+linux-stm32@lfdr.de>; Tue, 11 Oct 2022 15:48:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2A1AB5FB455
+	for <lists+linux-stm32@lfdr.de>; Tue, 11 Oct 2022 16:13:17 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 73D25C640F2;
-	Tue, 11 Oct 2022 13:48:31 +0000 (UTC)
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CD611C640F2;
+	Tue, 11 Oct 2022 14:13:16 +0000 (UTC)
+Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com
+ [209.85.215.178])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 40494C63326
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 76AF8C63326
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 11 Oct 2022 13:48:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1665496109; x=1697032109;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=QHbuyb2S/uUcVxyF/lwXUqAZuHdBPKm0sW+WbMyb3sc=;
- b=ENOWe+eEBzLII7vGMMwFBy8AMRlIXsCCP4Jf4oWWlKfBi2FWTSoiPa0S
- MGXjtXISDXpHTjLQnxFerlDiVT33He3AA0LT3faAk4RK4RyWxBeYmJJfR
- PQONIe8Q0R2ArJ91rWBVUCP6KAubrRxlawwglQoKvOHGCX98lRGf95UcE
- wwMtU4Y5gM8GuPeM34XWF8hmaNZYqyEbVPbVEgo5QFDFIwify4Mk8kMHr
- 8JqUX2QIWYN1CF4y1+nLXak4zK2CG/6o2NUSuis8orhp680+UPY8A/jCc
- BpVks+ZdOPN427LBn3nVvXZbBfAYVlyYIWcXSUgKdSm43NCYNNd0pvhaX A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10497"; a="284887160"
-X-IronPort-AV: E=Sophos;i="5.95,176,1661842800"; d="scan'208";a="284887160"
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Oct 2022 06:48:23 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10497"; a="695068698"
-X-IronPort-AV: E=Sophos;i="5.95,176,1661842800"; d="scan'208";a="695068698"
-Received: from smile.fi.intel.com ([10.237.72.54])
- by fmsmga004.fm.intel.com with ESMTP; 11 Oct 2022 06:48:19 -0700
-Received: from andy by smile.fi.intel.com with local (Exim 4.96)
- (envelope-from <andriy.shevchenko@linux.intel.com>)
- id 1oiFcH-005KIR-1Z; Tue, 11 Oct 2022 16:48:17 +0300
-Date: Tue, 11 Oct 2022 16:48:17 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Kent Gibson <warthog618@gmail.com>
-Message-ID: <Y0V0IXF3sASTGdMU@smile.fi.intel.com>
+ Tue, 11 Oct 2022 14:13:14 +0000 (UTC)
+Received: by mail-pg1-f178.google.com with SMTP id q1so4571771pgl.11
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 11 Oct 2022 07:13:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=czRWuspWIHlagJO4TEuyucASTDboV9sDSZyO/JWLXqc=;
+ b=Ce+BVV5v8U7whmYd/FcwKuyV+liXHdnCihvE4vxDmi/zFRXHgG5BsKzJlkvJm3ymzp
+ i0kk+obd9ehg5kvdXpvifSYQKkIBJbAwLGSIa8MzHAOItPx5O2ghaGpv98wheUqfKMtx
+ xYK29jqCSGAVqjF4MPQoXzVWPbY3qWyTm0lvTcEBlWPddeF6YcST3WGeI8+5CF6qMkzB
+ /lDnL0m98oNEh6bOyWy8Twswwetn33Cy9kGtv+34nK50zqhZaf/wZPS7BxRAs1neYTBy
+ /bZWo8ysVbEXrzMM/+HfoBHs8qu8Q0eGt0b+IXToEUouhHiAP9GLUrTwNKB7EENxNPMI
+ wO2A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=czRWuspWIHlagJO4TEuyucASTDboV9sDSZyO/JWLXqc=;
+ b=hshQklAjfK4GArKa6GAEruoLQOwtc0+7WZWU2XVV36mbZ5tAccLxzDuO662+tNy96c
+ rVm4RMI0/SCPWx9rh48Q7RpUUydaRIPBrdZ1aL5CiUbSptH0N7Dw/VZ6ufNTfQn8C1TR
+ NaqFeiauFeTMe2BuvW6SwJ5wqvmu6bEnyxTadcRlSDfuL6pnr0EhQ0LOMOmitof6CcNJ
+ bf0xO9AMDnAq0X/EBckkgQbXNNQ8bz0P3BFrlxrOZe+fUQhTngWflWoCZ7cWgd32LWkA
+ JrFMRRIDBHdnxJLcEnE/9kiFKK5NlthdPsFxnWXezpcap9UBojLPVKDo38kKHz2LoaW6
+ pgqA==
+X-Gm-Message-State: ACrzQf3bQ19XRsaLC5FT+Cdby/q70/q5Sg/89XgJXerLKor6qAG8JAMh
+ JTAf39wm4FkoaRCjOLW51+c=
+X-Google-Smtp-Source: AMsMyM6A7bmN99+8aFFd/V9x8yL+08obUJvhZG8B8wKWgbvIl/Bh1jOgBftu0u99farGA2SFP/OdqQ==
+X-Received: by 2002:a63:8643:0:b0:462:9b02:a0c1 with SMTP id
+ x64-20020a638643000000b004629b02a0c1mr8758435pgd.536.1665497593024; 
+ Tue, 11 Oct 2022 07:13:13 -0700 (PDT)
+Received: from sol (110-174-58-111.static.tpgi.com.au. [110.174.58.111])
+ by smtp.gmail.com with ESMTPSA id
+ q17-20020aa79831000000b00563ce1905f4sm1492741pfl.5.2022.10.11.07.13.05
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 11 Oct 2022 07:13:12 -0700 (PDT)
+Date: Tue, 11 Oct 2022 22:13:02 +0800
+From: Kent Gibson <warthog618@gmail.com>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Message-ID: <Y0V57gI75ik4ki3A@sol>
 References: <20221010201453.77401-1-andriy.shevchenko@linux.intel.com>
  <20221010201453.77401-3-andriy.shevchenko@linux.intel.com>
  <Y0SyVwjDl7NGfTPn@sol>
  <CAHp75Vf4oS8g0zxgismtLrzsJ7AE-bdMEq+GAzx2=Mwnhuk3UA@mail.gmail.com>
+ <Y0V0IXF3sASTGdMU@smile.fi.intel.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <CAHp75Vf4oS8g0zxgismtLrzsJ7AE-bdMEq+GAzx2=Mwnhuk3UA@mail.gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+In-Reply-To: <Y0V0IXF3sASTGdMU@smile.fi.intel.com>
 Cc: alsa-devel@alsa-project.org, linux-samsung-soc@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-aspeed@lists.ozlabs.org,
  patches@opensource.cirrus.com, Bartosz Golaszewski <brgl@bgdev.pl>,
@@ -78,31 +90,41 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Oct 11, 2022 at 11:05:42AM +0300, Andy Shevchenko wrote:
-> On Tue, Oct 11, 2022 at 3:02 AM Kent Gibson <warthog618@gmail.com> wrote:
-> > On Mon, Oct 10, 2022 at 11:14:18PM +0300, Andy Shevchenko wrote:
-
-...
-
-> > > -#include <linux/gpio.h>
-> > >  #include <linux/gpio/driver.h>
-> > > +#include <linux/gpio.h>
-> > > +#include <linux/hte.h>
-> >
-> > Ok with the hte re-order.
-> >
-> > But moving the gpio subsystem header after the gpio/driver is not
-> > alphabetical ('.' precedes '/') and it read better and made more sense
-> > to me the way it was.
+On Tue, Oct 11, 2022 at 04:48:17PM +0300, Andy Shevchenko wrote:
+> On Tue, Oct 11, 2022 at 11:05:42AM +0300, Andy Shevchenko wrote:
+> > On Tue, Oct 11, 2022 at 3:02 AM Kent Gibson <warthog618@gmail.com> wrote:
+> > > On Mon, Oct 10, 2022 at 11:14:18PM +0300, Andy Shevchenko wrote:
 > 
-> I see, I guess this is vim sort vs shell sort. Strange, they should
-> follow the locale settings...
+> ...
+> 
+> > > > -#include <linux/gpio.h>
+> > > >  #include <linux/gpio/driver.h>
+> > > > +#include <linux/gpio.h>
+> > > > +#include <linux/hte.h>
+> > >
+> > > Ok with the hte re-order.
+> > >
+> > > But moving the gpio subsystem header after the gpio/driver is not
+> > > alphabetical ('.' precedes '/') and it read better and made more sense
+> > > to me the way it was.
+> > 
+> > I see, I guess this is vim sort vs shell sort. Strange, they should
+> > follow the locale settings...
+> 
+> I have checked, the shell and vim sort gave the same result as in this patch.
+> 
 
-I have checked, the shell and vim sort gave the same result as in this patch.
+The original order (sans hte.h) was done by VSCode Sort Lines Ascending,
+and that still returns the same result.  That matches what I would
+expect to see given the content of the text.
 
--- 
-With Best Regards,
-Andy Shevchenko
+And for me vim also gives the original order.
+
+Just to confirm - is '.' 0x2e and '/' 0x2f in your universe?
+
+Cheers,
+Kent.
+
 
 
 _______________________________________________
