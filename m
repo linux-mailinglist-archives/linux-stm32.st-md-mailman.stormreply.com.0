@@ -2,120 +2,130 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6153A5FAC4A
+	by mail.lfdr.de (Postfix) with ESMTPS id 742575FAC4B
 	for <lists+linux-stm32@lfdr.de>; Tue, 11 Oct 2022 08:12:06 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 252C7C65053;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 38521C65056;
 	Tue, 11 Oct 2022 06:12:06 +0000 (UTC)
-Received: from EUR04-VI1-obe.outbound.protection.outlook.com
- (mail-eopbgr80040.outbound.protection.outlook.com [40.107.8.40])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com
+ [209.85.210.175])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id ECC64C63326
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 547A1C6411C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 10 Oct 2022 23:04:47 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=HDHF4jhaT5koAJGiArW/UZuW5WFbPffazznh3xiUDcJFuthgmOPdBdDEaUuEDHmv7HJC85UDGc8QHtu3bhlAFQ3Mv+TUZNfq3v4Ul6bAloIvjTAv8U8c/+TUa/BMxjOt3srYU7ONbebPYxCiWjJod/Yc5m5K3vb2GbJziLjGmHLJjsbWHATVaPmhLQ/kTNey9ak9NhnzF2j+dHsJlkuhFQ8WO7u1o3dOZHEVjGd51vp6v32kvXdNzfCquDqSyljrO+D9koFUzJZ9r/mpOzJ9TRksmBYYpVHgMcHqtIEMDz00vJfo7sGXRMKzvZ84ZLhRpvhZ6G47XeNFz6thzei9CQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=H/p0d/My2zLA8kVXfJectCwMBO1YP8ZuiPHYSP9SWNU=;
- b=J86Ithsc8SbWB/z1jh8Sde35ZTzxi2NyX/FsWo/CEj29N4j5dKWkpLA7kmysbX9ZR2ls1pSuuArO45NZF2OIa4JUgPKsAwPE5WldfRmkeQpEolOYTBP46gut85icC4yJFcZkNUsW6K2srVYVtFGdIH+35sdfvdZdYX+Pw1EztkPc5iP05k5xbgt7EXSOoas0X1vd7XeTsK9cbGRv46YXFnLF+M0pqub29IhS7nmIhP1xaALFmJGeTPHkge95yYqFrWh8SGFJ6fSGQwDvKh8WGsfyZr4Up6yc++y7phYvJCsH7r9329EMuvHtl8LARTz0EZ0kvPXrFxs6bdt/34UT2Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=H/p0d/My2zLA8kVXfJectCwMBO1YP8ZuiPHYSP9SWNU=;
- b=YehoM1npZqGYTmEViEayPkWc0fh96hK6OmvtpVfDFulmfKY20ft0XNGplNs8Gu1Kj29pQGz1yNf6K9sIgZofllpqHk/gHZLHGiVIeDWLTYyp0qTo4EkRXw/SZ+DvVhgNZaatz+8n68mnRCrfJWRSutmzHlMpo7JQ2ES+rgDs+Xc=
-Received: from PAXPR04MB9185.eurprd04.prod.outlook.com (2603:10a6:102:231::11)
- by AM9PR04MB8779.eurprd04.prod.outlook.com (2603:10a6:20b:40a::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5709.15; Mon, 10 Oct
- 2022 23:04:46 +0000
-Received: from PAXPR04MB9185.eurprd04.prod.outlook.com
- ([fe80::4d83:404:c74a:7563]) by PAXPR04MB9185.eurprd04.prod.outlook.com
- ([fe80::4d83:404:c74a:7563%5]) with mapi id 15.20.5709.015; Mon, 10 Oct 2022
- 23:04:46 +0000
-From: Shenwei Wang <shenwei.wang@nxp.com>
-To: Russell King <linux@armlinux.org.uk>
-Thread-Topic: [EXT] Re: [PATCH 1/2] net: phylink: add mac_managed_pm in
- phylink_config structure
-Thread-Index: AQHY3OecKKZikHVPb0es51htngWAcK4IJiUAgAAZSvA=
-Date: Mon, 10 Oct 2022 23:04:46 +0000
-Message-ID: <PAXPR04MB9185959AB51611FFAAEC9EA289209@PAXPR04MB9185.eurprd04.prod.outlook.com>
-References: <20221010203301.132622-1-shenwei.wang@nxp.com>
- <20221010203301.132622-2-shenwei.wang@nxp.com>
- <Y0SPupsMC3roy4J6@shell.armlinux.org.uk>
-In-Reply-To: <Y0SPupsMC3roy4J6@shell.armlinux.org.uk>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PAXPR04MB9185:EE_|AM9PR04MB8779:EE_
-x-ms-office365-filtering-correlation-id: d9dbe32c-3e97-437f-e515-08daab13d350
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: mf7FZ568cz7gJZt1BGXYThnj5OMKCwLHWjN2fvIBvy+I2fLZvleE0E5i6r3kC12I2sgekVRAIUUy4EqSLfnpfAjFBSpK24tv0UXYdXh8A7zVBprH3vdIxdoO8KR8HRK3s1kdW7a3PPgoMElyvWHpChxooB/F8ND6DzymoE/LdpJzhQTUNxLopdog+rjxTa3B/SNx91x4XByWCqsL1DecOiCU/NyClWYWse+4+3s79UbvJ0nH0Mr/REn86wSL3ErSh12l5Foh0qiY/9443G0q4euxDSajMLvWdo7vjZ5FwRLaJVzKJe6qysQqVcN67b7h+3544uIH2iQobwpI5BAv/TTCCrdQyIjSikBM6YwxvT8/AE23wfy18XMGrpjxdTCtt3+loB9kzwPAvH/cipfpgCI9iqIoNGUZjjnmVObbnXJuJ2GkKyEFLOIvlXHzMLMaHH+XKoEs3vtYDr2CErqTwDUwTC2j+Xdxn/A6zH0c1R4k0wZZ3tiNpeXzb1VoCNIkgClNtmL9okZJ9obs6RIMuEoqNbyDytUUn5gCebe9vACsCo3L91kGulFtsT/EchyFk8v/eiG4mY7emkwbQ4eRGDWXDEdoN+BlBtNP3/i2dSnhSr091Al10GYGgcObVMbXJyJeig40RFP6qUIXemVwH3tNsP5RVOt0jLkJJqf/2Vu+/Hcvf1dIcwKX2kyyRpw00sfCu/4lMKZm7PGO/qgVnUGEVyRYDXcXCPpZSdD3HSyYOp4HWnvEycfMZnn4V00D0RxY4gdHAIyyV4vyUblDVPOwbR8OlaDQ+ePyA+V9+7E=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PAXPR04MB9185.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(39860400002)(376002)(396003)(346002)(366004)(136003)(451199015)(7416002)(8936002)(66556008)(66446008)(5660300002)(966005)(33656002)(8676002)(64756008)(4326008)(71200400001)(38070700005)(66476007)(186003)(41300700001)(66946007)(83380400001)(76116006)(52536014)(53546011)(6506007)(7696005)(38100700002)(86362001)(478600001)(44832011)(9686003)(122000001)(26005)(6916009)(316002)(54906003)(2906002)(55016003)(45080400002);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?Teiy0jHzyhCwCuTP848I3BWVQZsN62R8Phagz35b00H3cJ47TAfMUSNVcTwZ?=
- =?us-ascii?Q?1piFMxIsEVavFlDt6YY6uRfc6ykXkSrLXb2Dd6hxoS8gdVs0r1XyWTIsT0iL?=
- =?us-ascii?Q?uadp0sd/W8JTYDMVGNOw5+qEE51Eh3OLbw+YXK6xgWH4Oa32EC7qLoOaLcbb?=
- =?us-ascii?Q?w2o1rzhLejhiFcXVpfVVLT76npVw0nLDXRGVNdTJ/LJvEDomeDou/8Jk+qTJ?=
- =?us-ascii?Q?ogGsy++glvYLay/xKoIKe+CczI5aSP5HhczL5iuM20NNi4cPvf0krK8luC1/?=
- =?us-ascii?Q?+Qi6OP4T/KgmqWosVpxGPYrso+ICkr8Xjb3fJqCzxS9kYAT3eXFQPr5xPwuk?=
- =?us-ascii?Q?eCnkUnjjG37OeV6nv/cJtkafuH6FKFtO3tXA+tiqeZ/eu/qm7tiepGbYUQTw?=
- =?us-ascii?Q?YNX7HRWOo4fRIbYnG5oFWM2ILPR/f01Yx7yePCqvKtd9QemHVHtafyzP/1jE?=
- =?us-ascii?Q?Amqi5XIOeAvdgxAYSXto6r9LNYZTp1PxKhPbZfYfsC/OkPsbtYrnOrpc8fEp?=
- =?us-ascii?Q?8UdbCLdjH0QVoMjI+JBqzwVu/SygqQrzDgowLl64jvWd4Fuk0+81gbge2+zM?=
- =?us-ascii?Q?ogYddtSr+v7Z5MvooB/GlXXFZzXa+wkvYh/g9g+tSHUUR9zpVahlMiqZaoG6?=
- =?us-ascii?Q?0YQTw7Nv09yC2DNBXLRQRLhBSX/nXb3nvKrMW1DIL/Cf9kWpOLQMChQhAKS+?=
- =?us-ascii?Q?JJGfamGdupaSiNz4TgoJUCE15OXLXZv/R5K4Hab4BtO5PK/wvyQmZAmzywcK?=
- =?us-ascii?Q?jDy/ajLbYMsbl6Px1/LbAO8EA5mgN7JkbZpb4v7pjGaYqSPYI3gkgEPvr+L2?=
- =?us-ascii?Q?XzH8/ZoCEQeragTZCmqOgGJHhw3rwm6+E5X9CtE+n6abQ4xjlgUrYOh65PX6?=
- =?us-ascii?Q?i03ooXO5wSCrLYQ5e00qOf5bn3S61MQftL41FuUBj+zvZb+/5gLMekPA6aWf?=
- =?us-ascii?Q?A0MtPFgQmeieZxy8+RtGvir0O8nXAhAVZLLGNYLFq8oMyIzh9QTJcMyLr619?=
- =?us-ascii?Q?szIKynJr73cgkIWrfJ08MV+Heb9NthpReIuDRS58PDCj1/BaMJdtjGxrndH0?=
- =?us-ascii?Q?IXQnUF2xWPT/meT0wkyZXEHipcLVEw9lheaUXE/v+05mxsiiPsNLgZd1uycB?=
- =?us-ascii?Q?lQSd4OhgwZpRU53Dkq5seBqWrjqYXsP5utjyyayJFYAWy3Nb3grrCZBtevbV?=
- =?us-ascii?Q?dU4rwKqhmEWibO/twsNx1a0LZwBEKTzfZGdrjWeAk54ayr2Zqc+LY3GcIhFP?=
- =?us-ascii?Q?uLL5fLHOCg5/3ABZd+f0TtiTOWHIjkuFuB7QGkTM3W31uzqlXaQox11VG9UL?=
- =?us-ascii?Q?L3CQpqfNVpGuBrf3abKIKBJ4KBW0oLn6ONEq2p7VjNAbbVHnesHemS+tLVhi?=
- =?us-ascii?Q?jXBF4eQxmhxwZcHohkUR/ZUsKWDJ+xrZL/L8y8Eni6pmMv7GXzQLwh/w5Q7T?=
- =?us-ascii?Q?HKRYf3MtfPzF0URfbLrJU0ZgCTpDHndg0p3w4aa9Q4YtISSfFUzJnL+KdfT4?=
- =?us-ascii?Q?/3RjMpSkK/0NyXywNDY//iOPhZ9eR21htNP+uYHZyu9yBrznDxXpnOVsbGM9?=
- =?us-ascii?Q?f6a1iLFAo83bGcup0noNg6x3iOD7hx7sNmPSkO8k?=
+ Tue, 11 Oct 2022 00:02:02 +0000 (UTC)
+Received: by mail-pf1-f175.google.com with SMTP id g28so12039934pfk.8
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 10 Oct 2022 17:02:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=HDvDPLCLAPPvF5TVvL+FWbJtEqmbYVODvwDkJg3SqIo=;
+ b=BMj8f33/fyuY4YUgfzIsC8MB079NtlG/lc5y1lSPpCGAsz+jvSYZCTpuRzKVZGf2GY
+ nZi6ZRgOudbzROz6pHhHElsWmoKQQy847SVQHPP6Lzs+V2eA/brEnXLuDstKnq7MW7Ih
+ TzHZfV7XKs3PD0GAaAkJAXCvXBlxf5lB+KS3lhnFICm9Tq4yaQhhQQax921FRXOWW/if
+ /toe/pDvQON4HdgY5CGmbYgif/tTyjDjkjRdKQFAulnURnCwp8NMFdEBa3NYmPI0A+fB
+ fhamlfjudZxMTaB+1mSMxDuObe1ocZe7cQbErJKQBTAEur2a0QkUbRoT5VJEglEdMX1y
+ d2HQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=HDvDPLCLAPPvF5TVvL+FWbJtEqmbYVODvwDkJg3SqIo=;
+ b=Q47jyOmMfJpKRmGpijOHUMEN8O76VaojXyVoKA6dy6eUqz8GS4QCV1wn9lzvfx2AKz
+ PUBV2iyLUoC0xi4pfrouRWU18NvvoCPcewCnU2sjjw0vOWixDUfjoI5r3u8FHTSFs7d8
+ kELHvIi9dEQuG4YmJ0qq5itNrC0hPOBTDa7PzDakx2dAOTzx4PJN1fQ/OJT1ZxNj3ojx
+ G0bYyn/INa6XcHg5ghhlkVSSgf7Kl8HUHXn9JYsS/06sOjr0osV0xO6FusL4dBcqgoyL
+ D7zgDxYt5i8Qelmm7FK93U14f3kuH4lzEx5y3TjV0sYsJ/XSYW1y0a1UIK3ba0hnouv4
+ /ZKQ==
+X-Gm-Message-State: ACrzQf3wJiiYKN2dlVuaZSb0Cg39ckYEj6c3mAo0270Y8WmcoWZxPw39
+ CmtUQPxgYVygs6TSra3NCY4=
+X-Google-Smtp-Source: AMsMyM7Y6pAnL5W1EJS9G7oSUu8S6FVrr9k2c5r6QKOELR9o0pNGH3yk7s3YJUqb5vMyZxDtzUjxCg==
+X-Received: by 2002:a63:4949:0:b0:442:b733:2fae with SMTP id
+ y9-20020a634949000000b00442b7332faemr18227721pgk.424.1665446520354; 
+ Mon, 10 Oct 2022 17:02:00 -0700 (PDT)
+Received: from sol (110-174-58-111.static.tpgi.com.au. [110.174.58.111])
+ by smtp.gmail.com with ESMTPSA id
+ v29-20020aa799dd000000b0056258a3606csm7454081pfi.215.2022.10.10.17.01.29
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 10 Oct 2022 17:01:59 -0700 (PDT)
+Date: Tue, 11 Oct 2022 08:01:27 +0800
+From: Kent Gibson <warthog618@gmail.com>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Message-ID: <Y0SyVwjDl7NGfTPn@sol>
+References: <20221010201453.77401-1-andriy.shevchenko@linux.intel.com>
+ <20221010201453.77401-3-andriy.shevchenko@linux.intel.com>
 MIME-Version: 1.0
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PAXPR04MB9185.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d9dbe32c-3e97-437f-e515-08daab13d350
-X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Oct 2022 23:04:46.4212 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 19ko0p+LdUmj071altX4WytCOPb9eeyn8wT6Aaf+eTOe1zi65oCjdgB4o2M69FJURt2xO/6gObQ7p7U86TkJhQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB8779
+Content-Disposition: inline
+In-Reply-To: <20221010201453.77401-3-andriy.shevchenko@linux.intel.com>
 X-Mailman-Approved-At: Tue, 11 Oct 2022 06:12:03 +0000
-Cc: Andrew Lunn <andrew@lunn.ch>, "imx@lists.linux.dev" <imx@lists.linux.dev>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>, Eric Dumazet <edumazet@google.com>,
- Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
- Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [EXT] Re: [PATCH 1/2] net: phylink: add
- mac_managed_pm in phylink_config structure
+Cc: Andrew Lunn <andrew@lunn.ch>, Tomer Maimon <tmaimon77@gmail.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Linus Walleij <linus.walleij@linaro.org>, Tomasz Figa <tomasz.figa@gmail.com>,
+ Sylwester Nawrocki <s.nawrocki@samsung.com>,
+ =?utf-8?B?UmFmYcWCIE1pxYJlY2tp?= <rafal@milecki.pl>,
+ Horatiu Vultur <horatiu.vultur@microchip.com>,
+ Emil Renner Berthing <kernel@esmil.dk>,
+ Phil Edworthy <phil.edworthy@renesas.com>, linux-samsung-soc@vger.kernel.org,
+ Samuel Holland <samuel@sholland.org>, Michal Simek <michal.simek@xilinx.com>,
+ Ludovic Desroches <ludovic.desroches@microchip.com>,
+ NXP Linux Team <linux-imx@nxp.com>, Tali Perry <tali.perry1@gmail.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>, Thomas Gleixner <tglx@linutronix.de>,
+ linux-omap@vger.kernel.org, Andy Shevchenko <andy@kernel.org>,
+ Scott Branden <sbranden@broadcom.com>, Andrew Jeffery <andrew@aj.id.au>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
+ Masami Hiramatsu <mhiramat@kernel.org>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Claudiu Beznea <claudiu.beznea@microchip.com>, alsa-devel@alsa-project.org,
+ Alim Akhtar <alim.akhtar@samsung.com>, linux-aspeed@lists.ozlabs.org,
+ Thierry Reding <thierry.reding@gmail.com>, Viresh Kumar <vireshk@kernel.org>,
+ Gregory Clement <gregory.clement@bootlin.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>, linux-media@vger.kernel.org,
+ Charles Keepax <ckeepax@opensource.cirrus.com>, linux-arm-msm@vger.kernel.org,
+ Nicolas Ferre <nicolas.ferre@microchip.com>, linux-actions@lists.infradead.org,
+ linux-gpio@vger.kernel.org, soc@kernel.org,
+ linux-rpi-kernel@lists.infradead.org,
+ Mika Westerberg <mika.westerberg@linux.intel.com>,
+ linux-arm-kernel@lists.infradead.org, Dong Aisheng <aisheng.dong@nxp.com>,
+ Damien Le Moal <damien.lemoal@wdc.com>, linux-renesas-soc@vger.kernel.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jacky Bai <ping.bai@nxp.com>,
+ Basavaraj Natikar <Basavaraj.Natikar@amd.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Fabio Estevam <festevam@gmail.com>, Florian Fainelli <f.fainelli@gmail.com>,
+ Benjamin Fair <benjaminfair@google.com>, Nancy Yuen <yuenn@google.com>,
+ Chen-Yu Tsai <wens@csie.org>,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+ Joel Stanley <joel@jms.id.au>, Chen-Yu Tsai <wenst@chromium.org>,
+ Orson Zhai <orsonzhai@gmail.com>, Ray Jui <rjui@broadcom.com>,
+ Richard Fitzgerald <rf@opensource.cirrus.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Avi Fishman <avifishman70@gmail.com>, Patrick Venture <venture@google.com>,
+ Shawn Guo <shawnguo@kernel.org>,
+ Andreas =?iso-8859-1?Q?F=E4rber?= <afaerber@suse.de>,
+ Tony Lindgren <tony@atomide.com>, Konrad Dybcio <konrad.dybcio@somainline.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Paul Cercueil <paul@crapouillou.net>,
+ Haojian Zhuang <haojian.zhuang@linaro.org>, linux-riscv@lists.infradead.org,
+ Marc Zyngier <maz@kernel.org>, openbmc@lists.ozlabs.org,
+ Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
+ Prathamesh Shete <pshete@nvidia.com>, Andy Gross <agross@kernel.org>,
+ Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
+ Manivannan Sadhasivam <mani@kernel.org>,
+ Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+ Billy Tsai <billy_tsai@aspeedtech.com>, linux-mediatek@lists.infradead.org,
+ linux-tegra@vger.kernel.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ patches@opensource.cirrus.com, Sean Wang <sean.wang@kernel.org>,
+ linux-mips@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Chunyan Zhang <zhang.lyra@gmail.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Shiraz Hashim <shiraz.linux.kernel@gmail.com>,
+ Bartosz Golaszewski <brgl@bgdev.pl>
+Subject: Re: [Linux-stm32] [PATCH v2 02/36] gpiolib: cdev: Add missed
+	header(s)
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -132,54 +142,63 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-
-
-> -----Original Message-----
-> From: Russell King <linux@armlinux.org.uk>
-> Sent: Monday, October 10, 2022 4:34 PM
-> To: Shenwei Wang <shenwei.wang@nxp.com>
-> Cc: David S. Miller <davem@davemloft.net>; Eric Dumazet
-> <edumazet@google.com>; Jakub Kicinski <kuba@kernel.org>; Paolo Abeni
-> <pabeni@redhat.com>; Maxime Coquelin <mcoquelin.stm32@gmail.com>;
-> Andrew Lunn <andrew@lunn.ch>; Heiner Kallweit <hkallweit1@gmail.com>;
-> Giuseppe Cavallaro <peppe.cavallaro@st.com>; Alexandre Torgue
-> <alexandre.torgue@foss.st.com>; Jose Abreu <joabreu@synopsys.com>;
-> netdev@vger.kernel.org; linux-stm32@st-md-mailman.stormreply.com; linux-
-> arm-kernel@lists.infradead.org; imx@lists.linux.dev
-> Subject: [EXT] Re: [PATCH 1/2] net: phylink: add mac_managed_pm in
-> phylink_config structure
+On Mon, Oct 10, 2022 at 11:14:18PM +0300, Andy Shevchenko wrote:
+> Do not imply that some of the generic headers may be always included.
+> Instead, include explicitly what we are direct user of.
 > 
-> Caution: EXT Email
+> While at it, sort headers alphabetically.
 > 
-> On Mon, Oct 10, 2022 at 03:33:00PM -0500, Shenwei Wang wrote:
-> > diff --git a/drivers/net/phy/phylink.c b/drivers/net/phy/phylink.c
-> > index e9d62f9598f9..6d64d4b6d606 100644
-> > --- a/drivers/net/phy/phylink.c
-> > +++ b/drivers/net/phy/phylink.c
-> > @@ -74,6 +74,7 @@ struct phylink {
-> >
-> >       bool mac_link_dropped;
-> >       bool using_mac_select_pcs;
-> > +     bool mac_managed_pm;
+> Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+> ---
+>  drivers/gpio/gpiolib-cdev.c | 6 ++++--
+>  1 file changed, 4 insertions(+), 2 deletions(-)
 > 
-> I don't think you need this?
+> diff --git a/drivers/gpio/gpiolib-cdev.c b/drivers/gpio/gpiolib-cdev.c
+> index f8041d4898d1..60a60e2d60c5 100644
+> --- a/drivers/gpio/gpiolib-cdev.c
+> +++ b/drivers/gpio/gpiolib-cdev.c
+> @@ -10,8 +10,9 @@
+>  #include <linux/device.h>
+>  #include <linux/err.h>
+>  #include <linux/file.h>
+> -#include <linux/gpio.h>
+>  #include <linux/gpio/driver.h>
+> +#include <linux/gpio.h>
+> +#include <linux/hte.h>
 
-It was cleaned up in patch v4.
+Ok with the hte re-order.
 
-Thanks,
-Shenwei
+But moving the gpio subsystem header after the gpio/driver is not
+alphabetical ('.' precedes '/') and it read better and made more sense
+to me the way it was.
 
+>  #include <linux/interrupt.h>
+>  #include <linux/irqreturn.h>
+>  #include <linux/kernel.h>
+> @@ -20,11 +21,12 @@
+>  #include <linux/mutex.h>
+>  #include <linux/pinctrl/consumer.h>
+>  #include <linux/poll.h>
+> +#include <linux/seq_file.h>
+
+I wasn't aware that we use anything from seq_file.
+What am I missing?
+
+Cheers,
+Kent.
+
+>  #include <linux/spinlock.h>
+>  #include <linux/timekeeping.h>
+>  #include <linux/uaccess.h>
+>  #include <linux/workqueue.h>
+> -#include <linux/hte.h>
+> +
+>  #include <uapi/linux/gpio.h>
+>  
+>  #include "gpiolib.h"
+> -- 
+> 2.35.1
 > 
-> --
-> RMK's Patch system:
-> https://eur01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fwww.ar
-> mlinux.org.uk%2Fdeveloper%2Fpatches%2F&amp;data=05%7C01%7Cshenwei.
-> wang%40nxp.com%7Cb7b04ce3002c4d29581c08daab07233d%7C686ea1d3bc2
-> b4c6fa92cd99c5c301635%7C0%7C0%7C638010344382281159%7CUnknown%7
-> CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJ
-> XVCI6Mn0%3D%7C3000%7C%7C%7C&amp;sdata=8siCkBn5XpHUEmv3Vx4vzgC
-> QDHDg94rZ%2Flv13pZhc1c%3D&amp;reserved=0
-> FTTP is here! 40Mbps down 10Mbps up. Decent connectivity at last!
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
