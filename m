@@ -2,46 +2,46 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0BD735FB6D2
-	for <lists+linux-stm32@lfdr.de>; Tue, 11 Oct 2022 17:19:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6345F5FB79E
+	for <lists+linux-stm32@lfdr.de>; Tue, 11 Oct 2022 17:44:45 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AE9D4C640F3;
-	Tue, 11 Oct 2022 15:19:47 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 19499C640F3;
+	Tue, 11 Oct 2022 15:44:45 +0000 (UTC)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 79C60C63326
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 52CA9C63327
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 11 Oct 2022 15:19:45 +0000 (UTC)
+ Tue, 11 Oct 2022 15:44:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1665501585; x=1697037585;
+ t=1665503083; x=1697039083;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:in-reply-to;
- bh=hq8H9GCveZZvFxxgF//YL8HEPEJFc1DXWo1WrcAUuRw=;
- b=B4Ns5ktKd7Ys302HJnSzuVqZj9nrhBxdKpY0ZkU/Z33jrZ3c0W9PFZc5
- QgK0QNwb8ceaLpkaKqtVplGyRpozCAZJglkZ7BijkrEA5gTT9V5+mtqPg
- sn+46TIuo+LnecVEvHw6MV4pK8HjYWXJsanvhUz3CsUbV1sHLIrwBGsIv
- xkJifb0MAkOTa3eWYL0uk25z1P0oOCwC1F6n3j2O5ozZGy2HM3q71OXEN
- 6ySdMw8wHu1zBvN8GH09Ym3ra4Vi7VJVEkBXZkxoNOPX8q3lmqzpk6Cql
- fLLLt1ksZF2E9AiaoTfv4Qq+/DHh03G0IvkVrVU2X0wulfK5sz/ltm/0O A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10497"; a="305585981"
-X-IronPort-AV: E=Sophos;i="5.95,176,1661842800"; d="scan'208";a="305585981"
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Oct 2022 08:19:20 -0700
+ bh=+ptjxKpKMe9ZpYpWkzy6xCUEZZDC37TWs3lCOeMWbyI=;
+ b=LpieEHHIHv+O0XPYWobMXoUyXZBt77GpU0UCTij9ySibziXyptgA08QF
+ 4h0fVPDYMSfRWdrzIrQyTvHvUjFPNamx/AKzKy9ssnKz8eCsv0Zok/t3r
+ rosPxE+JwSvYpmXWuQPMGiyGyrFoEg4hFRBthjyW7F99VJd23WDBT3Kgz
+ gWqYZW8Zi0aymAK6eVZuvz+LsqOQAVmyVOUzUgU3NvoYZ8u2LpTZ3ryLn
+ 131QowIdL7JbaXZbELwsJlfZ64WmZ/xQOTSHff9GlowQe4TJbZE1k6zps
+ pPgALgi1p60wF02LD0JxqUQqMm8u0ndnpNjSX8WuEISCIBqUfsZJ4bE11 Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10497"; a="304524996"
+X-IronPort-AV: E=Sophos;i="5.95,176,1661842800"; d="scan'208";a="304524996"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Oct 2022 08:44:41 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10497"; a="955372479"
-X-IronPort-AV: E=Sophos;i="5.95,176,1661842800"; d="scan'208";a="955372479"
+X-IronPort-AV: E=McAfee;i="6500,9779,10497"; a="715553658"
+X-IronPort-AV: E=Sophos;i="5.95,176,1661842800"; d="scan'208";a="715553658"
 Received: from smile.fi.intel.com ([10.237.72.54])
- by fmsmga005.fm.intel.com with ESMTP; 11 Oct 2022 08:19:15 -0700
+ by FMSMGA003.fm.intel.com with ESMTP; 11 Oct 2022 08:44:36 -0700
 Received: from andy by smile.fi.intel.com with local (Exim 4.96)
  (envelope-from <andriy.shevchenko@linux.intel.com>)
- id 1oiH2H-005NYA-25; Tue, 11 Oct 2022 18:19:13 +0300
-Date: Tue, 11 Oct 2022 18:19:13 +0300
+ id 1oiHQo-005OPV-2A; Tue, 11 Oct 2022 18:44:34 +0300
+Date: Tue, 11 Oct 2022 18:44:34 +0300
 From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 To: Geert Uytterhoeven <geert@linux-m68k.org>
-Message-ID: <Y0WJcXzkkK4oGbrR@smile.fi.intel.com>
+Message-ID: <Y0WPYuZ/9//jxwQ2@smile.fi.intel.com>
 References: <20221010201453.77401-1-andriy.shevchenko@linux.intel.com>
  <20221010201453.77401-3-andriy.shevchenko@linux.intel.com>
  <Y0SyVwjDl7NGfTPn@sol>
@@ -49,9 +49,10 @@ References: <20221010201453.77401-1-andriy.shevchenko@linux.intel.com>
  <Y0V0IXF3sASTGdMU@smile.fi.intel.com> <Y0V57gI75ik4ki3A@sol>
  <Y0V9eJX7a0fe6EfX@smile.fi.intel.com>
  <CAMuHMdUhSKuJ3N5zf_+ad_dFu6kSmVTqRpgFUWtd54S9ryw=ew@mail.gmail.com>
+ <Y0WJcXzkkK4oGbrR@smile.fi.intel.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <CAMuHMdUhSKuJ3N5zf_+ad_dFu6kSmVTqRpgFUWtd54S9ryw=ew@mail.gmail.com>
+In-Reply-To: <Y0WJcXzkkK4oGbrR@smile.fi.intel.com>
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Cc: Kent Gibson <warthog618@gmail.com>, linux-omap@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-aspeed@lists.ozlabs.org,
@@ -82,61 +83,14 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Oct 11, 2022 at 04:39:46PM +0200, Geert Uytterhoeven wrote:
-> On Tue, Oct 11, 2022 at 4:31 PM Andy Shevchenko
-> <andriy.shevchenko@linux.intel.com> wrote:
-> > On Tue, Oct 11, 2022 at 10:13:02PM +0800, Kent Gibson wrote:
-> > > On Tue, Oct 11, 2022 at 04:48:17PM +0300, Andy Shevchenko wrote:
-> > > > On Tue, Oct 11, 2022 at 11:05:42AM +0300, Andy Shevchenko wrote:
-> > > > > On Tue, Oct 11, 2022 at 3:02 AM Kent Gibson <warthog618@gmail.com> wrote:
-> > > > > > On Mon, Oct 10, 2022 at 11:14:18PM +0300, Andy Shevchenko wrote:
+On Tue, Oct 11, 2022 at 06:19:13PM +0300, Andy Shevchenko wrote:
+> On Tue, Oct 11, 2022 at 04:39:46PM +0200, Geert Uytterhoeven wrote:
 
 ...
 
-> > > > > > > -#include <linux/gpio.h>
-> > > > > > >  #include <linux/gpio/driver.h>
-> > > > > > > +#include <linux/gpio.h>
-> > > > > > > +#include <linux/hte.h>
-> > > > > >
-> > > > > > Ok with the hte re-order.
-> > > > > >
-> > > > > > But moving the gpio subsystem header after the gpio/driver is not
-> > > > > > alphabetical ('.' precedes '/') and it read better and made more sense
-> > > > > > to me the way it was.
-> > > > >
-> > > > > I see, I guess this is vim sort vs shell sort. Strange, they should
-> > > > > follow the locale settings...
-> > > >
-> > > > I have checked, the shell and vim sort gave the same result as in this patch.
-> > > >
-> > >
-> > > The original order (sans hte.h) was done by VSCode Sort Lines Ascending,
-> > > and that still returns the same result.  That matches what I would
-> > > expect to see given the content of the text.
-> > >
-> > > And for me vim also gives the original order.
-> > >
-> > > Just to confirm - is '.' 0x2e and '/' 0x2f in your universe?
-> >
-> > $ LC_COLLATE=C sort test1.txt
-> > #include <linux/gpio.h>
-> > #include <linux/gpio/driver.h>
-> >
-> > $ LC_COLLATE= sort test1.txt
-> > #include <linux/gpio/driver.h>
-> > #include <linux/gpio.h>
-> >
-> > I guess this explains the difference. Currently I have en_US.UTF-8.
-> 
-> Throwing my can of paint into the mix...
-> 
-> I think it is more logical to first include the general <linux/gpio.h>,
-> followed by whatever <linux/gpio-foo.h> and <linux/gpio/bar.h>,
-> irrespective of (language-specific or phonebook) sort order.
-> 
-> Yeah, it sucks that this requires some manual work after running sort...
-
-It seems that kind of issue is in this patch only.
+After all this patch is not needed. However, during checking of the necessity
+of this patch I realized that seq_file is used in a few GPIO drivers without
+any actual users, so I will prepare clean up series for that as well.
 
 -- 
 With Best Regards,
