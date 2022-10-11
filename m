@@ -2,73 +2,70 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id ADBD85FAF0B
-	for <lists+linux-stm32@lfdr.de>; Tue, 11 Oct 2022 11:07:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 34C175FB1EA
+	for <lists+linux-stm32@lfdr.de>; Tue, 11 Oct 2022 14:00:58 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 743C2C640F5;
-	Tue, 11 Oct 2022 09:07:37 +0000 (UTC)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D62ECC640F2;
+	Tue, 11 Oct 2022 12:00:57 +0000 (UTC)
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com
+ [68.232.154.123])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9575CC640F2
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 986F5C63326
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 11 Oct 2022 09:07:35 +0000 (UTC)
+ Tue, 11 Oct 2022 09:48:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1665479255; x=1697015255;
+ d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+ t=1665481686; x=1697017686;
  h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=U6Q0eqDO5XKNfPO1gS4tfAxW8aSXRLRmUbuizVaigrU=;
- b=ml4C/5T8GejQeQddmln9sQXFS/WEkCp9R3BHHZgdiBeB3W8YcVPvL1tA
- voP4v5qC7KkauX4TbpivweghK+al/phJ3oPtRaq8RC+pcKp7dth6itpQj
- 0msFMPZJ1iwQOTp1VimbT5HRAOadZvRS/pw6w0o18BOf8oR5hYN631tLb
- 6dEJuw3/508AlkVn9dI2jDKahaSI3ZdGqAu14BqldbOxsHTpFS7WCyDYq
- uoov3SXy7lNXr3EZtIRAOTheC6qMOBO6mdyU+a9vhnk8OlhKEYIROFhpu
- UDG8IV3MvCgaQezf/E77QiJxY4S+7dF/xBE2LUrQLWnHDYF4W31M461R2 w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10496"; a="302062158"
-X-IronPort-AV: E=Sophos;i="5.95,176,1661842800"; d="scan'208";a="302062158"
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Oct 2022 02:07:32 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10496"; a="871436201"
-X-IronPort-AV: E=Sophos;i="5.95,176,1661842800"; d="scan'208";a="871436201"
-Received: from smile.fi.intel.com ([10.237.72.54])
- by fmsmga006.fm.intel.com with ESMTP; 11 Oct 2022 02:07:11 -0700
-Received: from andy by smile.fi.intel.com with local (Exim 4.96)
- (envelope-from <andriy.shevchenko@linux.intel.com>)
- id 1oiBEA-005EiK-07; Tue, 11 Oct 2022 12:07:06 +0300
-Date: Tue, 11 Oct 2022 12:07:05 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Message-ID: <Y0UyOWALxSFai2w6@smile.fi.intel.com>
+ mime-version:in-reply-to;
+ bh=X7aXXVOlBHDkw90nWzBrfDp5Pw/UBVwOZTwSGqIfCIg=;
+ b=A9aIi+nRvqUM9Nndt5lG8/JvkVbYCgqRN1Q+W4+XD2qIOlfZ1tRuML2t
+ dQlSXiVTASVvDKhevjtpdKwgpoDZ1l1uOOwCBjkEWXYduGWbkvxwBx8rl
+ bJKfZLSBOGHS5DTpcsdG76CqtmIpMaXSgmBV8w7FyXNM3W3ut2OxlUcdy
+ 04SA+6V99w6RMyeKEcpV9v9gBX/qkbOidArXUyrYEaJu3D+1ieXCwIYj5
+ wvKZKhTUNfmRPBxi4pdeYbeBr3yDDI1bgYmi5n1KqEam7V07HPE5LHd5p
+ 4LMMVnYm4LRMwh+4B/837upD1IjBXITbIrcsh5BjaZl2rmD2XfdmL2J30 A==;
+X-IronPort-AV: E=Sophos;i="5.95,176,1661842800"; d="scan'208";a="178123604"
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+ by esa4.microchip.iphmx.com with ESMTP/TLS/AES256-SHA256;
+ 11 Oct 2022 02:48:01 -0700
+Received: from chn-vm-ex02.mchp-main.com (10.10.85.144) by
+ chn-vm-ex03.mchp-main.com (10.10.85.151) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.12; Tue, 11 Oct 2022 02:47:59 -0700
+Received: from localhost (10.10.115.15) by chn-vm-ex02.mchp-main.com
+ (10.10.85.144) with Microsoft SMTP Server id 15.1.2507.12 via Frontend
+ Transport; Tue, 11 Oct 2022 02:47:58 -0700
+Date: Tue, 11 Oct 2022 11:52:33 +0200
+From: Horatiu Vultur <horatiu.vultur@microchip.com>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Message-ID: <20221011095233.jk2vypndisz2wgn6@soft-dev3-1.localhost>
 References: <20221010201453.77401-1-andriy.shevchenko@linux.intel.com>
- <20221010201453.77401-37-andriy.shevchenko@linux.intel.com>
- <d63088d7-202b-a550-01e5-345a22de5f7d@amd.com>
- <CAMuHMdUfdQnisexfs4yLjeKs-LUPY1HjChrgeNjNL1qSErir9Q@mail.gmail.com>
+ <20221010201453.77401-18-andriy.shevchenko@linux.intel.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <CAMuHMdUfdQnisexfs4yLjeKs-LUPY1HjChrgeNjNL1qSErir9Q@mail.gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Cc: Andrew Lunn <andrew@lunn.ch>, Kent Gibson <warthog618@gmail.com>,
- Tomer Maimon <tmaimon77@gmail.com>,
+In-Reply-To: <20221010201453.77401-18-andriy.shevchenko@linux.intel.com>
+X-Mailman-Approved-At: Tue, 11 Oct 2022 12:00:57 +0000
+Cc: Andrew Lunn <andrew@lunn.ch>, Kent
+ Gibson <warthog618@gmail.com>, Tomer Maimon <tmaimon77@gmail.com>,
  Geert Uytterhoeven <geert+renesas@glider.be>,
  Linus Walleij <linus.walleij@linaro.org>, Tomasz Figa <tomasz.figa@gmail.com>,
  Sylwester Nawrocki <s.nawrocki@samsung.com>,
  =?utf-8?B?UmFmYcWCIE1pxYJlY2tp?= <rafal@milecki.pl>,
- Horatiu Vultur <horatiu.vultur@microchip.com>,
- Emil Renner Berthing <kernel@esmil.dk>,
- Phil Edworthy <phil.edworthy@renesas.com>, linux-samsung-soc@vger.kernel.org,
- Samuel Holland <samuel@sholland.org>, Michal Simek <michal.simek@xilinx.com>,
- Ludovic Desroches <ludovic.desroches@microchip.com>,
- NXP Linux Team <linux-imx@nxp.com>, Tali Perry <tali.perry1@gmail.com>,
- Sascha Hauer <s.hauer@pengutronix.de>, Thomas Gleixner <tglx@linutronix.de>,
- linux-omap@vger.kernel.org, Scott Branden <sbranden@broadcom.com>,
- Andrew Jeffery <andrew@aj.id.au>, linux-stm32@st-md-mailman.stormreply.com,
- linux-kernel@vger.kernel.org, Masami Hiramatsu <mhiramat@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, Emil
+ Renner Berthing <kernel@esmil.dk>, Phil Edworthy <phil.edworthy@renesas.com>,
+ linux-samsung-soc@vger.kernel.org, Samuel Holland <samuel@sholland.org>,
+ Michal Simek <michal.simek@xilinx.com>, Ludovic
+ Desroches <ludovic.desroches@microchip.com>, NXP Linux Team <linux-imx@nxp.com>,
+ Tali Perry <tali.perry1@gmail.com>, Sascha
+ Hauer <s.hauer@pengutronix.de>, Thomas Gleixner <tglx@linutronix.de>,
+ linux-omap@vger.kernel.org, Andy
+ Shevchenko <andy@kernel.org>, Scott Branden <sbranden@broadcom.com>,
+ Andrew Jeffery <andrew@aj.id.au>, linux-kernel@vger.kernel.org,
+ Masami Hiramatsu <mhiramat@kernel.org>,
  Pengutronix Kernel Team <kernel@pengutronix.de>,
- Claudiu Beznea <claudiu.beznea@microchip.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Claudiu Beznea <claudiu.beznea@microchip.com>, alsa-devel@alsa-project.org,
  Alim Akhtar <alim.akhtar@samsung.com>, linux-aspeed@lists.ozlabs.org,
  Thierry Reding <thierry.reding@gmail.com>, Viresh Kumar <vireshk@kernel.org>,
  Gregory Clement <gregory.clement@bootlin.com>,
@@ -81,27 +78,29 @@ Cc: Andrew Lunn <andrew@lunn.ch>, Kent Gibson <warthog618@gmail.com>,
  linux-arm-kernel@lists.infradead.org, Dong Aisheng <aisheng.dong@nxp.com>,
  Damien Le Moal <damien.lemoal@wdc.com>, linux-renesas-soc@vger.kernel.org,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jacky Bai <ping.bai@nxp.com>,
- Basavaraj Natikar <Basavaraj.Natikar@amd.com>, alsa-devel@alsa-project.org,
- Fabio Estevam <festevam@gmail.com>, Florian Fainelli <f.fainelli@gmail.com>,
+ Basavaraj Natikar <Basavaraj.Natikar@amd.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>, Fabio
+ Estevam <festevam@gmail.com>, Florian Fainelli <f.fainelli@gmail.com>,
  Benjamin Fair <benjaminfair@google.com>, Nancy Yuen <yuenn@google.com>,
- Chen-Yu Tsai <wens@csie.org>,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+ Chen-Yu Tsai <wens@csie.org>, Broadcom
+ internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
  Joel Stanley <joel@jms.id.au>, Chen-Yu Tsai <wenst@chromium.org>,
- Orson Zhai <orsonzhai@gmail.com>, Basavaraj Natikar <bnatikar@amd.com>,
- Ray Jui <rjui@broadcom.com>, Richard Fitzgerald <rf@opensource.cirrus.com>,
+ Orson Zhai <orsonzhai@gmail.com>, Ray Jui <rjui@broadcom.com>,
+ Richard Fitzgerald <rf@opensource.cirrus.com>,
  Baolin Wang <baolin.wang@linux.alibaba.com>,
  Mauro Carvalho Chehab <mchehab@kernel.org>,
  Avi Fishman <avifishman70@gmail.com>, Patrick Venture <venture@google.com>,
  Shawn Guo <shawnguo@kernel.org>,
- Andreas =?iso-8859-1?Q?F=E4rber?= <afaerber@suse.de>,
+ Andreas =?utf-8?Q?F=C3=A4rber?= <afaerber@suse.de>,
  Tony Lindgren <tony@atomide.com>, Konrad Dybcio <konrad.dybcio@somainline.org>,
  Bjorn Andersson <bjorn.andersson@linaro.org>,
  Paul Cercueil <paul@crapouillou.net>,
  Haojian Zhuang <haojian.zhuang@linaro.org>, linux-riscv@lists.infradead.org,
  Marc Zyngier <maz@kernel.org>, openbmc@lists.ozlabs.org,
  Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
- Prathamesh Shete <pshete@nvidia.com>, Andy Gross <agross@kernel.org>,
- Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
+ Prathamesh Shete <pshete@nvidia.com>, Andy
+ Gross <agross@kernel.org>, Sebastian
+ Hesselbarth <sebastian.hesselbarth@gmail.com>,
  Manivannan Sadhasivam <mani@kernel.org>,
  Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
  Billy Tsai <billy_tsai@aspeedtech.com>, linux-mediatek@lists.infradead.org,
@@ -114,7 +113,8 @@ Cc: Andrew Lunn <andrew@lunn.ch>, Kent Gibson <warthog618@gmail.com>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
  Shiraz Hashim <shiraz.linux.kernel@gmail.com>,
  Bartosz Golaszewski <brgl@bgdev.pl>
-Subject: Re: [Linux-stm32] [PATCH v2 36/36] pinctrl: Clean up headers
+Subject: Re: [Linux-stm32] [PATCH v2 17/36] pinctrl: ocelot: Add missed
+	header(s)
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -126,26 +126,59 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gVHVlLCBPY3QgMTEsIDIwMjIgYXQgMTA6NDY6MzBBTSArMDIwMCwgR2VlcnQgVXl0dGVyaG9l
-dmVuIHdyb3RlOgo+IE9uIFR1ZSwgT2N0IDExLCAyMDIyIGF0IDk6MzEgQU0gQmFzYXZhcmFqIE5h
-dGlrYXIgPGJuYXRpa2FyQGFtZC5jb20+IHdyb3RlOgo+ID4gT24gMTAvMTEvMjAyMiAxOjQ0IEFN
-LCBBbmR5IFNoZXZjaGVua28gd3JvdGU6Cgo+ID4gPiArKysgYi9kcml2ZXJzL3BpbmN0cmwvY29y
-ZS5oCgo+ID4gPiAtI2luY2x1ZGUgPGxpbnV4L3BpbmN0cmwvcGluY29uZi5oPgo+ID4KPiA+IFJl
-bW92aW5nIHBpbmNvbmYuaCBmcm9tIHRoZSBjb3JlLmggbWF5IGNhdXNlIGJ1aWxkIGZhaWx1cmUg
-aW4gb3RoZXIgZmlsZXMKPiA+IGJlY2F1c2Ugd2hlcmUtZXZlciBjb3JlLmggaXMgaW5jbHVkZWQg
-dG8gdXNlIOKAnHN0cnVjdCBwaW5jb25mX29wc+KAnSwgdGhlcmUKPiA+IGlzIGEgbmVlZCB0byBp
-bmNsdWRlIHBpbmNvbmYuaC4KPiAKPiBJIGNhbiBjb25maXJtIGFkZGluZwo+IAo+ICAgICAjaW5j
-bHVkZSA8bGludXgvcGluY3RybC9waW5jb25mLmg+Cj4gCj4gdG8gZHJpdmVycy9waW5jdHJsL3Jl
-bmVzYXMvcGluY3RybC1yem4xLmMgYW5kIGRyaXZlcnMvcGluY3RybC9waW5jdHJsLXNpbmdsZS5j
-Cj4gZml4ZXMgdGhlIGlzc3VlcyBJIHdhcyBzZWVpbmcgd2l0aCBzaG1vYmlsZV9kZWZjb25maWcg
-YW5kIChvdXQtb2YtdHJlZSkKPiByZW5lc2FzX2RlZmNvbmZpZy4KCkkgd2lsbCBhZGQgdGhpcywg
-dGhhbmsgeW91IGZvciByZXBvcnRpbmcuCgotLSAKV2l0aCBCZXN0IFJlZ2FyZHMsCkFuZHkgU2hl
-dmNoZW5rbwoKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-CkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3Jt
-cmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xp
-c3RpbmZvL2xpbnV4LXN0bTMyCg==
+The 10/10/2022 23:14, Andy Shevchenko wrote:
+> 
+> Do not imply that some of the generic headers may be always included.
+> Instead, include explicitly what we are direct user of.
+> 
+> While at it, sort headers alphabetically.
+> 
+> Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+> ---
+
+Acked-by: Horatiu Vultur <horatiu.vultur@microchip.com>
+
+>  drivers/pinctrl/pinctrl-ocelot.c | 10 ++++++----
+>  1 file changed, 6 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/pinctrl/pinctrl-ocelot.c b/drivers/pinctrl/pinctrl-ocelot.c
+> index 647e91490bac..a9343c242cd5 100644
+> --- a/drivers/pinctrl/pinctrl-ocelot.c
+> +++ b/drivers/pinctrl/pinctrl-ocelot.c
+> @@ -13,15 +13,17 @@
+>  #include <linux/of_device.h>
+>  #include <linux/of_irq.h>
+>  #include <linux/of_platform.h>
+> -#include <linux/pinctrl/pinctrl.h>
+> -#include <linux/pinctrl/pinmux.h>
+> -#include <linux/pinctrl/pinconf.h>
+> -#include <linux/pinctrl/pinconf-generic.h>
+>  #include <linux/platform_device.h>
+>  #include <linux/regmap.h>
+>  #include <linux/reset.h>
+>  #include <linux/slab.h>
+> 
+> +#include <linux/pinctrl/consumer.h>
+> +#include <linux/pinctrl/pinconf-generic.h>
+> +#include <linux/pinctrl/pinconf.h>
+> +#include <linux/pinctrl/pinctrl.h>
+> +#include <linux/pinctrl/pinmux.h>
+> +
+>  #include "core.h"
+>  #include "pinconf.h"
+>  #include "pinmux.h"
+> --
+> 2.35.1
+> 
+
+-- 
+/Horatiu
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
