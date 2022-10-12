@@ -2,53 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5499C5FC673
-	for <lists+linux-stm32@lfdr.de>; Wed, 12 Oct 2022 15:30:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9888C5FC6C8
+	for <lists+linux-stm32@lfdr.de>; Wed, 12 Oct 2022 15:54:52 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id ECEE4C640F9;
-	Wed, 12 Oct 2022 13:30:16 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4FCC3C640F9;
+	Wed, 12 Oct 2022 13:54:52 +0000 (UTC)
+Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com
+ [209.85.216.43])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 17624C640F2
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 93C1CC640F2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 12 Oct 2022 13:30:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1665581416; x=1697117416;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=tV/ZvJGYw4mf000OleNKwCzv+JZQjAKj+4wcxHqkOco=;
- b=n9mHN/N0+b1u4OdBEQGBEolzKIudYQgVNiqqyXAREXSmyXQKhdkyybkO
- bshqKZObqHZU/owHaggfj3HaR3P8D+/kRTNc4AwA5x7Rbk2A2lNL2SMTP
- qY+ibM3Wshf5xwJ+oZnIoSLFT3qj902mPvb1thHoEHLf5ZLR9CYV0xY0X
- ocReocNPHdJgZd542vOcByQ32VgKlcNg/X/ZEwOYPhfHLKTp4HnsyIN4I
- Ipa0zBbpQhfO4IReQYC8JQJdEiasBRGGc7XK48LlMebR16v2uDZc9rGBu
- HU12sEDm5z3aFw3BqwcTgS0/MWxRrDux8Ot0xcIqzSVKbMTaow9+3QPaj g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10497"; a="284517890"
-X-IronPort-AV: E=Sophos;i="5.95,179,1661842800"; d="scan'208";a="284517890"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Oct 2022 06:30:13 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10497"; a="626766256"
-X-IronPort-AV: E=Sophos;i="5.95,179,1661842800"; d="scan'208";a="626766256"
-Received: from smile.fi.intel.com ([10.237.72.54])
- by orsmga002.jf.intel.com with ESMTP; 12 Oct 2022 06:30:07 -0700
-Received: from andy by smile.fi.intel.com with local (Exim 4.96)
- (envelope-from <andriy.shevchenko@linux.intel.com>)
- id 1oiboD-005qlS-1e; Wed, 12 Oct 2022 16:30:05 +0300
-Date: Wed, 12 Oct 2022 16:30:05 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Kent Gibson <warthog618@gmail.com>
-Message-ID: <Y0bBXSHyxpdTGxoU@smile.fi.intel.com>
+ Wed, 12 Oct 2022 13:54:51 +0000 (UTC)
+Received: by mail-pj1-f43.google.com with SMTP id
+ l1-20020a17090a72c100b0020a6949a66aso2134309pjk.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 12 Oct 2022 06:54:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=4W9PYnqE39FVIWPtx23Tk+GKt7RrA3d27Hf1sKJ7FqQ=;
+ b=UozGTu6YyIYkQQoEJ9mpP/ZP9EXBHkczxk9/ST0nwoYD5CXIifS1ksxnJ1z/XlD8Iv
+ DnXdQDc3QD5BBRt/elc/g3MpiMLgBMvz47ICmyWRQUwskodG72pwSD0FvOfnFwxR4gNT
+ 0Nv0c1ZEd9a//beEgotrvzkxpjlIn11dOn3z2tb/KyektIxRp3AMw9k8NLnKlAlJMfAZ
+ ZW00APC6mm2Rgc0I9F6MtW+FIkz4pX/PUfBY7jV2tV/BJmcb7sxvPImZbSg5MEvkpS1A
+ VQqSmx00wjuq8wBY7o0koQO6OL1C+JRHOCj4nWqmVRt4CML82YQgP9dT0rzT4hrO952e
+ 5MGA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=4W9PYnqE39FVIWPtx23Tk+GKt7RrA3d27Hf1sKJ7FqQ=;
+ b=5t40NLuia886Rzi2/KlNTfloS7pyUyOsZnO4QZpymhvoiN26bhFt76t1XZX8dCS4tf
+ MPK4j/SR16efI/qR6tBSA4oafq82Tei94iBmRFBdjWqLlSrEvtD/13nTabL7bPpRcXkQ
+ 8P79yOA/XdiTi3V6Yw2SXvjvgutacO9ZjZznCxE6LPLuzLdluaj6IlAockOWDIrrsWNB
+ JtQQyKEEEZwBnajcpIOPmhMOqsA8HG4/PN9/VWG9uWGH/Q2LMF84leUXfhBCG+bvaeaQ
+ 2v5w4jp062xl5+TLEeXFP9RhV1J6LrrelYcUB6NDhCM8ZjryzDNBCZNc7gFVYE9DtiY8
+ rFPQ==
+X-Gm-Message-State: ACrzQf3hFY+IVDtL8NF5BdcVDftDby9QjyAGuzjcgaVF9pev3ZVtCn64
+ MDuhxdTKwZ4KR8kBPF8rFF8=
+X-Google-Smtp-Source: AMsMyM4GsOvqLbKi8bnipwZei9bul2eCxZ/xzZEAA7xagdE0qfFC/6Wvyu2i9hoIPRYsb/0vz6gCvA==
+X-Received: by 2002:a17:90a:f2c3:b0:20b:b75f:2f9e with SMTP id
+ gt3-20020a17090af2c300b0020bb75f2f9emr5408380pjb.43.1665582890145; 
+ Wed, 12 Oct 2022 06:54:50 -0700 (PDT)
+Received: from sol (110-174-58-111.static.tpgi.com.au. [110.174.58.111])
+ by smtp.gmail.com with ESMTPSA id
+ s20-20020aa78bd4000000b00562f6df42f1sm8959924pfd.152.2022.10.12.06.54.42
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 12 Oct 2022 06:54:49 -0700 (PDT)
+Date: Wed, 12 Oct 2022 21:54:39 +0800
+From: Kent Gibson <warthog618@gmail.com>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Message-ID: <Y0bHH06cbngWk4mH@sol>
 References: <20221010201453.77401-1-andriy.shevchenko@linux.intel.com>
  <20221010201453.77401-3-andriy.shevchenko@linux.intel.com>
- <Y0SyVwjDl7NGfTPn@sol>
+ <Y0SyVwjDl7NGfTPn@sol> <Y0bBXSHyxpdTGxoU@smile.fi.intel.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <Y0SyVwjDl7NGfTPn@sol>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+In-Reply-To: <Y0bBXSHyxpdTGxoU@smile.fi.intel.com>
 Cc: linux-renesas-soc@vger.kernel.org, alsa-devel@alsa-project.org,
  linux-samsung-soc@vger.kernel.org, linux-aspeed@lists.ozlabs.org,
  Geert Uytterhoeven <geert+renesas@glider.be>, patches@opensource.cirrus.com,
@@ -78,40 +90,49 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Oct 11, 2022 at 08:01:27AM +0800, Kent Gibson wrote:
-> On Mon, Oct 10, 2022 at 11:14:18PM +0300, Andy Shevchenko wrote:
-
-...
-
-> > -#include <linux/gpio.h>
-> >  #include <linux/gpio/driver.h>
-> > +#include <linux/gpio.h>
-
-> But moving the gpio subsystem header after the gpio/driver is not
-> alphabetical ('.' precedes '/') and it read better and made more sense
-> to me the way it was.
-
-Okay, I will move it back.
-
-...
-
-> > +#include <linux/seq_file.h>
+On Wed, Oct 12, 2022 at 04:30:05PM +0300, Andy Shevchenko wrote:
+> On Tue, Oct 11, 2022 at 08:01:27AM +0800, Kent Gibson wrote:
+> > On Mon, Oct 10, 2022 at 11:14:18PM +0300, Andy Shevchenko wrote:
 > 
-> I wasn't aware that we use anything from seq_file.
-> What am I missing?
+> ...
+> 
+> > > -#include <linux/gpio.h>
+> > >  #include <linux/gpio/driver.h>
+> > > +#include <linux/gpio.h>
+> 
+> > But moving the gpio subsystem header after the gpio/driver is not
+> > alphabetical ('.' precedes '/') and it read better and made more sense
+> > to me the way it was.
+> 
+> Okay, I will move it back.
+> 
+> ...
+> 
+> > > +#include <linux/seq_file.h>
+> > 
+> > I wasn't aware that we use anything from seq_file.
+> > What am I missing?
+> 
+> 
+> Eventually I can answer to your question: the commit 0ae3109a8391
+> ("gpiolib: cdev: add fdinfo output for line request file descriptors")
+> is what you are missing.
+> 
+> That said, we need this patch.
+> 
 
+Ah, yes - totally forgot that one is in flight.
+That makes sense then.
 
-Eventually I can answer to your question: the commit 0ae3109a8391
-("gpiolib: cdev: add fdinfo output for line request file descriptors")
-is what you are missing.
+With the gpio headers retaining their original order:
 
-That said, we need this patch.
+Rewiewed-by: Kent Gibson <warthog618@gmail.com>
 
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+> -- 
+> With Best Regards,
+> Andy Shevchenko
+> 
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
