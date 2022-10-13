@@ -2,105 +2,67 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CFFF25FD489
-	for <lists+linux-stm32@lfdr.de>; Thu, 13 Oct 2022 08:13:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D92CC5FD5BF
+	for <lists+linux-stm32@lfdr.de>; Thu, 13 Oct 2022 09:51:56 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 66980C65042;
-	Thu, 13 Oct 2022 06:13:12 +0000 (UTC)
-Received: from out30-130.freemail.mail.aliyun.com
- (out30-130.freemail.mail.aliyun.com [115.124.30.130])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8B76EC640FF;
+	Thu, 13 Oct 2022 07:51:56 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EAEF7C03FD5
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 55FAFC03FD5
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 13 Oct 2022 01:23:14 +0000 (UTC)
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R631e4; CH=green; DM=||false|;
- DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=ay29a033018045192;
- MF=baolin.wang@linux.alibaba.com; NM=1; PH=DS; RN=98; SR=0;
- TI=SMTPD_---0VS19mRS_1665624179; 
-Received: from 30.97.48.54(mailfrom:baolin.wang@linux.alibaba.com
- fp:SMTPD_---0VS19mRS_1665624179) by smtp.aliyun-inc.com;
- Thu, 13 Oct 2022 09:23:04 +0800
-Message-ID: <b7c8afe1-af89-9b5a-2c2c-82a2810ca9f1@linux.alibaba.com>
-Date: Thu, 13 Oct 2022 09:23:27 +0800
+ Thu, 13 Oct 2022 07:51:55 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 29D3rHrP019805;
+ Thu, 13 Oct 2022 09:51:21 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=content-type :
+ message-id : date : mime-version : subject : to : cc : references : from :
+ in-reply-to; s=selector1; bh=7yj6ItUE3T6a3jDsOqWMDbrKDiVWaMjkozeUvgESAPE=;
+ b=QFgs8TGRfDBMnj0+nNf1OTbleymud6LefErDMJ9TC0piuhz3ogdZ0cq70mSnTAn3d4k5
+ 74mt7Ivh0rz6EIJ6OThStFx0iN8EtWTcp9IxWijGOPklGHuAR61oEYPmq7VDkAM9nY+E
+ bVePjzaBSDU9lHz08GlJx19rlSOeLo9vLxr78fJXVhavE8e0FwdrK1wT39kWVT5ivxfT
+ VBMUvhFN465+Dp7zBFFthxW3K6esOvss+QnVzBiHjgN9SNmI/RBxtBUdCCJj0Jy5/K4L
+ 5F7NAHFfAjWsRQ4DPK5i5R2V/XvJ7eJUT9NykRWtuu1gCZKspUgMKHuKSUNpevIpZ7Xd QQ== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3k5v4mxt9d-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 13 Oct 2022 09:51:20 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 1F66410002A;
+ Thu, 13 Oct 2022 09:51:12 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 092FB216EDA;
+ Thu, 13 Oct 2022 09:51:12 +0200 (CEST)
+Received: from [10.201.21.144] (10.75.127.47) by SHFDAG1NODE1.st.com
+ (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2375.31; Thu, 13 Oct
+ 2022 09:51:11 +0200
+Message-ID: <6a54c6fa-2b3e-d833-4fd0-9ad564f5dc50@foss.st.com>
+Date: Thu, 13 Oct 2022 09:50:59 +0200
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.3.0
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Marc Zyngier <maz@kernel.org>, Bartosz Golaszewski <brgl@bgdev.pl>,
- Kent Gibson <warthog618@gmail.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Billy Tsai <billy_tsai@aspeedtech.com>, Thomas Gleixner
- <tglx@linutronix.de>, Linus Walleij <linus.walleij@linaro.org>,
- Mika Westerberg <mika.westerberg@linux.intel.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Chen-Yu Tsai <wenst@chromium.org>,
- Claudiu Beznea <claudiu.beznea@microchip.com>,
- Samuel Holland <samuel@sholland.org>,
- Horatiu Vultur <horatiu.vultur@microchip.com>,
- =?UTF-8?B?UmFmYcWCIE1pxYJlY2tp?= <rafal@milecki.pl>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
- Phil Edworthy <phil.edworthy@renesas.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Fabien Dessenne <fabien.dessenne@foss.st.com>,
- Prathamesh Shete <pshete@nvidia.com>,
- Basavaraj Natikar <Basavaraj.Natikar@amd.com>, linux-gpio@vger.kernel.org,
- linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org,
- linux-actions@lists.infradead.org, linux-aspeed@lists.ozlabs.org,
- openbmc@lists.ozlabs.org, linux-rpi-kernel@lists.infradead.org,
- alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
- linux-mediatek@lists.infradead.org, linux-mips@vger.kernel.org,
- linux-riscv@lists.infradead.org, linux-omap@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-msm@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org, linux-samsung-soc@vger.kernel.org
-References: <20221010201453.77401-1-andriy.shevchenko@linux.intel.com>
- <20221010201453.77401-24-andriy.shevchenko@linux.intel.com>
-From: Baolin Wang <baolin.wang@linux.alibaba.com>
-In-Reply-To: <20221010201453.77401-24-andriy.shevchenko@linux.intel.com>
-X-Mailman-Approved-At: Thu, 13 Oct 2022 06:13:10 +0000
-Cc: Andrew Lunn <andrew@lunn.ch>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Jacky Bai <ping.bai@nxp.com>,
- Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
- Tony Lindgren <tony@atomide.com>, Konrad Dybcio <konrad.dybcio@somainline.org>,
- Tali Perry <tali.perry1@gmail.com>, Paul Cercueil <paul@crapouillou.net>,
- Thierry Reding <thierry.reding@gmail.com>,
- Haojian Zhuang <haojian.zhuang@linaro.org>,
- Sylwester Nawrocki <s.nawrocki@samsung.com>,
- Fabio Estevam <festevam@gmail.com>, Michal Simek <michal.simek@xilinx.com>,
- Tomer Maimon <tmaimon77@gmail.com>, Florian Fainelli <f.fainelli@gmail.com>,
- Benjamin Fair <benjaminfair@google.com>, soc@kernel.org,
- Viresh Kumar <vireshk@kernel.org>,
- Gregory Clement <gregory.clement@bootlin.com>, Chen-Yu Tsai <wens@csie.org>,
- Jonathan Hunter <jonathanh@nvidia.com>, Nancy Yuen <yuenn@google.com>,
- Ludovic Desroches <ludovic.desroches@microchip.com>,
- Andy Gross <agross@kernel.org>,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
- Joel Stanley <joel@jms.id.au>, Orson Zhai <orsonzhai@gmail.com>,
- Alim Akhtar <alim.akhtar@samsung.com>, NXP Linux Team <linux-imx@nxp.com>,
- Andy Shevchenko <andy@kernel.org>,
- Charles Keepax <ckeepax@opensource.cirrus.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Manivannan Sadhasivam <mani@kernel.org>, Ray Jui <rjui@broadcom.com>,
- Sascha Hauer <s.hauer@pengutronix.de>, Tomasz Figa <tomasz.figa@gmail.com>,
- Richard Fitzgerald <rf@opensource.cirrus.com>,
- Shiraz Hashim <shiraz.linux.kernel@gmail.com>,
- Dong Aisheng <aisheng.dong@nxp.com>, Damien Le Moal <damien.lemoal@wdc.com>,
- Scott Branden <sbranden@broadcom.com>, Andrew Jeffery <andrew@aj.id.au>,
- Patrick Venture <venture@google.com>, Sean Wang <sean.wang@kernel.org>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- Avi Fishman <avifishman70@gmail.com>, Masami Hiramatsu <mhiramat@kernel.org>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Chunyan Zhang <zhang.lyra@gmail.com>, Emil Renner Berthing <kernel@esmil.dk>,
- Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
- Shawn Guo <shawnguo@kernel.org>,
- =?UTF-8?Q?Andreas_F=c3=a4rber?= <afaerber@suse.de>
-Subject: Re: [Linux-stm32] [PATCH v2 23/36] pinctrl: sprd: Add missed
-	header(s)
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.2.2
+Content-Language: en-US
+To: Tomas Marek <tomas.marek@elrest.cz>, <mpm@selenic.com>,
+ <herbert@gondor.apana.org.au>
+References: <20221012160924.12226-1-tomas.marek@elrest.cz>
+ <20221012160924.12226-2-tomas.marek@elrest.cz>
+From: Lionel DEBIEVE <lionel.debieve@foss.st.com>
+In-Reply-To: <20221012160924.12226-2-tomas.marek@elrest.cz>
+X-Originating-IP: [10.75.127.47]
+X-ClientProxiedBy: SFHDAG2NODE3.st.com (10.75.127.6) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.545,FMLib:17.11.122.1
+ definitions=2022-10-13_06,2022-10-12_01,2022-06-22_01
+Cc: oleg.karfich@wago.com, linux-kernel@vger.kernel.org,
+ linux-crypto@vger.kernel.org, mcoquelin.stm32@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 1/2] hwrng: stm32 - fix number of returned
+ bytes on read
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -112,50 +74,134 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Type: multipart/mixed; boundary="===============1968786857239384252=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+--===============1968786857239384252==
+Content-Type: multipart/alternative;
+	boundary="------------n8YQiEYQjFyJgGr2nsm0tyI6"
+Content-Language: en-US
 
+--------------n8YQiEYQjFyJgGr2nsm0tyI6
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On 10/11/2022 4:14 AM, Andy Shevchenko wrote:
-> Do not imply that some of the generic headers may be always included.
-> Instead, include explicitly what we are direct user of.
-> 
-> While at it, sort headers alphabetically.
-> 
-> Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+On 10/12/22 18:09, Tomas Marek wrote:
 
-LGTM. Thanks.
-Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
-
+> The stm32_rng_read() function uses `retval` variable as a counter of
+> generated random bytes. However, the same variable is used to store
+> a result of the polling function in case the driver is waiting until
+> the TRNG is ready. The TRNG generates random numbers by 16B. One
+> loop read 4B. So, the function calls the polling every 16B, i.e.
+> every 4th loop. The `retval` counter is reset on poll call and only
+> number of bytes read after the last poll call is returned to the
+> caller. The remaining sampled random bytes (for example 48 out of
+> 64 in case 64 bytes are read) are not used.
+>
+> Use different variable to store the polling function result and
+> do not overwrite `retval` counter.
+>
+> Cc: Oleg Karfich<oleg.karfich@wago.com>
+> Signed-off-by: Tomas Marek<tomas.marek@elrest.cz>
 > ---
->   drivers/pinctrl/sprd/pinctrl-sprd.c | 6 ++++--
+>   drivers/char/hw_random/stm32-rng.c | 6 ++++--
 >   1 file changed, 4 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/pinctrl/sprd/pinctrl-sprd.c b/drivers/pinctrl/sprd/pinctrl-sprd.c
-> index dca7a505d413..c1806b7dcf78 100644
-> --- a/drivers/pinctrl/sprd/pinctrl-sprd.c
-> +++ b/drivers/pinctrl/sprd/pinctrl-sprd.c
-> @@ -13,12 +13,14 @@
->   #include <linux/of.h>
->   #include <linux/of_device.h>
->   #include <linux/platform_device.h>
-> +#include <linux/slab.h>
+>
+> diff --git a/drivers/char/hw_random/stm32-rng.c b/drivers/char/hw_random/stm32-rng.c
+> index bc22178f83e8..8eaacefd498b 100644
+> --- a/drivers/char/hw_random/stm32-rng.c
+> +++ b/drivers/char/hw_random/stm32-rng.c
+> @@ -49,11 +49,13 @@ static int stm32_rng_read(struct hwrng *rng, void *data, size_t max, bool wait)
+>   		/* Manage timeout which is based on timer and take */
+>   		/* care of initial delay time when enabling rng	*/
+>   		if (!sr && wait) {
+> -			retval = readl_relaxed_poll_timeout_atomic(priv->base
+> +			int ret;
 > +
-> +#include <linux/pinctrl/consumer.h>
->   #include <linux/pinctrl/machine.h>
-> -#include <linux/pinctrl/pinconf.h>
->   #include <linux/pinctrl/pinconf-generic.h>
-> +#include <linux/pinctrl/pinconf.h>
->   #include <linux/pinctrl/pinctrl.h>
->   #include <linux/pinctrl/pinmux.h>
-> -#include <linux/slab.h>
->   
->   #include "../core.h"
->   #include "../pinmux.h"
+> +			ret = readl_relaxed_poll_timeout_atomic(priv->base
+>   								   + RNG_SR,
+>   								   sr, sr,
+>   								   10, 50000);
+> -			if (retval)
+> +			if (ret)
+>   				dev_err((struct device *)priv->rng.priv,
+>   					"%s: timeout %x!\n", __func__, sr);
+>   		}
+
+Reviewed-by: Lionel DEBIEVE<lionel.debieve@foss.st.com>
+
+--------------n8YQiEYQjFyJgGr2nsm0tyI6
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <div class="moz-cite-prefix">
+      <pre>On 10/12/22 18:09, Tomas Marek wrote:</pre>
+    </div>
+    <blockquote type="cite"
+      cite="mid:20221012160924.12226-2-tomas.marek@elrest.cz">
+      <pre class="moz-quote-pre" wrap="">The stm32_rng_read() function uses `retval` variable as a counter of
+generated random bytes. However, the same variable is used to store
+a result of the polling function in case the driver is waiting until
+the TRNG is ready. The TRNG generates random numbers by 16B. One
+loop read 4B. So, the function calls the polling every 16B, i.e.
+every 4th loop. The `retval` counter is reset on poll call and only
+number of bytes read after the last poll call is returned to the
+caller. The remaining sampled random bytes (for example 48 out of
+64 in case 64 bytes are read) are not used.
+
+Use different variable to store the polling function result and
+do not overwrite `retval` counter.
+
+Cc: Oleg Karfich <a class="moz-txt-link-rfc2396E" href="mailto:oleg.karfich@wago.com">&lt;oleg.karfich@wago.com&gt;</a>
+Signed-off-by: Tomas Marek <a class="moz-txt-link-rfc2396E" href="mailto:tomas.marek@elrest.cz">&lt;tomas.marek@elrest.cz&gt;</a>
+---
+ drivers/char/hw_random/stm32-rng.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/char/hw_random/stm32-rng.c b/drivers/char/hw_random/stm32-rng.c
+index bc22178f83e8..8eaacefd498b 100644
+--- a/drivers/char/hw_random/stm32-rng.c
++++ b/drivers/char/hw_random/stm32-rng.c
+@@ -49,11 +49,13 @@ static int stm32_rng_read(struct hwrng *rng, void *data, size_t max, bool wait)
+ 		/* Manage timeout which is based on timer and take */
+ 		/* care of initial delay time when enabling rng	*/
+ 		if (!sr &amp;&amp; wait) {
+-			retval = readl_relaxed_poll_timeout_atomic(priv-&gt;base
++			int ret;
++
++			ret = readl_relaxed_poll_timeout_atomic(priv-&gt;base
+ 								   + RNG_SR,
+ 								   sr, sr,
+ 								   10, 50000);
+-			if (retval)
++			if (ret)
+ 				dev_err((struct device *)priv-&gt;rng.priv,
+ 					"%s: timeout %x!\n", __func__, sr);
+ 		}
+</pre>
+    </blockquote>
+    <pre>Reviewed-by: Lionel DEBIEVE <a class="moz-txt-link-rfc2396E" href="mailto:lionel.debieve@foss.st.com">&lt;lionel.debieve@foss.st.com&gt;</a>
+</pre>
+  </body>
+</html>
+
+--------------n8YQiEYQjFyJgGr2nsm0tyI6--
+
+--===============1968786857239384252==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============1968786857239384252==--
