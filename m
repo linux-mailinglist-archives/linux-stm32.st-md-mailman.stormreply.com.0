@@ -2,59 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E48FD5FEC6F
-	for <lists+linux-stm32@lfdr.de>; Fri, 14 Oct 2022 12:18:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 62F765FECE0
+	for <lists+linux-stm32@lfdr.de>; Fri, 14 Oct 2022 13:06:30 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 92A44C6411F;
-	Fri, 14 Oct 2022 10:18:17 +0000 (UTC)
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0B68DC6411F;
+	Fri, 14 Oct 2022 11:06:30 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BF75EC6411C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4934EC640FF
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 14 Oct 2022 10:18:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=2M67E4exov3pIudJ8dLX9p/62WDBS+2cAltVv6T03AA=; b=sfHm+VkQDbGDSCIPpuYyvJu4Op
- HByYBFDrqYxmiUy0/ltP/mwZ3fBqsuUWp7JPlrmTRBoCgYnK1wQiD+eDogKbjvWQ3kguf0JhNtHWX
- pOjaspaz6RlSgqzEmyP7gBjF92JKKgCDaaZgfxlJYxvrbVcfEWC9xTdua4i6ay06rx29OkrPaTXqG
- GEuhXjDZZohqo7F3SOuBbOfqSvxHm4/uYevqnlFP+Pij7rZoWZXGHWrk9PB6P8ZxkCUo60wNfzYDS
- 68cv7b2cqjtta56EjRarN4kcSCuVwdBRWlHnd4ijQkF+Kc/VXG1Sw2cfxGqKkWNevhoXHK/C1Kilv
- 84epCK8w==;
-Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:34718)
- by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.94.2)
- (envelope-from <linux@armlinux.org.uk>)
- id 1ojHlV-0000hC-CG; Fri, 14 Oct 2022 11:18:06 +0100
-Received: from linux by shell.armlinux.org.uk with local (Exim 4.94.2)
- (envelope-from <linux@shell.armlinux.org.uk>)
- id 1ojHlO-0005eU-FA; Fri, 14 Oct 2022 11:17:58 +0100
-Date: Fri, 14 Oct 2022 11:17:58 +0100
-From: "Russell King (Oracle)" <linux@armlinux.org.uk>
-To: Shenwei Wang <shenwei.wang@nxp.com>
-Message-ID: <Y0k3VqK4oOLOEljJ@shell.armlinux.org.uk>
-References: <20221013133904.978802-1-shenwei.wang@nxp.com>
- <Y0g3tW26qDDaxYPP@shell.armlinux.org.uk>
- <PAXPR04MB9185777624723D0FE11C6E4689259@PAXPR04MB9185.eurprd04.prod.outlook.com>
+ Fri, 14 Oct 2022 11:06:29 +0000 (UTC)
+Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 29EA9xHV019178;
+ Fri, 14 Oct 2022 13:06:09 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=MX4vQzooU9FWmgeS4cufdErYDqEDeethW/UcWxF6rlw=;
+ b=X1QxtzFRW+kZ5TDf7e1M95lKCBFPkGKvMY/nCzG5mLCW9uOkKNIznPdVD5cTmi57s1Qv
+ 47zk4XNQDkiW2K/KCd4sWazrIV+z6av5X01Oo1+NtZ1IiS0iRkTOQuC0Y4V4zZFZ0QRe
+ Aqc8pbIwYzOpq7zUqOxIyqmeZ5YpiFtV65aloDBDPpObceVm11fddD5n2DLb0zELiZRI
+ WU8j7QQnjkceXMlXkOpjf0MG+md1pFv5uR4RJpv/zBi7hCVAdYR5hdzwJs42yaOzCt9p
+ W2RRpdqykl2aFfJ3omKsJDsbmXoGO+noL46GXmeRN0rdaNJDYjiOl/Huc/2gEEyn4w4m 7A== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3k75sd8d64-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 14 Oct 2022 13:06:09 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 4995410002A;
+ Fri, 14 Oct 2022 13:06:04 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node3.st.com [10.75.129.71])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 43CA821FEBE;
+ Fri, 14 Oct 2022 13:06:04 +0200 (CEST)
+Received: from [10.252.26.147] (10.75.127.121) by SHFDAG1NODE3.st.com
+ (10.75.129.71) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2375.31; Fri, 14 Oct
+ 2022 13:06:01 +0200
+Message-ID: <53b35e0b-799b-c404-66cb-4ce4307b4970@foss.st.com>
+Date: Fri, 14 Oct 2022 13:05:49 +0200
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <PAXPR04MB9185777624723D0FE11C6E4689259@PAXPR04MB9185.eurprd04.prod.outlook.com>
-Cc: Andrew Lunn <andrew@lunn.ch>, "imx@lists.linux.dev" <imx@lists.linux.dev>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>, Eric Dumazet <edumazet@google.com>,
- Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
- Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [EXT] Re: [PATCH v5 0/2] net: phylink: add
- phylink_set_mac_pm() helper
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.2.2
+To: Dan Carpenter <dan.carpenter@oracle.com>, Kishon Vijay Abraham I
+ <kishon@ti.com>
+References: <Y0kq8j6S+5nDdMpr@kili>
+Content-Language: en-US
+From: Amelie Delaunay <amelie.delaunay@foss.st.com>
+In-Reply-To: <Y0kq8j6S+5nDdMpr@kili>
+X-Originating-IP: [10.75.127.121]
+X-ClientProxiedBy: GPXDAG2NODE4.st.com (10.75.127.68) To SHFDAG1NODE3.st.com
+ (10.75.129.71)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.545,FMLib:17.11.122.1
+ definitions=2022-10-14_06,2022-10-14_01,2022-06-22_01
+Cc: kernel-janitors@vger.kernel.org, Vinod Koul <vkoul@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-phy@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH] phy: stm32: fix an error code in probe
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,38 +73,41 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, Oct 13, 2022 at 07:24:02PM +0000, Shenwei Wang wrote:
-> > -----Original Message-----
-> > From: Russell King <linux@armlinux.org.uk>
-> > Sent: Thursday, October 13, 2022 11:07 AM
-> > On Thu, Oct 13, 2022 at 08:39:02AM -0500, Shenwei Wang wrote:
-> > > Per Russell's suggestion, the implementation is changed from the
-> > > helper function to add an extra property in phylink_config structure
-> > > because this change can easily cover SFP usecase too.
-> > 
-> > Which tree are you aiming this for - net-next or net?
+
+
+On 10/14/22 11:25, Dan Carpenter wrote:
+> If "index > usbphyc->nphys" is true then this returns success but it
+> should return -EINVAL.
 > 
-> The patch can be applied to both trees.  You can select the one which is easy to
-> go ahead.
+> Fixes: 94c358da3a05 ("phy: stm32: add support for STM32 USB PHY Controller (USBPHYC)")
+> Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
 
-That may be the case at the moment, because the net-next tree has been
-merged into mainline and the net tree recently updated to mainline, but
-that is not always the case.
+Thanks Dan,
 
-The purpose of the tag in the subject line is to tell the various
-maintainers on the netdev mailing list what _your_ expectation is for
-the patch and where _you_ intend it to be applied.
+Reviewed-by: Amelie Delaunay <amelie.delaunay@foss.st.com>
 
-Thanks.
-
--- 
-RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-FTTP is here! 40Mbps down 10Mbps up. Decent connectivity at last!
+> ---
+>   drivers/phy/st/phy-stm32-usbphyc.c | 2 ++
+>   1 file changed, 2 insertions(+)
+> 
+> diff --git a/drivers/phy/st/phy-stm32-usbphyc.c b/drivers/phy/st/phy-stm32-usbphyc.c
+> index a98c911cc37a..5bb9647b078f 100644
+> --- a/drivers/phy/st/phy-stm32-usbphyc.c
+> +++ b/drivers/phy/st/phy-stm32-usbphyc.c
+> @@ -710,6 +710,8 @@ static int stm32_usbphyc_probe(struct platform_device *pdev)
+>   		ret = of_property_read_u32(child, "reg", &index);
+>   		if (ret || index > usbphyc->nphys) {
+>   			dev_err(&phy->dev, "invalid reg property: %d\n", ret);
+> +			if (!ret)
+> +				ret = -EINVAL;
+>   			goto put_child;
+>   		}
+>   
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
