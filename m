@@ -2,67 +2,73 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D1B3E5FF196
-	for <lists+linux-stm32@lfdr.de>; Fri, 14 Oct 2022 17:44:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 936395FF1EC
+	for <lists+linux-stm32@lfdr.de>; Fri, 14 Oct 2022 18:01:15 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 49347C65040;
-	Fri, 14 Oct 2022 15:44:20 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 499C8C65040;
+	Fri, 14 Oct 2022 16:01:15 +0000 (UTC)
+Received: from mail-qt1-f179.google.com (mail-qt1-f179.google.com
+ [209.85.160.179])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 632C1C6411E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B25CEC6411E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 14 Oct 2022 15:44:18 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 29EF5Aqb026572;
- Fri, 14 Oct 2022 17:44:10 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=I4/sERsHtwpHF60gr5qHYhwhb45dHPOk41nFbouWbSE=;
- b=kcDna8ws2Y7ik5h5ZneO1//hkySzT1WLNZdOI+O7x4yUSE61iAAfaMwHJESZ73FrIGTR
- I2kp2K1rNeWLqO3XI3mn2epFqrTYMGkMbBxwEOMq8HvM1NVdiVt1ZpJreXvSNqVmAwYp
- dIZK1eM6HfWyIkKX2RYOUShvfMD8Ra+1nSe2eqt+kvdXSXVB873UP/AXH8kiWl+UY0vJ
- xp4N3RMiS997goacp32tNG5B+NkWUmnnrVEMMokQVylITfc7/YiduzFbDTn5dOeKdvnb
- qpsaiHaJzquK8uJ9acMvpf256ow6hOZGa4FxD0RidzfCe0VrbmR1GukqSEXh30MfS1K9 0g== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3k769qsyu3-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 14 Oct 2022 17:44:10 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id ABDEA10002A;
- Fri, 14 Oct 2022 17:44:05 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node3.st.com [10.75.129.71])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id A651E237D96;
- Fri, 14 Oct 2022 17:44:05 +0200 (CEST)
-Received: from [10.48.0.213] (10.75.127.50) by SHFDAG1NODE3.st.com
- (10.75.129.71) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2375.31; Fri, 14 Oct
- 2022 17:44:04 +0200
-Message-ID: <f9306425-632f-b20f-3d01-43d4393632b7@foss.st.com>
-Date: Fri, 14 Oct 2022 17:44:04 +0200
+ Fri, 14 Oct 2022 16:01:13 +0000 (UTC)
+Received: by mail-qt1-f179.google.com with SMTP id bb5so3913378qtb.11
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 14 Oct 2022 09:01:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=CkC/MGqITsH4ItvGl9rSsBp9Fg2z5jG2MWsc8Iemckw=;
+ b=Fr5ayiTWxddqFsx5wxbR4O7/MzrPceGCim5Bu0T3ZNdH+eeFpd+WW9DBm67SYsd7+4
+ mmzc+e7wLneSvWfIVHZWqpE05QB9p7mTRtSZuieAIghZgoGUSYx9rCZNwdru2jltw57w
+ Nby7nk1gjpE8AysVdtUOEa/qs+RkzVNLiPaSho4yb5EM8nchwkQ1R9G+i6V/hS28CgvG
+ OEL5gNgAC4FOp2g5q6KxoYvJdkJt7nVsbdPffTS0ECrbYePn976vDxCQLh6siJXxeNdV
+ TkuG9It2RIPs/biTcebqBC2RgsdMmQvfwHMexQ+dssKtDEgA13di+KqS03w95zY+m8wa
+ SAHA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=CkC/MGqITsH4ItvGl9rSsBp9Fg2z5jG2MWsc8Iemckw=;
+ b=y1jcBx8qZ7fd53WTPSt/ner8vUgpvQ9cPG5SY4vsYZGiTq/bFNxl4Jn46XBbQtJAMH
+ i6AIL4ahNeYkEN8zEDPL40WPjpXlY9340IjB7YYP+synykXWOtx0wTSGC/hQLHwauh8i
+ MzIRxC2dCHi5N6glhh47UZdjH9kfEX5r6PlWSSmxPfly5KiSxZf7FGBmlnztiBeb77OZ
+ uPzvn78qB6k24jBvrzFbsuC9fwLVLMa6lNV5cQQv/MeeGyRbsMfU/1OYGJZUH3M1gQf/
+ 6skMm3+9u/jByos8CkHZ+byTSgKzC7ztuOIPJa+EhqK46LCeczpc8wJvpZ5pAb6kyemX
+ vuoA==
+X-Gm-Message-State: ACrzQf0Wj9iGeUryYziX9IV7oWyWy0v7n27Yxi1YWB2e2aRD4OTFOTIN
+ 8dFwOfk0x4osEFfyzbnF721xhw==
+X-Google-Smtp-Source: AMsMyM7CLKUeBtX1XegI5DUhv6wTLsUYKd53nK0+892VZERVqDOsE6ABLVGZyQ0DrZ6RmVBxMvoc3Q==
+X-Received: by 2002:ac8:5f51:0:b0:35d:1a4c:9eaa with SMTP id
+ y17-20020ac85f51000000b0035d1a4c9eaamr4685049qta.198.1665763272437; 
+ Fri, 14 Oct 2022 09:01:12 -0700 (PDT)
+Received: from [192.168.48.77] ([172.58.235.135])
+ by smtp.gmail.com with ESMTPSA id
+ v17-20020a05620a441100b006ce813bb306sm3095238qkp.125.2022.10.14.09.01.09
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 14 Oct 2022 09:01:11 -0700 (PDT)
+Message-ID: <cc7289ac-b75a-62e3-4b58-fc018715c068@linaro.org>
+Date: Fri, 14 Oct 2022 12:01:09 -0400
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.2.2
+ Thunderbird/102.3.2
+To: Marek Vasut <marex@denx.de>, linux-arm-kernel@lists.infradead.org
+References: <20221013221242.218808-1-marex@denx.de>
 Content-Language: en-US
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-References: <20221014170426.1.Ifa806ff30d7c669ba9a3df9c6b64698a2dcc073a@changeid>
-From: Patrick DELAUNAY <patrick.delaunay@foss.st.com>
-In-Reply-To: <20221014170426.1.Ifa806ff30d7c669ba9a3df9c6b64698a2dcc073a@changeid>
-X-Originating-IP: [10.75.127.50]
-X-ClientProxiedBy: SFHDAG2NODE3.st.com (10.75.127.6) To SHFDAG1NODE3.st.com
- (10.75.129.71)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.545,FMLib:17.11.122.1
- definitions=2022-10-14_09,2022-10-14_01,2022-06-22_01
-Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH 1/2] nvmem: stm32: add warning when upper
-	OTPs are updated
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20221013221242.218808-1-marex@denx.de>
+Cc: devicetree@vger.kernel.org, Ulf Hansson <ulf.hansson@linaro.org>,
+ linux-mmc@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>, Rob Herring <robh+dt@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, Andy Gross <agross@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ linux-arm-msm@vger.kernel.org, Linus Walleij <linus.walleij@linaro.org>
+Subject: Re: [Linux-stm32] [PATCH v2 1/3] dt-bindings: mmc: arm,
+ pl18x: Document interrupt-names is ignored
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,57 +80,57 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi,
-
-On 10/14/22 17:04, Patrick Delaunay wrote:
-> As the upper OTPs are ECC protected, they support only one 32 bits word
-> programming.
-> For a second modification of this word, these ECC become invalid and
-> this OTP will be no more accessible, the shadowed value is invalid.
->
-> This patch adds a warning to indicate an upper OTP update, because this
-> operation is dangerous as OTP is not locked by the driver after the first
-> update to avoid a second update.
->
-> Signed-off-by: Patrick Delaunay <patrick.delaunay@foss.st.com>
+On 13/10/2022 18:12, Marek Vasut wrote:
+> Due to inconsistency of existing DTs regarding the content of this IP
+> interrupt-names DT property, document this such that interrupt-names
+> is not used by this IP bindings.
+> 
+> Signed-off-by: Marek Vasut <marex@denx.de>
 > ---
->
->   drivers/nvmem/stm32-romem.c | 3 +++
->   1 file changed, 3 insertions(+)
->
-> diff --git a/drivers/nvmem/stm32-romem.c b/drivers/nvmem/stm32-romem.c
-> index 354be526897f..e3c3c333b5d1 100644
-> --- a/drivers/nvmem/stm32-romem.c
-> +++ b/drivers/nvmem/stm32-romem.c
-> @@ -133,6 +133,9 @@ static int stm32_bsec_write(void *context, unsigned int offset, void *buf,
->   		}
->   	}
->   
-> +	if (offset + bytes >= priv->lower * 4)
+> Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
+> Cc: Andy Gross <agross@kernel.org>
+> Cc: Bjorn Andersson <andersson@kernel.org>
+> Cc: Konrad Dybcio <konrad.dybcio@somainline.org>
+> Cc: Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
+> Cc: Linus Walleij <linus.walleij@linaro.org>
+> Cc: Rob Herring <robh+dt@kernel.org>
+> Cc: Ulf Hansson <ulf.hansson@linaro.org>
+> Cc: Yann Gautier <yann.gautier@foss.st.com>
+> Cc: devicetree@vger.kernel.org
+> Cc: linux-mmc@vger.kernel.org
+> Cc: linux-arm-msm@vger.kernel.org
+> Cc: linux-stm32@st-md-mailman.stormreply.com
+> To: linux-arm-kernel@lists.infradead.org
+> ---
+> V2: Add deprecated:false to interrupts: description
+> ---
+>  Documentation/devicetree/bindings/mmc/arm,pl18x.yaml | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/mmc/arm,pl18x.yaml b/Documentation/devicetree/bindings/mmc/arm,pl18x.yaml
+> index 1e69a5a42439b..1c96da04f0e53 100644
+> --- a/Documentation/devicetree/bindings/mmc/arm,pl18x.yaml
+> +++ b/Documentation/devicetree/bindings/mmc/arm,pl18x.yaml
+> @@ -95,7 +95,9 @@ properties:
+>        PIO (polled I/O) interrupt and occurs when the FIFO needs to be
+>        emptied as part of a bulk read from the card. Some variants have these
+>        two interrupts wired into the same line (logic OR) and in that case
+> -      only one interrupt may be provided.
+> +      only one interrupt may be provided. The interrupt-names property is
+> +      not used due to inconsistency of existing DTs regarding its content.
+> +    deprecated: false
+
+Why do you add deprecated false? All properties are not deprecated by
+default. Did any other referenced schema make it deprecated?
 
 
-Here I miss a dependency for "priv->lower" with a other preliminary 
-patch for STM32MP13x support.
-
-
-> +		dev_warn(dev, "Update of upper OTPs with ECC protection (word programming, only once)\n");
-> +
->   	return 0;
->   }
->   
-
-
-Sorry,
-
-I will sent a V2 soon
-
-
-Patrick
+Best regards,
+Krzysztof
 
 _______________________________________________
 Linux-stm32 mailing list
