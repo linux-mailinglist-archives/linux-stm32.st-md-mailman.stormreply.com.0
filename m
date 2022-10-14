@@ -2,116 +2,61 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C142B5FEA06
-	for <lists+linux-stm32@lfdr.de>; Fri, 14 Oct 2022 10:04:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 71E455FEA97
+	for <lists+linux-stm32@lfdr.de>; Fri, 14 Oct 2022 10:33:07 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 79955C6411F;
-	Fri, 14 Oct 2022 08:04:14 +0000 (UTC)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1B357C6411F;
+	Fri, 14 Oct 2022 08:33:07 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 86F6DC640FF
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 35335C640FF
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 13 Oct 2022 14:53:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1665672803; x=1697208803;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=r+A85jTxRgf0CRicOayM4dLLN5VzvuhrenYOP1O6oTU=;
- b=TC/n/jC7NK8Fm14J/YqYrcGfcKzjprSr8Dc0U9ewftVlCTHw5a9t+znC
- cAiYoE2N4YT7HgJP/C+MHby70RvvZ+L32aYsEqFTKKFgqc6Hs3p2ME0OY
- qZm4JcGVBh8Rhg/IyzGx4hT4gmc7BoupFtpdJ+Ko5DAoqIsZ4KnHFjCZr
- YJoo6+hPJbGurb26EMttW7ynn6f1FoPOUn/pce2XQkfJxteqwHsqm8V42
- XtAEbdqEDGAqJnXT4gxu1l4YW9LXkdPv9t5Tx1ulN7kLKx46JQ6/2HQvW
- nNnWpLRGt0GjHOfyEwCOgGsHfNPzGm+jHTXEgQuvvHnCh4aTCfNrTSmU/ g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10499"; a="305089397"
-X-IronPort-AV: E=Sophos;i="5.95,180,1661842800"; d="scan'208";a="305089397"
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Oct 2022 07:53:21 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10499"; a="872359863"
-X-IronPort-AV: E=Sophos;i="5.95,180,1661842800"; d="scan'208";a="872359863"
-Received: from black.fi.intel.com ([10.237.72.28])
- by fmsmga006.fm.intel.com with ESMTP; 13 Oct 2022 07:53:11 -0700
-Received: by black.fi.intel.com (Postfix, from userid 1001)
- id DC55F26D; Thu, 13 Oct 2022 17:53:31 +0300 (EEST)
-Date: Thu, 13 Oct 2022 17:53:31 +0300
-From: Mika Westerberg <mika.westerberg@linux.intel.com>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Message-ID: <Y0gma4fmhWISrKHe@black.fi.intel.com>
-References: <20221010201453.77401-1-andriy.shevchenko@linux.intel.com>
- <20221010201453.77401-36-andriy.shevchenko@linux.intel.com>
+ Fri, 14 Oct 2022 08:33:05 +0000 (UTC)
+Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 29E6xgKU022708;
+ Fri, 14 Oct 2022 10:32:46 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=selector1;
+ bh=fPnbtOy06TMn1DTm+aL02K49WdHSqDZcH3ig0RdQW+w=;
+ b=IY1/prKcpsMEpY3xSkBRh3tnxU8pNNGxXHX0b1ULvxcQT3P4mCDt+QAU98LsmBqKNDXY
+ NuDXck+ZXityzaIDkdrh9lFoxOyHFsypejVKbqoRkBFQS/s6S+WwahXX3kSSlDF1Pz/i
+ OGirDCKfHr+ynuXQsWslDKqcNyfD15v3lNuYoJQTzHSAfg7aD4I2r/3ChUZkuW9bc66+
+ +dF63I43UPwoSCVhwOGElGYPxY+FQbC+Wlc0MiJm2FFNhy1N/1gjYUCbB2VgeEN+MuI/
+ s4BVMV1+Jv7HwvAqDCWMe9yiiJexADHYBOwHxUbGkKaxodfdxLkY2dvgOyucdf4PAElX Sw== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3k31ey8epe-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 14 Oct 2022 10:32:46 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 5018B100034;
+ Fri, 14 Oct 2022 10:32:35 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 445F02171D5;
+ Fri, 14 Oct 2022 10:32:35 +0200 (CEST)
+Received: from localhost (10.75.127.46) by SHFDAG1NODE2.st.com (10.75.129.70)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2375.31; Fri, 14 Oct
+ 2022 10:32:32 +0200
+From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+To: <alexandre.torgue@foss.st.com>, <robh+dt@kernel.org>,
+ <krzysztof.kozlowski+dt@linaro.org>
+Date: Fri, 14 Oct 2022 10:31:57 +0200
+Message-ID: <20221014083207.20457-1-fabrice.gasnier@foss.st.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20221010201453.77401-36-andriy.shevchenko@linux.intel.com>
-X-Mailman-Approved-At: Fri, 14 Oct 2022 08:04:13 +0000
-Cc: Andrew Lunn <andrew@lunn.ch>, Kent Gibson <warthog618@gmail.com>,
- Tomer Maimon <tmaimon77@gmail.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Linus Walleij <linus.walleij@linaro.org>, Tomasz Figa <tomasz.figa@gmail.com>,
- Sylwester Nawrocki <s.nawrocki@samsung.com>,
- Rafa?? Mi??ecki <rafal@milecki.pl>,
- Horatiu Vultur <horatiu.vultur@microchip.com>,
- Emil Renner Berthing <kernel@esmil.dk>,
- Phil Edworthy <phil.edworthy@renesas.com>, linux-samsung-soc@vger.kernel.org,
- Samuel Holland <samuel@sholland.org>, Michal Simek <michal.simek@xilinx.com>,
- Ludovic Desroches <ludovic.desroches@microchip.com>,
- NXP Linux Team <linux-imx@nxp.com>, Tali Perry <tali.perry1@gmail.com>,
- Sascha Hauer <s.hauer@pengutronix.de>, Thomas Gleixner <tglx@linutronix.de>,
- linux-omap@vger.kernel.org, Andy Shevchenko <andy@kernel.org>,
- Scott Branden <sbranden@broadcom.com>, Andrew Jeffery <andrew@aj.id.au>,
- linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
- Masami Hiramatsu <mhiramat@kernel.org>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Claudiu Beznea <claudiu.beznea@microchip.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Alim Akhtar <alim.akhtar@samsung.com>, linux-aspeed@lists.ozlabs.org,
- Thierry Reding <thierry.reding@gmail.com>, Viresh Kumar <vireshk@kernel.org>,
- Gregory Clement <gregory.clement@bootlin.com>,
- Jonathan Hunter <jonathanh@nvidia.com>, linux-media@vger.kernel.org,
- Charles Keepax <ckeepax@opensource.cirrus.com>, linux-arm-msm@vger.kernel.org,
- Nicolas Ferre <nicolas.ferre@microchip.com>, linux-actions@lists.infradead.org,
- linux-gpio@vger.kernel.org, soc@kernel.org,
- linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- Dong Aisheng <aisheng.dong@nxp.com>, Damien Le Moal <damien.lemoal@wdc.com>,
- linux-renesas-soc@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Jacky Bai <ping.bai@nxp.com>, Basavaraj Natikar <Basavaraj.Natikar@amd.com>,
- alsa-devel@alsa-project.org, Fabio Estevam <festevam@gmail.com>,
- Florian Fainelli <f.fainelli@gmail.com>,
- Benjamin Fair <benjaminfair@google.com>, Nancy Yuen <yuenn@google.com>,
- Chen-Yu Tsai <wens@csie.org>,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
- Joel Stanley <joel@jms.id.au>, Chen-Yu Tsai <wenst@chromium.org>,
- Orson Zhai <orsonzhai@gmail.com>, Ray Jui <rjui@broadcom.com>,
- Richard Fitzgerald <rf@opensource.cirrus.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Avi Fishman <avifishman70@gmail.com>, Patrick Venture <venture@google.com>,
- Shawn Guo <shawnguo@kernel.org>, Andreas F??rber <afaerber@suse.de>,
- Tony Lindgren <tony@atomide.com>, Konrad Dybcio <konrad.dybcio@somainline.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- Paul Cercueil <paul@crapouillou.net>,
- Haojian Zhuang <haojian.zhuang@linaro.org>, linux-riscv@lists.infradead.org,
- Marc Zyngier <maz@kernel.org>, openbmc@lists.ozlabs.org,
- Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
- Prathamesh Shete <pshete@nvidia.com>, Andy Gross <agross@kernel.org>,
- Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
- Manivannan Sadhasivam <mani@kernel.org>,
- Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
- Billy Tsai <billy_tsai@aspeedtech.com>, linux-mediatek@lists.infradead.org,
- linux-tegra@vger.kernel.org,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- patches@opensource.cirrus.com, Sean Wang <sean.wang@kernel.org>,
- linux-mips@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Chunyan Zhang <zhang.lyra@gmail.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Shiraz Hashim <shiraz.linux.kernel@gmail.com>,
- Bartosz Golaszewski <brgl@bgdev.pl>
-Subject: Re: [Linux-stm32] [PATCH v2 35/36] pinctrl: intel: Add missed
-	header(s)
+X-Originating-IP: [10.75.127.46]
+X-ClientProxiedBy: SFHDAG2NODE3.st.com (10.75.127.6) To SHFDAG1NODE2.st.com
+ (10.75.129.70)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.545,FMLib:17.11.122.1
+ definitions=2022-10-14_04,2022-10-13_01,2022-06-22_01
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH 00/10] Add support for USB on STM32MP13
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -128,17 +73,37 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Oct 10, 2022 at 11:14:51PM +0300, Andy Shevchenko wrote:
-> Do not imply that some of the generic headers may be always included.
-> Instead, include explicitly what we are direct user of.
-> 
-> While at it, sort headers alphabetically.
-> 
-> Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Add support for USBPHYC, USB Host and USB OTG on STM32MP13.
+Enable all these interfaces on STM32MP135F-DK board.
+Enable the STM32G0 UCSI driver as module.
+Dependency on PWR and PMIC regulator is tempoarily managed by using
+fixed regulators (resp in the SoC dtsi and the board dts files).
+The USB support is functional when these regulators gets enabled at
+boot time before entering the kernel.
 
-Reviewed-by: Mika Westerberg <mika.westerberg@linux.intel.com>
+Amelie Delaunay (5):
+  ARM: dts: stm32: add USBPHYC and dual USB HS PHY support on stm32mp131
+  ARM: dts: stm32: add UBSH EHCI and OHCI support on stm32mp131
+  ARM: dts: stm32: add USB OTG HS support on stm32mp131
+  ARM: dts: stm32: enable USB HS phys on stm32mp135f-dk
+  ARM: dts: stm32: enable USB Host EHCI on stm32mp135f-dk
 
-For all the intel pinctrl changes.
+Fabrice Gasnier (5):
+  ARM: dts: stm32: add PWR fixed regulators on stm32mp131
+  ARM: dts: stm32: add fixed regulators to support usb on stm32mp135f-dk
+  ARM: dts: stm32: add pins for stm32g0 typec controller on stm32mp13
+  ARM: dts: stm32: enable USB OTG in dual role mode on stm32mp135f-dk
+  ARM: multi_v7_defconfig: enable Type-C UCSI and STM32G0 as modules
+
+ arch/arm/boot/dts/stm32mp13-pinctrl.dtsi |  7 ++
+ arch/arm/boot/dts/stm32mp131.dtsi        | 81 ++++++++++++++++++++
+ arch/arm/boot/dts/stm32mp135f-dk.dts     | 95 ++++++++++++++++++++++++
+ arch/arm/configs/multi_v7_defconfig      |  2 +
+ 4 files changed, 185 insertions(+)
+
+-- 
+2.25.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
