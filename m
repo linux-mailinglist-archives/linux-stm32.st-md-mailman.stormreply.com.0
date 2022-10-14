@@ -2,64 +2,64 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 808865FEFFB
-	for <lists+linux-stm32@lfdr.de>; Fri, 14 Oct 2022 16:15:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BD2005FF00A
+	for <lists+linux-stm32@lfdr.de>; Fri, 14 Oct 2022 16:17:00 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3ACB0C65045;
-	Fri, 14 Oct 2022 14:15:45 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7F5C1C65046;
+	Fri, 14 Oct 2022 14:17:00 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4CFBAC6411E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0F730C65043
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 14 Oct 2022 14:15:44 +0000 (UTC)
-Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 29EAN8AR021777;
- Fri, 14 Oct 2022 16:15:37 +0200
+ Fri, 14 Oct 2022 14:17:00 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 29EAjBIK030839;
+ Fri, 14 Oct 2022 16:16:50 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
  h=from : to : cc :
  subject : date : message-id : in-reply-to : references : mime-version :
  content-transfer-encoding : content-type; s=selector1;
- bh=yYGKU/sL0116cBPXYl1vTRYtoBoXWu/qm/iLLtCJlS0=;
- b=5wd2fFrDJRUqmO65a1KVPYs4UF/9Q+gcAm1U6pwuMbncbOR4uiNZC7ni7wIZ5dz+8Yon
- Qox/XfqeQGqeIgv8MrUw61BFciWmoLVQ0LfF6hnctcNLDTqXbm8GVfTfzKpxGhRvDm1O
- /KUsJ11CLaMT/NAr+8EPQ7yQvd/PB10wdauHNZiZ6M2i04yldKpl9fMYN9SVi4Zv0Av3
- kzvFlbIqeun4heAXMwK8s0sQcHqw4vHFnW2YEDBXTid4R9r/CQ+hxbZCmrn5N+wHqKpH
- WQi+pzWdBNA20bOPvbny1W+VAJRXQ4P5Sxtxk25g9Fw0iyjJ+suY647RaVlCbR5pgwGZ DQ== 
+ bh=WFGDOZoUQlIydYpRD35dhWAM/wewEIYHMtXwngxlfBI=;
+ b=KlQpMyEX/CnJCJ0at1L9Xbx8CUC1xsmQM+KyHXOkwzFHoTd/bpiKcLzcQ1avgBeqxLVv
+ BZi5f1UR4Vt+3HUYjvbL01IdIr3MNjyZI2+V9YBPFzmJ6dSKt35oQpaBUiUPu1D95VGn
+ oeYVf+pul9mvozTmLm/prKkv3WD0oRxfpr03p3KkAFzH/IQr6nLGYDAtJmuvrWaOdg39
+ GxD3TpgG6VFfO1S4p7FGNnajBvU5sPCbxCbQt2V1eEDzmoPORN0K3pCw2FeazqCzMLWZ
+ hYHtQ6bkP/hdHrtslXrYefoDxIhLL7tpYaLCtqHwUj7xKHvZa6aoWbJA2vH9RbBpZvZD 7g== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3k64m7x0ep-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3k769qsb60-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 14 Oct 2022 16:15:37 +0200
+ Fri, 14 Oct 2022 16:16:50 +0200
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 53A63100038;
- Fri, 14 Oct 2022 16:15:33 +0200 (CEST)
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 50718100038;
+ Fri, 14 Oct 2022 16:16:46 +0200 (CEST)
 Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 4E6A5231500;
- Fri, 14 Oct 2022 16:15:33 +0200 (CEST)
-Received: from localhost (10.75.127.118) by SHFDAG1NODE2.st.com (10.75.129.70)
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 4C2D3231505;
+ Fri, 14 Oct 2022 16:16:46 +0200 (CEST)
+Received: from localhost (10.75.127.119) by SHFDAG1NODE2.st.com (10.75.129.70)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2375.31; Fri, 14 Oct
- 2022 16:15:32 +0200
+ 2022 16:16:43 +0200
 From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
 To: <alexandre.torgue@foss.st.com>, <robh+dt@kernel.org>,
  <krzysztof.kozlowski+dt@linaro.org>
-Date: Fri, 14 Oct 2022 16:15:03 +0200
-Message-ID: <20221014141509.211149-5-fabrice.gasnier@foss.st.com>
+Date: Fri, 14 Oct 2022 16:15:04 +0200
+Message-ID: <20221014141509.211149-6-fabrice.gasnier@foss.st.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20221014141509.211149-1-fabrice.gasnier@foss.st.com>
 References: <20221014141509.211149-1-fabrice.gasnier@foss.st.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.118]
-X-ClientProxiedBy: GPXDAG2NODE4.st.com (10.75.127.68) To SHFDAG1NODE2.st.com
+X-Originating-IP: [10.75.127.119]
+X-ClientProxiedBy: GPXDAG2NODE6.st.com (10.75.127.70) To SHFDAG1NODE2.st.com
  (10.75.129.70)
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.545,FMLib:17.11.122.1
  definitions=2022-10-14_08,2022-10-14_01,2022-06-22_01
 Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v2 04/10] ARM: dts: stm32: add USB OTG HS
-	support on stm32mp131
+Subject: [Linux-stm32] [PATCH v2 05/10] ARM: dts: stm32: add fixed
+	regulators to support usb on stm32mp135f-dk
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,46 +76,47 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Amelie Delaunay <amelie.delaunay@foss.st.com>
+Add VDD_USB and 3V3_SW regulators on stm32mp135f-dk. Temporary add them
+as fixed regulators, waiting for full SCMI regulators support.
 
-This patch adds USB OTG HS support on stm32mp131.
+This is a precursor patch to enable USB support on STM32MP13:
+- VDD_USB supplies the STM32MP13 USB internals
+- 3V3_SW supplies various peripherals, including the onboard HUB.
+Note: USB support requires these regulators to be enabled before
+entering the kernel.
 
-Signed-off-by: Amelie Delaunay <amelie.delaunay@foss.st.com>
 Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
 ---
-Changes in v2: adopt "usb" generic node name
----
- arch/arm/boot/dts/stm32mp131.dtsi | 17 +++++++++++++++++
- 1 file changed, 17 insertions(+)
+ arch/arm/boot/dts/stm32mp135f-dk.dts | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
 
-diff --git a/arch/arm/boot/dts/stm32mp131.dtsi b/arch/arm/boot/dts/stm32mp131.dtsi
-index e6129e11660b..6cf930d7721a 100644
---- a/arch/arm/boot/dts/stm32mp131.dtsi
-+++ b/arch/arm/boot/dts/stm32mp131.dtsi
-@@ -253,6 +253,23 @@ dmamux1: dma-router@48002000 {
- 			dma-channels = <16>;
- 		};
- 
-+		usbotg_hs: usb@49000000 {
-+			compatible = "st,stm32mp15-hsotg", "snps,dwc2";
-+			reg = <0x49000000 0x40000>;
-+			clocks = <&rcc USBO_K>;
-+			clock-names = "otg";
-+			resets = <&rcc USBO_R>;
-+			reset-names = "dwc2";
-+			interrupts = <GIC_SPI 96 IRQ_TYPE_LEVEL_HIGH>;
-+			g-rx-fifo-size = <512>;
-+			g-np-tx-fifo-size = <32>;
-+			g-tx-fifo-size = <256 16 16 16 16 16 16 16>;
-+			dr_mode = "otg";
-+			otg-rev = <0x200>;
-+			usb33d-supply = <&usb33>;
-+			status = "disabled";
-+		};
+diff --git a/arch/arm/boot/dts/stm32mp135f-dk.dts b/arch/arm/boot/dts/stm32mp135f-dk.dts
+index de341d17e87d..291f05a958fd 100644
+--- a/arch/arm/boot/dts/stm32mp135f-dk.dts
++++ b/arch/arm/boot/dts/stm32mp135f-dk.dts
+@@ -66,6 +66,22 @@ vdd_sd: vdd-sd {
+ 		regulator-max-microvolt = <2900000>;
+ 		regulator-always-on;
+ 	};
 +
- 		spi4: spi@4c002000 {
- 			compatible = "st,stm32h7-spi";
- 			reg = <0x4c002000 0x400>;
++	vdd_usb: vdd-usb {
++		compatible = "regulator-fixed";
++		regulator-name = "vdd_usb";
++		regulator-min-microvolt = <3300000>;
++		regulator-max-microvolt = <3300000>;
++		regulator-always-on;
++	};
++
++	v3v3_sw: v3v3-sw {
++		compatible = "regulator-fixed";
++		regulator-name = "v3v3_sw";
++		regulator-min-microvolt = <3300000>;
++		regulator-max-microvolt = <3300000>;
++		regulator-always-on;
++	};
+ };
+ 
+ &i2c1 {
 -- 
 2.25.1
 
