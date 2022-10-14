@@ -2,65 +2,64 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8F72D5FEF89
-	for <lists+linux-stm32@lfdr.de>; Fri, 14 Oct 2022 16:01:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BAC925FEFC3
+	for <lists+linux-stm32@lfdr.de>; Fri, 14 Oct 2022 16:07:17 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 05D34C65040;
-	Fri, 14 Oct 2022 14:01:40 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5D6FDC65040;
+	Fri, 14 Oct 2022 14:07:17 +0000 (UTC)
+Received: from mail-oa1-f51.google.com (mail-oa1-f51.google.com
+ [209.85.160.51])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BB7A2C6411E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D74B0C6411E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 14 Oct 2022 14:01:37 +0000 (UTC)
-Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 29EAIp1X021787;
- Fri, 14 Oct 2022 16:01:28 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=hIs62NaFwheRET5awOLLUpS90nMRm/P9eUIk+y/X9QU=;
- b=jO/hdYJgwSs/MqAHxM657DHPMeZXtap/LIsow0SOOKYdnsm8veqVtx4ise5RkT2p3c+O
- KtY3OznKDM2l4n7NKY4RFJ0oTozWd0Bkcv1wpfPHcmABgqSj83dc9qF+jov1AW6lOlwo
- QSNi9OSH7D2ip6AbQ03+bV0gX1fJZyLUwFlO7stEy3+e2fIUJf87IGPg0EX3rqzczhg7
- 8E0stjBoCnzcOQidKJIgbLgZOenV5TukpCFxjQILif/752Xct847Ujew7FAXkTq2ayJr
- KHwojEtqMPChApiudbYIPVCj6zz2l+b3zDcmHbKVL5F1tfPTYOPppDqWIYrT1tFCn5Vo zw== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3k64m7wwdc-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 14 Oct 2022 16:01:28 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id ABFBA100034;
- Fri, 14 Oct 2022 16:01:22 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 7FBE62309C7;
- Fri, 14 Oct 2022 16:01:20 +0200 (CEST)
-Received: from [10.252.6.249] (10.75.127.121) by SHFDAG1NODE2.st.com
- (10.75.129.70) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2375.31; Fri, 14 Oct
- 2022 16:01:16 +0200
-Message-ID: <215c11d7-9bee-a97c-674c-06336f5c7dc9@foss.st.com>
-Date: Fri, 14 Oct 2022 16:01:15 +0200
+ Fri, 14 Oct 2022 14:07:15 +0000 (UTC)
+Received: by mail-oa1-f51.google.com with SMTP id
+ 586e51a60fabf-136b5dd6655so5977460fac.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 14 Oct 2022 07:07:15 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=1yyAUCq/XeIgOsn5nW4H0/zi1fPyOR16Z+9WtLfC5Vo=;
+ b=UXiPw9MpxkFZ5j6s27AmphxbzTQIkJsac1LAT9LwZ/N1u61p3BMJ5ZUKWVsroIVljq
+ US9eO1U2ejV2a00dPS8l86ftoTBBvcF/c4+jMd5eCShL+Haozlcui78aNH6Bsd8zeVeh
+ WydmtO05G+x5C+z5n69gN+GuvRQKyEpRJRG1r1E6Jv7iJUSPoWCcCUO2lqafuWST39Jh
+ 9ylfQgXE6JWRTIyRHjkG717YrFbr+K/DzVZQeuRg3mZtIvYTBDia3nrj9RbLhPbjWI8a
+ c2gR2S+XwkPgGs5KfMifi4Q+x3x4LAX2QN5sWPzcGKJTXXh1I1VG8cSlBGulUIVHHWca
+ 3fHQ==
+X-Gm-Message-State: ACrzQf1/4AbbRA/pI2YEdcuwuuIsRy8lLWnX9w3zzm0xOR8X364iPYda
+ bWWoy6cibtVRjJ84yMtQgw==
+X-Google-Smtp-Source: AMsMyM6o1zHniDWcovTDfOXfFp60qv41U2PCX8VKv1wcpj7BcPxz5mirIT0ybjjPvkw0bJE1KDZhwA==
+X-Received: by 2002:a05:6870:5585:b0:136:8a4d:f131 with SMTP id
+ n5-20020a056870558500b001368a4df131mr8796172oao.239.1665756434519; 
+ Fri, 14 Oct 2022 07:07:14 -0700 (PDT)
+Received: from robh_at_kernel.org (66-90-144-107.dyn.grandenetworks.net.
+ [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
+ v3-20020a0568301bc300b00661a05691fasm1182394ota.79.2022.10.14.07.07.13
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 14 Oct 2022 07:07:14 -0700 (PDT)
+Received: (nullmailer pid 1857839 invoked by uid 1000);
+ Fri, 14 Oct 2022 14:07:14 -0000
+Date: Fri, 14 Oct 2022 09:07:14 -0500
+From: Rob Herring <robh@kernel.org>
+To: Marek Vasut <marex@denx.de>
+Message-ID: <166575643424.1857656.14810437673054950633.robh@kernel.org>
+References: <20221013221242.218808-1-marex@denx.de>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.2.2
-Content-Language: en-US
-To: <alexandre.torgue@foss.st.com>, <robh+dt@kernel.org>,
- <krzysztof.kozlowski+dt@linaro.org>
-References: <20221014092651.25202-1-fabrice.gasnier@foss.st.com>
-From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-In-Reply-To: <20221014092651.25202-1-fabrice.gasnier@foss.st.com>
-X-Originating-IP: [10.75.127.121]
-X-ClientProxiedBy: GPXDAG2NODE4.st.com (10.75.127.68) To SHFDAG1NODE2.st.com
- (10.75.129.70)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.545,FMLib:17.11.122.1
- definitions=2022-10-14_08,2022-10-14_01,2022-06-22_01
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH 00/10] Add support for USB on STM32MP13
+Content-Disposition: inline
+In-Reply-To: <20221013221242.218808-1-marex@denx.de>
+Cc: devicetree@vger.kernel.org, Ulf Hansson <ulf.hansson@linaro.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ linux-arm-msm@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>, Rob Herring <robh+dt@kernel.org>,
+ linux-arm-kernel@lists.infradead.org, Andy Gross <agross@kernel.org>,
+ linux-mmc@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Linus Walleij <linus.walleij@linaro.org>
+Subject: Re: [Linux-stm32] [PATCH v2 1/3] dt-bindings: mmc: arm,
+ pl18x: Document interrupt-names is ignored
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,46 +76,35 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 10/14/22 11:26, Fabrice Gasnier wrote:
-> Add support for USBPHYC, USB Host and USB OTG on STM32MP13.
-> Enable all these interfaces on STM32MP135F-DK board.
-> Enable the STM32G0 UCSI driver as module.
-> Dependency on PWR and PMIC regulator is tempoarily managed by using
-> fixed regulators (resp in the SoC dtsi and the board dts files).
-> The USB support is functional when these regulators gets enabled at
-> boot time before entering the kernel.
-
-Hi,
-
-Please discard this series. Generic node names recommendation has been
-missed.
-I'll send a V2.
-
-Sorry for the noise.
-Best Regards,
-Fabrice
-
+On Fri, 14 Oct 2022 00:12:40 +0200, Marek Vasut wrote:
+> Due to inconsistency of existing DTs regarding the content of this IP
+> interrupt-names DT property, document this such that interrupt-names
+> is not used by this IP bindings.
 > 
-> Amelie Delaunay (5):
->   ARM: dts: stm32: add USBPHYC and dual USB HS PHY support on stm32mp131
->   ARM: dts: stm32: add UBSH EHCI and OHCI support on stm32mp131
->   ARM: dts: stm32: add USB OTG HS support on stm32mp131
->   ARM: dts: stm32: enable USB HS phys on stm32mp135f-dk
->   ARM: dts: stm32: enable USB Host EHCI on stm32mp135f-dk
+> Signed-off-by: Marek Vasut <marex@denx.de>
+> ---
+> Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
+> Cc: Andy Gross <agross@kernel.org>
+> Cc: Bjorn Andersson <andersson@kernel.org>
+> Cc: Konrad Dybcio <konrad.dybcio@somainline.org>
+> Cc: Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
+> Cc: Linus Walleij <linus.walleij@linaro.org>
+> Cc: Rob Herring <robh+dt@kernel.org>
+> Cc: Ulf Hansson <ulf.hansson@linaro.org>
+> Cc: Yann Gautier <yann.gautier@foss.st.com>
+> Cc: devicetree@vger.kernel.org
+> Cc: linux-mmc@vger.kernel.org
+> Cc: linux-arm-msm@vger.kernel.org
+> Cc: linux-stm32@st-md-mailman.stormreply.com
+> To: linux-arm-kernel@lists.infradead.org
+> ---
+> V2: Add deprecated:false to interrupts: description
+> ---
+>  Documentation/devicetree/bindings/mmc/arm,pl18x.yaml | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
 > 
-> Fabrice Gasnier (5):
->   ARM: dts: stm32: add PWR fixed regulators on stm32mp131
->   ARM: dts: stm32: add fixed regulators to support usb on stm32mp135f-dk
->   ARM: dts: stm32: add pins for stm32g0 typec controller on stm32mp13
->   ARM: dts: stm32: enable USB OTG in dual role mode on stm32mp135f-dk
->   ARM: multi_v7_defconfig: enable Type-C UCSI and STM32G0 as modules
-> 
->  arch/arm/boot/dts/stm32mp13-pinctrl.dtsi |  7 ++
->  arch/arm/boot/dts/stm32mp131.dtsi        | 81 ++++++++++++++++++++
->  arch/arm/boot/dts/stm32mp135f-dk.dts     | 95 ++++++++++++++++++++++++
->  arch/arm/configs/multi_v7_defconfig      |  2 +
->  4 files changed, 185 insertions(+)
-> 
+
+Reviewed-by: Rob Herring <robh@kernel.org>
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
