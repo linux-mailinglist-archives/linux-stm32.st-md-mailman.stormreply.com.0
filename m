@@ -2,63 +2,53 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 74E0B5FF572
-	for <lists+linux-stm32@lfdr.de>; Fri, 14 Oct 2022 23:32:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F3F485FF9D5
+	for <lists+linux-stm32@lfdr.de>; Sat, 15 Oct 2022 13:40:18 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 13224C65041;
-	Fri, 14 Oct 2022 21:32:49 +0000 (UTC)
-Received: from mail-oo1-f50.google.com (mail-oo1-f50.google.com
- [209.85.161.50])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 77C7FC6411F;
+	Sat, 15 Oct 2022 11:40:18 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A4AF7C6411F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 41F6EC5C829
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 14 Oct 2022 21:32:47 +0000 (UTC)
-Received: by mail-oo1-f50.google.com with SMTP id
- c13-20020a4ac30d000000b0047663e3e16bso1881152ooq.6
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 14 Oct 2022 14:32:47 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=dVyH5ppmeLm9SOZr74i6fTL8JuopDsI3RJLzigzFYWI=;
- b=QOhZ+axqfXjorCuD0MG9VHr8X5UnfmGEx7IUMXj4p24TDnoSefu+OlsvCp7oydDWpP
- 1lt2slaj6rwAhKCTgH2byyr5/98++lMqkCqAusEWV34ZKUMNhDDvuSF1jCVfI3dfO5/2
- yTQ1BLG2WQgP8sd6200t7krxMVpqR+JsFnPOb+gq1bTenHBAPsVx5x4YwnsFdjAM3UNs
- /YDNqB7j5reLSVzLVOnMS9Dn1PKbfxDHHI4f9ifPt1VoMuRFysZ+9mQONB37duCuyjE8
- RzVjX+G6Zym72ntBs6XwtwP6PifqOuuQ5LvNCZ7QCVMNzeo8KPX8cOYJbhJcnqgqolMh
- Bpkg==
-X-Gm-Message-State: ACrzQf3sk6BHO5JJbDO2A5IyS/+KsybeJR52+E4eVCvmZdNJ8yO3lnlT
- OOys5mJflxIdRMBl6L5LKw==
-X-Google-Smtp-Source: AMsMyM48eD18qFAwbjuP2QLLGMmCexEbpR/cfrktU3suYYJfdqfjzaSfN+CXrnhEdtn0X1TNnQBmxQ==
-X-Received: by 2002:a05:6820:811:b0:476:6b2:4cd2 with SMTP id
- bg17-20020a056820081100b0047606b24cd2mr2736553oob.84.1665783166319; 
- Fri, 14 Oct 2022 14:32:46 -0700 (PDT)
-Received: from robh_at_kernel.org (66-90-144-107.dyn.grandenetworks.net.
- [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
- eo18-20020a056870ec9200b001326b043f37sm1838777oab.36.2022.10.14.14.32.45
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 14 Oct 2022 14:32:45 -0700 (PDT)
-Received: (nullmailer pid 2937600 invoked by uid 1000);
- Fri, 14 Oct 2022 21:32:46 -0000
-Date: Fri, 14 Oct 2022 16:32:46 -0500
-From: Rob Herring <robh@kernel.org>
-To: Patrick Delaunay <patrick.delaunay@foss.st.com>
-Message-ID: <166578316635.2937544.10153180806992297540.robh@kernel.org>
-References: <20221014172324.1.Ifc1812116ff63f5501f3edd155d3cf5c0ecc846c@changeid>
+ Sat, 15 Oct 2022 11:40:17 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id A18DDB8076B;
+ Sat, 15 Oct 2022 11:40:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 4EEFCC433D6;
+ Sat, 15 Oct 2022 11:40:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1665834015;
+ bh=HWzOIdm/SXZX57mUR2lF9IlBwqXaNsfG5gQlazsAX14=;
+ h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
+ b=kJmyrpxEUYr0l9swkQYcPX1k8aIP0Oky7kUnYWUtwOA38ZYLW447BUrBQm86FAWM9
+ 6ukBK60mAOXn7GmiEjfIoWglN71Nr0fqAEvBf5chbUOwiS0E7p2LLqkVwEUlkhyQPZ
+ xjzwmjNGR4cMmPS2VG4ZKWWqArfse6DelXmID8GfSMBW+fzD2XcfsJ/5lb6iNImD+O
+ 84Rv9TzjlE1JxF5dK1JfUJ4P5PSDv2Qg1EWjYRiz6uT8GS6KVvYd0U7jfEYOQw+BlQ
+ sncToAKBKSVLvIMCeloNZitRuWx0Bz1N+ChBBzsykZiJdMldG8osYhk+gPA51Y4npa
+ +n3ZyrQnfcSFA==
+Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
+ 30B4BE4D00C; Sat, 15 Oct 2022 11:40:15 +0000 (UTC)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20221014172324.1.Ifc1812116ff63f5501f3edd155d3cf5c0ecc846c@changeid>
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Rob Herring <robh+dt@kernel.org>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] dt-bindings: nvmem: add new stm32mp13
- compatible for stm32-romem
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: <166583401519.3126.7962999627489450739.git-patchwork-notify@kernel.org>
+Date: Sat, 15 Oct 2022 11:40:15 +0000
+References: <20221014144729.1159257-1-shenwei.wang@nxp.com>
+In-Reply-To: <20221014144729.1159257-1-shenwei.wang@nxp.com>
+To: Shenwei Wang <shenwei.wang@nxp.com>
+Cc: andrew@lunn.ch, f.fainelli@gmail.com, imx@lists.linux.dev,
+ netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux@armlinux.org.uk, edumazet@google.com, joabreu@synopsys.com,
+ mcoquelin.stm32@gmail.com, peppe.cavallaro@st.com, kuba@kernel.org,
+ pabeni@redhat.com, davem@davemloft.net, linux-arm-kernel@lists.infradead.org,
+ hkallweit1@gmail.com
+Subject: Re: [Linux-stm32] [PATCH NET v6 0/2] net: phylink: add
+	phylink_set_mac_pm() helper
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,17 +65,33 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, 14 Oct 2022 17:23:27 +0200, Patrick Delaunay wrote:
-> Add a new compatible for stm32mp13 support.
-> 
-> Signed-off-by: Patrick Delaunay <patrick.delaunay@foss.st.com>
-> ---
-> 
->  Documentation/devicetree/bindings/nvmem/st,stm32-romem.yaml | 1 +
->  1 file changed, 1 insertion(+)
-> 
+Hello:
 
-Acked-by: Rob Herring <robh@kernel.org>
+This series was applied to netdev/net.git (master)
+by David S. Miller <davem@davemloft.net>:
+
+On Fri, 14 Oct 2022 09:47:27 -0500 you wrote:
+> Per Russell's suggestion, the implementation is changed from the helper
+> function to add an extra property in phylink_config structure because this
+> change can easily cover SFP usecase too.
+> 
+> Changes in v6:
+>  - update the fix tag hash and format
+> 
+> [...]
+
+Here is the summary with links:
+  - [NET,v6,1/2] net: phylink: add mac_managed_pm in phylink_config structure
+    https://git.kernel.org/netdev/net/c/96de900ae78e
+  - [NET,v6,2/2] net: stmmac: Enable mac_managed_pm phylink config
+    https://git.kernel.org/netdev/net/c/f151c147b3af
+
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
