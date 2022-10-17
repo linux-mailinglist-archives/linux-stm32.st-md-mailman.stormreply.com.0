@@ -2,56 +2,55 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 375186009B9
-	for <lists+linux-stm32@lfdr.de>; Mon, 17 Oct 2022 11:00:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A8066009CB
+	for <lists+linux-stm32@lfdr.de>; Mon, 17 Oct 2022 11:02:23 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EE055C63325;
-	Mon, 17 Oct 2022 09:00:46 +0000 (UTC)
-Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com
- [209.85.208.54])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 20493C640F5;
+	Mon, 17 Oct 2022 09:02:23 +0000 (UTC)
+Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com
+ [209.85.218.42])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1F321C03FC8
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 82F88C03FC8
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 17 Oct 2022 09:00:46 +0000 (UTC)
-Received: by mail-ed1-f54.google.com with SMTP id q19so15031294edd.10
+ Mon, 17 Oct 2022 09:02:21 +0000 (UTC)
+Received: by mail-ej1-f42.google.com with SMTP id fy4so23349804ejc.5
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 17 Oct 2022 02:00:46 -0700 (PDT)
+ Mon, 17 Oct 2022 02:02:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=683v4hUy0SmafI83To+Isl3SKfGOBhxnh8RoSe2BfVE=;
- b=baKbTregC3QhRdgmJUkHOf2bAAxxqlLwuEXARcNGa3/WqFVAKHDu91dlmMKFRVfyFw
- s7c1IegnAd/ZA9suBgLZpR0L+BaX22/B3jmG+76M+E+k6juRwzMbuoY1EEK+2DFaFcQj
- vHc0HMarKjxDZ2Rl+jhmlSY2HbAdhg3CinUqff9ZoO5rLuy9lkDCeuNKh6PLosoKElld
- ygJbctlrPwFE96iJ1Qbz98jJJdKZ0fYFAZ3+TaiKi2i0SDYwzjKN2AYo1QYvZ+sWtX2p
- M7eda4stYmZU1Rfm0Wf03Nj1MIR+gICsX2oOuXGWZrEvR9SsMZgZz6UrE8IWMJ3PhbRR
- 4DfA==
+ bh=+DzhSmH1cBeruDtFaVKaVattsEwc8q4hTsou+lcv6jY=;
+ b=Q+/ZCk5uKgheops7slfnvs8xurY8FEURvOhzY1eTrLbemXNWuo99WUD81VK+SpWCxY
+ kzFTgIjquxop1/2G9aP+Jc1kCFR8S4kpwj8bfbUkfgvulb3p97gFWTEKh91wZsvKLTym
+ IGt1H+AuIDwRoqtXQsNeJNwHocUiIbe3K3kYShul2xo1CQl7PNr7jxP/Mgn3ZFbkZlVO
+ J/03NK6UfMQfdp40SIbVe6sr9G0pZuHS/nb7XvkWBeDwVFOg7SA3FW+4r+22nfUcKvmM
+ 0KiMdRaZT5lr/vOJbfahx9OfxFGmc5oyK0hcI+W0d917YHmMVMRNLZ2UqBGud/XBVBC3
+ GKCA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=683v4hUy0SmafI83To+Isl3SKfGOBhxnh8RoSe2BfVE=;
- b=KlAFMhWoGvQzTReq17gnPeSxoKlatABGADfHDD2N1S1Z4J7ILRN7cHAYO9IS1A6r3R
- affXfKfMS2o15FzMilZ8Bgg1U5wdYIlyXKsgs06beYoMZSxxkSkItV7F8XOwAQLVXOhQ
- fQdKOp8lndx3pBew+HEzS3R1KMLOew6t8W22dQklih7UR7qyAV/oq2QL01/H8WGp408Y
- T+BmgZWL4QdejbIra5Y+hLEUlT8whkxQGel3CRkdpBxofPOD1vLy1aPkJQizg5F4MztB
- NaPP7y+nIFh8bVJeDc3qagXJt4cWMyWmIGjTWSHxjnBjV32XJoMr2W6kBVnbrep78Jso
- Tcpg==
-X-Gm-Message-State: ACrzQf0hON1Hi4vU4KKHc7fHTyBhs6nDdk2pX0iyu3GScmOyHWPoWVUg
- sKnS6K2f7M9ebQBDFjB7X7Yabj2D7lJW6W69TI6lcg==
-X-Google-Smtp-Source: AMsMyM7KLX1HAl4ni5IX/0ZUj/Z5Ng5V/LISTngsrYYu60h+W61fPfqDHKqOkVMzkfb8AN6gXeEI3n5jApzCVtxB1uY=
-X-Received: by 2002:a05:6402:d0b:b0:458:a244:4e99 with SMTP id
- eb11-20020a0564020d0b00b00458a2444e99mr9354686edb.46.1665997245656; Mon, 17
- Oct 2022 02:00:45 -0700 (PDT)
+ bh=+DzhSmH1cBeruDtFaVKaVattsEwc8q4hTsou+lcv6jY=;
+ b=zjxsddHyfZMlodcFimzUmHhQIvIhSGz4GaYKxR9fP+NoqvUdXnKx1lcXaueBLPq6P/
+ UHayjfRGQ0oXKMjP8UEhr7K/DibhoTTgQJpZyiyvjFDtPTmXQp2SvpHNuI+rU3v2q0aJ
+ 21Y/RlG7S1Dlv4fdSn5tUFd0LrI+RWyUzUIaZan4CPa5568PCoHdjtud1XBRZEvImPvE
+ jGBKkSXTxt8HZguihDrruky9Gfu3ZlXwo33jtWXVJXiKQTHHwCDnfV9uztPZnEGIa1nj
+ SzB76+OKBRAorjcijCDyD8TUhUpBwFCP2SS+psrv+UMn8DLy72pgC3Aczomvh3jU5RVP
+ HgLQ==
+X-Gm-Message-State: ACrzQf13gT6hAcFQUyxwnQV5VjC6XxKACO3qCBQQJ8N1Z4UOOPHLamfu
+ tsxVPsqNrZNDwlxwPD82TYdlsaMHcHQZG2aYI/iQ0g==
+X-Google-Smtp-Source: AMsMyM4UDyy4gIfLqRCo+xVdWhgvw2QqSAfU62C/zZi9P70aMTTtCFnk0FMes6AqIcJjw6kKWDVGE0urcJP2xkclA/A=
+X-Received: by 2002:a17:906:8a48:b0:78d:acdc:b7d9 with SMTP id
+ gx8-20020a1709068a4800b0078dacdcb7d9mr7921544ejc.500.1665997341068; Mon, 17
+ Oct 2022 02:02:21 -0700 (PDT)
 MIME-Version: 1.0
 References: <20221010201453.77401-1-andriy.shevchenko@linux.intel.com>
- <20221010201453.77401-12-andriy.shevchenko@linux.intel.com>
-In-Reply-To: <20221010201453.77401-12-andriy.shevchenko@linux.intel.com>
+In-Reply-To: <20221010201453.77401-1-andriy.shevchenko@linux.intel.com>
 From: Linus Walleij <linus.walleij@linaro.org>
-Date: Mon, 17 Oct 2022 11:00:34 +0200
-Message-ID: <CACRpkdZLfPKwsABYnz0fAhqTGDnE7ZJzFJ4v_M2XF6_DTjW0Mw@mail.gmail.com>
+Date: Mon, 17 Oct 2022 11:02:09 +0200
+Message-ID: <CACRpkdZ1M3ckw+jFgvMqG4jvR-t_44GPoZ6ZDXszwZCJr-cDpg@mail.gmail.com>
 To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 Cc: Andrew Lunn <andrew@lunn.ch>, Kent Gibson <warthog618@gmail.com>,
  Tomer Maimon <tmaimon77@gmail.com>,
@@ -118,8 +117,8 @@ Cc: Andrew Lunn <andrew@lunn.ch>, Kent Gibson <warthog618@gmail.com>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
  Shiraz Hashim <shiraz.linux.kernel@gmail.com>,
  Bartosz Golaszewski <brgl@bgdev.pl>
-Subject: Re: [Linux-stm32] [PATCH v2 11/36] pinctrl: ingenic: Add missed
-	header(s)
+Subject: Re: [Linux-stm32] [rft,
+	PATCH v2 00/36] pinctrl: Clean up and add missed headers
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -139,14 +138,17 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 On Mon, Oct 10, 2022 at 10:15 PM Andy Shevchenko
 <andriy.shevchenko@linux.intel.com> wrote:
 
-> Do not imply that some of the generic headers may be always included.
-> Instead, include explicitly what we are direct user of.
+> Currently the header inclusion inside the pinctrl headers seems more arbitrary
+> than logical. This series is basically out of two parts:
+> - add missed headers to the pin control drivers / users
+> - clean up the headers of pin control subsystem
 >
-> While at it, sort headers alphabetically.
->
-> Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+> The idea is to have this series to be pulled after -rc1 by the GPIO and
+> pin control subsystems, so all new drivers will utilize cleaned up headers
+> of the pin control.
 
-Patch applied!
+Aha I see you want to send a pull request so I backed out the applied patches
+from the series for now.
 
 Yours,
 Linus Walleij
