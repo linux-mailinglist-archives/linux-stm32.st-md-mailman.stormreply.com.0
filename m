@@ -2,71 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B8A49600BB3
-	for <lists+linux-stm32@lfdr.de>; Mon, 17 Oct 2022 11:58:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D1B40600DD2
+	for <lists+linux-stm32@lfdr.de>; Mon, 17 Oct 2022 13:33:05 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5A1BCC63325;
-	Mon, 17 Oct 2022 09:58:17 +0000 (UTC)
-Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com
- [209.85.218.52])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6806DC63325;
+	Mon, 17 Oct 2022 11:33:05 +0000 (UTC)
+Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com
+ [209.85.210.178])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8FA54C03FDA
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 01EB1C03FDA
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 17 Oct 2022 09:58:15 +0000 (UTC)
-Received: by mail-ej1-f52.google.com with SMTP id d26so23625684eje.10
+ Mon, 17 Oct 2022 11:33:03 +0000 (UTC)
+Received: by mail-pf1-f178.google.com with SMTP id i3so10778340pfc.11
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 17 Oct 2022 02:58:15 -0700 (PDT)
+ Mon, 17 Oct 2022 04:33:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=B/Byge+Vue4J7Z80ANz5rsyrsoG83IPzp3UARO7F6/s=;
- b=MUHWuYJag6UdIGNJWiJWxn8WAAZ42CXEFTnECn+6skOIqg/uauJYEVg974vMd9sMEk
- zE6zI7z18arTxzgN6sTudVQN0HH06/PzZJ+4X18m75Vy/bF7X3X+fEqiRAyn7cwpLeMe
- 1S3Gkx8o3vO463r4qBmru/5P+HeV+QtYD7XFaMKTFQkBKEINKik6GSXOIGd4TakIzo/y
- 22NV5ZvkVpf1kqoQWmMXugwEs+G3K/F00qz0J2gsZD0tyQrxzJVUb1Rv0OE2tl8BfDdT
- 1Thx86QUb3Eo9BPHEOAqRcLadLrkm9xIrIOP9q0Nx+T+iVZxfi/eZSxmcD7GZQwM5l3C
- f6SA==
+ bh=KK+EXo53xH3teNZkrCGFVk1lVgEFpbXtxVfs298qg8I=;
+ b=HTuAuT+sap6LyXtbF9CDJq/7i56C5laYDIbS8NJe5BA/8qOeb8n3sNwqunDQFR9hFW
+ C2/BtSDsHgLdRs9WJC81iXFM0cYxf+DIkFQQ0XqmzBGsD6KxROYIpb67OIHtY6PiRDCO
+ lNnLNFJ5ihblBr1VqDFpm80eth60CNzq6xRLEK+syBVKhDJh7YlpPg0j/8JFJaZWlfqt
+ kzvtzegfot9Px//p1Ob7kbmI55ywHgz1vBtUBpptNIdH7muH85k5Sx+MLatACXt92xRh
+ ineJtNidz1dn+yU+FHFUunXRA9rggp2WMU1jqwDY1avYurHV69Ic5SyjyBBfdCnQUkl2
+ MUDA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=B/Byge+Vue4J7Z80ANz5rsyrsoG83IPzp3UARO7F6/s=;
- b=5J2sFgOUxuxwyqk/CIhaKXoBlSZ1cidiOKFZ6fO8Yuhqs7f4+M3lv1Hr7XqrleusgS
- SFiJShZFXDrb3czeqhmOjDLf56RKJkQkCSWnJAnk+C+Zlw/j/bbNB3xkrtDu+nebkxPv
- K0jbrR1jQlnTI1xKcgSbzD26jmBAx+r1gyV0IeMalkcpRg1gGrzHymWhk63chU59M8Oj
- u0btiqW/4G1fovf+Mz6DbkdjJP/tsVUIqVzpJ7/c2fozfJrKPz6n0ipM3dkMIb8wxXd+
- lzKWb0zrZhbSghwPgstnoQvSxhlH3cmIs68vzkM0WIiXcxFooJ0etAgcA6zU3SRIxx8/
- r6eA==
-X-Gm-Message-State: ACrzQf1AhBfwPLODobLw6Hej+2qbVioJZIhJ3gfKqN3T6WuwEbU9h4Ll
- hNZWr9hGTbuKKaFzvm/toJF8PeHXqvvT05ov4l96/A==
-X-Google-Smtp-Source: AMsMyM4L0M6bcj2Wvh4KRdD8EKd7M4z6+eLVjZHPl1MFPGYp6JqekMO0KaAEpqZ8kDbWIS4EMUIR8qxcTy8qHdB2D/8=
-X-Received: by 2002:a17:907:7606:b0:78e:61d:757e with SMTP id
- jx6-20020a170907760600b0078e061d757emr7556783ejc.690.1666000695069; Mon, 17
- Oct 2022 02:58:15 -0700 (PDT)
+ bh=KK+EXo53xH3teNZkrCGFVk1lVgEFpbXtxVfs298qg8I=;
+ b=OCWKLVgWq8WhixkjDoPfjmlg306SnUmSSW6vlLte2O6AwcVFFn2HHpmKq7Vn7FQ3H8
+ 3RQqpoWoV4Ap2oLYfPM+NOK3NYu4PcjuZaMfDHJl6NtJu+H66QZdBH0jYKbY6IxSecDn
+ eWBC5Kx9CHYakzuPRkMHJ6rS1OO6KjqRFF9XJg4K8XWp/1f3v9iXk4SZX8nD8QUIPNrf
+ KsUyjmPSKmaYzq57fK1j5vIkKh+YwVaw4UXqb2E5W4dZkAEWRIUhST+bt/PT5CZpjhgb
+ Gd2mPpvsERQDHh95nmaznFPI4r4auvlUJXQnkmbEvtZ84rO+0lI449nLAAj50s99I3ZK
+ oh4Q==
+X-Gm-Message-State: ACrzQf07jdMI1SEHhqL2Zxp8fhAVj0WRXRlhRLbERJiJWNsGE6tl7i3f
+ Sp25O1DupRabNIrwAHOYiI5fDXrYRtLOl5CN7zhAww==
+X-Google-Smtp-Source: AMsMyM5zMeFWy2lKl6Fz9ckb/XeM2zFIV36/AvksTHriobx/KjpX5Gwr1gl4rEOssMIUi1/8xahfsXVC8FrBys9OkjE=
+X-Received: by 2002:a63:464d:0:b0:441:5968:cd0e with SMTP id
+ v13-20020a63464d000000b004415968cd0emr10687642pgk.595.1666006382483; Mon, 17
+ Oct 2022 04:33:02 -0700 (PDT)
 MIME-Version: 1.0
-References: <20221010201453.77401-1-andriy.shevchenko@linux.intel.com>
- <CACRpkdZ1M3ckw+jFgvMqG4jvR-t_44GPoZ6ZDXszwZCJr-cDpg@mail.gmail.com>
- <Y00f5exY2fM6IwZ+@smile.fi.intel.com>
-In-Reply-To: <Y00f5exY2fM6IwZ+@smile.fi.intel.com>
-From: Linus Walleij <linus.walleij@linaro.org>
-Date: Mon, 17 Oct 2022 11:58:03 +0200
-Message-ID: <CACRpkdYmSOGtFz8W_RRkDqMXRRBOSB9jqSn65Sah90bf3Gm59g@mail.gmail.com>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Kent Gibson <warthog618@gmail.com>, linux-omap@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-aspeed@lists.ozlabs.org,
- patches@opensource.cirrus.com, Bartosz Golaszewski <brgl@bgdev.pl>,
- linux-actions@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-mips@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- linux-gpio@vger.kernel.org, linux-samsung-soc@vger.kernel.org,
- linux-mediatek@lists.infradead.org, linux-rpi-kernel@lists.infradead.org,
- linux-arm-msm@vger.kernel.org, linux-tegra@vger.kernel.org,
- linux-riscv@lists.infradead.org, alsa-devel@alsa-project.org,
- openbmc@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org,
- linux-media@vger.kernel.org
-Subject: Re: [Linux-stm32] [rft,
-	PATCH v2 00/36] pinctrl: Clean up and add missed headers
+References: <20221013221242.218808-1-marex@denx.de>
+In-Reply-To: <20221013221242.218808-1-marex@denx.de>
+From: Ulf Hansson <ulf.hansson@linaro.org>
+Date: Mon, 17 Oct 2022 13:32:24 +0200
+Message-ID: <CAPDyKFoLrxwjjrULD=6+jd4tWSffdmVr1X0z+kByid02tevNQg@mail.gmail.com>
+To: Marek Vasut <marex@denx.de>
+Cc: devicetree@vger.kernel.org, linux-mmc@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>, Rob Herring <robh+dt@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, Andy Gross <agross@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ linux-arm-msm@vger.kernel.org, Linus Walleij <linus.walleij@linaro.org>,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v2 1/3] dt-bindings: mmc: arm,
+ pl18x: Document interrupt-names is ignored
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,33 +77,59 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Oct 17, 2022 at 11:27 AM Andy Shevchenko
-<andriy.shevchenko@linux.intel.com> wrote:
-> On Mon, Oct 17, 2022 at 11:02:09AM +0200, Linus Walleij wrote:
-> > On Mon, Oct 10, 2022 at 10:15 PM Andy Shevchenko
-> > <andriy.shevchenko@linux.intel.com> wrote:
-> >
-> > > Currently the header inclusion inside the pinctrl headers seems more arbitrary
-> > > than logical. This series is basically out of two parts:
-> > > - add missed headers to the pin control drivers / users
-> > > - clean up the headers of pin control subsystem
-> > >
-> > > The idea is to have this series to be pulled after -rc1 by the GPIO and
-> > > pin control subsystems, so all new drivers will utilize cleaned up headers
-> > > of the pin control.
-> >
-> > Aha I see you want to send a pull request so I backed out the applied patches
-> > from the series for now.
+On Fri, 14 Oct 2022 at 00:13, Marek Vasut <marex@denx.de> wrote:
 >
-> Can I consider all that you answered to as Rb tag?
+> Due to inconsistency of existing DTs regarding the content of this IP
+> interrupt-names DT property, document this such that interrupt-names
+> is not used by this IP bindings.
+>
+> Signed-off-by: Marek Vasut <marex@denx.de>
 
-Acked-by: Linus Walleij <linus.walleij@linaro.org>
+Applied for next, thanks!
 
-I haven't reviewed in detail but I fully trust you to do the right thing
-and fix any fallout so will happily pull this.
+Kind regards
+Uffe
 
-Yours,
-Linus Walleij
+
+> ---
+> Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
+> Cc: Andy Gross <agross@kernel.org>
+> Cc: Bjorn Andersson <andersson@kernel.org>
+> Cc: Konrad Dybcio <konrad.dybcio@somainline.org>
+> Cc: Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
+> Cc: Linus Walleij <linus.walleij@linaro.org>
+> Cc: Rob Herring <robh+dt@kernel.org>
+> Cc: Ulf Hansson <ulf.hansson@linaro.org>
+> Cc: Yann Gautier <yann.gautier@foss.st.com>
+> Cc: devicetree@vger.kernel.org
+> Cc: linux-mmc@vger.kernel.org
+> Cc: linux-arm-msm@vger.kernel.org
+> Cc: linux-stm32@st-md-mailman.stormreply.com
+> To: linux-arm-kernel@lists.infradead.org
+> ---
+> V2: Add deprecated:false to interrupts: description
+> ---
+>  Documentation/devicetree/bindings/mmc/arm,pl18x.yaml | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+>
+> diff --git a/Documentation/devicetree/bindings/mmc/arm,pl18x.yaml b/Documentation/devicetree/bindings/mmc/arm,pl18x.yaml
+> index 1e69a5a42439b..1c96da04f0e53 100644
+> --- a/Documentation/devicetree/bindings/mmc/arm,pl18x.yaml
+> +++ b/Documentation/devicetree/bindings/mmc/arm,pl18x.yaml
+> @@ -95,7 +95,9 @@ properties:
+>        PIO (polled I/O) interrupt and occurs when the FIFO needs to be
+>        emptied as part of a bulk read from the card. Some variants have these
+>        two interrupts wired into the same line (logic OR) and in that case
+> -      only one interrupt may be provided.
+> +      only one interrupt may be provided. The interrupt-names property is
+> +      not used due to inconsistency of existing DTs regarding its content.
+> +    deprecated: false
+>      minItems: 1
+>      maxItems: 2
+>
+> --
+> 2.35.1
+>
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
