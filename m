@@ -2,65 +2,64 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D1B40600DD2
-	for <lists+linux-stm32@lfdr.de>; Mon, 17 Oct 2022 13:33:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 70D39600E01
+	for <lists+linux-stm32@lfdr.de>; Mon, 17 Oct 2022 13:45:25 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6806DC63325;
-	Mon, 17 Oct 2022 11:33:05 +0000 (UTC)
-Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com
- [209.85.210.178])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 21BD9C63325;
+	Mon, 17 Oct 2022 11:45:25 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 01EB1C03FDA
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 470A1C03FDA
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 17 Oct 2022 11:33:03 +0000 (UTC)
-Received: by mail-pf1-f178.google.com with SMTP id i3so10778340pfc.11
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 17 Oct 2022 04:33:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=KK+EXo53xH3teNZkrCGFVk1lVgEFpbXtxVfs298qg8I=;
- b=HTuAuT+sap6LyXtbF9CDJq/7i56C5laYDIbS8NJe5BA/8qOeb8n3sNwqunDQFR9hFW
- C2/BtSDsHgLdRs9WJC81iXFM0cYxf+DIkFQQ0XqmzBGsD6KxROYIpb67OIHtY6PiRDCO
- lNnLNFJ5ihblBr1VqDFpm80eth60CNzq6xRLEK+syBVKhDJh7YlpPg0j/8JFJaZWlfqt
- kzvtzegfot9Px//p1Ob7kbmI55ywHgz1vBtUBpptNIdH7muH85k5Sx+MLatACXt92xRh
- ineJtNidz1dn+yU+FHFUunXRA9rggp2WMU1jqwDY1avYurHV69Ic5SyjyBBfdCnQUkl2
- MUDA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=KK+EXo53xH3teNZkrCGFVk1lVgEFpbXtxVfs298qg8I=;
- b=OCWKLVgWq8WhixkjDoPfjmlg306SnUmSSW6vlLte2O6AwcVFFn2HHpmKq7Vn7FQ3H8
- 3RQqpoWoV4Ap2oLYfPM+NOK3NYu4PcjuZaMfDHJl6NtJu+H66QZdBH0jYKbY6IxSecDn
- eWBC5Kx9CHYakzuPRkMHJ6rS1OO6KjqRFF9XJg4K8XWp/1f3v9iXk4SZX8nD8QUIPNrf
- KsUyjmPSKmaYzq57fK1j5vIkKh+YwVaw4UXqb2E5W4dZkAEWRIUhST+bt/PT5CZpjhgb
- Gd2mPpvsERQDHh95nmaznFPI4r4auvlUJXQnkmbEvtZ84rO+0lI449nLAAj50s99I3ZK
- oh4Q==
-X-Gm-Message-State: ACrzQf07jdMI1SEHhqL2Zxp8fhAVj0WRXRlhRLbERJiJWNsGE6tl7i3f
- Sp25O1DupRabNIrwAHOYiI5fDXrYRtLOl5CN7zhAww==
-X-Google-Smtp-Source: AMsMyM5zMeFWy2lKl6Fz9ckb/XeM2zFIV36/AvksTHriobx/KjpX5Gwr1gl4rEOssMIUi1/8xahfsXVC8FrBys9OkjE=
-X-Received: by 2002:a63:464d:0:b0:441:5968:cd0e with SMTP id
- v13-20020a63464d000000b004415968cd0emr10687642pgk.595.1666006382483; Mon, 17
- Oct 2022 04:33:02 -0700 (PDT)
+ Mon, 17 Oct 2022 11:45:23 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 29HB84lq024503;
+ Mon, 17 Oct 2022 13:45:01 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=selector1;
+ bh=sJi3zYlsCoKwtFbhGwVnjUqovsaLgnxPrwJLLX6bmNk=;
+ b=zI1dKaT4j5EnFMn6FKyZKGxmpS0TrKhmHZ1DFziF3Kv6AoAuBmbx/Wgg/DGWwFZPCfPp
+ 7dOCb6H3/dPgQuP+zp2aEeErcOuuntKc3zXp9h45WnDakSOodtKskGGBqIsSuEs8+Cz7
+ rVNpReC3DcAeXpXnc8UhVWg5OXYd4hXuY4iUG0HsnCU6EmjWRlPhpYXblIzw8+RB8XeC
+ iPN9apkEZ2XhsGDjZFkJnIFiJCm07VcauSnZU3betHOShUai+dJ2YGMVputTqPS3/3Xx
+ aJVGBXMFuy4pf0ITBcuS5DxhQn8Wj6KzQrxMDol8Up4c37pRcvSdsWKmXJIbxE46q72j Nw== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3k7krjkykc-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 17 Oct 2022 13:45:01 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 8528B100034;
+ Mon, 17 Oct 2022 13:44:58 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node3.st.com [10.75.129.71])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 3695D228A4C;
+ Mon, 17 Oct 2022 13:44:58 +0200 (CEST)
+Received: from localhost (10.75.127.49) by SHFDAG1NODE3.st.com (10.75.129.71)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2375.31; Mon, 17 Oct
+ 2022 13:44:55 +0200
+From: Patrick Delaunay <patrick.delaunay@foss.st.com>
+To: Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski
+ <krzysztof.kozlowski+dt@linaro.org>, Maxime Coquelin
+ <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>
+Date: Mon, 17 Oct 2022 13:44:52 +0200
+Message-ID: <20221017134437.1.I167a5efc1f8777cce14518c6fa38400ac684de3e@changeid>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-References: <20221013221242.218808-1-marex@denx.de>
-In-Reply-To: <20221013221242.218808-1-marex@denx.de>
-From: Ulf Hansson <ulf.hansson@linaro.org>
-Date: Mon, 17 Oct 2022 13:32:24 +0200
-Message-ID: <CAPDyKFoLrxwjjrULD=6+jd4tWSffdmVr1X0z+kByid02tevNQg@mail.gmail.com>
-To: Marek Vasut <marex@denx.de>
-Cc: devicetree@vger.kernel.org, linux-mmc@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@somainline.org>, Rob Herring <robh+dt@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com, Andy Gross <agross@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- linux-arm-msm@vger.kernel.org, Linus Walleij <linus.walleij@linaro.org>,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2 1/3] dt-bindings: mmc: arm,
- pl18x: Document interrupt-names is ignored
+X-Originating-IP: [10.75.127.49]
+X-ClientProxiedBy: SFHDAG2NODE3.st.com (10.75.127.6) To SHFDAG1NODE3.st.com
+ (10.75.129.71)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.545,FMLib:17.11.122.1
+ definitions=2022-10-17_09,2022-10-17_02,2022-06-22_01
+Cc: Patrick Delaunay <patrick.delaunay@foss.st.com>, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [PATCH] ARM: dts: stm32mp13: fix compatible for BSEC
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,59 +76,35 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, 14 Oct 2022 at 00:13, Marek Vasut <marex@denx.de> wrote:
->
-> Due to inconsistency of existing DTs regarding the content of this IP
-> interrupt-names DT property, document this such that interrupt-names
-> is not used by this IP bindings.
->
-> Signed-off-by: Marek Vasut <marex@denx.de>
+Use the new compatible for stm32mp13 support.
 
-Applied for next, thanks!
+Signed-off-by: Patrick Delaunay <patrick.delaunay@foss.st.com>
+---
+This device tree modification depends on the binding modification
+introduced by the patch:
 
-Kind regards
-Uffe
+dt-bindings: nvmem: add new stm32mp13 compatible for stm32-romem
+https://patchwork.kernel.org/project/linux-arm-kernel/patch/20221014172324.1.Ifc1812116ff63f5501f3edd155d3cf5c0ecc846c@changeid/
 
+ arch/arm/boot/dts/stm32mp131.dtsi | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-> ---
-> Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
-> Cc: Andy Gross <agross@kernel.org>
-> Cc: Bjorn Andersson <andersson@kernel.org>
-> Cc: Konrad Dybcio <konrad.dybcio@somainline.org>
-> Cc: Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
-> Cc: Linus Walleij <linus.walleij@linaro.org>
-> Cc: Rob Herring <robh+dt@kernel.org>
-> Cc: Ulf Hansson <ulf.hansson@linaro.org>
-> Cc: Yann Gautier <yann.gautier@foss.st.com>
-> Cc: devicetree@vger.kernel.org
-> Cc: linux-mmc@vger.kernel.org
-> Cc: linux-arm-msm@vger.kernel.org
-> Cc: linux-stm32@st-md-mailman.stormreply.com
-> To: linux-arm-kernel@lists.infradead.org
-> ---
-> V2: Add deprecated:false to interrupts: description
-> ---
->  Documentation/devicetree/bindings/mmc/arm,pl18x.yaml | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
->
-> diff --git a/Documentation/devicetree/bindings/mmc/arm,pl18x.yaml b/Documentation/devicetree/bindings/mmc/arm,pl18x.yaml
-> index 1e69a5a42439b..1c96da04f0e53 100644
-> --- a/Documentation/devicetree/bindings/mmc/arm,pl18x.yaml
-> +++ b/Documentation/devicetree/bindings/mmc/arm,pl18x.yaml
-> @@ -95,7 +95,9 @@ properties:
->        PIO (polled I/O) interrupt and occurs when the FIFO needs to be
->        emptied as part of a bulk read from the card. Some variants have these
->        two interrupts wired into the same line (logic OR) and in that case
-> -      only one interrupt may be provided.
-> +      only one interrupt may be provided. The interrupt-names property is
-> +      not used due to inconsistency of existing DTs regarding its content.
-> +    deprecated: false
->      minItems: 1
->      maxItems: 2
->
-> --
-> 2.35.1
->
+diff --git a/arch/arm/boot/dts/stm32mp131.dtsi b/arch/arm/boot/dts/stm32mp131.dtsi
+index dd35a607073d..89a027f894f9 100644
+--- a/arch/arm/boot/dts/stm32mp131.dtsi
++++ b/arch/arm/boot/dts/stm32mp131.dtsi
+@@ -398,7 +398,7 @@ rtc: rtc@5c004000 {
+ 		};
+ 
+ 		bsec: efuse@5c005000 {
+-			compatible = "st,stm32mp15-bsec";
++			compatible = "st,stm32mp13-bsec";
+ 			reg = <0x5c005000 0x400>;
+ 			#address-cells = <1>;
+ 			#size-cells = <1>;
+-- 
+2.25.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
