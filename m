@@ -2,56 +2,56 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 35CCF600959
-	for <lists+linux-stm32@lfdr.de>; Mon, 17 Oct 2022 10:55:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 50495600965
+	for <lists+linux-stm32@lfdr.de>; Mon, 17 Oct 2022 10:55:55 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EA79AC63325;
-	Mon, 17 Oct 2022 08:55:18 +0000 (UTC)
-Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com
- [209.85.218.52])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 133CFC640F5;
+	Mon, 17 Oct 2022 08:55:55 +0000 (UTC)
+Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com
+ [209.85.208.41])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 243A9C5C829
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B64A1C03FC8
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 17 Oct 2022 08:55:17 +0000 (UTC)
-Received: by mail-ej1-f52.google.com with SMTP id w18so23282061ejq.11
+ Mon, 17 Oct 2022 08:55:53 +0000 (UTC)
+Received: by mail-ed1-f41.google.com with SMTP id z97so15019721ede.8
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 17 Oct 2022 01:55:17 -0700 (PDT)
+ Mon, 17 Oct 2022 01:55:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=683v4hUy0SmafI83To+Isl3SKfGOBhxnh8RoSe2BfVE=;
- b=yh4gzS5j3E4tCagHSwKjsRB2D1NOckCdomUE0gtF58azViXpZNByTAPXR4JV/CtvYv
- q4tCVK5OGKlNGfgKtRRatn2kxV30bhURMOuoiT0+XSo2+xVRrHPmS5i+kYSOacCFZ+0a
- j27oMilynR263Ca2Z0HqVTTD8mOTR4jS0QBuwnC9tOrz5DECvKlGwNNlIMtLQERnjOte
- lVfh2uy+xxRim2qrTwgD8vMZezW1YnKWd1ekR1gNHSRm5GU5dYe3VMrF2bRJ7PPnnkKI
- QgXoGg6/mM0OdsaLjE06nrmJLuea0SnesCsOY6w68ATxSHYRMh+tKAGrPD/lEEvHswQQ
- apmQ==
+ bh=0VJfZvANzZSSJeUMuF0Bxg8wfo9w1jXMkbWMGF7oMMk=;
+ b=h8+aqXSTBEqQ0IHMBMNPhjr9SeCQwb1DFE7zkS7DuxOCyYhHHtEWnTIS3wxspPh+e+
+ dUFV5PNa0sGCsNrwAajogaI8BJInUOBN9fIYiJI/oU5K+wai5B9kXx/nWczzGZn3YnwP
+ dSN9YZlxfr1D33tXkQPlB+vMfiTQmXxIk9siNbYHU2BhxLv9gcaHQJHRdNBb5x7wM8O+
+ +VLFpvPmLHSDc/qglGFSwgzIKVsEZYrUlNVCgmB7aiCvO/FbFGei6MZbNlqZs7gJcLZF
+ 8EdrOlLH7TUP0zCW+HtIWbOKHx5eCALtG+HqK2uSjMBtvJ6kLKy1FcrS23HAKCV8r3ir
+ nX9Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=683v4hUy0SmafI83To+Isl3SKfGOBhxnh8RoSe2BfVE=;
- b=YZbQ5e4GQSkZDOILy4ddo5GnhncyiyfIdAOf5upSQ3PTXoBFSn0/oFDybrd1cQcC3l
- tImACvq7zGlJekk8ARjx610b9mf58T/p0XTsInFYUaxiEvgo1e9cWK3mT1/gKHub473K
- vkPpB6z4LWKCGylamj5E2EMvAZdf5F8tfFI1J5z5g+uhmrMVXGt6yd6/tdXfA5dLVIVc
- 9e1zoqMpJGXnEPu/6U5qpl713H+RYSSu2XpWf3/fRVS5iSWGoZejVmpSTMjyI2fMO0ze
- Rf6rCs2MCxe4Ynw8crGtf7IgWK9BNNXUAnWaSQpCqvTfXULb4o+2LjtBDFPnMsG2bF9a
- 3q5A==
-X-Gm-Message-State: ACrzQf3MgxcX76p3/Dlz82r6vD9ullcg0TAtqMN8peRzekZnzUTp9RLY
- LzL2cE8ijXrwjjmP5Lk4iBNBsjVpjTfUA0UiJuQ/3w==
-X-Google-Smtp-Source: AMsMyM43vXwvK92NqzRgXOr6e3HqI7LddmnbG9Y6dMkLeX9nnOSP21d7jr78DxN0hn4eGFFvDm092JlDpSX92gAoaVI=
-X-Received: by 2002:a17:907:16aa:b0:6fe:91d5:18d2 with SMTP id
- hc42-20020a17090716aa00b006fe91d518d2mr4733579ejc.190.1665996916565; Mon, 17
- Oct 2022 01:55:16 -0700 (PDT)
+ bh=0VJfZvANzZSSJeUMuF0Bxg8wfo9w1jXMkbWMGF7oMMk=;
+ b=0nAw9PLdqk00QS7GCvzaNfOahWjC5JvBhbzvBCPtlJefMzpNDtgUnu2ez6gyilGYHE
+ +vIt64b8KDXD5XV70JgJWrHp6yi6yvqgnHkSqUe9lP7ViEtxiGIC23R/2GsDdA+nsYwb
+ 7xFSNb9ImjUuAvqrinw9kEcO+WpLPCtEFHfsEt15uCRtPAF7T6Eso7EpPGsvSmP8TY5u
+ KJDUbsY5gzGZ20zq7LEr+Dl2OGoscUdALnzcayREMzW8twWJBJSj6SYCZrrXFIjsQbts
+ NpA6Tp6A7+AZTktJ4HZmT7OlsD31vY3i53kYQKrGUaTEUCZFAYAc6uQnG3YNUBWttxAx
+ KkRw==
+X-Gm-Message-State: ACrzQf1PWFa5sQlejbpzG4N4oFVRVYm8ZmpJEXlwOdII7rS2GInH40Fv
+ zTVLdHllSKJ5WR5wB10S/3mB+iXrChrbCyWjjlIpxA==
+X-Google-Smtp-Source: AMsMyM57m/gTM4FXoXHWW8JhWcxwAvnJ7+QZw08tKnD2ELBC87aTVl3IiilpZvbf4XnjE5yqDfpwW9WdeuSfTrdIvn4=
+X-Received: by 2002:a05:6402:448:b0:45c:8de5:4fc with SMTP id
+ p8-20020a056402044800b0045c8de504fcmr9328128edw.133.1665996953352; Mon, 17
+ Oct 2022 01:55:53 -0700 (PDT)
 MIME-Version: 1.0
 References: <20221010201453.77401-1-andriy.shevchenko@linux.intel.com>
- <20221010201453.77401-5-andriy.shevchenko@linux.intel.com>
-In-Reply-To: <20221010201453.77401-5-andriy.shevchenko@linux.intel.com>
+ <20221010201453.77401-6-andriy.shevchenko@linux.intel.com>
+In-Reply-To: <20221010201453.77401-6-andriy.shevchenko@linux.intel.com>
 From: Linus Walleij <linus.walleij@linaro.org>
-Date: Mon, 17 Oct 2022 10:55:05 +0200
-Message-ID: <CACRpkdZZab+QYRFkM1Jje0U87bydS+DOMAyuJhtR5ZMf301Dkw@mail.gmail.com>
+Date: Mon, 17 Oct 2022 10:55:41 +0200
+Message-ID: <CACRpkdZC+7SoXqODurpamufCWQ574=X0mA26YApe_-a_ZjA-hw@mail.gmail.com>
 To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 Cc: Andrew Lunn <andrew@lunn.ch>, Kent Gibson <warthog618@gmail.com>,
  Tomer Maimon <tmaimon77@gmail.com>,
@@ -118,7 +118,7 @@ Cc: Andrew Lunn <andrew@lunn.ch>, Kent Gibson <warthog618@gmail.com>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
  Shiraz Hashim <shiraz.linux.kernel@gmail.com>,
  Bartosz Golaszewski <brgl@bgdev.pl>
-Subject: Re: [Linux-stm32] [PATCH v2 04/36] pinctrl: actions: Add missed
+Subject: Re: [Linux-stm32] [PATCH v2 05/36] pinctrl: aspeed: Add missed
 	header(s)
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -146,7 +146,7 @@ On Mon, Oct 10, 2022 at 10:15 PM Andy Shevchenko
 >
 > Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 
-Patch applied!
+Patch applied.
 
 Yours,
 Linus Walleij
