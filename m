@@ -2,25 +2,25 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 25568602527
-	for <lists+linux-stm32@lfdr.de>; Tue, 18 Oct 2022 09:10:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 01ECD602525
+	for <lists+linux-stm32@lfdr.de>; Tue, 18 Oct 2022 09:10:42 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D8606C65048;
-	Tue, 18 Oct 2022 07:10:42 +0000 (UTC)
-Received: from out30-45.freemail.mail.aliyun.com
- (out30-45.freemail.mail.aliyun.com [115.124.30.45])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BB727C65043;
+	Tue, 18 Oct 2022 07:10:41 +0000 (UTC)
+Received: from out30-54.freemail.mail.aliyun.com
+ (out30-54.freemail.mail.aliyun.com [115.124.30.54])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 453C1C65040
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8B342C65043
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 18 Oct 2022 07:10:41 +0000 (UTC)
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R171e4; CH=green; DM=||false|;
+ Tue, 18 Oct 2022 07:10:39 +0000 (UTC)
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R991e4; CH=green; DM=||false|;
  DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=ay29a033018046050;
  MF=tianjia.zhang@linux.alibaba.com; NM=1; PH=DS; RN=15; SR=0;
- TI=SMTPD_---0VSTUHcm_1666077032; 
+ TI=SMTPD_---0VSTWsnC_1666077035; 
 Received: from localhost(mailfrom:tianjia.zhang@linux.alibaba.com
- fp:SMTPD_---0VSTUHcm_1666077032) by smtp.aliyun-inc.com;
- Tue, 18 Oct 2022 15:10:34 +0800
+ fp:SMTPD_---0VSTWsnC_1666077035) by smtp.aliyun-inc.com;
+ Tue, 18 Oct 2022 15:10:36 +0800
 From: Tianjia Zhang <tianjia.zhang@linux.alibaba.com>
 To: Herbert Xu <herbert@gondor.apana.org.au>,
  "David S. Miller" <davem@davemloft.net>,
@@ -31,15 +31,15 @@ To: Herbert Xu <herbert@gondor.apana.org.au>,
  Eric Biggers <ebiggers@kernel.org>, linux-crypto@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com
-Date: Tue, 18 Oct 2022 15:10:02 +0800
-Message-Id: <20221018071006.5717-12-tianjia.zhang@linux.alibaba.com>
+Date: Tue, 18 Oct 2022 15:10:03 +0800
+Message-Id: <20221018071006.5717-13-tianjia.zhang@linux.alibaba.com>
 X-Mailer: git-send-email 2.24.3 (Apple Git-128)
 In-Reply-To: <20221018071006.5717-1-tianjia.zhang@linux.alibaba.com>
 References: <20221018071006.5717-1-tianjia.zhang@linux.alibaba.com>
 MIME-Version: 1.0
 Cc: Tianjia Zhang <tianjia.zhang@linux.alibaba.com>
-Subject: [Linux-stm32] [PATCH v2 11/15] crypto: essiv - allow digestsize to
-	be greater than keysize
+Subject: [Linux-stm32] [PATCH v2 12/15] crypto: arm64/sm4 - add CE
+	implementation for ESSIV mode
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -56,58 +56,262 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-In essiv mode, the digest of the hash algorithm is used as the key to
-encrypt the IV. The current implementation requires that the digest size
-of the hash algorithm is equal to the key size, which will exclude
-algorithms that do not meet this situation, such as essiv(cbc(sm4),sm3),
-the hash result of sm3 is fixed 256 bits, and the key size of sm4
-symmetric algorithm is fixed 128 bits, which makes it impossible to use
-essiv mode.
-
-This patch allows algorithms whose digest size is greater than key size
-to use esssiv mode by truncating the digest.
+This patch is a CE-optimized assembly implementation for ESSIV mode.
+The assembly part is realized by reusing the CBC mode.
 
 Signed-off-by: Tianjia Zhang <tianjia.zhang@linux.alibaba.com>
 ---
- crypto/essiv.c | 11 +++++++----
- 1 file changed, 7 insertions(+), 4 deletions(-)
+ arch/arm64/crypto/sm4-ce-core.S |  42 +++++++++++
+ arch/arm64/crypto/sm4-ce-glue.c | 128 ++++++++++++++++++++++++++++++++
+ 2 files changed, 170 insertions(+)
 
-diff --git a/crypto/essiv.c b/crypto/essiv.c
-index e33369df9034..6ee5a61bcae4 100644
---- a/crypto/essiv.c
-+++ b/crypto/essiv.c
-@@ -68,6 +68,7 @@ static int essiv_skcipher_setkey(struct crypto_skcipher *tfm,
- {
- 	struct essiv_tfm_ctx *tctx = crypto_skcipher_ctx(tfm);
- 	u8 salt[HASH_MAX_DIGESTSIZE];
-+	unsigned int saltlen;
- 	int err;
+diff --git a/arch/arm64/crypto/sm4-ce-core.S b/arch/arm64/crypto/sm4-ce-core.S
+index ddd15ec09d38..6b923c3209a0 100644
+--- a/arch/arm64/crypto/sm4-ce-core.S
++++ b/arch/arm64/crypto/sm4-ce-core.S
+@@ -154,6 +154,26 @@ SYM_FUNC_START(sm4_ce_crypt)
+ 	ret;
+ SYM_FUNC_END(sm4_ce_crypt)
  
- 	crypto_skcipher_clear_flags(tctx->u.skcipher, CRYPTO_TFM_REQ_MASK);
-@@ -86,8 +87,11 @@ static int essiv_skcipher_setkey(struct crypto_skcipher *tfm,
- 	crypto_cipher_set_flags(tctx->essiv_cipher,
- 				crypto_skcipher_get_flags(tfm) &
- 				CRYPTO_TFM_REQ_MASK);
--	return crypto_cipher_setkey(tctx->essiv_cipher, salt,
--				    crypto_shash_digestsize(tctx->hash));
++.align 3
++SYM_FUNC_START(sm4_ce_essiv_cbc_enc)
++	/* input:
++	 *   x0: round key array, CTX
++	 *   x1: dst
++	 *   x2: src
++	 *   x3: iv (big endian, 128 bit)
++	 *   w4: nblocks
++	 *   x5: round key array for IV
++	 */
++	ld1		{RIV.16b}, [x3]
 +
-+	saltlen = min(crypto_shash_digestsize(tctx->hash),
-+		      crypto_skcipher_max_keysize(tctx->u.skcipher));
++	SM4_PREPARE(x5)
 +
-+	return crypto_cipher_setkey(tctx->essiv_cipher, salt, saltlen);
++	SM4_CRYPT_BLK(RIV)
++
++	SM4_PREPARE(x0)
++
++	b		.Lcbc_enc_loop_4x
++
+ .align 3
+ SYM_FUNC_START(sm4_ce_cbc_enc)
+ 	/* input:
+@@ -208,6 +228,27 @@ SYM_FUNC_START(sm4_ce_cbc_enc)
+ 
+ 	ret
+ SYM_FUNC_END(sm4_ce_cbc_enc)
++SYM_FUNC_END(sm4_ce_essiv_cbc_enc)
++
++.align 3
++SYM_FUNC_START(sm4_ce_essiv_cbc_dec)
++	/* input:
++	 *   x0: round key array, CTX
++	 *   x1: dst
++	 *   x2: src
++	 *   x3: iv (big endian, 128 bit)
++	 *   w4: nblocks
++	 *   x5: round key array for IV
++	 */
++	ld1		{RIV.16b}, [x3]
++
++	SM4_PREPARE(x5)
++
++	SM4_CRYPT_BLK(RIV)
++
++	SM4_PREPARE(x0)
++
++	b		.Lcbc_dec_loop_8x
+ 
+ .align 3
+ SYM_FUNC_START(sm4_ce_cbc_dec)
+@@ -306,6 +347,7 @@ SYM_FUNC_START(sm4_ce_cbc_dec)
+ 
+ 	ret
+ SYM_FUNC_END(sm4_ce_cbc_dec)
++SYM_FUNC_END(sm4_ce_essiv_cbc_dec)
+ 
+ .align 3
+ SYM_FUNC_START(sm4_ce_cbc_cts_enc)
+diff --git a/arch/arm64/crypto/sm4-ce-glue.c b/arch/arm64/crypto/sm4-ce-glue.c
+index 8222766f712a..6267ec1cfac0 100644
+--- a/arch/arm64/crypto/sm4-ce-glue.c
++++ b/arch/arm64/crypto/sm4-ce-glue.c
+@@ -19,6 +19,8 @@
+ #include <crypto/scatterwalk.h>
+ #include <crypto/xts.h>
+ #include <crypto/sm4.h>
++#include <crypto/sm3.h>
++#include <crypto/hash.h>
+ 
+ #define BYTES2BLKS(nbytes)	((nbytes) >> 4)
+ 
+@@ -35,6 +37,12 @@ asmlinkage void sm4_ce_cbc_cts_enc(const u32 *rkey, u8 *dst, const u8 *src,
+ 				   u8 *iv, unsigned int nbytes);
+ asmlinkage void sm4_ce_cbc_cts_dec(const u32 *rkey, u8 *dst, const u8 *src,
+ 				   u8 *iv, unsigned int nbytes);
++asmlinkage void sm4_ce_essiv_cbc_enc(const u32 *rkey1, u8 *dst, const u8 *src,
++				     u8 *iv, unsigned int nblocks,
++				     const u32 *rkey2_enc);
++asmlinkage void sm4_ce_essiv_cbc_dec(const u32 *rkey1, u8 *dst, const u8 *src,
++				     u8 *iv, unsigned int nblocks,
++				     const u32 *rkey2_enc);
+ asmlinkage void sm4_ce_cfb_enc(const u32 *rkey, u8 *dst, const u8 *src,
+ 			       u8 *iv, unsigned int nblks);
+ asmlinkage void sm4_ce_cfb_dec(const u32 *rkey, u8 *dst, const u8 *src,
+@@ -58,6 +66,12 @@ struct sm4_xts_ctx {
+ 	struct sm4_ctx key2;
+ };
+ 
++struct sm4_essiv_cbc_ctx {
++	struct sm4_ctx key1;
++	struct sm4_ctx key2;
++	struct crypto_shash *hash;
++};
++
+ static int sm4_setkey(struct crypto_skcipher *tfm, const u8 *key,
+ 		      unsigned int key_len)
+ {
+@@ -96,6 +110,27 @@ static int sm4_xts_setkey(struct crypto_skcipher *tfm, const u8 *key,
+ 	return 0;
  }
  
- static int essiv_aead_setkey(struct crypto_aead *tfm, const u8 *key,
-@@ -418,8 +422,7 @@ static bool essiv_supported_algorithms(const char *essiv_cipher_name,
- 	if (IS_ERR(alg))
- 		return false;
++static int sm4_essiv_cbc_setkey(struct crypto_skcipher *tfm, const u8 *key,
++				unsigned int key_len)
++{
++	struct sm4_essiv_cbc_ctx *ctx = crypto_skcipher_ctx(tfm);
++	u8 __aligned(8) digest[SM3_DIGEST_SIZE];
++
++	if (key_len != SM4_KEY_SIZE)
++		return -EINVAL;
++
++	crypto_shash_tfm_digest(ctx->hash, key, key_len, digest);
++
++	kernel_neon_begin();
++	sm4_ce_expand_key(key, ctx->key1.rkey_enc,
++			  ctx->key1.rkey_dec, crypto_sm4_fk, crypto_sm4_ck);
++	sm4_ce_expand_key(digest, ctx->key2.rkey_enc,
++			  ctx->key2.rkey_dec, crypto_sm4_fk, crypto_sm4_ck);
++	kernel_neon_end();
++
++	return 0;
++}
++
+ static int sm4_ecb_do_crypt(struct skcipher_request *req, const u32 *rkey)
+ {
+ 	struct skcipher_walk walk;
+@@ -497,6 +532,81 @@ static int sm4_xts_decrypt(struct skcipher_request *req)
+ 	return sm4_xts_crypt(req, false);
+ }
  
--	if (hash_alg->digestsize < alg->cra_cipher.cia_min_keysize ||
--	    hash_alg->digestsize > alg->cra_cipher.cia_max_keysize)
-+	if (hash_alg->digestsize < alg->cra_cipher.cia_min_keysize)
- 		goto out;
++static int sm4_essiv_cbc_init_tfm(struct crypto_skcipher *tfm)
++{
++	struct sm4_essiv_cbc_ctx *ctx = crypto_skcipher_ctx(tfm);
++
++	ctx->hash = crypto_alloc_shash("sm3", 0, 0);
++
++	return PTR_ERR_OR_ZERO(ctx->hash);
++}
++
++static void sm4_essiv_cbc_exit_tfm(struct crypto_skcipher *tfm)
++{
++	struct sm4_essiv_cbc_ctx *ctx = crypto_skcipher_ctx(tfm);
++
++	crypto_free_shash(ctx->hash);
++}
++
++static int sm4_essiv_cbc_crypt(struct skcipher_request *req, bool encrypt)
++{
++	struct crypto_skcipher *tfm = crypto_skcipher_reqtfm(req);
++	struct sm4_essiv_cbc_ctx *ctx = crypto_skcipher_ctx(tfm);
++	struct skcipher_walk walk;
++	unsigned int nblocks;
++	int err;
++
++	err = skcipher_walk_virt(&walk, req, false);
++
++	if ((nblocks = walk.nbytes / SM4_BLOCK_SIZE) > 0) {
++		kernel_neon_begin();
++
++		if (encrypt)
++			sm4_ce_essiv_cbc_enc(ctx->key1.rkey_enc,
++					     walk.dst.virt.addr,
++					     walk.src.virt.addr, walk.iv,
++					     nblocks, ctx->key2.rkey_enc);
++		else
++			sm4_ce_essiv_cbc_dec(ctx->key1.rkey_dec,
++					     walk.dst.virt.addr,
++					     walk.src.virt.addr, walk.iv,
++					     nblocks, ctx->key2.rkey_enc);
++
++		kernel_neon_end();
++
++		err = skcipher_walk_done(&walk, walk.nbytes % SM4_BLOCK_SIZE);
++		if (err)
++			return err;
++	}
++
++	while ((nblocks = walk.nbytes / SM4_BLOCK_SIZE) > 0) {
++		kernel_neon_begin();
++
++		if (encrypt)
++			sm4_ce_cbc_enc(ctx->key1.rkey_enc, walk.dst.virt.addr,
++				       walk.src.virt.addr, walk.iv, nblocks);
++		else
++			sm4_ce_cbc_dec(ctx->key1.rkey_dec, walk.dst.virt.addr,
++				       walk.src.virt.addr, walk.iv, nblocks);
++
++		kernel_neon_end();
++
++		err = skcipher_walk_done(&walk, walk.nbytes % SM4_BLOCK_SIZE);
++	}
++
++	return err;
++}
++
++static int sm4_essiv_cbc_encrypt(struct skcipher_request *req)
++{
++	return sm4_essiv_cbc_crypt(req, true);
++}
++
++static int sm4_essiv_cbc_decrypt(struct skcipher_request *req)
++{
++	return sm4_essiv_cbc_crypt(req, false);
++}
++
+ static struct skcipher_alg sm4_algs[] = {
+ 	{
+ 		.base = {
+@@ -591,6 +701,23 @@ static struct skcipher_alg sm4_algs[] = {
+ 		.setkey		= sm4_xts_setkey,
+ 		.encrypt	= sm4_xts_encrypt,
+ 		.decrypt	= sm4_xts_decrypt,
++	}, {
++		.base = {
++			.cra_name		= "essiv(cbc(sm4),sm3)",
++			.cra_driver_name	= "essiv-cbc-sm4-sm3-ce",
++			.cra_priority		= 400 + 1,
++			.cra_blocksize		= SM4_BLOCK_SIZE,
++			.cra_ctxsize		= sizeof(struct sm4_essiv_cbc_ctx),
++			.cra_module		= THIS_MODULE,
++		},
++		.min_keysize	= SM4_KEY_SIZE,
++		.max_keysize	= SM4_KEY_SIZE,
++		.ivsize		= SM4_BLOCK_SIZE,
++		.setkey		= sm4_essiv_cbc_setkey,
++		.encrypt	= sm4_essiv_cbc_encrypt,
++		.decrypt	= sm4_essiv_cbc_decrypt,
++		.init		= sm4_essiv_cbc_init_tfm,
++		.exit		= sm4_essiv_cbc_exit_tfm,
+ 	}
+ };
  
- 	if (ivsize != alg->cra_blocksize)
+@@ -616,5 +743,6 @@ MODULE_ALIAS_CRYPTO("cfb(sm4)");
+ MODULE_ALIAS_CRYPTO("ctr(sm4)");
+ MODULE_ALIAS_CRYPTO("cts(cbc(sm4))");
+ MODULE_ALIAS_CRYPTO("xts(sm4)");
++MODULE_ALIAS_CRYPTO("essiv(cbc(sm4),sm3)");
+ MODULE_AUTHOR("Tianjia Zhang <tianjia.zhang@linux.alibaba.com>");
+ MODULE_LICENSE("GPL v2");
 -- 
 2.24.3 (Apple Git-128)
 
