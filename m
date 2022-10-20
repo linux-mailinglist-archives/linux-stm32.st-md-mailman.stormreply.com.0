@@ -2,67 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A69456064A6
-	for <lists+linux-stm32@lfdr.de>; Thu, 20 Oct 2022 17:34:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 10EA16064D1
+	for <lists+linux-stm32@lfdr.de>; Thu, 20 Oct 2022 17:40:32 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 54D94C64106;
-	Thu, 20 Oct 2022 15:34:30 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AE6E6C64106;
+	Thu, 20 Oct 2022 15:40:31 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
  [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B73F6C55596
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 16166C55596
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 20 Oct 2022 15:34:28 +0000 (UTC)
+ Thu, 20 Oct 2022 15:40:29 +0000 (UTC)
 Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 29KERMVB021524;
- Thu, 20 Oct 2022 17:34:14 +0200
+ by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 29KF1qlD021421;
+ Thu, 20 Oct 2022 17:40:22 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
  h=message-id : date :
  mime-version : subject : to : cc : references : from : in-reply-to :
  content-type : content-transfer-encoding; s=selector1;
- bh=IqHKS/vCDR7EQlr9WEEoFigCoOnxdq42cEM/JJjFv8E=;
- b=XgdhoTwM8cSZiLtXHGRVFaiqo8PgGfMqCNqy8CmE9MyBoGla2uvR3tLSNksAJRBeRHCh
- F2PchDrgZb2ljEVsGAwjvIuVtMPEpASsqgUAyT1fnXW74jkPymsQD5CRbonbGq+KBKpC
- NCMNa/82N4BLH56okQUANbjKSKx1GfLDvdTRJ40QH6hAUmYHCtym/ZWeW+oA2CRQS0F4
- //WoFvpR3lCzKadk7YbhpAD84ob+zP5mLd2WsDwM974DUBigr1bT0kLzfbi5XtaXqrLF
- bABnfhMof2Ql2BEgKChJhgJrGmkB3VYDL4dM4EBp2idqfqhzL5mHxZ7pgk88rIIC/5ou Wg== 
+ bh=urtQHaHa6OMulFvvogF5Ua4YN5DB/uUt3SowT9Wt9Rc=;
+ b=PN9EUHoz4g3Bvobs6TLq2R+DfW3bGWk8AyvIi/m7AnhSZZaQdRPQEtyviFKeWzYQKfjv
+ vtx8xtieTNs8z4wx3RPzG9HEYA9Eccb+FJXQDp6qerWn4JDZhE/E15y+hKiQoLA0thGd
+ mz/mfnpb8slrIBsxiubw6rKmUimWRgGfJD2osGBbMzrTVcSMHAwh+kxtvlCP685UvQhS
+ EwU58gPv7fnLpHSSRo5jwQwJqXVSi/HhRCa1PHMYwl/D+SYXDTvgVpNnBNu0tH0Q9f/u
+ U0pcR8BulvU3LlLITUIVgflcXrtAhHy8PhkudN2Oz1B2b5CSKGklNHiEhXHtUWJaVZUH Iw== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3k7j9nc1b9-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3k7j9nc2bn-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 20 Oct 2022 17:34:14 +0200
+ Thu, 20 Oct 2022 17:40:22 +0200
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 6EF1F10002A;
- Thu, 20 Oct 2022 17:34:08 +0200 (CEST)
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 6BF19100038;
+ Thu, 20 Oct 2022 17:40:18 +0200 (CEST)
 Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 6A727237D8A;
- Thu, 20 Oct 2022 17:34:08 +0200 (CEST)
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 4D76123BDFB;
+ Thu, 20 Oct 2022 17:40:18 +0200 (CEST)
 Received: from [10.201.21.93] (10.201.21.93) by SHFDAG1NODE1.st.com
  (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.31; Thu, 20 Oct
- 2022 17:34:08 +0200
-Message-ID: <54d0a3cb-3a48-1336-ddda-4fb0e1a20df6@foss.st.com>
-Date: Thu, 20 Oct 2022 17:34:07 +0200
+ 2022 17:40:17 +0200
+Message-ID: <7921ba61-d501-a677-3d44-e88c2ef191ce@foss.st.com>
+Date: Thu, 20 Oct 2022 17:40:16 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.11.0
 Content-Language: en-US
-To: Yann Gautier <yann.gautier@foss.st.com>, Rob Herring <robh+dt@kernel.org>, 
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>
-References: <20220921160334.3227138-1-yann.gautier@foss.st.com>
+To: Marek Vasut <marex@denx.de>, <linux-arm-kernel@lists.infradead.org>
+References: <20220923023745.272076-1-marex@denx.de>
 From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
-In-Reply-To: <20220921160334.3227138-1-yann.gautier@foss.st.com>
+In-Reply-To: <20220923023745.272076-1-marex@denx.de>
 X-Originating-IP: [10.201.21.93]
 X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SHFDAG1NODE1.st.com
  (10.75.129.69)
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.545,FMLib:17.11.122.1
  definitions=2022-10-20_07,2022-10-20_01,2022-06-22_01
-Cc: devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH] ARM: dts: stm32: add sdmmc cd-gpios for
-	STM32MP135F-DK
+Cc: Patrick Delaunay <patrick.delaunay@foss.st.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>
+Subject: Re: [Linux-stm32] [PATCH] ARM: dts: stm32: Drop stm32mp15xc.dtsi
+	from Avenger96
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,34 +78,45 @@ Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Yann
+Hi Marek
 
-On 9/21/22 18:03, Yann Gautier wrote:
-> On STM32MP135F-DK, the SD card detect GPIO is GPIOH4.
+On 9/23/22 04:37, Marek Vasut wrote:
+> The Avenger96 is populated with STM32MP157A DHCOR SoM, drop the
+> stm32mp15xc.dtsi which should only be included in DTs of devices
+> which are populated with STM32MP15xC/F SoC as the stm32mp15xc.dtsi
+> enables CRYP block not present in the STM32MP15xA/D SoC .
 > 
-> Signed-off-by: Yann Gautier <yann.gautier@foss.st.com>
+> Fixes: 7e76f82acd9e1 ("ARM: dts: stm32: Split Avenger96 into DHCOR SoM and Avenger96 board")
+> Signed-off-by: Marek Vasut <marex@denx.de>
 > ---
->   arch/arm/boot/dts/stm32mp135f-dk.dts | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
+> Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
+> Cc: Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>
+> Cc: Patrice Chotard <patrice.chotard@foss.st.com>
+> Cc: Patrick Delaunay <patrick.delaunay@foss.st.com>
+> Cc: linux-stm32@st-md-mailman.stormreply.com
+> To: linux-arm-kernel@lists.infradead.org
+> ---
+>   arch/arm/boot/dts/stm32mp157a-dhcor-avenger96.dts | 1 -
+>   1 file changed, 1 deletion(-)
 > 
-> diff --git a/arch/arm/boot/dts/stm32mp135f-dk.dts b/arch/arm/boot/dts/stm32mp135f-dk.dts
-> index e6b8ffd332c7..52f86596ce12 100644
-> --- a/arch/arm/boot/dts/stm32mp135f-dk.dts
-> +++ b/arch/arm/boot/dts/stm32mp135f-dk.dts
-> @@ -82,7 +82,7 @@ &sdmmc1 {
->   	pinctrl-0 = <&sdmmc1_b4_pins_a &sdmmc1_clk_pins_a>;
->   	pinctrl-1 = <&sdmmc1_b4_od_pins_a &sdmmc1_clk_pins_a>;
->   	pinctrl-2 = <&sdmmc1_b4_sleep_pins_a>;
-> -	broken-cd;
-> +	cd-gpios = <&gpioh 4 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
->   	disable-wp;
->   	st,neg-edge;
->   	bus-width = <4>;
+> diff --git a/arch/arm/boot/dts/stm32mp157a-dhcor-avenger96.dts b/arch/arm/boot/dts/stm32mp157a-dhcor-avenger96.dts
+> index 2e3c9fbb4eb36..275167f26fd9d 100644
+> --- a/arch/arm/boot/dts/stm32mp157a-dhcor-avenger96.dts
+> +++ b/arch/arm/boot/dts/stm32mp157a-dhcor-avenger96.dts
+> @@ -13,7 +13,6 @@
+>   /dts-v1/;
+>   
+>   #include "stm32mp157.dtsi"
+> -#include "stm32mp15xc.dtsi"
+>   #include "stm32mp15xx-dhcor-som.dtsi"
+>   #include "stm32mp15xx-dhcor-avenger96.dtsi"
+>  
 
 Applied on stm32-next.
 
 Thanks.
 Alex
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
