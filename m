@@ -2,76 +2,77 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 802D1605F93
-	for <lists+linux-stm32@lfdr.de>; Thu, 20 Oct 2022 14:01:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2137260608C
+	for <lists+linux-stm32@lfdr.de>; Thu, 20 Oct 2022 14:48:58 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2D317C64106;
-	Thu, 20 Oct 2022 12:01:02 +0000 (UTC)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C825BC64106;
+	Thu, 20 Oct 2022 12:48:57 +0000 (UTC)
+Received: from mail-qv1-f50.google.com (mail-qv1-f50.google.com
+ [209.85.219.50])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A16F8C55596
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 106BBC64101
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 20 Oct 2022 12:01:00 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 2CEEE20A43;
- Thu, 20 Oct 2022 12:01:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1666267260; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=xkVVGkBtQDyTBLM0kpfBsn85EfLgvqE9XvpjJpebKS0=;
- b=jH0AvdmQ5Sn82qm3xMDUFxEtzQ8Afd86NNzn7lSCGUrsJFLaw9SnOVNSzFWgYotcUsDNAg
- GKaqBJMmMrfij+SPe7P8hnpSwt/PMM4kACWzGqryH9FajEaW0KkQM86idJuP32rsTloZ7/
- EQO0HWAxraWBomxhUiO5JqjhYu4FO/o=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1666267260;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=xkVVGkBtQDyTBLM0kpfBsn85EfLgvqE9XvpjJpebKS0=;
- b=vHl/tg1vlnnTCoJtjSfQJbaUEq4mIb+x/G13qkx57QzPLCFuuxyt3aozzSXnhYTqv6SF/Y
- S/MUxJREit23oWCA==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 8E08013494;
- Thu, 20 Oct 2022 12:00:59 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id FxuXIXs4UWMgFQAAMHmgww
- (envelope-from <tzimmermann@suse.de>); Thu, 20 Oct 2022 12:00:59 +0000
-Message-ID: <8f3a7b67-d193-eb47-a5a6-8826e9c82f83@suse.de>
-Date: Thu, 20 Oct 2022 14:00:59 +0200
+ Thu, 20 Oct 2022 12:48:56 +0000 (UTC)
+Received: by mail-qv1-f50.google.com with SMTP id i12so13421907qvs.2
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 20 Oct 2022 05:48:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=Q1M+ZjygcTh+wQj/LaxDBpu7tJHisiKmS4wQI9QNJcE=;
+ b=f70jO+rGeNbNXJzEkd45j6Ddwl2FJ+n3aWFgYESzO4HCa4/8nk+a1IpfagfnXXpfFS
+ uAZ2YSiq6H4q7djpGDD+k+mZJQigOaOEGUBPc5N6ECV8WmJcYtZb8Ir2ocoNJOf24t7p
+ I7NAMptGN6/CGe84jawcV62mxzbk3AFe1U0kSlOdnWllShr3cE83dRDn3mpaIRIwvvCR
+ C6QiNQcZ00H9FGHVOkfj6L0KXjnTF0hqFFSbwsggf4pPKY19Mvi0sQ4+X95rVTOG2xpA
+ xESOirAxOqMbK7lKhEFjTT+grQ8TY7roHA8p4OFWN6BJ4CMS1fUnsnHlpkA4mn4S5/eQ
+ 2OPA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=Q1M+ZjygcTh+wQj/LaxDBpu7tJHisiKmS4wQI9QNJcE=;
+ b=jvz4XTrItmEslU0VSNn3aMmyNVz2E+dT/KLjnAiSnQkHsPJyjJSTww5YA0p5I/wPLo
+ +7XfYjn8BdU26jOIfSFCWT07jPGOImsKBorCKe2HwTN7gcRokPww+ih3aVGG696e+H9b
+ YE2YrcWAG6vSH+zPx3MHIyq//CgKCmyveCdkOTZ2w5V8ktunFirOICT8k8IqMZN+t6I8
+ z4GMl3FUP94XUZzDR2dGnqD1t/RfxcHse3nqS+MmpU79afZ4sSpom4MM+4wZjVpJPD3U
+ swo5oTZBNFh2Oi3QQ4a7iJPwTq+EvdqShBclko43f51MU4UVrIPbT9NodNH1WThKCpQI
+ YbAQ==
+X-Gm-Message-State: ACrzQf11dBH89vxwdfVzXBPkCckn00CeABWrkwZvG3etMBwdGUNh3ivv
+ x+W/wXHOAkf5rEVQU7LNMCIj1Q==
+X-Google-Smtp-Source: AMsMyM7I9aV/f95bj7v+lreXR9VyQcLP8Abt+ZwUvcSxkF81/hwGk36S5tUn8jCXLGR9ascLThvvEg==
+X-Received: by 2002:a0c:e1c6:0:b0:4af:aa3c:987c with SMTP id
+ v6-20020a0ce1c6000000b004afaa3c987cmr11230613qvl.60.1666270134922; 
+ Thu, 20 Oct 2022 05:48:54 -0700 (PDT)
+Received: from [192.168.10.124] (pool-72-83-177-149.washdc.east.verizon.net.
+ [72.83.177.149]) by smtp.gmail.com with ESMTPSA id
+ dm10-20020a05620a1d4a00b006bb87c4833asm7232789qkb.109.2022.10.20.05.48.52
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 20 Oct 2022 05:48:53 -0700 (PDT)
+Message-ID: <730eec7e-deb2-2d04-6ba9-132a41ebed58@linaro.org>
+Date: Thu, 20 Oct 2022 08:48:47 -0400
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.3.3
+ Thunderbird/102.4.0
 Content-Language: en-US
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- daniel@ffwll.ch, airlied@gmail.com, sam@ravnborg.org, javierm@redhat.com,
- mripard@kernel.org, maarten.lankhorst@linux.intel.com
-References: <20221020103755.24058-1-tzimmermann@suse.de>
- <20221020103755.24058-2-tzimmermann@suse.de>
- <b26e508b-7599-3953-6803-7db00b3cfbcb@amd.com>
-From: Thomas Zimmermann <tzimmermann@suse.de>
-In-Reply-To: <b26e508b-7599-3953-6803-7db00b3cfbcb@amd.com>
-Cc: linux-hyperv@vger.kernel.org, linux-aspeed@lists.ozlabs.org,
- nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- virtualization@lists.linux-foundation.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-samsung-soc@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
- xen-devel@lists.xenproject.org, linux-sunxi@lists.linux.dev,
- linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- etnaviv@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
- spice-devel@lists.freedesktop.org, linux-tegra@vger.kernel.org,
- linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- linux-mips@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- freedreno@lists.freedesktop.org
-Subject: Re: [Linux-stm32] [PATCH 01/21] drm/amdgpu: Don't set struct
-	drm_driver.lastclose
+To: Patrick DELAUNAY <patrick.delaunay@foss.st.com>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+References: <20221014172324.1.Ifc1812116ff63f5501f3edd155d3cf5c0ecc846c@changeid>
+ <7ada410d-8d13-b29a-869c-3f5d032528bf@linaro.org>
+ <4d113cfd-4c22-780e-2a13-48ca0e2b28ab@foss.st.com>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <4d113cfd-4c22-780e-2a13-48ca0e2b28ab@foss.st.com>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH] dt-bindings: nvmem: add new stm32mp13
+ compatible for stm32-romem
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,138 +84,87 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============3847111614466374100=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---===============3847111614466374100==
-Content-Language: en-US
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------WYrb0xK08aT03AsuaxFIILPE"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------WYrb0xK08aT03AsuaxFIILPE
-Content-Type: multipart/mixed; boundary="------------gwXK6OaLfaQ8iAMdjblSoB42";
- protected-headers="v1"
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- daniel@ffwll.ch, airlied@gmail.com, sam@ravnborg.org, javierm@redhat.com,
- mripard@kernel.org, maarten.lankhorst@linux.intel.com
-Cc: linux-hyperv@vger.kernel.org, linux-aspeed@lists.ozlabs.org,
- nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- virtualization@lists.linux-foundation.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-samsung-soc@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
- spice-devel@lists.freedesktop.org, linux-sunxi@lists.linux.dev,
- linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- etnaviv@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
- xen-devel@lists.xenproject.org, linux-tegra@vger.kernel.org,
- linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- linux-mips@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- freedreno@lists.freedesktop.org
-Message-ID: <8f3a7b67-d193-eb47-a5a6-8826e9c82f83@suse.de>
-Subject: Re: [PATCH 01/21] drm/amdgpu: Don't set struct drm_driver.lastclose
-References: <20221020103755.24058-1-tzimmermann@suse.de>
- <20221020103755.24058-2-tzimmermann@suse.de>
- <b26e508b-7599-3953-6803-7db00b3cfbcb@amd.com>
-In-Reply-To: <b26e508b-7599-3953-6803-7db00b3cfbcb@amd.com>
-
---------------gwXK6OaLfaQ8iAMdjblSoB42
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
-
-SGkNCg0KQW0gMjAuMTAuMjIgdW0gMTM6NDggc2NocmllYiBDaHJpc3RpYW4gS8O2bmlnOg0K
-PiBBbSAyMC4xMC4yMiB1bSAxMjozNyBzY2hyaWViIFRob21hcyBaaW1tZXJtYW5uOg0KPj4g
-RG9uJ3Qgc2V0IHN0cnVjdCBkcm1fZHJpdmVyLmxhc3RjbG9zZS4gSXQncyB1c2VkIHRvIHJl
-c3RvcmUgdGhlDQo+PiBmYmRldiBjb25zb2xlLiBCdXQgYXMgYW1kZ3B1IHVzZXMgZ2VuZXJp
-YyBmYmRldiBlbXVsYXRpb24sIHRoZQ0KPj4gY29uc29sZSBpcyBiZWluZyByZXN0b3JlZCBi
-eSB0aGUgRFJNIGNsaWVudCBoZWxwZXJzIGFscmVhZHkuIFNlZQ0KPj4gdGhlIGNhbGwgdG8g
-ZHJtX2NsaWVudF9kZXZfcmVzdG9yZSgpIGluIGRybV9sYXN0Y2xvc2UoKS4NCj4gDQo+ID8/
-Pw0KPiANCj4gVGhlIGNvbW1pdCBtZXNzYWdlIGRvZXNuJ3QgbWF0Y2ggd2hhdCB0aGUgcGF0
-Y2ggaXMgZG9pbmcuIFlvdSBhcmUgDQo+IHJlbW92aW5nIG91dHB1dF9wb2xsX2NoYW5nZWQg
-aW5zdGVhZCBvZiBsYXN0Y2xvc2UgaGVyZS4NCj4gDQo+IERpZCBzb21ldGhpbmcgZ290IG1p
-eGVkIHVwPw0KDQpBcmdoaC4gVGhlcmUgYXJlIHBhdGNoZXMgZm9yIGxhc3RjbG9zZSBhbmQg
-b3V0cHV0X3BvbGxfY2hhbmdlZC4gVGhlIA0KcmVhc29uIGZvciByZW1vdmluZyB0aGVtIGlz
-IHRoZSBzYW1lLCBidXQgdGhhbmtzIHRvIGNvcHkgYW5kIHBhc3RlIHRoZSANCm5hbWVzIGFy
-ZSB3cm9uZy4gU28gdGhlIHBhdGNoIGlzIGNvcnJlY3QsIGJ1dCB0aGUgZGVzY3JpcHRpb24g
-aXNuJ3QuIA0KV2lsbCBiZSBmaXhlZC4NCg0KQmVzdCByZWdhcmRzDQpUaG9tYXMNCg0KPiAN
-Cj4gQ2hlZXJzLA0KPiBDaHJpc3RpYW4uDQo+IA0KPj4NCj4+IFNpZ25lZC1vZmYtYnk6IFRo
-b21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPg0KPj4gLS0tDQo+PiDCoCBk
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGlzcGxheS5jwqDCoMKgwqDCoMKg
-IHwgMSAtDQo+PiDCoCBkcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2Ft
-ZGdwdV9kbS5jIHwgMiAtLQ0KPj4gwqAgMiBmaWxlcyBjaGFuZ2VkLCAzIGRlbGV0aW9ucygt
-KQ0KPj4NCj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
-cHVfZGlzcGxheS5jIA0KPj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
-ZGlzcGxheS5jDQo+PiBpbmRleCAyMzk5OGY3MjdjN2Y5Li5mYjcxODZjNWFkZTJhIDEwMDY0
-NA0KPj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rpc3BsYXku
-Yw0KPj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rpc3BsYXku
-Yw0KPj4gQEAgLTEyMjQsNyArMTIyNCw2IEBAIGFtZGdwdV9kaXNwbGF5X3VzZXJfZnJhbWVi
-dWZmZXJfY3JlYXRlKHN0cnVjdCANCj4+IGRybV9kZXZpY2UgKmRldiwNCj4+IMKgIGNvbnN0
-IHN0cnVjdCBkcm1fbW9kZV9jb25maWdfZnVuY3MgYW1kZ3B1X21vZGVfZnVuY3MgPSB7DQo+
-PiDCoMKgwqDCoMKgIC5mYl9jcmVhdGUgPSBhbWRncHVfZGlzcGxheV91c2VyX2ZyYW1lYnVm
-ZmVyX2NyZWF0ZSwNCj4+IC3CoMKgwqAgLm91dHB1dF9wb2xsX2NoYW5nZWQgPSBkcm1fZmJf
-aGVscGVyX291dHB1dF9wb2xsX2NoYW5nZWQsDQo+PiDCoCB9Ow0KPj4gwqAgc3RhdGljIGNv
-bnN0IHN0cnVjdCBkcm1fcHJvcF9lbnVtX2xpc3QgYW1kZ3B1X3VuZGVyc2Nhbl9lbnVtX2xp
-c3RbXSA9DQo+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2Ft
-ZGdwdV9kbS9hbWRncHVfZG0uYyANCj4+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5
-L2FtZGdwdV9kbS9hbWRncHVfZG0uYw0KPj4gaW5kZXggZjZhOWU4ZmRkODdkNi4uZTlhMjhh
-NTM2M2I5YSAxMDA2NDQNCj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9h
-bWRncHVfZG0vYW1kZ3B1X2RtLmMNCj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlz
-cGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMNCj4+IEBAIC04Miw3ICs4Miw2IEBADQo+PiDC
-oCAjaW5jbHVkZSA8ZHJtL2RybV9hdG9taWNfdWFwaS5oPg0KPj4gwqAgI2luY2x1ZGUgPGRy
-bS9kcm1fYXRvbWljX2hlbHBlci5oPg0KPj4gwqAgI2luY2x1ZGUgPGRybS9kcm1fYmxlbmQu
-aD4NCj4+IC0jaW5jbHVkZSA8ZHJtL2RybV9mYl9oZWxwZXIuaD4NCj4+IMKgICNpbmNsdWRl
-IDxkcm0vZHJtX2ZvdXJjYy5oPg0KPj4gwqAgI2luY2x1ZGUgPGRybS9kcm1fZWRpZC5oPg0K
-Pj4gwqAgI2luY2x1ZGUgPGRybS9kcm1fdmJsYW5rLmg+DQo+PiBAQCAtMjgxMCw3ICsyODA5
-LDYgQEAgY29uc3Qgc3RydWN0IGFtZGdwdV9pcF9ibG9ja192ZXJzaW9uIGRtX2lwX2Jsb2Nr
-ID0NCj4+IMKgIHN0YXRpYyBjb25zdCBzdHJ1Y3QgZHJtX21vZGVfY29uZmlnX2Z1bmNzIGFt
-ZGdwdV9kbV9tb2RlX2Z1bmNzID0gew0KPj4gwqDCoMKgwqDCoCAuZmJfY3JlYXRlID0gYW1k
-Z3B1X2Rpc3BsYXlfdXNlcl9mcmFtZWJ1ZmZlcl9jcmVhdGUsDQo+PiDCoMKgwqDCoMKgIC5n
-ZXRfZm9ybWF0X2luZm8gPSBhbWRfZ2V0X2Zvcm1hdF9pbmZvLA0KPj4gLcKgwqDCoCAub3V0
-cHV0X3BvbGxfY2hhbmdlZCA9IGRybV9mYl9oZWxwZXJfb3V0cHV0X3BvbGxfY2hhbmdlZCwN
-Cj4+IMKgwqDCoMKgwqAgLmF0b21pY19jaGVjayA9IGFtZGdwdV9kbV9hdG9taWNfY2hlY2ss
-DQo+PiDCoMKgwqDCoMKgIC5hdG9taWNfY29tbWl0ID0gZHJtX2F0b21pY19oZWxwZXJfY29t
-bWl0LA0KPj4gwqAgfTsNCj4gDQoNCi0tIA0KVGhvbWFzIFppbW1lcm1hbm4NCkdyYXBoaWNz
-IERyaXZlciBEZXZlbG9wZXINClNVU0UgU29mdHdhcmUgU29sdXRpb25zIEdlcm1hbnkgR21i
-SA0KTWF4ZmVsZHN0ci4gNSwgOTA0MDkgTsO8cm5iZXJnLCBHZXJtYW55DQooSFJCIDM2ODA5
-LCBBRyBOw7xybmJlcmcpDQpHZXNjaMOkZnRzZsO8aHJlcjogSXZvIFRvdGV2DQo=
-
---------------gwXK6OaLfaQ8iAMdjblSoB42--
-
---------------WYrb0xK08aT03AsuaxFIILPE
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsF5BAABCAAjFiEExndm/fpuMUdwYFFolh/E3EQov+AFAmNROHsFAwAAAAAACgkQlh/E3EQov+Af
-qg/8DLfmRUYvAEkOGUdb+UPWlqwaao88s9cPeIA3h2HV6bYLuN3tcbcDWHFeQuAGVFYRgYLVboNR
-UtD8lzBIfELkuzD83B+VRxYJBSUdOWNVr5cmES8vFHFcFPQKMLAl/NCnOZOkXBa2xbSyfsJ9t/t4
-yXi4FqFTtRT4SWIfAHVY2cduEA/oRkqwmhB1nu+Nv+dWdMxKlWT5W5cc9D/tV7PNyU0D43q/xC3U
-UPqtz6yMg2u6UXyQ4smF0HltdBU+CjGDnCKVwKfW1JHy3eo2ONTt3ORu7QnXAGImozT2vrN3G3rF
-9FxNTpfh6Hv15QQMOPJqlCicq4nVRIXFHA2Za5jvGWa4m+bLzS4OH7KB+KqeWUEtX+QKl3eqgC56
-HBs9QpM0tp9VLVX4ws1GcGoJ48BWHSSNQv2suBrtz7yhdrquiPhXM4+XqWo/MZAxS1jnki7QdBhj
-PgYr3LQM68v3qRoLkKoAvqpkMDCUeAP7Sql6H1EmSBYcKupo8RvWEi0xTIoeHWA3WMXS+Lst+3uT
-gOVa/gN0OgRYykGJ6NRHykDPW2fBb50tDngSNH9Mh6zxabnKGwbgzG6q6w+SZy4uEceuLu9yfkv7
-bc/vqXu6UkH5/6ofgivW2hkPpkiyjQj5u9L55R67jqYOZCZfVsG2nGCNPoWHmDSbMdO1Fgmx46g4
-koE=
-=eccN
------END PGP SIGNATURE-----
-
---------------WYrb0xK08aT03AsuaxFIILPE--
-
---===============3847111614466374100==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============3847111614466374100==--
+T24gMTkvMTAvMjAyMiAxMzoyMywgUGF0cmljayBERUxBVU5BWSB3cm90ZToKPiBIaSwKPiAKPiBP
+biAxMC8xOC8yMiAwMzo1NiwgS3J6eXN6dG9mIEtvemxvd3NraSB3cm90ZToKPj4gT24gMTQvMTAv
+MjAyMiAxMToyMywgUGF0cmljayBEZWxhdW5heSB3cm90ZToKPj4+IEFkZCBhIG5ldyBjb21wYXRp
+YmxlIGZvciBzdG0zMm1wMTMgc3VwcG9ydC4KPj4+Cj4+PiBTaWduZWQtb2ZmLWJ5OiBQYXRyaWNr
+IERlbGF1bmF5IDxwYXRyaWNrLmRlbGF1bmF5QGZvc3Muc3QuY29tPgo+Pj4gLS0tCj4+Pgo+Pj4g
+ICBEb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvbnZtZW0vc3Qsc3RtMzItcm9tZW0u
+eWFtbCB8IDEgKwo+Pj4gICAxIGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKykKPj4+Cj4+PiBk
+aWZmIC0tZ2l0IGEvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL252bWVtL3N0LHN0
+bTMyLXJvbWVtLnlhbWwgYi9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvbnZtZW0v
+c3Qsc3RtMzItcm9tZW0ueWFtbAo+Pj4gaW5kZXggNDQ4YTI2NzhkYzYyLi4xNmY0Y2FkMmZhNTUg
+MTAwNjQ0Cj4+PiAtLS0gYS9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvbnZtZW0v
+c3Qsc3RtMzItcm9tZW0ueWFtbAo+Pj4gKysrIGIvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2Jp
+bmRpbmdzL252bWVtL3N0LHN0bTMyLXJvbWVtLnlhbWwKPj4+IEBAIC0yMiw2ICsyMiw3IEBAIHBy
+b3BlcnRpZXM6Cj4+PiAgICAgY29tcGF0aWJsZToKPj4+ICAgICAgIGVudW06Cj4+PiAgICAgICAg
+IC0gc3Qsc3RtMzJmNC1vdHAKPj4+ICsgICAgICAtIHN0LHN0bTMybXAxMy1ic2VjCj4+PiAgICAg
+ICAgIC0gc3Qsc3RtMzJtcDE1LWJzZWMKPj4gQWNjb3JkaW5nIHRvIHVzYWdlIGluIERUUyAoc2Vw
+YXJhdGUgcGF0Y2ggZm9yIHNvbWUgcmVhc29uKSwgdGhlIGRldmljZXMKPj4gYXJlIGNvbXBhdGli
+bGUsIHNvIHBsZWFzZSBkZXNjcmliZSB0aGVtIGxpa2UgdGhhdC4KPiAKPiAKPiBJIHB1c2ggdGhl
+IHNlcGFyYXRlIHBhdGNoICJBUk06IGR0czogc3RtMzJtcDEzOiBmaXggY29tcGF0aWJsZSBmb3Ig
+QlNFQyIKPiAKPiBJdCBpcyBhIGFkdmljZSBvZiBteSBjb2xsZWFndWVzOiBzZW5kIGFuIHVwZGF0
+ZSBvZiBkZXZpY2UgdHJlZQo+IAo+IG9ubHkgd2hlbiB0aGUgYmluZGluZyBtb2RpZmljYXRpb24g
+aXMgYWNrZWQuCgpUaGF0J3Mgbm90IGNvcnJlY3QgYWR2aWNlIC0gb25seSBmb3IgZmV3IGNhc2Vz
+IGl0J3MgdmFsaWQgKHdoZW4Kc3Vic3lzdGVtIG1haW50YWluZXIgd2FudHMgdG8gdGFrZSBlbnRp
+cmUgcGF0Y2hzZXQsIHNvIHRoZXJlIHNob3VsZCBiZQpubyBEVFMgaW5zaWRlKS4gV2Ugd2FudCB0
+byBzZWUgdGhlIGJpbmRpbmdzIGFuZCBpdHMgdXNhZ2UsIHNvIG9uZSBvZjoKMS4gdGhlIHNhbWUg
+cGF0Y2hzZXQKMi4gaWYgdHdvIHBhdGNoc2V0cywgdGhlbiBjcm9zcyBsaW5rZWQgdG8gZWFjaCBv
+dGhlciB3aXRoIFVSTHMgdG8KbG9yZS5rZXJuZWwub3JnLiBJIHNlZSBEVFMgaGFkIGxpbmsgYnV0
+IG5vdCB0aGlzIG9uZS4KCkRyaXZlciBjaGFuZ2VzIGFsc28gbXVzdCBiZSBzZW50IHRvZ2V0aGVy
+IHdpdGggdGhlIGJpbmRpbmdzLiBTaW5jZSB0aGVyZQphcmUgbm8gZHJpdmVyIGNoYW5nZXMgaGVy
+ZSwgaXQgbWVhbnMgZm9yIHVzIHRoZSBkZXZpY2VzIGFyZSBjb21wYXRpYmxlCmZyb20gTGludXgg
+cG9pbnQgb2Ygdmlldy4KCj4gCj4gCj4gU29ycnkgZm9yIGRpc3R1cmJhbmNlLCBJIGNhbiBzZW50
+IGEgVjIgd2l0aCB0aGUgMiBwYXRjaGVzLgo+IAo+IAo+IFRoZSBTVE0zMk1QMTUgYW5kIFNUTTMy
+TVAxMyBkb24ndCB1c2UgdGhlIHNhbWUgdmVyc2lvbiBvZiB0aGUgQlNFQyBkZXZpY2UsCj4gCj4g
+YW5kIHRoZSBkcml2ZXIgbmVlZCB0byBoYW5kbGUgaXQuCj4gCj4gCj4gSW4gdGhlc2UgMiBwYXRj
+aGVzOgo+IAo+IC0gW1BBVENIXSBkdC1iaW5kaW5nczogbnZtZW06IGFkZCBuZXcgc3RtMzJtcDEz
+IGNvbXBhdGlibGUgZm9yIHN0bTMyLXJvbWVtCj4gCj4gLSBbUEFUQ0hdIEFSTTogZHRzOiBzdG0z
+Mm1wMTM6IGZpeCBjb21wYXRpYmxlIGZvciBCU0VDCj4gCj4gCj4gSSBmaXggYSBlcnJvciBmb3Ig
+QlNFQyBub2RlIGluIHRoZSBpbml0aWFsIHBhdGNoIHRvIHN1cHBvcnQgU1RNMzJNUDEzeCwKClRo
+ZSBxdWVzdGlvbiBpcyB0aGVuIHdoZXRoZXIgZGV2aWNlIHdhcyB3b3JraW5nIGJlZm9yZSBvciBu
+b3QuIElmIGl0IHdhcwp3b3JraW5nLCB5b3UgZml4IG9uZSBlcnJvciBidXQgYnJlYWsgRFRTIHVz
+YWdlIG9uIGFueSBzeXN0ZW0gd2hpY2ggZG9lcwpub3QgaGF2ZSB1cGRhdGVkIGRyaXZlciAoc28g
+QlNELCB1LWJvb3QsIG90aGVyIGZpcm13YXJlLCBvdGhlciBMaW51eAprZXJuZWwgdmVyc2lvbnMp
+LgoKSWYgaXQgd2FzIG5vdCB3b3JraW5nLCB0aGVuIGl0J3Mgb2theSwgYnV0IHN1Y2ggY2FzZSB3
+YXMgbm90IGV4cGxhaW5lZAppbiBEVFMgcGF0Y2gsIEkgdGhpbmsuCgo+IAo+IHRoZSBEVFMgInN0
+bTMybXAxMzEuZHRzaSIgc2hvdWxkIG5vdCB1c2VkL2FjY2VwdGVkIHdpdGggdGhlIGEgQlNFQyBu
+b2RlIAo+IHVzaW5nCj4gCj4gdGhlIGNvbXBhdGlibGUgInN0LHN0bTMybXAxNS1ic2VjIiBpbiBj
+b21taXQgMWRhODc3OWMwMDI5ICgiQVJNOiBkdHM6IAo+IHN0bTMyOiBhZGQgU1RNMzJNUDEzIFNv
+Q3Mgc3VwcG9ydCIpCj4gCj4gCj4gSXQgaXMgYSBwcmVsaW1pbmFyeSBzdGVwIHRvIGFkZCBzdXBw
+b3J0IG9mIFNUTTMyTVAxM3ggaW4gU1RNMzIgUk9NRU0gZHJpdmVyLgo+IAo+IAo+IEkgZG9uJ3Qg
+aW5kaWNhdGUgdGhlc2UgcGF0Y2hlcyBhcyAiRml4ZXM6IiB0byBhdm9pZCBhIGR0cyBjaGVjayBp
+c3N1ZQo+IAo+IGlmIG9ubHkgdGhlIERUUyBwYXRjaCB3YXMgYmFja3BvcnRlZC4KPiAKPiAKPiBU
+b2RheSBpdCBub3QgYmxvY2tpbmcgZm9yIFNUTTMyTVAxM3ggdXNlcnMgYmVjYXVzZSB0aGlzIFNv
+QyBpcyBub3QgeWV0IAo+IGF2YWlsYWJsZSBmb3IgY3VzdG9tZXJzCj4gCj4gYW5kIGl0IGlzIG9u
+bHkgdXNlZCBpbnRlcm5hbGx5IG9uIHRoZSBTVCBNaWNyb2VsZWN0cm9uaWNzIGJvYXJkIAo+IFNU
+TTMyTVAxMzVGLURLLgoKRFRTIHBhdGNoIHNheXMgbm90aGluZyBhYm91dCBpdC4uLgoKPiAKPiAK
+PiBOb2JvZHkgKGV4Y2VwdCBTVE1pY3JvZWxlY3Ryb25pY3MpIHVzZSB0aGlzIFNvQ8KgIFNUTTMy
+TVAxM3ggd2l0aCB0aGUgCj4gY3VycmVudCBEVFMgLyBMaW51eCB2ZXJzaW9uLgo+IAo+IAo+IE1v
+cmVvdmVyLCBieSBkZWZhdWx0LCB0aGUgU1RNMzIgUk9NRU0gZHJpdmVyIGluIG5vdCBhY3RpdmF0
+ZWQgaW4gYW55IAo+IGRlZmNvbmZpZywKCkluZGVwZW5kZW50IGlzc3VlLgoKPiAKPiBJIHByZXBh
+cmUgYSBvdGhlciBwYXRjaCB0byBhY3RpdmF0ZWQgaXQgYnkgZGVmYXVsdCBpbiBhcm1fbXVsdGl2
+N19kZWZjb25maWcuCj4gCj4gYnV0IEkgYW0gd2FpdGluZyB0aGlzIERUUyBjb3JyZWN0aW9uIHRv
+IGF2b2lkIHRvIHByb2JlIHRoZSBzdG0zMiByb21lbiAKPiBkcml2ZXIgd2l0aCBTVE0zMk1QMTUK
+PiAKPiBjb25maWd1cmF0aW9uIG9uIFNUTTMyTVAxM3ggU29DLgo+IAo+IAo+IEkgdGhpbmsgaXMg
+YSBnb29kIHRpbWUgdG8gdXBkYXRlIHRoaXMgRFRTIGVycm9yIGJlZm9yZSB0aGUgU29DIGF2YWls
+YWJpbGl0eSwKPiAKPiBhZ3JlZWQgd2l0aCBTb0MgTWFpbnRhaW5lciwgQWxleGFuZHJlIFRvcmd1
+ZSwgZXZlbiBpZiB0aGlzIHBhdGNoIGJyZWFrcyAKPiBzdXJyZW50IHVzZXJzCj4gCj4gb2YgU1RN
+MzJNUDEzeCBEVFMgKGJ1dCBpdCBpcyBvbmx5IGludGVybmFscyB1c2VyIFNUTWljcm9lbGVjdHJv
+bmljcyAKPiB1bnRpbCBub3cpLgo+IAo+IAo+IGJ1dCBwZXJoYXBzIHlvdSBwcmVmZXIgYSBvdGhl
+ciBzb2x1dGlvbiA/CgpXaXRoIHRoYXQgZXhwbGFuYXRpb24gaXQgaXMgZmluZSwgYnV0IHRoZSBE
+VFMgY29tbWl0IHdhcyBub3QgbWVudGlvbmluZwpleHBsYW5hdGlvbi4KCj4gCj4gYWRkIEZpeGVz
+IGluIHRoZSBEVFMgcGF0Y2ggPwo+IAo+ICsgRml4ZXM6IDFkYTg3NzljMDAyOSAoIkFSTTogZHRz
+OiBzdG0zMjogYWRkIFNUTTMyTVAxMyBTb0NzIHN1cHBvcnQiKQo+IAo+IG9yCj4gCj4gCj4gIMKg
+wqDCoCDCoMKgwqAgYnNlYzogZWZ1c2VANWMwMDUwMDAgewo+ICDCoMKgwqAgwqDCoMKgIMKgwqDC
+oCBjb21wYXRpYmxlID0gInN0LHN0bTMybXAxMy1ic2VjIiwgInN0LHN0bTMybXAxNS1ic2VjIjsK
+CgpEZXBlbmRzIHdoZXRoZXIgZGV2aWNlcyBhcmUgY29tcGF0aWJsZSBvciBub3QuCgpCZXN0IHJl
+Z2FyZHMsCktyenlzenRvZgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxt
+YW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21h
+aWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
