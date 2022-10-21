@@ -2,47 +2,61 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B26A5606DF3
-	for <lists+linux-stm32@lfdr.de>; Fri, 21 Oct 2022 04:47:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D009C6072B4
+	for <lists+linux-stm32@lfdr.de>; Fri, 21 Oct 2022 10:45:14 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 392F4C6410A;
-	Fri, 21 Oct 2022 02:47:22 +0000 (UTC)
-Received: from out30-57.freemail.mail.aliyun.com
- (out30-57.freemail.mail.aliyun.com [115.124.30.57])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7B58CC64116;
+	Fri, 21 Oct 2022 08:45:14 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 17006C64101
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B8033C64101
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 21 Oct 2022 02:47:20 +0000 (UTC)
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R111e4; CH=green; DM=||false|;
- DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=ay29a033018045168;
- MF=tianjia.zhang@linux.alibaba.com; NM=1; PH=DS; RN=14; SR=0;
- TI=SMTPD_---0VShO7aQ_1666320435; 
-Received: from 30.240.99.116(mailfrom:tianjia.zhang@linux.alibaba.com
- fp:SMTPD_---0VShO7aQ_1666320435) by smtp.aliyun-inc.com;
- Fri, 21 Oct 2022 10:47:18 +0800
-Message-ID: <6d2a98f4-c50d-d05b-4a24-08fdd3ee20fa@linux.alibaba.com>
-Date: Fri, 21 Oct 2022 10:47:14 +0800
+ Fri, 21 Oct 2022 08:45:12 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 29L6HQFj014461;
+ Fri, 21 Oct 2022 10:44:53 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-type; s=selector1;
+ bh=nN+eZrxubuUpxtvA/HEiuz0ghp0wsel2bTnX1jUh+Mg=;
+ b=rpnShfZowOwph9MLX1pAC7sSejMuGfhtta50et9sEhcUX1Uv1XsSenHCPriiu0ngpN+5
+ r5EnoQjrK39JkeYHlBAYryo5JDXmdYDlUF+TBlSaPHgbi9edz1wgofhac4v2WMAo36op
+ MLiRfJ0H/MpVfM+h2mm5WUOdSOxO+1WEMirBz50ZrmekMHicvo+sj+u0071tqZtMEHHI
+ 5P1QOaICAqqBXbvLHgGNqSwZzFrKySbnITdL+68wfeBOaAB1Nl/ll0ymy3iiJDVk7SjC
+ G9FKSiI0wPe/9s9IcwhOsgckwbdqBZl1qe14SC0JWPWpO8sXxgGhPl3BT/t0rpILJHrG kQ== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3k9tfpy660-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 21 Oct 2022 10:44:53 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 34DB7100034;
+ Fri, 21 Oct 2022 10:44:48 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 1EC5F21B525;
+ Fri, 21 Oct 2022 10:44:48 +0200 (CEST)
+Received: from localhost (10.201.21.93) by SHFDAG1NODE1.st.com (10.75.129.69)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.31; Fri, 21 Oct
+ 2022 10:44:47 +0200
+From: Alexandre Torgue <alexandre.torgue@foss.st.com>
+To: Masahiro Yamada <masahiroy@kernel.org>, Michal Marek
+ <michal.lkml@markovi.net>, <robh+dt@kernel.org>
+Date: Fri, 21 Oct 2022 10:44:47 +0200
+Message-ID: <20221021084447.5550-1-alexandre.torgue@foss.st.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.13.1
-Content-Language: en-US
-To: Eric Biggers <ebiggers@kernel.org>
-References: <20221018071006.5717-1-tianjia.zhang@linux.alibaba.com>
- <20221018071006.5717-13-tianjia.zhang@linux.alibaba.com>
- <Y1DHb66VYPzFlTwh@sol.localdomain>
-From: Tianjia Zhang <tianjia.zhang@linux.alibaba.com>
-In-Reply-To: <Y1DHb66VYPzFlTwh@sol.localdomain>
-Cc: Jussi Kivilinna <jussi.kivilinna@iki.fi>, linux-kernel@vger.kernel.org,
- Herbert Xu <herbert@gondor.apana.org.au>,
- Catalin Marinas <catalin.marinas@arm.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- "David S. Miller" <davem@davemloft.net>, Mark Brown <broonie@kernel.org>,
- linux-crypto@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Will Deacon <will@kernel.org>, Ard Biesheuvel <ardb@kernel.org>,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2 12/15] crypto: arm64/sm4 - add CE
- implementation for ESSIV mode
+X-Originating-IP: [10.201.21.93]
+X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.545,FMLib:17.11.122.1
+ definitions=2022-10-21_03,2022-10-20_01,2022-06-22_01
+Cc: linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
+ linux-kbuild@vger.kernel.org
+Subject: [Linux-stm32] [PATCH] scripts: dtc: only show unique unit address
+	warning for enabled nodes
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -54,31 +68,39 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Eric,
+In some cases an hardware peripheral can be used for two exclusive usages.
+For example, on STM32MP15 we have the same peripheral for I2S and SPI. We
+have dedicated driver for each usage and so a dedicated device node in
+devicetree.
+To avoid to get useless warnings running "make W=1 dtbs", this patch adds
+the "-Wunique_unit_address_if_enabled" flag for a make with W=1. In this
+case we will detect a duplicate address only if both devices are
+enabled in the devicetree, which is a real error case.
 
-On 10/20/22 11:58 AM, Eric Biggers wrote:
-> On Tue, Oct 18, 2022 at 03:10:03PM +0800, Tianjia Zhang wrote:
->> This patch is a CE-optimized assembly implementation for ESSIV mode.
->> The assembly part is realized by reusing the CBC mode.
->>
->> Signed-off-by: Tianjia Zhang <tianjia.zhang@linux.alibaba.com>
-> 
-> Is there still a use case for CBC-ESSIV mode these days, now that everyone is
-> using XTS instead?
-> 
-> - Eric
+Signed-off-by: Alexandre Torgue <alexandre.torgue@foss.st.com>
 
-The mainstream is already using XTS, but CBC-ESSIV is still an optional
-backup algorithm, especially in block crypto and fscrypto, I'm currently
-working on supporting the SM4 algorithm for these subsystems.
+diff --git a/scripts/Makefile.lib b/scripts/Makefile.lib
+index 3aa384cec76b..6f077200b967 100644
+--- a/scripts/Makefile.lib
++++ b/scripts/Makefile.lib
+@@ -344,6 +344,9 @@ DTC_FLAGS += -Wno-unit_address_vs_reg \
+ 	-Wno-graph_child_address \
+ 	-Wno-simple_bus_reg \
+ 	-Wno-unique_unit_address
++else
++DTC_FLAGS += -Wno-unique_unit_address \
++        -Wunique_unit_address_if_enabled
+ endif
+ 
+ ifneq ($(findstring 2,$(KBUILD_EXTRA_WARN)),)
+-- 
+2.17.1
 
-Cheers,
-Tianjia
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
