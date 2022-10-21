@@ -2,54 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0700F607693
-	for <lists+linux-stm32@lfdr.de>; Fri, 21 Oct 2022 13:56:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0155F607987
+	for <lists+linux-stm32@lfdr.de>; Fri, 21 Oct 2022 16:26:01 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BB584C6411E;
-	Fri, 21 Oct 2022 11:56:33 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A2179C64115;
+	Fri, 21 Oct 2022 14:26:00 +0000 (UTC)
+Received: from mail-oi1-f177.google.com (mail-oi1-f177.google.com
+ [209.85.167.177])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9D626C64108
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3933DC0AA15
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 21 Oct 2022 11:56:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1666353392; x=1697889392;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=X4ReGExCC4IsU35G/nCfB0MLcAh4NzfBpvMtiQxP8CQ=;
- b=Xx3iRZfs0d7ISArk8hkN3oKlOf9qp3MWjZM+BRM50QtD2tYsz3gszdj3
- 0QpvV0oQniwysuY6euUQt5ZhaIxHU4/rm9vSCSNDbh/N296oG3w0Rng2Q
- zMdmV4uPtvs4z6j3vB8vmxO5FdErm2p0uQcbw1adtxSRyYdNnGFVPMELW
- HfwPgtOKnleQT8QavAvbEVnQyPIiag/7O1G5mmhvjShuyTB9gG3bIIcQS
- SWfdQjcUjWgIBq336X4knddM1cM5v6AGYkXEZrysOjw7NlfWnAX59G5fL
- des7+oTMMhbk36ObjAjo+hOHwhh6SR1yWwP62SIEjHNZWRfBO5vzdiT3K A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10506"; a="305722088"
-X-IronPort-AV: E=Sophos;i="5.95,200,1661842800"; d="scan'208";a="305722088"
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Oct 2022 04:56:32 -0700
-X-IronPort-AV: E=McAfee;i="6500,9779,10506"; a="632891131"
-X-IronPort-AV: E=Sophos;i="5.95,200,1661842800"; d="scan'208";a="632891131"
-Received: from junxiaochang.bj.intel.com ([10.238.135.52])
- by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Oct 2022 04:56:28 -0700
-From: Junxiao Chang <junxiao.chang@intel.com>
-To: peppe.cavallaro@st.com, alexandre.torgue@foss.st.com, joabreu@synopsys.com,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
- pabeni@redhat.com, mcoquelin.stm32@gmail.com, Joao.Pinto@synopsys.com,
- netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Date: Fri, 21 Oct 2022 19:47:11 +0800
-Message-Id: <20221021114711.1610797-2-junxiao.chang@intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20221021114711.1610797-1-junxiao.chang@intel.com>
-References: <20221021114711.1610797-1-junxiao.chang@intel.com>
+ Fri, 21 Oct 2022 14:25:59 +0000 (UTC)
+Received: by mail-oi1-f177.google.com with SMTP id o64so3332278oib.12
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 21 Oct 2022 07:25:59 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=2MWmxzeBv04SeJOw6jKYpRv1e5SEanghL8yyC/XAz/0=;
+ b=ymun1ldOPxPOstDN+O5U3Q74ooJpFySneFgqT8tntvt3g831OocwdGQ27Zf4NR5fHg
+ jPKhsy7Bu5M60IlCdb1fPoxLwuPGrIP8XVN+oB+l7GpSDe7/apC663XHIpEFU4ZTurcE
+ G5Fb3DdI1AujPaO7kt1d+HuVUJOQddmgL0Ez3mZSemZo+tEaGUrPyY70RrD+WF7mQ9mp
+ 90B4UIgwC+aSQHh7D5hoBSR896xZDeb0jWe4o/hHPP1gn/0jnbGB4OVN/e8vYCPXV3C4
+ iueGJPg2wMudgUbwYlkBokf0bqy6UXH7+9Jw/IJspS+oPPJxEUCoOaOHnPiab4RE1Zvn
+ T9Fw==
+X-Gm-Message-State: ACrzQf2VVquK12QqiKNSD2DQAc2vYiyXuihbvtNMXtaDbof+rkIpHC51
+ u+TQ71DWOGwblqYuku94rQ==
+X-Google-Smtp-Source: AMsMyM5waqqF2ZrhT4UdNdl/SeZivLSgo9IEVXbX8TNVdatsQdb89iPevIW908f0tKmIF3Fv496Zew==
+X-Received: by 2002:aca:a84c:0:b0:355:4262:28ef with SMTP id
+ r73-20020acaa84c000000b00355426228efmr11136678oie.14.1666362357884; 
+ Fri, 21 Oct 2022 07:25:57 -0700 (PDT)
+Received: from robh_at_kernel.org (66-90-144-107.dyn.grandenetworks.net.
+ [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
+ l10-20020aca190a000000b003549db40f38sm1118351oii.46.2022.10.21.07.25.57
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 21 Oct 2022 07:25:57 -0700 (PDT)
+Received: (nullmailer pid 3658172 invoked by uid 1000);
+ Fri, 21 Oct 2022 14:25:58 -0000
+Date: Fri, 21 Oct 2022 09:25:58 -0500
+From: Rob Herring <robh@kernel.org>
+To: Alexandre Torgue <alexandre.torgue@foss.st.com>
+Message-ID: <166636173496.3593878.13529338596528679973.robh@kernel.org>
+References: <20221021084447.5550-1-alexandre.torgue@foss.st.com>
 MIME-Version: 1.0
-Cc: junxiao.chang@intel.com
-Subject: [Linux-stm32] [PATCH net-next 2/2] net: stmmac: remove duplicate
-	dma queue channel macros
+Content-Disposition: inline
+In-Reply-To: <20221021084447.5550-1-alexandre.torgue@foss.st.com>
+Cc: Michal Marek <michal.lkml@markovi.net>, linux-kbuild@vger.kernel.org,
+ Masahiro Yamada <masahiroy@kernel.org>, linux-kernel@vger.kernel.org,
+ robh+dt@kernel.org, linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH] scripts: dtc: only show unique unit
+ address warning for enabled nodes
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,55 +71,24 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-It doesn't need extra macros for queue 0 & 4. Same macro could
-be used for all 8 queues.
+On Fri, 21 Oct 2022 10:44:47 +0200, Alexandre Torgue wrote:
+> In some cases an hardware peripheral can be used for two exclusive usages.
+> For example, on STM32MP15 we have the same peripheral for I2S and SPI. We
+> have dedicated driver for each usage and so a dedicated device node in
+> devicetree.
+> To avoid to get useless warnings running "make W=1 dtbs", this patch adds
+> the "-Wunique_unit_address_if_enabled" flag for a make with W=1. In this
+> case we will detect a duplicate address only if both devices are
+> enabled in the devicetree, which is a real error case.
+> 
+> Signed-off-by: Alexandre Torgue <alexandre.torgue@foss.st.com>
+> 
 
-Signed-off-by: Junxiao Chang <junxiao.chang@intel.com>
----
- drivers/net/ethernet/stmicro/stmmac/dwmac4.h      |  2 --
- drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c | 11 ++++-------
- 2 files changed, 4 insertions(+), 9 deletions(-)
+Applied, thanks!
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4.h b/drivers/net/ethernet/stmicro/stmmac/dwmac4.h
-index 3c1490408a1c3..ccd49346d3b30 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac4.h
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4.h
-@@ -331,8 +331,6 @@ enum power_event {
- 
- #define MTL_RXQ_DMA_MAP0		0x00000c30 /* queue 0 to 3 */
- #define MTL_RXQ_DMA_MAP1		0x00000c34 /* queue 4 to 7 */
--#define MTL_RXQ_DMA_Q04MDMACH_MASK	GENMASK(3, 0)
--#define MTL_RXQ_DMA_Q04MDMACH(x)	((x) << 0)
- #define MTL_RXQ_DMA_QXMDMACH_MASK(x)	(0xf << 8 * (x))
- #define MTL_RXQ_DMA_QXMDMACH(chan, q)	((chan) << (8 * (q)))
- 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c b/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
-index c25bfecb4a2df..64b916728bdd4 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
-@@ -219,15 +219,12 @@ static void dwmac4_map_mtl_dma(struct mac_device_info *hw, u32 queue, u32 chan)
- 	else
- 		value = readl(ioaddr + MTL_RXQ_DMA_MAP1);
- 
--	if (queue == 0 || queue == 4) {
--		value &= ~MTL_RXQ_DMA_Q04MDMACH_MASK;
--		value |= MTL_RXQ_DMA_Q04MDMACH(chan);
--	} else if (queue > 4) {
--		value &= ~MTL_RXQ_DMA_QXMDMACH_MASK(queue - 4);
--		value |= MTL_RXQ_DMA_QXMDMACH(chan, queue - 4);
--	} else {
-+	if (queue < 4) {
- 		value &= ~MTL_RXQ_DMA_QXMDMACH_MASK(queue);
- 		value |= MTL_RXQ_DMA_QXMDMACH(chan, queue);
-+	} else {
-+		value &= ~MTL_RXQ_DMA_QXMDMACH_MASK(queue - 4);
-+		value |= MTL_RXQ_DMA_QXMDMACH(chan, queue - 4);
- 	}
- 
- 	if (queue < 4)
--- 
-2.25.1
+I refactored the options and kept 'unique_unit_address' for W=2.
 
+Rob
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
