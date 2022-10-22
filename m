@@ -2,93 +2,47 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A284B608F57
-	for <lists+linux-stm32@lfdr.de>; Sat, 22 Oct 2022 21:48:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4D111608FA4
+	for <lists+linux-stm32@lfdr.de>; Sat, 22 Oct 2022 22:57:26 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2A25EC64105;
-	Sat, 22 Oct 2022 19:48:43 +0000 (UTC)
-Received: from new1-smtp.messagingengine.com (new1-smtp.messagingengine.com
- [66.111.4.221])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F0D11C64105;
+	Sat, 22 Oct 2022 20:57:25 +0000 (UTC)
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7FD9DC03FC8
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 07464C03FDA
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 22 Oct 2022 19:48:42 +0000 (UTC)
-Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
- by mailnew.nyi.internal (Postfix) with ESMTP id 6AD1458012A;
- Sat, 22 Oct 2022 15:48:41 -0400 (EDT)
-Received: from imap51 ([10.202.2.101])
- by compute3.internal (MEProxy); Sat, 22 Oct 2022 15:48:41 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
- :cc:content-type:date:date:from:from:in-reply-to:in-reply-to
- :message-id:mime-version:references:reply-to:sender:subject
- :subject:to:to; s=fm2; t=1666468121; x=1666475321; bh=UGS1Mg1RbR
- rjg7l/C4uODk6tRvKSFxQmBze4CDiRUok=; b=R769R20cvAUvCJzdLxBnDkwPBp
- EbTpyCnh90ePwkW/W271GgnujcaxKPNlKUZTD1QiMzbOX6UUmX5GBGQy5YnoG3Hz
- 7bIbm4GGSebbV6RK2kBgjxCEhVjRMxNaLgKsw+7i5e4f4W2C2HsQFTmKv8S+gZdE
- jcEJHfdX99rjFuuQuzOPTEkJYLvC3gJ1f7jx+9U6cwktdP6NSfqNvxTgarEWxD1c
- GFRrikCndHmtZnFVFspin0GH0nBuno9DFl/vX1YEuWJJ1DmabcJBI+QgW+pFl13L
- PUlTUh21czWS+IFSiTNJyGJ4p7ipLzCb7UJepNPQ1EVgfsLevgq5To41FFEw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
- :feedback-id:from:from:in-reply-to:in-reply-to:message-id
- :mime-version:references:reply-to:sender:subject:subject:to:to
- :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm3; t=1666468121; x=1666475321; bh=UGS1Mg1RbRrjg7l/C4uODk6tRvKS
- FxQmBze4CDiRUok=; b=DZdlxJQ1/OPf/Y6KDYWPfdC+mu56NzIOlbXghWxjCj9D
- 9CPMuzFO6wSIpYXaVVKO5ogBmtK5zrRUpai6gPg5qF7aq51p1Tf8zgVV+aEGQIpg
- Le7lvLJR+05feR3Q+7owk4RsmE3rzpsqGg/UOGa7xGgp5BzvreC3G8OxhZ0WzoTZ
- kHVkLu1P+KTSJm4dYCrODRLVTVeSHwuFqAuyI9eyO0UD5B3tL3/NipBn2AFumQvr
- +xjvFjLrJEOmbNOFedB+o0knlGPPR7li0EwNxPvDXhDL0DJhj4plmQqEZJg8uEWZ
- ljUtVQj8llXCVqwnpTmY8Mpk0y+FjFMyLlNEuZEfiA==
-X-ME-Sender: <xms:GElUY9vt3ItviEp5AJXQjYcX0YyV47YTITTgtkGjjNw0aSie0vzYkg>
- <xme:GElUY2cknoJTeDpYvjbC4RFS-FtPGbyfFDbbyjNFIChdDqrc0xYFVavFYI99vu8kl
- 0KtHqNspAg1e6vBhwY>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrgedttddgudegtdcutefuodetggdotefrod
- ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
- necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
- enucfjughrpefofgggkfgjfhffhffvvefutgesthdtredtreertdenucfhrhhomhepfdet
- rhhnugcuuegvrhhgmhgrnhhnfdcuoegrrhhnugesrghrnhgusgdruggvqeenucggtffrrg
- htthgvrhhnpeffheeugeetiefhgeethfejgfdtuefggeejleehjeeutefhfeeggefhkedt
- keetffenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpe
- grrhhnugesrghrnhgusgdruggv
-X-ME-Proxy: <xmx:GElUYwxiXoqPMILm1SZ_32__qu1Q5l_zrlV4KYN9jBrAlex9SwSKIg>
- <xmx:GElUY0PzOcbbrTlSQkCZ5j1lrS1Cnv1p6FZXhLQlA1lHQyiDXRQGng>
- <xmx:GElUY9-JQg9pRkXJG00aarf_3pC2T4jG_plPdMl-YxzKsRcEtsxZ9g>
- <xmx:GUlUYyKFp-5FR5wwM3xl6nutJeKlKU0pfMGHX_pxDvaIG8i-amMB_w>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.nyi.internal (Postfix, from userid 501)
- id 90C24B60086; Sat, 22 Oct 2022 15:48:40 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
-User-Agent: Cyrus-JMAP/3.7.0-alpha0-1047-g9e4af4ada4-fm-20221005.001-g9e4af4ad
-Mime-Version: 1.0
-Message-Id: <7c4531b8-a296-4ea3-9564-b094704d10b2@app.fastmail.com>
-In-Reply-To: <e7ace68a-98e5-63c8-7dd7-a35d0eba1c6e@linaro.org>
+ Sat, 22 Oct 2022 20:57:23 +0000 (UTC)
+Received: from ip5b412258.dynamic.kabel-deutschland.de ([91.65.34.88]
+ helo=diego.localnet) by gloria.sntech.de with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.94.2)
+ (envelope-from <heiko@sntech.de>)
+ id 1omLY5-0007Zl-AQ; Sat, 22 Oct 2022 22:56:53 +0200
+From: Heiko =?ISO-8859-1?Q?St=FCbner?= <heiko@sntech.de>
+To: linux-arm-kernel@lists.infradead.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Arnd Bergmann <arnd@kernel.org>
+Date: Sat, 22 Oct 2022 22:56:52 +0200
+Message-ID: <2204103.iZASKD2KPV@diego>
+In-Reply-To: <20221021203329.4143397-1-arnd@kernel.org>
 References: <20221021202254.4142411-1-arnd@kernel.org>
- <e7ace68a-98e5-63c8-7dd7-a35d0eba1c6e@linaro.org>
-Date: Sat, 22 Oct 2022 21:48:19 +0200
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Krzysztof Kozlowski" <krzysztof.kozlowski@linaro.org>,
- "Arnd Bergmann" <arnd@kernel.org>, linux-arm-kernel@lists.infradead.org
-Cc: linux-fbdev@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-iio@vger.kernel.org, alsa-devel@alsa-project.org,
- dri-devel@lists.freedesktop.org, linux-ide@vger.kernel.org,
- linux-mtd@lists.infradead.org, linux-i2c@vger.kernel.org,
- linux-clk@vger.kernel.org, linux-leds@vger.kernel.org,
- linux-rtc@vger.kernel.org, linux-samsung-soc@vger.kernel.org,
- linux-pwm@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-serial@vger.kernel.org, linux-input@vger.kernel.org,
- linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- linux-watchdog@vger.kernel.org, linux-pm@vger.kernel.org,
- "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
- Ben Dooks <ben-linux@fluff.org>, Simtec Linux Team <linux@simtec.co.uk>,
- linux-hwmon@vger.kernel.org, patches@opensource.cirrus.com,
- linux-usb@vger.kernel.org,
- "linux-mmc @ vger . kernel . org" <linux-mmc@vger.kernel.org>,
- linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org,
- dmaengine@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH 00/21] ARM: s3c: clean out obsolete
-	platforms
+ <20221021203329.4143397-1-arnd@kernel.org>
+MIME-Version: 1.0
+Cc: Sylwester Nawrocki <s.nawrocki@samsung.com>, linux-doc@vger.kernel.org,
+ Guillaume GOURAT <guillaume.gourat@nexvision.tv>,
+ Michael Turquette <mturquette@baylibre.com>,
+ Tomasz Figa <tomasz.figa@gmail.com>, Alim Akhtar <alim.akhtar@samsung.com>,
+ Christer Weinigel <christer@weinigel.se>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Arnaud Patard <arnaud.patard@rtp-net.org>, linux-samsung-soc@vger.kernel.org,
+ Jonathan Corbet <corbet@lwn.net>, linux-clk@vger.kernel.org,
+ Chanwoo Choi <cw00.choi@samsung.com>, devicetree@vger.kernel.org,
+ Arnd Bergmann <arnd@arndb.de>, soc@kernel.org,
+ openmoko-kernel@lists.openmoko.org, Ben Dooks <ben-linux@fluff.org>,
+ Simtec Linux Team <linux@simtec.co.uk>, Stephen Boyd <sboyd@kernel.org>,
+ linux-kernel@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
+ Olof Johansson <olof@lixom.net>
+Subject: Re: [Linux-stm32] [PATCH 01/21] ARM: s3c: remove all s3c24xx support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,38 +54,1167 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Sat, Oct 22, 2022, at 17:18, Krzysztof Kozlowski wrote:
-> On 21/10/2022 16:22, Arnd Bergmann wrote:
->> From: Arnd Bergmann <arnd@arndb.de>
->> 
->> The s3c24xx platform was marked as deprecated a while ago,
->> and for the s3c64xx platform, we marked all except one legacy
->> board file as unused.
->> 
->> This series removes all of those, leaving only s3c64xx support
->> for DT based boots as well as the cragg6410 board file.
->> 
->> About half of the s3c specific drivers were only used on
->> the now removed machines, so these drivers can be retired
->> as well. I can either merge the driver removal patches through
->> the soc tree along with the board file patches, or subsystem
->> maintainers can pick them up into their own trees, whichever
->> they prefer.
->
-> Just to be sure - do you expect me to ack the series, or rather as usual
-> pick them up?
+Am Freitag, 21. Oktober 2022, 22:27:34 CEST schrieb Arnd Bergmann:
+> From: Arnd Bergmann <arnd@arndb.de>
+> =
 
-I think in this case it is easier if I pick them up with your
-Ack along with the other platforms I posted, as there are
-some minor conflicts between Makefile/Kconfig changes where
-I remove adjacent lines.
+> The platform was deprecated in commit 6a5e69c7ddea ("ARM: s3c: mark
+> as deprecated and schedule removal") and can be removed. This includes
+> all files that are exclusively for s3c24xx and not shared with s3c64xx,
+> as well as the glue logic in Kconfig and the maintainer file entries.
+> =
 
-       Arnd
+> Cc: Arnaud Patard <arnaud.patard@rtp-net.org>
+> Cc: Ben Dooks <ben-linux@fluff.org>
+> Cc: Christer Weinigel <christer@weinigel.se>
+> Cc: Guillaume GOURAT <guillaume.gourat@nexvision.tv>
+> Cc: Heiko Stuebner <heiko@sntech.de>
+> Cc: Simtec Linux Team <linux@simtec.co.uk>
+> Cc: openmoko-kernel@lists.openmoko.org
+> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+
+So many memories of me starting out in the kernel on s3c24xx.
+But it's no use trying to keep stuff around that nobody will likely
+ever use again. So with a sad face
+
+Acked-by: Heiko Stuebner <heiko@sntech.de>
+
+
+though you might want to also include
+	drivers/dma/s3c24xx-dma.c
+
+Heiko
+
+
+> ---
+>  Documentation/arm/index.rst                   |    1 -
+>  Documentation/arm/samsung-s3c24xx/cpufreq.rst |   77 -
+>  .../arm/samsung-s3c24xx/eb2410itx.rst         |   59 -
+>  Documentation/arm/samsung-s3c24xx/gpio.rst    |  172 ---
+>  Documentation/arm/samsung-s3c24xx/h1940.rst   |   41 -
+>  Documentation/arm/samsung-s3c24xx/index.rst   |   20 -
+>  Documentation/arm/samsung-s3c24xx/nand.rst    |   30 -
+>  .../arm/samsung-s3c24xx/overview.rst          |  311 ----
+>  Documentation/arm/samsung-s3c24xx/s3c2412.rst |  121 --
+>  Documentation/arm/samsung-s3c24xx/s3c2413.rst |   22 -
+>  .../arm/samsung-s3c24xx/smdk2440.rst          |   57 -
+>  Documentation/arm/samsung-s3c24xx/suspend.rst |  137 --
+>  .../arm/samsung-s3c24xx/usb-host.rst          |   91 --
+>  Documentation/arm/samsung/overview.rst        |   13 -
+>  MAINTAINERS                                   |   16 -
+>  arch/arm/Kconfig                              |    3 +-
+>  arch/arm/Kconfig.debug                        |   58 +-
+>  arch/arm/Makefile                             |    2 -
+>  arch/arm/boot/dts/Makefile                    |    2 -
+>  arch/arm/boot/dts/s3c2410-pinctrl.h           |   19 -
+>  arch/arm/boot/dts/s3c2416-pinctrl.dtsi        |  172 ---
+>  arch/arm/boot/dts/s3c2416-smdk2416.dts        |   77 -
+>  arch/arm/boot/dts/s3c2416.dtsi                |  124 --
+>  arch/arm/boot/dts/s3c24xx.dtsi                |   92 --
+>  arch/arm/configs/mini2440_defconfig           |  338 -----
+>  arch/arm/configs/s3c2410_defconfig            |  437 ------
+>  arch/arm/configs/tct_hammer_defconfig         |   58 -
+>  arch/arm/mach-s3c/Kconfig                     |   27 +-
+>  arch/arm/mach-s3c/Kconfig.s3c24xx             |  604 --------
+>  arch/arm/mach-s3c/Makefile                    |    4 -
+>  arch/arm/mach-s3c/Makefile.s3c24xx            |  102 --
+>  arch/arm/mach-s3c/anubis.h                    |   50 -
+>  arch/arm/mach-s3c/bast-ide.c                  |   82 -
+>  arch/arm/mach-s3c/bast-irq.c                  |  137 --
+>  arch/arm/mach-s3c/bast.h                      |  194 ---
+>  arch/arm/mach-s3c/common-smdk-s3c24xx.c       |  228 ---
+>  arch/arm/mach-s3c/common-smdk-s3c24xx.h       |   11 -
+>  arch/arm/mach-s3c/cpufreq-utils-s3c24xx.c     |   94 --
+>  arch/arm/mach-s3c/dma-s3c24xx.h               |   51 -
+>  arch/arm/mach-s3c/fb-core-s3c24xx.h           |   24 -
+>  arch/arm/mach-s3c/gpio-samsung-s3c24xx.h      |  103 --
+>  arch/arm/mach-s3c/gta02.h                     |   20 -
+>  arch/arm/mach-s3c/h1940-bluetooth.c           |  140 --
+>  arch/arm/mach-s3c/h1940.h                     |   52 -
+>  arch/arm/mach-s3c/hardware-s3c24xx.h          |   14 -
+>  arch/arm/mach-s3c/iotiming-s3c2410.c          |  472 ------
+>  arch/arm/mach-s3c/iotiming-s3c2412.c          |  278 ----
+>  arch/arm/mach-s3c/irq-pm-s3c24xx.c            |  115 --
+>  arch/arm/mach-s3c/irq-s3c24xx-fiq-exports.c   |    9 -
+>  arch/arm/mach-s3c/irq-s3c24xx-fiq.S           |  112 --
+>  arch/arm/mach-s3c/irq-s3c24xx.c               | 1352 -----------------
+>  arch/arm/mach-s3c/irqs-s3c24xx.h              |  219 ---
+>  arch/arm/mach-s3c/mach-amlm5900.c             |  248 ---
+>  arch/arm/mach-s3c/mach-anubis.c               |  422 -----
+>  arch/arm/mach-s3c/mach-at2440evb.c            |  233 ---
+>  arch/arm/mach-s3c/mach-bast.c                 |  583 -------
+>  arch/arm/mach-s3c/mach-gta02.c                |  588 -------
+>  arch/arm/mach-s3c/mach-h1940.c                |  809 ----------
+>  arch/arm/mach-s3c/mach-jive.c                 |  693 ---------
+>  arch/arm/mach-s3c/mach-mini2440.c             |  804 ----------
+>  arch/arm/mach-s3c/mach-n30.c                  |  682 ---------
+>  arch/arm/mach-s3c/mach-nexcoder.c             |  162 --
+>  arch/arm/mach-s3c/mach-osiris-dvs.c           |  178 ---
+>  arch/arm/mach-s3c/mach-osiris.c               |  405 -----
+>  arch/arm/mach-s3c/mach-otom.c                 |  124 --
+>  arch/arm/mach-s3c/mach-qt2410.c               |  375 -----
+>  arch/arm/mach-s3c/mach-rx1950.c               |  884 -----------
+>  arch/arm/mach-s3c/mach-rx3715.c               |  213 ---
+>  arch/arm/mach-s3c/mach-s3c2416-dt.c           |   48 -
+>  arch/arm/mach-s3c/mach-smdk2410.c             |  112 --
+>  arch/arm/mach-s3c/mach-smdk2413.c             |  169 ---
+>  arch/arm/mach-s3c/mach-smdk2416.c             |  248 ---
+>  arch/arm/mach-s3c/mach-smdk2440.c             |  180 ---
+>  arch/arm/mach-s3c/mach-smdk2443.c             |  126 --
+>  arch/arm/mach-s3c/mach-tct_hammer.c           |  157 --
+>  arch/arm/mach-s3c/mach-vr1000.c               |  364 -----
+>  arch/arm/mach-s3c/mach-vstms.c                |  166 --
+>  arch/arm/mach-s3c/map-s3c24xx.h               |  159 --
+>  arch/arm/mach-s3c/nand-core-s3c24xx.h         |   24 -
+>  arch/arm/mach-s3c/osiris.h                    |   50 -
+>  arch/arm/mach-s3c/pll-s3c2410.c               |   83 -
+>  arch/arm/mach-s3c/pll-s3c2440-12000000.c      |   95 --
+>  arch/arm/mach-s3c/pll-s3c2440-16934400.c      |  122 --
+>  arch/arm/mach-s3c/pm-core-s3c24xx.h           |   96 --
+>  arch/arm/mach-s3c/pm-h1940.S                  |   19 -
+>  arch/arm/mach-s3c/pm-s3c2410.c                |  170 ---
+>  arch/arm/mach-s3c/pm-s3c2412.c                |  126 --
+>  arch/arm/mach-s3c/pm-s3c2416.c                |   81 -
+>  arch/arm/mach-s3c/pm-s3c24xx.c                |  121 --
+>  arch/arm/mach-s3c/regs-clock-s3c24xx.h        |  146 --
+>  arch/arm/mach-s3c/regs-dsc-s3c24xx.h          |   22 -
+>  arch/arm/mach-s3c/regs-gpio-s3c24xx.h         |  608 --------
+>  arch/arm/mach-s3c/regs-irq-s3c24xx.h          |   51 -
+>  arch/arm/mach-s3c/regs-mem-s3c24xx.h          |   53 -
+>  arch/arm/mach-s3c/regs-s3c2443-clock.h        |  238 ---
+>  arch/arm/mach-s3c/rtc-core-s3c24xx.h          |   23 -
+>  arch/arm/mach-s3c/s3c2410.c                   |  130 --
+>  arch/arm/mach-s3c/s3c2412-power.h             |   34 -
+>  arch/arm/mach-s3c/s3c2412.c                   |  175 ---
+>  arch/arm/mach-s3c/s3c2412.h                   |   25 -
+>  arch/arm/mach-s3c/s3c2416.c                   |  132 --
+>  arch/arm/mach-s3c/s3c2440.c                   |   71 -
+>  arch/arm/mach-s3c/s3c2442.c                   |   62 -
+>  arch/arm/mach-s3c/s3c2443.c                   |  112 --
+>  arch/arm/mach-s3c/s3c244x.c                   |  128 --
+>  arch/arm/mach-s3c/s3c24xx.c                   |  687 ---------
+>  arch/arm/mach-s3c/s3c24xx.h                   |  124 --
+>  arch/arm/mach-s3c/setup-i2c-s3c24xx.c         |   23 -
+>  arch/arm/mach-s3c/setup-sdhci-gpio-s3c24xx.c  |   31 -
+>  arch/arm/mach-s3c/setup-spi-s3c24xx.c         |   27 -
+>  arch/arm/mach-s3c/setup-ts-s3c24xx.c          |   29 -
+>  arch/arm/mach-s3c/simtec-audio.c              |   76 -
+>  arch/arm/mach-s3c/simtec-nor.c                |   74 -
+>  arch/arm/mach-s3c/simtec-pm.c                 |   60 -
+>  arch/arm/mach-s3c/simtec-usb.c                |  125 --
+>  arch/arm/mach-s3c/simtec.h                    |   17 -
+>  arch/arm/mach-s3c/sleep-s3c2410.S             |   54 -
+>  arch/arm/mach-s3c/sleep-s3c2412.S             |   53 -
+>  arch/arm/mach-s3c/sleep-s3c24xx.S             |   69 -
+>  arch/arm/mach-s3c/spi-core-s3c24xx.h          |   21 -
+>  arch/arm/mach-s3c/vr1000.h                    |  113 --
+>  drivers/soc/samsung/Kconfig                   |    4 -
+>  include/dt-bindings/clock/s3c2410.h           |   59 -
+>  include/dt-bindings/clock/s3c2412.h           |   70 -
+>  include/dt-bindings/clock/s3c2443.h           |   91 --
+>  include/linux/amba/pl093.h                    |   77 -
+>  126 files changed, 8 insertions(+), 21049 deletions(-)
+>  delete mode 100644 Documentation/arm/samsung-s3c24xx/cpufreq.rst
+>  delete mode 100644 Documentation/arm/samsung-s3c24xx/eb2410itx.rst
+>  delete mode 100644 Documentation/arm/samsung-s3c24xx/gpio.rst
+>  delete mode 100644 Documentation/arm/samsung-s3c24xx/h1940.rst
+>  delete mode 100644 Documentation/arm/samsung-s3c24xx/index.rst
+>  delete mode 100644 Documentation/arm/samsung-s3c24xx/nand.rst
+>  delete mode 100644 Documentation/arm/samsung-s3c24xx/overview.rst
+>  delete mode 100644 Documentation/arm/samsung-s3c24xx/s3c2412.rst
+>  delete mode 100644 Documentation/arm/samsung-s3c24xx/s3c2413.rst
+>  delete mode 100644 Documentation/arm/samsung-s3c24xx/smdk2440.rst
+>  delete mode 100644 Documentation/arm/samsung-s3c24xx/suspend.rst
+>  delete mode 100644 Documentation/arm/samsung-s3c24xx/usb-host.rst
+>  delete mode 100644 arch/arm/boot/dts/s3c2410-pinctrl.h
+>  delete mode 100644 arch/arm/boot/dts/s3c2416-pinctrl.dtsi
+>  delete mode 100644 arch/arm/boot/dts/s3c2416-smdk2416.dts
+>  delete mode 100644 arch/arm/boot/dts/s3c2416.dtsi
+>  delete mode 100644 arch/arm/boot/dts/s3c24xx.dtsi
+>  delete mode 100644 arch/arm/configs/mini2440_defconfig
+>  delete mode 100644 arch/arm/configs/s3c2410_defconfig
+>  delete mode 100644 arch/arm/configs/tct_hammer_defconfig
+>  delete mode 100644 arch/arm/mach-s3c/Kconfig.s3c24xx
+>  delete mode 100644 arch/arm/mach-s3c/Makefile.s3c24xx
+>  delete mode 100644 arch/arm/mach-s3c/anubis.h
+>  delete mode 100644 arch/arm/mach-s3c/bast-ide.c
+>  delete mode 100644 arch/arm/mach-s3c/bast-irq.c
+>  delete mode 100644 arch/arm/mach-s3c/bast.h
+>  delete mode 100644 arch/arm/mach-s3c/common-smdk-s3c24xx.c
+>  delete mode 100644 arch/arm/mach-s3c/common-smdk-s3c24xx.h
+>  delete mode 100644 arch/arm/mach-s3c/cpufreq-utils-s3c24xx.c
+>  delete mode 100644 arch/arm/mach-s3c/dma-s3c24xx.h
+>  delete mode 100644 arch/arm/mach-s3c/fb-core-s3c24xx.h
+>  delete mode 100644 arch/arm/mach-s3c/gpio-samsung-s3c24xx.h
+>  delete mode 100644 arch/arm/mach-s3c/gta02.h
+>  delete mode 100644 arch/arm/mach-s3c/h1940-bluetooth.c
+>  delete mode 100644 arch/arm/mach-s3c/h1940.h
+>  delete mode 100644 arch/arm/mach-s3c/hardware-s3c24xx.h
+>  delete mode 100644 arch/arm/mach-s3c/iotiming-s3c2410.c
+>  delete mode 100644 arch/arm/mach-s3c/iotiming-s3c2412.c
+>  delete mode 100644 arch/arm/mach-s3c/irq-pm-s3c24xx.c
+>  delete mode 100644 arch/arm/mach-s3c/irq-s3c24xx-fiq-exports.c
+>  delete mode 100644 arch/arm/mach-s3c/irq-s3c24xx-fiq.S
+>  delete mode 100644 arch/arm/mach-s3c/irq-s3c24xx.c
+>  delete mode 100644 arch/arm/mach-s3c/irqs-s3c24xx.h
+>  delete mode 100644 arch/arm/mach-s3c/mach-amlm5900.c
+>  delete mode 100644 arch/arm/mach-s3c/mach-anubis.c
+>  delete mode 100644 arch/arm/mach-s3c/mach-at2440evb.c
+>  delete mode 100644 arch/arm/mach-s3c/mach-bast.c
+>  delete mode 100644 arch/arm/mach-s3c/mach-gta02.c
+>  delete mode 100644 arch/arm/mach-s3c/mach-h1940.c
+>  delete mode 100644 arch/arm/mach-s3c/mach-jive.c
+>  delete mode 100644 arch/arm/mach-s3c/mach-mini2440.c
+>  delete mode 100644 arch/arm/mach-s3c/mach-n30.c
+>  delete mode 100644 arch/arm/mach-s3c/mach-nexcoder.c
+>  delete mode 100644 arch/arm/mach-s3c/mach-osiris-dvs.c
+>  delete mode 100644 arch/arm/mach-s3c/mach-osiris.c
+>  delete mode 100644 arch/arm/mach-s3c/mach-otom.c
+>  delete mode 100644 arch/arm/mach-s3c/mach-qt2410.c
+>  delete mode 100644 arch/arm/mach-s3c/mach-rx1950.c
+>  delete mode 100644 arch/arm/mach-s3c/mach-rx3715.c
+>  delete mode 100644 arch/arm/mach-s3c/mach-s3c2416-dt.c
+>  delete mode 100644 arch/arm/mach-s3c/mach-smdk2410.c
+>  delete mode 100644 arch/arm/mach-s3c/mach-smdk2413.c
+>  delete mode 100644 arch/arm/mach-s3c/mach-smdk2416.c
+>  delete mode 100644 arch/arm/mach-s3c/mach-smdk2440.c
+>  delete mode 100644 arch/arm/mach-s3c/mach-smdk2443.c
+>  delete mode 100644 arch/arm/mach-s3c/mach-tct_hammer.c
+>  delete mode 100644 arch/arm/mach-s3c/mach-vr1000.c
+>  delete mode 100644 arch/arm/mach-s3c/mach-vstms.c
+>  delete mode 100644 arch/arm/mach-s3c/map-s3c24xx.h
+>  delete mode 100644 arch/arm/mach-s3c/nand-core-s3c24xx.h
+>  delete mode 100644 arch/arm/mach-s3c/osiris.h
+>  delete mode 100644 arch/arm/mach-s3c/pll-s3c2410.c
+>  delete mode 100644 arch/arm/mach-s3c/pll-s3c2440-12000000.c
+>  delete mode 100644 arch/arm/mach-s3c/pll-s3c2440-16934400.c
+>  delete mode 100644 arch/arm/mach-s3c/pm-core-s3c24xx.h
+>  delete mode 100644 arch/arm/mach-s3c/pm-h1940.S
+>  delete mode 100644 arch/arm/mach-s3c/pm-s3c2410.c
+>  delete mode 100644 arch/arm/mach-s3c/pm-s3c2412.c
+>  delete mode 100644 arch/arm/mach-s3c/pm-s3c2416.c
+>  delete mode 100644 arch/arm/mach-s3c/pm-s3c24xx.c
+>  delete mode 100644 arch/arm/mach-s3c/regs-clock-s3c24xx.h
+>  delete mode 100644 arch/arm/mach-s3c/regs-dsc-s3c24xx.h
+>  delete mode 100644 arch/arm/mach-s3c/regs-gpio-s3c24xx.h
+>  delete mode 100644 arch/arm/mach-s3c/regs-irq-s3c24xx.h
+>  delete mode 100644 arch/arm/mach-s3c/regs-mem-s3c24xx.h
+>  delete mode 100644 arch/arm/mach-s3c/regs-s3c2443-clock.h
+>  delete mode 100644 arch/arm/mach-s3c/rtc-core-s3c24xx.h
+>  delete mode 100644 arch/arm/mach-s3c/s3c2410.c
+>  delete mode 100644 arch/arm/mach-s3c/s3c2412-power.h
+>  delete mode 100644 arch/arm/mach-s3c/s3c2412.c
+>  delete mode 100644 arch/arm/mach-s3c/s3c2412.h
+>  delete mode 100644 arch/arm/mach-s3c/s3c2416.c
+>  delete mode 100644 arch/arm/mach-s3c/s3c2440.c
+>  delete mode 100644 arch/arm/mach-s3c/s3c2442.c
+>  delete mode 100644 arch/arm/mach-s3c/s3c2443.c
+>  delete mode 100644 arch/arm/mach-s3c/s3c244x.c
+>  delete mode 100644 arch/arm/mach-s3c/s3c24xx.c
+>  delete mode 100644 arch/arm/mach-s3c/s3c24xx.h
+>  delete mode 100644 arch/arm/mach-s3c/setup-i2c-s3c24xx.c
+>  delete mode 100644 arch/arm/mach-s3c/setup-sdhci-gpio-s3c24xx.c
+>  delete mode 100644 arch/arm/mach-s3c/setup-spi-s3c24xx.c
+>  delete mode 100644 arch/arm/mach-s3c/setup-ts-s3c24xx.c
+>  delete mode 100644 arch/arm/mach-s3c/simtec-audio.c
+>  delete mode 100644 arch/arm/mach-s3c/simtec-nor.c
+>  delete mode 100644 arch/arm/mach-s3c/simtec-pm.c
+>  delete mode 100644 arch/arm/mach-s3c/simtec-usb.c
+>  delete mode 100644 arch/arm/mach-s3c/simtec.h
+>  delete mode 100644 arch/arm/mach-s3c/sleep-s3c2410.S
+>  delete mode 100644 arch/arm/mach-s3c/sleep-s3c2412.S
+>  delete mode 100644 arch/arm/mach-s3c/sleep-s3c24xx.S
+>  delete mode 100644 arch/arm/mach-s3c/spi-core-s3c24xx.h
+>  delete mode 100644 arch/arm/mach-s3c/vr1000.h
+>  delete mode 100644 include/dt-bindings/clock/s3c2410.h
+>  delete mode 100644 include/dt-bindings/clock/s3c2412.h
+>  delete mode 100644 include/dt-bindings/clock/s3c2443.h
+>  delete mode 100644 include/linux/amba/pl093.h
+> =
+
+> diff --git a/Documentation/arm/index.rst b/Documentation/arm/index.rst
+> index 8c636d4a061f..ae42fe886f0d 100644
+> --- a/Documentation/arm/index.rst
+> +++ b/Documentation/arm/index.rst
+> @@ -64,7 +64,6 @@ SoC-specific documents
+>     sunxi
+>  =
+
+>     samsung/index
+> -   samsung-s3c24xx/index
+>  =
+
+>     sunxi/clocks
+>  =
+
+> diff --git a/Documentation/arm/samsung-s3c24xx/cpufreq.rst b/Documentatio=
+n/arm/samsung-s3c24xx/cpufreq.rst
+> deleted file mode 100644
+> index cd22697cf606..000000000000
+> diff --git a/Documentation/arm/samsung-s3c24xx/eb2410itx.rst b/Documentat=
+ion/arm/samsung-s3c24xx/eb2410itx.rst
+> deleted file mode 100644
+> index 7863c93652f8..000000000000
+> diff --git a/Documentation/arm/samsung-s3c24xx/gpio.rst b/Documentation/a=
+rm/samsung-s3c24xx/gpio.rst
+> deleted file mode 100644
+> index f4a8c800a457..000000000000
+> diff --git a/Documentation/arm/samsung-s3c24xx/h1940.rst b/Documentation/=
+arm/samsung-s3c24xx/h1940.rst
+> deleted file mode 100644
+> index 62a562c178e3..000000000000
+> diff --git a/Documentation/arm/samsung-s3c24xx/index.rst b/Documentation/=
+arm/samsung-s3c24xx/index.rst
+> deleted file mode 100644
+> index ccb951a0bedb..000000000000
+> diff --git a/Documentation/arm/samsung-s3c24xx/nand.rst b/Documentation/a=
+rm/samsung-s3c24xx/nand.rst
+> deleted file mode 100644
+> index 938995694ee7..000000000000
+> diff --git a/Documentation/arm/samsung-s3c24xx/overview.rst b/Documentati=
+on/arm/samsung-s3c24xx/overview.rst
+> deleted file mode 100644
+> index 14535e5cffb7..000000000000
+> diff --git a/Documentation/arm/samsung-s3c24xx/s3c2412.rst b/Documentatio=
+n/arm/samsung-s3c24xx/s3c2412.rst
+> deleted file mode 100644
+> index 68b985fc6bf4..000000000000
+> diff --git a/Documentation/arm/samsung-s3c24xx/s3c2413.rst b/Documentatio=
+n/arm/samsung-s3c24xx/s3c2413.rst
+> deleted file mode 100644
+> index 1f51e207fc46..000000000000
+> diff --git a/Documentation/arm/samsung-s3c24xx/smdk2440.rst b/Documentati=
+on/arm/samsung-s3c24xx/smdk2440.rst
+> deleted file mode 100644
+> index 524fd0b4afaf..000000000000
+> diff --git a/Documentation/arm/samsung-s3c24xx/suspend.rst b/Documentatio=
+n/arm/samsung-s3c24xx/suspend.rst
+> deleted file mode 100644
+> index b4f3ae9fe76e..000000000000
+> diff --git a/Documentation/arm/samsung-s3c24xx/usb-host.rst b/Documentati=
+on/arm/samsung-s3c24xx/usb-host.rst
+> deleted file mode 100644
+> index 7aaffac89e04..000000000000
+> diff --git a/Documentation/arm/samsung/overview.rst b/Documentation/arm/s=
+amsung/overview.rst
+> index e74307897416..8b15a190169b 100644
+> --- a/Documentation/arm/samsung/overview.rst
+> +++ b/Documentation/arm/samsung/overview.rst
+> @@ -12,21 +12,10 @@ Introduction
+>  =
+
+>    The currently supported SoCs are:
+>  =
+
+> -  - S3C24XX: See Documentation/arm/samsung-s3c24xx/overview.rst for full=
+ list
+>    - S3C64XX: S3C6400 and S3C6410
+>    - S5PC110 / S5PV210
+>  =
+
+>  =
+
+> -S3C24XX Systems
+> ----------------
+> -
+> -  There is still documentation in Documnetation/arm/Samsung-S3C24XX/ whi=
+ch
+> -  deals with the architecture and drivers specific to these devices.
+> -
+> -  See Documentation/arm/samsung-s3c24xx/overview.rst for more information
+> -  on the implementation details and specific support.
+> -
+> -
+>  Configuration
+>  -------------
+>  =
+
+> @@ -51,8 +40,6 @@ Layout
+>    specific information. It contains the base clock, GPIO and device defi=
+nitions
+>    to get the system running.
+>  =
+
+> -  plat-s3c24xx is for s3c24xx specific builds, see the S3C24XX docs.
+> -
+>    plat-s5p is for s5p specific builds, and contains common support for t=
+he
+>    S5P specific systems. Not all S5Ps use all the features in this direct=
+ory
+>    due to differences in the hardware.
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index ec3d53b5e1d1..071d64e2a7ca 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -2462,13 +2462,6 @@ L:	linux-arm-kernel@lists.infradead.org (moderated=
+ for non-subscribers)
+>  S:	Maintained
+>  F:	arch/arm64/boot/dts/freescale/s32g*.dts*
+>  =
+
+> -ARM/OPENMOKO NEO FREERUNNER (GTA02) MACHINE SUPPORT
+> -L:	openmoko-kernel@lists.openmoko.org (subscribers-only)
+> -S:	Orphan
+> -W:	http://wiki.openmoko.org/wiki/Neo_FreeRunner
+> -F:	arch/arm/mach-s3c/gta02.h
+> -F:	arch/arm/mach-s3c/mach-gta02.c
+> -
+>  ARM/Orion SoC/Technologic Systems TS-78xx platform support
+>  M:	Alexander Clouter <alex@digriz.org.uk>
+>  L:	linux-arm-kernel@lists.infradead.org (moderated for non-subscribers)
+> @@ -2649,7 +2642,6 @@ F:	include/linux/platform_data/*s3c*
+>  F:	include/linux/serial_s3c.h
+>  F:	include/linux/soc/samsung/
+>  N:	exynos
+> -N:	s3c2410
+>  N:	s3c64xx
+>  N:	s5pv210
+>  =
+
+> @@ -18673,14 +18665,6 @@ M:	Simtec Linux Team <linux@simtec.co.uk>
+>  S:	Supported
+>  W:	http://www.simtec.co.uk/products/EB110ATX/
+>  =
+
+> -SIMTEC EB2410ITX (BAST)
+> -M:	Simtec Linux Team <linux@simtec.co.uk>
+> -S:	Supported
+> -W:	http://www.simtec.co.uk/products/EB2410ITX/
+> -F:	arch/arm/mach-s3c/bast-ide.c
+> -F:	arch/arm/mach-s3c/bast-irq.c
+> -F:	arch/arm/mach-s3c/mach-bast.c
+> -
+>  SIOX
+>  M:	Thorsten Scherer <t.scherer@eckelmann.de>
+>  M:	Uwe Kleine-K=F6nig <u.kleine-koenig@pengutronix.de>
+> diff --git a/arch/arm/Kconfig b/arch/arm/Kconfig
+> index c1614f91e04c..280701af4a01 100644
+> --- a/arch/arm/Kconfig
+> +++ b/arch/arm/Kconfig
+> @@ -279,7 +279,6 @@ config PHYS_OFFSET
+>  	default DRAM_BASE if !MMU
+>  	default 0x00000000 if ARCH_FOOTBRIDGE
+>  	default 0x10000000 if ARCH_OMAP1 || ARCH_RPC
+> -	default 0x30000000 if ARCH_S3C24XX
+>  	default 0xa0000000 if ARCH_PXA
+>  	default 0xc0000000 if ARCH_EP93XX || ARCH_SA1100
+>  	default 0
+> @@ -1154,7 +1153,7 @@ config ARCH_NR_GPIO
+>  	default 1024 if ARCH_BRCMSTB || ARCH_RENESAS || ARCH_TEGRA || \
+>  		ARCH_ZYNQ || ARCH_ASPEED
+>  	default 512 if ARCH_EXYNOS || ARCH_KEYSTONE || SOC_OMAP5 || \
+> -		SOC_DRA7XX || ARCH_S3C24XX || ARCH_S3C64XX || ARCH_S5PV210
+> +		SOC_DRA7XX || ARCH_S3C64XX || ARCH_S5PV210
+>  	default 416 if ARCH_SUNXI
+>  	default 392 if ARCH_U8500
+>  	default 352 if ARCH_VT8500
+> diff --git a/arch/arm/Kconfig.debug b/arch/arm/Kconfig.debug
+> index 20312792340d..874551895181 100644
+> --- a/arch/arm/Kconfig.debug
+> +++ b/arch/arm/Kconfig.debug
+> @@ -1006,7 +1006,6 @@ choice
+>  	config DEBUG_S3C_UART0
+>  		depends on PLAT_SAMSUNG || ARCH_S5PV210 || ARCH_EXYNOS
+>  		select DEBUG_EXYNOS_UART if ARCH_EXYNOS
+> -		select DEBUG_S3C24XX_UART if ARCH_S3C24XX
+>  		select DEBUG_S3C64XX_UART if ARCH_S3C64XX
+>  		select DEBUG_S5PV210_UART if ARCH_S5PV210
+>  		bool "Use Samsung S3C UART 0 for low-level debug"
+> @@ -1018,7 +1017,6 @@ choice
+>  	config DEBUG_S3C_UART1
+>  		depends on PLAT_SAMSUNG || ARCH_S5PV210 || ARCH_EXYNOS
+>  		select DEBUG_EXYNOS_UART if ARCH_EXYNOS
+> -		select DEBUG_S3C24XX_UART if ARCH_S3C24XX
+>  		select DEBUG_S3C64XX_UART if ARCH_S3C64XX
+>  		select DEBUG_S5PV210_UART if ARCH_S5PV210
+>  		bool "Use Samsung S3C UART 1 for low-level debug"
+> @@ -1030,7 +1028,6 @@ choice
+>  	config DEBUG_S3C_UART2
+>  		depends on PLAT_SAMSUNG || ARCH_S5PV210 || ARCH_EXYNOS
+>  		select DEBUG_EXYNOS_UART if ARCH_EXYNOS
+> -		select DEBUG_S3C24XX_UART if ARCH_S3C24XX
+>  		select DEBUG_S3C64XX_UART if ARCH_S3C64XX
+>  		select DEBUG_S5PV210_UART if ARCH_S5PV210
+>  		bool "Use Samsung S3C UART 2 for low-level debug"
+> @@ -1050,33 +1047,6 @@ choice
+>  		  their output to UART 3. The port must have been initialised
+>  		  by the boot-loader before use.
+>  =
+
+> -	config DEBUG_S3C2410_UART0
+> -		depends on ARCH_S3C24XX
+> -		select DEBUG_S3C2410_UART
+> -		bool "Use S3C2410/S3C2412 UART 0 for low-level debug"
+> -		help
+> -		  Say Y here if you want the debug print routines to direct
+> -		  their output to UART 0. The port must have been initialised
+> -		  by the boot-loader before use.
+> -
+> -	config DEBUG_S3C2410_UART1
+> -		depends on ARCH_S3C24XX
+> -		select DEBUG_S3C2410_UART
+> -		bool "Use S3C2410/S3C2412 UART 1 for low-level debug"
+> -		help
+> -		  Say Y here if you want the debug print routines to direct
+> -		  their output to UART 1. The port must have been initialised
+> -		  by the boot-loader before use.
+> -
+> -	config DEBUG_S3C2410_UART2
+> -		depends on ARCH_S3C24XX
+> -		select DEBUG_S3C2410_UART
+> -		bool "Use S3C2410/S3C2412 UART 2 for low-level debug"
+> -		help
+> -		  Say Y here if you want the debug print routines to direct
+> -		  their output to UART 2. The port must have been initialised
+> -		  by the boot-loader before use.
+> -
+>  	config DEBUG_SA1100
+>  		depends on ARCH_SA1100
+>  		bool "Use SA1100 UARTs for low-level debug"
+> @@ -1439,13 +1409,6 @@ config DEBUG_AT91_UART
+>  config DEBUG_EXYNOS_UART
+>  	bool
+>  =
+
+> -config DEBUG_S3C2410_UART
+> -	bool
+> -	select DEBUG_S3C24XX_UART
+> -
+> -config DEBUG_S3C24XX_UART
+> -	bool
+> -
+>  config DEBUG_S3C64XX_UART
+>  	bool
+>  =
+
+> @@ -1453,8 +1416,7 @@ config DEBUG_S5PV210_UART
+>  	bool
+>  =
+
+>  config DEBUG_S3C_UART
+> -	depends on DEBUG_S3C2410_UART || DEBUG_S3C24XX_UART || \
+> -		   DEBUG_S3C64XX_UART ||  DEBUG_S5PV210_UART || \
+> +	depends on DEBUG_S3C64XX_UART ||  DEBUG_S5PV210_UART || \
+>  		   DEBUG_EXYNOS_UART
+>  	int
+>  	default "0" if DEBUG_S3C_UART0
+> @@ -1555,7 +1517,7 @@ config DEBUG_LL_INCLUDE
+>  	default "debug/renesas-scif.S" if DEBUG_RMOBILE_SCIFA0
+>  	default "debug/renesas-scif.S" if DEBUG_RMOBILE_SCIFA1
+>  	default "debug/renesas-scif.S" if DEBUG_RMOBILE_SCIFA4
+> -	default "debug/s3c24xx.S" if DEBUG_S3C24XX_UART || DEBUG_S3C64XX_UART
+> +	default "debug/s3c24xx.S" if DEBUG_S3C64XX_UART
+>  	default "debug/s5pv210.S" if DEBUG_S5PV210_UART
+>  	default "debug/sti.S" if DEBUG_STIH41X_ASC2
+>  	default "debug/sti.S" if DEBUG_STIH41X_SBC_ASC1
+> @@ -1638,12 +1600,6 @@ config DEBUG_UART_PHYS
+>  	default 0x4806e000 if DEBUG_OMAP2UART3 || DEBUG_OMAP4UART4
+>  	default 0x49020000 if DEBUG_OMAP3UART3
+>  	default 0x49042000 if DEBUG_OMAP3UART4
+> -	default 0x50000000 if DEBUG_S3C24XX_UART && (DEBUG_S3C_UART0 || \
+> -				DEBUG_S3C2410_UART0)
+> -	default 0x50004000 if DEBUG_S3C24XX_UART && (DEBUG_S3C_UART1 || \
+> -				DEBUG_S3C2410_UART1)
+> -	default 0x50008000 if DEBUG_S3C24XX_UART && (DEBUG_S3C_UART2 || \
+> -				DEBUG_S3C2410_UART2)
+>  	default 0x7c0003f8 if DEBUG_FOOTBRIDGE_COM1
+>  	default 0x7f005000 if DEBUG_S3C64XX_UART && DEBUG_S3C_UART0
+>  	default 0x7f005400 if DEBUG_S3C64XX_UART && DEBUG_S3C_UART1
+> @@ -1711,7 +1667,7 @@ config DEBUG_UART_PHYS
+>  		DEBUG_RCAR_GEN2_SCIF2 || DEBUG_RCAR_GEN2_SCIF4 || \
+>  		DEBUG_RCAR_GEN2_SCIFA2 || \
+>  		DEBUG_RMOBILE_SCIFA0 || DEBUG_RMOBILE_SCIFA1 || \
+> -		DEBUG_RMOBILE_SCIFA4 || DEBUG_S3C24XX_UART || \
+> +		DEBUG_RMOBILE_SCIFA4 || \
+>  		DEBUG_S3C64XX_UART || \
+>  		DEBUG_BCM63XX_UART || DEBUG_ASM9260_UART || \
+>  		DEBUG_DIGICOLOR_UA0 || \
+> @@ -1748,15 +1704,9 @@ config DEBUG_UART_VIRT
+>  	default 0xf6200000 if DEBUG_PXA_UART1
+>  	default 0xf7000000 if DEBUG_SUN9I_UART0
+>  	default 0xf7000000 if DEBUG_S3C64XX_UART && DEBUG_S3C_UART0
+> -	default 0xf7000000 if DEBUG_S3C24XX_UART && (DEBUG_S3C_UART0 || \
+> -				DEBUG_S3C2410_UART0)
+>  	default 0xf7000400 if DEBUG_S3C64XX_UART && DEBUG_S3C_UART1
+>  	default 0xf7000800 if DEBUG_S3C64XX_UART && DEBUG_S3C_UART2
+>  	default 0xf7000c00 if DEBUG_S3C64XX_UART && DEBUG_S3C_UART3
+> -	default 0xf7004000 if DEBUG_S3C24XX_UART && (DEBUG_S3C_UART1 || \
+> -				DEBUG_S3C2410_UART1)
+> -	default 0xf7008000 if DEBUG_S3C24XX_UART && (DEBUG_S3C_UART2 || \
+> -				DEBUG_S3C2410_UART2)
+>  	default 0xf7020000 if DEBUG_AT91_SAMA5D2_UART1
+>  	default 0xf7fc9000 if DEBUG_BERLIN_UART
+>  	default 0xf8007000 if DEBUG_HIP04_UART
+> @@ -1820,7 +1770,7 @@ config DEBUG_UART_VIRT
+>  	default DEBUG_UART_PHYS if !MMU
+>  	depends on DEBUG_LL_UART_8250 || DEBUG_LL_UART_PL01X || \
+>  		DEBUG_UART_8250 || DEBUG_UART_PL01X || DEBUG_MESON_UARTAO || \
+> -		DEBUG_QCOM_UARTDM || DEBUG_S3C24XX_UART || \
+> +		DEBUG_QCOM_UARTDM || \
+>  		DEBUG_S3C64XX_UART || \
+>  		DEBUG_BCM63XX_UART || DEBUG_ASM9260_UART || \
+>  		DEBUG_DIGICOLOR_UA0 || \
+> diff --git a/arch/arm/Makefile b/arch/arm/Makefile
+> index 1a62035d1207..129162244c68 100644
+> --- a/arch/arm/Makefile
+> +++ b/arch/arm/Makefile
+> @@ -143,8 +143,6 @@ CHECKFLAGS	+=3D -D__arm__
+>  # during boot, and this offset is critical to the functioning of
+>  # kexec-tools.
+>  textofs-y	:=3D 0x00008000
+> -# We don't want the htc bootloader to corrupt kernel during resume
+> -textofs-$(CONFIG_PM_H1940)      :=3D 0x00108000
+>  # RTD1195 has Boot ROM at start of address space
+>  textofs-$(CONFIG_ARCH_REALTEK)  :=3D 0x00108000
+>  # SA1111 DMA bug: we don't want the kernel to live in precious DMA-able =
+memory
+> diff --git a/arch/arm/boot/dts/Makefile b/arch/arm/boot/dts/Makefile
+> index 6aa7dc4db2fc..f0699ec7da2f 100644
+> --- a/arch/arm/boot/dts/Makefile
+> +++ b/arch/arm/boot/dts/Makefile
+> @@ -1156,8 +1156,6 @@ dtb-$(CONFIG_ARCH_ROCKCHIP) +=3D \
+>  	rk3288-veyron-speedy.dtb \
+>  	rk3288-veyron-tiger.dtb \
+>  	rk3288-vyasa.dtb
+> -dtb-$(CONFIG_ARCH_S3C24XX) +=3D \
+> -	s3c2416-smdk2416.dtb
+>  dtb-$(CONFIG_ARCH_S3C64XX) +=3D \
+>  	s3c6410-mini6410.dtb \
+>  	s3c6410-smdk6410.dtb
+> diff --git a/arch/arm/boot/dts/s3c2410-pinctrl.h b/arch/arm/boot/dts/s3c2=
+410-pinctrl.h
+> deleted file mode 100644
+> index 76b6171ae149..000000000000
+> diff --git a/arch/arm/boot/dts/s3c2416-pinctrl.dtsi b/arch/arm/boot/dts/s=
+3c2416-pinctrl.dtsi
+> deleted file mode 100644
+> index 3268366bd8bc..000000000000
+> diff --git a/arch/arm/boot/dts/s3c2416-smdk2416.dts b/arch/arm/boot/dts/s=
+3c2416-smdk2416.dts
+> deleted file mode 100644
+> index e7c379a9842e..000000000000
+> diff --git a/arch/arm/boot/dts/s3c2416.dtsi b/arch/arm/boot/dts/s3c2416.d=
+tsi
+> deleted file mode 100644
+> index 4660751cb207..000000000000
+> diff --git a/arch/arm/boot/dts/s3c24xx.dtsi b/arch/arm/boot/dts/s3c24xx.d=
+tsi
+> deleted file mode 100644
+> index 06f82c7e458e..000000000000
+> diff --git a/arch/arm/configs/mini2440_defconfig b/arch/arm/configs/mini2=
+440_defconfig
+> deleted file mode 100644
+> index 86e00f684e16..000000000000
+> diff --git a/arch/arm/configs/s3c2410_defconfig b/arch/arm/configs/s3c241=
+0_defconfig
+> deleted file mode 100644
+> index 41b40863a78e..000000000000
+> diff --git a/arch/arm/configs/tct_hammer_defconfig b/arch/arm/configs/tct=
+_hammer_defconfig
+> deleted file mode 100644
+> index 3b29ae1fb750..000000000000
+> diff --git a/arch/arm/mach-s3c/Kconfig b/arch/arm/mach-s3c/Kconfig
+> index a64143574546..809f84fca0b8 100644
+> --- a/arch/arm/mach-s3c/Kconfig
+> +++ b/arch/arm/mach-s3c/Kconfig
+> @@ -2,13 +2,10 @@
+>  #
+>  # Copyright 2009 Simtec Electronics
+>  =
+
+> -source "arch/arm/mach-s3c/Kconfig.s3c24xx"
+>  source "arch/arm/mach-s3c/Kconfig.s3c64xx"
+>  =
+
+>  config PLAT_SAMSUNG
+> -	bool
+> -	depends on PLAT_S3C24XX || ARCH_S3C64XX
+> -	default y
+> +	def_bool ARCH_S3C64XX
+>  	select GENERIC_IRQ_CHIP
+>  	select NO_IOPORT_MAP
+>  	select SOC_SAMSUNG
+> @@ -16,9 +13,8 @@ config PLAT_SAMSUNG
+>  	  Base platform code for all Samsung SoC based systems
+>  =
+
+>  config SAMSUNG_PM
+> -	bool
+> -	depends on PM && (PLAT_S3C24XX || ARCH_S3C64XX)
+> -	default y
+> +	def_bool ARCH_S3C64XX
+> +	depends on PM
+>  	help
+>  	  Base platform power management code for samsung code
+>  =
+
+> @@ -99,11 +95,6 @@ config S3C_DEV_HSMMC3
+>  	help
+>  	  Compile in platform device definitions for HSMMC channel 3
+>  =
+
+> -config S3C_DEV_HWMON
+> -	bool
+> -	help
+> -	  Compile in platform device definitions for HWMON
+> -
+>  config S3C_DEV_I2C1
+>  	bool
+>  	help
+> @@ -156,7 +147,6 @@ config S3C_DEV_USB_HSOTG
+>  =
+
+>  config S3C_DEV_WDT
+>  	bool
+> -	default y if ARCH_S3C24XX
+>  	help
+>  	  Compile in platform device definition for Watchdog Timer
+>  =
+
+> @@ -180,22 +170,12 @@ config SAMSUNG_DEV_ADC
+>  	help
+>  	  Compile in platform device definition for ADC controller
+>  =
+
+> -config SAMSUNG_DEV_IDE
+> -	bool
+> -	help
+> -	  Compile in platform device definitions for IDE
+> -
+>  config S3C64XX_DEV_SPI0
+>  	bool
+>  	help
+>  	  Compile in platform device definitions for S3C64XX's type
+>  	  SPI controller 0
+>  =
+
+> -config SAMSUNG_DEV_TS
+> -	bool
+> -	help
+> -	  Common in platform device definitions for touchscreen device
+> -
+>  config SAMSUNG_DEV_KEYPAD
+>  	bool
+>  	help
+> @@ -203,7 +183,6 @@ config SAMSUNG_DEV_KEYPAD
+>  =
+
+>  config SAMSUNG_DEV_PWM
+>  	bool
+> -	default y if ARCH_S3C24XX
+>  	help
+>  	  Compile in platform device definition for PWM Timer
+>  =
+
+> diff --git a/arch/arm/mach-s3c/Kconfig.s3c24xx b/arch/arm/mach-s3c/Kconfi=
+g.s3c24xx
+> deleted file mode 100644
+> index 7287e173f30e..000000000000
+> diff --git a/arch/arm/mach-s3c/Makefile b/arch/arm/mach-s3c/Makefile
+> index 7c7d3318fd61..e7f18039b149 100644
+> --- a/arch/arm/mach-s3c/Makefile
+> +++ b/arch/arm/mach-s3c/Makefile
+> @@ -2,10 +2,6 @@
+>  #
+>  # Copyright 2009 Simtec Electronics
+>  =
+
+> -ifdef CONFIG_ARCH_S3C24XX
+> -include $(src)/Makefile.s3c24xx
+> -endif
+> -
+>  ifdef CONFIG_ARCH_S3C64XX
+>  include $(src)/Makefile.s3c64xx
+>  endif
+> diff --git a/arch/arm/mach-s3c/Makefile.s3c24xx b/arch/arm/mach-s3c/Makef=
+ile.s3c24xx
+> deleted file mode 100644
+> index 3483ab3a2b81..000000000000
+> diff --git a/arch/arm/mach-s3c/anubis.h b/arch/arm/mach-s3c/anubis.h
+> deleted file mode 100644
+> index 13847292e6c7..000000000000
+> diff --git a/arch/arm/mach-s3c/bast-ide.c b/arch/arm/mach-s3c/bast-ide.c
+> deleted file mode 100644
+> index 67f0adc1fec0..000000000000
+> diff --git a/arch/arm/mach-s3c/bast-irq.c b/arch/arm/mach-s3c/bast-irq.c
+> deleted file mode 100644
+> index cfc2ddc65513..000000000000
+> diff --git a/arch/arm/mach-s3c/bast.h b/arch/arm/mach-s3c/bast.h
+> deleted file mode 100644
+> index a7726f93f5eb..000000000000
+> diff --git a/arch/arm/mach-s3c/common-smdk-s3c24xx.c b/arch/arm/mach-s3c/=
+common-smdk-s3c24xx.c
+> deleted file mode 100644
+> index 6d124bbd384c..000000000000
+> diff --git a/arch/arm/mach-s3c/common-smdk-s3c24xx.h b/arch/arm/mach-s3c/=
+common-smdk-s3c24xx.h
+> deleted file mode 100644
+> index c0352b06e435..000000000000
+> diff --git a/arch/arm/mach-s3c/cpufreq-utils-s3c24xx.c b/arch/arm/mach-s3=
+c/cpufreq-utils-s3c24xx.c
+> deleted file mode 100644
+> index c1784d8facdf..000000000000
+> diff --git a/arch/arm/mach-s3c/dma-s3c24xx.h b/arch/arm/mach-s3c/dma-s3c2=
+4xx.h
+> deleted file mode 100644
+> index 25fc9c258fc1..000000000000
+> diff --git a/arch/arm/mach-s3c/fb-core-s3c24xx.h b/arch/arm/mach-s3c/fb-c=
+ore-s3c24xx.h
+> deleted file mode 100644
+> index 0e07f3ba4aef..000000000000
+> diff --git a/arch/arm/mach-s3c/gpio-samsung-s3c24xx.h b/arch/arm/mach-s3c=
+/gpio-samsung-s3c24xx.h
+> deleted file mode 100644
+> index c29fdc95f883..000000000000
+> diff --git a/arch/arm/mach-s3c/gta02.h b/arch/arm/mach-s3c/gta02.h
+> deleted file mode 100644
+> index 043ae382bfc5..000000000000
+> diff --git a/arch/arm/mach-s3c/h1940-bluetooth.c b/arch/arm/mach-s3c/h194=
+0-bluetooth.c
+> deleted file mode 100644
+> index 59edcf8a620d..000000000000
+> diff --git a/arch/arm/mach-s3c/h1940.h b/arch/arm/mach-s3c/h1940.h
+> deleted file mode 100644
+> index 5dfe9d10cd15..000000000000
+> diff --git a/arch/arm/mach-s3c/hardware-s3c24xx.h b/arch/arm/mach-s3c/har=
+dware-s3c24xx.h
+> deleted file mode 100644
+> index 33b37467d05f..000000000000
+> diff --git a/arch/arm/mach-s3c/iotiming-s3c2410.c b/arch/arm/mach-s3c/iot=
+iming-s3c2410.c
+> deleted file mode 100644
+> index 09f388d8f824..000000000000
+> diff --git a/arch/arm/mach-s3c/iotiming-s3c2412.c b/arch/arm/mach-s3c/iot=
+iming-s3c2412.c
+> deleted file mode 100644
+> index 003f89c4dc53..000000000000
+> diff --git a/arch/arm/mach-s3c/irq-pm-s3c24xx.c b/arch/arm/mach-s3c/irq-p=
+m-s3c24xx.c
+> deleted file mode 100644
+> index 55f41135ad70..000000000000
+> diff --git a/arch/arm/mach-s3c/irq-s3c24xx-fiq-exports.c b/arch/arm/mach-=
+s3c/irq-s3c24xx-fiq-exports.c
+> deleted file mode 100644
+> index 84cf86376ded..000000000000
+> diff --git a/arch/arm/mach-s3c/irq-s3c24xx-fiq.S b/arch/arm/mach-s3c/irq-=
+s3c24xx-fiq.S
+> deleted file mode 100644
+> index 5d238d9a798e..000000000000
+> diff --git a/arch/arm/mach-s3c/irq-s3c24xx.c b/arch/arm/mach-s3c/irq-s3c2=
+4xx.c
+> deleted file mode 100644
+> index 088cc04b7431..000000000000
+> diff --git a/arch/arm/mach-s3c/irqs-s3c24xx.h b/arch/arm/mach-s3c/irqs-s3=
+c24xx.h
+> deleted file mode 100644
+> index fecbf7e440c6..000000000000
+> diff --git a/arch/arm/mach-s3c/mach-amlm5900.c b/arch/arm/mach-s3c/mach-a=
+mlm5900.c
+> deleted file mode 100644
+> index f85e5885e9b4..000000000000
+> diff --git a/arch/arm/mach-s3c/mach-anubis.c b/arch/arm/mach-s3c/mach-anu=
+bis.c
+> deleted file mode 100644
+> index 4536f3e66e27..000000000000
+> diff --git a/arch/arm/mach-s3c/mach-at2440evb.c b/arch/arm/mach-s3c/mach-=
+at2440evb.c
+> deleted file mode 100644
+> index 743403d873e0..000000000000
+> diff --git a/arch/arm/mach-s3c/mach-bast.c b/arch/arm/mach-s3c/mach-bast.c
+> deleted file mode 100644
+> index a33ceab81e09..000000000000
+> diff --git a/arch/arm/mach-s3c/mach-gta02.c b/arch/arm/mach-s3c/mach-gta0=
+2.c
+> deleted file mode 100644
+> index d50a81d85ae1..000000000000
+> diff --git a/arch/arm/mach-s3c/mach-h1940.c b/arch/arm/mach-s3c/mach-h194=
+0.c
+> deleted file mode 100644
+> index 83ac6cfdb1d8..000000000000
+> diff --git a/arch/arm/mach-s3c/mach-jive.c b/arch/arm/mach-s3c/mach-jive.c
+> deleted file mode 100644
+> index 16859bb3bb13..000000000000
+> diff --git a/arch/arm/mach-s3c/mach-mini2440.c b/arch/arm/mach-s3c/mach-m=
+ini2440.c
+> deleted file mode 100644
+> index 283be70ca622..000000000000
+> diff --git a/arch/arm/mach-s3c/mach-n30.c b/arch/arm/mach-s3c/mach-n30.c
+> deleted file mode 100644
+> index 90122fc6b2aa..000000000000
+> diff --git a/arch/arm/mach-s3c/mach-nexcoder.c b/arch/arm/mach-s3c/mach-n=
+excoder.c
+> deleted file mode 100644
+> index d17a3fcb7425..000000000000
+> diff --git a/arch/arm/mach-s3c/mach-osiris-dvs.c b/arch/arm/mach-s3c/mach=
+-osiris-dvs.c
+> deleted file mode 100644
+> index 2e283aedab65..000000000000
+> diff --git a/arch/arm/mach-s3c/mach-osiris.c b/arch/arm/mach-s3c/mach-osi=
+ris.c
+> deleted file mode 100644
+> index d900d1354de1..000000000000
+> diff --git a/arch/arm/mach-s3c/mach-otom.c b/arch/arm/mach-s3c/mach-otom.c
+> deleted file mode 100644
+> index 3a2db2f58833..000000000000
+> diff --git a/arch/arm/mach-s3c/mach-qt2410.c b/arch/arm/mach-s3c/mach-qt2=
+410.c
+> deleted file mode 100644
+> index 36fe0684a438..000000000000
+> diff --git a/arch/arm/mach-s3c/mach-rx1950.c b/arch/arm/mach-s3c/mach-rx1=
+950.c
+> deleted file mode 100644
+> index d8c49e562660..000000000000
+> diff --git a/arch/arm/mach-s3c/mach-rx3715.c b/arch/arm/mach-s3c/mach-rx3=
+715.c
+> deleted file mode 100644
+> index 52b3c38acbb2..000000000000
+> diff --git a/arch/arm/mach-s3c/mach-s3c2416-dt.c b/arch/arm/mach-s3c/mach=
+-s3c2416-dt.c
+> deleted file mode 100644
+> index 418544d3015d..000000000000
+> diff --git a/arch/arm/mach-s3c/mach-smdk2410.c b/arch/arm/mach-s3c/mach-s=
+mdk2410.c
+> deleted file mode 100644
+> index 76b0a8846616..000000000000
+> diff --git a/arch/arm/mach-s3c/mach-smdk2413.c b/arch/arm/mach-s3c/mach-s=
+mdk2413.c
+> deleted file mode 100644
+> index 2b4e20aaa346..000000000000
+> diff --git a/arch/arm/mach-s3c/mach-smdk2416.c b/arch/arm/mach-s3c/mach-s=
+mdk2416.c
+> deleted file mode 100644
+> index 329fe26be268..000000000000
+> diff --git a/arch/arm/mach-s3c/mach-smdk2440.c b/arch/arm/mach-s3c/mach-s=
+mdk2440.c
+> deleted file mode 100644
+> index 6aea769ebde1..000000000000
+> diff --git a/arch/arm/mach-s3c/mach-smdk2443.c b/arch/arm/mach-s3c/mach-s=
+mdk2443.c
+> deleted file mode 100644
+> index 075140f8f760..000000000000
+> diff --git a/arch/arm/mach-s3c/mach-tct_hammer.c b/arch/arm/mach-s3c/mach=
+-tct_hammer.c
+> deleted file mode 100644
+> index 93ab1abd8bd3..000000000000
+> diff --git a/arch/arm/mach-s3c/mach-vr1000.c b/arch/arm/mach-s3c/mach-vr1=
+000.c
+> deleted file mode 100644
+> index c85033e6ef8f..000000000000
+> diff --git a/arch/arm/mach-s3c/mach-vstms.c b/arch/arm/mach-s3c/mach-vstm=
+s.c
+> deleted file mode 100644
+> index 6f878418be3e..000000000000
+> diff --git a/arch/arm/mach-s3c/map-s3c24xx.h b/arch/arm/mach-s3c/map-s3c2=
+4xx.h
+> deleted file mode 100644
+> index f8d075b11d6f..000000000000
+> diff --git a/arch/arm/mach-s3c/nand-core-s3c24xx.h b/arch/arm/mach-s3c/na=
+nd-core-s3c24xx.h
+> deleted file mode 100644
+> index a14316729c48..000000000000
+> diff --git a/arch/arm/mach-s3c/osiris.h b/arch/arm/mach-s3c/osiris.h
+> deleted file mode 100644
+> index b6c9c5ed2ba7..000000000000
+> diff --git a/arch/arm/mach-s3c/pll-s3c2410.c b/arch/arm/mach-s3c/pll-s3c2=
+410.c
+> deleted file mode 100644
+> index 3fbc99eaa4a2..000000000000
+> diff --git a/arch/arm/mach-s3c/pll-s3c2440-12000000.c b/arch/arm/mach-s3c=
+/pll-s3c2440-12000000.c
+> deleted file mode 100644
+> index fdb8e8c2fe3b..000000000000
+> diff --git a/arch/arm/mach-s3c/pll-s3c2440-16934400.c b/arch/arm/mach-s3c=
+/pll-s3c2440-16934400.c
+> deleted file mode 100644
+> index 438b6fc099a4..000000000000
+> diff --git a/arch/arm/mach-s3c/pm-core-s3c24xx.h b/arch/arm/mach-s3c/pm-c=
+ore-s3c24xx.h
+> deleted file mode 100644
+> index a71ed5711019..000000000000
+> diff --git a/arch/arm/mach-s3c/pm-h1940.S b/arch/arm/mach-s3c/pm-h1940.S
+> deleted file mode 100644
+> index 3bf6685123cb..000000000000
+> diff --git a/arch/arm/mach-s3c/pm-s3c2410.c b/arch/arm/mach-s3c/pm-s3c241=
+0.c
+> deleted file mode 100644
+> index a66419883735..000000000000
+> diff --git a/arch/arm/mach-s3c/pm-s3c2412.c b/arch/arm/mach-s3c/pm-s3c241=
+2.c
+> deleted file mode 100644
+> index ed3b4cfc7c0f..000000000000
+> diff --git a/arch/arm/mach-s3c/pm-s3c2416.c b/arch/arm/mach-s3c/pm-s3c241=
+6.c
+> deleted file mode 100644
+> index f69ad84cf4ff..000000000000
+> diff --git a/arch/arm/mach-s3c/pm-s3c24xx.c b/arch/arm/mach-s3c/pm-s3c24x=
+x.c
+> deleted file mode 100644
+> index 3a8f5c38882e..000000000000
+> diff --git a/arch/arm/mach-s3c/regs-clock-s3c24xx.h b/arch/arm/mach-s3c/r=
+egs-clock-s3c24xx.h
+> deleted file mode 100644
+> index 933ddb5eedec..000000000000
+> diff --git a/arch/arm/mach-s3c/regs-dsc-s3c24xx.h b/arch/arm/mach-s3c/reg=
+s-dsc-s3c24xx.h
+> deleted file mode 100644
+> index 8b8b572aef04..000000000000
+> diff --git a/arch/arm/mach-s3c/regs-gpio-s3c24xx.h b/arch/arm/mach-s3c/re=
+gs-gpio-s3c24xx.h
+> deleted file mode 100644
+> index 9a7e262268a7..000000000000
+> diff --git a/arch/arm/mach-s3c/regs-irq-s3c24xx.h b/arch/arm/mach-s3c/reg=
+s-irq-s3c24xx.h
+> deleted file mode 100644
+> index c0b97b203415..000000000000
+> diff --git a/arch/arm/mach-s3c/regs-mem-s3c24xx.h b/arch/arm/mach-s3c/reg=
+s-mem-s3c24xx.h
+> deleted file mode 100644
+> index 8fed34a1672a..000000000000
+> diff --git a/arch/arm/mach-s3c/regs-s3c2443-clock.h b/arch/arm/mach-s3c/r=
+egs-s3c2443-clock.h
+> deleted file mode 100644
+> index b3b670d463db..000000000000
+> diff --git a/arch/arm/mach-s3c/rtc-core-s3c24xx.h b/arch/arm/mach-s3c/rtc=
+-core-s3c24xx.h
+> deleted file mode 100644
+> index e7258b2423fc..000000000000
+> diff --git a/arch/arm/mach-s3c/s3c2410.c b/arch/arm/mach-s3c/s3c2410.c
+> deleted file mode 100644
+> index 4d39d9939c2f..000000000000
+> diff --git a/arch/arm/mach-s3c/s3c2412-power.h b/arch/arm/mach-s3c/s3c241=
+2-power.h
+> deleted file mode 100644
+> index 0031cfaa1d76..000000000000
+> diff --git a/arch/arm/mach-s3c/s3c2412.c b/arch/arm/mach-s3c/s3c2412.c
+> deleted file mode 100644
+> index 0b1ca78c9d2a..000000000000
+> diff --git a/arch/arm/mach-s3c/s3c2412.h b/arch/arm/mach-s3c/s3c2412.h
+> deleted file mode 100644
+> index ed09a0e13bd8..000000000000
+> diff --git a/arch/arm/mach-s3c/s3c2416.c b/arch/arm/mach-s3c/s3c2416.c
+> deleted file mode 100644
+> index 126e6ed29713..000000000000
+> diff --git a/arch/arm/mach-s3c/s3c2440.c b/arch/arm/mach-s3c/s3c2440.c
+> deleted file mode 100644
+> index c6cdee4987e8..000000000000
+> diff --git a/arch/arm/mach-s3c/s3c2442.c b/arch/arm/mach-s3c/s3c2442.c
+> deleted file mode 100644
+> index 0c0e30b6688f..000000000000
+> diff --git a/arch/arm/mach-s3c/s3c2443.c b/arch/arm/mach-s3c/s3c2443.c
+> deleted file mode 100644
+> index 05c3c298b9f8..000000000000
+> diff --git a/arch/arm/mach-s3c/s3c244x.c b/arch/arm/mach-s3c/s3c244x.c
+> deleted file mode 100644
+> index 95df3491e650..000000000000
+> diff --git a/arch/arm/mach-s3c/s3c24xx.c b/arch/arm/mach-s3c/s3c24xx.c
+> deleted file mode 100644
+> index 819a95364af9..000000000000
+> diff --git a/arch/arm/mach-s3c/s3c24xx.h b/arch/arm/mach-s3c/s3c24xx.h
+> deleted file mode 100644
+> index 34dd4ac507e9..000000000000
+> diff --git a/arch/arm/mach-s3c/setup-i2c-s3c24xx.c b/arch/arm/mach-s3c/se=
+tup-i2c-s3c24xx.c
+> deleted file mode 100644
+> index 0d88366b234c..000000000000
+> diff --git a/arch/arm/mach-s3c/setup-sdhci-gpio-s3c24xx.c b/arch/arm/mach=
+-s3c/setup-sdhci-gpio-s3c24xx.c
+> deleted file mode 100644
+> index 02131b3a731d..000000000000
+> diff --git a/arch/arm/mach-s3c/setup-spi-s3c24xx.c b/arch/arm/mach-s3c/se=
+tup-spi-s3c24xx.c
+> deleted file mode 100644
+> index 93fa1bbc9d5c..000000000000
+> diff --git a/arch/arm/mach-s3c/setup-ts-s3c24xx.c b/arch/arm/mach-s3c/set=
+up-ts-s3c24xx.c
+> deleted file mode 100644
+> index 57363eaeb7e8..000000000000
+> diff --git a/arch/arm/mach-s3c/simtec-audio.c b/arch/arm/mach-s3c/simtec-=
+audio.c
+> deleted file mode 100644
+> index 487485bcc2ab..000000000000
+> diff --git a/arch/arm/mach-s3c/simtec-nor.c b/arch/arm/mach-s3c/simtec-no=
+r.c
+> deleted file mode 100644
+> index a6fba056a747..000000000000
+> diff --git a/arch/arm/mach-s3c/simtec-pm.c b/arch/arm/mach-s3c/simtec-pm.c
+> deleted file mode 100644
+> index 490256a766e2..000000000000
+> diff --git a/arch/arm/mach-s3c/simtec-usb.c b/arch/arm/mach-s3c/simtec-us=
+b.c
+> deleted file mode 100644
+> index 76cedb5c7373..000000000000
+> diff --git a/arch/arm/mach-s3c/simtec.h b/arch/arm/mach-s3c/simtec.h
+> deleted file mode 100644
+> index d96bd60872b8..000000000000
+> diff --git a/arch/arm/mach-s3c/sleep-s3c2410.S b/arch/arm/mach-s3c/sleep-=
+s3c2410.S
+> deleted file mode 100644
+> index 04aded98782b..000000000000
+> diff --git a/arch/arm/mach-s3c/sleep-s3c2412.S b/arch/arm/mach-s3c/sleep-=
+s3c2412.S
+> deleted file mode 100644
+> index b4b61737fbb2..000000000000
+> diff --git a/arch/arm/mach-s3c/sleep-s3c24xx.S b/arch/arm/mach-s3c/sleep-=
+s3c24xx.S
+> deleted file mode 100644
+> index 4b2af91f3dce..000000000000
+> diff --git a/arch/arm/mach-s3c/spi-core-s3c24xx.h b/arch/arm/mach-s3c/spi=
+-core-s3c24xx.h
+> deleted file mode 100644
+> index 919c5fd0c9af..000000000000
+> diff --git a/arch/arm/mach-s3c/vr1000.h b/arch/arm/mach-s3c/vr1000.h
+> deleted file mode 100644
+> index 3cfa296bec2a..000000000000
+> diff --git a/drivers/soc/samsung/Kconfig b/drivers/soc/samsung/Kconfig
+> index 02e319508cc6..b4f538d7412f 100644
+> --- a/drivers/soc/samsung/Kconfig
+> +++ b/drivers/soc/samsung/Kconfig
+> @@ -85,8 +85,6 @@ config SAMSUNG_PM_CHECK
+>  	  Note, this can take several seconds depending on memory size
+>  	  and CPU speed.
+>  =
+
+> -	  See <file:Documentation/arm/samsung-s3c24xx/suspend.rst>
+> -
+>  config SAMSUNG_PM_CHECK_CHUNKSIZE
+>  	int "S3C2410 PM Suspend CRC Chunksize (KiB)"
+>  	depends on PM && SAMSUNG_PM_CHECK
+> @@ -97,8 +95,6 @@ config SAMSUNG_PM_CHECK_CHUNKSIZE
+>  	  the CRC data block will take more memory, but will identify any
+>  	  faults with better precision.
+>  =
+
+> -	  See <file:Documentation/arm/samsung-s3c24xx/suspend.rst>
+> -
+>  config EXYNOS_REGULATOR_COUPLER
+>  	bool "Exynos SoC Regulator Coupler" if COMPILE_TEST
+>  	depends on ARCH_EXYNOS || COMPILE_TEST
+> diff --git a/include/dt-bindings/clock/s3c2410.h b/include/dt-bindings/cl=
+ock/s3c2410.h
+> deleted file mode 100644
+> index 0fb65c3f2f59..000000000000
+> diff --git a/include/dt-bindings/clock/s3c2412.h b/include/dt-bindings/cl=
+ock/s3c2412.h
+> deleted file mode 100644
+> index b4656156cc0f..000000000000
+> diff --git a/include/dt-bindings/clock/s3c2443.h b/include/dt-bindings/cl=
+ock/s3c2443.h
+> deleted file mode 100644
+> index a9d2f105d536..000000000000
+> diff --git a/include/linux/amba/pl093.h b/include/linux/amba/pl093.h
+> deleted file mode 100644
+> index b17166e3b49a..000000000000
+> =
+
+
+
+
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
