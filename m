@@ -2,73 +2,80 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C414B60A032
-	for <lists+linux-stm32@lfdr.de>; Mon, 24 Oct 2022 13:20:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 33C5F60A584
+	for <lists+linux-stm32@lfdr.de>; Mon, 24 Oct 2022 14:25:26 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 53A1AC65049;
-	Mon, 24 Oct 2022 11:20:13 +0000 (UTC)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DA1BCC03FC6;
+	Mon, 24 Oct 2022 12:25:25 +0000 (UTC)
+Received: from mail-qk1-f173.google.com (mail-qk1-f173.google.com
+ [209.85.222.173])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 75392C65040
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9D8BAC035A5
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 24 Oct 2022 11:20:10 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 364C822169;
- Mon, 24 Oct 2022 11:20:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1666610410; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=s8EjyldAvzdOSExh8dLPvPye++M7XBzrxFcMIv6xfEg=;
- b=yXNK7WvqcfSZ73bIs91Y5i7Bf+/SN3NxlKz05cX26OSlw7GDaRM0CnD5Q8pdke1oaKAT3a
- 733QKiclqV7+xhnQy1p/B6dwHMQEKlOE67NXCdjUVPQa5CG4yRbA8jQ51vzzhzFm87CwpA
- LRguV0fRfumlKaA25GcQYN5DK4EWF2k=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1666610410;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=s8EjyldAvzdOSExh8dLPvPye++M7XBzrxFcMIv6xfEg=;
- b=5iYW05vzugOpwdblq+hoaUUilaS6r1R4P1+qqdHtxMEn9I74hlGTuChnD/rLbuMU0RpEgw
- Smdzlcetm0TpzGCw==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 866DC13357;
- Mon, 24 Oct 2022 11:20:09 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id kK6cH+l0VmOYMgAAMHmgww
- (envelope-from <tzimmermann@suse.de>); Mon, 24 Oct 2022 11:20:09 +0000
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: daniel@ffwll.ch, airlied@gmail.com, sam@ravnborg.org, javierm@redhat.com,
- mripard@kernel.org, maarten.lankhorst@linux.intel.com
-Date: Mon, 24 Oct 2022 13:19:53 +0200
-Message-Id: <20221024111953.24307-22-tzimmermann@suse.de>
-X-Mailer: git-send-email 2.38.0
-In-Reply-To: <20221024111953.24307-1-tzimmermann@suse.de>
-References: <20221024111953.24307-1-tzimmermann@suse.de>
+ Mon, 24 Oct 2022 12:25:24 +0000 (UTC)
+Received: by mail-qk1-f173.google.com with SMTP id a18so5964167qko.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 24 Oct 2022 05:25:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=kVYj3QCBceIQ1q0wupJzLP0eSYUUbr2KRyu/kK2/7zc=;
+ b=G0DWAFKOqyqQFdFIXlj6kLBpRnL5JYzlLp0E6WVy4pls3/6j1AeLtxzxBZ+jhLV++/
+ PxHwC8uWse4I21Ym1lUCctWJicItZ9iEVOYX8Zcr9KIfD34MRXA+/Po28atn5QAX6ZNy
+ k0v0iZYVXFg+8BTYHuXTpqhOYFcbX2bEFUF5ZlIPXjXBnibhTJnVqr8Xf0zyHHEoUwMk
+ BuPuwWFDZdb7LxzX9D/z4tHwdMqfwK8ojwOnJJ9APk1xpHu9coKLCb2z+3XGXdrbx4gD
+ 6cS65pGdMJEyUJ+/nb33LGpxrL9SaqhVoD30uprXtaUUNXFTopDYnugtpAsxcLkQNqcU
+ qAuA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=kVYj3QCBceIQ1q0wupJzLP0eSYUUbr2KRyu/kK2/7zc=;
+ b=rnSZOlHB05AxwUKA6wYfvJlxJ/azI88/DtEGYbKD8NHYphJAE9igrfn3gpgdgVKQ1c
+ aAc70fjDZIpyb2eqIWwHN8K9e+/izAwk1oMM9RLpAAJupi8ey5148LjmaFFStb8PlJ8R
+ PrpWXRdxGKq12PxB15XVZ/CbbfSKt7ZhReXcM1a9dZFxBvRGPmU7U6BbrplMixl10cZv
+ 6EMm0as8YJnA8ugqW02rF53+0krfQ3RmpEmWLf1KGz6tDlsBGE0yQ56EwBWO9NBvqJex
+ Ct10WqpX7OsY3FEKnaa4i0FE1n4hKXV494f0Lv7NIshvxQhgX5uVbbThdn4mKXpXBYf2
+ Kosw==
+X-Gm-Message-State: ACrzQf0Rvc1a8f+bKJEVHyb9D0BimqcC3cQKIIVSeI8nEFYqWrydIrPq
+ ZZPePSIc6L53fzClPzhwfPzNuA==
+X-Google-Smtp-Source: AMsMyM6WG2RrPBdlHGOnuUF5Zn/OxURzRJxpLn8hbsfkyCG52+3lz7p0PbPJNXd2mLDYhFv1n98JaA==
+X-Received: by 2002:a05:620a:22cc:b0:6ee:3e43:ac40 with SMTP id
+ o12-20020a05620a22cc00b006ee3e43ac40mr22841775qki.454.1666614323567; 
+ Mon, 24 Oct 2022 05:25:23 -0700 (PDT)
+Received: from [192.168.1.8] ([64.57.193.93]) by smtp.gmail.com with ESMTPSA id
+ f4-20020ac84984000000b00398426e706fsm12571885qtq.65.2022.10.24.05.25.21
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 24 Oct 2022 05:25:23 -0700 (PDT)
+Message-ID: <41060ee4-0103-3c09-632b-81af396c0a06@linaro.org>
+Date: Mon, 24 Oct 2022 08:25:20 -0400
 MIME-Version: 1.0
-Cc: linux-hyperv@vger.kernel.org, linux-aspeed@lists.ozlabs.org,
- nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- virtualization@lists.linux-foundation.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-samsung-soc@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
- xen-devel@lists.xenproject.org, linux-sunxi@lists.linux.dev,
- linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- etnaviv@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
- spice-devel@lists.freedesktop.org, linux-tegra@vger.kernel.org,
- linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- linux-mips@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- Thomas Zimmermann <tzimmermann@suse.de>, freedreno@lists.freedesktop.org
-Subject: [Linux-stm32] [PATCH v2 21/21] drm/fb-helper: Remove unnecessary
-	include statements
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.4.0
+Content-Language: en-US
+To: Arnd Bergmann <arnd@kernel.org>, linux-arm-kernel@lists.infradead.org
+References: <20221021202254.4142411-1-arnd@kernel.org>
+ <20221021203329.4143397-1-arnd@kernel.org>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20221021203329.4143397-1-arnd@kernel.org>
+Cc: Heiko Stuebner <heiko@sntech.de>, linux-doc@vger.kernel.org,
+ Guillaume GOURAT <guillaume.gourat@nexvision.tv>,
+ Michael Turquette <mturquette@baylibre.com>,
+ Tomasz Figa <tomasz.figa@gmail.com>, Alim Akhtar <alim.akhtar@samsung.com>,
+ Sylwester Nawrocki <s.nawrocki@samsung.com>,
+ Christer Weinigel <christer@weinigel.se>,
+ Arnaud Patard <arnaud.patard@rtp-net.org>, linux-samsung-soc@vger.kernel.org,
+ Jonathan Corbet <corbet@lwn.net>, linux-stm32@st-md-mailman.stormreply.com,
+ Chanwoo Choi <cw00.choi@samsung.com>, devicetree@vger.kernel.org,
+ Arnd Bergmann <arnd@arndb.de>, linux-clk@vger.kernel.org, soc@kernel.org,
+ openmoko-kernel@lists.openmoko.org, Ben Dooks <ben-linux@fluff.org>,
+ Simtec Linux Team <linux@simtec.co.uk>, Stephen Boyd <sboyd@kernel.org>,
+ linux-kernel@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
+ Olof Johansson <olof@lixom.net>
+Subject: Re: [Linux-stm32] [PATCH 01/21] ARM: s3c: remove all s3c24xx support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,364 +92,29 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Remove include statements for <drm/drm_fb_helper.h> where it is not
-required (i.e., most of them). In a few places include other header
-files that are required by the source code.
+On 21/10/2022 16:27, Arnd Bergmann wrote:
+> From: Arnd Bergmann <arnd@arndb.de>
+> 
+> The platform was deprecated in commit 6a5e69c7ddea ("ARM: s3c: mark
+> as deprecated and schedule removal") and can be removed. This includes
+> all files that are exclusively for s3c24xx and not shared with s3c64xx,
+> as well as the glue logic in Kconfig and the maintainer file entries.
+> 
+> Cc: Arnaud Patard <arnaud.patard@rtp-net.org>
+> Cc: Ben Dooks <ben-linux@fluff.org>
+> Cc: Christer Weinigel <christer@weinigel.se>
+> Cc: Guillaume GOURAT <guillaume.gourat@nexvision.tv>
+> Cc: Heiko Stuebner <heiko@sntech.de>
+> Cc: Simtec Linux Team <linux@simtec.co.uk>
+> Cc: openmoko-kernel@lists.openmoko.org
+> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+> ---
 
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c  | 1 -
- drivers/gpu/drm/amd/amdgpu/amdgpu_display.c     | 1 -
- drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h        | 1 -
- drivers/gpu/drm/arm/hdlcd_crtc.c                | 1 -
- drivers/gpu/drm/ast/ast_drv.h                   | 1 -
- drivers/gpu/drm/bridge/tc358762.c               | 2 +-
- drivers/gpu/drm/drm_crtc_helper.c               | 1 -
- drivers/gpu/drm/drm_gem_framebuffer_helper.c    | 1 -
- drivers/gpu/drm/drm_probe_helper.c              | 1 -
- drivers/gpu/drm/etnaviv/etnaviv_drv.h           | 3 ++-
- drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.h | 1 -
- drivers/gpu/drm/hyperv/hyperv_drm_modeset.c     | 1 -
- drivers/gpu/drm/imx/imx-ldb.c                   | 2 +-
- drivers/gpu/drm/imx/imx-tve.c                   | 1 -
- drivers/gpu/drm/imx/parallel-display.c          | 2 +-
- drivers/gpu/drm/kmb/kmb_plane.c                 | 1 -
- drivers/gpu/drm/mgag200/mgag200_drv.h           | 1 -
- drivers/gpu/drm/qxl/qxl_drv.h                   | 1 -
- drivers/gpu/drm/rockchip/rockchip_drm_drv.h     | 2 +-
- drivers/gpu/drm/tidss/tidss_kms.c               | 1 -
- drivers/gpu/drm/v3d/v3d_drv.c                   | 1 -
- drivers/gpu/drm/vboxvideo/vbox_main.c           | 1 -
- drivers/gpu/drm/virtio/virtgpu_drv.h            | 1 -
- drivers/gpu/drm/xen/xen_drm_front_gem.c         | 1 -
- 24 files changed, 6 insertions(+), 24 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
-index 491d4846fc02c..e1320edfc5274 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
-@@ -26,7 +26,6 @@
- 
- #include <drm/display/drm_dp_helper.h>
- #include <drm/drm_edid.h>
--#include <drm/drm_fb_helper.h>
- #include <drm/drm_probe_helper.h>
- #include <drm/amdgpu_drm.h>
- #include "amdgpu.h"
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-index dd6f9ae6fbe9f..b32b387599b5c 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-@@ -40,7 +40,6 @@
- #include <drm/drm_crtc_helper.h>
- #include <drm/drm_edid.h>
- #include <drm/drm_gem_framebuffer_helper.h>
--#include <drm/drm_fb_helper.h>
- #include <drm/drm_fourcc.h>
- #include <drm/drm_vblank.h>
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
-index 37322550d7508..8a39300b1a845 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
-@@ -36,7 +36,6 @@
- #include <drm/drm_encoder.h>
- #include <drm/drm_fixed.h>
- #include <drm/drm_crtc_helper.h>
--#include <drm/drm_fb_helper.h>
- #include <drm/drm_framebuffer.h>
- #include <drm/drm_probe_helper.h>
- #include <linux/i2c.h>
-diff --git a/drivers/gpu/drm/arm/hdlcd_crtc.c b/drivers/gpu/drm/arm/hdlcd_crtc.c
-index 7030339fa2323..ddbe1dd2d44ef 100644
---- a/drivers/gpu/drm/arm/hdlcd_crtc.c
-+++ b/drivers/gpu/drm/arm/hdlcd_crtc.c
-@@ -19,7 +19,6 @@
- #include <drm/drm_atomic_helper.h>
- #include <drm/drm_crtc.h>
- #include <drm/drm_fb_dma_helper.h>
--#include <drm/drm_fb_helper.h>
- #include <drm/drm_framebuffer.h>
- #include <drm/drm_gem_dma_helper.h>
- #include <drm/drm_of.h>
-diff --git a/drivers/gpu/drm/ast/ast_drv.h b/drivers/gpu/drm/ast/ast_drv.h
-index 74f41282444f6..d51b81fea9c80 100644
---- a/drivers/gpu/drm/ast/ast_drv.h
-+++ b/drivers/gpu/drm/ast/ast_drv.h
-@@ -38,7 +38,6 @@
- #include <drm/drm_encoder.h>
- #include <drm/drm_mode.h>
- #include <drm/drm_framebuffer.h>
--#include <drm/drm_fb_helper.h>
- 
- #define DRIVER_AUTHOR		"Dave Airlie"
- 
-diff --git a/drivers/gpu/drm/bridge/tc358762.c b/drivers/gpu/drm/bridge/tc358762.c
-index 7f4fce1aa9988..0b6a284368859 100644
---- a/drivers/gpu/drm/bridge/tc358762.c
-+++ b/drivers/gpu/drm/bridge/tc358762.c
-@@ -11,6 +11,7 @@
-  */
- 
- #include <linux/delay.h>
-+#include <linux/mod_devicetable.h>
- #include <linux/module.h>
- #include <linux/of_graph.h>
- #include <linux/regulator/consumer.h>
-@@ -19,7 +20,6 @@
- 
- #include <drm/drm_atomic_helper.h>
- #include <drm/drm_crtc.h>
--#include <drm/drm_fb_helper.h>
- #include <drm/drm_mipi_dsi.h>
- #include <drm/drm_of.h>
- #include <drm/drm_panel.h>
-diff --git a/drivers/gpu/drm/drm_crtc_helper.c b/drivers/gpu/drm/drm_crtc_helper.c
-index f5fb22e0d0337..a209659a996c7 100644
---- a/drivers/gpu/drm/drm_crtc_helper.c
-+++ b/drivers/gpu/drm/drm_crtc_helper.c
-@@ -43,7 +43,6 @@
- #include <drm/drm_drv.h>
- #include <drm/drm_edid.h>
- #include <drm/drm_encoder.h>
--#include <drm/drm_fb_helper.h>
- #include <drm/drm_fourcc.h>
- #include <drm/drm_framebuffer.h>
- #include <drm/drm_print.h>
-diff --git a/drivers/gpu/drm/drm_gem_framebuffer_helper.c b/drivers/gpu/drm/drm_gem_framebuffer_helper.c
-index e35e224e6303a..e93533b86037f 100644
---- a/drivers/gpu/drm/drm_gem_framebuffer_helper.c
-+++ b/drivers/gpu/drm/drm_gem_framebuffer_helper.c
-@@ -9,7 +9,6 @@
- #include <linux/module.h>
- 
- #include <drm/drm_damage_helper.h>
--#include <drm/drm_fb_helper.h>
- #include <drm/drm_fourcc.h>
- #include <drm/drm_framebuffer.h>
- #include <drm/drm_gem.h>
-diff --git a/drivers/gpu/drm/drm_probe_helper.c b/drivers/gpu/drm/drm_probe_helper.c
-index 69b0b2b9cc1c5..ef2b41b2eb7b8 100644
---- a/drivers/gpu/drm/drm_probe_helper.c
-+++ b/drivers/gpu/drm/drm_probe_helper.c
-@@ -36,7 +36,6 @@
- #include <drm/drm_client.h>
- #include <drm/drm_crtc.h>
- #include <drm/drm_edid.h>
--#include <drm/drm_fb_helper.h>
- #include <drm/drm_fourcc.h>
- #include <drm/drm_modeset_helper_vtables.h>
- #include <drm/drm_print.h>
-diff --git a/drivers/gpu/drm/etnaviv/etnaviv_drv.h b/drivers/gpu/drm/etnaviv/etnaviv_drv.h
-index f32f4771dada7..2bb4c25565dcb 100644
---- a/drivers/gpu/drm/etnaviv/etnaviv_drv.h
-+++ b/drivers/gpu/drm/etnaviv/etnaviv_drv.h
-@@ -6,13 +6,14 @@
- #ifndef __ETNAVIV_DRV_H__
- #define __ETNAVIV_DRV_H__
- 
-+#include <linux/io.h>
- #include <linux/list.h>
- #include <linux/mm_types.h>
- #include <linux/sizes.h>
- #include <linux/time64.h>
- #include <linux/types.h>
- 
--#include <drm/drm_fb_helper.h>
-+#include <drm/drm_drv.h>
- #include <drm/drm_gem.h>
- #include <drm/etnaviv_drm.h>
- #include <drm/gpu_scheduler.h>
-diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.h b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.h
-index 4a0cd22c10e21..f957552c6c507 100644
---- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.h
-+++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.h
-@@ -19,7 +19,6 @@
- #include <linux/i2c.h>
- 
- #include <drm/drm_edid.h>
--#include <drm/drm_fb_helper.h>
- #include <drm/drm_framebuffer.h>
- 
- struct hibmc_connector {
-diff --git a/drivers/gpu/drm/hyperv/hyperv_drm_modeset.c b/drivers/gpu/drm/hyperv/hyperv_drm_modeset.c
-index 28e732f94bf2f..6c6b572987973 100644
---- a/drivers/gpu/drm/hyperv/hyperv_drm_modeset.c
-+++ b/drivers/gpu/drm/hyperv/hyperv_drm_modeset.c
-@@ -8,7 +8,6 @@
- #include <drm/drm_damage_helper.h>
- #include <drm/drm_drv.h>
- #include <drm/drm_edid.h>
--#include <drm/drm_fb_helper.h>
- #include <drm/drm_format_helper.h>
- #include <drm/drm_fourcc.h>
- #include <drm/drm_framebuffer.h>
-diff --git a/drivers/gpu/drm/imx/imx-ldb.c b/drivers/gpu/drm/imx/imx-ldb.c
-index 41799011f73b6..c45fc8f4744d0 100644
---- a/drivers/gpu/drm/imx/imx-ldb.c
-+++ b/drivers/gpu/drm/imx/imx-ldb.c
-@@ -7,6 +7,7 @@
- 
- #include <linux/clk.h>
- #include <linux/component.h>
-+#include <linux/i2c.h>
- #include <linux/media-bus-format.h>
- #include <linux/mfd/syscon.h>
- #include <linux/mfd/syscon/imx6q-iomuxc-gpr.h>
-@@ -23,7 +24,6 @@
- #include <drm/drm_atomic_helper.h>
- #include <drm/drm_bridge.h>
- #include <drm/drm_edid.h>
--#include <drm/drm_fb_helper.h>
- #include <drm/drm_managed.h>
- #include <drm/drm_of.h>
- #include <drm/drm_panel.h>
-diff --git a/drivers/gpu/drm/imx/imx-tve.c b/drivers/gpu/drm/imx/imx-tve.c
-index 6b34fac3f73a0..d64ebd2cf15e8 100644
---- a/drivers/gpu/drm/imx/imx-tve.c
-+++ b/drivers/gpu/drm/imx/imx-tve.c
-@@ -19,7 +19,6 @@
- 
- #include <drm/drm_atomic_helper.h>
- #include <drm/drm_edid.h>
--#include <drm/drm_fb_helper.h>
- #include <drm/drm_managed.h>
- #include <drm/drm_probe_helper.h>
- #include <drm/drm_simple_kms_helper.h>
-diff --git a/drivers/gpu/drm/imx/parallel-display.c b/drivers/gpu/drm/imx/parallel-display.c
-index 06723b2e9b847..0fa0b590830b6 100644
---- a/drivers/gpu/drm/imx/parallel-display.c
-+++ b/drivers/gpu/drm/imx/parallel-display.c
-@@ -8,6 +8,7 @@
- #include <linux/component.h>
- #include <linux/media-bus-format.h>
- #include <linux/module.h>
-+#include <linux/of.h>
- #include <linux/platform_device.h>
- #include <linux/videodev2.h>
- 
-@@ -16,7 +17,6 @@
- #include <drm/drm_atomic_helper.h>
- #include <drm/drm_bridge.h>
- #include <drm/drm_edid.h>
--#include <drm/drm_fb_helper.h>
- #include <drm/drm_managed.h>
- #include <drm/drm_of.h>
- #include <drm/drm_panel.h>
-diff --git a/drivers/gpu/drm/kmb/kmb_plane.c b/drivers/gpu/drm/kmb/kmb_plane.c
-index a42f63f6f9573..d172a302f9024 100644
---- a/drivers/gpu/drm/kmb/kmb_plane.c
-+++ b/drivers/gpu/drm/kmb/kmb_plane.c
-@@ -9,7 +9,6 @@
- #include <drm/drm_crtc.h>
- #include <drm/drm_crtc_helper.h>
- #include <drm/drm_fb_dma_helper.h>
--#include <drm/drm_fb_helper.h>
- #include <drm/drm_fourcc.h>
- #include <drm/drm_framebuffer.h>
- #include <drm/drm_gem_dma_helper.h>
-diff --git a/drivers/gpu/drm/mgag200/mgag200_drv.h b/drivers/gpu/drm/mgag200/mgag200_drv.h
-index f0c2349404b46..9e604dbb8e448 100644
---- a/drivers/gpu/drm/mgag200/mgag200_drv.h
-+++ b/drivers/gpu/drm/mgag200/mgag200_drv.h
-@@ -18,7 +18,6 @@
- #include <drm/drm_connector.h>
- #include <drm/drm_crtc.h>
- #include <drm/drm_encoder.h>
--#include <drm/drm_fb_helper.h>
- #include <drm/drm_gem.h>
- #include <drm/drm_gem_shmem_helper.h>
- #include <drm/drm_plane.h>
-diff --git a/drivers/gpu/drm/qxl/qxl_drv.h b/drivers/gpu/drm/qxl/qxl_drv.h
-index 432758ad39a35..76f060810f634 100644
---- a/drivers/gpu/drm/qxl/qxl_drv.h
-+++ b/drivers/gpu/drm/qxl/qxl_drv.h
-@@ -38,7 +38,6 @@
- 
- #include <drm/drm_crtc.h>
- #include <drm/drm_encoder.h>
--#include <drm/drm_fb_helper.h>
- #include <drm/drm_gem_ttm_helper.h>
- #include <drm/drm_ioctl.h>
- #include <drm/drm_gem.h>
-diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_drv.h b/drivers/gpu/drm/rockchip/rockchip_drm_drv.h
-index 1641440837af5..aeb03a57240fd 100644
---- a/drivers/gpu/drm/rockchip/rockchip_drm_drv.h
-+++ b/drivers/gpu/drm/rockchip/rockchip_drm_drv.h
-@@ -9,10 +9,10 @@
- #ifndef _ROCKCHIP_DRM_DRV_H
- #define _ROCKCHIP_DRM_DRV_H
- 
--#include <drm/drm_fb_helper.h>
- #include <drm/drm_atomic_helper.h>
- #include <drm/drm_gem.h>
- 
-+#include <linux/i2c.h>
- #include <linux/module.h>
- #include <linux/component.h>
- 
-diff --git a/drivers/gpu/drm/tidss/tidss_kms.c b/drivers/gpu/drm/tidss/tidss_kms.c
-index afb2879980c6c..345bcc3011e4f 100644
---- a/drivers/gpu/drm/tidss/tidss_kms.c
-+++ b/drivers/gpu/drm/tidss/tidss_kms.c
-@@ -10,7 +10,6 @@
- #include <drm/drm_atomic_helper.h>
- #include <drm/drm_bridge.h>
- #include <drm/drm_crtc_helper.h>
--#include <drm/drm_fb_helper.h>
- #include <drm/drm_gem_framebuffer_helper.h>
- #include <drm/drm_of.h>
- #include <drm/drm_panel.h>
-diff --git a/drivers/gpu/drm/v3d/v3d_drv.c b/drivers/gpu/drm/v3d/v3d_drv.c
-index e8c975b815859..478f1f0f60dec 100644
---- a/drivers/gpu/drm/v3d/v3d_drv.c
-+++ b/drivers/gpu/drm/v3d/v3d_drv.c
-@@ -22,7 +22,6 @@
- #include <linux/reset.h>
- 
- #include <drm/drm_drv.h>
--#include <drm/drm_fb_helper.h>
- #include <drm/drm_managed.h>
- #include <uapi/drm/v3d_drm.h>
- 
-diff --git a/drivers/gpu/drm/vboxvideo/vbox_main.c b/drivers/gpu/drm/vboxvideo/vbox_main.c
-index c9e8b3a63c621..3b83e550f4df5 100644
---- a/drivers/gpu/drm/vboxvideo/vbox_main.c
-+++ b/drivers/gpu/drm/vboxvideo/vbox_main.c
-@@ -11,7 +11,6 @@
- #include <linux/pci.h>
- #include <linux/vbox_err.h>
- 
--#include <drm/drm_fb_helper.h>
- #include <drm/drm_crtc_helper.h>
- #include <drm/drm_damage_helper.h>
- 
-diff --git a/drivers/gpu/drm/virtio/virtgpu_drv.h b/drivers/gpu/drm/virtio/virtgpu_drv.h
-index 9b98470593b06..b7a64c7dcc2c9 100644
---- a/drivers/gpu/drm/virtio/virtgpu_drv.h
-+++ b/drivers/gpu/drm/virtio/virtgpu_drv.h
-@@ -35,7 +35,6 @@
- #include <drm/drm_atomic.h>
- #include <drm/drm_drv.h>
- #include <drm/drm_encoder.h>
--#include <drm/drm_fb_helper.h>
- #include <drm/drm_fourcc.h>
- #include <drm/drm_framebuffer.h>
- #include <drm/drm_gem.h>
-diff --git a/drivers/gpu/drm/xen/xen_drm_front_gem.c b/drivers/gpu/drm/xen/xen_drm_front_gem.c
-index e31554d7139f1..4c95ebcdcc2d3 100644
---- a/drivers/gpu/drm/xen/xen_drm_front_gem.c
-+++ b/drivers/gpu/drm/xen/xen_drm_front_gem.c
-@@ -12,7 +12,6 @@
- #include <linux/scatterlist.h>
- #include <linux/shmem_fs.h>
- 
--#include <drm/drm_fb_helper.h>
- #include <drm/drm_gem.h>
- #include <drm/drm_prime.h>
- #include <drm/drm_probe_helper.h>
--- 
-2.38.0
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+
+Best regards,
+Krzysztof
 
 _______________________________________________
 Linux-stm32 mailing list
