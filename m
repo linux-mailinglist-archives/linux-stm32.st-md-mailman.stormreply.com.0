@@ -2,80 +2,75 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 33C5F60A584
-	for <lists+linux-stm32@lfdr.de>; Mon, 24 Oct 2022 14:25:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 24CDA60A7E9
+	for <lists+linux-stm32@lfdr.de>; Mon, 24 Oct 2022 15:00:38 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DA1BCC03FC6;
-	Mon, 24 Oct 2022 12:25:25 +0000 (UTC)
-Received: from mail-qk1-f173.google.com (mail-qk1-f173.google.com
- [209.85.222.173])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CBEA8C03FC6;
+	Mon, 24 Oct 2022 13:00:37 +0000 (UTC)
+Received: from mail-oa1-f50.google.com (mail-oa1-f50.google.com
+ [209.85.160.50])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9D8BAC035A5
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 33232C03FC0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 24 Oct 2022 12:25:24 +0000 (UTC)
-Received: by mail-qk1-f173.google.com with SMTP id a18so5964167qko.0
+ Mon, 24 Oct 2022 13:00:36 +0000 (UTC)
+Received: by mail-oa1-f50.google.com with SMTP id
+ 586e51a60fabf-13ba9a4430cso3010000fac.11
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 24 Oct 2022 05:25:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=kVYj3QCBceIQ1q0wupJzLP0eSYUUbr2KRyu/kK2/7zc=;
- b=G0DWAFKOqyqQFdFIXlj6kLBpRnL5JYzlLp0E6WVy4pls3/6j1AeLtxzxBZ+jhLV++/
- PxHwC8uWse4I21Ym1lUCctWJicItZ9iEVOYX8Zcr9KIfD34MRXA+/Po28atn5QAX6ZNy
- k0v0iZYVXFg+8BTYHuXTpqhOYFcbX2bEFUF5ZlIPXjXBnibhTJnVqr8Xf0zyHHEoUwMk
- BuPuwWFDZdb7LxzX9D/z4tHwdMqfwK8ojwOnJJ9APk1xpHu9coKLCb2z+3XGXdrbx4gD
- 6cS65pGdMJEyUJ+/nb33LGpxrL9SaqhVoD30uprXtaUUNXFTopDYnugtpAsxcLkQNqcU
- qAuA==
+ Mon, 24 Oct 2022 06:00:36 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=kVYj3QCBceIQ1q0wupJzLP0eSYUUbr2KRyu/kK2/7zc=;
- b=rnSZOlHB05AxwUKA6wYfvJlxJ/azI88/DtEGYbKD8NHYphJAE9igrfn3gpgdgVKQ1c
- aAc70fjDZIpyb2eqIWwHN8K9e+/izAwk1oMM9RLpAAJupi8ey5148LjmaFFStb8PlJ8R
- PrpWXRdxGKq12PxB15XVZ/CbbfSKt7ZhReXcM1a9dZFxBvRGPmU7U6BbrplMixl10cZv
- 6EMm0as8YJnA8ugqW02rF53+0krfQ3RmpEmWLf1KGz6tDlsBGE0yQ56EwBWO9NBvqJex
- Ct10WqpX7OsY3FEKnaa4i0FE1n4hKXV494f0Lv7NIshvxQhgX5uVbbThdn4mKXpXBYf2
- Kosw==
-X-Gm-Message-State: ACrzQf0Rvc1a8f+bKJEVHyb9D0BimqcC3cQKIIVSeI8nEFYqWrydIrPq
- ZZPePSIc6L53fzClPzhwfPzNuA==
-X-Google-Smtp-Source: AMsMyM6WG2RrPBdlHGOnuUF5Zn/OxURzRJxpLn8hbsfkyCG52+3lz7p0PbPJNXd2mLDYhFv1n98JaA==
-X-Received: by 2002:a05:620a:22cc:b0:6ee:3e43:ac40 with SMTP id
- o12-20020a05620a22cc00b006ee3e43ac40mr22841775qki.454.1666614323567; 
- Mon, 24 Oct 2022 05:25:23 -0700 (PDT)
-Received: from [192.168.1.8] ([64.57.193.93]) by smtp.gmail.com with ESMTPSA id
- f4-20020ac84984000000b00398426e706fsm12571885qtq.65.2022.10.24.05.25.21
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 24 Oct 2022 05:25:23 -0700 (PDT)
-Message-ID: <41060ee4-0103-3c09-632b-81af396c0a06@linaro.org>
-Date: Mon, 24 Oct 2022 08:25:20 -0400
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.0
-Content-Language: en-US
-To: Arnd Bergmann <arnd@kernel.org>, linux-arm-kernel@lists.infradead.org
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=p+x9joGdXdBFLPPxN1p6d7/jrm+b1E7zu0ZikUl9XbM=;
+ b=yfEwyDl89XgJQghAGXOeIrRtoyZolcLGK0uJpeMcRUlq5rxIO5MBASei2quve5L8y2
+ 9zFA8JxKswyI112TzgxUqpwgbeZaLikrmKzXetUga0BfyUE+nEm7/2OoGs/W+9ss1FWN
+ jfRrp2ETRxFr7xR9ScMnh5jmQnlGdI4P0YfpBaxEd6u1fnKoZRyC4UfIzQEjNCBlUiZr
+ FX6nvlRiZ6Wq4B4cq19I71BIOqaBIBXsZwqtwMKX3a0NXq5xQHDUgzQegzHwhaUmgS1p
+ yHhZnN85Pbk8Ho8TCAzGxpbVKUZ26hx1oy948C9vfaKlzMmel6K1Ios491lqqtwk8HUx
+ H7YA==
+X-Gm-Message-State: ACrzQf3ioEyRfHltF3qgtMJZWSKhFmDwfO39NHv2Fm8uCB0MuNHhD/Fc
+ 2Ih0Le5ftuRAKOf60CveMQ==
+X-Google-Smtp-Source: AMsMyM4RB1x55W7tWXLqKMCfn9+yNGKoyP28eeDXqoWuK46CSg7FurAIxSSG6961lNUtLuCZU2W88g==
+X-Received: by 2002:a05:6870:e9a8:b0:133:223f:49a1 with SMTP id
+ r40-20020a056870e9a800b00133223f49a1mr38235091oao.114.1666616434841; 
+ Mon, 24 Oct 2022 06:00:34 -0700 (PDT)
+Received: from robh_at_kernel.org (66-90-144-107.dyn.grandenetworks.net.
+ [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
+ g20-20020a056870c15400b0012796e8033dsm2716705oad.57.2022.10.24.06.00.33
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 24 Oct 2022 06:00:34 -0700 (PDT)
+Received: (nullmailer pid 1652638 invoked by uid 1000);
+ Mon, 24 Oct 2022 13:00:35 -0000
+Date: Mon, 24 Oct 2022 08:00:35 -0500
+From: Rob Herring <robh@kernel.org>
+To: Arnd Bergmann <arnd@kernel.org>
+Message-ID: <20221024130035.GA1645003-robh@kernel.org>
 References: <20221021202254.4142411-1-arnd@kernel.org>
- <20221021203329.4143397-1-arnd@kernel.org>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20221021203329.4143397-1-arnd@kernel.org>
-Cc: Heiko Stuebner <heiko@sntech.de>, linux-doc@vger.kernel.org,
- Guillaume GOURAT <guillaume.gourat@nexvision.tv>,
- Michael Turquette <mturquette@baylibre.com>,
- Tomasz Figa <tomasz.figa@gmail.com>, Alim Akhtar <alim.akhtar@samsung.com>,
- Sylwester Nawrocki <s.nawrocki@samsung.com>,
- Christer Weinigel <christer@weinigel.se>,
- Arnaud Patard <arnaud.patard@rtp-net.org>, linux-samsung-soc@vger.kernel.org,
- Jonathan Corbet <corbet@lwn.net>, linux-stm32@st-md-mailman.stormreply.com,
- Chanwoo Choi <cw00.choi@samsung.com>, devicetree@vger.kernel.org,
- Arnd Bergmann <arnd@arndb.de>, linux-clk@vger.kernel.org, soc@kernel.org,
- openmoko-kernel@lists.openmoko.org, Ben Dooks <ben-linux@fluff.org>,
- Simtec Linux Team <linux@simtec.co.uk>, Stephen Boyd <sboyd@kernel.org>,
- linux-kernel@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
- Olof Johansson <olof@lixom.net>
-Subject: Re: [Linux-stm32] [PATCH 01/21] ARM: s3c: remove all s3c24xx support
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20221021202254.4142411-1-arnd@kernel.org>
+Cc: linux-fbdev@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-iio@vger.kernel.org, alsa-devel@alsa-project.org,
+ dri-devel@lists.freedesktop.org, linux-ide@vger.kernel.org,
+ linux-mtd@lists.infradead.org, linux-i2c@vger.kernel.org,
+ linux-clk@vger.kernel.org, linux-leds@vger.kernel.org,
+ linux-rtc@vger.kernel.org, linux-samsung-soc@vger.kernel.org,
+ linux-pwm@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-serial@vger.kernel.org, linux-input@vger.kernel.org,
+ linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-watchdog@vger.kernel.org, Arnd Bergmann <arnd@arndb.de>,
+ linux-pm@vger.kernel.org, linux-gpio@vger.kernel.org,
+ Ben Dooks <ben-linux@fluff.org>, Simtec Linux Team <linux@simtec.co.uk>,
+ linux-arm-kernel@lists.infradead.org, linux-hwmon@vger.kernel.org,
+ patches@opensource.cirrus.com, linux-usb@vger.kernel.org,
+ linux-mmc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-spi@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ dmaengine@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH 00/21] ARM: s3c: clean out obsolete
+	platforms
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,30 +87,49 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 21/10/2022 16:27, Arnd Bergmann wrote:
+On Fri, Oct 21, 2022 at 10:22:28PM +0200, Arnd Bergmann wrote:
 > From: Arnd Bergmann <arnd@arndb.de>
 > 
-> The platform was deprecated in commit 6a5e69c7ddea ("ARM: s3c: mark
-> as deprecated and schedule removal") and can be removed. This includes
-> all files that are exclusively for s3c24xx and not shared with s3c64xx,
-> as well as the glue logic in Kconfig and the maintainer file entries.
+> The s3c24xx platform was marked as deprecated a while ago,
+> and for the s3c64xx platform, we marked all except one legacy
+> board file as unused.
 > 
-> Cc: Arnaud Patard <arnaud.patard@rtp-net.org>
-> Cc: Ben Dooks <ben-linux@fluff.org>
-> Cc: Christer Weinigel <christer@weinigel.se>
-> Cc: Guillaume GOURAT <guillaume.gourat@nexvision.tv>
-> Cc: Heiko Stuebner <heiko@sntech.de>
-> Cc: Simtec Linux Team <linux@simtec.co.uk>
-> Cc: openmoko-kernel@lists.openmoko.org
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
-> ---
+> This series removes all of those, leaving only s3c64xx support
+> for DT based boots as well as the cragg6410 board file.
+> 
+> About half of the s3c specific drivers were only used on
+> the now removed machines, so these drivers can be retired
+> as well. I can either merge the driver removal patches through
+> the soc tree along with the board file patches, or subsystem
+> maintainers can pick them up into their own trees, whichever
+> they prefer.
 
+[...]
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+>  Documentation/arm/index.rst                   |    1 -
+>  Documentation/arm/samsung-s3c24xx/cpufreq.rst |   77 -
+>  .../arm/samsung-s3c24xx/eb2410itx.rst         |   59 -
+>  Documentation/arm/samsung-s3c24xx/gpio.rst    |  172 --
+>  Documentation/arm/samsung-s3c24xx/h1940.rst   |   41 -
+>  Documentation/arm/samsung-s3c24xx/index.rst   |   20 -
+>  Documentation/arm/samsung-s3c24xx/nand.rst    |   30 -
+>  .../arm/samsung-s3c24xx/overview.rst          |  311 ---
+>  Documentation/arm/samsung-s3c24xx/s3c2412.rst |  121 -
+>  Documentation/arm/samsung-s3c24xx/s3c2413.rst |   22 -
+>  .../arm/samsung-s3c24xx/smdk2440.rst          |   57 -
+>  Documentation/arm/samsung-s3c24xx/suspend.rst |  137 --
+>  .../arm/samsung-s3c24xx/usb-host.rst          |   91 -
+>  Documentation/arm/samsung/overview.rst        |   13 -
 
-Best regards,
-Krzysztof
+What about?:
 
+Documentation/devicetree/bindings/clock/samsung,s3c2410-clock.txt
+Documentation/devicetree/bindings/interrupt-controller/samsung,s3c24xx-irq.txt
+Documentation/devicetree/bindings/mmc/samsung,s3cmci.txt
+Documentation/devicetree/bindings/mtd/samsung-s3c2410.txt
+Documentation/devicetree/bindings/usb/s3c2410-usb.txt
+
+Rob
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
