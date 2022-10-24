@@ -2,66 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DF9CA609E42
-	for <lists+linux-stm32@lfdr.de>; Mon, 24 Oct 2022 11:47:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C8645609E6C
+	for <lists+linux-stm32@lfdr.de>; Mon, 24 Oct 2022 12:01:40 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A0F89C0AA15;
-	Mon, 24 Oct 2022 09:47:14 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6D530C03FC6;
+	Mon, 24 Oct 2022 10:01:40 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6299DC035A5
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6C9F2C035A5
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 24 Oct 2022 09:47:13 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 29O8oZjT001299;
- Mon, 24 Oct 2022 11:47:02 +0200
+ Mon, 24 Oct 2022 10:01:39 +0000 (UTC)
+Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 29O7YUSg032118;
+ Mon, 24 Oct 2022 12:01:29 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-transfer-encoding : content-type; s=selector1;
- bh=WAazJOXTmTrFiYKklIJdUFWRgJ9uUsRwSbws5zGLLRE=;
- b=Rye6SzTFAW/ln+r0rvNLltV3ZE+SaPQDfeO9mv7oxQ05Jo9Wm4wCSdEUVSUOc+PoW5WB
- zOu6pCQLhFFzzyAhuCES9sKf8yTXSGqUCKjp6PIVPG4gimD00D1hKqEjcPOwNJ6AzgWa
- aYPBEp3BC4WEcLz5cBxjabQjBJF3Ne8IhYtUztohBYRLBmabRYQeFnfesbo4y0Fgrn+W
- TJXMmQJnMO8yQW2lSVjJXLCMlhdE11wPZB8OCzo/KJ2h9yPvuAjk2xeyRDyl8iblUIwg
- HW3bckAWkGLUXh0JOOmLFVArakP0aL4Z4DI3+zPF5kKuZhyg28ZIbGTzwsSjjSsgz7xw tQ== 
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=/1ISvok2MlOVWxjeDXBIB0FBrreJWa64+ZVjHl7H/0E=;
+ b=ljRaRjj4fCSSmCbA1JOGd19ApHhO1Ydkdv6uAasZqkwQ7Wpf5aVeYKyQ/suf441kJdDp
+ FHD/YOmgMC4JY60lHQ0MhzRk0F7NTEvoyB5Y9557PmzFo7usgJ2FWtL2jdcKgZDagZXM
+ pv5WVmdGc/pvLhAeu8/NgD/7HwBr6yBhF+XVXTdUbLpTT0oweZ//R4sUXZYdhqbqxHJw
+ j/7SCmJwAvVkfnJYPPrkQvJD2FfwisNPWQivz2azLxV3dxJgpYDet9isvEdfEc0N9aft
+ kirP2IB1oa28yn/AULAiDWk+bHrhtLVt2/SK2L/YRcTQ7dRSojMhFuwvmRLdIjeRgKHR 5g== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3kc7dk2cnq-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3kc5xktfqw-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 24 Oct 2022 11:47:02 +0200
+ Mon, 24 Oct 2022 12:01:29 +0200
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id C72F410002A;
- Mon, 24 Oct 2022 11:46:57 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node3.st.com [10.75.129.71])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id C2D2C2194CD;
- Mon, 24 Oct 2022 11:46:57 +0200 (CEST)
-Received: from localhost (10.201.20.208) by SHFDAG1NODE3.st.com (10.75.129.71)
- with Microsoft SMTP Server (version=TLS1_2,
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 2FF24100039;
+ Mon, 24 Oct 2022 12:01:25 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 2863C21A20D;
+ Mon, 24 Oct 2022 12:01:25 +0200 (CEST)
+Received: from [10.201.21.93] (10.201.21.93) by SHFDAG1NODE1.st.com
+ (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.31; Mon, 24 Oct
- 2022 11:46:57 +0200
-From: Amelie Delaunay <amelie.delaunay@foss.st.com>
-To: Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski
- <krzysztof.kozlowski+dt@linaro.org>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-Date: Mon, 24 Oct 2022 11:46:48 +0200
-Message-ID: <20221024094648.145251-3-amelie.delaunay@foss.st.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20221024094648.145251-2-amelie.delaunay@foss.st.com>
-References: <20221024094648.145251-2-amelie.delaunay@foss.st.com>
+ 2022 12:01:24 +0200
+Message-ID: <608d4642-34f8-a00a-ffe9-e34bb40f0342@foss.st.com>
+Date: Mon, 24 Oct 2022 12:01:23 +0200
 MIME-Version: 1.0
-X-Originating-IP: [10.201.20.208]
-X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SHFDAG1NODE3.st.com
- (10.75.129.71)
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.2.2
+Content-Language: en-US
+To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>, <robh+dt@kernel.org>,
+ <krzysztof.kozlowski+dt@linaro.org>
+References: <20221014141509.211149-1-fabrice.gasnier@foss.st.com>
+From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
+In-Reply-To: <20221014141509.211149-1-fabrice.gasnier@foss.st.com>
+X-Originating-IP: [10.201.21.93]
+X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.545,FMLib:17.11.122.1
  definitions=2022-10-24_02,2022-10-21_01,2022-06-22_01
-Cc: devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: [Linux-stm32] [PATCH 2/2] ARM: dts: stm32: add mcp23017 IO expander
-	on I2C1 on stm32mp135f-dk
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH v2 00/10] Add support for USB on STM32MP13
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,50 +72,50 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-MCP23017 is an IO expander offering 16 input/output port expander with
-interrupt output.
-On stm32mp135f-dk, only INTA is routed (on PG12), but MCP23017 can mirror
-the bank B interrupts on INTA, that's why the property microchip,irq-mirror
-is used.
+Hi Fabrice
 
-Signed-off-by: Amelie Delaunay <amelie.delaunay@foss.st.com>
----
- arch/arm/boot/dts/stm32mp135f-dk.dts | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
+On 10/14/22 16:14, Fabrice Gasnier wrote:
+> Add support for USBPHYC, USB Host and USB OTG on STM32MP13.
+> Enable all these interfaces on STM32MP135F-DK board.
+> Enable the STM32G0 UCSI driver as module.
+> Dependency on PWR and PMIC regulator is tempoarily managed by using
+> fixed regulators (resp in the SoC dtsi and the board dts files).
+> The USB support is functional when these regulators gets enabled at
+> boot time before entering the kernel.
+> 
+> Changes in v2:
+> Adopt "usb" and "typec" generic node names
+> 
+> Amelie Delaunay (5):
+>    ARM: dts: stm32: add USBPHYC and dual USB HS PHY support on stm32mp131
+>    ARM: dts: stm32: add UBSH EHCI and OHCI support on stm32mp131
+>    ARM: dts: stm32: add USB OTG HS support on stm32mp131
+>    ARM: dts: stm32: enable USB HS phys on stm32mp135f-dk
+>    ARM: dts: stm32: enable USB Host EHCI on stm32mp135f-dk
+> 
+> Fabrice Gasnier (5):
+>    ARM: dts: stm32: add PWR fixed regulators on stm32mp131
+>    ARM: dts: stm32: add fixed regulators to support usb on stm32mp135f-dk
+>    ARM: dts: stm32: add pins for stm32g0 typec controller on stm32mp13
+>    ARM: dts: stm32: enable USB OTG in dual role mode on stm32mp135f-dk
+>    ARM: multi_v7_defconfig: enable Type-C UCSI and STM32G0 as modules
+> 
+>   arch/arm/boot/dts/stm32mp13-pinctrl.dtsi |  7 ++
+>   arch/arm/boot/dts/stm32mp131.dtsi        | 81 ++++++++++++++++++++
+>   arch/arm/boot/dts/stm32mp135f-dk.dts     | 95 ++++++++++++++++++++++++
+>   arch/arm/configs/multi_v7_defconfig      |  2 +
+>   4 files changed, 185 insertions(+)
+> 
 
-diff --git a/arch/arm/boot/dts/stm32mp135f-dk.dts b/arch/arm/boot/dts/stm32mp135f-dk.dts
-index a87ab067c955..d5fc6462ba33 100644
---- a/arch/arm/boot/dts/stm32mp135f-dk.dts
-+++ b/arch/arm/boot/dts/stm32mp135f-dk.dts
-@@ -112,6 +112,20 @@ &i2c1 {
- 	/* spare dmas for other usage */
- 	/delete-property/dmas;
- 	/delete-property/dma-names;
-+
-+	mcp23017: pinctrl@21 {
-+		compatible = "microchip,mcp23017";
-+		reg = <0x21>;
-+		gpio-controller;
-+		#gpio-cells = <2>;
-+		interrupts = <12 IRQ_TYPE_LEVEL_LOW>;
-+		interrupt-parent = <&gpiog>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&mcp23017_pins_a>;
-+		interrupt-controller;
-+		#interrupt-cells = <2>;
-+		microchip,irq-mirror;
-+	};
- };
- 
- &i2c5 {
--- 
-2.25.1
+Series applied on stm32-next.
 
+Cheers
+Alex
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
