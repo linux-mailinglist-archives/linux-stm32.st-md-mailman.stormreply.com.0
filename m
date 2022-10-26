@@ -2,48 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6438760CF59
-	for <lists+linux-stm32@lfdr.de>; Tue, 25 Oct 2022 16:42:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 336B560E6A6
+	for <lists+linux-stm32@lfdr.de>; Wed, 26 Oct 2022 19:38:24 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EC6E6C03FCB;
-	Tue, 25 Oct 2022 14:42:06 +0000 (UTC)
-Received: from smtp.cesky-hosting.cz (smtp.cesky-hosting.cz [91.239.200.238])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C3C1FC03FDA;
+	Wed, 26 Oct 2022 17:38:23 +0000 (UTC)
+Received: from mx2.securetransport.de (mx2.securetransport.de [188.68.39.254])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id
+ 7A96EC03FC6 for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 26 Oct 2022 17:38:22 +0000 (UTC)
+Received: from mail.dh-electronics.com (unknown [77.24.89.57])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2D727C03FC6
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 25 Oct 2022 14:42:05 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at smtp.cesky-hosting.cz
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=elrest.cz;
- s=rampa2-202208; t=1666708924;
- bh=PYEMZsYHKT+dgDkbswL32nBIM4jvIDqtH1ZQB5oxgLQ=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=m2nWdHhQD7eu7Wb8ByqsPWL4jwyQU/WyFlfdQ8Ru+fVoo6Nm9RHUbJFEQTx3skIfB
- hcHg5j1CrP45NcSoHHlehuh7usLdkvg1gfD4dNIUSIdG+op+mJ9vQO73LO1PUhnfOM
- MUCEyoV8mrsQ6faEwpas8Fcw95j+S0Q4bi/sAvijOB0pqfh5+55TndPV3Z22sJW3Jt
- CTN+S4Egexqf/XrXeSFv2O60zBQgvMTg6UtcawgSvmoFWdjghdfBv4nA00XpLxXbeH
- Iad38s4QwS31qYcb+FTpMmaePxsBYGUTbQvlqdxwIOllnr3f/3rhzWxeKiwVPzKMK8
- vIBlmBqsvQXqQ==
-Received: from edaa77c5b7e3 (unknown [5.181.92.50])
- (Authenticated sender: tomas.marek@elrest.cz)
- by smtp.cesky-hosting.cz (Postfix) with ESMTPSA id 179143C0;
- Tue, 25 Oct 2022 16:41:58 +0200 (CEST)
-Date: Tue, 25 Oct 2022 16:41:38 +0200
-From: Tomas Marek <tomas.marek@elrest.cz>
-To: Herbert Xu <herbert@gondor.apana.org.au>
-Message-ID: <20221025144138.GA8@edaa77c5b7e3>
-References: <20221012160924.12226-1-tomas.marek@elrest.cz>
- <20221012160924.12226-2-tomas.marek@elrest.cz>
- <Y1J3QwynPFIlfrIv@loth.rohan.me.apana.org.au>
+ by mx2.securetransport.de (Postfix) with ESMTPSA id DD3A75E898;
+ Wed, 26 Oct 2022 19:37:38 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dh-electronics.com;
+ s=dhelectronicscom; t=1666805859;
+ bh=TmMyXjcM0YsNPNvSSd5+dJKufXYGQ0pbaGROlQHD9IE=;
+ h=From:To:CC:Subject:Date:In-Reply-To:References:From;
+ b=GxJf0zvnl0KTpx/0pucbPmBQKBITUWdxmwkTOJH53+8vAEvqnD2SVfGlGTku6G4OM
+ fPnxiHqLDzfxB176zJj2TDCnjU6IpLzfcFjXWzdNqjiBlnPDolTO4eNAxRnf+iOqqx
+ 3jnshxwyQtQ6BZxdZyiXQRpq+dGDxDxmR2QlQ9AuCrnNbfdjdGAo9MN3fgl5hF3YGx
+ s+LF5zdSfuTPGnlwY7SRCoU6CGM+rTfDRc9jNorZgiH6eE7/SlHtSX2zQIDnhCaMNS
+ rsTOMY0BRcKtgbizCJom3OAon6IJwZunaKybGQLsDgP/pVUYCoET04keyOkFwAx2vO
+ EVnBQO8uGVRSw==
+Received: from DHPWEX01.DH-ELECTRONICS.ORG (10.64.2.30) by
+ DHPWEX01.DH-ELECTRONICS.ORG (10.64.2.30) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1118.15; Wed, 26 Oct 2022 18:52:21 +0200
+Received: from localhost.localdomain (172.16.51.8) by
+ DHPWEX01.DH-ELECTRONICS.ORG (10.64.2.30) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1118.15 via Frontend Transport; Wed, 26 Oct 2022 18:52:21 +0200
+From: Christoph Niedermaier <cniedermaier@dh-electronics.com>
+To: <linux-serial@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>
+Date: Wed, 26 Oct 2022 18:50:49 +0200
+Message-ID: <20221026165049.9541-5-cniedermaier@dh-electronics.com>
+X-Mailer: git-send-email 2.11.0
+X-klartext: yes
+In-Reply-To: <20221026165049.9541-1-cniedermaier@dh-electronics.com>
+References: <20221026165049.9541-1-cniedermaier@dh-electronics.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <Y1J3QwynPFIlfrIv@loth.rohan.me.apana.org.au>
-User-Agent: Mutt/1.5.23 (2014-03-12)
-Cc: oleg.karfich@wago.com, linux-kernel@vger.kernel.org,
- linux-crypto@vger.kernel.org, mcoquelin.stm32@gmail.com, mpm@selenic.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 1/2] hwrng: stm32 - fix number of returned
-	bytes on read
+Cc: marex@denx.de, Christoph Niedermaier <cniedermaier@dh-electronics.com>,
+ krzysztof.kozlowski+dt@linaro.org,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, jirislaby@kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [PATCH 4/4] serial: stm32: Add support for rs485
+	RX_DURING_TX GPIO
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,39 +66,48 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, Oct 21, 2022 at 06:41:07PM +0800, Herbert Xu wrote:
-> On Wed, Oct 12, 2022 at 06:09:23PM +0200, Tomas Marek wrote:
-> >
-> > diff --git a/drivers/char/hw_random/stm32-rng.c b/drivers/char/hw_random/stm32-rng.c
-> > index bc22178f83e8..8eaacefd498b 100644
-> > --- a/drivers/char/hw_random/stm32-rng.c
-> > +++ b/drivers/char/hw_random/stm32-rng.c
-> > @@ -49,11 +49,13 @@ static int stm32_rng_read(struct hwrng *rng, void *data, size_t max, bool wait)
-> >  		/* Manage timeout which is based on timer and take */
-> >  		/* care of initial delay time when enabling rng	*/
-> >  		if (!sr && wait) {
-> > -			retval = readl_relaxed_poll_timeout_atomic(priv->base
-> > +			int ret;
-> > +
-> > +			ret = readl_relaxed_poll_timeout_atomic(priv->base
-> 
-> This would make a lot more sense if you called it err instead of ret.
-> 
-> But as you're fixing a real bug I'm going to apply your patch as is
-> and you can post an incremental patch to improve it.
+If a RX_DURING_TX GPIO is defined by the DT property "rs485-rx-during-tx-gpios"
+this patch switches this GPIO accordingly to the RS485 flag RX_DURING_TX in user
+space. Controlled by this GPIO, now the hardware is responsible for connecting
+or disconnecting Rx during Tx.
 
-OK, sounds reasonable. I'll post new patch and rename ret to err.
+Signed-off-by: Christoph Niedermaier <cniedermaier@dh-electronics.com>
+---
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Jiri Slaby <jirislaby@kernel.org>
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
+Cc: Marek Vasut <marex@denx.de>
+Cc: linux-stm32@st-md-mailman.stormreply.com
+To: linux-serial@vger.kernel.org
+To: linux-arm-kernel@lists.infradead.org
+---
+ drivers/tty/serial/stm32-usart.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
 
-Thanks for the hint and for the review.
+diff --git a/drivers/tty/serial/stm32-usart.c b/drivers/tty/serial/stm32-usart.c
+index dfdbcf092fac..91ff6d386932 100644
+--- a/drivers/tty/serial/stm32-usart.c
++++ b/drivers/tty/serial/stm32-usart.c
+@@ -226,7 +226,14 @@ static int stm32_usart_config_rs485(struct uart_port *port, struct ktermios *ter
+ 
+ 	stm32_usart_clr_bits(port, ofs->cr1, BIT(cfg->uart_enable_bit));
+ 
+-	rs485conf->flags |= SER_RS485_RX_DURING_TX;
++	if (port->rs485_rx_during_tx_gpio) {
++		if (rs485conf->flags & SER_RS485_RX_DURING_TX)
++			gpiod_set_value_cansleep(port->rs485_rx_during_tx_gpio, 1);
++		else
++			gpiod_set_value_cansleep(port->rs485_rx_during_tx_gpio, 0);
++	} else {
++		rs485conf->flags |= SER_RS485_RX_DURING_TX;
++	}
+ 
+ 	if (rs485conf->flags & SER_RS485_ENABLED) {
+ 		cr1 = readl_relaxed(port->membase + ofs->cr1);
+-- 
+2.11.0
 
-Tomas
-
-> 
-> Thanks,
-> -- 
-> Email: Herbert Xu <herbert@gondor.apana.org.au>
-> Home Page: http://gondor.apana.org.au/~herbert/
-> PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
