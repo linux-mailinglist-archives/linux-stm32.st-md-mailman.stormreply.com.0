@@ -2,52 +2,75 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7A5AE60F4C5
-	for <lists+linux-stm32@lfdr.de>; Thu, 27 Oct 2022 12:20:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5BC6B60FB20
+	for <lists+linux-stm32@lfdr.de>; Thu, 27 Oct 2022 17:04:44 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 042EAC04003;
-	Thu, 27 Oct 2022 10:20:19 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 17B5AC55596;
+	Thu, 27 Oct 2022 15:04:44 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D4FBEC03FCB
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0026AC03FCB
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 27 Oct 2022 10:20:17 +0000 (UTC)
+ Thu, 27 Oct 2022 13:38:28 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 8DB406227C;
- Thu, 27 Oct 2022 10:20:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id EE421C433B5;
- Thu, 27 Oct 2022 10:20:15 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id A842662315;
+ Thu, 27 Oct 2022 13:38:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 722B2C433C1;
+ Thu, 27 Oct 2022 13:38:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1666866016;
- bh=/i906t4LlgLzrU1t6JV+mYaTQDQSgmlrOwu7+7bznmc=;
- h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=Yvc1/MjS6fUCueEKtcsxRHDuZnNaajAt+9xfNbZVH/iMbYI+LRaP0WhqkALoKApO/
- fxa7yYTNDIwOXcjif0MvKvDg86CRx3gJOj1V4s0yibndVPxn1A9o8qYF5OGSdl+eEQ
- eD6t6trRyKymdju1E0MaiM+3d9Jum/p7bXJg0R9XsAMxvM/Cu2k2kflsQYwDt+GmRo
- vAxg6yPHUoL8rjjowiGxsSufQ3r6Mq+PscXFYAfwY4FAG+Fjqu5xjUILvwYOIHcL+H
- Tv4nJC0awkad55ekWWFPhM0iS9dZTEQoewhCyCjlgJ47vuUd9BC8Oazf3am7KjtXYt
- AghIdM7ps92Gg==
-Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
- D0DF6E270D8; Thu, 27 Oct 2022 10:20:15 +0000 (UTC)
+ s=k20201202; t=1666877907;
+ bh=pllUkLfz45ydi2Wi6jpPnGPo9M25t+6/Kw3UeVHzGdQ=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=XA5Ckkqd0MKG04G1je+NRuX1YlckWLju0xK3x3oUFbwBzEWP6CCfNDpPs4an9dpok
+ zTBWBixFCPVT6QiWgG06RRjmUVE+7QhKtLZW6B7yG60cj4z+DP30OQiyW+scbCLjhc
+ /E23kdKoDTQanhEvTGk+kVSkBlzowin0Wcf+oPMRuHMB4/tpgnkvmmiqqPZ4NF0Vcq
+ p942/XBiczoyTBgTKPBfe9CjdC6F5DbIXfIVQwcdzJ4ryHBrcqdU5Jp1Lva0Po2bTn
+ L/okQRXRP0jU38kGSHQZ8g9LmY5hxfULdWp2a9lD5utiwTnV0uXe3TVXFuRzmMBt6V
+ TjROlYhclurRw==
+From: Lorenzo Pieralisi <lpieralisi@kernel.org>
+To: Mark Brown <broonie@kernel.org>, Marc Zyngier <maz@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Guenter Roeck <linux@roeck-us.net>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ Linus Walleij <linus.walleij@linaro.org>,
+ Miquel Raynal <miquel.raynal@bootlin.com>, David Airlie <airlied@linux.ie>,
+ Bartosz Golaszewski <brgl@bgdev.pl>,
+ =?UTF-8?q?Pali=20Roh=C3=A1r?= <pali@kernel.org>,
+ Daniel Vetter <daniel@ffwll.ch>, Liam Girdwood <lgirdwood@gmail.com>,
+ Alyssa Rosenzweig <alyssa@rosenzweig.io>,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Claudiu Beznea <claudiu.beznea@microchip.com>,
+ Bjorn Helgaas <bhelgaas@google.com>,
+ =?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kw@linux.com>,
+ Richard Weinberger <richard@nod.at>,
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Wim Van Sebroeck <wim@linux-watchdog.org>,
+ Matti Vaittinen <mazziesaccount@gmail.com>,
+ Vignesh Raghavendra <vigneshr@ti.com>, Felipe Balbi <balbi@kernel.org>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Rob Herring <robh@kernel.org>
+Date: Thu, 27 Oct 2022 15:38:11 +0200
+Message-Id: <166687787352.847482.10005684512699510391.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20220903-gpiod_get_from_of_node-remove-v1-0-b29adfb27a6c@gmail.com>
+References: <20220903-gpiod_get_from_of_node-remove-v1-0-b29adfb27a6c@gmail.com>
 MIME-Version: 1.0
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <166686601585.8143.16275733107810431975.git-patchwork-notify@kernel.org>
-Date: Thu, 27 Oct 2022 10:20:15 +0000
-References: <20221025081747.1884926-1-junxiao.chang@intel.com>
-In-Reply-To: <20221025081747.1884926-1-junxiao.chang@intel.com>
-To: Junxiao Chang <junxiao.chang@intel.com>
-Cc: Joao.Pinto@synopsys.com, linux-kernel@vger.kernel.org,
- netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- veekhee@gmail.com, edumazet@google.com, joabreu@synopsys.com,
- mcoquelin.stm32@gmail.com, kuba@kernel.org, peppe.cavallaro@st.com,
- pabeni@redhat.com, davem@davemloft.net, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next,
- v2] net: stmmac: remove duplicate dma queue channel macros
+X-Mailman-Approved-At: Thu, 27 Oct 2022 15:04:43 +0000
+Cc: linux-watchdog@vger.kernel.org, linux-pci@vger.kernel.org,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-gpio@vger.kernel.org, linux-mtd@lists.infradead.org,
+ linux-tegra@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] (subset) [PATCH v1 00/11] Get rid of
+	[devm_]gpiod_get_from_of_node() public APIs
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -64,33 +87,25 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello:
-
-This patch was applied to netdev/net-next.git (master)
-by Paolo Abeni <pabeni@redhat.com>:
-
-On Tue, 25 Oct 2022 16:17:47 +0800 you wrote:
-> It doesn't need extra macros for queue 0 & 4. Same macro could
-> be used for all 8 queues. Related queue/channel functions could
-> be combined together.
+On Sun, 4 Sep 2022 23:30:52 -0700, Dmitry Torokhov wrote:
+> I would like to stop exporting OF-specific [devm_]gpiod_get_from_of_node()
+> so that gpiolib can be cleaned a bit. We can do that by switching drivers
+> to use generic fwnode API ([devm_]fwnode_gpiod_get()). By doing so we open
+> the door to augmenting device tree and ACPI information through secondary
+> software properties (once we teach gpiolib how to handle those).
 > 
-> Original macro which has two same parameters is unsafe macro and
-> might have potential side effects. Each MTL RxQ DMA channel mask
-> is 4 bits, so using (0xf << chan) instead of GENMASK(x + 3, x) to
-> avoid unsafe macro.
+> I hope that relevant maintainers will take patches through their trees and
+> then we could merge the last one some time after -rc1.
 > 
 > [...]
 
-Here is the summary with links:
-  - [net-next,v2] net: stmmac: remove duplicate dma queue channel macros
-    https://git.kernel.org/netdev/net-next/c/330543d04f2c
+Applied to pci/tegra, thanks!
 
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+[01/11] PCI: tegra: switch to using devm_fwnode_gpiod_get
+        https://git.kernel.org/lpieralisi/pci/c/16e3f4077965
 
-
+Thanks,
+Lorenzo
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
