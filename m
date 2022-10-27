@@ -2,66 +2,67 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 44C7960F104
-	for <lists+linux-stm32@lfdr.de>; Thu, 27 Oct 2022 09:15:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5D2A460F3E3
+	for <lists+linux-stm32@lfdr.de>; Thu, 27 Oct 2022 11:42:00 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DA3A7C04003;
-	Thu, 27 Oct 2022 07:15:04 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 03E28C04003;
+	Thu, 27 Oct 2022 09:42:00 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D676EC03FC3
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5A86AC03FCB
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 27 Oct 2022 07:15:03 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 29R5289M015107;
- Thu, 27 Oct 2022 09:13:41 +0200
+ Thu, 27 Oct 2022 09:41:58 +0000 (UTC)
+Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 29R8CTFL025690;
+ Thu, 27 Oct 2022 11:41:28 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=content-type :
- message-id : date : mime-version : subject : to : cc : references : from :
- in-reply-to; s=selector1; bh=zxPkaKKToBpHn/RAzppwJGspi2GAjaJWxY6M2eZCCjc=;
- b=q1zjONwwWSD82R8ifuhodcsuBqHgcJhnmuVv4GxBQySN24J+36BKoNTOnNO/jXPPuKCy
- mg47lgOf+qZzI2J8+WkIBoo4pzwBGm338LYxmFQbtQJBuEQX2Y6c6boI7FjYJu8Zy/hi
- V4cnGTkq9SQD7ttm3Mam6OTAZmXjNBev+mETDoCNXv6CKvJ6X2VvEpvjfyLSjPGdoLgn
- Eo8i7+v8z7HY/b1esfZfnQaZb0uQw/c5ewzraSoJhjDQZiKgdRAtYvnqB0q+ZZFNOOCE
- rEj15ixllOtrbEBqBvBhtpi+UNbnXXpUAPq56s6h/Y2wgsywxkg2zRclV41E7I4zhjpG KQ== 
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=ccCzm5Gd5tkQOCHgkiIsJ8ZVPmREuXP1/daEY3EgGtY=;
+ b=3zgl1Dt7j8/JwlFK6rvSqFsDl1iwuY9N8qrem7pXuchYej0KHJJsJmD874RQz6imCPeN
+ GLlnq1nau+rxkwujQM1f9wgY6BaG91h5TSSkbAWjxbkU+VnQiuQSjBk7jDcr80RKTEQS
+ l5kdj/MOlOWHh243/VUi22/bMb6XqGOYjzL8s4dEGkMxaNwFos/mklNuR1xC3SUg9xVm
+ B13WlUJoPRdn9FUFX3SJCe9919cKsbhnRKCp8AujKr0TMTqYZww/rlUJCGE0BSWacZwN
+ 45JAb6WaOhK8WsIaXSF105B/K07yZ2TelF9rq1HQO+4LbE++10Bdb05OPFtZpBMSP34F 6A== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3kfajf3fev-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3kfagc4mxj-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 27 Oct 2022 09:13:41 +0200
+ Thu, 27 Oct 2022 11:41:28 +0200
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 463EC100038;
- Thu, 27 Oct 2022 09:13:36 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 3C7BD2122EF;
- Thu, 27 Oct 2022 09:13:36 +0200 (CEST)
-Received: from [10.252.13.200] (10.252.13.200) by SHFDAG1NODE1.st.com
- (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id A874710003B;
+ Thu, 27 Oct 2022 11:41:20 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id A4FFF2171CF;
+ Thu, 27 Oct 2022 11:41:20 +0200 (CEST)
+Received: from [10.48.1.102] (10.48.1.102) by SHFDAG1NODE2.st.com
+ (10.75.129.70) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.31; Thu, 27 Oct
- 2022 09:13:35 +0200
-Message-ID: <6f4ad7b8-28f2-36fa-bc54-d80faa63b091@foss.st.com>
-Date: Thu, 27 Oct 2022 09:13:35 +0200
+ 2022 11:41:19 +0200
+Message-ID: <ec6b8983-1567-92c8-f1cd-baf970ca4046@foss.st.com>
+Date: Thu, 27 Oct 2022 11:41:18 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.2.2
-To: Marek Vasut <marex@denx.de>, <linux-clk@vger.kernel.org>
-References: <20221023164607.556118-1-marex@denx.de>
+To: William Breathitt Gray <william.gray@linaro.org>, <jic23@kernel.org>,
+ <lars@metafoo.de>, <benjamin.gaignard@st.com>,
+ <mcoquelin.stm32@gmail.com>, <alexandre.torgue@foss.st.com>
+References: <Y0vzlOmFrVCQVXMq@fedora>
 Content-Language: en-US
-From: Gabriel FERNANDEZ <gabriel.fernandez@foss.st.com>
-In-Reply-To: <20221023164607.556118-1-marex@denx.de>
-X-Originating-IP: [10.252.13.200]
-X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE1.st.com
- (10.75.129.69)
+From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+In-Reply-To: <Y0vzlOmFrVCQVXMq@fedora>
+X-Originating-IP: [10.48.1.102]
+X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SHFDAG1NODE2.st.com
+ (10.75.129.70)
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.545,FMLib:17.11.122.1
- definitions=2022-10-27_03,2022-10-26_01,2022-06-22_01
-Cc: kernel test robot <lkp@intel.com>, Stephen Boyd <sboyd@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com,
- Christophe Roullier <christophe.roullier@foss.st.com>,
- Johann Neuhauser <jneuhauser@dh-electronics.com>,
- Patrick Delaunay <patrick.delaunay@foss.st.com>
-Subject: Re: [Linux-stm32] [PATCH] clk: stm32mp1: Staticize ethrx_src
+ definitions=2022-10-27_04,2022-10-26_01,2022-06-22_01
+Cc: linux-iio@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [Linux-stm32] Removing the last of IIO_COUNT
+	(stm32-timer-trigger)
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,144 +74,168 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============3141223307740413356=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
---===============3141223307740413356==
-Content-Type: multipart/alternative;
-	boundary="------------tpkHY3UQPvV6CGWvnh60ETcv"
-Content-Language: en-US
+On 10/16/22 14:05, William Breathitt Gray wrote:
+> Hi all,
+> 
+> The drivers/iio/trigger/stm32-timer-trigger.c file remains the last
+> consumer if the IIO_COUNT type. The IIO_COUNT type was deprecated some
+> time ago with the introduction of the Counter subsystem. Most of the
+> previous IIO_COUNT consumers were migrated successfully to the Counter
+> subsystem, but the stm32-timer-trigger driver remains as the sole module
+> preventing the final removal of IIO_COUNT.
+> 
+> At the time we deprecated IIO_COUNT, the Counter subsystem was nascent
+> and lacked some of the functionality we have nowadays such as a
+> character device interface, timestamping, hardware buffer support, etc.
+> If I recall correctly, the decision to delay the migration of
+> stm32-timer-trigger to the Counter subsystem was a lack of some
+> functionality the Counter subsystem could not provide at the time.
+> 
 
---------------tpkHY3UQPvV6CGWvnh60ETcv
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
+Hi William,
 
-Acked-by: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
+As far as I remember, initial work on stm32-timer-counter focused only
+on porting the quadrature interface away from stm32-timer-trigger.
+Unfortunately, I've followed from afar all the progress you did in the
+framework since then.
+From the infrastructure point of view, there's probably not much to add
+to be able to move away the IIO_COUNT channel (and the IIO device) part
+of stm32-timer-trigger driver.
+Let's focus only on the modes implemented here.
 
-On 10/23/22 18:46, Marek Vasut wrote:
-> Make ethrx_src array static, this is local to clk-stm32mp1.c
->
-> Fixes: e9ed1ef18a37a ("clk: stm32mp1: Add parent_data to ETHRX clock")
-> Reported-by: kernel test robot<lkp@intel.com>
-> Signed-off-by: Marek Vasut<marex@denx.de>
-> ---
-> Cc: Alexandre Torgue<alexandre.torgue@foss.st.com>
-> Cc: Christophe Roullier<christophe.roullier@foss.st.com>
-> Cc: Gabriel Fernandez<gabriel.fernandez@foss.st.com>
-> Cc: Johann Neuhauser<jneuhauser@dh-electronics.com>
-> Cc: Patrice Chotard<patrice.chotard@foss.st.com>
-> Cc: Patrick Delaunay<patrick.delaunay@foss.st.com>
-> Cc: Stephen Boyd<sboyd@kernel.org>
-> Cc:linux-clk@vger.kernel.org
-> Cc:linux-stm32@st-md-mailman.stormreply.com
-> ---
->   drivers/clk/clk-stm32mp1.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/clk/clk-stm32mp1.c b/drivers/clk/clk-stm32mp1.c
-> index 7ad2e6203baef..01e5a466897f8 100644
-> --- a/drivers/clk/clk-stm32mp1.c
-> +++ b/drivers/clk/clk-stm32mp1.c
-> @@ -155,7 +155,7 @@ static const char * const eth_src[] = {
->   	"pll4_p", "pll3_q"
->   };
->   
-> -const struct clk_parent_data ethrx_src[] = {
-> +static const struct clk_parent_data ethrx_src[] = {
->   	{ .name = "ethck_k", .fw_name = "ETH_RX_CLK/ETH_REF_CLK" },
->   };
->   
---------------tpkHY3UQPvV6CGWvnh60ETcv
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+Besides this, I may have further questions on the "hardware buffer
+support" (could you point this as I miss it for now), and also the
+capture interface.
+There has been a separate discussion here ("pwm: Make capture support
+optional"):
+https://lore.kernel.org/linux-pwm/Yz%2F4V0gH%2FvrWSS8U@orome/T/#u
+I'd be glad to get your opinion, on possibly moving the PWM input
+capture feature to the counter framework too.
 
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <p><span data-markjs="true" class="mark5z2zoqnl4" data-ogac=""
-        data-ogab="" data-ogsc="" data-ogsb="" style="border: 0px;
-        font-style: normal; font-variant-ligatures: normal;
-        font-variant-caps: normal; font-variant-numeric: inherit;
-        font-variant-east-asian: inherit; font-weight: 400;
-        font-stretch: inherit; font-size: 14.6667px; line-height:
-        inherit; font-family: &quot;Segoe UI&quot;, &quot;Segoe UI Web
-        (West European)&quot;, &quot;Segoe UI&quot;, -apple-system,
-        BlinkMacSystemFont, Roboto, &quot;Helvetica Neue&quot;,
-        sans-serif; margin: 0px; padding: 0px; vertical-align: baseline;
-        color: rgb(36, 36, 36); letter-spacing: normal; orphans: 2;
-        text-align: start; text-indent: 0px; text-transform: none;
-        white-space: normal; widows: 2; word-spacing: 0px;
-        -webkit-text-stroke-width: 0px; background-color: rgb(255, 255,
-        255); text-decoration-thickness: initial; text-decoration-style:
-        initial; text-decoration-color: initial;">Acked-by</span><span
-        style="color: rgb(36, 36, 36); font-family: &quot;Segoe
-        UI&quot;, &quot;Segoe UI Web (West European)&quot;, &quot;Segoe
-        UI&quot;, -apple-system, BlinkMacSystemFont, Roboto,
-        &quot;Helvetica Neue&quot;, sans-serif; font-size: 14.6667px;
-        font-style: normal; font-variant-ligatures: normal;
-        font-variant-caps: normal; font-weight: 400; letter-spacing:
-        normal; orphans: 2; text-align: start; text-indent: 0px;
-        text-transform: none; white-space: normal; widows: 2;
-        word-spacing: 0px; -webkit-text-stroke-width: 0px;
-        background-color: rgb(255, 255, 255); text-decoration-thickness:
-        initial; text-decoration-style: initial; text-decoration-color:
-        initial; display: inline !important; float: none;">: Gabriel
-        Fernandez <a class="moz-txt-link-rfc2396E" href="mailto:gabriel.fernandez@foss.st.com">&lt;gabriel.fernandez@foss.st.com&gt;</a></span></p>
-    <div class="moz-cite-prefix">On 10/23/22 18:46, Marek Vasut wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:20221023164607.556118-1-marex@denx.de">
-      <pre class="moz-quote-pre" wrap="">Make ethrx_src array static, this is local to clk-stm32mp1.c
+> I hoping someone can evaluate stm32-timer-trigger to see if we are able
+> transition now to the Counter subsystem, or if that necessary
+> functionality is still missing today. Even if it turns out that we are
+> unable to migrate, it'll be useful to know what's left to implement in
+> the Counter subsystem to support stm32-timer-trigger or similar devices
+> in the future.
 
-Fixes: e9ed1ef18a37a ("clk: stm32mp1: Add parent_data to ETHRX clock")
-Reported-by: kernel test robot <a class="moz-txt-link-rfc2396E" href="mailto:lkp@intel.com">&lt;lkp@intel.com&gt;</a>
-Signed-off-by: Marek Vasut <a class="moz-txt-link-rfc2396E" href="mailto:marex@denx.de">&lt;marex@denx.de&gt;</a>
+As you're asking, I just tried to narrow down specific things in this
+driver, and assess possible impacts. Please find some details here after
+and first as an introduction:
+
+The IIO device registered in this driver has two specific extensions, to
+manage specific ("slave") modes: "always", "gated", "triggered".
+E.g the *enable_mode*.
+
+The last 2 modes depends on specific hardware *triggers* being
+associated in IIO sysfs, to select the trigger (e.g. echo the source
+trigger name > trigger/current_trigger # the destination timer to trig).
+The list of triggers is specific to each timer instance in STM32.
+In other words, some timers outputs can be used as input on other
+timers. Here comes the *trigger_mode* attribute (see after).
+
+--- enable_mode ---
+In Documentation/ABI/testing/sysfs-bus-iio-timer-stm32, this correspond to:
+- /sys/bus/iio/devices/iio:deviceX/in_count0_enable_mode
+- /sys/bus/iio/devices/iio:deviceX/in_count_enable_mode_available
+always:
+	Counter is always ON.
+gated:
+	Counting is enabled when connected trigger signal
+	level is high else counting is disabled.
+triggered:
+	Counting is enabled on rising edge of the connected
+	trigger, and remains enabled for the duration of this
+	selected mode.
+
+Basically, the "always" mode is already used by default in
+stm32-timer-cnt driver, and matches: COUNTER_COUNT_MODE_NORMAL, By
+referring to:
+Documentation/ABI/testing/sysfs-bus-counter
+		normal:
+			Counting is continuous in either direction.
+
+Please find some thoughts/proposal here:
+- This could lead to add two counter modes to the list of "range limit",
+"non-recycle" and "modulo-n". The STM32 timer trigger inputs could be
+described as signals (list being specific for each timer instance, see
+valids_table[] arrays in stm32-timer-trigger).
+
+- OR, maybe the 2 modes could be described as a specific synapse action,
+(trigger input also being described as a signal)? In both "gated" and
+"triggered" modes, the timer counts on its internal clock input (but not
+continuously). But it doesn't really match the "normal" mode.
+
+- Last, maybe a mix of a new "trigger" count mode, and synapse action
+(gated/triggered) could be used ?
+Note: The last one may open the door to other modes that aren't
+implemented in current stm32-timer-trigger driver, by extending the
+synapse actions (like reset the counter upon trigger signal... and other
+combined modes specified in the STM32 timer spec).
+
+--- trigger_mode ---
+In Documentation/ABI/testing/sysfs-bus-iio-timer-stm32, this correspond to:
+- /sys/bus/iio/devices/iio:deviceX/in_count_trigger_mode_available
+- /sys/bus/iio/devices/iio:deviceX/in_count0_trigger_mode
+In the STM32 timer spec this is: External Clock Mode 1 - Rising edges of
+the selected trigger (TRGI) clock the counter.
+
+In this configuration, IMHO, this matches the "normal" counter mode.
+This lead also here to define trigger inputs as a signals. Then the
+standard increase/decrease functions suffice.
+
+--- dt-bindings ---
+This could be a tight part. Listing/probing the triggers relies on the
+reg property defined in the trigger node:
+- Documentation/devicetree/bindings/mfd/st,stm32-timers.yaml
+
+timers2: timer@40000000 {
+  timer@1 {
+    compatible = "st,stm32-timer-trigger";
+    reg = <1>;
+  }
+  counter {
+    compatible = "st,stm32-timer-counter";
+  };
+}
+
+Ideally... adding the reg property to the counter node could have
+helped. But we need to enforce the backward compatibility with existing
+DT binaries. So I think that there's no choice to keep the current bindings.
+
+This could lead to add some code to parse the trigger node for probing,
+looking for the "reg" property either from:
+- the MFD driver part drivers/mfd/stm32-timers.c
+- the counter driver, although it seems non-standard way to parse aside
+nodes.
+I have no strong opinion and I'm open to suggestions.
+
 ---
-Cc: Alexandre Torgue <a class="moz-txt-link-rfc2396E" href="mailto:alexandre.torgue@foss.st.com">&lt;alexandre.torgue@foss.st.com&gt;</a>
-Cc: Christophe Roullier <a class="moz-txt-link-rfc2396E" href="mailto:christophe.roullier@foss.st.com">&lt;christophe.roullier@foss.st.com&gt;</a>
-Cc: Gabriel Fernandez <a class="moz-txt-link-rfc2396E" href="mailto:gabriel.fernandez@foss.st.com">&lt;gabriel.fernandez@foss.st.com&gt;</a>
-Cc: Johann Neuhauser <a class="moz-txt-link-rfc2396E" href="mailto:jneuhauser@dh-electronics.com">&lt;jneuhauser@dh-electronics.com&gt;</a>
-Cc: Patrice Chotard <a class="moz-txt-link-rfc2396E" href="mailto:patrice.chotard@foss.st.com">&lt;patrice.chotard@foss.st.com&gt;</a>
-Cc: Patrick Delaunay <a class="moz-txt-link-rfc2396E" href="mailto:patrick.delaunay@foss.st.com">&lt;patrick.delaunay@foss.st.com&gt;</a>
-Cc: Stephen Boyd <a class="moz-txt-link-rfc2396E" href="mailto:sboyd@kernel.org">&lt;sboyd@kernel.org&gt;</a>
-Cc: <a class="moz-txt-link-abbreviated" href="mailto:linux-clk@vger.kernel.org">linux-clk@vger.kernel.org</a>
-Cc: <a class="moz-txt-link-abbreviated" href="mailto:linux-stm32@st-md-mailman.stormreply.com">linux-stm32@st-md-mailman.stormreply.com</a>
----
- drivers/clk/clk-stm32mp1.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+To conclude, there some open items here, but hopefully nothing blocking.
+In case we sort all these, this will allow to remove the IIO_COUNT
+channel (along with the IIO device) being registered.
 
-diff --git a/drivers/clk/clk-stm32mp1.c b/drivers/clk/clk-stm32mp1.c
-index 7ad2e6203baef..01e5a466897f8 100644
---- a/drivers/clk/clk-stm32mp1.c
-+++ b/drivers/clk/clk-stm32mp1.c
-@@ -155,7 +155,7 @@ static const char * const eth_src[] = {
- 	"pll4_p", "pll3_q"
- };
- 
--const struct clk_parent_data ethrx_src[] = {
-+static const struct clk_parent_data ethrx_src[] = {
- 	{ .name = "ethck_k", .fw_name = "ETH_RX_CLK/ETH_REF_CLK" },
- };
- 
-</pre>
-    </blockquote>
-  </body>
-</html>
+There will still remain some specific attributes in the
+stm32-timer-trigger driver, related to the trigger device:
+- /sys/bus/iio/devices/triggerX/master_mode
+- /sys/bus/iio/devices/triggerX/master_mode_available
+But this shouldn't be an issue as it isn't related to the IIO_COUNT part
+of the driver.
 
---------------tpkHY3UQPvV6CGWvnh60ETcv--
+Please advise,
+Best Regards,
+Fabrice
 
---===============3141223307740413356==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+> 
+> Thanks,
+> 
+> William Breathitt Gray
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============3141223307740413356==--
