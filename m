@@ -2,60 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3A988610626
-	for <lists+linux-stm32@lfdr.de>; Fri, 28 Oct 2022 01:10:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E418D61069C
+	for <lists+linux-stm32@lfdr.de>; Fri, 28 Oct 2022 02:01:01 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CA5DEC04003;
-	Thu, 27 Oct 2022 23:10:35 +0000 (UTC)
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8936FC04003;
+	Fri, 28 Oct 2022 00:01:01 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 797A8C03FC3
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D3309C03FCB
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 27 Oct 2022 23:10:34 +0000 (UTC)
+ Fri, 28 Oct 2022 00:01:00 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by sin.source.kernel.org (Postfix) with ESMTPS id D3C95CE2915;
- Thu, 27 Oct 2022 23:10:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 19E68C43470;
- Thu, 27 Oct 2022 23:10:30 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 103B7B8276B;
+ Fri, 28 Oct 2022 00:01:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A05FDC433D6;
+ Fri, 28 Oct 2022 00:00:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1666912230;
- bh=DJtlW8R7X3gH07Kyv1IwYCt6Y62ulGrlHHPtXSse2F0=;
- h=In-Reply-To:References:Subject:From:List-Id:Cc:To:Date:From;
- b=QE7c5uQNVVImJ6L/uYRiqD8k2KvcV6ojt3/Ny/IfnNmLEYlFzwqQ41ThiAoPnRyEs
- jVKq5ZrDm3QczAJ0odJqpYU7XrLGMWgpVkxOJZSjmwS0C+tHdlfapRel6fwXvaAZ8I
- 7FJ1V/haBz2PpztIl1RQrYjtRN6dOWGdc6uLJ2lBDUe3g3fDXvXxp9uaJmkeblp22q
- nmN4nMZVPDbDz4M3LrlywuZ5WsA4Y2ejLVUoxz9oS5eFqAC9N1NNtxkIs+QS9kQ5mA
- P1Yz/K7ZyAxJQPzXk4182ery3e0UQi1H84J/J+1zffWG5LgIpc4QAJ+fHqCLgD6IZA
- uzlTZ2nyn2diw==
+ s=k20201202; t=1666915258;
+ bh=Icxwdoywzee+I/TtVUn2rIb3m972dkwkQUEpTb0YOso=;
+ h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
+ b=mTK4hKEIwJhmnZCQxmchEvd7ETRFXXZUfSC9qfU9x6wttL/rqXK7hEVRWY8XVABqO
+ opd7dRath+dtHRwsQUPui4e2SfWCb2zxUsCRtw+BZtmM9YNs7JxKNREF5r9rR+yKam
+ KQX72VEPFXgAOfvldRg782n8lsXd4e6qbPkEvkYoP1e8bXYVHVe7PDZsDxdLr8xcTm
+ nLmWk6Awmyni4EZQczkhmpHN3oxchaqLfc02oWNTtUrZIqPiRCIL58U2RWP27au3df
+ nHOwLafyh6suLfKTXm+W4tiooKl0TahELEW2MjcwS+sTvHYkxINxvKmYSl8b2tXpoC
+ uuk23GjSLbBHQ==
 MIME-Version: 1.0
-In-Reply-To: <20221021203329.4143397-1-arnd@kernel.org>
-References: <20221021202254.4142411-1-arnd@kernel.org>
- <20221021203329.4143397-1-arnd@kernel.org>
+In-Reply-To: <20221023164607.556118-1-marex@denx.de>
+References: <20221023164607.556118-1-marex@denx.de>
 From: Stephen Boyd <sboyd@kernel.org>
-To: Arnd Bergmann <arnd@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- linux-arm-kernel@lists.infradead.org
-Date: Thu, 27 Oct 2022 16:10:28 -0700
+To: Marek Vasut <marex@denx.de>, linux-clk@vger.kernel.org
+Date: Thu, 27 Oct 2022 17:00:56 -0700
 User-Agent: alot/0.10
-Message-Id: <20221027231030.19E68C43470@smtp.kernel.org>
-Cc: Heiko Stuebner <heiko@sntech.de>, linux-doc@vger.kernel.org,
- Guillaume GOURAT <guillaume.gourat@nexvision.tv>,
- Michael Turquette <mturquette@baylibre.com>,
- Tomasz Figa <tomasz.figa@gmail.com>, Alim Akhtar <alim.akhtar@samsung.com>,
- Sylwester Nawrocki <s.nawrocki@samsung.com>,
+Message-Id: <20221028000058.A05FDC433D6@smtp.kernel.org>
+Cc: Marek Vasut <marex@denx.de>, kernel test robot <lkp@intel.com>,
  linux-stm32@st-md-mailman.stormreply.com,
- Arnaud Patard <arnaud.patard@rtp-net.org>, linux-samsung-soc@vger.kernel.org,
- Jonathan Corbet <corbet@lwn.net>, linux-clk@vger.kernel.org,
- Chanwoo Choi <cw00.choi@samsung.com>, devicetree@vger.kernel.org,
- Arnd Bergmann <arnd@arndb.de>, soc@kernel.org,
- openmoko-kernel@lists.openmoko.org, Ben Dooks <ben-linux@fluff.org>,
- Simtec Linux Team <linux@simtec.co.uk>, linux-kernel@vger.kernel.org,
- Christer Weinigel <christer@weinigel.se>, Rob Herring <robh+dt@kernel.org>,
- Olof Johansson <olof@lixom.net>
-Subject: Re: [Linux-stm32] [PATCH 01/21] ARM: s3c: remove all s3c24xx support
+ Gabriel Fernandez <gabriel.fernandez@foss.st.com>,
+ Christophe Roullier <christophe.roullier@foss.st.com>,
+ Johann Neuhauser <jneuhauser@dh-electronics.com>,
+ Patrick Delaunay <patrick.delaunay@foss.st.com>
+Subject: Re: [Linux-stm32] [PATCH] clk: stm32mp1: Staticize ethrx_src
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,25 +61,15 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Quoting Arnd Bergmann (2022-10-21 13:27:34)
-> From: Arnd Bergmann <arnd@arndb.de>
+Quoting Marek Vasut (2022-10-23 09:46:07)
+> Make ethrx_src array static, this is local to clk-stm32mp1.c
 > 
-> The platform was deprecated in commit 6a5e69c7ddea ("ARM: s3c: mark
-> as deprecated and schedule removal") and can be removed. This includes
-> all files that are exclusively for s3c24xx and not shared with s3c64xx,
-> as well as the glue logic in Kconfig and the maintainer file entries.
-> 
-> Cc: Arnaud Patard <arnaud.patard@rtp-net.org>
-> Cc: Ben Dooks <ben-linux@fluff.org>
-> Cc: Christer Weinigel <christer@weinigel.se>
-> Cc: Guillaume GOURAT <guillaume.gourat@nexvision.tv>
-> Cc: Heiko Stuebner <heiko@sntech.de>
-> Cc: Simtec Linux Team <linux@simtec.co.uk>
-> Cc: openmoko-kernel@lists.openmoko.org
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+> Fixes: e9ed1ef18a37a ("clk: stm32mp1: Add parent_data to ETHRX clock")
+> Reported-by: kernel test robot <lkp@intel.com>
+> Signed-off-by: Marek Vasut <marex@denx.de>
 > ---
 
-Acked-by: Stephen Boyd <sboyd@kernel.org> # clk
+Applied to clk-next
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
