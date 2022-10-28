@@ -2,89 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C5E261070B
-	for <lists+linux-stm32@lfdr.de>; Fri, 28 Oct 2022 03:06:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A097C610B6E
+	for <lists+linux-stm32@lfdr.de>; Fri, 28 Oct 2022 09:39:28 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EC0A9C04003;
-	Fri, 28 Oct 2022 01:06:38 +0000 (UTC)
-Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com
- [209.85.210.174])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4F4DEC04003;
+	Fri, 28 Oct 2022 07:39:28 +0000 (UTC)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 58BCDC03FC3
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 09F7EC03FCB
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 28 Oct 2022 01:06:37 +0000 (UTC)
-Received: by mail-pf1-f174.google.com with SMTP id g62so3494934pfb.10
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 27 Oct 2022 18:06:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:from:to
- :cc:subject:date:message-id:reply-to;
- bh=eouvp87d3Uwj62ptbIwj2FltIDQrDKmm7rl+pdi32U0=;
- b=nQ7weogHhMIC9v9rAl3TVZ1zfLs3IGvA3QKHPCFBZ+KojUNUj5TChT+OvOY12ityd8
- VbE20EYGCMWZidXQ0mA4iREKWBtYaSnvAUNEf/MGSFONDmzlPI+MR4CrUM9ksmAsrDKt
- cj+aWdebIPLIeH6IbKuwGrCytZHTwYkz2OUKYh4KijicqkVXtFp7vt0bi0LKmFm6i4xU
- q4LDtjxwFqoNAonlD9dnY2gWjZ01CSB3ruJJV2hDr7cYI/uKy5RyQ+vTowUxUWeVa6zy
- zJdma15Tr6xjC12xRbPs+cXXQMqUWSrtgiCQqqToh1CNrevC/C1rFj6Z+ww6/oTseywE
- yduw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=eouvp87d3Uwj62ptbIwj2FltIDQrDKmm7rl+pdi32U0=;
- b=ViJTpKbeXvZxv6MAI3vCjzpU41Zn0EW/L00JUMzid1KqKJgEYWy4kz/cXKntfCNpSB
- R5ajaJSjE6uqejmYYHrwKE6/3qrItZki2Djdpzcea1l6LJNcllVTholrWYLir9hSGuDi
- dZWL5DD3gTiPa0DWeIHb3/KqGqiSzIEfmxjzFKu+BJ96x3NuUI+Jigp7eiXNPLoVokFg
- Iq7HU6snhyzVEsWr9gmExI39Dsva63X+OQ73NDfdbf+6HY5i5sjaWT8DJpq6eWyGqE0M
- ICHsY8J+IXKzVpZSE6oOv8/QcJToIhplsWvS2wGUR6TB3QFeSnTwl0WHAb0LPqHAYb8a
- yEbg==
-X-Gm-Message-State: ACrzQf2JxrDmv5HhbemthWDLN653pXwrsEgZqxn0Jbj1XlyFRgo3jd+5
- 3dQmYiWtWKXlbCGqEI8ndb8=
-X-Google-Smtp-Source: AMsMyM71t2M2+k7329f4iPqjn+WDD27m67jwDQ968XupuMJUSxT0+/ISWLqKZwmQAQWuSE8GPvBuVA==
-X-Received: by 2002:a63:1917:0:b0:43c:1471:52b7 with SMTP id
- z23-20020a631917000000b0043c147152b7mr43836410pgl.522.1666919195743; 
- Thu, 27 Oct 2022 18:06:35 -0700 (PDT)
-Received: from google.com ([2620:15c:9d:2:ea9a:801b:ed52:2db1])
- by smtp.gmail.com with ESMTPSA id
- u19-20020a170902e21300b0017f57787a4asm1747996plb.229.2022.10.27.18.06.32
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 27 Oct 2022 18:06:35 -0700 (PDT)
-Date: Thu, 27 Oct 2022 18:06:30 -0700
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: Lorenzo Pieralisi <lpieralisi@kernel.org>
-Message-ID: <Y1srFi6mJGl5/3gi@google.com>
-References: <20220903-gpiod_get_from_of_node-remove-v1-0-b29adfb27a6c@gmail.com>
- <166687787352.847482.10005684512699510391.b4-ty@kernel.org>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <166687787352.847482.10005684512699510391.b4-ty@kernel.org>
-Cc: Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kw@linux.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Vignesh Raghavendra <vigneshr@ti.com>, David Airlie <airlied@linux.ie>,
- linux-pci@vger.kernel.org, Linus Walleij <linus.walleij@linaro.org>,
- dri-devel@lists.freedesktop.org, Nicolas Ferre <nicolas.ferre@microchip.com>,
- linux-tegra@vger.kernel.org, Thierry Reding <thierry.reding@gmail.com>,
- linux-mtd@lists.infradead.org, Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- Miquel Raynal <miquel.raynal@bootlin.com>,
+ Fri, 28 Oct 2022 07:39:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1666942766; x=1698478766;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=yy8N2SDsncnaTLIJtLVtMpul3v1SLCiIy2Otfr+WZ4s=;
+ b=cmxVfheau17XF5nvqRkqyvHTxz9/UjpmkHz4aAFXXpQ1bRO9yhwsGSgw
+ bRcS2T5Q3X58AYRywNCcQrNxKbxCOEofQpS7Vgc2FZnbajsvOtQE275hK
+ rdLNRnRehiM0ty9dAd2IPevIzwhRbmQNDV+Y9F8dg4wbDCWIPX/BlBUpI
+ eoFa10m7jan1b+JlTyHWbjF/AIowBOFxyVh/KAJRubXpaYqm+tSXwCpoO
+ Y+oXALaT29AmamKWwohuNtBKZ4VltS/2EoSPNVII7aiB3k25f8bWmff10
+ jd+AvRPDQIx3nyJf1gyxdK5xUvdZY9auOEe8zTgazYqRACLPKaYtRTR98 A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10513"; a="309526261"
+X-IronPort-AV: E=Sophos;i="5.95,220,1661842800"; d="scan'208";a="309526261"
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Oct 2022 00:39:04 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6500,9779,10513"; a="961929242"
+X-IronPort-AV: E=Sophos;i="5.95,220,1661842800"; d="scan'208";a="961929242"
+Received: from mike-ilbpg1.png.intel.com ([10.88.227.76])
+ by fmsmga005.fm.intel.com with ESMTP; 28 Oct 2022 00:38:59 -0700
+From: Michael Sit Wei Hong <michael.wei.hong.sit@intel.com>
+To: Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Jose Abreu <joabreu@synopsys.com>,
+ "David S . Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com,
- Alyssa Rosenzweig <alyssa@rosenzweig.io>, linux-watchdog@vger.kernel.org,
- Rob Herring <robh@kernel.org>, Marc Zyngier <maz@kernel.org>,
- Bartosz Golaszewski <brgl@bgdev.pl>, Jonathan Hunter <jonathanh@nvidia.com>,
- Guenter Roeck <linux@roeck-us.net>, Daniel Vetter <daniel@ffwll.ch>,
- Matti Vaittinen <mazziesaccount@gmail.com>, linux-gpio@vger.kernel.org,
- Mark Brown <broonie@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
- Wim Van Sebroeck <wim@linux-watchdog.org>,
- linux-arm-kernel@lists.infradead.org, Felipe Balbi <balbi@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
- Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Richard Weinberger <richard@nod.at>,
- Pali =?iso-8859-1?Q?Roh=E1r?= <pali@kernel.org>,
- Claudiu Beznea <claudiu.beznea@microchip.com>
-Subject: Re: [Linux-stm32] (subset) [PATCH v1 00/11] Get rid of
- [devm_]gpiod_get_from_of_node() public APIs
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Date: Fri, 28 Oct 2022 15:38:25 +0800
+Message-Id: <20221028073825.2630903-1-michael.wei.hong.sit@intel.com>
+X-Mailer: git-send-email 2.34.1
+MIME-Version: 1.0
+Cc: Voon Weifeng <weifeng.voon@intel.com>, Gan Yi Fang <yi.fang.gan@intel.com>,
+ Looi Hong Aun <hong.aun.looi@intel.com>,
+ Song Yoong Siang <yoong.siang.song@intel.com>,
+ Tan Tee Min <tee.min.tan@intel.com>,
+ Zulkifli Muhammad Husaini <muhammad.husaini.zulkifli@intel.com>
+Subject: [Linux-stm32] [PATCH net-next 1/1] stmmac: intel: Separate ADL-N
+	and RPL-P device ID from TGL
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,52 +67,59 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Lorenzo,
+Separating the ADL-N and RPL-P device IDs from TGL to handle the
+differences from TGL.
 
-On Thu, Oct 27, 2022 at 03:38:11PM +0200, Lorenzo Pieralisi wrote:
-> On Sun, 4 Sep 2022 23:30:52 -0700, Dmitry Torokhov wrote:
-> > I would like to stop exporting OF-specific [devm_]gpiod_get_from_of_nod=
-e()
-> > so that gpiolib can be cleaned a bit. We can do that by switching drive=
-rs
-> > to use generic fwnode API ([devm_]fwnode_gpiod_get()). By doing so we o=
-pen
-> > the door to augmenting device tree and ACPI information through seconda=
-ry
-> > software properties (once we teach gpiolib how to handle those).
-> > =
+Signed-off-by: Michael Sit Wei Hong <michael.wei.hong.sit@intel.com>
+---
+ .../net/ethernet/stmicro/stmmac/dwmac-intel.c | 19 +++++++++++++++++--
+ 1 file changed, 17 insertions(+), 2 deletions(-)
 
-> > I hope that relevant maintainers will take patches through their trees =
-and
-> > then we could merge the last one some time after -rc1.
-> > =
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
+index 0a2afc1a3124..2eb8e31be1a2 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
+@@ -830,6 +830,21 @@ static int adls_sgmii_phy1_data(struct pci_dev *pdev,
+ static struct stmmac_pci_info adls_sgmii1g_phy1_info = {
+ 	.setup = adls_sgmii_phy1_data,
+ };
++
++static int adln_sgmii_phy0_data(struct pci_dev *pdev,
++				struct plat_stmmacenet_data *plat)
++{
++	plat->bus_id = 1;
++	plat->phy_interface = PHY_INTERFACE_MODE_SGMII;
++	plat->serdes_powerup = intel_serdes_powerup;
++	plat->serdes_powerdown = intel_serdes_powerdown;
++	return tgl_common_data(pdev, plat);
++}
++
++static struct stmmac_pci_info adln_sgmii1g_phy0_info = {
++	.setup = adln_sgmii_phy0_data,
++};
++
+ static const struct stmmac_pci_func_data galileo_stmmac_func_data[] = {
+ 	{
+ 		.func = 6,
+@@ -1212,8 +1227,8 @@ static const struct pci_device_id intel_eth_pci_id_table[] = {
+ 	{ PCI_DEVICE_DATA(INTEL, TGLH_SGMII1G_1, &tgl_sgmii1g_phy1_info) },
+ 	{ PCI_DEVICE_DATA(INTEL, ADLS_SGMII1G_0, &adls_sgmii1g_phy0_info) },
+ 	{ PCI_DEVICE_DATA(INTEL, ADLS_SGMII1G_1, &adls_sgmii1g_phy1_info) },
+-	{ PCI_DEVICE_DATA(INTEL, ADLN_SGMII1G, &tgl_sgmii1g_phy0_info) },
+-	{ PCI_DEVICE_DATA(INTEL, RPLP_SGMII1G, &tgl_sgmii1g_phy0_info) },
++	{ PCI_DEVICE_DATA(INTEL, ADLN_SGMII1G, &adln_sgmii1g_phy0_info) },
++	{ PCI_DEVICE_DATA(INTEL, RPLP_SGMII1G, &adln_sgmii1g_phy0_info) },
+ 	{}
+ };
+ MODULE_DEVICE_TABLE(pci, intel_eth_pci_id_table);
+-- 
+2.34.1
 
-> > [...]
-> =
-
-> Applied to pci/tegra, thanks!
-> =
-
-> [01/11] PCI: tegra: switch to using devm_fwnode_gpiod_get
->         https://git.kernel.org/lpieralisi/pci/c/16e3f4077965
-
-Any chance you could also pick up
-
- [06/11] PCI: aardvark: switch to using devm_gpiod_get_optional()
- (20220903-gpiod_get_from_of_node-remove-v1-6-b29adfb27a6c@gmail.com)
-
- - Pali Roh=E1r has acked it.
-
-Thanks!
-
--- =
-
-Dmitry
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
