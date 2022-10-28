@@ -2,57 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8E04261110F
-	for <lists+linux-stm32@lfdr.de>; Fri, 28 Oct 2022 14:20:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 20031611533
+	for <lists+linux-stm32@lfdr.de>; Fri, 28 Oct 2022 16:53:26 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E4435C0AA15;
-	Fri, 28 Oct 2022 12:20:07 +0000 (UTC)
-Received: from mail-oi1-f169.google.com (mail-oi1-f169.google.com
- [209.85.167.169])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A9CA8C64109;
+	Fri, 28 Oct 2022 14:53:25 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 18B35C03FDA
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4E547C63324
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 28 Oct 2022 12:20:06 +0000 (UTC)
-Received: by mail-oi1-f169.google.com with SMTP id u132so6009456oib.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 28 Oct 2022 05:20:05 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=date:subject:message-id:references:in-reply-to:cc:to:from
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=oXfLpDCmhpYq4HH4XZjvhvxoznYz709MBGPQiDR4vds=;
- b=ssunzR548W0VZPeXwCUZpCqC8CeGPJHNoO0Dgr7PIfotxPsCpqt9BuYc2BX4jAEcFo
- nAvzL0l/nNpiX4bhO23pQH0KjKumveoIe2tAXsEeaZe5M735H31ANlakY9MdHVos0Xuh
- WPN6bWfVH2azCzbL6XDS3ziy0ZHUrefGwGIoMlVpIWJhTdCISLFzyZOjoojKG8jlkvoc
- c/p8xfVUtBTBVuQP0tDseCC0X4B2kEbjvqMt9HX2UKqvC6s7cecmdRyVeJtyqYHeCs42
- RhTTlsRz2E24ifJkYX9Uld+LjFtYbnDHCYBZM/moHg3/WpMuR+gG+41N8e68zK/7QDk5
- Do3A==
-X-Gm-Message-State: ACrzQf0/PMvkmkKypnuOVeybwfnTU2pm63N3j2pw3LK7HtgOzNQyx+aU
- Vpduyla+h4K6XXw14uTGCA==
-X-Google-Smtp-Source: AMsMyM7ApNXmyllBFXT9bjWaGtbPJryCpIgtjZ+9Z85lvm0/ygNxIxaaj+kVgkY/pzoI3f/RSgFFQg==
-X-Received: by 2002:a05:6808:1404:b0:355:4cd4:b10b with SMTP id
- w4-20020a056808140400b003554cd4b10bmr7941560oiv.207.1666959604826; 
- Fri, 28 Oct 2022 05:20:04 -0700 (PDT)
-Received: from robh_at_kernel.org (66-90-144-107.dyn.grandenetworks.net.
- [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
- el21-20020a056870f69500b0013c955f64dbsm24173oab.41.2022.10.28.05.20.03
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 28 Oct 2022 05:20:04 -0700 (PDT)
-Received: (nullmailer pid 1079528 invoked by uid 1000);
- Fri, 28 Oct 2022 12:20:05 -0000
-From: Rob Herring <robh@kernel.org>
-To: Marek Vasut <marex@denx.de>
-In-Reply-To: <20221027225020.215149-1-marex@denx.de>
-References: <20221027225020.215149-1-marex@denx.de>
-Message-Id: <166695949015.1076858.14693081553001271349.robh@kernel.org>
-Date: Fri, 28 Oct 2022 07:20:05 -0500
-Cc: devicetree@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- =?utf-8?b?UmFmYcWCIE1pxYJlY2tp?= <rafal@milecki.pl>,
+ Fri, 28 Oct 2022 14:53:24 +0000 (UTC)
+Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 29SDKRxf013088;
+ Fri, 28 Oct 2022 16:53:04 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=selector1;
+ bh=Fa1kfPZR0So1Ksdf6tTlPVDiOP3/9UUGcgnzcV+vz+U=;
+ b=XoI7FGC8nyHYfyJUEtxKOwxm+iC0dTnfgBR7H55PvqsRNlK1nqwgfhE4485igW4sfQ9o
+ GY3GY+y4tR+iHK+eK5pXi386hqzlEIrJKQxVmtqPELkTl14LHyfPEMvrZKYsZksGAfJN
+ Lz9UJ1miYy9AKqj3dFf9JAez1wvEnpVoAN0htcGz+7k1i8VuNjB8jjYXCLgadzFULdfv
+ d7ZtysJSh+ILWeBuTCrd0QSeGp2fA/EZqpXdA5Wa7guga7JrMJ5x0natx2AgBITPt7/q
+ NMO/5AC/uXWaILA+y6sUkpVDOk0oU+ULdlY6ms/IHXpIVdGWJfwcBtFZ78Fnqn5Hb1eH JA== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3kfahu5hyx-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 28 Oct 2022 16:53:04 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 6E058100034;
+ Fri, 28 Oct 2022 16:52:59 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node3.st.com [10.75.129.71])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 69120228A4E;
+ Fri, 28 Oct 2022 16:52:59 +0200 (CEST)
+Received: from localhost (10.48.0.157) by SHFDAG1NODE3.st.com (10.75.129.71)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.31; Fri, 28 Oct
+ 2022 16:52:58 +0200
+From: Patrick Delaunay <patrick.delaunay@foss.st.com>
+To: Alexandre TORGUE <alexandre.torgue@foss.st.com>, Srinivas Kandagatla
+ <srinivas.kandagatla@linaro.org>, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, Maxime Coquelin
+ <mcoquelin.stm32@gmail.com>, Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+Date: Fri, 28 Oct 2022 16:52:48 +0200
+Message-ID: <20221028145252.2115933-1-patrick.delaunay@foss.st.com>
+X-Mailer: git-send-email 2.25.1
+MIME-Version: 1.0
+X-Originating-IP: [10.48.0.157]
+X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE3.st.com
+ (10.75.129.71)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.545,FMLib:17.11.122.1
+ definitions=2022-10-28_07,2022-10-27_01,2022-06-22_01
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Patrick Delaunay <patrick.delaunay@foss.st.com>,
+ Etienne CARRIERE <etienne.carriere@linaro.org>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 1/3] [RFC] dt-bindings: nvmem: syscon: Add
-	syscon backed nvmem bindings
+Subject: [Linux-stm32] [PATCH 0/3] nvmem: stm32: add OP-TEE support for
+	STM32MP13x
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -64,79 +73,72 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============2872427995406389990=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
---===============2872427995406389990==
-Content-Type: text/plain
 
-On Fri, 28 Oct 2022 00:50:18 +0200, Marek Vasut wrote:
-> Add trivial bindings for driver which permits exposing syscon backed
-> register to userspace. This is useful e.g. to expose U-Boot boot
-> counter on various platforms where the boot counter is stored in
-> random volatile register, like STM32MP15xx TAMP_BKPxR register.
-> 
-> Signed-off-by: Marek Vasut <marex@denx.de>
-> ---
-> Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
-> Cc: Rafał Miłecki <rafal@milecki.pl>
-> Cc: Rob Herring <robh+dt@kernel.org>
-> Cc: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-> Cc: devicetree@vger.kernel.org
-> Cc: linux-stm32@st-md-mailman.stormreply.com
-> To: linux-arm-kernel@lists.infradead.org
-> ---
->  .../bindings/nvmem/nvmem-syscon.yaml          | 39 +++++++++++++++++++
->  1 file changed, 39 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/nvmem/nvmem-syscon.yaml
-> 
+This serie update the NVMEM BSEC driver to be compatible with STM32MP13x
+SoC and the trusted application STM32MP BSEC in OP-TEE
 
-My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
-on your patch (DT_CHECKER_FLAGS is new in v5.13):
+This serie solve issue in initial support of STM32MP131
+(using BSEC STM32MP15 compatible) and so it break the DTS compatible.
 
-yamllint warnings/errors:
+I create this serie for more efficient review.
 
-dtschema/dtc warnings/errors:
-Documentation/devicetree/bindings/nvmem/nvmem-syscon.example.dts:24.17-35: Warning (reg_format): /example-0/tamp@5c00a000/nvmem-syscon:reg: property has invalid length (8 bytes) (#address-cells == 2, #size-cells == 1)
-Documentation/devicetree/bindings/nvmem/nvmem-syscon.example.dts:22.26-25.15: Warning (unit_address_vs_reg): /example-0/tamp@5c00a000/nvmem-syscon: node has a reg or ranges property, but no unit name
-Documentation/devicetree/bindings/nvmem/nvmem-syscon.example.dtb: Warning (pci_device_reg): Failed prerequisite 'reg_format'
-Documentation/devicetree/bindings/nvmem/nvmem-syscon.example.dtb: Warning (pci_device_bus_num): Failed prerequisite 'reg_format'
-Documentation/devicetree/bindings/nvmem/nvmem-syscon.example.dtb: Warning (simple_bus_reg): Failed prerequisite 'reg_format'
-Documentation/devicetree/bindings/nvmem/nvmem-syscon.example.dtb: Warning (i2c_bus_reg): Failed prerequisite 'reg_format'
-Documentation/devicetree/bindings/nvmem/nvmem-syscon.example.dtb: Warning (spi_bus_reg): Failed prerequisite 'reg_format'
-Documentation/devicetree/bindings/nvmem/nvmem-syscon.example.dts:22.26-25.15: Warning (avoid_default_addr_size): /example-0/tamp@5c00a000/nvmem-syscon: Relying on default #address-cells value
-Documentation/devicetree/bindings/nvmem/nvmem-syscon.example.dts:22.26-25.15: Warning (avoid_default_addr_size): /example-0/tamp@5c00a000/nvmem-syscon: Relying on default #size-cells value
-Documentation/devicetree/bindings/nvmem/nvmem-syscon.example.dtb: Warning (unique_unit_address_if_enabled): Failed prerequisite 'avoid_default_addr_size'
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/nvmem/nvmem-syscon.example.dtb: tamp@5c00a000: 'nvmem-syscon' does not match any of the regexes: 'pinctrl-[0-9]+'
-	From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.yaml
+The 2 first patches of this series are re-sent of patches already sent
 
-doc reference errors (make refcheckdocs):
+1- "dt-bindings: nvmem: add new stm32mp13 compatible for stm32-romem"
+    https://lore.kernel.org/all/20221014172324.1.Ifc1812116ff63f5501f3edd155d3cf5c0ecc846c@changeid/
+    https://patchwork.kernel.org/project/linux-arm-kernel/list/?series=685403
 
-See https://patchwork.ozlabs.org/patch/
+2- "ARM: dts: stm32mp13: fix compatible for BSEC"
+    https://lore.kernel.org/all/20221017134437.1.I167a5efc1f8777cce14518c6fa38400ac684de3e@changeid/
+    https://patchwork.kernel.org/project/linux-arm-kernel/list/?series=685815
 
-This check can fail if there are any dependencies. The base for a patch
-series is generally the most recent rc1.
+This DTS break is acceptable as
+- the STM32MP13x SoC is not yet available outside STMicroelectronics
+  (not official)
+- the same patch is already integrated or modifications are in progress in
+  the other users (arm-trusted-firmware/TF-A, OP-TEE and U-Boot) of
+  stm32mp131 device tree.
 
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
+It is the good time to correct this issue before the real availability of
+the SoC and before full support of SoC in Linux kernel.
 
-pip3 install dtschema --upgrade
+This last patch on NVMEM STM32 ROMEM driver in depend on the preliminary
+patch for the driver:
 
-Please check and re-submit.
+  "nvmem: stm32: move STM32MP15_BSEC_NUM_LOWER in config"
+  https://lore.kernel.org/all/20221017174953.v2.1.I95e71328dd654723bd4c57206bd008ff81c726bb@changeid/
 
+present in the serie
 
---===============2872427995406389990==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+  "nvmem: stm32: several minor improvements"
+  https://patchwork.kernel.org/project/linux-arm-kernel/list/?series=685886
+
+Regards
+
+Patrick
+
+Changes in v1:
+- update commit message to indicate DTS break reason.
+
+Patrick Delaunay (3):
+  dt-bindings: nvmem: add new stm32mp13 compatible for stm32-romem
+  ARM: dts: stm32mp13: fix compatible for BSEC
+  nvmem: stm32: add OP-TEE support for STM32MP13x
+
+ .../bindings/nvmem/st,stm32-romem.yaml        |   1 +
+ arch/arm/boot/dts/stm32mp131.dtsi             |   2 +-
+ drivers/nvmem/stm32-romem.c                   | 450 +++++++++++++++++-
+ 3 files changed, 448 insertions(+), 5 deletions(-)
+
+-- 
+2.25.1
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============2872427995406389990==--
