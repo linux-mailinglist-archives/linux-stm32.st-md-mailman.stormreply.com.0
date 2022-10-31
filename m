@@ -2,64 +2,64 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 074C561355A
-	for <lists+linux-stm32@lfdr.de>; Mon, 31 Oct 2022 13:08:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 54759613574
+	for <lists+linux-stm32@lfdr.de>; Mon, 31 Oct 2022 13:13:46 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 85833C57183;
-	Mon, 31 Oct 2022 12:08:23 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E2DEFC0AA15;
+	Mon, 31 Oct 2022 12:13:45 +0000 (UTC)
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 07816C03FC3
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 25290C03FC3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 31 Oct 2022 12:08:21 +0000 (UTC)
+ Mon, 31 Oct 2022 12:13:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1667218101;
+ s=mimecast20190719; t=1667218423;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=UzviKTRQBMSKwIl6kvNWZgMaFQwic4ec30sKv7m652k=;
- b=HVwgxIFnTQWShJIbAp+p3yMHeOQrB6J5obh03OwUqlJlXbm90w49w/nPJiu98HKGScM9Uj
- vcR2K1W6wwdh1fa05SHdk+3fuL31eun9CsHTnQBBPzXgM2GVsUWvjC59Qd/0aT4EbN9Vql
- WRS4q8gCbvbwjjBXqhS0GpswFgCgaLQ=
-Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
- [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=2H8Fq04+XbNugdc6Ty/YSDXQIs5WWNt9cW9u1MIkjOA=;
+ b=LyZfO8oK7WZg4YiS9L3p0sPvSDxJCNdr2Me/YfWcIWtG3BRFZltcOhxxLIrtskFui509hE
+ xsInseEH2yFmN84gB9WUs/gQuBrkKynCG9+fUX6R3pQXdXRJ3+3lDQY7Th6RTNKRybZc4i
+ Jd+OU8QSZF05D6AMylsox0LmSDOrFXE=
+Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
+ [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-258-Ps4fKApjMliRhEgzMMkUbQ-1; Mon, 31 Oct 2022 08:08:19 -0400
-X-MC-Unique: Ps4fKApjMliRhEgzMMkUbQ-1
-Received: by mail-wr1-f70.google.com with SMTP id
- g4-20020adfbc84000000b0022fc417f87cso3006784wrh.12
+ us-mta-59-zQxqfmJqNDGxolGFFTxIWA-1; Mon, 31 Oct 2022 08:13:41 -0400
+X-MC-Unique: zQxqfmJqNDGxolGFFTxIWA-1
+Received: by mail-wr1-f69.google.com with SMTP id
+ h18-20020adfa4d2000000b00236584fc8c7so2953535wrb.7
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 31 Oct 2022 05:08:19 -0700 (PDT)
+ Mon, 31 Oct 2022 05:13:41 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=UzviKTRQBMSKwIl6kvNWZgMaFQwic4ec30sKv7m652k=;
- b=Na2bymhhs7tjcobbyfbjVKF9hVTe8E9oZcuNDaQVKBkAPxMZWG7vdzZc0YA86kJt2G
- cNXF4+zlBfEg2IToD06U0iqn4bjl0Y0/hew0uZ5QQkXrBJ6F1wnBMFu5g2TA3oct4mzS
- tLjZQgaDVpr49r/ShxjGmn7OFG2tSOidMKZIV2508PsBUFheY3Gv8sm4dvWpjzseN+HL
- GiqkQDZnYPc1DdHoL0LNF8M8XD2Eyl6YJK5wzJyPcLg7+ySr4HDTqt2ezjZlPLPgj2X+
- tw880QaY8wJjlHtJETjhMvm6rmEf22IResBig41Ur9oWxcLSbZ3pRs/eSgATENr8RtqG
- nFXA==
-X-Gm-Message-State: ACrzQf0k/3Dhh99u31vSz8Nf96aDpolUamKVfU8RpSiVVR/hA0H8lNBe
- LskbwFfNX12KxRHebepAeGOARYO7JS3+Xg8AdtGGOvggk+JUn0txFIB3I5bDUK0E1WIRCPK4yv8
- yCaYHAYdL6MoZCuawUt88t7uG//q08OhbxwagadBp
-X-Received: by 2002:a05:6000:15cd:b0:236:9701:7939 with SMTP id
- y13-20020a05600015cd00b0023697017939mr7691188wry.248.1667218098869; 
- Mon, 31 Oct 2022 05:08:18 -0700 (PDT)
-X-Google-Smtp-Source: AMsMyM6Xfc/ao13H30KX93ABjLq4iUJ6oQF+1EOXF8gvz+3LvWSBMjjIijdjEWsEsBBK0GpYNHL8UA==
-X-Received: by 2002:a05:6000:15cd:b0:236:9701:7939 with SMTP id
- y13-20020a05600015cd00b0023697017939mr7691171wry.248.1667218098682; 
- Mon, 31 Oct 2022 05:08:18 -0700 (PDT)
+ bh=2H8Fq04+XbNugdc6Ty/YSDXQIs5WWNt9cW9u1MIkjOA=;
+ b=nzfIY1fxVReQtg13ibQ8dQkqrA+gtfpDdu76mJP6DFc15OY1zTFLuGxX23gy7Imo1p
+ JhDcgVURB2hC7OO+AhN5XL8EPoBuw3UCUnQrPAu9AYu0N1m+BMgF+qWAY2SjIMVi+a3w
+ hj2Fjl90OueRN5vrvmO5T2QbzYgXmjcUjZ+MpziPDY7GTQhDrKsM629MBrYyxjjSRwnE
+ OwIgBRRU2ULuGyh4KOFHXeAcpBHPyjk4NQw6SfePkZN68LL7j+RuY1PeTO3IKEF3xd1o
+ 8YoyME/KMpcP76kIbMD+y3xUXIi4/TLzsTf4NWfcHUs2MN4QSX852oGy8J1h6Dq4WRel
+ 9Egg==
+X-Gm-Message-State: ACrzQf3dJy60XVejvErjBkI1xyAoaTxyADIvzurErRYupHgGFUsNSCv/
+ JLGmE82rYF+/ISiJjCuyB687b3qNjKzvYXMTAKyx6Ffb3+KsEJ4y4zPKCpqaZXKypzeDl+ACnEo
+ feC5Ct2uIRzA8RRD6CYwoL/5WyXYcSVgonVX+iNMt
+X-Received: by 2002:a5d:64cd:0:b0:236:6d1c:c1a2 with SMTP id
+ f13-20020a5d64cd000000b002366d1cc1a2mr8196683wri.360.1667218420926; 
+ Mon, 31 Oct 2022 05:13:40 -0700 (PDT)
+X-Google-Smtp-Source: AMsMyM6+QX10ZDmjvc1IfL0XXmvBimtEQHEjFBrrHb50hNQes1zzurNnpW//og1SN1o9c/o5tX548g==
+X-Received: by 2002:a5d:64cd:0:b0:236:6d1c:c1a2 with SMTP id
+ f13-20020a5d64cd000000b002366d1cc1a2mr8196664wri.360.1667218420692; 
+ Mon, 31 Oct 2022 05:13:40 -0700 (PDT)
 Received: from [192.168.1.130] (205.pool92-176-231.dynamic.orange.es.
  [92.176.231.205]) by smtp.gmail.com with ESMTPSA id
- bn26-20020a056000061a00b0022cd0c8c696sm6948033wrb.103.2022.10.31.05.08.17
+ az29-20020a05600c601d00b003cdf141f363sm7207444wmb.11.2022.10.31.05.13.38
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 31 Oct 2022 05:08:18 -0700 (PDT)
-Message-ID: <fd53a4f9-34a8-f5f3-1b1f-baf4a456bcc9@redhat.com>
-Date: Mon, 31 Oct 2022 13:08:16 +0100
+ Mon, 31 Oct 2022 05:13:40 -0700 (PDT)
+Message-ID: <231be619-96b7-b725-0735-0275e07477d8@redhat.com>
+Date: Mon, 31 Oct 2022 13:13:38 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.3.1
@@ -117,13 +117,6 @@ On 10/24/22 13:19, Thomas Zimmermann wrote:
 > ---
 
 Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
-
-Do you think that the fbdev helpers kernel doc has to be updated to mention
-that drm_fb_helper_lastclose() and drm_fb_helper_output_poll_changed() are
-not needed when generic fbdev emulation is used? Because by reading that is
-not clear that's the case:
-
-https://elixir.bootlin.com/linux/latest/source/drivers/gpu/drm/drm_fb_helper.c#L86
 
 -- 
 Best regards,
