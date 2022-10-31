@@ -2,64 +2,64 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B39736135B7
-	for <lists+linux-stm32@lfdr.de>; Mon, 31 Oct 2022 13:18:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C50EA6135C2
+	for <lists+linux-stm32@lfdr.de>; Mon, 31 Oct 2022 13:19:20 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 62A6AC57183;
-	Mon, 31 Oct 2022 12:18:48 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8944AC640F9;
+	Mon, 31 Oct 2022 12:19:20 +0000 (UTC)
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AE3CBC03FC3
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C27BDC63324
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 31 Oct 2022 12:18:46 +0000 (UTC)
+ Mon, 31 Oct 2022 12:19:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1667218725;
+ s=mimecast20190719; t=1667218757;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=Y9o0NAEqIzltln/rJd0nXK88QZ5o4OnoHZo920P8Bvg=;
- b=gDJmJCaUqJ7Fm6o9o5aunIA5xfKid9ZLcI2R1r8DajuGUsufutJXLsks1ABDt97IrmjQXr
- rFHPAXjVvH2zt4OLa6y1XAHhEZomEUALKaONYArkpyjqGt47uZ3902Kpa/xZESRuV7066X
- 8VkTIYOU1i6VKauEjV1TQZqcTnqptow=
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
- [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=riNVOBu8e2pIZERXBmAvmwAOPdhd6MsYxn78jTBB4dE=;
+ b=EhS/VJ2eF69j4O4Aw4TsjAe3QhfVDKnIW+G+dVypTMo85quIwuGfyqn1gF7eXewDau99QU
+ tmGRS6bKbQAZhkdn8zIl6IZL7Mkih25Db18f6ewswcbSpgyBox7EFkxam9a6/cL1AeyH5b
+ Qgld8vPaPmO8GI34W3L0uOna0ylStzM=
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
+ [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-404-RmawKXrXN4uC-H6mx3US9g-1; Mon, 31 Oct 2022 08:18:44 -0400
-X-MC-Unique: RmawKXrXN4uC-H6mx3US9g-1
-Received: by mail-wm1-f70.google.com with SMTP id
- h204-20020a1c21d5000000b003cf4e055442so5233972wmh.1
+ us-mta-27-5BEfwaXNOoizOqFrh5EV7A-1; Mon, 31 Oct 2022 08:19:14 -0400
+X-MC-Unique: 5BEfwaXNOoizOqFrh5EV7A-1
+Received: by mail-wm1-f72.google.com with SMTP id
+ f26-20020a7bcc1a000000b003c03db14864so2541818wmh.6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 31 Oct 2022 05:18:44 -0700 (PDT)
+ Mon, 31 Oct 2022 05:19:14 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=Y9o0NAEqIzltln/rJd0nXK88QZ5o4OnoHZo920P8Bvg=;
- b=7TMHIYBxhYXU1V4UGkg3zgXhygiiouVndvPELX1YMYAPO3vVhczVBThgcvbPflak0R
- rB31+mdlWfCEwE9ExW32LOLuzkstVUpYVtNanSu68bPQFYPfyALV37lZ+AyF0ERAN4Jd
- qXNxr9xNkM5my2wkTl0SIp6gtyB7U29DH84wLB+IZRCFhBdeUQKKAb6FbFniFcLelqxc
- t3vjwPlXpm67vpPY5BjQRrPItJzTEa7rT2+Z7Gfnt/0lLMpxOrXugdtmbyT6d0w4PpwI
- YuxGmHKaDjY9BsrIeXyP2IlD9P6dnVZOZDLGsZmw4KkGh+6wLCqyiu9HQqRVAyQHVYfQ
- rOmg==
-X-Gm-Message-State: ACrzQf0I+jWQd8qRlimC6kddQ37jah3M7EXiC+Qv00EscB6orgW7X8dM
- f9UyE8J71A5qMTays2SHUysRFnHB9NYbsn4RhbIz8ZkUf/KQMYjlNy752ysgt3scPBvK3+uLUQm
- fd+rhwmng4HivgPz+p/Gtbu6PxGxin7ADgRH6en6N
-X-Received: by 2002:a05:600c:1913:b0:3c7:32c8:20f1 with SMTP id
- j19-20020a05600c191300b003c732c820f1mr18174569wmq.81.1667218723533; 
- Mon, 31 Oct 2022 05:18:43 -0700 (PDT)
-X-Google-Smtp-Source: AMsMyM7l/GcAhTFdfukiyp7nV9yfjX7i/zfBGid5JfBMyP3xXFRWK8fegD9382/Cb8rQ8SeG7Fkrtw==
-X-Received: by 2002:a05:600c:1913:b0:3c7:32c8:20f1 with SMTP id
- j19-20020a05600c191300b003c732c820f1mr18174541wmq.81.1667218723353; 
- Mon, 31 Oct 2022 05:18:43 -0700 (PDT)
+ bh=riNVOBu8e2pIZERXBmAvmwAOPdhd6MsYxn78jTBB4dE=;
+ b=eLRi4XPyAFhncUaa81ieRs61gq/EaRiifiynwN/6T+SrjginxjKTMdgFw3p2bglJ8b
+ 6h50nqAVjzYwswpoHta98jyejNWeMN5EuQr3jZbOFRO/UHomCONC8grYyETTi5ZOtbzv
+ jxdPxUmAXoe9NGtIdnELMFlQv7odZVaFcwV3IeFtfJF5+MZ7qXckr3m7y5n3PTQg9pGj
+ SzpIY3ZnaGBE+L3GQYjhkivFrt55j2TwbuqApplHnHKfZvBaOkgiAp0G6wBox3o1rrf6
+ /qU4rcJ3MBPlqHTtedTdv8BUoPIZDBJy2V3JY5bTE2KkmfgQkTpUsNxxQk8ZMljgU5Zd
+ yYBg==
+X-Gm-Message-State: ACrzQf2APH8/wAnThseNKmzf+BEI2RqVhbqvk6tFabaYUYIQ2xKY7XMY
+ I80XwpWQHsE7T+HqzH2ctv0AJ5yakvN/1vV9slLPemgl2SWfjfSWXmXk17bhGPSUWbuU8LuTs+D
+ x3Hn2v/ytbNv8YVOV/AgHSkR8yQ6Ev/IGCGeJ/6LU
+X-Received: by 2002:a1c:7405:0:b0:3cf:55ea:6520 with SMTP id
+ p5-20020a1c7405000000b003cf55ea6520mr7948719wmc.46.1667218753686; 
+ Mon, 31 Oct 2022 05:19:13 -0700 (PDT)
+X-Google-Smtp-Source: AMsMyM4oPDcyHgSUP9i1GOihR+fx3MXqkZeIX2xB6yE7P9f9dsxB6V14E0IWVQPIhFCjpfp7XUuGLg==
+X-Received: by 2002:a1c:7405:0:b0:3cf:55ea:6520 with SMTP id
+ p5-20020a1c7405000000b003cf55ea6520mr7948695wmc.46.1667218753455; 
+ Mon, 31 Oct 2022 05:19:13 -0700 (PDT)
 Received: from [192.168.1.130] (205.pool92-176-231.dynamic.orange.es.
  [92.176.231.205]) by smtp.gmail.com with ESMTPSA id
- l7-20020a05600c1d0700b003b505d26776sm1928473wms.5.2022.10.31.05.18.41
+ x11-20020adff0cb000000b0023660f6cecfsm7060089wro.80.2022.10.31.05.19.12
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 31 Oct 2022 05:18:42 -0700 (PDT)
-Message-ID: <05a2ad4a-b053-ba98-2547-520ab51d3e77@redhat.com>
-Date: Mon, 31 Oct 2022 13:18:40 +0100
+ Mon, 31 Oct 2022 05:19:13 -0700 (PDT)
+Message-ID: <01f85874-6beb-c325-8b94-7a7aeec30d5a@redhat.com>
+Date: Mon, 31 Oct 2022 13:19:11 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.3.1
@@ -67,9 +67,9 @@ To: Thomas Zimmermann <tzimmermann@suse.de>, daniel@ffwll.ch,
  airlied@gmail.com, sam@ravnborg.org, mripard@kernel.org,
  maarten.lankhorst@linux.intel.com
 References: <20221024111953.24307-1-tzimmermann@suse.de>
- <20221024111953.24307-8-tzimmermann@suse.de>
+ <20221024111953.24307-9-tzimmermann@suse.de>
 From: Javier Martinez Canillas <javierm@redhat.com>
-In-Reply-To: <20221024111953.24307-8-tzimmermann@suse.de>
+In-Reply-To: <20221024111953.24307-9-tzimmermann@suse.de>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Language: en-US
@@ -85,7 +85,7 @@ Cc: linux-hyperv@vger.kernel.org, linux-aspeed@lists.ozlabs.org,
  linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
  linux-mips@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
  freedreno@lists.freedesktop.org
-Subject: Re: [Linux-stm32] [PATCH v2 07/21] drm/logicvc: Don't set struct
+Subject: Re: [Linux-stm32] [PATCH v2 08/21] drm/rockchip: Don't set struct
  drm_driver.output_poll_changed
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -105,7 +105,7 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 On 10/24/22 13:19, Thomas Zimmermann wrote:
 > Don't set struct drm_driver.output_poll_changed. It's used to restore
-> the fbdev console. But as logicvc uses generic fbdev emulation, the
+> the fbdev console. But as rockchip uses generic fbdev emulation, the
 > console is being restored by the DRM client helpers already. See the
 > functions drm_kms_helper_hotplug_event() and
 > drm_kms_helper_connector_hotplug_event() in drm_probe_helper.c.
