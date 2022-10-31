@@ -2,75 +2,70 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DCD4D613C5F
-	for <lists+linux-stm32@lfdr.de>; Mon, 31 Oct 2022 18:42:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 24DE2613C6A
+	for <lists+linux-stm32@lfdr.de>; Mon, 31 Oct 2022 18:45:00 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A65AFC0AA15;
-	Mon, 31 Oct 2022 17:42:41 +0000 (UTC)
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com
- [209.85.221.46])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D2B09C57183;
+	Mon, 31 Oct 2022 17:44:59 +0000 (UTC)
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com
+ [209.85.221.42])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C7781C03FC3
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 498F2C03FC3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 31 Oct 2022 17:42:40 +0000 (UTC)
-Received: by mail-wr1-f46.google.com with SMTP id y16so16981676wrt.12
+ Mon, 31 Oct 2022 17:44:59 +0000 (UTC)
+Received: by mail-wr1-f42.google.com with SMTP id w14so16992537wru.8
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 31 Oct 2022 10:42:40 -0700 (PDT)
+ Mon, 31 Oct 2022 10:44:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=qBD58fOU8dXLZw0gU/vFhiLvEwJEGbaxG96W6LE0yWQ=;
- b=DFddqwoKdUK9FiPWro84KHWXNxctg4u0sBQ5fwz4T8ZEHwP3YNl9J0hHY8upp31AiA
- lV4r2INXQUfSRz4zDE4lTuhcZ4DS8axYzPJpvcKEoaDWf8GFpJbzcsXMDI/qiOFsyzdV
- GS0gMt4kjnKnz5I7EFjZODt/hypuOT0cwOlC/mFICA7SDOR3I14QZgt9mjaQeujcHgxC
- i0HOfJ2ufURD3rWCJF7W+7wY765aS1+F+mLngXtA8o79FVF0Yn4TEuZVCkdvaJae4/lV
- Cu1fqms1Sd6zBIJ22vy8f03+RWg8v0fFTOrPNOB3WseIMTjSotENj8LMSEuMfpqkQAjy
- s8mw==
+ bh=uYtKmfNhvFP9fjeZBd6sjzcvYV43BjS3uEVltPLZXlo=;
+ b=CP/OPsDiOO5oiXwe+KdK/PBb5uKYx61OOfMaWRqa2Bgcl5FaBr0wIhSH1k2qT+j+3o
+ I2fpPy74CcLqE0MkXZ5CSQ/FkQna5kXNaeWLKThePjZMvHB7ybbv9i/Fp9ZLndGFzdkc
+ tLzotgErj5cws74IhfXObgInf/HozgI3A8ZW57wHBV3KCs/SlzEcUQ3t2EdCq5EK8hh8
+ LPOeP3dbJ3rTAhx44cbgciknRC7gTGg8hymj1sqY5TsGgEugfXkySiRNpZq7rLyFHTGN
+ eUbUGGiuaZabCocIXsle5jbamXCjiWo0zN8yl5Dn5O3Pu2gh/S00xae3rZofqRKQNdXn
+ mVlg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=qBD58fOU8dXLZw0gU/vFhiLvEwJEGbaxG96W6LE0yWQ=;
- b=KuhZ7MR110uctuy0yooNg04UHWpjn3+CZFN3fZn6gct6vGq+8ezSGlhqHZzeg6KSVf
- wv6vOfqJqr+laoxTPv2zhbJQAkJWQhe3EZqh0ad89ZQ9II5hK41KgZwrq9l4mGJBpsEL
- Odk/Lq153r2QWcnhC5FXZ18hgf26IgdjucqUWXb9GHzObpMe1AoX06qcuOH5TpPRTv5B
- gIms/vMCmcJjrzmY8/UlY5p6k4jQ7ESJLfbXo/217z3fi/i9OsicEY4ux+aIYDiky2bx
- N8k7S6EVsf9s7XFJz53k6M7nU56nFnnZ0NOytWQM9565rmLcMewnxugE0adVAgHAHQj0
- tTyA==
-X-Gm-Message-State: ACrzQf2ZujixjIG8ztSlMjXv9VGBQ0+MwLNrOZQ0Sx+zvZa1nKNIUTpK
- Ix5hdGyCQ0Chrry5iO4R5CgVfg==
-X-Google-Smtp-Source: AMsMyM445eUR2UuTOs0wCe7zoEzp750QBgbl7ZjXyGKXWlj9ASz4sIx6ORMSuR/+TaFi777WdjBRcg==
-X-Received: by 2002:a5d:5643:0:b0:236:699c:6cd8 with SMTP id
- j3-20020a5d5643000000b00236699c6cd8mr9010504wrw.435.1667238160365; 
- Mon, 31 Oct 2022 10:42:40 -0700 (PDT)
+ bh=uYtKmfNhvFP9fjeZBd6sjzcvYV43BjS3uEVltPLZXlo=;
+ b=ppupObhJotPpeqJZSUwfRzGUwgkvXAQ2ORrLG8zoU4jwcgbrCFzSQo9psQvD2OqBeI
+ CLB6tTchUFeeFaG7Hz7EBLnlmYPqoEWiEbtv8mTvsRqcQyfGzM7TlZT9aznFTDzuWTJc
+ X3dibdz7Z39UK+mf4qylyECnD8swTZjjoa2Q3PqcXsHM0rwZYzGHsHR9TQGHLjUw4QIh
+ nIICb9bF8XG0J+WGj3Hh1x3kUTC8DYMAIpxCAw7Wfb0MTNjdc7XZQdkgyCt5jcCTPv6c
+ Z/0ZwVByK7md94mS0v+GQQEhbWq1mrXMunTG6mvQ+Ne2daO9SmJszoNyuyaKyEcOMUm0
+ s88A==
+X-Gm-Message-State: ACrzQf0qN0aiJ53msziuLUxvHvCpcvVKw0GqEIz4UqACTWSW+0gZixsA
+ PTJMsNnazDcFaRFS9U+oO8MCMA==
+X-Google-Smtp-Source: AMsMyM6LetfHCHnCEKA7eJHWyMthDihLQrGyAsqKozRudXi0o9xFBAFBq46R3WXtUvbxrKq9NDPndg==
+X-Received: by 2002:a05:6000:18a2:b0:22e:72fd:c5d0 with SMTP id
+ b2-20020a05600018a200b0022e72fdc5d0mr8866232wri.682.1667238298855; 
+ Mon, 31 Oct 2022 10:44:58 -0700 (PDT)
 Received: from [192.168.1.195] ([5.133.47.210])
  by smtp.googlemail.com with ESMTPSA id
- g15-20020a05600c4ecf00b003c6f426467fsm8585443wmq.40.2022.10.31.10.42.39
+ bg37-20020a05600c3ca500b003b477532e66sm25983788wmb.2.2022.10.31.10.44.57
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 31 Oct 2022 10:42:39 -0700 (PDT)
-Message-ID: <4cec819c-abd9-a9f8-5874-8394b6902bdb@linaro.org>
-Date: Mon, 31 Oct 2022 17:42:39 +0000
+ Mon, 31 Oct 2022 10:44:58 -0700 (PDT)
+Message-ID: <bb2c0e45-e1cf-6105-a6ea-20a6085f6c89@linaro.org>
+Date: Mon, 31 Oct 2022 17:44:57 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.2.2
 Content-Language: en-US
-To: Patrick Delaunay <patrick.delaunay@foss.st.com>,
- Alexandre TORGUE <alexandre.torgue@foss.st.com>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-References: <20221028145252.2115933-1-patrick.delaunay@foss.st.com>
+To: Jiangshan Yi <13667453960@163.com>, mcoquelin.stm32@gmail.com,
+ alexandre.torgue@foss.st.com
+References: <20221009082819.2662964-1-13667453960@163.com>
 From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-In-Reply-To: <20221028145252.2115933-1-patrick.delaunay@foss.st.com>
-Cc: devicetree@vger.kernel.org, Etienne CARRIERE <etienne.carriere@linaro.org>,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH 0/3] nvmem: stm32: add OP-TEE support for
-	STM32MP13x
+In-Reply-To: <20221009082819.2662964-1-13667453960@163.com>
+Cc: Jiangshan Yi <yijiangshan@kylinos.cn>, k2ci <kernel-bot@kylinos.cn>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH] nvmem: stm32: fix spelling typo in comment
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,70 +84,34 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 
 
-On 28/10/2022 15:52, Patrick Delaunay wrote:
+On 09/10/2022 09:28, Jiangshan Yi wrote:
+> From: Jiangshan Yi <yijiangshan@kylinos.cn>
 > 
-> This serie update the NVMEM BSEC driver to be compatible with STM32MP13x
-> SoC and the trusted application STM32MP BSEC in OP-TEE
+> Fix spelling typo in comment.
 > 
-> This serie solve issue in initial support of STM32MP131
-> (using BSEC STM32MP15 compatible) and so it break the DTS compatible.
-> 
-> I create this serie for more efficient review.
-> 
-> The 2 first patches of this series are re-sent of patches already sent
-> 
-> 1- "dt-bindings: nvmem: add new stm32mp13 compatible for stm32-romem"
->      https://lore.kernel.org/all/20221014172324.1.Ifc1812116ff63f5501f3edd155d3cf5c0ecc846c@changeid/
->      https://patchwork.kernel.org/project/linux-arm-kernel/list/?series=685403
-> 
-> 2- "ARM: dts: stm32mp13: fix compatible for BSEC"
->      https://lore.kernel.org/all/20221017134437.1.I167a5efc1f8777cce14518c6fa38400ac684de3e@changeid/
->      https://patchwork.kernel.org/project/linux-arm-kernel/list/?series=685815
-> 
-> This DTS break is acceptable as
-> - the STM32MP13x SoC is not yet available outside STMicroelectronics
->    (not official)
-> - the same patch is already integrated or modifications are in progress in
->    the other users (arm-trusted-firmware/TF-A, OP-TEE and U-Boot) of
->    stm32mp131 device tree.
-> 
-> It is the good time to correct this issue before the real availability of
-> the SoC and before full support of SoC in Linux kernel.
-> 
-> This last patch on NVMEM STM32 ROMEM driver in depend on the preliminary
-> patch for the driver:
-> 
->    "nvmem: stm32: move STM32MP15_BSEC_NUM_LOWER in config"
->    https://lore.kernel.org/all/20221017174953.v2.1.I95e71328dd654723bd4c57206bd008ff81c726bb@changeid/
-> 
-> present in the serie
-> 
->    "nvmem: stm32: several minor improvements"
->    https://patchwork.kernel.org/project/linux-arm-kernel/list/?series=685886
-> 
-> Regards
-> 
-> Patrick
-> 
-> Changes in v1:
-> - update commit message to indicate DTS break reason.
-> 
-> Patrick Delaunay (3):
->    dt-bindings: nvmem: add new stm32mp13 compatible for stm32-romem
->    ARM: dts: stm32mp13: fix compatible for BSEC
->    nvmem: stm32: add OP-TEE support for STM32MP13x
+> Reported-by: k2ci <kernel-bot@kylinos.cn>
+> Signed-off-by: Jiangshan Yi <yijiangshan@kylinos.cn>
 
-Applied 1/3 and 3/3 thanks,
-
-dts changes need to go via the dts maintainer..
+Applied thanks,
 
 --srini
+> ---
+>   drivers/nvmem/stm32-romem.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
 > 
->   .../bindings/nvmem/st,stm32-romem.yaml        |   1 +
->   arch/arm/boot/dts/stm32mp131.dtsi             |   2 +-
->   drivers/nvmem/stm32-romem.c                   | 450 +++++++++++++++++-
->   3 files changed, 448 insertions(+), 5 deletions(-)
-> 
+> diff --git a/drivers/nvmem/stm32-romem.c b/drivers/nvmem/stm32-romem.c
+> index 354be526897f..0c206ad05be7 100644
+> --- a/drivers/nvmem/stm32-romem.c
+> +++ b/drivers/nvmem/stm32-romem.c
+> @@ -19,7 +19,7 @@
+>   #define STM32_SMC_WRITE_SHADOW		0x03
+>   #define STM32_SMC_READ_OTP		0x04
+>   
+> -/* shadow registers offest */
+> +/* shadow registers offset */
+>   #define STM32MP15_BSEC_DATA0		0x200
+>   
+>   /* 32 (x 32-bits) lower shadow registers */
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
