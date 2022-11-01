@@ -2,74 +2,168 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id F1F94614504
-	for <lists+linux-stm32@lfdr.de>; Tue,  1 Nov 2022 08:26:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 547A2615D9B
+	for <lists+linux-stm32@lfdr.de>; Wed,  2 Nov 2022 09:24:44 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9C729C57183;
-	Tue,  1 Nov 2022 07:26:56 +0000 (UTC)
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
- [209.85.128.51])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 03392C65046;
+	Wed,  2 Nov 2022 08:24:44 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 39852C03FCD
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4B1BDC03FCD
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  1 Nov 2022 07:26:55 +0000 (UTC)
-Received: by mail-wm1-f51.google.com with SMTP id
- ja4-20020a05600c556400b003cf6e77f89cso557067wmb.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 01 Nov 2022 00:26:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=Q3xfIL5UufZ3svhvpUhwBEac/6FrUsdif0wpxoIrOwM=;
- b=EvZ/qdsTm/E8rIx/wllIwMMEB+abRr1/c6cS7DISHZL7Irp/dWUzU5edAVkHbwraMf
- iNUqeWR4NQrrcJNsWtdc5Q0GC2MJjvN3YPwuSodkWXbygK4XRpNgYDNrWWdBXtuQtY8t
- TMbQBStpLkOOF2D06T/1Wm7nnhu0zxg6/U77vN3AIL/rFfu99perToNEpoHXW69wD4/A
- odJ96st8EO6vQkyJe0beRqW03dtk5OtQMKk4Itp0S5N3aWlhGKIqPDJKPpVm9UDH33uL
- uwsROPypjNprK5zAlk3o9eAHdN5EOUq26ITmMPny5j1n8E6VuB5Cv5KHel+PPV0rzv4J
- 951g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=Q3xfIL5UufZ3svhvpUhwBEac/6FrUsdif0wpxoIrOwM=;
- b=C0ltAgTcsgVVpG424D/8YCq6QR/jyNSO8f2z8LQmpLv64WkXbohlR+NJmimRUVBycq
- TvIM/3OSJC4BlSbQWgxBnkgABRZIwXjX8pwU2RlA5fJxbHqWCZ+Sagksf4CiuOQ8h6/q
- Ukx84KXKg4dgj16lmVQ1SSvz6jBaQ8wl3oDbmyG5KcX81M8Zx1VGRxRU2PWaCu2SeU4u
- KHCUX5kH5RHkzvW399bRCAeUGvV6M7g+rAdQk0rTZIJtDTeRnq7mnykhs0DXeLyHdj7k
- JsfCNShWUdD3fMX/D0gD5b2ZzXJydq+SXW3aPJhcGBNWcmsmsXzkw1XX79xo9wDwsIQG
- wlhA==
-X-Gm-Message-State: ACrzQf0sdi3aIEnBOnYEphymg8sMtMljCMRw4Ku+Ub8sfQ7upQJWU7fd
- SQ32jBfz6nVyYoN/lsqWYn5IPA==
-X-Google-Smtp-Source: AMsMyM76c2qw9yxD7myrljjuksWobnsfYoD8OyDyDyhBIbhMPIyJLFKjtAkoPAfa/rovEccM7gDomA==
-X-Received: by 2002:a1c:c90c:0:b0:3b4:adc7:9766 with SMTP id
- f12-20020a1cc90c000000b003b4adc79766mr11039498wmb.66.1667287614632; 
- Tue, 01 Nov 2022 00:26:54 -0700 (PDT)
-Received: from [192.168.1.195] ([5.133.47.210])
- by smtp.googlemail.com with ESMTPSA id
- az5-20020a05600c600500b003b435c41103sm10577403wmb.0.2022.11.01.00.26.53
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 01 Nov 2022 00:26:53 -0700 (PDT)
-Message-ID: <99a8d093-13f3-9ff8-6d87-d4aecaec1566@linaro.org>
-Date: Tue, 1 Nov 2022 07:26:52 +0000
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.2.2
-To: Patrick Delaunay <patrick.delaunay@foss.st.com>,
- Alexandre TORGUE <alexandre.torgue@foss.st.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>
-References: <20221028145252.2115933-1-patrick.delaunay@foss.st.com>
- <20221028165150.3.Ibc43aa73f865090affeb1751af0cc260c7f1dd07@changeid>
+ Tue,  1 Nov 2022 03:18:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1667272729; x=1698808729;
+ h=from:to:cc:subject:date:message-id:references:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=LLGUqaqhbBSGpDbst31TdXt2wnYWwjRvX4qrN9P9vd8=;
+ b=Qjf9txgfqFt9Y+4vNLO1I8quca/a/ao3PiX0LvbyaqXMbRmg8m3wNXk1
+ BWoxxQejO2c08F4RHbBBl/wtDb/V/9KZslqsAr6WeK0/Ns52MvXhSo1/N
+ ch/xHi4IN5zZoR5Wb3L5wHizIaw71vYZkmv11zLrjuSDLVcXofR6xFLNA
+ NYdGa+IQvzzo/A6hyzg73SNhrAMguGPw7YnEgDOuuX3kA6hdxcQ9s+/Ja
+ lx1JzIzTw5nHW3kxrCG/cmgNTy0u0N5n+Q9QeF3iac402uHXuJGwX3q+N
+ gsd6+YcSNphjYzB8W4vm14uvupSjmQZ9cs7Wg2GGwwjXjqv+Qj6ykUllh g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10517"; a="306672062"
+X-IronPort-AV: E=Sophos;i="5.95,229,1661842800"; d="scan'208";a="306672062"
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 Oct 2022 20:18:38 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6500,9779,10517"; a="808777330"
+X-IronPort-AV: E=Sophos;i="5.95,229,1661842800"; d="scan'208";a="808777330"
+Received: from fmsmsx602.amr.corp.intel.com ([10.18.126.82])
+ by orsmga005.jf.intel.com with ESMTP; 31 Oct 2022 20:18:38 -0700
+Received: from fmsmsx601.amr.corp.intel.com (10.18.126.81) by
+ fmsmsx602.amr.corp.intel.com (10.18.126.82) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.31; Mon, 31 Oct 2022 20:18:37 -0700
+Received: from fmsedg602.ED.cps.intel.com (10.1.192.136) by
+ fmsmsx601.amr.corp.intel.com (10.18.126.81) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.31 via Frontend Transport; Mon, 31 Oct 2022 20:18:37 -0700
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com (104.47.59.176)
+ by edgegateway.intel.com (192.55.55.71) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2375.31; Mon, 31 Oct 2022 20:18:37 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=ioPDt7ps1lGpQtyXXI5w4WYECgY6sXZk8n3H3uJjC5tBfCRInb9fsJ2wC1J4aEDRi1rhXDRWpaBrFNsBfrde0iqz/MD5gi/LdAi/X+JmWlChrRDmPm+pEda5PQ2VbCPt/Dfd+XoguZXoCmx7b7utxnK4bXvoZU1xDw9WBvUDhxL61FX+LpG1aatJ3ITz6F5OWwofCq3jVAdOj+5MdCNZuje9pW6PSXFUB+5jkHTCqgPpX32lhAO46rjiSB7Ofapl1jygc7oxl4i2RBEvgfGB7oC6lxe92v9sGEkNe/ldVX8Qiu43cmHkXqGgqo0Cq+esPCzjqS4X3pe8V/nB+FXSYQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=LLGUqaqhbBSGpDbst31TdXt2wnYWwjRvX4qrN9P9vd8=;
+ b=bwIl0B/sYfdlrN99swOsTvcsCt2eKWysChCfkHX4m2R6cVWs8eCoThGXoDcY7ylsLwjJtvfqgzmh1SFBIVa5FymnG2c/ifQC4yyWbdj5YjKBax3LRELXWe3gH7JJXHtnUOghtBqnHkSNBOGY51BHR4rZXV9kGQx24AMQTssNGv/lwCBMwdvxeyCpeNiWf2rt8wLVOK7zXdjumoLBDwtyAxTKm8xPwuGBbhBU8zFAYxYhNY2PpH/dyyI1iAalgUUyCZakN2Y2Zv+EBjw6SQHMzjWuUdN4vWKu3W5506LZDNDYar3f2uUtw0D/r8uYaGzuzuvfN3YzKsu5N9BvEaFEjg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from DM4PR11MB5454.namprd11.prod.outlook.com (2603:10b6:5:399::22)
+ by PH7PR11MB6380.namprd11.prod.outlook.com (2603:10b6:510:1f8::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5769.16; Tue, 1 Nov
+ 2022 03:18:35 +0000
+Received: from DM4PR11MB5454.namprd11.prod.outlook.com
+ ([fe80::d955:98eb:ec88:8154]) by DM4PR11MB5454.namprd11.prod.outlook.com
+ ([fe80::d955:98eb:ec88:8154%4]) with mapi id 15.20.5769.019; Tue, 1 Nov 2022
+ 03:18:34 +0000
+From: "Looi, Hong Aun" <hong.aun.looi@intel.com>
+To: Jakub Kicinski <kuba@kernel.org>, "Sit, Michael Wei Hong"
+ <michael.wei.hong.sit@intel.com>
+Thread-Topic: [PATCH net-next 1/1] stmmac: intel: Separate ADL-N and RPL-P
+ device ID from TGL
+Thread-Index: AQHY6rPgEgDfUEMJ0UWR9lW6DQc0va4jnxUAgACMfoCABT3f8A==
+Date: Tue, 1 Nov 2022 03:18:34 +0000
+Message-ID: <DM4PR11MB5454EA991FA941D68C7BDEF0BE369@DM4PR11MB5454.namprd11.prod.outlook.com>
+References: <A23A7058-5598-46EB-8007-C401ADC33149@apple.com>
+ <DM5PR11MB15935E3AF06794F523DB48C69D329@DM5PR11MB1593.namprd11.prod.outlook.com>
+ <20221028120715.1dc12fc1@kernel.org>
+In-Reply-To: <20221028120715.1dc12fc1@kernel.org>
+Accept-Language: en-US
 Content-Language: en-US
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-In-Reply-To: <20221028165150.3.Ibc43aa73f865090affeb1751af0cc260c7f1dd07@changeid>
-Cc: Etienne CARRIERE <etienne.carriere@linaro.org>,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH 3/3] nvmem: stm32: add OP-TEE support for
-	STM32MP13x
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+dlp-product: dlpe-windows
+dlp-version: 11.6.500.17
+dlp-reaction: no-action
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DM4PR11MB5454:EE_|PH7PR11MB6380:EE_
+x-ms-office365-filtering-correlation-id: 31b2aa40-0002-4a2b-0e87-08dabbb7c2a9
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 7cafnhLQfTSQl9oOgwhWs5xVWgy8ccvnIUiqSUEXG/g30XySgVrztORsSE+fwWYJaI5ByD9Fj//Fm0P12Qzlr3BqwV6voObSBDhPL+OhozVmeY+mSppnd0ar1aU4hdnjs8y6ubWB1hk0mkmQ39Yp9jkEAWzlKWHN6j4DOmNoz1F2d0eeB7lQ4Z9FLmlZOfZrfv5QIalWpXSqzi/ZfqOTq6UeBQoSg+T2XmNkh+GRNEBB9sCa6WGAJQ5xu3cJPhgd5DJfVk16XhbrPoMOiXiGY78GTW/A+vKPZm9Xk9IJyJODNa7KZyv+ru1IcleIEsdc2PhLEKYunZz1Scz+9ktAfh+khE/qR05cc+yxIZ4+q9wvzocyTRaz76Epdbeed7EHCd1I0eXc47snzCdUAY0GsJT/vfQtKTUvDde7mXIh7bBE557j0jHZMBOVKodUHJp4GeNJBKDYkKtEIN3n5KnIt591+5YKc0UzHD5d2cAxYdwHh3zRdrdBcL5U1tfDYkfAsbgIms0UJUuxvnywDU15uKbq+SfgX8ol8fh9IyTbGvNVOZlCKtT/euMHAGRajJXAOObMNqTJNlLbyoix8ZPDPLNtvI8bu3r2bMpdefyqWIyQGiIbJ3jhWWBb1K/Nlae2rPKq0CjPTfP1QXeki16+56R4TQ1s7eRMe7hoYsTa6Qc8K/0iLCyhk2EFPfTOM3oca/ZmLen6FxFVkm4klnBU3LuJJm2lcgxT01lxUXQnvECmwV7oiP9EQawuANUK59yLNpfqas7zSSrtKAPIxBQb9Q==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR11MB5454.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230022)(136003)(396003)(376002)(366004)(39860400002)(346002)(451199015)(71200400001)(107886003)(6506007)(7696005)(83380400001)(110136005)(66556008)(38070700005)(66946007)(66476007)(76116006)(66446008)(8676002)(82960400001)(55016003)(38100700002)(64756008)(4326008)(122000001)(33656002)(186003)(26005)(86362001)(9686003)(478600001)(316002)(54906003)(4744005)(8936002)(2906002)(52536014)(6636002)(7416002)(41300700001)(5660300002);
+ DIR:OUT; SFP:1102; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?Y0p0dVR5a2lPNWFJSlBGV2tXMHo4YTFPdVVrNDFPZzM2UnN2cUNjQTJpMGdt?=
+ =?utf-8?B?cnZlcjQ3d0VneXdUTTNreVBnREswWURXeElsNmN4aWNmT2t2OFNnTDRDaFFm?=
+ =?utf-8?B?QzEwSHFsMWhvMVh0MDl6ZjlXMnM0U2VoL05VTW5XT3MvQnorWGIzY21qRUd1?=
+ =?utf-8?B?V1BUVmFSTFIxQjVXb3orOHBzTjdPb0ZIeWRjbm5aOGtiV2pTOCtCNXdGa3Nv?=
+ =?utf-8?B?czV5dEc3OXF4a25NbEhxRDNJWFdmZnlQSUp3UWJzSGZzR01ickFSU3N4Q0tU?=
+ =?utf-8?B?SVJQL0R4bFNGMTg2a3VpZ1hKaHFWUzBDTlpZNGwvQWswaXZoR0FtQnhRU0NU?=
+ =?utf-8?B?V21uYlVXdnBJQjEyRFFVQ1R6cjgxbml2bnhlN1lLcnduOGFsVnhaQTd6Q1lr?=
+ =?utf-8?B?UGpKb0xVZHlLbjRwQk9FMU81dUpIY1VldlpmVG53RUZ1Y0tpZU91a1ZKcWNM?=
+ =?utf-8?B?TVVCMTM2SHNMMG42eU9jQ1ZKRGRlcG83UGxDT0h0aG9INjhhdXdOb0MyS1RZ?=
+ =?utf-8?B?Wkc5cXdOcTVNV1JHTlQ1c2Nma1F5QlVFeDBNNFVsQ3hXcS9PeldoU2laMGFZ?=
+ =?utf-8?B?blYwRnZkY0dwa3FIMThIQ3FPaXUyL0xYcm1hSkpScUFHRE92YXYrR2VOdXBR?=
+ =?utf-8?B?SFRhcGJJY2JvS2pZeWVIME5OWGpEazVxaWNTdkx2aTVFRmUwbXZiNTdJSW1V?=
+ =?utf-8?B?YkZCS3lKUDdxdElOekd2bFZJUUpyQWZFbEgxSEloZlpoNU5YTTJVdG5mVnV0?=
+ =?utf-8?B?LytmdTJ0emhneGNrNjZ6Q01naGhudkhsejd6U0NpOE40bkt2bllDUThrVkUv?=
+ =?utf-8?B?dFg0NHRqR2NCaFg3Y1RjajlESi93SGI1ZDhMcTlhVDZES0c4QkhQQ2c5bFlv?=
+ =?utf-8?B?REtWMHl3d0MxVnE2MzN2dUF2aHhvaUJNdUx1SHJ2ZmRqVUxwVnRUdk9jcm1x?=
+ =?utf-8?B?OEQ2c2tuMFNqbWNtSE9PazJIM0NmWVJ2Q01VZVNsSTYvaDlDSVBHem81NEsr?=
+ =?utf-8?B?ZkFUdVpNcEtFRklwdVFtVkxyNThKa0tmUHVjcUhoRGFBaEVRY1pHVk1sMWtY?=
+ =?utf-8?B?MGVEc3k3MFFoL0E1cUp6RmNzZFZmbGZZazZjUmhGaXFWZUhKVWM1dzNwcUJN?=
+ =?utf-8?B?dGhiSFNKRVFMRWxla0NaZ1dXSWVMWmZDaFlJcThyZ0hzVmR4cEpsVmcxV3ZU?=
+ =?utf-8?B?b0UvOTR4a3V5S2lpUURGS1lxKytMWWJKa0hYWVZKUE8xU2xXK1NnOVY1UERw?=
+ =?utf-8?B?SGVIMGhKVkg1RmpGSU9HLzE0RnlUd0Nna3dNcUpNSHVtd0hTcktGYlcvYWtD?=
+ =?utf-8?B?TmRseXEwWWtMRlhsY2Fqd3VuL0pURmd4UHZFL09hSjVpQVloOGhGL2pMaFVD?=
+ =?utf-8?B?MjZUSUN3YmlGczJINklhTzdtN2lZdWdmajlkaDRyWHJmWTZEUGJDVjg4ZnVI?=
+ =?utf-8?B?Z0pBSFBESDN0N3ZhZWVQZFd6b0hIem1HbUxQN0hmVWxhUWJUTERyZ0pJMXhT?=
+ =?utf-8?B?MGNpbEZzeHIyUXR5Tm9iVTdyQ1RiK1N0dnV5d215SDFDYndWeExsTkdaWnNy?=
+ =?utf-8?B?OWZvM05SeFhNeHBsTEhXeWxRM2xvVVdkU0ZQT091U2d3d09FV2xyYzNTNTBL?=
+ =?utf-8?B?TXUwOWJnaUNWRXIrdmgra1dTVy9iZTdwb2tqN0JCL3VJWDNNWWlIZDVTdXNl?=
+ =?utf-8?B?TnJGVjByU3JXejBXWGxkaURSalUxWlhMWG0wRGcxS0VUa0VzTDVaZzMyVDBO?=
+ =?utf-8?B?SkxqbjJ3VlBJL2ZWT3diYUdpd3BMREtIZU5BK3pXdC9xbCtYVTZJaWVLUlY5?=
+ =?utf-8?B?c2wwTFFBMEk5VjFiN2ZYbEltZUNGZlJlT3BkMnZER3pqMkFCTm52d002UE5j?=
+ =?utf-8?B?cDZSRHhFRXF5RFBSbW5kNXpIc0duV1h6MzJaNmMxblR2LzdJam5pVUJiUjhV?=
+ =?utf-8?B?dDR5dXQxVkluVEFRUEFkc2FYRGVVR3pBSUkzZGRxQnBJTzN3OC9uVFoveUhP?=
+ =?utf-8?B?S2JpcHJIS1ZrLzQ4bXVWTmEvVlFVTmdBTUhmTXQ0MzNBUHMzRi9VdGwyTmth?=
+ =?utf-8?B?SXVrVy9JUitzU2tEKzE5eWlxVFJSR1BDMnR0S2I1ZE1Fc1UxZVBzek4vUHJF?=
+ =?utf-8?Q?Yk8mVPfGeDEb8F3u+IMzUlG/7?=
+MIME-Version: 1.0
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR11MB5454.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 31b2aa40-0002-4a2b-0e87-08dabbb7c2a9
+X-MS-Exchange-CrossTenant-originalarrivaltime: 01 Nov 2022 03:18:34.5458 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: dylivc5vArQknBPjccs+QldtA2qTLKNV584d+z+/ze6uuu34OGIANScKoqxVcByXjsucz/8UsEiKFX4z+F3UQg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR11MB6380
+X-OriginatorOrg: intel.com
+X-Mailman-Approved-At: Wed, 02 Nov 2022 08:24:42 +0000
+Cc: "Song, Yoong Siang" <yoong.siang.song@intel.com>,
+ "pabeni@redhat.com" <pabeni@redhat.com>, "Gan, Yi
+ Fang" <yi.fang.gan@intel.com>, "Voon, Weifeng" <weifeng.voon@intel.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "Tan,
+ Tee Min" <tee.min.tan@intel.com>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>, Vee Khee Wong <veekhee@apple.com>,
+ "edumazet@google.com" <edumazet@google.com>,
+ "joabreu@synopsys.com" <joabreu@synopsys.com>,
+ "mcoquelin.stm32@gmail.com" <mcoquelin.stm32@gmail.com>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ "peppe.cavallaro@st.com" <peppe.cavallaro@st.com>, "Zulkifli,
+ Muhammad Husaini" <muhammad.husaini.zulkifli@intel.com>,
+ "davem@davemloft.net" <davem@davemloft.net>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH net-next 1/1] stmmac: intel: Separate
+ ADL-N and RPL-P device ID from TGL
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,552 +175,23 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-
-
-On 28/10/2022 15:52, Patrick Delaunay wrote:
-> For boot with OP-TEE on STM32MP13, the communication with the secure
-> world no more use STMicroelectronics SMC but communication with the
-> BSEC TA, for data access (read/write) or lock operation:
-> - all the request are sent to OP-TEE trusted application,
-> - for upper OTP with ECC protection and with word programming only
->    each OTP are permanently locked when programmed to avoid ECC error
->    on the second write operation
-> 
-> Signed-off-by: Patrick Delaunay <patrick.delaunay@foss.st.com>
-> ---
-
-For some reason I pushed this patch without a full review, This is now 
-reverted from nvmem-next.
-
-Why not add TEE client based new driver instead of ifdefing around this 
-driver? Also I see there is not much common across both drivers anyway.
-
-
-> 
->   drivers/nvmem/stm32-romem.c | 450 +++++++++++++++++++++++++++++++++++-
->   1 file changed, 446 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/nvmem/stm32-romem.c b/drivers/nvmem/stm32-romem.c
-> index 6de565639d5f..dfdedbcca9b9 100644
-> --- a/drivers/nvmem/stm32-romem.c
-> +++ b/drivers/nvmem/stm32-romem.c
-> @@ -11,6 +11,7 @@
->   #include <linux/module.h>
->   #include <linux/nvmem-provider.h>
->   #include <linux/of_device.h>
-> +#include <linux/tee_drv.h>
->   
->   /* BSEC secure service access from non-secure */
->   #define STM32_SMC_BSEC			0x82001003
-> @@ -25,14 +26,22 @@
->   struct stm32_romem_cfg {
->   	int size;
->   	u8 lower;
-> +	bool ta;
->   };
->   
->   struct stm32_romem_priv {
->   	void __iomem *base;
->   	struct nvmem_config cfg;
->   	u8 lower;
-> +	struct device *ta;
->   };
->   
-> +struct device *stm32_bsec_pta_find(struct device *dev);
-> +static int stm32_bsec_pta_read(void *context, unsigned int offset, void *buf,
-> +			       size_t bytes);
-> +static int stm32_bsec_pta_write(void *context, unsigned int offset, void *buf,
-> +				size_t bytes);
-> +
->   static int stm32_romem_read(void *context, unsigned int offset, void *buf,
->   			    size_t bytes)
->   {
-> @@ -173,15 +182,25 @@ static int stm32_romem_probe(struct platform_device *pdev)
->   	} else {
->   		priv->cfg.size = cfg->size;
->   		priv->lower = cfg->lower;
-> -		priv->cfg.reg_read = stm32_bsec_read;
-> -		priv->cfg.reg_write = stm32_bsec_write;
-> +		if (cfg->ta) {
-> +			priv->ta = stm32_bsec_pta_find(dev);
-> +			/* wait for OP-TEE client driver to be up and ready */
-> +			if (!priv->ta)
-> +				return -EPROBE_DEFER;
-> +
-> +			priv->cfg.reg_read = stm32_bsec_pta_read;
-> +			priv->cfg.reg_write = stm32_bsec_pta_write;
-> +		} else {
-> +			priv->cfg.reg_read = stm32_bsec_read;
-> +			priv->cfg.reg_write = stm32_bsec_write;
-> +		}
->   	}
->   
->   	return PTR_ERR_OR_ZERO(devm_nvmem_register(dev, &priv->cfg));
->   }
->   
->   /*
-> - * STM32MP15 BSEC OTP regions: 4096 OTP bits (with 3072 effective bits)
-> + * STM32MP15/13 BSEC OTP regions: 4096 OTP bits (with 3072 effective bits)
->    * => 96 x 32-bits data words
->    * - Lower: 1K bits, 2:1 redundancy, incremental bit programming
->    *   => 32 (x 32-bits) lower shadow registers = words 0 to 31
-> @@ -191,6 +210,13 @@ static int stm32_romem_probe(struct platform_device *pdev)
->   static const struct stm32_romem_cfg stm32mp15_bsec_cfg = {
->   	.size = 384,
->   	.lower = 32,
-> +	.ta = false,
-> +};
-> +
-> +static const struct stm32_romem_cfg stm32mp13_bsec_cfg = {
-> +	.size = 384,
-> +	.lower = 32,
-> +	.ta = true,
->   };
->   
->   static const struct of_device_id stm32_romem_of_match[] = {
-> @@ -198,6 +224,8 @@ static const struct of_device_id stm32_romem_of_match[] = {
->   		.compatible = "st,stm32mp15-bsec",
->   		.data = (void *)&stm32mp15_bsec_cfg,
->   	}, {
-> +		.compatible = "st,stm32mp13-bsec",
-> +		.data = (void *)&stm32mp13_bsec_cfg,
-
-missing sentinel, which caused a regression in next.
-
-
---srini
->   	},
->   };
->   MODULE_DEVICE_TABLE(of, stm32_romem_of_match);
-> @@ -209,7 +237,421 @@ static struct platform_driver stm32_romem_driver = {
->   		.of_match_table = of_match_ptr(stm32_romem_of_match),
->   	},
->   };
-> -module_platform_driver(stm32_romem_driver);
-> +
-> +#if IS_ENABLED(CONFIG_OPTEE)
-> +/*************************************************************************
-> + * BSEC PTA : OP-TEE client driver to pseudo trusted application
-> + *************************************************************************/
-> +
-> +/*
-> + * Read OTP memory
-> + *
-> + * [in]		value[0].a		OTP start offset in byte
-> + * [in]		value[0].b		Access type (0 : shadow,
-> + *					1 : fuse, 2 : lock)
-> + * [out]	memref[1].buffer	Output buffer to store read values
-> + * [out]	memref[1].size		Size of OTP to be read
-> + *
-> + * Return codes:
-> + * TEE_SUCCESS - Invoke command success
-> + * TEE_ERROR_BAD_PARAMETERS - Incorrect input param
-> + */
-> +#define PTA_BSEC_READ_MEM		0x0 /* Read OTP */
-> +
-> +/*
-> + * Write OTP memory
-> + *
-> + * [in]		value[0].a		OTP start offset in byte
-> + * [in]		value[0].b		Access type (0 : shadow,
-> + *					1 : fuse, 2 : lock)
-> + * [in]		memref[1].buffer	Input buffer to read values
-> + * [in]		memref[1].size		Size of OTP to be written
-> + *
-> + * Return codes:
-> + * TEE_SUCCESS - Invoke command success
-> + * TEE_ERROR_BAD_PARAMETERS - Incorrect input param
-> + */
-> +#define PTA_BSEC_WRITE_MEM		0x1	/* Write OTP */
-> +
-> +/* value of PTA_BSEC access type = value[in] b */
-> +#define SHADOW_ACCESS	0
-> +#define FUSE_ACCESS	1
-> +#define LOCK_ACCESS	2
-> +
-> +/* Bitfield definition for LOCK status */
-> +#define LOCK_PERM			BIT(30)
-> +
-> +/**
-> + * struct stm32_bsec_pta_priv - OP-TEE BSEC TA private data
-> + * @ctx:		OP-TEE context handler.
-> + * @session_id:		TA session identifier.
-> + */
-> +struct stm32_bsec_pta_priv {
-> +	struct tee_context *ctx;
-> +	u32 session_id;
-> +};
-> +
-> +/*
-> + * Check whether this driver supports the BSEC TA in the TEE instance
-> + * represented by the params (ver/data) to this function.
-> + */
-> +static int stm32_bsec_pta_match(struct tee_ioctl_version_data *ver, const void *data)
-> +{
-> +	/*
-> +	 * Currently this driver only supports GP compliant, OP-TEE based TA
-> +	 */
-> +	if ((ver->impl_id == TEE_IMPL_ID_OPTEE) &&
-> +		(ver->gen_caps & TEE_GEN_CAP_GP))
-> +		return 1;
-> +	else
-> +		return 0;
-> +}
-> +
-> +/**
-> + * stm32_bsec_pta_probe() - initialize the PTA BSEC
-> + * @dev: the platform_device description.
-> + *
-> + * Return:
-> + *	On success, 0. On failure, -errno.
-> + */
-> +static int stm32_bsec_pta_probe(struct device *dev)
-> +{
-> +	int rc;
-> +	struct tee_ioctl_open_session_arg sess_arg;
-> +	struct tee_client_device *tee_device = to_tee_client_device(dev);
-> +	struct stm32_bsec_pta_priv *priv;
-> +
-> +	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
-> +	if (!priv)
-> +		return -ENOMEM;
-> +
-> +	/* Open context with TEE driver */
-> +	priv->ctx = tee_client_open_context(NULL, stm32_bsec_pta_match, NULL, NULL);
-> +	if (IS_ERR(priv->ctx)) {
-> +		if (PTR_ERR(priv->ctx) == -ENOENT)
-> +			return -EPROBE_DEFER;
-> +		dev_err(dev, "%s: tee_client_open_context failed\n", __func__);
-> +		return PTR_ERR(priv->ctx);
-> +	}
-> +
-> +	/* Open a session with BSEC TA */
-> +	memset(&sess_arg, 0, sizeof(sess_arg));
-> +	export_uuid(sess_arg.uuid, &tee_device->id.uuid);
-> +	sess_arg.clnt_login = TEE_IOCTL_LOGIN_REE_KERNEL;
-> +	sess_arg.num_params = 0;
-> +
-> +	rc = tee_client_open_session(priv->ctx, &sess_arg, NULL);
-> +	if ((rc < 0) || (sess_arg.ret != 0)) {
-> +		dev_err(dev, "%s: tee_client_open_session failed, err=%x\n",
-> +			__func__, sess_arg.ret);
-> +		rc = -EINVAL;
-> +		goto out_tee_session;
-> +	}
-> +	priv->session_id = sess_arg.session;
-> +	dev_set_drvdata(dev, priv);
-> +
-> +	return 0;
-> +
-> +out_tee_session:
-> +	tee_client_close_context(priv->ctx);
-> +	priv->ctx = NULL;
-> +
-> +	return rc;
-> +}
-> +
-> +/**
-> + * stm32_bsec_pta_remove() - remove the BSEC TEE device
-> + * @dev: the platform_device description.
-> + *
-> + * Return:
-> + *	0 always.
-> + */
-> +static int stm32_bsec_pta_remove(struct device *dev)
-> +{
-> +	struct stm32_bsec_pta_priv *priv = dev_get_drvdata(dev);
-> +
-> +	if (!IS_ERR_OR_NULL(priv->ctx)) {
-> +		tee_client_close_session(priv->ctx, priv->session_id);
-> +		tee_client_close_context(priv->ctx);
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +/**
-> + * stm32_bsec_pta_read() - nvmem read access using PTA client driver
-> + * @context: nvmem context => romem privdate data
-> + * @offset: nvmem offset
-> + * @buf: buffer to fill with nvem values
-> + * @bytes: number of bytes to read
-> + *
-> + * Return:
-> + *	On success, 0. On failure, -errno.
-> + */
-> +static int stm32_bsec_pta_read(void *context, unsigned int offset, void *buf,
-> +			       size_t bytes)
-> +{
-> +	struct stm32_romem_priv *romem_priv = context;
-> +	struct device *dev;
-> +	struct stm32_bsec_pta_priv *priv;
-> +	struct tee_shm *shm;
-> +	struct tee_ioctl_invoke_arg arg;
-> +	struct tee_param param[2];
-> +	u8 *shm_buf;
-> +	u32 start, num_bytes;
-> +	int ret;
-> +
-> +	dev = romem_priv->ta;
-> +	if (!dev) {
-> +		pr_err("TA_BSEC invoke with driver\n");
-> +		return -ENXIO;
-> +	}
-> +
-> +	priv = dev_get_drvdata(dev);
-> +
-> +	memset(&arg, 0, sizeof(arg));
-> +	memset(&param, 0, sizeof(param));
-> +
-> +	arg.func = PTA_BSEC_READ_MEM;
-> +	arg.session = priv->session_id;
-> +	arg.num_params = 2;
-> +
-> +	/* align access on 32bits */
-> +	start = ALIGN_DOWN(offset, 4);
-> +	num_bytes = round_up(offset + bytes - start, 4);
-> +	param[0].attr = TEE_IOCTL_PARAM_ATTR_TYPE_VALUE_INPUT;
-> +	param[0].u.value.a = start;
-> +	param[0].u.value.b = SHADOW_ACCESS;
-> +
-> +	shm = tee_shm_alloc_kernel_buf(priv->ctx, num_bytes);
-> +	if (IS_ERR(shm))
-> +		return PTR_ERR(shm);
-> +
-> +	param[1].attr = TEE_IOCTL_PARAM_ATTR_TYPE_MEMREF_OUTPUT;
-> +	param[1].u.memref.shm = shm;
-> +	param[1].u.memref.size = num_bytes;
-> +
-> +	ret = tee_client_invoke_func(priv->ctx, &arg, param);
-> +	if (ret < 0 || arg.ret != 0) {
-> +		dev_err(dev, "TA_BSEC invoke failed TEE err: %x, ret:%x\n",
-> +			arg.ret, ret);
-> +		if (!ret)
-> +			ret = -EIO;
-> +	}
-> +	if (!ret) {
-> +		shm_buf = tee_shm_get_va(shm, 0);
-> +		if (IS_ERR(shm_buf)) {
-> +			dev_err(dev, "tee_shm_get_va failed for transmit\n");
-> +			ret = PTR_ERR(shm_buf);
-> +		} else {
-> +			ret = 0;
-> +			/* read data from 32 bits aligned buffer */
-> +			memcpy(buf, &shm_buf[offset % 4], bytes);
-> +		}
-> +	}
-> +
-> +	tee_shm_free(shm);
-> +
-> +	return ret;
-> +}
-> +
-> +/**
-> + * stm32_bsec_pta_write() - nvmem write access using PTA client driver
-> + * @context: nvmem context => romem privdate data
-> + * @offset: nvmem offset
-> + * @buf: buffer with nvem values
-> + * @bytes: number of bytes to write
-> + *
-> + * Return:
-> + *	On success, 0. On failure, -errno.
-> + */
-> +static int stm32_bsec_pta_write(void *context, unsigned int offset, void *buf,
-> +				size_t bytes)
-> +{
-> +	struct stm32_romem_priv *romem_priv = context;
-> +	struct device *dev;
-> +	struct stm32_bsec_pta_priv *priv;
-> +	struct tee_shm *shm;
-> +	struct tee_ioctl_invoke_arg arg;
-> +	struct tee_param param[2];
-> +	u8 *shm_buf;
-> +	int ret;
-> +
-> +	dev = romem_priv->ta;
-> +	if (!dev) {
-> +		pr_err("TA_BSEC invoke with driver\n");
-> +		return -ENXIO;
-> +	}
-> +
-> +	/* Allow only writing complete 32-bits aligned words */
-> +	if ((bytes % 4) || (offset % 4))
-> +		return -EINVAL;
-> +
-> +	priv = dev_get_drvdata(dev);
-> +
-> +	memset(&arg, 0, sizeof(arg));
-> +	memset(&param, 0, sizeof(param));
-> +
-> +	arg.func = PTA_BSEC_WRITE_MEM;
-> +	arg.session = priv->session_id;
-> +	arg.num_params = 2;
-> +
-> +	param[0].attr = TEE_IOCTL_PARAM_ATTR_TYPE_VALUE_INPUT;
-> +	param[0].u.value.a = offset;
-> +	param[0].u.value.b = FUSE_ACCESS;
-> +
-> +	shm = tee_shm_alloc_kernel_buf(priv->ctx, bytes);
-> +	if (IS_ERR(shm))
-> +		return PTR_ERR(shm);
-> +
-> +	param[1].attr = TEE_IOCTL_PARAM_ATTR_TYPE_MEMREF_INPUT;
-> +	param[1].u.memref.shm = shm;
-> +	param[1].u.memref.size = bytes;
-> +
-> +	shm_buf = tee_shm_get_va(shm, 0);
-> +	if (IS_ERR(shm_buf)) {
-> +		dev_err(dev, "tee_shm_get_va failed for transmit\n");
-> +		return PTR_ERR(shm_buf);
-> +	}
-> +
-> +	memcpy(shm_buf, buf, bytes);
-> +
-> +	ret = tee_client_invoke_func(priv->ctx, &arg, param);
-> +	if (ret < 0 || arg.ret != 0) {
-> +		dev_err(dev, "TA_BSEC invoke failed TEE err: %x, ret:%x\n",
-> +			arg.ret, ret);
-> +		if (!ret)
-> +			ret = -EIO;
-> +	}
-> +	dev_dbg(dev, "Write OTPs %d to %d, ret=%d\n",
-> +		offset / 4, (offset + bytes) / 4, ret);
-> +
-> +	/* Lock the upper OTPs with ECC protection, word programming only */
-> +	if (!ret && ((offset + bytes) >= (romem_priv->lower * 4))) {
-> +		u32 start, nb_lock;
-> +		u32 *lock = (u32 *)shm_buf;
-> +		int i;
-> +
-> +		/*
-> +		 * don't lock the lower OTPs, no ECC protection and incremental
-> +		 * bit programming, a second write is allowed
-> +		 */
-> +		start = max_t(u32, offset, romem_priv->lower * 4);
-> +		nb_lock = (offset + bytes - start) / 4;
-> +
-> +		param[0].u.value.a = start;
-> +		param[0].u.value.b = LOCK_ACCESS;
-> +		param[1].u.memref.size = nb_lock * 4;
-> +
-> +		for (i = 0; i < nb_lock; i++)
-> +			lock[i] = LOCK_PERM;
-> +
-> +		ret = tee_client_invoke_func(priv->ctx, &arg, param);
-> +		if (ret < 0 || arg.ret != 0) {
-> +			dev_err(dev, "TA_BSEC invoke failed TEE err: %x, ret:%x\n",
-> +				arg.ret, ret);
-> +			if (!ret)
-> +				ret = -EIO;
-> +		}
-> +		dev_dbg(dev, "Lock upper OTPs %d to %d, ret=%d\n",
-> +			start / 4, start / 4 + nb_lock, ret);
-> +	}
-> +
-> +	tee_shm_free(shm);
-> +
-> +	return ret;
-> +}
-> +
-> +static const struct tee_client_device_id stm32_bsec_id_table[] = {
-> +	{
-> +		UUID_INIT(0x94cf71ad, 0x80e6, 0x40b5,
-> +			  0xa7, 0xc6, 0x3d, 0xc5, 0x01, 0xeb, 0x28, 0x03)
-> +	},
-> +	{ }
-> +};
-> +
-> +MODULE_DEVICE_TABLE(tee, stm32_bsec_id_table);
-> +
-> +static struct tee_client_driver stm32_bsec_pta_driver = {
-> +	.id_table	= stm32_bsec_id_table,
-> +	.driver		= {
-> +		.name = "stm32-bsec-pta",
-> +		.bus = &tee_bus_type,
-> +		.probe = stm32_bsec_pta_probe,
-> +		.remove = stm32_bsec_pta_remove,
-> +	},
-> +};
-> +
-> +static void stm32_bsec_put_device(void *data)
-> +{
-> +	put_device(data);
-> +}
-> +
-> +struct device *stm32_bsec_pta_find(struct device *dev)
-> +{
-> +	struct device *pta_dev;
-> +
-> +	pta_dev = driver_find_next_device(&stm32_bsec_pta_driver.driver, NULL);
-> +
-> +	if (pta_dev && devm_add_action_or_reset(dev, stm32_bsec_put_device, pta_dev)) {
-> +		dev_err(dev, "unable to register cleanup action\n");
-> +
-> +		return NULL;
-> +	}
-> +
-> +	return pta_dev;
-> +}
-> +
-> +#else
-> +static int stm32_bsec_pta_read(void *context, unsigned int offset, void *buf,
-> +			       size_t bytes)
-> +{
-> +	pr_debug("%s: TA BSEC request without OPTEE support\n", __func__);
-> +
-> +	return -ENXIO;
-> +}
-> +
-> +static int stm32_bsec_pta_write(void *context, unsigned int offset, void *buf,
-> +				size_t bytes)
-> +{
-> +	pr_debug("%s: TA BSEC request without OPTEE support\n", __func__);
-> +
-> +	return -ENXIO;
-> +}
-> +
-> +struct device *stm32_bsec_pta_find(struct device *dev)
-> +{
-> +	pr_debug("%s: TA BSEC request without OPTEE support\n", __func__);
-> +
-> +	return NULL;
-> +}
-> +#endif
-> +
-> +static int __init stm32_romem_init(void)
-> +{
-> +	int rc;
-> +
-> +	rc = platform_driver_register(&stm32_romem_driver);
-> +	if (rc)
-> +		return rc;
-> +
-> +#if IS_ENABLED(CONFIG_OPTEE)
-> +	rc = driver_register(&stm32_bsec_pta_driver.driver);
-> +#endif
-> +
-> +	return rc;
-> +}
-> +
-> +static void __exit stm32_romem_exit(void)
-> +{
-> +	platform_driver_unregister(&stm32_romem_driver);
-> +#if IS_ENABLED(CONFIG_OPTEE)
-> +	driver_unregister(&stm32_bsec_pta_driver.driver);
-> +#endif
-> +}
-> +
-> +module_init(stm32_romem_init);
-> +module_exit(stm32_romem_exit);
->   
->   MODULE_AUTHOR("Fabrice Gasnier <fabrice.gasnier@st.com>");
->   MODULE_DESCRIPTION("STMicroelectronics STM32 RO-MEM");
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+PiBPbiBGcmksIDI4IE9jdCAyMDIyIDEwOjQ0OjI0ICswMDAwIFNpdCwgTWljaGFlbCBXZWkgSG9u
+ZyB3cm90ZToNCj4gPiBUaGlzIGlzIHRvIGFsbG93IGZpbmVyIGNvbnRyb2wgb24gcGxhdGZvcm0g
+c3BlY2lmaWMgZmVhdHVyZXMgZm9yIEFETCBhbmQgUlBMLg0KPiA+IFRoZXJlIGFyZSBzb21lIGZl
+YXR1cmVzIHRoYXQgQURMIGFuZCBSUEwgZG9lc27igJl0IHN1cHBvcnQgYW5kIFRHTA0KPiBzdXBw
+b3J0cyB2aWNlIHZlcnNhLg0KPiANCj4gQnV0IGlmIHRoZXkgYXJlIHRoZSBzYW1lIF9yaWdodF8g
+X25vd18gd2hhdCdzIHRoZSBwb2ludD8NCj4gUGxlYXNlIHJlcG9zdCBhcyBwYXJ0IG9mIGEgc2Vy
+aWVzIHdoaWNoIGFjdHVhbGx5IG1vZGlmaWVzIHRoZSBjb250ZW50cy4NCj4gDQo+IFBsZWFzZSBy
+ZW1lbWJlciBub3QgdG8gdG9wIHBvc3Qgb24gdGhlIE1MLg0KDQpOb3RlZC4gVGhhbmtzIFZlZSBL
+aGVlIGFuZCBKYWt1YiBmb3IgdGhlIGNvbW1lbnRzLiBUaGVyZSBpcyBzb21lIHdvcmsgaW4gcHJv
+Z3Jlc3MgYXMgcGFydCBvZiBBREwtTiBkZXZlbG9wbWVudC4gV2UnbGwgc3VibWl0IGEgY29tcGxl
+dGUgcGF0Y2hzZXQgd2hlbiBpdCBpcyBjb21wbGV0ZWQgaW4gdGhlIGZ1dHVyZS4gTGV0J3MgY2xv
+c2UgdGhlIHJldmlldyBmb3IgdGhpcyBwYXRjaCBmb3Igbm93Lg0KX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0Ckxp
+bnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWls
+bWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
