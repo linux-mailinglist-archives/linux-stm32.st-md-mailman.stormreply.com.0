@@ -2,69 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7BED1616151
-	for <lists+linux-stm32@lfdr.de>; Wed,  2 Nov 2022 11:59:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 90691616A82
+	for <lists+linux-stm32@lfdr.de>; Wed,  2 Nov 2022 18:22:39 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2B2CAC6411C;
-	Wed,  2 Nov 2022 10:59:53 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 42DC4C04003;
+	Wed,  2 Nov 2022 17:22:39 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7D28AC03FC9
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed,  2 Nov 2022 17:22:37 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1A185C03FD6
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  2 Nov 2022 10:59:52 +0000 (UTC)
-Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 2A29fK18004411; Wed, 2 Nov 2022 11:59:40 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=aSfGlhCcZ/1fR+G9G0wTcQE3tTWgYAJtQ9xzPRJuxiI=;
- b=wjepG41PBjuTgwTCke5djvnLYVVI2KthQh292FSbxi+DUOOzLVqrixf/frip7bNq+ttq
- bsnuxaUah3QdjB2QvPOTwwNxK0DmOlCmLckqGoJX9CXJ5mCHAt1MX6Xa4WbOsnhO9cFc
- voByotxl7euQzRvaTnyMfkVfaFtu9OQ7i1m5r8GPGgb2JQyaIJ5stw5oxlGP4Jr8FAAm
- 74xojMGSkmR6sSTdriF/h678B9k4XCLFjpxrZ6qo6YASodPpHV0RbILK6Z7cgP8DnBzn
- tdz8WTB9fqnXUUuB9/FkyqWQav0icTNyZWJX9z9fbrQoKUe41PxlEBspwHy+fvjM44Hz sA== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3kkp4x0r4r-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 02 Nov 2022 11:59:40 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id E6DB310002A;
- Wed,  2 Nov 2022 11:59:32 +0100 (CET)
-Received: from Webmail-eu.st.com (shfdag1node3.st.com [10.75.129.71])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id DEEA121A90C;
- Wed,  2 Nov 2022 11:59:32 +0100 (CET)
-Received: from [10.48.0.157] (10.48.0.157) by SHFDAG1NODE3.st.com
- (10.75.129.71) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.31; Wed, 2 Nov
- 2022 11:59:29 +0100
-Message-ID: <a4ae3648-2943-55e0-243f-71a3c5f71ad8@foss.st.com>
-Date: Wed, 2 Nov 2022 11:59:28 +0100
+ by ams.source.kernel.org (Postfix) with ESMTPS id C315DB823F6;
+ Wed,  2 Nov 2022 17:22:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 54B70C433C1;
+ Wed,  2 Nov 2022 17:22:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1667409755;
+ bh=JlfqGwLsDwKmCS1oBu/kDA5a6tTjFIObU3wa7YVmC/s=;
+ h=From:To:Cc:Subject:Date:From;
+ b=fwYlxiZd1S6Xehhl+9gWwUABNVhSHD8WbO/1WqVXCxG5SFaBD9iKXCgIip2P+Fec2
+ WPqIW2QHMTt/2LRGqnD46V2AzVqK0dEhtDe/8CxcKsM7EvEKl+yM3AsRo8QnOHf8W/
+ N79bzAfXx0BQ1FiHuKoC8dNJrF9C4ziBLvvZa5bt9LJuslxaV81eM8XdepDvjH185m
+ eiljRfsxrYmoj+Gb3lXzWHS8Mwc+qnB+TxLE5Z5RKXafG1/wmxp5hX48kb9R8fss3x
+ h6OB+IObWN3X2Fwk7AcVLFlDcPlgoiKmb1A/cGIyfSj3t0jEYwRP71aTZYEof6xUpK
+ zZZmgk372RtIQ==
+From: Nathan Chancellor <nathan@kernel.org>
+To: William Breathitt Gray <william.gray@linaro.org>
+Date: Wed,  2 Nov 2022 10:22:14 -0700
+Message-Id: <20221102172217.2860740-1-nathan@kernel.org>
+X-Mailer: git-send-email 2.38.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.2.2
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>, Alexandre TORGUE
- <alexandre.torgue@foss.st.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>
-References: <20221028145252.2115933-1-patrick.delaunay@foss.st.com>
- <20221028165150.3.Ibc43aa73f865090affeb1751af0cc260c7f1dd07@changeid>
- <99a8d093-13f3-9ff8-6d87-d4aecaec1566@linaro.org>
-Content-Language: en-US
-From: Patrick DELAUNAY <patrick.delaunay@foss.st.com>
-In-Reply-To: <99a8d093-13f3-9ff8-6d87-d4aecaec1566@linaro.org>
-X-Originating-IP: [10.48.0.157]
-X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE3.st.com
- (10.75.129.71)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.545,FMLib:17.11.122.1
- definitions=2022-11-02_07,2022-11-02_01,2022-06-22_01
-Cc: Etienne CARRIERE <etienne.carriere@linaro.org>,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH 3/3] nvmem: stm32: add OP-TEE support for
-	STM32MP13x
+Cc: linux-omap@vger.kernel.org, Kees Cook <keescook@chromium.org>,
+ linux-iio@vger.kernel.org, Tom Rix <trix@redhat.com>,
+ linux-stm32@st-md-mailman.stormreply.com, llvm@lists.linux.dev,
+ Nick Desaulniers <ndesaulniers@google.com>, linux-kernel@vger.kernel.org,
+ patches@lists.linux.dev, Nathan Chancellor <nathan@kernel.org>,
+ Jarkko Nikula <jarkko.nikula@linux.intel.com>,
+ Sami Tolvanen <samitolvanen@google.com>,
+ Patrick Havelange <patrick.havelange@essensium.com>,
+ Julien Panis <jpanis@baylibre.com>, David Lechner <david@lechnology.com>,
+ Oleksij Rempel <linux@rempel-privat.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ linux-arm-kernel@lists.infradead.org, Vignesh Raghavendra <vigneshr@ti.com>
+Subject: [Linux-stm32] [PATCH 1/4] counter: Adjust final parameter type in
+	function and signal callbacks
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,116 +61,298 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SGksCgpPbiAxMS8xLzIyIDA4OjI2LCBTcmluaXZhcyBLYW5kYWdhdGxhIHdyb3RlOgo+Cj4KPiBP
-biAyOC8xMC8yMDIyIDE1OjUyLCBQYXRyaWNrIERlbGF1bmF5IHdyb3RlOgo+PiBGb3IgYm9vdCB3
-aXRoIE9QLVRFRSBvbiBTVE0zMk1QMTMsIHRoZSBjb21tdW5pY2F0aW9uIHdpdGggdGhlIHNlY3Vy
-ZQo+PiB3b3JsZCBubyBtb3JlIHVzZSBTVE1pY3JvZWxlY3Ryb25pY3MgU01DIGJ1dCBjb21tdW5p
-Y2F0aW9uIHdpdGggdGhlCj4+IEJTRUMgVEEsIGZvciBkYXRhIGFjY2VzcyAocmVhZC93cml0ZSkg
-b3IgbG9jayBvcGVyYXRpb246Cj4+IC0gYWxsIHRoZSByZXF1ZXN0IGFyZSBzZW50IHRvIE9QLVRF
-RSB0cnVzdGVkIGFwcGxpY2F0aW9uLAo+PiAtIGZvciB1cHBlciBPVFAgd2l0aCBFQ0MgcHJvdGVj
-dGlvbiBhbmQgd2l0aCB3b3JkIHByb2dyYW1taW5nIG9ubHkKPj4gwqDCoCBlYWNoIE9UUCBhcmUg
-cGVybWFuZW50bHkgbG9ja2VkIHdoZW4gcHJvZ3JhbW1lZCB0byBhdm9pZCBFQ0MgZXJyb3IKPj4g
-wqDCoCBvbiB0aGUgc2Vjb25kIHdyaXRlIG9wZXJhdGlvbgo+Pgo+PiBTaWduZWQtb2ZmLWJ5OiBQ
-YXRyaWNrIERlbGF1bmF5IDxwYXRyaWNrLmRlbGF1bmF5QGZvc3Muc3QuY29tPgo+PiAtLS0KPgo+
-IEZvciBzb21lIHJlYXNvbiBJIHB1c2hlZCB0aGlzIHBhdGNoIHdpdGhvdXQgYSBmdWxsIHJldmll
-dywgVGhpcyBpcyBub3cgCj4gcmV2ZXJ0ZWQgZnJvbSBudm1lbS1uZXh0LgoKCk9rCgoKPgo+IFdo
-eSBub3QgYWRkIFRFRSBjbGllbnQgYmFzZWQgbmV3IGRyaXZlciBpbnN0ZWFkIG9mIGlmZGVmaW5n
-IGFyb3VuZCAKPiB0aGlzIGRyaXZlcj8gQWxzbyBJIHNlZSB0aGVyZSBpcyBub3QgbXVjaCBjb21t
-b24gYWNyb3NzIGJvdGggZHJpdmVycyAKPiBhbnl3YXkuCgoKSSBoZXNpdGF0ZSBiZXR3ZWVuIHRo
-ZSAyIHNvbHV0aW9ucy4gSSBjaG9vc2UgdGhpcyB1cGRhdGUgdG8gaGFuZGxlIHRoZSAKU1RNMzJN
-UDE1IHN1cHBvcnQgd2l0aCBPUC1URUUuCgpGb3IgYmFja3dhcmQgY29tcGF0aWJpbGl0eSByZWFz
-b24gdGhlIHNhbWUgZHJpdmVyIFNUTTMyIFJPTUVNIGFzc29jaWF0ZWQgCnRvIGNvbXBhdGlibGUg
-InN0LHN0bTMybXAxNS1ic2VjIiBzaG91bGQgYmUga2VwdC4KCi0gdGhlIGxvd2VyIE9UUCBjYW4g
-ZGlyZWN0bHkgYWNjZXNzaWJsZSBieSBMaW51eCAodGhlIElQIGlzIG5vdCBzZWN1cmVkKSAKPT4g
-Ym9vdCB3aXRoIFNQTAoKLSB0aGUgdXBwZXIgT1RQIGFuZCB0aGUgd3JpdGUgb3BlcmF0aW9uIGFy
-ZSByZXF1ZXN0ZWQgYnkgClNUTWljcm9lbGVjdHJvbmljcyBTTUNzCgogwqDCoCA9PiBib290IHdp
-dGggVEYtQSBTUE1JTiBhbmQgb2xkIE9QLVRFRSAoYmVmb3JlIG1pZ3JhdGlvbiB0byBTVE0zMiAK
-QlNFQyBQVEEpCgoKQnV0IGluIHRoZSBmdXR1cmUgT1AtVEVFIHRoZSBhY2Nlc3MgdG8gT1RQIHNo
-b3VsZCBiZSBhbHNvIGRvbmUgd2l0aCAKU1RNMzIgQlNFQyBQVEEuLi4KCgpJIGNhbiBtYW5hZ2Ug
-dGhpcyBjb21wYXRpYmlsaXR5IGJ5IGRldGVjdGlvbiBpbiBTVE0zMiByb21lbSBkcml2ZXIgaWYg
-CnRoZSBib290aCBhY2Nlc3MgYXJlIG1hbmFnZWQgaW4gdGhlIHNhbWUgZHJpdmVyLgoKVGhpcyBw
-YXRjaCBjYW4gYmUgYWRkZWQgaW4gdGhlIHNlcmllIHRvIHVuZGVyc3Rvb2QgdGhlIGRldGVjdGlv
-biBtZWNoYW5pc20uCgoKPgo+Cj4+Cj4+IMKgIGRyaXZlcnMvbnZtZW0vc3RtMzItcm9tZW0uYyB8
-IDQ1MCArKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKy0KPj4gwqAgMSBmaWxlIGNo
-YW5nZWQsIDQ0NiBpbnNlcnRpb25zKCspLCA0IGRlbGV0aW9ucygtKQo+Pgo+PiBkaWZmIC0tZ2l0
-IGEvZHJpdmVycy9udm1lbS9zdG0zMi1yb21lbS5jIGIvZHJpdmVycy9udm1lbS9zdG0zMi1yb21l
-bS5jCj4+IGluZGV4IDZkZTU2NTYzOWQ1Zi4uZGZkZWRiY2NhOWI5IDEwMDY0NAo+PiAtLS0gYS9k
-cml2ZXJzL252bWVtL3N0bTMyLXJvbWVtLmMKPj4gKysrIGIvZHJpdmVycy9udm1lbS9zdG0zMi1y
-b21lbS5jCj4+IEBAIC0xMSw2ICsxMSw3IEBACj4+IMKgICNpbmNsdWRlIDxsaW51eC9tb2R1bGUu
-aD4KPj4gwqAgI2luY2x1ZGUgPGxpbnV4L252bWVtLXByb3ZpZGVyLmg+Cj4+IMKgICNpbmNsdWRl
-IDxsaW51eC9vZl9kZXZpY2UuaD4KPj4gKyNpbmNsdWRlIDxsaW51eC90ZWVfZHJ2Lmg+Cj4+IMKg
-IMKgIC8qIEJTRUMgc2VjdXJlIHNlcnZpY2UgYWNjZXNzIGZyb20gbm9uLXNlY3VyZSAqLwo+PiDC
-oCAjZGVmaW5lIFNUTTMyX1NNQ19CU0VDwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAweDgyMDAxMDAz
-Cj4+IEBAIC0yNSwxNCArMjYsMjIgQEAKPj4gwqAgc3RydWN0IHN0bTMyX3JvbWVtX2NmZyB7Cj4+
-IMKgwqDCoMKgwqAgaW50IHNpemU7Cj4+IMKgwqDCoMKgwqAgdTggbG93ZXI7Cj4+ICvCoMKgwqAg
-Ym9vbCB0YTsKPj4gwqAgfTsKPj4gwqAgwqAgc3RydWN0IHN0bTMyX3JvbWVtX3ByaXYgewo+PiDC
-oMKgwqDCoMKgIHZvaWQgX19pb21lbSAqYmFzZTsKPj4gwqDCoMKgwqDCoCBzdHJ1Y3QgbnZtZW1f
-Y29uZmlnIGNmZzsKPj4gwqDCoMKgwqDCoCB1OCBsb3dlcjsKPj4gK8KgwqDCoCBzdHJ1Y3QgZGV2
-aWNlICp0YTsKPj4gwqAgfTsKPj4gwqAgK3N0cnVjdCBkZXZpY2UgKnN0bTMyX2JzZWNfcHRhX2Zp
-bmQoc3RydWN0IGRldmljZSAqZGV2KTsKPj4gK3N0YXRpYyBpbnQgc3RtMzJfYnNlY19wdGFfcmVh
-ZCh2b2lkICpjb250ZXh0LCB1bnNpZ25lZCBpbnQgb2Zmc2V0LCAKPj4gdm9pZCAqYnVmLAo+PiAr
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHNpemVfdCBieXRlcyk7Cj4+ICtz
-dGF0aWMgaW50IHN0bTMyX2JzZWNfcHRhX3dyaXRlKHZvaWQgKmNvbnRleHQsIHVuc2lnbmVkIGlu
-dCBvZmZzZXQsIAo+PiB2b2lkICpidWYsCj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqAgc2l6ZV90IGJ5dGVzKTsKPj4gKwo+PiDCoCBzdGF0aWMgaW50IHN0bTMyX3JvbWVtX3JlYWQo
-dm9pZCAqY29udGV4dCwgdW5zaWduZWQgaW50IG9mZnNldCwgCj4+IHZvaWQgKmJ1ZiwKPj4gwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBzaXplX3QgYnl0ZXMpCj4+IMKgIHsKPj4g
-QEAgLTE3MywxNSArMTgyLDI1IEBAIHN0YXRpYyBpbnQgc3RtMzJfcm9tZW1fcHJvYmUoc3RydWN0
-IAo+PiBwbGF0Zm9ybV9kZXZpY2UgKnBkZXYpCj4+IMKgwqDCoMKgwqAgfSBlbHNlIHsKPj4gwqDC
-oMKgwqDCoMKgwqDCoMKgIHByaXYtPmNmZy5zaXplID0gY2ZnLT5zaXplOwo+PiDCoMKgwqDCoMKg
-wqDCoMKgwqAgcHJpdi0+bG93ZXIgPSBjZmctPmxvd2VyOwo+PiAtwqDCoMKgwqDCoMKgwqAgcHJp
-di0+Y2ZnLnJlZ19yZWFkID0gc3RtMzJfYnNlY19yZWFkOwo+PiAtwqDCoMKgwqDCoMKgwqAgcHJp
-di0+Y2ZnLnJlZ193cml0ZSA9IHN0bTMyX2JzZWNfd3JpdGU7Cj4+ICvCoMKgwqDCoMKgwqDCoCBp
-ZiAoY2ZnLT50YSkgewo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBwcml2LT50YSA9IHN0bTMy
-X2JzZWNfcHRhX2ZpbmQoZGV2KTsKPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgLyogd2FpdCBm
-b3IgT1AtVEVFIGNsaWVudCBkcml2ZXIgdG8gYmUgdXAgYW5kIHJlYWR5ICovCj4+ICvCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgIGlmICghcHJpdi0+dGEpCj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqAgcmV0dXJuIC1FUFJPQkVfREVGRVI7Cj4+ICsKPj4gK8KgwqDCoMKgwqDCoMKgwqDC
-oMKgwqAgcHJpdi0+Y2ZnLnJlZ19yZWFkID0gc3RtMzJfYnNlY19wdGFfcmVhZDsKPj4gK8KgwqDC
-oMKgwqDCoMKgwqDCoMKgwqAgcHJpdi0+Y2ZnLnJlZ193cml0ZSA9IHN0bTMyX2JzZWNfcHRhX3dy
-aXRlOwo+PiArwqDCoMKgwqDCoMKgwqAgfSBlbHNlIHsKPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKg
-wqAgcHJpdi0+Y2ZnLnJlZ19yZWFkID0gc3RtMzJfYnNlY19yZWFkOwo+PiArwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoCBwcml2LT5jZmcucmVnX3dyaXRlID0gc3RtMzJfYnNlY193cml0ZTsKPj4gK8Kg
-wqDCoMKgwqDCoMKgIH0KPj4gwqDCoMKgwqDCoCB9Cj4+IMKgIMKgwqDCoMKgwqAgcmV0dXJuIFBU
-Ul9FUlJfT1JfWkVSTyhkZXZtX252bWVtX3JlZ2lzdGVyKGRldiwgJnByaXYtPmNmZykpOwo+PiDC
-oCB9Cj4+IMKgIMKgIC8qCj4+IC0gKiBTVE0zMk1QMTUgQlNFQyBPVFAgcmVnaW9uczogNDA5NiBP
-VFAgYml0cyAod2l0aCAzMDcyIGVmZmVjdGl2ZSBiaXRzKQo+PiArICogU1RNMzJNUDE1LzEzIEJT
-RUMgT1RQIHJlZ2lvbnM6IDQwOTYgT1RQIGJpdHMgKHdpdGggMzA3MiBlZmZlY3RpdmUgCj4+IGJp
-dHMpCj4+IMKgwqAgKiA9PiA5NiB4IDMyLWJpdHMgZGF0YSB3b3Jkcwo+PiDCoMKgICogLSBMb3dl
-cjogMUsgYml0cywgMjoxIHJlZHVuZGFuY3ksIGluY3JlbWVudGFsIGJpdCBwcm9ncmFtbWluZwo+
-PiDCoMKgICrCoMKgID0+IDMyICh4IDMyLWJpdHMpIGxvd2VyIHNoYWRvdyByZWdpc3RlcnMgPSB3
-b3JkcyAwIHRvIDMxCj4+IEBAIC0xOTEsNiArMjEwLDEzIEBAIHN0YXRpYyBpbnQgc3RtMzJfcm9t
-ZW1fcHJvYmUoc3RydWN0IAo+PiBwbGF0Zm9ybV9kZXZpY2UgKnBkZXYpCj4+IMKgIHN0YXRpYyBj
-b25zdCBzdHJ1Y3Qgc3RtMzJfcm9tZW1fY2ZnIHN0bTMybXAxNV9ic2VjX2NmZyA9IHsKPj4gwqDC
-oMKgwqDCoCAuc2l6ZSA9IDM4NCwKPj4gwqDCoMKgwqDCoCAubG93ZXIgPSAzMiwKPj4gK8KgwqDC
-oCAudGEgPSBmYWxzZSwKPj4gK307Cj4+ICsKPj4gK3N0YXRpYyBjb25zdCBzdHJ1Y3Qgc3RtMzJf
-cm9tZW1fY2ZnIHN0bTMybXAxM19ic2VjX2NmZyA9IHsKPj4gK8KgwqDCoCAuc2l6ZSA9IDM4NCwK
-Pj4gK8KgwqDCoCAubG93ZXIgPSAzMiwKPj4gK8KgwqDCoCAudGEgPSB0cnVlLAo+PiDCoCB9Owo+
-PiDCoCDCoCBzdGF0aWMgY29uc3Qgc3RydWN0IG9mX2RldmljZV9pZCBzdG0zMl9yb21lbV9vZl9t
-YXRjaFtdID0gewo+PiBAQCAtMTk4LDYgKzIyNCw4IEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3Qgb2Zf
-ZGV2aWNlX2lkIAo+PiBzdG0zMl9yb21lbV9vZl9tYXRjaFtdID0gewo+PiDCoMKgwqDCoMKgwqDC
-oMKgwqAgLmNvbXBhdGlibGUgPSAic3Qsc3RtMzJtcDE1LWJzZWMiLAo+PiDCoMKgwqDCoMKgwqDC
-oMKgwqAgLmRhdGEgPSAodm9pZCAqKSZzdG0zMm1wMTVfYnNlY19jZmcsCj4+IMKgwqDCoMKgwqAg
-fSwgewo+PiArwqDCoMKgwqDCoMKgwqAgLmNvbXBhdGlibGUgPSAic3Qsc3RtMzJtcDEzLWJzZWMi
-LAo+PiArwqDCoMKgwqDCoMKgwqAgLmRhdGEgPSAodm9pZCAqKSZzdG0zMm1wMTNfYnNlY19jZmcs
-Cj4KPiBtaXNzaW5nIHNlbnRpbmVsLCB3aGljaCBjYXVzZWQgYSByZWdyZXNzaW9uIGluIG5leHQu
-CgoKT2ssIHNvcnJ5IGZvciBteSBlcnJvciBpbiB0aGUgcmViYXNlIGNvbmZsaWN0LgoKClBhdHJp
-Y2sKCgo+Cj4KPiAtLXNyaW5pCj4+IMKgwqDCoMKgwqAgfSwKPj4gwqAgfTsKPj4gwqAgTU9EVUxF
-X0RFVklDRV9UQUJMRShvZiwgc3RtMzJfcm9tZW1fb2ZfbWF0Y2gpOwo+PiBAQCAtMjA5LDcgKzIz
-Nyw0MjEgQEAgc3RhdGljIHN0cnVjdCBwbGF0Zm9ybV9kcml2ZXIgCj4+IHN0bTMyX3JvbWVtX2Ry
-aXZlciA9IHsKPj4gwqDCoMKgwqDCoMKgwqDCoMKgIC5vZl9tYXRjaF90YWJsZSA9IG9mX21hdGNo
-X3B0cihzdG0zMl9yb21lbV9vZl9tYXRjaCksCj4+IMKgwqDCoMKgwqAgfSwKPj4gwqAgfTsKPj4g
-LW1vZHVsZV9wbGF0Zm9ybV9kcml2ZXIoc3RtMzJfcm9tZW1fZHJpdmVyKTsKPj4gKwo+PiArI2lm
-IElTX0VOQUJMRUQoQ09ORklHX09QVEVFKQo+PgouLi4uCgoKPj4gKwo+PiArbW9kdWxlX2luaXQo
-c3RtMzJfcm9tZW1faW5pdCk7Cj4+ICttb2R1bGVfZXhpdChzdG0zMl9yb21lbV9leGl0KTsKPj4g
-wqAgwqAgTU9EVUxFX0FVVEhPUigiRmFicmljZSBHYXNuaWVyIDxmYWJyaWNlLmdhc25pZXJAc3Qu
-Y29tPiIpOwo+PiDCoCBNT0RVTEVfREVTQ1JJUFRJT04oIlNUTWljcm9lbGVjdHJvbmljcyBTVE0z
-MiBSTy1NRU0iKTsKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rv
-cm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4v
-bGlzdGluZm8vbGludXgtc3RtMzIK
+With clang's kernel control flow integrity (kCFI, CONFIG_CFI_CLANG),
+indirect call targets are validated against the expected function
+pointer prototype to make sure the call target is valid to help mitigate
+ROP attacks. If they are not identical, there is a failure at run time,
+which manifests as either a kernel panic or thread getting killed. A
+proposed warning in clang aims to catch these at compile time, which
+reveals:
+
+  drivers/counter/counter-chrdev.c:323:34: error: incompatible function pointer types assigning to 'int (*)(struct counter_device *, struct counter_signal *, u32 *)' (aka 'int (*)(struct counter_device *, struct counter_signal *, unsigned int *)') from 'int (*const)(struct counter_device *, struct counter_signal *, enum counter_signal_level *)' [-Werror,-Wincompatible-function-pointer-types-strict]
+                  comp_node.comp.signal_u32_read = counter->ops->signal_read;
+                                                ^ ~~~~~~~~~~~~~~~~~~~~~~~~~
+  drivers/counter/counter-chrdev.c:337:33: error: incompatible function pointer types assigning to 'int (*)(struct counter_device *, struct counter_count *, u32 *)' (aka 'int (*)(struct counter_device *, struct counter_count *, unsigned int *)') from 'int (*const)(struct counter_device *, struct counter_count *, enum counter_function *)' [-Werror,-Wincompatible-function-pointer-types-strict]
+                  comp_node.comp.count_u32_read = counter->ops->function_read;
+                                                ^ ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  2 errors generated.
+
+  drivers/counter/counter-sysfs.c:845:23: error: incompatible function pointer types assigning to 'int (*)(struct counter_device *, struct counter_signal *, u32 *)' (aka 'int (*)(struct counter_device *, struct counter_signal *, unsigned int *)') from 'int (*const)(struct counter_device *, struct counter_signal *, enum counter_signal_level *)' [-Werror,-Wincompatible-function-pointer-types-strict]
+          comp.signal_u32_read = counter->ops->signal_read;
+                              ^ ~~~~~~~~~~~~~~~~~~~~~~~~~
+  drivers/counter/counter-sysfs.c:958:22: error: incompatible function pointer types assigning to 'int (*)(struct counter_device *, struct counter_count *, u32 *)' (aka 'int (*)(struct counter_device *, struct counter_count *, unsigned int *)') from 'int (*const)(struct counter_device *, struct counter_count *, enum counter_function *)' [-Werror,-Wincompatible-function-pointer-types-strict]
+          comp.count_u32_read = counter->ops->function_read;
+                              ^ ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  drivers/counter/counter-sysfs.c:959:23: error: incompatible function pointer types assigning to 'int (*)(struct counter_device *, struct counter_count *, u32)' (aka 'int (*)(struct counter_device *, struct counter_count *, unsigned int)') from 'int (*const)(struct counter_device *, struct counter_count *, enum counter_function)' [-Werror,-Wincompatible-function-pointer-types-strict]
+          comp.count_u32_write = counter->ops->function_write;
+                              ^ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  3 errors generated.
+
+The ->signal_u32_read(), ->count_u32_read(), and ->count_u32_write()
+callbacks in 'struct counter_comp' expect the final parameter to have a
+type of 'u32' or 'u32 *' but the ops functions that are being assigned
+to those callbacks have an enumerated type as the final parameter. While
+these are compatible from an ABI perspective, they will fail the
+aforementioned CFI checks.
+
+Adjust the type of the final parameter in the ->signal_read(),
+->function_read(), and ->function_write() callbacks in 'struct
+counter_ops' and their implementations to match the prototypes in
+'struct counter_comp' to clear up these warnings and CFI failures.
+
+Link: https://github.com/ClangBuiltLinux/linux/issues/1750
+Reported-by: Sami Tolvanen <samitolvanen@google.com>
+Signed-off-by: Nathan Chancellor <nathan@kernel.org>
+---
+Cc: Patrick Havelange <patrick.havelange@essensium.com>
+Cc: Jarkko Nikula <jarkko.nikula@linux.intel.com>
+Cc: Oleksij Rempel <linux@rempel-privat.de>
+Cc: Pengutronix Kernel Team <kernel@pengutronix.de>
+Cc: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+Cc: Vignesh Raghavendra <vigneshr@ti.com>
+Cc: Julien Panis <jpanis@baylibre.com>
+Cc: David Lechner <david@lechnology.com>
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-stm32@st-md-mailman.stormreply.com
+Cc: linux-omap@vger.kernel.org
+---
+ drivers/counter/104-quad-8.c            | 6 +++---
+ drivers/counter/ftm-quaddec.c           | 2 +-
+ drivers/counter/intel-qep.c             | 2 +-
+ drivers/counter/interrupt-cnt.c         | 4 ++--
+ drivers/counter/microchip-tcb-capture.c | 6 +++---
+ drivers/counter/stm32-lptimer-cnt.c     | 4 ++--
+ drivers/counter/stm32-timer-cnt.c       | 4 ++--
+ drivers/counter/ti-ecap-capture.c       | 2 +-
+ drivers/counter/ti-eqep.c               | 4 ++--
+ include/linux/counter.h                 | 6 +++---
+ 10 files changed, 20 insertions(+), 20 deletions(-)
+
+diff --git a/drivers/counter/104-quad-8.c b/drivers/counter/104-quad-8.c
+index deed4afadb29..30b40f805f88 100644
+--- a/drivers/counter/104-quad-8.c
++++ b/drivers/counter/104-quad-8.c
+@@ -135,7 +135,7 @@ struct quad8 {
+ 
+ static int quad8_signal_read(struct counter_device *counter,
+ 			     struct counter_signal *signal,
+-			     enum counter_signal_level *level)
++			     u32 *level)
+ {
+ 	const struct quad8 *const priv = counter_priv(counter);
+ 	unsigned int state;
+@@ -258,7 +258,7 @@ static int quad8_function_get(const struct quad8 *const priv, const size_t id,
+ 
+ static int quad8_function_read(struct counter_device *counter,
+ 			       struct counter_count *count,
+-			       enum counter_function *function)
++			       u32 *function)
+ {
+ 	struct quad8 *const priv = counter_priv(counter);
+ 	unsigned long irqflags;
+@@ -275,7 +275,7 @@ static int quad8_function_read(struct counter_device *counter,
+ 
+ static int quad8_function_write(struct counter_device *counter,
+ 				struct counter_count *count,
+-				enum counter_function function)
++				u32 function)
+ {
+ 	struct quad8 *const priv = counter_priv(counter);
+ 	const int id = count->id;
+diff --git a/drivers/counter/ftm-quaddec.c b/drivers/counter/ftm-quaddec.c
+index aea6622a9b13..03f03614fc22 100644
+--- a/drivers/counter/ftm-quaddec.c
++++ b/drivers/counter/ftm-quaddec.c
+@@ -189,7 +189,7 @@ static int ftm_quaddec_count_write(struct counter_device *counter,
+ 
+ static int ftm_quaddec_count_function_read(struct counter_device *counter,
+ 					   struct counter_count *count,
+-					   enum counter_function *function)
++					   u32 *function)
+ {
+ 	*function = COUNTER_FUNCTION_QUADRATURE_X4;
+ 
+diff --git a/drivers/counter/intel-qep.c b/drivers/counter/intel-qep.c
+index af5942e66f7d..0eedd9e1a94e 100644
+--- a/drivers/counter/intel-qep.c
++++ b/drivers/counter/intel-qep.c
+@@ -123,7 +123,7 @@ static const enum counter_function intel_qep_count_functions[] = {
+ 
+ static int intel_qep_function_read(struct counter_device *counter,
+ 				   struct counter_count *count,
+-				   enum counter_function *function)
++				   u32 *function)
+ {
+ 	*function = COUNTER_FUNCTION_QUADRATURE_X4;
+ 
+diff --git a/drivers/counter/interrupt-cnt.c b/drivers/counter/interrupt-cnt.c
+index 229473855c5b..f068248967d6 100644
+--- a/drivers/counter/interrupt-cnt.c
++++ b/drivers/counter/interrupt-cnt.c
+@@ -113,7 +113,7 @@ static const enum counter_function interrupt_cnt_functions[] = {
+ 
+ static int interrupt_cnt_function_read(struct counter_device *counter,
+ 				       struct counter_count *count,
+-				       enum counter_function *function)
++				       u32 *function)
+ {
+ 	*function = COUNTER_FUNCTION_INCREASE;
+ 
+@@ -122,7 +122,7 @@ static int interrupt_cnt_function_read(struct counter_device *counter,
+ 
+ static int interrupt_cnt_signal_read(struct counter_device *counter,
+ 				     struct counter_signal *signal,
+-				     enum counter_signal_level *level)
++				     u32 *level)
+ {
+ 	struct interrupt_cnt_priv *priv = counter_priv(counter);
+ 	int ret;
+diff --git a/drivers/counter/microchip-tcb-capture.c b/drivers/counter/microchip-tcb-capture.c
+index e2d1dc6ca668..76bec91fde6c 100644
+--- a/drivers/counter/microchip-tcb-capture.c
++++ b/drivers/counter/microchip-tcb-capture.c
+@@ -68,7 +68,7 @@ static struct counter_synapse mchp_tc_count_synapses[] = {
+ 
+ static int mchp_tc_count_function_read(struct counter_device *counter,
+ 				       struct counter_count *count,
+-				       enum counter_function *function)
++				       u32 *function)
+ {
+ 	struct mchp_tc_data *const priv = counter_priv(counter);
+ 
+@@ -82,7 +82,7 @@ static int mchp_tc_count_function_read(struct counter_device *counter,
+ 
+ static int mchp_tc_count_function_write(struct counter_device *counter,
+ 					struct counter_count *count,
+-					enum counter_function function)
++					u32 function)
+ {
+ 	struct mchp_tc_data *const priv = counter_priv(counter);
+ 	u32 bmr, cmr;
+@@ -144,7 +144,7 @@ static int mchp_tc_count_function_write(struct counter_device *counter,
+ 
+ static int mchp_tc_count_signal_read(struct counter_device *counter,
+ 				     struct counter_signal *signal,
+-				     enum counter_signal_level *lvl)
++				     u32 *lvl)
+ {
+ 	struct mchp_tc_data *const priv = counter_priv(counter);
+ 	bool sigstatus;
+diff --git a/drivers/counter/stm32-lptimer-cnt.c b/drivers/counter/stm32-lptimer-cnt.c
+index d6b80b6dfc28..2dec0c6421d1 100644
+--- a/drivers/counter/stm32-lptimer-cnt.c
++++ b/drivers/counter/stm32-lptimer-cnt.c
+@@ -155,7 +155,7 @@ static int stm32_lptim_cnt_read(struct counter_device *counter,
+ 
+ static int stm32_lptim_cnt_function_read(struct counter_device *counter,
+ 					 struct counter_count *count,
+-					 enum counter_function *function)
++					 u32 *function)
+ {
+ 	struct stm32_lptim_cnt *const priv = counter_priv(counter);
+ 
+@@ -174,7 +174,7 @@ static int stm32_lptim_cnt_function_read(struct counter_device *counter,
+ 
+ static int stm32_lptim_cnt_function_write(struct counter_device *counter,
+ 					  struct counter_count *count,
+-					  enum counter_function function)
++					  u32 function)
+ {
+ 	struct stm32_lptim_cnt *const priv = counter_priv(counter);
+ 
+diff --git a/drivers/counter/stm32-timer-cnt.c b/drivers/counter/stm32-timer-cnt.c
+index 9bf20a5d6bda..ece55113ba85 100644
+--- a/drivers/counter/stm32-timer-cnt.c
++++ b/drivers/counter/stm32-timer-cnt.c
+@@ -70,7 +70,7 @@ static int stm32_count_write(struct counter_device *counter,
+ 
+ static int stm32_count_function_read(struct counter_device *counter,
+ 				     struct counter_count *count,
+-				     enum counter_function *function)
++				     u32 *function)
+ {
+ 	struct stm32_timer_cnt *const priv = counter_priv(counter);
+ 	u32 smcr;
+@@ -97,7 +97,7 @@ static int stm32_count_function_read(struct counter_device *counter,
+ 
+ static int stm32_count_function_write(struct counter_device *counter,
+ 				      struct counter_count *count,
+-				      enum counter_function function)
++				      u32 function)
+ {
+ 	struct stm32_timer_cnt *const priv = counter_priv(counter);
+ 	u32 cr1, sms;
+diff --git a/drivers/counter/ti-ecap-capture.c b/drivers/counter/ti-ecap-capture.c
+index fb1cb1774674..96e5d1f271b8 100644
+--- a/drivers/counter/ti-ecap-capture.c
++++ b/drivers/counter/ti-ecap-capture.c
+@@ -188,7 +188,7 @@ static int ecap_cnt_count_write(struct counter_device *counter,
+ 
+ static int ecap_cnt_function_read(struct counter_device *counter,
+ 				  struct counter_count *count,
+-				  enum counter_function *function)
++				  u32 *function)
+ {
+ 	*function = COUNTER_FUNCTION_INCREASE;
+ 
+diff --git a/drivers/counter/ti-eqep.c b/drivers/counter/ti-eqep.c
+index b0f24cf3e891..d73a8baa49e8 100644
+--- a/drivers/counter/ti-eqep.c
++++ b/drivers/counter/ti-eqep.c
+@@ -119,7 +119,7 @@ static int ti_eqep_count_write(struct counter_device *counter,
+ 
+ static int ti_eqep_function_read(struct counter_device *counter,
+ 				 struct counter_count *count,
+-				 enum counter_function *function)
++				 u32 *function)
+ {
+ 	struct ti_eqep_cnt *priv = ti_eqep_count_from_counter(counter);
+ 	u32 qdecctl;
+@@ -146,7 +146,7 @@ static int ti_eqep_function_read(struct counter_device *counter,
+ 
+ static int ti_eqep_function_write(struct counter_device *counter,
+ 				  struct counter_count *count,
+-				  enum counter_function function)
++				  u32 function)
+ {
+ 	struct ti_eqep_cnt *priv = ti_eqep_count_from_counter(counter);
+ 	enum ti_eqep_count_func qsrc;
+diff --git a/include/linux/counter.h b/include/linux/counter.h
+index b63746637de2..976dcbfd6266 100644
+--- a/include/linux/counter.h
++++ b/include/linux/counter.h
+@@ -324,17 +324,17 @@ struct counter_event_node {
+ struct counter_ops {
+ 	int (*signal_read)(struct counter_device *counter,
+ 			   struct counter_signal *signal,
+-			   enum counter_signal_level *level);
++			   u32 *level);
+ 	int (*count_read)(struct counter_device *counter,
+ 			  struct counter_count *count, u64 *value);
+ 	int (*count_write)(struct counter_device *counter,
+ 			   struct counter_count *count, u64 value);
+ 	int (*function_read)(struct counter_device *counter,
+ 			     struct counter_count *count,
+-			     enum counter_function *function);
++			     u32 *function);
+ 	int (*function_write)(struct counter_device *counter,
+ 			      struct counter_count *count,
+-			      enum counter_function function);
++			      u32 function);
+ 	int (*action_read)(struct counter_device *counter,
+ 			   struct counter_count *count,
+ 			   struct counter_synapse *synapse,
+
+base-commit: d501d37841d3b7f18402d71a9ef057eb9dde127e
+-- 
+2.38.1
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
