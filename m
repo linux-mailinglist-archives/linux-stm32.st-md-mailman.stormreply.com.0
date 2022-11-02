@@ -2,91 +2,81 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 37D85615FC3
-	for <lists+linux-stm32@lfdr.de>; Wed,  2 Nov 2022 10:32:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7C408615FDF
+	for <lists+linux-stm32@lfdr.de>; Wed,  2 Nov 2022 10:34:35 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D9D85C6411C;
-	Wed,  2 Nov 2022 09:32:18 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BB8BBC6410F
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 359A8C6411C;
+	Wed,  2 Nov 2022 09:34:35 +0000 (UTC)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B196FC6410F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  2 Nov 2022 09:32:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1667381536;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=qCDrX0xKXyu8erIDNjxDiJKuT0hxZZKKE3HXuUGBVDQ=;
- b=g86kVOmVqcJ3jvx7QLkap7dOJqWx4Jkz4xwCyM5E3D5uU39i8xAefQvqxOKN5H5LoxvUsS
- PIC72S+nNsAaw1AjBB0WT2jmkEDsxqvhrcNE9IXrbtcn7F5l8j3iSkrfnqjMOP901MtXZm
- CJcXGUj8XU5QGMG0V3YLjmFRZQfk710=
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
- [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-573-4Ydyo9HUOMu22DfjeZ3NuA-1; Wed, 02 Nov 2022 05:32:15 -0400
-X-MC-Unique: 4Ydyo9HUOMu22DfjeZ3NuA-1
-Received: by mail-wm1-f70.google.com with SMTP id
- x10-20020a05600c420a00b003cf4dbff2e4so824940wmh.8
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 02 Nov 2022 02:32:15 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=qCDrX0xKXyu8erIDNjxDiJKuT0hxZZKKE3HXuUGBVDQ=;
- b=xT0BXs8mSmAb9comkRlv1g/7Lo2L/momMD6sFE7ihpNHruTh9cV2PuP+9zYGJeieLN
- 6hiWzN6sz6JBTHJrr9xkPigSmqz0NocElyUdmRVcl5tq31fiK6rVYhkBUZz8NDPHXPT5
- EAJqw+nhvjjMg0G0YjJ644HXIIbFthJKMTUW52iWe34FtG6CLLLPW9isheXEn8Cjmnp9
- KaGiBT1cUWSS8FkfbdGC/EogGZ6BvvCINBL5yZ5WJaDyP/d2/6g8nQSSRxzB4QoiCo7i
- E8QCDSO+MV0zr+yrWxOErQlNysiD7+qyD3QUc8E/291GYf2BoE2rLLcrmN/Azk6N6hDA
- tG0g==
-X-Gm-Message-State: ACrzQf25J/r24qLfKjIvLX60K2ZTyW0dbgn6UVX6rHvc3E+eFh3uCLCh
- FlfJEI8fbhMbOFGM08Xs/XvW8HnsuN7hCAgm9byCw7KwKdxZG0y0lE+2Gn5yg4g1/rr7D/+BbsP
- YsmqzQPnL/o+KoTM0II1EDP1q92QMU7i3mjST2aZO
-X-Received: by 2002:a05:600c:6023:b0:3cf:7dc1:e08e with SMTP id
- az35-20020a05600c602300b003cf7dc1e08emr5443628wmb.154.1667381534286; 
- Wed, 02 Nov 2022 02:32:14 -0700 (PDT)
-X-Google-Smtp-Source: AMsMyM7iks5yFnak5X2iZPcs6wSoPN4c8RmVdgyjVaQzUQOEwDY0j8GZM7MD/vLKrS0XyFefd22bEw==
-X-Received: by 2002:a05:600c:6023:b0:3cf:7dc1:e08e with SMTP id
- az35-20020a05600c602300b003cf7dc1e08emr5443583wmb.154.1667381533975; 
- Wed, 02 Nov 2022 02:32:13 -0700 (PDT)
-Received: from [192.168.1.130] (205.pool92-176-231.dynamic.orange.es.
- [92.176.231.205]) by smtp.gmail.com with ESMTPSA id
- x21-20020a1c7c15000000b003b492753826sm1361990wmc.43.2022.11.02.02.32.12
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 02 Nov 2022 02:32:13 -0700 (PDT)
-Message-ID: <3ab32fc3-f2aa-1b42-fd87-557482ab56d5@redhat.com>
-Date: Wed, 2 Nov 2022 10:32:11 +0100
+ Wed,  2 Nov 2022 09:34:33 +0000 (UTC)
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 2A29XOvg023051; Wed, 2 Nov 2022 09:34:23 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=message-id : date :
+ mime-version : subject : from : to : cc : references : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=xvhHTRLinGK22kcrKek3TiAroXbx/H/5wcK4HwrMd74=;
+ b=nK+iJOCNjqHpUyHUUv2wlbaLGlvkvDkvY2vQxfC/HbqsnLcCenFbmf+SWGoWUYHjl7tK
+ 4bOQtVcDIXvShqCui/68nEewW8V8vBpTzOgyGX9dlGXguwdwSpu6FMsBKtJd+c5AjX0W
+ jEsokuvE9gEmQ3LB/drUBZcQdfnoPeaSAiGALQNuRARCxqfwm27K2g1N/MCzilrHt0Ga
+ DZXdCDvxMYtpRqRy/6GmAXZj51pp+RXLoJA7zmKZU8FwFj2JCagY+L0gk9MWOkfNcc80
+ VqMArJwCwvEjszk/mAqThlC6/WHfoBJ7Iwv0kEs60NaziqOnEWgaNVhK3qC4ZzU6x44d Qw== 
+Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3kk7nfhtj2-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 02 Nov 2022 09:34:22 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 2A29YLdn028484
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 2 Nov 2022 09:34:21 GMT
+Received: from [10.253.74.174] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.29; Wed, 2 Nov 2022
+ 02:34:18 -0700
+Message-ID: <03d7c51d-4c86-ecab-d775-0e677ac73770@quicinc.com>
+Date: Wed, 2 Nov 2022 17:34:16 +0800
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.3.1
-To: Thomas Zimmermann <tzimmermann@suse.de>, daniel@ffwll.ch,
- airlied@gmail.com, sam@ravnborg.org, mripard@kernel.org,
- maarten.lankhorst@linux.intel.com
-References: <20221024111953.24307-1-tzimmermann@suse.de>
- <20221024111953.24307-18-tzimmermann@suse.de>
-From: Javier Martinez Canillas <javierm@redhat.com>
-In-Reply-To: <20221024111953.24307-18-tzimmermann@suse.de>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.13.0
 Content-Language: en-US
-Cc: linux-hyperv@vger.kernel.org, linux-aspeed@lists.ozlabs.org,
- nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- virtualization@lists.linux-foundation.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-samsung-soc@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
- xen-devel@lists.xenproject.org, linux-sunxi@lists.linux.dev,
- linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- etnaviv@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
- spice-devel@lists.freedesktop.org, linux-tegra@vger.kernel.org,
- linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- linux-mips@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- freedreno@lists.freedesktop.org
-Subject: Re: [Linux-stm32] [PATCH v2 17/21] drm/fb-helper: Perform all fbdev
- I/O with the same implementation
+From: Jinlong Mao <quic_jinlmao@quicinc.com>
+To: Alexander Shishkin <alexander.shishkin@linux.intel.com>, Maxime Coquelin
+ <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>
+References: <20220418114658.6491-1-quic_jinlmao@quicinc.com>
+ <61028345-234b-6e5e-6bd5-e10165dbdf52@quicinc.com>
+In-Reply-To: <61028345-234b-6e5e-6bd5-e10165dbdf52@quicinc.com>
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: vaaZ_6CauvEKzhEQiyw9yBhjGm9U6LNP
+X-Proofpoint-GUID: vaaZ_6CauvEKzhEQiyw9yBhjGm9U6LNP
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.545,FMLib:17.11.122.1
+ definitions=2022-11-02_06,2022-11-01_02,2022-06-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ mlxscore=0 phishscore=0
+ spamscore=0 malwarescore=0 bulkscore=0 adultscore=0 suspectscore=0
+ lowpriorityscore=0 impostorscore=0 clxscore=1011 priorityscore=1501
+ mlxlogscore=999 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2210170000 definitions=main-2211020056
+Cc: linux-arm-msm@vger.kernel.org, Tingwei Zhang <quic_tingweiz@quicinc.com>,
+ linux-kernel@vger.kernel.org, Tao Zhang <quic_taozha@quicinc.com>,
+ Yuanfang Zhang <quic_yuanfang@quicinc.com>, Hao Zhang <quic_hazha@quicinc.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] stm class: Fix double add issue when
+	store source_link
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,107 +88,72 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 10/24/22 13:19, Thomas Zimmermann wrote:
-> Implement the fbdev's read/write helpers with the same functions. Use
-> the generic fbdev's code as template. Convert all drivers.
-> 
-> DRM's fb helpers must implement regular I/O functionality in struct
-> fb_ops and possibly perform a damage update. Handle all this in the
-> same functions and convert drivers. The functionality has been used
-> as part of the generic fbdev code for some time. The drivers don't
-> set struct drm_fb_helper.fb_dirty, so they will not be affected by
-> damage handling.
-> 
-> For I/O memory, fb helpers now provide drm_fb_helper_cfb_read() and
-> drm_fb_helper_cfb_write(). Several drivers require these. Until now
-> tegra used I/O read and write, although the memory buffer appears to
-> be in system memory. So use _sys_ helpers now.
-> 
-> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-> ---
-
-[...]
-
-> +static ssize_t __drm_fb_helper_write(struct fb_info *info, const char __user *buf, size_t count,
-> +				     loff_t *ppos, drm_fb_helper_write_screen write_screen)
-> +{
-
-[...]
-
-> +	/*
-> +	 * Copy to framebuffer even if we already logged an error. Emulates
-> +	 * the behavior of the original fbdev implementation.
-> +	 */
-> +	ret = write_screen(info, buf, count, pos);
-> +	if (ret < 0)
-> +		return ret; /* return last error, if any */
-> +	else if (!ret)
-> +		return err; /* return previous error, if any */
-> +
-> +	*ppos += ret;
-> +
-
-Should *ppos be incremented even if the previous error is returned?
-
-The write_screen() succeeded anyways, even when the count written was
-smaller than what the caller asked for.
-
->  /**
-> - * drm_fb_helper_sys_read - wrapper around fb_sys_read
-> + * drm_fb_helper_sys_read - Implements struct &fb_ops.fb_read for system memory
->   * @info: fb_info struct pointer
->   * @buf: userspace buffer to read from framebuffer memory
->   * @count: number of bytes to read from framebuffer memory
->   * @ppos: read offset within framebuffer memory
->   *
-> - * A wrapper around fb_sys_read implemented by fbdev core
-> + * Returns:
-> + * The number of read bytes on success, or an error code otherwise.
->   */
-
-This sentence sounds a little bit off to me. Shouldn't be "number of bytes read"
-instead? I'm not a native English speaker though, so feel free to just ignore me.
-
-[...]
-
->  
-> +static ssize_t fb_read_screen_base(struct fb_info *info, char __user *buf, size_t count,
-> +				   loff_t pos)
-> +{
-> +	const char __iomem *src = info->screen_base + pos;
-> +	size_t alloc_size = min_t(size_t, count, PAGE_SIZE);
-> +	ssize_t ret = 0;
-> +	int err = 0;
-
-Do you really need these two? AFAIK ssize_t is a signed type
-so you can just use the ret variable to store and return the
-errno value.
-
-[...]
-
-> +static ssize_t fb_write_screen_base(struct fb_info *info, const char __user *buf, size_t count,
-> +				    loff_t pos)
-> +{
-> +	char __iomem *dst = info->screen_base + pos;
-> +	size_t alloc_size = min_t(size_t, count, PAGE_SIZE);
-> +	ssize_t ret = 0;
-> +	int err = 0;
-
-Same here.
-
--- 
-Best regards,
-
-Javier Martinez Canillas
-Core Platforms
-Red Hat
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+SGkgYWxsLAoKUGxlYXNlIGhlbHAgdG8gcmV2aWV3IHRoaXMgcGF0Y2guCgpUaGFua3MKCkppbmxv
+bmcgTWFvCgpPbiA1LzE2LzIwMjIgMzoxNCBQTSwgSmlubG9uZyBNYW8gd3JvdGU6Cj4gSGkgUmV2
+aWV3ZXJzLAo+Cj4gQ291bGQgeW91IHBsZWFzZSBoZWxwIHRvIHJldmlldyB0aGlzIHBhdGNoID8K
+Pgo+IFRoYW5rcwo+Cj4gSmlubG9uZyBNYW8KPgo+IE9uIDQvMTgvMjAyMiA3OjQ2IFBNLCBNYW8g
+SmlubG9uZyB3cm90ZToKPj4gSWYgdHdvIHRocmVhZHMgc3RvcmUgdGhlIHNhbWUgc3RtIGRldmlj
+ZSB0byBzdG1fc291cmNlX2xpbmsKPj4gYXQgdGhlIHNhbWUgdGltZSB3aGVuIHN0bS0+bGlua19s
+aXN0IGlzIGVtcHR5LCBpdCBpcyBwb3NzaWJsZQo+PiB0aGF0IHN0bV9zb3VyY2VfbGlua19hZGQg
+d2lsbCBiZSBjYWxsZWQgZm9yIGJvdGggb2YgdGhlc2UgdHdvCj4+IHRocmVhZHMuIFRoZW4gZG91
+YmxlIGFkZCBpc3N1ZSBiZWxvdyB3aWxsIGhhcHBlbi4gQWRkIG11dGV4Cj4+IGxvY2sgZm9yIHN0
+bV9zb3VyY2VfbGluayBkcm9wIGFuZCBzdG1fc291cmNlX2xpbmsgYWRkIHRvIGF2b2lkCj4+IHRo
+aXMgcmFjZSBjb25kaXRpb24uCj4+Cj4+IFsgMTIuMzg2NTc5XVsgVDEwMjRdIGxpc3RfYWRkIGRv
+dWJsZSBhZGQ6IG5ldz1mZmZmZmY4N2I3M2ViZDkwLAo+PiBwcmV2PWZmZmZmZjg3YjczZWJkOTAs
+IG5leHQ9ZmZmZmZmYzAxMjczNzcwMC4KPj4gWyAxMi4zODY2NTddWyBUMTAyNF0gLS0tLS0tLS0t
+LS1bIGN1dCBoZXJlIF0tLS0tLS0tLS0tLQo+PiBbIDEyLjM4NjY3MV1bIFQxMDI0XSBrZXJuZWwg
+QlVHIGF0IGxpYi9saXN0X2RlYnVnLmM6MzEhCj4+IFsgMTIuMzg4ODQ1XVsgVDEwMjRdIENQVTog
+MiBQSUQ6IDEwMjQgQ29tbTogc2gKPj4gWyAxMi4zODkxNjJdWyBUMTAyNF0gQ2FsbCB0cmFjZToK
+Pj4gWyAxMi4zODkxNzRdWyBUMTAyNF0gX19saXN0X2FkZF92YWxpZCsweDY4LzB4OTgKPj4gWyAx
+Mi4zODkxOTldWyBUMTAyNF0gc3RtX3NvdXJjZV9saW5rX3N0b3JlKzB4Y2MvMHgzMTQgW3N0bV9j
+b3JlXQo+PiBbIDEyLjM4OTIxM11bIFQxMDI0XSBkZXZfYXR0cl9zdG9yZSsweDM4LzB4OGMKPj4g
+WyAxMi4zODkyMjhdWyBUMTAyNF0gc3lzZnNfa2Zfd3JpdGUrMHhhMC8weDEwMAo+PiBbIDEyLjM4
+OTIzOV1bIFQxMDI0XSBrZXJuZnNfZm9wX3dyaXRlX2l0ZXIrMHgxYjAvMHgyZjgKPj4gWyAxMi4z
+ODkyNTNdWyBUMTAyNF0gdmZzX3dyaXRlKzB4MzAwLzB4MzdjCj4+IFsgMTIuMzg5MjY0XVsgVDEw
+MjRdIGtzeXNfd3JpdGUrMHg4NC8weDEyYwo+Pgo+PiBTaWduZWQtb2ZmLWJ5OiBZdWFuZmFuZyBa
+aGFuZyA8cXVpY195dWFuZmFuZ0BxdWljaW5jLmNvbT4KPj4gU2lnbmVkLW9mZi1ieTogTWFvIEpp
+bmxvbmcgPHF1aWNfamlubG1hb0BxdWljaW5jLmNvbT4KPj4gLS0tCj4+IMKgIGRyaXZlcnMvaHd0
+cmFjaW5nL3N0bS9jb3JlLmMgfCA3ICsrKysrKy0KPj4gwqAgZHJpdmVycy9od3RyYWNpbmcvc3Rt
+L3N0bS5owqAgfCAxICsKPj4gwqAgMiBmaWxlcyBjaGFuZ2VkLCA3IGluc2VydGlvbnMoKyksIDEg
+ZGVsZXRpb24oLSkKPj4KPj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvaHd0cmFjaW5nL3N0bS9jb3Jl
+LmMgYi9kcml2ZXJzL2h3dHJhY2luZy9zdG0vY29yZS5jCj4+IGluZGV4IDI3MTJlNjk5YmEwOC4u
+ZTczYWM5NjFhY2IyIDEwMDY0NAo+PiAtLS0gYS9kcml2ZXJzL2h3dHJhY2luZy9zdG0vY29yZS5j
+Cj4+ICsrKyBiL2RyaXZlcnMvaHd0cmFjaW5nL3N0bS9jb3JlLmMKPj4gQEAgLTExNzEsMTEgKzEx
+NzEsMTQgQEAgc3RhdGljIHNzaXplX3Qgc3RtX3NvdXJjZV9saW5rX3N0b3JlKHN0cnVjdCAKPj4g
+ZGV2aWNlICpkZXYsCj4+IMKgwqDCoMKgwqAgc3RydWN0IHN0bV9kZXZpY2UgKmxpbms7Cj4+IMKg
+wqDCoMKgwqAgaW50IGVycjsKPj4gwqAgK8KgwqDCoCBtdXRleF9sb2NrKCZzcmMtPmxpbmtfbXV0
+ZXgpOwo+PiDCoMKgwqDCoMKgIHN0bV9zb3VyY2VfbGlua19kcm9wKHNyYyk7Cj4+IMKgIMKgwqDC
+oMKgwqAgbGluayA9IHN0bV9maW5kX2RldmljZShidWYpOwo+PiAtwqDCoMKgIGlmICghbGluaykK
+Pj4gK8KgwqDCoCBpZiAoIWxpbmspIHsKPj4gK8KgwqDCoMKgwqDCoMKgIG11dGV4X2xvY2soJnNy
+Yy0+bGlua19tdXRleCk7Cj4+IMKgwqDCoMKgwqDCoMKgwqDCoCByZXR1cm4gLUVJTlZBTDsKPj4g
+K8KgwqDCoCB9Cj4+IMKgIMKgwqDCoMKgwqAgcG1fcnVudGltZV9nZXQoJmxpbmstPmRldik7Cj4+
+IMKgIEBAIC0xMTg1LDYgKzExODgsNyBAQCBzdGF0aWMgc3NpemVfdCBzdG1fc291cmNlX2xpbmtf
+c3RvcmUoc3RydWN0IAo+PiBkZXZpY2UgKmRldiwKPj4gwqDCoMKgwqDCoMKgwqDCoMKgIC8qIG1h
+dGNoZXMgdGhlIHN0bV9maW5kX2RldmljZSgpIGFib3ZlICovCj4+IMKgwqDCoMKgwqDCoMKgwqDC
+oCBzdG1fcHV0X2RldmljZShsaW5rKTsKPj4gwqDCoMKgwqDCoCB9Cj4+ICvCoMKgwqAgbXV0ZXhf
+dW5sb2NrKCZzcmMtPmxpbmtfbXV0ZXgpOwo+PiDCoCDCoMKgwqDCoMKgIHJldHVybiBlcnIgPyA6
+IGNvdW50Owo+PiDCoCB9Cj4+IEBAIC0xMjUxLDYgKzEyNTUsNyBAQCBpbnQgc3RtX3NvdXJjZV9y
+ZWdpc3Rlcl9kZXZpY2Uoc3RydWN0IGRldmljZSAKPj4gKnBhcmVudCwKPj4gwqAgwqDCoMKgwqDC
+oCBzdG1fb3V0cHV0X2luaXQoJnNyYy0+b3V0cHV0KTsKPj4gwqDCoMKgwqDCoCBzcGluX2xvY2tf
+aW5pdCgmc3JjLT5saW5rX2xvY2spOwo+PiArwqDCoMKgIG11dGV4X2luaXQoJnNyYy0+bGlua19t
+dXRleCk7Cj4+IMKgwqDCoMKgwqAgSU5JVF9MSVNUX0hFQUQoJnNyYy0+bGlua19lbnRyeSk7Cj4+
+IMKgwqDCoMKgwqAgc3JjLT5kYXRhID0gZGF0YTsKPj4gwqDCoMKgwqDCoCBkYXRhLT5zcmMgPSBz
+cmM7Cj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2h3dHJhY2luZy9zdG0vc3RtLmggYi9kcml2ZXJz
+L2h3dHJhY2luZy9zdG0vc3RtLmgKPj4gaW5kZXggYTliZTQ5ZmM3YTZiLi42MGI4MTRjYzAwZTAg
+MTAwNjQ0Cj4+IC0tLSBhL2RyaXZlcnMvaHd0cmFjaW5nL3N0bS9zdG0uaAo+PiArKysgYi9kcml2
+ZXJzL2h3dHJhY2luZy9zdG0vc3RtLmgKPj4gQEAgLTc5LDYgKzc5LDcgQEAgdm9pZCBzdG1fcHV0
+X2RldmljZShzdHJ1Y3Qgc3RtX2RldmljZSAqc3RtKTsKPj4gwqAgc3RydWN0IHN0bV9zb3VyY2Vf
+ZGV2aWNlIHsKPj4gwqDCoMKgwqDCoCBzdHJ1Y3QgZGV2aWNlwqDCoMKgwqDCoMKgwqAgZGV2Owo+
+PiDCoMKgwqDCoMKgIHN0cnVjdCBzdG1fc291cmNlX2RhdGHCoMKgwqAgKmRhdGE7Cj4+ICvCoMKg
+wqAgc3RydWN0IG11dGV4wqDCoMKgwqDCoMKgwqAgbGlua19tdXRleDsKPj4gwqDCoMKgwqDCoCBz
+cGlubG9ja190wqDCoMKgwqDCoMKgwqAgbGlua19sb2NrOwo+PiDCoMKgwqDCoMKgIHN0cnVjdCBz
+dG1fZGV2aWNlIF9fcmN1wqDCoMKgICpsaW5rOwo+PiDCoMKgwqDCoMKgIHN0cnVjdCBsaXN0X2hl
+YWTCoMKgwqAgbGlua19lbnRyeTsKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1h
+aWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29t
+L21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
