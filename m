@@ -2,78 +2,70 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4BB2C61751F
-	for <lists+linux-stm32@lfdr.de>; Thu,  3 Nov 2022 04:38:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 90A8A617DAD
+	for <lists+linux-stm32@lfdr.de>; Thu,  3 Nov 2022 14:18:28 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F0FA9C04003;
-	Thu,  3 Nov 2022 03:38:31 +0000 (UTC)
-Received: from mail-oa1-f43.google.com (mail-oa1-f43.google.com
- [209.85.160.43])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 39D16C6411D;
+	Thu,  3 Nov 2022 13:18:28 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 14E20C03FD6
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CC7AAC035BD
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  3 Nov 2022 03:38:29 +0000 (UTC)
-Received: by mail-oa1-f43.google.com with SMTP id
- 586e51a60fabf-13b23e29e36so844534fac.8
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 02 Nov 2022 20:38:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=WZCgXgFOCXchp8R83LT2Psxd0H5ojiq9RKAiaEDfp4g=;
- b=kMHQ0ApyeUDXl9RotzmpyqCRGjKiWf/RyJGnk9YXfoidwX4eJqBA8VZIQw1UbxUYQv
- APtxVSUeD7XpsPfp3R8LiGj/AMKbypg8z3NyDkU71qqCMMmQXB2TBxmRSuotsqOuYpHD
- dnVCBQFjBABT7VdGYfraWry95YcyKJ5OBTPbYOuU6sbw/0UrPk5VVPviq6A4dN9wp3gW
- e8BgMHa2Ciaj0STPQh1ojQLRtRdkrRgTnoRNmLYQRbaSVZ1AJnvm3/3Tn620LColIsyR
- wewfy0sNX2F9QLx0et5tLcE4VBQTWemb5hR7E9igkDmtUPoLuS1kGEv1s9lRUxKhtMsY
- 9Yaw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=WZCgXgFOCXchp8R83LT2Psxd0H5ojiq9RKAiaEDfp4g=;
- b=qCg2D7bgz9fBAk5LjMx7tS7KwAHGvMPEOWtmKOGpnmtV0SnIjXKq5YW7tUdxGK9j5O
- icAn2VoQ6VnwtjYqH2e9vs3GVgZcKId/i+LIc4BvxFODNLv9PiMAro3A8IJ1X8p6aHBr
- j9YcHSIBXnxZTTqaVNYP5SZnH1l2Ndxuka07aG6PmmAxcyh7EuMA1HYS1b3KZSSv6CZa
- ezkt382M1RytgvlBhQX12qLzjs0AL8ZFO0BIvoGKYFlTepXoke6d5EYeDIlHQ/djUfb2
- glhPROgfqHUaX/OTUF9kjK/hm5Owd3iBgdkKWWPFx4Y2Tf3DL6rQCkfYB6BzAg+CU6yV
- 5xrg==
-X-Gm-Message-State: ACrzQf1aEXBigvCa1ezyrKhaG0y7kcWMjczKg0kMhVAMuGDrqpE/o23E
- zBRFPEmLsBtBWdCY0PeOVO4zng==
-X-Google-Smtp-Source: AMsMyM45S18LPBafWNbSrGc/eyKxtL/gexeI4ZqG8G6Zfie2F25d9ctK+K59+on4ZwFG9B1UFgzZJQ==
-X-Received: by 2002:a05:6870:ac0d:b0:13b:b9e7:e6d0 with SMTP id
- kw13-20020a056870ac0d00b0013bb9e7e6d0mr25323926oab.17.1667446708749; 
- Wed, 02 Nov 2022 20:38:28 -0700 (PDT)
-Received: from fedora (69-109-179-158.lightspeed.dybhfl.sbcglobal.net.
- [69.109.179.158]) by smtp.gmail.com with ESMTPSA id
- n17-20020a05680803b100b00354978180d8sm5247824oie.22.2022.11.02.20.38.26
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 02 Nov 2022 20:38:27 -0700 (PDT)
-Date: Wed, 2 Nov 2022 23:38:24 -0400
-From: William Breathitt Gray <william.gray@linaro.org>
-To: Kees Cook <keescook@chromium.org>
-Message-ID: <Y2M3sGLdrL3uHU8X@fedora>
-References: <20221102172217.2860740-1-nathan@kernel.org>
- <202211021216.FF49E84C69@keescook>
- <Y2LR13xrrauVmeXP@dev-arch.thelio-3990X>
- <202211021621.34241DC39@keescook>
+ Thu,  3 Nov 2022 13:18:26 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 2A39Tb3X029299; Thu, 3 Nov 2022 14:18:14 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=/cOOD9nk2uRkb40b8CrNx7VYwjyuReqyaWlIBNf3ILI=;
+ b=3pcxJrbiT/eJvmgGluPpRIjDY3Fjn1cObmKD0lNqTIJTDDVhQAJqVVgLlYpWWLMFBHTH
+ wTJfuiQSOltLBi4XZ/aY+MF1YPFJsggiuUqPi/nj75pCw8JSiRMGWHMIEA6PYhl3hy8v
+ 0VHS4M+KqJVuEqm7XbQI8q5XSTwdXk/v+1vXrmeoQFJFHC2LPwb8e8OCkfmejCt2pWnj
+ 5GPDpw67xLGW/CLt3FPa4pEH8amIwR8yHGuq373CR98+3uCN6E7O4BsPmdnVXcVQ1qX7
+ wv7OKU3j5mXJ4zh9jHyoqMXqGcxzC7TYBU48sHcpd20PyZeBB6bZQyg2BPWiu9DXKUhi /w== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3kmb29hhth-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 03 Nov 2022 14:18:13 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 685C610002A;
+ Thu,  3 Nov 2022 14:18:06 +0100 (CET)
+Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 5FF5B226FB5;
+ Thu,  3 Nov 2022 14:18:06 +0100 (CET)
+Received: from [10.48.1.102] (10.48.1.102) by SHFDAG1NODE2.st.com
+ (10.75.129.70) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.31; Thu, 3 Nov
+ 2022 14:18:03 +0100
+Message-ID: <4d03910e-fc87-47f7-6ba3-71eb7e55f0b8@foss.st.com>
+Date: Thu, 3 Nov 2022 14:18:02 +0100
 MIME-Version: 1.0
-In-Reply-To: <202211021621.34241DC39@keescook>
-Cc: linux-omap@vger.kernel.org, Pengutronix Kernel Team <kernel@pengutronix.de>,
- linux-iio@vger.kernel.org, Tom Rix <trix@redhat.com>, llvm@lists.linux.dev,
- Nick Desaulniers <ndesaulniers@google.com>, linux-kernel@vger.kernel.org,
- patches@lists.linux.dev, Nathan Chancellor <nathan@kernel.org>,
- Jarkko Nikula <jarkko.nikula@linux.intel.com>,
- Sami Tolvanen <samitolvanen@google.com>,
- Patrick Havelange <patrick.havelange@essensium.com>,
- Julien Panis <jpanis@baylibre.com>, David Lechner <david@lechnology.com>,
- Oleksij Rempel <linux@rempel-privat.de>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- Vignesh Raghavendra <vigneshr@ti.com>
-Subject: Re: [Linux-stm32] [PATCH 1/4] counter: Adjust final parameter type
- in function and signal callbacks
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.2.2
+To: Patrick Delaunay <patrick.delaunay@foss.st.com>, Alexandre TORGUE
+ <alexandre.torgue@foss.st.com>, Srinivas Kandagatla
+ <srinivas.kandagatla@linaro.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>
+References: <20221028145252.2115933-1-patrick.delaunay@foss.st.com>
+ <20221028165150.3.Ibc43aa73f865090affeb1751af0cc260c7f1dd07@changeid>
+Content-Language: en-US
+From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+In-Reply-To: <20221028165150.3.Ibc43aa73f865090affeb1751af0cc260c7f1dd07@changeid>
+X-Originating-IP: [10.48.1.102]
+X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SHFDAG1NODE2.st.com
+ (10.75.129.70)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.545,FMLib:17.11.122.1
+ definitions=2022-11-03_04,2022-11-03_01,2022-06-22_01
+Cc: Etienne CARRIERE <etienne.carriere@linaro.org>,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH 3/3] nvmem: stm32: add OP-TEE support for
+ STM32MP13x
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,240 +77,584 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============3292003457139475464=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+On 10/28/22 16:52, Patrick Delaunay wrote:
+> For boot with OP-TEE on STM32MP13, the communication with the secure
+> world no more use STMicroelectronics SMC but communication with the
+> BSEC TA, for data access (read/write) or lock operation:
+> - all the request are sent to OP-TEE trusted application,
+> - for upper OTP with ECC protection and with word programming only
+>   each OTP are permanently locked when programmed to avoid ECC error
+>   on the second write operation
+> 
+> Signed-off-by: Patrick Delaunay <patrick.delaunay@foss.st.com>
+> ---
+> 
+>  drivers/nvmem/stm32-romem.c | 450 +++++++++++++++++++++++++++++++++++-
+>  1 file changed, 446 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/nvmem/stm32-romem.c b/drivers/nvmem/stm32-romem.c
+> index 6de565639d5f..dfdedbcca9b9 100644
+> --- a/drivers/nvmem/stm32-romem.c
+> +++ b/drivers/nvmem/stm32-romem.c
+> @@ -11,6 +11,7 @@
+>  #include <linux/module.h>
+>  #include <linux/nvmem-provider.h>
+>  #include <linux/of_device.h>
+> +#include <linux/tee_drv.h>
+>  
+>  /* BSEC secure service access from non-secure */
+>  #define STM32_SMC_BSEC			0x82001003
+> @@ -25,14 +26,22 @@
+>  struct stm32_romem_cfg {
+>  	int size;
+>  	u8 lower;
+> +	bool ta;
+>  };
+>  
+>  struct stm32_romem_priv {
+>  	void __iomem *base;
+>  	struct nvmem_config cfg;
+>  	u8 lower;
+> +	struct device *ta;
+>  };
+>  
+> +struct device *stm32_bsec_pta_find(struct device *dev);
+> +static int stm32_bsec_pta_read(void *context, unsigned int offset, void *buf,
+> +			       size_t bytes);
+> +static int stm32_bsec_pta_write(void *context, unsigned int offset, void *buf,
+> +				size_t bytes);
+> +
 
---===============3292003457139475464==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="Z/0j4y7TVYG4hdqA"
-Content-Disposition: inline
+Hi Patrick,
 
+Please find some suggestions and few remarks here below.
 
---Z/0j4y7TVYG4hdqA
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Adding prototypes could be avoided, by moving these new routines:
+- stm32_bsec_pta_find
+- stm32_bsec_pta_read
+- stm32_bsec_pta_write
 
-On Wed, Nov 02, 2022 at 04:22:32PM -0700, Kees Cook wrote:
-> On Wed, Nov 02, 2022 at 01:23:51PM -0700, Nathan Chancellor wrote:
-> > On Wed, Nov 02, 2022 at 12:21:23PM -0700, Kees Cook wrote:
-> > > On Wed, Nov 02, 2022 at 10:22:14AM -0700, Nathan Chancellor wrote:
-> > > > The ->signal_u32_read(), ->count_u32_read(), and ->count_u32_write()
-> > > > callbacks in 'struct counter_comp' expect the final parameter to ha=
-ve a
-> > > > type of 'u32' or 'u32 *' but the ops functions that are being assig=
-ned
-> > > > to those callbacks have an enumerated type as the final parameter. =
-While
-> > > > these are compatible from an ABI perspective, they will fail the
-> > > > aforementioned CFI checks.
-> > > >=20
-> > > > Adjust the type of the final parameter in the ->signal_read(),
-> > > > ->function_read(), and ->function_write() callbacks in 'struct
-> > > > counter_ops' and their implementations to match the prototypes in
-> > > > 'struct counter_comp' to clear up these warnings and CFI failures.
-> > >=20
-> > > I don't understand these changes. Where do 'struct counter_comp'
-> > > and 'struct counter_ops' get confused? I can only find matching
-> > > ops/assignments/calls, so I must be missing something. This looks like
-> > > a loss of CFI granularity instead of having wrappers added if there is
-> > > an enum/u32 conversion needed somewhere.
-> >=20
-> > Right, I am not the biggest fan of this change myself and it is entirely
-> > possible that I am misreading the warnings from the commit message but I
-> > do not see how
-> >=20
-> >         comp_node.comp.signal_u32_read =3D counter->ops->signal_read;
-> >=20
-> > and
-> >=20
-> >         comp_node.comp.count_u32_read =3D counter->ops->function_read;
-> >=20
-> > in counter_add_watch(),
-> >=20
-> >         comp.signal_u32_read =3D counter->ops->signal_read;
-> >=20
-> > in counter_signal_attrs_create(), and
-> >=20
-> >         comp.count_u32_read =3D counter->ops->function_read;
-> >         comp.count_u32_write =3D counter->ops->function_write;
-> >=20
-> > in counter_count_attrs_create() are currently safe under kCFI, since the
-> > final parameter type of the prototypes in 'struct counter_ops' does not
-> > match the final parameter type of the prototypes in 'struct
-> > counter_comp'. I would expect the indirect calls in counter_get_data()
-> > and counter_comp_u32_show() to fail currently.
-> >=20
-> > I briefly looked at making the 'struct counter_comp' callbacks match the
-> > 'struct counter_ops' ones but the COUNTER_COMP macros in
-> > include/linux/counter.h made it seem like these callbacks might be used
-> > by implementations that might use different enumerated types as the
-> > final parameter. I can look a little closer to see if we can make
-> > everything match.
-> >=20
-> > I am not sure how wrappers would work here, I can take a look into how
-> > feasible that is.
->=20
-> How about this? (I only did signal_read -- similar changes are needed
-> for function_read and function_write:
+>  static int stm32_romem_read(void *context, unsigned int offset, void *buf,
+>  			    size_t bytes)
+>  {
+> @@ -173,15 +182,25 @@ static int stm32_romem_probe(struct platform_device *pdev)
+>  	} else {
+>  		priv->cfg.size = cfg->size;
+>  		priv->lower = cfg->lower;
+> -		priv->cfg.reg_read = stm32_bsec_read;
+> -		priv->cfg.reg_write = stm32_bsec_write;
+> +		if (cfg->ta) {
+> +			priv->ta = stm32_bsec_pta_find(dev);
+> +			/* wait for OP-TEE client driver to be up and ready */
+> +			if (!priv->ta)
+> +				return -EPROBE_DEFER;
+> +
+> +			priv->cfg.reg_read = stm32_bsec_pta_read;
+> +			priv->cfg.reg_write = stm32_bsec_pta_write;
+> +		} else {
+> +			priv->cfg.reg_read = stm32_bsec_read;
+> +			priv->cfg.reg_write = stm32_bsec_write;
+> +		}
+>  	}
+>  
+>  	return PTR_ERR_OR_ZERO(devm_nvmem_register(dev, &priv->cfg));
+>  }
+>  
+>  /*
+> - * STM32MP15 BSEC OTP regions: 4096 OTP bits (with 3072 effective bits)
+> + * STM32MP15/13 BSEC OTP regions: 4096 OTP bits (with 3072 effective bits)
+>   * => 96 x 32-bits data words
+>   * - Lower: 1K bits, 2:1 redundancy, incremental bit programming
+>   *   => 32 (x 32-bits) lower shadow registers = words 0 to 31
+> @@ -191,6 +210,13 @@ static int stm32_romem_probe(struct platform_device *pdev)
+>  static const struct stm32_romem_cfg stm32mp15_bsec_cfg = {
+>  	.size = 384,
+>  	.lower = 32,
+> +	.ta = false,
+> +};
+> +
+> +static const struct stm32_romem_cfg stm32mp13_bsec_cfg = {
+> +	.size = 384,
+> +	.lower = 32,
+> +	.ta = true,
+>  };
+>  
+>  static const struct of_device_id stm32_romem_of_match[] = {
+> @@ -198,6 +224,8 @@ static const struct of_device_id stm32_romem_of_match[] = {
+>  		.compatible = "st,stm32mp15-bsec",
+>  		.data = (void *)&stm32mp15_bsec_cfg,
+>  	}, {
+> +		.compatible = "st,stm32mp13-bsec",
+> +		.data = (void *)&stm32mp13_bsec_cfg,
+>  	},
+>  };
+>  MODULE_DEVICE_TABLE(of, stm32_romem_of_match);
+> @@ -209,7 +237,421 @@ static struct platform_driver stm32_romem_driver = {
+>  		.of_match_table = of_match_ptr(stm32_romem_of_match),
+>  	},
+>  };
+> -module_platform_driver(stm32_romem_driver);
+> +
+> +#if IS_ENABLED(CONFIG_OPTEE)
+> +/*************************************************************************
+> + * BSEC PTA : OP-TEE client driver to pseudo trusted application
+> + *************************************************************************/
 
-The reason for the u32 type is that all the Counter enum components can
-make use of the same *_u32_read/*_u32_write calls; in other words, we
-don't have to handle each Counter enum read/write as unique.
+Just suggesting: could improve readability on above comment ?
+(mutli-line comment starting with an emtpy /*. But here there's a single
+line.
 
-If you want to get rid of that design, then you'll need to create
-respective code paths for each Counter enum. See the comments inline
-below.
+> +
+> +/*
+> + * Read OTP memory
+> + *
+> + * [in]		value[0].a		OTP start offset in byte
+> + * [in]		value[0].b		Access type (0 : shadow,
+> + *					1 : fuse, 2 : lock)
 
->=20
-> diff --git a/drivers/counter/counter-chrdev.c b/drivers/counter/counter-c=
-hrdev.c
-> index 80acdf62794a..cb391b2498a6 100644
-> --- a/drivers/counter/counter-chrdev.c
-> +++ b/drivers/counter/counter-chrdev.c
-> @@ -38,6 +38,7 @@ struct counter_comp_node {
->  	a.device_u32_read =3D=3D b.device_u32_read || \
->  	a.count_u32_read =3D=3D b.count_u32_read || \
->  	a.signal_u32_read =3D=3D b.signal_u32_read || \
-> +	a.signal_read =3D=3D b.signal_read || \
->  	a.device_u64_read =3D=3D b.device_u64_read || \
->  	a.count_u64_read =3D=3D b.count_u64_read || \
->  	a.signal_u64_read =3D=3D b.signal_u64_read || \
-> @@ -54,6 +55,7 @@ struct counter_comp_node {
->  	comp.device_u32_read || \
->  	comp.count_u32_read || \
->  	comp.signal_u32_read || \
-> +	comp.signal_read || \
->  	comp.device_u64_read || \
->  	comp.count_u64_read || \
->  	comp.signal_u64_read || \
-> @@ -320,7 +322,7 @@ static int counter_add_watch(struct counter_device *c=
-onst counter,
->  			return -EINVAL;
-> =20
->  		comp_node.comp.type =3D COUNTER_COMP_SIGNAL_LEVEL;
-> -		comp_node.comp.signal_u32_read =3D counter->ops->signal_read;
-> +		comp_node.comp.signal_read =3D counter->ops->signal_read;
->  		break;
->  	case COUNTER_COMPONENT_COUNT:
->  		if (watch.component.scope !=3D COUNTER_SCOPE_COUNT)
-> @@ -530,6 +532,7 @@ static int counter_get_data(struct counter_device *co=
-nst counter,
->  	const size_t id =3D comp_node->component.id;
->  	struct counter_signal *const signal =3D comp_node->parent;
->  	struct counter_count *const count =3D comp_node->parent;
-> +	enum counter_signal_level level =3D 0;
->  	u8 value_u8 =3D 0;
->  	u32 value_u32 =3D 0;
->  	const struct counter_comp *ext;
-> @@ -569,8 +572,8 @@ static int counter_get_data(struct counter_device *co=
-nst counter,
->  			ret =3D comp->device_u32_read(counter, &value_u32);
->  			break;
->  		case COUNTER_SCOPE_SIGNAL:
-> -			ret =3D comp->signal_u32_read(counter, signal,
-> -						    &value_u32);
-> +			ret =3D comp->signal_read(counter, signal, &level);
-> +			value_u32 =3D level;
+Suggestion: fits into 100 chars line
 
-This code path is for all Counter enum types currently; changing
-signal_u32_read to signal_read here will work for
-COUNTER_COMP_SIGNAL_LEVEL but break all the other Counter Signal enum
-types. Instead, you should duplicate this code with proper adjustments
-for each of the Counter enums in their own respective case blocks.
+> + * [out]	memref[1].buffer	Output buffer to store read values
+> + * [out]	memref[1].size		Size of OTP to be read
+> + *
+> + * Return codes:
+> + * TEE_SUCCESS - Invoke command success
+> + * TEE_ERROR_BAD_PARAMETERS - Incorrect input param
+> + */
+> +#define PTA_BSEC_READ_MEM		0x0 /* Read OTP */
+> +
+> +/*
+> + * Write OTP memory
+> + *
+> + * [in]		value[0].a		OTP start offset in byte
+> + * [in]		value[0].b		Access type (0 : shadow,
+> + *					1 : fuse, 2 : lock)
 
->  			break;
->  		case COUNTER_SCOPE_COUNT:
->  			ret =3D comp->count_u32_read(counter, count, &value_u32);
-> diff --git a/drivers/counter/counter-sysfs.c b/drivers/counter/counter-sy=
-sfs.c
-> index b9efe66f9f8d..07ce2543b70d 100644
-> --- a/drivers/counter/counter-sysfs.c
-> +++ b/drivers/counter/counter-sysfs.c
-> @@ -170,6 +170,7 @@ static ssize_t counter_comp_u32_show(struct device *d=
-ev,
->  	const struct counter_attribute *const a =3D to_counter_attribute(attr);
->  	struct counter_device *const counter =3D counter_from_dev(dev);
->  	const struct counter_available *const avail =3D a->comp.priv;
-> +	enum counter_signal_level level =3D 0;
->  	int err;
->  	u32 data =3D 0;
-> =20
-> @@ -178,7 +179,8 @@ static ssize_t counter_comp_u32_show(struct device *d=
-ev,
->  		err =3D a->comp.device_u32_read(counter, &data);
->  		break;
->  	case COUNTER_SCOPE_SIGNAL:
-> -		err =3D a->comp.signal_u32_read(counter, a->parent, &data);
-> +		err =3D a->comp.signal_read(counter, a->parent, &level);
-> +		data =3D level;
+same here
 
-Same issue as comment above: Counter Signal enums besides
-COUNTER_COMP_SIGNAL_LEVEL are possible.
+> + * [in]		memref[1].buffer	Input buffer to read values
+> + * [in]		memref[1].size		Size of OTP to be written
+> + *
+> + * Return codes:
+> + * TEE_SUCCESS - Invoke command success
+> + * TEE_ERROR_BAD_PARAMETERS - Incorrect input param
+> + */
+> +#define PTA_BSEC_WRITE_MEM		0x1	/* Write OTP */
+> +
+> +/* value of PTA_BSEC access type = value[in] b */
+> +#define SHADOW_ACCESS	0
+> +#define FUSE_ACCESS	1
+> +#define LOCK_ACCESS	2
+> +
+> +/* Bitfield definition for LOCK status */
+> +#define LOCK_PERM			BIT(30)
+> +
+> +/**
+> + * struct stm32_bsec_pta_priv - OP-TEE BSEC TA private data
+> + * @ctx:		OP-TEE context handler.
+> + * @session_id:		TA session identifier.
+> + */
+> +struct stm32_bsec_pta_priv {
+> +	struct tee_context *ctx;
+> +	u32 session_id;
+> +};
+> +
+> +/*
+> + * Check whether this driver supports the BSEC TA in the TEE instance
+> + * represented by the params (ver/data) to this function.
+> + */
+> +static int stm32_bsec_pta_match(struct tee_ioctl_version_data *ver, const void *data)
+> +{
+> +	/*
+> +	 * Currently this driver only supports GP compliant, OP-TEE based TA
+> +	 */
 
->  		break;
->  	case COUNTER_SCOPE_COUNT:
->  		if (a->comp.type =3D=3D COUNTER_COMP_SYNAPSE_ACTION)
-> @@ -842,7 +844,7 @@ static int counter_signal_attrs_create(struct counter=
-_device *const counter,
-> =20
->  	/* Create main Signal attribute */
->  	comp =3D counter_signal_comp;
-> -	comp.signal_u32_read =3D counter->ops->signal_read;
-> +	comp.signal_read =3D counter->ops->signal_read;
->  	err =3D counter_attr_create(dev, cattr_group, &comp, scope, signal);
->  	if (err < 0)
->  		return err;
-> diff --git a/include/linux/counter.h b/include/linux/counter.h
-> index c41fa602ed28..3f1516076f20 100644
-> --- a/include/linux/counter.h
-> +++ b/include/linux/counter.h
-> @@ -169,6 +169,9 @@ struct counter_comp {
->  				      struct counter_count *count, u32 *val);
->  		int (*signal_u32_read)(struct counter_device *counter,
->  				       struct counter_signal *signal, u32 *val);
-> +		int (*signal_read)(struct counter_device *counter,
-> +				   struct counter_signal *signal,
-> +				   enum counter_signal_level *level);
->  		int (*device_u64_read)(struct counter_device *counter,
->  				       u64 *val);
->  		int (*count_u64_read)(struct counter_device *counter,
->=20
-> --=20
-> Kees Cook
+/* suggestion: single line comment */
 
-I'm not familiar with kCFI, but a better solution if possible would be
-to hint to the compiler the intention of the code here -- that we're
-intentionally type punning the last parameter in order to avoid
-duplicate code for each Counter enum because they are all handled the
-same way.
+> +	if ((ver->impl_id == TEE_IMPL_ID_OPTEE) &&
+> +		(ver->gen_caps & TEE_GEN_CAP_GP))
+> +		return 1;
+> +	else
+> +		return 0;
+> +}
+> +
+> +/**
+> + * stm32_bsec_pta_probe() - initialize the PTA BSEC
+> + * @dev: the platform_device description.
+> + *
+> + * Return:
+> + *	On success, 0. On failure, -errno.
+> + */
+> +static int stm32_bsec_pta_probe(struct device *dev)
+> +{
+> +	int rc;
+> +	struct tee_ioctl_open_session_arg sess_arg;
+> +	struct tee_client_device *tee_device = to_tee_client_device(dev);
+> +	struct stm32_bsec_pta_priv *priv;
+> +
+> +	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
+> +	if (!priv)
+> +		return -ENOMEM;
+> +
+> +	/* Open context with TEE driver */
+> +	priv->ctx = tee_client_open_context(NULL, stm32_bsec_pta_match, NULL, NULL);
+> +	if (IS_ERR(priv->ctx)) {
+> +		if (PTR_ERR(priv->ctx) == -ENOENT)
+> +			return -EPROBE_DEFER;
+> +		dev_err(dev, "%s: tee_client_open_context failed\n", __func__);
+> +		return PTR_ERR(priv->ctx);
+> +	}
+> +
+> +	/* Open a session with BSEC TA */
+> +	memset(&sess_arg, 0, sizeof(sess_arg));
+> +	export_uuid(sess_arg.uuid, &tee_device->id.uuid);
+> +	sess_arg.clnt_login = TEE_IOCTL_LOGIN_REE_KERNEL;
+> +	sess_arg.num_params = 0;
+> +
+> +	rc = tee_client_open_session(priv->ctx, &sess_arg, NULL);
+> +	if ((rc < 0) || (sess_arg.ret != 0)) {
+> +		dev_err(dev, "%s: tee_client_open_session failed, err=%x\n",
+> +			__func__, sess_arg.ret);
+> +		rc = -EINVAL;
+> +		goto out_tee_session;
+> +	}
+> +	priv->session_id = sess_arg.session;
+> +	dev_set_drvdata(dev, priv);
+> +
+> +	return 0;
+> +
+> +out_tee_session:
+> +	tee_client_close_context(priv->ctx);
+> +	priv->ctx = NULL;
+> +
+> +	return rc;
+> +}
+> +
+> +/**
+> + * stm32_bsec_pta_remove() - remove the BSEC TEE device
+> + * @dev: the platform_device description.
+> + *
+> + * Return:
+> + *	0 always.
+> + */
+> +static int stm32_bsec_pta_remove(struct device *dev)
+> +{
+> +	struct stm32_bsec_pta_priv *priv = dev_get_drvdata(dev);
+> +
+> +	if (!IS_ERR_OR_NULL(priv->ctx)) {
+> +		tee_client_close_session(priv->ctx, priv->session_id);
+> +		tee_client_close_context(priv->ctx);
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +/**
+> + * stm32_bsec_pta_read() - nvmem read access using PTA client driver
+> + * @context: nvmem context => romem privdate data
+> + * @offset: nvmem offset
+> + * @buf: buffer to fill with nvem values
+> + * @bytes: number of bytes to read
+> + *
+> + * Return:
+> + *	On success, 0. On failure, -errno.
+> + */
+> +static int stm32_bsec_pta_read(void *context, unsigned int offset, void *buf,
+> +			       size_t bytes)
+> +{
+> +	struct stm32_romem_priv *romem_priv = context;
+> +	struct device *dev;
+> +	struct stm32_bsec_pta_priv *priv;
+> +	struct tee_shm *shm;
+> +	struct tee_ioctl_invoke_arg arg;
+> +	struct tee_param param[2];
+> +	u8 *shm_buf;
+> +	u32 start, num_bytes;
+> +	int ret;
+> +
+> +	dev = romem_priv->ta;
+> +	if (!dev) {
+> +		pr_err("TA_BSEC invoke with driver\n");
+> +		return -ENXIO;
+> +	}
+> +
+> +	priv = dev_get_drvdata(dev);
+> +
+> +	memset(&arg, 0, sizeof(arg));
+> +	memset(&param, 0, sizeof(param));
+> +
+> +	arg.func = PTA_BSEC_READ_MEM;
+> +	arg.session = priv->session_id;
+> +	arg.num_params = 2;
+> +
+> +	/* align access on 32bits */
+> +	start = ALIGN_DOWN(offset, 4);
+> +	num_bytes = round_up(offset + bytes - start, 4);
+> +	param[0].attr = TEE_IOCTL_PARAM_ATTR_TYPE_VALUE_INPUT;
+> +	param[0].u.value.a = start;
+> +	param[0].u.value.b = SHADOW_ACCESS;
+> +
+> +	shm = tee_shm_alloc_kernel_buf(priv->ctx, num_bytes);
+> +	if (IS_ERR(shm))
+> +		return PTR_ERR(shm);
+> +
+> +	param[1].attr = TEE_IOCTL_PARAM_ATTR_TYPE_MEMREF_OUTPUT;
+> +	param[1].u.memref.shm = shm;
+> +	param[1].u.memref.size = num_bytes;
+> +
+> +	ret = tee_client_invoke_func(priv->ctx, &arg, param);
+> +	if (ret < 0 || arg.ret != 0) {
+> +		dev_err(dev, "TA_BSEC invoke failed TEE err: %x, ret:%x\n",
+> +			arg.ret, ret);
+> +		if (!ret)
+> +			ret = -EIO;
+> +	}
+> +	if (!ret) {
+> +		shm_buf = tee_shm_get_va(shm, 0);
+> +		if (IS_ERR(shm_buf)) {
+> +			dev_err(dev, "tee_shm_get_va failed for transmit\n");
+> +			ret = PTR_ERR(shm_buf);
+> +		} else {
+> +			ret = 0;
 
-William Breathitt Gray
+ret = 0; maybe removed ? (ret is already 0 here)
 
---Z/0j4y7TVYG4hdqA
-Content-Type: application/pgp-signature; name="signature.asc"
+> +			/* read data from 32 bits aligned buffer */
+> +			memcpy(buf, &shm_buf[offset % 4], bytes);
+> +		}
+> +	}
+> +
+> +	tee_shm_free(shm);
+> +
+> +	return ret;
+> +}
+> +
+> +/**
+> + * stm32_bsec_pta_write() - nvmem write access using PTA client driver
+> + * @context: nvmem context => romem privdate data
+> + * @offset: nvmem offset
+> + * @buf: buffer with nvem values
+> + * @bytes: number of bytes to write
+> + *
+> + * Return:
+> + *	On success, 0. On failure, -errno.
+> + */
+> +static int stm32_bsec_pta_write(void *context, unsigned int offset, void *buf,
+> +				size_t bytes)
+> +{
+> +	struct stm32_romem_priv *romem_priv = context;
+> +	struct device *dev;
+> +	struct stm32_bsec_pta_priv *priv;
+> +	struct tee_shm *shm;
+> +	struct tee_ioctl_invoke_arg arg;
+> +	struct tee_param param[2];
+> +	u8 *shm_buf;
+> +	int ret;
+> +
+> +	dev = romem_priv->ta;
+> +	if (!dev) {
+> +		pr_err("TA_BSEC invoke with driver\n");
+> +		return -ENXIO;
+> +	}
+> +
+> +	/* Allow only writing complete 32-bits aligned words */
+> +	if ((bytes % 4) || (offset % 4))
+> +		return -EINVAL;
+> +
+> +	priv = dev_get_drvdata(dev);
+> +
+> +	memset(&arg, 0, sizeof(arg));
+> +	memset(&param, 0, sizeof(param));
+> +
+> +	arg.func = PTA_BSEC_WRITE_MEM;
+> +	arg.session = priv->session_id;
+> +	arg.num_params = 2;
+> +
+> +	param[0].attr = TEE_IOCTL_PARAM_ATTR_TYPE_VALUE_INPUT;
+> +	param[0].u.value.a = offset;
+> +	param[0].u.value.b = FUSE_ACCESS;
+> +
+> +	shm = tee_shm_alloc_kernel_buf(priv->ctx, bytes);
+> +	if (IS_ERR(shm))
+> +		return PTR_ERR(shm);
+> +
+> +	param[1].attr = TEE_IOCTL_PARAM_ATTR_TYPE_MEMREF_INPUT;
+> +	param[1].u.memref.shm = shm;
+> +	param[1].u.memref.size = bytes;
+> +
+> +	shm_buf = tee_shm_get_va(shm, 0);
+> +	if (IS_ERR(shm_buf)) {
+> +		dev_err(dev, "tee_shm_get_va failed for transmit\n");
 
------BEGIN PGP SIGNATURE-----
+Need to add error handling: tee_shm_free(shm);
 
-iHUEARYKAB0WIQSNN83d4NIlKPjon7a1SFbKvhIjKwUCY2M3sAAKCRC1SFbKvhIj
-KyvXAP9PjHF2SFAGlc8+ZSJ83BGSWxiZaBEOozlM9Ub5fcInswD/cVEJDMoOq4d+
-8CYtwzAOKsqb7/lAIVWiVaEkA9STCQM=
-=FgB+
------END PGP SIGNATURE-----
+> +		return PTR_ERR(shm_buf);
+> +	}
+> +
+> +	memcpy(shm_buf, buf, bytes);
+> +
+> +	ret = tee_client_invoke_func(priv->ctx, &arg, param);
+> +	if (ret < 0 || arg.ret != 0) {
+> +		dev_err(dev, "TA_BSEC invoke failed TEE err: %x, ret:%x\n",
+> +			arg.ret, ret);
+> +		if (!ret)
+> +			ret = -EIO;
+> +	}
+> +	dev_dbg(dev, "Write OTPs %d to %d, ret=%d\n",
+> +		offset / 4, (offset + bytes) / 4, ret);
+> +
+> +	/* Lock the upper OTPs with ECC protection, word programming only */
+> +	if (!ret && ((offset + bytes) >= (romem_priv->lower * 4))) {
+> +		u32 start, nb_lock;
+> +		u32 *lock = (u32 *)shm_buf;
+> +		int i;
+> +
+> +		/*
+> +		 * don't lock the lower OTPs, no ECC protection and incremental
+> +		 * bit programming, a second write is allowed
+> +		 */
+> +		start = max_t(u32, offset, romem_priv->lower * 4);
+> +		nb_lock = (offset + bytes - start) / 4;
+> +
+> +		param[0].u.value.a = start;
+> +		param[0].u.value.b = LOCK_ACCESS;
+> +		param[1].u.memref.size = nb_lock * 4;
+> +
+> +		for (i = 0; i < nb_lock; i++)
+> +			lock[i] = LOCK_PERM;
+> +
+> +		ret = tee_client_invoke_func(priv->ctx, &arg, param);
+> +		if (ret < 0 || arg.ret != 0) {
+> +			dev_err(dev, "TA_BSEC invoke failed TEE err: %x, ret:%x\n",
+> +				arg.ret, ret);
+> +			if (!ret)
+> +				ret = -EIO;
+> +		}
+> +		dev_dbg(dev, "Lock upper OTPs %d to %d, ret=%d\n",
+> +			start / 4, start / 4 + nb_lock, ret);
+> +	}
+> +
+> +	tee_shm_free(shm);
+> +
+> +	return ret;
+> +}
+> +
+> +static const struct tee_client_device_id stm32_bsec_id_table[] = {
+> +	{
+> +		UUID_INIT(0x94cf71ad, 0x80e6, 0x40b5,
+> +			  0xa7, 0xc6, 0x3d, 0xc5, 0x01, 0xeb, 0x28, 0x03)
+> +	},
+> +	{ }
+> +};
+> +
+> +MODULE_DEVICE_TABLE(tee, stm32_bsec_id_table);
+> +
+> +static struct tee_client_driver stm32_bsec_pta_driver = {
+> +	.id_table	= stm32_bsec_id_table,
+> +	.driver		= {
+> +		.name = "stm32-bsec-pta",
+> +		.bus = &tee_bus_type,
+> +		.probe = stm32_bsec_pta_probe,
+> +		.remove = stm32_bsec_pta_remove,
+> +	},
+> +};
+> +
+> +static void stm32_bsec_put_device(void *data)
+> +{
+> +	put_device(data);
+> +}
+> +
+> +struct device *stm32_bsec_pta_find(struct device *dev)
+> +{
+> +	struct device *pta_dev;
+> +
+> +	pta_dev = driver_find_next_device(&stm32_bsec_pta_driver.driver, NULL);
+> +
+> +	if (pta_dev && devm_add_action_or_reset(dev, stm32_bsec_put_device, pta_dev)) {
+> +		dev_err(dev, "unable to register cleanup action\n");
 
---Z/0j4y7TVYG4hdqA--
+I suggest to improve the error message here, to make it more explicit,
+and also propagate the error code to the caller.
+Something like:
+ret = devm_add_action_or_reset()
+if (ret) {
+    dev_err(dev, "devm_add_action_or_reset() failed (%d)\n", ret );
+    return ret;
+}
+This may avoid turning a real error here, into a EPROBE_DEFER at the
+caller side, e.g.:
+	if (!priv->ta)
+		return -EPROBE_DEFER;
 
---===============3292003457139475464==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+Thanks & Best Regards,
+Fabrice
 
+> +
+> +		return NULL;
+> +	}
+> +
+> +	return pta_dev;
+> +}
+> +
+> +#else
+> +static int stm32_bsec_pta_read(void *context, unsigned int offset, void *buf,
+> +			       size_t bytes)
+> +{
+> +	pr_debug("%s: TA BSEC request without OPTEE support\n", __func__);
+> +
+> +	return -ENXIO;
+> +}
+> +
+> +static int stm32_bsec_pta_write(void *context, unsigned int offset, void *buf,
+> +				size_t bytes)
+> +{
+> +	pr_debug("%s: TA BSEC request without OPTEE support\n", __func__);
+> +
+> +	return -ENXIO;
+> +}
+> +
+> +struct device *stm32_bsec_pta_find(struct device *dev)
+> +{
+> +	pr_debug("%s: TA BSEC request without OPTEE support\n", __func__);
+> +
+> +	return NULL;
+> +}
+> +#endif
+> +
+> +static int __init stm32_romem_init(void)
+> +{
+> +	int rc;
+> +
+> +	rc = platform_driver_register(&stm32_romem_driver);
+> +	if (rc)
+> +		return rc;
+> +
+> +#if IS_ENABLED(CONFIG_OPTEE)
+> +	rc = driver_register(&stm32_bsec_pta_driver.driver);
+> +#endif
+> +
+> +	return rc;
+> +}
+> +
+> +static void __exit stm32_romem_exit(void)
+> +{
+> +	platform_driver_unregister(&stm32_romem_driver);
+> +#if IS_ENABLED(CONFIG_OPTEE)
+> +	driver_unregister(&stm32_bsec_pta_driver.driver);
+> +#endif
+> +}
+> +
+> +module_init(stm32_romem_init);
+> +module_exit(stm32_romem_exit);
+>  
+>  MODULE_AUTHOR("Fabrice Gasnier <fabrice.gasnier@st.com>");
+>  MODULE_DESCRIPTION("STMicroelectronics STM32 RO-MEM");
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============3292003457139475464==--
