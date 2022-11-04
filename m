@@ -2,73 +2,45 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3241C619C1B
-	for <lists+linux-stm32@lfdr.de>; Fri,  4 Nov 2022 16:51:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C1DD1619C60
+	for <lists+linux-stm32@lfdr.de>; Fri,  4 Nov 2022 17:00:14 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DEB04C65042;
-	Fri,  4 Nov 2022 15:51:30 +0000 (UTC)
-Received: from new1-smtp.messagingengine.com (new1-smtp.messagingengine.com
- [66.111.4.221])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 70860C65042;
+	Fri,  4 Nov 2022 16:00:14 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 054A9C64104
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3399EC64104
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  4 Nov 2022 15:51:29 +0000 (UTC)
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
- by mailnew.nyi.internal (Postfix) with ESMTP id 2CF9E58022E;
- Fri,  4 Nov 2022 11:51:29 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute2.internal (MEProxy); Fri, 04 Nov 2022 11:51:29 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=cc
- :cc:content-type:date:date:from:from:in-reply-to:in-reply-to
- :message-id:mime-version:references:reply-to:sender:subject
- :subject:to:to; s=fm3; t=1667577089; x=1667584289; bh=96a+nENK+p
- wJv6heDljopZWYNAHZZlQcLYBgPBXjxIA=; b=c28hMZxPcLC5cKVn4RzGU23sOy
- 5KEaQ9azswPKVog9NQ9wCBgjJ5zlJEN0cHdbBCKvIlrdT+ZQfG2rcIz/rQlXO2jw
- k1UxgqmX2FagKHw4X9whxQYdXqwWm+7Stg0ICjSEvVtcBkwwWTvNMnDOyIgDZEfK
- HtR1ckYbIzWCnRQVeUfpYNLCZ1i4rwsh+GH+8saO+PVq3hn4d5QWQBRwmhPFIulZ
- ZlC0ds9S6hNtgM4W07ajJa0wYBoiJMHdyUGc3JQeTkMBHEKKxMPhA7p0I2haT2t2
- 3KZ/N91fsmtAZg/vrWyo2Oe6uM7vziDS9Pnre6j6vnzrWB8ADGNFdEv/GhOg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
- :feedback-id:from:from:in-reply-to:in-reply-to:message-id
- :mime-version:references:reply-to:sender:subject:subject:to:to
- :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm3; t=1667577089; x=1667584289; bh=96a+nENK+pwJv6heDljopZWYNAHZ
- ZlQcLYBgPBXjxIA=; b=lcjGNhjEpFG9UwlWNPlyqpI20z1c8nUuBQ9ZXwVXmg/b
- ZeLdY5iT/PXtaTrCfBAbCRdLswoYCAlW/DJ8MOK3ly5WU0Ri4GsMvmbAiZM3YEV8
- 7b7rziMvPjbfCHBYUwVNNrurjBuR3uM3+3L5lP3jdROGg/FnKT7sHSV3uPRkhQpZ
- apKhPjgWLrgSbzFty/fXLc5fDY2SimZDf9xM4fPoFnfU9jFtTLnjSfErO1Csdvwy
- Kk5IyWi+3oStGEXC27JrUOyDJxsp3DASuQw9cI88KNVcO6v5HFvkr0/dBK9GL+h7
- ToiYgcEnWuz66mqkbQ5B1R6Mal/DSPHP4ae31UzZPw==
-X-ME-Sender: <xms:_jRlY7Ez8WsNCE5vgDv7giaGvtlg_-S_TRslJicSiPCdt5bJkUoEjA>
- <xme:_jRlY4UkRheR3U5QmJmsOPh6-XGK5CQfNUGZeNQ_AbqAFRLcEDmyB2cLzouBqARTU
- krI-Ojq4CzRnSVgVcQ>
-X-ME-Received: <xmr:_jRlY9JiqeUBTyn6bWYvKmWYMotpgbK8YnEgDbLILKZx9L6KVBu2EE7Q3xNYrmiF1AYxcraFfmECS4yiAk2-MsqHugGRG3CxMH-3YrxjsuZX1w>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvgedrvddugdejkecutefuodetggdotefrodftvf
- curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
- uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
- fjughrpeffhffvvefukfhfgggtuggjsehgtderredttddvnecuhfhrohhmpeforgigihhm
- vgcutfhiphgrrhguuceomhgrgihimhgvsegtvghrnhhordhtvggthheqnecuggftrfgrth
- htvghrnhepteefffefgfektdefgfeludfgtdejfeejvddttdekteeiffejvdfgheehfffh
- vedunecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmh
- grgihimhgvsegtvghrnhhordhtvggthh
-X-ME-Proxy: <xmx:_jRlY5ErY3ILridCfPdMiI1BdUsTnsKgcTt_koj5Y7kuky5Mvy56uw>
- <xmx:_jRlYxWXTfF1vqAblQrq-NPyvBsz17O77BeYEHZbjU-jpqVh11zyFw>
- <xmx:_jRlY0POCHLJSycVzP16fIOwooAHD-iZGUX4A32zENNBZ9QYZ-oINg>
- <xmx:ATVlY1cZWdXf4vVe3bWpJOEOfEyXbf56TJKG-VDoEj6QaLJERlKGuA>
-Feedback-ID: i8771445c:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 4 Nov 2022 11:51:24 -0400 (EDT)
-Date: Fri, 4 Nov 2022 16:51:23 +0100
-From: Maxime Ripard <maxime@cerno.tech>
-To: Mark Brown <broonie@kernel.org>
-Message-ID: <20221104155123.qomguvthehnogkdd@houat>
+ Fri,  4 Nov 2022 16:00:13 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 3396BB82ED8;
+ Fri,  4 Nov 2022 16:00:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 407C5C433C1;
+ Fri,  4 Nov 2022 15:59:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1667577610;
+ bh=RnKpU/hTdTSmTNhPFE1pRi4HN2+uJR5IYJ3mHMOQJ94=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=cT/Z80DQRnPv/70/29SwYeenhOJLyjbBPUFlgfpd/AZinAJl0ffseRleU9nuJBUko
+ sIKZREqhjpM5ixmbGPtno+npoo5AfZQueFrKX4MHj5HbO6032QcomMPEs11RxlCRCF
+ +npEC1nMjw2yzXE3+8fu/b6DX5Zyh1ekZsGoJSUiBNkV8rAVlWCjALi+TPQALz5yLf
+ 8JmAJZSyXbUsqNPG3SJPuUdwaXQ/YK17sNKIv6mAuSRsBddzrpVxhgHxOUN/vVDF21
+ VhZaoe2BNXMOANIoVRwbo95TtqPu/Q5GIO4aUt0cX2VGbao265lJ1lyL1fG/C3KEu+
+ lOiIL5YO6XPRw==
+Date: Fri, 4 Nov 2022 15:59:53 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Maxime Ripard <maxime@cerno.tech>
+Message-ID: <Y2U2+ePwRieYkNjv@sirena.org.uk>
 References: <20221018-clk-range-checks-fixes-v2-0-f6736dec138e@cerno.tech>
  <20221018-clk-range-checks-fixes-v2-43-f6736dec138e@cerno.tech>
  <Y2UzdYyjgahJsbHg@sirena.org.uk>
+ <20221104155123.qomguvthehnogkdd@houat>
 MIME-Version: 1.0
-In-Reply-To: <Y2UzdYyjgahJsbHg@sirena.org.uk>
+In-Reply-To: <20221104155123.qomguvthehnogkdd@houat>
+X-Cookie: Quack!
 Cc: Ulf Hansson <ulf.hansson@linaro.org>,
  Prashant Gaikwad <pgaikwad@nvidia.com>,
  Alexandre Belloni <alexandre.belloni@bootlin.com>,
@@ -103,7 +75,7 @@ Cc: Ulf Hansson <ulf.hansson@linaro.org>,
  Stephen Boyd <sboyd@kernel.org>, patches@opensource.cirrus.com,
  Peter De Schrijver <pdeschrijver@nvidia.com>,
  Nicolas Ferre <nicolas.ferre@microchip.com>,
- Andreas =?utf-8?Q?F=C3=A4rber?= <afaerber@suse.de>,
+ Andreas =?iso-8859-1?Q?F=E4rber?= <afaerber@suse.de>,
  linux-renesas-soc@vger.kernel.org, Dinh Nguyen <dinguyen@kernel.org>,
  Vinod Koul <vkoul@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  David Lechner <david@lechnology.com>, Shawn Guo <shawnguo@kernel.org>,
@@ -121,77 +93,52 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============3143754623730590120=="
+Content-Type: multipart/mixed; boundary="===============4803506897522406580=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 
---===============3143754623730590120==
+--===============4803506897522406580==
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="mczzont5aeejoi22"
+	protocol="application/pgp-signature"; boundary="UFrR3s30/s3KKRzK"
 Content-Disposition: inline
 
 
---mczzont5aeejoi22
+--UFrR3s30/s3KKRzK
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-Hi Mark,
+On Fri, Nov 04, 2022 at 04:51:23PM +0100, Maxime Ripard wrote:
 
-On Fri, Nov 04, 2022 at 03:44:53PM +0000, Mark Brown wrote:
-> On Fri, Nov 04, 2022 at 02:18:00PM +0100, Maxime Ripard wrote:
->=20
-> > So, the set_parent hook is effectively unused, possibly because of an
-> > oversight. However, it could also be an explicit decision by the
-> > original author to avoid any reparenting but through an explicit call to
-> > clk_set_parent().
->=20
-> > The latter case would be equivalent to setting the flag
-> > CLK_SET_RATE_NO_REPARENT, together with setting our determine_rate hook
-> > to __clk_mux_determine_rate(). Indeed, if no determine_rate
-> > implementation is provided, clk_round_rate() (through
-> > clk_core_round_rate_nolock()) will call itself on the parent if
-> > CLK_SET_RATE_PARENT is set, and will not change the clock rate
-> > otherwise. __clk_mux_determine_rate() has the exact same behavior when
-> > CLK_SET_RATE_NO_REPARENT is set.
->=20
-> > And if it was an oversight, then we are at least explicit about our
-> > behavior now and it can be further refined down the line.
->=20
-> Given that the current approach involves patching every single user to
-> set a default implementation it feels like it might be more
-> straightforward to just have the clock API use that implementation if
-> none is defined - as you say there's already a flag to indicate the
-> unusual case where there's a solid reason to prevent reparenting.  It
-> feels like the resulting API is more straightforward.
+> Just filling determine_rate if it's missing with
+> __clk_mux_determine_rate will possibly pick different parents, and I'm
+> fairly certain that this have never been tested on most platforms, and
+> will be completely broken. And I don't really want to play a game of
+> whack-a-mole adding that flag everywhere it turns out it's broken.
 
-That would be another solution indeed. The thing is, most places where
-determine_rate is missing seems to be oversight, and the flag is missing
-as well.
+Well, hopefully everyone for whom it's an issue currently will be
+objecting to this version of the change anyway so we'll either know
+where to set the flag or we'll get the whack-a-mole with the series
+being merged?
 
-Just filling determine_rate if it's missing with
-__clk_mux_determine_rate will possibly pick different parents, and I'm
-fairly certain that this have never been tested on most platforms, and
-will be completely broken. And I don't really want to play a game of
-whack-a-mole adding that flag everywhere it turns out it's broken.
-
-Maxime
-
---mczzont5aeejoi22
+--UFrR3s30/s3KKRzK
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCY2U0+wAKCRDj7w1vZxhR
-xXdWAP9xOaAlwGZ6oTzlixCwOJjLcIji+k20bZRWJg3KwM8WjgD/XCMOLieTzsjF
-hAeOJdZFWunkoq+e4ZeBrrG36c3row8=
-=SvO6
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmNlNvgACgkQJNaLcl1U
+h9CDMAf+IBF/7wHY1CiObYqxme229wA2t2WnnYY98dUUNS5r9zuNUi7juhvrvn+E
+VFS2XsBkk6YvHvT2mQdVWxnTb3suMHPfHzr2euHUVwNVevnBNKDVYp8nlYmyRSUC
+orLXibEBBMbA69rPzQyaFqZHj17zEyWQvHSrWk44MnQJH2f7JFEmcLPXgug1dpsP
+mmWyfYnKKlRXMqDPkJ3ozY2AaABQkWdk64ke2unO7z9M7ySybhybPHBibISAn/WA
+8mQ7NgbHPzpVnTCfrRwSEd05eCvJaEacBYFByW87lEEEtfxwwJsXSZCJpmc9ZVPm
+WTCliiQC4/Pd0EJKpPQCXYinp/27fw==
+=2DXe
 -----END PGP SIGNATURE-----
 
---mczzont5aeejoi22--
+--UFrR3s30/s3KKRzK--
 
---===============3143754623730590120==
+--===============4803506897522406580==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -202,4 +149,4 @@ Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
 
---===============3143754623730590120==--
+--===============4803506897522406580==--
