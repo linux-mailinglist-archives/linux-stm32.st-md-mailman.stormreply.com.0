@@ -2,47 +2,76 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C75861D96C
-	for <lists+linux-stm32@lfdr.de>; Sat,  5 Nov 2022 11:34:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 42D0861EC50
+	for <lists+linux-stm32@lfdr.de>; Mon,  7 Nov 2022 08:43:56 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E7AA6C65048;
-	Sat,  5 Nov 2022 10:34:17 +0000 (UTC)
-Received: from aposti.net (aposti.net [89.234.176.197])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D0C42C64101;
+	Mon,  7 Nov 2022 07:43:55 +0000 (UTC)
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
+ [209.85.128.48])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 89951C65043
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1F762C64104
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat,  5 Nov 2022 10:34:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=crapouillou.net;
- s=mail; t=1667644455; h=from:from:sender:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=TDaskHbQLkzLxZhbc0A77T82ys2sKHjzGtgSbl/eTqE=;
- b=3fY3IZ0hJPiRN8vNazn9bcQMqR2JrjTIi9AXqwxwIe42aFOkSxs8/LodJeR17HX6gwP6nU
- mZNm0vTVRbGLApx4Wl/flL8cOh+VgCBw+PxQes5goKWi15jShjtTx3YJEDgMNwV2KlXCJe
- TCPPbMNaz+6Yvnpx7NfiTwQwJoNtT18=
-Date: Sat, 05 Nov 2022 10:33:54 +0000
-From: Paul Cercueil <paul@crapouillou.net>
-To: Maxime Ripard <maxime@cerno.tech>
-Message-Id: <IOEVKR.TWFKJND2FJ473@crapouillou.net>
-In-Reply-To: <20221104145946.orsyrhiqvypisl5j@houat>
+ Fri,  4 Nov 2022 18:11:25 +0000 (UTC)
+Received: by mail-wm1-f48.google.com with SMTP id v7so3493752wmn.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 04 Nov 2022 11:11:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:in-reply-to:date
+ :subject:cc:to:from:references:from:to:cc:subject:date:message-id
+ :reply-to; bh=CgAHyV5MssUU8DmgqTLqByPHjrUlZTpRzsXy7QZTV1w=;
+ b=m1k1aGhFcGwAzy8+jR8i8dgnxBKgmbv+HEcBN9clOnBC8JDxQ1WLH/jaC98+SUuhn1
+ ojpUIvzLvAjOEtONQNG3fEjMYr6YmyE21HCNBu13dHQQCKT1MZYzip/HLcRMuJacgFsk
+ D55A4srqhE9k1graGmYJvC73InZQsK8+3y7hORWhx8V9sPZvLSdaAKZue8yFET0sqAK6
+ QCfmTlWLBXdiCGceVK43T3rcfW1aWRAA7EsaVybuem8YgF0fY+TkmF3j/WgfSTXHeBZr
+ 9yfwVW6BUgHERrFBi1RgnqxfwanJH3Intmfl0rdZ0bNVoL/stqFGyIUMqw38czj+U/IY
+ +ZRw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:in-reply-to:date
+ :subject:cc:to:from:references:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=CgAHyV5MssUU8DmgqTLqByPHjrUlZTpRzsXy7QZTV1w=;
+ b=ArELc14vQixktk3VMBuHRf+96ZNTXscUfgbUzOPbXqPZ5M2qyZni9nxxApIPnFuwlr
+ 0EuvP9l5rNS1SVodExl3QZdof/U7HMgpXvfCJw6K14o5OAKN89X/pFGY3FPMk7LJ9mL8
+ liP3heVP2vSLYMl48+rgFRK3PlK2wnIqluHLLs+gx9N5tIB0WnDWRbDOhLhgAIbFODzX
+ /sFEXrRwa1vuWtRiOfyitpy5LRI0x03TzpOID19WNxmte3ORExsg0+uSnm9w+e44qTqQ
+ 6DZ7ebV1LOTk+d69E2aPlFjJbZFigPhPElowuvzGSNvjap5S70yjAgO9a04P93ZMSscS
+ oMbA==
+X-Gm-Message-State: ACrzQf0Ps9jJqEwoOvEpkBYDWZVVed0ZSKjpou+9fwin1Bxy7TECVa9J
+ uGvoXeZawpJg+qH3aH4Zl98=
+X-Google-Smtp-Source: AMsMyM5+00Cvx4Zit5cSiVEHfTNn4dr0i6mIADmjwE6QFA7y0/yyBqq7C4ech+m2YPARidv5n/8G+w==
+X-Received: by 2002:a05:600c:21c9:b0:3cf:68f8:7901 with SMTP id
+ x9-20020a05600c21c900b003cf68f87901mr283147wmj.69.1667585484372; 
+ Fri, 04 Nov 2022 11:11:24 -0700 (PDT)
+Received: from localhost (94.197.10.32.threembb.co.uk. [94.197.10.32])
+ by smtp.gmail.com with ESMTPSA id
+ az2-20020adfe182000000b00226dba960b4sm36409wrb.3.2022.11.04.11.11.23
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 04 Nov 2022 11:11:23 -0700 (PDT)
 References: <20221018-clk-range-checks-fixes-v2-0-f6736dec138e@cerno.tech>
  <20221018-clk-range-checks-fixes-v2-56-f6736dec138e@cerno.tech>
  <80VTKR.CE8RVN8M3ZYK3@crapouillou.net>
  <20221104145946.orsyrhiqvypisl5j@houat>
+From: Aidan MacDonald <aidanmacdonald.0x0@gmail.com>
+To: Maxime Ripard <maxime@cerno.tech>
+Date: Fri, 04 Nov 2022 17:35:29 +0000
+In-reply-to: <20221104145946.orsyrhiqvypisl5j@houat>
+Message-ID: <cp7Yh29ndlOOi1yW8KwCcpzoLPLxm1vR@localhost>
 MIME-Version: 1.0
+X-Mailman-Approved-At: Mon, 07 Nov 2022 07:43:55 +0000
 Cc: Ulf Hansson <ulf.hansson@linaro.org>,
  Prashant Gaikwad <pgaikwad@nvidia.com>,
  Alexandre Belloni <alexandre.belloni@bootlin.com>,
  Liam Girdwood <lgirdwood@gmail.com>,
  Michael Turquette <mturquette@baylibre.com>, Sekhar Nori <nsekhar@ti.com>,
  dri-devel@lists.freedesktop.org, Jaroslav Kysela <perex@perex.cz>,
- Max Filippov <jcmvbkbc@gmail.com>, Thierry Reding <thierry.reding@gmail.com>,
- linux-phy@lists.infradead.org, David Airlie <airlied@gmail.com>,
- Fabio Estevam <festevam@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
- Abel Vesa <abelvesa@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>,
+ Paul Cercueil <paul@crapouillou.net>, Max Filippov <jcmvbkbc@gmail.com>,
+ Thierry Reding <thierry.reding@gmail.com>, linux-phy@lists.infradead.org,
+ David Airlie <airlied@gmail.com>, Fabio Estevam <festevam@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Abel Vesa <abelvesa@kernel.org>,
+ Kishon Vijay Abraham I <kishon@kernel.org>,
  Geert Uytterhoeven <geert+renesas@glider.be>,
  Samuel Holland <samuel@sholland.org>, Chunyan Zhang <zhang.lyra@gmail.com>,
  Takashi Iwai <tiwai@suse.com>, linux-tegra@vger.kernel.org,
@@ -66,7 +95,7 @@ Cc: Ulf Hansson <ulf.hansson@linaro.org>,
  Stephen Boyd <sboyd@kernel.org>, patches@opensource.cirrus.com,
  Peter De Schrijver <pdeschrijver@nvidia.com>,
  Nicolas Ferre <nicolas.ferre@microchip.com>,
- Andreas =?iso-8859-1?q?F=E4rber?= <afaerber@suse.de>,
+ Andreas =?utf-8?Q?F=C3=A4rber?= <afaerber@suse.de>,
  linux-renesas-soc@vger.kernel.org, Dinh Nguyen <dinguyen@kernel.org>,
  Vinod Koul <vkoul@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  David Lechner <david@lechnology.com>, Shawn Guo <shawnguo@kernel.org>,
@@ -84,190 +113,96 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="iso-8859-1"; Format="flowed"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Maxime,
-
-Le ven. 4 nov. 2022 =E0 15:59:46 +0100, Maxime Ripard =
-
-<maxime@cerno.tech> a =E9crit :
-> Hi Paul,
-> =
-
-> On Fri, Nov 04, 2022 at 02:31:20PM +0000, Paul Cercueil wrote:
->>  Le ven. 4 nov. 2022 =E0 14:18:13 +0100, Maxime Ripard =
-
->> <maxime@cerno.tech> a
->>  =E9crit :
->>  > The Ingenic CGU clocks implements a mux with a set_parent hook, =
-
->> but
->>  > doesn't provide a determine_rate implementation.
->>  >
->>  > This is a bit odd, since set_parent() is there to, as its name =
-
->> implies,
->>  > change the parent of a clock. However, the most likely candidate =
-
->> to
->>  > trigger that parent change is a call to clk_set_rate(), with
->>  > determine_rate() figuring out which parent is the best suited for =
-
->> a
->>  > given rate.
->>  >
->>  > The other trigger would be a call to clk_set_parent(), but it's =
-
->> far less
->>  > used, and it doesn't look like there's any obvious user for that =
-
->> clock.
->>  >
->>  > So, the set_parent hook is effectively unused, possibly because =
-
->> of an
->>  > oversight. However, it could also be an explicit decision by the
->>  > original author to avoid any reparenting but through an explicit =
-
->> call to
->>  > clk_set_parent().
->>  >
->>  > The driver does implement round_rate() though, which means that =
-
->> we can
->>  > change the rate of the clock, but we will never get to change the
->>  > parent.
->>  >
->>  > However, It's hard to tell whether it's been done on purpose or =
-
->> not.
->>  >
->>  > Since we'll start mandating a determine_rate() implementation, =
-
->> let's
->>  > convert the round_rate() implementation to a determine_rate(), =
-
->> which
->>  > will also make the current behavior explicit. And if it was an
->>  > oversight, the clock behaviour can be adjusted later on.
->> =
-
->>  So it's partly on purpose, partly because I didn't know about
->>  .determine_rate.
->> =
-
->>  There's nothing odd about having a lonely .set_parent callback; in =
-
->> my case
->>  the clocks are parented from the device tree.
->> =
-
->>  Having the clocks driver trigger a parent change when requesting a =
-
->> rate
->>  change sounds very dangerous, IMHO. My MMC controller can be =
-
->> parented to the
->>  external 48 MHz oscillator, and if the card requests 50 MHz, it =
-
->> could switch
->>  to one of the PLLs. That works as long as the PLLs don't change =
-
->> rate, but if
->>  one is configured as driving the CPU clock, it becomes messy.
->>  The thing is, the clocks driver has no way to know whether or not =
-
->> it is
->>  "safe" to use a designated parent.
->> =
-
->>  For that reason, in practice, I never actually want to have a clock
->>  re-parented - it's almost always a bad idea vs. sticking to the =
-
->> parent clock
->>  configured in the DTS.
-> =
-
-> Yeah, and this is totally fine. But we need to be explicit about it. =
-
-> The
-> determine_rate implementation I did in all the patches is an exact
-> equivalent to the round_rate one if there was one. We will never ask =
-
-> to
-> change the parent.
-> =
-
-> Given what you just said, I would suggest to set the
-> CLK_SET_RATE_NO_REPARENT flag as well.
-
-But that would introduce policy into the driver... The fact that I =
-
-don't want the MMC parented to the PLLs, doesn't mean that it's an =
-
-invalid configuration per se.
-
-Cheers,
--Paul
-
->> =
-
->>  > Signed-off-by: Maxime Ripard <maxime@cerno.tech>
->>  > ---
->>  >  drivers/clk/ingenic/cgu.c | 15 ++++++++-------
->>  >  1 file changed, 8 insertions(+), 7 deletions(-)
->>  >
->>  > diff --git a/drivers/clk/ingenic/cgu.c b/drivers/clk/ingenic/cgu.c
->>  > index 1f7ba30f5a1b..0c9c8344ad11 100644
->>  > --- a/drivers/clk/ingenic/cgu.c
->>  > +++ b/drivers/clk/ingenic/cgu.c
->>  > @@ -491,22 +491,23 @@ ingenic_clk_calc_div(struct clk_hw *hw,
->>  >  	return div;
->>  >  }
->>  >
->>  > -static long
->>  > -ingenic_clk_round_rate(struct clk_hw *hw, unsigned long req_rate,
->>  > -		       unsigned long *parent_rate)
->>  > +static int ingenic_clk_determine_rate(struct clk_hw *hw,
->>  > +				      struct clk_rate_request *req)
->>  >  {
->>  >  	struct ingenic_clk *ingenic_clk =3D to_ingenic_clk(hw);
->>  >  	const struct ingenic_cgu_clk_info *clk_info =3D
->>  > to_clk_info(ingenic_clk);
->>  >  	unsigned int div =3D 1;
->>  >
->>  >  	if (clk_info->type & CGU_CLK_DIV)
->>  > -		div =3D ingenic_clk_calc_div(hw, clk_info, *parent_rate, =
-
->> req_rate);
->>  > +		div =3D ingenic_clk_calc_div(hw, clk_info, req->best_parent_rate,
->>  > +					   req->rate);
->> =
-
->>  Sorry but I'm not sure that this works.
->> =
-
->>  You replace the "parent_rate" with the "best_parent_rate", and that =
-
->> means
->>  you only check the requested rate vs. the parent with the highest =
-
->> frequency,
->>  and not vs. the actual parent that will be used.
-> =
-
-> best_parent_rate is initialized to the current parent rate, not the
-> parent with the highest frequency:
-> https://elixir.bootlin.com/linux/v6.1-rc3/source/drivers/clk/clk.c#L1471
-> =
-
-> Maxime
-
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+Ck1heGltZSBSaXBhcmQgPG1heGltZUBjZXJuby50ZWNoPiB3cml0ZXM6Cgo+IEhpIFBhdWwsCj4K
+PiBPbiBGcmksIE5vdiAwNCwgMjAyMiBhdCAwMjozMToyMFBNICswMDAwLCBQYXVsIENlcmN1ZWls
+IHdyb3RlOgo+PiBMZSB2ZW4uIDQgbm92LiAyMDIyIMOgIDE0OjE4OjEzICswMTAwLCBNYXhpbWUg
+UmlwYXJkIDxtYXhpbWVAY2Vybm8udGVjaD4gYQo+PiDDqWNyaXQgOgo+PiA+IFRoZSBJbmdlbmlj
+IENHVSBjbG9ja3MgaW1wbGVtZW50cyBhIG11eCB3aXRoIGEgc2V0X3BhcmVudCBob29rLCBidXQK
+Pj4gPiBkb2Vzbid0IHByb3ZpZGUgYSBkZXRlcm1pbmVfcmF0ZSBpbXBsZW1lbnRhdGlvbi4KPj4g
+Pgo+PiA+IFRoaXMgaXMgYSBiaXQgb2RkLCBzaW5jZSBzZXRfcGFyZW50KCkgaXMgdGhlcmUgdG8s
+IGFzIGl0cyBuYW1lIGltcGxpZXMsCj4+ID4gY2hhbmdlIHRoZSBwYXJlbnQgb2YgYSBjbG9jay4g
+SG93ZXZlciwgdGhlIG1vc3QgbGlrZWx5IGNhbmRpZGF0ZSB0bwo+PiA+IHRyaWdnZXIgdGhhdCBw
+YXJlbnQgY2hhbmdlIGlzIGEgY2FsbCB0byBjbGtfc2V0X3JhdGUoKSwgd2l0aAo+PiA+IGRldGVy
+bWluZV9yYXRlKCkgZmlndXJpbmcgb3V0IHdoaWNoIHBhcmVudCBpcyB0aGUgYmVzdCBzdWl0ZWQg
+Zm9yIGEKPj4gPiBnaXZlbiByYXRlLgo+PiA+Cj4+ID4gVGhlIG90aGVyIHRyaWdnZXIgd291bGQg
+YmUgYSBjYWxsIHRvIGNsa19zZXRfcGFyZW50KCksIGJ1dCBpdCdzIGZhciBsZXNzCj4+ID4gdXNl
+ZCwgYW5kIGl0IGRvZXNuJ3QgbG9vayBsaWtlIHRoZXJlJ3MgYW55IG9idmlvdXMgdXNlciBmb3Ig
+dGhhdCBjbG9jay4KPj4gPgo+PiA+IFNvLCB0aGUgc2V0X3BhcmVudCBob29rIGlzIGVmZmVjdGl2
+ZWx5IHVudXNlZCwgcG9zc2libHkgYmVjYXVzZSBvZiBhbgo+PiA+IG92ZXJzaWdodC4gSG93ZXZl
+ciwgaXQgY291bGQgYWxzbyBiZSBhbiBleHBsaWNpdCBkZWNpc2lvbiBieSB0aGUKPj4gPiBvcmln
+aW5hbCBhdXRob3IgdG8gYXZvaWQgYW55IHJlcGFyZW50aW5nIGJ1dCB0aHJvdWdoIGFuIGV4cGxp
+Y2l0IGNhbGwgdG8KPj4gPiBjbGtfc2V0X3BhcmVudCgpLgo+PiA+Cj4+ID4gVGhlIGRyaXZlciBk
+b2VzIGltcGxlbWVudCByb3VuZF9yYXRlKCkgdGhvdWdoLCB3aGljaCBtZWFucyB0aGF0IHdlIGNh
+bgo+PiA+IGNoYW5nZSB0aGUgcmF0ZSBvZiB0aGUgY2xvY2ssIGJ1dCB3ZSB3aWxsIG5ldmVyIGdl
+dCB0byBjaGFuZ2UgdGhlCj4+ID4gcGFyZW50Lgo+PiA+Cj4+ID4gSG93ZXZlciwgSXQncyBoYXJk
+IHRvIHRlbGwgd2hldGhlciBpdCdzIGJlZW4gZG9uZSBvbiBwdXJwb3NlIG9yIG5vdC4KPj4gPgo+
+PiA+IFNpbmNlIHdlJ2xsIHN0YXJ0IG1hbmRhdGluZyBhIGRldGVybWluZV9yYXRlKCkgaW1wbGVt
+ZW50YXRpb24sIGxldCdzCj4+ID4gY29udmVydCB0aGUgcm91bmRfcmF0ZSgpIGltcGxlbWVudGF0
+aW9uIHRvIGEgZGV0ZXJtaW5lX3JhdGUoKSwgd2hpY2gKPj4gPiB3aWxsIGFsc28gbWFrZSB0aGUg
+Y3VycmVudCBiZWhhdmlvciBleHBsaWNpdC4gQW5kIGlmIGl0IHdhcyBhbgo+PiA+IG92ZXJzaWdo
+dCwgdGhlIGNsb2NrIGJlaGF2aW91ciBjYW4gYmUgYWRqdXN0ZWQgbGF0ZXIgb24uCj4+Cj4+IFNv
+IGl0J3MgcGFydGx5IG9uIHB1cnBvc2UsIHBhcnRseSBiZWNhdXNlIEkgZGlkbid0IGtub3cgYWJv
+dXQKPj4gLmRldGVybWluZV9yYXRlLgo+Pgo+PiBUaGVyZSdzIG5vdGhpbmcgb2RkIGFib3V0IGhh
+dmluZyBhIGxvbmVseSAuc2V0X3BhcmVudCBjYWxsYmFjazsgaW4gbXkgY2FzZQo+PiB0aGUgY2xv
+Y2tzIGFyZSBwYXJlbnRlZCBmcm9tIHRoZSBkZXZpY2UgdHJlZS4KPj4KPj4gSGF2aW5nIHRoZSBj
+bG9ja3MgZHJpdmVyIHRyaWdnZXIgYSBwYXJlbnQgY2hhbmdlIHdoZW4gcmVxdWVzdGluZyBhIHJh
+dGUKPj4gY2hhbmdlIHNvdW5kcyB2ZXJ5IGRhbmdlcm91cywgSU1ITy4gTXkgTU1DIGNvbnRyb2xs
+ZXIgY2FuIGJlIHBhcmVudGVkIHRvIHRoZQo+PiBleHRlcm5hbCA0OCBNSHogb3NjaWxsYXRvciwg
+YW5kIGlmIHRoZSBjYXJkIHJlcXVlc3RzIDUwIE1IeiwgaXQgY291bGQgc3dpdGNoCj4+IHRvIG9u
+ZSBvZiB0aGUgUExMcy4gVGhhdCB3b3JrcyBhcyBsb25nIGFzIHRoZSBQTExzIGRvbid0IGNoYW5n
+ZSByYXRlLCBidXQgaWYKPj4gb25lIGlzIGNvbmZpZ3VyZWQgYXMgZHJpdmluZyB0aGUgQ1BVIGNs
+b2NrLCBpdCBiZWNvbWVzIG1lc3N5Lgo+PiBUaGUgdGhpbmcgaXMsIHRoZSBjbG9ja3MgZHJpdmVy
+IGhhcyBubyB3YXkgdG8ga25vdyB3aGV0aGVyIG9yIG5vdCBpdCBpcwo+PiAic2FmZSIgdG8gdXNl
+IGEgZGVzaWduYXRlZCBwYXJlbnQuCj4+Cj4+IEZvciB0aGF0IHJlYXNvbiwgaW4gcHJhY3RpY2Us
+IEkgbmV2ZXIgYWN0dWFsbHkgd2FudCB0byBoYXZlIGEgY2xvY2sKPj4gcmUtcGFyZW50ZWQgLSBp
+dCdzIGFsbW9zdCBhbHdheXMgYSBiYWQgaWRlYSB2cy4gc3RpY2tpbmcgdG8gdGhlIHBhcmVudCBj
+bG9jawo+PiBjb25maWd1cmVkIGluIHRoZSBEVFMuCj4KPiBZZWFoLCBhbmQgdGhpcyBpcyB0b3Rh
+bGx5IGZpbmUuIEJ1dCB3ZSBuZWVkIHRvIGJlIGV4cGxpY2l0IGFib3V0IGl0LiBUaGUKPiBkZXRl
+cm1pbmVfcmF0ZSBpbXBsZW1lbnRhdGlvbiBJIGRpZCBpbiBhbGwgdGhlIHBhdGNoZXMgaXMgYW4g
+ZXhhY3QKPiBlcXVpdmFsZW50IHRvIHRoZSByb3VuZF9yYXRlIG9uZSBpZiB0aGVyZSB3YXMgb25l
+LiBXZSB3aWxsIG5ldmVyIGFzayB0bwo+IGNoYW5nZSB0aGUgcGFyZW50Lgo+Cj4gR2l2ZW4gd2hh
+dCB5b3UganVzdCBzYWlkLCBJIHdvdWxkIHN1Z2dlc3QgdG8gc2V0IHRoZQo+IENMS19TRVRfUkFU
+RV9OT19SRVBBUkVOVCBmbGFnIGFzIHdlbGwuCj4KCklkZWFsbHkgdGhlcmUgc2hvdWxkIGJlIGEg
+d2F5IGZvciBkcml2ZXJzIGFuZCB0aGUgZGV2aWNlIHRyZWUgdG8Kc2F5LCAiY2xvY2sgWCBtdXN0
+IGJlIGRyaXZlbiBieSBjbG9jayBZIiwgYnV0IHRoZSBjbG9jayBmcmFtZXdvcmsKd291bGQgYmUg
+YWxsb3dlZCB0byByZS1wYXJlbnQgY2xvY2tzIGZyZWVseSBhcyBsb25nIGFzIGl0IGRvZXNuJ3QK
+dmlvbGF0ZSBhbnkgRFQgb3IgZHJpdmVyIGNvbnN0cmFpbnRzLgoKVGhhdCB3YXkgYWxsb3dpbmcg
+cmVwYXJlbnRpbmcgZG9lc24ndCBuZWVkIHRvIGJlIGFuIGFsbC1vci1ub3RoaW5nCnRoaW5nLCBh
+bmQgaXQgZG9lc24ndCBuZWVkIHRvIGJlIGRlY2lkZWQgYXQgdGhlIGNsb2NrIGRyaXZlciBsZXZl
+bAp3aXRoIHNwZWNpYWwgZmxhZ3MuCgpSZWdhcmRzLApBaWRhbgoKPj4gPiBTaWduZWQtb2ZmLWJ5
+OiBNYXhpbWUgUmlwYXJkIDxtYXhpbWVAY2Vybm8udGVjaD4KPj4gPiAtLS0KPj4gPiAgZHJpdmVy
+cy9jbGsvaW5nZW5pYy9jZ3UuYyB8IDE1ICsrKysrKysrLS0tLS0tLQo+PiA+ICAxIGZpbGUgY2hh
+bmdlZCwgOCBpbnNlcnRpb25zKCspLCA3IGRlbGV0aW9ucygtKQo+PiA+Cj4+ID4gZGlmZiAtLWdp
+dCBhL2RyaXZlcnMvY2xrL2luZ2VuaWMvY2d1LmMgYi9kcml2ZXJzL2Nsay9pbmdlbmljL2NndS5j
+Cj4+ID4gaW5kZXggMWY3YmEzMGY1YTFiLi4wYzljODM0NGFkMTEgMTAwNjQ0Cj4+ID4gLS0tIGEv
+ZHJpdmVycy9jbGsvaW5nZW5pYy9jZ3UuYwo+PiA+ICsrKyBiL2RyaXZlcnMvY2xrL2luZ2VuaWMv
+Y2d1LmMKPj4gPiBAQCAtNDkxLDIyICs0OTEsMjMgQEAgaW5nZW5pY19jbGtfY2FsY19kaXYoc3Ry
+dWN0IGNsa19odyAqaHcsCj4+ID4gIAlyZXR1cm4gZGl2Owo+PiA+ICB9Cj4+ID4KPj4gPiAtc3Rh
+dGljIGxvbmcKPj4gPiAtaW5nZW5pY19jbGtfcm91bmRfcmF0ZShzdHJ1Y3QgY2xrX2h3ICpodywg
+dW5zaWduZWQgbG9uZyByZXFfcmF0ZSwKPj4gPiAtCQkgICAgICAgdW5zaWduZWQgbG9uZyAqcGFy
+ZW50X3JhdGUpCj4+ID4gK3N0YXRpYyBpbnQgaW5nZW5pY19jbGtfZGV0ZXJtaW5lX3JhdGUoc3Ry
+dWN0IGNsa19odyAqaHcsCj4+ID4gKwkJCQkgICAgICBzdHJ1Y3QgY2xrX3JhdGVfcmVxdWVzdCAq
+cmVxKQo+PiA+ICB7Cj4+ID4gIAlzdHJ1Y3QgaW5nZW5pY19jbGsgKmluZ2VuaWNfY2xrID0gdG9f
+aW5nZW5pY19jbGsoaHcpOwo+PiA+ICAJY29uc3Qgc3RydWN0IGluZ2VuaWNfY2d1X2Nsa19pbmZv
+ICpjbGtfaW5mbyA9Cj4+ID4gdG9fY2xrX2luZm8oaW5nZW5pY19jbGspOwo+PiA+ICAJdW5zaWdu
+ZWQgaW50IGRpdiA9IDE7Cj4+ID4KPj4gPiAgCWlmIChjbGtfaW5mby0+dHlwZSAmIENHVV9DTEtf
+RElWKQo+PiA+IC0JCWRpdiA9IGluZ2VuaWNfY2xrX2NhbGNfZGl2KGh3LCBjbGtfaW5mbywgKnBh
+cmVudF9yYXRlLCByZXFfcmF0ZSk7Cj4+ID4gKwkJZGl2ID0gaW5nZW5pY19jbGtfY2FsY19kaXYo
+aHcsIGNsa19pbmZvLCByZXEtPmJlc3RfcGFyZW50X3JhdGUsCj4+ID4gKwkJCQkJICAgcmVxLT5y
+YXRlKTsKPj4KPj4gU29ycnkgYnV0IEknbSBub3Qgc3VyZSB0aGF0IHRoaXMgd29ya3MuCj4+Cj4+
+IFlvdSByZXBsYWNlIHRoZSAicGFyZW50X3JhdGUiIHdpdGggdGhlICJiZXN0X3BhcmVudF9yYXRl
+IiwgYW5kIHRoYXQgbWVhbnMKPj4geW91IG9ubHkgY2hlY2sgdGhlIHJlcXVlc3RlZCByYXRlIHZz
+LiB0aGUgcGFyZW50IHdpdGggdGhlIGhpZ2hlc3QgZnJlcXVlbmN5LAo+PiBhbmQgbm90IHZzLiB0
+aGUgYWN0dWFsIHBhcmVudCB0aGF0IHdpbGwgYmUgdXNlZC4KPgo+IGJlc3RfcGFyZW50X3JhdGUg
+aXMgaW5pdGlhbGl6ZWQgdG8gdGhlIGN1cnJlbnQgcGFyZW50IHJhdGUsIG5vdCB0aGUKPiBwYXJl
+bnQgd2l0aCB0aGUgaGlnaGVzdCBmcmVxdWVuY3k6Cj4gaHR0cHM6Ly9lbGl4aXIuYm9vdGxpbi5j
+b20vbGludXgvdjYuMS1yYzMvc291cmNlL2RyaXZlcnMvY2xrL2Nsay5jI0wxNDcxCj4KPiBNYXhp
+bWUKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgt
+c3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5j
+b20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8v
+bGludXgtc3RtMzIK
