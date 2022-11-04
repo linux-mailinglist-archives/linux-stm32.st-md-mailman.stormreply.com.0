@@ -2,39 +2,90 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 57BCA6193B1
-	for <lists+linux-stm32@lfdr.de>; Fri,  4 Nov 2022 10:39:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A64FB619482
+	for <lists+linux-stm32@lfdr.de>; Fri,  4 Nov 2022 11:37:26 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F38CDC6411F;
-	Fri,  4 Nov 2022 09:39:21 +0000 (UTC)
-Received: from formenos.hmeau.com (helcar.hmeau.com [216.24.177.18])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 21B38C64104
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 205D2C6411F;
+	Fri,  4 Nov 2022 10:37:26 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 13673C035BD
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  4 Nov 2022 09:39:20 +0000 (UTC)
-Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
- by formenos.hmeau.com with smtp (Exim 4.94.2 #2 (Debian))
- id 1oqt9Z-00A29z-2P; Fri, 04 Nov 2022 17:38:58 +0800
-Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation);
- Fri, 04 Nov 2022 17:38:57 +0800
-Date: Fri, 4 Nov 2022 17:38:57 +0800
-From: Herbert Xu <herbert@gondor.apana.org.au>
-To: Tianjia Zhang <tianjia.zhang@linux.alibaba.com>
-Message-ID: <Y2TdseEBpJ7cu2Vg@gondor.apana.org.au>
-References: <20221027065505.15306-1-tianjia.zhang@linux.alibaba.com>
+ Fri,  4 Nov 2022 10:37:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1667558243;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=FvcSXdbTIY6j0RtoeMW2Oyvbsf0knEKyh2vmjeJsi+Y=;
+ b=fGFMEUbWy7xHDVgNskcS8xydZB7oGn4pcZS3kY484huL6CCiCMoROd9F5N1mGUhYTnUGZb
+ R0uTKfwjKVcdp9LhhvGflcDkst1z90jadSNcDRSkesWEknN7GA+LrIHK25DnmRhmbPd7nM
+ raMjwSADNPdsYvdjUHw4B3MXzkCCUTQ=
+Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
+ [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
+ us-mta-480-rl62ksMsMnWY6mPyqCEbBQ-1; Fri, 04 Nov 2022 06:37:20 -0400
+X-MC-Unique: rl62ksMsMnWY6mPyqCEbBQ-1
+Received: by mail-wm1-f71.google.com with SMTP id
+ x10-20020a05600c420a00b003cf4dbff2e4so4039439wmh.8
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 04 Nov 2022 03:37:20 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=FvcSXdbTIY6j0RtoeMW2Oyvbsf0knEKyh2vmjeJsi+Y=;
+ b=yDNkabbxsabpbUV+KaqFdGX+xt6kZKk5RMgDIWdK8VEQtmpo+yDIRyBp76dazq9hBC
+ jbROfSkLbh3qbljHhivlA/1hRcZa1KM2u2J4dpX1sx0UOuqObZEQAx5M0y4yk/u6pVGq
+ /hd1yuJZxibGZeYyZhG6lJBZ+2ND1IHAwg6N5Jo5KL+kyZjiV4PQ8SbbNGkYARS7tCER
+ B+D/XXJ/Wl7Cl5BVmTgH8f7gT9hEI3CQYNsvq0fBY+GidBuASAoUqO9aZ+eEHBSFPcgl
+ oeh3iTb4YeRgDHN8FT8pQc0nEdGmYoUtQDKryzqnNqjz2LaycY6YUys8NrFGpXMH5Dbl
+ s8yQ==
+X-Gm-Message-State: ACrzQf0izdQfPDVNtiSYbj36SDLh0k7SbZ2a5brtHKvgtJA+XW98m5kw
+ tQwdJSiAkPWX+kLvujBHSeScz14Q2nGUHiRGr2lQFJqyR4svHGdUD1EgGqcnVQ4J/nMiNqKLUmD
+ IBvkq89flzj5tkQrgUtlr3ceTv61k9jSFl3fWhcHR
+X-Received: by 2002:a05:600c:1e2a:b0:3c3:d770:1756 with SMTP id
+ ay42-20020a05600c1e2a00b003c3d7701756mr23539588wmb.134.1667558239643; 
+ Fri, 04 Nov 2022 03:37:19 -0700 (PDT)
+X-Google-Smtp-Source: AMsMyM4LKXhwK5qh8ieFEkCSZgi7mblk9sJOfnr0awtpFbS+pIQGNE9IUSRaCOrs9CG3VpGFJY/xjQ==
+X-Received: by 2002:a05:600c:1e2a:b0:3c3:d770:1756 with SMTP id
+ ay42-20020a05600c1e2a00b003c3d7701756mr23539569wmb.134.1667558239379; 
+ Fri, 04 Nov 2022 03:37:19 -0700 (PDT)
+Received: from [192.168.1.130] (205.pool92-176-231.dynamic.orange.es.
+ [92.176.231.205]) by smtp.gmail.com with ESMTPSA id
+ f15-20020a5d50cf000000b0022e36c1113fsm3031008wrt.13.2022.11.04.03.37.17
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 04 Nov 2022 03:37:18 -0700 (PDT)
+Message-ID: <ab8358a9-8450-0d49-627f-26afe7ba4f9d@redhat.com>
+Date: Fri, 4 Nov 2022 11:37:17 +0100
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20221027065505.15306-1-tianjia.zhang@linux.alibaba.com>
-Cc: Jussi Kivilinna <jussi.kivilinna@iki.fi>, linux-kernel@vger.kernel.org,
- Catalin Marinas <catalin.marinas@arm.com>,
- linux-stm32@st-md-mailman.stormreply.com, Ard Biesheuvel <ardb@kernel.org>,
- Eric Biggers <ebiggers@kernel.org>, Mark Brown <broonie@kernel.org>,
- linux-crypto@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Will Deacon <will@kernel.org>, "David S. Miller" <davem@davemloft.net>,
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.3.1
+To: Thomas Zimmermann <tzimmermann@suse.de>, daniel@ffwll.ch,
+ airlied@gmail.com, sam@ravnborg.org, mripard@kernel.org,
+ maarten.lankhorst@linux.intel.com
+References: <20221103151446.2638-1-tzimmermann@suse.de>
+ <20221103151446.2638-21-tzimmermann@suse.de>
+From: Javier Martinez Canillas <javierm@redhat.com>
+In-Reply-To: <20221103151446.2638-21-tzimmermann@suse.de>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Language: en-US
+Cc: freedreno@lists.freedesktop.org, linux-samsung-soc@vger.kernel.org,
+ linux-aspeed@lists.ozlabs.org, spice-devel@lists.freedesktop.org,
+ nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ etnaviv@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ virtualization@lists.linux-foundation.org, linux-renesas-soc@vger.kernel.org,
+ linux-rockchip@lists.infradead.org, linux-mediatek@lists.infradead.org,
+ amd-gfx@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ linux-tegra@vger.kernel.org, xen-devel@lists.xenproject.org,
+ linux-amlogic@lists.infradead.org, linux-mips@vger.kernel.org,
+ linux-sunxi@lists.linux.dev, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v3 00/13] Optimizing SM3 and SM4
- algorithms using arm64 NEON/CE instructions
+Subject: Re: [Linux-stm32] [PATCH v3 20/23] drm/fb-helper: Set flag in
+ struct drm_fb_helper for leaking physical addresses
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -51,82 +102,24 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, Oct 27, 2022 at 02:54:52PM +0800, Tianjia Zhang wrote:
-> Hi folks,
+On 11/3/22 16:14, Thomas Zimmermann wrote:
+> Uncouple the parameter drm_leak_fbdev_smem from the implementation by
+> setting a flag in struct drm_fb_helper. This will help to move the
+> generic fbdev emulation into its own source file, while keeping the
+> parameter in drm_fb_helper.c. No functional changes.
 > 
-> This series of patches uses different arm64 instruction sets to optimize
-> the SM3 and SM4 algorithms, as well as the optimization of different
-> modes of SM4.
-> 
-> patch 1-2:   NEON instruction set optimization for SM3
-> patch 3:     Refactored and streamlined SM4 NEON instruction implementation
-> patch 4-5:   support test for new SM4 mode
-> patch 6-8:   Refactored and streamlined SM4 CE instruction implementation
-> patch 9-10:  CE accelerated implementation of SM4 CTS/XTS
-> patch 11:    CE accelerated implementation of SM4 CMAC/XCBC/CBCMAC
-> patch 12-13: CE accelerated implementation of SM4 CCM/GCM
-> 
-> v3 change:
->   - As Eric said, remove the code for ESSIV, including testmgr and tcrypt
-> 
-> v2 changes:
->   - remove ARMv9 SVE acceleration implementation
->   - rebase onto v6.1-rc1
-> 
-> Cheers,
-> Tianjia
-> 
-> Tianjia Zhang (13):
->   crypto: arm64/sm3 - raise the priority of the CE implementation
->   crypto: arm64/sm3 - add NEON assembly implementation
->   crypto: arm64/sm4 - refactor and simplify NEON implementation
->   crypto: testmgr - add SM4 cts-cbc/xts/xcbc test vectors
->   crypto: tcrypt - add SM4 cts-cbc/xts/xcbc test
->   crypto: arm64/sm4 - refactor and simplify CE implementation
->   crypto: arm64/sm4 - simplify sm4_ce_expand_key() of CE implementation
->   crypto: arm64/sm4 - export reusable CE acceleration functions
->   crypto: arm64/sm4 - add CE implementation for CTS-CBC mode
->   crypto: arm64/sm4 - add CE implementation for XTS mode
->   crypto: arm64/sm4 - add CE implementation for cmac/xcbc/cbcmac
->   crypto: arm64/sm4 - add CE implementation for CCM mode
->   crypto: arm64/sm4 - add CE implementation for GCM mode
-> 
->  arch/arm64/crypto/Kconfig           |   47 +-
->  arch/arm64/crypto/Makefile          |    9 +
->  arch/arm64/crypto/sm3-ce-glue.c     |    2 +-
->  arch/arm64/crypto/sm3-neon-core.S   |  600 +++++++++++++
->  arch/arm64/crypto/sm3-neon-glue.c   |  103 +++
->  arch/arm64/crypto/sm4-ce-asm.h      |  209 +++++
->  arch/arm64/crypto/sm4-ce-ccm-core.S |  328 ++++++++
->  arch/arm64/crypto/sm4-ce-ccm-glue.c |  303 +++++++
->  arch/arm64/crypto/sm4-ce-core.S     | 1205 ++++++++++++++++++---------
->  arch/arm64/crypto/sm4-ce-gcm-core.S |  741 ++++++++++++++++
->  arch/arm64/crypto/sm4-ce-gcm-glue.c |  286 +++++++
->  arch/arm64/crypto/sm4-ce-glue.c     |  575 ++++++++++++-
->  arch/arm64/crypto/sm4-ce.h          |   16 +
->  arch/arm64/crypto/sm4-neon-core.S   |  630 +++++++++-----
->  arch/arm64/crypto/sm4-neon-glue.c   |  172 +---
->  crypto/tcrypt.c                     |   21 +
->  crypto/testmgr.c                    |   19 +
->  crypto/testmgr.h                    |  977 ++++++++++++++++++++++
->  18 files changed, 5478 insertions(+), 765 deletions(-)
->  create mode 100644 arch/arm64/crypto/sm3-neon-core.S
->  create mode 100644 arch/arm64/crypto/sm3-neon-glue.c
->  create mode 100644 arch/arm64/crypto/sm4-ce-asm.h
->  create mode 100644 arch/arm64/crypto/sm4-ce-ccm-core.S
->  create mode 100644 arch/arm64/crypto/sm4-ce-ccm-glue.c
->  create mode 100644 arch/arm64/crypto/sm4-ce-gcm-core.S
->  create mode 100644 arch/arm64/crypto/sm4-ce-gcm-glue.c
->  create mode 100644 arch/arm64/crypto/sm4-ce.h
-> 
-> -- 
-> 2.24.3 (Apple Git-128)
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+> ---
 
-All applied.  Thanks.
+Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
+
 -- 
-Email: Herbert Xu <herbert@gondor.apana.org.au>
-Home Page: http://gondor.apana.org.au/~herbert/
-PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
+Best regards,
+
+Javier Martinez Canillas
+Core Platforms
+Red Hat
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
