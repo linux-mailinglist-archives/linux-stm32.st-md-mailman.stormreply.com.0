@@ -2,51 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 74639622463
+	by mail.lfdr.de (Postfix) with ESMTPS id 727F6622462
 	for <lists+linux-stm32@lfdr.de>; Wed,  9 Nov 2022 08:05:31 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 10F04C6504B;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 23DBAC65051;
 	Wed,  9 Nov 2022 07:05:31 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AF532C6334A
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  8 Nov 2022 01:28:03 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 571A861374;
- Tue,  8 Nov 2022 01:28:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E7079C433D6;
- Tue,  8 Nov 2022 01:28:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1667870882;
- bh=1tioVGTqeYyNu4ZTUF3M9dc/z4ZQURezc3VWaBrCJto=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=HLP8jD4QSSThJkjIQqil670uZQL9WbPDEr21hUQAUPO6Ev2oEun0a7lim21s8npHR
- igtf95QL+xKdej8gH48zv7UFEe4Omr53qX+r5QzySHttXqmxr5oR44BrSke/9UcGmY
- C1DK50OKAyLqkSpH8wgwcYGimsbunpvTJdHZTHjCwgya/YuqQk9srl5QQ62LBnPuxL
- Ek3aReGKzUyqhBj167FFI67amFiXD7W842l0A5YVdTOuR5775ZRz3KfMcoO+om8YKP
- 1KvJgTSVk7idZ/POhz5Nf/M8i2L7hHO1z+xFvhOPRqaT4zmfe51sZCsbgBjrJgTvYh
- mvabAFPzjp9HA==
-From: Bjorn Andersson <andersson@kernel.org>
-To: marex@denx.de,
-	linux-arm-kernel@lists.infradead.org
-Date: Mon,  7 Nov 2022 19:27:32 -0600
-Message-Id: <166787084676.599230.2324624555833358061.b4-ty@kernel.org>
-X-Mailer: git-send-email 2.37.1
-In-Reply-To: <20221013221242.218808-1-marex@denx.de>
-References: <20221013221242.218808-1-marex@denx.de>
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 38E68C64110
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue,  8 Nov 2022 02:08:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1667873304; x=1699409304;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=i/dLpV2uFjEVIuCUEjBPXiMF2Qtt/k5JOyenuO0QQz0=;
+ b=kKj/ltE7sMRvYr++WGF0S1+TRBUz2+RyI2Kz7PpFPbmuwgiqy/bHS9rs
+ 9SQakPFGGgJkC39/5TRTewC720rkjZqtlvUJnjOWIr8c/DPJ3ui1mkyBU
+ CQU05Uzus8CCBfT0UYGkUG3IueWrpH4n3/ZVjleY6RUsevqTUDV5Yxezw
+ gG8py4y9s9TAGLhKSO7rWnJ3XNl2laYXQsWJf8JM64qCAsEq2MuORWFil
+ 0CQK7QMone9sg7k50pmaGYrX13QFPB7dXAzS+/mteW9qdr7CdK4r/U92P
+ UlUDURTOqHHfjq5A1DW137EeSznEYelgO8reTLGp6HeC2iRcASoZkNheB A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10524"; a="312366736"
+X-IronPort-AV: E=Sophos;i="5.96,145,1665471600"; d="scan'208";a="312366736"
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Nov 2022 18:08:22 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6500,9779,10524"; a="811064706"
+X-IronPort-AV: E=Sophos;i="5.96,145,1665471600"; d="scan'208";a="811064706"
+Received: from ganyifangubuntu20-ilbpg12.png.intel.com ([10.88.229.31])
+ by orsmga005.jf.intel.com with ESMTP; 07 Nov 2022 18:08:17 -0800
+From: Gan Yi Fang <yi.fang.gan@intel.com>
+To: Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Jose Abreu <joabreu@synopsys.com>,
+ "David S . Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Richard Cochran <richardcochran@gmail.com>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Gan Yi Fang <yi.fang.gan@intel.com>
+Date: Mon,  7 Nov 2022 21:08:11 -0500
+Message-Id: <20221108020811.12919-1-yi.fang.gan@intel.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 X-Mailman-Approved-At: Wed, 09 Nov 2022 07:05:30 +0000
-Cc: devicetree@vger.kernel.org, ulf.hansson@linaro.org,
- linux-mmc@vger.kernel.org, linus.walleij@linaro.org,
- konrad.dybcio@somainline.org, agross@kernel.org, robh+dt@kernel.org,
- krzysztof.kozlowski+dt@linaro.org, linux-arm-msm@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] (subset) [PATCH v2 1/3] dt-bindings: mmc: arm,
-	pl18x: Document interrupt-names is ignored
+Cc: Voon Weifeng <weifeng.voon@intel.com>,
+ Ling Pei Lee <pei.lee.ling@intel.com>, Looi Hong Aun <hong.aun.looi@intel.com>,
+ Tan Tee Min <tee.min.tan@intel.com>,
+ Zulkifli Muhammad Husaini <muhammad.husaini.zulkifli@intel.com>,
+ Sit Michael Wei Hong <michael.wei.hong.sit@intel.com>
+Subject: [Linux-stm32] [PATCH net 1/1] stmmac: intel: Update PCH PTP clock
+	rate from 200MHz to 204.8MHz
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -63,21 +75,83 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, 14 Oct 2022 00:12:40 +0200, Marek Vasut wrote:
-> Due to inconsistency of existing DTs regarding the content of this IP
-> interrupt-names DT property, document this such that interrupt-names
-> is not used by this IP bindings.
-> 
-> 
+From: "Tan, Tee Min" <tee.min.tan@intel.com>
 
-Applied, thanks!
+Current Intel platform has an output of ~976ms interval
+when probed on 1 Pulse-per-Second(PPS) hardware pin.
 
-[2/3] ARM: dts: qcom: Drop MMCI interrupt-names
-      commit: 2f7fa366bac9aa2addb83ffa5f208291f4dbe4d8
+The correct PTP clock frequency for PCH GbE should be 204.8MHz
+instead of 200MHz. PSE GbE PTP clock rate remains at 200MHz.
 
-Best regards,
+Fixes: 58da0cfa6cf1 ("net: stmmac: create dwmac-intel.c to contain all Intel platform")
+Signed-off-by: Ling Pei Lee <pei.lee.ling@intel.com>
+Signed-off-by: Tan, Tee Min <tee.min.tan@intel.com>
+Signed-off-by: Voon Weifeng <weifeng.voon@intel.com>
+Signed-off-by: Gan Yi Fang <yi.fang.gan@intel.com>
+---
+ drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
+index 0a2afc1a3124..7deb1f817dac 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
+@@ -629,7 +629,6 @@ static int ehl_common_data(struct pci_dev *pdev,
+ {
+ 	plat->rx_queues_to_use = 8;
+ 	plat->tx_queues_to_use = 8;
+-	plat->clk_ptp_rate = 200000000;
+ 	plat->use_phy_wol = 1;
+ 
+ 	plat->safety_feat_cfg->tsoee = 1;
+@@ -654,6 +653,8 @@ static int ehl_sgmii_data(struct pci_dev *pdev,
+ 	plat->serdes_powerup = intel_serdes_powerup;
+ 	plat->serdes_powerdown = intel_serdes_powerdown;
+ 
++	plat->clk_ptp_rate = 204800000;
++
+ 	return ehl_common_data(pdev, plat);
+ }
+ 
+@@ -667,6 +668,8 @@ static int ehl_rgmii_data(struct pci_dev *pdev,
+ 	plat->bus_id = 1;
+ 	plat->phy_interface = PHY_INTERFACE_MODE_RGMII;
+ 
++	plat->clk_ptp_rate = 204800000;
++
+ 	return ehl_common_data(pdev, plat);
+ }
+ 
+@@ -683,6 +686,8 @@ static int ehl_pse0_common_data(struct pci_dev *pdev,
+ 	plat->bus_id = 2;
+ 	plat->addr64 = 32;
+ 
++	plat->clk_ptp_rate = 200000000;
++
+ 	intel_mgbe_pse_crossts_adj(intel_priv, EHL_PSE_ART_MHZ);
+ 
+ 	return ehl_common_data(pdev, plat);
+@@ -722,6 +727,8 @@ static int ehl_pse1_common_data(struct pci_dev *pdev,
+ 	plat->bus_id = 3;
+ 	plat->addr64 = 32;
+ 
++	plat->clk_ptp_rate = 200000000;
++
+ 	intel_mgbe_pse_crossts_adj(intel_priv, EHL_PSE_ART_MHZ);
+ 
+ 	return ehl_common_data(pdev, plat);
+@@ -757,7 +764,7 @@ static int tgl_common_data(struct pci_dev *pdev,
+ {
+ 	plat->rx_queues_to_use = 6;
+ 	plat->tx_queues_to_use = 4;
+-	plat->clk_ptp_rate = 200000000;
++	plat->clk_ptp_rate = 204800000;
+ 	plat->speed_mode_2500 = intel_speed_mode_2500;
+ 
+ 	plat->safety_feat_cfg->tsoee = 1;
 -- 
-Bjorn Andersson <andersson@kernel.org>
+2.34.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
