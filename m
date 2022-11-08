@@ -2,75 +2,53 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7E6E5620CCE
-	for <lists+linux-stm32@lfdr.de>; Tue,  8 Nov 2022 11:03:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A429C620FA7
+	for <lists+linux-stm32@lfdr.de>; Tue,  8 Nov 2022 12:59:29 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1AE1EC6504B;
-	Tue,  8 Nov 2022 10:03:39 +0000 (UTC)
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com
- [209.85.221.48])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 46475C6504B;
+	Tue,  8 Nov 2022 11:59:29 +0000 (UTC)
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [85.220.165.71])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 03CA9C64110
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D208CC64110
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  8 Nov 2022 10:03:37 +0000 (UTC)
-Received: by mail-wr1-f48.google.com with SMTP id y16so20069210wrt.12
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 08 Nov 2022 02:03:37 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=hOX9zjUZFkr9z7v9HthQbYfzbIWKCxg0bpV+kFj752Q=;
- b=RLCmOwYKvHF1KTZilJEPRrub4fLrNsrQTLfsWXZADJCzY6xp5OTw18NwtJKD+W4OF6
- Yy0ifNLkO82kg7ygIaZxBIoStesEoPAAkXUF7vCzeSnIGxdbfWSW4S1vWYtxB+jjmGVw
- Clmb68bkVHRK2Gmkn8caxbz06opiaHt/GgZMbvb0ZxH58b8KkGNsAtQmfqLNxobBEYqH
- 6H8WnLTyz2p1L7/I6L++y9cEmGSLo9SDDJsHLsw4NWJ5cXXV9tBr5/YMrUuWBJDBX2u4
- 823JEAuCh1qqKn0QVNCrdu20vBvdoBMDYO5fhsXzhII6im8h/TVNhZAGRQoWTLsjKLce
- zuPQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=hOX9zjUZFkr9z7v9HthQbYfzbIWKCxg0bpV+kFj752Q=;
- b=erOFlNUrnyTsoocwfhpPmMNpmJg/OmTw+bziWu3TlqKtbN4ZEiCGSrafCEXmI28cW1
- diuc6x8RKyP3TeAX3Wq2mop1Xhc5OnJTI03NIgrggk8Jtg7sLH6DdHYMh/a6HClKAB5D
- EwRJgGd5Wn3AYimVlgjo2kIoaztWexOws2ll7XuQLjMZ0i6T5tT07tpJREGwCZA3Cyc9
- +wshL03icqUaljvHO6m2Aly3ivE5uBvPHLAdDRO7lmDUgiFYtb9IhPibgDj3kVv9oalD
- wYfjUUhVxfIybqLB2V6GkQRSLQ3P9gzU4kYB+Xr37UptlYZ9D9Y+JUHo4IKIZFjz63uH
- x3Qg==
-X-Gm-Message-State: ACrzQf1XkJ2dUKz0Vw97fcfW9JpjXBZtUubsNOuveEjSopKIjmmDcP6W
- 15smLu3+iDiNXbM8HU4LhS2FwA==
-X-Google-Smtp-Source: AMsMyM74duCvRHfxLbIJOIZ+HAamQmseiB+R4lDKUyA/yqs2F1ppB+86f6gdiucReM3MNJoPm7wCKQ==
-X-Received: by 2002:a5d:6589:0:b0:236:52af:3b70 with SMTP id
- q9-20020a5d6589000000b0023652af3b70mr33270343wru.349.1667901817444; 
- Tue, 08 Nov 2022 02:03:37 -0800 (PST)
-Received: from [192.168.1.195] ([5.133.47.210])
- by smtp.googlemail.com with ESMTPSA id
- o35-20020a05600c512300b003cfbbd54178sm1120625wms.2.2022.11.08.02.03.36
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 08 Nov 2022 02:03:36 -0800 (PST)
-Message-ID: <4789703d-0434-2e72-0001-5a7e1014f816@linaro.org>
-Date: Tue, 8 Nov 2022 10:03:32 +0000
+ Tue,  8 Nov 2022 11:59:27 +0000 (UTC)
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+ by metis.ext.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1osNGB-0005Z5-PF; Tue, 08 Nov 2022 12:59:19 +0100
+Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
+ by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.94.2)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1osNG8-0032oU-5I; Tue, 08 Nov 2022 12:59:17 +0100
+Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.94.2)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1osNG8-00FAop-B0; Tue, 08 Nov 2022 12:59:16 +0100
+Date: Tue, 8 Nov 2022 12:59:16 +0100
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+To: Erwan LE RAY <erwan.leray@foss.st.com>
+Message-ID: <20221108115916.hlmbvyrnmkxymeed@pengutronix.de>
+References: <20220203171114.10888-1-erwan.leray@foss.st.com>
+ <cc7633c5-de5f-0abf-4ac8-64a74633dfcc@pengutronix.de>
+ <f5aec360-c33c-0145-6596-541003e305b2@foss.st.com>
+ <98823363-710c-6286-8e63-ba8e5dcadeba@foss.st.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.2.2
-To: Patrick DELAUNAY <patrick.delaunay@foss.st.com>,
- Alexandre TORGUE <alexandre.torgue@foss.st.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>
-References: <20221028145252.2115933-1-patrick.delaunay@foss.st.com>
- <20221028165150.3.Ibc43aa73f865090affeb1751af0cc260c7f1dd07@changeid>
- <99a8d093-13f3-9ff8-6d87-d4aecaec1566@linaro.org>
- <a4ae3648-2943-55e0-243f-71a3c5f71ad8@foss.st.com>
-Content-Language: en-US
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-In-Reply-To: <a4ae3648-2943-55e0-243f-71a3c5f71ad8@foss.st.com>
-Cc: Etienne CARRIERE <etienne.carriere@linaro.org>,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH 3/3] nvmem: stm32: add OP-TEE support for
-	STM32MP13x
+In-Reply-To: <98823363-710c-6286-8e63-ba8e5dcadeba@foss.st.com>
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: ukl@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
+Cc: Marek Vasut <marex@denx.de>, devicetree@vger.kernel.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-kernel@vger.kernel.org,
+ Marcin Sloniewski <marcin.sloniewski@gmail.com>,
+ Rob Herring <robh+dt@kernel.org>, Jagan Teki <jagan@amarulasolutions.com>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 00/16] STM32 configure UART nodes for DMA
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,125 +60,124 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: multipart/mixed; boundary="===============6750092283174368209=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-CgpPbiAwMi8xMS8yMDIyIDEwOjU5LCBQYXRyaWNrIERFTEFVTkFZIHdyb3RlOgo+IEhpLAo+IAo+
-IE9uIDExLzEvMjIgMDg6MjYsIFNyaW5pdmFzIEthbmRhZ2F0bGEgd3JvdGU6Cj4+Cj4+Cj4+IE9u
-IDI4LzEwLzIwMjIgMTU6NTIsIFBhdHJpY2sgRGVsYXVuYXkgd3JvdGU6Cj4+PiBGb3IgYm9vdCB3
-aXRoIE9QLVRFRSBvbiBTVE0zMk1QMTMsIHRoZSBjb21tdW5pY2F0aW9uIHdpdGggdGhlIHNlY3Vy
-ZQo+Pj4gd29ybGQgbm8gbW9yZSB1c2UgU1RNaWNyb2VsZWN0cm9uaWNzIFNNQyBidXQgY29tbXVu
-aWNhdGlvbiB3aXRoIHRoZQo+Pj4gQlNFQyBUQSwgZm9yIGRhdGEgYWNjZXNzIChyZWFkL3dyaXRl
-KSBvciBsb2NrIG9wZXJhdGlvbjoKPj4+IC0gYWxsIHRoZSByZXF1ZXN0IGFyZSBzZW50IHRvIE9Q
-LVRFRSB0cnVzdGVkIGFwcGxpY2F0aW9uLAo+Pj4gLSBmb3IgdXBwZXIgT1RQIHdpdGggRUNDIHBy
-b3RlY3Rpb24gYW5kIHdpdGggd29yZCBwcm9ncmFtbWluZyBvbmx5Cj4+PiDCoMKgIGVhY2ggT1RQ
-IGFyZSBwZXJtYW5lbnRseSBsb2NrZWQgd2hlbiBwcm9ncmFtbWVkIHRvIGF2b2lkIEVDQyBlcnJv
-cgo+Pj4gwqDCoCBvbiB0aGUgc2Vjb25kIHdyaXRlIG9wZXJhdGlvbgo+Pj4KPj4+IFNpZ25lZC1v
-ZmYtYnk6IFBhdHJpY2sgRGVsYXVuYXkgPHBhdHJpY2suZGVsYXVuYXlAZm9zcy5zdC5jb20+Cj4+
-PiAtLS0KPj4KPj4gRm9yIHNvbWUgcmVhc29uIEkgcHVzaGVkIHRoaXMgcGF0Y2ggd2l0aG91dCBh
-IGZ1bGwgcmV2aWV3LCBUaGlzIGlzIG5vdyAKPj4gcmV2ZXJ0ZWQgZnJvbSBudm1lbS1uZXh0Lgo+
-IAo+IAo+IE9rCj4gCj4gCj4+Cj4+IFdoeSBub3QgYWRkIFRFRSBjbGllbnQgYmFzZWQgbmV3IGRy
-aXZlciBpbnN0ZWFkIG9mIGlmZGVmaW5nIGFyb3VuZCAKPj4gdGhpcyBkcml2ZXI/IEFsc28gSSBz
-ZWUgdGhlcmUgaXMgbm90IG11Y2ggY29tbW9uIGFjcm9zcyBib3RoIGRyaXZlcnMgCj4+IGFueXdh
-eS4KPiAKPiAKPiBJIGhlc2l0YXRlIGJldHdlZW4gdGhlIDIgc29sdXRpb25zLiBJIGNob29zZSB0
-aGlzIHVwZGF0ZSB0byBoYW5kbGUgdGhlIAo+IFNUTTMyTVAxNSBzdXBwb3J0IHdpdGggT1AtVEVF
-LgoKSG93IGFyZSB5b3UgdG8gaGFuZGluZyB0aGlzPwoKPiAKPiBGb3IgYmFja3dhcmQgY29tcGF0
-aWJpbGl0eSByZWFzb24gdGhlIHNhbWUgZHJpdmVyIFNUTTMyIFJPTUVNIGFzc29jaWF0ZWQgCj4g
-dG8gY29tcGF0aWJsZSAic3Qsc3RtMzJtcDE1LWJzZWMiIHNob3VsZCBiZSBrZXB0Lgo+IAo+IC0g
-dGhlIGxvd2VyIE9UUCBjYW4gZGlyZWN0bHkgYWNjZXNzaWJsZSBieSBMaW51eCAodGhlIElQIGlz
-IG5vdCBzZWN1cmVkKSAKPiA9PiBib290IHdpdGggU1BMCgpDYW4gd2UgZGV0ZXJtaW5lIHRoaXMg
-YXQgcnVudGltZT8KCj4gCj4gLSB0aGUgdXBwZXIgT1RQIGFuZCB0aGUgd3JpdGUgb3BlcmF0aW9u
-IGFyZSByZXF1ZXN0ZWQgYnkgCj4gU1RNaWNyb2VsZWN0cm9uaWNzIFNNQ3MKPiAKPiAgwqDCoCA9
-PiBib290IHdpdGggVEYtQSBTUE1JTiBhbmQgb2xkIE9QLVRFRSAoYmVmb3JlIG1pZ3JhdGlvbiB0
-byBTVE0zMiAKPiBCU0VDIFBUQSkKPiAKPiAKPiBCdXQgaW4gdGhlIGZ1dHVyZSBPUC1URUUgdGhl
-IGFjY2VzcyB0byBPVFAgc2hvdWxkIGJlIGFsc28gZG9uZSB3aXRoIAo+IFNUTTMyIEJTRUMgUFRB
-Li4uCgpHaXZlbiB0aGF0IHdlIGhhdmUgb25seSBvbmUgY29tcGF0aWJsZSBmb3IgdGhlc2UgdHdv
-IHR5cGUgb2YgCmNvbWJpbmF0aW9ucyBob3cgYXJlIHlvdSBwbGFubmluZyB0byBkZWFsIHdpdGgg
-Ym90aCB0aGUgY2FzZXMgYW5kIHN0aWxsIApiZSBiYWNrd2FyZCBjb21wYXRpYmxlPwoKLS1zcmlu
-aQo+IAo+IAo+IEkgY2FuIG1hbmFnZSB0aGlzIGNvbXBhdGliaWxpdHkgYnkgZGV0ZWN0aW9uIGlu
-IFNUTTMyIHJvbWVtIGRyaXZlciBpZiAKPiB0aGUgYm9vdGggYWNjZXNzIGFyZSBtYW5hZ2VkIGlu
-IHRoZSBzYW1lIGRyaXZlci4KCgoKPiAKPiBUaGlzIHBhdGNoIGNhbiBiZSBhZGRlZCBpbiB0aGUg
-c2VyaWUgdG8gdW5kZXJzdG9vZCB0aGUgZGV0ZWN0aW9uIG1lY2hhbmlzbS4KPiAKPiAKPj4KPj4K
-Pj4+Cj4+PiDCoCBkcml2ZXJzL252bWVtL3N0bTMyLXJvbWVtLmMgfCA0NTAgKysrKysrKysrKysr
-KysrKysrKysrKysrKysrKysrKysrKystCj4+PiDCoCAxIGZpbGUgY2hhbmdlZCwgNDQ2IGluc2Vy
-dGlvbnMoKyksIDQgZGVsZXRpb25zKC0pCj4+Pgo+Pj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvbnZt
-ZW0vc3RtMzItcm9tZW0uYyBiL2RyaXZlcnMvbnZtZW0vc3RtMzItcm9tZW0uYwo+Pj4gaW5kZXgg
-NmRlNTY1NjM5ZDVmLi5kZmRlZGJjY2E5YjkgMTAwNjQ0Cj4+PiAtLS0gYS9kcml2ZXJzL252bWVt
-L3N0bTMyLXJvbWVtLmMKPj4+ICsrKyBiL2RyaXZlcnMvbnZtZW0vc3RtMzItcm9tZW0uYwo+Pj4g
-QEAgLTExLDYgKzExLDcgQEAKPj4+IMKgICNpbmNsdWRlIDxsaW51eC9tb2R1bGUuaD4KPj4+IMKg
-ICNpbmNsdWRlIDxsaW51eC9udm1lbS1wcm92aWRlci5oPgo+Pj4gwqAgI2luY2x1ZGUgPGxpbnV4
-L29mX2RldmljZS5oPgo+Pj4gKyNpbmNsdWRlIDxsaW51eC90ZWVfZHJ2Lmg+Cj4+PiDCoCDCoCAv
-KiBCU0VDIHNlY3VyZSBzZXJ2aWNlIGFjY2VzcyBmcm9tIG5vbi1zZWN1cmUgKi8KPj4+IMKgICNk
-ZWZpbmUgU1RNMzJfU01DX0JTRUPCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIDB4ODIwMDEwMDMKPj4+
-IEBAIC0yNSwxNCArMjYsMjIgQEAKPj4+IMKgIHN0cnVjdCBzdG0zMl9yb21lbV9jZmcgewo+Pj4g
-wqDCoMKgwqDCoCBpbnQgc2l6ZTsKPj4+IMKgwqDCoMKgwqAgdTggbG93ZXI7Cj4+PiArwqDCoMKg
-IGJvb2wgdGE7Cj4+PiDCoCB9Owo+Pj4gwqAgwqAgc3RydWN0IHN0bTMyX3JvbWVtX3ByaXYgewo+
-Pj4gwqDCoMKgwqDCoCB2b2lkIF9faW9tZW0gKmJhc2U7Cj4+PiDCoMKgwqDCoMKgIHN0cnVjdCBu
-dm1lbV9jb25maWcgY2ZnOwo+Pj4gwqDCoMKgwqDCoCB1OCBsb3dlcjsKPj4+ICvCoMKgwqAgc3Ry
-dWN0IGRldmljZSAqdGE7Cj4+PiDCoCB9Owo+Pj4gwqAgK3N0cnVjdCBkZXZpY2UgKnN0bTMyX2Jz
-ZWNfcHRhX2ZpbmQoc3RydWN0IGRldmljZSAqZGV2KTsKPj4+ICtzdGF0aWMgaW50IHN0bTMyX2Jz
-ZWNfcHRhX3JlYWQodm9pZCAqY29udGV4dCwgdW5zaWduZWQgaW50IG9mZnNldCwgCj4+PiB2b2lk
-ICpidWYsCj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHNpemVfdCBi
-eXRlcyk7Cj4+PiArc3RhdGljIGludCBzdG0zMl9ic2VjX3B0YV93cml0ZSh2b2lkICpjb250ZXh0
-LCB1bnNpZ25lZCBpbnQgb2Zmc2V0LCAKPj4+IHZvaWQgKmJ1ZiwKPj4+ICvCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqAgc2l6ZV90IGJ5dGVzKTsKPj4+ICsKPj4+IMKgIHN0YXRpYyBpbnQg
-c3RtMzJfcm9tZW1fcmVhZCh2b2lkICpjb250ZXh0LCB1bnNpZ25lZCBpbnQgb2Zmc2V0LCAKPj4+
-IHZvaWQgKmJ1ZiwKPj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgc2l6ZV90
-IGJ5dGVzKQo+Pj4gwqAgewo+Pj4gQEAgLTE3MywxNSArMTgyLDI1IEBAIHN0YXRpYyBpbnQgc3Rt
-MzJfcm9tZW1fcHJvYmUoc3RydWN0IAo+Pj4gcGxhdGZvcm1fZGV2aWNlICpwZGV2KQo+Pj4gwqDC
-oMKgwqDCoCB9IGVsc2Ugewo+Pj4gwqDCoMKgwqDCoMKgwqDCoMKgIHByaXYtPmNmZy5zaXplID0g
-Y2ZnLT5zaXplOwo+Pj4gwqDCoMKgwqDCoMKgwqDCoMKgIHByaXYtPmxvd2VyID0gY2ZnLT5sb3dl
-cjsKPj4+IC3CoMKgwqDCoMKgwqDCoCBwcml2LT5jZmcucmVnX3JlYWQgPSBzdG0zMl9ic2VjX3Jl
-YWQ7Cj4+PiAtwqDCoMKgwqDCoMKgwqAgcHJpdi0+Y2ZnLnJlZ193cml0ZSA9IHN0bTMyX2JzZWNf
-d3JpdGU7Cj4+PiArwqDCoMKgwqDCoMKgwqAgaWYgKGNmZy0+dGEpIHsKPj4+ICvCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgIHByaXYtPnRhID0gc3RtMzJfYnNlY19wdGFfZmluZChkZXYpOwo+Pj4gK8Kg
-wqDCoMKgwqDCoMKgwqDCoMKgwqAgLyogd2FpdCBmb3IgT1AtVEVFIGNsaWVudCBkcml2ZXIgdG8g
-YmUgdXAgYW5kIHJlYWR5ICovCj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBpZiAoIXByaXYt
-PnRhKQo+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCByZXR1cm4gLUVQUk9CRV9E
-RUZFUjsKPj4+ICsKPj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHByaXYtPmNmZy5yZWdfcmVh
-ZCA9IHN0bTMyX2JzZWNfcHRhX3JlYWQ7Cj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBwcml2
-LT5jZmcucmVnX3dyaXRlID0gc3RtMzJfYnNlY19wdGFfd3JpdGU7Cj4+PiArwqDCoMKgwqDCoMKg
-wqAgfSBlbHNlIHsKPj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHByaXYtPmNmZy5yZWdfcmVh
-ZCA9IHN0bTMyX2JzZWNfcmVhZDsKPj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHByaXYtPmNm
-Zy5yZWdfd3JpdGUgPSBzdG0zMl9ic2VjX3dyaXRlOwo+Pj4gK8KgwqDCoMKgwqDCoMKgIH0KPj4+
-IMKgwqDCoMKgwqAgfQo+Pj4gwqAgwqDCoMKgwqDCoCByZXR1cm4gUFRSX0VSUl9PUl9aRVJPKGRl
-dm1fbnZtZW1fcmVnaXN0ZXIoZGV2LCAmcHJpdi0+Y2ZnKSk7Cj4+PiDCoCB9Cj4+PiDCoCDCoCAv
-Kgo+Pj4gLSAqIFNUTTMyTVAxNSBCU0VDIE9UUCByZWdpb25zOiA0MDk2IE9UUCBiaXRzICh3aXRo
-IDMwNzIgZWZmZWN0aXZlIGJpdHMpCj4+PiArICogU1RNMzJNUDE1LzEzIEJTRUMgT1RQIHJlZ2lv
-bnM6IDQwOTYgT1RQIGJpdHMgKHdpdGggMzA3MiBlZmZlY3RpdmUgCj4+PiBiaXRzKQo+Pj4gwqDC
-oCAqID0+IDk2IHggMzItYml0cyBkYXRhIHdvcmRzCj4+PiDCoMKgICogLSBMb3dlcjogMUsgYml0
-cywgMjoxIHJlZHVuZGFuY3ksIGluY3JlbWVudGFsIGJpdCBwcm9ncmFtbWluZwo+Pj4gwqDCoCAq
-wqDCoCA9PiAzMiAoeCAzMi1iaXRzKSBsb3dlciBzaGFkb3cgcmVnaXN0ZXJzID0gd29yZHMgMCB0
-byAzMQo+Pj4gQEAgLTE5MSw2ICsyMTAsMTMgQEAgc3RhdGljIGludCBzdG0zMl9yb21lbV9wcm9i
-ZShzdHJ1Y3QgCj4+PiBwbGF0Zm9ybV9kZXZpY2UgKnBkZXYpCj4+PiDCoCBzdGF0aWMgY29uc3Qg
-c3RydWN0IHN0bTMyX3JvbWVtX2NmZyBzdG0zMm1wMTVfYnNlY19jZmcgPSB7Cj4+PiDCoMKgwqDC
-oMKgIC5zaXplID0gMzg0LAo+Pj4gwqDCoMKgwqDCoCAubG93ZXIgPSAzMiwKPj4+ICvCoMKgwqAg
-LnRhID0gZmFsc2UsCj4+PiArfTsKPj4+ICsKPj4+ICtzdGF0aWMgY29uc3Qgc3RydWN0IHN0bTMy
-X3JvbWVtX2NmZyBzdG0zMm1wMTNfYnNlY19jZmcgPSB7Cj4+PiArwqDCoMKgIC5zaXplID0gMzg0
-LAo+Pj4gK8KgwqDCoCAubG93ZXIgPSAzMiwKPj4+ICvCoMKgwqAgLnRhID0gdHJ1ZSwKPj4+IMKg
-IH07Cj4+PiDCoCDCoCBzdGF0aWMgY29uc3Qgc3RydWN0IG9mX2RldmljZV9pZCBzdG0zMl9yb21l
-bV9vZl9tYXRjaFtdID0gewo+Pj4gQEAgLTE5OCw2ICsyMjQsOCBAQCBzdGF0aWMgY29uc3Qgc3Ry
-dWN0IG9mX2RldmljZV9pZCAKPj4+IHN0bTMyX3JvbWVtX29mX21hdGNoW10gPSB7Cj4+PiDCoMKg
-wqDCoMKgwqDCoMKgwqAgLmNvbXBhdGlibGUgPSAic3Qsc3RtMzJtcDE1LWJzZWMiLAo+Pj4gwqDC
-oMKgwqDCoMKgwqDCoMKgIC5kYXRhID0gKHZvaWQgKikmc3RtMzJtcDE1X2JzZWNfY2ZnLAo+Pj4g
-wqDCoMKgwqDCoCB9LCB7Cj4+PiArwqDCoMKgwqDCoMKgwqAgLmNvbXBhdGlibGUgPSAic3Qsc3Rt
-MzJtcDEzLWJzZWMiLAo+Pj4gK8KgwqDCoMKgwqDCoMKgIC5kYXRhID0gKHZvaWQgKikmc3RtMzJt
-cDEzX2JzZWNfY2ZnLAo+Pgo+PiBtaXNzaW5nIHNlbnRpbmVsLCB3aGljaCBjYXVzZWQgYSByZWdy
-ZXNzaW9uIGluIG5leHQuCj4gCj4gCj4gT2ssIHNvcnJ5IGZvciBteSBlcnJvciBpbiB0aGUgcmVi
-YXNlIGNvbmZsaWN0Lgo+IAo+IAo+IFBhdHJpY2sKPiAKPiAKPj4KPj4KPj4gLS1zcmluaQo+Pj4g
-wqDCoMKgwqDCoCB9LAo+Pj4gwqAgfTsKPj4+IMKgIE1PRFVMRV9ERVZJQ0VfVEFCTEUob2YsIHN0
-bTMyX3JvbWVtX29mX21hdGNoKTsKPj4+IEBAIC0yMDksNyArMjM3LDQyMSBAQCBzdGF0aWMgc3Ry
-dWN0IHBsYXRmb3JtX2RyaXZlciAKPj4+IHN0bTMyX3JvbWVtX2RyaXZlciA9IHsKPj4+IMKgwqDC
-oMKgwqDCoMKgwqDCoCAub2ZfbWF0Y2hfdGFibGUgPSBvZl9tYXRjaF9wdHIoc3RtMzJfcm9tZW1f
-b2ZfbWF0Y2gpLAo+Pj4gwqDCoMKgwqDCoCB9LAo+Pj4gwqAgfTsKPj4+IC1tb2R1bGVfcGxhdGZv
-cm1fZHJpdmVyKHN0bTMyX3JvbWVtX2RyaXZlcik7Cj4+PiArCj4+PiArI2lmIElTX0VOQUJMRUQo
-Q09ORklHX09QVEVFKQo+Pj4KPiAuLi4uCj4gCj4gCj4+PiArCj4+PiArbW9kdWxlX2luaXQoc3Rt
-MzJfcm9tZW1faW5pdCk7Cj4+PiArbW9kdWxlX2V4aXQoc3RtMzJfcm9tZW1fZXhpdCk7Cj4+PiDC
-oCDCoCBNT0RVTEVfQVVUSE9SKCJGYWJyaWNlIEdhc25pZXIgPGZhYnJpY2UuZ2FzbmllckBzdC5j
-b20+Iik7Cj4+PiDCoCBNT0RVTEVfREVTQ1JJUFRJT04oIlNUTWljcm9lbGVjdHJvbmljcyBTVE0z
-MiBSTy1NRU0iKTsKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rv
-cm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4v
-bGlzdGluZm8vbGludXgtc3RtMzIK
+
+--===============6750092283174368209==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="c7xl74gxbk272rwu"
+Content-Disposition: inline
+
+
+--c7xl74gxbk272rwu
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Fri, Feb 04, 2022 at 04:41:55PM +0100, Erwan LE RAY wrote:
+> On 2/4/22 2:22 PM, Alexandre TORGUE wrote:
+> > Hi Ahmad
+> >=20
+> > On 2/3/22 18:25, Ahmad Fatoum wrote:
+> > > Hello Erwan,
+> > >=20
+> > > On 03.02.22 18:10, Erwan Le Ray wrote:
+> > > > Add DMA configuration to UART nodes in stm32mp15x (SOC level) and
+> > > > remove it at board level to keep current PIO behavior when needed.
+> > > > For stm32-ed1 and stm32-dkx boards, UART4 (console) and UART7
+> > > > (no HW flow control pin available) are kept in PIO mode, while USAR=
+T3
+> > > > is now configured in DMA mode.
+> > > > UART4 (console UART) has to be kept in irq mode, as DMA support for
+> > > > console has been removed from the driver by commit e359b4411c28
+> > > > ("serial: stm32: fix threaded interrupt handling").
+> > >=20
+> > > Do I understand correctly that your first patch breaks consoles of
+> > > most/all boards, because they will briefly use DMA, which is refused
+> > > by the stm32-usart driver and then you add a patch for each board
+> > > to fix that breakage?
+> >=20
+> > We have two solutions and both have pro/drawbacks. The first one (Erwan
+> > ones, can break the boot if the patch is taken "alone". Your proposition
+> > avoids this breakage but deletes a non define property (which is a bit
+> > weird). However I prefer to keep a functional behavior, and keep Ahmad
+> > proposition. Ahmad, just one question, dt-bindings check doesn't
+> > complain about it ?
+> >=20
+> > Cheers
+> > Alex
+> >=20
+> > >=20
+> > > Such intermittent breakage makes bisection a hassle. /delete-property/
+> > > is a no-op when the property doesn't exist, so you could move the fir=
+st
+> > > patch to the very end to avoid intermittent breakage.
+> > >=20
+> > > I also think that the driver's behavior is a bit harsh. I think it wo=
+uld
+> > > be better for the UART driver to print a warning and fall back to
+> > > PIO for console instead of outright refusing and rendering the system
+> > > silent. That's not mutually exclusive with your patch series here,
+> > > of course.
+> > >=20
+> > > Cheers,
+> > > Ahmad
+> > >=20
+>=20
+> The driver implementation will consider the request to probe the UART
+> console in DMA mode as an error (-ENODEV), and will fallback this UART pr=
+obe
+> in irq mode.
+
+> Whatever the patch ordering, the boot will never be broken. The board dt
+> patches aim to get a "proper" implementation, but from functional
+> perspective the driver will manage a request to probe an UART console in =
+DMA
+> mode as an error and fall it back in irq mode.
+
+I didn't debug this further yet, but my machine (with an out-of-tree
+dts) fails to boot 6.1-rc4 without removing the dma properties from the
+console UART. This is a bug isn't it? The same dts created a working
+setup with stm32mp157.dtsi from 5.15 + kernel 5.15.
+
+I can debug this further, but maybe you know off-hand what the problem
+is?
+
+Best regards
+Uwe
+
+--=20
+Pengutronix e.K.                           | Uwe Kleine-K=F6nig            |
+Industrial Linux Solutions                 | https://www.pengutronix.de/ |
+
+--c7xl74gxbk272rwu
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEfnIqFpAYrP8+dKQLwfwUeK3K7AkFAmNqRJEACgkQwfwUeK3K
+7AlviAf/aWq+f5jZ43D9mr3TUb0MZkP1KLvPgtrpBfPs15Bp8S74wsXD2uMZcX82
+CtouQO0Y39ByPVDx1rWTJt5PUIGObQsAuQe9J9jVj2dKecRqa5amu8OueqZX0rMs
+VrLueFarS1+Jj95JwpTXaDMWmD7u7Mzh643Xr1aIQ2RPajOkMtaeGuSwqAHhGPTw
+Du5FdhPlIPpetKNn3L+TLHJ3sXWHyQa/BL/wqHjvg575tSiLFLCXGjnYNs9Wqk4h
+BJcHXwFi0hkE37vCKHT6chnyRwF93xR7ZWCJI49KenTK7AC0tSqVZHdFFFD/wV1m
+/g8RuN7EB/xJFEYSrPbtnhILSKTC/Q==
+=yKut
+-----END PGP SIGNATURE-----
+
+--c7xl74gxbk272rwu--
+
+--===============6750092283174368209==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============6750092283174368209==--
