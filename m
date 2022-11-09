@@ -2,58 +2,97 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2552062183D
-	for <lists+linux-stm32@lfdr.de>; Tue,  8 Nov 2022 16:28:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2157762220E
+	for <lists+linux-stm32@lfdr.de>; Wed,  9 Nov 2022 03:44:07 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BBB59C6504B;
-	Tue,  8 Nov 2022 15:28:56 +0000 (UTC)
-Received: from phobos.denx.de (phobos.denx.de [85.214.62.61])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BA519C6504B;
+	Wed,  9 Nov 2022 02:44:06 +0000 (UTC)
+Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com
+ [209.85.208.47])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 05E9EC65041
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 200C2C65041
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  8 Nov 2022 15:28:54 +0000 (UTC)
-Received: from [127.0.0.1] (p578adb1c.dip0.t-ipconnect.de [87.138.219.28])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits))
- (No client certificate requested)
- (Authenticated sender: marex@denx.de)
- by phobos.denx.de (Postfix) with ESMTPSA id D8AE184F72;
- Tue,  8 Nov 2022 16:28:52 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de;
- s=phobos-20191101; t=1667921334;
- bh=ynxbc+MKCLeWwRbrLNxyC55qaclB4jtg/aYQ5o2Qus0=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=Vj5vX/8z6GAYG4Gbp9pE6bV2u66FuorO5FcT4mzj/Y+t6tVekBYjMjMlEpnypjGi0
- hQTkJCcz+q6IWhDARns9vzfBSrZCsbrvyzPzyjC1gNKvms3/yaVldzCFhCptVlCWOD
- Fa/1M//h1HT6/pFzgEZRynlSV8EiDnH67mXd0j7NYyO/SYyGvG34wSLHeNzwnlaJPm
- 3KssiGAfo3W2XeL4dMV93PMD50h6wEwzIzlDzR2jk33Sbmz4QnRrV1E3GlHzxPJhfy
- qdQCJV/8GbCRjZcheSTR74okbWjEv6dKZPD/2F+yLOf8KGKZVt0fnsOaCSGANPX86f
- cjgcqZmRJa4lA==
-Message-ID: <230c26ea-f7c5-2688-16fd-e4a91f421833@denx.de>
-Date: Tue, 8 Nov 2022 16:28:52 +0100
+ Wed,  9 Nov 2022 02:44:05 +0000 (UTC)
+Received: by mail-ed1-f47.google.com with SMTP id z18so25271583edb.9
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 08 Nov 2022 18:44:05 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=ZSs9bG/LbFf1fIR0eapTeL6P50DjYrAFt1f1UPagmkc=;
+ b=fm3R7eHwEY7icgp5E36AR1x+G3iJ/B+gTC6qXXcb2VuX8T7PYbpIOMaEAEk+z5gP5C
+ C30KcgR4lm806IYQfNeeuFx0cfGof3DpzdH786/cCDzuWrdeUNc7jFOrL5vMwTo9Vbtm
+ dVxBVDI57pb7BVYvuH3eLaJ4JjrtQb9xL2MZ41TI7RBi2z65S87p9zWDePR0yCVz6VHw
+ JOVSi+JRNqY3PBDz9qa44qLlWzFaPdXGRa4GRcfXuEi5nSYmnCJ6Zyk7dG4zjutSYT5H
+ vN2MmXbmOeI+y4HkZpv6Bi0bN99D9Nar9mmN1KGg/88Sfc9R8fV6gzM/jPxbXATFIa/1
+ F+hA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=ZSs9bG/LbFf1fIR0eapTeL6P50DjYrAFt1f1UPagmkc=;
+ b=bSR86knxsck7yNXZV8ukNVzh0BDSq3l4NXJ0IB3f/kDUa8D586MOU8HtH+LKGvII2Z
+ krr78TMkeYk8qBLf+QsboBWqArMtQ6UdGSi1xv/UKBGdutAuvFdAfuplXU3Z8FgtrtbE
+ IpeNdrgGWUUb+WeTmbHn8xFDCddjaKWVjdmEDae1wpfvar5Xs6+eIP6YdJMjTyI7Bgap
+ VRSpxwaDl7Sddq5XWIqlv6VhExBO8EnHR21gYvCQbGA7YysA/p755Tk+XFLPQdZU5xrh
+ XCZWaeAmmwrmFDtYZX+259LjwAztSEGMNDN+mc0taL4X6he+SHvgIlEBPXqURznmGmdN
+ 1QwQ==
+X-Gm-Message-State: ACrzQf0Dd3ADms5xxGQe0Tzj5SBkVDjQEAxJqY+OnT+cmRQucL+NhAns
+ PeCGlwwyuIrMWa9GdyNHgS0hdXQdGneceRC1q28=
+X-Google-Smtp-Source: AMsMyM4o96Fp/fgGe8bWp9qyaCLc1d6jcauj7urZdaiQjIItG7q8RJuK4x04Dncd47Xu2Mogx93A97DsfgYY/BWPass=
+X-Received: by 2002:a05:6402:3806:b0:450:bad8:8cd5 with SMTP id
+ es6-20020a056402380600b00450bad88cd5mr59725933edb.305.1667961844484; Tue, 08
+ Nov 2022 18:44:04 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.1
-To: =?UTF-8?Q?Uwe_Kleine-K=c3=b6nig?= <u.kleine-koenig@pengutronix.de>,
- Erwan LE RAY <erwan.leray@foss.st.com>
-References: <20220203171114.10888-1-erwan.leray@foss.st.com>
- <cc7633c5-de5f-0abf-4ac8-64a74633dfcc@pengutronix.de>
- <f5aec360-c33c-0145-6596-541003e305b2@foss.st.com>
- <98823363-710c-6286-8e63-ba8e5dcadeba@foss.st.com>
- <20221108115916.hlmbvyrnmkxymeed@pengutronix.de>
-Content-Language: en-US
-From: Marek Vasut <marex@denx.de>
-In-Reply-To: <20221108115916.hlmbvyrnmkxymeed@pengutronix.de>
-X-Virus-Scanned: clamav-milter 0.103.6 at phobos.denx.de
-X-Virus-Status: Clean
-Cc: devicetree@vger.kernel.org, Amelie DELAUNAY <amelie.delaunay@st.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-kernel@vger.kernel.org,
- Marcin Sloniewski <marcin.sloniewski@gmail.com>,
- Rob Herring <robh+dt@kernel.org>, Jagan Teki <jagan@amarulasolutions.com>,
+References: <20221018-clk-range-checks-fixes-v2-0-f6736dec138e@cerno.tech>
+ <20221018-clk-range-checks-fixes-v2-58-f6736dec138e@cerno.tech>
+In-Reply-To: <20221018-clk-range-checks-fixes-v2-58-f6736dec138e@cerno.tech>
+From: Chunyan Zhang <zhang.lyra@gmail.com>
+Date: Wed, 9 Nov 2022 10:43:26 +0800
+Message-ID: <CAAfSe-t96pttpdLjLYntof5JCNcVHg0fMckk6zC7YHRRceDw+A@mail.gmail.com>
+To: Maxime Ripard <maxime@cerno.tech>
+Cc: Ulf Hansson <ulf.hansson@linaro.org>,
+ Prashant Gaikwad <pgaikwad@nvidia.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Michael Turquette <mturquette@baylibre.com>, Sekhar Nori <nsekhar@ti.com>,
+ dri-devel@lists.freedesktop.org, Jaroslav Kysela <perex@perex.cz>,
+ Paul Cercueil <paul@crapouillou.net>, Max Filippov <jcmvbkbc@gmail.com>,
+ Thierry Reding <thierry.reding@gmail.com>, linux-phy@lists.infradead.org,
+ Fabio Estevam <festevam@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
+ Abel Vesa <abelvesa@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Samuel Holland <samuel@sholland.org>, David Airlie <airlied@gmail.com>,
+ Takashi Iwai <tiwai@suse.com>, linux-tegra@vger.kernel.org,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>, Chen-Yu Tsai <wens@csie.org>,
+ NXP Linux Team <linux-imx@nxp.com>, Orson Zhai <orsonzhai@gmail.com>,
+ linux-mips@vger.kernel.org, Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Linus Walleij <linus.walleij@linaro.org>, linux-rtc@vger.kernel.org,
+ linux-clk@vger.kernel.org, Charles Keepax <ckeepax@opensource.cirrus.com>,
+ Daniel Vetter <daniel@ffwll.ch>, alsa-devel@alsa-project.org,
+ Manivannan Sadhasivam <mani@kernel.org>, linux-kernel@vger.kernel.org,
+ Sascha Hauer <s.hauer@pengutronix.de>, linux-actions@lists.infradead.org,
+ Richard Fitzgerald <rf@opensource.cirrus.com>, Mark Brown <broonie@kernel.org>,
+ linux-mediatek@lists.infradead.org,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
  Pengutronix Kernel Team <kernel@pengutronix.de>,
- Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 00/16] STM32 configure UART nodes for DMA
+ linux-arm-kernel@lists.infradead.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Alessandro Zummo <a.zummo@towertech.it>, linux-sunxi@lists.linux.dev,
+ Stephen Boyd <sboyd@kernel.org>, patches@opensource.cirrus.com,
+ Peter De Schrijver <pdeschrijver@nvidia.com>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Claudiu Beznea <claudiu.beznea@microchip.com>,
+ linux-renesas-soc@vger.kernel.org, Dinh Nguyen <dinguyen@kernel.org>,
+ Vinod Koul <vkoul@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ David Lechner <david@lechnology.com>, Shawn Guo <shawnguo@kernel.org>,
+ =?UTF-8?Q?Andreas_F=C3=A4rber?= <afaerber@suse.de>
+Subject: Re: [Linux-stm32] [PATCH v2 58/65] clk: sprd: composite: Switch to
+	determine_rate
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -65,64 +104,93 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gMTEvOC8yMiAxMjo1OSwgVXdlIEtsZWluZS1Lw7ZuaWcgd3JvdGU6Cj4gT24gRnJpLCBGZWIg
-MDQsIDIwMjIgYXQgMDQ6NDE6NTVQTSArMDEwMCwgRXJ3YW4gTEUgUkFZIHdyb3RlOgo+PiBPbiAy
-LzQvMjIgMjoyMiBQTSwgQWxleGFuZHJlIFRPUkdVRSB3cm90ZToKPj4+IEhpIEFobWFkCj4+Pgo+
-Pj4gT24gMi8zLzIyIDE4OjI1LCBBaG1hZCBGYXRvdW0gd3JvdGU6Cj4+Pj4gSGVsbG8gRXJ3YW4s
-Cj4+Pj4KPj4+PiBPbiAwMy4wMi4yMiAxODoxMCwgRXJ3YW4gTGUgUmF5IHdyb3RlOgo+Pj4+PiBB
-ZGQgRE1BIGNvbmZpZ3VyYXRpb24gdG8gVUFSVCBub2RlcyBpbiBzdG0zMm1wMTV4IChTT0MgbGV2
-ZWwpIGFuZAo+Pj4+PiByZW1vdmUgaXQgYXQgYm9hcmQgbGV2ZWwgdG8ga2VlcCBjdXJyZW50IFBJ
-TyBiZWhhdmlvciB3aGVuIG5lZWRlZC4KPj4+Pj4gRm9yIHN0bTMyLWVkMSBhbmQgc3RtMzItZGt4
-IGJvYXJkcywgVUFSVDQgKGNvbnNvbGUpIGFuZCBVQVJUNwo+Pj4+PiAobm8gSFcgZmxvdyBjb250
-cm9sIHBpbiBhdmFpbGFibGUpIGFyZSBrZXB0IGluIFBJTyBtb2RlLCB3aGlsZSBVU0FSVDMKPj4+
-Pj4gaXMgbm93IGNvbmZpZ3VyZWQgaW4gRE1BIG1vZGUuCj4+Pj4+IFVBUlQ0IChjb25zb2xlIFVB
-UlQpIGhhcyB0byBiZSBrZXB0IGluIGlycSBtb2RlLCBhcyBETUEgc3VwcG9ydCBmb3IKPj4+Pj4g
-Y29uc29sZSBoYXMgYmVlbiByZW1vdmVkIGZyb20gdGhlIGRyaXZlciBieSBjb21taXQgZTM1OWI0
-NDExYzI4Cj4+Pj4+ICgic2VyaWFsOiBzdG0zMjogZml4IHRocmVhZGVkIGludGVycnVwdCBoYW5k
-bGluZyIpLgo+Pj4+Cj4+Pj4gRG8gSSB1bmRlcnN0YW5kIGNvcnJlY3RseSB0aGF0IHlvdXIgZmly
-c3QgcGF0Y2ggYnJlYWtzIGNvbnNvbGVzIG9mCj4+Pj4gbW9zdC9hbGwgYm9hcmRzLCBiZWNhdXNl
-IHRoZXkgd2lsbCBicmllZmx5IHVzZSBETUEsIHdoaWNoIGlzIHJlZnVzZWQKPj4+PiBieSB0aGUg
-c3RtMzItdXNhcnQgZHJpdmVyIGFuZCB0aGVuIHlvdSBhZGQgYSBwYXRjaCBmb3IgZWFjaCBib2Fy
-ZAo+Pj4+IHRvIGZpeCB0aGF0IGJyZWFrYWdlPwo+Pj4KPj4+IFdlIGhhdmUgdHdvIHNvbHV0aW9u
-cyBhbmQgYm90aCBoYXZlIHByby9kcmF3YmFja3MuIFRoZSBmaXJzdCBvbmUgKEVyd2FuCj4+PiBv
-bmVzLCBjYW4gYnJlYWsgdGhlIGJvb3QgaWYgdGhlIHBhdGNoIGlzIHRha2VuICJhbG9uZSIuIFlv
-dXIgcHJvcG9zaXRpb24KPj4+IGF2b2lkcyB0aGlzIGJyZWFrYWdlIGJ1dCBkZWxldGVzIGEgbm9u
-IGRlZmluZSBwcm9wZXJ0eSAod2hpY2ggaXMgYSBiaXQKPj4+IHdlaXJkKS4gSG93ZXZlciBJIHBy
-ZWZlciB0byBrZWVwIGEgZnVuY3Rpb25hbCBiZWhhdmlvciwgYW5kIGtlZXAgQWhtYWQKPj4+IHBy
-b3Bvc2l0aW9uLiBBaG1hZCwganVzdCBvbmUgcXVlc3Rpb24sIGR0LWJpbmRpbmdzIGNoZWNrIGRv
-ZXNuJ3QKPj4+IGNvbXBsYWluIGFib3V0IGl0ID8KPj4+Cj4+PiBDaGVlcnMKPj4+IEFsZXgKPj4+
-Cj4+Pj4KPj4+PiBTdWNoIGludGVybWl0dGVudCBicmVha2FnZSBtYWtlcyBiaXNlY3Rpb24gYSBo
-YXNzbGUuIC9kZWxldGUtcHJvcGVydHkvCj4+Pj4gaXMgYSBuby1vcCB3aGVuIHRoZSBwcm9wZXJ0
-eSBkb2Vzbid0IGV4aXN0LCBzbyB5b3UgY291bGQgbW92ZSB0aGUgZmlyc3QKPj4+PiBwYXRjaCB0
-byB0aGUgdmVyeSBlbmQgdG8gYXZvaWQgaW50ZXJtaXR0ZW50IGJyZWFrYWdlLgo+Pj4+Cj4+Pj4g
-SSBhbHNvIHRoaW5rIHRoYXQgdGhlIGRyaXZlcidzIGJlaGF2aW9yIGlzIGEgYml0IGhhcnNoLiBJ
-IHRoaW5rIGl0IHdvdWxkCj4+Pj4gYmUgYmV0dGVyIGZvciB0aGUgVUFSVCBkcml2ZXIgdG8gcHJp
-bnQgYSB3YXJuaW5nIGFuZCBmYWxsIGJhY2sgdG8KPj4+PiBQSU8gZm9yIGNvbnNvbGUgaW5zdGVh
-ZCBvZiBvdXRyaWdodCByZWZ1c2luZyBhbmQgcmVuZGVyaW5nIHRoZSBzeXN0ZW0KPj4+PiBzaWxl
-bnQuIFRoYXQncyBub3QgbXV0dWFsbHkgZXhjbHVzaXZlIHdpdGggeW91ciBwYXRjaCBzZXJpZXMg
-aGVyZSwKPj4+PiBvZiBjb3Vyc2UuCj4+Pj4KPj4+PiBDaGVlcnMsCj4+Pj4gQWhtYWQKPj4+Pgo+
-Pgo+PiBUaGUgZHJpdmVyIGltcGxlbWVudGF0aW9uIHdpbGwgY29uc2lkZXIgdGhlIHJlcXVlc3Qg
-dG8gcHJvYmUgdGhlIFVBUlQKPj4gY29uc29sZSBpbiBETUEgbW9kZSBhcyBhbiBlcnJvciAoLUVO
-T0RFViksIGFuZCB3aWxsIGZhbGxiYWNrIHRoaXMgVUFSVCBwcm9iZQo+PiBpbiBpcnEgbW9kZS4K
-PiAKPj4gV2hhdGV2ZXIgdGhlIHBhdGNoIG9yZGVyaW5nLCB0aGUgYm9vdCB3aWxsIG5ldmVyIGJl
-IGJyb2tlbi4gVGhlIGJvYXJkIGR0Cj4+IHBhdGNoZXMgYWltIHRvIGdldCBhICJwcm9wZXIiIGlt
-cGxlbWVudGF0aW9uLCBidXQgZnJvbSBmdW5jdGlvbmFsCj4+IHBlcnNwZWN0aXZlIHRoZSBkcml2
-ZXIgd2lsbCBtYW5hZ2UgYSByZXF1ZXN0IHRvIHByb2JlIGFuIFVBUlQgY29uc29sZSBpbiBETUEK
-Pj4gbW9kZSBhcyBhbiBlcnJvciBhbmQgZmFsbCBpdCBiYWNrIGluIGlycSBtb2RlLgo+IAo+IEkg
-ZGlkbid0IGRlYnVnIHRoaXMgZnVydGhlciB5ZXQsIGJ1dCBteSBtYWNoaW5lICh3aXRoIGFuIG91
-dC1vZi10cmVlCj4gZHRzKSBmYWlscyB0byBib290IDYuMS1yYzQgd2l0aG91dCByZW1vdmluZyB0
-aGUgZG1hIHByb3BlcnRpZXMgZnJvbSB0aGUKPiBjb25zb2xlIFVBUlQuIFRoaXMgaXMgYSBidWcg
-aXNuJ3QgaXQ/IFRoZSBzYW1lIGR0cyBjcmVhdGVkIGEgd29ya2luZwo+IHNldHVwIHdpdGggc3Rt
-MzJtcDE1Ny5kdHNpIGZyb20gNS4xNSArIGtlcm5lbCA1LjE1Lgo+IAo+IEkgY2FuIGRlYnVnIHRo
-aXMgZnVydGhlciwgYnV0IG1heWJlIHlvdSBrbm93IG9mZi1oYW5kIHdoYXQgdGhlIHByb2JsZW0K
-PiBpcz8KCitDQyBBbWVsaWUsIGFzIHRoaXMgbWlnaHQgYmUgcmVsYXRlZCB0byB0aGUgRE1BIHNl
-cmllcyB0aGF0IGxhbmRlZCByZWNlbnRseToKCiQgZ2l0IGxvZyAtLW9uZWxpbmUgdjUuMTguLnY2
-LjAgLS0gZHJpdmVycy9kbWEvc3RtMzIqCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1t
-ZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5
-LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+On Fri, 4 Nov 2022 at 21:33, Maxime Ripard <maxime@cerno.tech> wrote:
+>
+> The Spreadtrum composite clocks implements a mux with a set_parent
+> hook, but doesn't provide a determine_rate implementation.
+>
+> This is a bit odd, since set_parent() is there to, as its name implies,
+> change the parent of a clock. However, the most likely candidate to
+> trigger that parent change is a call to clk_set_rate(), with
+> determine_rate() figuring out which parent is the best suited for a
+> given rate.
+>
+> The other trigger would be a call to clk_set_parent(), but it's far less
+> used, and it doesn't look like there's any obvious user for that clock.
+>
+> So, the set_parent hook is effectively unused, possibly because of an
+> oversight. However, it could also be an explicit decision by the
+> original author to avoid any reparenting but through an explicit call to
+> clk_set_parent().
+>
+> The driver does implement round_rate() though, which means that we can
+> change the rate of the clock, but we will never get to change the
+> parent.
+>
+> However, It's hard to tell whether it's been done on purpose or not.
+>
+> Since we'll start mandating a determine_rate() implementation, let's
+> convert the round_rate() implementation to a determine_rate(), which
+> will also make the current behavior explicit. And if it was an
+> oversight, the clock behaviour can be adjusted later on.
+>
+> Signed-off-by: Maxime Ripard <maxime@cerno.tech>
+
+Acked-by: Chunyan Zhang <zhang.lyra@gmail.com>
+
+Thanks,
+Chunyan
+
+> ---
+>  drivers/clk/sprd/composite.c | 16 +++++++++++-----
+>  1 file changed, 11 insertions(+), 5 deletions(-)
+>
+> diff --git a/drivers/clk/sprd/composite.c b/drivers/clk/sprd/composite.c
+> index ebb644820b1e..d3a852720c07 100644
+> --- a/drivers/clk/sprd/composite.c
+> +++ b/drivers/clk/sprd/composite.c
+> @@ -9,13 +9,19 @@
+>
+>  #include "composite.h"
+>
+> -static long sprd_comp_round_rate(struct clk_hw *hw, unsigned long rate,
+> -                               unsigned long *parent_rate)
+> +static int sprd_comp_determine_rate(struct clk_hw *hw,
+> +                                   struct clk_rate_request *req)
+>  {
+>         struct sprd_comp *cc = hw_to_sprd_comp(hw);
+> +       unsigned long rate;
+>
+> -       return sprd_div_helper_round_rate(&cc->common, &cc->div,
+> -                                        rate, parent_rate);
+> +       rate = sprd_div_helper_round_rate(&cc->common, &cc->div,
+> +                                         req->rate, &req->best_parent_rate);
+> +       if (rate < 0)
+> +               return rate;
+> +
+> +       req->rate = rate;
+> +       return 0;
+>  }
+>
+>  static unsigned long sprd_comp_recalc_rate(struct clk_hw *hw,
+> @@ -53,7 +59,7 @@ const struct clk_ops sprd_comp_ops = {
+>         .get_parent     = sprd_comp_get_parent,
+>         .set_parent     = sprd_comp_set_parent,
+>
+> -       .round_rate     = sprd_comp_round_rate,
+> +       .determine_rate = sprd_comp_determine_rate,
+>         .recalc_rate    = sprd_comp_recalc_rate,
+>         .set_rate       = sprd_comp_set_rate,
+>  };
+>
+> --
+> b4 0.11.0-dev-99e3a
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
