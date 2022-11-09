@@ -2,63 +2,61 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 727F6622462
+	by mail.lfdr.de (Postfix) with ESMTPS id 81F93622464
 	for <lists+linux-stm32@lfdr.de>; Wed,  9 Nov 2022 08:05:31 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 23DBAC65051;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 34B0EC65054;
 	Wed,  9 Nov 2022 07:05:31 +0000 (UTC)
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 38E68C64110
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 49819C65041
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  8 Nov 2022 02:08:24 +0000 (UTC)
+ Wed,  9 Nov 2022 02:54:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1667873304; x=1699409304;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=i/dLpV2uFjEVIuCUEjBPXiMF2Qtt/k5JOyenuO0QQz0=;
- b=kKj/ltE7sMRvYr++WGF0S1+TRBUz2+RyI2Kz7PpFPbmuwgiqy/bHS9rs
- 9SQakPFGGgJkC39/5TRTewC720rkjZqtlvUJnjOWIr8c/DPJ3ui1mkyBU
- CQU05Uzus8CCBfT0UYGkUG3IueWrpH4n3/ZVjleY6RUsevqTUDV5Yxezw
- gG8py4y9s9TAGLhKSO7rWnJ3XNl2laYXQsWJf8JM64qCAsEq2MuORWFil
- 0CQK7QMone9sg7k50pmaGYrX13QFPB7dXAzS+/mteW9qdr7CdK4r/U92P
- UlUDURTOqHHfjq5A1DW137EeSznEYelgO8reTLGp6HeC2iRcASoZkNheB A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10524"; a="312366736"
-X-IronPort-AV: E=Sophos;i="5.96,145,1665471600"; d="scan'208";a="312366736"
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Nov 2022 18:08:22 -0800
+ t=1667962455; x=1699498455;
+ h=from:to:cc:subject:date:message-id;
+ bh=LcPwnMOvNXd8EfDVDs6NwQk1HFjCWGuocIdZbaknvaM=;
+ b=lh5vJ6CE6whjrWrmM3PsmPZsM+ekafzG3cYujWuBbbVrt4DAwPOM7RUu
+ 8GNf++TyblyYXyRoCDSM9mYs7xG/UUj2HDXnwvn6dsOijcR+pRu4gx/iJ
+ pbhJoqCsQSl3b1vO4xHJANxRMD+eXjuU9cWl8+JvItlhGw17eY8fI6q4B
+ 7Lm/QBjKE2LwQ+DV9ttPYVUSZwmf+pENFiPJaZdsdBEFSJq+6jkQ6HjFA
+ mvy3BJtyP1hu6bhyoJsOPnMsz7fcOtlvHMm3Ebq6cJi4BC3j4WhjgQ/jo
+ NMETdCdPPZjBophsNnoRN11CcdC4cdEs9vyptibR1ifil6l78m4Mz4tl3 w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10525"; a="294243958"
+X-IronPort-AV: E=Sophos;i="5.96,149,1665471600"; d="scan'208";a="294243958"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Nov 2022 18:54:12 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10524"; a="811064706"
-X-IronPort-AV: E=Sophos;i="5.96,145,1665471600"; d="scan'208";a="811064706"
-Received: from ganyifangubuntu20-ilbpg12.png.intel.com ([10.88.229.31])
- by orsmga005.jf.intel.com with ESMTP; 07 Nov 2022 18:08:17 -0800
-From: Gan Yi Fang <yi.fang.gan@intel.com>
-To: Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+X-IronPort-AV: E=McAfee;i="6500,9779,10525"; a="669789208"
+X-IronPort-AV: E=Sophos;i="5.96,149,1665471600"; d="scan'208";a="669789208"
+Received: from linux.intel.com ([10.54.29.200])
+ by orsmga001.jf.intel.com with ESMTP; 08 Nov 2022 18:54:12 -0800
+Received: from noorazur1-iLBPG12.png.intel.com
+ (noorazur1-iLBPG12.png.intel.com [10.88.229.87])
+ by linux.intel.com (Postfix) with ESMTP id 25A0F580AE3;
+ Tue,  8 Nov 2022 18:54:08 -0800 (PST)
+From: Noor Azura Ahmad Tarmizi <noor.azura.ahmad.tarmizi@linux.intel.com>
+To: "David S . Miller" <davem@davemloft.net>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Jose Abreu <joabreu@synopsys.com>,
- "David S . Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>,
+ Jose Abreu <joabreu@synopsys.com>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Richard Cochran <richardcochran@gmail.com>, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- Gan Yi Fang <yi.fang.gan@intel.com>
-Date: Mon,  7 Nov 2022 21:08:11 -0500
-Message-Id: <20221108020811.12919-1-yi.fang.gan@intel.com>
-X-Mailer: git-send-email 2.34.1
-MIME-Version: 1.0
+ Muhammad Husaini Zulkifli <muhammad.husaini.zulkifli@intel.com>
+Date: Wed,  9 Nov 2022 10:43:29 +0800
+Message-Id: <20221109024329.15805-1-noor.azura.ahmad.tarmizi@linux.intel.com>
+X-Mailer: git-send-email 2.17.1
 X-Mailman-Approved-At: Wed, 09 Nov 2022 07:05:30 +0000
-Cc: Voon Weifeng <weifeng.voon@intel.com>,
- Ling Pei Lee <pei.lee.ling@intel.com>, Looi Hong Aun <hong.aun.looi@intel.com>,
- Tan Tee Min <tee.min.tan@intel.com>,
- Zulkifli Muhammad Husaini <muhammad.husaini.zulkifli@intel.com>,
- Sit Michael Wei Hong <michael.wei.hong.sit@intel.com>
-Subject: [Linux-stm32] [PATCH net 1/1] stmmac: intel: Update PCH PTP clock
-	rate from 200MHz to 204.8MHz
+Cc: Voon Weifeng <weifeng.voon@intel.com>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Looi Hong Aun <hong.aun.looi@intel.com>,
+ Tan Tee Min <tee.min.tan@intel.com>, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org,
+ Noor Azura Ahmad Tarmizi <noor.azura.ahmad.tarmizi@intel.com>
+Subject: [Linux-stm32] [PATCH net 1/1] net: stmmac: add check for supported
+	link mode before mode change
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,87 +68,54 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: "Tan, Tee Min" <tee.min.tan@intel.com>
+From: Noor Azura Ahmad Tarmizi <noor.azura.ahmad.tarmizi@intel.com>
 
-Current Intel platform has an output of ~976ms interval
-when probed on 1 Pulse-per-Second(PPS) hardware pin.
+Currently, change for unsupported speed and duplex are sent to the phy,
+rendering the link to unknown speed (link state down). Plus, advertising
+settings are also passed down directly to the phy. Additional test is
+now added to compare new speed and duplex settings and advertising
+against current supported settings by attached phy.
+Non-supported new settings(speed/duplex and advertising) will be rejected.
 
-The correct PTP clock frequency for PCH GbE should be 204.8MHz
-instead of 200MHz. PSE GbE PTP clock rate remains at 200MHz.
-
-Fixes: 58da0cfa6cf1 ("net: stmmac: create dwmac-intel.c to contain all Intel platform")
-Signed-off-by: Ling Pei Lee <pei.lee.ling@intel.com>
-Signed-off-by: Tan, Tee Min <tee.min.tan@intel.com>
-Signed-off-by: Voon Weifeng <weifeng.voon@intel.com>
-Signed-off-by: Gan Yi Fang <yi.fang.gan@intel.com>
+Signed-off-by: Noor Azura Ahmad Tarmizi <noor.azura.ahmad.tarmizi@intel.com>
 ---
- drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
+ .../net/ethernet/stmicro/stmmac/stmmac_ethtool.c  | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
-index 0a2afc1a3124..7deb1f817dac 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
-@@ -629,7 +629,6 @@ static int ehl_common_data(struct pci_dev *pdev,
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
+index f453b0d09366..d40cf7908eaa 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
+@@ -390,6 +390,21 @@ stmmac_ethtool_set_link_ksettings(struct net_device *dev,
+ 				  const struct ethtool_link_ksettings *cmd)
  {
- 	plat->rx_queues_to_use = 8;
- 	plat->tx_queues_to_use = 8;
--	plat->clk_ptp_rate = 200000000;
- 	plat->use_phy_wol = 1;
- 
- 	plat->safety_feat_cfg->tsoee = 1;
-@@ -654,6 +653,8 @@ static int ehl_sgmii_data(struct pci_dev *pdev,
- 	plat->serdes_powerup = intel_serdes_powerup;
- 	plat->serdes_powerdown = intel_serdes_powerdown;
- 
-+	plat->clk_ptp_rate = 204800000;
+ 	struct stmmac_priv *priv = netdev_priv(dev);
++	struct ethtool_link_ksettings link_ks = {};
 +
- 	return ehl_common_data(pdev, plat);
- }
- 
-@@ -667,6 +668,8 @@ static int ehl_rgmii_data(struct pci_dev *pdev,
- 	plat->bus_id = 1;
- 	plat->phy_interface = PHY_INTERFACE_MODE_RGMII;
- 
-+	plat->clk_ptp_rate = 204800000;
++	/* Get the current link settings */
++	stmmac_ethtool_get_link_ksettings(dev, &link_ks);
 +
- 	return ehl_common_data(pdev, plat);
- }
- 
-@@ -683,6 +686,8 @@ static int ehl_pse0_common_data(struct pci_dev *pdev,
- 	plat->bus_id = 2;
- 	plat->addr64 = 32;
- 
-+	plat->clk_ptp_rate = 200000000;
++	/* Check if the speed and duplex are supported by phy */
++	if (!phy_lookup_setting(cmd->base.speed, cmd->base.duplex,
++				link_ks.link_modes.supported, true))
++		return -EINVAL;
 +
- 	intel_mgbe_pse_crossts_adj(intel_priv, EHL_PSE_ART_MHZ);
++	/* Check if the advertising request is supported */
++	if (!bitmap_subset(cmd->link_modes.advertising,
++			   link_ks.link_modes.supported,
++			   __ETHTOOL_LINK_MODE_MASK_NBITS))
++		return -EINVAL;
  
- 	return ehl_common_data(pdev, plat);
-@@ -722,6 +727,8 @@ static int ehl_pse1_common_data(struct pci_dev *pdev,
- 	plat->bus_id = 3;
- 	plat->addr64 = 32;
- 
-+	plat->clk_ptp_rate = 200000000;
-+
- 	intel_mgbe_pse_crossts_adj(intel_priv, EHL_PSE_ART_MHZ);
- 
- 	return ehl_common_data(pdev, plat);
-@@ -757,7 +764,7 @@ static int tgl_common_data(struct pci_dev *pdev,
- {
- 	plat->rx_queues_to_use = 6;
- 	plat->tx_queues_to_use = 4;
--	plat->clk_ptp_rate = 200000000;
-+	plat->clk_ptp_rate = 204800000;
- 	plat->speed_mode_2500 = intel_speed_mode_2500;
- 
- 	plat->safety_feat_cfg->tsoee = 1;
+ 	if (priv->hw->pcs & STMMAC_PCS_RGMII ||
+ 	    priv->hw->pcs & STMMAC_PCS_SGMII) {
 -- 
-2.34.1
+2.17.1
 
 _______________________________________________
 Linux-stm32 mailing list
