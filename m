@@ -2,64 +2,47 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 823F962763D
-	for <lists+linux-stm32@lfdr.de>; Mon, 14 Nov 2022 08:07:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 29A6462789F
+	for <lists+linux-stm32@lfdr.de>; Mon, 14 Nov 2022 10:05:54 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 28F69C640EE;
-	Mon, 14 Nov 2022 07:07:25 +0000 (UTC)
-Received: from mail-qt1-f177.google.com (mail-qt1-f177.google.com
- [209.85.160.177])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BDE56C6504A;
+	Mon, 14 Nov 2022 09:05:53 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2DED0C6334A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B8C6FC035BB
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 13 Nov 2022 22:35:52 +0000 (UTC)
-Received: by mail-qt1-f177.google.com with SMTP id a27so5902958qtw.10
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 13 Nov 2022 14:35:52 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=2UWIwxNMt9Li5DI9V3Ue/+A2ETbpfwK4uJjlNth28Ps=;
- b=cxos6M6SEMWjz70hcYfwJn7Qy9x3ScQZdWjcWHcTUuPDd6QIkxHfs4TdC7er0cgTfw
- Zecl1ammtXTh3CRumNopuCdrO/B9HdufOATVFx7LmHWfcuepu8nGRPAXZimVwU33NdJY
- fSpdh/6V9x/8s+acnZlcPXnCq3SzIgJYAOJ+MdHag7DONXMIur05Qu2T29C+PPj+G5FS
- 51vaHNJTqtvQKEh0MKIsH8wIeeMtk/77Zn6zHSFYDKwwTYJrTvxOcJz1pI56sykta8ez
- ucf+QXApfLU7u3dxQYz1YwJFVAwCWBLrNvZsrMdMSVYHA3yVHW95iD4uAWPO1ebw8AQZ
- l5aQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=2UWIwxNMt9Li5DI9V3Ue/+A2ETbpfwK4uJjlNth28Ps=;
- b=30ftj25KlnUCSWnL6cVcaBYgYoRZA7tqc3cwFN0LI9TopflCAsX1jtZFdxxXyThmeO
- k+2GR2qcPRBbSU4J4sw8qzKWGeGsGoCxeuia6AsGxXMKnpVkJm+2o+mnXfuYgUKTFVt+
- tKclvdig8H6JR85HhuZvYxE+OaieRqOcSUwHW1ZrooS5H/Z0d3ta3VQCFtgb4j/jZBup
- SPPrZ9T00T+vH6AQSt/SqC2BJi+QPLdQb/uzUlVs7rT8o9Vrmz+4Ei1kR1gO9lT7GX5s
- 3TQjsfhHAMDO5bIml4OPbuQpyUC203HkRJYfejgPlsrPnkkYgRnc+ZyV3Ao0fy9TXl1t
- APLw==
-X-Gm-Message-State: ANoB5pksH+ls1xeMLC7jAmzemz2XW7umBgCG8m00AxjTkMnfmOAD/6p7
- UW6ZhiCOzI8EtZiE/C3WzHU=
-X-Google-Smtp-Source: AA0mqf6n/LTjELlMgOPAUHKCZj998ajlsJmr6FJtHheLBD4DRKv0w+DZx/+jLTxZzLzeUXXjccj7Rg==
-X-Received: by 2002:a05:622a:4806:b0:3a4:f140:f707 with SMTP id
- fb6-20020a05622a480600b003a4f140f707mr10057169qtb.317.1668378951056; 
- Sun, 13 Nov 2022 14:35:51 -0800 (PST)
-Received: from shaak (modemcable055.92-163-184.mc.videotron.ca.
- [184.163.92.55]) by smtp.gmail.com with ESMTPSA id
- bk8-20020a05620a1a0800b006f9f3c0c63csm5482646qkb.32.2022.11.13.14.35.47
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 13 Nov 2022 14:35:50 -0800 (PST)
-Date: Sun, 13 Nov 2022 17:35:46 -0500
-From: Liam Beguin <liambeguin@gmail.com>
-To: Maxime Ripard <maxime@cerno.tech>
-Message-ID: <Y3FxQsT240Wm0G6g@shaak>
+ Mon, 14 Nov 2022 09:05:52 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 0AC7E60F67;
+ Mon, 14 Nov 2022 09:05:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2AA65C433C1;
+ Mon, 14 Nov 2022 09:05:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1668416750;
+ bh=D7WS1/Iq9HsSGiJfZeeNpWeUbfN2wCTKHRwR1waF5b8=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=gu23KWX+hkd2VrW8L8cgRL+RvzQoNmHr4ZHYqyx7b9ggw62j+4gl+srj7mMWbYEWO
+ eMq9AeoWeTXuHN/JCWdPJOC4s9/SfymP7ivydCT3Rc5lzvj0XxUfCGvOXg+FUovve3
+ mBjFDbEU8fbv5pZjeBcZG4yoTG+UTWC2w0hMhrdGaf5jiuivlIjmg6M0icdu4BayDd
+ QORZ6I5Y6XZL3p7KDrZaQgns3WiyBQD5S5uJ7AJ3isJBuf/JmKGDVf410NdJ4z5Krb
+ lm/rhmS+2/v3szQ2Sg6geE8bZDNcFgYVQt+IzZj3PeuYYzaH8viYNnTeheDKRc95zq
+ VsYSZrpR3L72Q==
+Date: Mon, 14 Nov 2022 09:05:34 +0000
+From: Lee Jones <lee@kernel.org>
+To: Linus Walleij <linus.walleij@linaro.org>
+Message-ID: <Y3IE3ta8hLLUcu7H@google.com>
 References: <20221018-clk-range-checks-fixes-v2-0-f6736dec138e@cerno.tech>
- <20221018-clk-range-checks-fixes-v2-13-f6736dec138e@cerno.tech>
+ <20221018-clk-range-checks-fixes-v2-35-f6736dec138e@cerno.tech>
+ <CAPDyKFoycVedCJMy0=UK+q5SiPQHqje_8bSN-gdkpBa6KhFfkg@mail.gmail.com>
+ <CACRpkdYOj8uozJZO4MV-_OAKeOsQHhoEM=PyynVuNY-JkpgTOw@mail.gmail.com>
+ <CAPDyKFr6VeF3s47JfzJ9urtMsEem+GiBtHeU=_S8jNaz-D+qnw@mail.gmail.com>
+ <CACRpkdb8uYfs6w99FVjD_t6nZgDhPUx=yB1j=CmpHTHAM2QGQw@mail.gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20221018-clk-range-checks-fixes-v2-13-f6736dec138e@cerno.tech>
-X-Mailman-Approved-At: Mon, 14 Nov 2022 07:07:23 +0000
+In-Reply-To: <CACRpkdb8uYfs6w99FVjD_t6nZgDhPUx=yB1j=CmpHTHAM2QGQw@mail.gmail.com>
 Cc: Ulf Hansson <ulf.hansson@linaro.org>,
  Prashant Gaikwad <pgaikwad@nvidia.com>,
  Alexandre Belloni <alexandre.belloni@bootlin.com>,
@@ -78,28 +61,27 @@ Cc: Ulf Hansson <ulf.hansson@linaro.org>,
  Jonathan Hunter <jonathanh@nvidia.com>, Chen-Yu Tsai <wens@csie.org>,
  NXP Linux Team <linux-imx@nxp.com>, Orson Zhai <orsonzhai@gmail.com>,
  linux-mips@vger.kernel.org, Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Linus Walleij <linus.walleij@linaro.org>, linux-rtc@vger.kernel.org,
+ linux-sunxi@lists.linux.dev, linux-rtc@vger.kernel.org,
  linux-clk@vger.kernel.org, Charles Keepax <ckeepax@opensource.cirrus.com>,
  Daniel Vetter <daniel@ffwll.ch>, alsa-devel@alsa-project.org,
  Manivannan Sadhasivam <mani@kernel.org>, linux-kernel@vger.kernel.org,
  Sascha Hauer <s.hauer@pengutronix.de>, linux-actions@lists.infradead.org,
  Richard Fitzgerald <rf@opensource.cirrus.com>, Mark Brown <broonie@kernel.org>,
- linux-mediatek@lists.infradead.org,
+ linux-mediatek@lists.infradead.org, Maxime Ripard <maxime@cerno.tech>,
  Baolin Wang <baolin.wang@linux.alibaba.com>,
  Matthias Brugger <matthias.bgg@gmail.com>,
  Pengutronix Kernel Team <kernel@pengutronix.de>,
  linux-arm-kernel@lists.infradead.org,
  AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Alessandro Zummo <a.zummo@towertech.it>, linux-sunxi@lists.linux.dev,
- Stephen Boyd <sboyd@kernel.org>, patches@opensource.cirrus.com,
- Peter De Schrijver <pdeschrijver@nvidia.com>,
+ Alessandro Zummo <a.zummo@towertech.it>, Stephen Boyd <sboyd@kernel.org>,
+ patches@opensource.cirrus.com, Peter De Schrijver <pdeschrijver@nvidia.com>,
  Nicolas Ferre <nicolas.ferre@microchip.com>,
  Andreas =?iso-8859-1?Q?F=E4rber?= <afaerber@suse.de>,
  linux-renesas-soc@vger.kernel.org, Dinh Nguyen <dinguyen@kernel.org>,
  Vinod Koul <vkoul@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  David Lechner <david@lechnology.com>, Shawn Guo <shawnguo@kernel.org>,
  Claudiu Beznea <claudiu.beznea@microchip.com>
-Subject: Re: [Linux-stm32] [PATCH v2 13/65] clk: lmk04832: clkout: Add a
+Subject: Re: [Linux-stm32] [PATCH v2 35/65] clk: ux500: sysctrl: Add a
 	determine_rate hook
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -112,83 +94,58 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Maxime,
-
-On Fri, Nov 04, 2022 at 02:17:30PM +0100, Maxime Ripard wrote:
-> The LKM04832 "CLKOUT" clock implements a mux with a set_parent hook, but
-> doesn't provide a determine_rate implementation.
-> 
-> This is a bit odd, since set_parent() is there to, as its name implies,
-> change the parent of a clock. However, the most likely candidate to
-> trigger that parent change is a call to clk_set_rate(), with
-> determine_rate() figuring out which parent is the best suited for a
-> given rate.
-> 
-> The other trigger would be a call to clk_set_parent(), but it's far less
-> used, and it doesn't look like there's any obvious user for that clock.
-> 
-> So, the set_parent hook is effectively unused, possibly because of an
-> oversight. However, it could also be an explicit decision by the
-> original author to avoid any reparenting but through an explicit call to
-> clk_set_parent().
-
-This is correct, the set_parent hook is effectively unused at the
-moment. It was implemented as a way for consumers to select the parent
-themselves.
-
-The LMK04832 is used in JESD204 applications where devices need a device
-clock as well as a sysref clock. Since this is determined by the
-hardware layout, a devicetree option is used to select the inital state
-of the clkout mux. This is set at the end of lmk04832_register_clkout().
-
-> The latter case would be equivalent to setting the flag
-> CLK_SET_RATE_NO_REPARENT, together with setting our determine_rate hook
-> to __clk_mux_determine_rate(). Indeed, if no determine_rate
-> implementation is provided, clk_round_rate() (through
-> clk_core_round_rate_nolock()) will call itself on the parent if
-> CLK_SET_RATE_PARENT is set, and will not change the clock rate
-> otherwise. __clk_mux_determine_rate() has the exact same behavior when
-> CLK_SET_RATE_NO_REPARENT is set.
-> 
-> And if it was an oversight, then we are at least explicit about our
-> behavior now and it can be further refined down the line.
-> 
-> Since the CLK_SET_RATE_NO_REPARENT flag was already set though, it seems
-> unlikely.
-> 
-> Signed-off-by: Maxime Ripard <maxime@cerno.tech>
-
-Reviewed-by: Liam Beguin <liambeguin@gmail.com>
-
-Cheers,
-Liam
-
-> ---
->  drivers/clk/clk-lmk04832.c | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/drivers/clk/clk-lmk04832.c b/drivers/clk/clk-lmk04832.c
-> index f416f8bc2898..f68bb0affdad 100644
-> --- a/drivers/clk/clk-lmk04832.c
-> +++ b/drivers/clk/clk-lmk04832.c
-> @@ -1281,6 +1281,7 @@ static const struct clk_ops lmk04832_clkout_ops = {
->  	.is_enabled = lmk04832_clkout_is_enabled,
->  	.prepare = lmk04832_clkout_prepare,
->  	.unprepare = lmk04832_clkout_unprepare,
-> +	.determine_rate = __clk_mux_determine_rate,
->  	.set_parent = lmk04832_clkout_set_parent,
->  	.get_parent = lmk04832_clkout_get_parent,
->  };
-> 
-> -- 
-> b4 0.11.0-dev-99e3a
-> 
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gRnJpLCAxMSBOb3YgMjAyMiwgTGludXMgV2FsbGVpaiB3cm90ZToKCj4gT24gVGh1LCBOb3Yg
+MTAsIDIwMjIgYXQgMjowNSBQTSBVbGYgSGFuc3NvbiA8dWxmLmhhbnNzb25AbGluYXJvLm9yZz4g
+d3JvdGU6Cj4gPiBPbiBUaHUsIDEwIE5vdiAyMDIyIGF0IDEyOjM5LCBMaW51cyBXYWxsZWlqIDxs
+aW51cy53YWxsZWlqQGxpbmFyby5vcmc+IHdyb3RlOgo+ID4gPgo+ID4gPiBPbiBUaHUsIE5vdiAx
+MCwgMjAyMiBhdCAxMjoyOSBQTSBVbGYgSGFuc3NvbiA8dWxmLmhhbnNzb25AbGluYXJvLm9yZz4g
+d3JvdGU6Cj4gPiA+ID4gT24gRnJpLCA0IE5vdiAyMDIyIGF0IDE0OjMyLCBNYXhpbWUgUmlwYXJk
+IDxtYXhpbWVAY2Vybm8udGVjaD4gd3JvdGU6Cj4gPiA+ID4gPgo+ID4gPiA+ID4gVGhlIFVYNTAw
+IHN5c2N0cmwgInNldF9wYXJlbnQiIGNsb2NrcyBpbXBsZW1lbnQgYSBtdXggd2l0aCBhIHNldF9w
+YXJlbnQKPiA+ID4gPiA+IGhvb2ssIGJ1dCBkb2Vzbid0IHByb3ZpZGUgYSBkZXRlcm1pbmVfcmF0
+ZSBpbXBsZW1lbnRhdGlvbi4KPiA+ID4gPiA+Cj4gPiA+ID4gPiBUaGlzIGlzIGEgYml0IG9kZCwg
+c2luY2Ugc2V0X3BhcmVudCgpIGlzIHRoZXJlIHRvLCBhcyBpdHMgbmFtZSBpbXBsaWVzLAo+ID4g
+PiA+ID4gY2hhbmdlIHRoZSBwYXJlbnQgb2YgYSBjbG9jay4gSG93ZXZlciwgdGhlIG1vc3QgbGlr
+ZWx5IGNhbmRpZGF0ZSB0bwo+ID4gPiA+ID4gdHJpZ2dlciB0aGF0IHBhcmVudCBjaGFuZ2UgaXMg
+YSBjYWxsIHRvIGNsa19zZXRfcmF0ZSgpLCB3aXRoCj4gPiA+ID4gPiBkZXRlcm1pbmVfcmF0ZSgp
+IGZpZ3VyaW5nIG91dCB3aGljaCBwYXJlbnQgaXMgdGhlIGJlc3Qgc3VpdGVkIGZvciBhCj4gPiA+
+ID4gPiBnaXZlbiByYXRlLgo+ID4gPiA+ID4KPiA+ID4gPiA+IFRoZSBvdGhlciB0cmlnZ2VyIHdv
+dWxkIGJlIGEgY2FsbCB0byBjbGtfc2V0X3BhcmVudCgpLCBidXQgaXQncyBmYXIgbGVzcwo+ID4g
+PiA+ID4gdXNlZCwgYW5kIGl0IGRvZXNuJ3QgbG9vayBsaWtlIHRoZXJlJ3MgYW55IG9idmlvdXMg
+dXNlciBmb3IgdGhhdCBjbG9jay4KPiA+ID4gPgo+ID4gPiA+IElmIEkgcmVjYWxsIGNvcnJlY3Rs
+eSwgdGhhdCBpcyB0aGUgdXNlIGNhc2Ugd2UgZGlkIHRhcmdldCBmb3IgdGhlc2UKPiA+ID4gPiB0
+eXBlcyBvZiBjbG9ja3MuIFNlZSBzb3VuZC9zb2MvdXg1MDAvdXg1MDBfYWI4NXh4LmMsIGZvciBl
+eGFtcGxlLgo+ID4gPgo+ID4gPiBIbSBJIGFtIHRyeWluZyB0byBnZXQgdGhhdCBkcml2ZXIgdG8g
+d29yayAuLi4gZnJvbSB0aW1lIHRvIHRpbWUuCj4gPiA+IEl0J3MganVzdCB0aGF0IEFMU0EgU29D
+IERUIGhhcyBjaGFuZ2VkIHRvIG11Y2ggdGhhdCBpdCB0dXJucyBvdXQKPiA+ID4gaW50byBhIGNv
+bXBsZXRlIHJld3JpdGUgOi8KPiA+ID4KPiA+ID4gU28gaW4gc291bmQvc29jL3V4NTAwL21vcDUw
+MF9hYjg1MDAuYwo+ID4gPiBJIHNlZSB0aGlzOgo+ID4gPgo+ID4gPiAgICAgICAgIHN0YXR1cyA9
+IGNsa19zZXRfcGFyZW50KGRydmRhdGEtPmNsa19wdHJfaW50Y2xrLCBjbGtfcHRyKTsKPiA+ID4g
+ICAgICAgICBpZiAoc3RhdHVzKQo+ID4gPiAoLi4uKQo+ID4gPgo+ID4gPiBhbmQgdGhlcmUgaXMg
+ZWxhYm9yYXRlIGNvZGUgdG8gc3dpdGNoIGJldHdlZW4gIlNZU0NMSyIgYW5kCj4gPiA+ICJVTFBD
+TEsiICh1bHRhLWxvdyBwb3dlciBjbG9jaykuIEp1c3QgbGlrZSB5b3Ugc2F5Li4uIGhvd2V2ZXIK
+PiA+ID4gYSBjbG9jayBuYW1lZCBTWVNDTEsgb3IgVUxQQ0xLIGRvZXMgbm90IGFwcGVhciBpbiB0
+aGUKPiA+ID4gY29kZSBpbiBkcml2ZXJzL2Nsay91eDUwMCBvciBhbnkgRFQgYmluZGluZ3Mgc28u
+Li4gaXQgc2VlbXMgdG8KPiA+ID4gYmUgbm9uLXdvcmtpbmcgZm9yIHRoZSB0aW1lIGJlaW5nLgo+
+ID4KPiA+IEl0J3MgZGVmaW5pdGVseSBub3Qgd29ya2luZywgYnV0IHRoZSBjb3JyZXNwb25kaW5n
+IGNsb2NrcyAoInVscGNsayIsCj4gPiAiaW50Y2xrIiwgImF1ZGlvY2xrIiwgZXRjKSBhcmUgYmVp
+bmcgcmVnaXN0ZXJlZCBpbiBhYjg1MDBfcmVnX2Nsa3MoKS4KPiA+Cj4gPiBXaGF0IHNlZW1zIHRv
+IGJlIG1pc3NpbmcgaXMgYSBEVCBjb252ZXJzaW9uIGZvciB0aGVzZSBjbG9ja3MsIHNvIHRoZXkK
+PiA+IGNhbiBiZSBjb25zdW1lZCBwcm9wZXJseS4gUmlnaHQ/Cj4gCj4gWWVwcyB0aGF0IGFuZCBh
+IGZldyBtb3JlIHRoaW5ncywgSSBoYXZlIGEgc2NyYXRjaCByZXdyaXRlIGhlcmU6Cj4gaHR0cHM6
+Ly9naXQua2VybmVsLm9yZy9wdWIvc2NtL2xpbnV4L2tlcm5lbC9naXQvbGludXN3L2xpbnV4LXN0
+ZXJpY3Nzb24uZ2l0L2xvZy8/aD11eDUwMC1hdWRpby1yZXdyaXRlCj4gCj4gSSByZW1lbWJlciBM
+ZWUgc2FpZCBoZSBoYWQgYXVkaW8gd29ya2luZyB3aXRoIHRoZSBtYWlubGluZSBrZXJuZWwKPiBv
+biBTbm93YmFsbCBhdCBvbmUgcG9pbnQsIHVuZm9ydHVuYXRlbHkgSSB0aGluayB0aGF0IHdhcyBi
+ZWZvcmUgd2UKPiBzdGFydGVkIHdpdGggdGhlIERUIGNvbnZlcnNpb25zIGFuZCB0aGVuIHdlIHBy
+b2JhYmx5IGJyb2tlIGl0LgoKVGhhdCB3YXMgYWxzbyAxMDAgeWVhcnMgYWdvLiA6KQoKQnV0IHll
+cywgaXQgdXNlZCB0byB3b3JrIGF0IG9uZSBwb2ludC4KCi0tIApMZWUgSm9uZXMgW+adjueQvOaW
+r10KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgt
+c3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5j
+b20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8v
+bGludXgtc3RtMzIK
