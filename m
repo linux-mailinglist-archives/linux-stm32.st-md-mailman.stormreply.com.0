@@ -2,121 +2,48 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6D0F362B339
-	for <lists+linux-stm32@lfdr.de>; Wed, 16 Nov 2022 07:25:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0DA6A62D405
+	for <lists+linux-stm32@lfdr.de>; Thu, 17 Nov 2022 08:25:31 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 31129C65072;
-	Wed, 16 Nov 2022 06:25:08 +0000 (UTC)
-Received: from mailout1.samsung.com (mailout1.samsung.com [203.254.224.24])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4A77EC65067;
+	Thu, 17 Nov 2022 07:25:30 +0000 (UTC)
+Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [63.216.63.40])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 42B8EC03FE0
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 31E12C6504B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 16 Nov 2022 06:25:06 +0000 (UTC)
-Received: from epcas5p3.samsung.com (unknown [182.195.41.41])
- by mailout1.samsung.com (KnoxPortal) with ESMTP id
- 20221116062503epoutp01099084a03d4ccbdcca6d3dfdf1e8619c~n-JTnumQ_2241922419epoutp01W
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 16 Nov 2022 06:25:03 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.samsung.com
- 20221116062503epoutp01099084a03d4ccbdcca6d3dfdf1e8619c~n-JTnumQ_2241922419epoutp01W
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
- s=mail20170921; t=1668579903;
- bh=5NRup8vgLkTmA5HFv9gMOga2SlWSziLFncqMmJU/jGg=;
- h=From:To:Cc:In-Reply-To:Subject:Date:References:From;
- b=PAeDSBhEjs7syzlvfqUnT08Lbi/YmfmCQvNjq2+erI1h85aSJ40LTvgSrVBHEFkbm
- aosaOeMCKevxM5vjR+81rrfkbQ6SykBIrycXQMGOv4IDI9vZ5DBFetNV0xc0YbINGY
- hd1PDbr4Lmk+EJ1CTkQdlmDo7nSaPjeCLwj6I1xE=
-Received: from epsnrtp2.localdomain (unknown [182.195.42.163]) by
- epcas5p4.samsung.com (KnoxPortal) with ESMTP id
- 20221116062502epcas5p4ec6c1cb2db6cb395a5480e8088a8583f~n-JTJXL4J1136511365epcas5p41;
- Wed, 16 Nov 2022 06:25:02 +0000 (GMT)
-Received: from epsmges5p2new.samsung.com (unknown [182.195.38.178]) by
- epsnrtp2.localdomain (Postfix) with ESMTP id 4NBtM14tVnz4x9Q3; Wed, 16 Nov
- 2022 06:25:01 +0000 (GMT)
-Received: from epcas5p2.samsung.com ( [182.195.41.40]) by
- epsmges5p2new.samsung.com (Symantec Messaging Gateway) with SMTP id
- 76.AD.39477.D3284736; Wed, 16 Nov 2022 15:25:01 +0900 (KST)
-Received: from epsmtrp2.samsung.com (unknown [182.195.40.14]) by
- epcas5p4.samsung.com (KnoxPortal) with ESMTPA id
- 20221116062454epcas5p4d4a3d30fd84046e5ecc05e09ec38edd9~n-JLFx8L41136611366epcas5p4q;
- Wed, 16 Nov 2022 06:24:54 +0000 (GMT)
-Received: from epsmgms1p2.samsung.com (unknown [182.195.42.42]) by
- epsmtrp2.samsung.com (KnoxPortal) with ESMTP id
- 20221116062454epsmtrp26c5977ea8543e5493471b593368151f5~n-JLEdZc-2917829178epsmtrp2T;
- Wed, 16 Nov 2022 06:24:54 +0000 (GMT)
-X-AuditID: b6c32a4a-259fb70000019a35-b2-6374823dbc22
-Received: from epsmtip1.samsung.com ( [182.195.34.30]) by
- epsmgms1p2.samsung.com (Symantec Messaging Gateway) with SMTP id
- 36.2E.18644.63284736; Wed, 16 Nov 2022 15:24:54 +0900 (KST)
-Received: from FDSFTE302 (unknown [107.122.81.78]) by epsmtip1.samsung.com
- (KnoxPortal) with ESMTPA id
- 20221116062451epsmtip1f9ebf1b6636ea6de6b12105d4ca3d264~n-JIVjmBN0771307713epsmtip1w;
- Wed, 16 Nov 2022 06:24:51 +0000 (GMT)
-From: "Sriranjani P" <sriranjani.p@samsung.com>
-To: "'Andrew Lunn'" <andrew@lunn.ch>
-In-Reply-To: <Y2Uu16RSF9Py5AdC@lunn.ch>
-Date: Wed, 16 Nov 2022 11:54:47 +0530
-Message-ID: <04b001d8f984$23e921b0$6bbb6510$@samsung.com>
-MIME-Version: 1.0
-X-Mailer: Microsoft Outlook 16.0
-Thread-Index: AQHa0oM14/tprCIIIJ9eaP02I486nwFlYCwxA2F8WH0BdTEg364Lglhg
-Content-Language: en-in
-X-Brightmail-Tracker: H4sIAAAAAAAAA02Te1AbVRTGe7PZJOCErinaW5Q2XYQCI4/UEDYVii0M7PiYYdrOUHUq7oQ1
- MCSbmIeiY0cetQVGWyh9kBgg0qAWpz4CVEB52lJp1SCU4KMgRGJVKiCUlugQTLNp5b/fPfc7
- 9zvfvXMFiGiFFyYoYAy0jqFUOC+Ye/6rmOi41FKDInHEEUJ4/jgFCMd4P0JYHIe4hHvAxScm
- GmdRYuj8UZSw/+pEiZFOC4+odE6jRP3KOZQYsD5I3LpyAxCNbTf5xOpMGyCm5r/kE+ahdpS4
- 8M3vCNE4aUWfEJGtZ3/kkO5jbXyywzzOJ612I2lvruCRLbY3yY72RQ451z3KI4+2NgOyr1tC
- upe7ELK1ZxGQ3tI6Prlo35wd8lxhSj5N5dE6Mc0oNHkFjDIVf2pvbnpukixREieRE8m4mKHU
- dCqe8XR2XGaByhcTF79CqYy+Ujal1+MJO1N0GqOBFudr9IZUnNbmqbRSbbyeUuuNjDKeoQ07
- JImJ25N8whcL84dqjvC09pCimWvlaDG4dl8lCBJATAr7XAOgEgQLRNgXAB7528VjFwsAtvX/
- zGUXiwBOzk3y7rV4SxB2oxPAyxZLoOU6gN75Kr+KhyXAmQ8b/ByKPQLr605w7ogQzMSFbxXP
- cu9sBGHb4A2Hy88bsHQ4+p3Hz1wsEjrcPX4WYnLo+HoBZfl+OGia9tcRbAv8/C8Lwo4khh73
- +yhrlgk7xzwIq9kIL3re9o8KsYYg6B67HciQAVc+quGwvAH+eamVz3IYXJztCmiUsOVCC8qy
- CpaXlgXM0mDvVYtvCIHPIAZ+0pnAlsPhycsfc1jfEPjOv9OB44Wwvf4uR8EzrooAPwzPuRbQ
- KoCb10Qzr4lmXhPB/L+bFXCbwSZaq1craX2SdjtDv3rvyRUatR34/0Hsk+1ganI+vh9wBKAf
- QAGChwqbig0KkTCPeu11WqfJ1RlVtL4fJPnuuxoJe0Ch8X0kxpArkcoTpTKZTCp/TCbBNwrP
- 1MYqRJiSMtCFNK2ldXf7OIKgsGJORFT8G/QL25oKfsFEzfv3LwXZb1+Et9Lrzl45eCx5vdgy
- fjzFOaAekWcnlR0+9VnqBzLnycczxsKLtuLlezhK0575gfBh/u7lXaveHE58xOnG1ZJNwcOn
- s8t6e1d6fsgafkZgdfY91NH57pbasYmRZ4979s3nDes9SznR4r0y2/UTlEOCV9jmmKGFbhs5
- 6BqdaqpNkBbv8mZZIk1ZaYKYCJXneW/hP9XB1ih8UFfUZSsxmX5rfG/3SxO5NesvMbZ1DslM
- 8g5Mxey7GXo4Q7Yueol5eVQurjr0fdMB2876zUKi+qdMPm+suy/HQaHfHvg001iepp45OPRo
- w3JkqUB8Fefq8ylJLKLTU/8B7nOlv5AEAAA=
-X-Brightmail-Tracker: H4sIAAAAAAAAA02Sa0xSYRjHe3nPOVwKOoLZm5kZZTkqjVbt7bpa1k6rtqx1czUjPKlLiAFm
- 2IfsXlTqsNUiTTN1abUaSmFLmFROVomX6LLU2YV57UprUmlNqM1vvz3/y/4fHh4Ue4lwXppa
- z2rVinQpJSDuPpRGzl5wRK+c87RxNPb3XADY3e6EuMB9jMDe+ndc3FHyicRNd3NIbHn/gsSt
- 9wsobHzxgcRXBm+RuL44DP940g9wifU7F//pswL89ssDLjY32Uj86Gk3xCWdxeRyMVNd8ZrD
- eHOtXKbG3M5lii0ZjKXyNMVUlR5iamw+DvPZ7qGYnOpKwNTZ5Yx3oBYy1Q4fYIaOFHIZnyVy
- gyhRsCSZTU/bz2rjlu0SpDbln6Q0FtGBvrZTZDZoG20EfB6i56G6ocPQCAQ8MW0DyGkvgkEh
- Ark6S/+xBFUMdXGDJi9Anq5OYlig6DjUd72IGuZQehq6UnieM2yCdAWBrpnMRDDRBtBgx69A
- gk/PQP3udwGW0CuRp9EfYIKORm6vI8BCeiFyN3wjgxyCXJc+BO6QjkW3bxeAIE9G9z4W/JsX
- hfzecjK4YjW6/9IPg57x6LH/LMwDEvOIKvOIKvOIKvOISDEgKsEEVqNTpah0cs1cNZsZq1Oo
- dBnqlFjlPpUFBD5BJrOBB5VfYp2AwwNOgHhQGiosy9YrxcJkhSGL1e5L0makszonmMgjpOOF
- TUZXkphOUejZvSyrYbX/VQ6PH57NiXtU3tL/ZpwH8uO7bmqS+nP98JzLIEkRlW15te78tFER
- G6sOGhziwstb4ZOpm01puSEGV7N1fTybeHHVspmdHSsda1Whve3zo5oTImIMooXRiZu7s7I9
- A2t6laHHC12vn93oEVFTl85dnJXrcGV1qRWZP/QL7HecqZNUxpqf7QmG2t3UCj3eJqnK+R7N
- JDROWf75bPK5x9OFjaV7zjRP/iqa2N1ji9ld0SA3ZT70js3fFK/aCTasvxjda1cJau0m+UkZ
- jBwjM1C6CF9e2Q45N6r+xPY3SqtvzawVspJNpjDPYPpVcc7XsAbhe37RorE3n0NXeP5Aa8LA
- 772r4NEWKaFLVchlUKtT/AUU/Fu8eAMAAA==
-X-CMS-MailID: 20221116062454epcas5p4d4a3d30fd84046e5ecc05e09ec38edd9
-X-Msg-Generator: CA
-X-Sendblock-Type: REQ_APPROVE
-CMS-TYPE: 105P
-DLP-Filter: Pass
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20221104115854epcas5p4ca280f9c4cc4d1fa564d80016e9f0061
-References: <20221104120517.77980-1-sriranjani.p@samsung.com>
- <CGME20221104115854epcas5p4ca280f9c4cc4d1fa564d80016e9f0061@epcas5p4.samsung.com>
- <20221104120517.77980-3-sriranjani.p@samsung.com> <Y2Uu16RSF9Py5AdC@lunn.ch>
-Cc: linux-kernel@vger.kernel.org, ravi.patel@samsung.com,
- 'Chandrasekar R' <rcsekar@samsung.com>, netdev@vger.kernel.org,
- richardcochran@gmail.com, 'Suresh Siddha' <ssiddha@tesla.com>,
- linux-stm32@st-md-mailman.stormreply.com, edumazet@google.com,
- joabreu@synopsys.com, 'Pankaj	Dubey' <pankaj.dubey@samsung.com>,
- mcoquelin.stm32@gmail.com, kuba@kernel.org, peppe.cavallaro@st.com,
- pabeni@redhat.com, davem@davemloft.net, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 2/4] net: stmmac: dwc-qos: Add FSD EQoS
-	support
+ Thu, 17 Nov 2022 06:09:57 +0000 (UTC)
+Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mxhk.zte.com.cn (FangMail) with ESMTPS id 4NCTz71KRBz8R03x;
+ Thu, 17 Nov 2022 14:09:55 +0800 (CST)
+Received: from xaxapp01.zte.com.cn ([10.88.40.50])
+ by mse-fl2.zte.com.cn with SMTP id 2AH69oDu086933;
+ Thu, 17 Nov 2022 14:09:50 +0800 (+08)
+ (envelope-from ye.xingchen@zte.com.cn)
+Received: from mapi (xaxapp01[null]) by mapi (Zmail) with MAPI id mid31;
+ Thu, 17 Nov 2022 14:09:52 +0800 (CST)
+Date: Thu, 17 Nov 2022 14:09:52 +0800 (CST)
+X-Zmail-TransId: 2af96375d030ffffffff8b256cdf
+X-Mailer: Zmail v1.0
+Message-ID: <202211171409524332954@zte.com.cn>
+Mime-Version: 1.0
+From: <ye.xingchen@zte.com.cn>
+To: <rafael@kernel.org>
+X-MAIL: mse-fl2.zte.com.cn 2AH69oDu086933
+X-Fangmail-Gw-Spam-Type: 0
+X-FangMail-Miltered: at cgslv5.04-192.168.250.137.novalocal with ID
+ 6375D033.000 by FangMail milter!
+X-FangMail-Envelope: 1668665395/4NCTz71KRBz8R03x/6375D033.000/10.5.228.133/[10.5.228.133]/mse-fl2.zte.com.cn/<ye.xingchen@zte.com.cn>
+X-Fangmail-Anti-Spam-Filtered: true
+X-Fangmail-MID-QID: 6375D033.000/4NCTz71KRBz8R03x
+X-Mailman-Approved-At: Thu, 17 Nov 2022 07:25:29 +0000
+Cc: daniel.lezcano@linaro.org, linux-pm@vger.kernel.org, amitk@kernel.org,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] =?utf-8?q?=5BPATCH=5D_thermal=3A_use_devm=5Fplatfor?=
+	=?utf-8?q?m=5Fget=5Fand=5Fioremap=5Fresource=28=29?=
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -133,59 +60,42 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+From: Minghao Chi <chi.minghao@zte.com.cn>
 
+Convert platform_get_resource(), devm_ioremap_resource() to a single
+call to devm_platform_get_and_ioremap_resource(), as this is exactly
+what this function does.
 
-> -----Original Message-----
-> From: Andrew Lunn [mailto:andrew@lunn.ch]
-> Sent: 04 November 2022 20:55
-> To: Sriranjani P <sriranjani.p@samsung.com>
-> Cc: peppe.cavallaro@st.com; alexandre.torgue@foss.st.com;
-> joabreu@synopsys.com; davem@davemloft.net; edumazet@google.com;
-> kuba@kernel.org; pabeni@redhat.com; mcoquelin.stm32@gmail.com;
-> richardcochran@gmail.com; netdev@vger.kernel.org; linux-stm32@st-md-
-> mailman.stormreply.com; linux-arm-kernel@lists.infradead.org; linux-
-> kernel@vger.kernel.org; Chandrasekar R <rcsekar@samsung.com>; Suresh
-> Siddha <ssiddha@tesla.com>
-> Subject: Re: [PATCH 2/4] net: stmmac: dwc-qos: Add FSD EQoS support
-> 
-> > +static int dwc_eqos_setup_rxclock(struct platform_device *pdev) {
-> > +	struct device_node *np = pdev->dev.of_node;
-> > +
-> > +	if (np && of_property_read_bool(np, "rx-clock-mux")) {
-> > +		unsigned int reg, val;
-> > +		struct regmap *syscon =
-> syscon_regmap_lookup_by_phandle(np,
-> > +			"rx-clock-mux");
-> > +
-> > +		if (IS_ERR(syscon)) {
-> > +			dev_err(&pdev->dev, "couldn't get the rx-clock-mux
-> syscon!\n");
-> > +			return PTR_ERR(syscon);
-> > +		}
-> > +
-> > +		if (of_property_read_u32_index(np, "rx-clock-mux", 1,
-> &reg)) {
-> > +			dev_err(&pdev->dev, "couldn't get the rx-clock-mux
-> reg. offset!\n");
-> > +			return -EINVAL;
-> > +		}
-> > +
-> > +		if (of_property_read_u32_index(np, "rx-clock-mux", 2,
-> &val)) {
-> > +			dev_err(&pdev->dev, "couldn't get the rx-clock-mux
-> reg. val!\n");
-> > +			return -EINVAL;
-> > +		}
-> > +
-> > +		regmap_write(syscon, reg, val);
-> 
-> This appears to be one of those binds which allows any magic value to be
-> placed into any register. That is not how DT should be used.
-[Sriranjani P] Will fix in the next version.
-> 
->    Andrew
-[Sriranjani P] Thank you for the review comment.
+Signed-off-by: Minghao Chi <chi.minghao@zte.com.cn>
+Signed-off-by: ye xingchen <ye.xingchen@zte.com.cn>
+---
+ drivers/thermal/st/stm_thermal.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
+diff --git a/drivers/thermal/st/stm_thermal.c b/drivers/thermal/st/stm_thermal.c
+index 78feb802a87d..e7834ccc7976 100644
+--- a/drivers/thermal/st/stm_thermal.c
++++ b/drivers/thermal/st/stm_thermal.c
+@@ -488,7 +488,6 @@ MODULE_DEVICE_TABLE(of, stm_thermal_of_match);
+ static int stm_thermal_probe(struct platform_device *pdev)
+ {
+ 	struct stm_thermal_sensor *sensor;
+-	struct resource *res;
+ 	void __iomem *base;
+ 	int ret;
+
+@@ -506,8 +505,7 @@ static int stm_thermal_probe(struct platform_device *pdev)
+
+ 	sensor->dev = &pdev->dev;
+
+-	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
+-	base = devm_ioremap_resource(&pdev->dev, res);
++	base = devm_platform_get_and_ioremap_resource(pdev, 0, NULL);
+ 	if (IS_ERR(base))
+ 		return PTR_ERR(base);
+
+-- 
+2.25.1
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
