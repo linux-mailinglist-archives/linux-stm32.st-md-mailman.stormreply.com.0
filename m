@@ -2,61 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 433A962D83C
-	for <lists+linux-stm32@lfdr.de>; Thu, 17 Nov 2022 11:39:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0835C62DD43
+	for <lists+linux-stm32@lfdr.de>; Thu, 17 Nov 2022 14:52:55 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EF199C65067;
-	Thu, 17 Nov 2022 10:39:50 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AC176C65067;
+	Thu, 17 Nov 2022 13:52:54 +0000 (UTC)
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [85.220.165.71])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 23C33C6504A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 872C5C5F1ED
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 17 Nov 2022 10:39:49 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 2AH9Shhe012367; Thu, 17 Nov 2022 11:39:36 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=from : to : cc :
- subject : date : message-id : mime-version : content-type; s=selector1;
- bh=EXvlua3C0YsN3Tv4O/Kaf4pDmpMUiAaTTPGAzHT2nzI=;
- b=aYbv3L3M8+XdjwRUpZznBuNYbDn5AMkJjWDoISjZpIkXY08Tj2QeQQlbLBeutB4SsPqg
- 75yhPxULbwm4pjpsZ0K0x2kF0eKcYe15mcdldDdVnj3wFfuAgkBsnaZlm/VXB988cYLL
- eB8BzyaRYbNUb0sr7pT5FVgSru5z4VQ24rPEiMf0wYL6zW/WoSacBQfjQCHJoBcRlnqy
- GhQCS1GaDfzjWz/Wwvek30rUqWlQjlcg91PBeFX1bdtvw9pz+xxfFkau17ZHstbqZb4I
- g4dJPvFLd7d2JcdLOv2dcsHRhXhMHXSIIePvAj78q60uE9FCgqmc584wRrSyJe4cIVK6 9g== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3kv9ydp8pp-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 17 Nov 2022 11:39:36 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 2591B10003D;
- Thu, 17 Nov 2022 11:39:32 +0100 (CET)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 1F63321B531;
- Thu, 17 Nov 2022 11:39:32 +0100 (CET)
-Received: from localhost (10.201.21.93) by SHFDAG1NODE1.st.com (10.75.129.69)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.32; Thu, 17 Nov
- 2022 11:39:31 +0100
-From: Alexandre Torgue <alexandre.torgue@foss.st.com>
-To: Arnd Bergmann <arnd@arndb.de>, Olof Johansson <olof@lixom.net>, Kevin
- Hilman <khilman@baylibre.com>, <soc@kernel.org>, <arm@kernel.org>
-Date: Thu, 17 Nov 2022 11:39:31 +0100
-Message-ID: <20221117103931.26174-1-alexandre.torgue@foss.st.com>
-X-Mailer: git-send-email 2.17.1
+ Thu, 17 Nov 2022 13:52:53 +0000 (UTC)
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+ by metis.ext.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1ovfJo-0000Qr-Dj; Thu, 17 Nov 2022 14:52:40 +0100
+Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
+ by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.94.2)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1ovfJl-004rbn-KS; Thu, 17 Nov 2022 14:52:38 +0100
+Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.94.2)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1ovfJl-00HIAj-TC; Thu, 17 Nov 2022 14:52:37 +0100
+Date: Thu, 17 Nov 2022 14:52:37 +0100
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+To: Thierry Reding <thierry.reding@gmail.com>,
+ Fabrice Gasnier <fabrice.gasnier@foss.st.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Mark Brown <broonie@kernel.org>
+Message-ID: <20221117135237.vqhe6z7aklindlgq@pengutronix.de>
+References: <20221115111347.3705732-1-u.kleine-koenig@pengutronix.de>
 MIME-Version: 1.0
-X-Originating-IP: [10.201.21.93]
-X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SHFDAG1NODE1.st.com
- (10.75.129.69)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.219,Aquarius:18.0.895,Hydra:6.0.545,FMLib:17.11.122.1
- definitions=2022-11-17_06,2022-11-17_01,2022-06-22_01
-Cc: linux-arm-kernel@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH] ARM: multi_v7_defconfig: enable Type-C UCSI
-	and STM32G0 as modules
+In-Reply-To: <20221115111347.3705732-1-u.kleine-koenig@pengutronix.de>
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: ukl@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
+Cc: kernel@pengutronix.de, linux-pwm@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 0/5] pwm: Use regmap_clear_bits and
+ regmap_set_bits where applicable
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -68,45 +57,107 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============1356730807126630461=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
 
-Enable the USB Type-C UCSI, and the STM32G0 UCSI drivers as modules, since
-used on STM32MP13 board.
+--===============1356730807126630461==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="uocizgkpe6tjdrha"
+Content-Disposition: inline
 
-Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-Signed-off-by: Alexandre Torgue <alexandre.torgue@foss.st.com>
 
----
+--uocizgkpe6tjdrha
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Hi ARM SoC maintainers,
+Hello,
 
-Please consider this patch as STM32 configs updates for v6.2.
+On Tue, Nov 15, 2022 at 12:13:42PM +0100, Uwe Kleine-K=F6nig wrote:
+> I recently learned a bit of coccinelle and triggered by Paul Cercueil's
+> patch that replaces regmap_update_bits() by regmap_set_bits() and
+> regmap_clear_bits() where applicable in the jz4740 pwm driver[1] I
+> created a cocci patch for such calls.
 
-Thanks
-Alex 
+Pointing to this series I asked broonie in irc if a conversion like that
+would be suitable to do in the complete tree. He objected that doing
+that mechanically is probably wrong. His explicit concern was that a
+call to regmap_clear_bits() (or regmap_set_bits()) in a series of
+regmap_update_bits() is more disturbing than helpful.
 
-diff --git a/arch/arm/configs/multi_v7_defconfig b/arch/arm/configs/multi_v7_defconfig
-index b61b2e3d116b..2b1de08b057e 100644
---- a/arch/arm/configs/multi_v7_defconfig
-+++ b/arch/arm/configs/multi_v7_defconfig
-@@ -891,6 +891,8 @@ CONFIG_USB_CONFIGFS_F_UVC=y
- CONFIG_USB_CONFIGFS_F_PRINTER=y
- CONFIG_USB_ETH=m
- CONFIG_TYPEC=m
-+CONFIG_TYPEC_UCSI=m
-+CONFIG_UCSI_STM32G0=m
- CONFIG_TYPEC_STUSB160X=m
- CONFIG_MMC=y
- CONFIG_MMC_BLOCK_MINORS=16
--- 
-2.17.1
+So I looked at the remaining calls to regmap_update_bits() in the
+drivers I converted in this series:
+
+ - pwm-fsl-ftm
+   There are two calls left that set bits in a mask (these should stay
+   as they are) and one:
+
+        reg_polarity =3D 0;
+        if (newstate->polarity =3D=3D PWM_POLARITY_INVERSED)
+                reg_polarity =3D BIT(pwm->hwpwm);
+
+        regmap_update_bits(fpc->regmap, FTM_POL, BIT(pwm->hwpwm), reg_polar=
+ity);
+
+   which could benefit from a conversion (though I expect that to be
+   controversial).
+   The converted calls are all independent of the remaining
+   regmap_update_bits().
+
+ - pwm-img
+   No regmap_update_bits() calls left.
+
+ - pwm-iqs620a
+   There is one call left that does:
+
+        return regmap_update_bits(iqs62x->regmap, IQS620_PWR_SETTINGS,
+                                  IQS620_PWR_SETTINGS_PWM_OUT, 0xff);
+
+   I think this is a bug because IQS620_PWR_SETTINGS_PWM_OUT is only
+   0xf.
+
+ - pwm-stm32-lp
+   No regmap_update_bits() calls left.
+
+ - pwm-stm32
+   There are several calls left, some of them also near converted calls.
+   My personal opinion is, that the conversion is fine anyhow.
+
+Best regards
+Uwe
+
+--=20
+Pengutronix e.K.                           | Uwe Kleine-K=F6nig            |
+Industrial Linux Solutions                 | https://www.pengutronix.de/ |
+
+--uocizgkpe6tjdrha
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEfnIqFpAYrP8+dKQLwfwUeK3K7AkFAmN2PKIACgkQwfwUeK3K
+7AlqZAf/ZtYi3tPx6cd+4w2HO3smbdvvDpnW9chGg2Iaf9U61i0HQzrUti+4KImB
+AU5zo4Qc0Yyuuqmz2YnrSuKExmXJv4yQjaOBMHKSKSHbYAPawProevcyzZL5+Bnb
+3aRtxCW/vF94syRo90sr/Of5TbBdM/QB6w4xHvHaA/TZRsqGfAUBKqr5pL929qJV
+9RPGSJHE9fc22uZoWpmVIvwWb4W4T0P0QaiXFTaR2C6T2na7v7LhkAK+8ZZHoFNn
+RVftY/myM61F6OLJLFwisxG7kTkE18PbjZmv0+cSKHsngDTKX2nMWg27ZPhMmzGV
+RKxEb2BUVgow4yaQ2QYINNR9lHWVmw==
+=nDY9
+-----END PGP SIGNATURE-----
+
+--uocizgkpe6tjdrha--
+
+--===============1356730807126630461==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============1356730807126630461==--
