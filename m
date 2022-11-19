@@ -2,57 +2,51 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 85F046300CB
-	for <lists+linux-stm32@lfdr.de>; Fri, 18 Nov 2022 23:48:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5D07B63092F
+	for <lists+linux-stm32@lfdr.de>; Sat, 19 Nov 2022 03:11:54 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4CCD2C6507B;
-	Fri, 18 Nov 2022 22:48:29 +0000 (UTC)
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
- [85.220.165.71])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EF757C6507C;
+	Sat, 19 Nov 2022 02:11:53 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 31A88C65067
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Sat, 19 Nov 2022 02:11:53 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F3EBDC65067
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 18 Nov 2022 22:48:27 +0000 (UTC)
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
- by metis.ext.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <ukl@pengutronix.de>)
- id 1owA9j-0005LY-CE; Fri, 18 Nov 2022 23:48:19 +0100
-Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
- by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.94.2)
- (envelope-from <ukl@pengutronix.de>)
- id 1owA9g-0058sY-Gr; Fri, 18 Nov 2022 23:48:17 +0100
-Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.94.2)
- (envelope-from <ukl@pengutronix.de>)
- id 1owA9g-0000Uq-Fk; Fri, 18 Nov 2022 23:48:16 +0100
-From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <uwe@kleine-koenig.org>
-To: Angel Iglesias <ang.iglesiasg@gmail.com>, Lee Jones <lee.jones@linaro.org>,
- Grant Likely <grant.likely@linaro.org>, Wolfram Sang <wsa@kernel.org>,
- Heikki Krogerus <heikki.krogerus@linux.intel.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Fabrice Gasnier <fabrice.gasnier@foss.st.com>,
- Corey Minyard <cminyard@mvista.com>,
- Colin Ian King <colin.i.king@gmail.com>
-Date: Fri, 18 Nov 2022 23:45:18 +0100
-Message-Id: <20221118224540.619276-585-uwe@kleine-koenig.org>
-X-Mailer: git-send-email 2.38.1
-In-Reply-To: <20221118224540.619276-1-uwe@kleine-koenig.org>
-References: <20221118224540.619276-1-uwe@kleine-koenig.org>
+ by ams.source.kernel.org (Postfix) with ESMTPS id AC94DB82670;
+ Sat, 19 Nov 2022 02:11:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44879C433B5;
+ Sat, 19 Nov 2022 02:11:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1668823911;
+ bh=7GUIACQPlrfO2mPigimkMl69Jy1LfyJQ0W5zFtdpGJk=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=SBZPt/e8Vn9X0UGyzDEeu7FUdMpuJ01RkV2/NojdMGBhUjIyvBtu2iV2SeLEE7bFa
+ /HXeHsZ6xvOua010yHKINWQocK36oKMrnqQE+u1GQ963Thi1I5+fcS75k3TDXGJ1Dg
+ lYyD8ComhvFtUMBKjIVY0B2urHjblJFnLGatyMrPaZ77SK3QSpzyQUiUo/yAUYK+Pa
+ 0UIHEYTgzzX3SKYEPchigrDWEkCAK0swiAqgU56UOUuSXHURD05PBNIuvps6CQWOnX
+ 9JPJUpO0SHjGr+QWc9AoDzRtOEMVvDbdnUKiLjFwb/ugv49zseWvdtlnc8s1RXpTPV
+ vGncBmJ+6jT6A==
+From: Sasha Levin <sashal@kernel.org>
+To: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Date: Fri, 18 Nov 2022 21:10:52 -0500
+Message-Id: <20221119021124.1773699-12-sashal@kernel.org>
+X-Mailer: git-send-email 2.35.1
+In-Reply-To: <20221119021124.1773699-1-sashal@kernel.org>
+References: <20221119021124.1773699-1-sashal@kernel.org>
 MIME-Version: 1.0
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: ukl@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
-Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-i2c@vger.kernel.org, kernel@pengutronix.de,
- =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 584/606] usb: typec: ucsi: stm32g0: Convert to
-	i2c's .probe_new()
+X-stable: review
+X-Patchwork-Hint: Ignore
+Cc: Sasha Levin <sashal@kernel.org>, linux-spi@vger.kernel.org,
+ Mark Brown <broonie@kernel.org>, mcoquelin.stm32@gmail.com,
+ Sean Nyekjaer <sean@geanix.com>, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH AUTOSEL 6.0 12/44] spi: stm32: fix
+	stm32_spi_prepare_mbr() that halves spi clk for every run
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -64,33 +58,57 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-RnJvbTogVXdlIEtsZWluZS1Lw7ZuaWcgPHUua2xlaW5lLWtvZW5pZ0BwZW5ndXRyb25peC5kZT4K
-ClRoZSBwcm9iZSBmdW5jdGlvbiBkb2Vzbid0IG1ha2UgdXNlIG9mIHRoZSBpMmNfZGV2aWNlX2lk
-ICogcGFyYW1ldGVyIHNvIGl0CmNhbiBiZSB0cml2aWFsbHkgY29udmVydGVkLgoKU2lnbmVkLW9m
-Zi1ieTogVXdlIEtsZWluZS1Lw7ZuaWcgPHUua2xlaW5lLWtvZW5pZ0BwZW5ndXRyb25peC5kZT4K
-LS0tCiBkcml2ZXJzL3VzYi90eXBlYy91Y3NpL3Vjc2lfc3RtMzJnMC5jIHwgNCArKy0tCiAxIGZp
-bGUgY2hhbmdlZCwgMiBpbnNlcnRpb25zKCspLCAyIGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBh
-L2RyaXZlcnMvdXNiL3R5cGVjL3Vjc2kvdWNzaV9zdG0zMmcwLmMgYi9kcml2ZXJzL3VzYi90eXBl
-Yy91Y3NpL3Vjc2lfc3RtMzJnMC5jCmluZGV4IDdiOTJmMGM4ZGU3MC4uOTNmZWFkMDA5NmI3IDEw
-MDY0NAotLS0gYS9kcml2ZXJzL3VzYi90eXBlYy91Y3NpL3Vjc2lfc3RtMzJnMC5jCisrKyBiL2Ry
-aXZlcnMvdXNiL3R5cGVjL3Vjc2kvdWNzaV9zdG0zMmcwLmMKQEAgLTYyNiw3ICs2MjYsNyBAQCBz
-dGF0aWMgaW50IHVjc2lfc3RtMzJnMF9wcm9iZV9ib290bG9hZGVyKHN0cnVjdCB1Y3NpICp1Y3Np
-KQogCXJldHVybiAwOwogfQogCi1zdGF0aWMgaW50IHVjc2lfc3RtMzJnMF9wcm9iZShzdHJ1Y3Qg
-aTJjX2NsaWVudCAqY2xpZW50LCBjb25zdCBzdHJ1Y3QgaTJjX2RldmljZV9pZCAqaWQpCitzdGF0
-aWMgaW50IHVjc2lfc3RtMzJnMF9wcm9iZShzdHJ1Y3QgaTJjX2NsaWVudCAqY2xpZW50KQogewog
-CXN0cnVjdCBkZXZpY2UgKmRldiA9ICZjbGllbnQtPmRldjsKIAlzdHJ1Y3QgdWNzaV9zdG0zMmcw
-ICpnMDsKQEAgLTc2Myw3ICs3NjMsNyBAQCBzdGF0aWMgc3RydWN0IGkyY19kcml2ZXIgdWNzaV9z
-dG0zMmcwX2kyY19kcml2ZXIgPSB7CiAJCS5vZl9tYXRjaF90YWJsZSA9IG9mX21hdGNoX3B0cih1
-Y3NpX3N0bTMyZzBfdHlwZWNfb2ZfbWF0Y2gpLAogCQkucG0gPSBwbV9zbGVlcF9wdHIoJnVjc2lf
-c3RtMzJnMF9wbV9vcHMpLAogCX0sCi0JLnByb2JlID0gdWNzaV9zdG0zMmcwX3Byb2JlLAorCS5w
-cm9iZV9uZXcgPSB1Y3NpX3N0bTMyZzBfcHJvYmUsCiAJLnJlbW92ZSA9IHVjc2lfc3RtMzJnMF9y
-ZW1vdmUsCiAJLmlkX3RhYmxlID0gdWNzaV9zdG0zMmcwX3R5cGVjX2kyY19kZXZpZAogfTsKLS0g
-CjIuMzguMQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18K
-TGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1y
-ZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlz
-dGluZm8vbGludXgtc3RtMzIK
+From: Sean Nyekjaer <sean@geanix.com>
+
+[ Upstream commit 62aa1a344b0904549f6de7af958e8a1136fd5228 ]
+
+When this driver is used with a driver that uses preallocated spi_transfer
+structs. The speed_hz is halved by every run. This results in:
+
+spi_stm32 44004000.spi: SPI transfer setup failed
+ads7846 spi0.0: SPI transfer failed: -22
+
+Example when running with DIV_ROUND_UP():
+- First run; speed_hz = 1000000, spi->clk_rate 125000000
+  div 125 -> mbrdiv = 7, cur_speed = 976562
+- Second run; speed_hz = 976562
+  div 128,00007 (roundup to 129) -> mbrdiv = 8, cur_speed = 488281
+- Third run; speed_hz = 488281
+  div 256,000131072067109 (roundup to 257) and then -EINVAL is returned.
+
+Use DIV_ROUND_CLOSEST to allow to round down and allow us to keep the
+set speed.
+
+Signed-off-by: Sean Nyekjaer <sean@geanix.com>
+Link: https://lore.kernel.org/r/20221103080043.3033414-1-sean@geanix.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/spi/spi-stm32.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/spi/spi-stm32.c b/drivers/spi/spi-stm32.c
+index 6fe617b445a5..d6833361409d 100644
+--- a/drivers/spi/spi-stm32.c
++++ b/drivers/spi/spi-stm32.c
+@@ -434,7 +434,7 @@ static int stm32_spi_prepare_mbr(struct stm32_spi *spi, u32 speed_hz,
+ 	u32 div, mbrdiv;
+ 
+ 	/* Ensure spi->clk_rate is even */
+-	div = DIV_ROUND_UP(spi->clk_rate & ~0x1, speed_hz);
++	div = DIV_ROUND_CLOSEST(spi->clk_rate & ~0x1, speed_hz);
+ 
+ 	/*
+ 	 * SPI framework set xfer->speed_hz to master->max_speed_hz if
+-- 
+2.35.1
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
