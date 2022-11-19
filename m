@@ -2,42 +2,42 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8DC646309AB
-	for <lists+linux-stm32@lfdr.de>; Sat, 19 Nov 2022 03:15:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AD2ED6309AF
+	for <lists+linux-stm32@lfdr.de>; Sat, 19 Nov 2022 03:16:19 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 56BCDC6507C;
-	Sat, 19 Nov 2022 02:15:55 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 70C32C6507C;
+	Sat, 19 Nov 2022 02:16:19 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D4C4BC65067
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CA7BFC65067
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 19 Nov 2022 02:15:53 +0000 (UTC)
+ Sat, 19 Nov 2022 02:16:18 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id AEE4D62834;
- Sat, 19 Nov 2022 02:15:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 19765C43145;
- Sat, 19 Nov 2022 02:15:51 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 68051B825B6;
+ Sat, 19 Nov 2022 02:16:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D82CC433B5;
+ Sat, 19 Nov 2022 02:16:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1668824152;
- bh=KKZE68KWHee8+OShQEOaOk3x+Brbc0jldkMl21qHXUs=;
+ s=k20201202; t=1668824177;
+ bh=w9KGRntzBkhBwrHXOH/VZK9iq0Ck1XmrFUPD30d801w=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Q0R0T43hKwyf7HztqEQQdcmfK84kqWH2h79xkxJxLH9aQ8a4Puc11nDZlSi07ict5
- VQcOR2N9ZaTNe4G1qkd2DFf9bETez4A6Z3ke89p0ojwo0afQ5dD8t9LfuUDY4Et4aB
- jN8u8i3WZp5ct8tInfvHyt/YVdwkC/Ge2nS3LnvIq+5qoZNXvaV7XZTUAahE4B76ti
- zT64D1Guh2xe9PZw0Hnb22kpZeVOQ7xRMoCU1vOjVE9n2T7osEMb6p5GUFIvnW0Tp3
- oSnOzemq3zvuOH12YrE8Cpl3MYJoLqcjdwEFa6RINHDFHPVfo4YMWzbMYTrZ1Zn9I4
- 6XrulVCvujgcg==
+ b=UlDbsQgoPjxDtGH7IEM89y6b3eFg7jGGg9/bwajLww3CtgT/6zfKSt/WlqXAWhOCZ
+ dH7/JBWjS5sZCuxzML9ZWbnHUPEc5r6I0pyixJu45uUdJcw1huyVnFxjo8W4v1E85L
+ 11+UUdfh/qiwLbQRHGy97tbfo0ebjU4qxtDfVADyeKIO2D/8wPC9oZTV8uP5vjMfYr
+ 1GAmAqKHpJBskWa9URejgX5kJ/oYPaD4OIj/5XdiUmJE1BHL2+QtPDRyzlNNoB/fOT
+ xymIHvSIsz+p9DQrE5tPdkezUDjIKkfGt2kdbdWKffUZ8WxIMPkAnCJurVw5yWO6jF
+ zRsKL4c461UfA==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Fri, 18 Nov 2022 21:15:37 -0500
-Message-Id: <20221119021543.1775315-5-sashal@kernel.org>
+Date: Fri, 18 Nov 2022 21:16:05 -0500
+Message-Id: <20221119021610.1775469-4-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20221119021543.1775315-1-sashal@kernel.org>
-References: <20221119021543.1775315-1-sashal@kernel.org>
+In-Reply-To: <20221119021610.1775469-1-sashal@kernel.org>
+References: <20221119021610.1775469-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -45,7 +45,7 @@ Cc: Sasha Levin <sashal@kernel.org>, linux-spi@vger.kernel.org,
  Mark Brown <broonie@kernel.org>, mcoquelin.stm32@gmail.com,
  Sean Nyekjaer <sean@geanix.com>, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH AUTOSEL 5.4 05/11] spi: stm32: fix
+Subject: [Linux-stm32] [PATCH AUTOSEL 4.19 4/8] spi: stm32: fix
 	stm32_spi_prepare_mbr() that halves spi clk for every run
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -93,10 +93,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/spi/spi-stm32.c b/drivers/spi/spi-stm32.c
-index 9ae16092206d..5c0bc332eca7 100644
+index 8d692f16d90a..b8565da54a72 100644
 --- a/drivers/spi/spi-stm32.c
 +++ b/drivers/spi/spi-stm32.c
-@@ -444,7 +444,7 @@ static int stm32_spi_prepare_mbr(struct stm32_spi *spi, u32 speed_hz,
+@@ -255,7 +255,7 @@ static int stm32_spi_prepare_mbr(struct stm32_spi *spi, u32 speed_hz)
  	u32 div, mbrdiv;
  
  	/* Ensure spi->clk_rate is even */
