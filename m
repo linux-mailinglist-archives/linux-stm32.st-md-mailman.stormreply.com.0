@@ -2,71 +2,74 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CBCD9631AA0
-	for <lists+linux-stm32@lfdr.de>; Mon, 21 Nov 2022 08:49:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 02AB1631ADD
+	for <lists+linux-stm32@lfdr.de>; Mon, 21 Nov 2022 09:00:05 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 90004C65E60;
-	Mon, 21 Nov 2022 07:49:14 +0000 (UTC)
-Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com
- [209.85.218.41])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8D11CC65065;
+	Mon, 21 Nov 2022 08:00:04 +0000 (UTC)
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
+ [209.85.128.50])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1BCE1C65052
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 58AB9C5F1D3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 21 Nov 2022 01:55:15 +0000 (UTC)
-Received: by mail-ej1-f41.google.com with SMTP id ud5so25363570ejc.4
+ Mon, 21 Nov 2022 08:00:03 +0000 (UTC)
+Received: by mail-wm1-f50.google.com with SMTP id
+ 84-20020a1c0257000000b003cfe48519a6so5865018wmc.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 20 Nov 2022 17:55:15 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre-com.20210112.gappssmtp.com; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=ceFmBEehHLI+ITdAPlxa6x5ctDzSMQAGOAJN5msaS7Y=;
- b=ZuKr/0Zc29q+ZYF7gRE55Vbwj+z/hYLrFwmhPnFhQxvbUtoIUGYXO/jAAegCGo8Z2U
- At24z1lPg2jroJx0YN6UU0W3Nas9o9tdrUDN4tKP/drF/gavXWF3Q1ij/ACjI+yd1v59
- kGxTJh0yngyQ6tSXBMvPGXE79aLk03MEq58v5hbFoNW+Q6PY0fSJhls4R4pNAkS/7k29
- jJ7/sANZO9TvVJ9FfIefpTFUKskoS28yzqWuU0po2+JPUznsHDfwJe4TU3BTx8Q1y5mX
- u8+I7iyMtB07mcONXkN215YOmN14qLYw/rLzX16158JSw0nwu+zb/+Rp/Fbuw3UiDw0h
- 3ShQ==
+ Mon, 21 Nov 2022 00:00:03 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=SJJG9l0YlRpzRi2ic2wvRcjJj5ylm1zWwiArlHuQKB4=;
+ b=oE18FL5VHgWbAyFFPmov6vtUa2bJMuC11GB5JkjqW5Jbxj5zElsvEwPG3/jfgpGril
+ sU765Y44rdBYa/ZdV8iEWAjAlOTGJDjgJU6ETrgQN2FtXa8d0aNNxrSgP9aKzK/WON32
+ SXYO4NvV9d+EIy/sRuP12o5/8uFIe3JL+ymGBB1Th+Wb2I6tktZ4iL9ZjNlE/ZWywjnJ
+ 5Nzel8/OpcJfUehfvc4608imKFJPHvlhGvINes/oG3ffGDfsQyzinHw3EgKcpc+V0pUX
+ JfpokARIyT7U4VLHXyBIJWl2E95Tt06WUUNhJkvOwlWkyGOMwobjegTRC5ZzwYBotfI5
+ XceQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=ceFmBEehHLI+ITdAPlxa6x5ctDzSMQAGOAJN5msaS7Y=;
- b=WLkziJWqbwfLOsQEFMK7CTAPwCj+Rni0i7ln5eOyAb9hCDnUEHIOPIrBkZpfCwVX2F
- EB5T+5GTHqqcIaCtXYcGOwuqN58GXLjQtB+04/DNXQ5RCCAkEfM4dqFQGG7BlnHvI6xB
- ueodX8nzMSgUPfIooXwFQavvP22olsG/sHUjysqM7VssErE+bU5ukolk42EnpZJTPATL
- oHQ8mQ7LAf5K+jYbLEuUpt7rL+0VYgPxs6bvhX2wiY4P64zO2JpzLIeBPaf6cTH9g6pC
- p0EUqtQzpx9URuq3AewC805gZKcd3CALj1egpBTwL+GZeyLQL4xNY/JBT0ZNtP4XWZ0g
- L+4w==
-X-Gm-Message-State: ANoB5pmQ6y2Bhp3JMLyP7AqTl5ohcJURP0Ki7+308RLUq3gGJXgrOD2n
- 5vnVAgK6YHH8FLyg+r4+RmvcRO0COcK8ObAM
-X-Google-Smtp-Source: AA0mqf6GyYZ2MDoz5DmOIUHPUfsFhTnyAk1GDDWwK4E8E+3sEktkUs6XwVC5a+TccSYHOAq2BHzuQA==
-X-Received: by 2002:a17:906:1498:b0:73f:40a9:62ff with SMTP id
- x24-20020a170906149800b0073f40a962ffmr13976603ejc.678.1668995714821; 
- Sun, 20 Nov 2022 17:55:14 -0800 (PST)
-Received: from c64.fritz.box ([2a01:2a8:8108:8301:7643:bec8:f62b:b074])
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=SJJG9l0YlRpzRi2ic2wvRcjJj5ylm1zWwiArlHuQKB4=;
+ b=pYRVCHtSam6Bp4ZCj2FKKPAB8aY5U+TxMN1frNobzEW7QSuQbbyTlNkmeSvnB5Vm7O
+ owREPJRXmG12kO3rF/RWosyfH5LTvyT/omRihuYzxgsgZai1WX6MybcUL4GOUxAWtqAo
+ OmQYe5gLL2SGCG7jywAz+pV9cOYW5mM65SpJ7eTFAGmbfgpd7uHQNV8uzE9+xslpJg+T
+ F1SxBgavqoyEVIVWheDcAYHnCBijzSNC4e1qsSTT1PugUrnKwg1c1D1MNQTnmSexxezw
+ 0ijLaq6qFMLIz460UQa+M5sLOAADM7i5qJGVOHqKb/g4GaoDNymhL4MTNlVO58gh+V1Q
+ EUMg==
+X-Gm-Message-State: ANoB5pk/cjC6OqEMxEUKOyjHgkc9FGd4qY1A9/wY4ezXLYuVa5qM/7/x
+ e1uNqxzi+LHqwDdRjYpk2ep9ZA==
+X-Google-Smtp-Source: AA0mqf5VMxacEh78UTA0ugozKyhHLdY0czdV10scTdiqL1kFIrv/uHrklnqc9O5/QBvdoMRdoDoQlQ==
+X-Received: by 2002:a05:600c:21c6:b0:3c7:19a6:8146 with SMTP id
+ x6-20020a05600c21c600b003c719a68146mr11903688wmj.158.1669017602975; 
+ Mon, 21 Nov 2022 00:00:02 -0800 (PST)
+Received: from [192.168.0.20]
+ (088156142067.dynamic-2-waw-k-3-2-0.vectranet.pl. [88.156.142.67])
  by smtp.gmail.com with ESMTPSA id
- g2-20020a170906538200b00782e3cf7277sm4415513ejo.120.2022.11.20.17.55.13
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 20 Nov 2022 17:55:14 -0800 (PST)
-From: =?UTF-8?q?Bernhard=20Rosenkr=C3=A4nzer?= <bero@baylibre.com>
-To: devicetree@vger.kernel.org
-Date: Mon, 21 Nov 2022 02:54:51 +0100
-Message-Id: <20221121015451.2471196-10-bero@baylibre.com>
-X-Mailer: git-send-email 2.38.1
-In-Reply-To: <20221121015451.2471196-1-bero@baylibre.com>
-References: <20221121015451.2471196-1-bero@baylibre.com>
+ y8-20020adfee08000000b0024194bba380sm10448991wrn.22.2022.11.21.00.00.01
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 21 Nov 2022 00:00:02 -0800 (PST)
+Message-ID: <8afd5100-9cef-50bd-2b53-e1a550973835@linaro.org>
+Date: Mon, 21 Nov 2022 09:00:01 +0100
 MIME-Version: 1.0
-X-Mailman-Approved-At: Mon, 21 Nov 2022 07:49:11 +0000
-Cc: khilman@baylibre.com, krzysztof.kozlowski@linaro.org,
- linux-mediatek@lists.infradead.org, mcoquelin.stm32@gmail.com,
- matthias.bgg@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 9/9] dt-bindings: pinctrl: st,
-	stm32: Remove the pins-are-numbered property
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.4.2
+To: =?UTF-8?Q?Bernhard_Rosenkr=c3=a4nzer?= <bero@baylibre.com>,
+ devicetree@vger.kernel.org
+References: <20221121015451.2471196-1-bero@baylibre.com>
+ <20221121015451.2471196-4-bero@baylibre.com>
+Content-Language: en-US
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20221121015451.2471196-4-bero@baylibre.com>
+Cc: khilman@baylibre.com, linux-mediatek@lists.infradead.org,
+ mcoquelin.stm32@gmail.com, matthias.bgg@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 3/9] dt-bindings: pinctrl: mediatek,
+ mt65xx: Make pins-are-numbered optional
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,28 +86,11 @@ Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-UmVtb3ZlIHRoZSBwaW5zLWFyZS1udW1iZXJlZCBwcm9wZXJ0eSBmcm9tIHRoZSBTVE0zMiBEZXZp
-Y2VUcmVlIHNjaGVtYQoKU2lnbmVkLW9mZi1ieTogQmVybmhhcmQgUm9zZW5rcsOkbnplciA8YmVy
-b0BiYXlsaWJyZS5jb20+Ci0tLQogLi4uL2RldmljZXRyZWUvYmluZGluZ3MvcGluY3RybC9zdCxz
-dG0zMi1waW5jdHJsLnlhbWwgICAgICAgICAgfCAzIC0tLQogMSBmaWxlIGNoYW5nZWQsIDMgZGVs
-ZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdz
-L3BpbmN0cmwvc3Qsc3RtMzItcGluY3RybC55YW1sIGIvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVl
-L2JpbmRpbmdzL3BpbmN0cmwvc3Qsc3RtMzItcGluY3RybC55YW1sCmluZGV4IDdjMDhkMzYyMTMy
-YTQuLmRjMTExMTIyZmY1ZDIgMTAwNjQ0Ci0tLSBhL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9i
-aW5kaW5ncy9waW5jdHJsL3N0LHN0bTMyLXBpbmN0cmwueWFtbAorKysgYi9Eb2N1bWVudGF0aW9u
-L2RldmljZXRyZWUvYmluZGluZ3MvcGluY3RybC9zdCxzdG0zMi1waW5jdHJsLnlhbWwKQEAgLTM0
-LDcgKzM0LDYgQEAgcHJvcGVydGllczoKICAgICBjb25zdDogMQogCiAgIHJhbmdlczogdHJ1ZQot
-ICBwaW5zLWFyZS1udW1iZXJlZDogdHJ1ZQogICBod2xvY2tzOiB0cnVlCiAKICAgaW50ZXJydXB0
-czoKQEAgLTIxOSw3ICsyMTgsNiBAQCBleGFtcGxlczoKICAgICAgICAgICAgICAgI3NpemUtY2Vs
-bHMgPSA8MT47CiAgICAgICAgICAgICAgIGNvbXBhdGlibGUgPSAic3Qsc3RtMzJmNDI5LXBpbmN0
-cmwiOwogICAgICAgICAgICAgICByYW5nZXMgPSA8MCAweDQwMDIwMDAwIDB4MzAwMD47Ci0gICAg
-ICAgICAgICAgIHBpbnMtYXJlLW51bWJlcmVkOwogCiAgICAgICAgICAgICAgIGdwaW9hOiBncGlv
-QDAgewogICAgICAgICAgICAgICAgICAgICAgIGdwaW8tY29udHJvbGxlcjsKQEAgLTIzNyw3ICsy
-MzUsNiBAQCBleGFtcGxlczoKICAgICAgICAgICAgICAgI3NpemUtY2VsbHMgPSA8MT47CiAgICAg
-ICAgICAgICAgIGNvbXBhdGlibGUgPSAic3Qsc3RtMzJmNDI5LXBpbmN0cmwiOwogICAgICAgICAg
-ICAgICByYW5nZXMgPSA8MCAweDUwMDIwMDAwIDB4MzAwMD47Ci0gICAgICAgICAgICAgIHBpbnMt
-YXJlLW51bWJlcmVkOwogCiAgICAgICAgICAgICAgIGdwaW9iOiBncGlvQDEwMDAgewogICAgICAg
-ICAgICAgICAgICAgICAgIGdwaW8tY29udHJvbGxlcjsKLS0gCjIuMzguMQoKX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBs
-aXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1t
-ZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+T24gMjEvMTEvMjAyMiAwMjo1NCwgQmVybmhhcmQgUm9zZW5rcsOkbnplciB3cm90ZToKPiBEb24n
+dCBsaXN0IHRoZSBwaW5zLWFyZS1udW1iZXJlZCBwcm9wZXJ0eSBhcyByZXF1aXJlZAo+IAo+IFNp
+Z25lZC1vZmYtYnk6IEJlcm5oYXJkIFJvc2Vua3LDpG56ZXIgPGJlcm9AYmF5bGlicmUuY29tPgo+
+IC0tLQoKQW5kIGhvdyBhYm91dCBtYWtpbmcgdGhlbSBkZXByZWNhdGVkPyAoZGVwcmVjYXRlZDog
+dHJ1ZSkKCkJlc3QgcmVnYXJkcywKS3J6eXN6dG9mCgpfX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3Rt
+MzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rv
+cm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
