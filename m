@@ -2,52 +2,61 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 35995631C40
-	for <lists+linux-stm32@lfdr.de>; Mon, 21 Nov 2022 10:00:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DC4D2631C81
+	for <lists+linux-stm32@lfdr.de>; Mon, 21 Nov 2022 10:10:00 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E3190C6507F;
-	Mon, 21 Nov 2022 09:00:31 +0000 (UTC)
-Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 834E4C65065;
+	Mon, 21 Nov 2022 09:10:00 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 25CE2C6507B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5E206C6504A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 21 Nov 2022 09:00:30 +0000 (UTC)
-Received: from [192.168.1.100] (2-237-20-237.ip236.fastwebnet.it
- [2.237.20.237])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits))
- (No client certificate requested) (Authenticated sender: kholk11)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id 5DEDE66003EF;
- Mon, 21 Nov 2022 09:00:29 +0000 (GMT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1669021229;
- bh=GjoD6+ESt/0nC7WvRsDYNODjgEOQgbj3D/vo0DNgFs8=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=GX7ndQFc90mDHy9IVvkFjC11UQildBuY3gKGx5XKCYxu2dnDae9C9I1haWu3O3clb
- 4P3a5dBkRdW9cUo2QValv+k2lr27sWD6c6kEzfLFYfAHlxpEuyx+Gvkc84pyA/1K5z
- ab+Y6oXZmDDujBGsEOpK6zDF44lpnE6mKZyxB/3xqXdHA4LIMSkqmipcFYDysdadNL
- Qt18/u7pLXy2ASnjC1lm9jpJhu8hJOm7f8thB9Zf4b785JWYXYY0jsOu5M60YcZ/3L
- j3bOvJV4YFLR7wm8Naa3B6kHbgKY/OSRNdm6Sk2CBiKcvEWdRZmd3CU6QgAPLog6mT
- VjY7470Ij803Q==
-Message-ID: <0ccc4c54-c60f-72eb-6efe-31915b6277d7@collabora.com>
-Date: Mon, 21 Nov 2022 10:00:26 +0100
+ Mon, 21 Nov 2022 09:09:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1669021799; x=1700557799;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=YK1fJnwYjE6pEUlQTwqHgFrvyAFXsLhLRFs9q3IFLwA=;
+ b=MQL+yl2J6VdU97z4lFwn27K9nlsBXDqNvAWkg6o/opwmOY+U1vAF2YzX
+ ShrS+IJpEK2U1kQlHTIOkzK0vqDy8Zp1FSVYFt5elT6zDHjoEn2XwFvFv
+ 8Vi8w7G+11UZ9oC3X1UPHNMI5rlMkRiT+dys+gMQT47qqQl8Nezj2RpHy
+ 9dzLCcb/7Mfr7MBZ3dPjr+QSpgF+114OwKHS4Oas8hzVN1QCg0hGc2wm1
+ 79a6O3LFRdhZA2PMmo9oAYCWwbfcpxtwxLxqGGr4OOtNCXK+5DFW6g1+D
+ yP0IATvOBTt9U7Rjq1Vz8xN+7xc1euLx8c0mHJDsOelrLdPengaXHd+2i g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10537"; a="301055318"
+X-IronPort-AV: E=Sophos;i="5.96,180,1665471600"; d="scan'208";a="301055318"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Nov 2022 01:09:57 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6500,9779,10537"; a="783378100"
+X-IronPort-AV: E=Sophos;i="5.96,180,1665471600"; d="scan'208";a="783378100"
+Received: from kuha.fi.intel.com ([10.237.72.185])
+ by fmsmga001.fm.intel.com with SMTP; 21 Nov 2022 01:09:51 -0800
+Received: by kuha.fi.intel.com (sSMTP sendmail emulation);
+ Mon, 21 Nov 2022 11:09:51 +0200
+Date: Mon, 21 Nov 2022 11:09:51 +0200
+From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <uwe@kleine-koenig.org>
+Message-ID: <Y3tAX8I3EWoIlraR@kuha.fi.intel.com>
+References: <20221118224540.619276-1-uwe@kleine-koenig.org>
+ <20221118224540.619276-585-uwe@kleine-koenig.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.5.0
-To: =?UTF-8?Q?Bernhard_Rosenkr=c3=a4nzer?= <bero@baylibre.com>,
- devicetree@vger.kernel.org
-References: <20221121015451.2471196-1-bero@baylibre.com>
- <20221121015451.2471196-2-bero@baylibre.com>
-Content-Language: en-US
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-In-Reply-To: <20221121015451.2471196-2-bero@baylibre.com>
-Cc: khilman@baylibre.com, krzysztof.kozlowski@linaro.org,
- linux-mediatek@lists.infradead.org, mcoquelin.stm32@gmail.com,
- matthias.bgg@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 1/9] pinctrl: mediatek: common: Remove
- check for pins-are-numbered
+Content-Disposition: inline
+In-Reply-To: <20221118224540.619276-585-uwe@kleine-koenig.org>
+Cc: linux-arm-kernel@lists.infradead.org, Corey Minyard <cminyard@mvista.com>,
+ kernel@pengutronix.de, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Wolfram Sang <wsa@kernel.org>, Angel Iglesias <ang.iglesiasg@gmail.com>,
+ linux-i2c@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>,
+ Grant Likely <grant.likely@linaro.org>, Lee Jones <lee.jones@linaro.org>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Colin Ian King <colin.i.king@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH 584/606] usb: typec: ucsi: stm32g0:
+ Convert to i2c's .probe_new()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,17 +68,61 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SWwgMjEvMTEvMjIgMDI6NTQsIEJlcm5oYXJkIFJvc2Vua3LDpG56ZXIgaGEgc2NyaXR0bzoKPiBS
-ZW1vdmUgdGhlIGNoZWNrIGZvciB0aGUgdW5uZWNlc3NhcnkgcGlucy1hcmUtbnVtYmVyZWQgRGV2
-aWNldHJlZSBwcm9wZXJ0eS4KPiAKPiBTaWduZWQtb2ZmLWJ5OiBCZXJuaGFyZCBSb3Nlbmtyw6Ru
-emVyIDxiZXJvQGJheWxpYnJlLmNvbT4KClJldmlld2VkLWJ5OiBBbmdlbG9HaW9hY2NoaW5vIERl
-bCBSZWdubyA8YW5nZWxvZ2lvYWNjaGluby5kZWxyZWdub0Bjb2xsYWJvcmEuY29tPgoKCl9fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1h
-aWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBz
-Oi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0
-bTMyCg==
+On Fri, Nov 18, 2022 at 11:45:18PM +0100, Uwe Kleine-K=F6nig wrote:
+> From: Uwe Kleine-K=F6nig <u.kleine-koenig@pengutronix.de>
+> =
+
+> The probe function doesn't make use of the i2c_device_id * parameter so it
+> can be trivially converted.
+> =
+
+> Signed-off-by: Uwe Kleine-K=F6nig <u.kleine-koenig@pengutronix.de>
+
+Reviewed-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+
+> ---
+>  drivers/usb/typec/ucsi/ucsi_stm32g0.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> =
+
+> diff --git a/drivers/usb/typec/ucsi/ucsi_stm32g0.c b/drivers/usb/typec/uc=
+si/ucsi_stm32g0.c
+> index 7b92f0c8de70..93fead0096b7 100644
+> --- a/drivers/usb/typec/ucsi/ucsi_stm32g0.c
+> +++ b/drivers/usb/typec/ucsi/ucsi_stm32g0.c
+> @@ -626,7 +626,7 @@ static int ucsi_stm32g0_probe_bootloader(struct ucsi =
+*ucsi)
+>  	return 0;
+>  }
+>  =
+
+> -static int ucsi_stm32g0_probe(struct i2c_client *client, const struct i2=
+c_device_id *id)
+> +static int ucsi_stm32g0_probe(struct i2c_client *client)
+>  {
+>  	struct device *dev =3D &client->dev;
+>  	struct ucsi_stm32g0 *g0;
+> @@ -763,7 +763,7 @@ static struct i2c_driver ucsi_stm32g0_i2c_driver =3D {
+>  		.of_match_table =3D of_match_ptr(ucsi_stm32g0_typec_of_match),
+>  		.pm =3D pm_sleep_ptr(&ucsi_stm32g0_pm_ops),
+>  	},
+> -	.probe =3D ucsi_stm32g0_probe,
+> +	.probe_new =3D ucsi_stm32g0_probe,
+>  	.remove =3D ucsi_stm32g0_remove,
+>  	.id_table =3D ucsi_stm32g0_typec_i2c_devid
+>  };
+
+thanks,
+
+-- =
+
+heikki
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
