@@ -2,47 +2,57 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id BBC53633255
-	for <lists+linux-stm32@lfdr.de>; Tue, 22 Nov 2022 02:46:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7B27D63356A
+	for <lists+linux-stm32@lfdr.de>; Tue, 22 Nov 2022 07:41:32 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 65CAFC64104;
-	Tue, 22 Nov 2022 01:46:18 +0000 (UTC)
-Received: from mxct.zte.com.cn (mxct.zte.com.cn [183.62.165.209])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3A25FC03FC9
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 22 Nov 2022 01:46:16 +0000 (UTC)
-Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2C105C64104;
+	Tue, 22 Nov 2022 06:41:32 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mxct.zte.com.cn (FangMail) with ESMTPS id 4NGRtT1n75z4y0vG;
- Tue, 22 Nov 2022 09:46:09 +0800 (CST)
-Received: from xaxapp01.zte.com.cn ([10.88.40.50])
- by mse-fl2.zte.com.cn with SMTP id 2AM1jvWT038685;
- Tue, 22 Nov 2022 09:45:58 +0800 (+08)
- (envelope-from ye.xingchen@zte.com.cn)
-Received: from mapi (xaxapp02[null]) by mapi (Zmail) with MAPI id mid31;
- Tue, 22 Nov 2022 09:45:58 +0800 (CST)
-Date: Tue, 22 Nov 2022 09:45:58 +0800 (CST)
-X-Zmail-TransId: 2afa637c29d64fd0c401
-X-Mailer: Zmail v1.0
-Message-ID: <202211220945587336502@zte.com.cn>
-Mime-Version: 1.0
-From: <ye.xingchen@zte.com.cn>
-To: <fabrice.gasnier@foss.st.com>
-X-MAIL: mse-fl2.zte.com.cn 2AM1jvWT038685
-X-Fangmail-Gw-Spam-Type: 0
-X-FangMail-Miltered: at cgslv5.04-192.168.251.13.novalocal with ID
- 637C29E1.000 by FangMail milter!
-X-FangMail-Envelope: 1669081569/4NGRtT1n75z4y0vG/637C29E1.000/10.5.228.133/[10.5.228.133]/mse-fl2.zte.com.cn/<ye.xingchen@zte.com.cn>
-X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 637C29E1.000/4NGRtT1n75z4y0vG
-Cc: lee@kernel.org, linux-kernel@vger.kernel.org, chi.minghao@zte.com.cn,
- mcoquelin.stm32@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] =?utf-8?q?=5BPATCH=5D_mfd=3A_use_devm=5Fplatform=5F?=
-	=?utf-8?q?get=5Fand=5Fioremap=5Fresource=28=29?=
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1A0B9C03FE0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 22 Nov 2022 06:41:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1669099291; x=1700635291;
+ h=from:to:cc:subject:date:message-id;
+ bh=2QTFR6pA76qtLbEvHKg0kOdamheSUPyeYEN0H8o4nAg=;
+ b=fHkeaQe3KxsB/Ed8Osc8ahyZZllVQT6FOnOyJ1a0GAJctrLpX0MaBAFo
+ l/+cGtB/Aw46pok/rwvHQyfHsiYZiRrazINDD+p3GkKonJOiqJKTAVEvo
+ L8LRSgHHe1hfuFPv56I1cLVbM4GGRzoeKrZCj2s9JDTytkumSWG8CltIg
+ U7cbIiWsd6KRcAB1svdhXm0AvEBenioWtFWYO2EITe0ay67RVaejq5f7Q
+ Nc94gxf/cgLoUpUJa+HHEBeR6ygDxK9neV7WTj5ng36oSD+ivKT7CvXol
+ lwjuQCdL8wn8ChxEGWysAKCq9WTuViT5Rwb6rjCKaWjpMjXL+7vFjY+ZH A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10538"; a="340613327"
+X-IronPort-AV: E=Sophos;i="5.96,183,1665471600"; d="scan'208";a="340613327"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Nov 2022 22:41:29 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6500,9779,10538"; a="766238292"
+X-IronPort-AV: E=Sophos;i="5.96,183,1665471600"; d="scan'208";a="766238292"
+Received: from p12ill01gohweish.png.intel.com ([10.88.229.16])
+ by orsmga004.jf.intel.com with ESMTP; 21 Nov 2022 22:41:24 -0800
+From: "Goh, Wei Sheng" <wei.sheng.goh@intel.com>
+To: Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Alexandre Torgue <alexandre.torgue@st.com>,
+ Jose Abreu <joabreu@synopsys.com>,
+ "David S . Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Date: Tue, 22 Nov 2022 14:39:35 +0800
+Message-Id: <20221122063935.6741-1-wei.sheng.goh@intel.com>
+X-Mailer: git-send-email 2.17.1
+Cc: Voon Wei Feng <weifeng.voon@intel.com>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Looi Hong Aun <hong.aun.looi@intel.com>,
+ Goh Wei Sheng <wei.sheng.goh@intel.com>, Tan Tee Min <tee.min.tan@intel.com>,
+ Ong Boon Leong <boon.leong.ong@intel.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ Ahmad Tarmizi Noor Azura <noor.azura.ahmad.tarmizi@intel.com>
+Subject: [Linux-stm32] [PATCH net v2] net: stmmac: Set MAC's flow control
+	register to reflect current settings
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -54,47 +64,66 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Minghao Chi <chi.minghao@zte.com.cn>
+Currently, pause frame register GMAC_RX_FLOW_CTRL_RFE is not updated
+correctly when 'ethtool -A <IFACE> autoneg off rx off tx off' command
+is issued. This fix ensures the flow control change is reflected directly
+in the GMAC_RX_FLOW_CTRL_RFE register.
 
-Convert platform_get_resource(), devm_ioremap_resource() to a single
-call to devm_platform_get_and_ioremap_resource(), as this is exactly
-what this function does.
-
-Signed-off-by: Minghao Chi <chi.minghao@zte.com.cn>
-Signed-off-by: ye xingchen <ye.xingchen@zte.com.cn>
+Fixes: 46f69ded988d ("net: stmmac: Use resolved link config in mac_link_up()")
+Cc: <stable@vger.kernel.org> # 5.10.x
+Signed-off-by: Goh, Wei Sheng <wei.sheng.goh@intel.com>
+Signed-off-by: Noor Azura Ahmad Tarmizi <noor.azura.ahmad.tarmizi@intel.com>
 ---
- drivers/mfd/stm32-lptimer.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
+ drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c |  3 +++
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 12 ++++++++++--
+ 2 files changed, 13 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/mfd/stm32-lptimer.c b/drivers/mfd/stm32-lptimer.c
-index 746e51a17cc8..fa322f4412c8 100644
---- a/drivers/mfd/stm32-lptimer.c
-+++ b/drivers/mfd/stm32-lptimer.c
-@@ -52,7 +52,6 @@ static int stm32_lptimer_probe(struct platform_device *pdev)
- {
- 	struct device *dev = &pdev->dev;
- 	struct stm32_lptimer *ddata;
--	struct resource *res;
- 	void __iomem *mmio;
- 	int ret;
-
-@@ -60,8 +59,7 @@ static int stm32_lptimer_probe(struct platform_device *pdev)
- 	if (!ddata)
- 		return -ENOMEM;
-
--	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
--	mmio = devm_ioremap_resource(dev, res);
-+	mmio = devm_platform_get_and_ioremap_resource(pdev, 0, NULL);
- 	if (IS_ERR(mmio))
- 		return PTR_ERR(mmio);
-
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c b/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
+index c25bfecb4a2d..369db308b1dd 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
+@@ -748,6 +748,9 @@ static void dwmac4_flow_ctrl(struct mac_device_info *hw, unsigned int duplex,
+ 	if (fc & FLOW_RX) {
+ 		pr_debug("\tReceive Flow-Control ON\n");
+ 		flow |= GMAC_RX_FLOW_CTRL_RFE;
++	} else {
++		pr_debug("\tReceive Flow-Control OFF\n");
++		flow &= ~GMAC_RX_FLOW_CTRL_RFE;
+ 	}
+ 	writel(flow, ioaddr + GMAC_RX_FLOW_CTRL);
+ 
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index 8273e6a175c8..ab7f48f32f5b 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -1061,8 +1061,16 @@ static void stmmac_mac_link_up(struct phylink_config *config,
+ 		ctrl |= priv->hw->link.duplex;
+ 
+ 	/* Flow Control operation */
+-	if (tx_pause && rx_pause)
+-		stmmac_mac_flow_ctrl(priv, duplex);
++	if (rx_pause && tx_pause)
++		priv->flow_ctrl = FLOW_AUTO;
++	else if (rx_pause && !tx_pause)
++		priv->flow_ctrl = FLOW_RX;
++	else if (!rx_pause && tx_pause)
++		priv->flow_ctrl = FLOW_TX;
++	else
++		priv->flow_ctrl = FLOW_OFF;
++
++	stmmac_mac_flow_ctrl(priv, duplex);
+ 
+ 	if (ctrl != old_ctrl)
+ 		writel(ctrl, priv->ioaddr + MAC_CTRL_REG);
 -- 
-2.25.1
+2.17.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
