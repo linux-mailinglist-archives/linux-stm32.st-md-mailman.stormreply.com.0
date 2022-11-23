@@ -2,69 +2,74 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 880E76347E0
-	for <lists+linux-stm32@lfdr.de>; Tue, 22 Nov 2022 21:17:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7CA0C635218
+	for <lists+linux-stm32@lfdr.de>; Wed, 23 Nov 2022 09:18:17 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 35F39C640FF;
-	Tue, 22 Nov 2022 20:17:07 +0000 (UTC)
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
- [85.220.165.71])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1987FC640FF;
+	Wed, 23 Nov 2022 08:18:17 +0000 (UTC)
+Received: from mail-lj1-f169.google.com (mail-lj1-f169.google.com
+ [209.85.208.169])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 56256C03FE1
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C31D9C0D2C0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 22 Nov 2022 20:17:05 +0000 (UTC)
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
- by metis.ext.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <ukl@pengutronix.de>)
- id 1oxZhX-0006Qx-Bo; Tue, 22 Nov 2022 21:17:03 +0100
-Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
- by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.94.2)
- (envelope-from <ukl@pengutronix.de>)
- id 1oxZhR-005v1B-UM; Tue, 22 Nov 2022 21:16:58 +0100
-Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.94.2)
- (envelope-from <ukl@pengutronix.de>)
- id 1oxZhS-000s7U-3N; Tue, 22 Nov 2022 21:16:58 +0100
-Date: Tue, 22 Nov 2022 21:16:54 +0100
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
-To: Jonathan Cameron <jic23@kernel.org>
-Message-ID: <20221122201654.5rdaisqho33buibj@pengutronix.de>
-References: <20221118224540.619276-1-uwe@kleine-koenig.org>
- <20221122185818.3740200d@jic23-huawei>
+ Wed, 23 Nov 2022 08:18:15 +0000 (UTC)
+Received: by mail-lj1-f169.google.com with SMTP id d3so20584885ljl.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 23 Nov 2022 00:18:15 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=fL0RQ9V3lsCHjFuI9X5q3hTnnfNaNlsOWbPGogwO7Tk=;
+ b=lgfpAulgNwQyAsUYf92b42NDgYv4N76VOGD/OP/HSSTSBJcxgrReakyMNG+pVkl61t
+ 9DGBRp5UkjtO4P0q1WDFvUtAe5WlNEYHeSBa6GhXVhoE1+Tr8lt1CGUmNdXv4fRKIMWH
+ JbX3V42YRa44xrUiHrH4rZmABG5PpWrxUta/nniWfk/LrKvfAbYwToDFB7lPDlJtchc0
+ gQqR3Sr8VfS+mRRfmcXEAlwH/U/MPC3NM0pFspbpOgXNuV+6RQ+FrmMLxuRBNqS+Zqbt
+ SUn82DCoy2dD5pLdHTmHjlrCH2aPpgTAs9OgPSB2U5sBqShu4QbKnOFsQRiNY8FGf6gs
+ +I5w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=fL0RQ9V3lsCHjFuI9X5q3hTnnfNaNlsOWbPGogwO7Tk=;
+ b=vyIm+oIwORRNRGE6TcjssUdMlbYPjULg8G4yZVynDmrwe1OQ42aMnX7x0BXoLSThRC
+ 30qL87tG9qg8NFUQOzsCy4VEf3Ju+ic7LmQg4OpJgwAIvmgSXsfx0DAC74/J6bbP6DUx
+ NWVyWrN6XFLnxpcUW/Fy0JT7PjmlqtDIX9ws011kX65+WcsZ+JQ/24iwK1aMDOpQYBPa
+ Md45rzKUkD0J3BXG2pjwoRUU0dEg2ugz71QoPeBuG3gNopVRRgXUwhcOYkpUYf7fLIct
+ ppa/hD/TAKxEXFKzpw+Gwj14Fyt/reT1B+lqu4fYx6pAMWkc9S0itsgXQY1xXqnalLWw
+ OlIw==
+X-Gm-Message-State: ANoB5pmCt5h5KEv0nJ/j4Xd3OM5aJVfB09o5FNEJoOTdU9+4GkB2MfkV
+ ZsQAcPioi9ktXTtDNfE8mi5YIg==
+X-Google-Smtp-Source: AA0mqf6qdnORHkVtPLBs2odty+zr62ZdV3b3E3AHmbLeJ/v/hIe3N/3e/3cwDklJV2X74Rt7spHKmw==
+X-Received: by 2002:a05:651c:205d:b0:26f:b445:8c8a with SMTP id
+ t29-20020a05651c205d00b0026fb4458c8amr2918141ljo.156.1669191494829; 
+ Wed, 23 Nov 2022 00:18:14 -0800 (PST)
+Received: from [192.168.0.20]
+ (088156142067.dynamic-2-waw-k-3-2-0.vectranet.pl. [88.156.142.67])
+ by smtp.gmail.com with ESMTPSA id
+ m6-20020a056512358600b0049468f9e697sm2766578lfr.236.2022.11.23.00.18.13
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 23 Nov 2022 00:18:14 -0800 (PST)
+Message-ID: <51389853-35db-5162-e488-f5b3cfc25f27@linaro.org>
+Date: Wed, 23 Nov 2022 09:18:13 +0100
 MIME-Version: 1.0
-In-Reply-To: <20221122185818.3740200d@jic23-huawei>
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: ukl@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
-Cc: alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
- linux-iio@vger.kernel.org, linux-fbdev@vger.kernel.org,
- platform-driver-x86@vger.kernel.org, netdev@vger.kernel.org,
- linux-mtd@lists.infradead.org, linux-i2c@vger.kernel.org,
- Lee Jones <lee.jones@linaro.org>, linux-stm32@st-md-mailman.stormreply.com,
- linux-leds@vger.kernel.org, linux-rtc@vger.kernel.org,
- chrome-platform@lists.linux.dev, linux-samsung-soc@vger.kernel.org,
- linux-staging@lists.linux.dev,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
- linux-serial@vger.kernel.org, linux-input@vger.kernel.org,
- Grant Likely <grant.likely@linaro.org>, linux-media@vger.kernel.org,
- linux-pwm@vger.kernel.org, linux-watchdog@vger.kernel.org,
- Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <uwe@kleine-koenig.org>,
- linux-pm@vger.kernel.org, linux-actions@lists.infradead.org,
- Wolfram Sang <wsa@kernel.org>, linux-gpio@vger.kernel.org,
- Angel Iglesias <ang.iglesiasg@gmail.com>, linux-rpi-kernel@lists.infradead.org,
- linux-amlogic@lists.infradead.org, openipmi-developer@lists.sourceforge.net,
- linux-omap@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- Purism Kernel Team <kernel@puri.sm>, gregkh@linuxfoundation.org,
- linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-spi@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- linux-crypto@vger.kernel.org, kernel@pengutronix.de,
- patches@opensource.cirrus.com, linux-integrity@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org
-Subject: Re: [Linux-stm32] [PATCH 000/606] i2c: Complete conversion to
-	i2c_probe_new
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.5.0
+Content-Language: en-US
+To: =?UTF-8?Q?Bernhard_Rosenkr=c3=a4nzer?= <bero@baylibre.com>,
+ devicetree@vger.kernel.org
+References: <20221122010753.3126828-1-bero@baylibre.com>
+ <20221122010753.3126828-4-bero@baylibre.com>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20221122010753.3126828-4-bero@baylibre.com>
+Cc: khilman@baylibre.com, linux-kernel@vger.kernel.org,
+ linux-mediatek@lists.infradead.org, mcoquelin.stm32@gmail.com,
+ matthias.bgg@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, angelogioacchino.delregno@collabora.com
+Subject: Re: [Linux-stm32] [PATCH v2 3/7] dt-bindings: pinctrl: mediatek,
+ mt65xx: Deprecate pins-are-numbered
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,91 +81,17 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============2347026471326868329=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-
---===============2347026471326868329==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="t3mjk627u66tfbb3"
-Content-Disposition: inline
-
-
---t3mjk627u66tfbb3
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Tue, Nov 22, 2022 at 06:58:18PM +0000, Jonathan Cameron wrote:
->=20
-> Queued all of the below:
-> with one tweaked as per your suggestion and the highlighted one dropped o=
-n basis
-> I was already carrying the equivalent - as you pointed out.
->=20
-> I was already carrying the required dependency.
->=20
-> Includes the IIO ones in staging.
->=20
-> Thanks,
->=20
-> Jonathan
->=20
-> p.s. I perhaps foolishly did this in a highly manual way so as to
-> also pick up Andy's RB.  So might have dropped one...
-
-You could have done:
-
-	H=3D$(git rev-parse @)
-	b4 am -P 49-190 20221118224540.619276-1-uwe@kleine-koenig.org
-	git am ...
-	git filter-branch -f --msg-filter "grep -v 'Signed-off-by: Jonathan'; echo=
- 'Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>'; echo '=
-Signed-off-by: Jonathan Cameron <jic23@kernel.org>'" $H..
-
-(untested, but you get the idea).
-
-> Definitely would have been better as one patch per subsystem with
-> a cover letter suitable for replies like Andy's to be picked up
-> by b4.
-
-Next time I will go for one series per subsystem which I like better
-than one patch per subsystem.
-
-Best regards
-Uwe
-
---=20
-Pengutronix e.K.                           | Uwe Kleine-K=F6nig            |
-Industrial Linux Solutions                 | https://www.pengutronix.de/ |
-
---t3mjk627u66tfbb3
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEfnIqFpAYrP8+dKQLwfwUeK3K7AkFAmN9LjMACgkQwfwUeK3K
-7An96wf/RMtsCSXVJy8BDrXiXMhey9OEm8p08ulRn0lKYlG54KR8nU/s77uuMjGS
-99aUfUU56Abxk02DuBv6N5Bax8nlFyIlUgkfaYPP9iN1TkF5XiucQ0Se4/haYL4A
-q11UqWIcKBS+5BL3K6Bl1Cqv4dPYpRvs99X3jlU6JmhFqJPPhPgAu0p74arSvLie
-kN6wgOGVdCjZTRD+Z7FxfIQPZqvVo7anPAynyk7XfgTXMSAK80JPR2UeMfvQ7yr2
-W28htsacTaJSnPOb1VIrhN8OytpxASYa120EJ8augNmBXC0IzvjosWI0LZnNljAU
-izPd/d6lzDCP0Mz/LU9QCBYUR1jxuQ==
-=KmMu
------END PGP SIGNATURE-----
-
---t3mjk627u66tfbb3--
-
---===============2347026471326868329==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============2347026471326868329==--
+T24gMjIvMTEvMjAyMiAwMjowNywgQmVybmhhcmQgUm9zZW5rcsOkbnplciB3cm90ZToKPiBNYWtl
+IHBpbnMtYXJlLW51bWJlcmVkIG9wdGlvbmFsIGFuZCBkZXByZWNhdGUgaXQKPiAKPiBTaWduZWQt
+b2ZmLWJ5OiBCZXJuaGFyZCBSb3Nlbmtyw6RuemVyIDxiZXJvQGJheWxpYnJlLmNvbT4KPiAtLS0K
+PiAgLi4uL2RldmljZXRyZWUvYmluZGluZ3MvcGluY3RybC9tZWRpYXRlayxtdDY1eHgtcGluY3Ry
+bC55YW1sIHwgNSArKwoKCkFja2VkLWJ5OiBLcnp5c3p0b2YgS296bG93c2tpIDxrcnp5c3p0b2Yu
+a296bG93c2tpQGxpbmFyby5vcmc+CgpCZXN0IHJlZ2FyZHMsCktyenlzenRvZgoKX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGlu
+ZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9z
+dC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
