@@ -2,65 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 056E26366E7
-	for <lists+linux-stm32@lfdr.de>; Wed, 23 Nov 2022 18:24:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7C58D636854
+	for <lists+linux-stm32@lfdr.de>; Wed, 23 Nov 2022 19:10:23 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A57D9C6507B;
-	Wed, 23 Nov 2022 17:23:59 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CDE10C6506F
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 23 Nov 2022 17:23:58 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3283EC6507B;
+	Wed, 23 Nov 2022 18:10:23 +0000 (UTC)
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 83C1461E01;
- Wed, 23 Nov 2022 17:23:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06998C433C1;
- Wed, 23 Nov 2022 17:23:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1669224236;
- bh=NklP56tySe3Xv444ZHt52vRJGyzaYy1R0Ex9JoaAzOM=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=cM7LkUwn/UGY9APeo61IFLdLFugI/mycScX1L27zLnBFWztWOvsY2/pXAQvU8BtqA
- zN2grVWU907Puoa1962eNoEzm7M0GyfMXDTyo0m/fYESjcYYfLenMyR420GN0LPle7
- fHre3CZnC438ac14FaQ0ftW3eoi7y+NqR03dNnG17mNGguUXELDqAXtYw+kabasJh/
- GdE3AFFOilgHHG2SfRFJ7XFkovjxBFA4x69koAbNo4eANtlUFZ7DlagmzghcWyagzN
- hB+OrPBoifu3z+M9f10yfPgcQGlZSqkBCHUx9fpHFf/LyumxpmD68OdmhxG3k3+QWy
- NRxBKM7JX5qXQ==
-From: Mark Brown <broonie@kernel.org>
-To: Wolfram Sang <wsa@kernel.org>, Lee Jones <lee.jones@linaro.org>, Uwe Kleine-König <uwe@kleine-koenig.org>,
- Angel Iglesias <ang.iglesiasg@gmail.com>, Grant Likely <grant.likely@linaro.org>
-In-Reply-To: <20221118224540.619276-1-uwe@kleine-koenig.org>
-References: <20221118224540.619276-1-uwe@kleine-koenig.org>
-Message-Id: <166922422872.540277.7243893319002961181.b4-ty@kernel.org>
-Date: Wed, 23 Nov 2022 17:23:48 +0000
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4568EC03FC9
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 23 Nov 2022 18:10:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1669227021; x=1700763021;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=t/23rNgY8Q9RGRSPf2krv88SYbO32lpe4ZQwFdkeaYg=;
+ b=BxSKmEn2XYMzjVDgyI55HJaJL/QQKsw7vW3/vZu7uMNXCRgzaBkckxx6
+ El2/4qQz/u0IBZeErNYuQFpHwktJYyWIkhP/IyJLqfisb7J3wxVHy1MXD
+ diCsGzatP+qiLWgW0NvrnnaLQmnp1KFfD+aYXekseZQgILxPMP32jLdHu
+ 0Mx8S7BYMzbnZMK0QCX8NwkYu6lmvD6EaH6XT6KUagXcP/JCrRdvmCrwS
+ ivBQ3VNSQmRz3IlnVFdk0Q1BL+LgvG/h3DG+TXEs/ISmdSTqIUei2w0Uz
+ vrT+BW6AovUXAnQUkUwX20h5xwM4cmnHW/LauOQkI+Z2flFDokhMUM/aw w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10540"; a="297490195"
+X-IronPort-AV: E=Sophos;i="5.96,187,1665471600"; d="scan'208";a="297490195"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Nov 2022 10:10:18 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6500,9779,10540"; a="784334985"
+X-IronPort-AV: E=Sophos;i="5.96,187,1665471600"; d="scan'208";a="784334985"
+Received: from irvmail001.ir.intel.com ([10.43.11.63])
+ by fmsmga001.fm.intel.com with ESMTP; 23 Nov 2022 10:10:15 -0800
+Received: from newjersey.igk.intel.com (newjersey.igk.intel.com
+ [10.102.20.203])
+ by irvmail001.ir.intel.com (8.14.3/8.13.6/MailSET/Hub) with ESMTP id
+ 2ANIADgi031036; Wed, 23 Nov 2022 18:10:13 GMT
+From: Alexander Lobakin <alexandr.lobakin@intel.com>
+To: "Goh, Wei Sheng" <wei.sheng.goh@intel.com>
+Date: Wed, 23 Nov 2022 19:09:47 +0100
+Message-Id: <20221123180947.488302-1-alexandr.lobakin@intel.com>
+X-Mailer: git-send-email 2.38.1
+In-Reply-To: <20221123091529.22018-1-wei.sheng.goh@intel.com>
+References: <20221123091529.22018-1-wei.sheng.goh@intel.com>
 MIME-Version: 1.0
-X-Mailer: b4 0.10.0-dev-fc921
-Cc: alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
- linux-iio@vger.kernel.org, linux-fbdev@vger.kernel.org,
- platform-driver-x86@vger.kernel.org, linux-mtd@lists.infradead.org,
- linux-i2c@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-leds@vger.kernel.org, linux-rtc@vger.kernel.org,
- chrome-platform@lists.linux.dev, linux-samsung-soc@vger.kernel.org,
- linux-staging@lists.linux.dev,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
- linux-serial@vger.kernel.org, linux-input@vger.kernel.org,
- linux-media@vger.kernel.org, linux-pwm@vger.kernel.org,
- linux-watchdog@vger.kernel.org, linux-pm@vger.kernel.org,
- linux-actions@lists.infradead.org, linux-gpio@vger.kernel.org,
- linux-rpi-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
- openipmi-developer@lists.sourceforge.net, linux-omap@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, Purism Kernel Team <kernel@puri.sm>,
- patches@opensource.cirrus.com, linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org, linux-crypto@vger.kernel.org,
- kernel@pengutronix.de, netdev@vger.kernel.org, linux-integrity@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org
-Subject: Re: [Linux-stm32] (subset) [PATCH 000/606] i2c: Complete conversion
-	to i2c_probe_new
+Cc: Alexandre Torgue <alexandre.torgue@st.com>,
+ Voon Wei Feng <weifeng.voon@intel.com>, netdev@vger.kernel.org,
+ Tan Tee Min <tee.min.tan@intel.com>, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
+ Jose Abreu <joabreu@synopsys.com>,
+ Alexander Lobakin <alexandr.lobakin@intel.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ Ong Boon Leong <boon.leong.ong@intel.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Looi Hong Aun <hong.aun.looi@intel.com>, Paolo Abeni <pabeni@redhat.com>,
+ "David S . Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
+ Ahmad Tarmizi Noor Azura <noor.azura.ahmad.tarmizi@intel.com>
+Subject: Re: [Linux-stm32] [PATCH net v3] net: stmmac: Set MAC's flow
+	control register to reflect current settings
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,52 +72,90 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gRnJpLCAxOCBOb3YgMjAyMiAyMzozNTozNCArMDEwMCwgVXdlIEtsZWluZS1Lw7ZuaWcgd3Jv
-dGU6Cj4gc2luY2UgY29tbWl0IGI4YTFhNGNkNWE5OCAoImkyYzogUHJvdmlkZSBhIHRlbXBvcmFy
-eSAucHJvYmVfbmV3KCkKPiBjYWxsLWJhY2sgdHlwZSIpIGZyb20gMjAxNiB0aGVyZSBpcyBhICJ0
-ZW1wb3JhcnkiIGFsdGVybmF0aXZlIHByb2JlCj4gY2FsbGJhY2sgZm9yIGkyYyBkcml2ZXJzLgo+
-IAo+IFRoaXMgc2VyaWVzIGNvbXBsZXRlcyBhbGwgZHJpdmVycyB0byB0aGlzIG5ldyBjYWxsYmFj
-ayAodW5sZXNzIEkgbWlzc2VkCj4gc29tZXRoaW5nKS4gSXQncyBiYXNlZCBvbiBjdXJyZW50IG5l
-eHQvbWFzdGVyLgo+IEEgcGFydCBvZiB0aGUgcGF0Y2hlcyBkZXBlbmQgb24gY29tbWl0IDY2MjIz
-MzczMWQ2NiAoImkyYzogY29yZToKPiBJbnRyb2R1Y2UgaTJjX2NsaWVudF9nZXRfZGV2aWNlX2lk
-IGhlbHBlciBmdW5jdGlvbiIpLCB0aGVyZSBpcyBhIGJyYW5jaCB0aGF0Cj4geW91IGNhbiBwdWxs
-IGludG8geW91ciB0cmVlIHRvIGdldCBpdDoKPiAKPiBbLi4uXQoKQXBwbGllZCB0bwoKICAgaHR0
-cHM6Ly9naXQua2VybmVsLm9yZy9wdWIvc2NtL2xpbnV4L2tlcm5lbC9naXQvYnJvb25pZS9yZWd1
-bGF0b3IuZ2l0IGZvci1uZXh0CgpUaGFua3MhCgpbNTM5LzYwNl0gcmVndWxhdG9yOiBhZDUzOTg6
-IENvbnZlcnQgdG8gaTJjJ3MgLnByb2JlX25ldygpCiAgICAgICAgICBjb21taXQ6IDdmNjllZGJh
-OTYwYmJkY2JjODI5ZDhkMDk5NWIxMTE3Y2UyOWU4YjEKWzU0NC82MDZdIHJlZ3VsYXRvcjogbHA4
-NzJ4OiBDb252ZXJ0IHRvIGkyYydzIC5wcm9iZV9uZXcoKQogICAgICAgICAgY29tbWl0OiA4N2Zl
-Y2NiMzQ3YjI1ZjVkYzZmZjQ1MTEyM2I4MzJjOWFkNWRkZGZlCls1NDYvNjA2XSByZWd1bGF0b3I6
-IGx0YzM1ODk6IENvbnZlcnQgdG8gaTJjJ3MgLnByb2JlX25ldygpCiAgICAgICAgICBjb21taXQ6
-IDc4YzhmNmNkYjUxZDQ3MTkyOGQ0ODFlZDNiMmM4MmRiYzExMGExZWQKWzU0OS82MDZdIHJlZ3Vs
-YXRvcjogbWF4ODY2MDogQ29udmVydCB0byBpMmMncyAucHJvYmVfbmV3KCkKICAgICAgICAgIGNv
-bW1pdDogZGJmMzFkYWM3MDMwMDkxNzQyMjZiYjg3YjM5MTRiZDA5MjA0MDMyNwpbNTUxLzYwNl0g
-cmVndWxhdG9yOiBtYXg4OTczLXJlZ3VsYXRvcjogQ29udmVydCB0byBpMmMncyAucHJvYmVfbmV3
-KCkKICAgICAgICAgIGNvbW1pdDogNGU4NWU1ZDY0ZjY2YWM1ZTRiMDI4NmVlNGI2ZjhlOGNlMTA0
-NGQ0MgpbNTU3LzYwNl0gcmVndWxhdG9yOiB0cHM2MjM2MC1yZWd1bGF0b3I6IENvbnZlcnQgdG8g
-aTJjJ3MgLnByb2JlX25ldygpCiAgICAgICAgICBjb21taXQ6IDE4ODA0MTYwMjc3ZWMyYWI5OTIz
-NzMzODVmODZjNmFmMjMyMmIyOGIKWzU1OS82MDZdIHJlZ3VsYXRvcjogdHBzNjUwMjMtcmVndWxh
-dG9yOiBDb252ZXJ0IHRvIGkyYydzIC5wcm9iZV9uZXcoKQogICAgICAgICAgY29tbWl0OiAzYjVi
-MDdkZGU5OThmNmFkZTc0MzNhOGRiMDE5Y2Y4MTZjN2UzNWFmCgpBbGwgYmVpbmcgd2VsbCB0aGlz
-IG1lYW5zIHRoYXQgaXQgd2lsbCBiZSBpbnRlZ3JhdGVkIGludG8gdGhlIGxpbnV4LW5leHQKdHJl
-ZSAodXN1YWxseSBzb21ldGltZSBpbiB0aGUgbmV4dCAyNCBob3VycykgYW5kIHNlbnQgdG8gTGlu
-dXMgZHVyaW5nCnRoZSBuZXh0IG1lcmdlIHdpbmRvdyAob3Igc29vbmVyIGlmIGl0IGlzIGEgYnVn
-IGZpeCksIGhvd2V2ZXIgaWYKcHJvYmxlbXMgYXJlIGRpc2NvdmVyZWQgdGhlbiB0aGUgcGF0Y2gg
-bWF5IGJlIGRyb3BwZWQgb3IgcmV2ZXJ0ZWQuCgpZb3UgbWF5IGdldCBmdXJ0aGVyIGUtbWFpbHMg
-cmVzdWx0aW5nIGZyb20gYXV0b21hdGVkIG9yIG1hbnVhbCB0ZXN0aW5nCmFuZCByZXZpZXcgb2Yg
-dGhlIHRyZWUsIHBsZWFzZSBlbmdhZ2Ugd2l0aCBwZW9wbGUgcmVwb3J0aW5nIHByb2JsZW1zIGFu
-ZApzZW5kIGZvbGxvd3VwIHBhdGNoZXMgYWRkcmVzc2luZyBhbnkgaXNzdWVzIHRoYXQgYXJlIHJl
-cG9ydGVkIGlmIG5lZWRlZC4KCklmIGFueSB1cGRhdGVzIGFyZSByZXF1aXJlZCBvciB5b3UgYXJl
-IHN1Ym1pdHRpbmcgZnVydGhlciBjaGFuZ2VzIHRoZXkKc2hvdWxkIGJlIHNlbnQgYXMgaW5jcmVt
-ZW50YWwgdXBkYXRlcyBhZ2FpbnN0IGN1cnJlbnQgZ2l0LCBleGlzdGluZwpwYXRjaGVzIHdpbGwg
-bm90IGJlIHJlcGxhY2VkLgoKUGxlYXNlIGFkZCBhbnkgcmVsZXZhbnQgbGlzdHMgYW5kIG1haW50
-YWluZXJzIHRvIHRoZSBDQ3Mgd2hlbiByZXBseWluZwp0byB0aGlzIG1haWwuCgpUaGFua3MsCk1h
-cmsKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgt
-c3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5j
-b20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8v
-bGludXgtc3RtMzIK
+From: "Goh, Wei Sheng" <wei.sheng.goh@intel.com>
+Date: Wed, 23 Nov 2022 17:15:29 +0800
+
+> Currently, pause frame register GMAC_RX_FLOW_CTRL_RFE is not updated
+> correctly when 'ethtool -A <IFACE> autoneg off rx off tx off' command
+> is issued. This fix ensures the flow control change is reflected directly
+> in the GMAC_RX_FLOW_CTRL_RFE register.
+> 
+> Fixes: 46f69ded988d ("net: stmmac: Use resolved link config in mac_link_up()")
+> Cc: <stable@vger.kernel.org> # 5.10.x
+> Signed-off-by: Goh, Wei Sheng <wei.sheng.goh@intel.com>
+> Signed-off-by: Noor Azura Ahmad Tarmizi <noor.azura.ahmad.tarmizi@intel.com>
+> Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+> ---
+> V2 -> V3: Removed value assign for 'flow' in else statement based on review comments
+> V1 -> V2: Removed needless condition based on review comments
+> 
+>  drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c |  2 ++
+>  drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 12 ++++++++++--
+>  2 files changed, 13 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c b/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
+> index c25bfecb4a2d..369db308b1dd 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
+> @@ -748,6 +748,8 @@ static void dwmac4_flow_ctrl(struct mac_device_info *hw, unsigned int duplex,
+>  	if (fc & FLOW_RX) {
+>  		pr_debug("\tReceive Flow-Control ON\n");
+>  		flow |= GMAC_RX_FLOW_CTRL_RFE;
+> +	} else {
+> +		pr_debug("\tReceive Flow-Control OFF\n");
+
+Doesn't belong the commit subject. Debug improvements usually are
+-next material.
+Also, don't use pr_*() when netdev_*(), pci_*() or dev_*() are
+available. You won't understand which interface wrote this to the
+kernel log currently.
+
+>  	}
+>  	writel(flow, ioaddr + GMAC_RX_FLOW_CTRL);
+>  
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> index 8273e6a175c8..ab7f48f32f5b 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> @@ -1061,8 +1061,16 @@ static void stmmac_mac_link_up(struct phylink_config *config,
+>  		ctrl |= priv->hw->link.duplex;
+>  
+>  	/* Flow Control operation */
+> -	if (tx_pause && rx_pause)
+> -		stmmac_mac_flow_ctrl(priv, duplex);
+> +	if (rx_pause && tx_pause)
+> +		priv->flow_ctrl = FLOW_AUTO;
+> +	else if (rx_pause && !tx_pause)
+> +		priv->flow_ctrl = FLOW_RX;
+> +	else if (!rx_pause && tx_pause)
+> +		priv->flow_ctrl = FLOW_TX;
+> +	else
+> +		priv->flow_ctrl = FLOW_OFF;
+
+	priv->flow_ctrl = FLOW_OFF;
+	if (rx_pause)
+		priv->flow_ctrl |= FLOW_RX;
+	if (tx_pause)
+		priv->flow_ctrl |= FLOW_TX;
+
+100% identical functionally.
+
+> +
+> +	stmmac_mac_flow_ctrl(priv, duplex);
+>  
+>  	if (ctrl != old_ctrl)
+>  		writel(ctrl, priv->ioaddr + MAC_CTRL_REG);
+> -- 
+> 2.17.1
+
+Thanks,
+Olek
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
