@@ -2,44 +2,44 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A9520637A82
-	for <lists+linux-stm32@lfdr.de>; Thu, 24 Nov 2022 14:50:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7B94F637B01
+	for <lists+linux-stm32@lfdr.de>; Thu, 24 Nov 2022 15:03:46 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 53606C65E43;
-	Thu, 24 Nov 2022 13:50:49 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 17670C65E43;
+	Thu, 24 Nov 2022 14:03:46 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2C2CFC65073
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 21E94C65073
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 24 Nov 2022 13:50:48 +0000 (UTC)
+ Thu, 24 Nov 2022 14:03:44 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 028D6620F4;
- Thu, 24 Nov 2022 13:50:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6776AC4347C;
- Thu, 24 Nov 2022 13:50:38 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id E874262135;
+ Thu, 24 Nov 2022 14:03:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5FF70C433C1;
+ Thu, 24 Nov 2022 14:03:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1669297846;
+ s=k20201202; t=1669298622;
  bh=vSDY92xmrOtkiq1FJrC4dGUzlqSkjlYU9twgxHBDx1E=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=Hi20oGxzkmEg74j6qRD7Lfpoa1kcTrQCKK089dVyyzd4Ms62GyYEcriKLOdYnSnIB
- BaTy90c7xln7bVVdzp+tZfTor2YCDJ4PfhCFqr+4U1blkF+BSGk+wqWNbDs1GjRxEP
- 5zngiMi62+XsaI5cdT+5MW5QXkwvuvZTdh1mYSgYk++n5bXwjsiaFEUQhZ7smrgwyJ
- TLSH8t2DGrVJraC9jirkwbs0YSutluzSGLevyrPQzPM1RecM+sjiSCNDXdUbmWoX0j
- UbEkRvn5n0p6b+FOMJ6yy/o81uO1xyfZHDSqUS0YA3une+k6GKCtZ+YH0Sav4kxmgU
- 3opwvJAPSvwcQ==
+ b=nZuDMnz0Bnw0wngsvKcCuMi37WyCwRFu1zlLtpyZ8kJ/SUgdR9ueemAGg2ifSRbsS
+ ngE1M/2YBgLMfw1T7s965pyL0rkVPKFx3Xz9+MvCqP9yK41e0OWXVEx5CahX5bpBSX
+ bNSJWq2tkaMnULfxNWsOA9s2gY3f+Y+uputYw5Tuq8d9FDtvZBMoUpfr08tDyv6O0M
+ eMgC//vwInbEPQqZVo/1kvfmh1Za+HNyhoZ6h9vzZD44w2kZMSGHZ4LDLm3mp+PwWW
+ oMryJr+4yq62Q1Zeb0i+ysKQik51u1ingPfNffuYc890dwWCkfHz0wmRSwvJdzbO9V
+ 7lA4LZSoAmcIg==
 From: Mark Brown <broonie@kernel.org>
-To: Wolfram Sang <wsa@kernel.org>, Angel Iglesias <ang.iglesiasg@gmail.com>, Lee Jones <lee.jones@linaro.org>,
- Grant Likely <grant.likely@linaro.org>, Uwe Kleine-König <uwe@kleine-koenig.org>
+To: Grant Likely <grant.likely@linaro.org>, Angel Iglesias <ang.iglesiasg@gmail.com>,
+ Uwe Kleine-König <uwe@kleine-koenig.org>, Wolfram Sang <wsa@kernel.org>, Lee Jones <lee.jones@linaro.org>
 In-Reply-To: <20221118224540.619276-1-uwe@kleine-koenig.org>
 References: <20221118224540.619276-1-uwe@kleine-koenig.org>
-Message-Id: <166929783812.276133.16916757100694771073.b4-ty@kernel.org>
-Date: Thu, 24 Nov 2022 13:50:38 +0000
+Message-Id: <166929861409.291680.9255716235309801017.b4-ty@kernel.org>
+Date: Thu, 24 Nov 2022 14:03:34 +0000
 MIME-Version: 1.0
 X-Mailer: b4 0.10.0-dev-fc921
-Cc: alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
+Cc: alsa-devel@alsa-project.org, linux-pwm@vger.kernel.org,
  linux-iio@vger.kernel.org, linux-fbdev@vger.kernel.org,
  platform-driver-x86@vger.kernel.org, linux-mtd@lists.infradead.org,
  linux-i2c@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
@@ -48,7 +48,7 @@ Cc: alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
  linux-staging@lists.linux.dev,
  Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
  linux-serial@vger.kernel.org, linux-input@vger.kernel.org,
- linux-media@vger.kernel.org, linux-pwm@vger.kernel.org,
+ linux-media@vger.kernel.org, devicetree@vger.kernel.org,
  linux-watchdog@vger.kernel.org, linux-pm@vger.kernel.org,
  linux-actions@lists.infradead.org, linux-gpio@vger.kernel.org,
  linux-rpi-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
