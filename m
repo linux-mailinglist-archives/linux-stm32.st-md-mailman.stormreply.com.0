@@ -2,45 +2,45 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1C0EB637CEF
-	for <lists+linux-stm32@lfdr.de>; Thu, 24 Nov 2022 16:26:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C1BDC637D19
+	for <lists+linux-stm32@lfdr.de>; Thu, 24 Nov 2022 16:38:18 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BF766C65E44;
-	Thu, 24 Nov 2022 15:26:50 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7119EC65E44;
+	Thu, 24 Nov 2022 15:38:18 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2179DC6507C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 11D19C6507C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 24 Nov 2022 15:26:49 +0000 (UTC)
+ Thu, 24 Nov 2022 15:38:17 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id D77466219E;
- Thu, 24 Nov 2022 15:26:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 38D27C433C1;
- Thu, 24 Nov 2022 15:26:39 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 88C74B8284B;
+ Thu, 24 Nov 2022 15:38:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 64C55C433D6;
+ Thu, 24 Nov 2022 15:38:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1669303607;
+ s=k20201202; t=1669304295;
  bh=vSDY92xmrOtkiq1FJrC4dGUzlqSkjlYU9twgxHBDx1E=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=mRiBXpWE/eZPy2kXKxvXQFJE8eFGBstiV10hp4tz6Cp4VROBHXQ7B0A1CkM179BCa
- mGxv6pqoyoSfMRb5kzpy/BElYSasS6XgKyfoy0EUR/yOzwdu6ZfU5dZq2fg3aUvJtm
- hEoyOKf4dBwu41kqz0/PLDm2DPFHwzwPkLGEGT64ByfcjpJAbRpZYQ3eReAritDW/X
- 9m8gBYm/+R+CPBuur5rZ5x5GvvhwCAqDPJsiIDV7ubirdoEplCti9B80KnxhRdRqPk
- Uf9jARMQt0Ag6FVu93osdaZ6M4cB3RaEp4DYIunFrYP9BmDwe2VPIE+ycgULlDD/FZ
- b4snNTt2gtvBQ==
+ b=bxbfW3D2/A7i5smFIpcvTHWNYe0UgNdkEF9lDIZ4Olpq82olRHeMcMSEzUSvX0HAn
+ gKfYfK/Mm9cNYE+UgPkjT7dbR8ldTwc1hHwZqnIXXjW+HcXhjBwmOi+brjb1bzlCFX
+ sNQdLO+YMREvCIHKjn7H75ZiTwmm+NNWMQ7yB1OccgGIrFvAI9YMaenPg9V0jDDYYN
+ 4Vs88Y62hgZKsZy8IvFJK8kjQnfwIhCngG+bODRFOsrofRn8z6HwXTWe5l2uwvbYbQ
+ DBPC34l9snSoY1NNkVISkO+SHb4GDKkdOLxjPE8xpIup3HU7crHhlS7+Zu0Dz61Eeu
+ ndfT9o7XXod/w==
 From: Mark Brown <broonie@kernel.org>
-To: Lee Jones <lee.jones@linaro.org>, Uwe Kleine-König <uwe@kleine-koenig.org>, Wolfram Sang <wsa@kernel.org>,
- Grant Likely <grant.likely@linaro.org>, Angel Iglesias <ang.iglesiasg@gmail.com>
+To: Grant Likely <grant.likely@linaro.org>, Uwe Kleine-König <uwe@kleine-koenig.org>, Lee Jones <lee.jones@linaro.org>,
+ Wolfram Sang <wsa@kernel.org>, Angel Iglesias <ang.iglesiasg@gmail.com>
 In-Reply-To: <20221118224540.619276-1-uwe@kleine-koenig.org>
 References: <20221118224540.619276-1-uwe@kleine-koenig.org>
-Message-Id: <166930359891.390430.1315884943070347062.b4-ty@kernel.org>
-Date: Thu, 24 Nov 2022 15:26:38 +0000
+Message-Id: <166930428712.403984.2532283689808315264.b4-ty@kernel.org>
+Date: Thu, 24 Nov 2022 15:38:07 +0000
 MIME-Version: 1.0
 X-Mailer: b4 0.10.0-dev-fc921
-Cc: linux-fbdev@vger.kernel.org, linux-pwm@vger.kernel.org,
- linux-iio@vger.kernel.org, alsa-devel@alsa-project.org,
+Cc: alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
+ linux-iio@vger.kernel.org, linux-fbdev@vger.kernel.org,
  platform-driver-x86@vger.kernel.org, linux-mtd@lists.infradead.org,
  linux-i2c@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-leds@vger.kernel.org, linux-rtc@vger.kernel.org,
@@ -48,17 +48,17 @@ Cc: linux-fbdev@vger.kernel.org, linux-pwm@vger.kernel.org,
  linux-staging@lists.linux.dev,
  Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
  linux-serial@vger.kernel.org, linux-input@vger.kernel.org,
- linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-media@vger.kernel.org, linux-pwm@vger.kernel.org,
  linux-watchdog@vger.kernel.org, linux-pm@vger.kernel.org,
  linux-actions@lists.infradead.org, linux-gpio@vger.kernel.org,
  linux-rpi-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
  openipmi-developer@lists.sourceforge.net, linux-omap@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, Purism Kernel Team <kernel@puri.sm>,
- netdev@vger.kernel.org, linux-usb@vger.kernel.org,
+ patches@opensource.cirrus.com, linux-usb@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org,
  linux-renesas-soc@vger.kernel.org, linux-crypto@vger.kernel.org,
- kernel@pengutronix.de, patches@opensource.cirrus.com,
- linux-integrity@vger.kernel.org, linuxppc-dev@lists.ozlabs.org
+ kernel@pengutronix.de, netdev@vger.kernel.org, linux-integrity@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org
 Subject: Re: [Linux-stm32] (subset) [PATCH 000/606] i2c: Complete conversion
 	to i2c_probe_new
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
