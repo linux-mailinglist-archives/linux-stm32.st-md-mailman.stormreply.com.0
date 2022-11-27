@@ -2,74 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 05424639006
-	for <lists+linux-stm32@lfdr.de>; Fri, 25 Nov 2022 19:44:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BE1C5639910
+	for <lists+linux-stm32@lfdr.de>; Sun, 27 Nov 2022 01:23:40 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A9A29C65E53;
-	Fri, 25 Nov 2022 18:44:07 +0000 (UTC)
-Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com
- [209.85.214.181])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 564A3C65E45;
+	Sun, 27 Nov 2022 00:23:40 +0000 (UTC)
+Received: from mail-qk1-f182.google.com (mail-qk1-f182.google.com
+ [209.85.222.182])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4F4FDC64112
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BC3E2C6506F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 25 Nov 2022 18:44:06 +0000 (UTC)
-Received: by mail-pl1-f181.google.com with SMTP id p24so952122plw.1
+ Sun, 27 Nov 2022 00:23:38 +0000 (UTC)
+Received: by mail-qk1-f182.google.com with SMTP id g10so4947324qkl.6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 25 Nov 2022 10:44:06 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=networkplumber-org.20210112.gappssmtp.com; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:subject:cc:to:from:date:from:to:cc:subject:date
- :message-id:reply-to;
- bh=YFUcQ3hLuxafQYtxQnWs87DdE99a3mWHbnJqXUnaU40=;
- b=wJNS50eWgo70qBzwRJ/eacnPCkagYxdtrqNdFD4nfBt0ByVzB1jHs4I5dSd7W/hRlV
- XLAEIcyFK1c0YL3L1oqAuONU+7aF5NIHAIWAFc/UoPvh8fGWv8DU+nDyugqquQphVyvy
- mZABavgj6fEQ9KleIjLsKS88R8uRtrMJPlde1PWmnrp1JLlbdjF12SwrSyZN0pRoGlrv
- /Os3aKcXhKKm91745O+g/S8vJk9t8X2eCEWZ6Rfxvjdgw3BhUKoKF0v8KOm8HFZZNMFU
- 1Cce1lG+UBgDXqirKs4LEddhvaXFYG+kvCfyImLrnlMPxeu1GvJASeqKrpq/mYrOI6iR
- MUqQ==
+ Sat, 26 Nov 2022 16:23:38 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=KQZdCAn1wLe1ma6euNf1AeZGjQ191Yciz8w43AMTgto=;
+ b=GF8VeJpmoLIxiroVs0Cy+IsfnoPUK2b9qisZX4FRmmXiXuJI042pRRoqcRSc/vXbXl
+ iS9XY/ZIvMjRmQvbnY8Te9sK8B/eYC+OLO9MeznyE84rqlS8l1S/61Vw/J6e8Y2b3qY9
+ oib5FVc7uB1tn2QIja/57qaBHSV11gDYCuUPjBs+ezHAfbhJBdCmCO3a5waR8QleyLmi
+ n5aRHKMDzpQnjtxKq9SNPpdTHyEux4xjwZe2am3RnIuPZvccL+Rx/zdtSOvvUhlbRNL9
+ pXHTJO3LvLMRZ903F0yzcUt4kxVfAYpJxcitDU9MQyMoGD05f3OA/gG8vvI7DiC9XTcU
+ rJGA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:subject:cc:to:from:date:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=YFUcQ3hLuxafQYtxQnWs87DdE99a3mWHbnJqXUnaU40=;
- b=ul5jB8G7ssHaHVDJgV4z1xCMXYtDEQFUV77k54JZXOF6s9P9eTKolGdVfkWDKEK4BY
- sZln3NuitopigRjYU4ko3wKZY8tO8OC29mlQN0e2qN2b9sAJCSwCryM2JdZvyp/XPgXu
- 72bHqSPslKsSOkOid0UCfCY68JIpxdm0MEr1kDfxZ9kc2wHfOwuuhxF38/W8JI4VmOAt
- scYvMr/AXOtxm6aNj7qGLjBTwr6LKFLQMpRT7Ibl4tH1TapnC2ZJwvYIij7T/Soz0X8M
- 3eKaosdqZ796LGHMtyhHsFnlIOHYuSBSJEGGlSMhwTgTPlDmJCi1nniCqBjKAT/Sfga9
- 4umg==
-X-Gm-Message-State: ANoB5plWchaAtr6s7UffoOpn7vTBpP//z+0o5bOEB94RyOJYR1Gx0uB4
- JMyegeYoOucAuhDOYSdYWOCaYw==
-X-Google-Smtp-Source: AA0mqf7dGVW4MXOGlUxRKNCXMQzyzk240b9VEqd1QcNaooVXqjFTk78T7hsrfzGxsU2Jndumrs3gNA==
-X-Received: by 2002:a17:90a:c006:b0:219:158d:b19a with SMTP id
- p6-20020a17090ac00600b00219158db19amr2114270pjt.152.1669401844720; 
- Fri, 25 Nov 2022 10:44:04 -0800 (PST)
-Received: from hermes.local (204-195-120-218.wavecable.com. [204.195.120.218])
- by smtp.gmail.com with ESMTPSA id
- x13-20020aa79a4d000000b0056ba7cda4b5sm3522287pfj.16.2022.11.25.10.44.03
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=KQZdCAn1wLe1ma6euNf1AeZGjQ191Yciz8w43AMTgto=;
+ b=1IZIQ8xBKiStx3uDLHGxWJbskJnnVJ3f+QwFYtDcPrcVJlx0GHyiikVcAZ+xRRDXra
+ ojfm1wTBT8ZAgIlsBVLBP7udMvx2ruqDUWumfwPcUf//Xe+lwotTUY6Y/Q7l6kl9Gs26
+ 87+YrOcOXQ+Tg7ikLo1c1PB0NYENRu2AUN0FxdgbQTRVfguAnjSS1g+UubgehDHQiLQo
+ 0lkmF2Zw1JMh0/UbpbX64E50hdYH/E1w56gL9GioYdINh/ZyXWyMeC/rvoi5rMwD2tB5
+ B/4dPr9X0BfvT0aKoWce5anVsG6fik2HjXk+w8NkZEBD36LyEwtPtDxge0d+WaMEmxzd
+ fxAg==
+X-Gm-Message-State: ANoB5pnKOQTZBp4qzgB7DtMyBNAaAQMOKS225q956z6KGg9jpXm8RF/e
+ Bi4ng9jgI+uqobNpaDNyOK0ldQ==
+X-Google-Smtp-Source: AA0mqf6gHqi4FO//fWDEHPPmkkyz01Lh3ag0c10ukil2kaNdWtS8PwvlG9AAMPfTyiKH4bkqr5XVJA==
+X-Received: by 2002:a37:486:0:b0:6fb:c2b7:bd0f with SMTP id
+ 128-20020a370486000000b006fbc2b7bd0fmr40277246qke.69.1669508617473; 
+ Sat, 26 Nov 2022 16:23:37 -0800 (PST)
+Received: from fedora (69-109-179-158.lightspeed.dybhfl.sbcglobal.net.
+ [69.109.179.158]) by smtp.gmail.com with ESMTPSA id
+ u6-20020a37ab06000000b006eeca296c00sm5395369qke.104.2022.11.26.16.23.35
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 25 Nov 2022 10:44:04 -0800 (PST)
-Date: Fri, 25 Nov 2022 10:44:01 -0800
-From: Stephen Hemminger <stephen@networkplumber.org>
-To: Maciej Fijalkowski <maciej.fijalkowski@intel.com>
-Message-ID: <20221125104401.0e18979f@hermes.local>
-In-Reply-To: <Y4Ct37sV+/y9rcly@boxer>
-References: <20221125105304.3012153-1-vladimir.oltean@nxp.com>
- <Y4Ct37sV+/y9rcly@boxer>
+ Sat, 26 Nov 2022 16:23:36 -0800 (PST)
+Date: Sat, 26 Nov 2022 19:23:34 -0500
+From: William Breathitt Gray <william.gray@linaro.org>
+To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+Message-ID: <Y4KuBicVeRAsfqxq@fedora>
+References: <Y0vzlOmFrVCQVXMq@fedora>
+ <ec6b8983-1567-92c8-f1cd-baf970ca4046@foss.st.com>
 MIME-Version: 1.0
-Cc: Xu Panda <xu.panda@zte.com.cn>, linux-kernel@vger.kernel.org,
- Vladimir Oltean <vladimir.oltean@nxp.com>, Giuseppe
- Cavallaro <peppe.cavallaro@st.com>, linux-stm32@st-md-mailman.stormreply.com,
- Claudiu Manoil <claudiu.manoil@nxp.com>, Eric Dumazet <edumazet@google.com>,
- Jose Abreu <joabreu@synopsys.com>, linux-arm-kernel@lists.infradead.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- "David S. Miller" <davem@davemloft.net>, Yang Yang <yang.yang29@zte.com>
-Subject: Re: [Linux-stm32] [PATCH net-next] Revert "net: stmmac: use
- sysfs_streq() instead of strncmp()"
+In-Reply-To: <ec6b8983-1567-92c8-f1cd-baf970ca4046@foss.st.com>
+Cc: lars@metafoo.de, benjamin.gaignard@st.com, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ mcoquelin.stm32@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
+ jic23@kernel.org
+Subject: Re: [Linux-stm32] Removing the last of IIO_COUNT
+	(stm32-timer-trigger)
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,92 +75,278 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============4467231275486277780=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gRnJpLCAyNSBOb3YgMjAyMiAxMjo1ODoyMyArMDEwMApNYWNpZWogRmlqYWxrb3dza2kgPG1h
-Y2llai5maWphbGtvd3NraUBpbnRlbC5jb20+IHdyb3RlOgoKPiBPbiBGcmksIE5vdiAyNSwgMjAy
-MiBhdCAxMjo1MzowNFBNICswMjAwLCBWbGFkaW1pciBPbHRlYW4gd3JvdGU6Cj4gPiBUaGlzIHJl
-dmVydHMgY29tbWl0IGY3MmNkNzZiMDVlYTFjZTkyNTg0ODRlODEyNzkzMmQwZWE5MjhmMjIuCj4g
-PiBUaGlzIHBhdGNoIGlzIHNvIGJyb2tlbiwgaXQgaHVydHMuIEFwcGFyZW50bHkgbm8gb25lIHJl
-dmlld2VkIGl0IGFuZCBpdAo+ID4gcGFzc2VkIHRoZSBidWlsZCB0ZXN0aW5nIChiZWNhdXNlIHRo
-ZSBjb2RlIHdhcyBjb21waWxlZCBvdXQpLCBidXQgaXQgd2FzCj4gPiBvYnZpb3VzbHkgbmV2ZXIg
-Y29tcGlsZS10ZXN0ZWQsIHNpbmNlIGl0IHByb2R1Y2VzIHRoZSBmb2xsb3dpbmcgYnVpbGQKPiA+
-IGVycm9yLCBkdWUgdG8gYW4gaW5jb21wbGV0ZSBjb252ZXJzaW9uIHdoZXJlIGFuIGV4dHJhIGFy
-Z3VtZW50IHdhcyBsZWZ0LAo+ID4gYWx0aG91Z2ggdGhlIGZ1bmN0aW9uIGJlaW5nIGNhbGxlZCB3
-YXMgbGVmdDoKPiA+IAo+ID4gc3RtbWFjX21haW4uYzogSW4gZnVuY3Rpb24g4oCYc3RtbWFjX2Nt
-ZGxpbmVfb3B04oCZOgo+ID4gc3RtbWFjX21haW4uYzo3NTg2OjI4OiBlcnJvcjogdG9vIG1hbnkg
-YXJndW1lbnRzIHRvIGZ1bmN0aW9uIOKAmHN5c2ZzX3N0cmVx4oCZCj4gPiAgNzU4NiB8ICAgICAg
-ICAgICAgICAgICB9IGVsc2UgaWYgKHN5c2ZzX3N0cmVxKG9wdCwgInBhdXNlOiIsIDYpKSB7Cj4g
-PiAgICAgICB8ICAgICAgICAgICAgICAgICAgICAgICAgICAgIF5+fn5+fn5+fn5+Cj4gPiBJbiBm
-aWxlIGluY2x1ZGVkIGZyb20gLi4vaW5jbHVkZS9saW51eC9iaXRtYXAuaDoxMSwKPiA+ICAgICAg
-ICAgICAgICAgICAgZnJvbSAuLi9pbmNsdWRlL2xpbnV4L2NwdW1hc2suaDoxMiwKPiA+ICAgICAg
-ICAgICAgICAgICAgZnJvbSAuLi9pbmNsdWRlL2xpbnV4L3NtcC5oOjEzLAo+ID4gICAgICAgICAg
-ICAgICAgICBmcm9tIC4uL2luY2x1ZGUvbGludXgvbG9ja2RlcC5oOjE0LAo+ID4gICAgICAgICAg
-ICAgICAgICBmcm9tIC4uL2luY2x1ZGUvbGludXgvbXV0ZXguaDoxNywKPiA+ICAgICAgICAgICAg
-ICAgICAgZnJvbSAuLi9pbmNsdWRlL2xpbnV4L25vdGlmaWVyLmg6MTQsCj4gPiAgICAgICAgICAg
-ICAgICAgIGZyb20gLi4vaW5jbHVkZS9saW51eC9jbGsuaDoxNCwKPiA+ICAgICAgICAgICAgICAg
-ICAgZnJvbSAuLi9kcml2ZXJzL25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9zdG1tYWNfbWFp
-bi5jOjE3Ogo+ID4gLi4vaW5jbHVkZS9saW51eC9zdHJpbmcuaDoxODU6MTM6IG5vdGU6IGRlY2xh
-cmVkIGhlcmUKPiA+ICAgMTg1IHwgZXh0ZXJuIGJvb2wgc3lzZnNfc3RyZXEoY29uc3QgY2hhciAq
-czEsIGNvbnN0IGNoYXIgKnMyKTsKPiA+ICAgICAgIHwgICAgICAgICAgICAgXn5+fn5+fn5+fn4K
-PiA+IAo+ID4gV2hhdCdzIGV2ZW4gd29yc2UgaXMgdGhhdCB0aGUgcGF0Y2ggaXMgZmxhdCBvdXQg
-d3JvbmcuIFRoZSBzdG1tYWNfY21kbGluZV9vcHQoKQo+ID4gZnVuY3Rpb24gZG9lcyBub3QgcGFy
-c2Ugc3lzZnMgaW5wdXQsIGJ1dCBjbWRsaW5lIGlucHV0IHN1Y2ggYXMKPiA+ICJzdG1tYWNldGg9
-dGM6MSxwYXVzZToxIi4gVGhlIHBhdHRlcm4gb2YgdXNpbmcgc3Ryc2VwKCkgZm9sbG93ZWQgYnkK
-PiA+IHN0cm5jbXAoKSBmb3Igc3VjaCBzdHJpbmdzIGlzIG5vdCB1bmlxdWUgdG8gc3RtbWFjLCBp
-dCBjYW4gYWxzbyBiZSBmb3VuZAo+ID4gbWFpbmx5IGluIGRyaXZlcnMgdW5kZXIgZHJpdmVycy92
-aWRlby9mYmRldi8uCj4gPiAKPiA+IFdpdGggc3RybmNtcCgidGM6IiwgMyksIHRoZSBjb2RlIG1h
-dGNoZXMgb24gdGhlICJ0YzoxIiB0b2tlbiBwcm9wZXJseS4KPiA+IFdpdGggc3lzZnNfc3RyZXEo
-InRjOiIpLCBpdCBkb2Vzbid0Lgo+ID4gCj4gPiBGaXhlczogZjcyY2Q3NmIwNWVhICgibmV0OiBz
-dG1tYWM6IHVzZSBzeXNmc19zdHJlcSgpIGluc3RlYWQgb2Ygc3RybmNtcCgpIikKPiA+IFNpZ25l
-ZC1vZmYtYnk6IFZsYWRpbWlyIE9sdGVhbiA8dmxhZGltaXIub2x0ZWFuQG54cC5jb20+ICAKPiAK
-PiBBaCB0aGUgaW5mYW1vdXMgc3RyaW5nIGhhbmRsaW5nIGluIEMuLi4KPiAKPiBBY2tlZC1ieTog
-TWFjaWVqIEZpamFsa293c2tpIDxtYWNpZWouZmlqYWxrb3dza2lAaW50ZWwuY29tPgo+IAo+IEV2
-ZW4gd2hlbiB0aGVyZSB3b3VsZCBiZSBubyBidWlsZCBlcnJvciBJIGFncmVlIHRoYXQgd2Ugc2hv
-dWxkIGhhdmUga2VwdAo+IHRoZSBjb2RlIGFzIGl0IHdhcy4KPiAKPiA+IC0tLQo+ID4gIC4uLi9u
-ZXQvZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMvc3RtbWFjX21haW4uYyAgfCAxOCArKysrKysrKyst
-LS0tLS0tLS0KPiA+ICAxIGZpbGUgY2hhbmdlZCwgOSBpbnNlcnRpb25zKCspLCA5IGRlbGV0aW9u
-cygtKQo+ID4gCj4gPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9uZXQvZXRoZXJuZXQvc3RtaWNyby9z
-dG1tYWMvc3RtbWFjX21haW4uYyBiL2RyaXZlcnMvbmV0L2V0aGVybmV0L3N0bWljcm8vc3RtbWFj
-L3N0bW1hY19tYWluLmMKPiA+IGluZGV4IDFhODZlNjZlNDU2MC4uM2FmZmI3ZDNhMDA1IDEwMDY0
-NAo+ID4gLS0tIGEvZHJpdmVycy9uZXQvZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMvc3RtbWFjX21h
-aW4uYwo+ID4gKysrIGIvZHJpdmVycy9uZXQvZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMvc3RtbWFj
-X21haW4uYwo+ID4gQEAgLTc1NjUsMzEgKzc1NjUsMzEgQEAgc3RhdGljIGludCBfX2luaXQgc3Rt
-bWFjX2NtZGxpbmVfb3B0KGNoYXIgKnN0cikKPiA+ICAJaWYgKCFzdHIgfHwgISpzdHIpCj4gPiAg
-CQlyZXR1cm4gMTsKPiA+ICAJd2hpbGUgKChvcHQgPSBzdHJzZXAoJnN0ciwgIiwiKSkgIT0gTlVM
-TCkgewo+ID4gLQkJaWYgKHN5c2ZzX3N0cmVxKG9wdCwgImRlYnVnOiIpKSB7Cj4gPiArCQlpZiAo
-IXN0cm5jbXAob3B0LCAiZGVidWc6IiwgNikpIHsKPiA+ICAJCQlpZiAoa3N0cnRvaW50KG9wdCAr
-IDYsIDAsICZkZWJ1ZykpCj4gPiAgCQkJCWdvdG8gZXJyOwo+ID4gLQkJfSBlbHNlIGlmIChzeXNm
-c19zdHJlcShvcHQsICJwaHlhZGRyOiIpKSB7Cj4gPiArCQl9IGVsc2UgaWYgKCFzdHJuY21wKG9w
-dCwgInBoeWFkZHI6IiwgOCkpIHsKPiA+ICAJCQlpZiAoa3N0cnRvaW50KG9wdCArIDgsIDAsICZw
-aHlhZGRyKSkKPiA+ICAJCQkJZ290byBlcnI7Cj4gPiAtCQl9IGVsc2UgaWYgKHN5c2ZzX3N0cmVx
-KG9wdCwgImJ1Zl9zejoiKSkgewo+ID4gKwkJfSBlbHNlIGlmICghc3RybmNtcChvcHQsICJidWZf
-c3o6IiwgNykpIHsKPiA+ICAJCQlpZiAoa3N0cnRvaW50KG9wdCArIDcsIDAsICZidWZfc3opKQo+
-ID4gIAkJCQlnb3RvIGVycjsKPiA+IC0JCX0gZWxzZSBpZiAoc3lzZnNfc3RyZXEob3B0LCAidGM6
-IikpIHsKPiA+ICsJCX0gZWxzZSBpZiAoIXN0cm5jbXAob3B0LCAidGM6IiwgMykpIHsKPiA+ICAJ
-CQlpZiAoa3N0cnRvaW50KG9wdCArIDMsIDAsICZ0YykpCj4gPiAgCQkJCWdvdG8gZXJyOwo+ID4g
-LQkJfSBlbHNlIGlmIChzeXNmc19zdHJlcShvcHQsICJ3YXRjaGRvZzoiKSkgewo+ID4gKwkJfSBl
-bHNlIGlmICghc3RybmNtcChvcHQsICJ3YXRjaGRvZzoiLCA5KSkgewo+ID4gIAkJCWlmIChrc3Ry
-dG9pbnQob3B0ICsgOSwgMCwgJndhdGNoZG9nKSkKPiA+ICAJCQkJZ290byBlcnI7Cj4gPiAtCQl9
-IGVsc2UgaWYgKHN5c2ZzX3N0cmVxKG9wdCwgImZsb3dfY3RybDoiKSkgewo+ID4gKwkJfSBlbHNl
-IGlmICghc3RybmNtcChvcHQsICJmbG93X2N0cmw6IiwgMTApKSB7Cj4gPiAgCQkJaWYgKGtzdHJ0
-b2ludChvcHQgKyAxMCwgMCwgJmZsb3dfY3RybCkpCj4gPiAgCQkJCWdvdG8gZXJyOwo+ID4gLQkJ
-fSBlbHNlIGlmIChzeXNmc19zdHJlcShvcHQsICJwYXVzZToiLCA2KSkgewo+ID4gKwkJfSBlbHNl
-IGlmICghc3RybmNtcChvcHQsICJwYXVzZToiLCA2KSkgewo+ID4gIAkJCWlmIChrc3RydG9pbnQo
-b3B0ICsgNiwgMCwgJnBhdXNlKSkKPiA+ICAJCQkJZ290byBlcnI7Cj4gPiAtCQl9IGVsc2UgaWYg
-KHN5c2ZzX3N0cmVxKG9wdCwgImVlZV90aW1lcjoiKSkgewo+ID4gKwkJfSBlbHNlIGlmICghc3Ry
-bmNtcChvcHQsICJlZWVfdGltZXI6IiwgMTApKSB7Cj4gPiAgCQkJaWYgKGtzdHJ0b2ludChvcHQg
-KyAxMCwgMCwgJmVlZV90aW1lcikpCj4gPiAgCQkJCWdvdG8gZXJyOwo+ID4gLQkJfSBlbHNlIGlm
-IChzeXNmc19zdHJlcShvcHQsICJjaGFpbl9tb2RlOiIpKSB7Cj4gPiArCQl9IGVsc2UgaWYgKCFz
-dHJuY21wKG9wdCwgImNoYWluX21vZGU6IiwgMTEpKSB7Cj4gPiAgCQkJaWYgKGtzdHJ0b2ludChv
-cHQgKyAxMSwgMCwgJmNoYWluX21vZGUpKQo+ID4gIAkJCQlnb3RvIGVycjsKPiA+ICAJCX0KPiA+
-IC0tIAo+ID4gMi4zNC4xCj4gPiAgIAoKQ29uZmlndXJpbmcgdmlhIG1vZHVsZSBvcHRpb25zIGlz
-IGJhZCBpZGVhLgpJZiB5b3UgaGF2ZSB0byBkbyBpdCBkb24ndCByb2xsIHlvdXIgb3duIGtleS92
-YWx1ZSBwYXJzaW5nLgpJZiB0aGUgZHJpdmVyIGp1c3QgdXNlZCByZWd1bGFyIG1vZHVsZV9wYXJh
-bSgpIGZvciB0aGlzIGl0IHdvdWxkbid0IGhhdmUgdGhpcyBjcmFwLgpfX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QK
-TGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1h
-aWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
+
+--===============4467231275486277780==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="pol7eQrzyh+2cjLY"
+Content-Disposition: inline
+
+
+--pol7eQrzyh+2cjLY
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Thu, Oct 27, 2022 at 11:41:18AM +0200, Fabrice Gasnier wrote:
+> On 10/16/22 14:05, William Breathitt Gray wrote:
+> > Hi all,
+> >=20
+> > The drivers/iio/trigger/stm32-timer-trigger.c file remains the last
+> > consumer if the IIO_COUNT type. The IIO_COUNT type was deprecated some
+> > time ago with the introduction of the Counter subsystem. Most of the
+> > previous IIO_COUNT consumers were migrated successfully to the Counter
+> > subsystem, but the stm32-timer-trigger driver remains as the sole module
+> > preventing the final removal of IIO_COUNT.
+> >=20
+> > At the time we deprecated IIO_COUNT, the Counter subsystem was nascent
+> > and lacked some of the functionality we have nowadays such as a
+> > character device interface, timestamping, hardware buffer support, etc.
+> > If I recall correctly, the decision to delay the migration of
+> > stm32-timer-trigger to the Counter subsystem was a lack of some
+> > functionality the Counter subsystem could not provide at the time.
+> >=20
+>=20
+> Hi William,
+>=20
+> As far as I remember, initial work on stm32-timer-counter focused only
+> on porting the quadrature interface away from stm32-timer-trigger.
+> Unfortunately, I've followed from afar all the progress you did in the
+> framework since then.
+> From the infrastructure point of view, there's probably not much to add
+> to be able to move away the IIO_COUNT channel (and the IIO device) part
+> of stm32-timer-trigger driver.
+> Let's focus only on the modes implemented here.
+
+Hi Fabrice,
+
+Sorry for the delay in my response; it took me a while to think through
+all this, but I believe you have the right approach in your suggestions.
+
+>=20
+> Besides this, I may have further questions on the "hardware buffer
+> support" (could you point this as I miss it for now), and also the
+> capture interface.
+> There has been a separate discussion here ("pwm: Make capture support
+> optional"):
+> https://lore.kernel.org/linux-pwm/Yz%2F4V0gH%2FvrWSS8U@orome/T/#u
+> I'd be glad to get your opinion, on possibly moving the PWM input
+> capture feature to the counter framework too.
+
+I replied to the PWM discussion to provide some context about the
+Counter events (capture) interface. You can find out more about the
+Counter hardware buffer support in the Counter array components support
+introduction patch series:
+https://lore.kernel.org/all/cover.1664204990.git.william.gray@linaro.org/
+
+Essentially Counter arrays are a convenience tool to allow drivers to
+group and handle multiple components of the same type. Hardware buffers
+are thus supported by exposing each buffer element as an individual
+component to the user; those components are handled by the Counter
+driver via a callback with the index for the particular element passed
+in as an argument.
+
+>=20
+> > I hoping someone can evaluate stm32-timer-trigger to see if we are able
+> > transition now to the Counter subsystem, or if that necessary
+> > functionality is still missing today. Even if it turns out that we are
+> > unable to migrate, it'll be useful to know what's left to implement in
+> > the Counter subsystem to support stm32-timer-trigger or similar devices
+> > in the future.
+>=20
+> As you're asking, I just tried to narrow down specific things in this
+> driver, and assess possible impacts. Please find some details here after
+> and first as an introduction:
+>=20
+> The IIO device registered in this driver has two specific extensions, to
+> manage specific ("slave") modes: "always", "gated", "triggered".
+> E.g the *enable_mode*.
+>=20
+> The last 2 modes depends on specific hardware *triggers* being
+> associated in IIO sysfs, to select the trigger (e.g. echo the source
+> trigger name > trigger/current_trigger # the destination timer to trig).
+> The list of triggers is specific to each timer instance in STM32.
+> In other words, some timers outputs can be used as input on other
+> timers. Here comes the *trigger_mode* attribute (see after).
+>=20
+> --- enable_mode ---
+> In Documentation/ABI/testing/sysfs-bus-iio-timer-stm32, this correspond t=
+o:
+> - /sys/bus/iio/devices/iio:deviceX/in_count0_enable_mode
+> - /sys/bus/iio/devices/iio:deviceX/in_count_enable_mode_available
+> always:
+> 	Counter is always ON.
+> gated:
+> 	Counting is enabled when connected trigger signal
+> 	level is high else counting is disabled.
+> triggered:
+> 	Counting is enabled on rising edge of the connected
+> 	trigger, and remains enabled for the duration of this
+> 	selected mode.
+
+Okay, we need to support these three modes. The "always" mode seems
+straight-forward to support, but "gated" and "triggered" are what need
+special consideration for this driver.
+
+>=20
+> Basically, the "always" mode is already used by default in
+> stm32-timer-cnt driver, and matches: COUNTER_COUNT_MODE_NORMAL, By
+> referring to:
+> Documentation/ABI/testing/sysfs-bus-counter
+> 		normal:
+> 			Counting is continuous in either direction.
+>=20
+> Please find some thoughts/proposal here:
+> - This could lead to add two counter modes to the list of "range limit",
+> "non-recycle" and "modulo-n". The STM32 timer trigger inputs could be
+> described as signals (list being specific for each timer instance, see
+> valids_table[] arrays in stm32-timer-trigger).
+
+It makes sense to represent these inputs as Signals because they can
+directly affect the value change of the respective Count, so I think we
+should organize this as such. However, "count_mode" wouldn't be the
+correct place for configuration of the "gated" and "triggered" modes.
+"count_mode" is for configuring how the Count value updates once a
+Synapse action triggers, but "gated" and "triggered" are rather more so
+determining whether those Synapse actions should trigger in the first
+place.
+
+>=20
+> - OR, maybe the 2 modes could be described as a specific synapse action,
+> (trigger input also being described as a signal)? In both "gated" and
+> "triggered" modes, the timer counts on its internal clock input (but not
+> continuously). But it doesn't really match the "normal" mode.
+
+Yes, I think this is the approach to take. Synapse actions represent
+when the Count function is evaluated to update the respective Count;
+"gated" and "triggered" represent modes where a trigger input serves to
+determine when that update occurs, so those are naturally Synapse action
+modes.
+
+To add support for these, you would just need to introduce to
+include/uapi/linux/counter.h two new enum counter_synapse_action
+constants: COUNTER_SYNAPSE_ACTION_GATED and
+COUNTER_SYNAPSE_ACTION_TRIGGERED. You can then use those new enums in
+your action_read() callbacks.
+
+>=20
+> - Last, maybe a mix of a new "trigger" count mode, and synapse action
+> (gated/triggered) could be used ?
+> Note: The last one may open the door to other modes that aren't
+> implemented in current stm32-timer-trigger driver, by extending the
+> synapse actions (like reset the counter upon trigger signal... and other
+> combined modes specified in the STM32 timer spec).
+
+Instead of "count_mode", a new Count component should be introduced to
+handle this configuration. Maybe we could call it "gate_mode" (or
+perhaps your might have a better name) and it can be implemented using
+the COUNTER_COMP_COUNT_ENUM() macro to allow for selection between
+"always", "gated", and "triggered".
+
+>=20
+> --- trigger_mode ---
+> In Documentation/ABI/testing/sysfs-bus-iio-timer-stm32, this correspond t=
+o:
+> - /sys/bus/iio/devices/iio:deviceX/in_count_trigger_mode_available
+> - /sys/bus/iio/devices/iio:deviceX/in_count0_trigger_mode
+> In the STM32 timer spec this is: External Clock Mode 1 - Rising edges of
+> the selected trigger (TRGI) clock the counter.
+
+This can be implemented as a COUNTER_COMP_COUNT_ENUM() to select the
+particular trigger input.
+
+>=20
+> In this configuration, IMHO, this matches the "normal" counter mode.
+> This lead also here to define trigger inputs as a signals. Then the
+> standard increase/decrease functions suffice.
+>=20
+> --- dt-bindings ---
+> This could be a tight part. Listing/probing the triggers relies on the
+> reg property defined in the trigger node:
+> - Documentation/devicetree/bindings/mfd/st,stm32-timers.yaml
+>=20
+> timers2: timer@40000000 {
+>   timer@1 {
+>     compatible =3D "st,stm32-timer-trigger";
+>     reg =3D <1>;
+>   }
+>   counter {
+>     compatible =3D "st,stm32-timer-counter";
+>   };
+> }
+>=20
+> Ideally... adding the reg property to the counter node could have
+> helped. But we need to enforce the backward compatibility with existing
+> DT binaries. So I think that there's no choice to keep the current bindin=
+gs.
+>=20
+> This could lead to add some code to parse the trigger node for probing,
+> looking for the "reg" property either from:
+> - the MFD driver part drivers/mfd/stm32-timers.c
+> - the counter driver, although it seems non-standard way to parse aside
+> nodes.
+> I have no strong opinion and I'm open to suggestions.
+
+I don't have much of a strong opinion either, but I'd consider the MFD
+driver to be the more natural location to place this. However, I'm also
+open to suggestions if someone thinks it better somewhere else.
+
+>=20
+> ---
+> To conclude, there some open items here, but hopefully nothing blocking.
+> In case we sort all these, this will allow to remove the IIO_COUNT
+> channel (along with the IIO device) being registered.
+
+I'm certain Jonathan will want some sort of deprecation schedule first
+to make sure any existing users have time to migrate to the Counter
+interface before we remove the IIO one, but it will give me a nice
+feeling of completion to see the last of IIO_COUNT superceded by the
+Counter interface. ;-)
+
+William Breathitt Gray
+
+>=20
+> There will still remain some specific attributes in the
+> stm32-timer-trigger driver, related to the trigger device:
+> - /sys/bus/iio/devices/triggerX/master_mode
+> - /sys/bus/iio/devices/triggerX/master_mode_available
+> But this shouldn't be an issue as it isn't related to the IIO_COUNT part
+> of the driver.
+>=20
+> Please advise,
+> Best Regards,
+> Fabrice
+>=20
+> >=20
+> > Thanks,
+> >=20
+> > William Breathitt Gray
+
+--pol7eQrzyh+2cjLY
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEARYKAB0WIQSNN83d4NIlKPjon7a1SFbKvhIjKwUCY4KuBgAKCRC1SFbKvhIj
+K3VJAP40p/2Ow8pzpVLrWihMamfoeI6BpbnX5DrPRO/vt/XwJAD9EAfb1NZan6hQ
+adtzdvNZCrhyig+k3jwO3+AXM51TVgw=
+=j5H7
+-----END PGP SIGNATURE-----
+
+--pol7eQrzyh+2cjLY--
+
+--===============4467231275486277780==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============4467231275486277780==--
