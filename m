@@ -2,47 +2,76 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8697863A2A0
-	for <lists+linux-stm32@lfdr.de>; Mon, 28 Nov 2022 09:19:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A901663AA4B
+	for <lists+linux-stm32@lfdr.de>; Mon, 28 Nov 2022 15:01:08 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 35C66C65E59;
-	Mon, 28 Nov 2022 08:19:28 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 56C86C65E5E;
+	Mon, 28 Nov 2022 14:01:08 +0000 (UTC)
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
+ [209.85.128.51])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BD504C6506E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9F0A5C65E59
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 26 Nov 2022 21:53:47 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 10F85B80953;
- Sat, 26 Nov 2022 21:53:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A697C433D6;
- Sat, 26 Nov 2022 21:53:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1669499625;
- bh=OWkY+Q2AWHHXFpSYHf6WVJ2BPlgIehXKQ01/N2rvGaU=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=W1v53UmAPr8Bf3PvMGy4A8+6b9BD+005Qgy3zdIdZmS55GXSn8lUT/WqsuR+yVoWh
- NPfZCiKmmh+Pmr2zOMAaYsfdhNCeAT5W0ydBKcMrIyutVjIQwteCc5KRevYDfDH9gO
- a9cIi9crJmND0aAgqH4BjwKlSE9SqeVOAqU3HYixofEsYxQ/2bHaxDvNh2SpJY6vRJ
- 0Vy4RRawgdZJK5CT8SKTXEuavb/DBwM0ahJOhLw6eDy+6sZnz7xzadI9GhrTXYp/cX
- yn5TR+Trin/61/PPNWy7BgYWir4NukjFrkTErghEBZCKIKM1O50neo73BZxAQLKMV1
- mjkdslwV+3n8A==
-Date: Sat, 26 Nov 2022 16:53:42 -0500
-From: William Breathitt Gray <wbg@kernel.org>
-To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-Message-ID: <Y4KK5tck2aCdKWXF@ishi>
-References: <20221123133609.465614-1-fabrice.gasnier@foss.st.com>
+ Mon, 28 Nov 2022 13:51:11 +0000 (UTC)
+Received: by mail-wm1-f51.google.com with SMTP id
+ l39-20020a05600c1d2700b003cf93c8156dso8384016wms.4
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 28 Nov 2022 05:51:11 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=baylibre-com.20210112.gappssmtp.com; s=20210112;
+ h=mime-version:message-id:date:references:in-reply-to:subject:cc:to
+ :from:from:to:cc:subject:date:message-id:reply-to;
+ bh=A4qIw9CSlOm6ggm9ciNJN1TeZJOcMp5IoO7x7apMWbY=;
+ b=PUheZR1NpZnwy4KRhNf7nnLwIkGHB+FvPg3d4NllsEb6kJdBq7yONBrs3hMeyWlnn1
+ zq7ZDz79pngmWJGbOOpg7tjdv722XGMIA04Jsft2i512lr13vEq85Gy8pUH0PKhRieln
+ XQS+nVeEIzJPmfy5m7XTKjGQ6VRITUaWFNyBu5tcAumfrmGV5H5nWfrykIKNxDbwpvTB
+ 8hgO296977TfbN+W61Ok9Fi/tYwiQfR/1wUcsq3pyTu5Pn6o+ohkdoHtkmUZPSdSZ+qq
+ Sv+9WnU8J0Vs/sWd7h/Pqtpe60IPEmIyYYHgzk8Y67wIP/PY01VQyNFEVT2hCPxE01im
+ /Qug==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=mime-version:message-id:date:references:in-reply-to:subject:cc:to
+ :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=A4qIw9CSlOm6ggm9ciNJN1TeZJOcMp5IoO7x7apMWbY=;
+ b=qHGArcUNjxdAtfmYEereJ+75XtXknsjwOcd/f7fh8N8eMhFDTdjsNwM1Hm/b+K8m4k
+ DtYD90oPnQn2W6Ey/D72LcW45wy3BaNW8gxsivPxna1e20bxOrcahNxn5H72Iz/B1t4T
+ NrNmzYmFOP5q/MleoDfpKnbNum900VFTz/ppizRSq3XpekVcJzxBzUWK9Syc5f2mJ9aP
+ 6N4wIN2RhY13xWyxwtUEMArvl295FzCYS0e5ogwejbnN/oeVmKPLO7STi+E8R/wcj7zZ
+ 250Oa4O78VrjqdZr7HdAuWUBtCepVIIInSVIeMXMcJCY/2lA/6hH4qk8CWsEJVyUAC8l
+ Z9xA==
+X-Gm-Message-State: ANoB5pmcCENxqAX5XtnkxkZOJP/t2BIM8WpkyIQnVZvRhjUP/zTxqw/n
+ wb6BPotmHJ9glewdJRU2jbuy6A==
+X-Google-Smtp-Source: AA0mqf6nkBPng31LSUbczvahgKFmzQ1kx1CywnM+9hcT4gIL7Y/Lh2Y4uDKbcBxCZeQ9OdymBWy/Ug==
+X-Received: by 2002:a1c:f606:0:b0:3b4:bf6d:f9ba with SMTP id
+ w6-20020a1cf606000000b003b4bf6df9bamr37179147wmc.133.1669643471076; 
+ Mon, 28 Nov 2022 05:51:11 -0800 (PST)
+Received: from localhost ([2a01:cb19:85e6:1900:2bf7:7388:731d:c4e1])
+ by smtp.gmail.com with ESMTPSA id
+ g6-20020a5d5406000000b00241d2df4960sm10884840wrv.17.2022.11.28.05.51.10
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 28 Nov 2022 05:51:10 -0800 (PST)
+From: Mattijs Korpershoek <mkorpershoek@baylibre.com>
+To: "Lin, Meng-Bo" <linmengbo0689@protonmail.com>, linux-input@vger.kernel.org
+In-Reply-To: <20221117142753.2477-1-linmengbo0689@protonmail.com>
+References: <20221117142753.2477-1-linmengbo0689@protonmail.com>
+Date: Mon, 28 Nov 2022 14:51:09 +0100
+Message-ID: <87wn7frxv6.fsf@baylibre.com>
 MIME-Version: 1.0
-In-Reply-To: <20221123133609.465614-1-fabrice.gasnier@foss.st.com>
-X-Mailman-Approved-At: Mon, 28 Nov 2022 08:19:27 +0000
-Cc: linux-iio@vger.kernel.org, william.gray@linaro.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com, jic23@kernel.org
-Subject: Re: [Linux-stm32] [PATCH] counter: stm32-lptimer-cnt: fix the check
- on arr and cmp registers update
+X-Mailman-Approved-At: Mon, 28 Nov 2022 14:01:07 +0000
+Cc: Nikita Travkin <nikita@trvn.ru>, Corey Minyard <cminyard@mvista.com>,
+ Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
+ Stephan Gerhold <stephan@gerhold.net>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>, linux-kernel@vger.kernel.org,
+ Zheng Yongjun <zhengyongjun3@huawei.com>,
+ ~postmarketos/upstreaming@lists.sr.ht,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
+ Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] Input: stmfts - retry commands after
+	timeout
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -54,83 +83,70 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============6783163361039961625=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+On Thu, Nov 17, 2022 at 14:28, "Lin, Meng-Bo" <linmengbo0689@protonmail.com> wrote:
 
---===============6783163361039961625==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="u770lf6WZ1x5I9rX"
-Content-Disposition: inline
+> Add #define STMFTS_RETRY_COUNT 3 to retry stmfts_command() 3 times.
+> Without it, STMFTS_SYSTEM_RESET or STMFTS_SLEEP_OUT may return -110 to
+> failed attempt due to no event received for completion.
+>
+> Signed-off-by: Lin, Meng-Bo <linmengbo0689@protonmail.com>
 
-
---u770lf6WZ1x5I9rX
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Wed, Nov 23, 2022 at 02:36:09PM +0100, Fabrice Gasnier wrote:
-> The ARR (auto reload register) and CMP (compare) registers are
-> successively written. The status bits to check the update of these
-> registers are polled together with regmap_read_poll_timeout().
-> The condition to end the loop may become true, even if one of the register
-> isn't correctly updated.
-> So ensure both status bits are set before clearing them.
->=20
-> Fixes: d8958824cf07 ("iio: counter: Add support for STM32 LPTimer")
-> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-
-Applied to the counter-current branch of counter.git.
-
-William Breathitt Gray
+Reviewed-by: Mattijs Korpershoek <mkorpershoek@baylibre.com>
 
 > ---
->  drivers/counter/stm32-lptimer-cnt.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->=20
-> diff --git a/drivers/counter/stm32-lptimer-cnt.c b/drivers/counter/stm32-=
-lptimer-cnt.c
-> index d6b80b6dfc28..8439755559b2 100644
-> --- a/drivers/counter/stm32-lptimer-cnt.c
-> +++ b/drivers/counter/stm32-lptimer-cnt.c
-> @@ -69,7 +69,7 @@ static int stm32_lptim_set_enable_state(struct stm32_lp=
-tim_cnt *priv,
-> =20
->  	/* ensure CMP & ARR registers are properly written */
->  	ret =3D regmap_read_poll_timeout(priv->regmap, STM32_LPTIM_ISR, val,
-> -				       (val & STM32_LPTIM_CMPOK_ARROK),
-> +				       (val & STM32_LPTIM_CMPOK_ARROK) =3D=3D STM32_LPTIM_CMPOK_ARRO=
-K,
->  				       100, 1000);
->  	if (ret)
->  		return ret;
-> --=20
-> 2.25.1
->=20
-
---u770lf6WZ1x5I9rX
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEARYKAB0WIQSNN83d4NIlKPjon7a1SFbKvhIjKwUCY4KK5gAKCRC1SFbKvhIj
-K+deAQC6ZXzAa3xdZuWBglzIaSy1YgvjYJNRFUV1M62hbScaawD8CRdlC/3xIFg2
-fNtfcSsKjpct2CfSS9TwcuYUKf32ewI=
-=xvBl
------END PGP SIGNATURE-----
-
---u770lf6WZ1x5I9rX--
-
---===============6783163361039961625==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+>  drivers/input/touchscreen/stmfts.c | 20 +++++++++++---------
+>  1 file changed, 11 insertions(+), 9 deletions(-)
+>
+> diff --git a/drivers/input/touchscreen/stmfts.c b/drivers/input/touchscreen/stmfts.c
+> index d5bd170808fb..22de34966373 100644
+> --- a/drivers/input/touchscreen/stmfts.c
+> +++ b/drivers/input/touchscreen/stmfts.c
+> @@ -68,6 +68,7 @@
+>  #define STMFTS_DATA_MAX_SIZE	(STMFTS_EVENT_SIZE * STMFTS_STACK_DEPTH)
+>  #define STMFTS_MAX_FINGERS	10
+>  #define STMFTS_DEV_NAME		"stmfts"
+> +#define STMFTS_RETRY_COUNT	3
+>  
+>  enum stmfts_regulators {
+>  	STMFTS_REGULATOR_VDD,
+> @@ -317,19 +318,20 @@ static irqreturn_t stmfts_irq_handler(int irq, void *dev)
+>  
+>  static int stmfts_command(struct stmfts_data *sdata, const u8 cmd)
+>  {
+> -	int err;
+> +	int err, retry;
+>  
+>  	reinit_completion(&sdata->cmd_done);
+>  
+> -	err = i2c_smbus_write_byte(sdata->client, cmd);
+> -	if (err)
+> -		return err;
+> -
+> -	if (!wait_for_completion_timeout(&sdata->cmd_done,
+> -					 msecs_to_jiffies(1000)))
+> -		return -ETIMEDOUT;
+> +	for (retry = 0; retry < STMFTS_RETRY_COUNT; retry++) {
+> +		err = i2c_smbus_write_byte(sdata->client, cmd);
+> +		if (err)
+> +			return err;
+>  
+> -	return 0;
+> +		if (wait_for_completion_timeout(&sdata->cmd_done,
+> +						msecs_to_jiffies(1000)))
+> +			return 0;
+> +	}
+> +	return -ETIMEDOUT;
+>  }
+>  
+>  static int stmfts_input_open(struct input_dev *dev)
+> -- 
+> 2.30.2
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============6783163361039961625==--
