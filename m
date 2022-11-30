@@ -2,47 +2,67 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4898C63DDAD
-	for <lists+linux-stm32@lfdr.de>; Wed, 30 Nov 2022 19:29:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C51EE63DE7C
+	for <lists+linux-stm32@lfdr.de>; Wed, 30 Nov 2022 19:37:26 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F144FC65073;
-	Wed, 30 Nov 2022 18:29:27 +0000 (UTC)
-Received: from frasgout.his.huawei.com (frasgout.his.huawei.com
- [185.176.79.56])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 71AE9C65073;
+	Wed, 30 Nov 2022 18:37:26 +0000 (UTC)
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9CCD7C03FC8
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9DA56C63326
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 30 Nov 2022 18:29:26 +0000 (UTC)
-Received: from fraeml714-chm.china.huawei.com (unknown [172.18.147.226])
- by frasgout.his.huawei.com (SkyGuard) with ESMTP id 4NMnhr5VFgz6HJPl;
- Thu,  1 Dec 2022 02:26:20 +0800 (CST)
-Received: from lhrpeml500005.china.huawei.com (7.191.163.240) by
- fraeml714-chm.china.huawei.com (10.206.15.33) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.31; Wed, 30 Nov 2022 19:29:24 +0100
-Received: from localhost (10.202.227.76) by lhrpeml500005.china.huawei.com
- (7.191.163.240) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Wed, 30 Nov
- 2022 18:29:24 +0000
-Date: Wed, 30 Nov 2022 18:29:23 +0000
-From: Jonathan Cameron <Jonathan.Cameron@Huawei.com>
-To: Olivier Moysan <olivier.moysan@foss.st.com>
-Message-ID: <20221130182923.00006695@Huawei.com>
-In-Reply-To: <20221130160904.77617-1-olivier.moysan@foss.st.com>
-References: <20221130160904.77617-1-olivier.moysan@foss.st.com>
-Organization: Huawei Technologies Research and Development (UK) Ltd.
-X-Mailer: Claws Mail 4.1.0 (GTK 3.24.33; x86_64-w64-mingw32)
+ Wed, 30 Nov 2022 18:37:25 +0000 (UTC)
+Received: from ip5b412258.dynamic.kabel-deutschland.de ([91.65.34.88]
+ helo=diego.localnet) by gloria.sntech.de with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.94.2)
+ (envelope-from <heiko@sntech.de>)
+ id 1p0Rwv-0003tW-CD; Wed, 30 Nov 2022 19:36:49 +0100
+From: Heiko =?ISO-8859-1?Q?St=FCbner?= <heiko@sntech.de>
+To: Thierry Reding <thierry.reding@gmail.com>,
+ Uwe =?ISO-8859-1?Q?Kleine=2DK=F6nig?= <u.kleine-koenig@pengutronix.de>
+Date: Wed, 30 Nov 2022 19:36:47 +0100
+Message-ID: <3943768.iZASKD2KPV@diego>
+In-Reply-To: <20221130152148.2769768-2-u.kleine-koenig@pengutronix.de>
+References: <20221130152148.2769768-1-u.kleine-koenig@pengutronix.de>
+ <20221130152148.2769768-2-u.kleine-koenig@pengutronix.de>
 MIME-Version: 1.0
-X-Originating-IP: [10.202.227.76]
-X-ClientProxiedBy: lhrpeml500002.china.huawei.com (7.191.160.78) To
- lhrpeml500005.china.huawei.com (7.191.163.240)
-X-CFilter-Loop: Reflected
-Cc: Lars-Peter Clausen <lars@metafoo.de>, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Linus Walleij <linus.walleij@linaro.org>, dri-devel@lists.freedesktop.org,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Conor Dooley <conor.dooley@microchip.com>,
+ Satya Priya <quic_c_skakit@quicinc.com>, Pavel Machek <pavel@ucw.cz>,
+ Guenter Roeck <groeck@chromium.org>,
+ Nobuhiro Iwamatsu <nobuhiro1.iwamatsu@toshiba.co.jp>,
+ Fabio Estevam <festevam@gmail.com>, linux-riscv@lists.infradead.org,
+ linux-leds@vger.kernel.org, Jerome Brunet <jbrunet@baylibre.com>,
+ chrome-platform@lists.linux.dev, Florian Fainelli <f.fainelli@gmail.com>,
+ Samuel Holland <samuel@sholland.org>, Sean Anderson <sean.anderson@seco.com>,
+ Kevin Hilman <khilman@baylibre.com>, Bartosz Golaszewski <brgl@bgdev.pl>,
+ Michal Simek <michal.simek@xilinx.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Hammer Hsieh <hammerh0314@gmail.com>,
+ linux-rockchip@lists.infradead.org, Chen-Yu Tsai <wens@csie.org>,
+ Matthias Kaehlcke <mka@chromium.org>,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+ NXP Linux Team <linux-imx@nxp.com>, Orson Zhai <orsonzhai@gmail.com>,
+ linux-sunxi@lists.linux.dev, linux-pwm@vger.kernel.org,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, Jonathan Cameron <jic23@kernel.org>
-Subject: Re: [Linux-stm32] [PATCH] iio: adc: stm32-dfsdm: fill module aliases
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Ray Jui <rjui@broadcom.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Stephen Boyd <swboyd@chromium.org>, linux-gpio@vger.kernel.org,
+ linux-mediatek@lists.infradead.org, linux-rpi-kernel@lists.infradead.org,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Paul Walmsley <paul.walmsley@sifive.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>, linux-amlogic@lists.infradead.org,
+ Benson Leung <bleung@chromium.org>, linux-arm-kernel@lists.infradead.org,
+ Scott Branden <sbranden@broadcom.com>, Bjorn Andersson <andersson@kernel.org>,
+ Douglas Anderson <dianders@chromium.org>, Michael Walle <michael@walle.cc>,
+ Palmer Dabbelt <palmer@dabbelt.com>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Chunyan Zhang <zhang.lyra@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
+ Claudiu Beznea <claudiu.beznea@microchip.com>
+Subject: Re: [Linux-stm32] [PATCH v2 01/11] pwm: Make .get_state() callback
+	return an error code
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,34 +79,48 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, 30 Nov 2022 17:09:04 +0100
-Olivier Moysan <olivier.moysan@foss.st.com> wrote:
-
-> When STM32 DFSDM driver is built as module, no modalias information
-> is available. This prevents module to be loaded by udev.
-> Add MODULE_DEVICE_TABLE() to fill module aliases.
-> 
-> Signed-off-by: Olivier Moysan <olivier.moysan@foss.st.com>
-These are always a bit marginal on whether they are a 'fix' or not, but
-given we want them backported, a fixes tag probably makes sense.
-
-J
-> ---
->  drivers/iio/adc/stm32-dfsdm-adc.c | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/drivers/iio/adc/stm32-dfsdm-adc.c b/drivers/iio/adc/stm32-dfsdm-adc.c
-> index 6d21ea84fa82..a428bdb567d5 100644
-> --- a/drivers/iio/adc/stm32-dfsdm-adc.c
-> +++ b/drivers/iio/adc/stm32-dfsdm-adc.c
-> @@ -1520,6 +1520,7 @@ static const struct of_device_id stm32_dfsdm_adc_match[] = {
->  	},
->  	{}
->  };
-> +MODULE_DEVICE_TABLE(of, stm32_dfsdm_adc_match);
+> diff --git a/drivers/pwm/pwm-rockchip.c b/drivers/pwm/pwm-rockchip.c
+> index a5af859217c1..3ec7d1756903 100644
+> --- a/drivers/pwm/pwm-rockchip.c
+> +++ b/drivers/pwm/pwm-rockchip.c
+> @@ -57,9 +57,9 @@ static inline struct rockchip_pwm_chip *to_rockchip_pwm_chip(struct pwm_chip *c)
+>  	return container_of(c, struct rockchip_pwm_chip, chip);
+>  }
 >  
->  static int stm32_dfsdm_adc_probe(struct platform_device *pdev)
+> -static void rockchip_pwm_get_state(struct pwm_chip *chip,
+> -				   struct pwm_device *pwm,
+> -				   struct pwm_state *state)
+> +static int rockchip_pwm_get_state(struct pwm_chip *chip,
+> +				  struct pwm_device *pwm,
+> +				  struct pwm_state *state)
 >  {
+>  	struct rockchip_pwm_chip *pc = to_rockchip_pwm_chip(chip);
+>  	u32 enable_conf = pc->data->enable_conf;
+> @@ -70,11 +70,11 @@ static void rockchip_pwm_get_state(struct pwm_chip *chip,
+>  
+>  	ret = clk_enable(pc->pclk);
+>  	if (ret)
+> -		return;
+> +		return 0;
+>  
+>  	ret = clk_enable(pc->clk);
+>  	if (ret)
+> -		return;
+> +		return 0;
+>  
+>  	clk_rate = clk_get_rate(pc->clk);
+>  
+> @@ -96,6 +96,8 @@ static void rockchip_pwm_get_state(struct pwm_chip *chip,
+>  
+>  	clk_disable(pc->clk);
+>  	clk_disable(pc->pclk);
+> +
+> +	return 0;
+>  }
+
+for the Rockchip-part:
+Reviewed-by: Heiko Stuebner <heiko@sntech.de>
+
 
 _______________________________________________
 Linux-stm32 mailing list
