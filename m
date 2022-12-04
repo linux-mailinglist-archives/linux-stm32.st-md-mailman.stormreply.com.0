@@ -2,49 +2,130 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF523641810
-	for <lists+linux-stm32@lfdr.de>; Sat,  3 Dec 2022 18:23:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 12D36641DC8
+	for <lists+linux-stm32@lfdr.de>; Sun,  4 Dec 2022 17:09:47 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7D38CC65E4C;
-	Sat,  3 Dec 2022 17:23:49 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AC912C65067;
+	Sun,  4 Dec 2022 16:09:46 +0000 (UTC)
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com
+ [209.85.221.42])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1BFD9C01E98
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 86395C6410A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat,  3 Dec 2022 17:23:48 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 8D80AB8070E;
- Sat,  3 Dec 2022 17:23:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 218F0C433C1;
- Sat,  3 Dec 2022 17:23:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1670088226;
- bh=iTtdW6gDpKHLLzKCX31xhKgEEH+3KoFhhXGmXIO5ZP8=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=u+BEgHWXH5ITAwz3jXgk74FH9/Gb25v/9qpiVZjuhkSjkKCCxC0WqKDHhfSoEehp0
- OZR+rOagvJcew3j4vmZSM4+bXjb44hWLLYp5W9SgnLMUea/u2PVqKFbuJ1WbqjyD9v
- 8YHVekiyvg5oxz6p5rgsajsL1shvgSj9ilzlnJFuQIRbY0bIRbnN8JjkknRMP7NaoI
- fhYr3xyvOh55rHcRYWzoDVHeRmKhy6s2bRAK+Z2Uju2lXLMYZAB63RdZ9isq36WIge
- IVwx0U+Uwaz/b7vRn57R4wyFtsKEa42bvqhHfIPNKklNf1Hvrzyza9XEAW23Fv8JYE
- RjDy6sNGMXfgg==
-Date: Sat, 3 Dec 2022 17:36:30 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Olivier Moysan <olivier.moysan@foss.st.com>
-Message-ID: <20221203173630.4b4de6c7@jic23-huawei>
-In-Reply-To: <20221202152848.45585-1-olivier.moysan@foss.st.com>
-References: <20221202152848.45585-1-olivier.moysan@foss.st.com>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.34; x86_64-pc-linux-gnu)
+ Sun,  4 Dec 2022 16:09:45 +0000 (UTC)
+Received: by mail-wr1-f42.google.com with SMTP id h10so5715802wrx.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Sun, 04 Dec 2022 08:09:45 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=mSY/soRdbw3l7VfX1MPIQXbuFJkETcDbjbzdvzg9U1E=;
+ b=nmnnLHjQQPJyJNBEfVfdOPXpOYw99+Ew34YDKQSA7EUqQ1wRE7HB99k+5HnDEsFXs6
+ s/Wti8lfe/gDF0GC8HfFWK6SarmOEHUEk9+mOcTopjhIelQOQdkwrwTaJ2Nuha5VsgW2
+ 2H6F26qSiuyp8Kq/ZSHMfpgdbHvQFcFP1JzgfnxoezYYiNxdqBEBTLKe4Lp5bAtojZvR
+ 8CRQD22BJyoRVHfXHYamci85e1A3cN4zPEaRD05DJf6yKSFDZhxfON8l9cCNMXaL7xNB
+ p3PM7GEe2pPEVM3wrIgGfBatgwqg3XW8DZRAw5uxGi7GSWYN8djxxtisjrQ0JrQ2Emxp
+ xjmw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=mSY/soRdbw3l7VfX1MPIQXbuFJkETcDbjbzdvzg9U1E=;
+ b=jN+O4pJXS72bo2QIyAkQc+tZ64CGpaMVYNJcysPITp9apSt2UdugXylcc0AFVC39io
+ mcu6ud4YYGCN70YaRqNCQ4M2lDCNXeKfSovYA/sjr4GjYmcflSvP71quDH7fpoZNXXLV
+ PKh6Cw8YbPOEgcnXwf7P+eUTrKGtDgdQDdJspzD6HI6biCDOnogof3VeUgcoxYwX+Uwz
+ XmxYssWId7qnw7wHu9edLOONAxD00rZnHZC251DRLvR3NbebH15Mqgw5qcuHgxlbMhto
+ YOleAh0k+xXHx9GVuErFz2x40G8yvKfNK7CPQFFKBmOm5pS6PDzrLcoN2w1HlhRdbJf9
+ XvTg==
+X-Gm-Message-State: ANoB5pmUOSr30sBbhl7ZbgWMywYFKTWopPa4Vqyxp+Z5cNqkDteLb2wk
+ RBUKybxWpAfoSLBGMhsU0+Q=
+X-Google-Smtp-Source: AA0mqf5OXVS1lM5QoKtCTGOYBnrpmscrGHlaSSO7Jq8/Dc8cy0PB5VfXUZBhR9OrsdWfWopJ4DW8pw==
+X-Received: by 2002:a5d:6dd1:0:b0:236:75a8:58d with SMTP id
+ d17-20020a5d6dd1000000b0023675a8058dmr49641323wrz.295.1670170184810; 
+ Sun, 04 Dec 2022 08:09:44 -0800 (PST)
+Received: from archbook.localnet (84-72-105-84.dclient.hispeed.ch.
+ [84.72.105.84]) by smtp.gmail.com with ESMTPSA id
+ j13-20020a056000124d00b002421db5f279sm11847154wrx.78.2022.12.04.08.09.41
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 04 Dec 2022 08:09:44 -0800 (PST)
+From: Nicolas Frattaroli <frattaroli.nicolas@gmail.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>,
+ David Airlie <airlied@gmail.com>, 
+ Daniel Vetter <daniel@ffwll.ch>, Rob Herring <robh+dt@kernel.org>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Kevin Hilman <khilman@baylibre.com>, 
+ Jerome Brunet <jbrunet@baylibre.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, 
+ Mark Brown <broonie@kernel.org>, Chen-Yu Tsai <wens@csie.org>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>,
+ Ban Tao <fengzheng923@gmail.com>,
+ =?UTF-8?Q?Martin_Povi=C5=A1er?= <povik+lin@cutebit.org>, 
+ James Schulman <james.schulman@cirrus.com>,
+ David Rhodes <david.rhodes@cirrus.com>, 
+ Lucas Tanure <tanureal@opensource.cirrus.com>, 
+ Richard Fitzgerald <rf@opensource.cirrus.com>,
+ Charles Keepax <ckeepax@opensource.cirrus.com>, 
+ Peter Ujfalusi <peter.ujfalusi@gmail.com>,
+ Cheng-Yi Chiang <cychiang@chromium.org>, 
+ Tzung-Bi Shih <tzungbi@kernel.org>, Guenter Roeck <groeck@chromium.org>, 
+ Benson Leung <bleung@chromium.org>, Thierry Reding <thierry.reding@gmail.com>, 
+ Jonathan Hunter <jonathanh@nvidia.com>, Stephan Gerhold <stephan@gerhold.net>, 
+ Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konrad.dybcio@linaro.org>, 
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Banajit Goswami <bgoswami@quicinc.com>, 
+ Heiko Stuebner <heiko@sntech.de>, Sylwester Nawrocki <s.nawrocki@samsung.com>, 
+ Fabio Estevam <festevam@gmail.com>,
+ Kunihiko Hayashi <hayashi.kunihiko@socionext.com>, 
+ Masami Hiramatsu <mhiramat@kernel.org>,
+ Olivier Moysan <olivier.moysan@foss.st.com>, 
+ Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Alexandre Belloni <alexandre.belloni@bootlin.om>,
+ Lars-Peter Clausen <lars@metafoo.de>, 
+ Bogdan Togorean <bogdan.togorean@analog.com>,
+ =?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
+ Vincent Knecht <vincent.knecht@mailoo.org>, 
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Ricardo Rivera-Matos <rriveram@opensource.cirrus.com>,
+ - <patches@opensource.cirrus.com>, 
+ Jayesh Choudhary <j-choudhary@ti.com>, Daniel Drake <drake@endlessm.com>, 
+ Katsuhiro Suzuki <katsuhiro@katsuster.net>,
+ Shengjiu Wang <shengjiu.wang@nxp.com>, 
+ Paul Cercueil <paul@crapouillou.net>, Jee Heng <jee.heng.sia@intel.com>, 
+ Lubomir Rintel <lkundrak@v3.sk>,
+ Codrin Ciubotariu <codrin.ciubotariu@microchip.com>, 
+ Mohan Kumar <mkumard@nvidia.com>, Sameer Pujar <spujar@nvidia.com>, 
+ Rohit kumar <rohitkr@codeaurora.org>, Derek Fang <derek.fang@realtek.com>, 
+ Biju Das <biju.das.jz@bp.renesas.com>, ChiYuan Huang <cy_huang@richtek.com>, 
+ Jose Abreu <joabreu@synopsys.com>, Andrew Davis <afd@ti.com>,
+ Shi Fu <shifu0704@thundersoft.com>, 
+ Shenghao Ding <shenghao-ding@ti.com>, Matt Flax <flatmax@flatmax.com>, 
+ Ricard Wanderlof <ricardw@axis.com>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, 
+ dri-devel@lists.freedesktop.org, linux-amlogic@lists.infradead.org, 
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org, 
+ linux-sunxi@lists.linux.dev, asahi@lists.linux.dev, 
+ chrome-platform@lists.linux.dev, linux-tegra@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+ linux-stm32@st-md-mailman.stormreply.com, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Date: Sun, 04 Dec 2022 17:09:41 +0100
+Message-ID: <2251607.XGVbBG2WQu@archbook>
+In-Reply-To: <20221203160442.69594-2-krzysztof.kozlowski@linaro.org>
+References: <20221203160442.69594-1-krzysztof.kozlowski@linaro.org>
+ <20221203160442.69594-2-krzysztof.kozlowski@linaro.org>
 MIME-Version: 1.0
-Cc: Lars-Peter Clausen <lars@metafoo.de>, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Jonathan Cameron <Jonathan.Cameron@huawei.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2] iio: adc: stm32-dfsdm: fill module
-	aliases
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Subject: Re: [Linux-stm32] [PATCH 2/3] ASoC: dt-bindings: Reference common
+	DAI properties
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -61,42 +142,54 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, 2 Dec 2022 16:28:48 +0100
-Olivier Moysan <olivier.moysan@foss.st.com> wrote:
-
-> When STM32 DFSDM driver is built as module, no modalias information
-> is available. This prevents module to be loaded by udev.
-> Add MODULE_DEVICE_TABLE() to fill module aliases.
+On Samstag, 3. Dezember 2022 17:04:41 CET Krzysztof Kozlowski wrote:
+> Reference in all sound components which have '#sound-dai-cells' the
+> dai-common.yaml schema, which allows to use 'sound-name-prefix'
+> property.
 > 
-> Fixes: e2e6771c6462 ("IIO: ADC: add STM32 DFSDM sigma delta ADC support")
-> Signed-off-by: Olivier Moysan <olivier.moysan@foss.st.com>
-Applied to the fixes-togreg branch of iio.git.
-
-Note this will probably go upstream just after the merge window closes
-now.
-
-Thanks,
-
-Jonathan
-
-> ---
-> Changes in v2: Add Fixes tag
-> ---
->  drivers/iio/adc/stm32-dfsdm-adc.c | 1 +
->  1 file changed, 1 insertion(+)
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 > 
-> diff --git a/drivers/iio/adc/stm32-dfsdm-adc.c b/drivers/iio/adc/stm32-dfsdm-adc.c
-> index 6d21ea84fa82..a428bdb567d5 100644
-> --- a/drivers/iio/adc/stm32-dfsdm-adc.c
-> +++ b/drivers/iio/adc/stm32-dfsdm-adc.c
-> @@ -1520,6 +1520,7 @@ static const struct of_device_id stm32_dfsdm_adc_match[] = {
->  	},
->  	{}
->  };
-> +MODULE_DEVICE_TABLE(of, stm32_dfsdm_adc_match);
->  
->  static int stm32_dfsdm_adc_probe(struct platform_device *pdev)
->  {
+> ---
+> 
+> This is an output of discussion here:
+> https://lore.kernel.org/all/Y255C+TGNVJ9fs8A@sirena.org.uk/
+> 
+> This patch supersedes previous WSA883x one.
+> ---
+
+Hello,
+
+for rockchip,i2s-tdm, we get some (new?) warnings with W=1:
+
+    /home/fratti/Projekte/linux/arch/arm64/boot/dts/rockchip/rk3566-pinenote-v1.1.dtb: i2s@fe420000: reset-names:0: 'm' is not one of ['tx-m', 'rx-m']
+            From schema: /home/fratti/Projekte/linux/Documentation/devicetree/bindings/sound/rockchip,i2s-tdm.yaml
+    DTC_CHK arch/arm64/boot/dts/rockchip/rk3566-soquartz-cm4.dtb
+    /home/fratti/Projekte/linux/arch/arm64/boot/dts/rockchip/rk3566-pinenote-v1.2.dtb: i2s@fe420000: reset-names:0: 'm' is not one of ['tx-m', 'rx-m']
+            From schema: /home/fratti/Projekte/linux/Documentation/devicetree/bindings/sound/rockchip,i2s-tdm.yaml
+    DTC_CHK arch/arm64/boot/dts/rockchip/rk3566-soquartz-model-a.dtb
+    /home/fratti/Projekte/linux/arch/arm64/boot/dts/rockchip/rk3566-quartz64-a.dtb: i2s@fe420000: reset-names:0: 'm' is not one of ['tx-m', 'rx-m']
+            From schema: /home/fratti/Projekte/linux/Documentation/devicetree/bindings/sound/rockchip,i2s-tdm.yaml
+    /home/fratti/Projekte/linux/arch/arm64/boot/dts/rockchip/rk3566-quartz64-b.dtb: i2s@fe420000: reset-names:0: 'm' is not one of ['tx-m', 'rx-m']
+            From schema: /home/fratti/Projekte/linux/Documentation/devicetree/bindings/sound/rockchip,i2s-tdm.yaml
+    /home/fratti/Projekte/linux/arch/arm64/boot/dts/rockchip/rk3566-roc-pc.dtb: i2s@fe420000: reset-names:0: 'm' is not one of ['tx-m', 'rx-m']
+            From schema: /home/fratti/Projekte/linux/Documentation/devicetree/bindings/sound/rockchip,i2s-tdm.yaml
+    DTC_CHK arch/arm64/boot/dts/rockchip/rk3568-bpi-r2-pro.dtb
+    /home/fratti/Projekte/linux/arch/arm64/boot/dts/rockchip/rk3566-soquartz-blade.dtb: i2s@fe420000: reset-names:0: 'm' is not one of ['tx-m', 'rx-m']
+            From schema: /home/fratti/Projekte/linux/Documentation/devicetree/bindings/sound/rockchip,i2s-tdm.yaml
+    DTC_CHK arch/arm64/boot/dts/rockchip/rk3568-evb1-v10.dtb
+    /home/fratti/Projekte/linux/arch/arm64/boot/dts/rockchip/rk3566-soquartz-cm4.dtb: i2s@fe420000: reset-names:0: 'm' is not one of ['tx-m', 'rx-m']
+            From schema: /home/fratti/Projekte/linux/Documentation/devicetree/bindings/sound/rockchip,i2s-tdm.yaml
+    /home/fratti/Projekte/linux/arch/arm64/boot/dts/rockchip/rk3566-soquartz-model-a.dtb: i2s@fe420000: reset-names:0: 'm' is not one of ['tx-m', 'rx-m']
+            From schema: /home/fratti/Projekte/linux/Documentation/devicetree/bindings/sound/rockchip,i2s-tdm.yaml
+
+Apparently we don't have separate resets for tx/rx on i2s2 on this
+hardware. Should we add 'm' to the allowed reset-names for this
+case?
+
+Cheers,
+Nicolas Frattaroli
+
+
 
 _______________________________________________
 Linux-stm32 mailing list
