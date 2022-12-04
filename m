@@ -2,56 +2,56 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A27AB641EA2
-	for <lists+linux-stm32@lfdr.de>; Sun,  4 Dec 2022 19:29:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B98BE641EA4
+	for <lists+linux-stm32@lfdr.de>; Sun,  4 Dec 2022 19:29:23 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5C003C65E5E;
-	Sun,  4 Dec 2022 18:29:22 +0000 (UTC)
-Received: from mail-lj1-f175.google.com (mail-lj1-f175.google.com
- [209.85.208.175])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7708FC65E69;
+	Sun,  4 Dec 2022 18:29:23 +0000 (UTC)
+Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com
+ [209.85.167.42])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5ED9EC6410A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D835AC6507A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun,  4 Dec 2022 18:29:20 +0000 (UTC)
-Received: by mail-lj1-f175.google.com with SMTP id bn5so11194908ljb.2
+ Sun,  4 Dec 2022 18:29:21 +0000 (UTC)
+Received: by mail-lf1-f42.google.com with SMTP id cf42so9584291lfb.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 04 Dec 2022 10:29:20 -0800 (PST)
+ Sun, 04 Dec 2022 10:29:21 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=t+PteMG/Ads8tC893Hy13VLmIBDMK2suUNCe/1HZdDs=;
- b=zP5nnhCXiClJ1DgCHNM3yk7JNqSv02YTEZax4FH6Y0gPcr14cFqylT8Hbkz3SNtRTn
- MkkF0S/zRYGUQLLy4DbRInPHw2yzVtW7QyTVzI4pU4RpNqkljZEkCcCg/LtaUqR2smha
- hbhh0k+4K7ONv9Dwd34Xy49ceZftpvWYk8vLjLe/4r/8nB6LiBKf0wYrWO4+eP0fH/jD
- 3L9eUcSGuHBbDzFwLP8nW/QAjNXtSdRxAemSmyqfsEcvdW5FPFWbBwVX038t0+yVF/nA
- QpcSWxI0MFIR6ADPslPbPPo2k43pYt8w9InuRouSkiNz/hL1UPAbLyX8H8DHD/vrcD1A
- Zhxw==
+ bh=1gjIuLbuYm9eN5Zaq7wruCJOGXBkxk9TEVxr2ELzNyM=;
+ b=msr4c6dETd0XxzdYTY6W9ZWmBlM+poak3c3oJp5hQc7K1UIwvRlM2VBsa7cprd/zQA
+ jzQ/8PRGd3A+ElhWXkO6twmZZxLFir6zHwGBm8UisZjmvLN4D4jS1AzP+dMMa4+69kHx
+ aX8ktNb/E2zX5YVF1PBWxMsZn2am3+NSy9M4cgd/b621JlEyPONraQ49XsXeTpFGb951
+ PJZEUEDu8HMthVkriHZcZmUTppE/i6Z4FHD9CYiTEJZBX1xZB/wPCMtddQSKOx66r4O/
+ bda7BXQz69llTsbmmjaT9a/tTot1p/pySV6q73ie9U99cpO0jtqXSGEjTo5u95pvaXv3
+ s6Nw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=t+PteMG/Ads8tC893Hy13VLmIBDMK2suUNCe/1HZdDs=;
- b=Yana+S8BuYdiAtnmYUXtq7a/3fEo+Hs8e6md/jAtDp9LAKTPXHUMcj0b5J13AH47Jy
- sYdJMrern4YewpTdFfBtisdp8fZMhXocsHCL/C85YUPdDYVQDu4wnT7FeNvk4kDQSi2c
- u0nMpQbhoB/c2vbojzq6Z+0o9M0vID69gRyq06swf+Ytp1f1lieSfX92li4ksMaLt6ar
- vPvgHDwHqqPuM5untvAL8GN6g4dQHi7a1FNRXGowPIx2o66iKND02b+OtqChgrkVdrLv
- RHRDh4m1U8RTG7Qb8VPsiyY5W/MxNhLBiT7Luyk3xohN9NC0YL0PoxwLDGiEJDwK1O6Y
- z33Q==
-X-Gm-Message-State: ANoB5pnCPlbTPEn6bFI1neZ7Bhjv3NPjI5a8ZVobegIPihUEFCChy4E6
- I519VyJZtsAIuSIC2nqU9Fl73w==
-X-Google-Smtp-Source: AA0mqf7cT4VZxE40h1S5qRGuAOZwWxzBWZBIYv7ax4dztOW39Zzssoufn9ODgvCoaB+u5NHzZC0IXw==
-X-Received: by 2002:a05:651c:1145:b0:277:8759:bf65 with SMTP id
- h5-20020a05651c114500b002778759bf65mr23608947ljo.108.1670178559826; 
- Sun, 04 Dec 2022 10:29:19 -0800 (PST)
+ bh=1gjIuLbuYm9eN5Zaq7wruCJOGXBkxk9TEVxr2ELzNyM=;
+ b=KfsnzmSyqvnd7NLMrXKl2yqk1oW5TGXogQRxam2monH8og/WUkktIc4HMlPKmiKfRl
+ YjROau8MNJ2pNQmUGv6lwgE0Hc07SVMIRSNqlGyh9rJHwrXX/ljpQUbfxHOjRpYf993I
+ 5yRgMGex+gvS1XHq06pUMtO9YhxrpdwPIlYxixAUesA02WK/wZtD+VPNEFKwsElJqxCh
+ 1L+y3RqjfNE6tEm5Sxs8uQWWw0i5K/nB4sMH3pbUvkqywK6EJoXA2fhmPMJmH5VSxofU
+ o9gyxWNYGjK3Iz+0/emWwX89uDh3nScrCZU9ug7X/yd8kkTIpETzPS16Mbn4Z+ziwbXX
+ lpNA==
+X-Gm-Message-State: ANoB5pmTrgyDyfhEY+kVkaA+HUpL5sdynvEbgQGIvExy6EaR6ozV3tvA
+ wnzyhPw+3LJfgkJQ9e1oJDQqAw==
+X-Google-Smtp-Source: AA0mqf4UPCxxvMoekZXXvXot8m/zQ+q1fGTUZPaIMlMJIt4kh2HXIM0T5KqpWhb2o21ZZrh+KyfCPg==
+X-Received: by 2002:a05:6512:250f:b0:4b4:abb4:c34d with SMTP id
+ be15-20020a056512250f00b004b4abb4c34dmr24680669lfb.218.1670178561302; 
+ Sun, 04 Dec 2022 10:29:21 -0800 (PST)
 Received: from krzk-bin.NAT.warszawa.vectranet.pl
  (088156142067.dynamic-2-waw-k-3-2-0.vectranet.pl. [88.156.142.67])
  by smtp.gmail.com with ESMTPSA id
- i15-20020a056512340f00b004b3b2a9f506sm1838996lfr.4.2022.12.04.10.29.18
+ i15-20020a056512340f00b004b3b2a9f506sm1838996lfr.4.2022.12.04.10.29.19
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 04 Dec 2022 10:29:19 -0800 (PST)
+ Sun, 04 Dec 2022 10:29:20 -0800 (PST)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 To: Mauro Carvalho Chehab <mchehab@kernel.org>,
  Rob Herring <robh+dt@kernel.org>,
@@ -72,15 +72,15 @@ To: Mauro Carvalho Chehab <mchehab@kernel.org>,
  linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org,
  linux-tegra@vger.kernel.org, linux-samsung-soc@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com
-Date: Sun,  4 Dec 2022 19:29:01 +0100
-Message-Id: <20221204182908.138910-2-krzysztof.kozlowski@linaro.org>
+Date: Sun,  4 Dec 2022 19:29:02 +0100
+Message-Id: <20221204182908.138910-3-krzysztof.kozlowski@linaro.org>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20221204182908.138910-1-krzysztof.kozlowski@linaro.org>
 References: <20221204182908.138910-1-krzysztof.kozlowski@linaro.org>
 MIME-Version: 1.0
 Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Subject: [Linux-stm32] [PATCH 2/9] media: dt-bindings: st,
-	stm32-cec: move to cec subfolder
+Subject: [Linux-stm32] [PATCH 3/9] media: dt-bindings: cec: convert common
+	CEC properties to DT schema
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,35 +97,78 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Move st,stm32-cec.yaml bindings to cec subfolder and drop unneeded
-"bindings" in the title.
+Convert common HDMI CEC adapter bindings to DT schema.
 
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 ---
- .../devicetree/bindings/media/{ => cec}/st,stm32-cec.yaml     | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
- rename Documentation/devicetree/bindings/media/{ => cec}/st,stm32-cec.yaml (89%)
+ .../devicetree/bindings/media/cec.txt         |  8 ------
+ .../bindings/media/cec/cec-common.yaml        | 28 +++++++++++++++++++
+ MAINTAINERS                                   |  2 +-
+ 3 files changed, 29 insertions(+), 9 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/media/cec.txt
+ create mode 100644 Documentation/devicetree/bindings/media/cec/cec-common.yaml
 
-diff --git a/Documentation/devicetree/bindings/media/st,stm32-cec.yaml b/Documentation/devicetree/bindings/media/cec/st,stm32-cec.yaml
-similarity index 89%
-rename from Documentation/devicetree/bindings/media/st,stm32-cec.yaml
-rename to Documentation/devicetree/bindings/media/cec/st,stm32-cec.yaml
-index 77144cc6f7db..2314a9a14650 100644
---- a/Documentation/devicetree/bindings/media/st,stm32-cec.yaml
-+++ b/Documentation/devicetree/bindings/media/cec/st,stm32-cec.yaml
-@@ -1,10 +1,10 @@
- # SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
- %YAML 1.2
- ---
--$id: http://devicetree.org/schemas/media/st,stm32-cec.yaml#
-+$id: http://devicetree.org/schemas/media/cec/st,stm32-cec.yaml#
- $schema: http://devicetree.org/meta-schemas/core.yaml#
- 
--title: STMicroelectronics STM32 CEC bindings
-+title: STMicroelectronics STM32 CEC
- 
- maintainers:
-   - Yannick Fertre <yannick.fertre@foss.st.com>
+diff --git a/Documentation/devicetree/bindings/media/cec.txt b/Documentation/devicetree/bindings/media/cec.txt
+deleted file mode 100644
+index 22d7aae3d3d7..000000000000
+--- a/Documentation/devicetree/bindings/media/cec.txt
++++ /dev/null
+@@ -1,8 +0,0 @@
+-Common bindings for HDMI CEC adapters
+-
+-- hdmi-phandle: phandle to the HDMI controller.
+-
+-- needs-hpd: if present the CEC support is only available when the HPD
+-  is high. Some boards only let the CEC pin through if the HPD is high,
+-  for example if there is a level converter that uses the HPD to power
+-  up or down.
+diff --git a/Documentation/devicetree/bindings/media/cec/cec-common.yaml b/Documentation/devicetree/bindings/media/cec/cec-common.yaml
+new file mode 100644
+index 000000000000..af6ee5f1c73f
+--- /dev/null
++++ b/Documentation/devicetree/bindings/media/cec/cec-common.yaml
+@@ -0,0 +1,28 @@
++# SPDX-License-Identifier: GPL-2.0 OR BSD-2-Clause
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/media/cec/cec-common.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: HDMI CEC Adapters Common Properties
++
++maintainers:
++  - Hans Verkuil <hverkuil@xs4all.nl>
++
++properties:
++  $nodename:
++    pattern: "^cec(@[0-9a-f]+|-[0-9]+)?$"
++
++  hdmi-phandle:
++    $ref: /schemas/types.yaml#/definitions/phandle
++    description:
++      Phandle to the HDMI controller.
++
++  needs-hpd:
++    type: boolean
++    description:
++      The CEC support is only available when the HPD is high. Some boards only
++      let the CEC pin through if the HPD is high, for example if there is a
++      level converter that uses the HPD to power up or down.
++
++additionalProperties: true
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 07cb85cac4c3..45402e03cda5 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -4832,7 +4832,7 @@ S:	Supported
+ W:	http://linuxtv.org
+ T:	git git://linuxtv.org/media_tree.git
+ F:	Documentation/ABI/testing/debugfs-cec-error-inj
+-F:	Documentation/devicetree/bindings/media/cec.txt
++F:	Documentation/devicetree/bindings/media/cec/cec-common.yaml
+ F:	Documentation/driver-api/media/cec-core.rst
+ F:	Documentation/userspace-api/media/cec
+ F:	drivers/media/cec/
 -- 
 2.34.1
 
