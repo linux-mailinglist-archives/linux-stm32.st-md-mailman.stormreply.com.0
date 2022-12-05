@@ -2,58 +2,58 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CE504642434
-	for <lists+linux-stm32@lfdr.de>; Mon,  5 Dec 2022 09:13:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B74E1642443
+	for <lists+linux-stm32@lfdr.de>; Mon,  5 Dec 2022 09:14:10 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5D1AAC65E60;
-	Mon,  5 Dec 2022 08:13:23 +0000 (UTC)
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com
- [209.85.221.47])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 78A2DC65E60;
+	Mon,  5 Dec 2022 08:14:10 +0000 (UTC)
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com
+ [209.85.221.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D129CC65E5D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A697FC65E5D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  5 Dec 2022 08:13:21 +0000 (UTC)
-Received: by mail-wr1-f47.google.com with SMTP id f18so17348527wrj.5
+ Mon,  5 Dec 2022 08:14:08 +0000 (UTC)
+Received: by mail-wr1-f43.google.com with SMTP id o5so17382678wrm.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 05 Dec 2022 00:13:21 -0800 (PST)
+ Mon, 05 Dec 2022 00:14:08 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:in-reply-to:organization:references:to
  :content-language:subject:reply-to:from:user-agent:mime-version:date
  :message-id:from:to:cc:subject:date:message-id:reply-to;
- bh=9HQObmrwSMX8vA4JHKJaj2b6CjK14qWpD9rpN9nU90U=;
- b=hH8EH4emacWt/i3dinMgGS8nSqTXKGuNzRdVns89xp9lootuIhBo2OtYbrD8lkN1nC
- My+UVHjJw/oudKcISaxuAMfMeXv9FW/cX5R/Vkd4B1O5WU08dx8bw7PBC+kidyn/bINY
- qZi5EgJQD3FezXn6kyyA4EJlsO+b7YSOUK7A5lZrlCP9/CHrKE+R1EnIkfjwppZsZBQT
- 4KFTZWay7o3jQZ1jVQsjLLUyGtdXHx1XVkRvxjI44hT/vnfsNMlzAMnEWZWTfr8cl61h
- SdxwhsbqUnqud1MpVoNIX6o7ozKyrgJU3rXXWjygMst1MvcCv7RojdyVlzk6dj08P93d
- bo+Q==
+ bh=mOAaEDQ/+KQ94HSAsqFzfVKtm6woYUzL9fBYQMgBuLc=;
+ b=e2HPFLjESRMzz+xhAqeTVs6J7M+U5l/REgtnswgMQLAoEHF/udvkXCFDUTJYrrvMGi
+ jHHsPiLyYeKKoRaxUjgoK7P8q2ezNypfzTTxa0qlXXVzoCFdagY3iEM9fu6Pl/3SlkM5
+ kNfB4w+ejaH0GTXmk5Cgws3weouY5xJ4dC82oEfJbV//rO+LNGvQzpbG+y9ly+gIi1d2
+ ejLRyrd3502i1iV1ag9UqznyKebBPAEpbOWpMlg++nslY0vV10UABAICcYEElgww1IRz
+ k3xU+st9iv1wiJ29GiJOjUTyFkkR0atN/Gc/rgw/RldEa7aJdlE5Lm+QB5Jf7FUrW3yh
+ 0b7g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:in-reply-to:organization:references:to
  :content-language:subject:reply-to:from:user-agent:mime-version:date
  :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=9HQObmrwSMX8vA4JHKJaj2b6CjK14qWpD9rpN9nU90U=;
- b=QZEC8g0j8jsYkBaG5VMRiU+JqGfUq9pJZYUUmwPzKQUBhK76wjWvK00qPB+WjzDoZB
- 7OC0jhNlNm5tnTeTq1wFikvJSqzh0FR+VAgv7FK1WDSzs7+f9P+52WXgBAvlQlRv1PBX
- EkxGKyI5cfrTXY4MJhjaGIdhc9dP7CrFVeJh02UofQnUaiUq8QOrITP+HWrFUi/aXYaL
- i7z/ugP4osgwDKIdzo/DZ2pJJRuH9wPojzBho13+ci0uijj78R+6utyhTbTZ3wBAke+m
- +h2uK9X3nl6c/ui3vHjFx5yzdHE8G38Y6oQkt93XX7nr9Mud0T3LrS+hIi3u8I6FDF+i
- zg9w==
-X-Gm-Message-State: ANoB5pm48nAC5IZmF594OduA6+UKb1QIfxJi2/fEnvYnZyBI3e5WJFiz
- DktY7+EEoy4nC0/kNWhLciPPhw==
-X-Google-Smtp-Source: AA0mqf7ai5wgiIRIYciqsXgXnPof4ogfREHeWVAWQiK2meZ1Z7k5m4sdbH7en5NgAmqIhis69vieQA==
-X-Received: by 2002:a05:6000:1c15:b0:242:28c9:d112 with SMTP id
- ba21-20020a0560001c1500b0024228c9d112mr15235142wrb.294.1670228001367; 
- Mon, 05 Dec 2022 00:13:21 -0800 (PST)
+ bh=mOAaEDQ/+KQ94HSAsqFzfVKtm6woYUzL9fBYQMgBuLc=;
+ b=fH2ukhUSBNAdjreS+f/skKN/9Ag+sfcuMSjDbUJTmUSfbaKzJGAHsG4oLtFD6fV4qg
+ CqSzG6T+RJHkf+i2j/Z2UXGR9tJcU3w25A3ntwcGbuF4z91GxASDbKmuRkUMNUcB7z17
+ KAyqS9OemqxNNzXFWUDPt/vBpZNnvu3nZivBHwv6YtB3VNRQCxMnqo0StQhGT+xeaSEl
+ ECk5ZAOM5ovgQ3pMkDDPPrMA4QUpNwZf30CfCT7pvin8WaCluBlnazfCyXGKH2YObdnj
+ yoHo8wyTJEbshtwUyvAoAckdDsI8JGOUjkm0E2chDQhoNuLx9tKabX+veblW1aI28VKB
+ yOAQ==
+X-Gm-Message-State: ANoB5pkCJ5JRnLES1G+6at154iZfmFwDtRWKoli1rx//2r6TBEhbBUWD
+ Ddao2eDmCrhbaPQuvBHJXM1MKg==
+X-Google-Smtp-Source: AA0mqf5Ch2HHmf8vDl45Rz3/ktkKscqe8a3oGxpy7NLT/9M1FQnwqH+PvbPyBevvGm9zi9w+mCtgXw==
+X-Received: by 2002:a5d:5685:0:b0:235:f0a6:fafd with SMTP id
+ f5-20020a5d5685000000b00235f0a6fafdmr50278628wrv.75.1670228048267; 
+ Mon, 05 Dec 2022 00:14:08 -0800 (PST)
 Received: from [192.168.7.93] (679773502.box.freepro.com. [212.114.21.58])
  by smtp.gmail.com with ESMTPSA id
- z2-20020a5d4402000000b00226dba960b4sm13376083wrq.3.2022.12.05.00.13.20
+ z10-20020a05600c0a0a00b003c70191f267sm23656674wmp.39.2022.12.05.00.14.06
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 05 Dec 2022 00:13:20 -0800 (PST)
-Message-ID: <b258ce94-627f-c029-6aa5-3723a87c0002@linaro.org>
-Date: Mon, 5 Dec 2022 09:13:19 +0100
+ Mon, 05 Dec 2022 00:14:07 -0800 (PST)
+Message-ID: <938d6732-adc8-5e45-6177-33cfe8c1ab70@linaro.org>
+Date: Mon, 5 Dec 2022 09:14:06 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.4.2
@@ -79,10 +79,11 @@ To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
  linux-tegra@vger.kernel.org, linux-samsung-soc@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com
 References: <20221204182908.138910-1-krzysztof.kozlowski@linaro.org>
+ <20221204182908.138910-4-krzysztof.kozlowski@linaro.org>
 Organization: Linaro Developer Services
-In-Reply-To: <20221204182908.138910-1-krzysztof.kozlowski@linaro.org>
-Subject: Re: [Linux-stm32] [PATCH 1/9] media: dt-bindings: amlogic,
- meson-gx-ao-cec: move to cec subfolder
+In-Reply-To: <20221204182908.138910-4-krzysztof.kozlowski@linaro.org>
+Subject: Re: [Linux-stm32] [PATCH 4/9] media: dt-bindings: amlogic,
+ meson-gx-ao-cec: reference common CEC properties
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,15 +102,14 @@ Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 On 04/12/2022 19:29, Krzysztof Kozlowski wrote:
-> Move amlogic,meson-gx-ao-cec.yaml bindings to cec subfolder and drop
-> unneeded quotes.
+> Reference common HDMI CEC adapter properties to simplify the binding and
+> have only one place of definition for common properties.
 > 
 > Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 > ---
->   .../bindings/media/{ => cec}/amlogic,meson-gx-ao-cec.yaml     | 4 ++--
->   MAINTAINERS                                                   | 2 +-
->   2 files changed, 3 insertions(+), 3 deletions(-)
->   rename Documentation/devicetree/bindings/media/{ => cec}/amlogic,meson-gx-ao-cec.yaml (93%)
+>   .../bindings/media/cec/amlogic,meson-gx-ao-cec.yaml        | 7 ++-----
+>   1 file changed, 2 insertions(+), 5 deletions(-)
+> 
 
 <snip>
 
