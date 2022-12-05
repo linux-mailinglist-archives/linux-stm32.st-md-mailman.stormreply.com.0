@@ -2,103 +2,55 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 357FA641FDF
-	for <lists+linux-stm32@lfdr.de>; Sun,  4 Dec 2022 22:31:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 35BDD642413
+	for <lists+linux-stm32@lfdr.de>; Mon,  5 Dec 2022 09:08:02 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CF891C6507A;
-	Sun,  4 Dec 2022 21:31:54 +0000 (UTC)
-Received: from mail-yb1-f178.google.com (mail-yb1-f178.google.com
- [209.85.219.178])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DAB50C65E5D;
+	Mon,  5 Dec 2022 08:08:01 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 40EE9C6411C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A72E5C63327
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun,  4 Dec 2022 21:31:53 +0000 (UTC)
-Received: by mail-yb1-f178.google.com with SMTP id l67so12340006ybl.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 04 Dec 2022 13:31:53 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=lI01SEvVv3MktbLdSo/+mTT0yrIOdj+1vIgFJfDfN34=;
- b=ihXgyprU2JPflAJxQ2hlVAlQWQi84KLxjubvaMjwbXraHSizz8TCIx4U240bsQyj7+
- f4S620hisnyPfhiCwKcejyelzlojnRQY4jMp9A5DZ+yb6q2aq4EA73+dpm0+UL0Oxh1a
- IYwnyg3VzbGB2nq4bXM6+FsV3LOGBHWgjtL25AWN7IG9Q1azGQhN55hwsfFxbGLKWiOD
- f/a/T7Q/HJsAQI/owlcuy6xGaGqVr+p5wZVckWegEIRl5Ivc5Qji4Sl+FvX4zG7kVyuj
- +sXdCe5JgrGyvJk71T09UvTiajH6J8eboYF7zb6jD/uuzxRFmOa9C/7E2gTQahmgh7lS
- cwKw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=lI01SEvVv3MktbLdSo/+mTT0yrIOdj+1vIgFJfDfN34=;
- b=wnOdWo6yigNF4DVvOjddTcJhZfkwubocbT6RxaKNVW3iNn1eSW0HblBdxHEFcwYVFY
- BBKKDOCRiX5EzbQZJf0xPGSk57s9MNvLRSlOQq0LMyin2XN3PcaK56BRJADstsy3+BRz
- N4xkeZzO/KLkHj0X2man29FY/IFOST6d5F3SuwRhDcllPHHSsW/RdFWtGnsH4fVWlIKI
- FADeLJiUXkxEz5l+LnynzMDAiLFNQEoIzS6uCbw7A8a6NBPmpmWYATRuFv4kF6nRPLTh
- jBe2utsSAg9Jx2PdTtaRPvVRsFWS27U0oAwlq7DN3u1foSBILF2sbUre6HRUbWdGQyfl
- 1usA==
-X-Gm-Message-State: ANoB5pmDHL1NikOpMNcZmy+qUCSCfWkkKjkSPUOY95N0PAMjBWu2X8Dw
- 1sb7GQpU0wh1mNyrn9CtwzIzcDKPUg87CZumPnRKqQ==
-X-Google-Smtp-Source: AA0mqf6AghRoYoTD/xrAAjTRoEs/YU038ITJkX/3Vhiv+Ox9xXlJbEIBdnkIbFDPiPE2mKag2EXwUYp2ImAROIxTvOc=
-X-Received: by 2002:a25:c485:0:b0:6be:8e8d:639f with SMTP id
- u127-20020a25c485000000b006be8e8d639fmr72141889ybf.506.1670189512119; Sun, 04
- Dec 2022 13:31:52 -0800 (PST)
+ Mon,  5 Dec 2022 08:08:00 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 251C0B80D6B;
+ Mon,  5 Dec 2022 08:08:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED95BC433C1;
+ Mon,  5 Dec 2022 08:07:53 +0000 (UTC)
+Message-ID: <ed6a2a1c-e14c-ef9f-b20b-8e662e2c78c8@xs4all.nl>
+Date: Mon, 5 Dec 2022 09:07:51 +0100
 MIME-Version: 1.0
-References: <20221130141040.32447-1-arinc.unal@arinc9.com>
- <20221130141040.32447-3-arinc.unal@arinc9.com>
-In-Reply-To: <20221130141040.32447-3-arinc.unal@arinc9.com>
-From: Linus Walleij <linus.walleij@linaro.org>
-Date: Sun, 4 Dec 2022 22:31:40 +0100
-Message-ID: <CACRpkdbojTVjR2G+95YS1Xqvau9XmwTkp_KtpaeE7-+v41hgeg@mail.gmail.com>
-To: =?UTF-8?B?QXLEsW7DpyDDnE5BTA==?= <arinc.unal@arinc9.com>
-Cc: Andrew Lunn <andrew@lunn.ch>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Heiko Stuebner <heiko@sntech.de>, Geert Uytterhoeven <geert+renesas@glider.be>,
- Tim Harvey <tharvey@gateworks.com>, Vladimir Oltean <vladimir.oltean@nxp.com>,
- linux-arm-msm@vger.kernel.org, Konrad Dybcio <konrad.dybcio@somainline.org>,
- Stefan Agner <stefan@agner.ch>, linux-kernel@vger.kernel.org,
- Eric Dumazet <edumazet@google.com>,
- Christophe Leroy <christophe.leroy@csgroup.eu>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Oleksij Rempel <linux@rempel-privat.de>, Fabio Estevam <festevam@gmail.com>,
- Peng Fan <peng.fan@nxp.com>, Florian Fainelli <f.fainelli@gmail.com>,
- Samuel Holland <samuel@sholland.org>, Michael Ellerman <mpe@ellerman.id.au>,
- Gregory Clement <gregory.clement@bootlin.com>,
- =?UTF-8?B?UmFmYcWCIE1pxYJlY2tp?= <zajec5@gmail.com>,
- Magnus Damm <magnus.damm@gmail.com>, Russell King <linux@armlinux.org.uk>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Sergio Paracuellos <sergio.paracuellos@gmail.com>,
- Chen-Yu Tsai <wens@csie.org>, Andy Gross <agross@kernel.org>,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
- NXP Linux Team <linux-imx@nxp.com>, Ray Jui <rjui@broadcom.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
- devicetree@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Frank Wunderlich <frank-w@public-files.de>, Hauke Mehrtens <hauke@hauke-m.de>,
- Hans Ulli Kroll <ulli.kroll@googlemail.com>, linuxppc-dev@lists.ozlabs.org,
- Nicholas Piggin <npiggin@gmail.com>, linux-mips@vger.kernel.org,
- linux-rockchip@lists.infradead.org, soc@kernel.org,
- Rob Herring <robh+dt@kernel.org>, linux-mediatek@lists.infradead.org,
- Matthias Brugger <matthias.bgg@gmail.com>,
- linux-arm-kernel@lists.infradead.org,
- Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
- Scott Branden <sbranden@broadcom.com>, netdev@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>,
- Rasmus Villemoes <rasmus.villemoes@prevas.dk>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- "David S. Miller" <davem@davemloft.net>, linux-renesas-soc@vger.kernel.org,
- linux-sunxi@lists.linux.dev,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Shawn Guo <shawnguo@kernel.org>, Claudiu Beznea <claudiu.beznea@microchip.com>,
- Michael Riesch <michael.riesch@wolfvision.net>
-Subject: Re: [Linux-stm32] [PATCH 2/5] arm: dts: remove label = "cpu" from
-	DSA dt-binding
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.5.0
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring
+ <robh+dt@kernel.org>, Krzysztof Kozlowski
+ <krzysztof.kozlowski+dt@linaro.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Alain Volmat <alain.volmat@foss.st.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, Joe Tessler
+ <jrt@google.com>, Yannick Fertre <yannick.fertre@foss.st.com>,
+ Jeff Chase <jnchase@google.com>, linux-media@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-tegra@vger.kernel.org, linux-samsung-soc@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com
+References: <20221204182908.138910-1-krzysztof.kozlowski@linaro.org>
+ <20221204182908.138910-3-krzysztof.kozlowski@linaro.org>
+Content-Language: en-US
+From: Hans Verkuil <hverkuil-cisco@xs4all.nl>
+In-Reply-To: <20221204182908.138910-3-krzysztof.kozlowski@linaro.org>
+Subject: Re: [Linux-stm32] [PATCH 3/9] media: dt-bindings: cec: convert
+ common CEC properties to DT schema
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -110,17 +62,93 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gV2VkLCBOb3YgMzAsIDIwMjIgYXQgMzoxMyBQTSBBcsSxbsOnIMOcTkFMIDxhcmluYy51bmFs
-QGFyaW5jOS5jb20+IHdyb3RlOgoKPiBUaGlzIGlzIG5vdCB1c2VkIGJ5IHRoZSBEU0EgZHQtYmlu
-ZGluZywgc28gcmVtb3ZlIGl0IGZyb20gYWxsIGRldmljZXRyZWVzLgo+Cj4gU2lnbmVkLW9mZi1i
-eTogQXLEsW7DpyDDnE5BTCA8YXJpbmMudW5hbEBhcmluYzkuY29tPgoKQWNrZWQtYnk6IExpbnVz
-IFdhbGxlaWogPGxpbnVzLndhbGxlaWpAbGluYXJvLm9yZz4KCllvdXJzLApMaW51cyBXYWxsZWlq
-Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0
-bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29t
-Cmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xp
-bnV4LXN0bTMyCg==
+On 04/12/2022 19:29, Krzysztof Kozlowski wrote:
+> Convert common HDMI CEC adapter bindings to DT schema.
+> 
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+
+Acked-by: Hans Verkuil <hverkuil-cisco@xs4all.nl>
+
+Thanks!
+
+	Hans
+
+> ---
+>  .../devicetree/bindings/media/cec.txt         |  8 ------
+>  .../bindings/media/cec/cec-common.yaml        | 28 +++++++++++++++++++
+>  MAINTAINERS                                   |  2 +-
+>  3 files changed, 29 insertions(+), 9 deletions(-)
+>  delete mode 100644 Documentation/devicetree/bindings/media/cec.txt
+>  create mode 100644 Documentation/devicetree/bindings/media/cec/cec-common.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/media/cec.txt b/Documentation/devicetree/bindings/media/cec.txt
+> deleted file mode 100644
+> index 22d7aae3d3d7..000000000000
+> --- a/Documentation/devicetree/bindings/media/cec.txt
+> +++ /dev/null
+> @@ -1,8 +0,0 @@
+> -Common bindings for HDMI CEC adapters
+> -
+> -- hdmi-phandle: phandle to the HDMI controller.
+> -
+> -- needs-hpd: if present the CEC support is only available when the HPD
+> -  is high. Some boards only let the CEC pin through if the HPD is high,
+> -  for example if there is a level converter that uses the HPD to power
+> -  up or down.
+> diff --git a/Documentation/devicetree/bindings/media/cec/cec-common.yaml b/Documentation/devicetree/bindings/media/cec/cec-common.yaml
+> new file mode 100644
+> index 000000000000..af6ee5f1c73f
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/media/cec/cec-common.yaml
+> @@ -0,0 +1,28 @@
+> +# SPDX-License-Identifier: GPL-2.0 OR BSD-2-Clause
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/media/cec/cec-common.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: HDMI CEC Adapters Common Properties
+> +
+> +maintainers:
+> +  - Hans Verkuil <hverkuil@xs4all.nl>
+> +
+> +properties:
+> +  $nodename:
+> +    pattern: "^cec(@[0-9a-f]+|-[0-9]+)?$"
+> +
+> +  hdmi-phandle:
+> +    $ref: /schemas/types.yaml#/definitions/phandle
+> +    description:
+> +      Phandle to the HDMI controller.
+> +
+> +  needs-hpd:
+> +    type: boolean
+> +    description:
+> +      The CEC support is only available when the HPD is high. Some boards only
+> +      let the CEC pin through if the HPD is high, for example if there is a
+> +      level converter that uses the HPD to power up or down.
+> +
+> +additionalProperties: true
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 07cb85cac4c3..45402e03cda5 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -4832,7 +4832,7 @@ S:	Supported
+>  W:	http://linuxtv.org
+>  T:	git git://linuxtv.org/media_tree.git
+>  F:	Documentation/ABI/testing/debugfs-cec-error-inj
+> -F:	Documentation/devicetree/bindings/media/cec.txt
+> +F:	Documentation/devicetree/bindings/media/cec/cec-common.yaml
+>  F:	Documentation/driver-api/media/cec-core.rst
+>  F:	Documentation/userspace-api/media/cec
+>  F:	drivers/media/cec/
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
