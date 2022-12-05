@@ -2,112 +2,100 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C4017643551
-	for <lists+linux-stm32@lfdr.de>; Mon,  5 Dec 2022 21:11:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0B0E6643606
+	for <lists+linux-stm32@lfdr.de>; Mon,  5 Dec 2022 21:50:30 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 713CAC65E62;
-	Mon,  5 Dec 2022 20:11:00 +0000 (UTC)
-Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com
- [209.85.218.54])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AB611C65E63;
+	Mon,  5 Dec 2022 20:50:29 +0000 (UTC)
+Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com
+ [209.85.218.49])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EBA76C6507A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 34E23C65E60
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  5 Dec 2022 20:10:58 +0000 (UTC)
-Received: by mail-ej1-f54.google.com with SMTP id bj12so1119641ejb.13
+ Mon,  5 Dec 2022 20:50:28 +0000 (UTC)
+Received: by mail-ej1-f49.google.com with SMTP id n20so1548989ejh.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 05 Dec 2022 12:10:58 -0800 (PST)
+ Mon, 05 Dec 2022 12:50:28 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=Sp/bNT5Sth10xITvOq6/Mc90creRR8yZ/shLGt2Fjbo=;
- b=b6Jb2v7WFhoSvR0qnQE049/t4BrlMrHARODr4SKR7Xn1FQa9HrOT4fkLVGvEHA9Y1j
- 1aehg61bR85KIrd2yJzQDQujMLuCNIt+emvdW9fTMhx/4U1IfjkR3nnqFTKD2foaT9Ui
- 956X6MJskqO817oItJy60eJ/aPD436SYiI8CtZcVVtFSrPoeWakNB2ZLOP0F+i4StkUL
- nsRQewGeP0UsRkxnq3KtMkx7OiRgubdtkydVEQYG6jK5ZHZmbx0yNK/c8JcyYjD3JIAC
- Ut3m1P+iv3Z6OSkGBM5RkqV2YJSAbtOAlIPpS5aYllY3p4QAyiook36M6HlT+zHtjfwv
- isQg==
+ bh=GVCjiKCCl/VeQNWt8PtvAxtZLBRlpY2z5UZuNcs/Lew=;
+ b=XvJr+2rJm7JOHlq9x+fOv7NDm86bbibMxBpK63VeMD2EMqGdhu2XuWkgvVLdDR0z70
+ rNjTyDDxW9o5ErSENlsUnIfCC0WhZuejJ2yih0mLoHswCM2M58xZp+WRXrhKHNzoDC98
+ eywNrn9703v1hEHCC19pIxnm9UAOmv/ciCyk8aNqL1llwB1pwKlrAN3g0vWuCDVwec3u
+ b2oe64W6gGqXEP/w77AW1mJZUnpIQaflKXXD7S2AxRLNn+kpk5aBgHioUah3AXqYRLz0
+ Ni6YsVblS514+p5ZnwbjXWkaD6uhuoaqZS6tGC11waKPWHF6EekaoetSMeNIEbDaBvy2
+ bqLA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=Sp/bNT5Sth10xITvOq6/Mc90creRR8yZ/shLGt2Fjbo=;
- b=rxSYFquy+xcQJp5N8qqdOYOpVXKpTRj0HOiLe3+DOGudha+y0zGGpSjHS5Q4nxSpTn
- shkyvOLAa7CFDXHsEDCQRFdSfMylDdf2a4+DfkOcAveE2vm3us0TWenlf3WGY/LlSRd0
- RBOXhEQwTdEC/M7r0OLgSG7eHW0zTpCjgcBVEdKbY/I5OgXOJyVIbV6hicw0SUmS28/z
- dQ3F9lk/DXNSME1aoJiSTQ/oq+dkA1VkHhyNe85IYIoViAIU9AdmVl3E+WV1b+/zCdNA
- 1R0Qr7olznRGuiKGmjger6KO42uHfuGuHrV8pvYmMnrpg4VWwBJ6qT7bukW5sx3/9T+2
- EF6Q==
-X-Gm-Message-State: ANoB5pljjzccpt5jxNWUsiXFxvzE9vkWQnaFx2E0EVK8CrzEzgIoTmZJ
- zWj8fbHDBljOmpBb1A5VYLY=
-X-Google-Smtp-Source: AA0mqf7z2/lysFZiqxK7ulKcSDgTYuqAgvTjsjwNu9269MsuvY9zIMkwT4vKR3jmOkwgiNV/Sr+dWg==
-X-Received: by 2002:a17:906:6c93:b0:7c0:ff76:7866 with SMTP id
- s19-20020a1709066c9300b007c0ff767866mr2992853ejr.272.1670271058311; 
- Mon, 05 Dec 2022 12:10:58 -0800 (PST)
+ bh=GVCjiKCCl/VeQNWt8PtvAxtZLBRlpY2z5UZuNcs/Lew=;
+ b=ldj1mED0TDFVSjTnfFB8hDJZm4OEpm7Wjiprc16r87WZL0g8jcdemNbKTsb5mz/4LZ
+ CnKINrcSnYySQL/NGLsPC+Ll927x5dzRpX4k8GqRbUgbkToaAIhxoy3qjDEai0s4MqqN
+ e1l2gASNi4RGKjshLBWZPQr5EW3vnqh2ZyyojKIT+fOKEPLuX2FKf2vdTghFAJ1Nf8Hf
+ 0Budy7I4KJ2Ia5h2Z1Hv9urWYXAvn4OGO17lf7eqz93QMk0099R4yoUId+JoR/3gf896
+ zgRGWMbc5RzGvOjtl4srOhrxSeSusTD2aPvydsyglfAAXz/igwjOUxdn6PYrpLpN7MaP
+ 6hSw==
+X-Gm-Message-State: ANoB5pkLv+n9KRKaTTYJRpIm4oWL0B3DJuUFsW+uiC6hdpWRiM4rO4sG
+ 9Y0LuSAu9wwoZNRWBPKutcQ=
+X-Google-Smtp-Source: AA0mqf5OSt768BV9vzFy9k66tV39xf6Wmy4SS9KX61nTQHi4Fa5yPtn/xJX8Qo/SjgdCekjDSrIRXw==
+X-Received: by 2002:a17:906:4b4a:b0:7c0:e5cb:aad8 with SMTP id
+ j10-20020a1709064b4a00b007c0e5cbaad8mr7371981ejv.407.1670273427580; 
+ Mon, 05 Dec 2022 12:50:27 -0800 (PST)
 Received: from kista.localnet (82-149-19-102.dynamic.telemach.net.
  [82.149.19.102]) by smtp.gmail.com with ESMTPSA id
- d21-20020a170906305500b007838e332d78sm6558596ejd.128.2022.12.05.12.10.55
+ g9-20020a17090670c900b0077f324979absm6580859ejk.67.2022.12.05.12.50.24
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 05 Dec 2022 12:10:57 -0800 (PST)
+ Mon, 05 Dec 2022 12:50:27 -0800 (PST)
 From: Jernej =?utf-8?B?xaBrcmFiZWM=?= <jernej.skrabec@gmail.com>
-To: Vladimir Oltean <vladimir.oltean@nxp.com>, 
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, soc@kernel.org, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Rob Herring <robh+dt@kernel.org>, 
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Andrew Lunn <andrew@lunn.ch>, 
- Gregory Clement <gregory.clement@bootlin.com>, 
- Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
- Russell King <linux@armlinux.org.uk>, 
- Nicolas Ferre <nicolas.ferre@microchip.com>, 
- Alexandre Belloni <alexandre.belloni@bootlin.com>, 
- Claudiu Beznea <claudiu.beznea@microchip.com>, Ray Jui <rjui@broadcom.com>, 
- Scott Branden <sbranden@broadcom.com>, 
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Florian Fainelli <f.fainelli@gmail.com>, Hauke Mehrtens <hauke@hauke-m.de>, 
- =?UTF-8?B?UmFmYcWCIE1pxYJlY2tp?= <zajec5@gmail.com>, 
- Hans Ulli Kroll <ulli.kroll@googlemail.com>,
- Linus Walleij <linus.walleij@linaro.org>, 
- Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, 
- NXP Linux Team <linux-imx@nxp.com>, Matthias Brugger <matthias.bgg@gmail.com>, 
- Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konrad.dybcio@somainline.org>,
- Geert Uytterhoeven <geert+renesas@glider.be>, 
- Magnus Damm <magnus.damm@gmail.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>, Chen-Yu Tsai <wens@csie.org>, 
- Samuel Holland <samuel@sholland.org>, Stefan Agner <stefan@agner.ch>,
- Heiko Stuebner <heiko@sntech.de>, 
- Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
- =?UTF-8?B?QXLEsW7DpyDDnE5BTA==?= <arinc.unal@arinc9.com>, 
- Sergio Paracuellos <sergio.paracuellos@gmail.com>,
- Michael Ellerman <mpe@ellerman.id.au>, 
- Nicholas Piggin <npiggin@gmail.com>,
- Christophe Leroy <christophe.leroy@csgroup.eu>, 
- Tim Harvey <tharvey@gateworks.com>, Peng Fan <peng.fan@nxp.com>, 
- Rasmus Villemoes <rasmus.villemoes@prevas.dk>,
- Frank Wunderlich <frank-w@public-files.de>, 
- Michael Riesch <michael.riesch@wolfvision.net>,
- Oleksij Rempel <linux@rempel-privat.de>
-Date: Mon, 05 Dec 2022 21:10:54 +0100
-Message-ID: <5625120.DvuYhMxLoT@kista>
-In-Reply-To: <20221130141040.32447-3-arinc.unal@arinc9.com>
-References: <20221130141040.32447-1-arinc.unal@arinc9.com>
- <20221130141040.32447-3-arinc.unal@arinc9.com>
+To: Thierry Reding <thierry.reding@gmail.com>,
+ Uwe =?ISO-8859-1?Q?Kleine=2DK=F6nig?= <u.kleine-koenig@pengutronix.de>
+Date: Mon, 05 Dec 2022 21:50:24 +0100
+Message-ID: <22881769.6Emhk5qWAg@kista>
+In-Reply-To: <20221130152148.2769768-2-u.kleine-koenig@pengutronix.de>
+References: <20221130152148.2769768-1-u.kleine-koenig@pengutronix.de>
+ <20221130152148.2769768-2-u.kleine-koenig@pengutronix.de>
 MIME-Version: 1.0
-Cc: devicetree@vger.kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-sunxi@lists.linux.dev,
- linux-renesas-soc@vger.kernel.org, linux-rockchip@lists.infradead.org,
- linux-mediatek@lists.infradead.org, linux-arm-msm@vger.kernel.org,
- linux-mips@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 2/5] arm: dts: remove label = "cpu" from
-	DSA dt-binding
+Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Heiko Stuebner <heiko@sntech.de>, Linus Walleij <linus.walleij@linaro.org>,
+ dri-devel@lists.freedesktop.org, Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Conor Dooley <conor.dooley@microchip.com>,
+ Satya Priya <quic_c_skakit@quicinc.com>, Pavel Machek <pavel@ucw.cz>,
+ Guenter Roeck <groeck@chromium.org>,
+ Nobuhiro Iwamatsu <nobuhiro1.iwamatsu@toshiba.co.jp>,
+ Fabio Estevam <festevam@gmail.com>, linux-riscv@lists.infradead.org,
+ linux-leds@vger.kernel.org, Jerome Brunet <jbrunet@baylibre.com>,
+ chrome-platform@lists.linux.dev, Florian Fainelli <f.fainelli@gmail.com>,
+ Samuel Holland <samuel@sholland.org>, Sean Anderson <sean.anderson@seco.com>,
+ Kevin Hilman <khilman@baylibre.com>, Bartosz Golaszewski <brgl@bgdev.pl>,
+ Michal Simek <michal.simek@xilinx.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Hammer Hsieh <hammerh0314@gmail.com>,
+ linux-rockchip@lists.infradead.org, Chen-Yu Tsai <wens@csie.org>,
+ Matthias Kaehlcke <mka@chromium.org>,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+ NXP Linux Team <linux-imx@nxp.com>, Orson Zhai <orsonzhai@gmail.com>,
+ linux-sunxi@lists.linux.dev, linux-pwm@vger.kernel.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Ray Jui <rjui@broadcom.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Stephen Boyd <swboyd@chromium.org>, linux-gpio@vger.kernel.org,
+ linux-mediatek@lists.infradead.org, linux-rpi-kernel@lists.infradead.org,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Paul Walmsley <paul.walmsley@sifive.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>, linux-amlogic@lists.infradead.org,
+ Benson Leung <bleung@chromium.org>, linux-arm-kernel@lists.infradead.org,
+ Scott Branden <sbranden@broadcom.com>, Bjorn Andersson <andersson@kernel.org>,
+ Douglas Anderson <dianders@chromium.org>, Michael Walle <michael@walle.cc>,
+ Palmer Dabbelt <palmer@dabbelt.com>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Chunyan Zhang <zhang.lyra@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
+ Claudiu Beznea <claudiu.beznea@microchip.com>
+Subject: Re: [Linux-stm32] [PATCH v2 01/11] pwm: Make .get_state() callback
+	return an error code
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -119,106 +107,151 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-RG5lIHNyZWRhLCAzMC4gbm92ZW1iZXIgMjAyMiBvYiAxNToxMDozNyBDRVQgamUgQXLEsW7DpyDD
-nE5BTCBuYXBpc2FsKGEpOgo+IFRoaXMgaXMgbm90IHVzZWQgYnkgdGhlIERTQSBkdC1iaW5kaW5n
-LCBzbyByZW1vdmUgaXQgZnJvbSBhbGwgZGV2aWNldHJlZXMuCj4gCj4gU2lnbmVkLW9mZi1ieTog
-QXLEsW7DpyDDnE5BTCA8YXJpbmMudW5hbEBhcmluYzkuY29tPgo+IC0tLQo+ICBhcmNoL2FybS9i
-b290L2R0cy9hcm1hZGEtMzcwLXJkLmR0cyAgICAgICAgICAgICAgICAgICAgICAgfCAxIC0KPiAg
-YXJjaC9hcm0vYm9vdC9kdHMvYXJtYWRhLTM4MS1uZXRnZWFyLWdzMTEwZW14LmR0cyAgICAgICAg
-IHwgMSAtCj4gIGFyY2gvYXJtL2Jvb3QvZHRzL2FybWFkYS0zODUtY2xlYXJmb2ctZ3RyLWw4LmR0
-cyAgICAgICAgICB8IDEgLQo+ICBhcmNoL2FybS9ib290L2R0cy9hcm1hZGEtMzg1LWNsZWFyZm9n
-LWd0ci1zNC5kdHMgICAgICAgICAgfCAxIC0KPiAgYXJjaC9hcm0vYm9vdC9kdHMvYXJtYWRhLTM4
-NS1saW5rc3lzLmR0c2kgICAgICAgICAgICAgICAgIHwgMSAtCj4gIGFyY2gvYXJtL2Jvb3QvZHRz
-L2FybWFkYS0zODUtdHVycmlzLW9tbmlhLmR0cyAgICAgICAgICAgICB8IDEgLQo+ICBhcmNoL2Fy
-bS9ib290L2R0cy9hcm1hZGEtMzg4LWNsZWFyZm9nLmR0cyAgICAgICAgICAgICAgICAgfCAxIC0K
-PiAgYXJjaC9hcm0vYm9vdC9kdHMvYXJtYWRhLXhwLWxpbmtzeXMtbWFtYmEuZHRzICAgICAgICAg
-ICAgIHwgMSAtCj4gIGFyY2gvYXJtL2Jvb3QvZHRzL2F0OTEtc2FtYTVkMl9pY3AuZHRzICAgICAg
-ICAgICAgICAgICAgICB8IDEgLQo+ICBhcmNoL2FybS9ib290L2R0cy9hdDkxLXNhbWE1ZDNfa3N6
-OTQ3N19ldmIuZHRzICAgICAgICAgICAgfCAxIC0KPiAgYXJjaC9hcm0vYm9vdC9kdHMvYmNtLWN5
-Z251cy5kdHNpICAgICAgICAgICAgICAgICAgICAgICAgIHwgMSAtCj4gIGFyY2gvYXJtL2Jvb3Qv
-ZHRzL2JjbTQ3MDgtYnVmZmFsby13enItMTE2NmRocC1jb21tb24uZHRzaSB8IDEgLQo+ICBhcmNo
-L2FybS9ib290L2R0cy9iY200NzA4LWx1eHVsLXhhcC0xNTEwLmR0cyAgICAgICAgICAgICAgfCAx
-IC0KPiAgYXJjaC9hcm0vYm9vdC9kdHMvYmNtNDcwOC1sdXh1bC14d2MtMTAwMC5kdHMgICAgICAg
-ICAgICAgIHwgMSAtCj4gIGFyY2gvYXJtL2Jvb3QvZHRzL2JjbTQ3MDgtbmV0Z2Vhci1yNjI1MC5k
-dHMgICAgICAgICAgICAgICB8IDEgLQo+ICBhcmNoL2FybS9ib290L2R0cy9iY200NzA4LXNtYXJ0
-cmctc3I0MDBhYy5kdHMgICAgICAgICAgICAgfCAxIC0KPiAgYXJjaC9hcm0vYm9vdC9kdHMvYmNt
-NDcwODEtYnVmZmFsby13enItNjAwZGhwMi5kdHMgICAgICAgIHwgMSAtCj4gIGFyY2gvYXJtL2Jv
-b3QvZHRzL2JjbTQ3MDgxLWx1eHVsLXhhcC0xNDEwLmR0cyAgICAgICAgICAgICB8IDEgLQo+ICBh
-cmNoL2FybS9ib290L2R0cy9iY200NzA4MS1sdXh1bC14d3ItMTIwMC5kdHMgICAgICAgICAgICAg
-fCAxIC0KPiAgYXJjaC9hcm0vYm9vdC9kdHMvYmNtNDcwOS1uZXRnZWFyLXI4MDAwLmR0cyAgICAg
-ICAgICAgICAgIHwgMSAtCj4gIGFyY2gvYXJtL2Jvb3QvZHRzL2JjbTQ3MDk0LWFzdXMtcnQtYWM4
-OHUuZHRzICAgICAgICAgICAgICB8IDMgLS0tCj4gIGFyY2gvYXJtL2Jvb3QvZHRzL2JjbTQ3MDk0
-LWRsaW5rLWRpci04ODVsLmR0cyAgICAgICAgICAgICB8IDEgLQo+ICBhcmNoL2FybS9ib290L2R0
-cy9iY200NzA5NC1saW5rc3lzLXBhbmFtZXJhLmR0cyAgICAgICAgICAgfCA0IC0tLS0KPiAgYXJj
-aC9hcm0vYm9vdC9kdHMvYmNtNDcwOTQtbHV4dWwtYWJyLTQ1MDAuZHRzICAgICAgICAgICAgIHwg
-MSAtCj4gIGFyY2gvYXJtL2Jvb3QvZHRzL2JjbTQ3MDk0LWx1eHVsLXhhcC0xNjEwLmR0cyAgICAg
-ICAgICAgICB8IDEgLQo+ICBhcmNoL2FybS9ib290L2R0cy9iY200NzA5NC1sdXh1bC14YnItNDUw
-MC5kdHMgICAgICAgICAgICAgfCAxIC0KPiAgYXJjaC9hcm0vYm9vdC9kdHMvYmNtNDcwOTQtbHV4
-dWwteHdjLTIwMDAuZHRzICAgICAgICAgICAgIHwgMSAtCj4gIGFyY2gvYXJtL2Jvb3QvZHRzL2Jj
-bTQ3MDk0LWx1eHVsLXh3ci0zMTAwLmR0cyAgICAgICAgICAgICB8IDEgLQo+ICBhcmNoL2FybS9i
-b290L2R0cy9iY200NzA5NC1sdXh1bC14d3ItMzE1MC12MS5kdHMgICAgICAgICAgfCAxIC0KPiAg
-YXJjaC9hcm0vYm9vdC9kdHMvYmNtNDcxODktdGVuZGEtYWM5LmR0cyAgICAgICAgICAgICAgICAg
-IHwgMSAtCj4gIGFyY2gvYXJtL2Jvb3QvZHRzL2JjbTUzMDE1LW1lcmFraS1tcjI2LmR0cyAgICAg
-ICAgICAgICAgICB8IDEgLQo+ICBhcmNoL2FybS9ib290L2R0cy9iY201MzAxNi1tZXJha2ktbXIz
-Mi5kdHMgICAgICAgICAgICAgICAgfCAxIC0KPiAgYXJjaC9hcm0vYm9vdC9kdHMvYmNtOTUzMDEy
-ZXIuZHRzICAgICAgICAgICAgICAgICAgICAgICAgIHwgMSAtCj4gIGFyY2gvYXJtL2Jvb3QvZHRz
-L2JjbTk1ODYyMmhyLmR0cyAgICAgICAgICAgICAgICAgICAgICAgICB8IDEgLQo+ICBhcmNoL2Fy
-bS9ib290L2R0cy9iY205NTg2MjNoci5kdHMgICAgICAgICAgICAgICAgICAgICAgICAgfCAxIC0K
-PiAgYXJjaC9hcm0vYm9vdC9kdHMvYmNtOTU4NjI1aHIuZHRzICAgICAgICAgICAgICAgICAgICAg
-ICAgIHwgMSAtCj4gIGFyY2gvYXJtL2Jvb3QvZHRzL2JjbTk1ODYyNWsuZHRzICAgICAgICAgICAg
-ICAgICAgICAgICAgICB8IDEgLQo+ICBhcmNoL2FybS9ib290L2R0cy9iY205ODgzMTJoci5kdHMg
-ICAgICAgICAgICAgICAgICAgICAgICAgfCAxIC0KPiAgYXJjaC9hcm0vYm9vdC9kdHMvZ2VtaW5p
-LWRsaW5rLWRpci02ODUuZHRzICAgICAgICAgICAgICAgIHwgMSAtCj4gIGFyY2gvYXJtL2Jvb3Qv
-ZHRzL2dlbWluaS1zbDkzNTEyci5kdHMgICAgICAgICAgICAgICAgICAgICB8IDEgLQo+ICBhcmNo
-L2FybS9ib290L2R0cy9nZW1pbmktc3EyMDEuZHRzICAgICAgICAgICAgICAgICAgICAgICAgfCAx
-IC0KPiAgYXJjaC9hcm0vYm9vdC9kdHMvaW14NTEtemlpLXJkdTEuZHRzICAgICAgICAgICAgICAg
-ICAgICAgIHwgMSAtCj4gIGFyY2gvYXJtL2Jvb3QvZHRzL2lteDUxLXppaS1zY3UyLW1lenouZHRz
-ICAgICAgICAgICAgICAgICB8IDEgLQo+ICBhcmNoL2FybS9ib290L2R0cy9pbXg1MS16aWktc2N1
-My1lc2IuZHRzICAgICAgICAgICAgICAgICAgfCAxIC0KPiAgYXJjaC9hcm0vYm9vdC9kdHMvaW14
-NTMta3AtaHNjLmR0cyAgICAgICAgICAgICAgICAgICAgICAgIHwgMSAtCj4gIGFyY2gvYXJtL2Jv
-b3QvZHRzL2lteDZkbC15YXBwNC1jb21tb24uZHRzaSAgICAgICAgICAgICAgICB8IDEgLQo+ICBh
-cmNoL2FybS9ib290L2R0cy9pbXg2cS1iNDUwdjMuZHRzICAgICAgICAgICAgICAgICAgICAgICAg
-fCAxIC0KPiAgYXJjaC9hcm0vYm9vdC9kdHMvaW14NnEtYjY1MHYzLmR0cyAgICAgICAgICAgICAg
-ICAgICAgICAgIHwgMSAtCj4gIGFyY2gvYXJtL2Jvb3QvZHRzL2lteDZxLWI4NTB2My5kdHMgICAg
-ICAgICAgICAgICAgICAgICAgICB8IDEgLQo+ICBhcmNoL2FybS9ib290L2R0cy9pbXg2cWRsLWd3
-NTkwNC5kdHNpICAgICAgICAgICAgICAgICAgICAgfCAxIC0KPiAgYXJjaC9hcm0vYm9vdC9kdHMv
-aW14NnFkbC1za292LWNwdS5kdHNpICAgICAgICAgICAgICAgICAgIHwgMSAtCj4gIGFyY2gvYXJt
-L2Jvb3QvZHRzL2lteDZxZGwtemlpLXJkdTIuZHRzaSAgICAgICAgICAgICAgICAgICB8IDEgLQo+
-ICBhcmNoL2FybS9ib290L2R0cy9pbXg2cXAtcHJ0d2QzLmR0cyAgICAgICAgICAgICAgICAgICAg
-ICAgfCAxIC0KPiAgYXJjaC9hcm0vYm9vdC9kdHMvaW14N2QtemlpLXJwdTIuZHRzICAgICAgICAg
-ICAgICAgICAgICAgIHwgMSAtCj4gIGFyY2gvYXJtL2Jvb3QvZHRzL2tpcmt3b29kLWRpcjY2NS5k
-dHMgICAgICAgICAgICAgICAgICAgICB8IDEgLQo+ICBhcmNoL2FybS9ib290L2R0cy9raXJrd29v
-ZC1sLTUwLmR0cyAgICAgICAgICAgICAgICAgICAgICAgfCAxIC0KPiAgYXJjaC9hcm0vYm9vdC9k
-dHMva2lya3dvb2QtbGlua3N5cy12aXBlci5kdHMgICAgICAgICAgICAgIHwgMSAtCj4gIGFyY2gv
-YXJtL2Jvb3QvZHRzL2tpcmt3b29kLW12ODhmNjI4MWd0dy1nZS5kdHMgICAgICAgICAgICB8IDEg
-LQo+ICBhcmNoL2FybS9ib290L2R0cy9raXJrd29vZC1yZDg4ZjYyODEuZHRzaSAgICAgICAgICAg
-ICAgICAgfCAxIC0KPiAgYXJjaC9hcm0vYm9vdC9kdHMvbXQ3NjIzYS1yZmItZW1tYy5kdHMgICAg
-ICAgICAgICAgICAgICAgIHwgMSAtCj4gIGFyY2gvYXJtL2Jvb3QvZHRzL210NzYyM2EtcmZiLW5h
-bmQuZHRzICAgICAgICAgICAgICAgICAgICB8IDEgLQo+ICBhcmNoL2FybS9ib290L2R0cy9tdDc2
-MjNuLWJhbmFuYXBpLWJwaS1yMi5kdHMgICAgICAgICAgICAgfCAxIC0KPiAgYXJjaC9hcm0vYm9v
-dC9kdHMvbXQ3NjIzbi1yZmItZW1tYy5kdHMgICAgICAgICAgICAgICAgICAgIHwgMSAtCj4gIGFy
-Y2gvYXJtL2Jvb3QvZHRzL29yaW9uNXgtbmV0Z2Vhci13bnI4NTR0LmR0cyAgICAgICAgICAgICB8
-IDEgLQo+ICBhcmNoL2FybS9ib290L2R0cy9xY29tLWlwcTgwNjQtcmIzMDExLmR0cyAgICAgICAg
-ICAgICAgICAgfCAyIC0tCj4gIGFyY2gvYXJtL2Jvb3QvZHRzL3I5YTA2ZzAzMi5kdHNpICAgICAg
-ICAgICAgICAgICAgICAgICAgICB8IDEgLQo+ICBhcmNoL2FybS9ib290L2R0cy9zdG0zMm1wMTUx
-YS1wcnR0MWMuZHRzICAgICAgICAgICAgICAgICAgfCAxIC0KPiAgYXJjaC9hcm0vYm9vdC9kdHMv
-c3VuN2ktYTIwLWxhbW9iby1yMS5kdHMgICAgICAgICAgICAgICAgIHwgMSAtCgpGb3Igc3VuN2k6
-CgpBY2tlZC1ieTogSmVybmVqIFNrcmFiZWMgPGplcm5lai5za3JhYmVjQGdtYWlsLmNvbT4KCkJl
-c3QgcmVnYXJkcywKSmVybmVqCgo+ICBhcmNoL2FybS9ib290L2R0cy92ZjYxMC16aWktY2Z1MS5k
-dHMgICAgICAgICAgICAgICAgICAgICAgfCAxIC0KPiAgYXJjaC9hcm0vYm9vdC9kdHMvdmY2MTAt
-emlpLWRldi1yZXYtYi5kdHMgICAgICAgICAgICAgICAgIHwgMSAtCj4gIGFyY2gvYXJtL2Jvb3Qv
-ZHRzL3ZmNjEwLXppaS1kZXYtcmV2LWMuZHRzICAgICAgICAgICAgICAgICB8IDEgLQo+ICBhcmNo
-L2FybS9ib290L2R0cy92ZjYxMC16aWktc2N1NC1haWIuZHRzICAgICAgICAgICAgICAgICAgfCAx
-IC0KPiAgYXJjaC9hcm0vYm9vdC9kdHMvdmY2MTAtemlpLXNwYjQuZHRzICAgICAgICAgICAgICAg
-ICAgICAgIHwgMSAtCj4gIGFyY2gvYXJtL2Jvb3QvZHRzL3ZmNjEwLXppaS1zc21iLWR0dS5kdHMg
-ICAgICAgICAgICAgICAgICB8IDEgLQo+ICBhcmNoL2FybS9ib290L2R0cy92ZjYxMC16aWktc3Nt
-Yi1zcHUzLmR0cyAgICAgICAgICAgICAgICAgfCAxIC0KPiAgNzUgZmlsZXMgY2hhbmdlZCwgODEg
-ZGVsZXRpb25zKC0pCgoKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFu
-LnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWls
-bWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+Dne sreda, 30. november 2022 ob 16:21:38 CET je Uwe Kleine-K=F6nig napisal(=
+a):
+> .get_state() might fail in some cases. To make it possible that a driver
+> signals such a failure change the prototype of .get_state() to return an
+> error code.
+> =
+
+> This patch was created using coccinelle and the following semantic patch:
+> =
+
+> @p1@
+> identifier getstatefunc;
+> identifier driver;
+> @@
+>  struct pwm_ops driver =3D {
+>         ...,
+>         .get_state =3D getstatefunc
+>         ,...
+>  };
+> =
+
+> @p2@
+> identifier p1.getstatefunc;
+> identifier chip, pwm, state;
+> @@
+> -void
+> +int
+>  getstatefunc(struct pwm_chip *chip, struct pwm_device *pwm, struct
+> pwm_state *state) {
+>    ...
+> -  return;
+> +  return 0;
+>    ...
+>  }
+> =
+
+> plus the actual change of the prototype in include/linux/pwm.h (plus some
+> manual fixing of indentions and empty lines).
+> =
+
+> So for now all drivers return success unconditionally. They are adapted
+> in the following patches to make the changes easier reviewable.
+> =
+
+> Signed-off-by: Uwe Kleine-K=F6nig <u.kleine-koenig@pengutronix.de>
+> ---
+>  drivers/gpio/gpio-mvebu.c             |  9 ++++++---
+>  drivers/gpu/drm/bridge/ti-sn65dsi86.c | 14 ++++++++------
+>  drivers/leds/rgb/leds-qcom-lpg.c      | 14 ++++++++------
+>  drivers/pwm/pwm-atmel.c               |  6 ++++--
+>  drivers/pwm/pwm-bcm-iproc.c           |  8 +++++---
+>  drivers/pwm/pwm-crc.c                 | 10 ++++++----
+>  drivers/pwm/pwm-cros-ec.c             |  8 +++++---
+>  drivers/pwm/pwm-dwc.c                 |  6 ++++--
+>  drivers/pwm/pwm-hibvt.c               |  6 ++++--
+>  drivers/pwm/pwm-imx-tpm.c             |  8 +++++---
+>  drivers/pwm/pwm-imx27.c               |  8 +++++---
+>  drivers/pwm/pwm-intel-lgm.c           |  6 ++++--
+>  drivers/pwm/pwm-iqs620a.c             |  6 ++++--
+>  drivers/pwm/pwm-keembay.c             |  6 ++++--
+>  drivers/pwm/pwm-lpss.c                |  6 ++++--
+>  drivers/pwm/pwm-meson.c               |  8 +++++---
+>  drivers/pwm/pwm-mtk-disp.c            | 12 +++++++-----
+>  drivers/pwm/pwm-pca9685.c             |  8 +++++---
+>  drivers/pwm/pwm-raspberrypi-poe.c     |  8 +++++---
+>  drivers/pwm/pwm-rockchip.c            | 12 +++++++-----
+>  drivers/pwm/pwm-sifive.c              |  6 ++++--
+>  drivers/pwm/pwm-sl28cpld.c            |  8 +++++---
+>  drivers/pwm/pwm-sprd.c                |  8 +++++---
+>  drivers/pwm/pwm-stm32-lp.c            |  8 +++++---
+>  drivers/pwm/pwm-sun4i.c               | 12 +++++++-----
+>  drivers/pwm/pwm-sunplus.c             |  6 ++++--
+>  drivers/pwm/pwm-visconti.c            |  6 ++++--
+>  drivers/pwm/pwm-xilinx.c              |  8 +++++---
+>  include/linux/pwm.h                   |  4 ++--
+>  29 files changed, 146 insertions(+), 89 deletions(-)
+> =
+
+<snip>
+> diff --git a/drivers/pwm/pwm-sun4i.c b/drivers/pwm/pwm-sun4i.c
+> index c8445b0a3339..37d75e252d4e 100644
+> --- a/drivers/pwm/pwm-sun4i.c
+> +++ b/drivers/pwm/pwm-sun4i.c
+> @@ -108,9 +108,9 @@ static inline void sun4i_pwm_writel(struct
+> sun4i_pwm_chip *chip, writel(val, chip->base + offset);
+>  }
+> =
+
+> -static void sun4i_pwm_get_state(struct pwm_chip *chip,
+> -				struct pwm_device *pwm,
+> -				struct pwm_state *state)
+> +static int sun4i_pwm_get_state(struct pwm_chip *chip,
+> +			       struct pwm_device *pwm,
+> +			       struct pwm_state *state)
+>  {
+>  	struct sun4i_pwm_chip *sun4i_pwm =3D to_sun4i_pwm_chip(chip);
+>  	u64 clk_rate, tmp;
+> @@ -132,7 +132,7 @@ static void sun4i_pwm_get_state(struct pwm_chip *chip,
+>  		state->duty_cycle =3D DIV_ROUND_UP_ULL(state->period, 2);
+>  		state->polarity =3D PWM_POLARITY_NORMAL;
+>  		state->enabled =3D true;
+> -		return;
+> +		return 0;
+>  	}
+> =
+
+>  	if ((PWM_REG_PRESCAL(val, pwm->hwpwm) =3D=3D PWM_PRESCAL_MASK) &&
+> @@ -142,7 +142,7 @@ static void sun4i_pwm_get_state(struct pwm_chip *chip,
+>  		prescaler =3D prescaler_table[PWM_REG_PRESCAL(val, pwm-
+>hwpwm)];
+> =
+
+>  	if (prescaler =3D=3D 0)
+> -		return;
+> +		return 0;
+> =
+
+>  	if (val & BIT_CH(PWM_ACT_STATE, pwm->hwpwm))
+>  		state->polarity =3D PWM_POLARITY_NORMAL;
+> @@ -162,6 +162,8 @@ static void sun4i_pwm_get_state(struct pwm_chip *chip,
+> =
+
+>  	tmp =3D (u64)prescaler * NSEC_PER_SEC * PWM_REG_PRD(val);
+>  	state->period =3D DIV_ROUND_CLOSEST_ULL(tmp, clk_rate);
+> +
+> +	return 0;
+>  }
+> =
+
+>  static int sun4i_pwm_calculate(struct sun4i_pwm_chip *sun4i_pwm,
+
+For sun4i:
+
+Acked-by: Jernej Skrabec <jernej.skrabec@gmail.com>
+
+Best regards,
+Jernej
+
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
