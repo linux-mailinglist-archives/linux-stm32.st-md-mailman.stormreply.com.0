@@ -2,66 +2,71 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D3C3C642835
-	for <lists+linux-stm32@lfdr.de>; Mon,  5 Dec 2022 13:16:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7E90E642931
+	for <lists+linux-stm32@lfdr.de>; Mon,  5 Dec 2022 14:20:37 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7A067C65E60;
-	Mon,  5 Dec 2022 12:16:51 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 04876C65E60;
+	Mon,  5 Dec 2022 13:20:37 +0000 (UTC)
+Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com
+ [209.85.216.50])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 62958C6507A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 82D59C65067
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  5 Dec 2022 12:16:49 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 2B594xpw016578; Mon, 5 Dec 2022 13:16:34 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-transfer-encoding : content-type; s=selector1;
- bh=TE8kgMkS8P48PYvVfYBZGE8EaQXjdKM/5irrozXYxeU=;
- b=LIrVfrceIQaYBFEBWJCbjISnp0Uqtw+lSbBiNMVOn3CpQGfzcsdfjdAObgVwoDuXW6Qo
- alHd9LvSGjzAAVxoAxADlA2eBSGETmE0+uJrt0Tg+sImu8j8ht7Qc4pzw7OwFWPkWW8V
- qlt4v+eS70SgBtiwpfe/ZlgJHf5tn4PHiGLA7FMaE6x2+77y6KaD8cNxJzlb/7KToYxT
- e5IrbZTY36NX0t3luB6+X+MFqIU+rJBZePF63bhmYzEdtRfX5KffAwFqxdTgJyyHmPTF
- oxEpkSSb/C7GfA52sjVLP4gQt/3f2pnZC1bk/09we01oaOXNtlgbuYf+Rdq+VKQMPmc7 cQ== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3m7vfejdb2-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 05 Dec 2022 13:16:34 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id E23E3100038;
- Mon,  5 Dec 2022 13:16:29 +0100 (CET)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id DA92121ED31;
- Mon,  5 Dec 2022 13:16:29 +0100 (CET)
-Received: from localhost (10.201.20.178) by SHFDAG1NODE1.st.com (10.75.129.69)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.13; Mon, 5 Dec
- 2022 13:16:29 +0100
-From: Olivier Moysan <olivier.moysan@foss.st.com>
-To: Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski
- <krzysztof.kozlowski+dt@linaro.org>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-Date: Mon, 5 Dec 2022 13:16:02 +0100
-Message-ID: <20221205121602.17187-3-olivier.moysan@foss.st.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20221205121602.17187-1-olivier.moysan@foss.st.com>
-References: <20221205121602.17187-1-olivier.moysan@foss.st.com>
+ Mon,  5 Dec 2022 13:20:35 +0000 (UTC)
+Received: by mail-pj1-f50.google.com with SMTP id t17so11169070pjo.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 05 Dec 2022 05:20:35 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=baylibre-com.20210112.gappssmtp.com; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:references
+ :in-reply-to:subject:cc:to:from:from:to:cc:subject:date:message-id
+ :reply-to; bh=VttxQNRn5wLcDZe0QBlfyaPIZnI+zBiatgv1ExvlsSA=;
+ b=xSQoB37UuJKY4tgp5wdRFk+Jl7R8ZVhz7LrwXSbrbklLb9YmO/YJV3aWfjWuMzXxvj
+ omoun5S6Ud66T3ElLc81i5TsPhZoAR39ojH/1Wi5QSdttzgYrmTsy/M4lIBg/B3IOetD
+ h3immFNZ5DIsJUSfnVrO9h21CRqUHIJN/0LBiCEmBco61C1XqF4DCSnQhvABC3ephT/4
+ t6YCxd/sJ5lVnZo36pg543Hs6D6FRmWspx4S9qqt3OQQzZxATzMCC0hOnzJxbyH+GkjI
+ OHTDUczl1V59I2H72EN1VUfq/Tfhm3rHppWTPBzCK7D5gJz+f1cu9mH1cgy2xVjA5cdz
+ 6OFw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:references
+ :in-reply-to:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=VttxQNRn5wLcDZe0QBlfyaPIZnI+zBiatgv1ExvlsSA=;
+ b=hEG6Ofyuv41vHOe24dDtCdHP8svpldaeM76jyAY3+t97UDMB8ucsInAi1jvk/2NMtA
+ WptjX7acEdlfmpu9GV3pzez+MLFi5apvVWjVcFVZm3GtLAA808He92zF108VHbYTbCfH
+ /jBVbc0c/JgO/Dk3uk6iEwqL1Va7oADDwBv6U4j64xdDVEDA25+l3QBPU8XsbH+LtCwt
+ xTf44j2SKMGnD+DGVX5svb0xjzkY3nzCZs9WXKs5EqgbzVjumR2ERGj+IuyXMthfIs3b
+ BFwcVWogoOVXOL6+3Qa7xX3pMNok1pusGynSqnxnLOSJnvhTX2g4iiIiPtwrhj8NKDVW
+ ujYw==
+X-Gm-Message-State: ANoB5plcSjZqwps2E893yOmLmQ/hrhoh51XX8KjdyhiDImrRgn5bTPyx
+ sW2VDi5fIUgDfEsGqbXz/jDcAw==
+X-Google-Smtp-Source: AA0mqf4PU5MhibxptEdBYx/Cd3SYioOJVCBMu5pSY3SfrC83bIr+4Og81l5n1VthaeXFLy+b7Gr+uw==
+X-Received: by 2002:a17:90a:5298:b0:217:e054:9ac8 with SMTP id
+ w24-20020a17090a529800b00217e0549ac8mr96191538pjh.246.1670246434046; 
+ Mon, 05 Dec 2022 05:20:34 -0800 (PST)
+Received: from localhost (63-228-113-140.tukw.qwest.net. [63.228.113.140])
+ by smtp.gmail.com with ESMTPSA id
+ p7-20020a170902780700b001899007a721sm10496368pll.193.2022.12.05.05.20.33
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 05 Dec 2022 05:20:33 -0800 (PST)
+From: Kevin Hilman <khilman@baylibre.com>
+To: matthias.bgg@gmail.com, Bernhard =?utf-8?Q?Rosenkr=C3=A4nzer?=
+ <bero@baylibre.com>, devicetree@vger.kernel.org
+In-Reply-To: <20221129023401.278780-6-bero@baylibre.com>
+References: <20221129023401.278780-1-bero@baylibre.com>
+ <20221129023401.278780-6-bero@baylibre.com>
+Date: Mon, 05 Dec 2022 05:20:32 -0800
+Message-ID: <7ho7si56n3.fsf@baylibre.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.201.20.178]
-X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE1.st.com
- (10.75.129.69)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.923,Hydra:6.0.545,FMLib:17.11.122.1
- definitions=2022-12-05_01,2022-12-05_01,2022-06-22_01
-Cc: devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: [Linux-stm32] [PATCH 2/2] ARM: dts: rename sound card on
-	stm32mp15xx-dkx
+Cc: linus.walleij@linaro.org, linux-kernel@vger.kernel.org,
+ linux-gpio@vger.kernel.org, krzysztof.kozlowski@linaro.org,
+ linux-mediatek@lists.infradead.org, mcoquelin.stm32@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ angelogioacchino.delregno@collabora.com
+Subject: Re: [Linux-stm32] [PATCH v3 5/7] arm64: dts: mediatek: Remove
+ pins-are-numbered property
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,39 +78,20 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Olivier Moysan <olivier.moysan@st.com>
-
-Rename the sound card for STM32MP15x DK boards to manage SoC
-diversity management. This typically allows to discriminate the
-sound cards for STM32MP15 and STM32MP13 SoCs.
-
-Signed-off-by: Olivier Moysan <olivier.moysan@st.com>
----
- arch/arm/boot/dts/stm32mp15xx-dkx.dtsi | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/arch/arm/boot/dts/stm32mp15xx-dkx.dtsi b/arch/arm/boot/dts/stm32mp15xx-dkx.dtsi
-index 8b9a39cd2698..11370ae0d868 100644
---- a/arch/arm/boot/dts/stm32mp15xx-dkx.dtsi
-+++ b/arch/arm/boot/dts/stm32mp15xx-dkx.dtsi
-@@ -72,7 +72,7 @@ led-blue {
- 
- 	sound {
- 		compatible = "audio-graph-card";
--		label = "STM32MP1-DK";
-+		label = "STM32MP15-DK";
- 		routing =
- 			"Playback" , "MCLK",
- 			"Capture" , "MCLK",
--- 
-2.25.1
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+TWF0dGhpYXMsCgpCZXJuaGFyZCBSb3Nlbmtyw6RuemVyIDxiZXJvQGJheWxpYnJlLmNvbT4gd3Jp
+dGVzOgoKPiBSZW1vdmUgdGhlIHVubmVjZXNzYXJ5IHBpbnMtYXJlLW51bWJlcmVkIHByb3BlcnR5
+IGZyb20KPiBhcm02NCBNZWRpYXRlayBEZXZpY2VUcmVlcwo+Cj4gU2lnbmVkLW9mZi1ieTogQmVy
+bmhhcmQgUm9zZW5rcsOkbnplciA8YmVyb0BiYXlsaWJyZS5jb20+Cj4gUmV2aWV3ZWQtYnk6IEFu
+Z2Vsb0dpb2FjY2hpbm8gRGVsIFJlZ25vIDxhbmdlbG9naW9hY2NoaW5vLmRlbHJlZ25vQGNvbGxh
+Ym9yYS5jb20+Cj4gQWNrZWQtYnk6IEtldmluIEhpbG1hbiA8a2hpbG1hbkBiYXlsaWJyZS5jb20+
+CgpOb3cgdGhhdCB0aGUgZHJpdmVyL2JpbmRpbmcgcGFydHMgYXJlIHF1ZXVlZCwgSSdtIGFzc3Vt
+aW5nIHlvdSdsbCB0YWtlIHRoaXMgcGF0Y2gKKGFuZCBwYXRjaCA2KSB2aWEgdGhlIG1lZGlhdGVr
+IHRyZWU/CgpUaGFua3MsCgpLZXZpbgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQt
+bWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5j
+b20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
