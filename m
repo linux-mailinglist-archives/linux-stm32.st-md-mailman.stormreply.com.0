@@ -2,72 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6E39E64381D
-	for <lists+linux-stm32@lfdr.de>; Mon,  5 Dec 2022 23:30:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 91615643B10
+	for <lists+linux-stm32@lfdr.de>; Tue,  6 Dec 2022 03:01:05 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1E3AFC65E63;
-	Mon,  5 Dec 2022 22:30:39 +0000 (UTC)
-Received: from jabberwock.ucw.cz (jabberwock.ucw.cz [46.255.230.98])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3F7CFC65E6E;
+	Tue,  6 Dec 2022 02:01:05 +0000 (UTC)
+Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E09C4C65E60
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 886CFC65E6B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  5 Dec 2022 22:30:37 +0000 (UTC)
-Received: by jabberwock.ucw.cz (Postfix, from userid 1017)
- id 73F5F1C09F4; Mon,  5 Dec 2022 23:30:36 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ucw.cz; s=gen1;
- t=1670279436;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=0beeeN3x4oja6CoA48n0dgddbavIjL+s5ouQp7TTWtU=;
- b=Glfr3eDW908ut8l8ZtyxnivFsAwFhKrd91OZ8Hn4B5DsYqkFacSwVHpMdO+0ZJbEke3io+
- rZJ6H6RfHZXL+x1iQ654lTF809RKZz+X/69jMIvQbgjOVGWGx/4uVo747OBUmRhyZzWmxv
- I6Gh8EjJUSygmU/FfosMXAkJOwmFGvg=
-Date: Mon, 5 Dec 2022 23:30:35 +0100
-From: Pavel Machek <pavel@ucw.cz>
-To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>
-Message-ID: <Y45xC/Gwhrr+fctN@duo.ucw.cz>
-References: <20221130152148.2769768-1-u.kleine-koenig@pengutronix.de>
- <20221130152148.2769768-2-u.kleine-koenig@pengutronix.de>
+ Tue,  6 Dec 2022 02:01:03 +0000 (UTC)
+X-UUID: 32c028dc49314c038d1f37c885e250da-20221206
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com;
+ s=dk; 
+ h=Content-Type:MIME-Version:Message-ID:Date:Subject:CC:To:From;
+ bh=h9vpf00nkT1FqhFNddOs6fidJI6QIuGaTmh82e2scfo=; 
+ b=eKCXcfCYpnwZnLsgUpdaTJK+/GSxsUCFfoKZaPX2SB9qxW+sxD7y2EpbXTr3v1ulYeHYucMXaEFNjNuvvEYG9OIDVh1f78q5P4KGOAf8CpeKVVwjdYVPyYgHCEGDbXvZOiK9I4drl3h+5sAQi3OZas5nfYhhVEdTiX6sOa0m+1Q=;
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.1.14, REQID:c9cfa8f4-47ac-4e5d-85bf-c661b89c0d10, IP:0,
+ U
+ RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+ release,TS:0
+X-CID-META: VersionHash:dcaaed0, CLOUDID:ec78a116-b863-49f8-8228-cbdfeedd1fa4,
+ B
+ ulkID:nil,BulkQuantity:0,Recheck:0,SF:102,TC:nil,Content:0,EDM:-3,IP:nil,U
+ RL:11|1,File:nil,Bulk:nil,QS:nil,BEC:nil,COL:0
+X-UUID: 32c028dc49314c038d1f37c885e250da-20221206
+Received: from mtkexhb02.mediatek.inc [(172.21.101.103)] by
+ mailgw01.mediatek.com (envelope-from <nathan.lu@mediatek.com>)
+ (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
+ with ESMTP id 1993151219; Tue, 06 Dec 2022 10:00:57 +0800
+Received: from mtkmbs13n1.mediatek.inc (172.21.101.193) by
+ mtkmbs13n1.mediatek.inc (172.21.101.193) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.792.15; Tue, 6 Dec 2022 10:00:55 +0800
+Received: from mtksdccf07.mediatek.inc (172.21.84.99) by
+ mtkmbs13n1.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
+ 15.2.792.15 via Frontend Transport; Tue, 6 Dec 2022 10:00:55 +0800
+From: nathan.lu <nathan.lu@mediatek.com>
+To: Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski
+ <krzysztof.kozlowski+dt@linaro.org>, Chun-Kuang Hu <chunkuang.hu@kernel.org>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, Matthias Brugger
+ <matthias.bgg@gmail.com>
+Date: Tue, 6 Dec 2022 10:00:40 +0800
+Message-ID: <20221206020046.11333-1-nathan.lu@mediatek.com>
+X-Mailer: git-send-email 2.18.0
 MIME-Version: 1.0
-In-Reply-To: <20221130152148.2769768-2-u.kleine-koenig@pengutronix.de>
-Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Heiko Stuebner <heiko@sntech.de>, Linus Walleij <linus.walleij@linaro.org>,
- dri-devel@lists.freedesktop.org, Nicolas Ferre <nicolas.ferre@microchip.com>,
- Conor Dooley <conor.dooley@microchip.com>,
- Thierry Reding <thierry.reding@gmail.com>,
- Satya Priya <quic_c_skakit@quicinc.com>, Guenter Roeck <groeck@chromium.org>,
- Nobuhiro Iwamatsu <nobuhiro1.iwamatsu@toshiba.co.jp>,
- Fabio Estevam <festevam@gmail.com>, linux-riscv@lists.infradead.org,
- linux-leds@vger.kernel.org, Jerome Brunet <jbrunet@baylibre.com>,
- chrome-platform@lists.linux.dev, Florian Fainelli <f.fainelli@gmail.com>,
- Samuel Holland <samuel@sholland.org>, Sean Anderson <sean.anderson@seco.com>,
- Kevin Hilman <khilman@baylibre.com>, Bartosz Golaszewski <brgl@bgdev.pl>,
- Michal Simek <michal.simek@xilinx.com>,
- linux-stm32@st-md-mailman.stormreply.com, Hammer Hsieh <hammerh0314@gmail.com>,
- linux-rockchip@lists.infradead.org, Chen-Yu Tsai <wens@csie.org>,
- Matthias Kaehlcke <mka@chromium.org>,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
- NXP Linux Team <linux-imx@nxp.com>, Orson Zhai <orsonzhai@gmail.com>,
- linux-sunxi@lists.linux.dev, linux-pwm@vger.kernel.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Ray Jui <rjui@broadcom.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- Stephen Boyd <swboyd@chromium.org>, linux-gpio@vger.kernel.org,
- linux-mediatek@lists.infradead.org, linux-rpi-kernel@lists.infradead.org,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Paul Walmsley <paul.walmsley@sifive.com>,
- Matthias Brugger <matthias.bgg@gmail.com>, linux-amlogic@lists.infradead.org,
- Benson Leung <bleung@chromium.org>, linux-arm-kernel@lists.infradead.org,
- Scott Branden <sbranden@broadcom.com>, Bjorn Andersson <andersson@kernel.org>,
- Douglas Anderson <dianders@chromium.org>, Michael Walle <michael@walle.cc>,
- Palmer Dabbelt <palmer@dabbelt.com>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Chunyan Zhang <zhang.lyra@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
- Claudiu Beznea <claudiu.beznea@microchip.com>
-Subject: Re: [Linux-stm32] [PATCH v2 01/11] pwm: Make .get_state() callback
- return an error code
+X-MTK: N
+Cc: Nathan Lu <nathan.lu@mediatek.com>, devicetree@vger.kernel.org,
+ "jason-jh . lin" <jason-jh.lin@mediatek.com>, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org,
+ Project_Global_Chrome_Upstream_Group@mediatek.com,
+ Rex-BC Chen <rex-bc.chen@mediatek.com>, Moudy Ho <moudy.ho@mediatek.com>,
+ linux-mediatek@lists.infradead.org, CK Hu <ck.hu@mediatek.com>,
+ lancelot.wu@mediatek.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Subject: [Linux-stm32] [PATCH v4 0/6] Add first version mt8188 vdosys0 driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,160 +73,80 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============2261364040442922043=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+From: Nathan Lu <nathan.lu@mediatek.com>
 
---===============2261364040442922043==
-Content-Type: multipart/signed; micalg=pgp-sha1;
-	protocol="application/pgp-signature"; boundary="ZBm0pYJnT4srarSL"
-Content-Disposition: inline
+This patch is to add first version mt8188 vdosys0 driver
+Modify and add new files include:
+1. bindings documents
+2. mtk mmsys
+3. mtk mutex
+4. mtk drm driver
+
+Change in V4:
+- based on [1]
+[1] Change mmsys compatible for mt8195 mediatek-drm
+    - https://patchwork.kernel.org/project/linux-mediatek/list/?series=699386
+- Modify mediatek,mmsys.yaml, move mt8188-vdosys0 to ****mmsys
+- Modify mt8188_mmsysy.h DSI mux setting
+
+Change in V3:
+- based on [1]
+[1] Change mmsys compatible for mt8195 mediatek-drm
+    - https://patchwork.kernel.org/project/linux-mediatek/list/?series=699386
+- Modify mediatek,mmsys.yaml mt8188-mmsys name to mt8188-vdosys0
+- Modify mtk-mmsys.c compatible name to mt8188-vdosys0
+- Add DSI mutex in mtk-mutex.c
+- Modify mtk_drm_drv.c mt8188-mmsysy name to mt8188-vdosys0
 
 
---ZBm0pYJnT4srarSL
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Change in V2:
+- based on [2] and [3]
+[2] Add MediaTek SoC(vdosys1) support for mt8195
+    - https://patchwork.kernel.org/project/linux-mediatek/list/?series=658416
+[3] Add MediaTek SoC DRM (vdosys1) support for mt8195
+    - https://patchwork.kernel.org/project/linux-mediatek/list/?series=665269
+- Seperate bindings doucment into mmsys/mutex/display 3 parts
+- Remove redundent char in mediatek,gamma.yaml
+- Add another mediatek,mt8188-disp-rdma in mediatek,rdma.yaml
+- Remove io_start variable setting in mtk_drm_drv.c and mtk_mmsys.c
 
-Hi!
+Nathan Lu (6):
+  dt-bindings: mediatek: modify VDOSYS0 display device tree
+    Documentations for MT8188
+  dt-bindings: mediatek: modify VDOSYS0 mmsys device tree Documentations
+    for MT8188
+  dt-bindings: mediatek: modify VDOSYS0 mutex device tree Documentations
+    for MT8188
+  soc: mediatek: add mtk-mmsys support for mt8188 vdosys0
+  soc: mediatek: add mtk-mutex support for mt8188 vdosys0
+  drm/mediatek: add mediatek-drm of vdosys0 support for mt8188
 
-> .get_state() might fail in some cases. To make it possible that a driver
-> signals such a failure change the prototype of .get_state() to return an
-> error code.
->=20
-> This patch was created using coccinelle and the following semantic patch:
->=20
-> @p1@
-> identifier getstatefunc;
-> identifier driver;
-> @@
->  struct pwm_ops driver =3D {
->         ...,
->         .get_state =3D getstatefunc
->         ,...
->  };
->=20
-> @p2@
-> identifier p1.getstatefunc;
-> identifier chip, pwm, state;
-> @@
-> -void
-> +int
->  getstatefunc(struct pwm_chip *chip, struct pwm_device *pwm, struct pwm_s=
-tate *state)
->  {
->    ...
-> -  return;
-> +  return 0;
->    ...
->  }
->=20
-> plus the actual change of the prototype in include/linux/pwm.h (plus some
-> manual fixing of indentions and empty lines).
->=20
-> So for now all drivers return success unconditionally. They are adapted
-> in the following patches to make the changes easier reviewable.
->=20
-> Signed-off-by: Uwe Kleine-K=F6nig <u.kleine-koenig@pengutronix.de>
+ .../bindings/arm/mediatek/mediatek,mmsys.yaml |   1 +
+ .../display/mediatek/mediatek,aal.yaml        |   1 +
+ .../display/mediatek/mediatek,ccorr.yaml      |   1 +
+ .../display/mediatek/mediatek,color.yaml      |   1 +
+ .../display/mediatek/mediatek,dither.yaml     |   1 +
+ .../display/mediatek/mediatek,gamma.yaml      |   1 +
+ .../display/mediatek/mediatek,ovl.yaml        |   1 +
+ .../display/mediatek/mediatek,postmask.yaml   |   1 +
+ .../display/mediatek/mediatek,rdma.yaml       |   4 +
+ .../bindings/soc/mediatek/mediatek,mutex.yaml |   1 +
+ drivers/gpu/drm/mediatek/mtk_drm_drv.c        |  21 +++
+ drivers/soc/mediatek/mt8188-mmsys.h           | 149 ++++++++++++++++++
+ drivers/soc/mediatek/mtk-mmsys.c              |  11 ++
+ drivers/soc/mediatek/mtk-mutex.c              |  53 +++++++
+ 14 files changed, 247 insertions(+)
+ create mode 100644 drivers/soc/mediatek/mt8188-mmsys.h
 
-LED part:
-
-Acked-by: Pavel Machek <pavel@ucw.cz>
-
-Best regards,
-							Pavel
-
->  static const struct pwm_ops ti_sn_pwm_ops =3D {
-> diff --git a/drivers/leds/rgb/leds-qcom-lpg.c b/drivers/leds/rgb/leds-qco=
-m-lpg.c
-> index 02f51cc61837..741cc2fd817d 100644
-> --- a/drivers/leds/rgb/leds-qcom-lpg.c
-> +++ b/drivers/leds/rgb/leds-qcom-lpg.c
-> @@ -968,8 +968,8 @@ static int lpg_pwm_apply(struct pwm_chip *chip, struc=
-t pwm_device *pwm,
->  	return ret;
->  }
-> =20
-> -static void lpg_pwm_get_state(struct pwm_chip *chip, struct pwm_device *=
-pwm,
-> -			      struct pwm_state *state)
-> +static int lpg_pwm_get_state(struct pwm_chip *chip, struct pwm_device *p=
-wm,
-> +			     struct pwm_state *state)
->  {
->  	struct lpg *lpg =3D container_of(chip, struct lpg, pwm);
->  	struct lpg_channel *chan =3D &lpg->channels[pwm->hwpwm];
-> @@ -982,20 +982,20 @@ static void lpg_pwm_get_state(struct pwm_chip *chip=
-, struct pwm_device *pwm,
-> =20
->  	ret =3D regmap_read(lpg->map, chan->base + LPG_SIZE_CLK_REG, &val);
->  	if (ret)
-> -		return;
-> +		return 0;
-> =20
->  	refclk =3D lpg_clk_rates[val & PWM_CLK_SELECT_MASK];
->  	if (refclk) {
->  		ret =3D regmap_read(lpg->map, chan->base + LPG_PREDIV_CLK_REG, &val);
->  		if (ret)
-> -			return;
-> +			return 0;
-> =20
->  		pre_div =3D lpg_pre_divs[FIELD_GET(PWM_FREQ_PRE_DIV_MASK, val)];
->  		m =3D FIELD_GET(PWM_FREQ_EXP_MASK, val);
-> =20
->  		ret =3D regmap_bulk_read(lpg->map, chan->base + PWM_VALUE_REG, &pwm_va=
-lue, sizeof(pwm_value));
->  		if (ret)
-> -			return;
-> +			return 0;
-> =20
->  		state->period =3D DIV_ROUND_UP_ULL((u64)NSEC_PER_SEC * LPG_RESOLUTION =
-* pre_div * (1 << m), refclk);
->  		state->duty_cycle =3D DIV_ROUND_UP_ULL((u64)NSEC_PER_SEC * pwm_value *=
- pre_div * (1 << m), refclk);
-> @@ -1006,13 +1006,15 @@ static void lpg_pwm_get_state(struct pwm_chip *ch=
-ip, struct pwm_device *pwm,
-> =20
->  	ret =3D regmap_read(lpg->map, chan->base + PWM_ENABLE_CONTROL_REG, &val=
-);
->  	if (ret)
-> -		return;
-> +		return 0;
-> =20
->  	state->enabled =3D FIELD_GET(LPG_ENABLE_CONTROL_OUTPUT, val);
->  	state->polarity =3D PWM_POLARITY_NORMAL;
-> =20
->  	if (state->duty_cycle > state->period)
->  		state->duty_cycle =3D state->period;
-> +
-> +	return 0;
->  }
-
---=20
-People of Russia, stop Putin before his war on Ukraine escalates.
-
---ZBm0pYJnT4srarSL
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iF0EABECAB0WIQRPfPO7r0eAhk010v0w5/Bqldv68gUCY45xCwAKCRAw5/Bqldv6
-8qEdAKCcIFDwtp8cJpPtW1EpTb0IJOYYKwCdGtyKdQYCFKVLwV+BGw7lryK0MC8=
-=gb+Q
------END PGP SIGNATURE-----
-
---ZBm0pYJnT4srarSL--
-
---===============2261364040442922043==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+-- 
+2.18.0
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============2261364040442922043==--
