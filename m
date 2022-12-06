@@ -2,83 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2346B644842
-	for <lists+linux-stm32@lfdr.de>; Tue,  6 Dec 2022 16:45:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 32681644921
+	for <lists+linux-stm32@lfdr.de>; Tue,  6 Dec 2022 17:25:35 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B704DC65E6C;
-	Tue,  6 Dec 2022 15:45:09 +0000 (UTC)
-Received: from mail-lf1-f44.google.com (mail-lf1-f44.google.com
- [209.85.167.44])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D4637C65E6C;
+	Tue,  6 Dec 2022 16:25:34 +0000 (UTC)
+Received: from mail-oi1-f169.google.com (mail-oi1-f169.google.com
+ [209.85.167.169])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A5A2DC65E5D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3B9A8C65E5D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  6 Dec 2022 15:45:08 +0000 (UTC)
-Received: by mail-lf1-f44.google.com with SMTP id p8so24283982lfu.11
+ Tue,  6 Dec 2022 16:25:33 +0000 (UTC)
+Received: by mail-oi1-f169.google.com with SMTP id h132so17498733oif.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 06 Dec 2022 07:45:08 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=lNf0oPz1+3JYITF+uARI5oqprCns7og7GMeWkwgQOfc=;
- b=Kx8saFYoHs97DPlt7rrWo2mlAeMwmhdrZXHcU6ApGZvCEcPzi+fsL29ZykBAdUog/p
- 4RhjCcy+vvcGMq5PQyQA7TSNYry9E+K3FGHTw8SpdUT4WGFAOtEqVhtysayPFRJlxqOs
- dPbdVzjGH4w7YTBIKP69tRClDuUpWxwP60LHj5r3/rtPtf31XDHArnKPYS4DhO00wKRn
- +7e5S05nSpyz6sFoVtz9C7uRJj0P8kFprLbiwFBfFO/INtdatDSMEBGkPsmco4XMgMtN
- x+QVEirO8ZUBFE4h1OAclT2O5ukRBq1bzdNO5EQ3j1uDU63bACCnKe6NYtqG9+khx8Ld
- xIcA==
+ Tue, 06 Dec 2022 08:25:33 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=baylibre-com.20210112.gappssmtp.com; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=/ais45k9vzwCVRwJ6whVGyw5sNpBkvpT+u93PldECuY=;
+ b=SJXK9Njs3/WtQdYO1n5tuMWFnm8eLIT/BZjadd4iLnQyhAXZ8ONXFwPHzYKYFKmvRY
+ RUbmsPRvmSN+4oRKBXgX6i4ctkwgVYGNtMm2wdZFidfCSaQ/DQ5AEL6FMxUl0f7Vqi/N
+ T0dFcibaJyb7eo5g6dZzXHexJ1NL2vz4ACpEiBj9q+fnBYHC2WM/yLNoY640QEfGORVL
+ q3dXAZiHthjklcd02ga4DtsYdCLhAJK+YRTSkfjhD91SGLZT+gmG1wBYXQfyNTybrdWy
+ 1ej3vsNkXbAOc2pSxX2XFUQEI92czeXwYRrMKtznQZsR9SW0y3QbuZ+2/3P50aDtpYBQ
+ 0zvg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=lNf0oPz1+3JYITF+uARI5oqprCns7og7GMeWkwgQOfc=;
- b=G6AndQC1ejPoo24zewGxIZ1C5l8O6BCamy9ClIjn550HQA6xPBde6MTrSXCbfXv8Yg
- C3KIc0fUbnghOhNohnEIKAqHgdC0vu8eMwKOThsR0g9ag6lsawkPVGbMS8VSFA+xopJO
- gBYjCscOQbJc9nVPqsG7B+5rG1xnufUGziTwJv+5BPWr8pEq5GFhscuZQXJYTPJwG2YM
- wlu9i0Admmadsc+5GOhBjU0mVJyOX+wobrRkMmxPJl4fHyXiPNTp82A8HbRB0WwE9im3
- f8uWuZvJI8XvgtCi87nRzilMM6RA+gxHrGP4LXk/tw1E+w2KYt7Ttsykwgs8MByE7dUT
- A1yw==
-X-Gm-Message-State: ANoB5pnvoBgDxZ52kmlfEyfTshEBbLaNmaOFuQl5cA7mt43ALnLqrDXa
- rppaRGz4Hur7vSWKqyWLRLcGUg==
-X-Google-Smtp-Source: AA0mqf5Jh+Dt9wCImCiy9pkyTRtPnrr1eJHFTxSsl5fLdur/tl5B+TujlU7R0CiZRMeh4aFTfnhVGA==
-X-Received: by 2002:ac2:4e0a:0:b0:4a2:2aab:5460 with SMTP id
- e10-20020ac24e0a000000b004a22aab5460mr22854399lfr.62.1670341507919; 
- Tue, 06 Dec 2022 07:45:07 -0800 (PST)
-Received: from [192.168.0.20]
- (088156142067.dynamic-2-waw-k-3-2-0.vectranet.pl. [88.156.142.67])
- by smtp.gmail.com with ESMTPSA id
- v5-20020ac258e5000000b00492ea54beeasm2518454lfo.306.2022.12.06.07.45.06
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 06 Dec 2022 07:45:07 -0800 (PST)
-Message-ID: <d17bef48-0804-3ccc-a14e-9043ae615573@linaro.org>
-Date: Tue, 6 Dec 2022 16:45:06 +0100
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=/ais45k9vzwCVRwJ6whVGyw5sNpBkvpT+u93PldECuY=;
+ b=FBVv5VUyPCC4qTtq/T1KkQhN9OdRcL8vuvhizeic0jNkgCLRB8f4VjK8ONofmAl62J
+ AgPXLbPrb/i1rDpikQQQg299zz33wGaDcSMzGf2Vq9pavT47eB9Tup226K9PU+Y3JUUw
+ O5ZvYzvb6NnRyoK+gF3zsTPb1GEqZ1SdkB5krh7Dy+dV3N/JeZsNsK8hDI12d5AFiWi1
+ /VJjEZK1AAAYHxPdF0PpVmWa4DU0EJI2FPul8o6Sv+bn0gWZqKahX1PCpA/cR2FXrGc5
+ X7w93mYbEAAnAGBpRnhQnhX/7j+705Vh4V6WH0XxdaJyJss93ViBzNsfpNDo50IlCVJT
+ ZcLg==
+X-Gm-Message-State: ANoB5pln7wuO89Qkz8utqS2LMmJzWpZnsoNcoJHh2gqCusTDGO3OBMml
+ fNKh+GU8vdYP63fc1ZIXOsGFPjO7tv/t4gEOZOxKAQ==
+X-Google-Smtp-Source: AA0mqf7slrigjIb2YU0eOuwcUhtuWW55HhFXBRbOprBZ/PpE0rScnzOSK1B/21a3d6JGXEaZoNeytI+ZqJu+h+XBOmM=
+X-Received: by 2002:aca:de45:0:b0:354:58db:8639 with SMTP id
+ v66-20020acade45000000b0035458db8639mr32339713oig.152.1670343932030; Tue, 06
+ Dec 2022 08:25:32 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.5.1
-Content-Language: en-US
-To: "nathan.lu" <nathan.lu@mediatek.com>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Chun-Kuang Hu <chunkuang.hu@kernel.org>,
- Philipp Zabel <p.zabel@pengutronix.de>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>, Alexandre Torgue
- <alexandre.torgue@foss.st.com>, Matthias Brugger <matthias.bgg@gmail.com>
-References: <20221206020046.11333-1-nathan.lu@mediatek.com>
- <20221206020046.11333-3-nathan.lu@mediatek.com>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20221206020046.11333-3-nathan.lu@mediatek.com>
-Cc: devicetree@vger.kernel.org, "jason-jh . lin" <jason-jh.lin@mediatek.com>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Project_Global_Chrome_Upstream_Group@mediatek.com,
- Rex-BC Chen <rex-bc.chen@mediatek.com>, Moudy Ho <moudy.ho@mediatek.com>,
- linux-mediatek@lists.infradead.org, CK Hu <ck.hu@mediatek.com>,
- lancelot.wu@mediatek.com, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Subject: Re: [Linux-stm32] [PATCH v4 2/6] dt-bindings: mediatek: modify
- VDOSYS0 mmsys device tree Documentations for MT8188
+References: <20221129023401.278780-1-bero@baylibre.com>
+ <CACRpkda75U=b50rK=WecNvaEoTdN2UzGyEwfPRaO6jG9FGyWhw@mail.gmail.com>
+In-Reply-To: <CACRpkda75U=b50rK=WecNvaEoTdN2UzGyEwfPRaO6jG9FGyWhw@mail.gmail.com>
+From: =?UTF-8?Q?Bernhard_Rosenkr=C3=A4nzer?= <bero@baylibre.com>
+Date: Tue, 6 Dec 2022 17:25:21 +0100
+Message-ID: <CAP2ifjN-czBPKsm6o9U0Zx3dgau6bydFSrZmtwNJecSQu9VMzg@mail.gmail.com>
+To: Linus Walleij <linus.walleij@linaro.org>
+Cc: devicetree@vger.kernel.org, khilman@baylibre.com,
+ linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
+ krzysztof.kozlowski@linaro.org, linux-mediatek@lists.infradead.org,
+ mcoquelin.stm32@gmail.com, matthias.bgg@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ angelogioacchino.delregno@collabora.com
+Subject: Re: [Linux-stm32] [PATCH v3 0/7] Remove the pins-are-numbered DT
+	property
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,19 +78,37 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 06/12/2022 03:00, nathan.lu wrote:
-> From: Nathan Lu <nathan.lu@mediatek.com>
-> 
-> modify VDOSYS0 mmsys device tree Documentations for MT8188.
-> 
-> Signed-off-by: Nathan Lu <nathan.lu@mediatek.com>
+On Sat, Dec 3, 2022 at 10:22 AM Linus Walleij <linus.walleij@linaro.org> wrote:
+>
+> Hi Bero,
+>
+> long time no see!
 
+Hi Linus,
+indeed, I've been doing mostly userland stuff lately, and my latest
+kernel patch was x86 (got to keep all of my hardware working ;) ). Now
+that I've changed jobs, I'm expecting to be more active on the kernel
+side (though still doing a lot of userland).
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> > This patchset removes all uses of pins-are-numbered and marks the
+> > property as deprecated.
+>
+> I don't remember any more why this property was introduced, but
+> I am happy to see it go.
 
-Best regards,
-Krzysztof
+I couldn't find why it was introduced either (and git blame wasn't
+much help). I'm assuming there was some other mode in vendor trees
+that never made it into mainline (but the flag for switching between
+the modes did).
 
+> I applied patches 1-4 to the pin control tree for v6.2,
+> please funnel the rest through mediatek/stm32 and
+> SoC trees!
+
+Thanks! Remaining patches reposted and currently waiting.
+
+ttyl
+bero
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
