@@ -2,71 +2,51 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 40D51644A3B
-	for <lists+linux-stm32@lfdr.de>; Tue,  6 Dec 2022 18:21:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4DDCC64513C
+	for <lists+linux-stm32@lfdr.de>; Wed,  7 Dec 2022 02:30:20 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E43D2C65E6C;
-	Tue,  6 Dec 2022 17:21:27 +0000 (UTC)
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
- [209.85.128.45])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EDE43C65E72;
+	Wed,  7 Dec 2022 01:30:19 +0000 (UTC)
+Received: from phobos.denx.de (phobos.denx.de [85.214.62.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D16F7C035BC
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E69C6C65E6C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  6 Dec 2022 17:21:26 +0000 (UTC)
-Received: by mail-wm1-f45.google.com with SMTP id
- v124-20020a1cac82000000b003cf7a4ea2caso14815136wme.5
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 06 Dec 2022 09:21:26 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=cNN8uk4LoV+h49kv6LcOlJpfohjdevi0JmsE7e599PE=;
- b=cTJUk+i7XUeEhmp/IiPt+U7G958PLg8NVYNJm+mTfjmHh+It3e0iAwPYoDczFNrvWv
- lsN1Iu27FFWXZfjQeeu41m0zQxSz1WYLAxdU2mJ5dm8K12zMJT5NpWXlIqUj0+cxkn6I
- LlPwug0inqRWq0pEK7pTlDa8/gHUErKh6nIn8su1AwbaOaPON6m50pX9bLkRBufd3/zj
- gpZ2aNGfYG1Pxv1kFdOn97kRIhA643dFtsICI6p5G+PVXy+26GH2hrWG1JIgBTSvt1iW
- 7yIvk2sStuyQzofcY+lXuY+2o0BMkErrNdkNuThw6BpbbMu8K+bD0Bll+qcHEv7d1/WA
- aVrQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=cNN8uk4LoV+h49kv6LcOlJpfohjdevi0JmsE7e599PE=;
- b=DbSTQRrBiZZb7WxQkxWtu6A40khmSVPuEVjAC5qgPFdj4fSWl2Zn0cgoBUoX12kCuK
- KvWDktlHgGzDdGP14+h993U15obH+Z3k5b/N8u5bANQVTqbaPpDmBFFyt14ljzc8rLkg
- HOOsC1VyuwRkGkT08rH0zsbViDL4dL/2kJ/gUMfkQM3stJRW901qpeTBXBNDXYZ9fdfW
- B4Fds6L8BsgcFBN6tDtCBPDI7H79dhPrL7yifT/8xYTMOMF19aEsX0y1JdhN1G0Pi6QI
- fUwCd4pk8rf/YS4TZL7V4OaQcsxZ5ynfCP4ADuj8AVOk1zqK5a6YhG/cOnzVie5K0CVK
- UG3w==
-X-Gm-Message-State: ANoB5pkDL0R8058qAXte0N/HRm1bzuTdEW1LpsHoxUDis5ppZ765r1Bd
- iH7AonhvznGee5P0i/JYnqjSdg==
-X-Google-Smtp-Source: AA0mqf7gm2xCP89/QOg/3k2lG5ouNJyby9r2wGnCo7mXF+hzuscgwBcgIIwQMgLouN3ahqN1GmnpQA==
-X-Received: by 2002:a05:600c:792:b0:3cf:6a83:bd19 with SMTP id
- z18-20020a05600c079200b003cf6a83bd19mr56719834wmo.29.1670347286328; 
- Tue, 06 Dec 2022 09:21:26 -0800 (PST)
-Received: from [192.168.10.46] (146725694.box.freepro.com. [130.180.211.218])
- by smtp.googlemail.com with ESMTPSA id
- d2-20020a5d4f82000000b002425dc49024sm7117374wru.43.2022.12.06.09.21.25
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 06 Dec 2022 09:21:26 -0800 (PST)
-Message-ID: <e0d9b932-79b3-47d6-529b-82b22639da3d@linaro.org>
-Date: Tue, 6 Dec 2022 18:21:24 +0100
+ Wed,  7 Dec 2022 01:30:18 +0000 (UTC)
+Received: from tr.lan (ip-86-49-120-218.bb.vodafone.cz [86.49.120.218])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
+ (No client certificate requested)
+ (Authenticated sender: marex@denx.de)
+ by phobos.denx.de (Postfix) with ESMTPSA id 0506784D1B;
+ Wed,  7 Dec 2022 02:30:17 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de;
+ s=phobos-20191101; t=1670376618;
+ bh=tohH7pypOcixeecmj/QIDjZpzcdcYtyplcrz2GHeoCw=;
+ h=From:To:Cc:Subject:Date:From;
+ b=awBEEh5FhfAEj7duplOYmgzthDJ8CuXyFbcQ+kAYkKo/P+RJzpuKlYf80sORbnZ1n
+ uPB/HB3s4H9hLuDiHChcUi+pG+xEZvYC8tLXxiIdIofIF6NqZ8XZxsaRaLPHuopw9/
+ 2Z4wXEUt7jlHmb1hbptzOLS8H9H/29jhIiIM8az1pkFb84UnOvOSHfFxkdswhBkGqX
+ uLK0fNgRGuUdqzpH5eMXkk7nW4TSZLjc+c0B7VvwDOjia+Bzi/BeESLlF3CkeYRgmS
+ MFvDAP1+CJbvDsJFbC8V9SrCP08aCtUQrSZvpODDSdpPyWuHMK3kdG4LGKGutzcNWT
+ De0gXhEMwV0LA==
+From: Marek Vasut <marex@denx.de>
+To: linux-serial@vger.kernel.org
+Date: Wed,  7 Dec 2022 02:30:12 +0100
+Message-Id: <20221207013012.395585-1-marex@denx.de>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.2
-Content-Language: en-US
-To: ye.xingchen@zte.com.cn, rafael@kernel.org
-References: <202211171409524332954@zte.com.cn>
-From: Daniel Lezcano <daniel.lezcano@linaro.org>
-In-Reply-To: <202211171409524332954@zte.com.cn>
-Cc: linux-kernel@vger.kernel.org, amitk@kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- linux-pm@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH] thermal: use
-	devm_platform_get_and_ioremap_resource()
+X-Virus-Scanned: clamav-milter 0.103.6 at phobos.denx.de
+X-Virus-Status: Clean
+Cc: Marek Vasut <marex@denx.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Thomas Gleixner <tglx@linutronix.de>, Jiri Slaby <jirislaby@kernel.org>,
+ Jean Philippe Romain <jean-philippe.romain@foss.st.com>,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH] [RFC] serial: stm32: Move
+	stm32_usart_transmit_chars() to interrupt thread
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,23 +58,97 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gMTcvMTEvMjAyMiAwNzowOSwgeWUueGluZ2NoZW5AenRlLmNvbS5jbiB3cm90ZToKPiBGcm9t
-OiBNaW5naGFvIENoaSA8Y2hpLm1pbmdoYW9AenRlLmNvbS5jbj4KPiAKPiBDb252ZXJ0IHBsYXRm
-b3JtX2dldF9yZXNvdXJjZSgpLCBkZXZtX2lvcmVtYXBfcmVzb3VyY2UoKSB0byBhIHNpbmdsZQo+
-IGNhbGwgdG8gZGV2bV9wbGF0Zm9ybV9nZXRfYW5kX2lvcmVtYXBfcmVzb3VyY2UoKSwgYXMgdGhp
-cyBpcyBleGFjdGx5Cj4gd2hhdCB0aGlzIGZ1bmN0aW9uIGRvZXMuCj4gCj4gU2lnbmVkLW9mZi1i
-eTogTWluZ2hhbyBDaGkgPGNoaS5taW5naGFvQHp0ZS5jb20uY24+Cj4gU2lnbmVkLW9mZi1ieTog
-eWUgeGluZ2NoZW4gPHllLnhpbmdjaGVuQHp0ZS5jb20uY24+Cj4gLS0tCgpBcHBsaWVkLCB0aGFu
-a3MKCi0tIAo8aHR0cDovL3d3dy5saW5hcm8ub3JnLz4gTGluYXJvLm9yZyDilIIgT3BlbiBzb3Vy
-Y2Ugc29mdHdhcmUgZm9yIEFSTSBTb0NzCgpGb2xsb3cgTGluYXJvOiAgPGh0dHA6Ly93d3cuZmFj
-ZWJvb2suY29tL3BhZ2VzL0xpbmFybz4gRmFjZWJvb2sgfAo8aHR0cDovL3R3aXR0ZXIuY29tLyMh
-L2xpbmFyb29yZz4gVHdpdHRlciB8CjxodHRwOi8vd3d3LmxpbmFyby5vcmcvbGluYXJvLWJsb2cv
-PiBCbG9nCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpM
-aW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJl
-cGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0
-aW5mby9saW51eC1zdG0zMgo=
+Avoid locking in hard interrupt context, move the stm32_usart_transmit_chars()
+into the threaded IRQ handler. This fixes the following splat with preempt-rt:
+
+ BUG: scheduling while atomic: (mount)/1289/0x00010001
+ Modules linked in:
+ Preemption disabled at:
+ [<c0119127>] irq_enter_rcu+0xb/0x42
+ CPU: 0 PID: 1289 Comm: (mount) Not tainted 6.1.0-rc7-rt5-stable-standard-00006-gd70aeccb9f0f #17
+ Hardware name: STM32 (Device Tree Support)
+  unwind_backtrace from show_stack+0xb/0xc
+  show_stack from dump_stack_lvl+0x2b/0x34
+  dump_stack_lvl from __schedule_bug+0x53/0x80
+  __schedule_bug from __schedule+0x47/0x404
+  __schedule from schedule_rtlock+0x15/0x34
+  schedule_rtlock from rtlock_slowlock_locked+0x1d7/0x57e
+  rtlock_slowlock_locked from rt_spin_lock+0x29/0x3c
+  rt_spin_lock from stm32_usart_interrupt+0xa9/0x110
+  stm32_usart_interrupt from __handle_irq_event_percpu+0x73/0x14e
+  __handle_irq_event_percpu from handle_irq_event_percpu+0x9/0x22
+  handle_irq_event_percpu from handle_irq_event+0x53/0x76
+  handle_irq_event from handle_fasteoi_irq+0x65/0xa8
+  handle_fasteoi_irq from handle_irq_desc+0xf/0x18
+  handle_irq_desc from gic_handle_irq+0x45/0x54
+  gic_handle_irq from generic_handle_arch_irq+0x19/0x2c
+  generic_handle_arch_irq from call_with_stack+0xd/0x10
+
+Signed-off-by: Marek Vasut <marex@denx.de>
+---
+Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
+Cc: Erwan Le Ray <erwan.leray@foss.st.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Jean Philippe Romain <jean-philippe.romain@foss.st.com>
+Cc: Jiri Slaby <jirislaby@kernel.org>
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Cc: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Cc: Thomas Gleixner <tglx@linutronix.de>
+Cc: Valentin Caron <valentin.caron@foss.st.com>
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-stm32@st-md-mailman.stormreply.com
+To: linux-serial@vger.kernel.org
+---
+ drivers/tty/serial/stm32-usart.c | 19 +++++++++++++------
+ 1 file changed, 13 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/tty/serial/stm32-usart.c b/drivers/tty/serial/stm32-usart.c
+index a1490033aa164..56357a7962edc 100644
+--- a/drivers/tty/serial/stm32-usart.c
++++ b/drivers/tty/serial/stm32-usart.c
+@@ -791,11 +791,8 @@ static irqreturn_t stm32_usart_interrupt(int irq, void *ptr)
+ 		}
+ 	}
+ 
+-	if ((sr & USART_SR_TXE) && !(stm32_port->tx_ch)) {
+-		spin_lock(&port->lock);
+-		stm32_usart_transmit_chars(port);
+-		spin_unlock(&port->lock);
+-	}
++	if ((sr & USART_SR_TXE) && !(stm32_port->tx_ch))
++		return IRQ_WAKE_THREAD;
+ 
+ 	if (stm32_usart_rx_dma_enabled(port))
+ 		return IRQ_WAKE_THREAD;
+@@ -808,8 +805,18 @@ static irqreturn_t stm32_usart_threaded_interrupt(int irq, void *ptr)
+ 	struct uart_port *port = ptr;
+ 	struct tty_port *tport = &port->state->port;
+ 	struct stm32_port *stm32_port = to_stm32_port(port);
+-	unsigned int size;
++	const struct stm32_usart_offsets *ofs = &stm32_port->info->ofs;
+ 	unsigned long flags;
++	unsigned int size;
++	u32 sr;
++
++	sr = readl_relaxed(port->membase + ofs->isr);
++
++	if ((sr & USART_SR_TXE) && !(stm32_port->tx_ch)) {
++		spin_lock_irqsave(&port->lock, flags);
++		stm32_usart_transmit_chars(port);
++		spin_unlock_irqrestore(&port->lock, flags);
++	}
+ 
+ 	/* Receiver timeout irq for DMA RX */
+ 	if (!stm32_port->throttled) {
+-- 
+2.35.1
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
