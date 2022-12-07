@@ -2,52 +2,85 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 11E5464554E
-	for <lists+linux-stm32@lfdr.de>; Wed,  7 Dec 2022 09:16:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5FE4864560F
+	for <lists+linux-stm32@lfdr.de>; Wed,  7 Dec 2022 10:08:43 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 91D13C65E6B;
-	Wed,  7 Dec 2022 08:16:00 +0000 (UTC)
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F0F1CC65E6B;
+	Wed,  7 Dec 2022 09:08:42 +0000 (UTC)
+Received: from mail-lj1-f172.google.com (mail-lj1-f172.google.com
+ [209.85.208.172])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 07441C65E5D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0CD1DC65E5F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  7 Dec 2022 08:15:58 +0000 (UTC)
-Date: Wed, 7 Dec 2022 09:15:56 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020; t=1670400958;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=BRTqQIJG6VmpHsSpAsrO/dqie52AxWXZS7m5EVogHko=;
- b=Dg2L5StYii/bkRJjVW5VLoYOX/guI0k9RiBChN882sb7n/TvQEvK4z1/foDw9zXaCVUE1+
- aAIQlkzAhDYLSTZM4QBe0DSGy5aqu3ofcaIIPCN98ATCC8V7MkNTnv1wipU1H48Jn4YUWk
- x9HyOnvUcHb+0A2jnVVEfQMyDw0m+eauR4l16BkCa0LnoKLp2igX1mhZmUeyn5iY9Kpfzs
- JOwKIMEvedThQCpXiLgLgQ0TRwwD/2LoNkTJKycx9Ig7/oqPk86SFmJgcUsZYu4m2tLvWd
- dyvxcrxyq7OfWJtJ7jmzKhJdisZhdCd1fBhL+i52Wmomt0EjEbtRMY/AWxzxSw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020e; t=1670400958;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=BRTqQIJG6VmpHsSpAsrO/dqie52AxWXZS7m5EVogHko=;
- b=OBUz/6xwc1/bzheByQFN4VcWwgJQHTd2A3UXS2PNhpXJFZVMgDJfyAqHRJdGj2OwwyhJK5
- NmzZyokcnIpNkCAQ==
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-To: Marek Vasut <marex@denx.de>
-Message-ID: <Y5BLvE/2RTJsUVms@linutronix.de>
-References: <20221207013012.395585-1-marex@denx.de>
+ Wed,  7 Dec 2022 09:08:40 +0000 (UTC)
+Received: by mail-lj1-f172.google.com with SMTP id s10so6135856ljg.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 07 Dec 2022 01:08:40 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=8WyD6+4TOtnUZ3buZrfTvZlmLnV/84EmqHh/FS/HaPA=;
+ b=L51sXgM7Hxi4SbUu1GAGwaWH8+oChEaG+fH/OfL9hIiFxjSBSLXKFotpowsHk3SDhN
+ p4cZ9Blp6YSzDOgACKD9avjX7BW17+aEsZ3QYKvjRXFuZp75GP7SmTGJDzFOnsShyeDj
+ 11UruWJXKsGl029Y26Lg4SX+I2DtKEoj5FTQFMCWtF3/Z1KuUX3gM0t7OuDl12x3tc+j
+ /1IvglKFAGAeHBnwqkQne+a7jkoBQfQ6jVctZJsAT1zyYX5oj/Wev1yD4YvQfff/nUh8
+ p//ZmuGEqWgyIBpjMAU1ix+krZXB5tg9XLOL6SGmrshHF3sfOrGuBANw9h9OADYmOT2g
+ 6cmg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=8WyD6+4TOtnUZ3buZrfTvZlmLnV/84EmqHh/FS/HaPA=;
+ b=pY0cjrHZ/7/iSO6U81mYELvYggT0y80HOjG4tAnrV/iILcEVpQaUgI0onQFKTkkDmM
+ HdYCXlpyZKnzVfAqMXvfyIYyk03Slg1BzXPGbH5z1rA2RPA8Qv1UpSSe38wR/puDwSkl
+ UDLO8zO4t2Rq4nbec7/o1Asohc7Z7btG8BTr32TtNOBdhCCQbbWZCPqoTlanXsPxDtM/
+ WzR7xwXFleLdxaefa5SsiNKxH0pGvk4FrQff5dWTQdfb5rH8j3ieZvv51Ct4PncM3nUW
+ 7DdPX2hsd46sJzdq35G6u8LZu/cfCSlSer7OYJTHU8jvWapvCrYmL6InFRq4Wslor6LD
+ EkGQ==
+X-Gm-Message-State: ANoB5pmiQ+qw3OiCNSK9ikTHPEW61G7HAtEwA29FeCV125k/3uHPvQPb
+ 1oOJx6/FgBOKF0Fy49g0AJvhKA==
+X-Google-Smtp-Source: AA0mqf5csyV+ZQkovsgzCNVOH5rNxgnnX0/bj5YjAEE7jb/b2fXvUxMbfi0o2/X1/JDCViBzm8O8bg==
+X-Received: by 2002:a2e:96d6:0:b0:279:dcde:84b2 with SMTP id
+ d22-20020a2e96d6000000b00279dcde84b2mr7575311ljj.207.1670404120162; 
+ Wed, 07 Dec 2022 01:08:40 -0800 (PST)
+Received: from [192.168.0.20]
+ (088156142067.dynamic-2-waw-k-3-2-0.vectranet.pl. [88.156.142.67])
+ by smtp.gmail.com with ESMTPSA id
+ 142-20020a2e0994000000b00279a5b85791sm69308ljj.88.2022.12.07.01.08.38
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 07 Dec 2022 01:08:39 -0800 (PST)
+Message-ID: <ebd963e5-fc27-b70d-8cc4-b18978a5de39@linaro.org>
+Date: Wed, 7 Dec 2022 10:08:38 +0100
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20221207013012.395585-1-marex@denx.de>
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-serial@vger.kernel.org,
- Thomas Gleixner <tglx@linutronix.de>, Jiri Slaby <jirislaby@kernel.org>,
- Jean Philippe Romain <jean-philippe.romain@foss.st.com>,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] [RFC] serial: stm32: Move
- stm32_usart_transmit_chars() to interrupt thread
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.5.1
+To: Thierry Reding <thierry.reding@gmail.com>
+References: <20221205151845.21618-1-krzysztof.kozlowski@linaro.org>
+ <20221205151845.21618-9-krzysztof.kozlowski@linaro.org>
+ <Y49vm34cwgilAA33@orome>
+Content-Language: en-US
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <Y49vm34cwgilAA33@orome>
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Marek Szyprowski <m.szyprowski@samsung.com>, linux-samsung-soc@vger.kernel.org,
+ Kevin Hilman <khilman@baylibre.com>, Jonathan Hunter <jonathanh@nvidia.com>,
+ Jeff Chase <jnchase@google.com>, Joe Tessler <jrt@google.com>,
+ Jerome Brunet <jbrunet@baylibre.com>, linux-media@vger.kernel.org,
+ devicetree@vger.kernel.org,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Rob Herring <robh+dt@kernel.org>, linux-tegra@vger.kernel.org,
+ linux-amlogic@lists.infradead.org, Mauro Carvalho Chehab <mchehab@kernel.org>,
+ linux-arm-kernel@lists.infradead.org,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Yannick Fertre <yannick.fertre@foss.st.com>, linux-kernel@vger.kernel.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Hans Verkuil <hverkuil-cisco@xs4all.nl>
+Subject: Re: [Linux-stm32] [PATCH v2 8/9] media: dt-bindings: nvidia,
+ tegra-cec: convert to DT schema
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -64,90 +97,56 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 2022-12-07 02:30:12 [+0100], Marek Vasut wrote:
-> Avoid locking in hard interrupt context, move the stm32_usart_transmit_chars()
-> into the threaded IRQ handler. This fixes the following splat with preempt-rt:
+On 06/12/2022 17:36, Thierry Reding wrote:
+> On Mon, Dec 05, 2022 at 04:18:44PM +0100, Krzysztof Kozlowski wrote:
+>> Convert Nvidia Tegra HDMI CEC bindings to DT schema.
+>>
+>> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+>> Acked-by: Hans Verkuil <hverkuil-cisco@xs4all.nl>
+>> ---
+>>  .../bindings/media/cec/nvidia,tegra-cec.yaml  | 58 +++++++++++++++++++
+>>  .../devicetree/bindings/media/tegra-cec.txt   | 27 ---------
+>>  MAINTAINERS                                   |  2 +-
+>>  3 files changed, 59 insertions(+), 28 deletions(-)
+>>  create mode 100644 Documentation/devicetree/bindings/media/cec/nvidia,tegra-cec.yaml
+>>  delete mode 100644 Documentation/devicetree/bindings/media/tegra-cec.txt
+>>
+>> diff --git a/Documentation/devicetree/bindings/media/cec/nvidia,tegra-cec.yaml b/Documentation/devicetree/bindings/media/cec/nvidia,tegra-cec.yaml
+>> new file mode 100644
+>> index 000000000000..9a4025ff7fad
+>> --- /dev/null
+>> +++ b/Documentation/devicetree/bindings/media/cec/nvidia,tegra-cec.yaml
 > 
->  BUG: scheduling while atomic: (mount)/1289/0x00010001
->  Modules linked in:
->  Preemption disabled at:
->  [<c0119127>] irq_enter_rcu+0xb/0x42
->  CPU: 0 PID: 1289 Comm: (mount) Not tainted 6.1.0-rc7-rt5-stable-standard-00006-gd70aeccb9f0f #17
->  Hardware name: STM32 (Device Tree Support)
->   unwind_backtrace from show_stack+0xb/0xc
->   show_stack from dump_stack_lvl+0x2b/0x34
->   dump_stack_lvl from __schedule_bug+0x53/0x80
->   __schedule_bug from __schedule+0x47/0x404
->   __schedule from schedule_rtlock+0x15/0x34
->   schedule_rtlock from rtlock_slowlock_locked+0x1d7/0x57e
->   rtlock_slowlock_locked from rt_spin_lock+0x29/0x3c
->   rt_spin_lock from stm32_usart_interrupt+0xa9/0x110
->   stm32_usart_interrupt from __handle_irq_event_percpu+0x73/0x14e
->   __handle_irq_event_percpu from handle_irq_event_percpu+0x9/0x22
->   handle_irq_event_percpu from handle_irq_event+0x53/0x76
->   handle_irq_event from handle_fasteoi_irq+0x65/0xa8
->   handle_fasteoi_irq from handle_irq_desc+0xf/0x18
->   handle_irq_desc from gic_handle_irq+0x45/0x54
->   gic_handle_irq from generic_handle_arch_irq+0x19/0x2c
->   generic_handle_arch_irq from call_with_stack+0xd/0x10
+> For consistency with other DT bindings on Tegra, it'd be good to name
+> this nvidia,tegra114-cec.yaml since that's the first generation where
+> this IP was added. Not a big deal, though.
+
+Sure, I can rename it.
+
 > 
-> Signed-off-by: Marek Vasut <marex@denx.de>
-> ---
-> Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
-> Cc: Erwan Le Ray <erwan.leray@foss.st.com>
-> Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> Cc: Jean Philippe Romain <jean-philippe.romain@foss.st.com>
-> Cc: Jiri Slaby <jirislaby@kernel.org>
-> Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-> Cc: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-> Cc: Thomas Gleixner <tglx@linutronix.de>
-> Cc: Valentin Caron <valentin.caron@foss.st.com>
-> Cc: linux-arm-kernel@lists.infradead.org
-> Cc: linux-stm32@st-md-mailman.stormreply.com
-> To: linux-serial@vger.kernel.org
-> ---
->  drivers/tty/serial/stm32-usart.c | 19 +++++++++++++------
->  1 file changed, 13 insertions(+), 6 deletions(-)
+>> @@ -0,0 +1,58 @@
+>> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
+>> +%YAML 1.2
+>> +---
+>> +$id: http://devicetree.org/schemas/media/cec/nvidia,tegra-cec.yaml#
+>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>> +
+>> +title: Nvidia Tegra HDMI CEC
 > 
-> diff --git a/drivers/tty/serial/stm32-usart.c b/drivers/tty/serial/stm32-usart.c
-> index a1490033aa164..56357a7962edc 100644
-> --- a/drivers/tty/serial/stm32-usart.c
-> +++ b/drivers/tty/serial/stm32-usart.c
-> @@ -791,11 +791,8 @@ static irqreturn_t stm32_usart_interrupt(int irq, void *ptr)
->  		}
->  	}
+> Again, for consistency with other bindings, NVIDIA is the preferred
+> spelling. It's not a big deal and could be fixed up in a subsequent
+> patch, there are a few other cases where the alternative spelling has
+> been used.
+> 
+> The rest looks okay, so either way:
+> 
+> Acked-by: Thierry Reding <treding@nvidia.com>
 
-Why is this handler running as the primary handler to begin with?
-There is
- stm32_usart_rs485_rts_disable() 
- -> mctrl_gpio_set()
-    -> gpiod_set_array_value()
-       -> gpiod_set_array_value_complex()
-         -> gpio_chip_set_multiple()
-	    -> gc->set_multiple() || gc->set() ?
-         -> bitmap_alloc() boom
+OK
 
-I don't know if the underlying gpiod is always using a raw_spinlock_t
-but that bitmap_alloc() (depending on FASTPATH_NGPIO()) is not going to
-work.
-pm_wakeup_dev_event() is also using a spinlock_t.
+Best regards,
+Krzysztof
 
-
-> -	if ((sr & USART_SR_TXE) && !(stm32_port->tx_ch)) {
-> -		spin_lock(&port->lock);
-> -		stm32_usart_transmit_chars(port);
-> -		spin_unlock(&port->lock);
-> -	}
-> +	if ((sr & USART_SR_TXE) && !(stm32_port->tx_ch))
-> +		return IRQ_WAKE_THREAD;
-
-Before that, there is a "stm32_port->throttled" check using the very
-same lock.
-
->  	if (stm32_usart_rx_dma_enabled(port))
->  		return IRQ_WAKE_THREAD;
-
-Sebastian
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
