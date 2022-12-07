@@ -2,56 +2,56 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A713764577D
-	for <lists+linux-stm32@lfdr.de>; Wed,  7 Dec 2022 11:23:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B9D8B64577E
+	for <lists+linux-stm32@lfdr.de>; Wed,  7 Dec 2022 11:23:01 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6DD59C65E6C;
-	Wed,  7 Dec 2022 10:23:00 +0000 (UTC)
-Received: from mail-lj1-f178.google.com (mail-lj1-f178.google.com
- [209.85.208.178])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7EA9DC65E6E;
+	Wed,  7 Dec 2022 10:23:01 +0000 (UTC)
+Received: from mail-lj1-f182.google.com (mail-lj1-f182.google.com
+ [209.85.208.182])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 00EEEC65E6C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 76719C65E6D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  7 Dec 2022 10:22:59 +0000 (UTC)
-Received: by mail-lj1-f178.google.com with SMTP id n1so20367554ljg.3
+ Wed,  7 Dec 2022 10:23:00 +0000 (UTC)
+Received: by mail-lj1-f182.google.com with SMTP id f16so8699924ljc.8
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 07 Dec 2022 02:22:58 -0800 (PST)
+ Wed, 07 Dec 2022 02:23:00 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=/AxgtdSHYHP1YbbzJqlPfT18aEYuRk09InbeSd0JHNg=;
- b=tOruhaPzNOR3bQD/ouWBj+2tp/tUN/H/5pGNgjSe2ABiV3vA61PRSLsVlqeAvI3Oro
- vHe3xvQC6FSO988F88LJTaSEr7beyBCC0Xr5mjSQNDZchgwGX/zzIK/HzVUFQm9VSFme
- 1SwIrYDkMGRN9sZr262zvK3Rqvw0K0UZRe3qgHO2FEKAoLEeQbmgdeRgDgkeB2V1Z9KU
- ymxi4wc9pFKvlNmuXwlViGvq4nf0puoGFSzB+NSl2FGkbWnZ1skK7Dng2cwxys79bQBL
- B2o3FQDAN5bNXMdZu277dHREbYgTFCPcottzQGS2KMyJNymjfRP+abAi8h8GpG1+lETO
- jymg==
+ bh=LfazEVXJDWm5fHCm2MG3wz5cKNMzAQ0JQdcxbxRWLtQ=;
+ b=C9yLsR5b/Cx52mByQQifB57ckxFCXxoBQpv9fFs31Z9hQwWZdnwzn6ag5f30h5tVub
+ xCF4E6N0rLWswWVuAMaOKopQCNSUkFyby4tzB7k00DtJKZ13lk32MAenHcVOz+f14Ml3
+ E+Egy1LmlxDIfDRfIkZYOH3tunSAYTM2P4tLzqOocbJqHk9oNu9CevgDaXrqQcznG85P
+ 9PoSUkRNzDYjUa5+8FbxKphUC8GcdOo7FB/Vghu5yOAAj0BmyCdbbgiZPagZ3ud6iEwp
+ NnkTIYwoiWJYzLbs1l3JPWI1eXYygn+Aeg0j+SlE2MhAo00Kf6JGWvKG3r8PjEkWISQe
+ RUfA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=/AxgtdSHYHP1YbbzJqlPfT18aEYuRk09InbeSd0JHNg=;
- b=dBCJ2gEiRB6jwIe7TpvnbliwquvVvappJjAr0eCPcijNPtk4ErG4f2r6yzXVdPv5Zf
- wN25mZoCmh49FQ/HM5wzX1XP4i2GaPbpogsR2/ibkRD3OW83zV8nh9MGFU80UYlPa0ie
- BqtuzSCr9uMDknTOOpX/2H1+7ijbJ3bqRsxq7OTvDXihZAJxK16e1jgqNbrEctQ0aQAa
- IhcwW5yjnwXh2fxxlGSw/vwaCaflht+W1evT+XdpI4fXH+ulZJl06L+0K/dURG8sp7xp
- RSq3L+QvRlBLF9CtXj6EJSiL5smp/Q65E21FTzV6NHzm1VxgdLlMGXaAb24wsWPlcRht
- AZfg==
-X-Gm-Message-State: ANoB5pnb2xWIJBJnqW0xy2hjOGSZhRKETd4nhyJ5C2PIA1PjUtCGuEm5
- oaQ7PBW9bZKp+3HBUs/xBcqpqA==
-X-Google-Smtp-Source: AA0mqf77/+pUWb1Bn4v6zLGZhuX5q4wF2Fzv0XKIu9nI2Iw4J7TFxfO02J2gesAVCe0NSJikkfILHA==
-X-Received: by 2002:a2e:87d5:0:b0:27a:1ce7:bbcb with SMTP id
- v21-20020a2e87d5000000b0027a1ce7bbcbmr369003ljj.420.1670408578398; 
- Wed, 07 Dec 2022 02:22:58 -0800 (PST)
+ bh=LfazEVXJDWm5fHCm2MG3wz5cKNMzAQ0JQdcxbxRWLtQ=;
+ b=3JnYthzig6pBIfB4jXFF+uJS8iMLvzkBOJn7kq+IEyAUDE1TJDYHVDVS69G80HfTeQ
+ TNbZlZOHMfhibJNYShmfXYGEedLzObi1XqjSUYuozuuWHNEaOZaUT/WvQUHEHI9rhusW
+ dsMmpLvKjPpHjmWGlczntQTsP7DoOC34yNpgj+JBL0J7vTg4enEgAdrYNtEuGZpuVkF9
+ 4fu79SBSOjHeVarES6XZUB4j7UYIO0ppR66ZjRTzwWK4Ot5OymSdf+O7F5K5tUtvQtKg
+ sa4hWaeVpiPgjbzS0vmY7Qh2RWrBtFDOH4qRUjQcs/zSEMjRjfAWPikbzIQ2gOZVYMpS
+ dIRw==
+X-Gm-Message-State: ANoB5pnlhy5T5y6YJnIIxYZXR3YGIlhWeN7TP5gsEIbkcasx4toHPKtd
+ 8hikrWoszP9l7uOsd1yW7tiMlQ==
+X-Google-Smtp-Source: AA0mqf41SM4D2vM+BSmHmNdhhKcC4/vtMSw8znb1EFc9AIfv2Wzh+NgjzB/04efqO1eqlaMTQ2zZIg==
+X-Received: by 2002:a2e:bcc5:0:b0:279:3851:1420 with SMTP id
+ z5-20020a2ebcc5000000b0027938511420mr24972408ljp.265.1670408579931; 
+ Wed, 07 Dec 2022 02:22:59 -0800 (PST)
 Received: from krzk-bin.NAT.warszawa.vectranet.pl
  (088156142067.dynamic-2-waw-k-3-2-0.vectranet.pl. [88.156.142.67])
  by smtp.gmail.com with ESMTPSA id
- bu31-20020a056512169f00b00499b27a329esm1953183lfb.300.2022.12.07.02.22.56
+ bu31-20020a056512169f00b00499b27a329esm1953183lfb.300.2022.12.07.02.22.58
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 07 Dec 2022 02:22:58 -0800 (PST)
+ Wed, 07 Dec 2022 02:22:59 -0800 (PST)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 To: Mauro Carvalho Chehab <mchehab@kernel.org>,
  Rob Herring <robh+dt@kernel.org>,
@@ -72,16 +72,16 @@ To: Mauro Carvalho Chehab <mchehab@kernel.org>,
  linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org,
  linux-tegra@vger.kernel.org, linux-samsung-soc@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com
-Date: Wed,  7 Dec 2022 11:22:45 +0100
-Message-Id: <20221207102253.26663-2-krzysztof.kozlowski@linaro.org>
+Date: Wed,  7 Dec 2022 11:22:46 +0100
+Message-Id: <20221207102253.26663-3-krzysztof.kozlowski@linaro.org>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20221207102253.26663-1-krzysztof.kozlowski@linaro.org>
 References: <20221207102253.26663-1-krzysztof.kozlowski@linaro.org>
 MIME-Version: 1.0
 Cc: Rob Herring <robh@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Subject: [Linux-stm32] [PATCH v3 1/9] media: dt-bindings: amlogic,
-	meson-gx-ao-cec: move to cec subfolder
+Subject: [Linux-stm32] [PATCH v3 2/9] media: dt-bindings: st,
+	stm32-cec: move to cec subfolder
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,49 +98,36 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Move amlogic,meson-gx-ao-cec.yaml bindings to cec subfolder and drop
-unneeded quotes.
+Move st,stm32-cec.yaml bindings to cec subfolder and drop unneeded
+"bindings" in the title.
 
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Acked-by: Neil Armstrong <neil.armstrong@linaro.org>
 Acked-by: Rob Herring <robh@kernel.org>
 ---
- .../bindings/media/{ => cec}/amlogic,meson-gx-ao-cec.yaml     | 4 ++--
- MAINTAINERS                                                   | 2 +-
- 2 files changed, 3 insertions(+), 3 deletions(-)
- rename Documentation/devicetree/bindings/media/{ => cec}/amlogic,meson-gx-ao-cec.yaml (93%)
+ .../devicetree/bindings/media/{ => cec}/st,stm32-cec.yaml     | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+ rename Documentation/devicetree/bindings/media/{ => cec}/st,stm32-cec.yaml (89%)
 
-diff --git a/Documentation/devicetree/bindings/media/amlogic,meson-gx-ao-cec.yaml b/Documentation/devicetree/bindings/media/cec/amlogic,meson-gx-ao-cec.yaml
-similarity index 93%
-rename from Documentation/devicetree/bindings/media/amlogic,meson-gx-ao-cec.yaml
-rename to Documentation/devicetree/bindings/media/cec/amlogic,meson-gx-ao-cec.yaml
-index 8d844f4312d1..f65c9681a9f7 100644
---- a/Documentation/devicetree/bindings/media/amlogic,meson-gx-ao-cec.yaml
-+++ b/Documentation/devicetree/bindings/media/cec/amlogic,meson-gx-ao-cec.yaml
-@@ -2,8 +2,8 @@
- # Copyright 2019 BayLibre, SAS
+diff --git a/Documentation/devicetree/bindings/media/st,stm32-cec.yaml b/Documentation/devicetree/bindings/media/cec/st,stm32-cec.yaml
+similarity index 89%
+rename from Documentation/devicetree/bindings/media/st,stm32-cec.yaml
+rename to Documentation/devicetree/bindings/media/cec/st,stm32-cec.yaml
+index 77144cc6f7db..2314a9a14650 100644
+--- a/Documentation/devicetree/bindings/media/st,stm32-cec.yaml
++++ b/Documentation/devicetree/bindings/media/cec/st,stm32-cec.yaml
+@@ -1,10 +1,10 @@
+ # SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
  %YAML 1.2
  ---
--$id: "http://devicetree.org/schemas/media/amlogic,meson-gx-ao-cec.yaml#"
--$schema: "http://devicetree.org/meta-schemas/core.yaml#"
-+$id: http://devicetree.org/schemas/media/cec/amlogic,meson-gx-ao-cec.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
+-$id: http://devicetree.org/schemas/media/st,stm32-cec.yaml#
++$id: http://devicetree.org/schemas/media/cec/st,stm32-cec.yaml#
+ $schema: http://devicetree.org/meta-schemas/core.yaml#
  
- title: Amlogic Meson AO-CEC Controller
+-title: STMicroelectronics STM32 CEC bindings
++title: STMicroelectronics STM32 CEC
  
-diff --git a/MAINTAINERS b/MAINTAINERS
-index e3f3c3e53f77..07cb85cac4c3 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -13553,7 +13553,7 @@ L:	linux-amlogic@lists.infradead.org
- S:	Supported
- W:	http://linux-meson.com/
- T:	git git://linuxtv.org/media_tree.git
--F:	Documentation/devicetree/bindings/media/amlogic,meson-gx-ao-cec.yaml
-+F:	Documentation/devicetree/bindings/media/cec/amlogic,meson-gx-ao-cec.yaml
- F:	drivers/media/cec/platform/meson/ao-cec-g12a.c
- F:	drivers/media/cec/platform/meson/ao-cec.c
- 
+ maintainers:
+   - Yannick Fertre <yannick.fertre@foss.st.com>
 -- 
 2.34.1
 
