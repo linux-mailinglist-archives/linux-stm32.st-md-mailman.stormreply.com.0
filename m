@@ -2,56 +2,56 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5DA8164578E
-	for <lists+linux-stm32@lfdr.de>; Wed,  7 Dec 2022 11:23:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6F37364578F
+	for <lists+linux-stm32@lfdr.de>; Wed,  7 Dec 2022 11:23:14 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1F338C65E6E;
-	Wed,  7 Dec 2022 10:23:12 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 332E5C65E5D;
+	Wed,  7 Dec 2022 10:23:14 +0000 (UTC)
 Received: from mail-lf1-f51.google.com (mail-lf1-f51.google.com
  [209.85.167.51])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EB41EC65E69
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6EEE2C65E6D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  7 Dec 2022 10:23:10 +0000 (UTC)
-Received: by mail-lf1-f51.google.com with SMTP id b3so27951311lfv.2
+ Wed,  7 Dec 2022 10:23:12 +0000 (UTC)
+Received: by mail-lf1-f51.google.com with SMTP id bp15so27910769lfb.13
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 07 Dec 2022 02:23:10 -0800 (PST)
+ Wed, 07 Dec 2022 02:23:12 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=2AUwX2bZWFPRltw54sKVrGy9ss5uTmSF0GAbGdEL1cY=;
- b=XB4U+5ZljqR/bbvMKNFN+vU986ORmhbBYnwpj6Uoaam4TDmCl6l8ew66p5/mQ47Epa
- z0o12IwUwbpEyhZcDHgTqQzPDIE5NrGOBVhdpEKEb0NGLGt/XpOkcGNL3LQRzggQftXp
- Jiha1ZD1+2g9OZZMRkK3JM2Vegm7aRTb3FHLE696vEYIfSgdkIW615VQ8/VnfpnwXnNL
- F9MYW0+YuG1aa3h/KjQ7Qh9jLBaIQAKMX9/DeIqWh5Y8VMIJo5BpBlJ098LdAUCwfGS8
- aBtx7RWJNGRqUD4stzuz9inChA7HS4LowmCH0RW3VGtGv00Gbe+Ft5RQ1BVUiXwbthu0
- o91Q==
+ bh=ZM9WQMSIRdXApIoaHecsAc8xlOdjlTCuk4hJZlXZk6o=;
+ b=oOm0/ChZZbipR9FpLHwJ0+Yep6zyb2Kt/48SXcMWo2R9RGPNcR3M8PM7pUCGO0WmoN
+ AFlXzZOyrI5OJhoUW8+xBVEQFkhZ5nJvWtCH1WXZsx5hcfZPL97pMlViMK3WGEuQxlW2
+ 4wBs1HGzZPucTyD3LaA39g0anfOGB+GrV+H0C/WYCcIHoPd+93+IwRRfi97m6n2LN6gT
+ 1T2ts29S9ajtkpa2LOgzWgCV9K5ZsfBrm2wXWsk2aTv/DeJKkA/ozZDtlYaoPmyI/8Vy
+ L0SPdDf7U2hW3JjMyw6gZaiMdwZlxuDJq/vTBeD/0CDw2kj1nn0Ev83TJ6i6GwjoGqoU
+ 6DRQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=2AUwX2bZWFPRltw54sKVrGy9ss5uTmSF0GAbGdEL1cY=;
- b=yVfQyxpMfyE/QKRUVffUTWO9eL43/4iJlMsvW04y4ZBjqbZfA7uLxBx5soBWqmQzoE
- 8GRzaoH6oHtWmC8yp6ie8MzKH8QbrESRksmTcE7qGScOzBus+DMzao7Bb1TEsSbC9KU8
- aCUNDbDuhDPnj+oFVuE/tJJlUHeeghHZmDPK1Tjyw1pC2Z81kJDJ3Biu4QzRBWDb7mrZ
- aBU3MA9OLPhp3kztWS9h98le/7u/anMjGxlfbGTORDr+GJ3gVOhm67nex9PNqNx+dRAU
- KdqCU+LtOAwvLC2In98RzZSsxXxjYhnUfg1vo7quwXI/b88+n1hKHmkvs2tZIu//Xc5U
- gKcA==
-X-Gm-Message-State: ANoB5pmBMNlDJtrJPWrZJXOcbpqIBUCRoUMD/cAHMJl8tgUF7koNEH0N
- NH3wFmz2I787nbgZdCPgQCjAHA==
-X-Google-Smtp-Source: AA0mqf4yC5k5Vs4wsmk6nVdssr0tS1Ijg5ULzsObdS7ZFIejpoMI85/cYKftYxb5UoYNwRrKvQ9Ilw==
-X-Received: by 2002:a05:6512:1291:b0:4af:eabf:3c57 with SMTP id
- u17-20020a056512129100b004afeabf3c57mr23092457lfs.449.1670408590286; 
- Wed, 07 Dec 2022 02:23:10 -0800 (PST)
+ bh=ZM9WQMSIRdXApIoaHecsAc8xlOdjlTCuk4hJZlXZk6o=;
+ b=qUiNupQvqzZ7LzUG3J4tpLredz28rSO1h/lJI04xgNvueUwt4rCXXFUHzT8gPD2xFe
+ hcWD7rOgMfOMaPZSpJYcjvWeOsHVNGvTkjmTUx5VFDoVfxB6gv3rgvnIf2FWzn+5kcNJ
+ RWzy2gKZfYu0KgPKH3CyrChyjmdZDxIUyEk1qv3JjebKILawbJc28hwB4yPrPKKguCyl
+ EcirGseztY73krEENhZo2jtKnxz/rW97LLiBcRnTJ+j81QTEwE3rIniWuj81st+mz53q
+ UQkOg+/tweo1KaTSFD6UAM4n1Vd9kpp7lrRxKWWPLyuvKiGYOw1J/BQiVwleIUBm9+OK
+ e7Ww==
+X-Gm-Message-State: ANoB5pnU2+CEeD4LeciVEmbZgGqIOLLoA/aSXkOxuj9MpZJhOGBZrI16
+ QWQUytTctwaSytvKxBmBWWoPPQ==
+X-Google-Smtp-Source: AA0mqf4i4pan9nVuFZyQ3Pgc1JmG5VLJywzu6/33XHF1cay1j9OCzA8QqNXiMLd9ghuMyhS7QaqBWg==
+X-Received: by 2002:ac2:4bc8:0:b0:4b3:9fcb:df92 with SMTP id
+ o8-20020ac24bc8000000b004b39fcbdf92mr28983114lfq.607.1670408591839; 
+ Wed, 07 Dec 2022 02:23:11 -0800 (PST)
 Received: from krzk-bin.NAT.warszawa.vectranet.pl
  (088156142067.dynamic-2-waw-k-3-2-0.vectranet.pl. [88.156.142.67])
  by smtp.gmail.com with ESMTPSA id
- bu31-20020a056512169f00b00499b27a329esm1953183lfb.300.2022.12.07.02.23.08
+ bu31-20020a056512169f00b00499b27a329esm1953183lfb.300.2022.12.07.02.23.10
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 07 Dec 2022 02:23:09 -0800 (PST)
+ Wed, 07 Dec 2022 02:23:11 -0800 (PST)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 To: Mauro Carvalho Chehab <mchehab@kernel.org>,
  Rob Herring <robh+dt@kernel.org>,
@@ -72,17 +72,16 @@ To: Mauro Carvalho Chehab <mchehab@kernel.org>,
  linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org,
  linux-tegra@vger.kernel.org, linux-samsung-soc@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com
-Date: Wed,  7 Dec 2022 11:22:52 +0100
-Message-Id: <20221207102253.26663-9-krzysztof.kozlowski@linaro.org>
+Date: Wed,  7 Dec 2022 11:22:53 +0100
+Message-Id: <20221207102253.26663-10-krzysztof.kozlowski@linaro.org>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20221207102253.26663-1-krzysztof.kozlowski@linaro.org>
 References: <20221207102253.26663-1-krzysztof.kozlowski@linaro.org>
 MIME-Version: 1.0
 Cc: Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Thierry Reding <treding@nvidia.com>
-Subject: [Linux-stm32] [PATCH v3 8/9] media: dt-bindings: nvidia,
-	tegra114-cec: convert to DT schema
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Subject: [Linux-stm32] [PATCH v3 9/9] media: dt-bindings: st,
+	stih-cec: convert to DT schema
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,61 +98,57 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Convert NVIDIA Tegra HDMI CEC bindings to DT schema.
+Convert ST STIH4xx HDMI CEC bindings to DT schema.
 
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Acked-by: Hans Verkuil <hverkuil-cisco@xs4all.nl>
 Reviewed-by: Rob Herring <robh@kernel.org>
-Acked-by: Thierry Reding <treding@nvidia.com>
-
 ---
-
-Changes since v2:
-1. Rename to nvidia,tegra114-cec.yaml
-2. Nvidia->NVIDIA
----
- .../media/cec/nvidia,tegra114-cec.yaml        | 58 +++++++++++++++++++
- .../devicetree/bindings/media/tegra-cec.txt   | 27 ---------
+ .../bindings/media/cec/st,stih-cec.yaml       | 66 +++++++++++++++++++
+ .../devicetree/bindings/media/stih-cec.txt    | 27 --------
  MAINTAINERS                                   |  2 +-
- 3 files changed, 59 insertions(+), 28 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/media/cec/nvidia,tegra114-cec.yaml
- delete mode 100644 Documentation/devicetree/bindings/media/tegra-cec.txt
+ 3 files changed, 67 insertions(+), 28 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/media/cec/st,stih-cec.yaml
+ delete mode 100644 Documentation/devicetree/bindings/media/stih-cec.txt
 
-diff --git a/Documentation/devicetree/bindings/media/cec/nvidia,tegra114-cec.yaml b/Documentation/devicetree/bindings/media/cec/nvidia,tegra114-cec.yaml
+diff --git a/Documentation/devicetree/bindings/media/cec/st,stih-cec.yaml b/Documentation/devicetree/bindings/media/cec/st,stih-cec.yaml
 new file mode 100644
-index 000000000000..369c48fd9bf9
+index 000000000000..aeddf16ed339
 --- /dev/null
-+++ b/Documentation/devicetree/bindings/media/cec/nvidia,tegra114-cec.yaml
-@@ -0,0 +1,58 @@
++++ b/Documentation/devicetree/bindings/media/cec/st,stih-cec.yaml
+@@ -0,0 +1,66 @@
 +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
 +%YAML 1.2
 +---
-+$id: http://devicetree.org/schemas/media/cec/nvidia,tegra114-cec.yaml#
++$id: http://devicetree.org/schemas/media/cec/st,stih-cec.yaml#
 +$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-+title: NVIDIA Tegra HDMI CEC
++title: STMicroelectronics STIH4xx HDMI CEC
 +
 +maintainers:
-+  - Hans Verkuil <hverkuil-cisco@xs4all.nl>
++  - Alain Volmat <alain.volmat@foss.st.com>
 +
 +allOf:
 +  - $ref: cec-common.yaml#
 +
 +properties:
 +  compatible:
-+    enum:
-+      - nvidia,tegra114-cec
-+      - nvidia,tegra124-cec
-+      - nvidia,tegra210-cec
++    const: st,stih-cec
 +
 +  clocks:
 +    maxItems: 1
 +
 +  clock-names:
 +    items:
-+      - const: cec
++      - const: cec-clk
 +
 +  interrupts:
++    maxItems: 1
++
++  interrupt-names:
++    items:
++      - const: cec-irq
++
++  resets:
 +    maxItems: 1
 +
 +  reg:
@@ -162,73 +157,77 @@ index 000000000000..369c48fd9bf9
 +required:
 +  - compatible
 +  - clocks
-+  - clock-names
 +  - hdmi-phandle
 +  - interrupts
++  - resets
 +  - reg
 +
 +unevaluatedProperties: false
 +
 +examples:
 +  - |
-+    #include <dt-bindings/clock/tegra124-car.h>
 +    #include <dt-bindings/interrupt-controller/arm-gic.h>
++    #include <dt-bindings/reset/stih407-resets.h>
 +
-+    cec@70015000 {
-+        compatible = "nvidia,tegra124-cec";
-+        reg = <0x70015000 0x00001000>;
-+        interrupts = <GIC_SPI 3 IRQ_TYPE_LEVEL_HIGH>;
-+        clocks = <&tegra_car TEGRA124_CLK_CEC>;
-+        clock-names = "cec";
-+        status = "disabled";
-+        hdmi-phandle = <&hdmi>;
++    cec@94a087c {
++        compatible = "st,stih-cec";
++        reg = <0x94a087c 0x64>;
++
++        clocks = <&clk_sysin>;
++        clock-names = "cec-clk";
++        hdmi-phandle = <&sti_hdmi>;
++        interrupts = <GIC_SPI 140 IRQ_TYPE_LEVEL_HIGH>;
++        interrupt-names = "cec-irq";
++        pinctrl-names = "default";
++        pinctrl-0 = <&pinctrl_cec0_default>;
++        resets = <&softreset STIH407_LPM_SOFTRESET>;
 +    };
-diff --git a/Documentation/devicetree/bindings/media/tegra-cec.txt b/Documentation/devicetree/bindings/media/tegra-cec.txt
+diff --git a/Documentation/devicetree/bindings/media/stih-cec.txt b/Documentation/devicetree/bindings/media/stih-cec.txt
 deleted file mode 100644
-index c503f06f3b84..000000000000
---- a/Documentation/devicetree/bindings/media/tegra-cec.txt
+index ece0832fdeaf..000000000000
+--- a/Documentation/devicetree/bindings/media/stih-cec.txt
 +++ /dev/null
 @@ -1,27 +0,0 @@
--* Tegra HDMI CEC hardware
--
--The HDMI CEC module is present in Tegra SoCs and its purpose is to
--handle communication between HDMI connected devices over the CEC bus.
+-STMicroelectronics STIH4xx HDMI CEC driver
 -
 -Required properties:
--  - compatible : value should be one of the following:
--	"nvidia,tegra114-cec"
--	"nvidia,tegra124-cec"
--	"nvidia,tegra210-cec"
--  - reg : Physical base address of the IP registers and length of memory
--	  mapped region.
--  - interrupts : HDMI CEC interrupt number to the CPU.
--  - clocks : from common clock binding: handle to HDMI CEC clock.
--  - clock-names : from common clock binding: must contain "cec",
--		  corresponding to the entry in the clocks property.
--  - hdmi-phandle : phandle to the HDMI controller, see also cec.txt.
+- - compatible : value should be "st,stih-cec"
+- - reg : Physical base address of the IP registers and length of memory
+-	 mapped region.
+- - clocks : from common clock binding: handle to HDMI CEC clock
+- - interrupts : HDMI CEC interrupt number to the CPU.
+- - pinctrl-names: Contains only one value - "default"
+- - pinctrl-0: Specifies the pin control groups used for CEC hardware.
+- - resets: Reference to a reset controller
+- - hdmi-phandle: Phandle to the HDMI controller, see also cec.txt.
 -
--Example:
+-Example for STIH407:
 -
--cec@70015000 {
--	compatible = "nvidia,tegra124-cec";
--	reg = <0x0 0x70015000 0x0 0x00001000>;
--	interrupts = <GIC_SPI 3 IRQ_TYPE_LEVEL_HIGH>;
--	clocks = <&tegra_car TEGRA124_CLK_CEC>;
--	clock-names = "cec";
+-sti-cec@94a087c {
+-	compatible = "st,stih-cec";
+-	reg = <0x94a087c 0x64>;
+-	clocks = <&clk_sysin>;
+-	clock-names = "cec-clk";
+-	interrupts = <GIC_SPI 140 IRQ_TYPE_NONE>;
+-	interrupt-names = "cec-irq";
+-	pinctrl-names = "default";
+-	pinctrl-0 = <&pinctrl_cec0_default>;
+-	resets = <&softreset STIH407_LPM_SOFTRESET>;
+-	hdmi-phandle = <&hdmi>;
 -};
 diff --git a/MAINTAINERS b/MAINTAINERS
-index 197351d3bb57..dee3f776be32 100644
+index dee3f776be32..5bf8879b4a59 100644
 --- a/MAINTAINERS
 +++ b/MAINTAINERS
-@@ -2999,7 +2999,7 @@ M:	Hans Verkuil <hverkuil-cisco@xs4all.nl>
- L:	linux-tegra@vger.kernel.org
- L:	linux-media@vger.kernel.org
+@@ -19924,7 +19924,7 @@ F:	sound/soc/sti/
+ STI CEC DRIVER
+ M:	Alain Volmat <alain.volmat@foss.st.com>
  S:	Maintained
--F:	Documentation/devicetree/bindings/media/tegra-cec.txt
-+F:	Documentation/devicetree/bindings/media/cec/nvidia,tegra-cec.yaml
- F:	drivers/media/cec/platform/tegra/
+-F:	Documentation/devicetree/bindings/media/stih-cec.txt
++F:	Documentation/devicetree/bindings/media/cec/st,stih-cec.yaml
+ F:	drivers/media/cec/platform/sti/
  
- ARM/TESLA FSD SoC SUPPORT
+ STK1160 USB VIDEO CAPTURE DRIVER
 -- 
 2.34.1
 
