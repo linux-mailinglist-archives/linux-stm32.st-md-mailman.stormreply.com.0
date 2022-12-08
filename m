@@ -2,56 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 614186470C4
-	for <lists+linux-stm32@lfdr.de>; Thu,  8 Dec 2022 14:29:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A4798647156
+	for <lists+linux-stm32@lfdr.de>; Thu,  8 Dec 2022 15:09:13 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 091E9C6507A;
-	Thu,  8 Dec 2022 13:29:47 +0000 (UTC)
-Received: from phobos.denx.de (phobos.denx.de [85.214.62.61])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 50611C6507A;
+	Thu,  8 Dec 2022 14:09:13 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1013AC63327
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EC2A5C6411C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  8 Dec 2022 13:29:45 +0000 (UTC)
-Received: from [127.0.0.1] (p578adb1c.dip0.t-ipconnect.de [87.138.219.28])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits))
+ Thu,  8 Dec 2022 14:09:11 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- (Authenticated sender: marex@denx.de)
- by phobos.denx.de (Postfix) with ESMTPSA id B6D4381253;
- Thu,  8 Dec 2022 14:29:39 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de;
- s=phobos-20191101; t=1670506185;
- bh=4DUlDl/WRb+joognhqzxZXXrzOnsFPGMBRZ1TB+CdOc=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=TjpbJ/CGkLC7AM+EJQws5+wvpfR5lVl/dZ4lRQJqG2bc1xD6fpeatceMPEkO9qQdR
- tzzszcc3XJEezvHtc3NhmBuuO9eruhE/FJHD+E25j3R3qnJfooQX3JBjLSBYvM4hsE
- O/y4EdnHxhfB4vQ3n1ruEDUSDVatnOsfofZMzY7GxUt59VZxxwPfeIdMxt7okRVz/n
- rPsHtTJ4ps6cUNmNo6kRJaOLnztUm025+DBa7o8q5HJ93fQLWEX2N67e5mB//AMMIO
- yLQ+XQGSOYQGaDu8DSq5idI0MZ58xK96He+e5VCoYY9rH0aKr9xqsSwW0nJhzCDSN7
- PHk+Kf7LQc2+Q==
-Message-ID: <a984e2aa-1fbf-4b6b-9326-d926221740d8@denx.de>
-Date: Thu, 8 Dec 2022 14:19:52 +0100
+ by ams.source.kernel.org (Postfix) with ESMTPS id 4F192B823D4;
+ Thu,  8 Dec 2022 14:09:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A8CAC433C1;
+ Thu,  8 Dec 2022 14:09:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1670508550;
+ bh=TjT5PUNaNbGlUXOnw89bI4x13NlHeMqj/JZXmYi1AAk=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=oJlNQ4XNnq456CSrH1v2scCD1AZykmpEWYi9ZpCSEBMCDccShg8hkBW1oplSPKF4m
+ 2EFXgqonaDWDJSv9HKGQ92njZyKK2284lOPCYn1oXPWWRtwQGtrWyw9ugyczYW5dlq
+ 5+DkWKiAmUL14HIDtTYj+wmGd8txWjwGspyHO+eX5vJBKG1BC1eIvwHauFfn1hQc/A
+ vHdyuEC9N4jglHWI8/SmZLaAtyLQ2AoLUx9w97AFXCP7Y+zIKT853dmiHxHJx/XYmV
+ ZFSz4PAs5cem8w0BkR7wWJUnEIqEmsSOLnUxNXRFOulRH/41TxMQli5XGNUplNyQ1B
+ BqxPTpelfGsww==
+From: Mark Brown <broonie@kernel.org>
+To: cy_huang <u0084500@gmail.com>
+In-Reply-To: <1670311341-32664-1-git-send-email-u0084500@gmail.com>
+References: <1670311341-32664-1-git-send-email-u0084500@gmail.com>
+Message-Id: <167050854689.183709.17486516496456151482.b4-ty@kernel.org>
+Date: Thu, 08 Dec 2022 14:09:06 +0000
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.5.1
-To: Valentin CARON <valentin.caron@foss.st.com>
-References: <20221207195929.160267-1-marex@denx.de>
- <34ec91a2-2089-65ba-d5bb-fed03cda63b7@foss.st.com>
-Content-Language: en-US
-From: Marek Vasut <marex@denx.de>
-In-Reply-To: <34ec91a2-2089-65ba-d5bb-fed03cda63b7@foss.st.com>
-X-Virus-Scanned: clamav-milter 0.103.6 at phobos.denx.de
-X-Virus-Status: Clean
-Cc: linux-serial@vger.kernel.org,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- linux-stm32@st-md-mailman.stormreply.com,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Thomas Gleixner <tglx@linutronix.de>, Jiri Slaby <jirislaby@kernel.org>,
- Jean Philippe Romain <jean-philippe.romain@foss.st.com>,
+X-Mailer: b4 0.11.0-dev-76d0b
+Cc: gene_chen@richtek.com, markgross@kernel.org,
+ ChiYuan Huang <cy_huang@richtek.com>, linux-kernel@vger.kernel.org,
+ lgirdwood@gmail.com, djrscally@gmail.com, hdegoede@redhat.com,
+ chiaen_wu@richtek.com, mcoquelin.stm32@gmail.com, yangyingliang@huawei.com,
+ platform-driver-x86@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] serial: stm32: Move hard IRQ handling to
- threaded interrupt context
+Subject: Re: [Linux-stm32] [PATCH v2] regulator: core: Use different devices
+ for resource allocation and DT lookup
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -63,28 +57,62 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 12/8/22 11:18, Valentin CARON wrote:
-> Hi Marek,
-
-Hi,
-
-> I've got a patch in the same spirit in downstream.
-> The test campaign reveals performance issues with this patch.
+On Tue, 06 Dec 2022 15:22:21 +0800, cy_huang wrote:
+> Following by the below discussion, there's the potential UAF issue
+> between regulator and mfd.
+> https://lore.kernel.org/all/20221128143601.1698148-1-yangyingliang@huawei.com/
 > 
-> In fact, hard IRQ have been introduced in stm32-usart driver to solve 
-> performance issues due to short FIFO size (16 bytes).
+> From the analysis of Yingliang
 > 
-> We are currently testing another patch, similar as your RFC proposition, 
-> for RT context.
-> But results are not ready yet. We can wait them before merging this big 
-> change into driver ?
+> CPU A				|CPU B
+> mt6370_probe()			|
+>   devm_mfd_add_devices()	|
+> 				|mt6370_regulator_probe()
+> 				|  regulator_register()
+> 				|    //allocate init_data and add it to devres
+> 				|    regulator_of_get_init_data()
+> i2c_unregister_device()		|
+>   device_del()			|
+>     devres_release_all()	|
+>       // init_data is freed	|
+>       release_nodes()		|
+> 				|  // using init_data causes UAF
+> 				|  regulator_register()
+> 
+> [...]
 
-Can you post your patch as an RFC so others can test as well ?
+Applied to
+
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/regulator.git for-next
+
+Thanks!
+
+[1/1] regulator: core: Use different devices for resource allocation and DT lookup
+      commit: 8f3cbcd6b440032ebc7f7d48a1689dcc70a4eb98
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
