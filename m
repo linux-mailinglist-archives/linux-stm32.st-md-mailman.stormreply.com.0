@@ -2,53 +2,45 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 30DC06490C5
-	for <lists+linux-stm32@lfdr.de>; Sat, 10 Dec 2022 21:57:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1F5C2649112
+	for <lists+linux-stm32@lfdr.de>; Sat, 10 Dec 2022 23:42:36 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BE8F8C65E6D;
-	Sat, 10 Dec 2022 20:57:26 +0000 (UTC)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BBA43C65E6E;
+	Sat, 10 Dec 2022 22:42:35 +0000 (UTC)
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [85.220.165.71])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 16925C65E5E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3B6B9C65E63
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 10 Dec 2022 20:57:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1670705845; x=1702241845;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=8tRXcUKxGagfde91ZdUSDF88p8/b8+3NQn8nn2kaumc=;
- b=Z8FRauK1i0+pKl0yATc+E/NGcYNXoq/grKMGZ8aBNhcj2zQBZviMwQvM
- JKTKkydjjrfdd88qIDhnFhVWVD6hX38j3rzs3dvmQRFNEvpUbds5gNfHv
- QVoSZ/MC8o/OOOEYRXDl6/PYdXxqqcyJKpADPlHEvs40Z2ioban1YAGOp
- QLuYd0SApjC2GQ8k1H9kKgfUf06LbHlziSQ1WNXpANEyxupG23qcznL7s
- ME80wd5FoowGzUAyWZgwH6UNrnXM25SvbjOHS8+yjqM7G7rQwsBc7YnZq
- lomfMZNbAAvmVC3CRS3ByThlCbc82bwu/kh1l5VLRNo3RZZFMPVrugfzx w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10557"; a="315286167"
-X-IronPort-AV: E=Sophos;i="5.96,235,1665471600"; d="scan'208";a="315286167"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Dec 2022 12:57:23 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10557"; a="678489946"
-X-IronPort-AV: E=Sophos;i="5.96,234,1665471600"; d="scan'208";a="678489946"
-Received: from smile.fi.intel.com ([10.237.72.54])
- by orsmga008.jf.intel.com with ESMTP; 10 Dec 2022 12:57:18 -0800
-Received: from andy by smile.fi.intel.com with local (Exim 4.96)
- (envelope-from <andriy.shevchenko@intel.com>) id 1p46uK-007g2g-33;
- Sat, 10 Dec 2022 22:57:16 +0200
-Date: Sat, 10 Dec 2022 22:57:16 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>
-Message-ID: <Y5TyrO5maz5VYic3@smile.fi.intel.com>
+ Sat, 10 Dec 2022 22:42:34 +0000 (UTC)
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+ by metis.ext.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1p48Xi-0008S6-Bo; Sat, 10 Dec 2022 23:42:02 +0100
+Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
+ by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.94.2)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1p48Xe-003fjR-2X; Sat, 10 Dec 2022 23:41:58 +0100
+Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.94.2)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1p48Xe-0046bD-4d; Sat, 10 Dec 2022 23:41:58 +0100
+Date: Sat, 10 Dec 2022 23:41:54 +0100
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Message-ID: <20221210224154.733cd5qnrkpexq22@pengutronix.de>
 References: <20221130152148.2769768-1-u.kleine-koenig@pengutronix.de>
  <Y5OtCjQOQjjltGPa@smile.fi.intel.com>
  <20221210091833.vdfir63nq4kpj5cm@pengutronix.de>
+ <Y5TyrO5maz5VYic3@smile.fi.intel.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20221210091833.vdfir63nq4kpj5cm@pengutronix.de>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+In-Reply-To: <Y5TyrO5maz5VYic3@smile.fi.intel.com>
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: ukl@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
 Cc: linux-pwm@vger.kernel.org, chrome-platform@lists.linux.dev,
  linux-rockchip@lists.infradead.org, dri-devel@lists.freedesktop.org,
  linux-sunxi@lists.linux.dev, linux-gpio@vger.kernel.org,
@@ -68,34 +60,78 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: multipart/mixed; boundary="===============8840511018681328431=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Sat, Dec 10, 2022 at 10:18:33AM +0100, Uwe Kleine-K=F6nig wrote:
-> On Fri, Dec 09, 2022 at 11:47:54PM +0200, Andy Shevchenko wrote:
-> > On Wed, Nov 30, 2022 at 04:21:37PM +0100, Uwe Kleine-K=F6nig wrote:
 
-...
+--===============8840511018681328431==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="7qhswmbpkvtzgvtu"
+Content-Disposition: inline
 
-> > I'm wondering why we didn't see a compiler warning about mistyped funct=
-ion
-> > prototypes in some drivers.
-> =
 
-> I don't understand where you expected a warning. Care to elaborate?
+--7qhswmbpkvtzgvtu
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-intel-lpss.c has the prototype that returns an int. IIRC it was like this
-before your patches. Now the above wondering passage...
+Hello Andy,
 
--- =
+On Sat, Dec 10, 2022 at 10:57:16PM +0200, Andy Shevchenko wrote:
+> On Sat, Dec 10, 2022 at 10:18:33AM +0100, Uwe Kleine-K=F6nig wrote:
+> > On Fri, Dec 09, 2022 at 11:47:54PM +0200, Andy Shevchenko wrote:
+> > > On Wed, Nov 30, 2022 at 04:21:37PM +0100, Uwe Kleine-K=F6nig wrote:
+>=20
+> ...
+>=20
+> > > I'm wondering why we didn't see a compiler warning about mistyped fun=
+ction
+> > > prototypes in some drivers.
+> >=20
+> > I don't understand where you expected a warning. Care to elaborate?
+>=20
+> intel-lpss.c has the prototype that returns an int. IIRC it was like this
 
-With Best Regards,
-Andy Shevchenko
+Do you mean drivers/mfd/intel-lpss.c? That one doesn't implement a PWM?!
 
+And drivers/pwm/pwm-lpss.c is adapted by this series.
+
+One of us is confused ...
+
+Best regards
+Uwe
+
+--=20
+Pengutronix e.K.                           | Uwe Kleine-K=F6nig            |
+Industrial Linux Solutions                 | https://www.pengutronix.de/ |
+
+--7qhswmbpkvtzgvtu
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEfnIqFpAYrP8+dKQLwfwUeK3K7AkFAmOVCy8ACgkQwfwUeK3K
+7Amqbgf7B9CvBJP4sV+MCHwNOkar+hN65y/IFZl8+KJEQzokHbdag/I7vBvxqm0q
+cOWhTR13j1UZBW5bl06bB5K03JJLpAqFVemlvCMxww0G9e7f5gJ+UkkFy64Wg5eN
+S9IGKBbgBZqZIpEpYNRSatcmsUacaV1aKHKYrOkgrkFno+a3jk9SGNUtdwvLyvwW
+6rpJPqUEOQo4dqB3YPj/VZL13P7B92K3qIsBu0lxz20qstp5wjIpMF1Gsky+6Sf+
+WgVSbrTrTjMwtDpEfb9/ZMXWohTWu0FeaTliafQxjCiNCIgmejFgLEdmalOZ4NXx
+gh5E3k8VT1fe4RAogpC5ofieweL1YA==
+=ikaL
+-----END PGP SIGNATURE-----
+
+--7qhswmbpkvtzgvtu--
+
+--===============8840511018681328431==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============8840511018681328431==--
