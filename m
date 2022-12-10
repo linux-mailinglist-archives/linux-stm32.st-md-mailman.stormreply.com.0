@@ -2,93 +2,51 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DEC09648AEF
-	for <lists+linux-stm32@lfdr.de>; Fri,  9 Dec 2022 23:54:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6119C648DE3
+	for <lists+linux-stm32@lfdr.de>; Sat, 10 Dec 2022 10:19:10 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8B98BC65E52;
-	Fri,  9 Dec 2022 22:54:20 +0000 (UTC)
-Received: from wout3-smtp.messagingengine.com (wout3-smtp.messagingengine.com
- [64.147.123.19])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id ED0B2C65E6E;
+	Sat, 10 Dec 2022 09:19:09 +0000 (UTC)
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [85.220.165.71])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D666AC64109
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A88ECC65E63
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  9 Dec 2022 22:54:19 +0000 (UTC)
-Received: from compute6.internal (compute6.nyi.internal [10.202.2.47])
- by mailout.west.internal (Postfix) with ESMTP id 05462320090F;
- Fri,  9 Dec 2022 17:54:15 -0500 (EST)
-Received: from imap51 ([10.202.2.101])
- by compute6.internal (MEProxy); Fri, 09 Dec 2022 17:54:17 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
- :cc:content-transfer-encoding:content-type:date:date:from:from
- :in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:sender:subject:subject:to:to; s=fm1; t=1670626455; x=
- 1670712855; bh=2w8Q3gDoHJ7xfwlWd+vqHAWIlCTMqE+wn4Znlt45bOI=; b=D
- J7rZsLwO92uP++57nWL4H1BwyBr0KYLnFGWkdPMzlYtuFp1iTbhJX2mgysDRCdhF
- T6q4mHMclXNDsYr3fuoeeXEwyyYTiv14+nRUNNfyKdb8d4Ih5bphO/pEXJMq/vfq
- zGg1gO/b/EV2K0UHcOoCXH4xDQPPu+uB3rq71wHhTQglT2QEp9tznfps8AOnSwHc
- xv0bv3py9V2TbJDzQyWaQONEV8w57jdOisHl9VIS19vajVTbB5T3swoUpWOTQ6m6
- AnzmUULgIBVcq9BUf3PViTId86A1+7RSK9TY10YJK90ZqM883oYmykRQl66nWEE3
- W8JdBOMJItf1BQ/YE9Xjw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-transfer-encoding
- :content-type:date:date:feedback-id:feedback-id:from:from
- :in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:sender:subject:subject:to:to:x-me-proxy:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1670626455; x=
- 1670712855; bh=2w8Q3gDoHJ7xfwlWd+vqHAWIlCTMqE+wn4Znlt45bOI=; b=T
- xvpyupwQxDuNDfhBre/HGW3KSGVztZb38dFPGBBUi1ISifMkPBhRKMuFXQYAFPLR
- V1rP4qoN7KHTJvLb18Q43ZnruoWkfCN4tEFjaNhf7LkxeBWXliBdpOR+zkw0NHkk
- nv8I5M2iE7vmLxBjqzN+yzaYMVXpmXk03xUoWHfAdu40o2pNU6TppkVdXKmiDjWT
- 6eFltW6n4+N7unKJGcJ3/yGerDljpmEVxQMAUBuLD+kJ9e8tEJt+FVbiTJDQarJh
- aLdwCtQKvRXld6/njJqC360a9Z1qgo94MnR+UWsVg9Ex49mcXmvlaBQgvm8MezLJ
- In1VWdLNxwLcM2669eUIQ==
-X-ME-Sender: <xms:lryTY-GP86-668cpi-aV4CLKXlAINHtWgoVLsRrAlFJkjyZWpWTkjw>
- <xme:lryTY_WEWseN4mEIdRiqrbL5yn-zbSBgrQtUmM8OAjKaziGBw8zpW7s-NTh-eo-Vh
- Yp5jowWEXVIp9tMZ0k>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrvdefgddtgecutefuodetggdotefrodftvf
- curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
- uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
- fjughrpefofgggkfgjfhffhffvvefutgfgsehtqhertderreejnecuhfhrohhmpedftehr
- nhguuceuvghrghhmrghnnhdfuceorghrnhgusegrrhhnuggsrdguvgeqnecuggftrfgrth
- htvghrnhepgeefjeehvdelvdffieejieejiedvvdfhleeivdelveehjeelteegudektdfg
- jeevnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomheprg
- hrnhgusegrrhhnuggsrdguvg
-X-ME-Proxy: <xmx:lryTY4ISOzRAgKhiueETEGfeJ0TCDrNNkrQ4DRKM4xKvGjwNP-2QVg>
- <xmx:lryTY4EZg2Cc6mFXFVKf0xjHbPqzQOWRSIGSHXyUlBPniYmhO_LFuw>
- <xmx:lryTY0WG631a3oWGIuVlYo8lFUmXra5_t_WdXioYnJcj20NgODoKFQ>
- <xmx:l7yTY6EuO_rVZbKO8m_XMWubJZvbid7j0U0yKAm2ZnZRyQbSL5dKiQ>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.nyi.internal (Postfix, from userid 501)
- id D104FB60086; Fri,  9 Dec 2022 17:54:14 -0500 (EST)
-X-Mailer: MessagingEngine.com Webmail Interface
-User-Agent: Cyrus-JMAP/3.7.0-alpha0-1115-g8b801eadce-fm-20221102.001-g8b801ead
-Mime-Version: 1.0
-Message-Id: <96e8a731-bf92-4cfd-b0be-dfbcb7a076c6@app.fastmail.com>
-In-Reply-To: <20221209220555.3631364-1-u.kleine-koenig@pengutronix.de>
-References: <20221209220555.3631364-1-u.kleine-koenig@pengutronix.de>
-Date: Fri, 09 Dec 2022 23:53:49 +0100
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
- "Inki Dae" <inki.dae@samsung.com>, "Seung-Woo Kim" <sw0312.kim@samsung.com>,
- "Kyungmin Park" <kyungmin.park@samsung.com>,
- "Dave Airlie" <airlied@gmail.com>, "Daniel Vetter" <daniel@ffwll.ch>,
- "Krzysztof Kozlowski" <krzysztof.kozlowski@linaro.org>,
- "Philipp Zabel" <p.zabel@pengutronix.de>, "Shawn Guo" <shawnguo@kernel.org>,
- "Sascha Hauer" <s.hauer@pengutronix.de>, "Tomi Valkeinen" <tomba@kernel.org>, 
- "Alain Volmat" <alain.volmat@foss.st.com>,
- "Yannick Fertre" <yannick.fertre@foss.st.com>,
- "Raphael Gallais-Pou" <raphael.gallais-pou@foss.st.com>,
- "Philippe Cornu" <philippe.cornu@foss.st.com>,
- "Maxime Coquelin" <mcoquelin.stm32@gmail.com>,
- "Alexandre Torgue" <alexandre.torgue@foss.st.com>
-Cc: linux-samsung-soc@vger.kernel.org, Alim Akhtar <alim.akhtar@samsung.com>,
- dri-devel@lists.freedesktop.org, NXP Linux Team <linux-imx@nxp.com>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] drm: Drop ARCH_MULTIPLATFORM from
-	dependencies
+ Sat, 10 Dec 2022 09:19:08 +0000 (UTC)
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+ by metis.ext.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1p3w0K-0003KC-Jh; Sat, 10 Dec 2022 10:18:44 +0100
+Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
+ by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.94.2)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1p3w0G-003YBp-5Q; Sat, 10 Dec 2022 10:18:40 +0100
+Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.94.2)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1p3w0G-003yU4-Bx; Sat, 10 Dec 2022 10:18:40 +0100
+Date: Sat, 10 Dec 2022 10:18:33 +0100
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Message-ID: <20221210091833.vdfir63nq4kpj5cm@pengutronix.de>
+References: <20221130152148.2769768-1-u.kleine-koenig@pengutronix.de>
+ <Y5OtCjQOQjjltGPa@smile.fi.intel.com>
+MIME-Version: 1.0
+In-Reply-To: <Y5OtCjQOQjjltGPa@smile.fi.intel.com>
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: ukl@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
+Cc: linux-pwm@vger.kernel.org, chrome-platform@lists.linux.dev,
+ linux-rockchip@lists.infradead.org, dri-devel@lists.freedesktop.org,
+ linux-sunxi@lists.linux.dev, linux-gpio@vger.kernel.org,
+ Thierry Reding <thierry.reding@gmail.com>, linux-mediatek@lists.infradead.org,
+ linux-leds@vger.kernel.org, linux-amlogic@lists.infradead.org,
+ linux-riscv@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-rpi-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v2 00/11] pwm: Allow .get_state to fail
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,51 +58,86 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1838959311539935522=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gRnJpLCBEZWMgOSwgMjAyMiwgYXQgMjM6MDUsIFV3ZSBLbGVpbmUtS8O2bmlnIHdyb3RlOgo+
-IFNvbWUgb2YgdGhlc2UgZGVwZW5kZW5jaWVzIHVzZWQgdG8gYmUgc2Vuc2libGUgd2hlbiBvbmx5
-IGEgc21hbGwgcGFydCBvZgo+IHRoZSBwbGF0Zm9ybXMgc3VwcG9ydGVkIGJ5IEFSQ0g9YXJtIGNv
-dWxkIGJlIGNvbXBpbGVkIHRvZ2V0aGVyIGluIGEKPiBzaW5nbGUga2VybmVsIGltYWdlLiBOb3dh
-ZGF5cyBBUkNIX01VTFRJUExBVEZPUk0gaXMgb25seSB1c2VkIGFzIGEgZ3VhcmQKPiBmb3Iga2Vy
-bmVsIG9wdGlvbnMgaW5jb21wYXRpYmxlIHdpdGggYSBtdWx0aXBsYXRmb3JtIGltYWdlLiBTZWUg
-Y29tbWl0Cj4gODRmYzg2MzYwNjIzICgiQVJNOiBtYWtlIEFSQ0hfTVVMVElQTEFURk9STSB1c2Vy
-LXZpc2libGUiKSBmb3Igc29tZSBtb3JlCj4gZGV0YWlscy4KPgo+IFNpZ25lZC1vZmYtYnk6IFV3
-ZSBLbGVpbmUtS8O2bmlnIDx1LmtsZWluZS1rb2VuaWdAcGVuZ3V0cm9uaXguZGU+CgpNYWtlcyBz
-ZW5zZSwKCkFja2VkLWJ5OiBBcm5kIEJlcmdtYW5uIDxhcm5kQGFybmRiLmRlPgoKPiBkaWZmIC0t
-Z2l0IGEvZHJpdmVycy9ncHUvZHJtL29tYXBkcm0vS2NvbmZpZyAKPiBiL2RyaXZlcnMvZ3B1L2Ry
-bS9vbWFwZHJtL0tjb25maWcKPiBpbmRleCA0NTVlMWE5MWYwZTUuLjc2ZGVkMTU2OGJkMCAxMDA2
-NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vb21hcGRybS9LY29uZmlnCj4gKysrIGIvZHJpdmVy
-cy9ncHUvZHJtL29tYXBkcm0vS2NvbmZpZwo+IEBAIC0yLDcgKzIsNyBAQAo+ICBjb25maWcgRFJN
-X09NQVAKPiAgCXRyaXN0YXRlICJPTUFQIERSTSIKPiAgCWRlcGVuZHMgb24gRFJNICYmIE9GCj4g
-LQlkZXBlbmRzIG9uIEFSQ0hfT01BUDJQTFVTIHx8IEFSQ0hfTVVMVElQTEFURk9STQo+ICsJZGVw
-ZW5kcyBvbiBBUkNIX09NQVAyUExVUwo+ICAJc2VsZWN0IERSTV9LTVNfSEVMUEVSCj4gIAlzZWxl
-Y3QgVklERU9NT0RFX0hFTFBFUlMKPiAgCXNlbGVjdCBIRE1JCgpTaW5jZSB0aGUgb3JpZ2luYWwg
-cHVycG9zZSBvZiB0aGUgfHxBUkNIX01VTFRJUExBVEZPUk0gd2FzIHRvIGFsbG93CmJ1aWxkaW5n
-IHRoZSBkcml2ZXIgb24gbW9yZSB0YXJnZXRzLCBJIHdvbmRlciBpZiB3ZSBzaG91bGQgaW5zdGVh
-ZAptYWtlIHRoYXQgfHxDT01QSUxFX1RFU1QsIHdoaWNoIHdvdWxkIGFsc28gYWxsb3cgYnVpbGRp
-bmcgaXQgb24KeDg2IGFuZCBvdGhlcnMuCgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0v
-c3RpL0tjb25maWcgYi9kcml2ZXJzL2dwdS9kcm0vc3RpL0tjb25maWcKPiBpbmRleCBmMmE4ODBj
-NDg0ODUuLjNjN2E1ZmVmZjhkZSAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vc3RpL0tj
-b25maWcKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vc3RpL0tjb25maWcKPiBAQCAtMSw3ICsxLDcg
-QEAKPiAgIyBTUERYLUxpY2Vuc2UtSWRlbnRpZmllcjogR1BMLTIuMC1vbmx5Cj4gIGNvbmZpZyBE
-Uk1fU1RJCj4gIAl0cmlzdGF0ZSAiRFJNIFN1cHBvcnQgZm9yIFNUTWljcm9lbGVjdHJvbmljcyBT
-b0Mgc3RpSDR4eCBTZXJpZXMiCj4gLQlkZXBlbmRzIG9uIE9GICYmIERSTSAmJiAoQVJDSF9TVEkg
-fHwgQVJDSF9NVUxUSVBMQVRGT1JNKQo+ICsJZGVwZW5kcyBvbiBPRiAmJiBEUk0gJiYgQVJDSF9T
-VEkKPiAgCXNlbGVjdCBSRVNFVF9DT05UUk9MTEVSCj4gIAlzZWxlY3QgRFJNX0tNU19IRUxQRVIK
-PiAgCXNlbGVjdCBEUk1fR0VNX0RNQV9IRUxQRVIKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUv
-ZHJtL3N0bS9LY29uZmlnIGIvZHJpdmVycy9ncHUvZHJtL3N0bS9LY29uZmlnCj4gaW5kZXggZGVk
-NzJmODc5NDgyLi5mYTQ5Y2RlNDNiYjIgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL3N0
-bS9LY29uZmlnCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL3N0bS9LY29uZmlnCj4gQEAgLTEsNyAr
-MSw3IEBACj4gICMgU1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6IEdQTC0yLjAtb25seQo+ICBjb25m
-aWcgRFJNX1NUTQo+ICAJdHJpc3RhdGUgIkRSTSBTdXBwb3J0IGZvciBTVE1pY3JvZWxlY3Ryb25p
-Y3MgU29DIFNlcmllcyIKPiAtCWRlcGVuZHMgb24gRFJNICYmIChBUkNIX1NUTTMyIHx8IEFSQ0hf
-TVVMVElQTEFURk9STSkKPiArCWRlcGVuZHMgb24gRFJNICYmIEFSQ0hfU1RNMzIKPiAgCXNlbGVj
-dCBEUk1fS01TX0hFTFBFUgo+ICAJc2VsZWN0IERSTV9HRU1fRE1BX0hFTFBFUgo+ICAJc2VsZWN0
-IERSTV9QQU5FTF9CUklER0UKClNhbWUgaGVyZS4KCiAgICAgYXJuZApfX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QK
-TGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1h
-aWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
+
+--===============1838959311539935522==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="nuqt3gnghpavk6fz"
+Content-Disposition: inline
+
+
+--nuqt3gnghpavk6fz
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+Hello Andy,
+
+On Fri, Dec 09, 2022 at 11:47:54PM +0200, Andy Shevchenko wrote:
+> On Wed, Nov 30, 2022 at 04:21:37PM +0100, Uwe Kleine-K=F6nig wrote:
+> > In v1 Thierry had the concern:
+> >=20
+> > | That raises the question about what to do in these cases. If we return
+> > | an error, that could potentially throw off consumers. So perhaps the
+> > | closest would be to return a disabled PWM? Or perhaps it'd be up to t=
+he
+> > | consumer to provide some fallback configuration for invalidly configu=
+red
+> > | or unconfigured PWMs.
+> >=20
+> > .get_state() is only called in pwm_device_request on a pwm_state that a
+> > consumer might see. Before my series a consumer might have seen a
+> > partial modified pwm_state (because .get_state() might have modified
+> > .period, then stumbled and returned silently). The last patch ensures
+> > that this partial modification isn't given out to the consumer. Instead
+> > they now see the same as if .get_state wasn't implemented at all.
+>=20
+> I'm wondering why we didn't see a compiler warning about mistyped function
+> prototypes in some drivers.
+
+I don't understand where you expected a warning. Care to elaborate?
+
+> P.S. The series is good thing to do, thank you.
+
+It's already too late for an ack, the series is already in Thierry's
+tree.
+
+Best regards
+Uwe
+=20
+--=20
+Pengutronix e.K.                           | Uwe Kleine-K=F6nig            |
+Industrial Linux Solutions                 | https://www.pengutronix.de/ |
+
+--nuqt3gnghpavk6fz
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEfnIqFpAYrP8+dKQLwfwUeK3K7AkFAmOUTt4ACgkQwfwUeK3K
+7Amt4gf/VCswPgVD5w7pUM72SEpdjhw28hm2YCuu5RxYMTBVbGTdK9rYJjqmB2FI
+ZOQHPgl36sDWhZEM55FY6oZxaGM3XttrjoTnFSk0MuNQmO70aWJtkS+OVmR4UgiR
+vIXRy8KMRWEliVRK4dWubiXzQ3OZl1iEDzgc9c7bccEtcdABRG+Z0zLWDCiT8WMw
+OzDx+FLvT792TNn4oEHONO3lJVeZ64MdM0VPguFtzbArXlpaJlQhlfhxYnvVxR1o
+LkxC6uB5mWT1o1f3+yzw9GD0RJwspghVALqO+g7LoH0oinRso2oaExRDKS5Yt69Z
+bmJURLsdOOyquJFcb6f1NqrKVb8fUw==
+=nBk6
+-----END PGP SIGNATURE-----
+
+--nuqt3gnghpavk6fz--
+
+--===============1838959311539935522==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============1838959311539935522==--
