@@ -2,58 +2,61 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id AA98F648DE9
-	for <lists+linux-stm32@lfdr.de>; Sat, 10 Dec 2022 10:22:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 30DC06490C5
+	for <lists+linux-stm32@lfdr.de>; Sat, 10 Dec 2022 21:57:27 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6A309C65E6E;
-	Sat, 10 Dec 2022 09:22:27 +0000 (UTC)
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
- [85.220.165.71])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BE8F8C65E6D;
+	Sat, 10 Dec 2022 20:57:26 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 247A0C65E63
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 16925C65E5E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 10 Dec 2022 09:22:26 +0000 (UTC)
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
- by metis.ext.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <ukl@pengutronix.de>)
- id 1p3w3Y-0003nU-Gl; Sat, 10 Dec 2022 10:22:04 +0100
-Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
- by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.94.2)
- (envelope-from <ukl@pengutronix.de>)
- id 1p3w3T-003YC4-IF; Sat, 10 Dec 2022 10:22:00 +0100
-Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.94.2)
- (envelope-from <ukl@pengutronix.de>)
- id 1p3w3T-003yUw-Ba; Sat, 10 Dec 2022 10:21:59 +0100
-Date: Sat, 10 Dec 2022 10:21:55 +0100
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
-To: Arnd Bergmann <arnd@arndb.de>
-Message-ID: <20221210092155.elcuvcbb4ukktxjp@pengutronix.de>
-References: <20221209220555.3631364-1-u.kleine-koenig@pengutronix.de>
- <96e8a731-bf92-4cfd-b0be-dfbcb7a076c6@app.fastmail.com>
+ Sat, 10 Dec 2022 20:57:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1670705845; x=1702241845;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=8tRXcUKxGagfde91ZdUSDF88p8/b8+3NQn8nn2kaumc=;
+ b=Z8FRauK1i0+pKl0yATc+E/NGcYNXoq/grKMGZ8aBNhcj2zQBZviMwQvM
+ JKTKkydjjrfdd88qIDhnFhVWVD6hX38j3rzs3dvmQRFNEvpUbds5gNfHv
+ QVoSZ/MC8o/OOOEYRXDl6/PYdXxqqcyJKpADPlHEvs40Z2ioban1YAGOp
+ QLuYd0SApjC2GQ8k1H9kKgfUf06LbHlziSQ1WNXpANEyxupG23qcznL7s
+ ME80wd5FoowGzUAyWZgwH6UNrnXM25SvbjOHS8+yjqM7G7rQwsBc7YnZq
+ lomfMZNbAAvmVC3CRS3ByThlCbc82bwu/kh1l5VLRNo3RZZFMPVrugfzx w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10557"; a="315286167"
+X-IronPort-AV: E=Sophos;i="5.96,235,1665471600"; d="scan'208";a="315286167"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Dec 2022 12:57:23 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6500,9779,10557"; a="678489946"
+X-IronPort-AV: E=Sophos;i="5.96,234,1665471600"; d="scan'208";a="678489946"
+Received: from smile.fi.intel.com ([10.237.72.54])
+ by orsmga008.jf.intel.com with ESMTP; 10 Dec 2022 12:57:18 -0800
+Received: from andy by smile.fi.intel.com with local (Exim 4.96)
+ (envelope-from <andriy.shevchenko@intel.com>) id 1p46uK-007g2g-33;
+ Sat, 10 Dec 2022 22:57:16 +0200
+Date: Sat, 10 Dec 2022 22:57:16 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>
+Message-ID: <Y5TyrO5maz5VYic3@smile.fi.intel.com>
+References: <20221130152148.2769768-1-u.kleine-koenig@pengutronix.de>
+ <Y5OtCjQOQjjltGPa@smile.fi.intel.com>
+ <20221210091833.vdfir63nq4kpj5cm@pengutronix.de>
 MIME-Version: 1.0
-In-Reply-To: <96e8a731-bf92-4cfd-b0be-dfbcb7a076c6@app.fastmail.com>
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: ukl@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
-Cc: dri-devel@lists.freedesktop.org, Alim Akhtar <alim.akhtar@samsung.com>,
- Fabio Estevam <festevam@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
- linux-samsung-soc@vger.kernel.org, Dave Airlie <airlied@gmail.com>,
- Kyungmin Park <kyungmin.park@samsung.com>, NXP Linux Team <linux-imx@nxp.com>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Sascha Hauer <s.hauer@pengutronix.de>, Inki Dae <inki.dae@samsung.com>,
- Daniel Vetter <daniel@ffwll.ch>, linux-arm-kernel@lists.infradead.org,
- Tomi Valkeinen <tomba@kernel.org>, Yannick Fertre <yannick.fertre@foss.st.com>,
- Seung-Woo Kim <sw0312.kim@samsung.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Shawn Guo <shawnguo@kernel.org>
-Subject: Re: [Linux-stm32] [PATCH] drm: Drop ARCH_MULTIPLATFORM from
-	dependencies
+Content-Disposition: inline
+In-Reply-To: <20221210091833.vdfir63nq4kpj5cm@pengutronix.de>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+Cc: linux-pwm@vger.kernel.org, chrome-platform@lists.linux.dev,
+ linux-rockchip@lists.infradead.org, dri-devel@lists.freedesktop.org,
+ linux-sunxi@lists.linux.dev, linux-gpio@vger.kernel.org,
+ Thierry Reding <thierry.reding@gmail.com>, linux-mediatek@lists.infradead.org,
+ linux-leds@vger.kernel.org, linux-amlogic@lists.infradead.org,
+ linux-riscv@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-rpi-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v2 00/11] pwm: Allow .get_state to fail
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -65,97 +68,34 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============0373594036388834952=="
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+On Sat, Dec 10, 2022 at 10:18:33AM +0100, Uwe Kleine-K=F6nig wrote:
+> On Fri, Dec 09, 2022 at 11:47:54PM +0200, Andy Shevchenko wrote:
+> > On Wed, Nov 30, 2022 at 04:21:37PM +0100, Uwe Kleine-K=F6nig wrote:
 
---===============0373594036388834952==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="lx3uyybbmyqkxs4g"
-Content-Disposition: inline
+...
 
+> > I'm wondering why we didn't see a compiler warning about mistyped funct=
+ion
+> > prototypes in some drivers.
+> =
 
---lx3uyybbmyqkxs4g
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+> I don't understand where you expected a warning. Care to elaborate?
 
-Hello Arnd,
+intel-lpss.c has the prototype that returns an int. IIRC it was like this
+before your patches. Now the above wondering passage...
 
-On Fri, Dec 09, 2022 at 11:53:49PM +0100, Arnd Bergmann wrote:
-> On Fri, Dec 9, 2022, at 23:05, Uwe Kleine-K=F6nig wrote:
-> > Some of these dependencies used to be sensible when only a small part of
-> > the platforms supported by ARCH=3Darm could be compiled together in a
-> > single kernel image. Nowadays ARCH_MULTIPLATFORM is only used as a guard
-> > for kernel options incompatible with a multiplatform image. See commit
-> > 84fc86360623 ("ARM: make ARCH_MULTIPLATFORM user-visible") for some more
-> > details.
-> >
-> > Signed-off-by: Uwe Kleine-K=F6nig <u.kleine-koenig@pengutronix.de>
->=20
-> Makes sense,
->=20
-> Acked-by: Arnd Bergmann <arnd@arndb.de>
+-- =
 
-Thanks. (But honestly I'm not surprised you agree to this patch after
-our conversation on irc :-)
-=20
-> > diff --git a/drivers/gpu/drm/omapdrm/Kconfig=20
-> > b/drivers/gpu/drm/omapdrm/Kconfig
-> > index 455e1a91f0e5..76ded1568bd0 100644
-> > --- a/drivers/gpu/drm/omapdrm/Kconfig
-> > +++ b/drivers/gpu/drm/omapdrm/Kconfig
-> > @@ -2,7 +2,7 @@
-> >  config DRM_OMAP
-> >  	tristate "OMAP DRM"
-> >  	depends on DRM && OF
-> > -	depends on ARCH_OMAP2PLUS || ARCH_MULTIPLATFORM
-> > +	depends on ARCH_OMAP2PLUS
-> >  	select DRM_KMS_HELPER
-> >  	select VIDEOMODE_HELPERS
-> >  	select HDMI
->=20
-> Since the original purpose of the ||ARCH_MULTIPLATFORM was to allow
-> building the driver on more targets, I wonder if we should instead
-> make that ||COMPILE_TEST, which would also allow building it on
-> x86 and others.
+With Best Regards,
+Andy Shevchenko
 
-I wondered about that, too, but thought that would be a new patch.
-
-Best regards
-Uwe
-
---=20
-Pengutronix e.K.                           | Uwe Kleine-K=F6nig            |
-Industrial Linux Solutions                 | https://www.pengutronix.de/ |
-
---lx3uyybbmyqkxs4g
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEfnIqFpAYrP8+dKQLwfwUeK3K7AkFAmOUT7AACgkQwfwUeK3K
-7Amcbgf9FjDJ3Y/G6MIauV6V2InYndp8uCxtZzkthWGB+KJwzC9s9h5qnAAmOmpE
-qN/t2/cHhGqjOrbdBWvHZbXZVRkp9b3O8YhTSXGaavSOPGo2hdRofAJ77nnwXbzn
-V56RWaNtHq115LwxdWUnj2Gj8J2vl69XCUCawcT8sjT7QA7fP9/WA/tyrFS+Qkiz
-kwxBgJsyNtpy9K/0bMdvOy/E5FI4CkRy2U6h7Lq0SxZIwM3hx22elrLbrjgdaiZC
-lKJSyfB2mELNGEYzmhyXXI49cbfcwjMw3i6z8+/jXTSFGHhta2ARzHlPGl945VFn
-Vtlv+RShs/Yf3gqhsSYCL6q8o0zehA==
-=ZXhE
------END PGP SIGNATURE-----
-
---lx3uyybbmyqkxs4g--
-
---===============0373594036388834952==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============0373594036388834952==--
