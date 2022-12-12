@@ -2,66 +2,52 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6EFA5649A69
-	for <lists+linux-stm32@lfdr.de>; Mon, 12 Dec 2022 09:52:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 54858649B59
+	for <lists+linux-stm32@lfdr.de>; Mon, 12 Dec 2022 10:40:20 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3280DC65E6A;
-	Mon, 12 Dec 2022 08:52:31 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 021DDC65E62;
+	Mon, 12 Dec 2022 09:40:20 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AA2E6C6410A
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 12 Dec 2022 09:40:18 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6B93FC035BC
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 12 Dec 2022 08:52:29 +0000 (UTC)
-Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 2BC6t8Qc010626; Mon, 12 Dec 2022 09:51:55 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-transfer-encoding : content-type; s=selector1;
- bh=0lIC51J8od1nykTstEKN4gxeywVJqj5+Zu/UUfT53mE=;
- b=USe/0t5y8LxwSdvd44p8tRXRwNbwpbJPLeGa4edNcFTDnQE6KtC2yu5EqTXpLGiEdZ3R
- lz5Tiu0Cj2ogau0gD87f/poFcQQYke9H1UvqjasLVg6kHIOIo/+FwO7sOa7d7RHWmep5
- X4wPV+gS88HIzXSQFCicp7x6O7y3jYgbKAfp49OMyF+rALSSfOOs4w+O45rsgJI4e9NR
- Z+4u5xafbfFcH2e+ltc1Zbbg30e8YKHo2wPDRCHDzVE5kT2e3e3eNH7e/8d6kQ+YttP7
- TxODKkV6TDTvm3k6Wkf6nFGV8lSMKiEIrvcG4tY8q4ic92MFs1zgc4OjOOhxWB8uTZSH iA== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3mcgdp9nk7-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 12 Dec 2022 09:51:55 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id E442510003B;
- Mon, 12 Dec 2022 09:51:49 +0100 (CET)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 7EF00217B72;
- Mon, 12 Dec 2022 09:51:49 +0100 (CET)
-Received: from localhost (10.201.20.130) by SHFDAG1NODE1.st.com (10.75.129.69)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.13; Mon, 12 Dec
- 2022 09:51:49 +0100
-From: <patrice.chotard@foss.st.com>
-To: <robh+dt@kernel.org>, Krzysztof Kozlowski
- <krzysztof.kozlowski+dt@linaro.org>, <alexandre.torgue@foss.st.com>
-Date: Mon, 12 Dec 2022 09:51:42 +0100
-Message-ID: <20221212085142.3944367-5-patrice.chotard@foss.st.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20221212085142.3944367-1-patrice.chotard@foss.st.com>
-References: <20221212085142.3944367-1-patrice.chotard@foss.st.com>
+ by ams.source.kernel.org (Postfix) with ESMTPS id EAB7CB80C75;
+ Mon, 12 Dec 2022 09:40:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 97988C43398;
+ Mon, 12 Dec 2022 09:40:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1670838016;
+ bh=PFRwwAEE6T0Zl3Gpsu7MnXZ3cNnwcu75+uz54iDM9NU=;
+ h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
+ b=lH2YSrreLrANfVftDnRJLJjrB2imMpsdCvhfIzxcGwnraRqVsCetjQ4FlJ+cXswhz
+ TfBw1AJlKd1oSPmAUnrJ3SxsWP+hHChgymmxoOXDRKQLQGfxiGE/GX/7EYc8KbdOdg
+ li2CPXThmmbQzJSq4dBMhD/nh1GCOie1cnbhf8Bu4hI+mPdUEgbNmu1/7uenV4yhGF
+ BKHOFN+PvBrrfOEzRRE4XpFzYlTfdDYa1sTIIywMOuuFTyABsd3CdGJPkrAfIVud2a
+ TELxhFieMdrYuV8OhTOAR3o3AAu/B/je67ddolFSWn+Fg8oGoPCIHrTAlzTxOckQHH
+ HN/J3k3PpA7ug==
+Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
+ 79901C41612; Mon, 12 Dec 2022 09:40:16 +0000 (UTC)
 MIME-Version: 1.0
-X-Originating-IP: [10.201.20.130]
-X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE1.st.com
- (10.75.129.69)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.923,Hydra:6.0.545,FMLib:17.11.122.1
- definitions=2022-12-12_01,2022-12-08_01,2022-06-22_01
-Cc: devicetree@vger.kernel.org, Alexandre Torgue <alexandre.torgue@st.com>,
- linux-kernel@vger.kernel.org, linux@armlinux.org.uk,
- Oleksij Rempel <o.rempel@pengutronix.de>, mcoquelin.stm32@gmail.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 4/4] ARM: dts: stm32: Fix qspi pinctrl phandle
-	for stm32mp151a-prtt1l
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: <167083801649.1612.9436710695247859393.git-patchwork-notify@kernel.org>
+Date: Mon, 12 Dec 2022 09:40:16 +0000
+References: <1670490195-19367-1-git-send-email-jun.ann.lai@intel.com>
+In-Reply-To: <1670490195-19367-1-git-send-email-jun.ann.lai@intel.com>
+To: Lai Peter Jun Ann <jun.ann.lai@intel.com>
+Cc: alexandre.torgue@st.com, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ edumazet@google.com, joabreu@synopsys.com, mcoquelin.stm32@gmail.com,
+ kuba@kernel.org, michael.wei.hong.sit@intel.com, peppe.cavallaro@st.com,
+ pabeni@redhat.com, davem@davemloft.net, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next 1/1] net: stmmac: Add check for
+ taprio basetime configuration
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,42 +64,31 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Patrice Chotard <patrice.chotard@foss.st.com>
+Hello:
 
-Chip select pinctrl phandle was missing in several stm32mp15x based boards.
+This patch was applied to netdev/net-next.git (master)
+by David S. Miller <davem@davemloft.net>:
 
-Fixes: ea99a5a02ebc ("ARM: dts: stm32: Create separate pinmux for qspi cs pin in stm32mp15-pinctrl.dtsi)
+On Thu,  8 Dec 2022 17:03:15 +0800 you wrote:
+> From: Michael Sit Wei Hong <michael.wei.hong.sit@intel.com>
+> 
+> Adds a boundary check to prevent negative basetime input from user
+> while configuring taprio.
+> 
+> Signed-off-by: Michael Sit Wei Hong <michael.wei.hong.sit@intel.com>
+> Signed-off-by: Lai Peter Jun Ann <jun.ann.lai@intel.com>
+> 
+> [...]
 
-Signed-off-by: Patrice Chotard <patrice.chotard@foss.st.com>
-Cc: Oleksij Rempel <o.rempel@pengutronix.de>
-Cc: Alexandre Torgue <alexandre.torgue@st.com>
-Cc: linux-stm32@st-md-mailman.stormreply.com
-To: linux-arm-kernel@lists.infradead.org
----
- arch/arm/boot/dts/stm32mp151a-prtt1l.dtsi | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+Here is the summary with links:
+  - [net-next,1/1] net: stmmac: Add check for taprio basetime configuration
+    https://git.kernel.org/netdev/net-next/c/6d534ee057b6
 
-diff --git a/arch/arm/boot/dts/stm32mp151a-prtt1l.dtsi b/arch/arm/boot/dts/stm32mp151a-prtt1l.dtsi
-index d865ab5d866b..dd23de85100c 100644
---- a/arch/arm/boot/dts/stm32mp151a-prtt1l.dtsi
-+++ b/arch/arm/boot/dts/stm32mp151a-prtt1l.dtsi
-@@ -101,8 +101,12 @@ &iwdg2 {
- 
- &qspi {
- 	pinctrl-names = "default", "sleep";
--	pinctrl-0 = <&qspi_clk_pins_a &qspi_bk1_pins_a>;
--	pinctrl-1 = <&qspi_clk_sleep_pins_a &qspi_bk1_sleep_pins_a>;
-+	pinctrl-0 = <&qspi_clk_pins_a
-+		     &qspi_bk1_pins_a
-+		     &qspi_cs1_pins_a>;
-+	pinctrl-1 = <&qspi_clk_sleep_pins_a
-+		     &qspi_bk1_sleep_pins_a
-+		     &qspi_cs1_sleep_pins_a>;
- 	reg = <0x58003000 0x1000>, <0x70000000 0x4000000>;
- 	#address-cells = <1>;
- 	#size-cells = <0>;
+You are awesome, thank you!
 -- 
-2.25.1
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
 
 _______________________________________________
 Linux-stm32 mailing list
