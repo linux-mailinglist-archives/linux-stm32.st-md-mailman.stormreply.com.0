@@ -2,88 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A605264A4F6
-	for <lists+linux-stm32@lfdr.de>; Mon, 12 Dec 2022 17:37:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E579A64B33E
+	for <lists+linux-stm32@lfdr.de>; Tue, 13 Dec 2022 11:28:20 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 45A4DC65E75;
-	Mon, 12 Dec 2022 16:37:03 +0000 (UTC)
-Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com
- [209.85.208.49])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 89298C65E74;
+	Tue, 13 Dec 2022 10:28:20 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4DAB1C035BC
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 08DADC03FC6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 12 Dec 2022 16:37:01 +0000 (UTC)
-Received: by mail-ed1-f49.google.com with SMTP id d20so13736701edn.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 12 Dec 2022 08:37:01 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=lvYON1Uq6UT3Qph7OPPr0NH47G6rUYR8O1BO9MFwJow=;
- b=lIFXcScE+1mmzH1SBNLfPzmU2yyZ22FDa7zo6/O0Bw9aIOxDeXxYkEVfus52JWuhda
- 4ouELocZnEhmnwFppolEYq4c3c7RHYAqD4pax4M3unQDLONiM/9+ejXSM9E2FE+Z0v02
- plxbNMhSLCExfq6g58BwEJLatQLzpt/xLWOhKWfMwSgaHbhPuPfGnoShEU2Q/8V0GhBe
- I8mO/6POKEHTvHhiQrSmT3i/DlcfyH1o4pAMtSuNXvNoHj+mOy3GKKCsRTSQGVPFd3Z7
- AQYI0FN6wamo3RnZf0VXDCwVvMRjPWjYDkKYXDeP5o/vQIFIn9FanCQzU/XNFNQHrfWF
- 2geA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=lvYON1Uq6UT3Qph7OPPr0NH47G6rUYR8O1BO9MFwJow=;
- b=H8QoKrhqnVnRcqhhtldCgC4qI3uAAjtCrlHvk450hxG3eP31BtKJDiWTdejq9j5p2p
- aNkKakmKlnhYpckRKz5VhwgOF38GTH0+z3pglEfsqoXj/pY3EK/5Nllgq4rj1HvyMWGa
- /JXhmCQyzlOMg1O+Xo7+DZ9AW6y32tcYng6bYqw0OkqwvZS2hvifs3oKrYCj27bZzRHN
- x4p+NQTIzMb6Btc4gqbXe27UNj6wGsj6YOVRSuI8UNfPYiwLQgTzgFENkLi45UJQ0pcQ
- OQQOO9TVmOW1oqObqatzcchTGKLDAHu0stm3/8f8SG9DfV1ZJ2eLegBQTP/u4tc6Su4c
- HfLg==
-X-Gm-Message-State: ANoB5pmYSTTYAM2a4yOf0sZE4s7AXMvepBNfutcbaJFafhdOZ+ZwND+r
- a2PBW46gldfBtnkGE7nqxv0tlw==
-X-Google-Smtp-Source: AA0mqf5ppTTyM6N0bPOAfBX//eKXVRPakyRimeYdkY/8NocUbAvjnOSiYLmQOcD2W7tmhBu2XO410g==
-X-Received: by 2002:a05:6402:702:b0:46f:68d0:76 with SMTP id
- w2-20020a056402070200b0046f68d00076mr10093614edx.34.1670863020790; 
- Mon, 12 Dec 2022 08:37:00 -0800 (PST)
-Received: from prec5560.. ([2001:bf7:830:a7a8:ff97:7d8d:1f2e:ffaa])
- by smtp.gmail.com with ESMTPSA id
- m15-20020a50930f000000b00463597d2c25sm4051979eda.74.2022.12.12.08.36.58
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 12 Dec 2022 08:37:00 -0800 (PST)
-From: Robert Foss <robert.foss@linaro.org>
-To: Lee Jones <lee.jones@linaro.org>,
- =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <uwe@kleine-koenig.org>,
- Angel Iglesias <ang.iglesiasg@gmail.com>, Wolfram Sang <wsa@kernel.org>,
- Grant Likely <grant.likely@linaro.org>
-Date: Mon, 12 Dec 2022 17:36:51 +0100
-Message-Id: <167086288411.3041259.17824406556561546642.b4-ty@linaro.org>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20221118224540.619276-1-uwe@kleine-koenig.org>
-References: <20221118224540.619276-1-uwe@kleine-koenig.org>
+ Tue, 13 Dec 2022 10:28:18 +0000 (UTC)
+Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 2BDAJBHq020788; Tue, 13 Dec 2022 11:27:56 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=selector1;
+ bh=BWg+HDZmgPHQRKWNccXLhmf8oUCWCRsnu09e0ZlymTo=;
+ b=4mrgnWCizqeYbazHpFTds6hvlbnjWXTOQSLaJkeucw+0yoMJPbrXB35y2FRLxvNlSXWN
+ Bk00nf/CUxuFFm6cH86wDxIjyF/AzDZ21uJAO5iuGwMqZzMpzYynbvTOjC1LINyMiZcP
+ VVwj/kZARciT8gH+86iAaYkQt8knT/DdudfsSXI4q4tkKfZ65dYHOaD1qPH23DSUyVNf
+ m5Z+b4dtl23+4tb2ADK5AdSOPVBeA29IOTlrZgVxIF5wkKGt2nXwNlJC1634y0GqoE8v
+ cB+P9BoNZ7yr81QFE+PZvU1OgytmjgRtP2ISM5RjrVxleBQY0GwT8/E5Kl80tCPk4mvM ow== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3mcgdphmf6-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 13 Dec 2022 11:27:56 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 8E76610002A;
+ Tue, 13 Dec 2022 11:27:49 +0100 (CET)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 841A321A211;
+ Tue, 13 Dec 2022 11:27:49 +0100 (CET)
+Received: from localhost (10.201.20.178) by SHFDAG1NODE1.st.com (10.75.129.69)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.13; Tue, 13 Dec
+ 2022 11:27:49 +0100
+From: Olivier Moysan <olivier.moysan@foss.st.com>
+To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>, Thierry Reding
+ <thierry.reding@gmail.com>, =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?=
+ <u.kleine-koenig@pengutronix.de>, Maxime Coquelin
+ <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Lee Jones <lee@kernel.org>,
+ Benjamin Gaignard <benjamin.gaignard@linaro.org>
+Date: Tue, 13 Dec 2022 11:27:07 +0100
+Message-ID: <20221213102707.1096345-1-olivier.moysan@foss.st.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Cc: alsa-devel@alsa-project.org, linux-pwm@vger.kernel.org,
- linux-iio@vger.kernel.org, linux-fbdev@vger.kernel.org,
- platform-driver-x86@vger.kernel.org, linux-mtd@lists.infradead.org,
- linux-i2c@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-leds@vger.kernel.org, linux-rtc@vger.kernel.org,
- chrome-platform@lists.linux.dev, linux-samsung-soc@vger.kernel.org,
- linux-staging@lists.linux.dev,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
- linux-serial@vger.kernel.org, linux-input@vger.kernel.org,
- linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- linux-watchdog@vger.kernel.org, linux-pm@vger.kernel.org,
- linux-actions@lists.infradead.org, linux-gpio@vger.kernel.org,
- linux-rpi-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
- openipmi-developer@lists.sourceforge.net, linux-omap@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, Purism Kernel Team <kernel@puri.sm>,
- patches@opensource.cirrus.com, linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org, Robert Foss <robert.foss@linaro.org>,
- linux-spi@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- linux-crypto@vger.kernel.org, kernel@pengutronix.de, netdev@vger.kernel.org,
- linux-integrity@vger.kernel.org, linuxppc-dev@lists.ozlabs.org
-Subject: Re: [Linux-stm32] (subset) [PATCH 000/606] i2c: Complete conversion
-	to i2c_probe_new
+X-Originating-IP: [10.201.20.178]
+X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.923,Hydra:6.0.545,FMLib:17.11.122.1
+ definitions=2022-12-13_03,2022-12-13_01,2022-06-22_01
+Cc: linux-arm-kernel@lists.infradead.org, linux-pwm@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [PATCH] pwm: stm32: enforce settings for pwm capture
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,29 +73,59 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gRnJpLCAxOCBOb3YgMjAyMiAyMzozNTozNCArMDEwMCwgVXdlIEtsZWluZS1Lw7ZuaWcgd3Jv
-dGU6Cj4gc2luY2UgY29tbWl0IGI4YTFhNGNkNWE5OCAoImkyYzogUHJvdmlkZSBhIHRlbXBvcmFy
-eSAucHJvYmVfbmV3KCkKPiBjYWxsLWJhY2sgdHlwZSIpIGZyb20gMjAxNiB0aGVyZSBpcyBhICJ0
-ZW1wb3JhcnkiIGFsdGVybmF0aXZlIHByb2JlCj4gY2FsbGJhY2sgZm9yIGkyYyBkcml2ZXJzLgo+
-IAo+IFRoaXMgc2VyaWVzIGNvbXBsZXRlcyBhbGwgZHJpdmVycyB0byB0aGlzIG5ldyBjYWxsYmFj
-ayAodW5sZXNzIEkgbWlzc2VkCj4gc29tZXRoaW5nKS4gSXQncyBiYXNlZCBvbiBjdXJyZW50IG5l
-eHQvbWFzdGVyLgo+IEEgcGFydCBvZiB0aGUgcGF0Y2hlcyBkZXBlbmQgb24gY29tbWl0IDY2MjIz
-MzczMWQ2NiAoImkyYzogY29yZToKPiBJbnRyb2R1Y2UgaTJjX2NsaWVudF9nZXRfZGV2aWNlX2lk
-IGhlbHBlciBmdW5jdGlvbiIpLCB0aGVyZSBpcyBhIGJyYW5jaCB0aGF0Cj4geW91IGNhbiBwdWxs
-IGludG8geW91ciB0cmVlIHRvIGdldCBpdDoKPiAKPiBbLi4uXQoKQXBwbGllZCwgdGhhbmtzIQoK
-UmVwbzogaHR0cHM6Ly9jZ2l0LmZyZWVkZXNrdG9wLm9yZy9kcm0vZHJtLW1pc2MvCgoKWzAxNC82
-MDZdIGRybS9icmlkZ2U6IGFkdjc1MTE6IENvbnZlcnQgdG8gaTJjJ3MgLnByb2JlX25ldygpCiAg
-ICAgICAgICBjb21taXQ6IDFjNTQ2ODk0ZmY4MmY4YjdjMDcwOTk4YzAzZjliMTVhMzQ5OWYzMjYK
-WzAyOC82MDZdIGRybS9icmlkZ2U6IHBhcmFkZS1wczg2MjI6IENvbnZlcnQgdG8gaTJjJ3MgLnBy
-b2JlX25ldygpCiAgICAgICAgICBjb21taXQ6IGQ2YjUyMmU5YmJiMGNjYTFhZWFlNGVmNjE4ODgw
-MDUzNDc5NDgzNmYKWzAzNS82MDZdIGRybS9icmlkZ2U6IHRpLXNuNjVkc2k4MzogQ29udmVydCB0
-byBpMmMncyAucHJvYmVfbmV3KCkKICAgICAgICAgIGNvbW1pdDogMGY2NTQ4ODA3ZmE3N2U4N2Ji
-YzM3OTY0YzZiMWVkOWJhNmUxMTU1ZAoKCgpyb2IKCl9fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0z
-MkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9y
-bXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+The PWM capture assumes that the input selector is set to default
+input and that the slave mode is disabled. Force reset state for
+TISEL and SMCR registers to match this requirement.
+
+Note that slave mode disabling is not a pre-requisite by itself
+for capture mode, as hardware supports it for PWM capture.
+However, the current implementation of the driver does not
+allow slave mode for PWM capture. Setting slave mode for PWM
+capture results in wrong capture values.
+
+Fixes: 53e38fe73f94 ("pwm: stm32: Add capture support")
+Signed-off-by: Olivier Moysan <olivier.moysan@foss.st.com>
+---
+ drivers/pwm/pwm-stm32.c          | 4 ++++
+ include/linux/mfd/stm32-timers.h | 1 +
+ 2 files changed, 5 insertions(+)
+
+diff --git a/drivers/pwm/pwm-stm32.c b/drivers/pwm/pwm-stm32.c
+index 794ca5b02968..24aab0450c78 100644
+--- a/drivers/pwm/pwm-stm32.c
++++ b/drivers/pwm/pwm-stm32.c
+@@ -207,6 +207,10 @@ static int stm32_pwm_capture(struct pwm_chip *chip, struct pwm_device *pwm,
+ 	regmap_write(priv->regmap, TIM_ARR, priv->max_arr);
+ 	regmap_write(priv->regmap, TIM_PSC, psc);
+ 
++	/* Reset input selector to its default input and disable slave mode */
++	regmap_write(priv->regmap, TIM_TISEL, 0x0);
++	regmap_write(priv->regmap, TIM_SMCR, 0x0);
++
+ 	/* Map TI1 or TI2 PWM input to IC1 & IC2 (or TI3/4 to IC3 & IC4) */
+ 	regmap_update_bits(priv->regmap,
+ 			   pwm->hwpwm < 2 ? TIM_CCMR1 : TIM_CCMR2,
+diff --git a/include/linux/mfd/stm32-timers.h b/include/linux/mfd/stm32-timers.h
+index 5f5c43fd69dd..1b94325febb3 100644
+--- a/include/linux/mfd/stm32-timers.h
++++ b/include/linux/mfd/stm32-timers.h
+@@ -31,6 +31,7 @@
+ #define TIM_BDTR	0x44	/* Break and Dead-Time Reg */
+ #define TIM_DCR		0x48	/* DMA control register    */
+ #define TIM_DMAR	0x4C	/* DMA register for transfer */
++#define TIM_TISEL	0x68	/* Input Selection         */
+ 
+ #define TIM_CR1_CEN	BIT(0)	/* Counter Enable	   */
+ #define TIM_CR1_DIR	BIT(4)  /* Counter Direction	   */
+-- 
+2.25.1
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
