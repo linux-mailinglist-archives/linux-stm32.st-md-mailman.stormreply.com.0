@@ -2,111 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7E89264B43D
-	for <lists+linux-stm32@lfdr.de>; Tue, 13 Dec 2022 12:33:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B773364B724
+	for <lists+linux-stm32@lfdr.de>; Tue, 13 Dec 2022 15:19:20 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 21D08C65E74;
-	Tue, 13 Dec 2022 11:33:03 +0000 (UTC)
-Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com
- [210.118.77.12])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 631C1C65E74;
+	Tue, 13 Dec 2022 14:19:20 +0000 (UTC)
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
+ [209.85.128.48])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 13971C035BC
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 38608C035BC
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 13 Dec 2022 11:33:01 +0000 (UTC)
-Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
- by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id
- 20221213113300euoutp02157d03752cf541729b6a9d3b96d070ee~wVw5Lu8jm2882628826euoutp02W
+ Tue, 13 Dec 2022 14:19:19 +0000 (UTC)
+Received: by mail-wm1-f48.google.com with SMTP id
+ n9-20020a05600c3b8900b003d0944dba41so8078807wms.4
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 13 Dec 2022 11:33:00 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com
- 20221213113300euoutp02157d03752cf541729b6a9d3b96d070ee~wVw5Lu8jm2882628826euoutp02W
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
- s=mail20170921; t=1670931180;
- bh=GWlKbT51HpBnFtB9eCRCm5UsJLYbwGnOyZSuSyWXyvM=;
- h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
- b=lykxvOOWrPLcoQWKnCUpxzd8v63GXoViLw1kWm923K3eiW4QskfN+7A/tIntPJQhf
- Unx8rVwXWeLDtw0Nm6Z84Z5obACUsZpI6RzUaGcgA9taQqkhh/eFW1gsKrcGJu22TK
- YDS952CdY7cxZyIp40HoG7xpkxrWLsurd2TASYJo=
-Received: from eusmges3new.samsung.com (unknown [203.254.199.245]) by
- eucas1p1.samsung.com (KnoxPortal) with ESMTP id
- 20221213113300eucas1p17d6efbbc2bf2ab5d4468a96368a2cefe~wVw4xrkuC3106731067eucas1p1t;
- Tue, 13 Dec 2022 11:33:00 +0000 (GMT)
-Received: from eucas1p1.samsung.com ( [182.198.249.206]) by
- eusmges3new.samsung.com (EUCPMTA) with SMTP id 59.43.09549.CE268936; Tue, 13
- Dec 2022 11:33:00 +0000 (GMT)
-Received: from eusmtrp2.samsung.com (unknown [182.198.249.139]) by
- eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
- 20221213113259eucas1p1c224898772bc5e59de90c1aa65a34de0~wVw4Uxwi00626006260eucas1p1y;
- Tue, 13 Dec 2022 11:32:59 +0000 (GMT)
-Received: from eusmgms2.samsung.com (unknown [182.198.249.180]) by
- eusmtrp2.samsung.com (KnoxPortal) with ESMTP id
- 20221213113259eusmtrp291348dac2ff05b31a5224d1aa6f304b1~wVw4T0FQ03275132751eusmtrp27;
- Tue, 13 Dec 2022 11:32:59 +0000 (GMT)
-X-AuditID: cbfec7f5-f5dff7000000254d-69-639862ec7628
-Received: from eusmtip2.samsung.com ( [203.254.199.222]) by
- eusmgms2.samsung.com (EUCPMTA) with SMTP id 7E.0A.09026.BE268936; Tue, 13
- Dec 2022 11:32:59 +0000 (GMT)
-Received: from [106.210.134.192] (unknown [106.210.134.192]) by
- eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
- 20221213113258eusmtip2cc0370484eb751b7e520ae3161b23a98~wVw3ZMnhV0156401564eusmtip2h;
- Tue, 13 Dec 2022 11:32:58 +0000 (GMT)
-Message-ID: <dd329b51-f11a-2af6-9549-c8a014fd5a71@samsung.com>
-Date: Tue, 13 Dec 2022 12:32:58 +0100
+ Tue, 13 Dec 2022 06:19:19 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=5G/W/pA5c77Ozx/lB9t1wWPCHBNjkAyhIac3Hljze3s=;
+ b=hoVtgwqRx2OgdKO+29kxFa9pe9KTPPft85ySdMPXAY90L6m1SSWYKAjE7l2FwEwVpg
+ u3jpgseZXSt5f09MFGkIH/vj6j01mCcSQc/WNTQXg69mGlyug2TZIWoXYBUnEatZyDJ4
+ 4Q2FdgCm3DYVhGKrmnq74LzK484iwLACvpyLDbb4nk9hsivlKhp7gyY3tMucOV2CCHp9
+ dHiOkTWPg9/aukKDHdHz+SNwzi6jSL/xIZGGrUdRbosciL7X9qEiMPSk+Nd4F5znFCf3
+ NKDaRDthicZmOk/68PqwfGJeFPozsw4wo3x4B4bZ6NpCcIknA9B+bHLJJkAMFosJw91u
+ B2Fw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=5G/W/pA5c77Ozx/lB9t1wWPCHBNjkAyhIac3Hljze3s=;
+ b=7mBox7Yj4Io8nmsofAgtoD15Tpu+ZcBVH0/+0IIp8DDNwgygHnEnJapZC5teZY4258
+ wOaVb04FKsDzdzUqTxa5+UZ93qKqHQM/nV6uG/Z7EL0MD0Kehxry4bsAqydPqzNGV7o0
+ MC36OLQG4jPFWnuk5FNRaGYZAFurbXSB0dXmwWTFnYl+BlmoO3wETZxaR5L8cloHp7UV
+ ycBKrChLGSQVUH1uu/uAC39lJHElWw/bgGeJ8V4yLdQJI/UDopR3UDu9X7adXJ0oYOof
+ Hi7vAJyYgkbDEB6oYbugFOEwWAX+qZvj5tS2YcCIN2zsLDd9NzF8Rp9MwHsgIydTxVLY
+ dQWQ==
+X-Gm-Message-State: ANoB5pkNU+eI6fQ9vpJvnsfa6bLh9ZpLdlsx6To+dJzsXeW09VD/m4S6
+ npf9okZObGlQaRSwaaxv5uo2hLZx8vBLb9OOOsM=
+X-Google-Smtp-Source: AA0mqf4MmrQhFjfwhKMrUpvFumuZLYrNGjnNtx8wi+H/cF5KWjh30ZrrdiWAtTcbjRSIeSVer/GCaIZB/B7OOZDA2Vc=
+X-Received: by 2002:a05:600c:3d94:b0:3d2:2b70:f307 with SMTP id
+ bi20-20020a05600c3d9400b003d22b70f307mr245503wmb.153.1670941158482; Tue, 13
+ Dec 2022 06:19:18 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0)
- Gecko/20100101 Thunderbird/102.5.1
-Content-Language: en-US
-To: cy_huang <u0084500@gmail.com>, broonie@kernel.org
-From: Marek Szyprowski <m.szyprowski@samsung.com>
-In-Reply-To: <1670311341-32664-1-git-send-email-u0084500@gmail.com>
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFrrDKsWRmVeSWpSXmKPExsWy7djPc7pvkmYkGxxaz27x8+U0RoupD5+w
- Waw9qW/xZU8/q8W2w+9YLZ70nGO1eHN8OpPFtysdTBabHl9jtbi8aw6bRde1J6wWB6ZOY7aY
- 93ctq8XqPS+YLSatu8dkseXTNSYHAY+n/VvZPXbOusvu0XLkLavHplWdbB6bl9R7vN93lc1j
- xqcpbB4H9xl6fN4kF8AZxWWTkpqTWZZapG+XwJXxcp5QwSKxiq9fH7A0MP4U6GLk5JAQMJFY
- 8+caexcjF4eQwApGifVvnzJBOF8YJQ4vmMoG4XxmlPi0cCsjTMvsZf8ZIRLLGSXufJrLCuF8
- ZJTYs3QPM0gVr4CdxPzdrUA2BweLgKrE9qN8EGFBiZMzn7CA2KICKRIHdp5lArGFBdIknu1v
- ZQOxmQXEJW49mQ8WFxEwlTh98y7YScwCc5klHqyfDtbMJmAo0fW2C6yBU8BZYt6EjYwQzfIS
- 29/OYQZpkBDYzinxahfENgkBF4llx35A2cISr45vYYewZST+75zPBNHQziix4Pd9KGcCo0TD
- 81tQT1tL3Dn3iw3kHWYBTYn1u/Qhwo4SR98fAwtLCPBJ3HgrCHEEn8SkbdOZIcK8Eh1tQhDV
- ahKzjq+DW3vwwiXmCYxKs5DCZRaS/2cheWcWwt4FjCyrGMVTS4tz01OLjfNSy/WKE3OLS/PS
- 9ZLzczcxAhPg6X/Hv+5gXPHqo94hRiYOxkOMEhzMSiK8qhrTkoV4UxIrq1KL8uOLSnNSiw8x
- SnOwKInzrpjSkSwkkJ5YkpqdmlqQWgSTZeLglGpgmqdxIeBVxN2FWdYim95YHFX9cuTuhRNH
- 5rx0SJqx1PhPzzOdKJ3Al1Me7rdbIcT+PPrEDqv1k1XEnB2usn/nkNPNkf1V6d9uYL8/xrlg
- ue33pEVPrk+Je5agYc/te9vxZuSkmx923dwWtjF2Z9ZzoflFm//O5Vtd4LrmnMfe/V2qwUvS
- Uu5d1OxMPiZwVXax8HU/UWH5/p3xp75rXv/AJsZmsy6dd4pa/9Ia28D6ypIPn3X7TjyQZZNj
- 6/ziUVAZ9KaNz1QlK2uXZCHb4vqgvYIP+8uc+d8m7Q68u7mxqis89nZT24Zbiv8FL2ov2Zw9
- 923LvpC3VzanO9YIqLA+tP6Xx72ALbeOd+VD+bzZSizFGYmGWsxFxYkAvoecwu8DAAA=
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFnrLIsWRmVeSWpSXmKPExsVy+t/xe7qvk2YkGzybpmrx8+U0RoupD5+w
- Waw9qW/xZU8/q8W2w+9YLZ70nGO1eHN8OpPFtysdTBabHl9jtbi8aw6bRde1J6wWB6ZOY7aY
- 93ctq8XqPS+YLSatu8dkseXTNSYHAY+n/VvZPXbOusvu0XLkLavHplWdbB6bl9R7vN93lc1j
- xqcpbB4H9xl6fN4kF8AZpWdTlF9akqqQkV9cYqsUbWhhpGdoaaFnZGKpZ2hsHmtlZKqkb2eT
- kpqTWZZapG+XoJfxcp5QwSKxiq9fH7A0MP4U6GLk5JAQMJGYvew/YxcjF4eQwFJGiYnb77JB
- JGQkTk5rYIWwhSX+XOtigyh6zyix5t4sJpAEr4CdxPzdrcxdjBwcLAKqEtuP8kGEBSVOznzC
- AmKLCqRItPf8AysXFkiTeLa/FWw+s4C4xK0n88HiIgKmEqdv3mUCmc8sMJdZ4uSp44wgCSEB
- J4mNO1+DNbAJGEp0ve0CszkFnCXmTdjICDHITKJraxeULS+x/e0c5gmMQrOQ3DELyb5ZSFpm
- IWlZwMiyilEktbQ4Nz232EivODG3uDQvXS85P3cTIzDetx37uWUH48pXH/UOMTJxMB5ilOBg
- VhLhVdWYlizEm5JYWZValB9fVJqTWnyI0RQYFhOZpUST84EJJ68k3tDMwNTQxMzSwNTSzFhJ
- nNezoCNRSCA9sSQ1OzW1ILUIpo+Jg1OqgalrkYz7s4vGqb8ke/Ykn+C94Dhjr6/Ejqs5osUa
- IQYXtuQERWr+VZds3DL/skGOU3dp1JPlW8/kLgs7/qph4qsm3cT760Pl5TKPZbX/nM6q8Pe0
- 3LlVbm7OrvnJT7cXV4ZvDE5m+RdWk598Z7GG0eHLz21WxC64fiOgsWZ22/p8U6kTn+2jM176
- OInr7710t6+ZK0tR8Uyr2M5qqQ9qijeEsgs32Hgtzn+mkLBIJG/Sa9OZKnc2a3ldej+tNmbX
- 0TOMB3XMG+9tZTHLN878ff3mrzPxhXd1bhjYHj+fdrNgSWhDj3Vp/a3zqkFVnEYs5uW+B2Pf
- PFvFVtI5T9dQTvPjC3Nht8Nn/7+JfZKlpsRSnJFoqMVcVJwIAPjy5aGAAwAA
-X-CMS-MailID: 20221213113259eucas1p1c224898772bc5e59de90c1aa65a34de0
-X-Msg-Generator: CA
-X-RootMTR: 20221213113259eucas1p1c224898772bc5e59de90c1aa65a34de0
-X-EPHeader: CA
-CMS-TYPE: 201P
-X-CMS-RootMailID: 20221213113259eucas1p1c224898772bc5e59de90c1aa65a34de0
-References: <1670311341-32664-1-git-send-email-u0084500@gmail.com>
- <CGME20221213113259eucas1p1c224898772bc5e59de90c1aa65a34de0@eucas1p1.samsung.com>
+References: <CGME20221213113259eucas1p1c224898772bc5e59de90c1aa65a34de0@eucas1p1.samsung.com>
+ <1670311341-32664-1-git-send-email-u0084500@gmail.com>
+ <dd329b51-f11a-2af6-9549-c8a014fd5a71@samsung.com>
+In-Reply-To: <dd329b51-f11a-2af6-9549-c8a014fd5a71@samsung.com>
+From: ChiYuan Huang <u0084500@gmail.com>
+Date: Tue, 13 Dec 2022 22:19:06 +0800
+Message-ID: <CADiBU39-FUD787RmV9Z+jsSrb2Se66A6FrLWGxf78q2Ud-SrjA@mail.gmail.com>
+To: Marek Szyprowski <m.szyprowski@samsung.com>
 Cc: gene_chen@richtek.com, markgross@kernel.org,
  ChiYuan Huang <cy_huang@richtek.com>, linux-kernel@vger.kernel.org,
- lgirdwood@gmail.com, djrscally@gmail.com, hdegoede@redhat.com,
- chiaen_wu@richtek.com, mcoquelin.stm32@gmail.com, yangyingliang@huawei.com,
- platform-driver-x86@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
+ chiaen_wu@richtek.com, lgirdwood@gmail.com, djrscally@gmail.com,
+ hdegoede@redhat.com, broonie@kernel.org, mcoquelin.stm32@gmail.com,
+ yangyingliang@huawei.com, platform-driver-x86@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
 Subject: Re: [Linux-stm32] [PATCH v2] regulator: core: Use different devices
  for resource allocation and DT lookup
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
@@ -120,88 +75,93 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Dear All,
-
-On 06.12.2022 08:22, cy_huang wrote:
-> From: ChiYuan Huang <cy_huang@richtek.com>
->
-> Following by the below discussion, there's the potential UAF issue
-> between regulator and mfd.
-> https://lore.kernel.org/all/20221128143601.1698148-1-yangyingliang@huawei.com/
->
-> >From the analysis of Yingliang
->
-> CPU A				|CPU B
-> mt6370_probe()			|
->    devm_mfd_add_devices()	|
-> 				|mt6370_regulator_probe()
-> 				|  regulator_register()
-> 				|    //allocate init_data and add it to devres
-> 				|    regulator_of_get_init_data()
-> i2c_unregister_device()		|
->    device_del()			|
->      devres_release_all()	|
->        // init_data is freed	|
->        release_nodes()		|
-> 				|  // using init_data causes UAF
-> 				|  regulator_register()
->
-> It's common to use mfd core to create child device for the regulator.
-> In order to do the DT lookup for init data, the child that registered
-> the regulator would pass its parent as the parameter. And this causes
-> init data resource allocated to its parent, not itself. The issue happen
-> when parent device is going to release and regulator core is still doing
-> some operation of init data constraint for the regulator of child device.
->
-> To fix it, this patch expand 'regulator_register' API to use the
-> different devices for init data allocation and DT lookup.
->
-> Reported-by: Yang Yingliang <yangyingliang@huawei.com>
-> Signed-off-by: ChiYuan Huang <cy_huang@richtek.com>
-
-
-This patch landed in linux-next 202212 as commit 8f3cbcd6b440 
-("regulator: core: Use different devices for resource allocation and DT 
-lookup"). Unfortunately it causes serious regression on my test systems. 
-It looks that some supplies are not resolved correctly and then turned 
-off as 'unused', even if they provide power to other core regulators in 
-the system. I've observed this issue on Samsung Chromebook Peach-Pit and 
-Peach-Pi (ARM 32bit Exynos based). The symptoms are somehow similar to 
-the issue reported here some time ago:
-
-https://lore.kernel.org/all/58b92e75-f373-dae7-7031-8abd465bb874@samsung.com/
-
-I've post more information once I analyze this issue further.
-
-
-> ---
-> loop Yang Yingliang in cc list.
->
-> Since v2
-> - Fix typo 'int3742' to 'int3472' for kernel build test
->
-> ---
->   drivers/platform/x86/intel/int3472/clk_and_regulator.c | 3 ++-
->   drivers/regulator/core.c                               | 8 ++++----
->   drivers/regulator/devres.c                             | 2 +-
->   drivers/regulator/of_regulator.c                       | 2 +-
->   drivers/regulator/stm32-vrefbuf.c                      | 2 +-
->   include/linux/regulator/driver.h                       | 3 ++-
->   6 files changed, 11 insertions(+), 9 deletions(-)
->
-> ...
-
-Best regards
--- 
-Marek Szyprowski, PhD
-Samsung R&D Institute Poland
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+SEksCgpNYXJlayBTenlwcm93c2tpIDxtLnN6eXByb3dza2lAc2Ftc3VuZy5jb20+IOaWvCAyMDIy
+5bm0MTLmnIgxM+aXpSDpgLHkuowg5pma5LiKNzozM+Wvq+mBk++8mgo+Cj4gRGVhciBBbGwsCj4K
+PiBPbiAwNi4xMi4yMDIyIDA4OjIyLCBjeV9odWFuZyB3cm90ZToKPiA+IEZyb206IENoaVl1YW4g
+SHVhbmcgPGN5X2h1YW5nQHJpY2h0ZWsuY29tPgo+ID4KPiA+IEZvbGxvd2luZyBieSB0aGUgYmVs
+b3cgZGlzY3Vzc2lvbiwgdGhlcmUncyB0aGUgcG90ZW50aWFsIFVBRiBpc3N1ZQo+ID4gYmV0d2Vl
+biByZWd1bGF0b3IgYW5kIG1mZC4KPiA+IGh0dHBzOi8vbG9yZS5rZXJuZWwub3JnL2FsbC8yMDIy
+MTEyODE0MzYwMS4xNjk4MTQ4LTEteWFuZ3lpbmdsaWFuZ0BodWF3ZWkuY29tLwo+ID4KPiA+ID5G
+cm9tIHRoZSBhbmFseXNpcyBvZiBZaW5nbGlhbmcKPiA+Cj4gPiBDUFUgQSAgICAgICAgICAgICAg
+ICAgICAgICAgICB8Q1BVIEIKPiA+IG10NjM3MF9wcm9iZSgpICAgICAgICAgICAgICAgICAgICAg
+ICAgfAo+ID4gICAgZGV2bV9tZmRfYWRkX2RldmljZXMoKSAgICAgfAo+ID4gICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgfG10NjM3MF9yZWd1bGF0b3JfcHJvYmUoKQo+ID4gICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgfCAgcmVndWxhdG9yX3JlZ2lzdGVyKCkKPiA+ICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgIHwgICAgLy9hbGxvY2F0ZSBpbml0X2RhdGEgYW5kIGFkZCBp
+dCB0byBkZXZyZXMKPiA+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHwgICAgcmVndWxh
+dG9yX29mX2dldF9pbml0X2RhdGEoKQo+ID4gaTJjX3VucmVnaXN0ZXJfZGV2aWNlKCkgICAgICAg
+ICAgICAgICB8Cj4gPiAgICBkZXZpY2VfZGVsKCkgICAgICAgICAgICAgICAgICAgICAgIHwKPiA+
+ICAgICAgZGV2cmVzX3JlbGVhc2VfYWxsKCkgICAgIHwKPiA+ICAgICAgICAvLyBpbml0X2RhdGEg
+aXMgZnJlZWQgIHwKPiA+ICAgICAgICByZWxlYXNlX25vZGVzKCkgICAgICAgICAgICAgICAgfAo+
+ID4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfCAgLy8gdXNpbmcgaW5pdF9kYXRhIGNh
+dXNlcyBVQUYKPiA+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHwgIHJlZ3VsYXRvcl9y
+ZWdpc3RlcigpCj4gPgo+ID4gSXQncyBjb21tb24gdG8gdXNlIG1mZCBjb3JlIHRvIGNyZWF0ZSBj
+aGlsZCBkZXZpY2UgZm9yIHRoZSByZWd1bGF0b3IuCj4gPiBJbiBvcmRlciB0byBkbyB0aGUgRFQg
+bG9va3VwIGZvciBpbml0IGRhdGEsIHRoZSBjaGlsZCB0aGF0IHJlZ2lzdGVyZWQKPiA+IHRoZSBy
+ZWd1bGF0b3Igd291bGQgcGFzcyBpdHMgcGFyZW50IGFzIHRoZSBwYXJhbWV0ZXIuIEFuZCB0aGlz
+IGNhdXNlcwo+ID4gaW5pdCBkYXRhIHJlc291cmNlIGFsbG9jYXRlZCB0byBpdHMgcGFyZW50LCBu
+b3QgaXRzZWxmLiBUaGUgaXNzdWUgaGFwcGVuCj4gPiB3aGVuIHBhcmVudCBkZXZpY2UgaXMgZ29p
+bmcgdG8gcmVsZWFzZSBhbmQgcmVndWxhdG9yIGNvcmUgaXMgc3RpbGwgZG9pbmcKPiA+IHNvbWUg
+b3BlcmF0aW9uIG9mIGluaXQgZGF0YSBjb25zdHJhaW50IGZvciB0aGUgcmVndWxhdG9yIG9mIGNo
+aWxkIGRldmljZS4KPiA+Cj4gPiBUbyBmaXggaXQsIHRoaXMgcGF0Y2ggZXhwYW5kICdyZWd1bGF0
+b3JfcmVnaXN0ZXInIEFQSSB0byB1c2UgdGhlCj4gPiBkaWZmZXJlbnQgZGV2aWNlcyBmb3IgaW5p
+dCBkYXRhIGFsbG9jYXRpb24gYW5kIERUIGxvb2t1cC4KPiA+Cj4gPiBSZXBvcnRlZC1ieTogWWFu
+ZyBZaW5nbGlhbmcgPHlhbmd5aW5nbGlhbmdAaHVhd2VpLmNvbT4KPiA+IFNpZ25lZC1vZmYtYnk6
+IENoaVl1YW4gSHVhbmcgPGN5X2h1YW5nQHJpY2h0ZWsuY29tPgo+Cj4KPiBUaGlzIHBhdGNoIGxh
+bmRlZCBpbiBsaW51eC1uZXh0IDIwMjIxMiBhcyBjb21taXQgOGYzY2JjZDZiNDQwCj4gKCJyZWd1
+bGF0b3I6IGNvcmU6IFVzZSBkaWZmZXJlbnQgZGV2aWNlcyBmb3IgcmVzb3VyY2UgYWxsb2NhdGlv
+biBhbmQgRFQKPiBsb29rdXAiKS4gVW5mb3J0dW5hdGVseSBpdCBjYXVzZXMgc2VyaW91cyByZWdy
+ZXNzaW9uIG9uIG15IHRlc3Qgc3lzdGVtcy4KPiBJdCBsb29rcyB0aGF0IHNvbWUgc3VwcGxpZXMg
+YXJlIG5vdCByZXNvbHZlZCBjb3JyZWN0bHkgYW5kIHRoZW4gdHVybmVkCj4gb2ZmIGFzICd1bnVz
+ZWQnLCBldmVuIGlmIHRoZXkgcHJvdmlkZSBwb3dlciB0byBvdGhlciBjb3JlIHJlZ3VsYXRvcnMg
+aW4KPiB0aGUgc3lzdGVtLiBJJ3ZlIG9ic2VydmVkIHRoaXMgaXNzdWUgb24gU2Ftc3VuZyBDaHJv
+bWVib29rIFBlYWNoLVBpdCBhbmQKPiBQZWFjaC1QaSAoQVJNIDMyYml0IEV4eW5vcyBiYXNlZCku
+IFRoZSBzeW1wdG9tcyBhcmUgc29tZWhvdyBzaW1pbGFyIHRvCj4gdGhlIGlzc3VlIHJlcG9ydGVk
+IGhlcmUgc29tZSB0aW1lIGFnbzoKPgo+IGh0dHBzOi8vbG9yZS5rZXJuZWwub3JnL2FsbC81OGI5
+MmU3NS1mMzczLWRhZTctNzAzMS04YWJkNDY1YmI4NzRAc2Ftc3VuZy5jb20vCj4KPiBJJ3ZlIHBv
+c3QgbW9yZSBpbmZvcm1hdGlvbiBvbmNlIEkgYW5hbHl6ZSB0aGlzIGlzc3VlIGZ1cnRoZXIuCj4K
+SXQgc2VlbXMgdGhlIGlzc3VlIG9jY3VycyBpbiAncmVndWxhdG9yIHJlZ2lzdGVyJyByZXNvbHZl
+IHN1cHBseS4KRHVlIHRvIHRoZSBwYXJlbnQgZGV2aWNlIGRvbid0IGhhdmUgdGhlIG9mX25vZGUs
+IHRvIHJlc29sdmUgdGhlCnN1cHBseSwgaXQgbWF5IG5lZWQgdG8gZ2V0IHRoZQpkdCBub2RlIGJ5
+IHJlY3Vyc2l2ZWx5IGZpbmRpbmcgY2hpbGQgcmVndWxhdG9yLgpMaWtlIHRoaXMKcGFyZW50IHsK
+ICByZWd1bGF0b3JzIHsKICAgICB4eHgtc3VwcGx5ID0gPCZ2ZGQxMi1sZG8+OwogICAgIHZkZDEy
+LWxkbzogdmRkMTItbGRvIHsKICAgICAgICAgcmVndWxhdG9yLW5hbWUgPSAieHh4IjsKICAgICAg
+ICAgcmVndWxhdG9yLW1pbi1taWNyb3ZvbHRzID0gPHh4eHh4PjsKICAgICAgICAgcmVndWxhdG9y
+LW1heC1taWNyb3ZvbHRzID0gPHh4eHh4PjsKICAgICAgfQogIH07Cn07CkZyb20gdGhpcyBjYXNl
+LCAncmVzb2x2ZSBzdXBwbHknIG5lZWQgdG8gcGFyc2UgYXQgbGVhc3QgdGhlIG1vcmUgdG9wCmxl
+dmVsIGxpa2UgJ3JlZ3VsYXRvcnMnLgpCdXQgbm93LCBpdCBvbmx5IHRha2UgJ3ZkZDEyLWxkbycg
+YXMgdGhlIG5vZGUgb3IgaXRzIGNoaWxkIHRvIHBhcnNlIGl0cyBzdXBwbHkuCgpCZWxvdydzIHRo
+ZSBmaXggSSBndWVzcy4KSXQnbGwgbWFrZSB0aGUgcGFyZW50IG9mIHRoZSByZWd1bGF0b3IgdGhl
+IHNhbWUgYXMgdGhlIGRldiBwYXJhbWV0ZXIKaW4gJ3JlZ3VsYXRvcl9jb25maWcnLgoKZGlmZiAt
+LWdpdCBhL2RyaXZlcnMvcmVndWxhdG9yL2NvcmUuYyBiL2RyaXZlcnMvcmVndWxhdG9yL2NvcmUu
+YwppbmRleCBlYTRhNzIwLi43YzUwMzZlIDEwMDY0NAotLS0gYS9kcml2ZXJzL3JlZ3VsYXRvci9j
+b3JlLmMKKysrIGIvZHJpdmVycy9yZWd1bGF0b3IvY29yZS5jCkBAIC01NTI2LDcgKzU1MjYsNyBA
+QCByZWd1bGF0b3JfcmVnaXN0ZXIoc3RydWN0IGRldmljZSAqZGV2LAoKICAgICAgICAvKiByZWdp
+c3RlciB3aXRoIHN5c2ZzICovCiAgICAgICAgcmRldi0+ZGV2LmNsYXNzID0gJnJlZ3VsYXRvcl9j
+bGFzczsKLSAgICAgICByZGV2LT5kZXYucGFyZW50ID0gZGV2OworICAgICAgIHJkZXYtPmRldi5w
+YXJlbnQgPSBjb25maWctPmRldjsKICAgICAgICBkZXZfc2V0X25hbWUoJnJkZXYtPmRldiwgInJl
+Z3VsYXRvci4lbHUiLAogICAgICAgICAgICAgICAgICAgICh1bnNpZ25lZCBsb25nKSBhdG9taWNf
+aW5jX3JldHVybigmcmVndWxhdG9yX25vKSk7CiAgICAgICAgZGV2X3NldF9kcnZkYXRhKCZyZGV2
+LT5kZXYsIHJkZXYpOwoKSSBkb24ndCBoYXZlIHRoZSBib2FyZC4gQ291bGQgeW91IGhlbHAgdG8g
+dGVzdCB0aGlzIGNoYW5nZSB0byBzZWUKd2hldGhlciBpdCdzIGJlZW4gZml4ZWQgb3Igbm90Pwo+
+Cj4gPiAtLS0KPiA+IGxvb3AgWWFuZyBZaW5nbGlhbmcgaW4gY2MgbGlzdC4KPiA+Cj4gPiBTaW5j
+ZSB2Mgo+ID4gLSBGaXggdHlwbyAnaW50Mzc0MicgdG8gJ2ludDM0NzInIGZvciBrZXJuZWwgYnVp
+bGQgdGVzdAo+ID4KPiA+IC0tLQo+ID4gICBkcml2ZXJzL3BsYXRmb3JtL3g4Ni9pbnRlbC9pbnQz
+NDcyL2Nsa19hbmRfcmVndWxhdG9yLmMgfCAzICsrLQo+ID4gICBkcml2ZXJzL3JlZ3VsYXRvci9j
+b3JlLmMgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfCA4ICsrKystLS0tCj4gPiAgIGRy
+aXZlcnMvcmVndWxhdG9yL2RldnJlcy5jICAgICAgICAgICAgICAgICAgICAgICAgICAgICB8IDIg
+Ky0KPiA+ICAgZHJpdmVycy9yZWd1bGF0b3Ivb2ZfcmVndWxhdG9yLmMgICAgICAgICAgICAgICAg
+ICAgICAgIHwgMiArLQo+ID4gICBkcml2ZXJzL3JlZ3VsYXRvci9zdG0zMi12cmVmYnVmLmMgICAg
+ICAgICAgICAgICAgICAgICAgfCAyICstCj4gPiAgIGluY2x1ZGUvbGludXgvcmVndWxhdG9yL2Ry
+aXZlci5oICAgICAgICAgICAgICAgICAgICAgICB8IDMgKystCj4gPiAgIDYgZmlsZXMgY2hhbmdl
+ZCwgMTEgaW5zZXJ0aW9ucygrKSwgOSBkZWxldGlvbnMoLSkKPiA+Cj4gPiAuLi4KPgo+IEJlc3Qg
+cmVnYXJkcwo+IC0tCj4gTWFyZWsgU3p5cHJvd3NraSwgUGhECj4gU2Ftc3VuZyBSJkQgSW5zdGl0
+dXRlIFBvbGFuZAo+Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0
+b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFu
+L2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
