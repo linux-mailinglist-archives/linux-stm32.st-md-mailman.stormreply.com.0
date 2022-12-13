@@ -2,49 +2,113 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 54D0464B396
-	for <lists+linux-stm32@lfdr.de>; Tue, 13 Dec 2022 11:51:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7E89264B43D
+	for <lists+linux-stm32@lfdr.de>; Tue, 13 Dec 2022 12:33:03 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E6BB8C65E74;
-	Tue, 13 Dec 2022 10:51:38 +0000 (UTC)
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
- [85.220.165.71])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 21D08C65E74;
+	Tue, 13 Dec 2022 11:33:03 +0000 (UTC)
+Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com
+ [210.118.77.12])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4E892C035BC
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 13971C035BC
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 13 Dec 2022 10:51:37 +0000 (UTC)
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
- by metis.ext.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <ukl@pengutronix.de>)
- id 1p52sk-0007zF-Kv; Tue, 13 Dec 2022 11:51:30 +0100
-Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
- by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.94.2)
- (envelope-from <ukl@pengutronix.de>)
- id 1p52si-004E2H-Ak; Tue, 13 Dec 2022 11:51:29 +0100
-Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.94.2)
- (envelope-from <ukl@pengutronix.de>)
- id 1p52si-004jdr-Dr; Tue, 13 Dec 2022 11:51:28 +0100
-Date: Tue, 13 Dec 2022 11:51:28 +0100
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
-To: Olivier Moysan <olivier.moysan@foss.st.com>
-Message-ID: <20221213105128.74skjowy5v7dlaf6@pengutronix.de>
-References: <20221213102707.1096345-1-olivier.moysan@foss.st.com>
+ Tue, 13 Dec 2022 11:33:01 +0000 (UTC)
+Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
+ by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id
+ 20221213113300euoutp02157d03752cf541729b6a9d3b96d070ee~wVw5Lu8jm2882628826euoutp02W
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 13 Dec 2022 11:33:00 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com
+ 20221213113300euoutp02157d03752cf541729b6a9d3b96d070ee~wVw5Lu8jm2882628826euoutp02W
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+ s=mail20170921; t=1670931180;
+ bh=GWlKbT51HpBnFtB9eCRCm5UsJLYbwGnOyZSuSyWXyvM=;
+ h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
+ b=lykxvOOWrPLcoQWKnCUpxzd8v63GXoViLw1kWm923K3eiW4QskfN+7A/tIntPJQhf
+ Unx8rVwXWeLDtw0Nm6Z84Z5obACUsZpI6RzUaGcgA9taQqkhh/eFW1gsKrcGJu22TK
+ YDS952CdY7cxZyIp40HoG7xpkxrWLsurd2TASYJo=
+Received: from eusmges3new.samsung.com (unknown [203.254.199.245]) by
+ eucas1p1.samsung.com (KnoxPortal) with ESMTP id
+ 20221213113300eucas1p17d6efbbc2bf2ab5d4468a96368a2cefe~wVw4xrkuC3106731067eucas1p1t;
+ Tue, 13 Dec 2022 11:33:00 +0000 (GMT)
+Received: from eucas1p1.samsung.com ( [182.198.249.206]) by
+ eusmges3new.samsung.com (EUCPMTA) with SMTP id 59.43.09549.CE268936; Tue, 13
+ Dec 2022 11:33:00 +0000 (GMT)
+Received: from eusmtrp2.samsung.com (unknown [182.198.249.139]) by
+ eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
+ 20221213113259eucas1p1c224898772bc5e59de90c1aa65a34de0~wVw4Uxwi00626006260eucas1p1y;
+ Tue, 13 Dec 2022 11:32:59 +0000 (GMT)
+Received: from eusmgms2.samsung.com (unknown [182.198.249.180]) by
+ eusmtrp2.samsung.com (KnoxPortal) with ESMTP id
+ 20221213113259eusmtrp291348dac2ff05b31a5224d1aa6f304b1~wVw4T0FQ03275132751eusmtrp27;
+ Tue, 13 Dec 2022 11:32:59 +0000 (GMT)
+X-AuditID: cbfec7f5-f5dff7000000254d-69-639862ec7628
+Received: from eusmtip2.samsung.com ( [203.254.199.222]) by
+ eusmgms2.samsung.com (EUCPMTA) with SMTP id 7E.0A.09026.BE268936; Tue, 13
+ Dec 2022 11:32:59 +0000 (GMT)
+Received: from [106.210.134.192] (unknown [106.210.134.192]) by
+ eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
+ 20221213113258eusmtip2cc0370484eb751b7e520ae3161b23a98~wVw3ZMnhV0156401564eusmtip2h;
+ Tue, 13 Dec 2022 11:32:58 +0000 (GMT)
+Message-ID: <dd329b51-f11a-2af6-9549-c8a014fd5a71@samsung.com>
+Date: Tue, 13 Dec 2022 12:32:58 +0100
 MIME-Version: 1.0
-In-Reply-To: <20221213102707.1096345-1-olivier.moysan@foss.st.com>
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: ukl@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
-Cc: linux-pwm@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- William Breathitt Gray <william.gray@linaro.org>, Lee Jones <lee@kernel.org>,
- Thierry Reding <thierry.reding@gmail.com>,
- Benjamin Gaignard <benjamin.gaignard@linaro.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] pwm: stm32: enforce settings for pwm
-	capture
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0)
+ Gecko/20100101 Thunderbird/102.5.1
+Content-Language: en-US
+To: cy_huang <u0084500@gmail.com>, broonie@kernel.org
+From: Marek Szyprowski <m.szyprowski@samsung.com>
+In-Reply-To: <1670311341-32664-1-git-send-email-u0084500@gmail.com>
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFrrDKsWRmVeSWpSXmKPExsWy7djPc7pvkmYkGxxaz27x8+U0RoupD5+w
+ Waw9qW/xZU8/q8W2w+9YLZ70nGO1eHN8OpPFtysdTBabHl9jtbi8aw6bRde1J6wWB6ZOY7aY
+ 93ctq8XqPS+YLSatu8dkseXTNSYHAY+n/VvZPXbOusvu0XLkLavHplWdbB6bl9R7vN93lc1j
+ xqcpbB4H9xl6fN4kF8AZxWWTkpqTWZZapG+XwJXxcp5QwSKxiq9fH7A0MP4U6GLk5JAQMJFY
+ 8+caexcjF4eQwApGifVvnzJBOF8YJQ4vmMoG4XxmlPi0cCsjTMvsZf8ZIRLLGSXufJrLCuF8
+ ZJTYs3QPM0gVr4CdxPzdrUA2BweLgKrE9qN8EGFBiZMzn7CA2KICKRIHdp5lArGFBdIknu1v
+ ZQOxmQXEJW49mQ8WFxEwlTh98y7YScwCc5klHqyfDtbMJmAo0fW2C6yBU8BZYt6EjYwQzfIS
+ 29/OYQZpkBDYzinxahfENgkBF4llx35A2cISr45vYYewZST+75zPBNHQziix4Pd9KGcCo0TD
+ 81tQT1tL3Dn3iw3kHWYBTYn1u/Qhwo4SR98fAwtLCPBJ3HgrCHEEn8SkbdOZIcK8Eh1tQhDV
+ ahKzjq+DW3vwwiXmCYxKs5DCZRaS/2cheWcWwt4FjCyrGMVTS4tz01OLjfNSy/WKE3OLS/PS
+ 9ZLzczcxAhPg6X/Hv+5gXPHqo94hRiYOxkOMEhzMSiK8qhrTkoV4UxIrq1KL8uOLSnNSiw8x
+ SnOwKInzrpjSkSwkkJ5YkpqdmlqQWgSTZeLglGpgmqdxIeBVxN2FWdYim95YHFX9cuTuhRNH
+ 5rx0SJqx1PhPzzOdKJ3Al1Me7rdbIcT+PPrEDqv1k1XEnB2usn/nkNPNkf1V6d9uYL8/xrlg
+ ue33pEVPrk+Je5agYc/te9vxZuSkmx923dwWtjF2Z9ZzoflFm//O5Vtd4LrmnMfe/V2qwUvS
+ Uu5d1OxMPiZwVXax8HU/UWH5/p3xp75rXv/AJsZmsy6dd4pa/9Ia28D6ypIPn3X7TjyQZZNj
+ 6/ziUVAZ9KaNz1QlK2uXZCHb4vqgvYIP+8uc+d8m7Q68u7mxqis89nZT24Zbiv8FL2ov2Zw9
+ 923LvpC3VzanO9YIqLA+tP6Xx72ALbeOd+VD+bzZSizFGYmGWsxFxYkAvoecwu8DAAA=
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFnrLIsWRmVeSWpSXmKPExsVy+t/xe7qvk2YkGzybpmrx8+U0RoupD5+w
+ Waw9qW/xZU8/q8W2w+9YLZ70nGO1eHN8OpPFtysdTBabHl9jtbi8aw6bRde1J6wWB6ZOY7aY
+ 93ctq8XqPS+YLSatu8dkseXTNSYHAY+n/VvZPXbOusvu0XLkLavHplWdbB6bl9R7vN93lc1j
+ xqcpbB4H9xl6fN4kF8AZpWdTlF9akqqQkV9cYqsUbWhhpGdoaaFnZGKpZ2hsHmtlZKqkb2eT
+ kpqTWZZapG+XoJfxcp5QwSKxiq9fH7A0MP4U6GLk5JAQMJGYvew/YxcjF4eQwFJGiYnb77JB
+ JGQkTk5rYIWwhSX+XOtigyh6zyix5t4sJpAEr4CdxPzdrcxdjBwcLAKqEtuP8kGEBSVOznzC
+ AmKLCqRItPf8AysXFkiTeLa/FWw+s4C4xK0n88HiIgKmEqdv3mUCmc8sMJdZ4uSp44wgCSEB
+ J4mNO1+DNbAJGEp0ve0CszkFnCXmTdjICDHITKJraxeULS+x/e0c5gmMQrOQ3DELyb5ZSFpm
+ IWlZwMiyilEktbQ4Nz232EivODG3uDQvXS85P3cTIzDetx37uWUH48pXH/UOMTJxMB5ilOBg
+ VhLhVdWYlizEm5JYWZValB9fVJqTWnyI0RQYFhOZpUST84EJJ68k3tDMwNTQxMzSwNTSzFhJ
+ nNezoCNRSCA9sSQ1OzW1ILUIpo+Jg1OqgalrkYz7s4vGqb8ke/Ykn+C94Dhjr6/Ejqs5osUa
+ IQYXtuQERWr+VZds3DL/skGOU3dp1JPlW8/kLgs7/qph4qsm3cT760Pl5TKPZbX/nM6q8Pe0
+ 3LlVbm7OrvnJT7cXV4ZvDE5m+RdWk598Z7GG0eHLz21WxC64fiOgsWZ22/p8U6kTn+2jM176
+ OInr7710t6+ZK0tR8Uyr2M5qqQ9qijeEsgs32Hgtzn+mkLBIJG/Sa9OZKnc2a3ldej+tNmbX
+ 0TOMB3XMG+9tZTHLN878ff3mrzPxhXd1bhjYHj+fdrNgSWhDj3Vp/a3zqkFVnEYs5uW+B2Pf
+ PFvFVtI5T9dQTvPjC3Nht8Nn/7+JfZKlpsRSnJFoqMVcVJwIAPjy5aGAAwAA
+X-CMS-MailID: 20221213113259eucas1p1c224898772bc5e59de90c1aa65a34de0
+X-Msg-Generator: CA
+X-RootMTR: 20221213113259eucas1p1c224898772bc5e59de90c1aa65a34de0
+X-EPHeader: CA
+CMS-TYPE: 201P
+X-CMS-RootMailID: 20221213113259eucas1p1c224898772bc5e59de90c1aa65a34de0
+References: <1670311341-32664-1-git-send-email-u0084500@gmail.com>
+ <CGME20221213113259eucas1p1c224898772bc5e59de90c1aa65a34de0@eucas1p1.samsung.com>
+Cc: gene_chen@richtek.com, markgross@kernel.org,
+ ChiYuan Huang <cy_huang@richtek.com>, linux-kernel@vger.kernel.org,
+ lgirdwood@gmail.com, djrscally@gmail.com, hdegoede@redhat.com,
+ chiaen_wu@richtek.com, mcoquelin.stm32@gmail.com, yangyingliang@huawei.com,
+ platform-driver-x86@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v2] regulator: core: Use different devices
+ for resource allocation and DT lookup
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -56,90 +120,88 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============7467969910159763405=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+Dear All,
 
---===============7467969910159763405==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ityz2bai4hbhs2hn"
-Content-Disposition: inline
+On 06.12.2022 08:22, cy_huang wrote:
+> From: ChiYuan Huang <cy_huang@richtek.com>
+>
+> Following by the below discussion, there's the potential UAF issue
+> between regulator and mfd.
+> https://lore.kernel.org/all/20221128143601.1698148-1-yangyingliang@huawei.com/
+>
+> >From the analysis of Yingliang
+>
+> CPU A				|CPU B
+> mt6370_probe()			|
+>    devm_mfd_add_devices()	|
+> 				|mt6370_regulator_probe()
+> 				|  regulator_register()
+> 				|    //allocate init_data and add it to devres
+> 				|    regulator_of_get_init_data()
+> i2c_unregister_device()		|
+>    device_del()			|
+>      devres_release_all()	|
+>        // init_data is freed	|
+>        release_nodes()		|
+> 				|  // using init_data causes UAF
+> 				|  regulator_register()
+>
+> It's common to use mfd core to create child device for the regulator.
+> In order to do the DT lookup for init data, the child that registered
+> the regulator would pass its parent as the parameter. And this causes
+> init data resource allocated to its parent, not itself. The issue happen
+> when parent device is going to release and regulator core is still doing
+> some operation of init data constraint for the regulator of child device.
+>
+> To fix it, this patch expand 'regulator_register' API to use the
+> different devices for init data allocation and DT lookup.
+>
+> Reported-by: Yang Yingliang <yangyingliang@huawei.com>
+> Signed-off-by: ChiYuan Huang <cy_huang@richtek.com>
 
 
---ityz2bai4hbhs2hn
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+This patch landed in linux-next 202212 as commit 8f3cbcd6b440 
+("regulator: core: Use different devices for resource allocation and DT 
+lookup"). Unfortunately it causes serious regression on my test systems. 
+It looks that some supplies are not resolved correctly and then turned 
+off as 'unused', even if they provide power to other core regulators in 
+the system. I've observed this issue on Samsung Chromebook Peach-Pit and 
+Peach-Pi (ARM 32bit Exynos based). The symptoms are somehow similar to 
+the issue reported here some time ago:
 
-Hello Olivier,
+https://lore.kernel.org/all/58b92e75-f373-dae7-7031-8abd465bb874@samsung.com/
 
-[Cc: +=3D William Breathitt Gray, linux-iio@v.k.o]
+I've post more information once I analyze this issue further.
 
-On Tue, Dec 13, 2022 at 11:27:07AM +0100, Olivier Moysan wrote:
-> The PWM capture assumes that the input selector is set to default
-> input and that the slave mode is disabled. Force reset state for
-> TISEL and SMCR registers to match this requirement.
 
-When does the problem occur? Only if the bootloader changed that
-setting? Regarding the urgency: With the current knowledge I'd say this
-patch is material for the next merge window. Do you recommend
-backporting to stable?
-
-> Note that slave mode disabling is not a pre-requisite by itself
-> for capture mode, as hardware supports it for PWM capture.
-> However, the current implementation of the driver does not
-> allow slave mode for PWM capture. Setting slave mode for PWM
-> capture results in wrong capture values.
-
-What is your usecase for PWM capture support? I didn't double check, but
-I think you're the first contributor to PWM capture since 2018 (i.e. the
-commit you're fixing).
-
-Did you check if the counter subsystem would solve your problems? If it
-doesn't I assume William would like to hear about that.
-
-Looking at drivers/counter/stm32-timer-cnt.c it does seem to work in
-slave mode, TISEL isn't touched though. So maybe this driver needs a
-similar fix?
-
-Apart from that the change looks reasonable:
-
-Acked-by: Uwe Kleine-K=F6nig <u.kleine-koenig@pengutronix.de>
+> ---
+> loop Yang Yingliang in cc list.
+>
+> Since v2
+> - Fix typo 'int3742' to 'int3472' for kernel build test
+>
+> ---
+>   drivers/platform/x86/intel/int3472/clk_and_regulator.c | 3 ++-
+>   drivers/regulator/core.c                               | 8 ++++----
+>   drivers/regulator/devres.c                             | 2 +-
+>   drivers/regulator/of_regulator.c                       | 2 +-
+>   drivers/regulator/stm32-vrefbuf.c                      | 2 +-
+>   include/linux/regulator/driver.h                       | 3 ++-
+>   6 files changed, 11 insertions(+), 9 deletions(-)
+>
+> ...
 
 Best regards
-Uwe
-
---=20
-Pengutronix e.K.                           | Uwe Kleine-K=F6nig            |
-Industrial Linux Solutions                 | https://www.pengutronix.de/ |
-
---ityz2bai4hbhs2hn
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEfnIqFpAYrP8+dKQLwfwUeK3K7AkFAmOYWS0ACgkQwfwUeK3K
-7AkZ4gf/aHuApfMQQDwyeI0LfKUOjRO8sK5UYlF3Qujm7oDFR7lwKxUzAhHeYh8S
-e241Q+8oWro/WfUnm3Sm3ZSiDYo/VZZzrdccndO5d5pf/UFqXdKuy8bRxtpMBzAO
-Ea5Qjm1gUlFIykSnP8kzHR0NKr2nLcp2YioeL6334HKM0SYZit/j7u2Q2T3Q3pUt
-+xnuyTHq6NIJsmAWXS9kxbOrw1hsDI0GgFEDJKuGqNlLIQmsc63DnE6LiudBoEXo
-+5v7GneAAlceYjMReIJeBZLuJH39VRhcUYyOV98HGoPCQpYxvy5Vh6xkvXbkA5pj
-HrYuDwX7hX2dXtxtAf7uUdWTAIcoPw==
-=4QWU
------END PGP SIGNATURE-----
-
---ityz2bai4hbhs2hn--
-
---===============7467969910159763405==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+-- 
+Marek Szyprowski, PhD
+Samsung R&D Institute Poland
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============7467969910159763405==--
