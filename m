@@ -2,48 +2,43 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 501D464C2A7
-	for <lists+linux-stm32@lfdr.de>; Wed, 14 Dec 2022 04:15:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CF03D64C2DE
+	for <lists+linux-stm32@lfdr.de>; Wed, 14 Dec 2022 04:42:13 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EEE4EC65E5F;
-	Wed, 14 Dec 2022 03:15:32 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7F817C65E5F;
+	Wed, 14 Dec 2022 03:42:13 +0000 (UTC)
+Received: from szxga02-in.huawei.com (szxga02-in.huawei.com [45.249.212.188])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 01EA7C65067
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 23435C63327
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 14 Dec 2022 03:15:31 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 41E67B8163C;
- Wed, 14 Dec 2022 03:15:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 402FEC433EF;
- Wed, 14 Dec 2022 03:15:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1670987729;
- bh=PxLV5VwlxVtw6OSZ3KLbpL+I2EUP7MmcuVvbdO5REos=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=kYLU8v4v8oQl7rgdZ3v3RZ13tietFegOmUmqs1Fba9KE/OQ/xmecI6SET3pqarcf/
- +RKHemMxsHDzK+s/AEvow7X2zFvOtfvAjmrl8LsXin+geblRhdWQ1x+FOx0Z49Vhlf
- QrxN0r+FAdVzfTphl7ULiAQrTHA5LZmNQ1b7k74D9NZ7hxV59PXSdxfK9NbGNFJK7e
- bU7QbMF5uwdlf07GWwr8rbf1tNsX0SaX0nluCyh5bDDzLsH1loT7ei2GwKnWd1uyhu
- RznF0zh48bYRD0a3xBIDMG5rO7R5NRCM7qONJ9UDEskqsI93rq4cwMmEp4GEt9vFSf
- 1V3ItX82k+KVQ==
-Date: Tue, 13 Dec 2022 19:15:28 -0800
-From: Jakub Kicinski <kuba@kernel.org>
-To: Gaosheng Cui <cuigaosheng1@huawei.com>
-Message-ID: <20221213191528.75cd2ff0@kernel.org>
-In-Reply-To: <20221212021350.3066631-1-cuigaosheng1@huawei.com>
-References: <20221212021350.3066631-1-cuigaosheng1@huawei.com>
+ Wed, 14 Dec 2022 03:42:12 +0000 (UTC)
+Received: from kwepemi500012.china.huawei.com (unknown [172.30.72.57])
+ by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4NX1P45SDRzJqXR;
+ Wed, 14 Dec 2022 11:41:12 +0800 (CST)
+Received: from cgs.huawei.com (10.244.148.83) by
+ kwepemi500012.china.huawei.com (7.221.188.12) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.34; Wed, 14 Dec 2022 11:42:06 +0800
+From: Gaosheng Cui <cuigaosheng1@huawei.com>
+To: <peppe.cavallaro@st.com>, <alexandre.torgue@foss.st.com>,
+ <joabreu@synopsys.com>, <davem@davemloft.net>, <edumazet@google.com>,
+ <kuba@kernel.org>, <pabeni@redhat.com>, <mcoquelin.stm32@gmail.com>,
+ <ast@kernel.org>, <daniel@iogearbox.net>, <hawk@kernel.org>,
+ <john.fastabend@gmail.com>, <boon.leong.ong@intel.com>,
+ <cuigaosheng1@huawei.com>
+Date: Wed, 14 Dec 2022 11:42:05 +0800
+Message-ID: <20221214034205.3449908-1-cuigaosheng1@huawei.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Cc: hawk@kernel.org, daniel@iogearbox.net, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, john.fastabend@gmail.com,
- ast@kernel.org, edumazet@google.com, joabreu@synopsys.com,
- mcoquelin.stm32@gmail.com, boon.leong.ong@intel.com, peppe.cavallaro@st.com,
- pabeni@redhat.com, davem@davemloft.net, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2] net: stmmac: fix possible memory leak
- in stmmac_dvr_probe()
+X-Originating-IP: [10.244.148.83]
+X-ClientProxiedBy: dggems705-chm.china.huawei.com (10.3.19.182) To
+ kwepemi500012.china.huawei.com (7.221.188.12)
+X-CFilter-Loop: Reflected
+Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH] net: stmmac: fix errno when
+	create_singlethread_workqueue() fails
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,16 +55,31 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, 12 Dec 2022 10:13:50 +0800 Gaosheng Cui wrote:
-> The bitmap_free() should be called to free priv->af_xdp_zc_qps
-> when create_singlethread_workqueue() fails, otherwise there will
-> be a memory leak, so we add the err path error_wq_init to fix it.
-> 
-> Fixes: bba2556efad6 ("net: stmmac: Enable RX via AF_XDP zero-copy")
-> Signed-off-by: Gaosheng Cui <cuigaosheng1@huawei.com>
+We should set the return value to -ENOMEM explicitly when
+create_singlethread_workqueue() fails in stmmac_dvr_probe(),
+otherwise we'll lose the error value.
 
-The previous version has already been applied and we can't remove it.
-Could you send an incremental change to just add the errno?
+Fixes: a137f3f27f92 ("net: stmmac: fix possible memory leak in stmmac_dvr_probe()")
+Signed-off-by: Gaosheng Cui <cuigaosheng1@huawei.com>
+---
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index ec64b65dee34..c6951c976f5d 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -7099,6 +7099,7 @@ int stmmac_dvr_probe(struct device *device,
+ 	priv->wq = create_singlethread_workqueue("stmmac_wq");
+ 	if (!priv->wq) {
+ 		dev_err(priv->device, "failed to create workqueue\n");
++		ret = -ENOMEM;
+ 		goto error_wq_init;
+ 	}
+ 
+-- 
+2.25.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
