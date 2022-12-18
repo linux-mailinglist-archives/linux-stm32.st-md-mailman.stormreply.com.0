@@ -2,42 +2,42 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9E71364FFF3
-	for <lists+linux-stm32@lfdr.de>; Sun, 18 Dec 2022 17:07:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 006C9650041
+	for <lists+linux-stm32@lfdr.de>; Sun, 18 Dec 2022 17:12:37 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 35B0BC65E5E;
-	Sun, 18 Dec 2022 16:07:33 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8563BC65E5E;
+	Sun, 18 Dec 2022 16:12:37 +0000 (UTC)
 Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8BC17C63326
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 20734C63326
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 18 Dec 2022 16:07:32 +0000 (UTC)
+ Sun, 18 Dec 2022 16:12:37 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id DE47DB80BA6;
- Sun, 18 Dec 2022 16:07:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A3B2C433D2;
- Sun, 18 Dec 2022 16:07:29 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id A66A9B80766;
+ Sun, 18 Dec 2022 16:12:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02869C433EF;
+ Sun, 18 Dec 2022 16:12:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1671379650;
- bh=95p9TvUqTTT1JF1Cp4ZPEY2itTyZQ7jyOLAS/LxgwrI=;
+ s=k20201202; t=1671379955;
+ bh=/GxB3VXeqgAo1zA+QITkwNGaTLyrw5PEyzasluEWebw=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=SwVQy0NyWJSdVIkRXvXZNchMQjinOOg/vlHyrQlyToOqkYqCSZqu1oShsQSkRyIs2
- y4fwW/sQ49ML5N1qrK9n5z+Kx/lPifxecHXgq6+Ufe5y1s4VSJJ8YP9038DgyKSZFr
- WSX/uNsrNQZqUjH6KDwvvT41HYQ19pzS8RXdMhxddvfpoPIfaV6Kb1k1WVDOuvdEtf
- sV1N1lDf4M8HoqBTyRYjl5zq2k6+3NAD/I9S5pp5WBE7+Bnhg/uesc+lh0dx33NohX
- bwrI36cfGyM9weAsHg1IlJ9dRtSRHD6dIvRMSelS4ZdlYrhAyJnamNxWY4f+V2S/Cq
- DQi9t1xmH8ynw==
+ b=GAgSf/JCFVRGeW17mAIeLRYOpDQelgKrxSJJO1oqXL2gETQnX+xL9a8yfm1RpqSAg
+ 2pH4WTInf2NvNP1z9ZTBTiUpYg1OVwPgu+q4zsFM0M5LGdDUWh87hvgD5klIOx1doX
+ 48sqVSX3HFON3S+hd1o12X/BslvPtpJPSBfM+0QkaPHMZLR8C8bMaEOWVXI2cRiDNj
+ YMlltlYvITYNT7iZa5TV052eHs5GjBByYRO4JFdGX2KuFHvRewOwpFzBqOQEBDp3/d
+ oypbhkF1gs/4x/S5xHaWcKAQ5U45acB5m1EeC4j2eBebCHQdIRkNI3AbjeFqPMMGCF
+ Hag1wh1NamJKg==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Sun, 18 Dec 2022 11:01:38 -0500
-Message-Id: <20221218160142.925394-81-sashal@kernel.org>
+Date: Sun, 18 Dec 2022 11:07:38 -0500
+Message-Id: <20221218160741.927862-70-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20221218160142.925394-1-sashal@kernel.org>
-References: <20221218160142.925394-1-sashal@kernel.org>
+In-Reply-To: <20221218160741.927862-1-sashal@kernel.org>
+References: <20221218160741.927862-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -46,7 +46,7 @@ Cc: Sasha Levin <sashal@kernel.org>, markgross@kernel.org, hdegoede@redhat.com,
  Mark Brown <broonie@kernel.org>, mcoquelin.stm32@gmail.com,
  Yang Yingliang <yangyingliang@huawei.com>, platform-driver-x86@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH AUTOSEL 6.1 81/85] regulator: core: Use
+Subject: [Linux-stm32] [PATCH AUTOSEL 6.0 70/73] regulator: core: Use
 	different devices for resource allocation and DT lookup
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -128,10 +128,10 @@ index 1cf958983e86..b2342b3d78c7 100644
  	if (IS_ERR(int3472->regulator.rdev)) {
  		ret = PTR_ERR(int3472->regulator.rdev);
 diff --git a/drivers/regulator/core.c b/drivers/regulator/core.c
-index 1cfac32121c0..10df84c2c288 100644
+index 02ea917c7fd1..d7119b92c0b4 100644
 --- a/drivers/regulator/core.c
 +++ b/drivers/regulator/core.c
-@@ -5402,6 +5402,7 @@ static struct regulator_coupler generic_regulator_coupler = {
+@@ -5386,6 +5386,7 @@ static struct regulator_coupler generic_regulator_coupler = {
  
  /**
   * regulator_register - register regulator
@@ -139,7 +139,7 @@ index 1cfac32121c0..10df84c2c288 100644
   * @regulator_desc: regulator to register
   * @cfg: runtime configuration for regulator
   *
-@@ -5410,7 +5411,8 @@ static struct regulator_coupler generic_regulator_coupler = {
+@@ -5394,7 +5395,8 @@ static struct regulator_coupler generic_regulator_coupler = {
   * or an ERR_PTR() on error.
   */
  struct regulator_dev *
@@ -149,15 +149,15 @@ index 1cfac32121c0..10df84c2c288 100644
  		   const struct regulator_config *cfg)
  {
  	const struct regulator_init_data *init_data;
-@@ -5419,7 +5421,6 @@ regulator_register(const struct regulator_desc *regulator_desc,
+@@ -5403,7 +5405,6 @@ regulator_register(const struct regulator_desc *regulator_desc,
  	struct regulator_dev *rdev;
  	bool dangling_cfg_gpiod = false;
  	bool dangling_of_gpiod = false;
 -	struct device *dev;
  	int ret, i;
- 	bool resolved_early = false;
  
-@@ -5432,8 +5433,7 @@ regulator_register(const struct regulator_desc *regulator_desc,
+ 	if (cfg == NULL)
+@@ -5415,8 +5416,7 @@ regulator_register(const struct regulator_desc *regulator_desc,
  		goto rinse;
  	}
  
@@ -168,10 +168,10 @@ index 1cfac32121c0..10df84c2c288 100644
  	if (regulator_desc->name == NULL || regulator_desc->ops == NULL) {
  		ret = -EINVAL;
 diff --git a/drivers/regulator/devres.c b/drivers/regulator/devres.c
-index 3265e75e97ab..5c7ff9b3e8a7 100644
+index 32823a87fd40..d94db64cd490 100644
 --- a/drivers/regulator/devres.c
 +++ b/drivers/regulator/devres.c
-@@ -385,7 +385,7 @@ struct regulator_dev *devm_regulator_register(struct device *dev,
+@@ -221,7 +221,7 @@ struct regulator_dev *devm_regulator_register(struct device *dev,
  	if (!ptr)
  		return ERR_PTR(-ENOMEM);
  
@@ -181,7 +181,7 @@ index 3265e75e97ab..5c7ff9b3e8a7 100644
  		*ptr = rdev;
  		devres_add(dev, ptr);
 diff --git a/drivers/regulator/of_regulator.c b/drivers/regulator/of_regulator.c
-index 0aff1c2886b5..cd726d4e8fbf 100644
+index e12b681c72e5..bd0c5d1fd647 100644
 --- a/drivers/regulator/of_regulator.c
 +++ b/drivers/regulator/of_regulator.c
 @@ -505,7 +505,7 @@ struct regulator_init_data *regulator_of_get_init_data(struct device *dev,
