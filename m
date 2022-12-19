@@ -2,65 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9E647650609
-	for <lists+linux-stm32@lfdr.de>; Mon, 19 Dec 2022 02:07:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9CFE065060D
+	for <lists+linux-stm32@lfdr.de>; Mon, 19 Dec 2022 02:08:39 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3BED6C65E52;
-	Mon, 19 Dec 2022 01:07:12 +0000 (UTC)
-Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com
- [209.85.210.174])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 60E0CC65E52;
+	Mon, 19 Dec 2022 01:08:39 +0000 (UTC)
+Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com
+ [209.85.216.51])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 051E2C035BC
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4645DC035BC
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 19 Dec 2022 01:07:10 +0000 (UTC)
-Received: by mail-pf1-f174.google.com with SMTP id x66so5204654pfx.3
+ Mon, 19 Dec 2022 01:08:37 +0000 (UTC)
+Received: by mail-pj1-f51.google.com with SMTP id js9so7555664pjb.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 18 Dec 2022 17:07:10 -0800 (PST)
+ Sun, 18 Dec 2022 17:08:37 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=user-agent:in-reply-to:content-disposition:mime-version:references
  :message-id:subject:cc:to:from:date:from:to:cc:subject:date
  :message-id:reply-to;
- bh=at2ZIJN0aArK83g7h6ll8s+9NXONWJZLA6sQDdvOrT8=;
- b=X4x/cJtvxS/zc9GvbTX2iFVt5nkFOJQ6SXrXGrKrGpp8m0g1vgKbS/wq7rOtfJ+lL9
- aA/2zYMjt+84oSrJ1HqT1x6+rXBYvhVD7EtwBSL8TsTEaiwFHr7tjpFcu07kaLpKtO3I
- bnHlbwcP2U+KTb3sgqAz0YkxkGxm8jjYMpbKEv78IIeMNr+GISSTJplYUVWQC0SQEuun
- UInK4wBoKfsuJQhi6+OAoixHakcHNq6Q2j7ticPOa94nYg5UbG6jLZu+cOvrCmlK01sj
- OQD+BBi8DOcnq5yAUl4OJAiDMZK4usgJn4/SqLVXRRlpsxQQr68xlpjXb6+5UkYi2tR5
- RZ+g==
+ bh=oNQym15hFeePc271jN5x/s3ttoUPzSsmqJO+mYyGs2c=;
+ b=mJyqKvjSWN6U0UOX6lzZX11PUXILt5IBML15yVFjaEDScHWNsYHhzwWS7iv7gE6Ptc
+ 3iSAHxSbngL/IaxtNxZ27AZqJ+D/bLYi7i2nSnfsPV0BFYHJCgseUgPtWgXteG/KBchY
+ I3Tl8LeWNY0e7fPAGsZQ8I0Z6mIpDwyi+EAmdgcjjHUV7/sEfXIT92/jFH6DP3VKlis5
+ kuFUOLh6zMCIU/mTNDPbkksMTFWQ7Vu7WUwf6UwCFuvYCDAQEDCShfYBc8NyJ7edEzlS
+ jz1XbPHBPFcghT9dhfYV+f1bShr0GT3OoYoCiLmcbWFrzOMy+Qzeo27MUEvNDqyzIvgW
+ JVNw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=user-agent:in-reply-to:content-disposition:mime-version:references
  :message-id:subject:cc:to:from:date:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=at2ZIJN0aArK83g7h6ll8s+9NXONWJZLA6sQDdvOrT8=;
- b=slL0wTS9NESfQHvLIJdrUD1SHuqasY5dqnwj3jNevxesus1qnhGn+skC+/Iaiq/8LR
- jBLqd+YiIF4YcUCkeT41dIc0F+trX73jZy6xCIVShLQbMux+2VaTm5N6QQAREQwz+HuD
- IJhwr70pF+FtwQWe6allinRpfGtpOGkURdKqC3hXZT8EjysUUupMBftxm+z5W3VVY0+/
- ygq/lOsuDxclko/Yhu2+H6rt6Kacw6zL2D3F+Kgc2J33z4KAZLufxrK4HOXQjlJHy4eQ
- NYR6H6XRzJ2uNm7b7xi/v7QaUGmUFx70LatTCmo9b2sefjhIDt7PVn0IBrm/F8EWmSH0
- bcqw==
-X-Gm-Message-State: AFqh2krYV0ZhqCnCDM5hJktUWhGfa+1mEWIjJ6/unWoElyEt51Ibas9N
- pIFvB6PeoTss7OQ1u/ERp5g=
-X-Google-Smtp-Source: AMrXdXt+agRNzKN4/SqOXLSpUgul8kx/brh9hJvOqVESYpVXNkja/n92FhRpVLTAoC+oUTKgzyYMWw==
-X-Received: by 2002:aa7:850c:0:b0:57f:69a8:1e04 with SMTP id
- v12-20020aa7850c000000b0057f69a81e04mr10300084pfn.26.1671412029102; 
- Sun, 18 Dec 2022 17:07:09 -0800 (PST)
+ bh=oNQym15hFeePc271jN5x/s3ttoUPzSsmqJO+mYyGs2c=;
+ b=5xgPQHISWgN3Em/bvqm0bIv42gAYgxB323hF2cwnK80uA2sZqo0JjHCTVvYemGNYns
+ vLVDjY0XuW4kFLjLgfgb/yJACIzdDI3eGoUk3/dbw6I9B1jTuAJPU2/935jK1y/ktw0V
+ zXKIGhIsmTrIC8kg4gzPEm9BIzrbV6x4PCWvl8SfBcPl8TqYOAxW34/axfQuDoey2AYX
+ Zp7LM1NlN6uCD5bnYFMleEXqfouf1H5MR2zWqcBqcsBopRlalcsY4r18BykyFRmykYfh
+ QtnxJk+wbRXokimJzMx6TQcDwhkxu28Qpf0LgszXlf4jdc5Y/PLVt1bUILRbU4kjh5n7
+ V8sw==
+X-Gm-Message-State: ANoB5pmo1HhT5B4MNFnB0s1gWEZxNFRT3OmC5QyHlV8UhdtOTHX3xlPj
+ sAJ4kZaJi4lFtHUmERgwUf8=
+X-Google-Smtp-Source: AA0mqf69oYKAMTHviaKsAUBaFhPrAJZ/RcZBJF7+x7zCUfB3QQl2ZlFtXdFGWCWtZssvMX3DVnv5WQ==
+X-Received: by 2002:a17:902:d192:b0:189:c19a:2cd9 with SMTP id
+ m18-20020a170902d19200b00189c19a2cd9mr34438031plb.25.1671412115754; 
+ Sun, 18 Dec 2022 17:08:35 -0800 (PST)
 Received: from cyhuang-hp-elitebook-840-g3.rt
  ([2402:7500:568:adee:c012:1ba9:3520:947a])
  by smtp.gmail.com with ESMTPSA id
- k74-20020a62844d000000b00576e4c7b9ecsm5186190pfd.214.2022.12.18.17.07.04
+ h9-20020a170902f7c900b00189ec622d23sm5708941plw.100.2022.12.18.17.08.30
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Sun, 18 Dec 2022 17:07:08 -0800 (PST)
-Date: Mon, 19 Dec 2022 09:07:01 +0800
+ Sun, 18 Dec 2022 17:08:35 -0800 (PST)
+Date: Mon, 19 Dec 2022 09:08:26 +0800
 From: ChiYuan Huang <u0084500@gmail.com>
 To: Sasha Levin <sashal@kernel.org>
-Message-ID: <20221219010656.GA6977@cyhuang-hp-elitebook-840-g3.rt>
-References: <20221218160741.927862-1-sashal@kernel.org>
- <20221218160741.927862-70-sashal@kernel.org>
+Message-ID: <20221219010819.GA7596@cyhuang-hp-elitebook-840-g3.rt>
+References: <20221218160142.925394-1-sashal@kernel.org>
+ <20221218160142.925394-81-sashal@kernel.org>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20221218160741.927862-70-sashal@kernel.org>
+In-Reply-To: <20221218160142.925394-81-sashal@kernel.org>
 User-Agent: Mutt/1.5.24 (2015-08-30)
 Cc: markgross@kernel.org, hdegoede@redhat.com, linux-kernel@vger.kernel.org,
  stable@vger.kernel.org, lgirdwood@gmail.com, djrscally@gmail.com,
@@ -68,7 +68,7 @@ Cc: markgross@kernel.org, hdegoede@redhat.com, linux-kernel@vger.kernel.org,
  mcoquelin.stm32@gmail.com, Yang Yingliang <yangyingliang@huawei.com>,
  platform-driver-x86@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH AUTOSEL 6.0 70/73] regulator: core: Use
+Subject: Re: [Linux-stm32] [PATCH AUTOSEL 6.1 81/85] regulator: core: Use
  different devices for resource allocation and DT lookup
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -86,7 +86,7 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Sun, Dec 18, 2022 at 11:07:38AM -0500, Sasha Levin wrote:
+On Sun, Dec 18, 2022 at 11:01:38AM -0500, Sasha Levin wrote:
 Hi,
   Thanks, but there's one more case not considered.
   It may cause a unexpected regulator shutdown by regulator core.
@@ -100,7 +100,6 @@ Hi,
 
 Best regards,
 ChiYuan.
-
 > From: ChiYuan Huang <cy_huang@richtek.com>
 > 
 > [ Upstream commit 8f3cbcd6b440032ebc7f7d48a1689dcc70a4eb98 ]
@@ -165,10 +164,10 @@ ChiYuan.
 >  	if (IS_ERR(int3472->regulator.rdev)) {
 >  		ret = PTR_ERR(int3472->regulator.rdev);
 > diff --git a/drivers/regulator/core.c b/drivers/regulator/core.c
-> index 02ea917c7fd1..d7119b92c0b4 100644
+> index 1cfac32121c0..10df84c2c288 100644
 > --- a/drivers/regulator/core.c
 > +++ b/drivers/regulator/core.c
-> @@ -5386,6 +5386,7 @@ static struct regulator_coupler generic_regulator_coupler = {
+> @@ -5402,6 +5402,7 @@ static struct regulator_coupler generic_regulator_coupler = {
 >  
 >  /**
 >   * regulator_register - register regulator
@@ -176,7 +175,7 @@ ChiYuan.
 >   * @regulator_desc: regulator to register
 >   * @cfg: runtime configuration for regulator
 >   *
-> @@ -5394,7 +5395,8 @@ static struct regulator_coupler generic_regulator_coupler = {
+> @@ -5410,7 +5411,8 @@ static struct regulator_coupler generic_regulator_coupler = {
 >   * or an ERR_PTR() on error.
 >   */
 >  struct regulator_dev *
@@ -186,15 +185,15 @@ ChiYuan.
 >  		   const struct regulator_config *cfg)
 >  {
 >  	const struct regulator_init_data *init_data;
-> @@ -5403,7 +5405,6 @@ regulator_register(const struct regulator_desc *regulator_desc,
+> @@ -5419,7 +5421,6 @@ regulator_register(const struct regulator_desc *regulator_desc,
 >  	struct regulator_dev *rdev;
 >  	bool dangling_cfg_gpiod = false;
 >  	bool dangling_of_gpiod = false;
 > -	struct device *dev;
 >  	int ret, i;
+>  	bool resolved_early = false;
 >  
->  	if (cfg == NULL)
-> @@ -5415,8 +5416,7 @@ regulator_register(const struct regulator_desc *regulator_desc,
+> @@ -5432,8 +5433,7 @@ regulator_register(const struct regulator_desc *regulator_desc,
 >  		goto rinse;
 >  	}
 >  
@@ -205,10 +204,10 @@ ChiYuan.
 >  	if (regulator_desc->name == NULL || regulator_desc->ops == NULL) {
 >  		ret = -EINVAL;
 > diff --git a/drivers/regulator/devres.c b/drivers/regulator/devres.c
-> index 32823a87fd40..d94db64cd490 100644
+> index 3265e75e97ab..5c7ff9b3e8a7 100644
 > --- a/drivers/regulator/devres.c
 > +++ b/drivers/regulator/devres.c
-> @@ -221,7 +221,7 @@ struct regulator_dev *devm_regulator_register(struct device *dev,
+> @@ -385,7 +385,7 @@ struct regulator_dev *devm_regulator_register(struct device *dev,
 >  	if (!ptr)
 >  		return ERR_PTR(-ENOMEM);
 >  
@@ -218,7 +217,7 @@ ChiYuan.
 >  		*ptr = rdev;
 >  		devres_add(dev, ptr);
 > diff --git a/drivers/regulator/of_regulator.c b/drivers/regulator/of_regulator.c
-> index e12b681c72e5..bd0c5d1fd647 100644
+> index 0aff1c2886b5..cd726d4e8fbf 100644
 > --- a/drivers/regulator/of_regulator.c
 > +++ b/drivers/regulator/of_regulator.c
 > @@ -505,7 +505,7 @@ struct regulator_init_data *regulator_of_get_init_data(struct device *dev,
@@ -260,6 +259,11 @@ ChiYuan.
 > -- 
 > 2.35.1
 > 
+> 
+> _______________________________________________
+> linux-arm-kernel mailing list
+> linux-arm-kernel@lists.infradead.org
+> http://lists.infradead.org/mailman/listinfo/linux-arm-kernel
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
