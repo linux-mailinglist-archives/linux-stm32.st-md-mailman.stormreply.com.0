@@ -2,67 +2,61 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7345365358B
-	for <lists+linux-stm32@lfdr.de>; Wed, 21 Dec 2022 18:46:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5931C65375B
+	for <lists+linux-stm32@lfdr.de>; Wed, 21 Dec 2022 21:09:45 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 33C02C69062;
-	Wed, 21 Dec 2022 17:46:20 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CEBC3C6904D;
+	Wed, 21 Dec 2022 20:09:44 +0000 (UTC)
+Received: from mail-oo1-f52.google.com (mail-oo1-f52.google.com
+ [209.85.161.52])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D712FC6904B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9882BC6904B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 21 Dec 2022 17:33:59 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 2BLDfZAV026755; Wed, 21 Dec 2022 18:33:44 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-transfer-encoding : content-type; s=selector1;
- bh=HvbZMt9uDmeIHEq1F2d8b531XzccYnOXXCh8BRejkHI=;
- b=3yUqYuSGUg0LL4zh4C8lg89qTfFHir/zGsqXh+B+R8Qo/7iPE0pRBdm/PWoT2RG+4bti
- YP9ju3xiB0ZesegmdQv5WKT1H33yi4LXfdtboQqB4pjfnuBo2FVwruXy+htiDQEv85Ih
- BK9Rvn+PaMweHGxwoCnJZV5APmRasT9XlajWe/LxbfQE8wJVpIemPB8Zjb1WAM4R8sHC
- N3n1Y3tYD2G8JJHTCZ7IOB73OKckSeA2mvzQxfbXu+g8Acr1bdL9QR5WU3Z6T39ChdUc
- jD2ryU7Iehd7x0An08FXPhUyNE/hX7xsd9zYaAI+qrXjpPG7IR8hEeOZjQ3ePYHIvBT9 xQ== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3mka9xapwg-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 21 Dec 2022 18:33:44 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 3D23410002A;
- Wed, 21 Dec 2022 18:33:44 +0100 (CET)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 35FF325222D;
- Wed, 21 Dec 2022 18:33:44 +0100 (CET)
-Received: from localhost (10.201.21.217) by SHFDAG1NODE1.st.com (10.75.129.69)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.13; Wed, 21 Dec
- 2022 18:33:43 +0100
-From: Gatien Chevallier <gatien.chevallier@foss.st.com>
-To: <alexandre.torgue@foss.st.com>, <robh+dt@kernel.org>,
- <Oleksii_Moisieiev@epam.com>, <linus.walleij@linaro.org>,
- <gregkh@linuxfoundation.org>
-Date: Wed, 21 Dec 2022 18:30:55 +0100
-Message-ID: <20221221173055.11719-8-gatien.chevallier@foss.st.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20221221173055.11719-1-gatien.chevallier@foss.st.com>
-References: <20221221173055.11719-1-gatien.chevallier@foss.st.com>
+ Wed, 21 Dec 2022 20:09:43 +0000 (UTC)
+Received: by mail-oo1-f52.google.com with SMTP id
+ z20-20020a4a4914000000b004b026afa844so1572577ooa.13
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 21 Dec 2022 12:09:43 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=date:subject:message-id:references:in-reply-to:cc:to:from
+ :mime-version:content-transfer-encoding:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=7hY8G8o4GP1gTqYrBQoBdXzTjanx+NXgVGTmmfwXwXs=;
+ b=ml44x32zpdWg2V+i4wMm+ccGKdfvuhxcYI0TGisV32Xh6b15cxWE887eCC9tRRf8+m
+ r8q6UJkeYqUDUHoExX9hj66zRsC7s7PprTIuLaPL+9UroNI7TuW+PXfIINjIitLw0Cem
+ kuXXCMGczslTmfL+HzuLYeDxH4kA5Rm9kP58a2/YFer2YeoJ4EjI9p+oppnUXvEvDEAW
+ r9XLX62GoOb7C2eY5xkcpivqe6af3U99l1dz3T8Os8p0qT8wroep0Vdl+YUkJtg9H0Si
+ V33Uu+VDPmWQoGHDPVAJpCMCjnjm2qejo3Vtj7yYyGjzliTPgOz+5p0m0xmkTC/sgC99
+ 4G+w==
+X-Gm-Message-State: AFqh2kqknn5XTnGHsUkEQDS+EXuOpIoOY8J96SBmSThBTpz6eWmgJI36
+ HlesrFruaWPc1H3IUYiP9A==
+X-Google-Smtp-Source: AMrXdXveW3JoX6VWWBCCN4Q7iiVTUWg23bq1ov+RfxpKJ/SnFEaIJTtMr3mHKg7dfWRpEyJaD1BcIg==
+X-Received: by 2002:a4a:e7cf:0:b0:4a3:51a2:f8ba with SMTP id
+ y15-20020a4ae7cf000000b004a351a2f8bamr1438923oov.6.1671653382279; 
+ Wed, 21 Dec 2022 12:09:42 -0800 (PST)
+Received: from robh_at_kernel.org (66-90-144-107.dyn.grandenetworks.net.
+ [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
+ r15-20020a4a964f000000b004a085ddc771sm6463496ooi.6.2022.12.21.12.09.41
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 21 Dec 2022 12:09:41 -0800 (PST)
+Received: (nullmailer pid 3506211 invoked by uid 1000);
+ Wed, 21 Dec 2022 20:09:41 -0000
 MIME-Version: 1.0
-X-Originating-IP: [10.201.21.217]
-X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SHFDAG1NODE1.st.com
- (10.75.129.69)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.923,Hydra:6.0.545,FMLib:17.11.122.1
- definitions=2022-12-21_10,2022-12-21_01,2022-06-22_01
-X-Mailman-Approved-At: Wed, 21 Dec 2022 17:46:17 +0000
+From: Rob Herring <robh@kernel.org>
+To: Gatien Chevallier <gatien.chevallier@foss.st.com>
+In-Reply-To: <20221221173055.11719-3-gatien.chevallier@foss.st.com>
+References: <20221221173055.11719-1-gatien.chevallier@foss.st.com>
+ <20221221173055.11719-3-gatien.chevallier@foss.st.com>
+Message-Id: <167165333929.3500496.17240347378760070278.robh@kernel.org>
+Date: Wed, 21 Dec 2022 14:09:41 -0600
 Cc: mark.rutland@arm.com, devicetree@vger.kernel.org, arnd@arndb.de,
- linux-kernel@vger.kernel.org, gatien.chevallier@foss.st.com,
+ gregkh@linuxfoundation.org, linus.walleij@linaro.org,
+ linux-kernel@vger.kernel.org, robh+dt@kernel.org, Oleksii_Moisieiev@epam.com,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [RFC PATCH 7/7] ARM: dts: stm32: add ETZPC as a
-	system bus for STM32MP13x boards
+Subject: Re: [Linux-stm32] [RFC PATCH 2/7] dt-bindings: bus: add STM32
+	System Bus
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,294 +73,49 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The STM32 System Bus is an internal bus on which devices are connected.
-ETZPC is a peripheral overseeing the firewall bus that configures
-and control access to the peripherals connected on it.
 
-For more information on which peripheral is securable, please read
-the STM32MP13 reference manual.
+On Wed, 21 Dec 2022 18:30:50 +0100, Gatien Chevallier wrote:
+> Document STM32 System Bus. This bus is intended to control firewall
+> access for the peripherals connected to it.
+> 
+> Signed-off-by: Loic PALLARDY <loic.pallardy@st.com>
+> Signed-off-by: Gatien Chevallier <gatien.chevallier@foss.st.com>
+> ---
+>  .../devicetree/bindings/bus/st,sys-bus.yaml   | 88 +++++++++++++++++++
+>  1 file changed, 88 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/bus/st,sys-bus.yaml
+> 
 
-Signed-off-by: Gatien Chevallier <gatien.chevallier@foss.st.com>
----
- arch/arm/boot/dts/stm32mp131.dtsi | 242 ++++++++++++++++--------------
- 1 file changed, 130 insertions(+), 112 deletions(-)
+My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
+on your patch (DT_CHECKER_FLAGS is new in v5.13):
 
-diff --git a/arch/arm/boot/dts/stm32mp131.dtsi b/arch/arm/boot/dts/stm32mp131.dtsi
-index dd35a607073d..0b3934fe6c34 100644
---- a/arch/arm/boot/dts/stm32mp131.dtsi
-+++ b/arch/arm/boot/dts/stm32mp131.dtsi
-@@ -3,6 +3,7 @@
-  * Copyright (C) STMicroelectronics 2021 - All Rights Reserved
-  * Author: Alexandre Torgue <alexandre.torgue@foss.st.com> for STMicroelectronics.
-  */
-+#include <dt-bindings/bus/stm32mp13_sys_bus.h>
- #include <dt-bindings/interrupt-controller/arm-gic.h>
- #include <dt-bindings/clock/stm32mp13-clks.h>
- #include <dt-bindings/reset/stm32mp13-resets.h>
-@@ -231,88 +232,6 @@ dmamux1: dma-router@48002000 {
- 			dma-channels = <16>;
- 		};
- 
--		spi4: spi@4c002000 {
--			compatible = "st,stm32h7-spi";
--			reg = <0x4c002000 0x400>;
--			interrupts = <GIC_SPI 85 IRQ_TYPE_LEVEL_HIGH>;
--			clocks = <&rcc SPI4_K>;
--			resets = <&rcc SPI4_R>;
--			#address-cells = <1>;
--			#size-cells = <0>;
--			dmas = <&dmamux1 83 0x400 0x01>,
--			       <&dmamux1 84 0x400 0x01>;
--			dma-names = "rx", "tx";
--			status = "disabled";
--		};
--
--		spi5: spi@4c003000 {
--			compatible = "st,stm32h7-spi";
--			reg = <0x4c003000 0x400>;
--			interrupts = <GIC_SPI 86 IRQ_TYPE_LEVEL_HIGH>;
--			clocks = <&rcc SPI5_K>;
--			resets = <&rcc SPI5_R>;
--			#address-cells = <1>;
--			#size-cells = <0>;
--			dmas = <&dmamux1 85 0x400 0x01>,
--			       <&dmamux1 86 0x400 0x01>;
--			dma-names = "rx", "tx";
--			status = "disabled";
--		};
--
--		i2c3: i2c@4c004000 {
--			compatible = "st,stm32mp13-i2c";
--			reg = <0x4c004000 0x400>;
--			interrupt-names = "event", "error";
--			interrupts = <GIC_SPI 73 IRQ_TYPE_LEVEL_HIGH>,
--				     <GIC_SPI 74 IRQ_TYPE_LEVEL_HIGH>;
--			clocks = <&rcc I2C3_K>;
--			resets = <&rcc I2C3_R>;
--			#address-cells = <1>;
--			#size-cells = <0>;
--			dmas = <&dmamux1 73 0x400 0x1>,
--			       <&dmamux1 74 0x400 0x1>;
--			dma-names = "rx", "tx";
--			st,syscfg-fmp = <&syscfg 0x4 0x4>;
--			i2c-analog-filter;
--			status = "disabled";
--		};
--
--		i2c4: i2c@4c005000 {
--			compatible = "st,stm32mp13-i2c";
--			reg = <0x4c005000 0x400>;
--			interrupt-names = "event", "error";
--			interrupts = <GIC_SPI 93 IRQ_TYPE_LEVEL_HIGH>,
--				     <GIC_SPI 94 IRQ_TYPE_LEVEL_HIGH>;
--			clocks = <&rcc I2C4_K>;
--			resets = <&rcc I2C4_R>;
--			#address-cells = <1>;
--			#size-cells = <0>;
--			dmas = <&dmamux1 75 0x400 0x1>,
--			       <&dmamux1 76 0x400 0x1>;
--			dma-names = "rx", "tx";
--			st,syscfg-fmp = <&syscfg 0x4 0x8>;
--			i2c-analog-filter;
--			status = "disabled";
--		};
--
--		i2c5: i2c@4c006000 {
--			compatible = "st,stm32mp13-i2c";
--			reg = <0x4c006000 0x400>;
--			interrupt-names = "event", "error";
--			interrupts = <GIC_SPI 114 IRQ_TYPE_LEVEL_HIGH>,
--				     <GIC_SPI 115 IRQ_TYPE_LEVEL_HIGH>;
--			clocks = <&rcc I2C5_K>;
--			resets = <&rcc I2C5_R>;
--			#address-cells = <1>;
--			#size-cells = <0>;
--			dmas = <&dmamux1 115 0x400 0x1>,
--			       <&dmamux1 116 0x400 0x1>;
--			dma-names = "rx", "tx";
--			st,syscfg-fmp = <&syscfg 0x4 0x10>;
--			i2c-analog-filter;
--			status = "disabled";
--		};
--
- 		rcc: rcc@50000000 {
- 			compatible = "st,stm32mp13-rcc", "syscon";
- 			reg = <0x50000000 0x1000>;
-@@ -349,36 +268,6 @@ mdma: dma-controller@58000000 {
- 			dma-requests = <48>;
- 		};
- 
--		sdmmc1: mmc@58005000 {
--			compatible = "st,stm32-sdmmc2", "arm,pl18x", "arm,primecell";
--			arm,primecell-periphid = <0x20253180>;
--			reg = <0x58005000 0x1000>, <0x58006000 0x1000>;
--			interrupts = <GIC_SPI 50 IRQ_TYPE_LEVEL_HIGH>;
--			interrupt-names = "cmd_irq";
--			clocks = <&rcc SDMMC1_K>;
--			clock-names = "apb_pclk";
--			resets = <&rcc SDMMC1_R>;
--			cap-sd-highspeed;
--			cap-mmc-highspeed;
--			max-frequency = <130000000>;
--			status = "disabled";
--		};
--
--		sdmmc2: mmc@58007000 {
--			compatible = "st,stm32-sdmmc2", "arm,pl18x", "arm,primecell";
--			arm,primecell-periphid = <0x20253180>;
--			reg = <0x58007000 0x1000>, <0x58008000 0x1000>;
--			interrupts = <GIC_SPI 108 IRQ_TYPE_LEVEL_HIGH>;
--			interrupt-names = "cmd_irq";
--			clocks = <&rcc SDMMC2_K>;
--			clock-names = "apb_pclk";
--			resets = <&rcc SDMMC2_R>;
--			cap-sd-highspeed;
--			cap-mmc-highspeed;
--			max-frequency = <130000000>;
--			status = "disabled";
--		};
--
- 		iwdg2: watchdog@5a002000 {
- 			compatible = "st,stm32mp1-iwdg";
- 			reg = <0x5a002000 0x400>;
-@@ -414,6 +303,135 @@ ts_cal2: calib@5e {
- 			};
- 		};
- 
-+		etzpc: etzpc@5c007000 {
-+			compatible = "st,stm32mp13-sys-bus";
-+			reg = <0x5c007000 0x400>;
-+			#address-cells = <1>;
-+			#size-cells = <1>;
-+			feature-domain-controller;
-+			#feature-domain-cells = <2>;
-+			ranges;
-+
-+			spi4: spi@4c002000 {
-+				compatible = "st,stm32h7-spi";
-+				reg = <0x4c002000 0x400>;
-+				interrupts = <GIC_SPI 85 IRQ_TYPE_LEVEL_HIGH>;
-+				clocks = <&rcc SPI4_K>;
-+				resets = <&rcc SPI4_R>;
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+				dmas = <&dmamux1 83 0x400 0x01>,
-+				       <&dmamux1 84 0x400 0x01>;
-+				dma-names = "rx", "tx";
-+				feature-domains = <&etzpc STM32MP1_ETZPC_SPI4_ID>;
-+				status = "disabled";
-+			};
-+
-+			spi5: spi@4c003000 {
-+				compatible = "st,stm32h7-spi";
-+				reg = <0x4c003000 0x400>;
-+				interrupts = <GIC_SPI 86 IRQ_TYPE_LEVEL_HIGH>;
-+				clocks = <&rcc SPI5_K>;
-+				resets = <&rcc SPI5_R>;
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+				dmas = <&dmamux1 85 0x400 0x01>,
-+				       <&dmamux1 86 0x400 0x01>;
-+				dma-names = "rx", "tx";
-+				feature-domains = <&etzpc STM32MP1_ETZPC_SPI5_ID>;
-+				status = "disabled";
-+			};
-+
-+			i2c3: i2c@4c004000 {
-+				compatible = "st,stm32mp13-i2c";
-+				reg = <0x4c004000 0x400>;
-+				interrupt-names = "event", "error";
-+				interrupts = <GIC_SPI 73 IRQ_TYPE_LEVEL_HIGH>,
-+					     <GIC_SPI 74 IRQ_TYPE_LEVEL_HIGH>;
-+				clocks = <&rcc I2C3_K>;
-+				resets = <&rcc I2C3_R>;
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+				dmas = <&dmamux1 73 0x400 0x1>,
-+				       <&dmamux1 74 0x400 0x1>;
-+				dma-names = "rx", "tx";
-+				st,syscfg-fmp = <&syscfg 0x4 0x4>;
-+				i2c-analog-filter;
-+				feature-domains = <&etzpc STM32MP1_ETZPC_I2C3_ID>;
-+				status = "disabled";
-+			};
-+
-+			i2c4: i2c@4c005000 {
-+				compatible = "st,stm32mp13-i2c";
-+				reg = <0x4c005000 0x400>;
-+				interrupt-names = "event", "error";
-+				interrupts = <GIC_SPI 93 IRQ_TYPE_LEVEL_HIGH>,
-+					     <GIC_SPI 94 IRQ_TYPE_LEVEL_HIGH>;
-+				clocks = <&rcc I2C4_K>;
-+				resets = <&rcc I2C4_R>;
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+				dmas = <&dmamux1 75 0x400 0x1>,
-+				       <&dmamux1 76 0x400 0x1>;
-+				dma-names = "rx", "tx";
-+				st,syscfg-fmp = <&syscfg 0x4 0x8>;
-+				i2c-analog-filter;
-+				feature-domains = <&etzpc STM32MP1_ETZPC_I2C4_ID>;
-+				status = "disabled";
-+			};
-+
-+			i2c5: i2c@4c006000 {
-+				compatible = "st,stm32mp13-i2c";
-+				reg = <0x4c006000 0x400>;
-+				interrupt-names = "event", "error";
-+				interrupts = <GIC_SPI 114 IRQ_TYPE_LEVEL_HIGH>,
-+					     <GIC_SPI 115 IRQ_TYPE_LEVEL_HIGH>;
-+				clocks = <&rcc I2C5_K>;
-+				resets = <&rcc I2C5_R>;
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+				dmas = <&dmamux1 115 0x400 0x1>,
-+				       <&dmamux1 116 0x400 0x1>;
-+				dma-names = "rx", "tx";
-+				st,syscfg-fmp = <&syscfg 0x4 0x10>;
-+				i2c-analog-filter;
-+				feature-domains = <&etzpc STM32MP1_ETZPC_I2C5_ID>;
-+				status = "disabled";
-+			};
-+
-+			sdmmc1: mmc@58005000 {
-+				compatible = "st,stm32-sdmmc2", "arm,pl18x", "arm,primecell";
-+				arm,primecell-periphid = <0x20253180>;
-+				reg = <0x58005000 0x1000>, <0x58006000 0x1000>;
-+				interrupts = <GIC_SPI 50 IRQ_TYPE_LEVEL_HIGH>;
-+				interrupt-names = "cmd_irq";
-+				clocks = <&rcc SDMMC1_K>;
-+				clock-names = "apb_pclk";
-+				resets = <&rcc SDMMC1_R>;
-+				cap-sd-highspeed;
-+				cap-mmc-highspeed;
-+				max-frequency = <130000000>;
-+				feature-domains = <&etzpc STM32MP1_ETZPC_SDMMC1_ID>;
-+				status = "disabled";
-+			};
-+
-+			sdmmc2: mmc@58007000 {
-+				compatible = "st,stm32-sdmmc2", "arm,pl18x", "arm,primecell";
-+				arm,primecell-periphid = <0x20253180>;
-+				reg = <0x58007000 0x1000>, <0x58008000 0x1000>;
-+				interrupts = <GIC_SPI 108 IRQ_TYPE_LEVEL_HIGH>;
-+				interrupt-names = "cmd_irq";
-+				clocks = <&rcc SDMMC2_K>;
-+				clock-names = "apb_pclk";
-+				resets = <&rcc SDMMC2_R>;
-+				cap-sd-highspeed;
-+				cap-mmc-highspeed;
-+				max-frequency = <130000000>;
-+				feature-domains = <&etzpc STM32MP1_ETZPC_SDMMC2_ID>;
-+				status = "disabled";
-+			};
-+
-+		};
- 		/*
- 		 * Break node order to solve dependency probe issue between
- 		 * pinctrl and exti.
--- 
-2.25.1
+yamllint warnings/errors:
+./Documentation/devicetree/bindings/bus/st,sys-bus.yaml:7:8: [warning] too many spaces after colon (colons)
+
+dtschema/dtc warnings/errors:
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/bus/st,sys-bus.yaml: $id: 'http://devicetree.org/schemas/bus/stm32,sys-bus.yaml' does not match 'http://devicetree.org/schemas/.*\\.yaml#'
+	from schema $id: http://devicetree.org/meta-schemas/base.yaml#
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/bus/st,sys-bus.yaml: properties:#feature-domain-cells: 'minItems' is not one of ['description', 'deprecated', 'const', 'enum', 'minimum', 'maximum', 'multipleOf', 'default', '$ref', 'oneOf']
+	from schema $id: http://devicetree.org/meta-schemas/core.yaml#
+./Documentation/devicetree/bindings/bus/st,sys-bus.yaml: $id: relative path/filename doesn't match actual path or filename
+	expected: http://devicetree.org/schemas/bus/st,sys-bus.yaml#
+
+doc reference errors (make refcheckdocs):
+
+See https://patchwork.ozlabs.org/project/devicetree-bindings/patch/20221221173055.11719-3-gatien.chevallier@foss.st.com
+
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
 
 _______________________________________________
 Linux-stm32 mailing list
