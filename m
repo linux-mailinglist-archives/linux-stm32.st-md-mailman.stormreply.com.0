@@ -2,74 +2,109 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9CFE065060D
-	for <lists+linux-stm32@lfdr.de>; Mon, 19 Dec 2022 02:08:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0DE34652D92
+	for <lists+linux-stm32@lfdr.de>; Wed, 21 Dec 2022 09:02:36 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 60E0CC65E52;
-	Mon, 19 Dec 2022 01:08:39 +0000 (UTC)
-Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com
- [209.85.216.51])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9CF76C6904C;
+	Wed, 21 Dec 2022 08:02:35 +0000 (UTC)
+Received: from EUR05-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur05on2089.outbound.protection.outlook.com [40.107.21.89])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4645DC035BC
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D3F52C035BC
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 19 Dec 2022 01:08:37 +0000 (UTC)
-Received: by mail-pj1-f51.google.com with SMTP id js9so7555664pjb.2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 18 Dec 2022 17:08:37 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=user-agent:in-reply-to:content-disposition:mime-version:references
- :message-id:subject:cc:to:from:date:from:to:cc:subject:date
- :message-id:reply-to;
- bh=oNQym15hFeePc271jN5x/s3ttoUPzSsmqJO+mYyGs2c=;
- b=mJyqKvjSWN6U0UOX6lzZX11PUXILt5IBML15yVFjaEDScHWNsYHhzwWS7iv7gE6Ptc
- 3iSAHxSbngL/IaxtNxZ27AZqJ+D/bLYi7i2nSnfsPV0BFYHJCgseUgPtWgXteG/KBchY
- I3Tl8LeWNY0e7fPAGsZQ8I0Z6mIpDwyi+EAmdgcjjHUV7/sEfXIT92/jFH6DP3VKlis5
- kuFUOLh6zMCIU/mTNDPbkksMTFWQ7Vu7WUwf6UwCFuvYCDAQEDCShfYBc8NyJ7edEzlS
- jz1XbPHBPFcghT9dhfYV+f1bShr0GT3OoYoCiLmcbWFrzOMy+Qzeo27MUEvNDqyzIvgW
- JVNw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=user-agent:in-reply-to:content-disposition:mime-version:references
- :message-id:subject:cc:to:from:date:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=oNQym15hFeePc271jN5x/s3ttoUPzSsmqJO+mYyGs2c=;
- b=5xgPQHISWgN3Em/bvqm0bIv42gAYgxB323hF2cwnK80uA2sZqo0JjHCTVvYemGNYns
- vLVDjY0XuW4kFLjLgfgb/yJACIzdDI3eGoUk3/dbw6I9B1jTuAJPU2/935jK1y/ktw0V
- zXKIGhIsmTrIC8kg4gzPEm9BIzrbV6x4PCWvl8SfBcPl8TqYOAxW34/axfQuDoey2AYX
- Zp7LM1NlN6uCD5bnYFMleEXqfouf1H5MR2zWqcBqcsBopRlalcsY4r18BykyFRmykYfh
- QtnxJk+wbRXokimJzMx6TQcDwhkxu28Qpf0LgszXlf4jdc5Y/PLVt1bUILRbU4kjh5n7
- V8sw==
-X-Gm-Message-State: ANoB5pmo1HhT5B4MNFnB0s1gWEZxNFRT3OmC5QyHlV8UhdtOTHX3xlPj
- sAJ4kZaJi4lFtHUmERgwUf8=
-X-Google-Smtp-Source: AA0mqf69oYKAMTHviaKsAUBaFhPrAJZ/RcZBJF7+x7zCUfB3QQl2ZlFtXdFGWCWtZssvMX3DVnv5WQ==
-X-Received: by 2002:a17:902:d192:b0:189:c19a:2cd9 with SMTP id
- m18-20020a170902d19200b00189c19a2cd9mr34438031plb.25.1671412115754; 
- Sun, 18 Dec 2022 17:08:35 -0800 (PST)
-Received: from cyhuang-hp-elitebook-840-g3.rt
- ([2402:7500:568:adee:c012:1ba9:3520:947a])
- by smtp.gmail.com with ESMTPSA id
- h9-20020a170902f7c900b00189ec622d23sm5708941plw.100.2022.12.18.17.08.30
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Sun, 18 Dec 2022 17:08:35 -0800 (PST)
-Date: Mon, 19 Dec 2022 09:08:26 +0800
-From: ChiYuan Huang <u0084500@gmail.com>
-To: Sasha Levin <sashal@kernel.org>
-Message-ID: <20221219010819.GA7596@cyhuang-hp-elitebook-840-g3.rt>
-References: <20221218160142.925394-1-sashal@kernel.org>
- <20221218160142.925394-81-sashal@kernel.org>
+ Wed, 21 Dec 2022 08:02:34 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=V0zVeY7+iVptLWRu11bYwzNRjA3TCxOuhIcYzVr7MC4V4HqE94wubNNd3r5lBXwXZ6baQqgiQUryxGl+dgpJ+rElYBkPz4/TAhXOHEOANUM6a/wX5qr3SfIwXPTYWa9Z/KdYS336M2OPBn6AGztYXrYpK43K5xhsCjtbPfzbEVsYQ5aM9noxKjwHNROtleN3SNf9lksdWDHp16cdclheE9LxBtRb6BwLX0UOy2xdi8Cc+dTxvHNuwofiLcIqo1q6qJE7KuB/qmK7w8x4M8K12dQ6DpWAs6on/DHKUIToLcQAqaFjAPFKdUk4RAD5f25oPuE5iB2jGDPfj08GeOuoNA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=e5po+u9iUjtIeAUdElaNVNZI1j989hzTNa9KUovfEd4=;
+ b=JASwLgRa7ePadFyq2RFS4+R0d5OLf2q2loBZOfrD6DF3N2QioqKQCHtiq3Hbg8bmlpGJ+wLgMf/0GxY8QJGrca0TcpognJJHsZV1pqGD46INe4o7LxyGAacqn3hrriBjTV6oCamPfLBqFso72fSyRBTICa6/EPra//SvxnEByvgfex2XJ9eChv/QHbrzbtJOS9BTVW2fvxLOyLk3Be7ymWQIEK+HFKpLmtFLrY+Fdj4DW8pIpUoVsMoXhLUCsmI3nLcbOmyXrYCUMLVw9DF7fXt13NKdK7NlDFr0RlfJ0te2gK2bZSBWHhR9LvtPenr+Z3TtL5tvISDV1k7gGQrW0g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=e5po+u9iUjtIeAUdElaNVNZI1j989hzTNa9KUovfEd4=;
+ b=DzrWiy0/hBMsqlrvca9TOTpIIIpmK47WQGeVV1jvQa1GjtEC9mgp3Bwdu2q8oSVY0Ze67b/wYiUQzmDSFhLBeT0naCF/bOvA7y/KCr9SdBKdmL5ZAH1634MLdhS1sd3IkX4E4B9juiU0xkbj0euLKZ1FkLrGaAmyFBsR/xL2cmg=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from HE1PR0402MB2939.eurprd04.prod.outlook.com (2603:10a6:3:db::18)
+ by PAXPR04MB8426.eurprd04.prod.outlook.com (2603:10a6:102:1ca::6)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5924.16; Wed, 21 Dec
+ 2022 08:02:33 +0000
+Received: from HE1PR0402MB2939.eurprd04.prod.outlook.com
+ ([fe80::76a3:36aa:1144:616c]) by HE1PR0402MB2939.eurprd04.prod.outlook.com
+ ([fe80::76a3:36aa:1144:616c%11]) with mapi id 15.20.5924.016; Wed, 21 Dec
+ 2022 08:02:32 +0000
+From: Clark Wang <xiaoning.wang@nxp.com>
+To: linux@armlinux.org.uk, peppe.cavallaro@st.com,
+ alexandre.torgue@foss.st.com, joabreu@synopsys.com, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ mcoquelin.stm32@gmail.com, andrew@lunn.ch, hkallweit1@gmail.com
+Date: Wed, 21 Dec 2022 16:01:42 +0800
+Message-Id: <20221221080144.2549125-1-xiaoning.wang@nxp.com>
+X-Mailer: git-send-email 2.34.1
+X-ClientProxiedBy: SI2PR02CA0051.apcprd02.prod.outlook.com
+ (2603:1096:4:196::10) To HE1PR0402MB2939.eurprd04.prod.outlook.com
+ (2603:10a6:3:db::18)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20221218160142.925394-81-sashal@kernel.org>
-User-Agent: Mutt/1.5.24 (2015-08-30)
-Cc: markgross@kernel.org, hdegoede@redhat.com, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, lgirdwood@gmail.com, djrscally@gmail.com,
- ChiYuan Huang <cy_huang@richtek.com>, Mark Brown <broonie@kernel.org>,
- mcoquelin.stm32@gmail.com, Yang Yingliang <yangyingliang@huawei.com>,
- platform-driver-x86@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH AUTOSEL 6.1 81/85] regulator: core: Use
- different devices for resource allocation and DT lookup
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: HE1PR0402MB2939:EE_|PAXPR04MB8426:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3d3b9a74-b8cc-4e8a-b90d-08dae329b6b8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: JLEFY8LlQVjSDCXFvVMwvDAs7DWzmTEQ8VQI8QdeRa0Rdar1zdEGtE2i3BqadainCrca2LOhVXCR3YcGpExt3g4Pu9bBbL14DjXo5SCi9bAsMSUqdx5T3hn0BXG8xT51PDFz1g7i1AnCA/KEWg7s7dAHa4u8Shlvyrpovih73+JSWujBad46yAglTfPOiDK9/ghGHTTVxsfRlPMGoInDz49MRwA2V2ASBn1xC0mgCaMZ1A2LK0Ce6fSyspaqoJWHEOYsg7H2FvAHDJu0wJeFY69JDxnrTXAlZmd5u/H/xvKXx844z2o7fTKQ9Ij1ay6lFxaUgRJ06ItkT3uwhcMVU0kwPRjPSIgBvH5hXbHcjEEoC0IX/3+d6b+T70IosTCMgj5nHppvtnST7VIyPqJKgujYIL0ZXOAdZYYfuQ16QFNYE8a2C99/zSmJeh7SFeEzQJHHaiwLEFnXUcf2uGUKc4LYqF/Lk/3dPVDEcqiwCMvNomH6YCCwWdNV590bzFtqezSOZMvOQ7DQKNvnb9CsYFVNUbLlM03h66BowwnFNWXfIs2Vt0ps6Dd7gGt1D/I8DZKllYKG6tsJV3jIuofpFUJ49nZdFvCjrDe4pqSworvZ+BU1JCKwfYkEJt8P+YGoa6MkAF7w4yEW8CnSF9qKbvYKJav8gtnVzyOd9H4zZS2Q/f2ClF98Lx02uElj6o2UgQouZM1XFp8LXDx2vu+P0Q==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:HE1PR0402MB2939.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230022)(4636009)(366004)(136003)(346002)(39860400002)(396003)(376002)(451199015)(478600001)(6486002)(6506007)(186003)(6512007)(2906002)(26005)(36756003)(52116002)(41300700001)(66476007)(66556008)(66946007)(8676002)(4326008)(4744005)(5660300002)(7416002)(83380400001)(921005)(1076003)(316002)(8936002)(38350700002)(38100700002)(2616005)(86362001)(6666004);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?2jXPvxcniP2grZZKDuMO5CTmb5BZEvsOlxWDx/watG8Vhf7VPPX2X3UCdSCt?=
+ =?us-ascii?Q?yQ/NPTsU8YZiHemyNlgVhDM4XEr6MA49DnXsOf4nb87aydO2zNKw9KLDNTiv?=
+ =?us-ascii?Q?NNAhDmmoJKqTyn0ZAYlaiGlr4k1h5FgmewoAeICpE8iACr4XcYx6EPlLveCl?=
+ =?us-ascii?Q?vk4msoPcwoircQSGVPnMNXN5ppaOnzqbUUbo5ZQzwOPX4rxA1GHFQmdW5h+U?=
+ =?us-ascii?Q?paqYv+rl+JwN9CpB9gDW8N1BGd7CNNCg7lRBtNcnnMON28dQ5HR5aFOPYiPk?=
+ =?us-ascii?Q?SfxprUddp41jZm+Om7QnaONPOLUPP/OzrXsZWSig/3xOhe7u7ccsSlHhSEXn?=
+ =?us-ascii?Q?qTevGwNvOAcFABzaN+TeXTjuxYQWlmryyUpTgthwl3j50yO+//O2I/65G4/V?=
+ =?us-ascii?Q?WNnSFa6/9WD8xwFWCfjgHhcyJGf0mwRh73KMBYQImigpiuoI8KDm+rK+gNjo?=
+ =?us-ascii?Q?YfBifnDstu8wxisHuX5pnF+5J4Dt0jM8IcSxjbsxrik7ojKnJ4sk96o2DyzL?=
+ =?us-ascii?Q?NVdHWNP+R0rfw4UlhnAEiCm/coeSu602ds5kfKNYfxHXNQxk8f/PHEa+P22l?=
+ =?us-ascii?Q?uuGDlVfvwFYuLVAKuLxQUwEx1vigk/hIOoPL6RiPhlFdeASJLp4m+MYof5bU?=
+ =?us-ascii?Q?slsbK7C3US8fGTF2P8hHLnNVB58meELPhvgrNT+YhhKorSy38vSHGtg0l2e2?=
+ =?us-ascii?Q?SRvPdDLQnphBLr2oPtddW8t/RIccPOPx6R5CAQLW0FWiSxzjSmBFIR6LWXab?=
+ =?us-ascii?Q?N+JEPoBzi6Q3s1htoCNKgmXwM6cWii48kvaGvQBIl3HASS+dQ48nZcB8Qh0U?=
+ =?us-ascii?Q?iFYE8D4+C3BZtU2bm+miTIb0F/L5KXK3E04fFLW03zk5etKXAeBQsugF9q9R?=
+ =?us-ascii?Q?DCs3CxBJUFXbhpl8HnBUC8dq1oWU/oblIcmyHEtYjMjhybxuKosKVuafYmsk?=
+ =?us-ascii?Q?wJVMH5qM2r/dE0+Q/3c+l/UEaUwePERhfJzwg2/DaKjLGby6NrAFiUIHQL1k?=
+ =?us-ascii?Q?qrdFhcrWqvkPzFQ33eEs3opGu8ilYTLe21/tmdGwdXn1ZFaaWl1i/4wvyf+d?=
+ =?us-ascii?Q?rz6SyhmUlG9fifO7hCt4hIY+7r910MjPLg79+9Bj07LtHvLyXHKnuAKWc9TK?=
+ =?us-ascii?Q?CiY/C16fo+ftYMumwDURlu7lAoxi+c+aixIS32Jc4WgzR+Ht6Fnne38aRsaP?=
+ =?us-ascii?Q?ivvtDZ1SQDydsRzblFfIewD/7w/TNALtaFNwXBMSlkYL0Sv3znsb92R4b6fk?=
+ =?us-ascii?Q?BJeQI4PriGhsld4bonSZwISjySnDHBdbvOGyH0MZnk5K7OfPSPleuNk9Wct2?=
+ =?us-ascii?Q?MZxeMSrQw3fmDCIvGk/3UhWCkq5FKK4fhhK7h99/pIIhC5Y4Dpf9QT4QlCHd?=
+ =?us-ascii?Q?RMr+AV2B+X1Oq1UcOki8/5p4wsy/ESPTOoTZrGaR1KEg3yj5QeTz8ol34ce+?=
+ =?us-ascii?Q?eQ1rhnjMlSPSArnm10l7rjcqypKsfviHxrXKaqjdydBnxSdsPV4OpxCeaNke?=
+ =?us-ascii?Q?sUDGThE9jMJEJ6e0rJ47xe15tMQNd/HOuxNBC+14Dzp2Ov87fcyjVf8P4oj4?=
+ =?us-ascii?Q?rhqGsVsnYjUjyYDTC8z5YuzgfoJTQSylG0h5hYFhwTH935WvKlE8WKuxnKEw?=
+ =?us-ascii?Q?hw=3D=3D?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3d3b9a74-b8cc-4e8a-b90d-08dae329b6b8
+X-MS-Exchange-CrossTenant-AuthSource: HE1PR0402MB2939.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Dec 2022 08:02:32.8663 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: /h+sO58krgoNG/I9Py7qR9hwEaZKnzaZo8Y3NxjnIVBYxoabsXoLKjSfbVi0YddJVhExW1aJZuJdf/wSADU3lA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB8426
+Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: [Linux-stm32] [PATCH V2 0/2] fix mac not working after system
+	resumed with WoL enabled
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,184 +121,27 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Sun, Dec 18, 2022 at 11:01:38AM -0500, Sasha Levin wrote:
 Hi,
-  Thanks, but there's one more case not considered.
-  It may cause a unexpected regulator shutdown by regulator core.
+The issue description is in the commit message.
 
-  Here's the discussion link that reported from Marek Szyprowski.
-  https://lore.kernel.org/lkml/dd329b51-f11a-2af6-9549-c8a014fd5a71@samsung.com/
+This patchset is the second version following discussions with Russell.
+But the name of each patch has changed, so V2 is not marked in each patch.
 
-  I have post a patch to fix it.
-  You may need to cherry-pick the below patch also.
-  0debed5b117d ("regulator: core: Fix resolve supply lookup issue")
+Thanks.
 
-Best regards,
-ChiYuan.
-> From: ChiYuan Huang <cy_huang@richtek.com>
-> 
-> [ Upstream commit 8f3cbcd6b440032ebc7f7d48a1689dcc70a4eb98 ]
-> 
-> Following by the below discussion, there's the potential UAF issue
-> between regulator and mfd.
-> https://lore.kernel.org/all/20221128143601.1698148-1-yangyingliang@huawei.com/
-> 
-> >From the analysis of Yingliang
-> 
-> CPU A				|CPU B
-> mt6370_probe()			|
->   devm_mfd_add_devices()	|
-> 				|mt6370_regulator_probe()
-> 				|  regulator_register()
-> 				|    //allocate init_data and add it to devres
-> 				|    regulator_of_get_init_data()
-> i2c_unregister_device()		|
->   device_del()			|
->     devres_release_all()	|
->       // init_data is freed	|
->       release_nodes()		|
-> 				|  // using init_data causes UAF
-> 				|  regulator_register()
-> 
-> It's common to use mfd core to create child device for the regulator.
-> In order to do the DT lookup for init data, the child that registered
-> the regulator would pass its parent as the parameter. And this causes
-> init data resource allocated to its parent, not itself. The issue happen
-> when parent device is going to release and regulator core is still doing
-> some operation of init data constraint for the regulator of child device.
-> 
-> To fix it, this patch expand 'regulator_register' API to use the
-> different devices for init data allocation and DT lookup.
-> 
-> Reported-by: Yang Yingliang <yangyingliang@huawei.com>
-> Signed-off-by: ChiYuan Huang <cy_huang@richtek.com>
-> Link: https://lore.kernel.org/r/1670311341-32664-1-git-send-email-u0084500@gmail.com
-> Signed-off-by: Mark Brown <broonie@kernel.org>
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
-> ---
->  drivers/platform/x86/intel/int3472/clk_and_regulator.c | 3 ++-
->  drivers/regulator/core.c                               | 8 ++++----
->  drivers/regulator/devres.c                             | 2 +-
->  drivers/regulator/of_regulator.c                       | 2 +-
->  drivers/regulator/stm32-vrefbuf.c                      | 2 +-
->  include/linux/regulator/driver.h                       | 3 ++-
->  6 files changed, 11 insertions(+), 9 deletions(-)
-> 
-> diff --git a/drivers/platform/x86/intel/int3472/clk_and_regulator.c b/drivers/platform/x86/intel/int3472/clk_and_regulator.c
-> index 1cf958983e86..b2342b3d78c7 100644
-> --- a/drivers/platform/x86/intel/int3472/clk_and_regulator.c
-> +++ b/drivers/platform/x86/intel/int3472/clk_and_regulator.c
-> @@ -185,7 +185,8 @@ int skl_int3472_register_regulator(struct int3472_discrete_device *int3472,
->  	cfg.init_data = &init_data;
->  	cfg.ena_gpiod = int3472->regulator.gpio;
->  
-> -	int3472->regulator.rdev = regulator_register(&int3472->regulator.rdesc,
-> +	int3472->regulator.rdev = regulator_register(int3472->dev,
-> +						     &int3472->regulator.rdesc,
->  						     &cfg);
->  	if (IS_ERR(int3472->regulator.rdev)) {
->  		ret = PTR_ERR(int3472->regulator.rdev);
-> diff --git a/drivers/regulator/core.c b/drivers/regulator/core.c
-> index 1cfac32121c0..10df84c2c288 100644
-> --- a/drivers/regulator/core.c
-> +++ b/drivers/regulator/core.c
-> @@ -5402,6 +5402,7 @@ static struct regulator_coupler generic_regulator_coupler = {
->  
->  /**
->   * regulator_register - register regulator
-> + * @dev: the device that drive the regulator
->   * @regulator_desc: regulator to register
->   * @cfg: runtime configuration for regulator
->   *
-> @@ -5410,7 +5411,8 @@ static struct regulator_coupler generic_regulator_coupler = {
->   * or an ERR_PTR() on error.
->   */
->  struct regulator_dev *
-> -regulator_register(const struct regulator_desc *regulator_desc,
-> +regulator_register(struct device *dev,
-> +		   const struct regulator_desc *regulator_desc,
->  		   const struct regulator_config *cfg)
->  {
->  	const struct regulator_init_data *init_data;
-> @@ -5419,7 +5421,6 @@ regulator_register(const struct regulator_desc *regulator_desc,
->  	struct regulator_dev *rdev;
->  	bool dangling_cfg_gpiod = false;
->  	bool dangling_of_gpiod = false;
-> -	struct device *dev;
->  	int ret, i;
->  	bool resolved_early = false;
->  
-> @@ -5432,8 +5433,7 @@ regulator_register(const struct regulator_desc *regulator_desc,
->  		goto rinse;
->  	}
->  
-> -	dev = cfg->dev;
-> -	WARN_ON(!dev);
-> +	WARN_ON(!dev || !cfg->dev);
->  
->  	if (regulator_desc->name == NULL || regulator_desc->ops == NULL) {
->  		ret = -EINVAL;
-> diff --git a/drivers/regulator/devres.c b/drivers/regulator/devres.c
-> index 3265e75e97ab..5c7ff9b3e8a7 100644
-> --- a/drivers/regulator/devres.c
-> +++ b/drivers/regulator/devres.c
-> @@ -385,7 +385,7 @@ struct regulator_dev *devm_regulator_register(struct device *dev,
->  	if (!ptr)
->  		return ERR_PTR(-ENOMEM);
->  
-> -	rdev = regulator_register(regulator_desc, config);
-> +	rdev = regulator_register(dev, regulator_desc, config);
->  	if (!IS_ERR(rdev)) {
->  		*ptr = rdev;
->  		devres_add(dev, ptr);
-> diff --git a/drivers/regulator/of_regulator.c b/drivers/regulator/of_regulator.c
-> index 0aff1c2886b5..cd726d4e8fbf 100644
-> --- a/drivers/regulator/of_regulator.c
-> +++ b/drivers/regulator/of_regulator.c
-> @@ -505,7 +505,7 @@ struct regulator_init_data *regulator_of_get_init_data(struct device *dev,
->  	struct device_node *child;
->  	struct regulator_init_data *init_data = NULL;
->  
-> -	child = regulator_of_get_init_node(dev, desc);
-> +	child = regulator_of_get_init_node(config->dev, desc);
->  	if (!child)
->  		return NULL;
->  
-> diff --git a/drivers/regulator/stm32-vrefbuf.c b/drivers/regulator/stm32-vrefbuf.c
-> index 30ea3bc8ca19..7a454b7b6eab 100644
-> --- a/drivers/regulator/stm32-vrefbuf.c
-> +++ b/drivers/regulator/stm32-vrefbuf.c
-> @@ -210,7 +210,7 @@ static int stm32_vrefbuf_probe(struct platform_device *pdev)
->  						      pdev->dev.of_node,
->  						      &stm32_vrefbuf_regu);
->  
-> -	rdev = regulator_register(&stm32_vrefbuf_regu, &config);
-> +	rdev = regulator_register(&pdev->dev, &stm32_vrefbuf_regu, &config);
->  	if (IS_ERR(rdev)) {
->  		ret = PTR_ERR(rdev);
->  		dev_err(&pdev->dev, "register failed with error %d\n", ret);
-> diff --git a/include/linux/regulator/driver.h b/include/linux/regulator/driver.h
-> index f9a7461e72b8..d3b4a3d4514a 100644
-> --- a/include/linux/regulator/driver.h
-> +++ b/include/linux/regulator/driver.h
-> @@ -687,7 +687,8 @@ static inline int regulator_err2notif(int err)
->  
->  
->  struct regulator_dev *
-> -regulator_register(const struct regulator_desc *regulator_desc,
-> +regulator_register(struct device *dev,
-> +		   const struct regulator_desc *regulator_desc,
->  		   const struct regulator_config *config);
->  struct regulator_dev *
->  devm_regulator_register(struct device *dev,
-> -- 
-> 2.35.1
-> 
-> 
-> _______________________________________________
-> linux-arm-kernel mailing list
-> linux-arm-kernel@lists.infradead.org
-> http://lists.infradead.org/mailman/listinfo/linux-arm-kernel
+Clark Wang (2):
+  net: phylink: add a function to resume phy alone to fix resume issue
+    with WoL enabled
+  net: stmmac: resume phy separately before calling stmmac_hw_setup()
+
+ .../net/ethernet/stmicro/stmmac/stmmac_main.c | 16 +++++++-------
+ drivers/net/phy/phylink.c                     | 21 ++++++++++++++++++-
+ include/linux/phylink.h                       |  1 +
+ 3 files changed, 28 insertions(+), 10 deletions(-)
+
+-- 
+2.34.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
