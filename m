@@ -2,52 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 78D75653DF4
-	for <lists+linux-stm32@lfdr.de>; Thu, 22 Dec 2022 11:07:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A8B66653DF7
+	for <lists+linux-stm32@lfdr.de>; Thu, 22 Dec 2022 11:07:43 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 25B36C6904F;
-	Thu, 22 Dec 2022 10:07:41 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4DDDBC69055;
+	Thu, 22 Dec 2022 10:07:43 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
  [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 16FA9C6904B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4AA9FC69050
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 22 Dec 2022 10:07:40 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ Thu, 22 Dec 2022 10:07:42 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
  by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 2BM7iFlx002029; Thu, 22 Dec 2022 11:07:14 +0100
+ 2BM7iScL006623; Thu, 22 Dec 2022 11:07:14 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
  h=from : to : cc :
- subject : date : message-id : mime-version : content-transfer-encoding :
- content-type; s=selector1;
- bh=IgLmAV6fRiLd9Kh4FHmZvH9Hn9uAcFwNz/c3//3EHJw=;
- b=VORtJu2cDyZ+DMvZ80HmN8Dai31ux3AqTdHn+Ds8smVYV+LQWkOq0KAHcChi26Baj6t4
- lWVdMgDuc10S4V2GcYZfWOLICBuPSAfNvBmsCT98v87PCBd6zrQNzU7Pk9eVk0YjsYp1
- 93yd4Pc9IlLvUlIPDx8BDQBd2HgQrouc8gZR9nFYvWds4/BqUTIt5WCrbCOjRBlIoHLt
- N7keSxFEHwPSJiNWdP7kMKGvjhvYP2lNMPJ1ffqfHTcs+pVaOV25tS6OEWO/Xj1Fm2qF
- W41SwNy5BBMgq+mfpp9kVz0unbuKJbOkjkf3TPVFPytyWEzArTHdQnSe1jy+TDUnokh8 OQ== 
+ subject : date : message-id : in-reply-to : references : mime-version :
+ content-transfer-encoding : content-type; s=selector1;
+ bh=9lEWHCTpXo5muG8dgTfW1ehUGbdevBxdGvchXuIYBYI=;
+ b=nLUae81sb/B8nEHkWezYe+qRi2cU/EkcAw+VzkgN5FzXyDa3HUuAyOPI7il9eK0s2ife
+ IZepCuwAquTbAkfkHS2Sb8U8epqvqm0NmreppoVWXK/u/txgi9Z+WRvohtpPEzau0lRo
+ rGCWPOTXYXu6P18wrK+1T0vP6ZfXI7K+R7LmkvjN+wkj+ztl5GzsdeEa985sX1bzmNII
+ Sa65oXvvyNS3d+KM9iHq1LKijNe9maHXcvz5dtRKBpGkrn4upSCAGZmKDSwbPuGSgSC8
+ rx197s/xTyyFamqbMbdkvX8b70ApAxKygUF88NEYZJhwVmhTSAPMyIiEXfNkCkchxDiL Mg== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3mka9xfdjx-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3mkc8jdtvc-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
  Thu, 22 Dec 2022 11:07:14 +0100
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 874B110004F;
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 8638810004B;
  Thu, 22 Dec 2022 11:07:11 +0100 (CET)
 Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 8BF8721D3C8;
- Thu, 22 Dec 2022 11:06:06 +0100 (CET)
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 1BC9A21D3C9;
+ Thu, 22 Dec 2022 11:06:14 +0100 (CET)
 Received: from localhost (10.201.21.217) by SHFDAG1NODE1.st.com (10.75.129.69)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.13; Thu, 22 Dec
- 2022 11:06:06 +0100
+ 2022 11:06:13 +0100
 From: Gatien Chevallier <gatien.chevallier@foss.st.com>
 To: <alexandre.torgue@foss.st.com>, <robh+dt@kernel.org>,
  <Oleksii_Moisieiev@epam.com>, <linus.walleij@linaro.org>,
  <gregkh@linuxfoundation.org>
-Date: Thu, 22 Dec 2022 11:04:57 +0100
-Message-ID: <20221222100504.68247-1-gatien.chevallier@foss.st.com>
+Date: Thu, 22 Dec 2022 11:04:58 +0100
+Message-ID: <20221222100504.68247-2-gatien.chevallier@foss.st.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20221222100504.68247-1-gatien.chevallier@foss.st.com>
+References: <20221222100504.68247-1-gatien.chevallier@foss.st.com>
 MIME-Version: 1.0
 X-Originating-IP: [10.201.21.217]
 X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SHFDAG1NODE1.st.com
@@ -56,9 +58,11 @@ X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.205,Aquarius:18.0.923,Hydra:6.0.545,FMLib:17.11.122.1
  definitions=2022-12-22_05,2022-12-21_01,2022-06-22_01
 Cc: mark.rutland@arm.com, devicetree@vger.kernel.org, arnd@arndb.de,
- linux-kernel@vger.kernel.org, gatien.chevallier@foss.st.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [RFC PATCH v2 0/7] Introduce STM32 system bus
+ linux-kernel@vger.kernel.org, Oleksii Moisieiev <oleksii_moisieiev@epam.com>,
+ gatien.chevallier@foss.st.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [RFC PATCH v2 1/7] dt-bindings: Document common
+	device controller bindings
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,65 +79,109 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Document STM32 System Bus. This bus is intended to control firewall
-access for the peripherals connected to it.
+From: Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>
 
-For every peripheral, the bus checks the firewall registers to see
-if the peripheral is configured as non-secure. If the peripheral
-is configured as secure, the node is marked populated, so the
-device won't be probed.
+Introducing of the common device controller bindings for the controller
+provider and consumer devices. Those bindings are intended to allow
+divided system on chip into muliple domains, that can be used to
+configure hardware permissions.
 
-This is useful as a firewall configuration sanity check and avoid
-platform crashes in case peripherals are incorrectly configured.
-
-The STM32 System Bus implements the feature-domain-controller
-bindings. It is used by peripherals to reference a domain
-controller, in this case the firewall feature domain.
-The bus uses the ID referenced by the feature-domains property to
-know where to look in the firewall to get the security configuration
-for the peripheral. This allows a device tree description rather
-than a hardcoded peripheral table in the bus driver.
-
-On STM32MP13/15 platforms, the firewall bus is represented by the
-ETZPC node, which is responsible for the securing / MCU isolating
-the capable peripherals.
-
-STM32MP13/15 device trees are updated in this series to implement
-the bus. All peripherals that are securable or MCU isolation capable
-by the ETZPC are connected to the bus.
-
-Changes in V2:
-	- Corrected YAMLS errors highlighted by Rob's robot
-	- Re-ordered Signed-off-by tags in two patches
-
-Gatien Chevallier (6):
-  dt-bindings: bus: add STM32 System Bus
-  dt-bindings: bus: add STM32MP15 ETZPC firewall bus bindings
-  dt-bindings: bus: add STM32MP13 ETZPC firewall bus bindings
-  bus: stm32_sys_bus: add support for STM32MP15 and STM32MP13 system bus
-  ARM: dts: stm32: add ETZPC as a system bus for STM32MP15x boards
-  ARM: dts: stm32: add ETZPC as a system bus for STM32MP13x boards
-
-Oleksii Moisieiev (1):
-  dt-bindings: Document common device controller bindings
-
- .../devicetree/bindings/bus/st,sys-bus.yaml   |   88 +
- .../feature-domain-controller.yaml            |   84 +
- MAINTAINERS                                   |    6 +
- arch/arm/boot/dts/stm32mp131.dtsi             |  242 +-
- arch/arm/boot/dts/stm32mp151.dtsi             | 2737 +++++++++--------
- drivers/bus/Kconfig                           |    9 +
- drivers/bus/Makefile                          |    1 +
- drivers/bus/stm32_sys_bus.c                   |  180 ++
- include/dt-bindings/bus/stm32mp13_sys_bus.h   |   60 +
- include/dt-bindings/bus/stm32mp15_sys_bus.h   |   98 +
- 10 files changed, 2062 insertions(+), 1443 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/bus/st,sys-bus.yaml
+Signed-off-by: Oleksii Moisieiev <oleksii_moisieiev@epam.com>
+---
+ .../feature-domain-controller.yaml            | 84 +++++++++++++++++++
+ 1 file changed, 84 insertions(+)
  create mode 100644 Documentation/devicetree/bindings/feature-controllers/feature-domain-controller.yaml
- create mode 100644 drivers/bus/stm32_sys_bus.c
- create mode 100644 include/dt-bindings/bus/stm32mp13_sys_bus.h
- create mode 100644 include/dt-bindings/bus/stm32mp15_sys_bus.h
 
+diff --git a/Documentation/devicetree/bindings/feature-controllers/feature-domain-controller.yaml b/Documentation/devicetree/bindings/feature-controllers/feature-domain-controller.yaml
+new file mode 100644
+index 000000000000..90a7c38c833c
+--- /dev/null
++++ b/Documentation/devicetree/bindings/feature-controllers/feature-domain-controller.yaml
+@@ -0,0 +1,84 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/feature-controllers/feature-domain-controller.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Generic Domain Controller bindings
++
++maintainers:
++  - Oleksii Moisieiev <oleksii_moisieiev@epam.com>
++
++description: |+
++  Common Feature Domains Controller bindings properties
++
++  Domain controllers allow to divided system on chip into multiple feature
++  domains that can be used to select by who hardware blocks could be accessed.
++  A feature domain could be a cluster of CPUs (or coprocessors), a range of
++  addresses or a group of hardware blocks.
++
++  This device tree bindings can be used to bind feature domain consumer devices
++  with their feature domains provided by feature-domains controllers.
++  Feature omain controller provider can be represened by any node in the
++  device tree and can provide one or more configuration parameters, needed to
++  control parameters of the consumer device. A consumer node can refer to the
++  provider by phandle and a set of phandle arguments, specified by
++  '#feature-domain-cells' property in the device controller provider node.
++
++  Device controllers are typically used to set the permissions of the hardware
++  block. The contents of the feature-domains configuration properties are
++  defined by the binding for the individual feature-domains controller device.
++
++  Each node can be a consumer for the several providers. The first
++  configuration of 'feature-domains' or the one named 'default' is applied
++  before probing the device itself.
++
++# always select the core schema
++select: true
++
++properties:
++  '#feature-domain-cells':
++    $ref: /schemas/types.yaml#/definitions/uint32
++    description:
++      Number of cells in a feature-domains controller specifier;
++      Can be any value as specified by device tree binding documentation
++      of a particular provider.
++
++  feature-domain-controller:
++    description:
++      Indicates that the node is feature-domain-controller provider.
++
++  feature-domain-names:
++    $ref: '/schemas/types.yaml#/definitions/string-array'
++    description:
++      A list of feature-domains names, sorted in the same order as
++      feature-domains entries. Consumer drivers will use feature-domain-names
++      to match with existing feature-domains entries.
++
++  feature-domains:
++    $ref: "/schemas/types.yaml#/definitions/phandle-array"
++    description:
++      A list of feature-domains controller specifiers, as defined by the
++      bindings of the feature-domain-controller provider.
++
++additionalProperties: true
++
++examples:
++  - |
++    ctrl0: ctrl@100 {
++        feature-domain-controller;
++        reg = <0x100 0x10>;
++        #feature-domain-cells = <2>;
++    };
++
++    ctrl1: ctrl@110 {
++        feature-domain-controller;
++        reg = <0x110 0x10>;
++        #feature-domain-cells = <3>;
++    };
++
++    foo@0 {
++        reg = <0x0 0x1>;
++        feature-domains = <&ctrl0 1 2>, <&ctrl1 3 4 5>;
++        feature-domain-names = "default", "unbind";
++    };
 -- 
 2.25.1
 
