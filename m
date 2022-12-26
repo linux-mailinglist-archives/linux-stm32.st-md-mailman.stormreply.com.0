@@ -2,52 +2,79 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C8AB6556BD
-	for <lists+linux-stm32@lfdr.de>; Sat, 24 Dec 2022 01:35:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 045C8655F76
+	for <lists+linux-stm32@lfdr.de>; Mon, 26 Dec 2022 04:32:35 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1E812C6904D;
-	Sat, 24 Dec 2022 00:35:30 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 94729C65068;
+	Mon, 26 Dec 2022 03:32:34 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D6955C69049
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2A3C8C64109
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 24 Dec 2022 00:35:28 +0000 (UTC)
+ Mon, 26 Dec 2022 03:32:32 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 33ADEB8219E;
- Sat, 24 Dec 2022 00:35:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9D04C433EF;
- Sat, 24 Dec 2022 00:35:26 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 56B5060C63;
+ Mon, 26 Dec 2022 03:32:30 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 9F386C433F2;
+ Mon, 26 Dec 2022 03:32:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1671842126;
- bh=LLpp2PZGZ3P0jsNiT1jPH0C8VaOxHKoP9r3oMSLo0UI=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=jSbHXPTiElo1NJ6miNJKdAE8sMAVnHpWLd4GYXOeyP5OpxT0c9oTR0lS16/W2czmd
- zmZo8NfSvM8hcBWVWa+rglOsD+2QwrQ3yrtCeOQ3+aChhjfqj4b1kH3/UVA37zLfUV
- SUTA++yRFAc9yYQsi9jQ6DqpnpbrFV0BXqSjH9vAJ2+r4TjncZLZg23UiKXQWnoxKs
- mcdYg9MLfz7U5L7z6Jt3vu//BXWS4qlN7IvIgBdWz8Q9q+i0Yy9tInKed8Qjtu/me7
- EAuPLXWx4Q8QkE7uAoPziijjcLEOEtF9MDPijOd5R79hOeNIFj6x0I+l2WvxpkrbEe
- n5rlHZWvgoyDA==
-Date: Fri, 23 Dec 2022 19:35:25 -0500
-From: Sasha Levin <sashal@kernel.org>
-To: ChiYuan Huang <u0084500@gmail.com>
-Message-ID: <Y6ZJTXFod+4agKiR@sashalap>
-References: <20221218160741.927862-1-sashal@kernel.org>
- <20221218160741.927862-70-sashal@kernel.org>
- <20221219010656.GA6977@cyhuang-hp-elitebook-840-g3.rt>
+ s=k20201202; t=1672025549;
+ bh=s3Txn3CCYMAINuVdaMFj5eS3c7GT6CDWa/bWGWX49pc=;
+ h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
+ b=ZXx064i5rzq++NFOg11/wWaYl1fWBWbUUVMfNobuX1gR6W+hSC5ZaIT6xMvUkTbzq
+ uKsKmPlP0Osoqt3ugX6Jfs12ItSnAT2NYH7dk2L+o+0+q2TEXpuxPP+n517ttUD3B5
+ qERgwZvw07+bg0wqawChHt9pmtSu0jNWxxTY4ZiIJYITZEI0pf/eE3E2hOO32H/1pi
+ kRFc6KGtABB/2V9Bn76V1EKJYHbpXbJgtJ4cicnkkjfmrqdOYoYYZdUWhIIjno3hJF
+ AKMqe2WqeZ/Z/UT0sDmee/HfVbq9AKYnEqjtJVTpIEQ4+UAzbfm79swmY7Zbv+nhP1
+ /yZj5hZlsSzMg==
+Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
+ 69A72E5250A; Mon, 26 Dec 2022 03:32:29 +0000 (UTC)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20221219010656.GA6977@cyhuang-hp-elitebook-840-g3.rt>
-Cc: markgross@kernel.org, hdegoede@redhat.com, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, lgirdwood@gmail.com, djrscally@gmail.com,
- ChiYuan Huang <cy_huang@richtek.com>, Mark Brown <broonie@kernel.org>,
- mcoquelin.stm32@gmail.com, Yang Yingliang <yangyingliang@huawei.com>,
- platform-driver-x86@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH AUTOSEL 6.0 70/73] regulator: core: Use
- different devices for resource allocation and DT lookup
+From: patchwork-bot+chrome-platform@kernel.org
+Message-Id: <167202554942.9518.4179971549708682531.git-patchwork-notify@kernel.org>
+Date: Mon, 26 Dec 2022 03:32:29 +0000
+References: <20221203160442.69594-1-krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20221203160442.69594-1-krzysztof.kozlowski@linaro.org>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Cc: heiko@sntech.de, dri-devel@lists.freedesktop.org, perex@perex.cz,
+ s.nawrocki@samsung.com, jonathanh@nvidia.com, peter.ujfalusi@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com, cychiang@chromium.org,
+ samuel@sholland.org, katsuhiro@katsuster.net, khilman@baylibre.com,
+ joabreu@synopsys.com, derek.fang@realtek.com, povik+lin@cutebit.org,
+ linux-sunxi@lists.linux.dev, flatmax@flatmax.com, james.schulman@cirrus.com,
+ vincent.knecht@mailoo.org, linux-kernel@vger.kernel.org, mhiramat@kernel.org,
+ alsa-devel@alsa-project.org, tanureal@opensource.cirrus.com,
+ david.rhodes@cirrus.com, cy_huang@richtek.com, thierry.reding@gmail.com,
+ srinivas.kandagatla@linaro.org, groeck@chromium.org,
+ chrome-platform@lists.linux.dev, lars@metafoo.de, fengzheng923@gmail.com,
+ alexandre.belloni@bootlin.om, drake@endlessm.com,
+ linux-rockchip@lists.infradead.org, jbrunet@baylibre.com,
+ ckeepax@opensource.cirrus.com, martin.blumenstingl@googlemail.com,
+ linux-arm-msm@vger.kernel.org, mripard@kernel.org, biju.das.jz@bp.renesas.com,
+ linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ neil.armstrong@linaro.org, mcoquelin.stm32@gmail.com,
+ rriveram@opensource.cirrus.com, kuninori.morimoto.gx@renesas.com,
+ spujar@nvidia.com, nuno.sa@analog.com, festevam@gmail.com,
+ hayashi.kunihiko@socionext.com, jernej.skrabec@gmail.com, wens@csie.org,
+ bogdan.togorean@analog.com, arnaud.pouliquen@foss.st.com, stephan@gerhold.net,
+ rf@opensource.cirrus.com, broonie@kernel.org, bleung@chromium.org,
+ mkumard@nvidia.com, j-choudhary@ti.com, lgirdwood@gmail.com,
+ konrad.dybcio@linaro.org, asahi@lists.linux.dev, rohitkr@codeaurora.org,
+ shengjiu.wang@nxp.com, codrin.ciubotariu@microchip.com, paul@crapouillou.net,
+ ricardw@axis.com, shifu0704@thundersoft.com, krzysztof.kozlowski+dt@linaro.org,
+ airlied@gmail.com, frattaroli.nicolas@gmail.com, agross@kernel.org,
+ devicetree@vger.kernel.org, bgoswami@quicinc.com, shenghao-ding@ti.com,
+ lkundrak@v3.sk, robh+dt@kernel.org, tzungbi@kernel.org,
+ linux-tegra@vger.kernel.org, patches@opensource.cirrus.com,
+ andersson@kernel.org, tiwai@suse.com, jee.heng.sia@intel.com, afd@ti.com,
+ daniel@ffwll.ch
+Subject: Re: [Linux-stm32] [PATCH 1/3] ASoC: dt-bindings: Extend
+ name-prefix.yaml into common DAI properties
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,29 +86,40 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Dec 19, 2022 at 09:07:01AM +0800, ChiYuan Huang wrote:
->On Sun, Dec 18, 2022 at 11:07:38AM -0500, Sasha Levin wrote:
->Hi,
->  Thanks, but there's one more case not considered.
->  It may cause a unexpected regulator shutdown by regulator core.
->
->  Here's the discussion link that reported from Marek Szyprowski.
->  https://lore.kernel.org/lkml/dd329b51-f11a-2af6-9549-c8a014fd5a71@samsung.com/
->
->  I have post a patch to fix it.
->  You may need to cherry-pick the below patch also.
->  0debed5b117d ("regulator: core: Fix resolve supply lookup issue")
+Hello:
 
-I'll take it too, thanks!
+This series was applied to chrome-platform/linux.git (for-kernelci)
+by Mark Brown <broonie@kernel.org>:
 
+On Sat,  3 Dec 2022 17:04:40 +0100 you wrote:
+> Rename name-prefix.yaml into common DAI schema and document
+> '#sound-dai-cells' for completeness.  The '#sound-dai-cells' cannot be
+> really constrained, as there are users with value of 0, 1 and 2, but at
+> least it brings definition to one common place.
+> 
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> 
+> [...]
+
+Here is the summary with links:
+  - [1/3] ASoC: dt-bindings: Extend name-prefix.yaml into common DAI properties
+    https://git.kernel.org/chrome-platform/c/3fda85324b8d
+  - [2/3] ASoC: dt-bindings: Reference common DAI properties
+    https://git.kernel.org/chrome-platform/c/58ae9a2aca6f
+  - [3/3] ASoC: dt-bindings: maxim,max98357a: Convert to DT schema
+    https://git.kernel.org/chrome-platform/c/8a5a05583a04
+
+You are awesome, thank you!
 -- 
-Thanks,
-Sasha
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
