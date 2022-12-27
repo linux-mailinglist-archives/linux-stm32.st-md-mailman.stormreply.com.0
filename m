@@ -2,70 +2,53 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7B726656C2E
-	for <lists+linux-stm32@lfdr.de>; Tue, 27 Dec 2022 15:48:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0FF38656C42
+	for <lists+linux-stm32@lfdr.de>; Tue, 27 Dec 2022 15:56:52 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 155A5C65042;
-	Tue, 27 Dec 2022 14:48:25 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9A1CDC65042;
+	Tue, 27 Dec 2022 14:56:51 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 86EAEC035BC
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 64CB0C035BC
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 27 Dec 2022 14:48:23 +0000 (UTC)
+ Tue, 27 Dec 2022 14:56:50 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 204DA61198
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 27 Dec 2022 14:48:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57D73C4339E
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 27 Dec 2022 14:48:20 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id F34DA6116E;
+ Tue, 27 Dec 2022 14:56:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5AB84C433F0;
+ Tue, 27 Dec 2022 14:56:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1672152500;
- bh=jqL3XyDgY3Ey7DTK7sHa3MuIBkD0jIuOEQLQVq/Hrlw=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=IBbete1yh0BD/uhMYUy7eUj+fev+CAFzDVwsUKwqUiVxSqsM49QiqGUfhKbUPHM7f
- r/fzOXEa+CAZSH17WU6bR3QOMItLvVzOU0GNtXJsi4EaNUlVlC6HGgR13PpIyA53Tv
- dixYoEhRouZtPO564urRIaHqV08Uf0/2gce1FrtZ96pZInO0m1n+f91CbCevoE3mZp
- 48zUIWr3/zp3WHpvSl9a+5m/PeLMSajTai5SUJMJAUP3UP56ceFym+SQkFZMkRaAhl
- bv/ocMAn54bjpDSASmmPftVT0B1TUr+BsByd92r4AHw+5MXoClz8EGQsdAgX1nlvt3
- qXC1OrKzsrlTA==
-Received: by mail-oi1-f174.google.com with SMTP id r130so12608548oih.2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 27 Dec 2022 06:48:20 -0800 (PST)
-X-Gm-Message-State: AFqh2kqaAKxCwtUh/zTh9dJY4Pt0fswfgSLr4B/4/UCVlZjSlkGwH3X4
- YUXE9Noy4FjSo21LvyLtlPFD8epSuFpd7Pu1nA==
-X-Google-Smtp-Source: AMrXdXt8qrPi/XGI5OMJ7zrbkLbCdS61CLMOhnibsjHheE2V80tcdVo2fHqCXJ9wAk2cjt/Qi8NeMBkbqziuHyv+VrM=
-X-Received: by 2002:a05:6808:130f:b0:35a:eee1:6710 with SMTP id
- y15-20020a056808130f00b0035aeee16710mr976417oiv.69.1672152499282; Tue, 27 Dec
- 2022 06:48:19 -0800 (PST)
+ s=k20201202; t=1672153008;
+ bh=bJ+XHdK7jEWRBA/2KeMxWPYu+OlRSkwMzYqcmBqueCc=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=MgrHQ2iCh1ZEESHLKpHBiBOZ4hTW9oHQnygLGgHQiLYSHG65T9r1A9ip+LArAlUlz
+ vOaA1ZtufXbHW/vtf3hW5OjIXyXzIwhjgnv/i46mZNP4b3nMQ3PTBgdGAJor8hBNxq
+ 9tV9Br6USc1ukmBXSsgT4/yufbukr1VbYA7G23QiO/0Bo3ChnwPnMtQvEmCBZ8vtL+
+ mPi9lqCpQ10E/jyIYaJvhwtZIEC1GywKDAZ3jxT6EEnVGUzrvtjvCgWjSllMphB9xQ
+ RSGrtfTTzY+y0a6Z4Z5Ftl2JeDji41iVTdUdmAFP6FU8bwAyXZQ0GTYZBdvmkzHU5h
+ 5GKQf/TN3fnxg==
+Received: from johan by xi.lan with local (Exim 4.94.2)
+ (envelope-from <johan@kernel.org>)
+ id 1pABNn-0006GC-ID; Tue, 27 Dec 2022 15:56:48 +0100
+Date: Tue, 27 Dec 2022 15:56:47 +0100
+From: Johan Hovold <johan@kernel.org>
+To: Marek Vasut <marex@denx.de>
+Message-ID: <Y6sHr5kuxUoahlzJ@hovoldconsulting.com>
+References: <20221216115338.7150-1-marex@denx.de>
 MIME-Version: 1.0
-References: <20221206020046.11333-1-nathan.lu@mediatek.com>
- <20221206020046.11333-2-nathan.lu@mediatek.com>
-In-Reply-To: <20221206020046.11333-2-nathan.lu@mediatek.com>
-From: Chun-Kuang Hu <chunkuang.hu@kernel.org>
-Date: Tue, 27 Dec 2022 22:48:08 +0800
-X-Gmail-Original-Message-ID: <CAAOTY_-aW4xHvSF-yTZdwO1yiN7tVdq=9Fyfu2uWJ=xDfCg0nA@mail.gmail.com>
-Message-ID: <CAAOTY_-aW4xHvSF-yTZdwO1yiN7tVdq=9Fyfu2uWJ=xDfCg0nA@mail.gmail.com>
-To: "nathan.lu" <nathan.lu@mediatek.com>
-Cc: devicetree@vger.kernel.org, David Airlie <airlied@linux.ie>,
- dri-devel@lists.freedesktop.org,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- lancelot.wu@mediatek.com, linux-stm32@st-md-mailman.stormreply.com,
- Project_Global_Chrome_Upstream_Group@mediatek.com,
- Rex-BC Chen <rex-bc.chen@mediatek.com>,
- Chun-Kuang Hu <chunkuang.hu@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
- CK Hu <ck.hu@mediatek.com>, Rob Herring <robh+dt@kernel.org>,
- linux-mediatek@lists.infradead.org, Matthias Brugger <matthias.bgg@gmail.com>,
- linux-arm-kernel@lists.infradead.org,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- "jason-jh . lin" <jason-jh.lin@mediatek.com>, linux-kernel@vger.kernel.org,
- Moudy Ho <moudy.ho@mediatek.com>, Philipp Zabel <p.zabel@pengutronix.de>
-Subject: Re: [Linux-stm32] [PATCH v4 1/6] dt-bindings: mediatek: modify
- VDOSYS0 display device tree Documentations for MT8188
+Content-Disposition: inline
+In-Reply-To: <20221216115338.7150-1-marex@denx.de>
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ linux-serial@vger.kernel.org, Thomas Gleixner <tglx@linutronix.de>,
+ Jiri Slaby <jirislaby@kernel.org>, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v3] serial: stm32: Merge hard IRQ and
+ threaded IRQ handling into single IRQ handler
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,125 +60,131 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SGksIE5hdGhhbjoKCm5hdGhhbi5sdSA8bmF0aGFuLmx1QG1lZGlhdGVrLmNvbT4g5pa8IDIwMjLl
-ubQxMuaciDbml6Ug6YCx5LqMIOS4iuWNiDEwOjAx5a+r6YGT77yaCj4KPiBGcm9tOiBOYXRoYW4g
-THUgPG5hdGhhbi5sdUBtZWRpYXRlay5jb20+Cj4KPiBtb2RpZnkgVkRPU1lTMCBkaXNwbGF5IGRl
-dmljZSB0cmVlIERvY3VtZW50YXRpb25zIGZvciBNVDgxODguCgpBcHBsaWVkIHRvIG1lZGlhdGVr
-LWRybS1uZXh0IFsxXSwgdGhhbmtzLgoKWzFdIGh0dHBzOi8vZ2l0Lmtlcm5lbC5vcmcvcHViL3Nj
-bS9saW51eC9rZXJuZWwvZ2l0L2NodW5rdWFuZy5odS9saW51eC5naXQvbG9nLz9oPW1lZGlhdGVr
-LWRybS1uZXh0CgpSZWdhcmRzLApDaHVuLUt1YW5nLgoKPgo+IFNpZ25lZC1vZmYtYnk6IE5hdGhh
-biBMdSA8bmF0aGFuLmx1QG1lZGlhdGVrLmNvbT4KPiBSZXZpZXdlZC1ieTogS3J6eXN6dG9mIEtv
-emxvd3NraSA8a3J6eXN6dG9mLmtvemxvd3NraUBsaW5hcm8ub3JnPgo+IFJldmlld2VkLWJ5OiBB
-bmdlbG9HaW9hY2NoaW5vIERlbCBSZWdubyA8YW5nZWxvZ2lvYWNjaGluby5kZWxyZWdub0Bjb2xs
-YWJvcmEuY29tPgo+IC0tLQo+ICAuLi4vZGV2aWNldHJlZS9iaW5kaW5ncy9kaXNwbGF5L21lZGlh
-dGVrL21lZGlhdGVrLGFhbC55YW1sICAgIHwgMSArCj4gIC4uLi9kZXZpY2V0cmVlL2JpbmRpbmdz
-L2Rpc3BsYXkvbWVkaWF0ZWsvbWVkaWF0ZWssY2NvcnIueWFtbCAgfCAxICsKPiAgLi4uL2Rldmlj
-ZXRyZWUvYmluZGluZ3MvZGlzcGxheS9tZWRpYXRlay9tZWRpYXRlayxjb2xvci55YW1sICB8IDEg
-Kwo+ICAuLi4vZGV2aWNldHJlZS9iaW5kaW5ncy9kaXNwbGF5L21lZGlhdGVrL21lZGlhdGVrLGRp
-dGhlci55YW1sIHwgMSArCj4gIC4uLi9kZXZpY2V0cmVlL2JpbmRpbmdzL2Rpc3BsYXkvbWVkaWF0
-ZWsvbWVkaWF0ZWssZ2FtbWEueWFtbCAgfCAxICsKPiAgLi4uL2RldmljZXRyZWUvYmluZGluZ3Mv
-ZGlzcGxheS9tZWRpYXRlay9tZWRpYXRlayxvdmwueWFtbCAgICB8IDEgKwo+ICAuLi4vYmluZGlu
-Z3MvZGlzcGxheS9tZWRpYXRlay9tZWRpYXRlayxwb3N0bWFzay55YW1sICAgICAgICAgIHwgMSAr
-Cj4gIC4uLi9kZXZpY2V0cmVlL2JpbmRpbmdzL2Rpc3BsYXkvbWVkaWF0ZWsvbWVkaWF0ZWsscmRt
-YS55YW1sICAgfCA0ICsrKysKPiAgOCBmaWxlcyBjaGFuZ2VkLCAxMSBpbnNlcnRpb25zKCspCj4K
-PiBkaWZmIC0tZ2l0IGEvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL2Rpc3BsYXkv
-bWVkaWF0ZWsvbWVkaWF0ZWssYWFsLnlhbWwgYi9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmlu
-ZGluZ3MvZGlzcGxheS9tZWRpYXRlay9tZWRpYXRlayxhYWwueWFtbAo+IGluZGV4IGQ0ZDU4NTQ4
-NWU3Yi4uOTI3NDE0ODZjMjRkIDEwMDY0NAo+IC0tLSBhL0RvY3VtZW50YXRpb24vZGV2aWNldHJl
-ZS9iaW5kaW5ncy9kaXNwbGF5L21lZGlhdGVrL21lZGlhdGVrLGFhbC55YW1sCj4gKysrIGIvRG9j
-dW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL2Rpc3BsYXkvbWVkaWF0ZWsvbWVkaWF0ZWss
-YWFsLnlhbWwKPiBAQCAtMzEsNiArMzEsNyBAQCBwcm9wZXJ0aWVzOgo+ICAgICAgICAtIGl0ZW1z
-Ogo+ICAgICAgICAgICAgLSBlbnVtOgo+ICAgICAgICAgICAgICAgIC0gbWVkaWF0ZWssbXQ4MTg2
-LWRpc3AtYWFsCj4gKyAgICAgICAgICAgICAgLSBtZWRpYXRlayxtdDgxODgtZGlzcC1hYWwKPiAg
-ICAgICAgICAgICAgICAtIG1lZGlhdGVrLG10ODE5Mi1kaXNwLWFhbAo+ICAgICAgICAgICAgICAg
-IC0gbWVkaWF0ZWssbXQ4MTk1LWRpc3AtYWFsCj4gICAgICAgICAgICAtIGNvbnN0OiBtZWRpYXRl
-ayxtdDgxODMtZGlzcC1hYWwKPiBkaWZmIC0tZ2l0IGEvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVl
-L2JpbmRpbmdzL2Rpc3BsYXkvbWVkaWF0ZWsvbWVkaWF0ZWssY2NvcnIueWFtbCBiL0RvY3VtZW50
-YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9kaXNwbGF5L21lZGlhdGVrL21lZGlhdGVrLGNjb3Jy
-LnlhbWwKPiBpbmRleCA2M2ZiMDIwMTRhNTYuLmZlNDQ0YmVmZjU1OCAxMDA2NDQKPiAtLS0gYS9E
-b2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvZGlzcGxheS9tZWRpYXRlay9tZWRpYXRl
-ayxjY29yci55YW1sCj4gKysrIGIvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL2Rp
-c3BsYXkvbWVkaWF0ZWsvbWVkaWF0ZWssY2NvcnIueWFtbAo+IEBAIC0yNyw2ICsyNyw3IEBAIHBy
-b3BlcnRpZXM6Cj4gICAgICAgICAgICAtIGNvbnN0OiBtZWRpYXRlayxtdDgxOTItZGlzcC1jY29y
-cgo+ICAgICAgICAtIGl0ZW1zOgo+ICAgICAgICAgICAgLSBlbnVtOgo+ICsgICAgICAgICAgICAg
-IC0gbWVkaWF0ZWssbXQ4MTg4LWRpc3AtY2NvcnIKPiAgICAgICAgICAgICAgICAtIG1lZGlhdGVr
-LG10ODE5NS1kaXNwLWNjb3JyCj4gICAgICAgICAgICAtIGNvbnN0OiBtZWRpYXRlayxtdDgxOTIt
-ZGlzcC1jY29ycgo+ICAgICAgICAtIGl0ZW1zOgo+IGRpZmYgLS1naXQgYS9Eb2N1bWVudGF0aW9u
-L2RldmljZXRyZWUvYmluZGluZ3MvZGlzcGxheS9tZWRpYXRlay9tZWRpYXRlayxjb2xvci55YW1s
-IGIvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL2Rpc3BsYXkvbWVkaWF0ZWsvbWVk
-aWF0ZWssY29sb3IueWFtbAo+IGluZGV4IGQyZjg5ZWU3OTk2Zi4uNjIzMDZjODhmNDg1IDEwMDY0
-NAo+IC0tLSBhL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9kaXNwbGF5L21lZGlh
-dGVrL21lZGlhdGVrLGNvbG9yLnlhbWwKPiArKysgYi9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUv
-YmluZGluZ3MvZGlzcGxheS9tZWRpYXRlay9tZWRpYXRlayxjb2xvci55YW1sCj4gQEAgLTM3LDYg
-KzM3LDcgQEAgcHJvcGVydGllczoKPiAgICAgICAgICAgIC0gZW51bToKPiAgICAgICAgICAgICAg
-ICAtIG1lZGlhdGVrLG10ODE4My1kaXNwLWNvbG9yCj4gICAgICAgICAgICAgICAgLSBtZWRpYXRl
-ayxtdDgxODYtZGlzcC1jb2xvcgo+ICsgICAgICAgICAgICAgIC0gbWVkaWF0ZWssbXQ4MTg4LWRp
-c3AtY29sb3IKPiAgICAgICAgICAgICAgICAtIG1lZGlhdGVrLG10ODE5Mi1kaXNwLWNvbG9yCj4g
-ICAgICAgICAgICAgICAgLSBtZWRpYXRlayxtdDgxOTUtZGlzcC1jb2xvcgo+ICAgICAgICAgICAg
-LSBjb25zdDogbWVkaWF0ZWssbXQ4MTczLWRpc3AtY29sb3IKPiBkaWZmIC0tZ2l0IGEvRG9jdW1l
-bnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL2Rpc3BsYXkvbWVkaWF0ZWsvbWVkaWF0ZWssZGl0
-aGVyLnlhbWwgYi9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvZGlzcGxheS9tZWRp
-YXRlay9tZWRpYXRlayxkaXRoZXIueWFtbAo+IGluZGV4IDhhZDgxODdjMDJkMS4uNWM3NDQ1YzE3
-NGU1IDEwMDY0NAo+IC0tLSBhL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9kaXNw
-bGF5L21lZGlhdGVrL21lZGlhdGVrLGRpdGhlci55YW1sCj4gKysrIGIvRG9jdW1lbnRhdGlvbi9k
-ZXZpY2V0cmVlL2JpbmRpbmdzL2Rpc3BsYXkvbWVkaWF0ZWsvbWVkaWF0ZWssZGl0aGVyLnlhbWwK
-PiBAQCAtMjcsNiArMjcsNyBAQCBwcm9wZXJ0aWVzOgo+ICAgICAgICAtIGl0ZW1zOgo+ICAgICAg
-ICAgICAgLSBlbnVtOgo+ICAgICAgICAgICAgICAgIC0gbWVkaWF0ZWssbXQ4MTg2LWRpc3AtZGl0
-aGVyCj4gKyAgICAgICAgICAgICAgLSBtZWRpYXRlayxtdDgxODgtZGlzcC1kaXRoZXIKPiAgICAg
-ICAgICAgICAgICAtIG1lZGlhdGVrLG10ODE5Mi1kaXNwLWRpdGhlcgo+ICAgICAgICAgICAgICAg
-IC0gbWVkaWF0ZWssbXQ4MTk1LWRpc3AtZGl0aGVyCj4gICAgICAgICAgICAtIGNvbnN0OiBtZWRp
-YXRlayxtdDgxODMtZGlzcC1kaXRoZXIKPiBkaWZmIC0tZ2l0IGEvRG9jdW1lbnRhdGlvbi9kZXZp
-Y2V0cmVlL2JpbmRpbmdzL2Rpc3BsYXkvbWVkaWF0ZWsvbWVkaWF0ZWssZ2FtbWEueWFtbCBiL0Rv
-Y3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9kaXNwbGF5L21lZGlhdGVrL21lZGlhdGVr
-LGdhbW1hLnlhbWwKPiBpbmRleCBhODllYTBlYTc1NDIuLmE1YzZhOTFmYWM3MSAxMDA2NDQKPiAt
-LS0gYS9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvZGlzcGxheS9tZWRpYXRlay9t
-ZWRpYXRlayxnYW1tYS55YW1sCj4gKysrIGIvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRp
-bmdzL2Rpc3BsYXkvbWVkaWF0ZWsvbWVkaWF0ZWssZ2FtbWEueWFtbAo+IEBAIC0yOCw2ICsyOCw3
-IEBAIHByb3BlcnRpZXM6Cj4gICAgICAgIC0gaXRlbXM6Cj4gICAgICAgICAgICAtIGVudW06Cj4g
-ICAgICAgICAgICAgICAgLSBtZWRpYXRlayxtdDgxODYtZGlzcC1nYW1tYQo+ICsgICAgICAgICAg
-ICAgIC0gbWVkaWF0ZWssbXQ4MTg4LWRpc3AtZ2FtbWEKPiAgICAgICAgICAgICAgICAtIG1lZGlh
-dGVrLG10ODE5Mi1kaXNwLWdhbW1hCj4gICAgICAgICAgICAgICAgLSBtZWRpYXRlayxtdDgxOTUt
-ZGlzcC1nYW1tYQo+ICAgICAgICAgICAgLSBjb25zdDogbWVkaWF0ZWssbXQ4MTgzLWRpc3AtZ2Ft
-bWEKPiBkaWZmIC0tZ2l0IGEvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL2Rpc3Bs
-YXkvbWVkaWF0ZWsvbWVkaWF0ZWssb3ZsLnlhbWwgYi9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUv
-YmluZGluZ3MvZGlzcGxheS9tZWRpYXRlay9tZWRpYXRlayxvdmwueWFtbAo+IGluZGV4IGEyYTI3
-ZDBjYTAzOC4uMDY1ZTUyNmY5NTBlIDEwMDY0NAo+IC0tLSBhL0RvY3VtZW50YXRpb24vZGV2aWNl
-dHJlZS9iaW5kaW5ncy9kaXNwbGF5L21lZGlhdGVrL21lZGlhdGVrLG92bC55YW1sCj4gKysrIGIv
-RG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL2Rpc3BsYXkvbWVkaWF0ZWsvbWVkaWF0
-ZWssb3ZsLnlhbWwKPiBAQCAtMzYsNiArMzYsNyBAQCBwcm9wZXJ0aWVzOgo+ICAgICAgICAgICAg
-LSBjb25zdDogbWVkaWF0ZWssbXQyNzAxLWRpc3Atb3ZsCj4gICAgICAgIC0gaXRlbXM6Cj4gICAg
-ICAgICAgICAtIGVudW06Cj4gKyAgICAgICAgICAgICAgLSBtZWRpYXRlayxtdDgxODgtZGlzcC1v
-dmwKPiAgICAgICAgICAgICAgICAtIG1lZGlhdGVrLG10ODE5NS1kaXNwLW92bAo+ICAgICAgICAg
-ICAgLSBjb25zdDogbWVkaWF0ZWssbXQ4MTgzLWRpc3Atb3ZsCj4gICAgICAgIC0gaXRlbXM6Cj4g
-ZGlmZiAtLWdpdCBhL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9kaXNwbGF5L21l
-ZGlhdGVrL21lZGlhdGVrLHBvc3RtYXNrLnlhbWwgYi9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUv
-YmluZGluZ3MvZGlzcGxheS9tZWRpYXRlay9tZWRpYXRlayxwb3N0bWFzay55YW1sCj4gaW5kZXgg
-NjU0MDgwYmZiZGZiLi4yN2RlNjQ0OTU0MDEgMTAwNjQ0Cj4gLS0tIGEvRG9jdW1lbnRhdGlvbi9k
-ZXZpY2V0cmVlL2JpbmRpbmdzL2Rpc3BsYXkvbWVkaWF0ZWsvbWVkaWF0ZWsscG9zdG1hc2sueWFt
-bAo+ICsrKyBiL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9kaXNwbGF5L21lZGlh
-dGVrL21lZGlhdGVrLHBvc3RtYXNrLnlhbWwKPiBAQCAtMjYsNiArMjYsNyBAQCBwcm9wZXJ0aWVz
-Ogo+ICAgICAgICAtIGl0ZW1zOgo+ICAgICAgICAgICAgLSBlbnVtOgo+ICAgICAgICAgICAgICAg
-IC0gbWVkaWF0ZWssbXQ4MTg2LWRpc3AtcG9zdG1hc2sKPiArICAgICAgICAgICAgICAtIG1lZGlh
-dGVrLG10ODE4OC1kaXNwLXBvc3RtYXNrCj4gICAgICAgICAgICAtIGNvbnN0OiBtZWRpYXRlayxt
-dDgxOTItZGlzcC1wb3N0bWFzawo+Cj4gICAgcmVnOgo+IGRpZmYgLS1naXQgYS9Eb2N1bWVudGF0
-aW9uL2RldmljZXRyZWUvYmluZGluZ3MvZGlzcGxheS9tZWRpYXRlay9tZWRpYXRlayxyZG1hLnlh
-bWwgYi9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvZGlzcGxheS9tZWRpYXRlay9t
-ZWRpYXRlayxyZG1hLnlhbWwKPiBpbmRleCAwODgyYWU4NmU2YzQuLjNhZGUyZWNlM2ZlZCAxMDA2
-NDQKPiAtLS0gYS9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvZGlzcGxheS9tZWRp
-YXRlay9tZWRpYXRlayxyZG1hLnlhbWwKPiArKysgYi9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUv
-YmluZGluZ3MvZGlzcGxheS9tZWRpYXRlay9tZWRpYXRlayxyZG1hLnlhbWwKPiBAQCAtMzEsNiAr
-MzEsMTAgQEAgcHJvcGVydGllczoKPiAgICAgICAgICAgIC0gY29uc3Q6IG1lZGlhdGVrLG10ODE4
-My1kaXNwLXJkbWEKPiAgICAgICAgLSBpdGVtczoKPiAgICAgICAgICAgIC0gY29uc3Q6IG1lZGlh
-dGVrLG10ODE5NS1kaXNwLXJkbWEKPiArICAgICAgLSBpdGVtczoKPiArICAgICAgICAgIC0gZW51
-bToKPiArICAgICAgICAgICAgICAtIG1lZGlhdGVrLG10ODE4OC1kaXNwLXJkbWEKPiArICAgICAg
-ICAgIC0gY29uc3Q6IG1lZGlhdGVrLG10ODE5NS1kaXNwLXJkbWEKPiAgICAgICAgLSBpdGVtczoK
-PiAgICAgICAgICAgIC0gZW51bToKPiAgICAgICAgICAgICAgICAtIG1lZGlhdGVrLG10NzYyMy1k
-aXNwLXJkbWEKPiAtLQo+IDIuMTguMAo+Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1t
-ZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5
-LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+On Fri, Dec 16, 2022 at 12:53:38PM +0100, Marek Vasut wrote:
+> Requesting an interrupt with IRQF_ONESHOT will run the primary handler
+> in the hard-IRQ context even in the force-threaded mode. The
+> force-threaded mode is used by PREEMPT_RT in order to avoid acquiring
+> sleeping locks (spinlock_t) in hard-IRQ context. This combination
+> makes it impossible and leads to "sleeping while atomic" warnings.
+> 
+> Use one interrupt handler for both handlers (primary and secondary)
+> and drop the IRQF_ONESHOT flag which is not needed.
+> 
+> Fixes: e359b4411c283 ("serial: stm32: fix threaded interrupt handling")
+
+I don't think a Fixes tag is warranted as this is only needed due to
+this undocumented quirk of PREEMPT_RT.
+
+And this should not be backported in any case.
+
+> Reviewed-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+> Signed-off-by: Marek Vasut <marex@denx.de>
+> ---
+> Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
+> Cc: Erwan Le Ray <erwan.leray@foss.st.com>
+> Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> Cc: Jiri Slaby <jirislaby@kernel.org>
+> Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+> Cc: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+> Cc: Thomas Gleixner <tglx@linutronix.de>
+> Cc: Valentin Caron <valentin.caron@foss.st.com>
+> Cc: linux-arm-kernel@lists.infradead.org
+> Cc: linux-stm32@st-md-mailman.stormreply.com
+> To: linux-serial@vger.kernel.org
+> ---
+> V2: - Update patch subject, was:
+>       serial: stm32: Move hard IRQ handling to threaded interrupt context
+>     - Use request_irq() instead, rename the IRQ handler function
+> V3: - Update the commit message per suggestion from Sebastian
+>     - Add RB from Sebastian
+>     - Add Fixes tag
+> ---
+>  drivers/tty/serial/stm32-usart.c | 29 +++++++----------------------
+>  1 file changed, 7 insertions(+), 22 deletions(-)
+> 
+> diff --git a/drivers/tty/serial/stm32-usart.c b/drivers/tty/serial/stm32-usart.c
+> index dfdbcf092facc..bbbab8dc2bfa9 100644
+> --- a/drivers/tty/serial/stm32-usart.c
+> +++ b/drivers/tty/serial/stm32-usart.c
+> @@ -752,8 +752,9 @@ static irqreturn_t stm32_usart_interrupt(int irq, void *ptr)
+>  	struct tty_port *tport = &port->state->port;
+>  	struct stm32_port *stm32_port = to_stm32_port(port);
+>  	const struct stm32_usart_offsets *ofs = &stm32_port->info->ofs;
+> -	u32 sr;
+> +	unsigned long flags;
+>  	unsigned int size;
+> +	u32 sr;
+>  
+>  	sr = readl_relaxed(port->membase + ofs->isr);
+>  
+> @@ -793,27 +794,13 @@ static irqreturn_t stm32_usart_interrupt(int irq, void *ptr)
+>  	}
+>  
+>  	if ((sr & USART_SR_TXE) && !(stm32_port->tx_ch)) {
+> -		spin_lock(&port->lock);
+> +		spin_lock_irqsave(&port->lock, flags);
+>  		stm32_usart_transmit_chars(port);
+> -		spin_unlock(&port->lock);
+> +		spin_unlock_irqrestore(&port->lock, flags);
+
+This is not needed as the handler runs with interrupts disabled.
+
+>  	}
+>  
+> -	if (stm32_usart_rx_dma_enabled(port))
+> -		return IRQ_WAKE_THREAD;
+> -	else
+> -		return IRQ_HANDLED;
+> -}
+> -
+> -static irqreturn_t stm32_usart_threaded_interrupt(int irq, void *ptr)
+> -{
+> -	struct uart_port *port = ptr;
+> -	struct tty_port *tport = &port->state->port;
+> -	struct stm32_port *stm32_port = to_stm32_port(port);
+> -	unsigned int size;
+> -	unsigned long flags;
+> -
+>  	/* Receiver timeout irq for DMA RX */
+> -	if (!stm32_port->throttled) {
+> +	if (stm32_usart_rx_dma_enabled(port) && !stm32_port->throttled) {
+>  		spin_lock_irqsave(&port->lock, flags);
+
+But you could change this to spin_lock() now.
+
+>  		size = stm32_usart_receive_chars(port, false);
+>  		uart_unlock_and_check_sysrq_irqrestore(port, flags);
+> @@ -1016,10 +1003,8 @@ static int stm32_usart_startup(struct uart_port *port)
+>  	u32 val;
+>  	int ret;
+>  
+> -	ret = request_threaded_irq(port->irq, stm32_usart_interrupt,
+> -				   stm32_usart_threaded_interrupt,
+> -				   IRQF_ONESHOT | IRQF_NO_SUSPEND,
+> -				   name, port);
+> +	ret = request_irq(port->irq, stm32_usart_interrupt,
+> +			  IRQF_NO_SUSPEND, name, port);
+>  	if (ret)
+>  		return ret;
+
+You should also remove
+
+	/*
+	 * Using DMA and threaded handler for the console could lead to
+	 * deadlocks.
+	 */
+	if (uart_console(port))
+		return -ENODEV;
+
+from stm32_usart_of_dma_rx_probe() when removing the threaded handler.
+
+Johan
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
