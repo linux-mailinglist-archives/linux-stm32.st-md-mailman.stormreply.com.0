@@ -2,147 +2,71 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B8D5C65BC91
+	by mail.lfdr.de (Postfix) with ESMTPS id D4EE765BC92
 	for <lists+linux-stm32@lfdr.de>; Tue,  3 Jan 2023 09:57:51 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 36B42C6A5E0;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 570B0C6A5E3;
 	Tue,  3 Jan 2023 08:57:51 +0000 (UTC)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com
+ [209.85.221.46])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9086BC64109
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6C5D1C035BB
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 22 Dec 2022 20:33:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1671741182; x=1703277182;
- h=date:from:to:cc:subject:message-id:references:
- in-reply-to:mime-version;
- bh=/eDuLVRDrAsZPPp7KQymBM8M8/oxsGw22uld3LTqAUE=;
- b=MhpWGFywFHi+nFxOd0fCCzWwTwS5LEhQh9w4g6kyv55RXOyvFixQBauW
- 3L1UycnB83fSs0JeAI/BdIzbtY7G4h1UMYNuCo9OMJ7dm9tOQVRXkhr/g
- YRB+UEn5zhhtymrdliHPVF0NN0XdpM7ok6F/HnKsv/s3KbunC2ExxyEJ/
- 2+yFIgCC/3paIuEsPKkh037Gux6WlBuPnPJHnhHPZGcYkUGL9b2J+4jpb
- KVrRjoulHuDrgmwDB31sBpzPStjCZSzYyZPjFCtO94qBIsGGTr3phPkuo
- 4YZg5JzXbc+U9a7o91ML8ARZ9UYJlkohLKIHDQtSHj66JYAn1PZo46TSm A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10569"; a="406457733"
-X-IronPort-AV: E=Sophos;i="5.96,266,1665471600"; d="scan'208";a="406457733"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Dec 2022 12:33:00 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10569"; a="645383788"
-X-IronPort-AV: E=Sophos;i="5.96,266,1665471600"; d="scan'208";a="645383788"
-Received: from fmsmsx601.amr.corp.intel.com ([10.18.126.81])
- by orsmga007.jf.intel.com with ESMTP; 22 Dec 2022 12:32:59 -0800
-Received: from fmsmsx611.amr.corp.intel.com (10.18.126.91) by
- fmsmsx601.amr.corp.intel.com (10.18.126.81) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.16; Thu, 22 Dec 2022 12:32:59 -0800
-Received: from fmsmsx603.amr.corp.intel.com (10.18.126.83) by
- fmsmsx611.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.16; Thu, 22 Dec 2022 12:32:58 -0800
-Received: from FMSEDG603.ED.cps.intel.com (10.1.192.133) by
- fmsmsx603.amr.corp.intel.com (10.18.126.83) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.16 via Frontend Transport; Thu, 22 Dec 2022 12:32:58 -0800
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com (104.47.58.108)
- by edgegateway.intel.com (192.55.55.68) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2507.16; Thu, 22 Dec 2022 12:32:57 -0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=IUrrYCn6KAjjJqVSNbC2O29CRlXbDDo4qF2Xi471scKu2UFhHdzZ/XUD3Bb5Et+GCwssZHwZCXpWNDWvvuXHa4n/CPYzffUhQRuDuMRj2P8BranKMlK0+Mtu1ZghEY4SwpN68kfrvTEXgKWbkg7hn5YJ12/TPNoi/sz9WIvvJ3/SCpfAnOzfIPkAWWB4WzmUlb02cjgy/pIrrgVEqHzJdz4uiRJ+xdAHhl4VWum8vgVXm//IQ8czMIiqkmfA26Kpuvbw94yCssWyJr99VLm1nX009em7k7CdayhsCZnGwuQeJtNJvVp7qTYJ6a9KMsxT2GivnolSjKypfdIPduRErA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=RNQ0GrXWT9V3vtbq2DPZ2M4jeIRtUg5VUjCMJ//fuQI=;
- b=XG8xqoC5U0jspHd81/bSEPxAQpa/MF1MTHy2S4b0xRlFQCZvsQIiMcI5+o3vzPf0VTpGfVCQyJO5A0jn+W0d/rxhiSMM1H0EQ74iiJatAqAheolMeSyOhtBXwWcdt7hFvX5XxZhcw9bmcFuDORhQSVyh06o9UT+gePAwilpn6TcAKpZEHUi61AtiQ3ipjF3KYnIurl5I+J87yS8P2Wxbh0n9tuf6KyWlpde6GUfgbOxTKVUUcq/U5S9sK883nYa7QlzereoTu0rJaRCIqaEbbjB5L/PNv7hEhH7OWub6P0zPtrf49YD77nMPvP+je57vusbdDZCIczN2kRThGZlyOA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from BN6PR1101MB2227.namprd11.prod.outlook.com
- (2603:10b6:405:51::14) by SJ1PR11MB6203.namprd11.prod.outlook.com
- (2603:10b6:a03:45a::20) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5924.16; Thu, 22 Dec
- 2022 20:32:56 +0000
-Received: from BN6PR1101MB2227.namprd11.prod.outlook.com
- ([fe80::5d3a:5bc9:4e57:622e]) by BN6PR1101MB2227.namprd11.prod.outlook.com
- ([fe80::5d3a:5bc9:4e57:622e%7]) with mapi id 15.20.5924.016; Thu, 22 Dec 2022
- 20:32:56 +0000
-Date: Thu, 22 Dec 2022 21:32:56 +0100
-From: Piotr Raczynski <piotr.raczynski@intel.com>
-To: Clark Wang <xiaoning.wang@nxp.com>
-Message-ID: <Y6S++OT+6CfWGPiY@nimitz>
-References: <20221221080144.2549125-1-xiaoning.wang@nxp.com>
- <20221221080144.2549125-2-xiaoning.wang@nxp.com>
-Content-Disposition: inline
-In-Reply-To: <20221221080144.2549125-2-xiaoning.wang@nxp.com>
-X-ClientProxiedBy: FRYP281CA0012.DEUP281.PROD.OUTLOOK.COM (2603:10a6:d10::22)
- To BN6PR1101MB2227.namprd11.prod.outlook.com
- (2603:10b6:405:51::14)
+ Wed, 28 Dec 2022 07:11:07 +0000 (UTC)
+Received: by mail-wr1-f46.google.com with SMTP id w1so2059271wrt.8
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 27 Dec 2022 23:11:07 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=BoevkCqm0C5XWODDQxiTKlCd9+LFUjRXCitTr69DptE=;
+ b=uquiVL9NoYOszkI6bFc7kKQ24G0gAWYpSyGFNLCpco3sci1FSm+lJmoz9FHastz+7W
+ U7kNSmACNWFQfonyKWbOpBg3Tfy7gkWkPTsSwzb1fpgPujs01WTbcl5S/0dkPz+xVYkb
+ 9CG+UoORXOA9XBJLngiNVW1EOh9PdQoh7Y6KJ1xz83uDoTSkFF3fW/T5yEIr6w94vLg5
+ B3O6pAlokeHugK/VYHd+1c0vNzRyUn9dv4x6oq4xT6sx7Z6O7eecFAPZ1kTWxtrhdAHg
+ BPbDQEP8vMH86Z9BtSOySt/qyvLIT+ybMSKwepuzQnqfkvjuDOMp59YQkW/au/AAHqO4
+ 7a/A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=BoevkCqm0C5XWODDQxiTKlCd9+LFUjRXCitTr69DptE=;
+ b=qhJlvfu1T+sUOi/sZRAac5xgDMfpTyoNv+V9+x+Or3DRm0b4aA+7UJZ3mCsiSEHNXh
+ QmbjZIbO+3IkAGnTzWnRYtNgGyIt2EJcUY9+rlIuGsdVT/z1G563w0fGhFjJOjIGhqHK
+ +7NyspC+kSziOEE6KbtILjWImouKM98Wce2LNY/kDl9SwFWXUqxSy0ULgra0sJdXPY7P
+ xjgCSP7NU9OHMFI0KVdJh13zO0xEi17k5l9TOkji/xFjs17cm6MYlkAaDvLdMrG3/1Vl
+ SHEC7+1B4rHMoxxv/VVcz39WeaECONK59ebyKKm1OpR0QUUB41AkRmXE+/ALGfs+13ut
+ 5uNw==
+X-Gm-Message-State: AFqh2kov82icEbctP9Eeyt27bgB00n8MVpp43JoNSyAkwVb8hQyj8Ez0
+ VMzA3MAJpleUTP8kJs55ciFUQA==
+X-Google-Smtp-Source: AMrXdXvbxe80HMxQjahLobDGkaTAMYMLKpxTJYeUbPE4yE/3SpjMedOXnc0L41IobhefT19PF0eBjg==
+X-Received: by 2002:adf:d4c7:0:b0:25d:6628:debc with SMTP id
+ w7-20020adfd4c7000000b0025d6628debcmr15680346wrk.10.1672211466922; 
+ Tue, 27 Dec 2022 23:11:06 -0800 (PST)
+Received: from [192.168.30.216] ([81.0.6.76]) by smtp.gmail.com with ESMTPSA id
+ d12-20020a5d4f8c000000b002421a8f4fa6sm14107330wru.92.2022.12.27.23.11.06
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 27 Dec 2022 23:11:06 -0800 (PST)
+Message-ID: <0acebf30-59a1-c336-1a44-19a74b4f244f@linaro.org>
+Date: Wed, 28 Dec 2022 08:11:05 +0100
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN6PR1101MB2227:EE_|SJ1PR11MB6203:EE_
-X-MS-Office365-Filtering-Correlation-Id: f36f1ab4-b32e-470a-1bab-08dae45bb4fa
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: i7ysi+iQzjRLLThRj70rXFu0XqlMSJR3USrKEmHonqMSRGagBQUMvSvVrKJQFnfKI3fCuKj8NWPh25yCPlFcGmh9fgvb6Y6FjW8vNs0RuKCce/akPmAQabsj6hmpqfjkF9HqT+JtalzW9ZUSZkHUP0FWJTNHu9wTk0e/4eaCONR/oIoNRxJV+4St6EUixA28n/8sbiKiGYGffYnGvvAODBI98J2yb/jjPGz05vIdDSecYPfqtD0k15R26S5A1+0hwmgF+0JxorDx5W6r4slDPTOow6mtUnA3l0rKKF3LP9Hx9ttufRdHO4/O7sRv7D2DaGPW0nsUpGYimQNjQpuclxbJ47ar9MlKGyTmEsa4CH8YtvjFtxT/5tihkyZiIu4rOvMb0iHNdT3uAMYesodKbOATrO4riM/APoCZ8YSLAanvnhbNhMazN/9vAsX9LGZHAMFCbgiy46y59FyHyD95auviT4qtnRnKb8eC46aeOJ0J4yIDzmiDKMO9IdnzUAmpdpoLEKL0GEht4dz3vzf93Z5vewwfC4w43p/CFWyl7EvzhDswxnlqbTE+V39Ekyn0sK8yzgW1eeJ3VLqV/ch+oxqwqm64pGWhcIXPwMRbMxqNtlaTvAzt4txCE3eOYVAJ8bD+c3XgYw3rSUKfBaChiA==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN6PR1101MB2227.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(7916004)(346002)(366004)(136003)(39860400002)(376002)(396003)(451199015)(82960400001)(38100700002)(41300700001)(8936002)(66946007)(66476007)(5660300002)(7416002)(4326008)(66556008)(8676002)(33716001)(478600001)(83380400001)(6486002)(6916009)(2906002)(44832011)(316002)(26005)(9686003)(186003)(6512007)(6506007)(86362001);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?9Jbu6lj9sUWFuvHsyb3rAUtpM+o88voUoWGt5Z+LA6eQEgwN58DcU8lg5v+P?=
- =?us-ascii?Q?2i67041HwY2djkMVmuGq/w9bfrw+ZfWpYY9m3JBEdNzaXvHa/8V6JsxI/WOo?=
- =?us-ascii?Q?Fjk6IJNf3/t/ZmDhlxM64bSYjPC5rIPEIlViiYoe3uGabPaANkcg4BN5YaDK?=
- =?us-ascii?Q?tiWhA8Lu4agAYfUUKfOcJTBqd3uOWmWfn5JSh3hE95bednYzeVSE4P9AjvdC?=
- =?us-ascii?Q?VJ0DErdLyhpWOT4NZkkH1ex0M/7ckiSElZZAX76CNZgciIwGuunn5qlEWHNG?=
- =?us-ascii?Q?WKvUplEZRV6qoZ1uD8Akmy11uhWH9Daayflh2tzC4oWD/lCSBEkXh3YZ0oTt?=
- =?us-ascii?Q?mQuvhdGJUhIrTs2gm1SWyTaAyko1HPA3654iHeCxQAEVsc0ODzVkp+jR4x8e?=
- =?us-ascii?Q?BD0sSjQLOxfs0QmXjRLvBsrj9qwW1dzhRlwIhOihfyeWl52oKUQipxnX4EE1?=
- =?us-ascii?Q?WEjtLCyV/G4wigRaJ5Vz17mC06Mnp2+jcWL15+xBLaUo9W0VXSGmlqpImU5n?=
- =?us-ascii?Q?TcwEJTlxqNkkjzKCToDDHFMiPQyCkUjXqvTo4y0oI2lwBGWdvb63vx9fW9+d?=
- =?us-ascii?Q?VCZO3OyosCQnqvFRopoaYeo+y+ZB0gHf88DpAjjcIUT9rd9WHCJ2qDdVLPSL?=
- =?us-ascii?Q?KJBuS6IZZtaElo/7wvP1T/skKYf69HB+0s2Jplg+1yQikqpYmrmPauAfxAWp?=
- =?us-ascii?Q?6jYP+p1cqaEyD18HaFtcm03DbVgL3cX2bb4hJ4jLHRq2ncsBzwxWsN7tgM/q?=
- =?us-ascii?Q?FTMovEf2DqCJIPmbcX/C51mUPPFhP+InsIreLU7K64JqE0gT08jg5EtU26a2?=
- =?us-ascii?Q?JxHd06wAqczAHbvx0MsheJCcb3BbHURKGkIWj6bcOjKzF1PV0NBHU3zR0Ehx?=
- =?us-ascii?Q?fITEveEf0dhsRBN9LWkPCYDQQ0MjPRbLd9d54fO6wfZCuBWRGDwdKRcFBZMa?=
- =?us-ascii?Q?U8f0bm+4/woYy41dpZbMEoieGkx9vf0hQb1jP3wCwA4lErRjiA/AKpQ5Pgeq?=
- =?us-ascii?Q?Cdh9tja0gDRe7Cd5LjvtPgEgH29/IMyDSEg9X4IMqmzw1G6xIQbn4X+zjKor?=
- =?us-ascii?Q?5m+gzfRRGRIK05/xi++QmCNhGUMOWSy3UcJbtoJOe0G8SG45CfVFceKwY8Vv?=
- =?us-ascii?Q?nardsmsuw3CkWA/kA5UgEg3I6NtZTDZNbJ+ogFOpQe7h8RGOpj9CDuKvGWqB?=
- =?us-ascii?Q?/3bb++ERFDOIX/QNylqpYREC8AwKgv2D9rRpKIDMQWnWzfyBToTpRW7TdfRt?=
- =?us-ascii?Q?3rSwTvc26L14TMtzz6ZN8UtSr6uRHa/kSHs0aZjQc8fDAYAYT4rRLwY1v30B?=
- =?us-ascii?Q?ygVi+plURN1xSvB213dufPAnpghTO0clVsQ59QYupvUCk1/Jc8oc7YncxV45?=
- =?us-ascii?Q?jCyE3xCVVdW539SvGQZ2rvRMlV/ZFICsqOhJ7z++cV8o9Z2S2RU4kVnaCP0y?=
- =?us-ascii?Q?61X03dR4N2XNxnUwc6akHt0ikdZD1MzVaOMI3EDLDP56bmBHQdtO/ynaRPFZ?=
- =?us-ascii?Q?0DIPC1INR5gyKl9b/l2fSTCqchs+F4Pc8YholJrwq7RHCNkal8O3MQ+seDuH?=
- =?us-ascii?Q?c6SFSkxmkFrHewkWuknM4e9Vwz+YwE9/FYvymn3LRTpUF/2s8l4woOjWTRBI?=
- =?us-ascii?Q?VQ=3D=3D?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: f36f1ab4-b32e-470a-1bab-08dae45bb4fa
-X-MS-Exchange-CrossTenant-AuthSource: BN6PR1101MB2227.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Dec 2022 20:32:55.7980 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 20mmF9WthUxuOkOKovsQF5ydlX5H9c3tFPxSoK6mp9sZnFJmNBBoAjlMpGHGdjPXRK01XtasMn5hhBcL8qgNne8JIzr3VPZGJ7HM6429viI=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR11MB6203
-X-OriginatorOrg: intel.com
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.6.1
+Content-Language: en-US
+To: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>, Rob Herring <robh@kernel.org>
+References: <20221005081317.3411684-1-arnaud.pouliquen@foss.st.com>
+From: =?UTF-8?Q?Philippe_Mathieu-Daud=c3=a9?= <philmd@linaro.org>
+In-Reply-To: <20221005081317.3411684-1-arnaud.pouliquen@foss.st.com>
 X-Mailman-Approved-At: Tue, 03 Jan 2023 08:57:47 +0000
-Cc: andrew@lunn.ch, linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux@armlinux.org.uk,
- edumazet@google.com, joabreu@synopsys.com, mcoquelin.stm32@gmail.com,
- kuba@kernel.org, peppe.cavallaro@st.com, pabeni@redhat.com,
- davem@davemloft.net, linux-arm-kernel@lists.infradead.org,
- hkallweit1@gmail.com
-Subject: Re: [Linux-stm32] [PATCH 1/2] net: phylink: add a function to
- resume phy alone to fix resume issue with WoL enabled
+Cc: linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH v2] remoteproc: virtio: Fix warning on
+ bindings by removing the of_match_table
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -154,104 +78,32 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, Dec 21, 2022 at 04:01:43PM +0800, Clark Wang wrote:
-> Issue we met:
-> On some platforms, mac cannot work after resumed from the suspend with WoL
-> enabled.
-> 
-> The cause of the issue:
-> 1. phylink_resolve() is in a workqueue which will not be executed immediately.
->    This is the call sequence:
->        phylink_resolve()->phylink_link_up()->pl->mac_ops->mac_link_up()
->    For stmmac driver, mac_link_up() will set the correct speed/duplex...
->    values which are from link_state.
-> 2. In stmmac_resume(), it will call stmmac_hw_setup() after called the
->    phylink_resume(), because mac need phy rx_clk to do the reset.
->    stmmac_core_init() is called in function stmmac_hw_setup(), which will
->    reset the mac and set the speed/duplex... to default value.
-> Conclusion: Because phylink_resolve() cannot determine when it is called, it
->             cannot be guaranteed to be called after stmmac_core_init().
-> 	    Once stmmac_core_init() is called after phylink_resolve(),
-> 	    the mac will be misconfigured and cannot be used.
-> 
-> In order to avoid this problem, add a function called phylink_phy_resume()
-> to resume phy separately. This eliminates the need to call phylink_resume()
-> before stmmac_hw_setup().
-> 
-> Add another judgement before called phy_start() in phylink_start(). This way
-> phy_start() will not be called multiple times when resumes. At the same time,
-> it may not affect other drivers that do not use phylink_phy_resume().
-> 
-It'd be nice to see Fixes tag.
-
-> Signed-off-by: Clark Wang <xiaoning.wang@nxp.com>
-> ---
->  drivers/net/phy/phylink.c | 21 ++++++++++++++++++++-
->  include/linux/phylink.h   |  1 +
->  2 files changed, 21 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/net/phy/phylink.c b/drivers/net/phy/phylink.c
-> index 09cc65c0da93..5bab59142579 100644
-> --- a/drivers/net/phy/phylink.c
-> +++ b/drivers/net/phy/phylink.c
-> @@ -1939,7 +1939,7 @@ void phylink_start(struct phylink *pl)
->  	}
->  	if (poll)
->  		mod_timer(&pl->link_poll, jiffies + HZ);
-> -	if (pl->phydev)
-> +	if (pl->phydev && pl->phydev->state < PHY_UP)
->  		phy_start(pl->phydev);
->  	if (pl->sfp_bus)
->  		sfp_upstream_start(pl->sfp_bus);
-> @@ -2020,6 +2020,25 @@ void phylink_suspend(struct phylink *pl, bool mac_wol)
->  }
->  EXPORT_SYMBOL_GPL(phylink_suspend);
->  
-> +/**
-> + * phylink_phy_resume() - resume phy alone
-> + * @pl: a pointer to a &struct phylink returned from phylink_create()
-> + *
-> + * In the MAC driver using phylink, if the MAC needs the clock of the phy
-> + * when it resumes, can call this function to resume the phy separately.
-> + * Then proceed to MAC resume operations.
-> + */
-> +void phylink_phy_resume(struct phylink *pl)
-> +{
-> +	ASSERT_RTNL();
-> +
-> +	if (!test_bit(PHYLINK_DISABLE_MAC_WOL, &pl->phylink_disable_state)
-> +	    && pl->phydev)
-you can fit && at the end of the previous line.
-> +		phy_start(pl->phydev);
-> +
-this blank line is not necessary.
-> +}
-> +EXPORT_SYMBOL_GPL(phylink_phy_resume);
-> +
->  /**
->   * phylink_resume() - handle a network device resume event
->   * @pl: a pointer to a &struct phylink returned from phylink_create()
-> diff --git a/include/linux/phylink.h b/include/linux/phylink.h
-> index c492c26202b5..6edfab5f754c 100644
-> --- a/include/linux/phylink.h
-> +++ b/include/linux/phylink.h
-> @@ -589,6 +589,7 @@ void phylink_stop(struct phylink *);
->  
->  void phylink_suspend(struct phylink *pl, bool mac_wol);
->  void phylink_resume(struct phylink *pl);
-> +void phylink_phy_resume(struct phylink *pl);
->  
->  void phylink_ethtool_get_wol(struct phylink *, struct ethtool_wolinfo *);
->  int phylink_ethtool_set_wol(struct phylink *, struct ethtool_wolinfo *);
-> -- 
-> 2.34.1
-> 
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gNS8xMC8yMiAxMDoxMywgQXJuYXVkIFBvdWxpcXVlbiB3cm90ZToKPiBUaGUgY2hlY2twYXRj
+aCB0b29sIGNvbXBsYWlucyB0aGF0ICJ2aXJ0aW8scnByb2MiIGlzIG5vdCBkb2N1bWVudGVkLgo+
+IEJ1dCBpdCBpcyBub3QgcG9zc2libGUgdG8gcHJvYmUgdGhlIGRldmljZSAicnByb2MtdmlydGlv
+IiBieSBkZWNsYXJpbmcKPiBpdCBpbiB0aGUgZGV2aWNlIHRyZWUuIFNvIGRvY3VtZW50aW5nIGl0
+IGluIHRoZSBiaW5kaW5ncyBkb2VzIG5vdCBtYWtlCj4gc2Vuc2UuCgpQZXJoYXBzIHJld29yZGVk
+IGEgYml0IGFzOgoKICAgIlNpbmNlIGl0IGlzIG5vdCBwb3NzaWJsZSB0byBwcm9iZSB0aGUgZGV2
+aWNlICJycHJvYy12aXJ0aW8iIGJ5CiAgIGRlY2xhcmluZyBpdCBpbiB0aGUgZGV2aWNlIHRyZWUs
+IGRvY3VtZW50aW5nIGl0IGluIHRoZSBiaW5kaW5ncwogICBkb2VzIG5vdCBtYWtlIHNlbnNlLiIK
+Ck90aGVyd2lzZToKUmV2aWV3ZWQtYnk6IFBoaWxpcHBlIE1hdGhpZXUtRGF1ZMOpIDxwaGlsbWRA
+bGluYXJvLm9yZz4KCj4gVGhpcyBjb21taXQgc29sdmVzIHRoZSBjaGVja3BhdGNoIHdhcm5pbmcg
+Ynkgc3VwcHJlc3NpbmcgdGhlIHVzZWxlc3MKPiBvZl9tYXRjaF90YWJsZS4KPiAKPiBTdWdnZXN0
+ZWQtYnk6IFJvYiBIZXJyaW5nIDxyb2JoQGtlcm5lbC5vcmc+Cj4gRml4ZXM6IDFkN2I2MWMwNmRj
+MyAoInJlbW90ZXByb2M6IHZpcnRpbzogQ3JlYXRlIHBsYXRmb3JtIGRldmljZSBmb3IgdGhlIHJl
+bW90ZXByb2NfdmlydGlvIikKPiAKPiBTaWduZWQtb2ZmLWJ5OiBBcm5hdWQgUG91bGlxdWVuIDxh
+cm5hdWQucG91bGlxdWVuQGZvc3Muc3QuY29tPgo+IFJldmlld2VkLWJ5OiBSb2IgSGVycmluZyA8
+cm9iaEBrZXJuZWwub3JnPgo+IAo+IC0tLQo+IFVwZGF0ZXMgdnMgcHJldmlvdXMgcmV2aXNpb246
+Cj4gLSByZXBsYWNlIHRoZSAib2ZfcGxhdGZvcm0uaCIgaW5jbHVkZSBieSAicGxhdGZvcm1fZGV2
+aWNlLmgiLAo+IC0gcmVwbGFjZSAiRml4LXN1Z2dlc3RlZC1ieSIgYnkgIlN1Z2dlc3RlZC1ieSIs
+Cj4gLSBhZGQgUm9iJ3MgUmV2aWV3ZWQtYnkuCj4gLS0tCj4gICBkcml2ZXJzL3JlbW90ZXByb2Mv
+cmVtb3RlcHJvY192aXJ0aW8uYyB8IDggKy0tLS0tLS0KPiAgIDEgZmlsZSBjaGFuZ2VkLCAxIGlu
+c2VydGlvbigrKSwgNyBkZWxldGlvbnMoLSkKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBz
+dC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJl
+cGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
