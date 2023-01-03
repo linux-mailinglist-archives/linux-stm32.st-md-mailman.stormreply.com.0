@@ -2,46 +2,46 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 030F665BC1C
-	for <lists+linux-stm32@lfdr.de>; Tue,  3 Jan 2023 09:23:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A31D65BCA4
+	for <lists+linux-stm32@lfdr.de>; Tue,  3 Jan 2023 10:01:18 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BCAB5C65E45;
-	Tue,  3 Jan 2023 08:23:11 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 49EEAC65E55;
+	Tue,  3 Jan 2023 09:01:18 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
  [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CF885C03FC3
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5E055C03FC3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  3 Jan 2023 08:23:09 +0000 (UTC)
+ Tue,  3 Jan 2023 09:01:17 +0000 (UTC)
 Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
  by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 3032NkDr006262; Tue, 3 Jan 2023 09:22:56 +0100
+ 3032uhhE020920; Tue, 3 Jan 2023 10:00:56 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
  h=content-type :
  message-id : date : mime-version : subject : to : cc : references : from :
- in-reply-to; s=selector1; bh=aAspVQSKmCkv7GW9+IHfNh8yo/A31mPD30r816PYe84=;
- b=WtqkcKrdO0lHhXo/rDNdEYUKOQdOJQbeLk+k9kghES+dszV0K19os7aJPgi2/2DJTqD+
- I0oI3HKUX71xOwIUPVxTrvI5P895FFPj6zpXKvXz7MCkFGgzZXz6x09L6Nl2rfVctHv4
- M9/llqq+L6Qa3Sa1eOt/+zm1kc26hM5OOcxs3LYb4qXRsyeICR42aHvZXmwQ8BqlFigm
- JI3PWIwtyXByn2tOU/RwGCHjZeLDRqh5cHXZ7O1F8FrBDbjpWG8/GZyYJIU5P7NpSVjT
- sZmv6iqNIqMFR7l8sfAXBdbmqZ4vNEqwpLuU9NBYI5hwi9TZWHM+CqgVCMBllbYc2CEd vg== 
+ in-reply-to; s=selector1; bh=4OjSAsueWCHD1/IBn6ak9mTKXox+dwz04fgbozOtTno=;
+ b=x/yEK6AsBhK7WJ1E8isGy8IYGZQ6X9v+RLHwMZvCkPjUqMaAqjFvt+/wvBnk04wBJ8me
+ SJmnw2Pwhc3Hh/zeR4NqcAkfEZZ+B/XmOFWr0upfmh/55gXNdXGFgpNMC5oYLVcBS/CI
+ 4NE18vMiHrMh9I6ZAw1dLHGl+faub0XTIjRFJMP1hB0HBydv/t+csyUndp0OPMsFI+N4
+ Jr+KGTINw7eFWiPUL8LbOwMNem/Oj/xki3aAw7u1PkpXuX2rYyflvjKnpIUYd3gCyUaA
+ w4Hv6TigkL3/TZCWg8yjEr79DzDFvgGsz0Tw8XxWE/c3wd3gAK4t4SkjjG1NYvzdvAeP kg== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3mtbcpuq2b-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3mtbcpuwyx-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 03 Jan 2023 09:22:56 +0100
+ Tue, 03 Jan 2023 10:00:56 +0100
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id BE78710002A;
- Tue,  3 Jan 2023 09:22:55 +0100 (CET)
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 8C18F10002A;
+ Tue,  3 Jan 2023 10:00:54 +0100 (CET)
 Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id B7E1C212FBC;
- Tue,  3 Jan 2023 09:22:55 +0100 (CET)
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 54739215154;
+ Tue,  3 Jan 2023 10:00:54 +0100 (CET)
 Received: from [10.201.22.153] (10.201.22.153) by SHFDAG1NODE1.st.com
  (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.13; Tue, 3 Jan
- 2023 09:22:54 +0100
-Message-ID: <47381b4c-ee7e-8de6-708d-404234c163bf@foss.st.com>
-Date: Tue, 3 Jan 2023 09:22:53 +0100
+ 2023 10:00:53 +0100
+Message-ID: <c797928a-61ef-8a81-e2c6-4997d200e323@foss.st.com>
+Date: Tue, 3 Jan 2023 10:00:51 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.4.2
@@ -53,20 +53,19 @@ To: Linus Walleij <linus.walleij@linaro.org>, Herbert Xu
  <mcoquelin.stm32@gmail.com>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>
 References: <20221227-ux500-stm32-hash-v1-0-b637ac4cda01@linaro.org>
- <20221227-ux500-stm32-hash-v1-5-b637ac4cda01@linaro.org>
+ <20221227-ux500-stm32-hash-v1-6-b637ac4cda01@linaro.org>
 From: Lionel DEBIEVE <lionel.debieve@foss.st.com>
-In-Reply-To: <20221227-ux500-stm32-hash-v1-5-b637ac4cda01@linaro.org>
+In-Reply-To: <20221227-ux500-stm32-hash-v1-6-b637ac4cda01@linaro.org>
 X-Originating-IP: [10.201.22.153]
 X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SHFDAG1NODE1.st.com
  (10.75.129.69)
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.205,Aquarius:18.0.923,Hydra:6.0.545,FMLib:17.11.122.1
- definitions=2023-01-02_14,2022-12-30_01,2022-06-22_01
+ definitions=2023-01-02_14,2023-01-03_01,2022-06-22_01
 Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-crypto@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH 5/7] crypto: stm32/hash: Wait for idle
- before final CPU xmit
+Subject: Re: [Linux-stm32] [PATCH 6/7] crypto: stm32/hash: Support Ux500 hash
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,52 +77,532 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============5869406940016779646=="
+Content-Type: multipart/mixed; boundary="===============6563215714946969571=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
---===============5869406940016779646==
+--===============6563215714946969571==
 Content-Type: multipart/alternative;
-	boundary="------------lo0UZ1ulDn9JoY7nEqQpnEc9"
+	boundary="------------0EHUg3Vk3y4gAGk6jrCEiR0U"
 Content-Language: en-US
 
---------------lo0UZ1ulDn9JoY7nEqQpnEc9
+--------------0EHUg3Vk3y4gAGk6jrCEiR0U
 Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
 
-Acked-by: Lionel Debieve<lionel.debieve@foss.st.com>
-
 On 12/28/22 00:03, Linus Walleij wrote:
 
-> When calculating the hash using the CPU, right before the final
-> hash calculation, heavy testing on Ux500 reveals that it is wise
-> to wait for the hardware to go idle before calculating the
-> final hash.
+> The Ux500 has a hash block which is an ancestor to the STM32
+> hash block. With some minor code path additions we can
+> support also this variant in the STM32 driver. Differences:
 >
-> The default test vectors mostlt worked fine, but when I used the
-> extensive tests and stress the hardware I ran into this problem.
+> - Ux500 only supports SHA1 and SHA256 (+/- MAC) so we split
+>    up the algorithm registration per-algorithm and register
+>    each algorithm along with its MAC variant separately.
+>
+> - Ux500 does not have an interrupt to indicate that hash
+>    calculation is complete, so we add code paths to handle
+>    polling for completion if the interrupt is missing in the
+>    device tree.
+>
+> - Ux500 is lacking the SR status register, to check if an
+>    operating is complete, we need to poll the HASH_STR_DCAL
+>    bit in the HASH_STR register instead.
+>
+> - Ux500 had the resulting has at address offset 0x0c and
+>    8 32bit registers ahead. We account for this with a special
+>    code path when reading out the hash digest.
+>
+> - Ux500 need a special bit set in the control register before
+>    performing the final hash calculation on an empty message.
+>
+> - Ux500 hashes on empty messages will be performed if the
+>    above bit is set, but are incorrect. For this reason we
+>    just make an inline synchronous hash using a fallback
+>    hash.
+>
+> Tested on the Ux500 Golden device with the extended tests.
 >
 > Signed-off-by: Linus Walleij<linus.walleij@linaro.org>
 > ---
->   drivers/crypto/stm32/stm32-hash.c | 3 +++
->   1 file changed, 3 insertions(+)
+>   drivers/crypto/stm32/stm32-hash.c | 231 ++++++++++++++++++++++++++++++++------
+>   1 file changed, 197 insertions(+), 34 deletions(-)
 >
 > diff --git a/drivers/crypto/stm32/stm32-hash.c b/drivers/crypto/stm32/stm32-hash.c
-> index 5f03be121787..92b2d55d6e93 100644
+> index 92b2d55d6e93..5dd7308f8adb 100644
 > --- a/drivers/crypto/stm32/stm32-hash.c
 > +++ b/drivers/crypto/stm32/stm32-hash.c
-> @@ -362,6 +362,9 @@ static int stm32_hash_xmit_cpu(struct stm32_hash_dev *hdev,
->   		stm32_hash_write(hdev, HASH_DIN, buffer[count]);
->   
->   	if (final) {
-> +		if (stm32_hash_wait_busy(hdev))
-> +			return -ETIMEDOUT;
+> @@ -32,9 +32,11 @@
+>   #define HASH_CR				0x00
+>   #define HASH_DIN			0x04
+>   #define HASH_STR			0x08
+> +#define HASH_UX500_HREG(x)		(0x0c + ((x) * 0x04))
+>   #define HASH_IMR			0x20
+>   #define HASH_SR				0x24
+>   #define HASH_CSR(x)			(0x0F8 + ((x) * 0x04))
 > +
+
+Remove empty line
+
+>   #define HASH_HREG(x)			(0x310 + ((x) * 0x04))
+>   #define HASH_HWCFGR			0x3F0
+>   #define HASH_VER			0x3F4
+> @@ -54,6 +56,10 @@
+>   #define HASH_CR_ALGO_SHA224		0x40000
+>   #define HASH_CR_ALGO_SHA256		0x40080
+>   
+> +#define HASH_CR_UX500_EMPTYMSG		BIT(20)
+> +#define HASH_CR_UX500_ALGO_SHA1		BIT(7)
+> +#define HASH_CR_UX500_ALGO_SHA256	0x0
+> +
+>   /* Interrupt */
+>   #define HASH_DINIE			BIT(0)
+>   #define HASH_DCIE			BIT(1)
+> @@ -157,6 +163,10 @@ struct stm32_hash_algs_info {
+>   struct stm32_hash_pdata {
+>   	struct stm32_hash_algs_info	*algs_info;
+>   	size_t				algs_info_size;
+> +	bool				has_sr;
+> +	bool				has_mdma;
+> +	bool				broken_emptymsg;
+> +	bool				ux500;
+>   };
+>   
+>   struct stm32_hash_dev {
+> @@ -168,6 +178,7 @@ struct stm32_hash_dev {
+>   	phys_addr_t		phys_base;
+>   	bool			dma_mode;
+>   	u32			dma_maxburst;
+> +	bool			polled;
+>   
+>   	struct ahash_request	*req;
+>   	struct crypto_engine	*engine;
+> @@ -208,6 +219,11 @@ static inline int stm32_hash_wait_busy(struct stm32_hash_dev *hdev)
+>   {
+>   	u32 status;
+>   
+> +	/* The Ux500 lacks the special status register, we poll the DCAL bit instead */
+> +	if (!hdev->pdata->has_sr)
+> +		return readl_relaxed_poll_timeout(hdev->io_base + HASH_STR, status,
+> +						  !(status & HASH_STR_DCAL), 10, 10000);
+> +
+>   	return readl_relaxed_poll_timeout(hdev->io_base + HASH_SR, status,
+>   				   !(status & HASH_SR_BUSY), 10, 10000);
+>   }
+> @@ -249,7 +265,7 @@ static int stm32_hash_write_key(struct stm32_hash_dev *hdev)
+>   	return 0;
+>   }
+>   
+> -static void stm32_hash_write_ctrl(struct stm32_hash_dev *hdev)
+> +static void stm32_hash_write_ctrl(struct stm32_hash_dev *hdev, int bufcnt)
+>   {
+>   	struct stm32_hash_request_ctx *rctx = ahash_request_ctx(hdev->req);
+>   	struct crypto_ahash *tfm = crypto_ahash_reqtfm(hdev->req);
+> @@ -263,13 +279,19 @@ static void stm32_hash_write_ctrl(struct stm32_hash_dev *hdev)
+>   			reg |= HASH_CR_ALGO_MD5;
+>   			break;
+>   		case HASH_FLAGS_SHA1:
+> -			reg |= HASH_CR_ALGO_SHA1;
+> +			if (hdev->pdata->ux500)
+> +				reg |= HASH_CR_UX500_ALGO_SHA1;
+> +			else
+> +				reg |= HASH_CR_ALGO_SHA1;
+>   			break;
+>   		case HASH_FLAGS_SHA224:
+>   			reg |= HASH_CR_ALGO_SHA224;
+>   			break;
+>   		case HASH_FLAGS_SHA256:
+> -			reg |= HASH_CR_ALGO_SHA256;
+> +			if (hdev->pdata->ux500)
+> +				reg |= HASH_CR_UX500_ALGO_SHA256;
+> +			else
+> +				reg |= HASH_CR_ALGO_SHA256;
+>   			break;
+>   		default:
+>   			reg |= HASH_CR_ALGO_MD5;
+> @@ -284,7 +306,15 @@ static void stm32_hash_write_ctrl(struct stm32_hash_dev *hdev)
+>   				reg |= HASH_CR_LKEY;
+>   		}
+>   
+> -		stm32_hash_write(hdev, HASH_IMR, HASH_DCIE);
+> +		/*
+> +		 * On the Ux500 we need to set a special flag to indicate that
+> +		 * the message is zero length.
+> +		 */
+> +		if (hdev->pdata->ux500 && bufcnt == 0)
+> +			reg |= HASH_CR_UX500_EMPTYMSG;
+> +
+> +		if (!hdev->polled)
+> +			stm32_hash_write(hdev, HASH_IMR, HASH_DCIE);
+>   
+>   		stm32_hash_write(hdev, HASH_CR, reg);
+>   
+> @@ -345,7 +375,7 @@ static int stm32_hash_xmit_cpu(struct stm32_hash_dev *hdev,
+>   
+>   	hdev->flags |= HASH_FLAGS_CPU;
+>   
+> -	stm32_hash_write_ctrl(hdev);
+> +	stm32_hash_write_ctrl(hdev, length);
+>   
+>   	if (stm32_hash_wait_busy(hdev))
+>   		return -ETIMEDOUT;
+> @@ -366,6 +396,7 @@ static int stm32_hash_xmit_cpu(struct stm32_hash_dev *hdev,
+>   			return -ETIMEDOUT;
+>   
 >   		stm32_hash_set_nblw(hdev, length);
+> +
+
+Remove empty line
+
 >   		reg = stm32_hash_read(hdev, HASH_STR);
 >   		reg |= HASH_STR_DCAL;
+>   		stm32_hash_write(hdev, HASH_STR, reg);
+> @@ -403,6 +434,14 @@ static int stm32_hash_update_cpu(struct stm32_hash_dev *hdev)
+>   		bufcnt = rctx->bufcnt;
+>   		rctx->bufcnt = 0;
+>   		err = stm32_hash_xmit_cpu(hdev, rctx->buffer, bufcnt, 1);
+> +
+> +		/* If we have an IRQ, wait for that, else poll for completion */
+> +		if (hdev->polled) {
+> +			if (stm32_hash_wait_busy(hdev))
+> +				return -ETIMEDOUT;
+> +			hdev->flags |= HASH_FLAGS_OUTPUT_READY;
+> +			err = 0;
+> +		}
+>   	}
+>   
+>   	return err;
+> @@ -433,11 +472,12 @@ static int stm32_hash_xmit_dma(struct stm32_hash_dev *hdev,
+>   
+>   	reg = stm32_hash_read(hdev, HASH_CR);
+>   
+> -	if (mdma)
+> -		reg |= HASH_CR_MDMAT;
+> -	else
+> -		reg &= ~HASH_CR_MDMAT;
+> -
+> +	if (!hdev->pdata->has_mdma) {
+> +		if (mdma)
+> +			reg |= HASH_CR_MDMAT;
+> +		else
+> +			reg &= ~HASH_CR_MDMAT;
+> +	}
+>   	reg |= HASH_CR_DMAE;
+>   
+>   	stm32_hash_write(hdev, HASH_CR, reg);
+> @@ -558,7 +598,7 @@ static int stm32_hash_dma_send(struct stm32_hash_dev *hdev)
+>   	if (rctx->nents < 0)
+>   		return -EINVAL;
+>   
+> -	stm32_hash_write_ctrl(hdev);
+> +	stm32_hash_write_ctrl(hdev, rctx->total);
+>   
+>   	if (hdev->flags & HASH_FLAGS_HMAC) {
+>   		err = stm32_hash_hmac_dma_send(hdev);
+> @@ -745,16 +785,75 @@ static int stm32_hash_final_req(struct stm32_hash_dev *hdev)
+>   	else
+>   		err = stm32_hash_xmit_cpu(hdev, rctx->buffer, buflen, 1);
+>   
+> +	/* If we have an IRQ, wait for that, else poll for completion */
+> +	if (hdev->polled) {
+> +		if (stm32_hash_wait_busy(hdev))
+> +			return -ETIMEDOUT;
+> +		hdev->flags |= HASH_FLAGS_OUTPUT_READY;
+> +		/* Caller will call stm32_hash_finish_req() */
+> +		err = 0;
+> +	}
+>   
+>   	return err;
+>   }
+>   
+> +static void stm32_hash_emptymsg_fallback(struct ahash_request *req)
+> +{
+> +	struct crypto_ahash *ahash = crypto_ahash_reqtfm(req);
+> +	struct stm32_hash_ctx *ctx = crypto_ahash_ctx(ahash);
+> +	struct stm32_hash_request_ctx *rctx = ahash_request_ctx(req);
+> +	struct stm32_hash_dev *hdev = rctx->hdev;
+> +	struct crypto_shash *xtfm;
+> +	struct shash_desc *sdesc;
+> +	size_t len;
+> +	int ret;
+> +
+> +	dev_dbg(hdev->dev, "use fallback message size 0 key size %d\n", ctx->keylen);
+> +	xtfm = crypto_alloc_shash(crypto_ahash_alg_name(ahash),
+> +				  0, CRYPTO_ALG_NEED_FALLBACK);
+> +	if (IS_ERR(xtfm)) {
+> +		dev_err(hdev->dev, "failed to allocate syncronous fallback\n");
+
+s/syncronous/synchronous
+
+> +		return;
+> +	}
+> +
+> +	len = sizeof(*sdesc) + crypto_shash_descsize(xtfm);
+> +	sdesc = kmalloc(len, GFP_KERNEL);
+> +	if (!sdesc)
+> +		goto err_hashkey_sdesc;
+> +	sdesc->tfm = xtfm;
+> +
+> +	if (ctx->keylen) {
+> +		ret = crypto_shash_setkey(xtfm, ctx->key, ctx->keylen);
+> +		if (ret) {
+> +			dev_err(hdev->dev, "failed to set key ret=%d\n", ret);
+> +			goto err_hashkey_sdesc;
+
+Must call err_hashkey here.
+
+> +		}
+> +	}
+> +
+> +	ret = crypto_shash_init(sdesc);
+> +	if (ret) {
+> +		dev_err(hdev->dev, "shash init error ret=%d\n", ret);
+> +		goto err_hashkey;
+> +	}
+
+Add empty line here
+
+> +	ret = crypto_shash_finup(sdesc, NULL, 0, rctx->digest);
+> +	if (ret)
+> +		dev_err(hdev->dev, "shash finup error\n");
+> +err_hashkey:
+> +	kfree(sdesc);
+> +err_hashkey_sdesc:
+> +	crypto_free_shash(xtfm);
+> +}
+> +
+>   static void stm32_hash_copy_hash(struct ahash_request *req)
+>   {
+>   	struct stm32_hash_request_ctx *rctx = ahash_request_ctx(req);
+> +	struct stm32_hash_dev *hdev = rctx->hdev;
+>   	__be32 *hash = (void *)rctx->digest;
+>   	unsigned int i, hashsize;
+>   
+> +	if (hdev->pdata->broken_emptymsg && !req->nbytes)
+> +		return stm32_hash_emptymsg_fallback(req);
+> +
+>   	switch (rctx->flags & HASH_FLAGS_ALGO_MASK) {
+>   	case HASH_FLAGS_MD5:
+>   		hashsize = MD5_DIGEST_SIZE;
+> @@ -772,9 +871,14 @@ static void stm32_hash_copy_hash(struct ahash_request *req)
+>   		return;
+>   	}
+>   
+> -	for (i = 0; i < hashsize / sizeof(u32); i++)
+> -		hash[i] = cpu_to_be32(stm32_hash_read(rctx->hdev,
+> -						      HASH_HREG(i)));
+> +	for (i = 0; i < hashsize / sizeof(u32); i++) {
+> +		if (hdev->pdata->ux500)
+> +			hash[i] = cpu_to_be32(stm32_hash_read(hdev,
+> +					      HASH_UX500_HREG(i)));
+> +		else
+> +			hash[i] = cpu_to_be32(stm32_hash_read(hdev,
+> +					      HASH_HREG(i)));
+> +	}
+>   }
+>   
+>   static int stm32_hash_finish(struct ahash_request *req)
+> @@ -977,7 +1081,8 @@ static int stm32_hash_export(struct ahash_request *req, void *out)
+>   
+>   	preg = rctx->hw_context;
+>   
+> -	*preg++ = stm32_hash_read(hdev, HASH_IMR);
+> +	if (!hdev->pdata->ux500)
+> +		*preg++ = stm32_hash_read(hdev, HASH_IMR);
+>   	*preg++ = stm32_hash_read(hdev, HASH_STR);
+>   	*preg++ = stm32_hash_read(hdev, HASH_CR);
+>   	for (i = 0; i < HASH_CSR_REGISTER_NUMBER; i++)
+> @@ -1006,7 +1111,8 @@ static int stm32_hash_import(struct ahash_request *req, const void *in)
+>   
+>   	pm_runtime_get_sync(hdev->dev);
+>   
+> -	stm32_hash_write(hdev, HASH_IMR, *preg++);
+> +	if (!hdev->pdata->ux500)
+> +		stm32_hash_write(hdev, HASH_IMR, *preg++);
+>   	stm32_hash_write(hdev, HASH_STR, *preg++);
+>   	stm32_hash_write(hdev, HASH_CR, *preg);
+>   	reg = *preg++ | HASH_CR_INIT;
+> @@ -1125,7 +1231,7 @@ static irqreturn_t stm32_hash_irq_handler(int irq, void *dev_id)
+>   	return IRQ_NONE;
+>   }
+>   
+> -static struct ahash_alg algs_md5_sha1[] = {
+> +static struct ahash_alg algs_md5[] = {
+>   	{
+>   		.init = stm32_hash_init,
+>   		.update = stm32_hash_update,
+> @@ -1177,6 +1283,9 @@ static struct ahash_alg algs_md5_sha1[] = {
+>   			}
+>   		}
+>   	},
+> +};
+> +
+> +static struct ahash_alg algs_sha1[] = {
+>   	{
+>   		.init = stm32_hash_init,
+>   		.update = stm32_hash_update,
+> @@ -1230,7 +1339,7 @@ static struct ahash_alg algs_md5_sha1[] = {
+>   	},
+>   };
+>   
+> -static struct ahash_alg algs_sha224_sha256[] = {
+> +static struct ahash_alg algs_sha224[] = {
+>   	{
+>   		.init = stm32_hash_init,
+>   		.update = stm32_hash_update,
+> @@ -1282,6 +1391,9 @@ static struct ahash_alg algs_sha224_sha256[] = {
+>   			}
+>   		}
+>   	},
+> +};
+> +
+> +static struct ahash_alg algs_sha256[] = {
+>   	{
+>   		.init = stm32_hash_init,
+>   		.update = stm32_hash_update,
+> @@ -1374,35 +1486,73 @@ static int stm32_hash_unregister_algs(struct stm32_hash_dev *hdev)
+>   	return 0;
+>   }
+>   
+> +static struct stm32_hash_algs_info stm32_hash_algs_info_ux500[] = {
+> +	{
+> +		.algs_list	= algs_sha1,
+> +		.size		= ARRAY_SIZE(algs_sha1),
+> +	},
+> +	{
+> +		.algs_list	= algs_sha256,
+> +		.size		= ARRAY_SIZE(algs_sha256),
+> +	},
+> +};
+> +
+> +static const struct stm32_hash_pdata stm32_hash_pdata_ux500 = {
+> +	.algs_info	= stm32_hash_algs_info_ux500,
+> +	.algs_info_size	= ARRAY_SIZE(stm32_hash_algs_info_ux500),
+> +	.broken_emptymsg = true,
+> +	.ux500		= true,
+> +};
+> +
+>   static struct stm32_hash_algs_info stm32_hash_algs_info_stm32f4[] = {
+>   	{
+> -		.algs_list	= algs_md5_sha1,
+> -		.size		= ARRAY_SIZE(algs_md5_sha1),
+> +		.algs_list	= algs_md5,
+> +		.size		= ARRAY_SIZE(algs_md5),
+> +	},
+> +	{
+> +		.algs_list	= algs_sha1,
+> +		.size		= ARRAY_SIZE(algs_sha1),
+>   	},
+>   };
+>   
+>   static const struct stm32_hash_pdata stm32_hash_pdata_stm32f4 = {
+>   	.algs_info	= stm32_hash_algs_info_stm32f4,
+>   	.algs_info_size	= ARRAY_SIZE(stm32_hash_algs_info_stm32f4),
+> +	.has_sr		= true,
+> +	.has_mdma	= true,
+>   };
+>   
+>   static struct stm32_hash_algs_info stm32_hash_algs_info_stm32f7[] = {
+>   	{
+> -		.algs_list	= algs_md5_sha1,
+> -		.size		= ARRAY_SIZE(algs_md5_sha1),
+> +		.algs_list	= algs_md5,
+> +		.size		= ARRAY_SIZE(algs_md5),
+> +	},
+> +	{
+> +		.algs_list	= algs_sha1,
+> +		.size		= ARRAY_SIZE(algs_sha1),
+> +	},
+> +	{
+> +		.algs_list	= algs_sha224,
+> +		.size		= ARRAY_SIZE(algs_sha224),
+>   	},
+>   	{
+> -		.algs_list	= algs_sha224_sha256,
+> -		.size		= ARRAY_SIZE(algs_sha224_sha256),
+> +		.algs_list	= algs_sha256,
+> +		.size		= ARRAY_SIZE(algs_sha256),
+>   	},
+>   };
+>   
+>   static const struct stm32_hash_pdata stm32_hash_pdata_stm32f7 = {
+>   	.algs_info	= stm32_hash_algs_info_stm32f7,
+>   	.algs_info_size	= ARRAY_SIZE(stm32_hash_algs_info_stm32f7),
+> +	.has_sr		= true,
+> +	.has_mdma	= true,
+
+Initial my fault but prefer to call it mdmat rather than mdma which is the DMA name on STM32MP15
+
+>   };
+>   
+>   static const struct of_device_id stm32_hash_of_match[] = {
+> +	{
+> +		.compatible = "stericsson,ux500-hash",
+> +		.data = &stm32_hash_pdata_ux500,
+> +	},
+>   	{
+>   		.compatible = "st,stm32f456-hash",
+>   		.data = &stm32_hash_pdata_stm32f4,
+> @@ -1456,16 +1606,23 @@ static int stm32_hash_probe(struct platform_device *pdev)
+>   	if (ret)
+>   		return ret;
+>   
+> -	irq = platform_get_irq(pdev, 0);
+> -	if (irq < 0)
+> +	irq = platform_get_irq_optional(pdev, 0);
+> +	if (irq < 0 && irq != -ENXIO)
+>   		return irq;
+>   
+> -	ret = devm_request_threaded_irq(dev, irq, stm32_hash_irq_handler,
+> -					stm32_hash_irq_thread, IRQF_ONESHOT,
+> -					dev_name(dev), hdev);
+> -	if (ret) {
+> -		dev_err(dev, "Cannot grab IRQ\n");
+> -		return ret;
+> +	if (irq > 0) {
+> +		ret = devm_request_threaded_irq(dev, irq,
+> +						stm32_hash_irq_handler,
+> +						stm32_hash_irq_thread,
+> +						IRQF_ONESHOT,
+> +						dev_name(dev), hdev);
+> +		if (ret) {
+> +			dev_err(dev, "Cannot grab IRQ\n");
+> +			return ret;
+> +		}
+> +	} else {
+> +		dev_info(dev, "No IRQ, use polling mode\n");
+> +		hdev->polled = true;
+>   	}
+>   
+>   	hdev->clk = devm_clk_get(&pdev->dev, NULL);
+> @@ -1507,9 +1664,11 @@ static int stm32_hash_probe(struct platform_device *pdev)
+>   	case 0:
+>   		break;
+>   	case -ENOENT:
+> -		dev_dbg(dev, "DMA mode not available\n");
+> +	case -ENODEV:
+> +		dev_info(dev, "DMA mode not available\n");
+>   		break;
+>   	default:
+> +		dev_err(dev, "DMA init error %d\n", ret);
+>   		goto err_dma;
+>   	}
+>   
+> @@ -1528,7 +1687,11 @@ static int stm32_hash_probe(struct platform_device *pdev)
+>   	if (ret)
+>   		goto err_engine_start;
+>   
+> -	hdev->dma_mode = !!stm32_hash_read(hdev, HASH_HWCFGR);
+> +	if (hdev->pdata->ux500)
+> +		/* FIXME: implement DMA mode for Ux500 */
+> +		hdev->dma_mode = false;
+> +	else
+> +		hdev->dma_mode = !!stm32_hash_read(hdev, HASH_HWCFGR);
+>   
+>   	/* Register algos */
+>   	ret = stm32_hash_register_algs(hdev);
 >
---------------lo0UZ1ulDn9JoY7nEqQpnEc9
+--------------0EHUg3Vk3y4gAGk6jrCEiR0U
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
@@ -132,49 +611,544 @@ Content-Transfer-Encoding: 7bit
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   </head>
   <body>
-    <pre class="moz-quote-pre" wrap="">Acked-by: Lionel Debieve <a class="moz-txt-link-rfc2396E" href="mailto:lionel.debieve@foss.st.com">&lt;lionel.debieve@foss.st.com&gt;</a></pre>
-    <p></p>
     <div class="moz-cite-prefix">
       <pre>On 12/28/22 00:03, Linus Walleij wrote:</pre>
     </div>
     <blockquote type="cite"
-      cite="mid:20221227-ux500-stm32-hash-v1-5-b637ac4cda01@linaro.org">
-      <pre class="moz-quote-pre" wrap="">When calculating the hash using the CPU, right before the final
-hash calculation, heavy testing on Ux500 reveals that it is wise
-to wait for the hardware to go idle before calculating the
-final hash.
+      cite="mid:20221227-ux500-stm32-hash-v1-6-b637ac4cda01@linaro.org">
+      <pre class="moz-quote-pre" wrap="">The Ux500 has a hash block which is an ancestor to the STM32
+hash block. With some minor code path additions we can
+support also this variant in the STM32 driver. Differences:
 
-The default test vectors mostlt worked fine, but when I used the
-extensive tests and stress the hardware I ran into this problem.
+- Ux500 only supports SHA1 and SHA256 (+/- MAC) so we split
+  up the algorithm registration per-algorithm and register
+  each algorithm along with its MAC variant separately.
+
+- Ux500 does not have an interrupt to indicate that hash
+  calculation is complete, so we add code paths to handle
+  polling for completion if the interrupt is missing in the
+  device tree.
+
+- Ux500 is lacking the SR status register, to check if an
+  operating is complete, we need to poll the HASH_STR_DCAL
+  bit in the HASH_STR register instead.
+
+- Ux500 had the resulting has at address offset 0x0c and
+  8 32bit registers ahead. We account for this with a special
+  code path when reading out the hash digest.
+
+- Ux500 need a special bit set in the control register before
+  performing the final hash calculation on an empty message.
+
+- Ux500 hashes on empty messages will be performed if the
+  above bit is set, but are incorrect. For this reason we
+  just make an inline synchronous hash using a fallback
+  hash.
+
+Tested on the Ux500 Golden device with the extended tests.
 
 Signed-off-by: Linus Walleij <a class="moz-txt-link-rfc2396E" href="mailto:linus.walleij@linaro.org">&lt;linus.walleij@linaro.org&gt;</a>
 ---
- drivers/crypto/stm32/stm32-hash.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/crypto/stm32/stm32-hash.c | 231 ++++++++++++++++++++++++++++++++------
+ 1 file changed, 197 insertions(+), 34 deletions(-)
 
 diff --git a/drivers/crypto/stm32/stm32-hash.c b/drivers/crypto/stm32/stm32-hash.c
-index 5f03be121787..92b2d55d6e93 100644
+index 92b2d55d6e93..5dd7308f8adb 100644
 --- a/drivers/crypto/stm32/stm32-hash.c
 +++ b/drivers/crypto/stm32/stm32-hash.c
-@@ -362,6 +362,9 @@ static int stm32_hash_xmit_cpu(struct stm32_hash_dev *hdev,
- 		stm32_hash_write(hdev, HASH_DIN, buffer[count]);
+@@ -32,9 +32,11 @@
+ #define HASH_CR				0x00
+ #define HASH_DIN			0x04
+ #define HASH_STR			0x08
++#define HASH_UX500_HREG(x)		(0x0c + ((x) * 0x04))
+ #define HASH_IMR			0x20
+ #define HASH_SR				0x24
+ #define HASH_CSR(x)			(0x0F8 + ((x) * 0x04))
++</pre>
+    </blockquote>
+    <pre>Remove empty line</pre>
+    <blockquote type="cite"
+      cite="mid:20221227-ux500-stm32-hash-v1-6-b637ac4cda01@linaro.org">
+      <pre class="moz-quote-pre" wrap="">
+ #define HASH_HREG(x)			(0x310 + ((x) * 0x04))
+ #define HASH_HWCFGR			0x3F0
+ #define HASH_VER			0x3F4
+@@ -54,6 +56,10 @@
+ #define HASH_CR_ALGO_SHA224		0x40000
+ #define HASH_CR_ALGO_SHA256		0x40080
  
- 	if (final) {
-+		if (stm32_hash_wait_busy(hdev))
-+			return -ETIMEDOUT;
++#define HASH_CR_UX500_EMPTYMSG		BIT(20)
++#define HASH_CR_UX500_ALGO_SHA1		BIT(7)
++#define HASH_CR_UX500_ALGO_SHA256	0x0
 +
+ /* Interrupt */
+ #define HASH_DINIE			BIT(0)
+ #define HASH_DCIE			BIT(1)
+@@ -157,6 +163,10 @@ struct stm32_hash_algs_info {
+ struct stm32_hash_pdata {
+ 	struct stm32_hash_algs_info	*algs_info;
+ 	size_t				algs_info_size;
++	bool				has_sr;
++	bool				has_mdma;
++	bool				broken_emptymsg;
++	bool				ux500;
+ };
+ 
+ struct stm32_hash_dev {
+@@ -168,6 +178,7 @@ struct stm32_hash_dev {
+ 	phys_addr_t		phys_base;
+ 	bool			dma_mode;
+ 	u32			dma_maxburst;
++	bool			polled;
+ 
+ 	struct ahash_request	*req;
+ 	struct crypto_engine	*engine;
+@@ -208,6 +219,11 @@ static inline int stm32_hash_wait_busy(struct stm32_hash_dev *hdev)
+ {
+ 	u32 status;
+ 
++	/* The Ux500 lacks the special status register, we poll the DCAL bit instead */
++	if (!hdev-&gt;pdata-&gt;has_sr)
++		return readl_relaxed_poll_timeout(hdev-&gt;io_base + HASH_STR, status,
++						  !(status &amp; HASH_STR_DCAL), 10, 10000);
++
+ 	return readl_relaxed_poll_timeout(hdev-&gt;io_base + HASH_SR, status,
+ 				   !(status &amp; HASH_SR_BUSY), 10, 10000);
+ }
+@@ -249,7 +265,7 @@ static int stm32_hash_write_key(struct stm32_hash_dev *hdev)
+ 	return 0;
+ }
+ 
+-static void stm32_hash_write_ctrl(struct stm32_hash_dev *hdev)
++static void stm32_hash_write_ctrl(struct stm32_hash_dev *hdev, int bufcnt)
+ {
+ 	struct stm32_hash_request_ctx *rctx = ahash_request_ctx(hdev-&gt;req);
+ 	struct crypto_ahash *tfm = crypto_ahash_reqtfm(hdev-&gt;req);
+@@ -263,13 +279,19 @@ static void stm32_hash_write_ctrl(struct stm32_hash_dev *hdev)
+ 			reg |= HASH_CR_ALGO_MD5;
+ 			break;
+ 		case HASH_FLAGS_SHA1:
+-			reg |= HASH_CR_ALGO_SHA1;
++			if (hdev-&gt;pdata-&gt;ux500)
++				reg |= HASH_CR_UX500_ALGO_SHA1;
++			else
++				reg |= HASH_CR_ALGO_SHA1;
+ 			break;
+ 		case HASH_FLAGS_SHA224:
+ 			reg |= HASH_CR_ALGO_SHA224;
+ 			break;
+ 		case HASH_FLAGS_SHA256:
+-			reg |= HASH_CR_ALGO_SHA256;
++			if (hdev-&gt;pdata-&gt;ux500)
++				reg |= HASH_CR_UX500_ALGO_SHA256;
++			else
++				reg |= HASH_CR_ALGO_SHA256;
+ 			break;
+ 		default:
+ 			reg |= HASH_CR_ALGO_MD5;
+@@ -284,7 +306,15 @@ static void stm32_hash_write_ctrl(struct stm32_hash_dev *hdev)
+ 				reg |= HASH_CR_LKEY;
+ 		}
+ 
+-		stm32_hash_write(hdev, HASH_IMR, HASH_DCIE);
++		/*
++		 * On the Ux500 we need to set a special flag to indicate that
++		 * the message is zero length.
++		 */
++		if (hdev-&gt;pdata-&gt;ux500 &amp;&amp; bufcnt == 0)
++			reg |= HASH_CR_UX500_EMPTYMSG;
++
++		if (!hdev-&gt;polled)
++			stm32_hash_write(hdev, HASH_IMR, HASH_DCIE);
+ 
+ 		stm32_hash_write(hdev, HASH_CR, reg);
+ 
+@@ -345,7 +375,7 @@ static int stm32_hash_xmit_cpu(struct stm32_hash_dev *hdev,
+ 
+ 	hdev-&gt;flags |= HASH_FLAGS_CPU;
+ 
+-	stm32_hash_write_ctrl(hdev);
++	stm32_hash_write_ctrl(hdev, length);
+ 
+ 	if (stm32_hash_wait_busy(hdev))
+ 		return -ETIMEDOUT;
+@@ -366,6 +396,7 @@ static int stm32_hash_xmit_cpu(struct stm32_hash_dev *hdev,
+ 			return -ETIMEDOUT;
+ 
  		stm32_hash_set_nblw(hdev, length);
++</pre>
+    </blockquote>
+    <pre>Remove empty line</pre>
+    <blockquote type="cite"
+      cite="mid:20221227-ux500-stm32-hash-v1-6-b637ac4cda01@linaro.org">
+      <pre class="moz-quote-pre" wrap="">
  		reg = stm32_hash_read(hdev, HASH_STR);
  		reg |= HASH_STR_DCAL;
+ 		stm32_hash_write(hdev, HASH_STR, reg);
+@@ -403,6 +434,14 @@ static int stm32_hash_update_cpu(struct stm32_hash_dev *hdev)
+ 		bufcnt = rctx-&gt;bufcnt;
+ 		rctx-&gt;bufcnt = 0;
+ 		err = stm32_hash_xmit_cpu(hdev, rctx-&gt;buffer, bufcnt, 1);
++
++		/* If we have an IRQ, wait for that, else poll for completion */
++		if (hdev-&gt;polled) {
++			if (stm32_hash_wait_busy(hdev))
++				return -ETIMEDOUT;
++			hdev-&gt;flags |= HASH_FLAGS_OUTPUT_READY;
++			err = 0;
++		}
+ 	}
+ 
+ 	return err;
+@@ -433,11 +472,12 @@ static int stm32_hash_xmit_dma(struct stm32_hash_dev *hdev,
+ 
+ 	reg = stm32_hash_read(hdev, HASH_CR);
+ 
+-	if (mdma)
+-		reg |= HASH_CR_MDMAT;
+-	else
+-		reg &amp;= ~HASH_CR_MDMAT;
+-
++	if (!hdev-&gt;pdata-&gt;has_mdma) {
++		if (mdma)
++			reg |= HASH_CR_MDMAT;
++		else
++			reg &amp;= ~HASH_CR_MDMAT;
++	}
+ 	reg |= HASH_CR_DMAE;
+ 
+ 	stm32_hash_write(hdev, HASH_CR, reg);
+@@ -558,7 +598,7 @@ static int stm32_hash_dma_send(struct stm32_hash_dev *hdev)
+ 	if (rctx-&gt;nents &lt; 0)
+ 		return -EINVAL;
+ 
+-	stm32_hash_write_ctrl(hdev);
++	stm32_hash_write_ctrl(hdev, rctx-&gt;total);
+ 
+ 	if (hdev-&gt;flags &amp; HASH_FLAGS_HMAC) {
+ 		err = stm32_hash_hmac_dma_send(hdev);
+@@ -745,16 +785,75 @@ static int stm32_hash_final_req(struct stm32_hash_dev *hdev)
+ 	else
+ 		err = stm32_hash_xmit_cpu(hdev, rctx-&gt;buffer, buflen, 1);
+ 
++	/* If we have an IRQ, wait for that, else poll for completion */
++	if (hdev-&gt;polled) {
++		if (stm32_hash_wait_busy(hdev))
++			return -ETIMEDOUT;
++		hdev-&gt;flags |= HASH_FLAGS_OUTPUT_READY;
++		/* Caller will call stm32_hash_finish_req() */
++		err = 0;
++	}
+ 
+ 	return err;
+ }
+ 
++static void stm32_hash_emptymsg_fallback(struct ahash_request *req)
++{
++	struct crypto_ahash *ahash = crypto_ahash_reqtfm(req);
++	struct stm32_hash_ctx *ctx = crypto_ahash_ctx(ahash);
++	struct stm32_hash_request_ctx *rctx = ahash_request_ctx(req);
++	struct stm32_hash_dev *hdev = rctx-&gt;hdev;
++	struct crypto_shash *xtfm;
++	struct shash_desc *sdesc;
++	size_t len;
++	int ret;
++
++	dev_dbg(hdev-&gt;dev, "use fallback message size 0 key size %d\n", ctx-&gt;keylen);
++	xtfm = crypto_alloc_shash(crypto_ahash_alg_name(ahash),
++				  0, CRYPTO_ALG_NEED_FALLBACK);
++	if (IS_ERR(xtfm)) {
++		dev_err(hdev-&gt;dev, "failed to allocate syncronous fallback\n");</pre>
+    </blockquote>
+    <pre>s/syncronous/synchronous
+</pre>
+    <blockquote type="cite"
+      cite="mid:20221227-ux500-stm32-hash-v1-6-b637ac4cda01@linaro.org">
+      <pre class="moz-quote-pre" wrap="">
++		return;
++	}
++
++	len = sizeof(*sdesc) + crypto_shash_descsize(xtfm);
++	sdesc = kmalloc(len, GFP_KERNEL);
++	if (!sdesc)
++		goto err_hashkey_sdesc;
++	sdesc-&gt;tfm = xtfm;
++
++	if (ctx-&gt;keylen) {
++		ret = crypto_shash_setkey(xtfm, ctx-&gt;key, ctx-&gt;keylen);
++		if (ret) {
++			dev_err(hdev-&gt;dev, "failed to set key ret=%d\n", ret);
++			goto err_hashkey_sdesc;</pre>
+    </blockquote>
+    <br>
+    <pre>Must call err_hashkey here.
+</pre>
+    <blockquote type="cite"
+      cite="mid:20221227-ux500-stm32-hash-v1-6-b637ac4cda01@linaro.org">
+      <pre class="moz-quote-pre" wrap="">
++		}
++	}
++
++	ret = crypto_shash_init(sdesc);
++	if (ret) {
++		dev_err(hdev-&gt;dev, "shash init error ret=%d\n", ret);
++		goto err_hashkey;
++	}</pre>
+    </blockquote>
+    <pre>Add empty line here</pre>
+    <blockquote type="cite"
+      cite="mid:20221227-ux500-stm32-hash-v1-6-b637ac4cda01@linaro.org">
+      <pre class="moz-quote-pre" wrap="">
++	ret = crypto_shash_finup(sdesc, NULL, 0, rctx-&gt;digest);
++	if (ret)
++		dev_err(hdev-&gt;dev, "shash finup error\n");
++err_hashkey:
++	kfree(sdesc);
++err_hashkey_sdesc:
++	crypto_free_shash(xtfm);
++}
++
+ static void stm32_hash_copy_hash(struct ahash_request *req)
+ {
+ 	struct stm32_hash_request_ctx *rctx = ahash_request_ctx(req);
++	struct stm32_hash_dev *hdev = rctx-&gt;hdev;
+ 	__be32 *hash = (void *)rctx-&gt;digest;
+ 	unsigned int i, hashsize;
+ 
++	if (hdev-&gt;pdata-&gt;broken_emptymsg &amp;&amp; !req-&gt;nbytes)
++		return stm32_hash_emptymsg_fallback(req);
++
+ 	switch (rctx-&gt;flags &amp; HASH_FLAGS_ALGO_MASK) {
+ 	case HASH_FLAGS_MD5:
+ 		hashsize = MD5_DIGEST_SIZE;
+@@ -772,9 +871,14 @@ static void stm32_hash_copy_hash(struct ahash_request *req)
+ 		return;
+ 	}
+ 
+-	for (i = 0; i &lt; hashsize / sizeof(u32); i++)
+-		hash[i] = cpu_to_be32(stm32_hash_read(rctx-&gt;hdev,
+-						      HASH_HREG(i)));
++	for (i = 0; i &lt; hashsize / sizeof(u32); i++) {
++		if (hdev-&gt;pdata-&gt;ux500)
++			hash[i] = cpu_to_be32(stm32_hash_read(hdev,
++					      HASH_UX500_HREG(i)));
++		else
++			hash[i] = cpu_to_be32(stm32_hash_read(hdev,
++					      HASH_HREG(i)));
++	}
+ }
+ 
+ static int stm32_hash_finish(struct ahash_request *req)
+@@ -977,7 +1081,8 @@ static int stm32_hash_export(struct ahash_request *req, void *out)
+ 
+ 	preg = rctx-&gt;hw_context;
+ 
+-	*preg++ = stm32_hash_read(hdev, HASH_IMR);
++	if (!hdev-&gt;pdata-&gt;ux500)
++		*preg++ = stm32_hash_read(hdev, HASH_IMR);
+ 	*preg++ = stm32_hash_read(hdev, HASH_STR);
+ 	*preg++ = stm32_hash_read(hdev, HASH_CR);
+ 	for (i = 0; i &lt; HASH_CSR_REGISTER_NUMBER; i++)
+@@ -1006,7 +1111,8 @@ static int stm32_hash_import(struct ahash_request *req, const void *in)
+ 
+ 	pm_runtime_get_sync(hdev-&gt;dev);
+ 
+-	stm32_hash_write(hdev, HASH_IMR, *preg++);
++	if (!hdev-&gt;pdata-&gt;ux500)
++		stm32_hash_write(hdev, HASH_IMR, *preg++);
+ 	stm32_hash_write(hdev, HASH_STR, *preg++);
+ 	stm32_hash_write(hdev, HASH_CR, *preg);
+ 	reg = *preg++ | HASH_CR_INIT;
+@@ -1125,7 +1231,7 @@ static irqreturn_t stm32_hash_irq_handler(int irq, void *dev_id)
+ 	return IRQ_NONE;
+ }
+ 
+-static struct ahash_alg algs_md5_sha1[] = {
++static struct ahash_alg algs_md5[] = {
+ 	{
+ 		.init = stm32_hash_init,
+ 		.update = stm32_hash_update,
+@@ -1177,6 +1283,9 @@ static struct ahash_alg algs_md5_sha1[] = {
+ 			}
+ 		}
+ 	},
++};
++
++static struct ahash_alg algs_sha1[] = {
+ 	{
+ 		.init = stm32_hash_init,
+ 		.update = stm32_hash_update,
+@@ -1230,7 +1339,7 @@ static struct ahash_alg algs_md5_sha1[] = {
+ 	},
+ };
+ 
+-static struct ahash_alg algs_sha224_sha256[] = {
++static struct ahash_alg algs_sha224[] = {
+ 	{
+ 		.init = stm32_hash_init,
+ 		.update = stm32_hash_update,
+@@ -1282,6 +1391,9 @@ static struct ahash_alg algs_sha224_sha256[] = {
+ 			}
+ 		}
+ 	},
++};
++
++static struct ahash_alg algs_sha256[] = {
+ 	{
+ 		.init = stm32_hash_init,
+ 		.update = stm32_hash_update,
+@@ -1374,35 +1486,73 @@ static int stm32_hash_unregister_algs(struct stm32_hash_dev *hdev)
+ 	return 0;
+ }
+ 
++static struct stm32_hash_algs_info stm32_hash_algs_info_ux500[] = {
++	{
++		.algs_list	= algs_sha1,
++		.size		= ARRAY_SIZE(algs_sha1),
++	},
++	{
++		.algs_list	= algs_sha256,
++		.size		= ARRAY_SIZE(algs_sha256),
++	},
++};
++
++static const struct stm32_hash_pdata stm32_hash_pdata_ux500 = {
++	.algs_info	= stm32_hash_algs_info_ux500,
++	.algs_info_size	= ARRAY_SIZE(stm32_hash_algs_info_ux500),
++	.broken_emptymsg = true,
++	.ux500		= true,
++};
++
+ static struct stm32_hash_algs_info stm32_hash_algs_info_stm32f4[] = {
+ 	{
+-		.algs_list	= algs_md5_sha1,
+-		.size		= ARRAY_SIZE(algs_md5_sha1),
++		.algs_list	= algs_md5,
++		.size		= ARRAY_SIZE(algs_md5),
++	},
++	{
++		.algs_list	= algs_sha1,
++		.size		= ARRAY_SIZE(algs_sha1),
+ 	},
+ };
+ 
+ static const struct stm32_hash_pdata stm32_hash_pdata_stm32f4 = {
+ 	.algs_info	= stm32_hash_algs_info_stm32f4,
+ 	.algs_info_size	= ARRAY_SIZE(stm32_hash_algs_info_stm32f4),
++	.has_sr		= true,
++	.has_mdma	= true,
+ };
+ 
+ static struct stm32_hash_algs_info stm32_hash_algs_info_stm32f7[] = {
+ 	{
+-		.algs_list	= algs_md5_sha1,
+-		.size		= ARRAY_SIZE(algs_md5_sha1),
++		.algs_list	= algs_md5,
++		.size		= ARRAY_SIZE(algs_md5),
++	},
++	{
++		.algs_list	= algs_sha1,
++		.size		= ARRAY_SIZE(algs_sha1),
++	},
++	{
++		.algs_list	= algs_sha224,
++		.size		= ARRAY_SIZE(algs_sha224),
+ 	},
+ 	{
+-		.algs_list	= algs_sha224_sha256,
+-		.size		= ARRAY_SIZE(algs_sha224_sha256),
++		.algs_list	= algs_sha256,
++		.size		= ARRAY_SIZE(algs_sha256),
+ 	},
+ };
+ 
+ static const struct stm32_hash_pdata stm32_hash_pdata_stm32f7 = {
+ 	.algs_info	= stm32_hash_algs_info_stm32f7,
+ 	.algs_info_size	= ARRAY_SIZE(stm32_hash_algs_info_stm32f7),
++	.has_sr		= true,
++	.has_mdma	= true,</pre>
+    </blockquote>
+    <pre>Initial my fault but prefer to call it mdmat rather than mdma which is the DMA name on STM32MP15</pre>
+    <blockquote type="cite"
+      cite="mid:20221227-ux500-stm32-hash-v1-6-b637ac4cda01@linaro.org">
+      <pre class="moz-quote-pre" wrap="">
+ };
+ 
+ static const struct of_device_id stm32_hash_of_match[] = {
++	{
++		.compatible = "stericsson,ux500-hash",
++		.data = &amp;stm32_hash_pdata_ux500,
++	},
+ 	{
+ 		.compatible = "st,stm32f456-hash",
+ 		.data = &amp;stm32_hash_pdata_stm32f4,
+@@ -1456,16 +1606,23 @@ static int stm32_hash_probe(struct platform_device *pdev)
+ 	if (ret)
+ 		return ret;
+ 
+-	irq = platform_get_irq(pdev, 0);
+-	if (irq &lt; 0)
++	irq = platform_get_irq_optional(pdev, 0);
++	if (irq &lt; 0 &amp;&amp; irq != -ENXIO)
+ 		return irq;
+ 
+-	ret = devm_request_threaded_irq(dev, irq, stm32_hash_irq_handler,
+-					stm32_hash_irq_thread, IRQF_ONESHOT,
+-					dev_name(dev), hdev);
+-	if (ret) {
+-		dev_err(dev, "Cannot grab IRQ\n");
+-		return ret;
++	if (irq &gt; 0) {
++		ret = devm_request_threaded_irq(dev, irq,
++						stm32_hash_irq_handler,
++						stm32_hash_irq_thread,
++						IRQF_ONESHOT,
++						dev_name(dev), hdev);
++		if (ret) {
++			dev_err(dev, "Cannot grab IRQ\n");
++			return ret;
++		}
++	} else {
++		dev_info(dev, "No IRQ, use polling mode\n");
++		hdev-&gt;polled = true;
+ 	}
+ 
+ 	hdev-&gt;clk = devm_clk_get(&amp;pdev-&gt;dev, NULL);
+@@ -1507,9 +1664,11 @@ static int stm32_hash_probe(struct platform_device *pdev)
+ 	case 0:
+ 		break;
+ 	case -ENOENT:
+-		dev_dbg(dev, "DMA mode not available\n");
++	case -ENODEV:
++		dev_info(dev, "DMA mode not available\n");
+ 		break;
+ 	default:
++		dev_err(dev, "DMA init error %d\n", ret);
+ 		goto err_dma;
+ 	}
+ 
+@@ -1528,7 +1687,11 @@ static int stm32_hash_probe(struct platform_device *pdev)
+ 	if (ret)
+ 		goto err_engine_start;
+ 
+-	hdev-&gt;dma_mode = !!stm32_hash_read(hdev, HASH_HWCFGR);
++	if (hdev-&gt;pdata-&gt;ux500)
++		/* FIXME: implement DMA mode for Ux500 */
++		hdev-&gt;dma_mode = false;
++	else
++		hdev-&gt;dma_mode = !!stm32_hash_read(hdev, HASH_HWCFGR);
+ 
+ 	/* Register algos */
+ 	ret = stm32_hash_register_algs(hdev);
 
 </pre>
     </blockquote>
   </body>
 </html>
 
---------------lo0UZ1ulDn9JoY7nEqQpnEc9--
+--------------0EHUg3Vk3y4gAGk6jrCEiR0U--
 
---===============5869406940016779646==
+--===============6563215714946969571==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -185,4 +1159,4 @@ Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
 
---===============5869406940016779646==--
+--===============6563215714946969571==--
