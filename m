@@ -2,63 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9E66565CF7C
-	for <lists+linux-stm32@lfdr.de>; Wed,  4 Jan 2023 10:24:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 17AA665CF8B
+	for <lists+linux-stm32@lfdr.de>; Wed,  4 Jan 2023 10:30:52 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4609EC6905D;
-	Wed,  4 Jan 2023 09:24:40 +0000 (UTC)
-Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com
- [209.85.218.49])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B4858C6905D;
+	Wed,  4 Jan 2023 09:30:51 +0000 (UTC)
+Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com
+ [209.85.218.52])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 44B3AC69056
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D933EC03FE0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  4 Jan 2023 09:24:38 +0000 (UTC)
-Received: by mail-ej1-f49.google.com with SMTP id tz12so81144822ejc.9
+ Wed,  4 Jan 2023 09:30:49 +0000 (UTC)
+Received: by mail-ej1-f52.google.com with SMTP id tz12so81179457ejc.9
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 04 Jan 2023 01:24:38 -0800 (PST)
+ Wed, 04 Jan 2023 01:30:49 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=VHNU6lyS4HxpWEWUJokJQqbTQoNyULPenxnHWWjGHa0=;
- b=DYwGyFH0pJ8trLfOsE2i7is/4KKYxgeu9qcYOuZogudwL66lXPiCG08XZxAVpPX3w3
- H0Mv+qKhDQLVyQ+tg9GmeA+q0PNmz+qOVvWKFEN1W+tc9SRQJMh0ILEbXkKq85wxVuej
- 7LRIRQjCp1J9D9g30h91oWszwYrAhU7Fha3pHVLG9ztb7cUNUwqjD86BPaa5B7U9RkQ/
- e+uiuEn8gANyAYn6QumOIZrhsNKJHFzqKtYvbaqOCzaBWMYfGI/CsKE/xYuukHTrrMlK
- nvaVp28JyLjIVPWIedw1R8indbzdSI9p1hZ7jiIFToYR2B78co2KxURKgSxFsUtMtNoQ
- WM3g==
+ bh=8CmEXY85Wfe5zRCPYTM22tY3+v8slzBjcPUwowPXH7Q=;
+ b=YbFROjWcXuYpdMirg154U9mKDnTGYVd9fIuzWkgW4bVOFDMxgXQ0zHIUxFUcyrX2Zb
+ 30BKXYeNJWNG4wOeKq0Anr2+a692z3+W/K1xC7AsfzpEfRLviiG04KgVmDJDPc+BcP4J
+ l6riXWXBS8z1jliXdzP22d7oVVY/qT16oX8N76iWJXMs0/SCWdVEZLamFmHli+QVQoOH
+ JVfGKyQRbvs7ibMd/j1CiCoeleZJU1egZ+AD9owYwKmFbV77po19ss0O50OcqHSpFz3T
+ 44G3FcZ0Yp/++aj/aiYEdpko21rITUVVHczq1OHEFhSsXKv3FoZO+opchShyr6v/tWeG
+ nTMA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=VHNU6lyS4HxpWEWUJokJQqbTQoNyULPenxnHWWjGHa0=;
- b=vr+Ry2BjHYVHfn70A6THjjRGwj+mgYrKOZFULwJTI/4JVyf2yI9Id+kTUUpvQsgZAD
- G8x6S1UF5rc0vHIhEQqnTG1Tz/hrV2l1aG6XZkjwuuG/dS9yVmmXO9337F1lg1udP1ao
- zECrSxitwFKouimoWRtGwHPimkVZLFT2tYGsOEKOWW6/Ynqf0wLL0wn189+hXZu0UDV0
- 2PTLAbZS7tI41dv4/QmgCZsODZYlhtWor+uyOJFciN1NFl0S/IB9tB+LRd9G1aZRJJfy
- 9IuQBNSsjBNab71dOczZ7rx0gip8zL05BjNFb5AFZjpFbnVnJLQppvrUKtsSjNF1rMaG
- eOpw==
-X-Gm-Message-State: AFqh2kqWVGqwu3D+p1JRVsqyr/JBMV8C4eybxBtMyYNYf3PpGvvyA2NV
- rOVDZzAVZR5m3Krg8y7FcT33gIxbi0eXr9fy9rJoww==
-X-Google-Smtp-Source: AMrXdXs5YmCUdMjEUGbtslZ7wf2lRKHOJkL0WbXf9bATZnoXN+deAqq0s6Nhsjl9x+d26piz50Y9a9OivtIEcr28s3s=
-X-Received: by 2002:a17:906:2816:b0:7c0:a997:2298 with SMTP id
- r22-20020a170906281600b007c0a9972298mr3579856ejc.430.1672824277551; Wed, 04
- Jan 2023 01:24:37 -0800 (PST)
+ bh=8CmEXY85Wfe5zRCPYTM22tY3+v8slzBjcPUwowPXH7Q=;
+ b=GSV5MoIzNfzQRUxp55lvt26P42vlm98LMe+jrrLs1U1WTOKo3oUGKtigXkIxdyMhEd
+ wz+A7KoafRo9DntAkUyIECc0lcgk5rnWXoekitS2Z9FZ+cQG40tQY03h+67fxrG5U+1r
+ bgOxf64BvQroHJcho7+Sn0h4g6L3/lztgAQ1WPmzYhfaxLLFzvnVyTalNlMC+5Px9FHb
+ PtRg4dvN4i0xRTlP7UE80d5vQ4zFy4ICHj+4vJVotjeQFzMmMJ0l3+rHuMeFItrOrucr
+ tfdeFjHm+dcOFKe1V2wZX4+DlW7EnzIB//TOeHV/5411X98woDXEOTQc9k3LoPtQy6jk
+ OeSw==
+X-Gm-Message-State: AFqh2koOcsyEVt0BBlRgH6XFx2BCGgAn6QiP8mfyXuY5E8xRZe1DDEa9
+ FVEszMBM8zBk4xKWsswqd/VEYid/rd5s9AyLkBnzhg==
+X-Google-Smtp-Source: AMrXdXs4jpYwJfABguan7RaoumMvEbg/uoMMMOFjsNNkGDgxEDFMlvnkPmf+x3Fxi8UykbA7W2HuYOVd7GPQt7af9fU=
+X-Received: by 2002:a17:906:4ecb:b0:7bc:2ad:fae with SMTP id
+ i11-20020a1709064ecb00b007bc02ad0faemr3244245ejv.724.1672824649391; Wed, 04
+ Jan 2023 01:30:49 -0800 (PST)
 MIME-Version: 1.0
 References: <20230103140521.187678-1-patrick.delaunay@foss.st.com>
- <20230103150515.v4.2.Ibc43aa73f865090affeb1751af0cc260c7f1dd07@changeid>
-In-Reply-To: <20230103150515.v4.2.Ibc43aa73f865090affeb1751af0cc260c7f1dd07@changeid>
+ <20230103150515.v4.3.I59210046e368cfc22bd3cca2afe1653674f8ece8@changeid>
+In-Reply-To: <20230103150515.v4.3.I59210046e368cfc22bd3cca2afe1653674f8ece8@changeid>
 From: Etienne Carriere <etienne.carriere@linaro.org>
-Date: Wed, 4 Jan 2023 10:24:26 +0100
-Message-ID: <CAN5uoS8XbeixKFCd=-uGx1HYwjt5VnqzaMrA-wTM3V0X45unAg@mail.gmail.com>
+Date: Wed, 4 Jan 2023 10:30:38 +0100
+Message-ID: <CAN5uoS-dXLSs9DiJFBTAOJbPZPp4BUfxqZ7ND_irzBbUEwaUHg@mail.gmail.com>
 To: Patrick Delaunay <patrick.delaunay@foss.st.com>
 Cc: linux-kernel@vger.kernel.org,
  Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v4 2/3] nvmem: stm32: add OP-TEE support
-	for STM32MP13x
+Subject: Re: [Linux-stm32] [PATCH v4 3/3] nvmem: stm32: detect bsec pta
+	presence for STM32MP15x
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,627 +75,104 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello Patrick,
-
-Minor comments only. The overall looks good to me.
-
-BR,
-Etienne
+Hi Patrick,
 
 On Tue, 3 Jan 2023 at 15:08, Patrick Delaunay
 <patrick.delaunay@foss.st.com> wrote:
 >
-> For boot with OP-TEE on STM32MP13, the communication with the secure
-> world no more use STMicroelectronics SMC but communication with the
-> STM32MP BSEC TA, for data access (read/write) or lock operation:
-> - all the request are sent to OP-TEE trusted application,
-> - for upper OTP with ECC protection and with word programming only
->   each OTP are permanently locked when programmed to avoid ECC error
->   on the second write operation
+> On STM32MP15x SoC, the SMC backend is optional when OP-TEE is used;
+> the PTA BSEC should be used as it is done on STM32MP13x platform,
+> but the BSEC SMC can be also used: it is a legacy mode in OP-TEE,
+> not recommended but used in previous OP-TEE firmware.
+>
+> The presence of OP-TEE is dynamically detected in STM32MP15x device tree
+> and the supported NVMEM backend is dynamically detected:
+> - PTA with stm32_bsec_pta_find
+> - SMC with stm32_bsec_check
+>
+> With OP-TEE but without PTA and SMC detection, the probe is deferred for
+> STM32MP15x devices.
+>
+> On STM32MP13x platform, only the PTA is supported with cfg->ta = true
+> and this detection is skipped.
 >
 > Signed-off-by: Patrick Delaunay <patrick.delaunay@foss.st.com>
 > ---
 >
-> Changes in v4:
-> - fixe warning reported by kernel test robot for 64 bits support in
->   drivers/nvmem/stm32-bsec-optee-ta.c:260:18:
->   warning: format '%d' expects argument of type 'int',
->   but argument 4 has type 'size_t'
+> (no changes since v3)
 >
 > Changes in v3:
-> - add a separate file stm32-bsec-optee-ta.c with STM32MP BSEC TA
->   communication functions to avoid #if in romem driver.
+> - use of_find_compatible_node in optee_presence_check function
+>   instead of of_find_node_by_path("/firmware/optee")
 >
 > Changes in v2:
-> - rebase series on linux-next/master
-> - minor update after V1 revue
-> - add missing sentinel in stm32_romem_of_match()
-> - reorder function and remove prototypes for stm32_bsec_pta... functions
-> - change stm32_bsec_pta_find to static
-> - add return value in dev_err()
-> - cleanups some comments, which can be on one line
-> - remove test on priv->ctx in stm32_bsec_pta_remove
-> - add missing tee_shm_free(shm) in stm32_bsec_pta_write() when
->   tee_shm_get_va failed
-> - return error in stm32_bsec_pta_find when devm_add_action_or_reset failed
-> - handle driver_register error in stm32_romem_init
+> - Added patch in the serie for BSEC PTA support on STM32MP15x
+>   with dynamic detection of OP-TEE presence and SMC support (legacy mode)
 >
->  drivers/nvmem/Kconfig               |  11 +
->  drivers/nvmem/Makefile              |   1 +
->  drivers/nvmem/stm32-bsec-optee-ta.c | 298 ++++++++++++++++++++++++++++
->  drivers/nvmem/stm32-bsec-optee-ta.h |  80 ++++++++
->  drivers/nvmem/stm32-romem.c         |  54 ++++-
->  5 files changed, 441 insertions(+), 3 deletions(-)
->  create mode 100644 drivers/nvmem/stm32-bsec-optee-ta.c
->  create mode 100644 drivers/nvmem/stm32-bsec-optee-ta.h
+>  drivers/nvmem/stm32-romem.c | 33 +++++++++++++++++++++++++++++++--
+>  1 file changed, 31 insertions(+), 2 deletions(-)
 >
-> diff --git a/drivers/nvmem/Kconfig b/drivers/nvmem/Kconfig
-> index 755f551426b5..4d262f69a073 100644
-> --- a/drivers/nvmem/Kconfig
-> +++ b/drivers/nvmem/Kconfig
-> @@ -290,9 +290,20 @@ config NVMEM_SPRD_EFUSE
->           This driver can also be built as a module. If so, the module
->           will be called nvmem-sprd-efuse.
->
-> +config NVMEM_STM32_BSEC_OPTEE_TA
-> +       bool "STM32MP BSEC OP-TEE TA support for nvmem-stm32-romem driver"
-> +       depends on OPTEE
-> +       help
-> +         Say y here to enable the accesses to STM32MP SoC OTPs by the OP-TEE
-> +         trusted application STM32MP BSEC.
-> +
-> +         This library is a used by stm32-romem driver or included in the module
-> +         called nvmem-stm32-romem.
-> +
->  config NVMEM_STM32_ROMEM
->         tristate "STMicroelectronics STM32 factory-programmed memory support"
->         depends on ARCH_STM32 || COMPILE_TEST
-> +       imply NVMEM_STM32_BSEC_OPTEE_TA
->         help
->           Say y here to enable read-only access for STMicroelectronics STM32
->           factory-programmed memory area.
-> diff --git a/drivers/nvmem/Makefile b/drivers/nvmem/Makefile
-> index fa80fe17e567..6a1efffa88f0 100644
-> --- a/drivers/nvmem/Makefile
-> +++ b/drivers/nvmem/Makefile
-> @@ -61,6 +61,7 @@ obj-$(CONFIG_NVMEM_SPRD_EFUSE)                += nvmem_sprd_efuse.o
->  nvmem_sprd_efuse-y                     := sprd-efuse.o
->  obj-$(CONFIG_NVMEM_STM32_ROMEM)                += nvmem_stm32_romem.o
->  nvmem_stm32_romem-y                    := stm32-romem.o
-> +nvmem_stm32_romem-$(CONFIG_NVMEM_STM32_BSEC_OPTEE_TA) += stm32-bsec-optee-ta.o
->  obj-$(CONFIG_NVMEM_SUNPLUS_OCOTP)      += nvmem_sunplus_ocotp.o
->  nvmem_sunplus_ocotp-y                  := sunplus-ocotp.o
->  obj-$(CONFIG_NVMEM_SUNXI_SID)          += nvmem_sunxi_sid.o
-> diff --git a/drivers/nvmem/stm32-bsec-optee-ta.c b/drivers/nvmem/stm32-bsec-optee-ta.c
-> new file mode 100644
-> index 000000000000..f566d77f632c
-> --- /dev/null
-> +++ b/drivers/nvmem/stm32-bsec-optee-ta.c
-> @@ -0,0 +1,298 @@
-> +// SPDX-License-Identifier: GPL-2.0-or-later
-> +/*
-> + * OP-TEE STM32MP BSEC PTA interface, used by STM32 ROMEM driver
-> + *
-> + * Copyright (C) 2022, STMicroelectronics - All Rights Reserved
-> + */
-> +
-> +#include <linux/tee_drv.h>
-> +
-> +#include "stm32-bsec-optee-ta.h"
-> +
-> +/*
-> + * Read OTP memory
-> + *
-> + * [in]                value[0].a              OTP start offset in byte
-> + * [in]                value[0].b              Access type (0:shadow, 1:fuse, 2:lock)
-> + * [out]       memref[1].buffer        Output buffer to store read values
-> + * [out]       memref[1].size          Size of OTP to be read
-> + *
-> + * Return codes:
-> + * TEE_SUCCESS - Invoke command success
-> + * TEE_ERROR_BAD_PARAMETERS - Incorrect input param
-> + */
-> +#define PTA_BSEC_READ_MEM              0x0 /* Read OTP */
-
-Can remove /* Read OTP */.
-
-Also add possible return code TEE_ERROR_ACCESS_DENIED (ditto for
-PTA_BSEC_WRITE_MEM):
-+ * TEE_ERROR_ACCESS_DENIED - OTP not accessible by caller
-
-
-> +
-> +/*
-> + * Write OTP memory
-> + *
-> + * [in]                value[0].a              OTP start offset in byte
-> + * [in]                value[0].b              Access type (0:shadow, 1:fuse, 2:lock)
-> + * [in]                memref[1].buffer        Input buffer to read values
-> + * [in]                memref[1].size          Size of OTP to be written
-> + *
-> + * Return codes:
-> + * TEE_SUCCESS - Invoke command success
-> + * TEE_ERROR_BAD_PARAMETERS - Incorrect input param
-> + */
-> +#define PTA_BSEC_WRITE_MEM             0x1     /* Write OTP */
-> +
-> +/* value of PTA_BSEC access type = value[in] b */
-> +#define SHADOW_ACCESS  0
-> +#define FUSE_ACCESS    1
-> +#define LOCK_ACCESS    2
-> +
-> +/* Bitfield definition for LOCK status */
-> +#define LOCK_PERM                      BIT(30)
-> +
-> +/* OP-TEE STM32MP BSEC TA UUID */
-> +static const uuid_t stm32mp_bsec_ta_uuid =
-> +       UUID_INIT(0x94cf71ad, 0x80e6, 0x40b5,
-> +                 0xa7, 0xc6, 0x3d, 0xc5, 0x01, 0xeb, 0x28, 0x03);
-> +
-> +/*
-> + * Check whether this driver supports the BSEC TA in the TEE instance
-> + * represented by the params (ver/data) to this function.
-> + */
-> +static int stm32_bsec_optee_ta_match(struct tee_ioctl_version_data *ver,
-> +                                    const void *data)
-> +{
-> +       /* Currently this driver only supports GP compliant, OP-TEE based TA */
-> +       if ((ver->impl_id == TEE_IMPL_ID_OPTEE) &&
-> +               (ver->gen_caps & TEE_GEN_CAP_GP))
-> +               return 1;
-> +       else
-> +               return 0;
-> +}
-> +
-> +/* Open a session to OP-TEE for STM32MP BSEC TA */
-> +static int stm32_bsec_ta_open_session(struct tee_context *ctx, u32 *id)
-> +{
-> +       struct tee_ioctl_open_session_arg sess_arg;
-> +       int rc;
-> +
-> +       memset(&sess_arg, 0, sizeof(sess_arg));
-> +       export_uuid(sess_arg.uuid, &stm32mp_bsec_ta_uuid);
-> +       sess_arg.clnt_login = TEE_IOCTL_LOGIN_REE_KERNEL;
-> +       sess_arg.num_params = 0;
-> +
-> +       rc = tee_client_open_session(ctx, &sess_arg, NULL);
-> +       if ((rc < 0) || (sess_arg.ret != 0)) {
-> +               pr_err("%s: tee_client_open_session failed err:%x, ret:%x\n",
-> +                      __func__, sess_arg.ret, rc);
-> +               if (!rc)
-> +                       rc = -EINVAL;
-> +       } else {
-> +               *id = sess_arg.session;
-> +       }
-> +
-> +       return rc;
-> +}
-> +
-> +/* close a session to OP-TEE for STM32MP BSEC TA */
-> +static void stm32_bsec_ta_close_session(void *ctx, u32 id)
-> +{
-> +       tee_client_close_session(ctx, id);
-> +}
-> +
-> +/* stm32_bsec_optee_ta_open() - initialize the STM32MP BSEC TA */
-> +int stm32_bsec_optee_ta_open(struct tee_context **ctx)
-> +{
-> +       struct tee_context *tee_ctx;
-> +       u32 session_id;
-> +       int rc;
-> +
-> +       /* Open context with TEE driver */
-> +       tee_ctx = tee_client_open_context(NULL, stm32_bsec_optee_ta_match, NULL, NULL);
-> +       if (IS_ERR(tee_ctx)) {
-> +               rc = PTR_ERR(tee_ctx);
-> +               if (rc == -ENOENT)
-> +                       return -EPROBE_DEFER;
-> +               pr_err("%s: tee_client_open_context failed (%d)\n", __func__, rc);
-> +
-> +               return rc;
-> +       }
-> +
-> +       /* Check STM32MP BASEC TA presence */
-
-s/BASEC/BSEC/
-
-> +       rc = stm32_bsec_ta_open_session(tee_ctx, &session_id);
-> +       if (rc)
-> +               goto out_tee_session;
-
-Suggestion:
-       if (rc) {
-               tee_client_close_context(tee_ctx);
-               return rc;
-       }
-
-> +       stm32_bsec_ta_close_session(tee_ctx, session_id);
-> +
-> +       *ctx = tee_ctx;
-> +
-> +       return 0;
-> +
-> +out_tee_session:
-> +       tee_client_close_context(tee_ctx);
-> +
-> +       return rc;
-> +}
-> +
-> +/* stm32_bsec_optee_ta_open() - release the PTA STM32MP BSEC TA */
-> +void stm32_bsec_optee_ta_close(void *ctx)
-> +{
-> +       tee_client_close_context(ctx);
-> +}
-> +
-> +/* stm32_bsec_optee_ta_read() - nvmem read access using PTA client driver */
-> +int stm32_bsec_optee_ta_read(struct tee_context *ctx, unsigned int offset,
-> +                            void *buf, size_t bytes)
-> +{
-> +       struct tee_shm *shm;
-> +       struct tee_ioctl_invoke_arg arg;
-> +       struct tee_param param[2];
-> +       u8 *shm_buf;
-> +       u32 start, num_bytes;
-> +       int ret;
-> +       u32 session_id;
-> +
-> +       ret = stm32_bsec_ta_open_session(ctx, &session_id);
-> +       if (ret)
-> +               return ret;
-> +
-> +       memset(&arg, 0, sizeof(arg));
-> +       memset(&param, 0, sizeof(param));
-> +
-> +       arg.func = PTA_BSEC_READ_MEM;
-> +       arg.session = session_id;
-> +       arg.num_params = 2;
-> +
-> +       /* align access on 32bits */
-> +       start = ALIGN_DOWN(offset, 4);
-> +       num_bytes = round_up(offset + bytes - start, 4);
-> +       param[0].attr = TEE_IOCTL_PARAM_ATTR_TYPE_VALUE_INPUT;
-> +       param[0].u.value.a = start;
-> +       param[0].u.value.b = SHADOW_ACCESS;
-> +
-> +       shm = tee_shm_alloc_kernel_buf(ctx, num_bytes);
-> +       if (IS_ERR(shm)) {
-> +               ret = PTR_ERR(shm);
-> +               goto out_tee_session;
-> +       }
-> +
-> +       param[1].attr = TEE_IOCTL_PARAM_ATTR_TYPE_MEMREF_OUTPUT;
-> +       param[1].u.memref.shm = shm;
-> +       param[1].u.memref.size = num_bytes;
-> +
-> +       ret = tee_client_invoke_func(ctx, &arg, param);
-> +       if (ret < 0 || arg.ret != 0) {
-> +               pr_err("TA_BSEC invoke failed TEE err:%x, ret:%x\n",
-
-Maybe use %#x for hexa print.
-
-> +                       arg.ret, ret);
-> +               if (!ret)
-> +                       ret = -EIO;
-> +       }
-> +       if (!ret) {
-> +               shm_buf = tee_shm_get_va(shm, 0);
-> +               if (IS_ERR(shm_buf)) {
-> +                       ret = PTR_ERR(shm_buf);
-> +                       pr_err("tee_shm_get_va failed for transmit (%d)\n", ret);
-> +               } else {
-> +                       /* read data from 32 bits aligned buffer */
-> +                       memcpy(buf, &shm_buf[offset % 4], bytes);
-> +               }
-> +       }
-> +
-> +       tee_shm_free(shm);
-> +
-> +out_tee_session:
-> +       stm32_bsec_ta_close_session(ctx, session_id);
-> +
-> +       return ret;
-> +}
-> +
-> +/* stm32_bsec_optee_ta_write() - nvmem write access using PTA client driver */
-> +int stm32_bsec_optee_ta_write(struct tee_context *ctx, unsigned int lower,
-> +                             unsigned int offset, void *buf, size_t bytes)
-> +{      struct tee_shm *shm;
-> +       struct tee_ioctl_invoke_arg arg;
-> +       struct tee_param param[2];
-> +       u8 *shm_buf;
-> +       int ret;
-> +       u32 session_id;
-> +
-> +       ret = stm32_bsec_ta_open_session(ctx, &session_id);
-> +       if (ret)
-> +               return ret;
-> +
-> +       /* Allow only writing complete 32-bits aligned words */
-> +       if ((bytes % 4) || (offset % 4))
-> +               return -EINVAL;
-> +
-> +       memset(&arg, 0, sizeof(arg));
-> +       memset(&param, 0, sizeof(param));
-> +
-> +       arg.func = PTA_BSEC_WRITE_MEM;
-> +       arg.session = session_id;
-> +       arg.num_params = 2;
-> +
-> +       param[0].attr = TEE_IOCTL_PARAM_ATTR_TYPE_VALUE_INPUT;
-> +       param[0].u.value.a = offset;
-> +       param[0].u.value.b = FUSE_ACCESS;
-> +
-> +       shm = tee_shm_alloc_kernel_buf(ctx, bytes);
-> +       if (IS_ERR(shm)) {
-> +               ret = PTR_ERR(shm);
-> +               goto out_tee_session;
-> +       }
-> +
-> +       param[1].attr = TEE_IOCTL_PARAM_ATTR_TYPE_MEMREF_INPUT;
-> +       param[1].u.memref.shm = shm;
-> +       param[1].u.memref.size = bytes;
-> +
-> +       shm_buf = tee_shm_get_va(shm, 0);
-> +       if (IS_ERR(shm_buf)) {
-> +               ret = PTR_ERR(shm_buf);
-> +               pr_err("tee_shm_get_va failed for transmit (%d)\n", ret);
-> +               tee_shm_free(shm);
-> +
-> +               goto out_tee_session;
-> +       }
-> +
-> +       memcpy(shm_buf, buf, bytes);
-> +
-> +       ret = tee_client_invoke_func(ctx, &arg, param);
-> +       if (ret < 0 || arg.ret != 0) {
-> +               pr_err("TA_BSEC invoke failed TEE err:%x, ret:%x\n", arg.ret, ret);
-> +               if (!ret)
-> +                       ret = -EIO;
-> +       }
-> +       pr_debug("Write OTPs %d to %zu, ret=%d\n", offset / 4, (offset + bytes) / 4, ret);
-> +
-> +       /* Lock the upper OTPs with ECC protection, word programming only */
-> +       if (!ret && ((offset + bytes) >= (lower * 4))) {
-> +               u32 start, nb_lock;
-> +               u32 *lock = (u32 *)shm_buf;
-> +               int i;
-> +
-> +               /*
-> +                * don't lock the lower OTPs, no ECC protection and incremental
-> +                * bit programming, a second write is allowed
-> +                */
-> +               start = max_t(u32, offset, lower * 4);
-> +               nb_lock = (offset + bytes - start) / 4;
-> +
-> +               param[0].u.value.a = start;
-> +               param[0].u.value.b = LOCK_ACCESS;
-> +               param[1].u.memref.size = nb_lock * 4;
-> +
-> +               for (i = 0; i < nb_lock; i++)
-> +                       lock[i] = LOCK_PERM;
-> +
-> +               ret = tee_client_invoke_func(ctx, &arg, param);
-> +               if (ret < 0 || arg.ret != 0) {
-> +                       pr_err("TA_BSEC invoke failed TEE err:%x, ret:%x\n", arg.ret, ret);
-> +                       if (!ret)
-> +                               ret = -EIO;
-> +               }
-> +               pr_debug("Lock upper OTPs %d to %d, ret=%d\n",
-> +                        start / 4, start / 4 + nb_lock, ret);
-> +       }
-> +
-> +       tee_shm_free(shm);
-> +
-> +out_tee_session:
-> +       stm32_bsec_ta_close_session(ctx, session_id);
-> +
-> +       return ret;
-> +}
-> diff --git a/drivers/nvmem/stm32-bsec-optee-ta.h b/drivers/nvmem/stm32-bsec-optee-ta.h
-> new file mode 100644
-> index 000000000000..3966a0535179
-> --- /dev/null
-> +++ b/drivers/nvmem/stm32-bsec-optee-ta.h
-> @@ -0,0 +1,80 @@
-> +/* SPDX-License-Identifier: GPL-2.0-or-later */
-> +/*
-> + * OP-TEE STM32MP BSEC PTA interface, used by STM32 ROMEM driver
-> + *
-> + * Copyright (C) 2022, STMicroelectronics - All Rights Reserved
-> + */
-> +
-> +#if IS_ENABLED(CONFIG_NVMEM_STM32_BSEC_OPTEE_TA)
-> +/**
-> + * stm32_bsec_optee_ta_open() - initialize the STM32 BSEC TA
-> + * @ctx: the OP-TEE context on success
-> + *
-> + * Return:
-> + *     On success, 0. On failure, -errno.
-> + */
-> +int stm32_bsec_optee_ta_open(struct tee_context **ctx);
-> +
-> +/**
-> + * stm32_bsec_optee_ta_close() - release the STM32 BSEC TA
-> + * @ctx: the OP-TEE context
-> + *
-> + * This function used to clean the OP-TEE resources initialized in
-> + * stm32_bsec_optee_ta_open(); it can be used as callback to
-> + * devm_add_action_or_reset()
-> + */
-> +void stm32_bsec_optee_ta_close(void *ctx);
-> +
-> +/**
-> + * stm32_bsec_optee_ta_read() - nvmem read access using TA client driver
-> + * @ctx: the OP-TEE context provided by stm32_bsec_optee_ta_open
-> + * @offset: nvmem offset
-> + * @buf: buffer to fill with nvem values
-> + * @bytes: number of bytes to read
-> + *
-> + * Return:
-> + *     On success, 0. On failure, -errno.
-> + */
-> +int stm32_bsec_optee_ta_read(struct tee_context *ctx, unsigned int offset,
-> +                            void *buf, size_t bytes);
-> +
-> +/**
-> + * stm32_bsec_optee_ta_write() - nvmem write access using TA client driver
-> + * @ctx: the OP-TEE context provided by stm32_bsec_optee_ta_open
-> + * @lower: number of lower OTP, not protected by ECC
-> + * @offset: nvmem offset
-> + * @buf: buffer with nvem values
-> + * @bytes: number of bytes to write
-> + *
-> + * Return:
-> + *     On success, 0. On failure, -errno.
-> + */
-> +int stm32_bsec_optee_ta_write(struct tee_context *ctx, unsigned int lower,
-> +                             unsigned int offset, void *buf, size_t bytes);
-> +
-> +#else
-> +
-> +static inline int stm32_bsec_optee_ta_open(struct tee_context **ctx)
-> +{
-> +       return -EOPNOTSUPP;
-> +}
-> +
-> +static inline void stm32_bsec_optee_ta_close(void *ctx)
-> +{
-> +}
-> +
-> +static inline int stm32_bsec_optee_ta_read(struct tee_context *ctx,
-> +                                          unsigned int offset, void *buf,
-> +                                          size_t bytes)
-> +{
-> +       return -EOPNOTSUPP;
-> +}
-> +
-> +static inline int stm32_bsec_optee_ta_write(struct tee_context *ctx,
-> +                                           unsigned int lower,
-> +                                           unsigned int offset, void *buf,
-> +                                           size_t bytes)
-> +{
-> +       return -EOPNOTSUPP;
-> +}
-> +#endif /* CONFIG_NVMEM_STM32_BSEC_OPTEE_TA */
 > diff --git a/drivers/nvmem/stm32-romem.c b/drivers/nvmem/stm32-romem.c
-> index d1d03c2ad081..2edc61925e52 100644
+> index 2edc61925e52..1b90c78301fa 100644
 > --- a/drivers/nvmem/stm32-romem.c
 > +++ b/drivers/nvmem/stm32-romem.c
-> @@ -11,6 +11,9 @@
->  #include <linux/module.h>
->  #include <linux/nvmem-provider.h>
->  #include <linux/of_device.h>
-> +#include <linux/tee_drv.h>
-> +
-> +#include "stm32-bsec-optee-ta.h"
->
->  /* BSEC secure service access from non-secure */
->  #define STM32_SMC_BSEC                 0x82001003
-> @@ -25,12 +28,14 @@
->  struct stm32_romem_cfg {
->         int size;
->         u8 lower;
-> +       bool ta;
->  };
->
->  struct stm32_romem_priv {
->         void __iomem *base;
->         struct nvmem_config cfg;
->         u8 lower;
-> +       struct tee_context *ctx;
->  };
->
->  static int stm32_romem_read(void *context, unsigned int offset, void *buf,
-> @@ -138,12 +143,29 @@ static int stm32_bsec_write(void *context, unsigned int offset, void *buf,
->         return 0;
+> @@ -159,6 +159,31 @@ static int stm32_bsec_pta_write(void *context, unsigned int offset, void *buf,
+>         return stm32_bsec_optee_ta_write(priv->ctx, priv->lower, offset, buf, bytes);
 >  }
 >
-> +static int stm32_bsec_pta_read(void *context, unsigned int offset, void *buf,
-> +                              size_t bytes)
+> +static bool stm32_bsec_smc_check(void)
 > +{
-> +       struct stm32_romem_priv *priv = context;
+> +       u32 val;
+> +       int ret;
 > +
-> +       return stm32_bsec_optee_ta_read(priv->ctx, offset, buf, bytes);
+> +       /* check that the OP-TEE support the BSEC SMC (legacy mode) */
+> +       ret = stm32_bsec_smc(STM32_SMC_READ_SHADOW, 0, 0, &val);
+> +
+> +       return !ret;
 > +}
 > +
-> +static int stm32_bsec_pta_write(void *context, unsigned int offset, void *buf,
-> +                               size_t bytes)
+> +static bool optee_presence_check(void)
 > +{
-> +       struct stm32_romem_priv *priv = context;
+> +       struct device_node *np;
+> +       bool tee_detected = false;
 > +
-> +       return stm32_bsec_optee_ta_write(priv->ctx, priv->lower, offset, buf, bytes);
+> +       /* check that the OP-TEE node is present and available. */
+> +       np = of_find_compatible_node(NULL, NULL, "linaro,optee-tz");
+> +       if (np && of_device_is_available(np))
+> +               tee_detected = true;
+> +       of_node_put(np);
+> +
+> +       return tee_detected;
 > +}
 > +
 >  static int stm32_romem_probe(struct platform_device *pdev)
 >  {
 >         const struct stm32_romem_cfg *cfg;
->         struct device *dev = &pdev->dev;
->         struct stm32_romem_priv *priv;
->         struct resource *res;
-> +       int rc;
->
->         priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
->         if (!priv)
-> @@ -173,15 +195,31 @@ static int stm32_romem_probe(struct platform_device *pdev)
+> @@ -195,10 +220,14 @@ static int stm32_romem_probe(struct platform_device *pdev)
 >         } else {
 >                 priv->cfg.size = cfg->size;
 >                 priv->lower = cfg->lower;
-> -               priv->cfg.reg_read = stm32_bsec_read;
-> -               priv->cfg.reg_write = stm32_bsec_write;
-> +               if (cfg->ta) {
-> +                       rc = stm32_bsec_optee_ta_open(&priv->ctx);
-> +                       /* wait for OP-TEE client driver to be up and ready */
-> +                       if (rc)
-> +                               return rc;
-> +                       rc = devm_add_action_or_reset(dev, stm32_bsec_optee_ta_close, priv->ctx);
-> +                       if (rc) {
-> +                               dev_err(dev, "devm_add_action_or_reset() failed (%d)\n", rc);
-> +                               return rc;
-> +                       }
-> +               }
-> +               if (priv->ctx) {
-> +                       priv->cfg.reg_read = stm32_bsec_pta_read;
-> +                       priv->cfg.reg_write = stm32_bsec_pta_write;
-> +               } else {
-> +                       priv->cfg.reg_read = stm32_bsec_read;
-> +                       priv->cfg.reg_write = stm32_bsec_write;
-> +               }
->         }
->
->         return PTR_ERR_OR_ZERO(devm_nvmem_register(dev, &priv->cfg));
->  }
->
->  /*
-> - * STM32MP15 BSEC OTP regions: 4096 OTP bits (with 3072 effective bits)
-> + * STM32MP15/13 BSEC OTP regions: 4096 OTP bits (with 3072 effective bits)
->   * => 96 x 32-bits data words
->   * - Lower: 1K bits, 2:1 redundancy, incremental bit programming
->   *   => 32 (x 32-bits) lower shadow registers = words 0 to 31
-> @@ -191,6 +229,13 @@ static int stm32_romem_probe(struct platform_device *pdev)
->  static const struct stm32_romem_cfg stm32mp15_bsec_cfg = {
->         .size = 384,
->         .lower = 32,
-> +       .ta = false,
-> +};
-> +
-> +static const struct stm32_romem_cfg stm32mp13_bsec_cfg = {
-> +       .size = 384,
-> +       .lower = 32,
-> +       .ta = true,
->  };
->
->  static const struct of_device_id stm32_romem_of_match[] = {
-> @@ -198,7 +243,10 @@ static const struct of_device_id stm32_romem_of_match[] = {
->                 .compatible = "st,stm32mp15-bsec",
->                 .data = (void *)&stm32mp15_bsec_cfg,
->         }, {
-> +               .compatible = "st,stm32mp13-bsec",
-> +               .data = (void *)&stm32mp13_bsec_cfg,
->         },
-> +       { /* sentinel */ },
->  };
->  MODULE_DEVICE_TABLE(of, stm32_romem_of_match);
->
+> -               if (cfg->ta) {
+> +               if (cfg->ta || optee_presence_check()) {
+>                         rc = stm32_bsec_optee_ta_open(&priv->ctx);
+>                         /* wait for OP-TEE client driver to be up and ready */
+> -                       if (rc)
+> +                       if (rc == -EPROBE_DEFER) {
+> +                               /* BSEC PTA is required or SMC not ready */
+> +                               if (cfg->ta || !stm32_bsec_smc_check())
+> +                                       return -EPROBE_DEFER;
+> +                       } else if (rc)
+
+Could you fix the logic? The sequence here fails to fallback to BSEC
+SMC service if optee does not embed BSEC PTA service and optee driver
+is probed before stm32_romem.
+
+Br,
+etienne
+
+>                                 return rc;
+>                         rc = devm_add_action_or_reset(dev, stm32_bsec_optee_ta_close, priv->ctx);
+>                         if (rc) {
 > --
 > 2.25.1
 >
