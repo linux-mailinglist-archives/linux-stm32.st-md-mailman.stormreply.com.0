@@ -2,67 +2,45 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6FD9F66053A
-	for <lists+linux-stm32@lfdr.de>; Fri,  6 Jan 2023 18:04:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 59F66660566
+	for <lists+linux-stm32@lfdr.de>; Fri,  6 Jan 2023 18:15:41 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 22967C69067;
-	Fri,  6 Jan 2023 17:04:58 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 75514C69060
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 09014C69063;
+	Fri,  6 Jan 2023 17:15:41 +0000 (UTC)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9929EC69060
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  6 Jan 2023 17:04:56 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 306ECrpZ031858; Fri, 6 Jan 2023 18:04:44 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-transfer-encoding : content-type; s=selector1;
- bh=L48ESav4pphvO/55xGupo7Sioi2tIUpTcjjWUCvhrAI=;
- b=G0yO0xEuSO0CFGvLQU0+yAp8oaRH4X6KyDL8FoCOmPUSaQdOEGpROYIclB0A+FpYCqO5
- n0UCsHjMvv3KVJ1WZ5T7j2Q9j5A9zOy0eaScmB4Vjvg3DTC0MbVAqJd7iGkMxcwEnHHN
- p84Hrq3iPiHWNAtnDan9S34GqMhRQimWJIsrk68r+eY+h6NqosQscm5baz1LSaCX+AyZ
- gSBQIph2yG8hr2vuRWAknWLoZpNLRQbW6/hahIeTJxzty1JyZvJ4TDf2L/fc4xAx4mgb
- iOh+POlU8nUvCCE/uqnEAUOuFCspacCMSZSGmXsSSE4hu4NE8/oz3fpx0FBDQFHf/02W IA== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3mwtasjm8s-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 06 Jan 2023 18:04:44 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 734B110002A;
- Fri,  6 Jan 2023 18:04:43 +0100 (CET)
-Received: from Webmail-eu.st.com (shfdag1node3.st.com [10.75.129.71])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 6CF50219D9E;
- Fri,  6 Jan 2023 18:04:43 +0100 (CET)
-Received: from localhost (10.48.0.157) by SHFDAG1NODE3.st.com (10.75.129.71)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.13; Fri, 6 Jan
- 2023 18:04:42 +0100
-From: Patrick Delaunay <patrick.delaunay@foss.st.com>
-To: Alexandre TORGUE <alexandre.torgue@foss.st.com>, Srinivas Kandagatla
- <srinivas.kandagatla@linaro.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Date: Fri, 6 Jan 2023 18:04:30 +0100
-Message-ID: <20230106180414.v5.3.I59210046e368cfc22bd3cca2afe1653674f8ece8@changeid>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20230106170430.1214186-1-patrick.delaunay@foss.st.com>
-References: <20230106170430.1214186-1-patrick.delaunay@foss.st.com>
+ Fri,  6 Jan 2023 17:15:39 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7A8E61FB;
+ Fri,  6 Jan 2023 09:16:20 -0800 (PST)
+Received: from [10.57.75.231] (unknown [10.57.75.231])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id EAE933F71A;
+ Fri,  6 Jan 2023 09:15:34 -0800 (PST)
+Message-ID: <4fd1b194-29ef-621d-4059-a8336058f217@arm.com>
+Date: Fri, 6 Jan 2023 17:15:28 +0000
 MIME-Version: 1.0
-X-Originating-IP: [10.48.0.157]
-X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE3.st.com
- (10.75.129.71)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.923,Hydra:6.0.545,FMLib:17.11.122.1
- definitions=2023-01-06_11,2023-01-06_01,2022-06-22_01
-Cc: linux-kernel@vger.kernel.org,
- Patrick Delaunay <patrick.delaunay@foss.st.com>,
- Etienne CARRIERE <etienne.carriere@linaro.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v5 3/3] nvmem: stm32: detect bsec pta presence
-	for STM32MP15x
+User-Agent: Mozilla/5.0 (Windows NT 10.0; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.1
+Content-Language: en-GB
+To: Jason Gunthorpe <jgg@nvidia.com>, Lu Baolu <baolu.lu@linux.intel.com>,
+ Joerg Roedel <joro@8bytes.org>, Kevin Tian <kevin.tian@intel.com>,
+ Matthew Rosato <mjrosato@linux.ibm.com>
+References: <1-v1-6e8b3997c46d+89e-iommu_map_gfp_jgg@nvidia.com>
+From: Robin Murphy <robin.murphy@arm.com>
+In-Reply-To: <1-v1-6e8b3997c46d+89e-iommu_map_gfp_jgg@nvidia.com>
+Cc: linux-s390@vger.kernel.org, kvm@vger.kernel.org,
+ nouveau@lists.freedesktop.org, linux-rdma@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, Niklas Schnelle <schnelle@linux.ibm.com>,
+ linux-remoteproc@vger.kernel.org, iommu@lists.linux.dev,
+ dri-devel@lists.freedesktop.org, linux-stm32@st-md-mailman.stormreply.com,
+ Alex Williamson <alex.williamson@redhat.com>, netdev@vger.kernel.org,
+ ath10k@lists.infradead.org, linux-wireless@vger.kernel.org,
+ linux-tegra@vger.kernel.org, Christian Borntraeger <borntraeger@linux.ibm.com>,
+ virtualization@lists.linux-foundation.org, ath11k@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH 1/8] iommu: Add a gfp parameter to
+	iommu_map()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,105 +52,408 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On STM32MP15x SoC, the SMC backend is optional when OP-TEE is used;
-the PTA BSEC should be used as it is done on STM32MP13x platform,
-but the BSEC SMC can be also used: it is a legacy mode in OP-TEE,
-not recommended but used in previous OP-TEE firmware.
+On 2023-01-06 16:42, Jason Gunthorpe wrote:
+> The internal mechanisms support this, but instead of exposting the gfp to
+> the caller it wrappers it into iommu_map() and iommu_map_atomic()
+> 
+> Fix this instead of adding more variants for GFP_KERNEL_ACCOUNT.
 
-The presence of OP-TEE is dynamically detected in STM32MP15x device tree
-and the supported NVMEM backend is dynamically detected:
-- PTA with stm32_bsec_pta_find
-- SMC with stm32_bsec_check
+FWIW, since we *do* have two variants already, I think I'd have a mild 
+preference for leaving the regular map calls as-is (i.e. implicit 
+GFP_KERNEL), and just generalising the _atomic versions for the special 
+cases.
 
-With OP-TEE but without PTA and SMC detection, the probe is deferred for
-STM32MP15x devices.
+However, echoing the recent activity over on the DMA API side of things, 
+I think it's still worth proactively constraining the set of permissible 
+flags, lest we end up with more weird problems if stuff that doesn't 
+really make sense, like GFP_COMP or zone flags, manages to leak through 
+(that may have been part of the reason for having the current wrappers 
+rather than a bare gfp argument in the first place, I forget now).
 
-On STM32MP13x platform, only the PTA is supported with cfg->ta = true
-and this detection is skipped.
+Thanks,
+Robin.
 
-Signed-off-by: Patrick Delaunay <patrick.delaunay@foss.st.com>
----
-
-Changes in v5:
-- update the BSEC SMC detection logic in stm32_romem_probe()
-  after Etienne Carierre review to support NVMEM probe after OP-TEE probe
-
-Changes in v3:
-- use of_find_compatible_node in optee_presence_check function
-  instead of of_find_node_by_path("/firmware/optee")
-
-Changes in v2:
-- Added patch in the serie for BSEC PTA support on STM32MP15x
-  with dynamic detection of OP-TEE presence and SMC support (legacy mode)
-
- drivers/nvmem/stm32-romem.c | 38 +++++++++++++++++++++++++++++++++----
- 1 file changed, 34 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/nvmem/stm32-romem.c b/drivers/nvmem/stm32-romem.c
-index 978a63edf297..e0babc2cebd7 100644
---- a/drivers/nvmem/stm32-romem.c
-+++ b/drivers/nvmem/stm32-romem.c
-@@ -159,6 +159,31 @@ static int stm32_bsec_pta_write(void *context, unsigned int offset, void *buf,
- 	return stm32_bsec_optee_ta_write(priv->ctx, priv->lower, offset, buf, bytes);
- }
- 
-+static bool stm32_bsec_smc_check(void)
-+{
-+	u32 val;
-+	int ret;
-+
-+	/* check that the OP-TEE support the BSEC SMC (legacy mode) */
-+	ret = stm32_bsec_smc(STM32_SMC_READ_SHADOW, 0, 0, &val);
-+
-+	return !ret;
-+}
-+
-+static bool optee_presence_check(void)
-+{
-+	struct device_node *np;
-+	bool tee_detected = false;
-+
-+	/* check that the OP-TEE node is present and available. */
-+	np = of_find_compatible_node(NULL, NULL, "linaro,optee-tz");
-+	if (np && of_device_is_available(np))
-+		tee_detected = true;
-+	of_node_put(np);
-+
-+	return tee_detected;
-+}
-+
- static int stm32_romem_probe(struct platform_device *pdev)
- {
- 	const struct stm32_romem_cfg *cfg;
-@@ -195,11 +220,16 @@ static int stm32_romem_probe(struct platform_device *pdev)
- 	} else {
- 		priv->cfg.size = cfg->size;
- 		priv->lower = cfg->lower;
--		if (cfg->ta) {
-+		if (cfg->ta || optee_presence_check()) {
- 			rc = stm32_bsec_optee_ta_open(&priv->ctx);
--			/* wait for OP-TEE client driver to be up and ready */
--			if (rc)
--				return rc;
-+			if (rc) {
-+				/* wait for OP-TEE client driver to be up and ready */
-+				if (rc == -EPROBE_DEFER)
-+					return -EPROBE_DEFER;
-+				/* BSEC PTA is required or SMC not ready */
-+				if (cfg->ta || !stm32_bsec_smc_check())
-+					return rc;
-+			}
- 		}
- 		if (priv->ctx) {
- 			rc = devm_add_action_or_reset(dev, stm32_bsec_optee_ta_close, priv->ctx);
--- 
-2.25.1
-
+> Signed-off-by: Jason Gunthorpe <jgg@nvidia.com>
+> ---
+>   arch/arm/mm/dma-mapping.c                       | 11 +++++++----
+>   .../gpu/drm/nouveau/nvkm/subdev/instmem/gk20a.c |  3 ++-
+>   drivers/gpu/drm/tegra/drm.c                     |  2 +-
+>   drivers/gpu/host1x/cdma.c                       |  2 +-
+>   drivers/infiniband/hw/usnic/usnic_uiom.c        |  4 ++--
+>   drivers/iommu/dma-iommu.c                       |  2 +-
+>   drivers/iommu/iommu.c                           | 17 ++++++-----------
+>   drivers/iommu/iommufd/pages.c                   |  6 ++++--
+>   drivers/media/platform/qcom/venus/firmware.c    |  2 +-
+>   drivers/net/ipa/ipa_mem.c                       |  6 ++++--
+>   drivers/net/wireless/ath/ath10k/snoc.c          |  2 +-
+>   drivers/net/wireless/ath/ath11k/ahb.c           |  4 ++--
+>   drivers/remoteproc/remoteproc_core.c            |  5 +++--
+>   drivers/vfio/vfio_iommu_type1.c                 |  9 +++++----
+>   drivers/vhost/vdpa.c                            |  2 +-
+>   include/linux/iommu.h                           |  4 ++--
+>   16 files changed, 43 insertions(+), 38 deletions(-)
+> 
+> diff --git a/arch/arm/mm/dma-mapping.c b/arch/arm/mm/dma-mapping.c
+> index c135f6e37a00ca..8bc01071474ab7 100644
+> --- a/arch/arm/mm/dma-mapping.c
+> +++ b/arch/arm/mm/dma-mapping.c
+> @@ -984,7 +984,8 @@ __iommu_create_mapping(struct device *dev, struct page **pages, size_t size,
+>   
+>   		len = (j - i) << PAGE_SHIFT;
+>   		ret = iommu_map(mapping->domain, iova, phys, len,
+> -				__dma_info_to_prot(DMA_BIDIRECTIONAL, attrs));
+> +				__dma_info_to_prot(DMA_BIDIRECTIONAL, attrs),
+> +				GFP_KERNEL);
+>   		if (ret < 0)
+>   			goto fail;
+>   		iova += len;
+> @@ -1207,7 +1208,8 @@ static int __map_sg_chunk(struct device *dev, struct scatterlist *sg,
+>   
+>   		prot = __dma_info_to_prot(dir, attrs);
+>   
+> -		ret = iommu_map(mapping->domain, iova, phys, len, prot);
+> +		ret = iommu_map(mapping->domain, iova, phys, len, prot,
+> +				GFP_KERNEL);
+>   		if (ret < 0)
+>   			goto fail;
+>   		count += len >> PAGE_SHIFT;
+> @@ -1379,7 +1381,8 @@ static dma_addr_t arm_iommu_map_page(struct device *dev, struct page *page,
+>   
+>   	prot = __dma_info_to_prot(dir, attrs);
+>   
+> -	ret = iommu_map(mapping->domain, dma_addr, page_to_phys(page), len, prot);
+> +	ret = iommu_map(mapping->domain, dma_addr, page_to_phys(page), len,
+> +			prot, GFP_KERNEL);
+>   	if (ret < 0)
+>   		goto fail;
+>   
+> @@ -1443,7 +1446,7 @@ static dma_addr_t arm_iommu_map_resource(struct device *dev,
+>   
+>   	prot = __dma_info_to_prot(dir, attrs) | IOMMU_MMIO;
+>   
+> -	ret = iommu_map(mapping->domain, dma_addr, addr, len, prot);
+> +	ret = iommu_map(mapping->domain, dma_addr, addr, len, prot, GFP_KERNEL);
+>   	if (ret < 0)
+>   		goto fail;
+>   
+> diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/instmem/gk20a.c b/drivers/gpu/drm/nouveau/nvkm/subdev/instmem/gk20a.c
+> index 648ecf5a8fbc2a..a4ac94a2ab57fc 100644
+> --- a/drivers/gpu/drm/nouveau/nvkm/subdev/instmem/gk20a.c
+> +++ b/drivers/gpu/drm/nouveau/nvkm/subdev/instmem/gk20a.c
+> @@ -475,7 +475,8 @@ gk20a_instobj_ctor_iommu(struct gk20a_instmem *imem, u32 npages, u32 align,
+>   		u32 offset = (r->offset + i) << imem->iommu_pgshift;
+>   
+>   		ret = iommu_map(imem->domain, offset, node->dma_addrs[i],
+> -				PAGE_SIZE, IOMMU_READ | IOMMU_WRITE);
+> +				PAGE_SIZE, IOMMU_READ | IOMMU_WRITE,
+> +				GFP_KERNEL);
+>   		if (ret < 0) {
+>   			nvkm_error(subdev, "IOMMU mapping failure: %d\n", ret);
+>   
+> diff --git a/drivers/gpu/drm/tegra/drm.c b/drivers/gpu/drm/tegra/drm.c
+> index 7bd2e65c2a16c5..6ca9f396e55be4 100644
+> --- a/drivers/gpu/drm/tegra/drm.c
+> +++ b/drivers/gpu/drm/tegra/drm.c
+> @@ -1057,7 +1057,7 @@ void *tegra_drm_alloc(struct tegra_drm *tegra, size_t size, dma_addr_t *dma)
+>   
+>   	*dma = iova_dma_addr(&tegra->carveout.domain, alloc);
+>   	err = iommu_map(tegra->domain, *dma, virt_to_phys(virt),
+> -			size, IOMMU_READ | IOMMU_WRITE);
+> +			size, IOMMU_READ | IOMMU_WRITE, GFP_KERNEL);
+>   	if (err < 0)
+>   		goto free_iova;
+>   
+> diff --git a/drivers/gpu/host1x/cdma.c b/drivers/gpu/host1x/cdma.c
+> index 103fda055394ab..4ddfcd2138c95b 100644
+> --- a/drivers/gpu/host1x/cdma.c
+> +++ b/drivers/gpu/host1x/cdma.c
+> @@ -105,7 +105,7 @@ static int host1x_pushbuffer_init(struct push_buffer *pb)
+>   
+>   		pb->dma = iova_dma_addr(&host1x->iova, alloc);
+>   		err = iommu_map(host1x->domain, pb->dma, pb->phys, size,
+> -				IOMMU_READ);
+> +				IOMMU_READ, GFP_KERNEL);
+>   		if (err)
+>   			goto iommu_free_iova;
+>   	} else {
+> diff --git a/drivers/infiniband/hw/usnic/usnic_uiom.c b/drivers/infiniband/hw/usnic/usnic_uiom.c
+> index c301b3be9f303d..aeeaca65ace96a 100644
+> --- a/drivers/infiniband/hw/usnic/usnic_uiom.c
+> +++ b/drivers/infiniband/hw/usnic/usnic_uiom.c
+> @@ -277,7 +277,7 @@ static int usnic_uiom_map_sorted_intervals(struct list_head *intervals,
+>   				usnic_dbg("va 0x%lx pa %pa size 0x%zx flags 0x%x",
+>   					va_start, &pa_start, size, flags);
+>   				err = iommu_map(pd->domain, va_start, pa_start,
+> -							size, flags);
+> +						size, flags, GFP_KERNEL);
+>   				if (err) {
+>   					usnic_err("Failed to map va 0x%lx pa %pa size 0x%zx with err %d\n",
+>   						va_start, &pa_start, size, err);
+> @@ -294,7 +294,7 @@ static int usnic_uiom_map_sorted_intervals(struct list_head *intervals,
+>   				usnic_dbg("va 0x%lx pa %pa size 0x%zx flags 0x%x\n",
+>   					va_start, &pa_start, size, flags);
+>   				err = iommu_map(pd->domain, va_start, pa_start,
+> -						size, flags);
+> +						size, flags, GFP_KERNEL);
+>   				if (err) {
+>   					usnic_err("Failed to map va 0x%lx pa %pa size 0x%zx with err %d\n",
+>   						va_start, &pa_start, size, err);
+> diff --git a/drivers/iommu/dma-iommu.c b/drivers/iommu/dma-iommu.c
+> index f798c44e090337..8bdb65e7686ff9 100644
+> --- a/drivers/iommu/dma-iommu.c
+> +++ b/drivers/iommu/dma-iommu.c
+> @@ -1615,7 +1615,7 @@ static struct iommu_dma_msi_page *iommu_dma_get_msi_page(struct device *dev,
+>   	if (!iova)
+>   		goto out_free_page;
+>   
+> -	if (iommu_map(domain, iova, msi_addr, size, prot))
+> +	if (iommu_map(domain, iova, msi_addr, size, prot, GFP_KERNEL))
+>   		goto out_free_iova;
+>   
+>   	INIT_LIST_HEAD(&msi_page->list);
+> diff --git a/drivers/iommu/iommu.c b/drivers/iommu/iommu.c
+> index de91dd88705bd3..fe29fc2140b132 100644
+> --- a/drivers/iommu/iommu.c
+> +++ b/drivers/iommu/iommu.c
+> @@ -930,7 +930,7 @@ static int iommu_create_device_direct_mappings(struct iommu_group *group,
+>   			if (map_size) {
+>   				ret = iommu_map(domain, addr - map_size,
+>   						addr - map_size, map_size,
+> -						entry->prot);
+> +						entry->prot, GFP_KERNEL);
+>   				if (ret)
+>   					goto out;
+>   				map_size = 0;
+> @@ -2360,31 +2360,26 @@ static int __iommu_map(struct iommu_domain *domain, unsigned long iova,
+>   	return ret;
+>   }
+>   
+> -static int _iommu_map(struct iommu_domain *domain, unsigned long iova,
+> -		      phys_addr_t paddr, size_t size, int prot, gfp_t gfp)
+> +int iommu_map(struct iommu_domain *domain, unsigned long iova,
+> +	      phys_addr_t paddr, size_t size, int prot, gfp_t gfp)
+>   {
+>   	const struct iommu_domain_ops *ops = domain->ops;
+>   	int ret;
+>   
+> +	might_sleep_if(gfpflags_allow_blocking(gfp));
+> +
+>   	ret = __iommu_map(domain, iova, paddr, size, prot, gfp);
+>   	if (ret == 0 && ops->iotlb_sync_map)
+>   		ops->iotlb_sync_map(domain, iova, size);
+>   
+>   	return ret;
+>   }
+> -
+> -int iommu_map(struct iommu_domain *domain, unsigned long iova,
+> -	      phys_addr_t paddr, size_t size, int prot)
+> -{
+> -	might_sleep();
+> -	return _iommu_map(domain, iova, paddr, size, prot, GFP_KERNEL);
+> -}
+>   EXPORT_SYMBOL_GPL(iommu_map);
+>   
+>   int iommu_map_atomic(struct iommu_domain *domain, unsigned long iova,
+>   	      phys_addr_t paddr, size_t size, int prot)
+>   {
+> -	return _iommu_map(domain, iova, paddr, size, prot, GFP_ATOMIC);
+> +	return iommu_map(domain, iova, paddr, size, prot, GFP_ATOMIC);
+>   }
+>   EXPORT_SYMBOL_GPL(iommu_map_atomic);
+>   
+> diff --git a/drivers/iommu/iommufd/pages.c b/drivers/iommu/iommufd/pages.c
+> index 1e1d3509efae5e..22cc3bb0c6c55a 100644
+> --- a/drivers/iommu/iommufd/pages.c
+> +++ b/drivers/iommu/iommufd/pages.c
+> @@ -456,7 +456,8 @@ static int batch_iommu_map_small(struct iommu_domain *domain,
+>   			size % PAGE_SIZE);
+>   
+>   	while (size) {
+> -		rc = iommu_map(domain, iova, paddr, PAGE_SIZE, prot);
+> +		rc = iommu_map(domain, iova, paddr, PAGE_SIZE, prot,
+> +			       GFP_KERNEL);
+>   		if (rc)
+>   			goto err_unmap;
+>   		iova += PAGE_SIZE;
+> @@ -500,7 +501,8 @@ static int batch_to_domain(struct pfn_batch *batch, struct iommu_domain *domain,
+>   		else
+>   			rc = iommu_map(domain, iova,
+>   				       PFN_PHYS(batch->pfns[cur]) + page_offset,
+> -				       next_iova - iova, area->iommu_prot);
+> +				       next_iova - iova, area->iommu_prot,
+> +				       GFP_KERNEL);
+>   		if (rc)
+>   			goto err_unmap;
+>   		iova = next_iova;
+> diff --git a/drivers/media/platform/qcom/venus/firmware.c b/drivers/media/platform/qcom/venus/firmware.c
+> index 142d4c74017c04..07d4dceb5e72c7 100644
+> --- a/drivers/media/platform/qcom/venus/firmware.c
+> +++ b/drivers/media/platform/qcom/venus/firmware.c
+> @@ -158,7 +158,7 @@ static int venus_boot_no_tz(struct venus_core *core, phys_addr_t mem_phys,
+>   	core->fw.mapped_mem_size = mem_size;
+>   
+>   	ret = iommu_map(iommu, VENUS_FW_START_ADDR, mem_phys, mem_size,
+> -			IOMMU_READ | IOMMU_WRITE | IOMMU_PRIV);
+> +			IOMMU_READ | IOMMU_WRITE | IOMMU_PRIV, GFP_KERNEL);
+>   	if (ret) {
+>   		dev_err(dev, "could not map video firmware region\n");
+>   		return ret;
+> diff --git a/drivers/net/ipa/ipa_mem.c b/drivers/net/ipa/ipa_mem.c
+> index 9ec5af323f731d..991a7d39f06661 100644
+> --- a/drivers/net/ipa/ipa_mem.c
+> +++ b/drivers/net/ipa/ipa_mem.c
+> @@ -466,7 +466,8 @@ static int ipa_imem_init(struct ipa *ipa, unsigned long addr, size_t size)
+>   	size = PAGE_ALIGN(size + addr - phys);
+>   	iova = phys;	/* We just want a direct mapping */
+>   
+> -	ret = iommu_map(domain, iova, phys, size, IOMMU_READ | IOMMU_WRITE);
+> +	ret = iommu_map(domain, iova, phys, size, IOMMU_READ | IOMMU_WRITE,
+> +			GFP_KERNEL);
+>   	if (ret)
+>   		return ret;
+>   
+> @@ -574,7 +575,8 @@ static int ipa_smem_init(struct ipa *ipa, u32 item, size_t size)
+>   	size = PAGE_ALIGN(size + addr - phys);
+>   	iova = phys;	/* We just want a direct mapping */
+>   
+> -	ret = iommu_map(domain, iova, phys, size, IOMMU_READ | IOMMU_WRITE);
+> +	ret = iommu_map(domain, iova, phys, size, IOMMU_READ | IOMMU_WRITE,
+> +			GFP_KERNEL);
+>   	if (ret)
+>   		return ret;
+>   
+> diff --git a/drivers/net/wireless/ath/ath10k/snoc.c b/drivers/net/wireless/ath/ath10k/snoc.c
+> index cfcb759a87deac..9a82f0336d9537 100644
+> --- a/drivers/net/wireless/ath/ath10k/snoc.c
+> +++ b/drivers/net/wireless/ath/ath10k/snoc.c
+> @@ -1639,7 +1639,7 @@ static int ath10k_fw_init(struct ath10k *ar)
+>   
+>   	ret = iommu_map(iommu_dom, ar_snoc->fw.fw_start_addr,
+>   			ar->msa.paddr, ar->msa.mem_size,
+> -			IOMMU_READ | IOMMU_WRITE);
+> +			IOMMU_READ | IOMMU_WRITE, GFP_KERNEL);
+>   	if (ret) {
+>   		ath10k_err(ar, "failed to map firmware region: %d\n", ret);
+>   		goto err_iommu_detach;
+> diff --git a/drivers/net/wireless/ath/ath11k/ahb.c b/drivers/net/wireless/ath/ath11k/ahb.c
+> index d34a4d6325b2b4..df8fdc7067f99c 100644
+> --- a/drivers/net/wireless/ath/ath11k/ahb.c
+> +++ b/drivers/net/wireless/ath/ath11k/ahb.c
+> @@ -1021,7 +1021,7 @@ static int ath11k_ahb_fw_resources_init(struct ath11k_base *ab)
+>   
+>   	ret = iommu_map(iommu_dom, ab_ahb->fw.msa_paddr,
+>   			ab_ahb->fw.msa_paddr, ab_ahb->fw.msa_size,
+> -			IOMMU_READ | IOMMU_WRITE);
+> +			IOMMU_READ | IOMMU_WRITE, GFP_KERNEL);
+>   	if (ret) {
+>   		ath11k_err(ab, "failed to map firmware region: %d\n", ret);
+>   		goto err_iommu_detach;
+> @@ -1029,7 +1029,7 @@ static int ath11k_ahb_fw_resources_init(struct ath11k_base *ab)
+>   
+>   	ret = iommu_map(iommu_dom, ab_ahb->fw.ce_paddr,
+>   			ab_ahb->fw.ce_paddr, ab_ahb->fw.ce_size,
+> -			IOMMU_READ | IOMMU_WRITE);
+> +			IOMMU_READ | IOMMU_WRITE, GFP_KERNEL);
+>   	if (ret) {
+>   		ath11k_err(ab, "failed to map firmware CE region: %d\n", ret);
+>   		goto err_iommu_unmap;
+> diff --git a/drivers/remoteproc/remoteproc_core.c b/drivers/remoteproc/remoteproc_core.c
+> index 1cd4815a6dd197..80072b6b628358 100644
+> --- a/drivers/remoteproc/remoteproc_core.c
+> +++ b/drivers/remoteproc/remoteproc_core.c
+> @@ -643,7 +643,8 @@ static int rproc_handle_devmem(struct rproc *rproc, void *ptr,
+>   	if (!mapping)
+>   		return -ENOMEM;
+>   
+> -	ret = iommu_map(rproc->domain, rsc->da, rsc->pa, rsc->len, rsc->flags);
+> +	ret = iommu_map(rproc->domain, rsc->da, rsc->pa, rsc->len, rsc->flags,
+> +			GFP_KERNEL);
+>   	if (ret) {
+>   		dev_err(dev, "failed to map devmem: %d\n", ret);
+>   		goto out;
+> @@ -737,7 +738,7 @@ static int rproc_alloc_carveout(struct rproc *rproc,
+>   		}
+>   
+>   		ret = iommu_map(rproc->domain, mem->da, dma, mem->len,
+> -				mem->flags);
+> +				mem->flags, GFP_KERNEL);
+>   		if (ret) {
+>   			dev_err(dev, "iommu_map failed: %d\n", ret);
+>   			goto free_mapping;
+> diff --git a/drivers/vfio/vfio_iommu_type1.c b/drivers/vfio/vfio_iommu_type1.c
+> index 23c24fe98c00d4..e14f86a8ef5258 100644
+> --- a/drivers/vfio/vfio_iommu_type1.c
+> +++ b/drivers/vfio/vfio_iommu_type1.c
+> @@ -1480,7 +1480,8 @@ static int vfio_iommu_map(struct vfio_iommu *iommu, dma_addr_t iova,
+>   
+>   	list_for_each_entry(d, &iommu->domain_list, next) {
+>   		ret = iommu_map(d->domain, iova, (phys_addr_t)pfn << PAGE_SHIFT,
+> -				npage << PAGE_SHIFT, prot | IOMMU_CACHE);
+> +				npage << PAGE_SHIFT, prot | IOMMU_CACHE,
+> +				GFP_KERNEL);
+>   		if (ret)
+>   			goto unwind;
+>   
+> @@ -1777,8 +1778,8 @@ static int vfio_iommu_replay(struct vfio_iommu *iommu,
+>   				size = npage << PAGE_SHIFT;
+>   			}
+>   
+> -			ret = iommu_map(domain->domain, iova, phys,
+> -					size, dma->prot | IOMMU_CACHE);
+> +			ret = iommu_map(domain->domain, iova, phys, size,
+> +					dma->prot | IOMMU_CACHE, GFP_KERNEL);
+>   			if (ret) {
+>   				if (!dma->iommu_mapped) {
+>   					vfio_unpin_pages_remote(dma, iova,
+> @@ -1866,7 +1867,7 @@ static void vfio_test_domain_fgsp(struct vfio_domain *domain)
+>   		return;
+>   
+>   	ret = iommu_map(domain->domain, 0, page_to_phys(pages), PAGE_SIZE * 2,
+> -			IOMMU_READ | IOMMU_WRITE | IOMMU_CACHE);
+> +			IOMMU_READ | IOMMU_WRITE | IOMMU_CACHE, GFP_KERNEL);
+>   	if (!ret) {
+>   		size_t unmapped = iommu_unmap(domain->domain, 0, PAGE_SIZE);
+>   
+> diff --git a/drivers/vhost/vdpa.c b/drivers/vhost/vdpa.c
+> index 166044642fd5cc..e555c3bd1c030b 100644
+> --- a/drivers/vhost/vdpa.c
+> +++ b/drivers/vhost/vdpa.c
+> @@ -777,7 +777,7 @@ static int vhost_vdpa_map(struct vhost_vdpa *v, struct vhost_iotlb *iotlb,
+>   			r = ops->set_map(vdpa, asid, iotlb);
+>   	} else {
+>   		r = iommu_map(v->domain, iova, pa, size,
+> -			      perm_to_iommu_flags(perm));
+> +			      perm_to_iommu_flags(perm), GFP_KERNEL);
+>   	}
+>   	if (r) {
+>   		vhost_iotlb_del_range(iotlb, iova, iova + size - 1);
+> diff --git a/include/linux/iommu.h b/include/linux/iommu.h
+> index 46e1347bfa2286..d2020994f292db 100644
+> --- a/include/linux/iommu.h
+> +++ b/include/linux/iommu.h
+> @@ -467,7 +467,7 @@ extern int iommu_sva_unbind_gpasid(struct iommu_domain *domain,
+>   extern struct iommu_domain *iommu_get_domain_for_dev(struct device *dev);
+>   extern struct iommu_domain *iommu_get_dma_domain(struct device *dev);
+>   extern int iommu_map(struct iommu_domain *domain, unsigned long iova,
+> -		     phys_addr_t paddr, size_t size, int prot);
+> +		     phys_addr_t paddr, size_t size, int prot, gfp_t gfp);
+>   extern int iommu_map_atomic(struct iommu_domain *domain, unsigned long iova,
+>   			    phys_addr_t paddr, size_t size, int prot);
+>   extern size_t iommu_unmap(struct iommu_domain *domain, unsigned long iova,
+> @@ -773,7 +773,7 @@ static inline struct iommu_domain *iommu_get_domain_for_dev(struct device *dev)
+>   }
+>   
+>   static inline int iommu_map(struct iommu_domain *domain, unsigned long iova,
+> -			    phys_addr_t paddr, size_t size, int prot)
+> +			    phys_addr_t paddr, size_t size, int prot, gfp_t gfp)
+>   {
+>   	return -ENODEV;
+>   }
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
