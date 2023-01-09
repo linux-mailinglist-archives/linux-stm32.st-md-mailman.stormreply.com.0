@@ -2,74 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id AAEFF6624BC
-	for <lists+linux-stm32@lfdr.de>; Mon,  9 Jan 2023 12:54:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6D0C6662828
+	for <lists+linux-stm32@lfdr.de>; Mon,  9 Jan 2023 15:13:51 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 68189C65E55;
-	Mon,  9 Jan 2023 11:54:52 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1435CC69049;
+	Mon,  9 Jan 2023 14:13:51 +0000 (UTC)
+Received: from mail-yw1-f175.google.com (mail-yw1-f175.google.com
+ [209.85.128.175])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AB940C65048
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3717CC65048
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  9 Jan 2023 11:54:50 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 309A7Muk031252; Mon, 9 Jan 2023 12:54:20 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=iOhZPcoRafAEpEAF7mdZJd24KSFmRfUYGieziEtvSEE=;
- b=y91emgsL4msZFLCYWpJcNOejxyU+PHeFMgOYbTbK7yRn91iTMue8vHjQ9H8rlAB4gioS
- A3l8M2NBi2+ze9/u5P1r8UJh8gDSD+qrZSEigekPQhHW3MujAugPhJmfhxG01VqvhiDy
- LUOZ2C/UzIxw0/U5S0hGczZsMuSmKf9lFMFDd2oCbW5/Ov58L01oNG5W/FPlSxm+6C1B
- MHMx2FzL1ZI4SPN2SgNvXfffxUXvPWlffvkEYn8xEVbYar9WbaOMlEwTLQWtdjStRFwZ
- swsh5UQMpXgaaOmR/GoZ9FbdGbGNfXRxP86GNqZ7bz04mH3lMHbNJyMogEU5MKHTN51g dg== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3my0gntx3b-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 09 Jan 2023 12:54:20 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id C4A7410002A;
- Mon,  9 Jan 2023 12:54:15 +0100 (CET)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 9B66A21863A;
- Mon,  9 Jan 2023 12:54:15 +0100 (CET)
-Received: from [10.201.21.177] (10.201.21.177) by SHFDAG1NODE1.st.com
- (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.13; Mon, 9 Jan
- 2023 12:54:15 +0100
-Message-ID: <19157c67-fa83-e598-d7ee-c313f3d4b198@foss.st.com>
-Date: Mon, 9 Jan 2023 12:54:08 +0100
+ Mon,  9 Jan 2023 14:13:49 +0000 (UTC)
+Received: by mail-yw1-f175.google.com with SMTP id
+ 00721157ae682-4b6255ce5baso113664047b3.11
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 09 Jan 2023 06:13:49 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=TBh4l+oOox7qqr2Os5BHCfwojNKX4LdoqbYoYYXSeWc=;
+ b=g9oVhOi6NBeZ3c6t9S7kMzfafGBNT0c7U1ze1kmYSwKckb8wiQ9yZgQyi9zNzLX7UD
+ pcp8JjxfjfmayoO0N3t7l2yLR98E/M+BGbgbmv1/dv9dvyteUIgoyhSsjOQwkuIVZipF
+ iM85F56uXm/GDIjajFGZSvafT7Xkz9R1u3fcvQ2lRMLgOyXTpxb9TDhhHzPS8Nlk6jZi
+ dUkAW2oSKRZtNNV5ELOTuApP/hQxAXdk0eFrXb6U9f7lPEGR3y4/RjB8tCtLHAB4cR2D
+ Ywjbo50cEh4/xJ3u80W5o5VRcnPiciACu/a2Mc2bTA6WQ1EPhD8iN+5U+b0l7QFtMDgF
+ 6nBg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=TBh4l+oOox7qqr2Os5BHCfwojNKX4LdoqbYoYYXSeWc=;
+ b=RRj8qF6LVl/GdN6MdBus9ldPgcn4D3qntu+GkjUZpAhYqgZIQgLGFNY2YcsT9bB/B1
+ wQ8bzZc9J7d/4dcqKELLsuxAed3KLAtWSbyCIwvcXAwwgKQUwWn9xufA0sgDRmjId/Cn
+ y+jkLTKdgAVX4zf2wITdaOokQmmxaSJkqNkbl+4bcfw/pSotxv9K7FW9JXoWB2kUgREt
+ 8yHtvpnAdEQL0l5E8NbGYZd581iT+tNE1RajI0PHZDE7C3MXUnvEyBvrbKKJ54BDvDft
+ DLFwKNugKHDMXrTkRpFu6XKGO6V7tPGYjluRPBJhhnVsxvcgK8AurQJiFENEAok0t6wY
+ 81Dw==
+X-Gm-Message-State: AFqh2krU/ldCNII8tsoqHifurwSqT3cjRKZh4Z7RFECgD0EbQSVRz4aC
+ 7t56IMgz5fNaQVda6fEcE2tUON9wUk8w0YvY0wzjjZZo5AIQFg==
+X-Google-Smtp-Source: AMrXdXsw0ubbH8l+6/r7hKop25zdf/vJOzVMIkw2j/c/BgZ9zCt0dd1QSbGBnDTXpVpzXmn73j5yvhWe6YM5iiIyBx0=
+X-Received: by 2002:a81:7784:0:b0:461:49a3:db6a with SMTP id
+ s126-20020a817784000000b0046149a3db6amr1433928ywc.185.1673273628147; Mon, 09
+ Jan 2023 06:13:48 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.2
-Content-Language: en-US
-To: Krzysztof Kozlowski <krzk@kernel.org>, <alexandre.torgue@foss.st.com>,
- <robh+dt@kernel.org>, <Oleksii_Moisieiev@epam.com>,
- <linus.walleij@linaro.org>, <gregkh@linuxfoundation.org>
-References: <20221221173055.11719-1-gatien.chevallier@foss.st.com>
- <20221221173055.11719-4-gatien.chevallier@foss.st.com>
- <879325d2-4b2d-bc1d-310c-ece4c449ad8f@kernel.org>
- <8357d887-c8ab-39bc-4ef0-62e9225fb2a6@foss.st.com>
- <118e7f0c-bf5d-4bda-ee70-92eb2b71649c@kernel.org>
- <8f022dc8-d728-ba91-35ed-8a4006855f0d@foss.st.com>
- <dfe328fc-349b-3357-a8ac-6fc363f403fc@kernel.org>
-From: Gatien CHEVALLIER <gatien.chevallier@foss.st.com>
-In-Reply-To: <dfe328fc-349b-3357-a8ac-6fc363f403fc@kernel.org>
-X-Originating-IP: [10.201.21.177]
-X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE1.st.com
- (10.75.129.69)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.923,Hydra:6.0.545,FMLib:17.11.122.1
- definitions=2023-01-09_04,2023-01-09_01,2022-06-22_01
-Cc: mark.rutland@arm.com, devicetree@vger.kernel.org, arnd@arndb.de,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [RFC PATCH 3/7] dt-bindings: bus: add STM32MP15
- ETZPC firewall bus bindings
+References: <20230102082503.3944927-1-linmq006@gmail.com>
+In-Reply-To: <20230102082503.3944927-1-linmq006@gmail.com>
+From: Linus Walleij <linus.walleij@linaro.org>
+Date: Mon, 9 Jan 2023 15:13:36 +0100
+Message-ID: <CACRpkdYreh-iG+Ao9VxY34si8HyxObyUG6zBHqxR=QziXx6Zyw@mail.gmail.com>
+To: Miaoqian Lin <linmq006@gmail.com>
+Cc: Marek Vasut <marex@denx.de>, linux-kernel@vger.kernel.org,
+ linux-gpio@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] pinctrl: stm32: Fix refcount leak in
+	stm32_pctrl_get_irq_domain
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,128 +70,24 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+On Mon, Jan 2, 2023 at 9:25 AM Miaoqian Lin <linmq006@gmail.com> wrote:
 
+> of_irq_find_parent() returns a node pointer with refcount incremented,
+> We should use of_node_put() on it when not needed anymore.
+> Add missing of_node_put() to avoid refcount leak.
+>
+> Fixes: d86f4d71e42a ("pinctrl: stm32: check irq controller availability at probe")
+> Signed-off-by: Miaoqian Lin <linmq006@gmail.com>
 
-On 1/5/23 22:53, Krzysztof Kozlowski wrote:
-> On 04/01/2023 14:43, Gatien CHEVALLIER wrote:
->> Hello Krzysztof,
->>
->> On 12/22/22 14:57, Krzysztof Kozlowski wrote:
->>> On 22/12/2022 14:51, Gatien CHEVALLIER wrote:
->>>> Hello,
->>>>
->>>> On 12/22/22 11:26, Krzysztof Kozlowski wrote:
->>>>> On 21/12/2022 18:30, Gatien Chevallier wrote:
->>>>>> Adds the list of peripherals IDs under firewall bus on STM32MP15.
->>>>>>
->>>>>> Signed-off-by: Gatien Chevallier <gatien.chevallier@foss.st.com>
->>>>>> ---
->>>>>>     include/dt-bindings/bus/stm32mp15_sys_bus.h | 98 +++++++++++++++++++++
->>>>>>     1 file changed, 98 insertions(+)
->>>>>>     create mode 100644 include/dt-bindings/bus/stm32mp15_sys_bus.h
->>>>>>
->>>>>> diff --git a/include/dt-bindings/bus/stm32mp15_sys_bus.h b/include/dt-bindings/bus/stm32mp15_sys_bus.h
->>>>>> new file mode 100644
->>>>>> index 000000000000..97eacc7b5f16
->>>>>> --- /dev/null
->>>>>> +++ b/include/dt-bindings/bus/stm32mp15_sys_bus.h
->>>>>
->>>>> That's wrong in multiple ways:
->>>>> 1. No underscores
->>>>> 2. Missing vendor prefix
->>>>> 3. Name not matching compatible.
->>>>
->>>> Sure, will comply in V3.
->>>>
->>>>>
->>>>>> @@ -0,0 +1,98 @@
->>>>>> +/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
->>>>>> +/*
->>>>>> + * Copyright (C) STMicroelectronics 2022 - All Rights Reserved
->>>>>> + */
->>>>>> +#ifndef _DT_BINDINGS_BUS_STM32MP15_SYS_BUS_H
->>>>>> +#define _DT_BINDINGS_BUS_STM32MP15_SYS_BUS_H
->>>>>> +
->>>>>> +/* ETZPC IDs */
->>>>>> +#define STM32MP1_ETZPC_STGENC_ID	0
->>>>>> +#define STM32MP1_ETZPC_BKPSRAM_ID	1
->>>>>> +#define STM32MP1_ETZPC_IWDG1_ID		2
->>>>>> +#define STM32MP1_ETZPC_USART1_ID	3
->>>>>> +#define STM32MP1_ETZPC_SPI6_ID		4
->>>>>> +#define STM32MP1_ETZPC_I2C4_ID		5
->>>>>> +/* ID 6 reserved */
->>>>>
->>>>> Reserved why? These are IDs so they start from 0 and go by 0. Don't
->>>>> hard-code some register offsets.
->>>>
->>>> Here, I do define IDs. Some appear as reserved based on what I've seen
->>>> in the SoC datasheet that states these as "indexes"
->>>>
->>>> Please see the table 94 in chapter 15.6 (ETZPC) of the STM32MP157
->>>> Reference manual:
->>>> [1] https://www.st.com/resource/en/reference_manual/DM00327659-.pdf
->>>
->>> Then why do you define them in bindings? Use raw numbers. Do you see
->>> anywhere in arm/arm64 bindings for GIC_SPI interrupt numbers?
->>>
->>
->> What would you think of simply removing the comments that state that IDs
->> are reserved, mimicking the way it is for qcom bindings? Fundamentally,
->> they are indeed only IDs and could be raw numbers.
-> 
-> If these are IDs then there are no reserved numbers and they are
-> continuous from 0 to X. Without gaps.
-> 
->> IMO, this makes reading the device tree harder. Because you'd have to
->> look what the raw number corresponds to.
-> 
-> Sure, but that's not the reason to put numbers to the bindings... You
-> mix defines with bindings.
-> 
->> To take an example, it has already been done for SCMI clocks and I find
->> it eases comprehension.
-> 
-> You need to be a bit more specific...
+Patch applied!
 
-Please see include/dt-bindings/clock/stm32mp1-clks.h, where there are 
-various clock IDs defined, some of them not contiguous.
-
-Errata: for SCMI clocks they are indeed contiguous but not clock IDs.
-
-> 
-> Anyway, IDs should be placed in bindings. Some mapping of
-> internal/hardware ports, registers, offsets, values - usually not.
-> 
-> I don't know where exactly your case fits, but when some IDs are
-> reserved it is a clear sign that these are not IDs (again - IDs start
-> from 0 and go incrementally by one, without gaps).
-> 
-
-I do agree with your statement that IDs should not be reserved.
-
-I think I've missed something to better highlight my point of view: It 
-would be perfectly fine using numbers that are not described in this 
-bindings file. It would just not correspond to an ID of a peripheral 
-described in the SoC reference manual, thus making no sense to use them. 
-Stating that they are reserved was incorrect, it's just that peripherals 
-get a firewall ID, depending on the platform.
-
-I think it should be okay not describing IDs that are not relevant, what 
-do you think? I found that in include/dt-bindings/arm/qcom,ids.h, IDs 
-are not continuous. Not mentioning an ID could be used for deprecation.
-
-> 
-> Best regards,
-> Krzysztof
-> 
-
-Best regards,
-Gatien
+Yours,
+Linus Walleij
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
