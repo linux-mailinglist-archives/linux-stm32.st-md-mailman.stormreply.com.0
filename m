@@ -2,88 +2,73 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id F1179664799
-	for <lists+linux-stm32@lfdr.de>; Tue, 10 Jan 2023 18:43:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1DBD3664C35
+	for <lists+linux-stm32@lfdr.de>; Tue, 10 Jan 2023 20:19:36 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A0D9AC6904A;
-	Tue, 10 Jan 2023 17:43:34 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 15895C01E98
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id ACD2EC6904A;
+	Tue, 10 Jan 2023 19:19:35 +0000 (UTC)
+Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com
+ [209.85.167.53])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6FA60C65048
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 10 Jan 2023 17:43:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1673372612;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=c8Y3pexWhwKnwismKyLBmb21oGlkflU/IM7CX+KUhW8=;
- b=fCGWs4TkihaYAz6s7sy0sRVR3UmOPqbz3yOVoLVIv/u6Ne6o/QZimkpRPoWw9ubkooDDSU
- X9lA8mDNkL2o93I9ukjKcLhkiBR3bZmJxKdsIcEtKlh/HR7YxgNshBFy3cLsdo58qWe2en
- lrB5zWJojxfkTlonfkOdZcjso1Y2Mmg=
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-81-GBhp4Oi2NzqHrwh2GQfBkg-1; Tue, 10 Jan 2023 12:43:31 -0500
-X-MC-Unique: GBhp4Oi2NzqHrwh2GQfBkg-1
-Received: by mail-wm1-f72.google.com with SMTP id
- bi11-20020a05600c3d8b00b003d9ebf905c9so3981372wmb.5
+ Tue, 10 Jan 2023 19:19:34 +0000 (UTC)
+Received: by mail-lf1-f53.google.com with SMTP id y25so20023804lfa.9
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 10 Jan 2023 09:43:30 -0800 (PST)
+ Tue, 10 Jan 2023 11:19:34 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=/o0PiJuOvWG4Quan3s3nxBl5R0QTcNbdsB/Kd9BP1AQ=;
+ b=QvzRMTn4hye8yVLEuaUkyDFux8Hpv0eajm0LJm8GMTintGJx+1ujiclNrF/I6qEjJU
+ dOs8yppVqBnHrv1mx2QAR6aePZxGxJxGTx1kMx2/NuONqaB3kaoyEgb1/R1O0cbmlqq2
+ MtLTJ3vRqkxhzKkZS8c4etDgliJhzAXncvhubP6lkn11eNlyzHzV9gmIXnGoraF0dHuE
+ omYXoRbzy0s3gLJEsdyKhI5BjryhaKblv09V7MQ+nrfi2jDCG0iIUbVEDetBsJBm5W8i
+ txmuARCMDcCayPSmkKW00ELukdHIX40msCknwZCd3F92GI1fHpYKdcagynhNhw837Tvo
+ MXFg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=c8Y3pexWhwKnwismKyLBmb21oGlkflU/IM7CX+KUhW8=;
- b=ZOYPt9eKWn1aQCq1e0H1jBNyTkk/A+sKWTYlvHS0uO701ZJu/aXo89xxg3Cw4FHGzW
- VVYun0qAnikQnBc7o/FZJdd6k2e1L1QUVzWX2TMupXQhLoCARB9Qwlu2f/rl+YkmtMc9
- Wg35f0o55vYQfpgXpd7B6kUj1Nm8oGJ7/hAU/vAV7A1Se+/f6MD5s5OrLVzkrvow3G7p
- d/mPIFfok0EErdZnShQiRbb788mVMFcH45AS4JMXx651wWOYRSkmLFaqs/W998AMQgVA
- SdsQd0NuNmOI6NNBWZo6Lp8m/OghTOCcjxFjadzfEgH9LP4+dhwol1Hf1NtT0Che2Iqf
- 781A==
-X-Gm-Message-State: AFqh2krqhvyEQGtCrgv1VP5lpoI1a7bvGGLtPxAcA3i4Hbp3/n16zXHJ
- fTJ4VPmNX3JckLkvWgCLYvbhwn8QxgSDGuE8ZH+PUMs9RARCGIxlinYi0Cd1fkkDJSx3YS/GdbV
- Un3isasK/+GBCgxLx8xuH2OYRtULGOWxbB9/ZR5YY
-X-Received: by 2002:a05:600c:3485:b0:3d1:ee6c:f897 with SMTP id
- a5-20020a05600c348500b003d1ee6cf897mr50288322wmq.3.1673372607714; 
- Tue, 10 Jan 2023 09:43:27 -0800 (PST)
-X-Google-Smtp-Source: AMrXdXvxU+5jK6DCKCFcOjrGESz1FsScmmigeVbnmUI9PNQjGsaat4nrYN0f6poWVOX7lRHhoUaFUg==
-X-Received: by 2002:a05:600c:3485:b0:3d1:ee6c:f897 with SMTP id
- a5-20020a05600c348500b003d1ee6cf897mr50288302wmq.3.1673372607455; 
- Tue, 10 Jan 2023 09:43:27 -0800 (PST)
-Received: from [192.168.1.130] (205.pool92-176-231.dynamic.orange.es.
- [92.176.231.205]) by smtp.gmail.com with ESMTPSA id
- c10-20020a056000104a00b002238ea5750csm13837334wrx.72.2023.01.10.09.43.26
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 10 Jan 2023 09:43:27 -0800 (PST)
-Message-ID: <7a61ea5f-c6e0-1f6b-fc5c-40bdf2c6293e@redhat.com>
-Date: Tue, 10 Jan 2023 18:43:25 +0100
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=/o0PiJuOvWG4Quan3s3nxBl5R0QTcNbdsB/Kd9BP1AQ=;
+ b=k+9UULGls18AljD7Fj1Thu33Ttoivu0EMKHR4ppxMytPVNYyEwrQ4eBowwzwwdueOp
+ YbXGkN8GTGHxM5r9ES5MmAlGdHMhGnz0vSXka4x7HvrBvu4fUczKG7oVW4P7VOlql7ik
+ KEm3DMZDSdl39lomQv+LYiKrBNtfPvI4bAyNJZv31ftx1huDHk9kDWoPNacmr8TyhMIM
+ 2AcWZF5CTht9CoCNUCob+ARxe1expbs4LSSrywrv33wls+tngQIJK81If2lrzbFq2FBv
+ qvaDr32cuqDbQV5h8rfF9HXs5f9+AwGWNyNI4RqS0rtJ7ssHchrZRSpdE/xMUifQNh6L
+ yDOg==
+X-Gm-Message-State: AFqh2krGmwK7Q3M/baofoHkImTUBB9R6B8+u7cQSSlCY0bC9/Ptaa1oY
+ z91vEdCy7xA7GcydiMCs+2sxbw==
+X-Google-Smtp-Source: AMrXdXs6/SKNTCtGaClH++pUygPpcPqjxV2jEl7EmmiQq3LniMkvdIeZ5Ilrb8zDWZHWjgRBe05fTw==
+X-Received: by 2002:a05:6512:693:b0:4cc:96fc:7b5d with SMTP id
+ t19-20020a056512069300b004cc96fc7b5dmr78374lfe.52.1673378373701; 
+ Tue, 10 Jan 2023 11:19:33 -0800 (PST)
+Received: from Fecusia.local (c-05d8225c.014-348-6c756e10.bbcust.telenor.se.
+ [92.34.216.5]) by smtp.gmail.com with ESMTPSA id
+ x28-20020a056512131c00b004b549ad99adsm2297725lfu.304.2023.01.10.11.19.32
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 10 Jan 2023 11:19:33 -0800 (PST)
+From: Linus Walleij <linus.walleij@linaro.org>
+Date: Tue, 10 Jan 2023 20:19:12 +0100
+Message-Id: <20221227-ux500-stm32-hash-v2-0-bc443bc44ca4@linaro.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.5.0
-To: =?UTF-8?Q?Uwe_Kleine-K=c3=b6nig?= <u.kleine-koenig@pengutronix.de>,
- Arnd Bergmann <arnd@arndb.de>
-References: <20221209220555.3631364-1-u.kleine-koenig@pengutronix.de>
- <96e8a731-bf92-4cfd-b0be-dfbcb7a076c6@app.fastmail.com>
- <20221210092155.elcuvcbb4ukktxjp@pengutronix.de>
-From: Javier Martinez Canillas <javierm@redhat.com>
-In-Reply-To: <20221210092155.elcuvcbb4ukktxjp@pengutronix.de>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Cc: Pengutronix Kernel Team <kernel@pengutronix.de>,
- linux-samsung-soc@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Tomi Valkeinen <tomba@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
- Seung-Woo Kim <sw0312.kim@samsung.com>, dri-devel@lists.freedesktop.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Yannick Fertre <yannick.fertre@foss.st.com>,
- Kyungmin Park <kyungmin.park@samsung.com>, NXP Linux Team <linux-imx@nxp.com>,
- Alim Akhtar <alim.akhtar@samsung.com>, Shawn Guo <shawnguo@kernel.org>,
+X-B4-Tracking: v=1; b=H4sIADC6vWMC/32OQQ6CMBREr0K6tqb9IIgr72FYlPKhTbQl/ZVAC
+ He3oGuXbzIvMysjDBaJ3bKVBZwsWe8SwClj2ig3ILddYgYCQAJU/D1fhOAUXzlwo8jwGhHKa15A
+ DT1LWqsIeRuU02YXv/2IFH+SDsu498aAvZ2P6UeT2FiKPizHk0nu6Z/RSXLB2zKvlC50p4S8P61
+ TwZ99GFizbdsHIyAPqtkAAAA=
+To: Herbert Xu <herbert@gondor.apana.org.au>,
+ "David S. Miller" <davem@davemloft.net>, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Lionel Debieve <lionel.debieve@foss.st.com>
+X-Mailer: b4 0.11.1
+Cc: devicetree@vger.kernel.org, Linus Walleij <linus.walleij@linaro.org>,
+ linux-kernel@vger.kernel.org, linux-crypto@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] drm: Drop ARCH_MULTIPLATFORM from
-	dependencies
+Subject: [Linux-stm32] [PATCH v2 0/6] crypto: stm32 hash - reuse for Ux500
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,45 +80,71 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gMTIvMTAvMjIgMTA6MjEsIFV3ZSBLbGVpbmUtS8O2bmlnIHdyb3RlOgo+IEhlbGxvIEFybmQs
-Cj4gCj4gT24gRnJpLCBEZWMgMDksIDIwMjIgYXQgMTE6NTM6NDlQTSArMDEwMCwgQXJuZCBCZXJn
-bWFubiB3cm90ZToKPj4gT24gRnJpLCBEZWMgOSwgMjAyMiwgYXQgMjM6MDUsIFV3ZSBLbGVpbmUt
-S8O2bmlnIHdyb3RlOgo+Pj4gU29tZSBvZiB0aGVzZSBkZXBlbmRlbmNpZXMgdXNlZCB0byBiZSBz
-ZW5zaWJsZSB3aGVuIG9ubHkgYSBzbWFsbCBwYXJ0IG9mCj4+PiB0aGUgcGxhdGZvcm1zIHN1cHBv
-cnRlZCBieSBBUkNIPWFybSBjb3VsZCBiZSBjb21waWxlZCB0b2dldGhlciBpbiBhCj4+PiBzaW5n
-bGUga2VybmVsIGltYWdlLiBOb3dhZGF5cyBBUkNIX01VTFRJUExBVEZPUk0gaXMgb25seSB1c2Vk
-IGFzIGEgZ3VhcmQKPj4+IGZvciBrZXJuZWwgb3B0aW9ucyBpbmNvbXBhdGlibGUgd2l0aCBhIG11
-bHRpcGxhdGZvcm0gaW1hZ2UuIFNlZSBjb21taXQKPj4+IDg0ZmM4NjM2MDYyMyAoIkFSTTogbWFr
-ZSBBUkNIX01VTFRJUExBVEZPUk0gdXNlci12aXNpYmxlIikgZm9yIHNvbWUgbW9yZQo+Pj4gZGV0
-YWlscy4KPj4+Cj4+PiBTaWduZWQtb2ZmLWJ5OiBVd2UgS2xlaW5lLUvDtm5pZyA8dS5rbGVpbmUt
-a29lbmlnQHBlbmd1dHJvbml4LmRlPgo+Pgo+PiBNYWtlcyBzZW5zZSwKPj4KPj4gQWNrZWQtYnk6
-IEFybmQgQmVyZ21hbm4gPGFybmRAYXJuZGIuZGU+Cj4gCj4gVGhhbmtzLiAoQnV0IGhvbmVzdGx5
-IEknbSBub3Qgc3VycHJpc2VkIHlvdSBhZ3JlZSB0byB0aGlzIHBhdGNoIGFmdGVyCj4gb3VyIGNv
-bnZlcnNhdGlvbiBvbiBpcmMgOi0pCj4KClRoaXMgbWFrZXMgc2Vuc2UgdG8gbWUgYXMgd2VsbCwg
-YnV0IGl0IHdvdWxkIGJlIGdyZWF0IGlmIHNvbWVvbmUgZWxzZQpmcm9tIERSTSBjYW4gcmV2aWV3
-L2FjayBiZWZvcmUgcHVzaGluZyBpdC4KClJldmlld2VkLWJ5OiBKYXZpZXIgTWFydGluZXogQ2Fu
-aWxsYXMgPGphdmllcm1AcmVkaGF0LmNvbT4KICAKPj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dw
-dS9kcm0vb21hcGRybS9LY29uZmlnIAo+Pj4gYi9kcml2ZXJzL2dwdS9kcm0vb21hcGRybS9LY29u
-ZmlnCj4+PiBpbmRleCA0NTVlMWE5MWYwZTUuLjc2ZGVkMTU2OGJkMCAxMDA2NDQKPj4+IC0tLSBh
-L2RyaXZlcnMvZ3B1L2RybS9vbWFwZHJtL0tjb25maWcKPj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2Ry
-bS9vbWFwZHJtL0tjb25maWcKPj4+IEBAIC0yLDcgKzIsNyBAQAo+Pj4gIGNvbmZpZyBEUk1fT01B
-UAo+Pj4gIAl0cmlzdGF0ZSAiT01BUCBEUk0iCj4+PiAgCWRlcGVuZHMgb24gRFJNICYmIE9GCj4+
-PiAtCWRlcGVuZHMgb24gQVJDSF9PTUFQMlBMVVMgfHwgQVJDSF9NVUxUSVBMQVRGT1JNCj4+PiAr
-CWRlcGVuZHMgb24gQVJDSF9PTUFQMlBMVVMKPj4+ICAJc2VsZWN0IERSTV9LTVNfSEVMUEVSCj4+
-PiAgCXNlbGVjdCBWSURFT01PREVfSEVMUEVSUwo+Pj4gIAlzZWxlY3QgSERNSQo+Pgo+PiBTaW5j
-ZSB0aGUgb3JpZ2luYWwgcHVycG9zZSBvZiB0aGUgfHxBUkNIX01VTFRJUExBVEZPUk0gd2FzIHRv
-IGFsbG93Cj4+IGJ1aWxkaW5nIHRoZSBkcml2ZXIgb24gbW9yZSB0YXJnZXRzLCBJIHdvbmRlciBp
-ZiB3ZSBzaG91bGQgaW5zdGVhZAo+PiBtYWtlIHRoYXQgfHxDT01QSUxFX1RFU1QsIHdoaWNoIHdv
-dWxkIGFsc28gYWxsb3cgYnVpbGRpbmcgaXQgb24KPj4geDg2IGFuZCBvdGhlcnMuCj4gCj4gSSB3
-b25kZXJlZCBhYm91dCB0aGF0LCB0b28sIGJ1dCB0aG91Z2h0IHRoYXQgd291bGQgYmUgYSBuZXcg
-cGF0Y2guCj4KCkFncmVlZCB0aGF0IG1ha2luZyBpdCB8fCBDT01QSUxFX1RFU1Qgc2hvdWxkIGJl
-IGluIGEgc2VwYXJhdGUgcGF0Y2guCgotLSAKQmVzdCByZWdhcmRzLAoKSmF2aWVyIE1hcnRpbmV6
-IENhbmlsbGFzCkNvcmUgUGxhdGZvcm1zClJlZCBIYXQKCl9fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1z
-dG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5z
-dG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+By taking some small portions of the Ux500 HASH driver and
+adding to the STM32 driver, it turns out we can support both
+platforms with the more modern STM32 driver.
+
+The STM32 driver is more modern and compact thanks to using
+things like the crypto engine.
+
+We add a polled mode since the Ux500 does not have any
+interrupt. Incidentally, this could perhaps be re-used to
+implement synchronous mode, if this is desireable.
+
+To: Herbert Xu <herbert@gondor.apana.org.au>
+To: "David S. Miller" <davem@davemloft.net>
+To: Rob Herring <robh+dt@kernel.org>
+To: Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
+To: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+To: Alexandre Torgue <alexandre.torgue@foss.st.com>
+To: Lionel Debieve <lionel.debieve@foss.st.com>
+Cc: linux-crypto@vger.kernel.org
+Cc: devicetree@vger.kernel.org
+Cc: linux-stm32@st-md-mailman.stormreply.com
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org
+Signed-off-by: Linus Walleij <linus.walleij@linaro.org>
+
+---
+Changes in v2:
+- Use an else-clause in the DT bindings.
+- Fix up issues pointed out by Lionel in the driver extension.
+- Dropped the patch converting dma_mode to a bool after
+  Lionel explained how this works.
+- Link to v1: https://lore.kernel.org/r/20221227-ux500-stm32-hash-v1-0-b637ac4cda01@linaro.org
+
+---
+Linus Walleij (6):
+      dt-bindings: crypto: Let STM32 define Ux500 HASH
+      crypto: stm32/hash: Simplify code
+      crypto: stm32/hash: Use existing busy poll function
+      crypto: stm32/hash: Wait for idle before final CPU xmit
+      crypto: stm32/hash: Support Ux500 hash
+      crypto: ux500/hash - delete driver
+
+ .../devicetree/bindings/crypto/st,stm32-hash.yaml  |   23 +-
+ drivers/crypto/Kconfig                             |   10 -
+ drivers/crypto/Makefile                            |    1 -
+ drivers/crypto/stm32/stm32-hash.c                  |  243 ++-
+ drivers/crypto/ux500/Kconfig                       |   22 -
+ drivers/crypto/ux500/Makefile                      |    7 -
+ drivers/crypto/ux500/hash/Makefile                 |   11 -
+ drivers/crypto/ux500/hash/hash_alg.h               |  398 ----
+ drivers/crypto/ux500/hash/hash_core.c              | 1966 --------------------
+ 9 files changed, 227 insertions(+), 2454 deletions(-)
+---
+base-commit: 1b929c02afd37871d5afb9d498426f83432e71c2
+change-id: 20221227-ux500-stm32-hash-9ee26834292f
+
+Best regards,
+-- 
+Linus Walleij <linus.walleij@linaro.org>
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
