@@ -2,49 +2,88 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DCDFB6640FC
-	for <lists+linux-stm32@lfdr.de>; Tue, 10 Jan 2023 13:56:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F1179664799
+	for <lists+linux-stm32@lfdr.de>; Tue, 10 Jan 2023 18:43:34 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 88A8BC65E59;
-	Tue, 10 Jan 2023 12:56:32 +0000 (UTC)
-Received: from phobos.denx.de (phobos.denx.de [85.214.62.61])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CE7E9C01E98
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A0D9AC6904A;
+	Tue, 10 Jan 2023 17:43:34 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 15895C01E98
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 10 Jan 2023 12:56:31 +0000 (UTC)
-Received: from tr.lan (ip-86-49-120-218.bb.vodafone.cz [86.49.120.218])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
- (No client certificate requested)
- (Authenticated sender: marex@denx.de)
- by phobos.denx.de (Postfix) with ESMTPSA id 83C178532C;
- Tue, 10 Jan 2023 13:56:30 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de;
- s=phobos-20191101; t=1673355391;
- bh=ylFu7wP5e77SDo+4dZFXcsiGvF9QhpKWcWLNNm3Xjqs=;
- h=From:To:Cc:Subject:Date:From;
- b=njjUA8KTwHKU6Dp+6kQfHVNgzdfzGCNgWKnCHlKVpD/57CKclQS8ndV0Zq7KtKyRM
- yNJaFDetNZjDcsvIikbEXXGWuqlkIpnRiAzkV+ReI8oWbM9vNyKj8OHjusL8duUHup
- LuNZy1IVunV+Nz/Sh5RvEGIVvaXvH4r+gQppBlo+v+sdmOAsYaY7jSHfERA9wQqj7l
- JMeYlsB4GDM8CkFH3vVcCP2TnsliRKKwgJwV7bnGVKHVjV4YDmLp0u0hNcLtKwAZVO
- OJGo9n0gNEH1ReVfOpM8wKH36my1flti3Ix2YWjsWTZkrklj8+4auoObJKXoLyQxsD
- 7aA3V8sj0I/EQ==
-From: Marek Vasut <marex@denx.de>
-To: linux-serial@vger.kernel.org
-Date: Tue, 10 Jan 2023 13:56:21 +0100
-Message-Id: <20230110125621.89877-1-marex@denx.de>
-X-Mailer: git-send-email 2.39.0
+ Tue, 10 Jan 2023 17:43:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1673372612;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=c8Y3pexWhwKnwismKyLBmb21oGlkflU/IM7CX+KUhW8=;
+ b=fCGWs4TkihaYAz6s7sy0sRVR3UmOPqbz3yOVoLVIv/u6Ne6o/QZimkpRPoWw9ubkooDDSU
+ X9lA8mDNkL2o93I9ukjKcLhkiBR3bZmJxKdsIcEtKlh/HR7YxgNshBFy3cLsdo58qWe2en
+ lrB5zWJojxfkTlonfkOdZcjso1Y2Mmg=
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
+ [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
+ us-mta-81-GBhp4Oi2NzqHrwh2GQfBkg-1; Tue, 10 Jan 2023 12:43:31 -0500
+X-MC-Unique: GBhp4Oi2NzqHrwh2GQfBkg-1
+Received: by mail-wm1-f72.google.com with SMTP id
+ bi11-20020a05600c3d8b00b003d9ebf905c9so3981372wmb.5
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 10 Jan 2023 09:43:30 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=c8Y3pexWhwKnwismKyLBmb21oGlkflU/IM7CX+KUhW8=;
+ b=ZOYPt9eKWn1aQCq1e0H1jBNyTkk/A+sKWTYlvHS0uO701ZJu/aXo89xxg3Cw4FHGzW
+ VVYun0qAnikQnBc7o/FZJdd6k2e1L1QUVzWX2TMupXQhLoCARB9Qwlu2f/rl+YkmtMc9
+ Wg35f0o55vYQfpgXpd7B6kUj1Nm8oGJ7/hAU/vAV7A1Se+/f6MD5s5OrLVzkrvow3G7p
+ d/mPIFfok0EErdZnShQiRbb788mVMFcH45AS4JMXx651wWOYRSkmLFaqs/W998AMQgVA
+ SdsQd0NuNmOI6NNBWZo6Lp8m/OghTOCcjxFjadzfEgH9LP4+dhwol1Hf1NtT0Che2Iqf
+ 781A==
+X-Gm-Message-State: AFqh2krqhvyEQGtCrgv1VP5lpoI1a7bvGGLtPxAcA3i4Hbp3/n16zXHJ
+ fTJ4VPmNX3JckLkvWgCLYvbhwn8QxgSDGuE8ZH+PUMs9RARCGIxlinYi0Cd1fkkDJSx3YS/GdbV
+ Un3isasK/+GBCgxLx8xuH2OYRtULGOWxbB9/ZR5YY
+X-Received: by 2002:a05:600c:3485:b0:3d1:ee6c:f897 with SMTP id
+ a5-20020a05600c348500b003d1ee6cf897mr50288322wmq.3.1673372607714; 
+ Tue, 10 Jan 2023 09:43:27 -0800 (PST)
+X-Google-Smtp-Source: AMrXdXvxU+5jK6DCKCFcOjrGESz1FsScmmigeVbnmUI9PNQjGsaat4nrYN0f6poWVOX7lRHhoUaFUg==
+X-Received: by 2002:a05:600c:3485:b0:3d1:ee6c:f897 with SMTP id
+ a5-20020a05600c348500b003d1ee6cf897mr50288302wmq.3.1673372607455; 
+ Tue, 10 Jan 2023 09:43:27 -0800 (PST)
+Received: from [192.168.1.130] (205.pool92-176-231.dynamic.orange.es.
+ [92.176.231.205]) by smtp.gmail.com with ESMTPSA id
+ c10-20020a056000104a00b002238ea5750csm13837334wrx.72.2023.01.10.09.43.26
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 10 Jan 2023 09:43:27 -0800 (PST)
+Message-ID: <7a61ea5f-c6e0-1f6b-fc5c-40bdf2c6293e@redhat.com>
+Date: Tue, 10 Jan 2023 18:43:25 +0100
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.103.6 at phobos.denx.de
-X-Virus-Status: Clean
-Cc: Marek Vasut <marex@denx.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Thomas Gleixner <tglx@linutronix.de>, Jiri Slaby <jirislaby@kernel.org>,
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.5.0
+To: =?UTF-8?Q?Uwe_Kleine-K=c3=b6nig?= <u.kleine-koenig@pengutronix.de>,
+ Arnd Bergmann <arnd@arndb.de>
+References: <20221209220555.3631364-1-u.kleine-koenig@pengutronix.de>
+ <96e8a731-bf92-4cfd-b0be-dfbcb7a076c6@app.fastmail.com>
+ <20221210092155.elcuvcbb4ukktxjp@pengutronix.de>
+From: Javier Martinez Canillas <javierm@redhat.com>
+In-Reply-To: <20221210092155.elcuvcbb4ukktxjp@pengutronix.de>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Language: en-US
+Cc: Pengutronix Kernel Team <kernel@pengutronix.de>,
+ linux-samsung-soc@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Tomi Valkeinen <tomba@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Seung-Woo Kim <sw0312.kim@samsung.com>, dri-devel@lists.freedesktop.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Yannick Fertre <yannick.fertre@foss.st.com>,
+ Kyungmin Park <kyungmin.park@samsung.com>, NXP Linux Team <linux-imx@nxp.com>,
+ Alim Akhtar <alim.akhtar@samsung.com>, Shawn Guo <shawnguo@kernel.org>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v4] serial: stm32: Merge hard IRQ and threaded
-	IRQ handling into single IRQ handler
+Subject: Re: [Linux-stm32] [PATCH] drm: Drop ARCH_MULTIPLATFORM from
+	dependencies
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -56,123 +95,45 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Requesting an interrupt with IRQF_ONESHOT will run the primary handler
-in the hard-IRQ context even in the force-threaded mode. The
-force-threaded mode is used by PREEMPT_RT in order to avoid acquiring
-sleeping locks (spinlock_t) in hard-IRQ context. This combination
-makes it impossible and leads to "sleeping while atomic" warnings.
-
-Use one interrupt handler for both handlers (primary and secondary)
-and drop the IRQF_ONESHOT flag which is not needed.
-
-Fixes: e359b4411c283 ("serial: stm32: fix threaded interrupt handling")
-Reviewed-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Tested-by: Valentin Caron <valentin.caron@foss.st.com> # V3
-Signed-off-by: Marek Vasut <marex@denx.de>
----
-Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
-Cc: Erwan Le Ray <erwan.leray@foss.st.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Jiri Slaby <jirislaby@kernel.org>
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Cc: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Cc: Thomas Gleixner <tglx@linutronix.de>
-Cc: Valentin Caron <valentin.caron@foss.st.com>
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-stm32@st-md-mailman.stormreply.com
-To: linux-serial@vger.kernel.org
----
-V2: - Update patch subject, was:
-      serial: stm32: Move hard IRQ handling to threaded interrupt context
-    - Use request_irq() instead, rename the IRQ handler function
-V3: - Update the commit message per suggestion from Sebastian
-    - Add RB from Sebastian
-    - Add Fixes tag
-V4: - Remove uart_console() deadlock check from
-      stm32_usart_of_dma_rx_probe()
-    - Use plain spin_lock()/spin_unlock() instead of the
-      _irqsave/_irqrestore variants in IRQ handler
-    - Add TB from Valentin
----
- drivers/tty/serial/stm32-usart.c | 33 +++++---------------------------
- 1 file changed, 5 insertions(+), 28 deletions(-)
-
-diff --git a/drivers/tty/serial/stm32-usart.c b/drivers/tty/serial/stm32-usart.c
-index a1490033aa164..50c9e011b723b 100644
---- a/drivers/tty/serial/stm32-usart.c
-+++ b/drivers/tty/serial/stm32-usart.c
-@@ -751,8 +751,8 @@ static irqreturn_t stm32_usart_interrupt(int irq, void *ptr)
- 	struct tty_port *tport = &port->state->port;
- 	struct stm32_port *stm32_port = to_stm32_port(port);
- 	const struct stm32_usart_offsets *ofs = &stm32_port->info->ofs;
--	u32 sr;
- 	unsigned int size;
-+	u32 sr;
- 
- 	sr = readl_relaxed(port->membase + ofs->isr);
- 
-@@ -797,23 +797,9 @@ static irqreturn_t stm32_usart_interrupt(int irq, void *ptr)
- 		spin_unlock(&port->lock);
- 	}
- 
--	if (stm32_usart_rx_dma_enabled(port))
--		return IRQ_WAKE_THREAD;
--	else
--		return IRQ_HANDLED;
--}
--
--static irqreturn_t stm32_usart_threaded_interrupt(int irq, void *ptr)
--{
--	struct uart_port *port = ptr;
--	struct tty_port *tport = &port->state->port;
--	struct stm32_port *stm32_port = to_stm32_port(port);
--	unsigned int size;
--	unsigned long flags;
--
- 	/* Receiver timeout irq for DMA RX */
--	if (!stm32_port->throttled) {
--		spin_lock_irqsave(&port->lock, flags);
-+	if (stm32_usart_rx_dma_enabled(port) && !stm32_port->throttled) {
-+		spin_lock(&port->lock);
- 		size = stm32_usart_receive_chars(port, false);
- 		uart_unlock_and_check_sysrq_irqrestore(port, flags);
- 		if (size)
-@@ -1015,10 +1001,8 @@ static int stm32_usart_startup(struct uart_port *port)
- 	u32 val;
- 	int ret;
- 
--	ret = request_threaded_irq(port->irq, stm32_usart_interrupt,
--				   stm32_usart_threaded_interrupt,
--				   IRQF_ONESHOT | IRQF_NO_SUSPEND,
--				   name, port);
-+	ret = request_irq(port->irq, stm32_usart_interrupt,
-+			  IRQF_NO_SUSPEND, name, port);
- 	if (ret)
- 		return ret;
- 
-@@ -1601,13 +1585,6 @@ static int stm32_usart_of_dma_rx_probe(struct stm32_port *stm32port,
- 	struct dma_slave_config config;
- 	int ret;
- 
--	/*
--	 * Using DMA and threaded handler for the console could lead to
--	 * deadlocks.
--	 */
--	if (uart_console(port))
--		return -ENODEV;
--
- 	stm32port->rx_buf = dma_alloc_coherent(dev, RX_BUF_L,
- 					       &stm32port->rx_dma_buf,
- 					       GFP_KERNEL);
--- 
-2.39.0
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gMTIvMTAvMjIgMTA6MjEsIFV3ZSBLbGVpbmUtS8O2bmlnIHdyb3RlOgo+IEhlbGxvIEFybmQs
+Cj4gCj4gT24gRnJpLCBEZWMgMDksIDIwMjIgYXQgMTE6NTM6NDlQTSArMDEwMCwgQXJuZCBCZXJn
+bWFubiB3cm90ZToKPj4gT24gRnJpLCBEZWMgOSwgMjAyMiwgYXQgMjM6MDUsIFV3ZSBLbGVpbmUt
+S8O2bmlnIHdyb3RlOgo+Pj4gU29tZSBvZiB0aGVzZSBkZXBlbmRlbmNpZXMgdXNlZCB0byBiZSBz
+ZW5zaWJsZSB3aGVuIG9ubHkgYSBzbWFsbCBwYXJ0IG9mCj4+PiB0aGUgcGxhdGZvcm1zIHN1cHBv
+cnRlZCBieSBBUkNIPWFybSBjb3VsZCBiZSBjb21waWxlZCB0b2dldGhlciBpbiBhCj4+PiBzaW5n
+bGUga2VybmVsIGltYWdlLiBOb3dhZGF5cyBBUkNIX01VTFRJUExBVEZPUk0gaXMgb25seSB1c2Vk
+IGFzIGEgZ3VhcmQKPj4+IGZvciBrZXJuZWwgb3B0aW9ucyBpbmNvbXBhdGlibGUgd2l0aCBhIG11
+bHRpcGxhdGZvcm0gaW1hZ2UuIFNlZSBjb21taXQKPj4+IDg0ZmM4NjM2MDYyMyAoIkFSTTogbWFr
+ZSBBUkNIX01VTFRJUExBVEZPUk0gdXNlci12aXNpYmxlIikgZm9yIHNvbWUgbW9yZQo+Pj4gZGV0
+YWlscy4KPj4+Cj4+PiBTaWduZWQtb2ZmLWJ5OiBVd2UgS2xlaW5lLUvDtm5pZyA8dS5rbGVpbmUt
+a29lbmlnQHBlbmd1dHJvbml4LmRlPgo+Pgo+PiBNYWtlcyBzZW5zZSwKPj4KPj4gQWNrZWQtYnk6
+IEFybmQgQmVyZ21hbm4gPGFybmRAYXJuZGIuZGU+Cj4gCj4gVGhhbmtzLiAoQnV0IGhvbmVzdGx5
+IEknbSBub3Qgc3VycHJpc2VkIHlvdSBhZ3JlZSB0byB0aGlzIHBhdGNoIGFmdGVyCj4gb3VyIGNv
+bnZlcnNhdGlvbiBvbiBpcmMgOi0pCj4KClRoaXMgbWFrZXMgc2Vuc2UgdG8gbWUgYXMgd2VsbCwg
+YnV0IGl0IHdvdWxkIGJlIGdyZWF0IGlmIHNvbWVvbmUgZWxzZQpmcm9tIERSTSBjYW4gcmV2aWV3
+L2FjayBiZWZvcmUgcHVzaGluZyBpdC4KClJldmlld2VkLWJ5OiBKYXZpZXIgTWFydGluZXogQ2Fu
+aWxsYXMgPGphdmllcm1AcmVkaGF0LmNvbT4KICAKPj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dw
+dS9kcm0vb21hcGRybS9LY29uZmlnIAo+Pj4gYi9kcml2ZXJzL2dwdS9kcm0vb21hcGRybS9LY29u
+ZmlnCj4+PiBpbmRleCA0NTVlMWE5MWYwZTUuLjc2ZGVkMTU2OGJkMCAxMDA2NDQKPj4+IC0tLSBh
+L2RyaXZlcnMvZ3B1L2RybS9vbWFwZHJtL0tjb25maWcKPj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2Ry
+bS9vbWFwZHJtL0tjb25maWcKPj4+IEBAIC0yLDcgKzIsNyBAQAo+Pj4gIGNvbmZpZyBEUk1fT01B
+UAo+Pj4gIAl0cmlzdGF0ZSAiT01BUCBEUk0iCj4+PiAgCWRlcGVuZHMgb24gRFJNICYmIE9GCj4+
+PiAtCWRlcGVuZHMgb24gQVJDSF9PTUFQMlBMVVMgfHwgQVJDSF9NVUxUSVBMQVRGT1JNCj4+PiAr
+CWRlcGVuZHMgb24gQVJDSF9PTUFQMlBMVVMKPj4+ICAJc2VsZWN0IERSTV9LTVNfSEVMUEVSCj4+
+PiAgCXNlbGVjdCBWSURFT01PREVfSEVMUEVSUwo+Pj4gIAlzZWxlY3QgSERNSQo+Pgo+PiBTaW5j
+ZSB0aGUgb3JpZ2luYWwgcHVycG9zZSBvZiB0aGUgfHxBUkNIX01VTFRJUExBVEZPUk0gd2FzIHRv
+IGFsbG93Cj4+IGJ1aWxkaW5nIHRoZSBkcml2ZXIgb24gbW9yZSB0YXJnZXRzLCBJIHdvbmRlciBp
+ZiB3ZSBzaG91bGQgaW5zdGVhZAo+PiBtYWtlIHRoYXQgfHxDT01QSUxFX1RFU1QsIHdoaWNoIHdv
+dWxkIGFsc28gYWxsb3cgYnVpbGRpbmcgaXQgb24KPj4geDg2IGFuZCBvdGhlcnMuCj4gCj4gSSB3
+b25kZXJlZCBhYm91dCB0aGF0LCB0b28sIGJ1dCB0aG91Z2h0IHRoYXQgd291bGQgYmUgYSBuZXcg
+cGF0Y2guCj4KCkFncmVlZCB0aGF0IG1ha2luZyBpdCB8fCBDT01QSUxFX1RFU1Qgc2hvdWxkIGJl
+IGluIGEgc2VwYXJhdGUgcGF0Y2guCgotLSAKQmVzdCByZWdhcmRzLAoKSmF2aWVyIE1hcnRpbmV6
+IENhbmlsbGFzCkNvcmUgUGxhdGZvcm1zClJlZCBIYXQKCl9fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1z
+dG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5z
+dG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
