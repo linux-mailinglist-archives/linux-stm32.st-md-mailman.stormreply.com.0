@@ -2,54 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 43422666ABD
-	for <lists+linux-stm32@lfdr.de>; Thu, 12 Jan 2023 06:20:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CF9C5667010
+	for <lists+linux-stm32@lfdr.de>; Thu, 12 Jan 2023 11:45:28 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CC6C7C64109;
-	Thu, 12 Jan 2023 05:20:19 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D8A53C03FC3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 12 Jan 2023 05:20:18 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7FA51C65E4C;
+	Thu, 12 Jan 2023 10:45:28 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 2EC26B81DBE;
- Thu, 12 Jan 2023 05:20:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id C21AAC433F0;
- Thu, 12 Jan 2023 05:20:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1673500816;
- bh=Hcd5U67VJsibz/ZoBZjvua6nJb0h/zNvZUfjlALqBXM=;
- h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=i+vwN/+2MPRDYIX0KzsOh8/6LPZbIzLI0ecvylFx4m/6+Z1zSbi6deXP+W4sdDsdc
- bBnWyu0UzgELKHE0ZZ0LZJnPgg79Y1682EQRHpYqmJmvA/xgU4Bs3nCiLFmHdmrZlv
- bcBDkfN+8vMJ5Vn3OjQYXVHvTfDtQLRaVWkA2DhfiCDTUdY76N4aRJDAkMb2uApsk/
- yOqThwtLAatQLEvSOPXbZ8BpyFfEXWRhXW/7KPu9DeQZi6FntAxg5Gieqc1HQpGwyM
- VBRm5GPT6tlRdkRpJ2vZv6NlBf0O/zLEA7lwHNtuzHSnMP0RAN71HRRUgaK7yK/tur
- 38w2rpZiVwA/g==
-Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
- A1DAFC395C8; Thu, 12 Jan 2023 05:20:16 +0000 (UTC)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C46C0C65E45
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 12 Jan 2023 10:45:26 +0000 (UTC)
+Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 30C7vmS9020522; Thu, 12 Jan 2023 11:45:06 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=selector1;
+ bh=WjBj1qZ/+9wZWePmbKSPXuaTeMxTwjgMwHfpXwQM5TE=;
+ b=zRRZ6QMkf0S85FD8/1LFg9yEwcN0h43jNL91x0/Zq03GoDHgeGQfu5hxP5/Tgh80lL2L
+ br+u5NOpm0j/XKpInPbqczZFiVf1Ob33MNeHwy0MNqAk+gJjzNYu4oNq/4GReKSMBzl2
+ MGNOD/VjntKJyB2DJ9eXP6hLJ+9RCHJZUrdPv86mGL5RLVBFPjmCj8uG8qln9hgvxwi5
+ /Aoh3RrXTXhd/K0rsteaZ+wIHXfo2F6cEU2AG8vnC6Fod2Wr9tFGeOzhts7ZxK1swDFw
+ K+Cks6ZrkvvdPPfd7RJ16VtPvNDCkb2Phgx1dZiU/jREaPnkac2ycRfEjU8w96yTdmvZ YA== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3n1k5s1y2s-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 12 Jan 2023 11:45:06 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id ED65D10002A;
+ Thu, 12 Jan 2023 11:45:03 +0100 (CET)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id DE81A214B11;
+ Thu, 12 Jan 2023 11:45:03 +0100 (CET)
+Received: from localhost (10.201.20.178) by SHFDAG1NODE1.st.com (10.75.129.69)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.13; Thu, 12 Jan
+ 2023 11:45:03 +0100
+From: Olivier Moysan <olivier.moysan@foss.st.com>
+To: Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski
+ <krzysztof.kozlowski+dt@linaro.org>, Maxime Coquelin
+ <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Marek Vasut <marex@denx.de>
+Date: Thu, 12 Jan 2023 11:44:35 +0100
+Message-ID: <20230112104446.1140551-1-olivier.moysan@foss.st.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <167350081665.21073.1228450610276293938.git-patchwork-notify@kernel.org>
-Date: Thu, 12 Jan 2023 05:20:16 +0000
-References: <20230111050200.2130-1-noor.azura.ahmad.tarmizi@intel.com>
-In-Reply-To: <20230111050200.2130-1-noor.azura.ahmad.tarmizi@intel.com>
-To: Noor Azura Ahmad Tarmizi <noor.azura.ahmad.tarmizi@intel.com>
-Cc: noor.azura.ahmad.tarmizi@linux.intel.com, linux-kernel@vger.kernel.org,
- netdev@vger.kernel.org, richardcochran@gmail.com, tee.min.tan@intel.com,
- stable@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- edumazet@google.com, joabreu@synopsys.com, mcoquelin.stm32@gmail.com,
- kuba@kernel.org, muhammad.husaini.zulkifli@intel.com, peppe.cavallaro@st.com,
- hong.aun.looi@intel.com, pabeni@redhat.com, davem@davemloft.net,
+X-Originating-IP: [10.201.20.178]
+X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.219,Aquarius:18.0.923,Hydra:6.0.545,FMLib:17.11.122.1
+ definitions=2023-01-12_06,2023-01-12_01,2022-06-22_01
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ kernel@dh-electronics.com, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net v2 1/1] net: stmmac: add aux
- timestamps fifo clearance wait
+Subject: [Linux-stm32] [PATCH 00/10] ARM: dts: stm32: add adc internal
+	channels on stm32mp15
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,31 +78,48 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello:
+Add STM32 ADC2 internal channels VREFINT and VDDCORE to STM32MP15x SoCs.
 
-This patch was applied to netdev/net.git (master)
-by Jakub Kicinski <kuba@kernel.org>:
+Add support of vrefint channel by adding access to vrefint calibration
+data in OTP.
 
-On Wed, 11 Jan 2023 13:02:00 +0800 you wrote:
-> Add timeout polling wait for auxiliary timestamps snapshot FIFO clear bit
-> (ATSFC) to clear. This is to ensure no residue fifo value is being read
-> erroneously.
-> 
-> Fixes: f4da56529da6 ("net: stmmac: Add support for external trigger timestamping")
-> Cc: <stable@vger.kernel.org> # 5.10.x
-> Signed-off-by: Noor Azura Ahmad Tarmizi <noor.azura.ahmad.tarmizi@intel.com>
-> 
-> [...]
+The internal channels are defined in STM32MP15 SoC DT according to
+generic channel bindings. The STM32 driver does not support a mixed use
+of legacy and generic channels. When generic channels are defined,
+legacy channel are ignored. This involves that the board device trees
+using legacy bindings have to be changed to generic bindings.
 
-Here is the summary with links:
-  - [net,v2,1/1] net: stmmac: add aux timestamps fifo clearance wait
-    https://git.kernel.org/netdev/net/c/ae9dcb91c606
+Adopt generic iio bindings on all STM32 boards implementing the ADC.
 
-You are awesome, thank you!
+Olivier Moysan (10):
+  ARM: dts: stm32: add adc internal channels to stm32mp15
+  ARM: dts: stm32: add vrefint calibration on stm32mp15
+  ARM: dts: stm32: add vrefint support to adc2 on stm32mp15
+  ARM: dts: stm32: enable adc on stm32mp15xx-dkx boards
+  ARM: dts: stm32: adopt generic iio bindings for adc channels on
+    stm32mp157c-ed1
+  ARM: dts: stm32: adopt generic iio bindings for adc channels on
+    avenger96
+  ARM: dts: stm32: adopt generic iio bindings for adc channels on
+    emstamp-argon
+  ARM: dts: stm32: adopt generic iio bindings for adc channels on dhcom
+  ARM: dts: stm32: adopt generic iio bindings for adc channels on
+    dhcor-drc
+  ARM: dts: stm32: adopt generic iio bindings for adc channels on
+    dhcor-testbench
+
+ arch/arm/boot/dts/stm32mp151.dtsi             | 17 +++++++++++
+ arch/arm/boot/dts/stm32mp157c-ed1.dts         | 16 ++++++++--
+ .../boot/dts/stm32mp157c-emstamp-argon.dtsi   |  6 ++--
+ arch/arm/boot/dts/stm32mp15xx-dhcom-som.dtsi  | 12 +++++---
+ .../boot/dts/stm32mp15xx-dhcor-avenger96.dtsi | 28 +++++++++++++++---
+ .../dts/stm32mp15xx-dhcor-drc-compact.dtsi    | 28 +++++++++++++++---
+ .../boot/dts/stm32mp15xx-dhcor-testbench.dtsi | 28 +++++++++++++++---
+ arch/arm/boot/dts/stm32mp15xx-dkx.dtsi        | 29 +++++++++++++------
+ 8 files changed, 134 insertions(+), 30 deletions(-)
+
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+2.25.1
 
 _______________________________________________
 Linux-stm32 mailing list
