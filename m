@@ -2,52 +2,64 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 02BAC668822
-	for <lists+linux-stm32@lfdr.de>; Fri, 13 Jan 2023 01:11:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3505D668929
+	for <lists+linux-stm32@lfdr.de>; Fri, 13 Jan 2023 02:30:37 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A426AC65E45;
-	Fri, 13 Jan 2023 00:11:39 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DDE50C65E45;
+	Fri, 13 Jan 2023 01:30:36 +0000 (UTC)
+Received: from mail-oa1-f54.google.com (mail-oa1-f54.google.com
+ [209.85.160.54])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D6EA0C6334A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5DFAFC6334A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 13 Jan 2023 00:11:37 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 7B18F621F4;
- Fri, 13 Jan 2023 00:11:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA8ADC43396;
- Fri, 13 Jan 2023 00:11:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1673568695;
- bh=ul1/WKLKiUmVybIxqWnYnRpo2gSfd31L08sVwl6r/bg=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=sUorwqkTXTL57R+WQaylGCKaAGTRLrwjN6Pin3ea3ZWmx2Rnli50rF75h/vvQTgNV
- d3rWCunXEFBx4tvmrOQOLL7KCAM/0dTy1c4fwn8Kr06gS6rVnFc4hQdRDQbb6dkeSs
- ENgjp1GfNPG5grwP2Qp4xzK2ezsdJiUeN/7S/rwalieTEBIgzJqkkJ88WYxL1tTy4V
- VL44evRX1laMfys93cdGTHrEKOsYS1oFCm/3m7nU9/MtuDZy1WEvpbLln2BugEuaxF
- 9jIQUcOI8zXGUEGcjcAM3t15tTpTbC4is/hzA+56NrQ7P9Y2BJ2ZzhQNPtpCrtIi+w
- U+W2icDqfFHoQ==
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
- id 9EECF5C1109; Thu, 12 Jan 2023 16:11:34 -0800 (PST)
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: rcu@vger.kernel.org
-Date: Thu, 12 Jan 2023 16:11:17 -0800
-Message-Id: <20230113001132.3375334-5-paulmck@kernel.org>
-X-Mailer: git-send-email 2.31.1.189.g2e36527f23
-In-Reply-To: <20230113001103.GA3374173@paulmck-ThinkPad-P17-Gen-1>
-References: <20230113001103.GA3374173@paulmck-ThinkPad-P17-Gen-1>
+ Fri, 13 Jan 2023 01:30:36 +0000 (UTC)
+Received: by mail-oa1-f54.google.com with SMTP id
+ 586e51a60fabf-1442977d77dso20869135fac.6
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 12 Jan 2023 17:30:36 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=BHEg0Tu4T0FTdfDnr1uHsTuZiO21FEsCK3FYFxVcWdA=;
+ b=pS2TgapMnsyUXHDGA4o8P253lL9lfPpnFYsMx55qw5J0r6PqYxgJvzzsdMvj884tmK
+ Taw7oXjXUY7PAkFKUcgNvZBVJ13hOSksIazjg2Tn2jrx97iSYaV71nMREJFiPMieM5rV
+ hAgWh8b3d3wLGnNOmQjVe7fRc6Aa+Vgz3C2FuMGrr1OlinRUm+NGfJTKeXmhfwaZ4WDR
+ xqF+jnynGA9V4/vU/FOgZBg+qZOv8sk4vij7nGZc5gL2trCXPgU4M+x3hnk6UsiBk2MN
+ ZqStWsZpfaLAm2F4PdAL8H+ysuVd8YMNJmC4E0qYC8Fp3DitkGzZntawQmIULV8dL4jv
+ doWw==
+X-Gm-Message-State: AFqh2kqT5Lv34idgdJZzbP9/S9T2QPHRs/vv9pc3X/b1XgVx+U5/wAqp
+ gKuJ+aiFnnKPcG6XYnWqGg==
+X-Google-Smtp-Source: AMrXdXu/Y+DQPo4vCrgC2MrR0FQ8VB5gdtOfweqbYceUwefQolDBA2xCqxSt8+XnoA9uaACqeriVOw==
+X-Received: by 2002:a05:6871:4408:b0:14f:9e41:7dbe with SMTP id
+ nd8-20020a056871440800b0014f9e417dbemr4578946oab.10.1673573435159; 
+ Thu, 12 Jan 2023 17:30:35 -0800 (PST)
+Received: from robh_at_kernel.org (66-90-144-107.dyn.grandenetworks.net.
+ [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
+ m26-20020a4abc9a000000b004a0aac2d28fsm9025181oop.35.2023.01.12.17.30.34
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 12 Jan 2023 17:30:34 -0800 (PST)
+Received: (nullmailer pid 589937 invoked by uid 1000);
+ Fri, 13 Jan 2023 01:30:34 -0000
+Date: Thu, 12 Jan 2023 19:30:34 -0600
+From: Rob Herring <robh@kernel.org>
+To: Linus Walleij <linus.walleij@linaro.org>
+Message-ID: <167357343355.589882.8533297538415386387.robh@kernel.org>
+References: <20221227-ux500-stm32-hash-v2-0-bc443bc44ca4@linaro.org>
+ <20221227-ux500-stm32-hash-v2-1-bc443bc44ca4@linaro.org>
 MIME-Version: 1.0
-Cc: John Ogness <john.ogness@linutronix.de>,
- "Paul E. McKenney" <paulmck@kernel.org>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>, kernel-team@meta.com,
- linux-kernel@vger.kernel.org, rostedt@goodmis.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH rcu v2 05/20] drivers/hwtracing/stm: Remove
-	"select SRCU"
+Content-Disposition: inline
+In-Reply-To: <20221227-ux500-stm32-hash-v2-1-bc443bc44ca4@linaro.org>
+Cc: devicetree@vger.kernel.org, Herbert Xu <herbert@gondor.apana.org.au>,
+ linux-kernel@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Rob Herring <robh+dt@kernel.org>,
+ linux-crypto@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v2 1/6] dt-bindings: crypto: Let STM32
+	define Ux500 HASH
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -64,36 +76,34 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Now that the SRCU Kconfig option is unconditionally selected, there is
-no longer any point in selecting it.  Therefore, remove the "select SRCU"
-Kconfig statements.
 
-Signed-off-by: Paul E. McKenney <paulmck@kernel.org>
-Cc: Alexander Shishkin <alexander.shishkin@linux.intel.com>
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
-Cc: <linux-stm32@st-md-mailman.stormreply.com>
-Cc: <linux-arm-kernel@lists.infradead.org>
-Reviewed-by: John Ogness <john.ogness@linutronix.de>
----
- drivers/hwtracing/stm/Kconfig | 1 -
- 1 file changed, 1 deletion(-)
+On Tue, 10 Jan 2023 20:19:12 +0100, Linus Walleij wrote:
+> This adds device tree bindings for the Ux500 HASH block
+> as a compatible in the STM32 HASH bindings.
+> 
+> The Ux500 HASH binding has been used for ages in the kernel
+> device tree for Ux500 but was never documented, so fill in
+> the gap by making it a sibling of the STM32 HASH block,
+> which is what it is.
+> 
+> The relationship to the existing STM32 HASH block is pretty
+> obvious when looking at the register map, and I have written
+> patches to reuse the STM32 HASH driver on the Ux500.
+> 
+> The main difference from the outside is that the Ux500 HASH
+> lacks the interrupt line, so some special if-clauses are
+> needed to accomodate this in the binding.
+> 
+> Signed-off-by: Linus Walleij <linus.walleij@linaro.org>
+> ---
+> ChangeLog v1->v2:
+> - Use an else construction instead of if/if not.
+> ---
+>  .../devicetree/bindings/crypto/st,stm32-hash.yaml  | 23 +++++++++++++++++++++-
+>  1 file changed, 22 insertions(+), 1 deletion(-)
+> 
 
-diff --git a/drivers/hwtracing/stm/Kconfig b/drivers/hwtracing/stm/Kconfig
-index aad594fe79cc5..eda6b11d40a1f 100644
---- a/drivers/hwtracing/stm/Kconfig
-+++ b/drivers/hwtracing/stm/Kconfig
-@@ -2,7 +2,6 @@
- config STM
- 	tristate "System Trace Module devices"
- 	select CONFIGFS_FS
--	select SRCU
- 	help
- 	  A System Trace Module (STM) is a device exporting data in System
- 	  Trace Protocol (STP) format as defined by MIPI STP standards.
--- 
-2.31.1.189.g2e36527f23
-
+Reviewed-by: Rob Herring <robh@kernel.org>
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
