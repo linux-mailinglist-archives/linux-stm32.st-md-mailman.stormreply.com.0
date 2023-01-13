@@ -2,64 +2,111 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3505D668929
-	for <lists+linux-stm32@lfdr.de>; Fri, 13 Jan 2023 02:30:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 05B00668A2B
+	for <lists+linux-stm32@lfdr.de>; Fri, 13 Jan 2023 04:34:33 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DDE50C65E45;
-	Fri, 13 Jan 2023 01:30:36 +0000 (UTC)
-Received: from mail-oa1-f54.google.com (mail-oa1-f54.google.com
- [209.85.160.54])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9F656C65E45;
+	Fri, 13 Jan 2023 03:34:32 +0000 (UTC)
+Received: from EUR05-DB8-obe.outbound.protection.outlook.com
+ (mail-db8eur05on2066.outbound.protection.outlook.com [40.107.20.66])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5DFAFC6334A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2689AC6334A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 13 Jan 2023 01:30:36 +0000 (UTC)
-Received: by mail-oa1-f54.google.com with SMTP id
- 586e51a60fabf-1442977d77dso20869135fac.6
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 12 Jan 2023 17:30:36 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=BHEg0Tu4T0FTdfDnr1uHsTuZiO21FEsCK3FYFxVcWdA=;
- b=pS2TgapMnsyUXHDGA4o8P253lL9lfPpnFYsMx55qw5J0r6PqYxgJvzzsdMvj884tmK
- Taw7oXjXUY7PAkFKUcgNvZBVJ13hOSksIazjg2Tn2jrx97iSYaV71nMREJFiPMieM5rV
- hAgWh8b3d3wLGnNOmQjVe7fRc6Aa+Vgz3C2FuMGrr1OlinRUm+NGfJTKeXmhfwaZ4WDR
- xqF+jnynGA9V4/vU/FOgZBg+qZOv8sk4vij7nGZc5gL2trCXPgU4M+x3hnk6UsiBk2MN
- ZqStWsZpfaLAm2F4PdAL8H+ysuVd8YMNJmC4E0qYC8Fp3DitkGzZntawQmIULV8dL4jv
- doWw==
-X-Gm-Message-State: AFqh2kqT5Lv34idgdJZzbP9/S9T2QPHRs/vv9pc3X/b1XgVx+U5/wAqp
- gKuJ+aiFnnKPcG6XYnWqGg==
-X-Google-Smtp-Source: AMrXdXu/Y+DQPo4vCrgC2MrR0FQ8VB5gdtOfweqbYceUwefQolDBA2xCqxSt8+XnoA9uaACqeriVOw==
-X-Received: by 2002:a05:6871:4408:b0:14f:9e41:7dbe with SMTP id
- nd8-20020a056871440800b0014f9e417dbemr4578946oab.10.1673573435159; 
- Thu, 12 Jan 2023 17:30:35 -0800 (PST)
-Received: from robh_at_kernel.org (66-90-144-107.dyn.grandenetworks.net.
- [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
- m26-20020a4abc9a000000b004a0aac2d28fsm9025181oop.35.2023.01.12.17.30.34
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 12 Jan 2023 17:30:34 -0800 (PST)
-Received: (nullmailer pid 589937 invoked by uid 1000);
- Fri, 13 Jan 2023 01:30:34 -0000
-Date: Thu, 12 Jan 2023 19:30:34 -0600
-From: Rob Herring <robh@kernel.org>
-To: Linus Walleij <linus.walleij@linaro.org>
-Message-ID: <167357343355.589882.8533297538415386387.robh@kernel.org>
-References: <20221227-ux500-stm32-hash-v2-0-bc443bc44ca4@linaro.org>
- <20221227-ux500-stm32-hash-v2-1-bc443bc44ca4@linaro.org>
+ Fri, 13 Jan 2023 03:34:31 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=EnFzZwgMNqTUqV3FYceyp9ea2Ihi/At6ePxc/+MtFpT4po62fT8v3GDYsXPzbCnWB+ko2mKVptf8dnzbXdHEsXzbIXiio6gXxsop9kkL8jAeWnMxV2HvN8Xe433MNQkJLT5FZmIR5+ITxo2ze3oM/EN8cZ94e8w4keR1sb/IqlTECk8fizRWFHl1loBvWboVBLKz5ewLFZNbIu7olzoKrljA6W9JHHpOe4/A9zZiszXubFu5Q/1Pot6NYAIz3RaWK2n/q3Em9P//xPsDEyt2oPNWHPsArn38mSfy7gZblnOK9niD0a2gZWm5ngAJVuk9F2I58auJjBel/dvh2sQldA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=pjH8Ks5tcogILOJopFJgtunpf+oO424RJc5SXmvKM0Q=;
+ b=UviHWrbDv2VQxFTZdxA5vfnqJ8QT/P+CQYZ4XtaXc0hm2mWh/km4cPEiIAETh0XjkeiUy7g0Ih2AWacEnsVrf2w/4ZjI1SipHBYtw/uBXu6+mawUyOrE4APT8zq/OwvOwRth1D5u8ZKEbZ8lQxDHodX9KClRyKjlXpWNZfrIhxjoqSwBF8z8fbLEKKDHla82qywD8AqaOrKlBXcxCA4kiujS+Mc8lVp9h3ls/+U9SAmo3eRmA+vC1KTefYHSRj4XkzT5xJhHKV6DTQjck55YETvyktdjXNnPs9ngM+yw2l3qaK247Qdpod7I40Ib61tyuC+ApRAAh2yxHZ5Zw5AFUg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=pjH8Ks5tcogILOJopFJgtunpf+oO424RJc5SXmvKM0Q=;
+ b=aqqDV6l/YeGCC/Wh16XN60YuQtAT6usEAz5DjGNrY2HdaG1Kf8LRMlD6K3jvCW2T+c0t8QP5fZueb94EWjqy7aHQgnnVrTx17dGyfP9qsbFlOxxuRUuJPKjpYkA4fxn6nBwxCMmHpSaO9AuV0fjnYKXk+lIXpsc97oFNYY/0EAc=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from HE1PR0402MB2939.eurprd04.prod.outlook.com (2603:10a6:3:db::18)
+ by AS8PR04MB8247.eurprd04.prod.outlook.com (2603:10a6:20b:3f2::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6002.12; Fri, 13 Jan
+ 2023 03:34:29 +0000
+Received: from HE1PR0402MB2939.eurprd04.prod.outlook.com
+ ([fe80::76a3:36aa:1144:616c]) by HE1PR0402MB2939.eurprd04.prod.outlook.com
+ ([fe80::76a3:36aa:1144:616c%12]) with mapi id 15.20.5986.019; Fri, 13 Jan
+ 2023 03:34:29 +0000
+From: Clark Wang <xiaoning.wang@nxp.com>
+To: wei.fang@nxp.com, shenwei.wang@nxp.com, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org, shawnguo@kernel.org,
+ s.hauer@pengutronix.de, festevam@gmail.com, peppe.cavallaro@st.com,
+ alexandre.torgue@foss.st.com, joabreu@synopsys.com,
+ mcoquelin.stm32@gmail.com, richardcochran@gmail.com
+Date: Fri, 13 Jan 2023 11:33:40 +0800
+Message-Id: <20230113033347.264135-1-xiaoning.wang@nxp.com>
+X-Mailer: git-send-email 2.34.1
+X-ClientProxiedBy: SI2PR01CA0029.apcprd01.prod.exchangelabs.com
+ (2603:1096:4:192::8) To HE1PR0402MB2939.eurprd04.prod.outlook.com
+ (2603:10a6:3:db::18)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20221227-ux500-stm32-hash-v2-1-bc443bc44ca4@linaro.org>
-Cc: devicetree@vger.kernel.org, Herbert Xu <herbert@gondor.apana.org.au>,
- linux-kernel@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, Rob Herring <robh+dt@kernel.org>,
- linux-crypto@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2 1/6] dt-bindings: crypto: Let STM32
-	define Ux500 HASH
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: HE1PR0402MB2939:EE_|AS8PR04MB8247:EE_
+X-MS-Office365-Filtering-Correlation-Id: f5c06a65-d70f-48a0-de46-08daf5171379
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: QlTUPqyTSdPXktw35AZiCLt1J8Yo53WzC2x8olzfQvC9TyDaRygS+mWKhx7FQL+pUrMc2SFyZdiHWPE9GFGjWOdVyuKWiKnbrs+svVEpkd/T+snIMzzH+5JXdacIljVDnXQn6rlAfsdMdvcn+b21RvBU5aO27KAMu5bNmCYT3PLUhfRZEQ2Tyd0Utwt+LyOXcMj/4lwOZSO5JMAE0z2yedl6v091lpTqmCZF0sVw/6AZn9GtUtOAn9NfOLWh+/h7c/waO6j6xefIjGZoI+mBFJQfKV3um5TKMGi61MbB9ej13WWDwy1VkDqI1sMqKB6YA07qlgO6XM8tADZMfC3tzV1FyqtwG26WR52IK+Kc4gevsJdKZn4gBv3YXP5NHEcIVbbrCBLIKLEiqb9lOXMQfSnEar3eqqO8FbBbLsPm996A9CVMKHYaoiB/ljHBugN1OLTos0yvBIXDlcaB+WutR5eqclxGzVN11UK94DZ9p0UTeaVdYlGjEYeVI90OeSbGmV/GdzqbO2nowsLmIr3rty3WCD0qOswFt6NPhKEI6AEKueymyX3MgNkacVn3nBwZsvMR+6rBvMfYONVXUwU7LoZMHBku9DY5bG3R5Cl8Onaz95r2VmGKc81KaKYcrd7uFFs27ZjESHOxLDxbr1B+bKAj1wZmMHyBQ/gxC3kvmeR+utIHXO4XqQSdnTzmG5r6R+/BlciErU8bIJaMl/GGwnDW8+8buaQefZTNF0wD/Xc=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:HE1PR0402MB2939.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230022)(4636009)(366004)(39860400002)(396003)(346002)(136003)(376002)(451199015)(4744005)(41300700001)(66556008)(8676002)(66476007)(66946007)(4326008)(5660300002)(7416002)(921005)(316002)(8936002)(2906002)(86362001)(38100700002)(478600001)(6486002)(36756003)(52116002)(38350700002)(6666004)(186003)(26005)(6506007)(1076003)(2616005)(6512007)(83380400001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?dzHP6DwW9K2hMxLbGaxxvhQDwLPs4dfN6AVkl35/ICIBxH013bE7lSXcLZ6o?=
+ =?us-ascii?Q?NKlcCQ0CcD8LrePI+dLbYZAX2x/N5+RCGtkFyvx1mPBJRWcWElZlU7yV6q1O?=
+ =?us-ascii?Q?R8vy5sH8vs6LJmZP34p6Dv33BeP9Ti0h9G1349pmwac9yN6zrN4/mST+sMe/?=
+ =?us-ascii?Q?r3nLaHttHBg1GOxN8BtusA4MjcufNzmuIkX2rKMMixfSYqMB2Q2iE6xYeEe+?=
+ =?us-ascii?Q?RNxOyZz1SFmCbo7OQoL9afJ5VK1bxcdtuEhjwXRcDA5BBeUdWzTZkaaMmjH/?=
+ =?us-ascii?Q?KmLlp4faw+YKK/7clIttcmG1uPMKorZ1rNo9JWF7FKC9gQm2c79mbZJWjy4S?=
+ =?us-ascii?Q?3arHcOiZBqNvqpp6fLvjuF0dzwyhINIR29pT8X9BSrccXECBf6VVlK4s4k0/?=
+ =?us-ascii?Q?/48a4XruwupVbYj0rDlozmbwqL6xTfI53HtuDVGu236ORtLS0jhOiyOLkgFg?=
+ =?us-ascii?Q?+iXL3C5dhopmMJY+UMp7xc4FvSPiXQBkAxGHTfiRdtowv5pTIzBN/ippQSD3?=
+ =?us-ascii?Q?WqNzo5X9UZIV9Go/kfQOaZstfNjd45cafhGZ3AX13uyBUpCOyIL1BawteBb7?=
+ =?us-ascii?Q?UUsamZJUxzWyAKh0L5VeLZB03FNljfGPWNSxk6/WMcUDmFveLeo5EH218B0I?=
+ =?us-ascii?Q?S7uKV//KjksL9e2beK0wp7SQmVz8iApo+OAOcoq0bt9gxuTVBCrLr1nzfbfb?=
+ =?us-ascii?Q?RJdCd1lZXH7JpownuFzy90FY+HM757iT9SOPhW7Aad3yTCfK1o0wI43b+Qa9?=
+ =?us-ascii?Q?+2rimJiSTj1S/DTdcNNWAP3uVfkRxNI9ZgOemd4p3lHAObys3lacFzm/uH0n?=
+ =?us-ascii?Q?qi2D9SuPRuJralH9JbE9RNRpciq1kNGDhwBY8d/HsK82yCL/XqGr4B/jmIz2?=
+ =?us-ascii?Q?YepI2j6inqtkRMCyooRzHYH9DPMYgxaeHsNN49T6WQ6oiLALrfcKKD3mOrYB?=
+ =?us-ascii?Q?k3LePKxE98Fp1RWlRjrFLeJjgj14Q8CHQjv5b4puGSC+vOUH2UcAtmTnb6ok?=
+ =?us-ascii?Q?03vDu1RgYh2e6ScpdQiRERpQ4EfKI+s1UpUz9wtb11adWL1DwAMKvuVCOnRw?=
+ =?us-ascii?Q?Y1AKTLuIxMPZpfQio8dVKjZ0XOtIbtpNqHLq9+OXOj143acOo0YyURcLVbDk?=
+ =?us-ascii?Q?qcI6etqVnnapIUnHi/7DKdxQKvpEJluKRtpSmt0zr/XjdLUz43fUjrZyRgKJ?=
+ =?us-ascii?Q?U8n7L0eYh3UPxfrSbY31Ms6WTCVez6vMuIOxsmnTJbBQjC9ytuiJjg2xckhf?=
+ =?us-ascii?Q?9UGwbP8EtMTWMKmpX4gSQ+O/2PqbdiEzkDhAZCIOGGxyk6bIROc2YdQyJyxD?=
+ =?us-ascii?Q?dqmciYEoA4vmXyaY88Lyp9OAB8iG2B6jsQgks+UdbuZCUigWTXwC/inJ360s?=
+ =?us-ascii?Q?9ccz5nlyWazACODUDtaXM/YR7DpbogKVCJTngmHrb3oIl+BKuZFd/fm7sUDg?=
+ =?us-ascii?Q?Nt/DO9oI1Qr/9b0hav893dFOPjmZPjpv85lWirHcfgTGu6qYCr3rEp3u3Giy?=
+ =?us-ascii?Q?Cehel0Zdqlz6L0OoKLUOjOKMQHvn4kbVtahE6t6AeNweBlStKaBqtgLJ8Gej?=
+ =?us-ascii?Q?jb6drt5MC6h+9w5IkuUnoDTSjTa13Awu2EZanmbSrw2UP5LhpbF4CzFXS2K7?=
+ =?us-ascii?Q?tA=3D=3D?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f5c06a65-d70f-48a0-de46-08daf5171379
+X-MS-Exchange-CrossTenant-AuthSource: HE1PR0402MB2939.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jan 2023 03:34:29.1621 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: eiFk4dGLti21nIkuoBWPWGON5War8iTxW3TOKErvTbDoEfqhbNPBnJbJz21UXWDTPI8D5OGdgjZte65nroxwyg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8247
+Cc: devicetree@vger.kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-imx@nxp.com, kernel@pengutronix.de,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH V2 0/7] Add eqos and fec support for imx93
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,34 +123,31 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+Hi,
 
-On Tue, 10 Jan 2023 20:19:12 +0100, Linus Walleij wrote:
-> This adds device tree bindings for the Ux500 HASH block
-> as a compatible in the STM32 HASH bindings.
-> 
-> The Ux500 HASH binding has been used for ages in the kernel
-> device tree for Ux500 but was never documented, so fill in
-> the gap by making it a sibling of the STM32 HASH block,
-> which is what it is.
-> 
-> The relationship to the existing STM32 HASH block is pretty
-> obvious when looking at the register map, and I have written
-> patches to reuse the STM32 HASH driver on the Ux500.
-> 
-> The main difference from the outside is that the Ux500 HASH
-> lacks the interrupt line, so some special if-clauses are
-> needed to accomodate this in the binding.
-> 
-> Signed-off-by: Linus Walleij <linus.walleij@linaro.org>
-> ---
-> ChangeLog v1->v2:
-> - Use an else construction instead of if/if not.
-> ---
->  .../devicetree/bindings/crypto/st,stm32-hash.yaml  | 23 +++++++++++++++++++++-
->  1 file changed, 22 insertions(+), 1 deletion(-)
-> 
+This patchset add imx93 support for dwmac-imx glue driver.
+There are some changes of GPR implement.
+And add fec and eqos nodes for imx93 dts.
 
-Reviewed-by: Rob Herring <robh@kernel.org>
+Clark Wang (7):
+  net: stmmac: add imx93 platform support
+  dt-bindings: add mx93 description
+  dt-bindings: net: fec: add mx93 description
+  arm64: dts: imx93: add eqos support
+  arm64: dts: imx93: add FEC support
+  arm64: dts: imx93-11x11-evk: enable eqos
+  arm64: dts: imx93-11x11-evk: enable fec function
+
+ .../devicetree/bindings/net/fsl,fec.yaml      |  1 +
+ .../bindings/net/nxp,dwmac-imx.yaml           |  4 +-
+ .../boot/dts/freescale/imx93-11x11-evk.dts    | 78 +++++++++++++++++++
+ arch/arm64/boot/dts/freescale/imx93.dtsi      | 48 ++++++++++++
+ .../net/ethernet/stmicro/stmmac/dwmac-imx.c   | 55 +++++++++++--
+ 5 files changed, 180 insertions(+), 6 deletions(-)
+
+-- 
+2.34.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
