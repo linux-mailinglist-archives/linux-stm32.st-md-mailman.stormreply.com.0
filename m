@@ -2,60 +2,52 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D4AD666A97A
-	for <lists+linux-stm32@lfdr.de>; Sat, 14 Jan 2023 06:50:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EA1F766AB42
+	for <lists+linux-stm32@lfdr.de>; Sat, 14 Jan 2023 13:05:32 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7C886C65E55;
-	Sat, 14 Jan 2023 05:50:22 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AD267C03FCB
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 14 Jan 2023 05:50:20 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8F1AEC65E55;
+	Sat, 14 Jan 2023 12:05:32 +0000 (UTC)
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 4DEE960B45;
- Sat, 14 Jan 2023 05:50:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 99D12C433EF;
- Sat, 14 Jan 2023 05:50:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1673675418;
- bh=ngfQjwFKmCSeocAW86AdE9in/ESlzA2f+NOfkGPnaOg=;
- h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=PbzAb7FuLH7rstaaHzkqO/TKJ0jhzX5/WVGU1Atan9l2+aId0YIBwQBc6HEWGIdOx
- NpBUiimoP/3W4GeYmgQWkIyK0QxD26i1VH8jDscuPlEWm/rxaumM/fnWM8Us8rXkdc
- xVnwryq7I1nXtFLtPG4iU0vHUeQs6adLDniT54mEpUIdDbaTldpzW/tSZCCv49Latq
- ASQ9j+AGIg2kynwAdJes0zFQh1cxh1mZpE8rDdsFr7ssJaPfEAj30VnTs0y0CgEV7e
- g99L+fsWom9cv4n4jn7ebEEiBWKp8bDx58WvX+T4uizSBRsOOFIll46WgLTttVOLUn
- Um0jMC9DtZRtQ==
-Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
- 75D05E21EE0; Sat, 14 Jan 2023 05:50:18 +0000 (UTC)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8EA5EC03FCB
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Sat, 14 Jan 2023 12:05:30 +0000 (UTC)
+From: Kurt Kanzenbach <kurt@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+ s=2020; t=1673697929;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=ZNQUxrexq+SGlCNMDyxm1etQA6NjevWDm17rYmoWxvs=;
+ b=yke8jv+LjgkotXSM7PKxqcpHE7qw3XPxnw09flP+XzJBgxC0fTqmZb1q76mm35EbHHBqjz
+ 2OWsMfxIrxuDvZKMlviaYQwb8TBCEQZgquNdp6fRX4iUaAnufc+omsX6jdtY9WC3M+yVxF
+ EhwHjPHl5SW8dLdiIw7zIbwmlqyD0btceCVFfdtd14Bb8AQsp5uWOkneWUshU85wPedLhZ
+ 4QVoQq4claTUYy6UPeTUsYMGXrjrgqcxV6HxJG/qZcLLXDb0kG+51NS0A+t9+XkO7sjFSc
+ QMvf7eiQh+yjZwBktiZ3z6MavUN14L1kYCVXkNTT1nznEznaqjnocHinOE8Cog==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+ s=2020e; t=1673697929;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=ZNQUxrexq+SGlCNMDyxm1etQA6NjevWDm17rYmoWxvs=;
+ b=+eO09YP07+aMH9J8vYT/wWjcHR0iTrFmLUeVuYmzQzkS+Tlvr/zVCA0+xrbcHPNaqb29qp
+ +DoOslFrIAVjssAg==
+To: Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Jose Abreu <joabreu@synopsys.com>
+Date: Sat, 14 Jan 2023 13:04:37 +0100
+Message-Id: <20230114120437.383514-1-kurt@linutronix.de>
 MIME-Version: 1.0
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <167367541847.15756.1816103460556617097.git-patchwork-notify@kernel.org>
-Date: Sat, 14 Jan 2023 05:50:18 +0000
-References: <20230112-net-next-c45-seperation-part-2-v1-0-5eeaae931526@walle.cc>
-In-Reply-To: <20230112-net-next-c45-seperation-part-2-v1-0-5eeaae931526@walle.cc>
-To: Michael Walle <michael@walle.cc>
-Cc: andrew@lunn.ch, alexandre.belloni@bootlin.com,
- linux-aspeed@lists.ozlabs.org, vladimir.oltean@nxp.com, edumazet@google.com,
- leoyang.li@nxp.com, linux-stm32@st-md-mailman.stormreply.com,
- f.fainelli@gmail.com, linux@armlinux.org.uk, joabreu@synopsys.com,
- bcm-kernel-feedback-list@broadcom.com, joel@jms.id.au, kuba@kernel.org,
- pabeni@redhat.com, lorenzo@kernel.org, Mark-MC.Lee@mediatek.com,
- rjui@broadcom.com, sean.wang@mediatek.com, claudiu.manoil@nxp.com,
- linux-mediatek@lists.infradead.org, john@phrozen.org, matthias.bgg@gmail.com,
- peppe.cavallaro@st.com, linux-arm-kernel@lists.infradead.org,
- sbranden@broadcom.com, andrew@aj.id.au, bryan.whitehead@microchip.com,
- linux-kernel@vger.kernel.org, UNGLinuxDriver@microchip.com,
- mcoquelin.stm32@gmail.com, netdev@vger.kernel.org, hkallweit1@gmail.com,
- linuxppc-dev@lists.ozlabs.org, davem@davemloft.net, nbd@nbd.name
-Subject: Re: [Linux-stm32] [PATCH net-next 00/10] net: mdio: Continue
-	separating C22 and C45
+Cc: Wong Vee Khee <vee.khee.wong@linux.intel.com>, netdev@vger.kernel.org,
+ Kurt Kanzenbach <kurt@linutronix.de>, linux-stm32@st-md-mailman.stormreply.com,
+ Eric Dumazet <edumazet@google.com>,
+ Vijayakannan Ayyathurai <vijayakannan.ayyathurai@intel.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH net v1] net: stmmac: Fix queue statistics
+	reading
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,49 +64,64 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello:
+Correct queue statistics reading. All queue statistics are stored as unsigned
+long values. The retrieval for ethtool fetches these values as u64. However, on
+some systems the size of the counters are 32 bit. That yields wrong queue
+statistic counters e.g., on arm32 systems such as the stm32mp157. Fix it by
+using the correct data type.
 
-This series was applied to netdev/net-next.git (master)
-by Jakub Kicinski <kuba@kernel.org>:
+Tested on Olimex STMP157-OLinuXino-LIME2 by simple running linuxptp for a short
+period of time:
 
-On Thu, 12 Jan 2023 16:15:07 +0100 you wrote:
-> I've picked this older series from Andrew up and rebased it onto
-> the latest net-next.
-> 
-> This is the second patch set in the series which separates the C22
-> and C45 MDIO bus transactions at the API level to the MDIO bus drivers.
-> 
-> Signed-off-by: Michael Walle <michael@walle.cc>
-> 
-> [...]
+Non-patched kernel:
+|root@st1:~# ethtool -S eth0 | grep q0
+|     q0_tx_pkt_n: 3775276254951 # ???
+|     q0_tx_irq_n: 879
+|     q0_rx_pkt_n: 1194000908909 # ???
+|     q0_rx_irq_n: 278
 
-Here is the summary with links:
-  - [net-next,01/10] net: mdio: cavium: Separate C22 and C45 transactions
-    https://git.kernel.org/netdev/net-next/c/93641ecbaa1f
-  - [net-next,02/10] net: mdio: i2c: Separate C22 and C45 transactions
-    https://git.kernel.org/netdev/net-next/c/87e3bee0f247
-  - [net-next,03/10] net: mdio: mux-bcm-iproc: Separate C22 and C45 transactions
-    https://git.kernel.org/netdev/net-next/c/d544a25930a7
-  - [net-next,04/10] net: mdio: aspeed: Separate C22 and C45 transactions
-    https://git.kernel.org/netdev/net-next/c/c3c497eb8b24
-  - [net-next,05/10] net: mdio: ipq4019: Separate C22 and C45 transactions
-    https://git.kernel.org/netdev/net-next/c/c58e39942adf
-  - [net-next,06/10] net: ethernet: mtk_eth_soc: Separate C22 and C45 transactions
-    https://git.kernel.org/netdev/net-next/c/900888374e73
-  - [net-next,07/10] net: lan743x: Separate C22 and C45 transactions
-    https://git.kernel.org/netdev/net-next/c/3d90c03cb416
-  - [net-next,08/10] net: stmmac: Separate C22 and C45 transactions for xgmac2
-    https://git.kernel.org/netdev/net-next/c/5b0a447efff5
-  - [net-next,09/10] net: stmmac: Separate C22 and C45 transactions for xgmac
-    https://git.kernel.org/netdev/net-next/c/3c7826d0b106
-  - [net-next,10/10] enetc: Separate C22 and C45 transactions
-    https://git.kernel.org/netdev/net-next/c/80e87442e69b
+Patched kernel:
+|root@st1:~# ethtool -S eth0 | grep q0
+|     q0_tx_pkt_n: 2434
+|     q0_tx_irq_n: 1274
+|     q0_rx_pkt_n: 1604
+|     q0_rx_irq_n: 846
 
-You are awesome, thank you!
+Fixes: 68e9c5dee1cf ("net: stmmac: add ethtool per-queue statistic framework")
+Signed-off-by: Kurt Kanzenbach <kurt@linutronix.de>
+Cc: Vijayakannan Ayyathurai <vijayakannan.ayyathurai@intel.com>
+Cc: Wong Vee Khee <vee.khee.wong@linux.intel.com>
+---
+ drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
+index f453b0d09366..35c8dd92d369 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
+@@ -551,16 +551,16 @@ static void stmmac_get_per_qstats(struct stmmac_priv *priv, u64 *data)
+ 		p = (char *)priv + offsetof(struct stmmac_priv,
+ 					    xstats.txq_stats[q].tx_pkt_n);
+ 		for (stat = 0; stat < STMMAC_TXQ_STATS; stat++) {
+-			*data++ = (*(u64 *)p);
+-			p += sizeof(u64 *);
++			*data++ = (*(unsigned long *)p);
++			p += sizeof(unsigned long);
+ 		}
+ 	}
+ 	for (q = 0; q < rx_cnt; q++) {
+ 		p = (char *)priv + offsetof(struct stmmac_priv,
+ 					    xstats.rxq_stats[q].rx_pkt_n);
+ 		for (stat = 0; stat < STMMAC_RXQ_STATS; stat++) {
+-			*data++ = (*(u64 *)p);
+-			p += sizeof(u64 *);
++			*data++ = (*(unsigned long *)p);
++			p += sizeof(unsigned long);
+ 		}
+ 	}
+ }
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+2.30.2
 
 _______________________________________________
 Linux-stm32 mailing list
