@@ -2,62 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 821F966B9C5
-	for <lists+linux-stm32@lfdr.de>; Mon, 16 Jan 2023 10:04:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6C2A566BC42
+	for <lists+linux-stm32@lfdr.de>; Mon, 16 Jan 2023 11:54:27 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0AB45C65047;
-	Mon, 16 Jan 2023 09:04:30 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 20775C6507E;
+	Mon, 16 Jan 2023 10:54:27 +0000 (UTC)
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 904C1C65042
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EB3FAC6410A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 16 Jan 2023 09:04:28 +0000 (UTC)
-Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 30G4WFYW020822; Mon, 16 Jan 2023 10:03:51 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=from : to : cc :
- subject : date : message-id : mime-version : content-transfer-encoding :
- content-type; s=selector1;
- bh=BZO4szZsrUWg/3PIM8P/YrC7I74jhBQFAVGjF3sgEB8=;
- b=xyLGJibn4bT+IrpXVumZ+WnkZYsEjJyRH5CKDH1ANhl3L8df7+fKED3C64ddzurO6ltp
- ZvJynw4L5fy8Z0eqXGTkJKO6XKzJE5fU5dsKZKCm5DqomHZ8O8rPevIVMYMpAQ9ytGd4
- VXfFXCfqV7MKkCn3WDhWUvVwpBqB8JIhRq2OATvgqYbRd5/+sLEHIbc6CtLlb710ay4j
- E7Fhxpc9jWsmaJCBkHtQInRP5rAlDvBH9a4q0fadCBu12XVKhzSIOYisjBECKfJUfy8q
- hIM4FRsvwnE43Op+51je5nSwvBkyUf64g4zDmVy0fxy0JwHnUghFFBfbBaev9dPcYkqx sA== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3n3jpqrvad-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 16 Jan 2023 10:03:51 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 99F41100034;
- Mon, 16 Jan 2023 10:03:49 +0100 (CET)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 9265B210598;
- Mon, 16 Jan 2023 10:03:49 +0100 (CET)
-Received: from localhost (10.201.20.178) by SHFDAG1NODE1.st.com (10.75.129.69)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.13; Mon, 16 Jan
- 2023 10:03:49 +0100
-From: Olivier Moysan <olivier.moysan@foss.st.com>
-To: Jonathan Cameron <jic23@kernel.org>, Lars-Peter Clausen <lars@metafoo.de>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
- <alexandre.torgue@foss.st.com>
-Date: Mon, 16 Jan 2023 10:03:33 +0100
-Message-ID: <20230116090333.33492-1-olivier.moysan@foss.st.com>
-X-Mailer: git-send-email 2.25.1
+ Mon, 16 Jan 2023 10:54:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:
+ Content-Transfer-Encoding:Content-Type:MIME-Version:References:Message-ID:
+ Subject:Cc:To:From:Date:Reply-To:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=k75wwwhG7lUtWo3nfpU73+/Nhl6iDUNa31lHcKIVs6I=; b=0b8wCmI1xBBrYgi464CipbnstD
+ EbeaLU5wB9IDjqo4BMx4XIgPgnal3biWluBhl6ZNC8GgHbFI/F37jmCnX7+Shfd5olsSjLKXupfOA
+ UAOv5qzzJd80SiC6acu4Zx+3cbrgGxfRqd36EKamZKikptdrAO5qDyMlwhepKObTsI70TTYQWJoIp
+ 5gkREfy6L7OGeC6wGzNsUkXPpDLCd8Qw0TdIHG0/ZF6Nuclgxry59TZUmhcMm9ICSFLu22KxhzNBg
+ jqS3AR/pL1Vjcrm+MrrTePUQBF/OhjvzqWPl+0raKXVRqL018WTY6b23F/3aORLuiYw1EX6Rp8wwh
+ pLoksX5Q==;
+Received: from shell.armlinux.org.uk
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:36122)
+ by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.94.2)
+ (envelope-from <linux@armlinux.org.uk>)
+ id 1pHN7j-0004es-V8; Mon, 16 Jan 2023 10:53:55 +0000
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.94.2)
+ (envelope-from <linux@shell.armlinux.org.uk>)
+ id 1pHN7e-0005ww-0n; Mon, 16 Jan 2023 10:53:50 +0000
+Date: Mon, 16 Jan 2023 10:53:49 +0000
+From: "Russell King (Oracle)" <linux@armlinux.org.uk>
+To: =?iso-8859-1?Q?Cl=E9ment_L=E9ger?= <clement.leger@bootlin.com>
+Message-ID: <Y8UsvREsKOR2ejzT@shell.armlinux.org.uk>
+References: <20230116103926.276869-1-clement.leger@bootlin.com>
+ <20230116103926.276869-4-clement.leger@bootlin.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.201.20.178]
-X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SHFDAG1NODE1.st.com
- (10.75.129.69)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.219,Aquarius:18.0.923,Hydra:6.0.562,FMLib:17.11.122.1
- definitions=2023-01-16_06,2023-01-13_02,2022-06-22_01
-Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH] iio: adc: stm32: add oversampling support
+Content-Disposition: inline
+In-Reply-To: <20230116103926.276869-4-clement.leger@bootlin.com>
+Cc: Herve Codina <herve.codina@bootlin.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Kurt Kanzenbach <kurt@linutronix.de>, Eric Dumazet <edumazet@google.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ =?iso-8859-1?Q?Miqu=E8l?= Raynal <miquel.raynal@bootlin.com>,
+ Jon Hunter <jonathanh@nvidia.com>, linux-stm32@st-md-mailman.stormreply.com,
+ Tan Tee Min <tee.min.tan@linux.intel.com>, Magnus Damm <magnus.damm@gmail.com>,
+ Wong Vee Khee <veekhee@apple.com>, Jose Abreu <joabreu@synopsys.com>,
+ Milan Stevanovic <milan.stevanovic@se.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, devicetree@vger.kernel.org,
+ Mohammad Athari Bin Ismail <mohammad.athari.ismail@intel.com>,
+ Rob Herring <robh+dt@kernel.org>, Revanth Kumar Uppala <ruppala@nvidia.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Jimmy Lalande <jimmy.lalande@se.com>, linux-arm-kernel@lists.infradead.org,
+ Sergey Shtylyov <s.shtylyov@omp.ru>, Pascal Eberhard <pascal.eberhard@se.com>,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ "David S. Miller" <davem@davemloft.net>
+Subject: Re: [Linux-stm32] [PATCH net-next 3/6] net: stmmac: start phylink
+ before setting up hardware
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,392 +75,37 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add oversampling support for STM32H7, STM32MP15 & STM32MP13.
-STM32F4 ADC has no oversampling feature.
+On Mon, Jan 16, 2023 at 11:39:23AM +0100, Cl=E9ment L=E9ger wrote:
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/=
+net/ethernet/stmicro/stmmac/stmmac_main.c
+> index f2247b8cf0a3..88c941003855 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> @@ -3818,6 +3818,12 @@ static int __stmmac_open(struct net_device *dev,
+>  		}
+>  	}
+>  =
 
-The current support of the oversampling feature aims at increasing
-the data SNR, without changing the data resolution.
-As the oversampling by itself increases data resolution,
-a right shift is applied to keep initial resolution.
-Only the oversampling ratio corresponding to a power of two are
-supported here, to get a direct link between right shift and
-oversampling ratio. (2exp(n) ratio <=> n right shift)
+> +	/* We need to setup the phy & PCS before accessing the stmmac registers
+> +	 * because in some cases (RZ/N1), if the stmmac IP is not clocked by the
+> +	 * PCS, hardware init will fail because it lacks a RGMII RX clock.
+> +	 */
+> +	phylink_start(priv->phylink);
 
-The oversampling ratio is shared by all channels, whatever channel type.
-(e.g. single ended or differential).
+So what happens if you end up with the mac_link_up method being called
+at this point in the driver, before the hardware has been setup ?
 
-Oversampling can be configured using IIO ABI:
-- in_voltage_oversampling_ratio_available
-- in_voltage_oversampling_ratio
+If you use a fixed-link, that's a real possibility.
 
-Signed-off-by: Olivier Moysan <olivier.moysan@foss.st.com>
-Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
----
- drivers/iio/adc/stm32-adc-core.h |  16 ++++
- drivers/iio/adc/stm32-adc.c      | 144 +++++++++++++++++++++++++++++++
- 2 files changed, 160 insertions(+)
+-- =
 
-diff --git a/drivers/iio/adc/stm32-adc-core.h b/drivers/iio/adc/stm32-adc-core.h
-index 73b2c2e91c08..86a98286eeb3 100644
---- a/drivers/iio/adc/stm32-adc-core.h
-+++ b/drivers/iio/adc/stm32-adc-core.h
-@@ -91,6 +91,7 @@
- #define STM32H7_ADC_IER			0x04
- #define STM32H7_ADC_CR			0x08
- #define STM32H7_ADC_CFGR		0x0C
-+#define STM32H7_ADC_CFGR2		0x10
- #define STM32H7_ADC_SMPR1		0x14
- #define STM32H7_ADC_SMPR2		0x18
- #define STM32H7_ADC_PCSEL		0x1C
-@@ -160,6 +161,14 @@
- #define STM32H7_DMNGT_SHIFT		0
- #define STM32H7_DMNGT_MASK		GENMASK(1, 0)
- 
-+/* STM32H7_ADC_CFGR2 bit fields */
-+#define STM32H7_OVSR_SHIFT		16 /* Correspond to OSVR field in datasheet */
-+#define STM32H7_OVSR_MASK		GENMASK(25, 16)
-+#define STM32H7_OVSR_BITS		10
-+#define STM32H7_OVSS_SHIFT		5
-+#define STM32H7_OVSS_MASK		GENMASK(8, 5)
-+#define STM32H7_ROVSE			BIT(0)
-+
- enum stm32h7_adc_dmngt {
- 	STM32H7_DMNGT_DR_ONLY,		/* Regular data in DR only */
- 	STM32H7_DMNGT_DMA_ONESHOT,	/* DMA one shot mode */
-@@ -226,6 +235,13 @@ enum stm32h7_adc_dmngt {
- #define STM32MP13_RES_SHIFT		3
- #define STM32MP13_RES_MASK		GENMASK(4, 3)
- 
-+/* STM32MP13_ADC_CFGR2 bit fields */
-+#define STM32MP13_OVSR_SHIFT		2
-+#define STM32MP13_OVSR_MASK		GENMASK(4, 2)
-+#define STM32MP13_OVSR_BITS		3
-+#define STM32MP13_OVSS_SHIFT		5
-+#define STM32MP13_OVSS_MASK		GENMASK(8, 5)
-+
- /* STM32MP13_ADC_DIFSEL - bit fields */
- #define STM32MP13_DIFSEL_MASK		GENMASK(18, 0)
- 
-diff --git a/drivers/iio/adc/stm32-adc.c b/drivers/iio/adc/stm32-adc.c
-index 45d4e79f8e55..17050875f23d 100644
---- a/drivers/iio/adc/stm32-adc.c
-+++ b/drivers/iio/adc/stm32-adc.c
-@@ -6,6 +6,7 @@
-  * Author: Fabrice Gasnier <fabrice.gasnier@st.com>.
-  */
- 
-+#include <linux/bitfield.h>
- #include <linux/clk.h>
- #include <linux/debugfs.h>
- #include <linux/delay.h>
-@@ -13,6 +14,7 @@
- #include <linux/dmaengine.h>
- #include <linux/iio/iio.h>
- #include <linux/iio/buffer.h>
-+#include <linux/iio/sysfs.h>
- #include <linux/iio/timer/stm32-lptim-trigger.h>
- #include <linux/iio/timer/stm32-timer-trigger.h>
- #include <linux/iio/trigger.h>
-@@ -27,6 +29,7 @@
- #include <linux/platform_device.h>
- #include <linux/pm_runtime.h>
- #include <linux/property.h>
-+#include <linux/util_macros.h>
- 
- #include "stm32-adc-core.h"
- 
-@@ -202,11 +205,13 @@ struct stm32_adc;
-  * @has_boostmode:	boost mode support flag
-  * @has_linearcal:	linear calibration support flag
-  * @has_presel:		channel preselection support flag
-+ * @has_oversampling:	oversampling support flag
-  * @prepare:		optional prepare routine (power-up, enable)
-  * @start_conv:		routine to start conversions
-  * @stop_conv:		routine to stop conversions
-  * @unprepare:		optional unprepare routine (disable, power-down)
-  * @irq_clear:		routine to clear irqs
-+ * @set_ovs:		routine to set oversampling configuration
-  * @smp_cycles:		programmable sampling time (ADC clock cycles)
-  * @ts_int_ch:		pointer to array of internal channels minimum sampling time in ns
-  */
-@@ -219,11 +224,13 @@ struct stm32_adc_cfg {
- 	bool has_boostmode;
- 	bool has_linearcal;
- 	bool has_presel;
-+	bool has_oversampling;
- 	int (*prepare)(struct iio_dev *);
- 	void (*start_conv)(struct iio_dev *, bool dma);
- 	void (*stop_conv)(struct iio_dev *);
- 	void (*unprepare)(struct iio_dev *);
- 	void (*irq_clear)(struct iio_dev *indio_dev, u32 msk);
-+	void (*set_ovs)(struct iio_dev *indio_dev, u32 ovs_idx);
- 	const unsigned int *smp_cycles;
- 	const unsigned int *ts_int_ch;
- };
-@@ -255,6 +262,7 @@ struct stm32_adc_cfg {
-  * @num_diff:		number of differential channels
-  * @int_ch:		internal channel indexes array
-  * @nsmps:		number of channels with optional sample time
-+ * @ovs_idx:		current oversampling ratio index (in oversampling array)
-  */
- struct stm32_adc {
- 	struct stm32_adc_common	*common;
-@@ -282,6 +290,7 @@ struct stm32_adc {
- 	u32			num_diff;
- 	int			int_ch[STM32_ADC_INT_CH_NB];
- 	int			nsmps;
-+	int			ovs_idx;
- };
- 
- struct stm32_adc_diff_channel {
-@@ -293,12 +302,24 @@ struct stm32_adc_diff_channel {
-  * struct stm32_adc_info - stm32 ADC, per instance config data
-  * @max_channels:	Number of channels
-  * @resolutions:	available resolutions
-+ * @oversampling:	available oversampling ratios
-  * @num_res:		number of available resolutions
-+ * @num_ovs:		number of available oversampling ratios
-  */
- struct stm32_adc_info {
- 	int max_channels;
- 	const unsigned int *resolutions;
-+	const unsigned int *oversampling;
- 	const unsigned int num_res;
-+	const unsigned int num_ovs;
-+};
-+
-+static const unsigned int stm32h7_adc_oversampling_avail[] = {
-+1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024
-+};
-+
-+static const unsigned int stm32mp13_adc_oversampling_avail[] = {
-+1, 2, 4, 8, 16, 32, 64, 128, 256
- };
- 
- static const unsigned int stm32f4_adc_resolutions[] = {
-@@ -322,14 +343,18 @@ static const unsigned int stm32h7_adc_resolutions[] = {
- static const struct stm32_adc_info stm32h7_adc_info = {
- 	.max_channels = STM32_ADC_CH_MAX,
- 	.resolutions = stm32h7_adc_resolutions,
-+	.oversampling = stm32h7_adc_oversampling_avail,
- 	.num_res = ARRAY_SIZE(stm32h7_adc_resolutions),
-+	.num_ovs = ARRAY_SIZE(stm32h7_adc_oversampling_avail),
- };
- 
- /* stm32mp13 can have up to 19 channels */
- static const struct stm32_adc_info stm32mp13_adc_info = {
- 	.max_channels = 19,
- 	.resolutions = stm32f4_adc_resolutions,
-+	.oversampling = stm32mp13_adc_oversampling_avail,
- 	.num_res = ARRAY_SIZE(stm32f4_adc_resolutions),
-+	.num_ovs = ARRAY_SIZE(stm32mp13_adc_oversampling_avail),
- };
- 
- /*
-@@ -889,6 +914,44 @@ static void stm32mp13_adc_start_conv(struct iio_dev *indio_dev, bool dma)
- 	stm32_adc_set_bits(adc, STM32H7_ADC_CR, STM32H7_ADSTART);
- }
- 
-+static void stm32h7_adc_set_ovs(struct iio_dev *indio_dev, u32 ovs_idx)
-+{
-+	struct stm32_adc *adc = iio_priv(indio_dev);
-+	u32 ovsr_bits, bits, msk = STM32H7_ROVSE;
-+
-+	msk |= STM32H7_OVSR_MASK | STM32H7_OVSS_MASK;
-+	stm32_adc_clr_bits(adc, STM32H7_ADC_CFGR2, msk);
-+
-+	if (!ovs_idx)
-+		return;
-+
-+	bits = STM32H7_ROVSE;
-+	ovsr_bits = (1 << ovs_idx) - 1;
-+	bits |= ovsr_bits << STM32H7_OVSR_SHIFT;
-+	bits |= ovs_idx << STM32H7_OVSS_SHIFT;
-+
-+	stm32_adc_set_bits(adc, STM32H7_ADC_CFGR2, bits & msk);
-+}
-+
-+static void stm32mp13_adc_set_ovs(struct iio_dev *indio_dev, u32 ovs_idx)
-+{
-+	struct stm32_adc *adc = iio_priv(indio_dev);
-+	u32 bits, msk = STM32H7_ROVSE;
-+
-+	msk |= STM32MP13_OVSR_MASK | STM32MP13_OVSS_MASK;
-+	stm32_adc_clr_bits(adc, STM32H7_ADC_CFGR2, msk);
-+
-+	if (!ovs_idx)
-+		return;
-+
-+	bits = STM32H7_ROVSE;
-+	if (ovs_idx - 1)
-+		bits |= (ovs_idx - 1) << STM32MP13_OVSR_SHIFT;
-+	bits |= ovs_idx << STM32MP13_OVSS_SHIFT;
-+
-+	stm32_adc_set_bits(adc, STM32H7_ADC_CFGR2, bits & msk);
-+}
-+
- static int stm32h7_adc_exit_pwr_down(struct iio_dev *indio_dev)
- {
- 	struct stm32_adc *adc = iio_priv(indio_dev);
-@@ -1461,6 +1524,71 @@ static int stm32_adc_single_conv(struct iio_dev *indio_dev,
- 	return ret;
- }
- 
-+static int stm32_adc_write_raw(struct iio_dev *indio_dev, struct iio_chan_spec const *chan,
-+			       int val, int val2, long mask)
-+{
-+	struct stm32_adc *adc = iio_priv(indio_dev);
-+	struct device *dev = indio_dev->dev.parent;
-+	int nb = adc->cfg->adc_info->num_ovs;
-+	u32 idx;
-+	int ret;
-+
-+	switch (mask) {
-+	case IIO_CHAN_INFO_OVERSAMPLING_RATIO:
-+		ret = iio_device_claim_direct_mode(indio_dev);
-+		if (ret)
-+			return ret;
-+
-+		if (val2) {
-+			ret = -EINVAL;
-+			goto err;
-+		}
-+
-+		for (idx = 0; idx < nb; idx++)
-+			if (adc->cfg->adc_info->oversampling[idx] == val)
-+				break;
-+
-+		if (idx >= nb) {
-+			ret = -EINVAL;
-+			goto err;
-+		}
-+
-+		ret = pm_runtime_resume_and_get(dev);
-+		if (ret < 0)
-+			goto err;
-+
-+		adc->cfg->set_ovs(indio_dev, idx);
-+
-+		pm_runtime_mark_last_busy(dev);
-+		pm_runtime_put_autosuspend(dev);
-+
-+		adc->ovs_idx = idx;
-+
-+err:
-+		iio_device_release_direct_mode(indio_dev);
-+
-+		return ret;
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
-+static int stm32_adc_read_avail(struct iio_dev *indio_dev, struct iio_chan_spec const *chan,
-+				const int **vals, int *type, int *length, long m)
-+{
-+	struct stm32_adc *adc = iio_priv(indio_dev);
-+
-+	switch (m) {
-+	case IIO_CHAN_INFO_OVERSAMPLING_RATIO:
-+		*type = IIO_VAL_INT;
-+		*length = adc->cfg->adc_info->num_ovs;
-+		*vals = adc->cfg->adc_info->oversampling;
-+		return IIO_AVAIL_LIST;
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
- static int stm32_adc_read_raw(struct iio_dev *indio_dev,
- 			      struct iio_chan_spec const *chan,
- 			      int *val, int *val2, long mask)
-@@ -1503,6 +1631,10 @@ static int stm32_adc_read_raw(struct iio_dev *indio_dev,
- 			*val = 0;
- 		return IIO_VAL_INT;
- 
-+	case IIO_CHAN_INFO_OVERSAMPLING_RATIO:
-+		*val = adc->cfg->adc_info->oversampling[adc->ovs_idx];
-+		return IIO_VAL_INT;
-+
- 	default:
- 		return -EINVAL;
- 	}
-@@ -1679,6 +1811,8 @@ static int stm32_adc_debugfs_reg_access(struct iio_dev *indio_dev,
- 
- static const struct iio_info stm32_adc_iio_info = {
- 	.read_raw = stm32_adc_read_raw,
-+	.write_raw = stm32_adc_write_raw,
-+	.read_avail = stm32_adc_read_avail,
- 	.validate_trigger = stm32_adc_validate_trigger,
- 	.hwfifo_set_watermark = stm32_adc_set_watermark,
- 	.update_scan_mode = stm32_adc_update_scan_mode,
-@@ -1972,6 +2106,10 @@ static void stm32_adc_chan_init_one(struct iio_dev *indio_dev,
- 		chan->info_mask_separate = BIT(IIO_CHAN_INFO_RAW);
- 	chan->info_mask_shared_by_type = BIT(IIO_CHAN_INFO_SCALE) |
- 					 BIT(IIO_CHAN_INFO_OFFSET);
-+	if (adc->cfg->has_oversampling) {
-+		chan->info_mask_shared_by_all |= BIT(IIO_CHAN_INFO_OVERSAMPLING_RATIO);
-+		chan->info_mask_shared_by_all_available = BIT(IIO_CHAN_INFO_OVERSAMPLING_RATIO);
-+	}
- 	chan->scan_type.sign = 'u';
- 	chan->scan_type.realbits = adc->cfg->adc_info->resolutions[adc->res];
- 	chan->scan_type.storagebits = 16;
-@@ -2598,6 +2736,7 @@ static const struct stm32_adc_cfg stm32h7_adc_cfg = {
- 	.has_boostmode = true,
- 	.has_linearcal = true,
- 	.has_presel = true,
-+	.has_oversampling = true,
- 	.start_conv = stm32h7_adc_start_conv,
- 	.stop_conv = stm32h7_adc_stop_conv,
- 	.prepare = stm32h7_adc_prepare,
-@@ -2605,6 +2744,7 @@ static const struct stm32_adc_cfg stm32h7_adc_cfg = {
- 	.smp_cycles = stm32h7_adc_smp_cycles,
- 	.irq_clear = stm32h7_adc_irq_clear,
- 	.ts_int_ch = stm32_adc_min_ts_h7,
-+	.set_ovs = stm32h7_adc_set_ovs,
- };
- 
- const unsigned int stm32_adc_min_ts_mp1[] = { 100, 100, 100, 4300, 9800 };
-@@ -2618,6 +2758,7 @@ static const struct stm32_adc_cfg stm32mp1_adc_cfg = {
- 	.has_boostmode = true,
- 	.has_linearcal = true,
- 	.has_presel = true,
-+	.has_oversampling = true,
- 	.start_conv = stm32h7_adc_start_conv,
- 	.stop_conv = stm32h7_adc_stop_conv,
- 	.prepare = stm32h7_adc_prepare,
-@@ -2625,6 +2766,7 @@ static const struct stm32_adc_cfg stm32mp1_adc_cfg = {
- 	.smp_cycles = stm32h7_adc_smp_cycles,
- 	.irq_clear = stm32h7_adc_irq_clear,
- 	.ts_int_ch = stm32_adc_min_ts_mp1,
-+	.set_ovs = stm32h7_adc_set_ovs,
- };
- 
- const unsigned int stm32_adc_min_ts_mp13[] = { 100, 0, 0, 4300, 9800 };
-@@ -2634,6 +2776,7 @@ static const struct stm32_adc_cfg stm32mp13_adc_cfg = {
- 	.regs = &stm32mp13_adc_regspec,
- 	.adc_info = &stm32mp13_adc_info,
- 	.trigs = stm32h7_adc_trigs,
-+	.has_oversampling = true,
- 	.start_conv = stm32mp13_adc_start_conv,
- 	.stop_conv = stm32h7_adc_stop_conv,
- 	.prepare = stm32h7_adc_prepare,
-@@ -2641,6 +2784,7 @@ static const struct stm32_adc_cfg stm32mp13_adc_cfg = {
- 	.smp_cycles = stm32mp13_adc_smp_cycles,
- 	.irq_clear = stm32h7_adc_irq_clear,
- 	.ts_int_ch = stm32_adc_min_ts_mp13,
-+	.set_ovs = stm32mp13_adc_set_ovs,
- };
- 
- static const struct of_device_id stm32_adc_of_match[] = {
--- 
-2.25.1
-
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTP is here! 40Mbps down 10Mbps up. Decent connectivity at last!
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
