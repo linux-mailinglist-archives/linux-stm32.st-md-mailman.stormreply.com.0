@@ -2,130 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9A55C66BB02
-	for <lists+linux-stm32@lfdr.de>; Mon, 16 Jan 2023 10:55:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 821F966B9C5
+	for <lists+linux-stm32@lfdr.de>; Mon, 16 Jan 2023 10:04:30 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2928BC6906C;
-	Mon, 16 Jan 2023 09:55:37 +0000 (UTC)
-Received: from EUR05-AM6-obe.outbound.protection.outlook.com
- (mail-am6eur05on2041.outbound.protection.outlook.com [40.107.22.41])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0AB45C65047;
+	Mon, 16 Jan 2023 09:04:30 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id ADE8EC64107
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 904C1C65042
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 16 Jan 2023 00:53:21 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=LrLhCwhJKtrvF/hh2PWQQG2RjcTYreYbPAqipPjq4+JsP2mbSEa62XpYV22e62mtKHvwghzCERGzvEo1adUZcc8pP8J0JkXUxLdKDrOY3U1M5Rdhqbo8d8cT1khY8+FFltML1/nTNx6qD8ymz1sxi1wbFbPlmazFNRjDgVQkiDS6+hgPkzhYGNouO2IkeoJq6/lgJo7oZVzymAdmmx/VsNRXz/DaPVadl/p6UinKsY6O2AOv/FT5VZhXD2EVLO97zD78fGba1g2L4k1K/4LngW8YcPyD0Gw5tNNAaWSxdVYBbmgS4PS34nNq956kpXcadJkSFUbxsEv08aAeXjPF2w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=M0meuWK2Rr9tdTsfihMNx5t0428oN8Wk5VQzvyrS7Y0=;
- b=mu8nBhPj2c77gqiEp1+OqEAktQFKRSW0sF/Xe9fD8ZdxAnoluVTdChT2lOXxb2ZY6/pQdLvCJ7xiEdK0Ox8lwsQeuk30ipV80Rs2/1iEV5f/Sq0A1IXJBbH1qgTnvfVY0xt/xF6VOTT+lf13V5y1Z0e8n4NCjYm2QaGCGssMK4wmrEWwl/gK0KW4LG5GhRte31XaHRRnwS8s41Ze+kdIL4Jsx4neFyIqLxpt9BL5QS6Y6FNA4EJ4OjOEAmwMb7daa/HnYwgqjiytEu6nsjf0gZ77IgbBgDqTz+/OQEE9Hkd94D3DQ508G+4oNNtfMvBJFYazCYN0b9ExgsNJyKn6tQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com; 
- s=selector2-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=M0meuWK2Rr9tdTsfihMNx5t0428oN8Wk5VQzvyrS7Y0=;
- b=ASC1H8/WqXygibLFeRL3Tb360bhq+483TpHSlL1L/QM92ndpVfdc1+WPxtTX1zrJrgmJ3W1g3RENx8zxWxAhY5KSnmwcV8VsaKmosr69oVBFssOJy9m8P4hFmXAHP2pC+7WlNljK8vlS1nGMUbc1aWhyKdQjJRzHoJA6MuKl3g8=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from DU0PR04MB9417.eurprd04.prod.outlook.com (2603:10a6:10:358::11)
- by AM8PR04MB7297.eurprd04.prod.outlook.com (2603:10a6:20b:1c5::13)
+ Mon, 16 Jan 2023 09:04:28 +0000 (UTC)
+Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 30G4WFYW020822; Mon, 16 Jan 2023 10:03:51 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=selector1;
+ bh=BZO4szZsrUWg/3PIM8P/YrC7I74jhBQFAVGjF3sgEB8=;
+ b=xyLGJibn4bT+IrpXVumZ+WnkZYsEjJyRH5CKDH1ANhl3L8df7+fKED3C64ddzurO6ltp
+ ZvJynw4L5fy8Z0eqXGTkJKO6XKzJE5fU5dsKZKCm5DqomHZ8O8rPevIVMYMpAQ9ytGd4
+ VXfFXCfqV7MKkCn3WDhWUvVwpBqB8JIhRq2OATvgqYbRd5/+sLEHIbc6CtLlb710ay4j
+ E7Fhxpc9jWsmaJCBkHtQInRP5rAlDvBH9a4q0fadCBu12XVKhzSIOYisjBECKfJUfy8q
+ hIM4FRsvwnE43Op+51je5nSwvBkyUf64g4zDmVy0fxy0JwHnUghFFBfbBaev9dPcYkqx sA== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3n3jpqrvad-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 16 Jan 2023 10:03:51 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 99F41100034;
+ Mon, 16 Jan 2023 10:03:49 +0100 (CET)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 9265B210598;
+ Mon, 16 Jan 2023 10:03:49 +0100 (CET)
+Received: from localhost (10.201.20.178) by SHFDAG1NODE1.st.com (10.75.129.69)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6002.12; Mon, 16 Jan
- 2023 00:53:20 +0000
-Received: from DU0PR04MB9417.eurprd04.prod.outlook.com
- ([fe80::e203:47be:36e4:c0c3]) by DU0PR04MB9417.eurprd04.prod.outlook.com
- ([fe80::e203:47be:36e4:c0c3%7]) with mapi id 15.20.6002.012; Mon, 16 Jan 2023
- 00:53:20 +0000
-Message-ID: <871bd24f-173e-9a32-2830-83eeace1cc39@oss.nxp.com>
-Date: Mon, 16 Jan 2023 08:53:01 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.0
-Content-Language: en-US
-To: Clark Wang <xiaoning.wang@nxp.com>, wei.fang@nxp.com,
- shenwei.wang@nxp.com, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, robh+dt@kernel.org,
- krzysztof.kozlowski+dt@linaro.org, shawnguo@kernel.org,
- s.hauer@pengutronix.de, festevam@gmail.com, peppe.cavallaro@st.com,
- alexandre.torgue@foss.st.com, joabreu@synopsys.com,
- mcoquelin.stm32@gmail.com, richardcochran@gmail.com
-References: <20230113033347.264135-1-xiaoning.wang@nxp.com>
- <20230113033347.264135-8-xiaoning.wang@nxp.com>
-From: Peng Fan <peng.fan@oss.nxp.com>
-In-Reply-To: <20230113033347.264135-8-xiaoning.wang@nxp.com>
-X-ClientProxiedBy: SGBP274CA0016.SGPP274.PROD.OUTLOOK.COM (2603:1096:4:b0::28)
- To DU0PR04MB9417.eurprd04.prod.outlook.com
- (2603:10a6:10:358::11)
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.13; Mon, 16 Jan
+ 2023 10:03:49 +0100
+From: Olivier Moysan <olivier.moysan@foss.st.com>
+To: Jonathan Cameron <jic23@kernel.org>, Lars-Peter Clausen <lars@metafoo.de>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>
+Date: Mon, 16 Jan 2023 10:03:33 +0100
+Message-ID: <20230116090333.33492-1-olivier.moysan@foss.st.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DU0PR04MB9417:EE_|AM8PR04MB7297:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4658ff53-40d1-4eea-cfc2-08daf75c0f9e
-X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 5ZXNrLDvVI0kgPOeTgK7iSAzhhf0Tv/PINBxkejNkGteXw8Iy3olK0fnfkleT4D0CyPKUTAxzrGbf2GgDJ14hROR/jAqOG5jnTk0UGHe6NiCRJS4apdjbgPHvV+a9co1rf6XK44F9H0H8y8Tod4vOR6quH+SQ84nj8pXYFQqKPp7gKhFSOmyIyZYtt5n6oGCvWOXVVn1TGrJXM3OeD4OABd2zakM2UdVVSTnDvfz+aE8u3cyJlRBUGj8DnWBQORH4zrDYkbRC5GBeu+SZfFOddss28e1GeNO4wYo08j5mAeyJVCNYapvTk1iqGKWVAofmTE+a8k5UU+Jrp5G6iRkx4cimQVT6vL4vT7ELHpRhqbzPs5sit4wFRCWCZ1dnE4GLaFl7sffpqKPWcqbqPgC7Iw0xu95ylzrIuDg8bOQSxNuCIKLTOiBDZsslUbV13NlRRTVXpY9Z2aMtxhbLpIeNBuDrW0QSQUeQj2cETWpdSbFiDJa6WBf2DNX4e6/VKxwCrY0vEPP4UJfs1oSB/biEjAix4IzgJ1mlW52hJ2ep5XMj8AFp4ffOKc/tqT4ftdUlx92cB4G0Jl5I0Qfq0mN1W29/R16TeHrTyH0uwfMf/9szaIsX1dcZvhLkT0DjDNE+6HbbSpUO3iiDWXeVGSH6Yz830+fOQTW0b1lVcUSxolirD+TDfRYXDtaXEaIWZpIfaOmzqABtj/VSpwQ1kbKS+AOIuC2m6u/pTs+NjiOmkFPXcK5RjVHmHcALEmFcbDytJxfNq+/jE4dU6Weo5RiWmkk5G6UTqswJxU9nr/Zk1VLL/bWrXttI5dKvzZaLGHE
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DU0PR04MB9417.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(136003)(366004)(346002)(396003)(39860400002)(376002)(451199015)(921005)(2616005)(31696002)(86362001)(31686004)(316002)(8676002)(6486002)(66946007)(66556008)(66476007)(478600001)(186003)(26005)(6512007)(53546011)(52116002)(6666004)(6506007)(38350700002)(38100700002)(44832011)(83380400001)(2906002)(4326008)(41300700001)(7416002)(5660300002)(8936002)(45980500001)(43740500002)(473944003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YVhsVGZRVEJ0Lzk0dVVOSjdlOGZrRkFGaVdpOURJZHJ0VWRJZ1RVZ2lFVnZ0?=
- =?utf-8?B?eVNHamNoeWhjcE80MTI5MEZTVE1Eb24wS2NtZ05MVXlxRFVLODFIc3VCRzRa?=
- =?utf-8?B?SXgyNFc2ZU1TZXkzTzV2OXgvcUtBMWNGT0x3cCtOUGsvY1NmZlRYd3g1aHhV?=
- =?utf-8?B?RzZrazlLK0R5d1NuK0JVbkNTOWxia2ZML3g2bUJRcDFDT1hKQjNrUUhwVUlE?=
- =?utf-8?B?WGlybmwzbjJBZmU0TFBQVnJqcENacHlwQzl5QStEU3BCb0JNQ1c3OTBIQlo5?=
- =?utf-8?B?TnRCQmJZVDZIM1BoNFlSbEVGMjlZYUFlSHFEZjUzVmhYQjc2dWhVNDRCaDdp?=
- =?utf-8?B?S0xzVHk1bmNZd3JMSk5hR1o0aWdFV2c0WnVsaWpOU215VFpkR2phU3NPMWV1?=
- =?utf-8?B?QktUY0tHZmgzSFY5ZWpaZ1RJK1BjSkJjbXpSZ1hldEY0NDU3RWFRNWtqRytL?=
- =?utf-8?B?QkZIMmhTbE94WjVIZ1JMOURtZnpwQlc4T013bjkyTWZGdjdMUVkrR3lDWTZY?=
- =?utf-8?B?ZjFWVVZTUnFFNEJZQURiZEpieVJXS3VXYTY2QjBJbXI5azkxQ3JHNDU1aENC?=
- =?utf-8?B?cGZwdXRRQ3ZmdENUQ2U0eU1kTHV0QnlTZjlROWU3Z0hmQUVNRlQySnlyQWZY?=
- =?utf-8?B?SzB5S3dpWE9lNFRDK1RFVUZVdGUrMDY3S3N0NThhR0t1QmluQTQvbktNL1FJ?=
- =?utf-8?B?d3ZacFh4SjNlNFA1RGJGQ2swWjd5cHhMWFBxa1FZMlAyUkFMdW93L2g0Z1dD?=
- =?utf-8?B?UXBtRk5xeWVVN1hGRnlETlo3U2liVVUzT2JOVFNob0ZFV0M2ejN1V2pSTVBr?=
- =?utf-8?B?M1hOUlBlMGwwVkJCdk1RU0JrOCtnZlhWV3lVZjBjMFViVGRnSlBDN3pEeDBT?=
- =?utf-8?B?aDlsdGRjNm9NeWpaeTd2bHZSUVVpNmZRUnVCTTcvYjB6VkdUTCsxWmhSNnFz?=
- =?utf-8?B?MjRCaEhyOFFuZm1zS2orR0VhcTVBK2NpRjZvc0tMdG1LaTVXOElaYkhMUm1S?=
- =?utf-8?B?aWRVYUxHVHdxWUpNR2pvMlh2a3FkV21ERVZjRU9sMlI0THNjQllLZ3gybHRU?=
- =?utf-8?B?TnBWMnlONGV3dGVUSnNpSHNPYnlrTXhUdHVWZ1hKWmJzTy9uZHppaXhBblB6?=
- =?utf-8?B?QjRhNU1uUmpnM2NUc09MVzI2bGdXOGQ2UjJCemVoVFZEK2hZaG1BYkc2V2JO?=
- =?utf-8?B?RU5PRkJQeUsrNEVWZ1BxRCtlY1hsTDUxSnpXWkRxeG5YMkNNMHlQdjFBRUlH?=
- =?utf-8?B?T0Z6NmJic3I0MGQwK1Q3cHk1aTNadS9rOWhPSEVCWlkyUlIxK2lNNDZHRHFx?=
- =?utf-8?B?emc1THdDZTE3YmhDNXRhS2FVVm9LdC8xMmpobDhybHBCeDBrak5BVm02TTVp?=
- =?utf-8?B?SnNlN1B4blRMOE1vQ3hHRDVtSFU0ZjV0Sndod0hXaVB3akNSTGZBaGU1b0Fa?=
- =?utf-8?B?S2ZZdjlQZks3OEI4T1pGcXE3eGtLTG0wdmVvL1dwZWxING5scVUvRnliT0M1?=
- =?utf-8?B?aG4raElFZGoxWWQ3SS9VWlBjNXpVVmYvNExkT0xnSzluSUZNVDRrS1JBcjg2?=
- =?utf-8?B?ajM2TmtDZmM2Y0lJaThRekRmZTFyeWJZUEhDMVFQZHJhaGZFdU9XOG04Vjgv?=
- =?utf-8?B?K09ZL2ZTcG8zU01SMjE2eE1PbHdZS0tnNFBFUVRQRTFHWUcrSVBPTlRnVzd1?=
- =?utf-8?B?MUJRUG45b3hDdFQvc0RLVUc4QmpPL3ZFcURvbmRFZ3o1anZpZVRCQW5SY2Rk?=
- =?utf-8?B?aWlacUswTmZGa0N0dGZPVFo0K0pTanhCRzRHNmN0ZTI3ZWIvMGlqYklpbEVD?=
- =?utf-8?B?emRheXRtTDJRNExsOVdjazVhaWRrUVgyb0ZWSGZIQlVCdkJKRy9Eem1TR2N0?=
- =?utf-8?B?TlVxYVBDWGowazJvT0RNa21BV2RJUWZzZTJJQzcvZWRQRkNTdERlTEZHU3Nl?=
- =?utf-8?B?a0dlNCswZmpuVkJlY2wxSFIxMC93dHhUNGFodWc1VFVxUEh4RGdjWnBsV2Qy?=
- =?utf-8?B?OFBoWDRzL29vK0FnLy9PRytLN0U2d0hEdFJ0ZkJvRk8yRk1BOVBNTzl0NnE3?=
- =?utf-8?B?Q3AvL3BJWVdWZllYaElyUVdQekdtQWRHK0NHNU92RWVNY25ydUhyZDZkMzRo?=
- =?utf-8?Q?4oO2yYR1uRmzXSmJ09QZLball?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4658ff53-40d1-4eea-cfc2-08daf75c0f9e
-X-MS-Exchange-CrossTenant-AuthSource: DU0PR04MB9417.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jan 2023 00:53:20.0432 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 5b737eKG/9BY6q+f41iASh/pnQ0/2H/a/yLqkFLky5/7XKzCEo8W2zIveH6X3v4n1b8i8f4+Djk35Vfdn61Qeg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM8PR04MB7297
-X-Mailman-Approved-At: Mon, 16 Jan 2023 09:55:34 +0000
-Cc: devicetree@vger.kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-imx@nxp.com, kernel@pengutronix.de,
+X-Originating-IP: [10.201.20.178]
+X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.219,Aquarius:18.0.923,Hydra:6.0.562,FMLib:17.11.122.1
+ definitions=2023-01-16_06,2023-01-13_02,2022-06-22_01
+Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH V2 7/7] arm64: dts: imx93-11x11-evk:
-	enable fec function
+Subject: [Linux-stm32] [PATCH] iio: adc: stm32: add oversampling support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -137,83 +69,392 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+Add oversampling support for STM32H7, STM32MP15 & STM32MP13.
+STM32F4 ADC has no oversampling feature.
 
+The current support of the oversampling feature aims at increasing
+the data SNR, without changing the data resolution.
+As the oversampling by itself increases data resolution,
+a right shift is applied to keep initial resolution.
+Only the oversampling ratio corresponding to a power of two are
+supported here, to get a direct link between right shift and
+oversampling ratio. (2exp(n) ratio <=> n right shift)
 
-On 1/13/2023 11:33 AM, Clark Wang wrote:
-> Enable FEC function for imx93-11x11-evk board.
-> 
-> Signed-off-by: Clark Wang <xiaoning.wang@nxp.com>
+The oversampling ratio is shared by all channels, whatever channel type.
+(e.g. single ended or differential).
 
-Reviewed-by: Peng Fan <peng.fan@nxp.com>
+Oversampling can be configured using IIO ABI:
+- in_voltage_oversampling_ratio_available
+- in_voltage_oversampling_ratio
 
-> ---
-> New patch added in V2 for FEC
-> ---
->   .../boot/dts/freescale/imx93-11x11-evk.dts    | 39 +++++++++++++++++++
->   1 file changed, 39 insertions(+)
-> 
-> diff --git a/arch/arm64/boot/dts/freescale/imx93-11x11-evk.dts b/arch/arm64/boot/dts/freescale/imx93-11x11-evk.dts
-> index 6f7f1974cbb7..cdcc5093c763 100644
-> --- a/arch/arm64/boot/dts/freescale/imx93-11x11-evk.dts
-> +++ b/arch/arm64/boot/dts/freescale/imx93-11x11-evk.dts
-> @@ -55,6 +55,26 @@ ethphy1: ethernet-phy@1 {
->   	};
->   };
->   
-> +&fec {
-> +	pinctrl-names = "default";
-> +	pinctrl-0 = <&pinctrl_fec>;
-> +	phy-mode = "rgmii-id";
-> +	phy-handle = <&ethphy2>;
-> +	fsl,magic-packet;
-> +	status = "okay";
-> +
-> +	mdio {
-> +		#address-cells = <1>;
-> +		#size-cells = <0>;
-> +		clock-frequency = <5000000>;
-> +
-> +		ethphy2: ethernet-phy@2 {
-> +			reg = <2>;
-> +			eee-broken-1000t;
-> +		};
-> +	};
-> +};
-> +
->   &lpuart1 { /* console */
->   	pinctrl-names = "default";
->   	pinctrl-0 = <&pinctrl_uart1>;
-> @@ -104,6 +124,25 @@ MX93_PAD_ENET1_TX_CTL__ENET_QOS_RGMII_TX_CTL		0x57e
->   		>;
->   	};
->   
-> +	pinctrl_fec: fecgrp {
-> +		fsl,pins = <
-> +			MX93_PAD_ENET2_MDC__ENET1_MDC			0x57e
-> +			MX93_PAD_ENET2_MDIO__ENET1_MDIO			0x57e
-> +			MX93_PAD_ENET2_RD0__ENET1_RGMII_RD0		0x57e
-> +			MX93_PAD_ENET2_RD1__ENET1_RGMII_RD1		0x57e
-> +			MX93_PAD_ENET2_RD2__ENET1_RGMII_RD2		0x57e
-> +			MX93_PAD_ENET2_RD3__ENET1_RGMII_RD3		0x57e
-> +			MX93_PAD_ENET2_RXC__ENET1_RGMII_RXC		0x5fe
-> +			MX93_PAD_ENET2_RX_CTL__ENET1_RGMII_RX_CTL	0x57e
-> +			MX93_PAD_ENET2_TD0__ENET1_RGMII_TD0		0x57e
-> +			MX93_PAD_ENET2_TD1__ENET1_RGMII_TD1		0x57e
-> +			MX93_PAD_ENET2_TD2__ENET1_RGMII_TD2		0x57e
-> +			MX93_PAD_ENET2_TD3__ENET1_RGMII_TD3		0x57e
-> +			MX93_PAD_ENET2_TXC__ENET1_RGMII_TXC		0x5fe
-> +			MX93_PAD_ENET2_TX_CTL__ENET1_RGMII_TX_CTL	0x57e
-> +		>;
-> +	};
-> +
->   	pinctrl_uart1: uart1grp {
->   		fsl,pins = <
->   			MX93_PAD_UART1_RXD__LPUART1_RX			0x31e
+Signed-off-by: Olivier Moysan <olivier.moysan@foss.st.com>
+Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+---
+ drivers/iio/adc/stm32-adc-core.h |  16 ++++
+ drivers/iio/adc/stm32-adc.c      | 144 +++++++++++++++++++++++++++++++
+ 2 files changed, 160 insertions(+)
+
+diff --git a/drivers/iio/adc/stm32-adc-core.h b/drivers/iio/adc/stm32-adc-core.h
+index 73b2c2e91c08..86a98286eeb3 100644
+--- a/drivers/iio/adc/stm32-adc-core.h
++++ b/drivers/iio/adc/stm32-adc-core.h
+@@ -91,6 +91,7 @@
+ #define STM32H7_ADC_IER			0x04
+ #define STM32H7_ADC_CR			0x08
+ #define STM32H7_ADC_CFGR		0x0C
++#define STM32H7_ADC_CFGR2		0x10
+ #define STM32H7_ADC_SMPR1		0x14
+ #define STM32H7_ADC_SMPR2		0x18
+ #define STM32H7_ADC_PCSEL		0x1C
+@@ -160,6 +161,14 @@
+ #define STM32H7_DMNGT_SHIFT		0
+ #define STM32H7_DMNGT_MASK		GENMASK(1, 0)
+ 
++/* STM32H7_ADC_CFGR2 bit fields */
++#define STM32H7_OVSR_SHIFT		16 /* Correspond to OSVR field in datasheet */
++#define STM32H7_OVSR_MASK		GENMASK(25, 16)
++#define STM32H7_OVSR_BITS		10
++#define STM32H7_OVSS_SHIFT		5
++#define STM32H7_OVSS_MASK		GENMASK(8, 5)
++#define STM32H7_ROVSE			BIT(0)
++
+ enum stm32h7_adc_dmngt {
+ 	STM32H7_DMNGT_DR_ONLY,		/* Regular data in DR only */
+ 	STM32H7_DMNGT_DMA_ONESHOT,	/* DMA one shot mode */
+@@ -226,6 +235,13 @@ enum stm32h7_adc_dmngt {
+ #define STM32MP13_RES_SHIFT		3
+ #define STM32MP13_RES_MASK		GENMASK(4, 3)
+ 
++/* STM32MP13_ADC_CFGR2 bit fields */
++#define STM32MP13_OVSR_SHIFT		2
++#define STM32MP13_OVSR_MASK		GENMASK(4, 2)
++#define STM32MP13_OVSR_BITS		3
++#define STM32MP13_OVSS_SHIFT		5
++#define STM32MP13_OVSS_MASK		GENMASK(8, 5)
++
+ /* STM32MP13_ADC_DIFSEL - bit fields */
+ #define STM32MP13_DIFSEL_MASK		GENMASK(18, 0)
+ 
+diff --git a/drivers/iio/adc/stm32-adc.c b/drivers/iio/adc/stm32-adc.c
+index 45d4e79f8e55..17050875f23d 100644
+--- a/drivers/iio/adc/stm32-adc.c
++++ b/drivers/iio/adc/stm32-adc.c
+@@ -6,6 +6,7 @@
+  * Author: Fabrice Gasnier <fabrice.gasnier@st.com>.
+  */
+ 
++#include <linux/bitfield.h>
+ #include <linux/clk.h>
+ #include <linux/debugfs.h>
+ #include <linux/delay.h>
+@@ -13,6 +14,7 @@
+ #include <linux/dmaengine.h>
+ #include <linux/iio/iio.h>
+ #include <linux/iio/buffer.h>
++#include <linux/iio/sysfs.h>
+ #include <linux/iio/timer/stm32-lptim-trigger.h>
+ #include <linux/iio/timer/stm32-timer-trigger.h>
+ #include <linux/iio/trigger.h>
+@@ -27,6 +29,7 @@
+ #include <linux/platform_device.h>
+ #include <linux/pm_runtime.h>
+ #include <linux/property.h>
++#include <linux/util_macros.h>
+ 
+ #include "stm32-adc-core.h"
+ 
+@@ -202,11 +205,13 @@ struct stm32_adc;
+  * @has_boostmode:	boost mode support flag
+  * @has_linearcal:	linear calibration support flag
+  * @has_presel:		channel preselection support flag
++ * @has_oversampling:	oversampling support flag
+  * @prepare:		optional prepare routine (power-up, enable)
+  * @start_conv:		routine to start conversions
+  * @stop_conv:		routine to stop conversions
+  * @unprepare:		optional unprepare routine (disable, power-down)
+  * @irq_clear:		routine to clear irqs
++ * @set_ovs:		routine to set oversampling configuration
+  * @smp_cycles:		programmable sampling time (ADC clock cycles)
+  * @ts_int_ch:		pointer to array of internal channels minimum sampling time in ns
+  */
+@@ -219,11 +224,13 @@ struct stm32_adc_cfg {
+ 	bool has_boostmode;
+ 	bool has_linearcal;
+ 	bool has_presel;
++	bool has_oversampling;
+ 	int (*prepare)(struct iio_dev *);
+ 	void (*start_conv)(struct iio_dev *, bool dma);
+ 	void (*stop_conv)(struct iio_dev *);
+ 	void (*unprepare)(struct iio_dev *);
+ 	void (*irq_clear)(struct iio_dev *indio_dev, u32 msk);
++	void (*set_ovs)(struct iio_dev *indio_dev, u32 ovs_idx);
+ 	const unsigned int *smp_cycles;
+ 	const unsigned int *ts_int_ch;
+ };
+@@ -255,6 +262,7 @@ struct stm32_adc_cfg {
+  * @num_diff:		number of differential channels
+  * @int_ch:		internal channel indexes array
+  * @nsmps:		number of channels with optional sample time
++ * @ovs_idx:		current oversampling ratio index (in oversampling array)
+  */
+ struct stm32_adc {
+ 	struct stm32_adc_common	*common;
+@@ -282,6 +290,7 @@ struct stm32_adc {
+ 	u32			num_diff;
+ 	int			int_ch[STM32_ADC_INT_CH_NB];
+ 	int			nsmps;
++	int			ovs_idx;
+ };
+ 
+ struct stm32_adc_diff_channel {
+@@ -293,12 +302,24 @@ struct stm32_adc_diff_channel {
+  * struct stm32_adc_info - stm32 ADC, per instance config data
+  * @max_channels:	Number of channels
+  * @resolutions:	available resolutions
++ * @oversampling:	available oversampling ratios
+  * @num_res:		number of available resolutions
++ * @num_ovs:		number of available oversampling ratios
+  */
+ struct stm32_adc_info {
+ 	int max_channels;
+ 	const unsigned int *resolutions;
++	const unsigned int *oversampling;
+ 	const unsigned int num_res;
++	const unsigned int num_ovs;
++};
++
++static const unsigned int stm32h7_adc_oversampling_avail[] = {
++1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024
++};
++
++static const unsigned int stm32mp13_adc_oversampling_avail[] = {
++1, 2, 4, 8, 16, 32, 64, 128, 256
+ };
+ 
+ static const unsigned int stm32f4_adc_resolutions[] = {
+@@ -322,14 +343,18 @@ static const unsigned int stm32h7_adc_resolutions[] = {
+ static const struct stm32_adc_info stm32h7_adc_info = {
+ 	.max_channels = STM32_ADC_CH_MAX,
+ 	.resolutions = stm32h7_adc_resolutions,
++	.oversampling = stm32h7_adc_oversampling_avail,
+ 	.num_res = ARRAY_SIZE(stm32h7_adc_resolutions),
++	.num_ovs = ARRAY_SIZE(stm32h7_adc_oversampling_avail),
+ };
+ 
+ /* stm32mp13 can have up to 19 channels */
+ static const struct stm32_adc_info stm32mp13_adc_info = {
+ 	.max_channels = 19,
+ 	.resolutions = stm32f4_adc_resolutions,
++	.oversampling = stm32mp13_adc_oversampling_avail,
+ 	.num_res = ARRAY_SIZE(stm32f4_adc_resolutions),
++	.num_ovs = ARRAY_SIZE(stm32mp13_adc_oversampling_avail),
+ };
+ 
+ /*
+@@ -889,6 +914,44 @@ static void stm32mp13_adc_start_conv(struct iio_dev *indio_dev, bool dma)
+ 	stm32_adc_set_bits(adc, STM32H7_ADC_CR, STM32H7_ADSTART);
+ }
+ 
++static void stm32h7_adc_set_ovs(struct iio_dev *indio_dev, u32 ovs_idx)
++{
++	struct stm32_adc *adc = iio_priv(indio_dev);
++	u32 ovsr_bits, bits, msk = STM32H7_ROVSE;
++
++	msk |= STM32H7_OVSR_MASK | STM32H7_OVSS_MASK;
++	stm32_adc_clr_bits(adc, STM32H7_ADC_CFGR2, msk);
++
++	if (!ovs_idx)
++		return;
++
++	bits = STM32H7_ROVSE;
++	ovsr_bits = (1 << ovs_idx) - 1;
++	bits |= ovsr_bits << STM32H7_OVSR_SHIFT;
++	bits |= ovs_idx << STM32H7_OVSS_SHIFT;
++
++	stm32_adc_set_bits(adc, STM32H7_ADC_CFGR2, bits & msk);
++}
++
++static void stm32mp13_adc_set_ovs(struct iio_dev *indio_dev, u32 ovs_idx)
++{
++	struct stm32_adc *adc = iio_priv(indio_dev);
++	u32 bits, msk = STM32H7_ROVSE;
++
++	msk |= STM32MP13_OVSR_MASK | STM32MP13_OVSS_MASK;
++	stm32_adc_clr_bits(adc, STM32H7_ADC_CFGR2, msk);
++
++	if (!ovs_idx)
++		return;
++
++	bits = STM32H7_ROVSE;
++	if (ovs_idx - 1)
++		bits |= (ovs_idx - 1) << STM32MP13_OVSR_SHIFT;
++	bits |= ovs_idx << STM32MP13_OVSS_SHIFT;
++
++	stm32_adc_set_bits(adc, STM32H7_ADC_CFGR2, bits & msk);
++}
++
+ static int stm32h7_adc_exit_pwr_down(struct iio_dev *indio_dev)
+ {
+ 	struct stm32_adc *adc = iio_priv(indio_dev);
+@@ -1461,6 +1524,71 @@ static int stm32_adc_single_conv(struct iio_dev *indio_dev,
+ 	return ret;
+ }
+ 
++static int stm32_adc_write_raw(struct iio_dev *indio_dev, struct iio_chan_spec const *chan,
++			       int val, int val2, long mask)
++{
++	struct stm32_adc *adc = iio_priv(indio_dev);
++	struct device *dev = indio_dev->dev.parent;
++	int nb = adc->cfg->adc_info->num_ovs;
++	u32 idx;
++	int ret;
++
++	switch (mask) {
++	case IIO_CHAN_INFO_OVERSAMPLING_RATIO:
++		ret = iio_device_claim_direct_mode(indio_dev);
++		if (ret)
++			return ret;
++
++		if (val2) {
++			ret = -EINVAL;
++			goto err;
++		}
++
++		for (idx = 0; idx < nb; idx++)
++			if (adc->cfg->adc_info->oversampling[idx] == val)
++				break;
++
++		if (idx >= nb) {
++			ret = -EINVAL;
++			goto err;
++		}
++
++		ret = pm_runtime_resume_and_get(dev);
++		if (ret < 0)
++			goto err;
++
++		adc->cfg->set_ovs(indio_dev, idx);
++
++		pm_runtime_mark_last_busy(dev);
++		pm_runtime_put_autosuspend(dev);
++
++		adc->ovs_idx = idx;
++
++err:
++		iio_device_release_direct_mode(indio_dev);
++
++		return ret;
++	default:
++		return -EINVAL;
++	}
++}
++
++static int stm32_adc_read_avail(struct iio_dev *indio_dev, struct iio_chan_spec const *chan,
++				const int **vals, int *type, int *length, long m)
++{
++	struct stm32_adc *adc = iio_priv(indio_dev);
++
++	switch (m) {
++	case IIO_CHAN_INFO_OVERSAMPLING_RATIO:
++		*type = IIO_VAL_INT;
++		*length = adc->cfg->adc_info->num_ovs;
++		*vals = adc->cfg->adc_info->oversampling;
++		return IIO_AVAIL_LIST;
++	default:
++		return -EINVAL;
++	}
++}
++
+ static int stm32_adc_read_raw(struct iio_dev *indio_dev,
+ 			      struct iio_chan_spec const *chan,
+ 			      int *val, int *val2, long mask)
+@@ -1503,6 +1631,10 @@ static int stm32_adc_read_raw(struct iio_dev *indio_dev,
+ 			*val = 0;
+ 		return IIO_VAL_INT;
+ 
++	case IIO_CHAN_INFO_OVERSAMPLING_RATIO:
++		*val = adc->cfg->adc_info->oversampling[adc->ovs_idx];
++		return IIO_VAL_INT;
++
+ 	default:
+ 		return -EINVAL;
+ 	}
+@@ -1679,6 +1811,8 @@ static int stm32_adc_debugfs_reg_access(struct iio_dev *indio_dev,
+ 
+ static const struct iio_info stm32_adc_iio_info = {
+ 	.read_raw = stm32_adc_read_raw,
++	.write_raw = stm32_adc_write_raw,
++	.read_avail = stm32_adc_read_avail,
+ 	.validate_trigger = stm32_adc_validate_trigger,
+ 	.hwfifo_set_watermark = stm32_adc_set_watermark,
+ 	.update_scan_mode = stm32_adc_update_scan_mode,
+@@ -1972,6 +2106,10 @@ static void stm32_adc_chan_init_one(struct iio_dev *indio_dev,
+ 		chan->info_mask_separate = BIT(IIO_CHAN_INFO_RAW);
+ 	chan->info_mask_shared_by_type = BIT(IIO_CHAN_INFO_SCALE) |
+ 					 BIT(IIO_CHAN_INFO_OFFSET);
++	if (adc->cfg->has_oversampling) {
++		chan->info_mask_shared_by_all |= BIT(IIO_CHAN_INFO_OVERSAMPLING_RATIO);
++		chan->info_mask_shared_by_all_available = BIT(IIO_CHAN_INFO_OVERSAMPLING_RATIO);
++	}
+ 	chan->scan_type.sign = 'u';
+ 	chan->scan_type.realbits = adc->cfg->adc_info->resolutions[adc->res];
+ 	chan->scan_type.storagebits = 16;
+@@ -2598,6 +2736,7 @@ static const struct stm32_adc_cfg stm32h7_adc_cfg = {
+ 	.has_boostmode = true,
+ 	.has_linearcal = true,
+ 	.has_presel = true,
++	.has_oversampling = true,
+ 	.start_conv = stm32h7_adc_start_conv,
+ 	.stop_conv = stm32h7_adc_stop_conv,
+ 	.prepare = stm32h7_adc_prepare,
+@@ -2605,6 +2744,7 @@ static const struct stm32_adc_cfg stm32h7_adc_cfg = {
+ 	.smp_cycles = stm32h7_adc_smp_cycles,
+ 	.irq_clear = stm32h7_adc_irq_clear,
+ 	.ts_int_ch = stm32_adc_min_ts_h7,
++	.set_ovs = stm32h7_adc_set_ovs,
+ };
+ 
+ const unsigned int stm32_adc_min_ts_mp1[] = { 100, 100, 100, 4300, 9800 };
+@@ -2618,6 +2758,7 @@ static const struct stm32_adc_cfg stm32mp1_adc_cfg = {
+ 	.has_boostmode = true,
+ 	.has_linearcal = true,
+ 	.has_presel = true,
++	.has_oversampling = true,
+ 	.start_conv = stm32h7_adc_start_conv,
+ 	.stop_conv = stm32h7_adc_stop_conv,
+ 	.prepare = stm32h7_adc_prepare,
+@@ -2625,6 +2766,7 @@ static const struct stm32_adc_cfg stm32mp1_adc_cfg = {
+ 	.smp_cycles = stm32h7_adc_smp_cycles,
+ 	.irq_clear = stm32h7_adc_irq_clear,
+ 	.ts_int_ch = stm32_adc_min_ts_mp1,
++	.set_ovs = stm32h7_adc_set_ovs,
+ };
+ 
+ const unsigned int stm32_adc_min_ts_mp13[] = { 100, 0, 0, 4300, 9800 };
+@@ -2634,6 +2776,7 @@ static const struct stm32_adc_cfg stm32mp13_adc_cfg = {
+ 	.regs = &stm32mp13_adc_regspec,
+ 	.adc_info = &stm32mp13_adc_info,
+ 	.trigs = stm32h7_adc_trigs,
++	.has_oversampling = true,
+ 	.start_conv = stm32mp13_adc_start_conv,
+ 	.stop_conv = stm32h7_adc_stop_conv,
+ 	.prepare = stm32h7_adc_prepare,
+@@ -2641,6 +2784,7 @@ static const struct stm32_adc_cfg stm32mp13_adc_cfg = {
+ 	.smp_cycles = stm32mp13_adc_smp_cycles,
+ 	.irq_clear = stm32h7_adc_irq_clear,
+ 	.ts_int_ch = stm32_adc_min_ts_mp13,
++	.set_ovs = stm32mp13_adc_set_ovs,
+ };
+ 
+ static const struct of_device_id stm32_adc_of_match[] = {
+-- 
+2.25.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
