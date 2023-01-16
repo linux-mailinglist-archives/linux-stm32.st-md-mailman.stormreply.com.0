@@ -2,78 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B3DC6714F2
+	by mail.lfdr.de (Postfix) with ESMTPS id 7125D6714F3
 	for <lists+linux-stm32@lfdr.de>; Wed, 18 Jan 2023 08:18:30 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 17BDBC6904C;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 264C7C69055;
 	Wed, 18 Jan 2023 07:18:30 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C94E0C6410A
+Received: from m-r1.th.seeweb.it (m-r1.th.seeweb.it [5.144.164.170])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D36E2C65042
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 16 Jan 2023 19:39:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1673897958;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=J03AEUyMs2O4Zc0M/YmOn8FNZhulZOm8FyrWoJOTpuA=;
- b=WLAGbyJj7nTPy6e6RxwlRGRjR0AgkI0jDGy5i9YRK+xIUycxmYUUGimzlKFdQTBevIBdjn
- uZIt0Cbk+Wgkd1wuxOI2xP1IO0GAWibiNz4Ie0ixfgQWill/1NJ5BmDUTvBgGYAcVxxLGK
- uh/AuO4Eg1ex/re0dVei5wSR5tP4hW4=
-Received: from mail-oo1-f69.google.com (mail-oo1-f69.google.com
- [209.85.161.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-516-SlZp0THaPD6jLkl7Y_lN_Q-1; Mon, 16 Jan 2023 14:39:17 -0500
-X-MC-Unique: SlZp0THaPD6jLkl7Y_lN_Q-1
-Received: by mail-oo1-f69.google.com with SMTP id
- x9-20020a4a6209000000b004f51f60512eso855736ooc.23
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 16 Jan 2023 11:39:17 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=J03AEUyMs2O4Zc0M/YmOn8FNZhulZOm8FyrWoJOTpuA=;
- b=Tze+mneCuOpe60ixRQW1tbOwUlGq5xb5KbraKRcFQCayP5UoYZiOIfvoMGZhkEb5Ll
- cCMXyiHRngINfkM9mFgsuCPFxse2cjUDtPZdk9ZBl6doruosTgyy9DYVlr6UvaDbuut+
- /jQr+vyXOoPgATpi6lOtsOBToL9+fHfA9QY/mj3QXR1S6xMIDXyv3sBhs8b/AhDy0gpt
- xa0klTS3sTRaeiXVPIg2GQnByPlwn2Y+jUj61hr9mM8I/mpkhN383O8EryvitQNEIBmY
- AlSoyEOEg1FvzLAujMSAFoigAyoGW1mZD1Azf5x9wROAtk5yrPks2UZqlwqzfsqZ/lo8
- fUog==
-X-Gm-Message-State: AFqh2kruRSp75GLVp7QtK2DMpy0sqmOxy+U1mWHcL/BqQDvRKR+KLbe2
- UE+gs7s7dwBBXGsFGQajeMSuz6Qpih0wVm2jMir96fqwdHeYqENFZ8mxrvKCFMxFsWCUjYCyPJ3
- wN/p9MIvw+iLwtO41xNB9N1E3jPJC9CkCVztQBZSa
-X-Received: by 2002:a05:6830:26d2:b0:684:caea:9c31 with SMTP id
- m18-20020a05683026d200b00684caea9c31mr118632otu.10.1673897955374; 
- Mon, 16 Jan 2023 11:39:15 -0800 (PST)
-X-Google-Smtp-Source: AMrXdXsX2N0Apwx3DHeky1VV10IuJQ27Ivl7LmWlww76FSqkIMW9xCKbWrhuMqI/2iSweJvWyX3YtQ==
-X-Received: by 2002:a05:6830:26d2:b0:684:caea:9c31 with SMTP id
- m18-20020a05683026d200b00684caea9c31mr118619otu.10.1673897955126; 
- Mon, 16 Jan 2023 11:39:15 -0800 (PST)
-Received: from halaney-x13s.attlocal.net ([2600:1700:1ff0:d0e0::21])
- by smtp.gmail.com with ESMTPSA id
- o15-20020a9d764f000000b0066b9a6bf3bcsm15234392otl.12.2023.01.16.11.39.13
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 16 Jan 2023 11:39:14 -0800 (PST)
-From: Andrew Halaney <ahalaney@redhat.com>
-To: davem@davemloft.net
-Date: Mon, 16 Jan 2023 13:37:23 -0600
-Message-Id: <20230116193722.50360-1-ahalaney@redhat.com>
-X-Mailer: git-send-email 2.39.0
+ Mon, 16 Jan 2023 20:44:55 +0000 (UTC)
+Received: from SoMainline.org (94-211-6-86.cable.dynamic.v4.ziggo.nl
+ [94.211.6.86])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
+ SHA256) (No client certificate requested)
+ by m-r1.th.seeweb.it (Postfix) with ESMTPSA id 7A08D1FAA6;
+ Mon, 16 Jan 2023 21:44:53 +0100 (CET)
+Date: Mon, 16 Jan 2023 21:44:52 +0100
+From: Marijn Suijten <marijn.suijten@somainline.org>
+To: Jonathan Cameron <jic23@kernel.org>
+Message-ID: <20230116204452.il4gase2szipeexz@SoMainline.org>
+References: <20220715122903.332535-1-nuno.sa@analog.com>
+ <20220715122903.332535-13-nuno.sa@analog.com>
+ <20220806192048.0ca41cc5@jic23-huawei>
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
+Content-Disposition: inline
+In-Reply-To: <20220806192048.0ca41cc5@jic23-huawei>
 X-Mailman-Approved-At: Wed, 18 Jan 2023 07:18:27 +0000
-Cc: Ning Cai <ncai@quicinc.com>, netdev@vger.kernel.org,
- richardcochran@gmail.com, linux-kernel@vger.kernel.org, edumazet@google.com,
- joabreu@synopsys.com, mcoquelin.stm32@gmail.com, kuba@kernel.org,
- peppe.cavallaro@st.com, pabeni@redhat.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- Andrew Halaney <ahalaney@redhat.com>
-Subject: [Linux-stm32] [PATCH net] net: stmmac: enable all safety features
-	by default
+Cc: Gwendal Grignou <gwendal@chromium.org>,
+ Jishnu Prakash <quic_jprakash@quicinc.com>, Tomer Maimon <tmaimon77@gmail.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, linux-iio@vger.kernel.org,
+ Linus Walleij <linus.walleij@linaro.org>, Amit Kucheria <amitk@kernel.org>,
+ Tali Perry <tali.perry1@gmail.com>, Paul Cercueil <paul@crapouillou.net>,
+ Miquel Raynal <miquel.raynal@bootlin.com>, Guenter Roeck <groeck@chromium.org>,
+ Fabio Estevam <festevam@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
+ Michael Hennerich <Michael.Hennerich@analog.com>,
+ chrome-platform@lists.linux.dev, Lars-Peter Clausen <lars@metafoo.de>,
+ Benjamin Fair <benjaminfair@google.com>, openbmc@lists.ozlabs.org,
+ Daniel Lezcano <daniel.lezcano@linaro.org>, Haibo Chen <haibo.chen@nxp.com>,
+ Christophe Branchereau <cbranchereau@gmail.com>, Nancy Yuen <yuenn@google.com>,
+ Andy Shevchenko <andy.shevchenko@gmail.com>, Andy Gross <agross@kernel.org>,
+ linux-imx@nxp.com, Zhang Rui <rui.zhang@intel.com>,
+ Lorenzo Bianconi <lorenzo@kernel.org>, Saravanan Sekar <sravanhome@gmail.com>,
+ Arnd Bergmann <arnd@arndb.de>, linux-arm-msm@vger.kernel.org,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+ linux-mediatek@lists.infradead.org,
+ Eugen Hristev <eugen.hristev@microchip.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>, Benson Leung <bleung@chromium.org>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ linux-arm-kernel@lists.infradead.org, Avi Fishman <avifishman70@gmail.com>,
+ Patrick Venture <venture@google.com>, linux-mips@vger.kernel.org,
+ Thara Gopinath <thara.gopinath@linaro.org>, linux-renesas-soc@vger.kernel.org,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Cai Huoqing <cai.huoqing@linux.dev>, Shawn Guo <shawnguo@kernel.org>,
+ Claudiu Beznea <claudiu.beznea@microchip.com>
+Subject: Re: [Linux-stm32] [PATCH v3 12/15] iio: adc: qcom-spmi-adc5:
+ convert to device properties
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,113 +76,49 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-In the original implementation of dwmac5
-commit 8bf993a5877e ("net: stmmac: Add support for DWMAC5 and implement Safety Features")
-all safety features were enabled by default.
+On 2022-08-06 19:20:48, Jonathan Cameron wrote:
+> On Fri, 15 Jul 2022 14:29:00 +0200
+> Nuno S=E1 <nuno.sa@analog.com> wrote:
+> =
 
-Later it seems some implementations didn't have support for all the
-features, so in
-commit 5ac712dcdfef ("net: stmmac: enable platform specific safety features")
-the safety_feat_cfg structure was added to the callback and defined for
-some platforms to selectively enable these safety features.
+> > Make the conversion to firmware agnostic device properties. As part of
+> > the conversion the IIO inkern interface 'of_xlate()' is also converted =
+to
+> > 'fwnode_xlate()'. The goal is to completely drop 'of_xlate' and hence OF
+> > dependencies from IIO.
+> > =
 
-The problem is that only certain platforms were given that software
-support. If the automotive safety package bit is set in the hardware
-features register the safety feature callback is called for the platform,
-and for platforms that didn't get a safety_feat_cfg defined this results
-in the following NULL pointer dereference:
+> > Signed-off-by: Nuno S=E1 <nuno.sa@analog.com>
+> > Acked-by: Linus Walleij <linus.walleij@linaro.org>
+> > Reviewed-by: Andy Shevchenko <andy.shevchenko@gmail.com>
+> +CC Marijin who happend to post a patch for this driver that I just accep=
+ted
+> and hence probably has hardware access.  Any chance of a test for this se=
+ries?
+> =
 
-[    7.933303] Call trace:
-[    7.935812]  dwmac5_safety_feat_config+0x20/0x170 [stmmac]
-[    7.941455]  __stmmac_open+0x16c/0x474 [stmmac]
-[    7.946117]  stmmac_open+0x38/0x70 [stmmac]
-[    7.950414]  __dev_open+0x100/0x1dc
-[    7.954006]  __dev_change_flags+0x18c/0x204
-[    7.958297]  dev_change_flags+0x24/0x6c
-[    7.962237]  do_setlink+0x2b8/0xfa4
-[    7.965827]  __rtnl_newlink+0x4ec/0x840
-[    7.969766]  rtnl_newlink+0x50/0x80
-[    7.973353]  rtnetlink_rcv_msg+0x12c/0x374
-[    7.977557]  netlink_rcv_skb+0x5c/0x130
-[    7.981500]  rtnetlink_rcv+0x18/0x2c
-[    7.985172]  netlink_unicast+0x2e8/0x340
-[    7.989197]  netlink_sendmsg+0x1a8/0x420
-[    7.993222]  ____sys_sendmsg+0x218/0x280
-[    7.997249]  ___sys_sendmsg+0xac/0x100
-[    8.001103]  __sys_sendmsg+0x84/0xe0
-[    8.004776]  __arm64_sys_sendmsg+0x24/0x30
-[    8.008983]  invoke_syscall+0x48/0x114
-[    8.012840]  el0_svc_common.constprop.0+0xcc/0xec
-[    8.017665]  do_el0_svc+0x38/0xb0
-[    8.021071]  el0_svc+0x2c/0x84
-[    8.024212]  el0t_64_sync_handler+0xf4/0x120
-[    8.028598]  el0t_64_sync+0x190/0x194
+> If not, no problem as this is fairly mechanical and we have testing on so=
+me of
+> the other drivers using the new code.
+> =
 
-Go back to the original behavior, if the automotive safety package
-is found to be supported in hardware enable all the features unless
-safety_feat_cfg is passed in saying this particular platform only
-supports a subset of the features.
+> I'll probably queue this up in the meantime but it won't end up upstream
+> for a few weeks yet.
 
-Fixes: 5ac712dcdfef ("net: stmmac: enable platform specific safety features")
-Reported-by: Ning Cai <ncai@quicinc.com>
-Signed-off-by: Andrew Halaney <ahalaney@redhat.com>
----
+Jonathan,
 
-I've been working on a newer Qualcomm platform (sa8540p-ride) which has
-a variant of dwmac5 in it. This patch is something Ning stumbled on when
-adding some support for it downstream, and has been in my queue as I try
-and get some support ready for review on list upstream.
+This CC just surfaced in my inbox while searching for our current
+discussion around missing labels in qcom-spmi-vadc - and on the side a
+userspace @xx label name ABI break (in qcom-spmi-adc5) caused by this
+patch's fwnode_get_name change - we could've caught it if I had not
+accidentally marked it as read and/or forgot about it.  My apologies.
 
-Since it isn't really related to the particular hardware I decided to
-pop it on list now. Please let me know if instead of enabling by default
-(which the original implementation did and is why I went that route) a
-message like "Safety features detected but not enabled in software" is
-preferred and platforms are skipped unless they opt-in for enablement.
-
-Thanks,
-Andrew
-
- drivers/net/ethernet/stmicro/stmmac/dwmac5.c | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
-
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac5.c b/drivers/net/ethernet/stmicro/stmmac/dwmac5.c
-index 9c2d40f853ed..413f66017219 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac5.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac5.c
-@@ -186,11 +186,25 @@ static void dwmac5_handle_dma_err(struct net_device *ndev,
- int dwmac5_safety_feat_config(void __iomem *ioaddr, unsigned int asp,
- 			      struct stmmac_safety_feature_cfg *safety_feat_cfg)
- {
-+	struct stmmac_safety_feature_cfg all_safety_feats = {
-+		.tsoee = 1,
-+		.mrxpee = 1,
-+		.mestee = 1,
-+		.mrxee = 1,
-+		.mtxee = 1,
-+		.epsi = 1,
-+		.edpp = 1,
-+		.prtyen = 1,
-+		.tmouten = 1,
-+	};
- 	u32 value;
- 
- 	if (!asp)
- 		return -EINVAL;
- 
-+	if (!safety_feat_cfg)
-+		safety_feat_cfg = &all_safety_feats;
-+
- 	/* 1. Enable Safety Features */
- 	value = readl(ioaddr + MTL_ECC_CONTROL);
- 	value |= MEEAO; /* MTL ECC Error Addr Status Override */
--- 
-2.39.0
-
+- Marijn
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
