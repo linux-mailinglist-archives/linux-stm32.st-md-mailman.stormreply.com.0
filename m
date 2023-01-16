@@ -2,52 +2,76 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 11A5466BF96
-	for <lists+linux-stm32@lfdr.de>; Mon, 16 Jan 2023 14:20:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 596E366C105
+	for <lists+linux-stm32@lfdr.de>; Mon, 16 Jan 2023 15:07:08 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A8C16C6507E;
-	Mon, 16 Jan 2023 13:20:20 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6331AC6410A
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 16 Jan 2023 13:20:19 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 08815C6507E;
+	Mon, 16 Jan 2023 14:07:08 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id AF918B80E7F;
- Mon, 16 Jan 2023 13:20:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 631F5C433F1;
- Mon, 16 Jan 2023 13:20:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1673875217;
- bh=7gLO1+iYpXTGqPXElGoBoiL7mQRceK+8QVVuj35+e0E=;
- h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=qv3Thkou5dXZq9WEKbwiGrXeKX2+VYecfqoVfYuHzWnwuIeeGz18Cer3lntixRbjt
- AI+P6U4YaOZA7St8zY40Y3mlwq+dDL9uxDfxufhhIMOKKOD5rV4qe0PC0lRAL45hWQ
- dSv74yLnZU/q8lSP3XuTrcWarfbPigj0P8EanilF14cY+nAF7Gxw6eNCpBsrsZnGfg
- TX5VkB9XdRYbWq7zTJXU5wPakHxB3TepwO8W173aQcZtAO5AUqGatdHu8Y+bbz67BO
- vrIoamgpn9dYA9QbyQ+mgLdZeqUF+t4gGF8coudXmQI+ewuPL1A7anZsOO9xIQdnsX
- CSLEXwLnGwpkg==
-Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
- 448C5E54D26; Mon, 16 Jan 2023 13:20:17 +0000 (UTC)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DA773C65042
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 16 Jan 2023 14:07:06 +0000 (UTC)
+Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 30G9eUvf000401; Mon, 16 Jan 2023 15:06:40 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=ZUFiwmuXUVXgB50AexCJ2aYXXaHlJR5y5ppvtTRfE5M=;
+ b=Ynb3g2gvkWCA3S6BQnWw+9IsEdYk6PRDDSoS5+Ixdvlq4gNMlHpP6Vi91He0GXFybI0c
+ PKgmKzxS/BJlagpQyZVjPRqAe/6+93YzeYUMmNluKe2K7w1PpT/+mUKvV2pEMR62c+Lt
+ xr0Rj1il4tHdOpSIDJy1U9kVdOZcRoXyNorvmZ+O6CRzzgBwia9i870GAUl1Rn00JSon
+ 40PDQRyxmp7JebhBwlbfMlYArt8i237IBpOvSYKtMB9Sje6BjPylSmZjFbqXV8mfgcEm
+ MubhEpSbkiZvUakCwF6cwjf8/SShJ0UinfSkUy3kIbaWBE3RuzX+TWeVSSC8xh909/da gg== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3n3mm6a9vm-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 16 Jan 2023 15:06:40 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id E994010002A;
+ Mon, 16 Jan 2023 15:06:38 +0100 (CET)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id D66472194F2;
+ Mon, 16 Jan 2023 15:06:38 +0100 (CET)
+Received: from [10.201.21.177] (10.201.21.177) by SHFDAG1NODE1.st.com
+ (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.13; Mon, 16 Jan
+ 2023 15:06:38 +0100
+Message-ID: <b90e4b78-d84d-3a63-1aef-e7214d4b29d9@foss.st.com>
+Date: Mon, 16 Jan 2023 15:06:06 +0100
 MIME-Version: 1.0
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <167387521727.30194.4776508390029520899.git-patchwork-notify@kernel.org>
-Date: Mon, 16 Jan 2023 13:20:17 +0000
-References: <20230114120437.383514-1-kurt@linutronix.de>
-In-Reply-To: <20230114120437.383514-1-kurt@linutronix.de>
-To: Kurt Kanzenbach <kurt@linutronix.de>
-Cc: vee.khee.wong@linux.intel.com, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, edumazet@google.com,
- joabreu@synopsys.com, vijayakannan.ayyathurai@intel.com,
- mcoquelin.stm32@gmail.com, kuba@kernel.org, peppe.cavallaro@st.com,
- pabeni@redhat.com, davem@davemloft.net, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net v1] net: stmmac: Fix queue statistics
-	reading
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.4.2
+Content-Language: en-US
+To: Krzysztof Kozlowski <krzk@kernel.org>, <alexandre.torgue@foss.st.com>,
+ <robh+dt@kernel.org>, <Oleksii_Moisieiev@epam.com>,
+ <linus.walleij@linaro.org>, <gregkh@linuxfoundation.org>
+References: <20221221173055.11719-1-gatien.chevallier@foss.st.com>
+ <20221221173055.11719-4-gatien.chevallier@foss.st.com>
+ <879325d2-4b2d-bc1d-310c-ece4c449ad8f@kernel.org>
+ <8357d887-c8ab-39bc-4ef0-62e9225fb2a6@foss.st.com>
+ <118e7f0c-bf5d-4bda-ee70-92eb2b71649c@kernel.org>
+ <8f022dc8-d728-ba91-35ed-8a4006855f0d@foss.st.com>
+ <dfe328fc-349b-3357-a8ac-6fc363f403fc@kernel.org>
+ <19157c67-fa83-e598-d7ee-c313f3d4b198@foss.st.com>
+ <f169d05a-7a07-aedf-bad2-30cb4a88fc16@kernel.org>
+From: Gatien CHEVALLIER <gatien.chevallier@foss.st.com>
+In-Reply-To: <f169d05a-7a07-aedf-bad2-30cb4a88fc16@kernel.org>
+X-Originating-IP: [10.201.21.177]
+X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.219,Aquarius:18.0.923,Hydra:6.0.562,FMLib:17.11.122.1
+ definitions=2023-01-16_11,2023-01-13_02,2022-06-22_01
+Cc: mark.rutland@arm.com, devicetree@vger.kernel.org, arnd@arndb.de,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [RFC PATCH 3/7] dt-bindings: bus: add STM32MP15
+ ETZPC firewall bus bindings
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,38 +83,109 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello:
+Hello Krzysztof,
 
-This patch was applied to netdev/net.git (master)
-by David S. Miller <davem@davemloft.net>:
-
-On Sat, 14 Jan 2023 13:04:37 +0100 you wrote:
-> Correct queue statistics reading. All queue statistics are stored as unsigned
-> long values. The retrieval for ethtool fetches these values as u64. However, on
-> some systems the size of the counters are 32 bit. That yields wrong queue
-> statistic counters e.g., on arm32 systems such as the stm32mp157. Fix it by
-> using the correct data type.
+On 1/11/23 13:32, Krzysztof Kozlowski wrote:
+> On 09/01/2023 12:54, Gatien CHEVALLIER wrote:
+>>>>> Then why do you define them in bindings? Use raw numbers. Do you see
+>>>>> anywhere in arm/arm64 bindings for GIC_SPI interrupt numbers?
+>>>>>
+>>>>
+>>>> What would you think of simply removing the comments that state that IDs
+>>>> are reserved, mimicking the way it is for qcom bindings? Fundamentally,
+>>>> they are indeed only IDs and could be raw numbers.
+>>>
+>>> If these are IDs then there are no reserved numbers and they are
+>>> continuous from 0 to X. Without gaps.
+>>>
+>>>> IMO, this makes reading the device tree harder. Because you'd have to
+>>>> look what the raw number corresponds to.
+>>>
+>>> Sure, but that's not the reason to put numbers to the bindings... You
+>>> mix defines with bindings.
+>>>
+>>>> To take an example, it has already been done for SCMI clocks and I find
+>>>> it eases comprehension.
+>>>
+>>> You need to be a bit more specific...
+>>
+>> Please see include/dt-bindings/clock/stm32mp1-clks.h, where there are
+>> various clock IDs defined, some of them not contiguous.
 > 
-> Tested on Olimex STMP157-OLinuXino-LIME2 by simple running linuxptp for a short
-> period of time:
+> These are pretty often added to accommodate space for exposing these
+> clocks in the future. IOW, these might be IDs just not all are shared
+> via header. There are such platforms and it is OK.
 > 
-> [...]
+>>
+>> Errata: for SCMI clocks they are indeed contiguous but not clock IDs.
+>>
+>>>
+>>> Anyway, IDs should be placed in bindings. Some mapping of
+>>> internal/hardware ports, registers, offsets, values - usually not.
+>>>
+>>> I don't know where exactly your case fits, but when some IDs are
+>>> reserved it is a clear sign that these are not IDs (again - IDs start
+>>> from 0 and go incrementally by one, without gaps).
+>>>
+>>
+>> I do agree with your statement that IDs should not be reserved.
+>>
+>> I think I've missed something to better highlight my point of view: It
+>> would be perfectly fine using numbers that are not described in this
+>> bindings file. It would just not correspond to an ID of a peripheral
+>> described in the SoC reference manual, thus making no sense to use them.
+>> Stating that they are reserved was incorrect, it's just that peripherals
+>> get a firewall ID, depending on the platform.
+> 
+> Why peripheral ID should be put into the bindings? Why bindings is a
+> place for it? Interrupt numbers, GPIO indices/numbers, register offsets,
+> IOMMU ports - none of these are suitable for bindings.
+> 
+>>
+>> I think it should be okay not describing IDs that are not relevant, what
+>> do you think? I found that in include/dt-bindings/arm/qcom,ids.h, IDs
+>> are not continuous. Not mentioning an ID could be used for deprecation.
+> 
+> These are not IDs of clocks. These are unique identifiers assigned by
+> vendor and used by different pieces: firmware/bootloaders, DTS and Linux
+> driver. We have no control of them but they exist. They also do not
+> represent any hardware number.
+> 
+> You bring some examples as an argument, but these examples are not
+> always related to your case. To be clear - we talk here about bindings,
+> so they bind different interfaces of software components (e.g. Linux
+> kernel with DTS). Now, what is the different interface here in your
+> case? If you say your peripheral hardware ID, then answer is no - this
+> is not software interface.
 
-Here is the summary with links:
-  - [net,v1] net: stmmac: Fix queue statistics reading
-    https://git.kernel.org/netdev/net/c/c296c77efb66
+I see what you want to avoid,
 
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+These bindings are indeed presented as pure helpers here. They are not 
+used by the firewall bus driver on Linux except for the value that they 
+represent, thus your comment.
+However, they will be shared between different boot chain components. I 
+do not have an upstreamed example to give but please see that we might 
+use them in OP-TEE:
 
+[1] 
+https://github.com/STMicroelectronics/optee_os/blob/3.16.0-stm32mp/core/include/dt-bindings/soc/stm32mp13-etzpc.h
 
+They could be used and used differently depending on the software 
+component (e.g: lock of secure configuration for a particular 
+peripheral, ...). This change is here for consistency between those.
+
+> 
+> Best regards,
+> Krzysztof
+> 
+
+Best regards,
+Gatien
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
