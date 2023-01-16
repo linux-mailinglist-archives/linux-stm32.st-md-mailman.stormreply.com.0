@@ -2,68 +2,64 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6C2A566BC42
-	for <lists+linux-stm32@lfdr.de>; Mon, 16 Jan 2023 11:54:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E367C66BD5A
+	for <lists+linux-stm32@lfdr.de>; Mon, 16 Jan 2023 12:57:54 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 20775C6507E;
-	Mon, 16 Jan 2023 10:54:27 +0000 (UTC)
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 877C3C6507E;
+	Mon, 16 Jan 2023 11:57:54 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EB3FAC6410A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4D86AC65042
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 16 Jan 2023 10:54:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:
- Content-Transfer-Encoding:Content-Type:MIME-Version:References:Message-ID:
- Subject:Cc:To:From:Date:Reply-To:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=k75wwwhG7lUtWo3nfpU73+/Nhl6iDUNa31lHcKIVs6I=; b=0b8wCmI1xBBrYgi464CipbnstD
- EbeaLU5wB9IDjqo4BMx4XIgPgnal3biWluBhl6ZNC8GgHbFI/F37jmCnX7+Shfd5olsSjLKXupfOA
- UAOv5qzzJd80SiC6acu4Zx+3cbrgGxfRqd36EKamZKikptdrAO5qDyMlwhepKObTsI70TTYQWJoIp
- 5gkREfy6L7OGeC6wGzNsUkXPpDLCd8Qw0TdIHG0/ZF6Nuclgxry59TZUmhcMm9ICSFLu22KxhzNBg
- jqS3AR/pL1Vjcrm+MrrTePUQBF/OhjvzqWPl+0raKXVRqL018WTY6b23F/3aORLuiYw1EX6Rp8wwh
- pLoksX5Q==;
-Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:36122)
- by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.94.2)
- (envelope-from <linux@armlinux.org.uk>)
- id 1pHN7j-0004es-V8; Mon, 16 Jan 2023 10:53:55 +0000
-Received: from linux by shell.armlinux.org.uk with local (Exim 4.94.2)
- (envelope-from <linux@shell.armlinux.org.uk>)
- id 1pHN7e-0005ww-0n; Mon, 16 Jan 2023 10:53:50 +0000
-Date: Mon, 16 Jan 2023 10:53:49 +0000
-From: "Russell King (Oracle)" <linux@armlinux.org.uk>
-To: =?iso-8859-1?Q?Cl=E9ment_L=E9ger?= <clement.leger@bootlin.com>
-Message-ID: <Y8UsvREsKOR2ejzT@shell.armlinux.org.uk>
-References: <20230116103926.276869-1-clement.leger@bootlin.com>
- <20230116103926.276869-4-clement.leger@bootlin.com>
+ Mon, 16 Jan 2023 11:57:53 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 30G9sNGs003325; Mon, 16 Jan 2023 12:57:32 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=selector1;
+ bh=EyZ3PoE4TGOG/ISsj6ehj1F8tAU4LB6EsxSJHFnDPjs=;
+ b=u+uWs6eDijNvgD3rsaCe9mb7SnvxxrxpFN6zGjThjoVawvUJnazgJb726yIXHKxLyEBJ
+ y6iii/dZdH614VxjMtgeZtZzIYOOsLD7D3Xwc0VjEWC7vxkhpyH9lrvCV6sKQBW2X2kE
+ 8OeaBmgW+2nLDSMAQ5CWd8BDS1ia3DyqmasSDgxDiZynngnHL/Ez2Ng2OaoqVL/8w2/q
+ 9UAmfPTiI5p8oldIQ+KZIC5ApmSO6f01gMQZpNh0Qh3PKPw+c3VTnooZDA1Kkrn0lSFM
+ k+ch57YIBVaSKDNpOSBs3lWFkwM3QSpGGiJZTUci6xlWEVa/3ZOrfOnKKdOIIVk9v1By 9Q== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3n3jdf1wah-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 16 Jan 2023 12:57:32 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 1712510002A;
+ Mon, 16 Jan 2023 12:57:29 +0100 (CET)
+Received: from Webmail-eu.st.com (shfdag1node3.st.com [10.75.129.71])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 0E324215BF4;
+ Mon, 16 Jan 2023 12:57:29 +0100 (CET)
+Received: from localhost (10.201.20.208) by SHFDAG1NODE3.st.com (10.75.129.71)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.13; Mon, 16 Jan
+ 2023 12:57:28 +0100
+From: Amelie Delaunay <amelie.delaunay@foss.st.com>
+To: Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski
+ <krzysztof.kozlowski+dt@linaro.org>, Maxime Coquelin
+ <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>
+Date: Mon, 16 Jan 2023 12:57:27 +0100
+Message-ID: <20230116115727.1121169-1-amelie.delaunay@foss.st.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20230116103926.276869-4-clement.leger@bootlin.com>
-Cc: Herve Codina <herve.codina@bootlin.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Kurt Kanzenbach <kurt@linutronix.de>, Eric Dumazet <edumazet@google.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- =?iso-8859-1?Q?Miqu=E8l?= Raynal <miquel.raynal@bootlin.com>,
- Jon Hunter <jonathanh@nvidia.com>, linux-stm32@st-md-mailman.stormreply.com,
- Tan Tee Min <tee.min.tan@linux.intel.com>, Magnus Damm <magnus.damm@gmail.com>,
- Wong Vee Khee <veekhee@apple.com>, Jose Abreu <joabreu@synopsys.com>,
- Milan Stevanovic <milan.stevanovic@se.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, devicetree@vger.kernel.org,
- Mohammad Athari Bin Ismail <mohammad.athari.ismail@intel.com>,
- Rob Herring <robh+dt@kernel.org>, Revanth Kumar Uppala <ruppala@nvidia.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Jimmy Lalande <jimmy.lalande@se.com>, linux-arm-kernel@lists.infradead.org,
- Sergey Shtylyov <s.shtylyov@omp.ru>, Pascal Eberhard <pascal.eberhard@se.com>,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- "David S. Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH net-next 3/6] net: stmmac: start phylink
- before setting up hardware
+X-Originating-IP: [10.201.20.208]
+X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SHFDAG1NODE3.st.com
+ (10.75.129.71)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.219,Aquarius:18.0.923,Hydra:6.0.562,FMLib:17.11.122.1
+ definitions=2023-01-16_09,2023-01-13_02,2022-06-22_01
+Cc: devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: [Linux-stm32] [PATCH v2] ARM: dts: stm32: Fix User button on
+	stm32mp135f-dk
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,37 +71,39 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Jan 16, 2023 at 11:39:23AM +0100, Cl=E9ment L=E9ger wrote:
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/=
-net/ethernet/stmicro/stmmac/stmmac_main.c
-> index f2247b8cf0a3..88c941003855 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> @@ -3818,6 +3818,12 @@ static int __stmmac_open(struct net_device *dev,
->  		}
->  	}
->  =
+This patch fixes the following dtbs_check warning on stm32mp135f-dk:
+arch/arm/boot/dts/stm32mp135f-dk.dtb: gpio-keys: 'user-pa13' does not match any of the regexes: '^(button|event|key|switch|(button|event|key|switch)-[a-z0-9-]+|[a-z0-9-]+-(button|event|key|switch))$', 'pinctrl-[0-9]+'
+From schema: Documentation/devicetree/bindings/input/gpio-keys.yaml
 
-> +	/* We need to setup the phy & PCS before accessing the stmmac registers
-> +	 * because in some cases (RZ/N1), if the stmmac IP is not clocked by the
-> +	 * PCS, hardware init will fail because it lacks a RGMII RX clock.
-> +	 */
-> +	phylink_start(priv->phylink);
+It renames user-pa13 node into button-user so that it matches gpio-keys
+bindings.
 
-So what happens if you end up with the mac_link_up method being called
-at this point in the driver, before the hardware has been setup ?
+Signed-off-by: Amelie Delaunay <amelie.delaunay@foss.st.com>
+---
+ arch/arm/boot/dts/stm32mp135f-dk.dts | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-If you use a fixed-link, that's a real possibility.
+diff --git a/arch/arm/boot/dts/stm32mp135f-dk.dts b/arch/arm/boot/dts/stm32mp135f-dk.dts
+index 9ff5a3eaf55b..931877d6ddb9 100644
+--- a/arch/arm/boot/dts/stm32mp135f-dk.dts
++++ b/arch/arm/boot/dts/stm32mp135f-dk.dts
+@@ -40,7 +40,7 @@ optee@dd000000 {
+ 	gpio-keys {
+ 		compatible = "gpio-keys";
+ 
+-		user-pa13 {
++		button-user {
+ 			label = "User-PA13";
+ 			linux,code = <BTN_1>;
+ 			gpios = <&gpioa 13 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
+-- 
+2.25.1
 
--- =
-
-RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-FTTP is here! 40Mbps down 10Mbps up. Decent connectivity at last!
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
