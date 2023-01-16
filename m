@@ -2,78 +2,76 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5523B66C811
-	for <lists+linux-stm32@lfdr.de>; Mon, 16 Jan 2023 17:36:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 42B4766CDF2
+	for <lists+linux-stm32@lfdr.de>; Mon, 16 Jan 2023 18:52:06 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 014C0C6507E;
-	Mon, 16 Jan 2023 16:36:24 +0000 (UTC)
-Received: from mail-oa1-f41.google.com (mail-oa1-f41.google.com
- [209.85.160.41])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E4D55C6507E;
+	Mon, 16 Jan 2023 17:52:05 +0000 (UTC)
+Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com
+ [209.85.208.41])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 13281C65042
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0B75CC6410A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 16 Jan 2023 16:36:23 +0000 (UTC)
-Received: by mail-oa1-f41.google.com with SMTP id
- 586e51a60fabf-15027746720so29314927fac.13
+ Mon, 16 Jan 2023 17:52:04 +0000 (UTC)
+Received: by mail-ed1-f41.google.com with SMTP id w14so24380135edi.5
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 16 Jan 2023 08:36:22 -0800 (PST)
+ Mon, 16 Jan 2023 09:52:04 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amarulasolutions.com; s=google;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=nmKHBHnPdxu/HZFwVcQ6tfAQn/CQ7f4jjd7l14TU8o8=;
+ b=Bg4RLtsI0kpyeyd+a4z3NJoxzEfwj5bOaGvB6yWEf4voxi+4yc6YOKIJz61vDID1ww
+ Fj2jPF5V0baEQBRUGyWL7Wh3mjxM3AAX8dMQCQ4Ln2ksVGc2BavRuAw1/suW/6pV4nOM
+ oErdUjDwnPfdC9d+42w3vyBWkRJeeY9j8ofmI=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=date:subject:message-id:references:in-reply-to:cc:to:from
- :mime-version:content-transfer-encoding:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=uNqcgfsqzvT4hYSE9tmwyaCcZuoHrn7TWnuHqh3zmXw=;
- b=K+BjRgPzpVTr/uThKECDhXPOWodUG5ZL4uhDOA6x8cWuJa77Y4T73FpXlAlqPYIH2q
- CnTaap6FPEenC23okLV/D3LvpwTfyTlylG6HexMMiyis2RDXo3rNH0DXiN8xExo1xrnb
- aMLr+voOgcvlLQLxQGdIQJ6CCXHfu8La5KwiXhRuwmlbqPK/HHG+YPyk0OJTil1AicoE
- 8q4bl7RkkB1yz9/wCofinbkz8e5hr5ZFCf9/uMiKppVI5z8QFT1UUPocl7hl+DuETyno
- IzmKJbpge4p2QK2FxKGiGRqTWkDGTSpCa+jrgNRnIVCQin06nLForcP2YD/Gxo1vPb7i
- baeQ==
-X-Gm-Message-State: AFqh2kovQHcMYq7dfF5Ls5PkR2cCfDjsODYznna6WwSxDVOlFHKNvVoh
- 2B3QmSdFOnJZs9bSMvjHaQ==
-X-Google-Smtp-Source: AMrXdXvfezfraQ6Rq29LStDso8y0eL9XBGMaLRCAZ8gl9g52Xip9qYzqJKCjohBq7pOVMFKayI8TyA==
-X-Received: by 2002:a05:6870:c194:b0:158:7b1d:e9a3 with SMTP id
- h20-20020a056870c19400b001587b1de9a3mr13040474oad.6.1673886981775; 
- Mon, 16 Jan 2023 08:36:21 -0800 (PST)
-Received: from robh_at_kernel.org (66-90-144-107.dyn.grandenetworks.net.
- [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
- h24-20020a056870171800b0014f9cc82421sm14778754oae.33.2023.01.16.08.36.20
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=nmKHBHnPdxu/HZFwVcQ6tfAQn/CQ7f4jjd7l14TU8o8=;
+ b=jMychqWpUgLVUZGUUAza9WBqfuS0/I69hgYm9SIw+6g5HfNSa3kOuFdo4hGpYGkLN8
+ sJXGR++wBoOr517zJpW+7fra2Kv3cPvCmCEVyn500W0o5V8qSONCSkiqVFvRNRnB3Hiw
+ hrjh2My3X4Ez4wuxpanfJscXQB55tzStGy+jbgp40VUsLAvxtEcUJNeoBhKw5W768AZ4
+ ffEFoj12AQ7v8Bh+OCmwZ4ceVrZ35K/EgJPJzwY/L8P/xgjyzkbpSRvKsriicEbhp2ca
+ KRIfrDCRm5BzGLsCRjD6pYOmbNQt9UuzHubz35e/KKaDavZvF7n6YWQkzp+p9haTXiIA
+ qP8Q==
+X-Gm-Message-State: AFqh2ko7hDUqmrTdkjdRvOIyrskUdXycFBmgc3vojm5xdfEFFXflnPHt
+ /WeDnVPjsDGJW+PbNVrdFu9R8g==
+X-Google-Smtp-Source: AMrXdXupD1hOhSkW0VX5D7Ck8XcT2Xf9WvOvFEf4Huh7ha/YfNdc3j6PsCFs0KH1tDZO0B0QtHiCiA==
+X-Received: by 2002:aa7:cb07:0:b0:45c:b772:5f41 with SMTP id
+ s7-20020aa7cb07000000b0045cb7725f41mr132092edt.6.1673891524533; 
+ Mon, 16 Jan 2023 09:52:04 -0800 (PST)
+Received: from dario-ThinkPad-T14s-Gen-2i.. (mob-5-90-75-145.net.vodafone.it.
+ [5.90.75.145]) by smtp.gmail.com with ESMTPSA id
+ fd7-20020a056402388700b00483dd234ac6sm11490723edb.96.2023.01.16.09.52.02
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 16 Jan 2023 08:36:21 -0800 (PST)
-Received: (nullmailer pid 606186 invoked by uid 1000);
- Mon, 16 Jan 2023 16:36:12 -0000
+ Mon, 16 Jan 2023 09:52:04 -0800 (PST)
+From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+To: linux-kernel@vger.kernel.org
+Date: Mon, 16 Jan 2023 18:51:47 +0100
+Message-Id: <20230116175152.2839455-1-dario.binacchi@amarulasolutions.com>
+X-Mailer: git-send-email 2.32.0
 MIME-Version: 1.0
-From: Rob Herring <robh@kernel.org>
-To: =?utf-8?q?Cl=C3=A9ment_L=C3=A9ger?= <clement.leger@bootlin.com>
-In-Reply-To: <20230116103926.276869-5-clement.leger@bootlin.com>
-References: <20230116103926.276869-1-clement.leger@bootlin.com>
- <20230116103926.276869-5-clement.leger@bootlin.com>
-Message-Id: <167388663912.594183.16249688377425648606.robh@kernel.org>
-Date: Mon, 16 Jan 2023 10:36:12 -0600
-Cc: Herve Codina <herve.codina@bootlin.com>, ",
- Thomas Petazzoni" <thomas.petazzoni@bootlin.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Kurt Kanzenbach <kurt@linutronix.de>, Eric Dumazet <edumazet@google.com>,
+Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Sebastian Reichel <sre@kernel.org>, Eric Dumazet <edumazet@google.com>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- =?UTF-8?Q?Miqu=C3=A8l_Raynal?= <miquel.raynal@bootlin.com>,
- Jon Hunter <jonathanh@nvidia.com>, linux-stm32@st-md-mailman.stormreply.com,
- Tan Tee Min <tee.min.tan@linux.intel.com>, Magnus Damm <magnus.damm@gmail.com>,
- Russell King <linux@armlinux.org.uk>, Wong Vee Khee <veekhee@apple.com>,
- Jose Abreu <joabreu@synopsys.com>, Milan Stevanovic <milan.stevanovic@se.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- devicetree@vger.kernel.org,
- Mohammad Athari Bin Ismail <mohammad.athari.ismail@intel.com>,
- Rob Herring <robh+dt@kernel.org>, Revanth Kumar Uppala <ruppala@nvidia.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Jimmy Lalande <jimmy.lalande@se.com>, linux-arm-kernel@lists.infradead.org,
- Sergey Shtylyov <s.shtylyov@omp.ru>, ",
- Pascal Eberhard" <pascal.eberhard@se.com>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+ Dario Binacchi <dario.binacchi@amarulasolutions.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Rob Herring <robh@kernel.org>,
+ Vincent Mailhol <mailhol.vincent@wanadoo.fr>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Wolfgang Grandegger <wg@grandegger.com>,
+ devicetree@vger.kernel.org, linux-can@vger.kernel.org,
+ Rob Herring <robh+dt@kernel.org>, Marc Kleine-Budde <mkl@pengutronix.de>,
+ linux-arm-kernel@lists.infradead.org, michael@amarulasolutions.com,
+ Stephen Boyd <sboyd@kernel.org>, netdev@vger.kernel.org,
+ Christophe Roullier <christophe.roullier@foss.st.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Amarula patchwork <linux-amarula@amarulasolutions.com>,
  "David S. Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH net-next 4/6] dt-bindings: net: renesas,
- rzn1-gmac: Document RZ/N1 GMAC support
+Subject: [Linux-stm32] [PATCH v7 0/5] can: bxcan: add support for ST bxCAN
+	controller
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,41 +83,156 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Ck9uIE1vbiwgMTYgSmFuIDIwMjMgMTE6Mzk6MjQgKzAxMDAsIENsw6ltZW50IEzDqWdlciB3cm90
-ZToKPiBBZGQgInJlbmVzYXMscnpuMS1nbWFjIiBiaW5kaW5nIGRvY3VtZW50aW9uIHdoaWNoIGlz
-IGNvbXBhdGlibGUgd2hpY2gKPiAic25wcyxkd21hYyIgY29tcGF0aWJsZSBkcml2ZXIgYnV0IHVz
-ZXMgYSBjdXN0b20gUENTIHRvIGNvbW11bmljYXRlCj4gd2l0aCB0aGUgcGh5Lgo+IAo+IFNpZ25l
-ZC1vZmYtYnk6IENsw6ltZW50IEzDqWdlciA8Y2xlbWVudC5sZWdlckBib290bGluLmNvbT4KPiAt
-LS0KPiAgLi4uL2JpbmRpbmdzL25ldC9yZW5lc2FzLHJ6bjEtZ21hYy55YW1sICAgICAgIHwgNzEg
-KysrKysrKysrKysrKysrKysrKwo+ICAxIGZpbGUgY2hhbmdlZCwgNzEgaW5zZXJ0aW9ucygrKQo+
-ICBjcmVhdGUgbW9kZSAxMDA2NDQgRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL25l
-dC9yZW5lc2FzLHJ6bjEtZ21hYy55YW1sCj4gCgpNeSBib3QgZm91bmQgZXJyb3JzIHJ1bm5pbmcg
-J21ha2UgRFRfQ0hFQ0tFUl9GTEFHUz0tbSBkdF9iaW5kaW5nX2NoZWNrJwpvbiB5b3VyIHBhdGNo
-IChEVF9DSEVDS0VSX0ZMQUdTIGlzIG5ldyBpbiB2NS4xMyk6Cgp5YW1sbGludCB3YXJuaW5ncy9l
-cnJvcnM6CgpkdHNjaGVtYS9kdGMgd2FybmluZ3MvZXJyb3JzOgovYnVpbGRzL3JvYmhlcnJpbmcv
-ZHQtcmV2aWV3LWNpL2xpbnV4L0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9uZXQv
-cmVuZXNhcyxyem4xLWdtYWMuZXhhbXBsZS5kdGI6IGV0aGVybmV0QDQ0MDAwMDAwOiBjb21wYXRp
-YmxlOiBbJ3JlbmVzYXMscnpuMS1nbWFjJ10gZG9lcyBub3QgY29udGFpbiBpdGVtcyBtYXRjaGlu
-ZyB0aGUgZ2l2ZW4gc2NoZW1hCglGcm9tIHNjaGVtYTogL2J1aWxkcy9yb2JoZXJyaW5nL2R0LXJl
-dmlldy1jaS9saW51eC9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvbmV0L3JlbmVz
-YXMscnpuMS1nbWFjLnlhbWwKCmRvYyByZWZlcmVuY2UgZXJyb3JzIChtYWtlIHJlZmNoZWNrZG9j
-cyk6CgpTZWUgaHR0cHM6Ly9wYXRjaHdvcmsub3psYWJzLm9yZy9wcm9qZWN0L2RldmljZXRyZWUt
-YmluZGluZ3MvcGF0Y2gvMjAyMzAxMTYxMDM5MjYuMjc2ODY5LTUtY2xlbWVudC5sZWdlckBib290
-bGluLmNvbQoKVGhlIGJhc2UgZm9yIHRoZSBzZXJpZXMgaXMgZ2VuZXJhbGx5IHRoZSBsYXRlc3Qg
-cmMxLiBBIGRpZmZlcmVudCBkZXBlbmRlbmN5CnNob3VsZCBiZSBub3RlZCBpbiAqdGhpcyogcGF0
-Y2guCgpJZiB5b3UgYWxyZWFkeSByYW4gJ21ha2UgZHRfYmluZGluZ19jaGVjaycgYW5kIGRpZG4n
-dCBzZWUgdGhlIGFib3ZlCmVycm9yKHMpLCB0aGVuIG1ha2Ugc3VyZSAneWFtbGxpbnQnIGlzIGlu
-c3RhbGxlZCBhbmQgZHQtc2NoZW1hIGlzIHVwIHRvCmRhdGU6CgpwaXAzIGluc3RhbGwgZHRzY2hl
-bWEgLS11cGdyYWRlCgpQbGVhc2UgY2hlY2sgYW5kIHJlLXN1Ym1pdCBhZnRlciBydW5uaW5nIHRo
-ZSBhYm92ZSBjb21tYW5kIHlvdXJzZWxmLiBOb3RlCnRoYXQgRFRfU0NIRU1BX0ZJTEVTIGNhbiBi
-ZSBzZXQgdG8geW91ciBzY2hlbWEgZmlsZSB0byBzcGVlZCB1cCBjaGVja2luZwp5b3VyIHNjaGVt
-YS4gSG93ZXZlciwgaXQgbXVzdCBiZSB1bnNldCB0byB0ZXN0IGFsbCBleGFtcGxlcyB3aXRoIHlv
-dXIgc2NoZW1hLgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rv
-cm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4v
-bGlzdGluZm8vbGludXgtc3RtMzIK
+The series adds support for the basic extended CAN controller (bxCAN)
+found in many low- to middle-end STM32 SoCs.
+
+The driver design (one core module and one driver module) was inspired
+by other ST drivers (e. g. drivers/iio/adc/stm32-adc.c,
+drivers/iio/adc/stm32-adc-core.c) where device instances share resources.
+The shared resources functions are implemented in the core module, the
+device driver in a separate module.
+
+The driver has been tested on the stm32f469i-discovery board with a
+kernel version 5.19.0-rc2 in loopback + silent mode:
+
+ip link set can0 type can bitrate 125000 loopback on listen-only on
+ip link set up can0
+candump can0 -L &
+cansend can0 300#AC.AB.AD.AE.75.49.AD.D1
+
+For uboot and kernel compilation, as well as for rootfs creation I used
+buildroot:
+
+make stm32f469_disco_sd_defconfig
+make
+
+but I had to patch can-utils and busybox as can-utils and iproute are
+not compiled for MMU-less microcotrollers. In the case of can-utils,
+replacing the calls to fork() with vfork(), I was able to compile the
+package with working candump and cansend applications, while in the
+case of iproute, I ran into more than one problem and finally I decided
+to extend busybox's ip link command for CAN-type devices. I'm still
+wondering if it was really necessary, but this way I was able to test
+the driver.
+
+Changes in v7:
+- Add Vincent Mailhol's Reviewed-by tag.
+- Remove all unused macros for reading/writing the controller registers.
+- Add CAN_ERR_CNT flag to notify availability of error counter.
+- Move the "break" before the newline in the switch/case statements.
+- Print the mnemotechnic instead of the error value in each netdev_err().
+- Remove the debug print for timings parameter.
+- Do not copy the data if CAN_RTR_FLAG is set in bxcan_start_xmit().
+- Populate ndev->ethtool_ops with the default timestamp info.
+
+Changes in v6:
+- move can1 node before gcan to keep ordering by address.
+
+Changes in v5:
+- Add Rob Herring's Acked-by tag.
+- Add Rob Herring's Reviewed-by tag.
+- Put static in front of bxcan_enable_filters() definition.
+
+Changes in v4:
+- Remove "st,stm32f4-bxcan-core" compatible. In this way the can nodes
+ (compatible "st,stm32f4-bxcan") are no longer children of a parent
+  node with compatible "st,stm32f4-bxcan-core".
+- Add the "st,gcan" property (global can memory) to can nodes which
+  references a "syscon" node containing the shared clock and memory
+  addresses.
+- Replace the node can@40006400 (compatible "st,stm32f4-bxcan-core")
+  with the gcan@40006600 node ("sysnode" compatible). The gcan node
+  contains clocks and memory addresses shared by the two can nodes
+  of which it's no longer the parent.
+- Add to can nodes the "st,gcan" property (global can memory) which
+  references the gcan@40006600 node ("sysnode compatibble).
+- Add "dt-bindings: arm: stm32: add compatible for syscon gcan node" patch.
+- Drop the core driver. Thus bxcan-drv.c has been renamed to bxcan.c and
+  moved to the drivers/net/can folder. The drivers/net/can/bxcan directory
+  has therefore been removed.
+- Use the regmap_*() functions to access the shared memory registers.
+- Use spinlock to protect bxcan_rmw().
+- Use 1 space, instead of tabs, in the macros definition.
+- Drop clock ref-counting.
+- Drop unused code.
+- Drop the _SHIFT macros and use FIELD_GET()/FIELD_PREP() directly.
+- Add BXCAN_ prefix to lec error codes.
+- Add the macro BXCAN_RX_MB_NUM.
+- Enable time triggered mode and use can_rx_offload().
+- Use readx_poll_timeout() in function with timeouts.
+- Loop from tail to head in bxcan_tx_isr().
+- Check bits of tsr register instead of pkts variable in bxcan_tx_isr().
+- Don't return from bxcan_handle_state_change() if skb/cf are NULL.
+- Enable/disable the generation of the bus error interrupt depending
+  on can.ctrlmode & CAN_CTRLMODE_BERR_REPORTING.
+- Don't return from bxcan_handle_bus_err() if skb is NULL.
+- Drop statistics updating from bxcan_handle_bus_err().
+- Add an empty line in front of 'return IRQ_HANDLED;'
+- Rename bxcan_start() to bxcan_chip_start().
+- Rename bxcan_stop() to bxcan_chip_stop().
+- Disable all IRQs in bxcan_chip_stop().
+- Rename bxcan_close() to bxcan_ndo_stop().
+- Use writel instead of bxcan_rmw() to update the dlc register.
+
+Changes in v3:
+- Remove 'Dario Binacchi <dariobin@libero.it>' SOB.
+- Add description to the parent of the two child nodes.
+- Move "patterProperties:" after "properties: in top level before "required".
+- Add "clocks" to the "required:" list of the child nodes.
+- Remove 'Dario Binacchi <dariobin@libero.it>' SOB.
+- Add "clocks" to can@0 node.
+- Remove 'Dario Binacchi <dariobin@libero.it>' SOB.
+- Remove a blank line.
+- Remove 'Dario Binacchi <dariobin@libero.it>' SOB.
+- Fix the documentation file path in the MAINTAINERS entry.
+- Do not increment the "stats->rx_bytes" if the frame is remote.
+- Remove pr_debug() call from bxcan_rmw().
+
+Changes in v2:
+- Change the file name into 'st,stm32-bxcan-core.yaml'.
+- Rename compatibles:
+  - st,stm32-bxcan-core -> st,stm32f4-bxcan-core
+  - st,stm32-bxcan -> st,stm32f4-bxcan
+- Rename master property to st,can-master.
+- Remove the status property from the example.
+- Put the node child properties as required.
+- Remove a blank line.
+- Fix sparse errors.
+- Create a MAINTAINERS entry.
+- Remove the print of the registers address.
+- Remove the volatile keyword from bxcan_rmw().
+- Use tx ring algorithm to manage tx mailboxes.
+- Use can_{get|put}_echo_skb().
+- Update DT properties.
+
+Dario Binacchi (5):
+  dt-bindings: arm: stm32: add compatible for syscon gcan node
+  dt-bindings: net: can: add STM32 bxcan DT bindings
+  ARM: dts: stm32: add CAN support on stm32f429
+  ARM: dts: stm32: add pin map for CAN controller on stm32f4
+  can: bxcan: add support for ST bxCAN controller
+
+ .../bindings/arm/stm32/st,stm32-syscon.yaml   |    2 +
+ .../bindings/net/can/st,stm32-bxcan.yaml      |   83 ++
+ MAINTAINERS                                   |    7 +
+ arch/arm/boot/dts/stm32f4-pinctrl.dtsi        |   30 +
+ arch/arm/boot/dts/stm32f429.dtsi              |   29 +
+ drivers/net/can/Kconfig                       |   12 +
+ drivers/net/can/Makefile                      |    1 +
+ drivers/net/can/bxcan.c                       | 1088 +++++++++++++++++
+ 8 files changed, 1252 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/net/can/st,stm32-bxcan.yaml
+ create mode 100644 drivers/net/can/bxcan.c
+
+-- 
+2.32.0
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
