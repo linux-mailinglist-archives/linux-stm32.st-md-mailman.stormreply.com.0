@@ -2,76 +2,43 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 596E366C105
-	for <lists+linux-stm32@lfdr.de>; Mon, 16 Jan 2023 15:07:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3B41766C416
+	for <lists+linux-stm32@lfdr.de>; Mon, 16 Jan 2023 16:38:22 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 08815C6507E;
-	Mon, 16 Jan 2023 14:07:08 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DE21CC6507E;
+	Mon, 16 Jan 2023 15:38:21 +0000 (UTC)
+Received: from frasgout.his.huawei.com (frasgout.his.huawei.com
+ [185.176.79.56])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DA773C65042
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B3402C6410A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 16 Jan 2023 14:07:06 +0000 (UTC)
-Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 30G9eUvf000401; Mon, 16 Jan 2023 15:06:40 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=ZUFiwmuXUVXgB50AexCJ2aYXXaHlJR5y5ppvtTRfE5M=;
- b=Ynb3g2gvkWCA3S6BQnWw+9IsEdYk6PRDDSoS5+Ixdvlq4gNMlHpP6Vi91He0GXFybI0c
- PKgmKzxS/BJlagpQyZVjPRqAe/6+93YzeYUMmNluKe2K7w1PpT/+mUKvV2pEMR62c+Lt
- xr0Rj1il4tHdOpSIDJy1U9kVdOZcRoXyNorvmZ+O6CRzzgBwia9i870GAUl1Rn00JSon
- 40PDQRyxmp7JebhBwlbfMlYArt8i237IBpOvSYKtMB9Sje6BjPylSmZjFbqXV8mfgcEm
- MubhEpSbkiZvUakCwF6cwjf8/SShJ0UinfSkUy3kIbaWBE3RuzX+TWeVSSC8xh909/da gg== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3n3mm6a9vm-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 16 Jan 2023 15:06:40 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id E994010002A;
- Mon, 16 Jan 2023 15:06:38 +0100 (CET)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id D66472194F2;
- Mon, 16 Jan 2023 15:06:38 +0100 (CET)
-Received: from [10.201.21.177] (10.201.21.177) by SHFDAG1NODE1.st.com
- (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.13; Mon, 16 Jan
- 2023 15:06:38 +0100
-Message-ID: <b90e4b78-d84d-3a63-1aef-e7214d4b29d9@foss.st.com>
-Date: Mon, 16 Jan 2023 15:06:06 +0100
+ Mon, 16 Jan 2023 15:38:20 +0000 (UTC)
+Received: from lhrpeml500005.china.huawei.com (unknown [172.18.147.206])
+ by frasgout.his.huawei.com (SkyGuard) with ESMTP id 4Nwbfp3TC5z6J6KT;
+ Mon, 16 Jan 2023 23:34:26 +0800 (CST)
+Received: from localhost (10.202.227.76) by lhrpeml500005.china.huawei.com
+ (7.191.163.240) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Mon, 16 Jan
+ 2023 15:38:18 +0000
+Date: Mon, 16 Jan 2023 15:38:17 +0000
+From: Jonathan Cameron <Jonathan.Cameron@Huawei.com>
+To: Olivier Moysan <olivier.moysan@foss.st.com>
+Message-ID: <20230116153817.00004770@Huawei.com>
+In-Reply-To: <20230116090333.33492-1-olivier.moysan@foss.st.com>
+References: <20230116090333.33492-1-olivier.moysan@foss.st.com>
+Organization: Huawei Technologies Research and Development (UK) Ltd.
+X-Mailer: Claws Mail 4.1.0 (GTK 3.24.33; x86_64-w64-mingw32)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.2
-Content-Language: en-US
-To: Krzysztof Kozlowski <krzk@kernel.org>, <alexandre.torgue@foss.st.com>,
- <robh+dt@kernel.org>, <Oleksii_Moisieiev@epam.com>,
- <linus.walleij@linaro.org>, <gregkh@linuxfoundation.org>
-References: <20221221173055.11719-1-gatien.chevallier@foss.st.com>
- <20221221173055.11719-4-gatien.chevallier@foss.st.com>
- <879325d2-4b2d-bc1d-310c-ece4c449ad8f@kernel.org>
- <8357d887-c8ab-39bc-4ef0-62e9225fb2a6@foss.st.com>
- <118e7f0c-bf5d-4bda-ee70-92eb2b71649c@kernel.org>
- <8f022dc8-d728-ba91-35ed-8a4006855f0d@foss.st.com>
- <dfe328fc-349b-3357-a8ac-6fc363f403fc@kernel.org>
- <19157c67-fa83-e598-d7ee-c313f3d4b198@foss.st.com>
- <f169d05a-7a07-aedf-bad2-30cb4a88fc16@kernel.org>
-From: Gatien CHEVALLIER <gatien.chevallier@foss.st.com>
-In-Reply-To: <f169d05a-7a07-aedf-bad2-30cb4a88fc16@kernel.org>
-X-Originating-IP: [10.201.21.177]
-X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE1.st.com
- (10.75.129.69)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.219,Aquarius:18.0.923,Hydra:6.0.562,FMLib:17.11.122.1
- definitions=2023-01-16_11,2023-01-13_02,2022-06-22_01
-Cc: mark.rutland@arm.com, devicetree@vger.kernel.org, arnd@arndb.de,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [RFC PATCH 3/7] dt-bindings: bus: add STM32MP15
- ETZPC firewall bus bindings
+X-Originating-IP: [10.202.227.76]
+X-ClientProxiedBy: lhrpeml500005.china.huawei.com (7.191.163.240) To
+ lhrpeml500005.china.huawei.com (7.191.163.240)
+X-CFilter-Loop: Reflected
+Cc: Lars-Peter Clausen <lars@metafoo.de>, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Jonathan Cameron <jic23@kernel.org>
+Subject: Re: [Linux-stm32] [PATCH] iio: adc: stm32: add oversampling support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,109 +50,273 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello Krzysztof,
+On Mon, 16 Jan 2023 10:03:33 +0100
+Olivier Moysan <olivier.moysan@foss.st.com> wrote:
 
-On 1/11/23 13:32, Krzysztof Kozlowski wrote:
-> On 09/01/2023 12:54, Gatien CHEVALLIER wrote:
->>>>> Then why do you define them in bindings? Use raw numbers. Do you see
->>>>> anywhere in arm/arm64 bindings for GIC_SPI interrupt numbers?
->>>>>
->>>>
->>>> What would you think of simply removing the comments that state that IDs
->>>> are reserved, mimicking the way it is for qcom bindings? Fundamentally,
->>>> they are indeed only IDs and could be raw numbers.
->>>
->>> If these are IDs then there are no reserved numbers and they are
->>> continuous from 0 to X. Without gaps.
->>>
->>>> IMO, this makes reading the device tree harder. Because you'd have to
->>>> look what the raw number corresponds to.
->>>
->>> Sure, but that's not the reason to put numbers to the bindings... You
->>> mix defines with bindings.
->>>
->>>> To take an example, it has already been done for SCMI clocks and I find
->>>> it eases comprehension.
->>>
->>> You need to be a bit more specific...
->>
->> Please see include/dt-bindings/clock/stm32mp1-clks.h, where there are
->> various clock IDs defined, some of them not contiguous.
+> Add oversampling support for STM32H7, STM32MP15 & STM32MP13.
+> STM32F4 ADC has no oversampling feature.
 > 
-> These are pretty often added to accommodate space for exposing these
-> clocks in the future. IOW, these might be IDs just not all are shared
-> via header. There are such platforms and it is OK.
+> The current support of the oversampling feature aims at increasing
+> the data SNR, without changing the data resolution.
+> As the oversampling by itself increases data resolution,
+> a right shift is applied to keep initial resolution.
+> Only the oversampling ratio corresponding to a power of two are
+> supported here, to get a direct link between right shift and
+> oversampling ratio. (2exp(n) ratio <=> n right shift)
 > 
->>
->> Errata: for SCMI clocks they are indeed contiguous but not clock IDs.
->>
->>>
->>> Anyway, IDs should be placed in bindings. Some mapping of
->>> internal/hardware ports, registers, offsets, values - usually not.
->>>
->>> I don't know where exactly your case fits, but when some IDs are
->>> reserved it is a clear sign that these are not IDs (again - IDs start
->>> from 0 and go incrementally by one, without gaps).
->>>
->>
->> I do agree with your statement that IDs should not be reserved.
->>
->> I think I've missed something to better highlight my point of view: It
->> would be perfectly fine using numbers that are not described in this
->> bindings file. It would just not correspond to an ID of a peripheral
->> described in the SoC reference manual, thus making no sense to use them.
->> Stating that they are reserved was incorrect, it's just that peripherals
->> get a firewall ID, depending on the platform.
+> The oversampling ratio is shared by all channels, whatever channel type.
+> (e.g. single ended or differential).
 > 
-> Why peripheral ID should be put into the bindings? Why bindings is a
-> place for it? Interrupt numbers, GPIO indices/numbers, register offsets,
-> IOMMU ports - none of these are suitable for bindings.
+> Oversampling can be configured using IIO ABI:
+> - in_voltage_oversampling_ratio_available
+> - in_voltage_oversampling_ratio
 > 
->>
->> I think it should be okay not describing IDs that are not relevant, what
->> do you think? I found that in include/dt-bindings/arm/qcom,ids.h, IDs
->> are not continuous. Not mentioning an ID could be used for deprecation.
-> 
-> These are not IDs of clocks. These are unique identifiers assigned by
-> vendor and used by different pieces: firmware/bootloaders, DTS and Linux
-> driver. We have no control of them but they exist. They also do not
-> represent any hardware number.
-> 
-> You bring some examples as an argument, but these examples are not
-> always related to your case. To be clear - we talk here about bindings,
-> so they bind different interfaces of software components (e.g. Linux
-> kernel with DTS). Now, what is the different interface here in your
-> case? If you say your peripheral hardware ID, then answer is no - this
-> is not software interface.
+> Signed-off-by: Olivier Moysan <olivier.moysan@foss.st.com>
+> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
 
-I see what you want to avoid,
+Hi. A few minor suggestions inline.
 
-These bindings are indeed presented as pure helpers here. They are not 
-used by the firewall bus driver on Linux except for the value that they 
-represent, thus your comment.
-However, they will be shared between different boot chain components. I 
-do not have an upstreamed example to give but please see that we might 
-use them in OP-TEE:
+Also, what is relationship of Fabrice to this patch?
+I'd either expect him to have sent it on, or a Co-developed marking
+as appropriate.
 
-[1] 
-https://github.com/STMicroelectronics/optee_os/blob/3.16.0-stm32mp/core/include/dt-bindings/soc/stm32mp13-etzpc.h
+Thanks,
 
-They could be used and used differently depending on the software 
-component (e.g: lock of secure configuration for a particular 
-peripheral, ...). This change is here for consistency between those.
+Jonathan
 
+> ---
+>  drivers/iio/adc/stm32-adc-core.h |  16 ++++
+>  drivers/iio/adc/stm32-adc.c      | 144 +++++++++++++++++++++++++++++++
+>  2 files changed, 160 insertions(+)
 > 
-> Best regards,
-> Krzysztof
-> 
+> diff --git a/drivers/iio/adc/stm32-adc-core.h b/drivers/iio/adc/stm32-adc-core.h
+> index 73b2c2e91c08..86a98286eeb3 100644
+> --- a/drivers/iio/adc/stm32-adc-core.h
+> +++ b/drivers/iio/adc/stm32-adc-core.h
+> @@ -91,6 +91,7 @@
+>  #define STM32H7_ADC_IER			0x04
+>  #define STM32H7_ADC_CR			0x08
+>  #define STM32H7_ADC_CFGR		0x0C
+> +#define STM32H7_ADC_CFGR2		0x10
+>  #define STM32H7_ADC_SMPR1		0x14
+>  #define STM32H7_ADC_SMPR2		0x18
+>  #define STM32H7_ADC_PCSEL		0x1C
+> @@ -160,6 +161,14 @@
+>  #define STM32H7_DMNGT_SHIFT		0
+>  #define STM32H7_DMNGT_MASK		GENMASK(1, 0)
+>  
+> +/* STM32H7_ADC_CFGR2 bit fields */
+> +#define STM32H7_OVSR_SHIFT		16 /* Correspond to OSVR field in datasheet */
+> +#define STM32H7_OVSR_MASK		GENMASK(25, 16)
+> +#define STM32H7_OVSR_BITS		10
+> +#define STM32H7_OVSS_SHIFT		5
 
-Best regards,
-Gatien
+As below - mostly I'd expect FIELD_PREP / FIELD_GET to be used as they
+avoid the need for separate defines for MASK and SHIFT (only MASK ones
+are used).
+
+> +#define STM32H7_OVSS_MASK		GENMASK(8, 5)
+> +#define STM32H7_ROVSE			BIT(0)
+> +
+>  enum stm32h7_adc_dmngt {
+>  	STM32H7_DMNGT_DR_ONLY,		/* Regular data in DR only */
+>  	STM32H7_DMNGT_DMA_ONESHOT,	/* DMA one shot mode */
+> @@ -226,6 +235,13 @@ enum stm32h7_adc_dmngt {
+>  #define STM32MP13_RES_SHIFT		3
+>  #define STM32MP13_RES_MASK		GENMASK(4, 3)
+>  
+> +/* STM32MP13_ADC_CFGR2 bit fields */
+> +#define STM32MP13_OVSR_SHIFT		2
+> +#define STM32MP13_OVSR_MASK		GENMASK(4, 2)
+> +#define STM32MP13_OVSR_BITS		3
+> +#define STM32MP13_OVSS_SHIFT		5
+> +#define STM32MP13_OVSS_MASK		GENMASK(8, 5)
+> +
+>  /* STM32MP13_ADC_DIFSEL - bit fields */
+>  #define STM32MP13_DIFSEL_MASK		GENMASK(18, 0)
+>  
+> diff --git a/drivers/iio/adc/stm32-adc.c b/drivers/iio/adc/stm32-adc.c
+> index 45d4e79f8e55..17050875f23d 100644
+> --- a/drivers/iio/adc/stm32-adc.c
+> +++ b/drivers/iio/adc/stm32-adc.c
+> @@ -6,6 +6,7 @@
+>   * Author: Fabrice Gasnier <fabrice.gasnier@st.com>.
+>   */
+>  
+> +#include <linux/bitfield.h>
+>  #include <linux/clk.h>
+>  #include <linux/debugfs.h>
+>  #include <linux/delay.h>
+> @@ -13,6 +14,7 @@
+>  #include <linux/dmaengine.h>
+>  #include <linux/iio/iio.h>
+>  #include <linux/iio/buffer.h>
+> +#include <linux/iio/sysfs.h>
+
+Why? That is only relevant for custom attributes.
+
+>  #include <linux/iio/timer/stm32-lptim-trigger.h>
+>  #include <linux/iio/timer/stm32-timer-trigger.h>
+>  #include <linux/iio/trigger.h>
+> @@ -27,6 +29,7 @@
+>  #include <linux/platform_device.h>
+>  #include <linux/pm_runtime.h>
+>  #include <linux/property.h>
+> +#include <linux/util_macros.h>
+
+I'm not immediately seeing anything from here being used.
+
+>  
+>  #include "stm32-adc-core.h"
+>  
+>
+...
+
+
+>  
+> +static void stm32h7_adc_set_ovs(struct iio_dev *indio_dev, u32 ovs_idx)
+> +{
+> +	struct stm32_adc *adc = iio_priv(indio_dev);
+> +	u32 ovsr_bits, bits, msk = STM32H7_ROVSE;
+> +
+> +	msk |= STM32H7_OVSR_MASK | STM32H7_OVSS_MASK;
+
+As below.
+
+> +	stm32_adc_clr_bits(adc, STM32H7_ADC_CFGR2, msk);
+> +
+> +	if (!ovs_idx)
+> +		return;
+> +
+> +	bits = STM32H7_ROVSE;
+> +	ovsr_bits = (1 << ovs_idx) - 1;
+> +	bits |= ovsr_bits << STM32H7_OVSR_SHIFT;
+Good place to FIELD_PREP() and avoid need for SHIFT definitions.
+
+> +	bits |= ovs_idx << STM32H7_OVSS_SHIFT;
+> +
+> +	stm32_adc_set_bits(adc, STM32H7_ADC_CFGR2, bits & msk);
+> +}
+> +
+> +static void stm32mp13_adc_set_ovs(struct iio_dev *indio_dev, u32 ovs_idx)
+> +{
+> +	struct stm32_adc *adc = iio_priv(indio_dev);
+> +	u32 bits, msk = STM32H7_ROVSE;
+> +
+> +	msk |= STM32MP13_OVSR_MASK | STM32MP13_OVSS_MASK;
+
+	u32 bits, msk;
+
+	msk = STM32H7_ROVSE | STM32MP13_OVSR_MASK | STM32MP13_OVSS_MSK;
+
+is more readable.
+
+> +	stm32_adc_clr_bits(adc, STM32H7_ADC_CFGR2, msk);
+> +
+> +	if (!ovs_idx)
+> +		return;
+> +
+> +	bits = STM32H7_ROVSE;
+> +	if (ovs_idx - 1)
+> +		bits |= (ovs_idx - 1) << STM32MP13_OVSR_SHIFT;
+> +	bits |= ovs_idx << STM32MP13_OVSS_SHIFT;
+FIELD_PREP() for all these.
+
+> +
+> +	stm32_adc_set_bits(adc, STM32H7_ADC_CFGR2, bits & msk);
+> +}
+> +
+>  static int stm32h7_adc_exit_pwr_down(struct iio_dev *indio_dev)
+>  {
+>  	struct stm32_adc *adc = iio_priv(indio_dev);
+> @@ -1461,6 +1524,71 @@ static int stm32_adc_single_conv(struct iio_dev *indio_dev,
+>  	return ret;
+>  }
+>  
+> +static int stm32_adc_write_raw(struct iio_dev *indio_dev, struct iio_chan_spec const *chan,
+> +			       int val, int val2, long mask)
+> +{
+> +	struct stm32_adc *adc = iio_priv(indio_dev);
+> +	struct device *dev = indio_dev->dev.parent;
+> +	int nb = adc->cfg->adc_info->num_ovs;
+> +	u32 idx;
+> +	int ret;
+> +
+> +	switch (mask) {
+> +	case IIO_CHAN_INFO_OVERSAMPLING_RATIO:
+> +		ret = iio_device_claim_direct_mode(indio_dev);
+> +		if (ret)
+> +			return ret;
+> +
+> +		if (val2) {
+> +			ret = -EINVAL;
+> +			goto err;
+> +		}
+
+Do as much as possible outside of the serialization caused
+by iio_device_claim_direct_mode.
+These sanity checks and indeed the array search can all be done
+outside of that and directly return on error.
+
+
+> +
+> +		for (idx = 0; idx < nb; idx++)
+> +			if (adc->cfg->adc_info->oversampling[idx] == val)
+> +				break;
+> +
+> +		if (idx >= nb) {
+> +			ret = -EINVAL;
+> +			goto err;
+> +		}
+> +
+> +		ret = pm_runtime_resume_and_get(dev);
+> +		if (ret < 0)
+> +			goto err;
+> +
+> +		adc->cfg->set_ovs(indio_dev, idx);
+> +
+> +		pm_runtime_mark_last_busy(dev);
+> +		pm_runtime_put_autosuspend(dev);
+> +
+> +		adc->ovs_idx = idx;
+> +
+> +err:
+> +		iio_device_release_direct_mode(indio_dev);
+> +
+> +		return ret;
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +}
+> +
+> +static int stm32_adc_read_avail(struct iio_dev *indio_dev, struct iio_chan_spec const *chan,
+> +				const int **vals, int *type, int *length, long m)
+
+Where it doesn't hurt readability, I'd prefer we keep lines under 80 chars.
+
+> +{
+> +	struct stm32_adc *adc = iio_priv(indio_dev);
+> +
+> +	switch (m) {
+> +	case IIO_CHAN_INFO_OVERSAMPLING_RATIO:
+> +		*type = IIO_VAL_INT;
+> +		*length = adc->cfg->adc_info->num_ovs;
+> +		*vals = adc->cfg->adc_info->oversampling;
+> +		return IIO_AVAIL_LIST;
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +}
+> +
+
+Thanks,
+
+Jonathan
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
