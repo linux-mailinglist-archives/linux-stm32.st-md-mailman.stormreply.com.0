@@ -2,82 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B8C6166DA21
-	for <lists+linux-stm32@lfdr.de>; Tue, 17 Jan 2023 10:41:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CED4566DC17
+	for <lists+linux-stm32@lfdr.de>; Tue, 17 Jan 2023 12:17:39 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6CC93C65E45;
-	Tue, 17 Jan 2023 09:41:21 +0000 (UTC)
-Received: from mail-qk1-f180.google.com (mail-qk1-f180.google.com
- [209.85.222.180])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6E826C65E45;
+	Tue, 17 Jan 2023 11:17:39 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C362FC64110
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2E913C65047
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 17 Jan 2023 09:41:19 +0000 (UTC)
-Received: by mail-qk1-f180.google.com with SMTP id pa22so15811842qkn.9
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 17 Jan 2023 01:41:19 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=hdQxBMQOMwqD8VUok85rROkSgj2htMeyYzI/9JQJnaY=;
- b=HdpUBrzVC+fRm5us0I5pcSVClglYaFUfiEm/cGmO0HRwQ+aYU0HVym6Sa1QAveTfcy
- HVrNoblnZL7c17Uzkx9cWtDUNfb/se9p1L8E0LImXSu+eOf5/sphsIlfsbxsZUBcSG3A
- epLckHWQLqK9BHTP8K/H2nWLrxRMmIziEGtmrfzMCzTlKxaNHqt+yQ5uevBzAlX/9/dD
- eraOfE2nSwKxtnVs7ghhKhl4PJs4QjHGI2ViGL60UKvVQ0h5+wkTdiujQa4bIuASu3/g
- mGE/ZB8GT3isx1sHuKZF2MZCBZI+i9AXRO9tTxFkQbgjJOCiiAphcf9gB63ctNnSGHL5
- ktCA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=hdQxBMQOMwqD8VUok85rROkSgj2htMeyYzI/9JQJnaY=;
- b=Pbe5bag9yHPG0E/T/9MNPX5lznMToeMprH8CZpkopTzDfjnOJhTRxicoZLUYU7VDof
- 5htZfLZElrnyFe/2xGtWlU/UzBWMVsyIqJNrOb/4jfJYf9WO5DIE77r8xWsB/PpuhhHi
- Xec5GjNqUYZWfa9BOVReAku/eAkjN+y/B/pH5yWFUS60H9mXLTuzl9kl1QHAozjFrzh3
- Nau1DH6I982vWxRH9sEVU3sSajla9OfovvMf8xpdhBXHG5OeEyWkkrEqrjBgkZhNlwFx
- 0rjnwjYxomGapFu0rFNaKfOliT3hSEkNAqF4YDZ1fhZn0ItYABQBsChsnjxfcvw2Kp+n
- v35g==
-X-Gm-Message-State: AFqh2kog2v0Yrgjf7sliLtLlzbMdK/wSDXXjqdgcVdCN2cxEsAwFBL30
- aLw6GANaZ8Yz9f/1X3sD8Y18g4s2noTbe5PRHkI=
-X-Google-Smtp-Source: AMrXdXvUweQfxPG9XW/trbF8uyUaDAKToxBAJ8l2RD/emKWwnVOskao8jQNpBm7SRN0AryYBpZ/goUm0u7jIv/pAfEY=
-X-Received: by 2002:a05:620a:36f4:b0:702:34dc:25a8 with SMTP id
- cz52-20020a05620a36f400b0070234dc25a8mr95984qkb.748.1673948478628; Tue, 17
- Jan 2023 01:41:18 -0800 (PST)
+ Tue, 17 Jan 2023 11:17:38 +0000 (UTC)
+Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 30HAFL7k020822; Tue, 17 Jan 2023 12:17:21 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=u0kaHI8tNOfKQRFpseaOw/BSe5Zyv8eEs8CWYtEpTic=;
+ b=oP5YhL2+bok9XIMnUzy7YEFlwtztXCoS/ViqC333m8urOpeUaxWemfaS99SaRU5cB1aM
+ qE4Xi3db6rQT9Y+fhLQYQNUKwxhx34JP+cmvBgvE5Dl7XPjrxEi95N4UATAeAp6tVrly
+ HxTZMwNnrYhh7iG90ecEtFGamEAJQ3+fcf0armNMl6yxs5BZRW9VAk0ICpd8/IX3LKLB
+ 4IEFClBDiiwL5Wnc7xsJDzxanKzplRD5VNdR/RJ6VSefbM4yB4X87S+k1/lF4PgOQ2MY
+ UX4u1/3hASBtHs8xQNDXl5gOltgGNukYpmfUiWfWvHQk1spAlt7SVfCry2ZWVxG5/dOt QA== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3n3jpr0b5x-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 17 Jan 2023 12:17:21 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 18F2210002A;
+ Tue, 17 Jan 2023 12:17:20 +0100 (CET)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 15F39215BDC;
+ Tue, 17 Jan 2023 12:17:20 +0100 (CET)
+Received: from [10.201.21.93] (10.201.21.93) by SHFDAG1NODE1.st.com
+ (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.13; Tue, 17 Jan
+ 2023 12:17:19 +0100
+Message-ID: <5c742bec-723d-b6dd-2571-a574ebbf3ad5@foss.st.com>
+Date: Tue, 17 Jan 2023 12:17:19 +0100
 MIME-Version: 1.0
-References: <20220715122903.332535-1-nuno.sa@analog.com>
- <20220715122903.332535-13-nuno.sa@analog.com>
- <20220806192048.0ca41cc5@jic23-huawei>
- <20230116204452.il4gase2szipeexz@SoMainline.org>
- <CAHp75VdX9sFgn9STyzwcDCK1KYbU00ejFNcEP3FVnLk5J=Pktg@mail.gmail.com>
- <CAHp75VdTftm1BE21rH1HVHiwUye-0Dvc66uCK2LE2qF4_zA6hg@mail.gmail.com>
-In-Reply-To: <CAHp75VdTftm1BE21rH1HVHiwUye-0Dvc66uCK2LE2qF4_zA6hg@mail.gmail.com>
-From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Tue, 17 Jan 2023 11:40:42 +0200
-Message-ID: <CAHp75VdyCA7mQdm--kg=hUbmQqX4-jfFMHgLxref5mNSM1vnMA@mail.gmail.com>
-To: Marijn Suijten <marijn.suijten@somainline.org>
-Cc: Gwendal Grignou <gwendal@chromium.org>, linux-iio@vger.kernel.org,
- linux-mips@vger.kernel.org, Paul Cercueil <paul@crapouillou.net>,
- Miquel Raynal <miquel.raynal@bootlin.com>, Fabio Estevam <festevam@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, chrome-platform@lists.linux.dev,
- Lars-Peter Clausen <lars@metafoo.de>, openbmc@lists.ozlabs.org,
- Daniel Lezcano <daniel.lezcano@linaro.org>, Haibo Chen <haibo.chen@nxp.com>,
- linux-imx@nxp.com, Tali Perry <tali.perry1@gmail.com>,
- Michael Hennerich <Michael.Hennerich@analog.com>,
- linux-arm-msm@vger.kernel.org,
- Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
- linux-mediatek@lists.infradead.org, Matthias Brugger <matthias.bgg@gmail.com>,
- =?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>,
- linux-arm-kernel@lists.infradead.org,
- Nicolas Ferre <nicolas.ferre@microchip.com>, linux-renesas-soc@vger.kernel.org,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Eugen Hristev <eugen.hristev@microchip.com>,
- Claudiu Beznea <claudiu.beznea@microchip.com>,
- Jonathan Cameron <jic23@kernel.org>
-Subject: Re: [Linux-stm32] [PATCH v3 12/15] iio: adc: qcom-spmi-adc5:
-	convert to device properties
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.4.2
+Content-Language: en-US
+To: Olivier Moysan <olivier.moysan@foss.st.com>, Rob Herring
+ <robh+dt@kernel.org>, Krzysztof Kozlowski
+ <krzysztof.kozlowski+dt@linaro.org>, Maxime Coquelin
+ <mcoquelin.stm32@gmail.com>
+References: <20230110091713.444395-1-olivier.moysan@foss.st.com>
+From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
+In-Reply-To: <20230110091713.444395-1-olivier.moysan@foss.st.com>
+X-Originating-IP: [10.201.21.93]
+X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.219,Aquarius:18.0.923,Hydra:6.0.562,FMLib:17.11.122.1
+ definitions=2023-01-17_05,2023-01-17_01,2022-06-22_01
+Cc: devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH v2 0/3] ARM: dts: stm32: add timers
+	support on stm32mp13
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,50 +75,35 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gVHVlLCBKYW4gMTcsIDIwMjMgYXQgMTE6MDYgQU0gQW5keSBTaGV2Y2hlbmtvCjxhbmR5LnNo
-ZXZjaGVua29AZ21haWwuY29tPiB3cm90ZToKPgo+IE9uIFR1ZSwgSmFuIDE3LCAyMDIzIGF0IDEw
-OjUzIEFNIEFuZHkgU2hldmNoZW5rbwo+IDxhbmR5LnNoZXZjaGVua29AZ21haWwuY29tPiB3cm90
-ZToKPiA+Cj4gPiBPbiBNb24sIEphbiAxNiwgMjAyMyBhdCAxMDo0NCBQTSBNYXJpam4gU3VpanRl
-bgo+ID4gPG1hcmlqbi5zdWlqdGVuQHNvbWFpbmxpbmUub3JnPiB3cm90ZToKPiA+ID4KPiA+ID4g
-T24gMjAyMi0wOC0wNiAxOToyMDo0OCwgSm9uYXRoYW4gQ2FtZXJvbiB3cm90ZToKPiA+ID4gPiBP
-biBGcmksIDE1IEp1bCAyMDIyIDE0OjI5OjAwICswMjAwCj4gPiA+ID4gTnVubyBTw6EgPG51bm8u
-c2FAYW5hbG9nLmNvbT4gd3JvdGU6Cj4gPiA+ID4KPiA+ID4gPiA+IE1ha2UgdGhlIGNvbnZlcnNp
-b24gdG8gZmlybXdhcmUgYWdub3N0aWMgZGV2aWNlIHByb3BlcnRpZXMuIEFzIHBhcnQgb2YKPiA+
-ID4gPiA+IHRoZSBjb252ZXJzaW9uIHRoZSBJSU8gaW5rZXJuIGludGVyZmFjZSAnb2ZfeGxhdGUo
-KScgaXMgYWxzbyBjb252ZXJ0ZWQgdG8KPiA+ID4gPiA+ICdmd25vZGVfeGxhdGUoKScuIFRoZSBn
-b2FsIGlzIHRvIGNvbXBsZXRlbHkgZHJvcCAnb2ZfeGxhdGUnIGFuZCBoZW5jZSBPRgo+ID4gPiA+
-ID4gZGVwZW5kZW5jaWVzIGZyb20gSUlPLgo+ID4gPiA+ID4KPiA+ID4gPiA+IFNpZ25lZC1vZmYt
-Ynk6IE51bm8gU8OhIDxudW5vLnNhQGFuYWxvZy5jb20+Cj4gPiA+ID4gPiBBY2tlZC1ieTogTGlu
-dXMgV2FsbGVpaiA8bGludXMud2FsbGVpakBsaW5hcm8ub3JnPgo+ID4gPiA+ID4gUmV2aWV3ZWQt
-Ynk6IEFuZHkgU2hldmNoZW5rbyA8YW5keS5zaGV2Y2hlbmtvQGdtYWlsLmNvbT4KPiA+ID4gPiAr
-Q0MgTWFyaWppbiB3aG8gaGFwcGVuZCB0byBwb3N0IGEgcGF0Y2ggZm9yIHRoaXMgZHJpdmVyIHRo
-YXQgSSBqdXN0IGFjY2VwdGVkCj4gPiA+ID4gYW5kIGhlbmNlIHByb2JhYmx5IGhhcyBoYXJkd2Fy
-ZSBhY2Nlc3MuICBBbnkgY2hhbmNlIG9mIGEgdGVzdCBmb3IgdGhpcyBzZXJpZXM/Cj4gPiA+ID4K
-PiA+ID4gPiBJZiBub3QsIG5vIHByb2JsZW0gYXMgdGhpcyBpcyBmYWlybHkgbWVjaGFuaWNhbCBh
-bmQgd2UgaGF2ZSB0ZXN0aW5nIG9uIHNvbWUgb2YKPiA+ID4gPiB0aGUgb3RoZXIgZHJpdmVycyB1
-c2luZyB0aGUgbmV3IGNvZGUuCj4gPiA+ID4KPiA+ID4gPiBJJ2xsIHByb2JhYmx5IHF1ZXVlIHRo
-aXMgdXAgaW4gdGhlIG1lYW50aW1lIGJ1dCBpdCB3b24ndCBlbmQgdXAgdXBzdHJlYW0KPiA+ID4g
-PiBmb3IgYSBmZXcgd2Vla3MgeWV0Lgo+ID4gPgo+ID4gPiBKb25hdGhhbiwKPiA+ID4KPiA+ID4g
-VGhpcyBDQyBqdXN0IHN1cmZhY2VkIGluIG15IGluYm94IHdoaWxlIHNlYXJjaGluZyBmb3Igb3Vy
-IGN1cnJlbnQKPiA+ID4gZGlzY3Vzc2lvbiBhcm91bmQgbWlzc2luZyBsYWJlbHMgaW4gcWNvbS1z
-cG1pLXZhZGMgLSBhbmQgb24gdGhlIHNpZGUgYQo+ID4gPiB1c2Vyc3BhY2UgQHh4IGxhYmVsIG5h
-bWUgQUJJIGJyZWFrIChpbiBxY29tLXNwbWktYWRjNSkgY2F1c2VkIGJ5IHRoaXMKPiA+ID4gcGF0
-Y2gncyBmd25vZGVfZ2V0X25hbWUgY2hhbmdlIC0gd2UgY291bGQndmUgY2F1Z2h0IGl0IGlmIEkg
-aGFkIG5vdAo+ID4gPiBhY2NpZGVudGFsbHkgbWFya2VkIGl0IGFzIHJlYWQgYW5kL29yIGZvcmdv
-dCBhYm91dCBpdC4gIE15IGFwb2xvZ2llcy4KPiA+Cj4gPiBEb2VzIHRoZSBmb2xsb3dpbmcgYWRk
-aXRpb24gdG8gdGhlIHRvcCBvZiB0aGUKPiA+IGFkYzVfZ2V0X2Z3X2NoYW5uZWxfZGF0YSgpIGZp
-eCB0aGUgaXNzdWU/Cj4gPgo+ID4gKyAgICAgICBuYW1lID0gZGV2bV9rYXNwcmludGYoYWRjLT5k
-ZXYsIEdGUF9LRVJORUwsICIlcGZ3UCIsIGZ3bm9kZSk7Cj4gPiArICAgICAgIGlmICghbmFtZSkK
-PiA+ICsgICAgICAgICAgICAgICByZXR1cm4gLUVOT01FTTsKPgo+IE9rYXksIGl0IHByb2JhYmx5
-IHRoZSBzYW1lLCBzbyBpdCBtaWdodCBuZWVkIGFkZGl0aW9uYWwgY29kZSB0bwo+Cj4gKyBuYW1l
-W3N0cmNocm51bChuYW1lLCAnQCcpIC0gbmFtZV0gPSAnXDAnOwoKSSBoYXZlIGp1c3Qgc2VudCBh
-IGZvcm1hbCBwYXRjaCwgcGxlYXNlIHRlc3Qgb24gdG9wIG9mIG5vbi13b3JraW5nIGtlcm5lbC4K
-CgotLQpXaXRoIEJlc3QgUmVnYXJkcywKQW5keSBTaGV2Y2hlbmtvCl9fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApM
-aW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFp
-bG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+On 1/10/23 10:17, Olivier Moysan wrote:
+> Add STM32 TIM and LPTIM support to STM32MP13 SoCs family.
+> Add also support of timers available on DK board RPI expansion connector.
+> These timers are configured in the DK board device tree, but let in
+> disabled state by default.
+> 
+> Changes in v2:
+> - rebase serie
+> 
+> Olivier Moysan (3):
+>    ARM: dts: stm32: add timers support on stm32mp131
+>    ARM: dts: stm32: add timer pins muxing for stm32mp135f-dk
+>    ARM: dts: stm32: add timers support on stm32mp135f-dk
+> 
+>   arch/arm/boot/dts/stm32mp13-pinctrl.dtsi |  60 +++
+>   arch/arm/boot/dts/stm32mp131.dtsi        | 557 +++++++++++++++++++++++
+>   arch/arm/boot/dts/stm32mp135f-dk.dts     |  58 +++
+>   3 files changed, 675 insertions(+)
+> 
+Series applied on stm32-next.
+
+Regards
+Alex
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
