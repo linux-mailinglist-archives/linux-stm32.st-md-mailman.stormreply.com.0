@@ -2,100 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C0F266714F7
+	by mail.lfdr.de (Postfix) with ESMTPS id DBF986714F8
 	for <lists+linux-stm32@lfdr.de>; Wed, 18 Jan 2023 08:18:30 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7CF7FC69064;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 99B05C6906B;
 	Wed, 18 Jan 2023 07:18:30 +0000 (UTC)
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from m-r2.th.seeweb.it (m-r2.th.seeweb.it [5.144.164.171])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 30BDAC65047
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 93A00C6507E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 17 Jan 2023 08:49:50 +0000 (UTC)
-Received: from pps.filterd (m0098419.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 30H7jBg2002153; Tue, 17 Jan 2023 08:49:29 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
- h=message-id : subject :
- from : to : cc : date : in-reply-to : references : content-type :
- content-transfer-encoding : mime-version; s=pp1;
- bh=H906UnaT+mKc1vvKmTCCEcWqGmxotatY633LkzBqxYU=;
- b=A6BVq7HNMg+oOk9phju+5wb8NvQ5nhXgUGV4aDzrytllvMMkF1QwAASO805mzs95eZ2n
- nFKcix/B9tP3yq5RutbLwr2yS0Abm57uKLmBtWu1LQCnzO68gBvKuRAubGf/f3lwbm/t
- d7yQv+5f0SONkcFHHSaAcX07ZpD4eOvZsvKy1FKh8tdh0yhzrWgHCxFAGAnbCx2hVThN
- Rond9aWSHw3YaiM/1OecQ05uP252qJXP3SYTDx0h1dBaObZJqgSUfIb/xpcCfRKWX9Px
- JCMj5JyJGhH44nebnIBpCrl3064gZ9Rc08Ewv1HQn0ismQJBIsB7Inz4PAelp10g6+mT Qw== 
-Received: from pps.reinject (localhost [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (PPS) with ESMTPS id 3n5hky0gqv-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 17 Jan 2023 08:49:29 +0000
-Received: from m0098419.ppops.net (m0098419.ppops.net [127.0.0.1])
- by pps.reinject (8.17.1.5/8.17.1.5) with ESMTP id 30H8ftP6001523;
- Tue, 17 Jan 2023 08:49:28 GMT
-Received: from ppma05fra.de.ibm.com (6c.4a.5195.ip4.static.sl-reverse.com
- [149.81.74.108])
- by mx0b-001b2d01.pphosted.com (PPS) with ESMTPS id 3n5hky0gq2-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 17 Jan 2023 08:49:28 +0000
-Received: from pps.filterd (ppma05fra.de.ibm.com [127.0.0.1])
- by ppma05fra.de.ibm.com (8.17.1.19/8.17.1.19) with ESMTP id 30GGKqhH025576;
- Tue, 17 Jan 2023 08:49:26 GMT
-Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
- by ppma05fra.de.ibm.com (PPS) with ESMTPS id 3n3m16ajt5-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 17 Jan 2023 08:49:26 +0000
-Received: from smtpav06.fra02v.mail.ibm.com (smtpav06.fra02v.mail.ibm.com
- [10.20.54.105])
- by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 30H8nMXa14222046
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Tue, 17 Jan 2023 08:49:22 GMT
-Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id CAED920049;
- Tue, 17 Jan 2023 08:49:22 +0000 (GMT)
-Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 33E1620040;
- Tue, 17 Jan 2023 08:49:22 +0000 (GMT)
-Received: from [9.155.211.163] (unknown [9.155.211.163])
- by smtpav06.fra02v.mail.ibm.com (Postfix) with ESMTP;
- Tue, 17 Jan 2023 08:49:22 +0000 (GMT)
-Message-ID: <0bd438b3afa979b9f4d4d1e9c76451a93e7ef7eb.camel@linux.ibm.com>
-From: Niklas Schnelle <schnelle@linux.ibm.com>
-To: Jason Gunthorpe <jgg@nvidia.com>, Lu Baolu <baolu.lu@linux.intel.com>,
- Joerg Roedel <joro@8bytes.org>, Kevin Tian <kevin.tian@intel.com>, Matthew
- Rosato <mjrosato@linux.ibm.com>, Robin Murphy <robin.murphy@arm.com>
-Date: Tue, 17 Jan 2023 09:49:22 +0100
-In-Reply-To: <8-v1-6e8b3997c46d+89e-iommu_map_gfp_jgg@nvidia.com>
-References: <8-v1-6e8b3997c46d+89e-iommu_map_gfp_jgg@nvidia.com>
-User-Agent: Evolution 3.46.3 (3.46.3-1.fc37) 
+ Tue, 17 Jan 2023 22:42:55 +0000 (UTC)
+Received: from SoMainline.org (94-211-6-86.cable.dynamic.v4.ziggo.nl
+ [94.211.6.86])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
+ SHA256) (No client certificate requested)
+ by m-r2.th.seeweb.it (Postfix) with ESMTPSA id DF99E3F428;
+ Tue, 17 Jan 2023 23:42:53 +0100 (CET)
+Date: Tue, 17 Jan 2023 23:42:51 +0100
+From: Marijn Suijten <marijn.suijten@somainline.org>
+To: Andy Shevchenko <andy.shevchenko@gmail.com>
+Message-ID: <20230117224251.wzxexdlfe5ydzjw5@SoMainline.org>
+References: <20220715122903.332535-1-nuno.sa@analog.com>
+ <20220715122903.332535-13-nuno.sa@analog.com>
+ <20220806192048.0ca41cc5@jic23-huawei>
+ <20230116204452.il4gase2szipeexz@SoMainline.org>
+ <CAHp75VdX9sFgn9STyzwcDCK1KYbU00ejFNcEP3FVnLk5J=Pktg@mail.gmail.com>
+ <CAHp75VdTftm1BE21rH1HVHiwUye-0Dvc66uCK2LE2qF4_zA6hg@mail.gmail.com>
+ <CAHp75VdyCA7mQdm--kg=hUbmQqX4-jfFMHgLxref5mNSM1vnMA@mail.gmail.com>
 MIME-Version: 1.0
-X-TM-AS-GCONF: 00
-X-Proofpoint-ORIG-GUID: MKx4-ANHPJUrZonOgwaEaY-EVKsDWzHU
-X-Proofpoint-GUID: SbFxmq8QKSSdWBsgb5noBKiad8Yo5FPz
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.219,Aquarius:18.0.923,Hydra:6.0.562,FMLib:17.11.122.1
- definitions=2023-01-17_04,2023-01-13_02,2022-06-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 mlxscore=0
- phishscore=0 malwarescore=0 lowpriorityscore=0 mlxlogscore=713 bulkscore=0
- spamscore=0 impostorscore=0 clxscore=1011 suspectscore=0 adultscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2212070000
- definitions=main-2301170071
+Content-Disposition: inline
+In-Reply-To: <CAHp75VdyCA7mQdm--kg=hUbmQqX4-jfFMHgLxref5mNSM1vnMA@mail.gmail.com>
 X-Mailman-Approved-At: Wed, 18 Jan 2023 07:18:27 +0000
-Cc: linux-s390@vger.kernel.org, kvm@vger.kernel.org,
- nouveau@lists.freedesktop.org, linux-rdma@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org,
- iommu@lists.linux.dev, dri-devel@lists.freedesktop.org,
- linux-stm32@st-md-mailman.stormreply.com,
- Alex Williamson <alex.williamson@redhat.com>, netdev@vger.kernel.org,
- ath10k@lists.infradead.org, linux-wireless@vger.kernel.org,
- linux-tegra@vger.kernel.org, Christian Borntraeger <borntraeger@linux.ibm.com>,
- virtualization@lists.linux-foundation.org, ath11k@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH 8/8] iommu/s390: Push the gfp parameter to
- the kmem_cache_alloc()'s
+Cc: Gwendal Grignou <gwendal@chromium.org>, linux-iio@vger.kernel.org,
+ linux-mips@vger.kernel.org, Paul Cercueil <paul@crapouillou.net>,
+ Miquel Raynal <miquel.raynal@bootlin.com>, Fabio Estevam <festevam@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, chrome-platform@lists.linux.dev,
+ Lars-Peter Clausen <lars@metafoo.de>, openbmc@lists.ozlabs.org,
+ Daniel Lezcano <daniel.lezcano@linaro.org>, Haibo Chen <haibo.chen@nxp.com>,
+ linux-imx@nxp.com, Tali Perry <tali.perry1@gmail.com>,
+ Michael Hennerich <Michael.Hennerich@analog.com>,
+ linux-arm-msm@vger.kernel.org,
+ Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+ linux-mediatek@lists.infradead.org, Matthias Brugger <matthias.bgg@gmail.com>,
+ Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>,
+ linux-arm-kernel@lists.infradead.org,
+ Nicolas Ferre <nicolas.ferre@microchip.com>, linux-renesas-soc@vger.kernel.org,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Eugen Hristev <eugen.hristev@microchip.com>,
+ Claudiu Beznea <claudiu.beznea@microchip.com>,
+ Jonathan Cameron <jic23@kernel.org>
+Subject: Re: [Linux-stm32] [PATCH v3 12/15] iio: adc: qcom-spmi-adc5:
+ convert to device properties
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -112,26 +71,46 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, 2023-01-06 at 12:42 -0400, Jason Gunthorpe wrote:
-> dma_alloc_cpu_table() and dma_alloc_page_table() are eventually called by
-> iommufd through s390_iommu_map_pages() and it should not be forced to
-> atomic. Thread the gfp parameter through the call chain starting from
-> s390_iommu_map_pages().
+On 2023-01-17 11:40:42, Andy Shevchenko wrote:
+<snip>
+> > > > This CC just surfaced in my inbox while searching for our current
+> > > > discussion around missing labels in qcom-spmi-vadc - and on the side a
+> > > > userspace @xx label name ABI break (in qcom-spmi-adc5) caused by this
+> > > > patch's fwnode_get_name change - we could've caught it if I had not
+> > > > accidentally marked it as read and/or forgot about it.  My apologies.
+> > >
+> > > Does the following addition to the top of the
+> > > adc5_get_fw_channel_data() fix the issue?
+> > >
+> > > +       name = devm_kasprintf(adc->dev, GFP_KERNEL, "%pfwP", fwnode);
+> > > +       if (!name)
+> > > +               return -ENOMEM;
+> >
+> > Okay, it probably the same, so it might need additional code to
+> >
+> > + name[strchrnul(name, '@') - name] = '\0';
 > 
-> Signed-off-by: Jason Gunthorpe <jgg@nvidia.com>
-> ---
->  arch/s390/include/asm/pci_dma.h |  5 +++--
->  arch/s390/pci/pci_dma.c         | 31 +++++++++++++++++--------------
->  drivers/iommu/s390-iommu.c      | 15 +++++++++------
->  3 files changed, 29 insertions(+), 22 deletions(-)
-> 
----8<---
->  
+> I have just sent a formal patch, please test on top of non-working kernel.
 
-Looks good to me and I have no objections.
+I would've preferred to fix this in the same way as qcom-spmi-vadc by
+implementing read_label instead and basing it on the DT label or driver
+string literals instead [1], but dropping extend_name (hence changing
+sysfs filenames once again) would be considered an ABI break.
 
-Reviewed-by: Niklas Schnelle <schnelle@linux.ibm.com>
+I've instead gone for a similar change that also ignores the node name
+in favour of falling back to the driver string literal (if no "label"
+property is available) while retaining extend_label [3] and the -
+however ugly they are - sysfs filenames, but that'll likely get rejected
+as strictly being an ABI break as well, not in the least because DT
+needs to be patched up [3] for it to work out.
 
+I'll at least test your patch when getting back to one of these devices.
+
+- Marijn
+
+[1]: https://lore.kernel.org/linux-arm-msm/20230116220909.196926-6-marijn.suijten@somainline.org/
+[2]: https://lore.kernel.org/linux-arm-msm/20230116220909.196926-4-marijn.suijten@somainline.org/
+[3]: https://lore.kernel.org/linux-arm-msm/20221209215308.1781047-1-marijn.suijten@somainline.org/
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
