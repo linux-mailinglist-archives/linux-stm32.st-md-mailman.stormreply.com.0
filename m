@@ -2,133 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 06C7866DED3
-	for <lists+linux-stm32@lfdr.de>; Tue, 17 Jan 2023 14:30:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DC80466E183
+	for <lists+linux-stm32@lfdr.de>; Tue, 17 Jan 2023 15:58:34 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B9846C65E55;
-	Tue, 17 Jan 2023 13:30:31 +0000 (UTC)
-Received: from NAM02-BN1-obe.outbound.protection.outlook.com
- (mail-bn1nam02on2061.outbound.protection.outlook.com [40.107.212.61])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 80223C65E45;
+	Tue, 17 Jan 2023 14:58:34 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B92A9C65047
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AEE52C03FC3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 17 Jan 2023 13:30:29 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=UCvEnLw5KG0qDzBl9xERUBBu7fCC7dpVHSWEMQcx8ACCW0kF0wrer7gfG7dBgr8WNiFJyW1XnX2DvAIpKERyCBgWJyGO8BX5k1fm5bJsehNwMBx9qd+yhsT8az3NNtHNKrvtyg43Wfw7yHIQZSLuU1AUUKnMrEWZJ38sGNNoj3KsGGP+smZKDAa0c1qBHFYv/5m+2DRwp5r9vX1DyfsXs4GioT5Wd4uZc5w9yPSeybRALNi1oOewZY1rAHDIkwKjnq3UkUM9pUsEb46loNSzZvm6sHIXMWdxaAVB7FtT9qlVsEwRu1sR4lehUyceMamow7FozK/vWo6mypW/EaHyVg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hsytL9wJ1VxKzILKFyD+VW4nBBi6uFgymaKFp2fLMIY=;
- b=UAFYxHTcCYE65PkbZp1MuZkFw17MYwtMm0c6Ovjkv4+iAb67ejtp5pkE2rDu9xoti6xfIQeTE0unJ2pXUJ5jv/4zQBAi/y2N00un7tOi9/n/3vN79I2X8hf88elZa99E4+AmMeglJDH1HmqLCdTsupV3ZESmB60kDumn6+YVZamAH5oPfsRAANcZuaO7RPGIqlegPx4ldesW83hSIon/sXgE4+evkUelIrpRm4A8C0UVuBqYtXmupht1dad0wEvEidL3JoOLCtkU8neHBZ5jZ4GbaVK/5bD+W6Yf2QAINMM3lgdE8bso8V7YroX1yS4orz7sPNvSW0UUEmm5RHzqsw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hsytL9wJ1VxKzILKFyD+VW4nBBi6uFgymaKFp2fLMIY=;
- b=RCtKIaIpQvvAq8yUs0er0TZJb7VFNDBPkjutc3/CaRv4syn/aRLJCdJ0tKBNDKpAM2BaJaazxor7f4P/AfCuW5DeS2f4xy4rf2fbRBiXGJHcHeyTfAE/lgyxr1VFEjhLvUUIepQBgOxOC8QA+qCI7f0raoseRFc5Oq51nMkwHX33gK/3cBSUsi1vufGdr9iUq0No58TdsbXH83aF/auAhV6EBZzBAu0r4OgR+4fk5s6vtkbrwGQKrQKLWvIz6m+h3DStncYE5sOcPq5rW+rlLoPNsHt3fpLkUSZw93P4tUtSRbgGNwdme8RrMKu7bkiGQyFz+zL8AnGf0srXDLa3yw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from LV2PR12MB5869.namprd12.prod.outlook.com (2603:10b6:408:176::16)
- by CY8PR12MB7754.namprd12.prod.outlook.com (2603:10b6:930:86::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5986.23; Tue, 17 Jan
- 2023 13:30:27 +0000
-Received: from LV2PR12MB5869.namprd12.prod.outlook.com
- ([fe80::f8b0:df13:5f8d:12a]) by LV2PR12MB5869.namprd12.prod.outlook.com
- ([fe80::f8b0:df13:5f8d:12a%9]) with mapi id 15.20.6002.013; Tue, 17 Jan 2023
- 13:30:27 +0000
-Date: Tue, 17 Jan 2023 09:30:26 -0400
-From: Jason Gunthorpe <jgg@nvidia.com>
-To: "Tian, Kevin" <kevin.tian@intel.com>
-Message-ID: <Y8ai8i2FpW4CuAX6@nvidia.com>
-References: <0-v1-6e8b3997c46d+89e-iommu_map_gfp_jgg@nvidia.com>
- <6-v1-6e8b3997c46d+89e-iommu_map_gfp_jgg@nvidia.com>
- <BN9PR11MB5276A8193DE752CA8D8D89928CC69@BN9PR11MB5276.namprd11.prod.outlook.com>
-Content-Disposition: inline
-In-Reply-To: <BN9PR11MB5276A8193DE752CA8D8D89928CC69@BN9PR11MB5276.namprd11.prod.outlook.com>
-X-ClientProxiedBy: MN2PR13CA0008.namprd13.prod.outlook.com
- (2603:10b6:208:160::21) To LV2PR12MB5869.namprd12.prod.outlook.com
- (2603:10b6:408:176::16)
+ Tue, 17 Jan 2023 14:58:32 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 30HDJpvZ013254; Tue, 17 Jan 2023 15:58:08 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=message-id : date :
+ mime-version : to : cc : from : subject : content-type :
+ content-transfer-encoding; s=selector1;
+ bh=i0f9H0o1PTwLSWnVG5Id0wgZka+r1gH8QtJHFE8DAlg=;
+ b=Z88Z8M4wF7E/ncIdaIH/HG1VcctbXPlaLUvjmag8rIIyO8f/z7YMazOHHiBua4Ws/B7x
+ DKKNfIW33MlbZGtmYIlVzmNoKru93jbg0faFvHGwXiR98B4ig2pORfqzfkj5LZvcIno1
+ oVwOFkEWTHUyxRm0b9/tgWdkkMrxZ/q1kedX6uFvsoMB1F7oIh4zOhadhMBtLbg+Yy23
+ 2Z6g58LmQugZUVN23vcrakm0CZn8xNjV0DvHQpgiZej9NdvBjZE9016YikY8Zp2VxpUK
+ k2NBNmG025rKCv+Y80kL06zS9eu+9bgVO3IzTjk9r49CZ3LTPKTsRm2o9YRCtlg90uFV FQ== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3n5mc4kqxt-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 17 Jan 2023 15:58:08 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 24C4910002A;
+ Tue, 17 Jan 2023 15:58:06 +0100 (CET)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id CC3C521B50E;
+ Tue, 17 Jan 2023 15:58:06 +0100 (CET)
+Received: from [10.201.21.93] (10.201.21.93) by SHFDAG1NODE1.st.com
+ (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.13; Tue, 17 Jan
+ 2023 15:58:06 +0100
+Message-ID: <3fe26bf9-297b-5c78-682b-37fa6d8b6190@foss.st.com>
+Date: Tue, 17 Jan 2023 15:58:05 +0100
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LV2PR12MB5869:EE_|CY8PR12MB7754:EE_
-X-MS-Office365-Filtering-Correlation-Id: 99078ce9-5e35-490b-7427-08daf88eff02
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: qypHGm+neClz/zCECh7tGdQmWpptWD+l4XdJqhvfOpSgMH12xabqMVBLI99fytEZzQQaftQKOFf1EK/U5AQJF5HrQ4mlxQNNnR25+1njD5gN2kyD1ZGoKunpm/OlmKAI9922VnMle0Ke0brer3GNTMoWY4YRjpghiw362Hb/Gs7xl9qvOWRt0g8r88xnMZso31AMBjfWO4+nN9ccIvW693ZWtB1ptXc/D6eoSL/kn4jP/OZgiQyehowKBaQ6XcmVIdXRWjmT4eVny7ta51BSTvKS/1mil7a0EBncuWBDb6mM/JFkEEsseUgdeh0zMvSGmmYk7MS5Yum6zfiBBFftkW5o509mbIDOKUyrNa1EsrlJZY5NIWvzyxWQiC7uIWetgNQf47ea6NntJ6IBoOkWfYI//6h626m14YFZVb5KcaUPKjRQdDLwC9BD00g6pS8plsPajjMYKuq6YQONg8A3exTK6q+p3R5VfWT5GZOq9Zmy2QiNUBA9KxJMIxmz10L8lxS6vbP+7Q+rABwmcC4peys0+TDY+KjB2iaqgbYVro89/FU5I5BYxV4DcpLLlX6rcf4ZV0u2+ubvAOiMJ5CGRMCi5y78Vnr1QPiGl/lKbwqH5cfNPutNlQGpdMT3ccfn/wfJaUWXyJRO+F1fPrexWg==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:LV2PR12MB5869.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(39860400002)(136003)(346002)(376002)(366004)(396003)(451199015)(38100700002)(86362001)(7416002)(4744005)(5660300002)(2906002)(8936002)(8676002)(6916009)(4326008)(66476007)(66946007)(66556008)(41300700001)(6512007)(6506007)(186003)(26005)(2616005)(54906003)(316002)(478600001)(6486002)(36756003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?Daxf/0fWTX+SCv/ujbQEaECMLH7OWG5pBEqH1XbO8LdCXrJ+9g1UxY4oVmDW?=
- =?us-ascii?Q?oDWFT606eG7IUvRqbT3TMYUs6w9qXnUyTdMLR5VgWyxIsNfDBof+aFeS0A82?=
- =?us-ascii?Q?/4FFu+QzAi5vRTCCcNk/VRbftPdPggBMV+sjbnc+8TTSyTOzWV2AT5K6fRyw?=
- =?us-ascii?Q?SOO96h7nwzpQceiUyl7DLA+thBhNURe4hvyWF8ayvH9h1kH6zJQeEqOPMod7?=
- =?us-ascii?Q?8SIEsIv3kbJGhHzi8IsrM8UFHVoC714axnHvWlMWnnVL+8dmg3nn/UCzfNpz?=
- =?us-ascii?Q?zXfXG6H+ssCBg6mPavWtqPWMNAoFKju7GwfWUGx9CRIGvTvzXiOqcPg0s5+8?=
- =?us-ascii?Q?SFc1hmHg73h+jVadfZpUIHGn+LmSmC5MEAFCe9w0eJnpTVX/03ixBM1evGbz?=
- =?us-ascii?Q?dm9K69SbcEntjGVUhCvJ8wtQYB93wpS/ffXEhA1OcdXGcQqR86GCQ9RchKsl?=
- =?us-ascii?Q?ZIUIHFGl7BhWW7Jg2pugkTffMn6UGLeX+WL6nmVI0Qwmtg13eXxW/P0mWzsA?=
- =?us-ascii?Q?wq6Xf4X532yRYs1B4GnlIug9qJbDQVMnmnLwpJroUg0FVhkzhYloCnm1tm1C?=
- =?us-ascii?Q?47DBmjmA6dVWbi7t1qCPf7L4umv6NpwV/xx0yZZd2Ssj4zP477wgfKNkvg6m?=
- =?us-ascii?Q?K+3jkHS6B++H1QlhWL0oXojbiDkRZiRjFPuba8v8j0xxbX05z/LBTPwgBaVJ?=
- =?us-ascii?Q?peENjQpfG77ohMVE+xkCpwrOsnk0UAriWpCpQrk07Lj+ZU/KjrvyBx7h8CWI?=
- =?us-ascii?Q?foNU+vkhGu9yMEFZaorpCJK+J4rhHPCgVLJoZv3/Eqqocyt1uUTX1S+7N24u?=
- =?us-ascii?Q?e7fMMyLULiuXXNcM6R7hggE4o2tKuuzJz5dwwlS/wQXs76cvbaPBiMSguMZz?=
- =?us-ascii?Q?rHZKy/75MlpnUCotc4KDjwNgQIpBgKp38wl27wT4gvWzCSpDfrlbUYUxwj4C?=
- =?us-ascii?Q?S6JdseE4F+/zdSakSfdO+00QDoMjpgabYV10+QOlnNWJJcFvB3gOOOwA3NVn?=
- =?us-ascii?Q?maZTXykTApbjrB6O+tjJw0qaY8ilR1EGsuJB+SuuzRzt8AHF6niTiUUYBb+v?=
- =?us-ascii?Q?UHEO+bW07RFZy7jwhbzN28PIX6JPFjkzQhKOPvjp4ViBy1O/ZwEu6nQPUtb7?=
- =?us-ascii?Q?2WrcN+r/lxuMp1oUKtDWS2VGm3WBHbvHbzP6iIqhPL+G/n56DVhKw1gMFCdU?=
- =?us-ascii?Q?qZVqWjCkcUoSxLuz2WhYTU7zRe1n/nQzE6Y1Pl5CVBnK5xrJUeHrtG0CZOxl?=
- =?us-ascii?Q?BOMeRgB6moKW/AsJto8GALrJKzwzOcu03FsRPU03RB1TG8hAJdSq76tmBquH?=
- =?us-ascii?Q?2CiK4ef+DQuK1TlxwHmmrv9354y3VZVAW4nzUHtj6yD6qSk4Ah22Y+rjZqY2?=
- =?us-ascii?Q?b5Nmh8nU2jguxJxwxirX5Ul5nZuafXuiRr3iFKk1cdtb/vR4+6/SgYYVnV0p?=
- =?us-ascii?Q?FFrmTjRBMo26xFpd8f7bX78Oa7Vf8yxkdG83TX0bIfQKBUvGQGq8ovTiJUd3?=
- =?us-ascii?Q?p+EBmo3Y4Ot9EaBIbNgSdrOQdgJuqZ57YVEmUpTPlu7a+uq3hREZ2nN4Vy0x?=
- =?us-ascii?Q?IIgRw7Vf+odqVqPLgwavm78fdh1VuiTw69u2ZCto?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 99078ce9-5e35-490b-7427-08daf88eff02
-X-MS-Exchange-CrossTenant-AuthSource: LV2PR12MB5869.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jan 2023 13:30:27.5460 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: KiYEfeCnCtHWcIwHNEH8MCNG3yP0JSRqsOQvJVIFStgJg91AStEssh6QsPw5SbgL
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7754
-Cc: "kvm@vger.kernel.org" <kvm@vger.kernel.org>,
- "nouveau@lists.freedesktop.org" <nouveau@lists.freedesktop.org>,
- "linux-remoteproc@vger.kernel.org" <linux-remoteproc@vger.kernel.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "virtualization@lists.linux-foundation.org"
- <virtualization@lists.linux-foundation.org>,
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.4.2
+Content-Language: en-US
+To: arnd Bergmann <arnd@arndb.de>, Olof Johansson <olof@lixom.net>, Kevin
+ Hilman <khilman@baylibre.com>, arm-soc <arm@kernel.org>, SoC Team
+ <soc@kernel.org>
+From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
+X-Originating-IP: [10.201.21.93]
+X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.219,Aquarius:18.0.923,Hydra:6.0.562,FMLib:17.11.122.1
+ definitions=2023-01-17_06,2023-01-17_01,2022-06-22_01
+Cc: "linux-arm-kernel@lists.infradead.org"
+ <linux-arm-kernel@lists.infradead.org>,
  "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "linux-s390@vger.kernel.org" <linux-s390@vger.kernel.org>,
- Matthew Rosato <mjrosato@linux.ibm.com>,
- "linux-rdma@vger.kernel.org" <linux-rdma@vger.kernel.org>,
- Joerg Roedel <joro@8bytes.org>,
- "ath10k@lists.infradead.org" <ath10k@lists.infradead.org>,
- "iommu@lists.linux.dev" <iommu@lists.linux.dev>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- "ath11k@lists.infradead.org" <ath11k@lists.infradead.org>,
- "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
- Niklas Schnelle <schnelle@linux.ibm.com>,
- "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>,
- Alex Williamson <alex.williamson@redhat.com>,
- "linux-tegra@vger.kernel.org" <linux-tegra@vger.kernel.org>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
- Robin Murphy <robin.murphy@arm.com>, Lu Baolu <baolu.lu@linux.intel.com>
-Subject: Re: [Linux-stm32] [PATCH 6/8] iommu/intel: Add a gfp parameter to
- alloc_pgtable_page()
+ <linux-stm32@st-md-mailman.stormreply.com>
+Subject: [Linux-stm32] [GIT PULL] STM32 DT fixes for v6.2 #1
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -140,49 +73,54 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Jan 17, 2023 at 03:35:08AM +0000, Tian, Kevin wrote:
-> > From: Jason Gunthorpe <jgg@nvidia.com>
-> > Sent: Saturday, January 7, 2023 12:43 AM
-> > 
-> > @@ -2676,7 +2676,7 @@ static int copy_context_table(struct intel_iommu
-> > *iommu,
-> >  			if (!old_ce)
-> >  				goto out;
-> > 
-> > -			new_ce = alloc_pgtable_page(iommu->node);
-> > +			new_ce = alloc_pgtable_page(iommu->node,
-> > GFP_KERNEL);
-> 
-> GFP_ATOMIC
+Hi ARM SoC maintainers,
 
-Can't be:
+Please consider this first round of STM32 DT fixes for v6.2 cycle.
 
-			old_ce = memremap(old_ce_phys, PAGE_SIZE,
-					MEMREMAP_WB);
-			if (!old_ce)
-				goto out;
+Thanks
+Alex
 
-			new_ce = alloc_pgtable_page(iommu->node, GFP_KERNEL);
-			if (!new_ce)
+The following changes since commit 1b929c02afd37871d5afb9d498426f83432e71c2:
 
-memremap() is sleeping.
+   Linux 6.2-rc1 (2022-12-25 13:41:39 -0800)
 
-And the only caller is:
+are available in the Git repository at:
 
-	ctxt_tbls = kcalloc(ctxt_table_entries, sizeof(void *), GFP_KERNEL);
-	if (!ctxt_tbls)
-		goto out_unmap;
+   git://git.kernel.org/pub/scm/linux/kernel/git/atorgue/stm32.git 
+tags/stm32-dt-for-v6.2-fixes-1
 
-	for (bus = 0; bus < 256; bus++) {
-		ret = copy_context_table(iommu, &old_rt[bus],
-					 ctxt_tbls, bus, ext);
+for you to fetch changes up to 175281f80695569c7f9cf062e5d0ddc4addc109f:
 
-Jason
+   ARM: dts: stm32: Fix qspi pinctrl phandle for stm32mp151a-prtt1l 
+(2023-01-17 14:48:44 +0100)
+
+----------------------------------------------------------------
+STM32 DT fixes for v6.2, round 1
+
+Highlights:
+-----------
+
+  -STM32MP15:
+   - Fix missing chip select phandle in several stm32mp15x based boards.
+
+----------------------------------------------------------------
+Patrice Chotard (4):
+       ARM: dts: stm32: Fix qspi pinctrl phandle for stm32mp15xx-dhcor-som
+       ARM: dts: stm32: Fix qspi pinctrl phandle for stm32mp15xx-dhcom-som
+       ARM: dts: stm32: Fix qspi pinctrl phandle for 
+stm32mp157c-emstamp-argon
+       ARM: dts: stm32: Fix qspi pinctrl phandle for stm32mp151a-prtt1l
+
+  arch/arm/boot/dts/stm32mp151a-prtt1l.dtsi        | 8 ++++++--
+  arch/arm/boot/dts/stm32mp157c-emstamp-argon.dtsi | 8 ++++++--
+  arch/arm/boot/dts/stm32mp15xx-dhcom-som.dtsi     | 8 ++++++--
+  arch/arm/boot/dts/stm32mp15xx-dhcor-som.dtsi     | 8 ++++++--
+  4 files changed, 24 insertions(+), 8 deletions(-)
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
