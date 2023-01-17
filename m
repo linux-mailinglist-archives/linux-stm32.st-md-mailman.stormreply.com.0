@@ -2,81 +2,95 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 730EC66D82B
-	for <lists+linux-stm32@lfdr.de>; Tue, 17 Jan 2023 09:28:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1E79266D8B8
+	for <lists+linux-stm32@lfdr.de>; Tue, 17 Jan 2023 09:53:59 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 23A25C65E45;
-	Tue, 17 Jan 2023 08:28:06 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5BFCAC64110
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BEAC1C65E45;
+	Tue, 17 Jan 2023 08:53:58 +0000 (UTC)
+Received: from mail-qv1-f50.google.com (mail-qv1-f50.google.com
+ [209.85.219.50])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 23EAFC65047
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 17 Jan 2023 08:28:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1673944084;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=m+6BYudluJLerY8xv5pVK4MG77+MbXReDqsF/tlVARI=;
- b=fwfdJJFR3u5BbPWm0zZXEsnx5GpNa/hU1fHPntGLa3q+SnHmhIosv4TjMryxzJWBQlAhlR
- Uq07s0YjalUr3vkdrNsXOq2wk2610IjDfd5Q5IRFq2xmLChKAUPXAqaiyNxyvcUx2PUfEx
- yNUTwACHBHPUTM5nA6zbH34quaWySi0=
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
- [209.85.222.198]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-163-7h3Sy63NOTCwxo4vL3bYjg-1; Tue, 17 Jan 2023 03:28:03 -0500
-X-MC-Unique: 7h3Sy63NOTCwxo4vL3bYjg-1
-Received: by mail-qk1-f198.google.com with SMTP id
- ay34-20020a05620a17a200b00704bd9922c4so22251487qkb.12
+ Tue, 17 Jan 2023 08:53:57 +0000 (UTC)
+Received: by mail-qv1-f50.google.com with SMTP id k12so335411qvj.5
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 17 Jan 2023 00:28:02 -0800 (PST)
+ Tue, 17 Jan 2023 00:53:57 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=dseOSX2zTH+XeCQ35kHO/8kj0vzRJ47S5eW+pnauFVw=;
+ b=IN1tCeVLnwqol5mOOyaSKxyI6kXzBL3oblSeLXVIqXyUFgWIwbZ0AEzA8olwW7upIy
+ FObicSGhLmkCghdvzFXSEJAyGxharJCShW7z0r+lEuvRAdFgw/Mxnef/EERBExtq8sMy
+ Mcp+PQsHnyA392QlG4twkaHS5FodAKoH3B3yaJJT0FBlqe7JmvyILW6DXybR86bCuoQC
+ UqoyUTTaZe3pVph9PjUnNC+gdZK/JhrtzzJA5+OSVpLY72U3uaJRq46DnYklrCW6khCa
+ fPiWIzKX0q18Q1gHryK2/LjCQP56sP8q10LYVdVfp1q/DwJiFCOzLG6iIT0dwfrQWPTz
+ 2MNg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=mime-version:user-agent:content-transfer-encoding:references
- :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=m+6BYudluJLerY8xv5pVK4MG77+MbXReDqsF/tlVARI=;
- b=1c1ljr2qLFwiI+KbN5lvM554W3Au5IrYO6XHakXts5AK/nwWZx5NKx0TYdAPko9cpQ
- 45YZ1YLYUhflHV81zrCff/9jOQiVGeHLl9vf4iDfQW1oX0UySKWiAmWnVVjiwifWOluq
- ejp+At081dZO5XIGZbY/5veXF+1PuQ9W9H3zUsK6s1aCRyzUJy4aI9UxI+Fg2X0nWw4U
- WOIvswnAJk/QiXU66cLczpu08/GhIfJKbwPdmYPQXb3GkXi0ha318q2QDln5cniq5Kn2
- lroHH4slpS0sIJYVxXCMds9WL0xtytCYD5UisAlOUjS73Gp+AP/md8OgNApLeBCgQ6xr
- BRrw==
-X-Gm-Message-State: AFqh2kowNMPM6ES4S6OejWdlESg0kWRSLa3zPfzw+lZ+qRNnpJfjO5BS
- n7R3StxSn+w6y1MgpKRcoHbyLyre3LfWzKaCdxcXLBFfVZuyfvF+5S8NTC3YjdK5nikglSXbayu
- BsfN0mJJAGERL5VrSm+prAclbnwFvpWZx4bf8LoOb
-X-Received: by 2002:ac8:718f:0:b0:3b6:35a2:bb04 with SMTP id
- w15-20020ac8718f000000b003b635a2bb04mr2857508qto.7.1673944082570; 
- Tue, 17 Jan 2023 00:28:02 -0800 (PST)
-X-Google-Smtp-Source: AMrXdXu/E4Cr9udbp9axgo1/YZ5h66bfn9nqv1hysCj476Ft8Z+EGz88GliVUvugE+ln2/ljJlMqIA==
-X-Received: by 2002:ac8:718f:0:b0:3b6:35a2:bb04 with SMTP id
- w15-20020ac8718f000000b003b635a2bb04mr2857480qto.7.1673944082284; 
- Tue, 17 Jan 2023 00:28:02 -0800 (PST)
-Received: from gerbillo.redhat.com (146-241-115-179.dyn.eolo.it.
- [146.241.115.179]) by smtp.gmail.com with ESMTPSA id
- bj30-20020a05620a191e00b006bb82221013sm19709741qkb.0.2023.01.17.00.27.58
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 17 Jan 2023 00:28:01 -0800 (PST)
-Message-ID: <6ee1798af93cc5b8c46611ecca941ee57481358e.camel@redhat.com>
-From: Paolo Abeni <pabeni@redhat.com>
-To: Clark Wang <xiaoning.wang@nxp.com>, wei.fang@nxp.com,
- shenwei.wang@nxp.com,  davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, robh+dt@kernel.org,  krzysztof.kozlowski+dt@linaro.org,
- shawnguo@kernel.org, s.hauer@pengutronix.de,  festevam@gmail.com,
- peppe.cavallaro@st.com, alexandre.torgue@foss.st.com, 
- joabreu@synopsys.com, mcoquelin.stm32@gmail.com, richardcochran@gmail.com
-Date: Tue, 17 Jan 2023 09:27:56 +0100
-In-Reply-To: <20230113033347.264135-1-xiaoning.wang@nxp.com>
-References: <20230113033347.264135-1-xiaoning.wang@nxp.com>
-User-Agent: Evolution 3.46.3 (3.46.3-1.fc37)
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=dseOSX2zTH+XeCQ35kHO/8kj0vzRJ47S5eW+pnauFVw=;
+ b=DHiklPbU2Gdu7hm2rbcYeNBTQ6/7VYl1ELeE1lqcYAYtHQyM/E8HrKS8MfqIoH8Pey
+ vebIYondVwe/ztxPlWOKsQg3zKSpj3IuUF7MuX+DSV26T9hiuKzXGZAKskCmzoI+EFwt
+ jfjQveTL+3PXyvcfXa5RL0HmU0SE0sxu4CQFFbRoWOYdOTUg1Xh0sXi8nJForgFHA+7Z
+ BgPS/PhVNfgeZlAqRv60xDfVrNIlHnQ0oE45OoKR+W7LalMLKVOTgXrVpKSE68AjxMtX
+ zjVF+K8xlIpihST4plYvpyALKYP0UZ9MN/HZhRL8lbs6slMZPIryewg+NxO/HG2tj4dV
+ n6fg==
+X-Gm-Message-State: AFqh2kpePKfICmXIjFTSg58AaDuyCt1EZovAvOLtqDFLMkD9Kp4bPXyH
+ drWlQEFG2wNm9jug4PAKXmYNmsEOh5A0d5IXsTM=
+X-Google-Smtp-Source: AMrXdXvLiqXj9jIN/w78ICHR0nICmfROd8xLwBZS8MBQVeGvCEuFhhD92MzOr0asWEhyUaMDPd3N/hzGbdM64AxxTSk=
+X-Received: by 2002:a0c:f6c2:0:b0:532:2dd4:fea3 with SMTP id
+ d2-20020a0cf6c2000000b005322dd4fea3mr144148qvo.48.1673945635919; Tue, 17 Jan
+ 2023 00:53:55 -0800 (PST)
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Cc: devicetree@vger.kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-imx@nxp.com, kernel@pengutronix.de,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH V2 0/7] Add eqos and fec support for imx93
+References: <20220715122903.332535-1-nuno.sa@analog.com>
+ <20220715122903.332535-13-nuno.sa@analog.com>
+ <20220806192048.0ca41cc5@jic23-huawei>
+ <20230116204452.il4gase2szipeexz@SoMainline.org>
+In-Reply-To: <20230116204452.il4gase2szipeexz@SoMainline.org>
+From: Andy Shevchenko <andy.shevchenko@gmail.com>
+Date: Tue, 17 Jan 2023 10:53:19 +0200
+Message-ID: <CAHp75VdX9sFgn9STyzwcDCK1KYbU00ejFNcEP3FVnLk5J=Pktg@mail.gmail.com>
+To: Marijn Suijten <marijn.suijten@somainline.org>
+Cc: Gwendal Grignou <gwendal@chromium.org>,
+ Jishnu Prakash <quic_jprakash@quicinc.com>, Tomer Maimon <tmaimon77@gmail.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, linux-iio@vger.kernel.org,
+ Linus Walleij <linus.walleij@linaro.org>, Amit Kucheria <amitk@kernel.org>,
+ =?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>,
+ Paul Cercueil <paul@crapouillou.net>,
+ Miquel Raynal <miquel.raynal@bootlin.com>, Guenter Roeck <groeck@chromium.org>,
+ Fabio Estevam <festevam@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
+ Michael Hennerich <Michael.Hennerich@analog.com>,
+ chrome-platform@lists.linux.dev, Lars-Peter Clausen <lars@metafoo.de>,
+ Benjamin Fair <benjaminfair@google.com>, openbmc@lists.ozlabs.org,
+ Daniel Lezcano <daniel.lezcano@linaro.org>, Haibo Chen <haibo.chen@nxp.com>,
+ Christophe Branchereau <cbranchereau@gmail.com>, Nancy Yuen <yuenn@google.com>,
+ Andy Gross <agross@kernel.org>, linux-imx@nxp.com,
+ Zhang Rui <rui.zhang@intel.com>, Lorenzo Bianconi <lorenzo@kernel.org>,
+ Saravanan Sekar <sravanhome@gmail.com>, Arnd Bergmann <arnd@arndb.de>,
+ linux-arm-msm@vger.kernel.org, Sascha Hauer <s.hauer@pengutronix.de>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+ linux-mediatek@lists.infradead.org,
+ Eugen Hristev <eugen.hristev@microchip.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>, Tali Perry <tali.perry1@gmail.com>,
+ Benson Leung <bleung@chromium.org>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ linux-arm-kernel@lists.infradead.org, Avi Fishman <avifishman70@gmail.com>,
+ Patrick Venture <venture@google.com>, linux-mips@vger.kernel.org,
+ Thara Gopinath <thara.gopinath@linaro.org>, linux-renesas-soc@vger.kernel.org,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Cai Huoqing <cai.huoqing@linux.dev>, Shawn Guo <shawnguo@kernel.org>,
+ Claudiu Beznea <claudiu.beznea@microchip.com>,
+ Jonathan Cameron <jic23@kernel.org>
+Subject: Re: [Linux-stm32] [PATCH v3 12/15] iio: adc: qcom-spmi-adc5:
+	convert to device properties
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,44 +102,41 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi,
-
-On Fri, 2023-01-13 at 11:33 +0800, Clark Wang wrote:
-> This patchset add imx93 support for dwmac-imx glue driver.
-> There are some changes of GPR implement.
-> And add fec and eqos nodes for imx93 dts.
-> 
-> Clark Wang (7):
->   net: stmmac: add imx93 platform support
->   dt-bindings: add mx93 description
->   dt-bindings: net: fec: add mx93 description
->   arm64: dts: imx93: add eqos support
->   arm64: dts: imx93: add FEC support
->   arm64: dts: imx93-11x11-evk: enable eqos
->   arm64: dts: imx93-11x11-evk: enable fec function
-> 
->  .../devicetree/bindings/net/fsl,fec.yaml      |  1 +
->  .../bindings/net/nxp,dwmac-imx.yaml           |  4 +-
->  .../boot/dts/freescale/imx93-11x11-evk.dts    | 78 +++++++++++++++++++
->  arch/arm64/boot/dts/freescale/imx93.dtsi      | 48 ++++++++++++
->  .../net/ethernet/stmicro/stmmac/dwmac-imx.c   | 55 +++++++++++--
->  5 files changed, 180 insertions(+), 6 deletions(-)
-
-It's not clear to me if the whole series should go via netdev. I
-think/fear such option could cause later conflicts for Linus. Does it
-make sense to split this in 2 chunks, and have only the first 3 patches
-merged via netdev?
-
-Thanks!
-
-Paolo
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gTW9uLCBKYW4gMTYsIDIwMjMgYXQgMTA6NDQgUE0gTWFyaWpuIFN1aWp0ZW4KPG1hcmlqbi5z
+dWlqdGVuQHNvbWFpbmxpbmUub3JnPiB3cm90ZToKPgo+IE9uIDIwMjItMDgtMDYgMTk6MjA6NDgs
+IEpvbmF0aGFuIENhbWVyb24gd3JvdGU6Cj4gPiBPbiBGcmksIDE1IEp1bCAyMDIyIDE0OjI5OjAw
+ICswMjAwCj4gPiBOdW5vIFPDoSA8bnVuby5zYUBhbmFsb2cuY29tPiB3cm90ZToKPiA+Cj4gPiA+
+IE1ha2UgdGhlIGNvbnZlcnNpb24gdG8gZmlybXdhcmUgYWdub3N0aWMgZGV2aWNlIHByb3BlcnRp
+ZXMuIEFzIHBhcnQgb2YKPiA+ID4gdGhlIGNvbnZlcnNpb24gdGhlIElJTyBpbmtlcm4gaW50ZXJm
+YWNlICdvZl94bGF0ZSgpJyBpcyBhbHNvIGNvbnZlcnRlZCB0bwo+ID4gPiAnZndub2RlX3hsYXRl
+KCknLiBUaGUgZ29hbCBpcyB0byBjb21wbGV0ZWx5IGRyb3AgJ29mX3hsYXRlJyBhbmQgaGVuY2Ug
+T0YKPiA+ID4gZGVwZW5kZW5jaWVzIGZyb20gSUlPLgo+ID4gPgo+ID4gPiBTaWduZWQtb2ZmLWJ5
+OiBOdW5vIFPDoSA8bnVuby5zYUBhbmFsb2cuY29tPgo+ID4gPiBBY2tlZC1ieTogTGludXMgV2Fs
+bGVpaiA8bGludXMud2FsbGVpakBsaW5hcm8ub3JnPgo+ID4gPiBSZXZpZXdlZC1ieTogQW5keSBT
+aGV2Y2hlbmtvIDxhbmR5LnNoZXZjaGVua29AZ21haWwuY29tPgo+ID4gK0NDIE1hcmlqaW4gd2hv
+IGhhcHBlbmQgdG8gcG9zdCBhIHBhdGNoIGZvciB0aGlzIGRyaXZlciB0aGF0IEkganVzdCBhY2Nl
+cHRlZAo+ID4gYW5kIGhlbmNlIHByb2JhYmx5IGhhcyBoYXJkd2FyZSBhY2Nlc3MuICBBbnkgY2hh
+bmNlIG9mIGEgdGVzdCBmb3IgdGhpcyBzZXJpZXM/Cj4gPgo+ID4gSWYgbm90LCBubyBwcm9ibGVt
+IGFzIHRoaXMgaXMgZmFpcmx5IG1lY2hhbmljYWwgYW5kIHdlIGhhdmUgdGVzdGluZyBvbiBzb21l
+IG9mCj4gPiB0aGUgb3RoZXIgZHJpdmVycyB1c2luZyB0aGUgbmV3IGNvZGUuCj4gPgo+ID4gSSds
+bCBwcm9iYWJseSBxdWV1ZSB0aGlzIHVwIGluIHRoZSBtZWFudGltZSBidXQgaXQgd29uJ3QgZW5k
+IHVwIHVwc3RyZWFtCj4gPiBmb3IgYSBmZXcgd2Vla3MgeWV0Lgo+Cj4gSm9uYXRoYW4sCj4KPiBU
+aGlzIENDIGp1c3Qgc3VyZmFjZWQgaW4gbXkgaW5ib3ggd2hpbGUgc2VhcmNoaW5nIGZvciBvdXIg
+Y3VycmVudAo+IGRpc2N1c3Npb24gYXJvdW5kIG1pc3NpbmcgbGFiZWxzIGluIHFjb20tc3BtaS12
+YWRjIC0gYW5kIG9uIHRoZSBzaWRlIGEKPiB1c2Vyc3BhY2UgQHh4IGxhYmVsIG5hbWUgQUJJIGJy
+ZWFrIChpbiBxY29tLXNwbWktYWRjNSkgY2F1c2VkIGJ5IHRoaXMKPiBwYXRjaCdzIGZ3bm9kZV9n
+ZXRfbmFtZSBjaGFuZ2UgLSB3ZSBjb3VsZCd2ZSBjYXVnaHQgaXQgaWYgSSBoYWQgbm90Cj4gYWNj
+aWRlbnRhbGx5IG1hcmtlZCBpdCBhcyByZWFkIGFuZC9vciBmb3Jnb3QgYWJvdXQgaXQuICBNeSBh
+cG9sb2dpZXMuCgpEb2VzIHRoZSBmb2xsb3dpbmcgYWRkaXRpb24gdG8gdGhlIHRvcCBvZiB0aGUK
+YWRjNV9nZXRfZndfY2hhbm5lbF9kYXRhKCkgZml4IHRoZSBpc3N1ZT8KCisgICAgICAgbmFtZSA9
+IGRldm1fa2FzcHJpbnRmKGFkYy0+ZGV2LCBHRlBfS0VSTkVMLCAiJXBmd1AiLCBmd25vZGUpOwor
+ICAgICAgIGlmICghbmFtZSkKKyAgICAgICAgICAgICAgIHJldHVybiAtRU5PTUVNOwoKLS0gCldp
+dGggQmVzdCBSZWdhcmRzLApBbmR5IFNoZXZjaGVua28KX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0
+bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0
+b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
