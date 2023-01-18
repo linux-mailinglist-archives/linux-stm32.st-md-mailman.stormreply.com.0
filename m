@@ -2,79 +2,67 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 124DE67244B
-	for <lists+linux-stm32@lfdr.de>; Wed, 18 Jan 2023 17:57:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2A8EE6724EF
+	for <lists+linux-stm32@lfdr.de>; Wed, 18 Jan 2023 18:30:13 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B561BC6904A;
-	Wed, 18 Jan 2023 16:57:09 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D4453C69048
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DEDBBC69049;
+	Wed, 18 Jan 2023 17:30:12 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 14A49C65E70
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 18 Jan 2023 16:57:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1674061027;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=kps1z9ixd0lDxco9/OkjAqqpIKVmg5Dst50L33D/YhY=;
- b=N2J4xJOg3en3lhV1LPq5xo0ukY8/IItclwi2gQOYSE17P65U7T95OTb/ZvOQAMkxHJx+b2
- F4Y3blHLaUMspHFKBOThMcDK1GDNZZNgJajKl033QhOeGDUssHV8Mf6sIz1aRqq7N45Ryz
- Iwm29qBhV5omos+ldXzop0x1d2w7uwA=
-Received: from mail-oo1-f72.google.com (mail-oo1-f72.google.com
- [209.85.161.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-524-TQ3999_qO3KPph1TdEW3TQ-1; Wed, 18 Jan 2023 11:57:05 -0500
-X-MC-Unique: TQ3999_qO3KPph1TdEW3TQ-1
-Received: by mail-oo1-f72.google.com with SMTP id
- k19-20020a4a3113000000b004f52d8ea37cso1364244ooa.5
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 18 Jan 2023 08:57:05 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=kps1z9ixd0lDxco9/OkjAqqpIKVmg5Dst50L33D/YhY=;
- b=XgRQkXO6imDGaF4wO7pi+gDO9HC+rSOGFgY2FEQ64D8KpqxDQ282qgXIt2QDw57iAr
- EJ6biU8hnHO1eMwUCaUkZ+EwELhZhd1ANHPP3m1VCGm/ChySpIshExfDEAjqsSNB5lW4
- cV4gS1ZP9jhR1qeylkbyKeJvOyk+8Iw1KWt43XHYFnonUJj6/Yd+uqm9VWXD1s91tI4L
- LA48RZbLbMmwkNaR45dBv1wPHFGbYS2uSkNSd/zYmJOkHK/52ygBIeopcN4A6ks2Oo7j
- ag8j0/Bn5DqhLPQqJfxvuTUhEkG4DcWVrN6InvUg//REO7Q5hpW840FJOCdEONRcB5vc
- 2DDg==
-X-Gm-Message-State: AFqh2kretj7+07F1cXEO83VvKh5fYJnQokq9LEcAlymFghE0klOBrJ9j
- /SKUURptXb4tI7yzRfeq6iuc6K/fxmp1UHguP76kx/pA2PNpnIHDUOcGmVOb5laBOEanXIdMwXz
- ttmv3ZzE+EZZ1Q6ur69ZeJyUgkeW51HVOUjnjZjer
-X-Received: by 2002:a4a:1843:0:b0:4f2:8fa2:acda with SMTP id
- 64-20020a4a1843000000b004f28fa2acdamr3678882ooo.5.1674061023633; 
- Wed, 18 Jan 2023 08:57:03 -0800 (PST)
-X-Google-Smtp-Source: AMrXdXupkdVG/yfD1cPihjSS9PG73ekCsefEWVRwlr9j6832liTFaRdIJ5Wb9zlCzZCcuDSscvm3Sw==
-X-Received: by 2002:a4a:1843:0:b0:4f2:8fa2:acda with SMTP id
- 64-20020a4a1843000000b004f28fa2acdamr3678860ooo.5.1674061023348; 
- Wed, 18 Jan 2023 08:57:03 -0800 (PST)
-Received: from halaney-x13s.attlocal.net ([2600:1700:1ff0:d0e0::21])
- by smtp.gmail.com with ESMTPSA id
- i23-20020a4a8d97000000b004a0ad937ccdsm6365174ook.1.2023.01.18.08.57.01
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 18 Jan 2023 08:57:02 -0800 (PST)
-From: Andrew Halaney <ahalaney@redhat.com>
-To: davem@davemloft.net
-Date: Wed, 18 Jan 2023 10:56:38 -0600
-Message-Id: <20230118165638.1383764-1-ahalaney@redhat.com>
-X-Mailer: git-send-email 2.39.0
+ Wed, 18 Jan 2023 17:30:12 +0000 (UTC)
+Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 30IDK3iJ020807; Wed, 18 Jan 2023 18:29:50 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=selector1;
+ bh=SdOetiYgPcMw3qvd+XPDduke2B2OTvZvs1GFc3/68Eo=;
+ b=nyRg+fUxWXpgd81vKVUIM0oRMBSzkK82st4SUaQG8dmtQBmNGd6DWIeczaxhzVESlyAo
+ Te3r0y72DJ6kBCGsuEuJ7X7fOHGHAPqrQOllScLnBgkT8cB0XDmaR9P/dhOPNREhAjeF
+ cmV0F+rG7iPJMht+9rDdgbK4R4mII2XIRlAB6/nY0jSTCwc6DuRpy76B1Mj7scmmY1Si
+ zxpPwLVFCzkWXwHDdvF+7LK2a9zdsJvTZvzs8qDWf7WbdMq6MmIPZ6jrxiDi/liYyTRW
+ s/50pY8sX34zCdob5eoxa0Wa5vzkqDhsE+OFU3mfxIr8BKWU96YhEqKar4IWcaBVsa2W MQ== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3n3jpr9hnq-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 18 Jan 2023 18:29:50 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id BE3C5100034;
+ Wed, 18 Jan 2023 18:29:48 +0100 (CET)
+Received: from Webmail-eu.st.com (shfdag1node3.st.com [10.75.129.71])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 7321A228A21;
+ Wed, 18 Jan 2023 18:29:48 +0100 (CET)
+Received: from localhost (10.48.0.157) by SHFDAG1NODE3.st.com (10.75.129.71)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.13; Wed, 18 Jan
+ 2023 18:29:46 +0100
+From: Patrick Delaunay <patrick.delaunay@foss.st.com>
+To: Alexandre TORGUE <alexandre.torgue@foss.st.com>, Rob Herring
+ <robh+dt@kernel.org>, Krzysztof Kozlowski
+ <krzysztof.kozlowski+dt@linaro.org>, Maxime Coquelin
+ <mcoquelin.stm32@gmail.com>, Srinivas Kandagatla
+ <srinivas.kandagatla@linaro.org>, Arnd Bergmann <arnd@arndb.de>
+Date: Wed, 18 Jan 2023 18:29:36 +0100
+Message-ID: <20230118172940.841094-1-patrick.delaunay@foss.st.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Cc: Ning Cai <ncai@quicinc.com>, Andrew Halaney <ahalaney@redhat.com>,
- vee.khee.wong@linux.intel.com, netdev@vger.kernel.org,
- richardcochran@gmail.com, linux-kernel@vger.kernel.org, edumazet@google.com,
- joabreu@synopsys.com, vijayakannan.ayyathurai@intel.com,
- mcoquelin.stm32@gmail.com, kuba@kernel.org, michael.wei.hong.sit@intel.com,
- peppe.cavallaro@st.com, pabeni@redhat.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- noor.azura.ahmad.tarmizi@intel.com
-Subject: [Linux-stm32] [PATCH net RESEND] net: stmmac: enable all safety
-	features by default
+X-Originating-IP: [10.48.0.157]
+X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE3.st.com
+ (10.75.129.71)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.219,Aquarius:18.0.923,Hydra:6.0.562,FMLib:17.11.122.1
+ definitions=2023-01-18_05,2023-01-18_01,2022-06-22_01
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Patrick Delaunay <patrick.delaunay@foss.st.com>,
+ Etienne CARRIERE <etienne.carriere@linaro.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH v6 0/3] nvmem: stm32: add OP-TEE support for
+	STM32MP13x
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,109 +79,85 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-In the original implementation of dwmac5
-commit 8bf993a5877e ("net: stmmac: Add support for DWMAC5 and implement Safety Features")
-all safety features were enabled by default.
 
-Later it seems some implementations didn't have support for all the
-features, so in
-commit 5ac712dcdfef ("net: stmmac: enable platform specific safety features")
-the safety_feat_cfg structure was added to the callback and defined for
-some platforms to selectively enable these safety features.
+The v5 patchset is rebased on next-20221226.
 
-The problem is that only certain platforms were given that software
-support. If the automotive safety package bit is set in the hardware
-features register the safety feature callback is called for the platform,
-and for platforms that didn't get a safety_feat_cfg defined this results
-in the following NULL pointer dereference:
+This serie update the NVMEM BSEC driver to be compatible with STM32MP13x
+SoC and the trusted application STM32MP BSEC in OP-TEE
 
-[    7.933303] Call trace:
-[    7.935812]  dwmac5_safety_feat_config+0x20/0x170 [stmmac]
-[    7.941455]  __stmmac_open+0x16c/0x474 [stmmac]
-[    7.946117]  stmmac_open+0x38/0x70 [stmmac]
-[    7.950414]  __dev_open+0x100/0x1dc
-[    7.954006]  __dev_change_flags+0x18c/0x204
-[    7.958297]  dev_change_flags+0x24/0x6c
-[    7.962237]  do_setlink+0x2b8/0xfa4
-[    7.965827]  __rtnl_newlink+0x4ec/0x840
-[    7.969766]  rtnl_newlink+0x50/0x80
-[    7.973353]  rtnetlink_rcv_msg+0x12c/0x374
-[    7.977557]  netlink_rcv_skb+0x5c/0x130
-[    7.981500]  rtnetlink_rcv+0x18/0x2c
-[    7.985172]  netlink_unicast+0x2e8/0x340
-[    7.989197]  netlink_sendmsg+0x1a8/0x420
-[    7.993222]  ____sys_sendmsg+0x218/0x280
-[    7.997249]  ___sys_sendmsg+0xac/0x100
-[    8.001103]  __sys_sendmsg+0x84/0xe0
-[    8.004776]  __arm64_sys_sendmsg+0x24/0x30
-[    8.008983]  invoke_syscall+0x48/0x114
-[    8.012840]  el0_svc_common.constprop.0+0xcc/0xec
-[    8.017665]  do_el0_svc+0x38/0xb0
-[    8.021071]  el0_svc+0x2c/0x84
-[    8.024212]  el0t_64_sync_handler+0xf4/0x120
-[    8.028598]  el0t_64_sync+0x190/0x194
+This serie solve issue in initial support of STM32MP131
+(using BSEC STM32MP15 compatible) and so it break the STM32MP13x DTS
+compatible.
 
-Go back to the original behavior, if the automotive safety package
-is found to be supported in hardware enable all the features unless
-safety_feat_cfg is passed in saying this particular platform only
-supports a subset of the features.
+I create this serie for more efficient review, including support for
+STM32MP15x.
 
-Fixes: 5ac712dcdfef ("net: stmmac: enable platform specific safety features")
-Reported-by: Ning Cai <ncai@quicinc.com>
-Signed-off-by: Andrew Halaney <ahalaney@redhat.com>
----
+The first patches of the V1 series is already merged:
+"dt-bindings: nvmem: add new stm32mp13 compatible for stm32-romem"
 
-RESEND: with some Intel folks on Cc this time as requested by Jakub!
+This STM32MP13x DTS break is acceptable as
+- the STM32MP13x SoC is not yet available outside STMicroelectronics
+  (not official)
+- the same patch is already integrated or modifications are in progress in
+  the other users (arm-trusted-firmware/TF-A, OP-TEE and U-Boot) of
+  stm32mp131 device tree.
 
-I've been working on a newer Qualcomm platform (sa8540p-ride) which has
-a variant of dwmac5 in it. This patch is something Ning stumbled on when
-adding some support for it downstream, and has been in my queue as I try
-and get some support ready for review on list upstream.
+It is the good time to correct this issue before the real availability of
+the SoC and before full support of STM32MP13x SoC in Linux kernel.
 
-Since it isn't really related to the particular hardware I decided to
-pop it on list now. Please let me know if instead of enabling by default
-(which the original implementation did and is why I went that route) a
-message like "Safety features detected but not enabled in software" is
-preferred and platforms are skipped unless they opt-in for enablement.
+Regards
 
-Thanks,
-Andrew
+Patrick
 
- drivers/net/ethernet/stmicro/stmmac/dwmac5.c | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
+Changes in v6:
+- Add reviewed by  Etienne Carierre review
+- added reviewed by Etienne Carriere
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac5.c b/drivers/net/ethernet/stmicro/stmmac/dwmac5.c
-index 9c2d40f853ed..413f66017219 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac5.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac5.c
-@@ -186,11 +186,25 @@ static void dwmac5_handle_dma_err(struct net_device *ndev,
- int dwmac5_safety_feat_config(void __iomem *ioaddr, unsigned int asp,
- 			      struct stmmac_safety_feature_cfg *safety_feat_cfg)
- {
-+	struct stmmac_safety_feature_cfg all_safety_feats = {
-+		.tsoee = 1,
-+		.mrxpee = 1,
-+		.mestee = 1,
-+		.mrxee = 1,
-+		.mtxee = 1,
-+		.epsi = 1,
-+		.edpp = 1,
-+		.prtyen = 1,
-+		.tmouten = 1,
-+	};
- 	u32 value;
- 
- 	if (!asp)
- 		return -EINVAL;
- 
-+	if (!safety_feat_cfg)
-+		safety_feat_cfg = &all_safety_feats;
-+
- 	/* 1. Enable Safety Features */
- 	value = readl(ioaddr + MTL_ECC_CONTROL);
- 	value |= MEEAO; /* MTL ECC Error Addr Status Override */
+Changes in v5:
+- minor changes after Etienne Carierre review (comments,
+  change %x to %#x, remove goto to out_tee_session)
+- update the BSEC SMC detection logic in stm32_romem_probe()
+  after Etienne Carierre review to support NVMEM probe after OP-TEE probe
+
+Changes in v4:
+- fixe warning reported by kernel test robot for 64 bits support in
+  drivers/nvmem/stm32-bsec-optee-ta.c:260:18:
+  warning: format '%d' expects argument of type 'int',
+  but argument 4 has type 'size_t'
+
+Changes in v3:
+- add a separate file stm32-bsec-optee-ta.c with STM32MP BSEC TA
+  communication functions to avoid #if in romem driver.
+- use of_find_compatible_node in optee_presence_check function
+  instead of of_find_node_by_path("/firmware/optee")
+
+Changes in v2:
+- rebase series on linux-next/master
+- minor update after V1 revue
+
+Changes in v1:
+- update commit message to indicate DTS break reason.
+
+Patrick Delaunay (3):
+  ARM: dts: stm32mp13: fix compatible for BSEC
+  nvmem: stm32: add OP-TEE support for STM32MP13x
+  nvmem: stm32: detect bsec pta presence for STM32MP15x
+
+ arch/arm/boot/dts/stm32mp131.dtsi   |   2 +-
+ drivers/nvmem/Kconfig               |  11 +
+ drivers/nvmem/Makefile              |   1 +
+ drivers/nvmem/stm32-bsec-optee-ta.c | 298 ++++++++++++++++++++++++++++
+ drivers/nvmem/stm32-bsec-optee-ta.h |  80 ++++++++
+ drivers/nvmem/stm32-romem.c         |  84 +++++++-
+ 6 files changed, 472 insertions(+), 4 deletions(-)
+ create mode 100644 drivers/nvmem/stm32-bsec-optee-ta.c
+ create mode 100644 drivers/nvmem/stm32-bsec-optee-ta.h
+
+base-commit: c76083fac3bae1a87ae3d005b5cb1cbc761e31d5
+prerequisite-patch-id: 5aaa8fffbdd16871143808180b3932d80f4045d0
+prerequisite-patch-id: ae711dc528e191e4751cbb7402041fc5f185d6b3
 -- 
-2.39.0
+2.25.1
 
 _______________________________________________
 Linux-stm32 mailing list
