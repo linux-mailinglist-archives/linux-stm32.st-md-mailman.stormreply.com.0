@@ -2,47 +2,85 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A96526737DE
-	for <lists+linux-stm32@lfdr.de>; Thu, 19 Jan 2023 13:06:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E4829673865
+	for <lists+linux-stm32@lfdr.de>; Thu, 19 Jan 2023 13:28:47 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 57B3EC6904C;
-	Thu, 19 Jan 2023 12:06:33 +0000 (UTC)
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
- [85.220.165.71])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9357FC6904C;
+	Thu, 19 Jan 2023 12:28:47 +0000 (UTC)
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0F2FEC69048
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E021BC69048
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 19 Jan 2023 12:06:31 +0000 (UTC)
-Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77]
- helo=[127.0.0.1]) by metis.ext.pengutronix.de with esmtp (Exim 4.92)
- (envelope-from <a.fatoum@pengutronix.de>)
- id 1pITgU-0001is-CQ; Thu, 19 Jan 2023 13:06:22 +0100
-Message-ID: <729c4be6-00f7-4b88-235e-0e9bdeed3e5f@pengutronix.de>
-Date: Thu, 19 Jan 2023 13:06:19 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.5.0
-Content-Language: en-US
-To: Patrick Delaunay <patrick.delaunay@foss.st.com>,
- Alexandre TORGUE <alexandre.torgue@foss.st.com>,
- Rob Herring <robh+dt@kernel.org>,
+ Thu, 19 Jan 2023 12:28:45 +0000 (UTC)
+Received: from wf0783.dip.tu-dresden.de ([141.76.183.15] helo=phil.localnet)
+ by gloria.sntech.de with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.94.2)
+ (envelope-from <heiko@sntech.de>)
+ id 1pIU0w-0002qB-4T; Thu, 19 Jan 2023 13:27:30 +0100
+From: Heiko Stuebner <heiko@sntech.de>
+To: Mark Brown <broonie@kernel.org>, Rob Herring <robh+dt@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>
-References: <20230118172940.841094-1-patrick.delaunay@foss.st.com>
- <20230118182856.v6.1.I167a5efc1f8777cce14518c6fa38400ac684de3e@changeid>
-From: Ahmad Fatoum <a.fatoum@pengutronix.de>
-In-Reply-To: <20230118182856.v6.1.I167a5efc1f8777cce14518c6fa38400ac684de3e@changeid>
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:900:1d::77
-X-SA-Exim-Mail-From: a.fatoum@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
-Cc: devicetree@vger.kernel.org, Etienne CARRIERE <etienne.carriere@linaro.org>,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH v6 1/3] ARM: dts: stm32mp13: fix
- compatible for BSEC
+ Chen-Yu Tsai <wens@csie.org>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Samuel Holland <samuel@sholland.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Chin-Ting Kuo <chin-ting_kuo@aspeedtech.com>,
+ =?ISO-8859-1?Q?C=E9dric?= Le Goater <clg@kaod.org>,
+ Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@aj.id.au>,
+ Kamal Dasu <kdasu.kdev@gmail.com>,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Han Xu <han.xu@nxp.com>, Shawn Guo <shawnguo@kernel.org>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, NXP Linux Team <linux-imx@nxp.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>, Andy Gross <agross@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Serge Semin <fancer.lancer@gmail.com>, Haibo Chen <haibo.chen@nxp.com>,
+ Yogesh Gaur <yogeshgaur.83@gmail.com>,
+ Linus Walleij <linus.walleij@linaro.org>,
+ Palmer Dabbelt <palmer@dabbelt.com>,
+ Paul Walmsley <paul.walmsley@sifive.com>, Li-hao Kuo <lhjeff911@gmail.com>,
+ Michal Simek <michal.simek@xilinx.com>, Orson Zhai <orsonzhai@gmail.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Chunyan Zhang <zhang.lyra@gmail.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ =?utf-8?B?77+9ZWNraQ==?= <rafal@milecki.pl>,
+ Vaishnav Achath <vaishnav.a@ti.com>,
+ Parshuram Thombare <pthombar@cadence.com>,
+ Leilk Liu <leilk.liu@mediatek.com>, Gabor Juhos <juhosg@openwrt.org>,
+ Bert Vermeulen <bert@biot.com>, Miquel Raynal <miquel.raynal@bootlin.com>,
+ Marek Vasut <marex@denx.de>, Birger Koblitz <mail@birger-koblitz.de>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Anson Huang <Anson.Huang@nxp.com>,
+ Chris Packham <chris.packham@alliedtelesis.co.nz>,
+ Kuldeep Singh <singh.kuldeep87k@gmail.com>,
+ Pragnesh Patel <pragnesh.patel@sifive.com>,
+ Christophe Kerello <christophe.kerello@foss.st.com>,
+ Patrice Chotard <patrice.chotard@foss.st.com>,
+ Erwan Leray <erwan.leray@foss.st.com>,
+ Fabrice Gasnier <fabrice.gasnier@foss.st.com>, linux-spi@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org,
+ linux-amlogic@lists.infradead.org, linux-aspeed@lists.ozlabs.org,
+ openbmc@lists.ozlabs.org, linux-mediatek@lists.infradead.org,
+ linux-tegra@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-rockchip@lists.infradead.org, linux-riscv@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Date: Thu, 19 Jan 2023 13:27:26 +0100
+Message-ID: <4772603.GXAFRqVoOG@phil>
+In-Reply-To: <20230118173932.358153-1-krzysztof.kozlowski@linaro.org>
+References: <20230118173932.358153-1-krzysztof.kozlowski@linaro.org>
+MIME-Version: 1.0
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Subject: Re: [Linux-stm32] [PATCH 1/2] spi: dt-bindings: drop unneeded quotes
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,62 +97,31 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 18.01.23 18:29, Patrick Delaunay wrote:
-> Use the correct compatible for stm32mp13 support.
+Am Mittwoch, 18. Januar 2023, 18:39:31 CET schrieb Krzysztof Kozlowski:
+> Cleanup by removing unneeded quotes from refs and redundant blank lines.
+> No functional impact except adjusting to preferred coding style.
 > 
-> The BSEC driver for STM32MP15x is not compatible with STM32MP13x. For
-> example the proprietary's smc STM32_SMC_BSEC is not supported in
-> STM32MP13x OP-TEE, it is replaced by SM32MP BSEC Pseudo Trusted
-> Application in OP-TEE to access to the secured IP BSEC on STM32MP13X SoC.
-> 
-> The correct compatible is already used in U-Boot and in upstream is in
-> progress for OP-TEE device tree.
-> 
-> As the SoC STM32MP13X is not yet official and it is not available
-> outside STMicroelectronics, it is the good time to break the DTS
-> compatibility and to correct the error done in the introduction of
-> STM32MP131.
-> 
-> Signed-off-by: Patrick Delaunay <patrick.delaunay@foss.st.com>
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 
-Reviewed-by: Ahmad Fatoum <a.fatoum@pengutronix.de>
+[...]
 
-> ---
-> This patch is already sent separately in:
-> https://lore.kernel.org/all/20221017134437.1.I167a5efc1f8777cce14518c6fa38400ac684de3e@changeid/
-> https://patchwork.kernel.org/project/linux-arm-kernel/list/?series=685815
-> 
-> I create a serie for more efficient review.
-> 
-> Patrick.
-> 
-> (no changes since v1)
-> 
-> Changes in v1:
-> - update commit message to indicate DTS break reason.
-> 
->  arch/arm/boot/dts/stm32mp131.dtsi | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/arch/arm/boot/dts/stm32mp131.dtsi b/arch/arm/boot/dts/stm32mp131.dtsi
-> index accc3824f7e9..0b79380cc627 100644
-> --- a/arch/arm/boot/dts/stm32mp131.dtsi
-> +++ b/arch/arm/boot/dts/stm32mp131.dtsi
-> @@ -520,7 +520,7 @@ rtc: rtc@5c004000 {
->  		};
+> diff --git a/Documentation/devicetree/bindings/spi/spi-rockchip.yaml b/Documentation/devicetree/bindings/spi/spi-rockchip.yaml
+> index 66e49947b703..e4941e9212d1 100644
+> --- a/Documentation/devicetree/bindings/spi/spi-rockchip.yaml
+> +++ b/Documentation/devicetree/bindings/spi/spi-rockchip.yaml
+> @@ -11,7 +11,7 @@ description:
+>    as flash and display controllers using the SPI communication interface.
 >  
->  		bsec: efuse@5c005000 {
-> -			compatible = "st,stm32mp15-bsec";
-> +			compatible = "st,stm32mp13-bsec";
->  			reg = <0x5c005000 0x400>;
->  			#address-cells = <1>;
->  			#size-cells = <1>;
+>  allOf:
+> -  - $ref: "spi-controller.yaml#"
+> +  - $ref: spi-controller.yaml#
+>  
+>  maintainers:
+>    - Heiko Stuebner <heiko@sntech.de>
 
--- 
-Pengutronix e.K.                           |                             |
-Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
-31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
-Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
+For Rockchip:
+Reviewed-by: Heiko Stuebner <heiko@sntech.de>
+
 
 _______________________________________________
 Linux-stm32 mailing list
