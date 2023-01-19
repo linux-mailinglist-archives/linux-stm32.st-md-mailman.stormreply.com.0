@@ -2,58 +2,102 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A623B673D7F
-	for <lists+linux-stm32@lfdr.de>; Thu, 19 Jan 2023 16:30:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 914EA673E9D
+	for <lists+linux-stm32@lfdr.de>; Thu, 19 Jan 2023 17:23:47 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 39414C6904C;
-	Thu, 19 Jan 2023 15:30:22 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 24C25C6904C;
+	Thu, 19 Jan 2023 16:23:47 +0000 (UTC)
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com
+ [209.85.221.50])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E4149C69048
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 86616C69048
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 19 Jan 2023 15:30:20 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id CFBD8B8252B;
- Thu, 19 Jan 2023 15:30:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 62A2EC433EF;
- Thu, 19 Jan 2023 15:30:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1674142218;
- bh=FP4ru6E8Oo1JNr9DNk54UNNPsvn5fuH6fMcjfdBl9lY=;
- h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=bFB7tr99GI5Hq9EBVHmPrjqEzs9dqNrQDOhNaSTZhid/ub9KtLtAbp6OrBy+XmNZd
- Ys9K9qWgQGZpyCFNH5lCqncShoKEdtrNFA266NAB6zpE/qD6ZzYuobsVgof6W0XFC3
- smDWAszIxvhLusZnZm+S1wiJcv/xWWC4lmGNyooLA6sEPZtCMcTIueGF/qexVHMRL0
- GSqDqp59ittarba+p35/hEqdy+bVRKTY6oyU5blSnT90PMfmI5yNaNsMw1XGzUl31k
- gDr0yNHZtLCad1rWNA2lx7AZFozMamdVIkRPdHcdbqG9lVoP8sQvqoLVo+ySOAT4NR
- Eh/O2sbpfBD4g==
-Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
- 2E094E54D27; Thu, 19 Jan 2023 15:30:18 +0000 (UTC)
+ Thu, 19 Jan 2023 16:23:45 +0000 (UTC)
+Received: by mail-wr1-f50.google.com with SMTP id i4so1753867wrs.9
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 19 Jan 2023 08:23:45 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=+PcC7y3FS+HA6LTR16Kak4eGsTRhnH7QRvBCszT9C5U=;
+ b=OWsZGZ11elP4SzbvFuPicIoLtQvQgdqjQHT0EUCq9YSbAvdwb9nvSo63kZNE5WYSMb
+ m3bYZzWWZkK2BFpF7AI1la1QPxmBW5+32EJ6oMNgNGbtLQuhMW2srvFFT4yNQKmcCT+a
+ 1WKMbYW2N3hrUWZfoPBhHCUW/l0AHVY5YVa28nF+GHGTFYlx286xt3wzPq6YYUtC0cM/
+ thGP4Mgb8c19/HobPxN1HeBnO3RDu+oLrGGCnPhlkj2DXA9O2wa49uO8sf/45240GSof
+ YBXM7bXnJndVD1ceuTWCkL1u5eAbfyMuhx2ZmZwlxs9cfmodBlu1zkyJnGZU1iqX3jmw
+ ctqg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=+PcC7y3FS+HA6LTR16Kak4eGsTRhnH7QRvBCszT9C5U=;
+ b=ac8wxxDFVifJZq2e1SFqtvLhIhJT0f63g7hApwv7jAeEHUpaLG3fwVZNR1BeOnS69A
+ gThB0WFK46FKfx3pDP3y/064FADXjoo7bTFeSyfJ3LARwrHgKB3fILolebiNQwgFB9yY
+ oJPMcK14lQ6XCfLj0cQnd1kMKLKBZQKOGryLrfy+abrbvw71lFbQdMmoH39N272tvUAs
+ TsSoQqdnbxbTf5Ccv+9n86/rry2b5GmzvRizjpV7NgjF2zMez6UbYALvAeoXLTYTEtcp
+ SJwuz0DmLer/jaMeB0cdZRNstTPHKlzz84QNYjj7THVAM9Oa528wkHUvqQhxYQWEyhkI
+ mVcQ==
+X-Gm-Message-State: AFqh2koqAr99eQDb5mRI3ZO4Y96M91FpvR01lxoX3Hhi6gAKqSpMQKsV
+ fmbCMWkqL75ady6qXMBm5rk=
+X-Google-Smtp-Source: AMrXdXtIzYjj/CzYqkow+WPiYOG8ccH53zjNKZrQ2FyPIsv67Z3n3uwh+vn0p8V5ULjrCdWWyoakDg==
+X-Received: by 2002:adf:f18e:0:b0:2bd:e8bd:79ce with SMTP id
+ h14-20020adff18e000000b002bde8bd79cemr9683654wro.20.1674145424906; 
+ Thu, 19 Jan 2023 08:23:44 -0800 (PST)
+Received: from [192.168.2.177] ([207.188.167.132])
+ by smtp.gmail.com with ESMTPSA id
+ b10-20020adfe64a000000b00287da7ee033sm34552910wrn.46.2023.01.19.08.23.40
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 19 Jan 2023 08:23:44 -0800 (PST)
+Message-ID: <b9f20fce-9091-27ab-11c3-0670835ce0e7@gmail.com>
+Date: Thu, 19 Jan 2023 17:23:39 +0100
 MIME-Version: 1.0
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <167414221817.31934.14400606803161415762.git-patchwork-notify@kernel.org>
-Date: Thu, 19 Jan 2023 15:30:18 +0000
-References: <20230116-net-next-remove-probe-capabilities-v2-0-15513b05e1f4@walle.cc>
-In-Reply-To: <20230116-net-next-remove-probe-capabilities-v2-0-15513b05e1f4@walle.cc>
-To: Michael Walle <michael@walle.cc>
-Cc: andrew@lunn.ch, linux-aspeed@lists.ozlabs.org, jesse.brandeburg@intel.com,
- edumazet@google.com, linux-stm32@st-md-mailman.stormreply.com,
- linux@armlinux.org.uk, joabreu@synopsys.com, joel@jms.id.au, kuba@kernel.org,
- pabeni@redhat.com, lorenzo@kernel.org, Mark-MC.Lee@mediatek.com,
- sean.wang@mediatek.com, linux-mediatek@lists.infradead.org, john@phrozen.org,
- matthias.bgg@gmail.com, peppe.cavallaro@st.com,
- linux-arm-kernel@lists.infradead.org, andrew@aj.id.au,
- bryan.whitehead@microchip.com, linux-kernel@vger.kernel.org,
- UNGLinuxDriver@microchip.com, mcoquelin.stm32@gmail.com,
- netdev@vger.kernel.org, hkallweit1@gmail.com, davem@davemloft.net,
- nbd@nbd.name
-Subject: Re: [Linux-stm32] [PATCH net-next v2 0/6] net: phy: Remove
-	probe_capabilities
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.1
+Content-Language: en-US
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Vinod Koul <vkoul@kernel.org>, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Chen-Yu Tsai <wens@csie.org>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Samuel Holland <samuel@sholland.org>,
+ Olivier Dautricourt <olivierdautricourt@gmail.com>, Stefan Roese
+ <sr@denx.de>, Hector Martin <marcan@marcan.st>,
+ Sven Peter <sven@svenpeter.dev>, Alyssa Rosenzweig <alyssa@rosenzweig.io>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>, =?UTF-8?Q?Andreas_F=c3=a4rber?=
+ <afaerber@suse.de>, Manivannan Sadhasivam <mani@kernel.org>,
+ Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Viresh Kumar <vireshk@kernel.org>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Green Wan <green.wan@sifive.com>, Paul Walmsley <paul.walmsley@sifive.com>,
+ Palmer Dabbelt <palmer@dabbelt.com>,
+ Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>,
+ Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
+ Masami Hiramatsu <mhiramat@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Maxime Ripard <mripard@kernel.org>, =?UTF-8?B?77+9ZXI=?=
+ <povik+lin@cutebit.org>, Peng Fan <peng.fan@nxp.com>,
+ Paul Cercueil <paul@crapouillou.net>, - <chuanhua.lei@intel.com>,
+ Long Cheng <long.cheng@mediatek.com>, Rajesh Gumasta <rgumasta@nvidia.com>,
+ Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
+ Biju Das <biju.das.jz@bp.renesas.com>,
+ Miquel Raynal <miquel.raynal@bootlin.com>, Palmer Debbelt
+ <palmer@sifive.com>, Masahiro Yamada <yamada.masahiro@socionext.com>,
+ Amelie Delaunay <amelie.delaunay@foss.st.com>,
+ Linus Walleij <linus.walleij@linaro.org>, dmaengine@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org,
+ asahi@lists.linux.dev, linux-tegra@vger.kernel.org,
+ linux-actions@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+ linux-riscv@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-mediatek@lists.infradead.org
+References: <20230118180144.364756-1-krzysztof.kozlowski@linaro.org>
+From: Matthias Brugger <matthias.bgg@gmail.com>
+In-Reply-To: <20230118180144.364756-1-krzysztof.kozlowski@linaro.org>
+Subject: Re: [Linux-stm32] [PATCH 1/2] dt-bindings: dma: drop unneeded quotes
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -65,50 +109,49 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello:
 
-This series was applied to netdev/net-next.git (master)
-by Paolo Abeni <pabeni@redhat.com>:
 
-On Wed, 18 Jan 2023 11:01:35 +0100 you wrote:
-> With all the drivers which used .probe_capabilities converted to the
-> new c45 MDIO access methods, we can now decide based upon these whether
-> a bus driver supports c45 and we can get rid of the not widely used
-> probe_capabilites.
+On 18/01/2023 19:01, Krzysztof Kozlowski wrote:
+> Cleanup by removing unneeded quotes from refs and redundant blank lines.
+> No functional impact except adjusting to preferred coding style.
 > 
-> Unfortunately, due to a now broader support of c45 scans, this will
-> trigger a bug on some boards with a (c22-only) Micrel PHY. These PHYs
-> don't ignore c45 accesses correctly, thinking they are addressed
-> themselves and distrupt the MDIO access. To avoid this, a blacklist
-> for c45 scans is introduced.
-> 
-> [...]
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> ---
+>   .../devicetree/bindings/dma/allwinner,sun4i-a10-dma.yaml        | 2 +-
+>   .../devicetree/bindings/dma/allwinner,sun50i-a64-dma.yaml       | 2 +-
+>   .../devicetree/bindings/dma/allwinner,sun6i-a31-dma.yaml        | 2 +-
+>   Documentation/devicetree/bindings/dma/altr,msgdma.yaml          | 2 +-
+>   Documentation/devicetree/bindings/dma/apple,admac.yaml          | 2 +-
+>   Documentation/devicetree/bindings/dma/arm-pl08x.yaml            | 2 +-
+>   Documentation/devicetree/bindings/dma/dma-controller.yaml       | 2 +-
+>   Documentation/devicetree/bindings/dma/dma-router.yaml           | 2 +-
+>   Documentation/devicetree/bindings/dma/fsl,edma.yaml             | 2 +-
+>   Documentation/devicetree/bindings/dma/ingenic,dma.yaml          | 2 +-
+>   Documentation/devicetree/bindings/dma/intel,ldma.yaml           | 2 +-
+>   Documentation/devicetree/bindings/dma/mediatek,uart-dma.yaml    | 2 +-
 
-Here is the summary with links:
-  - [net-next,v2,1/6] net: mdio: Move mdiobus_scan() within file
-    https://git.kernel.org/netdev/net-next/c/81d874e7c84e
-  - [net-next,v2,2/6] net: mdio: Rework scanning of bus ready for quirks
-    https://git.kernel.org/netdev/net-next/c/d41e127757f3
-  - [net-next,v2,3/6] net: mdio: Add workaround for Micrel PHYs which are not C45 compatible
-    https://git.kernel.org/netdev/net-next/c/348659337485
-  - [net-next,v2,4/6] net: mdio: scan bus based on bus capabilities for C22 and C45
-    https://git.kernel.org/netdev/net-next/c/1a136ca2e089
-  - [net-next,v2,5/6] net: phy: Decide on C45 capabilities based on presence of method
-    https://git.kernel.org/netdev/net-next/c/fbfe97597c77
-  - [net-next,v2,6/6] net: phy: Remove probe_capabilities
-    https://git.kernel.org/netdev/net-next/c/da099a7fb13d
+[...]
 
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+> diff --git a/Documentation/devicetree/bindings/dma/mediatek,uart-dma.yaml b/Documentation/devicetree/bindings/dma/mediatek,uart-dma.yaml
+> index 9ab4d81ead35..dab468a88942 100644
+> --- a/Documentation/devicetree/bindings/dma/mediatek,uart-dma.yaml
+> +++ b/Documentation/devicetree/bindings/dma/mediatek,uart-dma.yaml
+> @@ -14,7 +14,7 @@ description: |
+>     for the UART peripheral bus.
+>   
+>   allOf:
+> -  - $ref: "dma-controller.yaml#"
+> +  - $ref: dma-controller.yaml#
+>   
+>   properties:
+>     compatible:
 
-
+Reviewed-by: Matthias Brugger <matthias.bgg@gmail.com>
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
