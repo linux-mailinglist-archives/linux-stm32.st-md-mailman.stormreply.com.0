@@ -2,93 +2,102 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6F433674FD0
+	by mail.lfdr.de (Postfix) with ESMTPS id 7C7D9674FD1
 	for <lists+linux-stm32@lfdr.de>; Fri, 20 Jan 2023 09:52:52 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 10228C69056;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2385CC6905A;
 	Fri, 20 Jan 2023 08:52:52 +0000 (UTC)
-Received: from mx.sberdevices.ru (mx.sberdevices.ru [45.89.227.171])
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 20083C69048
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2E5AAC6904A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 19 Jan 2023 20:14:30 +0000 (UTC)
-Received: from s-lin-edge02.sberdevices.ru (localhost [127.0.0.1])
- by mx.sberdevices.ru (Postfix) with ESMTP id E94845FD0B;
- Thu, 19 Jan 2023 23:14:28 +0300 (MSK)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sberdevices.ru;
- s=mail; t=1674159269;
- bh=aaR9evVc2lGAxgc1j/OH4BgiwZu8Sx2LjYz7IF3WmyE=;
- h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type;
- b=IVx6sMXPad9O6kUyupdXBr38dNNjeS2a9tD41LuD4fjg0SBi+eegOpmcl4idROZi8
- Fj0ju5drKSGyEfmAIiRaxvRXYE9dUXnRl7iNpZDNJRsSWmmL1TqghFQ0DXGso8uxjP
- jaCeVZRxvavFnXcGDusMsMHMMQKsQ+F7+KvXvZdUFbf9FHGzDtOzmJzfFeHBZ5K+rL
- WhBddfYAXt817R0Yos21SaAuqpgqim/9KGZnlzx7r6buXEjO4rOSKRCZ+rJ23MOSwa
- mrfYbzZ4VXevWpK0F4sDEHuBG1avsWWHVFIZtYkMpbAfmNWAkXfkZmhYwzNBQm47Np
- QM1+cGt7qWMfg==
-Received: from S-MS-EXCH01.sberdevices.ru (S-MS-EXCH01.sberdevices.ru
- [172.16.1.4]) by mx.sberdevices.ru (Postfix) with ESMTP;
- Thu, 19 Jan 2023 23:14:14 +0300 (MSK)
-Date: Thu, 19 Jan 2023 23:14:14 +0300
-From: Dmitry Rokosov <ddrokosov@sberdevices.ru>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Message-ID: <20230119201414.2gt2lw2qozm7vyjh@CAB-WSD-L081021>
-References: <20230118184413.395820-1-krzysztof.kozlowski@linaro.org>
+ Thu, 19 Jan 2023 21:57:09 +0000 (UTC)
+Received: from pps.filterd (m0098419.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 30JLT8bu030467; Thu, 19 Jan 2023 21:56:48 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=pp1;
+ bh=xHuzXeNDiIwndNWeKonBxc5KI/X0aMeH30RDkuA23Fg=;
+ b=D0cDcR8t7UzfNGwH0forG3q5QiVPdLRMK1YjkWalcDmqA6U2UGQMCtlCBfemNRT2ntfS
+ SR1PhBUFqr9Ao4MsJnQolfs+mkiDm+H6M4jfKa30SWkI1c5tzG3nk65NlFhDhZK8KqY5
+ 0hlNVGLoMZ7FjiR6VVSLb63oge3vJDIHiUObNV1fzayr8835Bl1L9DNUmsMv9Lh3ZtOv
+ +whCbWcBOmd1ZMKKAYksDP5iicxIibLX+kVbwnWxkMxZqnEzhwQEXDYaAaestpqVbOKw
+ rcbzvJJk4qWz8J/US57JALqxYIx14Nln2nL0zUXcEjye2WlvcDnWLl7vq2IeP02YzvRI mA== 
+Received: from pps.reinject (localhost [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (PPS) with ESMTPS id 3n7dtqrkwq-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 19 Jan 2023 21:56:48 +0000
+Received: from m0098419.ppops.net (m0098419.ppops.net [127.0.0.1])
+ by pps.reinject (8.17.1.5/8.17.1.5) with ESMTP id 30JLulA7031690;
+ Thu, 19 Jan 2023 21:56:47 GMT
+Received: from ppma02dal.us.ibm.com (a.bd.3ea9.ip4.static.sl-reverse.com
+ [169.62.189.10])
+ by mx0b-001b2d01.pphosted.com (PPS) with ESMTPS id 3n7dtqrkwj-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 19 Jan 2023 21:56:47 +0000
+Received: from pps.filterd (ppma02dal.us.ibm.com [127.0.0.1])
+ by ppma02dal.us.ibm.com (8.17.1.19/8.17.1.19) with ESMTP id 30JJeXoe005711;
+ Thu, 19 Jan 2023 21:56:46 GMT
+Received: from smtprelay05.dal12v.mail.ibm.com ([9.208.130.101])
+ by ppma02dal.us.ibm.com (PPS) with ESMTPS id 3n3m180852-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 19 Jan 2023 21:56:46 +0000
+Received: from smtpav01.wdc07v.mail.ibm.com (smtpav01.wdc07v.mail.ibm.com
+ [10.39.53.228])
+ by smtprelay05.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 30JLuiOH6750758
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Thu, 19 Jan 2023 21:56:45 GMT
+Received: from smtpav01.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id D8E7E5804B;
+ Thu, 19 Jan 2023 21:56:44 +0000 (GMT)
+Received: from smtpav01.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 3A2C158055;
+ Thu, 19 Jan 2023 21:56:41 +0000 (GMT)
+Received: from [9.160.87.67] (unknown [9.160.87.67])
+ by smtpav01.wdc07v.mail.ibm.com (Postfix) with ESMTP;
+ Thu, 19 Jan 2023 21:56:41 +0000 (GMT)
+Message-ID: <7eac2ce1-7ee9-7783-a9f2-9ec2f7019096@linux.ibm.com>
+Date: Thu, 19 Jan 2023 16:56:40 -0500
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20230118184413.395820-1-krzysztof.kozlowski@linaro.org>
-User-Agent: NeoMutt/20220415
-X-Originating-IP: [172.16.1.6]
-X-ClientProxiedBy: S-MS-EXCH02.sberdevices.ru (172.16.1.5) To
- S-MS-EXCH01.sberdevices.ru (172.16.1.4)
-X-KSMG-Rule-ID: 4
-X-KSMG-Message-Action: clean
-X-KSMG-AntiSpam-Status: not scanned, disabled by settings
-X-KSMG-AntiSpam-Interceptor-Info: not scanned
-X-KSMG-AntiPhishing: not scanned, disabled by settings
-X-KSMG-AntiVirus: Kaspersky Secure Mail Gateway, version 1.1.2.30,
- bases: 2023/01/19 16:54:00 #20783955
-X-KSMG-AntiVirus-Status: Clean, skipped
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.0
+Content-Language: en-US
+To: Jason Gunthorpe <jgg@nvidia.com>, Lu Baolu <baolu.lu@linux.intel.com>,
+ Joerg Roedel <joro@8bytes.org>, Kevin Tian <kevin.tian@intel.com>,
+ Robin Murphy <robin.murphy@arm.com>
+References: <9-v2-ce66f632bd0d+484-iommu_map_gfp_jgg@nvidia.com>
+From: Matthew Rosato <mjrosato@linux.ibm.com>
+In-Reply-To: <9-v2-ce66f632bd0d+484-iommu_map_gfp_jgg@nvidia.com>
+X-TM-AS-GCONF: 00
+X-Proofpoint-GUID: a1NkOyV4AkAwQdPDo6-7oJAzOHK_-aAo
+X-Proofpoint-ORIG-GUID: V_h4SUwdpkFLvdx1u4mhG5SO4ES7urEl
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.219,Aquarius:18.0.930,Hydra:6.0.562,FMLib:17.11.122.1
+ definitions=2023-01-19_14,2023-01-19_01,2022-06-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0
+ impostorscore=0 bulkscore=0 clxscore=1011 adultscore=0 malwarescore=0
+ lowpriorityscore=0 mlxlogscore=853 priorityscore=1501 mlxscore=0
+ spamscore=0 phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2212070000 definitions=main-2301190181
 X-Mailman-Approved-At: Fri, 20 Jan 2023 08:52:50 +0000
-Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Nishant Malpani <nish.malpani25@gmail.com>,
- Linus Walleij <linus.walleij@linaro.org>,
- Jean-Baptiste Maneyrol <jmaneyrol@invensense.com>,
- Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>,
- Sankar Velliangiri <navin@linumiz.com>, Alim Akhtar <alim.akhtar@samsung.com>,
- Miquel Raynal <miquel.raynal@bootlin.com>, Guenter Roeck <groeck@chromium.org>,
- chrome-platform@lists.linux.dev, linux-stm32@st-md-mailman.stormreply.com,
- linux-renesas-soc@vger.kernel.org,
- Marcus Folkesson <marcus.folkesson@gmail.com>,
- Lars-Peter Clausen <lars@metafoo.de>, Artur Rojek <contact@artur-rojek.eu>,
- Daniel Baluta <daniel.baluta@nxp.com>,
- Dragos Bogdan <dragos.bogdan@analog.com>,
- Matt Ranostay <matt.ranostay@konsulko.com>, linux-samsung-soc@vger.kernel.org,
- Stefan Popa <stefan.popa@analog.com>, Sean Nyekjaer <sean@geanix.com>,
- Marcelo Schmitt <marcelo.schmitt1@gmail.com>,
- Lorenzo Bianconi <lorenzo@kernel.org>,
- Alexandru Tachici <alexandru.tachici@analog.com>, devicetree@vger.kernel.org,
- kernel@pengutronix.de, Michael Hennerich <Michael.Hennerich@analog.com>,
- Alexandru Lazar <alazar@startmail.com>, linux-kernel@vger.kernel.org,
- Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
- Stephen Boyd <swboyd@chromium.org>, Rui Miguel Silva <rmfrfs@gmail.com>,
- Rob Herring <robh+dt@kernel.org>, Andreas Klinger <ak@it-klinger.de>,
- linux-fbdev@vger.kernel.org, Renato Lui Geh <renatogeh@gmail.com>,
- Phil Reid <preid@electromag.com.au>, Benson Leung <bleung@chromium.org>,
- Lucas Stankus <lucas.p.stankus@gmail.com>,
- linux-arm-kernel@lists.infradead.org,
- Caleb Connolly <caleb.connolly@linaro.org>,
- Puranjay Mohan <puranjay12@gmail.com>, Philippe Reynes <tremyfr@yahoo.fr>,
- Nicolas Ferre <nicolas.ferre@microchip.com>, linux-iio@vger.kernel.org,
- Oleksij Rempel <linux@rempel-privat.de>,
- Eugene Zaikonnikov <ez@norophonic.com>, Stefan Agner <stefan@agner.ch>,
- Robert Yang <decatf@gmail.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Harald Geyer <harald@ccbib.org>, Eugen Hristev <eugen.hristev@microchip.com>,
- Kent Gustavsson <kent@minoris.se>,
- Claudiu Beznea <claudiu.beznea@microchip.com>,
- Jonathan Cameron <jic23@kernel.org>
-Subject: Re: [Linux-stm32] [PATCH 1/5] dt-bindings: iio: drop unneeded quotes
+Cc: linux-s390@vger.kernel.org, kvm@vger.kernel.org,
+ nouveau@lists.freedesktop.org, linux-rdma@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, Niklas Schnelle <schnelle@linux.ibm.com>,
+ linux-remoteproc@vger.kernel.org, iommu@lists.linux.dev,
+ dri-devel@lists.freedesktop.org, linux-stm32@st-md-mailman.stormreply.com,
+ Alex Williamson <alex.williamson@redhat.com>, netdev@vger.kernel.org,
+ ath10k@lists.infradead.org, linux-wireless@vger.kernel.org,
+ linux-tegra@vger.kernel.org, Christian Borntraeger <borntraeger@linux.ibm.com>,
+ virtualization@lists.linux-foundation.org, ath11k@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH v2 09/10] iommu/s390: Push the gfp
+ parameter to the kmem_cache_alloc()'s
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -105,60 +114,23 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Dear Krzysztof,
-
-Thank you for the patch!
-I'm okay with changes to memsensing,msa311.yaml schema.
-
-On Wed, Jan 18, 2023 at 07:44:09PM +0100, Krzysztof Kozlowski wrote:
-> Cleanup by removing unneeded quotes from refs and redundant blank lines.
-> No functional impact except adjusting to preferred coding style.
+On 1/18/23 1:00 PM, Jason Gunthorpe wrote:
+> dma_alloc_cpu_table() and dma_alloc_page_table() are eventually called by
+> iommufd through s390_iommu_map_pages() and it should not be forced to
+> atomic. Thread the gfp parameter through the call chain starting from
+> s390_iommu_map_pages().
 > 
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> Reviewed-by: Niklas Schnelle <schnelle@linux.ibm.com>
+> Signed-off-by: Jason Gunthorpe <jgg@nvidia.com>
 > ---
->  .../devicetree/bindings/iio/accel/memsensing,msa311.yaml  | 5 ++---
->  Documentation/devicetree/bindings/iio/adc/adi,ad7124.yaml | 2 +-
->  Documentation/devicetree/bindings/iio/adc/adi,ad7292.yaml | 2 +-
->  .../devicetree/bindings/iio/adc/atmel,sama5d2-adc.yaml    | 2 +-
->  Documentation/devicetree/bindings/iio/adc/avia-hx711.yaml | 4 ++--
->  .../devicetree/bindings/iio/adc/ingenic,adc.yaml          | 4 ++--
->  .../devicetree/bindings/iio/adc/microchip,mcp3911.yaml    | 4 ++--
->  .../devicetree/bindings/iio/adc/renesas,rzg2l-adc.yaml    | 2 +-
->  .../devicetree/bindings/iio/adc/samsung,exynos-adc.yaml   | 2 +-
->  .../devicetree/bindings/iio/adc/st,stm32-adc.yaml         | 8 ++++----
->  .../devicetree/bindings/iio/adc/ti,ads131e08.yaml         | 2 +-
->  Documentation/devicetree/bindings/iio/adc/ti,tsc2046.yaml | 2 +-
->  .../devicetree/bindings/iio/dac/lltc,ltc1660.yaml         | 4 ++--
->  .../devicetree/bindings/iio/dac/lltc,ltc2632.yaml         | 4 ++--
->  .../devicetree/bindings/iio/dac/st,stm32-dac.yaml         | 4 ++--
->  Documentation/devicetree/bindings/iio/imu/st,lsm6dsx.yaml | 2 +-
->  .../devicetree/bindings/iio/temperature/ti,tmp117.yaml    | 6 +++---
->  17 files changed, 29 insertions(+), 30 deletions(-)
+>  arch/s390/include/asm/pci_dma.h |  5 +++--
+>  arch/s390/pci/pci_dma.c         | 31 +++++++++++++++++--------------
+>  drivers/iommu/s390-iommu.c      | 15 +++++++++------
+>  3 files changed, 29 insertions(+), 22 deletions(-)
 > 
-> diff --git a/Documentation/devicetree/bindings/iio/accel/memsensing,msa311.yaml b/Documentation/devicetree/bindings/iio/accel/memsensing,msa311.yaml
-> index 23528dcaa073..d530ec041fe7 100644
-> --- a/Documentation/devicetree/bindings/iio/accel/memsensing,msa311.yaml
-> +++ b/Documentation/devicetree/bindings/iio/accel/memsensing,msa311.yaml
-> @@ -1,9 +1,8 @@
->  # SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-> -
->  %YAML 1.2
->  ---
-> -$id: "http://devicetree.org/schemas/iio/accel/memsensing,msa311.yaml#"
-> -$schema: "http://devicetree.org/meta-schemas/core.yaml#"
-> +$id: http://devicetree.org/schemas/iio/accel/memsensing,msa311.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
->  
->  title: MEMSensing digital 3-Axis accelerometer
->  
 
-Reviewed-by: Dmitry Rokosov <ddrokosov@sberdevices.ru>
+Reviewed-by: Matthew Rosato <mjrosato@linux.ibm.com>
 
-[...]
-
--- 
-Thank you,
-Dmitry
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
