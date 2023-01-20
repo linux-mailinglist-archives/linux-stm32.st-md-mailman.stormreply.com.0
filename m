@@ -2,39 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 36236675240
-	for <lists+linux-stm32@lfdr.de>; Fri, 20 Jan 2023 11:21:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D5BD5675974
+	for <lists+linux-stm32@lfdr.de>; Fri, 20 Jan 2023 17:03:43 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D8472C6904C;
-	Fri, 20 Jan 2023 10:21:49 +0000 (UTC)
-Received: from formenos.hmeau.com (helcar.hmeau.com [216.24.177.18])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5C400C6904C;
+	Fri, 20 Jan 2023 16:03:43 +0000 (UTC)
+Received: from phobos.denx.de (phobos.denx.de [85.214.62.61])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DB79CC6410A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1757DC6410A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 20 Jan 2023 10:21:47 +0000 (UTC)
-Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
- by formenos.hmeau.com with smtp (Exim 4.94.2 #2 (Debian))
- id 1pIoWd-002BGR-8C; Fri, 20 Jan 2023 18:21:36 +0800
-Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation);
- Fri, 20 Jan 2023 18:21:35 +0800
-Date: Fri, 20 Jan 2023 18:21:35 +0800
-From: Herbert Xu <herbert@gondor.apana.org.au>
-To: Linus Walleij <linus.walleij@linaro.org>
-Message-ID: <Y8prL1fzhdf1jEyT@gondor.apana.org.au>
-References: <20221227-ux500-stm32-hash-v2-0-bc443bc44ca4@linaro.org>
- <20221227-ux500-stm32-hash-v2-5-bc443bc44ca4@linaro.org>
+ Fri, 20 Jan 2023 16:03:42 +0000 (UTC)
+Received: from tr.lan (ip-86-49-120-218.bb.vodafone.cz [86.49.120.218])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
+ (No client certificate requested)
+ (Authenticated sender: marex@denx.de)
+ by phobos.denx.de (Postfix) with ESMTPSA id 7964E8543D;
+ Fri, 20 Jan 2023 17:03:40 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de;
+ s=phobos-20191101; t=1674230621;
+ bh=7iwSVJjWAqytyJHFAvrWcuyVaAWRsRuLmc4hzjx3SH4=;
+ h=From:To:Cc:Subject:Date:From;
+ b=u4ucBSHkvElRXE7poayhV2cS1jbQdSrPpppaO5iY8Rod6E/jTl91xwwAGKn+4BRmS
+ R9RFuro0SPbq1h7t4MCcJEHJqFKVh3sgOmaa9uEge6nffl4kLBjVMjhvfEWTFsCjxp
+ sczbtXmiACT8DUB1zPWc4ms0ebuFOFOE866bXu4UBvxSiT3uLaBRUQjI4ki7mJ+ako
+ zqvGgyceWd3U1O03hsmvMVCzbVCNU2uH2pm/7289vBdhnAr80k64K7VjIEeoA2ISYw
+ FTorpQrE3GEv4mLzBmCAwXoyMhi4kLy44vXsVpq226rsMXubfLJL1fgL6J27/jNBsR
+ 86rz1V7tQlhcQ==
+From: Marek Vasut <marex@denx.de>
+To: linux-serial@vger.kernel.org
+Date: Fri, 20 Jan 2023 17:03:32 +0100
+Message-Id: <20230120160332.57930-1-marex@denx.de>
+X-Mailer: git-send-email 2.39.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20221227-ux500-stm32-hash-v2-5-bc443bc44ca4@linaro.org>
-Cc: devicetree@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Rob Herring <robh+dt@kernel.org>, linux-crypto@vger.kernel.org,
+X-Virus-Scanned: clamav-milter 0.103.6 at phobos.denx.de
+X-Virus-Status: Clean
+Cc: Marek Vasut <marex@denx.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>, stable@vger.kernel.org,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2 5/6] crypto: stm32/hash: Support Ux500
-	hash
+ Thomas Gleixner <tglx@linutronix.de>, Jiri Slaby <jirislaby@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH v6] serial: stm32: Merge hard IRQ and threaded
+	IRQ handling into single IRQ handler
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -51,70 +61,115 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Jan 10, 2023 at 08:19:16PM +0100, Linus Walleij wrote:
->  
-> +static void stm32_hash_emptymsg_fallback(struct ahash_request *req)
-> +{
-> +	struct crypto_ahash *ahash = crypto_ahash_reqtfm(req);
-> +	struct stm32_hash_ctx *ctx = crypto_ahash_ctx(ahash);
-> +	struct stm32_hash_request_ctx *rctx = ahash_request_ctx(req);
-> +	struct stm32_hash_dev *hdev = rctx->hdev;
-> +	struct crypto_shash *xtfm;
-> +	struct shash_desc *sdesc;
-> +	size_t len;
-> +	int ret;
-> +
-> +	dev_dbg(hdev->dev, "use fallback message size 0 key size %d\n",
-> +		ctx->keylen);
-> +	xtfm = crypto_alloc_shash(crypto_ahash_alg_name(ahash),
-> +				  0, CRYPTO_ALG_NEED_FALLBACK);
-> +	if (IS_ERR(xtfm)) {
-> +		dev_err(hdev->dev, "failed to allocate synchronous fallback\n");
-> +		return;
-> +	}
-> +
-> +	len = sizeof(*sdesc) + crypto_shash_descsize(xtfm);
-> +	sdesc = kmalloc(len, GFP_KERNEL);
-> +	if (!sdesc)
-> +		goto err_hashkey_sdesc;
-> +	sdesc->tfm = xtfm;
-> +
-> +	if (ctx->keylen) {
-> +		ret = crypto_shash_setkey(xtfm, ctx->key, ctx->keylen);
-> +		if (ret) {
-> +			dev_err(hdev->dev, "failed to set key ret=%d\n", ret);
-> +			goto err_hashkey;
-> +		}
-> +	}
-> +
-> +	ret = crypto_shash_init(sdesc);
-> +	if (ret) {
-> +		dev_err(hdev->dev, "shash init error ret=%d\n", ret);
-> +		goto err_hashkey;
-> +	}
-> +
-> +	ret = crypto_shash_finup(sdesc, NULL, 0, rctx->digest);
-> +	if (ret)
-> +		dev_err(hdev->dev, "shash finup error\n");
-> +err_hashkey:
-> +	kfree(sdesc);
-> +err_hashkey_sdesc:
-> +	crypto_free_shash(xtfm);
-> +}
+Requesting an interrupt with IRQF_ONESHOT will run the primary handler
+in the hard-IRQ context even in the force-threaded mode. The
+force-threaded mode is used by PREEMPT_RT in order to avoid acquiring
+sleeping locks (spinlock_t) in hard-IRQ context. This combination
+makes it impossible and leads to "sleeping while atomic" warnings.
 
-Calling crypto_alloc_shash is not allowed in this context.  For
-example, we might have been called down from the block layer due to
-swapping.  Even if you intermediate this with kernel threads, it
-still doesn't change the nature of the dead-lock.
+Use one interrupt handler for both handlers (primary and secondary)
+and drop the IRQF_ONESHOT flag which is not needed.
 
-So if you need a fallback for zero-length messages, just allocate
-it unconditionally in the init_tfm function.
+Fixes: e359b4411c283 ("serial: stm32: fix threaded interrupt handling")
+Reviewed-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Tested-by: Valentin Caron <valentin.caron@foss.st.com> # V3
+Signed-off-by: Marek Vasut <marex@denx.de>
+Cc: stable@vger.kernel.org
+---
+Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
+Cc: Erwan Le Ray <erwan.leray@foss.st.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Jiri Slaby <jirislaby@kernel.org>
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Cc: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Cc: Thomas Gleixner <tglx@linutronix.de>
+Cc: Valentin Caron <valentin.caron@foss.st.com>
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-stm32@st-md-mailman.stormreply.com
+To: linux-serial@vger.kernel.org
+---
+V2: - Update patch subject, was:
+      serial: stm32: Move hard IRQ handling to threaded interrupt context
+    - Use request_irq() instead, rename the IRQ handler function
+V3: - Update the commit message per suggestion from Sebastian
+    - Add RB from Sebastian
+    - Add Fixes tag
+V4: - Remove uart_console() deadlock check from
+      stm32_usart_of_dma_rx_probe()
+    - Use plain spin_lock()/spin_unlock() instead of the
+      _irqsave/_irqrestore variants in IRQ handler
+    - Add TB from Valentin
+V5: - Add CC stable@
+    - Do not move the sr variable, removes one useless hunk from the patch
+V6: - Replace uart_unlock_and_check_sysrq_irqrestore with uart_unlock_and_check_sysrq
+      and drop last instance of flags
+---
+ drivers/tty/serial/stm32-usart.c | 33 +++++---------------------------
+ 1 file changed, 5 insertions(+), 28 deletions(-)
 
-Cheers,
+diff --git a/drivers/tty/serial/stm32-usart.c b/drivers/tty/serial/stm32-usart.c
+index a1490033aa164..409e91d6829a5 100644
+--- a/drivers/tty/serial/stm32-usart.c
++++ b/drivers/tty/serial/stm32-usart.c
+@@ -797,25 +797,11 @@ static irqreturn_t stm32_usart_interrupt(int irq, void *ptr)
+ 		spin_unlock(&port->lock);
+ 	}
+ 
+-	if (stm32_usart_rx_dma_enabled(port))
+-		return IRQ_WAKE_THREAD;
+-	else
+-		return IRQ_HANDLED;
+-}
+-
+-static irqreturn_t stm32_usart_threaded_interrupt(int irq, void *ptr)
+-{
+-	struct uart_port *port = ptr;
+-	struct tty_port *tport = &port->state->port;
+-	struct stm32_port *stm32_port = to_stm32_port(port);
+-	unsigned int size;
+-	unsigned long flags;
+-
+ 	/* Receiver timeout irq for DMA RX */
+-	if (!stm32_port->throttled) {
+-		spin_lock_irqsave(&port->lock, flags);
++	if (stm32_usart_rx_dma_enabled(port) && !stm32_port->throttled) {
++		spin_lock(&port->lock);
+ 		size = stm32_usart_receive_chars(port, false);
+-		uart_unlock_and_check_sysrq_irqrestore(port, flags);
++		uart_unlock_and_check_sysrq(port);
+ 		if (size)
+ 			tty_flip_buffer_push(tport);
+ 	}
+@@ -1015,10 +1001,8 @@ static int stm32_usart_startup(struct uart_port *port)
+ 	u32 val;
+ 	int ret;
+ 
+-	ret = request_threaded_irq(port->irq, stm32_usart_interrupt,
+-				   stm32_usart_threaded_interrupt,
+-				   IRQF_ONESHOT | IRQF_NO_SUSPEND,
+-				   name, port);
++	ret = request_irq(port->irq, stm32_usart_interrupt,
++			  IRQF_NO_SUSPEND, name, port);
+ 	if (ret)
+ 		return ret;
+ 
+@@ -1601,13 +1585,6 @@ static int stm32_usart_of_dma_rx_probe(struct stm32_port *stm32port,
+ 	struct dma_slave_config config;
+ 	int ret;
+ 
+-	/*
+-	 * Using DMA and threaded handler for the console could lead to
+-	 * deadlocks.
+-	 */
+-	if (uart_console(port))
+-		return -ENODEV;
+-
+ 	stm32port->rx_buf = dma_alloc_coherent(dev, RX_BUF_L,
+ 					       &stm32port->rx_dma_buf,
+ 					       GFP_KERNEL);
 -- 
-Email: Herbert Xu <herbert@gondor.apana.org.au>
-Home Page: http://gondor.apana.org.au/~herbert/
-PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
+2.39.0
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
