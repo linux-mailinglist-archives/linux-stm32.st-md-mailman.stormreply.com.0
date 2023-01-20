@@ -2,73 +2,121 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3869D675BC7
-	for <lists+linux-stm32@lfdr.de>; Fri, 20 Jan 2023 18:42:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1479D675C24
+	for <lists+linux-stm32@lfdr.de>; Fri, 20 Jan 2023 18:53:45 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F086FC6904C;
-	Fri, 20 Jan 2023 17:42:18 +0000 (UTC)
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com
- [209.85.221.45])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B59CEC6904C;
+	Fri, 20 Jan 2023 17:53:44 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2040.outbound.protection.outlook.com [40.107.236.40])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9B4EEC6410A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3B6C7C6410A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 20 Jan 2023 17:42:17 +0000 (UTC)
-Received: by mail-wr1-f45.google.com with SMTP id n7so5510261wrx.5
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 20 Jan 2023 09:42:17 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=VDZkhqwFOsgIMnr1ffA8Wl9YS35ktcX3ijiYmPNgJyc=;
- b=oB2RYPntMat4uRWwi//YXNXL76SLyz8fEv0Jznjb62D98tEATsMU/ZDIdky+Fq7wKl
- Uze/1ee3DQzUZZcX6Hpc52V/VC+NHN6QonF5LYdHcKKjiWI0uVxZApwCFsGBS8PxU3fa
- sO741v5i66XxXjJAlw8pufEXnPVF6WWfr598Xwdjs8T+/xD7qObRf60hpZxl01QPePng
- 1OftdfPiHPJSMwoZ8X12u4IT2F9MXwBH9ytf0o9GYNsmiUu0BVHZdgZR3S2R5Bftzo+6
- xg9Lyc2z+e1kMkxWVFmfcahlZCPCqVTcr3jdi4/cgaHKe0JxtmJ/QkM0P0m5xfhbql6R
- sY7w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=VDZkhqwFOsgIMnr1ffA8Wl9YS35ktcX3ijiYmPNgJyc=;
- b=w6WfGm68eGRlDKywbwH6cQgww2WJBXjv4uK0aFkspAvovlpG98EqaMxEZg7SnspQHE
- fAzF0B2E2e359JTS9xwE0tgdMhB8O+Qm8d7OQ7LIO0opemiaGclIWcbYuPwCLyY35X3E
- mg1akAok3hqXURENXEPQVyvhEixkg42I6X5jsdPDPNgLdpAiIdADn5i42EXJnFfUT8XD
- AiZlb8uwWgAgMwVxbwCBciDkt5lgOzcdaSaH5+2O6mYkzSpnnsbh1pGHn+Jz0IqKlRXv
- zFsF2gO37XXygA8dI5Na3GunuBlYQimxGiBpUmrdib9Q/wX2CdMjMWUs2ig4Sgc+AA96
- dfUQ==
-X-Gm-Message-State: AFqh2kro4+2DLItFjPJS7vos2I2RYJ85YOj9TMWgy4E366FL/1Ek8I5u
- c1XbJNjP2bra6zESkuGvZH9Lzg==
-X-Google-Smtp-Source: AMrXdXvfmB6jJvru/xlfNUOX0PYXnlRnAIySB/9Oaj3KA00ntii9qjhOJPKti8muOdsK1HdA5OI10A==
-X-Received: by 2002:a5d:4a51:0:b0:2be:57b5:d50b with SMTP id
- v17-20020a5d4a51000000b002be57b5d50bmr2802921wrs.3.1674236537252; 
- Fri, 20 Jan 2023 09:42:17 -0800 (PST)
-Received: from [192.168.1.195] ([5.133.47.210])
- by smtp.googlemail.com with ESMTPSA id
- l5-20020adfe9c5000000b002238ea5750csm22416303wrn.72.2023.01.20.09.42.16
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 20 Jan 2023 09:42:16 -0800 (PST)
-Message-ID: <2b77d20c-efe4-a0f3-4260-5817f3068eb0@linaro.org>
-Date: Fri, 20 Jan 2023 17:42:15 +0000
+ Fri, 20 Jan 2023 17:53:43 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=jKwTwhEOI2/vKWprvfhYxukFWV1hORC3apUFwJDo2g4NIv8TZQR2gqf6s3KkVYoU30eS9qBIwLLblyVbvAV34UqOoaQSs5reamaYvzE350fm/62IWhVgr2GTNpEdwqmPq2Fkwa6vE+JcM2FgrsIvNXjJkXML/wbRFpj/YsBnjasmbQNWKCiiMnUvN1mgdbE2q6JTD1tiBnWQSxkM/55cMvEpebfScKSYJ6lJdxFUxY5+YM1YoZVi+ihjeAOvlTH6FVT16KMNJ9qGg3ZH/GkUDDCeoYQFzLVMKDVcDh5ll6wiMpbC95ZFTvkW4cWZ9Z9Vs/vUENvyC5MU6RXNlXrRAg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=cXFt93pMtQTD3Nr5BElncWhLzk/oOeSjayXm6n79zuw=;
+ b=i7BF2hVOIQ3YlJNTULTu2B68T5G+R9CjuSqjvagzh4tBs5GmNsLXx51wkll2UYfRWgBeZdCtkIsaiehqzR3ybXVvbF6QTRjydo9VYW0NZ1mUrHNuJ/1U3/UhHTLv3mdTlM0uq64naoHMyaH+sTVBvgXTruaFJ8bL7CPe2m4rF+p9oEn/8q+8UKJZNBSZN9J2tkGk3zpnfuknK/pwmIISXc6rtyLKDvmSg5WNsJec89HOQn5S/bYSr0UT1d3zyFGugJVoEPAgkT9quPW7U4W68Gfycm4QrMGYt+MmTZdMQWm6hqM9o9zjm+Rhbr5EltuClgYAeHuP8VtaK6KbKyVkKg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=cXFt93pMtQTD3Nr5BElncWhLzk/oOeSjayXm6n79zuw=;
+ b=DrF3k+K+897Yq50c0abDAZ6YHYeB9xWUTjXZ0pCSws1N29HXJ3TDUxMxQNvFNz0yZNTVu/YOje/Gco99n0OaPgWEu8q221L3VpCSTqzbrsYfCk8iwiHYKoE0CU/dKNE89cHW9mKyy1FNkbVi5iQaA3ZVqLoqbrP6T9a0QIZIW/QhYWh6AIxhw8IJZcD5bvRvc77NqNoP5eTbkUBbk1bYpETUgWFNKPg5T/rPrGDUfTNJjWox3goggBJGPbG8rK8Op1PDykN6zHDEhA6QmZrXnodKunBw5SR+v1Zuk2Wr7G2byH3knDOdQ1hYP+XXZ7KD7eaWwT9Jhsvipo96YZP2+g==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from LV2PR12MB5869.namprd12.prod.outlook.com (2603:10b6:408:176::16)
+ by DM6PR12MB4076.namprd12.prod.outlook.com (2603:10b6:5:213::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6002.13; Fri, 20 Jan
+ 2023 17:53:41 +0000
+Received: from LV2PR12MB5869.namprd12.prod.outlook.com
+ ([fe80::f8b0:df13:5f8d:12a]) by LV2PR12MB5869.namprd12.prod.outlook.com
+ ([fe80::f8b0:df13:5f8d:12a%9]) with mapi id 15.20.6002.013; Fri, 20 Jan 2023
+ 17:53:41 +0000
+Date: Fri, 20 Jan 2023 13:53:40 -0400
+From: Jason Gunthorpe <jgg@nvidia.com>
+To: Joerg Roedel <joro@8bytes.org>
+Message-ID: <Y8rVJGyTKAjXjLwV@nvidia.com>
+References: <1-v1-6e8b3997c46d+89e-iommu_map_gfp_jgg@nvidia.com>
+ <4fd1b194-29ef-621d-4059-a8336058f217@arm.com>
+ <Y7hZOwerwljDKoQq@nvidia.com> <Y8pd50mdNShTyVRX@8bytes.org>
+Content-Disposition: inline
+In-Reply-To: <Y8pd50mdNShTyVRX@8bytes.org>
+X-ClientProxiedBy: MN2PR03CA0029.namprd03.prod.outlook.com
+ (2603:10b6:208:23a::34) To LV2PR12MB5869.namprd12.prod.outlook.com
+ (2603:10b6:408:176::16)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.2
-Content-Language: en-US
-To: Patrick Delaunay <patrick.delaunay@foss.st.com>,
- Alexandre TORGUE <alexandre.torgue@foss.st.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>
-References: <20230118172940.841094-1-patrick.delaunay@foss.st.com>
- <20230118182856.v6.3.I59210046e368cfc22bd3cca2afe1653674f8ece8@changeid>
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-In-Reply-To: <20230118182856.v6.3.I59210046e368cfc22bd3cca2afe1653674f8ece8@changeid>
-Cc: linux-kernel@vger.kernel.org,
- Etienne CARRIERE <etienne.carriere@linaro.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v6 3/3] nvmem: stm32: detect bsec pta
- presence for STM32MP15x
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LV2PR12MB5869:EE_|DM6PR12MB4076:EE_
+X-MS-Office365-Filtering-Correlation-Id: e29fdfc1-a93a-4424-19c0-08dafb0f440c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: f6qU6mqG7QQPIANewSeV3NY/O6fs4qOmTSfk9eK3ubu9AyrR1Anxe0vmSpG10K3DWpbZ9mn+/9wXZJpPWZoiR3md3epyfFdJkMwD1B82Vxq/js99fWzuIYoJr0hqGfRlVJZagOwxyNI8B5ViK6l5TINHNSnIInltEgJF5u0Td0xURxNGpW1euuiQ3iG4Vd7ceq1JbqIqu1ZSCd2E3BJBjCxMulhP140Uk/sqYRtAyRh/r42qK0XuwQlsNUt+b+dshRTT6FbbxsYSvGhtnkCIEyEJLPu3+4D5mNxyJaRTDJS3iTO7qwX4G0GZ9co6/dfeE6XjqxfhOfra918zxu8u6ageYBix5Sl8VpC8GAiOpHNk5wZWKW/qdKPjhxAjNkbayedJLlvQvCtoDj/iAxrXYzu2bQfVL3bl1ZiHruNyOi+doxL6tK5URthNNG1Yl1W5mOqTHCRY/mNQxhTIYoBY1vpva13nNn7zHx9wmQu/ZQpA0ggvaBd2Eh6cDP0EjTifOK83jDHVb/byllW0dqkJud1whWIvZO0Cm+Aj1/3AypijWJuan/nUdJB7EFvXhxmnxkUgKcybKWtThY0SCEcLN5Qx1N4xjVYP7esNJOJNAToXJJgQwW7eaOt+QMqocAyMZL6dyzhbQxscA64t1BBRxA==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:LV2PR12MB5869.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230022)(4636009)(396003)(346002)(39860400002)(366004)(136003)(376002)(451199015)(66476007)(38100700002)(66556008)(5660300002)(478600001)(86362001)(316002)(8936002)(66946007)(4744005)(7416002)(2906002)(4326008)(6916009)(41300700001)(8676002)(26005)(186003)(2616005)(54906003)(6506007)(36756003)(6512007)(6486002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?8v1EMXBN73/TrR2ymZ61ASZdsthvduOnp0JZ6UJItEqeJepd8eAVU6K1Jhnt?=
+ =?us-ascii?Q?mDjxgkEMVIrj/bjh1Zx1u3DnlsOIM9XXW7xCNzCVWBO2u3D2wUEHzzQg0Su1?=
+ =?us-ascii?Q?3zcQmxgFb/nj04eBQbjW060wF60MXYY9vBiZXDehCKAClS+HXaC9vRs/lHES?=
+ =?us-ascii?Q?IxKQfymRS/3DeIQmQNfe91HTd6raseBBLXhfKYqZN6cRiu5hq6Vkwep+xCJO?=
+ =?us-ascii?Q?r3qquSbMNLcjCtC3oiXaE/WmOM4G1gxafA9NrA+Y0Z/ibN174RqAOi5lMBNH?=
+ =?us-ascii?Q?5cXjgxxPwdFA5Jyniahx0ScHEiG6VR+vYQzQC6KSIdvzoAK4cx3U11F6O+oD?=
+ =?us-ascii?Q?PpXytuzURAysCVMqDnsEuzxVb5zg722xy1wvxzetAN6mkbGq20uzkzXlxehV?=
+ =?us-ascii?Q?oTaTmK2KHHOt8mgFusxeAF68eQt7+9hwgqx34QLSbUBvVTvRsugWslELuOuj?=
+ =?us-ascii?Q?1Vf49DLhosezcSprLKncMfDiOB+lliDnuT9qVWlc/Y2/1UIidUxk6HIgjm8x?=
+ =?us-ascii?Q?pTn3z4O+5JWfK3wwV5NoJyBUr+2NUWVbGifatEsJF++/mN6hwBesHJyZwmsb?=
+ =?us-ascii?Q?5vdZg426Hwx/FgYlWhZv6kzihSqj6JtaKxwHlZkinOBOL9lwrbThQKdkg1XC?=
+ =?us-ascii?Q?5zsRIl/FA0StWJ3gJ46tAxlNvcUb4zSVxU5Jt1Pwo9XuzOdJeOavoD5w9q3z?=
+ =?us-ascii?Q?aVe36csh7yNtT1j8fB05xnfJHDXPxrPciW7hm7aieWst4InpWdFBkqPdfiGF?=
+ =?us-ascii?Q?s/lH/xFfWRIM4GNKBQtkbvhdlHVYDG8Rr6IXrsGhZHDFTchwZKj8m+qKlrW3?=
+ =?us-ascii?Q?XduIzE8+DUvWoroATR1hXDj4jcqXRwela2x9fRT0pGMM7ofM2T4CKv1cEI4r?=
+ =?us-ascii?Q?tfs9NX1aaIqBhNnUHIq6T5KvXNTQ5ryETOgfGH1NBQlagFFVT3y6rt9oACpS?=
+ =?us-ascii?Q?jwOu5HfZc1CxlvU5gqELhJuzU74vo4FQAwNZV59kE0b3BmTAVrkLjqh+Ds0/?=
+ =?us-ascii?Q?2RFa8zX7HQaPd+S6tu5tXc/xoP+vn4xmjAaRo4Ki4avXBXGz3oHdzTQCKa2P?=
+ =?us-ascii?Q?FnPJ/OCZc9Yw822T2tKpQy7lci+6Sy1ojeBobphKiyLIYI/eKvr5t5TFA97Q?=
+ =?us-ascii?Q?kBymkNkxj7KaXpR5YVs/0V75LTJfv2BXQ0EFcc667lVWlz0kx4EvcxyUjKMu?=
+ =?us-ascii?Q?vUjniN7MEp02WN5wMPozpgXPajQ6HKnYSvdI2BLsbGTOh5UGfc4q+l6hKbTV?=
+ =?us-ascii?Q?l9RmF4ZpepGbEIO0d2dPQjod8n6H/QaWv39uFP+GuUmXiaVxyFuUOPgZzKjS?=
+ =?us-ascii?Q?o/bOuYLizTog3+p1x+72B3/+uJFPVzu4eIpRJXDdB8V/RPkxrDTtJgGagv0w?=
+ =?us-ascii?Q?OWXbno3cNXWjxDpi3VhDIP+hqbu/Frrx/1T/cyPd4gcm1FZhAyUrt47TQeAs?=
+ =?us-ascii?Q?huM7u5pF9aW+fZcW24foaSJGN7v04Y7sAM3R/ccJ6/qzyrHw9gFLTh/Vfsz+?=
+ =?us-ascii?Q?tj8rPV9vW2RoSsDRwsvvP4bZvkxmJeqRMsBVjoGqQf5gkUkN3uwrZQ3L4EiF?=
+ =?us-ascii?Q?3q+iP4mIYpeIHLdhp1oYXyWlrMgO3yUnR6KcLSVL?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e29fdfc1-a93a-4424-19c0-08dafb0f440c
+X-MS-Exchange-CrossTenant-AuthSource: LV2PR12MB5869.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jan 2023 17:53:41.3258 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: S/ShNRiahaTIoIB6a/UQRktiU0bLbxGlrw3I9KvaFFDMptah/1bC4Sxj+oCgwfl+
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4076
+Cc: kvm@vger.kernel.org, nouveau@lists.freedesktop.org,
+ linux-remoteproc@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ virtualization@lists.linux-foundation.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-s390@vger.kernel.org,
+ Matthew Rosato <mjrosato@linux.ibm.com>, linux-rdma@vger.kernel.org,
+ ath10k@lists.infradead.org, iommu@lists.linux.dev,
+ Christian Borntraeger <borntraeger@linux.ibm.com>, ath11k@lists.infradead.org,
+ linux-media@vger.kernel.org, Kevin Tian <kevin.tian@intel.com>,
+ Niklas Schnelle <schnelle@linux.ibm.com>, linux-arm-msm@vger.kernel.org,
+ Alex Williamson <alex.williamson@redhat.com>, linux-tegra@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
+ linux-wireless@vger.kernel.org, Robin Murphy <robin.murphy@arm.com>,
+ Lu Baolu <baolu.lu@linux.intel.com>
+Subject: Re: [Linux-stm32] [PATCH 1/8] iommu: Add a gfp parameter to
+	iommu_map()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,115 +128,30 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+On Fri, Jan 20, 2023 at 10:24:55AM +0100, Joerg Roedel wrote:
+> On Fri, Jan 06, 2023 at 01:24:11PM -0400, Jason Gunthorpe wrote:
+> > I think it is just better to follow kernel convention and have
+> > allocation functions include the GFP because it is a clear signal to
+> > the user that there is an allocation hidden inside the API. The whole
+> > point of gfp is not to have multitudes of every function for every
+> > allocation mode.
+> 
+> Well, having GFP parameters is not a strict kernel convention. There are
+> places doing it differently and have sleeping and atomic variants of
+> APIs. I have to say I like the latter more. But given that this leads to
+> an invasion of API functions here which all do the same under the hood, I
+> agree it is better to go with a GFP parameter here.
 
+Ok, I think we are done with this series, I'll stick it in linux-next
+for a bit and send you a PR so the trees stay in sync
 
-On 18/01/2023 17:29, Patrick Delaunay wrote:
-> On STM32MP15x SoC, the SMC backend is optional when OP-TEE is used;
-> the PTA BSEC should be used as it is done on STM32MP13x platform,
-> but the BSEC SMC can be also used: it is a legacy mode in OP-TEE,
-> not recommended but used in previous OP-TEE firmware.
-> 
-> The presence of OP-TEE is dynamically detected in STM32MP15x device tree
-> and the supported NVMEM backend is dynamically detected:
-> - PTA with stm32_bsec_pta_find
-> - SMC with stm32_bsec_check
-> 
-> With OP-TEE but without PTA and SMC detection, the probe is deferred for
-> STM32MP15x devices.
-> 
-> On STM32MP13x platform, only the PTA is supported with cfg->ta = true
-> and this detection is skipped.
-> 
-> Signed-off-by: Patrick Delaunay <patrick.delaunay@foss.st.com>
-> Reviewed-by: Etienne Carriere <etienne.carriere@linaro.org>
-> ---
-
-
-Applied thanks,
-
---srini
-
-> 
-> Changes in v6:
-> - added reviewed by Etienne Carriere
-> 
-> Changes in v5:
-> - update the BSEC SMC detection logic in stm32_romem_probe()
->    after Etienne Carierre review to support NVMEM probe after OP-TEE probe
-> 
-> Changes in v3:
-> - use of_find_compatible_node in optee_presence_check function
->    instead of of_find_node_by_path("/firmware/optee")
-> 
-> Changes in v2:
-> - Added patch in the serie for BSEC PTA support on STM32MP15x
->    with dynamic detection of OP-TEE presence and SMC support (legacy mode)
-> 
->   drivers/nvmem/stm32-romem.c | 38 +++++++++++++++++++++++++++++++++----
->   1 file changed, 34 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/nvmem/stm32-romem.c b/drivers/nvmem/stm32-romem.c
-> index 978a63edf297..ba779e26937a 100644
-> --- a/drivers/nvmem/stm32-romem.c
-> +++ b/drivers/nvmem/stm32-romem.c
-> @@ -159,6 +159,31 @@ static int stm32_bsec_pta_write(void *context, unsigned int offset, void *buf,
->   	return stm32_bsec_optee_ta_write(priv->ctx, priv->lower, offset, buf, bytes);
->   }
->   
-> +static bool stm32_bsec_smc_check(void)
-> +{
-> +	u32 val;
-> +	int ret;
-> +
-> +	/* check that the OP-TEE support the BSEC SMC (legacy mode) */
-> +	ret = stm32_bsec_smc(STM32_SMC_READ_SHADOW, 0, 0, &val);
-> +
-> +	return !ret;
-> +}
-> +
-> +static bool optee_presence_check(void)
-> +{
-> +	struct device_node *np;
-> +	bool tee_detected = false;
-> +
-> +	/* check that the OP-TEE node is present and available. */
-> +	np = of_find_compatible_node(NULL, NULL, "linaro,optee-tz");
-> +	if (np && of_device_is_available(np))
-> +		tee_detected = true;
-> +	of_node_put(np);
-> +
-> +	return tee_detected;
-> +}
-> +
->   static int stm32_romem_probe(struct platform_device *pdev)
->   {
->   	const struct stm32_romem_cfg *cfg;
-> @@ -195,11 +220,16 @@ static int stm32_romem_probe(struct platform_device *pdev)
->   	} else {
->   		priv->cfg.size = cfg->size;
->   		priv->lower = cfg->lower;
-> -		if (cfg->ta) {
-> +		if (cfg->ta || optee_presence_check()) {
->   			rc = stm32_bsec_optee_ta_open(&priv->ctx);
-> -			/* wait for OP-TEE client driver to be up and ready */
-> -			if (rc)
-> -				return rc;
-> +			if (rc) {
-> +				/* wait for OP-TEE client driver to be up and ready */
-> +				if (rc == -EPROBE_DEFER)
-> +					return -EPROBE_DEFER;
-> +				/* BSEC PTA is required or SMC not supported */
-> +				if (cfg->ta || !stm32_bsec_smc_check())
-> +					return rc;
-> +			}
->   		}
->   		if (priv->ctx) {
->   			rc = devm_add_action_or_reset(dev, stm32_bsec_optee_ta_close, priv->ctx);
+Thanks,
+Jason
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
