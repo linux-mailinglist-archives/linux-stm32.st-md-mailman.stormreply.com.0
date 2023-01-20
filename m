@@ -2,58 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A8A366750F2
-	for <lists+linux-stm32@lfdr.de>; Fri, 20 Jan 2023 10:24:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 19B89675119
+	for <lists+linux-stm32@lfdr.de>; Fri, 20 Jan 2023 10:30:23 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 562E1C6904C;
-	Fri, 20 Jan 2023 09:24:59 +0000 (UTC)
-Received: from mail.8bytes.org (mail.8bytes.org [85.214.250.239])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AC0A9C6507E
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B67CFC6904C;
+	Fri, 20 Jan 2023 09:30:22 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6C725C6410A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 20 Jan 2023 09:24:57 +0000 (UTC)
-Received: from 8bytes.org
- (p200300c27714bc0086ad4f9d2505dd0d.dip0.t-ipconnect.de
- [IPv6:2003:c2:7714:bc00:86ad:4f9d:2505:dd0d])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
- SHA256) (No client certificate requested)
- by mail.8bytes.org (Postfix) with ESMTPSA id E12D62626D1;
- Fri, 20 Jan 2023 10:24:56 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=8bytes.org;
- s=default; t=1674206697;
- bh=N0Ez9jlBhYWiOK7+xYABfIe0+VmfRPgpACpzUje2F4A=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=lOLKVLD4dyMYfuGfszt0Aqi18MMtbwUvgwVbHoDO6hE/pu3jlsoFnfOvfV2sSJ6i8
- k3lOBgDA7x9bkKbnD+qVSk6qrzEVOc/9/JS99/CzblV3IjUWMNUsDLegoejr0hYkyT
- NIAGgbjvSNtqhO8clUAYjH7vWYcGoTKi2kDTgKFmFcsSDinl9Vo2l2M2oUTe7UNJh3
- 4hHtdAX4so62XBRGFWlRKgCJW94p/lPduMMBp2SCZ238xwGOe1m0xh9F5SouN8x7NO
- 06U5w+umYu9ogUcIQK1YpQ4ciXMhW+H2quzpMMrP7f3cTLkb2U0hf6Ab3xk/GMJY5E
- 1P63Vv4/HChRw==
-Date: Fri, 20 Jan 2023 10:24:55 +0100
-From: Joerg Roedel <joro@8bytes.org>
-To: Jason Gunthorpe <jgg@nvidia.com>
-Message-ID: <Y8pd50mdNShTyVRX@8bytes.org>
-References: <1-v1-6e8b3997c46d+89e-iommu_map_gfp_jgg@nvidia.com>
- <4fd1b194-29ef-621d-4059-a8336058f217@arm.com>
- <Y7hZOwerwljDKoQq@nvidia.com>
+ Fri, 20 Jan 2023 09:30:21 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id CD192B82146;
+ Fri, 20 Jan 2023 09:30:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id F0D1FC433EF;
+ Fri, 20 Jan 2023 09:30:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1674207019;
+ bh=97eI/DzcEUwW2P+NrxiMBczLVyLZV62pIyAx6vShmiQ=;
+ h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
+ b=aKs5JidAhcuZ+EXnrOFIMksDiys/RhVMeErD4zr60UiIuTIXEpL8fJjksgnDMSqNv
+ oQCjZKthm/KIzXJdm64DJCTvS8fhvCLb0AkuvuJargLtHLVwNLodnfQDj+ggbJ7ZEI
+ ewqSMnRZXUy1OVXhL+ktTMuv7tMJV7EW+9T8Uivxzzi36dfnYIpmJss2n8vuI1LnIs
+ Vto+WIEr3tPHGg1H8ScMCpPaOIDvwYBNh9XXYfSh2TcFCA5IMrICc7x9XJZOnzMcw1
+ B6tSAl8KdMPBg6odc4vMWxiU0DrfoUDhRvM8UqODB4Mj+ps9Chx8Nh+eDIeiufua1g
+ 4p6zDDdA8E8JA==
+Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
+ D1A7BE54D2B; Fri, 20 Jan 2023 09:30:18 +0000 (UTC)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <Y7hZOwerwljDKoQq@nvidia.com>
-Cc: kvm@vger.kernel.org, nouveau@lists.freedesktop.org,
- linux-remoteproc@vger.kernel.org, dri-devel@lists.freedesktop.org,
- virtualization@lists.linux-foundation.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-s390@vger.kernel.org,
- Matthew Rosato <mjrosato@linux.ibm.com>, linux-rdma@vger.kernel.org,
- ath10k@lists.infradead.org, iommu@lists.linux.dev,
- Christian Borntraeger <borntraeger@linux.ibm.com>, ath11k@lists.infradead.org,
- linux-media@vger.kernel.org, Kevin Tian <kevin.tian@intel.com>,
- Niklas Schnelle <schnelle@linux.ibm.com>, linux-arm-msm@vger.kernel.org,
- Alex Williamson <alex.williamson@redhat.com>, linux-tegra@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
- linux-wireless@vger.kernel.org, Robin Murphy <robin.murphy@arm.com>,
- Lu Baolu <baolu.lu@linux.intel.com>
-Subject: Re: [Linux-stm32] [PATCH 1/8] iommu: Add a gfp parameter to
-	iommu_map()
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: <167420701885.26805.13129690985056892754.git-patchwork-notify@kernel.org>
+Date: Fri, 20 Jan 2023 09:30:18 +0000
+References: <20230118165638.1383764-1-ahalaney@redhat.com>
+In-Reply-To: <20230118165638.1383764-1-ahalaney@redhat.com>
+To: Andrew Halaney <ahalaney@redhat.com>
+Cc: ncai@quicinc.com, vee.khee.wong@linux.intel.com,
+ linux-kernel@vger.kernel.org, netdev@vger.kernel.org, richardcochran@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com, edumazet@google.com,
+ joabreu@synopsys.com, vijayakannan.ayyathurai@intel.com,
+ mcoquelin.stm32@gmail.com, kuba@kernel.org, michael.wei.hong.sit@intel.com,
+ peppe.cavallaro@st.com, pabeni@redhat.com, davem@davemloft.net,
+ linux-arm-kernel@lists.infradead.org, noor.azura.ahmad.tarmizi@intel.com
+Subject: Re: [Linux-stm32] [PATCH net RESEND] net: stmmac: enable all safety
+	features by default
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,22 +66,34 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, Jan 06, 2023 at 01:24:11PM -0400, Jason Gunthorpe wrote:
-> I think it is just better to follow kernel convention and have
-> allocation functions include the GFP because it is a clear signal to
-> the user that there is an allocation hidden inside the API. The whole
-> point of gfp is not to have multitudes of every function for every
-> allocation mode.
+Hello:
 
-Well, having GFP parameters is not a strict kernel convention. There are
-places doing it differently and have sleeping and atomic variants of
-APIs. I have to say I like the latter more. But given that this leads to
-an invasion of API functions here which all do the same under the hood, I
-agree it is better to go with a GFP parameter here.
+This patch was applied to netdev/net.git (master)
+by David S. Miller <davem@davemloft.net>:
 
-Regards,
+On Wed, 18 Jan 2023 10:56:38 -0600 you wrote:
+> In the original implementation of dwmac5
+> commit 8bf993a5877e ("net: stmmac: Add support for DWMAC5 and implement Safety Features")
+> all safety features were enabled by default.
+> 
+> Later it seems some implementations didn't have support for all the
+> features, so in
+> commit 5ac712dcdfef ("net: stmmac: enable platform specific safety features")
+> the safety_feat_cfg structure was added to the callback and defined for
+> some platforms to selectively enable these safety features.
+> 
+> [...]
 
-	Joerg
+Here is the summary with links:
+  - [net,RESEND] net: stmmac: enable all safety features by default
+    https://git.kernel.org/netdev/net/c/fdfc76a116b5
+
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
