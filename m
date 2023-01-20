@@ -2,69 +2,58 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5145B67508F
-	for <lists+linux-stm32@lfdr.de>; Fri, 20 Jan 2023 10:19:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A8A366750F2
+	for <lists+linux-stm32@lfdr.de>; Fri, 20 Jan 2023 10:24:59 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D8FEAC6904C;
-	Fri, 20 Jan 2023 09:19:02 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 55C23C6507E
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 562E1C6904C;
+	Fri, 20 Jan 2023 09:24:59 +0000 (UTC)
+Received: from mail.8bytes.org (mail.8bytes.org [85.214.250.239])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AC0A9C6507E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 20 Jan 2023 09:19:01 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 30K5Wumv003061; Fri, 20 Jan 2023 10:18:34 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=DtcVjnTUu5knXHxl3hH3NBtbdpcCZD4BQyvIAjDBIU8=;
- b=8HqQPBz+KQUaVvldvScK0hNfSjMMr83E3Md8ydjt8CAHZtqPTmbYoDrimaN6NJmKMfNw
- bZZuuIE7ZCKGWv55/nr4sMEsCge4fxzNekREqTXA+1TaOfCawVT30PrKnuFNgDl9IJ4f
- aKcPThHvaqLkg7fGWvF9UdSVWpU7yUrzbaSLFM6vEDn44wt+Hl9HVJJlQth9VR8jJ4Sb
- XCNu5EDF5bMilCFXPLT701tJSRqSfW5rw20sHzWSwbp9qHBEFCl4tLaEZ/KzTwKYjt12
- ww0WKQZhrJAK8vXV6ISEdQgdPeI6WSNBCWX7frMzadQhDnWNJF4/v6yPRJ2L8/Egcnpa Ug== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3n7337q88m-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 20 Jan 2023 10:18:34 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 3A36510002A;
- Fri, 20 Jan 2023 10:18:33 +0100 (CET)
-Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 32DAE2138CE;
- Fri, 20 Jan 2023 10:18:33 +0100 (CET)
-Received: from [10.48.1.102] (10.48.1.102) by SHFDAG1NODE2.st.com
- (10.75.129.70) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.13; Fri, 20 Jan
- 2023 10:18:32 +0100
-Message-ID: <5cdb024e-46cb-6d03-d716-0fdad80d51f5@foss.st.com>
-Date: Fri, 20 Jan 2023 10:18:32 +0100
+ Fri, 20 Jan 2023 09:24:57 +0000 (UTC)
+Received: from 8bytes.org
+ (p200300c27714bc0086ad4f9d2505dd0d.dip0.t-ipconnect.de
+ [IPv6:2003:c2:7714:bc00:86ad:4f9d:2505:dd0d])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
+ SHA256) (No client certificate requested)
+ by mail.8bytes.org (Postfix) with ESMTPSA id E12D62626D1;
+ Fri, 20 Jan 2023 10:24:56 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=8bytes.org;
+ s=default; t=1674206697;
+ bh=N0Ez9jlBhYWiOK7+xYABfIe0+VmfRPgpACpzUje2F4A=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=lOLKVLD4dyMYfuGfszt0Aqi18MMtbwUvgwVbHoDO6hE/pu3jlsoFnfOvfV2sSJ6i8
+ k3lOBgDA7x9bkKbnD+qVSk6qrzEVOc/9/JS99/CzblV3IjUWMNUsDLegoejr0hYkyT
+ NIAGgbjvSNtqhO8clUAYjH7vWYcGoTKi2kDTgKFmFcsSDinl9Vo2l2M2oUTe7UNJh3
+ 4hHtdAX4so62XBRGFWlRKgCJW94p/lPduMMBp2SCZ238xwGOe1m0xh9F5SouN8x7NO
+ 06U5w+umYu9ogUcIQK1YpQ4ciXMhW+H2quzpMMrP7f3cTLkb2U0hf6Ab3xk/GMJY5E
+ 1P63Vv4/HChRw==
+Date: Fri, 20 Jan 2023 10:24:55 +0100
+From: Joerg Roedel <joro@8bytes.org>
+To: Jason Gunthorpe <jgg@nvidia.com>
+Message-ID: <Y8pd50mdNShTyVRX@8bytes.org>
+References: <1-v1-6e8b3997c46d+89e-iommu_map_gfp_jgg@nvidia.com>
+ <4fd1b194-29ef-621d-4059-a8336058f217@arm.com>
+ <Y7hZOwerwljDKoQq@nvidia.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.2
-Content-Language: en-US
-To: =?UTF-8?Q?Uwe_Kleine-K=c3=b6nig?= <u.kleine-koenig@pengutronix.de>,
- "Maxime Coquelin" <mcoquelin.stm32@gmail.com>, Alexandre Torgue
- <alexandre.torgue@foss.st.com>, Amelie Delaunay <amelie.delaunay@st.com>
-References: <20230112112013.1086787-1-u.kleine-koenig@pengutronix.de>
-From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-In-Reply-To: <20230112112013.1086787-1-u.kleine-koenig@pengutronix.de>
-X-Originating-IP: [10.48.1.102]
-X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SHFDAG1NODE2.st.com
- (10.75.129.70)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.219,Aquarius:18.0.930,Hydra:6.0.562,FMLib:17.11.122.1
- definitions=2023-01-20_06,2023-01-19_01,2022-06-22_01
-Cc: devicetree@vger.kernel.org, kernel@pengutronix.de,
- Minas.Harutyunyan@synopsys.com, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] ARM: dts: stm32mp15x: adjust USB OTG
- gadget tx fifo sizes
+Content-Disposition: inline
+In-Reply-To: <Y7hZOwerwljDKoQq@nvidia.com>
+Cc: kvm@vger.kernel.org, nouveau@lists.freedesktop.org,
+ linux-remoteproc@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ virtualization@lists.linux-foundation.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-s390@vger.kernel.org,
+ Matthew Rosato <mjrosato@linux.ibm.com>, linux-rdma@vger.kernel.org,
+ ath10k@lists.infradead.org, iommu@lists.linux.dev,
+ Christian Borntraeger <borntraeger@linux.ibm.com>, ath11k@lists.infradead.org,
+ linux-media@vger.kernel.org, Kevin Tian <kevin.tian@intel.com>,
+ Niklas Schnelle <schnelle@linux.ibm.com>, linux-arm-msm@vger.kernel.org,
+ Alex Williamson <alex.williamson@redhat.com>, linux-tegra@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
+ linux-wireless@vger.kernel.org, Robin Murphy <robin.murphy@arm.com>,
+ Lu Baolu <baolu.lu@linux.intel.com>
+Subject: Re: [Linux-stm32] [PATCH 1/8] iommu: Add a gfp parameter to
+	iommu_map()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,139 +65,28 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gMS8xMi8yMyAxMjoyMCwgVXdlIEtsZWluZS1Lw7ZuaWcgd3JvdGU6Cj4gVGhlcmUgYXJlIGlu
-IHN1bSA5NTIgZHdvcmRzIGF2YWlsYWJsZSBmb3IgZy1yeC1maWZvLXNpemUsCj4gZy1ucC10eC1m
-aWZvLXNpemUgYW5kIHRoZSBlaWdodCBlbnRyaWVzIG9mIGctdHgtZmlmby1zaXplLiBGb3IgaGln
-aAo+IHNwZWVkIGVuZHBvaW50cyB0aGUgbWF4aW1hbCBwYWNrZXQgc2l6ZSBpcyA1MTIgKGZvciBm
-dWxsIHNwZWVkIGl0J3MgNjQpCj4gYnl0ZXMuIFNvIGEgdHgtZmlmby1zaXplIG9mIG1vcmUgdGhh
-biAxMjggKGR3b3JkcykgaXNuJ3Qgc2Vuc2libGUuCgpIaSBVd2UsCgpUaGUgY3VycmVudCBGSUZP
-IHR1bmluZyBpbiB0aGUgZGV2aWNlIHRyZWUgYWxsb3dzIHRvIG1heGltaXplIHRocm91Z2hwdXQK
-cmVnYXJkaW5nIHNpbmdsZSBmdW5jdGlvbiBkZXZpY2UuIEhhdmluZyB0d2ljZSB0aGUgcGFja2V0
-IHNpemUgZm9yIHRoZQplbmRwb2ludCBhbGxvd3MgdGhlIGNvbnRyb2xsZXIgdG8gc2ltdWx0YW5l
-b3VzbHkgdHJhbnNmZXIgZGF0YSB0byB0aGUKVVNCLCB3aGlsZSBnYXRoZXJpbmcgbmV4dCBkYXRh
-IGZyb20gdGhlIHN5c3RlbSBtZW1vcnkuCgo+IFNvIGluc3RlYWQgb2Ygb25lICh0b28pIGJpZyBh
-bmQgc2V2ZXJhbCBzbWFsbCBmaWZvcywgdXNlIHR3byBiaWcgZmlmb3MKPiBhbmQgdG8gYmV0dGVy
-IHVzZSB0aGUgcmVtYWluaW5nIGF2YWlsYWJsZSBzcGFjZSBpbmNyZWFzZSBvbmUgb2YgdGhlCj4g
-c21hbGwgZmlmb3MuCgpTbywgSSB3b3VsZG4ndCBtZW50aW9uICJ0b28iIGJpZyBoZXJlLiBUaGF0
-J3MgYSBwZXJmb3JtYW5jZSB0dW5pbmcgZm9yCnNpbmdsZSBmdW5jdGlvbiBkZXZpY2UgdXNlIGNh
-c2UuCgpEcmF3YmFjayBpcyB0aGlzIGRvZXNuJ3QgYWxsb3cgbXVsdGktZnVuY3Rpb24gZGV2aWNl
-LCBhcyB5b3UncmUgdHJ5aW5nCnRvIGFjaGlldmUgKHdpdGggMiB4IDUxMiBlbmRwb2ludHMpLgpI
-ZW5jZSwgdGhlICJObyBzdWl0YWJsZSBmaWZvIGZvdW5kIiBtZXNzYWdlIHlvdSd2ZSBub3RpY2Vk
-LgoKU28ganVzdCBvbiB0aGUgd29yZGluZywgSSdkIHJhdGhlciB0YWxrIGFib3V0IGFsbG93aW5n
-IG11bHRpIGZ1bmN0aW9uCihjb21wb3NpdGUpIGRldmljZSB3aXRoIDUxMiBieXRlcyBlbmRwb2lu
-dHMuIERvaW5nIHRoaXMgaGFzIGFuIGltcGFjdCBvbgp0aGUgcGVyZm9ybWFuY2UgZm9yIGFsbCBj
-dXJyZW50IHVzZXJzIGluIHRlcm1zIG9mIHBlcmZvcm1hbmNlLgoKVGhpcyBjaGFuZ2UgaXMgcHJv
-YmFibHkgZmluZSwgYXMgaXQgZW5hYmxlcyBvbmUgYWRkaXRpb25hbCB1c2UgY2FzZSwgYW5kCml0
-IGlzIGluIHRoZSBTT0MgZHRzaSBmaWxlLgpJJ20ganVzdCB3b25kZXJpbmcgYSBiaXQgaWYgd2Ug
-Y291bGQvc2hvdWxkIGtlZXAgY3VycmVudCB0dW5pbmcgaW4gc29tZQpib2FyZCBkdHMgZmlsZXMg
-PyAoT3IgbGV0IGVhY2ggYm9hcmQgdmVuZG9yIGRvIHRoZWlyIG93biB0dW5pbmcgPykKClBlcmhh
-cHMgeW91IGNvdWxkIENDIHBlb3BsZSB0aGF0IHB1c2hlZCB2YXJpb3VzIGJvYXJkcyBoZXJlID8K
-Cj4gCj4gVGhpcyBhbGxvd3MgdG8gd29yayB3aXRoIENPTkZJR19VU0JfQ0RDX0NPTVBPU0lURSAo
-aS5lLiBFdGhlcm5ldCBhbmQKPiBBQ00pIHdoaWNoIHJlcXVpcmVzIDQgZW5kcG9pbnRzIHdpdGgg
-ZmlmbyBzaXplcyA1MTIsIDUxMiwgMTYgYW5kIDEwCj4gcmVzcGVjdGl2ZWx5LgoKSnVzdCBhIG5v
-dGUsIHRoaXMgb25lIGxvb2tzIGxpa2UgYSBsZWdhY3kgZHJpdmVyLiBJIHRoaW5rIHRoZSBwcmVm
-ZXJyZWQKbWV0aG9kIGlzIHRvIHVzZSBjb25maWdmcyBnYWRnZXQgdG8gY29tcG9zZSBhIGRldmlj
-ZS4KCj4gCj4gU2lnbmVkLW9mZi1ieTogVXdlIEtsZWluZS1Lw7ZuaWcgPHUua2xlaW5lLWtvZW5p
-Z0BwZW5ndXRyb25peC5kZT4KPiAtLS0KPiBIZWxsbywKPiAKPiB3aXRoIENPTkZJR19VU0JfQ0RD
-X0NPTVBPU0lURSBlbmFibGVkIG9uIHRoZSBvbGQgZGV2aWNlIHRyZWUsIHRoZSBkcml2ZXIKPiBk
-aWVzIGluIGEgcmF0aGVyIGJhZCB3YXk6Cj4gCj4gWyAgICAyLjQ3MjkxNF0gZHdjMiA0OTAwMDAw
-MC51c2Itb3RnOiBkd2MyX2hzb3RnX2VwX2VuYWJsZTogTm8gc3VpdGFibGUgZmlmbyBmb3VuZAo+
-IFsgICAgMi40Nzg3NjddIC0tLS0tLS0tLS0tLVsgY3V0IGhlcmUgXS0tLS0tLS0tLS0tLQo+IFsg
-ICAgMi40ODMzNjldIFdBUk5JTkc6IENQVTogMCBQSUQ6IDAgYXQga2VybmVsL2RtYS9tYXBwaW5n
-LmM6NTMyIGRtYV9mcmVlX2F0dHJzKzB4YzgvMHhjYwo+IFsgICAgMi40OTEzNjNdIE1vZHVsZXMg
-bGlua2VkIGluOgo+IFsgICAgMi40OTQ0MDddIENQVTogMCBQSUQ6IDAgQ29tbTogc3dhcHBlci8w
-IE5vdCB0YWludGVkIDUuMTUuMC0yMDIyMTAyNi0xICMxCj4gWyAgICAyLjUwMTI2N10gSGFyZHdh
-cmUgbmFtZTogU1RNMzIgKERldmljZSBUcmVlIFN1cHBvcnQpCj4gWyAgICAyLjUwNjQwOV0gWzxj
-MDExMTBlOD5dICh1bndpbmRfYmFja3RyYWNlKSBmcm9tIFs8YzAxMGM5YzA+XSAoc2hvd19zdGFj
-aysweDE4LzB4MWMpCj4gWyAgICAyLjUxNDEyOV0gWzxjMDEwYzljMD5dIChzaG93X3N0YWNrKSBm
-cm9tIFs8YzBhODM2NDg+XSAoZHVtcF9zdGFja19sdmwrMHg0MC8weDRjKQo+IFsgICAgMi41MjE2
-ODldIFs8YzBhODM2NDg+XSAoZHVtcF9zdGFja19sdmwpIGZyb20gWzxjMDEzNjIyOD5dIChfX3dh
-cm4rMHhmNC8weDE1MCkKPiBbICAgIDIuNTI4OTg2XSBbPGMwMTM2MjI4Pl0gKF9fd2FybikgZnJv
-bSBbPGMwYTdmZTJjPl0gKHdhcm5fc2xvd3BhdGhfZm10KzB4NmMvMHhkMCkKPiBbICAgIDIuNTM2
-NDU4XSBbPGMwYTdmZTJjPl0gKHdhcm5fc2xvd3BhdGhfZm10KSBmcm9tIFs8YzAxYWQ1MzQ+XSAo
-ZG1hX2ZyZWVfYXR0cnMrMHhjOC8weGNjKQo+IFsgICAgMi41NDQ2MjNdIFs8YzAxYWQ1MzQ+XSAo
-ZG1hX2ZyZWVfYXR0cnMpIGZyb20gWzxjMDFhZGJjMD5dIChkbWFtX2ZyZWVfY29oZXJlbnQrMHg0
-MC8weDljKQo+IFsgICAgMi41NTI4NzZdIFs8YzAxYWRiYzA+XSAoZG1hbV9mcmVlX2NvaGVyZW50
-KSBmcm9tIFs8YzA3NTQ1NzA+XSAoZHdjMl9oc290Z19lcF9lbmFibGUrMHg2M2MvMHg2YjApCj4g
-WyAgICAyLjU2MTgyN10gWzxjMDc1NDU3MD5dIChkd2MyX2hzb3RnX2VwX2VuYWJsZSkgZnJvbSBb
-PGMwNzkxYTQ0Pl0gKHVzYl9lcF9lbmFibGUrMHg0MC8weGYwKQo+IFsgICAgMi41NzAxNjddIFs8
-YzA3OTFhNDQ+XSAodXNiX2VwX2VuYWJsZSkgZnJvbSBbPGMwNzk4MzY0Pl0gKGdldGhlcl9jb25u
-ZWN0KzB4MmMvMHgxYzApCj4gWyAgICAyLjU3ODA3M10gWzxjMDc5ODM2ND5dIChnZXRoZXJfY29u
-bmVjdCkgZnJvbSBbPGMwNzk5ZjcwPl0gKGVjbV9zZXRfYWx0KzB4Y2MvMHgxZjgpCj4gWyAgICAy
-LjU4NTgwNV0gWzxjMDc5OWY3MD5dIChlY21fc2V0X2FsdCkgZnJvbSBbPGMwNzhkMGVjPl0gKGNv
-bXBvc2l0ZV9zZXR1cCsweDViYy8weDFkNDApCj4gWyAgICAyLjU5Mzc5OV0gWzxjMDc4ZDBlYz5d
-IChjb21wb3NpdGVfc2V0dXApIGZyb20gWzxjMDc1NjhmMD5dIChkd2MyX2hzb3RnX2NvbXBsZXRl
-X3NldHVwKzB4MTZjLzB4NjhjKQo+IFsgICAgMi42MDI5MjFdIFs8YzA3NTY4ZjA+XSAoZHdjMl9o
-c290Z19jb21wbGV0ZV9zZXR1cCkgZnJvbSBbPGMwNzU1NDc0Pl0gKGR3YzJfaHNvdGdfY29tcGxl
-dGVfcmVxdWVzdCsweDljLzB4MjEwKQo+IFsgICAgMi42MTI5OTldIFs8YzA3NTU0NzQ+XSAoZHdj
-Ml9oc290Z19jb21wbGV0ZV9yZXF1ZXN0KSBmcm9tIFs8YzA3NTdkNjg+XSAoZHdjMl9oc290Z19l
-cGludCsweGUwYy8weDEyNDgpCj4gWyAgICAyLjYyMjQ3MF0gWzxjMDc1N2Q2OD5dIChkd2MyX2hz
-b3RnX2VwaW50KSBmcm9tIFs8YzA3NWExYTQ+XSAoZHdjMl9oc290Z19pcnErMHg5YzQvMHgxMGE0
-KQo+IFsgICAgMi42MzA4MTJdIFs8YzA3NWExYTQ+XSAoZHdjMl9oc290Z19pcnEpIGZyb20gWzxj
-MDE5NDIzOD5dIChfX2hhbmRsZV9pcnFfZXZlbnRfcGVyY3B1KzB4NjQvMHgyMzQpCj4gWyAgICAy
-LjYzOTc2Ml0gWzxjMDE5NDIzOD5dIChfX2hhbmRsZV9pcnFfZXZlbnRfcGVyY3B1KSBmcm9tIFs8
-YzAxOTQ0ZjA+XSAoaGFuZGxlX2lycV9ldmVudCsweDY0LzB4YzgpCj4gWyAgICAyLjY0ODc5OF0g
-WzxjMDE5NDRmMD5dIChoYW5kbGVfaXJxX2V2ZW50KSBmcm9tIFs8YzAxOTkwMjg+XSAoaGFuZGxl
-X2Zhc3Rlb2lfaXJxKzB4YmMvMHgyMTQpCj4gWyAgICAyLjY1NzMxMl0gWzxjMDE5OTAyOD5dICho
-YW5kbGVfZmFzdGVvaV9pcnEpIGZyb20gWzxjMDE5M2E5Yz5dIChoYW5kbGVfZG9tYWluX2lycSsw
-eDg0LzB4YjgpCj4gWyAgICAyLjY2NTgyN10gWzxjMDE5M2E5Yz5dIChoYW5kbGVfZG9tYWluX2ly
-cSkgZnJvbSBbPGMwNTYyOGIwPl0gKGdpY19oYW5kbGVfaXJxKzB4ODQvMHg5OCkKPiBbICAgIDIu
-NjczOTk1XSBbPGMwNTYyOGIwPl0gKGdpY19oYW5kbGVfaXJxKSBmcm9tIFs8YzAxMDBhZmM+XSAo
-X19pcnFfc3ZjKzB4NWMvMHg5MCkKPiBbICAgIDIuNjgxNDY2XSBFeGNlcHRpb24gc3RhY2soMHhj
-MTAwMWVmOCB0byAweGMxMDAxZjQwKQo+IFsgICAgMi42ODY1MDldIDFlZTA6ICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDAwMDAwNDg0IGMwZDZm
-OTk0Cj4gWyAgICAyLjY5NDY4MF0gMWYwMDogMDAwMDAwMDAgYzAxMWFmZTAgYzEwZjVhZTAgMDAw
-MDAwMDAgZmZmZmUwMDAgYzEwMDRmNTQgMDAwMDAwMDAgMDAwMDAwMDAKPiBbICAgIDIuNzAyODQ4
-XSAxZjIwOiBjMTAwMDAwMCBjMGUxMWFmMCBjMTAwMDAwMCBjMTAwMWY0OCBjMDEwOTFlYyBjMDEw
-OTFmMCA2MDAwMDAxMyBmZmZmZmZmZgo+IFsgICAgMi43MTEwMDhdIFs8YzAxMDBhZmM+XSAoX19p
-cnFfc3ZjKSBmcm9tIFs8YzAxMDkxZjA+XSAoYXJjaF9jcHVfaWRsZSsweDQwLzB4NDQpCj4gWyAg
-ICAyLjcxODM5M10gWzxjMDEwOTFmMD5dIChhcmNoX2NwdV9pZGxlKSBmcm9tIFs8YzBhOTFmNDA+
-XSAoZGVmYXVsdF9pZGxlX2NhbGwrMHg0Yy8weDE2OCkKPiBbICAgIDIuNzI2NTYxXSBbPGMwYTkx
-ZjQwPl0gKGRlZmF1bHRfaWRsZV9jYWxsKSBmcm9tIFs8YzAxNmYwNTQ+XSAoZG9faWRsZSsweDIz
-Yy8weDI5MCkKPiBbICAgIDIuNzM0Mjk0XSBbPGMwMTZmMDU0Pl0gKGRvX2lkbGUpIGZyb20gWzxj
-MDE2ZjNmYz5dIChjcHVfc3RhcnR1cF9lbnRyeSsweDIwLzB4MjQpCj4gWyAgICAyLjc0MTg1Ml0g
-WzxjMDE2ZjNmYz5dIChjcHVfc3RhcnR1cF9lbnRyeSkgZnJvbSBbPGMwZjAxMDQwPl0gKHN0YXJ0
-X2tlcm5lbCsweDVlOC8weDYzNCkKPiBbICAgIDIuNzUwMDIwXSBbPGMwZjAxMDQwPl0gKHN0YXJ0
-X2tlcm5lbCkgZnJvbSBbPDAwMDAwMDAwPl0gKDB4MCkKPiBbICAgIDIuNzU1OTI5XSAtLS1bIGVu
-ZCB0cmFjZSBmZWJiMGU3YmZjM2Q4M2MwIF0tLS0KPiAKPiBzbyB0aGVyZSBtaWdodCBiZSBhbm90
-aGVyIGNoYW5nZSByZXF1aXJlZCB0byBmYWlsIGluIGEgbmljZXIgd2F5Lgo+IChUaGF0J3MgdGhl
-IFdBUk5fT04oaXJxc19kaXNhYmxlZCgpKSBpbiBkbWFfZnJlZV9hdHRycygpIHRoYXQgdHJpZ2dl
-cnMKPiBoZXJlLikKCkluZGVlZCwgcHJvYmFibHkgYWxsIGR3YzIgdXNlcnMgY291bGQgYmUgYWZm
-ZWN0ZWQgYnkgdGhpcyAobm90IG9ubHkKc3RtMzIpLiBJTUhPLCBUaGlzIGNvdWxkIGJlIHJlcG9y
-dGVkIHRvIHRoZSBVU0IgbWFpbGluZyBsaXN0LgoKPiAKPiBBbm90aGVyIHRob3VnaHQgSSBoYWQg
-d2hpbGUgdHVuaW5nIHRoZSB0eCBmaWZvIHNpemVzIHdhczogV2h5IGlzIHRoZQo+IHNpemUgYWxs
-b2NhdGlvbiBub3QgKG1vcmUpIGRvbmUgZHluYW1pY2FsbHk/IEF0IGxlYXN0IG9ubHkgc2V0dGlu
-ZyBhCj4gZml4ZWQgYW1vdW50IG9mIGR3b3JkcyBhc2lkZSBmb3IgZy10eC1maWZvLXNpemUgYW5k
-IGFsbG9jYXRlIGZyb20gdGhhdAo+IHNob3VsZG4ndCBiZSB0b28gaGFyZCwgc2hvdWxkIGl0PwoK
-U2FtZSwgYmV0dGVyIHBsYWNlIGNvdWxkIGJlIHRvIHN1Z2dlc3QgdGhpcyBkaXJlY3RseSBvbiB0
-aGUgVVNCIE1MICh3aXRoCk1pbmFzIGluIENDKS4KCj4gCj4gTm90ZSBJIGtub3cgdmVyeSBsaXR0
-bGUgYWJvdXQgVVNCLCBzbyBpdCBtaWdodCB3ZWxsIGJlIHBvc3NpYmxlIHRoYXQgSQo+IG1pc3Nl
-ZCBhIHVzZSBjYXNlLCBidXQgd2l0aCB0aGlzIGNoYW5nZSBteSBVU0IgZ2FkZ2V0IHdvcmtzIGFz
-IGV4cGVjdGVkLgoKU2VlIG15IGVhcmxpZXIgY29tbWVudCBvbiB0aGUgdXNlIGNhc2UuIEl0J3Mg
-cHJvYmFibHkgYSBnb29kIGlkZWEgdG8KdXBkYXRlIHRoZSBnYWRnZXQgRklGTyBzaXplIHRvIGVu
-YWJsZSBjb21wb3NpdGUgZGV2aWNlIHdpdGggdHdvCmZ1bmN0aW9ucyAody81MTIgYnl0ZXMgRVAp
-LgpDb3VsZCB5b3UgdXBkYXRlIHRoZSBjb21taXQgbWVzc2FnZSB3aXRoIHRoZXNlIHVwZGF0ZXMg
-PwoKTm90IHN1cmUgdGhvdWdodCwgaWYgcGVyZiBwZW5hbHR5IHNob3VsZCBiZSBoYW5kbGVkIChh
-bmQgaG93KSBmb3Igc2luZ2xlCmZ1bmN0aW9uIGRldmljZSB1c2UgY2FzZSwgcG9zc2libHkgYWZm
-ZWN0aW5nIGFsbCBjdXJyZW50IHVzZXJzLgoKQmVzdCBSZWdhcmQsCkZhYnJpY2UKCj4gCj4gQmVz
-dCByZWdhcmRzCj4gVXdlCj4gCj4gIGFyY2gvYXJtL2Jvb3QvZHRzL3N0bTMybXAxNTEuZHRzaSB8
-IDIgKy0KPiAgMSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCspLCAxIGRlbGV0aW9uKC0pCj4g
-Cj4gZGlmZiAtLWdpdCBhL2FyY2gvYXJtL2Jvb3QvZHRzL3N0bTMybXAxNTEuZHRzaSBiL2FyY2gv
-YXJtL2Jvb3QvZHRzL3N0bTMybXAxNTEuZHRzaQo+IGluZGV4IDU0OTFiNmM0ZGVjMi4uYWY3MGNh
-MWY5YjU3IDEwMDY0NAo+IC0tLSBhL2FyY2gvYXJtL2Jvb3QvZHRzL3N0bTMybXAxNTEuZHRzaQo+
-ICsrKyBiL2FyY2gvYXJtL2Jvb3QvZHRzL3N0bTMybXAxNTEuZHRzaQo+IEBAIC0xMTM3LDcgKzEx
-MzcsNyBAQCB1c2JvdGdfaHM6IHVzYi1vdGdANDkwMDAwMDAgewo+ICAJCQlpbnRlcnJ1cHRzID0g
-PEdJQ19TUEkgOTggSVJRX1RZUEVfTEVWRUxfSElHSD47Cj4gIAkJCWctcngtZmlmby1zaXplID0g
-PDUxMj47Cj4gIAkJCWctbnAtdHgtZmlmby1zaXplID0gPDMyPjsKPiAtCQkJZy10eC1maWZvLXNp
-emUgPSA8MjU2IDE2IDE2IDE2IDE2IDE2IDE2IDE2PjsKPiArCQkJZy10eC1maWZvLXNpemUgPSA8
-MTI4IDEyOCA2NCAxNiAxNiAxNiAxNiAxNj47Cj4gIAkJCWRyX21vZGUgPSAib3RnIjsKPiAgCQkJ
-b3RnLXJldiA9IDwweDIwMD47Cj4gIAkJCXVzYjMzZC1zdXBwbHkgPSA8JnVzYjMzPjsKX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFp
-bGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6
-Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3Rt
-MzIK
+On Fri, Jan 06, 2023 at 01:24:11PM -0400, Jason Gunthorpe wrote:
+> I think it is just better to follow kernel convention and have
+> allocation functions include the GFP because it is a clear signal to
+> the user that there is an allocation hidden inside the API. The whole
+> point of gfp is not to have multitudes of every function for every
+> allocation mode.
+
+Well, having GFP parameters is not a strict kernel convention. There are
+places doing it differently and have sleeping and atomic variants of
+APIs. I have to say I like the latter more. But given that this leads to
+an invasion of API functions here which all do the same under the hood, I
+agree it is better to go with a GFP parameter here.
+
+Regards,
+
+	Joerg
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
