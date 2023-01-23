@@ -2,115 +2,99 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 866DE679DE8
-	for <lists+linux-stm32@lfdr.de>; Tue, 24 Jan 2023 16:47:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E1255678754
+	for <lists+linux-stm32@lfdr.de>; Mon, 23 Jan 2023 21:15:12 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 438B3C6A5EA;
-	Tue, 24 Jan 2023 15:47:25 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2067.outbound.protection.outlook.com [40.107.92.67])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 90F9EC65E71;
+	Mon, 23 Jan 2023 20:15:12 +0000 (UTC)
+Received: from mail-oa1-f52.google.com (mail-oa1-f52.google.com
+ [209.85.160.52])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1A380C01E99
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8AE98C01E99
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 23 Jan 2023 15:40:29 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=fMu4decx/MA9rlgArBdAUAn5dJsCsMVAx+S2/zZX+Ap0G41Sk5p+/n7pRuygYsH7CWemyUzd1/AouKXSWaNW5YzbtVoj5nct2jEsaAArgHdtnNCB6HGwewPlJxsP7z8m9S7hue9o4l7RrLd28HHBv4qk7OMUvIlf1YGRRPtqlpbkweUVgaLqB523YV+xgkbaJbg878BDfNqNI13BeyZBJP+lv9If8WYvmCihIn5RZp0dWDAp2F4zlDSzPC9k4YlAyvZ2b4DHN5EF+eyDod55bFMlayeT9DMmxMkkVb1Sdv1MMW+LX0TW2MMywrFWmrbwUf2k7hNuHR1Uuiw8HIi1rw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zwVPy3tfDWSTyZtggwhPv4VcayJKldCUePhPLpC0I+A=;
- b=A8dyMLOVP2wET85rBYr1YP4S55qpWKayVpBzgZqyAvcVt93meEveuRNaFUrzGhDghYOJlC3dr/sWC4LWjvrpXwPfdhZ5Nm4gDZwYE4hop0nTKHH5KJTucPV+ZWqfkFfiBhfMXUrkcVWL/zBfBV27KKqLGm1p6rF6rvYFaVafuQH0G1qjpY84FoLWdV5dKmhol/H+zHL1t2wtoYRgupu2LfkL2aLqrJCaZgH9dlkV9IZDYIA3SJ+Mvlarj7D+jIFHDeL0h4BkeKvYDt52xzuftedgYikrsKhe0vLWNBf67zZNISRDrL5wpmhraPzK88KiOdrVlLiNUTuGtqJYlbccgw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=linaro.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zwVPy3tfDWSTyZtggwhPv4VcayJKldCUePhPLpC0I+A=;
- b=cBIyb+u3ho7TKfVfwQ5O6FY7g60W7RD4V/f031mACXDPFfdSw2vBvtOux9mpfvMXL2fTIHK3OKWLGiL1nhMacXXR66OGtONHLod2IoDZNNYx4ujGK/HDI8draNDYggBe2bLEwQ+MIl8mT8T0Xl1ZysIStp7E5jAxEwxTvITaAtE=
-Received: from MN2PR01CA0029.prod.exchangelabs.com (2603:10b6:208:10c::42) by
- IA1PR12MB6017.namprd12.prod.outlook.com (2603:10b6:208:3d7::8) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6002.33; Mon, 23 Jan 2023 15:40:26 +0000
-Received: from BL02EPF0000EE3C.namprd05.prod.outlook.com
- (2603:10b6:208:10c:cafe::7e) by MN2PR01CA0029.outlook.office365.com
- (2603:10b6:208:10c::42) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6002.33 via Frontend
- Transport; Mon, 23 Jan 2023 15:40:26 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BL02EPF0000EE3C.mail.protection.outlook.com (10.167.241.132) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6043.10 via Frontend Transport; Mon, 23 Jan 2023 15:40:26 +0000
-Received: from [10.254.241.50] (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Mon, 23 Jan
- 2023 09:40:16 -0600
-Message-ID: <108eb19b-7e20-4a1d-17db-10370f088a08@amd.com>
-Date: Mon, 23 Jan 2023 16:40:14 +0100
+ Mon, 23 Jan 2023 20:15:11 +0000 (UTC)
+Received: by mail-oa1-f52.google.com with SMTP id
+ 586e51a60fabf-1433ef3b61fso15283347fac.10
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 23 Jan 2023 12:15:11 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=W9JOc294Un2/0rB0FUKryYqic16naXseJPC92bOtRF0=;
+ b=udwluPG5yHvXK+w8bew/X10Q+GU+RV8xzL1v5F58Em9TKS8siNpWeJvxmPuKFvxwjU
+ u4ZDMxzbWflEgweRNmCVqx5tbRc2BPGtaCnxrDvlZ3c21r70RFF5sf5kMQsURJOe9zu/
+ IhEDO59QNnL2cZhby21IHXSI4EMx+kGFYU9GVud6ksErbZ5aKR01gnwqPONqJqrW4mGw
+ qos0c+xTkqWBAOJqSbISj/rpZtZom2ktUO8XE3G+BVTTtVuYFEDB5a4bI5asagqK+/E9
+ 8LWFMCWdGKLA3eUPPccykf+2pqXOu+7VXbzxrE+JCCV/brwNc6bgk3Y2ftqezvjIjVEF
+ Zpdg==
+X-Gm-Message-State: AFqh2kqsxhVQc4vLT37GZ2usVpsFcx0Omf7sYGzbSe0zIxqG4wdpSLRu
+ PlbE+AH0WtnXuPY9N6rF8g==
+X-Google-Smtp-Source: AMrXdXv7/0UWYAVSm7F28zXqx2erH3WvlYts86KO/fBElTBfrToCx8V4nVQwijpoo96jnpY39d8zVA==
+X-Received: by 2002:a05:6871:4506:b0:154:988a:d32d with SMTP id
+ nj6-20020a056871450600b00154988ad32dmr14480326oab.27.1674504910165; 
+ Mon, 23 Jan 2023 12:15:10 -0800 (PST)
+Received: from robh_at_kernel.org (66-90-144-107.dyn.grandenetworks.net.
+ [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
+ b10-20020a056870390a00b001435fe636f2sm25818920oap.53.2023.01.23.12.15.07
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 23 Jan 2023 12:15:09 -0800 (PST)
+Received: (nullmailer pid 2450508 invoked by uid 1000);
+ Mon, 23 Jan 2023 20:15:07 -0000
+Date: Mon, 23 Jan 2023 14:15:07 -0600
+From: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Message-ID: <167450490674.2450465.12158974323906034097.robh@kernel.org>
+References: <20230118173932.358153-1-krzysztof.kozlowski@linaro.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.1
-Content-Language: en-US
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, Greg Kroah-Hartman
- <gregkh@linuxfoundation.org>, Rob Herring <robh+dt@kernel.org>, Krzysztof
- Kozlowski <krzysztof.kozlowski+dt@linaro.org>, Neil Armstrong
- <neil.armstrong@linaro.org>, Kevin Hilman <khilman@baylibre.com>, Jerome
- Brunet <jbrunet@baylibre.com>, Martin Blumenstingl
- <martin.blumenstingl@googlemail.com>, Shawn Guo <shawnguo@kernel.org>, Sascha
- Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team
- <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, NXP Linux Team
- <linux-imx@nxp.com>, Palmer Dabbelt <palmer@dabbelt.com>, Paul Walmsley
- <paul.walmsley@sifive.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>, Lubomir Rintel
- <lkundrak@v3.sk>, - <devicetree@vger.kernel.org>, Vignesh Raghavendra
- <vigneshr@ti.com>, Michal Simek <michal.simek@xilinx.com>, Chester Lin
- <clin@suse.com>, Fugang Duan <fugang.duan@nxp.com>, Magnus Damm
- <magnus.damm@gmail.com>, Geert Uytterhoeven <geert+renesas@glider.be>,
- Pragnesh Patel <pragnesh.patel@sifive.com>, Le Ray <erwan.leray@foss.st.com>, 
- Peter Korsgaard <jacmet@sunsite.dk>, Tomer Maimon <tmaimon77@gmail.com>,
- <linux-serial@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <linux-arm-kernel@lists.infradead.org>, <linux-amlogic@lists.infradead.org>,
- <linux-riscv@lists.infradead.org>, <linux-stm32@st-md-mailman.stormreply.com>
-References: <20230123151302.368277-1-krzysztof.kozlowski@linaro.org>
- <20230123151302.368277-4-krzysztof.kozlowski@linaro.org>
-From: Michal Simek <michal.simek@amd.com>
-In-Reply-To: <20230123151302.368277-4-krzysztof.kozlowski@linaro.org>
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF0000EE3C:EE_|IA1PR12MB6017:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7bdd5619-1978-4fd1-6f61-08dafd582621
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: J9RLUVTKYnrMwsQx5MD7AUOdRy7r3D+deq/Oc6puUglYNio+V1517z5NdGcTK7O8ycB4AjzgVU8i1F5BhYU74vPJinCvifg4nIvQ4xDGCEOdD8tp6HFLBaF+530itw/WF8YsGKQAqoHD0rqeZ1pWvvdB2KKsEbVarQiHtBiS38mLZmZzgNGIPnZX5zSXV2CyHq2FQs2d1P+ZD0OqxY+ngbghOOahtRdxqN3YUAkSzoBbIXmAA461wZe96VXEdb54mJe5IdZyXYX/iT594fiBpR+0Ft4zhlMX8JhL3Uq4HyMVTBHnJ29b5yiY8aOxz07WR74G5kJFGI5idbDRXKkTX2vef98N1wk+tk8zEavLNCXFrXwnXhXy5EsrEwfFJOTzN1/MkFDRBY1Mz92QJdxYEabcet5n+JdJXr5oUjdK4P4nzUFDEg0F8aVFTkVPADz3MVO/3Dnh9ioDnkd0H1H5RdOZ26/8BP19ZYL2jpe3gAvSroBvKl/PUU9LLZyvqGuBBJzUz3HgY6HaccM755H5n6aL9BMUuj7WEU+O978hb0sEsuxdcDBF9hafP5turmXBgviCjV07pShdj232+IscKvKtVHm4LpQ9P85xB4f5KT6WJ4AMsqbnULmZ6KJZSiaVVt0fgASq6d+HWdf6GFvMdgbs3M/5D6qA5tyZ7IUoqaz3T5R9NZLGEOXPVYLW7BBt+E0aJy+k/pgece2VeITnO+7JbfWtyjZ3ryA6zyVSoxLbF3XkImzvAiZCLvI8N517ySijGkPf08ikPzqgaxEjP/lm60KNEAxrMqfxYsKM3xraJ4mfQCKT4Lwe3te533nrVua0BZ1V+kMHQNxlmyPhhg==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230022)(4636009)(396003)(39860400002)(346002)(376002)(136003)(451199015)(46966006)(40470700004)(36840700001)(36860700001)(316002)(16576012)(86362001)(70206006)(70586007)(8676002)(36756003)(110136005)(186003)(26005)(16526019)(40480700001)(53546011)(83380400001)(356005)(921005)(478600001)(2616005)(81166007)(336012)(31686004)(7416002)(7406005)(5660300002)(40460700003)(44832011)(47076005)(8936002)(41300700001)(426003)(82740400003)(2906002)(31696002)(82310400005)(36900700001)(43740500002)(2101003)(83996005);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jan 2023 15:40:26.4240 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7bdd5619-1978-4fd1-6f61-08dafd582621
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL02EPF0000EE3C.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6017
-X-Mailman-Approved-At: Tue, 24 Jan 2023 15:47:20 +0000
-Subject: Re: [Linux-stm32] [PATCH 04/13] dt-bindings: serial: correct ref to
-	serial.yaml
+Content-Disposition: inline
+In-Reply-To: <20230118173932.358153-1-krzysztof.kozlowski@linaro.org>
+Cc: Bert Vermeulen <bert@biot.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>, Mark Brown <broonie@kernel.org>,
+ Miquel Raynal <miquel.raynal@bootlin.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>, Rob Herring <robh+dt@kernel.org>,
+ Michal Simek <michal.simek@xilinx.com>, Gabor Juhos <juhosg@openwrt.org>,
+ Thierry Reding <thierry.reding@gmail.com>, Haibo Chen <haibo.chen@nxp.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ linux-amlogic@lists.infradead.org, =?UTF-8?B?77+9ZWNraQ==?= <rafal@milecki.pl>,
+ linux-riscv@lists.infradead.org, linux-spi@vger.kernel.org,
+ Fabio Estevam <festevam@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
+ Jerome Brunet <jbrunet@baylibre.com>, Marek Vasut <marex@denx.de>,
+ Linus Walleij <linus.walleij@linaro.org>, linux-aspeed@lists.ozlabs.org,
+ Anson Huang <Anson.Huang@nxp.com>, Samuel Holland <samuel@sholland.org>,
+ Leilk Liu <leilk.liu@mediatek.com>, Chunyan Zhang <zhang.lyra@gmail.com>,
+ Chin-Ting Kuo <chin-ting_kuo@aspeedtech.com>, Joel Stanley <joel@jms.id.au>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>, linux-rockchip@lists.infradead.org,
+ Chen-Yu Tsai <wens@csie.org>, Andy Gross <agross@kernel.org>,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+ NXP Linux Team <linux-imx@nxp.com>, Orson Zhai <orsonzhai@gmail.com>,
+ linux-sunxi@lists.linux.dev, Birger Koblitz <mail@birger-koblitz.de>,
+ devicetree@vger.kernel.org, Kuldeep Singh <singh.kuldeep87k@gmail.com>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Parshuram Thombare <pthombar@cadence.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ linux-arm-msm@vger.kernel.org, Sascha Hauer <s.hauer@pengutronix.de>,
+ Maxime Ripard <mripard@kernel.org>, Vaishnav Achath <vaishnav.a@ti.com>,
+ linux-mediatek@lists.infradead.org,
+ =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Paul Walmsley <paul.walmsley@sifive.com>, linux-tegra@vger.kernel.org,
+ Han Xu <han.xu@nxp.com>, linux-arm-kernel@lists.infradead.org,
+ Neil Armstrong <neil.armstrong@linaro.org>, Li-hao Kuo <lhjeff911@gmail.com>,
+ Andrew Jeffery <andrew@aj.id.au>, Bjorn Andersson <andersson@kernel.org>,
+ Kamal Dasu <kdasu.kdev@gmail.com>, Heiko Stuebner <heiko@sntech.de>,
+ linux-kernel@vger.kernel.org, Serge Semin <fancer.lancer@gmail.com>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Yogesh Gaur <yogeshgaur.83@gmail.com>,
+ Chris Packham <chris.packham@alliedtelesis.co.nz>,
+ Palmer Dabbelt <palmer@dabbelt.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Kevin Hilman <khilman@baylibre.com>, Shawn Guo <shawnguo@kernel.org>,
+ openbmc@lists.ozlabs.org, Pragnesh Patel <pragnesh.patel@sifive.com>
+Subject: Re: [Linux-stm32] [PATCH 1/2] spi: dt-bindings: drop unneeded quotes
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -122,65 +106,55 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 
-
-On 1/23/23 16:12, Krzysztof Kozlowski wrote:
-> CAUTION: This message has originated from an External Source. Please use proper judgment and caution when opening attachments, clicking links, or responding to this email.
-> 
-> 
-> The serial bindings should reference the local (in kernel) serial.yaml,
-> not the /schemas/serial.yaml.  The latter comes from dtschema package
-> and is a small subset of serial bindings.
-> 
-> Usage of the local serial.yaml allows typical properties and children:
-> 
->    xilinx/avnet-ultra96-rev1.dtb: serial@ff000000: Unevaluated properties are not allowed ('bluetooth' were unexpected)
+On Wed, 18 Jan 2023 18:39:31 +0100, Krzysztof Kozlowski wrote:
+> Cleanup by removing unneeded quotes from refs and redundant blank lines.
+> No functional impact except adjusting to preferred coding style.
 > 
 > Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 > ---
->   Documentation/devicetree/bindings/serial/cdns,uart.yaml         | 2 +-
->   Documentation/devicetree/bindings/serial/xlnx,opb-uartlite.yaml | 2 +-
->   2 files changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/serial/cdns,uart.yaml b/Documentation/devicetree/bindings/serial/cdns,uart.yaml
-> index 876b8cf1cafb..0c118d5336cc 100644
-> --- a/Documentation/devicetree/bindings/serial/cdns,uart.yaml
-> +++ b/Documentation/devicetree/bindings/serial/cdns,uart.yaml
-> @@ -10,7 +10,7 @@ maintainers:
->     - Michal Simek <michal.simek@xilinx.com>
-> 
->   allOf:
-> -  - $ref: /schemas/serial.yaml#
-> +  - $ref: serial.yaml#
-> 
->   properties:
->     compatible:
-> diff --git a/Documentation/devicetree/bindings/serial/xlnx,opb-uartlite.yaml b/Documentation/devicetree/bindings/serial/xlnx,opb-uartlite.yaml
-> index 2f4390e8d4e8..6f65e9a81c29 100644
-> --- a/Documentation/devicetree/bindings/serial/xlnx,opb-uartlite.yaml
-> +++ b/Documentation/devicetree/bindings/serial/xlnx,opb-uartlite.yaml
-> @@ -63,7 +63,7 @@ required:
->     - xlnx,use-parity
-> 
->   allOf:
-> -  - $ref: /schemas/serial.yaml#
-> +  - $ref: serial.yaml#
->     - if:
->         properties:
->           xlnx,use-parity:
-> --
-> 2.34.1
+>  .../bindings/spi/allwinner,sun4i-a10-spi.yaml  |  2 +-
+>  .../bindings/spi/allwinner,sun6i-a31-spi.yaml  |  2 +-
+>  .../bindings/spi/amlogic,meson-gx-spicc.yaml   |  6 +++---
+>  .../bindings/spi/amlogic,meson6-spifc.yaml     |  6 +++---
+>  .../bindings/spi/aspeed,ast2600-fmc.yaml       |  2 +-
+>  .../devicetree/bindings/spi/cdns,qspi-nor.yaml |  2 +-
+>  .../devicetree/bindings/spi/cdns,xspi.yaml     |  6 +++---
+>  .../bindings/spi/fsl,spi-fsl-qspi.yaml         |  2 +-
+>  .../devicetree/bindings/spi/fsl-imx-cspi.yaml  |  2 +-
+>  .../bindings/spi/mediatek,spi-mt65xx.yaml      |  2 +-
+>  .../spi/mediatek,spi-slave-mt27xx.yaml         |  2 +-
+>  .../bindings/spi/mikrotik,rb4xx-spi.yaml       |  2 +-
+>  .../bindings/spi/mxicy,mx25f0a-spi.yaml        |  2 +-
+>  .../devicetree/bindings/spi/mxs-spi.yaml       |  2 +-
+>  .../bindings/spi/nvidia,tegra210-quad.yaml     |  2 +-
+>  .../bindings/spi/qcom,spi-qcom-qspi.yaml       |  5 ++---
+>  .../bindings/spi/realtek,rtl-spi.yaml          |  2 +-
+>  .../bindings/spi/snps,dw-apb-ssi.yaml          |  2 +-
+>  .../devicetree/bindings/spi/spi-cadence.yaml   |  2 +-
+>  .../devicetree/bindings/spi/spi-fsl-lpspi.yaml |  2 +-
+>  .../devicetree/bindings/spi/spi-gpio.yaml      |  4 ++--
+>  .../devicetree/bindings/spi/spi-mux.yaml       |  4 ++--
+>  .../devicetree/bindings/spi/spi-nxp-fspi.yaml  |  2 +-
+>  .../devicetree/bindings/spi/spi-pl022.yaml     | 18 +++++++++---------
+>  .../devicetree/bindings/spi/spi-rockchip.yaml  |  2 +-
+>  .../devicetree/bindings/spi/spi-sifive.yaml    |  6 +++---
+>  .../bindings/spi/spi-sunplus-sp7021.yaml       |  2 +-
+>  .../devicetree/bindings/spi/spi-xilinx.yaml    |  2 +-
+>  .../bindings/spi/spi-zynqmp-qspi.yaml          |  2 +-
+>  .../devicetree/bindings/spi/sprd,spi-adi.yaml  |  5 ++---
+>  .../devicetree/bindings/spi/st,stm32-qspi.yaml |  2 +-
+>  .../devicetree/bindings/spi/st,stm32-spi.yaml  |  2 +-
+>  .../bindings/spi/xlnx,zynq-qspi.yaml           |  2 +-
+>  33 files changed, 53 insertions(+), 55 deletions(-)
 > 
 
-Acked-by: Michal Simek <michal.simek@amd.com>
-
-Thanks,
-Michal
+Acked-by: Rob Herring <robh@kernel.org>
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
