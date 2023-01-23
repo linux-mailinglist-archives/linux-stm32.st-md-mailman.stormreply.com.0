@@ -2,76 +2,79 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED347679DE2
-	for <lists+linux-stm32@lfdr.de>; Tue, 24 Jan 2023 16:47:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 153F7679DE3
+	for <lists+linux-stm32@lfdr.de>; Tue, 24 Jan 2023 16:47:25 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AB109C6907A;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CAD72C6907D;
 	Tue, 24 Jan 2023 15:47:24 +0000 (UTC)
-Received: from 6.mo552.mail-out.ovh.net (6.mo552.mail-out.ovh.net
- [188.165.49.222])
+Received: from lelv0143.ext.ti.com (lelv0143.ext.ti.com [198.47.23.248])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B2CAFC69055
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id ABB87C01E99
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 23 Jan 2023 13:10:28 +0000 (UTC)
-Received: from mxplan5.mail.ovh.net (unknown [10.109.143.167])
- by mo552.mail-out.ovh.net (Postfix) with ESMTPS id 731DB2B568;
- Mon, 23 Jan 2023 13:10:17 +0000 (UTC)
-Received: from kaod.org (37.59.142.109) by DAG4EX2.mxp5.local (172.16.2.32)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.16; Mon, 23 Jan
- 2023 14:10:10 +0100
-Authentication-Results: garm.ovh; auth=pass
- (GARM-109S0035e8cf7e5-490b-4306-97b9-26c7bcdb01f8,
- A67B952EB2D8D9A0A9F9E7F867E869D975DF4B5D) smtp.auth=clg@kaod.org
-X-OVh-ClientIp: 82.64.250.170
-Message-ID: <d1743abc-3d9f-cdf4-dfbe-67aac4b1b8cd@kaod.org>
-Date: Mon, 23 Jan 2023 14:10:05 +0100
+ Mon, 23 Jan 2023 14:24:01 +0000 (UTC)
+Received: from lelv0265.itg.ti.com ([10.180.67.224])
+ by lelv0143.ext.ti.com (8.15.2/8.15.2) with ESMTP id 30NELWIe048974;
+ Mon, 23 Jan 2023 08:21:32 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
+ s=ti-com-17Q1; t=1674483692;
+ bh=BlwQD0ARUqblb48RoEOI25OrVzMPGwg0R8vqptzkpJg=;
+ h=Date:Subject:To:CC:References:From:In-Reply-To;
+ b=FvdWBlHevL+XhAXaPy6/J5HISPF/VxUYp4ghd1OWL43dNVfYvXx7g2ekBT5wQUebb
+ Z/07W4YvJKF6TF7RTc4RvQAKzkBGhqILEYF+bDhNVaut9uibJTMsoi4PzBJtGFNdxQ
+ U3G4OdSkYHOE3bCY4gA0ok7R5fHJd+5EAWcvuU0g=
+Received: from DFLE111.ent.ti.com (dfle111.ent.ti.com [10.64.6.32])
+ by lelv0265.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 30NELWpG001905
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Mon, 23 Jan 2023 08:21:32 -0600
+Received: from DFLE104.ent.ti.com (10.64.6.25) by DFLE111.ent.ti.com
+ (10.64.6.32) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.16; Mon, 23
+ Jan 2023 08:21:31 -0600
+Received: from lelv0326.itg.ti.com (10.180.67.84) by DFLE104.ent.ti.com
+ (10.64.6.25) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.16 via
+ Frontend Transport; Mon, 23 Jan 2023 08:21:31 -0600
+Received: from [10.250.234.171] (ileaxei01-snat.itg.ti.com [10.180.69.5])
+ by lelv0326.itg.ti.com (8.15.2/8.15.2) with ESMTP id 30NEKpI9018755;
+ Mon, 23 Jan 2023 08:20:53 -0600
+Message-ID: <90084f5f-6e9d-7b17-5487-3b4b01bd5e7d@ti.com>
+Date: Mon, 23 Jan 2023 19:50:50 +0530
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.0
+ Thunderbird/102.4.2
 Content-Language: en-US
 To: Amit Kumar Mahapatra <amit.kumar-mahapatra@amd.com>, <broonie@kernel.org>, 
  <miquel.raynal@bootlin.com>, <richard@nod.at>, <vigneshr@ti.com>,
- <jic23@kernel.org>, <tudor.ambarus@microchip.com>, <pratyush@kernel.org>,
- <sanju.mehta@amd.com>, <chin-ting_kuo@aspeedtech.com>,
- <kdasu.kdev@gmail.com>, <f.fainelli@gmail.com>, <rjui@broadcom.com>,
- <sbranden@broadcom.com>, <eajames@linux.ibm.com>, <olteanv@gmail.com>,
- <han.xu@nxp.com>, <john.garry@huawei.com>, <shawnguo@kernel.org>,
- <s.hauer@pengutronix.de>, <narmstrong@baylibre.com>, <khilman@baylibre.com>,
- <matthias.bgg@gmail.com>, <haibo.chen@nxp.com>, <linus.walleij@linaro.org>,
- <daniel@zonque.org>, <haojian.zhuang@gmail.com>, <robert.jarzmik@free.fr>,
+ <jic23@kernel.org>, <tudor.ambarus@microchip.com>,
+ <pratyush@kernel.org>, <sanju.mehta@amd.com>,
+ <chin-ting_kuo@aspeedtech.com>, <clg@kaod.org>, <kdasu.kdev@gmail.com>,
+ <f.fainelli@gmail.com>, <rjui@broadcom.com>, <sbranden@broadcom.com>,
+ <eajames@linux.ibm.com>, <olteanv@gmail.com>, <han.xu@nxp.com>,
+ <john.garry@huawei.com>, <shawnguo@kernel.org>,
+ <s.hauer@pengutronix.de>, <narmstrong@baylibre.com>,
+ <khilman@baylibre.com>, <matthias.bgg@gmail.com>, <haibo.chen@nxp.com>,
+ <linus.walleij@linaro.org>, <daniel@zonque.org>,
+ <haojian.zhuang@gmail.com>, <robert.jarzmik@free.fr>,
  <agross@kernel.org>, <bjorn.andersson@linaro.org>, <heiko@sntech.de>,
  <krzysztof.kozlowski@linaro.org>, <andi@etezian.org>,
- <mcoquelin.stm32@gmail.com>, <alexandre.torgue@foss.st.com>, <wens@csie.org>, 
- <jernej.skrabec@gmail.com>, <samuel@sholland.org>,
+ <mcoquelin.stm32@gmail.com>, <alexandre.torgue@foss.st.com>,
+ <wens@csie.org>, <jernej.skrabec@gmail.com>, <samuel@sholland.org>,
  <masahisa.kojima@linaro.org>, <jaswinder.singh@linaro.org>,
  <rostedt@goodmis.org>, <mingo@redhat.com>, <l.stelmach@samsung.com>,
  <davem@davemloft.net>, <edumazet@google.com>, <kuba@kernel.org>,
- <pabeni@redhat.com>, <alex.aring@gmail.com>, <stefan@datenfreihafen.org>,
- <kvalo@kernel.org>, <thierry.reding@gmail.com>, <jonathanh@nvidia.com>,
+ <pabeni@redhat.com>, <alex.aring@gmail.com>,
+ <stefan@datenfreihafen.org>, <kvalo@kernel.org>,
+ <thierry.reding@gmail.com>, <jonathanh@nvidia.com>,
  <skomatineni@nvidia.com>, <sumit.semwal@linaro.org>,
- <christian.koenig@amd.com>, <j.neuschaefer@gmx.net>, <vireshk@kernel.org>,
- <rmfrfs@gmail.com>, <johan@kernel.org>, <elder@kernel.org>,
- <gregkh@linuxfoundation.org>
+ <christian.koenig@amd.com>, <j.neuschaefer@gmx.net>,
+ <vireshk@kernel.org>, <rmfrfs@gmail.com>, <johan@kernel.org>,
+ <elder@kernel.org>, <gregkh@linuxfoundation.org>
 References: <20230119185342.2093323-1-amit.kumar-mahapatra@amd.com>
  <20230119185342.2093323-3-amit.kumar-mahapatra@amd.com>
-From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
+From: Dhruva Gole <d-gole@ti.com>
 In-Reply-To: <20230119185342.2093323-3-amit.kumar-mahapatra@amd.com>
-X-Originating-IP: [37.59.142.109]
-X-ClientProxiedBy: DAG6EX2.mxp5.local (172.16.2.52) To DAG4EX2.mxp5.local
- (172.16.2.32)
-X-Ovh-Tracer-GUID: d8c081e3-7749-496f-b92b-664d73f13c17
-X-Ovh-Tracer-Id: 9743537793859029808
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedvhedruddukedgfeekucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecuhedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurhepkfffgggfuffvvehfhfgjtgfgihesthekredttdefjeenucfhrhhomhepveorughrihgtucfnvgcuifhorghtvghruceotghlgheskhgrohgurdhorhhgqeenucggtffrrghtthgvrhhnpeffudefleeiudejfeffhfejffeigffhhffhvdekieejheelvdeufffhjedtheeggeenucfkphepuddvjedrtddrtddruddpfeejrdehledrudegvddruddtleenucevlhhushhtvghrufhiiigvpedunecurfgrrhgrmhepihhnvghtpeduvdejrddtrddtrddupdhmrghilhhfrhhomhepoegtlhhgsehkrghougdrohhrgheqpdhnsggprhgtphhtthhopedupdhrtghpthhtoheprghmihhtrdhkuhhmrghrqdhmrghhrghprghtrhgrsegrmhgurdgtohhmpdhkohhnrhgrugdrugihsggtihhosehsohhmrghinhhlihhnvgdrohhrghdphihoghgvshhhghgruhhrrdekfeesghhmrghilhdrtghomhdpsggvnhhjrghmihhnfhgrihhrsehgohhoghhlvgdrtghomhdphihuvghnnhesghhoohhglhgvrdgtohhmpdhvvghnthhurhgvsehgohhoghhlvgdrtghomhdpthgrlhhirdhpvghrrhihudesghhmrghilhdrtghomhdpthhmrghimhhonhejjeesghhmrghilhdrtg
- homhdprghvihhfihhshhhmrghnjedtsehgmhgrihhlrdgtohhmpdhmrghrthhinhdrsghluhhmvghnshhtihhnghhlsehgohhoghhlvghmrghilhdrtghomhdplhhinhhugidqihhmgiesnhigphdrtghomhdpfhgvshhtvghvrghmsehgmhgrihhlrdgtohhmpdgrlhhimhdrrghkhhhtrghrsehsrghmshhunhhgrdgtohhmpdhkvghrnhgvlhesphgvnhhguhhtrhhonhhigidruggvpdgstghmqdhkvghrnhgvlhdqfhgvvggusggrtghkqdhlihhsthessghrohgruggtohhmrdgtohhmpdgtlhgruhguihhurdgsvgiinhgvrgesmhhitghrohgthhhiphdrtghomhdprghlvgigrghnughrvgdrsggvlhhlohhnihessghoohhtlhhinhdrtghomhdpnhhitgholhgrshdrfhgvrhhrvgesmhhitghrohgthhhiphdrtghomhdprhgrughupghnihgtohhlrggvrdhpihhrvggrsehuphgsrdhrohdprghnughrvgifsegrjhdrihgurdgruhdpjhhovghlsehjmhhsrdhiugdrrghupdhlihhnuhigqdhkvghrnhgvlhesvhhgvghrrdhkvghrnhgvlhdrohhrghdplhhinhhugidqshhpihesvhhgvghrrdhkvghrnhgvlhdrohhrghdpghhithesrghmugdrtghomhdpghhrvghgkhhhsehlihhnuhigfhhouhhnuggrthhiohhnrdhorhhgpdhfrghntggvrhdrlhgrnhgtvghrsehgmhgrihhlrdgtohhmpdhluggvfigrnhhgrghnsehnvhhiughirgdrtghomhdpmhhitghhrghlrdhsihhmvghksegrmhgurdgtohhmpdhlihhnuhigqdgrshhpvggvuge
- slhhishhtshdrohiilhgrsghsrdhorhhgpdhgrhgvhigsuhhsqdguvghvsehlihhsthhsrdhlihhnrghrohdrohhrghdpughrihdquggvvhgvlheslhhishhtshdrfhhrvggvuggvshhkthhophdrohhrghdplhhinhhugidqmhgvughirgesvhhgvghrrdhkvghrnhgvlhdrohhrghdplhhinhhugidqrhhishgtvheslhhishhtshdrihhnfhhrrgguvggrugdrohhrghdpphgrlhhmvghrsegurggssggvlhhtrdgtohhmpdhmihgthhgrvghlseifrghllhgvrdgttgdplhhinhhugidqihhiohesvhhgvghrrdhkvghrnhgvlhdrohhrghdpofhitghhrggvlhdrjfgvnhhnvghrihgthhesrghnrghlohhgrdgtohhmpdhlrghrshesmhgvthgrfhhoohdruggvpdhlihhnuhigqdhmthgusehlihhsthhsrdhinhhfrhgruggvrggurdhorhhgpdhlihhnuhigqdifihhrvghlvghsshesvhhgvghrrdhkvghrnhgvlhdrohhrghdplhhisggvrhhtrghsqdguvghvsehlihhsthhsrdhinhhfrhgruggvrggurdhorhhgpdhlihhnuhigqdifphgrnhesvhhgvghrrdhkvghrnhgvlhdrohhrghdpnhgvthguvghvsehvghgvrhdrkhgvrhhnvghlrdhorhhgpdhlihhnuhigqdhtvghgrhgrsehvghgvrhdrkhgvrhhnvghlrdhorhhgpdhlihhnuhigqdhsuhhngihisehlihhsthhsrdhlihhnuhigrdguvghvpdhlihhnuhigqdhsthhmfedvsehsthdqmhguqdhmrghilhhmrghnrdhsthhorhhmrhgvphhlhidrtghomhdplhhinhhugidqshgrmhhsuhhn
- ghdqshhotgesvhhgvghrrdhkvghrnhgvlhdrohhrghdplhhinhhugidqrhhotghktghhihhpsehlihhsthhsrdhinhhfrhgruggvrggurdhorhhgpdhlihhnuhigqdgrrhhmqdhmshhmsehvghgvrhdrkhgvrhhnvghlrdhorhhgpdhlihhnuhigqdhmvgguihgrthgvkheslhhishhtshdrihhnfhhrrgguvggrugdrohhrghdplhhinhhugidqrghmlhhoghhitgeslhhishhtshdrihhnfhhrrgguvggrugdrohhrghdplhhinhhugidqrhhpihdqkhgvrhhnvghlsehlihhsthhsrdhinhhfrhgruggvrggurdhorhhgpdhlihhnuhigqdgrrhhmqdhkvghrnhgvlheslhhishhtshdrihhnfhhrrgguvggrugdrohhrghdpohhpvghnsghmtgeslhhishhtshdrohiilhgrsghsrdhorhhgpdgvlhguvghrsehkvghrnhgvlhdrohhrghdplhhinhhugidqshhtrghgihhngheslhhishhtshdrlhhinhhugidruggvvhdpjhhohhgrnheskhgvrhhnvghlrdhorhhgpdhvihhrvghshhhksehkvghrnhgvlhdrohhrghdphhgrohhjihgrnhdriihhuhgrnhhgsehgmhgrihhlrdgtohhmpdgurghnihgvlhesiihonhhquhgvrdhorhhgpdhlihhnuhhsrdifrghllhgvihhjsehlihhnrghrohdrohhrghdphhgrihgsohdrtghhvghnsehngihprdgtohhmpdhmrghtthhhihgrshdrsghgghesghhmrghilhdrtghomhdpshdrhhgruhgvrhesphgvnhhguhhtrhhonhhigidruggvpdhshhgrfihnghhuoheskhgvrhhnvghlrdhorhhgpdhjohhhnhdrghgrr
- hhrhieshhhurgifvghirdgtohhmpdhhrghnrdiguhesnhigphdrtghomhdpohhlthgvrghnvhesghhmrghilhdrtghomhdpvggrjhgrmhgvsheslhhinhhugidrihgsmhdrtghomhdprhhosggvrhhtrdhjrghriihmihhksehfrhgvvgdrfhhrpdhssghrrghnuggvnhessghrohgruggtohhmrdgtohhmpdhfrdhfrghinhgvlhhlihesghhmrghilhdrtghomhdpkhgurghsuhdrkhguvghvsehgmhgrihhlrdgtohhmpdgthhhinhdqthhinhhgpghkuhhosegrshhpvggvughtvggthhdrtghomhdpshgrnhhjuhdrmhgvhhhtrgesrghmugdrtghomhdpphhrrghthihushhhsehkvghrnhgvlhdrohhrghdpthhuughorhdrrghmsggrrhhushesmhhitghrohgthhhiphdrtghomhdpjhhitgdvfeeskhgvrhhnvghlrdhorhhgpdhvihhgnhgvshhhrhesthhirdgtohhmpdhrihgthhgrrhgusehnohgurdgrthdpmhhiqhhuvghlrdhrrgihnhgrlhessghoohhtlhhinhdrtghomhdpsghrohhonhhivgeskhgvrhhnvghlrdhorhhgpdhrjhhuihessghrohgruggtohhmrdgtohhmpdgrghhrohhssheskhgvrhhnvghlrdhorhhgpdgsjhhorhhnrdgrnhguvghrshhsohhnsehlihhnrghrohdrohhrghdphhgvihhkohesshhnthgvtghhrdguvgdpjhdrnhgvuhhstghhrggvfhgvrhesghhmgidrnhgvthdptghhrhhishhtihgrnhdrkhhovghnihhgsegrmhgurdgtohhmpdhsuhhmihhtrdhsvghmfigrlheslhhinhgrrhhordhorhhgpdhskh
- homhgrthhinhgvnhhisehnvhhiughirgdrtghomhdpjhhonhgrthhhrghnhhesnhhvihguihgrrdgtohhmpdhthhhivghrrhihrdhrvgguihhnghesghhmrghilhdrtghomhdpkhhvrghloheskhgvrhhnvghlrdhorhhgpdhsthgvfhgrnhesuggrthgvnhhfrhgvihhhrghfvghnrdhorhhgpdgrlhgvgidrrghrihhnghesghhmrghilhdrtghomhdpphgrsggvnhhisehrvgguhhgrthdrtghomhdpkhhusggrsehkvghrnhgvlhdrohhrghdpvgguuhhmrgiivghtsehgohhoghhlvgdrtghomhdpuggrvhgvmhesuggrvhgvmhhlohhfthdrnhgvthdplhdrshhtvghlmhgrtghhsehsrghmshhunhhgrdgtohhmpdhmihhnghhosehrvgguhhgrthdrtghomhdprhhoshhtvgguthesghhoohgumhhishdrohhrghdpjhgrshifihhnuggvrhdrshhinhhghheslhhinhgrrhhordhorhhgpdhmrghsrghhihhsrgdrkhhojhhimhgrsehlihhnrghrohdrohhrghdpshgrmhhuvghlsehshhholhhlrghnugdrohhrghdpjhgvrhhnvghjrdhskhhrrggsvggtsehgmhgrihhlrdgtohhmpdifvghnshestghsihgvrdhorhhgpdgrlhgvgigrnhgurhgvrdhtohhrghhuvgesfhhoshhsrdhsthdrtghomhdpmhgtohhquhgvlhhinhdrshhtmhefvdesghhmrghilhdrtghomhdprghnughisegvthgviihirghnrdhorhhgpdhkrhiihihsiihtohhfrdhkohiilhhofihskhhisehlihhnrghrohdrohhrghdprhhmfhhrfhhssehgmhgrihhlrdgtohhmpdg
- rmhhithhrkhgtihgrnhdvtddtvdesghhmrghilhdrtghomhdpoffvtefjohhsthepmhhoheehvddpmhhouggvpehsmhhtphhouhht
+X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
 X-Mailman-Approved-At: Tue, 24 Jan 2023 15:47:20 +0000
 Cc: alexandre.belloni@bootlin.com, tmaimon77@gmail.com,
  linux-aspeed@lists.ozlabs.org, linux-iio@vger.kernel.org,
@@ -110,64 +113,42 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gMS8xOS8yMyAxOTo1MywgQW1pdCBLdW1hciBNYWhhcGF0cmEgd3JvdGU6Cj4gZGlmZiAtLWdp
-dCBhL2RyaXZlcnMvc3BpL3NwaS1hc3BlZWQtc21jLmMgYi9kcml2ZXJzL3NwaS9zcGktYXNwZWVk
-LXNtYy5jCj4gaW5kZXggODczZmYyY2Y3MmM5Li5iN2E5ZWM1NTBiYTEgMTAwNjQ0Cj4gLS0tIGEv
-ZHJpdmVycy9zcGkvc3BpLWFzcGVlZC1zbWMuYwo+ICsrKyBiL2RyaXZlcnMvc3BpL3NwaS1hc3Bl
-ZWQtc21jLmMKPiBAQCAtMjk2LDcgKzI5Niw3IEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3QgYXNwZWVk
-X3NwaV9kYXRhIGFzdDI0MDBfc3BpX2RhdGE7Cj4gICBzdGF0aWMgaW50IGRvX2FzcGVlZF9zcGlf
-ZXhlY19vcChzdHJ1Y3Qgc3BpX21lbSAqbWVtLCBjb25zdCBzdHJ1Y3Qgc3BpX21lbV9vcCAqb3Ap
-Cj4gICB7Cj4gICAJc3RydWN0IGFzcGVlZF9zcGkgKmFzcGkgPSBzcGlfY29udHJvbGxlcl9nZXRf
-ZGV2ZGF0YShtZW0tPnNwaS0+bWFzdGVyKTsKPiAtCXN0cnVjdCBhc3BlZWRfc3BpX2NoaXAgKmNo
-aXAgPSAmYXNwaS0+Y2hpcHNbbWVtLT5zcGktPmNoaXBfc2VsZWN0XTsKPiArCXN0cnVjdCBhc3Bl
-ZWRfc3BpX2NoaXAgKmNoaXAgPSAmYXNwaS0+Y2hpcHNbc3BpX2dldF9jaGlwc2VsZWN0KG1lbS0+
-c3BpLCAwKV07Cj4gICAJdTMyIGFkZHJfbW9kZSwgYWRkcl9tb2RlX2JhY2t1cDsKPiAgIAl1MzIg
-Y3RsX3ZhbDsKPiAgIAlpbnQgcmV0ID0gMDsKPiBAQCAtMzc3LDcgKzM3Nyw4IEBAIHN0YXRpYyBj
-b25zdCBjaGFyICphc3BlZWRfc3BpX2dldF9uYW1lKHN0cnVjdCBzcGlfbWVtICptZW0pCj4gICAJ
-c3RydWN0IGFzcGVlZF9zcGkgKmFzcGkgPSBzcGlfY29udHJvbGxlcl9nZXRfZGV2ZGF0YShtZW0t
-PnNwaS0+bWFzdGVyKTsKPiAgIAlzdHJ1Y3QgZGV2aWNlICpkZXYgPSBhc3BpLT5kZXY7Cj4gICAK
-PiAtCXJldHVybiBkZXZtX2thc3ByaW50ZihkZXYsIEdGUF9LRVJORUwsICIlcy4lZCIsIGRldl9u
-YW1lKGRldiksIG1lbS0+c3BpLT5jaGlwX3NlbGVjdCk7Cj4gKwlyZXR1cm4gZGV2bV9rYXNwcmlu
-dGYoZGV2LCBHRlBfS0VSTkVMLCAiJXMuJWQiLCBkZXZfbmFtZShkZXYpLAo+ICsJCQkgICAgICBz
-cGlfZ2V0X2NoaXBzZWxlY3QobWVtLT5zcGksIDApKTsKPiAgIH0KPiAgIAo+ICAgc3RydWN0IGFz
-cGVlZF9zcGlfd2luZG93IHsKPiBAQCAtNTUzLDcgKzU1NCw3IEBAIHN0YXRpYyBpbnQgYXNwZWVk
-X3NwaV9kb19jYWxpYnJhdGlvbihzdHJ1Y3QgYXNwZWVkX3NwaV9jaGlwICpjaGlwKTsKPiAgIHN0
-YXRpYyBpbnQgYXNwZWVkX3NwaV9kaXJtYXBfY3JlYXRlKHN0cnVjdCBzcGlfbWVtX2Rpcm1hcF9k
-ZXNjICpkZXNjKQo+ICAgewo+ICAgCXN0cnVjdCBhc3BlZWRfc3BpICphc3BpID0gc3BpX2NvbnRy
-b2xsZXJfZ2V0X2RldmRhdGEoZGVzYy0+bWVtLT5zcGktPm1hc3Rlcik7Cj4gLQlzdHJ1Y3QgYXNw
-ZWVkX3NwaV9jaGlwICpjaGlwID0gJmFzcGktPmNoaXBzW2Rlc2MtPm1lbS0+c3BpLT5jaGlwX3Nl
-bGVjdF07Cj4gKwlzdHJ1Y3QgYXNwZWVkX3NwaV9jaGlwICpjaGlwID0gJmFzcGktPmNoaXBzW3Nw
-aV9nZXRfY2hpcHNlbGVjdChkZXNjLT5tZW0tPnNwaSwgMCldOwo+ICAgCXN0cnVjdCBzcGlfbWVt
-X29wICpvcCA9ICZkZXNjLT5pbmZvLm9wX3RtcGw7Cj4gICAJdTMyIGN0bF92YWw7Cj4gICAJaW50
-IHJldCA9IDA7Cj4gQEAgLTYyMCw3ICs2MjEsNyBAQCBzdGF0aWMgc3NpemVfdCBhc3BlZWRfc3Bp
-X2Rpcm1hcF9yZWFkKHN0cnVjdCBzcGlfbWVtX2Rpcm1hcF9kZXNjICpkZXNjLAo+ICAgCQkJCSAg
-ICAgIHU2NCBvZmZzZXQsIHNpemVfdCBsZW4sIHZvaWQgKmJ1ZikKPiAgIHsKPiAgIAlzdHJ1Y3Qg
-YXNwZWVkX3NwaSAqYXNwaSA9IHNwaV9jb250cm9sbGVyX2dldF9kZXZkYXRhKGRlc2MtPm1lbS0+
-c3BpLT5tYXN0ZXIpOwo+IC0Jc3RydWN0IGFzcGVlZF9zcGlfY2hpcCAqY2hpcCA9ICZhc3BpLT5j
-aGlwc1tkZXNjLT5tZW0tPnNwaS0+Y2hpcF9zZWxlY3RdOwo+ICsJc3RydWN0IGFzcGVlZF9zcGlf
-Y2hpcCAqY2hpcCA9ICZhc3BpLT5jaGlwc1tzcGlfZ2V0X2NoaXBzZWxlY3QoZGVzYy0+bWVtLT5z
-cGksIDApXTsKPiAgIAo+ICAgCS8qIFN3aXRjaCB0byBVU0VSIGNvbW1hbmQgbW9kZSBpZiBtYXBw
-aW5nIHdpbmRvdyBpcyB0b28gc21hbGwgKi8KPiAgIAlpZiAoY2hpcC0+YWhiX3dpbmRvd19zaXpl
-IDwgb2Zmc2V0ICsgbGVuKSB7Cj4gQEAgLTY3MCw3ICs2NzEsNyBAQCBzdGF0aWMgaW50IGFzcGVl
-ZF9zcGlfc2V0dXAoc3RydWN0IHNwaV9kZXZpY2UgKnNwaSkKPiAgIHsKPiAgIAlzdHJ1Y3QgYXNw
-ZWVkX3NwaSAqYXNwaSA9IHNwaV9jb250cm9sbGVyX2dldF9kZXZkYXRhKHNwaS0+bWFzdGVyKTsK
-PiAgIAljb25zdCBzdHJ1Y3QgYXNwZWVkX3NwaV9kYXRhICpkYXRhID0gYXNwaS0+ZGF0YTsKPiAt
-CXVuc2lnbmVkIGludCBjcyA9IHNwaS0+Y2hpcF9zZWxlY3Q7Cj4gKwl1bnNpZ25lZCBpbnQgY3Mg
-PSBzcGlfZ2V0X2NoaXBzZWxlY3Qoc3BpLCAwKTsKPiAgIAlzdHJ1Y3QgYXNwZWVkX3NwaV9jaGlw
-ICpjaGlwID0gJmFzcGktPmNoaXBzW2NzXTsKPiAgIAo+ICAgCWNoaXAtPmFzcGkgPSBhc3BpOwo+
-IEBAIC02OTcsNyArNjk4LDcgQEAgc3RhdGljIGludCBhc3BlZWRfc3BpX3NldHVwKHN0cnVjdCBz
-cGlfZGV2aWNlICpzcGkpCj4gICBzdGF0aWMgdm9pZCBhc3BlZWRfc3BpX2NsZWFudXAoc3RydWN0
-IHNwaV9kZXZpY2UgKnNwaSkKPiAgIHsKPiAgIAlzdHJ1Y3QgYXNwZWVkX3NwaSAqYXNwaSA9IHNw
-aV9jb250cm9sbGVyX2dldF9kZXZkYXRhKHNwaS0+bWFzdGVyKTsKPiAtCXVuc2lnbmVkIGludCBj
-cyA9IHNwaS0+Y2hpcF9zZWxlY3Q7Cj4gKwl1bnNpZ25lZCBpbnQgY3MgPSBzcGlfZ2V0X2NoaXBz
-ZWxlY3Qoc3BpLCAwKTsKPiAgIAo+ICAgCWFzcGVlZF9zcGlfY2hpcF9lbmFibGUoYXNwaSwgY3Ms
-IGZhbHNlKTsKPiAgIAoKRm9yIHRoZSBBc3BlZWQgZHJpdmVyLAoKUmV2aWV3ZWQtYnk6IEPDqWRy
-aWMgTGUgR29hdGVyIDxjbGdAa2FvZC5vcmc+CgpUaGFua3MsCgpDLgpfX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QK
-TGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1h
-aWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
+Hi Amit,
+
+On 20/01/23 00:23, Amit Kumar Mahapatra wrote:
+> Supporting multi-cs in spi drivers would require the chip_select & cs_gpiod
+> members of struct spi_device to be an array. But changing the type of these
+> members to array would break the spi driver functionality. To make the
+> transition smoother introduced four new APIs to get/set the
+> spi->chip_select & spi->cs_gpiod and replaced all spi->chip_select and
+> spi->cs_gpiod references with get or set API calls.
+> While adding multi-cs support in further patches the chip_select & cs_gpiod
+> members of the spi_device structure would be converted to arrays & the
+> "idx" parameter of the APIs would be used as array index i.e.,
+> spi->chip_select[idx] & spi->cs_gpiod[idx] respectively.
+>
+> Signed-off-by: Amit Kumar Mahapatra <amit.kumar-mahapatra@amd.com>
+> ---
+> [...]
+>  drivers/spi/spi-cadence-quadspi.c |  5 +++--
+>  drivers/spi/spi-cadence-xspi.c    |  4 ++--
+>  drivers/spi/spi-cadence.c         |  4 ++--
+[...]
+
+For SPI Cadence QSPI,
+Reviewed-by: Dhruva Gole <d-gole@ti.com>
+
+-- 
+Best regards,
+Dhruva Gole
+Texas Instruments Incorporated
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
