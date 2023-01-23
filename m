@@ -2,68 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A46C6677F54
-	for <lists+linux-stm32@lfdr.de>; Mon, 23 Jan 2023 16:16:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6322F67801C
+	for <lists+linux-stm32@lfdr.de>; Mon, 23 Jan 2023 16:41:04 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5F694C69055;
-	Mon, 23 Jan 2023 15:16:46 +0000 (UTC)
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
- [209.85.128.46])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E20CCC69055;
+	Mon, 23 Jan 2023 15:41:03 +0000 (UTC)
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com
+ [209.85.221.47])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 15182C01E98
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3EFC7C01E99
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 23 Jan 2023 15:16:45 +0000 (UTC)
-Received: by mail-wm1-f46.google.com with SMTP id j17so9314005wms.0
+ Mon, 23 Jan 2023 15:41:02 +0000 (UTC)
+Received: by mail-wr1-f47.google.com with SMTP id y1so6703147wru.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 23 Jan 2023 07:16:44 -0800 (PST)
+ Mon, 23 Jan 2023 07:41:02 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:organization:references:to
- :content-language:subject:reply-to:from:user-agent:mime-version:date
- :message-id:from:to:cc:subject:date:message-id:reply-to;
- bh=oXHlh1GVe6XHIGjfxqBlGpday517k1tv+6ix4arA+Zg=;
- b=mTElaErKpyr/9+bfvnELgYwdkqnRrQO/qiv+5Uq27OCgDaLZ8aaksxAjd9sARIF4ia
- /MKEh6h6m5FSzyCivP3eglyAgdt3BzjqP26wkFUqzy2+/dG/8NmUZ9FlogJnpdCcldb2
- acKe0v4SIDaiXlfpQSpvIWPAs+IMm42n+sNx5ilNe2CRyMLhb+Qf8XUxMGpucgpCVr/5
- 0xYCWc18aYTj2u9uyVm24v9OmlUdvlO9ti00jk7Cxckx4+EiBdL7LzF4JhLmGJ/0jnTk
- phGT5/FRGPYaX0W8aQOgkpWZLLlyatLsvD9LaqDBhKUfBRUYuNa/ewbjRDB8VrtWU+Az
- k2SQ==
+ h=content-transfer-encoding:in-reply-to:from:references:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=TXCK8+4pwBoN/PPZdEC5uZ0441SKSjWCGzz9sOXF4WA=;
+ b=Gq7N/5f/dm907S2s95WddCgz2SPDJqx3jdQjw63tObNUotX8A1a2nwEQTIW8zLc0Bc
+ 32Ow2LueltQlPmFD27f3FiTg8+gy4lXPOTAEvCKMwLykk+YnCH9QOPqg6FhyXWijJtyZ
+ 59H0hdbLitzR0OuveGHOcXUhmgTDyZyFM/3dDMhwD/n/qKdf2a5hnTxCVGlDG9vTT5gs
+ /b0iXquNdt1ZvKxoABL9FXeZCEIVBbk6AyNHp3Dg4Koa4FZ0febLMj6lvtWb1+cVQmtL
+ 9BjCADRSb0hhSHj1ZZzacokBiYCtFXPOe0KP/odN2uNCoOC5+H9t75lUAcHxQKzcSQgi
+ 4RsA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:organization:references:to
- :content-language:subject:reply-to:from:user-agent:mime-version:date
- :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=oXHlh1GVe6XHIGjfxqBlGpday517k1tv+6ix4arA+Zg=;
- b=PSAu3fLmK4qsl5Cq67b/y9a9LbR6GwZocg8XkVTPTzUDg9GNN3B7DQOnHeOB9wwbV2
- N5DjcsGtKpwsyO2FyQaJj8SGSYbjjP7qHA6XzP3mq9yLObpa7odG/Ljzwb/0wYZOpRiv
- XSIenvIC+iz7cEJ3VPynmsN1WOcCIqsXSCzYHPssKrsaps2J4a1/leVm5iwRCVW/kOsU
- zoaYfNGMOUmdAO18jOMwcajEZSg3qePsxbfeW1Ms+C1hAbnlPOkpHU1hug377fhKV5mf
- edG94fMokVRdTob2bH4/U09W0GzuZfXr09qxtZEVHaCsKS26bEl1MNpaOzt1gjgJsUlp
- xbYw==
-X-Gm-Message-State: AFqh2kq6SQivny/L7oGIZQqJWVlus3BbPNGf0UoRBNMrptoin/dXe4PG
- AQxWM0pMlisuBFAJvlROuzJQhw==
-X-Google-Smtp-Source: AMrXdXv4pjrlJCiDM72DBhh38Wa+y+wDQd0b3eQquuYXJF+qOVFv9nVUL1oHgw77dN4sbV8WLhp+iQ==
-X-Received: by 2002:a05:600c:1e1d:b0:3cf:674a:aefe with SMTP id
- ay29-20020a05600c1e1d00b003cf674aaefemr24094598wmb.22.1674487004649; 
- Mon, 23 Jan 2023 07:16:44 -0800 (PST)
-Received: from ?IPV6:2a01:e0a:982:cbb0:b3d5:343d:5dc9:ee00?
- ([2a01:e0a:982:cbb0:b3d5:343d:5dc9:ee00])
+ h=content-transfer-encoding:in-reply-to:from:references:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=TXCK8+4pwBoN/PPZdEC5uZ0441SKSjWCGzz9sOXF4WA=;
+ b=4mXtLX4uvW1irOPbJ/rhOfqipT7HSt9DCbDbKlzvENY8yyI2FR8hK8J++kHBVbKVFG
+ P0qbdtZ6imhW0i9rOCc/cYX3qlIr50S8fX3gocQRO0ZeZmlAvCpdf82mDegDvYvfy03w
+ KH9nY+KWjDHUhXCklm9v6INVYXxTw2VhLxNwNmU/oFM4iZoDofqW+mI0WeRVCamQY+s/
+ aeBvOF2u5GuJMflQ1O5pt1C0lusK6Xlpn3pV46JPJIYbWvso/Em5wmP78ffmzdPWvbh3
+ K/DIZg2VocLt84L8YQOLxWYEEs42cty7FqIgqAz3nAG/yEQt10hAOPVr9yk99z8Eu59V
+ NelQ==
+X-Gm-Message-State: AFqh2kpC0HWFyIEq7cJpbUjFJNyOqSERgqdRpFw00AwwtvhFr/YKJtR5
+ ot1Bsnsr9NH3XVr+H4H5dOUgDw==
+X-Google-Smtp-Source: AMrXdXuBoUwMvAd/YfOcifByrJaMm2ho3lHEp8fql+PNjdwlzRsoBXxTm0E+49t+J2WwjGL6pXs8KQ==
+X-Received: by 2002:a5d:63c4:0:b0:2a5:3a52:a034 with SMTP id
+ c4-20020a5d63c4000000b002a53a52a034mr19494443wrw.35.1674488461847; 
+ Mon, 23 Jan 2023 07:41:01 -0800 (PST)
+Received: from [192.168.1.109] ([178.197.216.144])
  by smtp.gmail.com with ESMTPSA id
- x15-20020a05600c188f00b003db122d5ac2sm10449596wmp.15.2023.01.23.07.16.41
+ n9-20020adf8b09000000b00241d21d4652sm4602308wra.21.2023.01.23.07.40.58
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 23 Jan 2023 07:16:43 -0800 (PST)
-Message-ID: <767eb8e4-fba7-e25b-bcd3-3f05db9a6d80@linaro.org>
-Date: Mon, 23 Jan 2023 16:16:41 +0100
+ Mon, 23 Jan 2023 07:41:01 -0800 (PST)
+Message-ID: <9000e022-69be-3324-1e6c-a255d56a1dd8@linaro.org>
+Date: Mon, 23 Jan 2023 16:40:57 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.0
-From: Neil Armstrong <neil.armstrong@linaro.org>
+ Thunderbird/102.7.0
 Content-Language: en-US
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+To: Michal Simek <michal.simek@amd.com>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  Rob Herring <robh+dt@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
  Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
  Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
  Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
@@ -84,10 +82,12 @@ To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
  linux-amlogic@lists.infradead.org, linux-riscv@lists.infradead.org,
  linux-stm32@st-md-mailman.stormreply.com
 References: <20230123151302.368277-1-krzysztof.kozlowski@linaro.org>
-Organization: Linaro Developer Services
-In-Reply-To: <20230123151302.368277-1-krzysztof.kozlowski@linaro.org>
-Subject: Re: [Linux-stm32] [PATCH 01/13] dt-bindings: serial: amlogic,
- meson-uart: allow other serial properties
+ <20230123151302.368277-5-krzysztof.kozlowski@linaro.org>
+ <26046a72-27e6-213f-6b69-5cb82367dcf9@amd.com>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <26046a72-27e6-213f-6b69-5cb82367dcf9@amd.com>
+Subject: Re: [Linux-stm32] [PATCH 05/13] dt-bindings: serial: cdsn,
+	uart: add power-domains
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,27 +99,30 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Reply-To: neil.armstrong@linaro.org
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 23/01/2023 16:12, Krzysztof Kozlowski wrote:
-> Reference common serial properties bindings to allow typical serial
-> properties:
+On 23/01/2023 16:39, Michal Simek wrote:
+>>
+>>   examples:
+>> --
+>> 2.34.1
+>>
 > 
->    meson-axg-jethome-jethub-j100.dtb: serial@23000: 'bluetooth', 'uart-has-rtscts' do not match any of the regexes: 'pinctrl-[0-9]+'
+> Reviewed-by: Michal Simek <michal.simek@amd.com>
 > 
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-> ---
->   .../devicetree/bindings/serial/amlogic,meson-uart.yaml       | 5 ++++-
->   1 file changed, 4 insertions(+), 1 deletion(-)
-> 
+> btw: I was running it and I have seen that properties are checked only on nodes 
+> which have status property okay. On disabled nodes properties are not checked. 
+> Is this standard behavior/setting?
 
-<snip>
+Yes, because disabled nodes might be missing several properties (e.g.
+clocks or supplies).
 
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+Best regards,
+Krzysztof
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
