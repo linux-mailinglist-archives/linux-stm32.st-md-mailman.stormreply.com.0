@@ -2,54 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E0DC9677EF5
-	for <lists+linux-stm32@lfdr.de>; Mon, 23 Jan 2023 16:13:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0ED9A677EFA
+	for <lists+linux-stm32@lfdr.de>; Mon, 23 Jan 2023 16:13:32 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A6B50C69057;
-	Mon, 23 Jan 2023 15:13:29 +0000 (UTC)
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com
- [209.85.221.47])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C6C07C69057;
+	Mon, 23 Jan 2023 15:13:31 +0000 (UTC)
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com
+ [209.85.221.49])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5FEF2C69056
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8B895C69058
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 23 Jan 2023 15:13:28 +0000 (UTC)
-Received: by mail-wr1-f47.google.com with SMTP id e3so11097500wru.13
+ Mon, 23 Jan 2023 15:13:30 +0000 (UTC)
+Received: by mail-wr1-f49.google.com with SMTP id r2so11112485wrv.7
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 23 Jan 2023 07:13:28 -0800 (PST)
+ Mon, 23 Jan 2023 07:13:30 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=iisYcPXooI57UtkAF+HOVcsh+51Ufy433rxJDACay30=;
- b=rI16xsFZkU0eDWMTKFE0Ksxp73pnRnnVBuMI8tFbs3EAC+MtLCqM+X8v/vyycGcC5O
- USAChlzuDrcJtFWE5zuLInbgnGCpGbxV8/dQRqPYk53NiBrGIVppJYgEQ2zfRv7+YKSa
- YgXA+r7Uufexm6x2hExkt/4SgVNyVq8GFmMZhbUftDEvVH7LmMktBcLLpFBqx5/chHt2
- TeE20n5vBOYzlQtPwurLAxPiVEG5XNohtEKAMDt/NqKy4AnRpg/zhqZY49jckFfZ1deg
- CtvZBVIzioBWs9VynvZ2UYazAhmLq1ctmNt+zbnVQ5BlNz377YWULvNPKig7igJrEKyo
- vs5g==
+ bh=lf7sCIV+g7d4Io27nUeL8AFqRST4Uv3gC9DO+XLsu5c=;
+ b=cqVYvO11OXKCMxWS2m2N8CuvmAo04795P3glA3/QShNfksesNCwdIiapFJIUxHx8cg
+ 3rS+IwE+nzmtwwJKmwEYmQW5HLkl7MmB54iys0Xhur69ZQg04gXhIFNjki1cNxhgM/hm
+ KVdVtMqmIHX9lNjdkHzp2HS8EYbgPuXUYi8+63DnFvCutve84+4ZjO1HvGNqiyFO7QiQ
+ 0rkXFCKJMjZnLe10OEAwNQV/7I7wA0Qmxni0Mo/QqIeyhtr1qYNrtVfm7dhsM722pJ1P
+ sPnDVVZr0HkwjgZyaHNJBlv/Mmd2HgHSPEa6D8zIE0r8kuGKh0CVafLNIOC929NHP8Cs
+ Evnw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=iisYcPXooI57UtkAF+HOVcsh+51Ufy433rxJDACay30=;
- b=nOrmChWHbBe0T2sJaQNP5U31HXvgjFQVt6oGTBu1bpNczVxWfEVAs2jBGosWnB44cS
- FpzVHoF33lZqSKouoK3YVNjV2bbt0Y/0Qoj+d3nApztQVDZlkZAFPuQxYU/c9EIjUK2m
- reslOgkjfsKdAtj0iBf2cylY85bao3OieUJRoJ2MuovjY/yZIErTPwROHuZVQ3wIE84V
- /mYT8N7JGek48CdJMiaXPqloUVlqPwzO1enVKlw+BPFoWYBtblAT5Ap7FQmCz6+6L9rL
- RM0LmicdXk5bTeHI9sVCIJXfENW21vRb3um8k2pQ/AUlnxyhkiTvW1oQzUPBK30+AC4q
- 9Ohw==
-X-Gm-Message-State: AFqh2ko4v74fJP9wdCN+fufGTBzif6KUW/aVFQENRrU2ClT6gYlPxypL
- aDnBAW7eHkkd7S9CMvIHiwYj/w==
-X-Google-Smtp-Source: AMrXdXt0/G7OJJgG09MWKAInBglkrtPYNcF28o6o5Fy6XNeVCLITjCuzgG4Lr6rNnIfwWhChDqTogg==
-X-Received: by 2002:a05:6000:3c2:b0:2bd:d45c:3929 with SMTP id
- b2-20020a05600003c200b002bdd45c3929mr23730627wrg.54.1674486807943; 
- Mon, 23 Jan 2023 07:13:27 -0800 (PST)
+ bh=lf7sCIV+g7d4Io27nUeL8AFqRST4Uv3gC9DO+XLsu5c=;
+ b=4qM+sUcGteuDZa5RWjAZu36gNJFlqFKxrih83nGqRSrOuwld5CG2KSH1xayso4Isgk
+ u+xC80sOv8S/WWRJ20aGBx4f9KLTYjGjZ2jopcsKm+5LgrUNa7gXSJ9MKmbvhALOzHnu
+ GQoZzWjj4JynDXAy7JYPUK66qrfDXyGoA4MEtoDmH7WM/8sD0kGNJRq+43BP65ApvU3H
+ 29Yo5caXrNi5zY7g5qcZpQ3KucExaXlh59b27aHr57tHl4yXNvHLTjQS5KFYR9UF9siU
+ dvpopFVJVGp2aDm1gnPjyU9qQGt1voZ74D1kvCpnr/kgpLGvxdZJwZYwglDDocqARNor
+ BBaA==
+X-Gm-Message-State: AFqh2kqQFCPwaPn1b7qRAGxfj3KREsWr8IsY10zphGc8VUHOgf9tDJZH
+ u0VviZrFVzqpPPvyy96mD4JMXg==
+X-Google-Smtp-Source: AMrXdXvPieFXZTI3YD37rAAxnRgL7EXzr2+7M2297WZ2GeWKED5O3/ADcQWZP+sLDJlxaXVyZ1+vHQ==
+X-Received: by 2002:adf:edd1:0:b0:2bc:7d12:e736 with SMTP id
+ v17-20020adfedd1000000b002bc7d12e736mr21123596wro.1.1674486810209; 
+ Mon, 23 Jan 2023 07:13:30 -0800 (PST)
 Received: from krzk-bin.. ([178.197.216.144]) by smtp.gmail.com with ESMTPSA id
- n1-20020a5d67c1000000b002bc7f64efa3sm34737922wrw.29.2023.01.23.07.13.25
+ n1-20020a5d67c1000000b002bc7f64efa3sm34737922wrw.29.2023.01.23.07.13.28
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 23 Jan 2023 07:13:27 -0800 (PST)
+ Mon, 23 Jan 2023 07:13:29 -0800 (PST)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  Rob Herring <robh+dt@kernel.org>,
@@ -75,15 +75,15 @@ To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  linux-amlogic@lists.infradead.org, linux-riscv@lists.infradead.org,
  linux-stm32@st-md-mailman.stormreply.com
-Date: Mon, 23 Jan 2023 16:12:57 +0100
-Message-Id: <20230123151302.368277-8-krzysztof.kozlowski@linaro.org>
+Date: Mon, 23 Jan 2023 16:12:58 +0100
+Message-Id: <20230123151302.368277-9-krzysztof.kozlowski@linaro.org>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230123151302.368277-1-krzysztof.kozlowski@linaro.org>
 References: <20230123151302.368277-1-krzysztof.kozlowski@linaro.org>
 MIME-Version: 1.0
 Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Subject: [Linux-stm32] [PATCH 08/13] dt-bindings: serial: fsl-lpuart: drop
-	rs485 properties
+Subject: [Linux-stm32] [PATCH 09/13] dt-bindings: serial: fsl-lpuart: allow
+	other serial properties
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,28 +100,28 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The binding references rs485 schema, so there is no need to list its
-properties.  Simplify a bit by removing unneeded entries.
+Reference common serial properties bindings to allow typical serial
+properties:
+
+  imx8qxp-ai_ml.dtb: serial@5a060000: Unevaluated properties are not allowed ('uart-has-rtscts' were unexpected)
 
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 ---
- Documentation/devicetree/bindings/serial/fsl-lpuart.yaml | 3 ---
- 1 file changed, 3 deletions(-)
+ Documentation/devicetree/bindings/serial/fsl-lpuart.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
 diff --git a/Documentation/devicetree/bindings/serial/fsl-lpuart.yaml b/Documentation/devicetree/bindings/serial/fsl-lpuart.yaml
-index 74f75f669e77..b1e81a6451a6 100644
+index b1e81a6451a6..26c3593fa98b 100644
 --- a/Documentation/devicetree/bindings/serial/fsl-lpuart.yaml
 +++ b/Documentation/devicetree/bindings/serial/fsl-lpuart.yaml
-@@ -64,9 +64,6 @@ properties:
-       - const: rx
-       - const: tx
+@@ -11,6 +11,7 @@ maintainers:
  
--  rs485-rts-active-low: true
--  linux,rs485-enabled-at-boot-time: true
--
- required:
-   - compatible
-   - reg
+ allOf:
+   - $ref: "rs485.yaml"
++  - $ref: serial.yaml#
+ 
+ properties:
+   compatible:
 -- 
 2.34.1
 
