@@ -2,92 +2,113 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6322F67801C
-	for <lists+linux-stm32@lfdr.de>; Mon, 23 Jan 2023 16:41:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 76A216782BF
+	for <lists+linux-stm32@lfdr.de>; Mon, 23 Jan 2023 18:16:44 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E20CCC69055;
-	Mon, 23 Jan 2023 15:41:03 +0000 (UTC)
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com
- [209.85.221.47])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1ED9DC69055;
+	Mon, 23 Jan 2023 17:16:44 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3EFC7C01E99
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 88EDEC01E98
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 23 Jan 2023 15:41:02 +0000 (UTC)
-Received: by mail-wr1-f47.google.com with SMTP id y1so6703147wru.2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 23 Jan 2023 07:41:02 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=TXCK8+4pwBoN/PPZdEC5uZ0441SKSjWCGzz9sOXF4WA=;
- b=Gq7N/5f/dm907S2s95WddCgz2SPDJqx3jdQjw63tObNUotX8A1a2nwEQTIW8zLc0Bc
- 32Ow2LueltQlPmFD27f3FiTg8+gy4lXPOTAEvCKMwLykk+YnCH9QOPqg6FhyXWijJtyZ
- 59H0hdbLitzR0OuveGHOcXUhmgTDyZyFM/3dDMhwD/n/qKdf2a5hnTxCVGlDG9vTT5gs
- /b0iXquNdt1ZvKxoABL9FXeZCEIVBbk6AyNHp3Dg4Koa4FZ0febLMj6lvtWb1+cVQmtL
- 9BjCADRSb0hhSHj1ZZzacokBiYCtFXPOe0KP/odN2uNCoOC5+H9t75lUAcHxQKzcSQgi
- 4RsA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=TXCK8+4pwBoN/PPZdEC5uZ0441SKSjWCGzz9sOXF4WA=;
- b=4mXtLX4uvW1irOPbJ/rhOfqipT7HSt9DCbDbKlzvENY8yyI2FR8hK8J++kHBVbKVFG
- P0qbdtZ6imhW0i9rOCc/cYX3qlIr50S8fX3gocQRO0ZeZmlAvCpdf82mDegDvYvfy03w
- KH9nY+KWjDHUhXCklm9v6INVYXxTw2VhLxNwNmU/oFM4iZoDofqW+mI0WeRVCamQY+s/
- aeBvOF2u5GuJMflQ1O5pt1C0lusK6Xlpn3pV46JPJIYbWvso/Em5wmP78ffmzdPWvbh3
- K/DIZg2VocLt84L8YQOLxWYEEs42cty7FqIgqAz3nAG/yEQt10hAOPVr9yk99z8Eu59V
- NelQ==
-X-Gm-Message-State: AFqh2kpC0HWFyIEq7cJpbUjFJNyOqSERgqdRpFw00AwwtvhFr/YKJtR5
- ot1Bsnsr9NH3XVr+H4H5dOUgDw==
-X-Google-Smtp-Source: AMrXdXuBoUwMvAd/YfOcifByrJaMm2ho3lHEp8fql+PNjdwlzRsoBXxTm0E+49t+J2WwjGL6pXs8KQ==
-X-Received: by 2002:a5d:63c4:0:b0:2a5:3a52:a034 with SMTP id
- c4-20020a5d63c4000000b002a53a52a034mr19494443wrw.35.1674488461847; 
- Mon, 23 Jan 2023 07:41:01 -0800 (PST)
-Received: from [192.168.1.109] ([178.197.216.144])
- by smtp.gmail.com with ESMTPSA id
- n9-20020adf8b09000000b00241d21d4652sm4602308wra.21.2023.01.23.07.40.58
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 23 Jan 2023 07:41:01 -0800 (PST)
-Message-ID: <9000e022-69be-3324-1e6c-a255d56a1dd8@linaro.org>
-Date: Mon, 23 Jan 2023 16:40:57 +0100
+ Mon, 23 Jan 2023 17:16:43 +0000 (UTC)
+Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 30NEJN7P009518; Mon, 23 Jan 2023 18:16:41 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=R1aMUGjTbxhxY6hkyKRGBk4zxbzWjzxiNcedON6udFo=;
+ b=Zm5ggXoNZruq7Bb3b8N1qmVGlQxdkRIHa80INaPpZBBpXyjLW8eCZLOi26l5A6+RB5/w
+ Z+PZ3/cL4Va46yqtmJi5PORwYTY46FioxWKylbeuPxm436newkRnSC7hmZnYsKWHL2Kb
+ E8O4kMxS5/CdwDsQ4mM0v4xIMFleF1b25tB/cNt2YL3f/fwzgGAIWdrLxxMD8SuKdWQu
+ cPFgMv67SOjqXrPKNSoqvl1+YjTlQbFYmJvNya7GzzdG/j6Oyh9icv6JPWXR/j9Hrm2V
+ cNegJauCMm20Z1Gl+nUL+NtrY2i2G1zVxWNtOmY+nTZipz1phWQlTPi0LXd8tXF5+ztP QA== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3n89epk4d1-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 23 Jan 2023 18:16:41 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 995FC100038;
+ Mon, 23 Jan 2023 18:16:37 +0100 (CET)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 89E49228A2B;
+ Mon, 23 Jan 2023 18:16:37 +0100 (CET)
+Received: from [10.201.21.26] (10.201.21.26) by SHFDAG1NODE1.st.com
+ (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.13; Mon, 23 Jan
+ 2023 18:16:34 +0100
+Message-ID: <e068c541-b492-a513-6212-fd698e4fc9c4@foss.st.com>
+Date: Mon, 23 Jan 2023 18:16:33 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.7.0
+ Thunderbird/102.4.2
+To: Amit Kumar Mahapatra <amit.kumar-mahapatra@amd.com>, <broonie@kernel.org>, 
+ <miquel.raynal@bootlin.com>, <richard@nod.at>, <vigneshr@ti.com>,
+ <jic23@kernel.org>, <tudor.ambarus@microchip.com>,
+ <pratyush@kernel.org>, <sanju.mehta@amd.com>,
+ <chin-ting_kuo@aspeedtech.com>, <clg@kaod.org>, <kdasu.kdev@gmail.com>,
+ <f.fainelli@gmail.com>, <rjui@broadcom.com>, <sbranden@broadcom.com>,
+ <eajames@linux.ibm.com>, <olteanv@gmail.com>, <han.xu@nxp.com>,
+ <john.garry@huawei.com>, <shawnguo@kernel.org>,
+ <s.hauer@pengutronix.de>, <narmstrong@baylibre.com>,
+ <khilman@baylibre.com>, <matthias.bgg@gmail.com>, <haibo.chen@nxp.com>,
+ <linus.walleij@linaro.org>, <daniel@zonque.org>,
+ <haojian.zhuang@gmail.com>, <robert.jarzmik@free.fr>,
+ <agross@kernel.org>, <bjorn.andersson@linaro.org>, <heiko@sntech.de>,
+ <krzysztof.kozlowski@linaro.org>, <andi@etezian.org>,
+ <mcoquelin.stm32@gmail.com>, <alexandre.torgue@foss.st.com>,
+ <wens@csie.org>, <jernej.skrabec@gmail.com>, <samuel@sholland.org>,
+ <masahisa.kojima@linaro.org>, <jaswinder.singh@linaro.org>,
+ <rostedt@goodmis.org>, <mingo@redhat.com>, <l.stelmach@samsung.com>,
+ <davem@davemloft.net>, <edumazet@google.com>, <kuba@kernel.org>,
+ <pabeni@redhat.com>, <alex.aring@gmail.com>,
+ <stefan@datenfreihafen.org>, <kvalo@kernel.org>,
+ <thierry.reding@gmail.com>, <jonathanh@nvidia.com>,
+ <skomatineni@nvidia.com>, <sumit.semwal@linaro.org>,
+ <christian.koenig@amd.com>, <j.neuschaefer@gmx.net>,
+ <vireshk@kernel.org>, <rmfrfs@gmail.com>, <johan@kernel.org>,
+ <elder@kernel.org>, <gregkh@linuxfoundation.org>
+References: <20230119185342.2093323-1-amit.kumar-mahapatra@amd.com>
+ <20230119185342.2093323-3-amit.kumar-mahapatra@amd.com>
 Content-Language: en-US
-To: Michal Simek <michal.simek@amd.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, NXP Linux Team <linux-imx@nxp.com>,
- Palmer Dabbelt <palmer@dabbelt.com>, Paul Walmsley
- <paul.walmsley@sifive.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Lubomir Rintel <lkundrak@v3.sk>, - <devicetree@vger.kernel.org>,
- Vignesh Raghavendra <vigneshr@ti.com>, Michal Simek
- <michal.simek@xilinx.com>, Chester Lin <clin@suse.com>,
- Fugang Duan <fugang.duan@nxp.com>, Magnus Damm <magnus.damm@gmail.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Pragnesh Patel <pragnesh.patel@sifive.com>, Le Ray
- <erwan.leray@foss.st.com>, Peter Korsgaard <jacmet@sunsite.dk>,
- Tomer Maimon <tmaimon77@gmail.com>, linux-serial@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-amlogic@lists.infradead.org, linux-riscv@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com
-References: <20230123151302.368277-1-krzysztof.kozlowski@linaro.org>
- <20230123151302.368277-5-krzysztof.kozlowski@linaro.org>
- <26046a72-27e6-213f-6b69-5cb82367dcf9@amd.com>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <26046a72-27e6-213f-6b69-5cb82367dcf9@amd.com>
-Subject: Re: [Linux-stm32] [PATCH 05/13] dt-bindings: serial: cdsn,
-	uart: add power-domains
+From: Patrice CHOTARD <patrice.chotard@foss.st.com>
+In-Reply-To: <20230119185342.2093323-3-amit.kumar-mahapatra@amd.com>
+X-Originating-IP: [10.201.21.26]
+X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.219,Aquarius:18.0.930,Hydra:6.0.562,FMLib:17.11.122.1
+ definitions=2023-01-23_12,2023-01-23_01,2022-06-22_01
+Cc: alexandre.belloni@bootlin.com, tmaimon77@gmail.com,
+ linux-aspeed@lists.ozlabs.org, linux-iio@vger.kernel.org,
+ konrad.dybcio@somainline.org, dri-devel@lists.freedesktop.org,
+ tali.perry1@gmail.com, ldewangan@nvidia.com, linux-mtd@lists.infradead.org,
+ alim.akhtar@samsung.com, linux-riscv@lists.infradead.org,
+ linux-spi@vger.kernel.org, festevam@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com, jbrunet@baylibre.com, git@amd.com,
+ linux-samsung-soc@vger.kernel.org, benjaminfair@google.com,
+ yogeshgaur.83@gmail.com, openbmc@lists.ozlabs.org,
+ linux-staging@lists.linux.dev, yuenn@google.com,
+ bcm-kernel-feedback-list@broadcom.com, joel@jms.id.au,
+ linux-rockchip@lists.infradead.org, linux-sunxi@lists.linux.dev,
+ linux-imx@nxp.com, amitrkcian2002@gmail.com, Michael.Hennerich@analog.com,
+ martin.blumenstingl@googlemail.com, linux-arm-msm@vger.kernel.org,
+ radu_nicolae.pirea@upb.ro, greybus-dev@lists.linaro.org, lars@metafoo.de,
+ linux-mediatek@lists.infradead.org, linux-rpi-kernel@lists.infradead.org,
+ linux-tegra@vger.kernel.org, linux-amlogic@lists.infradead.org,
+ michal.simek@amd.com, linux-arm-kernel@lists.infradead.org,
+ avifishman70@gmail.com, venture@google.com, libertas-dev@lists.infradead.org,
+ linux-wireless@vger.kernel.org, nicolas.ferre@microchip.com,
+ fancer.lancer@gmail.com, linux-kernel@vger.kernel.org, andrew@aj.id.au,
+ michael@walle.cc, palmer@dabbelt.com, kernel@pengutronix.de,
+ netdev@vger.kernel.org, linux-media@vger.kernel.org,
+ linux-wpan@vger.kernel.org, claudiu.beznea@microchip.com
+Subject: Re: [Linux-stm32] [PATCH v2 02/13] spi: Replace all
+ spi->chip_select and spi->cs_gpiod references with function call
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,25 +125,85 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 23/01/2023 16:39, Michal Simek wrote:
->>
->>   examples:
->> --
->> 2.34.1
->>
+Hi Amit
+
+On 1/19/23 19:53, Amit Kumar Mahapatra wrote:
+> Supporting multi-cs in spi drivers would require the chip_select & cs_gpiod
+> members of struct spi_device to be an array. But changing the type of these
+> members to array would break the spi driver functionality. To make the
+> transition smoother introduced four new APIs to get/set the
+> spi->chip_select & spi->cs_gpiod and replaced all spi->chip_select and
+> spi->cs_gpiod references with get or set API calls.
+> While adding multi-cs support in further patches the chip_select & cs_gpiod
+> members of the spi_device structure would be converted to arrays & the
+> "idx" parameter of the APIs would be used as array index i.e.,
+> spi->chip_select[idx] & spi->cs_gpiod[idx] respectively.
 > 
-> Reviewed-by: Michal Simek <michal.simek@amd.com>
-> 
-> btw: I was running it and I have seen that properties are checked only on nodes 
-> which have status property okay. On disabled nodes properties are not checked. 
-> Is this standard behavior/setting?
+> Signed-off-by: Amit Kumar Mahapatra <amit.kumar-mahapatra@amd.com>
+> ---
 
-Yes, because disabled nodes might be missing several properties (e.g.
-clocks or supplies).
+[...]
 
-Best regards,
-Krzysztof
+>  drivers/spi/spi-stm32-qspi.c      | 12 ++++++------
 
+[...]
+
+> diff --git a/drivers/spi/spi-stm32-qspi.c b/drivers/spi/spi-stm32-qspi.c
+> index 9131660c1afb..b9e61372dcfb 100644
+> --- a/drivers/spi/spi-stm32-qspi.c
+> +++ b/drivers/spi/spi-stm32-qspi.c
+> @@ -359,7 +359,7 @@ static int stm32_qspi_get_mode(u8 buswidth)
+>  static int stm32_qspi_send(struct spi_device *spi, const struct spi_mem_op *op)
+>  {
+>  	struct stm32_qspi *qspi = spi_controller_get_devdata(spi->master);
+> -	struct stm32_qspi_flash *flash = &qspi->flash[spi->chip_select];
+> +	struct stm32_qspi_flash *flash = &qspi->flash[spi_get_chipselect(spi, 0)];
+>  	u32 ccr, cr;
+>  	int timeout, err = 0, err_poll_status = 0;
+>  
+> @@ -564,7 +564,7 @@ static int stm32_qspi_transfer_one_message(struct spi_controller *ctrl,
+>  	struct spi_mem_op op;
+>  	int ret = 0;
+>  
+> -	if (!spi->cs_gpiod)
+> +	if (!spi_get_csgpiod(spi, 0))
+>  		return -EOPNOTSUPP;
+>  
+>  	ret = pm_runtime_resume_and_get(qspi->dev);
+> @@ -573,7 +573,7 @@ static int stm32_qspi_transfer_one_message(struct spi_controller *ctrl,
+>  
+>  	mutex_lock(&qspi->lock);
+>  
+> -	gpiod_set_value_cansleep(spi->cs_gpiod, true);
+> +	gpiod_set_value_cansleep(spi_get_csgpiod(spi, 0), true);
+>  
+>  	list_for_each_entry(transfer, &msg->transfers, transfer_list) {
+>  		u8 dummy_bytes = 0;
+> @@ -626,7 +626,7 @@ static int stm32_qspi_transfer_one_message(struct spi_controller *ctrl,
+>  	}
+>  
+>  end_of_transfer:
+> -	gpiod_set_value_cansleep(spi->cs_gpiod, false);
+> +	gpiod_set_value_cansleep(spi_get_csgpiod(spi, 0), false);
+>  
+>  	mutex_unlock(&qspi->lock);
+>  
+> @@ -669,8 +669,8 @@ static int stm32_qspi_setup(struct spi_device *spi)
+>  
+>  	presc = DIV_ROUND_UP(qspi->clk_rate, spi->max_speed_hz) - 1;
+>  
+> -	flash = &qspi->flash[spi->chip_select];
+> -	flash->cs = spi->chip_select;
+> +	flash = &qspi->flash[spi_get_chipselect(spi, 0)];
+> +	flash->cs = spi_get_chipselect(spi, 0);
+>  	flash->presc = presc;
+>  
+>  	mutex_lock(&qspi->lock);
+
+Reviewed-by: Patrice Chotard <patrice.chotard@foss.st.com>
+
+Thanks
+Patrice
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
