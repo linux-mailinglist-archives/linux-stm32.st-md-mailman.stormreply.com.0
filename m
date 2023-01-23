@@ -2,117 +2,98 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9C38D6787F9
-	for <lists+linux-stm32@lfdr.de>; Mon, 23 Jan 2023 21:36:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6077F67880C
+	for <lists+linux-stm32@lfdr.de>; Mon, 23 Jan 2023 21:36:22 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 42950C69061;
-	Mon, 23 Jan 2023 20:36:12 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2064.outbound.protection.outlook.com [40.107.94.64])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2682EC69057;
+	Mon, 23 Jan 2023 20:36:22 +0000 (UTC)
+Received: from mail-oo1-f43.google.com (mail-oo1-f43.google.com
+ [209.85.161.43])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3DBEEC69055
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A64E7C69055
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 23 Jan 2023 20:36:09 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Mr14+TQpizbQz7B2pug/h8QyIJ2K4cADX3hvvE5e0zbx/eRyZD+mrXTOvL1IzLIVcZgoI03Ev5vRAm7P6GY4SeK/oawR7LrJJcR+fbTHiqbmgnBG8JSc7P4VSiLB6QITDMoucDroocLACc0HbhfyK5W7yNvejAcN9P9mLWCJtwpLlP1Zy+iKefjWD6i9bU6h+as0K7VCuF4DhhNBZeFZXF/kHqvSVWzOVgglrs3tKoeRkclAWskwQ9oba2uYAMpwyWmguLlOk438rSFrNBosEc54VueqrPvLJKBefioaJEO/7V+oF8CrLnX6IR1Ae3IX+59BNVs3WViweM8xsN8pPQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=E/5qhZMcxbuieGySe9aeptZ7GgD7dbsVtDHB1SonTkA=;
- b=TqhJqlZRDQ4tyoRP8t+WWT7ci2ZyhZaSYaboDGyBR0JRGHKkPRPEhQBxDyXT/TR0x8XrXCGbbT50i4Mpwd5gFtnaOfk+eg7sKa5CEHc62NCZLkzo1esQha/VpwpkvSQbkDLZQnSxnFNndoabVbRSqb+tYnpTG/U32Y/0PCJqWWJ5JnSrTBhyuddKCUSngbfJw5ryWC/cKrzUoXnYih3YHKa/aYE+peJmPTQXNUw3Bkbdpbl0KTeeLO6aq+PpeR0kZjL0r95ml1Yjv7+nroTgINOKO/RvSRVrngZ9xdlpJZa9tnaeLsK5IPJ89RSHFER376Nma05KSgGkSIjYfNl9xg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=E/5qhZMcxbuieGySe9aeptZ7GgD7dbsVtDHB1SonTkA=;
- b=H7Wk43EIbgaTZo4N/INcAfCFDYcZmr1DuuBiNbytKXn+UMIGTuPrTi1yETc03UBZ9SowJw13O+UUtCRZuZwRz0RArBvCi1qicj5gTYck1KY5dtEj0Exzmp8bKvnMHqbqCX6x6zBWqqqZKQs8pujvLuAwqc19cqkxIO/KwnZU8ni+IhU75yLabrSc40iRy6n7lUdUeBIz9KPVUYaJw5Pqim8vGbOtaz32wv3hYt1/voZg82y5n1zMDJicE9b9hyoa5gu/k8wWqrogL7zB2a/2TRK3ocKvVrKB/rEwNYMr/4EsaWB99JHk41YLNz1iCFSO9G2bnoD7NcyB/uwsNV8B3g==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from LV2PR12MB5869.namprd12.prod.outlook.com (2603:10b6:408:176::16)
- by BL3PR12MB6571.namprd12.prod.outlook.com (2603:10b6:208:38e::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6002.25; Mon, 23 Jan
- 2023 20:36:06 +0000
-Received: from LV2PR12MB5869.namprd12.prod.outlook.com
- ([fe80::3cb3:2fce:5c8f:82ee]) by LV2PR12MB5869.namprd12.prod.outlook.com
- ([fe80::3cb3:2fce:5c8f:82ee%4]) with mapi id 15.20.6002.033; Mon, 23 Jan 2023
- 20:36:06 +0000
-From: Jason Gunthorpe <jgg@nvidia.com>
-To: Lu Baolu <baolu.lu@linux.intel.com>, Joerg Roedel <joro@8bytes.org>,
- Kevin Tian <kevin.tian@intel.com>, Matthew Rosato <mjrosato@linux.ibm.com>,
- Robin Murphy <robin.murphy@arm.com>
-Date: Mon, 23 Jan 2023 16:36:03 -0400
-Message-Id: <10-v3-76b587fe28df+6e3-iommu_map_gfp_jgg@nvidia.com>
-In-Reply-To: <0-v3-76b587fe28df+6e3-iommu_map_gfp_jgg@nvidia.com>
-References: 
-X-ClientProxiedBy: MN2PR03CA0001.namprd03.prod.outlook.com
- (2603:10b6:208:23a::6) To LV2PR12MB5869.namprd12.prod.outlook.com
- (2603:10b6:408:176::16)
+ Mon, 23 Jan 2023 20:36:20 +0000 (UTC)
+Received: by mail-oo1-f43.google.com with SMTP id
+ 123-20020a4a0681000000b004faa9c6f6b9so2311122ooj.11
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 23 Jan 2023 12:36:20 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=BXZOruu8vF1W3OHoGHeuELt144xNWCjFLx25df7cNag=;
+ b=Q/o4KQoXdWsTGHAiiZyUBt/h36NWukAbxuEsmeCzIqYQvkJ/OOnGtJQILIs3rRQvgZ
+ JAwjx2stPqxzOBm1J2KKbXuTOzkZO7E6E/+RoJOrj5PN/PxrX3OGA/hOzoQpCXGzJD/c
+ EUlxj+RlyKZQLEwRCwyyQL7cf4S3iWWXHOuGUrU03iWu/Pi/e9z2ONgid0QcnSMG+RCl
+ fBRSDiBUX2vj5GKHT4X2nWCWKREH9oZhBiyJDmbKgb7EcPqD66XGhrkx8DjdhOu2ksr/
+ vjBPMgWiqoZ4OLg3bVT2QodXMEae0xG7Rb/ErsUfbk0NW7qkZh+D0OcjehVKFy2kssI0
+ pnOA==
+X-Gm-Message-State: AFqh2kqKMtqYFb0HPtYgUiyxWClm/oFhXXTfFucCS5N6NzBkHBIoFaG6
+ KUjpu81aUMN1ZK0raic23Q==
+X-Google-Smtp-Source: AMrXdXsQsX0gehByiSzM0/8Tzq5eTS+0xo4CAjG2uqTJ/9s2lJxIUAfMzhqyCU0LuoeA5R/gbj4sbg==
+X-Received: by 2002:a4a:e842:0:b0:4f9:c06:7cec with SMTP id
+ m2-20020a4ae842000000b004f90c067cecmr11587519oom.0.1674506179527; 
+ Mon, 23 Jan 2023 12:36:19 -0800 (PST)
+Received: from robh_at_kernel.org (66-90-144-107.dyn.grandenetworks.net.
+ [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
+ h46-20020a4a9431000000b005006f6771e6sm37107ooi.8.2023.01.23.12.36.17
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 23 Jan 2023 12:36:19 -0800 (PST)
+Received: (nullmailer pid 2480201 invoked by uid 1000);
+ Mon, 23 Jan 2023 20:36:17 -0000
+Date: Mon, 23 Jan 2023 14:36:17 -0600
+From: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Message-ID: <167450608749.2477833.17695901473190509950.robh@kernel.org>
+References: <20230118184413.395820-1-krzysztof.kozlowski@linaro.org>
+ <20230118184413.395820-3-krzysztof.kozlowski@linaro.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LV2PR12MB5869:EE_|BL3PR12MB6571:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2516c879-d1d1-4824-29d9-08dafd817354
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: LVGshr4er2elL/unnZCOCqvxV70HIS4TLdoaezQkk/BGn29wHu9juFzGd4KlsMbViOkRAlHG/EEXd7ZxxxJROEhPTX1pARZxnMT6gu2yJgDfCwUtYf48F5g7DrsTsf4jxtPW5+Cz4FcPvJqPn8SWcFpV8eNSSe0IdUYw+6dLj7r7TFNJScqQmHB3yUArWSKxdyL7Uil5RV+Y7h0S0U6+KOJ90qv4YyIAK3ufIMKDnjVcLRRHGA0Ei6hOao0yiVlgxJZD1tEcA2R2dIV+u1+BSAtfgXiQXe2PHoMFrJM4yXNMNLUtDypRpMfhbsGw3NAYA2QTOZFuHpan0mC4Lp9JuvaxKrxrC9OZ6dz2E25lxYKSERJ+gQVoUR6lglgAnnLD3dQHd+RUwCrxO1yqY4aOhfqTSWUZyDNWcb69Q3DkKMijnU9reO1Pra48n1Q1n3InSYezVuYqkM2AEI1BUtAwfH8VcQFVuTRbaMGb8jBYngLDRnY7/BlFlFfuZSEcF44WOmvV4pnlFfp1Mvhugl13LVB2Jdje+pXpotG8cdXFyOwcr07EJOuRj7b8p2Xrqf/g/FKNDuKerFxS8KCbt85iz4A5mj1FTk/IPGR4MGo3hQ+0kGra0k/+BqQp4NaWD57+34B2CC/EsjNYbxLGJyGSjA==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:LV2PR12MB5869.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(346002)(39860400002)(136003)(366004)(376002)(396003)(451199015)(5660300002)(316002)(8936002)(7416002)(41300700001)(38100700002)(110136005)(36756003)(186003)(83380400001)(478600001)(6666004)(86362001)(6512007)(6506007)(6486002)(26005)(66476007)(8676002)(66946007)(4326008)(2616005)(54906003)(2906002)(66556008);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?aX43Z3Qps0hqfTvWsm+MygYbBsHjUyNRMkSVvNFeWJ+E03PT1jnM5GOMlF4w?=
- =?us-ascii?Q?CISel+zjpLsbZUSsaY6sLYpR8ZPort2rw65kObQ3VLr8HlZK5Rbuqz/e+5nu?=
- =?us-ascii?Q?tz7Y+1z4gyXh8JxPMBo2gdmCZUCf2R5nUUOW8ClM+NGDmco3Yox4LU8jW8QF?=
- =?us-ascii?Q?7LmbMaEcjbh7RmAaqxCURMRYPRx63Jd4xQunPKfKpbFSW236EXIllcPDS5Zx?=
- =?us-ascii?Q?t3xgrLYmVBhO+0V7tOexQNHqCrSvsK2o+cQznAqK7J3C3NVAj6qvihvXLZmp?=
- =?us-ascii?Q?ByuoNMTbUlXXSiKuq2GzICiL59kfa9izQ4kCn7vynSfAvuYWsT/F9rK/F9gl?=
- =?us-ascii?Q?KmW+WvsuIYVE2dbu/BJ1QSFzeMiPVnxWInUfxKutpjoREBuUXV7pA40wYsFc?=
- =?us-ascii?Q?Jn2GSEbTJdFbtmaO2/kD2rVJaTKcb1yAOgjwqEfoF3rlWyKqwhD8KvG+AtlD?=
- =?us-ascii?Q?QAi6cfdZy/cFL6BkURQ828r2xxU/hdhFZRQHMkG+P1TkLZkUNN+Bb0/bTn4b?=
- =?us-ascii?Q?DKG696vrGtD9oh0lvfWwORhXIG9VBZg/bUPQ4FDCfIkmz28qdfymtHMqbQTc?=
- =?us-ascii?Q?YN8IdOqtPTyE6eeblJKV8wLFbt3BWCLSViEnHAJGPZDoYjs2qVhqEfkoNsF3?=
- =?us-ascii?Q?H594Txtvuf9FlbEo9TNLLm3wEW6bAPW3Y2Uc+wNARsCi+pKlWXaMP9+Lon47?=
- =?us-ascii?Q?4ahmUdV8HRkyPejdjM0GpW90VhWT9PJ2vSXJ5ICSIgQgizYzEmW0DlxGcpe1?=
- =?us-ascii?Q?N5q/lvZBJPTHSQNaf6HcJYHtWTEntkOXjnBgroH7RG4Mpn64oV+KN3cPL6ce?=
- =?us-ascii?Q?Hs7Vdw2aipJEFpVeQ5oMvF/tTN2jhata6hQwiQIpcHPu15DsxxbulrLq3YMt?=
- =?us-ascii?Q?OgyO7wgwhild+a2LzVx3G/8KeqSCSReg/xPbsLWJbg2r1RNgcXG+vLJsh5w0?=
- =?us-ascii?Q?I+JlXJ2BFE6ZTdL2wXn9BL8+PffxyB8DBeESoLCpanXJ9/SLKZhcfDiIFpof?=
- =?us-ascii?Q?QH1yugmma/Br8ZaQIc0R8msPK9uJd2iiUnn8cZZf75+k8l3S/w0AlJqyXuN6?=
- =?us-ascii?Q?yVmBfmrh/9dVj5UA6lPxw5ZIjSmg127B4a23hSyoYqXmj7MF36cMRnZNbLI+?=
- =?us-ascii?Q?S9XY9nnIldBDMEkgwCTOyEV4uzBSafzO1wzj4zQOqM+N6MDnXwxhy2FyKJG9?=
- =?us-ascii?Q?6AcxHrmHX4csojpjgbLTdMuG9MtLXqx1cUR2GEPCNMQuFwyr9dUrR8Os7MXd?=
- =?us-ascii?Q?bIJKGheUuwGk6CvyED8F8kE7c8oSXngJnzeyXmalYvhgD2/n6X6FiTQyUj7I?=
- =?us-ascii?Q?+GQCGJFDJzWYcpvg713y/k+WMnA3zvWZJblG2lN8euIfRXOSuCbt5F9YLbA5?=
- =?us-ascii?Q?Sdx3deB7eYSMaQ7IHOIOjhZOtVtQVkZA/EaEnYgsyMUnE9ice3+I7yRt83dW?=
- =?us-ascii?Q?/k5RXSif32PdF2EaNmgDJ+Bg72sIr+SZbx7waNPF9SJjqeNBHmigRqxw5nou?=
- =?us-ascii?Q?2J4Go3VCxHRgo9bEALVJYyfRozunEx9PBMOuOQaDraxogp4MKKqlHfc1IvYC?=
- =?us-ascii?Q?vfT/UQ102oNXq5OSxwx/l/hvYWMdrKgY9HE+itCT?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2516c879-d1d1-4824-29d9-08dafd817354
-X-MS-Exchange-CrossTenant-AuthSource: LV2PR12MB5869.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jan 2023 20:36:05.5413 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: pwNuQbrVCMq1U51lxXzJ35/JsQt/2JC5UMBINcUbkkaSZVvWTxcX9wF/dE86P867
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR12MB6571
-Cc: linux-s390@vger.kernel.org, kvm@vger.kernel.org,
- nouveau@lists.freedesktop.org, linux-rdma@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, Niklas Schnelle <schnelle@linux.ibm.com>,
- linux-remoteproc@vger.kernel.org, iommu@lists.linux.dev,
- dri-devel@lists.freedesktop.org, linux-stm32@st-md-mailman.stormreply.com,
- Alex Williamson <alex.williamson@redhat.com>, netdev@vger.kernel.org,
- ath10k@lists.infradead.org, linux-wireless@vger.kernel.org,
- linux-tegra@vger.kernel.org, Christian Borntraeger <borntraeger@linux.ibm.com>,
- virtualization@lists.linux-foundation.org, ath11k@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org
-Subject: [Linux-stm32] [PATCH v3 10/10] iommu/s390: Use GFP_KERNEL in
-	sleepable contexts
+Content-Disposition: inline
+In-Reply-To: <20230118184413.395820-3-krzysztof.kozlowski@linaro.org>
+Cc: linux-renesas-soc@vger.kernel.org,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Lars-Peter Clausen <lars@metafoo.de>, Dragos Bogdan <dragos.bogdan@analog.com>,
+ Linus Walleij <linus.walleij@linaro.org>, Stefan Agner <stefan@agner.ch>,
+ =?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>,
+ Sankar Velliangiri <navin@linumiz.com>, Alim Akhtar <alim.akhtar@samsung.com>,
+ Miquel Raynal <miquel.raynal@bootlin.com>, Guenter Roeck <groeck@chromium.org>,
+ Dmitry Rokosov <ddrokosov@sberdevices.ru>,
+ linux-stm32@st-md-mailman.stormreply.com, chrome-platform@lists.linux.dev,
+ Marcus Folkesson <marcus.folkesson@gmail.com>,
+ linux-samsung-soc@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Daniel Baluta <daniel.baluta@nxp.com>,
+ Nishant Malpani <nish.malpani25@gmail.com>,
+ Matt Ranostay <matt.ranostay@konsulko.com>,
+ Stefan Popa <stefan.popa@analog.com>, Sean Nyekjaer <sean@geanix.com>,
+ Marcelo Schmitt <marcelo.schmitt1@gmail.com>,
+ Lorenzo Bianconi <lorenzo@kernel.org>,
+ Alexandru Tachici <alexandru.tachici@analog.com>, devicetree@vger.kernel.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Michael Hennerich <Michael.Hennerich@analog.com>,
+ Alexandru Lazar <alazar@startmail.com>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+ Stephen Boyd <swboyd@chromium.org>, Rui Miguel Silva <rmfrfs@gmail.com>,
+ Rob Herring <robh+dt@kernel.org>, Andreas Klinger <ak@it-klinger.de>,
+ linux-fbdev@vger.kernel.org, Renato Lui Geh <renatogeh@gmail.com>,
+ Phil Reid <preid@electromag.com.au>, Benson Leung <bleung@chromium.org>,
+ Lucas Stankus <lucas.p.stankus@gmail.com>,
+ linux-arm-kernel@lists.infradead.org, Artur Rojek <contact@artur-rojek.eu>,
+ Caleb Connolly <caleb.connolly@linaro.org>,
+ Jean-Baptiste Maneyrol <jmaneyrol@invensense.com>,
+ Puranjay Mohan <puranjay12@gmail.com>, Philippe Reynes <tremyfr@yahoo.fr>,
+ linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org,
+ Oleksij Rempel <linux@rempel-privat.de>,
+ Eugene Zaikonnikov <ez@norophonic.com>, Robert Yang <decatf@gmail.com>,
+ kernel@pengutronix.de, Harald Geyer <harald@ccbib.org>,
+ Eugen Hristev <eugen.hristev@microchip.com>, Kent Gustavsson <kent@minoris.se>,
+ Claudiu Beznea <claudiu.beznea@microchip.com>,
+ Jonathan Cameron <jic23@kernel.org>
+Subject: Re: [Linux-stm32] [PATCH 3/5] dt-bindings: iio: correct node names
+	in examples
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -129,46 +110,40 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-These contexts are sleepable, so use the proper annotation. The GFP_ATOMIC
-was added mechanically in the prior patches.
 
-Reviewed-by: Niklas Schnelle <schnelle@linux.ibm.com>
-Reviewed-by: Matthew Rosato <mjrosato@linux.ibm.com>
-Signed-off-by: Jason Gunthorpe <jgg@nvidia.com>
----
- arch/s390/pci/pci_dma.c    | 2 +-
- drivers/iommu/s390-iommu.c | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+On Wed, 18 Jan 2023 19:44:11 +0100, Krzysztof Kozlowski wrote:
+> Do not use underscores and unneeded suffixes (e.g. i2c0) in node name in
+> examples.
+> 
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> ---
+>  .../devicetree/bindings/iio/accel/adi,adis16201.yaml      | 2 +-
+>  .../devicetree/bindings/iio/accel/adi,adis16240.yaml      | 2 +-
+>  .../devicetree/bindings/iio/accel/adi,adxl313.yaml        | 2 +-
+>  .../devicetree/bindings/iio/accel/adi,adxl345.yaml        | 4 ++--
+>  .../devicetree/bindings/iio/accel/bosch,bma220.yaml       | 2 +-
+>  .../devicetree/bindings/iio/accel/nxp,fxls8962af.yaml     | 4 ++--
+>  Documentation/devicetree/bindings/iio/adc/adi,ad7192.yaml | 2 +-
+>  Documentation/devicetree/bindings/iio/adc/adi,ad7606.yaml | 2 +-
+>  Documentation/devicetree/bindings/iio/adc/adi,ad7780.yaml | 2 +-
+>  .../devicetree/bindings/iio/adc/qcom,spmi-iadc.yaml       | 2 +-
+>  .../devicetree/bindings/iio/adc/st,stmpe-adc.yaml         | 8 +++-----
+>  .../devicetree/bindings/iio/frequency/adf4371.yaml        | 2 +-
+>  .../devicetree/bindings/iio/gyroscope/nxp,fxas21002c.yaml | 4 ++--
+>  .../devicetree/bindings/iio/health/ti,afe4403.yaml        | 2 +-
+>  .../devicetree/bindings/iio/health/ti,afe4404.yaml        | 2 +-
+>  Documentation/devicetree/bindings/iio/humidity/dht11.yaml | 2 +-
+>  .../devicetree/bindings/iio/humidity/ti,hdc2010.yaml      | 2 +-
+>  .../devicetree/bindings/iio/imu/adi,adis16460.yaml        | 2 +-
+>  .../devicetree/bindings/iio/imu/invensense,icm42600.yaml  | 4 ++--
+>  .../devicetree/bindings/iio/imu/nxp,fxos8700.yaml         | 4 ++--
+>  .../devicetree/bindings/iio/pressure/asc,dlhl60d.yaml     | 2 +-
+>  .../devicetree/bindings/iio/pressure/bmp085.yaml          | 2 +-
+>  .../bindings/iio/temperature/maxim,max31865.yaml          | 2 +-
+>  23 files changed, 30 insertions(+), 32 deletions(-)
+> 
 
-diff --git a/arch/s390/pci/pci_dma.c b/arch/s390/pci/pci_dma.c
-index 2f6d05d6da4f76..2d9b01d7ca4c5c 100644
---- a/arch/s390/pci/pci_dma.c
-+++ b/arch/s390/pci/pci_dma.c
-@@ -579,7 +579,7 @@ int zpci_dma_init_device(struct zpci_dev *zdev)
- 
- 	spin_lock_init(&zdev->iommu_bitmap_lock);
- 
--	zdev->dma_table = dma_alloc_cpu_table(GFP_ATOMIC);
-+	zdev->dma_table = dma_alloc_cpu_table(GFP_KERNEL);
- 	if (!zdev->dma_table) {
- 		rc = -ENOMEM;
- 		goto out;
-diff --git a/drivers/iommu/s390-iommu.c b/drivers/iommu/s390-iommu.c
-index 654ec4411fe36c..7dcfffed260e6b 100644
---- a/drivers/iommu/s390-iommu.c
-+++ b/drivers/iommu/s390-iommu.c
-@@ -52,7 +52,7 @@ static struct iommu_domain *s390_domain_alloc(unsigned domain_type)
- 	if (!s390_domain)
- 		return NULL;
- 
--	s390_domain->dma_table = dma_alloc_cpu_table(GFP_ATOMIC);
-+	s390_domain->dma_table = dma_alloc_cpu_table(GFP_KERNEL);
- 	if (!s390_domain->dma_table) {
- 		kfree(s390_domain);
- 		return NULL;
--- 
-2.39.0
-
+Acked-by: Rob Herring <robh@kernel.org>
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
