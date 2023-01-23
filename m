@@ -2,84 +2,57 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB0306770B6
-	for <lists+linux-stm32@lfdr.de>; Sun, 22 Jan 2023 17:47:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0EDD8677802
+	for <lists+linux-stm32@lfdr.de>; Mon, 23 Jan 2023 10:59:37 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 72AD7C65E4F;
-	Sun, 22 Jan 2023 16:47:31 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 504B1C6334A
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AE086C69057;
+	Mon, 23 Jan 2023 09:59:36 +0000 (UTC)
+Received: from mail.8bytes.org (mail.8bytes.org [85.214.250.239])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6C204C01E99
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 22 Jan 2023 16:47:30 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 69803B80B31;
- Sun, 22 Jan 2023 16:47:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D688C433EF;
- Sun, 22 Jan 2023 16:47:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1674406048;
- bh=SvajHjiCSIBlcZUdVxMgRSWO0gJsGtBYT+mr1EHeu0o=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=HJZbJrnWcLLnDqOiDRQFyTuKeSBq7CbUfFHZzlhHwR68aZIpTBcnnH7lrVDHATIJ5
- w/Mzn1otM7LO+JhZgcF1eRjNkHrIX6kH73HUxsbtJpGx+ipM17Qa0hyxxMfQoix/Tf
- r1748utHDH2gwfl5+RJVcuDS4ArHPfoVaxwDRawNux1S9sdh2RCaapXMO7IYw2RywK
- 8xy5xC0S7ec1wTzznrVHpd5sWmDaTKeuBj9DX4zXAVFJbGtMB2BbVg9U+46uDVAwvb
- mW3+T17DR98iKb/CTcKr2rU5fUJe4wEpXkmpsi/iTJG+Z0//Kr2KoAJJpvWkIqgRKh
- kv6ZWW4lNc7Nw==
-Date: Sun, 22 Jan 2023 17:01:05 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Message-ID: <20230122170105.6a1a9766@jic23-huawei>
-In-Reply-To: <45b9b378-6619-c47a-b5ea-6b6b7edca785@linaro.org>
-References: <20230118184413.395820-1-krzysztof.kozlowski@linaro.org>
- <20230118184413.395820-3-krzysztof.kozlowski@linaro.org>
- <20230121171709.5eb75e94@jic23-huawei>
- <45b9b378-6619-c47a-b5ea-6b6b7edca785@linaro.org>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.36; x86_64-pc-linux-gnu)
+ Mon, 23 Jan 2023 09:59:35 +0000 (UTC)
+Received: from 8bytes.org (p5b006afb.dip0.t-ipconnect.de [91.0.106.251])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
+ SHA256) (No client certificate requested)
+ by mail.8bytes.org (Postfix) with ESMTPSA id 9A316262C2B;
+ Mon, 23 Jan 2023 10:59:34 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=8bytes.org;
+ s=default; t=1674467975;
+ bh=0KQBObUcnpg5GrqXq3hC5RyjGf2zS6TIXg2zcVgFWn0=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=Tr3JGNsZMXVI480xgKW5iIBnC2CS9vyEqh9gWSstha079Y/cRMHa9gi+uxnReHb5d
+ fwek2sY7wwUJnFwFFwIvWemH12HdN0YbgdSZ2RWwC0269UqDUwGwB35CRDyXhq60AT
+ USyIwI3wP05/5oGtUOpS94M53A08jNcPckKA5ZXpZIPRaNJ96Q+BFkTkmpgSNGCPm5
+ YogHT95t/tBdYhxC9Y35A2TokJihCUBd4VwOl8Pa35zfKfyCatWPy6AY7P+apvfw5a
+ T/W6TQnG+GLz390G6KRQWUX8KnoKg77Sxn7JUzcugID6/sS1m397rjmidCEXxQK2Lj
+ 1j8HX1fY4eNAw==
+Date: Mon, 23 Jan 2023 10:59:32 +0100
+From: Joerg Roedel <joro@8bytes.org>
+To: Jason Gunthorpe <jgg@nvidia.com>
+Message-ID: <Y85ahCk3sRTVAU8O@8bytes.org>
+References: <1-v1-6e8b3997c46d+89e-iommu_map_gfp_jgg@nvidia.com>
+ <4fd1b194-29ef-621d-4059-a8336058f217@arm.com>
+ <Y7hZOwerwljDKoQq@nvidia.com> <Y8pd50mdNShTyVRX@8bytes.org>
+ <Y8rVJGyTKAjXjLwV@nvidia.com>
 MIME-Version: 1.0
-Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Nishant Malpani <nish.malpani25@gmail.com>,
- Linus Walleij <linus.walleij@linaro.org>,
- Jean-Baptiste Maneyrol <jmaneyrol@invensense.com>,
- Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>,
- Sankar Velliangiri <navin@linumiz.com>, Alim Akhtar <alim.akhtar@samsung.com>,
- Miquel Raynal <miquel.raynal@bootlin.com>, Guenter Roeck <groeck@chromium.org>,
- chrome-platform@lists.linux.dev, Dmitry Rokosov <ddrokosov@sberdevices.ru>,
- linux-stm32@st-md-mailman.stormreply.com, linux-renesas-soc@vger.kernel.org,
- Marcus Folkesson <marcus.folkesson@gmail.com>,
- Lars-Peter Clausen <lars@metafoo.de>, Artur Rojek <contact@artur-rojek.eu>,
- Daniel Baluta <daniel.baluta@nxp.com>,
- Dragos Bogdan <dragos.bogdan@analog.com>,
- Matt Ranostay <matt.ranostay@konsulko.com>, linux-samsung-soc@vger.kernel.org,
- Stefan Popa <stefan.popa@analog.com>, Sean Nyekjaer <sean@geanix.com>,
- Marcelo Schmitt <marcelo.schmitt1@gmail.com>,
- Lorenzo Bianconi <lorenzo@kernel.org>,
- Alexandru Tachici <alexandru.tachici@analog.com>, devicetree@vger.kernel.org,
- kernel@pengutronix.de, Michael Hennerich <Michael.Hennerich@analog.com>,
- Alexandru Lazar <alazar@startmail.com>, linux-kernel@vger.kernel.org,
- Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
- Stephen Boyd <swboyd@chromium.org>, Rui Miguel Silva <rmfrfs@gmail.com>,
- Rob Herring <robh+dt@kernel.org>, Andreas Klinger <ak@it-klinger.de>,
- linux-fbdev@vger.kernel.org, Renato Lui Geh <renatogeh@gmail.com>,
- Phil Reid <preid@electromag.com.au>, Benson Leung <bleung@chromium.org>,
- Lucas Stankus <lucas.p.stankus@gmail.com>,
- linux-arm-kernel@lists.infradead.org,
- Caleb Connolly <caleb.connolly@linaro.org>,
- Puranjay Mohan <puranjay12@gmail.com>, Philippe Reynes <tremyfr@yahoo.fr>,
- Nicolas Ferre <nicolas.ferre@microchip.com>, linux-iio@vger.kernel.org,
- Oleksij Rempel <linux@rempel-privat.de>,
- Eugene Zaikonnikov <ez@norophonic.com>, Stefan Agner <stefan@agner.ch>,
- Robert Yang <decatf@gmail.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Harald Geyer <harald@ccbib.org>, Eugen Hristev <eugen.hristev@microchip.com>,
- Kent Gustavsson <kent@minoris.se>,
- Claudiu Beznea <claudiu.beznea@microchip.com>
-Subject: Re: [Linux-stm32] [PATCH 3/5] dt-bindings: iio: correct node names
-	in examples
+Content-Disposition: inline
+In-Reply-To: <Y8rVJGyTKAjXjLwV@nvidia.com>
+Cc: kvm@vger.kernel.org, nouveau@lists.freedesktop.org,
+ linux-remoteproc@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ virtualization@lists.linux-foundation.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-s390@vger.kernel.org,
+ Matthew Rosato <mjrosato@linux.ibm.com>, linux-rdma@vger.kernel.org,
+ ath10k@lists.infradead.org, iommu@lists.linux.dev,
+ Christian Borntraeger <borntraeger@linux.ibm.com>, ath11k@lists.infradead.org,
+ linux-media@vger.kernel.org, Kevin Tian <kevin.tian@intel.com>,
+ Niklas Schnelle <schnelle@linux.ibm.com>, linux-arm-msm@vger.kernel.org,
+ Alex Williamson <alex.williamson@redhat.com>, linux-tegra@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
+ linux-wireless@vger.kernel.org, Robin Murphy <robin.murphy@arm.com>,
+ Lu Baolu <baolu.lu@linux.intel.com>
+Subject: Re: [Linux-stm32] [PATCH 1/8] iommu: Add a gfp parameter to
+	iommu_map()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,53 +69,24 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Sat, 21 Jan 2023 19:31:23 +0100
-Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org> wrote:
-
-> On 21/01/2023 18:17, Jonathan Cameron wrote:
-> > On Wed, 18 Jan 2023 19:44:11 +0100
-> > Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org> wrote:
-> >   
-> >> Do not use underscores and unneeded suffixes (e.g. i2c0) in node name in
-> >> examples.
-> >>
-> >> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-> >> ---  
-> >   
-> >> diff --git a/Documentation/devicetree/bindings/iio/health/ti,afe4403.yaml b/Documentation/devicetree/bindings/iio/health/ti,afe4403.yaml
-> >> index 6c5ad426a016..12f75ddc4a70 100644
-> >> --- a/Documentation/devicetree/bindings/iio/health/ti,afe4403.yaml
-> >> +++ b/Documentation/devicetree/bindings/iio/health/ti,afe4403.yaml
-> >> @@ -42,7 +42,7 @@ examples:
-> >>          #address-cells = <1>;
-> >>          #size-cells = <0>;
-> >>  
-> >> -        heart_mon@0 {
-> >> +        heart-rate@0 {  
-> > 
-> > These are both heart-rate and pulse oximeters so measure more than just
-> > the rate (oxygen saturation in the blood). Reality is they actually
-> > measure light absorption over time, but you can calculate an estimate
-> > of both rate and oxygen saturation from that.
-> > 
-> > I don't really mind simplifying that to heart-rate, but wanted to
-> > call this out for possible discussion.  
+On Fri, Jan 20, 2023 at 01:53:40PM -0400, Jason Gunthorpe wrote:
+> > Well, having GFP parameters is not a strict kernel convention. There are
+> > places doing it differently and have sleeping and atomic variants of
+> > APIs. I have to say I like the latter more. But given that this leads to
+> > an invasion of API functions here which all do the same under the hood, I
+> > agree it is better to go with a GFP parameter here.
 > 
-> They could be heart-mon. The fix is mostly around the underscore. I
-> don't have any arguments for changing it to heart-rate, thus we can go
-> with whatever you prefer.
-I'm fine with either and as we have a patch with heart-rate that wins
-currently. I'll just let this sit for a little longer than
-normal to see if we get any other responses!
+> Ok, I think we are done with this series, I'll stick it in linux-next
+> for a bit and send you a PR so the trees stay in sync
 
-Thanks,
+This series mostly touches parts outside of IOMMUFD, so we should follow
+the process here and let this reach linux-next via the IOMMU tree.
+Please send me a new version and I will put it into a separate branch
+where you can pull it from.
 
-Jonathan
-> 
-> Best regards,
-> Krzysztof
-> 
+Regards,
 
+	Joerg
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
