@@ -2,53 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DC11F677EE5
-	for <lists+linux-stm32@lfdr.de>; Mon, 23 Jan 2023 16:13:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D7C62677EE7
+	for <lists+linux-stm32@lfdr.de>; Mon, 23 Jan 2023 16:13:15 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 814C9C69055;
-	Mon, 23 Jan 2023 15:13:13 +0000 (UTC)
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com
- [209.85.221.45])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9CEAEC69056;
+	Mon, 23 Jan 2023 15:13:15 +0000 (UTC)
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com
+ [209.85.221.48])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7F6B5C01E98
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 13203C69056
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 23 Jan 2023 15:13:11 +0000 (UTC)
-Received: by mail-wr1-f45.google.com with SMTP id h16so11100300wrz.12
+ Mon, 23 Jan 2023 15:13:14 +0000 (UTC)
+Received: by mail-wr1-f48.google.com with SMTP id d14so7435470wrr.9
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 23 Jan 2023 07:13:11 -0800 (PST)
+ Mon, 23 Jan 2023 07:13:14 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=mD2MSQcoc4dUqM5mN85kRutri7MSD6je9fF7r46KJ3A=;
- b=MDCHyD/DppgASNZrrhUSjfzEdGsHr7Kz8YcSnZeXCFkB2Q3m1NYn5ir3s9xFQEM9Ih
- r/EgvHAHTRyx2Rl0HeA47sdHCFwKKJ87D5ItzP+ACb/UmbEl/jwc32KLiWF2WLI7G81M
- FLPkwyO9hvXc+75utLndnMV9UMJyce8pEiTCyVRWdFMjXdU6DipO1NsVKGqw3QSQdhmV
- kQd4yhhe9ZzIvLKfstipN8BrQpxvN8R6lagBzjQRLzSsVCJfT5Hsccw2V7xNzoo93W2J
- bMYcazl+nSP3Onh/+otLqvybwdhDXxbhwDvNQXBL7F9C7AtvDj4p8HBqtKHh9msqOs+o
- 9DkQ==
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=NjUDPjFfIstrArrttGkIiPvgInIpWMnlY5IxKwKaSmM=;
+ b=gBYz9l1ChBFTjyquDh1ZRllUadOhS3AOoSty4qM7gQFn3MA20fctQ9Rau+B9QwDvSO
+ rwnELh0TsZEV1SENNaAwxrbvMZpyOcQpqOrZkidOK9PyOdIFdQ68uU5lY07aC9beRBFQ
+ VFcEGa1/TJ9hw2tpi4rS8isfX7TV//tB0RhC7zKfWQfQHs19bT/PWeLt+XpmCmcpZ3pQ
+ P+lQjZV5iQU7XifV/MniKY2UR8WQFm5+rkxBfAFJiDIAcFsY9yb8XamTbrGGz1HsH3ta
+ tGwvMS4ewMzZ7GFLQSP06NgULdL1ShWttqEcreqeLg/Uh2RmDqDdijBb41n1CwJPRrSD
+ JeHg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=mD2MSQcoc4dUqM5mN85kRutri7MSD6je9fF7r46KJ3A=;
- b=xV2t5iV1Nq6W0M6Wu75MHzyz/hLETTbSEi/8f8Nqq6+0vqUxCeiENBbXIucncXijyr
- l1ahgPZPNZ7mS2MNwFt6lLEgTUVOPWo0qNMI6S5eJEm0COUn+A9qFrhLB/gOpUJaj4a2
- UJ2j0C+1M49NMEx0ql8JPOWafH1q105RhN9+oeodVHCLpyyv0qiR/TgK2XyOBTjPxw8W
- auxTdx6R1KbJDh0LCGP7zan4vGX5LYBVCTcCZI3WxUnSLUCy32QVP9eBowh2fr/+lzMx
- gw1G8b9VqPEbMXA8WujK/t3enr4XilQ/QKkHWc0qbOTd6AZr1B8sPwO523rfNuh09LJb
- MVKg==
-X-Gm-Message-State: AFqh2kpzVDiiL0Gk0tVdGT3XaaJl9QoiwB6HKkXBXrwRrs9+BBQ/W6Cm
- KwmNCwpyqp8bzSSk14SspI1iAg==
-X-Google-Smtp-Source: AMrXdXudvFeY1MQe2u9dKeFf/Pkg70gCT8e98Ho6iYUtc8YoXVClgM8ziC4ZNwtjUY2hEr18RBBmpw==
-X-Received: by 2002:a5d:4644:0:b0:2be:5cf8:2a83 with SMTP id
- j4-20020a5d4644000000b002be5cf82a83mr9678706wrs.37.1674486790953; 
- Mon, 23 Jan 2023 07:13:10 -0800 (PST)
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=NjUDPjFfIstrArrttGkIiPvgInIpWMnlY5IxKwKaSmM=;
+ b=NqRxSaU7uIYuOb27H2kF1p3huWFnpkZOVqCVOOwQXyVWm6r3BvQ4oq1rN8feghy3NE
+ Qo6rzIGWC5F8YFjjO2EF22D7VEwjYCu3BNi+S0eZx85xFlOgngKmnfaFWZ44tp/xUnhu
+ zlTpWGjvUqeWP1xwi0Zhi+OdcMVTBJMtsVGTkCgoDaine7PFOiMd9W+qzI58R7cY5Yat
+ CFCTAzipguh3WCba1kdpRR5r90/y+g7xP4g8nqmevQ4o7qyPdCRRpqwCy+NyIKVZMp3L
+ 7lw/oXBIornZ6LGvh2dS30O5Ikqhs0iqW/HBmNX24GSIsfWjtz40UuiUJ5M4SYtq4Ure
+ xpag==
+X-Gm-Message-State: AFqh2kopKvZ2ZgNYfW1HCgEGNqWhH8v+hiqTfJ5rjRyFsKYKbRS/1Keu
+ NjKsUx0uCyHbkR/rFoIjEnFNXw==
+X-Google-Smtp-Source: AMrXdXuiyS/nE1Nc3w4Ako2LBIBfE/IBn8kE3nDojB39mO64zJzuJZFatWSIZAd0fnHSuwEectyleg==
+X-Received: by 2002:a05:6000:98d:b0:242:809e:1428 with SMTP id
+ by13-20020a056000098d00b00242809e1428mr25207621wrb.5.1674486793685; 
+ Mon, 23 Jan 2023 07:13:13 -0800 (PST)
 Received: from krzk-bin.. ([178.197.216.144]) by smtp.gmail.com with ESMTPSA id
- n1-20020a5d67c1000000b002bc7f64efa3sm34737922wrw.29.2023.01.23.07.13.08
+ n1-20020a5d67c1000000b002bc7f64efa3sm34737922wrw.29.2023.01.23.07.13.11
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 23 Jan 2023 07:13:10 -0800 (PST)
+ Mon, 23 Jan 2023 07:13:13 -0800 (PST)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  Rob Herring <robh+dt@kernel.org>,
@@ -74,13 +75,15 @@ To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  linux-amlogic@lists.infradead.org, linux-riscv@lists.infradead.org,
  linux-stm32@st-md-mailman.stormreply.com
-Date: Mon, 23 Jan 2023 16:12:50 +0100
-Message-Id: <20230123151302.368277-1-krzysztof.kozlowski@linaro.org>
+Date: Mon, 23 Jan 2023 16:12:51 +0100
+Message-Id: <20230123151302.368277-2-krzysztof.kozlowski@linaro.org>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20230123151302.368277-1-krzysztof.kozlowski@linaro.org>
+References: <20230123151302.368277-1-krzysztof.kozlowski@linaro.org>
 MIME-Version: 1.0
 Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Subject: [Linux-stm32] [PATCH 01/13] dt-bindings: serial: amlogic,
-	meson-uart: allow other serial properties
+Subject: [Linux-stm32] [PATCH 02/13] dt-bindings: serial: 8250: correct
+	Nuvoton NPCM850 compatible
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,39 +100,38 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Reference common serial properties bindings to allow typical serial
-properties:
+Nuvoton NPCM850 UART is compatible with NPCM750, so add proper fallback
+to match existing DTS and Linux driver.
 
-  meson-axg-jethome-jethub-j100.dtb: serial@23000: 'bluetooth', 'uart-has-rtscts' do not match any of the regexes: 'pinctrl-[0-9]+'
-
+Fixes: c8177f90b7c6 ("dt-bindings: serial: 8250: Add npcm845 compatible string")
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 ---
- .../devicetree/bindings/serial/amlogic,meson-uart.yaml       | 5 ++++-
+ Documentation/devicetree/bindings/serial/8250.yaml | 5 ++++-
  1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/Documentation/devicetree/bindings/serial/amlogic,meson-uart.yaml b/Documentation/devicetree/bindings/serial/amlogic,meson-uart.yaml
-index 7822705ad16c..7abf113c966c 100644
---- a/Documentation/devicetree/bindings/serial/amlogic,meson-uart.yaml
-+++ b/Documentation/devicetree/bindings/serial/amlogic,meson-uart.yaml
-@@ -19,6 +19,9 @@ description: |
-   is active since power-on and does not need any clock gating and is usable
-   as very early serial console.
- 
-+allOf:
-+  - $ref: /schemas/serial/serial.yaml#
-+
- properties:
-   compatible:
-     oneOf:
-@@ -69,7 +72,7 @@ required:
-   - clocks
-   - clock-names
- 
--additionalProperties: false
-+unevaluatedProperties: false
- 
- examples:
-   - |
+diff --git a/Documentation/devicetree/bindings/serial/8250.yaml b/Documentation/devicetree/bindings/serial/8250.yaml
+index 34b8e59aa9d4..badaf6d5b6fe 100644
+--- a/Documentation/devicetree/bindings/serial/8250.yaml
++++ b/Documentation/devicetree/bindings/serial/8250.yaml
+@@ -62,7 +62,6 @@ properties:
+       - const: mrvl,pxa-uart
+       - const: nuvoton,wpcm450-uart
+       - const: nuvoton,npcm750-uart
+-      - const: nuvoton,npcm845-uart
+       - const: nvidia,tegra20-uart
+       - const: nxp,lpc3220-uart
+       - items:
+@@ -92,6 +91,10 @@ properties:
+           - enum:
+               - ns16550 # Deprecated, unless the FIFO really is broken
+               - ns16550a
++      - items:
++          - enum:
++              - nuvoton,npcm845-uart
++          - const: nuvoton,npcm750-uart
+       - items:
+           - enum:
+               - ralink,mt7620a-uart
 -- 
 2.34.1
 
