@@ -2,55 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7EC846793DC
-	for <lists+linux-stm32@lfdr.de>; Tue, 24 Jan 2023 10:19:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D3F56793DD
+	for <lists+linux-stm32@lfdr.de>; Tue, 24 Jan 2023 10:19:48 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 43ED6C65E72;
-	Tue, 24 Jan 2023 09:19:44 +0000 (UTC)
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com
- [209.85.128.42])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 611FCC65E72;
+	Tue, 24 Jan 2023 09:19:48 +0000 (UTC)
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
+ [209.85.128.51])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CD312C64110
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9D224C64110
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 24 Jan 2023 09:19:43 +0000 (UTC)
-Received: by mail-wm1-f42.google.com with SMTP id
- c10-20020a05600c0a4a00b003db0636ff84so10437266wmq.0
+ Tue, 24 Jan 2023 09:19:47 +0000 (UTC)
+Received: by mail-wm1-f51.google.com with SMTP id g10so10915913wmo.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 24 Jan 2023 01:19:43 -0800 (PST)
+ Tue, 24 Jan 2023 01:19:47 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=nb5CwN4fN4XTwRx3Tj+I+Ommhby0lGr2iuTrQcxIb/0=;
- b=Erz+EhOmyjtVC8y8TD1tzEzfeEI+tUpI6auPlhOS+L8rFcrpspoGstb2EvkLgGuuAp
- DpKD+EnP0qVzHF5BpeHg6bzd83CFhVrmFGWodo0QhT85JTbjUDY9rlI2F2q9CqFUqE8H
- Mo/TmRVuwZRoWTTKcd5YrFHbXefcW6Vjg15ub+DUMbZ5/zXbGi+oynGVNw7VL8aiHpzk
- yRUkxDf57i6EJjuOmrAQh0V5XQ3cJSG/q6lOFE89YcI0jNM4Yd9chTApm8BS3Tp2Lz0c
- ytWEkYuRtJnN5GvA0nQYxCJPky8Tviyyop+mibt4vI/EKUDqf+YKvXMhb1EO2OGo3A4D
- EEng==
+ bh=5uL5KX+lq7Bh76mZga/YGxKAjqZK+AdDiUOgEFy1RwQ=;
+ b=CqVtGiLsIQtBM5HC7e4JAs5ne7xOL0h7GAY2cRHqngOX6tAotoI4tdflCP332C9T1q
+ ebm2ELFU1+Ug/a1y0TeWu9aGwQiLKKnWDSIEmwUZRAghplQkjWEQxaYBf5Ey4BE2k4jJ
+ VK46ot2pwa00RBXGvfZYZg3SMXzA0Lh1pbW8jgf1rXVEeNuSnOQxiRAKaGRyvpkoNrei
+ OJxD/0sU9CSdaNJ+wGU8nRten2J4szDCSGuQdFgJyR2vdcLR496YmAH/kCqa87QhjOTP
+ DSyxz9sKiuG3/zXclPNhK65pMK0GXgVEoYgr0c13Sw0UIyWtsIz+fvqnELnsRql27WCf
+ Jpuw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=nb5CwN4fN4XTwRx3Tj+I+Ommhby0lGr2iuTrQcxIb/0=;
- b=4eTzahgA5nLfdyNtJHmV8CP5f/XI0+FBuaF6pzhhBBESzUc9gyilH8fW94wh4wWSIV
- YX9t9/qETbxQ9Q2aDUzCfLeEf4ITJD+yEspmqh94IU5AEqI0LtpHaqUzZshDz6HxYzJv
- WiJFngOVbWx0OOfL/44ZXZ7OwB6odAATca9k4pxArg0TjhmWEdHU0UjQunPkilAKda2x
- AEKGKSCdq855ldxP7nyYqxfYzED0hkHQnDFwDdVTUJHPkYWorZgaUx0Nxw3KxSxDk19Y
- 9STHwB6kHRc6+jjhgq4H8Z0m9Ser0Usz814E6Wsfc/FGKLf2J5BJpv3G9lBbY8ttVEUK
- C6HQ==
-X-Gm-Message-State: AFqh2kogDr+/lS31oqbfxctMqlBRYFscMIjImy5jEObFLCJ07s974o9c
- lY+BebgUwz8yRhJg3kb7nixeQg==
-X-Google-Smtp-Source: AMrXdXtDAh7QFXNJKNHeXnVkYsOgnO5HNUP0pkqugffnYolM/QSylK27RP72alQg+Wi0pRiLhcw4xg==
-X-Received: by 2002:a05:600c:4928:b0:3da:909f:1f6b with SMTP id
- f40-20020a05600c492800b003da909f1f6bmr27413613wmp.1.1674551983490; 
- Tue, 24 Jan 2023 01:19:43 -0800 (PST)
+ bh=5uL5KX+lq7Bh76mZga/YGxKAjqZK+AdDiUOgEFy1RwQ=;
+ b=2e+BIR0LtZDPzBmCcvjsOyP9ZFBonBMvDP/pYZiBgfzZterKUbfJliXN2cIqvF24DO
+ fYpeK0nsOqmCEWVE03x9RZTqvaLsqi7WTKtY7WPInWQYsm0ZxQK/jfPiAFMZIZcF13GC
+ bMEMzN6zuWheV3clOP9Vrpw8gSMcazclBYPIOKJRszZfweGMXzhzqUIaeeTRBdkpV3N+
+ H39TqQvHHjjbecxfPc1i/qJuLxTuq8eYTMC5UotwPGOLlogUMVm3SK7BQVCC3wnh+BJS
+ 0NQPpTbZxvCqDjAyft6ODx/92JbMIGTQ6MiazYx2puZ6BtqgoJa8AJnllQO+9NAdyf6Y
+ Xb1w==
+X-Gm-Message-State: AFqh2kpkGiR5wvFDKSQ8av14I+l/guntSIwoGes+01TqC1yNoBLD5duJ
+ JnvWeKgtK1EM85eH0gJIVkAN1A==
+X-Google-Smtp-Source: AMrXdXt6ZXjN2UR9CDMMCyR/xCneinHGOcEykSqybnBEASsnB1wxAPHlJm08OnK7Not9iguLyjZzVA==
+X-Received: by 2002:a1c:7216:0:b0:3cf:614e:b587 with SMTP id
+ n22-20020a1c7216000000b003cf614eb587mr27496678wmc.26.1674551987275; 
+ Tue, 24 Jan 2023 01:19:47 -0800 (PST)
 Received: from krzk-bin.. ([178.197.216.144]) by smtp.gmail.com with ESMTPSA id
- i22-20020a05600c355600b003a84375d0d1sm13672242wmq.44.2023.01.24.01.19.40
+ i22-20020a05600c355600b003a84375d0d1sm13672242wmq.44.2023.01.24.01.19.43
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 24 Jan 2023 01:19:42 -0800 (PST)
+ Tue, 24 Jan 2023 01:19:46 -0800 (PST)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  Rob Herring <robh+dt@kernel.org>,
@@ -75,16 +74,16 @@ To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
  linux-riscv@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
-Date: Tue, 24 Jan 2023 10:19:08 +0100
-Message-Id: <20230124091916.45054-2-krzysztof.kozlowski@linaro.org>
+Date: Tue, 24 Jan 2023 10:19:09 +0100
+Message-Id: <20230124091916.45054-3-krzysztof.kozlowski@linaro.org>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230124091602.44027-1-krzysztof.kozlowski@linaro.org>
 References: <20230124091602.44027-1-krzysztof.kozlowski@linaro.org>
 MIME-Version: 1.0
 Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
  Michal Simek <michal.simek@amd.com>
-Subject: [Linux-stm32] [PATCH v2 04/12] dt-bindings: serial: correct ref to
-	serial.yaml
+Subject: [Linux-stm32] [PATCH v2 05/12] dt-bindings: serial: cdsn,
+	uart: add power-domains
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,47 +100,58 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The serial bindings should reference the local (in kernel) serial.yaml,
-not the /schemas/serial.yaml.  The latter comes from dtschema package
-and is a small subset of serial bindings.
+Few Xilinx DTS have power domains in serial node:
 
-Usage of the local serial.yaml allows typical properties and children:
-
-  xilinx/avnet-ultra96-rev1.dtb: serial@ff000000: Unevaluated properties are not allowed ('bluetooth' were unexpected)
+  zynqmp-zc1232-revA.dtb: serial@ff000000: Unevaluated properties are not allowed ('power-domains' was unexpected)
 
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Acked-by: Michal Simek <michal.simek@amd.com>
+Reviewed-by: Michal Simek <michal.simek@amd.com>
 ---
- Documentation/devicetree/bindings/serial/cdns,uart.yaml         | 2 +-
- Documentation/devicetree/bindings/serial/xlnx,opb-uartlite.yaml | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+ .../devicetree/bindings/serial/cdns,uart.yaml   | 17 ++++++++++++++---
+ 1 file changed, 14 insertions(+), 3 deletions(-)
 
 diff --git a/Documentation/devicetree/bindings/serial/cdns,uart.yaml b/Documentation/devicetree/bindings/serial/cdns,uart.yaml
-index 876b8cf1cafb..0c118d5336cc 100644
+index 0c118d5336cc..38925b79cb38 100644
 --- a/Documentation/devicetree/bindings/serial/cdns,uart.yaml
 +++ b/Documentation/devicetree/bindings/serial/cdns,uart.yaml
-@@ -10,7 +10,7 @@ maintainers:
+@@ -9,9 +9,6 @@ title: Cadence UART Controller
+ maintainers:
    - Michal Simek <michal.simek@xilinx.com>
  
- allOf:
--  - $ref: /schemas/serial.yaml#
-+  - $ref: serial.yaml#
- 
+-allOf:
+-  - $ref: serial.yaml#
+-
  properties:
    compatible:
-diff --git a/Documentation/devicetree/bindings/serial/xlnx,opb-uartlite.yaml b/Documentation/devicetree/bindings/serial/xlnx,opb-uartlite.yaml
-index 2f4390e8d4e8..6f65e9a81c29 100644
---- a/Documentation/devicetree/bindings/serial/xlnx,opb-uartlite.yaml
-+++ b/Documentation/devicetree/bindings/serial/xlnx,opb-uartlite.yaml
-@@ -63,7 +63,7 @@ required:
-   - xlnx,use-parity
+     oneOf:
+@@ -46,6 +43,9 @@ properties:
+       port does not use this pin.
+     type: boolean
  
- allOf:
--  - $ref: /schemas/serial.yaml#
++  power-domains:
++    maxItems: 1
++
+ required:
+   - compatible
+   - reg
+@@ -53,6 +53,17 @@ required:
+   - clocks
+   - clock-names
+ 
++allOf:
 +  - $ref: serial.yaml#
-   - if:
-       properties:
-         xlnx,use-parity:
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: cdns,uart-r1p8
++    then:
++      properties:
++        power-domains: false
++
+ unevaluatedProperties: false
+ 
+ examples:
 -- 
 2.34.1
 
