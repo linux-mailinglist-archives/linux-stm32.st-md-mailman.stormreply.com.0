@@ -2,55 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B8D61679295
-	for <lists+linux-stm32@lfdr.de>; Tue, 24 Jan 2023 09:10:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DDCFC67929F
+	for <lists+linux-stm32@lfdr.de>; Tue, 24 Jan 2023 09:10:55 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7BCA4C65E72;
-	Tue, 24 Jan 2023 08:10:50 +0000 (UTC)
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
- [209.85.128.54])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A227FC03FC1;
+	Tue, 24 Jan 2023 08:10:55 +0000 (UTC)
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
+ [209.85.128.46])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 74428C03FC1
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 88A6AC65E71
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 24 Jan 2023 08:10:49 +0000 (UTC)
-Received: by mail-wm1-f54.google.com with SMTP id
- c10-20020a05600c0a4a00b003db0636ff84so10304635wmq.0
+ Tue, 24 Jan 2023 08:10:54 +0000 (UTC)
+Received: by mail-wm1-f46.google.com with SMTP id q8so10751989wmo.5
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 24 Jan 2023 00:10:49 -0800 (PST)
+ Tue, 24 Jan 2023 00:10:54 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=enwdC86sSt/Bgsu/79IZPHQk8UBBzGfxK3EOWaboBvw=;
- b=LcQfP+DFrQkopCoUrWUbHLoP4V1A7Jw1ekHzODbLGw0RsBJ0NZipqk98NN5wzpfnje
- fjrBQPcHcUkuHaTXmA+2i9W2FyiRa5INkBoymVv+zy8jnBG5uMHcH2QmnSQ7TwavBJme
- YsDgJmd0oJiI6Yno21owwT9KKCPicOuyET79ngsfc9IX54m/2by7la+cri3wOkVilrcU
- jsWiSH0EWljo6FXFJt+X4x89Jf5O5auswhQ88bWuSP4OwUOqdJYXQrdo58pmYWjvriN0
- y0jPhPRcL9Dw3ONd3ErVNlomrNyq4rTb1SAyOz5Xl7KuSZ+2sK7O8ixEtyrgGDbWg0tm
- I4OQ==
+ bh=nve+phFWaYikXuq313PrfTjXk8l7rA3htdFDuSWrNQA=;
+ b=Kx0r6aR/7hwFkuMtjFOPBh3kHegRQzoxAZU+V+u7ZpuYc+aMfpuwKPUXPFLFY91Gxd
+ Pb5ksU3seii6aHhyNRR0d+y4CpLYrNJs291ke5cTZhc2pFoEfznzQ72pGJ9U+4PlWBOq
+ /aOWdXuwBiUZ9quMosz6Cjo9cEI/5KIMbS7N6dt5TKDHluBiHaY7KTwiaLBDE1pA/plc
+ iwtcaAVypExk7egvOi9UIA5GS8Lkib+ggzqXuH/obsI/TcNqRerNUodLeHAm1DuCMvbo
+ bq/42SXec1sARRAzRdD/QQ2Q3EOUImQLp8TVaZl4dmpIFN1kzB74+poAUoFhXQvhFC94
+ nIeQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=enwdC86sSt/Bgsu/79IZPHQk8UBBzGfxK3EOWaboBvw=;
- b=ANrxHL1qwe0gC6U/69bw/leq71QKEtOrylzA7xlaULIoza6tIHKyGV9kHkiRQhc+M8
- B/Ua7l9Uhi4Fi/QegChLYzBdMCpPSRr/mst5EhtK7F7p1360diA4zmNLBy1ApPxCvYjd
- 3H9USpyJanZ7C7Fhe+K0BRUW8kP/CW5dhtbHEvEmsEKa1KdDjrxtndcCWNRBXPPxvjwf
- bEUxWYn+5mrn7PuzorFpYNeQq2BU3kNh/eKg9Z+yGFnrM2lcNX3BnM7KeOf8W2qT41Na
- LhP0ZEDFv4/jRIhfpOKyeuXsfraQvUcgGev1XuUzlc8lv5d8ptz70RUpoo1uBifaHQ5v
- D90w==
-X-Gm-Message-State: AFqh2kqZyvKIgttbDMtpXnmgmL19AZr4nh6uKROhplsCzNtFxnGF4I5Z
- SaqoBVVXQALgRoqjOEn1/MrSdQ==
-X-Google-Smtp-Source: AMrXdXvrMchcqxie8a683KuQ99WFLZa7O3FNKCTK6c7MV7bXkFWf0TNY9aYHjbV8oRAaUDfzhGOBEQ==
-X-Received: by 2002:a05:600c:3c8a:b0:3da:2a78:d7a4 with SMTP id
- bg10-20020a05600c3c8a00b003da2a78d7a4mr26317985wmb.21.1674547849007; 
- Tue, 24 Jan 2023 00:10:49 -0800 (PST)
+ bh=nve+phFWaYikXuq313PrfTjXk8l7rA3htdFDuSWrNQA=;
+ b=JMYDcVWQYHV6mIrStSiMDMtDDGAP5B7dDGe+SyFwY8UClbxHINEaFrvlFuKqF/WOI/
+ lVfwO4ODqOCYF6Xjqlumdo9kjQdqiXHs+ZRszSRPROMQQ5HCUtT1AP868a8l/0feiIII
+ stRTXPjZ0GcaMrA81u3PQZzYrW75JrVOi7g3VatLfHP6kxn4ETH5DvlnLyWoYGhHbbh0
+ m3+1gOaIEY/afIKE4PqRaoOrvKmjH7nnlnMCHIWZBqVFe0Pl6ozdBshjBFC+COBXK6HS
+ 0PofsMeYDPZcixN4HAT+OCteiOLvjdXpCJgeLNWZKe9YY8eLbjg00yreMjJkx/Pyuhqv
+ oAxQ==
+X-Gm-Message-State: AFqh2kpMMCGmKQJ+mDfrPJAwcXnp5h0ZzO4dgcQghVYI5vXM5ilJCgKm
+ +uTUp6FFw6CvFVzly66qk+sHbg==
+X-Google-Smtp-Source: AMrXdXuXAOyLJ3kmcwOZhQhHd/TnwNEzdZp1RnY8GRAnx+Chq+mEV8uvgGcvaRWffV7tS1nKYkJhGA==
+X-Received: by 2002:a05:600c:4f8d:b0:3d3:3d1b:6354 with SMTP id
+ n13-20020a05600c4f8d00b003d33d1b6354mr23818792wmq.3.1674547854095; 
+ Tue, 24 Jan 2023 00:10:54 -0800 (PST)
 Received: from krzk-bin.. ([178.197.216.144]) by smtp.gmail.com with ESMTPSA id
- k21-20020a05600c1c9500b003db30be4a54sm13459779wms.38.2023.01.24.00.10.44
+ k21-20020a05600c1c9500b003db30be4a54sm13459779wms.38.2023.01.24.00.10.49
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 24 Jan 2023 00:10:48 -0800 (PST)
+ Tue, 24 Jan 2023 00:10:53 -0800 (PST)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 To: Lars-Peter Clausen <lars@metafoo.de>,
  Michael Hennerich <Michael.Hennerich@analog.com>,
@@ -98,16 +97,16 @@ To: Lars-Peter Clausen <lars@metafoo.de>,
  linux-arm-kernel@lists.infradead.org, linux-renesas-soc@vger.kernel.org,
  linux-samsung-soc@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, chrome-platform@lists.linux.dev
-Date: Tue, 24 Jan 2023 09:10:34 +0100
-Message-Id: <20230124081037.31013-2-krzysztof.kozlowski@linaro.org>
+Date: Tue, 24 Jan 2023 09:10:35 +0100
+Message-Id: <20230124081037.31013-3-krzysztof.kozlowski@linaro.org>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230124081037.31013-1-krzysztof.kozlowski@linaro.org>
 References: <20230124081037.31013-1-krzysztof.kozlowski@linaro.org>
 MIME-Version: 1.0
 Cc: Rob Herring <robh@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Subject: [Linux-stm32] [PATCH v2 2/5] dt-bindings: iio: minor whitespace
-	cleanups
+Subject: [Linux-stm32] [PATCH v2 3/5] dt-bindings: iio: correct node names
+	in examples
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -124,39 +123,391 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Drop redundant blank lines and add such when needed.
+Do not use underscores and unneeded suffixes (e.g. i2c0) in node name in
+examples.
 
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 Acked-by: Rob Herring <robh@kernel.org>
----
- Documentation/devicetree/bindings/iio/dac/adi,ad5380.yaml        | 1 +
- .../bindings/iio/proximity/google,cros-ec-mkbp-proximity.yaml    | 1 -
- 2 files changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/Documentation/devicetree/bindings/iio/dac/adi,ad5380.yaml b/Documentation/devicetree/bindings/iio/dac/adi,ad5380.yaml
-index ff50c72c62b5..9eb9928500e2 100644
---- a/Documentation/devicetree/bindings/iio/dac/adi,ad5380.yaml
-+++ b/Documentation/devicetree/bindings/iio/dac/adi,ad5380.yaml
-@@ -12,6 +12,7 @@ maintainers:
+---
+
+Changes since v1:
+1. heart-rate -> heart-mon
+---
+ .../devicetree/bindings/iio/accel/adi,adis16201.yaml      | 2 +-
+ .../devicetree/bindings/iio/accel/adi,adis16240.yaml      | 2 +-
+ .../devicetree/bindings/iio/accel/adi,adxl313.yaml        | 2 +-
+ .../devicetree/bindings/iio/accel/adi,adxl345.yaml        | 4 ++--
+ .../devicetree/bindings/iio/accel/bosch,bma220.yaml       | 2 +-
+ .../devicetree/bindings/iio/accel/nxp,fxls8962af.yaml     | 4 ++--
+ Documentation/devicetree/bindings/iio/adc/adi,ad7192.yaml | 2 +-
+ Documentation/devicetree/bindings/iio/adc/adi,ad7606.yaml | 2 +-
+ Documentation/devicetree/bindings/iio/adc/adi,ad7780.yaml | 2 +-
+ .../devicetree/bindings/iio/adc/qcom,spmi-iadc.yaml       | 2 +-
+ .../devicetree/bindings/iio/adc/st,stmpe-adc.yaml         | 8 +++-----
+ .../devicetree/bindings/iio/frequency/adf4371.yaml        | 2 +-
+ .../devicetree/bindings/iio/gyroscope/nxp,fxas21002c.yaml | 4 ++--
+ .../devicetree/bindings/iio/health/ti,afe4403.yaml        | 2 +-
+ .../devicetree/bindings/iio/health/ti,afe4404.yaml        | 2 +-
+ Documentation/devicetree/bindings/iio/humidity/dht11.yaml | 2 +-
+ .../devicetree/bindings/iio/humidity/ti,hdc2010.yaml      | 2 +-
+ .../devicetree/bindings/iio/imu/adi,adis16460.yaml        | 2 +-
+ .../devicetree/bindings/iio/imu/invensense,icm42600.yaml  | 4 ++--
+ .../devicetree/bindings/iio/imu/nxp,fxos8700.yaml         | 4 ++--
+ .../devicetree/bindings/iio/pressure/asc,dlhl60d.yaml     | 2 +-
+ .../devicetree/bindings/iio/pressure/bmp085.yaml          | 2 +-
+ .../bindings/iio/temperature/maxim,max31865.yaml          | 2 +-
+ 23 files changed, 30 insertions(+), 32 deletions(-)
+
+diff --git a/Documentation/devicetree/bindings/iio/accel/adi,adis16201.yaml b/Documentation/devicetree/bindings/iio/accel/adi,adis16201.yaml
+index 7332442e5661..b6ba7ad1a8d5 100644
+--- a/Documentation/devicetree/bindings/iio/accel/adi,adis16201.yaml
++++ b/Documentation/devicetree/bindings/iio/accel/adi,adis16201.yaml
+@@ -41,7 +41,7 @@ unevaluatedProperties: false
+ examples:
+   - |
+     #include <dt-bindings/interrupt-controller/irq.h>
+-    spi0 {
++    spi {
+         #address-cells = <1>;
+         #size-cells = <0>;
  
- description: |
-   DAC devices supporting both SPI and I2C interfaces.
-+
- properties:
-   compatible:
-     enum:
-diff --git a/Documentation/devicetree/bindings/iio/proximity/google,cros-ec-mkbp-proximity.yaml b/Documentation/devicetree/bindings/iio/proximity/google,cros-ec-mkbp-proximity.yaml
-index 00e3b59641d2..d4e09d2dcd21 100644
---- a/Documentation/devicetree/bindings/iio/proximity/google,cros-ec-mkbp-proximity.yaml
-+++ b/Documentation/devicetree/bindings/iio/proximity/google,cros-ec-mkbp-proximity.yaml
-@@ -1,7 +1,6 @@
- # SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
- %YAML 1.2
- ---
--
- $id: http://devicetree.org/schemas/iio/proximity/google,cros-ec-mkbp-proximity.yaml#
- $schema: http://devicetree.org/meta-schemas/core.yaml#
+diff --git a/Documentation/devicetree/bindings/iio/accel/adi,adis16240.yaml b/Documentation/devicetree/bindings/iio/accel/adi,adis16240.yaml
+index f6f97164c2ca..5887021cc90f 100644
+--- a/Documentation/devicetree/bindings/iio/accel/adi,adis16240.yaml
++++ b/Documentation/devicetree/bindings/iio/accel/adi,adis16240.yaml
+@@ -39,7 +39,7 @@ examples:
+   - |
+     #include <dt-bindings/gpio/gpio.h>
+     #include <dt-bindings/interrupt-controller/irq.h>
+-    spi0 {
++    spi {
+         #address-cells = <1>;
+         #size-cells = <0>;
  
+diff --git a/Documentation/devicetree/bindings/iio/accel/adi,adxl313.yaml b/Documentation/devicetree/bindings/iio/accel/adi,adxl313.yaml
+index 185b68ffb536..0c5b64cae965 100644
+--- a/Documentation/devicetree/bindings/iio/accel/adi,adxl313.yaml
++++ b/Documentation/devicetree/bindings/iio/accel/adi,adxl313.yaml
+@@ -59,7 +59,7 @@ examples:
+   - |
+     #include <dt-bindings/gpio/gpio.h>
+     #include <dt-bindings/interrupt-controller/irq.h>
+-    i2c0 {
++    i2c {
+         #address-cells = <1>;
+         #size-cells = <0>;
+ 
+diff --git a/Documentation/devicetree/bindings/iio/accel/adi,adxl345.yaml b/Documentation/devicetree/bindings/iio/accel/adi,adxl345.yaml
+index 346abfb13a3a..07cacc3f6a97 100644
+--- a/Documentation/devicetree/bindings/iio/accel/adi,adxl345.yaml
++++ b/Documentation/devicetree/bindings/iio/accel/adi,adxl345.yaml
+@@ -49,7 +49,7 @@ examples:
+   - |
+     #include <dt-bindings/gpio/gpio.h>
+     #include <dt-bindings/interrupt-controller/irq.h>
+-    i2c0 {
++    i2c {
+         #address-cells = <1>;
+         #size-cells = <0>;
+ 
+@@ -64,7 +64,7 @@ examples:
+   - |
+     #include <dt-bindings/gpio/gpio.h>
+     #include <dt-bindings/interrupt-controller/irq.h>
+-    spi0 {
++    spi {
+         #address-cells = <1>;
+         #size-cells = <0>;
+ 
+diff --git a/Documentation/devicetree/bindings/iio/accel/bosch,bma220.yaml b/Documentation/devicetree/bindings/iio/accel/bosch,bma220.yaml
+index 5dd06f5905b4..ec643de031a3 100644
+--- a/Documentation/devicetree/bindings/iio/accel/bosch,bma220.yaml
++++ b/Documentation/devicetree/bindings/iio/accel/bosch,bma220.yaml
+@@ -36,7 +36,7 @@ unevaluatedProperties: false
+ examples:
+   - |
+     #include <dt-bindings/interrupt-controller/irq.h>
+-    spi0 {
++    spi {
+         #address-cells = <1>;
+         #size-cells = <0>;
+ 
+diff --git a/Documentation/devicetree/bindings/iio/accel/nxp,fxls8962af.yaml b/Documentation/devicetree/bindings/iio/accel/nxp,fxls8962af.yaml
+index 65ce8ea14b52..783c7ddfcd90 100644
+--- a/Documentation/devicetree/bindings/iio/accel/nxp,fxls8962af.yaml
++++ b/Documentation/devicetree/bindings/iio/accel/nxp,fxls8962af.yaml
+@@ -50,7 +50,7 @@ unevaluatedProperties: false
+ examples:
+   - |
+     #include <dt-bindings/interrupt-controller/irq.h>
+-    i2c0 {
++    i2c {
+         #address-cells = <1>;
+         #size-cells = <0>;
+ 
+@@ -65,7 +65,7 @@ examples:
+     };
+   - |
+     #include <dt-bindings/interrupt-controller/irq.h>
+-    spi0 {
++    spi {
+         #address-cells = <1>;
+         #size-cells = <0>;
+ 
+diff --git a/Documentation/devicetree/bindings/iio/adc/adi,ad7192.yaml b/Documentation/devicetree/bindings/iio/adc/adi,ad7192.yaml
+index cc347dade4ef..1d965124c488 100644
+--- a/Documentation/devicetree/bindings/iio/adc/adi,ad7192.yaml
++++ b/Documentation/devicetree/bindings/iio/adc/adi,ad7192.yaml
+@@ -99,7 +99,7 @@ unevaluatedProperties: false
+ 
+ examples:
+   - |
+-    spi0 {
++    spi {
+       #address-cells = <1>;
+       #size-cells = <0>;
+ 
+diff --git a/Documentation/devicetree/bindings/iio/adc/adi,ad7606.yaml b/Documentation/devicetree/bindings/iio/adc/adi,ad7606.yaml
+index ac5a47c8f070..b05652dfd4a2 100644
+--- a/Documentation/devicetree/bindings/iio/adc/adi,ad7606.yaml
++++ b/Documentation/devicetree/bindings/iio/adc/adi,ad7606.yaml
+@@ -112,7 +112,7 @@ examples:
+   - |
+     #include <dt-bindings/gpio/gpio.h>
+     #include <dt-bindings/interrupt-controller/irq.h>
+-    spi0 {
++    spi {
+         #address-cells = <1>;
+         #size-cells = <0>;
+ 
+diff --git a/Documentation/devicetree/bindings/iio/adc/adi,ad7780.yaml b/Documentation/devicetree/bindings/iio/adc/adi,ad7780.yaml
+index a67ba67dab51..5fcc8dd012f1 100644
+--- a/Documentation/devicetree/bindings/iio/adc/adi,ad7780.yaml
++++ b/Documentation/devicetree/bindings/iio/adc/adi,ad7780.yaml
+@@ -72,7 +72,7 @@ additionalProperties: false
+ examples:
+   - |
+     #include <dt-bindings/gpio/gpio.h>
+-    spi0 {
++    spi {
+         #address-cells = <1>;
+         #size-cells = <0>;
+ 
+diff --git a/Documentation/devicetree/bindings/iio/adc/qcom,spmi-iadc.yaml b/Documentation/devicetree/bindings/iio/adc/qcom,spmi-iadc.yaml
+index 18aaf6df179d..73def67fbe01 100644
+--- a/Documentation/devicetree/bindings/iio/adc/qcom,spmi-iadc.yaml
++++ b/Documentation/devicetree/bindings/iio/adc/qcom,spmi-iadc.yaml
+@@ -50,7 +50,7 @@ additionalProperties: false
+ examples:
+   - |
+     #include <dt-bindings/interrupt-controller/irq.h>
+-    spmi_bus {
++    spmi {
+         #address-cells = <1>;
+         #size-cells = <0>;
+         pmic_iadc: adc@3600 {
+diff --git a/Documentation/devicetree/bindings/iio/adc/st,stmpe-adc.yaml b/Documentation/devicetree/bindings/iio/adc/st,stmpe-adc.yaml
+index 333744a2159c..474e35c49348 100644
+--- a/Documentation/devicetree/bindings/iio/adc/st,stmpe-adc.yaml
++++ b/Documentation/devicetree/bindings/iio/adc/st,stmpe-adc.yaml
+@@ -35,10 +35,8 @@ additionalProperties: false
+ 
+ examples:
+   - |
+-    stmpe {
+-        stmpe_adc {
+-            compatible = "st,stmpe-adc";
+-            st,norequest-mask = <0x0F>; /* dont use ADC CH3-0 */
+-        };
++    adc {
++        compatible = "st,stmpe-adc";
++        st,norequest-mask = <0x0f>; /* dont use ADC CH3-0 */
+     };
+ ...
+diff --git a/Documentation/devicetree/bindings/iio/frequency/adf4371.yaml b/Documentation/devicetree/bindings/iio/frequency/adf4371.yaml
+index 0144f74a4768..a0a5e5919987 100644
+--- a/Documentation/devicetree/bindings/iio/frequency/adf4371.yaml
++++ b/Documentation/devicetree/bindings/iio/frequency/adf4371.yaml
+@@ -53,7 +53,7 @@ unevaluatedProperties: false
+ 
+ examples:
+   - |
+-    spi0 {
++    spi {
+         #address-cells = <1>;
+         #size-cells = <0>;
+ 
+diff --git a/Documentation/devicetree/bindings/iio/gyroscope/nxp,fxas21002c.yaml b/Documentation/devicetree/bindings/iio/gyroscope/nxp,fxas21002c.yaml
+index 2c900e9dddc6..052dccbb5eea 100644
+--- a/Documentation/devicetree/bindings/iio/gyroscope/nxp,fxas21002c.yaml
++++ b/Documentation/devicetree/bindings/iio/gyroscope/nxp,fxas21002c.yaml
+@@ -65,7 +65,7 @@ examples:
+   - |
+     #include <dt-bindings/interrupt-controller/irq.h>
+ 
+-    i2c0 {
++    i2c {
+         #address-cells = <1>;
+         #size-cells = <0>;
+ 
+@@ -81,7 +81,7 @@ examples:
+           interrupt-names = "INT1";
+         };
+     };
+-    spi0 {
++    spi {
+         #address-cells = <1>;
+         #size-cells = <0>;
+ 
+diff --git a/Documentation/devicetree/bindings/iio/health/ti,afe4403.yaml b/Documentation/devicetree/bindings/iio/health/ti,afe4403.yaml
+index 6c5ad426a016..b9b5beac33b2 100644
+--- a/Documentation/devicetree/bindings/iio/health/ti,afe4403.yaml
++++ b/Documentation/devicetree/bindings/iio/health/ti,afe4403.yaml
+@@ -42,7 +42,7 @@ examples:
+         #address-cells = <1>;
+         #size-cells = <0>;
+ 
+-        heart_mon@0 {
++        heart-mon@0 {
+             compatible = "ti,afe4403";
+             reg = <0>;
+             spi-max-frequency = <10000000>;
+diff --git a/Documentation/devicetree/bindings/iio/health/ti,afe4404.yaml b/Documentation/devicetree/bindings/iio/health/ti,afe4404.yaml
+index c0e815d9999e..2958c4ca75b4 100644
+--- a/Documentation/devicetree/bindings/iio/health/ti,afe4404.yaml
++++ b/Documentation/devicetree/bindings/iio/health/ti,afe4404.yaml
+@@ -39,7 +39,7 @@ examples:
+         #address-cells = <1>;
+         #size-cells = <0>;
+ 
+-        heart_mon@58 {
++        heart-mon@58 {
+             compatible = "ti,afe4404";
+             reg = <0x58>;
+             tx-supply = <&vbat>;
+diff --git a/Documentation/devicetree/bindings/iio/humidity/dht11.yaml b/Documentation/devicetree/bindings/iio/humidity/dht11.yaml
+index 2247481d0203..0103f4238942 100644
+--- a/Documentation/devicetree/bindings/iio/humidity/dht11.yaml
++++ b/Documentation/devicetree/bindings/iio/humidity/dht11.yaml
+@@ -34,7 +34,7 @@ additionalProperties: false
+ 
+ examples:
+   - |
+-    humidity_sensor {
++    humidity-sensor {
+         compatible = "dht11";
+         gpios = <&gpio0 6 0>;
+     };
+diff --git a/Documentation/devicetree/bindings/iio/humidity/ti,hdc2010.yaml b/Documentation/devicetree/bindings/iio/humidity/ti,hdc2010.yaml
+index 88384b69f917..a36173b0c654 100644
+--- a/Documentation/devicetree/bindings/iio/humidity/ti,hdc2010.yaml
++++ b/Documentation/devicetree/bindings/iio/humidity/ti,hdc2010.yaml
+@@ -35,7 +35,7 @@ additionalProperties: false
+ 
+ examples:
+   - |
+-    i2c0 {
++    i2c {
+       #address-cells = <1>;
+       #size-cells = <0>;
+ 
+diff --git a/Documentation/devicetree/bindings/iio/imu/adi,adis16460.yaml b/Documentation/devicetree/bindings/iio/imu/adi,adis16460.yaml
+index d166dbca18c3..4e43c80e5119 100644
+--- a/Documentation/devicetree/bindings/iio/imu/adi,adis16460.yaml
++++ b/Documentation/devicetree/bindings/iio/imu/adi,adis16460.yaml
+@@ -42,7 +42,7 @@ examples:
+   - |
+     #include <dt-bindings/gpio/gpio.h>
+     #include <dt-bindings/interrupt-controller/irq.h>
+-    spi0 {
++    spi {
+         #address-cells = <1>;
+         #size-cells = <0>;
+ 
+diff --git a/Documentation/devicetree/bindings/iio/imu/invensense,icm42600.yaml b/Documentation/devicetree/bindings/iio/imu/invensense,icm42600.yaml
+index 13c9abdd3131..3ecfb3f086bc 100644
+--- a/Documentation/devicetree/bindings/iio/imu/invensense,icm42600.yaml
++++ b/Documentation/devicetree/bindings/iio/imu/invensense,icm42600.yaml
+@@ -65,7 +65,7 @@ examples:
+   - |
+     #include <dt-bindings/gpio/gpio.h>
+     #include <dt-bindings/interrupt-controller/irq.h>
+-    i2c0 {
++    i2c {
+         #address-cells = <1>;
+         #size-cells = <0>;
+ 
+@@ -81,7 +81,7 @@ examples:
+   - |
+     #include <dt-bindings/gpio/gpio.h>
+     #include <dt-bindings/interrupt-controller/irq.h>
+-    spi0 {
++    spi {
+         #address-cells = <1>;
+         #size-cells = <0>;
+ 
+diff --git a/Documentation/devicetree/bindings/iio/imu/nxp,fxos8700.yaml b/Documentation/devicetree/bindings/iio/imu/nxp,fxos8700.yaml
+index 24416b59b782..db6a145840f7 100644
+--- a/Documentation/devicetree/bindings/iio/imu/nxp,fxos8700.yaml
++++ b/Documentation/devicetree/bindings/iio/imu/nxp,fxos8700.yaml
+@@ -49,7 +49,7 @@ examples:
+   - |
+     #include <dt-bindings/gpio/gpio.h>
+     #include <dt-bindings/interrupt-controller/irq.h>
+-    i2c0 {
++    i2c {
+         #address-cells = <1>;
+         #size-cells = <0>;
+ 
+@@ -65,7 +65,7 @@ examples:
+   - |
+     #include <dt-bindings/gpio/gpio.h>
+     #include <dt-bindings/interrupt-controller/irq.h>
+-    spi0 {
++    spi {
+         #address-cells = <1>;
+         #size-cells = <0>;
+ 
+diff --git a/Documentation/devicetree/bindings/iio/pressure/asc,dlhl60d.yaml b/Documentation/devicetree/bindings/iio/pressure/asc,dlhl60d.yaml
+index 1f9fe15b4b3c..9fb8d773efa3 100644
+--- a/Documentation/devicetree/bindings/iio/pressure/asc,dlhl60d.yaml
++++ b/Documentation/devicetree/bindings/iio/pressure/asc,dlhl60d.yaml
+@@ -39,7 +39,7 @@ examples:
+   - |
+     #include <dt-bindings/interrupt-controller/irq.h>
+ 
+-    i2c0 {
++    i2c {
+         #address-cells = <1>;
+         #size-cells = <0>;
+ 
+diff --git a/Documentation/devicetree/bindings/iio/pressure/bmp085.yaml b/Documentation/devicetree/bindings/iio/pressure/bmp085.yaml
+index 72cd2c2d3f17..256f537840e4 100644
+--- a/Documentation/devicetree/bindings/iio/pressure/bmp085.yaml
++++ b/Documentation/devicetree/bindings/iio/pressure/bmp085.yaml
+@@ -60,7 +60,7 @@ examples:
+   - |
+     #include <dt-bindings/gpio/gpio.h>
+     #include <dt-bindings/interrupt-controller/irq.h>
+-    i2c0 {
++    i2c {
+       #address-cells = <1>;
+       #size-cells = <0>;
+       pressure@77 {
+diff --git a/Documentation/devicetree/bindings/iio/temperature/maxim,max31865.yaml b/Documentation/devicetree/bindings/iio/temperature/maxim,max31865.yaml
+index a2823ed6867b..66394e17fcc8 100644
+--- a/Documentation/devicetree/bindings/iio/temperature/maxim,max31865.yaml
++++ b/Documentation/devicetree/bindings/iio/temperature/maxim,max31865.yaml
+@@ -43,7 +43,7 @@ examples:
+        #address-cells = <1>;
+        #size-cells = <0>;
+ 
+-       temp_sensor@0 {
++       temperature-sensor@0 {
+          compatible = "maxim,max31865";
+          reg = <0>;
+          spi-max-frequency = <400000>;
 -- 
 2.34.1
 
