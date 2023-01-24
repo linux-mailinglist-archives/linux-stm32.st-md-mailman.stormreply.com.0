@@ -2,54 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 089ED6793EA
-	for <lists+linux-stm32@lfdr.de>; Tue, 24 Jan 2023 10:20:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 14C576793EC
+	for <lists+linux-stm32@lfdr.de>; Tue, 24 Jan 2023 10:20:07 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B7FCDC69054;
-	Tue, 24 Jan 2023 09:20:03 +0000 (UTC)
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
- [209.85.128.52])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CDCF8C69054;
+	Tue, 24 Jan 2023 09:20:06 +0000 (UTC)
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
+ [209.85.128.51])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 54D24C69049
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B825FC69049
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 24 Jan 2023 09:20:02 +0000 (UTC)
-Received: by mail-wm1-f52.google.com with SMTP id k16so10906604wms.2
+ Tue, 24 Jan 2023 09:20:05 +0000 (UTC)
+Received: by mail-wm1-f51.google.com with SMTP id g10so10916545wmo.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 24 Jan 2023 01:20:02 -0800 (PST)
+ Tue, 24 Jan 2023 01:20:05 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=lf7sCIV+g7d4Io27nUeL8AFqRST4Uv3gC9DO+XLsu5c=;
- b=lJt9WL7RKgvvoDL5lBaSpU4gI2CocxNuvfSF7KVONAUJZs6yobUDwpIrRRcqnKcSlh
- aNDWJDYWKfjIEQmmfZgp4C5NLnLeNKnOJesf6wxCwj41xz8PqrRZ7tjSC8H8N0V4EEeX
- +xizfcHf3c82CKkFo7AQqRhYNYPvoRtBDK+EXg+6QmTy9xPPR8CBPOC8DoeiMSYrSbRs
- +2DI2O+4byNqNaZyrmaj3+gStKEZGYRL2VdyxtSesXHBrddWdYqIhFx4JI+GWpKz3Slh
- OWFvdMspBlVRsUsPNBB+Y+39reJ3/ujkk2aEvYLuP0fdQ6n4AIU3td9/81nygjPGkAD3
- XXgA==
+ bh=m0imGc0Sj0+U1qO38/MoeN3izcir/X2ZEBTXpN0rl4g=;
+ b=CPxobIJe+YATUdVShDwFvEedr8RMcP704WVL8YG02+Iob0qOMVsaRzVKgi/UdLdUU3
+ gS99+M49vYEyE6B2zC4wRJtJhQIUSmiBd8zU6TIBGHNjVnJUo1H4lqAFBjIRqxCa8/7u
+ fW312YrEhd1LmL0WPkyAzqoyhbByHBITKwH5alfMEAx5a9x0A597UHvOZQLbIaDL42em
+ cq2UdXfIR27iQAwIvwr1bMS9F1FTaDC6ukF2UuD8a7tlgDMLK65G1rzQxDx0cWgDwhpl
+ JdZJQHpPGxMCwbPyYFgUZNehhlIXemwcN7Ju1kIVbk4fZ14iRf3CnJ9BTzuUH4OuAe5E
+ rdGQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=lf7sCIV+g7d4Io27nUeL8AFqRST4Uv3gC9DO+XLsu5c=;
- b=n8lZ4T0KYtgTWv9dq42uc71P1ACbIRjQtNpv+LxfxrxQWzAEN4ZFtLqoBAK0tzwqGj
- yh+lIKDKS8dHjRGvGDw8HDy03tQldOk+u6if/SA88w31AHt8eCnoyn11FucOfIePy587
- 8wr/FIQWdz8rAnxhFW8cWm0vffy4dslXus7Xsyb1PW9qW09waJKRuT/6EUPiOYoQ2VQE
- Ufo3bBG22/wzq+VmRv7ljKHT5Jx04w8XV/NMrteAXg60rTM00Wzk2YfzZCx6tgkXaNkt
- N55sbfEFpNNNbbUzAHr047Lc2pFlyNg0flfm9CTCUe+08y9LaR1HWX0aS2ZlIlmkkAGU
- hjFQ==
-X-Gm-Message-State: AFqh2koRT85U3SgnsZEjYrQxQCUxkS61TM5WhnqoXesuDZe7bN/S3sj+
- ysaaRW7Kiw7porkkUCgasXYe0A==
-X-Google-Smtp-Source: AMrXdXujRawjXpcdvGx0/kXpoe2kFjce8Y2HGF30EtbJZyHYimc6YERQVrxgL3vyTREcg4RVSGKu7A==
-X-Received: by 2002:a05:600c:3512:b0:3db:1665:2a98 with SMTP id
- h18-20020a05600c351200b003db16652a98mr22374802wmq.16.1674552001966; 
- Tue, 24 Jan 2023 01:20:01 -0800 (PST)
+ bh=m0imGc0Sj0+U1qO38/MoeN3izcir/X2ZEBTXpN0rl4g=;
+ b=i05MvqLoU2xkncdupJZYg+/73+/hZiVF+/MCCmuieA9mE3tZJEZ6enOPpWocA7pock
+ l4pQBaobyEdQSuSp19urXeStvGDy72i6rIgUTt6jXjwEsUkkqLF7pZBLc05E/Z3U1qIM
+ yf8yoCFI95XjfyZkSvTpqQSMq6CRxQ79s3Lg3FzWEPmYh04wzCQlihv65icIgCtXlNh9
+ Vmx1Dnez1c3rLlepsG1fKFsJI3WGG15NUEeNQvPAGl/F26J4KxPUyzjr4sQIIszJYooF
+ UVOmS5nuT+BGbbEi6PTq5pFBC7H9e1lH7Gudt/mtXEX4u6RX3eESoFnJXfTA3E95pV78
+ w+3A==
+X-Gm-Message-State: AFqh2krKvOcF3jMhFQb/VOWPoERSKOU+mxSGyJ3Ii2Obo8tu5mfPtBXd
+ ZmEI8rrfGXrXOOqY8f4djcxYvw==
+X-Google-Smtp-Source: AMrXdXvoKzAQYXHhE3iqhd9K3QqtBf5s1S6xQrft6zrb083L8IWCVu9+Yf4WKPAw9wUuVyhtxaOK/g==
+X-Received: by 2002:a05:600c:540a:b0:3db:a3a:45ac with SMTP id
+ he10-20020a05600c540a00b003db0a3a45acmr26791698wmb.32.1674552005467; 
+ Tue, 24 Jan 2023 01:20:05 -0800 (PST)
 Received: from krzk-bin.. ([178.197.216.144]) by smtp.gmail.com with ESMTPSA id
- i22-20020a05600c355600b003a84375d0d1sm13672242wmq.44.2023.01.24.01.19.58
+ i22-20020a05600c355600b003a84375d0d1sm13672242wmq.44.2023.01.24.01.20.02
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 24 Jan 2023 01:20:01 -0800 (PST)
+ Tue, 24 Jan 2023 01:20:04 -0800 (PST)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  Rob Herring <robh+dt@kernel.org>,
@@ -74,15 +74,15 @@ To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
  linux-riscv@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
-Date: Tue, 24 Jan 2023 10:19:13 +0100
-Message-Id: <20230124091916.45054-7-krzysztof.kozlowski@linaro.org>
+Date: Tue, 24 Jan 2023 10:19:14 +0100
+Message-Id: <20230124091916.45054-8-krzysztof.kozlowski@linaro.org>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230124091602.44027-1-krzysztof.kozlowski@linaro.org>
 References: <20230124091602.44027-1-krzysztof.kozlowski@linaro.org>
 MIME-Version: 1.0
 Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Subject: [Linux-stm32] [PATCH v2 09/12] dt-bindings: serial: fsl-lpuart:
-	allow other serial properties
+Subject: [Linux-stm32] [PATCH v2 10/12] dt-bindings: serial: st,
+	stm32-uart: drop common properties
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,28 +99,39 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Reference common serial properties bindings to allow typical serial
-properties:
-
-  imx8qxp-ai_ml.dtb: serial@5a060000: Unevaluated properties are not allowed ('uart-has-rtscts' were unexpected)
+The binding references serial and rs485 schemas, so there is no need to
+list their properties.  Simplify a bit by removing unneeded entries.
 
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 ---
- Documentation/devicetree/bindings/serial/fsl-lpuart.yaml | 1 +
- 1 file changed, 1 insertion(+)
+ .../devicetree/bindings/serial/st,stm32-uart.yaml          | 7 -------
+ 1 file changed, 7 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/serial/fsl-lpuart.yaml b/Documentation/devicetree/bindings/serial/fsl-lpuart.yaml
-index b1e81a6451a6..26c3593fa98b 100644
---- a/Documentation/devicetree/bindings/serial/fsl-lpuart.yaml
-+++ b/Documentation/devicetree/bindings/serial/fsl-lpuart.yaml
-@@ -11,6 +11,7 @@ maintainers:
+diff --git a/Documentation/devicetree/bindings/serial/st,stm32-uart.yaml b/Documentation/devicetree/bindings/serial/st,stm32-uart.yaml
+index 85876c668f6d..1df8ffe95fc6 100644
+--- a/Documentation/devicetree/bindings/serial/st,stm32-uart.yaml
++++ b/Documentation/devicetree/bindings/serial/st,stm32-uart.yaml
+@@ -35,8 +35,6 @@ properties:
+     description: enable hardware flow control (deprecated)
+     $ref: /schemas/types.yaml#/definitions/flag
  
- allOf:
-   - $ref: "rs485.yaml"
-+  - $ref: serial.yaml#
+-  uart-has-rtscts: true
+-
+   rx-tx-swap: true
  
- properties:
-   compatible:
+   dmas:
+@@ -60,11 +58,6 @@ properties:
+ 
+   wakeup-source: true
+ 
+-  rs485-rts-delay: true
+-  rs485-rts-active-low: true
+-  linux,rs485-enabled-at-boot-time: true
+-  rs485-rx-during-tx: true
+-
+   rx-threshold:
+     description:
+       If value is set to 1, RX FIFO threshold is disabled.
 -- 
 2.34.1
 
