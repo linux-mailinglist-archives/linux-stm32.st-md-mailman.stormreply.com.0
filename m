@@ -2,49 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4D03E67B622
+	by mail.lfdr.de (Postfix) with ESMTPS id 7866C67B623
 	for <lists+linux-stm32@lfdr.de>; Wed, 25 Jan 2023 16:43:05 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E48E6C69072;
-	Wed, 25 Jan 2023 15:43:04 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 21D37C69075;
+	Wed, 25 Jan 2023 15:43:05 +0000 (UTC)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2A8A8C65042
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1CE1BC65042
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 25 Jan 2023 09:30:56 +0000 (UTC)
+ Wed, 25 Jan 2023 09:38:55 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id C6E0521C79;
- Wed, 25 Jan 2023 09:30:54 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 8ADEB21C7D;
+ Wed, 25 Jan 2023 09:38:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
- t=1674639054; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1674639534; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=jognpwZWDP/caNk47/2I5pB+VrjaxgWmcyaDbH1onsg=;
- b=Pij8ssoJlw6k6tQr48jFXJyevDWch308vx0CLomRDmV84uEdMgTC6NhqR8VCkgI74II7DW
- anm6YuwD0GfDOi17b+9Zs5S20/ilyumOWkOAGicsthADYQDP18s2AfYp6RzP5d5hjTOUwm
- W4uNWFQcSkUDrOF5p/6xahiK2Zzyzto=
+ bh=rlC3v8G7Qltb7/sMWGykfElAbj3RZvreU88MtZ+OLHM=;
+ b=r0FIat4kOE8WovOTP3LWhacl5M3EjQXhF3aBT5cBj3FuQ5I+yJMTY0cq7QTmO7SFPDQv6O
+ tRrm4BhOZHjZFNfq3BxFKWYU7SqtAc8zTE0tqhcCiP6BOgQ+ipP6+yjGZBzFWwz4Mee2C0
+ GFF6IKS/BdrV8Bwlj7T9ur543veHKvk=
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 684E91358F;
- Wed, 25 Jan 2023 09:30:54 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 446411358F;
+ Wed, 25 Jan 2023 09:38:54 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id yJRSGc720GMeHAAAMHmgww
- (envelope-from <mhocko@suse.com>); Wed, 25 Jan 2023 09:30:54 +0000
-Date: Wed, 25 Jan 2023 10:30:53 +0100
+ by imap2.suse-dmz.suse.de with ESMTPSA id jLUjEK740GMsIAAAMHmgww
+ (envelope-from <mhocko@suse.com>); Wed, 25 Jan 2023 09:38:54 +0000
+Date: Wed, 25 Jan 2023 10:38:53 +0100
 From: Michal Hocko <mhocko@suse.com>
 To: Suren Baghdasaryan <surenb@google.com>
-Message-ID: <Y9D2zXpy+9iyZNun@dhcp22.suse.cz>
+Message-ID: <Y9D4rWEsajV/WfNx@dhcp22.suse.cz>
 References: <20230125083851.27759-1-surenb@google.com>
- <20230125083851.27759-4-surenb@google.com>
+ <20230125083851.27759-5-surenb@google.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20230125083851.27759-4-surenb@google.com>
+In-Reply-To: <20230125083851.27759-5-surenb@google.com>
 X-Mailman-Approved-At: Wed, 25 Jan 2023 15:43:01 +0000
 Cc: michel@lespinasse.org, nvdimm@lists.linux.dev, heiko@sntech.de,
  leewalsh@google.com, dri-devel@lists.freedesktop.org, perex@perex.cz,
@@ -103,8 +103,8 @@ Cc: michel@lespinasse.org, nvdimm@lists.linux.dev, heiko@sntech.de,
  tzimmermann@suse.de, hannes@cmpxchg.org, dmitry.baryshkov@linaro.org,
  johannes@sipsolutions.net, mgorman@techsingularity.net,
  linux-accelerators@lists.ozlabs.org, l.stach@pengutronix.de
-Subject: Re: [Linux-stm32] [PATCH v2 3/6] mm: replace vma->vm_flags direct
- modifications with modifier calls
+Subject: Re: [Linux-stm32] [PATCH v2 4/6] mm: replace vma->vm_flags indirect
+ modification in ksm_madvise
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -121,23 +121,17 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed 25-01-23 00:38:48, Suren Baghdasaryan wrote:
-> Replace direct modifications to vma->vm_flags with calls to modifier
+On Wed 25-01-23 00:38:49, Suren Baghdasaryan wrote:
+> Replace indirect modifications to vma->vm_flags with calls to modifier
 > functions to be able to track flag changes and to keep vma locking
-> correctness.
+> correctness. Add a BUG_ON check in ksm_madvise() to catch indirect
+> vm_flags modification attempts.
 
-Is this a manual (git grep) based work or have you used Coccinele for
-the patch generation?
+Those BUG_ONs scream to much IMHO. KSM is an MM internal code so I
+gueess we should be willing to trust it.
 
-My potentially incomplete check
-$ git grep ">[[:space:]]*vm_flags[[:space:]]*[&|^]="
+> Signed-off-by: Suren Baghdasaryan <surenb@google.com>
 
-shows that nothing should be left after this. There is still quite a lot
-of direct checks of the flags (more than 600). Maybe it would be good to
-make flags accessible only via accessors which would also prevent any
-future direct setting of those flags in uncontrolled way as well.
-
-Anyway
 Acked-by: Michal Hocko <mhocko@suse.com>
 -- 
 Michal Hocko
