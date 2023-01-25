@@ -2,59 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA82367B73E
-	for <lists+linux-stm32@lfdr.de>; Wed, 25 Jan 2023 17:50:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F21F67B769
+	for <lists+linux-stm32@lfdr.de>; Wed, 25 Jan 2023 17:55:28 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6F81FC69057;
-	Wed, 25 Jan 2023 16:50:06 +0000 (UTC)
-Received: from mail-yw1-f176.google.com (mail-yw1-f176.google.com
- [209.85.128.176])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EBF8AC69057;
+	Wed, 25 Jan 2023 16:55:27 +0000 (UTC)
+Received: from mail-yw1-f178.google.com (mail-yw1-f178.google.com
+ [209.85.128.178])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9C18CC03FC3
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B7497C03FC3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 25 Jan 2023 16:50:04 +0000 (UTC)
-Received: by mail-yw1-f176.google.com with SMTP id
- 00721157ae682-4c131bede4bso271896747b3.5
+ Wed, 25 Jan 2023 16:55:25 +0000 (UTC)
+Received: by mail-yw1-f178.google.com with SMTP id
+ 00721157ae682-4a263c4ddbaso272946867b3.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 25 Jan 2023 08:50:04 -0800 (PST)
+ Wed, 25 Jan 2023 08:55:25 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=9oBkpwDuDP6Raat/HRHsNpx8MqzIjjZSJojQEumXoyE=;
- b=telMSbMEB1I/JdT8E+AOlYPkvLPDxj1UCnywL1f/zz+GxB6zyzUgN+Q3Q48l8AYc8X
- qS5rmRFlzboD9JIVNM4srPZju+Dc0OvfYTnyPjpp4sHdEutwmKfLXtqzcN+4YmFBRVgu
- A3oTpxaFO/E/7LaM1iu3pe6Iv0CmRV+MC10+sbVUAqr2eeBPD17IhS27buTMH3bCJoMu
- fEQq5XzvwDAqtF1fp8r2H4g3vh98tijISo+CkjBRkXWvZWGfdkjpWZzF8VgIKtCc5sLs
- +bZFNae0CmrxcmnBVuga8Dg0CQRlWnW+6m8p+riuFjzQ8BSrHATHKU3+MoO2RS3dWuby
- cPfQ==
+ bh=49H+5dcfdqsESvQ4qNxkOgTxyGkRYtaMvRra0jMgwoI=;
+ b=S433Z2p/j0oEnqzhdMbCoBVS6yLsoVuhPxi7PQkxnyRK8RoE5tlGqQCWFiSx/y2EvP
+ VAUU6f5te6yd0FF3QKoXQk59fXSc40Ni99FjmOhoS8uoMeuhfG+AT8hg6vTHrAcNtls7
+ iMIrnMdjSfEnhMBuERTLvpM6IdVwE9wobd2Cb3XY0VBKEUGGTBatMri522T6kyoxGdRv
+ R/YHI2CzXA+66ssNNRD0kBHVPl8TI5ear6XOrgI2lTdtmT0YpMoSddNSDob6lG0ADoLk
+ +xTQAwFZ3i/oeH+aroOYDwlOGwYRh8N7mvnq0HFpqRIYUl+jcTUyG7X+0g74P9WaFx1x
+ 4nDw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=9oBkpwDuDP6Raat/HRHsNpx8MqzIjjZSJojQEumXoyE=;
- b=Lg+sjaT9tsXx2qm6YV84M+SQh+p+qIQ+cHwecmTd6xoKPt58vGmK53P5Nas01ANvTL
- wMd8ZiKrJPUWwcAEwyz8TVCRUtqBE1XrX0zab2BNpd1VwEJ8gXImdMHHNmHk8PlPEwYc
- h7t/T+FNw3cm84vLkkwxaWyK59erlYK4yR3DICis1GdBNfb62pjzwwzL3TP9qpGA8eHc
- uQDB3VDWS62vlYwV4OwJblNRTAzp+xe1XR/+ZFjsmC9Quz22SRqeOyUetbqNjf4XNUkk
- dIfT/Sqgki2LLdDilSjNllEVsAUk+scKCcZsF5m+jXlv9kOasbccj1Kknb5jpHHcwmgN
- vSPQ==
-X-Gm-Message-State: AFqh2kphar5TIc8S8GAAv2UGbr4eLhvTyr2zsLuIxbsGXiYU25O7YzMr
- KhWfsrEZEq4VekPr/7vu+5Yo9Vc2S1+ZlwaL+uYEew==
-X-Google-Smtp-Source: AMrXdXsah5c2WKVW38d6ZSr7pPop+n/mEJC53KDRGLQOXrHcU20AK6F0ktCN8HrtzVAtxjIN7wyafP19A/nGyLOtNU8=
-X-Received: by 2002:a81:1d2:0:b0:433:f1c0:3f1c with SMTP id
- 201-20020a8101d2000000b00433f1c03f1cmr4401576ywb.438.1674665403087; Wed, 25
- Jan 2023 08:50:03 -0800 (PST)
+ bh=49H+5dcfdqsESvQ4qNxkOgTxyGkRYtaMvRra0jMgwoI=;
+ b=nE5hATdpAjW/EAOl7V5jFDy3iAdD21TQqolc3tKAEQ+5sLXm0ulBjPyqEilsOBtTqt
+ vLhkCImsNHqBIVQ5JnyyRGPgkjg1UHDRBuYA9TktO2h9lpjaSokVBD0hcpCDem6+HGJn
+ ECOXHQh97fA/cFmHBx16IB83seL0R1ydPDmROTmE4t8Flx2Ofg7X55EXZB1PnzTh2Gtg
+ hz8ovcPWmbgKqfR2lGKCsJ0IKP5XCuVXrhWxluJNZDQffJiWFAcuEh4oYSuNo+B56hy8
+ TMO3C65BFyUojMllTJdkpe/1nT7mSkq/1Kaurgm+uwoDSUlYoOOEuOez9peNVeZNTrtD
+ 1YzQ==
+X-Gm-Message-State: AO0yUKWZg0TTW/+mcHVQA5MJbSCUR3PupTbobptE+IF+3+dcZ3W9g52Y
+ o8elzw96Jshr+EXzlp/3eb341rdCWV/gC+i1zbImcQ==
+X-Google-Smtp-Source: AK7set/FwLbWx6yiqkzvjcGbe3t+VxnD8xj+/iXHUbjRIwB0jRkvrcCR+VhH4DhOMzxTzJJlzd0h1TxaYfABci/YfRk=
+X-Received: by 2002:a0d:d456:0:b0:507:26dc:ebd with SMTP id
+ w83-20020a0dd456000000b0050726dc0ebdmr239978ywd.455.1674665724181; Wed, 25
+ Jan 2023 08:55:24 -0800 (PST)
 MIME-Version: 1.0
 References: <20230125083851.27759-1-surenb@google.com>
- <20230125083851.27759-2-surenb@google.com>
- <Y9Dx0cPXF2yoLwww@hirez.programming.kicks-ass.net>
-In-Reply-To: <Y9Dx0cPXF2yoLwww@hirez.programming.kicks-ass.net>
+ <20230125083851.27759-4-surenb@google.com>
+ <Y9D2zXpy+9iyZNun@dhcp22.suse.cz>
+In-Reply-To: <Y9D2zXpy+9iyZNun@dhcp22.suse.cz>
 From: Suren Baghdasaryan <surenb@google.com>
-Date: Wed, 25 Jan 2023 08:49:50 -0800
-Message-ID: <CAJuCfpEcVCZaCGzc-Wim25eaV5e6YG1YJAAdKwZ6JHViB0z8aw@mail.gmail.com>
-To: Peter Zijlstra <peterz@infradead.org>
+Date: Wed, 25 Jan 2023 08:55:12 -0800
+Message-ID: <CAJuCfpG7KWnj3J_t4nN1R4gfiM5jgjsiTfL55hNa=Uvz4E835g@mail.gmail.com>
+To: Michal Hocko <mhocko@suse.com>
 Cc: michel@lespinasse.org, nvdimm@lists.linux.dev, heiko@sntech.de,
  leewalsh@google.com, dri-devel@lists.freedesktop.org, perex@perex.cz,
  jglisse@google.com, arjunroy@google.com, m.szyprowski@samsung.com,
@@ -89,13 +89,13 @@ Cc: michel@lespinasse.org, nvdimm@lists.linux.dev, heiko@sntech.de,
  linux-tegra@vger.kernel.org, kraxel@redhat.com, will@kernel.org,
  dmaengine@vger.kernel.org, bhe@redhat.com, miklos@szeredi.hu,
  linux-rdma@vger.kernel.org, linux-staging@lists.linux.dev, willy@infradead.org,
- dgilbert@interlog.com, xiang@kernel.org, pabeni@redhat.com, jejb@linux.ibm.com,
- quic_abhinavk@quicinc.com, bp@alien8.de, mchehab@kernel.org,
- linux-ext4@vger.kernel.org, tomba@kernel.org, hughlynch@google.com,
- sre@kernel.org, tfiga@chromium.org, linux-xfs@vger.kernel.org,
- zhangfei.gao@linaro.org, wangzhou1@hisilicon.com, netdev@vger.kernel.org,
- bpf@vger.kernel.org, linux-erofs@lists.ozlabs.org, davem@davemloft.net,
- mhocko@suse.com, kvm@vger.kernel.org, mst@redhat.com, gurua@google.com,
+ gurua@google.com, dgilbert@interlog.com, xiang@kernel.org, pabeni@redhat.com,
+ jejb@linux.ibm.com, quic_abhinavk@quicinc.com, bp@alien8.de,
+ mchehab@kernel.org, linux-ext4@vger.kernel.org, tomba@kernel.org,
+ hughlynch@google.com, sre@kernel.org, tfiga@chromium.org,
+ linux-xfs@vger.kernel.org, zhangfei.gao@linaro.org, wangzhou1@hisilicon.com,
+ netdev@vger.kernel.org, bpf@vger.kernel.org, linux-erofs@lists.ozlabs.org,
+ davem@davemloft.net, kvm@vger.kernel.org, mst@redhat.com, peterz@infradead.org,
  bigeasy@linutronix.de, dhowells@redhat.com, linux-mm@kvack.org,
  ray.huang@amd.com, adilger.kernel@dilger.ca, kuba@kernel.org,
  sparclinux@vger.kernel.org, airlied@gmail.com, anton.ivanov@cambridgegreys.com,
@@ -112,8 +112,8 @@ Cc: michel@lespinasse.org, nvdimm@lists.linux.dev, heiko@sntech.de,
  tzimmermann@suse.de, hannes@cmpxchg.org, dmitry.baryshkov@linaro.org,
  johannes@sipsolutions.net, mgorman@techsingularity.net,
  linux-accelerators@lists.ozlabs.org, l.stach@pengutronix.de
-Subject: Re: [Linux-stm32] [PATCH v2 1/6] mm: introduce vma->vm_flags
-	modifier functions
+Subject: Re: [Linux-stm32] [PATCH v2 3/6] mm: replace vma->vm_flags direct
+ modifications with modifier calls
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -130,35 +130,45 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, Jan 25, 2023 at 1:10 AM Peter Zijlstra <peterz@infradead.org> wrote:
+On Wed, Jan 25, 2023 at 1:30 AM 'Michal Hocko' via kernel-team
+<kernel-team@android.com> wrote:
 >
-> On Wed, Jan 25, 2023 at 12:38:46AM -0800, Suren Baghdasaryan wrote:
+> On Wed 25-01-23 00:38:48, Suren Baghdasaryan wrote:
+> > Replace direct modifications to vma->vm_flags with calls to modifier
+> > functions to be able to track flag changes and to keep vma locking
+> > correctness.
 >
-> > diff --git a/include/linux/mm_types.h b/include/linux/mm_types.h
-> > index 2d6d790d9bed..6c7c70bf50dd 100644
-> > --- a/include/linux/mm_types.h
-> > +++ b/include/linux/mm_types.h
-> > @@ -491,7 +491,13 @@ struct vm_area_struct {
-> >        * See vmf_insert_mixed_prot() for discussion.
-> >        */
-> >       pgprot_t vm_page_prot;
-> > -     unsigned long vm_flags;         /* Flags, see mm.h. */
-> > +
-> > +     /*
-> > +      * Flags, see mm.h.
-> > +      * WARNING! Do not modify directly.
-> > +      * Use {init|reset|set|clear|mod}_vm_flags() functions instead.
-> > +      */
-> > +     unsigned long vm_flags;
->
-> We have __private and ACCESS_PRIVATE() to help with enforcing this.
+> Is this a manual (git grep) based work or have you used Coccinele for
+> the patch generation?
 
-Thanks for pointing this out, Peter! I guess for that I'll need to
-convert all read accesses and provide get_vm_flags() too? That will
-cause some additional churt (a quick search shows 801 hits over 248
-files) but maybe it's worth it? I think Michal suggested that too in
-another patch. Should I do that while we are at it?
+It was a manual "search and replace" and in the process I temporarily
+renamed vm_flags to ensure I did not miss any usage.
 
+>
+> My potentially incomplete check
+> $ git grep ">[[:space:]]*vm_flags[[:space:]]*[&|^]="
+>
+> shows that nothing should be left after this. There is still quite a lot
+> of direct checks of the flags (more than 600). Maybe it would be good to
+> make flags accessible only via accessors which would also prevent any
+> future direct setting of those flags in uncontrolled way as well.
+
+Yes, I think Peter's suggestion in the first patch would also require
+that. Much more churn but probably worth it for the future
+maintenance. I'll add a patch which converts all readers as well.
+
+>
+> Anyway
+> Acked-by: Michal Hocko <mhocko@suse.com>
+
+Thanks for all the reviews!
+
+> --
+> Michal Hocko
+> SUSE Labs
+>
+> --
+> To unsubscribe from this group and stop receiving emails from it, send an email to kernel-team+unsubscribe@android.com.
 >
 _______________________________________________
 Linux-stm32 mailing list
