@@ -2,58 +2,58 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB7E367A77D
-	for <lists+linux-stm32@lfdr.de>; Wed, 25 Jan 2023 01:23:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E351E67A77F
+	for <lists+linux-stm32@lfdr.de>; Wed, 25 Jan 2023 01:23:24 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8F61DC69048;
-	Wed, 25 Jan 2023 00:23:22 +0000 (UTC)
-Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com
- [209.85.208.43])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A43E4C69055;
+	Wed, 25 Jan 2023 00:23:24 +0000 (UTC)
+Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com
+ [209.85.218.46])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 85A8CC65E72
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2AB7BC6506E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 25 Jan 2023 00:23:21 +0000 (UTC)
-Received: by mail-ed1-f43.google.com with SMTP id k20so2944813edj.7
+ Wed, 25 Jan 2023 00:23:23 +0000 (UTC)
+Received: by mail-ej1-f46.google.com with SMTP id bk15so43433307ejb.9
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 24 Jan 2023 16:23:21 -0800 (PST)
+ Tue, 24 Jan 2023 16:23:23 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=9/AsczzAoIWOzK8lXXQYr+oZjWpK7SKdHJ3MVSXvuVY=;
- b=G5sSLdwLn4mg94HvxPiDfL7ErUh2JaPb1dvXZIK7dW4TB9o4KJCsGO+civsatRjENj
- eB5CnYxpgVTynGQFCDLap3gEHuE3VsV6qAYe6Od/8USkm/H7MwWPqfnnX/RD4qIjtb4S
- 4Z+4o7PbWsOD+zftvKx/HqRqH16rruAVChrd2R9oDdlDjgoVptjcnZNvJ/16j23vI5lf
- h00IW0b2nnEDfMoEYQHgFLmj8fxPSXiaBc/rNFwJSp2Yef20EZnMAVwg9pnliUanstTj
- RFPP76mjCFI7dOc92UuDD547Rr68oFWF870u8NqijqqpfY6Jh7jvk8tpRry100+RA/VI
- 88Bg==
+ :reply-to; bh=dZ27p7zF4T27+K/nN0SUmKAuxZywkQG/U6QyG5d8NyA=;
+ b=QJ/19TCg14yqvOQLmIFg24XehYjzB9j13SdaTs1rKJ83AU1VbzHGuKuUMnia3DaMML
+ LYwAkiPjcpm6NzEf2MRfedGuZXWLPbji4TBfQVe1kb2+bizrSabk+mvVD4ucmqmdHomI
+ sOzZQOyU62Vj1y/SnnJ7ovCeQmu4/ovGgcCLS58UHYkmDqA9IS737Fa8dcPPHHX8FyKU
+ X6ffSN2Y1q2FZbNMIoB5MCFOrEAHXpIJuP732o9D10rrJkvmhIKXIgz+muzpARYPOoYa
+ 4oXKc+9TN6pU4/ulqMYkpcDIyOvjw7ARw0qoWqgw9n9iDD42cWOsF+YLPNx9JYP0EXLl
+ oJsg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=9/AsczzAoIWOzK8lXXQYr+oZjWpK7SKdHJ3MVSXvuVY=;
- b=K0nFizXuTvsoTWehvAK4oE7i/LCb2OC2ckmO060tmbDADd3utQds+607vQ4vAgye6Z
- buvA/BqZL+/WxW757j5+mloIdLS5uND9Pry+eDWdzE3704+tpcWnkJUWe/ELksn6NYit
- Iu55tsHZfEtPBQwsOOh0vu6vDJWeaIMBWBP91YjkT29wXF+cC5Rfurrp5qcHDNnIen3D
- 3H05MRKkZiTsLW5BFMpQo1ntP5WFU+H7L6b+EgVoNs1gURmkigXc86j3r609VVduuHyf
- mR76WMaxLZKcSyCs6kNuLbyjKU7IHbQufW5ZlFYNNshthGK4JNmmkWtA8ceGZrVC2tBd
- GIdg==
-X-Gm-Message-State: AO0yUKWP9QGEv510fVrn+3vm3HytAX62G3kBMb5gY0Cq0FEzMpSQuoUH
- 0hAQ/oPaM+VOmKPiCoUG0g3DAg==
-X-Google-Smtp-Source: AK7set8pICFlSnupzt+B/4dEj+GIHPXyXilClxiORWUNlNS5tqZ3vG+e4gQbF27oTL658xWqahpvKQ==
-X-Received: by 2002:a05:6402:298c:b0:49f:a3d7:b84d with SMTP id
- eq12-20020a056402298c00b0049fa3d7b84dmr5449787edb.34.1674606201166; 
- Tue, 24 Jan 2023 16:23:21 -0800 (PST)
+ bh=dZ27p7zF4T27+K/nN0SUmKAuxZywkQG/U6QyG5d8NyA=;
+ b=I1JGHM1Yl3yIRHAGeph53x4eAd7/e+/afg0R7fI0VadcAIjEDWaHuI8o7bGmX1MKoQ
+ H17rhr/4hyte9jjs6ss7ahQuS2h5O21lrE4gaU/IytQ8gc6HsjrUmoB9fVWuVsMyhpjR
+ oL4J/zkeJf6p7s0RJ585ROfdn5xe1GWeVWrysqT9DhV1JcmNwDGlRrN9+xe1zgFFeMxM
+ WFyWv3PK3tHbCk5koLfe/UaNm7qiTZzEtm9ZT1Wu5tX8NX8B+sOguxJD4h1ndSDtETiy
+ cJWdiVlu0LnXGjRAlesD1WFP1ZN8fYDFrfh4jUlvsOF7xh4w8wld+iLLl4ugsuiT2+Qp
+ 85ZQ==
+X-Gm-Message-State: AFqh2koqsdD8c6RNb91QBemWQPtHZMdYPGy5zjNSp4DNZ6dMVpfhNZAa
+ xLzjLiBBNUvLMcAW4RHCj4gozw==
+X-Google-Smtp-Source: AMrXdXuPVo13SXKzlv8efr0eXOVX+Rwf2H5jTBFY9jVwKrKrye2EFI7PJBI7aI+BIoZC8hmeQf5ZAg==
+X-Received: by 2002:a17:906:a3cf:b0:861:3ed5:e029 with SMTP id
+ ca15-20020a170906a3cf00b008613ed5e029mr44674312ejb.49.1674606202741; 
+ Tue, 24 Jan 2023 16:23:22 -0800 (PST)
 Received: from fedora.local (c-05d8225c.014-348-6c756e10.bbcust.telenor.se.
  [92.34.216.5]) by smtp.gmail.com with ESMTPSA id
- if10-20020a170906df4a00b00738795e7d9bsm1584606ejc.2.2023.01.24.16.23.19
+ if10-20020a170906df4a00b00738795e7d9bsm1584606ejc.2.2023.01.24.16.23.21
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 24 Jan 2023 16:23:20 -0800 (PST)
+ Tue, 24 Jan 2023 16:23:22 -0800 (PST)
 From: Linus Walleij <linus.walleij@linaro.org>
-Date: Wed, 25 Jan 2023 01:23:07 +0100
+Date: Wed, 25 Jan 2023 01:23:08 +0100
 MIME-Version: 1.0
-Message-Id: <20221227-ux500-stm32-hash-v3-2-32ee12cd6f06@linaro.org>
+Message-Id: <20221227-ux500-stm32-hash-v3-3-32ee12cd6f06@linaro.org>
 References: <20221227-ux500-stm32-hash-v3-0-32ee12cd6f06@linaro.org>
 In-Reply-To: <20221227-ux500-stm32-hash-v3-0-32ee12cd6f06@linaro.org>
 To: Herbert Xu <herbert@gondor.apana.org.au>,
@@ -67,7 +67,8 @@ Cc: devicetree@vger.kernel.org, Rob Herring <robh@kernel.org>,
  Linus Walleij <linus.walleij@linaro.org>, linux-kernel@vger.kernel.org,
  linux-crypto@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v3 2/6] crypto: stm32/hash: Simplify code
+Subject: [Linux-stm32] [PATCH v3 3/6] crypto: stm32/hash: Use existing busy
+	poll function
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,10 +85,11 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-We are passing (rctx->flags & HASH_FLAGS_FINUP) as indicator
-for the final request but we already know this to be true since
-we are in the (final) arm of an if-statement set from the same
-flag. Just open-code it as true.
+When exporting state we are waiting indefinitely in the same
+was as the ordinary stm32_hash_wait_busy() poll-for-completion
+function but without a timeout, which means we could hang in
+an eternal loop. Fix this by waiting for completion like the
+rest of the code.
 
 Acked-by: Lionel Debieve <lionel.debieve@foss.st.com>
 Signed-off-by: Linus Walleij <linus.walleij@linaro.org>
@@ -97,23 +99,29 @@ ChangeLog v2->v3:
 ChangeLog v1->v2:
 - Pick up Lionel's ACK
 ---
- drivers/crypto/stm32/stm32-hash.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ drivers/crypto/stm32/stm32-hash.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/crypto/stm32/stm32-hash.c b/drivers/crypto/stm32/stm32-hash.c
-index d33006d43f76..0473ced7b4ea 100644
+index 0473ced7b4ea..cc0a4e413a82 100644
 --- a/drivers/crypto/stm32/stm32-hash.c
 +++ b/drivers/crypto/stm32/stm32-hash.c
-@@ -399,8 +399,7 @@ static int stm32_hash_update_cpu(struct stm32_hash_dev *hdev)
- 	if (final) {
- 		bufcnt = rctx->bufcnt;
- 		rctx->bufcnt = 0;
--		err = stm32_hash_xmit_cpu(hdev, rctx->buffer, bufcnt,
--					  (rctx->flags & HASH_FLAGS_FINUP));
-+		err = stm32_hash_xmit_cpu(hdev, rctx->buffer, bufcnt, 1);
- 	}
+@@ -960,11 +960,13 @@ static int stm32_hash_export(struct ahash_request *req, void *out)
+ 	struct stm32_hash_dev *hdev = stm32_hash_find_dev(ctx);
+ 	u32 *preg;
+ 	unsigned int i;
++	int ret;
  
- 	return err;
+ 	pm_runtime_get_sync(hdev->dev);
+ 
+-	while ((stm32_hash_read(hdev, HASH_SR) & HASH_SR_BUSY))
+-		cpu_relax();
++	ret = stm32_hash_wait_busy(hdev);
++	if (ret)
++		return ret;
+ 
+ 	rctx->hw_context = kmalloc_array(3 + HASH_CSR_REGISTER_NUMBER,
+ 					 sizeof(u32),
 
 -- 
 2.39.0
