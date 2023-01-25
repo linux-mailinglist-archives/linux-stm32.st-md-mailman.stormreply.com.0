@@ -2,56 +2,56 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 53E6967BC2E
-	for <lists+linux-stm32@lfdr.de>; Wed, 25 Jan 2023 21:08:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E58C67BC30
+	for <lists+linux-stm32@lfdr.de>; Wed, 25 Jan 2023 21:09:04 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 14E7EC69057;
-	Wed, 25 Jan 2023 20:08:53 +0000 (UTC)
-Received: from mail-oa1-f44.google.com (mail-oa1-f44.google.com
- [209.85.160.44])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 24C09C69057;
+	Wed, 25 Jan 2023 20:09:04 +0000 (UTC)
+Received: from mail-ot1-f54.google.com (mail-ot1-f54.google.com
+ [209.85.210.54])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8BCB8C69055
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E2CB0C69055
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 25 Jan 2023 20:08:51 +0000 (UTC)
-Received: by mail-oa1-f44.google.com with SMTP id
- 586e51a60fabf-12c8312131fso22767413fac.4
+ Wed, 25 Jan 2023 20:09:02 +0000 (UTC)
+Received: by mail-ot1-f54.google.com with SMTP id
+ m18-20020a05683026d200b0068661404380so11802089otu.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 25 Jan 2023 12:08:51 -0800 (PST)
+ Wed, 25 Jan 2023 12:09:02 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=2nDL5JMpYL8zMscLCkNwpf+56C4bxX8siHriNAzVjbw=;
- b=IBPPfRIy+VrkvzS4YCAOL0qm62WYIg4quQlHiqvHOVuIeMzqcd4EAvzafbmZPl0zO2
- RRMZ+Bqgb4VQoeuOYw3iAnR2dLt750Lif/izcmkzQ2zIMMeWpb7tIBu458ys2W3WHnxP
- sxEQF5wirBSvGgOYNj8Gb7sGMT+JqqDUGy1J/ykG+fM3ZqHmQZxuKFDDA1SLG5qOrqzY
- 3jJYy/xz1S2uWDieFeJjWVDFZGbVB6KQemNlxkDeF6SBZy/NSgEqR4I0ugpcP8Jn3v67
- nO3fs+kHwvEyJ+S252D9gKUDuZgE/uCKDHBK367BTawNOefIJoNA4VDm8OgERX0i6zXh
- DoQA==
-X-Gm-Message-State: AFqh2kr7kNwU6dYwKiPPRJGD0PdH5DGy1FMo0+OSGsIRoC0/HraVVsS0
- 9A/oOBgYdGfgRFdMFovVfA==
-X-Google-Smtp-Source: AMrXdXuA8tO45Yj4ss66nTmpQUbLo6kLx/P66wPdUh9X5rLrKkVx5S80pJZ5ehwR5YNBU80lx/AzZQ==
-X-Received: by 2002:a05:6870:9d0a:b0:15f:32b:6e33 with SMTP id
- pp10-20020a0568709d0a00b0015f032b6e33mr16413614oab.39.1674677330355; 
- Wed, 25 Jan 2023 12:08:50 -0800 (PST)
+ bh=6t3+eN2lHtIu49LblIFaPzhFGYt/AfmaSuGsn+YEdS0=;
+ b=YN/wyOJ49AkrXlqeWr06+4PbToGYDZfAWABMaockTTirOa+8cBVyqb98TOvTCXDSb8
+ p7Zj5AbbiRYZyPk2sjNDORslBVUPygSh6MhAS5A7sxZPxvAOjT2jLf+zKeVKmgJWE+rz
+ /U2POb4Or3Fd+EMZlOB+oHky21lV1wEWFEsRg5yJ33Jkszo3zZtRaJu1wZtFNDeluNJp
+ uIYZ4Lj0D0SxDZLPQuajE464b+Fv4BtuIdYG15fZcm7tUeU8tOZ3FgPQw5OJyhcV2osq
+ cdcVc5X03VJJHpa32hxaoMrf2DDGSBHAaS2CtNICxV9gCeVfGVqz0QnqmpQZrchyJk6c
+ aqIA==
+X-Gm-Message-State: AFqh2kpyIWxaqJrsJm1GY8d/LxCeVcqSx0LHtijzTGFynkyE4QWJlDoR
+ tsTFByBmcsJiNNYX5UOIlg==
+X-Google-Smtp-Source: AMrXdXvmG+MMXgZe3y8Iabdwj1T7QPV9D3ixNYqPrRVv52b4IuvZX87jEuE4ezPKTjyH7bgohvzYWA==
+X-Received: by 2002:a9d:6b03:0:b0:670:7a2b:f52f with SMTP id
+ g3-20020a9d6b03000000b006707a2bf52fmr15887767otp.8.1674677341751; 
+ Wed, 25 Jan 2023 12:09:01 -0800 (PST)
 Received: from robh_at_kernel.org (66-90-144-107.dyn.grandenetworks.net.
  [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
- p13-20020a056870568d00b0015f83e16a10sm2278638oao.44.2023.01.25.12.08.48
+ f18-20020a9d5f12000000b00670641eb272sm2571030oti.20.2023.01.25.12.09.00
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 25 Jan 2023 12:08:50 -0800 (PST)
-Received: (nullmailer pid 2793767 invoked by uid 1000);
- Wed, 25 Jan 2023 20:08:48 -0000
-Date: Wed, 25 Jan 2023 14:08:48 -0600
+ Wed, 25 Jan 2023 12:09:01 -0800 (PST)
+Received: (nullmailer pid 2795996 invoked by uid 1000);
+ Wed, 25 Jan 2023 20:09:00 -0000
+Date: Wed, 25 Jan 2023 14:09:00 -0600
 From: Rob Herring <robh@kernel.org>
 To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Message-ID: <167467732818.2793535.3311476419413024796.robh@kernel.org>
+Message-ID: <167467733943.2795781.3621050331030383112.robh@kernel.org>
 References: <20230124091602.44027-1-krzysztof.kozlowski@linaro.org>
- <20230124091916.45054-7-krzysztof.kozlowski@linaro.org>
+ <20230124091916.45054-8-krzysztof.kozlowski@linaro.org>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20230124091916.45054-7-krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20230124091916.45054-8-krzysztof.kozlowski@linaro.org>
 Cc: Tomer Maimon <tmaimon77@gmail.com>,
  Geert Uytterhoeven <geert+renesas@glider.be>,
  Vignesh Raghavendra <vigneshr@ti.com>,
@@ -61,7 +61,7 @@ Cc: Tomer Maimon <tmaimon77@gmail.com>,
  Jerome Brunet <jbrunet@baylibre.com>, Kevin Hilman <khilman@baylibre.com>,
  Magnus Damm <magnus.damm@gmail.com>, Michal Simek <michal.simek@xilinx.com>,
  NXP Linux Team <linux-imx@nxp.com>, linux-serial@vger.kernel.org,
- devicetree@vger.kernel.org, Pengutronix Kernel Team <kernel@pengutronix.de>,
+ devicetree@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
  Sascha Hauer <s.hauer@pengutronix.de>, Chester Lin <clin@suse.com>,
  Lubomir Rintel <lkundrak@v3.sk>, Rob Herring <robh+dt@kernel.org>,
@@ -70,10 +70,10 @@ Cc: Tomer Maimon <tmaimon77@gmail.com>,
  Neil Armstrong <neil.armstrong@linaro.org>, Fugang Duan <fugang.duan@nxp.com>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-kernel@vger.kernel.org,
  Palmer Dabbelt <palmer@dabbelt.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
- Pragnesh Patel <pragnesh.patel@sifive.com>
-Subject: Re: [Linux-stm32] [PATCH v2 09/12] dt-bindings: serial: fsl-lpuart:
- allow other serial properties
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Shawn Guo <shawnguo@kernel.org>, Pragnesh Patel <pragnesh.patel@sifive.com>
+Subject: Re: [Linux-stm32] [PATCH v2 10/12] dt-bindings: serial: st,
+ stm32-uart: drop common properties
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,16 +91,14 @@ Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 
-On Tue, 24 Jan 2023 10:19:13 +0100, Krzysztof Kozlowski wrote:
-> Reference common serial properties bindings to allow typical serial
-> properties:
-> 
->   imx8qxp-ai_ml.dtb: serial@5a060000: Unevaluated properties are not allowed ('uart-has-rtscts' were unexpected)
+On Tue, 24 Jan 2023 10:19:14 +0100, Krzysztof Kozlowski wrote:
+> The binding references serial and rs485 schemas, so there is no need to
+> list their properties.  Simplify a bit by removing unneeded entries.
 > 
 > Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 > ---
->  Documentation/devicetree/bindings/serial/fsl-lpuart.yaml | 1 +
->  1 file changed, 1 insertion(+)
+>  .../devicetree/bindings/serial/st,stm32-uart.yaml          | 7 -------
+>  1 file changed, 7 deletions(-)
 > 
 
 Acked-by: Rob Herring <robh@kernel.org>
