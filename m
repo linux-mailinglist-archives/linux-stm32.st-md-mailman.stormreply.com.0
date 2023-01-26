@@ -2,103 +2,82 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1AEA667D291
-	for <lists+linux-stm32@lfdr.de>; Thu, 26 Jan 2023 18:07:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9C68567D728
+	for <lists+linux-stm32@lfdr.de>; Thu, 26 Jan 2023 22:03:12 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B2FB9C6905A;
-	Thu, 26 Jan 2023 17:07:43 +0000 (UTC)
-Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3C46DC6905A;
+	Thu, 26 Jan 2023 21:03:12 +0000 (UTC)
+Received: from wout4-smtp.messagingengine.com (wout4-smtp.messagingengine.com
+ [64.147.123.20])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 997FFC69056
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5896BC69056
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 26 Jan 2023 17:07:42 +0000 (UTC)
-Received: from mercury (dyndsl-037-138-191-219.ewe-ip-backbone.de
- [37.138.191.219])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: sre)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id 7FE346602E7E;
- Thu, 26 Jan 2023 17:07:41 +0000 (GMT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1674752861;
- bh=TJwB9xWefUtenAJhobcnuA3/dr44yh/1qZH05naV3dA=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=HIAeawkSMl4wLK9atphFO2PYIuQtn0mXWrQTGJkp27Vvwen4RmNJXIKy0KOcMN2qu
- MGji/BoqRh//5quIKkg+7Jg9a4rlT6zYnOxKnHRve8IRt32uZ0O2J9C6ByA7KSG9ni
- ooI+f+xDzdj/4Xv/XqAW1ZMOqMbxlnaE69Ns4AaVsCb09DHvVD+xjXrJ7HkcJ65ZDs
- 0FKkR9qOOchTbFQKw+Lbe8GJsd/K96q/WWSPWtyPUY4G0yRJ/G34tsJUBI/vL5q95x
- a6dIJ/I/0Glk/75yhzfiBv6PLPN/HUTuWOcS4vpdAGRdicde5HTb77Vj3shLRE2rZN
- snAuQFm3yL5CQ==
-Received: by mercury (Postfix, from userid 1000)
- id 8DAD710609C7; Thu, 26 Jan 2023 18:07:39 +0100 (CET)
-Date: Thu, 26 Jan 2023 18:07:39 +0100
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
-To: Suren Baghdasaryan <surenb@google.com>
-Message-ID: <20230126170739.mlka2jivn3mfstyf@mercury.elektranox.org>
-References: <20230125083851.27759-1-surenb@google.com>
- <20230125083851.27759-4-surenb@google.com>
-MIME-Version: 1.0
-In-Reply-To: <20230125083851.27759-4-surenb@google.com>
-Cc: michel@lespinasse.org, nvdimm@lists.linux.dev, heiko@sntech.de,
- leewalsh@google.com, dri-devel@lists.freedesktop.org, perex@perex.cz,
- jglisse@google.com, arjunroy@google.com, m.szyprowski@samsung.com,
- linux-arch@vger.kernel.org, qianweili@huawei.com,
- linux-samsung-soc@vger.kernel.org, aneesh.kumar@linux.ibm.com,
- chenhuacai@kernel.org, kasan-dev@googlegroups.com, linux-acpi@vger.kernel.org,
- rientjes@google.com, xen-devel@lists.xenproject.org, devel@lists.orangefs.org,
- robdclark@gmail.com, minchan@google.com, robert.jarzmik@free.fr,
- linux-um@lists.infradead.org, etnaviv@lists.freedesktop.org, npiggin@gmail.com,
- alex.williamson@redhat.com, viro@zeniv.linux.org.uk, luto@kernel.org,
- gthelen@google.com, tglx@linutronix.de, ldufour@linux.ibm.com,
- linux-sgx@vger.kernel.org, martin.petersen@oracle.com,
- linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-perf-users@vger.kernel.org, linux-crypto@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, akpm@linux-foundation.org,
- linux-media@vger.kernel.org, freedreno@lists.freedesktop.org,
- joelaf@google.com, linux-aio@kvack.org, linux-fbdev@vger.kernel.org,
- linux-ia64@vger.kernel.org, david@redhat.com, dave.hansen@linux.intel.com,
- virtualization@lists.linux-foundation.org, edumazet@google.com,
- target-devel@vger.kernel.org, punit.agrawal@bytedance.com,
- linux-s390@vger.kernel.org, dave@stgolabs.net, deller@gmx.de, hughd@google.com,
- andrii@kernel.org, patrik.r.jakobsson@gmail.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-rockchip@lists.infradead.org,
- linux-graphics-maintainer@vmware.com, kernel-team@android.com,
- jayalk@intworks.biz, soheil@google.com, selinux@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, mripard@kernel.org, shakeelb@google.com,
- haojian.zhuang@gmail.com, loongarch@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, tytso@mit.edu, nico@fluxnic.net,
- muchun.song@linux.dev, hjc@rock-chips.com, mcoquelin.stm32@gmail.com,
- tatashin@google.com, mike.kravetz@oracle.com, songliubraving@fb.com,
- jasowang@redhat.com, alsa-devel@alsa-project.org, peterx@redhat.com,
- linux-tegra@vger.kernel.org, kraxel@redhat.com, will@kernel.org,
- dmaengine@vger.kernel.org, bhe@redhat.com, miklos@szeredi.hu,
- linux-rdma@vger.kernel.org, linux-staging@lists.linux.dev, willy@infradead.org,
- gurua@google.com, dgilbert@interlog.com, xiang@kernel.org, pabeni@redhat.com,
- jejb@linux.ibm.com, quic_abhinavk@quicinc.com, bp@alien8.de,
- mchehab@kernel.org, linux-ext4@vger.kernel.org, tomba@kernel.org,
- hughlynch@google.com, tfiga@chromium.org, linux-xfs@vger.kernel.org,
- zhangfei.gao@linaro.org, wangzhou1@hisilicon.com, netdev@vger.kernel.org,
- bpf@vger.kernel.org, linux-erofs@lists.ozlabs.org, davem@davemloft.net,
- mhocko@suse.com, kvm@vger.kernel.org, mst@redhat.com, peterz@infradead.org,
- bigeasy@linutronix.de, dhowells@redhat.com, linux-mm@kvack.org,
- ray.huang@amd.com, adilger.kernel@dilger.ca, kuba@kernel.org,
- sparclinux@vger.kernel.org, airlied@gmail.com, anton.ivanov@cambridgegreys.com,
- herbert@gondor.apana.org.au, linux-scsi@vger.kernel.org, richard@nod.at,
- x86@kernel.org, vkoul@kernel.org, mingo@redhat.com, axelrasmussen@google.com,
- intel-gfx@lists.freedesktop.org, daniel@ffwll.ch, paulmck@kernel.org,
- jannh@google.com, chao@kernel.org, maarten.lankhorst@linux.intel.com,
- liam.howlett@oracle.com, hdegoede@redhat.com,
- linux-mediatek@lists.infradead.org, matthias.bgg@gmail.com, vbabka@suse.cz,
- dimitri.sivanich@hpe.com, amd-gfx@lists.freedesktop.org, posk@google.com,
- lstoakes@gmail.com, peterjung1337@gmail.com, yoshfuji@linux-ipv6.org,
- linuxppc-dev@lists.ozlabs.org, dsahern@kernel.org, kent.overstreet@linux.dev,
- kexec@lists.infradead.org, tiwai@suse.com, krzysztof.kozlowski@linaro.org,
- tzimmermann@suse.de, hannes@cmpxchg.org, dmitry.baryshkov@linaro.org,
- johannes@sipsolutions.net, mgorman@techsingularity.net,
- linux-accelerators@lists.ozlabs.org, l.stach@pengutronix.de
-Subject: Re: [Linux-stm32] [PATCH v2 3/6] mm: replace vma->vm_flags direct
- modifications with modifier calls
+ Thu, 26 Jan 2023 21:03:10 +0000 (UTC)
+Received: from compute6.internal (compute6.nyi.internal [10.202.2.47])
+ by mailout.west.internal (Postfix) with ESMTP id 1383C3200977;
+ Thu, 26 Jan 2023 16:03:04 -0500 (EST)
+Received: from imap51 ([10.202.2.101])
+ by compute6.internal (MEProxy); Thu, 26 Jan 2023 16:03:07 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+ :cc:content-type:date:date:from:from:in-reply-to:in-reply-to
+ :message-id:mime-version:references:reply-to:sender:subject
+ :subject:to:to; s=fm2; t=1674766984; x=1674853384; bh=WrcQCPREYu
+ exE+bSRUWehMh+31rnbUdZUAUeCq+X5EQ=; b=FsgImuYqVdAY6hA4khfZyuZ588
+ 8+/NO5deukjqXQXbOT7+8WCd4SwSySkPxbHaDH5kExAs2qrlmzdD1ZcB6fKex2s1
+ 7j4tibaMvYpv7fWkOBhR/nZkP+a3paj2Jdm1kYrV2EtXN9VHlxWaGiEPsaDKgDzd
+ K1vtAjdIDarLMQTBeucmnrIc6jTHBKOIZDRxcUglQqY/JsbzsCJ65KbVe7VJB4de
+ 9FP4NTnmOQpmQL/j73G+fcyM3ob71VCn13XQFtgf8NjfLhw1X4R5FvsLxfkFYhDc
+ 0o1LM0pUt5H6l+RseKQZ4PPc3cpYIwc9IUwyzqFDcm5WORvpj4o9dA2A3AKw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
+ :feedback-id:from:from:in-reply-to:in-reply-to:message-id
+ :mime-version:references:reply-to:sender:subject:subject:to:to
+ :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+ fm3; t=1674766984; x=1674853384; bh=WrcQCPREYuexE+bSRUWehMh+31rn
+ bUdZUAUeCq+X5EQ=; b=o0V97d1b6TZ34cN2bFdVEmXD1wdcZShcPeWYGhhFF1Qw
+ Uz5LKCbImuiwFOxbewUa24HMEJzTCf3Oysltsj0PHxO23gEAEbRb3IMIIAqdVEWI
+ bEcMbS/AEOKVKoDkYDYEudwSOynHuxedcAwAxmhccVJXB521CLiMmn5PIhkt1OFz
+ C6gZv5cIwaUajJEyuy/tcyfZZx88E72fONpBPFOhdERr3GpNCddGS5jNXRNOH9Uw
+ pdgYHDdFwxp+zBsiRx2lWfPNeJL2rGMh3GA9uhogYirPFuGSkLbgv8nOxhgDE2bG
+ eems64RMg6EGs+rfEgVXNelDzluPxoRlslp1/oWDHA==
+X-ME-Sender: <xms:h-rSY2ZH66UQzp2syEzlZZW7gVCMlLeefnOgOCw9neuQNTFvAMy3hQ>
+ <xme:h-rSY5YmUZWtyG3jGvHdcSgShcM4x743DrthUCVxB1-nO-5v0XgaqhnBk7wVld-iG
+ 6FpsI0D6JE1M2TIPUo>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedruddvgedgudeghecutefuodetggdotefrod
+ ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
+ necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
+ enucfjughrpefofgggkfgjfhffhffvvefutgesthdtredtreertdenucfhrhhomhepfdet
+ rhhnugcuuegvrhhgmhgrnhhnfdcuoegrrhhnugesrghrnhgusgdruggvqeenucggtffrrg
+ htthgvrhhnpeffheeugeetiefhgeethfejgfdtuefggeejleehjeeutefhfeeggefhkedt
+ keetffenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpe
+ grrhhnugesrghrnhgusgdruggv
+X-ME-Proxy: <xmx:h-rSYw-K4BmPuY5VinRfLrf_w26fzNbzadaWJtf6UOnJSvAs_gBRcw>
+ <xmx:h-rSY4quW02Gdbl6SAWwBuo0SuY9vdM15XKTbhXeuafY2KKjaFpwiQ>
+ <xmx:h-rSYxoRVR4HnB4qg5uQCB9YH5MPAo8L_PiCQVzlhKCezvmyLXDehQ>
+ <xmx:iOrSYyQ06xloNcfR-gcNTwLCXjWhOhtdosjUY9xSOKuotyjB4MFSPw>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.nyi.internal (Postfix, from userid 501)
+ id CA682B60086; Thu, 26 Jan 2023 16:03:03 -0500 (EST)
+X-Mailer: MessagingEngine.com Webmail Interface
+User-Agent: Cyrus-JMAP/3.9.0-alpha0-85-gd6d859e0cf-fm-20230116.001-gd6d859e0
+Mime-Version: 1.0
+Message-Id: <077f90df-0e0b-4844-8492-1d825262a0f6@app.fastmail.com>
+In-Reply-To: <20230118172940.841094-1-patrick.delaunay@foss.st.com>
+References: <20230118172940.841094-1-patrick.delaunay@foss.st.com>
+Date: Thu, 26 Jan 2023 22:02:43 +0100
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "Patrick Delaunay" <patrick.delaunay@foss.st.com>,
+ "Alexandre Torgue" <alexandre.torgue@foss.st.com>,
+ "Rob Herring" <robh+dt@kernel.org>,
+ "Krzysztof Kozlowski" <krzysztof.kozlowski+dt@linaro.org>,
+ "Maxime Coquelin" <mcoquelin.stm32@gmail.com>,
+ "Srinivas Kandagatla" <srinivas.kandagatla@linaro.org>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Etienne CARRIERE <etienne.carriere@linaro.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v6 0/3] nvmem: stm32: add OP-TEE support
+	for STM32MP13x
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -110,86 +89,72 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============7534228077406708322=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+On Wed, Jan 18, 2023, at 18:29, Patrick Delaunay wrote:
+> 
+> +config NVMEM_STM32_BSEC_OPTEE_TA
+> +	bool "STM32MP BSEC OP-TEE TA support for nvmem-stm32-romem driver"
+> +	depends on OPTEE
+> +	help
+> +	  Say y here to enable the accesses to STM32MP SoC OTPs by the OP-TEE
+> +	  trusted application STM32MP BSEC.
+> +
+> +	  This library is a used by stm32-romem driver or included in the 
+> module
+> +	  called nvmem-stm32-romem.
+> +
+>  config NVMEM_STM32_ROMEM
+>  	tristate "STMicroelectronics STM32 factory-programmed memory support"
+>  	depends on ARCH_STM32 || COMPILE_TEST
+> +	imply NVMEM_STM32_BSEC_OPTEE_TA
+>  	help
+>  	  Say y here to enable read-only access for STMicroelectronics STM32
+>  	  factory-programmed memory area.
 
---===============7534228077406708322==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="qcyccrleajamxo75"
-Content-Disposition: inline
+This is now causing a link failure with CONFIG_OPTEE=m if
+NVMEM_STM32_ROMEM is built-in. My guess is that you saw something
+like that earlier and someone recommended using the 'imply' keyword
+without understanding what it does (no worries, nobody understands it).
 
+I've prepared a patch now based on the most likely interpretation
+of what you actually meant here:
 
---qcyccrleajamxo75
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+diff --git a/drivers/nvmem/Kconfig b/drivers/nvmem/Kconfig
+index ed8ef7460be2..ae2c5257ed97 100644
+--- a/drivers/nvmem/Kconfig
++++ b/drivers/nvmem/Kconfig
+@@ -295,8 +295,7 @@ config NVMEM_SPRD_EFUSE
+          will be called nvmem-sprd-efuse.
+ 
+ config NVMEM_STM32_BSEC_OPTEE_TA
+-       bool "STM32MP BSEC OP-TEE TA support for nvmem-stm32-romem driver"
+-       depends on OPTEE
++       def_bool NVMEM_STM32_ROMEM && OPTEE
+        help
+          Say y here to enable the accesses to STM32MP SoC OTPs by the OP-TEE
+          trusted application STM32MP BSEC.
+@@ -307,7 +306,7 @@ config NVMEM_STM32_BSEC_OPTEE_TA
+ config NVMEM_STM32_ROMEM
+        tristate "STMicroelectronics STM32 factory-programmed memory support"
+        depends on ARCH_STM32 || COMPILE_TEST
+-       imply NVMEM_STM32_BSEC_OPTEE_TA
++       depends on OPTEE || !OPTEE
+        help
+          Say y here to enable read-only access for STMicroelectronics STM32
+          factory-programmed memory area.
 
-Hi,
+This enables NVMEM_STM32_BSEC_OPTEE_TA whenever OPTEE is
+available, but prevents the link error by forcing NVMEM_STM32_ROMEM
+to also be a loadable module if that is how OPTEE is built.
 
-On Wed, Jan 25, 2023 at 12:38:48AM -0800, Suren Baghdasaryan wrote:
-> Replace direct modifications to vma->vm_flags with calls to modifier
-> functions to be able to track flag changes and to keep vma locking
-> correctness.
->=20
-> Signed-off-by: Suren Baghdasaryan <surenb@google.com>
-> ---
-> [...]
->  drivers/hsi/clients/cmt_speech.c                   |  2 +-
->  120 files changed, 188 insertions(+), 199 deletions(-)
-> [...]
-> diff --git a/drivers/hsi/clients/cmt_speech.c b/drivers/hsi/clients/cmt_s=
-peech.c
-> index 8069f795c864..952a31e742a1 100644
-> --- a/drivers/hsi/clients/cmt_speech.c
-> +++ b/drivers/hsi/clients/cmt_speech.c
-> @@ -1264,7 +1264,7 @@ static int cs_char_mmap(struct file *file, struct v=
-m_area_struct *vma)
->  	if (vma_pages(vma) !=3D 1)
->  		return -EINVAL;
-> =20
-> -	vma->vm_flags |=3D VM_IO | VM_DONTDUMP | VM_DONTEXPAND;
-> +	set_vm_flags(vma, VM_IO | VM_DONTDUMP | VM_DONTEXPAND);
->  	vma->vm_ops =3D &cs_char_vm_ops;
->  	vma->vm_private_data =3D file->private_data;
-> =20
+I'll send that if it passes the randconfig builds over night.
 
-Acked-by: Sebastian Reichel <sebastian.reichel@collabora.com>
-
--- Sebastian
-
---qcyccrleajamxo75
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmPSs1EACgkQ2O7X88g7
-+pquLBAAkw9lw9lxNRCI6jvqLy98JsUBgSQigNB6Eh8JVWsySHMm1OszFCcvTpoc
-vinC/VPMOa6JwEw5e9naXRF2UJahO+Cx+e5MYIKos3QyIUPfi0YM7Cv96h6+c4l/
-NdcxLS8+9ElitTuA47UVgPSeZwzdZ1kU5VUV1X2fx+6aGA+dBfWVBgWDqU6AB0Sa
-ehU4betso5Ypl26YEmLPHmY+8Xx2jXNwwBEgsHgO2/YjRn9YPDeMAqb4lWs99h0d
-nUV1VqwTClRrExtNDvidHryknmyCIBpYt38gn0i9+uIf9mFoBmUDN+/zAdRguGBT
-r1CQAwvRvHmEyGJ4dp1nijyt/PWxDBlCWytlmzXrK/rkeH8sQCRdCr9L83/d5DM0
-iU98ehmbH9kx8rD4y0L91xmsnegNYNKSfAvz3EP4KYFOHjTw2SOCYoazPu3z62bN
-d3HL+08LeZpm1XwVPydZqBd5UpBK8NaQYCJ3BjsLUefsSJE+SWzsnoYFnbUrL1X9
-1XfU6LGtVvjCPUsjk7oqh5PjtRGQsdtUhSZJLwNzTeh4I0nSzL1pj8vRFZ7UTcV4
-RmFYsjBbKhja2fC13eM4tKzfx53harnHVNuUPw2aoLKshpkQaOTUqWBnRXtbJZkb
-dSRKObxfPlHVI+awnfN6owpXF86Owew2+XJcXILOPxaBk8PI/Ns=
-=/0TB
------END PGP SIGNATURE-----
-
---qcyccrleajamxo75--
-
---===============7534228077406708322==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+      Arnd
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============7534228077406708322==--
