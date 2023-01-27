@@ -2,82 +2,84 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9C68567D728
-	for <lists+linux-stm32@lfdr.de>; Thu, 26 Jan 2023 22:03:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A457467E06A
+	for <lists+linux-stm32@lfdr.de>; Fri, 27 Jan 2023 10:37:57 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3C46DC6905A;
-	Thu, 26 Jan 2023 21:03:12 +0000 (UTC)
-Received: from wout4-smtp.messagingengine.com (wout4-smtp.messagingengine.com
- [64.147.123.20])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 491B4C65E4B;
+	Fri, 27 Jan 2023 09:37:57 +0000 (UTC)
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com
+ [209.85.221.41])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5896BC69056
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 69104C6507E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 26 Jan 2023 21:03:10 +0000 (UTC)
-Received: from compute6.internal (compute6.nyi.internal [10.202.2.47])
- by mailout.west.internal (Postfix) with ESMTP id 1383C3200977;
- Thu, 26 Jan 2023 16:03:04 -0500 (EST)
-Received: from imap51 ([10.202.2.101])
- by compute6.internal (MEProxy); Thu, 26 Jan 2023 16:03:07 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
- :cc:content-type:date:date:from:from:in-reply-to:in-reply-to
- :message-id:mime-version:references:reply-to:sender:subject
- :subject:to:to; s=fm2; t=1674766984; x=1674853384; bh=WrcQCPREYu
- exE+bSRUWehMh+31rnbUdZUAUeCq+X5EQ=; b=FsgImuYqVdAY6hA4khfZyuZ588
- 8+/NO5deukjqXQXbOT7+8WCd4SwSySkPxbHaDH5kExAs2qrlmzdD1ZcB6fKex2s1
- 7j4tibaMvYpv7fWkOBhR/nZkP+a3paj2Jdm1kYrV2EtXN9VHlxWaGiEPsaDKgDzd
- K1vtAjdIDarLMQTBeucmnrIc6jTHBKOIZDRxcUglQqY/JsbzsCJ65KbVe7VJB4de
- 9FP4NTnmOQpmQL/j73G+fcyM3ob71VCn13XQFtgf8NjfLhw1X4R5FvsLxfkFYhDc
- 0o1LM0pUt5H6l+RseKQZ4PPc3cpYIwc9IUwyzqFDcm5WORvpj4o9dA2A3AKw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
- :feedback-id:from:from:in-reply-to:in-reply-to:message-id
- :mime-version:references:reply-to:sender:subject:subject:to:to
- :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm3; t=1674766984; x=1674853384; bh=WrcQCPREYuexE+bSRUWehMh+31rn
- bUdZUAUeCq+X5EQ=; b=o0V97d1b6TZ34cN2bFdVEmXD1wdcZShcPeWYGhhFF1Qw
- Uz5LKCbImuiwFOxbewUa24HMEJzTCf3Oysltsj0PHxO23gEAEbRb3IMIIAqdVEWI
- bEcMbS/AEOKVKoDkYDYEudwSOynHuxedcAwAxmhccVJXB521CLiMmn5PIhkt1OFz
- C6gZv5cIwaUajJEyuy/tcyfZZx88E72fONpBPFOhdERr3GpNCddGS5jNXRNOH9Uw
- pdgYHDdFwxp+zBsiRx2lWfPNeJL2rGMh3GA9uhogYirPFuGSkLbgv8nOxhgDE2bG
- eems64RMg6EGs+rfEgVXNelDzluPxoRlslp1/oWDHA==
-X-ME-Sender: <xms:h-rSY2ZH66UQzp2syEzlZZW7gVCMlLeefnOgOCw9neuQNTFvAMy3hQ>
- <xme:h-rSY5YmUZWtyG3jGvHdcSgShcM4x743DrthUCVxB1-nO-5v0XgaqhnBk7wVld-iG
- 6FpsI0D6JE1M2TIPUo>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedruddvgedgudeghecutefuodetggdotefrod
- ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
- necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
- enucfjughrpefofgggkfgjfhffhffvvefutgesthdtredtreertdenucfhrhhomhepfdet
- rhhnugcuuegvrhhgmhgrnhhnfdcuoegrrhhnugesrghrnhgusgdruggvqeenucggtffrrg
- htthgvrhhnpeffheeugeetiefhgeethfejgfdtuefggeejleehjeeutefhfeeggefhkedt
- keetffenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpe
- grrhhnugesrghrnhgusgdruggv
-X-ME-Proxy: <xmx:h-rSYw-K4BmPuY5VinRfLrf_w26fzNbzadaWJtf6UOnJSvAs_gBRcw>
- <xmx:h-rSY4quW02Gdbl6SAWwBuo0SuY9vdM15XKTbhXeuafY2KKjaFpwiQ>
- <xmx:h-rSYxoRVR4HnB4qg5uQCB9YH5MPAo8L_PiCQVzlhKCezvmyLXDehQ>
- <xmx:iOrSYyQ06xloNcfR-gcNTwLCXjWhOhtdosjUY9xSOKuotyjB4MFSPw>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.nyi.internal (Postfix, from userid 501)
- id CA682B60086; Thu, 26 Jan 2023 16:03:03 -0500 (EST)
-X-Mailer: MessagingEngine.com Webmail Interface
-User-Agent: Cyrus-JMAP/3.9.0-alpha0-85-gd6d859e0cf-fm-20230116.001-gd6d859e0
-Mime-Version: 1.0
-Message-Id: <077f90df-0e0b-4844-8492-1d825262a0f6@app.fastmail.com>
-In-Reply-To: <20230118172940.841094-1-patrick.delaunay@foss.st.com>
-References: <20230118172940.841094-1-patrick.delaunay@foss.st.com>
-Date: Thu, 26 Jan 2023 22:02:43 +0100
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Patrick Delaunay" <patrick.delaunay@foss.st.com>,
- "Alexandre Torgue" <alexandre.torgue@foss.st.com>,
- "Rob Herring" <robh+dt@kernel.org>,
- "Krzysztof Kozlowski" <krzysztof.kozlowski+dt@linaro.org>,
- "Maxime Coquelin" <mcoquelin.stm32@gmail.com>,
- "Srinivas Kandagatla" <srinivas.kandagatla@linaro.org>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Etienne CARRIERE <etienne.carriere@linaro.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v6 0/3] nvmem: stm32: add OP-TEE support
-	for STM32MP13x
+ Fri, 27 Jan 2023 09:37:55 +0000 (UTC)
+Received: by mail-wr1-f41.google.com with SMTP id q10so4412800wrm.4
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 27 Jan 2023 01:37:55 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=yksAV7yHL3wN3w9c8k40mCMMPiyV1hd99TyFgaBpDUE=;
+ b=Q1IgsFXQgA4vRbKnGHEV09YcIKYNHOU6wbfDCYOa/8oRhBoDcw6DOo3ZtKEAlh/hVz
+ DJXrF3MPff5EwbaLVr5ax7Z1ASkgVRgaqhrum6TGTC4BF4AzSIDJb3HMsnFv3BL0KI6/
+ hDyRGvdPoXOnHloSa515sLqxxEYhkDAy5I3adl8lqK6S6sLoLLXSpvC4rxcCWqU2ePVU
+ g4M/iYrz5B1PflrG4UZ8+Cg4sFR761tiBYlxlG4aqy9XJdeCYl+0isoKHa/U8upK4wMy
+ xZmtzVlG9Z1mYf0Zgf3inLuQupaVfE7vsRrndR0C/EA1zbyvM6leuc7wKxEh9L+cR0JY
+ QEjA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=yksAV7yHL3wN3w9c8k40mCMMPiyV1hd99TyFgaBpDUE=;
+ b=C79FiPJZnGQ6dvDpl6HbyHMkI248Bpq8VxWOMfsBYOvgOwFPf859D88OevgBpwfwmf
+ 1tXOzE95lyjVFt6FIa6Sw18QOIxG9wRmXwmJZkG5rW5FtQMTnmCdhJQJsT9JxmXesYvl
+ PDq+kkxU3cmPCs8PdgBc67kDPHJtmT9yoITLIrCwyVESnEq1M+z/GQmdQQC5dKPz54ZK
+ 6JtBBO3XnY2zPQ1HO6PfyJtt3FW+R2IEpjug7oK7BP0tVGt3CHGath5Wsn1MWzKSc5P+
+ gIxEiUwIgvRS13rOX66ap1ntqecko8KURk1F3O8f+zmEeaPsDvica0s9DI34nFkmZdja
+ zaDQ==
+X-Gm-Message-State: AO0yUKV5At5QIEvUYVTHAqvF4DKDS6DHn74c00hAK0Hc6dT13lkMHc1d
+ VR0OkgMMgpNijhD/fc+quzWbJw==
+X-Google-Smtp-Source: AK7set88fvpm7mZ/TBDrWIqtjTBm/K9NABW+jcJf7uWpwGFZ9Oh/xUoCN/DyAVGGqWyO2zpOiFJfPA==
+X-Received: by 2002:a5d:65cd:0:b0:2bf:bd43:aacc with SMTP id
+ e13-20020a5d65cd000000b002bfbd43aaccmr7088381wrw.55.1674812274879; 
+ Fri, 27 Jan 2023 01:37:54 -0800 (PST)
+Received: from [192.168.1.109] ([178.197.216.144])
+ by smtp.gmail.com with ESMTPSA id
+ n6-20020a7bcbc6000000b003d237d60318sm3842947wmi.2.2023.01.27.01.37.52
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 27 Jan 2023 01:37:54 -0800 (PST)
+Message-ID: <7e941a2d-25d9-44e0-7438-13225c87d8ac@linaro.org>
+Date: Fri, 27 Jan 2023 10:37:49 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.7.1
+To: Hans Verkuil <hverkuil-cisco@xs4all.nl>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>
+References: <20221208103115.25512-1-krzysztof.kozlowski@linaro.org>
+ <cd803c70-faf0-963e-fca3-0edd13fa8a29@linaro.org>
+ <c092c11f-870f-6520-ad89-001468ed59dc@xs4all.nl>
+Content-Language: en-US
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <c092c11f-870f-6520-ad89-001468ed59dc@xs4all.nl>
+Cc: Thierry Reding <thierry.reding@gmail.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Marek Szyprowski <m.szyprowski@samsung.com>, linux-samsung-soc@vger.kernel.org,
+ Kevin Hilman <khilman@baylibre.com>, Jonathan Hunter <jonathanh@nvidia.com>,
+ Jeff Chase <jnchase@google.com>, Joe Tessler <jrt@google.com>,
+ Jerome Brunet <jbrunet@baylibre.com>, linux-media@vger.kernel.org,
+ devicetree@vger.kernel.org,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Rob Herring <robh+dt@kernel.org>, linux-tegra@vger.kernel.org,
+ linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Yannick Fertre <yannick.fertre@foss.st.com>, linux-kernel@vger.kernel.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH v4 0/9] media: dt-bindings: common CEC
+	properties
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,66 +96,33 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, Jan 18, 2023, at 18:29, Patrick Delaunay wrote:
+On 13/01/2023 10:04, Hans Verkuil wrote:
+> Hi Krzysztof,
 > 
-> +config NVMEM_STM32_BSEC_OPTEE_TA
-> +	bool "STM32MP BSEC OP-TEE TA support for nvmem-stm32-romem driver"
-> +	depends on OPTEE
-> +	help
-> +	  Say y here to enable the accesses to STM32MP SoC OTPs by the OP-TEE
-> +	  trusted application STM32MP BSEC.
-> +
-> +	  This library is a used by stm32-romem driver or included in the 
-> module
-> +	  called nvmem-stm32-romem.
-> +
->  config NVMEM_STM32_ROMEM
->  	tristate "STMicroelectronics STM32 factory-programmed memory support"
->  	depends on ARCH_STM32 || COMPILE_TEST
-> +	imply NVMEM_STM32_BSEC_OPTEE_TA
->  	help
->  	  Say y here to enable read-only access for STMicroelectronics STM32
->  	  factory-programmed memory area.
+> On 13/01/2023 09:59, Krzysztof Kozlowski wrote:
+>> On 08/12/2022 11:31, Krzysztof Kozlowski wrote:
+>>> Hi,
+>>>
+>>> Changes since v3
+>>> ================
+>>> 1. cec-gpio: Add missing SPDX.
+>>> 2. nvidia,tegra114-cec: Correct path in maintainers.
+>>>
+>>
+>>
+>> Mauro (and maybe Hans?), any comments here. Can you apply the patchset?
+> 
+> No comments yet. I plan to review and likely merge this next week.
 
-This is now causing a link failure with CONFIG_OPTEE=m if
-NVMEM_STM32_ROMEM is built-in. My guess is that you saw something
-like that earlier and someone recommended using the 'imply' keyword
-without understanding what it does (no worries, nobody understands it).
+Hi Hans,
 
-I've prepared a patch now based on the most likely interpretation
-of what you actually meant here:
+I hope they didn't get forgotten and you still have a plan to look at
+these. Patchwork shows they are waiting for review:
+https://patchwork.kernel.org/project/linux-media/patch/20221208103115.25512-2-krzysztof.kozlowski@linaro.org/
 
-diff --git a/drivers/nvmem/Kconfig b/drivers/nvmem/Kconfig
-index ed8ef7460be2..ae2c5257ed97 100644
---- a/drivers/nvmem/Kconfig
-+++ b/drivers/nvmem/Kconfig
-@@ -295,8 +295,7 @@ config NVMEM_SPRD_EFUSE
-          will be called nvmem-sprd-efuse.
- 
- config NVMEM_STM32_BSEC_OPTEE_TA
--       bool "STM32MP BSEC OP-TEE TA support for nvmem-stm32-romem driver"
--       depends on OPTEE
-+       def_bool NVMEM_STM32_ROMEM && OPTEE
-        help
-          Say y here to enable the accesses to STM32MP SoC OTPs by the OP-TEE
-          trusted application STM32MP BSEC.
-@@ -307,7 +306,7 @@ config NVMEM_STM32_BSEC_OPTEE_TA
- config NVMEM_STM32_ROMEM
-        tristate "STMicroelectronics STM32 factory-programmed memory support"
-        depends on ARCH_STM32 || COMPILE_TEST
--       imply NVMEM_STM32_BSEC_OPTEE_TA
-+       depends on OPTEE || !OPTEE
-        help
-          Say y here to enable read-only access for STMicroelectronics STM32
-          factory-programmed memory area.
+Best regards,
+Krzysztof
 
-This enables NVMEM_STM32_BSEC_OPTEE_TA whenever OPTEE is
-available, but prevents the link error by forcing NVMEM_STM32_ROMEM
-to also be a loadable module if that is how OPTEE is built.
-
-I'll send that if it passes the randconfig builds over night.
-
-      Arnd
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
