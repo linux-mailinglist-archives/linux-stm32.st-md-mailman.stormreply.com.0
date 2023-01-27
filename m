@@ -2,81 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 479C367EBCF
-	for <lists+linux-stm32@lfdr.de>; Fri, 27 Jan 2023 18:02:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 775FA67EF70
+	for <lists+linux-stm32@lfdr.de>; Fri, 27 Jan 2023 21:20:44 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EB882C65E4B;
-	Fri, 27 Jan 2023 17:02:07 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 29474C65E4B;
+	Fri, 27 Jan 2023 20:20:44 +0000 (UTC)
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com
+ [209.85.128.53])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 240DEC64110
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A6B35C6507E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 27 Jan 2023 17:02:06 +0000 (UTC)
-Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 30REGmZ8019692; Fri, 27 Jan 2023 18:01:06 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=QNH1ux7cYrF5KW+Ey5DCbKnkWudemJAed1CdOisOzwU=;
- b=aWrFglN6WN9lJ9UfkuNRCOf+eZLqOK/K/MwebDvkvlJ9BbraR7IaDQjfWJsuxG3qEl+w
- /zcbla1ATkb34/cgfv+jY98hV15W4tnl5ImuyPNlwMV+YJAdJjbH1aopG15aLRkh8wmM
- l4dhdDRjV+hC6xAWQteP9ugkWvZRUn+2SbiSOelz6JrhmEzzjMybo5hBxA3Bcimg9qnY
- zdsENVEPxj6CymobQqyNOE70uQpKyrM9lu7NqbOzhejcg3jASSLXeSHG2+UOFLtTC114
- gDpaZ6/KFUEeQG46+8MaDOHr4QDhzeheFE/3snJXRXDYFzO0erPQuMETrlvse78cpBw2 ww== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3n89chde7x-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 27 Jan 2023 18:01:06 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 8FD5D100039;
- Fri, 27 Jan 2023 18:00:43 +0100 (CET)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 6F28D21F0C6;
- Fri, 27 Jan 2023 18:00:43 +0100 (CET)
-Received: from [10.201.21.177] (10.201.21.177) by SHFDAG1NODE1.st.com
- (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.13; Fri, 27 Jan
- 2023 18:00:40 +0100
-Message-ID: <179fe90c-0ac9-bb43-6e49-8b1d7ec520df@foss.st.com>
-Date: Fri, 27 Jan 2023 18:00:39 +0100
+ Fri, 27 Jan 2023 20:20:43 +0000 (UTC)
+Received: by mail-wm1-f53.google.com with SMTP id m15so4216198wms.4
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 27 Jan 2023 12:20:43 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=MQJZG/xKcCJsVsFDHrDpLNHly5wPWcC1lO6W1/tImAQ=;
+ b=XLswvSn0iWJEiVX86b3AojUKI6gFD+xJfDL0WBc+eU64CJKFU/9zPdXobp2My2DRdM
+ qY792thqiotAKFM+YmxxS1AievxqjzritonPJ9vyD5RVNPW8QsNK9/bnYCMPFgYGQIPZ
+ SgOLFmJr1a+jhEFFCISU1l/G5+HrMaL+nf2FoQSyUlicGwJmjOFy/3qFDXCXJJcZ+yw0
+ IOf1Sf76AUWDCEu0hyxRIfL2Iv3E1jn5Zf/q1ALJYV/gamGrUad5eK6eeEyDE+qIGscb
+ tA0Z3USSOxPo8ThdS8K4e+CaEZizIxxSwiyYQvd26m9e6VliSuaHPjKitpiLhGHMc8vZ
+ IUVQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=MQJZG/xKcCJsVsFDHrDpLNHly5wPWcC1lO6W1/tImAQ=;
+ b=XMO36UcxMJEnP3yIA/4Ys7jkvdKUFhc1OyJecqELmzY5XtkoG3jVfjYNQ6DMYeBcZX
+ J+gq5cknl7+arlGhCtbOKjsCFpPA7xG1rXWXG8XZSzdXuI0ru2Rt1iBLALvg1vu3H+7C
+ 6/27NOu55HCyNbDFjU1zRqV9XFicQ8EAUtcc+Ae2S3TDFCjLEuaanKMlV82oLUC9vcmD
+ BqwUciN/cVYMDRdTnQOU0pR8vtM3bVPWY3e6ib2C2O3ssguiiD0RI6geIwyQgSi5v16c
+ 66UY5hnl7RkHjbdAG7FIIGEbp/4IVowjv7A+W2B6qHwwR4Sjblg639vppDX7ku0+ylCq
+ /ujg==
+X-Gm-Message-State: AFqh2kra6FlTaAdGolhjIAo7RyeSvrOAedtpU7rMdEsGbVMTgUyvdJqF
+ 6nmH3nl/kIdoOExtMSn3GNSXjA==
+X-Google-Smtp-Source: AMrXdXuNRILKOhT1cKmkeLlOlAI5U7DaEFjqsMn3TViTMRmv1RGPuc0oBtcBH0u3ppdFai6vxu/YCA==
+X-Received: by 2002:a05:600c:540d:b0:3d9:fb59:c16b with SMTP id
+ he13-20020a05600c540d00b003d9fb59c16bmr37938172wmb.36.1674850843204; 
+ Fri, 27 Jan 2023 12:20:43 -0800 (PST)
+Received: from krzk-bin.. ([178.197.216.144]) by smtp.gmail.com with ESMTPSA id
+ t1-20020adfe441000000b002bfd524255esm2116881wrm.43.2023.01.27.12.20.41
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 27 Jan 2023 12:20:42 -0800 (PST)
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ linux-input@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Date: Fri, 27 Jan 2023 21:20:40 +0100
+Message-Id: <20230127202040.196411-1-krzysztof.kozlowski@linaro.org>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.2
-Content-Language: en-US
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- <Oleksii_Moisieiev@epam.com>, <gregkh@linuxfoundation.org>,
- <herbert@gondor.apana.org.au>, <davem@davemloft.net>,
- <robh+dt@kernel.org>, <krzysztof.kozlowski+dt@linaro.org>,
- <alexandre.torgue@foss.st.com>, <vkoul@kernel.org>, <jic23@kernel.org>,
- <olivier.moysan@foss.st.com>, <arnaud.pouliquen@foss.st.com>,
- <mchehab@kernel.org>, <fabrice.gasnier@foss.st.com>,
- <ulf.hansson@linaro.org>, <edumazet@google.com>, <kuba@kernel.org>,
- <pabeni@redhat.com>
-References: <20230127164040.1047583-1-gatien.chevallier@foss.st.com>
- <20230127164040.1047583-2-gatien.chevallier@foss.st.com>
- <1e498b93-d3bd-bd12-e991-e3f4bedf632d@linaro.org>
-From: Gatien CHEVALLIER <gatien.chevallier@foss.st.com>
-In-Reply-To: <1e498b93-d3bd-bd12-e991-e3f4bedf632d@linaro.org>
-X-Originating-IP: [10.201.21.177]
-X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SHFDAG1NODE1.st.com
- (10.75.129.69)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.219,Aquarius:18.0.930,Hydra:6.0.562,FMLib:17.11.122.1
- definitions=2023-01-27_10,2023-01-27_01,2022-06-22_01
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-iio@vger.kernel.org, netdev@vger.kernel.org, linux-usb@vger.kernel.org,
- linux-mmc@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-spi@vger.kernel.org, linux-phy@lists.infradead.org,
- linux-crypto@vger.kernel.org, linux-serial@vger.kernel.org,
- dmaengine@vger.kernel.org, linux-media@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- linux-i2c@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH v3 1/6] dt-bindings: Document common
- device controller bindings
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Subject: [Linux-stm32] [PATCH] dt-bindings: input: touchscreen: st,
+	stmfts: convert to dtschema
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,47 +76,150 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello Krzysztof,
+Convert the ST-Microelectronics FingerTip touchscreen controller
+bindings to DT schema.
 
-On 1/27/23 17:49, Krzysztof Kozlowski wrote:
-> On 27/01/2023 17:40, Gatien Chevallier wrote:
->> From: Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>
->>
->> Introducing of the common device controller bindings for the controller
->> provider and consumer devices. Those bindings are intended to allow
->> divided system on chip into muliple domains, that can be used to
->> configure hardware permissions.
->>
->> Signed-off-by: Oleksii Moisieiev <oleksii_moisieiev@epam.com>
->> ---
->>
->> No change since V1. I'm letting this patch for dependency with bindings to
->> avoid noise with dt/bindings checks. Therefore, it should be reviewed on the
->> appropriate thread.
-> 
-> There was a v6 already, this is v3 and I don't understand this comment.
-> What do you let? Whom? If it is not for review and not for merging,
-> please annotate it in the title ([IGNORE PATCH] or something).
-> 
+Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+---
+ .../bindings/input/touchscreen/st,stmfts.txt  | 41 -----------
+ .../bindings/input/touchscreen/st,stmfts.yaml | 72 +++++++++++++++++++
+ 2 files changed, 72 insertions(+), 41 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/input/touchscreen/st,stmfts.txt
+ create mode 100644 Documentation/devicetree/bindings/input/touchscreen/st,stmfts.yaml
 
-Sorry for not being clear in the previous comment.
+diff --git a/Documentation/devicetree/bindings/input/touchscreen/st,stmfts.txt b/Documentation/devicetree/bindings/input/touchscreen/st,stmfts.txt
+deleted file mode 100644
+index 0a5d0cb4a280..000000000000
+--- a/Documentation/devicetree/bindings/input/touchscreen/st,stmfts.txt
++++ /dev/null
+@@ -1,41 +0,0 @@
+-* ST-Microelectronics FingerTip touchscreen controller
+-
+-The ST-Microelectronics FingerTip device provides a basic touchscreen
+-functionality. Along with it the user can enable the touchkey which can work as
+-a basic HOME and BACK key for phones.
+-
+-The driver supports also hovering as an absolute single touch event with x, y, z
+-coordinates.
+-
+-Required properties:
+-- compatible		: must be "st,stmfts"
+-- reg			: I2C slave address, (e.g. 0x49)
+-- interrupts		: interrupt specification
+-- avdd-supply		: analogic power supply
+-- vdd-supply		: power supply
+-- touchscreen-size-x	: see touchscreen.txt
+-- touchscreen-size-y	: see touchscreen.txt
+-
+-Optional properties:
+-- touch-key-connected	: specifies whether the touchkey feature is connected
+-- ledvdd-supply		: power supply to the touch key leds
+-
+-Example:
+-
+-i2c@00000000 {
+-
+-	/* ... */
+-
+-	touchscreen@49 {
+-		compatible = "st,stmfts";
+-		reg = <0x49>;
+-		interrupt-parent = <&gpa1>;
+-		interrupts = <1 IRQ_TYPE_NONE>;
+-		touchscreen-size-x = <1599>;
+-		touchscreen-size-y = <2559>;
+-		touch-key-connected;
+-		avdd-supply = <&ldo30_reg>;
+-		vdd-supply = <&ldo31_reg>;
+-		ledvdd-supply = <&ldo33_reg>;
+-	};
+-};
+diff --git a/Documentation/devicetree/bindings/input/touchscreen/st,stmfts.yaml b/Documentation/devicetree/bindings/input/touchscreen/st,stmfts.yaml
+new file mode 100644
+index 000000000000..c593ae63d0ec
+--- /dev/null
++++ b/Documentation/devicetree/bindings/input/touchscreen/st,stmfts.yaml
+@@ -0,0 +1,72 @@
++# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/input/touchscreen/st,stmfts.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: ST-Microelectronics FingerTip touchscreen controller
++
++maintainers:
++  - Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
++
++description:
++  The ST-Microelectronics FingerTip device provides a basic touchscreen
++  functionality. Along with it the user can enable the touchkey which can work
++  as a basic HOME and BACK key for phones.
++
++allOf:
++  - $ref: touchscreen.yaml#
++
++properties:
++  compatible:
++    const: st,stmfts
++
++  reg:
++    maxItems: 1
++
++  avdd-supply:
++    description: Analogic power supply
++
++  interrupts:
++    maxItems: 1
++
++  ledvdd-supply:
++    description: Power supply to the touch key leds
++
++  touch-key-connected:
++    type: boolean
++    description: The touchkey feature is connected
++
++  vdd-supply:
++    description: Power supply
++
++required:
++  - compatible
++  - reg
++  - avdd-supply
++  - interrupts
++  - vdd-supply
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/irq.h>
++
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        touchscreen@49 {
++            compatible = "st,stmfts";
++            reg = <0x49>;
++            interrupt-parent = <&gpa1>;
++            interrupts = <1 IRQ_TYPE_LEVEL_LOW>;
++            touchscreen-size-x = <1599>;
++            touchscreen-size-y = <2559>;
++            touch-key-connected;
++            avdd-supply = <&ldo30_reg>;
++            vdd-supply = <&ldo31_reg>;
++            ledvdd-supply = <&ldo33_reg>;
++        };
++    };
+-- 
+2.34.1
 
-I meant I'm letting this patch in this patch set so the dependencies on 
-the feature-domain-controller.yaml file are satisfied.
-
-I will annotate it with [IGNORE PATCH], as you suggest.
-
-> Best regards,
-> Krzysztof
-> 
-
-Best regards,
-Gatien
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
