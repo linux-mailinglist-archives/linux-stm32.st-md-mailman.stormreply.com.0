@@ -2,35 +2,35 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 38C01680FE7
-	for <lists+linux-stm32@lfdr.de>; Mon, 30 Jan 2023 14:57:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1030A680FEA
+	for <lists+linux-stm32@lfdr.de>; Mon, 30 Jan 2023 14:58:01 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BFA0FC65E6E;
-	Mon, 30 Jan 2023 13:57:57 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CBEECC6904F;
+	Mon, 30 Jan 2023 13:58:00 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 63B70C0D2C0
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3583AC6904E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 30 Jan 2023 13:57:56 +0000 (UTC)
+ Mon, 30 Jan 2023 13:57:59 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 2CF3A6101F;
- Mon, 30 Jan 2023 13:57:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 237FDC4339C;
- Mon, 30 Jan 2023 13:57:53 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 386C861025;
+ Mon, 30 Jan 2023 13:57:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F7E8C433EF;
+ Mon, 30 Jan 2023 13:57:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1675087074;
- bh=6yS6fNW8Jxu+oB/VWrxWiGiK7fSGXIMdM5q2rf6Ie6o=;
+ s=korg; t=1675087077;
+ bh=+a3tfVkBN15k26p/C7KwJlvLgkXgoqfTjjHM/nKYVjA=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=YGHOc5UfsBTA1e9etNgDGQTrHHfNlLUSjw1ox3B9VAjm/5DtSVjbwsCRgHiqvUdMd
- fqO/x8TpwYX/GbekTo0DNXKFMKVF6/vTQC4CjFvm/djD1KxjVGqysHnpaKpCQjeKSL
- iZR4m4FnzOBI/PBJ1DkXjquhW12uq2y7vjIUZsTA=
+ b=AWCtNF/tTADYuYHU1WuXZjxfvyDIhoBG+Qrm6T4nXork1r5fMYPeWiyRDzBK5K0vC
+ PwOedj1kskb0PiKRTFVOPbgLpUJHfGfyzo4MV/LSgV8seMKCw5Dypxb6M/gB723X6z
+ QTKFqfog1ntwVZ2L0tmDJtVKfZo1KhqAV0hrZvAg=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Date: Mon, 30 Jan 2023 14:48:43 +0100
-Message-Id: <20230130134340.742022119@linuxfoundation.org>
+Date: Mon, 30 Jan 2023 14:48:44 +0100
+Message-Id: <20230130134340.790080508@linuxfoundation.org>
 X-Mailer: git-send-email 2.39.1
 In-Reply-To: <20230130134336.532886729@linuxfoundation.org>
 References: <20230130134336.532886729@linuxfoundation.org>
@@ -40,8 +40,8 @@ Cc: Marek Vasut <marex@denx.de>, Sasha Levin <sashal@kernel.org>,
  Alexandre Torgue <alexandre.torgue@st.com>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>, patches@lists.linux.dev,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 6.1 088/313] ARM: dts: stm32: Fix qspi pinctrl
-	phandle for stm32mp15xx-dhcor-som
+Subject: [Linux-stm32] [PATCH 6.1 089/313] ARM: dts: stm32: Fix qspi pinctrl
+	phandle for stm32mp15xx-dhcom-som
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,7 +60,7 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 From: Patrice Chotard <patrice.chotard@foss.st.com>
 
-[ Upstream commit 7ffd2266bd32d9f31a4e918443c733906cff0d19 ]
+[ Upstream commit 21d83512bf2bd25ebed467151fd2bcd0cca7dc9a ]
 
 Chip select pinctrl phandle was missing in several stm32mp15x based boards.
 
@@ -75,14 +75,14 @@ Reviewed-by: Marek Vasut <marex@denx.de>
 Signed-off-by: Alexandre Torgue <alexandre.torgue@foss.st.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/arm/boot/dts/stm32mp15xx-dhcor-som.dtsi | 8 ++++++--
+ arch/arm/boot/dts/stm32mp15xx-dhcom-som.dtsi | 8 ++++++--
  1 file changed, 6 insertions(+), 2 deletions(-)
 
-diff --git a/arch/arm/boot/dts/stm32mp15xx-dhcor-som.dtsi b/arch/arm/boot/dts/stm32mp15xx-dhcor-som.dtsi
-index 134a798ad3f2..bb40fb46da81 100644
---- a/arch/arm/boot/dts/stm32mp15xx-dhcor-som.dtsi
-+++ b/arch/arm/boot/dts/stm32mp15xx-dhcor-som.dtsi
-@@ -247,8 +247,12 @@ &pwr_regulators {
+diff --git a/arch/arm/boot/dts/stm32mp15xx-dhcom-som.dtsi b/arch/arm/boot/dts/stm32mp15xx-dhcom-som.dtsi
+index 238a611192e7..d3b85a8764d7 100644
+--- a/arch/arm/boot/dts/stm32mp15xx-dhcom-som.dtsi
++++ b/arch/arm/boot/dts/stm32mp15xx-dhcom-som.dtsi
+@@ -428,8 +428,12 @@ &pwr_regulators {
  
  &qspi {
  	pinctrl-names = "default", "sleep";
@@ -94,7 +94,7 @@ index 134a798ad3f2..bb40fb46da81 100644
 +	pinctrl-1 = <&qspi_clk_sleep_pins_a
 +		     &qspi_bk1_sleep_pins_a
 +		     &qspi_cs1_sleep_pins_a>;
- 	reg = <0x58003000 0x1000>, <0x70000000 0x200000>;
+ 	reg = <0x58003000 0x1000>, <0x70000000 0x4000000>;
  	#address-cells = <1>;
  	#size-cells = <0>;
 -- 
