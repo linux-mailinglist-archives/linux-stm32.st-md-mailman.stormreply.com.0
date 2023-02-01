@@ -2,48 +2,110 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 95E8B686422
-	for <lists+linux-stm32@lfdr.de>; Wed,  1 Feb 2023 11:25:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 61C7A686480
+	for <lists+linux-stm32@lfdr.de>; Wed,  1 Feb 2023 11:39:39 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 47381C6904B;
-	Wed,  1 Feb 2023 10:25:16 +0000 (UTC)
-Received: from www530.your-server.de (www530.your-server.de [188.40.30.78])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 22C2DC6904F;
+	Wed,  1 Feb 2023 10:39:39 +0000 (UTC)
+Received: from EUR04-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur04on2041.outbound.protection.outlook.com [40.107.8.41])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8F343C640E6
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0DC8DC65E42
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  1 Feb 2023 10:25:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=geanix.com; 
- s=default2211; h=To:Date:Message-Id:Subject:Mime-Version:
- Content-Transfer-Encoding:Content-Type:From:Sender:Reply-To:Cc:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:In-Reply-To:References;
- bh=rYkvomKGi0Jf8vL6lvpAW6MC8L3j2zw9eum1VJ+uKq8=; b=MQVzAlfocI/+tQTyh3gPPuBsIV
- 5xrUe5vroLJpK7EyU8Ykvr7ZVDIhalOPAefh4BACGTHaw1bvEoVApjsZ0tJKMDUR9uOxKfMLbH2a+
- CDB1SAFpKaqtEcT9UuHYsZCUPWBHVKCvfHTNE4pDZVxdDwUybjHUsV8AXBAq93GKU+G78YJ8F3KK8
- uzQY7m9dggrfmZ0acr+fjDZ86vwRzY1IkDVt/21UrVmHkDuh6I953Jh3OfR5Hf+I/SPHa/6z1eNYY
- j7s5DPqAa3yP5o2wlWc3Vab+Ah7i7bePfjCNSa8k5oL/y3eY9HseazXsNq27vmOGorFW2yPzrI/tV
- Ed1zYJ8w==;
-Received: from sslproxy05.your-server.de ([78.46.172.2])
- by www530.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
- (Exim 4.94.2) (envelope-from <sean@geanix.com>)
- id 1pNAIh-000PiW-Ja; Wed, 01 Feb 2023 11:25:12 +0100
-Received: from [185.17.218.86] (helo=smtpclient.apple)
- by sslproxy05.your-server.de with esmtpsa
- (TLSv1.2:ECDHE-RSA-AES256-GCM-SHA384:256) (Exim 4.92)
- (envelope-from <sean@geanix.com>)
- id 1pNAIh-0002fn-RZ; Wed, 01 Feb 2023 11:25:11 +0100
-From: =?utf-8?Q?Sean_Nyekj=C3=A6r?= <sean@geanix.com>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3731.300.101.1.3\))
-Message-Id: <36B1D79F-1CF0-467C-A65F-5CA5A2174BC0@geanix.com>
-Date: Wed, 1 Feb 2023 11:25:01 +0100
-To: linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, mcoquelin.stm32@gmail.com,
- alexandre.torgue@foss.st.com
-X-Mailer: Apple Mail (2.3731.300.101.1.3)
-X-Authenticated-Sender: sean@geanix.com
-X-Virus-Scanned: Clear (ClamAV 0.103.7/26799/Wed Feb  1 09:42:06 2023)
-Subject: [Linux-stm32] STM32MP1 Backup registers
+ Wed,  1 Feb 2023 10:39:31 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=d8nwaQ6cLvJNzCrM9+G/9jG6ptw6rLVW/gZtahiOd0KykBAih6tgjkmJRMbUDqI0i/wJqp+pflXgLLAtidkj4TuGMSISrA3A/T2D65O4wsIAO2wQhJifuqP/aQMsLLrHSFkdw8jZtUNdMAR4FJ/Mm/kxUqytIMrxLNYRq4nWcoJfDrcMufsmOObgzSf2rRa9fNChAW0hMGsr5j4peTeWzseHaJja7FOFCCCYUMRquSyyMf4pOloKfyYmjfkQOsLflzEs1HbAllFuDakk7gBbmcXcfgl6okVo/UiSB3y8yFzsLBPGyZqSF53lhI53Jk3j0/VAKKEp8TI8rWgt5BPbcQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=664vzMskWXzAS5U3l6IEbrlcnIYgZwaDh9zGQRxj1wI=;
+ b=G3xW92rIcTqnPHxkKoyHXGgn51HI5ZVfK1F+JdXHIAPf/hlrxM2fGC5B0lEDm6YXibuG8KAAca2Bw/PcehUTZF/grOZ0MlHo5mYa5nQEUvN/tDYTae/tPzX61m2PiyN5TwXvJpy/Naa31sHHy+9hBuj430bTjHL9JFKn5gKRDtFD07GQYUtboGI8dpb4Ob6Xca5phWwqvR8YXHURu8Dlhcaoc/kWq5yu85KOmfkgptLwlf+fcI4vbqBliqhVUn6E7sVe7FOPTN+Z534CdoKmrrCtrWlL3WmVV5DxFBxwBgh/fq7CGBmmGJkEcp5TQxzxcak3ZIB4NA8hEEyaE9hfvg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=664vzMskWXzAS5U3l6IEbrlcnIYgZwaDh9zGQRxj1wI=;
+ b=SPkIzKb1r8gX0paIT8xZUHl+Pq3ToSUoObtQy1Fkmatm8rt5gKtNEGE9Jx5BX1YrajnXMNfXloQqIQJr78G8MfoKYGkUDST16SoPf692MNdLvbctUIYoO9szGAqKClio21Kmq0C7zTpVLHvosJCJqaaBO7ud0nqRqh2h+jRLI/U=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from HE1PR0402MB2939.eurprd04.prod.outlook.com (2603:10a6:3:db::18)
+ by AS8PR04MB8263.eurprd04.prod.outlook.com (2603:10a6:20b:3f9::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6043.33; Wed, 1 Feb
+ 2023 10:39:29 +0000
+Received: from HE1PR0402MB2939.eurprd04.prod.outlook.com
+ ([fe80::4980:91ae:a2a8:14e1]) by HE1PR0402MB2939.eurprd04.prod.outlook.com
+ ([fe80::4980:91ae:a2a8:14e1%4]) with mapi id 15.20.6064.024; Wed, 1 Feb 2023
+ 10:39:28 +0000
+From: Clark Wang <xiaoning.wang@nxp.com>
+To: peppe.cavallaro@st.com, alexandre.torgue@foss.st.com, joabreu@synopsys.com,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+ pabeni@redhat.com, mcoquelin.stm32@gmail.com, linux@armlinux.org.uk,
+ andrew@lunn.ch, hkallweit1@gmail.com
+Date: Wed,  1 Feb 2023 18:38:36 +0800
+Message-Id: <20230201103837.3258752-1-xiaoning.wang@nxp.com>
+X-Mailer: git-send-email 2.34.1
+X-ClientProxiedBy: SGXP274CA0002.SGPP274.PROD.OUTLOOK.COM (2603:1096:4:b8::14)
+ To HE1PR0402MB2939.eurprd04.prod.outlook.com
+ (2603:10a6:3:db::18)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: HE1PR0402MB2939:EE_|AS8PR04MB8263:EE_
+X-MS-Office365-Filtering-Correlation-Id: 391e719c-1e5f-4108-5308-08db04409873
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: aBYFxDB/nF4SBUz2qlGp52aw89BHPnQ5M+dRJXdt4CRjNf9KFBLw1SHmuOmFf43owv16OenkRtkwx1gqSk7TtZnbUZ7ZzDZX8pj+ya8kexdu4kIo6t7JNy/WQLsv9Klov2C4Jjunb/m2smvHfNUSC8ETZHfg5Iyp1/3WV/wTE3YhUrUoWKiQSImXNNZQEndCf22e7A8KKPvzATsJcFZw9T9tFuv0DRMwqjrW8EDnIIUYfynYLy9L90tLTffgPr2Ho8C4AdVf1+SbWkWfcMBlDIQJ7H55fGi9qYjT5/pReXoc6NnJm1iM7l3bYo3cr1YJ0PTU0VxhvZtd3eguKbJrfwlMAa4FAYARGdg3seM0PwHgG4bazb7Vr6b1lPoK8jWzT73V0uEXHbLtcsX5YuYIS9Qjm5gbXprWMx3nJ7V3mpr1E/enttSmUF4RPjE6I8gpsOvUpIW9d4kB/u4ijdDCA4cxDzImTDYot8uzdiJu0spNSDJfxN7cqHMrr03qBD5EXU4rn71ip43UFIRBdq2bmjYePa89Crzu/CPvZWkRzGtiT8ev9hE4topYMC9iKltYBZAIqEJtIMZKf6FMA62yJJp0nkId9u0bNj1qQGUhga/ZFt1FSocWx6iRAWTndIBPPosnHfOuHjNzupd7FUhX7PH/WjfDrMoxJYCTdqybXnkFCZuCYsQHbBHpFfpN2gEn7/GQu0Cga7FhEVacGsAF82vxfTx4uM52qd3GCtnlrMg=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:HE1PR0402MB2939.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230025)(4636009)(396003)(376002)(366004)(136003)(39860400002)(346002)(451199018)(66476007)(4326008)(66556008)(8676002)(41300700001)(8936002)(316002)(6666004)(66946007)(5660300002)(83380400001)(7416002)(478600001)(1076003)(26005)(2906002)(36756003)(6486002)(6512007)(186003)(6506007)(2616005)(52116002)(86362001)(921005)(38100700002)(38350700002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?fiq929B41VrG5vAmApNqWp9NK9xQ8tzW5CR3rm8aSGcWDBrbdxE9zg32nE01?=
+ =?us-ascii?Q?wadaQrdPC9FPuj9SU+Mr9P1X3yagEKGKqx8UraKpxPOJKVjv+WqKtMkMa0Om?=
+ =?us-ascii?Q?V7G0ZB1b8PHQk45aHhZ9U01lchzCyg5xtd5omra6u5gtqVQW9FfiOk8wl4vY?=
+ =?us-ascii?Q?jvi9u2twdkwJ0aewQnHOTlfJvhA76ZMdCYh6oM6uFNTOED1uKsQ1AviVXtTV?=
+ =?us-ascii?Q?IIjicSIZ5SW+CItic7As4T6jdAUgCFHCTy6TjsZe7H93Y6JzYG1nhSvV/mr+?=
+ =?us-ascii?Q?gQdhX1kMAn/mUBqDmgO9ipDevetBI9Kh4Ws/6b12H8+cmOvPPwZMS+QSlytA?=
+ =?us-ascii?Q?7I6AHe0LTbT/A9fmENiyxl/5rCmxCzYO+/njO6bHNHvxNHiD+eBDt2PBaJn5?=
+ =?us-ascii?Q?HRoZ/ueRjhjseCHy2cZTvcHeYzdSdaxeLSO8+BUd9SrYYaWggh8/9KdnxwjZ?=
+ =?us-ascii?Q?OpKMb9RWLf8cqeCsqTl+7W+yCmCmc+BA0J6A5vkkDM2UjiL1exhOLUEciEhN?=
+ =?us-ascii?Q?Q4NCM1gZ3cHRZnDUXPGWEDE7g0UYu/a/zwUbOYZiPkFrIQWFGQJwz3DeK1xG?=
+ =?us-ascii?Q?zQjIIP2TmhxivLq2iHFXvIZAVzYePIuI8IRNETc1F1Kd4kwYNN+K/voDxLeg?=
+ =?us-ascii?Q?ASeuTv5UvzH4DJkJ5IV/RD9+KGu8MMAIVpfRaZGndh8SVQZaDEl7AhWRJfYY?=
+ =?us-ascii?Q?oBFMdIj2mO2mAd3/qqiEl0lpeI8BUWmnXHfZoZwPf0eoJ4p1wFlk+IlLO4b7?=
+ =?us-ascii?Q?g27h+ILIkE8spyJ2XDNdmSLFZhtaARlNYC/Yp/LYAU7W0bSplwd0VBMtg8dE?=
+ =?us-ascii?Q?qk/9nIYSXNOG3onQFSL2CfF0GYxvOqk6gNvOlxl1B/mCA8CTFn9k4BKIze/Y?=
+ =?us-ascii?Q?OTIu1GM0UM9N7gnR0rSL+w0H+R5ztK1ToU6WaXOpGn36u2AWTxOab+NBZ2SU?=
+ =?us-ascii?Q?uzrPDGp21LWNOOQUiA4tB3vuKV7i5VGi7PNpqLw/ksgfGt2WbMXGvaUEoon6?=
+ =?us-ascii?Q?8nk8xHkgqe367JEa5NJrexIVvanAkdUfHAhS02z4nkM6K+D4QT56GpQSjDIx?=
+ =?us-ascii?Q?u4ifp7rkeWt3/9kDGGsaQyiph4GYMCzYt+ZUsChRcPXTzH1sXmt0aaxejdQe?=
+ =?us-ascii?Q?G8iQ1DEYphqVYiBAYpBXnH4D1NCtM8fiZt0a+MiTmCsjV+UhkGz5T03OIYpW?=
+ =?us-ascii?Q?aQlv3groI0Vo5PeGrSPrnATIqIwK8KMCDmwukGLAUH0hK3kH9clw2ZBGuujB?=
+ =?us-ascii?Q?/Ac77uZnxP9m4ZcP2PcQQkUBOyaj4YFKFfyG0xFZy7SKuHqWXU1bK2Na6Mxr?=
+ =?us-ascii?Q?YIlwzlmJ3JiatwLJdmTHS3TCPmrntnIgKh4LpLKPNaClc8OmgLva6OhjeI+Y?=
+ =?us-ascii?Q?CAlQy1WZwRIv6uQuaxhEnZFwIysoCvQMBfuhyFzM+S+XSHE752HSuVBnNsBJ?=
+ =?us-ascii?Q?Stbp2bqRwpw23+NJQ3CnWMlT79UlzwXxH7J5WB9DkF1+XrzYTXmxSVmuMLov?=
+ =?us-ascii?Q?i8FnIHTf5ew7hMpjYX5IvrZcftHO8vz/BmoTqcKKT8qdHHCz+zHeD/kASUON?=
+ =?us-ascii?Q?wGEM3w+Myr4biHmQRuXvIKjNZo2uYCjk3d2q+Vi0dtgmgn04cbhdpejCUlFC?=
+ =?us-ascii?Q?zg=3D=3D?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 391e719c-1e5f-4108-5308-08db04409873
+X-MS-Exchange-CrossTenant-AuthSource: HE1PR0402MB2939.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Feb 2023 10:39:28.7825 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: eZSUWVl2wbPue29oJo7vgFPasAt5rlKUR9Gt3AGhF36TPXBO51dG1pTvjL4RfofRkipAUHzPS1pyVtHvL9D7ng==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8263
+Cc: netdev@vger.kernel.org, linux-imx@nxp.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Subject: [Linux-stm32] [PATCH V2 1/2] net: phylink: add a function to resume
+	phy alone to fix resume issue with WoL enabled
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -55,28 +117,125 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SGkgbGlzdCwKCldlIGFyZSB1c2luZyB0aGUgdS1ib290ICJib290IGNvdW50IiBmZWF0dXJlIHRv
-IHN0b3JlIHRoZSBib290IGNvdW50IGluIHRoZSBUQU1QIHJlZ2lzdGVyIEJPT1RfQ09VTlRFUi4K
-CklmIEkgZXhwb3J0IHRoZSByZWdpc3RlciB2aWEgdGhlIHNyYW0gZHJpdmVyIHdlIGNhbiByZXNl
-dCBpdCAod2hlbiBldmVyeXRoaW5nIGdvZXMgd2VsbCkuCmRldmljZXRyZWUgZGlmZjoKKyZzb2Mg
-eworICAgICAgIHNyYW06IHNyYW1ANWMwMGExMDAgeworICAgICAgICAgICAgICAgY29tcGF0aWJs
-ZSA9ICJtbWlvLXNyYW0iOworICAgICAgICAgICAgICAgcmVnID0gPDB4NWMwMGExMDAgMHgxMDA+
-OworICAgICAgICAgICAgICAgcmFuZ2VzID0gPDAgMHg1YzAwYTEwMCAweDEwMD47CisgICAgICAg
-ICAgICAgICAjYWRkcmVzcy1jZWxscyA9IDwxPjsKKyAgICAgICAgICAgICAgICNzaXplLWNlbGxz
-ID0gPDE+OworCisgICAgICAgICAgICAgICBib290Y291bnRANTQgeworICAgICAgICAgICAgICAg
-ICAgICAgICByZWcgPSA8MHg1NCAweDQ+OworICAgICAgICAgICAgICAgICAgICAgICBleHBvcnQ7
-CisgICAgICAgICAgICAgICB9OworICAgICAgIH07Cit9OwoKQnV0IHRoZSBtZW1vcnkgcmFuZ2Ug
-aXMgYWxyZWFkeSB1c2VkIGJ5IHRoZSAic3Qsc3RtMzItdGFtcOKAnSBlbnRyeS4KQXQgc29tZSBw
-b2ludCB3ZSB3YW50IHRvIHVzZSB0aGUgbTTigJlzLCBzbyBJIGd1ZXNzIG15IHNvbHV0aW9uIHdv
-buKAmXQgd29yayB0aGVyZS4KCldoYXQgYXJlIHRoZSB0aG91Z2h0cyBhYm91dCB0aGlzPyBBbmQg
-d2hhdCBpcyB0aGUgcHJlZmVycmVkIHdheSBvZiByZXNldGluZyB0aGUgYm9vdCBjb3VudGVyPwpJ
-4oCZbSB0aGlua2luZyBhYm91dCBkb2luZyBhbiBzeXNjb24gZHJpdmVyIGZvciB0aGlzLCBjb3Vs
-ZCB0aGF0IGJlIGFuIGlkZWE/CgpCciwKL1NlYW4KX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMy
-QHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3Jt
-cmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+Issue we met:
+On some platforms, mac cannot work after resumed from the suspend with WoL
+enabled.
+
+The cause of the issue:
+1. phylink_resolve() is in a workqueue which will not be executed immediately.
+   This is the call sequence:
+       phylink_resolve()->phylink_link_up()->pl->mac_ops->mac_link_up()
+   For stmmac driver, mac_link_up() will set the correct speed/duplex...
+   values which are from link_state.
+2. In stmmac_resume(), it will call stmmac_hw_setup() after called the
+   phylink_resume(), because mac need phy rx_clk to do the reset.
+   stmmac_core_init() is called in function stmmac_hw_setup(), which will
+   reset the mac and set the speed/duplex... to default value.
+Conclusion: Because phylink_resolve() cannot determine when it is called, it
+            cannot be guaranteed to be called after stmmac_core_init().
+	    Once stmmac_core_init() is called after phylink_resolve(),
+	    the mac will be misconfigured and cannot be used.
+
+In order to avoid this problem, add a function called phylink_phy_resume()
+to resume phy separately. This eliminates the need to call phylink_resume()
+before stmmac_hw_setup().
+
+Add another judgement before called phy_start() in phylink_start(). This way
+phy_start() will not be called multiple times when resumes. At the same time,
+it may not affect other drivers that do not use phylink_phy_resume().
+
+Signed-off-by: Clark Wang <xiaoning.wang@nxp.com>
+---
+V2 change:
+ - add mac_resume_phy_separately flag to struct phylink to mark if the mac
+   driver uses the phylink_phy_resume() first.
+---
+ drivers/net/phy/phylink.c | 29 ++++++++++++++++++++++++++++-
+ include/linux/phylink.h   |  1 +
+ 2 files changed, 29 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/net/phy/phylink.c b/drivers/net/phy/phylink.c
+index 319790221d7f..687562869c33 100644
+--- a/drivers/net/phy/phylink.c
++++ b/drivers/net/phy/phylink.c
+@@ -80,6 +80,8 @@ struct phylink {
+ 	DECLARE_PHY_INTERFACE_MASK(sfp_interfaces);
+ 	__ETHTOOL_DECLARE_LINK_MODE_MASK(sfp_support);
+ 	u8 sfp_port;
++
++	bool mac_resume_phy_separately;
+ };
+ 
+ #define phylink_printk(level, pl, fmt, ...) \
+@@ -1509,6 +1511,7 @@ struct phylink *phylink_create(struct phylink_config *config,
+ 		return ERR_PTR(-EINVAL);
+ 	}
+ 
++	pl->mac_resume_phy_separately = false;
+ 	pl->using_mac_select_pcs = using_mac_select_pcs;
+ 	pl->phy_state.interface = iface;
+ 	pl->link_interface = iface;
+@@ -1944,7 +1947,10 @@ void phylink_start(struct phylink *pl)
+ 	if (poll)
+ 		mod_timer(&pl->link_poll, jiffies + HZ);
+ 	if (pl->phydev)
+-		phy_start(pl->phydev);
++		if (!pl->mac_resume_phy_separately)
++			phy_start(pl->phydev);
++		else
++			pl->mac_resume_phy_separately = false;
+ 	if (pl->sfp_bus)
+ 		sfp_upstream_start(pl->sfp_bus);
+ }
+@@ -2024,6 +2030,27 @@ void phylink_suspend(struct phylink *pl, bool mac_wol)
+ }
+ EXPORT_SYMBOL_GPL(phylink_suspend);
+ 
++/**
++ * phylink_phy_resume() - resume phy alone
++ * @pl: a pointer to a &struct phylink returned from phylink_create()
++ *
++ * In the MAC driver using phylink, if the MAC needs the clock of the phy
++ * when it resumes, can call this function to resume the phy separately.
++ * Then proceed to MAC resume operations.
++ */
++void phylink_phy_resume(struct phylink *pl)
++{
++	ASSERT_RTNL();
++
++	if (!test_bit(PHYLINK_DISABLE_MAC_WOL, &pl->phylink_disable_state)
++	    && pl->phydev) {
++		phy_start(pl->phydev);
++		pl->mac_resume_phy_separately = true;
++	}
++
++}
++EXPORT_SYMBOL_GPL(phylink_phy_resume);
++
+ /**
+  * phylink_resume() - handle a network device resume event
+  * @pl: a pointer to a &struct phylink returned from phylink_create()
+diff --git a/include/linux/phylink.h b/include/linux/phylink.h
+index c492c26202b5..6edfab5f754c 100644
+--- a/include/linux/phylink.h
++++ b/include/linux/phylink.h
+@@ -589,6 +589,7 @@ void phylink_stop(struct phylink *);
+ 
+ void phylink_suspend(struct phylink *pl, bool mac_wol);
+ void phylink_resume(struct phylink *pl);
++void phylink_phy_resume(struct phylink *pl);
+ 
+ void phylink_ethtool_get_wol(struct phylink *, struct ethtool_wolinfo *);
+ int phylink_ethtool_set_wol(struct phylink *, struct ethtool_wolinfo *);
+-- 
+2.34.1
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
