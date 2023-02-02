@@ -2,89 +2,110 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4FB65686C3E
-	for <lists+linux-stm32@lfdr.de>; Wed,  1 Feb 2023 17:57:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 253D6687718
+	for <lists+linux-stm32@lfdr.de>; Thu,  2 Feb 2023 09:17:07 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D460DC6904D;
-	Wed,  1 Feb 2023 16:57:56 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2794BC65E42
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  1 Feb 2023 16:57:55 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B7E7DC6904B;
+	Thu,  2 Feb 2023 08:17:06 +0000 (UTC)
+Received: from EUR03-AM7-obe.outbound.protection.outlook.com
+ (mail-am7eur03on2044.outbound.protection.outlook.com [40.107.105.44])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 9D32761883;
- Wed,  1 Feb 2023 16:57:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B4DFC433D2;
- Wed,  1 Feb 2023 16:57:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1675270673;
- bh=wgoFWDzet3MEnQEk+UbM8HUIOsFtAK8npPJ49HGAO1o=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=u9X4Gr7TjZ6UkgVwjSehC9yfCUt//67EjPYTXTHnJ+aTE6aXNoDaG/fZz03jXnElM
- c315hFd6D+lNgE3Ekgg0QaNB3z7pxxWqm4plvstpHb14GQ0FGDiib2q7//3OZr4/JT
- i0jWp+SqAe/OVftlr6AN17B1kIJdLkIF0i/EuIo2IVSpqxiD6qKmMLkB+1ogV6NLc6
- JidEOiKwk15fIiFO+dc5Qsvoe66Y0tsqMeopIu++n7efbaGm5W5Uc31U7fqGait52w
- WnE8sOF8lc6h19Dd3hynSSTPWQGh4Vapzj+sPUAC+hBsgiEQz8Z/aI5T8L99Afd+Hr
- 1f40qveSqB9TQ==
-From: Mark Brown <broonie@kernel.org>
-To: miquel.raynal@bootlin.com, richard@nod.at, vigneshr@ti.com, 
- jic23@kernel.org, tudor.ambarus@microchip.com, pratyush@kernel.org, 
- sanju.mehta@amd.com, chin-ting_kuo@aspeedtech.com, clg@kaod.org, 
- kdasu.kdev@gmail.com, f.fainelli@gmail.com, rjui@broadcom.com, 
- sbranden@broadcom.com, eajames@linux.ibm.com, olteanv@gmail.com, 
- han.xu@nxp.com, john.garry@huawei.com, shawnguo@kernel.org, 
- s.hauer@pengutronix.de, khilman@baylibre.com, matthias.bgg@gmail.com, 
- haibo.chen@nxp.com, linus.walleij@linaro.org, daniel@zonque.org, 
- haojian.zhuang@gmail.com, robert.jarzmik@free.fr, agross@kernel.org, 
- heiko@sntech.de, krzysztof.kozlowski@linaro.org, andi@etezian.org, 
- mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com, wens@csie.org, 
- jernej.skrabec@gmail.com, samuel@sholland.org, masahisa.kojima@linaro.org, 
- jaswinder.singh@linaro.org, rostedt@goodmis.org, mingo@redhat.com, 
- l.stelmach@samsung.com, davem@davemloft.net, edumazet@google.com, 
- kuba@kernel.org, pabeni@redhat.com, alex.aring@gmail.com, 
- stefan@datenfreihafen.org, kvalo@kernel.org, thierry.reding@gmail.com, 
- jonathanh@nvidia.com, skomatineni@nvidia.com, sumit.semwal@linaro.org, 
- christian.koenig@amd.com, j.neuschaefer@gmx.net, vireshk@kernel.org, 
- rmfrfs@gmail.com, johan@kernel.org, elder@kernel.org, 
- gregkh@linuxfoundation.org, Neil Armstrong <neil.armstrong@linaro.org>, 
- Bjorn Andersson <andersson@kernel.org>, 
- Amit Kumar Mahapatra <amit.kumar-mahapatra@amd.com>
-In-Reply-To: <20230119185342.2093323-1-amit.kumar-mahapatra@amd.com>
-References: <20230119185342.2093323-1-amit.kumar-mahapatra@amd.com>
-Message-Id: <167527065195.537421.10361370461620477483.b4-ty@kernel.org>
-Date: Wed, 01 Feb 2023 16:57:31 +0000
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AF861C03FC3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu,  2 Feb 2023 08:17:05 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=QRhZ8deG6NJbQkncs78RmWbrZXaB8YhRFh4s67DBM6pwCMWemebXRjQiAEqPwbNTuLytyEGTn/GcNGlIbd/gEMThrYFMSE/YqPsZ5EolOs62ENxW5u+eEwAbfZbWXzMtYZ4SQ4XE+UE/4Sb1ViHnLMTgaSs6fCw1t5V2k7H6DVBk44GdQsaRc/H7H0N4ksifsdg/7jxyvJ0ry52PixXkC9+RADQbWulU0wHrJd91InICkqKqPanyD4UwwVmQ62A3L23GcH+5RF9io3gHNgVHaS7MKcpbJRRaGJa8mAGDjQFi+59TutI3FR06e4XGwyrnPU/5R698J82HoDM7WUlr+g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=nywlvBN/FbAwNmekc7G9y0+h2Jo2nRoaVJGeOUlwXmA=;
+ b=QgRC95tlowVMN4VcrkfE0/8YYmVy8ic90CfOo0LC9eDAZ3hkJgjIDvRMwUV55g9mwhxpuwS8GUXs1pu6Zk65omsME7p4StrO9IGFZEBYDFK/lvBLwvDIm1gzCtRGYvCSI/8GIxbxdJ00DwwS6w/cLOfr4EdzL21nijYAa5XAr008SMfqm9LasQpvdTbFGh0mFc8CA4j32PhrNjfWwo806G+lWjrIXkGZKeqRYyqs+JDEepZIJ8hNSB+aLFatyhtTq52FFRYAXdDtTVF8p/ZcaYor0y1kfeggcw7xC0LM/lsT7RS2+Exh/qYPOaW4kK8YUvQnapFw1cNiWo3oqOvFPA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=nywlvBN/FbAwNmekc7G9y0+h2Jo2nRoaVJGeOUlwXmA=;
+ b=g9hA9QzJadigpPkhpGkxrBaVkyE4fAx2KPModHrzh0iPa1MMGWH1vGoFa5eU7qtzOV22+mTI506pWhiMiR4Wd+TrqC0OyBl4nLOwSaMVje+3TV3HHy6c0cNfILoxObSTO3TtdGxPZUQhmrtBCZNbPd1WAj3HWmgipv4yPYe7So8=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from HE1PR0402MB2939.eurprd04.prod.outlook.com (2603:10a6:3:db::18)
+ by VI1PR04MB6912.eurprd04.prod.outlook.com (2603:10a6:803:134::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6064.22; Thu, 2 Feb
+ 2023 08:17:03 +0000
+Received: from HE1PR0402MB2939.eurprd04.prod.outlook.com
+ ([fe80::4980:91ae:a2a8:14e1]) by HE1PR0402MB2939.eurprd04.prod.outlook.com
+ ([fe80::4980:91ae:a2a8:14e1%4]) with mapi id 15.20.6064.027; Thu, 2 Feb 2023
+ 08:17:03 +0000
+From: Clark Wang <xiaoning.wang@nxp.com>
+To: peppe.cavallaro@st.com, alexandre.torgue@foss.st.com, joabreu@synopsys.com,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+ pabeni@redhat.com, mcoquelin.stm32@gmail.com, linux@armlinux.org.uk,
+ andrew@lunn.ch, hkallweit1@gmail.com
+Date: Thu,  2 Feb 2023 16:15:59 +0800
+Message-Id: <20230202081559.3553637-1-xiaoning.wang@nxp.com>
+X-Mailer: git-send-email 2.34.1
+X-ClientProxiedBy: SGXP274CA0024.SGPP274.PROD.OUTLOOK.COM (2603:1096:4:b8::36)
+ To HE1PR0402MB2939.eurprd04.prod.outlook.com
+ (2603:10a6:3:db::18)
 MIME-Version: 1.0
-X-Mailer: b4 0.12.0
-Cc: alexandre.belloni@bootlin.com, tmaimon77@gmail.com,
- linux-aspeed@lists.ozlabs.org, linux-iio@vger.kernel.org,
- konrad.dybcio@somainline.org, dri-devel@lists.freedesktop.org,
- tali.perry1@gmail.com, ldewangan@nvidia.com, linux-mtd@lists.infradead.org,
- alim.akhtar@samsung.com, linux-riscv@lists.infradead.org,
- linux-spi@vger.kernel.org, festevam@gmail.com,
- linux-stm32@st-md-mailman.stormreply.com, jbrunet@baylibre.com, git@amd.com,
- linux-samsung-soc@vger.kernel.org, benjaminfair@google.com,
- yogeshgaur.83@gmail.com, openbmc@lists.ozlabs.org,
- linux-staging@lists.linux.dev, yuenn@google.com,
- bcm-kernel-feedback-list@broadcom.com, joel@jms.id.au,
- linux-rockchip@lists.infradead.org, linux-sunxi@lists.linux.dev,
- linux-imx@nxp.com, amitrkcian2002@gmail.com, Michael.Hennerich@analog.com,
- martin.blumenstingl@googlemail.com, linux-arm-msm@vger.kernel.org,
- radu_nicolae.pirea@upb.ro, greybus-dev@lists.linaro.org, lars@metafoo.de,
- linux-mediatek@lists.infradead.org, linux-rpi-kernel@lists.infradead.org,
- linux-tegra@vger.kernel.org, linux-amlogic@lists.infradead.org,
- michal.simek@amd.com, linux-arm-kernel@lists.infradead.org,
- avifishman70@gmail.com, venture@google.com, libertas-dev@lists.infradead.org,
- linux-wireless@vger.kernel.org, nicolas.ferre@microchip.com,
- fancer.lancer@gmail.com, linux-kernel@vger.kernel.org, andrew@aj.id.au,
- michael@walle.cc, palmer@dabbelt.com, kernel@pengutronix.de,
- netdev@vger.kernel.org, linux-media@vger.kernel.org,
- linux-wpan@vger.kernel.org, claudiu.beznea@microchip.com
-Subject: Re: [Linux-stm32] (subset) [PATCH v2 00/13] spi: Add support for
- stacked/parallel memories
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: HE1PR0402MB2939:EE_|VI1PR04MB6912:EE_
+X-MS-Office365-Filtering-Correlation-Id: 44ec787d-5d72-4f25-84bf-08db04f5dd25
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 4powkt0iuXop4p/BYbxCZfD/EuNtGv8zRSpfYeS1dL7DWF4eHmlcPkGu9oMORcHNjEgQh2DonQ639N/R0at0pCSbxhgR73dFFads9KFNaCw9d+trM95yiGinUdzU6A721llUIBuoDyYw/cOxwITiw6RTpXQ33jng/eOTbXBdWyNdzvwOcTnw5ixscUApI99PYtfEs6rU3pOhFKnl5o90sFsxu/ZYFd5/V5GF6YQmZ6mW7U7wQ0mB+OQDAUF1LAvz9dKANGsR/0HqBPYnobkuudShKuklOnP5oQpxFjSfTgJfJ1gHesS/lg3Nsk/MlcIsh0R5BPTOZAaGvFc7hm2xgbRh84uLNCR0MGQKUnwzuwFeDAKI8XI6b1bhcWNaHrg4wrFyFgb7h4foxB/PNq4/9WVGWez20tLarooGxwOXPip5XDTo/edOVE1cAVCH55iVprYIMCPzW6wBoMDjs3fSXdwg+RyzBJBLh7ucOjIxYrxXIrIFuvaUCHsY7R4YbIylwqjEIx/3PFv3KGeIbapwBjo3So16234TtsoIrSiVFUBwzdoDz3jVnmni0tG4hG2bMXQWb8RS78Se3YpXFjaNltcx19q70IAglL32//+VPV2v3Ov3wVGkxdId1kin96H8vkXVblh7fJL9zHi538s7dBK5ZB7CD0cA9FrlvGrWjufBuJuyRPfl/9cV2SwMmVvvqcPzdhdZO0kWCxfqW+8Yzt2VNz8uQDjbkV9rbQpBMXg=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:HE1PR0402MB2939.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230025)(4636009)(136003)(346002)(366004)(39860400002)(376002)(396003)(451199018)(36756003)(86362001)(921005)(1076003)(38100700002)(38350700002)(66556008)(66946007)(66476007)(41300700001)(4326008)(8676002)(8936002)(316002)(7416002)(26005)(5660300002)(6666004)(83380400001)(2616005)(2906002)(478600001)(6506007)(6486002)(52116002)(186003)(6512007);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?K53gLX66Zx7VMCx1QV8v/Y2/wbpSgubE/tHpT8nHBnae1o7j+o4Zx5+JcMz3?=
+ =?us-ascii?Q?UgVxrhWWE/Pr5k7M5l9g/Kj/xjBEw2ygaV3hJl77v4SDpdMm4ioXvIVusiRf?=
+ =?us-ascii?Q?4bt1GYdjBR3PXrsgpxLOVT2DmcBdXjapjBo6Z1f6dezWNN4JikFtDwrLqp26?=
+ =?us-ascii?Q?HYCTTmciGrx2yCiNWdtQM41le69ip1Mpihmbs03CKZuTgUhwi9n4hTzx04Xm?=
+ =?us-ascii?Q?5gakOABJFokrltxs4n4R185cS1NTUrFMltFIYhzP3Ch85l3FTF6LEFQ0DE5a?=
+ =?us-ascii?Q?McSgn3AQQBSFnFGqspNFEYfuGxgOtp1fNledu0mH+6SNCD0WDEnuWJ5mELx6?=
+ =?us-ascii?Q?xW+GeHbaajbZFUsJ7GcN318yC7D+ajEAN6BfnudM6iULphZMf7GbMfrYIW7F?=
+ =?us-ascii?Q?BxQgzWor3liwNG8wivjFAP3PcBnOEzRM3hUCm60/AvbV1C7VhIO+y6gQAg4h?=
+ =?us-ascii?Q?mF/A20hMmC5L78attlc8BhDVQLi8LQeakw7oFtVRTI3f2wEmpbrooQ//Bok+?=
+ =?us-ascii?Q?F1Iz48Q4Op33PwCK9MIPEPvwAoiIlh7ISL/1l02U4SbeEmsGstZb/FrB7jP9?=
+ =?us-ascii?Q?ODiob2BDLQM8x6i8kbet5z/8jb8+kACtws4VEfh3L8tI7+ev4T8w8v2ELdpQ?=
+ =?us-ascii?Q?+ELJJExGZpkWycvXsnZ0W3BsHdm/ZFDoBWzB8eosv+fi/DbjdtWdYCORNWBl?=
+ =?us-ascii?Q?H3ay5bN/NkYR2/3pljDZhgc24xsqyHTNGyjIkLNmecV/5owgn//CdUKuHCE+?=
+ =?us-ascii?Q?xMVe6JaCBWNkquoKuPERtBbdPAFoHnVkfDLe4zdsPGL/sKLLvJNsctSyu91r?=
+ =?us-ascii?Q?1AcBDRwdpePhu/ceEdsRRpKdUgIEzMzuKjYSe9wWENGm/QfiwjMqtkakGB+D?=
+ =?us-ascii?Q?N0RcN/z304SL0pNXky2cpMRI4whif9cVfoSQbr3OtsvNKISHKVTpOswStClO?=
+ =?us-ascii?Q?XC2vXc9fT07O8J2bhA7rKWV1TdMWVa6viA34SPj1owd3Hzf1FWA/HgS55Hc3?=
+ =?us-ascii?Q?MYdQKDm2kQ9QhATARcxwJjHDrCrwyDgWrwT/td7J6FpjSbYj/tYqcAmCxeAC?=
+ =?us-ascii?Q?KKsaRQCJMjtSzBnA2zwNKh6PH/0SL0EiXcPv/ssqQ7xWsT6qSj88iPOCrB0v?=
+ =?us-ascii?Q?ETmVvB4FkwPGoQ5BPtPYHChucSYf3l/7GQ4gqYZ1eQY8DBPP+am6UFlGIYmX?=
+ =?us-ascii?Q?q7WANroqD9qNGRo7+sQv32v+tm6NT/bjv864UHGzUmoJfE6h/bYYTvNXqS4L?=
+ =?us-ascii?Q?SvjnFfzsOTDUL4HWK7oED3FC38bfUtSCOQ3NVmkYxXczUBy/wNZCz58cjJAk?=
+ =?us-ascii?Q?nS7ABfqWseM3vhn+CeCSrh1RUkxvHMDxb+sLQ1Huzug6UWgPG1U1Q9ivYk9w?=
+ =?us-ascii?Q?kSKMx/VoZMdxS0g9GBYI1POFSHY+CJm/UFdfWLBh+DVqoVEPBD8ewAi84AIk?=
+ =?us-ascii?Q?BJMxogCtliqpSuylyb0tR9a5ke4EJJsHUC+HkNKg82ui1IDiNelRAslP/9v6?=
+ =?us-ascii?Q?I+LMsSIWrAWNVTR6wXXKIoQVImU+z2XmW8ybggtQNKM8x3b/qrSSCgRD97jm?=
+ =?us-ascii?Q?vdL6xRipDZqA3oRxyrr5bvSFlOoyo3OQwlEFGFG+UqtrYlH8yAzG8gXSG6wf?=
+ =?us-ascii?Q?yA=3D=3D?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 44ec787d-5d72-4f25-84bf-08db04f5dd25
+X-MS-Exchange-CrossTenant-AuthSource: HE1PR0402MB2939.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Feb 2023 08:17:02.9279 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: MAO4Ie4UNuXNzcpHBhoWvq89O16atess6pvf4hB644OlP5n6WwvBaCbxhAhW/mklnhARYzY+xA+5nkZpCytvJQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB6912
+Cc: netdev@vger.kernel.org, linux-imx@nxp.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Subject: [Linux-stm32] [PATCH V3 1/2] net: phylink: add a function to resume
+	phy alone to fix resume issue with WoL enabled
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,55 +122,124 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, 20 Jan 2023 00:23:29 +0530, Amit Kumar Mahapatra wrote:
-> This patch is in the continuation to the discussions which happened on
-> 'commit f89504300e94 ("spi: Stacked/parallel memories bindings")' for
-> adding dt-binding support for stacked/parallel memories.
-> 
-> This patch series updated the spi-nor, spi core and the spi drivers
-> to add stacked and parallel memories support.
-> 
-> [...]
+Issue we met:
+On some platforms, mac cannot work after resumed from the suspend with WoL
+enabled.
 
-Applied to
+The cause of the issue:
+1. phylink_resolve() is in a workqueue which will not be executed immediately.
+   This is the call sequence:
+       phylink_resolve()->phylink_link_up()->pl->mac_ops->mac_link_up()
+   For stmmac driver, mac_link_up() will set the correct speed/duplex...
+   values which are from link_state.
+2. In stmmac_resume(), it will call stmmac_hw_setup() after called the
+   phylink_resume(), because mac need phy rx_clk to do the reset.
+   stmmac_core_init() is called in function stmmac_hw_setup(), which will
+   reset the mac and set the speed/duplex... to default value.
+Conclusion: Because phylink_resolve() cannot determine when it is called, it
+            cannot be guaranteed to be called after stmmac_core_init().
+	    Once stmmac_core_init() is called after phylink_resolve(),
+	    the mac will be misconfigured and cannot be used.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-next
+In order to avoid this problem, add a function called phylink_phy_resume()
+to resume phy separately. This eliminates the need to call phylink_resume()
+before stmmac_hw_setup().
 
-Thanks!
+Add another judgement before called phy_start() in phylink_start(). This way
+phy_start() will not be called multiple times when resumes. At the same time,
+it may not affect other drivers that do not use phylink_phy_resume().
 
-[01/13] spi: Add APIs in spi core to set/get spi->chip_select and spi->cs_gpiod
-        commit: 303feb3cc06ac0665d0ee9c1414941200e60e8a3
-[02/13] spi: Replace all spi->chip_select and spi->cs_gpiod references with function call
-        (no commit info)
-[03/13] net: Replace all spi->chip_select and spi->cs_gpiod references with function call
-        (no commit info)
-[04/13] iio: imu: Replace all spi->chip_select and spi->cs_gpiod references with function call
-        (no commit info)
-[05/13] mtd: devices: Replace all spi->chip_select and spi->cs_gpiod references with function call
-        (no commit info)
-[06/13] staging: Replace all spi->chip_select and spi->cs_gpiod references with function call
-        (no commit info)
-[07/13] platform/x86: serial-multi-instantiate: Replace all spi->chip_select and spi->cs_gpiod references with function call
-        (no commit info)
+Signed-off-by: Clark Wang <xiaoning.wang@nxp.com>
+---
+V2 change:
+ - add mac_resume_phy_separately flag to struct phylink to mark if the mac
+   driver uses the phylink_phy_resume() first.
+V3 change:
+ - add brace to avoid ambiguous 'else'
+   Reported-by: kernel test robot <lkp@intel.com>
+---
+ drivers/net/phy/phylink.c | 32 ++++++++++++++++++++++++++++++--
+ include/linux/phylink.h   |  1 +
+ 2 files changed, 31 insertions(+), 2 deletions(-)
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+diff --git a/drivers/net/phy/phylink.c b/drivers/net/phy/phylink.c
+index 319790221d7f..c2fe66f0b78f 100644
+--- a/drivers/net/phy/phylink.c
++++ b/drivers/net/phy/phylink.c
+@@ -80,6 +80,8 @@ struct phylink {
+ 	DECLARE_PHY_INTERFACE_MASK(sfp_interfaces);
+ 	__ETHTOOL_DECLARE_LINK_MODE_MASK(sfp_support);
+ 	u8 sfp_port;
++
++	bool mac_resume_phy_separately;
+ };
+ 
+ #define phylink_printk(level, pl, fmt, ...) \
+@@ -1509,6 +1511,7 @@ struct phylink *phylink_create(struct phylink_config *config,
+ 		return ERR_PTR(-EINVAL);
+ 	}
+ 
++	pl->mac_resume_phy_separately = false;
+ 	pl->using_mac_select_pcs = using_mac_select_pcs;
+ 	pl->phy_state.interface = iface;
+ 	pl->link_interface = iface;
+@@ -1943,8 +1946,12 @@ void phylink_start(struct phylink *pl)
+ 	}
+ 	if (poll)
+ 		mod_timer(&pl->link_poll, jiffies + HZ);
+-	if (pl->phydev)
+-		phy_start(pl->phydev);
++	if (pl->phydev) {
++		if (!pl->mac_resume_phy_separately)
++			phy_start(pl->phydev);
++		else
++			pl->mac_resume_phy_separately = false;
++	}
+ 	if (pl->sfp_bus)
+ 		sfp_upstream_start(pl->sfp_bus);
+ }
+@@ -2024,6 +2031,27 @@ void phylink_suspend(struct phylink *pl, bool mac_wol)
+ }
+ EXPORT_SYMBOL_GPL(phylink_suspend);
+ 
++/**
++ * phylink_phy_resume() - resume phy alone
++ * @pl: a pointer to a &struct phylink returned from phylink_create()
++ *
++ * In the MAC driver using phylink, if the MAC needs the clock of the phy
++ * when it resumes, can call this function to resume the phy separately.
++ * Then proceed to MAC resume operations.
++ */
++void phylink_phy_resume(struct phylink *pl)
++{
++	ASSERT_RTNL();
++
++	if (!test_bit(PHYLINK_DISABLE_MAC_WOL, &pl->phylink_disable_state)
++	    && pl->phydev) {
++		phy_start(pl->phydev);
++		pl->mac_resume_phy_separately = true;
++	}
++
++}
++EXPORT_SYMBOL_GPL(phylink_phy_resume);
++
+ /**
+  * phylink_resume() - handle a network device resume event
+  * @pl: a pointer to a &struct phylink returned from phylink_create()
+diff --git a/include/linux/phylink.h b/include/linux/phylink.h
+index c492c26202b5..6edfab5f754c 100644
+--- a/include/linux/phylink.h
++++ b/include/linux/phylink.h
+@@ -589,6 +589,7 @@ void phylink_stop(struct phylink *);
+ 
+ void phylink_suspend(struct phylink *pl, bool mac_wol);
+ void phylink_resume(struct phylink *pl);
++void phylink_phy_resume(struct phylink *pl);
+ 
+ void phylink_ethtool_get_wol(struct phylink *, struct ethtool_wolinfo *);
+ int phylink_ethtool_set_wol(struct phylink *, struct ethtool_wolinfo *);
+-- 
+2.34.1
 
 _______________________________________________
 Linux-stm32 mailing list
