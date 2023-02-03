@@ -2,39 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C0060688EC3
-	for <lists+linux-stm32@lfdr.de>; Fri,  3 Feb 2023 06:04:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CF813688EEF
+	for <lists+linux-stm32@lfdr.de>; Fri,  3 Feb 2023 06:24:43 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6387AC6904E;
-	Fri,  3 Feb 2023 05:04:39 +0000 (UTC)
-Received: from formenos.hmeau.com (167-179-156-38.a7b39c.syd.nbn.aussiebb.net
- [167.179.156.38])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 835E5C6904E;
+	Fri,  3 Feb 2023 05:24:43 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7A6C2C57B6A
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri,  3 Feb 2023 05:24:42 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9DE0AC57B6A
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  3 Feb 2023 05:04:37 +0000 (UTC)
-Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
- by formenos.hmeau.com with smtp (Exim 4.94.2 #2 (Debian))
- id 1pNoFN-0071Su-1R; Fri, 03 Feb 2023 13:04:26 +0800
-Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation);
- Fri, 03 Feb 2023 13:04:25 +0800
-Date: Fri, 3 Feb 2023 13:04:25 +0800
-From: Herbert Xu <herbert@gondor.apana.org.au>
-To: Linus Walleij <linus.walleij@linaro.org>
-Message-ID: <Y9yV2fJbumrUDW5a@gondor.apana.org.au>
-References: <20221227-ux500-stm32-hash-v3-0-32ee12cd6f06@linaro.org>
+ by ams.source.kernel.org (Postfix) with ESMTPS id E67A7B80966;
+ Fri,  3 Feb 2023 05:24:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E7FFBC433D2;
+ Fri,  3 Feb 2023 05:24:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1675401880;
+ bh=xXuXX/4dXghFD9OuRNy9yclf9Tgd8hQw+zZIPTdTdxw=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=LC+H23DawUteZ0zmGUmwaUJnUbqf3sFlyJ5fMm0dk8HlAkBLCoTfWdVZtU05gVIap
+ Pac6w7xDvg1WAOIkV/49ZpMPuPRuPrONuoiih+ssj/icnHk389ctRC+b55L7ANZUwB
+ qVmgNllrdRkNG88gfxSHbvMTnpkiUAJm01muRHzj3ic4HY8T/iOMUpVG/VcEymedrJ
+ 8B03pgYind9b86TfY9dxX9vK6EsdDIsH15bTSenOGTBT7CXXKnh5ExtAIYNeViYu/E
+ sU5BWMaTTbOb0O9mbAg/l2s5i8iIBy3okWR+8JKr+q2+Hzwkurf7u4duMtgPkp6GA9
+ odai2NZ4RDX/g==
+Date: Thu, 2 Feb 2023 21:24:38 -0800
+From: Jakub Kicinski <kuba@kernel.org>
+To: Clark Wang <xiaoning.wang@nxp.com>
+Message-ID: <20230202212438.18ebcc38@kernel.org>
+In-Reply-To: <20230202081559.3553637-1-xiaoning.wang@nxp.com>
+References: <20230202081559.3553637-1-xiaoning.wang@nxp.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20221227-ux500-stm32-hash-v3-0-32ee12cd6f06@linaro.org>
-Cc: devicetree@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Rob Herring <robh@kernel.org>, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, Rob Herring <robh+dt@kernel.org>,
- linux-crypto@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v3 0/6] crypto: stm32 hash - reuse for
-	Ux500
+Cc: andrew@lunn.ch, linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux@armlinux.org.uk,
+ edumazet@google.com, joabreu@synopsys.com, linux-imx@nxp.com,
+ mcoquelin.stm32@gmail.com, peppe.cavallaro@st.com, pabeni@redhat.com,
+ davem@davemloft.net, linux-arm-kernel@lists.infradead.org,
+ hkallweit1@gmail.com
+Subject: Re: [Linux-stm32] [PATCH V3 1/2] net: phylink: add a function to
+ resume phy alone to fix resume issue with WoL enabled
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -51,78 +61,68 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, Jan 25, 2023 at 01:23:06AM +0100, Linus Walleij wrote:
-> By taking some small portions of the Ux500 HASH driver and
-> adding to the STM32 driver, it turns out we can support both
-> platforms with the more modern STM32 driver.
+On Thu,  2 Feb 2023 16:15:59 +0800 Clark Wang wrote:
+> Issue we met:
+> On some platforms, mac cannot work after resumed from the suspend with WoL
+> enabled.
 > 
-> The STM32 driver is more modern and compact thanks to using
-> things like the crypto engine.
+> The cause of the issue:
+> 1. phylink_resolve() is in a workqueue which will not be executed immediately.
+>    This is the call sequence:
+>        phylink_resolve()->phylink_link_up()->pl->mac_ops->mac_link_up()
+>    For stmmac driver, mac_link_up() will set the correct speed/duplex...
+>    values which are from link_state.
+> 2. In stmmac_resume(), it will call stmmac_hw_setup() after called the
+>    phylink_resume(), because mac need phy rx_clk to do the reset.
+>    stmmac_core_init() is called in function stmmac_hw_setup(), which will
+>    reset the mac and set the speed/duplex... to default value.
+> Conclusion: Because phylink_resolve() cannot determine when it is called, it
+>             cannot be guaranteed to be called after stmmac_core_init().
+> 	    Once stmmac_core_init() is called after phylink_resolve(),
+> 	    the mac will be misconfigured and cannot be used.
 > 
-> We add a polled mode since the Ux500 does not have any
-> interrupt. Incidentally, this could perhaps be re-used to
-> implement synchronous mode, if this is desireable.
+> In order to avoid this problem, add a function called phylink_phy_resume()
+> to resume phy separately. This eliminates the need to call phylink_resume()
+> before stmmac_hw_setup().
 > 
-> To: Herbert Xu <herbert@gondor.apana.org.au>
-> To: "David S. Miller" <davem@davemloft.net>
-> To: Rob Herring <robh+dt@kernel.org>
-> To: Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
-> To: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-> To: Alexandre Torgue <alexandre.torgue@foss.st.com>
-> To: Lionel Debieve <lionel.debieve@foss.st.com>
-> Cc: linux-crypto@vger.kernel.org
-> Cc: devicetree@vger.kernel.org
-> Cc: linux-stm32@st-md-mailman.stormreply.com
-> Cc: linux-arm-kernel@lists.infradead.org
-> Cc: linux-kernel@vger.kernel.org
-> Signed-off-by: Linus Walleij <linus.walleij@linaro.org>
+> Add another judgement before called phy_start() in phylink_start(). This way
+> phy_start() will not be called multiple times when resumes. At the same time,
+> it may not affect other drivers that do not use phylink_phy_resume().
 > 
-> ---
-> Changes in v3:
-> - Allocate the synchronous fallback algorithm in .cra_init()
->   and free it in .cra_exit().
-> - Pick up some review tags.
-> - Link to v2: https://lore.kernel.org/r/20221227-ux500-stm32-hash-v2-0-bc443bc44ca4@linaro.org
-> 
-> Changes in v2:
-> - Use an else-clause in the DT bindings.
-> - Fix up issues pointed out by Lionel in the driver extension.
-> - Dropped the patch converting dma_mode to a bool after
->   Lionel explained how this works.
-> - Link to v1: https://lore.kernel.org/r/20221227-ux500-stm32-hash-v1-0-b637ac4cda01@linaro.org
-> 
-> ---
-> Linus Walleij (6):
->       dt-bindings: crypto: Let STM32 define Ux500 HASH
->       crypto: stm32/hash: Simplify code
->       crypto: stm32/hash: Use existing busy poll function
->       crypto: stm32/hash: Wait for idle before final CPU xmit
->       crypto: stm32/hash: Support Ux500 hash
->       crypto: ux500/hash - delete driver
-> 
->  .../devicetree/bindings/crypto/st,stm32-hash.yaml  |   23 +-
->  drivers/crypto/Kconfig                             |   10 -
->  drivers/crypto/Makefile                            |    1 -
->  drivers/crypto/stm32/stm32-hash.c                  |  266 ++-
->  drivers/crypto/ux500/Kconfig                       |   22 -
->  drivers/crypto/ux500/Makefile                      |    7 -
->  drivers/crypto/ux500/hash/Makefile                 |   11 -
->  drivers/crypto/ux500/hash/hash_alg.h               |  398 ----
->  drivers/crypto/ux500/hash/hash_core.c              | 1966 --------------------
->  9 files changed, 249 insertions(+), 2455 deletions(-)
-> ---
-> base-commit: 1b929c02afd37871d5afb9d498426f83432e71c2
-> change-id: 20221227-ux500-stm32-hash-9ee26834292f
-> 
-> Best regards,
-> -- 
-> Linus Walleij <linus.walleij@linaro.org>
+> Signed-off-by: Clark Wang <xiaoning.wang@nxp.com>
 
-All applied.  Thanks.
--- 
-Email: Herbert Xu <herbert@gondor.apana.org.au>
-Home Page: http://gondor.apana.org.au/~herbert/
-PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
+Patch 2/2 never made it to the list. You'll need to repost.
+While I have you - some minor nit picks:
+
+> +/**
+> + * phylink_phy_resume() - resume phy alone
+> + * @pl: a pointer to a &struct phylink returned from phylink_create()
+> + *
+> + * In the MAC driver using phylink, if the MAC needs the clock of the phy
+
+You use MAC in capital letters buy phy in lower case, be consistent.
+
+> + * when it resumes, can call this function to resume the phy separately.
+
+missing "it" ? Otherwise the sentence is missing a subject.
+
+> + * Then proceed to MAC resume operations.
+> + */
+> +void phylink_phy_resume(struct phylink *pl)
+> +{
+> +	ASSERT_RTNL();
+> +
+> +	if (!test_bit(PHYLINK_DISABLE_MAC_WOL, &pl->phylink_disable_state)
+> +	    && pl->phydev) {
+
+&& goes at the end of the line, not start
+
+> +		phy_start(pl->phydev);
+> +		pl->mac_resume_phy_separately = true;
+> +	}
+> +
+> +}
+> +EXPORT_SYMBOL_GPL(phylink_phy_resume);
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
