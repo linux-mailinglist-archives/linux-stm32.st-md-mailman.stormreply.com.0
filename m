@@ -2,168 +2,77 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 80B8D68D347
-	for <lists+linux-stm32@lfdr.de>; Tue,  7 Feb 2023 10:54:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AAD5F68D56C
+	for <lists+linux-stm32@lfdr.de>; Tue,  7 Feb 2023 12:29:55 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 26B7EC6A5E7;
-	Tue,  7 Feb 2023 09:54:37 +0000 (UTC)
-Received: from mx0a-0039f301.pphosted.com (mx0a-0039f301.pphosted.com
- [148.163.133.242])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4D07CC6A5E7;
+	Tue,  7 Feb 2023 11:29:55 +0000 (UTC)
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
+ [209.85.128.47])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7BD50C6506E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 65E44C035BB
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  6 Feb 2023 18:33:05 +0000 (UTC)
-Received: from pps.filterd (m0174676.ppops.net [127.0.0.1])
- by mx0a-0039f301.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 316Dscqb032503; Mon, 6 Feb 2023 18:31:30 GMT
-Received: from eur05-am6-obe.outbound.protection.outlook.com
- (mail-am6eur05lp2112.outbound.protection.outlook.com [104.47.18.112])
- by mx0a-0039f301.pphosted.com (PPS) with ESMTPS id 3nk2uq0yrw-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 06 Feb 2023 18:31:29 +0000
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=cCPRvof4dNfg3swzFJPHauGAy9SMIMPPz/C0zkWWjOGhW6hf41eseCmMSLqNoxcLiMZI8YKpAdcWflivlX6m/TYMuWUcK6wa1WUQKyUQkFPrCnK9Gu+uaPgHK+g9ldOyvolwNoW1lxKI7qDgSU5fEz34rhazfTJ/+WQ8gf2I67rv1R3fUWEJE7gjxPXRq1NRmL69Xo3J8dJFvlT1F3a6PLf3lQT+GIst4ohLNFIFUykfSN95DA1MJ3+Ldxn9BdIk/2AeYnZTgj64g8XJGPiZyUY8rxPzD5hkZWLW3eHz/PoVKvF3ixD3mo+rVnStQk3MlhDNBUyJfzX3ujfzeRJThQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=IMzjhHZFX2TOGFnvNLmzlYveY1Pxt7kRfEahI1SnrGM=;
- b=fxBSI1G+1FHLFBMoS2wM/j7cW17PFdbies6n2THm3je7pgvrGcw7fZhbyMbwXigZhEQFXGgCYqAfZma8+MWt9Gi3CmHKStBlv04nC0VlelO0PKfSdufv2B//jKvERxaBX/LDsh3exoCEhUFwuMa23bqdUaIP3ZIMuIyW+rmjCd2uJ3Mm+sXVArOHhBw58sosLdq79u8woPyrSmbMi+WQyzlAspnmc4bBrsO/96siXr9ZnCkWjd1vJUvI1/VBeOjufCOwxvnc83NVIc47supBa2WbPhUvWGcdEHGOVOehLTgi+Y4A3ehajufEB99B40NxVXis5qekvU0vvbjlNKydRQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
- dkim=pass header.d=epam.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector2; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IMzjhHZFX2TOGFnvNLmzlYveY1Pxt7kRfEahI1SnrGM=;
- b=lFzqhoaerX8XlewFEAKbhYxdOBQFJCzaAfabTphsvuekh1EtN4W/HjYeB3pVVkjMmEvEqRg6CdD0h8i7CVxAWAh7lFLoIAuCOdsZzpCcrZCrxVjqjtcKTBHfYD/1r2YjzJWN5gkWXXR9kv5RZY3CZswZqachL0BsxmWUrhFCl/+wzi08VNFPzlD2yEyQYrC3WaruxcYXpFNrL2nyXvam/i9Cp3dctqZwGQtqXgW5BNHUZEUulYRAXAMVLbHEql7VcBQVeRcCCqi2TZMJIFwnrkqF03XAb8UGioKAib6i74SOjTOdu4b8usCrpEnDo/sql9DoVRQQsAqJL+CnjFZI0A==
-Received: from PA4PR03MB7136.eurprd03.prod.outlook.com (2603:10a6:102:ea::23)
- by AM9PR03MB7492.eurprd03.prod.outlook.com (2603:10a6:20b:26b::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6064.35; Mon, 6 Feb
- 2023 18:31:26 +0000
-Received: from PA4PR03MB7136.eurprd03.prod.outlook.com
- ([fe80::8324:615:b91:5c1a]) by PA4PR03MB7136.eurprd03.prod.outlook.com
- ([fe80::8324:615:b91:5c1a%6]) with mapi id 15.20.6064.034; Mon, 6 Feb 2023
- 18:31:26 +0000
-From: Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>
-To: Rob Herring <robh@kernel.org>, Gatien Chevallier
- <gatien.chevallier@foss.st.com>
-Thread-Topic: [PATCH v3 2/6] dt-bindings: treewide: add feature-domains
- description in binding files
-Thread-Index: AQHZMm44Yb4rBz65o029XHa+V0JENK69v3sAgASOB4A=
-Date: Mon, 6 Feb 2023 18:31:26 +0000
-Message-ID: <eb706d30-1b59-92fa-d2e5-b0542f9116b0@epam.com>
-References: <20230127164040.1047583-1-gatien.chevallier@foss.st.com>
- <20230127164040.1047583-3-gatien.chevallier@foss.st.com>
- <20230203205748.GA860175-robh@kernel.org>
-In-Reply-To: <20230203205748.GA860175-robh@kernel.org>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PA4PR03MB7136:EE_|AM9PR03MB7492:EE_
-x-ms-office365-filtering-correlation-id: 0e86cf26-e866-4ca1-1b6f-08db08705b32
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: z8TlNiqfBXag21NFzEKiAMBSnlK+0Cd7HnzSmCAqVPEB5+kow0fWA0YEpskXF9ZK2WjWGeoLQu5v6BG/tzrAh7LnJ0jbQwQfaL14qYcZ8Cs5EskteNE9jGuKMw/6fbNiF2xeTMHHHmhQmBB6LEYSrXVVMUgvCBQ+zmvfSKcvqG3BPWBwcgPKRFSzhic0g4sXRsa0AVoJDZmGf1z6EUbnpljh8d700MQG3meUDUHv/LaxNKJLQV+yX02s0zHZ7fLTOTLz+xJK/404qhouP5nu7q3QRpu8iixbFIaoiMmSx10BKuYOV2L/mjyoFwSHI6QozLUZ/324Qmcw9f0rOMupqZ6ZzVhqQpTinKqDO4tz6UjrLstWDJpjqC5QRoKJq+1Ox5G1RJKkvdMoCAMfYd4GYAIO0KfBavvfmTIxY9r/vRPCoWhA1sTqoG4st8ERydlKoMrkTRHANDa+g9qNjv074/8XD1ybhq025DugWk9RH1+gyyVpXPgcl50S6hQxGgL9dEl8lrQVVP+0CVMVDFdPHkHveJqLhDSshOB0x1YdVZ9iE6E7wS9a5cLC0oif3bfUKEu/f3XOlqNNVkiF+cqTBtSW2/DMVU0NllV32SIvRgr1UInyfWncsN+lN8EOGDoRx6Hmf/BJhWqf8FPe5fvXHZZBNKd53UeGx3/9JNNYXonPA/2exUhQwLvC0AJkwbPPic8Lyb1X84+9f9q6GAAf8F6BSK7VXCt8wFogf0HbPPzwTIZTRkq7RndNZgR+qdBx0X4LZOnQTdHzcDjDieIwWA==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PA4PR03MB7136.eurprd03.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230025)(4636009)(39860400002)(136003)(366004)(346002)(396003)(376002)(451199018)(40265005)(31686004)(38100700002)(2616005)(122000001)(36756003)(478600001)(6486002)(53546011)(6506007)(71200400001)(26005)(186003)(54906003)(110136005)(86362001)(166002)(316002)(6512007)(31696002)(76116006)(91956017)(8676002)(4326008)(66446008)(8936002)(66556008)(66476007)(64756008)(41300700001)(38070700005)(2906002)(7416002)(83380400001)(5660300002)(966005)(66946007)(7406005)(45980500001);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?NVdlTGswTTdPb1cxQWY4dnZlZGh4RVkvNDFhbkVpNG9XMWFVVnUrRFl1U2x1?=
- =?utf-8?B?Ukltd3BDaTVuSDlpNUxnMGw1SlJWSjVlVDErb1Byekl2VFR1RVVEMXkxSlNK?=
- =?utf-8?B?MTRkUVhndTZzeVVVOWdIMUdnN1FIcFZIaDAycTJlYVdlY1g4U2o1cjBCeE1I?=
- =?utf-8?B?ays1WlF1VzVvQ25PekVySDFDemlkazUvTm5NNUdGRm44dlVTdXlrZW16MEhZ?=
- =?utf-8?B?NERCT0RYRTcvc1J3SzdJRmV5QjBab1ZJYUFneFJEQ0lNaWdmckR0SmszRm1z?=
- =?utf-8?B?dXpBejRpM0RQbTZtaUYxZEdCNGY2WXFkbVFzMmZvTktDbFZsdlRILy9iRkZZ?=
- =?utf-8?B?d1BRcUZGK3liT2JDemJQMngrd0FQUEVIK2NVZGVUZTVaaXU0b2ttQ0JRSE9C?=
- =?utf-8?B?QnhlTDhiNm5kbitRczRMY3Y0eHlWTWtwL0pNbEt5WUxMczhZTzlBajZQR25t?=
- =?utf-8?B?K1piSUQ0YUMwK0RsaU52Ri84L0M3Umo0bUUxNkVXSms3TVRzR2VUTjFkVng4?=
- =?utf-8?B?UzBDNVZzSmlSUEFiQnM1YnE4S3h2RENJbUd5dFdNMDVrdUIvNVh3c29Yby9H?=
- =?utf-8?B?YXNnNWFnbjNaMGJJNEF6VXBDRFYxTXl1cXQwV09zN3ZVVVczNkVVang4SDQz?=
- =?utf-8?B?YmFNYjVkc2dCd1NXc1V4K1dvNndNWkVwZjYwTWd2bTlNQytnTzRXNnFYRFcr?=
- =?utf-8?B?ZE14OWxCTDNkZVVQbVlRVnZSR3NIVDZ5L09neWFHMk9vQXJsc0xnVllJNGRi?=
- =?utf-8?B?V2ZVb2hWbW9sK3VTdHBkMGpDcUg5dXh6WlhhR2dnZzI0b3dUSlhpd3FMbjA4?=
- =?utf-8?B?U0EwNjRMR29talNWSSswejhHNzRVcVdVeC9Sb0I5Smtwa2JlV1crTzFwelJ5?=
- =?utf-8?B?VUVlRWJTek92UUUyY3Y4VkNCNU8wT3ZWdElsMyt5OEtJSDV1V3RIU1lQMCto?=
- =?utf-8?B?OWIwdmsweGsxVmpRa1hDTlNZM082bDVGS01lTTVub0E1SWxNQlYzUThxaFY0?=
- =?utf-8?B?NU16Z3lBV3ZkbmxjUURXZ0EvQWF6VjBHb3hvdXE1NzlRY0hFb1pibUtBYWNK?=
- =?utf-8?B?SS9SWHQrMVBXWHFNMGFvWDRWNDNTNDJMeFpNVDZmdENOYytmT3Fsall4QW5J?=
- =?utf-8?B?SW02VXVvSkN6R0ZiZTFtcElQV2QxQS9BMCsxcjFUcW8xSzF3ZS9RVXNtOGVV?=
- =?utf-8?B?VmpYeURpNm9uQ1VScStjWENRM0FobHQ0alExd3ZtWHVack1TRm9zbDFJQ25T?=
- =?utf-8?B?VjRkQXZRTUdNTEVhQXczQ25YUG9USWZUcUVuVkhGb2pVa0kraGhNOGtmUUxJ?=
- =?utf-8?B?M2RPWk5idTR0a0lmUVk2dkZkS3c4d2tObE8wNWtjcWhPU1ZnYTMwd0hoaDNn?=
- =?utf-8?B?OEJXQXNUVW8xQU1JYUxDdmR6OUFURVdYS1RaWVZCOXpkR3FFTTFVandzaHBP?=
- =?utf-8?B?cDVhdXJ0elJBcEtEcWhncm4yeUNGUGtHeEFVeXF2YlhnQXB5V21vSE9xYTVw?=
- =?utf-8?B?VXVZUWg1QkJ2ZnRYUFNpaThQK1VrdGhrU2F3MS91TFpmL0I3dkMvSjBvMGpX?=
- =?utf-8?B?QmMrTzNxQ2VOUzJkVjhOcFcwWVVnU3JWSGQ3SURXYVVFOTlUSmcxQTNTUTFB?=
- =?utf-8?B?WXhXRlo0NVROeVllOU5FTi9pSkc2VmY5b3RNenU5TXZaNmgwdkhGODJnYTZY?=
- =?utf-8?B?MWIvYzNaejdKOS9zRjNTRGQxMmpRYzNyai9uM2UvSU9RdnkxK0N1TEt6Mm1L?=
- =?utf-8?B?R3N1V0ZjTGd4aDF4L2VIcWVFbTZ2K0w1NXBGSnFoejZ5YnNzQTRNeDlReFZl?=
- =?utf-8?B?bGlONHphbWdsVWdPSTE5VVlZUXYrYXFmSHR4S1BuWm04aFVOV05hd1FnV1lu?=
- =?utf-8?B?bDIrYVlwaDFoTkwrN24yUEF1VGdPREZ1bGlJL21MT3g1NWJ3YThXU1NXVzJn?=
- =?utf-8?B?VjUxdFl5SjZ2aVkzRFFmZG5oM2tzZFVsVnZvdFdJWWNEWDVHZTM0TDY5Tm93?=
- =?utf-8?B?c1B1a0huR3pBVXVEMDhLQi9ueWxQYUR4U3dUK2g4U3pUbTVXNktsT3FodWN2?=
- =?utf-8?B?WHZ4bW9sK1RIZ1NMSVFaS2hPUkg5Y3FIZ1BvQUl1WDRyaXZoUVhubFQ2STJi?=
- =?utf-8?B?SXFzdTNkdjExS3dPeVU1bGV6SWNabU51S1VxVSs4akdydVJWc0pFUnZ6Tmp5?=
- =?utf-8?B?WkE9PQ==?=
+ Tue,  7 Feb 2023 11:29:54 +0000 (UTC)
+Received: by mail-wm1-f47.google.com with SMTP id
+ m16-20020a05600c3b1000b003dc4050c94aso11186757wms.4
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 07 Feb 2023 03:29:54 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amarulasolutions.com; s=google;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=nmKHBHnPdxu/HZFwVcQ6tfAQn/CQ7f4jjd7l14TU8o8=;
+ b=kkrXu372XTS1xkP5UdzGua+70sWkuaN6xyUi3TvQlHnlYdPmf2pqZJemzD2qg9e8+u
+ dlTDlSjXkFRAQLlsdmr7YhNjv3D7hubEGLt/Y7bZk7UYqYSDiBrRTNVjnqPn4eOTlVnE
+ gddgJV0TsYK0VS1SVInglq2YIsyi2UVYyPcLc=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=nmKHBHnPdxu/HZFwVcQ6tfAQn/CQ7f4jjd7l14TU8o8=;
+ b=n1VcShWt1GnTK7EalJOsPzCp7FJxOoJqT7d38SaTYbO7ONEqfpJ+zssmQgeIh6mUP3
+ +vlKTxQi9XAluuy6bKyuMrL1BnmR5/SvbpSRW6S/wfad5VFA46xhPZrpxmb6yq5JJaGG
+ kbj2B/r3/mxq4r5p4WMmPx3+kaVUuk7s9hm9odD5forbR5W4Nkpe2VtNPrs8wbVsikta
+ i32sMgi24zLTiY5StjHKOpJjC71nYiAA6hlcwDZLnkW/CiapXEY185JYGdE4U/gWdPff
+ iT6CgLhApPTUnRb4hRe0QWXYy0MkDKIykeXd2ZGeB9ehhqd8pvK7FkT9w5zxIL+W/Z0/
+ ep2g==
+X-Gm-Message-State: AO0yUKXpH2haZDZOCmkO+1gS2RlsixHXLbgJ1/78xEbtcGGny7k51q+s
+ ++y7BC+kxeT8wN5XkA6baTs9Nw==
+X-Google-Smtp-Source: AK7set/FhhYz67uC571x2dyZvlfeHwlvbhZxb7XM7dN+sh5gAQKlyEeMjoUOU6HNiqJHnyNOy5nzkw==
+X-Received: by 2002:a05:600c:3086:b0:3df:eeaa:816d with SMTP id
+ g6-20020a05600c308600b003dfeeaa816dmr1687966wmn.28.1675769393808; 
+ Tue, 07 Feb 2023 03:29:53 -0800 (PST)
+Received: from dario-ThinkPad-T14s-Gen-2i.amarulasolutions.com
+ (mob-5-90-193-20.net.vodafone.it. [5.90.193.20])
+ by smtp.gmail.com with ESMTPSA id
+ bi5-20020a05600c3d8500b003db012d49b7sm2020827wmb.2.2023.02.07.03.29.51
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 07 Feb 2023 03:29:53 -0800 (PST)
+From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+To: linux-kernel@vger.kernel.org
+Date: Tue,  7 Feb 2023 12:29:21 +0100
+Message-Id: <20230207112926.664773-1-dario.binacchi@amarulasolutions.com>
+X-Mailer: git-send-email 2.32.0
 MIME-Version: 1.0
-X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PA4PR03MB7136.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0e86cf26-e866-4ca1-1b6f-08db08705b32
-X-MS-Exchange-CrossTenant-originalarrivaltime: 06 Feb 2023 18:31:26.2271 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: ViCJearGCNKd2UvWWf/gayFgB6lJq3LkGe7W0WX8im2B2N1eDaKwsqw0VuU+/CnlRCMQjOiMw4NUZxnCX33/IlSHO3pXsXh+kUqsCOi7UMk=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR03MB7492
-X-Proofpoint-GUID: YtkPCzAJD0SXeop4A5Rh_UlKbhyTskm-
-X-Proofpoint-ORIG-GUID: YtkPCzAJD0SXeop4A5Rh_UlKbhyTskm-
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.219,Aquarius:18.0.930,Hydra:6.0.562,FMLib:17.11.122.1
- definitions=2023-02-06_07,2023-02-06_03,2022-06-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxscore=0 impostorscore=0
- priorityscore=1501 spamscore=0 bulkscore=0 clxscore=1011 malwarescore=0
- phishscore=0 adultscore=0 lowpriorityscore=0 mlxlogscore=999
- suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2212070000 definitions=main-2302060160
-X-Mailman-Approved-At: Tue, 07 Feb 2023 09:54:35 +0000
-Cc: "ulf.hansson@linaro.org" <ulf.hansson@linaro.org>,
- "linux-iio@vger.kernel.org" <linux-iio@vger.kernel.org>,
- "edumazet@google.com" <edumazet@google.com>,
- "linux-i2c@vger.kernel.org" <linux-i2c@vger.kernel.org>,
- "krzysztof.kozlowski+dt@linaro.org" <krzysztof.kozlowski+dt@linaro.org>,
- "linux-phy@lists.infradead.org" <linux-phy@lists.infradead.org>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "herbert@gondor.apana.org.au" <herbert@gondor.apana.org.au>,
- "kuba@kernel.org" <kuba@kernel.org>,
- "arnaud.pouliquen@foss.st.com" <arnaud.pouliquen@foss.st.com>,
- "pabeni@redhat.com" <pabeni@redhat.com>,
- "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "linux-serial@vger.kernel.org" <linux-serial@vger.kernel.org>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "mchehab@kernel.org" <mchehab@kernel.org>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
- "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
- "linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
- "linux-mmc@vger.kernel.org" <linux-mmc@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-spi@vger.kernel.org" <linux-spi@vger.kernel.org>,
- "vkoul@kernel.org" <vkoul@kernel.org>,
- "linux-crypto@vger.kernel.org" <linux-crypto@vger.kernel.org>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- "dmaengine@vger.kernel.org" <dmaengine@vger.kernel.org>,
- "davem@davemloft.net" <davem@davemloft.net>,
- "jic23@kernel.org" <jic23@kernel.org>
-Subject: Re: [Linux-stm32] [PATCH v3 2/6] dt-bindings: treewide: add
- feature-domains description in binding files
+Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Sebastian Reichel <sre@kernel.org>, Eric Dumazet <edumazet@google.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Dario Binacchi <dario.binacchi@amarulasolutions.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Rob Herring <robh@kernel.org>,
+ Vincent Mailhol <mailhol.vincent@wanadoo.fr>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Wolfgang Grandegger <wg@grandegger.com>,
+ devicetree@vger.kernel.org, linux-can@vger.kernel.org,
+ Rob Herring <robh+dt@kernel.org>, Marc Kleine-Budde <mkl@pengutronix.de>,
+ linux-arm-kernel@lists.infradead.org, michael@amarulasolutions.com,
+ netdev@vger.kernel.org, Christophe Roullier <christophe.roullier@foss.st.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Mark Brown <broonie@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Amarula patchwork <linux-amarula@amarulasolutions.com>,
+ "David S. Miller" <davem@davemloft.net>
+Subject: [Linux-stm32] [RESEND PATCH v7 0/5] can: bxcan: add support for ST
+	bxCAN controller
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -175,234 +84,156 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============3472250825944209245=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
---===============3472250825944209245==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_eb706d301b5992fad2e5b0542f9116b0epamcom_"
+The series adds support for the basic extended CAN controller (bxCAN)
+found in many low- to middle-end STM32 SoCs.
 
---_000_eb706d301b5992fad2e5b0542f9116b0epamcom_
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+The driver design (one core module and one driver module) was inspired
+by other ST drivers (e. g. drivers/iio/adc/stm32-adc.c,
+drivers/iio/adc/stm32-adc-core.c) where device instances share resources.
+The shared resources functions are implemented in the core module, the
+device driver in a separate module.
 
-T24gMDMuMDIuMjMgMjI6NTcsIFJvYiBIZXJyaW5nIHdyb3RlOg0KDQpPbiBGcmksIEphbiAyNywg
-MjAyMyBhdCAwNTo0MDozNlBNICswMTAwLCBHYXRpZW4gQ2hldmFsbGllciB3cm90ZToNCg0KDQpm
-ZWF0dXJlLWRvbWFpbnMgaXMgYW4gb3B0aW9uYWwgcHJvcGVydHkgdGhhdCBhbGxvd3MgYSBwZXJp
-cGhlcmFsIHRvDQpyZWZlciB0byBvbmUgb3IgbW9yZSBmZWF0dXJlIGRvbWFpbiBjb250cm9sbGVy
-KHMpLg0KDQpEZXNjcmlwdGlvbiBvZiB0aGlzIHByb3BlcnR5IGlzIGFkZGVkIHRvIGFsbCBwZXJp
-cGhlcmFsIGJpbmRpbmcgZmlsZXMgb2YNCnRoZSBwZXJpcGhlcmFsIHVuZGVyIHRoZSBTVE0zMiBT
-eXN0ZW0gQnVzLiBJdCBhbGxvd3MgYW4gYWNjdXJhdGUNCnJlcHJlc2VudGF0aW9uIG9mIHRoZSBo
-YXJkd2FyZSwgd2hlcmUgdmFyaW91cyBwZXJpcGhlcmFscyBhcmUgY29ubmVjdGVkDQp0byB0aGlz
-IGZpcmV3YWxsIGJ1cy4gVGhlIGZpcmV3YWxsIGNhbiB0aGVuIGNoZWNrIHRoZSBwZXJpcGhlcmFs
-IGFjY2Vzc2VzDQpiZWZvcmUgYWxsb3dpbmcgaXQgdG8gcHJvYmUuDQoNClNpZ25lZC1vZmYtYnk6
-IEdhdGllbiBDaGV2YWxsaWVyIDxnYXRpZW4uY2hldmFsbGllckBmb3NzLnN0LmNvbT48bWFpbHRv
-OmdhdGllbi5jaGV2YWxsaWVyQGZvc3Muc3QuY29tPg0KLS0tDQoNClBhdGNoIG5vdCBwcmVzZW50
-IGluIFYxIGFuZCBWMi4NCg0KIERvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9jcnlw
-dG8vc3Qsc3RtMzItaGFzaC55YW1sIHwgNSArKysrKw0KIERvY3VtZW50YXRpb24vZGV2aWNldHJl
-ZS9iaW5kaW5ncy9kbWEvc3Qsc3RtMzItZG1hLnlhbWwgICAgIHwgNSArKysrKw0KIERvY3VtZW50
-YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9kbWEvc3Qsc3RtMzItZG1hbXV4LnlhbWwgIHwgNSAr
-KysrKw0KIERvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9pMmMvc3Qsc3RtMzItaTJj
-LnlhbWwgICAgIHwgNSArKysrKw0KIERvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9p
-aW8vYWRjL3N0LHN0bTMyLWFkYy55YW1sIHwgNSArKysrKw0KIC4uLi9kZXZpY2V0cmVlL2JpbmRp
-bmdzL2lpby9hZGMvc3Qsc3RtMzItZGZzZG0tYWRjLnlhbWwgICAgIHwgNSArKysrKw0KIERvY3Vt
-ZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9paW8vZGFjL3N0LHN0bTMyLWRhYy55YW1sIHwg
-NSArKysrKw0KIERvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9tZWRpYS9zdCxzdG0z
-Mi1jZWMueWFtbCAgIHwgNSArKysrKw0KIERvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5n
-cy9tZWRpYS9zdCxzdG0zMi1kY21pLnlhbWwgIHwgNSArKysrKw0KIC4uLi9iaW5kaW5ncy9tZW1v
-cnktY29udHJvbGxlcnMvc3Qsc3RtMzItZm1jMi1lYmkueWFtbCAgICAgIHwgNSArKysrKw0KIERv
-Y3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9tZmQvc3Qsc3RtMzItbHB0aW1lci55YW1s
-IHwgNSArKysrKw0KIERvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9tZmQvc3Qsc3Rt
-MzItdGltZXJzLnlhbWwgIHwgNiArKysrKysNCiBEb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmlu
-ZGluZ3MvbW1jL2FybSxwbDE4eC55YW1sICAgICAgICB8IDUgKysrKysNCiBEb2N1bWVudGF0aW9u
-L2RldmljZXRyZWUvYmluZGluZ3MvbmV0L3N0bTMyLWR3bWFjLnlhbWwgICAgICB8IDUgKysrKysN
-CiAuLi4vZGV2aWNldHJlZS9iaW5kaW5ncy9waHkvcGh5LXN0bTMyLXVzYnBoeWMueWFtbCAgICAg
-ICAgICB8IDUgKysrKysNCiAuLi4vZGV2aWNldHJlZS9iaW5kaW5ncy9yZWd1bGF0b3Ivc3Qsc3Rt
-MzItdnJlZmJ1Zi55YW1sICAgICB8IDUgKysrKysNCiBEb2N1bWVudGF0aW9uL2RldmljZXRyZWUv
-YmluZGluZ3Mvcm5nL3N0LHN0bTMyLXJuZy55YW1sICAgICB8IDUgKysrKysNCiBEb2N1bWVudGF0
-aW9uL2RldmljZXRyZWUvYmluZGluZ3Mvc2VyaWFsL3N0LHN0bTMyLXVhcnQueWFtbCB8IDUgKysr
-KysNCiBEb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3Mvc291bmQvc3Qsc3RtMzItaTJz
-LnlhbWwgICB8IDUgKysrKysNCiBEb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3Mvc291
-bmQvc3Qsc3RtMzItc2FpLnlhbWwgICB8IDUgKysrKysNCiAuLi4vZGV2aWNldHJlZS9iaW5kaW5n
-cy9zb3VuZC9zdCxzdG0zMi1zcGRpZnJ4LnlhbWwgICAgICAgICB8IDUgKysrKysNCiBEb2N1bWVu
-dGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3Mvc3BpL3N0LHN0bTMyLXFzcGkueWFtbCAgICB8IDUg
-KysrKysNCiBEb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3Mvc3BpL3N0LHN0bTMyLXNw
-aS55YW1sICAgICB8IDUgKysrKysNCiBEb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3Mv
-dXNiL2R3YzIueWFtbCAgICAgICAgICAgICB8IDUgKysrKysNCiAyNCBmaWxlcyBjaGFuZ2VkLCAx
-MjEgaW5zZXJ0aW9ucygrKQ0KDQpkaWZmIC0tZ2l0IGEvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVl
-L2JpbmRpbmdzL2NyeXB0by9zdCxzdG0zMi1oYXNoLnlhbWwgYi9Eb2N1bWVudGF0aW9uL2Rldmlj
-ZXRyZWUvYmluZGluZ3MvY3J5cHRvL3N0LHN0bTMyLWhhc2gueWFtbA0KaW5kZXggNGNjYjMzNWU4
-MDYzLi5jYjJhZDdkNWZkYjUgMTAwNjQ0DQotLS0gYS9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUv
-YmluZGluZ3MvY3J5cHRvL3N0LHN0bTMyLWhhc2gueWFtbA0KKysrIGIvRG9jdW1lbnRhdGlvbi9k
-ZXZpY2V0cmVlL2JpbmRpbmdzL2NyeXB0by9zdCxzdG0zMi1oYXNoLnlhbWwNCkBAIC00MSw2ICs0
-MSwxMSBAQCBwcm9wZXJ0aWVzOg0KICAgICBtYXhpbXVtOiAyDQogICAgIGRlZmF1bHQ6IDANCg0K
-KyAgZmVhdHVyZS1kb21haW5zOg0KKyAgICAkcmVmOiAvc2NoZW1hcy9mZWF0dXJlLWNvbnRyb2xs
-ZXJzL2ZlYXR1cmUtZG9tYWluLWNvbnRyb2xsZXIueWFtbCMvcHJvcGVydGllcy9mZWF0dXJlLWRv
-bWFpbnMNCg0KDQoNCk5vdCBob3cgY29tbW9uIHByb3BlcnRpZXMgd29yay4gQ29uc3VtZXIgcHJv
-cGVydGllcyBzaG91bGQgYmUgaW4gYQ0Kc2NoZW1hIHdpdGggJ3NlbGVjdDogdHJ1ZScgKHRoZSBv
-bmUgeW91IGFyZSByZWZlcmVuY2luZykgYW5kIGhlcmUgeW91DQpqdXN0IG5lZWQgdG8gZGVmaW5l
-IHRoZSBlbnRyaWVzLiBMaWtlIGNsb2NrcywgcG93ZXItZG9tYWlucywgZXRjLg0KDQoNCg0KKyAg
-ICBtaW5JdGVtczogMQ0KKyAgICBtYXhJdGVtczogMw0KDQoNCg0KV2h5IGlzIHRoaXMgdmFyaWFi
-bGUgYW5kIHdoYXQgaXMgZWFjaCBlbnRyeT8NCg0KSSBzdGlsbCBkb24ndCBsaWtlIHRoZSBuYW1p
-bmcuIEV2ZXJ5dGhpbmcgaXMgYSBmZWF0dXJlIGFuZCBhIGRvbWFpbi4uLg0KDQpJdCBtaWdodCBi
-ZSBhIGJpdCBlYXNpZXIgdG8gY29tZSB1cCB3aXRoIGEgbmFtZSB3aXRoIG11bHRpcGxlIHVzZXJz
-IG9mDQp0aGlzIGJpbmRpbmcgcHJlc2VudGVkLiBJJ20gaGVzaXN0YW50IHRvIGRlZmluZSBhbnkg
-bmV3IGNvbW1vbiBiaW5kaW5nDQp3aXRoIG9ubHkgMSB1c2VyIGFzIEkndmUgc2FpZCBtdWx0aXBs
-ZSB0aW1lcyBvbiB0aGlzIGJpbmRpbmcuDQoNClJvYg0KDQoNCkhpIFJvYiwNCg0KUHJldmlvdXNs
-eSwgSSd2ZSBpbnRyb2R1Y2VkIGEgcGF0Y2ggc2VyaWVzLCB3aGljaCBhcmUgYWxzbyB1c2luZyB0
-aG9zZSBiaW5kaW5nczoNCkxpbms6IGh0dHBzOi8vbGttbC5vcmcvbGttbC8yMDIyLzExLzEwLzE4
-Mw0KV2hlcmUgSSBpbnRlbmRlZCBpcyB0byB1c2UgZmVhdHVyZSBkb21haW4gY29udHJvbGxlciBw
-cm9kdWNlci9jb25zdW1lciBiaW5kaW5ncyBvbiB0aGUgdmlydHVhbGl6ZWQgc3lzdGVtcy4NCkhl
-cmUgaXMgYSBsaXR0bGUgcXVvdGUgZnJvbSB0aGUgY292ZXIgbGV0dGVyLCB3aGljaCBkZXNjcmli
-ZXMgaG93IEkgZXhwZWN0IHRvIHVzZSB0aG9zZSBiaW5kaW5nczoNCg0KIiINCg0KDQpUaGUgZmVh
-dHVyZSBkZXZpY2UgY29udHJvbGxlciBjb25jZXB0aW9uIGluIHRoZSB2aXJ0dWFsaXplZCBzeXN0
-ZW1zIGlzIHRvDQpzZXQgdGhlIGRldmljZSBjb25maWd1cmF0aW9uIGZvciBTQ01JIChTeXN0ZW0g
-Q29udHJvbCBhbmQgTWFuYWdlbWVudA0KSW50ZXJmYWNlKSB3aGljaCBjb250cm9scyBjbG9ja3Mv
-cG93ZXItZG9tYWlucy9yZXNldHMgZXRjIGZyb20gdGhlDQpGaXJtd2FyZS4gVGhpcyBjb25maWd1
-cmF0aW9uIHNldHMgdGhlIGRldmljZV9pZCB0byBzZXQgdGhlIGRldmljZQ0KcGVybWlzc2lvbnMg
-Zm9yIHRoZSBGaXJtd2FyZSB1c2luZyBCQVNFX1NFVF9ERVZJQ0VfUEVSTUlTU0lPTlMNCm1lc3Nh
-Z2UgKHNlZSA0LjIuMi4xMCBvZiBbMF0pLg0KIiINCg0KQmluZGluZyBleGFtcGxlOg0KIiINCkZl
-YXR1cmUtRG9tYWlucyBpbiBEZXZpY2UtdHJlZSBub2RlIGV4YW1wbGU6DQp1c2JAZTY1OTAwMDAN
-CnsNCiAgICBmZWF0dXJlLWRvbWFpbnMgPSA8JnNjbWkgMTk+OyAvL1NldCBkb21haW4gaWQgMTkg
-dG8gdXNiIG5vZGUNCiAgICBmZWF0dXJlLWRvbWFpbi1uYW1lcyA9ICJzY21pIjsNCiAgICAuLi4N
-Cn07DQoNCiZzY21pIHsNCiAgICBmZWF0dXJlLWRvbWFpbi1jb250cm9sbGVyOw0KICAgICNmZWF0
-dXJlLWRvbWFpbi1jZWxscyA9IDwxPjsNCn0NCiIiIg0KDQpUaGUgbmFtZSAiZmVhdHVyZS1kb21h
-aW4tY29udHJvbGxlciIgaXMgdGhlIHJlc3VsdCBvZiB0aGUgZGlzY3Vzc2lvbiBpbiB0aGUgZm9s
-bG93aW5nIHRocmVhZDoNCmh0dHBzOi8vcGF0Y2h3b3JrLm96bGFicy5vcmcvcHJvamVjdC9kZXZp
-Y2V0cmVlLWJpbmRpbmdzL2NvdmVyL2NvdmVyLjE2NTcxODc1MzYuZ2l0Lm9sZWtzaWlfbW9pc2ll
-aWV2QGVwYW0uY29tDQoNCldlJ3ZlIGRlY2lkZWQgdGhhdCB0aGF0IHRoaXMgbmFtZSBmaXRzIGJv
-dGggb3VyIHRhc2tzLiBNYXliZSB5b3UgY2FuIHN1Z2dlc3QgYSBuYW1lIHRoYXQgZml0cyBiZXR0
-ZXIgZm9yIGJvdGggb3VyIHJlcXVpcmVtZW50cz8NCg0KQWxzbywgdGhlcmUgd2FzIGEgbGV0dGVy
-IGZyb20gUGVuZyBGYW4gaW4gdGhlIHByb3ZpZGVkIHRocmVhZC4gU28gcHJvYmFibHkgTlhQIGFs
-c28gaW50ZXJlc3RlZCBpbiB0aG9zZSBiaW5kaW5ncyBhbmQgY2FuIHBvdGVudGlhbGx5IHVzZSBp
-dCBpbiB0aGVpciBkZXZpY2Ugbm9kZXMuDQoNCkJlc3QgcmVnYXJkcywNCk9sZWtzaWkNCg0K
+The driver has been tested on the stm32f469i-discovery board with a
+kernel version 5.19.0-rc2 in loopback + silent mode:
 
---_000_eb706d301b5992fad2e5b0542f9116b0epamcom_
-Content-Type: text/html; charset="utf-8"
-Content-ID: <E0606D7A34D03741BA05A1A5C72FC08F@eurprd03.prod.outlook.com>
-Content-Transfer-Encoding: base64
+ip link set can0 type can bitrate 125000 loopback on listen-only on
+ip link set up can0
+candump can0 -L &
+cansend can0 300#AC.AB.AD.AE.75.49.AD.D1
 
-PGh0bWw+DQo8aGVhZD4NCjxtZXRhIGh0dHAtZXF1aXY9IkNvbnRlbnQtVHlwZSIgY29udGVudD0i
-dGV4dC9odG1sOyBjaGFyc2V0PXV0Zi04Ij4NCjwvaGVhZD4NCjxib2R5Pg0KPGRpdiBjbGFzcz0i
-bW96LWNpdGUtcHJlZml4Ij5PbiAwMy4wMi4yMyAyMjo1NywgUm9iIEhlcnJpbmcgd3JvdGU6PGJy
-Pg0KPC9kaXY+DQo8YmxvY2txdW90ZSB0eXBlPSJjaXRlIiBjaXRlPSJtaWQ6MjAyMzAyMDMyMDU3
-NDguR0E4NjAxNzUtcm9iaEBrZXJuZWwub3JnIj4NCjxwcmUgY2xhc3M9Im1vei1xdW90ZS1wcmUi
-IHdyYXA9IiI+T24gRnJpLCBKYW4gMjcsIDIwMjMgYXQgMDU6NDA6MzZQTSArMDEwMCwgR2F0aWVu
-IENoZXZhbGxpZXIgd3JvdGU6DQo8L3ByZT4NCjxibG9ja3F1b3RlIHR5cGU9ImNpdGUiPg0KPHBy
-ZSBjbGFzcz0ibW96LXF1b3RlLXByZSIgd3JhcD0iIj5mZWF0dXJlLWRvbWFpbnMgaXMgYW4gb3B0
-aW9uYWwgcHJvcGVydHkgdGhhdCBhbGxvd3MgYSBwZXJpcGhlcmFsIHRvDQpyZWZlciB0byBvbmUg
-b3IgbW9yZSBmZWF0dXJlIGRvbWFpbiBjb250cm9sbGVyKHMpLg0KDQpEZXNjcmlwdGlvbiBvZiB0
-aGlzIHByb3BlcnR5IGlzIGFkZGVkIHRvIGFsbCBwZXJpcGhlcmFsIGJpbmRpbmcgZmlsZXMgb2YN
-CnRoZSBwZXJpcGhlcmFsIHVuZGVyIHRoZSBTVE0zMiBTeXN0ZW0gQnVzLiBJdCBhbGxvd3MgYW4g
-YWNjdXJhdGUNCnJlcHJlc2VudGF0aW9uIG9mIHRoZSBoYXJkd2FyZSwgd2hlcmUgdmFyaW91cyBw
-ZXJpcGhlcmFscyBhcmUgY29ubmVjdGVkDQp0byB0aGlzIGZpcmV3YWxsIGJ1cy4gVGhlIGZpcmV3
-YWxsIGNhbiB0aGVuIGNoZWNrIHRoZSBwZXJpcGhlcmFsIGFjY2Vzc2VzDQpiZWZvcmUgYWxsb3dp
-bmcgaXQgdG8gcHJvYmUuDQoNClNpZ25lZC1vZmYtYnk6IEdhdGllbiBDaGV2YWxsaWVyIDxhIGNs
-YXNzPSJtb3otdHh0LWxpbmstcmZjMjM5NkUiIGhyZWY9Im1haWx0bzpnYXRpZW4uY2hldmFsbGll
-ckBmb3NzLnN0LmNvbSI+Jmx0O2dhdGllbi5jaGV2YWxsaWVyQGZvc3Muc3QuY29tJmd0OzwvYT4N
-Ci0tLQ0KDQpQYXRjaCBub3QgcHJlc2VudCBpbiBWMSBhbmQgVjIuDQoNCiBEb2N1bWVudGF0aW9u
-L2RldmljZXRyZWUvYmluZGluZ3MvY3J5cHRvL3N0LHN0bTMyLWhhc2gueWFtbCB8IDUgKysrKysN
-CiBEb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvZG1hL3N0LHN0bTMyLWRtYS55YW1s
-ICAgICB8IDUgKysrKysNCiBEb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvZG1hL3N0
-LHN0bTMyLWRtYW11eC55YW1sICB8IDUgKysrKysNCiBEb2N1bWVudGF0aW9uL2RldmljZXRyZWUv
-YmluZGluZ3MvaTJjL3N0LHN0bTMyLWkyYy55YW1sICAgICB8IDUgKysrKysNCiBEb2N1bWVudGF0
-aW9uL2RldmljZXRyZWUvYmluZGluZ3MvaWlvL2FkYy9zdCxzdG0zMi1hZGMueWFtbCB8IDUgKysr
-KysNCiAuLi4vZGV2aWNldHJlZS9iaW5kaW5ncy9paW8vYWRjL3N0LHN0bTMyLWRmc2RtLWFkYy55
-YW1sICAgICB8IDUgKysrKysNCiBEb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvaWlv
-L2RhYy9zdCxzdG0zMi1kYWMueWFtbCB8IDUgKysrKysNCiBEb2N1bWVudGF0aW9uL2RldmljZXRy
-ZWUvYmluZGluZ3MvbWVkaWEvc3Qsc3RtMzItY2VjLnlhbWwgICB8IDUgKysrKysNCiBEb2N1bWVu
-dGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvbWVkaWEvc3Qsc3RtMzItZGNtaS55YW1sICB8IDUg
-KysrKysNCiAuLi4vYmluZGluZ3MvbWVtb3J5LWNvbnRyb2xsZXJzL3N0LHN0bTMyLWZtYzItZWJp
-LnlhbWwgICAgICB8IDUgKysrKysNCiBEb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3Mv
-bWZkL3N0LHN0bTMyLWxwdGltZXIueWFtbCB8IDUgKysrKysNCiBEb2N1bWVudGF0aW9uL2Rldmlj
-ZXRyZWUvYmluZGluZ3MvbWZkL3N0LHN0bTMyLXRpbWVycy55YW1sICB8IDYgKysrKysrDQogRG9j
-dW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL21tYy9hcm0scGwxOHgueWFtbCAgICAgICAg
-fCA1ICsrKysrDQogRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL25ldC9zdG0zMi1k
-d21hYy55YW1sICAgICAgfCA1ICsrKysrDQogLi4uL2RldmljZXRyZWUvYmluZGluZ3MvcGh5L3Bo
-eS1zdG0zMi11c2JwaHljLnlhbWwgICAgICAgICAgfCA1ICsrKysrDQogLi4uL2RldmljZXRyZWUv
-YmluZGluZ3MvcmVndWxhdG9yL3N0LHN0bTMyLXZyZWZidWYueWFtbCAgICAgfCA1ICsrKysrDQog
-RG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL3JuZy9zdCxzdG0zMi1ybmcueWFtbCAg
-ICAgfCA1ICsrKysrDQogRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL3NlcmlhbC9z
-dCxzdG0zMi11YXJ0LnlhbWwgfCA1ICsrKysrDQogRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2Jp
-bmRpbmdzL3NvdW5kL3N0LHN0bTMyLWkycy55YW1sICAgfCA1ICsrKysrDQogRG9jdW1lbnRhdGlv
-bi9kZXZpY2V0cmVlL2JpbmRpbmdzL3NvdW5kL3N0LHN0bTMyLXNhaS55YW1sICAgfCA1ICsrKysr
-DQogLi4uL2RldmljZXRyZWUvYmluZGluZ3Mvc291bmQvc3Qsc3RtMzItc3BkaWZyeC55YW1sICAg
-ICAgICAgfCA1ICsrKysrDQogRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL3NwaS9z
-dCxzdG0zMi1xc3BpLnlhbWwgICAgfCA1ICsrKysrDQogRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVl
-L2JpbmRpbmdzL3NwaS9zdCxzdG0zMi1zcGkueWFtbCAgICAgfCA1ICsrKysrDQogRG9jdW1lbnRh
-dGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL3VzYi9kd2MyLnlhbWwgICAgICAgICAgICAgfCA1ICsr
-KysrDQogMjQgZmlsZXMgY2hhbmdlZCwgMTIxIGluc2VydGlvbnMoKykNCg0KZGlmZiAtLWdpdCBh
-L0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9jcnlwdG8vc3Qsc3RtMzItaGFzaC55
-YW1sIGIvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL2NyeXB0by9zdCxzdG0zMi1o
-YXNoLnlhbWwNCmluZGV4IDRjY2IzMzVlODA2My4uY2IyYWQ3ZDVmZGI1IDEwMDY0NA0KLS0tIGEv
-RG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL2NyeXB0by9zdCxzdG0zMi1oYXNoLnlh
-bWwNCisrKyBiL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9jcnlwdG8vc3Qsc3Rt
-MzItaGFzaC55YW1sDQpAQCAtNDEsNiArNDEsMTEgQEAgcHJvcGVydGllczoNCiAgICAgbWF4aW11
-bTogMg0KICAgICBkZWZhdWx0OiAwDQogDQorICBmZWF0dXJlLWRvbWFpbnM6DQorICAgICRyZWY6
-IC9zY2hlbWFzL2ZlYXR1cmUtY29udHJvbGxlcnMvZmVhdHVyZS1kb21haW4tY29udHJvbGxlci55
-YW1sIy9wcm9wZXJ0aWVzL2ZlYXR1cmUtZG9tYWlucw0KPC9wcmU+DQo8L2Jsb2NrcXVvdGU+DQo8
-cHJlIGNsYXNzPSJtb3otcXVvdGUtcHJlIiB3cmFwPSIiPg0KTm90IGhvdyBjb21tb24gcHJvcGVy
-dGllcyB3b3JrLiBDb25zdW1lciBwcm9wZXJ0aWVzIHNob3VsZCBiZSBpbiBhIA0Kc2NoZW1hIHdp
-dGggJ3NlbGVjdDogdHJ1ZScgKHRoZSBvbmUgeW91IGFyZSByZWZlcmVuY2luZykgYW5kIGhlcmUg
-eW91IA0KanVzdCBuZWVkIHRvIGRlZmluZSB0aGUgZW50cmllcy4gTGlrZSBjbG9ja3MsIHBvd2Vy
-LWRvbWFpbnMsIGV0Yy4NCg0KPC9wcmU+DQo8YmxvY2txdW90ZSB0eXBlPSJjaXRlIj4NCjxwcmUg
-Y2xhc3M9Im1vei1xdW90ZS1wcmUiIHdyYXA9IiI+KyAgICBtaW5JdGVtczogMQ0KKyAgICBtYXhJ
-dGVtczogMw0KPC9wcmU+DQo8L2Jsb2NrcXVvdGU+DQo8cHJlIGNsYXNzPSJtb3otcXVvdGUtcHJl
-IiB3cmFwPSIiPg0KV2h5IGlzIHRoaXMgdmFyaWFibGUgYW5kIHdoYXQgaXMgZWFjaCBlbnRyeT8N
-Cg0KSSBzdGlsbCBkb24ndCBsaWtlIHRoZSBuYW1pbmcuIEV2ZXJ5dGhpbmcgaXMgYSBmZWF0dXJl
-IGFuZCBhIGRvbWFpbi4uLiANCg0KSXQgbWlnaHQgYmUgYSBiaXQgZWFzaWVyIHRvIGNvbWUgdXAg
-d2l0aCBhIG5hbWUgd2l0aCBtdWx0aXBsZSB1c2VycyBvZiANCnRoaXMgYmluZGluZyBwcmVzZW50
-ZWQuIEknbSBoZXNpc3RhbnQgdG8gZGVmaW5lIGFueSBuZXcgY29tbW9uIGJpbmRpbmcgDQp3aXRo
-IG9ubHkgMSB1c2VyIGFzIEkndmUgc2FpZCBtdWx0aXBsZSB0aW1lcyBvbiB0aGlzIGJpbmRpbmcu
-DQoNClJvYg0KPC9wcmU+DQo8L2Jsb2NrcXVvdGU+DQo8cHJlPkhpIFJvYiwNCg0KUHJldmlvdXNs
-eSwgSSd2ZSBpbnRyb2R1Y2VkIGEgcGF0Y2ggc2VyaWVzLCB3aGljaCBhcmUgYWxzbyB1c2luZyB0
-aG9zZSBiaW5kaW5nczoNCkxpbms6IDxhIGNsYXNzPSJtb3otdHh0LWxpbmstZnJlZXRleHQiIGhy
-ZWY9Imh0dHBzOi8vbGttbC5vcmcvbGttbC8yMDIyLzExLzEwLzE4MyI+aHR0cHM6Ly9sa21sLm9y
-Zy9sa21sLzIwMjIvMTEvMTAvMTgzPC9hPg0KV2hlcmUgSSBpbnRlbmRlZCBpcyB0byB1c2UgZmVh
-dHVyZSBkb21haW4gY29udHJvbGxlciBwcm9kdWNlci9jb25zdW1lciBiaW5kaW5ncyBvbiB0aGUg
-dmlydHVhbGl6ZWQgc3lzdGVtcy4NCkhlcmUgaXMgYSBsaXR0bGUgcXVvdGUgZnJvbSB0aGUgY292
-ZXIgbGV0dGVyLCB3aGljaCBkZXNjcmliZXMgaG93IEkgZXhwZWN0IHRvIHVzZSB0aG9zZSBiaW5k
-aW5nczo8L3ByZT4NCjxwcmU+JnF1b3Q7JnF1b3Q7DQo8L3ByZT4NCjxwcmUgaXRlbXByb3A9ImFy
-dGljbGVCb2R5Ij5UaGUgZmVhdHVyZSBkZXZpY2UgY29udHJvbGxlciBjb25jZXB0aW9uIGluIHRo
-ZSB2aXJ0dWFsaXplZCBzeXN0ZW1zIGlzIHRvDQpzZXQgdGhlIGRldmljZSBjb25maWd1cmF0aW9u
-IGZvciBTQ01JIChTeXN0ZW0gQ29udHJvbCBhbmQgTWFuYWdlbWVudA0KSW50ZXJmYWNlKSB3aGlj
-aCBjb250cm9scyBjbG9ja3MvcG93ZXItZG9tYWlucy9yZXNldHMgZXRjIGZyb20gdGhlDQpGaXJt
-d2FyZS4gVGhpcyBjb25maWd1cmF0aW9uIHNldHMgdGhlIGRldmljZV9pZCB0byBzZXQgdGhlIGRl
-dmljZQ0KcGVybWlzc2lvbnMgZm9yIHRoZSBGaXJtd2FyZSB1c2luZyBCQVNFX1NFVF9ERVZJQ0Vf
-UEVSTUlTU0lPTlMNCm1lc3NhZ2UgKHNlZSA0LjIuMi4xMCBvZiBbMF0pLg0KJnF1b3Q7JnF1b3Q7
-DQoNCkJpbmRpbmcgZXhhbXBsZToNCiZxdW90OyZxdW90Ow0KRmVhdHVyZS1Eb21haW5zIGluIERl
-dmljZS10cmVlIG5vZGUgZXhhbXBsZToNCnVzYkBlNjU5MDAwMA0Kew0KICAgIGZlYXR1cmUtZG9t
-YWlucyA9ICZsdDsmYW1wO3NjbWkgMTkmZ3Q7OyAvL1NldCBkb21haW4gaWQgMTkgdG8gdXNiIG5v
-ZGUNCiAgICBmZWF0dXJlLWRvbWFpbi1uYW1lcyA9ICZxdW90O3NjbWkmcXVvdDs7DQogICAgLi4u
-DQp9Ow0KDQomYW1wO3NjbWkgew0KICAgIGZlYXR1cmUtZG9tYWluLWNvbnRyb2xsZXI7DQogICAg
-I2ZlYXR1cmUtZG9tYWluLWNlbGxzID0gJmx0OzEmZ3Q7Ow0KfQ0KJnF1b3Q7JnF1b3Q7JnF1b3Q7
-DQoNClRoZSBuYW1lICZxdW90O2ZlYXR1cmUtZG9tYWluLWNvbnRyb2xsZXImcXVvdDsgaXMgdGhl
-IHJlc3VsdCBvZiB0aGUgZGlzY3Vzc2lvbiBpbiB0aGUgZm9sbG93aW5nIHRocmVhZDoNCjxhIGNs
-YXNzPSJtb3otdHh0LWxpbmstZnJlZXRleHQiIGhyZWY9Imh0dHBzOi8vcGF0Y2h3b3JrLm96bGFi
-cy5vcmcvcHJvamVjdC9kZXZpY2V0cmVlLWJpbmRpbmdzL2NvdmVyL2NvdmVyLjE2NTcxODc1MzYu
-Z2l0Lm9sZWtzaWlfbW9pc2llaWV2QGVwYW0uY29tIj5odHRwczovL3BhdGNod29yay5vemxhYnMu
-b3JnL3Byb2plY3QvZGV2aWNldHJlZS1iaW5kaW5ncy9jb3Zlci9jb3Zlci4xNjU3MTg3NTM2Lmdp
-dC5vbGVrc2lpX21vaXNpZWlldkBlcGFtLmNvbTwvYT4NCg0KV2UndmUgZGVjaWRlZCB0aGF0IHRo
-YXQgdGhpcyBuYW1lIGZpdHMgYm90aCBvdXIgdGFza3MuIE1heWJlIHlvdSBjYW4gc3VnZ2VzdCBh
-IG5hbWUgdGhhdCBmaXRzIGJldHRlciBmb3IgYm90aCBvdXIgcmVxdWlyZW1lbnRzPw0KDQpBbHNv
-LCB0aGVyZSB3YXMgYSBsZXR0ZXIgZnJvbSBQZW5nIEZhbiBpbiB0aGUgcHJvdmlkZWQgdGhyZWFk
-LiBTbyBwcm9iYWJseSBOWFAgYWxzbyBpbnRlcmVzdGVkIGluIHRob3NlIGJpbmRpbmdzIGFuZCBj
-YW4gcG90ZW50aWFsbHkgdXNlIGl0IGluIHRoZWlyIGRldmljZSBub2Rlcy4NCg0KQmVzdCByZWdh
-cmRzLA0KT2xla3NpaQ0KPC9wcmU+DQo8L2JvZHk+DQo8L2h0bWw+DQo=
+For uboot and kernel compilation, as well as for rootfs creation I used
+buildroot:
 
---_000_eb706d301b5992fad2e5b0542f9116b0epamcom_--
+make stm32f469_disco_sd_defconfig
+make
 
---===============3472250825944209245==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+but I had to patch can-utils and busybox as can-utils and iproute are
+not compiled for MMU-less microcotrollers. In the case of can-utils,
+replacing the calls to fork() with vfork(), I was able to compile the
+package with working candump and cansend applications, while in the
+case of iproute, I ran into more than one problem and finally I decided
+to extend busybox's ip link command for CAN-type devices. I'm still
+wondering if it was really necessary, but this way I was able to test
+the driver.
+
+Changes in v7:
+- Add Vincent Mailhol's Reviewed-by tag.
+- Remove all unused macros for reading/writing the controller registers.
+- Add CAN_ERR_CNT flag to notify availability of error counter.
+- Move the "break" before the newline in the switch/case statements.
+- Print the mnemotechnic instead of the error value in each netdev_err().
+- Remove the debug print for timings parameter.
+- Do not copy the data if CAN_RTR_FLAG is set in bxcan_start_xmit().
+- Populate ndev->ethtool_ops with the default timestamp info.
+
+Changes in v6:
+- move can1 node before gcan to keep ordering by address.
+
+Changes in v5:
+- Add Rob Herring's Acked-by tag.
+- Add Rob Herring's Reviewed-by tag.
+- Put static in front of bxcan_enable_filters() definition.
+
+Changes in v4:
+- Remove "st,stm32f4-bxcan-core" compatible. In this way the can nodes
+ (compatible "st,stm32f4-bxcan") are no longer children of a parent
+  node with compatible "st,stm32f4-bxcan-core".
+- Add the "st,gcan" property (global can memory) to can nodes which
+  references a "syscon" node containing the shared clock and memory
+  addresses.
+- Replace the node can@40006400 (compatible "st,stm32f4-bxcan-core")
+  with the gcan@40006600 node ("sysnode" compatible). The gcan node
+  contains clocks and memory addresses shared by the two can nodes
+  of which it's no longer the parent.
+- Add to can nodes the "st,gcan" property (global can memory) which
+  references the gcan@40006600 node ("sysnode compatibble).
+- Add "dt-bindings: arm: stm32: add compatible for syscon gcan node" patch.
+- Drop the core driver. Thus bxcan-drv.c has been renamed to bxcan.c and
+  moved to the drivers/net/can folder. The drivers/net/can/bxcan directory
+  has therefore been removed.
+- Use the regmap_*() functions to access the shared memory registers.
+- Use spinlock to protect bxcan_rmw().
+- Use 1 space, instead of tabs, in the macros definition.
+- Drop clock ref-counting.
+- Drop unused code.
+- Drop the _SHIFT macros and use FIELD_GET()/FIELD_PREP() directly.
+- Add BXCAN_ prefix to lec error codes.
+- Add the macro BXCAN_RX_MB_NUM.
+- Enable time triggered mode and use can_rx_offload().
+- Use readx_poll_timeout() in function with timeouts.
+- Loop from tail to head in bxcan_tx_isr().
+- Check bits of tsr register instead of pkts variable in bxcan_tx_isr().
+- Don't return from bxcan_handle_state_change() if skb/cf are NULL.
+- Enable/disable the generation of the bus error interrupt depending
+  on can.ctrlmode & CAN_CTRLMODE_BERR_REPORTING.
+- Don't return from bxcan_handle_bus_err() if skb is NULL.
+- Drop statistics updating from bxcan_handle_bus_err().
+- Add an empty line in front of 'return IRQ_HANDLED;'
+- Rename bxcan_start() to bxcan_chip_start().
+- Rename bxcan_stop() to bxcan_chip_stop().
+- Disable all IRQs in bxcan_chip_stop().
+- Rename bxcan_close() to bxcan_ndo_stop().
+- Use writel instead of bxcan_rmw() to update the dlc register.
+
+Changes in v3:
+- Remove 'Dario Binacchi <dariobin@libero.it>' SOB.
+- Add description to the parent of the two child nodes.
+- Move "patterProperties:" after "properties: in top level before "required".
+- Add "clocks" to the "required:" list of the child nodes.
+- Remove 'Dario Binacchi <dariobin@libero.it>' SOB.
+- Add "clocks" to can@0 node.
+- Remove 'Dario Binacchi <dariobin@libero.it>' SOB.
+- Remove a blank line.
+- Remove 'Dario Binacchi <dariobin@libero.it>' SOB.
+- Fix the documentation file path in the MAINTAINERS entry.
+- Do not increment the "stats->rx_bytes" if the frame is remote.
+- Remove pr_debug() call from bxcan_rmw().
+
+Changes in v2:
+- Change the file name into 'st,stm32-bxcan-core.yaml'.
+- Rename compatibles:
+  - st,stm32-bxcan-core -> st,stm32f4-bxcan-core
+  - st,stm32-bxcan -> st,stm32f4-bxcan
+- Rename master property to st,can-master.
+- Remove the status property from the example.
+- Put the node child properties as required.
+- Remove a blank line.
+- Fix sparse errors.
+- Create a MAINTAINERS entry.
+- Remove the print of the registers address.
+- Remove the volatile keyword from bxcan_rmw().
+- Use tx ring algorithm to manage tx mailboxes.
+- Use can_{get|put}_echo_skb().
+- Update DT properties.
+
+Dario Binacchi (5):
+  dt-bindings: arm: stm32: add compatible for syscon gcan node
+  dt-bindings: net: can: add STM32 bxcan DT bindings
+  ARM: dts: stm32: add CAN support on stm32f429
+  ARM: dts: stm32: add pin map for CAN controller on stm32f4
+  can: bxcan: add support for ST bxCAN controller
+
+ .../bindings/arm/stm32/st,stm32-syscon.yaml   |    2 +
+ .../bindings/net/can/st,stm32-bxcan.yaml      |   83 ++
+ MAINTAINERS                                   |    7 +
+ arch/arm/boot/dts/stm32f4-pinctrl.dtsi        |   30 +
+ arch/arm/boot/dts/stm32f429.dtsi              |   29 +
+ drivers/net/can/Kconfig                       |   12 +
+ drivers/net/can/Makefile                      |    1 +
+ drivers/net/can/bxcan.c                       | 1088 +++++++++++++++++
+ 8 files changed, 1252 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/net/can/st,stm32-bxcan.yaml
+ create mode 100644 drivers/net/can/bxcan.c
+
+-- 
+2.32.0
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============3472250825944209245==--
