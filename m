@@ -2,59 +2,92 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1085A68F777
-	for <lists+linux-stm32@lfdr.de>; Wed,  8 Feb 2023 19:54:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0473068F85B
+	for <lists+linux-stm32@lfdr.de>; Wed,  8 Feb 2023 20:51:06 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A170BC6A5E8;
-	Wed,  8 Feb 2023 18:54:36 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 910EDC6A5E8;
+	Wed,  8 Feb 2023 19:51:05 +0000 (UTC)
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com
+ [209.85.221.43])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AB92AC62EFE
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 23AF1C65042
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  8 Feb 2023 18:54:35 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 4DC2A617B8;
- Wed,  8 Feb 2023 18:54:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0CB21C433D2;
- Wed,  8 Feb 2023 18:54:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1675882473;
- bh=xTtM9WlSf7bwExmahb6XOjPHbEjpNPb+C9ZLErT3mV8=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=kJN28UveNEt23ZFALxkKRAduymcXqKXXhl5ZE6krYfbalb6HMbzHo9qeVzvcHI7Wm
- H7S6jcL16vD7PqCbUM676t6Ujn2JFJPW6F8SYQEY0t+JColJ5tdmzL8HnmWP59Mv+N
- h1XG21jruiC7Pqu0lZhIHvhdf8KfE3r2XiOfPuEIw7UtbGW+1gt8cYhRh3sZd6iQB0
- OKQT0joBdQfoYqU3AXs0x+0ro+BNaKQvYiFcCdFS93pX8FTqdLs62iSLZQceti8ikH
- 8vqlPouh7hbFMq94LAL+5Wj+RTZZwiFzYMUZ+IE2R0duumYDsHSZLH3uCg57RDgxC5
- 5i80rfFHy/R9Q==
-Date: Wed, 8 Feb 2023 19:08:33 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Gatien CHEVALLIER <gatien.chevallier@foss.st.com>
-Message-ID: <20230208190833.532cd60c@jic23-huawei>
-In-Reply-To: <d6c659d8-2e5c-cb60-d950-685c4ba319e2@foss.st.com>
-References: <20230127164040.1047583-1-gatien.chevallier@foss.st.com>
- <20230127164040.1047583-5-gatien.chevallier@foss.st.com>
- <20230128161217.0e79436e@jic23-huawei>
- <d6c659d8-2e5c-cb60-d950-685c4ba319e2@foss.st.com>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.36; x86_64-pc-linux-gnu)
+ Wed,  8 Feb 2023 19:51:04 +0000 (UTC)
+Received: by mail-wr1-f43.google.com with SMTP id ba1so13884555wrb.5
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 08 Feb 2023 11:51:04 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=cY1HwE63r9UqyW6Gdx6yhcFxmTguDnqyz+SAe6KoqOQ=;
+ b=Hn2pHT7CPTC3o8c4Wpog/hsIQx7uvafsHgvOxeofLCyAJV9L7gPsNScf3TeLdqqPnr
+ LUzNnDUuUwSEk4aAlXxfEaM0zrMXnNq/Cz9jO8mHY2YrfNr8ZSfgFLz3JafNViK1B0bT
+ 53rAEhyJo2OFPoJrvYYNaSFu+AOUT2z3hE6WS4W+99iNSs+K++NUxAAHsqs+vnQswru7
+ g2c2FQ5Zbky3mbyXl60E6JmICG07hRBCes7yafGv0Boq39tw4NTKpnaCMM8GPAJALkiJ
+ IzP9WQ7KcVyZ+MritmxJAz+n/lPp2+TSmLh2MLkT3IRzrHIZ1barAg2zteWvZOip25aT
+ bkXg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=cY1HwE63r9UqyW6Gdx6yhcFxmTguDnqyz+SAe6KoqOQ=;
+ b=bf4Ji9iNe/53UIOGPC6kfy6nGV4XqNIsEkuFnd8eo+acHneIxjEW2aV5KUkwWqMdkh
+ +YmHIji9TWIv86NTCaqL9yBRsS56DP2jIaEXU/j9+gL3qcUbexzpSln9L/OLnwg9mr15
+ tbgNFFeZdWrTcAGQcIEATT7a+Sjy2XOmlLnaCVqV7u2dJkm2R6ykQG3s6MRkx/aMGjnw
+ NmmXA72yN8IblKnnrinxy6Od81EhAFVjKWdlOuJU49XWB7/L2V1pGWVGezSSoPkip36I
+ 9rvRzaZlyPIheoYRDaeGNeI9YV/3jDbCZBrbkBxmLg5jKQjTWbs2bMo59ygAHhiTv4Dr
+ waxg==
+X-Gm-Message-State: AO0yUKXZyfKYh0w5iW3NfoLei4+yY6Mh378G7U0d2fMyQKRvp8edq+uS
+ QA+56Vwt/X/eqT07M8lel+dDxA==
+X-Google-Smtp-Source: AK7set9dhkugBafQNUYIvCX0R36B8oLdf4eHcflcqRkwcR7SGvh653bV+4HiKahZLc+dRe/stewv5A==
+X-Received: by 2002:adf:ef0d:0:b0:2c4:645:da36 with SMTP id
+ e13-20020adfef0d000000b002c40645da36mr2643620wro.24.1675885863619; 
+ Wed, 08 Feb 2023 11:51:03 -0800 (PST)
+Received: from [192.168.1.109] ([178.197.216.144])
+ by smtp.gmail.com with ESMTPSA id
+ f9-20020adff989000000b002c3e6b39512sm8933760wrr.53.2023.02.08.11.51.01
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 08 Feb 2023 11:51:03 -0800 (PST)
+Message-ID: <55f02cd9-d191-8454-ef67-613bc8373f9f@linaro.org>
+Date: Wed, 8 Feb 2023 20:51:00 +0100
 MIME-Version: 1.0
-Cc: ulf.hansson@linaro.org, linux-iio@vger.kernel.org, edumazet@google.com,
- Oleksii_Moisieiev@epam.com, krzysztof.kozlowski+dt@linaro.org,
- linux-phy@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
- herbert@gondor.apana.org.au, kuba@kernel.org, arnaud.pouliquen@foss.st.com,
- pabeni@redhat.com, linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- linux-serial@vger.kernel.org, alsa-devel@alsa-project.org, robh+dt@kernel.org,
- mchehab@kernel.org, linux-arm-kernel@lists.infradead.org,
- gregkh@linuxfoundation.org, linux-usb@vger.kernel.org,
- linux-mmc@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-spi@vger.kernel.org, vkoul@kernel.org, linux-crypto@vger.kernel.org,
- netdev@vger.kernel.org, dmaengine@vger.kernel.org, davem@davemloft.net,
- linux-i2c@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH v3 4/6] bus: stm32_sys_bus: add support
- for STM32MP15 and STM32MP13 system bus
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.7.1
+Content-Language: en-US
+To: =?UTF-8?B?Q2zDqW1lbnQgTMOpZ2Vy?= <clement.leger@bootlin.com>,
+ Sergey Shtylyov <s.shtylyov@omp.ru>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Jose Abreu <joabreu@synopsys.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Russell King <linux@armlinux.org.uk>, Wong Vee Khee <veekhee@apple.com>,
+ Kurt Kanzenbach <kurt@linutronix.de>,
+ Revanth Kumar Uppala <ruppala@nvidia.com>,
+ Tan Tee Min <tee.min.tan@linux.intel.com>
+References: <20230208164203.378153-1-clement.leger@bootlin.com>
+ <20230208164203.378153-5-clement.leger@bootlin.com>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20230208164203.378153-5-clement.leger@bootlin.com>
+Cc: devicetree@vger.kernel.org, Pascal Eberhard <pascal.eberhard@se.com>,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Jon Hunter <jonathanh@nvidia.com>, linux-renesas-soc@vger.kernel.org,
+ Mohammad Athari Bin Ismail <mohammad.athari.ismail@intel.com>,
+ Milan Stevanovic <milan.stevanovic@se.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ =?UTF-8?Q?Miqu=c3=a8l_Raynal?= <miquel.raynal@bootlin.com>,
+ Herve Codina <herve.codina@bootlin.com>, Jimmy Lalande <jimmy.lalande@se.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next v2 4/6] dt-bindings: net: renesas,
+ rzn1-gmac: Document RZ/N1 GMAC support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,93 +99,42 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, 7 Feb 2023 15:12:23 +0100
-Gatien CHEVALLIER <gatien.chevallier@foss.st.com> wrote:
-
-> Hi Jonathan,
-> 
-> On 1/28/23 17:12, Jonathan Cameron wrote:
-> > On Fri, 27 Jan 2023 17:40:38 +0100
-> > Gatien Chevallier <gatien.chevallier@foss.st.com> wrote:
-> >   
-> >> This driver is checking the access rights of the different
-> >> peripherals connected to the system bus. If access is denied,
-> >> the associated device tree node is skipped so the platform bus
-> >> does not probe it.
-> >>
-> >> Signed-off-by: Gatien Chevallier <gatien.chevallier@foss.st.com>
-> >> Signed-off-by: Loic PALLARDY <loic.pallardy@st.com>  
-> > 
-> > Hi Gatien,
-> > 
-> > A few comments inline,
-> > 
-> > Thanks,
-> > 
-> > Jonathan
-> >   
-> >> diff --git a/drivers/bus/stm32_sys_bus.c b/drivers/bus/stm32_sys_bus.c
-> >> new file mode 100644
-> >> index 000000000000..c12926466bae
-> >> --- /dev/null
-> >> +++ b/drivers/bus/stm32_sys_bus.c
-> >> @@ -0,0 +1,168 @@
-> >> +// SPDX-License-Identifier: GPL-2.0
-> >> +/*
-> >> + * Copyright (C) 2023, STMicroelectronics - All Rights Reserved
-> >> + */
-> >> +
-> >> +#include <linux/bitfield.h>
-> >> +#include <linux/bits.h>
-> >> +#include <linux/device.h>
-> >> +#include <linux/err.h>
-> >> +#include <linux/io.h>
-> >> +#include <linux/init.h>
-> >> +#include <linux/kernel.h>
-> >> +#include <linux/module.h>
-> >> +#include <linux/of.h>
-> >> +#include <linux/of_platform.h>
-> >> +#include <linux/platform_device.h>
-> >> +
-> >> +/* ETZPC peripheral as firewall bus */
-> >> +/* ETZPC registers */
-> >> +#define ETZPC_DECPROT			0x10
-> >> +
-> >> +/* ETZPC miscellaneous */
-> >> +#define ETZPC_PROT_MASK			GENMASK(1, 0)
-> >> +#define ETZPC_PROT_A7NS			0x3
-> >> +#define ETZPC_DECPROT_SHIFT		1  
-> > 
-> > This define makes the code harder to read.  What we care about is
-> > the number of bits in the register divided by number of entries.
-> > (which is 2) hence the shift by 1. See below for more on this.
-> > 
-> >   
-> >> +
-> >> +#define IDS_PER_DECPROT_REGS		16  
-> >   
-> >> +#define STM32MP15_ETZPC_ENTRIES		96
-> >> +#define STM32MP13_ETZPC_ENTRIES		64  
-> > 
-> > These defines just make the code harder to check.
-> > They aren't magic numbers, but rather just telling us how many
-> > entries there are, so I would just put them in the structures directly.
-> > Their use make it clear what they are without needing to give them a name.
-> >   
-> 
-> Honestly, I'd rather read the hardware configuration registers to get 
-> this information instead of differentiating MP13/15. Would you agree on 
-> that?
-
-Sure, if they are discoverable even better.
-
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gMDgvMDIvMjAyMyAxNzo0MiwgQ2zDqW1lbnQgTMOpZ2VyIHdyb3RlOgo+IEFkZCAicmVuZXNh
+cyxyem4xLWdtYWMiIGJpbmRpbmcgZG9jdW1lbnRhdGlvbiB3aGljaCBpcyBjb21wYXRpYmxlIHdp
+dGgKPiAic25wcyxkd21hYyIgY29tcGF0aWJsZSBkcml2ZXIgYnV0IHVzZXMgYSBjdXN0b20gUENT
+IHRvIGNvbW11bmljYXRlCj4gd2l0aCB0aGUgcGh5Lgo+IAo+IFNpZ25lZC1vZmYtYnk6IENsw6lt
+ZW50IEzDqWdlciA8Y2xlbWVudC5sZWdlckBib290bGluLmNvbT4KPiAtLS0KPiAgLi4uL2JpbmRp
+bmdzL25ldC9yZW5lc2FzLHJ6bjEtZ21hYy55YW1sICAgICAgIHwgNjcgKysrKysrKysrKysrKysr
+KysrKwo+ICAxIGZpbGUgY2hhbmdlZCwgNjcgaW5zZXJ0aW9ucygrKQo+ICBjcmVhdGUgbW9kZSAx
+MDA2NDQgRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL25ldC9yZW5lc2FzLHJ6bjEt
+Z21hYy55YW1sCj4gCj4gZGlmZiAtLWdpdCBhL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5k
+aW5ncy9uZXQvcmVuZXNhcyxyem4xLWdtYWMueWFtbCBiL0RvY3VtZW50YXRpb24vZGV2aWNldHJl
+ZS9iaW5kaW5ncy9uZXQvcmVuZXNhcyxyem4xLWdtYWMueWFtbAo+IG5ldyBmaWxlIG1vZGUgMTAw
+NjQ0Cj4gaW5kZXggMDAwMDAwMDAwMDAwLi45NDRmZDBkOTdkNzkKPiAtLS0gL2Rldi9udWxsCj4g
+KysrIGIvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL25ldC9yZW5lc2FzLHJ6bjEt
+Z21hYy55YW1sCj4gQEAgLTAsMCArMSw2NyBAQAo+ICsjIFNQRFgtTGljZW5zZS1JZGVudGlmaWVy
+OiAoR1BMLTIuMC1vbmx5IE9SIEJTRC0yLUNsYXVzZSkKPiArJVlBTUwgMS4yCj4gKy0tLQo+ICsk
+aWQ6IGh0dHA6Ly9kZXZpY2V0cmVlLm9yZy9zY2hlbWFzL25ldC9yZW5lc2FzLHJ6bjEtZ21hYy55
+YW1sIwo+ICskc2NoZW1hOiBodHRwOi8vZGV2aWNldHJlZS5vcmcvbWV0YS1zY2hlbWFzL2NvcmUu
+eWFtbCMKPiArCj4gK3RpdGxlOiBSZW5lc2FzIEdNQUMKPiArCj4gK21haW50YWluZXJzOgo+ICsg
+IC0gQ2zDqW1lbnQgTMOpZ2VyIDxjbGVtZW50LmxlZ2VyQGJvb3RsaW4uY29tPgo+ICsKPiArc2Vs
+ZWN0Ogo+ICsgIHByb3BlcnRpZXM6Cj4gKyAgICBjb21wYXRpYmxlOgo+ICsgICAgICBjb250YWlu
+czoKPiArICAgICAgICBlbnVtOgo+ICsgICAgICAgICAgLSByZW5lc2FzLHI5YTA2ZzAzMi1nbWFj
+Cj4gKyAgICAgICAgICAtIHJlbmVzYXMscnpuMS1nbWFjCj4gKyAgcmVxdWlyZWQ6Cj4gKyAgICAt
+IGNvbXBhdGlibGUKPiArCj4gK2FsbE9mOgo+ICsgIC0gJHJlZjogc25wcyxkd21hYy55YW1sIwo+
+ICsKPiArcHJvcGVydGllczoKPiArICBjb21wYXRpYmxlOgo+ICsgICAgaXRlbXM6Cj4gKyAgICAg
+IC0gZW51bToKPiArICAgICAgICAgIC0gcmVuZXNhcyxyOWEwNmcwMzItZ21hYwo+ICsgICAgICAg
+ICAgLSByZW5lc2FzLHJ6bjEtZ21hYwo+ICsgICAgICAgICAgLSBzbnBzLGR3bWFjCgpUaGlzIGlz
+IHN0aWxsIG5vdCBjb3JyZWN0IGFuZCBkb2VzIG5vdCBtYWtlIGFueSBzZW5zZS4KCldoYXQgZG8g
+eW91IHdhbnQgdG8gc2F5IGhlcmUgd2l0aCBzdWNoIGJpbmRpbmc/IFRoYXQgeW91IGRlc2NyaWJl
+CiJzbnBzLGR3bWFjIiBoZXJlPyBUaGVuIGl0J3MgZHVwbGljYXRlZCB3aXRoIHNucHMsZHdtYWMu
+eWFtbC4uLiBEcm9wCnRoYXQgZW51bSBhbmQgbWFrZSBpdCBhIHByb3BlciBsaXN0LgoKQmVzdCBy
+ZWdhcmRzLApLcnp5c3p0b2YKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWls
+bWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9t
+YWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
