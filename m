@@ -2,33 +2,34 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 848DC6900A9
+	by mail.lfdr.de (Postfix) with ESMTPS id 819046900A8
 	for <lists+linux-stm32@lfdr.de>; Thu,  9 Feb 2023 08:03:41 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 12BEDC6A5EE;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2589DC6A5F2;
 	Thu,  9 Feb 2023 07:03:41 +0000 (UTC)
-Received: from smtpbguseast3.qq.com (smtpbguseast3.qq.com [54.243.244.52])
+Received: from smtpbg153.qq.com (smtpbg153.qq.com [13.245.218.24])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4A9FDC62EFE
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 66E78C62EFE
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  8 Feb 2023 11:23:48 +0000 (UTC)
-X-QQ-mid: bizesmtp83t1675855333tqlmoazp
+ Wed,  8 Feb 2023 12:42:14 +0000 (UTC)
+X-QQ-mid: bizesmtp77t1675860056tso805bk
 Received: from localhost.localdomain ( [113.57.152.160])
  by bizesmtp.qq.com (ESMTP) with 
- id ; Wed, 08 Feb 2023 19:22:11 +0800 (CST)
+ id ; Wed, 08 Feb 2023 20:40:54 +0800 (CST)
 X-QQ-SSF: 01400000002000C0E000B00A0000000
-X-QQ-FEAT: +ynUkgUhZJkgxBW25sgaiH/6+7B8q4hv7dUbmG0IJXh+FcLwy8TJioLF9lJc4
- i+qkeJQGYAtgftz4SDjv9+M4Lq5UcfLVXneqXU7H9hVHpgNVYAEHH9qcCf9bJRPa1pQqkOd
- S8tJICcyYfOTZlEOGMkReFWc91aFitazJX9a8h/NpkwcJng7F2zEGVtzXhxh7/GEnqbfL+U
- 2mpNWYr1oqwZDbs6mHqps3b+XDWp5jGd9H1pZ/kxTpnV1Z7lfDrXfMoIXBL322HPn5EeCMr
- DPTuZbQbrTbSgl0XyRmC5EjieOsUEGZ1aPmOim3rV0VAOPgRTenPSi3xYmYXvRZe1qltvzU
- xLLnC8uA/58XqeL6/GYdip5VLGODZBl0JxqHGnGQqRJkyVxfdeW0kVCjcwakg==
+X-QQ-FEAT: 3M0okmaRx3jmgcz4hYfpmUXK8ue06MHIp1jsI+1nr/Jbd8I+sZC8SmjemoglJ
+ guBpXt5vqyZ51KN7TPkY1Br65zF7JIPHR4KZ13uJ+h/sCDb0ePOFjPVtxV6evJV8Kgah0B4
+ ieSOyzEg+BStW0Cm+xgto/MywWcdt8S8lxg9IN7QddyipwxSwVZE4gLAp7ODRBe5fLgv3WV
+ hRQpqOQu/xpKfK97fDiq5lZnlCZ05GcxuDAtZGQtjnTpg+7hMBbrYgCaXQOPhTki1vTwVBI
+ VCxc6Kcpsu+gHc7LVbmIDe6x/zq5bZ10kosEE3qrAAx6GFXFML/y/Ikg4FnvBpy5RlIwMyv
+ r7AVOxvgJkI/tw2V+dqaPA1DsMxNRNTUkwh4pk3jYTqHPfWLtSyAxqvWElPknDu9AX2BSGf
+ IMAtvlweaBs=
 X-QQ-GoodBg: 2
 From: Guan Wentao <guanwentao@uniontech.com>
 To: peppe.cavallaro@st.com, alexandre.torgue@foss.st.com, joabreu@synopsys.com
-Date: Wed,  8 Feb 2023 19:20:54 +0800
-Message-Id: <20230208112054.22965-1-guanwentao@uniontech.com>
+Date: Wed,  8 Feb 2023 20:40:25 +0800
+Message-Id: <20230208124025.5828-1-guanwentao@uniontech.com>
 X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
 X-QQ-SENDSIZE: 520
@@ -57,8 +58,8 @@ Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 The phy->interface from mdiobus_get_phy is default from phy_device_create.
-In some phy devices like at803x, we need the correct value to init delay.
-Use priv->plat->interface to init if we know.
+In some phy devices like at803x, use phy->interface to init rgmii delay.
+Use plat->phy_interface to init if know from stmmac_probe_config_dt.
 
 Fixes: 74371272f97f ("net: stmmac: Convert to phylink and remove phylib logic")
 Signed-off-by: Guan Wentao <guanwentao@uniontech.com>
@@ -67,7 +68,7 @@ Signed-off-by: Guan Wentao <guanwentao@uniontech.com>
  1 file changed, 6 insertions(+)
 
 diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 1a5b8dab5e9b..1dc9c7f3d714 100644
+index 1a5b8dab5e9b..debfcb045c22 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
 +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
 @@ -1162,6 +1162,12 @@ static int stmmac_init_phy(struct net_device *dev)
@@ -75,8 +76,8 @@ index 1a5b8dab5e9b..1dc9c7f3d714 100644
  		}
  
 +		/* If we know the interface, it defines which PHY interface */
-+		if (priv->plat->interface > 0) {
-+			phydev->interface = priv->plat->interface;
++		if (priv->plat->phy_interface > 0) {
++			phydev->interface = priv->plat->phy_interface;
 +			netdev_dbg(priv->dev, "Override default phy interface\n");
 +		}
 +
