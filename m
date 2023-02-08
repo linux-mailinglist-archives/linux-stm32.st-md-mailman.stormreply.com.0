@@ -2,42 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D8E6568EFB7
-	for <lists+linux-stm32@lfdr.de>; Wed,  8 Feb 2023 14:29:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 238A068EFD6
+	for <lists+linux-stm32@lfdr.de>; Wed,  8 Feb 2023 14:32:48 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 98ABBC6A5E8;
-	Wed,  8 Feb 2023 13:29:53 +0000 (UTC)
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CD0DDC6A5E8;
+	Wed,  8 Feb 2023 13:32:47 +0000 (UTC)
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 199B4C62EFE
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1EA01C65042
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  8 Feb 2023 13:29:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
- s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
- References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
- Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
- Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
- bh=gVnNzRUs4OA2UfcdlTrQFkCI/U2RrCm033aNur/MvyI=; b=UBXikFe+4zXo9C7W98y05ILTAD
- RzecF0fMAcc7v0EI6RlHZcr2B/HoFCP3ooti11GCYt1AzUfTRiSXp4tUiwyvkZRV9UvPx5Xr5AlBa
- txiPhyRrfCr1gpiyljmcraxHYfOlqQzeDfMP0moi6x4SNluRGO6y08+3hCyWxtdbIxsE=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
- (envelope-from <andrew@lunn.ch>)
- id 1pPkVx-004PAa-7r; Wed, 08 Feb 2023 14:29:33 +0100
-Date: Wed, 8 Feb 2023 14:29:33 +0100
-From: Andrew Lunn <andrew@lunn.ch>
-To: Simon Horman <simon.horman@corigine.com>
-Message-ID: <Y+OjvfOvqz0s8qDr@lunn.ch>
+ Wed,  8 Feb 2023 13:32:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=MvQdLI3Bfs8SWdCC/a8nzWKrc1dNg1a+wGdZBOHt6sg=; b=OItGhxR3lLxTOyRv+U0uXdgJUF
+ Z7W1PlBU+mC4ndecMyjVziWedj1A5rwSplaIeOTLz0LiAgpx6CQI9PzkWM+ubjHSunHwOMN3rx9+d
+ qCHgmAPXycuGOxPkSUYsu8pogyO3g15U/3OSDDYrlM9AMZ5zct8wjzdFS2BmO4AD/17TOQoYjcyWm
+ Df/MkZYje+UStD8rT/6aZdeyyY4CUNDQqbibs7e2tx3jYx89nIwX/1vcJmbXuXDMdNK54jAMjybII
+ +Y63I7mkvaMITjAUlIrU+tFONmijjQTE6kV44e1hgp/D71D5YA7AAB0KzavbtQrtFUzH0Y4woGTsV
+ CVsuAWYA==;
+Received: from shell.armlinux.org.uk
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:36466)
+ by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.94.2)
+ (envelope-from <linux@armlinux.org.uk>)
+ id 1pPkYg-0005hW-Km; Wed, 08 Feb 2023 13:32:22 +0000
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.94.2)
+ (envelope-from <linux@shell.armlinux.org.uk>)
+ id 1pPkYU-0003i8-Fw; Wed, 08 Feb 2023 13:32:10 +0000
+Date: Wed, 8 Feb 2023 13:32:10 +0000
+From: "Russell King (Oracle)" <linux@armlinux.org.uk>
+To: Guan Wentao <guanwentao@uniontech.com>
+Message-ID: <Y+OkWiGAr1ysMxSt@shell.armlinux.org.uk>
 References: <20230208124025.5828-1-guanwentao@uniontech.com>
- <Y+OfmMeP3Eto3K7t@corigine.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <Y+OfmMeP3Eto3K7t@corigine.com>
+In-Reply-To: <20230208124025.5828-1-guanwentao@uniontech.com>
 Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Guan Wentao <guanwentao@uniontech.com>, edumazet@google.com,
- joabreu@synopsys.com, mcoquelin.stm32@gmail.com, kuba@kernel.org,
- peppe.cavallaro@st.com, pabeni@redhat.com, davem@davemloft.net,
- linux-arm-kernel@lists.infradead.org
+ edumazet@google.com, joabreu@synopsys.com, mcoquelin.stm32@gmail.com,
+ kuba@kernel.org, peppe.cavallaro@st.com, pabeni@redhat.com,
+ davem@davemloft.net, linux-arm-kernel@lists.infradead.org
 Subject: Re: [Linux-stm32] [PATCH] net: stmmac: get phydev->interface from
  mac for mdio phy init
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
@@ -56,27 +64,51 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, Feb 08, 2023 at 02:11:52PM +0100, Simon Horman wrote:
-> On Wed, Feb 08, 2023 at 08:40:25PM +0800, Guan Wentao wrote:
-> > The phy->interface from mdiobus_get_phy is default from phy_device_create.
-> > In some phy devices like at803x, use phy->interface to init rgmii delay.
-> > Use plat->phy_interface to init if know from stmmac_probe_config_dt.
-> > 
-> > Fixes: 74371272f97f ("net: stmmac: Convert to phylink and remove phylib logic")
-> > Signed-off-by: Guan Wentao <guanwentao@uniontech.com>
-> > ---
+[Not fully over covid but I spotted this and don't agree with this change]
+
+On Wed, Feb 08, 2023 at 08:40:25PM +0800, Guan Wentao wrote:
+> The phy->interface from mdiobus_get_phy is default from phy_device_create.
+> In some phy devices like at803x, use phy->interface to init rgmii delay.
+> Use plat->phy_interface to init if know from stmmac_probe_config_dt.
 > 
-> This is v2 of this patch, so let me make some comments about that.
+> Fixes: 74371272f97f ("net: stmmac: Convert to phylink and remove phylib logic")
+> Signed-off-by: Guan Wentao <guanwentao@uniontech.com>
+> ---
+>  drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 6 ++++++
+>  1 file changed, 6 insertions(+)
 > 
-> * Firstly, unless asked to repost by a reviewer/maintainer,
->   it's generally bad practice to post a patch(set) more than once within 24h.
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> index 1a5b8dab5e9b..debfcb045c22 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> @@ -1162,6 +1162,12 @@ static int stmmac_init_phy(struct net_device *dev)
+>  			return -ENODEV;
+>  		}
+>  
+> +		/* If we know the interface, it defines which PHY interface */
+> +		if (priv->plat->phy_interface > 0) {
+> +			phydev->interface = priv->plat->phy_interface;
+> +			netdev_dbg(priv->dev, "Override default phy interface\n");
+> +		}
+> +
 
-Hi Guan
+Why do you need to do this?
 
-I just showed you why there is this 24 hour rule by replying to your
-first version...
+You call phylink_create() with ->phy_interface, which tells phylink
+which interface you want to use. Then, phylink_connect_phy().
 
-      Andrew
+phylink will then call phylink_attach_phy() and then phy_attach_direct()
+with the interface you asked for (which was ->phy_interface).
+
+phy_attach_direct() will then set phydev->interface to that interface
+mode.
+
+So, I think what you have above is a hack rather than a proper fix,
+and the real problem is elsewhere.
+
+-- 
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTP is here! 40Mbps down 10Mbps up. Decent connectivity at last!
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
