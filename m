@@ -2,81 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C43B56903F8
-	for <lists+linux-stm32@lfdr.de>; Thu,  9 Feb 2023 10:40:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B4FE869065B
+	for <lists+linux-stm32@lfdr.de>; Thu,  9 Feb 2023 12:16:25 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6F414C6A5EB;
-	Thu,  9 Feb 2023 09:40:02 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6B039C6A5EA;
+	Thu,  9 Feb 2023 11:16:25 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3B58EC6A5E8
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu,  9 Feb 2023 11:16:24 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1C4E6C6A5E8
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  9 Feb 2023 09:40:01 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 3199HVrD002242; Thu, 9 Feb 2023 10:38:23 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=Ol2FAil1EFrxD0YCoc4RaKOOMiU4+0QQ6K3rmBBavMY=;
- b=zS8kOrt2KVewz+s3mnOTmo7LU9Cc3ORYz7IBRYT5OTjObo1pyepsY+qE5HXkKKN66gpG
- zziMaf9H7EmROzlrcyjB0I/xViLvFeWfY0cF8425FsZYoM9nFJAJX2fEaDPmtS/Gyvvt
- ygEnpE96nP1nW3A6JaIGJmXFtnNXCmlCuPgLFYG+AYuMX+O4UU0oi0e8PfMtjQHqLffQ
- 0NFpsXsAIv4nFggJogS6uMTO44x4AaNU8fit5z0y6zKZavsSTVjeqSaHilzCnUWgR/Df
- V3NqFFGOR/JrE9YP4YSbYw41TTjdH+tR6aDFUumn17mklQS7fkLD1sxaTZSpAwowrWL+ dw== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3nhdcg18v0-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 09 Feb 2023 10:38:23 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 1C17210002A;
- Thu,  9 Feb 2023 10:38:19 +0100 (CET)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id EF17D210F8F;
- Thu,  9 Feb 2023 10:38:18 +0100 (CET)
-Received: from [10.201.21.26] (10.201.21.26) by SHFDAG1NODE1.st.com
- (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.16; Thu, 9 Feb
- 2023 10:38:16 +0100
-Message-ID: <c1d361d1-1599-230c-3609-88cd9f455114@foss.st.com>
-Date: Thu, 9 Feb 2023 10:38:15 +0100
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 11EE161A18;
+ Thu,  9 Feb 2023 11:16:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8AED9C433EF;
+ Thu,  9 Feb 2023 11:16:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1675941382;
+ bh=H6C+4vrhtGEElUVrGafR8vgBWxmAKGYPNQIs9NU39OU=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=Lvyubgm/hv4KJs+xTv/tmBCpl1zyPU6BUDe+v2zuHD+Fl3ZpwuCHV2dIqtZ3luOCA
+ iO71YMwth7hc302Z90Mg8NrKHHwYyS9jZzijLItIQKxSWElZNCFczWxV95RnJKQQ9p
+ bXNK3IUdAsRi51gCw5GAG22cBQiQtV2wqitEk/KGI8JEOUNSpux2WNJdsSEZSwEzD0
+ oiBwTmFl4zq0ciiWm7VzwrMVTEPJnmTKwkvXVRYQlsTrEUnur5qhwQE5tC2ILO+HaX
+ Oup2joa4TFCuEsZrHCBDXiaJJFAbzEfIHT7d/QfvflHkEioa9kxP07iSNodc4vSRVL
+ ZbQ/TAYBAaPNg==
+From: Sasha Levin <sashal@kernel.org>
+To: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Date: Thu,  9 Feb 2023 06:14:38 -0500
+Message-Id: <20230209111459.1891941-19-sashal@kernel.org>
+X-Mailer: git-send-email 2.39.0
+In-Reply-To: <20230209111459.1891941-1-sashal@kernel.org>
+References: <20230209111459.1891941-1-sashal@kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.2
-Content-Language: en-US
-To: Alain Volmat <avolmat@me.com>, Jonathan Corbet <corbet@lwn.net>, "Rob
- Herring" <robh+dt@kernel.org>, Krzysztof Kozlowski
- <krzysztof.kozlowski+dt@linaro.org>,
- Thomas Gleixner <tglx@linutronix.de>, Marc Zyngier <maz@kernel.org>,
- "David S . Miller" <davem@davemloft.net>,
- "Eric Dumazet" <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Russell King <linux@armlinux.org.uk>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>, Alexandre Torgue
- <alexandre.torgue@foss.st.com>, Jose Abreu <joabreu@synopsys.com>, Maxime
- Coquelin <mcoquelin.stm32@gmail.com>, "Rafael J . Wysocki"
- <rafael@kernel.org>, "Daniel Lezcano" <daniel.lezcano@linaro.org>, Amit
- Kucheria <amitk@kernel.org>, "Zhang Rui" <rui.zhang@intel.com>, Michael
- Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>,
- Philipp Zabel <p.zabel@pengutronix.de>
-References: <20230209091659.1409-1-avolmat@me.com>
- <20230209091659.1409-3-avolmat@me.com>
-From: Patrice CHOTARD <patrice.chotard@foss.st.com>
-In-Reply-To: <20230209091659.1409-3-avolmat@me.com>
-X-Originating-IP: [10.201.21.26]
-X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE1.st.com
- (10.75.129.69)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.219,Aquarius:18.0.930,Hydra:6.0.562,FMLib:17.11.122.1
- definitions=2023-02-09_05,2023-02-08_02,2022-06-22_01
-Cc: devicetree@vger.kernel.org, linux-doc@vger.kernel.org,
- netdev@vger.kernel.org, linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-clk@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 02/11] ARM: sti: removal of
- stih415/stih416 related entries
+X-stable: review
+X-Patchwork-Hint: Ignore
+Cc: Sasha Levin <sashal@kernel.org>, tee.min.tan@linux.intel.com,
+ edumazet@google.com, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, veekhee@apple.com, vkoul@kernel.org,
+ joabreu@synopsys.com, ruppala@nvidia.com, mcoquelin.stm32@gmail.com,
+ kuba@kernel.org, peppe.cavallaro@st.com, jonathanh@nvidia.com,
+ pabeni@redhat.com, Andrey Konovalov <andrey.konovalov@linaro.org>,
+ "David S . Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH AUTOSEL 6.1 19/38] net: stmmac: do not stop
+	RX_CLK in Rx LPI state for qcs404 SoC
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,73 +66,68 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+From: Andrey Konovalov <andrey.konovalov@linaro.org>
 
+[ Upstream commit 54aa39a513dbf2164ca462a19f04519b2407a224 ]
 
-On 2/9/23 10:16, Alain Volmat wrote:
-> ST's STiH415 and STiH416 platforms have already been removed since
-> a while.  Remove some remaining bits within the mach-sti.
-> 
-> Signed-off-by: Alain Volmat <avolmat@me.com>
-> ---
->  arch/arm/mach-sti/Kconfig    | 20 +-------------------
->  arch/arm/mach-sti/board-dt.c |  2 --
->  2 files changed, 1 insertion(+), 21 deletions(-)
-> 
-> diff --git a/arch/arm/mach-sti/Kconfig b/arch/arm/mach-sti/Kconfig
-> index b2d45cf10a3c..609957dead98 100644
-> --- a/arch/arm/mach-sti/Kconfig
-> +++ b/arch/arm/mach-sti/Kconfig
-> @@ -19,31 +19,13 @@ menuconfig ARCH_STI
->  	select PL310_ERRATA_769419 if CACHE_L2X0
->  	select RESET_CONTROLLER
->  	help
-> -	  Include support for STMicroelectronics' STiH415/416, STiH407/10 and
-> +	  Include support for STMicroelectronics' STiH407/10 and
->  	  STiH418 family SoCs using the Device Tree for discovery.  More
->  	  information can be found in Documentation/arm/sti/ and
->  	  Documentation/devicetree.
->  
->  if ARCH_STI
->  
-> -config SOC_STIH415
-> -	bool "STiH415 STMicroelectronics Consumer Electronics family"
-> -	default y
-> -	help
-> -	  This enables support for STMicroelectronics Digital Consumer
-> -	  Electronics family StiH415 parts, primarily targeted at set-top-box
-> -	  and other digital audio/video applications using Flattned Device
-> -	  Trees.
-> -
-> -config SOC_STIH416
-> -	bool "STiH416 STMicroelectronics Consumer Electronics family"
-> -	default y
-> -	help
-> -	  This enables support for STMicroelectronics Digital Consumer
-> -	  Electronics family StiH416 parts, primarily targeted at set-top-box
-> -	  and other digital audio/video applications using Flattened Device
-> -	  Trees.
-> -
->  config SOC_STIH407
->  	bool "STiH407 STMicroelectronics Consumer Electronics family"
->  	default y
-> diff --git a/arch/arm/mach-sti/board-dt.c b/arch/arm/mach-sti/board-dt.c
-> index ffecbf29646f..8c313f07bd02 100644
-> --- a/arch/arm/mach-sti/board-dt.c
-> +++ b/arch/arm/mach-sti/board-dt.c
-> @@ -12,8 +12,6 @@
->  #include "smp.h"
->  
->  static const char *const stih41x_dt_match[] __initconst = {
-> -	"st,stih415",
-> -	"st,stih416",
->  	"st,stih407",
->  	"st,stih410",
->  	"st,stih418",
+Currently in phy_init_eee() the driver unconditionally configures the PHY
+to stop RX_CLK after entering Rx LPI state. This causes an LPI interrupt
+storm on my qcs404-base board.
 
-Reviewed-by: Patrice Chotard <patrice.chotard@foss.st.com>
+Change the PHY initialization so that for "qcom,qcs404-ethqos" compatible
+device RX_CLK continues to run even in Rx LPI state.
 
-Thanks
-Patrice
+Signed-off-by: Andrey Konovalov <andrey.konovalov@linaro.org>
+Signed-off-by: David S. Miller <davem@davemloft.net>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c | 2 ++
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c       | 3 ++-
+ include/linux/stmmac.h                                  | 1 +
+ 3 files changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
+index 835caa15d55ff..732774645c1a6 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
+@@ -560,6 +560,8 @@ static int qcom_ethqos_probe(struct platform_device *pdev)
+ 	plat_dat->has_gmac4 = 1;
+ 	plat_dat->pmt = 1;
+ 	plat_dat->tso_en = of_property_read_bool(np, "snps,tso");
++	if (of_device_is_compatible(np, "qcom,qcs404-ethqos"))
++		plat_dat->rx_clk_runs_in_lpi = 1;
+ 
+ 	ret = stmmac_dvr_probe(&pdev->dev, plat_dat, &stmmac_res);
+ 	if (ret)
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index 4bba0444c764a..84e1740b12f1b 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -1077,7 +1077,8 @@ static void stmmac_mac_link_up(struct phylink_config *config,
+ 
+ 	stmmac_mac_set(priv, priv->ioaddr, true);
+ 	if (phy && priv->dma_cap.eee) {
+-		priv->eee_active = phy_init_eee(phy, 1) >= 0;
++		priv->eee_active =
++			phy_init_eee(phy, !priv->plat->rx_clk_runs_in_lpi) >= 0;
+ 		priv->eee_enabled = stmmac_eee_init(priv);
+ 		priv->tx_lpi_enabled = priv->eee_enabled;
+ 		stmmac_set_eee_pls(priv, priv->hw, true);
+diff --git a/include/linux/stmmac.h b/include/linux/stmmac.h
+index fb2e88614f5d1..313edd19bf545 100644
+--- a/include/linux/stmmac.h
++++ b/include/linux/stmmac.h
+@@ -252,6 +252,7 @@ struct plat_stmmacenet_data {
+ 	int rss_en;
+ 	int mac_port_sel_speed;
+ 	bool en_tx_lpi_clockgating;
++	bool rx_clk_runs_in_lpi;
+ 	int has_xgmac;
+ 	bool vlan_fail_q_en;
+ 	u8 vlan_fail_q;
+-- 
+2.39.0
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
