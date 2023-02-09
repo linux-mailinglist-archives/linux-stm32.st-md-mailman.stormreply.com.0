@@ -2,80 +2,55 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D4D166900AC
-	for <lists+linux-stm32@lfdr.de>; Thu,  9 Feb 2023 08:03:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4921769018E
+	for <lists+linux-stm32@lfdr.de>; Thu,  9 Feb 2023 08:47:31 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 79DC9C6A5FB;
-	Thu,  9 Feb 2023 07:03:41 +0000 (UTC)
-Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com
- [205.220.177.32])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D4DD7C6A5EA;
+	Thu,  9 Feb 2023 07:47:30 +0000 (UTC)
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [85.220.165.71])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7123AC62EFE
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DDB30C65E4F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  8 Feb 2023 20:38:33 +0000 (UTC)
-Received: from pps.filterd (m0246631.ppops.net [127.0.0.1])
- by mx0b-00069f02.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 318KYEb7020407; Wed, 8 Feb 2023 20:37:49 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-transfer-encoding; s=corp-2022-7-12;
- bh=2b3rTVXb73zcSnGgWCAz+oII2x9gInto9v0i9EXAkrs=;
- b=CwYr1M3CnAfA9kLj2G0vi8dMr/ZIXLPAWt4iaUTFi7gbjHfiQU6tnUFnHNczSMoyCvlp
- oHSOo9FRpGhLjAcF/encZL/hxlvTLs+k+CQ2yYgoCp+U9dPEe+KDkOR4G17eF3sFFug8
- OfON1LySHVmBT+Du2F/5AXx9har59CGK61LnH0XAeIOWjrRb9op0Vahc7NV6he1orNkk
- gb7F671CVBNtxa+Ur51XTagcwPCb7BQfsCzDfjVtfkQV+nyMcRj8NHlJBvakydGvXd47
- RMhdaU87+6lhRcaF/MOTJ/wxM1fnvQT9+qJkTo6fkLZYjRvIoTZkouNNtz/dlMmkxwqr Rg== 
-Received: from iadpaimrmta03.imrmtpd1.prodappiadaev1.oraclevcn.com
- (iadpaimrmta03.appoci.oracle.com [130.35.103.27])
- by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 3nhe53h8sj-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Wed, 08 Feb 2023 20:37:49 +0000
-Received: from pps.filterd
- (iadpaimrmta03.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
- by iadpaimrmta03.imrmtpd1.prodappiadaev1.oraclevcn.com (8.17.1.5/8.17.1.5)
- with ESMTP id 318JeaY5028397; Wed, 8 Feb 2023 20:37:49 GMT
-Received: from pps.reinject (localhost [127.0.0.1])
- by iadpaimrmta03.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTPS id
- 3nhdte9d47-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Wed, 08 Feb 2023 20:37:49 +0000
-Received: from iadpaimrmta03.imrmtpd1.prodappiadaev1.oraclevcn.com
- (iadpaimrmta03.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
- by pps.reinject (8.17.1.5/8.17.1.5) with ESMTP id 318Kbhre001108;
- Wed, 8 Feb 2023 20:37:48 GMT
-Received: from ca-dev112.us.oracle.com (ca-dev112.us.oracle.com
- [10.129.136.47])
- by iadpaimrmta03.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTP id
- 3nhdte9d05-2; Wed, 08 Feb 2023 20:37:48 +0000
-From: Saeed Mirzamohammadi <saeed.mirzamohammadi@oracle.com>
-To: stable@vger.kernel.org
-Date: Wed,  8 Feb 2023 12:37:11 -0800
-Message-Id: <20230208203711.951845-2-saeed.mirzamohammadi@oracle.com>
-X-Mailer: git-send-email 2.39.1
-In-Reply-To: <20230208203711.951845-1-saeed.mirzamohammadi@oracle.com>
-References: <20230208203711.951845-1-saeed.mirzamohammadi@oracle.com>
+ Thu,  9 Feb 2023 07:47:28 +0000 (UTC)
+Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77]
+ helo=[127.0.0.1]) by metis.ext.pengutronix.de with esmtp (Exim 4.92)
+ (envelope-from <a.fatoum@pengutronix.de>)
+ id 1pQ1dS-0004fZ-Fe; Thu, 09 Feb 2023 08:46:26 +0100
+Message-ID: <da51fd69-e3e8-510c-00b1-b5213d0696b1@pengutronix.de>
+Date: Thu, 9 Feb 2023 08:46:20 +0100
 MIME-Version: 1.0
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.219,Aquarius:18.0.930,Hydra:6.0.562,FMLib:17.11.122.1
- definitions=2023-02-08_09,2023-02-08_02,2022-06-22_01
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 spamscore=0
- mlxlogscore=999 mlxscore=0
- adultscore=0 phishscore=0 suspectscore=0 malwarescore=0 bulkscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2212070000
- definitions=main-2302080175
-X-Proofpoint-ORIG-GUID: 7AFztC1Hk_D3VEBPyDnv-g1iPJR2CbE3
-X-Proofpoint-GUID: 7AFztC1Hk_D3VEBPyDnv-g1iPJR2CbE3
-X-Mailman-Approved-At: Thu, 09 Feb 2023 07:03:38 +0000
-Cc: linux-arm-kernel@lists.infradead.org,
- Herbert Xu <herbert@gondor.apana.org.au>, Eric Biggers <ebiggers@google.com>,
- saeed.mirzamohammadi@oracle.com, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-crypto@vger.kernel.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- "David S. Miller" <davem@davemloft.net>, Robert Elliott <elliott@hpe.com>
-Subject: [Linux-stm32] [PATCH stable 1/1] crypto: testmgr - don't generate
-	WARN for missing modules
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.7.1
+Content-Language: en-US
+To: Gatien Chevallier <gatien.chevallier@foss.st.com>,
+ Oleksii_Moisieiev@epam.com, gregkh@linuxfoundation.org,
+ herbert@gondor.apana.org.au, davem@davemloft.net, robh+dt@kernel.org,
+ krzysztof.kozlowski+dt@linaro.org, alexandre.torgue@foss.st.com,
+ vkoul@kernel.org, jic23@kernel.org, olivier.moysan@foss.st.com,
+ arnaud.pouliquen@foss.st.com, mchehab@kernel.org,
+ fabrice.gasnier@foss.st.com, ulf.hansson@linaro.org, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com
+References: <20230127164040.1047583-1-gatien.chevallier@foss.st.com>
+ <20230127164040.1047583-7-gatien.chevallier@foss.st.com>
+From: Ahmad Fatoum <a.fatoum@pengutronix.de>
+In-Reply-To: <20230127164040.1047583-7-gatien.chevallier@foss.st.com>
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:900:1d::77
+X-SA-Exim-Mail-From: a.fatoum@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-iio@vger.kernel.org, netdev@vger.kernel.org, linux-usb@vger.kernel.org,
+ linux-mmc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-spi@vger.kernel.org, linux-i2c@vger.kernel.org,
+ dmaengine@vger.kernel.org, linux-crypto@vger.kernel.org,
+ linux-serial@vger.kernel.org, linux-phy@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ linux-media@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH v3 6/6] ARM: dts: stm32: add ETZPC as a
+ system bus for STM32MP13x boards
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,103 +67,606 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Robert Elliott <elliott@hpe.com>
+Hello Gatien,
 
-This userspace command:
-    modprobe tcrypt
-or
-    modprobe tcrypt mode=0
+On 27.01.23 17:40, Gatien Chevallier wrote:
+> The STM32 System Bus is an internal bus on which devices are connected.
+> ETZPC is a peripheral overseeing the firewall bus that configures
+> and control access to the peripherals connected on it.
+> 
+> For more information on which peripheral is securable, please read
+> the STM32MP13 reference manual.
 
-runs all the tcrypt test cases numbered <200 (i.e., all the
-test cases calling tcrypt_test() and returning return values).
+Diff is way too big. Please split up the alphabetic reordering into its
+own commit, so actual functional changes are apparent.
 
-Tests are sparsely numbered from 0 to 1000. For example:
-    modprobe tcrypt mode=12
-tests sha512, and
-    modprobe tcrypt mode=152
-tests rfc4543(gcm(aes))) - AES-GCM as GMAC
+Thanks,
+Ahmad
 
-The test manager generates WARNING crashdumps every time it attempts
-a test using an algorithm that is not available (not built-in to the
-kernel or available as a module):
+> 
+> Signed-off-by: Gatien Chevallier <gatien.chevallier@foss.st.com>
+> ---
+> 
+> No changes in V2.
+> 
+> Changes in V3:
+> 	-Use appriopriate node name: bus
+> 
+>  arch/arm/boot/dts/stm32mp131.dtsi  | 407 +++++++++++++++--------------
+>  arch/arm/boot/dts/stm32mp133.dtsi  |  51 ++--
+>  arch/arm/boot/dts/stm32mp13xc.dtsi |  19 +-
+>  arch/arm/boot/dts/stm32mp13xf.dtsi |  18 +-
+>  4 files changed, 258 insertions(+), 237 deletions(-)
+> 
+> diff --git a/arch/arm/boot/dts/stm32mp131.dtsi b/arch/arm/boot/dts/stm32mp131.dtsi
+> index accc3824f7e9..24462a647101 100644
+> --- a/arch/arm/boot/dts/stm32mp131.dtsi
+> +++ b/arch/arm/boot/dts/stm32mp131.dtsi
+> @@ -253,148 +253,6 @@ dmamux1: dma-router@48002000 {
+>  			dma-channels = <16>;
+>  		};
+>  
+> -		adc_2: adc@48004000 {
+> -			compatible = "st,stm32mp13-adc-core";
+> -			reg = <0x48004000 0x400>;
+> -			interrupts = <GIC_SPI 19 IRQ_TYPE_LEVEL_HIGH>;
+> -			clocks = <&rcc ADC2>, <&rcc ADC2_K>;
+> -			clock-names = "bus", "adc";
+> -			interrupt-controller;
+> -			#interrupt-cells = <1>;
+> -			#address-cells = <1>;
+> -			#size-cells = <0>;
+> -			status = "disabled";
+> -
+> -			adc2: adc@0 {
+> -				compatible = "st,stm32mp13-adc";
+> -				#io-channel-cells = <1>;
+> -				#address-cells = <1>;
+> -				#size-cells = <0>;
+> -				reg = <0x0>;
+> -				interrupt-parent = <&adc_2>;
+> -				interrupts = <0>;
+> -				dmas = <&dmamux1 10 0x400 0x80000001>;
+> -				dma-names = "rx";
+> -				status = "disabled";
+> -
+> -				channel@13 {
+> -					reg = <13>;
+> -					label = "vrefint";
+> -				};
+> -				channel@14 {
+> -					reg = <14>;
+> -					label = "vddcore";
+> -				};
+> -				channel@16 {
+> -					reg = <16>;
+> -					label = "vddcpu";
+> -				};
+> -				channel@17 {
+> -					reg = <17>;
+> -					label = "vddq_ddr";
+> -				};
+> -			};
+> -		};
+> -
+> -		usbotg_hs: usb@49000000 {
+> -			compatible = "st,stm32mp15-hsotg", "snps,dwc2";
+> -			reg = <0x49000000 0x40000>;
+> -			clocks = <&rcc USBO_K>;
+> -			clock-names = "otg";
+> -			resets = <&rcc USBO_R>;
+> -			reset-names = "dwc2";
+> -			interrupts = <GIC_SPI 96 IRQ_TYPE_LEVEL_HIGH>;
+> -			g-rx-fifo-size = <512>;
+> -			g-np-tx-fifo-size = <32>;
+> -			g-tx-fifo-size = <256 16 16 16 16 16 16 16>;
+> -			dr_mode = "otg";
+> -			otg-rev = <0x200>;
+> -			usb33d-supply = <&usb33>;
+> -			status = "disabled";
+> -		};
+> -
+> -		spi4: spi@4c002000 {
+> -			compatible = "st,stm32h7-spi";
+> -			reg = <0x4c002000 0x400>;
+> -			interrupts = <GIC_SPI 85 IRQ_TYPE_LEVEL_HIGH>;
+> -			clocks = <&rcc SPI4_K>;
+> -			resets = <&rcc SPI4_R>;
+> -			#address-cells = <1>;
+> -			#size-cells = <0>;
+> -			dmas = <&dmamux1 83 0x400 0x01>,
+> -			       <&dmamux1 84 0x400 0x01>;
+> -			dma-names = "rx", "tx";
+> -			status = "disabled";
+> -		};
+> -
+> -		spi5: spi@4c003000 {
+> -			compatible = "st,stm32h7-spi";
+> -			reg = <0x4c003000 0x400>;
+> -			interrupts = <GIC_SPI 86 IRQ_TYPE_LEVEL_HIGH>;
+> -			clocks = <&rcc SPI5_K>;
+> -			resets = <&rcc SPI5_R>;
+> -			#address-cells = <1>;
+> -			#size-cells = <0>;
+> -			dmas = <&dmamux1 85 0x400 0x01>,
+> -			       <&dmamux1 86 0x400 0x01>;
+> -			dma-names = "rx", "tx";
+> -			status = "disabled";
+> -		};
+> -
+> -		i2c3: i2c@4c004000 {
+> -			compatible = "st,stm32mp13-i2c";
+> -			reg = <0x4c004000 0x400>;
+> -			interrupt-names = "event", "error";
+> -			interrupts = <GIC_SPI 73 IRQ_TYPE_LEVEL_HIGH>,
+> -				     <GIC_SPI 74 IRQ_TYPE_LEVEL_HIGH>;
+> -			clocks = <&rcc I2C3_K>;
+> -			resets = <&rcc I2C3_R>;
+> -			#address-cells = <1>;
+> -			#size-cells = <0>;
+> -			dmas = <&dmamux1 73 0x400 0x1>,
+> -			       <&dmamux1 74 0x400 0x1>;
+> -			dma-names = "rx", "tx";
+> -			st,syscfg-fmp = <&syscfg 0x4 0x4>;
+> -			i2c-analog-filter;
+> -			status = "disabled";
+> -		};
+> -
+> -		i2c4: i2c@4c005000 {
+> -			compatible = "st,stm32mp13-i2c";
+> -			reg = <0x4c005000 0x400>;
+> -			interrupt-names = "event", "error";
+> -			interrupts = <GIC_SPI 93 IRQ_TYPE_LEVEL_HIGH>,
+> -				     <GIC_SPI 94 IRQ_TYPE_LEVEL_HIGH>;
+> -			clocks = <&rcc I2C4_K>;
+> -			resets = <&rcc I2C4_R>;
+> -			#address-cells = <1>;
+> -			#size-cells = <0>;
+> -			dmas = <&dmamux1 75 0x400 0x1>,
+> -			       <&dmamux1 76 0x400 0x1>;
+> -			dma-names = "rx", "tx";
+> -			st,syscfg-fmp = <&syscfg 0x4 0x8>;
+> -			i2c-analog-filter;
+> -			status = "disabled";
+> -		};
+> -
+> -		i2c5: i2c@4c006000 {
+> -			compatible = "st,stm32mp13-i2c";
+> -			reg = <0x4c006000 0x400>;
+> -			interrupt-names = "event", "error";
+> -			interrupts = <GIC_SPI 114 IRQ_TYPE_LEVEL_HIGH>,
+> -				     <GIC_SPI 115 IRQ_TYPE_LEVEL_HIGH>;
+> -			clocks = <&rcc I2C5_K>;
+> -			resets = <&rcc I2C5_R>;
+> -			#address-cells = <1>;
+> -			#size-cells = <0>;
+> -			dmas = <&dmamux1 115 0x400 0x1>,
+> -			       <&dmamux1 116 0x400 0x1>;
+> -			dma-names = "rx", "tx";
+> -			st,syscfg-fmp = <&syscfg 0x4 0x10>;
+> -			i2c-analog-filter;
+> -			status = "disabled";
+> -		};
+> -
+>  		rcc: rcc@50000000 {
+>  			compatible = "st,stm32mp13-rcc", "syscon";
+>  			reg = <0x50000000 0x1000>;
+> @@ -431,34 +289,6 @@ mdma: dma-controller@58000000 {
+>  			dma-requests = <48>;
+>  		};
+>  
+> -		sdmmc1: mmc@58005000 {
+> -			compatible = "st,stm32-sdmmc2", "arm,pl18x", "arm,primecell";
+> -			arm,primecell-periphid = <0x20253180>;
+> -			reg = <0x58005000 0x1000>, <0x58006000 0x1000>;
+> -			interrupts = <GIC_SPI 50 IRQ_TYPE_LEVEL_HIGH>;
+> -			clocks = <&rcc SDMMC1_K>;
+> -			clock-names = "apb_pclk";
+> -			resets = <&rcc SDMMC1_R>;
+> -			cap-sd-highspeed;
+> -			cap-mmc-highspeed;
+> -			max-frequency = <130000000>;
+> -			status = "disabled";
+> -		};
+> -
+> -		sdmmc2: mmc@58007000 {
+> -			compatible = "st,stm32-sdmmc2", "arm,pl18x", "arm,primecell";
+> -			arm,primecell-periphid = <0x20253180>;
+> -			reg = <0x58007000 0x1000>, <0x58008000 0x1000>;
+> -			interrupts = <GIC_SPI 108 IRQ_TYPE_LEVEL_HIGH>;
+> -			clocks = <&rcc SDMMC2_K>;
+> -			clock-names = "apb_pclk";
+> -			resets = <&rcc SDMMC2_R>;
+> -			cap-sd-highspeed;
+> -			cap-mmc-highspeed;
+> -			max-frequency = <130000000>;
+> -			status = "disabled";
+> -		};
+> -
+>  		usbh_ohci: usb@5800c000 {
+>  			compatible = "generic-ohci";
+>  			reg = <0x5800c000 0x1000>;
+> @@ -486,29 +316,6 @@ iwdg2: watchdog@5a002000 {
+>  			status = "disabled";
+>  		};
+>  
+> -		usbphyc: usbphyc@5a006000 {
+> -			#address-cells = <1>;
+> -			#size-cells = <0>;
+> -			#clock-cells = <0>;
+> -			compatible = "st,stm32mp1-usbphyc";
+> -			reg = <0x5a006000 0x1000>;
+> -			clocks = <&rcc USBPHY_K>;
+> -			resets = <&rcc USBPHY_R>;
+> -			vdda1v1-supply = <&reg11>;
+> -			vdda1v8-supply = <&reg18>;
+> -			status = "disabled";
+> -
+> -			usbphyc_port0: usb-phy@0 {
+> -				#phy-cells = <0>;
+> -				reg = <0>;
+> -			};
+> -
+> -			usbphyc_port1: usb-phy@1 {
+> -				#phy-cells = <1>;
+> -				reg = <1>;
+> -			};
+> -		};
+> -
+>  		rtc: rtc@5c004000 {
+>  			compatible = "st,stm32mp1-rtc";
+>  			reg = <0x5c004000 0x400>;
+> @@ -536,6 +343,220 @@ ts_cal2: calib@5e {
+>  			};
+>  		};
+>  
+> +		etzpc: bus@5c007000 {
+> +			compatible = "st,stm32mp13-sys-bus";
+> +			reg = <0x5c007000 0x400>;
+> +			#address-cells = <1>;
+> +			#size-cells = <1>;
+> +			feature-domain-controller;
+> +			#feature-domain-cells = <1>;
+> +			ranges;
+> +
+> +			adc_2: adc@48004000 {
+> +				compatible = "st,stm32mp13-adc-core";
+> +				reg = <0x48004000 0x400>;
+> +				interrupts = <GIC_SPI 19 IRQ_TYPE_LEVEL_HIGH>;
+> +				clocks = <&rcc ADC2>, <&rcc ADC2_K>;
+> +				clock-names = "bus", "adc";
+> +				interrupt-controller;
+> +				#interrupt-cells = <1>;
+> +				#address-cells = <1>;
+> +				#size-cells = <0>;
+> +				feature-domains = <&etzpc 33>;
+> +				status = "disabled";
+> +
+> +				adc2: adc@0 {
+> +					compatible = "st,stm32mp13-adc";
+> +					#io-channel-cells = <1>;
+> +					#address-cells = <1>;
+> +					#size-cells = <0>;
+> +					reg = <0x0>;
+> +					interrupt-parent = <&adc_2>;
+> +					interrupts = <0>;
+> +					dmas = <&dmamux1 10 0x400 0x80000001>;
+> +					dma-names = "rx";
+> +					status = "disabled";
+> +
+> +					channel@13 {
+> +						reg = <13>;
+> +						label = "vrefint";
+> +					};
+> +					channel@14 {
+> +						reg = <14>;
+> +						label = "vddcore";
+> +					};
+> +					channel@16 {
+> +						reg = <16>;
+> +						label = "vddcpu";
+> +					};
+> +					channel@17 {
+> +						reg = <17>;
+> +						label = "vddq_ddr";
+> +					};
+> +				};
+> +			};
+> +
+> +			usbotg_hs: usb@49000000 {
+> +				compatible = "st,stm32mp15-hsotg", "snps,dwc2";
+> +				reg = <0x49000000 0x40000>;
+> +				clocks = <&rcc USBO_K>;
+> +				clock-names = "otg";
+> +				resets = <&rcc USBO_R>;
+> +				reset-names = "dwc2";
+> +				interrupts = <GIC_SPI 96 IRQ_TYPE_LEVEL_HIGH>;
+> +				g-rx-fifo-size = <512>;
+> +				g-np-tx-fifo-size = <32>;
+> +				g-tx-fifo-size = <256 16 16 16 16 16 16 16>;
+> +				dr_mode = "otg";
+> +				otg-rev = <0x200>;
+> +				usb33d-supply = <&usb33>;
+> +				feature-domains = <&etzpc 34>;
+> +				status = "disabled";
+> +			};
+> +
+> +			spi4: spi@4c002000 {
+> +				compatible = "st,stm32h7-spi";
+> +				reg = <0x4c002000 0x400>;
+> +				interrupts = <GIC_SPI 85 IRQ_TYPE_LEVEL_HIGH>;
+> +				clocks = <&rcc SPI4_K>;
+> +				resets = <&rcc SPI4_R>;
+> +				#address-cells = <1>;
+> +				#size-cells = <0>;
+> +				dmas = <&dmamux1 83 0x400 0x01>,
+> +				       <&dmamux1 84 0x400 0x01>;
+> +				dma-names = "rx", "tx";
+> +				feature-domains = <&etzpc 18>;
+> +				status = "disabled";
+> +			};
+> +
+> +			spi5: spi@4c003000 {
+> +				compatible = "st,stm32h7-spi";
+> +				reg = <0x4c003000 0x400>;
+> +				interrupts = <GIC_SPI 86 IRQ_TYPE_LEVEL_HIGH>;
+> +				clocks = <&rcc SPI5_K>;
+> +				resets = <&rcc SPI5_R>;
+> +				#address-cells = <1>;
+> +				#size-cells = <0>;
+> +				dmas = <&dmamux1 85 0x400 0x01>,
+> +				       <&dmamux1 86 0x400 0x01>;
+> +				dma-names = "rx", "tx";
+> +				feature-domains = <&etzpc 19>;
+> +				status = "disabled";
+> +			};
+> +
+> +			i2c3: i2c@4c004000 {
+> +				compatible = "st,stm32mp13-i2c";
+> +				reg = <0x4c004000 0x400>;
+> +				interrupt-names = "event", "error";
+> +				interrupts = <GIC_SPI 73 IRQ_TYPE_LEVEL_HIGH>,
+> +					     <GIC_SPI 74 IRQ_TYPE_LEVEL_HIGH>;
+> +				clocks = <&rcc I2C3_K>;
+> +				resets = <&rcc I2C3_R>;
+> +				#address-cells = <1>;
+> +				#size-cells = <0>;
+> +				dmas = <&dmamux1 73 0x400 0x1>,
+> +				       <&dmamux1 74 0x400 0x1>;
+> +				dma-names = "rx", "tx";
+> +				st,syscfg-fmp = <&syscfg 0x4 0x4>;
+> +				i2c-analog-filter;
+> +				feature-domains = <&etzpc 20>;
+> +				status = "disabled";
+> +			};
+> +
+> +			i2c4: i2c@4c005000 {
+> +				compatible = "st,stm32mp13-i2c";
+> +				reg = <0x4c005000 0x400>;
+> +				interrupt-names = "event", "error";
+> +				interrupts = <GIC_SPI 93 IRQ_TYPE_LEVEL_HIGH>,
+> +					     <GIC_SPI 94 IRQ_TYPE_LEVEL_HIGH>;
+> +				clocks = <&rcc I2C4_K>;
+> +				resets = <&rcc I2C4_R>;
+> +				#address-cells = <1>;
+> +				#size-cells = <0>;
+> +				dmas = <&dmamux1 75 0x400 0x1>,
+> +				       <&dmamux1 76 0x400 0x1>;
+> +				dma-names = "rx", "tx";
+> +				st,syscfg-fmp = <&syscfg 0x4 0x8>;
+> +				i2c-analog-filter;
+> +				feature-domains = <&etzpc 21>;
+> +				status = "disabled";
+> +			};
+> +
+> +			i2c5: i2c@4c006000 {
+> +				compatible = "st,stm32mp13-i2c";
+> +				reg = <0x4c006000 0x400>;
+> +				interrupt-names = "event", "error";
+> +				interrupts = <GIC_SPI 114 IRQ_TYPE_LEVEL_HIGH>,
+> +					     <GIC_SPI 115 IRQ_TYPE_LEVEL_HIGH>;
+> +				clocks = <&rcc I2C5_K>;
+> +				resets = <&rcc I2C5_R>;
+> +				#address-cells = <1>;
+> +				#size-cells = <0>;
+> +				dmas = <&dmamux1 115 0x400 0x1>,
+> +				       <&dmamux1 116 0x400 0x1>;
+> +				dma-names = "rx", "tx";
+> +				st,syscfg-fmp = <&syscfg 0x4 0x10>;
+> +				i2c-analog-filter;
+> +				feature-domains = <&etzpc 22>;
+> +				status = "disabled";
+> +			};
+> +
+> +			sdmmc1: mmc@58005000 {
+> +				compatible = "st,stm32-sdmmc2", "arm,pl18x", "arm,primecell";
+> +				arm,primecell-periphid = <0x20253180>;
+> +				reg = <0x58005000 0x1000>, <0x58006000 0x1000>;
+> +				interrupts = <GIC_SPI 50 IRQ_TYPE_LEVEL_HIGH>;
+> +				clocks = <&rcc SDMMC1_K>;
+> +				clock-names = "apb_pclk";
+> +				resets = <&rcc SDMMC1_R>;
+> +				cap-sd-highspeed;
+> +				cap-mmc-highspeed;
+> +				max-frequency = <130000000>;
+> +				feature-domains = <&etzpc 50>;
+> +				status = "disabled";
+> +			};
+> +
+> +			sdmmc2: mmc@58007000 {
+> +				compatible = "st,stm32-sdmmc2", "arm,pl18x", "arm,primecell";
+> +				arm,primecell-periphid = <0x20253180>;
+> +				reg = <0x58007000 0x1000>, <0x58008000 0x1000>;
+> +				interrupts = <GIC_SPI 108 IRQ_TYPE_LEVEL_HIGH>;
+> +				clocks = <&rcc SDMMC2_K>;
+> +				clock-names = "apb_pclk";
+> +				resets = <&rcc SDMMC2_R>;
+> +				cap-sd-highspeed;
+> +				cap-mmc-highspeed;
+> +				max-frequency = <130000000>;
+> +				feature-domains = <&etzpc 51>;
+> +				status = "disabled";
+> +			};
+> +
+> +			usbphyc: usbphyc@5a006000 {
+> +				#address-cells = <1>;
+> +				#size-cells = <0>;
+> +				#clock-cells = <0>;
+> +				compatible = "st,stm32mp1-usbphyc";
+> +				reg = <0x5a006000 0x1000>;
+> +				clocks = <&rcc USBPHY_K>;
+> +				resets = <&rcc USBPHY_R>;
+> +				vdda1v1-supply = <&reg11>;
+> +				vdda1v8-supply = <&reg18>;
+> +				feature-domains = <&etzpc 5>;
+> +				status = "disabled";
+> +
+> +				usbphyc_port0: usb-phy@0 {
+> +					#phy-cells = <0>;
+> +					reg = <0>;
+> +				};
+> +
+> +				usbphyc_port1: usb-phy@1 {
+> +					#phy-cells = <1>;
+> +					reg = <1>;
+> +				};
+> +			};
+> +
+> +		};
+> +
+>  		/*
+>  		 * Break node order to solve dependency probe issue between
+>  		 * pinctrl and exti.
+> diff --git a/arch/arm/boot/dts/stm32mp133.dtsi b/arch/arm/boot/dts/stm32mp133.dtsi
+> index df451c3c2a26..be6061552683 100644
+> --- a/arch/arm/boot/dts/stm32mp133.dtsi
+> +++ b/arch/arm/boot/dts/stm32mp133.dtsi
+> @@ -33,35 +33,38 @@ m_can2: can@4400f000 {
+>  			bosch,mram-cfg = <0x1400 0 0 32 0 0 2 2>;
+>  			status = "disabled";
+>  		};
+> +	};
+> +};
+>  
+> -		adc_1: adc@48003000 {
+> -			compatible = "st,stm32mp13-adc-core";
+> -			reg = <0x48003000 0x400>;
+> -			interrupts = <GIC_SPI 18 IRQ_TYPE_LEVEL_HIGH>;
+> -			clocks = <&rcc ADC1>, <&rcc ADC1_K>;
+> -			clock-names = "bus", "adc";
+> -			interrupt-controller;
+> -			#interrupt-cells = <1>;
+> +&etzpc {
+> +	adc_1: adc@48003000 {
+> +		compatible = "st,stm32mp13-adc-core";
+> +		reg = <0x48003000 0x400>;
+> +		interrupts = <GIC_SPI 18 IRQ_TYPE_LEVEL_HIGH>;
+> +		clocks = <&rcc ADC1>, <&rcc ADC1_K>;
+> +		clock-names = "bus", "adc";
+> +		interrupt-controller;
+> +		#interrupt-cells = <1>;
+> +		#address-cells = <1>;
+> +		#size-cells = <0>;
+> +		feature-domains = <&etzpc 32>;
+> +		status = "disabled";
+> +
+> +		adc1: adc@0 {
+> +			compatible = "st,stm32mp13-adc";
+> +			#io-channel-cells = <1>;
+>  			#address-cells = <1>;
+>  			#size-cells = <0>;
+> +			reg = <0x0>;
+> +			interrupt-parent = <&adc_1>;
+> +			interrupts = <0>;
+> +			dmas = <&dmamux1 9 0x400 0x80000001>;
+> +			dma-names = "rx";
+>  			status = "disabled";
+>  
+> -			adc1: adc@0 {
+> -				compatible = "st,stm32mp13-adc";
+> -				#io-channel-cells = <1>;
+> -				#address-cells = <1>;
+> -				#size-cells = <0>;
+> -				reg = <0x0>;
+> -				interrupt-parent = <&adc_1>;
+> -				interrupts = <0>;
+> -				dmas = <&dmamux1 9 0x400 0x80000001>;
+> -				dma-names = "rx";
+> -				status = "disabled";
+> -
+> -				channel@18 {
+> -					reg = <18>;
+> -					label = "vrefint";
+> -				};
+> +			channel@18 {
+> +				reg = <18>;
+> +				label = "vrefint";
+>  			};
+>  		};
+>  	};
+> diff --git a/arch/arm/boot/dts/stm32mp13xc.dtsi b/arch/arm/boot/dts/stm32mp13xc.dtsi
+> index 4d00e7592882..a1a7a40c2a3e 100644
+> --- a/arch/arm/boot/dts/stm32mp13xc.dtsi
+> +++ b/arch/arm/boot/dts/stm32mp13xc.dtsi
+> @@ -4,15 +4,14 @@
+>   * Author: Alexandre Torgue <alexandre.torgue@foss.st.com> for STMicroelectronics.
+>   */
+>  
+> -/ {
+> -	soc {
+> -		cryp: crypto@54002000 {
+> -			compatible = "st,stm32mp1-cryp";
+> -			reg = <0x54002000 0x400>;
+> -			interrupts = <GIC_SPI 80 IRQ_TYPE_LEVEL_HIGH>;
+> -			clocks = <&rcc CRYP1>;
+> -			resets = <&rcc CRYP1_R>;
+> -			status = "disabled";
+> -		};
+> +&etzpc {
+> +	cryp: crypto@54002000 {
+> +		compatible = "st,stm32mp1-cryp";
+> +		reg = <0x54002000 0x400>;
+> +		interrupts = <GIC_SPI 80 IRQ_TYPE_LEVEL_HIGH>;
+> +		clocks = <&rcc CRYP1>;
+> +		resets = <&rcc CRYP1_R>;
+> +		feature-domains = <&etzpc 42>;
+> +		status = "disabled";
+>  	};
+>  };
+> diff --git a/arch/arm/boot/dts/stm32mp13xf.dtsi b/arch/arm/boot/dts/stm32mp13xf.dtsi
+> index 4d00e7592882..b9fb071a1471 100644
+> --- a/arch/arm/boot/dts/stm32mp13xf.dtsi
+> +++ b/arch/arm/boot/dts/stm32mp13xf.dtsi
+> @@ -4,15 +4,13 @@
+>   * Author: Alexandre Torgue <alexandre.torgue@foss.st.com> for STMicroelectronics.
+>   */
+>  
+> -/ {
+> -	soc {
+> -		cryp: crypto@54002000 {
+> -			compatible = "st,stm32mp1-cryp";
+> -			reg = <0x54002000 0x400>;
+> -			interrupts = <GIC_SPI 80 IRQ_TYPE_LEVEL_HIGH>;
+> -			clocks = <&rcc CRYP1>;
+> -			resets = <&rcc CRYP1_R>;
+> -			status = "disabled";
+> -		};
+> +&etzpc {
+> +	cryp: crypto@54002000 {
+> +		compatible = "st,stm32mp1-cryp";
+> +		reg = <0x54002000 0x400>;
+> +		interrupts = <GIC_SPI 80 IRQ_TYPE_LEVEL_HIGH>;
+> +		clocks = <&rcc CRYP1>;
+> +		resets = <&rcc CRYP1_R>;
+> +		status = "disabled";
+>  	};
+>  };
 
-    alg: skcipher: failed to allocate transform for ecb(arc4): -2
-    ------------[ cut here ]-----------
-    alg: self-tests for ecb(arc4) (ecb(arc4)) failed (rc=-2)
-    WARNING: CPU: 9 PID: 4618 at crypto/testmgr.c:5777
-alg_test+0x30b/0x510
-    [50 more lines....]
-
-    ---[ end trace 0000000000000000 ]---
-
-If the kernel is compiled with CRYPTO_USER_API_ENABLE_OBSOLETE
-disabled (the default), then these algorithms are not compiled into
-the kernel or made into modules and trigger WARNINGs:
-    arc4 tea xtea khazad anubis xeta seed
-
-Additionally, any other algorithms that are not enabled in .config
-will generate WARNINGs. In RHEL 9.0, for example, the default
-selection of algorithms leads to 16 WARNING dumps.
-
-One attempt to fix this was by modifying tcrypt_test() to check
-crypto_has_alg() and immediately return 0 if crypto_has_alg() fails,
-rather than proceed and return a non-zero error value that causes
-the caller (alg_test() in crypto/testmgr.c) to invoke WARN().
-That knocks out too many algorithms, though; some combinations
-like ctr(des3_ede) would work.
-
-Instead, change the condition on the WARN to ignore a return
-value is ENOENT, which is the value returned when the algorithm
-or combination of algorithms doesn't exist. Add a pr_warn to
-communicate that information in case the WARN is skipped.
-
-This approach allows algorithm tests to work that are combinations,
-not provided by one driver, like ctr(blowfish).
-
-Result - no more WARNINGs:
-modprobe tcrypt
-[  115.541765] tcrypt: testing md5
-[  115.556415] tcrypt: testing sha1
-[  115.570463] tcrypt: testing ecb(des)
-[  115.585303] cryptomgr: alg: skcipher: failed to allocate transform for ecb(des): -2
-[  115.593037] cryptomgr: alg: self-tests for ecb(des) using ecb(des) failed (rc=-2)
-[  115.593038] tcrypt: testing cbc(des)
-[  115.610641] cryptomgr: alg: skcipher: failed to allocate transform for cbc(des): -2
-[  115.618359] cryptomgr: alg: self-tests for cbc(des) using cbc(des) failed (rc=-2)
-...
-
-Signed-off-by: Robert Elliott <elliott@hpe.com>
-Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
-(cherry picked from commit a76bd86a85cac9feddc66d38019f943d054f0218)
-
-Fixes: 09a5ef9644bc0 ("crypto: testmgr - WARN on test failure")
-
-Cc: stable@vger.kernel.org # 5.11+
-Signed-off-by: Saeed Mirzamohammadi <saeed.mirzamohammadi@oracle.com>
----
- crypto/testmgr.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
-
-diff --git a/crypto/testmgr.c b/crypto/testmgr.c
-index 163a1283a866a..6131f81703c93 100644
---- a/crypto/testmgr.c
-+++ b/crypto/testmgr.c
-@@ -5654,8 +5654,11 @@ int alg_test(const char *driver, const char *alg, u32 type, u32 mask)
- 			      driver, alg,
- 			      fips_enabled ? "fips" : "panic_on_fail");
- 		}
--		WARN(1, "alg: self-tests for %s (%s) failed (rc=%d)",
--		     driver, alg, rc);
-+		pr_warn("alg: self-tests for %s using %s failed (rc=%d)",
-+			alg, driver, rc);
-+		WARN(rc != -ENOENT,
-+		     "alg: self-tests for %s using %s failed (rc=%d)",
-+		     alg, driver, rc);
- 	} else {
- 		if (fips_enabled)
- 			pr_info("alg: self-tests for %s (%s) passed\n",
 -- 
-2.39.1
+Pengutronix e.K.                           |                             |
+Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
+31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
+Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
 
 _______________________________________________
 Linux-stm32 mailing list
