@@ -2,42 +2,42 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B4FE869065B
-	for <lists+linux-stm32@lfdr.de>; Thu,  9 Feb 2023 12:16:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D0022690691
+	for <lists+linux-stm32@lfdr.de>; Thu,  9 Feb 2023 12:18:19 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6B039C6A5EA;
-	Thu,  9 Feb 2023 11:16:25 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9206CC6A5EA;
+	Thu,  9 Feb 2023 11:18:19 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3B58EC6A5E8
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 80567C6A5E8
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  9 Feb 2023 11:16:24 +0000 (UTC)
+ Thu,  9 Feb 2023 11:18:18 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 11EE161A18;
- Thu,  9 Feb 2023 11:16:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8AED9C433EF;
- Thu,  9 Feb 2023 11:16:20 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 12616B82076;
+ Thu,  9 Feb 2023 11:18:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB2B9C433EF;
+ Thu,  9 Feb 2023 11:18:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1675941382;
- bh=H6C+4vrhtGEElUVrGafR8vgBWxmAKGYPNQIs9NU39OU=;
+ s=k20201202; t=1675941496;
+ bh=Ypu/Ws6xo20+WSJL7m/mvLk6h6EMP60FSYtmpN2s/yI=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Lvyubgm/hv4KJs+xTv/tmBCpl1zyPU6BUDe+v2zuHD+Fl3ZpwuCHV2dIqtZ3luOCA
- iO71YMwth7hc302Z90Mg8NrKHHwYyS9jZzijLItIQKxSWElZNCFczWxV95RnJKQQ9p
- bXNK3IUdAsRi51gCw5GAG22cBQiQtV2wqitEk/KGI8JEOUNSpux2WNJdsSEZSwEzD0
- oiBwTmFl4zq0ciiWm7VzwrMVTEPJnmTKwkvXVRYQlsTrEUnur5qhwQE5tC2ILO+HaX
- Oup2joa4TFCuEsZrHCBDXiaJJFAbzEfIHT7d/QfvflHkEioa9kxP07iSNodc4vSRVL
- ZbQ/TAYBAaPNg==
+ b=aFoz4SkT4r2ejVbkKO6rDsN/o7OZOHDnk+Qu0myi5rVftUkfKogYM4R7Tm0ea0VLP
+ J8OMUNIkYgzJ18qYOV/e3uSrjG5h8TtyNcWwyTs+KHdMa9ZTYl5M+ceqhQchJq2+Fb
+ dNBsZ8KNwLQLrSp7VqTfqdigIvUAdkpvt8B+9UIwhqvIpF2fA6CRahNu5NaMQZbYiQ
+ oKHzTAKGlWfK9gS7D58Rr/m/7GuEBTxqqgwQxMSZXKr3kImQnXUHpVslUBzw3M0A+1
+ /OU3hq5K4lvrPm4f6dqTgGTScn0pmlLizZZuMF57eVwJQj4pwsitRWAyg0+rOMZ1NN
+ kBiXjOqThlzYg==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Thu,  9 Feb 2023 06:14:38 -0500
-Message-Id: <20230209111459.1891941-19-sashal@kernel.org>
+Date: Thu,  9 Feb 2023 06:17:23 -0500
+Message-Id: <20230209111731.1892569-11-sashal@kernel.org>
 X-Mailer: git-send-email 2.39.0
-In-Reply-To: <20230209111459.1891941-1-sashal@kernel.org>
-References: <20230209111459.1891941-1-sashal@kernel.org>
+In-Reply-To: <20230209111731.1892569-1-sashal@kernel.org>
+References: <20230209111731.1892569-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -45,10 +45,10 @@ Cc: Sasha Levin <sashal@kernel.org>, tee.min.tan@linux.intel.com,
  edumazet@google.com, netdev@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, veekhee@apple.com, vkoul@kernel.org,
  joabreu@synopsys.com, ruppala@nvidia.com, mcoquelin.stm32@gmail.com,
- kuba@kernel.org, peppe.cavallaro@st.com, jonathanh@nvidia.com,
- pabeni@redhat.com, Andrey Konovalov <andrey.konovalov@linaro.org>,
+ kuba@kernel.org, peppe.cavallaro@st.com, pabeni@redhat.com,
+ Andrey Konovalov <andrey.konovalov@linaro.org>,
  "David S . Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH AUTOSEL 6.1 19/38] net: stmmac: do not stop
+Subject: [Linux-stm32] [PATCH AUTOSEL 5.15 11/17] net: stmmac: do not stop
 	RX_CLK in Rx LPI state for qcs404 SoC
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -87,10 +87,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  3 files changed, 5 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-index 835caa15d55ff..732774645c1a6 100644
+index 6b1d9e8879f46..d0c7f22a4e55a 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
 +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-@@ -560,6 +560,8 @@ static int qcom_ethqos_probe(struct platform_device *pdev)
+@@ -505,6 +505,8 @@ static int qcom_ethqos_probe(struct platform_device *pdev)
  	plat_dat->has_gmac4 = 1;
  	plat_dat->pmt = 1;
  	plat_dat->tso_en = of_property_read_bool(np, "snps,tso");
@@ -100,10 +100,10 @@ index 835caa15d55ff..732774645c1a6 100644
  	ret = stmmac_dvr_probe(&pdev->dev, plat_dat, &stmmac_res);
  	if (ret)
 diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 4bba0444c764a..84e1740b12f1b 100644
+index 4191502d6472f..d56f65338ea66 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
 +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -1077,7 +1077,8 @@ static void stmmac_mac_link_up(struct phylink_config *config,
+@@ -1174,7 +1174,8 @@ static void stmmac_mac_link_up(struct phylink_config *config,
  
  	stmmac_mac_set(priv, priv->ioaddr, true);
  	if (phy && priv->dma_cap.eee) {
@@ -114,10 +114,10 @@ index 4bba0444c764a..84e1740b12f1b 100644
  		priv->tx_lpi_enabled = priv->eee_enabled;
  		stmmac_set_eee_pls(priv, priv->hw, true);
 diff --git a/include/linux/stmmac.h b/include/linux/stmmac.h
-index fb2e88614f5d1..313edd19bf545 100644
+index 48d015ed21752..cc338c6c74954 100644
 --- a/include/linux/stmmac.h
 +++ b/include/linux/stmmac.h
-@@ -252,6 +252,7 @@ struct plat_stmmacenet_data {
+@@ -251,6 +251,7 @@ struct plat_stmmacenet_data {
  	int rss_en;
  	int mac_port_sel_speed;
  	bool en_tx_lpi_clockgating;
