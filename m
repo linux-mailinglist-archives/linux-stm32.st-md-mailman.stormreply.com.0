@@ -2,53 +2,53 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E5C2A6906A9
-	for <lists+linux-stm32@lfdr.de>; Thu,  9 Feb 2023 12:19:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 09A726906B7
+	for <lists+linux-stm32@lfdr.de>; Thu,  9 Feb 2023 12:19:57 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AABADC6A5EA;
-	Thu,  9 Feb 2023 11:19:15 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C4C09C6A5EA;
+	Thu,  9 Feb 2023 11:19:56 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1A0D5C6A5E8
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 20EFCC6A5E8
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  9 Feb 2023 11:19:14 +0000 (UTC)
+ Thu,  9 Feb 2023 11:19:55 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id B7F48B82102;
- Thu,  9 Feb 2023 11:19:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86DEEC433EF;
- Thu,  9 Feb 2023 11:19:10 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 1FC0361A11;
+ Thu,  9 Feb 2023 11:19:54 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A2E0DC433D2;
+ Thu,  9 Feb 2023 11:19:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1675941552;
- bh=Oo2/GMbAnH4vVzlZfi6s07yWdE7kvaXlDm1kDBtnz78=;
+ s=k20201202; t=1675941593;
+ bh=iv5B47pNe86/2rxKzaoSgXckV5rpV41e5bD7FuJX/aQ=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=k5W7ch28RxIQX/gQac7I5so5AIocKDJjRrrBAfHj56CImaLiRC7vGiooCdRgL8stt
- eXWhTPppImW95+zUGMC2iqJsvu6WFTM+Kwe5FWs9WuAk+rcZPCaj2q+VV4RVbxWsO/
- a5H/ZsrViCCb9zf5hP7lK+tLVzSWsfdZ09M30zCXIY5z5QH6D9i+1jn/ec8NFpFvdN
- IepNdGWnxtFkWCgyc7XJ3P49v9ozVYlap5VuR92ruZ5hW5Oh0eCDPLqjv4I8FIhbV5
- /P4nfXtcWiHFc1PQk7mMMJVZJRc/vdde6JssBKZ9au8Rk++D7y3yY1Sfi7ExzJnIsE
- hB58FwlSarvRQ==
+ b=OVHH3rdFT3BotvFYFDwCTw8C2UF5k1s7dCsJL6GTat3YrJcZjIuK7g0dBSLHyXbgg
+ gj90tn8NiUD8ATrnQVbVYlXoXx6KaxwpJgaEkbCsZ11+Ap8E+3c8LVkPx6z8gvpWWX
+ MmVCOpWX5ddahTSBsCDnSbKwtE+Phx4OsuSq3FB+glIt6AxecMxIKrtSyy7Ohok4AB
+ 4J/VFprt24hA0Weav1cZ90Q6V4lELORMWk8AlvhKh0gF6l5xTdRp2l2BMJ3S+GZtXY
+ SEtf3Y8ZiTYrkEKnncYfesLRqdx/JLzr7oe4//6dGxjws/sb20ZaE6w/Deu/9nYZ9h
+ myP8lKYa1i7jA==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Thu,  9 Feb 2023 06:18:27 -0500
-Message-Id: <20230209111833.1892896-9-sashal@kernel.org>
+Date: Thu,  9 Feb 2023 06:19:16 -0500
+Message-Id: <20230209111921.1893095-7-sashal@kernel.org>
 X-Mailer: git-send-email 2.39.0
-In-Reply-To: <20230209111833.1892896-1-sashal@kernel.org>
-References: <20230209111833.1892896-1-sashal@kernel.org>
+In-Reply-To: <20230209111921.1893095-1-sashal@kernel.org>
+References: <20230209111921.1893095-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Cc: Sasha Levin <sashal@kernel.org>, tee.min.tan@linux.intel.com,
- edumazet@google.com, netdev@vger.kernel.org, kurt@linutronix.de,
+ edumazet@google.com, netdev@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, veekhee@apple.com, vkoul@kernel.org,
  joabreu@synopsys.com, ruppala@nvidia.com, mcoquelin.stm32@gmail.com,
- kuba@kernel.org, peppe.cavallaro@st.com, pabeni@redhat.com,
- Andrey Konovalov <andrey.konovalov@linaro.org>,
+ kuba@kernel.org, peppe.cavallaro@st.com, jonathanh@nvidia.com,
+ pabeni@redhat.com, Andrey Konovalov <andrey.konovalov@linaro.org>,
  "David S . Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH AUTOSEL 5.10 09/13] net: stmmac: do not stop
+Subject: [Linux-stm32] [PATCH AUTOSEL 5.4 07/10] net: stmmac: do not stop
 	RX_CLK in Rx LPI state for qcs404 SoC
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -100,10 +100,10 @@ index bfc4a92f1d92b..78be62ecc9a9a 100644
  	ret = stmmac_dvr_probe(&pdev->dev, plat_dat, &stmmac_res);
  	if (ret)
 diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index b52ca2fe04d87..1ec000d4c7705 100644
+index 3079e52546663..6a3b0f76d9729 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
 +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -1058,7 +1058,8 @@ static void stmmac_mac_link_up(struct phylink_config *config,
+@@ -932,7 +932,8 @@ static void stmmac_mac_link_up(struct phylink_config *config,
  
  	stmmac_mac_set(priv, priv->ioaddr, true);
  	if (phy && priv->dma_cap.eee) {
@@ -111,20 +111,20 @@ index b52ca2fe04d87..1ec000d4c7705 100644
 +		priv->eee_active =
 +			phy_init_eee(phy, !priv->plat->rx_clk_runs_in_lpi) >= 0;
  		priv->eee_enabled = stmmac_eee_init(priv);
- 		priv->tx_lpi_enabled = priv->eee_enabled;
  		stmmac_set_eee_pls(priv, priv->hw, true);
+ 	}
 diff --git a/include/linux/stmmac.h b/include/linux/stmmac.h
-index 40df88728a6f4..abf7b8ec1fb64 100644
+index 0b35747c9837a..88b107e20fc7c 100644
 --- a/include/linux/stmmac.h
 +++ b/include/linux/stmmac.h
-@@ -199,6 +199,7 @@ struct plat_stmmacenet_data {
+@@ -178,6 +178,7 @@ struct plat_stmmacenet_data {
  	int rss_en;
  	int mac_port_sel_speed;
  	bool en_tx_lpi_clockgating;
 +	bool rx_clk_runs_in_lpi;
  	int has_xgmac;
- 	bool vlan_fail_q_en;
- 	u8 vlan_fail_q;
+ 	bool sph_disable;
+ };
 -- 
 2.39.0
 
