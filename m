@@ -2,76 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0660A691844
-	for <lists+linux-stm32@lfdr.de>; Fri, 10 Feb 2023 07:05:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A82D96918C1
+	for <lists+linux-stm32@lfdr.de>; Fri, 10 Feb 2023 07:54:48 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AC3DCC6A5EA;
-	Fri, 10 Feb 2023 06:05:13 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 48D32C6A5EA;
+	Fri, 10 Feb 2023 06:54:48 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C5F76C01E98
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 046C4C035BB
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 10 Feb 2023 06:05:11 +0000 (UTC)
+ Fri, 10 Feb 2023 06:54:46 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 548E361CA4;
- Fri, 10 Feb 2023 06:05:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C77ADC433D2;
- Fri, 10 Feb 2023 06:05:08 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 5F8AFB82364;
+ Fri, 10 Feb 2023 06:54:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E85EFC433EF;
+ Fri, 10 Feb 2023 06:54:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1676009109;
- bh=R+M0ft2NoW5OEkw9Yp/lx0D4Vb1O1La2tMhNLmrHwBk=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=UzFaShVbYUL6AnzcrewjwVNrWiJJde9hTV8N08ircjXv3C51e3nW1I8NUd2RMI+7M
- 3qFjHfFG7uUtTMfQ3B0mmemAuWTzOCQsVIym1QDac0Fwh6uGDPSj2lZQFVTwFfBf+J
- qXnz//A5czX2LOvB+wyWER7bwOfG59bq2nmKpbzKWgYYw14Kf2JzmmQlTomzMeLQhA
- +POxMFnDWrSFug3xwaq+SJuL5KJIXJArxMGqB99mLZ2l/k2nVd4Lq/Gs3AhFG9XiUR
- hLRjRPu2RUQIFYOBXTlsc2I6Deu+PJSzIOoLmDbZH50Qu31YrxFNc0fxfN1/oMMCik
- pcYUxYygwH29Q==
-Date: Fri, 10 Feb 2023 11:35:05 +0530
-From: Vinod Koul <vkoul@kernel.org>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Message-ID: <Y+XekQsIwpixyPD0@matsya>
-References: <20230124081117.31186-1-krzysztof.kozlowski@linaro.org>
+ s=k20201202; t=1676012085;
+ bh=09gUWptY/BbuIMzWbqSjyJe1S02IFSMhcohNYddSSgE=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=HSjTpTzHZoFbipoV+LpZdBskzS/ag4uT/3oIszVu/2F4J6ovVwdhbhvM7ZWZcNhnf
+ 71p5YVrmag22+n4US6k+AKoVfrFd6m4VNYkD+/UZEcDlbW/t6ACJCnJgEOUf3V7qiL
+ pO4yHMrftBz3KSgbYVmnn+hWKl0L62j73X05vtBsf3v7+6EV1NvXwMPHtHi85Y2jrN
+ ru/O3Bf5vplzMRPzY3tz4wtPhm88zw1uAF7cy8eb2gt6R1/fO7Mjt65UpbT2oAzse6
+ N+cGe9UED6Nnz89BlkwjfHIpW5oWivWZSNoTYh60vdl2OVleV/wLWkbaGd/umoeUhE
+ 2Vny6amTJCmSg==
+Date: Thu, 9 Feb 2023 22:54:42 -0800
+From: Jakub Kicinski <kuba@kernel.org>
+To: Alain Volmat <avolmat@me.com>
+Message-ID: <20230209225442.2b11878e@kernel.org>
+In-Reply-To: <20230209091659.1409-8-avolmat@me.com>
+References: <20230209091659.1409-1-avolmat@me.com>
+ <20230209091659.1409-8-avolmat@me.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20230124081117.31186-1-krzysztof.kozlowski@linaro.org>
-Cc: Peng Fan <peng.fan@nxp.com>,
- Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
- Linus Walleij <linus.walleij@linaro.org>, Palmer Debbelt <palmer@sifive.com>,
- Paul Cercueil <paul@crapouillou.net>, Biju Das <biju.das.jz@bp.renesas.com>,
- Thierry Reding <thierry.reding@gmail.com>,
+Cc: "Rafael J . Wysocki" <rafael@kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>, Amit Kucheria <amitk@kernel.org>,
+ Eric Dumazet <edumazet@google.com>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Miquel Raynal <miquel.raynal@bootlin.com>, linux-riscv@lists.infradead.org,
- Stefan Roese <sr@denx.de>, linux-stm32@st-md-mailman.stormreply.com,
- Alyssa Rosenzweig <alyssa@rosenzweig.io>, Rob Herring <robh@kernel.org>,
- Samuel Holland <samuel@sholland.org>, Viresh Kumar <vireshk@kernel.org>,
- Manivannan Sadhasivam <mani@kernel.org>, linux-tegra@vger.kernel.org,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Jonathan Hunter <jonathanh@nvidia.com>, Chen-Yu Tsai <wens@csie.org>,
- Andy Gross <agross@kernel.org>, =?utf-8?B?77+9ZXI=?= <povik+lin@cutebit.org>,
- Olivier Dautricourt <olivierdautricourt@gmail.com>,
- Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>, linux-sunxi@lists.linux.dev,
- asahi@lists.linux.dev, devicetree@vger.kernel.org, - <chuanhua.lei@intel.com>,
- Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
- Sven Peter <sven@svenpeter.dev>, linux-arm-msm@vger.kernel.org,
- linux-actions@lists.infradead.org, Green Wan <green.wan@sifive.com>,
- Rob Herring <robh+dt@kernel.org>, linux-mediatek@lists.infradead.org,
- Maxime Ripard <mripard@kernel.org>, Paul Walmsley <paul.walmsley@sifive.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Long Cheng <long.cheng@mediatek.com>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- linux-arm-kernel@lists.infradead.org, Rajesh Gumasta <rgumasta@nvidia.com>,
- Masahiro Yamada <yamada.masahiro@socionext.com>,
- Bjorn Andersson <andersson@kernel.org>, Hector Martin <marcan@marcan.st>,
- linux-kernel@vger.kernel.org, Konrad Dybcio <konrad.dybcio@linaro.org>,
- Palmer Dabbelt <palmer@dabbelt.com>, Masami Hiramatsu <mhiramat@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, dmaengine@vger.kernel.org,
- Andreas =?iso-8859-1?Q?F=E4rber?= <afaerber@suse.de>
-Subject: Re: [Linux-stm32] [PATCH v2 1/2] dt-bindings: dma: drop unneeded
-	quotes
+ linux-stm32@st-md-mailman.stormreply.com, Jonathan Corbet <corbet@lwn.net>,
+ Marc Zyngier <maz@kernel.org>, Daniel Lezcano <daniel.lezcano@linaro.org>,
+ Russell King <linux@armlinux.org.uk>, linux-clk@vger.kernel.org,
+ Jose Abreu <joabreu@synopsys.com>, Zhang Rui <rui.zhang@intel.com>,
+ Paolo Abeni <pabeni@redhat.com>, devicetree@vger.kernel.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-pm@vger.kernel.org,
+ Rob Herring <robh+dt@kernel.org>, Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Thomas Gleixner <tglx@linutronix.de>, linux-arm-kernel@lists.infradead.org,
+ Stephen Boyd <sboyd@kernel.org>, netdev@vger.kernel.org,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ "David S . Miller" <davem@davemloft.net>
+Subject: Re: [Linux-stm32] [PATCH 07/11] net: ethernet: stmmac: dwmac-sti:
+ remove stih415/stih416/stid127
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,14 +72,14 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 24-01-23, 09:11, Krzysztof Kozlowski wrote:
-> Cleanup by removing unneeded quotes from refs and redundant blank lines.
-> No functional impact except adjusting to preferred coding style.
+On Thu,  9 Feb 2023 10:16:55 +0100 Alain Volmat wrote:
+> Remove no more supported platforms (stih415/stih416 and stid127)
+> 
+> Signed-off-by: Alain Volmat <avolmat@me.com>
 
-Applied both, thanks
+No idea who's gonna take these, but FWIW:
 
--- 
-~Vinod
+Acked-by: Jakub Kicinski <kuba@kernel.org>
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
