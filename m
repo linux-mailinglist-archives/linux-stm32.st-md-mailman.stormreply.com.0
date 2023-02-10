@@ -2,59 +2,87 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9FF15692516
-	for <lists+linux-stm32@lfdr.de>; Fri, 10 Feb 2023 19:13:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A028E69255F
+	for <lists+linux-stm32@lfdr.de>; Fri, 10 Feb 2023 19:34:07 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2580CC6A5EB;
-	Fri, 10 Feb 2023 18:13:26 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 48B8AC6A5EB;
+	Fri, 10 Feb 2023 18:34:07 +0000 (UTC)
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com
+ [209.85.221.41])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 12D94C6A5E9
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E7A0EC65E73
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 10 Feb 2023 18:13:25 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id A0E1461E52;
- Fri, 10 Feb 2023 18:13:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 90E21C433EF;
- Fri, 10 Feb 2023 18:13:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1676052803;
- bh=6FLDH++aUj095WH9otN0bkobiJlSDQziX4LlJjA4wS4=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=OBeovfgBitTlBAxZHZpmc5RTctjYTaEPJRtQRt9AvYMQm79B2inSL2GCVqGCNRThH
- uv6ZV5NIrYKBg1+2+8prF8TmMOpdfezRGuXAkz8fEki6YKNfYEgQsrVy4DcI/tlxqp
- BjPhcwp6vQgLawKj8Ly+E/Ov7p2zGAok4V94flhRydi9R2Egj6Sf6g/jAVQJW0ZVo5
- cJoC2H2enzXbF7VRM7BZfUXTIjCQRtMOzFdO1qG+m5YKLLg6dWRjl1YKw05SSM+Ew4
- JgenQnvyNc+qu3vklc1eq/zqASHpAUXRSN8u5zXM1BZ+wZosIxSXf1FRTcsMOiXuz9
- xuTk5ILD8DMEg==
-Date: Fri, 10 Feb 2023 10:13:20 -0800
-From: Jakub Kicinski <kuba@kernel.org>
-To: Alain Volmat <avolmat@me.com>
-Message-ID: <20230210101320.331c1d95@kernel.org>
-In-Reply-To: <Y+YKeVoq91/mtlo2@imac101>
-References: <20230209091659.1409-1-avolmat@me.com>
- <20230210090420.GB175687@linaro.org> <Y+YKeVoq91/mtlo2@imac101>
+ Fri, 10 Feb 2023 18:34:05 +0000 (UTC)
+Received: by mail-wr1-f41.google.com with SMTP id h16so5896667wrz.12
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 10 Feb 2023 10:34:05 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=itUHF+gJAOR68gNrNXTOhv2YTwp1LN4BGzGEfAiI2PA=;
+ b=OaHJvANNeMAGzvf2uYI2xzLCi6qVzIoIMRJNUMUHlzvdQB4946tyfjwuc64G0AuREt
+ YuNu/sR7FoiaVytT1wVaU5lS9eCpEu+2qZzqFTXe8g0PKYQ8cn7vuhmv1w2DLp6+rjPA
+ VwOA/5nkkyxSNWkLJwLwBdi4zTMzi2yWNOmuPS3e0bp1oXuv0KGwifRBRdkJDANIcHba
+ R3SJAVIxCBohLDCUmxIZjPJ21/NShmd2frAAkS2VIIGuJGHBcjEwfjIq9x3inxKTiZ9g
+ VG+SmLQxhW1N+uckd3zByXCY+rK10AxGZ+y40dNt15bf8dXcveDzkzi962Xg7HQX+XtT
+ EisA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=itUHF+gJAOR68gNrNXTOhv2YTwp1LN4BGzGEfAiI2PA=;
+ b=xh/L38XMqXchRYkUOrh+UoEmIsWNcZ5A/RVxEhxmz0H63VNPfpTLW6nbaZDvbg6qu4
+ EAmA86A627yuR19RC27KzNTuQpQhtlNwlIVG9UPATzLmApTj7iPXU+pC67GbLeaVZ16s
+ dszWVyqOIWYO7zChvEJdS4oiOrsnIARdihUluOWRQhKQCvvGFMiKYAdGR5ivYD2xNBAD
+ jq3gy2E2Ql82UxL3GEPJ7jesjkqd6g7528lhFgLKmXGFKbgmSMujvXGkp9bSMs11FOtG
+ NkiSi47AuzrFVZztN0xsZgkU4mdN+AeDTnoUJiG2BvPBdS/pLqQfWMfhfMmixFehRfLB
+ mZqg==
+X-Gm-Message-State: AO0yUKUoxYeNBZyehIxmWW+mthiT0LgDJbjGSHft7TdPx0dKueuYct6o
+ h6nMYz7mfcc53CyQ2XEk9NADbQ==
+X-Google-Smtp-Source: AK7set+sfAI5v+pm+Ta+c+I585wZnYR7ZKSMkHtr+epDPjtPngGn8hHOvj4Pt1bfuGTly/qfkXFNSg==
+X-Received: by 2002:adf:f80c:0:b0:2c3:cdcd:f0b3 with SMTP id
+ s12-20020adff80c000000b002c3cdcdf0b3mr13276955wrp.9.1676054045329; 
+ Fri, 10 Feb 2023 10:34:05 -0800 (PST)
+Received: from [192.168.10.46] (146725694.box.freepro.com. [130.180.211.218])
+ by smtp.googlemail.com with ESMTPSA id
+ i12-20020a5d438c000000b002c512f56859sm4135084wrq.70.2023.02.10.10.34.02
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 10 Feb 2023 10:34:04 -0800 (PST)
+Message-ID: <8f557084-e185-6bf5-ab2b-4e1ebf4fc516@linaro.org>
+Date: Fri, 10 Feb 2023 19:34:02 +0100
 MIME-Version: 1.0
-Cc: linux-doc@vger.kernel.org, Michael Turquette <mturquette@baylibre.com>,
- Amit Kucheria <amitk@kernel.org>, Eric Dumazet <edumazet@google.com>,
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.7.1
+Content-Language: en-US
+To: Alain Volmat <avolmat@me.com>, Jonathan Corbet <corbet@lwn.net>,
+ Rob Herring <robh+dt@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- linux-stm32@st-md-mailman.stormreply.com, Jonathan Corbet <corbet@lwn.net>,
- Marc Zyngier <maz@kernel.org>, Daniel Lezcano <daniel.lezcano@linaro.org>,
- Russell King <linux@armlinux.org.uk>, linux-clk@vger.kernel.org,
- Jose Abreu <joabreu@synopsys.com>, Zhang Rui <rui.zhang@intel.com>,
- Paolo Abeni <pabeni@redhat.com>, devicetree@vger.kernel.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-pm@vger.kernel.org,
- Rob Herring <robh+dt@kernel.org>, Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Thomas Gleixner <tglx@linutronix.de>, linux-arm-kernel@lists.infradead.org,
- Stephen Boyd <sboyd@kernel.org>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, Philipp Zabel <p.zabel@pengutronix.de>,
- "Rafael J . Wysocki" <rafael@kernel.org>,
- "David S . Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH 00/11] ARM: removal of STiH415/STiH416
-	remainings bits
+ Thomas Gleixner <tglx@linutronix.de>, Marc Zyngier <maz@kernel.org>,
+ "David S . Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Russell King <linux@armlinux.org.uk>,
+ Patrice Chotard <patrice.chotard@foss.st.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Jose Abreu <joabreu@synopsys.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ "Rafael J . Wysocki" <rafael@kernel.org>, Amit Kucheria <amitk@kernel.org>,
+ Zhang Rui <rui.zhang@intel.com>, Michael Turquette
+ <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>
+References: <20230209091659.1409-1-avolmat@me.com>
+ <20230209091659.1409-7-avolmat@me.com>
+From: Daniel Lezcano <daniel.lezcano@linaro.org>
+In-Reply-To: <20230209091659.1409-7-avolmat@me.com>
+Cc: devicetree@vger.kernel.org, linux-doc@vger.kernel.org,
+ netdev@vger.kernel.org, linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-clk@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 06/11] thermal/drivers/st: remove syscfg
+	based driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,24 +94,23 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, 10 Feb 2023 10:12:25 +0100 Alain Volmat wrote:
-> Having seen situations like that for some other series I was guessing
-> that each maintainer would apply the relevant patches on his side.
-> Those two platforms being no more used, there is no specific patch
-> ordering to keep.
-> 
-> I've actually been wondering at the beginning how should I post those
-> patches.  If another way is preferrable I can post again differently
-> if that helps.
-
-You'd have most luck getting the changes accepted for 6.3 if you split
-this up and resend to individual maintainers.
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gMDkvMDIvMjAyMyAxMDoxNiwgQWxhaW4gVm9sbWF0IHdyb3RlOgo+IFRoZSBzeXNjZmcgYmFz
+ZWQgdGhlcm1hbCBkcml2ZXIgaXMgb25seSBzdXBwb3J0aW5nIFNUaUg0MTUKPiBTVGlINDE2IGFu
+ZCBTVGlEMTI3IHBsYXRmb3JtcyB3aGljaCBhcmUgYWxsIG5vIG1vcmUgc3VwcG9ydGVkLgo+IFdl
+IGNhbiB0aHVzIHNhZmVseSByZW1vdmUgdGhpcyBkcml2ZXIgc2luY2UgdGhlIHJlbWFpbmluZyBT
+VGkKPiBwbGF0Zm9ybSBTVGlINDA3L1NUaUg0MTAgYW5kIFNUaUg0MTggYXJlIGFsbCB1c2luZyB0
+aGUgbWVtbWFwCj4gYmFzZWQgdGhlcm1hbCBkcml2ZXIuCj4gCj4gU2lnbmVkLW9mZi1ieTogQWxh
+aW4gVm9sbWF0IDxhdm9sbWF0QG1lLmNvbT4KPiAtLS0KCkFwcGxpZWQsIHRoYW5rcwoKLS0gCjxo
+dHRwOi8vd3d3LmxpbmFyby5vcmcvPiBMaW5hcm8ub3JnIOKUgiBPcGVuIHNvdXJjZSBzb2Z0d2Fy
+ZSBmb3IgQVJNIFNvQ3MKCkZvbGxvdyBMaW5hcm86ICA8aHR0cDovL3d3dy5mYWNlYm9vay5jb20v
+cGFnZXMvTGluYXJvPiBGYWNlYm9vayB8CjxodHRwOi8vdHdpdHRlci5jb20vIyEvbGluYXJvb3Jn
+PiBUd2l0dGVyIHwKPGh0dHA6Ly93d3cubGluYXJvLm9yZy9saW5hcm8tYmxvZy8+IEJsb2cKCl9f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMy
+IG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0
+dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4
+LXN0bTMyCg==
