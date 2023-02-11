@@ -2,34 +2,34 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5F66B6977E2
+	by mail.lfdr.de (Postfix) with ESMTPS id 6D93F6977E3
 	for <lists+linux-stm32@lfdr.de>; Wed, 15 Feb 2023 09:18:43 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 02FEFC6A605;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 18C45C6A608;
 	Wed, 15 Feb 2023 08:18:43 +0000 (UTC)
 Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D4A5CC0D2C0
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id ED470C6A5EA
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 11 Feb 2023 03:18:33 +0000 (UTC)
+ Sat, 11 Feb 2023 03:18:35 +0000 (UTC)
 Received: from localhost (unknown [86.120.32.152])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest
  SHA256) (No client certificate requested)
  (Authenticated sender: cristicc)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id E20ED6602112;
- Sat, 11 Feb 2023 03:18:32 +0000 (GMT)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id 68A966602111;
+ Sat, 11 Feb 2023 03:18:35 +0000 (GMT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1676085513;
- bh=LNDJxjgOHZY/eKro/BYac5WDP/pGehw2tg2CONtqn2Q=;
- h=From:To:Cc:Subject:Date:From;
- b=HQoyAHzUSYcBTbkOlPiVQHjFJZH8Q1anOFaBK7aWcCdwa+BPuqeNEz8nRgYuf5eLk
- UIXUYdhWbw2EaE2ndJCMAi7y6MYmhmtBhlq/Qhd9AUZP2SgDVG0wEg82H6PnoiIZ/g
- P4/fn/t4P+5HGfszaushNeBZj9U4zxx5Vdt2llPbvTZn9uW5sP9JBlqowgqksLP+jG
- M8vfRqUFzpvwlxEzfVMjp0Fdx4qRzavPAKFKvnlsI9kP8LebVASZD/H3Lv/Fh7Kv9C
- 93aOUEQTb1tt0At6R3yXB3CWh7/+5ThDcz9bA/nMujXCyNnz8+Akd2CYdRUgjUGXLS
- Aue/+FZSRQboQ==
+ s=mail; t=1676085515;
+ bh=wsikCNMiZKFgLF8VxbMNAMN5xcuiLSDwJPFjv5RhtwY=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=oG7+IzcdTybxpjx0fCajzTllBsTQirmb2YxPbpyMYNXWSRrIAHC7OipNowaNEiehe
+ nsmTXnfkdBTJ0J3ms/SBwjXwha0y8QURPT20tk9pBIRJPSJ6oiJZDjGJdLYtm3/zVq
+ 6pEbMm+dj3Wk8AAPu8hHutHV9oOZKf47dT+dR7nt0LuuUEhl32SdHwYkKyxuzM+JKs
+ cmYUI0CSBL+sVPigjhXrQ4JdiAcv9OZLhfUo0cRs5Eswf1nC7JJfkZlXrBWF9BbBH7
+ rZDQ+oxqseId/nIhnNOfqp+COqhx/NzKmuaV5r5smcVl/ukDw2uxlaCtLTvsqvE6eP
+ fhlibOa4agYlQ==
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 To: Lee Jones <lee@kernel.org>, Rob Herring <robh+dt@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
@@ -46,17 +46,19 @@ To: Lee Jones <lee@kernel.org>, Rob Herring <robh+dt@kernel.org>,
  Richard Cochran <richardcochran@gmail.com>,
  Sagar Kadam <sagar.kadam@sifive.com>,
  Yanhong Wang <yanhong.wang@starfivetech.com>
-Date: Sat, 11 Feb 2023 05:18:09 +0200
-Message-Id: <20230211031821.976408-1-cristian.ciocaltea@collabora.com>
+Date: Sat, 11 Feb 2023 05:18:10 +0200
+Message-Id: <20230211031821.976408-2-cristian.ciocaltea@collabora.com>
 X-Mailer: git-send-email 2.39.1
+In-Reply-To: <20230211031821.976408-1-cristian.ciocaltea@collabora.com>
+References: <20230211031821.976408-1-cristian.ciocaltea@collabora.com>
 MIME-Version: 1.0
-X-Mailman-Approved-At: Wed, 15 Feb 2023 08:18:40 +0000
+X-Mailman-Approved-At: Wed, 15 Feb 2023 08:18:41 +0000
 Cc: devicetree@vger.kernel.org, netdev@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
  kernel@collabora.com, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 00/12] Enable networking support for StarFive
-	JH7100 SoC
+Subject: [Linux-stm32] [PATCH 01/12] dt-bindings: riscv: sifive-ccache: Add
+	compatible for StarFive JH7100 SoC
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,61 +75,90 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-This patch series adds ethernet support for the StarFive JH7100 SoC and 
-makes it available for the StarFive VisionFive V1 and BeagleV Starlight 
-boards, although I could only validate on the former SBC.
+Document the compatible for the SiFive Composable Cache Controller found
+on the StarFive JH7100 SoC.
 
-The work is heavily based on the reference implementation [1] and requires 
-the non-coherent DMA support provided by Emil via the Sifive Composable 
-Cache controller.
+This also requires extending the 'reg' property to handle distinct
+ranges, as specified via 'reg-names'.
 
-Also note there is an overlap in "[PATCH 08/12] net: stmmac: Add glue layer 
-for StarFive JH7100 SoC" with the Yanhong Wang's upstreaming attempt [2]:
-"[PATCH v4 5/7] net: stmmac: Add glue layer for StarFive JH7110 SoCs". 
+Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+---
+ .../bindings/riscv/sifive,ccache0.yaml        | 28 ++++++++++++++++++-
+ 1 file changed, 27 insertions(+), 1 deletion(-)
 
-Since I cannot test the JH7110 SoC, I dropped the support for it from Emil's
-variant of the stmmac glue layer. Hence, we might need a bit of coordination
-in order to get this properly merged.
-
-[1] https://github.com/starfive-tech/linux/commits/visionfive
-[2] https://lore.kernel.org/linux-riscv/20230118061701.30047-6-yanhong.wang@starfivetech.com/
-
-Cristian Ciocaltea (7):
-  dt-bindings: riscv: sifive-ccache: Add compatible for StarFive JH7100
-    SoC
-  dt-bindings: riscv: sifive-ccache: Add 'uncached-offset' property
-  dt-bindings: net: Add StarFive JH7100 SoC
-  riscv: dts: starfive: Add dma-noncoherent for JH7100 SoC
-  riscv: dts: starfive: jh7100: Add ccache DT node
-  riscv: dts: starfive: jh7100: Add sysmain and gmac DT nodes
-  riscv: dts: starfive: jh7100-common: Setup pinmux and enable gmac
-
-Emil Renner Berthing (5):
-  soc: sifive: ccache: Add StarFive JH7100 support
-  soc: sifive: ccache: Add non-coherent DMA handling
-  riscv: Implement non-coherent DMA support via SiFive cache flushing
-  dt-bindings: mfd: syscon: Add StarFive JH7100 sysmain compatible
-  net: stmmac: Add glue layer for StarFive JH7100 SoC
-
- .../devicetree/bindings/mfd/syscon.yaml       |   1 +
- .../devicetree/bindings/net/snps,dwmac.yaml   |  15 +-
- .../bindings/net/starfive,jh7100-dwmac.yaml   | 106 ++++++++++++
- .../bindings/riscv/sifive,ccache0.yaml        |  33 +++-
- MAINTAINERS                                   |   6 +
- arch/riscv/Kconfig                            |   6 +-
- .../boot/dts/starfive/jh7100-common.dtsi      |  78 +++++++++
- arch/riscv/boot/dts/starfive/jh7100.dtsi      |  55 +++++++
- arch/riscv/mm/dma-noncoherent.c               |  37 ++++-
- drivers/net/ethernet/stmicro/stmmac/Kconfig   |  12 ++
- drivers/net/ethernet/stmicro/stmmac/Makefile  |   1 +
- .../ethernet/stmicro/stmmac/dwmac-starfive.c  | 155 ++++++++++++++++++
- drivers/soc/sifive/Kconfig                    |   1 +
- drivers/soc/sifive/sifive_ccache.c            |  71 +++++++-
- include/soc/sifive/sifive_ccache.h            |  21 +++
- 15 files changed, 587 insertions(+), 11 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/net/starfive,jh7100-dwmac.yaml
- create mode 100644 drivers/net/ethernet/stmicro/stmmac/dwmac-starfive.c
-
+diff --git a/Documentation/devicetree/bindings/riscv/sifive,ccache0.yaml b/Documentation/devicetree/bindings/riscv/sifive,ccache0.yaml
+index 31d20efaa6d3..2b864b2f12c9 100644
+--- a/Documentation/devicetree/bindings/riscv/sifive,ccache0.yaml
++++ b/Documentation/devicetree/bindings/riscv/sifive,ccache0.yaml
+@@ -25,6 +25,7 @@ select:
+           - sifive,ccache0
+           - sifive,fu540-c000-ccache
+           - sifive,fu740-c000-ccache
++          - starfive,jh7100-ccache
+ 
+   required:
+     - compatible
+@@ -37,6 +38,7 @@ properties:
+               - sifive,ccache0
+               - sifive,fu540-c000-ccache
+               - sifive,fu740-c000-ccache
++              - starfive,jh7100-ccache
+           - const: cache
+       - items:
+           - const: starfive,jh7110-ccache
+@@ -70,7 +72,13 @@ properties:
+       - description: DirFail interrupt
+ 
+   reg:
+-    maxItems: 1
++    minItems: 1
++    maxItems: 2
++
++  reg-names:
++    items:
++      - const: control
++      - const: sideband
+ 
+   next-level-cache: true
+ 
+@@ -89,6 +97,7 @@ allOf:
+           contains:
+             enum:
+               - sifive,fu740-c000-ccache
++              - starfive,jh7100-ccache
+               - starfive,jh7110-ccache
+               - microchip,mpfs-ccache
+ 
+@@ -106,12 +115,29 @@ allOf:
+             Must contain entries for DirError, DataError and DataFail signals.
+           maxItems: 3
+ 
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: starfive,jh7100-ccache
++
++    then:
++      properties:
++        reg:
++          maxItems: 2
++
++    else:
++      properties:
++        reg:
++          maxItems: 1
++
+   - if:
+       properties:
+         compatible:
+           contains:
+             enum:
+               - sifive,fu740-c000-ccache
++              - starfive,jh7100-ccache
+               - starfive,jh7110-ccache
+ 
+     then:
 -- 
 2.39.1
 
