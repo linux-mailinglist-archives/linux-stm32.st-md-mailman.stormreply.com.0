@@ -2,63 +2,89 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF9F46977F1
+	by mail.lfdr.de (Postfix) with ESMTPS id CA4796977F2
 	for <lists+linux-stm32@lfdr.de>; Wed, 15 Feb 2023 09:18:44 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 726E6C6B454;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 89FA0C6B457;
 	Wed, 15 Feb 2023 08:18:44 +0000 (UTC)
-Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EF687C65042
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D48A6C0D2C0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 11 Feb 2023 11:53:50 +0000 (UTC)
-Received: from [192.168.1.90] (unknown [86.120.32.152])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits))
- (No client certificate requested) (Authenticated sender: cristicc)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id A68AF6602111;
- Sat, 11 Feb 2023 11:53:48 +0000 (GMT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1676116430;
- bh=pg4cvypY8FQKYrpV9fWDZ348Gx/msla9+ReQno8Gwf4=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=TTpyL64WvTvjHDWR4s8teHDz+yxz7/0DnZ/kaLk9N9qvglrWYAPmktHIo44GAPyYM
- IS9aG4ozuS/c/j0GYEnQJzRRzOVQsEiyCw66j/flJaAQYmU64KNuqMlM62Hbm9Uw79
- tnHmsoTqFX7G8pwinGvFonBYPwbdcSXEy/ltMvBSgB1YnBCqiCRHWmF74eUoYnsHCQ
- S+BLhNB6xh17yQCRVtx3QPWslvxpr+CgZY5h2yYIpwBwZb+jKza/QvCZGdvw7JrNG6
- JP7mobsbJLD0IOfQw/t1JxgzAufgSsgFgdPQw3HtAw1NtL5igpApMWPUS9qKUnuw4H
- 8IVCYNKbkvfDQ==
-Message-ID: <b5fa8148-1dc6-b8a7-2f5d-95f0354197e6@collabora.com>
-Date: Sat, 11 Feb 2023 13:53:46 +0200
+ Sun, 12 Feb 2023 03:13:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1676171640; x=1707707640;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=8Ee53bw0HTAKCWMxXPAJRBW6Y+YE/qZmXr9sA0iMSzM=;
+ b=ZFoHsRTyf9oERL6i774nFIavRqGW3S2MjKqKcmK15hdogd/xOaL0o2NY
+ JjBZKtXqxVnW3lXhE1G7ufDyNaePbne8zDs4JCqZHP2YeQbzMhlulMkqD
+ Iq2MV/zDhByMiEHfw2T9ZXGIZjlM5Qq73HpT3FcTZ+M2t/IDX9Ibenwko
+ Cva/EuMzf1lkyYl+a5sw60n4MkOueTUbek7MC6tQ5MZnEhRqKLskwazZT
+ hWYawIH0SCfVnNPllfQsjmk5afOJQregEjkzyDHRuZLrXgkAU+QEkuj26
+ mjxirQ+za9AhUuLWTNpRo8N+dDSaYkPeLXRvGnUowtHAvA18JavnLQGXQ Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10618"; a="332824352"
+X-IronPort-AV: E=Sophos;i="5.97,290,1669104000"; d="scan'208";a="332824352"
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Feb 2023 19:13:57 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6500,9779,10618"; a="842406476"
+X-IronPort-AV: E=Sophos;i="5.97,290,1669104000"; d="scan'208";a="842406476"
+Received: from ranerica-svr.sc.intel.com ([172.25.110.23])
+ by orsmga005.jf.intel.com with ESMTP; 11 Feb 2023 19:13:56 -0800
+Date: Sat, 11 Feb 2023 19:23:45 -0800
+From: Ricardo Neri <ricardo.neri-calderon@linux.intel.com>
+To: srinivas pandruvada <srinivas.pandruvada@linux.intel.com>
+Message-ID: <20230212032345.GA17062@ranerica-svr.sc.intel.com>
+References: <20230206153432.1017282-1-daniel.lezcano@linaro.org>
+ <20230211021023.GA13306@ranerica-svr.sc.intel.com>
+ <9a121d43-b6d9-fe99-1e4c-498dac2e6b17@linaro.org>
+ <258dedb542d4dcb73e9ec903d205ba64639c9f0a.camel@linux.intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.7.0
-Content-Language: en-US
-To: Conor Dooley <conor@kernel.org>
-References: <20230211031821.976408-1-cristian.ciocaltea@collabora.com>
- <Y+d36nz0xdfXmDI1@spud>
-From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-In-Reply-To: <Y+d36nz0xdfXmDI1@spud>
-X-Mailman-Approved-At: Wed, 15 Feb 2023 08:18:41 +0000
-Cc: Emil Renner Berthing <kernel@esmil.dk>, Eric Dumazet <edumazet@google.com>,
- Sagar Kadam <sagar.kadam@sifive.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- linux-riscv@lists.infradead.org, kernel@collabora.com,
- linux-stm32@st-md-mailman.stormreply.com,
- Yanhong Wang <yanhong.wang@starfivetech.com>, Lee Jones <lee@kernel.org>,
- Jose Abreu <joabreu@synopsys.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, devicetree@vger.kernel.org,
- Albert Ou <aou@eecs.berkeley.edu>, arnd@arndb.de,
- Richard Cochran <richardcochran@gmail.com>, Rob Herring <robh+dt@kernel.org>,
- prabhakar.csengg@gmail.com, Paul Walmsley <paul.walmsley@sifive.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, Palmer Dabbelt <palmer@dabbelt.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- "David S. Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH 00/12] Enable networking support for
-	StarFive JH7100 SoC
+Content-Disposition: inline
+In-Reply-To: <258dedb542d4dcb73e9ec903d205ba64639c9f0a.camel@linux.intel.com>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+X-Mailman-Approved-At: Wed, 15 Feb 2023 08:18:40 +0000
+Cc: Daniel Lezcano <daniel.lezcano@linaro.org>,
+ Bartlomiej Zolnierkiewicz <bzolnier@gmail.com>,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ "open list:ARM/QUALCOMM SUPPORT" <linux-arm-msm@vger.kernel.org>,
+ Amit Kucheria <amitk@kernel.org>, Thierry Reding <thierry.reding@gmail.com>,
+ Guillaume La Roque <glaroque@baylibre.com>,
+ Alim Akhtar <alim.akhtar@samsung.com>,
+ Miquel Raynal <miquel.raynal@bootlin.com>, Fabio Estevam <festevam@gmail.com>,
+ "moderated list:ARM/STM32 ARCHITECTURE"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "open list:RENESAS R-CAR THERMAL DRIVERS" <linux-renesas-soc@vger.kernel.org>,
+ Florian Fainelli <f.fainelli@gmail.com>, Haowen Bai <baihaowen@meizu.com>,
+ Kunihiko Hayashi <hayashi.kunihiko@socionext.com>, rafael.j.wysocki@intel.com,
+ Minghao Chi <chi.minghao@zte.com.cn>, Jonathan Hunter <jonathanh@nvidia.com>,
+ Andy Gross <agross@kernel.org>,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+ NXP Linux Team <linux-imx@nxp.com>, ye xingchen <ye.xingchen@zte.com.cn>,
+ Zhang Rui <rui.zhang@intel.com>, Thara Gopinath <thara.gopinath@gmail.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-pm@vger.kernel.org,
+ Ray Jui <rjui@broadcom.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+ "open list:SAMSUNG THERMAL DRIVER" <linux-samsung-soc@vger.kernel.org>,
+ "moderated list:BROADCOM BCM2711/BCM2835 ARM ARCHITECTURE"
+ <linux-rpi-kernel@lists.infradead.org>,
+ "open list:TEGRA ARCHITECTURE SUPPORT" <linux-tegra@vger.kernel.org>,
+ "open list:THERMAL DRIVER FOR AMLOGIC SOCS"
+ <linux-amlogic@lists.infradead.org>,
+ "moderated list:BROADCOM BCM2711/BCM2835 ARM ARCHITECTURE"
+ <linux-arm-kernel@lists.infradead.org>, Scott Branden <sbranden@broadcom.com>,
+ Bjorn Andersson <andersson@kernel.org>, linux-kernel@vger.kernel.org,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Masami Hiramatsu <mhiramat@kernel.org>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Niklas =?iso-8859-1?Q?S=F6derlund?= <niklas.soderlund@ragnatech.se>,
+ Shawn Guo <shawnguo@kernel.org>
+Subject: Re: [Linux-stm32] [PATCH] thermal: Remove core header inclusion
+	from drivers
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,102 +96,72 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Conor,
+On Sat, Feb 11, 2023 at 08:32:48AM -0800, srinivas pandruvada wrote:
+> On Sat, 2023-02-11 at 08:53 +0100, Daniel Lezcano wrote:
+> > On 11/02/2023 03:10, Ricardo Neri wrote:
+> > > On Mon, Feb 06, 2023 at 04:34:29PM +0100, Daniel Lezcano wrote:
+> > > > As the name states "thermal_core.h" is the header file for the
+> > > > core
+> > > > components of the thermal framework.
+> > > > =
 
-On 2/11/23 13:11, Conor Dooley wrote:
-> Hey Cristian!
-> 
-> +CC Arnd, Prabhakar
-> 
-> On Sat, Feb 11, 2023 at 05:18:09AM +0200, Cristian Ciocaltea wrote:
->> This patch series adds ethernet support for the StarFive JH7100 SoC and
->> makes it available for the StarFive VisionFive V1 and BeagleV Starlight
->> boards, although I could only validate on the former SBC.
->>
->> The work is heavily based on the reference implementation [1] and requires
->> the non-coherent DMA support provided by Emil via the Sifive Composable
->> Cache controller.
->>
->> Also note there is an overlap in "[PATCH 08/12] net: stmmac: Add glue layer
->> for StarFive JH7100 SoC" with the Yanhong Wang's upstreaming attempt [2]:
->> "[PATCH v4 5/7] net: stmmac: Add glue layer for StarFive JH7110 SoCs".
->>
->> Since I cannot test the JH7110 SoC, I dropped the support for it from Emil's
->> variant of the stmmac glue layer. Hence, we might need a bit of coordination
->> in order to get this properly merged.
-> 
-> To be honest, that one is the least of your worries sequencing wise.
-> Anything doing non-coherent DMA on RISC-V that doesn't use instructions is
-> dependant on Prabhakar's series:
-> https://lore.kernel.org/linux-riscv/20230106185526.260163-1-prabhakar.mahadev-lad.rj@bp.renesas.com/#t
-> That's kinda stalled out though, waiting on Arnd to make some changes to
-> the cross-arch DMA code:
-> https://lore.kernel.org/linux-riscv/ea4cb121-97e9-4365-861a-b3635fd34721@app.fastmail.com/
+> > > > Too many drivers are including it. Hopefully the recent cleanups
+> > > > helped to self encapsulate the code a bit more and prevented the
+> > > > drivers to need this header.
+> > > > =
 
-Thank you for pointing this out, I wasn't aware of it!
+> > > > Remove this inclusion in every place where it is possible.
+> > > > =
 
-> I was talking to Emil about the non-coherent support at FOSDEM actually,
-> and I see no real reason not to bring the JH7100 non-coherent support in
-> if we are doing it for other SoCs.
-> 
-> So yeah, hopefully we shall get there at some point soonTM...
+> > > > Some other drivers did a confusion with the core header and the
+> > > > one
+> > > > exported in linux/thermal.h. They include the former instead of
+> > > > the
+> > > > latter. The changes also fix this.
+> > > > =
 
-That would be great, I'll try to monitor the progress and re-spin the 
-series as soon as the non-coherent support is figured out.
+> > > > The tegra/soctherm driver still remains as it uses an internal
+> > > > function which need to be replaced.
+> > > > =
 
-Regards,
-Cristian
+> > > > The Intel HFI driver uses the netlink internal framework core and
+> > > > should be changed to prevent to deal with the internals.
+> > > =
 
-> Sorry,
-> Conor.
+> > > I don't see any of the thermal netlink functionality exposed. Is
+> > > there any work in progress?
+> > =
 
->> [1] https://github.com/starfive-tech/linux/commits/visionfive
->> [2] https://lore.kernel.org/linux-riscv/20230118061701.30047-6-yanhong.wang@starfivetech.com/
->>
->> Cristian Ciocaltea (7):
->>    dt-bindings: riscv: sifive-ccache: Add compatible for StarFive JH7100
->>      SoC
->>    dt-bindings: riscv: sifive-ccache: Add 'uncached-offset' property
->>    dt-bindings: net: Add StarFive JH7100 SoC
->>    riscv: dts: starfive: Add dma-noncoherent for JH7100 SoC
->>    riscv: dts: starfive: jh7100: Add ccache DT node
->>    riscv: dts: starfive: jh7100: Add sysmain and gmac DT nodes
->>    riscv: dts: starfive: jh7100-common: Setup pinmux and enable gmac
->>
->> Emil Renner Berthing (5):
->>    soc: sifive: ccache: Add StarFive JH7100 support
->>    soc: sifive: ccache: Add non-coherent DMA handling
->>    riscv: Implement non-coherent DMA support via SiFive cache flushing
->>    dt-bindings: mfd: syscon: Add StarFive JH7100 sysmain compatible
->>    net: stmmac: Add glue layer for StarFive JH7100 SoC
->>
->>   .../devicetree/bindings/mfd/syscon.yaml       |   1 +
->>   .../devicetree/bindings/net/snps,dwmac.yaml   |  15 +-
->>   .../bindings/net/starfive,jh7100-dwmac.yaml   | 106 ++++++++++++
->>   .../bindings/riscv/sifive,ccache0.yaml        |  33 +++-
->>   MAINTAINERS                                   |   6 +
->>   arch/riscv/Kconfig                            |   6 +-
->>   .../boot/dts/starfive/jh7100-common.dtsi      |  78 +++++++++
->>   arch/riscv/boot/dts/starfive/jh7100.dtsi      |  55 +++++++
->>   arch/riscv/mm/dma-noncoherent.c               |  37 ++++-
->>   drivers/net/ethernet/stmicro/stmmac/Kconfig   |  12 ++
->>   drivers/net/ethernet/stmicro/stmmac/Makefile  |   1 +
->>   .../ethernet/stmicro/stmmac/dwmac-starfive.c  | 155 ++++++++++++++++++
->>   drivers/soc/sifive/Kconfig                    |   1 +
->>   drivers/soc/sifive/sifive_ccache.c            |  71 +++++++-
->>   include/soc/sifive/sifive_ccache.h            |  21 +++
->>   15 files changed, 587 insertions(+), 11 deletions(-)
->>   create mode 100644 Documentation/devicetree/bindings/net/starfive,jh7100-dwmac.yaml
->>   create mode 100644 drivers/net/ethernet/stmicro/stmmac/dwmac-starfive.c
->>
->> -- 
->> 2.39.1
->>
+> > commit bd30cdfd9bd73b68e4977ce7c5540aa7b14c25cd
+> > Author: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
+> > =
+
+> > =A0=A0=A0=A0 thermal: intel: hfi: Notify user space for HFI events
+> > =
+
+> This is already exposed and we use it in user space.
+> thermal_genl_cpu_capability_event() is called from intel_hfi driver to
+> send the cpu capabilities.
+> =
+
+> Not sure what do you mean by  "don't see netlink functionality
+> exposed"?
+> =
+
+> thermal_genl_cpu_caps struct and thermal_genl_cpu_capability_event()
+> are defined in drivers/thermal/thermal_netlink.h.
+
+Yes, I mean exactly this. The HFI code uses this functionality, but it is
+declared in "../thermal_netlink.h". I just wondered if that is OK or also
+needs to be declared somewhere in include/linux/
+
+Thanks and BR,
+Ricardo
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
