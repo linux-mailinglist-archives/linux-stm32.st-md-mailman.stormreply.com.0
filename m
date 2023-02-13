@@ -2,86 +2,53 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D2EEF693271
-	for <lists+linux-stm32@lfdr.de>; Sat, 11 Feb 2023 17:33:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C175C693FA4
+	for <lists+linux-stm32@lfdr.de>; Mon, 13 Feb 2023 09:31:03 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 84FA0C6A5EF;
-	Sat, 11 Feb 2023 16:33:11 +0000 (UTC)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6145AC69069;
+	Mon, 13 Feb 2023 08:31:03 +0000 (UTC)
+Received: from imap5.colo.codethink.co.uk (imap5.colo.codethink.co.uk
+ [78.40.148.171])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CC02CC0D2C0
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BE3F9C03FC1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 11 Feb 2023 16:33:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1676133189; x=1707669189;
- h=message-id:subject:from:to:cc:date:in-reply-to:
- references:content-transfer-encoding:mime-version;
- bh=OMMsvl+bUPjHIfFs5mz9bCDS3SOP8YrQweMO/MZJftc=;
- b=PN0Tfy78R66OIvOn6P8TC1GowEta3xiCAB6/GPJj7Y3i5fsqmqI0+zCE
- BZiQf4ObhR7TBE5RIXxfV4qUMiE6oIORb5EJSp40ne/wrFQEPc1joT6pQ
- lem4p6DGi68Uc0qVNXQwCusUY6pXwms9z6NHTopVKDy9eg5/U+HUUYQqb
- VNwkuPvlLPX+hVVptU4kF9l+KeR7zTErOJXfZFcG6wwL1mO0IH56Om4KU
- +kIrQvv9S1XcMmLQ+1F0fhH3qrNnl29B9+NoseYB02TV2vNFugc0VJUzF
- +E2wiEgfAiFfGiaMlFgIKAjWN9HCkiW7hu1LV+4UfSVdjgi4dKqv5Zt03 g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10618"; a="314267313"
-X-IronPort-AV: E=Sophos;i="5.97,290,1669104000"; d="scan'208";a="314267313"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Feb 2023 08:33:06 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10618"; a="732029288"
-X-IronPort-AV: E=Sophos;i="5.97,290,1669104000"; d="scan'208";a="732029288"
-Received: from ajaymv-mobl1.gar.corp.intel.com ([10.215.205.181])
- by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Feb 2023 08:32:51 -0800
-Message-ID: <258dedb542d4dcb73e9ec903d205ba64639c9f0a.camel@linux.intel.com>
-From: srinivas pandruvada <srinivas.pandruvada@linux.intel.com>
-To: Daniel Lezcano <daniel.lezcano@linaro.org>, Ricardo Neri
- <ricardo.neri-calderon@linux.intel.com>
-Date: Sat, 11 Feb 2023 08:32:48 -0800
-In-Reply-To: <9a121d43-b6d9-fe99-1e4c-498dac2e6b17@linaro.org>
-References: <20230206153432.1017282-1-daniel.lezcano@linaro.org>
- <20230211021023.GA13306@ranerica-svr.sc.intel.com>
- <9a121d43-b6d9-fe99-1e4c-498dac2e6b17@linaro.org>
-User-Agent: Evolution 3.44.4-0ubuntu1 
+ Mon, 13 Feb 2023 08:31:02 +0000 (UTC)
+Received: from [167.98.27.226] (helo=[172.16.101.148])
+ by imap5.colo.codethink.co.uk with esmtpsa  (Exim 4.94.2 #2 (Debian))
+ id 1pRUEB-002EmZ-C6; Mon, 13 Feb 2023 08:30:23 +0000
+Message-ID: <f1a6c357-b7e0-2869-72e0-e850b63e6ca9@codethink.co.uk>
+Date: Mon, 13 Feb 2023 08:30:22 +0000
 MIME-Version: 1.0
-Cc: Bartlomiej Zolnierkiewicz <bzolnier@gmail.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>,
- "open list:ARM/QUALCOMM SUPPORT" <linux-arm-msm@vger.kernel.org>,
- Amit Kucheria <amitk@kernel.org>, Thierry Reding <thierry.reding@gmail.com>,
- Guillaume La Roque <glaroque@baylibre.com>,
- Alim Akhtar <alim.akhtar@samsung.com>,
- Miquel Raynal <miquel.raynal@bootlin.com>, Fabio Estevam <festevam@gmail.com>,
- "moderated list:ARM/STM32
- ARCHITECTURE" <linux-stm32@st-md-mailman.stormreply.com>,
- "open list:RENESAS R-CAR THERMAL DRIVERS" <linux-renesas-soc@vger.kernel.org>,
- Florian Fainelli <f.fainelli@gmail.com>, Haowen Bai <baihaowen@meizu.com>,
- Kunihiko Hayashi <hayashi.kunihiko@socionext.com>, rafael.j.wysocki@intel.com,
- Minghao Chi <chi.minghao@zte.com.cn>, Jonathan Hunter <jonathanh@nvidia.com>,
- Andy Gross <agross@kernel.org>,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
- NXP Linux Team <linux-imx@nxp.com>, ye xingchen <ye.xingchen@zte.com.cn>,
- Zhang Rui <rui.zhang@intel.com>, Thara Gopinath <thara.gopinath@gmail.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-pm@vger.kernel.org,
- Ray Jui <rjui@broadcom.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- "open list:SAMSUNG THERMAL DRIVER" <linux-samsung-soc@vger.kernel.org>,
- "moderated list:BROADCOM
- BCM2711/BCM2835 ARM ARCHITECTURE" <linux-rpi-kernel@lists.infradead.org>,
- "open list:TEGRA ARCHITECTURE SUPPORT" <linux-tegra@vger.kernel.org>,
- "open list:THERMAL DRIVER FOR AMLOGIC
- SOCS" <linux-amlogic@lists.infradead.org>,
- "moderated list:BROADCOM BCM2711/BCM2835 ARM ARCHITECTURE"
- <linux-arm-kernel@lists.infradead.org>, Scott Branden <sbranden@broadcom.com>,
- Bjorn Andersson <andersson@kernel.org>, linux-kernel@vger.kernel.org,
- Konrad Dybcio <konrad.dybcio@linaro.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Masami Hiramatsu <mhiramat@kernel.org>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Niklas =?ISO-8859-1?Q?S=F6derlund?= <niklas.soderlund@ragnatech.se>,
- Shawn Guo <shawnguo@kernel.org>
-Subject: Re: [Linux-stm32] [PATCH] thermal: Remove core header inclusion
-	from drivers
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.7.1
+Content-Language: en-GB
+To: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
+ Lee Jones <lee@kernel.org>, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Emil Renner Berthing <kernel@esmil.dk>, Conor Dooley <conor@kernel.org>,
+ Palmer Dabbelt <palmer@dabbelt.com>, Paul Walmsley
+ <paul.walmsley@sifive.com>, Albert Ou <aou@eecs.berkeley.edu>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Jose Abreu <joabreu@synopsys.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Richard Cochran <richardcochran@gmail.com>,
+ Sagar Kadam <sagar.kadam@sifive.com>,
+ Yanhong Wang <yanhong.wang@starfivetech.com>
+References: <20230211031821.976408-1-cristian.ciocaltea@collabora.com>
+ <20230211031821.976408-6-cristian.ciocaltea@collabora.com>
+From: Ben Dooks <ben.dooks@codethink.co.uk>
+Organization: Codethink Limited.
+In-Reply-To: <20230211031821.976408-6-cristian.ciocaltea@collabora.com>
+Cc: devicetree@vger.kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
+ kernel@collabora.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 05/12] riscv: Implement non-coherent DMA
+ support via SiFive cache flushing
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,43 +60,130 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gU2F0LCAyMDIzLTAyLTExIGF0IDA4OjUzICswMTAwLCBEYW5pZWwgTGV6Y2FubyB3cm90ZToK
-PiBPbiAxMS8wMi8yMDIzIDAzOjEwLCBSaWNhcmRvIE5lcmkgd3JvdGU6Cj4gPiBPbiBNb24sIEZl
-YiAwNiwgMjAyMyBhdCAwNDozNDoyOVBNICswMTAwLCBEYW5pZWwgTGV6Y2FubyB3cm90ZToKPiA+
-ID4gQXMgdGhlIG5hbWUgc3RhdGVzICJ0aGVybWFsX2NvcmUuaCIgaXMgdGhlIGhlYWRlciBmaWxl
-IGZvciB0aGUKPiA+ID4gY29yZQo+ID4gPiBjb21wb25lbnRzIG9mIHRoZSB0aGVybWFsIGZyYW1l
-d29yay4KPiA+ID4gCj4gPiA+IFRvbyBtYW55IGRyaXZlcnMgYXJlIGluY2x1ZGluZyBpdC4gSG9w
-ZWZ1bGx5IHRoZSByZWNlbnQgY2xlYW51cHMKPiA+ID4gaGVscGVkIHRvIHNlbGYgZW5jYXBzdWxh
-dGUgdGhlIGNvZGUgYSBiaXQgbW9yZSBhbmQgcHJldmVudGVkIHRoZQo+ID4gPiBkcml2ZXJzIHRv
-IG5lZWQgdGhpcyBoZWFkZXIuCj4gPiA+IAo+ID4gPiBSZW1vdmUgdGhpcyBpbmNsdXNpb24gaW4g
-ZXZlcnkgcGxhY2Ugd2hlcmUgaXQgaXMgcG9zc2libGUuCj4gPiA+IAo+ID4gPiBTb21lIG90aGVy
-IGRyaXZlcnMgZGlkIGEgY29uZnVzaW9uIHdpdGggdGhlIGNvcmUgaGVhZGVyIGFuZCB0aGUKPiA+
-ID4gb25lCj4gPiA+IGV4cG9ydGVkIGluIGxpbnV4L3RoZXJtYWwuaC4gVGhleSBpbmNsdWRlIHRo
-ZSBmb3JtZXIgaW5zdGVhZCBvZgo+ID4gPiB0aGUKPiA+ID4gbGF0dGVyLiBUaGUgY2hhbmdlcyBh
-bHNvIGZpeCB0aGlzLgo+ID4gPiAKPiA+ID4gVGhlIHRlZ3JhL3NvY3RoZXJtIGRyaXZlciBzdGls
-bCByZW1haW5zIGFzIGl0IHVzZXMgYW4gaW50ZXJuYWwKPiA+ID4gZnVuY3Rpb24gd2hpY2ggbmVl
-ZCB0byBiZSByZXBsYWNlZC4KPiA+ID4gCj4gPiA+IFRoZSBJbnRlbCBIRkkgZHJpdmVyIHVzZXMg
-dGhlIG5ldGxpbmsgaW50ZXJuYWwgZnJhbWV3b3JrIGNvcmUgYW5kCj4gPiA+IHNob3VsZCBiZSBj
-aGFuZ2VkIHRvIHByZXZlbnQgdG8gZGVhbCB3aXRoIHRoZSBpbnRlcm5hbHMuCj4gPiAKPiA+IEkg
-ZG9uJ3Qgc2VlIGFueSBvZiB0aGUgdGhlcm1hbCBuZXRsaW5rIGZ1bmN0aW9uYWxpdHkgZXhwb3Nl
-ZC4gSXMKPiA+IHRoZXJlIGFueSB3b3JrIGluIHByb2dyZXNzPwo+IAo+IGNvbW1pdCBiZDMwY2Rm
-ZDliZDczYjY4ZTQ5NzdjZTdjNTU0MGFhN2IxNGMyNWNkCj4gQXV0aG9yOiBTcmluaXZhcyBQYW5k
-cnV2YWRhIDxzcmluaXZhcy5wYW5kcnV2YWRhQGxpbnV4LmludGVsLmNvbT4KPiAKPiDCoMKgwqDC
-oCB0aGVybWFsOiBpbnRlbDogaGZpOiBOb3RpZnkgdXNlciBzcGFjZSBmb3IgSEZJIGV2ZW50cwo+
-IApUaGlzIGlzIGFscmVhZHkgZXhwb3NlZCBhbmQgd2UgdXNlIGl0IGluIHVzZXIgc3BhY2UuCnRo
-ZXJtYWxfZ2VubF9jcHVfY2FwYWJpbGl0eV9ldmVudCgpIGlzIGNhbGxlZCBmcm9tIGludGVsX2hm
-aSBkcml2ZXIgdG8Kc2VuZCB0aGUgY3B1IGNhcGFiaWxpdGllcy4KCk5vdCBzdXJlIHdoYXQgZG8g
-eW91IG1lYW4gYnkgICJkb24ndCBzZWUgbmV0bGluayBmdW5jdGlvbmFsaXR5CmV4cG9zZWQiPwoK
-dGhlcm1hbF9nZW5sX2NwdV9jYXBzIHN0cnVjdCBhbmQgdGhlcm1hbF9nZW5sX2NwdV9jYXBhYmls
-aXR5X2V2ZW50KCkKYXJlIGRlZmluZWQgaW4gZHJpdmVycy90aGVybWFsL3RoZXJtYWxfbmV0bGlu
-ay5oLgoKClRoYW5rcywKU3Jpbml2YXMKCgo+IAo+ID4gRldJVywgQWNrZWQtYnk6IFJpY2FyZG8g
-TmVyaQo+ID4gPHJpY2FyZG8ubmVyaS1jYWxkZXJvbkBsaW51eC5pbnRlbC5jb20+Cj4gCj4gVGhh
-bmtzIQo+IAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18K
-TGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1y
-ZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlz
-dGluZm8vbGludXgtc3RtMzIK
+On 11/02/2023 03:18, Cristian Ciocaltea wrote:
+> From: Emil Renner Berthing <kernel@esmil.dk>
+> 
+> This variant is used on the StarFive JH7100 SoC.
+> 
+> Signed-off-by: Emil Renner Berthing <kernel@esmil.dk>
+> Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+> ---
+>   arch/riscv/Kconfig              |  6 ++++--
+>   arch/riscv/mm/dma-noncoherent.c | 37 +++++++++++++++++++++++++++++++--
+>   2 files changed, 39 insertions(+), 4 deletions(-)
+> 
+> diff --git a/arch/riscv/Kconfig b/arch/riscv/Kconfig
+> index 9c687da7756d..05f6c77faf6f 100644
+> --- a/arch/riscv/Kconfig
+> +++ b/arch/riscv/Kconfig
+> @@ -232,12 +232,14 @@ config LOCKDEP_SUPPORT
+>   	def_bool y
+>   
+>   config RISCV_DMA_NONCOHERENT
+> -	bool
+> +	bool "Support non-coherent DMA"
+> +	default SOC_STARFIVE
+>   	select ARCH_HAS_DMA_PREP_COHERENT
+> +	select ARCH_HAS_DMA_SET_UNCACHED
+> +	select ARCH_HAS_DMA_CLEAR_UNCACHED
+>   	select ARCH_HAS_SYNC_DMA_FOR_DEVICE
+>   	select ARCH_HAS_SYNC_DMA_FOR_CPU
+>   	select ARCH_HAS_SETUP_DMA_OPS
+> -	select DMA_DIRECT_REMAP
+>   
+>   config AS_HAS_INSN
+>   	def_bool $(as-instr,.insn r 51$(comma) 0$(comma) 0$(comma) t0$(comma) t0$(comma) zero)
+> diff --git a/arch/riscv/mm/dma-noncoherent.c b/arch/riscv/mm/dma-noncoherent.c
+> index d919efab6eba..e07e53aea537 100644
+> --- a/arch/riscv/mm/dma-noncoherent.c
+> +++ b/arch/riscv/mm/dma-noncoherent.c
+> @@ -9,14 +9,21 @@
+>   #include <linux/dma-map-ops.h>
+>   #include <linux/mm.h>
+>   #include <asm/cacheflush.h>
+> +#include <soc/sifive/sifive_ccache.h>
+>   
+>   static bool noncoherent_supported;
+>   
+>   void arch_sync_dma_for_device(phys_addr_t paddr, size_t size,
+>   			      enum dma_data_direction dir)
+>   {
+> -	void *vaddr = phys_to_virt(paddr);
+> +	void *vaddr;
+>   
+> +	if (sifive_ccache_handle_noncoherent()) {
+> +		sifive_ccache_flush_range(paddr, size);
+> +		return;
+> +	}
+> +
+> +	vaddr = phys_to_virt(paddr);
+>   	switch (dir) {
+>   	case DMA_TO_DEVICE:
+>   		ALT_CMO_OP(clean, vaddr, size, riscv_cbom_block_size);
+> @@ -35,8 +42,14 @@ void arch_sync_dma_for_device(phys_addr_t paddr, size_t size,
+>   void arch_sync_dma_for_cpu(phys_addr_t paddr, size_t size,
+>   			   enum dma_data_direction dir)
+>   {
+> -	void *vaddr = phys_to_virt(paddr);
+> +	void *vaddr;
+> +
+> +	if (sifive_ccache_handle_noncoherent()) {
+> +		sifive_ccache_flush_range(paddr, size);
+> +		return;
+> +	}
+
+ok, what happens if we have an system where the ccache and another level
+of cache also requires maintenance operations?
+
+>   
+> +	vaddr = phys_to_virt(paddr);
+>   	switch (dir) {
+>   	case DMA_TO_DEVICE:
+>   		break;
+> @@ -49,10 +62,30 @@ void arch_sync_dma_for_cpu(phys_addr_t paddr, size_t size,
+>   	}
+>   }
+>   
+> +void *arch_dma_set_uncached(void *addr, size_t size)
+> +{
+> +	if (sifive_ccache_handle_noncoherent())
+> +		return sifive_ccache_set_uncached(addr, size);
+> +
+> +	return addr;
+> +}
+> +
+> +void arch_dma_clear_uncached(void *addr, size_t size)
+> +{
+> +	if (sifive_ccache_handle_noncoherent())
+> +		sifive_ccache_clear_uncached(addr, size);
+> +}
+> +
+>   void arch_dma_prep_coherent(struct page *page, size_t size)
+>   {
+>   	void *flush_addr = page_address(page);
+>   
+> +	if (sifive_ccache_handle_noncoherent()) {
+> +		memset(flush_addr, 0, size);
+> +		sifive_ccache_flush_range(__pa(flush_addr), size);
+> +		return;
+> +	}
+> +
+>   	ALT_CMO_OP(flush, flush_addr, size, riscv_cbom_block_size);
+>   }
+>   
+
+-- 
+Ben Dooks				http://www.codethink.co.uk/
+Senior Engineer				Codethink - Providing Genius
+
+https://www.codethink.co.uk/privacy.html
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
