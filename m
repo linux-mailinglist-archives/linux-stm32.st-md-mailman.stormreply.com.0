@@ -2,27 +2,61 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C175C693FA4
-	for <lists+linux-stm32@lfdr.de>; Mon, 13 Feb 2023 09:31:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 575EA6940BC
+	for <lists+linux-stm32@lfdr.de>; Mon, 13 Feb 2023 10:20:08 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6145AC69069;
-	Mon, 13 Feb 2023 08:31:03 +0000 (UTC)
-Received: from imap5.colo.codethink.co.uk (imap5.colo.codethink.co.uk
- [78.40.148.171])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 02C79C69069;
+	Mon, 13 Feb 2023 09:20:08 +0000 (UTC)
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com
+ [209.85.221.50])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BE3F9C03FC1
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3C29DC03FC1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 13 Feb 2023 08:31:02 +0000 (UTC)
-Received: from [167.98.27.226] (helo=[172.16.101.148])
- by imap5.colo.codethink.co.uk with esmtpsa  (Exim 4.94.2 #2 (Debian))
- id 1pRUEB-002EmZ-C6; Mon, 13 Feb 2023 08:30:23 +0000
-Message-ID: <f1a6c357-b7e0-2869-72e0-e850b63e6ca9@codethink.co.uk>
-Date: Mon, 13 Feb 2023 08:30:22 +0000
+ Mon, 13 Feb 2023 09:20:07 +0000 (UTC)
+Received: by mail-wr1-f50.google.com with SMTP id y1so11400895wru.2
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 13 Feb 2023 01:20:07 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=bNLG0F4sytAFJuPLCGJpmTMcMTuRJI0BMdm+O22mIWk=;
+ b=h65cQMGeWFtfyp2uBNLZIv4aNJ8crvS/MegClRzuhEPjPg+BDdR7aqGJ9/8XON1Bbu
+ 2XZckirgzIKPNipgdUySyNJHJrZukrIayPooX+QCE92pl9aI7oQ7xxgpdLjhBnpDDAPx
+ ZhZyBa5ldmmym80vqoKngS1doGl41+7ZaRSDZNOjybDPD4DsJsWs3Z+64em6pAzfT/Iu
+ xCCuMtGP0ejC69sEtvzbxgq3YINw3hLGcc2NKAVJf7649m1FuUeyHhG+EzSEIGZu4wDd
+ rWYQWhSxHz6TCKYelQvbL1+SZVCWz5+AjihuLGHlsfu4ryj01UUEvu3Emw3dWnybevup
+ XjdA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=bNLG0F4sytAFJuPLCGJpmTMcMTuRJI0BMdm+O22mIWk=;
+ b=R9op05v/hwez/+ZcIkrEcWk8TALBpcbNpbPhv1jC6OKuFrK87Vm1xEmVGok4XXgUvk
+ eT7pDb4bgZ0Ey3bazuz0LwViNMrNrQTxl9gRRYiAYaU0NClAgxoFU99U4juvcvxy9d/D
+ IHp9Rzhevy3z4TBNkwG6NO7LEMC+kyE69/o4moP0rjLVTwHm8a1Om5363YFooaq1CiSj
+ fmCIQbecOJ7Mzsxl5ugvGkiSgcXxA9w6enEZYWV/Gu3tCCjIiWsVJDv4Rh0+QDjn/UxH
+ qCVTcjW9x+nnffx4Kap6OVMRpfYU43+V+/njdkopGdHMlC24jyVznxF8eGHPmbJ/EEpz
+ hEWA==
+X-Gm-Message-State: AO0yUKUtNtp5VlOAVM/hwTpjxHg6EUXXCmqFKmuOxfY58X08AX/Yb3Ps
+ TxicGPQeoMVyLGshUhr5I0/7ZQ==
+X-Google-Smtp-Source: AK7set9P9Rf/AgDFodMfFUkknlWiakKXK72hhfRuVm1tf2m8kXJEnbrxw1VZm/dlh2YKzny9lQPCuw==
+X-Received: by 2002:a5d:4682:0:b0:2c5:588f:c5c4 with SMTP id
+ u2-20020a5d4682000000b002c5588fc5c4mr2650463wrq.37.1676280006817; 
+ Mon, 13 Feb 2023 01:20:06 -0800 (PST)
+Received: from [192.168.1.109] ([178.197.216.144])
+ by smtp.gmail.com with ESMTPSA id
+ m18-20020a5d6252000000b002c3dc4131f5sm10133668wrv.18.2023.02.13.01.20.04
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 13 Feb 2023 01:20:06 -0800 (PST)
+Message-ID: <17e7a0f4-38b2-cfc7-3058-1fea7bb28b81@linaro.org>
+Date: Mon, 13 Feb 2023 10:20:03 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.7.1
-Content-Language: en-GB
+Content-Language: en-US
 To: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
  Lee Jones <lee@kernel.org>, Rob Herring <robh+dt@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
@@ -39,16 +73,15 @@ To: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
  Sagar Kadam <sagar.kadam@sifive.com>,
  Yanhong Wang <yanhong.wang@starfivetech.com>
 References: <20230211031821.976408-1-cristian.ciocaltea@collabora.com>
- <20230211031821.976408-6-cristian.ciocaltea@collabora.com>
-From: Ben Dooks <ben.dooks@codethink.co.uk>
-Organization: Codethink Limited.
-In-Reply-To: <20230211031821.976408-6-cristian.ciocaltea@collabora.com>
+ <20230211031821.976408-2-cristian.ciocaltea@collabora.com>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20230211031821.976408-2-cristian.ciocaltea@collabora.com>
 Cc: devicetree@vger.kernel.org, netdev@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
  kernel@collabora.com, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 05/12] riscv: Implement non-coherent DMA
- support via SiFive cache flushing
+Subject: Re: [Linux-stm32] [PATCH 01/12] dt-bindings: riscv: sifive-ccache:
+ Add compatible for StarFive JH7100 SoC
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,128 +93,23 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 11/02/2023 03:18, Cristian Ciocaltea wrote:
-> From: Emil Renner Berthing <kernel@esmil.dk>
+On 11/02/2023 04:18, Cristian Ciocaltea wrote:
+> Document the compatible for the SiFive Composable Cache Controller found
+> on the StarFive JH7100 SoC.
 > 
-> This variant is used on the StarFive JH7100 SoC.
-> 
-> Signed-off-by: Emil Renner Berthing <kernel@esmil.dk>
-> Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-> ---
->   arch/riscv/Kconfig              |  6 ++++--
->   arch/riscv/mm/dma-noncoherent.c | 37 +++++++++++++++++++++++++++++++--
->   2 files changed, 39 insertions(+), 4 deletions(-)
-> 
-> diff --git a/arch/riscv/Kconfig b/arch/riscv/Kconfig
-> index 9c687da7756d..05f6c77faf6f 100644
-> --- a/arch/riscv/Kconfig
-> +++ b/arch/riscv/Kconfig
-> @@ -232,12 +232,14 @@ config LOCKDEP_SUPPORT
->   	def_bool y
->   
->   config RISCV_DMA_NONCOHERENT
-> -	bool
-> +	bool "Support non-coherent DMA"
-> +	default SOC_STARFIVE
->   	select ARCH_HAS_DMA_PREP_COHERENT
-> +	select ARCH_HAS_DMA_SET_UNCACHED
-> +	select ARCH_HAS_DMA_CLEAR_UNCACHED
->   	select ARCH_HAS_SYNC_DMA_FOR_DEVICE
->   	select ARCH_HAS_SYNC_DMA_FOR_CPU
->   	select ARCH_HAS_SETUP_DMA_OPS
-> -	select DMA_DIRECT_REMAP
->   
->   config AS_HAS_INSN
->   	def_bool $(as-instr,.insn r 51$(comma) 0$(comma) 0$(comma) t0$(comma) t0$(comma) zero)
-> diff --git a/arch/riscv/mm/dma-noncoherent.c b/arch/riscv/mm/dma-noncoherent.c
-> index d919efab6eba..e07e53aea537 100644
-> --- a/arch/riscv/mm/dma-noncoherent.c
-> +++ b/arch/riscv/mm/dma-noncoherent.c
-> @@ -9,14 +9,21 @@
->   #include <linux/dma-map-ops.h>
->   #include <linux/mm.h>
->   #include <asm/cacheflush.h>
-> +#include <soc/sifive/sifive_ccache.h>
->   
->   static bool noncoherent_supported;
->   
->   void arch_sync_dma_for_device(phys_addr_t paddr, size_t size,
->   			      enum dma_data_direction dir)
->   {
-> -	void *vaddr = phys_to_virt(paddr);
-> +	void *vaddr;
->   
-> +	if (sifive_ccache_handle_noncoherent()) {
-> +		sifive_ccache_flush_range(paddr, size);
-> +		return;
-> +	}
-> +
-> +	vaddr = phys_to_virt(paddr);
->   	switch (dir) {
->   	case DMA_TO_DEVICE:
->   		ALT_CMO_OP(clean, vaddr, size, riscv_cbom_block_size);
-> @@ -35,8 +42,14 @@ void arch_sync_dma_for_device(phys_addr_t paddr, size_t size,
->   void arch_sync_dma_for_cpu(phys_addr_t paddr, size_t size,
->   			   enum dma_data_direction dir)
->   {
-> -	void *vaddr = phys_to_virt(paddr);
-> +	void *vaddr;
-> +
-> +	if (sifive_ccache_handle_noncoherent()) {
-> +		sifive_ccache_flush_range(paddr, size);
-> +		return;
-> +	}
+> This also requires extending the 'reg' property to handle distinct
+> ranges, as specified via 'reg-names'.
 
-ok, what happens if we have an system where the ccache and another level
-of cache also requires maintenance operations?
 
->   
-> +	vaddr = phys_to_virt(paddr);
->   	switch (dir) {
->   	case DMA_TO_DEVICE:
->   		break;
-> @@ -49,10 +62,30 @@ void arch_sync_dma_for_cpu(phys_addr_t paddr, size_t size,
->   	}
->   }
->   
-> +void *arch_dma_set_uncached(void *addr, size_t size)
-> +{
-> +	if (sifive_ccache_handle_noncoherent())
-> +		return sifive_ccache_set_uncached(addr, size);
-> +
-> +	return addr;
-> +}
-> +
-> +void arch_dma_clear_uncached(void *addr, size_t size)
-> +{
-> +	if (sifive_ccache_handle_noncoherent())
-> +		sifive_ccache_clear_uncached(addr, size);
-> +}
-> +
->   void arch_dma_prep_coherent(struct page *page, size_t size)
->   {
->   	void *flush_addr = page_address(page);
->   
-> +	if (sifive_ccache_handle_noncoherent()) {
-> +		memset(flush_addr, 0, size);
-> +		sifive_ccache_flush_range(__pa(flush_addr), size);
-> +		return;
-> +	}
-> +
->   	ALT_CMO_OP(flush, flush_addr, size, riscv_cbom_block_size);
->   }
->   
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 
--- 
-Ben Dooks				http://www.codethink.co.uk/
-Senior Engineer				Codethink - Providing Genius
-
-https://www.codethink.co.uk/privacy.html
+Best regards,
+Krzysztof
 
 _______________________________________________
 Linux-stm32 mailing list
