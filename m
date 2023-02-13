@@ -2,57 +2,57 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB43E6940F8
-	for <lists+linux-stm32@lfdr.de>; Mon, 13 Feb 2023 10:25:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D249A694104
+	for <lists+linux-stm32@lfdr.de>; Mon, 13 Feb 2023 10:26:11 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8060FC03FC1;
-	Mon, 13 Feb 2023 09:25:30 +0000 (UTC)
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com
- [209.85.221.52])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 96531C6A5F0;
+	Mon, 13 Feb 2023 09:26:11 +0000 (UTC)
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com
+ [209.85.221.48])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 939C3C69066
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D29CEC03FC1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 13 Feb 2023 09:25:29 +0000 (UTC)
-Received: by mail-wr1-f52.google.com with SMTP id y1so11417498wru.2
+ Mon, 13 Feb 2023 09:26:09 +0000 (UTC)
+Received: by mail-wr1-f48.google.com with SMTP id m10so2491978wrn.4
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 13 Feb 2023 01:25:29 -0800 (PST)
+ Mon, 13 Feb 2023 01:26:09 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=xSldNry3NWzuJ0zp8Ypcr2h0zI4yvHSm7LEOUZUqMKw=;
- b=OQ5yMzSQ7q+ZY08Q8rg+9cPVvhvYSSpp/vgo+xhT/XLgxQ/r+zI7EO5vb9rcYSCQSt
- mbwcinxALpM0bjyKNRslIzyCJ/W5VfVvQePr6ntDxS2Czpnc4xSvuNK9evWMsL6kgOG5
- 7XNEk1Sax2GzoIzMCkBFUhHPPFJzmx6HozvsrAnDkRYfTF6EbjNFKjXCtUwpJgWpyfSA
- 0AALWPB3KjKEnbaJ6qHbUeDasMdAKurhOD0sebSQpuEru2s4c1AEk1NpF3Si+vrZpTYh
- x5XIeTK4Gopo5SoJnGBLlxFVsw9oDMeTgid+4sYvjUT1YE2LPQh3iohtL7skakEG52eX
- m1AA==
+ bh=WSLZ3ZKzsvIefT199tYWo7cJEGZZJgm6+X6WVzrQDEk=;
+ b=SLdab1UEWactdNcB1w+n5yvxgRExwZc1qv84xdAEmwynljSRSQ3Ci8uC20Xp/xeoD2
+ VcW8RjLygpG/Vic1xrzk4LDrIIMHbU5ZCL2mTNqqQxqHyySDCkzOMi6skSPVhjxbFAJ6
+ 3DPVNXzwHenU7oA4LlRJtv8bRQvl2NnK49jTekMoOgvOxDyXD4JjwZz3VEia5N2TbEHd
+ alyvyJ9GKaXrYxDN1TK7s/oRyizZXJMwt7yhcCe6Cfn+JSZOtuP/y5FcqHjwfutiChlk
+ oSzGGpQtdmV40tjToqhFWJKA9xVuUvfPEujfkAglf75PmL72M99ijvPCErk58Kr6zLUz
+ Hm5g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=xSldNry3NWzuJ0zp8Ypcr2h0zI4yvHSm7LEOUZUqMKw=;
- b=1yMFbeyB/Pnmwu75xr5iX4bKR53VFcARjKA/YaN7xQ+6m2cKBD2os3H2JBhmvgSHdL
- mETMBFYwXQjT1U+nFMMTzokc48KgA60ANuYfrwV5fyhgX53HiXxGwEgjK+HkYaIqxtWB
- B6cSxY6fciooqD958U/a8RZLCTxuVlo70xKmSTOs9IWYNAfdP9CJgjkj6d3BHkr/Lo94
- KrWWJpWLhmeSfjf6VW67VCc3Rg2W96hUYQFpFpfqseeo2luCTqS2Q3+Y4bCzRcmAJZQp
- IMaz8WqPAaERnIlNhNM5vUqqTK3ZoQ0tmn0/fQmA2KS9fkBHK2Qt10svIehsTJzYyjX7
- y29w==
-X-Gm-Message-State: AO0yUKVED5gUqqwPpX3Uim1dfYarlcH+xK5OpKE8z2k7DBOO8Yh4/T6U
- 0DdhF6bNjRraORO9K7Tg5UrrGQ==
-X-Google-Smtp-Source: AK7set9ZqU8XLcewYFcYk+YS1UR5EMjdCdUAe+0yn67Ao2gAARnvEvunO2pnpdKZ5aph1W8194djhw==
-X-Received: by 2002:a05:6000:147:b0:2c5:3cd2:b8e with SMTP id
- r7-20020a056000014700b002c53cd20b8emr10262827wrx.1.1676280329198; 
- Mon, 13 Feb 2023 01:25:29 -0800 (PST)
+ bh=WSLZ3ZKzsvIefT199tYWo7cJEGZZJgm6+X6WVzrQDEk=;
+ b=ZP/H/qTZ9BPPMy5BKUOC1zPq1QFt2RImYCumUyOZqxzz7uOiAU89jmtGNRE+IgToe3
+ hf4woje9j0Qpu2JH8ugs2SV+Ex2A/p8URnX6QA7FT5meJA0PtM3CcDRMeMUpPYKqAOP0
+ xYObDCHidfq/Aa3qZ1ekHRCVqz367PSrp1XPzrQmKhkztK7dMFz418TU8UMMVwdIHKFT
+ r/Wx9gg3Nu/D1x6zKGn21pY8VDmzADSIs9+HwhfjMWElNaQ3j2CTmggCaENlraA6sIGC
+ LbTMO2kNGI3tNdjSVR9ErtKKNjGyikBHVp0aH806yZ/Rynb4GuswQ+gH3afpthIHdDfr
+ VEqA==
+X-Gm-Message-State: AO0yUKU4ZO0SO5rjwBGUt/To2j++x21ToPPBl3SyWFiC2zevPCpQv2P1
+ urTtCDORwFNv7cNKZS56qj1oOg==
+X-Google-Smtp-Source: AK7set/7w+SNxBNKti9FoZehdW/4irYGNDTCvC0R2xc487VgVY69FMUVdWPnhCVD0GvgBt0CK5LIuA==
+X-Received: by 2002:a5d:6707:0:b0:2c3:d4b0:6d8 with SMTP id
+ o7-20020a5d6707000000b002c3d4b006d8mr21318493wru.23.1676280369540; 
+ Mon, 13 Feb 2023 01:26:09 -0800 (PST)
 Received: from [192.168.1.109] ([178.197.216.144])
  by smtp.gmail.com with ESMTPSA id
- g9-20020a5d5409000000b002c558228b6dsm2670211wrv.12.2023.02.13.01.25.26
+ r2-20020adff702000000b002bddac15b3dsm9806893wrp.33.2023.02.13.01.26.06
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 13 Feb 2023 01:25:28 -0800 (PST)
-Message-ID: <5e7cf78c-9402-1b27-6a19-8326fe5c8e18@linaro.org>
-Date: Mon, 13 Feb 2023 10:25:25 +0100
+ Mon, 13 Feb 2023 01:26:09 -0800 (PST)
+Message-ID: <dbf26e3f-6a4f-cd15-c7d3-b0c1c482b83b@linaro.org>
+Date: Mon, 13 Feb 2023 10:26:05 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.7.1
@@ -73,15 +73,15 @@ To: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
  Sagar Kadam <sagar.kadam@sifive.com>,
  Yanhong Wang <yanhong.wang@starfivetech.com>
 References: <20230211031821.976408-1-cristian.ciocaltea@collabora.com>
- <20230211031821.976408-8-cristian.ciocaltea@collabora.com>
+ <20230211031821.976408-9-cristian.ciocaltea@collabora.com>
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20230211031821.976408-8-cristian.ciocaltea@collabora.com>
+In-Reply-To: <20230211031821.976408-9-cristian.ciocaltea@collabora.com>
 Cc: devicetree@vger.kernel.org, netdev@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
  kernel@collabora.com, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 07/12] dt-bindings: net: Add StarFive
-	JH7100 SoC
+Subject: Re: [Linux-stm32] [PATCH 08/12] net: stmmac: Add glue layer for
+	StarFive JH7100 SoC
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,23 +99,48 @@ Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 On 11/02/2023 04:18, Cristian Ciocaltea wrote:
-> Add DT bindings documentation for the Synopsys DesignWare MAC found on
-> the StarFive JH7100 SoC.
+> From: Emil Renner Berthing <kernel@esmil.dk>
 > 
-> Adjust 'reset' and 'reset-names' properties to allow using 'ahb' instead
-> of the 'stmmaceth' reset signal, as required by JH7100.
+> This adds a glue layer for the Synopsys DesignWare MAC IP core on the
+> StarFive JH7100 SoC.
 > 
+> Signed-off-by: Emil Renner Berthing <kernel@esmil.dk>
+> [drop references to JH7110, update JH7100 compatible string]
 > Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 > ---
->  .../devicetree/bindings/net/snps,dwmac.yaml   |  15 ++-
->  .../bindings/net/starfive,jh7100-dwmac.yaml   | 106 ++++++++++++++++++
+>  MAINTAINERS                                   |   1 +
+>  drivers/net/ethernet/stmicro/stmmac/Kconfig   |  12 ++
+>  drivers/net/ethernet/stmicro/stmmac/Makefile  |   1 +
+>  .../ethernet/stmicro/stmmac/dwmac-starfive.c  | 155 ++++++++++++++++++
+>  4 files changed, 169 insertions(+)
+>  create mode 100644 drivers/net/ethernet/stmicro/stmmac/dwmac-starfive.c
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index d48468b81b94..defedaff6041 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -19820,6 +19820,7 @@ STARFIVE DWMAC GLUE LAYER
+>  M:	Emil Renner Berthing <kernel@esmil.dk>
+>  S:	Maintained
+>  F:	Documentation/devicetree/bindings/net/starfive,jh7100-dwmac.yaml
+> +F:	drivers/net/ethernet/stmicro/stmmac/dwmac-starfive.c
+>  
+>  STARFIVE JH7100 CLOCK DRIVERS
+>  M:	Emil Renner Berthing <kernel@esmil.dk>
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/Kconfig b/drivers/net/ethernet/stmicro/stmmac/Kconfig
+> index f77511fe4e87..2c81aa594291 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/Kconfig
+> +++ b/drivers/net/ethernet/stmicro/stmmac/Kconfig
+> @@ -165,6 +165,18 @@ config DWMAC_SOCFPGA
+>  	  for the stmmac device driver. This driver is used for
+>  	  arria5 and cyclone5 FPGA SoCs.
+>  
+> +config DWMAC_STARFIVE
+> +	tristate "StarFive DWMAC support"
 
+Bring only one driver.
 
-FYI, there is conflicting work:
-
-https://lore.kernel.org/all/20230118061701.30047-5-yanhong.wang@starfivetech.com/
-
-It's almost the same, thus this should be dropped.
+https://lore.kernel.org/all/20230118061701.30047-6-yanhong.wang@starfivetech.com/
 
 Best regards,
 Krzysztof
