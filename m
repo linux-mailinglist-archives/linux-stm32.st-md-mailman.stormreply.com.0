@@ -2,64 +2,70 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9656B6977FA
-	for <lists+linux-stm32@lfdr.de>; Wed, 15 Feb 2023 09:18:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EF94C69787D
+	for <lists+linux-stm32@lfdr.de>; Wed, 15 Feb 2023 09:51:59 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 500C4C6B45A;
-	Wed, 15 Feb 2023 08:18:50 +0000 (UTC)
-Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9B94BC6A5F9;
+	Wed, 15 Feb 2023 08:51:59 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9017EC69063
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C5EA4C69063
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 15 Feb 2023 00:34:28 +0000 (UTC)
-Received: from [192.168.1.90] (unknown [86.120.32.152])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits))
- (No client certificate requested) (Authenticated sender: cristicc)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id 402C0660217D;
- Wed, 15 Feb 2023 00:34:26 +0000 (GMT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1676421268;
- bh=GPRpB7l0KFvDAe90l47jGxlxu/5Kcdt9J/hi24/5C7w=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=KGwXRBM+CqsY8WuVEfFGb/3XE6k5Po4N/V7S5ZYtvlN9vFIQGjvcSa80xB+QIKeNu
- nLP/oA1H5uIjgN/mRBN1QDxHG+RER1Q/j6jnvPPM6DdDMLZN8ieUtg3ARbQ8XGAKdQ
- DuYxDMbfPlM5EsnNFnlIWZ7oQ4xKlwvvcxGsbJWrclFzyrD/zP7icr+xtrhCCBnY/A
- Mi+ycV2kn42zsBBiGOr9OvgoXz6x2i0TQIfF0KdM4BO7RRYVK52qEsvnin9rSNKyn7
- iXTQk09k1+rOU5CDn28q1vB64m62J9RTYcCCVFOLohT2yv+B+1K8P/TjbJktfwRRYX
- B5LfeJ39Hm8Ow==
-Message-ID: <586971af-2d78-456d-a605-6c7b2aefda91@collabora.com>
-Date: Wed, 15 Feb 2023 02:34:23 +0200
+ Wed, 15 Feb 2023 08:51:57 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 31F8eW6w014871; Wed, 15 Feb 2023 09:51:26 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=nQRfhP5h3wevSsK9mj7ey/H+BDf9TMAs1fd5QoahUfo=;
+ b=HfQF+XNc549cPOsVWnKOTRhkEJhwVzsWHfLeOTQZNTr/84Z6RM12oF5ZxFoe5TqAfrZW
+ PaiEfJN2yntCj3lQBixl8rZfJKZHnMY9BGQO+6LXwrL9mY6837XVFq6NVxhwzCjcIEun
+ YZEWCIjj8Mni8devRbE5RkuaJ9+UVIv3aupXVVwqeWQvn8RrRhTQoxOfqsOT6EvrrEAi
+ iM7J1WaxTwGo556NWTJccyuCq5nEC085X9OA+/octs/pQQ2K7M8vBInPno2uks2abo4C
+ x3EzpE+fw1SeHuiprLibRsLCef4lK8Lhd9ZsVmsgy3rZZU4mwNLmBSWLeRs7TBfeOQum aA== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3nradm5e6t-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 15 Feb 2023 09:51:26 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id EE95E10002A;
+ Wed, 15 Feb 2023 09:51:24 +0100 (CET)
+Received: from Webmail-eu.st.com (shfdag1node3.st.com [10.75.129.71])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id B7B9A212FBC;
+ Wed, 15 Feb 2023 09:51:24 +0100 (CET)
+Received: from [10.252.21.164] (10.252.21.164) by SHFDAG1NODE3.st.com
+ (10.75.129.71) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.17; Wed, 15 Feb
+ 2023 09:51:22 +0100
+Message-ID: <10334742-2c44-0a2f-cbd7-b4ce93816300@foss.st.com>
+Date: Wed, 15 Feb 2023 09:51:05 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.7.2
+ Thunderbird/102.7.1
+To: Arnd Bergmann <arnd@kernel.org>, Vinod Koul <vkoul@kernel.org>, "Maxime
+ Coquelin" <mcoquelin.stm32@gmail.com>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>, Pierre Yves MORDRET
+ <pierre-yves.mordret@st.com>, M'boumba Cedric Madianga
+ <cedric.madianga@gmail.com>
+References: <20230214103222.1193307-1-arnd@kernel.org>
 Content-Language: en-US
-To: Andrew Lunn <andrew@lunn.ch>
-References: <20230211031821.976408-1-cristian.ciocaltea@collabora.com>
- <20230211031821.976408-8-cristian.ciocaltea@collabora.com>
- <Y+e74UIV/Td91lKB@lunn.ch>
-From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-In-Reply-To: <Y+e74UIV/Td91lKB@lunn.ch>
-X-Mailman-Approved-At: Wed, 15 Feb 2023 08:18:41 +0000
-Cc: Emil Renner Berthing <kernel@esmil.dk>, Eric Dumazet <edumazet@google.com>,
- Sagar Kadam <sagar.kadam@sifive.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- linux-riscv@lists.infradead.org, kernel@collabora.com,
- linux-stm32@st-md-mailman.stormreply.com,
- Yanhong Wang <yanhong.wang@starfivetech.com>, Lee Jones <lee@kernel.org>,
- Jose Abreu <joabreu@synopsys.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, devicetree@vger.kernel.org,
- Albert Ou <aou@eecs.berkeley.edu>, Richard Cochran <richardcochran@gmail.com>,
- Rob Herring <robh+dt@kernel.org>, Paul Walmsley <paul.walmsley@sifive.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, Conor Dooley <conor@kernel.org>,
- Palmer Dabbelt <palmer@dabbelt.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- "David S. Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH 07/12] dt-bindings: net: Add StarFive
-	JH7100 SoC
+From: Amelie Delaunay <amelie.delaunay@foss.st.com>
+In-Reply-To: <20230214103222.1193307-1-arnd@kernel.org>
+X-Originating-IP: [10.252.21.164]
+X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE3.st.com
+ (10.75.129.71)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.219,Aquarius:18.0.930,Hydra:6.0.562,FMLib:17.11.170.22
+ definitions=2023-02-15_04,2023-02-14_01,2023-02-09_01
+Cc: dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Arnd Bergmann <arnd@arndb.de>,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] dmaengine: stm32-dma: avoid bitfield
+	overflow assertion
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,45 +82,82 @@ Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 2/11/23 18:01, Andrew Lunn wrote:
->> +  starfive,gtxclk-dlychain:
->> +    $ref: /schemas/types.yaml#/definitions/uint32
->> +    description: GTX clock delay chain setting
+Hi Arnd,
+
+Thanks for pointing this issue.
+
+On 2/14/23 11:32, Arnd Bergmann wrote:
+> From: Arnd Bergmann <arnd@arndb.de>
 > 
-> Please could you add more details to this. Is this controlling the
-> RGMII delays? 0ns or 2ns?
-
-This is what gets written to JH7100_SYSMAIN_REGISTER49 and it's 
-currently set to 4 in patch 12/12. As already mentioned, I don't have 
-the register information in the datasheet, but I'll update this as soon 
-as we get some details.
-
->> +    gmac: ethernet@10020000 {
->> +      compatible = "starfive,jh7100-dwmac", "snps,dwmac";
->> +      reg = <0x0 0x10020000 0x0 0x10000>;
->> +      clocks = <&clkgen JH7100_CLK_GMAC_ROOT_DIV>,
->> +               <&clkgen JH7100_CLK_GMAC_AHB>,
->> +               <&clkgen JH7100_CLK_GMAC_PTP_REF>,
->> +               <&clkgen JH7100_CLK_GMAC_GTX>,
->> +               <&clkgen JH7100_CLK_GMAC_TX_INV>;
->> +      clock-names = "stmmaceth", "pclk", "ptp_ref", "gtxc", "tx";
->> +      resets = <&rstgen JH7100_RSTN_GMAC_AHB>;
->> +      reset-names = "ahb";
->> +      interrupts = <6>, <7>;
->> +      interrupt-names = "macirq", "eth_wake_irq";
->> +      max-frame-size = <9000>;
->> +      phy-mode = "rgmii-txid";
+> stm32_dma_get_burst() returns a negative error code for invalid
+> input, which gets turned into a large u32 value in stm32_dma_prep_dma_memcpy()
+> that in turn triggers an assertion because it does not fit into a
+> two-bit field:
 > 
-> This is unusual. Does your board have a really long RX clock line to
-> insert the 2ns delay needed on the RX side?
+> drivers/dma/stm32-dma.c: In function 'stm32_dma_prep_dma_memcpy':
+> include/linux/compiler_types.h:399:38: error: call to '__compiletime_assert_310' declared with attribute error: FIELD_PREP: value too large for the field
+>    399 |  _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
+>        |                                      ^
+> include/linux/compiler_types.h:380:4: note: in definition of macro '__compiletime_assert'
+>    380 |    prefix ## suffix();    \
+>        |    ^~~~~~
+> include/linux/compiler_types.h:399:2: note: in expansion of macro '_compiletime_assert'
+>    399 |  _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
+>        |  ^~~~~~~~~~~~~~~~~~~
+> include/linux/build_bug.h:39:37: note: in expansion of macro 'compiletime_assert'
+>     39 | #define BUILD_BUG_ON_MSG(cond, msg) compiletime_assert(!(cond), msg)
+>        |                                     ^~~~~~~~~~~~~~~~~~
+> include/linux/bitfield.h:68:3: note: in expansion of macro 'BUILD_BUG_ON_MSG'
+>     68 |   BUILD_BUG_ON_MSG(__builtin_constant_p(_val) ?  \
+>        |   ^~~~~~~~~~~~~~~~
+> include/linux/bitfield.h:114:3: note: in expansion of macro '__BF_FIELD_CHECK'
+>    114 |   __BF_FIELD_CHECK(_mask, 0ULL, _val, "FIELD_PREP: "); \
+>        |   ^~~~~~~~~~~~~~~~
+> drivers/dma/stm32-dma.c:1273:4: note: in expansion of macro 'FIELD_PREP'
+>   1273 |    FIELD_PREP(STM32_DMA_SCR_PBURST_MASK, dma_burst) |
+>        |    ^~~~~~~~~~
+> 
+> I only see this with older gcc versions like gcc-6.5 or gcc-9.5 but not
+> with gcc-12.2 or higher. My best guess is that this is the result of
+> changes to __builtin_constant_p(), which seems to treat the 'cold'
+> codepath after an error message as a constant branch, while in newer
+> gcc versions the range check is skipped after determining that
+> dma_burst is never a compile-time constant.
+> 
+> As an easy workaround, assume the error can happen, so try to handle this
+> by failing stm32_dma_prep_dma_memcpy() before the assertion.
+> 
+> Fixes: 1c32d6c37cc2 ("dmaengine: stm32-dma: use bitfield helpers")
+> Fixes: a2b6103b7a8a ("dmaengine: stm32-dma: Improve memory burst management")
+> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+> ---
+>   drivers/dma/stm32-dma.c | 4 ++++
+>   1 file changed, 4 insertions(+)
+> 
+> diff --git a/drivers/dma/stm32-dma.c b/drivers/dma/stm32-dma.c
+> index 37674029cb42..e3cd4b0525e6 100644
+> --- a/drivers/dma/stm32-dma.c
+> +++ b/drivers/dma/stm32-dma.c
+> @@ -1266,6 +1266,10 @@ static struct dma_async_tx_descriptor *stm32_dma_prep_dma_memcpy(
+>   		best_burst = stm32_dma_get_best_burst(len, STM32_DMA_MAX_BURST,
+>   						      threshold, max_width);
+>   		dma_burst = stm32_dma_get_burst(chan, best_burst);
+> +		if (dma_burst > 3) {
+> +			kfree(desc);
+> +			return NULL;
+> +		}
 
-Just tested with "rgmii" and didn't notice any issues. If I'm not 
-missing anything, I'll do the change in the next revision.
+Instead of hard-coding this check, I suggest to copy what is done in 
+stm32_dma_set_xfer_param() where stm32_dma_get_burst() is also used.
+So, change dma_burst from u32 to int, and check for negative value and 
+failing in this case before the assertion of FIELD_PREP.
 
->         Andrew
+Regards,
+Amelie
 
-Thanks,
-Cristian
+>   
+>   		stm32_dma_clear_reg(&desc->sg_req[i].chan_reg);
+>   		desc->sg_req[i].chan_reg.dma_scr =
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
