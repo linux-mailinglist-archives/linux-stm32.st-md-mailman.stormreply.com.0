@@ -2,39 +2,73 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 08284697C9C
-	for <lists+linux-stm32@lfdr.de>; Wed, 15 Feb 2023 14:02:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 897BE697CE1
+	for <lists+linux-stm32@lfdr.de>; Wed, 15 Feb 2023 14:11:43 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AD404C6A5F8;
-	Wed, 15 Feb 2023 13:02:18 +0000 (UTC)
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3CDBCC6A5F8;
+	Wed, 15 Feb 2023 13:11:43 +0000 (UTC)
+Received: from smtp-relay-internal-0.canonical.com
+ (smtp-relay-internal-0.canonical.com [185.125.188.122])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 45A70C69049
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F029AC69049
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 15 Feb 2023 13:02:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
- s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
- References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
- Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
- Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
- bh=eRF7KZGWyAp2wUobvfy12AosGt3ryJM8iRWImzBIITg=; b=cS94lxxHZcrUCuuGzYJ4htZ3/i
- LRXjsPFxOuWozRskJ5HLCWJMzSKKOAjWg8iAvoZlC9ErfbMrfsXA5UG2gU5cXJFIL7nnAMSYZR1mq
- /bayB1PBehfeF237Nz6izZaVXSiuxAmvC5rci4ueLCEv9o6iji+GV2N+YbLdwQSBrccY=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
- (envelope-from <andrew@lunn.ch>)
- id 1pSHPz-0053H4-FB; Wed, 15 Feb 2023 14:01:51 +0100
-Date: Wed, 15 Feb 2023 14:01:51 +0100
-From: Andrew Lunn <andrew@lunn.ch>
-To: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Message-ID: <Y+zXv90rGfQupjPP@lunn.ch>
-References: <20230211031821.976408-1-cristian.ciocaltea@collabora.com>
- <20230211031821.976408-8-cristian.ciocaltea@collabora.com>
- <Y+e74UIV/Td91lKB@lunn.ch>
- <586971af-2d78-456d-a605-6c7b2aefda91@collabora.com>
+ Wed, 15 Feb 2023 13:11:41 +0000 (UTC)
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
+ [209.85.160.200])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id 192853F4BB
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 15 Feb 2023 13:11:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+ s=20210705; t=1676466701;
+ bh=1XdYb1DRbOmlAI6DRkBJIyrIK+/5tdCGTTdbxhb+wmw=;
+ h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+ To:Cc:Content-Type;
+ b=mBoW16fVkEwXTxRnSNlMI4i0CwJNHPgXgs9XoZ3Gz52zAbyHNX7xo7E9/g3ZSCshY
+ JCVik0cxPmdu+1CpkzlBRYX1OVC/nToz3fwt7OVKVjnA8ZoEk1KDEpAy9ts+0R0kaR
+ N4HlRKOR/1xp5oCHzmnb3Hor+3nHAGPQK4tP5RRFqNBk+1htCtgdxOod4IvvjYl6F+
+ 0AUeBBlYK6ICVh6V/VhYfXUk+YwAWUD7jhcknezEZI+p1VmzAi3xNpT1H/Sjp3ybtl
+ UEQ6aBxNVrUBny8sni+5C8hQXi17rCyRXqI2quJLe539sTK8mdAUnFzQhmiT9iPo/x
+ BqPTO+GEk3jDg==
+Received: by mail-qt1-f200.google.com with SMTP id
+ fp20-20020a05622a509400b003bcf4239f33so2245699qtb.7
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 15 Feb 2023 05:11:41 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=1XdYb1DRbOmlAI6DRkBJIyrIK+/5tdCGTTdbxhb+wmw=;
+ b=rE4jHsAXFFFhHVkZqPM0BrtHSt50JmIbPxgIOesdfKKz2Gcbmy9pI59O04ULRMHvN/
+ 0MPKr6VpbK0GaM5eo1Z5xUrt1WT67yaDeNjDUnBPehftiaa+D03Uzp0XoSP981Od/Y2Q
+ vWRVVvHw8NpPeR3Ydp79x/pSc5n5/Y/1SPDb/s2CBG2K3bubFr784g6fQAkIQKfykBzW
+ CjKvRo0g+WWGq2awagu4ZVZGtrdkjzaCP0iw46L7i5kfps9AGquJaCLO+1rge1OvT+1g
+ JUo/Dy8vvZL2KU/W2aKHq8MMF8X010cXtmHwdn8fuas1CdZjLPlGBFgFE40RDtAKzNmR
+ JT7g==
+X-Gm-Message-State: AO0yUKXHj21izZgCtj4k19FgEYe+NncdhlXx9xz6vMOllbVxhRUgWdsS
+ OzWtk7olRrCRAp3lJIfuWyZ6JBMX70icBYuSNgoLFiKl1rw5SxsN75N3MF6vKfApKKkEkItlUfY
+ bxaFYdcYXArNeOZyqI+9uaBbO5AznSlr3h9v6JaP+67YxUUSVd4c4MOP5Hk1WTqZdEmJardF4rg
+ ==
+X-Received: by 2002:a05:622a:164f:b0:3bc:e3a8:d1d6 with SMTP id
+ y15-20020a05622a164f00b003bce3a8d1d6mr228750qtj.229.1676466699838; 
+ Wed, 15 Feb 2023 05:11:39 -0800 (PST)
+X-Google-Smtp-Source: AK7set+4/1NxoBcvUdWQnW9B5yPBwHcyWHA8dOVvJArdaItgCToDNjAmHnj0L1BgI9mhCHcGqlTdul+lrgFnVADu40o=
+X-Received: by 2002:a05:622a:164f:b0:3bc:e3a8:d1d6 with SMTP id
+ y15-20020a05622a164f00b003bce3a8d1d6mr228728qtj.229.1676466699567; Wed, 15
+ Feb 2023 05:11:39 -0800 (PST)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <586971af-2d78-456d-a605-6c7b2aefda91@collabora.com>
+References: <20230211031821.976408-1-cristian.ciocaltea@collabora.com>
+ <20230211031821.976408-2-cristian.ciocaltea@collabora.com>
+ <Y+vxw28NWPfaW7ql@spud>
+In-Reply-To: <Y+vxw28NWPfaW7ql@spud>
+From: Emil Renner Berthing <emil.renner.berthing@canonical.com>
+Date: Wed, 15 Feb 2023 14:11:22 +0100
+Message-ID: <CAJM55Z_x3omY9DQtxPUgLX0NKEm3PCXDkFFDVAzG7opFLsZX+A@mail.gmail.com>
+To: Conor Dooley <conor@kernel.org>
 Cc: Emil Renner Berthing <kernel@esmil.dk>, Eric Dumazet <edumazet@google.com>,
  Sagar Kadam <sagar.kadam@sifive.com>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
@@ -47,12 +81,12 @@ Cc: Emil Renner Berthing <kernel@esmil.dk>, Eric Dumazet <edumazet@google.com>,
  Rob Herring <robh+dt@kernel.org>, Paul Walmsley <paul.walmsley@sifive.com>,
  Giuseppe Cavallaro <peppe.cavallaro@st.com>,
  linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, Conor Dooley <conor@kernel.org>,
- Palmer Dabbelt <palmer@dabbelt.com>,
+ linux-kernel@vger.kernel.org, Palmer Dabbelt <palmer@dabbelt.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
  "David S. Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH 07/12] dt-bindings: net: Add StarFive
-	JH7100 SoC
+Subject: Re: [Linux-stm32] [PATCH 01/12] dt-bindings: riscv: sifive-ccache:
+ Add compatible for StarFive JH7100 SoC
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,59 +103,122 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, Feb 15, 2023 at 02:34:23AM +0200, Cristian Ciocaltea wrote:
-> On 2/11/23 18:01, Andrew Lunn wrote:
-> > > +  starfive,gtxclk-dlychain:
-> > > +    $ref: /schemas/types.yaml#/definitions/uint32
-> > > +    description: GTX clock delay chain setting
-> > 
-> > Please could you add more details to this. Is this controlling the
-> > RGMII delays? 0ns or 2ns?
-> 
-> This is what gets written to JH7100_SYSMAIN_REGISTER49 and it's currently
-> set to 4 in patch 12/12. As already mentioned, I don't have the register
-> information in the datasheet, but I'll update this as soon as we get some
-> details.
+On Tue, 14 Feb 2023 at 21:42, Conor Dooley <conor@kernel.org> wrote:
+>
+> Hey all,
+>
+> On Sat, Feb 11, 2023 at 05:18:10AM +0200, Cristian Ciocaltea wrote:
+> > Document the compatible for the SiFive Composable Cache Controller found
+> > on the StarFive JH7100 SoC.
+> >
+> > This also requires extending the 'reg' property to handle distinct
+> > ranges, as specified via 'reg-names'.
+> >
+> > Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+> > ---
+> >  .../bindings/riscv/sifive,ccache0.yaml        | 28 ++++++++++++++++++-
+> >  1 file changed, 27 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/Documentation/devicetree/bindings/riscv/sifive,ccache0.yaml b/Documentation/devicetree/bindings/riscv/sifive,ccache0.yaml
+> > index 31d20efaa6d3..2b864b2f12c9 100644
+> > --- a/Documentation/devicetree/bindings/riscv/sifive,ccache0.yaml
+> > +++ b/Documentation/devicetree/bindings/riscv/sifive,ccache0.yaml
+> > @@ -25,6 +25,7 @@ select:
+> >            - sifive,ccache0
+> >            - sifive,fu540-c000-ccache
+> >            - sifive,fu740-c000-ccache
+> > +          - starfive,jh7100-ccache
+> >
+> >    required:
+> >      - compatible
+> > @@ -37,6 +38,7 @@ properties:
+> >                - sifive,ccache0
+> >                - sifive,fu540-c000-ccache
+> >                - sifive,fu740-c000-ccache
+> > +              - starfive,jh7100-ccache
+> >            - const: cache
+> >        - items:
+> >            - const: starfive,jh7110-ccache
+> > @@ -70,7 +72,13 @@ properties:
+> >        - description: DirFail interrupt
+> >
+> >    reg:
+> > -    maxItems: 1
+> > +    minItems: 1
+> > +    maxItems: 2
+> > +
+> > +  reg-names:
+> > +    items:
+> > +      - const: control
+> > +      - const: sideband
+>
+> So why is this called "sideband"?
+> In the docs for the JH7100 it is called LIM & it's called LIM in our
+> docs for the PolarFire SoC (at the same address btw) and we run the HSS
+> out of it! LIM being "loosely integrated memory", which by the limit
+> hits on Google may be a SiFive-ism?
+>
+> I'm not really sure if adding it as a "reg" section is the right thing
+> to do as it's not "just" a register bank.
+> Perhaps Rob/Krzysztof have a take on that one?
 
-I have seen what happens to this value, but i have no idea what it
-actually means. And without knowing what it means, i cannot say if it
-is being used correctly or not. And it could be related to the next
-part of my comment...
+Yes, this seems to be a leftover I didn't manage to clean up yet. The
+"sideband" range is called L2 LIM in the datasheet and seems to be a
+way to use the cache directly. The Sifive docs read "When cache ways
+are disabled, they are addressable in the L2 Loosely-Integrated Memory
+(L2 LIM) address space [..]". This feature is not used by Linux on the
+JH7100, so can just be removed here.
 
-> 
-> > > +    gmac: ethernet@10020000 {
-> > > +      compatible = "starfive,jh7100-dwmac", "snps,dwmac";
-> > > +      reg = <0x0 0x10020000 0x0 0x10000>;
-> > > +      clocks = <&clkgen JH7100_CLK_GMAC_ROOT_DIV>,
-> > > +               <&clkgen JH7100_CLK_GMAC_AHB>,
-> > > +               <&clkgen JH7100_CLK_GMAC_PTP_REF>,
-> > > +               <&clkgen JH7100_CLK_GMAC_GTX>,
-> > > +               <&clkgen JH7100_CLK_GMAC_TX_INV>;
-> > > +      clock-names = "stmmaceth", "pclk", "ptp_ref", "gtxc", "tx";
-> > > +      resets = <&rstgen JH7100_RSTN_GMAC_AHB>;
-> > > +      reset-names = "ahb";
-> > > +      interrupts = <6>, <7>;
-> > > +      interrupt-names = "macirq", "eth_wake_irq";
-> > > +      max-frame-size = <9000>;
-> > > +      phy-mode = "rgmii-txid";
-> > 
-> > This is unusual. Does your board have a really long RX clock line to
-> > insert the 2ns delay needed on the RX side?
-> 
-> Just tested with "rgmii" and didn't notice any issues. If I'm not missing
-> anything, I'll do the change in the next revision.
+/Emil
 
-rgmii-id is generally the value to be used. That indicates the board
-needs 2ns delays adding by something, either the MAC or the PHY. And
-then i always recommend the MAC driver does nothing, pass the value to
-the PHY and let the PHY add the delays.
-
-So try both rgmii and rgmii-id and do a lot of bi directional
-transfers. Then look at the reported ethernet frame check sum error
-counts, both local and the link peer. I would expect one setting gives
-you lots of errors, and the other works much better.
-
-    Andrew
+> >
+> >    next-level-cache: true
+> >
+> > @@ -89,6 +97,7 @@ allOf:
+> >            contains:
+> >              enum:
+> >                - sifive,fu740-c000-ccache
+> > +              - starfive,jh7100-ccache
+> >                - starfive,jh7110-ccache
+> >                - microchip,mpfs-ccache
+> >
+> > @@ -106,12 +115,29 @@ allOf:
+> >              Must contain entries for DirError, DataError and DataFail signals.
+> >            maxItems: 3
+> >
+> > +  - if:
+> > +      properties:
+> > +        compatible:
+> > +          contains:
+> > +            const: starfive,jh7100-ccache
+> > +
+> > +    then:
+> > +      properties:
+> > +        reg:
+> > +          maxItems: 2
+> > +
+> > +    else:
+> > +      properties:
+> > +        reg:
+> > +          maxItems: 1
+> > +
+> >    - if:
+> >        properties:
+> >          compatible:
+> >            contains:
+> >              enum:
+> >                - sifive,fu740-c000-ccache
+> > +              - starfive,jh7100-ccache
+> >                - starfive,jh7110-ccache
+> >
+> >      then:
+> > --
+> > 2.39.1
+> >
+> _______________________________________________
+> linux-riscv mailing list
+> linux-riscv@lists.infradead.org
+> http://lists.infradead.org/mailman/listinfo/linux-riscv
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
