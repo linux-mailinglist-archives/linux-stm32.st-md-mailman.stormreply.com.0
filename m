@@ -2,70 +2,92 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id EF94C69787D
-	for <lists+linux-stm32@lfdr.de>; Wed, 15 Feb 2023 09:51:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A7B54697A91
+	for <lists+linux-stm32@lfdr.de>; Wed, 15 Feb 2023 12:21:31 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9B94BC6A5F9;
-	Wed, 15 Feb 2023 08:51:59 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4F17EC6A5F8;
+	Wed, 15 Feb 2023 11:21:31 +0000 (UTC)
+Received: from smtp-relay-internal-1.canonical.com
+ (smtp-relay-internal-1.canonical.com [185.125.188.123])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C5EA4C69063
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 82F97C69049
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 15 Feb 2023 08:51:57 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 31F8eW6w014871; Wed, 15 Feb 2023 09:51:26 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=nQRfhP5h3wevSsK9mj7ey/H+BDf9TMAs1fd5QoahUfo=;
- b=HfQF+XNc549cPOsVWnKOTRhkEJhwVzsWHfLeOTQZNTr/84Z6RM12oF5ZxFoe5TqAfrZW
- PaiEfJN2yntCj3lQBixl8rZfJKZHnMY9BGQO+6LXwrL9mY6837XVFq6NVxhwzCjcIEun
- YZEWCIjj8Mni8devRbE5RkuaJ9+UVIv3aupXVVwqeWQvn8RrRhTQoxOfqsOT6EvrrEAi
- iM7J1WaxTwGo556NWTJccyuCq5nEC085X9OA+/octs/pQQ2K7M8vBInPno2uks2abo4C
- x3EzpE+fw1SeHuiprLibRsLCef4lK8Lhd9ZsVmsgy3rZZU4mwNLmBSWLeRs7TBfeOQum aA== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3nradm5e6t-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 15 Feb 2023 09:51:26 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id EE95E10002A;
- Wed, 15 Feb 2023 09:51:24 +0100 (CET)
-Received: from Webmail-eu.st.com (shfdag1node3.st.com [10.75.129.71])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id B7B9A212FBC;
- Wed, 15 Feb 2023 09:51:24 +0100 (CET)
-Received: from [10.252.21.164] (10.252.21.164) by SHFDAG1NODE3.st.com
- (10.75.129.71) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.17; Wed, 15 Feb
- 2023 09:51:22 +0100
-Message-ID: <10334742-2c44-0a2f-cbd7-b4ce93816300@foss.st.com>
-Date: Wed, 15 Feb 2023 09:51:05 +0100
+ Wed, 15 Feb 2023 11:21:29 +0000 (UTC)
+Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com
+ [209.85.219.69])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 8C44E3F215
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 15 Feb 2023 11:21:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+ s=20210705; t=1676460087;
+ bh=hwzNkkVHAMig3SgTdNBISffkqWyB+YZfYs1moUFjJBQ=;
+ h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+ To:Cc:Content-Type;
+ b=cQ/cbKTc7GkCr29Mxcb5UBckJwcf7/15OPWJehCFZc66ItYrp/W6igA0CYlVe3/kB
+ x1JuRl4ascRlF0s06xqPeox0O50+4fLmNf4u3tlgO95jZiS7fFwVkfr0sUbZO4El5J
+ ezi550gUwk3tYvGylY3NAttl32HRIHwhFSnJzRHnwxiFJ8/nHVbhvcK0ocklPsDEZB
+ zdtC2uXFSaev8AeeqBKlA4dmSmiDdTf2UN4xpFxnPoWpKCYsti3+JT72//NsVu232j
+ L3BbhFtUZrSDWe0W5pKhIzZi+HqmK1W6zPrXpKoMMRoU5oLzg+QU0AdA7atq9V84Hq
+ jMp5Zbu2aSMng==
+Received: by mail-qv1-f69.google.com with SMTP id
+ gu10-20020a056214260a00b0056c2005684aso5940445qvb.23
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 15 Feb 2023 03:21:27 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=hwzNkkVHAMig3SgTdNBISffkqWyB+YZfYs1moUFjJBQ=;
+ b=3Q3UBnt8UhftXqUc9FYbYE1mQlzBMB5Zx9WqOqh/FxvFr7j3Y8o8ypNArbMxBOep9B
+ XxFQFIATHdgnu7OZ6nezP+RBhDKx7VlcP7+UINEYOYVL3lb+j1zAGvmOgcIReAOj+0pR
+ 5S7+srDG0BHHw4udd53evQFLjsL4mwEn+trttCFXxe9KhQy1hJQCjrN6YDp/53++kvj7
+ 7ewsqtC7wleJLIFRhnGS4GzgxFZkapUklSqmeplRlTfx/Ey0hmPN6CenZSEpWvL1GX2a
+ gT/GnbO/AdJuNgeBtPo4/PEAxci7KCKf6UQbYa5HSU0HwexUXFaBwlzSFHrv+G3TZ6vz
+ sb3A==
+X-Gm-Message-State: AO0yUKW+P1ARvLhrvw2WZ8SIIHBHpad88jFpoml3qnF/zsAshqD68mRr
+ 9mY+7T/RotuTZWFJOtMl2K1NFQ0gRk8SfP5ePNJQNwKXt77Erdo4OhpCFgWex1zbIit0YA+1xDe
+ PhHQrg1kA861Y7kvkIYR1P7MuildXSFhTAj3u5eAKw2Ce7fCAhMZSg1PCkEZFBEKgKOK3woBK9w
+ ==
+X-Received: by 2002:a05:622a:164f:b0:3bc:e3a8:d1d6 with SMTP id
+ y15-20020a05622a164f00b003bce3a8d1d6mr195957qtj.229.1676460075472; 
+ Wed, 15 Feb 2023 03:21:15 -0800 (PST)
+X-Google-Smtp-Source: AK7set9/NeWH75yJcn/t46NzwvdAG3kpXtrEWKot0xC2tKbCmHsBGrLAxxXzoc7xjxLRcnJ3CgUfTfDnKiYp8juZgUM=
+X-Received: by 2002:a05:622a:164f:b0:3bc:e3a8:d1d6 with SMTP id
+ y15-20020a05622a164f00b003bce3a8d1d6mr195937qtj.229.1676460075213; Wed, 15
+ Feb 2023 03:21:15 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.7.1
-To: Arnd Bergmann <arnd@kernel.org>, Vinod Koul <vkoul@kernel.org>, "Maxime
- Coquelin" <mcoquelin.stm32@gmail.com>, Alexandre Torgue
- <alexandre.torgue@foss.st.com>, Pierre Yves MORDRET
- <pierre-yves.mordret@st.com>, M'boumba Cedric Madianga
- <cedric.madianga@gmail.com>
-References: <20230214103222.1193307-1-arnd@kernel.org>
-Content-Language: en-US
-From: Amelie Delaunay <amelie.delaunay@foss.st.com>
-In-Reply-To: <20230214103222.1193307-1-arnd@kernel.org>
-X-Originating-IP: [10.252.21.164]
-X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE3.st.com
- (10.75.129.71)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.219,Aquarius:18.0.930,Hydra:6.0.562,FMLib:17.11.170.22
- definitions=2023-02-15_04,2023-02-14_01,2023-02-09_01
-Cc: dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, Arnd Bergmann <arnd@arndb.de>,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] dmaengine: stm32-dma: avoid bitfield
-	overflow assertion
+References: <20230211031821.976408-1-cristian.ciocaltea@collabora.com>
+ <20230211031821.976408-9-cristian.ciocaltea@collabora.com>
+ <Y+e+N/aiqCctIp6e@lunn.ch>
+ <d1769dac-9e80-2f0d-6a5c-386ef70e1547@collabora.com>
+In-Reply-To: <d1769dac-9e80-2f0d-6a5c-386ef70e1547@collabora.com>
+From: Emil Renner Berthing <emil.renner.berthing@canonical.com>
+Date: Wed, 15 Feb 2023 12:20:58 +0100
+Message-ID: <CAJM55Z8Uq2ZU3KvJZKDLZUJDLEyvHjCRJKcYn5CAOR0c2rhT7Q@mail.gmail.com>
+To: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+Cc: Andrew Lunn <andrew@lunn.ch>, Emil Renner Berthing <kernel@esmil.dk>,
+ Eric Dumazet <edumazet@google.com>, Sagar Kadam <sagar.kadam@sifive.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ linux-riscv@lists.infradead.org, kernel@collabora.com,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Yanhong Wang <yanhong.wang@starfivetech.com>, Lee Jones <lee@kernel.org>,
+ Jose Abreu <joabreu@synopsys.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, devicetree@vger.kernel.org,
+ Albert Ou <aou@eecs.berkeley.edu>, Richard Cochran <richardcochran@gmail.com>,
+ Rob Herring <robh+dt@kernel.org>, Paul Walmsley <paul.walmsley@sifive.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Conor Dooley <conor@kernel.org>,
+ Palmer Dabbelt <palmer@dabbelt.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ "David S. Miller" <davem@davemloft.net>
+Subject: Re: [Linux-stm32] [PATCH 08/12] net: stmmac: Add glue layer for
+	StarFive JH7100 SoC
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,88 +99,52 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Arnd,
-
-Thanks for pointing this issue.
-
-On 2/14/23 11:32, Arnd Bergmann wrote:
-> From: Arnd Bergmann <arnd@arndb.de>
-> 
-> stm32_dma_get_burst() returns a negative error code for invalid
-> input, which gets turned into a large u32 value in stm32_dma_prep_dma_memcpy()
-> that in turn triggers an assertion because it does not fit into a
-> two-bit field:
-> 
-> drivers/dma/stm32-dma.c: In function 'stm32_dma_prep_dma_memcpy':
-> include/linux/compiler_types.h:399:38: error: call to '__compiletime_assert_310' declared with attribute error: FIELD_PREP: value too large for the field
->    399 |  _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
->        |                                      ^
-> include/linux/compiler_types.h:380:4: note: in definition of macro '__compiletime_assert'
->    380 |    prefix ## suffix();    \
->        |    ^~~~~~
-> include/linux/compiler_types.h:399:2: note: in expansion of macro '_compiletime_assert'
->    399 |  _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
->        |  ^~~~~~~~~~~~~~~~~~~
-> include/linux/build_bug.h:39:37: note: in expansion of macro 'compiletime_assert'
->     39 | #define BUILD_BUG_ON_MSG(cond, msg) compiletime_assert(!(cond), msg)
->        |                                     ^~~~~~~~~~~~~~~~~~
-> include/linux/bitfield.h:68:3: note: in expansion of macro 'BUILD_BUG_ON_MSG'
->     68 |   BUILD_BUG_ON_MSG(__builtin_constant_p(_val) ?  \
->        |   ^~~~~~~~~~~~~~~~
-> include/linux/bitfield.h:114:3: note: in expansion of macro '__BF_FIELD_CHECK'
->    114 |   __BF_FIELD_CHECK(_mask, 0ULL, _val, "FIELD_PREP: "); \
->        |   ^~~~~~~~~~~~~~~~
-> drivers/dma/stm32-dma.c:1273:4: note: in expansion of macro 'FIELD_PREP'
->   1273 |    FIELD_PREP(STM32_DMA_SCR_PBURST_MASK, dma_burst) |
->        |    ^~~~~~~~~~
-> 
-> I only see this with older gcc versions like gcc-6.5 or gcc-9.5 but not
-> with gcc-12.2 or higher. My best guess is that this is the result of
-> changes to __builtin_constant_p(), which seems to treat the 'cold'
-> codepath after an error message as a constant branch, while in newer
-> gcc versions the range check is skipped after determining that
-> dma_burst is never a compile-time constant.
-> 
-> As an easy workaround, assume the error can happen, so try to handle this
-> by failing stm32_dma_prep_dma_memcpy() before the assertion.
-> 
-> Fixes: 1c32d6c37cc2 ("dmaengine: stm32-dma: use bitfield helpers")
-> Fixes: a2b6103b7a8a ("dmaengine: stm32-dma: Improve memory burst management")
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
-> ---
->   drivers/dma/stm32-dma.c | 4 ++++
->   1 file changed, 4 insertions(+)
-> 
-> diff --git a/drivers/dma/stm32-dma.c b/drivers/dma/stm32-dma.c
-> index 37674029cb42..e3cd4b0525e6 100644
-> --- a/drivers/dma/stm32-dma.c
-> +++ b/drivers/dma/stm32-dma.c
-> @@ -1266,6 +1266,10 @@ static struct dma_async_tx_descriptor *stm32_dma_prep_dma_memcpy(
->   		best_burst = stm32_dma_get_best_burst(len, STM32_DMA_MAX_BURST,
->   						      threshold, max_width);
->   		dma_burst = stm32_dma_get_burst(chan, best_burst);
-> +		if (dma_burst > 3) {
-> +			kfree(desc);
-> +			return NULL;
-> +		}
-
-Instead of hard-coding this check, I suggest to copy what is done in 
-stm32_dma_set_xfer_param() where stm32_dma_get_burst() is also used.
-So, change dma_burst from u32 to int, and check for negative value and 
-failing in this case before the assertion of FIELD_PREP.
-
-Regards,
-Amelie
-
->   
->   		stm32_dma_clear_reg(&desc->sg_req[i].chan_reg);
->   		desc->sg_req[i].chan_reg.dma_scr =
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gV2VkLCAxNSBGZWIgMjAyMyBhdCAwMTowOSwgQ3Jpc3RpYW4gQ2lvY2FsdGVhCjxjcmlzdGlh
+bi5jaW9jYWx0ZWFAY29sbGFib3JhLmNvbT4gd3JvdGU6Cj4KPiBPbiAyLzExLzIzIDE4OjExLCBB
+bmRyZXcgTHVubiB3cm90ZToKPiA+PiArCj4gPj4gKyNkZWZpbmUgSkg3MTAwX1NZU01BSU5fUkVH
+SVNURVIyOCAweDcwCj4gPj4gKy8qIFRoZSB2YWx1ZSBiZWxvdyBpcyBub3QgYSB0eXBvLCBqdXN0
+IHJlYWxseSBiYWQgbmFtaW5nIGJ5IFN0YXJGaXZlIMKvXF8o44OEKV8vwq8gKi8KPiA+PiArI2Rl
+ZmluZSBKSDcxMDBfU1lTTUFJTl9SRUdJU1RFUjQ5IDB4YzgKPiA+Cj4gPiBTZWVtcyBsaWtlIHRo
+ZSBjb21tZW50IHNob3VsZCBiZSBvbmUgbGluZSBlYXJsaWVyPwoKV2VsbCB5ZXMsIHRoZSB2ZXJ5
+IGdlbmVyaWMgcmVnaXN0ZXIgbmFtZXMgYXJlIGFsc28gYmFkLCBidXQgdGhpcwpjb21tZW50IHJl
+ZmVycyB0byB0aGUgZmFjdCB0aGF0IGl0IGtpbmQgb2YgbWFrZXMgc2Vuc2UgdGhhdCByZWdpc3Rl
+cgoyOCBoYXMgdGhlIG9mZnNldAogIDI4ICogNCBieXRlcyBwci4gcmVnaXN0ZXIgPSAweDcwCi4u
+YnV0IHRoZW4gcmVnaXN0ZXIgNDkgaXMgb2RkbHkgb3V0IG9mIHBsYWNlIGF0IG9mZnNldCAweGM4
+IGluc3RlYWQgb2YKICA0OSAqIDQgYnl0ZXMgcHIuIHJlZ2lzdGVyID0gMHhjNAoKPiA+IFRoZXJl
+IGlzIHZhbHVlIGluIGJhc2luZyB0aGUgbmFtZXMgb24gdGhlIGRhdGFzaGVldCwgYnV0IHlvdSBj
+b3VsZAo+ID4gYXBwZW5kIHNvbWV0aGluZyBtZWFuaW5nZnVsIG9uIHRoZSBlbmQ6Cj4gPgo+ID4g
+I2RlZmluZSBKSDcxMDBfU1lTTUFJTl9SRUdJU1RFUjQ5X0RMWUNIQUlOIDB4YzgKPgo+IFVuZm9y
+dHVuYXRlbHkgdGhlIEpINzEwMCBkYXRhc2hlZXQgSSBoYXZlIGFjY2VzcyB0byBkb2Vzbid0IHBy
+b3ZpZGUgYW55Cj4gaW5mb3JtYXRpb24gcmVnYXJkaW5nIHRoZSBTWVNDVFJMLU1BSU5TWVMgcmVs
+YXRlZCByZWdpc3RlcnMuIE1heWJlIEVtaWwKPiBjb3VsZCBwcm92aWRlIHNvbWUgZGV0YWlscyBo
+ZXJlPwoKVGhpcyBpcyByZXZlcnNlIGVuZ2luZWVyZWQgZnJvbSB0aGUgYXV0byBnZW5lcmF0ZWQg
+aGVhZGVycyBpbiB0aGVpciB1LWJvb3Q6Cmh0dHBzOi8vZ2l0aHViLmNvbS9zdGFyZml2ZS10ZWNo
+L3UtYm9vdC9ibG9iL0pINzEwMF9WaXNpb25GaXZlX2RldmVsL2FyY2gvcmlzY3YvaW5jbHVkZS9h
+c20vYXJjaC1qaDcxMDAvc3lzY29uX3N5c21haW5fY3RybF9tYWNyby5oCgpDaHJpc3RpYW4sIEkn
+bSBoYXBweSB0aGF0IHlvdSdyZSB3b3JraW5nIG9uIHRoaXMsIGJ1dCBtZXNzIGxpa2UgdGhpcwph
+bmQgd2FpdGluZyBmb3IgdGhlIG5vbi1jb2hlcmVudCBkbWEgdG8gYmUgc29ydGVkIGlzIHdoeSBJ
+IGRpZG4ndCBzZW5kCml0IHVwc3RyZWFtIHlldC4KCj4gPj4gKyAgICBpZiAoIW9mX3Byb3BlcnR5
+X3JlYWRfdTMyKG5wLCAic3RhcmZpdmUsZ3R4Y2xrLWRseWNoYWluIiwgJmd0eGNsa19kbHljaGFp
+bikpIHsKPiA+PiArICAgICAgICAgICAgcmV0ID0gcmVnbWFwX3dyaXRlKHN5c21haW4sIEpINzEw
+MF9TWVNNQUlOX1JFR0lTVEVSNDksIGd0eGNsa19kbHljaGFpbik7Cj4gPj4gKyAgICAgICAgICAg
+IGlmIChyZXQpCj4gPj4gKyAgICAgICAgICAgICAgICAgICAgcmV0dXJuIGRldl9lcnJfcHJvYmUo
+ZGV2LCByZXQsICJlcnJvciBzZWxlY3RpbmcgZ3R4Y2xrIGRlbGF5IGNoYWluXG4iKTsKPiA+PiAr
+ICAgIH0KPiA+Cj4gPiBZb3Ugc2hvdWxkIHByb2JhYmx5IGRvY3VtZW50IHRoYXQgaWYgc3RhcmZp
+dmUsZ3R4Y2xrLWRseWNoYWluIGlzIG5vdAo+ID4gZm91bmQgaW4gdGhlIERUIGJsb2IsIHRoZSB2
+YWx1ZSBmb3IgdGhlIGRlbGF5IGNoYWluIGlzIHVuZGVmaW5lZC4gIEl0Cj4gPiB3b3VsZCBhY3R1
+YWxseSBiZSBiZXR0ZXIgdG8gZGVmaW5lIGl0LCBzZXQgaXQgdG8gMCBmb3IgZXhhbXBsZS4gVGhh
+dAo+ID4gd2F5LCB5b3Uga25vdyB5b3UgZG9uJ3QgaGF2ZSBhbnkgZGVwZW5kZW5jeSBvbiB0aGUg
+Ym9vdGxvYWRlciBmb3IKPiA+IGV4YW1wbGUuCj4KPiBTdXJlLCBJIHdpbGwgc2V0IGl0IHRvIDAu
+Cj4KPiA+Cj4gPiAgICAgICBBbmRyZXcKPgo+IFRoYW5rcyBmb3IgcmV2aWV3aW5nLAo+IENyaXN0
+aWFuCj4KPiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+
+IGxpbnV4LXJpc2N2IG1haWxpbmcgbGlzdAo+IGxpbnV4LXJpc2N2QGxpc3RzLmluZnJhZGVhZC5v
+cmcKPiBodHRwOi8vbGlzdHMuaW5mcmFkZWFkLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXJp
+c2N2Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4
+LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHku
+Y29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZv
+L2xpbnV4LXN0bTMyCg==
