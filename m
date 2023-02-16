@@ -2,69 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C852A698EB4
-	for <lists+linux-stm32@lfdr.de>; Thu, 16 Feb 2023 09:30:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B236B69993E
+	for <lists+linux-stm32@lfdr.de>; Thu, 16 Feb 2023 16:51:44 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6F8E9C6A5E7;
-	Thu, 16 Feb 2023 08:30:51 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 46897C6A5FB;
+	Thu, 16 Feb 2023 15:51:44 +0000 (UTC)
+Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 85DF1C62EFE
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6DA8AC6A5EB
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 16 Feb 2023 08:30:50 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 31G7A6jW019252; Thu, 16 Feb 2023 09:30:30 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=oFF19V1qChX1uFanjZoirlqswMOsuDm26/CB0vat3/M=;
- b=x263OlNGHMQ1z8eAlvhczx/yNUyUHW+aGtW3caT1ohYyYKaeLE1iiUs1qiaEKJP6nUyz
- DL678KhmH7UEwxD8BVZQgas44aNwI5748a7dB2JOl4hNIRBX45MrSFzyJxkirBh6Xyq9
- Mh+HWR8ulmn3ZyaSXmP4p1DDL+iL4ANTVBVL6sfuWqjNj0UlO8yqLBVlwugG/nEBkoeG
- oi4eoAGtbh2wcS0BSaNxrSyRWey3nUuYnCduKfSp5FwgPUdNDgukno/nLE8mcAoV8WWI
- VqRghVMhXCycfAvXb0JOeXUKpVYduFfaWFiAjA3yM9KJuh5uUsMcRLFObmXYRFJiQTDh 9w== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3nrwucxbu0-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 16 Feb 2023 09:30:30 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id BE86A10002A;
- Thu, 16 Feb 2023 09:30:28 +0100 (CET)
-Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id A83EF211F3C;
- Thu, 16 Feb 2023 09:30:28 +0100 (CET)
-Received: from [10.48.1.102] (10.48.1.102) by SHFDAG1NODE2.st.com
- (10.75.129.70) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.17; Thu, 16 Feb
- 2023 09:30:27 +0100
-Message-ID: <1869feff-06b1-17f1-4628-b433c858ad79@foss.st.com>
-Date: Thu, 16 Feb 2023 09:30:26 +0100
+ Thu, 16 Feb 2023 15:51:42 +0000 (UTC)
+Received: from [192.168.1.90] (unknown [86.120.32.152])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: cristicc)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id 8AAD166021A3;
+ Thu, 16 Feb 2023 15:51:40 +0000 (GMT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1676562701;
+ bh=zKMiYpoes0iudILSJDimdQN0K8gtppZKMtn1e8Ml7qQ=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=lTNf0P4pZlesM+9raKdOYwM2EIJpVkRHpwIIO8a2Cjrd/LXYN/OEe/L0vvTwUfTE3
+ +/9dxkFlDpw1XTHKekO6/iGGbTjg+bnsQSSCVvjiEoLWcZ8FutfQgtMKa/qs7sWwOV
+ C7XrnSpFp7rl/XhJQo0KqC+IE8Xh5dZbjHmL/NtmBzRXEbaRyue3LFhzO/V90lo5rs
+ UPd+QgjfnkooxOCslc3R24PGpgHx/vuT0pCXO5xHbZgX/q2tQVcS21F3c4W0aSL64E
+ NWEOifSRVOKOpZfEH2sW+bPlT4Zxh+KJ8DBRTHxi3meSQDsF+gQ8UGcDzoUU92ga00
+ lw7j+obymckFg==
+Message-ID: <cfa0f980-4bb6-4419-909c-3fce697cf8f9@collabora.com>
+Date: Thu, 16 Feb 2023 17:51:37 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.7.1
-To: Michael Grzeschik <mgr@pengutronix.de>
-References: <20230124204500.3502665-1-m.grzeschik@pengutronix.de>
- <ce8efcd8-fade-5328-8f21-3583e076b266@foss.st.com>
- <20230213145915.GA20628@pengutronix.de>
+ Thunderbird/102.7.2
 Content-Language: en-US
-From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-In-Reply-To: <20230213145915.GA20628@pengutronix.de>
-X-Originating-IP: [10.48.1.102]
-X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SHFDAG1NODE2.st.com
- (10.75.129.70)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.219,Aquarius:18.0.930,Hydra:6.0.562,FMLib:17.11.170.22
- definitions=2023-02-16_06,2023-02-15_01,2023-02-09_01
-Cc: kishon@kernel.org, error27@gmail.com,
- linux-stm32@st-md-mailman.stormreply.com, vkoul@kernel.org,
- mcoquelin.stm32@gmail.com, linux-phy@lists.infradead.org,
- kernel@pengutronix.de, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] phy: stm32-usphyc: add mdelay(1) to fix
- timeout on some machines
+To: Andrew Lunn <andrew@lunn.ch>
+References: <20230211031821.976408-1-cristian.ciocaltea@collabora.com>
+ <20230211031821.976408-8-cristian.ciocaltea@collabora.com>
+ <Y+e74UIV/Td91lKB@lunn.ch>
+ <586971af-2d78-456d-a605-6c7b2aefda91@collabora.com>
+ <Y+zXv90rGfQupjPP@lunn.ch>
+From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+In-Reply-To: <Y+zXv90rGfQupjPP@lunn.ch>
+Cc: Emil Renner Berthing <kernel@esmil.dk>, Eric Dumazet <edumazet@google.com>,
+ Sagar Kadam <sagar.kadam@sifive.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ linux-riscv@lists.infradead.org, kernel@collabora.com,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Yanhong Wang <yanhong.wang@starfivetech.com>, Lee Jones <lee@kernel.org>,
+ Jose Abreu <joabreu@synopsys.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, devicetree@vger.kernel.org,
+ Albert Ou <aou@eecs.berkeley.edu>, Richard Cochran <richardcochran@gmail.com>,
+ Rob Herring <robh+dt@kernel.org>, Paul Walmsley <paul.walmsley@sifive.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Conor Dooley <conor@kernel.org>,
+ Palmer Dabbelt <palmer@dabbelt.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ "David S. Miller" <davem@davemloft.net>
+Subject: Re: [Linux-stm32] [PATCH 07/12] dt-bindings: net: Add StarFive
+	JH7100 SoC
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,111 +72,73 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gMi8xMy8yMyAxNTo1OSwgTWljaGFlbCBHcnplc2NoaWsgd3JvdGU6Cj4gSGkgRmFicmljZSwK
-PiAKPiBPbiBXZWQsIEZlYiAwMSwgMjAyMyBhdCAwNToyMDoxMVBNICswMTAwLCBGYWJyaWNlIEdh
-c25pZXIgd3JvdGU6Cj4+IE9uIDEvMjQvMjMgMjE6NDUsIE1pY2hhZWwgR3J6ZXNjaGlrIHdyb3Rl
-Ogo+Pj4gQW4gbWRlbGF5IG9mIDEgc2VlbXMgdG8gYmUgbmVjZXNzYXJ5IG9uIHNvbWUgbWFjaGlu
-ZXMsIHNpbmNlCj4+Cj4+IEhpIE1pY2hhZWwsCj4+Cj4+IENvdWxkIHlvdSBwcmVjaXNlIG9uIHdo
-aWNoIGJvYXJkID8KPiAKPiBJdCB3YXMgcmVwcm9kdWNpYmxlIG9uIG9uZSBvZiBvdXIgbHhhLW1j
-MSBib2FyZHMuCj4gCj4+PiB0aGUgbW9uc2VsIHN0YXR1cyBkb2VzIG5vdCBzZWVtIHRvIGJlIGFj
-Y3VyYXRlLiBPbiByYXJlIG9jY2FzaW9ucyBqdXN0Cj4+PiB3b3JraW5nIHdpdGggdGhlIHBoeSBh
-ZnRlciB0aGlzIHBsbCBjaGVjayBsZWFkIHRvIG5vIGZ1bmN0aW9uYWwgdXNiLgo+Pgo+PiBDb3Vs
-ZCB5b3UgZWxhYm9yYXRlIG9uIHRoZSBzeW1wdG9tcyAocHJvdmlkZSBzb21lIGVycm9yIGxvZ3Mp
-ID8KPiAKPiBUaGUgc3ltcHRvbSB3YXMsIHRoYXQgdGhlIGR3YzIgY29udHJvbGxlciB3YXMgbm90
-IHJlc3VtaW5nIGZyb20gcG9sbGluZwo+IG9uIHRoZSBzb2Z0IHJlc2V0IGRvbmUgYml0IGFuZCBz
-byByYW4gaW50byBhIHRpbWVvdXQuIChkd2MyOgo+IEdSU1RDVExfQ1NGVFJTVChHUlNUQ1RMX0NT
-RlRSU1RfRE9ORSkpCj4gCj4gV2hpbGUgZGVidWdnaW5nIHdlIGZvdW5kIHRoYXQgdGhlIHN0bSB2
-ZW5kb3IgdWJvb3QgcGh5IGRyaXZlcgo+IHdhcyBqdXN0IGFkZGluZyBhbiBwcmVkZWZpbmVkIHdh
-aXQgb2YgMjAwdXMgYWZ0ZXIgc2V0dGluZwo+IHRoZSBwbGwuCj4gCj4gaHR0cHM6Ly9naXRodWIu
-Y29tL1NUTWljcm9lbGVjdHJvbmljcy91LWJvb3QvYmxvYi92MjAyMS4xMC1zdG0zMm1wL2RyaXZl
-cnMvcGh5L3BoeS1zdG0zMi11c2JwaHljLmMjTDI1Nwo+IAo+IFRoZSBjb21tZW50IGZvciB0aGUg
-UExMX0lOSVRfVElNRV9VUyBzYXlzIHRoYXQgdGhlIHZhbHVlIGlzIGJhc2VkIG9uIHRoZQo+IHBv
-c3NpYmxlIG1heCBwbGwgbG9jayBsYXRlbmN5IGFuZCBhbiBhZGRpdGlvbmFsIHBoeSBpbml0IGRl
-bGF5Ogo+IAo+IMKgLyogbWF4IDEwMCB1cyBmb3IgUExMIGxvY2sgYW5kIDEwMCB1cyBmb3IgUEhZ
-IGluaXQgKi8KPiDCoCNkZWZpbmUgUExMX0lOSVRfVElNRV9VU8KgwqDCoCAyMDAKPiAKPiBSZWFk
-aW5nIHRoZSBkYXRhc2hlZXQgb2YgdGhlIHN0bTMybXAxLCB0aGUgMTAwIHVzIHN1cmUgY29tZSBm
-cm9tCj4gdExPQ0sgaW4gVGFibGUgNDEuIFVTQl9QTEwgY2hhcmFjdGVyaXN0aWNzLiAoUGFnZSAx
-NTkpCj4gCj4gaHR0cHM6Ly93d3cuc3QuY29tL3Jlc291cmNlL2VuL2RhdGFzaGVldC9zdG0zMm1w
-MTU3Yy5wZGYKPiAKPiAKPiBJbiB0aGUgbWFpbmxpbmUgS2VybmVsIHdlIGhhdmUgdGhlIHNldCBv
-ZiBsb2NrIG1vbml0b3IKPiBiaXRzIHRoYXQgYXJlIGFjdHVhbGx5IHVuZGVmaW5lZCBpbiBhbnkg
-cmVnaXN0ZXIgc3BlY3MKPiB3ZSByZWFkIHNvIGZhci4KPiAKPiDCoC8qIFNUTTMyX1VTQlBIWUNf
-TU9OSVRPUiBiaXQgZmllbGRzICovCj4gwqAjZGVmaW5lIFNUTTMyX1VTQlBIWUNfTU9OX09VVMKg
-wqAgR0VOTUFTSygzLCAwKQo+IMKgI2RlZmluZSBTVE0zMl9VU0JQSFlDX01PTl9TRUzCoMKgIEdF
-Tk1BU0soOCwgNCkKPiDCoCNkZWZpbmUgU1RNMzJfVVNCUEhZQ19NT05fU0VMX0xPQ0tQIDB4MUYK
-PiDCoCNkZWZpbmUgU1RNMzJfVVNCUEhZQ19NT05fT1VUX0xPQ0tQIEJJVCgzKQo+IAo+IFNvIHRo
-aXMgd2lsbCBicmluZyB0aGUgbWF4aW11bSBsb2NrIGRlbGF5IHRvIGl0cyByZWFsCj4gZGVsYXku
-CgoKSGkgTWljaGFlbCwKClRoYW5rcyBmb3IgYWxsIGRldGFpbGVkIGV4cGxhbmF0aW9uLgpJIGFz
-a2VkIHNvbWUgaW1wcm92ZW1lbnRzIGluIHRoZSBkb2N1bWVudGF0aW9ucyBpbiB0aGlzIGFyZWEu
-Cgo+IAo+IEJ1dCBmb3IgdGhlIGFkZGl0aW9uYWwgcGh5IGluaXQgZGVsYXksIHdlIGFyZSB1bnN1
-cmUgd2hlcmUgdGhlIDEwMHVzIGFyZQo+IGNvbWluZyBmcm9tLiBTbyB3ZSBjb3VsZCBub3QgcmVh
-bGx5IHRlbGwgaWYgdGhlIHZhbHVlIG1ha2VzIHNlbnNlIGF0Cj4gYWxsLiBUaGUgYXNzdW1wdGlv
-biB3YXMgdG8gaW5jcmVhc2UgdGhlIGRlbGF5LCBqdXN0IHRvIG1ha2Ugc3VyZSB0aGF0Cj4gdGhp
-cyB3aWxsIHNvbHZlIHRoZSBpc3N1ZSBmb3IgZ29vZC4KPiAKPj4+IFdpdGggdGhpcyBzaG9ydCBt
-ZGVsYXkgdGhpcyBpc3N1ZSB3YXMgbm90IHJlcG9ydGVkIGFnYWluLgo+Pj4KPj4+IFNpZ25lZC1v
-ZmYtYnk6IE1pY2hhZWwgR3J6ZXNjaGlrIDxtLmdyemVzY2hpa0BwZW5ndXRyb25peC5kZT4KPj4+
-IC0tLQo+Pj4gwqBkcml2ZXJzL3BoeS9zdC9waHktc3RtMzItdXNicGh5Yy5jIHwgOSArKysrKysr
-KysKPj4+IMKgMSBmaWxlIGNoYW5nZWQsIDkgaW5zZXJ0aW9ucygrKQo+Pj4KPj4+IGRpZmYgLS1n
-aXQgYS9kcml2ZXJzL3BoeS9zdC9waHktc3RtMzItdXNicGh5Yy5jCj4+PiBiL2RyaXZlcnMvcGh5
-L3N0L3BoeS1zdG0zMi11c2JwaHljLmMKPj4+IGluZGV4IDViYjk2NDdiMDc4ZjEyLi5jNDUyYTBj
-YWNlYjlmYSAxMDA2NDQKPj4+IC0tLSBhL2RyaXZlcnMvcGh5L3N0L3BoeS1zdG0zMi11c2JwaHlj
-LmMKPj4+ICsrKyBiL2RyaXZlcnMvcGh5L3N0L3BoeS1zdG0zMi11c2JwaHljLmMKPj4+IEBAIC0z
-NTMsNiArMzUzLDE1IEBAIHN0YXRpYyBpbnQgc3RtMzJfdXNicGh5Y19waHlfaW5pdChzdHJ1Y3Qg
-cGh5ICpwaHkpCj4+PiDCoMKgwqDCoMKgwqDCoMKgIGdvdG8gcGxsX2Rpc2FibGU7Cj4+PiDCoMKg
-wqDCoCB9Cj4+Pgo+Pj4gK8KgwqDCoCAvKiBUaGlzIG1kZWxheSBzZWVtcyB0byBiZSBuZWNlc3Nh
-cnkgb24gc29tZSBtYWNoaW5lcywgc2luY2UgdGhlCj4+PiArwqDCoMKgwqAgKiBtb25zZWwgc3Rh
-dHVzIGRvZXMgbm90IHNlZW0gdG8gYmUgYWNjdXJhdGUuIE9uIHJhcmUgb2NjYXNpb25zCj4+PiAr
-wqDCoMKgwqAgKiBqdXN0IHdvcmtpbmcgd2l0aCB0aGUgcGh5IGFmdGVyIHRoaXMgcGxsIGNoZWNr
-IHRoZSB1c2IKPj4+ICvCoMKgwqDCoCAqIHBlcmlwaGVyYWwgKGUuZy4gb24gdGhlIGR3YzIpIHJ1
-biBpbnRvIHRpbWVvdXQgaXNzdWVzIGFuZAo+Pj4gK8KgwqDCoMKgICogbGVhZGluZyB0byBubyBm
-dW5jdGlvbmFsIHVzYi4gV2l0aCB0aGlzIHNob3J0IG1kZWxheSB0aGlzCj4+PiArwqDCoMKgwqAg
-KiBpc3N1ZSB3YXMgbm90IHJlcG9ydGVkIGFnYWluLgo+Pj4gK8KgwqDCoMKgICovCj4+PiArwqDC
-oMKgIG1kZWxheSgxKTsKPj4+ICsKPj4KPj4gVGhlIFVTQlBIWUMgcHJvdmlkZXMgdHdvIFBIWSBp
-bnRlcmZhY2VzOgo+PiAtIFBIWSBwb3J0IzEgaXMgZm9yIFVTQkgKPj4gLSBQSFkgcG9ydCMyIGNh
-biBiZSBhc3NpZ25lZCB0byBVU0JIIG9yIERXQzIuCj4+Cj4+IEFkZGluZyBzb21lIGRlbGF5IGhl
-cmUsIHdlJ2xsIGhpdCB0d2ljZSB0aGlzIHBlbmFsdHkgKGUuZy4gZm9yIFVTQkggKwo+PiBEV0My
-IG9yIGR1YWwgVVNCSCkgb24gYWxsIE1QMSAoTVAxMyAmIE1QMTUpIHBsYXRmb3Jtcy4KPj4KPj4g
-Q291bGQgeW91IHRyeSB0byBuYXJyb3cgZG93biB0aGUgaXNzdWUgYnkgYWRkaW5nIHNvbWUgZGVi
-dWcgbG9nIGluOgo+PiAtIHN0bTMyX3VzYnBoeWNfcGh5X2luaXQKPj4gLSBzdG0zMl91c2JwaHlj
-X2NsazQ4X3ByZXBhcmUKPiAKPiBUaGUgd2hvbGUgaXNzdWUgaXMgYWN0dWFsbHkgdmVyeSBlYXN5
-IHRvIHJlcHJvZHVjZSBpbiB0aGUgYm9vdGxvYWRlci4KPiBTbyB3ZSBhbHJlYWR5IG1haW5saW5l
-ZCB0aGlzIHBhdGNoIHRvIHRoZSBiYXJlYm94IGJvb3Rsb2FkZXIuCj4gCj4gU28gdGhpcyBwYXRj
-aCBpcyBhY3R1YWxseSBhIHBvcnQgZnJvbSB0aGUgYm9vdGxvYWRlciB0byBtYWtlIHN1cmUKPiB0
-aGF0IHRoZSBrZXJuZWwgZG9lcyBub3QgcnVuIGludG8gdGhlIGlzc3VlIGFzIHdlbGwuCgpLZXJu
-ZWwgYW5kIHUtYm9vdCBkcml2ZXJzIGFyZSBib3RoIHJlZ2lzdGVyaW5nOgotIGEgY2xvY2sgcHJv
-dmlkZXIKICBjbGtfcHJlcGFyZSAuLi4gLT4gc3RtMzJfdXNicGh5Y19jbGs0OF9wcmVwYXJlKCkK
-ICBDdXJyZW50bHksIHRoZXJlJ3Mgbm8gd2FpdCBsb29wIE5PUiBkZWxheSBoZXJlCgotIGEgUEhZ
-IHByb3ZpZGVyICgyIFBIWXMsIGUuZy4gMiBwb3J0cykKICBhZGRpdGlvbmFsIG1kZWxheSgxKSB3
-aWxsIGJlIGhpdCB0d2ljZSwgb25lIHRpbWUgZm9yIERXQzIsIG9uZSBmb3IKRUhDSS9PSENJCgpC
-b3RoIGluIGtlcm5lbCBhbmQgdS1ib290IHRoZSBjbGtfcHJlcGFyZSgpIGxpa2VseSBoYXBwZW5z
-IDFzdCwgdGhlbgpwaHlfaW5pdCgpLgoKVGhpcyBpcyBzdGlsbCB1bmNsZWFyIHRvIG1lIHdoeSBh
-biBhZGRpdGlvbmFsIGRlbGF5IGluIFBIWSBpbml0LCB3b3VsZApiZSBuZWNlc3NhcnkgaW4geW91
-ciBlbnZpcm9ubWVudCwgd2l0aCB0aGUga2VybmVsLiBJcyB0aGVyZSBhIHJlYWwgaXNzdWUKaW4g
-a2VybmVsID8gT3IgaXMgaXQgbW9yZSBhIGNhdXRpb24sIHRoZW9yZXRpY2FsIHBvcnQgZnJvbSBi
-YXJlYm94ID8KClN0aWxsLCBJZiBuZWVkZWQsIEknZCBhZHZpY2UgdGhlIGRlbGF5IHRvIGJlIGFw
-cGxpZWQgb25seSBvbmNlLCBlLmcuIGluCnN0bTMyX3VzYnBoeWNfcGxsX2VuYWJsZSgpLCBqdXN0
-IGFmdGVyIFBMTEVOIGJpdCBoYXMgYmVlbiBzZXQgKGFzIGluCnUtYm9vdCkuIEFuZCByZWx5IG9u
-IE1PTiBiaXRzIGZvciBlYWNoIFBIWSBpbml0LgoKUmVnYXJkaW5nIG1kZWxheSgpOiBJdCB3b3Vs
-ZCBhbHNvIGJlIGJldHRlciB0byBhZG9wdCB1c2xlZXBfcmFuZ2UoKQppbnN0ZWFkIG9mIGJ1c3kg
-bG9vcC4KCiAJc3RtMzJfdXNicGh5Y19zZXRfYml0cyhwbGxfcmVnLCBQTExFTik7CgorCS8qIFdh
-aXQgZm9yIG1heGltdW0gbG9jayB0aW1lICovCisJdXNsZWVwX3JhbmdlKDIwMCwgMzAwKTsKKwog
-CXJldHVybiAwOwoKVGhpcyB3YXksIGRlbGF5IHdpbGwgYmUgaGl0IHVwb24gY2xrX3ByZXBhcmUs
-IHRoZW4gcG9sbGluZyB0aGUgTU9OIGJpdHMKaW4gcGh5X2luaXQoKSBtYXkgYmVjb21lIGEgbm8t
-b3AuIFNvLCB0aGUgZGVsYXkgd291bGQgYmUgaGl0IG9ubHkgb25jZQooaW5zdGVhZCBvZiB0d28g
-dGltZXMpLiBJZiBldmVyIHRoZSBwaHlfaW5pdCgpIGNvbWVzIGZpcnN0IGluIHRoZQpmdXR1cmUs
-IG9ubHkgdGhlIDFzdCBjYWxsIHRvIG9uZSBvZiB0aGUgQVBJcyB3aWxsIGhpdCB0aGlzIGRlbGF5
-LgoKQ291bGQgeW91IGNoZWNrIGlmIHRoaXMgc29sdmVzIHRoZSBpc3N1ZSBhdCB5b3VyIGVuZCA/
-CgpJIGhhZCBhIGxvb2sgYXQgYmFyZWJveCBkcml2ZXIsIHNhbWUgbG9naWMgY291bGQgYXBwbHkg
-dGhlcmUgZXZlbiBpZiBubwpjbG9jayBwcm92aWRlciBpcyByZWdpc3RlcmVkLgoKPiAKPiBJIGJl
-dCB5b3VyIHRlYW0gYXQgc3QgY2FuIGZpZ3VyZSBvdXQgYSBtb3JlIHJlYXNvbmFibGUgdmFsdWUg
-Zm9yIHRoZQo+IGRlbGF5LgoKSSdkIHJlY29tbWVuZCAyMDDCtXMgKG1pbikgYXMgaW4gdS1ib290
-LgoKUmVnYXJkcywKRmFicmljZQo+IAo+Pj4gwqDCoMKgwqAgdXNicGh5Y19waHktPmFjdGl2ZSA9
-IHRydWU7Cj4+Pgo+Pj4gwqDCoMKgwqAgcmV0dXJuIDA7Cj4+Cj4gCj4gUmVnYXJkcywKPiBNaWNo
-YWVsCj4gCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxp
-bnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVw
-bHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3Rp
-bmZvL2xpbnV4LXN0bTMyCg==
+On 2/15/23 15:01, Andrew Lunn wrote:
+> On Wed, Feb 15, 2023 at 02:34:23AM +0200, Cristian Ciocaltea wrote:
+>> On 2/11/23 18:01, Andrew Lunn wrote:
+>>>> +  starfive,gtxclk-dlychain:
+>>>> +    $ref: /schemas/types.yaml#/definitions/uint32
+>>>> +    description: GTX clock delay chain setting
+>>>
+>>> Please could you add more details to this. Is this controlling the
+>>> RGMII delays? 0ns or 2ns?
+>>
+>> This is what gets written to JH7100_SYSMAIN_REGISTER49 and it's currently
+>> set to 4 in patch 12/12. As already mentioned, I don't have the register
+>> information in the datasheet, but I'll update this as soon as we get some
+>> details.
+> 
+> I have seen what happens to this value, but i have no idea what it
+> actually means. And without knowing what it means, i cannot say if it
+> is being used correctly or not. And it could be related to the next
+> part of my comment...
+> 
+>>
+>>>> +    gmac: ethernet@10020000 {
+>>>> +      compatible = "starfive,jh7100-dwmac", "snps,dwmac";
+>>>> +      reg = <0x0 0x10020000 0x0 0x10000>;
+>>>> +      clocks = <&clkgen JH7100_CLK_GMAC_ROOT_DIV>,
+>>>> +               <&clkgen JH7100_CLK_GMAC_AHB>,
+>>>> +               <&clkgen JH7100_CLK_GMAC_PTP_REF>,
+>>>> +               <&clkgen JH7100_CLK_GMAC_GTX>,
+>>>> +               <&clkgen JH7100_CLK_GMAC_TX_INV>;
+>>>> +      clock-names = "stmmaceth", "pclk", "ptp_ref", "gtxc", "tx";
+>>>> +      resets = <&rstgen JH7100_RSTN_GMAC_AHB>;
+>>>> +      reset-names = "ahb";
+>>>> +      interrupts = <6>, <7>;
+>>>> +      interrupt-names = "macirq", "eth_wake_irq";
+>>>> +      max-frame-size = <9000>;
+>>>> +      phy-mode = "rgmii-txid";
+>>>
+>>> This is unusual. Does your board have a really long RX clock line to
+>>> insert the 2ns delay needed on the RX side?
+>>
+>> Just tested with "rgmii" and didn't notice any issues. If I'm not missing
+>> anything, I'll do the change in the next revision.
+> 
+> rgmii-id is generally the value to be used. That indicates the board
+> needs 2ns delays adding by something, either the MAC or the PHY. And
+> then i always recommend the MAC driver does nothing, pass the value to
+> the PHY and let the PHY add the delays.
+> 
+> So try both rgmii and rgmii-id and do a lot of bi directional
+> transfers. Then look at the reported ethernet frame check sum error
+> counts, both local and the link peer. I would expect one setting gives
+> you lots of errors, and the other works much better.
+
+I gave "rgmii-id" a try and it's not usable, I get too many errors. So 
+"rgmii" should be the right choice here.
+
+Thanks,
+Cristian
+
+>      Andrew
+> 
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
