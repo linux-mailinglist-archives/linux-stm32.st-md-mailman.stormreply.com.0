@@ -2,47 +2,41 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B236B69993E
-	for <lists+linux-stm32@lfdr.de>; Thu, 16 Feb 2023 16:51:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D85BB699BA9
+	for <lists+linux-stm32@lfdr.de>; Thu, 16 Feb 2023 18:55:20 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 46897C6A5FB;
-	Thu, 16 Feb 2023 15:51:44 +0000 (UTC)
-Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 80A35C6A5FB;
+	Thu, 16 Feb 2023 17:55:20 +0000 (UTC)
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6DA8AC6A5EB
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6EA72C64110
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 16 Feb 2023 15:51:42 +0000 (UTC)
-Received: from [192.168.1.90] (unknown [86.120.32.152])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: cristicc)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id 8AAD166021A3;
- Thu, 16 Feb 2023 15:51:40 +0000 (GMT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1676562701;
- bh=zKMiYpoes0iudILSJDimdQN0K8gtppZKMtn1e8Ml7qQ=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=lTNf0P4pZlesM+9raKdOYwM2EIJpVkRHpwIIO8a2Cjrd/LXYN/OEe/L0vvTwUfTE3
- +/9dxkFlDpw1XTHKekO6/iGGbTjg+bnsQSSCVvjiEoLWcZ8FutfQgtMKa/qs7sWwOV
- C7XrnSpFp7rl/XhJQo0KqC+IE8Xh5dZbjHmL/NtmBzRXEbaRyue3LFhzO/V90lo5rs
- UPd+QgjfnkooxOCslc3R24PGpgHx/vuT0pCXO5xHbZgX/q2tQVcS21F3c4W0aSL64E
- NWEOifSRVOKOpZfEH2sW+bPlT4Zxh+KJ8DBRTHxi3meSQDsF+gQ8UGcDzoUU92ga00
- lw7j+obymckFg==
-Message-ID: <cfa0f980-4bb6-4419-909c-3fce697cf8f9@collabora.com>
-Date: Thu, 16 Feb 2023 17:51:37 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.7.2
-Content-Language: en-US
-To: Andrew Lunn <andrew@lunn.ch>
+ Thu, 16 Feb 2023 17:55:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+ s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+ References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+ Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+ Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+ bh=U8HRVsC8weUc6GSIfzXEInXuXcTfhl4YDU5SDrGogxA=; b=KH3WV85edpy0UAdBCnY5WK/i6D
+ rnKSqHF/tzTZJ9sizmE/UMspW69CyQ8syUFWmx4DLvtFLDD6wrxxxz6T/l3kyyZ0OwI13x8sFTRbE
+ msKUvskpf5UB5sVlgzjxwi5faotzUz611+/z2KWbaKyOo9cQQ2lkvbNzA0Dw73gBOA/0=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+ (envelope-from <andrew@lunn.ch>)
+ id 1pSiSu-005D4t-OV; Thu, 16 Feb 2023 18:54:40 +0100
+Date: Thu, 16 Feb 2023 18:54:40 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+Message-ID: <Y+5t4Jlb0ytw40pu@lunn.ch>
 References: <20230211031821.976408-1-cristian.ciocaltea@collabora.com>
  <20230211031821.976408-8-cristian.ciocaltea@collabora.com>
  <Y+e74UIV/Td91lKB@lunn.ch>
  <586971af-2d78-456d-a605-6c7b2aefda91@collabora.com>
  <Y+zXv90rGfQupjPP@lunn.ch>
-From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-In-Reply-To: <Y+zXv90rGfQupjPP@lunn.ch>
+ <cfa0f980-4bb6-4419-909c-3fce697cf8f9@collabora.com>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <cfa0f980-4bb6-4419-909c-3fce697cf8f9@collabora.com>
 Cc: Emil Renner Berthing <kernel@esmil.dk>, Eric Dumazet <edumazet@google.com>,
  Sagar Kadam <sagar.kadam@sifive.com>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
@@ -72,72 +66,23 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 2/15/23 15:01, Andrew Lunn wrote:
-> On Wed, Feb 15, 2023 at 02:34:23AM +0200, Cristian Ciocaltea wrote:
->> On 2/11/23 18:01, Andrew Lunn wrote:
->>>> +  starfive,gtxclk-dlychain:
->>>> +    $ref: /schemas/types.yaml#/definitions/uint32
->>>> +    description: GTX clock delay chain setting
->>>
->>> Please could you add more details to this. Is this controlling the
->>> RGMII delays? 0ns or 2ns?
->>
->> This is what gets written to JH7100_SYSMAIN_REGISTER49 and it's currently
->> set to 4 in patch 12/12. As already mentioned, I don't have the register
->> information in the datasheet, but I'll update this as soon as we get some
->> details.
-> 
-> I have seen what happens to this value, but i have no idea what it
-> actually means. And without knowing what it means, i cannot say if it
-> is being used correctly or not. And it could be related to the next
-> part of my comment...
-> 
->>
->>>> +    gmac: ethernet@10020000 {
->>>> +      compatible = "starfive,jh7100-dwmac", "snps,dwmac";
->>>> +      reg = <0x0 0x10020000 0x0 0x10000>;
->>>> +      clocks = <&clkgen JH7100_CLK_GMAC_ROOT_DIV>,
->>>> +               <&clkgen JH7100_CLK_GMAC_AHB>,
->>>> +               <&clkgen JH7100_CLK_GMAC_PTP_REF>,
->>>> +               <&clkgen JH7100_CLK_GMAC_GTX>,
->>>> +               <&clkgen JH7100_CLK_GMAC_TX_INV>;
->>>> +      clock-names = "stmmaceth", "pclk", "ptp_ref", "gtxc", "tx";
->>>> +      resets = <&rstgen JH7100_RSTN_GMAC_AHB>;
->>>> +      reset-names = "ahb";
->>>> +      interrupts = <6>, <7>;
->>>> +      interrupt-names = "macirq", "eth_wake_irq";
->>>> +      max-frame-size = <9000>;
->>>> +      phy-mode = "rgmii-txid";
->>>
->>> This is unusual. Does your board have a really long RX clock line to
->>> insert the 2ns delay needed on the RX side?
->>
->> Just tested with "rgmii" and didn't notice any issues. If I'm not missing
->> anything, I'll do the change in the next revision.
-> 
-> rgmii-id is generally the value to be used. That indicates the board
-> needs 2ns delays adding by something, either the MAC or the PHY. And
-> then i always recommend the MAC driver does nothing, pass the value to
-> the PHY and let the PHY add the delays.
-> 
-> So try both rgmii and rgmii-id and do a lot of bi directional
-> transfers. Then look at the reported ethernet frame check sum error
-> counts, both local and the link peer. I would expect one setting gives
-> you lots of errors, and the other works much better.
+> I gave "rgmii-id" a try and it's not usable, I get too many errors. So
+> "rgmii" should be the right choice here.
 
-I gave "rgmii-id" a try and it's not usable, I get too many errors. So 
-"rgmii" should be the right choice here.
+I would actually say it shows we don't understand what is going on
+with delays. "rgmii" is not every often the correct value. The fact it
+works suggests the MAC is adding delays.
 
-Thanks,
-Cristian
+What value are you using for starfive,gtxclk-dlychain ? Try 0 and then
+"rgmii-id"
 
->      Andrew
-> 
+	Andrew			 
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
