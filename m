@@ -2,54 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5F68F69BFAA
-	for <lists+linux-stm32@lfdr.de>; Sun, 19 Feb 2023 10:35:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6A03969BFAB
+	for <lists+linux-stm32@lfdr.de>; Sun, 19 Feb 2023 10:35:14 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 22BAFC6A5FE;
-	Sun, 19 Feb 2023 09:35:05 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 32DFFC6A5FE;
+	Sun, 19 Feb 2023 09:35:14 +0000 (UTC)
 Received: from mail-yw1-f201.google.com (mail-yw1-f201.google.com
  [209.85.128.201])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8D8D3C6A5EA
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 640F0C6A5EA
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 19 Feb 2023 09:35:03 +0000 (UTC)
+ Sun, 19 Feb 2023 09:35:12 +0000 (UTC)
 Received: by mail-yw1-f201.google.com with SMTP id
- 00721157ae682-5368a9902d0so14215797b3.10
+ 00721157ae682-53688fe539aso16861907b3.16
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 19 Feb 2023 01:35:03 -0800 (PST)
+ Sun, 19 Feb 2023 01:35:12 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20210112;
  h=cc:to:from:subject:references:mime-version:message-id:in-reply-to
  :date:from:to:cc:subject:date:message-id:reply-to;
- bh=83ufvBpHVtY5n0dRrsyH94JHmCN6bDj+Te8NRRpOnv0=;
- b=lxWRJOz1YmAnLVIpr+fpP4VDEQycUyWETLBz0W+CvZOIA6Kr/CoxJ2NsHEn41bEINl
- xdOo4dSeb6JldrmmHx8t98bCU9i7l7fSaOmRZyGpziCtv6bpIJCU9iN0JcYU+NjDa2O+
- 9XTFi0YHaXrGx64qq4FOlIRjg9uoMS8Ya2jorXHuAwkk2xbnSK++ZlozuUPqdODuJFKs
- 6tKq8t5/yfeYhmVTyuQilkmzIWpSy5DP2e7xVmQeMyMJXwX8z5cUkxyl2CUbyclghtcG
- xaFP4bc1MAn1II2okkTepHrecIc0FvHgfZ29b/HmYpMob81nIptOTI3KNc6OhwmW2xc0
- LwxA==
+ bh=IR4cGxiP4ebyr+2RzCBvW6JFNP0fEMbIUpwuvhKV1BY=;
+ b=NUcPy4ZHCiZDAbpqYYOc5JdSudhcF9l9kvtbJC+/xwt6fI8QeNC4WkMTcvQQ6804AT
+ YF/xZ2bSpjDIgQdlfWHY/eHe3WKnEpPAPIMT7q5iIrd9Sn14jdygINYb7VGjPcgh8nCF
+ trMCEbNSzgK3iAHSpUdlMuCCMauBc/SxT+NSFCPELU6vvdlM8J62FYawyLz3LzLGC5KK
+ oUyaye5uBSEFDs6oNM8SAhzfix1YWJzevbaptGaf5BqcNtP47rHHphmVSl3Fb5Vw1PHF
+ +L9HwzS3oieL/2/SVOgkIe6RBEYtywm/BAF3tZcvH8plHZ82czV8C5Pc6C6EUryLjpM7
+ YatA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=cc:to:from:subject:references:mime-version:message-id:in-reply-to
  :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=83ufvBpHVtY5n0dRrsyH94JHmCN6bDj+Te8NRRpOnv0=;
- b=mU8zCW/eM9iOD3ekcLtSMaOsYpoeECv6ayRacVD0XqBXEwSmVtZDVGmJ2peDDlH/UB
- kKygogUDNUTaZbJPpwom/lBzzOWNbzaxNZwRxrBvI5uwFbRwByr1YU0bzXP5HGNDaVjR
- quDShXcvSPzSDwTa3Fog4QHOE3M6r2zbgQiilwZSysVHJZnx6RaUsNYMKvKj1y1skiRQ
- AddXMf9miekTqrlUepJ7VANu4Dfz80SxG97tXRyASCceQzsXyYknT4Zwj/nT/BMMzBG+
- XEOUvjhNYsWaqmPOv/fCf9EjJxh5VIrVF3Qkcw/kd4GwvATeurzlDUe/KNaiinll8suh
- y6tQ==
-X-Gm-Message-State: AO0yUKWoRvs6Sq2c/wj/xvR+yzOcVWWFmie3Te52nWQmddeYYb+ebdIz
- OeiU3jYDd7HmB2olEcI9ul6F1b4ftdq1
-X-Google-Smtp-Source: AK7set8t3rcgc5hL8cNAhis/P84/LQFLK5QsqBjIvZYGgI+BUkbIeJCgbTvi2p9zIdmfba0Vf3xefkV5CXYn
+ bh=IR4cGxiP4ebyr+2RzCBvW6JFNP0fEMbIUpwuvhKV1BY=;
+ b=BN+z1/qD0ny+H3Nr46V5KhbI3nsYKLeMI3BXdBc7AP2ocMKNdDQcrwZZY0mzw1YE4Q
+ XGIyrf8KXmVjh2yNPFwEEd64oSC7HLi7biaqsGIKdi7qbllf00pqhry0unBGcojKuTG9
+ nSztMrI6e0yD0WKv2d2e1p9n+xKrikxHa9kkzPONYhvKZiv9SVta0h5moVr/HCuKPebd
+ qeecK9JLCElNJ/1QJfrKrI1YqyX6SbO/CEBXSJaUAaZYPC9MLOPddT9WfqDHcNKinEyg
+ r2s3six1CWctjxJwZ2USSIbu7BusLOEiC5yoX8P1eNgUVKst8LtWBWYDtvY1AtZdAUHF
+ hDCw==
+X-Gm-Message-State: AO0yUKWy/DFb6w3ugQvG+LDw9eFTyTT87Bs8w6lvntFmkqPjTo3cRi4z
+ m0Is1F4iFp43o31xHGqaUrSQCV9iftha
+X-Google-Smtp-Source: AK7set8dREUd48ldthm4G/cBwOOEaH0I+ZdYEzIr6WRbBTblxrP4saZKVOoIkrVw7eoOMt2hU/Yd1jyJKC9N
 X-Received: from irogers.svl.corp.google.com
  ([2620:15c:2d4:203:cde9:3fbc:e1f1:6e3b])
- (user=irogers job=sendgmr) by 2002:a05:6902:10c6:b0:855:fdcb:4467 with SMTP
- id w6-20020a05690210c600b00855fdcb4467mr151684ybu.0.1676799302521; Sun, 19
- Feb 2023 01:35:02 -0800 (PST)
-Date: Sun, 19 Feb 2023 01:28:40 -0800
+ (user=irogers job=sendgmr) by 2002:a5b:4c8:0:b0:8c2:3263:da34 with SMTP id
+ u8-20020a5b04c8000000b008c23263da34mr1547079ybp.209.1676799311364; Sun, 19
+ Feb 2023 01:35:11 -0800 (PST)
+Date: Sun, 19 Feb 2023 01:28:41 -0800
 In-Reply-To: <20230219092848.639226-1-irogers@google.com>
-Message-Id: <20230219092848.639226-44-irogers@google.com>
+Message-Id: <20230219092848.639226-45-irogers@google.com>
 Mime-Version: 1.0
 References: <20230219092848.639226-1-irogers@google.com>
 X-Mailer: git-send-email 2.39.2.637.g21b0678d19-goog
@@ -76,8 +76,7 @@ To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
  linux-arm-kernel@lists.infradead.org, Perry Taylor <perry.taylor@intel.com>, 
  Caleb Biggers <caleb.biggers@intel.com>
 Cc: Ian Rogers <irogers@google.com>, Stephane Eranian <eranian@google.com>
-Subject: [Linux-stm32] [PATCH v1 43/51] perf stat: Remove hard coded
-	transaction events
+Subject: [Linux-stm32] [PATCH v1 44/51] perf stat: Use metrics for --smi-cost
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,92 +93,82 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The metric group "transaction" is now present for Intel architectures
-so the legacy hard coded approach won't be used. Remove the associated
-logic.
+Rather than parsing events for --smi-cost, use the json metric group
+'smi'.
 
 Signed-off-by: Ian Rogers <irogers@google.com>
 ---
- tools/perf/builtin-stat.c     | 59 ++++++-----------------------------
- tools/perf/util/stat-shadow.c | 48 +---------------------------
- tools/perf/util/stat.c        |  4 ---
- tools/perf/util/stat.h        |  7 -----
- 4 files changed, 11 insertions(+), 107 deletions(-)
+ tools/perf/builtin-stat.c     | 34 +++++++++++-----------------------
+ tools/perf/util/stat-shadow.c | 30 ------------------------------
+ tools/perf/util/stat.c        |  2 --
+ tools/perf/util/stat.h        |  4 ----
+ 4 files changed, 11 insertions(+), 59 deletions(-)
 
 diff --git a/tools/perf/builtin-stat.c b/tools/perf/builtin-stat.c
-index bdb1ef4fc6ad..e6b60b058257 100644
+index e6b60b058257..9c1fbf154ee3 100644
 --- a/tools/perf/builtin-stat.c
 +++ b/tools/perf/builtin-stat.c
-@@ -100,30 +100,6 @@
+@@ -100,14 +100,6 @@
  
  static void print_counters(struct timespec *ts, int argc, const char **argv);
  
--/* Default events used for perf stat -T */
--static const char *transaction_attrs = {
--	"task-clock,"
+-static const char *smi_cost_attrs = {
 -	"{"
--	"instructions,"
--	"cycles,"
--	"cpu/cycles-t/,"
--	"cpu/tx-start/,"
--	"cpu/el-start/,"
--	"cpu/cycles-ct/"
+-	"msr/aperf/,"
+-	"msr/smi/,"
+-	"cycles"
 -	"}"
 -};
 -
--/* More limited version when the CPU does not have all events. */
--static const char * transaction_limited_attrs = {
--	"task-clock,"
--	"{"
--	"instructions,"
--	"cycles,"
--	"cpu/cycles-t/,"
--	"cpu/tx-start/"
--	"}"
--};
--
- static const char *smi_cost_attrs = {
- 	"{"
- 	"msr/aperf/,"
-@@ -1811,37 +1787,22 @@ static int add_default_attributes(void)
- 		return 0;
+ static struct evlist	*evsel_list;
+ static bool all_counters_use_bpf = true;
  
- 	if (transaction_run) {
+@@ -1666,7 +1658,6 @@ static int perf_stat_init_aggr_mode_file(struct perf_stat *st)
+  */
+ static int add_default_attributes(void)
+ {
+-	int err;
+ 	struct perf_event_attr default_attrs0[] = {
+ 
+   { .type = PERF_TYPE_SOFTWARE, .config = PERF_COUNT_SW_TASK_CLOCK		},
+@@ -1806,11 +1797,10 @@ static int add_default_attributes(void)
+ 	}
+ 
+ 	if (smi_cost) {
 -		struct parse_events_error errinfo;
- 		/* Handle -T as -M transaction. Once platform specific metrics
- 		 * support has been added to the json files, all architectures
- 		 * will use this approach. To determine transaction support
- 		 * on an architecture test for such a metric name.
- 		 */
--		if (metricgroup__has_metric("transaction")) {
--			return metricgroup__parse_groups(evsel_list, "transaction",
--							 stat_config.metric_no_group,
--							 stat_config.metric_no_merge,
--							 stat_config.metric_no_threshold,
--							 stat_config.user_requested_cpu_list,
--							 stat_config.system_wide,
--							 &stat_config.metric_events);
--		}
--
--		parse_events_error__init(&errinfo);
--		if (pmu_have_event("cpu", "cycles-ct") &&
--		    pmu_have_event("cpu", "el-start"))
--			err = parse_events(evsel_list, transaction_attrs,
--					   &errinfo);
--		else
--			err = parse_events(evsel_list,
--					   transaction_limited_attrs,
--					   &errinfo);
--		if (err) {
--			fprintf(stderr, "Cannot set up transaction events\n");
--			parse_events_error__print(&errinfo, transaction_attrs);
-+		if (!metricgroup__has_metric("transaction")) {
-+			pr_err("Missing transaction metrics");
-+			return -1;
+ 		int smi;
+ 
+ 		if (sysfs__read_int(FREEZE_ON_SMI_PATH, &smi) < 0) {
+-			fprintf(stderr, "freeze_on_smi is not supported.\n");
++			pr_err("freeze_on_smi is not supported.");
+ 			return -1;
  		}
+ 
+@@ -1822,23 +1812,21 @@ static int add_default_attributes(void)
+ 			smi_reset = true;
+ 		}
+ 
+-		if (!pmu_have_event("msr", "aperf") ||
+-		    !pmu_have_event("msr", "smi")) {
+-			fprintf(stderr, "To measure SMI cost, it needs "
+-				"msr/aperf/, msr/smi/ and cpu/cycles/ support\n");
++		if (!metricgroup__has_metric("smi")) {
++			pr_err("Missing smi metrics");
+ 			return -1;
+ 		}
++
+ 		if (!force_metric_only)
+ 			stat_config.metric_only = true;
+ 
+-		parse_events_error__init(&errinfo);
+-		err = parse_events(evsel_list, smi_cost_attrs, &errinfo);
+-		if (err) {
+-			parse_events_error__print(&errinfo, smi_cost_attrs);
+-			fprintf(stderr, "Cannot set up SMI cost events\n");
+-		}
 -		parse_events_error__exit(&errinfo);
 -		return err ? -1 : 0;
-+		return metricgroup__parse_groups(evsel_list, "transaction",
++		return metricgroup__parse_groups(evsel_list, "smi",
 +						stat_config.metric_no_group,
 +						stat_config.metric_no_merge,
 +						stat_config.metric_no_threshold,
@@ -188,120 +177,97 @@ index bdb1ef4fc6ad..e6b60b058257 100644
 +						&stat_config.metric_events);
  	}
  
- 	if (smi_cost) {
+ 	if (topdown_run) {
 diff --git a/tools/perf/util/stat-shadow.c b/tools/perf/util/stat-shadow.c
-index 5189756bf16d..3cfe4b4eb3de 100644
+index 3cfe4b4eb3de..d14fa531ee27 100644
 --- a/tools/perf/util/stat-shadow.c
 +++ b/tools/perf/util/stat-shadow.c
-@@ -235,12 +235,6 @@ void perf_stat__update_shadow_stats(struct evsel *counter, u64 count,
- 		update_runtime_stat(st, STAT_NSECS, map_idx, count_ns, &rsd);
- 	else if (evsel__match(counter, HARDWARE, HW_CPU_CYCLES))
- 		update_runtime_stat(st, STAT_CYCLES, map_idx, count, &rsd);
--	else if (perf_stat_evsel__is(counter, CYCLES_IN_TX))
--		update_runtime_stat(st, STAT_CYCLES_IN_TX, map_idx, count, &rsd);
--	else if (perf_stat_evsel__is(counter, TRANSACTION_START))
--		update_runtime_stat(st, STAT_TRANSACTION, map_idx, count, &rsd);
--	else if (perf_stat_evsel__is(counter, ELISION_START))
--		update_runtime_stat(st, STAT_ELISION, map_idx, count, &rsd);
- 	else if (evsel__match(counter, HARDWARE, HW_STALLED_CYCLES_FRONTEND))
- 		update_runtime_stat(st, STAT_STALLED_CYCLES_FRONT,
- 				    map_idx, count, &rsd);
-@@ -695,7 +689,7 @@ void perf_stat__print_shadow_stats(struct perf_stat_config *config,
- {
- 	void *ctxp = out->ctx;
- 	print_metric_t print_metric = out->print_metric;
--	double total, ratio = 0.0, total2;
-+	double total, ratio = 0.0;
- 	struct runtime_stat_data rsd = {
- 		.ctx = evsel_context(evsel),
- 		.cgrp = evsel->cgrp,
-@@ -808,46 +802,6 @@ void perf_stat__print_shadow_stats(struct perf_stat_config *config,
- 		} else {
- 			print_metric(config, ctxp, NULL, NULL, "Ghz", 0);
- 		}
--	} else if (perf_stat_evsel__is(evsel, CYCLES_IN_TX)) {
--		total = runtime_stat_avg(st, STAT_CYCLES, map_idx, &rsd);
+@@ -255,10 +255,6 @@ void perf_stat__update_shadow_stats(struct evsel *counter, u64 count,
+ 		update_runtime_stat(st, STAT_DTLB_CACHE, map_idx, count, &rsd);
+ 	else if (evsel__match(counter, HW_CACHE, HW_CACHE_ITLB))
+ 		update_runtime_stat(st, STAT_ITLB_CACHE, map_idx, count, &rsd);
+-	else if (perf_stat_evsel__is(counter, SMI_NUM))
+-		update_runtime_stat(st, STAT_SMI_NUM, map_idx, count, &rsd);
+-	else if (perf_stat_evsel__is(counter, APERF))
+-		update_runtime_stat(st, STAT_APERF, map_idx, count, &rsd);
+ 
+ 	if (counter->collect_stat) {
+ 		v = saved_value_lookup(counter, map_idx, true, STAT_NONE, 0, st,
+@@ -479,30 +475,6 @@ static void print_ll_cache_misses(struct perf_stat_config *config,
+ 	out->print_metric(config, out->ctx, color, "%7.2f%%", "of all LL-cache accesses", ratio);
+ }
+ 
+-static void print_smi_cost(struct perf_stat_config *config, int map_idx,
+-			   struct perf_stat_output_ctx *out,
+-			   struct runtime_stat *st,
+-			   struct runtime_stat_data *rsd)
+-{
+-	double smi_num, aperf, cycles, cost = 0.0;
+-	const char *color = NULL;
 -
--		if (total)
--			print_metric(config, ctxp, NULL,
--					"%7.2f%%", "transactional cycles",
--					100.0 * (avg / total));
--		else
--			print_metric(config, ctxp, NULL, NULL, "transactional cycles",
--				     0);
--	} else if (perf_stat_evsel__is(evsel, CYCLES_IN_TX_CP)) {
--		total = runtime_stat_avg(st, STAT_CYCLES, map_idx, &rsd);
--		total2 = runtime_stat_avg(st, STAT_CYCLES_IN_TX, map_idx, &rsd);
+-	smi_num = runtime_stat_avg(st, STAT_SMI_NUM, map_idx, rsd);
+-	aperf = runtime_stat_avg(st, STAT_APERF, map_idx, rsd);
+-	cycles = runtime_stat_avg(st, STAT_CYCLES, map_idx, rsd);
 -
--		if (total2 < avg)
--			total2 = avg;
--		if (total)
--			print_metric(config, ctxp, NULL, "%7.2f%%", "aborted cycles",
--				100.0 * ((total2-avg) / total));
--		else
--			print_metric(config, ctxp, NULL, NULL, "aborted cycles", 0);
--	} else if (perf_stat_evsel__is(evsel, TRANSACTION_START)) {
--		total = runtime_stat_avg(st, STAT_CYCLES_IN_TX, map_idx, &rsd);
+-	if ((cycles == 0) || (aperf == 0))
+-		return;
 -
--		if (avg)
--			ratio = total / avg;
+-	if (smi_num)
+-		cost = (aperf - cycles) / aperf * 100.00;
 -
--		if (runtime_stat_n(st, STAT_CYCLES_IN_TX, map_idx, &rsd) != 0)
--			print_metric(config, ctxp, NULL, "%8.0f",
--				     "cycles / transaction", ratio);
--		else
--			print_metric(config, ctxp, NULL, NULL, "cycles / transaction",
--				      0);
--	} else if (perf_stat_evsel__is(evsel, ELISION_START)) {
--		total = runtime_stat_avg(st, STAT_CYCLES_IN_TX, map_idx, &rsd);
+-	if (cost > 10)
+-		color = PERF_COLOR_RED;
+-	out->print_metric(config, out->ctx, color, "%8.1f%%", "SMI cycles%", cost);
+-	out->print_metric(config, out->ctx, NULL, "%4.0f", "SMI#", smi_num);
+-}
 -
--		if (avg)
--			ratio = total / avg;
--
--		print_metric(config, ctxp, NULL, "%8.0f", "cycles / elision", ratio);
- 	} else if (evsel__is_clock(evsel)) {
- 		if ((ratio = avg_stats(&walltime_nsecs_stats)) != 0)
- 			print_metric(config, ctxp, NULL, "%8.3f", "CPUs utilized",
+ static int prepare_metric(struct evsel **metric_events,
+ 			  struct metric_ref *metric_refs,
+ 			  struct expr_parse_ctx *pctx,
+@@ -819,8 +791,6 @@ void perf_stat__print_shadow_stats(struct perf_stat_config *config,
+ 		if (unit != ' ')
+ 			snprintf(unit_buf, sizeof(unit_buf), "%c/sec", unit);
+ 		print_metric(config, ctxp, NULL, "%8.3f", unit_buf, ratio);
+-	} else if (perf_stat_evsel__is(evsel, SMI_NUM)) {
+-		print_smi_cost(config, map_idx, out, st, &rsd);
+ 	} else {
+ 		num = 0;
+ 	}
 diff --git a/tools/perf/util/stat.c b/tools/perf/util/stat.c
-index 0b8c91ca13cd..b5b18d457254 100644
+index b5b18d457254..d51d7457f12d 100644
 --- a/tools/perf/util/stat.c
 +++ b/tools/perf/util/stat.c
-@@ -87,10 +87,6 @@ bool __perf_stat_evsel__is(struct evsel *evsel, enum perf_stat_evsel_id id)
+@@ -87,8 +87,6 @@ bool __perf_stat_evsel__is(struct evsel *evsel, enum perf_stat_evsel_id id)
  #define ID(id, name) [PERF_STAT_EVSEL_ID__##id] = #name
  static const char *id_str[PERF_STAT_EVSEL_ID__MAX] = {
  	ID(NONE,		x),
--	ID(CYCLES_IN_TX,	cpu/cycles-t/),
--	ID(TRANSACTION_START,	cpu/tx-start/),
--	ID(ELISION_START,	cpu/el-start/),
--	ID(CYCLES_IN_TX_CP,	cpu/cycles-ct/),
- 	ID(SMI_NUM, msr/smi/),
- 	ID(APERF, msr/aperf/),
+-	ID(SMI_NUM, msr/smi/),
+-	ID(APERF, msr/aperf/),
  };
+ #undef ID
+ 
 diff --git a/tools/perf/util/stat.h b/tools/perf/util/stat.h
-index 42af350a96d9..c5fe847dd344 100644
+index c5fe847dd344..9af4af3bc3f2 100644
 --- a/tools/perf/util/stat.h
 +++ b/tools/perf/util/stat.h
-@@ -21,10 +21,6 @@ struct stats {
+@@ -21,8 +21,6 @@ struct stats {
  
  enum perf_stat_evsel_id {
  	PERF_STAT_EVSEL_ID__NONE = 0,
--	PERF_STAT_EVSEL_ID__CYCLES_IN_TX,
--	PERF_STAT_EVSEL_ID__TRANSACTION_START,
--	PERF_STAT_EVSEL_ID__ELISION_START,
--	PERF_STAT_EVSEL_ID__CYCLES_IN_TX_CP,
- 	PERF_STAT_EVSEL_ID__SMI_NUM,
- 	PERF_STAT_EVSEL_ID__APERF,
+-	PERF_STAT_EVSEL_ID__SMI_NUM,
+-	PERF_STAT_EVSEL_ID__APERF,
  	PERF_STAT_EVSEL_ID__MAX,
-@@ -92,9 +88,6 @@ enum stat_type {
+ };
+ 
+@@ -88,8 +86,6 @@ enum stat_type {
  	STAT_LL_CACHE,
  	STAT_ITLB_CACHE,
  	STAT_DTLB_CACHE,
--	STAT_CYCLES_IN_TX,
--	STAT_TRANSACTION,
--	STAT_ELISION,
- 	STAT_SMI_NUM,
- 	STAT_APERF,
+-	STAT_SMI_NUM,
+-	STAT_APERF,
  	STAT_MAX
+ };
+ 
 -- 
 2.39.2.637.g21b0678d19-goog
 
