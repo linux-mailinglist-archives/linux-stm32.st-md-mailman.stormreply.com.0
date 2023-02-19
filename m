@@ -2,54 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6AE5D69BF90
-	for <lists+linux-stm32@lfdr.de>; Sun, 19 Feb 2023 10:33:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 77E5B69BF91
+	for <lists+linux-stm32@lfdr.de>; Sun, 19 Feb 2023 10:33:30 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2F189C6A5FE;
-	Sun, 19 Feb 2023 09:33:22 +0000 (UTC)
-Received: from mail-yb1-f202.google.com (mail-yb1-f202.google.com
- [209.85.219.202])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3E639C6A5FE;
+	Sun, 19 Feb 2023 09:33:30 +0000 (UTC)
+Received: from mail-yw1-f202.google.com (mail-yw1-f202.google.com
+ [209.85.128.202])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AE829C6A5EA
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D9411C6A5EA
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 19 Feb 2023 09:33:20 +0000 (UTC)
-Received: by mail-yb1-f202.google.com with SMTP id
- e14-20020a25bc8e000000b0091b90b20cd9so1878458ybk.6
+ Sun, 19 Feb 2023 09:33:28 +0000 (UTC)
+Received: by mail-yw1-f202.google.com with SMTP id
+ 00721157ae682-53687f6de13so18447287b3.9
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 19 Feb 2023 01:33:20 -0800 (PST)
+ Sun, 19 Feb 2023 01:33:28 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20210112;
  h=cc:to:from:subject:references:mime-version:message-id:in-reply-to
  :date:from:to:cc:subject:date:message-id:reply-to;
- bh=IJq6auQeIidM24mfR/8eo3ksFWhAxhvnpDKY7OwBaGQ=;
- b=I7CnQOuWj57M+eY5KPLUsxlKb0JE3mtO9u5wKbbUpyvJmy+FSZG+GD25OOiBvunIGK
- Q2dHAsWmeS/qQ2obRvPvqxghBPvmo9xgjx5OjGAKmTc0mkIK9Y/AldxC7enwDlI4MWTt
- nR/l/y/IJF+yvccRElbcBsPK+/7hGdcJeqKbmIc9JCFFuv9oTrEoI0/ujyZ5AvH92wC/
- EWoa3QlfPbYhWYZYHRA9iDFVl9xjc2KK7BL4RV4MYYfzreMAZCNLDg6ZS77C3hgZ8snp
- OZaDgveoVLXlEl2+8JzeckNGBVk4n0JGZzDd/DNEEguY7CzJddiyOUYqxZVM54HziTNG
- FPVw==
+ bh=aDHxoNK+iGgerGSxgoF4xDhtMfF1M1KB0gmMhIH6g+o=;
+ b=szVoKRw23j5Oh2tOkbAIG0IvtMpMsOrvW9A3e7kcO9it79BlwWVgNPV/uB9d0sO7u/
+ I5P/KixArxBv49X8CI3tQxLa1twzSrl7TRDwEq1x2y6kljyqBkBCYoIMwLoi+xqN41ew
+ 1YfVyzeiNzV35kAtc0w1HbeMjjubJLR48JfNp8ElXZGSO/WXsj10RUfCtCXN1HnCxZyR
+ j2zQAAH13HqlMas9+N26ILACb+ttaBbF6Jt9XRfpsIyNeIBd6pDcvMVo8sZ+Ar6TSVKI
+ HOY1Q4URcucKu7ff34heQu958Cgzod/PuzJPQJrHwtSrEsUCVeat8sQUeniU8nlRMHHv
+ 3Wkw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=cc:to:from:subject:references:mime-version:message-id:in-reply-to
  :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=IJq6auQeIidM24mfR/8eo3ksFWhAxhvnpDKY7OwBaGQ=;
- b=PlN/RFaK4ANKcw/6d++4dcUgY9ogBBR9OLmewlwimuhEEYzPzTnhefIIp+NajQXO6y
- kL+b1uhYReevzSPtrPJiTz27raHp/QGY0hC6egydvkIOgmjBQ63kiDTHGOP23o+OuUgJ
- 1nmcndT/fdkMiS16TqCmyr5kivhIVXJ8yQKuGPBRc8RtZuwTbIOuXBbkvVJR2FBFiV6M
- HmPCsMV76TzbM1nuW+GGOhD4fGKUT8T9fOraD4BQb246eKiXXDRz6wmL1kq179qHj9er
- VbW9zqNlJZGRrs16aZ0BcScXUXRnZ6ERusVBz97RMxOWiQ6xl3dS/zcjmMrhMfG9DTgH
- Eemw==
-X-Gm-Message-State: AO0yUKU9gjJHPsNfmm+XNWdwQrf1tJN8uhByLHenSVdtqJzvq2Z/Q71C
- Owky9khh/Tjt1Ha0fG/FjNdv0nKlQR5i
-X-Google-Smtp-Source: AK7set+GnZ9gFfxc43R+jNIxKixL5ZeQEmGo9LILMyNpwr7wkrR1rWIpoCob76eZaJRDrU/m7/FQ6z5YBgsq
+ bh=aDHxoNK+iGgerGSxgoF4xDhtMfF1M1KB0gmMhIH6g+o=;
+ b=aVGhXyAPLuX65dkMM8qH2y0GoQ6D3o8TbcUa7LdSRk59AWKA8tMuqb4b9+32QCCPeJ
+ k2QxeZFLGsm0tPEfLnCbzRMWqdtfjr8rLD7vHpwuoXdtbnaRTVKmdu27Q86iP6x0NCzr
+ 8LD8UGUAqtvmdWRvOfyl0z/NY0snuJjTKnaUKLgfl/BtbUYETW7ZfebPdwrxHskas6FK
+ GXgeL61dN4OGYYJ2REJfucFnBhsSrO2oFtJxqGIxV74i9qHBS7IjuyecwaFPGkhAufXT
+ 4mQHlcyUfwUTS5JKqRnirJqmDHpKZhvQXHh3fdkQ5UP7ePMEeDmy3C0npjGpr9n5+ejj
+ Wmgg==
+X-Gm-Message-State: AO0yUKWj4uvVvSzVTXRM7w/nVupHpPB2pljFUkhrmePgZl7Xsi+M83G+
+ AkUhbWjW7Gf9e8RT1/krzwW2+sTvgdVe
+X-Google-Smtp-Source: AK7set+3n8bzTs6jlEite8UPyzDtlGWXVaLGOAeCv19aTjMK1elNMeI7zwFyr8LOnDdLf7qku0lKAJCZ5SfJ
 X-Received: from irogers.svl.corp.google.com
  ([2620:15c:2d4:203:cde9:3fbc:e1f1:6e3b])
- (user=irogers job=sendgmr) by 2002:a81:af07:0:b0:534:2d49:790a with SMTP id
- n7-20020a81af07000000b005342d49790amr113313ywh.0.1676799199716; Sun, 19 Feb
- 2023 01:33:19 -0800 (PST)
-Date: Sun, 19 Feb 2023 01:28:28 -0800
+ (user=irogers job=sendgmr) by 2002:a05:6902:287:b0:8da:cda:7a50 with SMTP id
+ v7-20020a056902028700b008da0cda7a50mr9710ybh.11.1676799207878; Sun, 19 Feb
+ 2023 01:33:27 -0800 (PST)
+Date: Sun, 19 Feb 2023 01:28:29 -0800
 In-Reply-To: <20230219092848.639226-1-irogers@google.com>
-Message-Id: <20230219092848.639226-32-irogers@google.com>
+Message-Id: <20230219092848.639226-33-irogers@google.com>
 Mime-Version: 1.0
 References: <20230219092848.639226-1-irogers@google.com>
 X-Mailer: git-send-email 2.39.2.637.g21b0678d19-goog
@@ -76,8 +76,8 @@ To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
  linux-arm-kernel@lists.infradead.org, Perry Taylor <perry.taylor@intel.com>, 
  Caleb Biggers <caleb.biggers@intel.com>
 Cc: Ian Rogers <irogers@google.com>, Stephane Eranian <eranian@google.com>
-Subject: [Linux-stm32] [PATCH v1 31/51] perf vendor events intel: Refresh
-	westmereep-dp events
+Subject: [Linux-stm32] [PATCH v1 32/51] perf jevents: Add rand support to
+	metrics
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,57 +94,42 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Update the westmereep-dp events from 3 to 4. Generation was done
-using https://github.com/intel/perfmon.
-
-The most notable change is in corrections to event descriptions.
+rand (reverse and) is useful in the parsing of metric
+thresholds. Update the documentation on operator precedence to clarify
+the simple expression parser and python differences wrt binary/logical
+operators.
 
 Signed-off-by: Ian Rogers <irogers@google.com>
 ---
- tools/perf/pmu-events/arch/x86/mapfile.csv                      | 2 +-
- tools/perf/pmu-events/arch/x86/westmereep-dp/cache.json         | 2 +-
- .../perf/pmu-events/arch/x86/westmereep-dp/virtual-memory.json  | 2 +-
- 3 files changed, 3 insertions(+), 3 deletions(-)
+ tools/perf/pmu-events/metric.py | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
-diff --git a/tools/perf/pmu-events/arch/x86/mapfile.csv b/tools/perf/pmu-events/arch/x86/mapfile.csv
-index bc2c4e756f44..1c6eef118e61 100644
---- a/tools/perf/pmu-events/arch/x86/mapfile.csv
-+++ b/tools/perf/pmu-events/arch/x86/mapfile.csv
-@@ -28,7 +28,7 @@ GenuineIntel-6-(4E|5E|8E|9E|A5|A6),v54,skylake,core
- GenuineIntel-6-55-[01234],v1.29,skylakex,core
- GenuineIntel-6-86,v1.20,snowridgex,core
- GenuineIntel-6-8[CD],v1.10,tigerlake,core
--GenuineIntel-6-2C,v3,westmereep-dp,core
-+GenuineIntel-6-2C,v4,westmereep-dp,core
- GenuineIntel-6-25,v3,westmereep-sp,core
- GenuineIntel-6-2F,v3,westmereex,core
- AuthenticAMD-23-([12][0-9A-F]|[0-9A-F]),v2,amdzen1,core
-diff --git a/tools/perf/pmu-events/arch/x86/westmereep-dp/cache.json b/tools/perf/pmu-events/arch/x86/westmereep-dp/cache.json
-index 5c897da3cd6b..4dae735fb636 100644
---- a/tools/perf/pmu-events/arch/x86/westmereep-dp/cache.json
-+++ b/tools/perf/pmu-events/arch/x86/westmereep-dp/cache.json
-@@ -182,7 +182,7 @@
-         "UMask": "0x20"
-     },
-     {
--        "BriefDescription": "L2 lines alloacated",
-+        "BriefDescription": "L2 lines allocated",
-         "EventCode": "0xF1",
-         "EventName": "L2_LINES_IN.ANY",
-         "SampleAfterValue": "100000",
-diff --git a/tools/perf/pmu-events/arch/x86/westmereep-dp/virtual-memory.json b/tools/perf/pmu-events/arch/x86/westmereep-dp/virtual-memory.json
-index ef635bff1522..f75084309041 100644
---- a/tools/perf/pmu-events/arch/x86/westmereep-dp/virtual-memory.json
-+++ b/tools/perf/pmu-events/arch/x86/westmereep-dp/virtual-memory.json
-@@ -56,7 +56,7 @@
-         "UMask": "0x80"
-     },
-     {
--        "BriefDescription": "DTLB misses casued by low part of address",
-+        "BriefDescription": "DTLB misses caused by low part of address",
-         "EventCode": "0x49",
-         "EventName": "DTLB_MISSES.PDE_MISS",
-         "SampleAfterValue": "200000",
+diff --git a/tools/perf/pmu-events/metric.py b/tools/perf/pmu-events/metric.py
+index 77ea6ff98538..8ec0ba884673 100644
+--- a/tools/perf/pmu-events/metric.py
++++ b/tools/perf/pmu-events/metric.py
+@@ -44,6 +44,9 @@ class Expression:
+   def __and__(self, other: Union[int, float, 'Expression']) -> 'Operator':
+     return Operator('&', self, other)
+ 
++  def __rand__(self, other: Union[int, float, 'Expression']) -> 'Operator':
++    return Operator('&', other, self)
++
+   def __lt__(self, other: Union[int, float, 'Expression']) -> 'Operator':
+     return Operator('<', self, other)
+ 
+@@ -88,7 +91,10 @@ def _Constify(val: Union[bool, int, float, Expression]) -> Expression:
+ 
+ 
+ # Simple lookup for operator precedence, used to avoid unnecessary
+-# brackets. Precedence matches that of python and the simple expression parser.
++# brackets. Precedence matches that of the simple expression parser
++# but differs from python where comparisons are lower precedence than
++# the bitwise &, ^, | but not the logical versions that the expression
++# parser doesn't have.
+ _PRECEDENCE = {
+     '|': 0,
+     '^': 1,
 -- 
 2.39.2.637.g21b0678d19-goog
 
