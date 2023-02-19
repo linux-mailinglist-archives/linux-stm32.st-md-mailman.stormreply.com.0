@@ -2,54 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 01E5C69BF68
-	for <lists+linux-stm32@lfdr.de>; Sun, 19 Feb 2023 10:29:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0FA4D69BF6A
+	for <lists+linux-stm32@lfdr.de>; Sun, 19 Feb 2023 10:29:37 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BD6DEC65E58;
-	Sun, 19 Feb 2023 09:29:28 +0000 (UTC)
-Received: from mail-yb1-f201.google.com (mail-yb1-f201.google.com
- [209.85.219.201])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CD8C6C65E58;
+	Sun, 19 Feb 2023 09:29:36 +0000 (UTC)
+Received: from mail-yb1-f202.google.com (mail-yb1-f202.google.com
+ [209.85.219.202])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8F173C65E4C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 789FAC65E4C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 19 Feb 2023 09:29:27 +0000 (UTC)
-Received: by mail-yb1-f201.google.com with SMTP id
- o14-20020a25730e000000b009419f64f6afso2218327ybc.2
+ Sun, 19 Feb 2023 09:29:35 +0000 (UTC)
+Received: by mail-yb1-f202.google.com with SMTP id
+ k2-20020a056902070200b007eba3f8e3baso276797ybt.4
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 19 Feb 2023 01:29:27 -0800 (PST)
+ Sun, 19 Feb 2023 01:29:35 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20210112;
  h=cc:to:from:subject:references:mime-version:message-id:in-reply-to
  :date:from:to:cc:subject:date:message-id:reply-to;
- bh=d+nYipBPRK9ot6wFg6zmAiDtcnqlM5sx03XMKeU13O4=;
- b=mDOqVGr0N132A/Ll3pITLGW4r43KgUDNLPKUyUvW8eIG8vXmMxFkVQb5dbaC0M2IOs
- 2GoGfqJQUeUuATD9qo9D7VoT+Pze6N0XYIPKKvB4wW3libDyZhB2y4XFUwSAiPjb+fxF
- d62ecsMidsbi/mZCuKzEfF4tYuUcoP4N6Y0ppQAp/tynm+DGQKu5p21gv51vkhSBFals
- 0qcg9jft/tM3YZvvPuyYuJbIeHf7ShfSEZr76R9jwVkBrc4zZSl09n8ttK31h8tYFqSp
- 2UTe/9SYmbm7tRvmPVqXfdfIS1+MPbuPJIL6t6mQjY3yomupc8sIMDOl76CGNIiTqd4V
- JB5A==
+ bh=iXfoLKVrMT/xFDAU9J/MJSSK5kW91sU/HJUqY9Ndk9k=;
+ b=hvIt7PlPUa96zxgL3OClxpS1XAsvx3NC/q+W9HuZaXdVTFcPF5mhHBBPgrxNo/plkE
+ 8SQgtmTt3OY+IeyeApAVO5G8qepG4VqMq1Rr0Pbx4PYZOqQAt6FIvLde6bhwNblKTjVK
+ t3obfWfpr+KpqjPHIHR7LnqVww4FgJg5b5kXeSn61Ikf4P4eddPaykia8uJeA3rCltTk
+ Ui4vESOwkX8LRuB+I4RbXOQOgqoMW16sEo1RhpbJ9scKV16Vp/7uA4jyyz0EdB/cBKp8
+ a6/8FMaDj+VptzYctbUOoj7Qd4ameeLlWF+41x+qOCatSy9HcN2Qd9Nb4+sI94xObNim
+ NIog==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=cc:to:from:subject:references:mime-version:message-id:in-reply-to
  :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=d+nYipBPRK9ot6wFg6zmAiDtcnqlM5sx03XMKeU13O4=;
- b=aKyvp3Cv59WzIYiSbzUWvWW78D5KFIJtxEVZGehxC/MbCci8oeseD8/NurVdg9+1Gw
- x9meRATXk1Jd9fAu2F9Dx0y6K1Oa35+RzXiEGRxCtWUVGuFcxJdzcPSRQHIVezDAGpdI
- 44PgopsXFKw5CKRQ6UwCkgoULp6952ENtkWdFUWiztgqVoXl+pqMRmbakFTK7+lcdWPb
- F8HaF2jkW8iuDWeF33vn1gNpNMrfBPXuprUurDh9WIxgiBijcmmyMGqtY+Vm6SjA2hy5
- MbinoMRLLHBFlzlVdUaf5CLYNWJFbSdn2gtUvPjlefSj6b0c0reMPbCWTWPtZYd5jbF3
- 2XIw==
-X-Gm-Message-State: AO0yUKVs7bKk5VhAFOrfXUve+Dm988J/wPFcXrLvaXEYlIynzKSk2sd5
- /KCKKevFrdCEuMB3ub6IWbh1gq4CqBF1
-X-Google-Smtp-Source: AK7set8yVsRmd0VayN/HE8SDd6Hfpo5Ij5C4iaDNowj64SqM6hff3g49zWFvMKU7qPrafEJ5QA2DzAuLK0c/
+ bh=iXfoLKVrMT/xFDAU9J/MJSSK5kW91sU/HJUqY9Ndk9k=;
+ b=PLHRbMFN5kmkBFpdY23eJypfXz+yR9LMUo4Rsb5WqeC+pBqslEQS5Hcl3EgzDGVGga
+ JW6dHAj/npQAXatK/DguQsOwYf8IsLFTry6dldMk9IR7qKiCu5weXrwsWXw1G9WyR7W6
+ 4ZTS3rTSUgnJZ6N/6TeDBKqGP2LN4IxKLJQ1BOtRxfAd7utCJy1qLJCxmPSKfRzJaVIL
+ J5LlS4Z2jEjhEDFy2b78E/tzyiD/Zss3/k0g/iHWjPD5lLI/lmPCgKDeT/gcE/oP6fYc
+ bFszQU1i6/ChIhPePYg1mpYt+5an3nPlMLubQDQkBT8Kr1wKlUgvkUXoFEmMg77w9Y9m
+ hQ7A==
+X-Gm-Message-State: AO0yUKUHT3ICZwls8Wmfp5/ph+a4dkZsvMraIPoQyx6wu0USDW01Q9KS
+ hGrF9zAYZ83hCLo/WpurzEwuf+H830yX
+X-Google-Smtp-Source: AK7set9hd3ZDbIQWKaAIzJWe78Jguq6KD4h6C3gb27HGyGAwJ/uPydzJVv/u7xKaSG2+TOj7ACh/9QLhh8rA
 X-Received: from irogers.svl.corp.google.com
  ([2620:15c:2d4:203:cde9:3fbc:e1f1:6e3b])
- (user=irogers job=sendgmr) by 2002:a05:6902:144b:b0:88a:f2f:d004 with SMTP id
- a11-20020a056902144b00b0088a0f2fd004mr190523ybv.5.1676798966583; Sun, 19 Feb
- 2023 01:29:26 -0800 (PST)
-Date: Sun, 19 Feb 2023 01:28:00 -0800
+ (user=irogers job=sendgmr) by 2002:a0d:eb03:0:b0:535:83c5:cf3b with SMTP id
+ u3-20020a0deb03000000b0053583c5cf3bmr347945ywe.87.1676798974536; Sun, 19 Feb
+ 2023 01:29:34 -0800 (PST)
+Date: Sun, 19 Feb 2023 01:28:01 -0800
 In-Reply-To: <20230219092848.639226-1-irogers@google.com>
-Message-Id: <20230219092848.639226-4-irogers@google.com>
+Message-Id: <20230219092848.639226-5-irogers@google.com>
 Mime-Version: 1.0
 References: <20230219092848.639226-1-irogers@google.com>
 X-Mailer: git-send-email 2.39.2.637.g21b0678d19-goog
@@ -76,8 +76,8 @@ To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
  linux-arm-kernel@lists.infradead.org, Perry Taylor <perry.taylor@intel.com>, 
  Caleb Biggers <caleb.biggers@intel.com>
 Cc: Ian Rogers <irogers@google.com>, Stephane Eranian <eranian@google.com>
-Subject: [Linux-stm32] [PATCH v1 03/51] perf pmu-events: Remove aggr_mode
-	from pmu_event
+Subject: [Linux-stm32] [PATCH v1 04/51] perf pmu-events: Change aggr_mode to
+	be an enum
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,58 +94,79 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-aggr_mode is used on Power to set a flag for metrics. For pmu_event it
-is unused.
+Rather than use a string to encode aggr_mode, use an enum value.
 
 Signed-off-by: Ian Rogers <irogers@google.com>
 ---
- tools/perf/pmu-events/jevents.py   | 2 +-
- tools/perf/pmu-events/pmu-events.h | 1 -
- tools/perf/tests/pmu-events.c      | 6 ------
- 3 files changed, 1 insertion(+), 8 deletions(-)
+ tools/perf/arch/powerpc/util/header.c |  2 +-
+ tools/perf/pmu-events/jevents.py      | 17 +++++++++++------
+ tools/perf/pmu-events/pmu-events.h    |  2 +-
+ 3 files changed, 13 insertions(+), 8 deletions(-)
 
+diff --git a/tools/perf/arch/powerpc/util/header.c b/tools/perf/arch/powerpc/util/header.c
+index 78eef77d8a8d..c8d0dc775e5d 100644
+--- a/tools/perf/arch/powerpc/util/header.c
++++ b/tools/perf/arch/powerpc/util/header.c
+@@ -45,6 +45,6 @@ int arch_get_runtimeparam(const struct pmu_metric *pm)
+ 	int count;
+ 	char path[PATH_MAX] = "/devices/hv_24x7/interface/";
+ 
+-	atoi(pm->aggr_mode) == PerChip ? strcat(path, "sockets") : strcat(path, "coresperchip");
++	strcat(path, pm->aggr_mode == PerChip ? "sockets" : "coresperchip");
+ 	return sysfs__read_int(path, &count) < 0 ? 1 : count;
+ }
 diff --git a/tools/perf/pmu-events/jevents.py b/tools/perf/pmu-events/jevents.py
-index 2bcd07ce609f..db8b92de113e 100755
+index db8b92de113e..2b08d7c18f4b 100755
 --- a/tools/perf/pmu-events/jevents.py
 +++ b/tools/perf/pmu-events/jevents.py
-@@ -44,7 +44,7 @@ _json_event_attributes = [
-     # Seems useful, put it early.
-     'event',
-     # Short things in alphabetical order.
--    'aggr_mode', 'compat', 'deprecated', 'perpkg', 'unit',
-+    'compat', 'deprecated', 'perpkg', 'unit',
-     # Longer things (the last won't be iterated over during decompress).
-     'long_desc'
- ]
+@@ -678,10 +678,13 @@ static void decompress_event(int offset, struct pmu_event *pe)
+ {
+ \tconst char *p = &big_c_string[offset];
+ """)
++  enum_attributes = ['aggr_mode']
+   for attr in _json_event_attributes:
+-    _args.output_file.write(f"""
+-\tpe->{attr} = (*p == '\\0' ? NULL : p);
+-""")
++    _args.output_file.write(f'\n\tpe->{attr} = ')
++    if attr in enum_attributes:
++      _args.output_file.write("(*p == '\\0' ? 0 : *p - '0');\n")
++    else:
++      _args.output_file.write("(*p == '\\0' ? NULL : p);\n")
+     if attr == _json_event_attributes[-1]:
+       continue
+     _args.output_file.write('\twhile (*p++);')
+@@ -692,9 +695,11 @@ static void decompress_metric(int offset, struct pmu_metric *pm)
+ \tconst char *p = &big_c_string[offset];
+ """)
+   for attr in _json_metric_attributes:
+-    _args.output_file.write(f"""
+-\tpm->{attr} = (*p == '\\0' ? NULL : p);
+-""")
++    _args.output_file.write(f'\n\tpm->{attr} = ')
++    if attr in enum_attributes:
++      _args.output_file.write("(*p == '\\0' ? 0 : *p - '0');\n")
++    else:
++      _args.output_file.write("(*p == '\\0' ? NULL : p);\n")
+     if attr == _json_metric_attributes[-1]:
+       continue
+     _args.output_file.write('\twhile (*p++);')
 diff --git a/tools/perf/pmu-events/pmu-events.h b/tools/perf/pmu-events/pmu-events.h
-index b7d4a66b8ad2..cee8b83792f8 100644
+index cee8b83792f8..7225efc4e4df 100644
 --- a/tools/perf/pmu-events/pmu-events.h
 +++ b/tools/perf/pmu-events/pmu-events.h
-@@ -22,7 +22,6 @@ struct pmu_event {
- 	const char *pmu;
+@@ -31,10 +31,10 @@ struct pmu_metric {
+ 	const char *metric_expr;
  	const char *unit;
- 	const char *perpkg;
+ 	const char *compat;
 -	const char *aggr_mode;
- 	const char *deprecated;
+ 	const char *metric_constraint;
+ 	const char *desc;
+ 	const char *long_desc;
++	enum aggr_mode_class aggr_mode;
  };
  
-diff --git a/tools/perf/tests/pmu-events.c b/tools/perf/tests/pmu-events.c
-index accf44b3d968..9b4c94ba5460 100644
---- a/tools/perf/tests/pmu-events.c
-+++ b/tools/perf/tests/pmu-events.c
-@@ -331,12 +331,6 @@ static int compare_pmu_events(const struct pmu_event *e1, const struct pmu_event
- 		return -1;
- 	}
- 
--	if (!is_same(e1->aggr_mode, e2->aggr_mode)) {
--		pr_debug2("testing event e1 %s: mismatched aggr_mode, %s vs %s\n",
--			  e1->name, e1->aggr_mode, e2->aggr_mode);
--		return -1;
--	}
--
- 	if (!is_same(e1->deprecated, e2->deprecated)) {
- 		pr_debug2("testing event e1 %s: mismatched deprecated, %s vs %s\n",
- 			  e1->name, e1->deprecated, e2->deprecated);
+ struct pmu_events_table;
 -- 
 2.39.2.637.g21b0678d19-goog
 
