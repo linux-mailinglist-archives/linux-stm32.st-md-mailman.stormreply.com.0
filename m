@@ -2,54 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7F3EE69BFAC
-	for <lists+linux-stm32@lfdr.de>; Sun, 19 Feb 2023 10:35:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8CCC269BFAD
+	for <lists+linux-stm32@lfdr.de>; Sun, 19 Feb 2023 10:35:30 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 46FB8C6A5FE;
-	Sun, 19 Feb 2023 09:35:21 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 55F73C6A5FE;
+	Sun, 19 Feb 2023 09:35:30 +0000 (UTC)
 Received: from mail-yw1-f201.google.com (mail-yw1-f201.google.com
  [209.85.128.201])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0EEB7C6A5EA
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C6518C6A5EA
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 19 Feb 2023 09:35:20 +0000 (UTC)
+ Sun, 19 Feb 2023 09:35:28 +0000 (UTC)
 Received: by mail-yw1-f201.google.com with SMTP id
- 00721157ae682-53688fe539aso16864007b3.16
+ 00721157ae682-53686d8ce27so20594747b3.5
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 19 Feb 2023 01:35:20 -0800 (PST)
+ Sun, 19 Feb 2023 01:35:28 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20210112;
  h=cc:to:from:subject:references:mime-version:message-id:in-reply-to
  :date:from:to:cc:subject:date:message-id:reply-to;
- bh=V1c75G2QRp2XfNcd0fyJt7z2QBiUcClmUEJnZutpl3U=;
- b=lQc7DLqjY+G0h68iUyNnQt0s8JbFjdLvt6vUD0X3O7LQXsct1au6ugX7YKcPBS3UPJ
- AsAznm2proFWTuMGysZno/FG9nfkQj2SekacMWMc3JcdaBlyiBSXOGz0lhlEgLdgGAxp
- WDR9gSMRJuJm8sfYf4Js7MhM80qTW0YRs+7lkwr6P601fxAf4quXfIGXkK94Dp9yf7NJ
- VG/TQ0DMh2RX36SsfyliyUni4YrostDu/WgZ0dbrvUcDxYX103Xt5iUnMSJxA78X1q/J
- xUWr1XsXdm9DAOmntwU2JGUE0TJhIpozeTXHwgCbdlqWpR3m96Aghhr+kQKjI1/QS/RH
- /euQ==
+ bh=6ApboYwC5HDpqa4KgO9vE7lItPOtxh0INRVt9hDTELA=;
+ b=eKrS9YbE5MvFZdViv4py+wujaC6AoA78JFYCdWX32lF9PoiXUgE3idq0OBKkFhvJ8L
+ 8iy6lGZX2pkmRRG5L9VoyF4JMYhESKqhxg1bQRw3cbXu9cp0CTVAsnfEx7iX0m8WcHmJ
+ 0khwL4pKRPFny0ZCfaK1RnTWEWhb3jRklhCcxexJ/lPXaF39kJkIOOWW9PvDQfhH3qw8
+ i6SXakOmGvzYKxm+6U79/2sZgCBcFrdbqgmoGs3Zp43La0bVDCky0ubQmF3HRG8l/moZ
+ Or4Qbi5jk1XP9gTTmxi3oHJe1J1/5t4dUvhGzSs/SXr7RmRzmHYiWa0KAaYnoxYzSygO
+ fbNw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=cc:to:from:subject:references:mime-version:message-id:in-reply-to
  :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=V1c75G2QRp2XfNcd0fyJt7z2QBiUcClmUEJnZutpl3U=;
- b=U3IEYKuHpYt03iAgBcd38xCZGeM+Lkq96dF/5k36gy8ZXyBcBtwBeUm3A6FSZd26Dj
- OsFF/d81q/j40WeTxXbC7Oj5KYcUa0y8oHbtPO6a1Uz5q5PMCF1Gq5HqH8zAvBifoswr
- Qkxfx9N3SPcp8TSBQRlLI7C26JFaXAcgUc659+STo2Z+34/tJ3IJCmjshv8oYtx19pKv
- tGoD6wUmOfWea6JFY+R5EVen24MNa8AMMv3QCJHf3BUoBpfLQxv0c2Zuw41jE/LwzUwr
- jaylnX+eKxTzYcEfPDkJg9VaTUnQfTg9l53zcaJDoTzzgEaXAfj0VayNM4C3ucb0QblH
- vJkw==
-X-Gm-Message-State: AO0yUKUF9amIa30dByhiP36MCu0NwglOQLXI9kXGWPaY7WRJ/eobjqmu
- 4fr+ah6uS94LdNHQB4vgRDjmCTukv7fL
-X-Google-Smtp-Source: AK7set+0phLS9+KCkYB1hD6t9OHjqMNjyrH3Ll05ZAB31Ht5Vz9xAKErSbBOtdwOA5pdD6xB9HPX23EwfbRP
+ bh=6ApboYwC5HDpqa4KgO9vE7lItPOtxh0INRVt9hDTELA=;
+ b=27hr/GStC09qMuQFGy1m6kjePnckR206QUVz/msA/oqkp07Nags9iZaz1/kwZ0Ogrp
+ T+IsOVaBypsVNvyH98O9aPSpMwL3yirGpspaZ1fzZihn83O4U+tZiNGH5oEZAAnZGjV4
+ FC3/NNSc+2T0rPnbwLrCtJHiOZfVbj0YpwOFXWN5fxw5QZApd/c4Mmp8+vOmv2ksavRw
+ GbwZpoOtpZcgaspsuc+DpxpYJP2X5YOyUF1FfrBv8uOp3M6uWzZbk9sl4Itgsj9wnAG/
+ FXNSJX50V0S8bqsawfEIt7eViQTAxT9uvtcLri7e7zSyHPuHznb+wzJbQRUCF7dlYmBe
+ 2QqA==
+X-Gm-Message-State: AO0yUKX7DfpV2eUS/nATqMY1P88VQR9ddLH5pud+Mj0W+oaA1Yk9Bvax
+ BtAy9Am1uIrY+JfaMn9why1hXXXkqQjL
+X-Google-Smtp-Source: AK7set9l7EzTRgvXB15GxGWCICFKm8udU74GJTOUVF1jH0sNKtgIcL7PqS/JykUEiXuu54Ngmu99y9XTMRbT
 X-Received: from irogers.svl.corp.google.com
  ([2620:15c:2d4:203:cde9:3fbc:e1f1:6e3b])
- (user=irogers job=sendgmr) by 2002:a0d:d6c1:0:b0:514:dae0:21ef with SMTP id
- y184-20020a0dd6c1000000b00514dae021efmr2065215ywd.133.1676799319684; Sun, 19
- Feb 2023 01:35:19 -0800 (PST)
-Date: Sun, 19 Feb 2023 01:28:42 -0800
+ (user=irogers job=sendgmr) by 2002:a81:e94c:0:b0:507:68eb:1b20 with SMTP id
+ e12-20020a81e94c000000b0050768eb1b20mr311210ywm.236.1676799327857; Sun, 19
+ Feb 2023 01:35:27 -0800 (PST)
+Date: Sun, 19 Feb 2023 01:28:43 -0800
 In-Reply-To: <20230219092848.639226-1-irogers@google.com>
-Message-Id: <20230219092848.639226-46-irogers@google.com>
+Message-Id: <20230219092848.639226-47-irogers@google.com>
 Mime-Version: 1.0
 References: <20230219092848.639226-1-irogers@google.com>
 X-Mailer: git-send-email 2.39.2.637.g21b0678d19-goog
@@ -76,7 +76,7 @@ To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
  linux-arm-kernel@lists.infradead.org, Perry Taylor <perry.taylor@intel.com>, 
  Caleb Biggers <caleb.biggers@intel.com>
 Cc: Ian Rogers <irogers@google.com>, Stephane Eranian <eranian@google.com>
-Subject: [Linux-stm32] [PATCH v1 45/51] perf stat: Remove perf_stat_evsel_id
+Subject: [Linux-stm32] [PATCH v1 46/51] perf stat: Move enums from header
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,101 +93,89 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-perf_stat_evsel_id was used for hard coded metrics. These have now
-migrated to json metrics and so the id values are no longer necessary.
+The enums are only used in stat-shadow.c, so narrow their scope by
+moving to the C file.
 
 Signed-off-by: Ian Rogers <irogers@google.com>
 ---
- tools/perf/util/stat.c | 31 -------------------------------
- tools/perf/util/stat.h | 12 ------------
- 2 files changed, 43 deletions(-)
+ tools/perf/util/stat-shadow.c | 25 +++++++++++++++++++++++++
+ tools/perf/util/stat.h        | 27 ---------------------------
+ 2 files changed, 25 insertions(+), 27 deletions(-)
 
-diff --git a/tools/perf/util/stat.c b/tools/perf/util/stat.c
-index d51d7457f12d..8d83d2f4a082 100644
---- a/tools/perf/util/stat.c
-+++ b/tools/perf/util/stat.c
-@@ -77,36 +77,6 @@ double rel_stddev_stats(double stddev, double avg)
- 	return pct;
- }
+diff --git a/tools/perf/util/stat-shadow.c b/tools/perf/util/stat-shadow.c
+index d14fa531ee27..fc948a7e83b7 100644
+--- a/tools/perf/util/stat-shadow.c
++++ b/tools/perf/util/stat-shadow.c
+@@ -29,6 +29,31 @@ struct runtime_stat rt_stat;
+ struct stats walltime_nsecs_stats;
+ struct rusage_stats ru_stats;
  
--bool __perf_stat_evsel__is(struct evsel *evsel, enum perf_stat_evsel_id id)
--{
--	struct perf_stat_evsel *ps = evsel->stats;
--
--	return ps->id == id;
--}
--
--#define ID(id, name) [PERF_STAT_EVSEL_ID__##id] = #name
--static const char *id_str[PERF_STAT_EVSEL_ID__MAX] = {
--	ID(NONE,		x),
--};
--#undef ID
--
--static void perf_stat_evsel_id_init(struct evsel *evsel)
--{
--	struct perf_stat_evsel *ps = evsel->stats;
--	int i;
--
--	/* ps->id is 0 hence PERF_STAT_EVSEL_ID__NONE by default */
--
--	for (i = 0; i < PERF_STAT_EVSEL_ID__MAX; i++) {
--		if (!strcmp(evsel__name(evsel), id_str[i]) ||
--		    (strstr(evsel__name(evsel), id_str[i]) && evsel->pmu_name
--		     && strstr(evsel__name(evsel), evsel->pmu_name))) {
--			ps->id = i;
--			break;
--		}
--	}
--}
--
- static void evsel__reset_aggr_stats(struct evsel *evsel)
- {
- 	struct perf_stat_evsel *ps = evsel->stats;
-@@ -166,7 +136,6 @@ static int evsel__alloc_stat_priv(struct evsel *evsel, int nr_aggr)
- 		return -ENOMEM;
- 	}
- 
--	perf_stat_evsel_id_init(evsel);
- 	evsel__reset_stat_priv(evsel);
- 	return 0;
- }
++enum {
++	CTX_BIT_USER	= 1 << 0,
++	CTX_BIT_KERNEL	= 1 << 1,
++	CTX_BIT_HV	= 1 << 2,
++	CTX_BIT_HOST	= 1 << 3,
++	CTX_BIT_IDLE	= 1 << 4,
++	CTX_BIT_MAX	= 1 << 5,
++};
++
++enum stat_type {
++	STAT_NONE = 0,
++	STAT_NSECS,
++	STAT_CYCLES,
++	STAT_STALLED_CYCLES_FRONT,
++	STAT_STALLED_CYCLES_BACK,
++	STAT_BRANCHES,
++	STAT_CACHEREFS,
++	STAT_L1_DCACHE,
++	STAT_L1_ICACHE,
++	STAT_LL_CACHE,
++	STAT_ITLB_CACHE,
++	STAT_DTLB_CACHE,
++	STAT_MAX
++};
++
+ struct saved_value {
+ 	struct rb_node rb_node;
+ 	struct evsel *evsel;
 diff --git a/tools/perf/util/stat.h b/tools/perf/util/stat.h
-index 9af4af3bc3f2..df6068a3f7bb 100644
+index df6068a3f7bb..215c0f5c4db7 100644
 --- a/tools/perf/util/stat.h
 +++ b/tools/perf/util/stat.h
-@@ -19,11 +19,6 @@ struct stats {
- 	u64 max, min;
+@@ -55,33 +55,6 @@ enum aggr_mode {
+ 	AGGR_MAX
  };
  
--enum perf_stat_evsel_id {
--	PERF_STAT_EVSEL_ID__NONE = 0,
--	PERF_STAT_EVSEL_ID__MAX,
+-enum {
+-	CTX_BIT_USER	= 1 << 0,
+-	CTX_BIT_KERNEL	= 1 << 1,
+-	CTX_BIT_HV	= 1 << 2,
+-	CTX_BIT_HOST	= 1 << 3,
+-	CTX_BIT_IDLE	= 1 << 4,
+-	CTX_BIT_MAX	= 1 << 5,
 -};
 -
- /* hold aggregated event info */
- struct perf_stat_aggr {
- 	/* aggregated values */
-@@ -40,8 +35,6 @@ struct perf_stat_aggr {
- struct perf_stat_evsel {
- 	/* used for repeated runs */
- 	struct stats		 res_stats;
--	/* evsel id for quick check */
--	enum perf_stat_evsel_id	 id;
- 	/* number of allocated 'aggr' */
- 	int			 nr_aggr;
- 	/* aggregated event values */
-@@ -187,11 +180,6 @@ static inline void update_rusage_stats(struct rusage_stats *ru_stats, struct rus
- struct evsel;
- struct evlist;
- 
--bool __perf_stat_evsel__is(struct evsel *evsel, enum perf_stat_evsel_id id);
+-#define NUM_CTX CTX_BIT_MAX
 -
--#define perf_stat_evsel__is(evsel, id) \
--	__perf_stat_evsel__is(evsel, PERF_STAT_EVSEL_ID__ ## id)
+-enum stat_type {
+-	STAT_NONE = 0,
+-	STAT_NSECS,
+-	STAT_CYCLES,
+-	STAT_STALLED_CYCLES_FRONT,
+-	STAT_STALLED_CYCLES_BACK,
+-	STAT_BRANCHES,
+-	STAT_CACHEREFS,
+-	STAT_L1_DCACHE,
+-	STAT_L1_ICACHE,
+-	STAT_LL_CACHE,
+-	STAT_ITLB_CACHE,
+-	STAT_DTLB_CACHE,
+-	STAT_MAX
+-};
 -
- extern struct runtime_stat rt_stat;
- extern struct stats walltime_nsecs_stats;
- extern struct rusage_stats ru_stats;
+ struct runtime_stat {
+ 	struct rblist value_list;
+ };
 -- 
 2.39.2.637.g21b0678d19-goog
 
