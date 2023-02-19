@@ -2,56 +2,56 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8C24C69CBBF
+	by mail.lfdr.de (Postfix) with ESMTPS id ACA7C69CBC0
 	for <lists+linux-stm32@lfdr.de>; Mon, 20 Feb 2023 14:13:14 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 468F1C6B454;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 67C41C6B456;
 	Mon, 20 Feb 2023 13:13:14 +0000 (UTC)
-Received: from mail-yb1-f202.google.com (mail-yb1-f202.google.com
- [209.85.219.202])
+Received: from mail-yw1-f201.google.com (mail-yw1-f201.google.com
+ [209.85.128.201])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F1D51C6A5EA
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2E16CC6A5EA
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 19 Feb 2023 09:32:10 +0000 (UTC)
-Received: by mail-yb1-f202.google.com with SMTP id
- o14-20020a25730e000000b009419f64f6afso2222359ybc.2
+ Sun, 19 Feb 2023 09:32:28 +0000 (UTC)
+Received: by mail-yw1-f201.google.com with SMTP id
+ 00721157ae682-53694883d42so6265407b3.13
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 19 Feb 2023 01:32:10 -0800 (PST)
+ Sun, 19 Feb 2023 01:32:28 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20210112;
  h=content-transfer-encoding:cc:to:from:subject:references
  :mime-version:message-id:in-reply-to:date:from:to:cc:subject:date
  :message-id:reply-to;
- bh=lZa444TGelSxfyFGIASgMZVRbr1mUgy5fMfkXk2Hphs=;
- b=s8MwD3XcpksdpAQ44IhNk599hvZCE39mG8ERX3KznRk7WbK33EPKtTHl604SaZu22f
- W8udp7rA36r7w8E0tgNmbNccHgZTRlSSS+ibAhjSQDm2kR0xfrJTCUllsJ5FEoSbew8r
- 9V/QOqjRnmU5oExwB1uVzUYmEpLoDTPEWHbpNWSMTlZ2njVfC/nC/iTfMw86FYFBBbsA
- fECKHQYBu+7Bg9fWIuwrxYPgcC/Zy1oh6sofUQQcbNz48pd1v/VYyYc0ygU6eZt/PVIR
- HB/fT0nE8qNWp9G4+mdhKprjItsI7wAVcMIM2OdJfg42ox/dekM3ajN+0++EeFXX7G9d
- coAA==
+ bh=+hc9b9b/BO/VXC2/NW+XDZ+ErI1SMduZPX3EY93EMfk=;
+ b=kC1sVcdXsB0uUQ1w+SkmrhM8B96rLLbj15fdHOc3sch9t/qU63JwZZ0xgD+MyUjX6g
+ BHbuLumrVLMgR6q2CrqYl/GnJ+9PwkOfkhHz5aKbsx2UZmwo/QlxBGTmP6TzcmMeAxXW
+ MCR0JOjbsu5D3j3qdtPmzW0UKf/ha+WqUihiNA019ww5tnxT/yBm6wlrQFsfZ1kBu0rb
+ w3d/iJ6+x6kB/ATkJle3cMaRU2/ibHAGo/vlwjIzsNSACYRTXu5w55jU/m7D9MOVi5Iv
+ YOOuzdPcEc4PD2bjlYYLXLKVNFehxBd2oOjZMaT2D0EHvN1IegU/faMPLAERWJSuWIAC
+ UwvA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:cc:to:from:subject:references
  :mime-version:message-id:in-reply-to:date:x-gm-message-state:from:to
  :cc:subject:date:message-id:reply-to;
- bh=lZa444TGelSxfyFGIASgMZVRbr1mUgy5fMfkXk2Hphs=;
- b=iyYZXuaoL9+mwlaqdCYVYg49wYnqSGC2biGoz9qNaTfxUZXCX99PZJNHyiVnXDSVsE
- O2fE/KosyhidVqcj+Ihll7V6Guj6O/7PD81JpgVS+kSjxFtpGOcmHtotVLY6jNBUvh4K
- 59Igl0Oobpin/gitc/yh1+bLw99rToY0tWqzj7QFVqx9ogRV+bKFohqJ6LcB6XaVvS4z
- BubK0ZplvroeQuDhmhNtbudfX52iOeF3dW2AGnicIxY8/9TGFWhMhxm1Uw3ACfJcc3Zd
- RfWDj/24Bt8eA+hHDRDWG81ZDHzFxu54azmvttQx4QXo0TgTuaK0YpLragIv9ujKiDQd
- qbKA==
-X-Gm-Message-State: AO0yUKW1XvTLYifHbjFtaezThADQK54GzF900r17GPJvkVAtiVg7qWWp
- RIM53EvHiD+rfrXfA0Ln8BJC68gjJPxx
-X-Google-Smtp-Source: AK7set+ScGCNWwFLva7yP399KIhjoQC04WpP4l3gpZLURZ0z5SYtuxdS8Bq6tVZ5IrgmF08eXlihMAp6zfTK
+ bh=+hc9b9b/BO/VXC2/NW+XDZ+ErI1SMduZPX3EY93EMfk=;
+ b=CEybss5AV28Dftm9jfvJ0zrUs+BkIFJD21YWrr7Kw/D4e+wFl0npqkD9k7yTtqGpUz
+ 7GsWGj/+3mnaz7oxlh15FIkNT3y/LJaQNYLVXtdIoiYyBqMXH+eeRgoW6omtbYScCVBK
+ lO5UCcw9hrgutC91VX4DyP1lHdGu1APgF6ItPAmNjLVQyoCqnNP9SXvkaRCsY/mHn8IH
+ R22fcuDPYBL7xi4RA3rLBPhDuLTx7NGE2h0uMEpjlXJQp6TtL/qhSAqYpN46SF+DhKuF
+ GXRyAdkjwSTgrZuEp68HdGF0JIBmuu+IZZLKuYfGySnP1NYnILwNGL0DuQFfiR5+klgk
+ IAPw==
+X-Gm-Message-State: AO0yUKV6ov15vnUnijZqVGFoPhR/KL9dNSet0uoie8HtAraaIBdRucbK
+ O2jQBf08MdeABLia15UOUZROaAsw1Xqt
+X-Google-Smtp-Source: AK7set9+iX9eO0jqzh0h13x8mqoWXCOaFw2qSG7+Tdf+nToRoaALlfx+vplNJfPkw29ouLlFjVzIgALS73Hw
 X-Received: from irogers.svl.corp.google.com
  ([2620:15c:2d4:203:cde9:3fbc:e1f1:6e3b])
- (user=irogers job=sendgmr) by 2002:a05:6902:11cd:b0:90d:a6c0:6870 with SMTP
- id n13-20020a05690211cd00b0090da6c06870mr390938ybu.2.1676799129953; Sun, 19
- Feb 2023 01:32:09 -0800 (PST)
-Date: Sun, 19 Feb 2023 01:28:20 -0800
+ (user=irogers job=sendgmr) by 2002:a05:6902:4e1:b0:855:fd7e:b84e with SMTP id
+ w1-20020a05690204e100b00855fd7eb84emr3360ybs.10.1676799147190; Sun, 19 Feb
+ 2023 01:32:27 -0800 (PST)
+Date: Sun, 19 Feb 2023 01:28:22 -0800
 In-Reply-To: <20230219092848.639226-1-irogers@google.com>
-Message-Id: <20230219092848.639226-24-irogers@google.com>
+Message-Id: <20230219092848.639226-26-irogers@google.com>
 Mime-Version: 1.0
 References: <20230219092848.639226-1-irogers@google.com>
 X-Mailer: git-send-email 2.39.2.637.g21b0678d19-goog
@@ -79,8 +79,8 @@ To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
  Caleb Biggers <caleb.biggers@intel.com>
 X-Mailman-Approved-At: Mon, 20 Feb 2023 13:13:06 +0000
 Cc: Ian Rogers <irogers@google.com>, Stephane Eranian <eranian@google.com>
-Subject: [Linux-stm32] [PATCH v1 23/51] perf vendor events intel: Refresh
-	jaketown events
+Subject: [Linux-stm32] [PATCH v1 25/51] perf vendor events intel: Refresh
+	sandybridge events
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,7 +97,7 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Update the jaketown events from 21 to 22. Generation was done
+Update the sandybridge events from 17 to 18. Generation was done
 using https://github.com/intel/perfmon.
 
 Notable changes are improved event descriptions, TMA metrics are
@@ -108,23 +108,31 @@ replicating existing hard coded metrics in stat-shadow.
 
 Signed-off-by: Ian Rogers <irogers@google.com>
 ---
- .../pmu-events/arch/x86/jaketown/cache.json   |   6 +-
- .../arch/x86/jaketown/floating-point.json     |   2 +-
- .../arch/x86/jaketown/frontend.json           |  12 +-
- .../arch/x86/jaketown/jkt-metrics.json        | 602 ++++++++++--------
- .../arch/x86/jaketown/pipeline.json           |   2 +-
- .../arch/x86/jaketown/uncore-cache.json       |  22 +-
- .../x86/jaketown/uncore-interconnect.json     |  74 +--
- .../arch/x86/jaketown/uncore-memory.json      |   4 +-
- .../arch/x86/jaketown/uncore-other.json       |  22 +-
- .../arch/x86/jaketown/uncore-power.json       |   8 +-
  tools/perf/pmu-events/arch/x86/mapfile.csv    |   2 +-
- 11 files changed, 409 insertions(+), 347 deletions(-)
+ .../arch/x86/sandybridge/cache.json           |   8 +-
+ .../arch/x86/sandybridge/floating-point.json  |   2 +-
+ .../arch/x86/sandybridge/frontend.json        |  12 +-
+ .../arch/x86/sandybridge/pipeline.json        |   2 +-
+ .../arch/x86/sandybridge/snb-metrics.json     | 601 ++++++++++--------
+ 6 files changed, 344 insertions(+), 283 deletions(-)
 
-diff --git a/tools/perf/pmu-events/arch/x86/jaketown/cache.json b/tools/perf/pmu-events/arch/x86/jaketown/cache.json
-index f1271039b6b2..b9769d39940c 100644
---- a/tools/perf/pmu-events/arch/x86/jaketown/cache.json
-+++ b/tools/perf/pmu-events/arch/x86/jaketown/cache.json
+diff --git a/tools/perf/pmu-events/arch/x86/mapfile.csv b/tools/perf/pmu-events/arch/x86/mapfile.csv
+index 41bd13baa265..02715cbe4fd8 100644
+--- a/tools/perf/pmu-events/arch/x86/mapfile.csv
++++ b/tools/perf/pmu-events/arch/x86/mapfile.csv
+@@ -21,7 +21,7 @@ GenuineIntel-6-(57|85),v10,knightslanding,core
+ GenuineIntel-6-A[AC],v1.00,meteorlake,core
+ GenuineIntel-6-1[AEF],v3,nehalemep,core
+ GenuineIntel-6-2E,v3,nehalemex,core
+-GenuineIntel-6-2A,v17,sandybridge,core
++GenuineIntel-6-2A,v18,sandybridge,core
+ GenuineIntel-6-(8F|CF),v1.09,sapphirerapids,core
+ GenuineIntel-6-(37|4A|4C|4D|5A),v14,silvermont,core
+ GenuineIntel-6-(4E|5E|8E|9E|A5|A6),v53,skylake,core
+diff --git a/tools/perf/pmu-events/arch/x86/sandybridge/cache.json b/tools/perf/pmu-events/arch/x86/sandybridge/cache.json
+index 65696ea2a581..4e5572ee7dfe 100644
+--- a/tools/perf/pmu-events/arch/x86/sandybridge/cache.json
++++ b/tools/perf/pmu-events/arch/x86/sandybridge/cache.json
 @@ -37,7 +37,7 @@
          "UMask": "0x5"
      },
@@ -143,19 +151,28 @@ index f1271039b6b2..b9769d39940c 100644
          "EventCode": "0x48",
          "EventName": "L1D_PEND_MISS.PENDING",
          "SampleAfterValue": "2000003",
-@@ -500,7 +500,7 @@
+@@ -493,7 +493,7 @@
          "UMask": "0x8"
      },
      {
 -        "BriefDescription": "Cacheable and noncachaeble code read requests.",
-+        "BriefDescription": "Cacheable and non-cacheable code read requests.",
++        "BriefDescription": "Cacheable and noncacheable code read requests.",
          "EventCode": "0xB0",
          "EventName": "OFFCORE_REQUESTS.DEMAND_CODE_RD",
          "SampleAfterValue": "100003",
-diff --git a/tools/perf/pmu-events/arch/x86/jaketown/floating-point.json b/tools/perf/pmu-events/arch/x86/jaketown/floating-point.json
+@@ -898,7 +898,7 @@
+         "UMask": "0x1"
+     },
+     {
+-        "BriefDescription": "COREWB & ANY_RESPONSE",
++        "BriefDescription": "OFFCORE_RESPONSE.COREWB.ANY_RESPONSE",
+         "EventCode": "0xB7, 0xBB",
+         "EventName": "OFFCORE_RESPONSE.COREWB.ANY_RESPONSE",
+         "MSRIndex": "0x1a6,0x1a7",
+diff --git a/tools/perf/pmu-events/arch/x86/sandybridge/floating-point.json b/tools/perf/pmu-events/arch/x86/sandybridge/floating-point.json
 index 8c2a246adef9..79e8f403c426 100644
---- a/tools/perf/pmu-events/arch/x86/jaketown/floating-point.json
-+++ b/tools/perf/pmu-events/arch/x86/jaketown/floating-point.json
+--- a/tools/perf/pmu-events/arch/x86/sandybridge/floating-point.json
++++ b/tools/perf/pmu-events/arch/x86/sandybridge/floating-point.json
 @@ -64,7 +64,7 @@
          "UMask": "0x20"
      },
@@ -165,10 +182,10 @@ index 8c2a246adef9..79e8f403c426 100644
          "EventCode": "0x10",
          "EventName": "FP_COMP_OPS_EXE.X87",
          "SampleAfterValue": "2000003",
-diff --git a/tools/perf/pmu-events/arch/x86/jaketown/frontend.json b/tools/perf/pmu-events/arch/x86/jaketown/frontend.json
-index 3f4fc3481112..754ee2749485 100644
---- a/tools/perf/pmu-events/arch/x86/jaketown/frontend.json
-+++ b/tools/perf/pmu-events/arch/x86/jaketown/frontend.json
+diff --git a/tools/perf/pmu-events/arch/x86/sandybridge/frontend.json b/tools/perf/pmu-events/arch/x86/sandybridge/frontend.json
+index 69ab8d215f84..700716b42f1a 100644
+--- a/tools/perf/pmu-events/arch/x86/sandybridge/frontend.json
++++ b/tools/perf/pmu-events/arch/x86/sandybridge/frontend.json
 @@ -134,7 +134,7 @@
          "UMask": "0x4"
      },
@@ -222,11 +239,24 @@ index 3f4fc3481112..754ee2749485 100644
          "EventCode": "0x79",
          "EventName": "IDQ.MS_UOPS",
          "SampleAfterValue": "2000003",
-diff --git a/tools/perf/pmu-events/arch/x86/jaketown/jkt-metrics.json b/tools/perf/pmu-events/arch/x86/jaketown/jkt-metrics.json
-index cb1420df3768..e8f4e5c01c9f 100644
---- a/tools/perf/pmu-events/arch/x86/jaketown/jkt-metrics.json
-+++ b/tools/perf/pmu-events/arch/x86/jaketown/jkt-metrics.json
-@@ -1,449 +1,511 @@
+diff --git a/tools/perf/pmu-events/arch/x86/sandybridge/pipeline.json b/tools/perf/pmu-events/arch/x86/sandybridge/pipeline.json
+index 53ab5993e8b0..54454e5e262c 100644
+--- a/tools/perf/pmu-events/arch/x86/sandybridge/pipeline.json
++++ b/tools/perf/pmu-events/arch/x86/sandybridge/pipeline.json
+@@ -509,7 +509,7 @@
+         "BriefDescription": "Cases when loads get true Block-on-Store blocking code preventing store forwarding.",
+         "EventCode": "0x03",
+         "EventName": "LD_BLOCKS.STORE_FORWARD",
+-        "PublicDescription": "This event counts loads that followed a store to the same address, where the data could not be forwarded inside the pipeline from the store to the load.  The most common reason why store forwarding would be blocked is when a load's address range overlaps with a preceeding smaller uncompleted store.  See the table of not supported store forwards in the Intel(R) 64 and IA-32 Architectures Optimization Reference Manual.  The penalty for blocked store forwarding is that the load must wait for the store to complete before it can be issued.",
++        "PublicDescription": "This event counts loads that followed a store to the same address, where the data could not be forwarded inside the pipeline from the store to the load.  The most common reason why store forwarding would be blocked is when a load's address range overlaps with a preceding smaller uncompleted store.  See the table of not supported store forwards in the Intel(R) 64 and IA-32 Architectures Optimization Reference Manual.  The penalty for blocked store forwarding is that the load must wait for the store to complete before it can be issued.",
+         "SampleAfterValue": "100003",
+         "UMask": "0x2"
+     },
+diff --git a/tools/perf/pmu-events/arch/x86/sandybridge/snb-metrics.json b/tools/perf/pmu-events/arch/x86/sandybridge/snb-metrics.json
+index a7b3c835b03d..4a99fe515f4b 100644
+--- a/tools/perf/pmu-events/arch/x86/sandybridge/snb-metrics.json
++++ b/tools/perf/pmu-events/arch/x86/sandybridge/snb-metrics.json
+@@ -1,449 +1,510 @@
  [
      {
 -        "BriefDescription": "This category represents fraction of slots where the processor's Frontend undersupplies its Backend",
@@ -387,7 +417,7 @@ index cb1420df3768..e8f4e5c01c9f 100644
 -    },
 -    {
 -        "BriefDescription": "This metric estimates how often the CPU was stalled due to loads accesses to L3 cache or contended with a sibling Core",
--        "MetricExpr": "MEM_LOAD_UOPS_RETIRED.LLC_HIT / (MEM_LOAD_UOPS_RETIRED.LLC_HIT + 7 * MEM_LOAD_UOPS_RETIRED.LLC_MISS) * CYCLE_ACTIVITY.STALLS_L2_PENDING / CLKS",
+-        "MetricExpr": "MEM_LOAD_UOPS_RETIRED.LLC_HIT / (MEM_LOAD_UOPS_RETIRED.LLC_HIT + 7 * MEM_LOAD_UOPS_MISC_RETIRED.LLC_MISS) * CYCLE_ACTIVITY.STALLS_L2_PENDING / CLKS",
 -        "MetricGroup": "CacheMisses;MemoryBound;TmaL3mem;TopdownL3;tma_memory_bound_group",
 -        "MetricName": "tma_l3_bound",
 -        "PublicDescription": "This metric estimates how often the CPU was stalled due to loads accesses to L3 cache or contended with a sibling Core.  Avoiding cache misses (i.e. L2 misses/L3 hits) can improve the latency and increase performance. Sample with: MEM_LOAD_UOPS_RETIRED.L3_HIT_PS",
@@ -395,7 +425,7 @@ index cb1420df3768..e8f4e5c01c9f 100644
 -    },
 -    {
 -        "BriefDescription": "This metric estimates how often the CPU was stalled on accesses to external memory (DRAM) by loads",
--        "MetricExpr": "(1 - MEM_LOAD_UOPS_RETIRED.LLC_HIT / (MEM_LOAD_UOPS_RETIRED.LLC_HIT + 7 * MEM_LOAD_UOPS_RETIRED.LLC_MISS)) * CYCLE_ACTIVITY.STALLS_L2_PENDING / CLKS",
+-        "MetricExpr": "(1 - MEM_LOAD_UOPS_RETIRED.LLC_HIT / (MEM_LOAD_UOPS_RETIRED.LLC_HIT + 7 * MEM_LOAD_UOPS_MISC_RETIRED.LLC_MISS)) * CYCLE_ACTIVITY.STALLS_L2_PENDING / CLKS",
 -        "MetricGroup": "MemoryBound;TmaL3mem;TopdownL3;tma_memory_bound_group",
 -        "MetricName": "tma_dram_bound",
 -        "PublicDescription": "This metric estimates how often the CPU was stalled on accesses to external memory (DRAM) by loads. Better caching can improve the latency and increase performance. Sample with: MEM_LOAD_UOPS_RETIRED.L3_MISS_PS",
@@ -474,7 +504,7 @@ index cb1420df3768..e8f4e5c01c9f 100644
 -        "PublicDescription": "This metric estimates fraction of cycles the CPU performance was potentially limited due to Core computation issues (non divider-related).  Two distinct categories can be attributed into this metric: (1) heavy data-dependency among contiguous instructions would manifest in this metric - such cases are often referred to as low Instruction Level Parallelism (ILP). (2) Contention on some hardware execution unit other than Divider. For example; when there are too many multiply operations.",
 +        "BriefDescription": "This metric estimates how often the CPU was stalled on accesses to external memory (DRAM) by loads",
 +        "MetricConstraint": "NO_GROUP_EVENTS_SMT",
-+        "MetricExpr": "(1 - MEM_LOAD_UOPS_RETIRED.LLC_HIT / (MEM_LOAD_UOPS_RETIRED.LLC_HIT + 7 * MEM_LOAD_UOPS_RETIRED.LLC_MISS)) * CYCLE_ACTIVITY.STALLS_L2_PENDING / tma_info_clks",
++        "MetricExpr": "(1 - MEM_LOAD_UOPS_RETIRED.LLC_HIT / (MEM_LOAD_UOPS_RETIRED.LLC_HIT + 7 * MEM_LOAD_UOPS_MISC_RETIRED.LLC_MISS)) * CYCLE_ACTIVITY.STALLS_L2_PENDING / tma_info_clks",
 +        "MetricGroup": "MemoryBound;TmaL3mem;TopdownL3;tma_L3_group;tma_memory_bound_group",
 +        "MetricName": "tma_dram_bound",
 +        "MetricThreshold": "tma_dram_bound > 0.1 & (tma_memory_bound > 0.2 & tma_backend_bound > 0.2)",
@@ -650,7 +680,7 @@ index cb1420df3768..e8f4e5c01c9f 100644
 -        "MetricGroup": "tma_L1_group",
 -        "MetricName": "SLOTS"
 +        "BriefDescription": "Average external Memory Bandwidth Use for reads and writes [GB / sec]",
-+        "MetricExpr": "64 * (UNC_M_CAS_COUNT.RD + UNC_M_CAS_COUNT.WR) / 1e9 / duration_time",
++        "MetricExpr": "64 * (UNC_ARB_TRK_REQUESTS.ALL + UNC_ARB_COH_TRK_REQUESTS.ALL) / 1e6 / duration_time / 1e3",
 +        "MetricGroup": "HPC;Mem;MemoryBW;SoC;tma_issueBW",
 +        "MetricName": "tma_info_dram_bw_use",
 +        "PublicDescription": "Average external Memory Bandwidth Use for reads and writes [GB / sec]. Related metrics: tma_mem_bandwidth"
@@ -757,11 +787,11 @@ index cb1420df3768..e8f4e5c01c9f 100644
 -        "MetricExpr": "Turbo_Utilization * TSC / 1e9 / duration_time",
 -        "MetricGroup": "Power;Summary",
 -        "MetricName": "Average_Frequency"
-+        "BriefDescription": "Average number of parallel data read requests to external memory",
-+        "MetricExpr": "UNC_C_TOR_OCCUPANCY.MISS_OPCODE@filter_opc\\=0x182@ / UNC_C_TOR_OCCUPANCY.MISS_OPCODE@filter_opc\\=0x182\\,thresh\\=1@",
-+        "MetricGroup": "Mem;MemoryBW;SoC",
-+        "MetricName": "tma_info_mem_parallel_reads",
-+        "PublicDescription": "Average number of parallel data read requests to external memory. Accounts for demand loads and L1/L2 prefetches"
++        "BriefDescription": "Average number of parallel requests to external memory",
++        "MetricExpr": "UNC_ARB_TRK_OCCUPANCY.ALL / UNC_ARB_TRK_OCCUPANCY.CYCLES_WITH_ANY_REQUEST",
++        "MetricGroup": "Mem;SoC",
++        "MetricName": "tma_info_mem_parallel_requests",
++        "PublicDescription": "Average number of parallel requests to external memory. Accounts for all requests"
      },
      {
 -        "BriefDescription": "Giga Floating Point Operations Per Second",
@@ -769,11 +799,10 @@ index cb1420df3768..e8f4e5c01c9f 100644
 -        "MetricGroup": "Cor;Flops;HPC",
 -        "MetricName": "GFLOPs",
 -        "PublicDescription": "Giga Floating Point Operations Per Second. Aggregate across all supported options of: FP precisions, scalar and vector instructions, vector-width and AMX engine."
-+        "BriefDescription": "Average latency of data read request to external memory (in nanoseconds)",
-+        "MetricExpr": "1e9 * (UNC_C_TOR_OCCUPANCY.MISS_OPCODE@filter_opc\\=0x182@ / UNC_C_TOR_INSERTS.MISS_OPCODE@filter_opc\\=0x182@) / (tma_info_socket_clks / duration_time)",
-+        "MetricGroup": "Mem;MemoryLat;SoC",
-+        "MetricName": "tma_info_mem_read_latency",
-+        "PublicDescription": "Average latency of data read request to external memory (in nanoseconds). Accounts for demand loads and L1/L2 prefetches. ([RKL+]memory-controller only)"
++        "BriefDescription": "Average latency of all requests to external memory (in Uncore cycles)",
++        "MetricExpr": "UNC_ARB_TRK_OCCUPANCY.ALL / UNC_ARB_TRK_REQUESTS.ALL",
++        "MetricGroup": "Mem;SoC",
++        "MetricName": "tma_info_mem_request_latency"
      },
      {
 -        "BriefDescription": "Average Frequency Utilization relative nominal frequency",
@@ -804,7 +833,7 @@ index cb1420df3768..e8f4e5c01c9f 100644
 -        "MetricGroup": "OS",
 -        "MetricName": "Kernel_Utilization"
 +        "BriefDescription": "Socket actual clocks when any core is active on that socket",
-+        "MetricExpr": "cbox_0@event\\=0x0@",
++        "MetricExpr": "UNC_CLOCK.SOCKET",
 +        "MetricGroup": "SoC",
 +        "MetricName": "tma_info_socket_clks"
      },
@@ -820,7 +849,7 @@ index cb1420df3768..e8f4e5c01c9f 100644
      },
      {
 -        "BriefDescription": "Average external Memory Bandwidth Use for reads and writes [GB / sec]",
--        "MetricExpr": "64 * (UNC_M_CAS_COUNT.RD + UNC_M_CAS_COUNT.WR) / 1e9 / duration_time",
+-        "MetricExpr": "64 * (UNC_ARB_TRK_REQUESTS.ALL + UNC_ARB_COH_TRK_REQUESTS.ALL) / 1e6 / duration_time / 1e3",
 -        "MetricGroup": "HPC;Mem;MemoryBW;SoC",
 -        "MetricName": "DRAM_BW_Use"
 +        "BriefDescription": "Uops Per Instruction",
@@ -830,10 +859,10 @@ index cb1420df3768..e8f4e5c01c9f 100644
 +        "MetricThreshold": "tma_info_uoppi > 1.05"
      },
      {
--        "BriefDescription": "Average latency of data read request to external memory (in nanoseconds). Accounts for demand loads and L1/L2 prefetches",
--        "MetricExpr": "1e9 * (UNC_C_TOR_OCCUPANCY.MISS_OPCODE@filter_opc\\=0x182@ / UNC_C_TOR_INSERTS.MISS_OPCODE@filter_opc\\=0x182@) / (Socket_CLKS / duration_time)",
--        "MetricGroup": "Mem;MemoryLat;SoC",
--        "MetricName": "MEM_Read_Latency"
+-        "BriefDescription": "Average latency of all requests to external memory (in Uncore cycles)",
+-        "MetricExpr": "MEM_Parallel_Requests",
+-        "MetricGroup": "Mem;SoC",
+-        "MetricName": "MEM_Request_Latency"
 +        "BriefDescription": "This metric represents fraction of cycles the CPU was stalled due to Instruction TLB (ITLB) misses",
 +        "MetricExpr": "(12 * ITLB_MISSES.STLB_HIT + ITLB_MISSES.WALK_DURATION) / tma_info_clks",
 +        "MetricGroup": "BigFoot;FetchLat;MemoryTLB;TopdownL3;tma_L3_group;tma_fetch_latency_group",
@@ -843,13 +872,13 @@ index cb1420df3768..e8f4e5c01c9f 100644
 +        "ScaleUnit": "100%"
      },
      {
--        "BriefDescription": "Average number of parallel data read requests to external memory. Accounts for demand loads and L1/L2 prefetches",
--        "MetricExpr": "UNC_C_TOR_OCCUPANCY.MISS_OPCODE@filter_opc\\=0x182@ / UNC_C_TOR_OCCUPANCY.MISS_OPCODE@filter_opc\\=0x182\\,thresh\\=1@",
--        "MetricGroup": "Mem;MemoryBW;SoC",
--        "MetricName": "MEM_Parallel_Reads"
+-        "BriefDescription": "Average number of parallel requests to external memory. Accounts for all requests",
+-        "MetricExpr": "UNC_ARB_TRK_OCCUPANCY.ALL / UNC_ARB_TRK_REQUESTS.ALL",
+-        "MetricGroup": "Mem;SoC",
+-        "MetricName": "MEM_Parallel_Requests"
 +        "BriefDescription": "This metric estimates how often the CPU was stalled due to loads accesses to L3 cache or contended with a sibling Core",
 +        "MetricConstraint": "NO_GROUP_EVENTS_SMT",
-+        "MetricExpr": "MEM_LOAD_UOPS_RETIRED.LLC_HIT / (MEM_LOAD_UOPS_RETIRED.LLC_HIT + 7 * MEM_LOAD_UOPS_RETIRED.LLC_MISS) * CYCLE_ACTIVITY.STALLS_L2_PENDING / tma_info_clks",
++        "MetricExpr": "MEM_LOAD_UOPS_RETIRED.LLC_HIT / (MEM_LOAD_UOPS_RETIRED.LLC_HIT + 7 * MEM_LOAD_UOPS_MISC_RETIRED.LLC_MISS) * CYCLE_ACTIVITY.STALLS_L2_PENDING / tma_info_clks",
 +        "MetricGroup": "CacheMisses;MemoryBound;TmaL3mem;TopdownL3;tma_L3_group;tma_memory_bound_group",
 +        "MetricName": "tma_l3_bound",
 +        "MetricThreshold": "tma_l3_bound > 0.05 & (tma_memory_bound > 0.2 & tma_backend_bound > 0.2)",
@@ -858,7 +887,7 @@ index cb1420df3768..e8f4e5c01c9f 100644
      },
      {
 -        "BriefDescription": "Socket actual clocks when any core is active on that socket",
--        "MetricExpr": "cbox_0@event\\=0x0@",
+-        "MetricExpr": "UNC_CLOCK.SOCKET",
 -        "MetricGroup": "SoC",
 -        "MetricName": "Socket_CLKS"
 +        "BriefDescription": "This metric represents fraction of cycles CPU was stalled due to Length Changing Prefixes (LCPs)",
@@ -1008,703 +1037,6 @@ index cb1420df3768..e8f4e5c01c9f 100644
          "ScaleUnit": "100%"
      }
  ]
-diff --git a/tools/perf/pmu-events/arch/x86/jaketown/pipeline.json b/tools/perf/pmu-events/arch/x86/jaketown/pipeline.json
-index 11d41ce8c922..85c04fe7632a 100644
---- a/tools/perf/pmu-events/arch/x86/jaketown/pipeline.json
-+++ b/tools/perf/pmu-events/arch/x86/jaketown/pipeline.json
-@@ -501,7 +501,7 @@
-         "BriefDescription": "Cases when loads get true Block-on-Store blocking code preventing store forwarding.",
-         "EventCode": "0x03",
-         "EventName": "LD_BLOCKS.STORE_FORWARD",
--        "PublicDescription": "This event counts loads that followed a store to the same address, where the data could not be forwarded inside the pipeline from the store to the load.  The most common reason why store forwarding would be blocked is when a load's address range overlaps with a preceeding smaller uncompleted store.  See the table of not supported store forwards in the Intel? 64 and IA-32 Architectures Optimization Reference Manual.  The penalty for blocked store forwarding is that the load must wait for the store to complete before it can be issued.",
-+        "PublicDescription": "This event counts loads that followed a store to the same address, where the data could not be forwarded inside the pipeline from the store to the load.  The most common reason why store forwarding would be blocked is when a load's address range overlaps with a preceding smaller uncompleted store.  See the table of not supported store forwards in the Intel? 64 and IA-32 Architectures Optimization Reference Manual.  The penalty for blocked store forwarding is that the load must wait for the store to complete before it can be issued.",
-         "SampleAfterValue": "100003",
-         "UMask": "0x2"
-     },
-diff --git a/tools/perf/pmu-events/arch/x86/jaketown/uncore-cache.json b/tools/perf/pmu-events/arch/x86/jaketown/uncore-cache.json
-index b9e68f9f33ea..47830ca5c682 100644
---- a/tools/perf/pmu-events/arch/x86/jaketown/uncore-cache.json
-+++ b/tools/perf/pmu-events/arch/x86/jaketown/uncore-cache.json
-@@ -572,7 +572,7 @@
-         "EventCode": "0x35",
-         "EventName": "UNC_C_TOR_INSERTS.EVICTION",
-         "PerPkg": "1",
--        "PublicDescription": "Counts the number of entries successfuly inserted into the TOR that match  qualifications specified by the subevent.  There are a number of subevent 'filters' but only a subset of the subevent combinations are valid.  Subevents that require an opcode or NID match require the Cn_MSR_PMON_BOX_FILTER.{opc, nid} field to be set.  If, for example, one wanted to count DRD Local Misses, one should select 'MISS_OPC_MATCH' and set Cn_MSR_PMON_BOX_FILTER.opc  to DRD (0x182).",
-+        "PublicDescription": "Counts the number of entries successfully inserted into the TOR that match  qualifications specified by the subevent.  There are a number of subevent 'filters' but only a subset of the subevent combinations are valid.  Subevents that require an opcode or NID match require the Cn_MSR_PMON_BOX_FILTER.{opc, nid} field to be set.  If, for example, one wanted to count DRD Local Misses, one should select 'MISS_OPC_MATCH' and set Cn_MSR_PMON_BOX_FILTER.opc  to DRD (0x182).",
-         "UMask": "0x4",
-         "Unit": "CBO"
-     },
-@@ -581,7 +581,7 @@
-         "EventCode": "0x35",
-         "EventName": "UNC_C_TOR_INSERTS.MISS_ALL",
-         "PerPkg": "1",
--        "PublicDescription": "Counts the number of entries successfuly inserted into the TOR that match  qualifications specified by the subevent.  There are a number of subevent 'filters' but only a subset of the subevent combinations are valid.  Subevents that require an opcode or NID match require the Cn_MSR_PMON_BOX_FILTER.{opc, nid} field to be set.  If, for example, one wanted to count DRD Local Misses, one should select 'MISS_OPC_MATCH' and set Cn_MSR_PMON_BOX_FILTER.opc  to DRD (0x182).",
-+        "PublicDescription": "Counts the number of entries successfully inserted into the TOR that match  qualifications specified by the subevent.  There are a number of subevent 'filters' but only a subset of the subevent combinations are valid.  Subevents that require an opcode or NID match require the Cn_MSR_PMON_BOX_FILTER.{opc, nid} field to be set.  If, for example, one wanted to count DRD Local Misses, one should select 'MISS_OPC_MATCH' and set Cn_MSR_PMON_BOX_FILTER.opc  to DRD (0x182).",
-         "UMask": "0xa",
-         "Unit": "CBO"
-     },
-@@ -590,7 +590,7 @@
-         "EventCode": "0x35",
-         "EventName": "UNC_C_TOR_INSERTS.MISS_OPCODE",
-         "PerPkg": "1",
--        "PublicDescription": "Counts the number of entries successfuly inserted into the TOR that match  qualifications specified by the subevent.  There are a number of subevent 'filters' but only a subset of the subevent combinations are valid.  Subevents that require an opcode or NID match require the Cn_MSR_PMON_BOX_FILTER.{opc, nid} field to be set.  If, for example, one wanted to count DRD Local Misses, one should select 'MISS_OPC_MATCH' and set Cn_MSR_PMON_BOX_FILTER.opc  to DRD (0x182).",
-+        "PublicDescription": "Counts the number of entries successfully inserted into the TOR that match  qualifications specified by the subevent.  There are a number of subevent 'filters' but only a subset of the subevent combinations are valid.  Subevents that require an opcode or NID match require the Cn_MSR_PMON_BOX_FILTER.{opc, nid} field to be set.  If, for example, one wanted to count DRD Local Misses, one should select 'MISS_OPC_MATCH' and set Cn_MSR_PMON_BOX_FILTER.opc  to DRD (0x182).",
-         "UMask": "0x3",
-         "Unit": "CBO"
-     },
-@@ -599,7 +599,7 @@
-         "EventCode": "0x35",
-         "EventName": "UNC_C_TOR_INSERTS.NID_ALL",
-         "PerPkg": "1",
--        "PublicDescription": "Counts the number of entries successfuly inserted into the TOR that match  qualifications specified by the subevent.  There are a number of subevent 'filters' but only a subset of the subevent combinations are valid.  Subevents that require an opcode or NID match require the Cn_MSR_PMON_BOX_FILTER.{opc, nid} field to be set.  If, for example, one wanted to count DRD Local Misses, one should select 'MISS_OPC_MATCH' and set Cn_MSR_PMON_BOX_FILTER.opc  to DRD (0x182).",
-+        "PublicDescription": "Counts the number of entries successfully inserted into the TOR that match  qualifications specified by the subevent.  There are a number of subevent 'filters' but only a subset of the subevent combinations are valid.  Subevents that require an opcode or NID match require the Cn_MSR_PMON_BOX_FILTER.{opc, nid} field to be set.  If, for example, one wanted to count DRD Local Misses, one should select 'MISS_OPC_MATCH' and set Cn_MSR_PMON_BOX_FILTER.opc  to DRD (0x182).",
-         "UMask": "0x48",
-         "Unit": "CBO"
-     },
-@@ -608,7 +608,7 @@
-         "EventCode": "0x35",
-         "EventName": "UNC_C_TOR_INSERTS.NID_EVICTION",
-         "PerPkg": "1",
--        "PublicDescription": "Counts the number of entries successfuly inserted into the TOR that match  qualifications specified by the subevent.  There are a number of subevent 'filters' but only a subset of the subevent combinations are valid.  Subevents that require an opcode or NID match require the Cn_MSR_PMON_BOX_FILTER.{opc, nid} field to be set.  If, for example, one wanted to count DRD Local Misses, one should select 'MISS_OPC_MATCH' and set Cn_MSR_PMON_BOX_FILTER.opc  to DRD (0x182).",
-+        "PublicDescription": "Counts the number of entries successfully inserted into the TOR that match  qualifications specified by the subevent.  There are a number of subevent 'filters' but only a subset of the subevent combinations are valid.  Subevents that require an opcode or NID match require the Cn_MSR_PMON_BOX_FILTER.{opc, nid} field to be set.  If, for example, one wanted to count DRD Local Misses, one should select 'MISS_OPC_MATCH' and set Cn_MSR_PMON_BOX_FILTER.opc  to DRD (0x182).",
-         "UMask": "0x44",
-         "Unit": "CBO"
-     },
-@@ -617,7 +617,7 @@
-         "EventCode": "0x35",
-         "EventName": "UNC_C_TOR_INSERTS.NID_MISS_ALL",
-         "PerPkg": "1",
--        "PublicDescription": "Counts the number of entries successfuly inserted into the TOR that match  qualifications specified by the subevent.  There are a number of subevent 'filters' but only a subset of the subevent combinations are valid.  Subevents that require an opcode or NID match require the Cn_MSR_PMON_BOX_FILTER.{opc, nid} field to be set.  If, for example, one wanted to count DRD Local Misses, one should select 'MISS_OPC_MATCH' and set Cn_MSR_PMON_BOX_FILTER.opc  to DRD (0x182).",
-+        "PublicDescription": "Counts the number of entries successfully inserted into the TOR that match  qualifications specified by the subevent.  There are a number of subevent 'filters' but only a subset of the subevent combinations are valid.  Subevents that require an opcode or NID match require the Cn_MSR_PMON_BOX_FILTER.{opc, nid} field to be set.  If, for example, one wanted to count DRD Local Misses, one should select 'MISS_OPC_MATCH' and set Cn_MSR_PMON_BOX_FILTER.opc  to DRD (0x182).",
-         "UMask": "0x4a",
-         "Unit": "CBO"
-     },
-@@ -626,7 +626,7 @@
-         "EventCode": "0x35",
-         "EventName": "UNC_C_TOR_INSERTS.NID_MISS_OPCODE",
-         "PerPkg": "1",
--        "PublicDescription": "Counts the number of entries successfuly inserted into the TOR that match  qualifications specified by the subevent.  There are a number of subevent 'filters' but only a subset of the subevent combinations are valid.  Subevents that require an opcode or NID match require the Cn_MSR_PMON_BOX_FILTER.{opc, nid} field to be set.  If, for example, one wanted to count DRD Local Misses, one should select 'MISS_OPC_MATCH' and set Cn_MSR_PMON_BOX_FILTER.opc  to DRD (0x182).",
-+        "PublicDescription": "Counts the number of entries successfully inserted into the TOR that match  qualifications specified by the subevent.  There are a number of subevent 'filters' but only a subset of the subevent combinations are valid.  Subevents that require an opcode or NID match require the Cn_MSR_PMON_BOX_FILTER.{opc, nid} field to be set.  If, for example, one wanted to count DRD Local Misses, one should select 'MISS_OPC_MATCH' and set Cn_MSR_PMON_BOX_FILTER.opc  to DRD (0x182).",
-         "UMask": "0x43",
-         "Unit": "CBO"
-     },
-@@ -635,7 +635,7 @@
-         "EventCode": "0x35",
-         "EventName": "UNC_C_TOR_INSERTS.NID_OPCODE",
-         "PerPkg": "1",
--        "PublicDescription": "Counts the number of entries successfuly inserted into the TOR that match  qualifications specified by the subevent.  There are a number of subevent 'filters' but only a subset of the subevent combinations are valid.  Subevents that require an opcode or NID match require the Cn_MSR_PMON_BOX_FILTER.{opc, nid} field to be set.  If, for example, one wanted to count DRD Local Misses, one should select 'MISS_OPC_MATCH' and set Cn_MSR_PMON_BOX_FILTER.opc  to DRD (0x182).",
-+        "PublicDescription": "Counts the number of entries successfully inserted into the TOR that match  qualifications specified by the subevent.  There are a number of subevent 'filters' but only a subset of the subevent combinations are valid.  Subevents that require an opcode or NID match require the Cn_MSR_PMON_BOX_FILTER.{opc, nid} field to be set.  If, for example, one wanted to count DRD Local Misses, one should select 'MISS_OPC_MATCH' and set Cn_MSR_PMON_BOX_FILTER.opc  to DRD (0x182).",
-         "UMask": "0x41",
-         "Unit": "CBO"
-     },
-@@ -644,7 +644,7 @@
-         "EventCode": "0x35",
-         "EventName": "UNC_C_TOR_INSERTS.NID_WB",
-         "PerPkg": "1",
--        "PublicDescription": "Counts the number of entries successfuly inserted into the TOR that match  qualifications specified by the subevent.  There are a number of subevent 'filters' but only a subset of the subevent combinations are valid.  Subevents that require an opcode or NID match require the Cn_MSR_PMON_BOX_FILTER.{opc, nid} field to be set.  If, for example, one wanted to count DRD Local Misses, one should select 'MISS_OPC_MATCH' and set Cn_MSR_PMON_BOX_FILTER.opc  to DRD (0x182).",
-+        "PublicDescription": "Counts the number of entries successfully inserted into the TOR that match  qualifications specified by the subevent.  There are a number of subevent 'filters' but only a subset of the subevent combinations are valid.  Subevents that require an opcode or NID match require the Cn_MSR_PMON_BOX_FILTER.{opc, nid} field to be set.  If, for example, one wanted to count DRD Local Misses, one should select 'MISS_OPC_MATCH' and set Cn_MSR_PMON_BOX_FILTER.opc  to DRD (0x182).",
-         "UMask": "0x50",
-         "Unit": "CBO"
-     },
-@@ -653,7 +653,7 @@
-         "EventCode": "0x35",
-         "EventName": "UNC_C_TOR_INSERTS.OPCODE",
-         "PerPkg": "1",
--        "PublicDescription": "Counts the number of entries successfuly inserted into the TOR that match  qualifications specified by the subevent.  There are a number of subevent 'filters' but only a subset of the subevent combinations are valid.  Subevents that require an opcode or NID match require the Cn_MSR_PMON_BOX_FILTER.{opc, nid} field to be set.  If, for example, one wanted to count DRD Local Misses, one should select 'MISS_OPC_MATCH' and set Cn_MSR_PMON_BOX_FILTER.opc  to DRD (0x182).",
-+        "PublicDescription": "Counts the number of entries successfully inserted into the TOR that match  qualifications specified by the subevent.  There are a number of subevent 'filters' but only a subset of the subevent combinations are valid.  Subevents that require an opcode or NID match require the Cn_MSR_PMON_BOX_FILTER.{opc, nid} field to be set.  If, for example, one wanted to count DRD Local Misses, one should select 'MISS_OPC_MATCH' and set Cn_MSR_PMON_BOX_FILTER.opc  to DRD (0x182).",
-         "UMask": "0x1",
-         "Unit": "CBO"
-     },
-@@ -662,7 +662,7 @@
-         "EventCode": "0x35",
-         "EventName": "UNC_C_TOR_INSERTS.WB",
-         "PerPkg": "1",
--        "PublicDescription": "Counts the number of entries successfuly inserted into the TOR that match  qualifications specified by the subevent.  There are a number of subevent 'filters' but only a subset of the subevent combinations are valid.  Subevents that require an opcode or NID match require the Cn_MSR_PMON_BOX_FILTER.{opc, nid} field to be set.  If, for example, one wanted to count DRD Local Misses, one should select 'MISS_OPC_MATCH' and set Cn_MSR_PMON_BOX_FILTER.opc  to DRD (0x182).",
-+        "PublicDescription": "Counts the number of entries successfully inserted into the TOR that match  qualifications specified by the subevent.  There are a number of subevent 'filters' but only a subset of the subevent combinations are valid.  Subevents that require an opcode or NID match require the Cn_MSR_PMON_BOX_FILTER.{opc, nid} field to be set.  If, for example, one wanted to count DRD Local Misses, one should select 'MISS_OPC_MATCH' and set Cn_MSR_PMON_BOX_FILTER.opc  to DRD (0x182).",
-         "UMask": "0x10",
-         "Unit": "CBO"
-     },
-diff --git a/tools/perf/pmu-events/arch/x86/jaketown/uncore-interconnect.json b/tools/perf/pmu-events/arch/x86/jaketown/uncore-interconnect.json
-index 1c2cf94889a1..b16bb649225d 100644
---- a/tools/perf/pmu-events/arch/x86/jaketown/uncore-interconnect.json
-+++ b/tools/perf/pmu-events/arch/x86/jaketown/uncore-interconnect.json
-@@ -20,7 +20,7 @@
-         "EventCode": "0x13",
-         "EventName": "UNC_Q_DIRECT2CORE.FAILURE_CREDITS",
-         "PerPkg": "1",
--        "PublicDescription": "Counts the number of DRS packets that we attempted to do direct2core on.  There are 4 mutually exlusive filters.  Filter [0] can be used to get successful spawns, while [1:3] provide the different failure cases.  Note that this does not count packets that are not candidates for Direct2Core.  The only candidates for Direct2Core are DRS packets destined for Cbos.",
-+        "PublicDescription": "Counts the number of DRS packets that we attempted to do direct2core on.  There are 4 mutually exclusive filters.  Filter [0] can be used to get successful spawns, while [1:3] provide the different failure cases.  Note that this does not count packets that are not candidates for Direct2Core.  The only candidates for Direct2Core are DRS packets destined for Cbos.",
-         "UMask": "0x2",
-         "Unit": "QPI LL"
-     },
-@@ -29,7 +29,7 @@
-         "EventCode": "0x13",
-         "EventName": "UNC_Q_DIRECT2CORE.FAILURE_CREDITS_RBT",
-         "PerPkg": "1",
--        "PublicDescription": "Counts the number of DRS packets that we attempted to do direct2core on.  There are 4 mutually exlusive filters.  Filter [0] can be used to get successful spawns, while [1:3] provide the different failure cases.  Note that this does not count packets that are not candidates for Direct2Core.  The only candidates for Direct2Core are DRS packets destined for Cbos.",
-+        "PublicDescription": "Counts the number of DRS packets that we attempted to do direct2core on.  There are 4 mutually exclusive filters.  Filter [0] can be used to get successful spawns, while [1:3] provide the different failure cases.  Note that this does not count packets that are not candidates for Direct2Core.  The only candidates for Direct2Core are DRS packets destined for Cbos.",
-         "UMask": "0x8",
-         "Unit": "QPI LL"
-     },
-@@ -38,7 +38,7 @@
-         "EventCode": "0x13",
-         "EventName": "UNC_Q_DIRECT2CORE.FAILURE_RBT",
-         "PerPkg": "1",
--        "PublicDescription": "Counts the number of DRS packets that we attempted to do direct2core on.  There are 4 mutually exlusive filters.  Filter [0] can be used to get successful spawns, while [1:3] provide the different failure cases.  Note that this does not count packets that are not candidates for Direct2Core.  The only candidates for Direct2Core are DRS packets destined for Cbos.",
-+        "PublicDescription": "Counts the number of DRS packets that we attempted to do direct2core on.  There are 4 mutually exclusive filters.  Filter [0] can be used to get successful spawns, while [1:3] provide the different failure cases.  Note that this does not count packets that are not candidates for Direct2Core.  The only candidates for Direct2Core are DRS packets destined for Cbos.",
-         "UMask": "0x4",
-         "Unit": "QPI LL"
-     },
-@@ -47,7 +47,7 @@
-         "EventCode": "0x13",
-         "EventName": "UNC_Q_DIRECT2CORE.SUCCESS",
-         "PerPkg": "1",
--        "PublicDescription": "Counts the number of DRS packets that we attempted to do direct2core on.  There are 4 mutually exlusive filters.  Filter [0] can be used to get successful spawns, while [1:3] provide the different failure cases.  Note that this does not count packets that are not candidates for Direct2Core.  The only candidates for Direct2Core are DRS packets destined for Cbos.",
-+        "PublicDescription": "Counts the number of DRS packets that we attempted to do direct2core on.  There are 4 mutually exclusive filters.  Filter [0] can be used to get successful spawns, while [1:3] provide the different failure cases.  Note that this does not count packets that are not candidates for Direct2Core.  The only candidates for Direct2Core are DRS packets destined for Cbos.",
-         "UMask": "0x1",
-         "Unit": "QPI LL"
-     },
-@@ -80,7 +80,7 @@
-         "EventCode": "0x9",
-         "EventName": "UNC_Q_RxL_BYPASSED",
-         "PerPkg": "1",
--        "PublicDescription": "Counts the number of times that an incoming flit was able to bypass the flit buffer and pass directly across the BGF and into the Egress.  This is a latency optimization, and should generally be the common case.  If this value is less than the number of flits transfered, it implies that there was queueing getting onto the ring, and thus the transactions saw higher latency.",
-+        "PublicDescription": "Counts the number of times that an incoming flit was able to bypass the flit buffer and pass directly across the BGF and into the Egress.  This is a latency optimization, and should generally be the common case.  If this value is less than the number of flits transferred, it implies that there was queueing getting onto the ring, and thus the transactions saw higher latency.",
-         "Unit": "QPI LL"
-     },
-     {
-@@ -176,7 +176,7 @@
-         "EventCode": "0x1",
-         "EventName": "UNC_Q_RxL_FLITS_G0.DATA",
-         "PerPkg": "1",
--        "PublicDescription": "Counts the number of flits received from the QPI Link.  It includes filters for Idle, protocol, and Data Flits.  Each 'flit' is made up of 80 bits of information (in addition to some ECC data).  In full-width (L0) mode, flits are made up of four 'fits', each of which contains 20 bits of data (along with some additional ECC data).   In half-width (L0p) mode, the fits are only 10 bits, and therefore it takes twice as many fits to transmit a flit.  When one talks about QPI 'speed' (for example, 8.0 GT/s), the 'transfers' here refer to 'fits'.  Therefore, in L0, the system will transfer 1 'flit' at the rate of 1/4th the QPI speed.  One can calculate the bandwidth of the link by taking: flits*80b/time.  Note that this is not the same as 'data' bandwidth.  For example, when we are transfering a 64B cacheline across QPI, we will break it into 9 flits -- 1 with header information and 8 with 64 bits of actual 'data' and an additional 16 bits of other information
- .  To calculate 'data' bandwidth, one should therefore do: data flits * 8B / time (for L0) or 4B instead of 8B for L0p.",
-+        "PublicDescription": "Counts the number of flits received from the QPI Link.  It includes filters for Idle, protocol, and Data Flits.  Each 'flit' is made up of 80 bits of information (in addition to some ECC data).  In full-width (L0) mode, flits are made up of four 'fits', each of which contains 20 bits of data (along with some additional ECC data).   In half-width (L0p) mode, the fits are only 10 bits, and therefore it takes twice as many fits to transmit a flit.  When one talks about QPI 'speed' (for example, 8.0 GT/s), the 'transfers' here refer to 'fits'.  Therefore, in L0, the system will transfer 1 'flit' at the rate of 1/4th the QPI speed.  One can calculate the bandwidth of the link by taking: flits*80b/time.  Note that this is not the same as 'data' bandwidth.  For example, when we are transferring a 64B cacheline across QPI, we will break it into 9 flits -- 1 with header information and 8 with 64 bits of actual 'data' and an additional 16 bits of other informatio
- n.  To calculate 'data' bandwidth, one should therefore do: data flits * 8B / time (for L0) or 4B instead of 8B for L0p.",
-         "UMask": "0x2",
-         "Unit": "QPI LL"
-     },
-@@ -185,7 +185,7 @@
-         "EventCode": "0x1",
-         "EventName": "UNC_Q_RxL_FLITS_G0.IDLE",
-         "PerPkg": "1",
--        "PublicDescription": "Counts the number of flits received from the QPI Link.  It includes filters for Idle, protocol, and Data Flits.  Each 'flit' is made up of 80 bits of information (in addition to some ECC data).  In full-width (L0) mode, flits are made up of four 'fits', each of which contains 20 bits of data (along with some additional ECC data).   In half-width (L0p) mode, the fits are only 10 bits, and therefore it takes twice as many fits to transmit a flit.  When one talks about QPI 'speed' (for example, 8.0 GT/s), the 'transfers' here refer to 'fits'.  Therefore, in L0, the system will transfer 1 'flit' at the rate of 1/4th the QPI speed.  One can calculate the bandwidth of the link by taking: flits*80b/time.  Note that this is not the same as 'data' bandwidth.  For example, when we are transfering a 64B cacheline across QPI, we will break it into 9 flits -- 1 with header information and 8 with 64 bits of actual 'data' and an additional 16 bits of other information
- .  To calculate 'data' bandwidth, one should therefore do: data flits * 8B / time (for L0) or 4B instead of 8B for L0p.",
-+        "PublicDescription": "Counts the number of flits received from the QPI Link.  It includes filters for Idle, protocol, and Data Flits.  Each 'flit' is made up of 80 bits of information (in addition to some ECC data).  In full-width (L0) mode, flits are made up of four 'fits', each of which contains 20 bits of data (along with some additional ECC data).   In half-width (L0p) mode, the fits are only 10 bits, and therefore it takes twice as many fits to transmit a flit.  When one talks about QPI 'speed' (for example, 8.0 GT/s), the 'transfers' here refer to 'fits'.  Therefore, in L0, the system will transfer 1 'flit' at the rate of 1/4th the QPI speed.  One can calculate the bandwidth of the link by taking: flits*80b/time.  Note that this is not the same as 'data' bandwidth.  For example, when we are transferring a 64B cacheline across QPI, we will break it into 9 flits -- 1 with header information and 8 with 64 bits of actual 'data' and an additional 16 bits of other informatio
- n.  To calculate 'data' bandwidth, one should therefore do: data flits * 8B / time (for L0) or 4B instead of 8B for L0p.",
-         "UMask": "0x1",
-         "Unit": "QPI LL"
-     },
-@@ -194,7 +194,7 @@
-         "EventCode": "0x1",
-         "EventName": "UNC_Q_RxL_FLITS_G0.NON_DATA",
-         "PerPkg": "1",
--        "PublicDescription": "Counts the number of flits received from the QPI Link.  It includes filters for Idle, protocol, and Data Flits.  Each 'flit' is made up of 80 bits of information (in addition to some ECC data).  In full-width (L0) mode, flits are made up of four 'fits', each of which contains 20 bits of data (along with some additional ECC data).   In half-width (L0p) mode, the fits are only 10 bits, and therefore it takes twice as many fits to transmit a flit.  When one talks about QPI 'speed' (for example, 8.0 GT/s), the 'transfers' here refer to 'fits'.  Therefore, in L0, the system will transfer 1 'flit' at the rate of 1/4th the QPI speed.  One can calculate the bandwidth of the link by taking: flits*80b/time.  Note that this is not the same as 'data' bandwidth.  For example, when we are transfering a 64B cacheline across QPI, we will break it into 9 flits -- 1 with header information and 8 with 64 bits of actual 'data' and an additional 16 bits of other information
- .  To calculate 'data' bandwidth, one should therefore do: data flits * 8B / time (for L0) or 4B instead of 8B for L0p.",
-+        "PublicDescription": "Counts the number of flits received from the QPI Link.  It includes filters for Idle, protocol, and Data Flits.  Each 'flit' is made up of 80 bits of information (in addition to some ECC data).  In full-width (L0) mode, flits are made up of four 'fits', each of which contains 20 bits of data (along with some additional ECC data).   In half-width (L0p) mode, the fits are only 10 bits, and therefore it takes twice as many fits to transmit a flit.  When one talks about QPI 'speed' (for example, 8.0 GT/s), the 'transfers' here refer to 'fits'.  Therefore, in L0, the system will transfer 1 'flit' at the rate of 1/4th the QPI speed.  One can calculate the bandwidth of the link by taking: flits*80b/time.  Note that this is not the same as 'data' bandwidth.  For example, when we are transferring a 64B cacheline across QPI, we will break it into 9 flits -- 1 with header information and 8 with 64 bits of actual 'data' and an additional 16 bits of other informatio
- n.  To calculate 'data' bandwidth, one should therefore do: data flits * 8B / time (for L0) or 4B instead of 8B for L0p.",
-         "UMask": "0x4",
-         "Unit": "QPI LL"
-     },
-@@ -203,7 +203,7 @@
-         "EventCode": "0x2",
-         "EventName": "UNC_Q_RxL_FLITS_G1.DRS",
-         "PerPkg": "1",
--        "PublicDescription": "Counts the number of flits received from the QPI Link.  This is one of three 'groups' that allow us to track flits.  It includes filters for SNP, HOM, and DRS message classes.  Each 'flit' is made up of 80 bits of information (in addition to some ECC data).  In full-width (L0) mode, flits are made up of four 'fits', each of which contains 20 bits of data (along with some additional ECC data).   In half-width (L0p) mode, the fits are only 10 bits, and therefore it takes twice as many fits to transmit a flit.  When one talks about QPI 'speed' (for example, 8.0 GT/s), the 'transfers' here refer to 'fits'.  Therefore, in L0, the system will transfer 1 'flit' at the rate of 1/4th the QPI speed.  One can calculate the bandwidth of the link by taking: flits*80b/time.  Note that this is not the same as 'data' bandwidth.  For example, when we are transfering a 64B cacheline across QPI, we will break it into 9 flits -- 1 with header information and 8 with 64 bits
-  of actual 'data' and an additional 16 bits of other information.  To calculate 'data' bandwidth, one should therefore do: data flits * 8B / time.",
-+        "PublicDescription": "Counts the number of flits received from the QPI Link.  This is one of three 'groups' that allow us to track flits.  It includes filters for SNP, HOM, and DRS message classes.  Each 'flit' is made up of 80 bits of information (in addition to some ECC data).  In full-width (L0) mode, flits are made up of four 'fits', each of which contains 20 bits of data (along with some additional ECC data).   In half-width (L0p) mode, the fits are only 10 bits, and therefore it takes twice as many fits to transmit a flit.  When one talks about QPI 'speed' (for example, 8.0 GT/s), the 'transfers' here refer to 'fits'.  Therefore, in L0, the system will transfer 1 'flit' at the rate of 1/4th the QPI speed.  One can calculate the bandwidth of the link by taking: flits*80b/time.  Note that this is not the same as 'data' bandwidth.  For example, when we are transferring a 64B cacheline across QPI, we will break it into 9 flits -- 1 with header information and 8 with 64 bit
- s of actual 'data' and an additional 16 bits of other information.  To calculate 'data' bandwidth, one should therefore do: data flits * 8B / time.",
-         "UMask": "0x18",
-         "Unit": "QPI LL"
-     },
-@@ -212,7 +212,7 @@
-         "EventCode": "0x2",
-         "EventName": "UNC_Q_RxL_FLITS_G1.DRS_DATA",
-         "PerPkg": "1",
--        "PublicDescription": "Counts the number of flits received from the QPI Link.  This is one of three 'groups' that allow us to track flits.  It includes filters for SNP, HOM, and DRS message classes.  Each 'flit' is made up of 80 bits of information (in addition to some ECC data).  In full-width (L0) mode, flits are made up of four 'fits', each of which contains 20 bits of data (along with some additional ECC data).   In half-width (L0p) mode, the fits are only 10 bits, and therefore it takes twice as many fits to transmit a flit.  When one talks about QPI 'speed' (for example, 8.0 GT/s), the 'transfers' here refer to 'fits'.  Therefore, in L0, the system will transfer 1 'flit' at the rate of 1/4th the QPI speed.  One can calculate the bandwidth of the link by taking: flits*80b/time.  Note that this is not the same as 'data' bandwidth.  For example, when we are transfering a 64B cacheline across QPI, we will break it into 9 flits -- 1 with header information and 8 with 64 bits
-  of actual 'data' and an additional 16 bits of other information.  To calculate 'data' bandwidth, one should therefore do: data flits * 8B / time.",
-+        "PublicDescription": "Counts the number of flits received from the QPI Link.  This is one of three 'groups' that allow us to track flits.  It includes filters for SNP, HOM, and DRS message classes.  Each 'flit' is made up of 80 bits of information (in addition to some ECC data).  In full-width (L0) mode, flits are made up of four 'fits', each of which contains 20 bits of data (along with some additional ECC data).   In half-width (L0p) mode, the fits are only 10 bits, and therefore it takes twice as many fits to transmit a flit.  When one talks about QPI 'speed' (for example, 8.0 GT/s), the 'transfers' here refer to 'fits'.  Therefore, in L0, the system will transfer 1 'flit' at the rate of 1/4th the QPI speed.  One can calculate the bandwidth of the link by taking: flits*80b/time.  Note that this is not the same as 'data' bandwidth.  For example, when we are transferring a 64B cacheline across QPI, we will break it into 9 flits -- 1 with header information and 8 with 64 bit
- s of actual 'data' and an additional 16 bits of other information.  To calculate 'data' bandwidth, one should therefore do: data flits * 8B / time.",
-         "UMask": "0x8",
-         "Unit": "QPI LL"
-     },
-@@ -221,7 +221,7 @@
-         "EventCode": "0x2",
-         "EventName": "UNC_Q_RxL_FLITS_G1.DRS_NONDATA",
-         "PerPkg": "1",
--        "PublicDescription": "Counts the number of flits received from the QPI Link.  This is one of three 'groups' that allow us to track flits.  It includes filters for SNP, HOM, and DRS message classes.  Each 'flit' is made up of 80 bits of information (in addition to some ECC data).  In full-width (L0) mode, flits are made up of four 'fits', each of which contains 20 bits of data (along with some additional ECC data).   In half-width (L0p) mode, the fits are only 10 bits, and therefore it takes twice as many fits to transmit a flit.  When one talks about QPI 'speed' (for example, 8.0 GT/s), the 'transfers' here refer to 'fits'.  Therefore, in L0, the system will transfer 1 'flit' at the rate of 1/4th the QPI speed.  One can calculate the bandwidth of the link by taking: flits*80b/time.  Note that this is not the same as 'data' bandwidth.  For example, when we are transfering a 64B cacheline across QPI, we will break it into 9 flits -- 1 with header information and 8 with 64 bits
-  of actual 'data' and an additional 16 bits of other information.  To calculate 'data' bandwidth, one should therefore do: data flits * 8B / time.",
-+        "PublicDescription": "Counts the number of flits received from the QPI Link.  This is one of three 'groups' that allow us to track flits.  It includes filters for SNP, HOM, and DRS message classes.  Each 'flit' is made up of 80 bits of information (in addition to some ECC data).  In full-width (L0) mode, flits are made up of four 'fits', each of which contains 20 bits of data (along with some additional ECC data).   In half-width (L0p) mode, the fits are only 10 bits, and therefore it takes twice as many fits to transmit a flit.  When one talks about QPI 'speed' (for example, 8.0 GT/s), the 'transfers' here refer to 'fits'.  Therefore, in L0, the system will transfer 1 'flit' at the rate of 1/4th the QPI speed.  One can calculate the bandwidth of the link by taking: flits*80b/time.  Note that this is not the same as 'data' bandwidth.  For example, when we are transferring a 64B cacheline across QPI, we will break it into 9 flits -- 1 with header information and 8 with 64 bit
- s of actual 'data' and an additional 16 bits of other information.  To calculate 'data' bandwidth, one should therefore do: data flits * 8B / time.",
-         "UMask": "0x10",
-         "Unit": "QPI LL"
-     },
-@@ -230,7 +230,7 @@
-         "EventCode": "0x2",
-         "EventName": "UNC_Q_RxL_FLITS_G1.HOM",
-         "PerPkg": "1",
--        "PublicDescription": "Counts the number of flits received from the QPI Link.  This is one of three 'groups' that allow us to track flits.  It includes filters for SNP, HOM, and DRS message classes.  Each 'flit' is made up of 80 bits of information (in addition to some ECC data).  In full-width (L0) mode, flits are made up of four 'fits', each of which contains 20 bits of data (along with some additional ECC data).   In half-width (L0p) mode, the fits are only 10 bits, and therefore it takes twice as many fits to transmit a flit.  When one talks about QPI 'speed' (for example, 8.0 GT/s), the 'transfers' here refer to 'fits'.  Therefore, in L0, the system will transfer 1 'flit' at the rate of 1/4th the QPI speed.  One can calculate the bandwidth of the link by taking: flits*80b/time.  Note that this is not the same as 'data' bandwidth.  For example, when we are transfering a 64B cacheline across QPI, we will break it into 9 flits -- 1 with header information and 8 with 64 bits
-  of actual 'data' and an additional 16 bits of other information.  To calculate 'data' bandwidth, one should therefore do: data flits * 8B / time.",
-+        "PublicDescription": "Counts the number of flits received from the QPI Link.  This is one of three 'groups' that allow us to track flits.  It includes filters for SNP, HOM, and DRS message classes.  Each 'flit' is made up of 80 bits of information (in addition to some ECC data).  In full-width (L0) mode, flits are made up of four 'fits', each of which contains 20 bits of data (along with some additional ECC data).   In half-width (L0p) mode, the fits are only 10 bits, and therefore it takes twice as many fits to transmit a flit.  When one talks about QPI 'speed' (for example, 8.0 GT/s), the 'transfers' here refer to 'fits'.  Therefore, in L0, the system will transfer 1 'flit' at the rate of 1/4th the QPI speed.  One can calculate the bandwidth of the link by taking: flits*80b/time.  Note that this is not the same as 'data' bandwidth.  For example, when we are transferring a 64B cacheline across QPI, we will break it into 9 flits -- 1 with header information and 8 with 64 bit
- s of actual 'data' and an additional 16 bits of other information.  To calculate 'data' bandwidth, one should therefore do: data flits * 8B / time.",
-         "UMask": "0x6",
-         "Unit": "QPI LL"
-     },
-@@ -239,7 +239,7 @@
-         "EventCode": "0x2",
-         "EventName": "UNC_Q_RxL_FLITS_G1.HOM_NONREQ",
-         "PerPkg": "1",
--        "PublicDescription": "Counts the number of flits received from the QPI Link.  This is one of three 'groups' that allow us to track flits.  It includes filters for SNP, HOM, and DRS message classes.  Each 'flit' is made up of 80 bits of information (in addition to some ECC data).  In full-width (L0) mode, flits are made up of four 'fits', each of which contains 20 bits of data (along with some additional ECC data).   In half-width (L0p) mode, the fits are only 10 bits, and therefore it takes twice as many fits to transmit a flit.  When one talks about QPI 'speed' (for example, 8.0 GT/s), the 'transfers' here refer to 'fits'.  Therefore, in L0, the system will transfer 1 'flit' at the rate of 1/4th the QPI speed.  One can calculate the bandwidth of the link by taking: flits*80b/time.  Note that this is not the same as 'data' bandwidth.  For example, when we are transfering a 64B cacheline across QPI, we will break it into 9 flits -- 1 with header information and 8 with 64 bits
-  of actual 'data' and an additional 16 bits of other information.  To calculate 'data' bandwidth, one should therefore do: data flits * 8B / time.",
-+        "PublicDescription": "Counts the number of flits received from the QPI Link.  This is one of three 'groups' that allow us to track flits.  It includes filters for SNP, HOM, and DRS message classes.  Each 'flit' is made up of 80 bits of information (in addition to some ECC data).  In full-width (L0) mode, flits are made up of four 'fits', each of which contains 20 bits of data (along with some additional ECC data).   In half-width (L0p) mode, the fits are only 10 bits, and therefore it takes twice as many fits to transmit a flit.  When one talks about QPI 'speed' (for example, 8.0 GT/s), the 'transfers' here refer to 'fits'.  Therefore, in L0, the system will transfer 1 'flit' at the rate of 1/4th the QPI speed.  One can calculate the bandwidth of the link by taking: flits*80b/time.  Note that this is not the same as 'data' bandwidth.  For example, when we are transferring a 64B cacheline across QPI, we will break it into 9 flits -- 1 with header information and 8 with 64 bit
- s of actual 'data' and an additional 16 bits of other information.  To calculate 'data' bandwidth, one should therefore do: data flits * 8B / time.",
-         "UMask": "0x4",
-         "Unit": "QPI LL"
-     },
-@@ -248,7 +248,7 @@
-         "EventCode": "0x2",
-         "EventName": "UNC_Q_RxL_FLITS_G1.HOM_REQ",
-         "PerPkg": "1",
--        "PublicDescription": "Counts the number of flits received from the QPI Link.  This is one of three 'groups' that allow us to track flits.  It includes filters for SNP, HOM, and DRS message classes.  Each 'flit' is made up of 80 bits of information (in addition to some ECC data).  In full-width (L0) mode, flits are made up of four 'fits', each of which contains 20 bits of data (along with some additional ECC data).   In half-width (L0p) mode, the fits are only 10 bits, and therefore it takes twice as many fits to transmit a flit.  When one talks about QPI 'speed' (for example, 8.0 GT/s), the 'transfers' here refer to 'fits'.  Therefore, in L0, the system will transfer 1 'flit' at the rate of 1/4th the QPI speed.  One can calculate the bandwidth of the link by taking: flits*80b/time.  Note that this is not the same as 'data' bandwidth.  For example, when we are transfering a 64B cacheline across QPI, we will break it into 9 flits -- 1 with header information and 8 with 64 bits
-  of actual 'data' and an additional 16 bits of other information.  To calculate 'data' bandwidth, one should therefore do: data flits * 8B / time.",
-+        "PublicDescription": "Counts the number of flits received from the QPI Link.  This is one of three 'groups' that allow us to track flits.  It includes filters for SNP, HOM, and DRS message classes.  Each 'flit' is made up of 80 bits of information (in addition to some ECC data).  In full-width (L0) mode, flits are made up of four 'fits', each of which contains 20 bits of data (along with some additional ECC data).   In half-width (L0p) mode, the fits are only 10 bits, and therefore it takes twice as many fits to transmit a flit.  When one talks about QPI 'speed' (for example, 8.0 GT/s), the 'transfers' here refer to 'fits'.  Therefore, in L0, the system will transfer 1 'flit' at the rate of 1/4th the QPI speed.  One can calculate the bandwidth of the link by taking: flits*80b/time.  Note that this is not the same as 'data' bandwidth.  For example, when we are transferring a 64B cacheline across QPI, we will break it into 9 flits -- 1 with header information and 8 with 64 bit
- s of actual 'data' and an additional 16 bits of other information.  To calculate 'data' bandwidth, one should therefore do: data flits * 8B / time.",
-         "UMask": "0x2",
-         "Unit": "QPI LL"
-     },
-@@ -257,7 +257,7 @@
-         "EventCode": "0x2",
-         "EventName": "UNC_Q_RxL_FLITS_G1.SNP",
-         "PerPkg": "1",
--        "PublicDescription": "Counts the number of flits received from the QPI Link.  This is one of three 'groups' that allow us to track flits.  It includes filters for SNP, HOM, and DRS message classes.  Each 'flit' is made up of 80 bits of information (in addition to some ECC data).  In full-width (L0) mode, flits are made up of four 'fits', each of which contains 20 bits of data (along with some additional ECC data).   In half-width (L0p) mode, the fits are only 10 bits, and therefore it takes twice as many fits to transmit a flit.  When one talks about QPI 'speed' (for example, 8.0 GT/s), the 'transfers' here refer to 'fits'.  Therefore, in L0, the system will transfer 1 'flit' at the rate of 1/4th the QPI speed.  One can calculate the bandwidth of the link by taking: flits*80b/time.  Note that this is not the same as 'data' bandwidth.  For example, when we are transfering a 64B cacheline across QPI, we will break it into 9 flits -- 1 with header information and 8 with 64 bits
-  of actual 'data' and an additional 16 bits of other information.  To calculate 'data' bandwidth, one should therefore do: data flits * 8B / time.",
-+        "PublicDescription": "Counts the number of flits received from the QPI Link.  This is one of three 'groups' that allow us to track flits.  It includes filters for SNP, HOM, and DRS message classes.  Each 'flit' is made up of 80 bits of information (in addition to some ECC data).  In full-width (L0) mode, flits are made up of four 'fits', each of which contains 20 bits of data (along with some additional ECC data).   In half-width (L0p) mode, the fits are only 10 bits, and therefore it takes twice as many fits to transmit a flit.  When one talks about QPI 'speed' (for example, 8.0 GT/s), the 'transfers' here refer to 'fits'.  Therefore, in L0, the system will transfer 1 'flit' at the rate of 1/4th the QPI speed.  One can calculate the bandwidth of the link by taking: flits*80b/time.  Note that this is not the same as 'data' bandwidth.  For example, when we are transferring a 64B cacheline across QPI, we will break it into 9 flits -- 1 with header information and 8 with 64 bit
- s of actual 'data' and an additional 16 bits of other information.  To calculate 'data' bandwidth, one should therefore do: data flits * 8B / time.",
-         "UMask": "0x1",
-         "Unit": "QPI LL"
-     },
-@@ -266,7 +266,7 @@
-         "EventCode": "0x3",
-         "EventName": "UNC_Q_RxL_FLITS_G2.NCB",
-         "PerPkg": "1",
--        "PublicDescription": "Counts the number of flits received from the QPI Link.  This is one of three 'groups' that allow us to track flits.  It includes filters for NDR, NCB, and NCS message classes.  Each 'flit' is made up of 80 bits of information (in addition to some ECC data).  In full-width (L0) mode, flits are made up of four 'fits', each of which contains 20 bits of data (along with some additional ECC data).   In half-width (L0p) mode, the fits are only 10 bits, and therefore it takes twice as many fits to transmit a flit.  When one talks about QPI 'speed' (for example, 8.0 GT/s), the 'transfers' here refer to 'fits'.  Therefore, in L0, the system will transfer 1 'flit' at the rate of 1/4th the QPI speed.  One can calculate the bandwidth of the link by taking: flits*80b/time.  Note that this is not the same as 'data' bandwidth.  For example, when we are transfering a 64B cacheline across QPI, we will break it into 9 flits -- 1 with header information and 8 with 64 bits
-  of actual 'data' and an additional 16 bits of other information.  To calculate 'data' bandwidth, one should therefore do: data flits * 8B / time.",
-+        "PublicDescription": "Counts the number of flits received from the QPI Link.  This is one of three 'groups' that allow us to track flits.  It includes filters for NDR, NCB, and NCS message classes.  Each 'flit' is made up of 80 bits of information (in addition to some ECC data).  In full-width (L0) mode, flits are made up of four 'fits', each of which contains 20 bits of data (along with some additional ECC data).   In half-width (L0p) mode, the fits are only 10 bits, and therefore it takes twice as many fits to transmit a flit.  When one talks about QPI 'speed' (for example, 8.0 GT/s), the 'transfers' here refer to 'fits'.  Therefore, in L0, the system will transfer 1 'flit' at the rate of 1/4th the QPI speed.  One can calculate the bandwidth of the link by taking: flits*80b/time.  Note that this is not the same as 'data' bandwidth.  For example, when we are transferring a 64B cacheline across QPI, we will break it into 9 flits -- 1 with header information and 8 with 64 bit
- s of actual 'data' and an additional 16 bits of other information.  To calculate 'data' bandwidth, one should therefore do: data flits * 8B / time.",
-         "UMask": "0xc",
-         "Unit": "QPI LL"
-     },
-@@ -275,7 +275,7 @@
-         "EventCode": "0x3",
-         "EventName": "UNC_Q_RxL_FLITS_G2.NCB_DATA",
-         "PerPkg": "1",
--        "PublicDescription": "Counts the number of flits received from the QPI Link.  This is one of three 'groups' that allow us to track flits.  It includes filters for NDR, NCB, and NCS message classes.  Each 'flit' is made up of 80 bits of information (in addition to some ECC data).  In full-width (L0) mode, flits are made up of four 'fits', each of which contains 20 bits of data (along with some additional ECC data).   In half-width (L0p) mode, the fits are only 10 bits, and therefore it takes twice as many fits to transmit a flit.  When one talks about QPI 'speed' (for example, 8.0 GT/s), the 'transfers' here refer to 'fits'.  Therefore, in L0, the system will transfer 1 'flit' at the rate of 1/4th the QPI speed.  One can calculate the bandwidth of the link by taking: flits*80b/time.  Note that this is not the same as 'data' bandwidth.  For example, when we are transfering a 64B cacheline across QPI, we will break it into 9 flits -- 1 with header information and 8 with 64 bits
-  of actual 'data' and an additional 16 bits of other information.  To calculate 'data' bandwidth, one should therefore do: data flits * 8B / time.",
-+        "PublicDescription": "Counts the number of flits received from the QPI Link.  This is one of three 'groups' that allow us to track flits.  It includes filters for NDR, NCB, and NCS message classes.  Each 'flit' is made up of 80 bits of information (in addition to some ECC data).  In full-width (L0) mode, flits are made up of four 'fits', each of which contains 20 bits of data (along with some additional ECC data).   In half-width (L0p) mode, the fits are only 10 bits, and therefore it takes twice as many fits to transmit a flit.  When one talks about QPI 'speed' (for example, 8.0 GT/s), the 'transfers' here refer to 'fits'.  Therefore, in L0, the system will transfer 1 'flit' at the rate of 1/4th the QPI speed.  One can calculate the bandwidth of the link by taking: flits*80b/time.  Note that this is not the same as 'data' bandwidth.  For example, when we are transferring a 64B cacheline across QPI, we will break it into 9 flits -- 1 with header information and 8 with 64 bit
- s of actual 'data' and an additional 16 bits of other information.  To calculate 'data' bandwidth, one should therefore do: data flits * 8B / time.",
-         "UMask": "0x4",
-         "Unit": "QPI LL"
-     },
-@@ -284,7 +284,7 @@
-         "EventCode": "0x3",
-         "EventName": "UNC_Q_RxL_FLITS_G2.NCB_NONDATA",
-         "PerPkg": "1",
--        "PublicDescription": "Counts the number of flits received from the QPI Link.  This is one of three 'groups' that allow us to track flits.  It includes filters for NDR, NCB, and NCS message classes.  Each 'flit' is made up of 80 bits of information (in addition to some ECC data).  In full-width (L0) mode, flits are made up of four 'fits', each of which contains 20 bits of data (along with some additional ECC data).   In half-width (L0p) mode, the fits are only 10 bits, and therefore it takes twice as many fits to transmit a flit.  When one talks about QPI 'speed' (for example, 8.0 GT/s), the 'transfers' here refer to 'fits'.  Therefore, in L0, the system will transfer 1 'flit' at the rate of 1/4th the QPI speed.  One can calculate the bandwidth of the link by taking: flits*80b/time.  Note that this is not the same as 'data' bandwidth.  For example, when we are transfering a 64B cacheline across QPI, we will break it into 9 flits -- 1 with header information and 8 with 64 bits
-  of actual 'data' and an additional 16 bits of other information.  To calculate 'data' bandwidth, one should therefore do: data flits * 8B / time.",
-+        "PublicDescription": "Counts the number of flits received from the QPI Link.  This is one of three 'groups' that allow us to track flits.  It includes filters for NDR, NCB, and NCS message classes.  Each 'flit' is made up of 80 bits of information (in addition to some ECC data).  In full-width (L0) mode, flits are made up of four 'fits', each of which contains 20 bits of data (along with some additional ECC data).   In half-width (L0p) mode, the fits are only 10 bits, and therefore it takes twice as many fits to transmit a flit.  When one talks about QPI 'speed' (for example, 8.0 GT/s), the 'transfers' here refer to 'fits'.  Therefore, in L0, the system will transfer 1 'flit' at the rate of 1/4th the QPI speed.  One can calculate the bandwidth of the link by taking: flits*80b/time.  Note that this is not the same as 'data' bandwidth.  For example, when we are transferring a 64B cacheline across QPI, we will break it into 9 flits -- 1 with header information and 8 with 64 bit
- s of actual 'data' and an additional 16 bits of other information.  To calculate 'data' bandwidth, one should therefore do: data flits * 8B / time.",
-         "UMask": "0x8",
-         "Unit": "QPI LL"
-     },
-@@ -293,7 +293,7 @@
-         "EventCode": "0x3",
-         "EventName": "UNC_Q_RxL_FLITS_G2.NCS",
-         "PerPkg": "1",
--        "PublicDescription": "Counts the number of flits received from the QPI Link.  This is one of three 'groups' that allow us to track flits.  It includes filters for NDR, NCB, and NCS message classes.  Each 'flit' is made up of 80 bits of information (in addition to some ECC data).  In full-width (L0) mode, flits are made up of four 'fits', each of which contains 20 bits of data (along with some additional ECC data).   In half-width (L0p) mode, the fits are only 10 bits, and therefore it takes twice as many fits to transmit a flit.  When one talks about QPI 'speed' (for example, 8.0 GT/s), the 'transfers' here refer to 'fits'.  Therefore, in L0, the system will transfer 1 'flit' at the rate of 1/4th the QPI speed.  One can calculate the bandwidth of the link by taking: flits*80b/time.  Note that this is not the same as 'data' bandwidth.  For example, when we are transfering a 64B cacheline across QPI, we will break it into 9 flits -- 1 with header information and 8 with 64 bits
-  of actual 'data' and an additional 16 bits of other information.  To calculate 'data' bandwidth, one should therefore do: data flits * 8B / time.",
-+        "PublicDescription": "Counts the number of flits received from the QPI Link.  This is one of three 'groups' that allow us to track flits.  It includes filters for NDR, NCB, and NCS message classes.  Each 'flit' is made up of 80 bits of information (in addition to some ECC data).  In full-width (L0) mode, flits are made up of four 'fits', each of which contains 20 bits of data (along with some additional ECC data).   In half-width (L0p) mode, the fits are only 10 bits, and therefore it takes twice as many fits to transmit a flit.  When one talks about QPI 'speed' (for example, 8.0 GT/s), the 'transfers' here refer to 'fits'.  Therefore, in L0, the system will transfer 1 'flit' at the rate of 1/4th the QPI speed.  One can calculate the bandwidth of the link by taking: flits*80b/time.  Note that this is not the same as 'data' bandwidth.  For example, when we are transferring a 64B cacheline across QPI, we will break it into 9 flits -- 1 with header information and 8 with 64 bit
- s of actual 'data' and an additional 16 bits of other information.  To calculate 'data' bandwidth, one should therefore do: data flits * 8B / time.",
-         "UMask": "0x10",
-         "Unit": "QPI LL"
-     },
-@@ -302,7 +302,7 @@
-         "EventCode": "0x3",
-         "EventName": "UNC_Q_RxL_FLITS_G2.NDR_AD",
-         "PerPkg": "1",
--        "PublicDescription": "Counts the number of flits received from the QPI Link.  This is one of three 'groups' that allow us to track flits.  It includes filters for NDR, NCB, and NCS message classes.  Each 'flit' is made up of 80 bits of information (in addition to some ECC data).  In full-width (L0) mode, flits are made up of four 'fits', each of which contains 20 bits of data (along with some additional ECC data).   In half-width (L0p) mode, the fits are only 10 bits, and therefore it takes twice as many fits to transmit a flit.  When one talks about QPI 'speed' (for example, 8.0 GT/s), the 'transfers' here refer to 'fits'.  Therefore, in L0, the system will transfer 1 'flit' at the rate of 1/4th the QPI speed.  One can calculate the bandwidth of the link by taking: flits*80b/time.  Note that this is not the same as 'data' bandwidth.  For example, when we are transfering a 64B cacheline across QPI, we will break it into 9 flits -- 1 with header information and 8 with 64 bits
-  of actual 'data' and an additional 16 bits of other information.  To calculate 'data' bandwidth, one should therefore do: data flits * 8B / time.",
-+        "PublicDescription": "Counts the number of flits received from the QPI Link.  This is one of three 'groups' that allow us to track flits.  It includes filters for NDR, NCB, and NCS message classes.  Each 'flit' is made up of 80 bits of information (in addition to some ECC data).  In full-width (L0) mode, flits are made up of four 'fits', each of which contains 20 bits of data (along with some additional ECC data).   In half-width (L0p) mode, the fits are only 10 bits, and therefore it takes twice as many fits to transmit a flit.  When one talks about QPI 'speed' (for example, 8.0 GT/s), the 'transfers' here refer to 'fits'.  Therefore, in L0, the system will transfer 1 'flit' at the rate of 1/4th the QPI speed.  One can calculate the bandwidth of the link by taking: flits*80b/time.  Note that this is not the same as 'data' bandwidth.  For example, when we are transferring a 64B cacheline across QPI, we will break it into 9 flits -- 1 with header information and 8 with 64 bit
- s of actual 'data' and an additional 16 bits of other information.  To calculate 'data' bandwidth, one should therefore do: data flits * 8B / time.",
-         "UMask": "0x1",
-         "Unit": "QPI LL"
-     },
-@@ -311,7 +311,7 @@
-         "EventCode": "0x3",
-         "EventName": "UNC_Q_RxL_FLITS_G2.NDR_AK",
-         "PerPkg": "1",
--        "PublicDescription": "Counts the number of flits received from the QPI Link.  This is one of three 'groups' that allow us to track flits.  It includes filters for NDR, NCB, and NCS message classes.  Each 'flit' is made up of 80 bits of information (in addition to some ECC data).  In full-width (L0) mode, flits are made up of four 'fits', each of which contains 20 bits of data (along with some additional ECC data).   In half-width (L0p) mode, the fits are only 10 bits, and therefore it takes twice as many fits to transmit a flit.  When one talks about QPI 'speed' (for example, 8.0 GT/s), the 'transfers' here refer to 'fits'.  Therefore, in L0, the system will transfer 1 'flit' at the rate of 1/4th the QPI speed.  One can calculate the bandwidth of the link by taking: flits*80b/time.  Note that this is not the same as 'data' bandwidth.  For example, when we are transfering a 64B cacheline across QPI, we will break it into 9 flits -- 1 with header information and 8 with 64 bits
-  of actual 'data' and an additional 16 bits of other information.  To calculate 'data' bandwidth, one should therefore do: data flits * 8B / time.",
-+        "PublicDescription": "Counts the number of flits received from the QPI Link.  This is one of three 'groups' that allow us to track flits.  It includes filters for NDR, NCB, and NCS message classes.  Each 'flit' is made up of 80 bits of information (in addition to some ECC data).  In full-width (L0) mode, flits are made up of four 'fits', each of which contains 20 bits of data (along with some additional ECC data).   In half-width (L0p) mode, the fits are only 10 bits, and therefore it takes twice as many fits to transmit a flit.  When one talks about QPI 'speed' (for example, 8.0 GT/s), the 'transfers' here refer to 'fits'.  Therefore, in L0, the system will transfer 1 'flit' at the rate of 1/4th the QPI speed.  One can calculate the bandwidth of the link by taking: flits*80b/time.  Note that this is not the same as 'data' bandwidth.  For example, when we are transferring a 64B cacheline across QPI, we will break it into 9 flits -- 1 with header information and 8 with 64 bit
- s of actual 'data' and an additional 16 bits of other information.  To calculate 'data' bandwidth, one should therefore do: data flits * 8B / time.",
-         "UMask": "0x2",
-         "Unit": "QPI LL"
-     },
-@@ -553,7 +553,7 @@
-         "BriefDescription": "Flits Transferred - Group 0; Data Tx Flits",
-         "EventName": "UNC_Q_TxL_FLITS_G0.DATA",
-         "PerPkg": "1",
--        "PublicDescription": "Counts the number of flits transmitted across the QPI Link.  It includes filters for Idle, protocol, and Data Flits.  Each 'flit' is made up of 80 bits of information (in addition to some ECC data).  In full-width (L0) mode, flits are made up of four 'fits', each of which contains 20 bits of data (along with some additional ECC data).   In half-width (L0p) mode, the fits are only 10 bits, and therefore it takes twice as many fits to transmit a flit.  When one talks about QPI 'speed' (for example, 8.0 GT/s), the 'transfers' here refer to 'fits'.  Therefore, in L0, the system will transfer 1 'flit' at the rate of 1/4th the QPI speed.  One can calculate the bandwidth of the link by taking: flits*80b/time.  Note that this is not the same as 'data' bandwidth.  For example, when we are transfering a 64B cacheline across QPI, we will break it into 9 flits -- 1 with header information and 8 with 64 bits of actual 'data' and an additional 16 bits of other inform
- ation.  To calculate 'data' bandwidth, one should therefore do: data flits * 8B / time (for L0) or 4B instead of 8B for L0p.",
-+        "PublicDescription": "Counts the number of flits transmitted across the QPI Link.  It includes filters for Idle, protocol, and Data Flits.  Each 'flit' is made up of 80 bits of information (in addition to some ECC data).  In full-width (L0) mode, flits are made up of four 'fits', each of which contains 20 bits of data (along with some additional ECC data).   In half-width (L0p) mode, the fits are only 10 bits, and therefore it takes twice as many fits to transmit a flit.  When one talks about QPI 'speed' (for example, 8.0 GT/s), the 'transfers' here refer to 'fits'.  Therefore, in L0, the system will transfer 1 'flit' at the rate of 1/4th the QPI speed.  One can calculate the bandwidth of the link by taking: flits*80b/time.  Note that this is not the same as 'data' bandwidth.  For example, when we are transferring a 64B cacheline across QPI, we will break it into 9 flits -- 1 with header information and 8 with 64 bits of actual 'data' and an additional 16 bits of other infor
- mation.  To calculate 'data' bandwidth, one should therefore do: data flits * 8B / time (for L0) or 4B instead of 8B for L0p.",
-         "UMask": "0x2",
-         "Unit": "QPI LL"
-     },
-@@ -561,7 +561,7 @@
-         "BriefDescription": "Flits Transferred - Group 0; Idle and Null Flits",
-         "EventName": "UNC_Q_TxL_FLITS_G0.IDLE",
-         "PerPkg": "1",
--        "PublicDescription": "Counts the number of flits transmitted across the QPI Link.  It includes filters for Idle, protocol, and Data Flits.  Each 'flit' is made up of 80 bits of information (in addition to some ECC data).  In full-width (L0) mode, flits are made up of four 'fits', each of which contains 20 bits of data (along with some additional ECC data).   In half-width (L0p) mode, the fits are only 10 bits, and therefore it takes twice as many fits to transmit a flit.  When one talks about QPI 'speed' (for example, 8.0 GT/s), the 'transfers' here refer to 'fits'.  Therefore, in L0, the system will transfer 1 'flit' at the rate of 1/4th the QPI speed.  One can calculate the bandwidth of the link by taking: flits*80b/time.  Note that this is not the same as 'data' bandwidth.  For example, when we are transfering a 64B cacheline across QPI, we will break it into 9 flits -- 1 with header information and 8 with 64 bits of actual 'data' and an additional 16 bits of other inform
- ation.  To calculate 'data' bandwidth, one should therefore do: data flits * 8B / time (for L0) or 4B instead of 8B for L0p.",
-+        "PublicDescription": "Counts the number of flits transmitted across the QPI Link.  It includes filters for Idle, protocol, and Data Flits.  Each 'flit' is made up of 80 bits of information (in addition to some ECC data).  In full-width (L0) mode, flits are made up of four 'fits', each of which contains 20 bits of data (along with some additional ECC data).   In half-width (L0p) mode, the fits are only 10 bits, and therefore it takes twice as many fits to transmit a flit.  When one talks about QPI 'speed' (for example, 8.0 GT/s), the 'transfers' here refer to 'fits'.  Therefore, in L0, the system will transfer 1 'flit' at the rate of 1/4th the QPI speed.  One can calculate the bandwidth of the link by taking: flits*80b/time.  Note that this is not the same as 'data' bandwidth.  For example, when we are transferring a 64B cacheline across QPI, we will break it into 9 flits -- 1 with header information and 8 with 64 bits of actual 'data' and an additional 16 bits of other infor
- mation.  To calculate 'data' bandwidth, one should therefore do: data flits * 8B / time (for L0) or 4B instead of 8B for L0p.",
-         "UMask": "0x1",
-         "Unit": "QPI LL"
-     },
-@@ -569,7 +569,7 @@
-         "BriefDescription": "Flits Transferred - Group 0; Non-Data protocol Tx Flits",
-         "EventName": "UNC_Q_TxL_FLITS_G0.NON_DATA",
-         "PerPkg": "1",
--        "PublicDescription": "Counts the number of flits transmitted across the QPI Link.  It includes filters for Idle, protocol, and Data Flits.  Each 'flit' is made up of 80 bits of information (in addition to some ECC data).  In full-width (L0) mode, flits are made up of four 'fits', each of which contains 20 bits of data (along with some additional ECC data).   In half-width (L0p) mode, the fits are only 10 bits, and therefore it takes twice as many fits to transmit a flit.  When one talks about QPI 'speed' (for example, 8.0 GT/s), the 'transfers' here refer to 'fits'.  Therefore, in L0, the system will transfer 1 'flit' at the rate of 1/4th the QPI speed.  One can calculate the bandwidth of the link by taking: flits*80b/time.  Note that this is not the same as 'data' bandwidth.  For example, when we are transfering a 64B cacheline across QPI, we will break it into 9 flits -- 1 with header information and 8 with 64 bits of actual 'data' and an additional 16 bits of other inform
- ation.  To calculate 'data' bandwidth, one should therefore do: data flits * 8B / time (for L0) or 4B instead of 8B for L0p.",
-+        "PublicDescription": "Counts the number of flits transmitted across the QPI Link.  It includes filters for Idle, protocol, and Data Flits.  Each 'flit' is made up of 80 bits of information (in addition to some ECC data).  In full-width (L0) mode, flits are made up of four 'fits', each of which contains 20 bits of data (along with some additional ECC data).   In half-width (L0p) mode, the fits are only 10 bits, and therefore it takes twice as many fits to transmit a flit.  When one talks about QPI 'speed' (for example, 8.0 GT/s), the 'transfers' here refer to 'fits'.  Therefore, in L0, the system will transfer 1 'flit' at the rate of 1/4th the QPI speed.  One can calculate the bandwidth of the link by taking: flits*80b/time.  Note that this is not the same as 'data' bandwidth.  For example, when we are transferring a 64B cacheline across QPI, we will break it into 9 flits -- 1 with header information and 8 with 64 bits of actual 'data' and an additional 16 bits of other infor
- mation.  To calculate 'data' bandwidth, one should therefore do: data flits * 8B / time (for L0) or 4B instead of 8B for L0p.",
-         "UMask": "0x4",
-         "Unit": "QPI LL"
-     },
-@@ -577,7 +577,7 @@
-         "BriefDescription": "Flits Transferred - Group 1; DRS Flits (both Header and Data)",
-         "EventName": "UNC_Q_TxL_FLITS_G1.DRS",
-         "PerPkg": "1",
--        "PublicDescription": "Counts the number of flits trasmitted across the QPI Link.  This is one of three 'groups' that allow us to track flits.  It includes filters for SNP, HOM, and DRS message classes.  Each 'flit' is made up of 80 bits of information (in addition to some ECC data).  In full-width (L0) mode, flits are made up of four 'fits', each of which contains 20 bits of data (along with some additional ECC data).   In half-width (L0p) mode, the fits are only 10 bits, and therefore it takes twice as many fits to transmit a flit.  When one talks about QPI 'speed' (for example, 8.0 GT/s), the 'transfers' here refer to 'fits'.  Therefore, in L0, the system will transfer 1 'flit' at the rate of 1/4th the QPI speed.  One can calculate the bandwidth of the link by taking: flits*80b/time.  Note that this is not the same as 'data' bandwidth.  For example, when we are transfering a 64B cacheline across QPI, we will break it into 9 flits -- 1 with header information and 8 with 64 
- bits of actual 'data' and an additional 16 bits of other information.  To calculate 'data' bandwidth, one should therefore do: data flits * 8B / time.",
-+        "PublicDescription": "Counts the number of flits transmitted across the QPI Link.  This is one of three 'groups' that allow us to track flits.  It includes filters for SNP, HOM, and DRS message classes.  Each 'flit' is made up of 80 bits of information (in addition to some ECC data).  In full-width (L0) mode, flits are made up of four 'fits', each of which contains 20 bits of data (along with some additional ECC data).   In half-width (L0p) mode, the fits are only 10 bits, and therefore it takes twice as many fits to transmit a flit.  When one talks about QPI 'speed' (for example, 8.0 GT/s), the 'transfers' here refer to 'fits'.  Therefore, in L0, the system will transfer 1 'flit' at the rate of 1/4th the QPI speed.  One can calculate the bandwidth of the link by taking: flits*80b/time.  Note that this is not the same as 'data' bandwidth.  For example, when we are transferring a 64B cacheline across QPI, we will break it into 9 flits -- 1 with header information and 8 with 6
- 4 bits of actual 'data' and an additional 16 bits of other information.  To calculate 'data' bandwidth, one should therefore do: data flits * 8B / time.",
-         "UMask": "0x18",
-         "Unit": "QPI LL"
-     },
-@@ -585,7 +585,7 @@
-         "BriefDescription": "Flits Transferred - Group 1; DRS Data Flits",
-         "EventName": "UNC_Q_TxL_FLITS_G1.DRS_DATA",
-         "PerPkg": "1",
--        "PublicDescription": "Counts the number of flits trasmitted across the QPI Link.  This is one of three 'groups' that allow us to track flits.  It includes filters for SNP, HOM, and DRS message classes.  Each 'flit' is made up of 80 bits of information (in addition to some ECC data).  In full-width (L0) mode, flits are made up of four 'fits', each of which contains 20 bits of data (along with some additional ECC data).   In half-width (L0p) mode, the fits are only 10 bits, and therefore it takes twice as many fits to transmit a flit.  When one talks about QPI 'speed' (for example, 8.0 GT/s), the 'transfers' here refer to 'fits'.  Therefore, in L0, the system will transfer 1 'flit' at the rate of 1/4th the QPI speed.  One can calculate the bandwidth of the link by taking: flits*80b/time.  Note that this is not the same as 'data' bandwidth.  For example, when we are transfering a 64B cacheline across QPI, we will break it into 9 flits -- 1 with header information and 8 with 64 
- bits of actual 'data' and an additional 16 bits of other information.  To calculate 'data' bandwidth, one should therefore do: data flits * 8B / time.",
-+        "PublicDescription": "Counts the number of flits transmitted across the QPI Link.  This is one of three 'groups' that allow us to track flits.  It includes filters for SNP, HOM, and DRS message classes.  Each 'flit' is made up of 80 bits of information (in addition to some ECC data).  In full-width (L0) mode, flits are made up of four 'fits', each of which contains 20 bits of data (along with some additional ECC data).   In half-width (L0p) mode, the fits are only 10 bits, and therefore it takes twice as many fits to transmit a flit.  When one talks about QPI 'speed' (for example, 8.0 GT/s), the 'transfers' here refer to 'fits'.  Therefore, in L0, the system will transfer 1 'flit' at the rate of 1/4th the QPI speed.  One can calculate the bandwidth of the link by taking: flits*80b/time.  Note that this is not the same as 'data' bandwidth.  For example, when we are transferring a 64B cacheline across QPI, we will break it into 9 flits -- 1 with header information and 8 with 6
- 4 bits of actual 'data' and an additional 16 bits of other information.  To calculate 'data' bandwidth, one should therefore do: data flits * 8B / time.",
-         "UMask": "0x8",
-         "Unit": "QPI LL"
-     },
-@@ -593,7 +593,7 @@
-         "BriefDescription": "Flits Transferred - Group 1; DRS Header Flits",
-         "EventName": "UNC_Q_TxL_FLITS_G1.DRS_NONDATA",
-         "PerPkg": "1",
--        "PublicDescription": "Counts the number of flits trasmitted across the QPI Link.  This is one of three 'groups' that allow us to track flits.  It includes filters for SNP, HOM, and DRS message classes.  Each 'flit' is made up of 80 bits of information (in addition to some ECC data).  In full-width (L0) mode, flits are made up of four 'fits', each of which contains 20 bits of data (along with some additional ECC data).   In half-width (L0p) mode, the fits are only 10 bits, and therefore it takes twice as many fits to transmit a flit.  When one talks about QPI 'speed' (for example, 8.0 GT/s), the 'transfers' here refer to 'fits'.  Therefore, in L0, the system will transfer 1 'flit' at the rate of 1/4th the QPI speed.  One can calculate the bandwidth of the link by taking: flits*80b/time.  Note that this is not the same as 'data' bandwidth.  For example, when we are transfering a 64B cacheline across QPI, we will break it into 9 flits -- 1 with header information and 8 with 64 
- bits of actual 'data' and an additional 16 bits of other information.  To calculate 'data' bandwidth, one should therefore do: data flits * 8B / time.",
-+        "PublicDescription": "Counts the number of flits transmitted across the QPI Link.  This is one of three 'groups' that allow us to track flits.  It includes filters for SNP, HOM, and DRS message classes.  Each 'flit' is made up of 80 bits of information (in addition to some ECC data).  In full-width (L0) mode, flits are made up of four 'fits', each of which contains 20 bits of data (along with some additional ECC data).   In half-width (L0p) mode, the fits are only 10 bits, and therefore it takes twice as many fits to transmit a flit.  When one talks about QPI 'speed' (for example, 8.0 GT/s), the 'transfers' here refer to 'fits'.  Therefore, in L0, the system will transfer 1 'flit' at the rate of 1/4th the QPI speed.  One can calculate the bandwidth of the link by taking: flits*80b/time.  Note that this is not the same as 'data' bandwidth.  For example, when we are transferring a 64B cacheline across QPI, we will break it into 9 flits -- 1 with header information and 8 with 6
- 4 bits of actual 'data' and an additional 16 bits of other information.  To calculate 'data' bandwidth, one should therefore do: data flits * 8B / time.",
-         "UMask": "0x10",
-         "Unit": "QPI LL"
-     },
-@@ -601,7 +601,7 @@
-         "BriefDescription": "Flits Transferred - Group 1; HOM Flits",
-         "EventName": "UNC_Q_TxL_FLITS_G1.HOM",
-         "PerPkg": "1",
--        "PublicDescription": "Counts the number of flits trasmitted across the QPI Link.  This is one of three 'groups' that allow us to track flits.  It includes filters for SNP, HOM, and DRS message classes.  Each 'flit' is made up of 80 bits of information (in addition to some ECC data).  In full-width (L0) mode, flits are made up of four 'fits', each of which contains 20 bits of data (along with some additional ECC data).   In half-width (L0p) mode, the fits are only 10 bits, and therefore it takes twice as many fits to transmit a flit.  When one talks about QPI 'speed' (for example, 8.0 GT/s), the 'transfers' here refer to 'fits'.  Therefore, in L0, the system will transfer 1 'flit' at the rate of 1/4th the QPI speed.  One can calculate the bandwidth of the link by taking: flits*80b/time.  Note that this is not the same as 'data' bandwidth.  For example, when we are transfering a 64B cacheline across QPI, we will break it into 9 flits -- 1 with header information and 8 with 64 
- bits of actual 'data' and an additional 16 bits of other information.  To calculate 'data' bandwidth, one should therefore do: data flits * 8B / time.",
-+        "PublicDescription": "Counts the number of flits transmitted across the QPI Link.  This is one of three 'groups' that allow us to track flits.  It includes filters for SNP, HOM, and DRS message classes.  Each 'flit' is made up of 80 bits of information (in addition to some ECC data).  In full-width (L0) mode, flits are made up of four 'fits', each of which contains 20 bits of data (along with some additional ECC data).   In half-width (L0p) mode, the fits are only 10 bits, and therefore it takes twice as many fits to transmit a flit.  When one talks about QPI 'speed' (for example, 8.0 GT/s), the 'transfers' here refer to 'fits'.  Therefore, in L0, the system will transfer 1 'flit' at the rate of 1/4th the QPI speed.  One can calculate the bandwidth of the link by taking: flits*80b/time.  Note that this is not the same as 'data' bandwidth.  For example, when we are transferring a 64B cacheline across QPI, we will break it into 9 flits -- 1 with header information and 8 with 6
- 4 bits of actual 'data' and an additional 16 bits of other information.  To calculate 'data' bandwidth, one should therefore do: data flits * 8B / time.",
-         "UMask": "0x6",
-         "Unit": "QPI LL"
-     },
-@@ -609,7 +609,7 @@
-         "BriefDescription": "Flits Transferred - Group 1; HOM Non-Request Flits",
-         "EventName": "UNC_Q_TxL_FLITS_G1.HOM_NONREQ",
-         "PerPkg": "1",
--        "PublicDescription": "Counts the number of flits trasmitted across the QPI Link.  This is one of three 'groups' that allow us to track flits.  It includes filters for SNP, HOM, and DRS message classes.  Each 'flit' is made up of 80 bits of information (in addition to some ECC data).  In full-width (L0) mode, flits are made up of four 'fits', each of which contains 20 bits of data (along with some additional ECC data).   In half-width (L0p) mode, the fits are only 10 bits, and therefore it takes twice as many fits to transmit a flit.  When one talks about QPI 'speed' (for example, 8.0 GT/s), the 'transfers' here refer to 'fits'.  Therefore, in L0, the system will transfer 1 'flit' at the rate of 1/4th the QPI speed.  One can calculate the bandwidth of the link by taking: flits*80b/time.  Note that this is not the same as 'data' bandwidth.  For example, when we are transfering a 64B cacheline across QPI, we will break it into 9 flits -- 1 with header information and 8 with 64 
- bits of actual 'data' and an additional 16 bits of other information.  To calculate 'data' bandwidth, one should therefore do: data flits * 8B / time.",
-+        "PublicDescription": "Counts the number of flits transmitted across the QPI Link.  This is one of three 'groups' that allow us to track flits.  It includes filters for SNP, HOM, and DRS message classes.  Each 'flit' is made up of 80 bits of information (in addition to some ECC data).  In full-width (L0) mode, flits are made up of four 'fits', each of which contains 20 bits of data (along with some additional ECC data).   In half-width (L0p) mode, the fits are only 10 bits, and therefore it takes twice as many fits to transmit a flit.  When one talks about QPI 'speed' (for example, 8.0 GT/s), the 'transfers' here refer to 'fits'.  Therefore, in L0, the system will transfer 1 'flit' at the rate of 1/4th the QPI speed.  One can calculate the bandwidth of the link by taking: flits*80b/time.  Note that this is not the same as 'data' bandwidth.  For example, when we are transferring a 64B cacheline across QPI, we will break it into 9 flits -- 1 with header information and 8 with 6
- 4 bits of actual 'data' and an additional 16 bits of other information.  To calculate 'data' bandwidth, one should therefore do: data flits * 8B / time.",
-         "UMask": "0x4",
-         "Unit": "QPI LL"
-     },
-@@ -617,7 +617,7 @@
-         "BriefDescription": "Flits Transferred - Group 1; HOM Request Flits",
-         "EventName": "UNC_Q_TxL_FLITS_G1.HOM_REQ",
-         "PerPkg": "1",
--        "PublicDescription": "Counts the number of flits trasmitted across the QPI Link.  This is one of three 'groups' that allow us to track flits.  It includes filters for SNP, HOM, and DRS message classes.  Each 'flit' is made up of 80 bits of information (in addition to some ECC data).  In full-width (L0) mode, flits are made up of four 'fits', each of which contains 20 bits of data (along with some additional ECC data).   In half-width (L0p) mode, the fits are only 10 bits, and therefore it takes twice as many fits to transmit a flit.  When one talks about QPI 'speed' (for example, 8.0 GT/s), the 'transfers' here refer to 'fits'.  Therefore, in L0, the system will transfer 1 'flit' at the rate of 1/4th the QPI speed.  One can calculate the bandwidth of the link by taking: flits*80b/time.  Note that this is not the same as 'data' bandwidth.  For example, when we are transfering a 64B cacheline across QPI, we will break it into 9 flits -- 1 with header information and 8 with 64 
- bits of actual 'data' and an additional 16 bits of other information.  To calculate 'data' bandwidth, one should therefore do: data flits * 8B / time.",
-+        "PublicDescription": "Counts the number of flits transmitted across the QPI Link.  This is one of three 'groups' that allow us to track flits.  It includes filters for SNP, HOM, and DRS message classes.  Each 'flit' is made up of 80 bits of information (in addition to some ECC data).  In full-width (L0) mode, flits are made up of four 'fits', each of which contains 20 bits of data (along with some additional ECC data).   In half-width (L0p) mode, the fits are only 10 bits, and therefore it takes twice as many fits to transmit a flit.  When one talks about QPI 'speed' (for example, 8.0 GT/s), the 'transfers' here refer to 'fits'.  Therefore, in L0, the system will transfer 1 'flit' at the rate of 1/4th the QPI speed.  One can calculate the bandwidth of the link by taking: flits*80b/time.  Note that this is not the same as 'data' bandwidth.  For example, when we are transferring a 64B cacheline across QPI, we will break it into 9 flits -- 1 with header information and 8 with 6
- 4 bits of actual 'data' and an additional 16 bits of other information.  To calculate 'data' bandwidth, one should therefore do: data flits * 8B / time.",
-         "UMask": "0x2",
-         "Unit": "QPI LL"
-     },
-@@ -625,7 +625,7 @@
-         "BriefDescription": "Flits Transferred - Group 1; SNP Flits",
-         "EventName": "UNC_Q_TxL_FLITS_G1.SNP",
-         "PerPkg": "1",
--        "PublicDescription": "Counts the number of flits trasmitted across the QPI Link.  This is one of three 'groups' that allow us to track flits.  It includes filters for SNP, HOM, and DRS message classes.  Each 'flit' is made up of 80 bits of information (in addition to some ECC data).  In full-width (L0) mode, flits are made up of four 'fits', each of which contains 20 bits of data (along with some additional ECC data).   In half-width (L0p) mode, the fits are only 10 bits, and therefore it takes twice as many fits to transmit a flit.  When one talks about QPI 'speed' (for example, 8.0 GT/s), the 'transfers' here refer to 'fits'.  Therefore, in L0, the system will transfer 1 'flit' at the rate of 1/4th the QPI speed.  One can calculate the bandwidth of the link by taking: flits*80b/time.  Note that this is not the same as 'data' bandwidth.  For example, when we are transfering a 64B cacheline across QPI, we will break it into 9 flits -- 1 with header information and 8 with 64 
- bits of actual 'data' and an additional 16 bits of other information.  To calculate 'data' bandwidth, one should therefore do: data flits * 8B / time.",
-+        "PublicDescription": "Counts the number of flits transmitted across the QPI Link.  This is one of three 'groups' that allow us to track flits.  It includes filters for SNP, HOM, and DRS message classes.  Each 'flit' is made up of 80 bits of information (in addition to some ECC data).  In full-width (L0) mode, flits are made up of four 'fits', each of which contains 20 bits of data (along with some additional ECC data).   In half-width (L0p) mode, the fits are only 10 bits, and therefore it takes twice as many fits to transmit a flit.  When one talks about QPI 'speed' (for example, 8.0 GT/s), the 'transfers' here refer to 'fits'.  Therefore, in L0, the system will transfer 1 'flit' at the rate of 1/4th the QPI speed.  One can calculate the bandwidth of the link by taking: flits*80b/time.  Note that this is not the same as 'data' bandwidth.  For example, when we are transferring a 64B cacheline across QPI, we will break it into 9 flits -- 1 with header information and 8 with 6
- 4 bits of actual 'data' and an additional 16 bits of other information.  To calculate 'data' bandwidth, one should therefore do: data flits * 8B / time.",
-         "UMask": "0x1",
-         "Unit": "QPI LL"
-     },
-@@ -634,7 +634,7 @@
-         "EventCode": "0x1",
-         "EventName": "UNC_Q_TxL_FLITS_G2.NCB",
-         "PerPkg": "1",
--        "PublicDescription": "Counts the number of flits trasmitted across the QPI Link.  This is one of three 'groups' that allow us to track flits.  It includes filters for NDR, NCB, and NCS message classes.  Each 'flit' is made up of 80 bits of information (in addition to some ECC data).  In full-width (L0) mode, flits are made up of four 'fits', each of which contains 20 bits of data (along with some additional ECC data).   In half-width (L0p) mode, the fits are only 10 bits, and therefore it takes twice as many fits to transmit a flit.  When one talks about QPI 'speed' (for example, 8.0 GT/s), the 'transfers' here refer to 'fits'.  Therefore, in L0, the system will transfer 1 'flit' at the rate of 1/4th the QPI speed.  One can calculate the bandwidth of the link by taking: flits*80b/time.  Note that this is not the same as 'data' bandwidth.  For example, when we are transfering a 64B cacheline across QPI, we will break it into 9 flits -- 1 with header information and 8 with 64 
- bits of actual 'data' and an additional 16 bits of other information.  To calculate 'data' bandwidth, one should therefore do: data flits * 8B / time.",
-+        "PublicDescription": "Counts the number of flits transmitted across the QPI Link.  This is one of three 'groups' that allow us to track flits.  It includes filters for NDR, NCB, and NCS message classes.  Each 'flit' is made up of 80 bits of information (in addition to some ECC data).  In full-width (L0) mode, flits are made up of four 'fits', each of which contains 20 bits of data (along with some additional ECC data).   In half-width (L0p) mode, the fits are only 10 bits, and therefore it takes twice as many fits to transmit a flit.  When one talks about QPI 'speed' (for example, 8.0 GT/s), the 'transfers' here refer to 'fits'.  Therefore, in L0, the system will transfer 1 'flit' at the rate of 1/4th the QPI speed.  One can calculate the bandwidth of the link by taking: flits*80b/time.  Note that this is not the same as 'data' bandwidth.  For example, when we are transferring a 64B cacheline across QPI, we will break it into 9 flits -- 1 with header information and 8 with 6
- 4 bits of actual 'data' and an additional 16 bits of other information.  To calculate 'data' bandwidth, one should therefore do: data flits * 8B / time.",
-         "UMask": "0xc",
-         "Unit": "QPI LL"
-     },
-@@ -643,7 +643,7 @@
-         "EventCode": "0x1",
-         "EventName": "UNC_Q_TxL_FLITS_G2.NCB_DATA",
-         "PerPkg": "1",
--        "PublicDescription": "Counts the number of flits trasmitted across the QPI Link.  This is one of three 'groups' that allow us to track flits.  It includes filters for NDR, NCB, and NCS message classes.  Each 'flit' is made up of 80 bits of information (in addition to some ECC data).  In full-width (L0) mode, flits are made up of four 'fits', each of which contains 20 bits of data (along with some additional ECC data).   In half-width (L0p) mode, the fits are only 10 bits, and therefore it takes twice as many fits to transmit a flit.  When one talks about QPI 'speed' (for example, 8.0 GT/s), the 'transfers' here refer to 'fits'.  Therefore, in L0, the system will transfer 1 'flit' at the rate of 1/4th the QPI speed.  One can calculate the bandwidth of the link by taking: flits*80b/time.  Note that this is not the same as 'data' bandwidth.  For example, when we are transfering a 64B cacheline across QPI, we will break it into 9 flits -- 1 with header information and 8 with 64 
- bits of actual 'data' and an additional 16 bits of other information.  To calculate 'data' bandwidth, one should therefore do: data flits * 8B / time.",
-+        "PublicDescription": "Counts the number of flits transmitted across the QPI Link.  This is one of three 'groups' that allow us to track flits.  It includes filters for NDR, NCB, and NCS message classes.  Each 'flit' is made up of 80 bits of information (in addition to some ECC data).  In full-width (L0) mode, flits are made up of four 'fits', each of which contains 20 bits of data (along with some additional ECC data).   In half-width (L0p) mode, the fits are only 10 bits, and therefore it takes twice as many fits to transmit a flit.  When one talks about QPI 'speed' (for example, 8.0 GT/s), the 'transfers' here refer to 'fits'.  Therefore, in L0, the system will transfer 1 'flit' at the rate of 1/4th the QPI speed.  One can calculate the bandwidth of the link by taking: flits*80b/time.  Note that this is not the same as 'data' bandwidth.  For example, when we are transferring a 64B cacheline across QPI, we will break it into 9 flits -- 1 with header information and 8 with 6
- 4 bits of actual 'data' and an additional 16 bits of other information.  To calculate 'data' bandwidth, one should therefore do: data flits * 8B / time.",
-         "UMask": "0x4",
-         "Unit": "QPI LL"
-     },
-@@ -652,7 +652,7 @@
-         "EventCode": "0x1",
-         "EventName": "UNC_Q_TxL_FLITS_G2.NCB_NONDATA",
-         "PerPkg": "1",
--        "PublicDescription": "Counts the number of flits trasmitted across the QPI Link.  This is one of three 'groups' that allow us to track flits.  It includes filters for NDR, NCB, and NCS message classes.  Each 'flit' is made up of 80 bits of information (in addition to some ECC data).  In full-width (L0) mode, flits are made up of four 'fits', each of which contains 20 bits of data (along with some additional ECC data).   In half-width (L0p) mode, the fits are only 10 bits, and therefore it takes twice as many fits to transmit a flit.  When one talks about QPI 'speed' (for example, 8.0 GT/s), the 'transfers' here refer to 'fits'.  Therefore, in L0, the system will transfer 1 'flit' at the rate of 1/4th the QPI speed.  One can calculate the bandwidth of the link by taking: flits*80b/time.  Note that this is not the same as 'data' bandwidth.  For example, when we are transfering a 64B cacheline across QPI, we will break it into 9 flits -- 1 with header information and 8 with 64 
- bits of actual 'data' and an additional 16 bits of other information.  To calculate 'data' bandwidth, one should therefore do: data flits * 8B / time.",
-+        "PublicDescription": "Counts the number of flits transmitted across the QPI Link.  This is one of three 'groups' that allow us to track flits.  It includes filters for NDR, NCB, and NCS message classes.  Each 'flit' is made up of 80 bits of information (in addition to some ECC data).  In full-width (L0) mode, flits are made up of four 'fits', each of which contains 20 bits of data (along with some additional ECC data).   In half-width (L0p) mode, the fits are only 10 bits, and therefore it takes twice as many fits to transmit a flit.  When one talks about QPI 'speed' (for example, 8.0 GT/s), the 'transfers' here refer to 'fits'.  Therefore, in L0, the system will transfer 1 'flit' at the rate of 1/4th the QPI speed.  One can calculate the bandwidth of the link by taking: flits*80b/time.  Note that this is not the same as 'data' bandwidth.  For example, when we are transferring a 64B cacheline across QPI, we will break it into 9 flits -- 1 with header information and 8 with 6
- 4 bits of actual 'data' and an additional 16 bits of other information.  To calculate 'data' bandwidth, one should therefore do: data flits * 8B / time.",
-         "UMask": "0x8",
-         "Unit": "QPI LL"
-     },
-@@ -661,7 +661,7 @@
-         "EventCode": "0x1",
-         "EventName": "UNC_Q_TxL_FLITS_G2.NCS",
-         "PerPkg": "1",
--        "PublicDescription": "Counts the number of flits trasmitted across the QPI Link.  This is one of three 'groups' that allow us to track flits.  It includes filters for NDR, NCB, and NCS message classes.  Each 'flit' is made up of 80 bits of information (in addition to some ECC data).  In full-width (L0) mode, flits are made up of four 'fits', each of which contains 20 bits of data (along with some additional ECC data).   In half-width (L0p) mode, the fits are only 10 bits, and therefore it takes twice as many fits to transmit a flit.  When one talks about QPI 'speed' (for example, 8.0 GT/s), the 'transfers' here refer to 'fits'.  Therefore, in L0, the system will transfer 1 'flit' at the rate of 1/4th the QPI speed.  One can calculate the bandwidth of the link by taking: flits*80b/time.  Note that this is not the same as 'data' bandwidth.  For example, when we are transfering a 64B cacheline across QPI, we will break it into 9 flits -- 1 with header information and 8 with 64 
- bits of actual 'data' and an additional 16 bits of other information.  To calculate 'data' bandwidth, one should therefore do: data flits * 8B / time.",
-+        "PublicDescription": "Counts the number of flits transmitted across the QPI Link.  This is one of three 'groups' that allow us to track flits.  It includes filters for NDR, NCB, and NCS message classes.  Each 'flit' is made up of 80 bits of information (in addition to some ECC data).  In full-width (L0) mode, flits are made up of four 'fits', each of which contains 20 bits of data (along with some additional ECC data).   In half-width (L0p) mode, the fits are only 10 bits, and therefore it takes twice as many fits to transmit a flit.  When one talks about QPI 'speed' (for example, 8.0 GT/s), the 'transfers' here refer to 'fits'.  Therefore, in L0, the system will transfer 1 'flit' at the rate of 1/4th the QPI speed.  One can calculate the bandwidth of the link by taking: flits*80b/time.  Note that this is not the same as 'data' bandwidth.  For example, when we are transferring a 64B cacheline across QPI, we will break it into 9 flits -- 1 with header information and 8 with 6
- 4 bits of actual 'data' and an additional 16 bits of other information.  To calculate 'data' bandwidth, one should therefore do: data flits * 8B / time.",
-         "UMask": "0x10",
-         "Unit": "QPI LL"
-     },
-@@ -670,7 +670,7 @@
-         "EventCode": "0x1",
-         "EventName": "UNC_Q_TxL_FLITS_G2.NDR_AD",
-         "PerPkg": "1",
--        "PublicDescription": "Counts the number of flits trasmitted across the QPI Link.  This is one of three 'groups' that allow us to track flits.  It includes filters for NDR, NCB, and NCS message classes.  Each 'flit' is made up of 80 bits of information (in addition to some ECC data).  In full-width (L0) mode, flits are made up of four 'fits', each of which contains 20 bits of data (along with some additional ECC data).   In half-width (L0p) mode, the fits are only 10 bits, and therefore it takes twice as many fits to transmit a flit.  When one talks about QPI 'speed' (for example, 8.0 GT/s), the 'transfers' here refer to 'fits'.  Therefore, in L0, the system will transfer 1 'flit' at the rate of 1/4th the QPI speed.  One can calculate the bandwidth of the link by taking: flits*80b/time.  Note that this is not the same as 'data' bandwidth.  For example, when we are transfering a 64B cacheline across QPI, we will break it into 9 flits -- 1 with header information and 8 with 64 
- bits of actual 'data' and an additional 16 bits of other information.  To calculate 'data' bandwidth, one should therefore do: data flits * 8B / time.",
-+        "PublicDescription": "Counts the number of flits transmitted across the QPI Link.  This is one of three 'groups' that allow us to track flits.  It includes filters for NDR, NCB, and NCS message classes.  Each 'flit' is made up of 80 bits of information (in addition to some ECC data).  In full-width (L0) mode, flits are made up of four 'fits', each of which contains 20 bits of data (along with some additional ECC data).   In half-width (L0p) mode, the fits are only 10 bits, and therefore it takes twice as many fits to transmit a flit.  When one talks about QPI 'speed' (for example, 8.0 GT/s), the 'transfers' here refer to 'fits'.  Therefore, in L0, the system will transfer 1 'flit' at the rate of 1/4th the QPI speed.  One can calculate the bandwidth of the link by taking: flits*80b/time.  Note that this is not the same as 'data' bandwidth.  For example, when we are transferring a 64B cacheline across QPI, we will break it into 9 flits -- 1 with header information and 8 with 6
- 4 bits of actual 'data' and an additional 16 bits of other information.  To calculate 'data' bandwidth, one should therefore do: data flits * 8B / time.",
-         "UMask": "0x1",
-         "Unit": "QPI LL"
-     },
-@@ -679,7 +679,7 @@
-         "EventCode": "0x1",
-         "EventName": "UNC_Q_TxL_FLITS_G2.NDR_AK",
-         "PerPkg": "1",
--        "PublicDescription": "Counts the number of flits trasmitted across the QPI Link.  This is one of three 'groups' that allow us to track flits.  It includes filters for NDR, NCB, and NCS message classes.  Each 'flit' is made up of 80 bits of information (in addition to some ECC data).  In full-width (L0) mode, flits are made up of four 'fits', each of which contains 20 bits of data (along with some additional ECC data).   In half-width (L0p) mode, the fits are only 10 bits, and therefore it takes twice as many fits to transmit a flit.  When one talks about QPI 'speed' (for example, 8.0 GT/s), the 'transfers' here refer to 'fits'.  Therefore, in L0, the system will transfer 1 'flit' at the rate of 1/4th the QPI speed.  One can calculate the bandwidth of the link by taking: flits*80b/time.  Note that this is not the same as 'data' bandwidth.  For example, when we are transfering a 64B cacheline across QPI, we will break it into 9 flits -- 1 with header information and 8 with 64 
- bits of actual 'data' and an additional 16 bits of other information.  To calculate 'data' bandwidth, one should therefore do: data flits * 8B / time.",
-+        "PublicDescription": "Counts the number of flits transmitted across the QPI Link.  This is one of three 'groups' that allow us to track flits.  It includes filters for NDR, NCB, and NCS message classes.  Each 'flit' is made up of 80 bits of information (in addition to some ECC data).  In full-width (L0) mode, flits are made up of four 'fits', each of which contains 20 bits of data (along with some additional ECC data).   In half-width (L0p) mode, the fits are only 10 bits, and therefore it takes twice as many fits to transmit a flit.  When one talks about QPI 'speed' (for example, 8.0 GT/s), the 'transfers' here refer to 'fits'.  Therefore, in L0, the system will transfer 1 'flit' at the rate of 1/4th the QPI speed.  One can calculate the bandwidth of the link by taking: flits*80b/time.  Note that this is not the same as 'data' bandwidth.  For example, when we are transferring a 64B cacheline across QPI, we will break it into 9 flits -- 1 with header information and 8 with 6
- 4 bits of actual 'data' and an additional 16 bits of other information.  To calculate 'data' bandwidth, one should therefore do: data flits * 8B / time.",
-         "UMask": "0x2",
-         "Unit": "QPI LL"
-     },
-diff --git a/tools/perf/pmu-events/arch/x86/jaketown/uncore-memory.json b/tools/perf/pmu-events/arch/x86/jaketown/uncore-memory.json
-index 2faf0dc6675d..6dcc9415a462 100644
---- a/tools/perf/pmu-events/arch/x86/jaketown/uncore-memory.json
-+++ b/tools/perf/pmu-events/arch/x86/jaketown/uncore-memory.json
-@@ -101,7 +101,7 @@
-         "EventCode": "0x9",
-         "EventName": "UNC_M_ECC_CORRECTABLE_ERRORS",
-         "PerPkg": "1",
--        "PublicDescription": "Counts the number of ECC errors detected and corrected by the iMC on this channel.  This counter is only useful with ECC DRAM devices.  This count will increment one time for each correction regardless of the number of bits corrected.  The iMC can correct up to 4 bit errors in independent channel mode and 8 bit erros in lockstep mode.",
-+        "PublicDescription": "Counts the number of ECC errors detected and corrected by the iMC on this channel.  This counter is only useful with ECC DRAM devices.  This count will increment one time for each correction regardless of the number of bits corrected.  The iMC can correct up to 4 bit errors in independent channel mode and 8 bit errors in lockstep mode.",
-         "Unit": "iMC"
-     },
-     {
-@@ -413,7 +413,7 @@
-         "EventCode": "0x81",
-         "EventName": "UNC_M_WPQ_OCCUPANCY",
-         "PerPkg": "1",
--        "PublicDescription": "Accumulates the occupancies of the Write Pending Queue each cycle.  This can then be used to calculate both the average queue occupancy (in conjunction with the number of cycles not empty) and the average latency (in conjunction with the number of allocations).  The WPQ is used to schedule write out to the memory controller and to track the writes.  Requests allocate into the WPQ soon after they enter the memory controller, and need credits for an entry in this buffer before being sent from the HA to the iMC.  They deallocate after being issued to DRAM.  Write requests themselves are able to complete (from the perspective of the rest of the system) as soon they have 'posted' to the iMC.  This is not to be confused with actually performing the write to DRAM.  Therefore, the average latency for this queue is actually not useful for deconstruction intermediate write latencies.  So, we provide filtering based on if the request has posted or not.  By using t
- he 'not posted' filter, we can track how long writes spent in the iMC before completions were sent to the HA.  The 'posted' filter, on the other hand, provides information about how much queueing is actually happenning in the iMC for writes before they are actually issued to memory.  High average occupancies will generally coincide with high write major mode counts.",
-+        "PublicDescription": "Accumulates the occupancies of the Write Pending Queue each cycle.  This can then be used to calculate both the average queue occupancy (in conjunction with the number of cycles not empty) and the average latency (in conjunction with the number of allocations).  The WPQ is used to schedule write out to the memory controller and to track the writes.  Requests allocate into the WPQ soon after they enter the memory controller, and need credits for an entry in this buffer before being sent from the HA to the iMC.  They deallocate after being issued to DRAM.  Write requests themselves are able to complete (from the perspective of the rest of the system) as soon they have 'posted' to the iMC.  This is not to be confused with actually performing the write to DRAM.  Therefore, the average latency for this queue is actually not useful for deconstruction intermediate write latencies.  So, we provide filtering based on if the request has posted or not.  By using t
- he 'not posted' filter, we can track how long writes spent in the iMC before completions were sent to the HA.  The 'posted' filter, on the other hand, provides information about how much queueing is actually happening in the iMC for writes before they are actually issued to memory.  High average occupancies will generally coincide with high write major mode counts.",
-         "Unit": "iMC"
-     },
-     {
-diff --git a/tools/perf/pmu-events/arch/x86/jaketown/uncore-other.json b/tools/perf/pmu-events/arch/x86/jaketown/uncore-other.json
-index 51a9a4e81046..ca727c0e1865 100644
---- a/tools/perf/pmu-events/arch/x86/jaketown/uncore-other.json
-+++ b/tools/perf/pmu-events/arch/x86/jaketown/uncore-other.json
-@@ -284,7 +284,7 @@
-         "EventCode": "0xD",
-         "EventName": "UNC_I_TxR_REQUEST_OCCUPANCY",
-         "PerPkg": "1",
--        "PublicDescription": "Accumultes the number of outstanding outbound requests from the IRP to the switch (towards the devices).  This can be used in conjuection with the allocations event in order to calculate average latency of outbound requests.",
-+        "PublicDescription": "Accumulates the number of outstanding outbound requests from the IRP to the switch (towards the devices).  This can be used in conjunction with the allocations event in order to calculate average latency of outbound requests.",
-         "Unit": "IRP"
-     },
-     {
-@@ -630,7 +630,7 @@
-         "EventCode": "0x20",
-         "EventName": "UNC_R3_IIO_CREDITS_ACQUIRED.DRS",
-         "PerPkg": "1",
--        "PublicDescription": "Counts the number of times the NCS/NCB/DRS credit is acquried in the QPI for sending messages on BL to the IIO.  There is one credit for each of these three message classes (three credits total).  NCS is used for reads to PCIe space, NCB is used for transfering data without coherency, and DRS is used for transfering data with coherency (cachable PCI transactions).  This event can only track one message class at a time.",
-+        "PublicDescription": "Counts the number of times the NCS/NCB/DRS credit is acquired in the QPI for sending messages on BL to the IIO.  There is one credit for each of these three message classes (three credits total).  NCS is used for reads to PCIe space, NCB is used for transferring data without coherency, and DRS is used for transferring data with coherency (cacheable PCI transactions).  This event can only track one message class at a time.",
-         "UMask": "0x8",
-         "Unit": "R3QPI"
-     },
-@@ -639,7 +639,7 @@
-         "EventCode": "0x20",
-         "EventName": "UNC_R3_IIO_CREDITS_ACQUIRED.NCB",
-         "PerPkg": "1",
--        "PublicDescription": "Counts the number of times the NCS/NCB/DRS credit is acquried in the QPI for sending messages on BL to the IIO.  There is one credit for each of these three message classes (three credits total).  NCS is used for reads to PCIe space, NCB is used for transfering data without coherency, and DRS is used for transfering data with coherency (cachable PCI transactions).  This event can only track one message class at a time.",
-+        "PublicDescription": "Counts the number of times the NCS/NCB/DRS credit is acquired in the QPI for sending messages on BL to the IIO.  There is one credit for each of these three message classes (three credits total).  NCS is used for reads to PCIe space, NCB is used for transferring data without coherency, and DRS is used for transferring data with coherency (cacheable PCI transactions).  This event can only track one message class at a time.",
-         "UMask": "0x10",
-         "Unit": "R3QPI"
-     },
-@@ -648,7 +648,7 @@
-         "EventCode": "0x20",
-         "EventName": "UNC_R3_IIO_CREDITS_ACQUIRED.NCS",
-         "PerPkg": "1",
--        "PublicDescription": "Counts the number of times the NCS/NCB/DRS credit is acquried in the QPI for sending messages on BL to the IIO.  There is one credit for each of these three message classes (three credits total).  NCS is used for reads to PCIe space, NCB is used for transfering data without coherency, and DRS is used for transfering data with coherency (cachable PCI transactions).  This event can only track one message class at a time.",
-+        "PublicDescription": "Counts the number of times the NCS/NCB/DRS credit is acquired in the QPI for sending messages on BL to the IIO.  There is one credit for each of these three message classes (three credits total).  NCS is used for reads to PCIe space, NCB is used for transferring data without coherency, and DRS is used for transferring data with coherency (cacheable PCI transactions).  This event can only track one message class at a time.",
-         "UMask": "0x20",
-         "Unit": "R3QPI"
-     },
-@@ -657,7 +657,7 @@
-         "EventCode": "0x21",
-         "EventName": "UNC_R3_IIO_CREDITS_REJECT.DRS",
-         "PerPkg": "1",
--        "PublicDescription": "Counts the number of times that a request attempted to acquire an NCS/NCB/DRS credit in the QPI for sending messages on BL to the IIO but was rejected because no credit was available.  There is one credit for each of these three message classes (three credits total).  NCS is used for reads to PCIe space, NCB is used for transfering data without coherency, and DRS is used for transfering data with coherency (cachable PCI transactions).  This event can only track one message class at a time.",
-+        "PublicDescription": "Counts the number of times that a request attempted to acquire an NCS/NCB/DRS credit in the QPI for sending messages on BL to the IIO but was rejected because no credit was available.  There is one credit for each of these three message classes (three credits total).  NCS is used for reads to PCIe space, NCB is used for transferring data without coherency, and DRS is used for transferring data with coherency (cacheable PCI transactions).  This event can only track one message class at a time.",
-         "UMask": "0x8",
-         "Unit": "R3QPI"
-     },
-@@ -666,7 +666,7 @@
-         "EventCode": "0x21",
-         "EventName": "UNC_R3_IIO_CREDITS_REJECT.NCB",
-         "PerPkg": "1",
--        "PublicDescription": "Counts the number of times that a request attempted to acquire an NCS/NCB/DRS credit in the QPI for sending messages on BL to the IIO but was rejected because no credit was available.  There is one credit for each of these three message classes (three credits total).  NCS is used for reads to PCIe space, NCB is used for transfering data without coherency, and DRS is used for transfering data with coherency (cachable PCI transactions).  This event can only track one message class at a time.",
-+        "PublicDescription": "Counts the number of times that a request attempted to acquire an NCS/NCB/DRS credit in the QPI for sending messages on BL to the IIO but was rejected because no credit was available.  There is one credit for each of these three message classes (three credits total).  NCS is used for reads to PCIe space, NCB is used for transferring data without coherency, and DRS is used for transferring data with coherency (cacheable PCI transactions).  This event can only track one message class at a time.",
-         "UMask": "0x10",
-         "Unit": "R3QPI"
-     },
-@@ -675,7 +675,7 @@
-         "EventCode": "0x21",
-         "EventName": "UNC_R3_IIO_CREDITS_REJECT.NCS",
-         "PerPkg": "1",
--        "PublicDescription": "Counts the number of times that a request attempted to acquire an NCS/NCB/DRS credit in the QPI for sending messages on BL to the IIO but was rejected because no credit was available.  There is one credit for each of these three message classes (three credits total).  NCS is used for reads to PCIe space, NCB is used for transfering data without coherency, and DRS is used for transfering data with coherency (cachable PCI transactions).  This event can only track one message class at a time.",
-+        "PublicDescription": "Counts the number of times that a request attempted to acquire an NCS/NCB/DRS credit in the QPI for sending messages on BL to the IIO but was rejected because no credit was available.  There is one credit for each of these three message classes (three credits total).  NCS is used for reads to PCIe space, NCB is used for transferring data without coherency, and DRS is used for transferring data with coherency (cacheable PCI transactions).  This event can only track one message class at a time.",
-         "UMask": "0x20",
-         "Unit": "R3QPI"
-     },
-@@ -684,7 +684,7 @@
-         "EventCode": "0x22",
-         "EventName": "UNC_R3_IIO_CREDITS_USED.DRS",
-         "PerPkg": "1",
--        "PublicDescription": "Counts the number of cycles when the NCS/NCB/DRS credit is in use in the QPI for sending messages on BL to the IIO.  There is one credit for each of these three message classes (three credits total).  NCS is used for reads to PCIe space, NCB is used for transfering data without coherency, and DRS is used for transfering data with coherency (cachable PCI transactions).  This event can only track one message class at a time.",
-+        "PublicDescription": "Counts the number of cycles when the NCS/NCB/DRS credit is in use in the QPI for sending messages on BL to the IIO.  There is one credit for each of these three message classes (three credits total).  NCS is used for reads to PCIe space, NCB is used for transferring data without coherency, and DRS is used for transferring data with coherency (cacheable PCI transactions).  This event can only track one message class at a time.",
-         "UMask": "0x8",
-         "Unit": "R3QPI"
-     },
-@@ -693,7 +693,7 @@
-         "EventCode": "0x22",
-         "EventName": "UNC_R3_IIO_CREDITS_USED.NCB",
-         "PerPkg": "1",
--        "PublicDescription": "Counts the number of cycles when the NCS/NCB/DRS credit is in use in the QPI for sending messages on BL to the IIO.  There is one credit for each of these three message classes (three credits total).  NCS is used for reads to PCIe space, NCB is used for transfering data without coherency, and DRS is used for transfering data with coherency (cachable PCI transactions).  This event can only track one message class at a time.",
-+        "PublicDescription": "Counts the number of cycles when the NCS/NCB/DRS credit is in use in the QPI for sending messages on BL to the IIO.  There is one credit for each of these three message classes (three credits total).  NCS is used for reads to PCIe space, NCB is used for transferring data without coherency, and DRS is used for transferring data with coherency (cacheable PCI transactions).  This event can only track one message class at a time.",
-         "UMask": "0x10",
-         "Unit": "R3QPI"
-     },
-@@ -702,7 +702,7 @@
-         "EventCode": "0x22",
-         "EventName": "UNC_R3_IIO_CREDITS_USED.NCS",
-         "PerPkg": "1",
--        "PublicDescription": "Counts the number of cycles when the NCS/NCB/DRS credit is in use in the QPI for sending messages on BL to the IIO.  There is one credit for each of these three message classes (three credits total).  NCS is used for reads to PCIe space, NCB is used for transfering data without coherency, and DRS is used for transfering data with coherency (cachable PCI transactions).  This event can only track one message class at a time.",
-+        "PublicDescription": "Counts the number of cycles when the NCS/NCB/DRS credit is in use in the QPI for sending messages on BL to the IIO.  There is one credit for each of these three message classes (three credits total).  NCS is used for reads to PCIe space, NCB is used for transferring data without coherency, and DRS is used for transferring data with coherency (cacheable PCI transactions).  This event can only track one message class at a time.",
-         "UMask": "0x20",
-         "Unit": "R3QPI"
-     },
-@@ -1107,7 +1107,7 @@
-         "EventCode": "0x33",
-         "EventName": "UNC_R3_VNA_CREDITS_ACQUIRED",
-         "PerPkg": "1",
--        "PublicDescription": "Number of QPI VNA Credit acquisitions.  This event can be used in conjunction with the VNA In-Use Accumulator to calculate the average lifetime of a credit holder.  VNA credits are used by all message classes in order to communicate across QPI.  If a packet is unable to acquire credits, it will then attempt to use credts from the VN0 pool.  Note that a single packet may require multiple flit buffers (i.e. when data is being transfered).  Therefore, this event will increment by the number of credits acquired in each cycle.  Filtering based on message class is not provided.  One can count the number of packets transfered in a given message class using an qfclk event.",
-+        "PublicDescription": "Number of QPI VNA Credit acquisitions.  This event can be used in conjunction with the VNA In-Use Accumulator to calculate the average lifetime of a credit holder.  VNA credits are used by all message classes in order to communicate across QPI.  If a packet is unable to acquire credits, it will then attempt to use credits from the VN0 pool.  Note that a single packet may require multiple flit buffers (i.e. when data is being transferred).  Therefore, this event will increment by the number of credits acquired in each cycle.  Filtering based on message class is not provided.  One can count the number of packets transferred in a given message class using an qfclk event.",
-         "Unit": "R3QPI"
-     },
-     {
-diff --git a/tools/perf/pmu-events/arch/x86/jaketown/uncore-power.json b/tools/perf/pmu-events/arch/x86/jaketown/uncore-power.json
-index 638aa8a35cdb..b3ee5d741015 100644
---- a/tools/perf/pmu-events/arch/x86/jaketown/uncore-power.json
-+++ b/tools/perf/pmu-events/arch/x86/jaketown/uncore-power.json
-@@ -234,7 +234,7 @@
-         "EventCode": "0x80",
-         "EventName": "UNC_P_POWER_STATE_OCCUPANCY.CORES_C0",
-         "PerPkg": "1",
--        "PublicDescription": "This is an occupancy event that tracks the number of cores that are in C0.  It can be used by itself to get the average number of cores in C0, with threshholding to generate histograms, or with other PCU events and occupancy triggering to capture other details.",
-+        "PublicDescription": "This is an occupancy event that tracks the number of cores that are in C0.  It can be used by itself to get the average number of cores in C0, with thresholding to generate histograms, or with other PCU events and occupancy triggering to capture other details.",
-         "Unit": "PCU"
-     },
-     {
-@@ -242,7 +242,7 @@
-         "EventCode": "0x80",
-         "EventName": "UNC_P_POWER_STATE_OCCUPANCY.CORES_C3",
-         "PerPkg": "1",
--        "PublicDescription": "This is an occupancy event that tracks the number of cores that are in C0.  It can be used by itself to get the average number of cores in C0, with threshholding to generate histograms, or with other PCU events and occupancy triggering to capture other details.",
-+        "PublicDescription": "This is an occupancy event that tracks the number of cores that are in C0.  It can be used by itself to get the average number of cores in C0, with thresholding to generate histograms, or with other PCU events and occupancy triggering to capture other details.",
-         "Unit": "PCU"
-     },
-     {
-@@ -250,7 +250,7 @@
-         "EventCode": "0x80",
-         "EventName": "UNC_P_POWER_STATE_OCCUPANCY.CORES_C6",
-         "PerPkg": "1",
--        "PublicDescription": "This is an occupancy event that tracks the number of cores that are in C0.  It can be used by itself to get the average number of cores in C0, with threshholding to generate histograms, or with other PCU events and occupancy triggering to capture other details.",
-+        "PublicDescription": "This is an occupancy event that tracks the number of cores that are in C0.  It can be used by itself to get the average number of cores in C0, with thresholding to generate histograms, or with other PCU events and occupancy triggering to capture other details.",
-         "Unit": "PCU"
-     },
-     {
-@@ -266,7 +266,7 @@
-         "EventCode": "0x9",
-         "EventName": "UNC_P_PROCHOT_INTERNAL_CYCLES",
-         "PerPkg": "1",
--        "PublicDescription": "Counts the number of cycles that we are in Interal PROCHOT mode.  This mode is triggered when a sensor on the die determines that we are too hot and must throttle to avoid damaging the chip.",
-+        "PublicDescription": "Counts the number of cycles that we are in Internal PROCHOT mode.  This mode is triggered when a sensor on the die determines that we are too hot and must throttle to avoid damaging the chip.",
-         "Unit": "PCU"
-     },
-     {
-diff --git a/tools/perf/pmu-events/arch/x86/mapfile.csv b/tools/perf/pmu-events/arch/x86/mapfile.csv
-index 77af9d0bf6d4..afe811f154d7 100644
---- a/tools/perf/pmu-events/arch/x86/mapfile.csv
-+++ b/tools/perf/pmu-events/arch/x86/mapfile.csv
-@@ -16,7 +16,7 @@ GenuineIntel-6-(7D|7E|A7),v1.17,icelake,core
- GenuineIntel-6-6[AC],v1.18,icelakex,core
- GenuineIntel-6-3A,v23,ivybridge,core
- GenuineIntel-6-3E,v22,ivytown,core
--GenuineIntel-6-2D,v21,jaketown,core
-+GenuineIntel-6-2D,v22,jaketown,core
- GenuineIntel-6-(57|85),v9,knightslanding,core
- GenuineIntel-6-A[AC],v1.00,meteorlake,core
- GenuineIntel-6-1[AEF],v3,nehalemep,core
 -- 
 2.39.2.637.g21b0678d19-goog
 
