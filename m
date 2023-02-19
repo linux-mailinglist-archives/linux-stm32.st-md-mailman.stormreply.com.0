@@ -2,54 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D552C69BF9C
-	for <lists+linux-stm32@lfdr.de>; Sun, 19 Feb 2023 10:34:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D0F2E69BF9E
+	for <lists+linux-stm32@lfdr.de>; Sun, 19 Feb 2023 10:34:12 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 89384C6A5FE;
-	Sun, 19 Feb 2023 09:34:04 +0000 (UTC)
-Received: from mail-yb1-f201.google.com (mail-yb1-f201.google.com
- [209.85.219.201])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 97844C6A5FE;
+	Sun, 19 Feb 2023 09:34:12 +0000 (UTC)
+Received: from mail-yw1-f201.google.com (mail-yw1-f201.google.com
+ [209.85.128.201])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 38C2AC6A5EA
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AAE54C6A5EA
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 19 Feb 2023 09:34:03 +0000 (UTC)
-Received: by mail-yb1-f201.google.com with SMTP id
- e194-20020a2537cb000000b0095d2ada3d26so1953648yba.5
+ Sun, 19 Feb 2023 09:34:11 +0000 (UTC)
+Received: by mail-yw1-f201.google.com with SMTP id
+ 00721157ae682-536994ed9f2so3594317b3.14
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 19 Feb 2023 01:34:03 -0800 (PST)
+ Sun, 19 Feb 2023 01:34:11 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20210112;
  h=cc:to:from:subject:references:mime-version:message-id:in-reply-to
  :date:from:to:cc:subject:date:message-id:reply-to;
- bh=3kQG0KGeqgW06OPnyih1uXZZsO66wdHBjTbqSiX//SI=;
- b=gb2QuI/Q7UTLV03j+31SjEjAnQVplGs47YvBd6d72MRsfNX5u2GV1bClVFw/KPr/DJ
- j9VkCa6qiHYUKeSUlqAMjhUyepIsSaIdmc6/CDEnDH5Bg1MruzsNaUi1GrFe/RCHG4Ou
- 3/q2BxglwECD4NUkzFALnQWIey/UfoJLpkpUM2tCH8Ez4guaASLykOSuwFHIjrha8Gnb
- tc4FH3ZiS6wOvY2zokF6JUyq2nSs+yVikyByMBdQkxY+ijcxCjlGZ3MBC7jpOELRI0HS
- mHhwWScV1zH7rzz0rESS6LPTwCbYIbbRMDs+jv17YMGgoYXr5r8mpP8HO3oNUdzQHy/o
- ZZiw==
+ bh=SBnNbiH+hab12DiOKBd4pcQP1xg7aEKLvUH64+SdruU=;
+ b=lMQXrD7/f5Md4Cv/Wu4Z3DRM30d0/Nfh2T/ynQgxAmUmcGDb50w7szQMN0mpyoaGO2
+ /KdOcvlaYuqHsrNTWXuo8TUwMlOEss4q8f9kTxFsrrK0yzTDOal0zeVsikFKmnYi1xy1
+ ISw/xdS0uAhog4e1fTOEADlDMT1LTOMPedDe904T1ZO1xypLhlaFsSaeUjrSXaUz6fFk
+ msQHGNFimxoQ+TOS/hoLyrv1/fbNc/ptM/wx+RLmFSGLlTDitFY8whrioOlTCio/r8RJ
+ kf7fNFbYz1FDSf1lcNFUE8BVZf9eCYbnaM+F9qAETfZ5JX+dy6Dc7IZB7eKVK/qH0GCF
+ upeA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=cc:to:from:subject:references:mime-version:message-id:in-reply-to
  :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=3kQG0KGeqgW06OPnyih1uXZZsO66wdHBjTbqSiX//SI=;
- b=CmHnzz7R0rF0Rz60EWTUQEoy1GwUKrJrnz77bw+K+7x9E6d6XD6foCj07cNhnweCdC
- 8nKB1CFtko+1OY0DF1zecnabAQjnPHUJJ0OIbeUTc1krMkAp2iFgZMbejfpOci2xy/H0
- Ct4KteD+dIL8a9FCRc296Ns6GB5sDdagyKNnUqILA+EgLmO7oKezIK6oztBruM1epaJC
- 3WJRKQk1dUe3pWzFQ98DPCsyzT2cqYZ+5Y/siIADX+sRDlAtIOLkL6QhwjqN5f+MStLh
- FS63l+Jo1y8F3bWMVTYV3Mj29NmlnaUqJ2+kgvpa/8HarsMNB8fyhs5jcanBSoG8xe5d
- GW7A==
-X-Gm-Message-State: AO0yUKVjlek/zaCipZplt7FdAo4sgnqYL4hc1eyW7VU5lLelQLUrvyL2
- wqUiUr0DwfWL0Y0lkw1AYrtWWKzOQPLu
-X-Google-Smtp-Source: AK7set9iZ4GNz6X424ocjjFR9ly/Nzr3yu49B3uQN0Li0fYihqizLYz+cos7UMisC/Dk4m8f82PPVOIM/5Y8
+ bh=SBnNbiH+hab12DiOKBd4pcQP1xg7aEKLvUH64+SdruU=;
+ b=ZCzmeLM+7l1ZEHJ3vROGWvrGyBy7PRSZrdq6IOrjWgLxGBdVqwE0TJZxZdBJqcWQUQ
+ meDwskGui7Ps35TN3FQ7xCb4wpiPW+eNAj3nzMem4zjTcepda+Yr5Q2FsNv/eu5YOlj/
+ 3B6J1EETsfJiBg0yV3b4//ba/6I7ZZgaA4RNu9Yl/8l2IsVuH58CWV56iu1ja6ZVB3ZO
+ 71FXXXapNGP4XfAs2aWr1vVDnuRNml7B0mV4X/OAnzCraw+GkZzPvcPmX5rAOxPEZwqD
+ 5ubVIWcKomBjaxEOoThnIyVg9w0d7Dj7t1+uNfdKKV+mFSrhzoknxXVSyftjsnlWDlNm
+ 9VhA==
+X-Gm-Message-State: AO0yUKWO1RySoQVWWGK7cxzQiuxNa12jvVjit3FhEj05b6Hf75fHutqt
+ 5YSWx/zknOqWpomPqEO92v3WVEUiexov
+X-Google-Smtp-Source: AK7set/W4P4gwQTQ14PucGRNx4H4xnyILVPXxlki8k+imj9Y/kafkRTfhg634nDIsQh4lilI/Yabl8NyXI7+
 X-Received: from irogers.svl.corp.google.com
  ([2620:15c:2d4:203:cde9:3fbc:e1f1:6e3b])
- (user=irogers job=sendgmr) by 2002:a25:6408:0:b0:911:cc15:db74 with SMTP id
- y8-20020a256408000000b00911cc15db74mr28488ybb.13.1676799242175; Sun, 19 Feb
- 2023 01:34:02 -0800 (PST)
-Date: Sun, 19 Feb 2023 01:28:33 -0800
+ (user=irogers job=sendgmr) by 2002:a05:6902:10c6:b0:97a:ebd:a594 with SMTP id
+ w6-20020a05690210c600b0097a0ebda594mr390732ybu.3.1676799250687; Sun, 19 Feb
+ 2023 01:34:10 -0800 (PST)
+Date: Sun, 19 Feb 2023 01:28:34 -0800
 In-Reply-To: <20230219092848.639226-1-irogers@google.com>
-Message-Id: <20230219092848.639226-37-irogers@google.com>
+Message-Id: <20230219092848.639226-38-irogers@google.com>
 Mime-Version: 1.0
 References: <20230219092848.639226-1-irogers@google.com>
 X-Mailer: git-send-email 2.39.2.637.g21b0678d19-goog
@@ -76,8 +76,7 @@ To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
  linux-arm-kernel@lists.infradead.org, Perry Taylor <perry.taylor@intel.com>, 
  Caleb Biggers <caleb.biggers@intel.com>
 Cc: Ian Rogers <irogers@google.com>, Stephane Eranian <eranian@google.com>
-Subject: [Linux-stm32] [PATCH v1 36/51] perf metric: Compute and print
-	threshold values
+Subject: [Linux-stm32] [PATCH v1 37/51] perf expr: More explicit NAN handling
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,177 +93,46 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Compute the threshold metric and use it to color the metric value as
-red or green. The threshold expression is used to generate the set of
-events as the threshold may require additional events. A later patch
-make this behavior optional with a --metric-no-threshold flag.
+Comparison and logical operations on NAN won't ensure the result is
+NAN. Ensure NANs are propogated so that threshold expressions like
+"tma_fetch_latency > 0.1 & tma_frontend_bound > 0.15" don't yield a
+number when the components are NAN.
 
 Signed-off-by: Ian Rogers <irogers@google.com>
 ---
- tools/perf/util/metricgroup.c | 24 +++++++++++++++++++++---
- tools/perf/util/metricgroup.h |  1 +
- tools/perf/util/stat-shadow.c | 24 ++++++++++++++++--------
- 3 files changed, 38 insertions(+), 11 deletions(-)
+ tools/perf/util/expr.y | 12 ++++++++++--
+ 1 file changed, 10 insertions(+), 2 deletions(-)
 
-diff --git a/tools/perf/util/metricgroup.c b/tools/perf/util/metricgroup.c
-index b1d56a73223d..d83885697125 100644
---- a/tools/perf/util/metricgroup.c
-+++ b/tools/perf/util/metricgroup.c
-@@ -129,6 +129,8 @@ struct metric {
- 	const char *modifier;
- 	/** The expression to parse, for example, "instructions/cycles". */
- 	const char *metric_expr;
-+	/** Optional threshold expression where zero value is green, otherwise red. */
-+	const char *metric_threshold;
- 	/**
- 	 * The "ScaleUnit" that scales and adds a unit to the metric during
- 	 * output.
-@@ -222,6 +224,7 @@ static struct metric *metric__new(const struct pmu_metric *pm,
- 			goto out_err;
- 	}
- 	m->metric_expr = pm->metric_expr;
-+	m->metric_threshold = pm->metric_threshold;
- 	m->metric_unit = pm->unit;
- 	m->pctx->sctx.user_requested_cpu_list = NULL;
- 	if (user_requested_cpu_list) {
-@@ -901,6 +904,7 @@ static int __add_metric(struct list_head *metric_list,
- 	const struct visited_metric *vm;
- 	int ret;
- 	bool is_root = !root_metric;
-+	const char *expr;
- 	struct visited_metric visited_node = {
- 		.name = pm->metric_name,
- 		.parent = visited,
-@@ -963,16 +967,29 @@ static int __add_metric(struct list_head *metric_list,
- 	 * For both the parent and referenced metrics, we parse
- 	 * all the metric's IDs and add it to the root context.
- 	 */
--	if (expr__find_ids(pm->metric_expr, NULL, root_metric->pctx) < 0) {
-+	ret = 0;
-+	expr = pm->metric_expr;
-+	if (is_root && pm->metric_threshold) {
-+		/*
-+		 * Threshold expressions are built off the actual metric. Switch
-+		 * to use that in case of additional necessary events. Change
-+		 * the visited node name to avoid this being flagged as
-+		 * recursion.
-+		 */
-+		assert(strstr(pm->metric_threshold, pm->metric_name));
-+		expr = pm->metric_threshold;
-+		visited_node.name = "__threshold__";
-+	}
-+	if (expr__find_ids(expr, NULL, root_metric->pctx) < 0) {
- 		/* Broken metric. */
- 		ret = -EINVAL;
--	} else {
-+	}
-+	if (!ret) {
- 		/* Resolve referenced metrics. */
- 		ret = resolve_metric(metric_list, modifier, metric_no_group,
- 				     user_requested_cpu_list, system_wide,
- 				     root_metric, &visited_node, table);
- 	}
--
- 	if (ret) {
- 		if (is_root)
- 			metric__free(root_metric);
-@@ -1554,6 +1571,7 @@ static int parse_groups(struct evlist *perf_evlist, const char *str,
- 			free(metric_events);
- 			goto out;
- 		}
-+		expr->metric_threshold = m->metric_threshold;
- 		expr->metric_unit = m->metric_unit;
- 		expr->metric_events = metric_events;
- 		expr->runtime = m->pctx->sctx.runtime;
-diff --git a/tools/perf/util/metricgroup.h b/tools/perf/util/metricgroup.h
-index 84030321a057..32eb3a5381fb 100644
---- a/tools/perf/util/metricgroup.h
-+++ b/tools/perf/util/metricgroup.h
-@@ -47,6 +47,7 @@ struct metric_expr {
- 	const char *metric_expr;
- 	/** The name of the meric such as "IPC". */
- 	const char *metric_name;
-+	const char *metric_threshold;
- 	/**
- 	 * The "ScaleUnit" that scales and adds a unit to the metric during
- 	 * output. For example, "6.4e-05MiB" means to scale the resulting metric
-diff --git a/tools/perf/util/stat-shadow.c b/tools/perf/util/stat-shadow.c
-index 806b32156459..a41f186c6ec8 100644
---- a/tools/perf/util/stat-shadow.c
-+++ b/tools/perf/util/stat-shadow.c
-@@ -777,6 +777,7 @@ static int prepare_metric(struct evsel **metric_events,
- 
- static void generic_metric(struct perf_stat_config *config,
- 			   const char *metric_expr,
-+			   const char *metric_threshold,
- 			   struct evsel **metric_events,
- 			   struct metric_ref *metric_refs,
- 			   char *name,
-@@ -789,9 +790,10 @@ static void generic_metric(struct perf_stat_config *config,
- {
- 	print_metric_t print_metric = out->print_metric;
- 	struct expr_parse_ctx *pctx;
--	double ratio, scale;
-+	double ratio, scale, threshold;
- 	int i;
- 	void *ctxp = out->ctx;
-+	const char *color = NULL;
- 
- 	pctx = expr__ctx_new();
- 	if (!pctx)
-@@ -811,6 +813,12 @@ static void generic_metric(struct perf_stat_config *config,
- 			char *unit;
- 			char metric_bf[64];
- 
-+			if (metric_threshold &&
-+			    expr__parse(&threshold, pctx, metric_threshold) == 0) {
-+				color = fpclassify(threshold) == FP_ZERO
-+					? PERF_COLOR_GREEN : PERF_COLOR_RED;
-+			}
-+
- 			if (metric_unit && metric_name) {
- 				if (perf_pmu__convert_scale(metric_unit,
- 					&unit, &scale) >= 0) {
-@@ -823,22 +831,22 @@ static void generic_metric(struct perf_stat_config *config,
- 					scnprintf(metric_bf, sizeof(metric_bf),
- 					  "%s  %s", unit, metric_name);
- 
--				print_metric(config, ctxp, NULL, "%8.1f",
-+				print_metric(config, ctxp, color, "%8.1f",
- 					     metric_bf, ratio);
- 			} else {
--				print_metric(config, ctxp, NULL, "%8.2f",
-+				print_metric(config, ctxp, color, "%8.2f",
- 					metric_name ?
- 					metric_name :
- 					out->force_header ?  name : "",
- 					ratio);
- 			}
- 		} else {
--			print_metric(config, ctxp, NULL, NULL,
-+			print_metric(config, ctxp, color, /*unit=*/NULL,
- 				     out->force_header ?
- 				     (metric_name ? metric_name : name) : "", 0);
- 		}
- 	} else {
--		print_metric(config, ctxp, NULL, NULL,
-+		print_metric(config, ctxp, color, /*unit=*/NULL,
- 			     out->force_header ?
- 			     (metric_name ? metric_name : name) : "", 0);
- 	}
-@@ -1214,9 +1222,9 @@ void perf_stat__print_shadow_stats(struct perf_stat_config *config,
- 		list_for_each_entry (mexp, &me->head, nd) {
- 			if (num++ > 0)
- 				out->new_line(config, ctxp);
--			generic_metric(config, mexp->metric_expr, mexp->metric_events,
--				       mexp->metric_refs, evsel->name, mexp->metric_name,
--				       mexp->metric_unit, mexp->runtime,
-+			generic_metric(config, mexp->metric_expr, mexp->metric_threshold,
-+				       mexp->metric_events, mexp->metric_refs, evsel->name,
-+				       mexp->metric_name, mexp->metric_unit, mexp->runtime,
- 				       map_idx, out, st);
- 		}
- 	}
+diff --git a/tools/perf/util/expr.y b/tools/perf/util/expr.y
+index 635e562350c5..250e444bf032 100644
+--- a/tools/perf/util/expr.y
++++ b/tools/perf/util/expr.y
+@@ -127,7 +127,11 @@ static struct ids handle_id(struct expr_parse_ctx *ctx, char *id,
+ 	if (!compute_ids || (is_const(LHS.val) && is_const(RHS.val))) { \
+ 		assert(LHS.ids == NULL);				\
+ 		assert(RHS.ids == NULL);				\
+-		RESULT.val = (long)LHS.val OP (long)RHS.val;		\
++		if (isnan(LHS.val) || isnan(RHS.val)) {			\
++			RESULT.val = NAN;				\
++		} else {						\
++			RESULT.val = (long)LHS.val OP (long)RHS.val;	\
++		}							\
+ 		RESULT.ids = NULL;					\
+ 	} else {							\
+ 	        RESULT = union_expr(LHS, RHS);				\
+@@ -137,7 +141,11 @@ static struct ids handle_id(struct expr_parse_ctx *ctx, char *id,
+ 	if (!compute_ids || (is_const(LHS.val) && is_const(RHS.val))) { \
+ 		assert(LHS.ids == NULL);				\
+ 		assert(RHS.ids == NULL);				\
+-		RESULT.val = LHS.val OP RHS.val;			\
++		if (isnan(LHS.val) || isnan(RHS.val)) {			\
++			RESULT.val = NAN;				\
++		} else {						\
++			RESULT.val = LHS.val OP RHS.val;		\
++		}							\
+ 		RESULT.ids = NULL;					\
+ 	} else {							\
+ 	        RESULT = union_expr(LHS, RHS);				\
 -- 
 2.39.2.637.g21b0678d19-goog
 
