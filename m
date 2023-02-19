@@ -2,54 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 58E9669BF71
-	for <lists+linux-stm32@lfdr.de>; Sun, 19 Feb 2023 10:30:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7158369BF72
+	for <lists+linux-stm32@lfdr.de>; Sun, 19 Feb 2023 10:30:19 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1CDA5C65E58;
-	Sun, 19 Feb 2023 09:30:11 +0000 (UTC)
-Received: from mail-yb1-f202.google.com (mail-yb1-f202.google.com
- [209.85.219.202])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2FE82C65E58;
+	Sun, 19 Feb 2023 09:30:19 +0000 (UTC)
+Received: from mail-yb1-f201.google.com (mail-yb1-f201.google.com
+ [209.85.219.201])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7D5CAC640E6
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EBD65C640E6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 19 Feb 2023 09:30:09 +0000 (UTC)
-Received: by mail-yb1-f202.google.com with SMTP id
- i11-20020a256d0b000000b0086349255277so226738ybc.8
+ Sun, 19 Feb 2023 09:30:17 +0000 (UTC)
+Received: by mail-yb1-f201.google.com with SMTP id
+ w3-20020a25ef43000000b008ee1c76c25dso2171003ybm.11
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 19 Feb 2023 01:30:09 -0800 (PST)
+ Sun, 19 Feb 2023 01:30:17 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20210112;
  h=cc:to:from:subject:references:mime-version:message-id:in-reply-to
  :date:from:to:cc:subject:date:message-id:reply-to;
- bh=fuS1q84R0xcAiENu72F9xaB/dldCNXgOZrtbWFpv52E=;
- b=cI8dh0bWWKZeW1y5k5GPM8AzvnkbIA5dJQUUoDzOXJvWxVyShYBYx60369eQUy4OzL
- E6SVtCAQM+IaKz1bV0Rn3Uuqp+jyypxxArizXArFcTzgMndVSzmzut43pU+fIivj5gSC
- XKTj5fMpGYRtuDMkea81itweVHTeFMS37/+yA2iSPh75iDbyZ+kgaX2m5UodziZr1WHu
- sKBH5KHPK9zik8QbzJ6V3vRrwymvXNniazfNki04nQD+n1XXTKZW1LPzmzv18NmS4/2T
- 4FkiuO6YzbUl/HqF+S/0btFco6XOhO2Bs0WDcFHWpQ5VE+9asDN4xuYeYZaRTGDc6yIO
- VGLw==
+ bh=ZekM3DFhsGli0TNli/C0IYKvA9f7AyUZpwfMde3iUAk=;
+ b=njwS0zdvPBr2f5Gwgx+MnFdMKJsacyJ3/qym2jLfPEHxAMivAGs+rlWWdk+Du+BWeG
+ roLMmds7cxYanNraNuE8rI1XscoaMpSnYds3csTWiUZXGSDGsb+iX6X/mzHsk16/KvNg
+ JIRRQggidvMZ9LijU87B8gNDY3B0npD5/KmjFMTlcvpZlx5GcIoFBSm4uQcG+OTZrVCB
+ ryA5rcmtM4YDU3yMrGfDKb+E+nYgR15LIJmRsygIIdD202+A6TIyuwJoFUQHcUClbq2W
+ k75D//NmRE3BNcT8UUVZbhzSfbsObFP7TGXybtoz712NdmByjrR0HfRP9//XsBj4ATZb
+ B3Qg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=cc:to:from:subject:references:mime-version:message-id:in-reply-to
  :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=fuS1q84R0xcAiENu72F9xaB/dldCNXgOZrtbWFpv52E=;
- b=SWiGk3AnhDAl3Kkm4bs9dXtiqvu6cFIkbCEZ+yV3mzvA3Lj09OTUwOK5piqNZBmzSG
- WAPTpcLJBv0iKTTxME3miaj1RK0WTZq5kmcpRgVj0S0KUD59hyv32J/hQNfAupc631f+
- ME21MaMGFqftaUqBv+zZFQQBSFOV60S+qJZG5lfZrK5ulwXPw+OdxTYi/XdnfCrUOquZ
- 8MGna4AKJW83X0nOBCMnDu1pQlk/Kl/DMWx5OJDxEYmXun81XhaG8htsz1Ta7Thg3LxJ
- L+hq9mxDrFexeJ3MKX7S+i4E4yRwwbtLFX/EMkvl0WTD7CNS4kgfQaObhs9hhy7nLb52
- E/hQ==
-X-Gm-Message-State: AO0yUKUhgszegFzLIoJU3KOdGtIeK+pUVAHJ3ojuvG208jt2YN3WvYlk
- OEeAuRWiRiOPhtqDBUy6m0pTEhIy+kVn
-X-Google-Smtp-Source: AK7set93SE5NbWPGLqx8+0V5OQ1Zd7PwyZiB6jBWIqTaGMZiQIyzx9cn7NuqKPF1uean13HLVminRfyvDmVj
+ bh=ZekM3DFhsGli0TNli/C0IYKvA9f7AyUZpwfMde3iUAk=;
+ b=TM6PDW7ax/urv1PO0QSGFcHlAjjNFBDCrUaV/nR9XTcSG9JYMKtLs6b8i6lmHBn5MP
+ BIOFBWOd8nSbLXVdMRZA7GKYM7iF+a6Ecg4xHKAywIiqZCrIfG7/NDdIWJMpm2JNj/HV
+ 7ZreuHOfRhLyA8JknkJ+THdHk0vRWoQMR1fbgASqRTP3sLwlPB/rCqslipTHAcIIohG7
+ VweFRhk3cIpQpQPiMxjJhwW5MZlQHnC4NWHSjO4Z4Qgela1wn7fABIyVeWfx+ckxNt6O
+ l2iO2wNGY734ZBJd8Bn8OjR6pBpkhi2dJsXIdCIfbT9gJphpXhJu6KjWmgLgevJY5eDz
+ eMQg==
+X-Gm-Message-State: AO0yUKU/7+xC6COxXOI0CcOpZifDxcbXeJ4mjzBPwL68LwaKbstC9RXF
+ peFks2UpahDxlrnRsfX1qld8yw99ys5U
+X-Google-Smtp-Source: AK7set/0blmTCb8m5UP/yr2PteCnUmUmeiKnVL1fJQupnGlI6ozkeaWut2Dm6E94YEggDJE+VTHQSBLSDCod
 X-Received: from irogers.svl.corp.google.com
  ([2620:15c:2d4:203:cde9:3fbc:e1f1:6e3b])
- (user=irogers job=sendgmr) by 2002:a0d:dc85:0:b0:530:a183:aa0 with SMTP id
- f127-20020a0ddc85000000b00530a1830aa0mr1619527ywe.384.1676799008532; Sun, 19
- Feb 2023 01:30:08 -0800 (PST)
-Date: Sun, 19 Feb 2023 01:28:05 -0800
+ (user=irogers job=sendgmr) by 2002:a81:8482:0:b0:533:a071:d7f8 with SMTP id
+ u124-20020a818482000000b00533a071d7f8mr449175ywf.547.1676799016916; Sun, 19
+ Feb 2023 01:30:16 -0800 (PST)
+Date: Sun, 19 Feb 2023 01:28:06 -0800
 In-Reply-To: <20230219092848.639226-1-irogers@google.com>
-Message-Id: <20230219092848.639226-9-irogers@google.com>
+Message-Id: <20230219092848.639226-10-irogers@google.com>
 Mime-Version: 1.0
 References: <20230219092848.639226-1-irogers@google.com>
 X-Mailer: git-send-email 2.39.2.637.g21b0678d19-goog
@@ -76,8 +76,8 @@ To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
  linux-arm-kernel@lists.infradead.org, Perry Taylor <perry.taylor@intel.com>, 
  Caleb Biggers <caleb.biggers@intel.com>
 Cc: Ian Rogers <irogers@google.com>, Stephane Eranian <eranian@google.com>
-Subject: [Linux-stm32] [PATCH v1 08/51] perf pmu-events: Make the
-	metric_constraint an enum
+Subject: [Linux-stm32] [PATCH v1 09/51] perf pmu-events: Don't '\0'
+	terminate enum values
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,158 +94,83 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Rename metric_constraint to event_grouping to better explain what the
-variable is used for. Switch to use an enum for encoding instead of a
-string. Rather than just no constraint/grouping information or
-"NO_NMI_WATCHDOG", have 4 enum values. The values encode whether to
-group or not, and two cases where the behavior is dependent on either
-the NMI watchdog being enabled or SMT being enabled.
+Encoding enums like '1\0' wastes a byte and could be '1' (no '\0'
+terminator) if the 0 case is '0', it also removes a branch for
+decompressing.
 
 Signed-off-by: Ian Rogers <irogers@google.com>
 ---
- tools/perf/pmu-events/jevents.py   | 20 ++++++++++++++++----
- tools/perf/pmu-events/pmu-events.h | 25 ++++++++++++++++++++++++-
- tools/perf/util/metricgroup.c      | 19 ++++++++++++-------
- 3 files changed, 52 insertions(+), 12 deletions(-)
+ tools/perf/pmu-events/jevents.py | 26 ++++++++++++++++++--------
+ 1 file changed, 18 insertions(+), 8 deletions(-)
 
 diff --git a/tools/perf/pmu-events/jevents.py b/tools/perf/pmu-events/jevents.py
-index 2da55408398f..dc0c56dccb5e 100755
+index dc0c56dccb5e..e82dff3a1228 100755
 --- a/tools/perf/pmu-events/jevents.py
 +++ b/tools/perf/pmu-events/jevents.py
-@@ -51,8 +51,8 @@ _json_event_attributes = [
- 
- # Attributes that are in pmu_metric rather than pmu_event.
- _json_metric_attributes = [
--    'metric_name', 'metric_group', 'metric_constraint', 'metric_expr', 'desc',
--    'long_desc', 'unit', 'compat', 'aggr_mode'
-+    'metric_name', 'metric_group', 'metric_expr', 'desc',
-+    'long_desc', 'unit', 'compat', 'aggr_mode', 'event_grouping'
+@@ -54,6 +54,8 @@ _json_metric_attributes = [
+     'metric_name', 'metric_group', 'metric_expr', 'desc',
+     'long_desc', 'unit', 'compat', 'aggr_mode', 'event_grouping'
  ]
++# Attributes that are bools or enum int values, encoded as '0', '1',...
++_json_enum_attributes = ['aggr_mode', 'deprecated', 'event_grouping', 'perpkg']
  
  def removesuffix(s: str, suffix: str) -> str:
-@@ -204,6 +204,18 @@ class JsonEvent:
-       }
-       return aggr_mode_to_enum[aggr_mode]
+   """Remove the suffix from a string
+@@ -360,7 +362,10 @@ class JsonEvent:
+         # Convert parsed metric expressions into a string. Slashes
+         # must be doubled in the file.
+         x = x.ToPerfJson().replace('\\', '\\\\')
+-      s += f'{x}\\000' if x else '\\000'
++      if attr in _json_enum_attributes:
++        s += x if x else '0'
++      else:
++        s += f'{x}\\000' if x else '\\000'
+     return s
  
-+    def convert_metric_constraint(metric_constraint: str) -> Optional[str]:
-+      """Returns the metric_event_groups enum value associated with the JSON string."""
-+      if not metric_constraint:
-+        return None
-+      metric_constraint_to_enum = {
-+          'NO_GROUP_EVENTS': '1',
-+          'NO_GROUP_EVENTS_NMI': '2',
-+          'NO_NMI_WATCHDOG': '2',
-+          'NO_GROUP_EVENTS_SMT': '3',
-+      }
-+      return metric_constraint_to_enum[metric_constraint]
-+
-     def lookup_msr(num: str) -> Optional[str]:
-       """Converts the msr number, or first in a list to the appropriate event field."""
-       if not num:
-@@ -288,7 +300,7 @@ class JsonEvent:
-     self.deprecated = jd.get('Deprecated')
-     self.metric_name = jd.get('MetricName')
-     self.metric_group = jd.get('MetricGroup')
--    self.metric_constraint = jd.get('MetricConstraint')
-+    self.event_grouping = convert_metric_constraint(jd.get('MetricConstraint'))
-     self.metric_expr = None
-     if 'MetricExpr' in jd:
-       self.metric_expr = metric.ParsePerfJson(jd['MetricExpr']).Simplify()
-@@ -678,7 +690,7 @@ static void decompress_event(int offset, struct pmu_event *pe)
+   def to_c_string(self, metric: bool) -> str:
+@@ -690,16 +695,18 @@ static void decompress_event(int offset, struct pmu_event *pe)
  {
  \tconst char *p = &big_c_string[offset];
  """)
--  enum_attributes = ['aggr_mode', 'deprecated', 'perpkg']
-+  enum_attributes = ['aggr_mode', 'deprecated', 'event_grouping', 'perpkg']
+-  enum_attributes = ['aggr_mode', 'deprecated', 'event_grouping', 'perpkg']
    for attr in _json_event_attributes:
      _args.output_file.write(f'\n\tpe->{attr} = ')
-     if attr in enum_attributes:
-diff --git a/tools/perf/pmu-events/pmu-events.h b/tools/perf/pmu-events/pmu-events.h
-index 4d236bb32fd3..57a38e3e5c32 100644
---- a/tools/perf/pmu-events/pmu-events.h
-+++ b/tools/perf/pmu-events/pmu-events.h
-@@ -11,6 +11,29 @@ enum aggr_mode_class {
- 	PerCore
- };
+-    if attr in enum_attributes:
+-      _args.output_file.write("(*p == '\\0' ? 0 : *p - '0');\n")
++    if attr in _json_enum_attributes:
++      _args.output_file.write("*p - '0';\n")
+     else:
+       _args.output_file.write("(*p == '\\0' ? NULL : p);\n")
+     if attr == _json_event_attributes[-1]:
+       continue
+-    _args.output_file.write('\twhile (*p++);')
++    if attr in _json_enum_attributes:
++      _args.output_file.write('\tp++;')
++    else:
++      _args.output_file.write('\twhile (*p++);')
+   _args.output_file.write("""}
  
-+/**
-+ * enum metric_event_groups - How events within a pmu_metric should be grouped.
-+ */
-+enum metric_event_groups {
-+	/**
-+	 * @MetricGroupEvents: Default, group events within the metric.
-+	 */
-+	MetricGroupEvents = 0,
-+	/**
-+	 * @MetricNoGroupEvents: Don't group events for the metric.
-+	 */
-+	MetricNoGroupEvents = 1,
-+	/**
-+	 * @MetricNoGroupEventsNmi: Don't group events for the metric if the NMI
-+	 *                          watchdog is enabled.
-+	 */
-+	MetricNoGroupEventsNmi = 2,
-+	/**
-+	 * @MetricNoGroupEventsSmt: Don't group events for the metric if SMT is
-+	 *                          enabled.
-+	 */
-+	MetricNoGroupEventsSmt = 3,
-+};
- /*
-  * Describe each PMU event. Each CPU has a table of PMU events.
-  */
-@@ -33,10 +56,10 @@ struct pmu_metric {
- 	const char *metric_expr;
- 	const char *unit;
- 	const char *compat;
--	const char *metric_constraint;
- 	const char *desc;
- 	const char *long_desc;
- 	enum aggr_mode_class aggr_mode;
-+	enum metric_event_groups event_grouping;
- };
+ static void decompress_metric(int offset, struct pmu_metric *pm)
+@@ -708,13 +715,16 @@ static void decompress_metric(int offset, struct pmu_metric *pm)
+ """)
+   for attr in _json_metric_attributes:
+     _args.output_file.write(f'\n\tpm->{attr} = ')
+-    if attr in enum_attributes:
+-      _args.output_file.write("(*p == '\\0' ? 0 : *p - '0');\n")
++    if attr in _json_enum_attributes:
++      _args.output_file.write("*p - '0';\n")
+     else:
+       _args.output_file.write("(*p == '\\0' ? NULL : p);\n")
+     if attr == _json_metric_attributes[-1]:
+       continue
+-    _args.output_file.write('\twhile (*p++);')
++    if attr in _json_enum_attributes:
++      _args.output_file.write('\tp++;')
++    else:
++      _args.output_file.write('\twhile (*p++);')
+   _args.output_file.write("""}
  
- struct pmu_events_table;
-diff --git a/tools/perf/util/metricgroup.c b/tools/perf/util/metricgroup.c
-index b2aa6e049804..868fc9c35606 100644
---- a/tools/perf/util/metricgroup.c
-+++ b/tools/perf/util/metricgroup.c
-@@ -13,6 +13,7 @@
- #include "pmu.h"
- #include "pmu-hybrid.h"
- #include "print-events.h"
-+#include "smt.h"
- #include "expr.h"
- #include "rblist.h"
- #include <string.h>
-@@ -168,16 +169,20 @@ static void metric__watchdog_constraint_hint(const char *name, bool foot)
- 
- static bool metric__group_events(const struct pmu_metric *pm)
- {
--	if (!pm->metric_constraint)
--		return true;
--
--	if (!strcmp(pm->metric_constraint, "NO_NMI_WATCHDOG") &&
--	    sysctl__nmi_watchdog_enabled()) {
-+	switch (pm->event_grouping) {
-+	case MetricNoGroupEvents:
-+		return false;
-+	case MetricNoGroupEventsNmi:
-+		if (!sysctl__nmi_watchdog_enabled())
-+			return true;
- 		metric__watchdog_constraint_hint(pm->metric_name, /*foot=*/false);
- 		return false;
-+	case MetricNoGroupEventsSmt:
-+		return !smt_on();
-+	case MetricGroupEvents:
-+	default:
-+		return true;
- 	}
--
--	return true;
- }
- 
- static void metric__free(struct metric *m)
+ int pmu_events_table_for_each_event(const struct pmu_events_table *table,
 -- 
 2.39.2.637.g21b0678d19-goog
 
