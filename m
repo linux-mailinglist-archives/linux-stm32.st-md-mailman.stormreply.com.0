@@ -2,56 +2,56 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 48D3A69CBA9
+	by mail.lfdr.de (Postfix) with ESMTPS id 6F80369CBAC
 	for <lists+linux-stm32@lfdr.de>; Mon, 20 Feb 2023 14:13:08 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0195FC6A5FE;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1DDBCC6A601;
 	Mon, 20 Feb 2023 13:13:08 +0000 (UTC)
-Received: from mail-yw1-f202.google.com (mail-yw1-f202.google.com
- [209.85.128.202])
+Received: from mail-yb1-f201.google.com (mail-yb1-f201.google.com
+ [209.85.219.201])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1C7DAC640E6
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 560C7C6A5EA
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 19 Feb 2023 09:30:44 +0000 (UTC)
-Received: by mail-yw1-f202.google.com with SMTP id
- 00721157ae682-5368720133fso19936507b3.8
+ Sun, 19 Feb 2023 09:30:52 +0000 (UTC)
+Received: by mail-yb1-f201.google.com with SMTP id
+ h204-20020a256cd5000000b00953ffdfbe1aso2260942ybc.23
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 19 Feb 2023 01:30:44 -0800 (PST)
+ Sun, 19 Feb 2023 01:30:52 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20210112;
  h=content-transfer-encoding:cc:to:from:subject:references
  :mime-version:message-id:in-reply-to:date:from:to:cc:subject:date
  :message-id:reply-to;
- bh=xj7HoqjVzWtTG1WEzlSYw7nbEo3g/+joKzJ7OferbPM=;
- b=VFXOgSzEe7xgPv8qGuqAZCZJ/GgNwCQnb23GJi01HPUFBwI2tO9Vlu/TSb7ih/MqNr
- R585nxBAMRiaVoql2/apEaSplcVeN2hAgjS58PyPcyPVVgXE5VXeDCA6Ssu/ksbWQ4gI
- g9k05/38+3QlC9xxaUEcJlC3DIz8W4dZvH+bsBTXrkTflW0tvbMHP1Rb2TJkZO7vLOc9
- G8vWn4+IMEbGaM01zxloynAXbVuoFcIYiU5lKLTBkdwWvfKzXsDI5rUzpe01EjOU24Qo
- Nm5KtSRfq6yzMXexdtyAzJ3iih7NcJkP4p3SVxotLkRBVOeZrN94Ef2wz/AIP3r5lPIL
- futQ==
+ bh=2W5bF1+eYfCMToRpqKWibN9HPaokpnt6JrTQGYqwxL0=;
+ b=JpfDCIA4ppKmESuQFzB6W/7DruT1DHMOVh/VWjtI7KRZRQoLnR3/sZ1Bohsk/eLYEA
+ U+7YLD9yVs2xukqi/gPf38x8plfb8cTGsBNXk9LZt5iUJuhxbym6qfK+Pl63CTMGx3eF
+ nZGlnyTSv4egaClLA6bd3B83xyf/BcBfMvOYi70RDcqdUh5I6hFE0DvpVpAw5lNggp5q
+ 4vxkS0J/haba0eEx57Pga6Zvx6M0IxBnVNN5ezr2aQsgjTyxqKepri2EijnusFItiBbM
+ /Rku0HnNF5CNwSPBIe72D0kAKoYVsLF5cDjvznGJkrpdNBsCsryuRKK6oKdB7MvSwlcp
+ kUDA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:cc:to:from:subject:references
  :mime-version:message-id:in-reply-to:date:x-gm-message-state:from:to
  :cc:subject:date:message-id:reply-to;
- bh=xj7HoqjVzWtTG1WEzlSYw7nbEo3g/+joKzJ7OferbPM=;
- b=h1ELxccYrLaWLRhIRgsUpy80mS+yLRfn2ZDBaNWqPlUIVh/VZ+bBxWh2P7fAW+L+ne
- aBYC7nH5QM9Qv1ftFDNuN5RBqO0Ns31N9kFYLJxsl5uSeLM6oetczx9vtzKIVlTzK49k
- CFHmcn7Jkr3m2giRGuV8u6UrvucUFNPAlNU1ESO3FjoAuYgxixemyp10PUhVh/q1DLtE
- Uv1ASF7o9BOrXP3R/l+OhY906YlVCkWmZoBVvLgYlLw+A+XOXAsfXtY6H+tbp0aMJg6M
- l+ZKydEPGxqhEoHvawXyMK6q0ZxFmQTecWidSM8jugVcuB8Jh1FvW+Mxo5K9svMMEAWB
- c8Gg==
-X-Gm-Message-State: AO0yUKV5jddmmtIuWvN+lqw5P4BD1blXb4Aw7p2/lUdim2riiYNIvoph
- ipOxBB8ks99Wy0TNkLMud6P03jnTHISp
-X-Google-Smtp-Source: AK7set8F+CetJmms9/C1lxka49fOZ8yDh5RztBn9vHge50kU6fvfjFMW1PvysCtukMRCp8clwK2t4/Ud+ewq
+ bh=2W5bF1+eYfCMToRpqKWibN9HPaokpnt6JrTQGYqwxL0=;
+ b=KIrrhd2WkjvUkxUW9uF6vcGiRZIjoMYUM3FIcnuV6r5JaaW7szQN4fikZVFRwcmoE3
+ Sqe1rTh1yAyiC2fUVQofxRUktZD9AQehhHqMEw/SFR8kBhp/7sU1KRNiZa261i0i1rwT
+ BmSry6XSJmgRTd7WITk4hpnode485X3V2LkM4BuoF9lTsxRlOkt+aQtZhWUVVcl7MzxN
+ P0vaOtBUsOi488C5N5fxaAs0jMp6k2ifUpgTeJjJndNlQ8ceTngEFy+QRWEG+kky8Lkf
+ Bo+qQO4NEZGx+uNlk+Sa9Y2AIZLuJk1Wrv9KhC2b120fx6YOVsMJYG0X3VChgETgyEex
+ xmKA==
+X-Gm-Message-State: AO0yUKWyLaTDe9aCtG+DLK8cpItYXRO/c+AMvCq+2jwvsTElwInYyeEg
+ yzM98RLfqRZGIn9XmPFS3BZb6rZ+1uVX
+X-Google-Smtp-Source: AK7set9QBN8NymNYjLPB0XnTpmrAcXsSTmkjXocyRdyrPZVVVXqyAw2oiWl4W7lvSrbjCLxCj2WegBhxslKw
 X-Received: from irogers.svl.corp.google.com
  ([2620:15c:2d4:203:cde9:3fbc:e1f1:6e3b])
- (user=irogers job=sendgmr) by 2002:a25:e90d:0:b0:80b:b818:e841 with SMTP id
- n13-20020a25e90d000000b0080bb818e841mr1579149ybd.94.1676799043073; Sun, 19
- Feb 2023 01:30:43 -0800 (PST)
-Date: Sun, 19 Feb 2023 01:28:09 -0800
+ (user=irogers job=sendgmr) by 2002:a05:6902:10c6:b0:97a:ebd:a594 with SMTP id
+ w6-20020a05690210c600b0097a0ebda594mr389997ybu.3.1676799051317; Sun, 19 Feb
+ 2023 01:30:51 -0800 (PST)
+Date: Sun, 19 Feb 2023 01:28:10 -0800
 In-Reply-To: <20230219092848.639226-1-irogers@google.com>
-Message-Id: <20230219092848.639226-13-irogers@google.com>
+Message-Id: <20230219092848.639226-14-irogers@google.com>
 Mime-Version: 1.0
 References: <20230219092848.639226-1-irogers@google.com>
 X-Mailer: git-send-email 2.39.2.637.g21b0678d19-goog
@@ -79,8 +79,8 @@ To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
  Caleb Biggers <caleb.biggers@intel.com>
 X-Mailman-Approved-At: Mon, 20 Feb 2023 13:13:05 +0000
 Cc: Ian Rogers <irogers@google.com>, Stephane Eranian <eranian@google.com>
-Subject: [Linux-stm32] [PATCH v1 12/51] perf vendor events intel: Refresh
-	broadwell metrics
+Subject: [Linux-stm32] [PATCH v1 13/51] perf vendor events intel: Refresh
+	broadwellde metrics
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,7 +97,7 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Update the broadwell metrics to TMA version 4.5. Generation was done
+Update the broadwellde metrics to TMA version 4.5. Generation was done
 using https://github.com/intel/perfmon.
 
 Notable changes are TMA info metrics are renamed from their node name
@@ -107,21 +107,29 @@ replicating existing hard coded metrics in stat-shadow.
 
 Signed-off-by: Ian Rogers <irogers@google.com>
 ---
- .../arch/x86/broadwell/bdw-metrics.json       | 1439 +++++++++--------
- 1 file changed, 805 insertions(+), 634 deletions(-)
+ .../arch/x86/broadwellde/bdwde-metrics.json   | 1405 +++++++++--------
+ 1 file changed, 785 insertions(+), 620 deletions(-)
 
-diff --git a/tools/perf/pmu-events/arch/x86/broadwell/bdw-metrics.json b/tools/perf/pmu-events/arch/x86/broadwell/bdw-metrics.json
-index c3ea39d6c944..51cf8560a8d3 100644
---- a/tools/perf/pmu-events/arch/x86/broadwell/bdw-metrics.json
-+++ b/tools/perf/pmu-events/arch/x86/broadwell/bdw-metrics.json
-@@ -1,965 +1,1136 @@
+diff --git a/tools/perf/pmu-events/arch/x86/broadwellde/bdwde-metrics.json b/tools/perf/pmu-events/arch/x86/broadwellde/bdwde-metrics.json
+index d35d30932b68..fb57c7382408 100644
+--- a/tools/perf/pmu-events/arch/x86/broadwellde/bdwde-metrics.json
++++ b/tools/perf/pmu-events/arch/x86/broadwellde/bdwde-metrics.json
+@@ -1,937 +1,1102 @@
  [
      {
 -        "BriefDescription": "This category represents fraction of slots where the processor's Frontend undersupplies its Backend",
 -        "MetricExpr": "IDQ_UOPS_NOT_DELIVERED.CORE / SLOTS",
 -        "MetricGroup": "PGO;TopdownL1;tma_L1_group",
 -        "MetricName": "tma_frontend_bound",
--        "PublicDescription": "This category represents fraction of slots where the processor's Frontend undersupplies its Backend. Frontend denotes the first part of the processor core responsible to fetch operations that are executed later on by the Backend part. Within the Frontend; a branch predictor predicts the next address to fetch; cache-lines are fetched from the memory subsystem; parsed into instructions; and lastly decoded into micro-operations (uops). Ideally the Frontend can issue Machine_Width uops every cycle to the Backend. Frontend Bound denotes unutilized issue-slots when there is no Backend stall; i.e. bubbles where Frontend delivered no uops while Backend could have accepted them. For example; stalls due to instruction-cache misses would be categorized under Frontend Bound.",
+-        "PublicDescription": "This category represents fraction of slots where the processor's Frontend undersupplies its Backend. Frontend denotes the first part of the processor core responsible to fetch operations that are executed later on by the Backend part. Within the Frontend; a branch predictor predicts the next address to fetch; cache-lines are fetched from the memory subsystem; parsed into instructions; and lastly decoded into micro-operations (uops). Ideally the Frontend can issue Machine_Width uops every cycle to the Backend. Frontend Bound denotes unutilized issue-slots when there is no Backend stall; i.e. bubbles where Frontend delivered no uops while Backend could have accepted them. For example; stalls due to instruction-cache misses would be categorized under Frontend Bound. Sample with: FRONTEND_RETIRED.LATENCY_GE_4_PS",
+-        "ScaleUnit": "100%"
+-    },
+-    {
+-        "BriefDescription": "This metric represents fraction of slots the CPU was stalled due to Frontend latency issues",
+-        "MetricExpr": "4 * IDQ_UOPS_NOT_DELIVERED.CYCLES_0_UOPS_DELIV.CORE / SLOTS",
+-        "MetricGroup": "Frontend;TopdownL2;tma_L2_group;tma_frontend_bound_group",
+-        "MetricName": "tma_fetch_latency",
+-        "PublicDescription": "This metric represents fraction of slots the CPU was stalled due to Frontend latency issues.  For example; instruction-cache misses; iTLB misses or fetch stalls after a branch misprediction are categorized under Frontend Latency. In such cases; the Frontend eventually delivers no uops for some period. Sample with: FRONTEND_RETIRED.LATENCY_GE_16_PS;FRONTEND_RETIRED.LATENCY_GE_8_PS",
 +        "BriefDescription": "C2 residency percent per package",
 +        "MetricExpr": "cstate_pkg@c2\\-residency@ / TSC",
 +        "MetricGroup": "Power",
@@ -129,11 +137,11 @@ index c3ea39d6c944..51cf8560a8d3 100644
          "ScaleUnit": "100%"
      },
      {
--        "BriefDescription": "This metric represents fraction of slots the CPU was stalled due to Frontend latency issues",
--        "MetricExpr": "4 * IDQ_UOPS_NOT_DELIVERED.CYCLES_0_UOPS_DELIV.CORE / SLOTS",
--        "MetricGroup": "Frontend;TopdownL2;tma_L2_group;tma_frontend_bound_group",
--        "MetricName": "tma_fetch_latency",
--        "PublicDescription": "This metric represents fraction of slots the CPU was stalled due to Frontend latency issues.  For example; instruction-cache misses; iTLB misses or fetch stalls after a branch misprediction are categorized under Frontend Latency. In such cases; the Frontend eventually delivers no uops for some period. Sample with: RS_EVENTS.EMPTY_END",
+-        "BriefDescription": "This metric represents fraction of cycles the CPU was stalled due to instruction cache misses",
+-        "MetricExpr": "ICACHE.IFDATA_STALL / CLKS",
+-        "MetricGroup": "BigFoot;FetchLat;IcMiss;TopdownL3;tma_fetch_latency_group",
+-        "MetricName": "tma_icache_misses",
+-        "PublicDescription": "This metric represents fraction of cycles the CPU was stalled due to instruction cache misses. Sample with: FRONTEND_RETIRED.L2_MISS_PS;FRONTEND_RETIRED.L1I_MISS_PS",
 +        "BriefDescription": "C3 residency percent per core",
 +        "MetricExpr": "cstate_core@c3\\-residency@ / TSC",
 +        "MetricGroup": "Power",
@@ -141,26 +149,15 @@ index c3ea39d6c944..51cf8560a8d3 100644
          "ScaleUnit": "100%"
      },
      {
--        "BriefDescription": "This metric represents fraction of cycles the CPU was stalled due to instruction cache misses.",
--        "MetricExpr": "ICACHE.IFDATA_STALL / CLKS",
--        "MetricGroup": "BigFoot;FetchLat;IcMiss;TopdownL3;tma_fetch_latency_group",
--        "MetricName": "tma_icache_misses",
-+        "BriefDescription": "C3 residency percent per package",
-+        "MetricExpr": "cstate_pkg@c3\\-residency@ / TSC",
-+        "MetricGroup": "Power",
-+        "MetricName": "C3_Pkg_Residency",
-         "ScaleUnit": "100%"
-     },
-     {
 -        "BriefDescription": "This metric represents fraction of cycles the CPU was stalled due to Instruction TLB (ITLB) misses",
 -        "MetricExpr": "(14 * ITLB_MISSES.STLB_HIT + cpu@ITLB_MISSES.WALK_DURATION\\,cmask\\=1@ + 7 * ITLB_MISSES.WALK_COMPLETED) / CLKS",
 -        "MetricGroup": "BigFoot;FetchLat;MemoryTLB;TopdownL3;tma_fetch_latency_group",
 -        "MetricName": "tma_itlb_misses",
--        "PublicDescription": "This metric represents fraction of cycles the CPU was stalled due to Instruction TLB (ITLB) misses. Sample with: ITLB_MISSES.WALK_COMPLETED",
-+        "BriefDescription": "C6 residency percent per core",
-+        "MetricExpr": "cstate_core@c6\\-residency@ / TSC",
+-        "PublicDescription": "This metric represents fraction of cycles the CPU was stalled due to Instruction TLB (ITLB) misses. Sample with: FRONTEND_RETIRED.STLB_MISS_PS;FRONTEND_RETIRED.ITLB_MISS_PS",
++        "BriefDescription": "C3 residency percent per package",
++        "MetricExpr": "cstate_pkg@c3\\-residency@ / TSC",
 +        "MetricGroup": "Power",
-+        "MetricName": "C6_Core_Residency",
++        "MetricName": "C3_Pkg_Residency",
          "ScaleUnit": "100%"
      },
      {
@@ -169,6 +166,18 @@ index c3ea39d6c944..51cf8560a8d3 100644
 -        "MetricGroup": "FetchLat;TopdownL3;tma_fetch_latency_group",
 -        "MetricName": "tma_branch_resteers",
 -        "PublicDescription": "This metric represents fraction of cycles the CPU was stalled due to Branch Resteers. Branch Resteers estimates the Frontend delay in fetching operations from corrected path; following all sorts of miss-predicted branches. For example; branchy code with lots of miss-predictions might get categorized under Branch Resteers. Note the value of this node may overlap with its siblings. Sample with: BR_MISP_RETIRED.ALL_BRANCHES",
++        "BriefDescription": "C6 residency percent per core",
++        "MetricExpr": "cstate_core@c6\\-residency@ / TSC",
++        "MetricGroup": "Power",
++        "MetricName": "C6_Core_Residency",
+         "ScaleUnit": "100%"
+     },
+     {
+-        "BriefDescription": "This metric represents fraction of cycles the CPU was stalled due to Branch Resteers as a result of Branch Misprediction at execution stage",
+-        "MetricExpr": "BR_MISP_RETIRED.ALL_BRANCHES * tma_branch_resteers / (BR_MISP_RETIRED.ALL_BRANCHES + MACHINE_CLEARS.COUNT + BACLEARS.ANY)",
+-        "MetricGroup": "BadSpec;BrMispredicts;TopdownL4;tma_branch_resteers_group",
+-        "MetricName": "tma_mispredicts_resteers",
+-        "PublicDescription": "This metric represents fraction of cycles the CPU was stalled due to Branch Resteers as a result of Branch Misprediction at execution stage.  Sample with: INT_MISC.CLEAR_RESTEER_CYCLES",
 +        "BriefDescription": "C6 residency percent per package",
 +        "MetricExpr": "cstate_pkg@c6\\-residency@ / TSC",
 +        "MetricGroup": "Power",
@@ -176,10 +185,11 @@ index c3ea39d6c944..51cf8560a8d3 100644
          "ScaleUnit": "100%"
      },
      {
--        "BriefDescription": "This metric represents fraction of cycles the CPU was stalled due to Branch Resteers as a result of Branch Misprediction at execution stage. ",
--        "MetricExpr": "BR_MISP_RETIRED.ALL_BRANCHES * tma_branch_resteers / (BR_MISP_RETIRED.ALL_BRANCHES + MACHINE_CLEARS.COUNT + BACLEARS.ANY)",
--        "MetricGroup": "BadSpec;BrMispredicts;TopdownL4;tma_branch_resteers_group",
--        "MetricName": "tma_mispredicts_resteers",
+-        "BriefDescription": "This metric represents fraction of cycles the CPU was stalled due to Branch Resteers as a result of Machine Clears",
+-        "MetricExpr": "MACHINE_CLEARS.COUNT * tma_branch_resteers / (BR_MISP_RETIRED.ALL_BRANCHES + MACHINE_CLEARS.COUNT + BACLEARS.ANY)",
+-        "MetricGroup": "BadSpec;MachineClears;TopdownL4;tma_branch_resteers_group",
+-        "MetricName": "tma_clears_resteers",
+-        "PublicDescription": "This metric represents fraction of cycles the CPU was stalled due to Branch Resteers as a result of Machine Clears.  Sample with: INT_MISC.CLEAR_RESTEER_CYCLES",
 +        "BriefDescription": "C7 residency percent per core",
 +        "MetricExpr": "cstate_core@c7\\-residency@ / TSC",
 +        "MetricGroup": "Power",
@@ -187,10 +197,11 @@ index c3ea39d6c944..51cf8560a8d3 100644
          "ScaleUnit": "100%"
      },
      {
--        "BriefDescription": "This metric represents fraction of cycles the CPU was stalled due to Branch Resteers as a result of Machine Clears. ",
--        "MetricExpr": "MACHINE_CLEARS.COUNT * tma_branch_resteers / (BR_MISP_RETIRED.ALL_BRANCHES + MACHINE_CLEARS.COUNT + BACLEARS.ANY)",
--        "MetricGroup": "BadSpec;MachineClears;TopdownL4;tma_branch_resteers_group",
--        "MetricName": "tma_clears_resteers",
+-        "BriefDescription": "This metric represents fraction of cycles the CPU was stalled due to new branch address clears",
+-        "MetricExpr": "tma_branch_resteers - tma_mispredicts_resteers - tma_clears_resteers",
+-        "MetricGroup": "BigFoot;FetchLat;TopdownL4;tma_branch_resteers_group",
+-        "MetricName": "tma_unknown_branches",
+-        "PublicDescription": "This metric represents fraction of cycles the CPU was stalled due to new branch address clears. These are fetched branches the Branch Prediction Unit was unable to recognize (First fetch or hitting BPU capacity limit). Sample with: FRONTEND_RETIRED.UNKNOWN_BRANCH",
 +        "BriefDescription": "C7 residency percent per package",
 +        "MetricExpr": "cstate_pkg@c7\\-residency@ / TSC",
 +        "MetricGroup": "Power",
@@ -198,23 +209,11 @@ index c3ea39d6c944..51cf8560a8d3 100644
          "ScaleUnit": "100%"
      },
      {
--        "BriefDescription": "This metric represents fraction of cycles the CPU was stalled due to new branch address clears",
--        "MetricExpr": "tma_branch_resteers - tma_mispredicts_resteers - tma_clears_resteers",
--        "MetricGroup": "BigFoot;FetchLat;TopdownL4;tma_branch_resteers_group",
--        "MetricName": "tma_unknown_branches",
--        "PublicDescription": "This metric represents fraction of cycles the CPU was stalled due to new branch address clears. These are fetched branches the Branch Prediction Unit was unable to recognize (First fetch or hitting BPU capacity limit). Sample with: BACLEARS.ANY",
--        "ScaleUnit": "100%"
-+        "BriefDescription": "Uncore frequency per die [GHZ]",
-+        "MetricExpr": "tma_info_socket_clks / #num_dies / duration_time / 1e9",
-+        "MetricGroup": "SoC",
-+        "MetricName": "UNCORE_FREQ"
-     },
-     {
 -        "BriefDescription": "This metric represents fraction of cycles the CPU was stalled due to switches from DSB to MITE pipelines",
 -        "MetricExpr": "DSB2MITE_SWITCHES.PENALTY_CYCLES / CLKS",
 -        "MetricGroup": "DSBmiss;FetchLat;TopdownL3;tma_fetch_latency_group",
 -        "MetricName": "tma_dsb_switches",
--        "PublicDescription": "This metric represents fraction of cycles the CPU was stalled due to switches from DSB to MITE pipelines. The DSB (decoded i-cache) is a Uop Cache where the front-end directly delivers Uops (micro operations) avoiding heavy x86 decoding. The DSB pipeline has shorter latency and delivered higher bandwidth than the MITE (legacy instruction decode pipeline). Switching between the two pipelines can cause penalties hence this metric measures the exposed penalty.",
+-        "PublicDescription": "This metric represents fraction of cycles the CPU was stalled due to switches from DSB to MITE pipelines. The DSB (decoded i-cache) is a Uop Cache where the front-end directly delivers Uops (micro operations) avoiding heavy x86 decoding. The DSB pipeline has shorter latency and delivered higher bandwidth than the MITE (legacy instruction decode pipeline). Switching between the two pipelines can cause penalties hence this metric measures the exposed penalty. Sample with: FRONTEND_RETIRED.DSB_MISS_PS",
 +        "BriefDescription": "Percentage of cycles spent in System Management Interrupts.",
 +        "MetricExpr": "((msr@aperf@ - cycles) / msr@aperf@ if msr@smi@ > 0 else 0)",
 +        "MetricGroup": "smi",
@@ -254,7 +253,7 @@ index c3ea39d6c944..51cf8560a8d3 100644
 -        "MetricExpr": "tma_frontend_bound - tma_fetch_latency",
 -        "MetricGroup": "FetchBW;Frontend;TopdownL2;tma_L2_group;tma_frontend_bound_group",
 -        "MetricName": "tma_fetch_bandwidth",
--        "PublicDescription": "This metric represents fraction of slots the CPU was stalled due to Frontend bandwidth issues.  For example; inefficiencies at the instruction decoders; or restrictions for caching in the DSB (decoded uops cache) are categorized under Fetch Bandwidth. In such cases; the Frontend typically delivers suboptimal amount of uops to the Backend.",
+-        "PublicDescription": "This metric represents fraction of slots the CPU was stalled due to Frontend bandwidth issues.  For example; inefficiencies at the instruction decoders; or restrictions for caching in the DSB (decoded uops cache) are categorized under Fetch Bandwidth. In such cases; the Frontend typically delivers suboptimal amount of uops to the Backend. Sample with: FRONTEND_RETIRED.LATENCY_GE_2_BUBBLES_GE_1_PS;FRONTEND_RETIRED.LATENCY_GE_1_PS;FRONTEND_RETIRED.LATENCY_GE_2_PS",
 +        "BriefDescription": "This metric represents Core fraction of cycles CPU dispatched uops on execution ports for ALU operations.",
 +        "MetricConstraint": "NO_GROUP_EVENTS_NMI",
 +        "MetricExpr": "(UOPS_DISPATCHED_PORT.PORT_0 + UOPS_DISPATCHED_PORT.PORT_1 + UOPS_DISPATCHED_PORT.PORT_5 + UOPS_DISPATCHED_PORT.PORT_6) / tma_info_slots",
@@ -268,13 +267,13 @@ index c3ea39d6c944..51cf8560a8d3 100644
 -        "MetricExpr": "(IDQ.ALL_MITE_CYCLES_ANY_UOPS - IDQ.ALL_MITE_CYCLES_4_UOPS) / CORE_CLKS / 2",
 -        "MetricGroup": "DSBmiss;FetchBW;TopdownL3;tma_fetch_bandwidth_group",
 -        "MetricName": "tma_mite",
--        "PublicDescription": "This metric represents Core fraction of cycles in which CPU was likely limited due to the MITE pipeline (the legacy decode pipeline). This pipeline is used for code that was not pre-cached in the DSB or LSD. For example; inefficiencies due to asymmetric decoders; use of long immediate or LCP can manifest as MITE fetch bandwidth bottleneck.",
+-        "PublicDescription": "This metric represents Core fraction of cycles in which CPU was likely limited due to the MITE pipeline (the legacy decode pipeline). This pipeline is used for code that was not pre-cached in the DSB or LSD. For example; inefficiencies due to asymmetric decoders; use of long immediate or LCP can manifest as MITE fetch bandwidth bottleneck. Sample with: FRONTEND_RETIRED.ANY_DSB_MISS",
 +        "BriefDescription": "This metric estimates fraction of slots the CPU retired uops delivered by the Microcode_Sequencer as a result of Assists",
 +        "MetricExpr": "100 * OTHER_ASSISTS.ANY_WB_ASSIST / tma_info_slots",
 +        "MetricGroup": "TopdownL4;tma_L4_group;tma_microcode_sequencer_group",
 +        "MetricName": "tma_assists",
 +        "MetricThreshold": "tma_assists > 0.1 & (tma_microcode_sequencer > 0.05 & tma_heavy_operations > 0.1)",
-+        "PublicDescription": "This metric estimates fraction of slots the CPU retired uops delivered by the Microcode_Sequencer as a result of Assists. Assists are long sequences of uops that are required in certain corner-cases for operations that cannot be handled natively by the execution pipeline. For example; when working with very small floating point values (so-called Denormals); the FP units are not set up to perform these operations natively. Instead; a sequence of instructions to perform the computation on the Denormals is injected into the pipeline. Since these microcode sequences might be dozens of uops long; Assists can be extremely deleterious to performance and they can be avoided in many cases. Sample with: OTHER_ASSISTS.ANY",
++        "PublicDescription": "This metric estimates fraction of slots the CPU retired uops delivered by the Microcode_Sequencer as a result of Assists. Assists are long sequences of uops that are required in certain corner-cases for operations that cannot be handled natively by the execution pipeline. For example; when working with very small floating point values (so-called Denormals); the FP units are not set up to perform these operations natively. Instead; a sequence of instructions to perform the computation on the Denormals is injected into the pipeline. Since these microcode sequences might be dozens of uops long; Assists can be extremely deleterious to performance and they can be avoided in many cases. Sample with: ASSISTS.ANY",
          "ScaleUnit": "100%"
      },
      {
@@ -289,7 +288,7 @@ index c3ea39d6c944..51cf8560a8d3 100644
 +        "MetricGroup": "TmaL1;TopdownL1;tma_L1_group",
 +        "MetricName": "tma_backend_bound",
 +        "MetricThreshold": "tma_backend_bound > 0.2",
-+        "PublicDescription": "This category represents fraction of slots where no uops are being delivered due to a lack of required resources for accepting new uops in the Backend. Backend is the portion of the processor core where the out-of-order scheduler dispatches ready uops into their respective execution units; and once completed these uops get retired according to program order. For example; stalls due to data-cache misses or stalls due to the divider unit being overloaded are both categorized under Backend Bound. Backend Bound is further divided into two main categories: Memory Bound and Core Bound.",
++        "PublicDescription": "This category represents fraction of slots where no uops are being delivered due to a lack of required resources for accepting new uops in the Backend. Backend is the portion of the processor core where the out-of-order scheduler dispatches ready uops into their respective execution units; and once completed these uops get retired according to program order. For example; stalls due to data-cache misses or stalls due to the divider unit being overloaded are both categorized under Backend Bound. Backend Bound is further divided into two main categories: Memory Bound and Core Bound. Sample with: TOPDOWN.BACKEND_BOUND_SLOTS",
          "ScaleUnit": "100%"
      },
      {
@@ -310,9 +309,9 @@ index c3ea39d6c944..51cf8560a8d3 100644
 -        "MetricGroup": "BadSpec;BrMispredicts;TopdownL2;tma_L2_group;tma_bad_speculation_group",
 +        "MetricGroup": "BadSpec;BrMispredicts;TmaL2;TopdownL2;tma_L2_group;tma_bad_speculation_group;tma_issueBM",
          "MetricName": "tma_branch_mispredicts",
--        "PublicDescription": "This metric represents fraction of slots the CPU has wasted due to Branch Misprediction.  These slots are either wasted by uops fetched from an incorrectly speculated program path; or stalls when the out-of-order part of the machine needs to recover its state from a speculative path. Sample with: BR_MISP_RETIRED.ALL_BRANCHES",
+-        "PublicDescription": "This metric represents fraction of slots the CPU has wasted due to Branch Misprediction.  These slots are either wasted by uops fetched from an incorrectly speculated program path; or stalls when the out-of-order part of the machine needs to recover its state from a speculative path. Sample with: TOPDOWN.BR_MISPREDICT_SLOTS",
 +        "MetricThreshold": "tma_branch_mispredicts > 0.1 & tma_bad_speculation > 0.15",
-+        "PublicDescription": "This metric represents fraction of slots the CPU has wasted due to Branch Misprediction.  These slots are either wasted by uops fetched from an incorrectly speculated program path; or stalls when the out-of-order part of the machine needs to recover its state from a speculative path. Sample with: BR_MISP_RETIRED.ALL_BRANCHES. Related metrics: tma_info_branch_misprediction_cost, tma_mispredicts_resteers",
++        "PublicDescription": "This metric represents fraction of slots the CPU has wasted due to Branch Misprediction.  These slots are either wasted by uops fetched from an incorrectly speculated program path; or stalls when the out-of-order part of the machine needs to recover its state from a speculative path. Sample with: TOPDOWN.BR_MISPREDICT_SLOTS. Related metrics: tma_info_branch_misprediction_cost, tma_mispredicts_resteers",
          "ScaleUnit": "100%"
      },
      {
@@ -334,7 +333,7 @@ index c3ea39d6c944..51cf8560a8d3 100644
 -        "MetricExpr": "1 - (tma_frontend_bound + tma_bad_speculation + tma_retiring)",
 -        "MetricGroup": "TopdownL1;tma_L1_group",
 -        "MetricName": "tma_backend_bound",
--        "PublicDescription": "This category represents fraction of slots where no uops are being delivered due to a lack of required resources for accepting new uops in the Backend. Backend is the portion of the processor core where the out-of-order scheduler dispatches ready uops into their respective execution units; and once completed these uops get retired according to program order. For example; stalls due to data-cache misses or stalls due to the divider unit being overloaded are both categorized under Backend Bound. Backend Bound is further divided into two main categories: Memory Bound and Core Bound.",
+-        "PublicDescription": "This category represents fraction of slots where no uops are being delivered due to a lack of required resources for accepting new uops in the Backend. Backend is the portion of the processor core where the out-of-order scheduler dispatches ready uops into their respective execution units; and once completed these uops get retired according to program order. For example; stalls due to data-cache misses or stalls due to the divider unit being overloaded are both categorized under Backend Bound. Backend Bound is further divided into two main categories: Memory Bound and Core Bound. Sample with: TOPDOWN.BACKEND_BOUND_SLOTS",
 +        "BriefDescription": "This metric estimates fraction of cycles the CPU retired uops originated from CISC (complex instruction set computer) instruction",
 +        "MetricConstraint": "NO_GROUP_EVENTS_NMI",
 +        "MetricExpr": "max(0, tma_microcode_sequencer - tma_assists)",
@@ -355,7 +354,7 @@ index c3ea39d6c944..51cf8560a8d3 100644
 +        "MetricGroup": "BadSpec;MachineClears;TopdownL4;tma_L4_group;tma_branch_resteers_group;tma_issueMC",
 +        "MetricName": "tma_clears_resteers",
 +        "MetricThreshold": "tma_clears_resteers > 0.05 & (tma_branch_resteers > 0.05 & (tma_fetch_latency > 0.1 & tma_frontend_bound > 0.15))",
-+        "PublicDescription": "This metric represents fraction of cycles the CPU was stalled due to Branch Resteers as a result of Machine Clears. Related metrics: tma_l1_bound, tma_machine_clears, tma_microcode_sequencer, tma_ms_switches",
++        "PublicDescription": "This metric represents fraction of cycles the CPU was stalled due to Branch Resteers as a result of Machine Clears. Sample with: INT_MISC.CLEAR_RESTEER_CYCLES. Related metrics: tma_l1_bound, tma_machine_clears, tma_microcode_sequencer, tma_ms_switches",
          "ScaleUnit": "100%"
      },
      {
@@ -363,14 +362,14 @@ index c3ea39d6c944..51cf8560a8d3 100644
 -        "MetricExpr": "max((CYCLE_ACTIVITY.STALLS_MEM_ANY - CYCLE_ACTIVITY.STALLS_L1D_MISS) / CLKS, 0)",
 -        "MetricGroup": "CacheMisses;MemoryBound;TmaL3mem;TopdownL3;tma_memory_bound_group",
 -        "MetricName": "tma_l1_bound",
--        "PublicDescription": "This metric estimates how often the CPU was stalled without loads missing the L1 data cache.  The L1 data cache typically has the shortest latency.  However; in certain cases like loads blocked on older stores; a load might suffer due to high latency even though it is being satisfied by the L1. Another example is loads who miss in the TLB. These cases are characterized by execution unit stalls; while some non-completed demand load lives in the machine without having that demand load missing the L1 cache. Sample with: MEM_LOAD_UOPS_RETIRED.L1_HIT_PS;MEM_LOAD_UOPS_RETIRED.HIT_LFB_PS",
+-        "PublicDescription": "This metric estimates how often the CPU was stalled without loads missing the L1 data cache.  The L1 data cache typically has the shortest latency.  However; in certain cases like loads blocked on older stores; a load might suffer due to high latency even though it is being satisfied by the L1. Another example is loads who miss in the TLB. These cases are characterized by execution unit stalls; while some non-completed demand load lives in the machine without having that demand load missing the L1 cache. Sample with: MEM_LOAD_RETIRED.L1_HIT_PS;MEM_LOAD_RETIRED.FB_HIT_PS",
 +        "BriefDescription": "This metric estimates fraction of cycles while the memory subsystem was handling synchronizations due to contested accesses",
 +        "MetricConstraint": "NO_GROUP_EVENTS",
 +        "MetricExpr": "(60 * (MEM_LOAD_UOPS_L3_HIT_RETIRED.XSNP_HITM * (1 + MEM_LOAD_UOPS_RETIRED.HIT_LFB / (MEM_LOAD_UOPS_RETIRED.L2_HIT + MEM_LOAD_UOPS_RETIRED.L3_HIT + MEM_LOAD_UOPS_L3_HIT_RETIRED.XSNP_HIT + MEM_LOAD_UOPS_L3_HIT_RETIRED.XSNP_HITM + MEM_LOAD_UOPS_L3_HIT_RETIRED.XSNP_MISS + MEM_LOAD_UOPS_RETIRED.L3_MISS))) + 43 * (MEM_LOAD_UOPS_L3_HIT_RETIRED.XSNP_MISS * (1 + MEM_LOAD_UOPS_RETIRED.HIT_LFB / (MEM_LOAD_UOPS_RETIRED.L2_HIT + MEM_LOAD_UOPS_RETIRED.L3_HIT + MEM_LOAD_UOPS_L3_HIT_RETIRED.XSNP_HIT + MEM_LOAD_UOPS_L3_HIT_RETIRED.XSNP_HITM + MEM_LOAD_UOPS_L3_HIT_RETIRED.XSNP_MISS + MEM_LOAD_UOPS_RETIRED.L3_MISS)))) / tma_info_clks",
 +        "MetricGroup": "DataSharing;Offcore;Snoop;TopdownL4;tma_L4_group;tma_issueSyncxn;tma_l3_bound_group",
 +        "MetricName": "tma_contested_accesses",
 +        "MetricThreshold": "tma_contested_accesses > 0.05 & (tma_l3_bound > 0.05 & (tma_memory_bound > 0.2 & tma_backend_bound > 0.2))",
-+        "PublicDescription": "This metric estimates fraction of cycles while the memory subsystem was handling synchronizations due to contested accesses. Contested accesses occur when data written by one Logical Processor are read by another Logical Processor on a different Physical Core. Examples of contested accesses include synchronizations such as locks; true data sharing such as modified locked variables; and false sharing. Sample with: MEM_LOAD_L3_HIT_RETIRED.XSNP_HITM_PS;MEM_LOAD_L3_HIT_RETIRED.XSNP_MISS_PS. Related metrics: tma_data_sharing, tma_false_sharing, tma_machine_clears, tma_remote_cache",
++        "PublicDescription": "This metric estimates fraction of cycles while the memory subsystem was handling synchronizations due to contested accesses. Contested accesses occur when data written by one Logical Processor are read by another Logical Processor on a different Physical Core. Examples of contested accesses include synchronizations such as locks; true data sharing such as modified locked variables; and false sharing. Sample with: MEM_LOAD_L3_HIT_RETIRED.XSNP_FWD;MEM_LOAD_L3_HIT_RETIRED.XSNP_MISS. Related metrics: tma_data_sharing, tma_false_sharing, tma_machine_clears, tma_remote_cache",
          "ScaleUnit": "100%"
      },
      {
@@ -378,7 +377,7 @@ index c3ea39d6c944..51cf8560a8d3 100644
 -        "MetricExpr": "(8 * DTLB_LOAD_MISSES.STLB_HIT + cpu@DTLB_LOAD_MISSES.WALK_DURATION\\,cmask\\=1@ + 7 * DTLB_LOAD_MISSES.WALK_COMPLETED) / CLKS",
 -        "MetricGroup": "MemoryTLB;TopdownL4;tma_l1_bound_group",
 -        "MetricName": "tma_dtlb_load",
--        "PublicDescription": "This metric roughly estimates the fraction of cycles where the Data TLB (DTLB) was missed by load accesses. TLBs (Translation Look-aside Buffers) are processor caches for recently used entries out of the Page Tables that are used to map virtual- to physical-addresses by the operating system. This metric approximates the potential delay of demand loads missing the first-level data TLB (assuming worst case scenario with back to back misses to different pages). This includes hitting in the second-level TLB (STLB) as well as performing a hardware page walk on an STLB miss. Sample with: MEM_UOPS_RETIRED.STLB_MISS_LOADS_PS",
+-        "PublicDescription": "This metric roughly estimates the fraction of cycles where the Data TLB (DTLB) was missed by load accesses. TLBs (Translation Look-aside Buffers) are processor caches for recently used entries out of the Page Tables that are used to map virtual- to physical-addresses by the operating system. This metric approximates the potential delay of demand loads missing the first-level data TLB (assuming worst case scenario with back to back misses to different pages). This includes hitting in the second-level TLB (STLB) as well as performing a hardware page walk on an STLB miss. Sample with: MEM_INST_RETIRED.STLB_MISS_LOADS_PS",
 +        "BriefDescription": "This metric represents fraction of slots where Core non-memory issues were of a bottleneck",
 +        "MetricConstraint": "NO_GROUP_EVENTS",
 +        "MetricExpr": "tma_backend_bound - tma_memory_bound",
@@ -400,7 +399,7 @@ index c3ea39d6c944..51cf8560a8d3 100644
 +        "MetricGroup": "Offcore;Snoop;TopdownL4;tma_L4_group;tma_issueSyncxn;tma_l3_bound_group",
 +        "MetricName": "tma_data_sharing",
 +        "MetricThreshold": "tma_data_sharing > 0.05 & (tma_l3_bound > 0.05 & (tma_memory_bound > 0.2 & tma_backend_bound > 0.2))",
-+        "PublicDescription": "This metric estimates fraction of cycles while the memory subsystem was handling synchronizations due to data-sharing accesses. Data shared by multiple Logical Processors (even just read shared) may cause increased access latency due to cache coherency. Excessive data sharing can drastically harm multithreaded performance. Sample with: MEM_LOAD_L3_HIT_RETIRED.XSNP_HIT_PS. Related metrics: tma_contested_accesses, tma_false_sharing, tma_machine_clears, tma_remote_cache",
++        "PublicDescription": "This metric estimates fraction of cycles while the memory subsystem was handling synchronizations due to data-sharing accesses. Data shared by multiple Logical Processors (even just read shared) may cause increased access latency due to cache coherency. Excessive data sharing can drastically harm multithreaded performance. Sample with: MEM_LOAD_L3_HIT_RETIRED.XSNP_NO_FWD. Related metrics: tma_contested_accesses, tma_false_sharing, tma_machine_clears, tma_remote_cache",
          "ScaleUnit": "100%"
      },
      {
@@ -408,13 +407,13 @@ index c3ea39d6c944..51cf8560a8d3 100644
 -        "MetricExpr": "MEM_UOPS_RETIRED.LOCK_LOADS / MEM_UOPS_RETIRED.ALL_STORES * min(CPU_CLK_UNHALTED.THREAD, OFFCORE_REQUESTS_OUTSTANDING.CYCLES_WITH_DEMAND_RFO) / CLKS",
 -        "MetricGroup": "Offcore;TopdownL4;tma_l1_bound_group",
 -        "MetricName": "tma_lock_latency",
--        "PublicDescription": "This metric represents fraction of cycles the CPU spent handling cache misses due to lock operations. Due to the microarchitecture handling of locks; they are classified as L1_Bound regardless of what memory source satisfied them. Sample with: MEM_UOPS_RETIRED.LOCK_LOADS_PS",
+-        "PublicDescription": "This metric represents fraction of cycles the CPU spent handling cache misses due to lock operations. Due to the microarchitecture handling of locks; they are classified as L1_Bound regardless of what memory source satisfied them. Sample with: MEM_INST_RETIRED.LOCK_LOADS_PS",
 +        "BriefDescription": "This metric represents fraction of cycles where the Divider unit was active",
 +        "MetricExpr": "ARITH.FPU_DIV_ACTIVE / tma_info_core_clks",
 +        "MetricGroup": "TopdownL3;tma_L3_group;tma_core_bound_group",
 +        "MetricName": "tma_divider",
 +        "MetricThreshold": "tma_divider > 0.2 & (tma_core_bound > 0.1 & tma_backend_bound > 0.2)",
-+        "PublicDescription": "This metric represents fraction of cycles where the Divider unit was active. Divide and square root instructions are performed by the Divider unit and can take considerably longer latency than integer or Floating Point addition; subtraction; or multiplication. Sample with: ARITH.DIVIDER_UOPS",
++        "PublicDescription": "This metric represents fraction of cycles where the Divider unit was active. Divide and square root instructions are performed by the Divider unit and can take considerably longer latency than integer or Floating Point addition; subtraction; or multiplication. Sample with: ARITH.DIVIDER_ACTIVE",
          "ScaleUnit": "100%"
      },
      {
@@ -422,14 +421,14 @@ index c3ea39d6c944..51cf8560a8d3 100644
 -        "MetricExpr": "Load_Miss_Real_Latency * LD_BLOCKS.NO_SR / CLKS",
 -        "MetricGroup": "TopdownL4;tma_l1_bound_group",
 -        "MetricName": "tma_split_loads",
--        "PublicDescription": "This metric estimates fraction of cycles handling memory load split accesses - load that cross 64-byte cache line boundary.  Sample with: MEM_UOPS_RETIRED.SPLIT_LOADS_PS",
+-        "PublicDescription": "This metric estimates fraction of cycles handling memory load split accesses - load that cross 64-byte cache line boundary.  Sample with: MEM_INST_RETIRED.SPLIT_LOADS_PS",
 +        "BriefDescription": "This metric estimates how often the CPU was stalled on accesses to external memory (DRAM) by loads",
 +        "MetricConstraint": "NO_GROUP_EVENTS_SMT",
 +        "MetricExpr": "(1 - MEM_LOAD_UOPS_RETIRED.L3_HIT / (MEM_LOAD_UOPS_RETIRED.L3_HIT + 7 * MEM_LOAD_UOPS_RETIRED.L3_MISS)) * CYCLE_ACTIVITY.STALLS_L2_MISS / tma_info_clks",
 +        "MetricGroup": "MemoryBound;TmaL3mem;TopdownL3;tma_L3_group;tma_memory_bound_group",
 +        "MetricName": "tma_dram_bound",
 +        "MetricThreshold": "tma_dram_bound > 0.1 & (tma_memory_bound > 0.2 & tma_backend_bound > 0.2)",
-+        "PublicDescription": "This metric estimates how often the CPU was stalled on accesses to external memory (DRAM) by loads. Better caching can improve the latency and increase performance. Sample with: MEM_LOAD_UOPS_RETIRED.L3_MISS_PS",
++        "PublicDescription": "This metric estimates how often the CPU was stalled on accesses to external memory (DRAM) by loads. Better caching can improve the latency and increase performance. Sample with: MEM_LOAD_RETIRED.L3_MISS_PS",
          "ScaleUnit": "100%"
      },
      {
@@ -457,7 +456,7 @@ index c3ea39d6c944..51cf8560a8d3 100644
 +        "MetricGroup": "DSBmiss;FetchLat;TopdownL3;tma_L3_group;tma_fetch_latency_group;tma_issueFB",
 +        "MetricName": "tma_dsb_switches",
 +        "MetricThreshold": "tma_dsb_switches > 0.05 & (tma_fetch_latency > 0.1 & tma_frontend_bound > 0.15)",
-+        "PublicDescription": "This metric represents fraction of cycles the CPU was stalled due to switches from DSB to MITE pipelines. The DSB (decoded i-cache) is a Uop Cache where the front-end directly delivers Uops (micro operations) avoiding heavy x86 decoding. The DSB pipeline has shorter latency and delivered higher bandwidth than the MITE (legacy instruction decode pipeline). Switching between the two pipelines can cause penalties hence this metric measures the exposed penalty. Related metrics: tma_fetch_bandwidth, tma_info_dsb_coverage, tma_info_iptb, tma_lcp",
++        "PublicDescription": "This metric represents fraction of cycles the CPU was stalled due to switches from DSB to MITE pipelines. The DSB (decoded i-cache) is a Uop Cache where the front-end directly delivers Uops (micro operations) avoiding heavy x86 decoding. The DSB pipeline has shorter latency and delivered higher bandwidth than the MITE (legacy instruction decode pipeline). Switching between the two pipelines can cause penalties hence this metric measures the exposed penalty. Sample with: FRONTEND_RETIRED.DSB_MISS_PS. Related metrics: tma_fetch_bandwidth, tma_info_dsb_coverage, tma_info_iptb, tma_lcp",
          "ScaleUnit": "100%"
      },
      {
@@ -465,13 +464,13 @@ index c3ea39d6c944..51cf8560a8d3 100644
 -        "MetricExpr": "(CYCLE_ACTIVITY.STALLS_L1D_MISS - CYCLE_ACTIVITY.STALLS_L2_MISS) / CLKS",
 -        "MetricGroup": "CacheMisses;MemoryBound;TmaL3mem;TopdownL3;tma_memory_bound_group",
 -        "MetricName": "tma_l2_bound",
--        "PublicDescription": "This metric estimates how often the CPU was stalled due to L2 cache accesses by loads.  Avoiding cache misses (i.e. L1 misses/L2 hits) can improve the latency and increase performance. Sample with: MEM_LOAD_UOPS_RETIRED.L2_HIT_PS",
+-        "PublicDescription": "This metric estimates how often the CPU was stalled due to L2 cache accesses by loads.  Avoiding cache misses (i.e. L1 misses/L2 hits) can improve the latency and increase performance. Sample with: MEM_LOAD_RETIRED.L2_HIT_PS",
 +        "BriefDescription": "This metric roughly estimates the fraction of cycles where the Data TLB (DTLB) was missed by load accesses",
 +        "MetricExpr": "(8 * DTLB_LOAD_MISSES.STLB_HIT + cpu@DTLB_LOAD_MISSES.WALK_DURATION\\,cmask\\=1@ + 7 * DTLB_LOAD_MISSES.WALK_COMPLETED) / tma_info_clks",
 +        "MetricGroup": "MemoryTLB;TopdownL4;tma_L4_group;tma_issueTLB;tma_l1_bound_group",
 +        "MetricName": "tma_dtlb_load",
 +        "MetricThreshold": "tma_dtlb_load > 0.1 & (tma_l1_bound > 0.1 & (tma_memory_bound > 0.2 & tma_backend_bound > 0.2))",
-+        "PublicDescription": "This metric roughly estimates the fraction of cycles where the Data TLB (DTLB) was missed by load accesses. TLBs (Translation Look-aside Buffers) are processor caches for recently used entries out of the Page Tables that are used to map virtual- to physical-addresses by the operating system. This metric approximates the potential delay of demand loads missing the first-level data TLB (assuming worst case scenario with back to back misses to different pages). This includes hitting in the second-level TLB (STLB) as well as performing a hardware page walk on an STLB miss. Sample with: MEM_UOPS_RETIRED.STLB_MISS_LOADS_PS. Related metrics: tma_dtlb_store",
++        "PublicDescription": "This metric roughly estimates the fraction of cycles where the Data TLB (DTLB) was missed by load accesses. TLBs (Translation Look-aside Buffers) are processor caches for recently used entries out of the Page Tables that are used to map virtual- to physical-addresses by the operating system. This metric approximates the potential delay of demand loads missing the first-level data TLB (assuming worst case scenario with back to back misses to different pages). This includes hitting in the second-level TLB (STLB) as well as performing a hardware page walk on an STLB miss. Sample with: MEM_INST_RETIRED.STLB_MISS_LOADS_PS. Related metrics: tma_dtlb_store",
          "ScaleUnit": "100%"
      },
      {
@@ -479,13 +478,13 @@ index c3ea39d6c944..51cf8560a8d3 100644
 -        "MetricExpr": "MEM_LOAD_UOPS_RETIRED.L3_HIT / (MEM_LOAD_UOPS_RETIRED.L3_HIT + 7 * MEM_LOAD_UOPS_RETIRED.L3_MISS) * CYCLE_ACTIVITY.STALLS_L2_MISS / CLKS",
 -        "MetricGroup": "CacheMisses;MemoryBound;TmaL3mem;TopdownL3;tma_memory_bound_group",
 -        "MetricName": "tma_l3_bound",
--        "PublicDescription": "This metric estimates how often the CPU was stalled due to loads accesses to L3 cache or contended with a sibling Core.  Avoiding cache misses (i.e. L2 misses/L3 hits) can improve the latency and increase performance. Sample with: MEM_LOAD_UOPS_RETIRED.L3_HIT_PS",
+-        "PublicDescription": "This metric estimates how often the CPU was stalled due to loads accesses to L3 cache or contended with a sibling Core.  Avoiding cache misses (i.e. L2 misses/L3 hits) can improve the latency and increase performance. Sample with: MEM_LOAD_RETIRED.L3_HIT_PS",
 +        "BriefDescription": "This metric roughly estimates the fraction of cycles spent handling first-level data TLB store misses",
 +        "MetricExpr": "(8 * DTLB_STORE_MISSES.STLB_HIT + cpu@DTLB_STORE_MISSES.WALK_DURATION\\,cmask\\=1@ + 7 * DTLB_STORE_MISSES.WALK_COMPLETED) / tma_info_clks",
 +        "MetricGroup": "MemoryTLB;TopdownL4;tma_L4_group;tma_issueTLB;tma_store_bound_group",
 +        "MetricName": "tma_dtlb_store",
 +        "MetricThreshold": "tma_dtlb_store > 0.05 & (tma_store_bound > 0.2 & (tma_memory_bound > 0.2 & tma_backend_bound > 0.2))",
-+        "PublicDescription": "This metric roughly estimates the fraction of cycles spent handling first-level data TLB store misses.  As with ordinary data caching; focus on improving data locality and reducing working-set size to reduce DTLB overhead.  Additionally; consider using profile-guided optimization (PGO) to collocate frequently-used data on the same page.  Try using larger page sizes for large amounts of frequently-used data. Sample with: MEM_UOPS_RETIRED.STLB_MISS_STORES_PS. Related metrics: tma_dtlb_load",
++        "PublicDescription": "This metric roughly estimates the fraction of cycles spent handling first-level data TLB store misses.  As with ordinary data caching; focus on improving data locality and reducing working-set size to reduce DTLB overhead.  Additionally; consider using profile-guided optimization (PGO) to collocate frequently-used data on the same page.  Try using larger page sizes for large amounts of frequently-used data. Sample with: MEM_INST_RETIRED.STLB_MISS_STORES_PS. Related metrics: tma_dtlb_load",
          "ScaleUnit": "100%"
      },
      {
@@ -493,21 +492,7 @@ index c3ea39d6c944..51cf8560a8d3 100644
 -        "MetricExpr": "(60 * (MEM_LOAD_UOPS_L3_HIT_RETIRED.XSNP_HITM * (1 + MEM_LOAD_UOPS_RETIRED.HIT_LFB / (MEM_LOAD_UOPS_RETIRED.L2_HIT + MEM_LOAD_UOPS_RETIRED.L3_HIT + MEM_LOAD_UOPS_L3_HIT_RETIRED.XSNP_HIT + MEM_LOAD_UOPS_L3_HIT_RETIRED.XSNP_HITM + MEM_LOAD_UOPS_L3_HIT_RETIRED.XSNP_MISS + MEM_LOAD_UOPS_RETIRED.L3_MISS))) + 43 * (MEM_LOAD_UOPS_L3_HIT_RETIRED.XSNP_MISS * (1 + MEM_LOAD_UOPS_RETIRED.HIT_LFB / (MEM_LOAD_UOPS_RETIRED.L2_HIT + MEM_LOAD_UOPS_RETIRED.L3_HIT + MEM_LOAD_UOPS_L3_HIT_RETIRED.XSNP_HIT + MEM_LOAD_UOPS_L3_HIT_RETIRED.XSNP_HITM + MEM_LOAD_UOPS_L3_HIT_RETIRED.XSNP_MISS + MEM_LOAD_UOPS_RETIRED.L3_MISS)))) / CLKS",
 -        "MetricGroup": "DataSharing;Offcore;Snoop;TopdownL4;tma_l3_bound_group",
 -        "MetricName": "tma_contested_accesses",
--        "PublicDescription": "This metric estimates fraction of cycles while the memory subsystem was handling synchronizations due to contested accesses. Contested accesses occur when data written by one Logical Processor are read by another Logical Processor on a different Physical Core. Examples of contested accesses include synchronizations such as locks; true data sharing such as modified locked variables; and false sharing. Sample with: MEM_LOAD_L3_HIT_RETIRED.XSNP_HITM_PS;MEM_LOAD_L3_HIT_RETIRED.XSNP_MISS_PS",
-+        "BriefDescription": "This metric roughly estimates how often CPU was handling synchronizations due to False Sharing",
-+        "MetricExpr": "60 * OFFCORE_RESPONSE.DEMAND_RFO.L3_HIT.SNOOP_HITM / tma_info_clks",
-+        "MetricGroup": "DataSharing;Offcore;Snoop;TopdownL4;tma_L4_group;tma_issueSyncxn;tma_store_bound_group",
-+        "MetricName": "tma_false_sharing",
-+        "MetricThreshold": "tma_false_sharing > 0.05 & (tma_store_bound > 0.2 & (tma_memory_bound > 0.2 & tma_backend_bound > 0.2))",
-+        "PublicDescription": "This metric roughly estimates how often CPU was handling synchronizations due to False Sharing. False Sharing is a multithreading hiccup; where multiple Logical Processors contend on different data-elements mapped into the same cache line. Sample with: MEM_LOAD_L3_HIT_RETIRED.XSNP_HITM_PS;OFFCORE_RESPONSE.DEMAND_RFO.L3_HIT.SNOOP_HITM. Related metrics: tma_contested_accesses, tma_data_sharing, tma_machine_clears, tma_remote_cache",
-         "ScaleUnit": "100%"
-     },
-     {
--        "BriefDescription": "This metric estimates fraction of cycles while the memory subsystem was handling synchronizations due to data-sharing accesses",
--        "MetricExpr": "43 * (MEM_LOAD_UOPS_L3_HIT_RETIRED.XSNP_HIT * (1 + MEM_LOAD_UOPS_RETIRED.HIT_LFB / (MEM_LOAD_UOPS_RETIRED.L2_HIT + MEM_LOAD_UOPS_RETIRED.L3_HIT + MEM_LOAD_UOPS_L3_HIT_RETIRED.XSNP_HIT + MEM_LOAD_UOPS_L3_HIT_RETIRED.XSNP_HITM + MEM_LOAD_UOPS_L3_HIT_RETIRED.XSNP_MISS + MEM_LOAD_UOPS_RETIRED.L3_MISS))) / CLKS",
--        "MetricGroup": "Offcore;Snoop;TopdownL4;tma_l3_bound_group",
--        "MetricName": "tma_data_sharing",
--        "PublicDescription": "This metric estimates fraction of cycles while the memory subsystem was handling synchronizations due to data-sharing accesses. Data shared by multiple Logical Processors (even just read shared) may cause increased access latency due to cache coherency. Excessive data sharing can drastically harm multithreaded performance. Sample with: MEM_LOAD_L3_HIT_RETIRED.XSNP_HIT_PS",
+-        "PublicDescription": "This metric estimates fraction of cycles while the memory subsystem was handling synchronizations due to contested accesses. Contested accesses occur when data written by one Logical Processor are read by another Logical Processor on a different Physical Core. Examples of contested accesses include synchronizations such as locks; true data sharing such as modified locked variables; and false sharing. Sample with: MEM_LOAD_L3_HIT_RETIRED.XSNP_FWD;MEM_LOAD_L3_HIT_RETIRED.XSNP_MISS",
 +        "BriefDescription": "This metric does a *rough estimation* of how often L1D Fill Buffer unavailability limited additional L1D miss memory access requests to proceed",
 +        "MetricConstraint": "NO_GROUP_EVENTS",
 +        "MetricExpr": "tma_info_load_miss_real_latency * cpu@L1D_PEND_MISS.FB_FULL\\,cmask\\=1@ / tma_info_clks",
@@ -518,17 +503,31 @@ index c3ea39d6c944..51cf8560a8d3 100644
          "ScaleUnit": "100%"
      },
      {
--        "BriefDescription": "This metric represents fraction of cycles with demand load accesses that hit the L3 cache under unloaded scenarios (possibly L3 latency limited)",
--        "MetricExpr": "29 * (MEM_LOAD_UOPS_RETIRED.L3_HIT * (1 + MEM_LOAD_UOPS_RETIRED.HIT_LFB / (MEM_LOAD_UOPS_RETIRED.L2_HIT + MEM_LOAD_UOPS_RETIRED.L3_HIT + MEM_LOAD_UOPS_L3_HIT_RETIRED.XSNP_HIT + MEM_LOAD_UOPS_L3_HIT_RETIRED.XSNP_HITM + MEM_LOAD_UOPS_L3_HIT_RETIRED.XSNP_MISS + MEM_LOAD_UOPS_RETIRED.L3_MISS))) / CLKS",
--        "MetricGroup": "MemoryLat;TopdownL4;tma_l3_bound_group",
--        "MetricName": "tma_l3_hit_latency",
--        "PublicDescription": "This metric represents fraction of cycles with demand load accesses that hit the L3 cache under unloaded scenarios (possibly L3 latency limited).  Avoiding private cache misses (i.e. L2 misses/L3 hits) will improve the latency; reduce contention with sibling physical cores and increase performance.  Note the value of this node may overlap with its siblings. Sample with: MEM_LOAD_UOPS_RETIRED.L3_HIT_PS",
+-        "BriefDescription": "This metric estimates fraction of cycles while the memory subsystem was handling synchronizations due to data-sharing accesses",
+-        "MetricExpr": "43 * (MEM_LOAD_UOPS_L3_HIT_RETIRED.XSNP_HIT * (1 + MEM_LOAD_UOPS_RETIRED.HIT_LFB / (MEM_LOAD_UOPS_RETIRED.L2_HIT + MEM_LOAD_UOPS_RETIRED.L3_HIT + MEM_LOAD_UOPS_L3_HIT_RETIRED.XSNP_HIT + MEM_LOAD_UOPS_L3_HIT_RETIRED.XSNP_HITM + MEM_LOAD_UOPS_L3_HIT_RETIRED.XSNP_MISS + MEM_LOAD_UOPS_RETIRED.L3_MISS))) / CLKS",
+-        "MetricGroup": "Offcore;Snoop;TopdownL4;tma_l3_bound_group",
+-        "MetricName": "tma_data_sharing",
+-        "PublicDescription": "This metric estimates fraction of cycles while the memory subsystem was handling synchronizations due to data-sharing accesses. Data shared by multiple Logical Processors (even just read shared) may cause increased access latency due to cache coherency. Excessive data sharing can drastically harm multithreaded performance. Sample with: MEM_LOAD_L3_HIT_RETIRED.XSNP_NO_FWD",
 +        "BriefDescription": "This metric represents fraction of slots the CPU was stalled due to Frontend bandwidth issues",
 +        "MetricExpr": "tma_frontend_bound - tma_fetch_latency",
 +        "MetricGroup": "FetchBW;Frontend;TmaL2;TopdownL2;tma_L2_group;tma_frontend_bound_group;tma_issueFB",
 +        "MetricName": "tma_fetch_bandwidth",
 +        "MetricThreshold": "tma_fetch_bandwidth > 0.1 & tma_frontend_bound > 0.15 & tma_info_ipc / 4 > 0.35",
-+        "PublicDescription": "This metric represents fraction of slots the CPU was stalled due to Frontend bandwidth issues.  For example; inefficiencies at the instruction decoders; or restrictions for caching in the DSB (decoded uops cache) are categorized under Fetch Bandwidth. In such cases; the Frontend typically delivers suboptimal amount of uops to the Backend. Related metrics: tma_dsb_switches, tma_info_dsb_coverage, tma_info_iptb, tma_lcp",
++        "PublicDescription": "This metric represents fraction of slots the CPU was stalled due to Frontend bandwidth issues.  For example; inefficiencies at the instruction decoders; or restrictions for caching in the DSB (decoded uops cache) are categorized under Fetch Bandwidth. In such cases; the Frontend typically delivers suboptimal amount of uops to the Backend. Sample with: FRONTEND_RETIRED.LATENCY_GE_2_BUBBLES_GE_1_PS;FRONTEND_RETIRED.LATENCY_GE_1_PS;FRONTEND_RETIRED.LATENCY_GE_2_PS. Related metrics: tma_dsb_switches, tma_info_dsb_coverage, tma_info_iptb, tma_lcp",
+         "ScaleUnit": "100%"
+     },
+     {
+-        "BriefDescription": "This metric represents fraction of cycles with demand load accesses that hit the L3 cache under unloaded scenarios (possibly L3 latency limited)",
+-        "MetricExpr": "29 * (MEM_LOAD_UOPS_RETIRED.L3_HIT * (1 + MEM_LOAD_UOPS_RETIRED.HIT_LFB / (MEM_LOAD_UOPS_RETIRED.L2_HIT + MEM_LOAD_UOPS_RETIRED.L3_HIT + MEM_LOAD_UOPS_L3_HIT_RETIRED.XSNP_HIT + MEM_LOAD_UOPS_L3_HIT_RETIRED.XSNP_HITM + MEM_LOAD_UOPS_L3_HIT_RETIRED.XSNP_MISS + MEM_LOAD_UOPS_RETIRED.L3_MISS))) / CLKS",
+-        "MetricGroup": "MemoryLat;TopdownL4;tma_l3_bound_group",
+-        "MetricName": "tma_l3_hit_latency",
+-        "PublicDescription": "This metric represents fraction of cycles with demand load accesses that hit the L3 cache under unloaded scenarios (possibly L3 latency limited).  Avoiding private cache misses (i.e. L2 misses/L3 hits) will improve the latency; reduce contention with sibling physical cores and increase performance.  Note the value of this node may overlap with its siblings. Sample with: MEM_LOAD_RETIRED.L3_HIT_PS",
++        "BriefDescription": "This metric represents fraction of slots the CPU was stalled due to Frontend latency issues",
++        "MetricExpr": "4 * IDQ_UOPS_NOT_DELIVERED.CYCLES_0_UOPS_DELIV.CORE / tma_info_slots",
++        "MetricGroup": "Frontend;TmaL2;TopdownL2;tma_L2_group;tma_frontend_bound_group",
++        "MetricName": "tma_fetch_latency",
++        "MetricThreshold": "tma_fetch_latency > 0.1 & tma_frontend_bound > 0.15",
++        "PublicDescription": "This metric represents fraction of slots the CPU was stalled due to Frontend latency issues.  For example; instruction-cache misses; iTLB misses or fetch stalls after a branch misprediction are categorized under Frontend Latency. In such cases; the Frontend eventually delivers no uops for some period. Sample with: FRONTEND_RETIRED.LATENCY_GE_16_PS;FRONTEND_RETIRED.LATENCY_GE_8_PS",
          "ScaleUnit": "100%"
      },
      {
@@ -537,20 +536,6 @@ index c3ea39d6c944..51cf8560a8d3 100644
 -        "MetricGroup": "MemoryBW;Offcore;TopdownL4;tma_l3_bound_group",
 -        "MetricName": "tma_sq_full",
 -        "PublicDescription": "This metric measures fraction of cycles where the Super Queue (SQ) was full taking into account all request-types and both hardware SMT threads (Logical Processors). The Super Queue is used for requests to access the L2 cache or to go out to the Uncore.",
-+        "BriefDescription": "This metric represents fraction of slots the CPU was stalled due to Frontend latency issues",
-+        "MetricExpr": "4 * IDQ_UOPS_NOT_DELIVERED.CYCLES_0_UOPS_DELIV.CORE / tma_info_slots",
-+        "MetricGroup": "Frontend;TmaL2;TopdownL2;tma_L2_group;tma_frontend_bound_group",
-+        "MetricName": "tma_fetch_latency",
-+        "MetricThreshold": "tma_fetch_latency > 0.1 & tma_frontend_bound > 0.15",
-+        "PublicDescription": "This metric represents fraction of slots the CPU was stalled due to Frontend latency issues.  For example; instruction-cache misses; iTLB misses or fetch stalls after a branch misprediction are categorized under Frontend Latency. In such cases; the Frontend eventually delivers no uops for some period. Sample with: RS_EVENTS.EMPTY_END",
-         "ScaleUnit": "100%"
-     },
-     {
--        "BriefDescription": "This metric estimates how often the CPU was stalled on accesses to external memory (DRAM) by loads",
--        "MetricExpr": "(1 - MEM_LOAD_UOPS_RETIRED.L3_HIT / (MEM_LOAD_UOPS_RETIRED.L3_HIT + 7 * MEM_LOAD_UOPS_RETIRED.L3_MISS)) * CYCLE_ACTIVITY.STALLS_L2_MISS / CLKS",
--        "MetricGroup": "MemoryBound;TmaL3mem;TopdownL3;tma_memory_bound_group",
--        "MetricName": "tma_dram_bound",
--        "PublicDescription": "This metric estimates how often the CPU was stalled on accesses to external memory (DRAM) by loads. Better caching can improve the latency and increase performance. Sample with: MEM_LOAD_UOPS_RETIRED.L3_MISS_PS",
 +        "BriefDescription": "This metric represents overall arithmetic floating-point (FP) operations fraction the CPU has executed (retired)",
 +        "MetricExpr": "tma_x87_use + tma_fp_scalar + tma_fp_vector",
 +        "MetricGroup": "HPC;TopdownL3;tma_L3_group;tma_light_operations_group",
@@ -560,11 +545,11 @@ index c3ea39d6c944..51cf8560a8d3 100644
          "ScaleUnit": "100%"
      },
      {
--        "BriefDescription": "This metric estimates fraction of cycles where the core's performance was likely hurt due to approaching bandwidth limits of external memory (DRAM)",
--        "MetricExpr": "min(CPU_CLK_UNHALTED.THREAD, cpu@OFFCORE_REQUESTS_OUTSTANDING.ALL_DATA_RD\\,cmask\\=4@) / CLKS",
--        "MetricGroup": "MemoryBW;Offcore;TopdownL4;tma_dram_bound_group",
--        "MetricName": "tma_mem_bandwidth",
--        "PublicDescription": "This metric estimates fraction of cycles where the core's performance was likely hurt due to approaching bandwidth limits of external memory (DRAM).  The underlying heuristic assumes that a similar off-core traffic is generated by all IA cores. This metric does not aggregate non-data-read requests by this logical processor; requests from other IA Logical Processors/Physical Cores/sockets; or other non-IA devices like GPU; hence the maximum external memory bandwidth limits may or may not be approached when this metric is flagged (see Uncore counters for that).",
+-        "BriefDescription": "This metric estimates how often the CPU was stalled on accesses to external memory (DRAM) by loads",
+-        "MetricExpr": "(1 - MEM_LOAD_UOPS_RETIRED.L3_HIT / (MEM_LOAD_UOPS_RETIRED.L3_HIT + 7 * MEM_LOAD_UOPS_RETIRED.L3_MISS)) * CYCLE_ACTIVITY.STALLS_L2_MISS / CLKS",
+-        "MetricGroup": "MemoryBound;TmaL3mem;TopdownL3;tma_memory_bound_group",
+-        "MetricName": "tma_dram_bound",
+-        "PublicDescription": "This metric estimates how often the CPU was stalled on accesses to external memory (DRAM) by loads. Better caching can improve the latency and increase performance. Sample with: MEM_LOAD_RETIRED.L3_MISS_PS",
 +        "BriefDescription": "This metric approximates arithmetic floating-point (FP) scalar uops fraction the CPU has retired",
 +        "MetricExpr": "cpu@FP_ARITH_INST_RETIRED.SCALAR_SINGLE\\,umask\\=0x03@ / UOPS_RETIRED.RETIRE_SLOTS",
 +        "MetricGroup": "Compute;Flops;TopdownL4;tma_L4_group;tma_fp_arith_group;tma_issue2P",
@@ -574,11 +559,11 @@ index c3ea39d6c944..51cf8560a8d3 100644
          "ScaleUnit": "100%"
      },
      {
--        "BriefDescription": "This metric estimates fraction of cycles where the performance was likely hurt due to latency from external memory (DRAM)",
--        "MetricExpr": "min(CPU_CLK_UNHALTED.THREAD, OFFCORE_REQUESTS_OUTSTANDING.CYCLES_WITH_DATA_RD) / CLKS - tma_mem_bandwidth",
--        "MetricGroup": "MemoryLat;Offcore;TopdownL4;tma_dram_bound_group",
--        "MetricName": "tma_mem_latency",
--        "PublicDescription": "This metric estimates fraction of cycles where the performance was likely hurt due to latency from external memory (DRAM).  This metric does not aggregate requests from other Logical Processors/Physical Cores/sockets (see Uncore counters for that).",
+-        "BriefDescription": "This metric estimates fraction of cycles where the core's performance was likely hurt due to approaching bandwidth limits of external memory (DRAM)",
+-        "MetricExpr": "min(CPU_CLK_UNHALTED.THREAD, cpu@OFFCORE_REQUESTS_OUTSTANDING.ALL_DATA_RD\\,cmask\\=4@) / CLKS",
+-        "MetricGroup": "MemoryBW;Offcore;TopdownL4;tma_dram_bound_group",
+-        "MetricName": "tma_mem_bandwidth",
+-        "PublicDescription": "This metric estimates fraction of cycles where the core's performance was likely hurt due to approaching bandwidth limits of external memory (DRAM).  The underlying heuristic assumes that a similar off-core traffic is generated by all IA cores. This metric does not aggregate non-data-read requests by this logical processor; requests from other IA Logical Processors/Physical Cores/sockets; or other non-IA devices like GPU; hence the maximum external memory bandwidth limits may or may not be approached when this metric is flagged (see Uncore counters for that).",
 +        "BriefDescription": "This metric approximates arithmetic floating-point (FP) vector uops fraction the CPU has retired aggregated across all vector widths",
 +        "MetricExpr": "cpu@FP_ARITH_INST_RETIRED.128B_PACKED_DOUBLE\\,umask\\=0x3c@ / UOPS_RETIRED.RETIRE_SLOTS",
 +        "MetricGroup": "Compute;Flops;TopdownL4;tma_L4_group;tma_fp_arith_group;tma_issue2P",
@@ -588,11 +573,11 @@ index c3ea39d6c944..51cf8560a8d3 100644
          "ScaleUnit": "100%"
      },
      {
--        "BriefDescription": "This metric estimates how often CPU was stalled  due to RFO store memory accesses; RFO store issue a read-for-ownership request before the write",
--        "MetricExpr": "RESOURCE_STALLS.SB / CLKS",
--        "MetricGroup": "MemoryBound;TmaL3mem;TopdownL3;tma_memory_bound_group",
--        "MetricName": "tma_store_bound",
--        "PublicDescription": "This metric estimates how often CPU was stalled  due to RFO store memory accesses; RFO store issue a read-for-ownership request before the write. Even though store accesses do not typically stall out-of-order CPUs; there are few cases where stores can lead to actual stalls. This metric will be flagged should RFO stores be a bottleneck. Sample with: MEM_UOPS_RETIRED.ALL_STORES_PS",
+-        "BriefDescription": "This metric estimates fraction of cycles where the performance was likely hurt due to latency from external memory (DRAM)",
+-        "MetricExpr": "min(CPU_CLK_UNHALTED.THREAD, OFFCORE_REQUESTS_OUTSTANDING.CYCLES_WITH_DATA_RD) / CLKS - tma_mem_bandwidth",
+-        "MetricGroup": "MemoryLat;Offcore;TopdownL4;tma_dram_bound_group",
+-        "MetricName": "tma_mem_latency",
+-        "PublicDescription": "This metric estimates fraction of cycles where the performance was likely hurt due to latency from external memory (DRAM).  This metric does not aggregate requests from other Logical Processors/Physical Cores/sockets (see Uncore counters for that).",
 +        "BriefDescription": "This metric approximates arithmetic FP vector uops fraction the CPU has retired for 128-bit wide vectors",
 +        "MetricExpr": "(FP_ARITH_INST_RETIRED.128B_PACKED_DOUBLE + FP_ARITH_INST_RETIRED.128B_PACKED_SINGLE) / UOPS_RETIRED.RETIRE_SLOTS",
 +        "MetricGroup": "Compute;Flops;TopdownL5;tma_L5_group;tma_fp_vector_group;tma_issue2P",
@@ -602,11 +587,11 @@ index c3ea39d6c944..51cf8560a8d3 100644
          "ScaleUnit": "100%"
      },
      {
--        "BriefDescription": "This metric estimates fraction of cycles the CPU spent handling L1D store misses",
--        "MetricExpr": "(L2_RQSTS.RFO_HIT * 9 * (1 - MEM_UOPS_RETIRED.LOCK_LOADS / MEM_UOPS_RETIRED.ALL_STORES) + (1 - MEM_UOPS_RETIRED.LOCK_LOADS / MEM_UOPS_RETIRED.ALL_STORES) * min(CPU_CLK_UNHALTED.THREAD, OFFCORE_REQUESTS_OUTSTANDING.CYCLES_WITH_DEMAND_RFO)) / CLKS",
--        "MetricGroup": "MemoryLat;Offcore;TopdownL4;tma_store_bound_group",
--        "MetricName": "tma_store_latency",
--        "PublicDescription": "This metric estimates fraction of cycles the CPU spent handling L1D store misses. Store accesses usually less impact out-of-order core performance; however; holding resources for longer time can lead into undesired implications (e.g. contention on L1D fill-buffer entries - see FB_Full)",
+-        "BriefDescription": "This metric estimates how often CPU was stalled  due to RFO store memory accesses; RFO store issue a read-for-ownership request before the write",
+-        "MetricExpr": "RESOURCE_STALLS.SB / CLKS",
+-        "MetricGroup": "MemoryBound;TmaL3mem;TopdownL3;tma_memory_bound_group",
+-        "MetricName": "tma_store_bound",
+-        "PublicDescription": "This metric estimates how often CPU was stalled  due to RFO store memory accesses; RFO store issue a read-for-ownership request before the write. Even though store accesses do not typically stall out-of-order CPUs; there are few cases where stores can lead to actual stalls. This metric will be flagged should RFO stores be a bottleneck. Sample with: MEM_INST_RETIRED.ALL_STORES_PS",
 +        "BriefDescription": "This metric approximates arithmetic FP vector uops fraction the CPU has retired for 256-bit wide vectors",
 +        "MetricExpr": "(FP_ARITH_INST_RETIRED.256B_PACKED_DOUBLE + FP_ARITH_INST_RETIRED.256B_PACKED_SINGLE) / UOPS_RETIRED.RETIRE_SLOTS",
 +        "MetricGroup": "Compute;Flops;TopdownL5;tma_L5_group;tma_fp_vector_group;tma_issue2P",
@@ -616,17 +601,17 @@ index c3ea39d6c944..51cf8560a8d3 100644
          "ScaleUnit": "100%"
      },
      {
--        "BriefDescription": "This metric roughly estimates how often CPU was handling synchronizations due to False Sharing",
--        "MetricExpr": "60 * OFFCORE_RESPONSE.DEMAND_RFO.L3_HIT.SNOOP_HITM / CLKS",
--        "MetricGroup": "DataSharing;Offcore;Snoop;TopdownL4;tma_store_bound_group",
--        "MetricName": "tma_false_sharing",
--        "PublicDescription": "This metric roughly estimates how often CPU was handling synchronizations due to False Sharing. False Sharing is a multithreading hiccup; where multiple Logical Processors contend on different data-elements mapped into the same cache line.  Sample with: MEM_LOAD_L3_HIT_RETIRED.XSNP_HITM_PS;OFFCORE_RESPONSE.DEMAND_RFO.L3_HIT.SNOOP_HITM",
+-        "BriefDescription": "This metric estimates fraction of cycles the CPU spent handling L1D store misses",
+-        "MetricExpr": "(L2_RQSTS.RFO_HIT * 9 * (1 - MEM_UOPS_RETIRED.LOCK_LOADS / MEM_UOPS_RETIRED.ALL_STORES) + (1 - MEM_UOPS_RETIRED.LOCK_LOADS / MEM_UOPS_RETIRED.ALL_STORES) * min(CPU_CLK_UNHALTED.THREAD, OFFCORE_REQUESTS_OUTSTANDING.CYCLES_WITH_DEMAND_RFO)) / CLKS",
+-        "MetricGroup": "MemoryLat;Offcore;TopdownL4;tma_store_bound_group",
+-        "MetricName": "tma_store_latency",
+-        "PublicDescription": "This metric estimates fraction of cycles the CPU spent handling L1D store misses. Store accesses usually less impact out-of-order core performance; however; holding resources for longer time can lead into undesired implications (e.g. contention on L1D fill-buffer entries - see FB_Full)",
 +        "BriefDescription": "This category represents fraction of slots where the processor's Frontend undersupplies its Backend",
 +        "MetricExpr": "IDQ_UOPS_NOT_DELIVERED.CORE / tma_info_slots",
 +        "MetricGroup": "PGO;TmaL1;TopdownL1;tma_L1_group",
 +        "MetricName": "tma_frontend_bound",
 +        "MetricThreshold": "tma_frontend_bound > 0.15",
-+        "PublicDescription": "This category represents fraction of slots where the processor's Frontend undersupplies its Backend. Frontend denotes the first part of the processor core responsible to fetch operations that are executed later on by the Backend part. Within the Frontend; a branch predictor predicts the next address to fetch; cache-lines are fetched from the memory subsystem; parsed into instructions; and lastly decoded into micro-operations (uops). Ideally the Frontend can issue Pipeline_Width uops every cycle to the Backend. Frontend Bound denotes unutilized issue-slots when there is no Backend stall; i.e. bubbles where Frontend delivered no uops while Backend could have accepted them. For example; stalls due to instruction-cache misses would be categorized under Frontend Bound.",
++        "PublicDescription": "This category represents fraction of slots where the processor's Frontend undersupplies its Backend. Frontend denotes the first part of the processor core responsible to fetch operations that are executed later on by the Backend part. Within the Frontend; a branch predictor predicts the next address to fetch; cache-lines are fetched from the memory subsystem; parsed into instructions; and lastly decoded into micro-operations (uops). Ideally the Frontend can issue Pipeline_Width uops every cycle to the Backend. Frontend Bound denotes unutilized issue-slots when there is no Backend stall; i.e. bubbles where Frontend delivered no uops while Backend could have accepted them. For example; stalls due to instruction-cache misses would be categorized under Frontend Bound. Sample with: FRONTEND_RETIRED.LATENCY_GE_4_PS",
          "ScaleUnit": "100%"
      },
      {
@@ -634,7 +619,7 @@ index c3ea39d6c944..51cf8560a8d3 100644
 -        "MetricExpr": "2 * MEM_UOPS_RETIRED.SPLIT_STORES / CORE_CLKS",
 -        "MetricGroup": "TopdownL4;tma_store_bound_group",
 -        "MetricName": "tma_split_stores",
--        "PublicDescription": "This metric represents rate of split store accesses.  Consider aligning your data to the 64-byte cache line granularity. Sample with: MEM_UOPS_RETIRED.SPLIT_STORES_PS",
+-        "PublicDescription": "This metric represents rate of split store accesses.  Consider aligning your data to the 64-byte cache line granularity. Sample with: MEM_INST_RETIRED.SPLIT_STORES_PS",
 +        "BriefDescription": "This metric represents fraction of slots where the CPU was retiring heavy-weight operations -- instructions that require two or more uops or micro-coded sequences",
 +        "MetricExpr": "tma_microcode_sequencer",
 +        "MetricGroup": "Retire;TmaL2;TopdownL2;tma_L2_group;tma_retiring_group",
@@ -648,12 +633,13 @@ index c3ea39d6c944..51cf8560a8d3 100644
 -        "MetricExpr": "(8 * DTLB_STORE_MISSES.STLB_HIT + cpu@DTLB_STORE_MISSES.WALK_DURATION\\,cmask\\=1@ + 7 * DTLB_STORE_MISSES.WALK_COMPLETED) / CLKS",
 -        "MetricGroup": "MemoryTLB;TopdownL4;tma_store_bound_group",
 -        "MetricName": "tma_dtlb_store",
--        "PublicDescription": "This metric roughly estimates the fraction of cycles spent handling first-level data TLB store misses.  As with ordinary data caching; focus on improving data locality and reducing working-set size to reduce DTLB overhead.  Additionally; consider using profile-guided optimization (PGO) to collocate frequently-used data on the same page.  Try using larger page sizes for large amounts of frequently-used data. Sample with: MEM_UOPS_RETIRED.STLB_MISS_STORES_PS",
-+        "BriefDescription": "This metric represents fraction of cycles the CPU was stalled due to instruction cache misses.",
+-        "PublicDescription": "This metric roughly estimates the fraction of cycles spent handling first-level data TLB store misses.  As with ordinary data caching; focus on improving data locality and reducing working-set size to reduce DTLB overhead.  Additionally; consider using profile-guided optimization (PGO) to collocate frequently-used data on the same page.  Try using larger page sizes for large amounts of frequently-used data. Sample with: MEM_INST_RETIRED.STLB_MISS_STORES_PS",
++        "BriefDescription": "This metric represents fraction of cycles the CPU was stalled due to instruction cache misses",
 +        "MetricExpr": "ICACHE.IFDATA_STALL / tma_info_clks",
 +        "MetricGroup": "BigFoot;FetchLat;IcMiss;TopdownL3;tma_L3_group;tma_fetch_latency_group",
 +        "MetricName": "tma_icache_misses",
 +        "MetricThreshold": "tma_icache_misses > 0.05 & (tma_fetch_latency > 0.1 & tma_frontend_bound > 0.15)",
++        "PublicDescription": "This metric represents fraction of cycles the CPU was stalled due to instruction cache misses. Sample with: FRONTEND_RETIRED.L2_MISS_PS;FRONTEND_RETIRED.L1I_MISS_PS",
          "ScaleUnit": "100%"
      },
      {
@@ -673,7 +659,7 @@ index c3ea39d6c944..51cf8560a8d3 100644
 -        "MetricExpr": "ARITH.FPU_DIV_ACTIVE / CORE_CLKS",
 -        "MetricGroup": "TopdownL3;tma_core_bound_group",
 -        "MetricName": "tma_divider",
--        "PublicDescription": "This metric represents fraction of cycles where the Divider unit was active. Divide and square root instructions are performed by the Divider unit and can take considerably longer latency than integer or Floating Point addition; subtraction; or multiplication. Sample with: ARITH.DIVIDER_UOPS",
+-        "PublicDescription": "This metric represents fraction of cycles where the Divider unit was active. Divide and square root instructions are performed by the Divider unit and can take considerably longer latency than integer or Floating Point addition; subtraction; or multiplication. Sample with: ARITH.DIVIDER_ACTIVE",
 -        "ScaleUnit": "100%"
 +        "BriefDescription": "Branch instructions per taken branch.",
 +        "MetricExpr": "BR_INST_RETIRED.ALL_BRANCHES / BR_INST_RETIRED.NEAR_TAKEN",
@@ -710,7 +696,7 @@ index c3ea39d6c944..51cf8560a8d3 100644
 -        "MetricExpr": "((cpu@UOPS_EXECUTED.CORE\\,cmask\\=1@ - cpu@UOPS_EXECUTED.CORE\\,cmask\\=2@) / 2 if #SMT_on else (UOPS_EXECUTED.CYCLES_GE_1_UOP_EXEC - UOPS_EXECUTED.CYCLES_GE_2_UOPS_EXEC) / CORE_CLKS)",
 -        "MetricGroup": "PortsUtil;TopdownL4;tma_ports_utilization_group",
 -        "MetricName": "tma_ports_utilized_1",
--        "PublicDescription": "This metric represents fraction of cycles where the CPU executed total of 1 uop per cycle on all execution ports (Logical Processor cycles since ICL, Physical Core cycles otherwise). This can be due to heavy data-dependency among software instructions; or over oversubscribing a particular hardware resource. In some other cases with high 1_Port_Utilized and L1_Bound; this metric can point to L1 data-cache latency bottleneck that may not necessarily manifest with complete execution starvation (due to the short L1 latency e.g. walking a linked list) - looking at the assembly can be helpful.",
+-        "PublicDescription": "This metric represents fraction of cycles where the CPU executed total of 1 uop per cycle on all execution ports (Logical Processor cycles since ICL, Physical Core cycles otherwise). This can be due to heavy data-dependency among software instructions; or over oversubscribing a particular hardware resource. In some other cases with high 1_Port_Utilized and L1_Bound; this metric can point to L1 data-cache latency bottleneck that may not necessarily manifest with complete execution starvation (due to the short L1 latency e.g. walking a linked list) - looking at the assembly can be helpful. Sample with: EXE_ACTIVITY.1_PORTS_UTIL",
 -        "ScaleUnit": "100%"
 +        "BriefDescription": "Core actual clocks when any Logical Processor is active on the Physical Core",
 +        "MetricExpr": "(CPU_CLK_UNHALTED.THREAD / 2 * (1 + CPU_CLK_UNHALTED.ONE_THREAD_ACTIVE / CPU_CLK_UNHALTED.REF_XCLK) if #core_wide < 1 else (CPU_CLK_UNHALTED.THREAD_ANY / 2 if #SMT_on else tma_info_clks))",
@@ -722,7 +708,7 @@ index c3ea39d6c944..51cf8560a8d3 100644
 -        "MetricExpr": "((cpu@UOPS_EXECUTED.CORE\\,cmask\\=2@ - cpu@UOPS_EXECUTED.CORE\\,cmask\\=3@) / 2 if #SMT_on else (UOPS_EXECUTED.CYCLES_GE_2_UOPS_EXEC - UOPS_EXECUTED.CYCLES_GE_3_UOPS_EXEC) / CORE_CLKS)",
 -        "MetricGroup": "PortsUtil;TopdownL4;tma_ports_utilization_group",
 -        "MetricName": "tma_ports_utilized_2",
--        "PublicDescription": "This metric represents fraction of cycles CPU executed total of 2 uops per cycle on all execution ports (Logical Processor cycles since ICL, Physical Core cycles otherwise).  Loop Vectorization -most compilers feature auto-Vectorization options today- reduces pressure on the execution ports as multiple elements are calculated with same uop.",
+-        "PublicDescription": "This metric represents fraction of cycles CPU executed total of 2 uops per cycle on all execution ports (Logical Processor cycles since ICL, Physical Core cycles otherwise).  Loop Vectorization -most compilers feature auto-Vectorization options today- reduces pressure on the execution ports as multiple elements are calculated with same uop. Sample with: EXE_ACTIVITY.2_PORTS_UTIL",
 -        "ScaleUnit": "100%"
 +        "BriefDescription": "Instructions Per Cycle across hyper-threads (per physical core)",
 +        "MetricExpr": "INST_RETIRED.ANY / tma_info_core_clks",
@@ -730,10 +716,11 @@ index c3ea39d6c944..51cf8560a8d3 100644
 +        "MetricName": "tma_info_coreipc"
      },
      {
--        "BriefDescription": "This metric represents fraction of cycles CPU executed total of 3 or more uops per cycle on all execution ports (Logical Processor cycles since ICL, Physical Core cycles otherwise).",
+-        "BriefDescription": "This metric represents fraction of cycles CPU executed total of 3 or more uops per cycle on all execution ports (Logical Processor cycles since ICL, Physical Core cycles otherwise)",
 -        "MetricExpr": "(cpu@UOPS_EXECUTED.CORE\\,cmask\\=3@ / 2 if #SMT_on else UOPS_EXECUTED.CYCLES_GE_3_UOPS_EXEC) / CORE_CLKS",
 -        "MetricGroup": "PortsUtil;TopdownL4;tma_ports_utilization_group",
 -        "MetricName": "tma_ports_utilized_3m",
+-        "PublicDescription": "This metric represents fraction of cycles CPU executed total of 3 or more uops per cycle on all execution ports (Logical Processor cycles since ICL, Physical Core cycles otherwise). Sample with: UOPS_EXECUTED.CYCLES_GE_3",
 -        "ScaleUnit": "100%"
 +        "BriefDescription": "Cycles Per Instruction (per Logical Processor)",
 +        "MetricExpr": "1 / tma_info_ipc",
@@ -752,7 +739,7 @@ index c3ea39d6c944..51cf8560a8d3 100644
 +        "MetricName": "tma_info_cpu_utilization"
      },
      {
--        "BriefDescription": "This metric represents Core fraction of cycles CPU dispatched uops on execution port 0 ([SNB+] ALU; [HSW+] ALU and 2nd branch) Sample with: UOPS_DISPATCHED_PORT.PORT_0",
+-        "BriefDescription": "This metric represents Core fraction of cycles CPU dispatched uops on execution port 0 ([SNB+] ALU; [HSW+] ALU and 2nd branch) Sample with: UOPS_DISPATCHED.PORT_0",
 -        "MetricExpr": "UOPS_DISPATCHED_PORT.PORT_0 / CORE_CLKS",
 -        "MetricGroup": "Compute;TopdownL6;tma_alu_op_utilization_group",
 -        "MetricName": "tma_port_0",
@@ -763,32 +750,33 @@ index c3ea39d6c944..51cf8560a8d3 100644
 +        "MetricName": "tma_info_data_l2_mlp"
      },
      {
--        "BriefDescription": "This metric represents Core fraction of cycles CPU dispatched uops on execution port 1 (ALU) Sample with: UOPS_DISPATCHED_PORT.PORT_1",
+-        "BriefDescription": "This metric represents Core fraction of cycles CPU dispatched uops on execution port 1 (ALU) Sample with: UOPS_DISPATCHED.PORT_1",
 -        "MetricExpr": "UOPS_DISPATCHED_PORT.PORT_1 / CORE_CLKS",
 -        "MetricGroup": "TopdownL6;tma_alu_op_utilization_group",
 -        "MetricName": "tma_port_1",
 -        "ScaleUnit": "100%"
 +        "BriefDescription": "Average external Memory Bandwidth Use for reads and writes [GB / sec]",
-+        "MetricExpr": "64 * (UNC_ARB_TRK_REQUESTS.ALL + UNC_ARB_COH_TRK_REQUESTS.ALL) / 1e6 / duration_time / 1e3",
++        "MetricExpr": "64 * (arb@event\\=0x81\\,umask\\=0x1@ + arb@event\\=0x84\\,umask\\=0x1@) / 1e6 / duration_time / 1e3",
 +        "MetricGroup": "HPC;Mem;MemoryBW;SoC;tma_issueBW",
 +        "MetricName": "tma_info_dram_bw_use",
 +        "PublicDescription": "Average external Memory Bandwidth Use for reads and writes [GB / sec]. Related metrics: tma_fb_full, tma_mem_bandwidth, tma_sq_full"
      },
      {
--        "BriefDescription": "This metric represents Core fraction of cycles CPU dispatched uops on execution port 5 ([SNB+] Branches and ALU; [HSW+] ALU) Sample with: UOPS_DISPATCHED.PORT_5",
+-        "BriefDescription": "This metric represents Core fraction of cycles CPU dispatched uops on execution port 5 ([SNB+] Branches and ALU; [HSW+] ALU)",
 -        "MetricExpr": "UOPS_DISPATCHED_PORT.PORT_5 / CORE_CLKS",
 -        "MetricGroup": "TopdownL6;tma_alu_op_utilization_group",
 -        "MetricName": "tma_port_5",
 -        "ScaleUnit": "100%"
+-    },
 +        "BriefDescription": "Fraction of Uops delivered by the DSB (aka Decoded ICache; or Uop Cache)",
 +        "MetricExpr": "IDQ.DSB_UOPS / (IDQ.DSB_UOPS + LSD.UOPS + IDQ.MITE_UOPS + IDQ.MS_UOPS)",
 +        "MetricGroup": "DSB;Fed;FetchBW;tma_issueFB",
 +        "MetricName": "tma_info_dsb_coverage",
 +        "MetricThreshold": "tma_info_dsb_coverage < 0.7 & tma_info_ipc / 4 > 0.35",
 +        "PublicDescription": "Fraction of Uops delivered by the DSB (aka Decoded ICache; or Uop Cache). Related metrics: tma_dsb_switches, tma_fetch_bandwidth, tma_info_iptb, tma_lcp"
-     },
++    },
      {
--        "BriefDescription": "This metric represents Core fraction of cycles CPU dispatched uops on execution port 6 ([HSW+]Primary Branch and simple ALU) Sample with: UOPS_DISPATCHED_PORT.PORT_6",
+-        "BriefDescription": "This metric represents Core fraction of cycles CPU dispatched uops on execution port 6 ([HSW+]Primary Branch and simple ALU) Sample with: UOPS_DISPATCHED.PORT_6",
 -        "MetricExpr": "UOPS_DISPATCHED_PORT.PORT_6 / CORE_CLKS",
 -        "MetricGroup": "TopdownL6;tma_alu_op_utilization_group",
 -        "MetricName": "tma_port_6",
@@ -799,7 +787,7 @@ index c3ea39d6c944..51cf8560a8d3 100644
 +        "MetricName": "tma_info_execute"
      },
      {
--        "BriefDescription": "This metric represents Core fraction of cycles CPU dispatched uops on execution port for Load operations Sample with: UOPS_DISPATCHED.PORT_2_3",
+-        "BriefDescription": "This metric represents Core fraction of cycles CPU dispatched uops on execution port for Load operations Sample with: UOPS_DISPATCHED.PORT_2_3_10",
 -        "MetricExpr": "(UOPS_DISPATCHED_PORT.PORT_2 + UOPS_DISPATCHED_PORT.PORT_3 + UOPS_DISPATCHED_PORT.PORT_7 - UOPS_DISPATCHED_PORT.PORT_4) / (2 * CORE_CLKS)",
 -        "MetricGroup": "TopdownL5;tma_ports_utilized_3m_group",
 -        "MetricName": "tma_load_op_utilization",
@@ -811,7 +799,7 @@ index c3ea39d6c944..51cf8560a8d3 100644
 +        "PublicDescription": "The ratio of Executed- by Issued-Uops. Ratio > 1 suggests high rate of uop micro-fusions. Ratio < 1 suggest high rate of \"execute\" at rename stage."
      },
      {
--        "BriefDescription": "This metric represents Core fraction of cycles CPU dispatched uops on execution port 2 ([SNB+]Loads and Store-address; [ICL+] Loads) Sample with: UOPS_DISPATCHED_PORT.PORT_2",
+-        "BriefDescription": "This metric represents Core fraction of cycles CPU dispatched uops on execution port 2 ([SNB+]Loads and Store-address; [ICL+] Loads)",
 -        "MetricExpr": "UOPS_DISPATCHED_PORT.PORT_2 / CORE_CLKS",
 -        "MetricGroup": "TopdownL6;tma_load_op_utilization_group",
 -        "MetricName": "tma_port_2",
@@ -822,7 +810,7 @@ index c3ea39d6c944..51cf8560a8d3 100644
 +        "MetricName": "tma_info_flopc"
      },
      {
--        "BriefDescription": "This metric represents Core fraction of cycles CPU dispatched uops on execution port 3 ([SNB+]Loads and Store-address; [ICL+] Loads) Sample with: UOPS_DISPATCHED_PORT.PORT_3",
+-        "BriefDescription": "This metric represents Core fraction of cycles CPU dispatched uops on execution port 3 ([SNB+]Loads and Store-address; [ICL+] Loads)",
 -        "MetricExpr": "UOPS_DISPATCHED_PORT.PORT_3 / CORE_CLKS",
 -        "MetricGroup": "TopdownL6;tma_load_op_utilization_group",
 -        "MetricName": "tma_port_3",
@@ -834,7 +822,7 @@ index c3ea39d6c944..51cf8560a8d3 100644
 +        "PublicDescription": "Actual per-core usage of the Floating Point non-X87 execution units (regardless of precision or vector-width). Values > 1 are possible due to ([BDW+] Fused-Multiply Add (FMA) counting - common; [ADL+] use all of ADD/MUL/FMA in Scalar or 128/256-bit vectors - less common)."
      },
      {
--        "BriefDescription": "This metric represents Core fraction of cycles CPU dispatched uops on execution port for Store operations",
+-        "BriefDescription": "This metric represents Core fraction of cycles CPU dispatched uops on execution port for Store operations Sample with: UOPS_DISPATCHED.PORT_7_8",
 -        "MetricExpr": "tma_port_4",
 -        "MetricGroup": "TopdownL5;tma_ports_utilized_3m_group",
 -        "MetricName": "tma_store_op_utilization",
@@ -846,7 +834,7 @@ index c3ea39d6c944..51cf8560a8d3 100644
 +        "PublicDescription": "Giga Floating Point Operations Per Second. Aggregate across all supported options of: FP precisions, scalar and vector instructions, vector-width and AMX engine."
      },
      {
--        "BriefDescription": "This metric represents Core fraction of cycles CPU dispatched uops on execution port 4 (Store-data) Sample with: UOPS_DISPATCHED_PORT.PORT_4",
+-        "BriefDescription": "This metric represents Core fraction of cycles CPU dispatched uops on execution port 4 (Store-data)",
 -        "MetricExpr": "UOPS_DISPATCHED_PORT.PORT_4 / CORE_CLKS",
 -        "MetricGroup": "TopdownL6;tma_store_op_utilization_group",
 -        "MetricName": "tma_port_4",
@@ -857,7 +845,7 @@ index c3ea39d6c944..51cf8560a8d3 100644
 +        "MetricName": "tma_info_ilp"
      },
      {
--        "BriefDescription": "This metric represents Core fraction of cycles CPU dispatched uops on execution port 7 ([HSW+]simple Store-address) Sample with: UOPS_DISPATCHED_PORT.PORT_7",
+-        "BriefDescription": "This metric represents Core fraction of cycles CPU dispatched uops on execution port 7 ([HSW+]simple Store-address)",
 -        "MetricExpr": "UOPS_DISPATCHED_PORT.PORT_7 / CORE_CLKS",
 -        "MetricGroup": "TopdownL6;tma_store_op_utilization_group",
 -        "MetricName": "tma_port_7",
@@ -873,7 +861,7 @@ index c3ea39d6c944..51cf8560a8d3 100644
 -        "MetricExpr": "UOPS_RETIRED.RETIRE_SLOTS / SLOTS",
 -        "MetricGroup": "TopdownL1;tma_L1_group",
 -        "MetricName": "tma_retiring",
--        "PublicDescription": "This category represents fraction of slots utilized by useful work i.e. issued uops that eventually get retired. Ideally; all pipeline slots would be attributed to the Retiring category.  Retiring of 100% would indicate the maximum Pipeline_Width throughput was achieved.  Maximizing Retiring typically increases the Instructions-per-cycle (see IPC metric). Note that a high Retiring value does not necessary mean there is no room for more performance.  For example; Heavy-operations or Microcode Assists are categorized under Retiring. They often indicate suboptimal performance and can often be optimized or avoided.  Sample with: UOPS_RETIRED.RETIRE_SLOTS",
+-        "PublicDescription": "This category represents fraction of slots utilized by useful work i.e. issued uops that eventually get retired. Ideally; all pipeline slots would be attributed to the Retiring category.  Retiring of 100% would indicate the maximum Pipeline_Width throughput was achieved.  Maximizing Retiring typically increases the Instructions-per-cycle (see IPC metric). Note that a high Retiring value does not necessary mean there is no room for more performance.  For example; Heavy-operations or Microcode Assists are categorized under Retiring. They often indicate suboptimal performance and can often be optimized or avoided.  Sample with: UOPS_RETIRED.SLOTS",
 -        "ScaleUnit": "100%"
 +        "BriefDescription": "Instructions per FP Arithmetic instruction (lower number means higher occurrence rate)",
 +        "MetricExpr": "INST_RETIRED.ANY / (cpu@FP_ARITH_INST_RETIRED.SCALAR_SINGLE\\,umask\\=0x03@ + cpu@FP_ARITH_INST_RETIRED.128B_PACKED_DOUBLE\\,umask\\=0x3c@)",
@@ -994,7 +982,7 @@ index c3ea39d6c944..51cf8560a8d3 100644
 -        "MetricExpr": "UOPS_RETIRED.RETIRE_SLOTS / UOPS_ISSUED.ANY * IDQ.MS_UOPS / SLOTS",
 -        "MetricGroup": "MicroSeq;TopdownL3;tma_heavy_operations_group",
 -        "MetricName": "tma_microcode_sequencer",
--        "PublicDescription": "This metric represents fraction of slots the CPU was retiring uops fetched by the Microcode Sequencer (MS) unit.  The MS is used for CISC instructions not supported by the default decoders (like repeat move strings; or CPUID); or by microcode assists used to address some operation modes (like in Floating Point assists). These cases can often be avoided. Sample with: IDQ.MS_UOPS",
+-        "PublicDescription": "This metric represents fraction of slots the CPU was retiring uops fetched by the Microcode Sequencer (MS) unit.  The MS is used for CISC instructions not supported by the default decoders (like repeat move strings; or CPUID); or by microcode assists used to address some operation modes (like in Floating Point assists). These cases can often be avoided. Sample with: UOPS_RETIRED.MS",
 -        "ScaleUnit": "100%"
 +        "BriefDescription": "Instructions per Floating Point (FP) Operation (lower number means higher occurrence rate)",
 +        "MetricExpr": "INST_RETIRED.ANY / (FP_ARITH_INST_RETIRED.SCALAR_SINGLE + FP_ARITH_INST_RETIRED.SCALAR_DOUBLE + 2 * FP_ARITH_INST_RETIRED.128B_PACKED_DOUBLE + 4 * (FP_ARITH_INST_RETIRED.128B_PACKED_SINGLE + FP_ARITH_INST_RETIRED.256B_PACKED_DOUBLE) + 8 * FP_ARITH_INST_RETIRED.256B_PACKED_SINGLE)",
@@ -1007,7 +995,7 @@ index c3ea39d6c944..51cf8560a8d3 100644
 -        "MetricExpr": "100 * OTHER_ASSISTS.ANY_WB_ASSIST / SLOTS",
 -        "MetricGroup": "TopdownL4;tma_microcode_sequencer_group",
 -        "MetricName": "tma_assists",
--        "PublicDescription": "This metric estimates fraction of slots the CPU retired uops delivered by the Microcode_Sequencer as a result of Assists. Assists are long sequences of uops that are required in certain corner-cases for operations that cannot be handled natively by the execution pipeline. For example; when working with very small floating point values (so-called Denormals); the FP units are not set up to perform these operations natively. Instead; a sequence of instructions to perform the computation on the Denormals is injected into the pipeline. Since these microcode sequences might be dozens of uops long; Assists can be extremely deleterious to performance and they can be avoided in many cases. Sample with: OTHER_ASSISTS.ANY",
+-        "PublicDescription": "This metric estimates fraction of slots the CPU retired uops delivered by the Microcode_Sequencer as a result of Assists. Assists are long sequences of uops that are required in certain corner-cases for operations that cannot be handled natively by the execution pipeline. For example; when working with very small floating point values (so-called Denormals); the FP units are not set up to perform these operations natively. Instead; a sequence of instructions to perform the computation on the Denormals is injected into the pipeline. Since these microcode sequences might be dozens of uops long; Assists can be extremely deleterious to performance and they can be avoided in many cases. Sample with: ASSISTS.ANY",
 -        "ScaleUnit": "100%"
 +        "BriefDescription": "Instructions per Load (lower number means higher occurrence rate)",
 +        "MetricExpr": "INST_RETIRED.ANY / MEM_UOPS_RETIRED.ALL_LOADS",
@@ -1275,31 +1263,18 @@ index c3ea39d6c944..51cf8560a8d3 100644
 -        "MetricGroup": "Flops;FpVector;InsType",
 -        "MetricName": "IpArith_AVX256",
 -        "PublicDescription": "Instructions per FP Arithmetic AVX* 256-bit instruction (lower number means higher occurrence rate). May undercount due to FMA double counting."
-+        "BriefDescription": "Average number of parallel requests to external memory",
-+        "MetricExpr": "UNC_ARB_TRK_OCCUPANCY.ALL / UNC_ARB_TRK_OCCUPANCY.CYCLES_WITH_ANY_REQUEST",
-+        "MetricGroup": "Mem;SoC",
-+        "MetricName": "tma_info_mem_parallel_requests",
-+        "PublicDescription": "Average number of parallel requests to external memory. Accounts for all requests"
-     },
-     {
--        "BriefDescription": "Total number of retired Instructions Sample with: INST_RETIRED.PREC_DIST",
--        "MetricExpr": "INST_RETIRED.ANY",
--        "MetricGroup": "Summary;tma_L1_group",
--        "MetricName": "Instructions"
-+        "BriefDescription": "Average latency of all requests to external memory (in Uncore cycles)",
-+        "MetricExpr": "UNC_ARB_TRK_OCCUPANCY.ALL / UNC_ARB_TRK_REQUESTS.ALL",
-+        "MetricGroup": "Mem;SoC",
-+        "MetricName": "tma_info_mem_request_latency"
-+    },
-+    {
 +        "BriefDescription": "Memory-Level-Parallelism (average number of L1 miss demand load when there is at least one such miss",
 +        "MetricConstraint": "NO_GROUP_EVENTS",
 +        "MetricExpr": "L1D_PEND_MISS.PENDING / L1D_PEND_MISS.PENDING_CYCLES",
 +        "MetricGroup": "Mem;MemoryBW;MemoryBound",
 +        "MetricName": "tma_info_mlp",
 +        "PublicDescription": "Memory-Level-Parallelism (average number of L1 miss demand load when there is at least one such miss. Per-Logical Processor)"
-+    },
-+    {
+     },
+     {
+-        "BriefDescription": "Total number of retired Instructions Sample with: INST_RETIRED.PREC_DIST",
+-        "MetricExpr": "INST_RETIRED.ANY",
+-        "MetricGroup": "Summary;tma_L1_group",
+-        "MetricName": "Instructions"
 +        "BriefDescription": "Utilization of the core's Page Walker(s) serving STLB misses triggered by instruction/Load/Store accesses",
 +        "MetricExpr": "(cpu@ITLB_MISSES.WALK_DURATION\\,cmask\\=1@ + cpu@DTLB_LOAD_MISSES.WALK_DURATION\\,cmask\\=1@ + cpu@DTLB_STORE_MISSES.WALK_DURATION\\,cmask\\=1@ + 7 * (DTLB_STORE_MISSES.WALK_COMPLETED + DTLB_LOAD_MISSES.WALK_COMPLETED + ITLB_MISSES.WALK_COMPLETED)) / tma_info_core_clks",
 +        "MetricGroup": "Mem;MemoryTLB",
@@ -1338,26 +1313,16 @@ index c3ea39d6c944..51cf8560a8d3 100644
 -        "MetricExpr": "INST_RETIRED.ANY / BR_MISP_RETIRED.ALL_BRANCHES",
 -        "MetricGroup": "Bad;BadSpec;BrMispredicts",
 -        "MetricName": "IpMispredict"
-+        "BriefDescription": "Socket actual clocks when any core is active on that socket",
-+        "MetricExpr": "UNC_CLOCK.SOCKET",
-+        "MetricGroup": "SoC",
-+        "MetricName": "tma_info_socket_clks"
-     },
-     {
--        "BriefDescription": "Branch Misprediction Cost: Fraction of TMA slots wasted per non-speculative branch misprediction (retired JEClear)",
--        "MetricExpr": "(tma_branch_mispredicts + tma_fetch_latency * tma_mispredicts_resteers / (tma_branch_resteers + tma_dsb_switches + tma_icache_misses + tma_itlb_misses + tma_lcp + tma_ms_switches)) * SLOTS / BR_MISP_RETIRED.ALL_BRANCHES",
--        "MetricGroup": "Bad;BrMispredicts",
--        "MetricName": "Branch_Misprediction_Cost"
 +        "BriefDescription": "Average Frequency Utilization relative nominal frequency",
 +        "MetricExpr": "tma_info_clks / CPU_CLK_UNHALTED.REF_TSC",
 +        "MetricGroup": "Power",
 +        "MetricName": "tma_info_turbo_utilization"
      },
      {
--        "BriefDescription": "Actual Average Latency for L1 data-cache miss demand load operations (in core cycles)",
--        "MetricExpr": "L1D_PEND_MISS.PENDING / (MEM_LOAD_UOPS_RETIRED.L1_MISS + MEM_LOAD_UOPS_RETIRED.HIT_LFB)",
--        "MetricGroup": "Mem;MemoryBound;MemoryLat",
--        "MetricName": "Load_Miss_Real_Latency"
+-        "BriefDescription": "Branch Misprediction Cost: Fraction of TMA slots wasted per non-speculative branch misprediction (retired JEClear)",
+-        "MetricExpr": "(tma_branch_mispredicts + tma_fetch_latency * tma_mispredicts_resteers / (tma_branch_resteers + tma_dsb_switches + tma_icache_misses + tma_itlb_misses + tma_lcp + tma_ms_switches)) * SLOTS / BR_MISP_RETIRED.ALL_BRANCHES",
+-        "MetricGroup": "Bad;BrMispredicts",
+-        "MetricName": "Branch_Misprediction_Cost"
 +        "BriefDescription": "Uops Per Instruction",
 +        "MetricExpr": "UOPS_RETIRED.RETIRE_SLOTS / INST_RETIRED.ANY",
 +        "MetricGroup": "Pipeline;Ret;Retire",
@@ -1365,10 +1330,10 @@ index c3ea39d6c944..51cf8560a8d3 100644
 +        "MetricThreshold": "tma_info_uoppi > 1.05"
      },
      {
--        "BriefDescription": "Memory-Level-Parallelism (average number of L1 miss demand load when there is at least one such miss. Per-Logical Processor)",
--        "MetricExpr": "L1D_PEND_MISS.PENDING / L1D_PEND_MISS.PENDING_CYCLES",
--        "MetricGroup": "Mem;MemoryBW;MemoryBound",
--        "MetricName": "MLP"
+-        "BriefDescription": "Actual Average Latency for L1 data-cache miss demand load operations (in core cycles)",
+-        "MetricExpr": "L1D_PEND_MISS.PENDING / (MEM_LOAD_UOPS_RETIRED.L1_MISS + MEM_LOAD_UOPS_RETIRED.HIT_LFB)",
+-        "MetricGroup": "Mem;MemoryBound;MemoryLat",
+-        "MetricName": "Load_Miss_Real_Latency"
 +        "BriefDescription": "Instruction per taken branch",
 +        "MetricExpr": "UOPS_RETIRED.RETIRE_SLOTS / BR_INST_RETIRED.NEAR_TAKEN",
 +        "MetricGroup": "Branches;Fed;FetchBW",
@@ -1376,16 +1341,29 @@ index c3ea39d6c944..51cf8560a8d3 100644
 +        "MetricThreshold": "tma_info_uptb < 6"
      },
      {
--        "BriefDescription": "L1 cache true misses per kilo instruction for retired demand loads",
--        "MetricExpr": "1e3 * MEM_LOAD_UOPS_RETIRED.L1_MISS / INST_RETIRED.ANY",
--        "MetricGroup": "CacheMisses;Mem",
--        "MetricName": "L1MPKI"
+-        "BriefDescription": "Memory-Level-Parallelism (average number of L1 miss demand load when there is at least one such miss. Per-Logical Processor)",
+-        "MetricExpr": "L1D_PEND_MISS.PENDING / L1D_PEND_MISS.PENDING_CYCLES",
+-        "MetricGroup": "Mem;MemoryBW;MemoryBound",
+-        "MetricName": "MLP"
 +        "BriefDescription": "This metric represents fraction of cycles the CPU was stalled due to Instruction TLB (ITLB) misses",
 +        "MetricExpr": "(14 * ITLB_MISSES.STLB_HIT + cpu@ITLB_MISSES.WALK_DURATION\\,cmask\\=1@ + 7 * ITLB_MISSES.WALK_COMPLETED) / tma_info_clks",
 +        "MetricGroup": "BigFoot;FetchLat;MemoryTLB;TopdownL3;tma_L3_group;tma_fetch_latency_group",
 +        "MetricName": "tma_itlb_misses",
 +        "MetricThreshold": "tma_itlb_misses > 0.05 & (tma_fetch_latency > 0.1 & tma_frontend_bound > 0.15)",
-+        "PublicDescription": "This metric represents fraction of cycles the CPU was stalled due to Instruction TLB (ITLB) misses. Sample with: ITLB_MISSES.WALK_COMPLETED",
++        "PublicDescription": "This metric represents fraction of cycles the CPU was stalled due to Instruction TLB (ITLB) misses. Sample with: FRONTEND_RETIRED.STLB_MISS_PS;FRONTEND_RETIRED.ITLB_MISS_PS",
++        "ScaleUnit": "100%"
+     },
+     {
+-        "BriefDescription": "L1 cache true misses per kilo instruction for retired demand loads",
+-        "MetricExpr": "1e3 * MEM_LOAD_UOPS_RETIRED.L1_MISS / INST_RETIRED.ANY",
+-        "MetricGroup": "CacheMisses;Mem",
+-        "MetricName": "L1MPKI"
++        "BriefDescription": "This metric estimates how often the CPU was stalled without loads missing the L1 data cache",
++        "MetricExpr": "max((CYCLE_ACTIVITY.STALLS_MEM_ANY - CYCLE_ACTIVITY.STALLS_L1D_MISS) / tma_info_clks, 0)",
++        "MetricGroup": "CacheMisses;MemoryBound;TmaL3mem;TopdownL3;tma_L3_group;tma_issueL1;tma_issueMC;tma_memory_bound_group",
++        "MetricName": "tma_l1_bound",
++        "MetricThreshold": "tma_l1_bound > 0.1 & (tma_memory_bound > 0.2 & tma_backend_bound > 0.2)",
++        "PublicDescription": "This metric estimates how often the CPU was stalled without loads missing the L1 data cache.  The L1 data cache typically has the shortest latency.  However; in certain cases like loads blocked on older stores; a load might suffer due to high latency even though it is being satisfied by the L1. Another example is loads who miss in the TLB. These cases are characterized by execution unit stalls; while some non-completed demand load lives in the machine without having that demand load missing the L1 cache. Sample with: MEM_LOAD_RETIRED.L1_HIT_PS;MEM_LOAD_RETIRED.FB_HIT_PS. Related metrics: tma_clears_resteers, tma_machine_clears, tma_microcode_sequencer, tma_ms_switches, tma_ports_utilized_1",
 +        "ScaleUnit": "100%"
      },
      {
@@ -1393,12 +1371,12 @@ index c3ea39d6c944..51cf8560a8d3 100644
 -        "MetricExpr": "1e3 * MEM_LOAD_UOPS_RETIRED.L2_MISS / INST_RETIRED.ANY",
 -        "MetricGroup": "Backend;CacheMisses;Mem",
 -        "MetricName": "L2MPKI"
-+        "BriefDescription": "This metric estimates how often the CPU was stalled without loads missing the L1 data cache",
-+        "MetricExpr": "max((CYCLE_ACTIVITY.STALLS_MEM_ANY - CYCLE_ACTIVITY.STALLS_L1D_MISS) / tma_info_clks, 0)",
-+        "MetricGroup": "CacheMisses;MemoryBound;TmaL3mem;TopdownL3;tma_L3_group;tma_issueL1;tma_issueMC;tma_memory_bound_group",
-+        "MetricName": "tma_l1_bound",
-+        "MetricThreshold": "tma_l1_bound > 0.1 & (tma_memory_bound > 0.2 & tma_backend_bound > 0.2)",
-+        "PublicDescription": "This metric estimates how often the CPU was stalled without loads missing the L1 data cache.  The L1 data cache typically has the shortest latency.  However; in certain cases like loads blocked on older stores; a load might suffer due to high latency even though it is being satisfied by the L1. Another example is loads who miss in the TLB. These cases are characterized by execution unit stalls; while some non-completed demand load lives in the machine without having that demand load missing the L1 cache. Sample with: MEM_LOAD_UOPS_RETIRED.L1_HIT_PS;MEM_LOAD_UOPS_RETIRED.HIT_LFB_PS. Related metrics: tma_clears_resteers, tma_machine_clears, tma_microcode_sequencer, tma_ms_switches, tma_ports_utilized_1",
++        "BriefDescription": "This metric estimates how often the CPU was stalled due to L2 cache accesses by loads",
++        "MetricExpr": "(CYCLE_ACTIVITY.STALLS_L1D_MISS - CYCLE_ACTIVITY.STALLS_L2_MISS) / tma_info_clks",
++        "MetricGroup": "CacheMisses;MemoryBound;TmaL3mem;TopdownL3;tma_L3_group;tma_memory_bound_group",
++        "MetricName": "tma_l2_bound",
++        "MetricThreshold": "tma_l2_bound > 0.05 & (tma_memory_bound > 0.2 & tma_backend_bound > 0.2)",
++        "PublicDescription": "This metric estimates how often the CPU was stalled due to L2 cache accesses by loads.  Avoiding cache misses (i.e. L1 misses/L2 hits) can improve the latency and increase performance. Sample with: MEM_LOAD_RETIRED.L2_HIT_PS",
 +        "ScaleUnit": "100%"
      },
      {
@@ -1406,12 +1384,13 @@ index c3ea39d6c944..51cf8560a8d3 100644
 -        "MetricExpr": "1e3 * L2_RQSTS.MISS / INST_RETIRED.ANY",
 -        "MetricGroup": "CacheMisses;Mem;Offcore",
 -        "MetricName": "L2MPKI_All"
-+        "BriefDescription": "This metric estimates how often the CPU was stalled due to L2 cache accesses by loads",
-+        "MetricExpr": "(CYCLE_ACTIVITY.STALLS_L1D_MISS - CYCLE_ACTIVITY.STALLS_L2_MISS) / tma_info_clks",
++        "BriefDescription": "This metric estimates how often the CPU was stalled due to loads accesses to L3 cache or contended with a sibling Core",
++        "MetricConstraint": "NO_GROUP_EVENTS_SMT",
++        "MetricExpr": "MEM_LOAD_UOPS_RETIRED.L3_HIT / (MEM_LOAD_UOPS_RETIRED.L3_HIT + 7 * MEM_LOAD_UOPS_RETIRED.L3_MISS) * CYCLE_ACTIVITY.STALLS_L2_MISS / tma_info_clks",
 +        "MetricGroup": "CacheMisses;MemoryBound;TmaL3mem;TopdownL3;tma_L3_group;tma_memory_bound_group",
-+        "MetricName": "tma_l2_bound",
-+        "MetricThreshold": "tma_l2_bound > 0.05 & (tma_memory_bound > 0.2 & tma_backend_bound > 0.2)",
-+        "PublicDescription": "This metric estimates how often the CPU was stalled due to L2 cache accesses by loads.  Avoiding cache misses (i.e. L1 misses/L2 hits) can improve the latency and increase performance. Sample with: MEM_LOAD_UOPS_RETIRED.L2_HIT_PS",
++        "MetricName": "tma_l3_bound",
++        "MetricThreshold": "tma_l3_bound > 0.05 & (tma_memory_bound > 0.2 & tma_backend_bound > 0.2)",
++        "PublicDescription": "This metric estimates how often the CPU was stalled due to loads accesses to L3 cache or contended with a sibling Core.  Avoiding cache misses (i.e. L2 misses/L3 hits) can improve the latency and increase performance. Sample with: MEM_LOAD_RETIRED.L3_HIT_PS",
 +        "ScaleUnit": "100%"
      },
      {
@@ -1419,13 +1398,13 @@ index c3ea39d6c944..51cf8560a8d3 100644
 -        "MetricExpr": "1e3 * L2_RQSTS.DEMAND_DATA_RD_MISS / INST_RETIRED.ANY",
 -        "MetricGroup": "CacheMisses;Mem",
 -        "MetricName": "L2MPKI_Load"
-+        "BriefDescription": "This metric estimates how often the CPU was stalled due to loads accesses to L3 cache or contended with a sibling Core",
-+        "MetricConstraint": "NO_GROUP_EVENTS_SMT",
-+        "MetricExpr": "MEM_LOAD_UOPS_RETIRED.L3_HIT / (MEM_LOAD_UOPS_RETIRED.L3_HIT + 7 * MEM_LOAD_UOPS_RETIRED.L3_MISS) * CYCLE_ACTIVITY.STALLS_L2_MISS / tma_info_clks",
-+        "MetricGroup": "CacheMisses;MemoryBound;TmaL3mem;TopdownL3;tma_L3_group;tma_memory_bound_group",
-+        "MetricName": "tma_l3_bound",
-+        "MetricThreshold": "tma_l3_bound > 0.05 & (tma_memory_bound > 0.2 & tma_backend_bound > 0.2)",
-+        "PublicDescription": "This metric estimates how often the CPU was stalled due to loads accesses to L3 cache or contended with a sibling Core.  Avoiding cache misses (i.e. L2 misses/L3 hits) can improve the latency and increase performance. Sample with: MEM_LOAD_UOPS_RETIRED.L3_HIT_PS",
++        "BriefDescription": "This metric represents fraction of cycles with demand load accesses that hit the L3 cache under unloaded scenarios (possibly L3 latency limited)",
++        "MetricConstraint": "NO_GROUP_EVENTS",
++        "MetricExpr": "29 * (MEM_LOAD_UOPS_RETIRED.L3_HIT * (1 + MEM_LOAD_UOPS_RETIRED.HIT_LFB / (MEM_LOAD_UOPS_RETIRED.L2_HIT + MEM_LOAD_UOPS_RETIRED.L3_HIT + MEM_LOAD_UOPS_L3_HIT_RETIRED.XSNP_HIT + MEM_LOAD_UOPS_L3_HIT_RETIRED.XSNP_HITM + MEM_LOAD_UOPS_L3_HIT_RETIRED.XSNP_MISS + MEM_LOAD_UOPS_RETIRED.L3_MISS))) / tma_info_clks",
++        "MetricGroup": "MemoryLat;TopdownL4;tma_L4_group;tma_issueLat;tma_l3_bound_group",
++        "MetricName": "tma_l3_hit_latency",
++        "MetricThreshold": "tma_l3_hit_latency > 0.1 & (tma_l3_bound > 0.05 & (tma_memory_bound > 0.2 & tma_backend_bound > 0.2))",
++        "PublicDescription": "This metric represents fraction of cycles with demand load accesses that hit the L3 cache under unloaded scenarios (possibly L3 latency limited).  Avoiding private cache misses (i.e. L2 misses/L3 hits) will improve the latency; reduce contention with sibling physical cores and increase performance.  Note the value of this node may overlap with its siblings. Sample with: MEM_LOAD_RETIRED.L3_HIT_PS. Related metrics: tma_mem_latency",
 +        "ScaleUnit": "100%"
      },
      {
@@ -1433,20 +1412,6 @@ index c3ea39d6c944..51cf8560a8d3 100644
 -        "MetricExpr": "1e3 * (L2_RQSTS.REFERENCES - L2_RQSTS.MISS) / INST_RETIRED.ANY",
 -        "MetricGroup": "CacheMisses;Mem",
 -        "MetricName": "L2HPKI_All"
-+        "BriefDescription": "This metric represents fraction of cycles with demand load accesses that hit the L3 cache under unloaded scenarios (possibly L3 latency limited)",
-+        "MetricConstraint": "NO_GROUP_EVENTS",
-+        "MetricExpr": "29 * (MEM_LOAD_UOPS_RETIRED.L3_HIT * (1 + MEM_LOAD_UOPS_RETIRED.HIT_LFB / (MEM_LOAD_UOPS_RETIRED.L2_HIT + MEM_LOAD_UOPS_RETIRED.L3_HIT + MEM_LOAD_UOPS_L3_HIT_RETIRED.XSNP_HIT + MEM_LOAD_UOPS_L3_HIT_RETIRED.XSNP_HITM + MEM_LOAD_UOPS_L3_HIT_RETIRED.XSNP_MISS + MEM_LOAD_UOPS_RETIRED.L3_MISS))) / tma_info_clks",
-+        "MetricGroup": "MemoryLat;TopdownL4;tma_L4_group;tma_issueLat;tma_l3_bound_group",
-+        "MetricName": "tma_l3_hit_latency",
-+        "MetricThreshold": "tma_l3_hit_latency > 0.1 & (tma_l3_bound > 0.05 & (tma_memory_bound > 0.2 & tma_backend_bound > 0.2))",
-+        "PublicDescription": "This metric represents fraction of cycles with demand load accesses that hit the L3 cache under unloaded scenarios (possibly L3 latency limited).  Avoiding private cache misses (i.e. L2 misses/L3 hits) will improve the latency; reduce contention with sibling physical cores and increase performance.  Note the value of this node may overlap with its siblings. Sample with: MEM_LOAD_UOPS_RETIRED.L3_HIT_PS. Related metrics: tma_mem_latency",
-+        "ScaleUnit": "100%"
-     },
-     {
--        "BriefDescription": "L2 cache hits per kilo instruction for all demand loads  (including speculative)",
--        "MetricExpr": "1e3 * L2_RQSTS.DEMAND_DATA_RD_HIT / INST_RETIRED.ANY",
--        "MetricGroup": "CacheMisses;Mem",
--        "MetricName": "L2HPKI_Load"
 +        "BriefDescription": "This metric represents fraction of cycles CPU was stalled due to Length Changing Prefixes (LCPs)",
 +        "MetricExpr": "ILD_STALL.LCP / tma_info_clks",
 +        "MetricGroup": "FetchLat;TopdownL3;tma_L3_group;tma_fetch_latency_group;tma_issueFB",
@@ -1456,10 +1421,10 @@ index c3ea39d6c944..51cf8560a8d3 100644
 +        "ScaleUnit": "100%"
      },
      {
--        "BriefDescription": "L3 cache true misses per kilo instruction for retired demand loads",
--        "MetricExpr": "1e3 * MEM_LOAD_UOPS_RETIRED.L3_MISS / INST_RETIRED.ANY",
+-        "BriefDescription": "L2 cache hits per kilo instruction for all demand loads  (including speculative)",
+-        "MetricExpr": "1e3 * L2_RQSTS.DEMAND_DATA_RD_HIT / INST_RETIRED.ANY",
 -        "MetricGroup": "CacheMisses;Mem",
--        "MetricName": "L3MPKI"
+-        "MetricName": "L2HPKI_Load"
 +        "BriefDescription": "This metric represents fraction of slots where the CPU was retiring light-weight operations -- instructions that require no more than one uop (micro-operation)",
 +        "MetricExpr": "tma_retiring - tma_heavy_operations",
 +        "MetricGroup": "Retire;TmaL2;TopdownL2;tma_L2_group;tma_retiring_group",
@@ -1469,18 +1434,32 @@ index c3ea39d6c944..51cf8560a8d3 100644
 +        "ScaleUnit": "100%"
      },
      {
--        "BriefDescription": "Utilization of the core's Page Walker(s) serving STLB misses triggered by instruction/Load/Store accesses",
--        "MetricConstraint": "NO_NMI_WATCHDOG",
--        "MetricExpr": "(cpu@ITLB_MISSES.WALK_DURATION\\,cmask\\=1@ + cpu@DTLB_LOAD_MISSES.WALK_DURATION\\,cmask\\=1@ + cpu@DTLB_STORE_MISSES.WALK_DURATION\\,cmask\\=1@ + 7 * (DTLB_STORE_MISSES.WALK_COMPLETED + DTLB_LOAD_MISSES.WALK_COMPLETED + ITLB_MISSES.WALK_COMPLETED)) / CORE_CLKS",
--        "MetricGroup": "Mem;MemoryTLB",
--        "MetricName": "Page_Walks_Utilization"
+-        "BriefDescription": "L3 cache true misses per kilo instruction for retired demand loads",
+-        "MetricExpr": "1e3 * MEM_LOAD_UOPS_RETIRED.L3_MISS / INST_RETIRED.ANY",
+-        "MetricGroup": "CacheMisses;Mem",
+-        "MetricName": "L3MPKI"
 +        "BriefDescription": "This metric represents Core fraction of cycles CPU dispatched uops on execution port for Load operations",
 +        "MetricConstraint": "NO_GROUP_EVENTS_NMI",
 +        "MetricExpr": "(UOPS_DISPATCHED_PORT.PORT_2 + UOPS_DISPATCHED_PORT.PORT_3 + UOPS_DISPATCHED_PORT.PORT_7 - UOPS_DISPATCHED_PORT.PORT_4) / (2 * tma_info_core_clks)",
 +        "MetricGroup": "TopdownL5;tma_L5_group;tma_ports_utilized_3m_group",
 +        "MetricName": "tma_load_op_utilization",
 +        "MetricThreshold": "tma_load_op_utilization > 0.6",
-+        "PublicDescription": "This metric represents Core fraction of cycles CPU dispatched uops on execution port for Load operations. Sample with: UOPS_DISPATCHED.PORT_2_3",
++        "PublicDescription": "This metric represents Core fraction of cycles CPU dispatched uops on execution port for Load operations. Sample with: UOPS_DISPATCHED.PORT_2_3_10",
++        "ScaleUnit": "100%"
+     },
+     {
+-        "BriefDescription": "Utilization of the core's Page Walker(s) serving STLB misses triggered by instruction/Load/Store accesses",
+-        "MetricConstraint": "NO_NMI_WATCHDOG",
+-        "MetricExpr": "(ITLB_MISSES.WALK_DURATION + DTLB_LOAD_MISSES.WALK_DURATION + DTLB_STORE_MISSES.WALK_DURATION + 7 * (DTLB_STORE_MISSES.WALK_COMPLETED + DTLB_LOAD_MISSES.WALK_COMPLETED + ITLB_MISSES.WALK_COMPLETED)) / (2 * CORE_CLKS)",
+-        "MetricGroup": "Mem;MemoryTLB",
+-        "MetricName": "Page_Walks_Utilization"
++        "BriefDescription": "This metric represents fraction of cycles the CPU spent handling cache misses due to lock operations",
++        "MetricConstraint": "NO_GROUP_EVENTS",
++        "MetricExpr": "MEM_UOPS_RETIRED.LOCK_LOADS / MEM_UOPS_RETIRED.ALL_STORES * min(CPU_CLK_UNHALTED.THREAD, OFFCORE_REQUESTS_OUTSTANDING.CYCLES_WITH_DEMAND_RFO) / tma_info_clks",
++        "MetricGroup": "Offcore;TopdownL4;tma_L4_group;tma_issueRFO;tma_l1_bound_group",
++        "MetricName": "tma_lock_latency",
++        "MetricThreshold": "tma_lock_latency > 0.2 & (tma_l1_bound > 0.1 & (tma_memory_bound > 0.2 & tma_backend_bound > 0.2))",
++        "PublicDescription": "This metric represents fraction of cycles the CPU spent handling cache misses due to lock operations. Due to the microarchitecture handling of locks; they are classified as L1_Bound regardless of what memory source satisfied them. Sample with: MEM_INST_RETIRED.LOCK_LOADS_PS. Related metrics: tma_store_latency",
 +        "ScaleUnit": "100%"
      },
      {
@@ -1488,20 +1467,6 @@ index c3ea39d6c944..51cf8560a8d3 100644
 -        "MetricExpr": "64 * L1D.REPLACEMENT / 1e9 / duration_time",
 -        "MetricGroup": "Mem;MemoryBW",
 -        "MetricName": "L1D_Cache_Fill_BW"
-+        "BriefDescription": "This metric represents fraction of cycles the CPU spent handling cache misses due to lock operations",
-+        "MetricConstraint": "NO_GROUP_EVENTS",
-+        "MetricExpr": "MEM_UOPS_RETIRED.LOCK_LOADS / MEM_UOPS_RETIRED.ALL_STORES * min(CPU_CLK_UNHALTED.THREAD, OFFCORE_REQUESTS_OUTSTANDING.CYCLES_WITH_DEMAND_RFO) / tma_info_clks",
-+        "MetricGroup": "Offcore;TopdownL4;tma_L4_group;tma_issueRFO;tma_l1_bound_group",
-+        "MetricName": "tma_lock_latency",
-+        "MetricThreshold": "tma_lock_latency > 0.2 & (tma_l1_bound > 0.1 & (tma_memory_bound > 0.2 & tma_backend_bound > 0.2))",
-+        "PublicDescription": "This metric represents fraction of cycles the CPU spent handling cache misses due to lock operations. Due to the microarchitecture handling of locks; they are classified as L1_Bound regardless of what memory source satisfied them. Sample with: MEM_UOPS_RETIRED.LOCK_LOADS_PS. Related metrics: tma_store_latency",
-+        "ScaleUnit": "100%"
-     },
-     {
--        "BriefDescription": "Average per-core data fill bandwidth to the L2 cache [GB / sec]",
--        "MetricExpr": "64 * L2_LINES_IN.ALL / 1e9 / duration_time",
--        "MetricGroup": "Mem;MemoryBW",
--        "MetricName": "L2_Cache_Fill_BW"
 +        "BriefDescription": "This metric represents fraction of slots the CPU has wasted due to Machine Clears",
 +        "MetricConstraint": "NO_GROUP_EVENTS",
 +        "MetricExpr": "tma_bad_speculation - tma_branch_mispredicts",
@@ -1512,10 +1477,10 @@ index c3ea39d6c944..51cf8560a8d3 100644
 +        "ScaleUnit": "100%"
      },
      {
--        "BriefDescription": "Average per-core data fill bandwidth to the L3 cache [GB / sec]",
--        "MetricExpr": "64 * LONGEST_LAT_CACHE.MISS / 1e9 / duration_time",
+-        "BriefDescription": "Average per-core data fill bandwidth to the L2 cache [GB / sec]",
+-        "MetricExpr": "64 * L2_LINES_IN.ALL / 1e9 / duration_time",
 -        "MetricGroup": "Mem;MemoryBW",
--        "MetricName": "L3_Cache_Fill_BW"
+-        "MetricName": "L2_Cache_Fill_BW"
 +        "BriefDescription": "This metric estimates fraction of cycles where the core's performance was likely hurt due to approaching bandwidth limits of external memory (DRAM)",
 +        "MetricExpr": "min(CPU_CLK_UNHALTED.THREAD, cpu@OFFCORE_REQUESTS_OUTSTANDING.ALL_DATA_RD\\,cmask\\=4@) / tma_info_clks",
 +        "MetricGroup": "MemoryBW;Offcore;TopdownL4;tma_L4_group;tma_dram_bound_group;tma_issueBW",
@@ -1525,10 +1490,10 @@ index c3ea39d6c944..51cf8560a8d3 100644
 +        "ScaleUnit": "100%"
      },
      {
--        "BriefDescription": "Average per-thread data fill bandwidth to the L1 data cache [GB / sec]",
--        "MetricExpr": "L1D_Cache_Fill_BW",
+-        "BriefDescription": "Average per-core data fill bandwidth to the L3 cache [GB / sec]",
+-        "MetricExpr": "64 * LONGEST_LAT_CACHE.MISS / 1e9 / duration_time",
 -        "MetricGroup": "Mem;MemoryBW",
--        "MetricName": "L1D_Cache_Fill_BW_1T"
+-        "MetricName": "L3_Cache_Fill_BW"
 +        "BriefDescription": "This metric estimates fraction of cycles where the performance was likely hurt due to latency from external memory (DRAM)",
 +        "MetricExpr": "min(CPU_CLK_UNHALTED.THREAD, OFFCORE_REQUESTS_OUTSTANDING.CYCLES_WITH_DATA_RD) / tma_info_clks - tma_mem_bandwidth",
 +        "MetricGroup": "MemoryLat;Offcore;TopdownL4;tma_L4_group;tma_dram_bound_group;tma_issueLat",
@@ -1538,10 +1503,10 @@ index c3ea39d6c944..51cf8560a8d3 100644
 +        "ScaleUnit": "100%"
      },
      {
--        "BriefDescription": "Average per-thread data fill bandwidth to the L2 cache [GB / sec]",
--        "MetricExpr": "L2_Cache_Fill_BW",
+-        "BriefDescription": "Average per-thread data fill bandwidth to the L1 data cache [GB / sec]",
+-        "MetricExpr": "L1D_Cache_Fill_BW",
 -        "MetricGroup": "Mem;MemoryBW",
--        "MetricName": "L2_Cache_Fill_BW_1T"
+-        "MetricName": "L1D_Cache_Fill_BW_1T"
 +        "BriefDescription": "This metric represents fraction of slots the Memory subsystem within the Backend was a bottleneck",
 +        "MetricConstraint": "NO_GROUP_EVENTS",
 +        "MetricExpr": "(CYCLE_ACTIVITY.STALLS_MEM_ANY + RESOURCE_STALLS.SB) / (CYCLE_ACTIVITY.STALLS_TOTAL + UOPS_EXECUTED.CYCLES_GE_1_UOP_EXEC - (UOPS_EXECUTED.CYCLES_GE_3_UOPS_EXEC if tma_info_ipc > 1.8 else UOPS_EXECUTED.CYCLES_GE_2_UOPS_EXEC) - (RS_EVENTS.EMPTY_CYCLES if tma_fetch_latency > 0.1 else 0) + RESOURCE_STALLS.SB) * tma_backend_bound",
@@ -1552,16 +1517,29 @@ index c3ea39d6c944..51cf8560a8d3 100644
 +        "ScaleUnit": "100%"
      },
      {
--        "BriefDescription": "Average per-thread data fill bandwidth to the L3 cache [GB / sec]",
--        "MetricExpr": "L3_Cache_Fill_BW",
+-        "BriefDescription": "Average per-thread data fill bandwidth to the L2 cache [GB / sec]",
+-        "MetricExpr": "L2_Cache_Fill_BW",
 -        "MetricGroup": "Mem;MemoryBW",
--        "MetricName": "L3_Cache_Fill_BW_1T"
+-        "MetricName": "L2_Cache_Fill_BW_1T"
 +        "BriefDescription": "This metric represents fraction of slots the CPU was retiring uops fetched by the Microcode Sequencer (MS) unit",
 +        "MetricExpr": "UOPS_RETIRED.RETIRE_SLOTS / UOPS_ISSUED.ANY * IDQ.MS_UOPS / tma_info_slots",
 +        "MetricGroup": "MicroSeq;TopdownL3;tma_L3_group;tma_heavy_operations_group;tma_issueMC;tma_issueMS",
 +        "MetricName": "tma_microcode_sequencer",
 +        "MetricThreshold": "tma_microcode_sequencer > 0.05 & tma_heavy_operations > 0.1",
-+        "PublicDescription": "This metric represents fraction of slots the CPU was retiring uops fetched by the Microcode Sequencer (MS) unit.  The MS is used for CISC instructions not supported by the default decoders (like repeat move strings; or CPUID); or by microcode assists used to address some operation modes (like in Floating Point assists). These cases can often be avoided. Sample with: IDQ.MS_UOPS. Related metrics: tma_clears_resteers, tma_l1_bound, tma_machine_clears, tma_ms_switches",
++        "PublicDescription": "This metric represents fraction of slots the CPU was retiring uops fetched by the Microcode Sequencer (MS) unit.  The MS is used for CISC instructions not supported by the default decoders (like repeat move strings; or CPUID); or by microcode assists used to address some operation modes (like in Floating Point assists). These cases can often be avoided. Sample with: UOPS_RETIRED.MS. Related metrics: tma_clears_resteers, tma_l1_bound, tma_machine_clears, tma_ms_switches",
++        "ScaleUnit": "100%"
+     },
+     {
+-        "BriefDescription": "Average per-thread data fill bandwidth to the L3 cache [GB / sec]",
+-        "MetricExpr": "L3_Cache_Fill_BW",
+-        "MetricGroup": "Mem;MemoryBW",
+-        "MetricName": "L3_Cache_Fill_BW_1T"
++        "BriefDescription": "This metric represents fraction of cycles the CPU was stalled due to Branch Resteers as a result of Branch Misprediction at execution stage",
++        "MetricExpr": "BR_MISP_RETIRED.ALL_BRANCHES * tma_branch_resteers / (BR_MISP_RETIRED.ALL_BRANCHES + MACHINE_CLEARS.COUNT + BACLEARS.ANY)",
++        "MetricGroup": "BadSpec;BrMispredicts;TopdownL4;tma_L4_group;tma_branch_resteers_group;tma_issueBM",
++        "MetricName": "tma_mispredicts_resteers",
++        "MetricThreshold": "tma_mispredicts_resteers > 0.05 & (tma_branch_resteers > 0.05 & (tma_fetch_latency > 0.1 & tma_frontend_bound > 0.15))",
++        "PublicDescription": "This metric represents fraction of cycles the CPU was stalled due to Branch Resteers as a result of Branch Misprediction at execution stage. Sample with: INT_MISC.CLEAR_RESTEER_CYCLES. Related metrics: tma_branch_mispredicts, tma_info_branch_misprediction_cost",
 +        "ScaleUnit": "100%"
      },
      {
@@ -1569,12 +1547,12 @@ index c3ea39d6c944..51cf8560a8d3 100644
 -        "MetricExpr": "0",
 -        "MetricGroup": "Mem;MemoryBW;Offcore",
 -        "MetricName": "L3_Cache_Access_BW_1T"
-+        "BriefDescription": "This metric represents fraction of cycles the CPU was stalled due to Branch Resteers as a result of Branch Misprediction at execution stage",
-+        "MetricExpr": "BR_MISP_RETIRED.ALL_BRANCHES * tma_branch_resteers / (BR_MISP_RETIRED.ALL_BRANCHES + MACHINE_CLEARS.COUNT + BACLEARS.ANY)",
-+        "MetricGroup": "BadSpec;BrMispredicts;TopdownL4;tma_L4_group;tma_branch_resteers_group;tma_issueBM",
-+        "MetricName": "tma_mispredicts_resteers",
-+        "MetricThreshold": "tma_mispredicts_resteers > 0.05 & (tma_branch_resteers > 0.05 & (tma_fetch_latency > 0.1 & tma_frontend_bound > 0.15))",
-+        "PublicDescription": "This metric represents fraction of cycles the CPU was stalled due to Branch Resteers as a result of Branch Misprediction at execution stage. Related metrics: tma_branch_mispredicts, tma_info_branch_misprediction_cost",
++        "BriefDescription": "This metric represents Core fraction of cycles in which CPU was likely limited due to the MITE pipeline (the legacy decode pipeline)",
++        "MetricExpr": "(IDQ.ALL_MITE_CYCLES_ANY_UOPS - IDQ.ALL_MITE_CYCLES_4_UOPS) / tma_info_core_clks / 2",
++        "MetricGroup": "DSBmiss;FetchBW;TopdownL3;tma_L3_group;tma_fetch_bandwidth_group",
++        "MetricName": "tma_mite",
++        "MetricThreshold": "tma_mite > 0.1 & (tma_fetch_bandwidth > 0.1 & tma_frontend_bound > 0.15 & tma_info_ipc / 4 > 0.35)",
++        "PublicDescription": "This metric represents Core fraction of cycles in which CPU was likely limited due to the MITE pipeline (the legacy decode pipeline). This pipeline is used for code that was not pre-cached in the DSB or LSD. For example; inefficiencies due to asymmetric decoders; use of long immediate or LCP can manifest as MITE fetch bandwidth bottleneck. Sample with: FRONTEND_RETIRED.ANY_DSB_MISS",
 +        "ScaleUnit": "100%"
      },
      {
@@ -1582,19 +1560,6 @@ index c3ea39d6c944..51cf8560a8d3 100644
 -        "MetricExpr": "CPU_CLK_UNHALTED.REF_TSC / TSC",
 -        "MetricGroup": "HPC;Summary",
 -        "MetricName": "CPU_Utilization"
-+        "BriefDescription": "This metric represents Core fraction of cycles in which CPU was likely limited due to the MITE pipeline (the legacy decode pipeline)",
-+        "MetricExpr": "(IDQ.ALL_MITE_CYCLES_ANY_UOPS - IDQ.ALL_MITE_CYCLES_4_UOPS) / tma_info_core_clks / 2",
-+        "MetricGroup": "DSBmiss;FetchBW;TopdownL3;tma_L3_group;tma_fetch_bandwidth_group",
-+        "MetricName": "tma_mite",
-+        "MetricThreshold": "tma_mite > 0.1 & (tma_fetch_bandwidth > 0.1 & tma_frontend_bound > 0.15 & tma_info_ipc / 4 > 0.35)",
-+        "PublicDescription": "This metric represents Core fraction of cycles in which CPU was likely limited due to the MITE pipeline (the legacy decode pipeline). This pipeline is used for code that was not pre-cached in the DSB or LSD. For example; inefficiencies due to asymmetric decoders; use of long immediate or LCP can manifest as MITE fetch bandwidth bottleneck.",
-+        "ScaleUnit": "100%"
-     },
-     {
--        "BriefDescription": "Measured Average Frequency for unhalted processors [GHz]",
--        "MetricExpr": "Turbo_Utilization * TSC / 1e9 / duration_time",
--        "MetricGroup": "Power;Summary",
--        "MetricName": "Average_Frequency"
 +        "BriefDescription": "This metric estimates the fraction of cycles when the CPU was stalled due to switches of uop delivery to the Microcode Sequencer (MS)",
 +        "MetricExpr": "2 * IDQ.MS_SWITCHES / tma_info_clks",
 +        "MetricGroup": "FetchLat;MicroSeq;TopdownL3;tma_L3_group;tma_fetch_latency_group;tma_issueMC;tma_issueMS;tma_issueMV;tma_issueSO",
@@ -1604,17 +1569,30 @@ index c3ea39d6c944..51cf8560a8d3 100644
 +        "ScaleUnit": "100%"
      },
      {
--        "BriefDescription": "Giga Floating Point Operations Per Second",
--        "MetricExpr": "(FP_ARITH_INST_RETIRED.SCALAR_SINGLE + FP_ARITH_INST_RETIRED.SCALAR_DOUBLE + 2 * FP_ARITH_INST_RETIRED.128B_PACKED_DOUBLE + 4 * (FP_ARITH_INST_RETIRED.128B_PACKED_SINGLE + FP_ARITH_INST_RETIRED.256B_PACKED_DOUBLE) + 8 * FP_ARITH_INST_RETIRED.256B_PACKED_SINGLE) / 1e9 / duration_time",
--        "MetricGroup": "Cor;Flops;HPC",
--        "MetricName": "GFLOPs",
--        "PublicDescription": "Giga Floating Point Operations Per Second. Aggregate across all supported options of: FP precisions, scalar and vector instructions, vector-width and AMX engine."
+-        "BriefDescription": "Measured Average Frequency for unhalted processors [GHz]",
+-        "MetricExpr": "Turbo_Utilization * TSC / 1e9 / duration_time",
+-        "MetricGroup": "Power;Summary",
+-        "MetricName": "Average_Frequency"
 +        "BriefDescription": "This metric represents Core fraction of cycles CPU dispatched uops on execution port 0 ([SNB+] ALU; [HSW+] ALU and 2nd branch)",
 +        "MetricExpr": "UOPS_DISPATCHED_PORT.PORT_0 / tma_info_core_clks",
 +        "MetricGroup": "Compute;TopdownL6;tma_L6_group;tma_alu_op_utilization_group;tma_issue2P",
 +        "MetricName": "tma_port_0",
 +        "MetricThreshold": "tma_port_0 > 0.6",
-+        "PublicDescription": "This metric represents Core fraction of cycles CPU dispatched uops on execution port 0 ([SNB+] ALU; [HSW+] ALU and 2nd branch). Sample with: UOPS_DISPATCHED_PORT.PORT_0. Related metrics: tma_fp_scalar, tma_fp_vector, tma_fp_vector_128b, tma_fp_vector_256b, tma_fp_vector_512b, tma_port_1, tma_port_5, tma_port_6, tma_ports_utilized_2",
++        "PublicDescription": "This metric represents Core fraction of cycles CPU dispatched uops on execution port 0 ([SNB+] ALU; [HSW+] ALU and 2nd branch). Sample with: UOPS_DISPATCHED.PORT_0. Related metrics: tma_fp_scalar, tma_fp_vector, tma_fp_vector_128b, tma_fp_vector_256b, tma_fp_vector_512b, tma_port_1, tma_port_5, tma_port_6, tma_ports_utilized_2",
++        "ScaleUnit": "100%"
+     },
+     {
+-        "BriefDescription": "Giga Floating Point Operations Per Second",
+-        "MetricExpr": "(FP_ARITH_INST_RETIRED.SCALAR_SINGLE + FP_ARITH_INST_RETIRED.SCALAR_DOUBLE + 2 * FP_ARITH_INST_RETIRED.128B_PACKED_DOUBLE + 4 * (FP_ARITH_INST_RETIRED.128B_PACKED_SINGLE + FP_ARITH_INST_RETIRED.256B_PACKED_DOUBLE) + 8 * FP_ARITH_INST_RETIRED.256B_PACKED_SINGLE) / 1e9 / duration_time",
+-        "MetricGroup": "Cor;Flops;HPC",
+-        "MetricName": "GFLOPs",
+-        "PublicDescription": "Giga Floating Point Operations Per Second. Aggregate across all supported options of: FP precisions, scalar and vector instructions, vector-width and AMX engine."
++        "BriefDescription": "This metric represents Core fraction of cycles CPU dispatched uops on execution port 1 (ALU)",
++        "MetricExpr": "UOPS_DISPATCHED_PORT.PORT_1 / tma_info_core_clks",
++        "MetricGroup": "TopdownL6;tma_L6_group;tma_alu_op_utilization_group;tma_issue2P",
++        "MetricName": "tma_port_1",
++        "MetricThreshold": "tma_port_1 > 0.6",
++        "PublicDescription": "This metric represents Core fraction of cycles CPU dispatched uops on execution port 1 (ALU). Sample with: UOPS_DISPATCHED.PORT_1. Related metrics: tma_fp_scalar, tma_fp_vector, tma_fp_vector_128b, tma_fp_vector_256b, tma_fp_vector_512b, tma_port_0, tma_port_5, tma_port_6, tma_ports_utilized_2",
 +        "ScaleUnit": "100%"
      },
      {
@@ -1622,12 +1600,11 @@ index c3ea39d6c944..51cf8560a8d3 100644
 -        "MetricExpr": "CLKS / CPU_CLK_UNHALTED.REF_TSC",
 -        "MetricGroup": "Power",
 -        "MetricName": "Turbo_Utilization"
-+        "BriefDescription": "This metric represents Core fraction of cycles CPU dispatched uops on execution port 1 (ALU)",
-+        "MetricExpr": "UOPS_DISPATCHED_PORT.PORT_1 / tma_info_core_clks",
-+        "MetricGroup": "TopdownL6;tma_L6_group;tma_alu_op_utilization_group;tma_issue2P",
-+        "MetricName": "tma_port_1",
-+        "MetricThreshold": "tma_port_1 > 0.6",
-+        "PublicDescription": "This metric represents Core fraction of cycles CPU dispatched uops on execution port 1 (ALU). Sample with: UOPS_DISPATCHED_PORT.PORT_1. Related metrics: tma_fp_scalar, tma_fp_vector, tma_fp_vector_128b, tma_fp_vector_256b, tma_fp_vector_512b, tma_port_0, tma_port_5, tma_port_6, tma_ports_utilized_2",
++        "BriefDescription": "This metric represents Core fraction of cycles CPU dispatched uops on execution port 2 ([SNB+]Loads and Store-address; [ICL+] Loads)",
++        "MetricExpr": "UOPS_DISPATCHED_PORT.PORT_2 / tma_info_core_clks",
++        "MetricGroup": "TopdownL6;tma_L6_group;tma_load_op_utilization_group",
++        "MetricName": "tma_port_2",
++        "MetricThreshold": "tma_port_2 > 0.6",
 +        "ScaleUnit": "100%"
      },
      {
@@ -1635,12 +1612,11 @@ index c3ea39d6c944..51cf8560a8d3 100644
 -        "MetricExpr": "(1 - CPU_CLK_UNHALTED.ONE_THREAD_ACTIVE / (CPU_CLK_UNHALTED.REF_XCLK_ANY / 2) if #SMT_on else 0)",
 -        "MetricGroup": "SMT",
 -        "MetricName": "SMT_2T_Utilization"
-+        "BriefDescription": "This metric represents Core fraction of cycles CPU dispatched uops on execution port 2 ([SNB+]Loads and Store-address; [ICL+] Loads)",
-+        "MetricExpr": "UOPS_DISPATCHED_PORT.PORT_2 / tma_info_core_clks",
++        "BriefDescription": "This metric represents Core fraction of cycles CPU dispatched uops on execution port 3 ([SNB+]Loads and Store-address; [ICL+] Loads)",
++        "MetricExpr": "UOPS_DISPATCHED_PORT.PORT_3 / tma_info_core_clks",
 +        "MetricGroup": "TopdownL6;tma_L6_group;tma_load_op_utilization_group",
-+        "MetricName": "tma_port_2",
-+        "MetricThreshold": "tma_port_2 > 0.6",
-+        "PublicDescription": "This metric represents Core fraction of cycles CPU dispatched uops on execution port 2 ([SNB+]Loads and Store-address; [ICL+] Loads). Sample with: UOPS_DISPATCHED_PORT.PORT_2",
++        "MetricName": "tma_port_3",
++        "MetricThreshold": "tma_port_3 > 0.6",
 +        "ScaleUnit": "100%"
      },
      {
@@ -1648,12 +1624,12 @@ index c3ea39d6c944..51cf8560a8d3 100644
 -        "MetricExpr": "CPU_CLK_UNHALTED.THREAD_P:k / CPU_CLK_UNHALTED.THREAD",
 -        "MetricGroup": "OS",
 -        "MetricName": "Kernel_Utilization"
-+        "BriefDescription": "This metric represents Core fraction of cycles CPU dispatched uops on execution port 3 ([SNB+]Loads and Store-address; [ICL+] Loads)",
-+        "MetricExpr": "UOPS_DISPATCHED_PORT.PORT_3 / tma_info_core_clks",
-+        "MetricGroup": "TopdownL6;tma_L6_group;tma_load_op_utilization_group",
-+        "MetricName": "tma_port_3",
-+        "MetricThreshold": "tma_port_3 > 0.6",
-+        "PublicDescription": "This metric represents Core fraction of cycles CPU dispatched uops on execution port 3 ([SNB+]Loads and Store-address; [ICL+] Loads). Sample with: UOPS_DISPATCHED_PORT.PORT_3",
++        "BriefDescription": "This metric represents Core fraction of cycles CPU dispatched uops on execution port 4 (Store-data)",
++        "MetricExpr": "tma_store_op_utilization",
++        "MetricGroup": "TopdownL6;tma_L6_group;tma_issueSpSt;tma_store_op_utilization_group",
++        "MetricName": "tma_port_4",
++        "MetricThreshold": "tma_port_4 > 0.6",
++        "PublicDescription": "This metric represents Core fraction of cycles CPU dispatched uops on execution port 4 (Store-data). Related metrics: tma_split_stores",
 +        "ScaleUnit": "100%"
      },
      {
@@ -1661,65 +1637,25 @@ index c3ea39d6c944..51cf8560a8d3 100644
 -        "MetricExpr": "CPU_CLK_UNHALTED.THREAD_P:k / INST_RETIRED.ANY_P:k",
 -        "MetricGroup": "OS",
 -        "MetricName": "Kernel_CPI"
-+        "BriefDescription": "This metric represents Core fraction of cycles CPU dispatched uops on execution port 4 (Store-data)",
-+        "MetricExpr": "tma_store_op_utilization",
-+        "MetricGroup": "TopdownL6;tma_L6_group;tma_issueSpSt;tma_store_op_utilization_group",
-+        "MetricName": "tma_port_4",
-+        "MetricThreshold": "tma_port_4 > 0.6",
-+        "PublicDescription": "This metric represents Core fraction of cycles CPU dispatched uops on execution port 4 (Store-data). Sample with: UOPS_DISPATCHED_PORT.PORT_4. Related metrics: tma_split_stores",
-+        "ScaleUnit": "100%"
-     },
-     {
--        "BriefDescription": "Average external Memory Bandwidth Use for reads and writes [GB / sec]",
--        "MetricExpr": "64 * (UNC_ARB_TRK_REQUESTS.ALL + UNC_ARB_COH_TRK_REQUESTS.ALL) / 1e6 / duration_time / 1e3",
--        "MetricGroup": "HPC;Mem;MemoryBW;SoC",
--        "MetricName": "DRAM_BW_Use"
 +        "BriefDescription": "This metric represents Core fraction of cycles CPU dispatched uops on execution port 5 ([SNB+] Branches and ALU; [HSW+] ALU)",
 +        "MetricExpr": "UOPS_DISPATCHED_PORT.PORT_5 / tma_info_core_clks",
 +        "MetricGroup": "TopdownL6;tma_L6_group;tma_alu_op_utilization_group;tma_issue2P",
 +        "MetricName": "tma_port_5",
 +        "MetricThreshold": "tma_port_5 > 0.6",
-+        "PublicDescription": "This metric represents Core fraction of cycles CPU dispatched uops on execution port 5 ([SNB+] Branches and ALU; [HSW+] ALU). Sample with: UOPS_DISPATCHED.PORT_5. Related metrics: tma_fp_scalar, tma_fp_vector, tma_fp_vector_128b, tma_fp_vector_256b, tma_fp_vector_512b, tma_port_0, tma_port_1, tma_port_6, tma_ports_utilized_2",
++        "PublicDescription": "This metric represents Core fraction of cycles CPU dispatched uops on execution port 5 ([SNB+] Branches and ALU; [HSW+] ALU). Related metrics: tma_fp_scalar, tma_fp_vector, tma_fp_vector_128b, tma_fp_vector_256b, tma_fp_vector_512b, tma_port_0, tma_port_1, tma_port_6, tma_ports_utilized_2",
 +        "ScaleUnit": "100%"
      },
      {
--        "BriefDescription": "Average latency of all requests to external memory (in Uncore cycles)",
--        "MetricExpr": "MEM_Parallel_Requests",
--        "MetricGroup": "Mem;SoC",
--        "MetricName": "MEM_Request_Latency"
+-        "BriefDescription": "Average external Memory Bandwidth Use for reads and writes [GB / sec]",
+-        "MetricExpr": "64 * (arb@event\\=0x81\\,umask\\=0x1@ + arb@event\\=0x84\\,umask\\=0x1@) / 1e6 / duration_time / 1e3",
+-        "MetricGroup": "HPC;Mem;MemoryBW;SoC",
+-        "MetricName": "DRAM_BW_Use"
 +        "BriefDescription": "This metric represents Core fraction of cycles CPU dispatched uops on execution port 6 ([HSW+]Primary Branch and simple ALU)",
 +        "MetricExpr": "UOPS_DISPATCHED_PORT.PORT_6 / tma_info_core_clks",
 +        "MetricGroup": "TopdownL6;tma_L6_group;tma_alu_op_utilization_group;tma_issue2P",
 +        "MetricName": "tma_port_6",
 +        "MetricThreshold": "tma_port_6 > 0.6",
-+        "PublicDescription": "This metric represents Core fraction of cycles CPU dispatched uops on execution port 6 ([HSW+]Primary Branch and simple ALU). Sample with: UOPS_DISPATCHED_PORT.PORT_6. Related metrics: tma_fp_scalar, tma_fp_vector, tma_fp_vector_128b, tma_fp_vector_256b, tma_fp_vector_512b, tma_port_0, tma_port_1, tma_port_5, tma_ports_utilized_2",
-+        "ScaleUnit": "100%"
-     },
-     {
--        "BriefDescription": "Average number of parallel requests to external memory. Accounts for all requests",
--        "MetricExpr": "UNC_ARB_TRK_OCCUPANCY.ALL / UNC_ARB_TRK_REQUESTS.ALL",
--        "MetricGroup": "Mem;SoC",
--        "MetricName": "MEM_Parallel_Requests"
-+        "BriefDescription": "This metric represents Core fraction of cycles CPU dispatched uops on execution port 7 ([HSW+]simple Store-address)",
-+        "MetricExpr": "UOPS_DISPATCHED_PORT.PORT_7 / tma_info_core_clks",
-+        "MetricGroup": "TopdownL6;tma_L6_group;tma_store_op_utilization_group",
-+        "MetricName": "tma_port_7",
-+        "MetricThreshold": "tma_port_7 > 0.6",
-+        "PublicDescription": "This metric represents Core fraction of cycles CPU dispatched uops on execution port 7 ([HSW+]simple Store-address). Sample with: UOPS_DISPATCHED_PORT.PORT_7",
-+        "ScaleUnit": "100%"
-     },
-     {
--        "BriefDescription": "Socket actual clocks when any core is active on that socket",
--        "MetricExpr": "UNC_CLOCK.SOCKET",
--        "MetricGroup": "SoC",
--        "MetricName": "Socket_CLKS"
-+        "BriefDescription": "This metric estimates fraction of cycles the CPU performance was potentially limited due to Core computation issues (non divider-related)",
-+        "MetricConstraint": "NO_GROUP_EVENTS",
-+        "MetricExpr": "(CYCLE_ACTIVITY.STALLS_TOTAL + UOPS_EXECUTED.CYCLES_GE_1_UOP_EXEC - (UOPS_EXECUTED.CYCLES_GE_3_UOPS_EXEC if tma_info_ipc > 1.8 else UOPS_EXECUTED.CYCLES_GE_2_UOPS_EXEC) - (RS_EVENTS.EMPTY_CYCLES if tma_fetch_latency > 0.1 else 0) + RESOURCE_STALLS.SB - RESOURCE_STALLS.SB - CYCLE_ACTIVITY.STALLS_MEM_ANY) / tma_info_clks",
-+        "MetricGroup": "PortsUtil;TopdownL3;tma_L3_group;tma_core_bound_group",
-+        "MetricName": "tma_ports_utilization",
-+        "MetricThreshold": "tma_ports_utilization > 0.15 & (tma_core_bound > 0.1 & tma_backend_bound > 0.2)",
-+        "PublicDescription": "This metric estimates fraction of cycles the CPU performance was potentially limited due to Core computation issues (non divider-related).  Two distinct categories can be attributed into this metric: (1) heavy data-dependency among contiguous instructions would manifest in this metric - such cases are often referred to as low Instruction Level Parallelism (ILP). (2) Contention on some hardware execution unit other than Divider. For example; when there are too many multiply operations.",
++        "PublicDescription": "This metric represents Core fraction of cycles CPU dispatched uops on execution port 6 ([HSW+]Primary Branch and simple ALU). Sample with: UOPS_DISPATCHED.PORT_6. Related metrics: tma_fp_scalar, tma_fp_vector, tma_fp_vector_128b, tma_fp_vector_256b, tma_fp_vector_512b, tma_port_0, tma_port_1, tma_port_5, tma_ports_utilized_2",
 +        "ScaleUnit": "100%"
      },
      {
@@ -1727,25 +1663,11 @@ index c3ea39d6c944..51cf8560a8d3 100644
 -        "MetricExpr": "INST_RETIRED.ANY / BR_INST_RETIRED.FAR_BRANCH:u",
 -        "MetricGroup": "Branches;OS",
 -        "MetricName": "IpFarBranch"
-+        "BriefDescription": "This metric represents fraction of cycles CPU executed no uops on any execution port (Logical Processor cycles since ICL, Physical Core cycles otherwise)",
-+        "MetricExpr": "(cpu@UOPS_EXECUTED.CORE\\,inv\\,cmask\\=1@ / 2 if #SMT_on else (CYCLE_ACTIVITY.STALLS_TOTAL - (RS_EVENTS.EMPTY_CYCLES if tma_fetch_latency > 0.1 else 0)) / tma_info_core_clks)",
-+        "MetricGroup": "PortsUtil;TopdownL4;tma_L4_group;tma_ports_utilization_group",
-+        "MetricName": "tma_ports_utilized_0",
-+        "MetricThreshold": "tma_ports_utilized_0 > 0.2 & (tma_ports_utilization > 0.15 & (tma_core_bound > 0.1 & tma_backend_bound > 0.2))",
-+        "PublicDescription": "This metric represents fraction of cycles CPU executed no uops on any execution port (Logical Processor cycles since ICL, Physical Core cycles otherwise). Long-latency instructions like divides may contribute to this metric.",
-+        "ScaleUnit": "100%"
-     },
-     {
--        "BriefDescription": "Uncore frequency per die [GHZ]",
--        "MetricExpr": "Socket_CLKS / #num_dies / duration_time / 1e9",
--        "MetricGroup": "SoC",
--        "MetricName": "UNCORE_FREQ"
-+        "BriefDescription": "This metric represents fraction of cycles where the CPU executed total of 1 uop per cycle on all execution ports (Logical Processor cycles since ICL, Physical Core cycles otherwise)",
-+        "MetricExpr": "((cpu@UOPS_EXECUTED.CORE\\,cmask\\=1@ - cpu@UOPS_EXECUTED.CORE\\,cmask\\=2@) / 2 if #SMT_on else (UOPS_EXECUTED.CYCLES_GE_1_UOP_EXEC - UOPS_EXECUTED.CYCLES_GE_2_UOPS_EXEC) / tma_info_core_clks)",
-+        "MetricGroup": "PortsUtil;TopdownL4;tma_L4_group;tma_issueL1;tma_ports_utilization_group",
-+        "MetricName": "tma_ports_utilized_1",
-+        "MetricThreshold": "tma_ports_utilized_1 > 0.2 & (tma_ports_utilization > 0.15 & (tma_core_bound > 0.1 & tma_backend_bound > 0.2))",
-+        "PublicDescription": "This metric represents fraction of cycles where the CPU executed total of 1 uop per cycle on all execution ports (Logical Processor cycles since ICL, Physical Core cycles otherwise). This can be due to heavy data-dependency among software instructions; or over oversubscribing a particular hardware resource. In some other cases with high 1_Port_Utilized and L1_Bound; this metric can point to L1 data-cache latency bottleneck that may not necessarily manifest with complete execution starvation (due to the short L1 latency e.g. walking a linked list) - looking at the assembly can be helpful. Related metrics: tma_l1_bound",
++        "BriefDescription": "This metric represents Core fraction of cycles CPU dispatched uops on execution port 7 ([HSW+]simple Store-address)",
++        "MetricExpr": "UOPS_DISPATCHED_PORT.PORT_7 / tma_info_core_clks",
++        "MetricGroup": "TopdownL6;tma_L6_group;tma_store_op_utilization_group",
++        "MetricName": "tma_port_7",
++        "MetricThreshold": "tma_port_7 > 0.6",
 +        "ScaleUnit": "100%"
      },
      {
@@ -1753,12 +1675,13 @@ index c3ea39d6c944..51cf8560a8d3 100644
 -        "MetricExpr": "cstate_core@c3\\-residency@ / TSC",
 -        "MetricGroup": "Power",
 -        "MetricName": "C3_Core_Residency",
-+        "BriefDescription": "This metric represents fraction of cycles CPU executed total of 2 uops per cycle on all execution ports (Logical Processor cycles since ICL, Physical Core cycles otherwise)",
-+        "MetricExpr": "((cpu@UOPS_EXECUTED.CORE\\,cmask\\=2@ - cpu@UOPS_EXECUTED.CORE\\,cmask\\=3@) / 2 if #SMT_on else (UOPS_EXECUTED.CYCLES_GE_2_UOPS_EXEC - UOPS_EXECUTED.CYCLES_GE_3_UOPS_EXEC) / tma_info_core_clks)",
-+        "MetricGroup": "PortsUtil;TopdownL4;tma_L4_group;tma_issue2P;tma_ports_utilization_group",
-+        "MetricName": "tma_ports_utilized_2",
-+        "MetricThreshold": "tma_ports_utilized_2 > 0.15 & (tma_ports_utilization > 0.15 & (tma_core_bound > 0.1 & tma_backend_bound > 0.2))",
-+        "PublicDescription": "This metric represents fraction of cycles CPU executed total of 2 uops per cycle on all execution ports (Logical Processor cycles since ICL, Physical Core cycles otherwise).  Loop Vectorization -most compilers feature auto-Vectorization options today- reduces pressure on the execution ports as multiple elements are calculated with same uop. Related metrics: tma_fp_scalar, tma_fp_vector, tma_fp_vector_128b, tma_fp_vector_256b, tma_fp_vector_512b, tma_port_0, tma_port_1, tma_port_5, tma_port_6",
++        "BriefDescription": "This metric estimates fraction of cycles the CPU performance was potentially limited due to Core computation issues (non divider-related)",
++        "MetricConstraint": "NO_GROUP_EVENTS",
++        "MetricExpr": "(CYCLE_ACTIVITY.STALLS_TOTAL + UOPS_EXECUTED.CYCLES_GE_1_UOP_EXEC - (UOPS_EXECUTED.CYCLES_GE_3_UOPS_EXEC if tma_info_ipc > 1.8 else UOPS_EXECUTED.CYCLES_GE_2_UOPS_EXEC) - (RS_EVENTS.EMPTY_CYCLES if tma_fetch_latency > 0.1 else 0) + RESOURCE_STALLS.SB - RESOURCE_STALLS.SB - CYCLE_ACTIVITY.STALLS_MEM_ANY) / tma_info_clks",
++        "MetricGroup": "PortsUtil;TopdownL3;tma_L3_group;tma_core_bound_group",
++        "MetricName": "tma_ports_utilization",
++        "MetricThreshold": "tma_ports_utilization > 0.15 & (tma_core_bound > 0.1 & tma_backend_bound > 0.2)",
++        "PublicDescription": "This metric estimates fraction of cycles the CPU performance was potentially limited due to Core computation issues (non divider-related).  Two distinct categories can be attributed into this metric: (1) heavy data-dependency among contiguous instructions would manifest in this metric - such cases are often referred to as low Instruction Level Parallelism (ILP). (2) Contention on some hardware execution unit other than Divider. For example; when there are too many multiply operations.",
          "ScaleUnit": "100%"
      },
      {
@@ -1766,11 +1689,12 @@ index c3ea39d6c944..51cf8560a8d3 100644
 -        "MetricExpr": "cstate_core@c6\\-residency@ / TSC",
 -        "MetricGroup": "Power",
 -        "MetricName": "C6_Core_Residency",
-+        "BriefDescription": "This metric represents fraction of cycles CPU executed total of 3 or more uops per cycle on all execution ports (Logical Processor cycles since ICL, Physical Core cycles otherwise).",
-+        "MetricExpr": "(cpu@UOPS_EXECUTED.CORE\\,cmask\\=3@ / 2 if #SMT_on else UOPS_EXECUTED.CYCLES_GE_3_UOPS_EXEC) / tma_info_core_clks",
++        "BriefDescription": "This metric represents fraction of cycles CPU executed no uops on any execution port (Logical Processor cycles since ICL, Physical Core cycles otherwise)",
++        "MetricExpr": "(cpu@UOPS_EXECUTED.CORE\\,inv\\,cmask\\=1@ / 2 if #SMT_on else (CYCLE_ACTIVITY.STALLS_TOTAL - (RS_EVENTS.EMPTY_CYCLES if tma_fetch_latency > 0.1 else 0)) / tma_info_core_clks)",
 +        "MetricGroup": "PortsUtil;TopdownL4;tma_L4_group;tma_ports_utilization_group",
-+        "MetricName": "tma_ports_utilized_3m",
-+        "MetricThreshold": "tma_ports_utilized_3m > 0.7 & (tma_ports_utilization > 0.15 & (tma_core_bound > 0.1 & tma_backend_bound > 0.2))",
++        "MetricName": "tma_ports_utilized_0",
++        "MetricThreshold": "tma_ports_utilized_0 > 0.2 & (tma_ports_utilization > 0.15 & (tma_core_bound > 0.1 & tma_backend_bound > 0.2))",
++        "PublicDescription": "This metric represents fraction of cycles CPU executed no uops on any execution port (Logical Processor cycles since ICL, Physical Core cycles otherwise). Long-latency instructions like divides may contribute to this metric.",
          "ScaleUnit": "100%"
      },
      {
@@ -1778,12 +1702,12 @@ index c3ea39d6c944..51cf8560a8d3 100644
 -        "MetricExpr": "cstate_core@c7\\-residency@ / TSC",
 -        "MetricGroup": "Power",
 -        "MetricName": "C7_Core_Residency",
-+        "BriefDescription": "This category represents fraction of slots utilized by useful work i.e. issued uops that eventually get retired",
-+        "MetricExpr": "UOPS_RETIRED.RETIRE_SLOTS / tma_info_slots",
-+        "MetricGroup": "TmaL1;TopdownL1;tma_L1_group",
-+        "MetricName": "tma_retiring",
-+        "MetricThreshold": "tma_retiring > 0.7 | tma_heavy_operations > 0.1",
-+        "PublicDescription": "This category represents fraction of slots utilized by useful work i.e. issued uops that eventually get retired. Ideally; all pipeline slots would be attributed to the Retiring category.  Retiring of 100% would indicate the maximum Pipeline_Width throughput was achieved.  Maximizing Retiring typically increases the Instructions-per-cycle (see IPC metric). Note that a high Retiring value does not necessary mean there is no room for more performance.  For example; Heavy-operations or Microcode Assists are categorized under Retiring. They often indicate suboptimal performance and can often be optimized or avoided. Sample with: UOPS_RETIRED.RETIRE_SLOTS",
++        "BriefDescription": "This metric represents fraction of cycles where the CPU executed total of 1 uop per cycle on all execution ports (Logical Processor cycles since ICL, Physical Core cycles otherwise)",
++        "MetricExpr": "((cpu@UOPS_EXECUTED.CORE\\,cmask\\=1@ - cpu@UOPS_EXECUTED.CORE\\,cmask\\=2@) / 2 if #SMT_on else (UOPS_EXECUTED.CYCLES_GE_1_UOP_EXEC - UOPS_EXECUTED.CYCLES_GE_2_UOPS_EXEC) / tma_info_core_clks)",
++        "MetricGroup": "PortsUtil;TopdownL4;tma_L4_group;tma_issueL1;tma_ports_utilization_group",
++        "MetricName": "tma_ports_utilized_1",
++        "MetricThreshold": "tma_ports_utilized_1 > 0.2 & (tma_ports_utilization > 0.15 & (tma_core_bound > 0.1 & tma_backend_bound > 0.2))",
++        "PublicDescription": "This metric represents fraction of cycles where the CPU executed total of 1 uop per cycle on all execution ports (Logical Processor cycles since ICL, Physical Core cycles otherwise). This can be due to heavy data-dependency among software instructions; or over oversubscribing a particular hardware resource. In some other cases with high 1_Port_Utilized and L1_Bound; this metric can point to L1 data-cache latency bottleneck that may not necessarily manifest with complete execution starvation (due to the short L1 latency e.g. walking a linked list) - looking at the assembly can be helpful. Sample with: EXE_ACTIVITY.1_PORTS_UTIL. Related metrics: tma_l1_bound",
          "ScaleUnit": "100%"
      },
      {
@@ -1791,13 +1715,12 @@ index c3ea39d6c944..51cf8560a8d3 100644
 -        "MetricExpr": "cstate_pkg@c2\\-residency@ / TSC",
 -        "MetricGroup": "Power",
 -        "MetricName": "C2_Pkg_Residency",
-+        "BriefDescription": "This metric estimates fraction of cycles handling memory load split accesses - load that cross 64-byte cache line boundary",
-+        "MetricConstraint": "NO_GROUP_EVENTS",
-+        "MetricExpr": "tma_info_load_miss_real_latency * LD_BLOCKS.NO_SR / tma_info_clks",
-+        "MetricGroup": "TopdownL4;tma_L4_group;tma_l1_bound_group",
-+        "MetricName": "tma_split_loads",
-+        "MetricThreshold": "tma_split_loads > 0.2 & (tma_l1_bound > 0.1 & (tma_memory_bound > 0.2 & tma_backend_bound > 0.2))",
-+        "PublicDescription": "This metric estimates fraction of cycles handling memory load split accesses - load that cross 64-byte cache line boundary. Sample with: MEM_UOPS_RETIRED.SPLIT_LOADS_PS",
++        "BriefDescription": "This metric represents fraction of cycles CPU executed total of 2 uops per cycle on all execution ports (Logical Processor cycles since ICL, Physical Core cycles otherwise)",
++        "MetricExpr": "((cpu@UOPS_EXECUTED.CORE\\,cmask\\=2@ - cpu@UOPS_EXECUTED.CORE\\,cmask\\=3@) / 2 if #SMT_on else (UOPS_EXECUTED.CYCLES_GE_2_UOPS_EXEC - UOPS_EXECUTED.CYCLES_GE_3_UOPS_EXEC) / tma_info_core_clks)",
++        "MetricGroup": "PortsUtil;TopdownL4;tma_L4_group;tma_issue2P;tma_ports_utilization_group",
++        "MetricName": "tma_ports_utilized_2",
++        "MetricThreshold": "tma_ports_utilized_2 > 0.15 & (tma_ports_utilization > 0.15 & (tma_core_bound > 0.1 & tma_backend_bound > 0.2))",
++        "PublicDescription": "This metric represents fraction of cycles CPU executed total of 2 uops per cycle on all execution ports (Logical Processor cycles since ICL, Physical Core cycles otherwise).  Loop Vectorization -most compilers feature auto-Vectorization options today- reduces pressure on the execution ports as multiple elements are calculated with same uop. Sample with: EXE_ACTIVITY.2_PORTS_UTIL. Related metrics: tma_fp_scalar, tma_fp_vector, tma_fp_vector_128b, tma_fp_vector_256b, tma_fp_vector_512b, tma_port_0, tma_port_1, tma_port_5, tma_port_6",
          "ScaleUnit": "100%"
      },
      {
@@ -1805,12 +1728,12 @@ index c3ea39d6c944..51cf8560a8d3 100644
 -        "MetricExpr": "cstate_pkg@c3\\-residency@ / TSC",
 -        "MetricGroup": "Power",
 -        "MetricName": "C3_Pkg_Residency",
-+        "BriefDescription": "This metric represents rate of split store accesses",
-+        "MetricExpr": "2 * MEM_UOPS_RETIRED.SPLIT_STORES / tma_info_core_clks",
-+        "MetricGroup": "TopdownL4;tma_L4_group;tma_issueSpSt;tma_store_bound_group",
-+        "MetricName": "tma_split_stores",
-+        "MetricThreshold": "tma_split_stores > 0.2 & (tma_store_bound > 0.2 & (tma_memory_bound > 0.2 & tma_backend_bound > 0.2))",
-+        "PublicDescription": "This metric represents rate of split store accesses.  Consider aligning your data to the 64-byte cache line granularity. Sample with: MEM_UOPS_RETIRED.SPLIT_STORES_PS. Related metrics: tma_port_4",
++        "BriefDescription": "This metric represents fraction of cycles CPU executed total of 3 or more uops per cycle on all execution ports (Logical Processor cycles since ICL, Physical Core cycles otherwise)",
++        "MetricExpr": "(cpu@UOPS_EXECUTED.CORE\\,cmask\\=3@ / 2 if #SMT_on else UOPS_EXECUTED.CYCLES_GE_3_UOPS_EXEC) / tma_info_core_clks",
++        "MetricGroup": "PortsUtil;TopdownL4;tma_L4_group;tma_ports_utilization_group",
++        "MetricName": "tma_ports_utilized_3m",
++        "MetricThreshold": "tma_ports_utilized_3m > 0.7 & (tma_ports_utilization > 0.15 & (tma_core_bound > 0.1 & tma_backend_bound > 0.2))",
++        "PublicDescription": "This metric represents fraction of cycles CPU executed total of 3 or more uops per cycle on all execution ports (Logical Processor cycles since ICL, Physical Core cycles otherwise). Sample with: UOPS_EXECUTED.CYCLES_GE_3",
          "ScaleUnit": "100%"
      },
      {
@@ -1818,12 +1741,12 @@ index c3ea39d6c944..51cf8560a8d3 100644
 -        "MetricExpr": "cstate_pkg@c6\\-residency@ / TSC",
 -        "MetricGroup": "Power",
 -        "MetricName": "C6_Pkg_Residency",
-+        "BriefDescription": "This metric measures fraction of cycles where the Super Queue (SQ) was full taking into account all request-types and both hardware SMT threads (Logical Processors)",
-+        "MetricExpr": "(OFFCORE_REQUESTS_BUFFER.SQ_FULL / 2 if #SMT_on else OFFCORE_REQUESTS_BUFFER.SQ_FULL) / tma_info_core_clks",
-+        "MetricGroup": "MemoryBW;Offcore;TopdownL4;tma_L4_group;tma_issueBW;tma_l3_bound_group",
-+        "MetricName": "tma_sq_full",
-+        "MetricThreshold": "tma_sq_full > 0.3 & (tma_l3_bound > 0.05 & (tma_memory_bound > 0.2 & tma_backend_bound > 0.2))",
-+        "PublicDescription": "This metric measures fraction of cycles where the Super Queue (SQ) was full taking into account all request-types and both hardware SMT threads (Logical Processors). Related metrics: tma_fb_full, tma_info_dram_bw_use, tma_mem_bandwidth",
++        "BriefDescription": "This category represents fraction of slots utilized by useful work i.e. issued uops that eventually get retired",
++        "MetricExpr": "UOPS_RETIRED.RETIRE_SLOTS / tma_info_slots",
++        "MetricGroup": "TmaL1;TopdownL1;tma_L1_group",
++        "MetricName": "tma_retiring",
++        "MetricThreshold": "tma_retiring > 0.7 | tma_heavy_operations > 0.1",
++        "PublicDescription": "This category represents fraction of slots utilized by useful work i.e. issued uops that eventually get retired. Ideally; all pipeline slots would be attributed to the Retiring category.  Retiring of 100% would indicate the maximum Pipeline_Width throughput was achieved.  Maximizing Retiring typically increases the Instructions-per-cycle (see IPC metric). Note that a high Retiring value does not necessary mean there is no room for more performance.  For example; Heavy-operations or Microcode Assists are categorized under Retiring. They often indicate suboptimal performance and can often be optimized or avoided. Sample with: UOPS_RETIRED.SLOTS",
          "ScaleUnit": "100%"
      },
      {
@@ -1831,12 +1754,40 @@ index c3ea39d6c944..51cf8560a8d3 100644
 -        "MetricExpr": "cstate_pkg@c7\\-residency@ / TSC",
 -        "MetricGroup": "Power",
 -        "MetricName": "C7_Pkg_Residency",
++        "BriefDescription": "This metric estimates fraction of cycles handling memory load split accesses - load that cross 64-byte cache line boundary",
++        "MetricConstraint": "NO_GROUP_EVENTS",
++        "MetricExpr": "tma_info_load_miss_real_latency * LD_BLOCKS.NO_SR / tma_info_clks",
++        "MetricGroup": "TopdownL4;tma_L4_group;tma_l1_bound_group",
++        "MetricName": "tma_split_loads",
++        "MetricThreshold": "tma_split_loads > 0.2 & (tma_l1_bound > 0.1 & (tma_memory_bound > 0.2 & tma_backend_bound > 0.2))",
++        "PublicDescription": "This metric estimates fraction of cycles handling memory load split accesses - load that cross 64-byte cache line boundary. Sample with: MEM_INST_RETIRED.SPLIT_LOADS_PS",
++        "ScaleUnit": "100%"
++    },
++    {
++        "BriefDescription": "This metric represents rate of split store accesses",
++        "MetricExpr": "2 * MEM_UOPS_RETIRED.SPLIT_STORES / tma_info_core_clks",
++        "MetricGroup": "TopdownL4;tma_L4_group;tma_issueSpSt;tma_store_bound_group",
++        "MetricName": "tma_split_stores",
++        "MetricThreshold": "tma_split_stores > 0.2 & (tma_store_bound > 0.2 & (tma_memory_bound > 0.2 & tma_backend_bound > 0.2))",
++        "PublicDescription": "This metric represents rate of split store accesses.  Consider aligning your data to the 64-byte cache line granularity. Sample with: MEM_INST_RETIRED.SPLIT_STORES_PS. Related metrics: tma_port_4",
++        "ScaleUnit": "100%"
++    },
++    {
++        "BriefDescription": "This metric measures fraction of cycles where the Super Queue (SQ) was full taking into account all request-types and both hardware SMT threads (Logical Processors)",
++        "MetricExpr": "(OFFCORE_REQUESTS_BUFFER.SQ_FULL / 2 if #SMT_on else OFFCORE_REQUESTS_BUFFER.SQ_FULL) / tma_info_core_clks",
++        "MetricGroup": "MemoryBW;Offcore;TopdownL4;tma_L4_group;tma_issueBW;tma_l3_bound_group",
++        "MetricName": "tma_sq_full",
++        "MetricThreshold": "tma_sq_full > 0.3 & (tma_l3_bound > 0.05 & (tma_memory_bound > 0.2 & tma_backend_bound > 0.2))",
++        "PublicDescription": "This metric measures fraction of cycles where the Super Queue (SQ) was full taking into account all request-types and both hardware SMT threads (Logical Processors). Related metrics: tma_fb_full, tma_info_dram_bw_use, tma_mem_bandwidth",
++        "ScaleUnit": "100%"
++    },
++    {
 +        "BriefDescription": "This metric estimates how often CPU was stalled  due to RFO store memory accesses; RFO store issue a read-for-ownership request before the write",
 +        "MetricExpr": "RESOURCE_STALLS.SB / tma_info_clks",
 +        "MetricGroup": "MemoryBound;TmaL3mem;TopdownL3;tma_L3_group;tma_memory_bound_group",
 +        "MetricName": "tma_store_bound",
 +        "MetricThreshold": "tma_store_bound > 0.2 & (tma_memory_bound > 0.2 & tma_backend_bound > 0.2)",
-+        "PublicDescription": "This metric estimates how often CPU was stalled  due to RFO store memory accesses; RFO store issue a read-for-ownership request before the write. Even though store accesses do not typically stall out-of-order CPUs; there are few cases where stores can lead to actual stalls. This metric will be flagged should RFO stores be a bottleneck. Sample with: MEM_UOPS_RETIRED.ALL_STORES_PS",
++        "PublicDescription": "This metric estimates how often CPU was stalled  due to RFO store memory accesses; RFO store issue a read-for-ownership request before the write. Even though store accesses do not typically stall out-of-order CPUs; there are few cases where stores can lead to actual stalls. This metric will be flagged should RFO stores be a bottleneck. Sample with: MEM_INST_RETIRED.ALL_STORES_PS",
 +        "ScaleUnit": "100%"
 +    },
 +    {
@@ -1864,6 +1815,7 @@ index c3ea39d6c944..51cf8560a8d3 100644
 +        "MetricGroup": "TopdownL5;tma_L5_group;tma_ports_utilized_3m_group",
 +        "MetricName": "tma_store_op_utilization",
 +        "MetricThreshold": "tma_store_op_utilization > 0.6",
++        "PublicDescription": "This metric represents Core fraction of cycles CPU dispatched uops on execution port for Store operations. Sample with: UOPS_DISPATCHED.PORT_7_8",
 +        "ScaleUnit": "100%"
 +    },
 +    {
@@ -1872,7 +1824,7 @@ index c3ea39d6c944..51cf8560a8d3 100644
 +        "MetricGroup": "BigFoot;FetchLat;TopdownL4;tma_L4_group;tma_branch_resteers_group",
 +        "MetricName": "tma_unknown_branches",
 +        "MetricThreshold": "tma_unknown_branches > 0.05 & (tma_branch_resteers > 0.05 & (tma_fetch_latency > 0.1 & tma_frontend_bound > 0.15))",
-+        "PublicDescription": "This metric represents fraction of cycles the CPU was stalled due to new branch address clears. These are fetched branches the Branch Prediction Unit was unable to recognize (e.g. first time the branch is fetched or hitting BTB capacity limit). Sample with: BACLEARS.ANY",
++        "PublicDescription": "This metric represents fraction of cycles the CPU was stalled due to new branch address clears. These are fetched branches the Branch Prediction Unit was unable to recognize (e.g. first time the branch is fetched or hitting BTB capacity limit). Sample with: FRONTEND_RETIRED.UNKNOWN_BRANCH",
 +        "ScaleUnit": "100%"
 +    },
 +    {
