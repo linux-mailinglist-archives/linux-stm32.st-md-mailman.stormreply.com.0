@@ -2,51 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3C54869F01A
+	by mail.lfdr.de (Postfix) with ESMTPS id 4329B69F01B
 	for <lists+linux-stm32@lfdr.de>; Wed, 22 Feb 2023 09:23:31 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DEAC9C6A60F;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EB4B1C6A612;
 	Wed, 22 Feb 2023 08:23:30 +0000 (UTC)
-Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.133])
+Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.130])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2A12EC035BC
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B3DD9C6A5E7
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 21 Feb 2023 13:43:55 +0000 (UTC)
+ Tue, 21 Feb 2023 19:37:42 +0000 (UTC)
 Received: from maxwell ([109.42.115.188]) by mrelayeu.kundenserver.de
- (mreue010 [213.165.67.97]) with ESMTPSA (Nemesis) id
- 1MLAAs-1pDLWN3diM-00IDz4; Tue, 21 Feb 2023 14:43:46 +0100
+ (mreue011 [213.165.67.97]) with ESMTPSA (Nemesis) id
+ 1MLRDv-1pDIgO3GwF-00ITDs; Tue, 21 Feb 2023 20:37:27 +0100
+References: <87fsaz6smr.fsf@henneberg-systemdesign.com>
+ <Y/T0NRtorZn74EH3@corigine.com>
 User-agent: mu4e 1.8.14; emacs 28.2
 From: Jochen Henneberg <jh@henneberg-systemdesign.com>
-To: Giuseppe Cavallaro <peppe.cavallaro@st.com>,Alexandre Torgue
- <alexandre.torgue@foss.st.com>,Jose Abreu <joabreu@synopsys.com>,"David S.
- Miller" <davem@davemloft.net>,Eric Dumazet <edumazet@google.com>,Jakub
- Kicinski <kuba@kernel.org>,Paolo Abeni <pabeni@redhat.com>,Maxime Coquelin
- <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Date: Tue, 21 Feb 2023 14:38:27 +0100
-Message-ID: <87fsaz6smr.fsf@henneberg-systemdesign.com>
+To: Simon Horman <simon.horman@corigine.com>
+Date: Tue, 21 Feb 2023 20:35:25 +0100
+In-reply-to: <Y/T0NRtorZn74EH3@corigine.com>
+Message-ID: <877cwa7qtm.fsf@henneberg-systemdesign.com>
 MIME-Version: 1.0
-X-Provags-ID: V03:K1:UEjmjts8a3oTdsLqA0rvc+/8E/eBATSNya9dC/1ORtjI2CTbQIV
- 026feQLR23g4KIE8KNi+xOP9CLdOH2OCXKfaoWA6GH2HDSTi19nBIPyzmtVl2wMYrIjCvH3
- isHWzjznLhletxDQAJCJ3eXjglO8hIlRuBFGx4NH3AuMwGPmeL/2W7tTxG5se50qeIZyDWM
- nhIs4cPTID5tfbZgbCH5A==
+X-Provags-ID: V03:K1:0u8rYgmp9bhY/iDXFU3B1tZaxQ+5aTcRHMJgkC1asXab22AA2cm
+ 8hNer//gFftW5zMJmS0OGwIMpVmCTrizh0H9L7v95+b+qKKQIXQxeBWrT8uTSD+BPaqAsZ2
+ SxpUfRjtKZBOv9NvrIxikRZPsOt3MdG22XqRtXcn3osuHorBmsP0oeG8JViiLDRR5g39qnP
+ Y9CIhIWvKmgS59PBH2A5Q==
 X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:hfcDjeh03tY=;ECX8dzDbXfN9rfXK6kwd13XaVdA
- plcxuHQEJSbZRS2MoHMrIfI4W3X4fA9yud3XR3SLlfyy6fW+rU5MpWv29L728UboBd9Xtr/Me
- vj0x+ADiyYtjQHLjlbN4SpV1FX7f/hK3OI8FoQZUWbIjNvRTfG5hL/voyJOcUi+PKMbJline6
- F2VvIIQkwHWoQV/2ujAy04NFcuwInsyUxJ8seNMfsAqRtZJyyzxRQyP13IT3i8v5xXMMY+nBP
- Gwae4vGb1hSSevQuzp0bFovEfqF264SNPHwEXJpXkq5cXUXU5wA1Fq3WDdvzq12r0SFjm69HD
- hjWHk1melr4CpoAeJiN71vPoWvUuP+5BwcPNrnKoWUk5o+AHYCcUiI51LVVeH1uxRZs1F6SJm
- TUKjnFHEM2jN7z7iyl1OfySdxix6seajn3XarwI/JBTpCiyAl/aHm7v07rRAJKyY7xVa3ksto
- pq13Bu5HeOntVL77H1wP6A0tipBtFiFiiWx6r0HByoM06sm5iQr/TXG7p5xTRsRQx1jXM9tMH
- Nn2qP6Jcujq7ySFDnRg8vyeLQOydkSxODJepkYlin4rFyqKvMBsKPEcncKv9M3CngvPXpZp2p
- WHaIH5CBHpsKOHd+2pMt+pCZepX+tDqg9jWStMfiFVchnC0oC9KVBlHVvIiLEOc8gaoK11HQ5
- gTpdHRegceCg7RJGBHJgCHiwVD2gsUVjhagP9MoJKw==
+UI-OutboundReport: notjunk:1;M01:P0:Mg6DrOlZEeI=;wZAdP1leOOBHltclXahfqutetpA
+ k3esz5E4vIKMIvnehBqXryrzJzasNZLFQfRiUvZIxEN+44508EOhukCXdJgDZa38zZ/Z01QCI
+ J4z0CEPs/6pq4Fxd1RkrfuPit8ZFXUq5QmhI53VVd4FUJRCQjROm4qrj4hLIZ55B/ihXl+Iv0
+ XKvtYqn7jy8AXO8sxx+oOdSEiHNZmCx4LA5XaE+ULW59pqsYDQo6mSi+PBF950VvTCUKFsJ9s
+ wgI42mvtJACdznjnOC3Byxc7XZ8zfhU27J8CE3RPvtv2IvTcJDrtkeQ5PUpegRmYMzMbrWQd1
+ D/7bY/aMkWo0nAbMyUS0YprMZMi4dz5rmZPd0F+FYUGQgvRMOI5jZWD7URhIdXeG5fDYWFC6I
+ cfsH8xvpxptlbLsZ09Xx4GUr2MrqfWUK4hQ2G2SS0WZNpQai3InKMwN7XUx2ivq9pL3/0AktW
+ I9crEuzHvWuJvfqLXARoFJLslSCkiy/fZ+6piB7q6628CwZ3oe4lld6tccTP2vlqaMhzq2ff0
+ uIUlqojMk7OKdPPiLEyp1XtgVFnIpptuGxqN/z4XOo0jQYZsKzZbsJu9WxQIHVM1BlfRjc8uC
+ kJJaX7RUDf7klge2dMUEe1sh9uN9ETGLVkXWEAQU8DuqIbsrDzHbHDfZ98tTlk/zxx4jDfas6
+ 7boqcOChDavFIJ6hLzDL1Au3beYFhEFyj+82aAcCUQ==
 X-Mailman-Approved-At: Wed, 22 Feb 2023 08:23:28 +0000
-Subject: [Linux-stm32] [PATCH net] net: stmmac: Premature loop termination
-	check was ignored
+Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
+ Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Jakub Kicinski <kuba@kernel.org>, Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Paolo Abeni <pabeni@redhat.com>, "David
+ S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net V2] net: stmmac: Premature loop
+ termination check was ignored
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -68,8 +71,12 @@ The premature loop termination check makes sense only in case of the
 jump to read_again where the count may have been updated. But
 read_again did not include the check.
 
+Fixes: bba2556efad6 (net: stmmac: Enable RX via AF_XDP zero-copy)
+Fixes: ec222003bd94 (net: stmmac: Prepare to add Split Header support)
 Signed-off-by: Jochen Henneberg <jh@henneberg-systemdesign.com>
 ---
+V2: Added fixes tags for both commits that introduced the issue
+
  drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 4 ++--
  1 file changed, 2 insertions(+), 2 deletions(-)
 
