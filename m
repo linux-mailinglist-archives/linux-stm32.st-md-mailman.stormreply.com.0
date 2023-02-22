@@ -2,168 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5EF2E69F4BC
-	for <lists+linux-stm32@lfdr.de>; Wed, 22 Feb 2023 13:38:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 562BF69F464
+	for <lists+linux-stm32@lfdr.de>; Wed, 22 Feb 2023 13:20:11 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1C585C6A600;
-	Wed, 22 Feb 2023 12:38:58 +0000 (UTC)
-Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com
- [205.220.165.32])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0F9E3C6A5FC;
+	Wed, 22 Feb 2023 12:20:11 +0000 (UTC)
+Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com
+ [209.85.216.49])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 96079C65E42
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CC6E7C65E42
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 22 Feb 2023 12:16:51 +0000 (UTC)
-Received: from pps.filterd (m0246629.ppops.net [127.0.0.1])
- by mx0b-00069f02.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 31M8xHwc002711; Wed, 22 Feb 2023 12:16:33 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references :
- content-transfer-encoding : content-type : mime-version; s=corp-2022-7-12;
- bh=O/CBxGNxjrJ28ER7IiPoe7hFsN+PlSY+oTxoRb0xqZw=;
- b=bLq8Unt+t3Azr/YGwurZofxi5sbzVczKlWwFZBs37XVCI+6JyMu0GU8JSS/mzxl5wbOq
- 1sgeD8kOCUnPG6zoPUmucmxruRuAR1TcDaaIiaHLkgAtwSk7XG2pSmpEhGHD8yA5miE+
- S/aIXhd/q3Gu9GiHilKtcWbzxHk17nMdFvn40mplOMT88pwQ1DtXMg+1SE4/08mFkhPp
- KJxcziRCwzLJrvik0ylXRn/HNP8SH1PDviASI0yD7HShlDt3jG51JyuppsBfw5SjOeHO
- xW52zqVMXCHTG8+T6xfq3Zl4yd8GIeP+zb9Dc0atn5QXPdq9xNi/9Ab62DVP+r2Cr4xh 0w== 
-Received: from phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com
- (phxpaimrmta03.appoci.oracle.com [138.1.37.129])
- by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 3ntpja7n9e-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Wed, 22 Feb 2023 12:16:32 +0000
-Received: from pps.filterd
- (phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com [127.0.0.1])
- by phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com (8.17.1.5/8.17.1.5)
- with ESMTP id 31MBsT9t031257; Wed, 22 Feb 2023 12:16:32 GMT
-Received: from nam12-bn8-obe.outbound.protection.outlook.com
- (mail-bn8nam12lp2171.outbound.protection.outlook.com [104.47.55.171])
- by phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com (PPS) with ESMTPS id
- 3ntn46fm7q-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Wed, 22 Feb 2023 12:16:32 +0000
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=KI7BDkwP4KRu917R41MNn/nfd4BqM52be/XBD82rWDBhfLRSgTfqH0Hb2P/PB/1CMjZ5YN/IbuIAXrBsD8K5paAiXGBpsxlpAfE2A0Ur29Yruax9Zdbp+YmVkZR6osxZmaCHDE0R/aFvVuaqq3pRmq6XxJtb1AMdM5yXZ7ByQ+SaJG3JGuQdsxRMyzVEGfj/Hd9fEmBjyUHNCyJdwJYHRs8pBD2s3+CXQ7YUfMJD44tzlwukCTaTdUdR76z9l3RFja/xJ9yuu2Ur9Eh/z9Bw4pLM0kVO2iEgM8iXSTKPYqNObmIj57A9LeZcyHmtg9B0CC1mS87tZv3r3ddJoPULbA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=O/CBxGNxjrJ28ER7IiPoe7hFsN+PlSY+oTxoRb0xqZw=;
- b=ay/jx6VW/Pb7PCy0p08APsfmSRSfNk8vN1X2haYPEIzTFufOZ00lfPmVa35kOKuthEPE3H3a+3BQjOG76w/ipoMIJgSifGWVVWE0nLw6FIIn8pbsTgaZnpo8yArRmSpetx6t5hKC3BvY5wGr09rpl42AB/f0gpdiPPGhUGhkS3fyMTQw5qcVWjtTmIAKuzeDczCu0MlzTIv929x7lbHlH4dXgWT5GgjWKNOtbYK6CzMb41B+C+c93WWGWn3XjjLJVWszHGkIFojt9OCphIMho9ZodFOd0TPDFEAlsg17gj3LwJO15k+p4mFxE8RKlQRD6oJ3DZDkW43fOx80mCiZNQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
- dkim=pass header.d=oracle.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=O/CBxGNxjrJ28ER7IiPoe7hFsN+PlSY+oTxoRb0xqZw=;
- b=W1fMY/0XQL6bBIOuQPiQ8qZUXb33CXEE1e0kZU2331Bp/9uQrBFWir+1hHvh8ky7S+GTZGLJNt5L+3FRl0AA+/9duimSiblenXFC6zZWEsPqS/ERbP57U8Y0t61EYdk+3tOEn2seeTbaOE5s9GC+Ug4Wn2CPmIi8clV3CtnxGnc=
-Received: from DS0PR10MB6798.namprd10.prod.outlook.com (2603:10b6:8:13c::20)
- by IA1PR10MB6805.namprd10.prod.outlook.com (2603:10b6:208:42b::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6134.15; Wed, 22 Feb
- 2023 12:16:30 +0000
-Received: from DS0PR10MB6798.namprd10.prod.outlook.com
- ([fe80::d0f7:e4fd:bd4:b760]) by DS0PR10MB6798.namprd10.prod.outlook.com
- ([fe80::d0f7:e4fd:bd4:b760%3]) with mapi id 15.20.6134.019; Wed, 22 Feb 2023
- 12:16:29 +0000
-From: Nick Alcock <nick.alcock@oracle.com>
-To: mcgrof@kernel.org
-Date: Wed, 22 Feb 2023 12:14:45 +0000
-Message-Id: <20230222121453.91915-20-nick.alcock@oracle.com>
-X-Mailer: git-send-email 2.39.1.268.g9de2f9a303
-In-Reply-To: <20230222121453.91915-1-nick.alcock@oracle.com>
-References: <20230222121453.91915-1-nick.alcock@oracle.com>
-X-ClientProxiedBy: LO0P123CA0012.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:354::20) To DS0PR10MB6798.namprd10.prod.outlook.com
- (2603:10b6:8:13c::20)
+ Wed, 22 Feb 2023 12:20:09 +0000 (UTC)
+Received: by mail-pj1-f49.google.com with SMTP id
+ il18-20020a17090b165200b0023127b2d602so8179186pjb.2
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 22 Feb 2023 04:20:09 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=z2Nnpf93XmA+udB7a4KC2NBdCbP7kHMS5xpUWswLdGY=;
+ b=dcD5CjuT9FgW4GtzAvv9ve50cxlH2XC67QBMPUnlONVUA7kjr7M9vdB594PHdeKGoq
+ Q3VutmvXH92ODMDWrIz/FtN2VhNJb6hEnDkGU7lSR/JzyCeq4DrVWFdiOnZUQpOgblRP
+ +0B4hcLJmCH6+iWKcC2pMIAxjB3SFl4ARd5K8Lv/bs3FUDqT89IkxCWrrX7C6LEsr9Mm
+ NhN9u8gu+bSGzjs+9QSAaEzk/J6UsFO3R0kqKyrHonRgrLaLI7AFk5fTOj/KshcDKMwk
+ 9TDX3VxuqEnSUyzdPQhJsb2g74+OQ6hyDw3yDQoOJwvBZDfNMfTzv6ouRlaZ0UwwOh1E
+ 9sYg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=z2Nnpf93XmA+udB7a4KC2NBdCbP7kHMS5xpUWswLdGY=;
+ b=7UHmAf0hat4qctLIOWG6RchAtrl/ZqT95m1DPjFiSGCpZcUiGiymxNmmA4nkTOzion
+ mKAAR75spedz/3aF13hu0aZDN1wUtAQoXZiqJ064hqBPmd3cU8oJR3SKnMG0/hYa123D
+ jMisXWSVKNfA0Zi/0MqL3uguG+hjxF2fEzYmR50sfNFZPy9roJUr/CvzW3xEcHsqfHRe
+ F4vMkej5odlgLR5+QGaOu7vGpf+CAxtt55rsiL4kTty7CrKm+MHE8DMBjDdD+1GjkJoh
+ 4sBIZX39UzM+x9/zIXjSvu54P0vxnwZUjftGXWECIyFaXwFuxmFF9jjFdxvj80fpMOvX
+ ROaw==
+X-Gm-Message-State: AO0yUKUFDGCo5OM3fizPADkWwKUba3Djkfo6dfNWNYVS0KEm12si9GHA
+ VbvD68IAXX82joL9t4N5ZgsdzPyecxtwKFovGLwtiA==
+X-Google-Smtp-Source: AK7set+1ERyfv6CMNdI/yH6AWXxrIALiNUcElqJtE72mE1V7qCn2vY9qrxaMmw+KwF6wO31eyKpV7vFonQDZX3qIGiA=
+X-Received: by 2002:a17:90b:2704:b0:237:28e3:4f06 with SMTP id
+ px4-20020a17090b270400b0023728e34f06mr1087860pjb.62.1677068408231; Wed, 22
+ Feb 2023 04:20:08 -0800 (PST)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR10MB6798:EE_|IA1PR10MB6805:EE_
-X-MS-Office365-Filtering-Correlation-Id: 15b8f96f-091c-4b0f-6c6b-08db14cea0d1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: cs8UT9AyqbVg1I6C0fXWHHqpoX6qPY2BBLGws94FIehm1Xxe0ghj8j1K9enLXXs4nND24Vnc4gAfwgE1/EBY2Xh9DglJp1RiMbaMhvouYJeTLPBE0mJQ8vW7V8/o3s7NEIvmZawoR8kQ+Hda+xn8POhzshauHkF3oFHCTaXh6g+PpJITu67ruBfAjrhsLterq/E5U3uCH4PLu9GQwm6Bz3gTutkSYBW4wTpbCDQMQ5CcE+y7ZSDnGP/cFFJpjZHHokjImVZx/fGL4uHPH5fJnIXGgjjqeGTIfS8qQ0O16htOM8OYJ0J0qMbrKKcOh0UKylLF0xeFYGtas8Qel3HVpvReliHizBTCOPBuU2qMoC2GBekVZbzALEcGRtA93rH+SPd09OJyrL6cg+dewyhoLBBsfU68M9+Tn/+/INL6YSElBZZy59VtDhRhn24iCHdrfOLS82x9quSgLRfwH1EXL4h7zAjkzQ0Nv6BE+sO7SvD0NdyAjEpvJqKf3LHd983SXnpP1lD4swbRjTYcNzRz2OP6Yqt9quAMs/fdPy6+vnW80kii8teve8wXyqkYIvrPZtVAvU9pMgThzmS3jIxznRFiC2t0PECqkBJDPaA33gGWkT3xNAnSokWc1EKkorXChtpQ4yDc2ljbpP2a87ku7A==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR10MB6798.namprd10.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230025)(39860400002)(346002)(376002)(396003)(366004)(136003)(451199018)(7416002)(36756003)(5660300002)(44832011)(83380400001)(2616005)(66574015)(6512007)(478600001)(6486002)(6666004)(6506007)(186003)(6916009)(66476007)(8936002)(66556008)(4326008)(66946007)(86362001)(41300700001)(8676002)(54906003)(1076003)(38100700002)(2906002)(316002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?6+DLw9vc6Z+eDbvy1PxBKdiG6zaz0EHYk77MOJ5T6WrYQKrNU9hIw7YDLADa?=
- =?us-ascii?Q?Jg7kbuMsgDKcVqYRGftxiBQCuN4Wm5iK28C/veZq98L71X3f6IjcQqWm5HRt?=
- =?us-ascii?Q?PQRFCrxJDhShOE2EEoVMVicV5/0f2op88fdw2sQJY6x7h09Pgq76xbtw/frG?=
- =?us-ascii?Q?T1Vd7muNPwimtC8aB2axL7AVXamYKvXF6RYbi7Alzu2rMozWqEzia90eD8ij?=
- =?us-ascii?Q?7YWfawAXaQlBNoJzEetki4xY+2TrTVdd7kYZjkfmQXMewoeBuRv6lkvVWnKQ?=
- =?us-ascii?Q?I4THe4Do+HIdY8ET77sAlmgGUWfIVmpia2tWtAn60b2PZ/xmcQEb7/NGHi3h?=
- =?us-ascii?Q?Gosq7c2WbxZJmH4/2FZRhsOl2F9AAwDNT71YlL5vTYy9C5jxBE780YO6f+5x?=
- =?us-ascii?Q?C4wE3AXoLIe5zHWXhwI7CNiW6iIILR0B9gn/GQriUKmUCc4Lxs2ouXZEP8hF?=
- =?us-ascii?Q?OpIY3GYiCO1QHjhh+wOf22j3IcgdROKVuPBly1dX/Lt22AvQqOfpY9yqXobu?=
- =?us-ascii?Q?1WfP7g3xDN3dABkxmWFC3e/rHH7L5Ol0oPDT1jBMgeRYwBOkPlWHWu00tiKe?=
- =?us-ascii?Q?j2D14Wa4ZY3EEViELc+M6PguQAb0tYU83Fo02ObJ5qORLksVJ6MKUjOqrFr/?=
- =?us-ascii?Q?EB3WwbNicrZ80xKwvPoP89gJcIg5Qy24Wm6h4Ke8z5LSFgyHvbpjtt/kkqo5?=
- =?us-ascii?Q?v0dLnM5AB4iQlM5QOr2YC/uqfd8EF+0rEzFEvhQCHhxjYHVUn40ka/kZ+hIH?=
- =?us-ascii?Q?8P9r37vUuhA/+5UVx8DKw1dduH26MOXOzJbPOpduJA6SIXw4ouI6V1cDfFM1?=
- =?us-ascii?Q?miWHFskLjEx9WIs0xadtdAksHVOyOzo3EAE978robp6USQP95Nhw9xCdEDbw?=
- =?us-ascii?Q?lNNvzzdUsSw8YFTzRre1lcYDRtB/DDFC79mZbCcmIJRDiOz/eiiZ5d6Oy3De?=
- =?us-ascii?Q?7J3w6348nAuh0MNN0LRvGqAIkfb7WgqA/NGIt56qgQlnAgIj9lboQqxBVbgw?=
- =?us-ascii?Q?4vGXankBTUnEV4NnkKaKxHYZsdU2cKVAyWNLNkL2i8upxkdUFIuUEmkpvM+e?=
- =?us-ascii?Q?0xzYDzFuzv/EgNioN43Dxtz6R/4b9JVrRxKUMO2JGIvL7ALgpaQgd2Mw0ibj?=
- =?us-ascii?Q?+c4Y1LgS236hKv2upW9WMGCOzI7QyUJRYcqYamuB1nk6xrS+5E2y0AN+9k8w?=
- =?us-ascii?Q?yPwQJN+G9k86RoK4S/zs6x1cFD4+Ifo+Z1CO3lT9vTfKZGSyoYTGJ9GJXeH4?=
- =?us-ascii?Q?BMLtxMmOkHsOw0dH/4AzguQpxzjg41AJkmGT5NZftXPAa/lCEnBy6ntU2joL?=
- =?us-ascii?Q?2U7lsqZ6VkX18Hw70u9O1gAmuJwoytSmhg+oIXsYq92tlx4Nhc+WdTAw7390?=
- =?us-ascii?Q?FApWJ6/spDBvxx8o+UeSkBLvOfkhBabHntwGDjCAmcWmTZgZyH3G7wl+oskS?=
- =?us-ascii?Q?JsN2vshzzQlPwPgM4gVWj1v/Lh0Ht+TCDN4DsinC7oFYc1XjUQfypZR99rdK?=
- =?us-ascii?Q?+XzVTNBHzPNOkhhFF6fTzOqFIJ2PVdOhlHOgyQlnBOnuIsyUhlV9eH4Bvt5C?=
- =?us-ascii?Q?HVCMIFQ2LWBP3UljZJDRaNYDCvTc9QVJKROzeFUNlY44JY0DAE1ImktPbP05?=
- =?us-ascii?Q?IfPvW7MrWDxy0c/DyqCdvIc=3D?=
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0: =?us-ascii?Q?xlESeX/vMrnuZTYWJhBWp8glY99j64AxQlyrdv7JU5zwv/G7KcY8LNF+9fat?=
- =?us-ascii?Q?UpCTXUe7TSgb84E+2VwhvmgLLWgFFboH3R7ncBZWz8zb461UWKBkM+1Nmjtt?=
- =?us-ascii?Q?uznPNTSycagOJOunpxCfEi/VnHSNNGvNa2Y7yWHAcE90b6NLYaTqAuUp2oxC?=
- =?us-ascii?Q?SouDhFIRdmM5IykI1eGXWrw3Za8rtiJJm/fSdVm6pGao04IeagvMh65xy1qQ?=
- =?us-ascii?Q?gtphWrTXnaiWrA6SvCH6qNU2FTTjwoLTbVTrVKgZ4PPbKFm+4C57llVCZF3R?=
- =?us-ascii?Q?3qqLUoIIlAS7ROwrSP55Vq0yPg0CIDG7B1WQcaMbkPv+82or+L5+8Gcl/1rs?=
- =?us-ascii?Q?NaC9tUfzlvOD/JscVqGs1w0UmPvVzsByMwq6TBCIupOT0Ao084xxkrjFS4Sy?=
- =?us-ascii?Q?Vsu8nMW9PqTV5yWHCj7CdiaYRKTClkRQccOCjh91HQSO5+/lIjEwMGxzH6bw?=
- =?us-ascii?Q?v+z4Mmj7EdrgseNoouVSP+2Es3DCpufT18o/xcj6V9Oi/nNKoRNg+SqiM0ol?=
- =?us-ascii?Q?DdqScgIaNPju+N1Z88l86HFN/ZH5tmSos0txRsVdPScy1nkQau+bx/1rF5XO?=
- =?us-ascii?Q?7wgP84qAtmTrRJDMGHetvKFKd40is+AoOKl/OaMeEBgSSZEsYVaO6l3OVlS+?=
- =?us-ascii?Q?8DPnE+Jpx85AYcG7iq9UNUg5T2bYzeTV1kChDO6Ez5F0dWFZAWR+ZJGdEhjt?=
- =?us-ascii?Q?LmSXN0hocTZo9ts7Cpk5/OxpbZFUi6qUIIN+WX7JNHE9P2lO/VRzt6ZigEvX?=
- =?us-ascii?Q?X/UP3uKmEWbyz0baaQhVjcKLrumWVuzNM+IX/pYJNzZ/oGYRZpY3fHdvbi8X?=
- =?us-ascii?Q?5WwY4notE/wUyNYZrmxgebnaE7wFKyHVYppkdp56wRjVEcbLMvMVYlGLfhw9?=
- =?us-ascii?Q?OtvpEKTYVWPQFbvOItKf+FKB0fPAiixBjueVPsDMfwGK6CocdZTzOTL0OA7L?=
- =?us-ascii?Q?o1lhtttSNlxUq1nYQxqxQKcg0XiRAzoOYH7tmqT3Sezbeo4PuHFOQifTnGsW?=
- =?us-ascii?Q?luFU2VHgXNqfzbMzeXm+htUf3mgaFNSBV4jxVWW8FgP0O2w=3D?=
-X-OriginatorOrg: oracle.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 15b8f96f-091c-4b0f-6c6b-08db14cea0d1
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR10MB6798.namprd10.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Feb 2023 12:16:29.8986 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: tnPL5uSBhRnvydSVvHXRndzErQn0gGHTAzRc3kF97oi9QkYHXZGtpiNX6Ri/mepB4EHgxd54r4tIsGk9AShEdA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR10MB6805
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.219,Aquarius:18.0.930,Hydra:6.0.562,FMLib:17.11.170.22
- definitions=2023-02-22_05,2023-02-22_01,2023-02-09_01
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 spamscore=0
- bulkscore=0 phishscore=0
- suspectscore=0 malwarescore=0 mlxscore=0 mlxlogscore=999 adultscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2212070000
- definitions=main-2302220108
-X-Proofpoint-ORIG-GUID: dE_XMB-8T0lskgvGwdAPCNJ-N3UCIB2O
-X-Proofpoint-GUID: dE_XMB-8T0lskgvGwdAPCNJ-N3UCIB2O
-X-Mailman-Approved-At: Wed, 22 Feb 2023 12:38:56 +0000
-Cc: Hitomi Hasegawa <hasegawa-hitomi@fujitsu.com>,
- Philipp Zabel <p.zabel@pengutronix.de>, linux-kernel@vger.kernel.org,
- Vinod Koul <vkoul@kernel.org>, linux-arm-kernel@lists.infradead.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, dmaengine@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-modules@vger.kernel.org
-Subject: [Linux-stm32] [PATCH 19/27] kbuild,
-	dmaengine: stm32-mdma: remove MODULE_LICENSE in non-modules
+References: <1dab6648-c177-17a7-0b36-821e21328753@quicinc.com>
+ <bf14c6e2-71c4-2987-28c7-e8b51636a46f@arm.com>
+In-Reply-To: <bf14c6e2-71c4-2987-28c7-e8b51636a46f@arm.com>
+From: Mike Leach <mike.leach@linaro.org>
+Date: Wed, 22 Feb 2023 12:19:56 +0000
+Message-ID: <CAJ9a7Vjyc-T+LjHtBBYO2MS15z1sVUYxQro_5YpZ9oGMiB0GZA@mail.gmail.com>
+To: Suzuki K Poulose <suzuki.poulose@arm.com>
+Cc: Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Jinlong Mao <quic_jinlmao@quicinc.com>,
+ Tingwei Zhang <quic_tingweiz@quicinc.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Coresight ML <coresight@lists.linaro.org>,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [RFC] Add trig_ts function in STM to generate
+	TRIG_TS packet periodically
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -180,55 +78,79 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Since commit 8b41fc4454e ("kbuild: create modules.builtin without
-Makefile.modbuiltin or tristate.conf"), MODULE_LICENSE declarations
-are used to identify modules. As a consequence, uses of the macro
-in non-modules will cause modprobe to misidentify their containing
-object file as a module when it is not (false positives), and modprobe
-might succeed rather than failing with a suitable error message.
+Hi
 
-So remove it in the files in this commit, none of which can be built as
-modules.
+A couple additional points...
 
-Signed-off-by: Nick Alcock <nick.alcock@oracle.com>
-Suggested-by: Luis Chamberlain <mcgrof@kernel.org>
-Cc: Luis Chamberlain <mcgrof@kernel.org>
-Cc: linux-modules@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-Cc: Hitomi Hasegawa <hasegawa-hitomi@fujitsu.com>
-Cc: Vinod Koul <vkoul@kernel.org>
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
-Cc: Philipp Zabel <p.zabel@pengutronix.de>
-Cc: dmaengine@vger.kernel.org
-Cc: linux-stm32@st-md-mailman.stormreply.com
-Cc: linux-arm-kernel@lists.infradead.org
----
- drivers/dma/stm32-dmamux.c | 1 -
- drivers/dma/stm32-mdma.c   | 1 -
- 2 files changed, 2 deletions(-)
+On Wed, 22 Feb 2023 at 11:00, Suzuki K Poulose <suzuki.poulose@arm.com> wrote:
+>
+> On 21/02/2023 06:53, Jinlong Mao wrote:
+> > Hi all,
+> >
+> > When there is some small packet sent from STM to ETR, the small packet
+> > could be stuck between source
+> > and sink even if manual flush is set when disable ETR.
+>
+> Why ? The manual flush should trigger a flush request upstream
+> and eventually cause a flush ? If this doesn't work as expected
+> we should try to get to the bottom of that first, before jumping
+> into "software work arounds".
+>
+> > So there is requirement that flush the STM trace periodically after
+> > enabling STM to ETR.
+> >
+> > STM can generate TRIG_TS packet by writing to offset 0xF0 of the driver
+> > STM stimulus port.
+> > ETR has ability to initiate a flush on seeing a TRIG_TS packet.
+>
+> Why is this different from the "manual flush" and how does it help ?
+> Is it because one of the components doesn't respond properly to the
+> flush request ?
+>
+>
+> Kind regards
+> Suzuki
+>
+> >
+> > For this requirement, I want to create a sysfs node like trig_ts for STM.
+> > When writing 1 to this sysfs node, a timer with 1 second periodicity in
+> > STM will start to generate the trig_ts packet to ETR.
 
-diff --git a/drivers/dma/stm32-dmamux.c b/drivers/dma/stm32-dmamux.c
-index ee3cbbf51006..8d8bb6770cc2 100644
---- a/drivers/dma/stm32-dmamux.c
-+++ b/drivers/dma/stm32-dmamux.c
-@@ -400,4 +400,3 @@ arch_initcall(stm32_dmamux_init);
- MODULE_DESCRIPTION("DMA Router driver for STM32 DMA MUX");
- MODULE_AUTHOR("M'boumba Cedric Madianga <cedric.madianga@gmail.com>");
- MODULE_AUTHOR("Pierre-Yves Mordret <pierre-yves.mordret@st.com>");
--MODULE_LICENSE("GPL v2");
-diff --git a/drivers/dma/stm32-mdma.c b/drivers/dma/stm32-mdma.c
-index b9d4c843635f..3f2e7a55cd03 100644
---- a/drivers/dma/stm32-mdma.c
-+++ b/drivers/dma/stm32-mdma.c
-@@ -1816,4 +1816,3 @@ subsys_initcall(stm32_mdma_init);
- MODULE_DESCRIPTION("Driver for STM32 MDMA controller");
- MODULE_AUTHOR("M'boumba Cedric Madianga <cedric.madianga@gmail.com>");
- MODULE_AUTHOR("Pierre-Yves Mordret <pierre-yves.mordret@st.com>");
--MODULE_LICENSE("GPL v2");
+If this is really needed, then the source writing the data you wish to
+flush should write to the relevant STM stimulus port. There is no
+justification for a polling mechanism when the client itself can do
+the write at a  time you believe it to be needed.
+
+> > Once ETR receive the TRIG_TS packet, it will initiate a flush.
+
+The ETR does not interpret STM packets - this alone will not initiate a flush.
+
+It is possible to program the ETR to respond to the FLUSHIN or TRIGIN
+signals via the ECT/CTI network of signals, or a trigger event in the
+trace stream (ATID=0x7D) if a source (in this case the STM) is
+programmed to output these specific packets when it generates trigger
+packets in its own protocol.
+Programming bits in the FFCR control these operations, STM must be
+programmed separately to generate appropriate output responses on
+trigger packets.
+
+Regards
+
+Mike
+
+> >
+> > Could you please help to provide your comments on this requirement ?
+> >
+> > Thanks
+> > Jinlong Mao
+> >
+>
+
+
 -- 
-2.39.1.268.g9de2f9a303
-
+Mike Leach
+Principal Engineer, ARM Ltd.
+Manchester Design Centre. UK
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
