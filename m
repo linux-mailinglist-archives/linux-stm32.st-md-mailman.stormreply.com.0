@@ -2,54 +2,39 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 392B269F1C2
-	for <lists+linux-stm32@lfdr.de>; Wed, 22 Feb 2023 10:31:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E02CC69F312
+	for <lists+linux-stm32@lfdr.de>; Wed, 22 Feb 2023 12:00:33 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EDC3CC6A5FC;
-	Wed, 22 Feb 2023 09:31:29 +0000 (UTC)
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 37AC1C65E58
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8903BC6A5FC;
+	Wed, 22 Feb 2023 11:00:33 +0000 (UTC)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8D497C65E42
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 22 Feb 2023 09:31:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=RZxqWOtOiY463rPgMWomV6862Rwqvyak5+4JgTBIxcE=; b=zolW4tU4QDEFF7t28e1uyOMJ87
- QfEpv0FnARRQ59zu5uQF0lrxl1jhqrBewUylyy8cmfCxAA3mD7EqQkZng30DJeg+2XSPEXzx2MYg4
- lmiyLax98k7zjNjou+e3o3DobITCUxO0aEXvve+slkaGtEuXDkPVamVb2LHL+tVpHB44RQ7TH1f35
- 0zUg00FbngPdCHr334Ioi8oFbrT5V/CZRaQ1afRa1YlZ0Z/WWJshJu+JpkSQ45jwc5N8epezwJu8/
- kzY+UnrxvopsXckpkZat7J4NtyHtUoSgJR4x7Mh6hU+vatM7f3h4FJh9Ak5bL4HgQZycQu1j9J0QB
- fULZdLxw==;
-Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:48670)
- by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.94.2)
- (envelope-from <linux@armlinux.org.uk>)
- id 1pUlT3-0006ka-Cy; Wed, 22 Feb 2023 09:31:17 +0000
-Received: from linux by shell.armlinux.org.uk with local (Exim 4.94.2)
- (envelope-from <linux@shell.armlinux.org.uk>)
- id 1pUlSz-00035v-JI; Wed, 22 Feb 2023 09:31:13 +0000
-Date: Wed, 22 Feb 2023 09:31:13 +0000
-From: "Russell King (Oracle)" <linux@armlinux.org.uk>
-To: Clark Wang <xiaoning.wang@nxp.com>
-Message-ID: <Y/Xg4T+Zw3jW0/Lb@shell.armlinux.org.uk>
-References: <20230222092636.1984847-1-xiaoning.wang@nxp.com>
+ Wed, 22 Feb 2023 11:00:32 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 780A2139F;
+ Wed, 22 Feb 2023 03:01:14 -0800 (PST)
+Received: from [10.57.90.101] (unknown [10.57.90.101])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 45A193F703;
+ Wed, 22 Feb 2023 03:00:30 -0800 (PST)
+Message-ID: <bf14c6e2-71c4-2987-28c7-e8b51636a46f@arm.com>
+Date: Wed, 22 Feb 2023 11:00:28 +0000
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20230222092636.1984847-1-xiaoning.wang@nxp.com>
-Cc: andrew@lunn.ch, linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, edumazet@google.com,
- joabreu@synopsys.com, linux-imx@nxp.com, mcoquelin.stm32@gmail.com,
- kuba@kernel.org, peppe.cavallaro@st.com, pabeni@redhat.com,
- davem@davemloft.net, linux-arm-kernel@lists.infradead.org,
- hkallweit1@gmail.com
-Subject: Re: [Linux-stm32] [PATCH net-next V4 1/2] net: phylink: add a
- function to resume PHY alone to fix resume issue with WoL enabled
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.7.2
+To: Jinlong Mao <quic_jinlmao@quicinc.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Mike Leach <mike.leach@linaro.org>
+References: <1dab6648-c177-17a7-0b36-821e21328753@quicinc.com>
+From: Suzuki K Poulose <suzuki.poulose@arm.com>
+In-Reply-To: <1dab6648-c177-17a7-0b36-821e21328753@quicinc.com>
+Cc: Coresight ML <coresight@lists.linaro.org>,
+ Tingwei Zhang <quic_tingweiz@quicinc.com>,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [RFC] Add trig_ts function in STM to generate
+ TRIG_TS packet periodically
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -61,148 +46,50 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-net-next is closed due to the merge window. Please resubmit after
-6.3-rc1. Thanks.
+On 21/02/2023 06:53, Jinlong Mao wrote:
+> Hi all,
+> 
+> When there is some small packet sent from STM to ETR, the small packet 
+> could be stuck between source
+> and sink even if manual flush is set when disable ETR.
 
-On Wed, Feb 22, 2023 at 05:26:35PM +0800, Clark Wang wrote:
-> Issue we met:
-> On some platforms, MAC cannot work after resumed from the suspend with WoL
-> enabled.
+Why ? The manual flush should trigger a flush request upstream
+and eventually cause a flush ? If this doesn't work as expected
+we should try to get to the bottom of that first, before jumping
+into "software work arounds".
+
+> So there is requirement that flush the STM trace periodically after 
+> enabling STM to ETR.
 > 
-> The cause of the issue:
-> 1. phylink_resolve() is in a workqueue which will not be executed immediately.
->    This is the call sequence:
->        phylink_resolve()->phylink_link_up()->pl->mac_ops->mac_link_up()
->    For stmmac driver, mac_link_up() will set the correct speed/duplex...
->    values which are from link_state.
-> 2. In stmmac_resume(), it will call stmmac_hw_setup() after called the
->    phylink_resume(), because MAC need PHY rx_clk to do the reset.
->    stmmac_core_init() is called in function stmmac_hw_setup(), which will
->    reset the MAC and set the speed/duplex... to default value.
-> Conclusion: Because phylink_resolve() cannot determine when it is called, it
->             cannot be guaranteed to be called after stmmac_core_init().
-> 	    Once stmmac_core_init() is called after phylink_resolve(),
-> 	    the MAC will be misconfigured and cannot be used.
+> STM can generate TRIG_TS packet by writing to offset 0xF0 of the driver 
+> STM stimulus port.
+> ETR has ability to initiate a flush on seeing a TRIG_TS packet.
+
+Why is this different from the "manual flush" and how does it help ?
+Is it because one of the components doesn't respond properly to the
+flush request ?
+
+
+Kind regards
+Suzuki
+
 > 
-> In order to avoid this problem, add a function called phylink_phy_resume()
-> to resume PHY separately. This eliminates the need to call phylink_resume()
-> before stmmac_hw_setup().
+> For this requirement, I want to create a sysfs node like trig_ts for STM.
+> When writing 1 to this sysfs node, a timer with 1 second periodicity in 
+> STM will start to generate the trig_ts packet to ETR.
+> Once ETR receive the TRIG_TS packet, it will initiate a flush.
 > 
-> Add another judgement before called phy_start() in phylink_start(). This way
-> phy_start() will not be called multiple times when resumes. At the same time,
-> it may not affect other drivers that do not use phylink_phy_resume().
+> Could you please help to provide your comments on this requirement ?
 > 
-> Signed-off-by: Clark Wang <xiaoning.wang@nxp.com>
-> ---
-> V2 change:
->  - add mac_resume_phy_separately flag to struct phylink to mark if the MAC
->    driver uses the phylink_phy_resume() first.
-> V3 change:
->  - add brace to avoid ambiguous 'else'
->    Reported-by: kernel test robot <lkp@intel.com>
-> V4:
-> Many thanks to Jakub and Russel for their suggestions, here are the changes for V4.
->  - Unify MAC and PHY in comments and subject to uppercase.
->  - Add subject of the sentence.
->  - Move && to the end of the line
->  - Add notice in the comment of function phylink_phy_resume()
-> ---
->  drivers/net/phy/phylink.c | 35 +++++++++++++++++++++++++++++++++--
->  include/linux/phylink.h   |  1 +
->  2 files changed, 34 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/net/phy/phylink.c b/drivers/net/phy/phylink.c
-> index ea8fcce5b2d9..0be57e9463d9 100644
-> --- a/drivers/net/phy/phylink.c
-> +++ b/drivers/net/phy/phylink.c
-> @@ -80,6 +80,8 @@ struct phylink {
->  	DECLARE_PHY_INTERFACE_MASK(sfp_interfaces);
->  	__ETHTOOL_DECLARE_LINK_MODE_MASK(sfp_support);
->  	u8 sfp_port;
-> +
-> +	bool mac_resume_phy_separately;
->  };
->  
->  #define phylink_printk(level, pl, fmt, ...) \
-> @@ -1509,6 +1511,7 @@ struct phylink *phylink_create(struct phylink_config *config,
->  		return ERR_PTR(-EINVAL);
->  	}
->  
-> +	pl->mac_resume_phy_separately = false;
->  	pl->using_mac_select_pcs = using_mac_select_pcs;
->  	pl->phy_state.interface = iface;
->  	pl->link_interface = iface;
-> @@ -1942,8 +1945,12 @@ void phylink_start(struct phylink *pl)
->  	}
->  	if (poll)
->  		mod_timer(&pl->link_poll, jiffies + HZ);
-> -	if (pl->phydev)
-> -		phy_start(pl->phydev);
-> +	if (pl->phydev) {
-> +		if (!pl->mac_resume_phy_separately)
-> +			phy_start(pl->phydev);
-> +		else
-> +			pl->mac_resume_phy_separately = false;
-> +	}
->  	if (pl->sfp_bus)
->  		sfp_upstream_start(pl->sfp_bus);
->  }
-> @@ -2023,6 +2030,30 @@ void phylink_suspend(struct phylink *pl, bool mac_wol)
->  }
->  EXPORT_SYMBOL_GPL(phylink_suspend);
->  
-> +/**
-> + * phylink_phy_resume() - resume PHY alone
-> + * @pl: a pointer to a &struct phylink returned from phylink_create()
-> + *
-> + * In the MAC driver using phylink, if the MAC needs the clock of the PHY
-> + * when it resumes, it can call this function to resume the PHY separately.
-> + * Then proceed to MAC resume operations.
-> + * 
-> + * Note: This function MUST ONLY be called before calling phylink_start()
-> + *       in the MAC resume function.
-> + */
-> +void phylink_phy_resume(struct phylink *pl)
-> +{
-> +	ASSERT_RTNL();
-> +
-> +	if (!test_bit(PHYLINK_DISABLE_MAC_WOL, &pl->phylink_disable_state) &&
-> +	    pl->phydev) {
-> +		phy_start(pl->phydev);
-> +		pl->mac_resume_phy_separately = true;
-> +	}
-> +
-> +}
-> +EXPORT_SYMBOL_GPL(phylink_phy_resume);
-> +
->  /**
->   * phylink_resume() - handle a network device resume event
->   * @pl: a pointer to a &struct phylink returned from phylink_create()
-> diff --git a/include/linux/phylink.h b/include/linux/phylink.h
-> index c492c26202b5..6edfab5f754c 100644
-> --- a/include/linux/phylink.h
-> +++ b/include/linux/phylink.h
-> @@ -589,6 +589,7 @@ void phylink_stop(struct phylink *);
->  
->  void phylink_suspend(struct phylink *pl, bool mac_wol);
->  void phylink_resume(struct phylink *pl);
-> +void phylink_phy_resume(struct phylink *pl);
->  
->  void phylink_ethtool_get_wol(struct phylink *, struct ethtool_wolinfo *);
->  int phylink_ethtool_set_wol(struct phylink *, struct ethtool_wolinfo *);
-> -- 
-> 2.34.1
-> 
+> Thanks
+> Jinlong Mao
 > 
 
--- 
-RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-FTTP is here! 40Mbps down 10Mbps up. Decent connectivity at last!
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
