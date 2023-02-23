@@ -2,40 +2,55 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 525196A05B2
-	for <lists+linux-stm32@lfdr.de>; Thu, 23 Feb 2023 11:10:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0064D6A05EA
+	for <lists+linux-stm32@lfdr.de>; Thu, 23 Feb 2023 11:21:51 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 174AFC6A5F8;
-	Thu, 23 Feb 2023 10:10:45 +0000 (UTC)
-Received: from 167-179-156-38.a7b39c.syd.nbn.aussiebb.net
- (167-179-156-38.a7b39c.syd.nbn.aussiebb.net [167.179.156.38])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A8B14C6A5F8;
+	Thu, 23 Feb 2023 10:21:51 +0000 (UTC)
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6EBBDC03FC3
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B4402C03FC3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 23 Feb 2023 10:10:43 +0000 (UTC)
-Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
- by formenos.hmeau.com with smtp (Exim 4.94.2 #2 (Debian))
- id 1pV8YL-00Epv7-PF; Thu, 23 Feb 2023 18:10:18 +0800
-Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation);
- Thu, 23 Feb 2023 18:10:17 +0800
-Date: Thu, 23 Feb 2023 18:10:17 +0800
-From: Herbert Xu <herbert@gondor.apana.org.au>
-To: Linus Walleij <linus.walleij@linaro.org>
-Message-ID: <Y/c7iVW67Xhhdu8e@gondor.apana.org.au>
-References: <Y/cBB+q0Ono9j2Jy@gondor.apana.org.au>
- <20230224231430.2948-1-kunyu@nfschina.com>
- <Y/cy5wUtk10OahpO@gondor.apana.org.au>
- <CACRpkdYyB=-UnE1bmdVszSSB5ReECZ0fUoWJX6XtYbKHEe52tA@mail.gmail.com>
+ Thu, 23 Feb 2023 10:21:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=2qAVv/2mOlvFxStqbQsgpUYCmjvX2Lnr+60Cn2DTsOU=; b=TgElQnDUMw4O3xsGHQ0dJdiheG
+ URc397+tCp3J+KSSx6tAGEb40b5LerjygN7eqjHeDDLjIbUAwMETKH1QXycPPHcohlNmZ8zzIRUXd
+ lcte98hg035mDkUfApbK+yWYolqKTcS2kpGizXeQIy2VW0+n5JwVo2K1te5F9PePE2GWmMNFc5RLi
+ 5rLcGiuZPxdW/mVv7KRFIoceqh84SpXo2KufB2nel69UKrokaSiQbbSI160tCl3lsHw70i8sXSDR/
+ /jiZjwtQCyyYIPCGYC/w1IFGhgRZkviu9ZbFFeqOawrElgIUsFJc8wr4X3m308XILDYsCRfeQDN1T
+ 1FDZX5rQ==;
+Received: from shell.armlinux.org.uk
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:41264)
+ by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.94.2)
+ (envelope-from <linux@armlinux.org.uk>)
+ id 1pV8jM-0007tA-RL; Thu, 23 Feb 2023 10:21:40 +0000
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.94.2)
+ (envelope-from <linux@shell.armlinux.org.uk>)
+ id 1pV8jJ-00045z-AR; Thu, 23 Feb 2023 10:21:37 +0000
+Date: Thu, 23 Feb 2023 10:21:37 +0000
+From: "Russell King (Oracle)" <linux@armlinux.org.uk>
+To: Paolo Abeni <pabeni@redhat.com>
+Message-ID: <Y/c+MQtgtKFDjEZF@shell.armlinux.org.uk>
+References: <20230202081559.3553637-1-xiaoning.wang@nxp.com>
+ <83a8fb89ac7a69d08c9ea1422dade301dcc87297.camel@redhat.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <CACRpkdYyB=-UnE1bmdVszSSB5ReECZ0fUoWJX6XtYbKHEe52tA@mail.gmail.com>
-Cc: Li kunyu <kunyu@nfschina.com>, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-crypto@vger.kernel.org,
- mcoquelin.stm32@gmail.com, davem@davemloft.net,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH] crypto: stm32 - Save and restore between each
-	request
+In-Reply-To: <83a8fb89ac7a69d08c9ea1422dade301dcc87297.camel@redhat.com>
+Cc: andrew@lunn.ch, linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, edumazet@google.com,
+ joabreu@synopsys.com, Clark Wang <xiaoning.wang@nxp.com>, linux-imx@nxp.com,
+ mcoquelin.stm32@gmail.com, kuba@kernel.org, peppe.cavallaro@st.com,
+ davem@davemloft.net, linux-arm-kernel@lists.infradead.org,
+ hkallweit1@gmail.com
+Subject: Re: [Linux-stm32] [PATCH V3 1/2] net: phylink: add a function to
+ resume phy alone to fix resume issue with WoL enabled
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -52,185 +67,121 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, Feb 23, 2023 at 10:52:17AM +0100, Linus Walleij wrote:
->
-> Can we fix the actual problem? It seems to have been there since the
-> initial submission in 2017.
+On Thu, Feb 23, 2023 at 11:09:04AM +0100, Paolo Abeni wrote:
+> On Thu, 2023-02-02 at 16:15 +0800, Clark Wang wrote:
+> > Issue we met:
+> > On some platforms, mac cannot work after resumed from the suspend with WoL
+> > enabled.
+> > 
+> > The cause of the issue:
+> > 1. phylink_resolve() is in a workqueue which will not be executed immediately.
+> >    This is the call sequence:
+> >        phylink_resolve()->phylink_link_up()->pl->mac_ops->mac_link_up()
+> >    For stmmac driver, mac_link_up() will set the correct speed/duplex...
+> >    values which are from link_state.
+> > 2. In stmmac_resume(), it will call stmmac_hw_setup() after called the
+> >    phylink_resume(), because mac need phy rx_clk to do the reset.
+> >    stmmac_core_init() is called in function stmmac_hw_setup(), which will
+> >    reset the mac and set the speed/duplex... to default value.
+> > Conclusion: Because phylink_resolve() cannot determine when it is called, it
+> >             cannot be guaranteed to be called after stmmac_core_init().
+> > 	    Once stmmac_core_init() is called after phylink_resolve(),
+> > 	    the mac will be misconfigured and cannot be used.
+> > 
+> > In order to avoid this problem, add a function called phylink_phy_resume()
+> > to resume phy separately. This eliminates the need to call phylink_resume()
+> > before stmmac_hw_setup().
+> > 
+> > Add another judgement before called phy_start() in phylink_start(). This way
+> > phy_start() will not be called multiple times when resumes. At the same time,
+> > it may not affect other drivers that do not use phylink_phy_resume().
+> > 
+> > Signed-off-by: Clark Wang <xiaoning.wang@nxp.com>
+> > ---
+> > V2 change:
+> >  - add mac_resume_phy_separately flag to struct phylink to mark if the mac
+> >    driver uses the phylink_phy_resume() first.
+> > V3 change:
+> >  - add brace to avoid ambiguous 'else'
+> >    Reported-by: kernel test robot <lkp@intel.com>
+> > ---
+> >  drivers/net/phy/phylink.c | 32 ++++++++++++++++++++++++++++++--
+> >  include/linux/phylink.h   |  1 +
+> >  2 files changed, 31 insertions(+), 2 deletions(-)
+> > 
+> > diff --git a/drivers/net/phy/phylink.c b/drivers/net/phy/phylink.c
+> > index 319790221d7f..c2fe66f0b78f 100644
+> > --- a/drivers/net/phy/phylink.c
+> > +++ b/drivers/net/phy/phylink.c
+> > @@ -80,6 +80,8 @@ struct phylink {
+> >  	DECLARE_PHY_INTERFACE_MASK(sfp_interfaces);
+> >  	__ETHTOOL_DECLARE_LINK_MODE_MASK(sfp_support);
+> >  	u8 sfp_port;
+> > +
+> > +	bool mac_resume_phy_separately;
+> >  };
+> >  
+> >  #define phylink_printk(level, pl, fmt, ...) \
+> > @@ -1509,6 +1511,7 @@ struct phylink *phylink_create(struct phylink_config *config,
+> >  		return ERR_PTR(-EINVAL);
+> >  	}
+> >  
+> > +	pl->mac_resume_phy_separately = false;
+> >  	pl->using_mac_select_pcs = using_mac_select_pcs;
+> >  	pl->phy_state.interface = iface;
+> >  	pl->link_interface = iface;
+> > @@ -1943,8 +1946,12 @@ void phylink_start(struct phylink *pl)
+> >  	}
+> >  	if (poll)
+> >  		mod_timer(&pl->link_poll, jiffies + HZ);
+> > -	if (pl->phydev)
+> > -		phy_start(pl->phydev);
+> > +	if (pl->phydev) {
+> > +		if (!pl->mac_resume_phy_separately)
+> > +			phy_start(pl->phydev);
+> > +		else
+> > +			pl->mac_resume_phy_separately = false;
+> > +	}
+> >  	if (pl->sfp_bus)
+> >  		sfp_upstream_start(pl->sfp_bus);
+> >  }
+> > @@ -2024,6 +2031,27 @@ void phylink_suspend(struct phylink *pl, bool mac_wol)
+> >  }
+> >  EXPORT_SYMBOL_GPL(phylink_suspend);
+> >  
+> > +/**
+> > + * phylink_phy_resume() - resume phy alone
+> > + * @pl: a pointer to a &struct phylink returned from phylink_create()
+> > + *
+> > + * In the MAC driver using phylink, if the MAC needs the clock of the phy
+> > + * when it resumes, can call this function to resume the phy separately.
+> > + * Then proceed to MAC resume operations.
+> > + */
+> > +void phylink_phy_resume(struct phylink *pl)
+> > +{
+> > +	ASSERT_RTNL();
+> > +
+> > +	if (!test_bit(PHYLINK_DISABLE_MAC_WOL, &pl->phylink_disable_state)
+> > +	    && pl->phydev) {
+> > +		phy_start(pl->phydev);
+> > +		pl->mac_resume_phy_separately = true;
+> > +	}
+> > +
 > 
-> I guess the right fix is to export the *actual* hardware state into "out"
-> and read it back from there instead of copying out the rctx struct.
-> Also .statesize needs to be fixed to correspond to that.
-> I can just use a roof:ed constant size for this.
+> Minor nit: the empty line here is not needed.
 
-Indeed.  It looks like the driver already has everything we need
-but it's just in the wrong place.
+The author appears to have become non-responsive after sending half of
+the two patch series, and hasn't addressed previous feedback.
 
-Here's my completely untested patch to move the hardware state
-reading/writing to where I think it should be.  As it stands,
-not only is export/import broken, but multiple hashing requests
-occuring concurrently will overwrite each other's state.
+In any case, someone else was also having similar issues with stmmac,
+and proposing different patches, so I've requested that they work
+together to solve what looks like one common problem, instead of us
+ending up with two patch series potentially addressing that same
+issue.
 
----8<---
-The Crypto API hashing paradigm requires the hardware state to
-be exported between *each* request because multiple unrelated
-hashes may be processed concurrently.
-
-The stm32 hardware is capable of producing the hardware hashing
-state but it was only doing it in the export function.  This is
-not only broken for export as you can't export a kernel pointer
-and reimport it, but it also means that concurrent hashing was
-fundamentally broken.
-
-Fix this by moving the saving and restoring of hardware hash
-state between each and every hashing request.
-
-Fixes: 8a1012d3f2ab ("crypto: stm32 - Support for STM32 HASH module")
-Reported-by: Li kunyu <kunyu@nfschina.com>
-Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
-
-diff --git a/drivers/crypto/stm32/stm32-hash.c b/drivers/crypto/stm32/stm32-hash.c
-index 7bf805563ac2..4bc69677a861 100644
---- a/drivers/crypto/stm32/stm32-hash.c
-+++ b/drivers/crypto/stm32/stm32-hash.c
-@@ -148,11 +148,12 @@ struct stm32_hash_request_ctx {
- 	int			nents;
- 
- 	u8			data_type;
-+	bool			started;
- 
- 	u8 buffer[HASH_BUFLEN] __aligned(sizeof(u32));
- 
--	/* Export Context */
--	u32			*hw_context;
-+	/* hash state */
-+	u32			hw_context[3 + HASH_CSR_REGISTER_NUMBER];
- };
- 
- struct stm32_hash_algs_info {
-@@ -441,8 +442,20 @@ static int stm32_hash_update_cpu(struct stm32_hash_dev *hdev)
- 			hdev->flags |= HASH_FLAGS_OUTPUT_READY;
- 			err = 0;
- 		}
-+	} else {
-+		u32 *preg = rctx->hw_context;
-+		int i;
-+
-+		if (!hdev->pdata->ux500)
-+			*preg++ = stm32_hash_read(hdev, HASH_IMR);
-+		*preg++ = stm32_hash_read(hdev, HASH_STR);
-+		*preg++ = stm32_hash_read(hdev, HASH_CR);
-+		for (i = 0; i < HASH_CSR_REGISTER_NUMBER; i++)
-+			*preg++ = stm32_hash_read(hdev, HASH_CSR(i));
- 	}
- 
-+	rctx->started = !final;
-+
- 	return err;
- }
- 
-@@ -754,6 +767,7 @@ static int stm32_hash_init(struct ahash_request *req)
- 	rctx->total = 0;
- 	rctx->offset = 0;
- 	rctx->data_type = HASH_DATA_8_BITS;
-+	rctx->started = false;
- 
- 	memset(rctx->buffer, 0, HASH_BUFLEN);
- 
-@@ -959,6 +973,22 @@ static int stm32_hash_one_request(struct crypto_engine *engine, void *areq)
- 
- 	rctx = ahash_request_ctx(req);
- 
-+	if (rctx->started) {
-+		u32 *preg = rctx->hw_context;
-+		u32 reg;
-+		int i;
-+
-+		if (!hdev->pdata->ux500)
-+			stm32_hash_write(hdev, HASH_IMR, *preg++);
-+		stm32_hash_write(hdev, HASH_STR, *preg++);
-+		stm32_hash_write(hdev, HASH_CR, *preg);
-+		reg = *preg++ | HASH_CR_INIT;
-+		stm32_hash_write(hdev, HASH_CR, reg);
-+
-+		for (i = 0; i < HASH_CSR_REGISTER_NUMBER; i++)
-+			stm32_hash_write(hdev, HASH_CSR(i), *preg++);
-+	}
-+
- 	if (rctx->op == HASH_OP_UPDATE)
- 		err = stm32_hash_update_req(hdev);
- 	else if (rctx->op == HASH_OP_FINAL)
-@@ -1044,33 +1074,6 @@ static int stm32_hash_digest(struct ahash_request *req)
- static int stm32_hash_export(struct ahash_request *req, void *out)
- {
- 	struct stm32_hash_request_ctx *rctx = ahash_request_ctx(req);
--	struct stm32_hash_ctx *ctx = crypto_ahash_ctx(crypto_ahash_reqtfm(req));
--	struct stm32_hash_dev *hdev = stm32_hash_find_dev(ctx);
--	u32 *preg;
--	unsigned int i;
--	int ret;
--
--	pm_runtime_get_sync(hdev->dev);
--
--	ret = stm32_hash_wait_busy(hdev);
--	if (ret)
--		return ret;
--
--	rctx->hw_context = kmalloc_array(3 + HASH_CSR_REGISTER_NUMBER,
--					 sizeof(u32),
--					 GFP_KERNEL);
--
--	preg = rctx->hw_context;
--
--	if (!hdev->pdata->ux500)
--		*preg++ = stm32_hash_read(hdev, HASH_IMR);
--	*preg++ = stm32_hash_read(hdev, HASH_STR);
--	*preg++ = stm32_hash_read(hdev, HASH_CR);
--	for (i = 0; i < HASH_CSR_REGISTER_NUMBER; i++)
--		*preg++ = stm32_hash_read(hdev, HASH_CSR(i));
--
--	pm_runtime_mark_last_busy(hdev->dev);
--	pm_runtime_put_autosuspend(hdev->dev);
- 
- 	memcpy(out, rctx, sizeof(*rctx));
- 
-@@ -1080,33 +1083,9 @@ static int stm32_hash_export(struct ahash_request *req, void *out)
- static int stm32_hash_import(struct ahash_request *req, const void *in)
- {
- 	struct stm32_hash_request_ctx *rctx = ahash_request_ctx(req);
--	struct stm32_hash_ctx *ctx = crypto_ahash_ctx(crypto_ahash_reqtfm(req));
--	struct stm32_hash_dev *hdev = stm32_hash_find_dev(ctx);
--	const u32 *preg = in;
--	u32 reg;
--	unsigned int i;
- 
- 	memcpy(rctx, in, sizeof(*rctx));
- 
--	preg = rctx->hw_context;
--
--	pm_runtime_get_sync(hdev->dev);
--
--	if (!hdev->pdata->ux500)
--		stm32_hash_write(hdev, HASH_IMR, *preg++);
--	stm32_hash_write(hdev, HASH_STR, *preg++);
--	stm32_hash_write(hdev, HASH_CR, *preg);
--	reg = *preg++ | HASH_CR_INIT;
--	stm32_hash_write(hdev, HASH_CR, reg);
--
--	for (i = 0; i < HASH_CSR_REGISTER_NUMBER; i++)
--		stm32_hash_write(hdev, HASH_CSR(i), *preg++);
--
--	pm_runtime_mark_last_busy(hdev->dev);
--	pm_runtime_put_autosuspend(hdev->dev);
--
--	kfree(rctx->hw_context);
--
- 	return 0;
- }
- 
 -- 
-Email: Herbert Xu <herbert@gondor.apana.org.au>
-Home Page: http://gondor.apana.org.au/~herbert/
-PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTP is here! 40Mbps down 10Mbps up. Decent connectivity at last!
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
