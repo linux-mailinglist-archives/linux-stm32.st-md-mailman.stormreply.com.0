@@ -2,52 +2,36 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id AD1E26A01EC
-	for <lists+linux-stm32@lfdr.de>; Thu, 23 Feb 2023 05:23:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EA6356A02A0
+	for <lists+linux-stm32@lfdr.de>; Thu, 23 Feb 2023 07:00:54 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 75158C6A5FF;
-	Thu, 23 Feb 2023 04:23:09 +0000 (UTC)
-Received: from phobos.denx.de (phobos.denx.de [85.214.62.61])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9F241C6A5F8;
+	Thu, 23 Feb 2023 06:00:54 +0000 (UTC)
+Received: from 167-179-156-38.a7b39c.syd.nbn.aussiebb.net
+ (167-179-156-38.a7b39c.syd.nbn.aussiebb.net [167.179.156.38])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 46464C6A5FE
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 94467C03FC3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 23 Feb 2023 04:23:08 +0000 (UTC)
-Received: from tr.lan (ip-86-49-120-218.bb.vodafone.cz [86.49.120.218])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
- (No client certificate requested)
- (Authenticated sender: marex@denx.de)
- by phobos.denx.de (Postfix) with ESMTPSA id CD6B680ADF;
- Thu, 23 Feb 2023 05:23:06 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de;
- s=phobos-20191101; t=1677126187;
- bh=a3O2TGgOusMKS5UkGFPkp696mfXETUFA4hkni+79F8k=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Sxll1XHBq0EdMVrBhnjyddtAgXkmLif11P+b/AVTEeZvNg1tSQ4cVXmgZxlOkxRHC
- LDBIReWdMR69/JYEXucG03RFqI1UX8ftKt5l89gR7MJuVQ5RHDLdppqir2CKW0Iocw
- mVT2UA+ZXvOMQBdrod0WLu5dSFVzLJpoKO6GOpSiVYyWU2ojae9eYjnBYQp+C47x5A
- oVuUCu4HE4erpaLIi/b0xX6R73I0IF8Xff2TdAUmvnb/S1jTaxtaCjwZEtg8f6n8p/
- WLdOLBmVJ9qc3aySIfixsVA8ofaYZw6XyPYv3hL4xg9xHlGllthhMCvoLX85Nuhsw1
- R74O/N2xic1jA==
-From: Marek Vasut <marex@denx.de>
-To: linux-serial@vger.kernel.org
-Date: Thu, 23 Feb 2023 05:22:52 +0100
-Message-Id: <20230223042252.95480-2-marex@denx.de>
-X-Mailer: git-send-email 2.39.1
-In-Reply-To: <20230223042252.95480-1-marex@denx.de>
-References: <20230223042252.95480-1-marex@denx.de>
+ Thu, 23 Feb 2023 06:00:52 +0000 (UTC)
+Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
+ by formenos.hmeau.com with smtp (Exim 4.94.2 #2 (Debian))
+ id 1pV4el-00EjAW-4v; Thu, 23 Feb 2023 14:00:40 +0800
+Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation);
+ Thu, 23 Feb 2023 14:00:39 +0800
+Date: Thu, 23 Feb 2023 14:00:39 +0800
+From: Herbert Xu <herbert@gondor.apana.org.au>
+To: Li kunyu <kunyu@nfschina.com>, Linus Walleij <linus.walleij@linaro.org>
+Message-ID: <Y/cBB+q0Ono9j2Jy@gondor.apana.org.au>
+References: <20230224215019.3687-1-kunyu@nfschina.com>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.103.6 at phobos.denx.de
-X-Virus-Status: Clean
-Cc: Marek Vasut <marex@denx.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- linux-stm32@st-md-mailman.stormreply.com, Johan Hovold <johan@kernel.org>,
- Lukas Wunner <lukas@wunner.de>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Jiri Slaby <jirislaby@kernel.org>,
- Jean Philippe Romain <jean-philippe.romain@foss.st.com>,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 2/2] serial: stm32: Re-assert RTS/DE GPIO in
-	RS485 mode only if more data are transmitted
+Content-Disposition: inline
+In-Reply-To: <20230224215019.3687-1-kunyu@nfschina.com>
+Cc: linux-kernel@vger.kernel.org, davem@davemloft.net,
+ linux-crypto@vger.kernel.org, mcoquelin.stm32@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] stm32: stm32-hash: Add kmalloc_array
+	allocation check
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -64,57 +48,40 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The stm32_usart_transmit_chars() may be called with empty or stopped
-transmit queue, and no XON/OFF character pending. This can happen at
-the end of transmission, where this last call is used to either handle
-the XON/XOFF x_char, or disable TX interrupt if queue is empty or
-stopped.
+On Sat, Feb 25, 2023 at 05:50:19AM +0800, Li kunyu wrote:
+> If rctx->hw_context allocation of the context pointer failed. Returning
+> -ENOMEM and assigning NULL to the out pointer should improve the
+> robustness of the function.
+> 
+> Signed-off-by: Li kunyu <kunyu@nfschina.com>
+> ---
+>  drivers/crypto/stm32/stm32-hash.c | 4 ++++
+>  1 file changed, 4 insertions(+)
+> 
+> diff --git a/drivers/crypto/stm32/stm32-hash.c b/drivers/crypto/stm32/stm32-hash.c
+> index d33006d43f76..18e79f62be96 100644
+> --- a/drivers/crypto/stm32/stm32-hash.c
+> +++ b/drivers/crypto/stm32/stm32-hash.c
+> @@ -970,6 +970,10 @@ static int stm32_hash_export(struct ahash_request *req, void *out)
+>  	rctx->hw_context = kmalloc_array(3 + HASH_CSR_REGISTER_NUMBER,
+>  					 sizeof(u32),
+>  					 GFP_KERNEL);
+> +	if (rctx->hw_context == NULL) {
+> +		out = NULL;
+> +		return -ENOMEM;
+> +	}
+>  
+>  	preg = rctx->hw_context;
 
-If that occurs, do not assert the RS485 RTS/DE GPIO anymore, as the
-GPIO would remain asserted past the end of transmission and that would
-block the RS485 bus after the transmission.
+Shouldn't we free the hw_context at the end of the function?
 
-Only assert the RS485 RTS/DE GPIO if there is either pending XON/XOFF
-x_char, or at least one character in running transmit queue.
+Why does it even need to be stored in rctx in the first place?
 
-Fixes: d7c76716169d ("serial: stm32: Use TC interrupt to deassert GPIO RTS in RS485 mode")
-Signed-off-by: Marek Vasut <marex@denx.de>
----
-Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
-Cc: Erwan Le Ray <erwan.leray@foss.st.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Jean Philippe Romain <jean-philippe.romain@foss.st.com>
-Cc: Jiri Slaby <jirislaby@kernel.org>
-Cc: Johan Hovold <johan@kernel.org>
-Cc: Lukas Wunner <lukas@wunner.de>
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Cc: Valentin Caron <valentin.caron@foss.st.com>
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-serial@vger.kernel.org
-Cc: linux-stm32@st-md-mailman.stormreply.com
----
- drivers/tty/serial/stm32-usart.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/tty/serial/stm32-usart.c b/drivers/tty/serial/stm32-usart.c
-index bf51e2152dd5a..1e38fc9b10c11 100644
---- a/drivers/tty/serial/stm32-usart.c
-+++ b/drivers/tty/serial/stm32-usart.c
-@@ -693,8 +693,9 @@ static void stm32_usart_transmit_chars(struct uart_port *port)
- 	int ret;
- 
- 	if (!stm32_port->hw_flow_control &&
--	    port->rs485.flags & SER_RS485_ENABLED) {
--		stm32_port->txdone = false;
-+	    port->rs485.flags & SER_RS485_ENABLED &&
-+	    (port->x_char ||
-+	     !(uart_circ_empty(xmit) || uart_tx_stopped(port)))) {
- 		stm32_usart_tc_interrupt_disable(port);
- 		stm32_usart_rs485_rts_enable(port);
- 	}
+Thanks,
 -- 
-2.39.1
-
+Email: Herbert Xu <herbert@gondor.apana.org.au>
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
