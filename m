@@ -2,66 +2,55 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D84BF6A0703
-	for <lists+linux-stm32@lfdr.de>; Thu, 23 Feb 2023 12:06:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8455C6A0780
+	for <lists+linux-stm32@lfdr.de>; Thu, 23 Feb 2023 12:37:30 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 88333C6A5F8;
-	Thu, 23 Feb 2023 11:06:25 +0000 (UTC)
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 37126C6A5F8;
+	Thu, 23 Feb 2023 11:37:30 +0000 (UTC)
+Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.17.24])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AD6A1C65E59
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2DEE9C03FC3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 23 Feb 2023 11:06:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:
- Content-Transfer-Encoding:Content-Type:MIME-Version:References:Message-ID:
- Subject:Cc:To:From:Date:Reply-To:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=UrlychQoRbSfgh80gi+2XZK8/268XFVHwKj39NwBSs8=; b=xUa9rmvZLYJ2m3P6qnhKpcwW2L
- 6pE/p2VJDZW6BPcpyR8NPTO0wmUSIn5YbLDMPxJyzxyRO9zjIPipXyq+Z/3QrRUXJ0+Ae1jaylVrE
- mr/d/pwzRleSFeSq31MvfYGSQH+WtM1SpxCgxHXRTPm2T6lpxnGQBFPaoW8Id/0fUZsu32dMETN1O
- aWHSqvnh6KuveNx54cZMYS+0AwTylcOt6Gb/rlVcqaDOJFUygwR9ur+kOIS4Ozi0t/BHq7jU7PTjP
- pAMqVb747gtccCfKrhftWyYu3qVNTzJXBh8Y2v4dchdG6SIODvLYrwJidZraOhfFpiR/n/cOBWNvq
- 7OxI7dhg==;
-Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:45996)
- by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.94.2)
- (envelope-from <linux@armlinux.org.uk>)
- id 1pV9QT-0007wk-5f; Thu, 23 Feb 2023 11:06:13 +0000
-Received: from linux by shell.armlinux.org.uk with local (Exim 4.94.2)
- (envelope-from <linux@shell.armlinux.org.uk>)
- id 1pV9QO-00047N-G4; Thu, 23 Feb 2023 11:06:08 +0000
-Date: Thu, 23 Feb 2023 11:06:08 +0000
-From: "Russell King (Oracle)" <linux@armlinux.org.uk>
-To: Clark Wang <xiaoning.wang@nxp.com>,
- =?iso-8859-1?Q?Cl=E9ment_L=E9ger?= <clement.leger@bootlin.com>
-Message-ID: <Y/dIoAqWfazh9k6F@shell.armlinux.org.uk>
-References: <20230202081559.3553637-1-xiaoning.wang@nxp.com>
- <83a8fb89ac7a69d08c9ea1422dade301dcc87297.camel@redhat.com>
- <Y/c+MQtgtKFDjEZF@shell.armlinux.org.uk>
- <HE1PR0402MB2939A09FD54E72C80C19A467F3AB9@HE1PR0402MB2939.eurprd04.prod.outlook.com>
+ Thu, 23 Feb 2023 11:37:29 +0000 (UTC)
+Received: from maxwell ([213.61.141.186]) by mrelayeu.kundenserver.de
+ (mreue107 [213.165.67.113]) with ESMTPSA (Nemesis) id
+ 1Mr8SG-1ohIIB3HAU-00oBky; Thu, 23 Feb 2023 12:37:05 +0100
+References: <87y1oq5es0.fsf@henneberg-systemdesign.com>
+ <Y/XbXwKYpy3+pTah@corigine.com>
+ <87lekp66ko.fsf@henneberg-systemdesign.com> <Y/ZY/o5HvNCPLfFg@lunn.ch>
+User-agent: mu4e 1.8.14; emacs 28.2
+From: Jochen Henneberg <jh@henneberg-systemdesign.com>
+To: Andrew Lunn <andrew@lunn.ch>
+Date: Thu, 23 Feb 2023 12:34:18 +0100
+In-reply-to: <Y/ZY/o5HvNCPLfFg@lunn.ch>
+Message-ID: <87v8js4nqa.fsf@henneberg-systemdesign.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <HE1PR0402MB2939A09FD54E72C80C19A467F3AB9@HE1PR0402MB2939.eurprd04.prod.outlook.com>
-Cc: "andrew@lunn.ch" <andrew@lunn.ch>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "edumazet@google.com" <edumazet@google.com>,
- "joabreu@synopsys.com" <joabreu@synopsys.com>,
- dl-linux-imx <linux-imx@nxp.com>,
- "mcoquelin.stm32@gmail.com" <mcoquelin.stm32@gmail.com>,
- "kuba@kernel.org" <kuba@kernel.org>,
- "peppe.cavallaro@st.com" <peppe.cavallaro@st.com>,
- Paolo Abeni <pabeni@redhat.com>, "davem@davemloft.net" <davem@davemloft.net>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
- "hkallweit1@gmail.com" <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH V3 1/2] net: phylink: add a function to
- resume phy alone to fix resume issue with WoL enabled
+X-Provags-ID: V03:K1:Tp18kdHUx4peZI5q9H44bLg0H5sfi0/5HbgR2C4BrUBu9c6GFih
+ KLg1c7spaS/bksijW33N/vG/iMR9WCkKBCbbOoIEO7N4GZOUJUNQNhqGSe98dmnTwY3UJ8l
+ VXaM+iUCPtxGrcciIOIUIrrmlmnmEvvtbLms227JsVsHimqHfOeue4yq4erQzYRaM7PJ3KC
+ VBW7GDdmnDuWaZ+yWTcrg==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:6/GP2YKieoI=;s72evEBC3vLskuzAwIujN9nVreW
+ bj+zhsX7z84myEV/hIJdLRxvEB3QHwx0LEwK3Wsc5oL4WOhbAHq2/Rh/wiAlAPLONtofcIKlU
+ ub5U2e5i/ptYOZN3lETfF7fV360W7+G/ThzQmWeb67wXpN4/HihFWGsW8oBSh00JORJkEAigk
+ lovHkbt0PbkeHG3Hkn4LimIjhcG+Ggz4A/pROiDTmQbNkZmyRgVRi3cHPYbWDhPvN4dp+R5fd
+ prKk4ZPVQv98+qW9FIIviV2TBz4Z6fp/N1Gq7Pl9y7LBat1A7qYZ/rywWN1Xz4B2FSZ2WRJLG
+ r+cDm1xdvDo3qb/22PMAquz1Bq/GCW3iPsqV4xbsS3sgn7xCMUDqlvg35kBH562jcDbFCb15g
+ rVQHXG7vd++U8wNJBuMHva55Hi/YsBShC0+8eBSo695bbrHhdBVtXgg+76pOe9ienVU6HZS9V
+ TJh+aTocr+nROMozuLwuPB7ZHGERePLaLp0diKiB8uSjzER7M69jASmEiCaMawuxAiLv/aL3p
+ DrKKCsJBZ+fJIPidKPoctWjSsa1ZpBiCO2iLRdnRniTTT648KYC8XmDzgCDXAgR9mlWR6WKzT
+ kW2kW9b6rUz3IJk63vqvuTKVEujiWSL/7EAHF4B4F0chKTaw9OactTyaUgbvnpBGb1hE4z/FC
+ HPvLoCnLOymTAI7voPetQkSkVeaic8qbrHzWKu2ZDg==
+Cc: linux-kernel@vger.kernel.org, Simon Horman <simon.horman@corigine.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
+ Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Jakub Kicinski <kuba@kernel.org>, Ong Boon Leong <boon.leong.ong@intel.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>, netdev@vger.kernel.org,
+ Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net V3] net: stmmac: Premature loop
+ termination check was ignored
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,37 +62,65 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, Feb 23, 2023 at 10:27:06AM +0000, Clark Wang wrote:
-> Hi Russel,
-> =
 
-> I have sent the V4 patch set yesterday.
-> You can check it from: https://lore.kernel.org/linux-arm-kernel/202302220=
-92636.1984847-2-xiaoning.wang@nxp.com/T/
-> =
+Andrew Lunn <andrew@lunn.ch> writes:
+
+> On Wed, Feb 22, 2023 at 04:49:55PM +0100, Henneberg - Systemdesign wrote:
+>> 
+>> Simon Horman <simon.horman@corigine.com> writes:
+>> 
+>> > On Wed, Feb 22, 2023 at 08:38:28AM +0100, Jochen Henneberg wrote:
+>> >> 
+>> >> The premature loop termination check makes sense only in case of the
+>> >> jump to read_again where the count may have been updated. But
+>> >> read_again did not include the check.
+>> >> 
+>> >> Fixes: bba2556efad6 ("net: stmmac: Enable RX via AF_XDP zero-copy")
+>> >
+>> > This commit was included in v5.13
+>> >
+>> >> Fixes: ec222003bd94 ("net: stmmac: Prepare to add Split Header support")
+>> >
+>> > While this one was included in v5.4
+>> >
+>> > It seems to me that each of the above commits correspond to one
+>> > of the two hunks below. I don't know if that means this
+>> > patch should be split in two to assist backporting.
+>> >
+>> 
+>> I was thinking about this already but the change was so trivial that I
+>> hesitated to split it into two commits. I wanted I will surely change
+>> this.
+>
+> The advantage of splitting is that it makes back porting easy. Both
+> parts are needed for 6.1 and 5.15. 5.10 only needs the fix for
+> ec222003bd94. It if does not easily apply to 5.10 it could get
+> dropped. By splitting it, the backporting probably happens fully
+> automated, no human involved.
+
+Understood. Will do the split and send two new patches. I will not
+continue with version upcounting and not send a patch series but two
+completly independent patches.
+
+Jochen
+
+>
+> 	Andrew
 
 
-Ah yes, sent while net-next is closed.
-
-Have you had any contact with Cl=E9ment L=E9ger ? If not, please can you
-reach out to Cl=E9ment, because he has virtually the same problem. I
-don't want to end up with a load of different fixes in the mainline
-kernel for the same "we need the PHY clock enabled on stmmac" problem
-from different people.
-
-Please try to come up with one patch set between you both to fix this.
-
-(effectively, that's a temporary NAK on your series.)
-
--- =
-
-RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-FTTP is here! 40Mbps down 10Mbps up. Decent connectivity at last!
+-- 
+Henneberg - Systemdesign
+Jochen Henneberg
+Loehnfeld 26
+21423 Winsen (Luhe)
+--
+Fon: +49 172 160 14 69
+Url: https://www.henneberg-systemdesign.com
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
