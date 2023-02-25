@@ -2,67 +2,79 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2FDFF6A254A
-	for <lists+linux-stm32@lfdr.de>; Sat, 25 Feb 2023 01:02:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A0EF36A2764
+	for <lists+linux-stm32@lfdr.de>; Sat, 25 Feb 2023 06:47:37 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id ABD78C6904B;
-	Sat, 25 Feb 2023 00:02:00 +0000 (UTC)
-Received: from mail-yw1-f173.google.com (mail-yw1-f173.google.com
- [209.85.128.173])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 41ABBC65E70;
+	Sat, 25 Feb 2023 05:47:37 +0000 (UTC)
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com
+ [209.85.221.51])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D18CDC65E4F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EC34FC65E4C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 25 Feb 2023 00:01:58 +0000 (UTC)
-Received: by mail-yw1-f173.google.com with SMTP id
- 00721157ae682-5384ff97993so23845837b3.2
+ Sat, 25 Feb 2023 05:47:35 +0000 (UTC)
+Received: by mail-wr1-f51.google.com with SMTP id bo30so1318106wrb.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 24 Feb 2023 16:01:58 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=YGce1k7vLcc005CSr+hSLKXBF5SLmaJtWY6pcwxKx0Q=;
- b=wmKV6llXzbyV9ZIrbyej2OunFiU741qhFzyT++YfHdH+wiBtK7OyXKguWCb/kxA5lR
- DgiV/yoxIJFHFT7HIAGeNE09zKS75YuufpetByYC+zQvHhisK1MF1WcBapNZQL2eZoTE
- QHiLj96u/q3tU+9/uJa4MeMk3UhGRkOxdXZPb8EDh1xZ3nxCyran5snsFAKmTd/5JtEu
- FzHlHgHlzZp3XLv5EM9LwJixEhKTFFF1gIvYyhd8N03lSvOiQxUSedhNiJdnX0om6B9S
- ntCGHIcAFPwdHLJL2q3LRLX9MSEOB3M4l/aQIIHL5vFmWJgiaeGOAcJ+ZKIBu2P0b/sx
- fnvQ==
+ Fri, 24 Feb 2023 21:47:35 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20210112;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=LiST8596u5SW2OT95mO4vwyxbo+eN0yAsaEYN7M3IJc=;
+ b=p1goS1GxDpHe69NI5SRLq8F4rfieQ+bExX2nozq4F4kWhGFIEqxvgFQ9gmMLOeq7Od
+ Zf38tlyAYp5g3DPIE6RBTOXQf9Q/jFjI8AcsXycD7zs0kij6ZvJslExLb5lLfBwVsePr
+ MbOdyfxJz65BgV557DZiHpcgDMSZgQysKIyLJ1+MFpBAeyIznQRgI+pPwKRqNw9SX3/9
+ FzHixX0BXXZ2FNKGIqLE1CRGu+AMELTOrJqAZZF0M7fflx9eGDdLKaiiKc657gwqFdK4
+ oEb6Is/wm4HCNHkLfV6TEnme0uFORY8idWB9xLe2soxHasGEHz1+3YJZHPYjVfxPxhbe
+ PRUQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=YGce1k7vLcc005CSr+hSLKXBF5SLmaJtWY6pcwxKx0Q=;
- b=CpB7H0QIP4b3oNJ4QEI/k9vdQ4/69YrFXtCilQlo86V9sNVdIjkn/Ey3m74jeEh6yT
- s3pPPbN7EC6KYKUR0QZnUhwcHJHEahN7jSwk33XiZ/MJcnKX8LUxR33+TAWyE4c+5Nyp
- E9JfakjPvWZy9SoAwlMAmOd95yn60lmyX8Q07AwqqMovQRHIYtA53vAX63m7N98gpp5C
- Szg3FN1MRRwDJdKrvkBRPe4yElZS7T2dET644AXncsikbKkd7utvKufr29UAxZbUKHy8
- 1MbtMFtFhq8ar0bxXeseq8l1EP5hJXjMTlIinQowfZqtj8XUCp4rHYW0sk1366YqoBvI
- vfSA==
-X-Gm-Message-State: AO0yUKU8Ad52zB76lKCXtVOtaTfhvMweZR9o2db/OJS2CLufiUhew1Z1
- SnL8rBcHLUPwq/cp5/Tgk1ScPPpzqGhh53MqI7C7qw==
-X-Google-Smtp-Source: AK7set99QV/uEaIf43VqawXg5tt6DNfPTfljZt6PYvMnndqiUknRY5fA1wfLo7lx9pLsVMLGPQvxOcTnIyR7ML4cJf4=
-X-Received: by 2002:a81:af1b:0:b0:533:8080:16ee with SMTP id
- n27-20020a81af1b000000b00533808016eemr5627579ywh.10.1677283317533; Fri, 24
- Feb 2023 16:01:57 -0800 (PST)
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=LiST8596u5SW2OT95mO4vwyxbo+eN0yAsaEYN7M3IJc=;
+ b=v+lu6dWrU7E5QqRDPUytPR6BmVBSc73D64haX37/FH4iwEfYoMSMsngUzoFII1CgA5
+ x2VuitUySFImEtG+aedw6wmGFcPcRdhRImQ324IZH53S8US0wpADZTSRHltJVBdRM48e
+ vfJCFmOrQLwJsLWKB3+6XjX0Hxb5b6xC8AHe2kbTXF5BHR9IN8vjI8vMeklDpVs0VWhq
+ X6176xoFGBkD1S4jmG3I+mmpFnUT6z6M1aLl52ysSfOsT9dqA5TICSJ3VvOMfGVeEu6G
+ jSuOzyslB/dbee6NVx4TVHRdRm00sQBb5pfEkhfSx2qRkbq1fN3C/ZBkJPkV4J3qelEy
+ TplQ==
+X-Gm-Message-State: AO0yUKWanQ8F3uZjJhAYj5x73RFjJQTTj0KzpVAzpNOimeua5Txe95WV
+ q2795UtOjysW4K3yQY79LDBNr8aaI8lWZs64QfC8CA==
+X-Google-Smtp-Source: AK7set+a3nC9KQjdJ0kZohZ+u36oNsTS7RmKWeZajLQ2c7xaDgResXUAlsshR4qweCkPqQiFGEpAV7XuUVi2FhFLwNU=
+X-Received: by 2002:a5d:6401:0:b0:2c5:fd95:c495 with SMTP id
+ z1-20020a5d6401000000b002c5fd95c495mr1623328wru.4.1677304055182; Fri, 24 Feb
+ 2023 21:47:35 -0800 (PST)
 MIME-Version: 1.0
-References: <Y/cBB+q0Ono9j2Jy@gondor.apana.org.au>
- <20230224231430.2948-1-kunyu@nfschina.com>
- <Y/cy5wUtk10OahpO@gondor.apana.org.au>
- <CACRpkdYyB=-UnE1bmdVszSSB5ReECZ0fUoWJX6XtYbKHEe52tA@mail.gmail.com>
- <Y/c7iVW67Xhhdu8e@gondor.apana.org.au> <Y/hQdzsKMYgkIfMY@gondor.apana.org.au>
-In-Reply-To: <Y/hQdzsKMYgkIfMY@gondor.apana.org.au>
-From: Linus Walleij <linus.walleij@linaro.org>
-Date: Sat, 25 Feb 2023 01:01:46 +0100
-Message-ID: <CACRpkdZe3cMMxJesD0mpqHTwvuWHjSGVHsiFUQQyuA+VWknMTQ@mail.gmail.com>
-To: Herbert Xu <herbert@gondor.apana.org.au>
-Cc: Li kunyu <kunyu@nfschina.com>, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-crypto@vger.kernel.org,
- mcoquelin.stm32@gmail.com, davem@davemloft.net,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [v2 PATCH] crypto: stm32 - Save and restore
-	between each request
+References: <20230219092848.639226-1-irogers@google.com>
+ <20230219092848.639226-51-irogers@google.com>
+ <Y/k+p8IPY/ftl3KQ@google.com>
+In-Reply-To: <Y/k+p8IPY/ftl3KQ@google.com>
+From: Ian Rogers <irogers@google.com>
+Date: Fri, 24 Feb 2023 21:47:22 -0800
+Message-ID: <CAP-5=fWtziP7HzXKZHKxZdQuQ=sTEyNVKNkPVnhYNF-BcX8eKw@mail.gmail.com>
+To: Namhyung Kim <namhyung@kernel.org>
+Cc: Mark Rutland <mark.rutland@arm.com>, Sandipan Das <sandipan.das@amd.com>,
+ Peter Zijlstra <peterz@infradead.org>, Perry Taylor <perry.taylor@intel.com>,
+ Stephane Eranian <eranian@google.com>, linux-kernel@vger.kernel.org,
+ James Clark <james.clark@arm.com>, linux-stm32@st-md-mailman.stormreply.com,
+ Kan Liang <kan.liang@linux.intel.com>,
+ Suzuki Poulouse <suzuki.poulose@arm.com>, Andrii Nakryiko <andrii@kernel.org>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Ingo Molnar <mingo@redhat.com>, Zhengjun Xing <zhengjun.xing@linux.intel.com>,
+ Jiri Olsa <jolsa@kernel.org>, John Garry <john.g.garry@oracle.com>,
+ Kajol Jain <kjain@linux.ibm.com>, Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Caleb Biggers <caleb.biggers@intel.com>, linux-arm-kernel@lists.infradead.org,
+ Athira Rajeev <atrajeev@linux.vnet.ibm.com>,
+ Sean Christopherson <seanjc@google.com>, Ravi Bangoria <ravi.bangoria@amd.com>,
+ Florian Fischer <florian.fischer@muhq.space>,
+ Adrian Hunter <adrian.hunter@intel.com>, linux-perf-users@vger.kernel.org,
+ Eduard Zingerman <eddyz87@gmail.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Leo Yan <leo.yan@linaro.org>,
+ Jing Zhang <renyu.zj@linux.alibaba.com>
+Subject: Re: [Linux-stm32] [PATCH v1 50/51] perf stat: Use counts rather
+	than saved_value
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,69 +86,78 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Herbert,
-
-I tested this on the Ux500 and sadly this happens
-already in probe():
-
-[    2.802539] stm32-hash a03c2000.hash: dma-maxburst not specified, using 0
-[    2.809342] stm32-hash a03c2000.hash: No IRQ, use polling mode
-[    2.815226] stm32-hash a03c2000.hash: DMA mode not available
-[    2.821140] stm32-hash a03c2000.hash: will run requests pump with
-realtime priority
-[    2.828815] stm32-hash a03c2000.hash: Algo 0 : 0 failed
-[    2.834144] stm32-hash: probe of a03c2000.hash failed with error -22
-
-I don't quite understand why, we never get to the tests...
-
-On Fri, Feb 24, 2023 at 6:52 AM Herbert Xu <herbert@gondor.apana.org.au> wrote:
-
-> v2 fixes potential state clobbering from the disconnect between
-> hdev->flags and rctx->flags.
->
-> ---8<---
-> The Crypto API hashing paradigm requires the hardware state to
-> be exported between *each* request because multiple unrelated
-> hashes may be processed concurrently.
->
-> The stm32 hardware is capable of producing the hardware hashing
-> state but it was only doing it in the export function.  This is
-> not only broken for export as you can't export a kernel pointer
-> and reimport it, but it also means that concurrent hashing was
-> fundamentally broken.
->
-> Fix this by moving the saving and restoring of hardware hash
-> state between each and every hashing request.
->
-> Fixes: 8a1012d3f2ab ("crypto: stm32 - Support for STM32 HASH module")
-> Reported-by: Li kunyu <kunyu@nfschina.com>
-> Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
-
-I think I understand the direction of the patch but it seems
-the pm_runtime_* calls get unbalanced since now this is taken
-in
-stm32_hash_one_request
- -> stm32_hash_hw_init()
-    -> pm_runtime_get_sync()
-
-But no corresponding
-pm_runtime_mark_last_busy(hdev->dev);
-pm_runtime_put_autosuspend(hdev->dev);
-
-Exist anymore? You know the semantics better than me,
-I'm not sure where to put this, I guess where you save
-the HW state in stm32_hash_update_cpu()?
-
-I don't know about the DMA case then though.
-
-Yours,
-Linus Walleij
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gRnJpLCBGZWIgMjQsIDIwMjMgYXQgMjo0OOKAr1BNIE5hbWh5dW5nIEtpbSA8bmFtaHl1bmdA
+a2VybmVsLm9yZz4gd3JvdGU6Cj4KPiBPbiBTdW4sIEZlYiAxOSwgMjAyMyBhdCAwMToyODo0N0FN
+IC0wODAwLCBJYW4gUm9nZXJzIHdyb3RlOgo+ID4gU3dpdGNoIHRoZSBoYXJkIGNvZGVkIG1ldHJp
+Y3MgdG8gdXNlIHRoZSBhZ2dyZWdhdGUgdmFsdWUgcmF0aGVyIHRoYW4KPiA+IGZyb20gc2F2ZWRf
+dmFsdWUuIFdoZW4gY29tcHV0aW5nIGEgbWV0cmljIGxpa2UgSVBDIHRoZSBhZ2dyZWdhdGUgY291
+bnQKPiA+IGNvbWVzIGZyb20gaW5zdHJ1Y3Rpb25zIHRoZW4gY3ljbGVzIGlzIGxvb2tlZCB1cCBh
+bmQgaWYgcHJlc2VudCBJUEMKPiA+IGNvbXB1dGVkLiBSYXRoZXIgdGhhbiBsb29rdXAgZnJvbSB0
+aGUgc2F2ZWRfdmFsdWUgcmJ0cmVlLCBzZWFyY2ggdGhlCj4gPiBjb3VudGVyJ3MgZXZsaXN0IGZv
+ciB0aGUgZGVzaXJlZCBjb3VudGVyLgo+ID4KPiA+IEEgbmV3IGhlbHBlciBldnNlbF9fc3RhdF90
+eXBlIGlzIHVzZWQgdG8gYm90aCBxdWlja2x5IGZpbmQgYSBtZXRyaWMKPiA+IGZ1bmN0aW9uIGFu
+ZCB0byBpZGVudGlmeSB3aGVuIGEgY291bnRlciBpcyB0aGUgb25lIGJlaW5nIHNvdWdodC4gU28K
+PiA+IHRoYXQgYm90aCB0b3RhbCBhbmQgbWlzcyBjb3VudHMgY2FuIGJlIHNvdWdodCwgdGhlIHN0
+YXRfdHlwZSBlbnVtIGlzCj4gPiBleHBhbmRlZC4gVGhlIHJhdGlvIGZ1bmN0aW9ucyBhcmUgcmV3
+cml0dGVuIHRvIHNoYXJlIGEgY29tbW9uIGhlbHBlcgo+ID4gd2l0aCB0aGUgcmF0aW9zIGJlaW5n
+IGRpcmVjdGx5IHBhc3NlZCByYXRoZXIgdGhhbiBjb21wdXRlZCBmcm9tIGFuCj4gPiBlbnVtIHZh
+bHVlLgo+ID4KPiA+IFNpZ25lZC1vZmYtYnk6IElhbiBSb2dlcnMgPGlyb2dlcnNAZ29vZ2xlLmNv
+bT4KPiA+IC0tLQo+IFtTTklQXQo+ID4gLXN0YXRpYyBkb3VibGUgcnVudGltZV9zdGF0X2F2Zyhl
+bnVtIHN0YXRfdHlwZSB0eXBlLCBpbnQgYWdncl9pZHgsCj4gPiAtICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgIHN0cnVjdCBydW50aW1lX3N0YXRfZGF0YSAqcnNkKQo+ID4gK3N0YXRpYyBkb3Vi
+bGUgZmluZF9zdGF0KGNvbnN0IHN0cnVjdCBldnNlbCAqZXZzZWwsIGludCBhZ2dyX2lkeCwgZW51
+bSBzdGF0X3R5cGUgdHlwZSkKPiA+ICB7Cj4gPiAtICAgICBzdHJ1Y3Qgc2F2ZWRfdmFsdWUgKnY7
+Cj4gPiAtCj4gPiAtICAgICB2ID0gc2F2ZWRfdmFsdWVfbG9va3VwKE5VTEwsIGFnZ3JfaWR4LCBm
+YWxzZSwgdHlwZSwgcnNkLT5jdHgsIHJzZC0+Y2dycCk7Cj4gPiAtICAgICBpZiAoIXYpCj4gPiAt
+ICAgICAgICAgICAgIHJldHVybiAwLjA7Cj4gPiAtCj4gPiAtICAgICByZXR1cm4gYXZnX3N0YXRz
+KCZ2LT5zdGF0cyk7Cj4gPiArICAgICBjb25zdCBzdHJ1Y3QgZXZzZWwgKmN1cjsKPiA+ICsgICAg
+IGludCBldnNlbF9jdHggPSBldnNlbF9jb250ZXh0KGV2c2VsKTsKPiA+ICsKPiA+ICsgICAgIGV2
+bGlzdF9fZm9yX2VhY2hfZW50cnkoZXZzZWwtPmV2bGlzdCwgY3VyKSB7Cj4gPiArICAgICAgICAg
+ICAgIHN0cnVjdCBwZXJmX3N0YXRfYWdnciAqYWdncjsKPiA+ICsKPiA+ICsgICAgICAgICAgICAg
+LyogSWdub3JlIHRoZSBldnNlbCB0aGF0IGlzIGJlaW5nIHNlYXJjaGVkIGZyb20uICovCj4gPiAr
+ICAgICAgICAgICAgIGlmIChldnNlbCA9PSBjdXIpCj4gPiArICAgICAgICAgICAgICAgICAgICAg
+Y29udGludWU7Cj4gPiArCj4gPiArICAgICAgICAgICAgIC8qIElnbm9yZSBldnNlbHMgdGhhdCBh
+cmUgcGFydCBvZiBkaWZmZXJlbnQgZ3JvdXBzLiAqLwo+ID4gKyAgICAgICAgICAgICBpZiAoZXZz
+ZWwtPmNvcmUubGVhZGVyLT5ucl9tZW1iZXJzICYmCj4gPiArICAgICAgICAgICAgICAgICBldnNl
+bC0+Y29yZS5sZWFkZXIgIT0gY3VyLT5jb3JlLmxlYWRlcikKPgo+IFRoZSBldnNlbC0+bnJfbWVt
+YmVycyBpcyBzb21ld2hhdCBjb25mdXNpbmcgaW4gdGhhdCBpdCBjb3VudHMgaXRzZWxmCj4gYXMg
+YSBtZW1iZXIuICBJJ20gbm90IHN1cmUgaXQgcmVzZXRzIHRoZSBucl9tZW1iZXJzIHRvIDAgZm9y
+IHN0YW5kYWxvbmUKPiBldmVudHMuICBZb3UnZCBiZXR0ZXIgY2hlY2tpbmcgbnJfbWVtYmVycyBn
+cmVhdGVyIHRoYW4gMSBmb3IgZ3JvdXAKPiBldmVudHMuCgpBZ3JlZWQuIFRoZSBjb2RlIGlzIGNv
+cnJlY3QgYXMgdGhlIG5yX21lbWJlcnMgaXMgb25seSBzZXQgd2hlbiB0aGUKZ3JvdXAgaXMgY2xv
+c2VkIGJ5IHRoZSBjYWxsIHRvIHBhcnNlX2V2ZW50c19zZXRfbGVhZGVyLCBzdGFuZGFsb25lCmV2
+ZW50cyBkb24ndCBjbG9zZSBhIGdyb3VwIGFuZCBzbyBoYXZlIG5yX21lbWJlcnMgb2YgMCwgYnV0
+IEkgYWdyZWUKdGhhdCdzIGNvbmZ1c2luZy4KCkknbSBhY3R1YWxseSBsb29raW5nIGF0IGEgcmVs
+YXRlZCBidWcgd2hlcmUgdGVsbGluZyBtZXRyaWNzIG5vdCB0bwpncm91cCBldmVudHMgYnJlYWtz
+IHRoZSB0b3Bkb3duIGV2ZW50cyB0aGF0IG11c3QgYmUgZ3JvdXBlZCB3aXRoCnNsb3RzLgoKT25l
+IHRoaW5nIHRoYXQgYnVncyBtZSBpcyB0aGUgbGlicGVyZiBldnNlbCBpZHggdmFyaWFibGUuIFdo
+ZW4gYW4KZXZzZWwgaXMgYWRkZWQgdG8gYW4gZXZsaXN0IHRoZSBpZHggaXMgdGhhdCBudW1iZXIg
+b2YgZWxlbWVudHMgaW4gdGhlCmV2bGlzdC4gSG93ZXZlciwgd2UgcmVvcmdhbml6ZSB0aGUgbGlz
+dCBpbiBwYXJzZS1ldmVudHMgYW5kIHNvIHRoZSBpZHgKaXMganVzdCBhIGhvcGVmdWxseSB1bmlx
+dWUgdmFsdWUgaW4gdGhlIGxpc3QuIEluIHBsYWNlcyBpbiBwYXJzZQpldmVudHMgd2UgdXNlIHRo
+ZSBpZHggZm9yIGNvbXB1dGluZyB0aGUgbGVuZ3RoIG9mIHRoZSBldmxpc3QgYnkKc3VidHJhY3Rp
+bmcgdGhlIGxhc3QgaWR4IGZyb20gdGhlIGZpcnN0IGFuZCBhZGRpbmcgMS4gUmVtb3ZpbmcgdGhl
+IGlkeAppc24ndCBzdHJhaWdodGZvcndhcmQgdGhvdWdoIGFzIGxhdGVyIG9uIGl0IGlzIHVzZWQg
+Zm9yIG1tYXBzLgoKVGhhbmtzLApJYW4KCj4gVGhhbmtzLAo+IE5hbWh5dW5nCj4KPgo+ID4gKyAg
+ICAgICAgICAgICAgICAgICAgIGNvbnRpbnVlOwo+ID4gKyAgICAgICAgICAgICAvKiBJZ25vcmUg
+ZXZzZWxzIHdpdGggbWlzbWF0Y2hlZCBtb2RpZmllcnMuICovCj4gPiArICAgICAgICAgICAgIGlm
+IChldnNlbF9jdHggIT0gZXZzZWxfY29udGV4dChjdXIpKQo+ID4gKyAgICAgICAgICAgICAgICAg
+ICAgIGNvbnRpbnVlOwo+ID4gKyAgICAgICAgICAgICAvKiBJZ25vcmUgaWYgbm90IHRoZSBjZ3Jv
+dXAgd2UncmUgbG9va2luZyBmb3IuICovCj4gPiArICAgICAgICAgICAgIGlmIChldnNlbC0+Y2dy
+cCAhPSBjdXItPmNncnApCj4gPiArICAgICAgICAgICAgICAgICAgICAgY29udGludWU7Cj4gPiAr
+ICAgICAgICAgICAgIC8qIElnbm9yZSBpZiBub3QgdGhlIHN0YXQgd2UncmUgbG9va2luZyBmb3Iu
+ICovCj4gPiArICAgICAgICAgICAgIGlmICh0eXBlICE9IGV2c2VsX19zdGF0X3R5cGUoY3VyKSkK
+PiA+ICsgICAgICAgICAgICAgICAgICAgICBjb250aW51ZTsKPiA+ICsKPiA+ICsgICAgICAgICAg
+ICAgYWdnciA9ICZjdXItPnN0YXRzLT5hZ2dyW2FnZ3JfaWR4XTsKPiA+ICsgICAgICAgICAgICAg
+aWYgKHR5cGUgPT0gU1RBVF9OU0VDUykKPiA+ICsgICAgICAgICAgICAgICAgICAgICByZXR1cm4g
+YWdnci0+Y291bnRzLnZhbDsKPiA+ICsgICAgICAgICAgICAgcmV0dXJuIGFnZ3ItPmNvdW50cy52
+YWwgKiBjdXItPnNjYWxlOwo+ID4gKyAgICAgfQo+ID4gKyAgICAgcmV0dXJuIDAuMDsKPiA+ICB9
+Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0
+bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29t
+Cmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xp
+bnV4LXN0bTMyCg==
