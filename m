@@ -2,79 +2,79 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 882936A532D
+	by mail.lfdr.de (Postfix) with ESMTPS id A53E36A532E
 	for <lists+linux-stm32@lfdr.de>; Tue, 28 Feb 2023 07:55:07 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 306EDC6A5FE;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 43B11C6A601;
 	Tue, 28 Feb 2023 06:55:07 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8B4CFC69067
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id ADBA5C69067
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 27 Feb 2023 20:13:28 +0000 (UTC)
+ Mon, 27 Feb 2023 22:04:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1677528808; x=1709064808;
+ t=1677535497; x=1709071497;
  h=message-id:date:mime-version:subject:to:cc:references:
  from:in-reply-to:content-transfer-encoding;
- bh=iCSUgrVsZAccn8cgPRVfxx9tJ3jkEEeSFJ/7vBr2oPA=;
- b=GNvsU6AooI3wxc98SKMshsCcWSZ93DLVaO0kxXOf0JQsu1+mG4QOX7uF
- NsY26uPQznkgt8n0U0zxbrMKD+22ncfbfP0z1rv0e4c/4XqjxyR5aCTjx
- RRQQ8DypMgdMoxe2oiKuqvtT3tT7tz5Bey9MXVHe4T9nzaBRLW5RJURwW
- uWLZP6Odl2X+7o40mOcj39osUconp73E7a2X6wgzihzqpqoaqABfiqeRt
- 1fbXQk7+aYD4JhoWi3jLvOeafGfkTfa7sZbksZvtRfMYNBlMw8Xvf900L
- qKUDx8rQEJHVz2xEHEGq21sTdqdnMXVB+gra3uuosGgp//ilxg/L9gLh2 A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10634"; a="322203197"
-X-IronPort-AV: E=Sophos;i="5.98,219,1673942400"; d="scan'208";a="322203197"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Feb 2023 12:13:25 -0800
+ bh=csJ1rGmYvE1WrBu5LReHbcl+ibbMmSprU8dA1zAkPpE=;
+ b=GSsZiXjdlWkRt5Q9YZxPvZpc0Sg93swuIzx3y+HL+lzZm5GEvpuWz9iQ
+ TiKxPpag21nn/ud8AWh+4YCUsZ9aX67fUB8BzIhs2QbFZXnRFpMDoH0vv
+ LjHF03Da2J8jj6G6fm8HOL6fJf1DVBxoVY5AAGNp5WVQw0nR5eIvNdv5S
+ 7yC1yk9Fdk5ww+0Pc1LsZi/dOs1h0RyQ1cBOygUwHS3ftXol4bkbWouv3
+ j+gD4r2m3Mh+4rA8jnJVrYZNQDD1p8F7QnQa/Yhc6s5g215wKQLnXbaeP
+ jXzjZKT8NToPbP7lJ8LtMq46S82HFBOf4ims3nli1Bw/Ed35rJ2KJnIs7 w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10634"; a="398755587"
+X-IronPort-AV: E=Sophos;i="5.98,220,1673942400"; d="scan'208";a="398755587"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Feb 2023 14:04:55 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10634"; a="667166862"
-X-IronPort-AV: E=Sophos;i="5.98,219,1673942400"; d="scan'208";a="667166862"
+X-IronPort-AV: E=McAfee;i="6500,9779,10634"; a="816841775"
+X-IronPort-AV: E=Sophos;i="5.98,220,1673942400"; d="scan'208";a="816841775"
 Received: from linux.intel.com ([10.54.29.200])
- by orsmga007.jf.intel.com with ESMTP; 27 Feb 2023 12:12:59 -0800
+ by fmsmga001.fm.intel.com with ESMTP; 27 Feb 2023 14:04:53 -0800
 Received: from [10.212.193.244] (kliang2-mobl1.ccr.corp.intel.com
  [10.212.193.244])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by linux.intel.com (Postfix) with ESMTPS id 1D17F580689;
- Mon, 27 Feb 2023 12:12:56 -0800 (PST)
-Message-ID: <231233ec-a098-fab6-6444-3da46bdad039@linux.intel.com>
-Date: Mon, 27 Feb 2023 15:12:54 -0500
+ by linux.intel.com (Postfix) with ESMTPS id 90554580689;
+ Mon, 27 Feb 2023 14:04:49 -0800 (PST)
+Message-ID: <dc14eb3e-f5e3-4a64-85e6-5be6072e305d@linux.intel.com>
+Date: Mon, 27 Feb 2023 17:04:48 -0500
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.8.0
 Content-Language: en-US
-To: Ian Rogers <irogers@google.com>
-References: <20230219092848.639226-1-irogers@google.com>
- <20230219092848.639226-40-irogers@google.com>
- <09f0e75a-a11d-7db1-6308-f1b00462908c@linux.intel.com>
- <CAP-5=fW8cM0cWaCs8Vu9Nom1i2TF024-yyHtdUQx8QE3HFTq0w@mail.gmail.com>
-From: "Liang, Kan" <kan.liang@linux.intel.com>
-In-Reply-To: <CAP-5=fW8cM0cWaCs8Vu9Nom1i2TF024-yyHtdUQx8QE3HFTq0w@mail.gmail.com>
-X-Mailman-Approved-At: Tue, 28 Feb 2023 06:55:05 +0000
-Cc: Mark Rutland <mark.rutland@arm.com>, Sandipan Das <sandipan.das@amd.com>,
- Peter Zijlstra <peterz@infradead.org>, Perry Taylor <perry.taylor@intel.com>,
- Stephane Eranian <eranian@google.com>, linux-kernel@vger.kernel.org,
- James Clark <james.clark@arm.com>, linux-stm32@st-md-mailman.stormreply.com,
- Suzuki Poulouse <suzuki.poulose@arm.com>, Andrii Nakryiko <andrii@kernel.org>,
+To: Ian Rogers <irogers@google.com>, Peter Zijlstra <peterz@infradead.org>,
+ Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>,
  Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Ingo Molnar <mingo@redhat.com>, Zhengjun Xing <zhengjun.xing@linux.intel.com>,
- Jiri Olsa <jolsa@kernel.org>, John Garry <john.g.garry@oracle.com>,
- Kajol Jain <kjain@linux.ibm.com>, Arnaldo Carvalho de Melo <acme@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, Caleb Biggers <caleb.biggers@intel.com>,
- linux-arm-kernel@lists.infradead.org,
- Athira Rajeev <atrajeev@linux.vnet.ibm.com>,
- Sean Christopherson <seanjc@google.com>, Ravi Bangoria <ravi.bangoria@amd.com>,
+ Jiri Olsa <jolsa@kernel.org>, Namhyung Kim <namhyung@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Zhengjun Xing <zhengjun.xing@linux.intel.com>,
+ Sandipan Das <sandipan.das@amd.com>, James Clark <james.clark@arm.com>,
+ Kajol Jain <kjain@linux.ibm.com>, John Garry <john.g.garry@oracle.com>,
+ Adrian Hunter <adrian.hunter@intel.com>, Andrii Nakryiko
+ <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>,
+ Suzuki Poulouse <suzuki.poulose@arm.com>, Leo Yan <leo.yan@linaro.org>,
  Florian Fischer <florian.fischer@muhq.space>,
- Adrian Hunter <adrian.hunter@intel.com>, linux-perf-users@vger.kernel.org,
- Eduard Zingerman <eddyz87@gmail.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Leo Yan <leo.yan@linaro.org>,
- Jing Zhang <renyu.zj@linux.alibaba.com>
-Subject: Re: [Linux-stm32] [PATCH v1 39/51] perf stat: Add TopdownL1 metric
- as a default if present
+ Ravi Bangoria <ravi.bangoria@amd.com>,
+ Jing Zhang <renyu.zj@linux.alibaba.com>,
+ Sean Christopherson <seanjc@google.com>,
+ Athira Rajeev <atrajeev@linux.vnet.ibm.com>, linux-kernel@vger.kernel.org,
+ linux-perf-users@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, Perry Taylor <perry.taylor@intel.com>,
+ Caleb Biggers <caleb.biggers@intel.com>
+References: <20230219092848.639226-1-irogers@google.com>
+From: "Liang, Kan" <kan.liang@linux.intel.com>
+In-Reply-To: <20230219092848.639226-1-irogers@google.com>
+X-Mailman-Approved-At: Tue, 28 Feb 2023 06:55:05 +0000
+Cc: Stephane Eranian <eranian@google.com>
+Subject: Re: [Linux-stm32] [PATCH v1 00/51] shadow metric clean up and
+	improvements
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,168 +86,237 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-CgpPbiAyMDIzLTAyLTI3IDI6MzMgcC5tLiwgSWFuIFJvZ2VycyB3cm90ZToKPiBPbiBNb24sIEZl
-YiAyNywgMjAyMyBhdCAxMToxMuKAr0FNIExpYW5nLCBLYW4gPGthbi5saWFuZ0BsaW51eC5pbnRl
-bC5jb20+IHdyb3RlOgo+Pgo+Pgo+Pgo+PiBPbiAyMDIzLTAyLTE5IDQ6MjggYS5tLiwgSWFuIFJv
-Z2VycyB3cm90ZToKPj4+IFdoZW4gdGhlcmUgYXJlIG5vIGV2ZW50cyBhbmQgb24gSW50ZWwsIHRo
-ZSB0b3Bkb3duIGV2ZW50cyB3aWxsIGJlCj4+PiBhZGRlZCBieSBkZWZhdWx0IGlmIHByZXNlbnQu
-IFRvIGRpc3BsYXkgdGhlIG1ldHJpY3MgYXNzb2NpYXRlZCB3aXRoCj4+PiB0aGVzZSByZXF1ZXN0
-IHNwZWNpYWwgaGFuZGxpbmcgaW4gc3RhdC1zaGFkb3cuYy4gVG8gbW9yZSBlYXNpbHkgdXBkYXRl
-Cj4+PiB0aGVzZSBtZXRyaWNzIHVzZSB0aGUganNvbiBtZXRyaWMgdmVyc2lvbiB2aWEgdGhlIFRv
-cGRvd25MMQo+Pj4gZ3JvdXAuIFRoaXMgbWFrZXMgdGhlIGhhbmRsaW5nIGxlc3MgcGxhdGZvcm0g
-c3BlY2lmaWMuCj4+Pgo+Pj4gTW9kaWZ5IHRoZSBtZXRyaWNncm91cF9faGFzX21ldHJpYyBjb2Rl
-IHRvIGFsc28gY292ZXIgbWV0cmljIGdyb3Vwcy4KPj4+Cj4+PiBTaWduZWQtb2ZmLWJ5OiBJYW4g
-Um9nZXJzIDxpcm9nZXJzQGdvb2dsZS5jb20+Cj4+PiAtLS0KPj4+ICB0b29scy9wZXJmL2FyY2gv
-eDg2L3V0aWwvZXZsaXN0LmMgIHwgIDYgKysrLS0tCj4+PiAgdG9vbHMvcGVyZi9hcmNoL3g4Ni91
-dGlsL3RvcGRvd24uYyB8IDMwIC0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQo+Pj4gIHRv
-b2xzL3BlcmYvYXJjaC94ODYvdXRpbC90b3Bkb3duLmggfCAgMSAtCj4+PiAgdG9vbHMvcGVyZi9i
-dWlsdGluLXN0YXQuYyAgICAgICAgICB8IDE0ICsrKysrKysrKysrKysrCj4+PiAgdG9vbHMvcGVy
-Zi91dGlsL21ldHJpY2dyb3VwLmMgICAgICB8ICA2ICsrLS0tLQo+Pj4gIDUgZmlsZXMgY2hhbmdl
-ZCwgMTkgaW5zZXJ0aW9ucygrKSwgMzggZGVsZXRpb25zKC0pCj4+Pgo+Pj4gZGlmZiAtLWdpdCBh
-L3Rvb2xzL3BlcmYvYXJjaC94ODYvdXRpbC9ldmxpc3QuYyBiL3Rvb2xzL3BlcmYvYXJjaC94ODYv
-dXRpbC9ldmxpc3QuYwo+Pj4gaW5kZXggY2I1OWNlOWI5NjM4Li44YTdhZTQxNjI1NjMgMTAwNjQ0
-Cj4+PiAtLS0gYS90b29scy9wZXJmL2FyY2gveDg2L3V0aWwvZXZsaXN0LmMKPj4+ICsrKyBiL3Rv
-b2xzL3BlcmYvYXJjaC94ODYvdXRpbC9ldmxpc3QuYwo+Pj4gQEAgLTU5LDEwICs1OSwxMCBAQCBp
-bnQgYXJjaF9ldmxpc3RfX2FkZF9kZWZhdWx0X2F0dHJzKHN0cnVjdCBldmxpc3QgKmV2bGlzdCwK
-Pj4+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHN0cnVjdCBwZXJmX2V2ZW50X2F0
-dHIgKmF0dHJzLAo+Pj4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgc2l6ZV90IG5y
-X2F0dHJzKQo+Pj4gIHsKPj4+IC0gICAgIGlmIChucl9hdHRycykKPj4+IC0gICAgICAgICAgICAg
-cmV0dXJuIF9fX2V2bGlzdF9fYWRkX2RlZmF1bHRfYXR0cnMoZXZsaXN0LCBhdHRycywgbnJfYXR0
-cnMpOwo+Pj4gKyAgICAgaWYgKCFucl9hdHRycykKPj4+ICsgICAgICAgICAgICAgcmV0dXJuIDA7
-Cj4+Pgo+Pj4gLSAgICAgcmV0dXJuIHRvcGRvd25fcGFyc2VfZXZlbnRzKGV2bGlzdCk7Cj4+PiAr
-ICAgICByZXR1cm4gX19fZXZsaXN0X19hZGRfZGVmYXVsdF9hdHRycyhldmxpc3QsIGF0dHJzLCBu
-cl9hdHRycyk7Cj4+PiAgfQo+Pj4KPj4+ICBzdHJ1Y3QgZXZzZWwgKmFyY2hfZXZsaXN0X19sZWFk
-ZXIoc3RydWN0IGxpc3RfaGVhZCAqbGlzdCkKPj4+IGRpZmYgLS1naXQgYS90b29scy9wZXJmL2Fy
-Y2gveDg2L3V0aWwvdG9wZG93bi5jIGIvdG9vbHMvcGVyZi9hcmNoL3g4Ni91dGlsL3RvcGRvd24u
-Ywo+Pj4gaW5kZXggNTQ4MTBmOWFjZDZmLi5lYjNhN2Q5NjUyYWIgMTAwNjQ0Cj4+PiAtLS0gYS90
-b29scy9wZXJmL2FyY2gveDg2L3V0aWwvdG9wZG93bi5jCj4+PiArKysgYi90b29scy9wZXJmL2Fy
-Y2gveDg2L3V0aWwvdG9wZG93bi5jCj4+PiBAQCAtOSwxMSArOSw2IEBACj4+PiAgI2luY2x1ZGUg
-InRvcGRvd24uaCIKPj4+ICAjaW5jbHVkZSAiZXZzZWwuaCIKPj4+Cj4+PiAtI2RlZmluZSBUT1BE
-T1dOX0wxX0VWRU5UUyAgICAgICAie3Nsb3RzLHRvcGRvd24tcmV0aXJpbmcsdG9wZG93bi1iYWQt
-c3BlYyx0b3Bkb3duLWZlLWJvdW5kLHRvcGRvd24tYmUtYm91bmR9Igo+Pj4gLSNkZWZpbmUgVE9Q
-RE9XTl9MMV9FVkVOVFNfQ09SRSAgIntzbG90cyxjcHVfY29yZS90b3Bkb3duLXJldGlyaW5nLyxj
-cHVfY29yZS90b3Bkb3duLWJhZC1zcGVjLyxjcHVfY29yZS90b3Bkb3duLWZlLWJvdW5kLyxjcHVf
-Y29yZS90b3Bkb3duLWJlLWJvdW5kL30iCj4+PiAtI2RlZmluZSBUT1BET1dOX0wyX0VWRU5UUyAg
-ICAgICAie3Nsb3RzLHRvcGRvd24tcmV0aXJpbmcsdG9wZG93bi1iYWQtc3BlYyx0b3Bkb3duLWZl
-LWJvdW5kLHRvcGRvd24tYmUtYm91bmQsdG9wZG93bi1oZWF2eS1vcHMsdG9wZG93bi1ici1taXNw
-cmVkaWN0LHRvcGRvd24tZmV0Y2gtbGF0LHRvcGRvd24tbWVtLWJvdW5kfSIKPj4+IC0jZGVmaW5l
-IFRPUERPV05fTDJfRVZFTlRTX0NPUkUgICJ7c2xvdHMsY3B1X2NvcmUvdG9wZG93bi1yZXRpcmlu
-Zy8sY3B1X2NvcmUvdG9wZG93bi1iYWQtc3BlYy8sY3B1X2NvcmUvdG9wZG93bi1mZS1ib3VuZC8s
-Y3B1X2NvcmUvdG9wZG93bi1iZS1ib3VuZC8sY3B1X2NvcmUvdG9wZG93bi1oZWF2eS1vcHMvLGNw
-dV9jb3JlL3RvcGRvd24tYnItbWlzcHJlZGljdC8sY3B1X2NvcmUvdG9wZG93bi1mZXRjaC1sYXQv
-LGNwdV9jb3JlL3RvcGRvd24tbWVtLWJvdW5kL30iCj4+PiAtCj4+PiAgLyogQ2hlY2sgd2hldGhl
-ciB0aGVyZSBpcyBhIFBNVSB3aGljaCBzdXBwb3J0cyB0aGUgcGVyZiBtZXRyaWNzLiAqLwo+Pj4g
-IGJvb2wgdG9wZG93bl9zeXNfaGFzX3BlcmZfbWV0cmljcyh2b2lkKQo+Pj4gIHsKPj4+IEBAIC05
-OSwyOCArOTQsMyBAQCBjb25zdCBjaGFyICphcmNoX2dldF90b3Bkb3duX3BtdV9uYW1lKHN0cnVj
-dCBldmxpc3QgKmV2bGlzdCwgYm9vbCB3YXJuKQo+Pj4KPj4+ICAgICAgIHJldHVybiBwbXVfbmFt
-ZTsKPj4+ICB9Cj4+PiAtCj4+PiAtaW50IHRvcGRvd25fcGFyc2VfZXZlbnRzKHN0cnVjdCBldmxp
-c3QgKmV2bGlzdCkKPj4+IC17Cj4+PiAtICAgICBjb25zdCBjaGFyICp0b3Bkb3duX2V2ZW50czsK
-Pj4+IC0gICAgIGNvbnN0IGNoYXIgKnBtdV9uYW1lOwo+Pj4gLQo+Pj4gLSAgICAgaWYgKCF0b3Bk
-b3duX3N5c19oYXNfcGVyZl9tZXRyaWNzKCkpCj4+PiAtICAgICAgICAgICAgIHJldHVybiAwOwo+
-Pj4gLQo+Pj4gLSAgICAgcG11X25hbWUgPSBhcmNoX2dldF90b3Bkb3duX3BtdV9uYW1lKGV2bGlz
-dCwgZmFsc2UpOwo+Pj4gLQo+Pj4gLSAgICAgaWYgKHBtdV9oYXZlX2V2ZW50KHBtdV9uYW1lLCAi
-dG9wZG93bi1oZWF2eS1vcHMiKSkgewo+Pj4gLSAgICAgICAgICAgICBpZiAoIXN0cmNtcChwbXVf
-bmFtZSwgImNwdV9jb3JlIikpCj4+PiAtICAgICAgICAgICAgICAgICAgICAgdG9wZG93bl9ldmVu
-dHMgPSBUT1BET1dOX0wyX0VWRU5UU19DT1JFOwo+Pj4gLSAgICAgICAgICAgICBlbHNlCj4+PiAt
-ICAgICAgICAgICAgICAgICAgICAgdG9wZG93bl9ldmVudHMgPSBUT1BET1dOX0wyX0VWRU5UUzsK
-Pj4+IC0gICAgIH0gZWxzZSB7Cj4+PiAtICAgICAgICAgICAgIGlmICghc3RyY21wKHBtdV9uYW1l
-LCAiY3B1X2NvcmUiKSkKPj4+IC0gICAgICAgICAgICAgICAgICAgICB0b3Bkb3duX2V2ZW50cyA9
-IFRPUERPV05fTDFfRVZFTlRTX0NPUkU7Cj4+PiAtICAgICAgICAgICAgIGVsc2UKPj4+IC0gICAg
-ICAgICAgICAgICAgICAgICB0b3Bkb3duX2V2ZW50cyA9IFRPUERPV05fTDFfRVZFTlRTOwo+Pj4g
-LSAgICAgfQo+Pj4gLQo+Pj4gLSAgICAgcmV0dXJuIHBhcnNlX2V2ZW50KGV2bGlzdCwgdG9wZG93
-bl9ldmVudHMpOwo+Pj4gLX0KPj4+IGRpZmYgLS1naXQgYS90b29scy9wZXJmL2FyY2gveDg2L3V0
-aWwvdG9wZG93bi5oIGIvdG9vbHMvcGVyZi9hcmNoL3g4Ni91dGlsL3RvcGRvd24uaAo+Pj4gaW5k
-ZXggN2ViODFmMDQyODM4Li40NmJmOTI3M2U1NzIgMTAwNjQ0Cj4+PiAtLS0gYS90b29scy9wZXJm
-L2FyY2gveDg2L3V0aWwvdG9wZG93bi5oCj4+PiArKysgYi90b29scy9wZXJmL2FyY2gveDg2L3V0
-aWwvdG9wZG93bi5oCj4+PiBAQCAtMyw2ICszLDUgQEAKPj4+ICAjZGVmaW5lIF9UT1BET1dOX0gg
-MQo+Pj4KPj4+ICBib29sIHRvcGRvd25fc3lzX2hhc19wZXJmX21ldHJpY3Modm9pZCk7Cj4+PiAt
-aW50IHRvcGRvd25fcGFyc2VfZXZlbnRzKHN0cnVjdCBldmxpc3QgKmV2bGlzdCk7Cj4+Pgo+Pj4g
-ICNlbmRpZgo+Pj4gZGlmZiAtLWdpdCBhL3Rvb2xzL3BlcmYvYnVpbHRpbi1zdGF0LmMgYi90b29s
-cy9wZXJmL2J1aWx0aW4tc3RhdC5jCj4+PiBpbmRleCA1ZTEzMTcxYTdiYmEuLjc5NmU5OGU0NTNm
-NiAxMDA2NDQKPj4+IC0tLSBhL3Rvb2xzL3BlcmYvYnVpbHRpbi1zdGF0LmMKPj4+ICsrKyBiL3Rv
-b2xzL3BlcmYvYnVpbHRpbi1zdGF0LmMKPj4+IEBAIC0xOTk2LDYgKzE5OTYsNyBAQCBzdGF0aWMg
-aW50IGFkZF9kZWZhdWx0X2F0dHJpYnV0ZXModm9pZCkKPj4+ICAgICAgICAgICAgICAgc3RhdF9j
-b25maWcudG9wZG93bl9sZXZlbCA9IFRPUERPV05fTUFYX0xFVkVMOwo+Pj4KPj4+ICAgICAgIGlm
-ICghZXZzZWxfbGlzdC0+Y29yZS5ucl9lbnRyaWVzKSB7Cj4+PiArICAgICAgICAgICAgIC8qIE5v
-IGV2ZW50cyBzbyBhZGQgZGVmYXVsdHMuICovCj4+PiAgICAgICAgICAgICAgIGlmICh0YXJnZXRf
-X2hhc19jcHUoJnRhcmdldCkpCj4+PiAgICAgICAgICAgICAgICAgICAgICAgZGVmYXVsdF9hdHRy
-czBbMF0uY29uZmlnID0gUEVSRl9DT1VOVF9TV19DUFVfQ0xPQ0s7Cj4+Pgo+Pj4gQEAgLTIwMTEs
-NiArMjAxMiwxOSBAQCBzdGF0aWMgaW50IGFkZF9kZWZhdWx0X2F0dHJpYnV0ZXModm9pZCkKPj4+
-ICAgICAgICAgICAgICAgfQo+Pj4gICAgICAgICAgICAgICBpZiAoZXZsaXN0X19hZGRfZGVmYXVs
-dF9hdHRycyhldnNlbF9saXN0LCBkZWZhdWx0X2F0dHJzMSkgPCAwKQo+Pj4gICAgICAgICAgICAg
-ICAgICAgICAgIHJldHVybiAtMTsKPj4+ICsgICAgICAgICAgICAgLyoKPj4+ICsgICAgICAgICAg
-ICAgICogQWRkIFRvcGRvd25MMSBtZXRyaWNzIGlmIHRoZXkgZXhpc3QuIFRvIG1pbmltaXplCj4+
-PiArICAgICAgICAgICAgICAqIG11bHRpcGxleGluZywgZG9uJ3QgcmVxdWVzdCB0aHJlc2hvbGQg
-Y29tcHV0YXRpb24uCj4+PiArICAgICAgICAgICAgICAqLwo+Pj4gKyAgICAgICAgICAgICBpZiAo
-bWV0cmljZ3JvdXBfX2hhc19tZXRyaWMoIlRvcGRvd25MMSIpICYmCj4+PiArICAgICAgICAgICAg
-ICAgICBtZXRyaWNncm91cF9fcGFyc2VfZ3JvdXBzKGV2c2VsX2xpc3QsICJUb3Bkb3duTDEiLAo+
-Pj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgLyptZXRyaWNfbm9f
-Z3JvdXA9Ki9mYWxzZSwKPj4+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgIC8qbWV0cmljX25vX21lcmdlPSovZmFsc2UsCj4+PiArICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAvKm1ldHJpY19ub190aHJlc2hvbGQ9Ki90cnVlLAo+Pj4gKyAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgc3RhdF9jb25maWcudXNlcl9y
-ZXF1ZXN0ZWRfY3B1X2xpc3QsCj4+PiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICBzdGF0X2NvbmZpZy5zeXN0ZW1fd2lkZSwKPj4+ICsgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICZzdGF0X2NvbmZpZy5tZXRyaWNfZXZlbnRzKSA8IDApCj4+
-Cj4+IERvZXMgdGhlIG1ldHJpY2dyb3VwX18qIGZ1bmN0aW9uIGNoZWNrIHRoZSBleGlzdGFuY2Vz
-IG9mIHRoZSBldmVudHMgb24KPj4gdGhlIG1hY2hpbmU/IElmIG5vdCwgaXQgbWF5IG5vdCBiZSBy
-ZWxpYWJsZSB0byBvbmx5IGNoZWNrIHRoZSBldmVudCBsaXN0Lgo+Pgo+PiBUaGUgZXhpc3Rpbmcg
-Y29kZSBzdXBwb3J0cyBib3RoIEwxIGFuZCBMMiBUb3Bkb3duIGZvciBTUFIuIEJ1dCB0aGlzCj4+
-IHBhdGNoIHNlZW1zIHJlbW92ZSB0aGUgTDIgVG9wZG93biBzdXBwb3J0IGZvciBTUFIuCj4+Cj4+
-IFRoZSBUb3Bkb3duTDEvTDIgbWV0cmljIGlzIGFkZGVkIG9ubHkgZm9yIHRoZSBiaWcgY29yZSB3
-aXRoIHBlcmYgc3RhdAo+PiBkZWZhdWx0LiBJdCdzIGJlY2F1c2UgdGhhdCB0aGUgcGVyZl9tZXRy
-aWNzIGlzIGEgZGVkaWNhdGVkIHJlZ2lzdGVyLAo+PiB3aGljaCBzaG91bGQgbm90IGltcGFjdCBv
-dGhlciBldmVudHMgKHVzaW5nIEdQIGNvdW50ZXJzLikgQnV0IHRoaXMgcGF0Y2gKPj4gc2VlbXMg
-ZG9uJ3QgY2hlY2sgdGhlIENQVSB0eXBlLiBJdCBtYXkgYnJpbmdzIGV4dHJhIG11bHRpcGxleGlu
-ZyBmb3IgdGhlCj4+IHBlcmYgc3RhdCBkZWZhdWx0IG9uIGFuIEFUT00gcGxhdGZvcm0uCj4+Cj4+
-IFRoYW5rcywKPj4gS2FuCj4gCj4gSGkgS2FuLAo+IAo+IFRoZSBUb3Bkb3duTDIgbWV0cmljcyBh
-cmUgcHJlc2VudCBmb3IgU1BSLiBUaGUgY29kZSBjaGFuZ2VzIHRvIGRlZmF1bHQKPiBmb3IgTDEg
-YXMgd2l0aCBqc29uIHRvcGRvd24gdGhlIG1heGltdW0gdG9wZG93biBsZXZlbCAodGhlIGRlZmF1
-bHQKPiBwcmV2aW91c2x5KSBpcyBMNiwgYW5kIG5vYm9keSByZWFsbHkgd2FudHMgdG8gc2VlIHRo
-YXQuIFRoZSAtLXRvcGRvd24KPiBvcHRpb24gaXMgbm8gbG9uZ2VyIGxpbWl0ZWQgdG8gSWNlbGFr
-ZSsgcHJvY2Vzc29ycywgYW55IHdpdGggdGhlCj4gVG9wZG93bkwxIG1ldHJpY2dyb3VwIHdpbGwg
-d29yayBhcyAtLXRvcGRvd24gaGFzIGp1c3QgYmVjb21lIGEKPiBzaG9ydGN1dCB0byB0aGF0LgoK
-VGhpcyBwYXRjaCBzZWVtcyBhbHNvIGNoYW5nZXMgdGhlIHBlcmYgc3RhdCBkZWZhdWx0LiBUaGUg
-Y3VycmVudCBwZXJmCnN0YXQgZGVmYXVsdCBzaG93cyBib3RoIEwxIGFuZCBMMiBmb3IgU1BSLiBJ
-ZiB0aGF0J3MgdGhlIGNhc2UsIGl0IHNob3VsZApiZSBhIHVzZXIgdmlzaWJsZSBjaGFuZ2VzLiBX
-aGF0J3Mgb3V0cHV0IG9mICJwZXJmIHN0YXQgc2xlZXAgMSIgd2l0aAp0aGlzIHBhdGNoIG9uIFNQ
-Uj8KCj4gCj4gVGhlcmUgbWF5IGJlIGFkZGl0aW9uYWwgbXVsdGlwbGV4aW5nLCBidXQgYWxzbywg
-aW4gdGhlIG9sZCBjb2RlIGV2ZW50cwo+IGZyb20gZGlmZmVyZW50IGdyb3VwcyBjb3VsZCBiZSB1
-c2VkIHRvIGNhbGN1bGF0ZSBhIGJvZ3VzIG1ldHJpYy4gVGhlcmUKPiBhcmUgYWxzbyBhZGRpdGlv
-bmFsIGV2ZW50cyBhcyB0aGUgcHJldmlvdXMgbWV0cmljcyBkb24ndCBhZ3JlZSB3aXRoCj4gdGhv
-c2UgaW4gdGhlIFRNQSBzcHJlYWRzaGVldC4gSWYgdGhlcmUgaXMgbXVsdGlwbGV4aW5nIGZyb20g
-dGhpcwo+IGNoYW5nZSBvbiBTUFIsIHRoZSBUTUEganNvbiBtZXRyaWNzIGRvIHRyeSB0byBhdm9p
-ZCB0aGlzLCBJIHRoaW5rIHRoZQo+IHJpZ2h0IHBhdGggdGhyb3VnaCB0aGlzIGlzIHRvIGZpeCB0
-aGUganNvbiBtZXRyaWNzLgoKRm9yIHRoZSBwZXJmIHN0YXQgZGVmYXVsdCwgdGhlcmUgc2hvdWxk
-IGJlIG5vIG11bHRpcGxleGluZy4KCkFsc28sIGl0IGxvb2tzIGxpa2UgdGhlIHBhdGNoIGFuZCB0
-aGUgZm9sbG93aW5nIHNldmVyYWwgcGF0Y2hlcyByZW1vdmUKdGhlIGV4aXN0ZW5jZSBjaGVjayBv
-ZiBhbiBldmVudCAocG11X2hhdmVfZXZlbnQoKSkuIEl0IG1heSBub3QgYmUgYSBnb29kCmlkZWEu
-IFRob3NlIGV2ZW50cy9mZWF0dXJlcyB1c3VhbGx5IGJlIGVudW1lcmF0ZWQsIHdoaWNoIG1lYW5z
-IHRoYXQgdGhleQptYXkgbm90IGJlIGF2YWlsYWJsZSBpbiBzb21lIGNhc2VzLiBGb3IgZXhhbXBs
-ZSwgd2UgZG9uJ3QgaGF2ZSB0aGUgcGVyZgptZXRyaWNzIHN1cHBvcnQgb24gS1ZNLiBJIGRvbid0
-IHRoaW5rIHRoZSBjdXJyZW50IEpTT04gbWV0cmljcyBjaGVja3MKdGhlIENQVUlEIGVudW1lcmF0
-aW9uLiBJZiBzbywgdGhlIHBhdGNoIG1heSBicmluZ3MgcHJvYmxlbSBpbiBhIFZNLgoKVGhhbmtz
-LApLYW4KCj4gCj4gVGhhbmtzLAo+IElhbgo+IAo+Pj4gKyAgICAgICAgICAgICAgICAgICAgIHJl
-dHVybiAtMTsKPj4+ICAgICAgICAgICAgICAgLyogUGxhdGZvcm0gc3BlY2lmaWMgYXR0cnMgKi8K
-Pj4+ICAgICAgICAgICAgICAgaWYgKGV2bGlzdF9fYWRkX2RlZmF1bHRfYXR0cnMoZXZzZWxfbGlz
-dCwgZGVmYXVsdF9udWxsX2F0dHJzKSA8IDApCj4+PiAgICAgICAgICAgICAgICAgICAgICAgcmV0
-dXJuIC0xOwo+Pj4gZGlmZiAtLWdpdCBhL3Rvb2xzL3BlcmYvdXRpbC9tZXRyaWNncm91cC5jIGIv
-dG9vbHMvcGVyZi91dGlsL21ldHJpY2dyb3VwLmMKPj4+IGluZGV4IGFmYjZmMmZkYzI0ZS4uNjRh
-MzVmMjc4N2RjIDEwMDY0NAo+Pj4gLS0tIGEvdG9vbHMvcGVyZi91dGlsL21ldHJpY2dyb3VwLmMK
-Pj4+ICsrKyBiL3Rvb2xzL3BlcmYvdXRpbC9tZXRyaWNncm91cC5jCj4+PiBAQCAtMTY0NywxMCAr
-MTY0Nyw4IEBAIHN0YXRpYyBpbnQgbWV0cmljZ3JvdXBfX2hhc19tZXRyaWNfY2FsbGJhY2soY29u
-c3Qgc3RydWN0IHBtdV9tZXRyaWMgKnBtLAo+Pj4gIHsKPj4+ICAgICAgIGNvbnN0IGNoYXIgKm1l
-dHJpYyA9IHZkYXRhOwo+Pj4KPj4+IC0gICAgIGlmICghcG0tPm1ldHJpY19leHByKQo+Pj4gLSAg
-ICAgICAgICAgICByZXR1cm4gMDsKPj4+IC0KPj4+IC0gICAgIGlmIChtYXRjaF9tZXRyaWMocG0t
-Pm1ldHJpY19uYW1lLCBtZXRyaWMpKQo+Pj4gKyAgICAgaWYgKG1hdGNoX21ldHJpYyhwbS0+bWV0
-cmljX25hbWUsIG1ldHJpYykgfHwKPj4+ICsgICAgICAgICBtYXRjaF9tZXRyaWMocG0tPm1ldHJp
-Y19ncm91cCwgbWV0cmljKSkKPj4+ICAgICAgICAgICAgICAgcmV0dXJuIDE7Cj4+Pgo+Pj4gICAg
-ICAgcmV0dXJuIDA7Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0
-b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFu
-L2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+
+
+On 2023-02-19 4:27 a.m., Ian Rogers wrote:
+> Recently the shadow stat metrics broke due to repeated aggregation and
+> a quick fix was applied:
+> https://lore.kernel.org/lkml/20230209064447.83733-1-irogers@google.com/
+> This is the longer fix but one that comes with some extras. To avoid
+> fixing issues for hard coded metrics, the topdown, SMI cost and
+> transaction flags are moved into json metrics. A side effect of this
+> is that TopdownL1 metrics will now be displayed when supported, if no
+> "perf stat" events are specified.
+> 
+> Another fix included here is for event grouping as raised in:
+> https://lore.kernel.org/lkml/CA+icZUU_ew7pzWJJZLbj1xsU6MQTPrj8tkFfDhNdTDRQfGUBMQ@mail.gmail.com/
+> Metrics are now tagged with NMI and SMT flags, meaning that the events
+> shouldn't be grouped if the NMI watchdog is enabled or SMT is enabled.
+> 
+> Given the two issues, the metrics are re-generated and the patches
+> also include the latest Intel vendor events. The changes to the metric
+> generation code can be seen in:
+> https://github.com/intel/perfmon/pull/56
+> 
+> Hard coded metrics support thresholds, the patches add this ability to
+> json metrics so that the hard coded metrics can be removed. Migrate
+> remaining hard coded metrics to looking up counters from the
+> evlist/aggregation count. Finally, get rid of the saved_value logic
+> and thereby look to fix the aggregation issues.
+> 
+> Some related fix ups and code clean ups are included in the changes,
+> in particular to aid with the code's readability and to keep topdown
+> documentation in sync.
+> 
+> Ian Rogers (51):
+
+Thanks Ian for the clean up and improvements. The patches 1-38 looks
+good to me.
+
+Reviewed-by: Kan Liang<kan.liang@linux.intel.com>
+
+I like the idea of utilizing the json metrics. But the changes for the
+later patches seem change the current user-visible behavior for some cases.
+
+Thanks,
+Kan
+
+>   perf tools: Ensure evsel name is initialized
+>   perf metrics: Improve variable names
+>   perf pmu-events: Remove aggr_mode from pmu_event
+>   perf pmu-events: Change aggr_mode to be an enum
+>   perf pmu-events: Change deprecated to be a bool
+>   perf pmu-events: Change perpkg to be a bool
+>   perf expr: Make the online topology accessible globally
+>   perf pmu-events: Make the metric_constraint an enum
+>   perf pmu-events: Don't '\0' terminate enum values
+>   perf vendor events intel: Refresh alderlake events
+>   perf vendor events intel: Refresh alderlake-n metrics
+>   perf vendor events intel: Refresh broadwell metrics
+>   perf vendor events intel: Refresh broadwellde metrics
+>   perf vendor events intel: Refresh broadwellx metrics
+>   perf vendor events intel: Refresh cascadelakex events
+>   perf vendor events intel: Add graniterapids events
+>   perf vendor events intel: Refresh haswell metrics
+>   perf vendor events intel: Refresh haswellx metrics
+>   perf vendor events intel: Refresh icelake events
+>   perf vendor events intel: Refresh icelakex metrics
+>   perf vendor events intel: Refresh ivybridge metrics
+>   perf vendor events intel: Refresh ivytown metrics
+>   perf vendor events intel: Refresh jaketown events
+>   perf vendor events intel: Refresh knightslanding events
+>   perf vendor events intel: Refresh sandybridge events
+>   perf vendor events intel: Refresh sapphirerapids events
+>   perf vendor events intel: Refresh silvermont events
+>   perf vendor events intel: Refresh skylake events
+>   perf vendor events intel: Refresh skylakex metrics
+>   perf vendor events intel: Refresh tigerlake events
+>   perf vendor events intel: Refresh westmereep-dp events
+>   perf jevents: Add rand support to metrics
+>   perf jevent: Parse metric thresholds
+>   perf pmu-events: Test parsing metric thresholds with the fake PMU
+>   perf list: Support for printing metric thresholds
+>   perf metric: Compute and print threshold values
+>   perf expr: More explicit NAN handling
+>   perf metric: Add --metric-no-threshold option
+>   perf stat: Add TopdownL1 metric as a default if present
+>   perf stat: Implement --topdown using json metrics
+>   perf stat: Remove topdown event special handling
+>   perf doc: Refresh topdown documentation
+>   perf stat: Remove hard coded transaction events
+>   perf stat: Use metrics for --smi-cost
+>   perf stat: Remove perf_stat_evsel_id
+>   perf stat: Move enums from header
+>   perf stat: Hide runtime_stat
+>   perf stat: Add cpu_aggr_map for loop
+>   perf metric: Directly use counts rather than saved_value
+>   perf stat: Use counts rather than saved_value
+>   perf stat: Remove saved_value/runtime_stat
+> 
+>  tools/perf/Documentation/perf-stat.txt        |   27 +-
+>  tools/perf/Documentation/topdown.txt          |   70 +-
+>  tools/perf/arch/powerpc/util/header.c         |    2 +-
+>  tools/perf/arch/x86/util/evlist.c             |    6 +-
+>  tools/perf/arch/x86/util/topdown.c            |   78 +-
+>  tools/perf/arch/x86/util/topdown.h            |    1 -
+>  tools/perf/builtin-list.c                     |   13 +-
+>  tools/perf/builtin-script.c                   |    9 +-
+>  tools/perf/builtin-stat.c                     |  233 +-
+>  .../arch/x86/alderlake/adl-metrics.json       | 3190 ++++++++++-------
+>  .../pmu-events/arch/x86/alderlake/cache.json  |   36 +-
+>  .../arch/x86/alderlake/floating-point.json    |   27 +
+>  .../arch/x86/alderlake/frontend.json          |    9 +
+>  .../pmu-events/arch/x86/alderlake/memory.json |    3 +-
+>  .../arch/x86/alderlake/pipeline.json          |   14 +-
+>  .../arch/x86/alderlake/uncore-other.json      |   28 +-
+>  .../arch/x86/alderlaken/adln-metrics.json     |  811 +++--
+>  .../arch/x86/broadwell/bdw-metrics.json       | 1439 ++++----
+>  .../arch/x86/broadwellde/bdwde-metrics.json   | 1405 ++++----
+>  .../arch/x86/broadwellx/bdx-metrics.json      | 1626 +++++----
+>  .../arch/x86/broadwellx/uncore-cache.json     |   74 +-
+>  .../x86/broadwellx/uncore-interconnect.json   |   64 +-
+>  .../arch/x86/broadwellx/uncore-other.json     |    4 +-
+>  .../arch/x86/cascadelakex/cache.json          |   24 +-
+>  .../arch/x86/cascadelakex/clx-metrics.json    | 2198 ++++++------
+>  .../arch/x86/cascadelakex/frontend.json       |    8 +-
+>  .../arch/x86/cascadelakex/pipeline.json       |   16 +
+>  .../arch/x86/cascadelakex/uncore-memory.json  |   18 +-
+>  .../arch/x86/cascadelakex/uncore-other.json   |  120 +-
+>  .../arch/x86/cascadelakex/uncore-power.json   |    8 +-
+>  .../arch/x86/graniterapids/cache.json         |   54 +
+>  .../arch/x86/graniterapids/frontend.json      |   10 +
+>  .../arch/x86/graniterapids/memory.json        |  174 +
+>  .../arch/x86/graniterapids/other.json         |   29 +
+>  .../arch/x86/graniterapids/pipeline.json      |  102 +
+>  .../x86/graniterapids/virtual-memory.json     |   26 +
+>  .../arch/x86/haswell/hsw-metrics.json         | 1220 ++++---
+>  .../arch/x86/haswellx/hsx-metrics.json        | 1397 ++++----
+>  .../pmu-events/arch/x86/icelake/cache.json    |   16 +
+>  .../arch/x86/icelake/floating-point.json      |   31 +
+>  .../arch/x86/icelake/icl-metrics.json         | 1932 +++++-----
+>  .../pmu-events/arch/x86/icelake/pipeline.json |   23 +-
+>  .../arch/x86/icelake/uncore-other.json        |   56 +
+>  .../arch/x86/icelakex/icx-metrics.json        | 2153 +++++------
+>  .../arch/x86/icelakex/uncore-memory.json      |    2 +-
+>  .../arch/x86/icelakex/uncore-other.json       |    4 +-
+>  .../arch/x86/ivybridge/ivb-metrics.json       | 1270 ++++---
+>  .../arch/x86/ivytown/ivt-metrics.json         | 1311 ++++---
+>  .../pmu-events/arch/x86/jaketown/cache.json   |    6 +-
+>  .../arch/x86/jaketown/floating-point.json     |    2 +-
+>  .../arch/x86/jaketown/frontend.json           |   12 +-
+>  .../arch/x86/jaketown/jkt-metrics.json        |  602 ++--
+>  .../arch/x86/jaketown/pipeline.json           |    2 +-
+>  .../arch/x86/jaketown/uncore-cache.json       |   22 +-
+>  .../x86/jaketown/uncore-interconnect.json     |   74 +-
+>  .../arch/x86/jaketown/uncore-memory.json      |    4 +-
+>  .../arch/x86/jaketown/uncore-other.json       |   22 +-
+>  .../arch/x86/jaketown/uncore-power.json       |    8 +-
+>  .../arch/x86/knightslanding/cache.json        |   94 +-
+>  .../arch/x86/knightslanding/pipeline.json     |    8 +-
+>  .../arch/x86/knightslanding/uncore-other.json |    8 +-
+>  tools/perf/pmu-events/arch/x86/mapfile.csv    |   29 +-
+>  .../arch/x86/sandybridge/cache.json           |    8 +-
+>  .../arch/x86/sandybridge/floating-point.json  |    2 +-
+>  .../arch/x86/sandybridge/frontend.json        |   12 +-
+>  .../arch/x86/sandybridge/pipeline.json        |    2 +-
+>  .../arch/x86/sandybridge/snb-metrics.json     |  601 ++--
+>  .../arch/x86/sapphirerapids/cache.json        |   24 +-
+>  .../x86/sapphirerapids/floating-point.json    |   32 +
+>  .../arch/x86/sapphirerapids/frontend.json     |    8 +
+>  .../arch/x86/sapphirerapids/pipeline.json     |   19 +-
+>  .../arch/x86/sapphirerapids/spr-metrics.json  | 2283 ++++++------
+>  .../arch/x86/sapphirerapids/uncore-other.json |   60 +
+>  .../arch/x86/silvermont/frontend.json         |    2 +-
+>  .../arch/x86/silvermont/pipeline.json         |    2 +-
+>  .../pmu-events/arch/x86/skylake/cache.json    |   25 +-
+>  .../pmu-events/arch/x86/skylake/frontend.json |    8 +-
+>  .../pmu-events/arch/x86/skylake/other.json    |    1 +
+>  .../pmu-events/arch/x86/skylake/pipeline.json |   16 +
+>  .../arch/x86/skylake/skl-metrics.json         | 1877 ++++++----
+>  .../arch/x86/skylake/uncore-other.json        |    1 +
+>  .../pmu-events/arch/x86/skylakex/cache.json   |    8 +-
+>  .../arch/x86/skylakex/frontend.json           |    8 +-
+>  .../arch/x86/skylakex/pipeline.json           |   16 +
+>  .../arch/x86/skylakex/skx-metrics.json        | 2097 +++++------
+>  .../arch/x86/skylakex/uncore-memory.json      |    2 +-
+>  .../arch/x86/skylakex/uncore-other.json       |   96 +-
+>  .../arch/x86/skylakex/uncore-power.json       |    6 +-
+>  .../arch/x86/tigerlake/floating-point.json    |   31 +
+>  .../arch/x86/tigerlake/pipeline.json          |   18 +
+>  .../arch/x86/tigerlake/tgl-metrics.json       | 1942 +++++-----
+>  .../arch/x86/tigerlake/uncore-other.json      |   28 +-
+>  .../arch/x86/westmereep-dp/cache.json         |    2 +-
+>  .../x86/westmereep-dp/virtual-memory.json     |    2 +-
+>  tools/perf/pmu-events/jevents.py              |   58 +-
+>  tools/perf/pmu-events/metric.py               |    8 +-
+>  tools/perf/pmu-events/pmu-events.h            |   35 +-
+>  tools/perf/tests/expand-cgroup.c              |    3 +-
+>  tools/perf/tests/expr.c                       |    7 +-
+>  tools/perf/tests/parse-metric.c               |   21 +-
+>  tools/perf/tests/pmu-events.c                 |   49 +-
+>  tools/perf/util/cpumap.h                      |    3 +
+>  tools/perf/util/cputopo.c                     |   14 +
+>  tools/perf/util/cputopo.h                     |    5 +
+>  tools/perf/util/evsel.h                       |    2 +-
+>  tools/perf/util/expr.c                        |   16 +-
+>  tools/perf/util/expr.y                        |   12 +-
+>  tools/perf/util/metricgroup.c                 |  178 +-
+>  tools/perf/util/metricgroup.h                 |    5 +-
+>  tools/perf/util/pmu.c                         |   17 +-
+>  tools/perf/util/print-events.h                |    1 +
+>  tools/perf/util/smt.c                         |   11 +-
+>  tools/perf/util/smt.h                         |   12 +-
+>  tools/perf/util/stat-display.c                |  117 +-
+>  tools/perf/util/stat-shadow.c                 | 1287 ++-----
+>  tools/perf/util/stat.c                        |   74 -
+>  tools/perf/util/stat.h                        |   96 +-
+>  tools/perf/util/synthetic-events.c            |    2 +-
+>  tools/perf/util/topdown.c                     |   68 +-
+>  tools/perf/util/topdown.h                     |   11 +-
+>  120 files changed, 18025 insertions(+), 15590 deletions(-)
+>  create mode 100644 tools/perf/pmu-events/arch/x86/graniterapids/cache.json
+>  create mode 100644 tools/perf/pmu-events/arch/x86/graniterapids/frontend.json
+>  create mode 100644 tools/perf/pmu-events/arch/x86/graniterapids/memory.json
+>  create mode 100644 tools/perf/pmu-events/arch/x86/graniterapids/other.json
+>  create mode 100644 tools/perf/pmu-events/arch/x86/graniterapids/pipeline.json
+>  create mode 100644 tools/perf/pmu-events/arch/x86/graniterapids/virtual-memory.json
+> 
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
