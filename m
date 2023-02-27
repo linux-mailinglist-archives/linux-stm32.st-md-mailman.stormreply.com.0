@@ -2,69 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6CC0C6A4C77
-	for <lists+linux-stm32@lfdr.de>; Mon, 27 Feb 2023 21:51:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EDEB66A4D00
+	for <lists+linux-stm32@lfdr.de>; Mon, 27 Feb 2023 22:18:03 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1F603C6A5EA;
-	Mon, 27 Feb 2023 20:51:37 +0000 (UTC)
-Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com
- [209.85.208.48])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7E43FC6A5EA;
+	Mon, 27 Feb 2023 21:18:03 +0000 (UTC)
+Received: from mail-yw1-f182.google.com (mail-yw1-f182.google.com
+ [209.85.128.182])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4364EC6904C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 85EF9C6904C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 27 Feb 2023 20:51:36 +0000 (UTC)
-Received: by mail-ed1-f48.google.com with SMTP id o12so31074217edb.9
+ Mon, 27 Feb 2023 21:18:02 +0000 (UTC)
+Received: by mail-yw1-f182.google.com with SMTP id
+ 00721157ae682-536bf92b55cso212845037b3.12
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 27 Feb 2023 12:51:36 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amarulasolutions.com; s=google;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=e124E0pr34PAN91uKXPAbGtavFgIogfWrydKthVEf0E=;
- b=Msljfd0DAOSV1Ng8uIK/mnFUzcITqVx7VNkBOQVwfqu7nD/mLOXNK+QL9hurrXRwFn
- W22/+c8iLbrDPOIExuNn6xorlSdGmNDZocrV4NhDMD8Dm3bnuuyL2lwLSBJiZQs3BAqF
- EYXQKn9EBAsLGT8Z+8bQyvV+taV8ZMcm7P5ms=
+ Mon, 27 Feb 2023 13:18:02 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=861ENRhd8EcHSgkNed94lLcOy+3hO+Ai15ZLxiI8kpM=;
+ b=kloYiVK17/dt2g3sp7Dfx3rk4LMRwTyDQgC5p0DMXht369w9cWMi9xv7oVE/2p3m9q
+ APhG6yjBMR1RV1BkutloNYHI/oKXML0JscnUGWpgoPTr5hGSK0RWsyasxlZsVIFSkbdt
+ dgUIrX23diNJXG+RUt9nJMrga98jtbyGd0PpIzC8UGEi4uaKfVOOlSnkr2BVp636gGPU
+ oCwBueM+qUp0hrN52MRgMAxZmDDufSyBMPqz7wni4mu0VjOUOBF9KAmDfsUv1rxN3BPA
+ kQcR9YDXDLcH8SC/JjCS8CZNtglOl6t+57ywwIDCk/zhZMj0yljfLe6CE0/zDKwsrLxc
+ gDNw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=e124E0pr34PAN91uKXPAbGtavFgIogfWrydKthVEf0E=;
- b=k+Il4ALAwzhMnDwUPZKGrFlUdcHq4umSjDqW5Z/4KwUuRuDx2dWZWPnX6TSma/XoCX
- pOIxJKg4eeVjBHH+7FUpCdrFqVCiICdQwD9gNHnYLW80fZrWMIYu5nkt+cVfP6S2geW+
- JAfaIgMCDzncLY9rnUJoP4WuldlaPPDYrjj/Hg5pYS+8fSJpfbNR/4udk+SBW6GZPtk+
- dDrrSBgYHk1D8FMCSzG+eCMlPpZwUJB2ynvDUKulIJefpeJQLScObkhD7qm1f8nrSLH9
- azb+F5TsXdkLn1AL6PNwTtBwYvFdqicMxGBZ9v+JuoxtAdcJ284aT4GnezSchNF4Z6s7
- uk5Q==
-X-Gm-Message-State: AO0yUKUJqEeqd+tjhYwyVnIi2NARZTvEdwK5EKiJ71EEc1An6XcRMgYn
- Mj8qm2i+D46NZOGyGzWaXIHYSw==
-X-Google-Smtp-Source: AK7set/09hUebX3TUSz8Zk89YxuS48cruhUseyV6cCooMrzGlOnaU2lz/zSmizCZH80dS8HxpvF7Kg==
-X-Received: by 2002:aa7:d98d:0:b0:4ad:5950:3f47 with SMTP id
- u13-20020aa7d98d000000b004ad59503f47mr963127eds.9.1677531095698; 
- Mon, 27 Feb 2023 12:51:35 -0800 (PST)
-Received: from dario-ThinkPad-T14s-Gen-2i.homenet.telecomitalia.it
- (host-82-56-22-12.retail.telecomitalia.it. [82.56.22.12])
- by smtp.gmail.com with ESMTPSA id
- i26-20020a50871a000000b004af70a660a9sm3578032edb.75.2023.02.27.12.51.34
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 27 Feb 2023 12:51:35 -0800 (PST)
-From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
-To: linux-kernel@vger.kernel.org
-Date: Mon, 27 Feb 2023 21:51:31 +0100
-Message-Id: <20230227205131.2104082-1-dario.binacchi@amarulasolutions.com>
-X-Mailer: git-send-email 2.32.0
+ bh=861ENRhd8EcHSgkNed94lLcOy+3hO+Ai15ZLxiI8kpM=;
+ b=uxLHCnLqrKR8R0Xk/VXCP65dlSVEidMSHgYPHCvy1Tq2OjJ6xyHurgFT5qVYZbhFH7
+ oFBYWD5u/lEzpO/b2XHNwZZbEGlmNjiPUjtqsQS07dEESwhdi0anbOPplLIDRvhCfZJQ
+ GCj+Gk+0MOnk/wPsn9610WiJm/vybN5PQ+vlfQOC9WIGLfZkFD0zTaJpyv3CiXgKjp1b
+ AmE0po+N3mEEe0a4ECKxpmXgUypR3lIeP3bXPg4SzPp10Qa1IlVza1PuZClPaQgn7FPR
+ Yf5w7tNs19RVC6X60XtTc8QFD2ci4T3DltYbhAzkj3tJOJnqKqPI4OypMCMJ5J7abuEQ
+ hZyw==
+X-Gm-Message-State: AO0yUKVjfAETM2YmgV29PEMhGGUw1/eL5tgJ9UqtNRvwOEXSOQwNEl17
+ 9ul2wHBTHWi8PSQSWvguAQLMwOeY8Brc2/cpBirewQ==
+X-Google-Smtp-Source: AK7set//HnE1NkogtMQUUnKRN9ZnMZvonCvFO7FMIxs+p8rQ32omlyXDjNQIPGNptsPySH4EGsfKDlYCxpjMnXONZwM=
+X-Received: by 2002:a5b:685:0:b0:9f1:6c48:f95f with SMTP id
+ j5-20020a5b0685000000b009f16c48f95fmr75674ybq.5.1677532681340; Mon, 27 Feb
+ 2023 13:18:01 -0800 (PST)
 MIME-Version: 1.0
-Cc: Marek Vasut <marex@denx.de>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- =?UTF-8?q?Bernhard=20Rosenkr=C3=A4nzer?= <bero@baylibre.com>,
- Linus Walleij <linus.walleij@linaro.org>, linux-gpio@vger.kernel.org,
- Fabien Dessenne <fabien.dessenne@foss.st.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Dario Binacchi <dario.binacchi@amarulasolutions.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH] pinctrl: stm32: use dynamic allocation of
-	GPIO base
+References: <Y/cBB+q0Ono9j2Jy@gondor.apana.org.au>
+ <20230224231430.2948-1-kunyu@nfschina.com>
+ <Y/cy5wUtk10OahpO@gondor.apana.org.au>
+ <CACRpkdYyB=-UnE1bmdVszSSB5ReECZ0fUoWJX6XtYbKHEe52tA@mail.gmail.com>
+ <Y/c7iVW67Xhhdu8e@gondor.apana.org.au> <Y/hQdzsKMYgkIfMY@gondor.apana.org.au>
+ <Y/yIbPBVCPx9K/0s@gondor.apana.org.au>
+In-Reply-To: <Y/yIbPBVCPx9K/0s@gondor.apana.org.au>
+From: Linus Walleij <linus.walleij@linaro.org>
+Date: Mon, 27 Feb 2023 22:17:49 +0100
+Message-ID: <CACRpkdZC4z2Xng4=k94rmM=AFzNzTdXkvtkArMnK7afouz=7VA@mail.gmail.com>
+To: Herbert Xu <herbert@gondor.apana.org.au>
+Cc: Li kunyu <kunyu@nfschina.com>, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-crypto@vger.kernel.org,
+ mcoquelin.stm32@gmail.com, davem@davemloft.net,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [v3 PATCH] crypto: stm32 - Save and restore
+	between each request
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,59 +80,56 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Since commit 502df79b860563d7 ("gpiolib: Warn on drivers still using static
-gpiobase allocation"), one or more warnings are printed during boot on
-systems where static allocation of GPIO base is used:
+On Mon, Feb 27, 2023 at 11:39 AM Herbert Xu <herbert@gondor.apana.org.au> wrote:
 
-[    0.197707] gpio gpiochip0: Static allocation of GPIO base is deprecated, use dynamic allocation.
-[    0.199942] stm32f429-pinctrl soc:pinctrl@40020000: GPIOA bank added
-[    0.200711] gpio gpiochip1: Static allocation of GPIO base is deprecated, use dynamic allocation.
-[    0.202855] stm32f429-pinctrl soc:pinctrl@40020000: GPIOB bank added
-[    0.203591] gpio gpiochip2: Static allocation of GPIO base is deprecated, use dynamic allocation.
-[    0.205704] stm32f429-pinctrl soc:pinctrl@40020000: GPIOC bank added
-[    0.206338] gpio gpiochip3: Static allocation of GPIO base is deprecated, use dynamic allocation.
-[    0.208448] stm32f429-pinctrl soc:pinctrl@40020000: GPIOD bank added
-[    0.209182] gpio gpiochip4: Static allocation of GPIO base is deprecated, use dynamic allocation.
-[    0.211282] stm32f429-pinctrl soc:pinctrl@40020000: GPIOE bank added
-[    0.212094] gpio gpiochip5: Static allocation of GPIO base is deprecated, use dynamic allocation.
-[    0.214270] stm32f429-pinctrl soc:pinctrl@40020000: GPIOF bank added
-[    0.215005] gpio gpiochip6: Static allocation of GPIO base is deprecated, use dynamic allocation.
-[    0.217110] stm32f429-pinctrl soc:pinctrl@40020000: GPIOG bank added
-[    0.217845] gpio gpiochip7: Static allocation of GPIO base is deprecated, use dynamic allocation.
-[    0.219959] stm32f429-pinctrl soc:pinctrl@40020000: GPIOH bank added
-[    0.220602] gpio gpiochip8: Static allocation of GPIO base is deprecated, use dynamic allocation.
-[    0.222714] stm32f429-pinctrl soc:pinctrl@40020000: GPIOI bank added
-[    0.223483] gpio gpiochip9: Static allocation of GPIO base is deprecated, use dynamic allocation.
-[    0.225594] stm32f429-pinctrl soc:pinctrl@40020000: GPIOJ bank added
-[    0.226336] gpio gpiochip10: Static allocation of GPIO base is deprecated, use dynamic allocation.
-[    0.228490] stm32f429-pinctrl soc:pinctrl@40020000: GPIOK bank added
+> v3 moves the exported state into its own structure so that it
+> doesn't contain unnecessary data.  It also subsumes the "empty
+> message" patch, as only the stm32_hash_copy_hash hunk was really
+> needed and it's easiest if we put that here.
 
-So let's follow the suggestion and use dynamic allocation.
+Thanks Herbert, now the driver probes fine, but unfortunately the tests
+fail:
 
-Tested on STM32F429I-DISC1 board.
+[    2.963725] alg: extra crypto tests enabled.  This is intended for
+developer use only.
+[   17.106532] Key type encrypted registered
+[   23.804729] stm32-hash a03c2000.hash: allocated hmac(sha256) fallback
+[   23.812529] alg: ahash: stm32-hmac-sha256 test failed (wrong
+result) on test vector 0, cfg="init+update+final aligned buffer"
+[   23.823902] alg: self-tests for hmac(sha256) using
+stm32-hmac-sha256 failed (rc=-22)
+[   23.823924] ------------[ cut here ]------------
+[   23.836312] WARNING: CPU: 0 PID: 72 at crypto/testmgr.c:5858
+alg_test.part.0+0x4d0/0x4dc
+[   23.844449] alg: self-tests for hmac(sha256) using
+stm32-hmac-sha256 failed (rc=-22)
+[   23.844460] Modules linked in:
+[   23.855261] CPU: 0 PID: 72 Comm: cryptomgr_test Not tainted
+6.2.0-12019-g4bc85a2f8f63 #65
+[   23.863440] Hardware name: ST-Ericsson Ux5x0 platform (Device Tree Support)
+[   23.870408]  unwind_backtrace from show_stack+0x10/0x14
+[   23.875653]  show_stack from dump_stack_lvl+0x40/0x4c
+[   23.880727]  dump_stack_lvl from __warn+0x94/0xc0
+[   23.885450]  __warn from warn_slowpath_fmt+0x118/0x164
+[   23.890603]  warn_slowpath_fmt from alg_test.part.0+0x4d0/0x4dc
+[   23.896540]  alg_test.part.0 from cryptomgr_test+0x18/0x38
+[   23.902042]  cryptomgr_test from kthread+0xc0/0xc4
+[   23.906847]  kthread from ret_from_fork+0x14/0x2c
+[   23.911557] Exception stack(0xf0f39fb0 to 0xf0f39ff8)
+[   23.916609] 9fa0:                                     00000000
+00000000 00000000 00000000
+[   23.924783] 9fc0: 00000000 00000000 00000000 00000000 00000000
+00000000 00000000 00000000
+[   23.932956] 9fe0: 00000000 00000000 00000000 00000000 00000013 00000000
+[   23.939604] ---[ end trace 0000000000000000 ]---
 
-Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
----
 
- drivers/pinctrl/stm32/pinctrl-stm32.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+All tests fail on vector 0 or 1.
 
-diff --git a/drivers/pinctrl/stm32/pinctrl-stm32.c b/drivers/pinctrl/stm32/pinctrl-stm32.c
-index cb33a23ab0c1..04ace4c7bd58 100644
---- a/drivers/pinctrl/stm32/pinctrl-stm32.c
-+++ b/drivers/pinctrl/stm32/pinctrl-stm32.c
-@@ -1330,7 +1330,7 @@ static int stm32_gpiolib_register_bank(struct stm32_pinctrl *pctl, struct fwnode
- 	if (fwnode_property_read_u32(fwnode, "st,bank-ioport", &bank_ioport_nr))
- 		bank_ioport_nr = bank_nr;
- 
--	bank->gpio_chip.base = bank_nr * STM32_GPIO_PINS_PER_BANK;
-+	bank->gpio_chip.base = -1;
- 
- 	bank->gpio_chip.ngpio = npins;
- 	bank->gpio_chip.fwnode = fwnode;
--- 
-2.32.0
+I am trying to debug!
 
+Yours,
+Linus Walleij
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
