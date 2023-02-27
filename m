@@ -2,78 +2,77 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 816A56A532C
+	by mail.lfdr.de (Postfix) with ESMTPS id 882936A532D
 	for <lists+linux-stm32@lfdr.de>; Tue, 28 Feb 2023 07:55:07 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1B5C0C6A5F8;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 306EDC6A5FE;
 	Tue, 28 Feb 2023 06:55:07 +0000 (UTC)
-Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3DD88C6904C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8B4CFC69067
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 27 Feb 2023 19:12:44 +0000 (UTC)
+ Mon, 27 Feb 2023 20:13:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1677525164; x=1709061164;
+ t=1677528808; x=1709064808;
  h=message-id:date:mime-version:subject:to:cc:references:
  from:in-reply-to:content-transfer-encoding;
- bh=V94xqAh8cPT2rlnyn1+jwV18O+aWYMzqBGsDGXUiGC8=;
- b=ENIKuQXc1edc9IwVeFlUEwme8FSLVl2jjvdolEecYNwMN4I1l2SMhWBO
- xeW2yUzmGIM5hnCEx8Djm7tlQ89ubNFs9RUJo+kC5tdVcsFuMySGCVzoL
- jReAa4WSRT2xlpDlFSr06lmUQIGYeTddwRm99HQY8S6WnKmOcV7a+Rsyd
- gOP8JkV1KUrup+4pwzaHA57eLvA4bHMp7fWbSboMjXrF5Tk3eRyTflpZD
- SCVmTTv2yCfkbJ5MjKT1Td2F5BE0jNQxTkHZEeVYnWMl6Cu9f/HUuI5Y1
- l4HtxgatrA3D5LA/MoHEiA421jvQ8cJ+YeLDiPXYdjP79cDm/fubLhKRW Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10634"; a="396503991"
-X-IronPort-AV: E=Sophos;i="5.98,219,1673942400"; d="scan'208";a="396503991"
+ bh=iCSUgrVsZAccn8cgPRVfxx9tJ3jkEEeSFJ/7vBr2oPA=;
+ b=GNvsU6AooI3wxc98SKMshsCcWSZ93DLVaO0kxXOf0JQsu1+mG4QOX7uF
+ NsY26uPQznkgt8n0U0zxbrMKD+22ncfbfP0z1rv0e4c/4XqjxyR5aCTjx
+ RRQQ8DypMgdMoxe2oiKuqvtT3tT7tz5Bey9MXVHe4T9nzaBRLW5RJURwW
+ uWLZP6Odl2X+7o40mOcj39osUconp73E7a2X6wgzihzqpqoaqABfiqeRt
+ 1fbXQk7+aYD4JhoWi3jLvOeafGfkTfa7sZbksZvtRfMYNBlMw8Xvf900L
+ qKUDx8rQEJHVz2xEHEGq21sTdqdnMXVB+gra3uuosGgp//ilxg/L9gLh2 A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10634"; a="322203197"
+X-IronPort-AV: E=Sophos;i="5.98,219,1673942400"; d="scan'208";a="322203197"
 Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Feb 2023 11:12:41 -0800
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Feb 2023 12:13:25 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10634"; a="667143353"
-X-IronPort-AV: E=Sophos;i="5.98,219,1673942400"; d="scan'208";a="667143353"
+X-IronPort-AV: E=McAfee;i="6500,9779,10634"; a="667166862"
+X-IronPort-AV: E=Sophos;i="5.98,219,1673942400"; d="scan'208";a="667166862"
 Received: from linux.intel.com ([10.54.29.200])
- by orsmga007.jf.intel.com with ESMTP; 27 Feb 2023 11:12:41 -0800
+ by orsmga007.jf.intel.com with ESMTP; 27 Feb 2023 12:12:59 -0800
 Received: from [10.212.193.244] (kliang2-mobl1.ccr.corp.intel.com
  [10.212.193.244])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by linux.intel.com (Postfix) with ESMTPS id E5F7E580689;
- Mon, 27 Feb 2023 11:12:37 -0800 (PST)
-Message-ID: <09f0e75a-a11d-7db1-6308-f1b00462908c@linux.intel.com>
-Date: Mon, 27 Feb 2023 14:12:36 -0500
+ by linux.intel.com (Postfix) with ESMTPS id 1D17F580689;
+ Mon, 27 Feb 2023 12:12:56 -0800 (PST)
+Message-ID: <231233ec-a098-fab6-6444-3da46bdad039@linux.intel.com>
+Date: Mon, 27 Feb 2023 15:12:54 -0500
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.8.0
 Content-Language: en-US
-To: Ian Rogers <irogers@google.com>, Peter Zijlstra <peterz@infradead.org>,
- Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de Melo <acme@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Jiri Olsa <jolsa@kernel.org>, Namhyung Kim <namhyung@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Zhengjun Xing <zhengjun.xing@linux.intel.com>,
- Sandipan Das <sandipan.das@amd.com>, James Clark <james.clark@arm.com>,
- Kajol Jain <kjain@linux.ibm.com>, John Garry <john.g.garry@oracle.com>,
- Adrian Hunter <adrian.hunter@intel.com>, Andrii Nakryiko
- <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>,
- Suzuki Poulouse <suzuki.poulose@arm.com>, Leo Yan <leo.yan@linaro.org>,
- Florian Fischer <florian.fischer@muhq.space>,
- Ravi Bangoria <ravi.bangoria@amd.com>,
- Jing Zhang <renyu.zj@linux.alibaba.com>,
- Sean Christopherson <seanjc@google.com>,
- Athira Rajeev <atrajeev@linux.vnet.ibm.com>, linux-kernel@vger.kernel.org,
- linux-perf-users@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, Perry Taylor <perry.taylor@intel.com>,
- Caleb Biggers <caleb.biggers@intel.com>
+To: Ian Rogers <irogers@google.com>
 References: <20230219092848.639226-1-irogers@google.com>
  <20230219092848.639226-40-irogers@google.com>
+ <09f0e75a-a11d-7db1-6308-f1b00462908c@linux.intel.com>
+ <CAP-5=fW8cM0cWaCs8Vu9Nom1i2TF024-yyHtdUQx8QE3HFTq0w@mail.gmail.com>
 From: "Liang, Kan" <kan.liang@linux.intel.com>
-In-Reply-To: <20230219092848.639226-40-irogers@google.com>
+In-Reply-To: <CAP-5=fW8cM0cWaCs8Vu9Nom1i2TF024-yyHtdUQx8QE3HFTq0w@mail.gmail.com>
 X-Mailman-Approved-At: Tue, 28 Feb 2023 06:55:05 +0000
-Cc: Stephane Eranian <eranian@google.com>
+Cc: Mark Rutland <mark.rutland@arm.com>, Sandipan Das <sandipan.das@amd.com>,
+ Peter Zijlstra <peterz@infradead.org>, Perry Taylor <perry.taylor@intel.com>,
+ Stephane Eranian <eranian@google.com>, linux-kernel@vger.kernel.org,
+ James Clark <james.clark@arm.com>, linux-stm32@st-md-mailman.stormreply.com,
+ Suzuki Poulouse <suzuki.poulose@arm.com>, Andrii Nakryiko <andrii@kernel.org>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Ingo Molnar <mingo@redhat.com>, Zhengjun Xing <zhengjun.xing@linux.intel.com>,
+ Jiri Olsa <jolsa@kernel.org>, John Garry <john.g.garry@oracle.com>,
+ Kajol Jain <kjain@linux.ibm.com>, Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, Caleb Biggers <caleb.biggers@intel.com>,
+ linux-arm-kernel@lists.infradead.org,
+ Athira Rajeev <atrajeev@linux.vnet.ibm.com>,
+ Sean Christopherson <seanjc@google.com>, Ravi Bangoria <ravi.bangoria@amd.com>,
+ Florian Fischer <florian.fischer@muhq.space>,
+ Adrian Hunter <adrian.hunter@intel.com>, linux-perf-users@vger.kernel.org,
+ Eduard Zingerman <eddyz87@gmail.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Leo Yan <leo.yan@linaro.org>,
+ Jing Zhang <renyu.zj@linux.alibaba.com>
 Subject: Re: [Linux-stm32] [PATCH v1 39/51] perf stat: Add TopdownL1 metric
  as a default if present
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
@@ -87,171 +86,168 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-
-
-On 2023-02-19 4:28 a.m., Ian Rogers wrote:
-> When there are no events and on Intel, the topdown events will be
-> added by default if present. To display the metrics associated with
-> these request special handling in stat-shadow.c. To more easily update
-> these metrics use the json metric version via the TopdownL1
-> group. This makes the handling less platform specific.
-> 
-> Modify the metricgroup__has_metric code to also cover metric groups.
-> 
-> Signed-off-by: Ian Rogers <irogers@google.com>
-> ---
->  tools/perf/arch/x86/util/evlist.c  |  6 +++---
->  tools/perf/arch/x86/util/topdown.c | 30 ------------------------------
->  tools/perf/arch/x86/util/topdown.h |  1 -
->  tools/perf/builtin-stat.c          | 14 ++++++++++++++
->  tools/perf/util/metricgroup.c      |  6 ++----
->  5 files changed, 19 insertions(+), 38 deletions(-)
-> 
-> diff --git a/tools/perf/arch/x86/util/evlist.c b/tools/perf/arch/x86/util/evlist.c
-> index cb59ce9b9638..8a7ae4162563 100644
-> --- a/tools/perf/arch/x86/util/evlist.c
-> +++ b/tools/perf/arch/x86/util/evlist.c
-> @@ -59,10 +59,10 @@ int arch_evlist__add_default_attrs(struct evlist *evlist,
->  				   struct perf_event_attr *attrs,
->  				   size_t nr_attrs)
->  {
-> -	if (nr_attrs)
-> -		return ___evlist__add_default_attrs(evlist, attrs, nr_attrs);
-> +	if (!nr_attrs)
-> +		return 0;
->  
-> -	return topdown_parse_events(evlist);
-> +	return ___evlist__add_default_attrs(evlist, attrs, nr_attrs);
->  }
->  
->  struct evsel *arch_evlist__leader(struct list_head *list)
-> diff --git a/tools/perf/arch/x86/util/topdown.c b/tools/perf/arch/x86/util/topdown.c
-> index 54810f9acd6f..eb3a7d9652ab 100644
-> --- a/tools/perf/arch/x86/util/topdown.c
-> +++ b/tools/perf/arch/x86/util/topdown.c
-> @@ -9,11 +9,6 @@
->  #include "topdown.h"
->  #include "evsel.h"
->  
-> -#define TOPDOWN_L1_EVENTS       "{slots,topdown-retiring,topdown-bad-spec,topdown-fe-bound,topdown-be-bound}"
-> -#define TOPDOWN_L1_EVENTS_CORE  "{slots,cpu_core/topdown-retiring/,cpu_core/topdown-bad-spec/,cpu_core/topdown-fe-bound/,cpu_core/topdown-be-bound/}"
-> -#define TOPDOWN_L2_EVENTS       "{slots,topdown-retiring,topdown-bad-spec,topdown-fe-bound,topdown-be-bound,topdown-heavy-ops,topdown-br-mispredict,topdown-fetch-lat,topdown-mem-bound}"
-> -#define TOPDOWN_L2_EVENTS_CORE  "{slots,cpu_core/topdown-retiring/,cpu_core/topdown-bad-spec/,cpu_core/topdown-fe-bound/,cpu_core/topdown-be-bound/,cpu_core/topdown-heavy-ops/,cpu_core/topdown-br-mispredict/,cpu_core/topdown-fetch-lat/,cpu_core/topdown-mem-bound/}"
-> -
->  /* Check whether there is a PMU which supports the perf metrics. */
->  bool topdown_sys_has_perf_metrics(void)
->  {
-> @@ -99,28 +94,3 @@ const char *arch_get_topdown_pmu_name(struct evlist *evlist, bool warn)
->  
->  	return pmu_name;
->  }
-> -
-> -int topdown_parse_events(struct evlist *evlist)
-> -{
-> -	const char *topdown_events;
-> -	const char *pmu_name;
-> -
-> -	if (!topdown_sys_has_perf_metrics())
-> -		return 0;
-> -
-> -	pmu_name = arch_get_topdown_pmu_name(evlist, false);
-> -
-> -	if (pmu_have_event(pmu_name, "topdown-heavy-ops")) {
-> -		if (!strcmp(pmu_name, "cpu_core"))
-> -			topdown_events = TOPDOWN_L2_EVENTS_CORE;
-> -		else
-> -			topdown_events = TOPDOWN_L2_EVENTS;
-> -	} else {
-> -		if (!strcmp(pmu_name, "cpu_core"))
-> -			topdown_events = TOPDOWN_L1_EVENTS_CORE;
-> -		else
-> -			topdown_events = TOPDOWN_L1_EVENTS;
-> -	}
-> -
-> -	return parse_event(evlist, topdown_events);
-> -}
-> diff --git a/tools/perf/arch/x86/util/topdown.h b/tools/perf/arch/x86/util/topdown.h
-> index 7eb81f042838..46bf9273e572 100644
-> --- a/tools/perf/arch/x86/util/topdown.h
-> +++ b/tools/perf/arch/x86/util/topdown.h
-> @@ -3,6 +3,5 @@
->  #define _TOPDOWN_H 1
->  
->  bool topdown_sys_has_perf_metrics(void);
-> -int topdown_parse_events(struct evlist *evlist);
->  
->  #endif
-> diff --git a/tools/perf/builtin-stat.c b/tools/perf/builtin-stat.c
-> index 5e13171a7bba..796e98e453f6 100644
-> --- a/tools/perf/builtin-stat.c
-> +++ b/tools/perf/builtin-stat.c
-> @@ -1996,6 +1996,7 @@ static int add_default_attributes(void)
->  		stat_config.topdown_level = TOPDOWN_MAX_LEVEL;
->  
->  	if (!evsel_list->core.nr_entries) {
-> +		/* No events so add defaults. */
->  		if (target__has_cpu(&target))
->  			default_attrs0[0].config = PERF_COUNT_SW_CPU_CLOCK;
->  
-> @@ -2011,6 +2012,19 @@ static int add_default_attributes(void)
->  		}
->  		if (evlist__add_default_attrs(evsel_list, default_attrs1) < 0)
->  			return -1;
-> +		/*
-> +		 * Add TopdownL1 metrics if they exist. To minimize
-> +		 * multiplexing, don't request threshold computation.
-> +		 */
-> +		if (metricgroup__has_metric("TopdownL1") &&
-> +		    metricgroup__parse_groups(evsel_list, "TopdownL1",
-> +					    /*metric_no_group=*/false,
-> +					    /*metric_no_merge=*/false,
-> +					    /*metric_no_threshold=*/true,
-> +					    stat_config.user_requested_cpu_list,
-> +					    stat_config.system_wide,
-> +					    &stat_config.metric_events) < 0)
-
-Does the metricgroup__* function check the existances of the events on
-the machine? If not, it may not be reliable to only check the event list.
-
-The existing code supports both L1 and L2 Topdown for SPR. But this
-patch seems remove the L2 Topdown support for SPR.
-
-The TopdownL1/L2 metric is added only for the big core with perf stat
-default. It's because that the perf_metrics is a dedicated register,
-which should not impact other events (using GP counters.) But this patch
-seems don't check the CPU type. It may brings extra multiplexing for the
-perf stat default on an ATOM platform.
-
-Thanks,
-Kan
-
-> +			return -1;
->  		/* Platform specific attrs */
->  		if (evlist__add_default_attrs(evsel_list, default_null_attrs) < 0)
->  			return -1;
-> diff --git a/tools/perf/util/metricgroup.c b/tools/perf/util/metricgroup.c
-> index afb6f2fdc24e..64a35f2787dc 100644
-> --- a/tools/perf/util/metricgroup.c
-> +++ b/tools/perf/util/metricgroup.c
-> @@ -1647,10 +1647,8 @@ static int metricgroup__has_metric_callback(const struct pmu_metric *pm,
->  {
->  	const char *metric = vdata;
->  
-> -	if (!pm->metric_expr)
-> -		return 0;
-> -
-> -	if (match_metric(pm->metric_name, metric))
-> +	if (match_metric(pm->metric_name, metric) ||
-> +	    match_metric(pm->metric_group, metric))
->  		return 1;
->  
->  	return 0;
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+CgpPbiAyMDIzLTAyLTI3IDI6MzMgcC5tLiwgSWFuIFJvZ2VycyB3cm90ZToKPiBPbiBNb24sIEZl
+YiAyNywgMjAyMyBhdCAxMToxMuKAr0FNIExpYW5nLCBLYW4gPGthbi5saWFuZ0BsaW51eC5pbnRl
+bC5jb20+IHdyb3RlOgo+Pgo+Pgo+Pgo+PiBPbiAyMDIzLTAyLTE5IDQ6MjggYS5tLiwgSWFuIFJv
+Z2VycyB3cm90ZToKPj4+IFdoZW4gdGhlcmUgYXJlIG5vIGV2ZW50cyBhbmQgb24gSW50ZWwsIHRo
+ZSB0b3Bkb3duIGV2ZW50cyB3aWxsIGJlCj4+PiBhZGRlZCBieSBkZWZhdWx0IGlmIHByZXNlbnQu
+IFRvIGRpc3BsYXkgdGhlIG1ldHJpY3MgYXNzb2NpYXRlZCB3aXRoCj4+PiB0aGVzZSByZXF1ZXN0
+IHNwZWNpYWwgaGFuZGxpbmcgaW4gc3RhdC1zaGFkb3cuYy4gVG8gbW9yZSBlYXNpbHkgdXBkYXRl
+Cj4+PiB0aGVzZSBtZXRyaWNzIHVzZSB0aGUganNvbiBtZXRyaWMgdmVyc2lvbiB2aWEgdGhlIFRv
+cGRvd25MMQo+Pj4gZ3JvdXAuIFRoaXMgbWFrZXMgdGhlIGhhbmRsaW5nIGxlc3MgcGxhdGZvcm0g
+c3BlY2lmaWMuCj4+Pgo+Pj4gTW9kaWZ5IHRoZSBtZXRyaWNncm91cF9faGFzX21ldHJpYyBjb2Rl
+IHRvIGFsc28gY292ZXIgbWV0cmljIGdyb3Vwcy4KPj4+Cj4+PiBTaWduZWQtb2ZmLWJ5OiBJYW4g
+Um9nZXJzIDxpcm9nZXJzQGdvb2dsZS5jb20+Cj4+PiAtLS0KPj4+ICB0b29scy9wZXJmL2FyY2gv
+eDg2L3V0aWwvZXZsaXN0LmMgIHwgIDYgKysrLS0tCj4+PiAgdG9vbHMvcGVyZi9hcmNoL3g4Ni91
+dGlsL3RvcGRvd24uYyB8IDMwIC0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQo+Pj4gIHRv
+b2xzL3BlcmYvYXJjaC94ODYvdXRpbC90b3Bkb3duLmggfCAgMSAtCj4+PiAgdG9vbHMvcGVyZi9i
+dWlsdGluLXN0YXQuYyAgICAgICAgICB8IDE0ICsrKysrKysrKysrKysrCj4+PiAgdG9vbHMvcGVy
+Zi91dGlsL21ldHJpY2dyb3VwLmMgICAgICB8ICA2ICsrLS0tLQo+Pj4gIDUgZmlsZXMgY2hhbmdl
+ZCwgMTkgaW5zZXJ0aW9ucygrKSwgMzggZGVsZXRpb25zKC0pCj4+Pgo+Pj4gZGlmZiAtLWdpdCBh
+L3Rvb2xzL3BlcmYvYXJjaC94ODYvdXRpbC9ldmxpc3QuYyBiL3Rvb2xzL3BlcmYvYXJjaC94ODYv
+dXRpbC9ldmxpc3QuYwo+Pj4gaW5kZXggY2I1OWNlOWI5NjM4Li44YTdhZTQxNjI1NjMgMTAwNjQ0
+Cj4+PiAtLS0gYS90b29scy9wZXJmL2FyY2gveDg2L3V0aWwvZXZsaXN0LmMKPj4+ICsrKyBiL3Rv
+b2xzL3BlcmYvYXJjaC94ODYvdXRpbC9ldmxpc3QuYwo+Pj4gQEAgLTU5LDEwICs1OSwxMCBAQCBp
+bnQgYXJjaF9ldmxpc3RfX2FkZF9kZWZhdWx0X2F0dHJzKHN0cnVjdCBldmxpc3QgKmV2bGlzdCwK
+Pj4+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHN0cnVjdCBwZXJmX2V2ZW50X2F0
+dHIgKmF0dHJzLAo+Pj4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgc2l6ZV90IG5y
+X2F0dHJzKQo+Pj4gIHsKPj4+IC0gICAgIGlmIChucl9hdHRycykKPj4+IC0gICAgICAgICAgICAg
+cmV0dXJuIF9fX2V2bGlzdF9fYWRkX2RlZmF1bHRfYXR0cnMoZXZsaXN0LCBhdHRycywgbnJfYXR0
+cnMpOwo+Pj4gKyAgICAgaWYgKCFucl9hdHRycykKPj4+ICsgICAgICAgICAgICAgcmV0dXJuIDA7
+Cj4+Pgo+Pj4gLSAgICAgcmV0dXJuIHRvcGRvd25fcGFyc2VfZXZlbnRzKGV2bGlzdCk7Cj4+PiAr
+ICAgICByZXR1cm4gX19fZXZsaXN0X19hZGRfZGVmYXVsdF9hdHRycyhldmxpc3QsIGF0dHJzLCBu
+cl9hdHRycyk7Cj4+PiAgfQo+Pj4KPj4+ICBzdHJ1Y3QgZXZzZWwgKmFyY2hfZXZsaXN0X19sZWFk
+ZXIoc3RydWN0IGxpc3RfaGVhZCAqbGlzdCkKPj4+IGRpZmYgLS1naXQgYS90b29scy9wZXJmL2Fy
+Y2gveDg2L3V0aWwvdG9wZG93bi5jIGIvdG9vbHMvcGVyZi9hcmNoL3g4Ni91dGlsL3RvcGRvd24u
+Ywo+Pj4gaW5kZXggNTQ4MTBmOWFjZDZmLi5lYjNhN2Q5NjUyYWIgMTAwNjQ0Cj4+PiAtLS0gYS90
+b29scy9wZXJmL2FyY2gveDg2L3V0aWwvdG9wZG93bi5jCj4+PiArKysgYi90b29scy9wZXJmL2Fy
+Y2gveDg2L3V0aWwvdG9wZG93bi5jCj4+PiBAQCAtOSwxMSArOSw2IEBACj4+PiAgI2luY2x1ZGUg
+InRvcGRvd24uaCIKPj4+ICAjaW5jbHVkZSAiZXZzZWwuaCIKPj4+Cj4+PiAtI2RlZmluZSBUT1BE
+T1dOX0wxX0VWRU5UUyAgICAgICAie3Nsb3RzLHRvcGRvd24tcmV0aXJpbmcsdG9wZG93bi1iYWQt
+c3BlYyx0b3Bkb3duLWZlLWJvdW5kLHRvcGRvd24tYmUtYm91bmR9Igo+Pj4gLSNkZWZpbmUgVE9Q
+RE9XTl9MMV9FVkVOVFNfQ09SRSAgIntzbG90cyxjcHVfY29yZS90b3Bkb3duLXJldGlyaW5nLyxj
+cHVfY29yZS90b3Bkb3duLWJhZC1zcGVjLyxjcHVfY29yZS90b3Bkb3duLWZlLWJvdW5kLyxjcHVf
+Y29yZS90b3Bkb3duLWJlLWJvdW5kL30iCj4+PiAtI2RlZmluZSBUT1BET1dOX0wyX0VWRU5UUyAg
+ICAgICAie3Nsb3RzLHRvcGRvd24tcmV0aXJpbmcsdG9wZG93bi1iYWQtc3BlYyx0b3Bkb3duLWZl
+LWJvdW5kLHRvcGRvd24tYmUtYm91bmQsdG9wZG93bi1oZWF2eS1vcHMsdG9wZG93bi1ici1taXNw
+cmVkaWN0LHRvcGRvd24tZmV0Y2gtbGF0LHRvcGRvd24tbWVtLWJvdW5kfSIKPj4+IC0jZGVmaW5l
+IFRPUERPV05fTDJfRVZFTlRTX0NPUkUgICJ7c2xvdHMsY3B1X2NvcmUvdG9wZG93bi1yZXRpcmlu
+Zy8sY3B1X2NvcmUvdG9wZG93bi1iYWQtc3BlYy8sY3B1X2NvcmUvdG9wZG93bi1mZS1ib3VuZC8s
+Y3B1X2NvcmUvdG9wZG93bi1iZS1ib3VuZC8sY3B1X2NvcmUvdG9wZG93bi1oZWF2eS1vcHMvLGNw
+dV9jb3JlL3RvcGRvd24tYnItbWlzcHJlZGljdC8sY3B1X2NvcmUvdG9wZG93bi1mZXRjaC1sYXQv
+LGNwdV9jb3JlL3RvcGRvd24tbWVtLWJvdW5kL30iCj4+PiAtCj4+PiAgLyogQ2hlY2sgd2hldGhl
+ciB0aGVyZSBpcyBhIFBNVSB3aGljaCBzdXBwb3J0cyB0aGUgcGVyZiBtZXRyaWNzLiAqLwo+Pj4g
+IGJvb2wgdG9wZG93bl9zeXNfaGFzX3BlcmZfbWV0cmljcyh2b2lkKQo+Pj4gIHsKPj4+IEBAIC05
+OSwyOCArOTQsMyBAQCBjb25zdCBjaGFyICphcmNoX2dldF90b3Bkb3duX3BtdV9uYW1lKHN0cnVj
+dCBldmxpc3QgKmV2bGlzdCwgYm9vbCB3YXJuKQo+Pj4KPj4+ICAgICAgIHJldHVybiBwbXVfbmFt
+ZTsKPj4+ICB9Cj4+PiAtCj4+PiAtaW50IHRvcGRvd25fcGFyc2VfZXZlbnRzKHN0cnVjdCBldmxp
+c3QgKmV2bGlzdCkKPj4+IC17Cj4+PiAtICAgICBjb25zdCBjaGFyICp0b3Bkb3duX2V2ZW50czsK
+Pj4+IC0gICAgIGNvbnN0IGNoYXIgKnBtdV9uYW1lOwo+Pj4gLQo+Pj4gLSAgICAgaWYgKCF0b3Bk
+b3duX3N5c19oYXNfcGVyZl9tZXRyaWNzKCkpCj4+PiAtICAgICAgICAgICAgIHJldHVybiAwOwo+
+Pj4gLQo+Pj4gLSAgICAgcG11X25hbWUgPSBhcmNoX2dldF90b3Bkb3duX3BtdV9uYW1lKGV2bGlz
+dCwgZmFsc2UpOwo+Pj4gLQo+Pj4gLSAgICAgaWYgKHBtdV9oYXZlX2V2ZW50KHBtdV9uYW1lLCAi
+dG9wZG93bi1oZWF2eS1vcHMiKSkgewo+Pj4gLSAgICAgICAgICAgICBpZiAoIXN0cmNtcChwbXVf
+bmFtZSwgImNwdV9jb3JlIikpCj4+PiAtICAgICAgICAgICAgICAgICAgICAgdG9wZG93bl9ldmVu
+dHMgPSBUT1BET1dOX0wyX0VWRU5UU19DT1JFOwo+Pj4gLSAgICAgICAgICAgICBlbHNlCj4+PiAt
+ICAgICAgICAgICAgICAgICAgICAgdG9wZG93bl9ldmVudHMgPSBUT1BET1dOX0wyX0VWRU5UUzsK
+Pj4+IC0gICAgIH0gZWxzZSB7Cj4+PiAtICAgICAgICAgICAgIGlmICghc3RyY21wKHBtdV9uYW1l
+LCAiY3B1X2NvcmUiKSkKPj4+IC0gICAgICAgICAgICAgICAgICAgICB0b3Bkb3duX2V2ZW50cyA9
+IFRPUERPV05fTDFfRVZFTlRTX0NPUkU7Cj4+PiAtICAgICAgICAgICAgIGVsc2UKPj4+IC0gICAg
+ICAgICAgICAgICAgICAgICB0b3Bkb3duX2V2ZW50cyA9IFRPUERPV05fTDFfRVZFTlRTOwo+Pj4g
+LSAgICAgfQo+Pj4gLQo+Pj4gLSAgICAgcmV0dXJuIHBhcnNlX2V2ZW50KGV2bGlzdCwgdG9wZG93
+bl9ldmVudHMpOwo+Pj4gLX0KPj4+IGRpZmYgLS1naXQgYS90b29scy9wZXJmL2FyY2gveDg2L3V0
+aWwvdG9wZG93bi5oIGIvdG9vbHMvcGVyZi9hcmNoL3g4Ni91dGlsL3RvcGRvd24uaAo+Pj4gaW5k
+ZXggN2ViODFmMDQyODM4Li40NmJmOTI3M2U1NzIgMTAwNjQ0Cj4+PiAtLS0gYS90b29scy9wZXJm
+L2FyY2gveDg2L3V0aWwvdG9wZG93bi5oCj4+PiArKysgYi90b29scy9wZXJmL2FyY2gveDg2L3V0
+aWwvdG9wZG93bi5oCj4+PiBAQCAtMyw2ICszLDUgQEAKPj4+ICAjZGVmaW5lIF9UT1BET1dOX0gg
+MQo+Pj4KPj4+ICBib29sIHRvcGRvd25fc3lzX2hhc19wZXJmX21ldHJpY3Modm9pZCk7Cj4+PiAt
+aW50IHRvcGRvd25fcGFyc2VfZXZlbnRzKHN0cnVjdCBldmxpc3QgKmV2bGlzdCk7Cj4+Pgo+Pj4g
+ICNlbmRpZgo+Pj4gZGlmZiAtLWdpdCBhL3Rvb2xzL3BlcmYvYnVpbHRpbi1zdGF0LmMgYi90b29s
+cy9wZXJmL2J1aWx0aW4tc3RhdC5jCj4+PiBpbmRleCA1ZTEzMTcxYTdiYmEuLjc5NmU5OGU0NTNm
+NiAxMDA2NDQKPj4+IC0tLSBhL3Rvb2xzL3BlcmYvYnVpbHRpbi1zdGF0LmMKPj4+ICsrKyBiL3Rv
+b2xzL3BlcmYvYnVpbHRpbi1zdGF0LmMKPj4+IEBAIC0xOTk2LDYgKzE5OTYsNyBAQCBzdGF0aWMg
+aW50IGFkZF9kZWZhdWx0X2F0dHJpYnV0ZXModm9pZCkKPj4+ICAgICAgICAgICAgICAgc3RhdF9j
+b25maWcudG9wZG93bl9sZXZlbCA9IFRPUERPV05fTUFYX0xFVkVMOwo+Pj4KPj4+ICAgICAgIGlm
+ICghZXZzZWxfbGlzdC0+Y29yZS5ucl9lbnRyaWVzKSB7Cj4+PiArICAgICAgICAgICAgIC8qIE5v
+IGV2ZW50cyBzbyBhZGQgZGVmYXVsdHMuICovCj4+PiAgICAgICAgICAgICAgIGlmICh0YXJnZXRf
+X2hhc19jcHUoJnRhcmdldCkpCj4+PiAgICAgICAgICAgICAgICAgICAgICAgZGVmYXVsdF9hdHRy
+czBbMF0uY29uZmlnID0gUEVSRl9DT1VOVF9TV19DUFVfQ0xPQ0s7Cj4+Pgo+Pj4gQEAgLTIwMTEs
+NiArMjAxMiwxOSBAQCBzdGF0aWMgaW50IGFkZF9kZWZhdWx0X2F0dHJpYnV0ZXModm9pZCkKPj4+
+ICAgICAgICAgICAgICAgfQo+Pj4gICAgICAgICAgICAgICBpZiAoZXZsaXN0X19hZGRfZGVmYXVs
+dF9hdHRycyhldnNlbF9saXN0LCBkZWZhdWx0X2F0dHJzMSkgPCAwKQo+Pj4gICAgICAgICAgICAg
+ICAgICAgICAgIHJldHVybiAtMTsKPj4+ICsgICAgICAgICAgICAgLyoKPj4+ICsgICAgICAgICAg
+ICAgICogQWRkIFRvcGRvd25MMSBtZXRyaWNzIGlmIHRoZXkgZXhpc3QuIFRvIG1pbmltaXplCj4+
+PiArICAgICAgICAgICAgICAqIG11bHRpcGxleGluZywgZG9uJ3QgcmVxdWVzdCB0aHJlc2hvbGQg
+Y29tcHV0YXRpb24uCj4+PiArICAgICAgICAgICAgICAqLwo+Pj4gKyAgICAgICAgICAgICBpZiAo
+bWV0cmljZ3JvdXBfX2hhc19tZXRyaWMoIlRvcGRvd25MMSIpICYmCj4+PiArICAgICAgICAgICAg
+ICAgICBtZXRyaWNncm91cF9fcGFyc2VfZ3JvdXBzKGV2c2VsX2xpc3QsICJUb3Bkb3duTDEiLAo+
+Pj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgLyptZXRyaWNfbm9f
+Z3JvdXA9Ki9mYWxzZSwKPj4+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgIC8qbWV0cmljX25vX21lcmdlPSovZmFsc2UsCj4+PiArICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAvKm1ldHJpY19ub190aHJlc2hvbGQ9Ki90cnVlLAo+Pj4gKyAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgc3RhdF9jb25maWcudXNlcl9y
+ZXF1ZXN0ZWRfY3B1X2xpc3QsCj4+PiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICBzdGF0X2NvbmZpZy5zeXN0ZW1fd2lkZSwKPj4+ICsgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICZzdGF0X2NvbmZpZy5tZXRyaWNfZXZlbnRzKSA8IDApCj4+
+Cj4+IERvZXMgdGhlIG1ldHJpY2dyb3VwX18qIGZ1bmN0aW9uIGNoZWNrIHRoZSBleGlzdGFuY2Vz
+IG9mIHRoZSBldmVudHMgb24KPj4gdGhlIG1hY2hpbmU/IElmIG5vdCwgaXQgbWF5IG5vdCBiZSBy
+ZWxpYWJsZSB0byBvbmx5IGNoZWNrIHRoZSBldmVudCBsaXN0Lgo+Pgo+PiBUaGUgZXhpc3Rpbmcg
+Y29kZSBzdXBwb3J0cyBib3RoIEwxIGFuZCBMMiBUb3Bkb3duIGZvciBTUFIuIEJ1dCB0aGlzCj4+
+IHBhdGNoIHNlZW1zIHJlbW92ZSB0aGUgTDIgVG9wZG93biBzdXBwb3J0IGZvciBTUFIuCj4+Cj4+
+IFRoZSBUb3Bkb3duTDEvTDIgbWV0cmljIGlzIGFkZGVkIG9ubHkgZm9yIHRoZSBiaWcgY29yZSB3
+aXRoIHBlcmYgc3RhdAo+PiBkZWZhdWx0LiBJdCdzIGJlY2F1c2UgdGhhdCB0aGUgcGVyZl9tZXRy
+aWNzIGlzIGEgZGVkaWNhdGVkIHJlZ2lzdGVyLAo+PiB3aGljaCBzaG91bGQgbm90IGltcGFjdCBv
+dGhlciBldmVudHMgKHVzaW5nIEdQIGNvdW50ZXJzLikgQnV0IHRoaXMgcGF0Y2gKPj4gc2VlbXMg
+ZG9uJ3QgY2hlY2sgdGhlIENQVSB0eXBlLiBJdCBtYXkgYnJpbmdzIGV4dHJhIG11bHRpcGxleGlu
+ZyBmb3IgdGhlCj4+IHBlcmYgc3RhdCBkZWZhdWx0IG9uIGFuIEFUT00gcGxhdGZvcm0uCj4+Cj4+
+IFRoYW5rcywKPj4gS2FuCj4gCj4gSGkgS2FuLAo+IAo+IFRoZSBUb3Bkb3duTDIgbWV0cmljcyBh
+cmUgcHJlc2VudCBmb3IgU1BSLiBUaGUgY29kZSBjaGFuZ2VzIHRvIGRlZmF1bHQKPiBmb3IgTDEg
+YXMgd2l0aCBqc29uIHRvcGRvd24gdGhlIG1heGltdW0gdG9wZG93biBsZXZlbCAodGhlIGRlZmF1
+bHQKPiBwcmV2aW91c2x5KSBpcyBMNiwgYW5kIG5vYm9keSByZWFsbHkgd2FudHMgdG8gc2VlIHRo
+YXQuIFRoZSAtLXRvcGRvd24KPiBvcHRpb24gaXMgbm8gbG9uZ2VyIGxpbWl0ZWQgdG8gSWNlbGFr
+ZSsgcHJvY2Vzc29ycywgYW55IHdpdGggdGhlCj4gVG9wZG93bkwxIG1ldHJpY2dyb3VwIHdpbGwg
+d29yayBhcyAtLXRvcGRvd24gaGFzIGp1c3QgYmVjb21lIGEKPiBzaG9ydGN1dCB0byB0aGF0LgoK
+VGhpcyBwYXRjaCBzZWVtcyBhbHNvIGNoYW5nZXMgdGhlIHBlcmYgc3RhdCBkZWZhdWx0LiBUaGUg
+Y3VycmVudCBwZXJmCnN0YXQgZGVmYXVsdCBzaG93cyBib3RoIEwxIGFuZCBMMiBmb3IgU1BSLiBJ
+ZiB0aGF0J3MgdGhlIGNhc2UsIGl0IHNob3VsZApiZSBhIHVzZXIgdmlzaWJsZSBjaGFuZ2VzLiBX
+aGF0J3Mgb3V0cHV0IG9mICJwZXJmIHN0YXQgc2xlZXAgMSIgd2l0aAp0aGlzIHBhdGNoIG9uIFNQ
+Uj8KCj4gCj4gVGhlcmUgbWF5IGJlIGFkZGl0aW9uYWwgbXVsdGlwbGV4aW5nLCBidXQgYWxzbywg
+aW4gdGhlIG9sZCBjb2RlIGV2ZW50cwo+IGZyb20gZGlmZmVyZW50IGdyb3VwcyBjb3VsZCBiZSB1
+c2VkIHRvIGNhbGN1bGF0ZSBhIGJvZ3VzIG1ldHJpYy4gVGhlcmUKPiBhcmUgYWxzbyBhZGRpdGlv
+bmFsIGV2ZW50cyBhcyB0aGUgcHJldmlvdXMgbWV0cmljcyBkb24ndCBhZ3JlZSB3aXRoCj4gdGhv
+c2UgaW4gdGhlIFRNQSBzcHJlYWRzaGVldC4gSWYgdGhlcmUgaXMgbXVsdGlwbGV4aW5nIGZyb20g
+dGhpcwo+IGNoYW5nZSBvbiBTUFIsIHRoZSBUTUEganNvbiBtZXRyaWNzIGRvIHRyeSB0byBhdm9p
+ZCB0aGlzLCBJIHRoaW5rIHRoZQo+IHJpZ2h0IHBhdGggdGhyb3VnaCB0aGlzIGlzIHRvIGZpeCB0
+aGUganNvbiBtZXRyaWNzLgoKRm9yIHRoZSBwZXJmIHN0YXQgZGVmYXVsdCwgdGhlcmUgc2hvdWxk
+IGJlIG5vIG11bHRpcGxleGluZy4KCkFsc28sIGl0IGxvb2tzIGxpa2UgdGhlIHBhdGNoIGFuZCB0
+aGUgZm9sbG93aW5nIHNldmVyYWwgcGF0Y2hlcyByZW1vdmUKdGhlIGV4aXN0ZW5jZSBjaGVjayBv
+ZiBhbiBldmVudCAocG11X2hhdmVfZXZlbnQoKSkuIEl0IG1heSBub3QgYmUgYSBnb29kCmlkZWEu
+IFRob3NlIGV2ZW50cy9mZWF0dXJlcyB1c3VhbGx5IGJlIGVudW1lcmF0ZWQsIHdoaWNoIG1lYW5z
+IHRoYXQgdGhleQptYXkgbm90IGJlIGF2YWlsYWJsZSBpbiBzb21lIGNhc2VzLiBGb3IgZXhhbXBs
+ZSwgd2UgZG9uJ3QgaGF2ZSB0aGUgcGVyZgptZXRyaWNzIHN1cHBvcnQgb24gS1ZNLiBJIGRvbid0
+IHRoaW5rIHRoZSBjdXJyZW50IEpTT04gbWV0cmljcyBjaGVja3MKdGhlIENQVUlEIGVudW1lcmF0
+aW9uLiBJZiBzbywgdGhlIHBhdGNoIG1heSBicmluZ3MgcHJvYmxlbSBpbiBhIFZNLgoKVGhhbmtz
+LApLYW4KCj4gCj4gVGhhbmtzLAo+IElhbgo+IAo+Pj4gKyAgICAgICAgICAgICAgICAgICAgIHJl
+dHVybiAtMTsKPj4+ICAgICAgICAgICAgICAgLyogUGxhdGZvcm0gc3BlY2lmaWMgYXR0cnMgKi8K
+Pj4+ICAgICAgICAgICAgICAgaWYgKGV2bGlzdF9fYWRkX2RlZmF1bHRfYXR0cnMoZXZzZWxfbGlz
+dCwgZGVmYXVsdF9udWxsX2F0dHJzKSA8IDApCj4+PiAgICAgICAgICAgICAgICAgICAgICAgcmV0
+dXJuIC0xOwo+Pj4gZGlmZiAtLWdpdCBhL3Rvb2xzL3BlcmYvdXRpbC9tZXRyaWNncm91cC5jIGIv
+dG9vbHMvcGVyZi91dGlsL21ldHJpY2dyb3VwLmMKPj4+IGluZGV4IGFmYjZmMmZkYzI0ZS4uNjRh
+MzVmMjc4N2RjIDEwMDY0NAo+Pj4gLS0tIGEvdG9vbHMvcGVyZi91dGlsL21ldHJpY2dyb3VwLmMK
+Pj4+ICsrKyBiL3Rvb2xzL3BlcmYvdXRpbC9tZXRyaWNncm91cC5jCj4+PiBAQCAtMTY0NywxMCAr
+MTY0Nyw4IEBAIHN0YXRpYyBpbnQgbWV0cmljZ3JvdXBfX2hhc19tZXRyaWNfY2FsbGJhY2soY29u
+c3Qgc3RydWN0IHBtdV9tZXRyaWMgKnBtLAo+Pj4gIHsKPj4+ICAgICAgIGNvbnN0IGNoYXIgKm1l
+dHJpYyA9IHZkYXRhOwo+Pj4KPj4+IC0gICAgIGlmICghcG0tPm1ldHJpY19leHByKQo+Pj4gLSAg
+ICAgICAgICAgICByZXR1cm4gMDsKPj4+IC0KPj4+IC0gICAgIGlmIChtYXRjaF9tZXRyaWMocG0t
+Pm1ldHJpY19uYW1lLCBtZXRyaWMpKQo+Pj4gKyAgICAgaWYgKG1hdGNoX21ldHJpYyhwbS0+bWV0
+cmljX25hbWUsIG1ldHJpYykgfHwKPj4+ICsgICAgICAgICBtYXRjaF9tZXRyaWMocG0tPm1ldHJp
+Y19ncm91cCwgbWV0cmljKSkKPj4+ICAgICAgICAgICAgICAgcmV0dXJuIDE7Cj4+Pgo+Pj4gICAg
+ICAgcmV0dXJuIDA7Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0
+b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFu
+L2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
