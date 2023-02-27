@@ -2,50 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id EDEB66A4D00
-	for <lists+linux-stm32@lfdr.de>; Mon, 27 Feb 2023 22:18:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 931E56A4D2B
+	for <lists+linux-stm32@lfdr.de>; Mon, 27 Feb 2023 22:28:51 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7E43FC6A5EA;
-	Mon, 27 Feb 2023 21:18:03 +0000 (UTC)
-Received: from mail-yw1-f182.google.com (mail-yw1-f182.google.com
- [209.85.128.182])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1EECDC6A5EA;
+	Mon, 27 Feb 2023 21:28:51 +0000 (UTC)
+Received: from mail-yw1-f180.google.com (mail-yw1-f180.google.com
+ [209.85.128.180])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 85EF9C6904C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B289FC6904C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 27 Feb 2023 21:18:02 +0000 (UTC)
-Received: by mail-yw1-f182.google.com with SMTP id
- 00721157ae682-536bf92b55cso212845037b3.12
+ Mon, 27 Feb 2023 21:28:49 +0000 (UTC)
+Received: by mail-yw1-f180.google.com with SMTP id
+ 00721157ae682-53916ab0c6bso214586667b3.7
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 27 Feb 2023 13:18:02 -0800 (PST)
+ Mon, 27 Feb 2023 13:28:49 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=861ENRhd8EcHSgkNed94lLcOy+3hO+Ai15ZLxiI8kpM=;
- b=kloYiVK17/dt2g3sp7Dfx3rk4LMRwTyDQgC5p0DMXht369w9cWMi9xv7oVE/2p3m9q
- APhG6yjBMR1RV1BkutloNYHI/oKXML0JscnUGWpgoPTr5hGSK0RWsyasxlZsVIFSkbdt
- dgUIrX23diNJXG+RUt9nJMrga98jtbyGd0PpIzC8UGEi4uaKfVOOlSnkr2BVp636gGPU
- oCwBueM+qUp0hrN52MRgMAxZmDDufSyBMPqz7wni4mu0VjOUOBF9KAmDfsUv1rxN3BPA
- kQcR9YDXDLcH8SC/JjCS8CZNtglOl6t+57ywwIDCk/zhZMj0yljfLe6CE0/zDKwsrLxc
- gDNw==
+ bh=KmeRELRjX+toI8U9S0q+sHldmJmMtE+gM2tXQFayu+U=;
+ b=y4E6zHRqFiXuN7c7PneeDu+wNuShz4nVMZLDBPxHPc3IA1/g6oiV5bwS1dwa2qJlig
+ KK4dWSPTjhffcVsaO4aTSzFFcUYefVckve3Lqz/d23Ku1SkxUs2z95BXpGkjq0SBaGDR
+ xikjSnYwK3gGAR02DOI66/HgvXTQaH7Z8BsB8Nl057AR/dZ0ooaifnLjYdXRJc9YhxUZ
+ cIQ1U9NO8IuUbe7aSJuaGMQsftOEbRyzhzqMum27EV68+cp4U1hkmPU6Gk2hwEqhr7+z
+ 867smwfEWVpn5Clzl4UCKbsxtFx0VU6oT1hlR5vB9Id0crzEpWjB5n42WVV09TrTo5HJ
+ WsRA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=861ENRhd8EcHSgkNed94lLcOy+3hO+Ai15ZLxiI8kpM=;
- b=uxLHCnLqrKR8R0Xk/VXCP65dlSVEidMSHgYPHCvy1Tq2OjJ6xyHurgFT5qVYZbhFH7
- oFBYWD5u/lEzpO/b2XHNwZZbEGlmNjiPUjtqsQS07dEESwhdi0anbOPplLIDRvhCfZJQ
- GCj+Gk+0MOnk/wPsn9610WiJm/vybN5PQ+vlfQOC9WIGLfZkFD0zTaJpyv3CiXgKjp1b
- AmE0po+N3mEEe0a4ECKxpmXgUypR3lIeP3bXPg4SzPp10Qa1IlVza1PuZClPaQgn7FPR
- Yf5w7tNs19RVC6X60XtTc8QFD2ci4T3DltYbhAzkj3tJOJnqKqPI4OypMCMJ5J7abuEQ
- hZyw==
-X-Gm-Message-State: AO0yUKVjfAETM2YmgV29PEMhGGUw1/eL5tgJ9UqtNRvwOEXSOQwNEl17
- 9ul2wHBTHWi8PSQSWvguAQLMwOeY8Brc2/cpBirewQ==
-X-Google-Smtp-Source: AK7set//HnE1NkogtMQUUnKRN9ZnMZvonCvFO7FMIxs+p8rQ32omlyXDjNQIPGNptsPySH4EGsfKDlYCxpjMnXONZwM=
-X-Received: by 2002:a5b:685:0:b0:9f1:6c48:f95f with SMTP id
- j5-20020a5b0685000000b009f16c48f95fmr75674ybq.5.1677532681340; Mon, 27 Feb
- 2023 13:18:01 -0800 (PST)
+ bh=KmeRELRjX+toI8U9S0q+sHldmJmMtE+gM2tXQFayu+U=;
+ b=gXMvVdR0LlVXh/zO10z5ondYh01b0MDVPMXe/MYAfJ72cMFTnEkbnBe6JkKsaQuMSb
+ FYcTHQxg2UJ47f//ac9AyjAMvQo+v9w+g4OmM3WxYoapORhxdgLtpnRUNdjrsKJCF728
+ Edy60SAg+k2g4N+74rtwxwgzZuq+kEBk8rAYOfbbu0LgxQC9zvsx2TwSS5yHIsSlefDC
+ sLWj8Ozf/QcG7iP2o1nWAC8reidJK2j/7aCbI7PYdZcGgZVP4qXd1EqrEdYSr08lrRrs
+ 9d1uStLLnVtG3uEtmHE7wa4NW0SYtfjPQ+OHQkc4JFSpDqz8sAnw1ZoM4TZBQ5qeZKrq
+ ZoAA==
+X-Gm-Message-State: AO0yUKXBw+UT9HJ04xAvzVZvpxdRBks714tm9LbH//CZRl5DdJi17jqC
+ eIHvPcWd1wMmSkYBrmmnBQY/VhLKUrzYws1ETQIr/w==
+X-Google-Smtp-Source: AK7set9Fm6aG84DkHYFF3B61/XmBl2EHBKxyDQxJVBl73mnj2YUhHJ2iyh2VMkT65oKlT4cTP/s5LNQWjMHpy1cdbI4=
+X-Received: by 2002:a5b:8b:0:b0:932:8dcd:3a13 with SMTP id
+ b11-20020a5b008b000000b009328dcd3a13mr105010ybp.5.1677533328652; 
+ Mon, 27 Feb 2023 13:28:48 -0800 (PST)
 MIME-Version: 1.0
 References: <Y/cBB+q0Ono9j2Jy@gondor.apana.org.au>
  <20230224231430.2948-1-kunyu@nfschina.com>
@@ -53,10 +53,11 @@ References: <Y/cBB+q0Ono9j2Jy@gondor.apana.org.au>
  <CACRpkdYyB=-UnE1bmdVszSSB5ReECZ0fUoWJX6XtYbKHEe52tA@mail.gmail.com>
  <Y/c7iVW67Xhhdu8e@gondor.apana.org.au> <Y/hQdzsKMYgkIfMY@gondor.apana.org.au>
  <Y/yIbPBVCPx9K/0s@gondor.apana.org.au>
-In-Reply-To: <Y/yIbPBVCPx9K/0s@gondor.apana.org.au>
+ <CACRpkdZC4z2Xng4=k94rmM=AFzNzTdXkvtkArMnK7afouz=7VA@mail.gmail.com>
+In-Reply-To: <CACRpkdZC4z2Xng4=k94rmM=AFzNzTdXkvtkArMnK7afouz=7VA@mail.gmail.com>
 From: Linus Walleij <linus.walleij@linaro.org>
-Date: Mon, 27 Feb 2023 22:17:49 +0100
-Message-ID: <CACRpkdZC4z2Xng4=k94rmM=AFzNzTdXkvtkArMnK7afouz=7VA@mail.gmail.com>
+Date: Mon, 27 Feb 2023 22:28:36 +0100
+Message-ID: <CACRpkdb3xVYspjHTZ+z8Xh0mgd+Ht3VCA_F6xon90gyK-bdPhQ@mail.gmail.com>
 To: Herbert Xu <herbert@gondor.apana.org.au>
 Cc: Li kunyu <kunyu@nfschina.com>, linux-kernel@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-crypto@vger.kernel.org,
@@ -80,53 +81,25 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Feb 27, 2023 at 11:39 AM Herbert Xu <herbert@gondor.apana.org.au> wrote:
+On Mon, Feb 27, 2023 at 10:17 PM Linus Walleij <linus.walleij@linaro.org> wrote:
 
-> v3 moves the exported state into its own structure so that it
-> doesn't contain unnecessary data.  It also subsumes the "empty
-> message" patch, as only the stm32_hash_copy_hash hunk was really
-> needed and it's easiest if we put that here.
+> I am trying to debug!
 
-Thanks Herbert, now the driver probes fine, but unfortunately the tests
-fail:
+I am confused by the use of the state flag HASH_FLAGS_INIT in this
+driver.
 
-[    2.963725] alg: extra crypto tests enabled.  This is intended for
-developer use only.
-[   17.106532] Key type encrypted registered
-[   23.804729] stm32-hash a03c2000.hash: allocated hmac(sha256) fallback
-[   23.812529] alg: ahash: stm32-hmac-sha256 test failed (wrong
-result) on test vector 0, cfg="init+update+final aligned buffer"
-[   23.823902] alg: self-tests for hmac(sha256) using
-stm32-hmac-sha256 failed (rc=-22)
-[   23.823924] ------------[ cut here ]------------
-[   23.836312] WARNING: CPU: 0 PID: 72 at crypto/testmgr.c:5858
-alg_test.part.0+0x4d0/0x4dc
-[   23.844449] alg: self-tests for hmac(sha256) using
-stm32-hmac-sha256 failed (rc=-22)
-[   23.844460] Modules linked in:
-[   23.855261] CPU: 0 PID: 72 Comm: cryptomgr_test Not tainted
-6.2.0-12019-g4bc85a2f8f63 #65
-[   23.863440] Hardware name: ST-Ericsson Ux5x0 platform (Device Tree Support)
-[   23.870408]  unwind_backtrace from show_stack+0x10/0x14
-[   23.875653]  show_stack from dump_stack_lvl+0x40/0x4c
-[   23.880727]  dump_stack_lvl from __warn+0x94/0xc0
-[   23.885450]  __warn from warn_slowpath_fmt+0x118/0x164
-[   23.890603]  warn_slowpath_fmt from alg_test.part.0+0x4d0/0x4dc
-[   23.896540]  alg_test.part.0 from cryptomgr_test+0x18/0x38
-[   23.902042]  cryptomgr_test from kthread+0xc0/0xc4
-[   23.906847]  kthread from ret_from_fork+0x14/0x2c
-[   23.911557] Exception stack(0xf0f39fb0 to 0xf0f39ff8)
-[   23.916609] 9fa0:                                     00000000
-00000000 00000000 00000000
-[   23.924783] 9fc0: 00000000 00000000 00000000 00000000 00000000
-00000000 00000000 00000000
-[   23.932956] 9fe0: 00000000 00000000 00000000 00000000 00000013 00000000
-[   23.939604] ---[ end trace 0000000000000000 ]---
+In stm32_hash_write_ctrl() that set up all the algorithm properties
+this flag seems to mean "initialized the control register", as it sets
+the flag after initializing the register and then does not write it
+again if the flag is set.
 
+I wonder if this is in line with the crypto driver expectations of that
+flag.
 
-All tests fail on vector 0 or 1.
-
-I am trying to debug!
+I am wondering because at the end stm32_hash_dma_send()
+you set this flag, and that function calls
+stm32_hash_write_ctrl() first thing it does which will set the flag
+unless it was set already.
 
 Yours,
 Linus Walleij
