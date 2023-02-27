@@ -2,80 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5D5286A4AEC
-	for <lists+linux-stm32@lfdr.de>; Mon, 27 Feb 2023 20:33:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6CC0C6A4C77
+	for <lists+linux-stm32@lfdr.de>; Mon, 27 Feb 2023 21:51:37 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0EE2EC6A5EA;
-	Mon, 27 Feb 2023 19:33:34 +0000 (UTC)
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com
- [209.85.128.53])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1F603C6A5EA;
+	Mon, 27 Feb 2023 20:51:37 +0000 (UTC)
+Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com
+ [209.85.208.48])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3A35DC69067
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4364EC6904C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 27 Feb 2023 19:33:32 +0000 (UTC)
-Received: by mail-wm1-f53.google.com with SMTP id
- fm20-20020a05600c0c1400b003ead37e6588so7977734wmb.5
+ Mon, 27 Feb 2023 20:51:36 +0000 (UTC)
+Received: by mail-ed1-f48.google.com with SMTP id o12so31074217edb.9
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 27 Feb 2023 11:33:32 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=c3ZlYrpnvriuEQlF8acpCfz9AsquLRyarIwKRteJEOc=;
- b=PhdPrbw2NpLyUL3zt0V036IziurH/5vDJKbohghqcsViBw8SN8leNq+AwZbf06W6zG
- ERyTQNPRfGPL+taOvgUsswSY4rToiNChsDUcDbTl8Nx+eYQZrImKkFAqLgUZYbOjsNW+
- 35+V5ubLZZVUAQOHLZNAHLwJSn1KMRuZ1LGhU6GuMWntGTc7aWVHKYoQRAs0mQ50cddt
- QkALjJvA1aH4IMgqDkGyQX6K+ApZ/iOYqkFsuvBf9gT/ZRd5vYhARI7PqN6mF+sUIx+4
- 8nzXKx6x7VRF7BQrX0dpa8Fty3iofOZLd1ksVjA/G/ERnscDWBfQr8xZpk9BaXfL+SRr
- IVgQ==
+ Mon, 27 Feb 2023 12:51:36 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amarulasolutions.com; s=google;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=e124E0pr34PAN91uKXPAbGtavFgIogfWrydKthVEf0E=;
+ b=Msljfd0DAOSV1Ng8uIK/mnFUzcITqVx7VNkBOQVwfqu7nD/mLOXNK+QL9hurrXRwFn
+ W22/+c8iLbrDPOIExuNn6xorlSdGmNDZocrV4NhDMD8Dm3bnuuyL2lwLSBJiZQs3BAqF
+ EYXQKn9EBAsLGT8Z+8bQyvV+taV8ZMcm7P5ms=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=c3ZlYrpnvriuEQlF8acpCfz9AsquLRyarIwKRteJEOc=;
- b=jLZRi6XZEI6E6KVQWUu+VKd8Q/+RGcWERiYnh7CZkANdSh9L9AFF8ej/gzK9fOGDpb
- Ed7GKSvgMaCqPkWKSjggxQ6J8sPGhFpYxz7jzUNQwLkO4uIDWdzovjfJpg946zDXcawK
- PaChvTPIqc6kyXM+Yd5Cv6v1rd9pES2LA/ULXfTU8NsAp+eklOvqBT1fRAeF964wLe5A
- uxDGqEUPhrflHoZltgZJJw8rp6caO0VCAFDtE76e9Xm5xtRKT8OjkAPjiccftWzUTBjB
- 1Tj3IaFoEEtntQEb1XM59mVSeKoekIkrHchFJnAu/ZYPbroZe1vHNrZuqB0FFRbBQx04
- JPlg==
-X-Gm-Message-State: AO0yUKXN10zizHUO652qEHUqEVWe4AHazmZZqBmkkDJma397/DnXZ2EK
- cLV7EYLw1eN253mgeln7e36lPwS5rFdfx+ukQHalQQ==
-X-Google-Smtp-Source: AK7set82nzzRHHFQh9oO7TYTtR6k9Kj8o5QqXM5ef/eRWVNSy8UtCJrayFW9HBOXGo2DTWoNYAODg8LDWAsVUpMc4sk=
-X-Received: by 2002:a05:600c:4fc3:b0:3df:97ed:ddeb with SMTP id
- o3-20020a05600c4fc300b003df97edddebmr75801wmq.8.1677526411353; Mon, 27 Feb
- 2023 11:33:31 -0800 (PST)
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=e124E0pr34PAN91uKXPAbGtavFgIogfWrydKthVEf0E=;
+ b=k+Il4ALAwzhMnDwUPZKGrFlUdcHq4umSjDqW5Z/4KwUuRuDx2dWZWPnX6TSma/XoCX
+ pOIxJKg4eeVjBHH+7FUpCdrFqVCiICdQwD9gNHnYLW80fZrWMIYu5nkt+cVfP6S2geW+
+ JAfaIgMCDzncLY9rnUJoP4WuldlaPPDYrjj/Hg5pYS+8fSJpfbNR/4udk+SBW6GZPtk+
+ dDrrSBgYHk1D8FMCSzG+eCMlPpZwUJB2ynvDUKulIJefpeJQLScObkhD7qm1f8nrSLH9
+ azb+F5TsXdkLn1AL6PNwTtBwYvFdqicMxGBZ9v+JuoxtAdcJ284aT4GnezSchNF4Z6s7
+ uk5Q==
+X-Gm-Message-State: AO0yUKUJqEeqd+tjhYwyVnIi2NARZTvEdwK5EKiJ71EEc1An6XcRMgYn
+ Mj8qm2i+D46NZOGyGzWaXIHYSw==
+X-Google-Smtp-Source: AK7set/09hUebX3TUSz8Zk89YxuS48cruhUseyV6cCooMrzGlOnaU2lz/zSmizCZH80dS8HxpvF7Kg==
+X-Received: by 2002:aa7:d98d:0:b0:4ad:5950:3f47 with SMTP id
+ u13-20020aa7d98d000000b004ad59503f47mr963127eds.9.1677531095698; 
+ Mon, 27 Feb 2023 12:51:35 -0800 (PST)
+Received: from dario-ThinkPad-T14s-Gen-2i.homenet.telecomitalia.it
+ (host-82-56-22-12.retail.telecomitalia.it. [82.56.22.12])
+ by smtp.gmail.com with ESMTPSA id
+ i26-20020a50871a000000b004af70a660a9sm3578032edb.75.2023.02.27.12.51.34
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 27 Feb 2023 12:51:35 -0800 (PST)
+From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+To: linux-kernel@vger.kernel.org
+Date: Mon, 27 Feb 2023 21:51:31 +0100
+Message-Id: <20230227205131.2104082-1-dario.binacchi@amarulasolutions.com>
+X-Mailer: git-send-email 2.32.0
 MIME-Version: 1.0
-References: <20230219092848.639226-1-irogers@google.com>
- <20230219092848.639226-40-irogers@google.com>
- <09f0e75a-a11d-7db1-6308-f1b00462908c@linux.intel.com>
-In-Reply-To: <09f0e75a-a11d-7db1-6308-f1b00462908c@linux.intel.com>
-From: Ian Rogers <irogers@google.com>
-Date: Mon, 27 Feb 2023 11:33:18 -0800
-Message-ID: <CAP-5=fW8cM0cWaCs8Vu9Nom1i2TF024-yyHtdUQx8QE3HFTq0w@mail.gmail.com>
-To: "Liang, Kan" <kan.liang@linux.intel.com>
-Cc: Mark Rutland <mark.rutland@arm.com>, Sandipan Das <sandipan.das@amd.com>,
- Peter Zijlstra <peterz@infradead.org>, Perry Taylor <perry.taylor@intel.com>,
- Stephane Eranian <eranian@google.com>, linux-kernel@vger.kernel.org,
- James Clark <james.clark@arm.com>, linux-stm32@st-md-mailman.stormreply.com,
- Suzuki Poulouse <suzuki.poulose@arm.com>, Andrii Nakryiko <andrii@kernel.org>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Ingo Molnar <mingo@redhat.com>, Zhengjun Xing <zhengjun.xing@linux.intel.com>,
- Jiri Olsa <jolsa@kernel.org>, John Garry <john.g.garry@oracle.com>,
- Kajol Jain <kjain@linux.ibm.com>, Arnaldo Carvalho de Melo <acme@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, Caleb Biggers <caleb.biggers@intel.com>,
- linux-arm-kernel@lists.infradead.org,
- Athira Rajeev <atrajeev@linux.vnet.ibm.com>,
- Sean Christopherson <seanjc@google.com>, Ravi Bangoria <ravi.bangoria@amd.com>,
- Florian Fischer <florian.fischer@muhq.space>,
- Adrian Hunter <adrian.hunter@intel.com>, linux-perf-users@vger.kernel.org,
- Eduard Zingerman <eddyz87@gmail.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Leo Yan <leo.yan@linaro.org>,
- Jing Zhang <renyu.zj@linux.alibaba.com>
-Subject: Re: [Linux-stm32] [PATCH v1 39/51] perf stat: Add TopdownL1 metric
-	as a default if present
+Cc: Marek Vasut <marex@denx.de>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ =?UTF-8?q?Bernhard=20Rosenkr=C3=A4nzer?= <bero@baylibre.com>,
+ Linus Walleij <linus.walleij@linaro.org>, linux-gpio@vger.kernel.org,
+ Fabien Dessenne <fabien.dessenne@foss.st.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Dario Binacchi <dario.binacchi@amarulasolutions.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH] pinctrl: stm32: use dynamic allocation of
+	GPIO base
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,153 +76,65 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gTW9uLCBGZWIgMjcsIDIwMjMgYXQgMTE6MTLigK9BTSBMaWFuZywgS2FuIDxrYW4ubGlhbmdA
-bGludXguaW50ZWwuY29tPiB3cm90ZToKPgo+Cj4KPiBPbiAyMDIzLTAyLTE5IDQ6MjggYS5tLiwg
-SWFuIFJvZ2VycyB3cm90ZToKPiA+IFdoZW4gdGhlcmUgYXJlIG5vIGV2ZW50cyBhbmQgb24gSW50
-ZWwsIHRoZSB0b3Bkb3duIGV2ZW50cyB3aWxsIGJlCj4gPiBhZGRlZCBieSBkZWZhdWx0IGlmIHBy
-ZXNlbnQuIFRvIGRpc3BsYXkgdGhlIG1ldHJpY3MgYXNzb2NpYXRlZCB3aXRoCj4gPiB0aGVzZSBy
-ZXF1ZXN0IHNwZWNpYWwgaGFuZGxpbmcgaW4gc3RhdC1zaGFkb3cuYy4gVG8gbW9yZSBlYXNpbHkg
-dXBkYXRlCj4gPiB0aGVzZSBtZXRyaWNzIHVzZSB0aGUganNvbiBtZXRyaWMgdmVyc2lvbiB2aWEg
-dGhlIFRvcGRvd25MMQo+ID4gZ3JvdXAuIFRoaXMgbWFrZXMgdGhlIGhhbmRsaW5nIGxlc3MgcGxh
-dGZvcm0gc3BlY2lmaWMuCj4gPgo+ID4gTW9kaWZ5IHRoZSBtZXRyaWNncm91cF9faGFzX21ldHJp
-YyBjb2RlIHRvIGFsc28gY292ZXIgbWV0cmljIGdyb3Vwcy4KPiA+Cj4gPiBTaWduZWQtb2ZmLWJ5
-OiBJYW4gUm9nZXJzIDxpcm9nZXJzQGdvb2dsZS5jb20+Cj4gPiAtLS0KPiA+ICB0b29scy9wZXJm
-L2FyY2gveDg2L3V0aWwvZXZsaXN0LmMgIHwgIDYgKysrLS0tCj4gPiAgdG9vbHMvcGVyZi9hcmNo
-L3g4Ni91dGlsL3RvcGRvd24uYyB8IDMwIC0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQo+
-ID4gIHRvb2xzL3BlcmYvYXJjaC94ODYvdXRpbC90b3Bkb3duLmggfCAgMSAtCj4gPiAgdG9vbHMv
-cGVyZi9idWlsdGluLXN0YXQuYyAgICAgICAgICB8IDE0ICsrKysrKysrKysrKysrCj4gPiAgdG9v
-bHMvcGVyZi91dGlsL21ldHJpY2dyb3VwLmMgICAgICB8ICA2ICsrLS0tLQo+ID4gIDUgZmlsZXMg
-Y2hhbmdlZCwgMTkgaW5zZXJ0aW9ucygrKSwgMzggZGVsZXRpb25zKC0pCj4gPgo+ID4gZGlmZiAt
-LWdpdCBhL3Rvb2xzL3BlcmYvYXJjaC94ODYvdXRpbC9ldmxpc3QuYyBiL3Rvb2xzL3BlcmYvYXJj
-aC94ODYvdXRpbC9ldmxpc3QuYwo+ID4gaW5kZXggY2I1OWNlOWI5NjM4Li44YTdhZTQxNjI1NjMg
-MTAwNjQ0Cj4gPiAtLS0gYS90b29scy9wZXJmL2FyY2gveDg2L3V0aWwvZXZsaXN0LmMKPiA+ICsr
-KyBiL3Rvb2xzL3BlcmYvYXJjaC94ODYvdXRpbC9ldmxpc3QuYwo+ID4gQEAgLTU5LDEwICs1OSwx
-MCBAQCBpbnQgYXJjaF9ldmxpc3RfX2FkZF9kZWZhdWx0X2F0dHJzKHN0cnVjdCBldmxpc3QgKmV2
-bGlzdCwKPiA+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHN0cnVjdCBwZXJmX2V2
-ZW50X2F0dHIgKmF0dHJzLAo+ID4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgc2l6
-ZV90IG5yX2F0dHJzKQo+ID4gIHsKPiA+IC0gICAgIGlmIChucl9hdHRycykKPiA+IC0gICAgICAg
-ICAgICAgcmV0dXJuIF9fX2V2bGlzdF9fYWRkX2RlZmF1bHRfYXR0cnMoZXZsaXN0LCBhdHRycywg
-bnJfYXR0cnMpOwo+ID4gKyAgICAgaWYgKCFucl9hdHRycykKPiA+ICsgICAgICAgICAgICAgcmV0
-dXJuIDA7Cj4gPgo+ID4gLSAgICAgcmV0dXJuIHRvcGRvd25fcGFyc2VfZXZlbnRzKGV2bGlzdCk7
-Cj4gPiArICAgICByZXR1cm4gX19fZXZsaXN0X19hZGRfZGVmYXVsdF9hdHRycyhldmxpc3QsIGF0
-dHJzLCBucl9hdHRycyk7Cj4gPiAgfQo+ID4KPiA+ICBzdHJ1Y3QgZXZzZWwgKmFyY2hfZXZsaXN0
-X19sZWFkZXIoc3RydWN0IGxpc3RfaGVhZCAqbGlzdCkKPiA+IGRpZmYgLS1naXQgYS90b29scy9w
-ZXJmL2FyY2gveDg2L3V0aWwvdG9wZG93bi5jIGIvdG9vbHMvcGVyZi9hcmNoL3g4Ni91dGlsL3Rv
-cGRvd24uYwo+ID4gaW5kZXggNTQ4MTBmOWFjZDZmLi5lYjNhN2Q5NjUyYWIgMTAwNjQ0Cj4gPiAt
-LS0gYS90b29scy9wZXJmL2FyY2gveDg2L3V0aWwvdG9wZG93bi5jCj4gPiArKysgYi90b29scy9w
-ZXJmL2FyY2gveDg2L3V0aWwvdG9wZG93bi5jCj4gPiBAQCAtOSwxMSArOSw2IEBACj4gPiAgI2lu
-Y2x1ZGUgInRvcGRvd24uaCIKPiA+ICAjaW5jbHVkZSAiZXZzZWwuaCIKPiA+Cj4gPiAtI2RlZmlu
-ZSBUT1BET1dOX0wxX0VWRU5UUyAgICAgICAie3Nsb3RzLHRvcGRvd24tcmV0aXJpbmcsdG9wZG93
-bi1iYWQtc3BlYyx0b3Bkb3duLWZlLWJvdW5kLHRvcGRvd24tYmUtYm91bmR9Igo+ID4gLSNkZWZp
-bmUgVE9QRE9XTl9MMV9FVkVOVFNfQ09SRSAgIntzbG90cyxjcHVfY29yZS90b3Bkb3duLXJldGly
-aW5nLyxjcHVfY29yZS90b3Bkb3duLWJhZC1zcGVjLyxjcHVfY29yZS90b3Bkb3duLWZlLWJvdW5k
-LyxjcHVfY29yZS90b3Bkb3duLWJlLWJvdW5kL30iCj4gPiAtI2RlZmluZSBUT1BET1dOX0wyX0VW
-RU5UUyAgICAgICAie3Nsb3RzLHRvcGRvd24tcmV0aXJpbmcsdG9wZG93bi1iYWQtc3BlYyx0b3Bk
-b3duLWZlLWJvdW5kLHRvcGRvd24tYmUtYm91bmQsdG9wZG93bi1oZWF2eS1vcHMsdG9wZG93bi1i
-ci1taXNwcmVkaWN0LHRvcGRvd24tZmV0Y2gtbGF0LHRvcGRvd24tbWVtLWJvdW5kfSIKPiA+IC0j
-ZGVmaW5lIFRPUERPV05fTDJfRVZFTlRTX0NPUkUgICJ7c2xvdHMsY3B1X2NvcmUvdG9wZG93bi1y
-ZXRpcmluZy8sY3B1X2NvcmUvdG9wZG93bi1iYWQtc3BlYy8sY3B1X2NvcmUvdG9wZG93bi1mZS1i
-b3VuZC8sY3B1X2NvcmUvdG9wZG93bi1iZS1ib3VuZC8sY3B1X2NvcmUvdG9wZG93bi1oZWF2eS1v
-cHMvLGNwdV9jb3JlL3RvcGRvd24tYnItbWlzcHJlZGljdC8sY3B1X2NvcmUvdG9wZG93bi1mZXRj
-aC1sYXQvLGNwdV9jb3JlL3RvcGRvd24tbWVtLWJvdW5kL30iCj4gPiAtCj4gPiAgLyogQ2hlY2sg
-d2hldGhlciB0aGVyZSBpcyBhIFBNVSB3aGljaCBzdXBwb3J0cyB0aGUgcGVyZiBtZXRyaWNzLiAq
-Lwo+ID4gIGJvb2wgdG9wZG93bl9zeXNfaGFzX3BlcmZfbWV0cmljcyh2b2lkKQo+ID4gIHsKPiA+
-IEBAIC05OSwyOCArOTQsMyBAQCBjb25zdCBjaGFyICphcmNoX2dldF90b3Bkb3duX3BtdV9uYW1l
-KHN0cnVjdCBldmxpc3QgKmV2bGlzdCwgYm9vbCB3YXJuKQo+ID4KPiA+ICAgICAgIHJldHVybiBw
-bXVfbmFtZTsKPiA+ICB9Cj4gPiAtCj4gPiAtaW50IHRvcGRvd25fcGFyc2VfZXZlbnRzKHN0cnVj
-dCBldmxpc3QgKmV2bGlzdCkKPiA+IC17Cj4gPiAtICAgICBjb25zdCBjaGFyICp0b3Bkb3duX2V2
-ZW50czsKPiA+IC0gICAgIGNvbnN0IGNoYXIgKnBtdV9uYW1lOwo+ID4gLQo+ID4gLSAgICAgaWYg
-KCF0b3Bkb3duX3N5c19oYXNfcGVyZl9tZXRyaWNzKCkpCj4gPiAtICAgICAgICAgICAgIHJldHVy
-biAwOwo+ID4gLQo+ID4gLSAgICAgcG11X25hbWUgPSBhcmNoX2dldF90b3Bkb3duX3BtdV9uYW1l
-KGV2bGlzdCwgZmFsc2UpOwo+ID4gLQo+ID4gLSAgICAgaWYgKHBtdV9oYXZlX2V2ZW50KHBtdV9u
-YW1lLCAidG9wZG93bi1oZWF2eS1vcHMiKSkgewo+ID4gLSAgICAgICAgICAgICBpZiAoIXN0cmNt
-cChwbXVfbmFtZSwgImNwdV9jb3JlIikpCj4gPiAtICAgICAgICAgICAgICAgICAgICAgdG9wZG93
-bl9ldmVudHMgPSBUT1BET1dOX0wyX0VWRU5UU19DT1JFOwo+ID4gLSAgICAgICAgICAgICBlbHNl
-Cj4gPiAtICAgICAgICAgICAgICAgICAgICAgdG9wZG93bl9ldmVudHMgPSBUT1BET1dOX0wyX0VW
-RU5UUzsKPiA+IC0gICAgIH0gZWxzZSB7Cj4gPiAtICAgICAgICAgICAgIGlmICghc3RyY21wKHBt
-dV9uYW1lLCAiY3B1X2NvcmUiKSkKPiA+IC0gICAgICAgICAgICAgICAgICAgICB0b3Bkb3duX2V2
-ZW50cyA9IFRPUERPV05fTDFfRVZFTlRTX0NPUkU7Cj4gPiAtICAgICAgICAgICAgIGVsc2UKPiA+
-IC0gICAgICAgICAgICAgICAgICAgICB0b3Bkb3duX2V2ZW50cyA9IFRPUERPV05fTDFfRVZFTlRT
-Owo+ID4gLSAgICAgfQo+ID4gLQo+ID4gLSAgICAgcmV0dXJuIHBhcnNlX2V2ZW50KGV2bGlzdCwg
-dG9wZG93bl9ldmVudHMpOwo+ID4gLX0KPiA+IGRpZmYgLS1naXQgYS90b29scy9wZXJmL2FyY2gv
-eDg2L3V0aWwvdG9wZG93bi5oIGIvdG9vbHMvcGVyZi9hcmNoL3g4Ni91dGlsL3RvcGRvd24uaAo+
-ID4gaW5kZXggN2ViODFmMDQyODM4Li40NmJmOTI3M2U1NzIgMTAwNjQ0Cj4gPiAtLS0gYS90b29s
-cy9wZXJmL2FyY2gveDg2L3V0aWwvdG9wZG93bi5oCj4gPiArKysgYi90b29scy9wZXJmL2FyY2gv
-eDg2L3V0aWwvdG9wZG93bi5oCj4gPiBAQCAtMyw2ICszLDUgQEAKPiA+ICAjZGVmaW5lIF9UT1BE
-T1dOX0ggMQo+ID4KPiA+ICBib29sIHRvcGRvd25fc3lzX2hhc19wZXJmX21ldHJpY3Modm9pZCk7
-Cj4gPiAtaW50IHRvcGRvd25fcGFyc2VfZXZlbnRzKHN0cnVjdCBldmxpc3QgKmV2bGlzdCk7Cj4g
-Pgo+ID4gICNlbmRpZgo+ID4gZGlmZiAtLWdpdCBhL3Rvb2xzL3BlcmYvYnVpbHRpbi1zdGF0LmMg
-Yi90b29scy9wZXJmL2J1aWx0aW4tc3RhdC5jCj4gPiBpbmRleCA1ZTEzMTcxYTdiYmEuLjc5NmU5
-OGU0NTNmNiAxMDA2NDQKPiA+IC0tLSBhL3Rvb2xzL3BlcmYvYnVpbHRpbi1zdGF0LmMKPiA+ICsr
-KyBiL3Rvb2xzL3BlcmYvYnVpbHRpbi1zdGF0LmMKPiA+IEBAIC0xOTk2LDYgKzE5OTYsNyBAQCBz
-dGF0aWMgaW50IGFkZF9kZWZhdWx0X2F0dHJpYnV0ZXModm9pZCkKPiA+ICAgICAgICAgICAgICAg
-c3RhdF9jb25maWcudG9wZG93bl9sZXZlbCA9IFRPUERPV05fTUFYX0xFVkVMOwo+ID4KPiA+ICAg
-ICAgIGlmICghZXZzZWxfbGlzdC0+Y29yZS5ucl9lbnRyaWVzKSB7Cj4gPiArICAgICAgICAgICAg
-IC8qIE5vIGV2ZW50cyBzbyBhZGQgZGVmYXVsdHMuICovCj4gPiAgICAgICAgICAgICAgIGlmICh0
-YXJnZXRfX2hhc19jcHUoJnRhcmdldCkpCj4gPiAgICAgICAgICAgICAgICAgICAgICAgZGVmYXVs
-dF9hdHRyczBbMF0uY29uZmlnID0gUEVSRl9DT1VOVF9TV19DUFVfQ0xPQ0s7Cj4gPgo+ID4gQEAg
-LTIwMTEsNiArMjAxMiwxOSBAQCBzdGF0aWMgaW50IGFkZF9kZWZhdWx0X2F0dHJpYnV0ZXModm9p
-ZCkKPiA+ICAgICAgICAgICAgICAgfQo+ID4gICAgICAgICAgICAgICBpZiAoZXZsaXN0X19hZGRf
-ZGVmYXVsdF9hdHRycyhldnNlbF9saXN0LCBkZWZhdWx0X2F0dHJzMSkgPCAwKQo+ID4gICAgICAg
-ICAgICAgICAgICAgICAgIHJldHVybiAtMTsKPiA+ICsgICAgICAgICAgICAgLyoKPiA+ICsgICAg
-ICAgICAgICAgICogQWRkIFRvcGRvd25MMSBtZXRyaWNzIGlmIHRoZXkgZXhpc3QuIFRvIG1pbmlt
-aXplCj4gPiArICAgICAgICAgICAgICAqIG11bHRpcGxleGluZywgZG9uJ3QgcmVxdWVzdCB0aHJl
-c2hvbGQgY29tcHV0YXRpb24uCj4gPiArICAgICAgICAgICAgICAqLwo+ID4gKyAgICAgICAgICAg
-ICBpZiAobWV0cmljZ3JvdXBfX2hhc19tZXRyaWMoIlRvcGRvd25MMSIpICYmCj4gPiArICAgICAg
-ICAgICAgICAgICBtZXRyaWNncm91cF9fcGFyc2VfZ3JvdXBzKGV2c2VsX2xpc3QsICJUb3Bkb3du
-TDEiLAo+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgLyptZXRy
-aWNfbm9fZ3JvdXA9Ki9mYWxzZSwKPiA+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgIC8qbWV0cmljX25vX21lcmdlPSovZmFsc2UsCj4gPiArICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAvKm1ldHJpY19ub190aHJlc2hvbGQ9Ki90cnVlLAo+
-ID4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgc3RhdF9jb25maWcu
-dXNlcl9yZXF1ZXN0ZWRfY3B1X2xpc3QsCj4gPiArICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICBzdGF0X2NvbmZpZy5zeXN0ZW1fd2lkZSwKPiA+ICsgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICZzdGF0X2NvbmZpZy5tZXRyaWNfZXZlbnRzKSA8
-IDApCj4KPiBEb2VzIHRoZSBtZXRyaWNncm91cF9fKiBmdW5jdGlvbiBjaGVjayB0aGUgZXhpc3Rh
-bmNlcyBvZiB0aGUgZXZlbnRzIG9uCj4gdGhlIG1hY2hpbmU/IElmIG5vdCwgaXQgbWF5IG5vdCBi
-ZSByZWxpYWJsZSB0byBvbmx5IGNoZWNrIHRoZSBldmVudCBsaXN0Lgo+Cj4gVGhlIGV4aXN0aW5n
-IGNvZGUgc3VwcG9ydHMgYm90aCBMMSBhbmQgTDIgVG9wZG93biBmb3IgU1BSLiBCdXQgdGhpcwo+
-IHBhdGNoIHNlZW1zIHJlbW92ZSB0aGUgTDIgVG9wZG93biBzdXBwb3J0IGZvciBTUFIuCj4KPiBU
-aGUgVG9wZG93bkwxL0wyIG1ldHJpYyBpcyBhZGRlZCBvbmx5IGZvciB0aGUgYmlnIGNvcmUgd2l0
-aCBwZXJmIHN0YXQKPiBkZWZhdWx0LiBJdCdzIGJlY2F1c2UgdGhhdCB0aGUgcGVyZl9tZXRyaWNz
-IGlzIGEgZGVkaWNhdGVkIHJlZ2lzdGVyLAo+IHdoaWNoIHNob3VsZCBub3QgaW1wYWN0IG90aGVy
-IGV2ZW50cyAodXNpbmcgR1AgY291bnRlcnMuKSBCdXQgdGhpcyBwYXRjaAo+IHNlZW1zIGRvbid0
-IGNoZWNrIHRoZSBDUFUgdHlwZS4gSXQgbWF5IGJyaW5ncyBleHRyYSBtdWx0aXBsZXhpbmcgZm9y
-IHRoZQo+IHBlcmYgc3RhdCBkZWZhdWx0IG9uIGFuIEFUT00gcGxhdGZvcm0uCj4KPiBUaGFua3Ms
-Cj4gS2FuCgpIaSBLYW4sCgpUaGUgVG9wZG93bkwyIG1ldHJpY3MgYXJlIHByZXNlbnQgZm9yIFNQ
-Ui4gVGhlIGNvZGUgY2hhbmdlcyB0byBkZWZhdWx0CmZvciBMMSBhcyB3aXRoIGpzb24gdG9wZG93
-biB0aGUgbWF4aW11bSB0b3Bkb3duIGxldmVsICh0aGUgZGVmYXVsdApwcmV2aW91c2x5KSBpcyBM
-NiwgYW5kIG5vYm9keSByZWFsbHkgd2FudHMgdG8gc2VlIHRoYXQuIFRoZSAtLXRvcGRvd24Kb3B0
-aW9uIGlzIG5vIGxvbmdlciBsaW1pdGVkIHRvIEljZWxha2UrIHByb2Nlc3NvcnMsIGFueSB3aXRo
-IHRoZQpUb3Bkb3duTDEgbWV0cmljZ3JvdXAgd2lsbCB3b3JrIGFzIC0tdG9wZG93biBoYXMganVz
-dCBiZWNvbWUgYQpzaG9ydGN1dCB0byB0aGF0LgoKVGhlcmUgbWF5IGJlIGFkZGl0aW9uYWwgbXVs
-dGlwbGV4aW5nLCBidXQgYWxzbywgaW4gdGhlIG9sZCBjb2RlIGV2ZW50cwpmcm9tIGRpZmZlcmVu
-dCBncm91cHMgY291bGQgYmUgdXNlZCB0byBjYWxjdWxhdGUgYSBib2d1cyBtZXRyaWMuIFRoZXJl
-CmFyZSBhbHNvIGFkZGl0aW9uYWwgZXZlbnRzIGFzIHRoZSBwcmV2aW91cyBtZXRyaWNzIGRvbid0
-IGFncmVlIHdpdGgKdGhvc2UgaW4gdGhlIFRNQSBzcHJlYWRzaGVldC4gSWYgdGhlcmUgaXMgbXVs
-dGlwbGV4aW5nIGZyb20gdGhpcwpjaGFuZ2Ugb24gU1BSLCB0aGUgVE1BIGpzb24gbWV0cmljcyBk
-byB0cnkgdG8gYXZvaWQgdGhpcywgSSB0aGluayB0aGUKcmlnaHQgcGF0aCB0aHJvdWdoIHRoaXMg
-aXMgdG8gZml4IHRoZSBqc29uIG1ldHJpY3MuCgpUaGFua3MsCklhbgoKPiA+ICsgICAgICAgICAg
-ICAgICAgICAgICByZXR1cm4gLTE7Cj4gPiAgICAgICAgICAgICAgIC8qIFBsYXRmb3JtIHNwZWNp
-ZmljIGF0dHJzICovCj4gPiAgICAgICAgICAgICAgIGlmIChldmxpc3RfX2FkZF9kZWZhdWx0X2F0
-dHJzKGV2c2VsX2xpc3QsIGRlZmF1bHRfbnVsbF9hdHRycykgPCAwKQo+ID4gICAgICAgICAgICAg
-ICAgICAgICAgIHJldHVybiAtMTsKPiA+IGRpZmYgLS1naXQgYS90b29scy9wZXJmL3V0aWwvbWV0
-cmljZ3JvdXAuYyBiL3Rvb2xzL3BlcmYvdXRpbC9tZXRyaWNncm91cC5jCj4gPiBpbmRleCBhZmI2
-ZjJmZGMyNGUuLjY0YTM1ZjI3ODdkYyAxMDA2NDQKPiA+IC0tLSBhL3Rvb2xzL3BlcmYvdXRpbC9t
-ZXRyaWNncm91cC5jCj4gPiArKysgYi90b29scy9wZXJmL3V0aWwvbWV0cmljZ3JvdXAuYwo+ID4g
-QEAgLTE2NDcsMTAgKzE2NDcsOCBAQCBzdGF0aWMgaW50IG1ldHJpY2dyb3VwX19oYXNfbWV0cmlj
-X2NhbGxiYWNrKGNvbnN0IHN0cnVjdCBwbXVfbWV0cmljICpwbSwKPiA+ICB7Cj4gPiAgICAgICBj
-b25zdCBjaGFyICptZXRyaWMgPSB2ZGF0YTsKPiA+Cj4gPiAtICAgICBpZiAoIXBtLT5tZXRyaWNf
-ZXhwcikKPiA+IC0gICAgICAgICAgICAgcmV0dXJuIDA7Cj4gPiAtCj4gPiAtICAgICBpZiAobWF0
-Y2hfbWV0cmljKHBtLT5tZXRyaWNfbmFtZSwgbWV0cmljKSkKPiA+ICsgICAgIGlmIChtYXRjaF9t
-ZXRyaWMocG0tPm1ldHJpY19uYW1lLCBtZXRyaWMpIHx8Cj4gPiArICAgICAgICAgbWF0Y2hfbWV0
-cmljKHBtLT5tZXRyaWNfZ3JvdXAsIG1ldHJpYykpCj4gPiAgICAgICAgICAgICAgIHJldHVybiAx
-Owo+ID4KPiA+ICAgICAgIHJldHVybiAwOwpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3Qt
-bWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBs
-eS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
+Since commit 502df79b860563d7 ("gpiolib: Warn on drivers still using static
+gpiobase allocation"), one or more warnings are printed during boot on
+systems where static allocation of GPIO base is used:
+
+[    0.197707] gpio gpiochip0: Static allocation of GPIO base is deprecated, use dynamic allocation.
+[    0.199942] stm32f429-pinctrl soc:pinctrl@40020000: GPIOA bank added
+[    0.200711] gpio gpiochip1: Static allocation of GPIO base is deprecated, use dynamic allocation.
+[    0.202855] stm32f429-pinctrl soc:pinctrl@40020000: GPIOB bank added
+[    0.203591] gpio gpiochip2: Static allocation of GPIO base is deprecated, use dynamic allocation.
+[    0.205704] stm32f429-pinctrl soc:pinctrl@40020000: GPIOC bank added
+[    0.206338] gpio gpiochip3: Static allocation of GPIO base is deprecated, use dynamic allocation.
+[    0.208448] stm32f429-pinctrl soc:pinctrl@40020000: GPIOD bank added
+[    0.209182] gpio gpiochip4: Static allocation of GPIO base is deprecated, use dynamic allocation.
+[    0.211282] stm32f429-pinctrl soc:pinctrl@40020000: GPIOE bank added
+[    0.212094] gpio gpiochip5: Static allocation of GPIO base is deprecated, use dynamic allocation.
+[    0.214270] stm32f429-pinctrl soc:pinctrl@40020000: GPIOF bank added
+[    0.215005] gpio gpiochip6: Static allocation of GPIO base is deprecated, use dynamic allocation.
+[    0.217110] stm32f429-pinctrl soc:pinctrl@40020000: GPIOG bank added
+[    0.217845] gpio gpiochip7: Static allocation of GPIO base is deprecated, use dynamic allocation.
+[    0.219959] stm32f429-pinctrl soc:pinctrl@40020000: GPIOH bank added
+[    0.220602] gpio gpiochip8: Static allocation of GPIO base is deprecated, use dynamic allocation.
+[    0.222714] stm32f429-pinctrl soc:pinctrl@40020000: GPIOI bank added
+[    0.223483] gpio gpiochip9: Static allocation of GPIO base is deprecated, use dynamic allocation.
+[    0.225594] stm32f429-pinctrl soc:pinctrl@40020000: GPIOJ bank added
+[    0.226336] gpio gpiochip10: Static allocation of GPIO base is deprecated, use dynamic allocation.
+[    0.228490] stm32f429-pinctrl soc:pinctrl@40020000: GPIOK bank added
+
+So let's follow the suggestion and use dynamic allocation.
+
+Tested on STM32F429I-DISC1 board.
+
+Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+---
+
+ drivers/pinctrl/stm32/pinctrl-stm32.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/pinctrl/stm32/pinctrl-stm32.c b/drivers/pinctrl/stm32/pinctrl-stm32.c
+index cb33a23ab0c1..04ace4c7bd58 100644
+--- a/drivers/pinctrl/stm32/pinctrl-stm32.c
++++ b/drivers/pinctrl/stm32/pinctrl-stm32.c
+@@ -1330,7 +1330,7 @@ static int stm32_gpiolib_register_bank(struct stm32_pinctrl *pctl, struct fwnode
+ 	if (fwnode_property_read_u32(fwnode, "st,bank-ioport", &bank_ioport_nr))
+ 		bank_ioport_nr = bank_nr;
+ 
+-	bank->gpio_chip.base = bank_nr * STM32_GPIO_PINS_PER_BANK;
++	bank->gpio_chip.base = -1;
+ 
+ 	bank->gpio_chip.ngpio = npins;
+ 	bank->gpio_chip.fwnode = fwnode;
+-- 
+2.32.0
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
