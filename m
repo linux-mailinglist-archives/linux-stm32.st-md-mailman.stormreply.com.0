@@ -2,77 +2,77 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A53E36A532E
-	for <lists+linux-stm32@lfdr.de>; Tue, 28 Feb 2023 07:55:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E2BA56A52E7
+	for <lists+linux-stm32@lfdr.de>; Tue, 28 Feb 2023 07:22:12 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 43B11C6A601;
-	Tue, 28 Feb 2023 06:55:07 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id ADBA5C69067
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 27 Feb 2023 22:04:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1677535497; x=1709071497;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=csJ1rGmYvE1WrBu5LReHbcl+ibbMmSprU8dA1zAkPpE=;
- b=GSsZiXjdlWkRt5Q9YZxPvZpc0Sg93swuIzx3y+HL+lzZm5GEvpuWz9iQ
- TiKxPpag21nn/ud8AWh+4YCUsZ9aX67fUB8BzIhs2QbFZXnRFpMDoH0vv
- LjHF03Da2J8jj6G6fm8HOL6fJf1DVBxoVY5AAGNp5WVQw0nR5eIvNdv5S
- 7yC1yk9Fdk5ww+0Pc1LsZi/dOs1h0RyQ1cBOygUwHS3ftXol4bkbWouv3
- j+gD4r2m3Mh+4rA8jnJVrYZNQDD1p8F7QnQa/Yhc6s5g215wKQLnXbaeP
- jXzjZKT8NToPbP7lJ8LtMq46S82HFBOf4ims3nli1Bw/Ed35rJ2KJnIs7 w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10634"; a="398755587"
-X-IronPort-AV: E=Sophos;i="5.98,220,1673942400"; d="scan'208";a="398755587"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Feb 2023 14:04:55 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10634"; a="816841775"
-X-IronPort-AV: E=Sophos;i="5.98,220,1673942400"; d="scan'208";a="816841775"
-Received: from linux.intel.com ([10.54.29.200])
- by fmsmga001.fm.intel.com with ESMTP; 27 Feb 2023 14:04:53 -0800
-Received: from [10.212.193.244] (kliang2-mobl1.ccr.corp.intel.com
- [10.212.193.244])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 926A7C6A5F8;
+	Tue, 28 Feb 2023 06:22:12 +0000 (UTC)
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com
+ [209.85.221.48])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by linux.intel.com (Postfix) with ESMTPS id 90554580689;
- Mon, 27 Feb 2023 14:04:49 -0800 (PST)
-Message-ID: <dc14eb3e-f5e3-4a64-85e6-5be6072e305d@linux.intel.com>
-Date: Mon, 27 Feb 2023 17:04:48 -0500
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4B1D3C6A5E7
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 28 Feb 2023 06:22:11 +0000 (UTC)
+Received: by mail-wr1-f48.google.com with SMTP id r18so8553594wrx.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 27 Feb 2023 22:22:11 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=google.com; s=20210112; t=1677565330;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=hANHy0X7xOXrMa1dJjI7V0xkBTqEpJuS3LQGVCqgUfk=;
+ b=W5BfGnxdyxFf46WKy7y4ImpGYl5wMpuife1A5HRQOyHDeXq/u38o16qmtmPvBodyum
+ rN34+G9/jvWc46Ix9zXPdyW5apGfAie9mXO1WBDJJL6Lsik3rkXjnxNxM3rXCNjZo4Z/
+ TUWNhGW8ek502hTK7LO+QHXB8C8ydba+wa/JVQk/QQLRfBc0bvtihb8lW2NWrm3ev0+s
+ 0Mxhi4QTc0FhrBb8QtZXWeOtC/tENtFFB0yKml6zoVGVGxF8aldAe4JKj0CSYQTVTM94
+ RftvwaQ2Ccw/tKkF7rt6hbjWicP7CJ4A2X6rCbf1hb6tRYqsVSl7yMepZBaONXVK7Ya1
+ /8hA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112; t=1677565330;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=hANHy0X7xOXrMa1dJjI7V0xkBTqEpJuS3LQGVCqgUfk=;
+ b=a/z7yraQjDbFy9OIXHwfEDA6+ea9vi3nTps4GfjbotA024IvaUx4tLjOy4KqBAai7U
+ FEGjIPafNTRRu0gzlpps47Qlp7bRlMLU7Nx9OgyYA27W3z2PEYKb3zbHy1CzC2uBFpcJ
+ Ki0CH4N12If/Ba2DZF+A77Q7TRWNwBep5vhlAbw0ULFkIAC/INLtmKLeBhkYg2b1d/kg
+ DxQHnqW8Un5OvWmgJrGATmQYobyt/nextBKukThrBRYR4lCfPRVEYYdwYaDXncnqju8T
+ NHVn5iMKR78PCDhekOULIh9Oj+tRGqCfmpyih4I0Ah/+NBr+gJw6MXbqd40dxud7Hy5m
+ 0bCw==
+X-Gm-Message-State: AO0yUKWlJMBqt74uoDgCWmFKml8LkV63xqCuRvgTIRAzkx8ePB2Ix9/N
+ oREYkqWFQlHSAuR1o9L93q4j7ADAqKza6qKk6k5qPg==
+X-Google-Smtp-Source: AK7set+VMS+cyRme9m1rsHU08Y9w782j8uieTLMEk52FawGlwlISWhERluqJUgKKCFbozeBXpMdoU/NE+2WjKsCTj+s=
+X-Received: by 2002:a5d:4e07:0:b0:2c7:ce2:6484 with SMTP id
+ p7-20020a5d4e07000000b002c70ce26484mr257258wrt.9.1677565330354; Mon, 27 Feb
+ 2023 22:22:10 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.8.0
-Content-Language: en-US
-To: Ian Rogers <irogers@google.com>, Peter Zijlstra <peterz@infradead.org>,
- Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de Melo <acme@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Jiri Olsa <jolsa@kernel.org>, Namhyung Kim <namhyung@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Zhengjun Xing <zhengjun.xing@linux.intel.com>,
- Sandipan Das <sandipan.das@amd.com>, James Clark <james.clark@arm.com>,
- Kajol Jain <kjain@linux.ibm.com>, John Garry <john.g.garry@oracle.com>,
- Adrian Hunter <adrian.hunter@intel.com>, Andrii Nakryiko
- <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>,
- Suzuki Poulouse <suzuki.poulose@arm.com>, Leo Yan <leo.yan@linaro.org>,
- Florian Fischer <florian.fischer@muhq.space>,
- Ravi Bangoria <ravi.bangoria@amd.com>,
- Jing Zhang <renyu.zj@linux.alibaba.com>,
- Sean Christopherson <seanjc@google.com>,
- Athira Rajeev <atrajeev@linux.vnet.ibm.com>, linux-kernel@vger.kernel.org,
- linux-perf-users@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, Perry Taylor <perry.taylor@intel.com>,
- Caleb Biggers <caleb.biggers@intel.com>
 References: <20230219092848.639226-1-irogers@google.com>
-From: "Liang, Kan" <kan.liang@linux.intel.com>
-In-Reply-To: <20230219092848.639226-1-irogers@google.com>
-X-Mailman-Approved-At: Tue, 28 Feb 2023 06:55:05 +0000
-Cc: Stephane Eranian <eranian@google.com>
+ <dc14eb3e-f5e3-4a64-85e6-5be6072e305d@linux.intel.com>
+In-Reply-To: <dc14eb3e-f5e3-4a64-85e6-5be6072e305d@linux.intel.com>
+From: Ian Rogers <irogers@google.com>
+Date: Mon, 27 Feb 2023 22:21:57 -0800
+Message-ID: <CAP-5=fVBoLv-P7fhsQQBfFig0fopfghoGry2dS7gt=rfWkKqyQ@mail.gmail.com>
+To: "Liang, Kan" <kan.liang@linux.intel.com>
+Cc: Mark Rutland <mark.rutland@arm.com>, Sandipan Das <sandipan.das@amd.com>,
+ Peter Zijlstra <peterz@infradead.org>, Perry Taylor <perry.taylor@intel.com>,
+ Stephane Eranian <eranian@google.com>, linux-kernel@vger.kernel.org,
+ James Clark <james.clark@arm.com>, linux-stm32@st-md-mailman.stormreply.com,
+ Suzuki Poulouse <suzuki.poulose@arm.com>, Andrii Nakryiko <andrii@kernel.org>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Ingo Molnar <mingo@redhat.com>, Zhengjun Xing <zhengjun.xing@linux.intel.com>,
+ Jiri Olsa <jolsa@kernel.org>, John Garry <john.g.garry@oracle.com>,
+ Kajol Jain <kjain@linux.ibm.com>, Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, Caleb Biggers <caleb.biggers@intel.com>,
+ linux-arm-kernel@lists.infradead.org,
+ Athira Rajeev <atrajeev@linux.vnet.ibm.com>,
+ Sean Christopherson <seanjc@google.com>, Ravi Bangoria <ravi.bangoria@amd.com>,
+ Florian Fischer <florian.fischer@muhq.space>,
+ Adrian Hunter <adrian.hunter@intel.com>, linux-perf-users@vger.kernel.org,
+ Eduard Zingerman <eddyz87@gmail.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Leo Yan <leo.yan@linaro.org>,
+ Jing Zhang <renyu.zj@linux.alibaba.com>
 Subject: Re: [Linux-stm32] [PATCH v1 00/51] shadow metric clean up and
 	improvements
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
@@ -86,237 +86,238 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-
-
-On 2023-02-19 4:27 a.m., Ian Rogers wrote:
-> Recently the shadow stat metrics broke due to repeated aggregation and
-> a quick fix was applied:
-> https://lore.kernel.org/lkml/20230209064447.83733-1-irogers@google.com/
-> This is the longer fix but one that comes with some extras. To avoid
-> fixing issues for hard coded metrics, the topdown, SMI cost and
-> transaction flags are moved into json metrics. A side effect of this
-> is that TopdownL1 metrics will now be displayed when supported, if no
-> "perf stat" events are specified.
-> 
-> Another fix included here is for event grouping as raised in:
-> https://lore.kernel.org/lkml/CA+icZUU_ew7pzWJJZLbj1xsU6MQTPrj8tkFfDhNdTDRQfGUBMQ@mail.gmail.com/
-> Metrics are now tagged with NMI and SMT flags, meaning that the events
-> shouldn't be grouped if the NMI watchdog is enabled or SMT is enabled.
-> 
-> Given the two issues, the metrics are re-generated and the patches
-> also include the latest Intel vendor events. The changes to the metric
-> generation code can be seen in:
-> https://github.com/intel/perfmon/pull/56
-> 
-> Hard coded metrics support thresholds, the patches add this ability to
-> json metrics so that the hard coded metrics can be removed. Migrate
-> remaining hard coded metrics to looking up counters from the
-> evlist/aggregation count. Finally, get rid of the saved_value logic
-> and thereby look to fix the aggregation issues.
-> 
-> Some related fix ups and code clean ups are included in the changes,
-> in particular to aid with the code's readability and to keep topdown
-> documentation in sync.
-> 
-> Ian Rogers (51):
-
-Thanks Ian for the clean up and improvements. The patches 1-38 looks
-good to me.
-
-Reviewed-by: Kan Liang<kan.liang@linux.intel.com>
-
-I like the idea of utilizing the json metrics. But the changes for the
-later patches seem change the current user-visible behavior for some cases.
-
-Thanks,
-Kan
-
->   perf tools: Ensure evsel name is initialized
->   perf metrics: Improve variable names
->   perf pmu-events: Remove aggr_mode from pmu_event
->   perf pmu-events: Change aggr_mode to be an enum
->   perf pmu-events: Change deprecated to be a bool
->   perf pmu-events: Change perpkg to be a bool
->   perf expr: Make the online topology accessible globally
->   perf pmu-events: Make the metric_constraint an enum
->   perf pmu-events: Don't '\0' terminate enum values
->   perf vendor events intel: Refresh alderlake events
->   perf vendor events intel: Refresh alderlake-n metrics
->   perf vendor events intel: Refresh broadwell metrics
->   perf vendor events intel: Refresh broadwellde metrics
->   perf vendor events intel: Refresh broadwellx metrics
->   perf vendor events intel: Refresh cascadelakex events
->   perf vendor events intel: Add graniterapids events
->   perf vendor events intel: Refresh haswell metrics
->   perf vendor events intel: Refresh haswellx metrics
->   perf vendor events intel: Refresh icelake events
->   perf vendor events intel: Refresh icelakex metrics
->   perf vendor events intel: Refresh ivybridge metrics
->   perf vendor events intel: Refresh ivytown metrics
->   perf vendor events intel: Refresh jaketown events
->   perf vendor events intel: Refresh knightslanding events
->   perf vendor events intel: Refresh sandybridge events
->   perf vendor events intel: Refresh sapphirerapids events
->   perf vendor events intel: Refresh silvermont events
->   perf vendor events intel: Refresh skylake events
->   perf vendor events intel: Refresh skylakex metrics
->   perf vendor events intel: Refresh tigerlake events
->   perf vendor events intel: Refresh westmereep-dp events
->   perf jevents: Add rand support to metrics
->   perf jevent: Parse metric thresholds
->   perf pmu-events: Test parsing metric thresholds with the fake PMU
->   perf list: Support for printing metric thresholds
->   perf metric: Compute and print threshold values
->   perf expr: More explicit NAN handling
->   perf metric: Add --metric-no-threshold option
->   perf stat: Add TopdownL1 metric as a default if present
->   perf stat: Implement --topdown using json metrics
->   perf stat: Remove topdown event special handling
->   perf doc: Refresh topdown documentation
->   perf stat: Remove hard coded transaction events
->   perf stat: Use metrics for --smi-cost
->   perf stat: Remove perf_stat_evsel_id
->   perf stat: Move enums from header
->   perf stat: Hide runtime_stat
->   perf stat: Add cpu_aggr_map for loop
->   perf metric: Directly use counts rather than saved_value
->   perf stat: Use counts rather than saved_value
->   perf stat: Remove saved_value/runtime_stat
-> 
->  tools/perf/Documentation/perf-stat.txt        |   27 +-
->  tools/perf/Documentation/topdown.txt          |   70 +-
->  tools/perf/arch/powerpc/util/header.c         |    2 +-
->  tools/perf/arch/x86/util/evlist.c             |    6 +-
->  tools/perf/arch/x86/util/topdown.c            |   78 +-
->  tools/perf/arch/x86/util/topdown.h            |    1 -
->  tools/perf/builtin-list.c                     |   13 +-
->  tools/perf/builtin-script.c                   |    9 +-
->  tools/perf/builtin-stat.c                     |  233 +-
->  .../arch/x86/alderlake/adl-metrics.json       | 3190 ++++++++++-------
->  .../pmu-events/arch/x86/alderlake/cache.json  |   36 +-
->  .../arch/x86/alderlake/floating-point.json    |   27 +
->  .../arch/x86/alderlake/frontend.json          |    9 +
->  .../pmu-events/arch/x86/alderlake/memory.json |    3 +-
->  .../arch/x86/alderlake/pipeline.json          |   14 +-
->  .../arch/x86/alderlake/uncore-other.json      |   28 +-
->  .../arch/x86/alderlaken/adln-metrics.json     |  811 +++--
->  .../arch/x86/broadwell/bdw-metrics.json       | 1439 ++++----
->  .../arch/x86/broadwellde/bdwde-metrics.json   | 1405 ++++----
->  .../arch/x86/broadwellx/bdx-metrics.json      | 1626 +++++----
->  .../arch/x86/broadwellx/uncore-cache.json     |   74 +-
->  .../x86/broadwellx/uncore-interconnect.json   |   64 +-
->  .../arch/x86/broadwellx/uncore-other.json     |    4 +-
->  .../arch/x86/cascadelakex/cache.json          |   24 +-
->  .../arch/x86/cascadelakex/clx-metrics.json    | 2198 ++++++------
->  .../arch/x86/cascadelakex/frontend.json       |    8 +-
->  .../arch/x86/cascadelakex/pipeline.json       |   16 +
->  .../arch/x86/cascadelakex/uncore-memory.json  |   18 +-
->  .../arch/x86/cascadelakex/uncore-other.json   |  120 +-
->  .../arch/x86/cascadelakex/uncore-power.json   |    8 +-
->  .../arch/x86/graniterapids/cache.json         |   54 +
->  .../arch/x86/graniterapids/frontend.json      |   10 +
->  .../arch/x86/graniterapids/memory.json        |  174 +
->  .../arch/x86/graniterapids/other.json         |   29 +
->  .../arch/x86/graniterapids/pipeline.json      |  102 +
->  .../x86/graniterapids/virtual-memory.json     |   26 +
->  .../arch/x86/haswell/hsw-metrics.json         | 1220 ++++---
->  .../arch/x86/haswellx/hsx-metrics.json        | 1397 ++++----
->  .../pmu-events/arch/x86/icelake/cache.json    |   16 +
->  .../arch/x86/icelake/floating-point.json      |   31 +
->  .../arch/x86/icelake/icl-metrics.json         | 1932 +++++-----
->  .../pmu-events/arch/x86/icelake/pipeline.json |   23 +-
->  .../arch/x86/icelake/uncore-other.json        |   56 +
->  .../arch/x86/icelakex/icx-metrics.json        | 2153 +++++------
->  .../arch/x86/icelakex/uncore-memory.json      |    2 +-
->  .../arch/x86/icelakex/uncore-other.json       |    4 +-
->  .../arch/x86/ivybridge/ivb-metrics.json       | 1270 ++++---
->  .../arch/x86/ivytown/ivt-metrics.json         | 1311 ++++---
->  .../pmu-events/arch/x86/jaketown/cache.json   |    6 +-
->  .../arch/x86/jaketown/floating-point.json     |    2 +-
->  .../arch/x86/jaketown/frontend.json           |   12 +-
->  .../arch/x86/jaketown/jkt-metrics.json        |  602 ++--
->  .../arch/x86/jaketown/pipeline.json           |    2 +-
->  .../arch/x86/jaketown/uncore-cache.json       |   22 +-
->  .../x86/jaketown/uncore-interconnect.json     |   74 +-
->  .../arch/x86/jaketown/uncore-memory.json      |    4 +-
->  .../arch/x86/jaketown/uncore-other.json       |   22 +-
->  .../arch/x86/jaketown/uncore-power.json       |    8 +-
->  .../arch/x86/knightslanding/cache.json        |   94 +-
->  .../arch/x86/knightslanding/pipeline.json     |    8 +-
->  .../arch/x86/knightslanding/uncore-other.json |    8 +-
->  tools/perf/pmu-events/arch/x86/mapfile.csv    |   29 +-
->  .../arch/x86/sandybridge/cache.json           |    8 +-
->  .../arch/x86/sandybridge/floating-point.json  |    2 +-
->  .../arch/x86/sandybridge/frontend.json        |   12 +-
->  .../arch/x86/sandybridge/pipeline.json        |    2 +-
->  .../arch/x86/sandybridge/snb-metrics.json     |  601 ++--
->  .../arch/x86/sapphirerapids/cache.json        |   24 +-
->  .../x86/sapphirerapids/floating-point.json    |   32 +
->  .../arch/x86/sapphirerapids/frontend.json     |    8 +
->  .../arch/x86/sapphirerapids/pipeline.json     |   19 +-
->  .../arch/x86/sapphirerapids/spr-metrics.json  | 2283 ++++++------
->  .../arch/x86/sapphirerapids/uncore-other.json |   60 +
->  .../arch/x86/silvermont/frontend.json         |    2 +-
->  .../arch/x86/silvermont/pipeline.json         |    2 +-
->  .../pmu-events/arch/x86/skylake/cache.json    |   25 +-
->  .../pmu-events/arch/x86/skylake/frontend.json |    8 +-
->  .../pmu-events/arch/x86/skylake/other.json    |    1 +
->  .../pmu-events/arch/x86/skylake/pipeline.json |   16 +
->  .../arch/x86/skylake/skl-metrics.json         | 1877 ++++++----
->  .../arch/x86/skylake/uncore-other.json        |    1 +
->  .../pmu-events/arch/x86/skylakex/cache.json   |    8 +-
->  .../arch/x86/skylakex/frontend.json           |    8 +-
->  .../arch/x86/skylakex/pipeline.json           |   16 +
->  .../arch/x86/skylakex/skx-metrics.json        | 2097 +++++------
->  .../arch/x86/skylakex/uncore-memory.json      |    2 +-
->  .../arch/x86/skylakex/uncore-other.json       |   96 +-
->  .../arch/x86/skylakex/uncore-power.json       |    6 +-
->  .../arch/x86/tigerlake/floating-point.json    |   31 +
->  .../arch/x86/tigerlake/pipeline.json          |   18 +
->  .../arch/x86/tigerlake/tgl-metrics.json       | 1942 +++++-----
->  .../arch/x86/tigerlake/uncore-other.json      |   28 +-
->  .../arch/x86/westmereep-dp/cache.json         |    2 +-
->  .../x86/westmereep-dp/virtual-memory.json     |    2 +-
->  tools/perf/pmu-events/jevents.py              |   58 +-
->  tools/perf/pmu-events/metric.py               |    8 +-
->  tools/perf/pmu-events/pmu-events.h            |   35 +-
->  tools/perf/tests/expand-cgroup.c              |    3 +-
->  tools/perf/tests/expr.c                       |    7 +-
->  tools/perf/tests/parse-metric.c               |   21 +-
->  tools/perf/tests/pmu-events.c                 |   49 +-
->  tools/perf/util/cpumap.h                      |    3 +
->  tools/perf/util/cputopo.c                     |   14 +
->  tools/perf/util/cputopo.h                     |    5 +
->  tools/perf/util/evsel.h                       |    2 +-
->  tools/perf/util/expr.c                        |   16 +-
->  tools/perf/util/expr.y                        |   12 +-
->  tools/perf/util/metricgroup.c                 |  178 +-
->  tools/perf/util/metricgroup.h                 |    5 +-
->  tools/perf/util/pmu.c                         |   17 +-
->  tools/perf/util/print-events.h                |    1 +
->  tools/perf/util/smt.c                         |   11 +-
->  tools/perf/util/smt.h                         |   12 +-
->  tools/perf/util/stat-display.c                |  117 +-
->  tools/perf/util/stat-shadow.c                 | 1287 ++-----
->  tools/perf/util/stat.c                        |   74 -
->  tools/perf/util/stat.h                        |   96 +-
->  tools/perf/util/synthetic-events.c            |    2 +-
->  tools/perf/util/topdown.c                     |   68 +-
->  tools/perf/util/topdown.h                     |   11 +-
->  120 files changed, 18025 insertions(+), 15590 deletions(-)
->  create mode 100644 tools/perf/pmu-events/arch/x86/graniterapids/cache.json
->  create mode 100644 tools/perf/pmu-events/arch/x86/graniterapids/frontend.json
->  create mode 100644 tools/perf/pmu-events/arch/x86/graniterapids/memory.json
->  create mode 100644 tools/perf/pmu-events/arch/x86/graniterapids/other.json
->  create mode 100644 tools/perf/pmu-events/arch/x86/graniterapids/pipeline.json
->  create mode 100644 tools/perf/pmu-events/arch/x86/graniterapids/virtual-memory.json
-> 
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gTW9uLCBGZWIgMjcsIDIwMjMgYXQgMjowNeKAr1BNIExpYW5nLCBLYW4gPGthbi5saWFuZ0Bs
+aW51eC5pbnRlbC5jb20+IHdyb3RlOgo+Cj4KPgo+IE9uIDIwMjMtMDItMTkgNDoyNyBhLm0uLCBJ
+YW4gUm9nZXJzIHdyb3RlOgo+ID4gUmVjZW50bHkgdGhlIHNoYWRvdyBzdGF0IG1ldHJpY3MgYnJv
+a2UgZHVlIHRvIHJlcGVhdGVkIGFnZ3JlZ2F0aW9uIGFuZAo+ID4gYSBxdWljayBmaXggd2FzIGFw
+cGxpZWQ6Cj4gPiBodHRwczovL2xvcmUua2VybmVsLm9yZy9sa21sLzIwMjMwMjA5MDY0NDQ3Ljgz
+NzMzLTEtaXJvZ2Vyc0Bnb29nbGUuY29tLwo+ID4gVGhpcyBpcyB0aGUgbG9uZ2VyIGZpeCBidXQg
+b25lIHRoYXQgY29tZXMgd2l0aCBzb21lIGV4dHJhcy4gVG8gYXZvaWQKPiA+IGZpeGluZyBpc3N1
+ZXMgZm9yIGhhcmQgY29kZWQgbWV0cmljcywgdGhlIHRvcGRvd24sIFNNSSBjb3N0IGFuZAo+ID4g
+dHJhbnNhY3Rpb24gZmxhZ3MgYXJlIG1vdmVkIGludG8ganNvbiBtZXRyaWNzLiBBIHNpZGUgZWZm
+ZWN0IG9mIHRoaXMKPiA+IGlzIHRoYXQgVG9wZG93bkwxIG1ldHJpY3Mgd2lsbCBub3cgYmUgZGlz
+cGxheWVkIHdoZW4gc3VwcG9ydGVkLCBpZiBubwo+ID4gInBlcmYgc3RhdCIgZXZlbnRzIGFyZSBz
+cGVjaWZpZWQuCj4gPgo+ID4gQW5vdGhlciBmaXggaW5jbHVkZWQgaGVyZSBpcyBmb3IgZXZlbnQg
+Z3JvdXBpbmcgYXMgcmFpc2VkIGluOgo+ID4gaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvbGttbC9D
+QStpY1pVVV9ldzdweldKSlpMYmoxeHNVNk1RVFByajh0a0ZmRGhOZFREUlFmR1VCTVFAbWFpbC5n
+bWFpbC5jb20vCj4gPiBNZXRyaWNzIGFyZSBub3cgdGFnZ2VkIHdpdGggTk1JIGFuZCBTTVQgZmxh
+Z3MsIG1lYW5pbmcgdGhhdCB0aGUgZXZlbnRzCj4gPiBzaG91bGRuJ3QgYmUgZ3JvdXBlZCBpZiB0
+aGUgTk1JIHdhdGNoZG9nIGlzIGVuYWJsZWQgb3IgU01UIGlzIGVuYWJsZWQuCj4gPgo+ID4gR2l2
+ZW4gdGhlIHR3byBpc3N1ZXMsIHRoZSBtZXRyaWNzIGFyZSByZS1nZW5lcmF0ZWQgYW5kIHRoZSBw
+YXRjaGVzCj4gPiBhbHNvIGluY2x1ZGUgdGhlIGxhdGVzdCBJbnRlbCB2ZW5kb3IgZXZlbnRzLiBU
+aGUgY2hhbmdlcyB0byB0aGUgbWV0cmljCj4gPiBnZW5lcmF0aW9uIGNvZGUgY2FuIGJlIHNlZW4g
+aW46Cj4gPiBodHRwczovL2dpdGh1Yi5jb20vaW50ZWwvcGVyZm1vbi9wdWxsLzU2Cj4gPgo+ID4g
+SGFyZCBjb2RlZCBtZXRyaWNzIHN1cHBvcnQgdGhyZXNob2xkcywgdGhlIHBhdGNoZXMgYWRkIHRo
+aXMgYWJpbGl0eSB0bwo+ID4ganNvbiBtZXRyaWNzIHNvIHRoYXQgdGhlIGhhcmQgY29kZWQgbWV0
+cmljcyBjYW4gYmUgcmVtb3ZlZC4gTWlncmF0ZQo+ID4gcmVtYWluaW5nIGhhcmQgY29kZWQgbWV0
+cmljcyB0byBsb29raW5nIHVwIGNvdW50ZXJzIGZyb20gdGhlCj4gPiBldmxpc3QvYWdncmVnYXRp
+b24gY291bnQuIEZpbmFsbHksIGdldCByaWQgb2YgdGhlIHNhdmVkX3ZhbHVlIGxvZ2ljCj4gPiBh
+bmQgdGhlcmVieSBsb29rIHRvIGZpeCB0aGUgYWdncmVnYXRpb24gaXNzdWVzLgo+ID4KPiA+IFNv
+bWUgcmVsYXRlZCBmaXggdXBzIGFuZCBjb2RlIGNsZWFuIHVwcyBhcmUgaW5jbHVkZWQgaW4gdGhl
+IGNoYW5nZXMsCj4gPiBpbiBwYXJ0aWN1bGFyIHRvIGFpZCB3aXRoIHRoZSBjb2RlJ3MgcmVhZGFi
+aWxpdHkgYW5kIHRvIGtlZXAgdG9wZG93bgo+ID4gZG9jdW1lbnRhdGlvbiBpbiBzeW5jLgo+ID4K
+PiA+IElhbiBSb2dlcnMgKDUxKToKPgo+IFRoYW5rcyBJYW4gZm9yIHRoZSBjbGVhbiB1cCBhbmQg
+aW1wcm92ZW1lbnRzLiBUaGUgcGF0Y2hlcyAxLTM4IGxvb2tzCj4gZ29vZCB0byBtZS4KPgo+IFJl
+dmlld2VkLWJ5OiBLYW4gTGlhbmc8a2FuLmxpYW5nQGxpbnV4LmludGVsLmNvbT4KPgo+IEkgbGlr
+ZSB0aGUgaWRlYSBvZiB1dGlsaXppbmcgdGhlIGpzb24gbWV0cmljcy4gQnV0IHRoZSBjaGFuZ2Vz
+IGZvciB0aGUKPiBsYXRlciBwYXRjaGVzIHNlZW0gY2hhbmdlIHRoZSBjdXJyZW50IHVzZXItdmlz
+aWJsZSBiZWhhdmlvciBmb3Igc29tZSBjYXNlcy4KClRoYW5rcyBLYW4sIEknbGwgcHV0IHNvbWUg
+Y29tbWVudHMgb24gdGhlIHByZXZpb3VzIHRocmVhZCB3cnQgYmVoYXZpb3IgY2hhbmdlLgoKSWFu
+Cgo+IFRoYW5rcywKPiBLYW4KPgo+ID4gICBwZXJmIHRvb2xzOiBFbnN1cmUgZXZzZWwgbmFtZSBp
+cyBpbml0aWFsaXplZAo+ID4gICBwZXJmIG1ldHJpY3M6IEltcHJvdmUgdmFyaWFibGUgbmFtZXMK
+PiA+ICAgcGVyZiBwbXUtZXZlbnRzOiBSZW1vdmUgYWdncl9tb2RlIGZyb20gcG11X2V2ZW50Cj4g
+PiAgIHBlcmYgcG11LWV2ZW50czogQ2hhbmdlIGFnZ3JfbW9kZSB0byBiZSBhbiBlbnVtCj4gPiAg
+IHBlcmYgcG11LWV2ZW50czogQ2hhbmdlIGRlcHJlY2F0ZWQgdG8gYmUgYSBib29sCj4gPiAgIHBl
+cmYgcG11LWV2ZW50czogQ2hhbmdlIHBlcnBrZyB0byBiZSBhIGJvb2wKPiA+ICAgcGVyZiBleHBy
+OiBNYWtlIHRoZSBvbmxpbmUgdG9wb2xvZ3kgYWNjZXNzaWJsZSBnbG9iYWxseQo+ID4gICBwZXJm
+IHBtdS1ldmVudHM6IE1ha2UgdGhlIG1ldHJpY19jb25zdHJhaW50IGFuIGVudW0KPiA+ICAgcGVy
+ZiBwbXUtZXZlbnRzOiBEb24ndCAnXDAnIHRlcm1pbmF0ZSBlbnVtIHZhbHVlcwo+ID4gICBwZXJm
+IHZlbmRvciBldmVudHMgaW50ZWw6IFJlZnJlc2ggYWxkZXJsYWtlIGV2ZW50cwo+ID4gICBwZXJm
+IHZlbmRvciBldmVudHMgaW50ZWw6IFJlZnJlc2ggYWxkZXJsYWtlLW4gbWV0cmljcwo+ID4gICBw
+ZXJmIHZlbmRvciBldmVudHMgaW50ZWw6IFJlZnJlc2ggYnJvYWR3ZWxsIG1ldHJpY3MKPiA+ICAg
+cGVyZiB2ZW5kb3IgZXZlbnRzIGludGVsOiBSZWZyZXNoIGJyb2Fkd2VsbGRlIG1ldHJpY3MKPiA+
+ICAgcGVyZiB2ZW5kb3IgZXZlbnRzIGludGVsOiBSZWZyZXNoIGJyb2Fkd2VsbHggbWV0cmljcwo+
+ID4gICBwZXJmIHZlbmRvciBldmVudHMgaW50ZWw6IFJlZnJlc2ggY2FzY2FkZWxha2V4IGV2ZW50
+cwo+ID4gICBwZXJmIHZlbmRvciBldmVudHMgaW50ZWw6IEFkZCBncmFuaXRlcmFwaWRzIGV2ZW50
+cwo+ID4gICBwZXJmIHZlbmRvciBldmVudHMgaW50ZWw6IFJlZnJlc2ggaGFzd2VsbCBtZXRyaWNz
+Cj4gPiAgIHBlcmYgdmVuZG9yIGV2ZW50cyBpbnRlbDogUmVmcmVzaCBoYXN3ZWxseCBtZXRyaWNz
+Cj4gPiAgIHBlcmYgdmVuZG9yIGV2ZW50cyBpbnRlbDogUmVmcmVzaCBpY2VsYWtlIGV2ZW50cwo+
+ID4gICBwZXJmIHZlbmRvciBldmVudHMgaW50ZWw6IFJlZnJlc2ggaWNlbGFrZXggbWV0cmljcwo+
+ID4gICBwZXJmIHZlbmRvciBldmVudHMgaW50ZWw6IFJlZnJlc2ggaXZ5YnJpZGdlIG1ldHJpY3MK
+PiA+ICAgcGVyZiB2ZW5kb3IgZXZlbnRzIGludGVsOiBSZWZyZXNoIGl2eXRvd24gbWV0cmljcwo+
+ID4gICBwZXJmIHZlbmRvciBldmVudHMgaW50ZWw6IFJlZnJlc2ggamFrZXRvd24gZXZlbnRzCj4g
+PiAgIHBlcmYgdmVuZG9yIGV2ZW50cyBpbnRlbDogUmVmcmVzaCBrbmlnaHRzbGFuZGluZyBldmVu
+dHMKPiA+ICAgcGVyZiB2ZW5kb3IgZXZlbnRzIGludGVsOiBSZWZyZXNoIHNhbmR5YnJpZGdlIGV2
+ZW50cwo+ID4gICBwZXJmIHZlbmRvciBldmVudHMgaW50ZWw6IFJlZnJlc2ggc2FwcGhpcmVyYXBp
+ZHMgZXZlbnRzCj4gPiAgIHBlcmYgdmVuZG9yIGV2ZW50cyBpbnRlbDogUmVmcmVzaCBzaWx2ZXJt
+b250IGV2ZW50cwo+ID4gICBwZXJmIHZlbmRvciBldmVudHMgaW50ZWw6IFJlZnJlc2ggc2t5bGFr
+ZSBldmVudHMKPiA+ICAgcGVyZiB2ZW5kb3IgZXZlbnRzIGludGVsOiBSZWZyZXNoIHNreWxha2V4
+IG1ldHJpY3MKPiA+ICAgcGVyZiB2ZW5kb3IgZXZlbnRzIGludGVsOiBSZWZyZXNoIHRpZ2VybGFr
+ZSBldmVudHMKPiA+ICAgcGVyZiB2ZW5kb3IgZXZlbnRzIGludGVsOiBSZWZyZXNoIHdlc3RtZXJl
+ZXAtZHAgZXZlbnRzCj4gPiAgIHBlcmYgamV2ZW50czogQWRkIHJhbmQgc3VwcG9ydCB0byBtZXRy
+aWNzCj4gPiAgIHBlcmYgamV2ZW50OiBQYXJzZSBtZXRyaWMgdGhyZXNob2xkcwo+ID4gICBwZXJm
+IHBtdS1ldmVudHM6IFRlc3QgcGFyc2luZyBtZXRyaWMgdGhyZXNob2xkcyB3aXRoIHRoZSBmYWtl
+IFBNVQo+ID4gICBwZXJmIGxpc3Q6IFN1cHBvcnQgZm9yIHByaW50aW5nIG1ldHJpYyB0aHJlc2hv
+bGRzCj4gPiAgIHBlcmYgbWV0cmljOiBDb21wdXRlIGFuZCBwcmludCB0aHJlc2hvbGQgdmFsdWVz
+Cj4gPiAgIHBlcmYgZXhwcjogTW9yZSBleHBsaWNpdCBOQU4gaGFuZGxpbmcKPiA+ICAgcGVyZiBt
+ZXRyaWM6IEFkZCAtLW1ldHJpYy1uby10aHJlc2hvbGQgb3B0aW9uCj4gPiAgIHBlcmYgc3RhdDog
+QWRkIFRvcGRvd25MMSBtZXRyaWMgYXMgYSBkZWZhdWx0IGlmIHByZXNlbnQKPiA+ICAgcGVyZiBz
+dGF0OiBJbXBsZW1lbnQgLS10b3Bkb3duIHVzaW5nIGpzb24gbWV0cmljcwo+ID4gICBwZXJmIHN0
+YXQ6IFJlbW92ZSB0b3Bkb3duIGV2ZW50IHNwZWNpYWwgaGFuZGxpbmcKPiA+ICAgcGVyZiBkb2M6
+IFJlZnJlc2ggdG9wZG93biBkb2N1bWVudGF0aW9uCj4gPiAgIHBlcmYgc3RhdDogUmVtb3ZlIGhh
+cmQgY29kZWQgdHJhbnNhY3Rpb24gZXZlbnRzCj4gPiAgIHBlcmYgc3RhdDogVXNlIG1ldHJpY3Mg
+Zm9yIC0tc21pLWNvc3QKPiA+ICAgcGVyZiBzdGF0OiBSZW1vdmUgcGVyZl9zdGF0X2V2c2VsX2lk
+Cj4gPiAgIHBlcmYgc3RhdDogTW92ZSBlbnVtcyBmcm9tIGhlYWRlcgo+ID4gICBwZXJmIHN0YXQ6
+IEhpZGUgcnVudGltZV9zdGF0Cj4gPiAgIHBlcmYgc3RhdDogQWRkIGNwdV9hZ2dyX21hcCBmb3Ig
+bG9vcAo+ID4gICBwZXJmIG1ldHJpYzogRGlyZWN0bHkgdXNlIGNvdW50cyByYXRoZXIgdGhhbiBz
+YXZlZF92YWx1ZQo+ID4gICBwZXJmIHN0YXQ6IFVzZSBjb3VudHMgcmF0aGVyIHRoYW4gc2F2ZWRf
+dmFsdWUKPiA+ICAgcGVyZiBzdGF0OiBSZW1vdmUgc2F2ZWRfdmFsdWUvcnVudGltZV9zdGF0Cj4g
+Pgo+ID4gIHRvb2xzL3BlcmYvRG9jdW1lbnRhdGlvbi9wZXJmLXN0YXQudHh0ICAgICAgICB8ICAg
+MjcgKy0KPiA+ICB0b29scy9wZXJmL0RvY3VtZW50YXRpb24vdG9wZG93bi50eHQgICAgICAgICAg
+fCAgIDcwICstCj4gPiAgdG9vbHMvcGVyZi9hcmNoL3Bvd2VycGMvdXRpbC9oZWFkZXIuYyAgICAg
+ICAgIHwgICAgMiArLQo+ID4gIHRvb2xzL3BlcmYvYXJjaC94ODYvdXRpbC9ldmxpc3QuYyAgICAg
+ICAgICAgICB8ICAgIDYgKy0KPiA+ICB0b29scy9wZXJmL2FyY2gveDg2L3V0aWwvdG9wZG93bi5j
+ICAgICAgICAgICAgfCAgIDc4ICstCj4gPiAgdG9vbHMvcGVyZi9hcmNoL3g4Ni91dGlsL3RvcGRv
+d24uaCAgICAgICAgICAgIHwgICAgMSAtCj4gPiAgdG9vbHMvcGVyZi9idWlsdGluLWxpc3QuYyAg
+ICAgICAgICAgICAgICAgICAgIHwgICAxMyArLQo+ID4gIHRvb2xzL3BlcmYvYnVpbHRpbi1zY3Jp
+cHQuYyAgICAgICAgICAgICAgICAgICB8ICAgIDkgKy0KPiA+ICB0b29scy9wZXJmL2J1aWx0aW4t
+c3RhdC5jICAgICAgICAgICAgICAgICAgICAgfCAgMjMzICstCj4gPiAgLi4uL2FyY2gveDg2L2Fs
+ZGVybGFrZS9hZGwtbWV0cmljcy5qc29uICAgICAgIHwgMzE5MCArKysrKysrKysrLS0tLS0tLQo+
+ID4gIC4uLi9wbXUtZXZlbnRzL2FyY2gveDg2L2FsZGVybGFrZS9jYWNoZS5qc29uICB8ICAgMzYg
+Ky0KPiA+ICAuLi4vYXJjaC94ODYvYWxkZXJsYWtlL2Zsb2F0aW5nLXBvaW50Lmpzb24gICAgfCAg
+IDI3ICsKPiA+ICAuLi4vYXJjaC94ODYvYWxkZXJsYWtlL2Zyb250ZW5kLmpzb24gICAgICAgICAg
+fCAgICA5ICsKPiA+ICAuLi4vcG11LWV2ZW50cy9hcmNoL3g4Ni9hbGRlcmxha2UvbWVtb3J5Lmpz
+b24gfCAgICAzICstCj4gPiAgLi4uL2FyY2gveDg2L2FsZGVybGFrZS9waXBlbGluZS5qc29uICAg
+ICAgICAgIHwgICAxNCArLQo+ID4gIC4uLi9hcmNoL3g4Ni9hbGRlcmxha2UvdW5jb3JlLW90aGVy
+Lmpzb24gICAgICB8ICAgMjggKy0KPiA+ICAuLi4vYXJjaC94ODYvYWxkZXJsYWtlbi9hZGxuLW1l
+dHJpY3MuanNvbiAgICAgfCAgODExICsrKy0tCj4gPiAgLi4uL2FyY2gveDg2L2Jyb2Fkd2VsbC9i
+ZHctbWV0cmljcy5qc29uICAgICAgIHwgMTQzOSArKysrLS0tLQo+ID4gIC4uLi9hcmNoL3g4Ni9i
+cm9hZHdlbGxkZS9iZHdkZS1tZXRyaWNzLmpzb24gICB8IDE0MDUgKysrKy0tLS0KPiA+ICAuLi4v
+YXJjaC94ODYvYnJvYWR3ZWxseC9iZHgtbWV0cmljcy5qc29uICAgICAgfCAxNjI2ICsrKysrLS0t
+LQo+ID4gIC4uLi9hcmNoL3g4Ni9icm9hZHdlbGx4L3VuY29yZS1jYWNoZS5qc29uICAgICB8ICAg
+NzQgKy0KPiA+ICAuLi4veDg2L2Jyb2Fkd2VsbHgvdW5jb3JlLWludGVyY29ubmVjdC5qc29uICAg
+fCAgIDY0ICstCj4gPiAgLi4uL2FyY2gveDg2L2Jyb2Fkd2VsbHgvdW5jb3JlLW90aGVyLmpzb24g
+ICAgIHwgICAgNCArLQo+ID4gIC4uLi9hcmNoL3g4Ni9jYXNjYWRlbGFrZXgvY2FjaGUuanNvbiAg
+ICAgICAgICB8ICAgMjQgKy0KPiA+ICAuLi4vYXJjaC94ODYvY2FzY2FkZWxha2V4L2NseC1tZXRy
+aWNzLmpzb24gICAgfCAyMTk4ICsrKysrKy0tLS0tLQo+ID4gIC4uLi9hcmNoL3g4Ni9jYXNjYWRl
+bGFrZXgvZnJvbnRlbmQuanNvbiAgICAgICB8ICAgIDggKy0KPiA+ICAuLi4vYXJjaC94ODYvY2Fz
+Y2FkZWxha2V4L3BpcGVsaW5lLmpzb24gICAgICAgfCAgIDE2ICsKPiA+ICAuLi4vYXJjaC94ODYv
+Y2FzY2FkZWxha2V4L3VuY29yZS1tZW1vcnkuanNvbiAgfCAgIDE4ICstCj4gPiAgLi4uL2FyY2gv
+eDg2L2Nhc2NhZGVsYWtleC91bmNvcmUtb3RoZXIuanNvbiAgIHwgIDEyMCArLQo+ID4gIC4uLi9h
+cmNoL3g4Ni9jYXNjYWRlbGFrZXgvdW5jb3JlLXBvd2VyLmpzb24gICB8ICAgIDggKy0KPiA+ICAu
+Li4vYXJjaC94ODYvZ3Jhbml0ZXJhcGlkcy9jYWNoZS5qc29uICAgICAgICAgfCAgIDU0ICsKPiA+
+ICAuLi4vYXJjaC94ODYvZ3Jhbml0ZXJhcGlkcy9mcm9udGVuZC5qc29uICAgICAgfCAgIDEwICsK
+PiA+ICAuLi4vYXJjaC94ODYvZ3Jhbml0ZXJhcGlkcy9tZW1vcnkuanNvbiAgICAgICAgfCAgMTc0
+ICsKPiA+ICAuLi4vYXJjaC94ODYvZ3Jhbml0ZXJhcGlkcy9vdGhlci5qc29uICAgICAgICAgfCAg
+IDI5ICsKPiA+ICAuLi4vYXJjaC94ODYvZ3Jhbml0ZXJhcGlkcy9waXBlbGluZS5qc29uICAgICAg
+fCAgMTAyICsKPiA+ICAuLi4veDg2L2dyYW5pdGVyYXBpZHMvdmlydHVhbC1tZW1vcnkuanNvbiAg
+ICAgfCAgIDI2ICsKPiA+ICAuLi4vYXJjaC94ODYvaGFzd2VsbC9oc3ctbWV0cmljcy5qc29uICAg
+ICAgICAgfCAxMjIwICsrKystLS0KPiA+ICAuLi4vYXJjaC94ODYvaGFzd2VsbHgvaHN4LW1ldHJp
+Y3MuanNvbiAgICAgICAgfCAxMzk3ICsrKystLS0tCj4gPiAgLi4uL3BtdS1ldmVudHMvYXJjaC94
+ODYvaWNlbGFrZS9jYWNoZS5qc29uICAgIHwgICAxNiArCj4gPiAgLi4uL2FyY2gveDg2L2ljZWxh
+a2UvZmxvYXRpbmctcG9pbnQuanNvbiAgICAgIHwgICAzMSArCj4gPiAgLi4uL2FyY2gveDg2L2lj
+ZWxha2UvaWNsLW1ldHJpY3MuanNvbiAgICAgICAgIHwgMTkzMiArKysrKy0tLS0tCj4gPiAgLi4u
+L3BtdS1ldmVudHMvYXJjaC94ODYvaWNlbGFrZS9waXBlbGluZS5qc29uIHwgICAyMyArLQo+ID4g
+IC4uLi9hcmNoL3g4Ni9pY2VsYWtlL3VuY29yZS1vdGhlci5qc29uICAgICAgICB8ICAgNTYgKwo+
+ID4gIC4uLi9hcmNoL3g4Ni9pY2VsYWtleC9pY3gtbWV0cmljcy5qc29uICAgICAgICB8IDIxNTMg
+KysrKystLS0tLS0KPiA+ICAuLi4vYXJjaC94ODYvaWNlbGFrZXgvdW5jb3JlLW1lbW9yeS5qc29u
+ICAgICAgfCAgICAyICstCj4gPiAgLi4uL2FyY2gveDg2L2ljZWxha2V4L3VuY29yZS1vdGhlci5q
+c29uICAgICAgIHwgICAgNCArLQo+ID4gIC4uLi9hcmNoL3g4Ni9pdnlicmlkZ2UvaXZiLW1ldHJp
+Y3MuanNvbiAgICAgICB8IDEyNzAgKysrKy0tLQo+ID4gIC4uLi9hcmNoL3g4Ni9pdnl0b3duL2l2
+dC1tZXRyaWNzLmpzb24gICAgICAgICB8IDEzMTEgKysrKy0tLQo+ID4gIC4uLi9wbXUtZXZlbnRz
+L2FyY2gveDg2L2pha2V0b3duL2NhY2hlLmpzb24gICB8ICAgIDYgKy0KPiA+ICAuLi4vYXJjaC94
+ODYvamFrZXRvd24vZmxvYXRpbmctcG9pbnQuanNvbiAgICAgfCAgICAyICstCj4gPiAgLi4uL2Fy
+Y2gveDg2L2pha2V0b3duL2Zyb250ZW5kLmpzb24gICAgICAgICAgIHwgICAxMiArLQo+ID4gIC4u
+Li9hcmNoL3g4Ni9qYWtldG93bi9qa3QtbWV0cmljcy5qc29uICAgICAgICB8ICA2MDIgKystLQo+
+ID4gIC4uLi9hcmNoL3g4Ni9qYWtldG93bi9waXBlbGluZS5qc29uICAgICAgICAgICB8ICAgIDIg
+Ky0KPiA+ICAuLi4vYXJjaC94ODYvamFrZXRvd24vdW5jb3JlLWNhY2hlLmpzb24gICAgICAgfCAg
+IDIyICstCj4gPiAgLi4uL3g4Ni9qYWtldG93bi91bmNvcmUtaW50ZXJjb25uZWN0Lmpzb24gICAg
+IHwgICA3NCArLQo+ID4gIC4uLi9hcmNoL3g4Ni9qYWtldG93bi91bmNvcmUtbWVtb3J5Lmpzb24g
+ICAgICB8ICAgIDQgKy0KPiA+ICAuLi4vYXJjaC94ODYvamFrZXRvd24vdW5jb3JlLW90aGVyLmpz
+b24gICAgICAgfCAgIDIyICstCj4gPiAgLi4uL2FyY2gveDg2L2pha2V0b3duL3VuY29yZS1wb3dl
+ci5qc29uICAgICAgIHwgICAgOCArLQo+ID4gIC4uLi9hcmNoL3g4Ni9rbmlnaHRzbGFuZGluZy9j
+YWNoZS5qc29uICAgICAgICB8ICAgOTQgKy0KPiA+ICAuLi4vYXJjaC94ODYva25pZ2h0c2xhbmRp
+bmcvcGlwZWxpbmUuanNvbiAgICAgfCAgICA4ICstCj4gPiAgLi4uL2FyY2gveDg2L2tuaWdodHNs
+YW5kaW5nL3VuY29yZS1vdGhlci5qc29uIHwgICAgOCArLQo+ID4gIHRvb2xzL3BlcmYvcG11LWV2
+ZW50cy9hcmNoL3g4Ni9tYXBmaWxlLmNzdiAgICB8ICAgMjkgKy0KPiA+ICAuLi4vYXJjaC94ODYv
+c2FuZHlicmlkZ2UvY2FjaGUuanNvbiAgICAgICAgICAgfCAgICA4ICstCj4gPiAgLi4uL2FyY2gv
+eDg2L3NhbmR5YnJpZGdlL2Zsb2F0aW5nLXBvaW50Lmpzb24gIHwgICAgMiArLQo+ID4gIC4uLi9h
+cmNoL3g4Ni9zYW5keWJyaWRnZS9mcm9udGVuZC5qc29uICAgICAgICB8ICAgMTIgKy0KPiA+ICAu
+Li4vYXJjaC94ODYvc2FuZHlicmlkZ2UvcGlwZWxpbmUuanNvbiAgICAgICAgfCAgICAyICstCj4g
+PiAgLi4uL2FyY2gveDg2L3NhbmR5YnJpZGdlL3NuYi1tZXRyaWNzLmpzb24gICAgIHwgIDYwMSAr
+Ky0tCj4gPiAgLi4uL2FyY2gveDg2L3NhcHBoaXJlcmFwaWRzL2NhY2hlLmpzb24gICAgICAgIHwg
+ICAyNCArLQo+ID4gIC4uLi94ODYvc2FwcGhpcmVyYXBpZHMvZmxvYXRpbmctcG9pbnQuanNvbiAg
+ICB8ICAgMzIgKwo+ID4gIC4uLi9hcmNoL3g4Ni9zYXBwaGlyZXJhcGlkcy9mcm9udGVuZC5qc29u
+ICAgICB8ICAgIDggKwo+ID4gIC4uLi9hcmNoL3g4Ni9zYXBwaGlyZXJhcGlkcy9waXBlbGluZS5q
+c29uICAgICB8ICAgMTkgKy0KPiA+ICAuLi4vYXJjaC94ODYvc2FwcGhpcmVyYXBpZHMvc3ByLW1l
+dHJpY3MuanNvbiAgfCAyMjgzICsrKysrKy0tLS0tLQo+ID4gIC4uLi9hcmNoL3g4Ni9zYXBwaGly
+ZXJhcGlkcy91bmNvcmUtb3RoZXIuanNvbiB8ICAgNjAgKwo+ID4gIC4uLi9hcmNoL3g4Ni9zaWx2
+ZXJtb250L2Zyb250ZW5kLmpzb24gICAgICAgICB8ICAgIDIgKy0KPiA+ICAuLi4vYXJjaC94ODYv
+c2lsdmVybW9udC9waXBlbGluZS5qc29uICAgICAgICAgfCAgICAyICstCj4gPiAgLi4uL3BtdS1l
+dmVudHMvYXJjaC94ODYvc2t5bGFrZS9jYWNoZS5qc29uICAgIHwgICAyNSArLQo+ID4gIC4uLi9w
+bXUtZXZlbnRzL2FyY2gveDg2L3NreWxha2UvZnJvbnRlbmQuanNvbiB8ICAgIDggKy0KPiA+ICAu
+Li4vcG11LWV2ZW50cy9hcmNoL3g4Ni9za3lsYWtlL290aGVyLmpzb24gICAgfCAgICAxICsKPiA+
+ICAuLi4vcG11LWV2ZW50cy9hcmNoL3g4Ni9za3lsYWtlL3BpcGVsaW5lLmpzb24gfCAgIDE2ICsK
+PiA+ICAuLi4vYXJjaC94ODYvc2t5bGFrZS9za2wtbWV0cmljcy5qc29uICAgICAgICAgfCAxODc3
+ICsrKysrKy0tLS0KPiA+ICAuLi4vYXJjaC94ODYvc2t5bGFrZS91bmNvcmUtb3RoZXIuanNvbiAg
+ICAgICAgfCAgICAxICsKPiA+ICAuLi4vcG11LWV2ZW50cy9hcmNoL3g4Ni9za3lsYWtleC9jYWNo
+ZS5qc29uICAgfCAgICA4ICstCj4gPiAgLi4uL2FyY2gveDg2L3NreWxha2V4L2Zyb250ZW5kLmpz
+b24gICAgICAgICAgIHwgICAgOCArLQo+ID4gIC4uLi9hcmNoL3g4Ni9za3lsYWtleC9waXBlbGlu
+ZS5qc29uICAgICAgICAgICB8ICAgMTYgKwo+ID4gIC4uLi9hcmNoL3g4Ni9za3lsYWtleC9za3gt
+bWV0cmljcy5qc29uICAgICAgICB8IDIwOTcgKysrKystLS0tLS0KPiA+ICAuLi4vYXJjaC94ODYv
+c2t5bGFrZXgvdW5jb3JlLW1lbW9yeS5qc29uICAgICAgfCAgICAyICstCj4gPiAgLi4uL2FyY2gv
+eDg2L3NreWxha2V4L3VuY29yZS1vdGhlci5qc29uICAgICAgIHwgICA5NiArLQo+ID4gIC4uLi9h
+cmNoL3g4Ni9za3lsYWtleC91bmNvcmUtcG93ZXIuanNvbiAgICAgICB8ICAgIDYgKy0KPiA+ICAu
+Li4vYXJjaC94ODYvdGlnZXJsYWtlL2Zsb2F0aW5nLXBvaW50Lmpzb24gICAgfCAgIDMxICsKPiA+
+ICAuLi4vYXJjaC94ODYvdGlnZXJsYWtlL3BpcGVsaW5lLmpzb24gICAgICAgICAgfCAgIDE4ICsK
+PiA+ICAuLi4vYXJjaC94ODYvdGlnZXJsYWtlL3RnbC1tZXRyaWNzLmpzb24gICAgICAgfCAxOTQy
+ICsrKysrLS0tLS0KPiA+ICAuLi4vYXJjaC94ODYvdGlnZXJsYWtlL3VuY29yZS1vdGhlci5qc29u
+ICAgICAgfCAgIDI4ICstCj4gPiAgLi4uL2FyY2gveDg2L3dlc3RtZXJlZXAtZHAvY2FjaGUuanNv
+biAgICAgICAgIHwgICAgMiArLQo+ID4gIC4uLi94ODYvd2VzdG1lcmVlcC1kcC92aXJ0dWFsLW1l
+bW9yeS5qc29uICAgICB8ICAgIDIgKy0KPiA+ICB0b29scy9wZXJmL3BtdS1ldmVudHMvamV2ZW50
+cy5weSAgICAgICAgICAgICAgfCAgIDU4ICstCj4gPiAgdG9vbHMvcGVyZi9wbXUtZXZlbnRzL21l
+dHJpYy5weSAgICAgICAgICAgICAgIHwgICAgOCArLQo+ID4gIHRvb2xzL3BlcmYvcG11LWV2ZW50
+cy9wbXUtZXZlbnRzLmggICAgICAgICAgICB8ICAgMzUgKy0KPiA+ICB0b29scy9wZXJmL3Rlc3Rz
+L2V4cGFuZC1jZ3JvdXAuYyAgICAgICAgICAgICAgfCAgICAzICstCj4gPiAgdG9vbHMvcGVyZi90
+ZXN0cy9leHByLmMgICAgICAgICAgICAgICAgICAgICAgIHwgICAgNyArLQo+ID4gIHRvb2xzL3Bl
+cmYvdGVzdHMvcGFyc2UtbWV0cmljLmMgICAgICAgICAgICAgICB8ICAgMjEgKy0KPiA+ICB0b29s
+cy9wZXJmL3Rlc3RzL3BtdS1ldmVudHMuYyAgICAgICAgICAgICAgICAgfCAgIDQ5ICstCj4gPiAg
+dG9vbHMvcGVyZi91dGlsL2NwdW1hcC5oICAgICAgICAgICAgICAgICAgICAgIHwgICAgMyArCj4g
+PiAgdG9vbHMvcGVyZi91dGlsL2NwdXRvcG8uYyAgICAgICAgICAgICAgICAgICAgIHwgICAxNCAr
+Cj4gPiAgdG9vbHMvcGVyZi91dGlsL2NwdXRvcG8uaCAgICAgICAgICAgICAgICAgICAgIHwgICAg
+NSArCj4gPiAgdG9vbHMvcGVyZi91dGlsL2V2c2VsLmggICAgICAgICAgICAgICAgICAgICAgIHwg
+ICAgMiArLQo+ID4gIHRvb2xzL3BlcmYvdXRpbC9leHByLmMgICAgICAgICAgICAgICAgICAgICAg
+ICB8ICAgMTYgKy0KPiA+ICB0b29scy9wZXJmL3V0aWwvZXhwci55ICAgICAgICAgICAgICAgICAg
+ICAgICAgfCAgIDEyICstCj4gPiAgdG9vbHMvcGVyZi91dGlsL21ldHJpY2dyb3VwLmMgICAgICAg
+ICAgICAgICAgIHwgIDE3OCArLQo+ID4gIHRvb2xzL3BlcmYvdXRpbC9tZXRyaWNncm91cC5oICAg
+ICAgICAgICAgICAgICB8ICAgIDUgKy0KPiA+ICB0b29scy9wZXJmL3V0aWwvcG11LmMgICAgICAg
+ICAgICAgICAgICAgICAgICAgfCAgIDE3ICstCj4gPiAgdG9vbHMvcGVyZi91dGlsL3ByaW50LWV2
+ZW50cy5oICAgICAgICAgICAgICAgIHwgICAgMSArCj4gPiAgdG9vbHMvcGVyZi91dGlsL3NtdC5j
+ICAgICAgICAgICAgICAgICAgICAgICAgIHwgICAxMSArLQo+ID4gIHRvb2xzL3BlcmYvdXRpbC9z
+bXQuaCAgICAgICAgICAgICAgICAgICAgICAgICB8ICAgMTIgKy0KPiA+ICB0b29scy9wZXJmL3V0
+aWwvc3RhdC1kaXNwbGF5LmMgICAgICAgICAgICAgICAgfCAgMTE3ICstCj4gPiAgdG9vbHMvcGVy
+Zi91dGlsL3N0YXQtc2hhZG93LmMgICAgICAgICAgICAgICAgIHwgMTI4NyArKy0tLS0tCj4gPiAg
+dG9vbHMvcGVyZi91dGlsL3N0YXQuYyAgICAgICAgICAgICAgICAgICAgICAgIHwgICA3NCAtCj4g
+PiAgdG9vbHMvcGVyZi91dGlsL3N0YXQuaCAgICAgICAgICAgICAgICAgICAgICAgIHwgICA5NiAr
+LQo+ID4gIHRvb2xzL3BlcmYvdXRpbC9zeW50aGV0aWMtZXZlbnRzLmMgICAgICAgICAgICB8ICAg
+IDIgKy0KPiA+ICB0b29scy9wZXJmL3V0aWwvdG9wZG93bi5jICAgICAgICAgICAgICAgICAgICAg
+fCAgIDY4ICstCj4gPiAgdG9vbHMvcGVyZi91dGlsL3RvcGRvd24uaCAgICAgICAgICAgICAgICAg
+ICAgIHwgICAxMSArLQo+ID4gIDEyMCBmaWxlcyBjaGFuZ2VkLCAxODAyNSBpbnNlcnRpb25zKCsp
+LCAxNTU5MCBkZWxldGlvbnMoLSkKPiA+ICBjcmVhdGUgbW9kZSAxMDA2NDQgdG9vbHMvcGVyZi9w
+bXUtZXZlbnRzL2FyY2gveDg2L2dyYW5pdGVyYXBpZHMvY2FjaGUuanNvbgo+ID4gIGNyZWF0ZSBt
+b2RlIDEwMDY0NCB0b29scy9wZXJmL3BtdS1ldmVudHMvYXJjaC94ODYvZ3Jhbml0ZXJhcGlkcy9m
+cm9udGVuZC5qc29uCj4gPiAgY3JlYXRlIG1vZGUgMTAwNjQ0IHRvb2xzL3BlcmYvcG11LWV2ZW50
+cy9hcmNoL3g4Ni9ncmFuaXRlcmFwaWRzL21lbW9yeS5qc29uCj4gPiAgY3JlYXRlIG1vZGUgMTAw
+NjQ0IHRvb2xzL3BlcmYvcG11LWV2ZW50cy9hcmNoL3g4Ni9ncmFuaXRlcmFwaWRzL290aGVyLmpz
+b24KPiA+ICBjcmVhdGUgbW9kZSAxMDA2NDQgdG9vbHMvcGVyZi9wbXUtZXZlbnRzL2FyY2gveDg2
+L2dyYW5pdGVyYXBpZHMvcGlwZWxpbmUuanNvbgo+ID4gIGNyZWF0ZSBtb2RlIDEwMDY0NCB0b29s
+cy9wZXJmL3BtdS1ldmVudHMvYXJjaC94ODYvZ3Jhbml0ZXJhcGlkcy92aXJ0dWFsLW1lbW9yeS5q
+c29uCj4gPgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpM
+aW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJl
+cGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0
+aW5mby9saW51eC1zdG0zMgo=
