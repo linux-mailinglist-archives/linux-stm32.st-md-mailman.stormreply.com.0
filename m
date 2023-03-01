@@ -2,50 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5F6526A6F7F
+	by mail.lfdr.de (Postfix) with ESMTPS id AB2066A6F81
 	for <lists+linux-stm32@lfdr.de>; Wed,  1 Mar 2023 16:31:09 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 22AEEC6A60B;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3232FC6A60E;
 	Wed,  1 Mar 2023 15:31:09 +0000 (UTC)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B5192C6904C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 566ACC6904C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  1 Mar 2023 15:31:07 +0000 (UTC)
+ Wed,  1 Mar 2023 15:31:08 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 296CE21AA5;
+ by smtp-out1.suse.de (Postfix) with ESMTPS id BFCAC21AA7;
  Wed,  1 Mar 2023 15:31:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
  t=1677684667; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=CaVloYJqrs4hbSgLqzCi4zTt7M7dkXlb+OzqMOwrUo0=;
- b=pbiTcGFz3a/qfVSQuS9TAddgh/k0pguNZ87UYOLH4FsZWKCVVBBkUDBxad7sfWit1ReF3s
- mg9w27fP9ZLH4Eg1ucYGYspxv726nWySRAj7yW9zbpv0AODmKVwyVA2komSO0nhqkMEE+H
- ZCI3SqPJBr7/k7UBrFiel7EfNhZvYhk=
+ bh=PjcAFWFsJPWZxHpm56Eqdq0obX8Q8rSquRwhTTp3QMU=;
+ b=mIDAt43dDs+To91ecv8bucsPtGSt9wKaNNY2Q6XXTuDkDtla1ZTzP2CGMxy6kjJTOzZrSS
+ dRMQ0Hd3tlv1PDlq9X96tC9MPjwikGBGBxQFLRXpEkNPAnbzzmtaDbcPWwKAlHEp0DOzrv
+ +MCPo3GMLoY63qU/juad0H2probiIU0=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_ed25519; t=1677684667;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=CaVloYJqrs4hbSgLqzCi4zTt7M7dkXlb+OzqMOwrUo0=;
- b=4jkKPY0UJy/xlBB2FVpePZgkkmTsiYzWmA1v9DPYqKjn3ZmrB5jcUX/ulhxZdktRMX5m5P
- B8Mmr8TVNTFARqBw==
+ bh=PjcAFWFsJPWZxHpm56Eqdq0obX8Q8rSquRwhTTp3QMU=;
+ b=TwOCKDAmEAB+p0pYkVz6QqUF3ZnUtIGoQ2JbQqjb1NYITQRSexTAeS5PNg9Pz6d6BTTAcy
+ fi9N5mFoIvcqzZBQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 8B01F13A64;
- Wed,  1 Mar 2023 15:31:06 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 2E42913A3E;
+ Wed,  1 Mar 2023 15:31:07 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 0JAyIbpv/2OAXgAAMHmgww
- (envelope-from <tzimmermann@suse.de>); Wed, 01 Mar 2023 15:31:06 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id gEF/Crtv/2OAXgAAMHmgww
+ (envelope-from <tzimmermann@suse.de>); Wed, 01 Mar 2023 15:31:07 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: javierm@redhat.com, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
  airlied@gmail.com, daniel@ffwll.ch, andrew@aj.id.au,
@@ -60,8 +60,8 @@ To: javierm@redhat.com, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
  samuel@sholland.org, jyri.sarha@iki.fi, tomba@kernel.org,
  linus.walleij@linaro.org, hyun.kwon@xilinx.com,
  laurent.pinchart@ideasonboard.com
-Date: Wed,  1 Mar 2023 16:30:42 +0100
-Message-Id: <20230301153101.4282-4-tzimmermann@suse.de>
+Date: Wed,  1 Mar 2023 16:30:43 +0100
+Message-Id: <20230301153101.4282-5-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230301153101.4282-1-tzimmermann@suse.de>
 References: <20230301153101.4282-1-tzimmermann@suse.de>
@@ -70,7 +70,7 @@ Cc: linux-aspeed@lists.ozlabs.org, dri-devel@lists.freedesktop.org,
  linux-stm32@st-md-mailman.stormreply.com,
  Thomas Zimmermann <tzimmermann@suse.de>, linux-amlogic@lists.infradead.org,
  linux-sunxi@lists.linux.dev, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 03/22] arm/malidp: Use GEM DMA fbdev emulation
+Subject: [Linux-stm32] [PATCH 04/22] drm/aspeed: Use GEM DMA fbdev emulation
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,31 +92,31 @@ possible shadow buffering and makes the code simpler.
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 ---
- drivers/gpu/drm/arm/malidp_drv.c | 4 ++--
+ drivers/gpu/drm/aspeed/aspeed_gfx_drv.c | 4 ++--
  1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/arm/malidp_drv.c b/drivers/gpu/drm/arm/malidp_drv.c
-index cf040e2e9efe..0597e6ad56e7 100644
---- a/drivers/gpu/drm/arm/malidp_drv.c
-+++ b/drivers/gpu/drm/arm/malidp_drv.c
-@@ -19,7 +19,7 @@
+diff --git a/drivers/gpu/drm/aspeed/aspeed_gfx_drv.c b/drivers/gpu/drm/aspeed/aspeed_gfx_drv.c
+index ecfb060d2557..c8c7f8215155 100644
+--- a/drivers/gpu/drm/aspeed/aspeed_gfx_drv.c
++++ b/drivers/gpu/drm/aspeed/aspeed_gfx_drv.c
+@@ -15,7 +15,7 @@
+ 
  #include <drm/drm_atomic_helper.h>
- #include <drm/drm_crtc.h>
- #include <drm/drm_drv.h>
+ #include <drm/drm_device.h>
 -#include <drm/drm_fbdev_generic.h>
 +#include <drm/drm_fbdev_dma.h>
- #include <drm/drm_fourcc.h>
  #include <drm/drm_gem_dma_helper.h>
  #include <drm/drm_gem_framebuffer_helper.h>
-@@ -852,7 +852,7 @@ static int malidp_bind(struct device *dev)
+ #include <drm/drm_module.h>
+@@ -341,7 +341,7 @@ static int aspeed_gfx_probe(struct platform_device *pdev)
  	if (ret)
- 		goto register_fail;
+ 		goto err_unload;
  
--	drm_fbdev_generic_setup(drm, 32);
-+	drm_fbdev_dma_setup(drm, 32);
- 
+-	drm_fbdev_generic_setup(&priv->drm, 32);
++	drm_fbdev_dma_setup(&priv->drm, 32);
  	return 0;
  
+ err_unload:
 -- 
 2.39.2
 
