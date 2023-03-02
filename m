@@ -2,55 +2,64 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5FFFE6A8839
-	for <lists+linux-stm32@lfdr.de>; Thu,  2 Mar 2023 19:05:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0B3786A89BE
+	for <lists+linux-stm32@lfdr.de>; Thu,  2 Mar 2023 20:47:43 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0C90BC6A601;
-	Thu,  2 Mar 2023 18:05:28 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 700AAC6A601;
+	Thu,  2 Mar 2023 19:47:42 +0000 (UTC)
+Received: from mailrelay5-1.pub.mailoutpod2-cph3.one.com
+ (mailrelay5-1.pub.mailoutpod2-cph3.one.com [46.30.211.180])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 46371C6A5FE
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CC98AC6A5FE
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  2 Mar 2023 18:05:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1677780326; x=1709316326;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=Bf3iWqZn8ZHJC8UqH7R7YhZdFebd0SSSAZOsxRPZafQ=;
- b=FAk1QV9I5smq7qqltcvC32EiSTBcJVaNOgVnBzp2jYsGMKhX7VAK0dFX
- 3v/xqU6+IFx/aCulek4YvO8yg0uZeKo+F35/4QGb9EzI6VZqFydfv61Gu
- A2RMLcCS/KneKZGniGbxEjCihK6mn900hcBYukuvHmXmPa0SLtRCZXKo8
- iCpZcPpButjYNhuzl6F1bm+3BLze+ZCFiAPLnuEUa4AUBQO/G/KMz91hg
- VoT7+QwSfu0a/pxe64HSFgOaBwAyqqdIIXAZiq3DPA6WHhicBMNDn3x79
- Cqq6PbxEKZwnQWZJMAtewKXW1U6rXDpprBLFsN3N7EvtOW8McLrumSbaX g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10637"; a="333522922"
-X-IronPort-AV: E=Sophos;i="5.98,228,1673942400"; d="scan'208";a="333522922"
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Mar 2023 10:05:24 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10637"; a="1004222764"
-X-IronPort-AV: E=Sophos;i="5.98,228,1673942400"; d="scan'208";a="1004222764"
-Received: from ubik.fi.intel.com (HELO localhost) ([10.237.72.184])
- by fmsmga005.fm.intel.com with ESMTP; 02 Mar 2023 10:05:20 -0800
-From: Alexander Shishkin <alexander.shishkin@linux.intel.com>
-To: Mao Jinlong <quic_jinlmao@quicinc.com>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>, Alexandre Torgue
- <alexandre.torgue@foss.st.com>
-In-Reply-To: <20230208124053.18533-1-quic_jinlmao@quicinc.com>
-References: <20230208124053.18533-1-quic_jinlmao@quicinc.com>
-Date: Thu, 02 Mar 2023 20:05:20 +0200
-Message-ID: <87lekfni5b.fsf@ubik.fi.intel.com>
+ Thu,  2 Mar 2023 19:47:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ravnborg.org; s=rsa2;
+ h=in-reply-to:content-type:mime-version:references:message-id:subject:cc:to:
+ from:date:from;
+ bh=BtNi97NVqmGApn3BCpFm47tB4evorZmaN6Pi5IgjHRY=;
+ b=TYQvjvixOf/3rzSA5RmgEfx7465TZ4sZXzQtCp7dAVX3dgOixLCPjD+rbwhqy+CDyF+qXDx1/jUSx
+ rcsdK7CMokFMUVYsTaNX7BG0G+QVYdP9DiUpqrYGRxRZCvK1UsPA+r8d1Ah8sNPtH5fo6e9OidjQjM
+ cShBXyNDlYWFwEe7499JUEKg6hb5tSsiqaVT8jPzzimGo22ryQxRNW9lsNP9V3tJr60ogap68Hft82
+ j7Z2VAram2dQ4f8wUTTwSk/sTr4zxoypWxXn2UJ/rJsdGJ09+rgmt6PH03mGL4u2h6Jl2YL0nn2QHR
+ JYeihHU7gOcMm5Aku6byl6o9rOadexg==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed;
+ d=ravnborg.org; s=ed2;
+ h=in-reply-to:content-type:mime-version:references:message-id:subject:cc:to:
+ from:date:from;
+ bh=BtNi97NVqmGApn3BCpFm47tB4evorZmaN6Pi5IgjHRY=;
+ b=Z7zbinB+9V6oieKcPqyRWSc+qnO8WPOFDAC9HEXYAK2WDzv6DzcUA32mQ0nEibyXIJDKJL+pbTnKq
+ OxtBCqcBQ==
+X-HalOne-ID: 155bb931-b933-11ed-8805-7703b0afff57
+Received: from ravnborg.org (2-105-2-98-cable.dk.customer.tdc.net [2.105.2.98])
+ by mailrelay5 (Halon) with ESMTPSA
+ id 155bb931-b933-11ed-8805-7703b0afff57;
+ Thu, 02 Mar 2023 19:47:40 +0000 (UTC)
+Date: Thu, 2 Mar 2023 20:47:38 +0100
+From: Sam Ravnborg <sam@ravnborg.org>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Message-ID: <ZAD9WnhAcwAdQPqT@ravnborg.org>
+References: <20230301153101.4282-1-tzimmermann@suse.de>
+ <20230301153101.4282-6-tzimmermann@suse.de>
 MIME-Version: 1.0
-Cc: alexander.shishkin@linux.intel.com, linux-arm-msm@vger.kernel.org,
- Mao Jinlong <quic_jinlmao@quicinc.com>, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, Tao Zhang <quic_taozha@quicinc.com>,
- Yuanfang Zhang <quic_yuanfang@quicinc.com>, Hao Zhang <quic_hazha@quicinc.com>,
- Tingwei Zhang <quic_tingweiz@quicinc.com>,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] stm: class: Add MIPI OST protocol support
+Content-Disposition: inline
+In-Reply-To: <20230301153101.4282-6-tzimmermann@suse.de>
+Cc: linux-aspeed@lists.ozlabs.org, linus.walleij@linaro.org,
+ edmund.j.dea@intel.com, dri-devel@lists.freedesktop.org,
+ laurent.pinchart@ideasonboard.com, anitha.chrisanthus@intel.com,
+ festevam@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
+ jbrunet@baylibre.com, samuel@sholland.org, airlied@gmail.com,
+ javierm@redhat.com, jernej.skrabec@gmail.com, linux-imx@nxp.com,
+ linux-sunxi@lists.linux.dev, p.zabel@pengutronix.de, daniel@ffwll.ch,
+ martin.blumenstingl@googlemail.com, s.hauer@pengutronix.de,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ laurentiu.palcu@oss.nxp.com, linux-amlogic@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, mcoquelin.stm32@gmail.com,
+ hyun.kwon@xilinx.com, tomba@kernel.org, andrew@aj.id.au, jyri.sarha@iki.fi,
+ yannick.fertre@foss.st.com, kernel@pengutronix.de, khilman@baylibre.com,
+ shawnguo@kernel.org, l.stach@pengutronix.de
+Subject: Re: [Linux-stm32] [PATCH 05/22] drm/atmel-hlcdc: Use GEM DMA fbdev
+	emulation
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,98 +76,40 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Mao Jinlong <quic_jinlmao@quicinc.com> writes:
-
-> Add MIPI OST protocol support for stm to format the traces.
-
-Missing an explanation of what OST is, what it's used for, how it is
-different from the SyS-T and others.
-
-> Framework copied from drivers/hwtracing/stm.p-sys-t.c as of
-
-You mean stm/p_sys-t.c. Also, it's not a framework, it's a driver.
-
-> commit d69d5e83110f ("stm class: Add MIPI SyS-T protocol
-> support").
-
-Why is this significant?
-
-> diff --git a/drivers/hwtracing/stm/p_ost.c b/drivers/hwtracing/stm/p_ost.c
-> new file mode 100644
-> index 000000000000..2ca1a3fda57f
-> --- /dev/null
-> +++ b/drivers/hwtracing/stm/p_ost.c
-> @@ -0,0 +1,95 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * Copied from drivers/hwtracing/stm.p-sys-t.c as of commit d69d5e83110f
-> + * ("stm class: Add MIPI SyS-T protocol support").
-
-Same as in the commit message.
-
-[...]
-
-> +#define OST_TOKEN_STARTSIMPLE		(0x10)
-> +#define OST_VERSION_MIPI1		(0x10 << 8)
-> +#define OST_ENTITY_FTRACE		(0x01 << 16)
-> +#define OST_CONTROL_PROTOCOL		(0x0 << 24)
-
-These could use an explanation.
-
-> +#define DATA_HEADER (OST_TOKEN_STARTSIMPLE | OST_VERSION_MIPI1 | \
-> +			OST_ENTITY_FTRACE | OST_CONTROL_PROTOCOL)
-
-Does this mean that everything is ftrace? Because it's not.
-
-> +
-> +#define STM_MAKE_VERSION(ma, mi)	((ma << 8) | mi)
-> +#define STM_HEADER_MAGIC		(0x5953)
-> +
-> +static ssize_t notrace ost_write(struct stm_data *data,
-> +		struct stm_output *output, unsigned int chan,
-> +		const char *buf, size_t count)
-> +{
-> +	unsigned int c = output->channel + chan;
-> +	unsigned int m = output->master;
-> +	const unsigned char nil = 0;
-> +	u32 header = DATA_HEADER;
-> +	u8 trc_hdr[24];
-> +	ssize_t sz;
-> +
-> +	/*
-> +	 * STP framing rules for OST frames:
-> +	 *   * the first packet of the OST frame is marked;
-> +	 *   * the last packet is a FLAG.
-
-Which in your case is also timestamped.
-
-> +	 */
-> +	/* Message layout: HEADER / DATA / TAIL */
-> +	/* HEADER */
-> +
-> +	sz = data->packet(data, m, c, STP_PACKET_DATA, STP_PACKET_MARKED,
-> +			  4, (u8 *)&header);
-
-The /* HEADER */ comment applies to the above line, so it should
-probably be directly before it.
-
-> +	if (sz <= 0)
-> +		return sz;
-> +	*(uint16_t *)(trc_hdr) = STM_MAKE_VERSION(0, 3);
-> +	*(uint16_t *)(trc_hdr + 2) = STM_HEADER_MAGIC;
-> +	*(uint32_t *)(trc_hdr + 4) = raw_smp_processor_id();
-> +	*(uint64_t *)(trc_hdr + 8) = sched_clock();
-
-Why sched_clock()? It should, among other things, be called with
-interrupts disabled, which is not the case here.
-
-> +	*(uint64_t *)(trc_hdr + 16) = task_tgid_nr(get_current());
-
-Is there a reason why trc_hdr is not a struct?
-
-Thanks,
---
-Alex
+On Wed, Mar 01, 2023 at 04:30:44PM +0100, Thomas Zimmermann wrote:
+> Use the fbdev emulation that is optimized for DMA helpers. Avoids
+> possible shadow buffering and makes the code simpler.
+> 
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+Acked-by: Sam Ravnborg <sam@ravnborg.org>
+> ---
+>  drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_dc.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_dc.c b/drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_dc.c
+> index 4e806b06d35d..29603561d501 100644
+> --- a/drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_dc.c
+> +++ b/drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_dc.c
+> @@ -19,7 +19,7 @@
+>  #include <drm/drm_atomic.h>
+>  #include <drm/drm_atomic_helper.h>
+>  #include <drm/drm_drv.h>
+> -#include <drm/drm_fbdev_generic.h>
+> +#include <drm/drm_fbdev_dma.h>
+>  #include <drm/drm_gem_dma_helper.h>
+>  #include <drm/drm_gem_framebuffer_helper.h>
+>  #include <drm/drm_module.h>
+> @@ -760,7 +760,7 @@ static int atmel_hlcdc_dc_drm_probe(struct platform_device *pdev)
+>  	if (ret)
+>  		goto err_unload;
+>  
+> -	drm_fbdev_generic_setup(ddev, 24);
+> +	drm_fbdev_dma_setup(ddev, 24);
+>  
+>  	return 0;
+>  
+> -- 
+> 2.39.2
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
