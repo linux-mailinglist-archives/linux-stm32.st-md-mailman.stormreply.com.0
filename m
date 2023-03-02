@@ -2,27 +2,27 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D0FD66A78C1
-	for <lists+linux-stm32@lfdr.de>; Thu,  2 Mar 2023 02:16:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B57146A7B2D
+	for <lists+linux-stm32@lfdr.de>; Thu,  2 Mar 2023 07:05:15 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 859FDC6A5FD;
-	Thu,  2 Mar 2023 01:16:49 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 651AEC6A5FF;
+	Thu,  2 Mar 2023 06:05:15 +0000 (UTC)
 Received: from 167-179-156-38.a7b39c.syd.nbn.aussiebb.net
  (167-179-156-38.a7b39c.syd.nbn.aussiebb.net [167.179.156.38])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E7A90C65E5A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7B2D8C6A5FD
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  2 Mar 2023 01:16:46 +0000 (UTC)
+ Thu,  2 Mar 2023 06:05:13 +0000 (UTC)
 Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
  by formenos.hmeau.com with smtp (Exim 4.94.2 #2 (Debian))
- id 1pXXYR-00H4RL-Pv; Thu, 02 Mar 2023 09:16:20 +0800
+ id 1pXc3S-00H7uu-Jl; Thu, 02 Mar 2023 14:04:39 +0800
 Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation);
- Thu, 02 Mar 2023 09:16:19 +0800
-Date: Thu, 2 Mar 2023 09:16:19 +0800
+ Thu, 02 Mar 2023 14:04:38 +0800
+Date: Thu, 2 Mar 2023 14:04:38 +0800
 From: Herbert Xu <herbert@gondor.apana.org.au>
 To: Linus Walleij <linus.walleij@linaro.org>
-Message-ID: <Y//4493Sou/JdGHC@gondor.apana.org.au>
+Message-ID: <ZAA8doNUjYmTRScB@gondor.apana.org.au>
 References: <Y/c7iVW67Xhhdu8e@gondor.apana.org.au>
  <Y/hQdzsKMYgkIfMY@gondor.apana.org.au>
  <Y/yIbPBVCPx9K/0s@gondor.apana.org.au>
@@ -63,10 +63,15 @@ On Wed, Mar 01, 2023 at 01:22:13PM +0100, Linus Walleij wrote:
 > It's Ux500 but I had no problem with import/export before,
 > and yeah it has state save/restore in HW.
 
-So with the stm32 driver your ux500 is able to pass the extra
-fuzz tests, right? That should indeed test export and import.
+I think I see the problem.  My patch wasn't waiting for the hash
+computation to complete before saving the state so obviously it
+will get the wrong hash state every single time.
 
-Thanks,
+I'll fix this up and some other inconsistencies (my reading of the
+documentation is that there are 54 registers (0-53), not 53) and
+resend the patch.
+
+Cheers,
 -- 
 Email: Herbert Xu <herbert@gondor.apana.org.au>
 Home Page: http://gondor.apana.org.au/~herbert/
