@@ -2,31 +2,36 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5F85D6A9B07
-	for <lists+linux-stm32@lfdr.de>; Fri,  3 Mar 2023 16:48:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 63D006A9B9C
+	for <lists+linux-stm32@lfdr.de>; Fri,  3 Mar 2023 17:21:58 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 05D43C6A61A;
-	Fri,  3 Mar 2023 15:48:12 +0000 (UTC)
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6B3E3C6A617
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F20A2C6A61A;
+	Fri,  3 Mar 2023 16:21:57 +0000 (UTC)
+Received: from mx.socionext.com (mx.socionext.com [202.248.49.38])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1FBACC6A617
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  3 Mar 2023 15:48:10 +0000 (UTC)
-Received: from ip5b412258.dynamic.kabel-deutschland.de ([91.65.34.88]
- helo=diego.localnet) by gloria.sntech.de with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.94.2)
- (envelope-from <heiko@sntech.de>)
- id 1pY7cn-0005si-GH; Fri, 03 Mar 2023 16:47:13 +0100
-From: Heiko =?ISO-8859-1?Q?St=FCbner?= <heiko@sntech.de>
-To: rafael@kernel.org, daniel.lezcano@linaro.org,
- Daniel Lezcano <daniel.lezcano@linaro.org>
-Date: Fri, 03 Mar 2023 16:47:15 +0100
-Message-ID: <3152081.5fSG56mABF@diego>
-In-Reply-To: <20230301201446.3713334-3-daniel.lezcano@linaro.org>
+ Fri,  3 Mar 2023 16:21:55 +0000 (UTC)
+Received: from unknown (HELO kinkan2-ex.css.socionext.com) ([172.31.9.52])
+ by mx.socionext.com with ESMTP; 04 Mar 2023 01:21:52 +0900
+Received: from mail.mfilter.local (mail-arc02.css.socionext.com [10.213.46.40])
+ by kinkan2-ex.css.socionext.com (Postfix) with ESMTP id EE1632058442;
+ Sat,  4 Mar 2023 01:21:51 +0900 (JST)
+Received: from kinkan2.css.socionext.com ([172.31.9.51]) by m-FILTER with
+ ESMTP; Sat, 4 Mar 2023 01:21:51 +0900
+Received: from [10.212.156.241] (unknown [10.212.156.241])
+ by kinkan2.css.socionext.com (Postfix) with ESMTP id 60F9D25528;
+ Sat,  4 Mar 2023 01:21:44 +0900 (JST)
+Message-ID: <acb7d81e-69d5-ff1b-aa0b-709c8c56010b@socionext.com>
+Date: Sat, 4 Mar 2023 01:21:43 +0900
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.4.2
+To: Daniel Lezcano <daniel.lezcano@linaro.org>, rafael@kernel.org
 References: <20230301201446.3713334-1-daniel.lezcano@linaro.org>
  <20230301201446.3713334-3-daniel.lezcano@linaro.org>
-MIME-Version: 1.0
+Content-Language: en-US
+From: Kunihiko Hayashi <hayashi.kunihiko@socionext.com>
+In-Reply-To: <20230301201446.3713334-3-daniel.lezcano@linaro.org>
 Cc: Sumeet Pawnikar <sumeet.r.pawnikar@intel.com>,
  Baolin Wang <baolin.wang@linux.alibaba.com>,
  Bartlomiej Zolnierkiewicz <bzolnier@gmail.com>, Dhruva Gole <d-gole@ti.com>,
@@ -46,7 +51,6 @@ Cc: Sumeet Pawnikar <sumeet.r.pawnikar@intel.com>,
  "open list:SAMSUNG THERMAL DRIVER" <linux-samsung-soc@vger.kernel.org>,
  Florian Fainelli <f.fainelli@gmail.com>,
  "open list:TI BANDGAP AND THERMAL DRIVER" <linux-omap@vger.kernel.org>,
- Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
  Samuel Holland <samuel@sholland.org>, Chunyan Zhang <zhang.lyra@gmail.com>,
  Ido Schimmel <idosch@nvidia.com>,
  "Rafael J . Wysocki" <rafael.j.wysocki@intel.com>,
@@ -77,18 +81,19 @@ Cc: Sumeet Pawnikar <sumeet.r.pawnikar@intel.com>,
  "moderated list:BROADCOM BCM2711/BCM2835 ARM ARCHITECTURE"
  <linux-arm-kernel@lists.infradead.org>,
  Neil Armstrong <neil.armstrong@linaro.org>,
- Niklas =?ISO-8859-1?Q?S=F6derlund?= <niklas.soderlund+renesas@ragnatech.se>,
+ =?UTF-8?Q?Niklas_S=c3=b6derlund?= <niklas.soderlund+renesas@ragnatech.se>,
  Support Opensource <support.opensource@diasemi.com>,
  Scott Branden <sbranden@broadcom.com>, Keerthy <j-keerthy@ti.com>,
  Bjorn Andersson <andersson@kernel.org>, Randy Dunlap <rdunlap@infradead.org>,
- linux-kernel@vger.kernel.org, Shang XiaoJing <shangxiaojing@huawei.com>,
- Davidlohr Bueso <dave@stgolabs.net>, Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Heiko Stuebner <heiko@sntech.de>, linux-kernel@vger.kernel.org,
+ Shang XiaoJing <shangxiaojing@huawei.com>, Davidlohr Bueso <dave@stgolabs.net>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
  Yang Li <yang.lee@linux.alibaba.com>, Masami Hiramatsu <mhiramat@kernel.org>,
  Pengutronix Kernel Team <kernel@pengutronix.de>,
- Niklas =?ISO-8859-1?Q?S=F6derlund?= <niklas.soderlund@ragnatech.se>,
+ =?UTF-8?Q?Niklas_S=c3=b6derlund?= <niklas.soderlund@ragnatech.se>,
  Shawn Guo <shawnguo@kernel.org>
-Subject: [Linux-stm32] Re: [PATCH v5 02/18] thermal/core: Use the thermal
+Subject: Re: [Linux-stm32] [PATCH v5 02/18] thermal/core: Use the thermal
  zone 'devdata' accessor in thermal located drivers
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -101,46 +106,45 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Am Mittwoch, 1. M=E4rz 2023, 21:14:30 CET schrieb Daniel Lezcano:
-> The thermal zone device structure is exposed to the different drivers
-> and obviously they access the internals while that should be
-> restricted to the core thermal code.
-> =
-
-> In order to self-encapsulate the thermal core code, we need to prevent
-> the drivers accessing directly the thermal zone structure and provide
-> accessor functions to deal with.
-> =
-
-> Use the devdata accessor introduced in the previous patch.
-> =
-
-> No functional changes intended.
-> =
-
-> Signed-off-by: Daniel Lezcano <daniel.lezcano@linaro.org>
-> Reviewed-by: Niklas S=F6derlund <niklas.soderlund+renesas@ragnatech.se> #=
-R-Car
-> Acked-by: Mark Brown <broonie@kernel.org>
-> Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collab=
-ora.com> #MediaTek auxadc and lvts
-> Reviewed-by: Balsam CHIHI <bchihi@baylibre.com> #Mediatek lvts
-> Reviewed-by: Adam Ward <DLG-Adam.Ward.opensource@dm.renesas.com> #da9062
-> Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>  #spread
-> Acked-by: Jernej Skrabec <jernej.skrabec@gmail.com> #sun8i_thermal
-> Acked-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
-> Acked-by: Florian Fainelli <f.fainelli@gmail.com> #Broadcom
-> Reviewed-by: Dhruva Gole <d-gole@ti.com> # K3 bandgap
-
-Acked-by: Heiko Stuebner <heiko@sntech.de> #rockchip
-
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gMjAyMy8wMy8wMiA1OjE0LCBEYW5pZWwgTGV6Y2FubyB3cm90ZToKPiBUaGUgdGhlcm1hbCB6
+b25lIGRldmljZSBzdHJ1Y3R1cmUgaXMgZXhwb3NlZCB0byB0aGUgZGlmZmVyZW50IGRyaXZlcnMK
+PiBhbmQgb2J2aW91c2x5IHRoZXkgYWNjZXNzIHRoZSBpbnRlcm5hbHMgd2hpbGUgdGhhdCBzaG91
+bGQgYmUKPiByZXN0cmljdGVkIHRvIHRoZSBjb3JlIHRoZXJtYWwgY29kZS4KPiAKPiBJbiBvcmRl
+ciB0byBzZWxmLWVuY2Fwc3VsYXRlIHRoZSB0aGVybWFsIGNvcmUgY29kZSwgd2UgbmVlZCB0byBw
+cmV2ZW50Cj4gdGhlIGRyaXZlcnMgYWNjZXNzaW5nIGRpcmVjdGx5IHRoZSB0aGVybWFsIHpvbmUg
+c3RydWN0dXJlIGFuZCBwcm92aWRlCj4gYWNjZXNzb3IgZnVuY3Rpb25zIHRvIGRlYWwgd2l0aC4K
+PiAKPiBVc2UgdGhlIGRldmRhdGEgYWNjZXNzb3IgaW50cm9kdWNlZCBpbiB0aGUgcHJldmlvdXMg
+cGF0Y2guCj4gCj4gTm8gZnVuY3Rpb25hbCBjaGFuZ2VzIGludGVuZGVkLgo+IAo+IFNpZ25lZC1v
+ZmYtYnk6IERhbmllbCBMZXpjYW5vIDxkYW5pZWwubGV6Y2Fub0BsaW5hcm8ub3JnPgo+IFJldmll
+d2VkLWJ5OiBOaWtsYXMgU8O2ZGVybHVuZCA8bmlrbGFzLnNvZGVybHVuZCtyZW5lc2FzQHJhZ25h
+dGVjaC5zZT4gI1ItQ2FyCj4gQWNrZWQtYnk6IE1hcmsgQnJvd24gPGJyb29uaWVAa2VybmVsLm9y
+Zz4KPiBSZXZpZXdlZC1ieTogQW5nZWxvR2lvYWNjaGlubyBEZWwgUmVnbm8KPiA8YW5nZWxvZ2lv
+YWNjaGluby5kZWxyZWdub0Bjb2xsYWJvcmEuY29tPiAjTWVkaWFUZWsgYXV4YWRjIGFuZCBsdnRz
+Cj4gUmV2aWV3ZWQtYnk6IEJhbHNhbSBDSElISSA8YmNoaWhpQGJheWxpYnJlLmNvbT4gI01lZGlh
+dGVrIGx2dHMKPiBSZXZpZXdlZC1ieTogQWRhbSBXYXJkIDxETEctQWRhbS5XYXJkLm9wZW5zb3Vy
+Y2VAZG0ucmVuZXNhcy5jb20+ICNkYTkwNjIKPiBSZXZpZXdlZC1ieTogQmFvbGluIFdhbmcgPGJh
+b2xpbi53YW5nQGxpbnV4LmFsaWJhYmEuY29tPiAgI3NwcmVhZAo+IEFja2VkLWJ5OiBKZXJuZWog
+U2tyYWJlYyA8amVybmVqLnNrcmFiZWNAZ21haWwuY29tPiAjc3VuOGlfdGhlcm1hbAo+IEFja2Vk
+LWJ5OiBSYWZhZWwgSi4gV3lzb2NraSA8cmFmYWVsLmoud3lzb2NraUBpbnRlbC5jb20+Cj4gQWNr
+ZWQtYnk6IEZsb3JpYW4gRmFpbmVsbGkgPGYuZmFpbmVsbGlAZ21haWwuY29tPiAjQnJvYWRjb20K
+PiBSZXZpZXdlZC1ieTogRGhydXZhIEdvbGUgPGQtZ29sZUB0aS5jb20+ICMgSzMgYmFuZGdhcAoK
+KHNuaXApCgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL3RoZXJtYWwvdW5pcGhpZXJfdGhlcm1hbC5j
+Cj4gYi9kcml2ZXJzL3RoZXJtYWwvdW5pcGhpZXJfdGhlcm1hbC5jCj4gaW5kZXggNDc4MDE4NDFi
+M2Y1Li5hZWY2MTE5Y2MwMDQgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy90aGVybWFsL3VuaXBoaWVy
+X3RoZXJtYWwuYwo+ICsrKyBiL2RyaXZlcnMvdGhlcm1hbC91bmlwaGllcl90aGVybWFsLmMKPiBA
+QCAtMTg3LDcgKzE4Nyw3IEBAIHN0YXRpYyB2b2lkIHVuaXBoaWVyX3RtX2Rpc2FibGVfc2Vuc29y
+KHN0cnVjdAo+IHVuaXBoaWVyX3RtX2RldiAqdGRldikKPiAKPiAgIHN0YXRpYyBpbnQgdW5pcGhp
+ZXJfdG1fZ2V0X3RlbXAoc3RydWN0IHRoZXJtYWxfem9uZV9kZXZpY2UgKnR6LCBpbnQKPiAqb3V0
+X3RlbXApCj4gICB7Cj4gLQlzdHJ1Y3QgdW5pcGhpZXJfdG1fZGV2ICp0ZGV2ID0gdHotPmRldmRh
+dGE7Cj4gKwlzdHJ1Y3QgdW5pcGhpZXJfdG1fZGV2ICp0ZGV2ID0gdGhlcm1hbF96b25lX2Rldmlj
+ZV9wcml2KHR6KTsKClJldmlld2VkLWJ5OiBLdW5paGlrbyBIYXlhc2hpIDxoYXlhc2hpLmt1bmlo
+aWtvQHNvY2lvbmV4dC5jb20+ICN1bmlwaGllcgoKVGhhbmsgeW91LAoKLS0tCkJlc3QgUmVnYXJk
+cwpLdW5paGlrbyBIYXlhc2hpCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWls
+bWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9t
+YWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
