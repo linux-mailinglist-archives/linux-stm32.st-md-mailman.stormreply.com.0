@@ -2,51 +2,74 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4DA806AAC4C
-	for <lists+linux-stm32@lfdr.de>; Sat,  4 Mar 2023 21:12:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A7F1C6AACC8
+	for <lists+linux-stm32@lfdr.de>; Sat,  4 Mar 2023 22:53:14 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EAE1FC6904A;
-	Sat,  4 Mar 2023 20:12:43 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 52A7DC6904A;
+	Sat,  4 Mar 2023 21:53:14 +0000 (UTC)
+Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com
+ [209.85.208.48])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 50064C640E6
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E0CAEC640E6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat,  4 Mar 2023 20:12:42 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id BB0BFB808D0;
- Sat,  4 Mar 2023 20:12:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB187C433D2;
- Sat,  4 Mar 2023 20:12:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1677960760;
- bh=lh2zO/N+K/8gqFuO7G82Vx4lZLxCoX2cMJOhzYzwZ0o=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=FQiHuJcefAgrXBRuLlQEyxF2GAJ9TV0inkBwtGDr42z5WoTBFqXP2sJv8GoggRn/Q
- nWWVKAT43TyuBqloAGT71bqjI0bnexQp5y2lcBy0hl1TECfadEKi4g019Dm3YmzRp5
- 6EbBxD9R9Sn4fF2W3/x0rLXg+GwoojkyDbP21htNG0+iQCORAOKZOX/ZYJXVI/DZQg
- UICpODjGOz10byXZOLxeg9x3z6oXTwMo01vBQJhiKko0TGIk9yJvn2CL/1ClA5TSDv
- ZMoNGJ+z7faXYfTuP0DESVtBen/5xlVk+TYjq3f16/YaRBvNcyA6CByaeEVbgcEZHz
- MEO4KMnpHqd7Q==
-Date: Sat, 4 Mar 2023 20:12:36 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Nick Alcock <nick.alcock@oracle.com>
-Message-ID: <ZAOmNCVtEIgXYhJ9@sirena.org.uk>
-References: <20230302211759.30135-1-nick.alcock@oracle.com>
- <20230302211759.30135-14-nick.alcock@oracle.com>
- <ZAE//jJ0GHvLN1m2@sirena.org.uk> <87fsalbsd1.fsf@esperi.org.uk>
+ Sat,  4 Mar 2023 21:53:13 +0000 (UTC)
+Received: by mail-ed1-f48.google.com with SMTP id u9so24007532edd.2
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Sat, 04 Mar 2023 13:53:13 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=googlemail.com; s=20210112;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=glTmX378wFhL+15561BIoVBCccNOW4FDXoOgifMHBy8=;
+ b=EjDJ1R8FKouJnuSxadiRe5SiBIgUSITPbM9SnQjhYDyIZ+LuEOc2GfJjRvdd1K10zP
+ 0B+VLs/N+kcVjphefjob7VPueiCtPcbheJAVql624mVmTFTwLvvcp1iZwDpKctQLPUHW
+ 891sEv52O94DJnZ6KiXRE4F/ROjfjMTPMKKI+OF6yfwNHXTh46djS1YKS+5RgOvxGYeH
+ ZkMiXVI3btf5P7xmeL3czwdHnO3oxMI8+Piuk+XkuMFjbmF1+Tu4Euz0RahvlkxQA0+9
+ WfciGbFo0TezFdbslWClljVVfxIS/uCJg+p/6L25hJAymiS1NrGxJW4JFm2298dmi6Zx
+ AF8Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=glTmX378wFhL+15561BIoVBCccNOW4FDXoOgifMHBy8=;
+ b=E6HMy/jOPCyVjDiinOgW95h3YbLkm/O2bYM8e2k/EaAgjs6AdSYkTInfiEBbQmfSFn
+ 6n/n3vUs2EKojDAOxAao5WJvH7xVx+8Iyl/fHn3sKS//9XXqkYjws8Ea4l1nxPVxnbtg
+ zpSMUFrezRkhXwTe5zPaZk+1eOPC2B4nHJf75Ei7Gs41hc7q4IGtKCeXNMZ3gOH0CPU+
+ VOhAA4ReMvZwmPbnXHsT0JiMgBFbO8RCF+17gPWNUn4whD/j5Alu14ApVR3f92EJZjNz
+ YD8uyFHqqhWqHrXm6SlRCNEdNaFwUIJcm3uHiu3vMj7N3zCSigkU96Lj9F83VYa2uryH
+ poVw==
+X-Gm-Message-State: AO0yUKVRKjQ/080iAGkVv0J/dk13RcYgxVUz8dM5xx/SRH+FF8tBx43Y
+ ox70Tnj8rS+ZmfMITRap8w/VCZNKvvPjdW5j2FE=
+X-Google-Smtp-Source: AK7set+tmz2IUyxluM6H0uJ7rtHOVvVTQ1X6COH7sceQzb5b5yCqFKVzBbXboRNMEcYH9cGeInLEcv9muAb3OM5khBI=
+X-Received: by 2002:a50:ce19:0:b0:4bc:2776:5b61 with SMTP id
+ y25-20020a50ce19000000b004bc27765b61mr3356647edi.6.1677966793189; Sat, 04 Mar
+ 2023 13:53:13 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <87fsalbsd1.fsf@esperi.org.uk>
-X-Cookie: Single tasking: Just Say No.
-Cc: Hitomi Hasegawa <hasegawa-hitomi@fujitsu.com>, linux-kernel@vger.kernel.org,
- Liam Girdwood <lgirdwood@gmail.com>, mcgrof@kernel.org,
- linux-arm-kernel@lists.infradead.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-modules@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH 13/17] regulator: stm32-pwr: remove
- MODULE_LICENSE in non-modules
+References: <20230301153101.4282-1-tzimmermann@suse.de>
+ <20230301153101.4282-12-tzimmermann@suse.de>
+In-Reply-To: <20230301153101.4282-12-tzimmermann@suse.de>
+From: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+Date: Sat, 4 Mar 2023 22:53:02 +0100
+Message-ID: <CAFBinCCV4yu1HszSaCJuNVMhDC35hA8cpzLMw1x=a3x+LNYrEw@mail.gmail.com>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: linux-aspeed@lists.ozlabs.org, linus.walleij@linaro.org,
+ edmund.j.dea@intel.com, dri-devel@lists.freedesktop.org,
+ laurent.pinchart@ideasonboard.com, anitha.chrisanthus@intel.com,
+ festevam@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
+ jbrunet@baylibre.com, samuel@sholland.org, airlied@gmail.com,
+ javierm@redhat.com, jernej.skrabec@gmail.com, linux-imx@nxp.com,
+ linux-sunxi@lists.linux.dev, p.zabel@pengutronix.de, daniel@ffwll.ch,
+ s.hauer@pengutronix.de, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ laurentiu.palcu@oss.nxp.com, linux-amlogic@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, mcoquelin.stm32@gmail.com,
+ hyun.kwon@xilinx.com, tomba@kernel.org, andrew@aj.id.au, jyri.sarha@iki.fi,
+ yannick.fertre@foss.st.com, kernel@pengutronix.de, khilman@baylibre.com,
+ shawnguo@kernel.org, l.stach@pengutronix.de
+Subject: Re: [Linux-stm32] [PATCH 11/22] drm/meson: Use GEM DMA fbdev
+	emulation
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -58,88 +81,17 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============2145783086838892539=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-
---===============2145783086838892539==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="FF2iHxi4V67JT3nv"
-Content-Disposition: inline
-
-
---FF2iHxi4V67JT3nv
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-
-On Fri, Mar 03, 2023 at 06:30:02PM +0000, Nick Alcock wrote:
-> On 3 Mar 2023, Mark Brown outgrape:
-
-> > on.  If there are no strong interdependencies then it's generally
-> > simplest to just send the patches separately to avoid any
-> > possible confusion.
-
-> The cover letter was sent to every related mailing list (or at least it
-> was for patch series 2 and 5+: scripting problems blocked 3 and 4,
-> sorry), which is what the LWN article on big patch series which I'm
-> following recommended: <https://lwn.net/Articles/585782/>. I didn't want
-> to spam actual maintainers with more info than that, since presumably
-> they follow related-according-to-maintainer.pl lists anyway.
-
-> As for copying everyone on a 121-patch monster like this... well, I
-> think everyone would have wanted to throttle me, and I'm not sure they'd
-> have been wrong.
-
-So given that there's no depenencies between the patches this
-seems like a good candidate for not sending as a series in the
-first place.
-
-> I don't think anyone has previously suggested making it 121 individual
-> patches with no cover letter whatsoever. As it is, those series that
-> accidentally went out without cover letters properly Cc:ed confused some
-> maintainers because of the lack of the cover letter. My apologies.
-
-It's really quite common for people to just send lots of
-individual patches when there's no interdependencies - a lot of
-the generated cleanups do that.
-
-> It does seem this is an area where I can't please everyone. Some people
-> don't want to be Cc:ed, others want everyone Cc:ed on all of them: some
-> people want series, others want individual patches for everyone. I can't
-> do both. Sorry about that.
-
-The important thing isn't so much the specific thing as making it
-clear what's going on - if you send a series with no information
-about the how the series should be handled it's unclear what's
-going on.
-
---FF2iHxi4V67JT3nv
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmQDpjQACgkQJNaLcl1U
-h9BpQAf/cwTCDQoO3DJHbW+V3KN7lXab63nPmzx8YLsOCN08E6dkxqkKu/k3gYfP
-zycpsR1Fh/IlAxGnXkl9WxADQv939kf/JB3DOWZYucpIu9WxjNb2993Bh8O3RsWw
-Mza2stTJNGeSr5CeOoim/tUHJW57nLz+9JkTgFzvf+bX62WMiBzCoXukhvoO46D5
-qMvNkZcqd9Ukt2yacBkopxOJWgSlgBkvZ9rzqZCoCtJCEvReRuDtb+etI9xGwtBO
-G/AYa1+jOm/8QvxGlxfBNAPHlOMaC9pTa759pYX+mL1vd6+ffO2WRM7s5ykm9FZj
-Q9POomT2hjl0i2SwYXYBVsrva5MbWQ==
-=Psnl
------END PGP SIGNATURE-----
-
---FF2iHxi4V67JT3nv--
-
---===============2145783086838892539==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============2145783086838892539==--
+T24gV2VkLCBNYXIgMSwgMjAyMyBhdCA0OjMx4oCvUE0gVGhvbWFzIFppbW1lcm1hbm4gPHR6aW1t
+ZXJtYW5uQHN1c2UuZGU+IHdyb3RlOgo+Cj4gVXNlIHRoZSBmYmRldiBlbXVsYXRpb24gdGhhdCBp
+cyBvcHRpbWl6ZWQgZm9yIERNQSBoZWxwZXJzLiBBdm9pZHMKPiBwb3NzaWJsZSBzaGFkb3cgYnVm
+ZmVyaW5nIGFuZCBtYWtlcyB0aGUgY29kZSBzaW1wbGVyLgo+Cj4gU2lnbmVkLW9mZi1ieTogVGhv
+bWFzIFppbW1lcm1hbm4gPHR6aW1tZXJtYW5uQHN1c2UuZGU+CkFja2VkLWJ5OiBNYXJ0aW4gQmx1
+bWVuc3RpbmdsIDxtYXJ0aW4uYmx1bWVuc3RpbmdsQGdvb2dsZW1haWwuY29tPgpfX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5n
+IGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0
+LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
