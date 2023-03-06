@@ -2,62 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 89E806ACE79
-	for <lists+linux-stm32@lfdr.de>; Mon,  6 Mar 2023 20:55:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 80ACE6ACF1B
+	for <lists+linux-stm32@lfdr.de>; Mon,  6 Mar 2023 21:25:27 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 32BDEC65E73;
-	Mon,  6 Mar 2023 19:55:31 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 36FA2C6904A;
+	Mon,  6 Mar 2023 20:25:27 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3055CC57B6A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AC630C57B6A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  6 Mar 2023 19:55:29 +0000 (UTC)
+ Mon,  6 Mar 2023 20:25:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1678132530; x=1709668530;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=rJbAmhmUdx0JelsNJpxwI+8sXh4dnVKq5IyabupyZfA=;
- b=NJUtQX/18YMafCtrqz5HacI6uCA6HqWIDZSdnPacZqb9EE5wnftf85ms
- ktj2eksGrE1NjeWKxQHceMa/vwPY1rD75EGVUEqAuks82cR3jLKRew4YO
- O1LmiJ3IZ4ujCO5v+p3mTRj6DInVfNWVoBx/2+qzSB3LNdwLW0uhA59Rv
- EHmYINKRx+1Eldqug12FmrwoOCnFSM6zBpZYwFwo1XXLcuW5nKUUTO0ar
- e2fqyw5qzz34Nix6EWF8uafPmIduoT/1cTOIRw19Q+fhJVRIL3ZUVS28K
- ZL9Dv+7mNPReBfd75gsquYMPrujsNC8bEbHaem3KdiWgt989wkS1Ym+S/ A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10641"; a="400483835"
-X-IronPort-AV: E=Sophos;i="5.98,238,1673942400"; d="scan'208";a="400483835"
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Mar 2023 11:55:28 -0800
+ t=1678134325; x=1709670325;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=bpjTmGt2FFmjIz5dpuGkKtkZK2wYWT5pskh8rVUTPcY=;
+ b=CtceOmkc9RNMl5zu+zYkGVejfFHLQ7FbXc8GBNUIpu44l58c6WRdh1ag
+ Id7aOYwZbmS43GYTk1g8plVkK+lynwVPWS0Eejfwy5Dn4B/ycZfdkhEQ8
+ BvTL2wFyx4ZwqPL6q7zERa56I66hauybatI0eMa9d7BAx7oJG0FkkIwFj
+ By3I8eX5IuTKCgcmjydneQrSBjeKUjRwu7inj1+VqYZA27JympHQ7TD9e
+ TVryQBSfuLqxSyDLXU0bdCBX6h3nTFojx1nEUjYcQW5U1SyaxfTq+CPTh
+ ABpeG93tdHpbeePIAv0zBSqdCUrMfhhnfoT8HzLMe3YFKXXq519WYpvP/ g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10641"; a="316065429"
+X-IronPort-AV: E=Sophos;i="5.98,238,1673942400"; d="scan'208";a="316065429"
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Mar 2023 12:25:23 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10641"; a="1005549547"
-X-IronPort-AV: E=Sophos;i="5.98,238,1673942400"; d="scan'208";a="1005549547"
-Received: from black.fi.intel.com ([10.237.72.28])
- by fmsmga005.fm.intel.com with ESMTP; 06 Mar 2023 11:55:23 -0800
-Received: by black.fi.intel.com (Postfix, from userid 1003)
- id A373814F; Mon,  6 Mar 2023 21:56:06 +0200 (EET)
+X-IronPort-AV: E=McAfee;i="6500,9779,10641"; a="745196118"
+X-IronPort-AV: E=Sophos;i="5.98,238,1673942400"; d="scan'208";a="745196118"
+Received: from smile.fi.intel.com ([10.237.72.54])
+ by fmsmga004.fm.intel.com with ESMTP; 06 Mar 2023 12:25:18 -0800
+Received: from andy by smile.fi.intel.com with local (Exim 4.96)
+ (envelope-from <andriy.shevchenko@linux.intel.com>)
+ id 1pZHOV-00Gbuf-30; Mon, 06 Mar 2023 22:25:15 +0200
+Date: Mon, 6 Mar 2023 22:25:15 +0200
 From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Schspa Shi <schspa@gmail.com>, Marc Zyngier <maz@kernel.org>,
+To: Schspa Shi <schspa@gmail.com>, Marc Zyngier <maz@kernel.org>,
  Bartosz Golaszewski <brgl@bgdev.pl>, linux-kernel@vger.kernel.org,
  linux-gpio@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  linux-pwm@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  patches@opensource.cirrus.com
-Date: Mon,  6 Mar 2023 21:55:40 +0200
-Message-Id: <20230306195556.55475-1-andriy.shevchenko@linux.intel.com>
-X-Mailer: git-send-email 2.39.1
+Message-ID: <ZAZMK8YLDN2gDObv@smile.fi.intel.com>
+References: <20230306195556.55475-1-andriy.shevchenko@linux.intel.com>
 MIME-Version: 1.0
-Cc: Andy Shevchenko <andy@kernel.org>, Semi Malinen <semi.malinen@ge.com>,
+Content-Disposition: inline
+In-Reply-To: <20230306195556.55475-1-andriy.shevchenko@linux.intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+Cc: Semi Malinen <semi.malinen@ge.com>,
  Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>,
  Florian Fainelli <f.fainelli@gmail.com>,
  Linus Walleij <linus.walleij@linaro.org>, Nandor Han <nandor.han@ge.com>,
- Doug Berger <opendmb@gmail.com>,
+ Thierry Reding <thierry.reding@gmail.com>,
  Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
- Thierry Reding <thierry.reding@gmail.com>
-Subject: [Linux-stm32] [PATCH v1 00/16] gpio: Use string_choices.h
+ Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>,
+ Doug Berger <opendmb@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH v1 00/16] gpio: Use string_choices.h
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,49 +77,18 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Use string_choices.h in the GPIO drivers and library.
-It has been tested on x86_64 and (semi-)compile tested
-over all.
+On Mon, Mar 06, 2023 at 09:55:40PM +0200, Andy Shevchenko wrote:
+> Use string_choices.h in the GPIO drivers and library.
+> It has been tested on x86_64 and (semi-)compile tested
+> over all.
 
-Andy Shevchenko (16):
-  lib/string_helpers: Add missing header files to MAINTAINERS database
-  lib/string_helpers: Split out string_choices.h
-  lib/string_choices: Add str_high_low() helper
-  lib/string_choices: Add str_input_output() helper
-  gpiolib: Utilize helpers from string_choices.h
-  gpio: adnp: Utilize helpers from string_choices.h
-  gpio: brcmstb: Utilize helpers from string_choices.h
-  gpio: crystalcove: Utilize helpers from string_choices.h
-  gpio: grgpio: Utilize helpers from string_choices.h
-  gpio: mvebu: Utilize helpers from string_choices.h
-  gpio: pl061: Utilize helpers from string_choices.h
-  gpio: stmpe: Utilize helpers from string_choices.h
-  gpio: wcove: Utilize helpers from string_choices.h
-  gpio: wm831x: Utilize helpers from string_choices.h
-  gpio: wm8994: Utilize helpers from string_choices.h
-  gpio: xra1403: Utilize helpers from string_choices.h
-
- MAINTAINERS                     |  3 ++
- drivers/gpio/gpio-adnp.c        | 24 ++++----------
- drivers/gpio/gpio-brcmstb.c     |  3 +-
- drivers/gpio/gpio-crystalcove.c | 17 +++++-----
- drivers/gpio/gpio-grgpio.c      |  3 +-
- drivers/gpio/gpio-mvebu.c       | 27 +++++++---------
- drivers/gpio/gpio-pl061.c       |  4 +--
- drivers/gpio/gpio-stmpe.c       | 19 +++++------
- drivers/gpio/gpio-wcove.c       | 15 ++++-----
- drivers/gpio/gpio-wm831x.c      |  5 +--
- drivers/gpio/gpio-wm8994.c      |  6 ++--
- drivers/gpio/gpio-xra1403.c     |  5 +--
- drivers/gpio/gpiolib-sysfs.c    |  3 +-
- drivers/gpio/gpiolib.c          | 13 ++++----
- include/linux/string_choices.h  | 56 +++++++++++++++++++++++++++++++++
- include/linux/string_helpers.h  | 26 +--------------
- 16 files changed, 125 insertions(+), 104 deletions(-)
- create mode 100644 include/linux/string_choices.h
+Forgot to mention that this is based on top of the immutable tag I sent PR with
+earlier today.
 
 -- 
-2.39.1
+With Best Regards,
+Andy Shevchenko
+
 
 _______________________________________________
 Linux-stm32 mailing list
