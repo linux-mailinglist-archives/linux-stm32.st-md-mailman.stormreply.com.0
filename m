@@ -2,41 +2,41 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8F3D96AFF46
+	by mail.lfdr.de (Postfix) with ESMTPS id 6483B6AFF43
 	for <lists+linux-stm32@lfdr.de>; Wed,  8 Mar 2023 08:00:28 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5103EC6B443;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0DE9AC6A60E;
 	Wed,  8 Mar 2023 07:00:28 +0000 (UTC)
-Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3F793C69067
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 06319C57B6A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  6 Mar 2023 19:55:40 +0000 (UTC)
+ Mon,  6 Mar 2023 19:55:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1678132540; x=1709668540;
+ t=1678132535; x=1709668535;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=kqgmkF6/LXf8ZTPjacKEJCrkdjdR/gKDvDdM5DRJJDo=;
- b=TlZIuuvtk6qJBzfL8Rw6M0RWoWrAkzVXLFMWU0+qeaGHOGcQRX8j/Ymv
- TJ2etj+EbtLh7u7PMPkh1uPg7BmC4EkOd/d6krYIIo4OSMFuomdLaV+Rw
- i/XhAFsy4g9sNutWwX5jv654dMsCEHLzwHhg30B87euy8aNY193zRCp9T
- XixVFziOVPG9KulMmSKqjpdaJsInbOabp+CFwTiRXTsS4uDWf3opv5HYg
- Vyz12XeaklWs+abiMSVdTISb3KSAvND1B9vglmSgUG8+WG+xOI2IU34LC
- 2/WrYByk5rgAhFoxnigA99+1eYkPktOREml8VBFUiH+tIIVtdDK1HbrL1 A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10641"; a="398240773"
-X-IronPort-AV: E=Sophos;i="5.98,238,1673942400"; d="scan'208";a="398240773"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Mar 2023 11:55:35 -0800
+ bh=x77bSH20Ou4EihSoiJQDgs4+5OFy75brI2gUDSEqixA=;
+ b=BITvZQWlOtqhfcSBqyXsr4cKTKBcOAKbQNIGou5URZIO2fN1b3sCpzyW
+ VAuXEMnGgHGGwdJHc6eSOe9FqFOeUS3dzP8fYSA3+YCeEuywbsQBSVvCQ
+ ek10pV7WtOcq8eUWiscwRdZh8xoKCz1ItLkH+zJrIjRQmy5H2/iUJ3g4+
+ LQxoafGRWVlpjWCXagm+KIJDRLTnVL3MD9ujh+EiMbQ/rE4fdW5jfj98d
+ 3l6BaK9YvL5RAxfPZJM9MiWfSCStfbx7yTXR4SxYG3OwKwLZIKNWNMYBm
+ PePalHgHOpHhkCMjNKYQIhJbfgF841aDJ9SP+Z/1iehaMl3tTBYoO6rFh A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10641"; a="400483865"
+X-IronPort-AV: E=Sophos;i="5.98,238,1673942400"; d="scan'208";a="400483865"
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Mar 2023 11:55:33 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10641"; a="819423553"
-X-IronPort-AV: E=Sophos;i="5.98,238,1673942400"; d="scan'208";a="819423553"
+X-IronPort-AV: E=McAfee;i="6500,9779,10641"; a="1005549562"
+X-IronPort-AV: E=Sophos;i="5.98,238,1673942400"; d="scan'208";a="1005549562"
 Received: from black.fi.intel.com ([10.237.72.28])
- by fmsmga001.fm.intel.com with ESMTP; 06 Mar 2023 11:55:28 -0800
+ by fmsmga005.fm.intel.com with ESMTP; 06 Mar 2023 11:55:28 -0800
 Received: by black.fi.intel.com (Postfix, from userid 1003)
- id 61EF6367; Mon,  6 Mar 2023 21:56:12 +0200 (EET)
+ id 6B292398; Mon,  6 Mar 2023 21:56:12 +0200 (EET)
 From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
  Schspa Shi <schspa@gmail.com>, Marc Zyngier <maz@kernel.org>,
@@ -44,8 +44,8 @@ To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
  linux-gpio@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  linux-pwm@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  patches@opensource.cirrus.com
-Date: Mon,  6 Mar 2023 21:55:43 +0200
-Message-Id: <20230306195556.55475-4-andriy.shevchenko@linux.intel.com>
+Date: Mon,  6 Mar 2023 21:55:44 +0200
+Message-Id: <20230306195556.55475-5-andriy.shevchenko@linux.intel.com>
 X-Mailer: git-send-email 2.39.1
 In-Reply-To: <20230306195556.55475-1-andriy.shevchenko@linux.intel.com>
 References: <20230306195556.55475-1-andriy.shevchenko@linux.intel.com>
@@ -60,8 +60,8 @@ Cc: Andy Shevchenko <andy@kernel.org>, Semi Malinen <semi.malinen@ge.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
  Thierry Reding <thierry.reding@gmail.com>
-Subject: [Linux-stm32] [PATCH v1 03/16] lib/string_choices: Add
-	str_high_low() helper
+Subject: [Linux-stm32] [PATCH v1 04/16] lib/string_choices: Add
+	str_input_output() helper
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,10 +78,10 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add str_high_low() helper to return 'high' or 'low' string literal.
-Also add an inversed variant, i.e. str_low_high().
+Add str_input_output() helper to return 'input' or 'output' string literal.
+Also add an inversed variant, i.e. str_output_input().
 
-All the same for str_hi_low().
+All the same for str_in_out().
 
 Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 ---
@@ -89,24 +89,24 @@ Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
  1 file changed, 12 insertions(+)
 
 diff --git a/include/linux/string_choices.h b/include/linux/string_choices.h
-index b7e7b9fd098c..48120222b9b2 100644
+index 48120222b9b2..ad345df325ec 100644
 --- a/include/linux/string_choices.h
 +++ b/include/linux/string_choices.h
-@@ -14,6 +14,18 @@ static inline const char *str_enabled_disabled(bool v)
- 	return v ? "enabled" : "disabled";
+@@ -26,6 +26,18 @@ static inline const char *str_high_low(bool v)
  }
+ #define str_low_high(v)		str_high_low(!(v))
  
-+static inline const char *str_hi_lo(bool v)
++static inline const char *str_in_out(bool v)
 +{
-+	return v ? "hi" : "lo";
++	return v ? "in" : "out";
 +}
-+#define str_lo_hi(v)		str_hi_lo(!(v))
++#define str_out_in(v)		str_in_out(!(v))
 +
-+static inline const char *str_high_low(bool v)
++static inline const char *str_input_output(bool v)
 +{
-+	return v ? "high" : "low";
++	return v ? "input" : "output";
 +}
-+#define str_low_high(v)		str_high_low(!(v))
++#define str_output_input(v)	str_input_output(!(v))
 +
  static inline const char *str_read_write(bool v)
  {
