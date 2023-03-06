@@ -2,82 +2,106 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 507A36AFF53
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A26C6AFF54
 	for <lists+linux-stm32@lfdr.de>; Wed,  8 Mar 2023 08:00:29 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0B017C6B46D;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1CCFCC6B470;
 	Wed,  8 Mar 2023 07:00:29 +0000 (UTC)
-Received: from mail-qt1-f178.google.com (mail-qt1-f178.google.com
- [209.85.160.178])
+Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com
+ [209.85.214.178])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9BF11C6A5E7
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C456EC65E73
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  6 Mar 2023 19:57:57 +0000 (UTC)
-Received: by mail-qt1-f178.google.com with SMTP id w23so11928698qtn.6
+ Mon,  6 Mar 2023 20:00:57 +0000 (UTC)
+Received: by mail-pl1-f178.google.com with SMTP id a9so11682367plh.11
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 06 Mar 2023 11:57:57 -0800 (PST)
+ Mon, 06 Mar 2023 12:00:57 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20210112; t=1678132676;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=Fcear7SkG9TmnSwIELIrY7+1NyaOV8lflIIPHX2QmK8=;
- b=WGjLRckl281DCVlHPpmlzGIN/jVrcmhh5kKLciScBCHtk+amtS/6/t4urkFbS2pA3u
- 07on6PPWceK62oGnAqS7/+v+401JZJqNJB6BdVuRObXwOoLqfl/JVBiS3yGP51CqW/I2
- ZzY9hwn6PSoKgV9iNYZxZFMSZzetb4rtzLQfN2JTeg1+Qx7gM3TGDUHVJZSGANu/w4jH
- iksTOHuImXCj/V+tdhzbNGhmbtBhx2OHYXc15vI4VBYpk63ZJUcJcsVc4tdP3AN64uKj
- +mtBCAYTktuAa1f+p5xWuDHFdvrZgW8nv3WFaZtNsQiGVn6q/UPkrSr6DRxIlRcr30Iz
- JWkA==
+ d=gmail.com; s=20210112; t=1678132856;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=uXR1hBuNmG/TwC91AeVvsW1UVH/MwkAfhUSEnuvNaoY=;
+ b=o6hZefnQYEnFw3COvoTdyyoXo9Zv4P0LTShB301lkw0/gGr+x1ou0XeYCSdcXXLXoz
+ Ie/lwSIsRhh9vBh4c56fFPeCbh1Mg/u0f+SLHuOsNnA01L3iQxuD6tKvCodPDyUeqcUA
+ ipzyAtvRXWR1nR5U0W8m7xh6fPIYtpAYIZVYRkCJb0GTxixFtDSEeec8W6O4TIR9SFvb
+ 8TyLwk+heXtYmzhntJcZ54SphmylZPrikYFa1PRdJ8V5j+VefclzJKcG1hcN/EBRiJ2z
+ A5LjdstbOHhVHAVRXA7o2dTcBNuVBc27QoVtU1tjX+Yepbtmilj428R4Os2Xd6WiLWnA
+ Of4A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1678132676;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=Fcear7SkG9TmnSwIELIrY7+1NyaOV8lflIIPHX2QmK8=;
- b=aK0FS69wc0EPKwrMnbncwdZV/qxaaBkQZd8PV9OEvDvn6fS8g5ghCgdSYu+sAzk7gm
- zhBNdvKB2VgL+0yvZr1UE9Oi2wmKoL8Z3nyutxm1fHUaOrVrr7jwylIhKn9+ThfGT+fz
- HNU8VnK+oxGU1+0JOyWXjborlj8d069Ax4tpOeLEgMzPp3lHI04Ek4NLELCpxsSi0Yxn
- 3W5czQo6d7g4jLeYufb6j9dWZ+aLvqVpG/hBEsevQ4+CvCZqIP6kGf687lXRK3F7lF9k
- eWdhBDsZONlB5wVjb1cGHhV2w0uZDTbvisMuuAJz0QBkb2NFg9t3/10uRvtz7X93DcrC
- SzXw==
-X-Gm-Message-State: AO0yUKWNgb9qJBGTanhoLVgWySN/aNW3/KW3UKh/GEncLRZUrBNP/h1T
- OHuWBKFs6a2gh04pnCXN+AY=
-X-Google-Smtp-Source: AK7set/670uYwxALTojyHbMIdyaecZVHhjNJyQIIeA/qSS1xpmTRM60vLEXXjINc/dPl+ojNjtYx/g==
-X-Received: by 2002:ac8:4904:0:b0:3ba:2b4:7b39 with SMTP id
- e4-20020ac84904000000b003ba02b47b39mr13795686qtq.46.1678132676348; 
- Mon, 06 Mar 2023 11:57:56 -0800 (PST)
-Received: from [10.67.48.245] ([192.19.223.252])
- by smtp.googlemail.com with ESMTPSA id
- x8-20020ac87008000000b003b868cdc689sm8203872qtm.5.2023.03.06.11.57.52
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 06 Mar 2023 11:57:55 -0800 (PST)
-Message-ID: <738a5705-74eb-d339-60ee-6f18a08822a8@gmail.com>
-Date: Mon, 6 Mar 2023 11:57:50 -0800
+ d=1e100.net; s=20210112; t=1678132856;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=uXR1hBuNmG/TwC91AeVvsW1UVH/MwkAfhUSEnuvNaoY=;
+ b=CXLxU078GFiKB61w2EL9EvE2aFlzxvxKznqyymrmT58w4u5CdW4k7bnhw/Edx9uHOT
+ Nu2TyevtfvdMrT2eSZoa1Dq4RX1ImixGLRjjpXBNv+wbgblBRzolWtJzjyOqmQLtisQi
+ 2K+FhHJUEF+JrUVWACng3yQ8lBK/TqKmYpIn8Gg39quhkI9ZumQLWEG6twBz9BCG0piW
+ BRe1/qXq1t6p1v8X1z5EufTafztReQZoo2VvTqK74XKf6ijkDqtW7KbjMTFpLxL1nUUp
+ iaQEY9LiBx7+Q0fC4UICNvCrxNeKw0BH9kKSqOvMIYvkes4ycuT6jZ8mGWSib1IMuN9T
+ FCLA==
+X-Gm-Message-State: AO0yUKVfkdWICWKRdIBMCR5jIFcQaX7dXcx5F0IYRxUZ+suouCSbVkk7
+ mThh9leik6HkZ67wx1VnEFPKEltwjJqhkNOf3/U=
+X-Google-Smtp-Source: AK7set/DxZtiZhO+z+A0Is7yokDniYYkETavBEcleYa7IPSvIEQBIV7zty9Y+UWe1CWFM73JZ5CBgh34wQSFC4iK+eg=
+X-Received: by 2002:a17:90a:5993:b0:233:b520:1544 with SMTP id
+ l19-20020a17090a599300b00233b5201544mr6625621pji.0.1678132856231; Mon, 06 Mar
+ 2023 12:00:56 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.7.1
-Content-Language: en-US
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Schspa Shi <schspa@gmail.com>, Marc Zyngier <maz@kernel.org>,
- Bartosz Golaszewski <brgl@bgdev.pl>, linux-kernel@vger.kernel.org,
- linux-gpio@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-pwm@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- patches@opensource.cirrus.com
-References: <20230306195556.55475-1-andriy.shevchenko@linux.intel.com>
- <20230306195556.55475-8-andriy.shevchenko@linux.intel.com>
-From: Florian Fainelli <f.fainelli@gmail.com>
-In-Reply-To: <20230306195556.55475-8-andriy.shevchenko@linux.intel.com>
+References: <20230306172109.595464-1-amit.kumar-mahapatra@amd.com>
+ <20230306172109.595464-10-amit.kumar-mahapatra@amd.com>
+In-Reply-To: <20230306172109.595464-10-amit.kumar-mahapatra@amd.com>
+From: Jonas Gorski <jonas.gorski@gmail.com>
+Date: Mon, 6 Mar 2023 21:00:44 +0100
+Message-ID: <CAOiHx=nmsAh3ADL3s0eZKpEZJqCB_POi=8YjfxrHYLEbjRfwHg@mail.gmail.com>
+To: Amit Kumar Mahapatra <amit.kumar-mahapatra@amd.com>
 X-Mailman-Approved-At: Wed, 08 Mar 2023 07:00:24 +0000
-Cc: Andy Shevchenko <andy@kernel.org>, Semi Malinen <semi.malinen@ge.com>,
- Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>,
- Doug Berger <opendmb@gmail.com>, Linus Walleij <linus.walleij@linaro.org>,
- Nandor Han <nandor.han@ge.com>, Thierry Reding <thierry.reding@gmail.com>,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- =?UTF-8?Q?Uwe_Kleine-K=c3=b6nig?= <u.kleine-koenig@pengutronix.de>
-Subject: Re: [Linux-stm32] [PATCH v1 07/16] gpio: brcmstb: Utilize helpers
- from string_choices.h
+Cc: kursad.oney@broadcom.com, heiko@sntech.de, linus.walleij@linaro.org,
+ eajames@linux.ibm.com, perex@perex.cz, alim.akhtar@samsung.com,
+ miquel.raynal@bootlin.com, rafal@milecki.pl,
+ linux-stm32@st-md-mailman.stormreply.com, stefan@datenfreihafen.org,
+ tmaimon77@gmail.com, linux-samsung-soc@vger.kernel.org, samuel@sholland.org,
+ mpe@ellerman.id.au, tiwai@suse.com, haibo.chen@nxp.com, mingo@redhat.com,
+ linux-imx@nxp.com, linux-sunxi@lists.linux.dev, anand.gore@broadcom.com,
+ s.hauer@pengutronix.de, l.stelmach@samsung.com, npiggin@gmail.com,
+ james.schulman@cirrus.com, Sanju.Mehta@amd.com, sbranden@broadcom.com,
+ andrew@aj.id.au, linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-spi@vger.kernel.org, yogeshgaur.83@gmail.com, michael@walle.cc,
+ kernel@pengutronix.de, olteanv@gmail.com, linux-wpan@vger.kernel.org,
+ claudiu.beznea@microchip.com, alexandre.belloni@bootlin.com,
+ tanureal@opensource.cirrus.com, david.rhodes@cirrus.com, edumazet@google.com,
+ ldewangan@nvidia.com, windhl@126.com, lars@metafoo.de, jonathanh@nvidia.com,
+ linux-rockchip@lists.infradead.org, jbrunet@baylibre.com, andi@etezian.org,
+ Michael.Hennerich@analog.com, martin.blumenstingl@googlemail.com,
+ linux-arm-msm@vger.kernel.org, radu_nicolae.pirea@upb.ro,
+ haojian.zhuang@gmail.com, jaswinder.singh@linaro.org, clg@kaod.org,
+ linux-amlogic@lists.infradead.org, michal.simek@amd.com,
+ linux-arm-kernel@lists.infradead.org, libertas-dev@lists.infradead.org,
+ mcoquelin.stm32@gmail.com, khilman@baylibre.com, jic23@kernel.org,
+ linux-rpi-kernel@lists.infradead.org, narmstrong@baylibre.com,
+ linux-iio@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-tegra@vger.kernel.org, patches@opensource.cirrus.com,
+ linux-mtd@lists.infradead.org, christophe.leroy@csgroup.eu,
+ masahisa.kojima@linaro.org, festevam@gmail.com, linux-aspeed@lists.ozlabs.org,
+ git@amd.com, f.fainelli@gmail.com, benjaminfair@google.com,
+ jernej.skrabec@gmail.com, yuenn@google.com, wens@csie.org,
+ bcm-kernel-feedback-list@broadcom.com, joel@jms.id.au,
+ yangyingliang@huawei.com, pabeni@redhat.com, amitrkcian2002@gmail.com,
+ william.zhang@broadcom.com, rjui@broadcom.com, john.garry@huawei.com,
+ rostedt@goodmis.org, rf@opensource.cirrus.com, broonie@kernel.org,
+ tali.perry1@gmail.com, avifishman70@gmail.com, thierry.reding@gmail.com,
+ netdev@vger.kernel.org, shawnguo@kernel.org, davem@davemloft.net,
+ alex.aring@gmail.com, vigneshr@ti.com, konrad.dybcio@somainline.org,
+ bjorn.andersson@linaro.org, linux-riscv@lists.infradead.org,
+ robert.jarzmik@free.fr, kdasu.kdev@gmail.com, richard@nod.at,
+ chin-ting_kuo@aspeedtech.com, agross@kernel.org, kuba@kernel.org,
+ tudor.ambarus@microchip.com, kvalo@kernel.org,
+ linux-mediatek@lists.infradead.org, matthias.bgg@gmail.com, han.xu@nxp.com,
+ oss@buserror.net, venture@google.com, nicolas.ferre@microchip.com,
+ fancer.lancer@gmail.com, krzysztof.kozlowski@linaro.org, palmer@dabbelt.com,
+ pratyush@kernel.org, linuxppc-dev@lists.ozlabs.org, openbmc@lists.ozlabs.org,
+ daniel@zonque.org
+Subject: Re: [Linux-stm32] [PATCH V5 09/15] spi: Add stacked and parallel
+ memories support in SPI core
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,21 +113,66 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 3/6/23 11:55, Andy Shevchenko wrote:
-> There are a few helpers available to convert a boolean variable
-> to the dedicated string literals depending on the application.
-> Use them in the driver.
->  > Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Hi,
 
-Reviewed-by: Florian Fainelli <f.fainelli@gmail.com>
--- 
-Florian
+On Mon, 6 Mar 2023 at 18:26, Amit Kumar Mahapatra
+<amit.kumar-mahapatra@amd.com> wrote:
+>
+> For supporting multiple CS the SPI device need to be aware of all the CS
+> values. So, the "chip_select" member in the spi_device structure is now an
+> array that holds all the CS values.
+>
+> spi_device structure now has a "cs_index_mask" member. This acts as an
+> index to the chip_select array. If nth bit of spi->cs_index_mask is set
+> then the driver would assert spi->chip_select[n].
+>
+> In parallel mode all the chip selects are asserted/de-asserted
+> simultaneously and each byte of data is stored in both devices, the even
+> bits in one, the odd bits in the other. The split is automatically handled
+> by the GQSPI controller. The GQSPI controller supports a maximum of two
+> flashes connected in parallel mode. A "multi-cs-cap" flag is added in the
+> spi controntroller data, through ctlr->multi-cs-cap the spi core will make
+> sure that the controller is capable of handling multiple chip selects at
+> once.
+>
+> For supporting multiple CS via GPIO the cs_gpiod member of the spi_device
+> structure is now an array that holds the gpio descriptor for each
+> chipselect.
+>
+> Multi CS support using GPIO is not tested due to unavailability of
+> necessary hardware setup.
+>
+> Signed-off-by: Amit Kumar Mahapatra <amit.kumar-mahapatra@amd.com>
+> ---
+>  drivers/spi/spi.c       | 213 +++++++++++++++++++++++++++-------------
+>  include/linux/spi/spi.h |  34 +++++--
+>  2 files changed, 173 insertions(+), 74 deletions(-)
+>
+> diff --git a/drivers/spi/spi.c b/drivers/spi/spi.c
+> index 5866bf5813a4..8ec7f58fa111 100644
+> --- a/drivers/spi/spi.c
+> +++ b/drivers/spi/spi.c
+> @@ -613,7 +613,8 @@ static int spi_dev_check(struct device *dev, void *data)
+>         struct spi_device *new_spi = data;
+>
+>         if (spi->controller == new_spi->controller &&
+> -           spi_get_chipselect(spi, 0) == spi_get_chipselect(new_spi, 0))
+> +           spi_get_chipselect(spi, 0) == spi_get_chipselect(new_spi, 0) &&
+> +           spi_get_chipselect(spi, 1) == spi_get_chipselect(new_spi, 1))
+>                 return -EBUSY;
 
+This will only reject new devices if both chip selects are identical,
+but not if they only share one, e.g. CS 1 + 2 vs 1 + 3, or 1 + 2 vs
+only 2, or if the order is different (1 + 2 vs 2 + 1 - haven't read
+the code too close to know if this is allowed/possible).
+
+Regards,
+Jonas
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
