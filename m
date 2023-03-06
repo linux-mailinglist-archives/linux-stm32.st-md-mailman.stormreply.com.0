@@ -2,68 +2,74 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6BA1F6AFF55
+	by mail.lfdr.de (Postfix) with ESMTPS id 79A9B6AFF56
 	for <lists+linux-stm32@lfdr.de>; Wed,  8 Mar 2023 08:00:29 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2AE8EC6B473;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3726FC6B476;
 	Wed,  8 Mar 2023 07:00:29 +0000 (UTC)
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yb1-f174.google.com (mail-yb1-f174.google.com
+ [209.85.219.174])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2216FC57B6A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3B7DDC57B6A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  6 Mar 2023 20:28:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1678134512; x=1709670512;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=CA7BTCx5BD3LXUxERremA+1xEefI7Dn8mQX68Jkkois=;
- b=kxhvvNE/qME9b1xKfpwBTUsPXbW0LXOS5IOOf1MW90tzfB5TQoVXpZpO
- 5sNdY6QdTA6tSHfM1T5hzMASvHA9/U5zrntCpBhFr/PJtHxCww6lXTa8F
- eNa3h2IyhSf0aRazySp4bmwIWUObj94Y5F0NNuv+okw4HkpdBDaOSdOZz
- s0cvyQekAzs1QaHokY0EWG+thO2Cw9fFIgeF+MgbN0iSEfAr2kPliLLQ5
- 5H2DzNdLHsrgPbTfgF5Z/h14d6Shl+8Yb65nofpUTIb2KLXXsuLS2ECIJ
- HOi3RNNXNs6eX57w9YM9eu0jTYe1ZALjy30r+3df9HhXj/ekzBqGf75nO Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10641"; a="316066548"
-X-IronPort-AV: E=Sophos;i="5.98,238,1673942400"; d="scan'208";a="316066548"
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Mar 2023 12:28:30 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10641"; a="850432582"
-X-IronPort-AV: E=Sophos;i="5.98,238,1673942400"; d="scan'208";a="850432582"
-Received: from donaldjo-mobl.amr.corp.intel.com (HELO [10.212.158.155])
- ([10.212.158.155])
- by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Mar 2023 12:28:29 -0800
-Message-ID: <29e8ec12-4d16-748c-569a-dba5073e4819@linux.intel.com>
-Date: Mon, 6 Mar 2023 12:28:29 -0800
+ Mon,  6 Mar 2023 22:20:12 +0000 (UTC)
+Received: by mail-yb1-f174.google.com with SMTP id e194so9783135ybf.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 06 Mar 2023 14:20:12 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1678141211;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=0pOqDJttcohXKj1RSFtrNisdNxjQPQ9b/aoMKjMVgTM=;
+ b=WQLXFgm2cskHChBbeJjnWfHzLaVEexVQKOQ4rB9cRG3lQA3qPXuomhUFMa1bPJaV+O
+ elX+AVtcktbnW0u6KZFFrMz/uVu6DNtCdgp7AOhijqFyjyBI6havk1pXij2OauQZ92qg
+ TP7BYf+epbi5+Fb8EdRlsu8DoxuCo/2SVjKw2HJW8WDIUgzdaxomEvmi9CQMcj+Gtg/u
+ AWdSzRJdlgO45NCMRtVrCRZOSi4bGROwqVtYX+0cJKot3gy/M2pkyUPeu9oLPYu3Bo7A
+ haB/pNnDt3IxCUNKe7BAbGoTTF32+chnWsq932lhwVWXjK9AljFmPq2wHMNt9iZXwgl3
+ 6/Bw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112; t=1678141211;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=0pOqDJttcohXKj1RSFtrNisdNxjQPQ9b/aoMKjMVgTM=;
+ b=q7GXquqhh0pH/mgVpBCe97dhgXfThetVWLNiaaPSFGvk4OOYyZr/jcB9gYn7/r87SP
+ JhRs9rOBfmn4nbjDA2raUPFaMi6Z40TnnolE7ih5n4Rp5e3yCK5Yv9xHSt5ds+rKknKd
+ POfP8Fh+/pBPzG8+JTAF+8OVKyqRn/KmXKBElLeei/ZukLsib63fPJM2QSJKMGSzRROv
+ hneUJnI+iQ2Y2BFspOyVYQcBE7b/Gjd9lSuidcNl+HqGXKV7ml1tx91Hb7jKvtH2sMw1
+ eAzlANiIg6L8YYiVcHpw0c5ynzHbWOK2ksGvLna5jPONRnhrzRIx50Zt2L210DPHjrKf
+ wayw==
+X-Gm-Message-State: AO0yUKXMFRGQ0gx+drqWqAjcPHYmJ8luzmmy4zj8/2J1uye8Si8EEd1M
+ Le+W/2XB00oS8FLcbgAzvMaOta25H/SAEdXO/Q9jCA==
+X-Google-Smtp-Source: AK7set+xwxOTuAGUH2F4JBk51moW8y8vFCxjzdcMEe6q9xVEyLeKbxDfeAXuirvD55r2Rwjk4zMOQZkWM/2/groUae8=
+X-Received: by 2002:a05:6902:4c2:b0:ab8:1ed9:cfd6 with SMTP id
+ v2-20020a05690204c200b00ab81ed9cfd6mr7198831ybs.5.1678141211227; Mon, 06 Mar
+ 2023 14:20:11 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Firefox/102.0 Thunderbird/102.4.2
-Content-Language: en-US
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Schspa Shi <schspa@gmail.com>, Marc Zyngier <maz@kernel.org>,
- Bartosz Golaszewski <brgl@bgdev.pl>, linux-kernel@vger.kernel.org,
- linux-gpio@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-pwm@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- patches@opensource.cirrus.com
-References: <20230306195556.55475-1-andriy.shevchenko@linux.intel.com>
- <20230306195556.55475-14-andriy.shevchenko@linux.intel.com>
-From: Sathyanarayanan Kuppuswamy <sathyanarayanan.kuppuswamy@linux.intel.com>
-In-Reply-To: <20230306195556.55475-14-andriy.shevchenko@linux.intel.com>
+References: <20230301153101.4282-1-tzimmermann@suse.de>
+In-Reply-To: <20230301153101.4282-1-tzimmermann@suse.de>
+From: Linus Walleij <linus.walleij@linaro.org>
+Date: Mon, 6 Mar 2023 23:19:59 +0100
+Message-ID: <CACRpkdawSQsNqKJkSSoSw3HmMHyNXFUywxkdszpTC-a_uZA+tQ@mail.gmail.com>
+To: Thomas Zimmermann <tzimmermann@suse.de>
 X-Mailman-Approved-At: Wed, 08 Mar 2023 07:00:24 +0000
-Cc: Andy Shevchenko <andy@kernel.org>, Semi Malinen <semi.malinen@ge.com>,
- Florian Fainelli <f.fainelli@gmail.com>,
- Linus Walleij <linus.walleij@linaro.org>, Nandor Han <nandor.han@ge.com>,
- Doug Berger <opendmb@gmail.com>,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- =?UTF-8?Q?Uwe_Kleine-K=c3=b6nig?= <u.kleine-koenig@pengutronix.de>,
- Thierry Reding <thierry.reding@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH v1 13/16] gpio: wcove: Utilize helpers
- from string_choices.h
+Cc: linux-aspeed@lists.ozlabs.org, edmund.j.dea@intel.com,
+ dri-devel@lists.freedesktop.org, laurent.pinchart@ideasonboard.com,
+ anitha.chrisanthus@intel.com, festevam@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com, jbrunet@baylibre.com,
+ samuel@sholland.org, airlied@gmail.com, javierm@redhat.com,
+ jernej.skrabec@gmail.com, linux-imx@nxp.com, linux-sunxi@lists.linux.dev,
+ p.zabel@pengutronix.de, daniel@ffwll.ch, martin.blumenstingl@googlemail.com,
+ s.hauer@pengutronix.de, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ laurentiu.palcu@oss.nxp.com, linux-amlogic@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, mcoquelin.stm32@gmail.com,
+ hyun.kwon@xilinx.com, tomba@kernel.org, andrew@aj.id.au, jyri.sarha@iki.fi,
+ yannick.fertre@foss.st.com, kernel@pengutronix.de, khilman@baylibre.com,
+ shawnguo@kernel.org, l.stach@pengutronix.de
+Subject: Re: [Linux-stm32] [PATCH 00/22] drm/dma-helper: Add dedicated fbdev
+	emulation
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,70 +81,30 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi,
-
-On 3/6/23 11:55 AM, Andy Shevchenko wrote:
-> There are a few helpers available to convert a boolean variable
-> to the dedicated string literals depending on the application.
-> Use them in the driver.
-> 
-> While at, utilize specifier field for padding the strings where
-> it's required.
-> 
-> Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-
-Looks good to me.
-
-Acked-by: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
-
-> ---
->  drivers/gpio/gpio-wcove.c | 15 ++++++++-------
->  1 file changed, 8 insertions(+), 7 deletions(-)
-> 
-> diff --git a/drivers/gpio/gpio-wcove.c b/drivers/gpio/gpio-wcove.c
-> index c18b6b47384f..8d30fd04dede 100644
-> --- a/drivers/gpio/gpio-wcove.c
-> +++ b/drivers/gpio/gpio-wcove.c
-> @@ -15,6 +15,7 @@
->  #include <linux/platform_device.h>
->  #include <linux/regmap.h>
->  #include <linux/seq_file.h>
-> +#include <linux/string_choices.h>
->  
->  /*
->   * Whiskey Cove PMIC has 13 physical GPIO pins divided into 3 banks:
-> @@ -391,14 +392,14 @@ static void wcove_gpio_dbg_show(struct seq_file *s, struct gpio_chip *chip)
->  			break;
->  		}
->  
-> -		seq_printf(s, " gpio-%-2d %s %s %s %s ctlo=%2x,%s %s\n",
-> -			   gpio, ctlo & CTLO_DIR_OUT ? "out" : "in ",
-> -			   ctli & 0x1 ? "hi" : "lo",
-> -			   ctli & CTLI_INTCNT_NE ? "fall" : "    ",
-> -			   ctli & CTLI_INTCNT_PE ? "rise" : "    ",
-> +		seq_printf(s, " gpio-%-2d %-3.3s %-2.2s %-4.4s %-4.4s ctlo=%2x,%-6.6s %s\n",
-> +			   gpio, str_out_in(ctlo & CTLO_DIR_OUT),
-> +			   str_hi_lo(ctli & BIT(0)),
-> +			   ctli & CTLI_INTCNT_NE ? "fall" : "",
-> +			   ctli & CTLI_INTCNT_PE ? "rise" : "",
->  			   ctlo,
-> -			   irq_mask & mask ? "mask  " : "unmask",
-> -			   irq_status & mask ? "pending" : "       ");
-> +			   irq_mask & mask ? "mask" : "unmask",
-> +			   irq_status & mask ? "pending" : "");
->  	}
->  }
->  
-
--- 
-Sathyanarayanan Kuppuswamy
-Linux Kernel Developer
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gV2VkLCBNYXIgMSwgMjAyMyBhdCA0OjMx4oCvUE0gVGhvbWFzIFppbW1lcm1hbm4gPHR6aW1t
+ZXJtYW5uQHN1c2UuZGU+IHdyb3RlOgoKPiBBZGQgZmJkZXYgZW11bGF0aW9uIHRoYXQgaXMgb3B0
+aW1pemVkIGZvciBETUEgaGVscGVycywgYXMgdXNlZCBieSBtb3N0Cj4gZHJpdmVycy4gSXQgb3Bl
+cmF0ZXMgZGlyZWN0bHkgb24gR0VNIERNQSBidWZmZXJzIGluIHN5c3RlbSBtZW1vcnkuCj4gTWVt
+b3J5IHBhZ2VzIGFyZSBtbWFwJ2VkIGRpcmVjdGx5IHRvIHVzZXJzcGFjZS4gTm8gaW1wbGljaXQg
+c2hhZG93Cj4gYnVmZmVycyBuZWVkIHRvIGJlIGFsbG9jYXRlZDsgYXMgY2FuIGhhcHBlbiB3aXRo
+IHRoZSBnZW5lcmljIGZiZGV2Cj4gZW11bGF0aW9uLiBDb252ZXJ0IGRyaXZlcnMgdGhhdCBmdWxm
+aWwgdGhlIHJlcXVpcmVtZW50cy4KPgo+IFRlc3RlZCB3aXRoIGZiY29uIGFuZCBJR1Qgb24gdmM0
+Lgo+Cj4gRnV0dXJlIGRpcmVjdGlvbjogcHJvdmlkaW5nIGEgZGVkaWNhdGVkIGZiZGV2IGVtdWxh
+dGlvbiBmb3IgR0VNIERNQQo+IGhlbHBlcnMgd2lsbCBhbGxvdyB1cyB0byByZW1vdmUgdGhpcyBj
+YXNlIGZyb20gdGhlIGdlbmVyaWMgZmJkZXYgY29kZS4KPiBUaGUgbGF0dGVyIGNhbiB0aGVuIGJl
+IHNpbXBsaWZpZWQuCgoxKSBJIGxvdmUgeW91ciB3b3JrLgoKMikgV2h5IGlzbid0IHRoaXMgRFJN
+IGRyaXZlciBjaGFuZ2VkPwpkcml2ZXJzL2dwdS9kcm0vbWNkZS9tY2RlX2Rydi5jCkFGQUlDVCBp
+dCBhbHNvIHVzZXMgR0VNIGJ1ZmZlcnMgaW4gc3lzdGVtIG1lbW9yeS4KCjMpIFRoaXMgb25lOgpk
+cml2ZXJzL2dwdS9kcm0vcGwxMTEvcGwxMTFfZHJ2LmMKaXMgYWxzbyB2ZXJ5IHNpbWlsYXIsIGJ1
+dCBjYW4gc29tZXRpbWVzIHVzZSBhIGRlZGljYXRlZApSQU0gbWVtb3J5IGZvciBhbGxvY2F0aW9u
+cyB1c2luZyBDTUEsIGRvZXMgdGhhdCBtYWtlCml0IG5vdCBhIGNhbmRpZGF0ZT8KClRoZXkgYXJl
+bid0IG11Y2ggZGlmZmVyZW50IGluIGhvdyB0aGV5IHdvcmsgZnJvbSB0aGUgVFZFMjAwLgoKWW91
+cnMsCkxpbnVzIFdhbGxlaWoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxt
+YW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21h
+aWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
