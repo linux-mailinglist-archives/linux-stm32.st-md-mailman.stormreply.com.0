@@ -2,68 +2,40 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A142E6ACCCF
-	for <lists+linux-stm32@lfdr.de>; Mon,  6 Mar 2023 19:40:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E21536ACD77
+	for <lists+linux-stm32@lfdr.de>; Mon,  6 Mar 2023 20:03:47 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 45F78C65E73;
-	Mon,  6 Mar 2023 18:40:25 +0000 (UTC)
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com
- [209.85.221.50])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 956E8C65E73;
+	Mon,  6 Mar 2023 19:03:47 +0000 (UTC)
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DC3C6C65048
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 32ED5C65048
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  6 Mar 2023 18:40:23 +0000 (UTC)
-Received: by mail-wr1-f50.google.com with SMTP id l1so9805815wry.12
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 06 Mar 2023 10:40:23 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20210112; t=1678128023;
- h=mime-version:user-agent:content-transfer-encoding:references
- :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
- :date:message-id:reply-to;
- bh=B1PH+yRb87aW+TCrhm59uGdmpc+0t4xz4NdiXNOaRfU=;
- b=btTrgj3hvHGI4jNHgY0EEKR1i+DuZ26UUXctsbwjMpHLfA7IkcIGzId7qVz7bppB+z
- iW7EFRRsx7h4YBb5rOaKUMyiBr0ue2cwkVM22UQO8OMZqwJcBQBVkRKyW0ksbVdmL6NB
- r6jH4UNBYH3BKQgTRs/JhQ0ekoI8YjtULw/YN6+YKU+T9coIUlVpkN3S0OyDs977Q9Qu
- qytyEpOSUWf2idHgq1mtTKUd+oml3jjhpVuCzfqtWINLqq5+moZWWGBi6Dwj+VRngh2S
- xfMxkrTxRtMmAQplUkFUkne9TVxM4MiBe7If1iNgQH8XhT8NYqZWvg0mfQMI5yXnYx+q
- NHSw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1678128023;
- h=mime-version:user-agent:content-transfer-encoding:references
- :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=B1PH+yRb87aW+TCrhm59uGdmpc+0t4xz4NdiXNOaRfU=;
- b=2ZhWClAYgS4xhRPNWqE7spKMLL/g07rwGpYecqDAyglx7Ms4qy881rHhz8iLUg0XQY
- np8j5Ib2a8+rCgHUQ11XMW5TsexnyUYR31hfpWk6lFsHHkUoIDxmoUFPrihBcKzPCNc0
- b6bTUftguiV4ucQeqp4DYPXtW7o6n1iC9HXRfS39+IjQnsoYJR7K0TSPSg11Ye0gXFqi
- LGQvKlFwTPcJPFysOj33Fp3Gdb1U2lhNLFTa3Db4McUB4TEIGHI2zxFL9fGt/tZtCd85
- O9pR7kCe+n6iHBKATqs7hjSwuctaHN+Hs84MzR91ArqF5SotO3gVzLkSoYZ09RZqWfW7
- sEag==
-X-Gm-Message-State: AO0yUKX2h/IKDenm9ommtjKvVI0+6oZ0qa0baqFi7518a5yLiscO3K6C
- JLi+FTuhQTdaL2XVFv85hP4=
-X-Google-Smtp-Source: AK7set/F36FHtydPEcpGgsu0Ed9jFfTXpA/Ag5lVW1UVkjbFqBz9jjpeztml0DNaEurx5Zzjqy6GSA==
-X-Received: by 2002:a5d:630c:0:b0:2bf:d940:29b6 with SMTP id
- i12-20020a5d630c000000b002bfd94029b6mr8001979wru.54.1678128023184; 
- Mon, 06 Mar 2023 10:40:23 -0800 (PST)
-Received: from ?IPv6:2a02:168:6806:0:3cd0:c200:5d73:7ad4?
- ([2a02:168:6806:0:3cd0:c200:5d73:7ad4])
- by smtp.gmail.com with ESMTPSA id
- j17-20020adff011000000b002c5a1bd527dsm10480809wro.96.2023.03.06.10.40.22
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 06 Mar 2023 10:40:22 -0800 (PST)
-Message-ID: <712bc92ca6d576f33f63f1e9c2edf0030b10d3ae.camel@gmail.com>
-From: Klaus Kudielka <klaus.kudielka@gmail.com>
-To: Andrew Lunn <andrew@lunn.ch>
-Date: Mon, 06 Mar 2023 19:40:21 +0100
-In-Reply-To: <100c439a-2a4d-4cb2-96f2-5bf273e2121a@lunn.ch>
+ Mon,  6 Mar 2023 19:03:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+ s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+ References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+ Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+ Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+ bh=Hs9cE/jMhmLn1aS6B5/r7nVSBq794QvOcPkISP8ZkTg=; b=hn3abSiVLOqaRsTZ+E6NnB8mom
+ 2zllyK4b4NpXmIy/3w3Saj6IaKRQ04TPR16e9Ez4RaBx+xU4bg/4sOcfDO/vvTNK5fLv/0QnsumjS
+ Hc4KsSCgjI8jnC15Zvcnzh+Oapp0x68RKWkOkFnbE4L/W6IT04i11+CtV1/103XF10lY=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+ (envelope-from <andrew@lunn.ch>)
+ id 1pZG6h-006bAl-Vp; Mon, 06 Mar 2023 20:02:47 +0100
+Date: Mon, 6 Mar 2023 20:02:47 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: Klaus Kudielka <klaus.kudielka@gmail.com>
+Message-ID: <db6b8a09-b680-4baa-8963-d355ad29eb09@lunn.ch>
 References: <20230116-net-next-remove-probe-capabilities-v2-0-15513b05e1f4@walle.cc>
  <20230116-net-next-remove-probe-capabilities-v2-4-15513b05e1f4@walle.cc>
  <449bde236c08d5ab5e54abd73b645d8b29955894.camel@gmail.com>
  <100c439a-2a4d-4cb2-96f2-5bf273e2121a@lunn.ch>
-User-Agent: Evolution 3.46.4-1 
+ <712bc92ca6d576f33f63f1e9c2edf0030b10d3ae.camel@gmail.com>
 MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <712bc92ca6d576f33f63f1e9c2edf0030b10d3ae.camel@gmail.com>
 Cc: linux-aspeed@lists.ozlabs.org,
  Jesse Brandeburg <jesse.brandeburg@intel.com>,
  Eric Dumazet <edumazet@google.com>, linux-stm32@st-md-mailman.stormreply.com,
@@ -78,8 +50,8 @@ Cc: linux-aspeed@lists.ozlabs.org,
  Bryan Whitehead <bryan.whitehead@microchip.com>, linux-kernel@vger.kernel.org,
  UNGLinuxDriver@microchip.com, Michael Walle <michael@walle.cc>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
- Heiner Kallweit <hkallweit1@gmail.com>, "David S.
- Miller" <davem@davemloft.net>, Felix Fietkau <nbd@nbd.name>
+ Heiner Kallweit <hkallweit1@gmail.com>,
+ "David S. Miller" <davem@davemloft.net>, Felix Fietkau <nbd@nbd.name>
 Subject: Re: [Linux-stm32] [PATCH net-next v2 4/6] net: mdio: scan bus based
  on bus capabilities for C22 and C45
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
@@ -93,238 +65,214 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gU3VuLCAyMDIzLTAzLTA1IGF0IDE5OjM1ICswMTAwLCBBbmRyZXcgTHVubiB3cm90ZToKPiBP
-biBTdW4sIE1hciAwNSwgMjAyMyBhdCAwNzoxMzowOVBNICswMTAwLCBLbGF1cyBLdWRpZWxrYSB3
-cm90ZToKPiA+IE9uIFdlZCwgMjAyMy0wMS0xOCBhdCAxMTowMSArMDEwMCwgTWljaGFlbCBXYWxs
-ZSB3cm90ZToKPiA+ID4gRnJvbTogQW5kcmV3IEx1bm4gPGFuZHJld0BsdW5uLmNoPgo+ID4gPiAK
-PiA+ID4gTm93IHRoYXQgYWxsIE1ESU8gYnVzIGRyaXZlcnMgd2hpY2ggc2V0IHByb2JlX2NhcGFi
-aWxpdGllcyB0bwo+ID4gPiBNRElPQlVTX0MyMl9DNDUgaGF2ZSBiZWVuIGNvbnZlcnRlZCB0byB1
-c2UgdGhlIG5hbWUgQVBJIGZvciBDNDUKPiA+ID4gdHJhbnNhY3Rpb25zLCBwZXJmb3JtIHRoZSBz
-Y2FubmluZyBvZiB0aGUgYnVzIGJhc2VkIG9uIHdoaWNoIG1ldGhvZHMKPiA+ID4gdGhlIGJ1cyBw
-cm92aWRlcy4KPiA+ID4gCj4gPiA+IFNpZ25lZC1vZmYtYnk6IEFuZHJldyBMdW5uIDxhbmRyZXdA
-bHVubi5jaD4KPiA+ID4gU2lnbmVkLW9mZi1ieTogTWljaGFlbCBXYWxsZSA8bWljaGFlbEB3YWxs
-ZS5jYz4KPiA+ID4gUmV2aWV3ZWQtYnk6IEplc3NlIEJyYW5kZWJ1cmcgPGplc3NlLmJyYW5kZWJ1
-cmdAaW50ZWwuY29tPgo+ID4gCj4gPiBIZWxsbywKPiA+IAo+ID4gT24gYSBUdXJyaXMgT21uaWEg
-KEFybWFkYSAzODUsIE1hcnZlbGwgODhFNjE3NikgdGhpcyBjb21taXQgcmVzdWx0cwo+ID4gaW4g
-YSBzdHJhbmdlIGJvb3QgYmVoYXZpb3VyLiBJIHNlZSB0d28gZGlzdGluY3QgbXVsdGktc2Vjb25k
-IGZyZWV6ZXMKPiA+IGluIGRtZXNnLiBVc3VhbGx5ICh1cCB0byB0aGUgY29tbWl0IGJlZm9yZSks
-IHRoZSAobW9ub2xpdGhpYykga2VybmVsCj4gPiBzdGFydHMgaW5pdCBhZnRlciB+MS42IHNlY29u
-ZHMsIG5vdyBpdCB0YWtlcyBtb3JlIHRoYW4gNi4uLi4KPiA+IAo+ID4gZG1lc2cgb3V0cHV0IGJl
-bG93LiBBbnkgaWRlYSwgd2h5IHRoaXMgaXMgaGFwcGVuaW5nPwo+IAo+IFRoZSBBcm1hZGEgMzg1
-IHVzZXMgbWRpby1vcmlhbiwgYWxzbyBrbm93biBhcwo+IGRyaXZlcnMvbmV0L2V0aGVybmV0L21h
-cnZlbGwvbXZtZGlvLmMuIEl0IGNvbWVzIGluIHR3byB2YXJpYW50cywgb25lCj4gd2hpY2ggc3Vw
-cG9ydHMgb25seSBDMjIgYW5kIG9uZSB3aGljaCBvbmx5IHN1cHBvcnRzIEM0NSwgaWYgaSdtCj4g
-cmVhZGluZyBvcmlvbl9tZGlvX21hdGNoW10gY29ycmVjdGx5Lgo+IAo+IFBsZWFzZSBjb3VsZCB5
-b3UgYWRkIGEgZGVidWcgcHJpbnQgaW4gb3Jpb25fbWRpb19zbWlfcmVhZCgpIGFuZAo+IG9yaW9u
-X21kaW9feHNtaV9yZWFkX2M0NSgpIGFuZCBzZWUgaWYgdGhlcmUgaXMgYSBkaWZmZXJlbmNlIGJl
-Zm9yZSBhbmQKPiBhZnRlciB0aGlzIHBhdGNoLgo+IAo+IEknbSBhc3N1bWluZyBoZXJlIHRoZSBw
-cm9ibGVtIGlzIHdpdGggdGhlIE1ESU8gYnVzIGFzc29jaWF0ZWQgdG8KPiBtdm5ldGEsIGFuZCBu
-b3QgdGhlIG1kaW8gYnVzIGFzc29jaWF0ZWQgdG8gdGhlIHN3aXRjaC4gVGhhdCBhc3N1bXB0aW9u
-Cj4gY291bGQgYmUgd3JvbmcsIGJ1dCB0aGUgcHJpbnRrJ3Mgc2hvdWxkIGhlbHAgd2l0aCB0aGF0
-IGFzIHdlbGwuCj4gCj4gwqDCoMKgwqDCoCBBbmRyZXcKCgpJIGp1c3QgYWRkZWQKCmRldl93YXJu
-X3JhdGVsaW1pdGVkKGJ1cy0+cGFyZW50LCAiPGZ1bmN0aW9uX25hbWU+ICVkXG4iLCBtaWlfaWQp
-OwoKYXQgdGhlIGVudHJ5IHBvaW50IG9mIGVhY2ggZnVuY3Rpb24uIEFuZCBoZXJlIHdlIGdvLgoK
-CgojIyMjIyMjIwojIGdvb2Q6IFszNDg2NTkzMzc0ODU4YjQxYWU2ZWY3NzIwY2IyOGZmMzlhZDgy
-MmYzXSBuZXQ6IG1kaW86IEFkZCB3b3JrYXJvdW5kIGZvciBNaWNyZWwgUEhZcyB3aGljaCBhcmUg
-bm90IEM0NSBjb21wYXRpYmxlCgoqKiogc25pcCAqKioKWyAgICAwLjE5NDM0OF0gQ3JlYXRpbmcg
-MyBNVEQgcGFydGl0aW9ucyBvbiAic3BpMC4wIjoKWyAgICAwLjE5NDM1M10gMHgwMDAwMDAwMDAw
-MDAtMHgwMDAwMDAwZjAwMDAgOiAiVS1Cb290IgpbICAgIDAuMTk0NTM0XSAweDAwMDAwMDEwMDAw
-MC0weDAwMDAwMDgwMDAwMCA6ICJSZXNjdWUgc3lzdGVtIgpbICAgIDAuMTk0NjUyXSAweDAwMDAw
-MDBmMDAwMC0weDAwMDAwMDEwMDAwMCA6ICJ1LWJvb3QtZW52IgpbICAgIDAuMTk1NTE4XSBvcmlv
-bi1tZGlvIGYxMDcyMDA0Lm1kaW86IG9yaW9uX21kaW9fc21pX3JlYWQgMQpbICAgIDAuMTk1NTky
-XSBvcmlvbi1tZGlvIGYxMDcyMDA0Lm1kaW86IG9yaW9uX21kaW9fc21pX3JlYWQgMQpbICAgIDAu
-MjAyMjAyXSBvcmlvbi1tZGlvIGYxMDcyMDA0Lm1kaW86IG9yaW9uX21kaW9fc21pX3JlYWQgMTYK
-WyAgICAwLjIwMjI4MF0gb3Jpb24tbWRpbyBmMTA3MjAwNC5tZGlvOiBvcmlvbl9tZGlvX3NtaV9y
-ZWFkIDE2ClsgICAgMC4yMDIzNDZdIG9yaW9uLW1kaW8gZjEwNzIwMDQubWRpbzogb3Jpb25fbWRp
-b19zbWlfcmVhZCAxNgpbICAgIDAuMjAyNDcwXSBvcmlvbi1tZGlvIGYxMDcyMDA0Lm1kaW86IG9y
-aW9uX21kaW9fc21pX3JlYWQgMTYKWyAgICAwLjIwMjUzNF0gbXY4OGU2MDg1IGYxMDcyMDA0Lm1k
-aW8tbWlpOjEwOiBzd2l0Y2ggMHgxNzYwIGRldGVjdGVkOiBNYXJ2ZWxsIDg4RTYxNzYsIHJldmlz
-aW9uIDEKWyAgICAwLjIwMjU0Ml0gb3Jpb24tbWRpbyBmMTA3MjAwNC5tZGlvOiBvcmlvbl9tZGlv
-X3NtaV9yZWFkIDE2ClsgICAgMC4yMDI2NzRdIG9yaW9uLW1kaW8gZjEwNzIwMDQubWRpbzogb3Jp
-b25fbWRpb19zbWlfcmVhZCAxNgpbICAgIDAuMjAyNzk5XSBvcmlvbi1tZGlvIGYxMDcyMDA0Lm1k
-aW86IG9yaW9uX21kaW9fc21pX3JlYWQgMTYKWyAgICAwLjIwMjkyMV0gb3Jpb24tbWRpbyBmMTA3
-MjAwNC5tZGlvOiBvcmlvbl9tZGlvX3NtaV9yZWFkIDE2ClsgICAgMC4zMjAxOTJdIG12bmV0YV9i
-bSBmMTBjODAwMC5ibTogQnVmZmVyIE1hbmFnZXIgZm9yIG5ldHdvcmsgY29udHJvbGxlciBlbmFi
-bGVkCioqKiBzbmlwICoqKgpbICAgIDEuNTk4ODkzXSBSdW4gL2luaXQgYXMgaW5pdCBwcm9jZXNz
-ClsgICAgMS41OTg4OTZdICAgd2l0aCBhcmd1bWVudHM6ClsgICAgMS41OTg4OThdICAgICAvaW5p
-dApbICAgIDEuNTk4OTAwXSAgIHdpdGggZW52aXJvbm1lbnQ6ClsgICAgMS41OTg5MDJdICAgICBI
-T01FPS8KWyAgICAxLjU5ODkwNF0gICAgIFRFUk09bGludXgKKioqIHNuaXAgKioqClsgICAgNC42
-MjgxMjddIG12ODhlNjA4NSBmMTA3MjAwNC5tZGlvLW1paToxMCBsYW4zOiBMaW5rIGlzIFVwIC0g
-MUdicHMvRnVsbCAtIGZsb3cgY29udHJvbCByeC90eApbICAgIDQuNjI4MTUwXSBJUHY2OiBBRERS
-Q09ORihORVRERVZfQ0hBTkdFKTogbGFuMzogbGluayBiZWNvbWVzIHJlYWR5ClsgICAgNC42Mjgy
-MTBdIGJyMDogcG9ydCAyKGxhbjMpIGVudGVyZWQgYmxvY2tpbmcgc3RhdGUKWyAgICA0LjYyODIx
-OV0gYnIwOiBwb3J0IDIobGFuMykgZW50ZXJlZCBmb3J3YXJkaW5nIHN0YXRlClsgICAgNC42Mjkx
-ODddIElQdjY6IEFERFJDT05GKE5FVERFVl9DSEFOR0UpOiBicjA6IGxpbmsgYmVjb21lcyByZWFk
-eQpbICAyODMuOTYyMzUzXSBvcmlvbl9tZGlvX3NtaV9yZWFkOiA5MjMxIGNhbGxiYWNrcyBzdXBw
-cmVzc2VkClsgIDI4My45NjIzNjFdIG9yaW9uLW1kaW8gZjEwNzIwMDQubWRpbzogb3Jpb25fbWRp
-b19zbWlfcmVhZCAxNgpbICAyODMuOTYyNDkyXSBvcmlvbi1tZGlvIGYxMDcyMDA0Lm1kaW86IG9y
-aW9uX21kaW9fc21pX3JlYWQgMTYKWyAgMjgzLjk2MjYxN10gb3Jpb24tbWRpbyBmMTA3MjAwNC5t
-ZGlvOiBvcmlvbl9tZGlvX3NtaV9yZWFkIDE2ClsgIDI4My45NjI3OTldIG9yaW9uLW1kaW8gZjEw
-NzIwMDQubWRpbzogb3Jpb25fbWRpb19zbWlfcmVhZCAxNgpbICAyODMuOTYyOTgxXSBvcmlvbi1t
-ZGlvIGYxMDcyMDA0Lm1kaW86IG9yaW9uX21kaW9fc21pX3JlYWQgMTYKWyAgMjgzLjk2MzE2Ml0g
-b3Jpb24tbWRpbyBmMTA3MjAwNC5tZGlvOiBvcmlvbl9tZGlvX3NtaV9yZWFkIDE2ClsgIDI4My45
-NjMzNDRdIG9yaW9uLW1kaW8gZjEwNzIwMDQubWRpbzogb3Jpb25fbWRpb19zbWlfcmVhZCAxNgpb
-ICAyODMuOTYzNDY2XSBvcmlvbi1tZGlvIGYxMDcyMDA0Lm1kaW86IG9yaW9uX21kaW9fc21pX3Jl
-YWQgMTYKWyAgMjgzLjk2MzU4OF0gb3Jpb24tbWRpbyBmMTA3MjAwNC5tZGlvOiBvcmlvbl9tZGlv
-X3NtaV9yZWFkIDE2ClsgIDI4My45NjM2NTJdIG9yaW9uLW1kaW8gZjEwNzIwMDQubWRpbzogb3Jp
-b25fbWRpb19zbWlfcmVhZCAxNgpbICAzMTAuNTcyNDExXSBvcmlvbl9tZGlvX3NtaV9yZWFkOiA1
-NiBjYWxsYmFja3Mgc3VwcHJlc3NlZApbICAzMTAuNTcyNDE5XSBvcmlvbi1tZGlvIGYxMDcyMDA0
-Lm1kaW86IG9yaW9uX21kaW9fc21pX3JlYWQgMTYKWyAgMzEwLjU3MjU1MF0gb3Jpb24tbWRpbyBm
-MTA3MjAwNC5tZGlvOiBvcmlvbl9tZGlvX3NtaV9yZWFkIDE2ClsgIDMxMC41NzI2NzVdIG9yaW9u
-LW1kaW8gZjEwNzIwMDQubWRpbzogb3Jpb25fbWRpb19zbWlfcmVhZCAxNgpbICAzMTAuNTcyODU3
-XSBvcmlvbi1tZGlvIGYxMDcyMDA0Lm1kaW86IG9yaW9uX21kaW9fc21pX3JlYWQgMTYKWyAgMzEw
-LjU3MzAzOV0gb3Jpb24tbWRpbyBmMTA3MjAwNC5tZGlvOiBvcmlvbl9tZGlvX3NtaV9yZWFkIDE2
-ClsgIDMxMC41NzMyMjBdIG9yaW9uLW1kaW8gZjEwNzIwMDQubWRpbzogb3Jpb25fbWRpb19zbWlf
-cmVhZCAxNgpbICAzMTAuNTczNDAyXSBvcmlvbi1tZGlvIGYxMDcyMDA0Lm1kaW86IG9yaW9uX21k
-aW9fc21pX3JlYWQgMTYKWyAgMzEwLjU3MzUyNF0gb3Jpb24tbWRpbyBmMTA3MjAwNC5tZGlvOiBv
-cmlvbl9tZGlvX3NtaV9yZWFkIDE2ClsgIDMxMC41NzM2NDddIG9yaW9uLW1kaW8gZjEwNzIwMDQu
-bWRpbzogb3Jpb25fbWRpb19zbWlfcmVhZCAxNgpbICAzMTAuNTczNzExXSBvcmlvbi1tZGlvIGYx
-MDcyMDA0Lm1kaW86IG9yaW9uX21kaW9fc21pX3JlYWQgMTYKWyAgNzI2LjMwODYxNF0gb3Jpb25f
-bWRpb19zbWlfcmVhZDogNTYgY2FsbGJhY2tzIHN1cHByZXNzZWQKWyAgNzI2LjMwODYyM10gb3Jp
-b24tbWRpbyBmMTA3MjAwNC5tZGlvOiBvcmlvbl9tZGlvX3NtaV9yZWFkIDE2ClsgIDcyNi4zMDg3
-NTRdIG9yaW9uLW1kaW8gZjEwNzIwMDQubWRpbzogb3Jpb25fbWRpb19zbWlfcmVhZCAxNgpbICA3
-MjYuMzA4ODc5XSBvcmlvbi1tZGlvIGYxMDcyMDA0Lm1kaW86IG9yaW9uX21kaW9fc21pX3JlYWQg
-MTYKWyAgNzI2LjMwOTA2MF0gb3Jpb24tbWRpbyBmMTA3MjAwNC5tZGlvOiBvcmlvbl9tZGlvX3Nt
-aV9yZWFkIDE2ClsgIDcyNi4zMDkyNDJdIG9yaW9uLW1kaW8gZjEwNzIwMDQubWRpbzogb3Jpb25f
-bWRpb19zbWlfcmVhZCAxNgpbICA3MjYuMzA5NDIzXSBvcmlvbi1tZGlvIGYxMDcyMDA0Lm1kaW86
-IG9yaW9uX21kaW9fc21pX3JlYWQgMTYKWyAgNzI2LjMwOTYwNF0gb3Jpb24tbWRpbyBmMTA3MjAw
-NC5tZGlvOiBvcmlvbl9tZGlvX3NtaV9yZWFkIDE2ClsgIDcyNi4zMDk3MjddIG9yaW9uLW1kaW8g
-ZjEwNzIwMDQubWRpbzogb3Jpb25fbWRpb19zbWlfcmVhZCAxNgpbICA3MjYuMzA5ODUwXSBvcmlv
-bi1tZGlvIGYxMDcyMDA0Lm1kaW86IG9yaW9uX21kaW9fc21pX3JlYWQgMTYKWyAgNzI2LjMwOTkx
-NF0gb3Jpb24tbWRpbyBmMTA3MjAwNC5tZGlvOiBvcmlvbl9tZGlvX3NtaV9yZWFkIDE2ClsgIDg0
-MS43MTM3OTFdIG9yaW9uX21kaW9fc21pX3JlYWQ6IDU2IGNhbGxiYWNrcyBzdXBwcmVzc2VkClsg
-IDg0MS43MTM4MDBdIG9yaW9uLW1kaW8gZjEwNzIwMDQubWRpbzogb3Jpb25fbWRpb19zbWlfcmVh
-ZCAxNgpbICA4NDEuNzEzOTMxXSBvcmlvbi1tZGlvIGYxMDcyMDA0Lm1kaW86IG9yaW9uX21kaW9f
-c21pX3JlYWQgMTYKWyAgODQxLjcxNDA1Nl0gb3Jpb24tbWRpbyBmMTA3MjAwNC5tZGlvOiBvcmlv
-bl9tZGlvX3NtaV9yZWFkIDE2ClsgIDg0MS43MTQyMzldIG9yaW9uLW1kaW8gZjEwNzIwMDQubWRp
-bzogb3Jpb25fbWRpb19zbWlfcmVhZCAxNgpbICA4NDEuNzE0NDIwXSBvcmlvbi1tZGlvIGYxMDcy
-MDA0Lm1kaW86IG9yaW9uX21kaW9fc21pX3JlYWQgMTYKWyAgODQxLjcxNDYwMl0gb3Jpb24tbWRp
-byBmMTA3MjAwNC5tZGlvOiBvcmlvbl9tZGlvX3NtaV9yZWFkIDE2ClsgIDg0MS43MTQ3ODNdIG9y
-aW9uLW1kaW8gZjEwNzIwMDQubWRpbzogb3Jpb25fbWRpb19zbWlfcmVhZCAxNgpbICA4NDEuNzE0
-OTA2XSBvcmlvbi1tZGlvIGYxMDcyMDA0Lm1kaW86IG9yaW9uX21kaW9fc21pX3JlYWQgMTYKWyAg
-ODQxLjcxNTAyOV0gb3Jpb24tbWRpbyBmMTA3MjAwNC5tZGlvOiBvcmlvbl9tZGlvX3NtaV9yZWFk
-IDE2ClsgIDg0MS43MTUwOTNdIG9yaW9uLW1kaW8gZjEwNzIwMDQubWRpbzogb3Jpb25fbWRpb19z
-bWlfcmVhZCAxNgoKCgojIyMjIwojIGZpcnN0IGJhZCBjb21taXQ6IFsxYTEzNmNhMmUwODlkOTFk
-ZjhlZWMwYTc5NmEzMjQxNzEzNzNmZmQ4XSBuZXQ6IG1kaW86IHNjYW4gYnVzIGJhc2VkIG9uIGJ1
-cyBjYXBhYmlsaXRpZXMgZm9yIEMyMiBhbmQgQzQ1CgoqKiogc25pcCAqKioKWyAgICAwLjE5MTY4
-NV0gQ3JlYXRpbmcgMyBNVEQgcGFydGl0aW9ucyBvbiAic3BpMC4wIjoKWyAgICAwLjE5MTY5MF0g
-MHgwMDAwMDAwMDAwMDAtMHgwMDAwMDAwZjAwMDAgOiAiVS1Cb290IgpbICAgIDAuMTkxODcxXSAw
-eDAwMDAwMDEwMDAwMC0weDAwMDAwMDgwMDAwMCA6ICJSZXNjdWUgc3lzdGVtIgpbICAgIDAuMTkx
-OTkxXSAweDAwMDAwMDBmMDAwMC0weDAwMDAwMDEwMDAwMCA6ICJ1LWJvb3QtZW52IgpbICAgIDAu
-MTkyODMwXSBvcmlvbi1tZGlvIGYxMDcyMDA0Lm1kaW86IG9yaW9uX21kaW9fc21pX3JlYWQgMQpb
-ICAgIDAuMTkyOTA2XSBvcmlvbi1tZGlvIGYxMDcyMDA0Lm1kaW86IG9yaW9uX21kaW9fc21pX3Jl
-YWQgMQpbICAgIDAuMTk5NTMwXSBvcmlvbi1tZGlvIGYxMDcyMDA0Lm1kaW86IG9yaW9uX21kaW9f
-c21pX3JlYWQgMTYKWyAgICAwLjE5OTYxMF0gb3Jpb24tbWRpbyBmMTA3MjAwNC5tZGlvOiBvcmlv
-bl9tZGlvX3NtaV9yZWFkIDE2ClsgICAgMC4xOTk2NzddIG9yaW9uLW1kaW8gZjEwNzIwMDQubWRp
-bzogb3Jpb25fbWRpb19zbWlfcmVhZCAxNgpbICAgIDAuMTk5Nzk5XSBvcmlvbi1tZGlvIGYxMDcy
-MDA0Lm1kaW86IG9yaW9uX21kaW9fc21pX3JlYWQgMTYKWyAgICAwLjE5OTg2NF0gbXY4OGU2MDg1
-IGYxMDcyMDA0Lm1kaW8tbWlpOjEwOiBzd2l0Y2ggMHgxNzYwIGRldGVjdGVkOiBNYXJ2ZWxsIDg4
-RTYxNzYsIHJldmlzaW9uIDEKWyAgICAwLjE5OTg3MV0gb3Jpb24tbWRpbyBmMTA3MjAwNC5tZGlv
-OiBvcmlvbl9tZGlvX3NtaV9yZWFkIDE2ClsgICAgMC4xOTk5OTRdIG9yaW9uLW1kaW8gZjEwNzIw
-MDQubWRpbzogb3Jpb25fbWRpb19zbWlfcmVhZCAxNgpbICAgIDAuMjAwMTE3XSBvcmlvbi1tZGlv
-IGYxMDcyMDA0Lm1kaW86IG9yaW9uX21kaW9fc21pX3JlYWQgMTYKWyAgICAwLjIwMDIzOV0gb3Jp
-b24tbWRpbyBmMTA3MjAwNC5tZGlvOiBvcmlvbl9tZGlvX3NtaV9yZWFkIDE2ClsgICAgMC4zOTY2
-MDhdIGF0YTI6IFNBVEEgbGluayBkb3duIChTU3RhdHVzIDAgU0NvbnRyb2wgMzAwKQpbICAgIDAu
-NTU0Njk3XSBhdGExOiBTQVRBIGxpbmsgdXAgNi4wIEdicHMgKFNTdGF0dXMgMTMzIFNDb250cm9s
-IDMwMCkKWyAgICAwLjU1NTM3MF0gYXRhMS4wMDogc3VwcG9ydHMgRFJNIGZ1bmN0aW9ucyBhbmQg
-bWF5IG5vdCBiZSBmdWxseSBhY2Nlc3NpYmxlClsgICAgMC41NTUzNzVdIGF0YTEuMDA6IEFUQS0x
-MDogS0lOR1NUT04gU0tDNjAwTVM1MTJHLCBTNDgwMDEwNSwgbWF4IFVETUEvMTMzClsgICAgMC41
-NTUzODVdIGF0YTEuMDA6IDEwMDAyMTUyMTYgc2VjdG9ycywgbXVsdGkgMTogTEJBNDggTkNRIChk
-ZXB0aCAzMikKWyAgICAwLjU1NjA1OF0gYXRhMS4wMDogRmVhdHVyZXM6IFRydXN0IERldi1TbGVl
-cApbICAgIDAuNTU2MTU4XSBhdGExLjAwOiBzdXBwb3J0cyBEUk0gZnVuY3Rpb25zIGFuZCBtYXkg
-bm90IGJlIGZ1bGx5IGFjY2Vzc2libGUKWyAgICAwLjU1NjgxMV0gYXRhMS4wMDogY29uZmlndXJl
-ZCBmb3IgVURNQS8xMzMKWyAgICAwLjU1Njk4NV0gc2NzaSAwOjA6MDowOiBEaXJlY3QtQWNjZXNz
-ICAgICBBVEEgICAgICBLSU5HU1RPTiBTS0M2MDBNIDAxMDUgUFE6IDAgQU5TSTogNQpbICAgIDAu
-NTU3NDg1XSBzZCAwOjA6MDowOiBbc2RhXSAxMDAwMjE1MjE2IDUxMi1ieXRlIGxvZ2ljYWwgYmxv
-Y2tzOiAoNTEyIEdCLzQ3NyBHaUIpClsgICAgMC41NTc0OTNdIHNkIDA6MDowOjA6IFtzZGFdIDQw
-OTYtYnl0ZSBwaHlzaWNhbCBibG9ja3MKWyAgICAwLjU1NzUxNV0gc2QgMDowOjA6MDogW3NkYV0g
-V3JpdGUgUHJvdGVjdCBpcyBvZmYKWyAgICAwLjU1NzUyMF0gc2QgMDowOjA6MDogW3NkYV0gTW9k
-ZSBTZW5zZTogMDAgM2EgMDAgMDAKWyAgICAwLjU1NzU1M10gc2QgMDowOjA6MDogW3NkYV0gV3Jp
-dGUgY2FjaGU6IGVuYWJsZWQsIHJlYWQgY2FjaGU6IGVuYWJsZWQsIGRvZXNuJ3Qgc3VwcG9ydCBE
-UE8gb3IgRlVBClsgICAgMC41NTc2MjBdIHNkIDA6MDowOjA6IFtzZGFdIFByZWZlcnJlZCBtaW5p
-bXVtIEkvTyBzaXplIDQwOTYgYnl0ZXMKWyAgICAwLjU1ODExMV0gIHNkYTogc2RhMQpbICAgIDAu
-NTU4MjMwXSBzZCAwOjA6MDowOiBbc2RhXSBBdHRhY2hlZCBTQ1NJIHJlbW92YWJsZSBkaXNrClsg
-ICAgMi43NDE5MDldIG12bmV0YV9ibSBmMTBjODAwMC5ibTogQnVmZmVyIE1hbmFnZXIgZm9yIG5l
-dHdvcmsgY29udHJvbGxlciBlbmFibGVkCioqKiBzbmlwICoqKgpbICAgIDMuMjEzOTk4XSBzZnAg
-c2ZwOiBtb2R1bGUgVFAtTElOSyAgICAgICAgICBUTC1TTTMyMUIgICAgICAgIHJldiAgICAgIHNu
-IDE0MDMwNzY5MDAgICAgICAgZGMgMTQwNDAxClsgICAgMy4yMTQwMjBdIG12bmV0YSBmMTAzNDAw
-MC5ldGhlcm5ldCBldGgyOiBzd2l0Y2hlZCB0byBpbmJhbmQvMTAwMGJhc2UteCBsaW5rIG1vZGUK
-WyAgICA1LjE5NDY5NV0gb3Jpb25fbWRpb19zbWlfcmVhZDogNDM5NjggY2FsbGJhY2tzIHN1cHBy
-ZXNzZWQKWyAgICA1LjE5NDcwMV0gb3Jpb24tbWRpbyBmMTA3MjAwNC5tZGlvOiBvcmlvbl9tZGlv
-X3NtaV9yZWFkIDE2ClsgICAgNS4xOTQ3NjddIG9yaW9uLW1kaW8gZjEwNzIwMDQubWRpbzogb3Jp
-b25fbWRpb19zbWlfcmVhZCAxNgpbICAgIDUuMTk0ODkxXSBvcmlvbi1tZGlvIGYxMDcyMDA0Lm1k
-aW86IG9yaW9uX21kaW9fc21pX3JlYWQgMTYKWyAgICA1LjE5NTAxNF0gb3Jpb24tbWRpbyBmMTA3
-MjAwNC5tZGlvOiBvcmlvbl9tZGlvX3NtaV9yZWFkIDE2ClsgICAgNS4xOTUxMzddIG9yaW9uLW1k
-aW8gZjEwNzIwMDQubWRpbzogb3Jpb25fbWRpb19zbWlfcmVhZCAxNgpbICAgIDUuMTk1MjU5XSBv
-cmlvbi1tZGlvIGYxMDcyMDA0Lm1kaW86IG9yaW9uX21kaW9fc21pX3JlYWQgMTYKWyAgICA1LjE5
-NTMyNF0gb3Jpb24tbWRpbyBmMTA3MjAwNC5tZGlvOiBvcmlvbl9tZGlvX3NtaV9yZWFkIDE2Clsg
-ICAgNS4xOTU0NDZdIG9yaW9uLW1kaW8gZjEwNzIwMDQubWRpbzogb3Jpb25fbWRpb19zbWlfcmVh
-ZCAxNgpbICAgIDUuMTk1NTEwXSBvcmlvbi1tZGlvIGYxMDcyMDA0Lm1kaW86IG9yaW9uX21kaW9f
-c21pX3JlYWQgMTYKWyAgICA1LjE5NTYzM10gb3Jpb24tbWRpbyBmMTA3MjAwNC5tZGlvOiBvcmlv
-bl9tZGlvX3NtaV9yZWFkIDE2ClsgICAgNi4yMjMxODRdIG12ODhlNjA4NSBmMTA3MjAwNC5tZGlv
-LW1paToxMDogY29uZmlndXJpbmcgZm9yIGZpeGVkL3JnbWlpLWlkIGxpbmsgbW9kZQpbICAgIDYu
-MjI0ODUyXSBtdjg4ZTYwODUgZjEwNzIwMDQubWRpby1taWk6MTA6IGNvbmZpZ3VyaW5nIGZvciBm
-aXhlZC9yZ21paS1pZCBsaW5rIG1vZGUKWyAgICA2LjIyNjEyNl0gbXY4OGU2MDg1IGYxMDcyMDA0
-Lm1kaW8tbWlpOjEwOiBMaW5rIGlzIFVwIC0gMUdicHMvRnVsbCAtIGZsb3cgY29udHJvbCBvZmYK
-WyAgICA2LjIyOTQ1NV0gbXY4OGU2MDg1IGYxMDcyMDA0Lm1kaW8tbWlpOjEwOiBMaW5rIGlzIFVw
-IC0gMUdicHMvRnVsbCAtIGZsb3cgY29udHJvbCBvZmYKWyAgICA2LjI5NDEyMF0gbXY4OGU2MDg1
-IGYxMDcyMDA0Lm1kaW8tbWlpOjEwIGxhbjAgKHVuaW5pdGlhbGl6ZWQpOiBQSFkgW212ODhlNnh4
-eC0xOjAwXSBkcml2ZXIgW01hcnZlbGwgODhFMTU0MF0gKGlycT02OCkKWyAgICA2LjM2NjY2M10g
-bXY4OGU2MDg1IGYxMDcyMDA0Lm1kaW8tbWlpOjEwIGxhbjEgKHVuaW5pdGlhbGl6ZWQpOiBQSFkg
-W212ODhlNnh4eC0xOjAxXSBkcml2ZXIgW01hcnZlbGwgODhFMTU0MF0gKGlycT02OSkKWyAgICA2
-LjQzODg0M10gbXY4OGU2MDg1IGYxMDcyMDA0Lm1kaW8tbWlpOjEwIGxhbjIgKHVuaW5pdGlhbGl6
-ZWQpOiBQSFkgW212ODhlNnh4eC0xOjAyXSBkcml2ZXIgW01hcnZlbGwgODhFMTU0MF0gKGlycT03
-MCkKWyAgICA2LjUxMDEyMl0gbXY4OGU2MDg1IGYxMDcyMDA0Lm1kaW8tbWlpOjEwIGxhbjMgKHVu
-aW5pdGlhbGl6ZWQpOiBQSFkgW212ODhlNnh4eC0xOjAzXSBkcml2ZXIgW01hcnZlbGwgODhFMTU0
-MF0gKGlycT03MSkKWyAgICA2LjU4MjMwMl0gbXY4OGU2MDg1IGYxMDcyMDA0Lm1kaW8tbWlpOjEw
-IGxhbjQgKHVuaW5pdGlhbGl6ZWQpOiBQSFkgW212ODhlNnh4eC0xOjA0XSBkcml2ZXIgW01hcnZl
-bGwgODhFMTU0MF0gKGlycT03MikKWyAgICA2LjU4NDY4MF0gZGV2aWNlIGV0aDEgZW50ZXJlZCBw
-cm9taXNjdW91cyBtb2RlClsgICAgNi41ODU1NzNdIGRldmljZSBldGgwIGVudGVyZWQgcHJvbWlz
-Y3VvdXMgbW9kZQpbICAgIDYuNTg1NTkzXSBEU0E6IHRyZWUgMCBzZXR1cApbICAgIDYuNTg2NDA4
-XSBGcmVlaW5nIHVudXNlZCBrZXJuZWwgaW1hZ2UgKGluaXRtZW0pIG1lbW9yeTogMTAyNEsKWyAg
-ICA2LjU4NjU0N10gUnVuIC9pbml0IGFzIGluaXQgcHJvY2VzcwpbICAgIDYuNTg2NTUxXSAgIHdp
-dGggYXJndW1lbnRzOgpbICAgIDYuNTg2NTUzXSAgICAgL2luaXQKWyAgICA2LjU4NjU1NV0gICB3
-aXRoIGVudmlyb25tZW50OgpbICAgIDYuNTg2NTU3XSAgICAgSE9NRT0vClsgICAgNi41ODY1NTld
-ICAgICBURVJNPWxpbnV4CioqKiBzbmlwICoqKgpbICAgIDkuNDM3MDI5XSBtdjg4ZTYwODUgZjEw
-NzIwMDQubWRpby1taWk6MTAgbGFuMzogTGluayBpcyBVcCAtIDFHYnBzL0Z1bGwgLSBmbG93IGNv
-bnRyb2wgcngvdHgKWyAgICA5LjQzNzA1Ml0gSVB2NjogQUREUkNPTkYoTkVUREVWX0NIQU5HRSk6
-IGxhbjM6IGxpbmsgYmVjb21lcyByZWFkeQpbICAgIDkuNDM3MTE2XSBicjA6IHBvcnQgMihsYW4z
-KSBlbnRlcmVkIGJsb2NraW5nIHN0YXRlClsgICAgOS40MzcxMjVdIGJyMDogcG9ydCAyKGxhbjMp
-IGVudGVyZWQgZm9yd2FyZGluZyBzdGF0ZQpbICAgIDkuNDM4MDYxXSBJUHY2OiBBRERSQ09ORihO
-RVRERVZfQ0hBTkdFKTogYnIwOiBsaW5rIGJlY29tZXMgcmVhZHkKWyAgICA5LjQ2OTQ2Nl0gc3lz
-dGVtZC1qb3VybmFsZFsyMDddOiBUaW1lIGp1bXBlZCBiYWNrd2FyZHMsIHJvdGF0aW5nLgpbICA0
-MTQuNjc1NzI4XSBvcmlvbl9tZGlvX3NtaV9yZWFkOiAxMTIwMSBjYWxsYmFja3Mgc3VwcHJlc3Nl
-ZApbICA0MTQuNjc1NzM2XSBvcmlvbi1tZGlvIGYxMDcyMDA0Lm1kaW86IG9yaW9uX21kaW9fc21p
-X3JlYWQgMTYKWyAgNDE0LjY3NTg2OV0gb3Jpb24tbWRpbyBmMTA3MjAwNC5tZGlvOiBvcmlvbl9t
-ZGlvX3NtaV9yZWFkIDE2ClsgIDQxNC42NzU5OTZdIG9yaW9uLW1kaW8gZjEwNzIwMDQubWRpbzog
-b3Jpb25fbWRpb19zbWlfcmVhZCAxNgpbICA0MTQuNjc2MTc5XSBvcmlvbi1tZGlvIGYxMDcyMDA0
-Lm1kaW86IG9yaW9uX21kaW9fc21pX3JlYWQgMTYKWyAgNDE0LjY3NjM2MV0gb3Jpb24tbWRpbyBm
-MTA3MjAwNC5tZGlvOiBvcmlvbl9tZGlvX3NtaV9yZWFkIDE2ClsgIDQxNC42NzY1NDNdIG9yaW9u
-LW1kaW8gZjEwNzIwMDQubWRpbzogb3Jpb25fbWRpb19zbWlfcmVhZCAxNgpbICA0MTQuNjc2NzI1
-XSBvcmlvbi1tZGlvIGYxMDcyMDA0Lm1kaW86IG9yaW9uX21kaW9fc21pX3JlYWQgMTYKWyAgNDE0
-LjY3Njg0N10gb3Jpb24tbWRpbyBmMTA3MjAwNC5tZGlvOiBvcmlvbl9tZGlvX3NtaV9yZWFkIDE2
-ClsgIDQxNC42NzY5NzBdIG9yaW9uLW1kaW8gZjEwNzIwMDQubWRpbzogb3Jpb25fbWRpb19zbWlf
-cmVhZCAxNgpbICA0MTQuNjc3MDM0XSBvcmlvbi1tZGlvIGYxMDcyMDA0Lm1kaW86IG9yaW9uX21k
-aW9fc21pX3JlYWQgMTYKWyAgNTQwLjgwOTc0MF0gb3Jpb25fbWRpb19zbWlfcmVhZDogNTYgY2Fs
-bGJhY2tzIHN1cHByZXNzZWQKWyAgNTQwLjgwOTc0OF0gb3Jpb24tbWRpbyBmMTA3MjAwNC5tZGlv
-OiBvcmlvbl9tZGlvX3NtaV9yZWFkIDE2ClsgIDU0MC44MDk4NzldIG9yaW9uLW1kaW8gZjEwNzIw
-MDQubWRpbzogb3Jpb25fbWRpb19zbWlfcmVhZCAxNgpbICA1NDAuODEwMDA0XSBvcmlvbi1tZGlv
-IGYxMDcyMDA0Lm1kaW86IG9yaW9uX21kaW9fc21pX3JlYWQgMTYKWyAgNTQwLjgxMDE4Nl0gb3Jp
-b24tbWRpbyBmMTA3MjAwNC5tZGlvOiBvcmlvbl9tZGlvX3NtaV9yZWFkIDE2ClsgIDU0MC44MTAz
-NjhdIG9yaW9uLW1kaW8gZjEwNzIwMDQubWRpbzogb3Jpb25fbWRpb19zbWlfcmVhZCAxNgpbICA1
-NDAuODEwNTUxXSBvcmlvbi1tZGlvIGYxMDcyMDA0Lm1kaW86IG9yaW9uX21kaW9fc21pX3JlYWQg
-MTYKWyAgNTQwLjgxMDczMl0gb3Jpb24tbWRpbyBmMTA3MjAwNC5tZGlvOiBvcmlvbl9tZGlvX3Nt
-aV9yZWFkIDE2ClsgIDU0MC44MTA4NTVdIG9yaW9uLW1kaW8gZjEwNzIwMDQubWRpbzogb3Jpb25f
-bWRpb19zbWlfcmVhZCAxNgpbICA1NDAuODEwOTc4XSBvcmlvbi1tZGlvIGYxMDcyMDA0Lm1kaW86
-IG9yaW9uX21kaW9fc21pX3JlYWQgMTYKWyAgNTQwLjgxMTA0Ml0gb3Jpb24tbWRpbyBmMTA3MjAw
-NC5tZGlvOiBvcmlvbl9tZGlvX3NtaV9yZWFkIDE2CgoKCiJvcmlvbl9tZGlvX3NtaV9yZWFkOiA0
-Mzk2OCBjYWxsYmFja3Mgc3VwcHJlc3NlZCIgYWZ0ZXIgNSBzZWNvbmRzIC0gcXVpdGUgaW1wcmVz
-c2l2ZSEKCgpCZXN0IHJlZ2FyZHMsIEtsYXVzCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJA
-c3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1y
-ZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
+> dev_warn_ratelimited(bus->parent, "<function_name> %d\n", mii_id);
+> 
+> at the entry point of each function. And here we go.
+> 
+> 
+> 
+> ########
+> # good: [3486593374858b41ae6ef7720cb28ff39ad822f3] net: mdio: Add workaround for Micrel PHYs which are not C45 compatible
+> 
+> *** snip ***
+> [    0.194348] Creating 3 MTD partitions on "spi0.0":
+> [    0.194353] 0x000000000000-0x0000000f0000 : "U-Boot"
+> [    0.194534] 0x000000100000-0x000000800000 : "Rescue system"
+> [    0.194652] 0x0000000f0000-0x000000100000 : "u-boot-env"
+> [    0.195518] orion-mdio f1072004.mdio: orion_mdio_smi_read 1
+> [    0.195592] orion-mdio f1072004.mdio: orion_mdio_smi_read 1
+> [    0.202202] orion-mdio f1072004.mdio: orion_mdio_smi_read 16
+> [    0.202280] orion-mdio f1072004.mdio: orion_mdio_smi_read 16
+> [    0.202346] orion-mdio f1072004.mdio: orion_mdio_smi_read 16
+> [    0.202470] orion-mdio f1072004.mdio: orion_mdio_smi_read 16
+> [    0.202534] mv88e6085 f1072004.mdio-mii:10: switch 0x1760 detected: Marvell 88E6176, revision 1
+> [    0.202542] orion-mdio f1072004.mdio: orion_mdio_smi_read 16
+> [    0.202674] orion-mdio f1072004.mdio: orion_mdio_smi_read 16
+> [    0.202799] orion-mdio f1072004.mdio: orion_mdio_smi_read 16
+> [    0.202921] orion-mdio f1072004.mdio: orion_mdio_smi_read 16
+> [    0.320192] mvneta_bm f10c8000.bm: Buffer Manager for network controller enabled
+
+So there are no xmdio reads for c45. That is what the commit you
+pointed to is about, should it scan C22, C45 or both C45.
+
+> *** snip ***
+> [    1.598893] Run /init as init process
+> [    1.598896]   with arguments:
+> [    1.598898]     /init
+> [    1.598900]   with environment:
+> [    1.598902]     HOME=/
+> [    1.598904]     TERM=linux
+> *** snip ***
+> [    4.628127] mv88e6085 f1072004.mdio-mii:10 lan3: Link is Up - 1Gbps/Full - flow control rx/tx
+> [    4.628150] IPv6: ADDRCONF(NETDEV_CHANGE): lan3: link becomes ready
+> [    4.628210] br0: port 2(lan3) entered blocking state
+> [    4.628219] br0: port 2(lan3) entered forwarding state
+> [    4.629187] IPv6: ADDRCONF(NETDEV_CHANGE): br0: link becomes ready
+> [  283.962353] orion_mdio_smi_read: 9231 callbacks suppressed
+> [  283.962361] orion-mdio f1072004.mdio: orion_mdio_smi_read 16
+> [  283.962492] orion-mdio f1072004.mdio: orion_mdio_smi_read 16
+> [  283.962617] orion-mdio f1072004.mdio: orion_mdio_smi_read 16
+> [  283.962799] orion-mdio f1072004.mdio: orion_mdio_smi_read 16
+> [  283.962981] orion-mdio f1072004.mdio: orion_mdio_smi_read 16
+> [  283.963162] orion-mdio f1072004.mdio: orion_mdio_smi_read 16
+> [  283.963344] orion-mdio f1072004.mdio: orion_mdio_smi_read 16
+> [  283.963466] orion-mdio f1072004.mdio: orion_mdio_smi_read 16
+> [  283.963588] orion-mdio f1072004.mdio: orion_mdio_smi_read 16
+> [  283.963652] orion-mdio f1072004.mdio: orion_mdio_smi_read 16
+> [  310.572411] orion_mdio_smi_read: 56 callbacks suppressed
+> [  310.572419] orion-mdio f1072004.mdio: orion_mdio_smi_read 16
+> [  310.572550] orion-mdio f1072004.mdio: orion_mdio_smi_read 16
+> [  310.572675] orion-mdio f1072004.mdio: orion_mdio_smi_read 16
+> [  310.572857] orion-mdio f1072004.mdio: orion_mdio_smi_read 16
+> [  310.573039] orion-mdio f1072004.mdio: orion_mdio_smi_read 16
+> [  310.573220] orion-mdio f1072004.mdio: orion_mdio_smi_read 16
+> [  310.573402] orion-mdio f1072004.mdio: orion_mdio_smi_read 16
+> [  310.573524] orion-mdio f1072004.mdio: orion_mdio_smi_read 16
+> [  310.573647] orion-mdio f1072004.mdio: orion_mdio_smi_read 16
+> [  310.573711] orion-mdio f1072004.mdio: orion_mdio_smi_read 16
+> [  726.308614] orion_mdio_smi_read: 56 callbacks suppressed
+> [  726.308623] orion-mdio f1072004.mdio: orion_mdio_smi_read 16
+> [  726.308754] orion-mdio f1072004.mdio: orion_mdio_smi_read 16
+> [  726.308879] orion-mdio f1072004.mdio: orion_mdio_smi_read 16
+> [  726.309060] orion-mdio f1072004.mdio: orion_mdio_smi_read 16
+> [  726.309242] orion-mdio f1072004.mdio: orion_mdio_smi_read 16
+> [  726.309423] orion-mdio f1072004.mdio: orion_mdio_smi_read 16
+> [  726.309604] orion-mdio f1072004.mdio: orion_mdio_smi_read 16
+> [  726.309727] orion-mdio f1072004.mdio: orion_mdio_smi_read 16
+> [  726.309850] orion-mdio f1072004.mdio: orion_mdio_smi_read 16
+> [  726.309914] orion-mdio f1072004.mdio: orion_mdio_smi_read 16
+> [  841.713791] orion_mdio_smi_read: 56 callbacks suppressed
+> [  841.713800] orion-mdio f1072004.mdio: orion_mdio_smi_read 16
+> [  841.713931] orion-mdio f1072004.mdio: orion_mdio_smi_read 16
+> [  841.714056] orion-mdio f1072004.mdio: orion_mdio_smi_read 16
+> [  841.714239] orion-mdio f1072004.mdio: orion_mdio_smi_read 16
+> [  841.714420] orion-mdio f1072004.mdio: orion_mdio_smi_read 16
+> [  841.714602] orion-mdio f1072004.mdio: orion_mdio_smi_read 16
+> [  841.714783] orion-mdio f1072004.mdio: orion_mdio_smi_read 16
+> [  841.714906] orion-mdio f1072004.mdio: orion_mdio_smi_read 16
+> [  841.715029] orion-mdio f1072004.mdio: orion_mdio_smi_read 16
+> [  841.715093] orion-mdio f1072004.mdio: orion_mdio_smi_read 16
+> 
+> 
+> 
+> #####
+> # first bad commit: [1a136ca2e089d91df8eec0a796a324171373ffd8] net: mdio: scan bus based on bus capabilities for C22 and C45
+> 
+> *** snip ***
+> [    0.191685] Creating 3 MTD partitions on "spi0.0":
+> [    0.191690] 0x000000000000-0x0000000f0000 : "U-Boot"
+> [    0.191871] 0x000000100000-0x000000800000 : "Rescue system"
+> [    0.191991] 0x0000000f0000-0x000000100000 : "u-boot-env"
+> [    0.192830] orion-mdio f1072004.mdio: orion_mdio_smi_read 1
+> [    0.192906] orion-mdio f1072004.mdio: orion_mdio_smi_read 1
+> [    0.199530] orion-mdio f1072004.mdio: orion_mdio_smi_read 16
+> [    0.199610] orion-mdio f1072004.mdio: orion_mdio_smi_read 16
+> [    0.199677] orion-mdio f1072004.mdio: orion_mdio_smi_read 16
+> [    0.199799] orion-mdio f1072004.mdio: orion_mdio_smi_read 16
+> [    0.199864] mv88e6085 f1072004.mdio-mii:10: switch 0x1760 detected: Marvell 88E6176, revision 1
+> [    0.199871] orion-mdio f1072004.mdio: orion_mdio_smi_read 16
+> [    0.199994] orion-mdio f1072004.mdio: orion_mdio_smi_read 16
+> [    0.200117] orion-mdio f1072004.mdio: orion_mdio_smi_read 16
+> [    0.200239] orion-mdio f1072004.mdio: orion_mdio_smi_read 16
+> [    0.396608] ata2: SATA link down (SStatus 0 SControl 300)
+> [    0.554697] ata1: SATA link up 6.0 Gbps (SStatus 133 SControl 300)
+> [    0.555370] ata1.00: supports DRM functions and may not be fully accessible
+> [    0.555375] ata1.00: ATA-10: KINGSTON SKC600MS512G, S4800105, max UDMA/133
+> [    0.555385] ata1.00: 1000215216 sectors, multi 1: LBA48 NCQ (depth 32)
+> [    0.556058] ata1.00: Features: Trust Dev-Sleep
+> [    0.556158] ata1.00: supports DRM functions and may not be fully accessible
+> [    0.556811] ata1.00: configured for UDMA/133
+> [    0.556985] scsi 0:0:0:0: Direct-Access     ATA      KINGSTON SKC600M 0105 PQ: 0 ANSI: 5
+> [    0.557485] sd 0:0:0:0: [sda] 1000215216 512-byte logical blocks: (512 GB/477 GiB)
+> [    0.557493] sd 0:0:0:0: [sda] 4096-byte physical blocks
+> [    0.557515] sd 0:0:0:0: [sda] Write Protect is off
+> [    0.557520] sd 0:0:0:0: [sda] Mode Sense: 00 3a 00 00
+> [    0.557553] sd 0:0:0:0: [sda] Write cache: enabled, read cache: enabled, doesn't support DPO or FUA
+> [    0.557620] sd 0:0:0:0: [sda] Preferred minimum I/O size 4096 bytes
+> [    0.558111]  sda: sda1
+> [    0.558230] sd 0:0:0:0: [sda] Attached SCSI removable disk
+> [    2.741909] mvneta_bm f10c8000.bm: Buffer Manager for network controller enabled
+> *** snip ***
+> [    3.213998] sfp sfp: module TP-LINK          TL-SM321B        rev      sn 1403076900       dc 140401
+> [    3.214020] mvneta f1034000.ethernet eth2: switched to inband/1000base-x link mode
+> [    5.194695] orion_mdio_smi_read: 43968 callbacks suppressed
+> [    5.194701] orion-mdio f1072004.mdio: orion_mdio_smi_read 16
+> [    5.194767] orion-mdio f1072004.mdio: orion_mdio_smi_read 16
+> [    5.194891] orion-mdio f1072004.mdio: orion_mdio_smi_read 16
+> [    5.195014] orion-mdio f1072004.mdio: orion_mdio_smi_read 16
+> [    5.195137] orion-mdio f1072004.mdio: orion_mdio_smi_read 16
+> [    5.195259] orion-mdio f1072004.mdio: orion_mdio_smi_read 16
+> [    5.195324] orion-mdio f1072004.mdio: orion_mdio_smi_read 16
+> [    5.195446] orion-mdio f1072004.mdio: orion_mdio_smi_read 16
+> [    5.195510] orion-mdio f1072004.mdio: orion_mdio_smi_read 16
+> [    5.195633] orion-mdio f1072004.mdio: orion_mdio_smi_read 16
+> [    6.223184] mv88e6085 f1072004.mdio-mii:10: configuring for fixed/rgmii-id link mode
+> [    6.224852] mv88e6085 f1072004.mdio-mii:10: configuring for fixed/rgmii-id link mode
+> [    6.226126] mv88e6085 f1072004.mdio-mii:10: Link is Up - 1Gbps/Full - flow control off
+> [    6.229455] mv88e6085 f1072004.mdio-mii:10: Link is Up - 1Gbps/Full - flow control off
+> [    6.294120] mv88e6085 f1072004.mdio-mii:10 lan0 (uninitialized): PHY [mv88e6xxx-1:00] driver [Marvell 88E1540] (irq=68)
+> [    6.366663] mv88e6085 f1072004.mdio-mii:10 lan1 (uninitialized): PHY [mv88e6xxx-1:01] driver [Marvell 88E1540] (irq=69)
+> [    6.438843] mv88e6085 f1072004.mdio-mii:10 lan2 (uninitialized): PHY [mv88e6xxx-1:02] driver [Marvell 88E1540] (irq=70)
+> [    6.510122] mv88e6085 f1072004.mdio-mii:10 lan3 (uninitialized): PHY [mv88e6xxx-1:03] driver [Marvell 88E1540] (irq=71)
+> [    6.582302] mv88e6085 f1072004.mdio-mii:10 lan4 (uninitialized): PHY [mv88e6xxx-1:04] driver [Marvell 88E1540] (irq=72)
+> [    6.584680] device eth1 entered promiscuous mode
+> [    6.585573] device eth0 entered promiscuous mode
+> [    6.585593] DSA: tree 0 setup
+> [    6.586408] Freeing unused kernel image (initmem) memory: 1024K
+> [    6.586547] Run /init as init process
+> [    6.586551]   with arguments:
+> [    6.586553]     /init
+> [    6.586555]   with environment:
+> [    6.586557]     HOME=/
+> [    6.586559]     TERM=linux
+> *** snip ***
+> [    9.437029] mv88e6085 f1072004.mdio-mii:10 lan3: Link is Up - 1Gbps/Full - flow control rx/tx
+> [    9.437052] IPv6: ADDRCONF(NETDEV_CHANGE): lan3: link becomes ready
+> [    9.437116] br0: port 2(lan3) entered blocking state
+> [    9.437125] br0: port 2(lan3) entered forwarding state
+> [    9.438061] IPv6: ADDRCONF(NETDEV_CHANGE): br0: link becomes ready
+> [    9.469466] systemd-journald[207]: Time jumped backwards, rotating.
+> [  414.675728] orion_mdio_smi_read: 11201 callbacks suppressed
+> [  414.675736] orion-mdio f1072004.mdio: orion_mdio_smi_read 16
+> [  414.675869] orion-mdio f1072004.mdio: orion_mdio_smi_read 16
+> [  414.675996] orion-mdio f1072004.mdio: orion_mdio_smi_read 16
+> [  414.676179] orion-mdio f1072004.mdio: orion_mdio_smi_read 16
+> [  414.676361] orion-mdio f1072004.mdio: orion_mdio_smi_read 16
+> [  414.676543] orion-mdio f1072004.mdio: orion_mdio_smi_read 16
+> [  414.676725] orion-mdio f1072004.mdio: orion_mdio_smi_read 16
+> [  414.676847] orion-mdio f1072004.mdio: orion_mdio_smi_read 16
+> [  414.676970] orion-mdio f1072004.mdio: orion_mdio_smi_read 16
+> [  414.677034] orion-mdio f1072004.mdio: orion_mdio_smi_read 16
+> [  540.809740] orion_mdio_smi_read: 56 callbacks suppressed
+> [  540.809748] orion-mdio f1072004.mdio: orion_mdio_smi_read 16
+> [  540.809879] orion-mdio f1072004.mdio: orion_mdio_smi_read 16
+> [  540.810004] orion-mdio f1072004.mdio: orion_mdio_smi_read 16
+> [  540.810186] orion-mdio f1072004.mdio: orion_mdio_smi_read 16
+> [  540.810368] orion-mdio f1072004.mdio: orion_mdio_smi_read 16
+> [  540.810551] orion-mdio f1072004.mdio: orion_mdio_smi_read 16
+> [  540.810732] orion-mdio f1072004.mdio: orion_mdio_smi_read 16
+> [  540.810855] orion-mdio f1072004.mdio: orion_mdio_smi_read 16
+> [  540.810978] orion-mdio f1072004.mdio: orion_mdio_smi_read 16
+> [  540.811042] orion-mdio f1072004.mdio: orion_mdio_smi_read 16
+
+> "orion_mdio_smi_read: 43968 callbacks suppressed" after 5 seconds - quite impressive!
+
+That is probably the switch being configured. I assume it uses address
+16?
+
+But it looks like there are many more after the bad commit. So is the
+return value messed up, putting the switch driver into a loop? Maybe
+print the smi address, register and the return value in
+orion_mdio_smi_read(). And maybe the same in the switch driver, if all
+reads happen to go through one function.
+
+      Andrew
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
