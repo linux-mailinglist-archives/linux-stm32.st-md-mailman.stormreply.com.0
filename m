@@ -2,235 +2,94 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2F7246ADCDC
-	for <lists+linux-stm32@lfdr.de>; Tue,  7 Mar 2023 12:09:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 093B96ADE35
+	for <lists+linux-stm32@lfdr.de>; Tue,  7 Mar 2023 13:00:08 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CEDADC65E60;
-	Tue,  7 Mar 2023 11:09:47 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2087.outbound.protection.outlook.com [40.107.244.87])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C1ADFC65E5A;
+	Tue,  7 Mar 2023 12:00:07 +0000 (UTC)
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [85.220.165.71])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7D206C6410A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C0AE3C57B6A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  7 Mar 2023 11:09:45 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=F5d+bSdHFz/WeDt6E9+NDkFLikvRUsXBQvaxH1J/riSWfx7rIgLUZ4u5pBtHM+jccBGdwwi+vCo4tV/u7a/GRHCSp4jnplhyhkRwDzdEYCyfQyJ9NaUEBHhC8MVTovXLRJKFACe0CD4XxkGtzyL8wvNSH2uE7bA1lPjzHvr3SSSz5OqAnsDtxV0kyudgFVOiwljugPaN8ImPlY9bQmj83b8fH/v24xt7JsqP+htX+iCjRfy5pX00+lDIRyeSb2hhT/AhyMbNGxqhDKoyQXT9EPgHqNmMtyGGrkXlLV5huV+mEWBm5gXh3J0YTPV15c1uwtjLMSgH2W4m93D0WBDi1g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=EHD+Vpjd5tNcCRoTDGhd35+SqFCuCTXSYA7mtdan5gM=;
- b=E9mfIoKObSlypkaamGJLOe2KkTaKytl69bloILm9EkroVHyClEGeaBSIe6T2QnoZxGXOua3CunKwblTdIR2awoNBqe+TYVk69Pd/RiB4tXQfD8pkh1s/xvaxaXgFy1AkdCGdt+AvcmIpp+kIhPTjfuGftQl3WKh6Lsl+fymhlKeWLt3s8GirUi/YfhUwTvwyZLLJzygFH+VHr55oInXxmZFgHR5wcvuxysh7iBAHEuozU22oEghAAbHECrideXe4HG/+MBXtb0o15I3IMRR5wbQnOxSzOeO9blTzBQfJOCvEDosoC032JBwepnYKZZ3vrXA4yGuTsqTvxMsT/g6UAw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EHD+Vpjd5tNcCRoTDGhd35+SqFCuCTXSYA7mtdan5gM=;
- b=joceivhgLnBA0XHPJkEeZ6b/zH/BCTdOVfLYCnVU4U8i6kGUU2fdaYx9yk+FHUnSfPlDCIB6xrq26zkWBHq018BHb2kNNtOtEOlg4SxRq5MCQLLeNR8A2tZovCoMLYIUPNKcB8eC5zDofsgTAOOidXIQEQL4KbXe6NB731cHi58=
-Received: from BN7PR12MB2802.namprd12.prod.outlook.com (2603:10b6:408:25::33)
- by DS0PR12MB8318.namprd12.prod.outlook.com (2603:10b6:8:f6::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6156.28; Tue, 7 Mar
- 2023 11:09:41 +0000
-Received: from BN7PR12MB2802.namprd12.prod.outlook.com
- ([fe80::96c6:f419:e49a:1785]) by BN7PR12MB2802.namprd12.prod.outlook.com
- ([fe80::96c6:f419:e49a:1785%7]) with mapi id 15.20.6156.029; Tue, 7 Mar 2023
- 11:09:41 +0000
-From: "Mahapatra, Amit Kumar" <amit.kumar-mahapatra@amd.com>
-To: Jonas Gorski <jonas.gorski@gmail.com>
-Thread-Topic: [PATCH V5 09/15] spi: Add stacked and parallel memories support
- in SPI core
-Thread-Index: AQHZUFDgolfpAHzRAEiHg/XQpMwU3q7uLAkAgAD9XyA=
-Date: Tue, 7 Mar 2023 11:09:41 +0000
-Message-ID: <BN7PR12MB2802A2E7A193B8BC0073812BDCB79@BN7PR12MB2802.namprd12.prod.outlook.com>
-References: <20230306172109.595464-1-amit.kumar-mahapatra@amd.com>
- <20230306172109.595464-10-amit.kumar-mahapatra@amd.com>
- <CAOiHx=nmsAh3ADL3s0eZKpEZJqCB_POi=8YjfxrHYLEbjRfwHg@mail.gmail.com>
-In-Reply-To: <CAOiHx=nmsAh3ADL3s0eZKpEZJqCB_POi=8YjfxrHYLEbjRfwHg@mail.gmail.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BN7PR12MB2802:EE_|DS0PR12MB8318:EE_
-x-ms-office365-filtering-correlation-id: 1be36a93-277a-4750-8061-08db1efc72de
-x-ld-processed: 3dd8961f-e488-4e60-8e11-a82d994e183d,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: QQaRLzqTHAb+4iQlNZ/EPpKZwnDn2N5Nqw5yAuQJMozDjX9xxgQOpiqBwwEWAH6+IcPkPi78O/3/ftB/OZkNCRQ2ZPlhSWFwnQq+JhwLLaNobJVJPi7yPbZK0R6JWriRP9vF2kDZvtloJPHWjVWyOm4C2QUfF8d/j50sxw2mHL/YHqaPmD6MmiD17uCTJFcXm3zIW+Px5jk9aw3EgEKVs2mHm1gBbd5/nwRiGdRkTGAVgYACHU3UGJoBQSvGjRibN7AFNSgYocbmc2YP3xiCxMa1Vi6gXVf5l8Fcj0p4aF/FefEsF3Ym7U3Y9cNYElzspdlRncBPgtrii7fjhg+wtH4n9/oLTuYnFAxgHiAyCWGRD3KqKDlUT8fWjVVSR3QdgFvy6L24gSM6RiKS0RvM/1/I5kWBuw2HUlsFbjNBI8JOAx74YRJAAAIhFquxNvS/DtY+5J1LlK5WaAXzAAgBCpYGs5Crhcemazdn5Q2hlntmL9IKYq1oi+/d73ruKf8UBYTvX1eIyhZV3C+nspDSEaRVqTpV+7sCRZ8wWulbU56Y1vsRvjy1NJE33yol/9BIBTOxo0veK3mFt+718G3aGZwaOtJj/19qnxeMLz4UAm1Hqhv+XDVkk+/2sbXHqgRX3Rbf5BIUUoLc/T93pXod4e/6NyPpARdjDPU6pjasB92e9O0Mcub/sM60/OhSfRavInkCmKlr+NeSkG92w3xJP6nGWFY169nkFjIi6xEpk84jFM+J4LpvDfRo99sPPeyyHdUckV0kQYa5MA17KicoAg==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN7PR12MB2802.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230025)(4636009)(396003)(136003)(376002)(366004)(346002)(39860400002)(451199018)(7406005)(7366002)(7336002)(8936002)(2906002)(7416002)(7276002)(5660300002)(52536014)(41300700001)(76116006)(83380400001)(4326008)(66476007)(66946007)(6916009)(66446008)(66556008)(8676002)(64756008)(54906003)(33656002)(7696005)(45426003)(71200400001)(53546011)(6506007)(478600001)(55016003)(86362001)(9686003)(316002)(186003)(122000001)(38100700002)(26005)(38070700005)(15866825006)(41080700001);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?QU1oODMvWGhVMEZlY3VzL3czb0M0N0J4aHp5V3FraGlMZUFCSEVRRWVjR25o?=
- =?utf-8?B?ei9EbFdRMDc4WE9oOHBpd3g0aktLNGdtNDdYR1FDYzIrcmJKWVRTWEFmeTlO?=
- =?utf-8?B?UHgyM1F1OXh3eXJpZ0gxL1FFRmlnY2dTSCtCUWYxN3JRSFBnZ0JxekMxOEhX?=
- =?utf-8?B?clRVM3gwQTRoWFpCZWdpUFhGVUdSR3IxNkx2Qi8wSk9zTmJsYnZBK1gwSmYx?=
- =?utf-8?B?MDBSK1I2VDF6Z2ZGOFJpcmQ0N2ovVGNNUFJZS2JyaDZoU0t4T1lWVytUenNT?=
- =?utf-8?B?VUF1ZitJaUIxUW5Md3F6bzg4S2V6MkFTR3dJK1ZrdERNRWF1TTlyUTk0MFJ1?=
- =?utf-8?B?WnYvVnNUSFRNMDdOd3dxT1p1ZDlZRmhNMHpTQjhReERad1U2dTliTUtsbm1C?=
- =?utf-8?B?RmRENys0TmJGaFo5dk9RNzl3c0g3R2UxKzBLQXhZbUROV1FKa0E3ZkRHUEgv?=
- =?utf-8?B?Q0pobFBoWkRyZjZVanp0MzgxM0ZnMGFBQWMrZlY3SENOaE1FWitpZVZQVENI?=
- =?utf-8?B?bW5tdGg0RTRKRG1BK2hVVjFQMnk5NnEzZlRjbUlUdGpoUi9NTDFWTFE4bElu?=
- =?utf-8?B?a2lZL2FTRTFQV0hGSi9lYmUrVGorNHN1U01PbWV6aCsxU0FZajhsWCtzTHdZ?=
- =?utf-8?B?N3NsdytwYjNDNU83L1NicWNrekdQNEV2TldXc3pRM2ZkMUwwUFNxU0gzVnNl?=
- =?utf-8?B?Qm9wSnUzTHJtSUlkZU5tUFVtMEIyWE94Nm80clMrNkZrN3BIK3VLYzZYOEp6?=
- =?utf-8?B?SFMzeE9yNC84UXVVTzJQSXNieW1YZTNxa05ORXZCTWxlZFdlWjRQaWZGWGxS?=
- =?utf-8?B?SzhiWUxqMnIvZXhMcEhhcSt5amJ6cThxNUhhTjV0dlBvK1J6MnhBWXZ6Z3I5?=
- =?utf-8?B?NEd6QXdVQlRQMERJWnU5aGRPZ0JybS83aXpYN3g1aXU3ekhJdkVIbmhLZXRh?=
- =?utf-8?B?c3pQcnFLalYwbWdNV1dBOFB2TE0vQUpidXRQbkg5akZxYllJa2gwQ1g2d1Nh?=
- =?utf-8?B?eEEwYU5qTXc0YzRETEttd3hrUE40cFJKdCtLN0t6STM0YWR5R1BpL2NiMi9q?=
- =?utf-8?B?NDViK3VhVTNxZHFDN2JEVlZnZHBiOUFQRmV0SHllY1pGTE94QmhOeFYzdk5U?=
- =?utf-8?B?MWEwSmhWOGNIa0x3czFDRG9ac1VWOWtMR3JpQSsrbFZjMGZXeEVpbFU4ZHQr?=
- =?utf-8?B?NWNvMFFRTmlJejV2dk00T3V6S0FSc3NMSkNLRW9yODZTaVBEMTRKcGhac3J2?=
- =?utf-8?B?SFNnR3A1Y3hXZUNweit4MEU5WDJNSzRsRG0wVysrZi9pWVRXSGhhTmR2aUNk?=
- =?utf-8?B?ZnJaQ2Y1UWYxL0g2OHFYSDVwclJkakkyOElPUmhXMks0RG9vQXhjQk8xeW16?=
- =?utf-8?B?TFkyTmxscEo0SEE2QUxoa2lEZXhULytQaHV1Zm1iS3VqR1ZTbmQ0NW9laSt6?=
- =?utf-8?B?RzBORUordWNLcEV4cXBkR0dWVDFQRHE3dndhQkRBdU9SUGRWMERCckw5cjAy?=
- =?utf-8?B?OVM0R09jSDYvWlZxSXd0YmdMeURsSTdIdUFycDVQNWdNTGkrMzZtWUVpa2p5?=
- =?utf-8?B?bUxTMnhRby85NXUyNWgrNHdmMnNXeVhFb1JzLzJaMmNBZmorVzNPU25WU1hE?=
- =?utf-8?B?Sk9rNFNQVnlHcnZOUGZkdEpncGJ6M1hBYTJwWThmRlZ1b0RnWHBhTEJMRzVv?=
- =?utf-8?B?eGpldG1ZTlJVMXkySGlwbU9CanpneVcyb1pMOXNmc0o1alZvY295d2JoRngy?=
- =?utf-8?B?YjR2cEtwRnR0Zml2d2E3L3Y1eGp2ZDg5cjg5VkxwaDJIaWJtU0hpbklILzl1?=
- =?utf-8?B?TWhZWnJKQ0RVUGVONW9DdGhvZ1lrM2VGTC9zVVh5RmxBV0VzRXRKVWpBbXVC?=
- =?utf-8?B?ZUNwem9mUEdXSnpCVHphSHU1V1FNMS9OYm94SFAxRVNtR1E2WE1DdlVVMTB3?=
- =?utf-8?B?OGVZb0NITFFON2RZWTlnZThwdlEvVS9BSVdoUUtCcnErL0FFTElMRFJid3BP?=
- =?utf-8?B?SWExWFNNS2VyZ2FVZ0dlUkI5S2VoZUFLdkUxelRCeFNZL2lpQkxlZDJHMm1v?=
- =?utf-8?B?d2gyUldCQ1hJZXlqWkhsYkpkcjIwM25lZTdURmVGc2prMENjZVR1NHJYcTZC?=
- =?utf-8?Q?LF6w=3D?=
+ Tue,  7 Mar 2023 12:00:06 +0000 (UTC)
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+ by metis.ext.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1pZVyN-0006T7-KM; Tue, 07 Mar 2023 12:59:15 +0100
+Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
+ by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.94.2)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1pZVyF-002TEW-9a; Tue, 07 Mar 2023 12:59:07 +0100
+Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.94.2)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1pZVyE-002yig-5U; Tue, 07 Mar 2023 12:59:06 +0100
+From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+To: Vinod Koul <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>,
+ Chen-Yu Tsai <wens@csie.org>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Samuel Holland <samuel@sholland.org>,
+ Andre Przywara <andre.przywara@arm.com>,
+ Wolfram Sang <wsa+renesas@sang-engineering.com>,
+ Icenowy Zheng <uwu@icenowy.me>, Justin Chen <justinpopo6@gmail.com>,
+ Al Cooper <alcooperx@gmail.com>, Pratyush Yadav <p.yadav@ti.com>,
+ Rahul T R <r-ravikumar@ti.com>, Swapnil Jakhade <sjakhade@cadence.com>,
+ Lars-Peter Clausen <lars@metafoo.de>, Shawn Guo <shawnguo@kernel.org>,
+ Sascha Hauer <s.hauer@pengutronix.de>, Liu Ying <victor.liu@nxp.com>,
+ Yuan Can <yuancan@huawei.com>, Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Chunfeng Yun <chunfeng.yun@mediatek.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Thomas Gleixner <tglx@linutronix.de>, Allison Randal <allison@lohutok.net>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Miaoqian Lin <linmq006@gmail.com>, Andy Gross <agross@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
+ Heiko Stuebner <heiko@sntech.de>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Amelie Delaunay <amelie.delaunay@foss.st.com>,
+ Dan Carpenter <error27@gmail.com>,
+ Fabrice Gasnier <fabrice.gasnier@foss.st.com>, JC Kuo <jckuo@nvidia.com>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>, Roger Quadros <rogerq@kernel.org>,
+ Matt Ranostay <mranostay@ti.com>, Sinthu Raja <sinthu.raja@ti.com>,
+ Vignesh Raghavendra <vigneshr@ti.com>, Tanmay Patil <t-patil@ti.com>,
+ Siddharth Vadapalli <s-vadapalli@ti.com>, Lv Ruyi <lv.ruyi@zte.com.cn>
+Date: Tue,  7 Mar 2023 12:58:29 +0100
+Message-Id: <20230307115900.2293120-1-u.kleine-koenig@pengutronix.de>
+X-Mailer: git-send-email 2.39.1
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BN7PR12MB2802.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1be36a93-277a-4750-8061-08db1efc72de
-X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Mar 2023 11:09:41.0364 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: YedORTt2l+HqYNCBBqjw4hda4bFuH8pd+9se3nq0kqbenONdmM7e0u/HmesZntBjnGiCvAJphxIrvgbPAmibaw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8318
-Cc: "kursad.oney@broadcom.com" <kursad.oney@broadcom.com>,
- "heiko@sntech.de" <heiko@sntech.de>,
- "linus.walleij@linaro.org" <linus.walleij@linaro.org>,
- "eajames@linux.ibm.com" <eajames@linux.ibm.com>,
- "perex@perex.cz" <perex@perex.cz>,
- "alim.akhtar@samsung.com" <alim.akhtar@samsung.com>,
- "miquel.raynal@bootlin.com" <miquel.raynal@bootlin.com>,
- "rafal@milecki.pl" <rafal@milecki.pl>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "stefan@datenfreihafen.org" <stefan@datenfreihafen.org>,
- "tmaimon77@gmail.com" <tmaimon77@gmail.com>,
- "linux-samsung-soc@vger.kernel.org" <linux-samsung-soc@vger.kernel.org>,
- "samuel@sholland.org" <samuel@sholland.org>,
- "mpe@ellerman.id.au" <mpe@ellerman.id.au>, "tiwai@suse.com" <tiwai@suse.com>,
- "haibo.chen@nxp.com" <haibo.chen@nxp.com>,
- "mingo@redhat.com" <mingo@redhat.com>, "linux-imx@nxp.com" <linux-imx@nxp.com>,
- "linux-sunxi@lists.linux.dev" <linux-sunxi@lists.linux.dev>,
- "anand.gore@broadcom.com" <anand.gore@broadcom.com>,
- "s.hauer@pengutronix.de" <s.hauer@pengutronix.de>,
- "l.stelmach@samsung.com" <l.stelmach@samsung.com>,
- "npiggin@gmail.com" <npiggin@gmail.com>,
- "james.schulman@cirrus.com" <james.schulman@cirrus.com>, "Mehta,
- Sanju" <Sanju.Mehta@amd.com>, "sbranden@broadcom.com" <sbranden@broadcom.com>,
- "andrew@aj.id.au" <andrew@aj.id.au>,
- "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-spi@vger.kernel.org" <linux-spi@vger.kernel.org>,
- "yogeshgaur.83@gmail.com" <yogeshgaur.83@gmail.com>,
- "michael@walle.cc" <michael@walle.cc>,
- "kernel@pengutronix.de" <kernel@pengutronix.de>,
- "olteanv@gmail.com" <olteanv@gmail.com>,
- "linux-wpan@vger.kernel.org" <linux-wpan@vger.kernel.org>,
- "claudiu.beznea@microchip.com" <claudiu.beznea@microchip.com>,
- "alexandre.belloni@bootlin.com" <alexandre.belloni@bootlin.com>,
- "tanureal@opensource.cirrus.com" <tanureal@opensource.cirrus.com>,
- "david.rhodes@cirrus.com" <david.rhodes@cirrus.com>,
- "edumazet@google.com" <edumazet@google.com>,
- "ldewangan@nvidia.com" <ldewangan@nvidia.com>,
- "windhl@126.com" <windhl@126.com>, "lars@metafoo.de" <lars@metafoo.de>,
- "jonathanh@nvidia.com" <jonathanh@nvidia.com>,
- "linux-rockchip@lists.infradead.org" <linux-rockchip@lists.infradead.org>,
- "jbrunet@baylibre.com" <jbrunet@baylibre.com>,
- "andi@etezian.org" <andi@etezian.org>,
- "Michael.Hennerich@analog.com" <Michael.Hennerich@analog.com>,
- "martin.blumenstingl@googlemail.com" <martin.blumenstingl@googlemail.com>,
- "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>,
- "radu_nicolae.pirea@upb.ro" <radu_nicolae.pirea@upb.ro>,
- "haojian.zhuang@gmail.com" <haojian.zhuang@gmail.com>,
- "jaswinder.singh@linaro.org" <jaswinder.singh@linaro.org>,
- "clg@kaod.org" <clg@kaod.org>,
- "linux-amlogic@lists.infradead.org" <linux-amlogic@lists.infradead.org>,
- "Simek, Michal" <michal.simek@amd.com>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
- "libertas-dev@lists.infradead.org" <libertas-dev@lists.infradead.org>,
- "mcoquelin.stm32@gmail.com" <mcoquelin.stm32@gmail.com>,
- "khilman@baylibre.com" <khilman@baylibre.com>,
- "jic23@kernel.org" <jic23@kernel.org>,
- "linux-rpi-kernel@lists.infradead.org" <linux-rpi-kernel@lists.infradead.org>,
- "narmstrong@baylibre.com" <narmstrong@baylibre.com>,
- "linux-iio@vger.kernel.org" <linux-iio@vger.kernel.org>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "linux-tegra@vger.kernel.org" <linux-tegra@vger.kernel.org>,
- "patches@opensource.cirrus.com" <patches@opensource.cirrus.com>,
- "linux-mtd@lists.infradead.org" <linux-mtd@lists.infradead.org>,
- "christophe.leroy@csgroup.eu" <christophe.leroy@csgroup.eu>,
- "masahisa.kojima@linaro.org" <masahisa.kojima@linaro.org>,
- "festevam@gmail.com" <festevam@gmail.com>,
- "linux-aspeed@lists.ozlabs.org" <linux-aspeed@lists.ozlabs.org>,
- "git \(AMD-Xilinx\)" <git@amd.com>,
- "f.fainelli@gmail.com" <f.fainelli@gmail.com>,
- "benjaminfair@google.com" <benjaminfair@google.com>,
- "jernej.skrabec@gmail.com" <jernej.skrabec@gmail.com>,
- "yuenn@google.com" <yuenn@google.com>, "wens@csie.org" <wens@csie.org>,
- "bcm-kernel-feedback-list@broadcom.com"
- <bcm-kernel-feedback-list@broadcom.com>, "joel@jms.id.au" <joel@jms.id.au>,
- "yangyingliang@huawei.com" <yangyingliang@huawei.com>,
- "pabeni@redhat.com" <pabeni@redhat.com>,
- "amitrkcian2002@gmail.com" <amitrkcian2002@gmail.com>,
- "william.zhang@broadcom.com" <william.zhang@broadcom.com>,
- "rjui@broadcom.com" <rjui@broadcom.com>,
- "john.garry@huawei.com" <john.garry@huawei.com>,
- "rostedt@goodmis.org" <rostedt@goodmis.org>,
- "rf@opensource.cirrus.com" <rf@opensource.cirrus.com>,
- "broonie@kernel.org" <broonie@kernel.org>,
- "tali.perry1@gmail.com" <tali.perry1@gmail.com>,
- "avifishman70@gmail.com" <avifishman70@gmail.com>,
- "thierry.reding@gmail.com" <thierry.reding@gmail.com>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- "shawnguo@kernel.org" <shawnguo@kernel.org>,
- "davem@davemloft.net" <davem@davemloft.net>,
- "alex.aring@gmail.com" <alex.aring@gmail.com>,
- "vigneshr@ti.com" <vigneshr@ti.com>,
- "konrad.dybcio@somainline.org" <konrad.dybcio@somainline.org>,
- "bjorn.andersson@linaro.org" <bjorn.andersson@linaro.org>,
- "linux-riscv@lists.infradead.org" <linux-riscv@lists.infradead.org>,
- "robert.jarzmik@free.fr" <robert.jarzmik@free.fr>,
- "kdasu.kdev@gmail.com" <kdasu.kdev@gmail.com>,
- "richard@nod.at" <richard@nod.at>,
- "chin-ting_kuo@aspeedtech.com" <chin-ting_kuo@aspeedtech.com>,
- "agross@kernel.org" <agross@kernel.org>, "kuba@kernel.org" <kuba@kernel.org>,
- "tudor.ambarus@microchip.com" <tudor.ambarus@microchip.com>,
- "kvalo@kernel.org" <kvalo@kernel.org>,
- "linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>,
- "matthias.bgg@gmail.com" <matthias.bgg@gmail.com>,
- "han.xu@nxp.com" <han.xu@nxp.com>, "oss@buserror.net" <oss@buserror.net>,
- "venture@google.com" <venture@google.com>,
- "nicolas.ferre@microchip.com" <nicolas.ferre@microchip.com>,
- "fancer.lancer@gmail.com" <fancer.lancer@gmail.com>,
- "krzysztof.kozlowski@linaro.org" <krzysztof.kozlowski@linaro.org>,
- "palmer@dabbelt.com" <palmer@dabbelt.com>,
- "pratyush@kernel.org" <pratyush@kernel.org>,
- "linuxppc-dev@lists.ozlabs.org" <linuxppc-dev@lists.ozlabs.org>,
- "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>,
- "daniel@zonque.org" <daniel@zonque.org>
-Subject: Re: [Linux-stm32] [PATCH V5 09/15] spi: Add stacked and parallel
- memories support in SPI core
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5818;
+ i=u.kleine-koenig@pengutronix.de; h=from:subject;
+ bh=MYs5JN8sdLbdhFqX1o8FkbSoO7sfiFpKaRQbsKFPJqQ=;
+ b=owEBbQGS/pANAwAKAcH8FHityuwJAcsmYgBkByZ3qXmeqAA+C0xt3Tbnmc2ihyUokkXi7q3YR
+ NmSTiOqsGOJATMEAAEKAB0WIQR+cioWkBis/z50pAvB/BR4rcrsCQUCZAcmdwAKCRDB/BR4rcrs
+ CQWGB/411PW1y2WnaZUJlgvVPVtj4QZujEz8AqlBRHTptyhx5CaQGlPe5Xdx6F1Q5b+kPwyAdD9
+ /HAdHufSEHfPbZGDUn4HLokWRJ8EGqimHminkBYxmUvdoH5XYFmaQwZ6a88+sD124laNpghG7TD
+ rX6oqjXAt4PTE/fQrGyqD/tWwDxLRZpczwfFESmWk28IPcjCEOQQP+2oSas8Mef2Oc8JJQWBCvl
+ YDEq69SPXLHguNB1ZudTCSbi4KAzJ9LHrwEWqumQjr2K3Du5Gg91o9+6EaSl2YQGu5XnPFgmqQ3
+ cWA/IVc9vOXlx2ruwlHvEB1wcclx//PSUSpKGg2356dPcYJG
+X-Developer-Key: i=u.kleine-koenig@pengutronix.de; a=openpgp;
+ fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: ukl@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
+Cc: linux-renesas-soc@vger.kernel.org, linux-tegra@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, linux-rockchip@lists.infradead.org,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+ NXP Linux Team <linux-imx@nxp.com>, kernel@pengutronix.de,
+ linux-phy@lists.infradead.org, linux-mediatek@lists.infradead.org,
+ Fabio Estevam <festevam@gmail.com>, linux-sunxi@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Subject: [Linux-stm32] [PATCH 00/31] phy: Convert to platform remove
+	callback returning void
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -242,133 +101,112 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello,
-
-> -----Original Message-----
-> From: Jonas Gorski <jonas.gorski@gmail.com>
-> Sent: Tuesday, March 7, 2023 1:31 AM
-> To: Mahapatra, Amit Kumar <amit.kumar-mahapatra@amd.com>
-> Cc: broonie@kernel.org; miquel.raynal@bootlin.com; richard@nod.at;
-> vigneshr@ti.com; jic23@kernel.org; tudor.ambarus@microchip.com;
-> pratyush@kernel.org; Mehta, Sanju <Sanju.Mehta@amd.com>; chin-
-> ting_kuo@aspeedtech.com; clg@kaod.org; kdasu.kdev@gmail.com;
-> f.fainelli@gmail.com; rjui@broadcom.com; sbranden@broadcom.com;
-> eajames@linux.ibm.com; olteanv@gmail.com; han.xu@nxp.com;
-> john.garry@huawei.com; shawnguo@kernel.org; s.hauer@pengutronix.de;
-> narmstrong@baylibre.com; khilman@baylibre.com;
-> matthias.bgg@gmail.com; haibo.chen@nxp.com; linus.walleij@linaro.org;
-> daniel@zonque.org; haojian.zhuang@gmail.com; robert.jarzmik@free.fr;
-> agross@kernel.org; bjorn.andersson@linaro.org; heiko@sntech.de;
-> krzysztof.kozlowski@linaro.org; andi@etezian.org;
-> mcoquelin.stm32@gmail.com; alexandre.torgue@foss.st.com;
-> wens@csie.org; jernej.skrabec@gmail.com; samuel@sholland.org;
-> masahisa.kojima@linaro.org; jaswinder.singh@linaro.org;
-> rostedt@goodmis.org; mingo@redhat.com; l.stelmach@samsung.com;
-> davem@davemloft.net; edumazet@google.com; kuba@kernel.org;
-> pabeni@redhat.com; alex.aring@gmail.com; stefan@datenfreihafen.org;
-> kvalo@kernel.org; james.schulman@cirrus.com; david.rhodes@cirrus.com;
-> tanureal@opensource.cirrus.com; rf@opensource.cirrus.com;
-> perex@perex.cz; tiwai@suse.com; npiggin@gmail.com;
-> christophe.leroy@csgroup.eu; mpe@ellerman.id.au; oss@buserror.net;
-> windhl@126.com; yangyingliang@huawei.com;
-> william.zhang@broadcom.com; kursad.oney@broadcom.com;
-> anand.gore@broadcom.com; rafal@milecki.pl; git (AMD-Xilinx)
-> <git@amd.com>; linux-spi@vger.kernel.org; linux-kernel@vger.kernel.org;
-> joel@jms.id.au; andrew@aj.id.au; radu_nicolae.pirea@upb.ro;
-> nicolas.ferre@microchip.com; alexandre.belloni@bootlin.com;
-> claudiu.beznea@microchip.com; bcm-kernel-feedback-list@broadcom.com;
-> fancer.lancer@gmail.com; kernel@pengutronix.de; festevam@gmail.com;
-> linux-imx@nxp.com; jbrunet@baylibre.com;
-> martin.blumenstingl@googlemail.com; avifishman70@gmail.com;
-> tmaimon77@gmail.com; tali.perry1@gmail.com; venture@google.com;
-> yuenn@google.com; benjaminfair@google.com; yogeshgaur.83@gmail.com;
-> konrad.dybcio@somainline.org; alim.akhtar@samsung.com;
-> ldewangan@nvidia.com; thierry.reding@gmail.com; jonathanh@nvidia.com;
-> Simek, Michal <michal.simek@amd.com>; linux-aspeed@lists.ozlabs.org;
-> openbmc@lists.ozlabs.org; linux-arm-kernel@lists.infradead.org; linux-rpi-
-> kernel@lists.infradead.org; linux-amlogic@lists.infradead.org; linux-
-> mediatek@lists.infradead.org; linux-arm-msm@vger.kernel.org; linux-
-> rockchip@lists.infradead.org; linux-samsung-soc@vger.kernel.org; linux-
-> stm32@st-md-mailman.stormreply.com; linux-sunxi@lists.linux.dev; linux-
-> tegra@vger.kernel.org; netdev@vger.kernel.org; linux-
-> wpan@vger.kernel.org; libertas-dev@lists.infradead.org; linux-
-> wireless@vger.kernel.org; linux-mtd@lists.infradead.org; lars@metafoo.de;
-> Michael.Hennerich@analog.com; linux-iio@vger.kernel.org;
-> michael@walle.cc; palmer@dabbelt.com; linux-riscv@lists.infradead.org;
-> alsa-devel@alsa-project.org; patches@opensource.cirrus.com; linuxppc-
-> dev@lists.ozlabs.org; amitrkcian2002@gmail.com
-> Subject: Re: [PATCH V5 09/15] spi: Add stacked and parallel memories
-> support in SPI core
-> 
-> Hi,
-> 
-> On Mon, 6 Mar 2023 at 18:26, Amit Kumar Mahapatra <amit.kumar-
-> mahapatra@amd.com> wrote:
-> >
-> > For supporting multiple CS the SPI device need to be aware of all the
-> > CS values. So, the "chip_select" member in the spi_device structure is
-> > now an array that holds all the CS values.
-> >
-> > spi_device structure now has a "cs_index_mask" member. This acts as an
-> > index to the chip_select array. If nth bit of spi->cs_index_mask is
-> > set then the driver would assert spi->chip_select[n].
-> >
-> > In parallel mode all the chip selects are asserted/de-asserted
-> > simultaneously and each byte of data is stored in both devices, the
-> > even bits in one, the odd bits in the other. The split is
-> > automatically handled by the GQSPI controller. The GQSPI controller
-> > supports a maximum of two flashes connected in parallel mode. A
-> > "multi-cs-cap" flag is added in the spi controntroller data, through
-> > ctlr->multi-cs-cap the spi core will make sure that the controller is
-> > capable of handling multiple chip selects at once.
-> >
-> > For supporting multiple CS via GPIO the cs_gpiod member of the
-> > spi_device structure is now an array that holds the gpio descriptor
-> > for each chipselect.
-> >
-> > Multi CS support using GPIO is not tested due to unavailability of
-> > necessary hardware setup.
-> >
-> > Signed-off-by: Amit Kumar Mahapatra <amit.kumar-
-> mahapatra@amd.com>
-> > ---
-> >  drivers/spi/spi.c       | 213 +++++++++++++++++++++++++++-------------
-> >  include/linux/spi/spi.h |  34 +++++--
-> >  2 files changed, 173 insertions(+), 74 deletions(-)
-> >
-> > diff --git a/drivers/spi/spi.c b/drivers/spi/spi.c index
-> > 5866bf5813a4..8ec7f58fa111 100644
-> > --- a/drivers/spi/spi.c
-> > +++ b/drivers/spi/spi.c
-> > @@ -613,7 +613,8 @@ static int spi_dev_check(struct device *dev, void
-> *data)
-> >         struct spi_device *new_spi = data;
-> >
-> >         if (spi->controller == new_spi->controller &&
-> > -           spi_get_chipselect(spi, 0) == spi_get_chipselect(new_spi, 0))
-> > +           spi_get_chipselect(spi, 0) == spi_get_chipselect(new_spi, 0) &&
-> > +           spi_get_chipselect(spi, 1) == spi_get_chipselect(new_spi,
-> > + 1))
-> >                 return -EBUSY;
-> 
-> This will only reject new devices if both chip selects are identical, but not if
-> they only share one, e.g. CS 1 + 2 vs 1 + 3, or 1 + 2 vs only 2, or if the order is
-> different (1 + 2 vs 2 + 1 - haven't read the code too close to know if this is
-> allowed/possible).
-
-Agreed,  will add in the next series.
-
-Regards,
-Amit
-> 
-> Regards,
-> Jonas
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+SGVsbG8sCgp0aGlzIHBhdGNoIHNlcmllcyBhZGFwdHMgdGhlIHBsYXRmb3JtIGRyaXZlcnMgYmVs
+b3cgZHJpdmVycy9waHkgdG8gdXNlIHRoZQoucmVtb3ZlX25ldygpIGNhbGxiYWNrLiBDb21wYXJl
+ZCB0byB0aGUgdHJhZGl0aW9uYWwgLnJlbW92ZSgpIGNhbGxiYWNrCi5yZW1vdmVfbmV3KCkgcmV0
+dXJucyBubyB2YWx1ZS4gVGhpcyBpcyBhIGdvb2QgdGhpbmcgYmVjYXVzZSB0aGUgZHJpdmVyIGNv
+cmUKZG9lc24ndCAoYW5kIGNhbm5vdCkgY29wZSBmb3IgZXJyb3JzIGR1cmluZyByZW1vdmUuIFRo
+ZSBvbmx5IGVmZmVjdCBvZiBhCm5vbi16ZXJvIHJldHVybiB2YWx1ZSBpbiAucmVtb3ZlKCkgaXMg
+dGhhdCB0aGUgZHJpdmVyIGNvcmUgZW1pdHMgYSB3YXJuaW5nLiBUaGUKZGV2aWNlIGlzIHJlbW92
+ZWQgYW55aG93IGFuZCBhbiBlYXJseSByZXR1cm4gZnJvbSAucmVtb3ZlKCkgdXN1YWxseSB5aWVs
+ZHMgYQpyZXNvdXJjZSBsZWFrLgoKQnkgY2hhbmdpbmcgdGhlIHJlbW92ZSBjYWxsYmFjayB0byBy
+ZXR1cm4gdm9pZCBkcml2ZXIgYXV0aG9ycyBjYW5ub3QKcmVhc29uYWJseSBhc3N1bWUgYW55IG1v
+cmUgdGhhdCB0aGVyZSBpcyBzb21lIGtpbmQgb2YgY2xlYW51cCBsYXRlci4KCkFsbCBkcml2ZXJz
+IGluIGRyaXZlcnMvc3BtaSByZXR1cm5lZCB6ZXJvIHVuY29uZGl0aW9uYWxseSBpbiB0aGVpciBy
+ZW1vdmUKY2FsbGJhY2ssIHNvIHRoZXkgY291bGQgYWxsIGJlIGNvbnZlcnRlZCB0cml2aWFsbHkg
+dG8gLnJlbW92ZV9uZXcoKS4KCk5vdGUgdGhhdCB0aGlzIHNlcmllcyBkZXBlbmRzIG9uIGNvbW1p
+dCA1YzVhNzY4MGU2N2IgKCJwbGF0Zm9ybTogUHJvdmlkZQphIHJlbW92ZSBjYWxsYmFjayB0aGF0
+IHJldHVybnMgbm8gdmFsdWUiKSB3aGljaCBpcyBpbmNsdWRlZCBpbiB2Ni4zLXJjMS4KCkJlc3Qg
+cmVnYXJkcwpVd2UKClV3ZSBLbGVpbmUtS8O2bmlnICgzMSk6CiAgcGh5OiBhbGx3aW5uZXI6IHBo
+eS1zdW40aS11c2I6IENvbnZlcnQgdG8gcGxhdGZvcm0gcmVtb3ZlIGNhbGxiYWNrCiAgICByZXR1
+cm5pbmcgdm9pZAogIHBoeTogYnJvYWRjb206IHBoeS1icmNtLXVzYjogQ29udmVydCB0byBwbGF0
+Zm9ybSByZW1vdmUgY2FsbGJhY2sKICAgIHJldHVybmluZyB2b2lkCiAgcGh5OiBjYWRlbmNlOiBj
+ZG5zLWRwaHk6IENvbnZlcnQgdG8gcGxhdGZvcm0gcmVtb3ZlIGNhbGxiYWNrIHJldHVybmluZwog
+ICAgdm9pZAogIHBoeTogY2FkZW5jZTogcGh5LWNhZGVuY2Utc2llcnJhOiBDb252ZXJ0IHRvIHBs
+YXRmb3JtIHJlbW92ZSBjYWxsYmFjawogICAgcmV0dXJuaW5nIHZvaWQKICBwaHk6IGNhZGVuY2U6
+IHBoeS1jYWRlbmNlLXRvcnJlbnQ6IENvbnZlcnQgdG8gcGxhdGZvcm0gcmVtb3ZlIGNhbGxiYWNr
+CiAgICByZXR1cm5pbmcgdm9pZAogIHBoeTogZnJlZXNjYWxlOiBwaHktZnNsLWlteDhxbS1sdmRz
+LXBoeTogQ29udmVydCB0byBwbGF0Zm9ybSByZW1vdmUKICAgIGNhbGxiYWNrIHJldHVybmluZyB2
+b2lkCiAgcGh5OiBpbnRlbDogcGh5LWludGVsLWxnbS1jb21ibzogQ29udmVydCB0byBwbGF0Zm9y
+bSByZW1vdmUgY2FsbGJhY2sKICAgIHJldHVybmluZyB2b2lkCiAgcGh5OiBtZWRpYXRlazogcGh5
+LW10ay1taXBpLWRzaTogQ29udmVydCB0byBwbGF0Zm9ybSByZW1vdmUgY2FsbGJhY2sKICAgIHJl
+dHVybmluZyB2b2lkCiAgcGh5OiBtb3Rvcm9sYTogcGh5LWNwY2FwLXVzYjogQ29udmVydCB0byBw
+bGF0Zm9ybSByZW1vdmUgY2FsbGJhY2sKICAgIHJldHVybmluZyB2b2lkCiAgcGh5OiBtb3Rvcm9s
+YTogcGh5LW1hcHBob25lLW1kbTY2MDA6IENvbnZlcnQgdG8gcGxhdGZvcm0gcmVtb3ZlCiAgICBj
+YWxsYmFjayByZXR1cm5pbmcgdm9pZAogIHBoeTogcGh5LWxnbS11c2I6IENvbnZlcnQgdG8gcGxh
+dGZvcm0gcmVtb3ZlIGNhbGxiYWNrIHJldHVybmluZyB2b2lkCiAgcGh5OiBxdWFsY29tbTogcGh5
+LXFjb20tYXBxODA2NC1zYXRhOiBDb252ZXJ0IHRvIHBsYXRmb3JtIHJlbW92ZQogICAgY2FsbGJh
+Y2sgcmV0dXJuaW5nIHZvaWQKICBwaHk6IHF1YWxjb21tOiBwaHktcWNvbS1ldXNiMi1yZXBlYXRl
+cjogQ29udmVydCB0byBwbGF0Zm9ybSByZW1vdmUKICAgIGNhbGxiYWNrIHJldHVybmluZyB2b2lk
+CiAgcGh5OiBxdWFsY29tbTogcGh5LXFjb20taXBxODA2eC1zYXRhOiBDb252ZXJ0IHRvIHBsYXRm
+b3JtIHJlbW92ZQogICAgY2FsbGJhY2sgcmV0dXJuaW5nIHZvaWQKICBwaHk6IHJlbmVzYXM6IHBo
+eS1yY2FyLWdlbjMtcGNpZTogQ29udmVydCB0byBwbGF0Zm9ybSByZW1vdmUgY2FsbGJhY2sKICAg
+IHJldHVybmluZyB2b2lkCiAgcGh5OiByZW5lc2FzOiBwaHktcmNhci1nZW4zLXVzYjI6IENvbnZl
+cnQgdG8gcGxhdGZvcm0gcmVtb3ZlIGNhbGxiYWNrCiAgICByZXR1cm5pbmcgdm9pZAogIHBoeTog
+cmVuZXNhczogcGh5LXJjYXItZ2VuMy11c2IzOiBDb252ZXJ0IHRvIHBsYXRmb3JtIHJlbW92ZSBj
+YWxsYmFjawogICAgcmV0dXJuaW5nIHZvaWQKICBwaHk6IHJlbmVzYXM6IHI4YTc3OWYwLWV0aGVy
+LXNlcmRlczogQ29udmVydCB0byBwbGF0Zm9ybSByZW1vdmUKICAgIGNhbGxiYWNrIHJldHVybmlu
+ZyB2b2lkCiAgcGh5OiByb2NrY2hpcDogcGh5LXJvY2tjaGlwLWlubm8tY3NpZHBoeTogQ29udmVy
+dCB0byBwbGF0Zm9ybSByZW1vdmUKICAgIGNhbGxiYWNrIHJldHVybmluZyB2b2lkCiAgcGh5OiBy
+b2NrY2hpcDogcGh5LXJvY2tjaGlwLWlubm8tZHNpZHBoeTogQ29udmVydCB0byBwbGF0Zm9ybSBy
+ZW1vdmUKICAgIGNhbGxiYWNrIHJldHVybmluZyB2b2lkCiAgcGh5OiByb2NrY2hpcDogcGh5LXJv
+Y2tjaGlwLWlubm8taGRtaTogQ29udmVydCB0byBwbGF0Zm9ybSByZW1vdmUKICAgIGNhbGxiYWNr
+IHJldHVybmluZyB2b2lkCiAgcGh5OiByb2NrY2hpcDogcGh5LXJvY2tjaGlwLXR5cGVjOiBDb252
+ZXJ0IHRvIHBsYXRmb3JtIHJlbW92ZSBjYWxsYmFjawogICAgcmV0dXJuaW5nIHZvaWQKICBwaHk6
+IHN0OiBwaHktc3RtMzItdXNicGh5YzogQ29udmVydCB0byBwbGF0Zm9ybSByZW1vdmUgY2FsbGJh
+Y2sKICAgIHJldHVybmluZyB2b2lkCiAgcGh5OiB0ZWdyYTogeHVzYjogQ29udmVydCB0byBwbGF0
+Zm9ybSByZW1vdmUgY2FsbGJhY2sgcmV0dXJuaW5nIHZvaWQKICBwaHk6IHRpOiBwaHktYW02NTQt
+c2VyZGVzOiBDb252ZXJ0IHRvIHBsYXRmb3JtIHJlbW92ZSBjYWxsYmFjawogICAgcmV0dXJuaW5n
+IHZvaWQKICBwaHk6IHRpOiBwaHktZGE4eHgtdXNiOiBDb252ZXJ0IHRvIHBsYXRmb3JtIHJlbW92
+ZSBjYWxsYmFjayByZXR1cm5pbmcKICAgIHZvaWQKICBwaHk6IHRpOiBwaHktZG04MTZ4LXVzYjog
+Q29udmVydCB0byBwbGF0Zm9ybSByZW1vdmUgY2FsbGJhY2sgcmV0dXJuaW5nCiAgICB2b2lkCiAg
+cGh5OiB0aTogcGh5LWo3MjFlLXdpejogQ29udmVydCB0byBwbGF0Zm9ybSByZW1vdmUgY2FsbGJh
+Y2sgcmV0dXJuaW5nCiAgICB2b2lkCiAgcGh5OiB0aTogcGh5LW9tYXAtdXNiMjogQ29udmVydCB0
+byBwbGF0Zm9ybSByZW1vdmUgY2FsbGJhY2sgcmV0dXJuaW5nCiAgICB2b2lkCiAgcGh5OiB0aTog
+cGh5LXRpLXBpcGUzOiBDb252ZXJ0IHRvIHBsYXRmb3JtIHJlbW92ZSBjYWxsYmFjayByZXR1cm5p
+bmcKICAgIHZvaWQKICBwaHk6IHRpOiBwaHktdHdsNDAzMC11c2I6IENvbnZlcnQgdG8gcGxhdGZv
+cm0gcmVtb3ZlIGNhbGxiYWNrCiAgICByZXR1cm5pbmcgdm9pZAoKIGRyaXZlcnMvcGh5L2FsbHdp
+bm5lci9waHktc3VuNGktdXNiLmMgICAgICAgICAgICB8IDYgKystLS0tCiBkcml2ZXJzL3BoeS9i
+cm9hZGNvbS9waHktYnJjbS11c2IuYyAgICAgICAgICAgICAgfCA2ICsrLS0tLQogZHJpdmVycy9w
+aHkvY2FkZW5jZS9jZG5zLWRwaHkuYyAgICAgICAgICAgICAgICAgIHwgNiArKy0tLS0KIGRyaXZl
+cnMvcGh5L2NhZGVuY2UvcGh5LWNhZGVuY2Utc2llcnJhLmMgICAgICAgICB8IDYgKystLS0tCiBk
+cml2ZXJzL3BoeS9jYWRlbmNlL3BoeS1jYWRlbmNlLXRvcnJlbnQuYyAgICAgICAgfCA2ICsrLS0t
+LQogZHJpdmVycy9waHkvZnJlZXNjYWxlL3BoeS1mc2wtaW14OHFtLWx2ZHMtcGh5LmMgIHwgNiAr
+Ky0tLS0KIGRyaXZlcnMvcGh5L2ludGVsL3BoeS1pbnRlbC1sZ20tY29tYm8uYyAgICAgICAgICB8
+IDUgKystLS0KIGRyaXZlcnMvcGh5L21lZGlhdGVrL3BoeS1tdGstbWlwaS1kc2kuYyAgICAgICAg
+ICB8IDUgKystLS0KIGRyaXZlcnMvcGh5L21vdG9yb2xhL3BoeS1jcGNhcC11c2IuYyAgICAgICAg
+ICAgICB8IDYgKystLS0tCiBkcml2ZXJzL3BoeS9tb3Rvcm9sYS9waHktbWFwcGhvbmUtbWRtNjYw
+MC5jICAgICAgfCA2ICsrLS0tLQogZHJpdmVycy9waHkvcGh5LWxnbS11c2IuYyAgICAgICAgICAg
+ICAgICAgICAgICAgIHwgNiArKy0tLS0KIGRyaXZlcnMvcGh5L3F1YWxjb21tL3BoeS1xY29tLWFw
+cTgwNjQtc2F0YS5jICAgICB8IDYgKystLS0tCiBkcml2ZXJzL3BoeS9xdWFsY29tbS9waHktcWNv
+bS1ldXNiMi1yZXBlYXRlci5jICAgfCA4ICsrKy0tLS0tCiBkcml2ZXJzL3BoeS9xdWFsY29tbS9w
+aHktcWNvbS1pcHE4MDZ4LXNhdGEuYyAgICAgfCA2ICsrLS0tLQogZHJpdmVycy9waHkvcmVuZXNh
+cy9waHktcmNhci1nZW4zLXBjaWUuYyAgICAgICAgIHwgNiArKy0tLS0KIGRyaXZlcnMvcGh5L3Jl
+bmVzYXMvcGh5LXJjYXItZ2VuMy11c2IyLmMgICAgICAgICB8IDYgKystLS0tCiBkcml2ZXJzL3Bo
+eS9yZW5lc2FzL3BoeS1yY2FyLWdlbjMtdXNiMy5jICAgICAgICAgfCA2ICsrLS0tLQogZHJpdmVy
+cy9waHkvcmVuZXNhcy9yOGE3NzlmMC1ldGhlci1zZXJkZXMuYyAgICAgIHwgNiArKy0tLS0KIGRy
+aXZlcnMvcGh5L3JvY2tjaGlwL3BoeS1yb2NrY2hpcC1pbm5vLWNzaWRwaHkuYyB8IDYgKystLS0t
+CiBkcml2ZXJzL3BoeS9yb2NrY2hpcC9waHktcm9ja2NoaXAtaW5uby1kc2lkcGh5LmMgfCA2ICsr
+LS0tLQogZHJpdmVycy9waHkvcm9ja2NoaXAvcGh5LXJvY2tjaGlwLWlubm8taGRtaS5jICAgIHwg
+NiArKy0tLS0KIGRyaXZlcnMvcGh5L3JvY2tjaGlwL3BoeS1yb2NrY2hpcC10eXBlYy5jICAgICAg
+ICB8IDYgKystLS0tCiBkcml2ZXJzL3BoeS9zdC9waHktc3RtMzItdXNicGh5Yy5jICAgICAgICAg
+ICAgICAgfCA2ICsrLS0tLQogZHJpdmVycy9waHkvdGVncmEveHVzYi5jICAgICAgICAgICAgICAg
+ICAgICAgICAgIHwgNiArKy0tLS0KIGRyaXZlcnMvcGh5L3RpL3BoeS1hbTY1NC1zZXJkZXMuYyAg
+ICAgICAgICAgICAgICB8IDYgKystLS0tCiBkcml2ZXJzL3BoeS90aS9waHktZGE4eHgtdXNiLmMg
+ICAgICAgICAgICAgICAgICAgfCA2ICsrLS0tLQogZHJpdmVycy9waHkvdGkvcGh5LWRtODE2eC11
+c2IuYyAgICAgICAgICAgICAgICAgIHwgNiArKy0tLS0KIGRyaXZlcnMvcGh5L3RpL3BoeS1qNzIx
+ZS13aXouYyAgICAgICAgICAgICAgICAgICB8IDYgKystLS0tCiBkcml2ZXJzL3BoeS90aS9waHkt
+b21hcC11c2IyLmMgICAgICAgICAgICAgICAgICAgfCA2ICsrLS0tLQogZHJpdmVycy9waHkvdGkv
+cGh5LXRpLXBpcGUzLmMgICAgICAgICAgICAgICAgICAgIHwgNiArKy0tLS0KIGRyaXZlcnMvcGh5
+L3RpL3BoeS10d2w0MDMwLXVzYi5jICAgICAgICAgICAgICAgICB8IDYgKystLS0tCiAzMSBmaWxl
+cyBjaGFuZ2VkLCA2MyBpbnNlcnRpb25zKCspLCAxMjMgZGVsZXRpb25zKC0pCgpiYXNlLWNvbW1p
+dDogZmUxNWMyNmVlMjZlZmExMTc0MWE3YjYzMmU5ZjIzYjAxYWNhNGNjNgotLSAKMi4zOS4xCgpf
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0z
+MiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpo
+dHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51
+eC1zdG0zMgo=
