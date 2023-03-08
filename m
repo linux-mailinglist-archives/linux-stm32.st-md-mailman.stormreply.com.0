@@ -2,79 +2,90 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B8BB16B1108
-	for <lists+linux-stm32@lfdr.de>; Wed,  8 Mar 2023 19:31:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 007346B1119
+	for <lists+linux-stm32@lfdr.de>; Wed,  8 Mar 2023 19:34:44 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5C9CCC6A5E8;
-	Wed,  8 Mar 2023 18:31:37 +0000 (UTC)
-Received: from relay10.mail.gandi.net (relay10.mail.gandi.net [217.70.178.230])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B76F2C6A5EB;
+	Wed,  8 Mar 2023 18:34:44 +0000 (UTC)
+Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com
+ [209.85.208.51])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8D870C6907C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BB9CAC6907D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  8 Mar 2023 18:31:35 +0000 (UTC)
-Received: (Authenticated sender: miquel.raynal@bootlin.com)
- by mail.gandi.net (Postfix) with ESMTPSA id 9E339240005;
- Wed,  8 Mar 2023 18:31:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1678300295;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=IE2mAjvNqXWB2ZmmfkBzebNZ3UKFN3Q87ghm1dunraM=;
- b=W9bpmY3/KK4H8XkPR5AErqDMuVx7gx1E72W3ekylox5c6Sb1rEoaG0nwEeCbQsUc6fByxS
- 3PZpBawbq5O55tiA1JKMB5WB+fl+xGlvZNIIkCxD0BVegUIaYhJ86Z7HDmbu6JgNt7O36Q
- KczTEKWoIBBtiUPEE1mzlJ8L3xWUVUHSuQq9Fv2DewrgLpVSiS05S/U+XBCe5KjNrcLjrq
- zJjci2YlnX3uHUsv5p9FYMGHzDICiiJZDFiKjvNvjG0iu7BTOTVKX/AFVZKghFBpWyCpwD
- wYIXSzk/QdQeStQWTRLDE6ufZtwkm0Ub+sRPvLPoXU1/cVvB2P656eC6WpRDow==
-Date: Wed, 8 Mar 2023 19:31:21 +0100
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: =?UTF-8?B?UmFmYcWCIE1pxYJlY2tp?= <rafal@milecki.pl>
-Message-ID: <20230308193121.7f5b3d02@xps-13>
-In-Reply-To: <5974d28426057975e701c4a8454b5a13@milecki.pl>
-References: <20230224072903.20945-1-zajec5@gmail.com>
- <20230308173256.3837b87b@xps-13>
- <91ff425b4c901648b1faf34c784f20ad@milecki.pl>
- <20230308190636.7fabab9c@xps-13>
- <5974d28426057975e701c4a8454b5a13@milecki.pl>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.0.0 (GTK+ 3.24.33; x86_64-pc-linux-gnu)
+ Wed,  8 Mar 2023 18:34:42 +0000 (UTC)
+Received: by mail-ed1-f51.google.com with SMTP id k10so45591366edk.13
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 08 Mar 2023 10:34:42 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20210112; t=1678300482;
+ h=mime-version:user-agent:content-transfer-encoding:references
+ :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=VtUE/7DBohqNr7IJ3h/RgLd1gCpyEJMqeBsb1dHhiiw=;
+ b=fHmNlpoMEszeE15zSWXKhmvAq0EDBulLvVk7HYWuPhBWDAN3TUjmkcrisqicYJ3bW/
+ 20+ijoy3Y/FQhe5M69QbmFhsZihZK7M8h3X6+HDqYB3hqjql8woeHenCG4MUgzzC8A3g
+ ejqZNbW1gsV1Gfwit4wm46QaHrrj9hda+JuGS9nqE2CDZIMy6mO5ocOA00kalBh3HmTI
+ oLceEemLvRTcQXfAbwysUE0hFZ+sJcvXGxLNk1KkV3kQjTmky04YODCLVdAZiZUGM84K
+ kxxvEnQHVsNLf79Po4HmwGO3h5IjsYrZf3L2tNMVKHJ68/DMP2MRkmOny8WjTZ/N8W8H
+ Ub9Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112; t=1678300482;
+ h=mime-version:user-agent:content-transfer-encoding:references
+ :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=VtUE/7DBohqNr7IJ3h/RgLd1gCpyEJMqeBsb1dHhiiw=;
+ b=jkUCmRK67Qj2B2al5i7UV1Dj8PoK8ibXvbDB4BhD9m6Ung69FyY3QJ3+fNNRqNonrd
+ P5wAnip4dh9a4xSWT/EdZrwjip/Q+0hltLLdz+b4G3480IYqKrxa5iuFRk2oKwJnufmz
+ 8IoKroJRashUtXLjSEO/KkyDbqUhjuj9hL9JKVictQak2MwziZ6qAQrGhNS0RSQ9AMHX
+ 4+IuYGGm40O3GzRQtrC1dzgm2WT3Y4gqV8tHrzqquR3iaFe8+6p82bjTD2c/gkZRk865
+ 4dKG22O3QXojy1+6cPpmjU0QRGAhN1HUQDf/pIbZesqMcEe0rn49jilTJ/+LKLPbi8Ep
+ B3sg==
+X-Gm-Message-State: AO0yUKW+QeBwrxNlYjvoGkaYrsp1EV5g8PaEbrZqhIrZbbylrinar24j
+ 24vWLVQo7VWiQH+IoSXBjoM=
+X-Google-Smtp-Source: AK7set+NcA0sgdg4llwz3yGkNz7kStT6sPz/Ru82tgxk1Zl88I1GbZ2ntBhg9IwWQghzRUFE1LELOQ==
+X-Received: by 2002:a05:6402:5154:b0:4bd:6b93:1289 with SMTP id
+ n20-20020a056402515400b004bd6b931289mr17146099edd.15.1678300482112; 
+ Wed, 08 Mar 2023 10:34:42 -0800 (PST)
+Received: from ?IPv6:2a02:168:6806:0:3ab6:1404:fd5c:80ff?
+ ([2a02:168:6806:0:3ab6:1404:fd5c:80ff])
+ by smtp.gmail.com with ESMTPSA id
+ q18-20020a170906771200b008cc920469b5sm7922081ejm.18.2023.03.08.10.34.41
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 08 Mar 2023 10:34:41 -0800 (PST)
+Message-ID: <09d65e1ee0679e1e74b4f3a5a4c55bd48332f043.camel@gmail.com>
+From: Klaus Kudielka <klaus.kudielka@gmail.com>
+To: Andrew Lunn <andrew@lunn.ch>
+Date: Wed, 08 Mar 2023 19:34:40 +0100
+In-Reply-To: <72530e86-9ba9-4a01-9cd2-68835ecae7a0@lunn.ch>
+References: <20230116-net-next-remove-probe-capabilities-v2-0-15513b05e1f4@walle.cc>
+ <20230116-net-next-remove-probe-capabilities-v2-4-15513b05e1f4@walle.cc>
+ <449bde236c08d5ab5e54abd73b645d8b29955894.camel@gmail.com>
+ <100c439a-2a4d-4cb2-96f2-5bf273e2121a@lunn.ch>
+ <712bc92ca6d576f33f63f1e9c2edf0030b10d3ae.camel@gmail.com>
+ <db6b8a09-b680-4baa-8963-d355ad29eb09@lunn.ch>
+ <0e10aa8492eadb587949d8744b56fccaabbd183b.camel@gmail.com>
+ <72530e86-9ba9-4a01-9cd2-68835ecae7a0@lunn.ch>
+User-Agent: Evolution 3.46.4-1 
 MIME-Version: 1.0
-Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Alessandro Zummo <a.zummo@towertech.it>, Vignesh Raghavendra <vigneshr@ti.com>,
- Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Evgeniy Polyakov <zbr@ioremap.net>, Fabio Estevam <festevam@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Alyssa Rosenzweig <alyssa@rosenzweig.io>, Jerome Brunet <jbrunet@baylibre.com>,
- linux-rtc@vger.kernel.org, Samuel Holland <samuel@sholland.org>,
- Richard Weinberger <richard@nod.at>,
- =?UTF-8?B?UmFmYcWCIE1pxYJlY2tp?= <zajec5@gmail.com>,
- Michal Simek <michal.simek@xilinx.com>,
- Jernej Skrabec <jernej.skrabec@gmail.com>, linux-rockchip@lists.infradead.org,
- Chen-Yu Tsai <wens@csie.org>, Andy Gross <agross@kernel.org>,
- NXP Linux Team <linux-imx@nxp.com>, Vincent Shih <vincent.sunplus@gmail.com>,
- Orson Zhai <orsonzhai@gmail.com>, linux-sunxi@lists.linux.dev,
- asahi@lists.linux.dev, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Sven Peter <sven@svenpeter.dev>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- linux-arm-msm@vger.kernel.org, Sascha Hauer <s.hauer@pengutronix.de>,
- linux-mediatek@lists.infradead.org,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Matthias Brugger <matthias.bgg@gmail.com>, linux-amlogic@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Chunyan Zhang <zhang.lyra@gmail.com>, Bjorn Andersson <andersson@kernel.org>,
- Hector Martin <marcan@marcan.st>, Heiko Stuebner <heiko@sntech.de>,
- linux-kernel@vger.kernel.org, Konrad Dybcio <konrad.dybcio@linaro.org>,
- Masami Hiramatsu <mhiramat@kernel.org>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Kevin Hilman <khilman@baylibre.com>, linux-mtd@lists.infradead.org,
- Shawn Guo <shawnguo@kernel.org>, Claudiu Beznea <claudiu.beznea@microchip.com>
-Subject: Re: [Linux-stm32] [PATCH V2] nvmem: add explicit config option to
- read OF fixed cells
+Cc: linux-aspeed@lists.ozlabs.org,
+ Jesse Brandeburg <jesse.brandeburg@intel.com>,
+ Eric Dumazet <edumazet@google.com>, linux-stm32@st-md-mailman.stormreply.com,
+ Russell King <linux@armlinux.org.uk>, Jose Abreu <joabreu@synopsys.com>,
+ Joel Stanley <joel@jms.id.au>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Lorenzo Bianconi <lorenzo@kernel.org>,
+ Mark Lee <Mark-MC.Lee@mediatek.com>, Sean Wang <sean.wang@mediatek.com>,
+ linux-mediatek@lists.infradead.org, John Crispin <john@phrozen.org>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ linux-arm-kernel@lists.infradead.org, Andrew Jeffery <andrew@aj.id.au>,
+ Bryan Whitehead <bryan.whitehead@microchip.com>, linux-kernel@vger.kernel.org,
+ UNGLinuxDriver@microchip.com, Michael Walle <michael@walle.cc>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
+ Heiner Kallweit <hkallweit1@gmail.com>, "David S.
+ Miller" <davem@davemloft.net>, Felix Fietkau <nbd@nbd.name>
+Subject: Re: [Linux-stm32] [PATCH net-next v2 4/6] net: mdio: scan bus based
+ on bus capabilities for C22 and C45
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,122 +97,137 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SGkgUmFmYcWCLAoKcmFmYWxAbWlsZWNraS5wbCB3cm90ZSBvbiBXZWQsIDA4IE1hciAyMDIzIDE5
-OjEyOjMyICswMTAwOgoKPiBPbiAyMDIzLTAzLTA4IDE5OjA2LCBNaXF1ZWwgUmF5bmFsIHdyb3Rl
-Ogo+ID4gSGkgUmFmYcWCLAo+ID4gCj4gPiByYWZhbEBtaWxlY2tpLnBsIHdyb3RlIG9uIFdlZCwg
-MDggTWFyIDIwMjMgMTc6NTU6NDYgKzAxMDA6Cj4gPiAgIAo+ID4+IE9uIDIwMjMtMDMtMDggMTc6
-MzQsIE1pcXVlbCBSYXluYWwgd3JvdGU6ICAKPiA+PiA+IEhpIFJhZmHFgiwKPiA+PiA+Cj4gPj4g
-PiB6YWplYzVAZ21haWwuY29tIHdyb3RlIG9uIEZyaSwgMjQgRmViIDIwMjMgMDg6Mjk6MDMgKzAx
-MDA6Cj4gPj4gPiAgCj4gPj4gPj4gRnJvbTogUmFmYcWCIE1pxYJlY2tpIDxyYWZhbEBtaWxlY2tp
-LnBsPiAgCj4gPj4gPj4gPj4gTlZNRU0gc3Vic3lzdGVtIGxvb2tzIGZvciBmaXhlZCBOVk1FTSBj
-ZWxscyAoc3BlY2lmaWVkIGluIERUKSBieSAgCj4gPj4gPj4gZGVmYXVsdC4gVGhpcyBiZWhhdmlv
-dXIgbWFkZSBzZW5zZSBpbiBlYXJseSBkYXlzIGJlZm9yZSBhZGRpbmcgc3VwcG9ydAo+ID4+ID4+
-IGZvciBkeW5hbWljIGNlbGxzLiAgCj4gPj4gPj4gPj4gV2l0aCBldmVyeSBuZXcgc3VwcG9ydGVk
-IE5WTUVNIGRldmljZSB3aXRoIGR5bmFtaWMgY2VsbHMgY3VycmVudCAgCj4gPj4gPj4gYmVoYXZp
-b3VyIGJlY29tZXMgbm9uLW9wdGltYWwuIEl0IHJlc3VsdHMgaW4gdW5uZWVkZWQgaXRlcmF0aW5n
-IG92ZXIgPj4gRFQKPiA+PiA+PiBub2RlcyBhbmQgbWF5IHJlc3VsdCBpbiBmYWxzZSBkaXNjb3Zl
-cnkgb2YgY2VsbHMgKGRlcGVuZGluZyBvbiB1c2VkIERUCj4gPj4gPj4gcHJvcGVydGllcykuICAK
-PiA+PiA+PiA+PiBUaGlzIGJlaGF2aW91ciBoYXMgYWN0dWFsbHkgY2F1c2VkIGEgcHJvYmxlbSBh
-bHJlYWR5IHdpdGggdGhlIE1URCAgCj4gPj4gPj4gc3Vic3lzdGVtLiBNVEQgc3VicGFydGl0aW9u
-cyB3ZXJlIGluY29ycmVjdGx5IHRyZWF0ZWQgYXMgTlZNRU0gY2VsbHMuICAKPiA+PiA+Cj4gPj4g
-PiBUaGF0J3MgdHJ1ZSwgYnV0IEkgZXhwZWN0IHRoaXMgdG8gYmUgcmVhbGx5IE1URCBzcGVjaWZp
-Yy4KPiA+PiA+Cj4gPj4gPiBBIGNvbmNyZXRlIHByb3Bvc2FsIGJlbG93Lgo+ID4+ID4gIAo+ID4+
-ID4+IEFsc28gd2l0aCB1cGNvbWluZyBzdXBwb3J0IGZvciBOVk1FTSBsYXlvdXRzIG5vIG5ldyBi
-aW5kaW5nIG9yIGRyaXZlcgo+ID4+ID4+IHNob3VsZCBzdXBwb3J0IGZpeGVkIGNlbGxzIGRlZmlu
-ZWQgaW4gZGV2aWNlIG5vZGUuICAKPiA+PiA+Cj4gPj4gPiBJJ20gbm90IHN1cmUgSSBhZ3JlZSB3
-aXRoIHRoaXMgc3RhdGVtZW50LiBXZSBhcmUgbm90IHByZXZlbnRpbmcgbmV3Cj4gPj4gPiBiaW5k
-aW5nL2RyaXZlciB0byB1c2UgZml4ZWQgY2VsbHMsIG9yLi4uPyBXZSBvZmZlciBhIG5ldyB3YXkg
-dG8gZXhwb3NlCj4gPj4gPiBudm1lbSBjZWxscyB3aXRoIGFub3RoZXIgd2F5IHRoYW4gImZpeGVk
-LW9mZnNldCIgYW5kICJmaXhlZC1zaXplIiBPRgo+ID4+ID4gbm9kZXMuICAKPiA+PiA+PiAgRnJv
-bSB3aGF0IEkgdW5kZXJzdG9vZCBhbGwgbmV3IE5WTUVNIGJpbmRpbmdzIHNob3VsZCBoYXZlIGNl
-bGxzID4+IGRlZmluZWQgIAo+ID4+IGluIHRoZSBudm1lbS1sYXlvdXQgeyB9IG5vZGUuIFRoYXQn
-cyB3aGF0IEkgbWVhbiBieSBzYXlpbmcgdGhleSBzaG91bGQKPiA+PiBub3QgYmUgZGVmaW5lZCBp
-biBkZXZpY2Ugbm9kZSAoYnV0IGl0cyAibnZtZW0tbGF5b3V0IiBpbnN0ZWFkKS4gIAo+ID4gCj4g
-PiBMYXlvdXRzIGFyZSBqdXN0IGFub3RoZXIgcG9zc2liaWxpdHksIGVpdGhlciB5b3UgdXNlciB0
-aGUgbnZtZW0tY2VsbHMKPiA+IGNvbXBhdGlibGUgYW5kIHByb2R1Y2UgbnZtZW0gY2VsbHMgd2l0
-aCBmaXhlZCBPRiBub2Rlcywgb3IgeW91IHVzZSB0aGUKPiA+IG52bWVtLWxheW91dCBjb250YWlu
-ZXIuIEkgZG9uJ3QgdGhpbmsgYWxsIG5ldyBiaW5kaW5ncyBzaG91bGQgaGF2ZQo+ID4gY2VsbHMg
-aW4gbGF5b3V0cy4gSXQgZGVwZW5kcyBpZiB0aGUgY29udGVudCBpcyBzdGF0aWMgb3Igbm90Lgo+
-ID4gICAKPiA+PiA+PiBTb2x2ZSB0aGlzIGJ5IG1vZGlmeWluZyBkcml2ZXJzIGZvciBiaW5kaW5n
-cyB0aGF0IHN1cHBvcnQgc3BlY2lmeWluZwo+ID4+ID4+IGZpeGVkIE5WTUVNIGNlbGxzIGluIERU
-LiBNYWtlIHRoZW0gZXhwbGljaXRseSB0ZWxsIE5WTUVNIHN1YnN5c3RlbSB0bwo+ID4+ID4+IHJl
-YWQgY2VsbHMgZnJvbSBEVC4gIAo+ID4+ID4+ID4+IEl0IHdhc24ndCBjbGVhciAodG8gbWUpIGlm
-IHJ0YyBhbmQgdzEgY29kZSBhY3R1YWxseSB1c2VzIGZpeGVkIGNlbGxzLiA+PiBJICAKPiA+PiA+
-PiBlbmFibGVkIHRoZW0gdG8gZG9uJ3QgcmlzayBhbnkgYnJlYWthZ2UuICAKPiA+PiA+PiA+PiBT
-aWduZWQtb2ZmLWJ5OiBSYWZhxYIgTWnFgmVja2kgPHJhZmFsQG1pbGVja2kucGw+ICAKPiA+PiA+
-PiBbZm9yIGRyaXZlcnMvbnZtZW0vbWVzb24te2VmdXNlLG14LWVmdXNlfS5jXQo+ID4+ID4+IEFj
-a2VkLWJ5OiBNYXJ0aW4gQmx1bWVuc3RpbmdsIDxtYXJ0aW4uYmx1bWVuc3RpbmdsQGdvb2dsZW1h
-aWwuY29tPgo+ID4+ID4+IC0tLQo+ID4+ID4+IFYyOiBGaXggc3RtMzItcm9tZW0uYyB0eXBvIGJy
-ZWFraW5nIGl0cyBjb21waWxhdGlvbgo+ID4+ID4+ICAgICBQaWNrIE1hcnRpbidzIEFja2VkLWJ5
-Cj4gPj4gPj4gICAgIEFkZCBwYXJhZ3JhcGggYWJvdXQgbGF5b3V0cyBkZXByZWNhdGluZyB1c2Vf
-Zml4ZWRfb2ZfY2VsbHMKPiA+PiA+PiAtLS0KPiA+PiA+PiAgZHJpdmVycy9tdGQvbXRkY29yZS5j
-ICAgICAgICAgIHwgMiArKwo+ID4+ID4+ICBkcml2ZXJzL252bWVtL2FwcGxlLWVmdXNlcy5jICAg
-fCAxICsKPiA+PiA+PiAgZHJpdmVycy9udm1lbS9jb3JlLmMgICAgICAgICAgIHwgOCArKysrKy0t
-LQo+ID4+ID4+ICBkcml2ZXJzL252bWVtL2lteC1vY290cC1zY3UuYyAgfCAxICsKPiA+PiA+PiAg
-ZHJpdmVycy9udm1lbS9pbXgtb2NvdHAuYyAgICAgIHwgMSArCj4gPj4gPj4gIGRyaXZlcnMvbnZt
-ZW0vbWVzb24tZWZ1c2UuYyAgICB8IDEgKwo+ID4+ID4+ICBkcml2ZXJzL252bWVtL21lc29uLW14
-LWVmdXNlLmMgfCAxICsKPiA+PiA+PiAgZHJpdmVycy9udm1lbS9taWNyb2NoaXAtb3RwYy5jIHwg
-MSArCj4gPj4gPj4gIGRyaXZlcnMvbnZtZW0vbXRrLWVmdXNlLmMgICAgICB8IDEgKwo+ID4+ID4+
-ICBkcml2ZXJzL252bWVtL3Fjb20tc3BtaS1zZGFtLmMgfCAxICsKPiA+PiA+PiAgZHJpdmVycy9u
-dm1lbS9xZnByb20uYyAgICAgICAgIHwgMSArCj4gPj4gPj4gIGRyaXZlcnMvbnZtZW0vcmF2ZS1z
-cC1lZXByb20uYyB8IDEgKwo+ID4+ID4+ICBkcml2ZXJzL252bWVtL3JvY2tjaGlwLWVmdXNlLmMg
-fCAxICsKPiA+PiA+PiAgZHJpdmVycy9udm1lbS9zYzI3eHgtZWZ1c2UuYyAgIHwgMSArCj4gPj4g
-Pj4gIGRyaXZlcnMvbnZtZW0vc3ByZC1lZnVzZS5jICAgICB8IDEgKwo+ID4+ID4+ICBkcml2ZXJz
-L252bWVtL3N0bTMyLXJvbWVtLmMgICAgfCAxICsKPiA+PiA+PiAgZHJpdmVycy9udm1lbS9zdW5w
-bHVzLW9jb3RwLmMgIHwgMSArCj4gPj4gPj4gIGRyaXZlcnMvbnZtZW0vc3VueGlfc2lkLmMgICAg
-ICB8IDEgKwo+ID4+ID4+ICBkcml2ZXJzL252bWVtL3VuaXBoaWVyLWVmdXNlLmMgfCAxICsKPiA+
-PiA+PiAgZHJpdmVycy9udm1lbS96eW5xbXBfbnZtZW0uYyAgIHwgMSArCj4gPj4gPj4gIGRyaXZl
-cnMvcnRjL252bWVtLmMgICAgICAgICAgICB8IDEgKwo+ID4+ID4+ICBkcml2ZXJzL3cxL3NsYXZl
-cy93MV9kczI1MHguYyAgfCAxICsKPiA+PiA+PiAgaW5jbHVkZS9saW51eC9udm1lbS1wcm92aWRl
-ci5oIHwgMiArKwo+ID4+ID4+ICAyMyBmaWxlcyBjaGFuZ2VkLCAyOSBpbnNlcnRpb25zKCspLCAz
-IGRlbGV0aW9ucygtKSAgCj4gPj4gPj4gPj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvbXRkL210ZGNv
-cmUuYyBiL2RyaXZlcnMvbXRkL210ZGNvcmUuYyAgCj4gPj4gPj4gaW5kZXggMGZlYWNiOWZiZGFj
-Li4xYmI0NzljMGY3NTggMTAwNjQ0Cj4gPj4gPj4gLS0tIGEvZHJpdmVycy9tdGQvbXRkY29yZS5j
-Cj4gPj4gPj4gKysrIGIvZHJpdmVycy9tdGQvbXRkY29yZS5jCj4gPj4gPj4gQEAgLTUyMyw2ICs1
-MjMsNyBAQCBzdGF0aWMgaW50IG10ZF9udm1lbV9hZGQoc3RydWN0IG10ZF9pbmZvICptdGQpCj4g
-Pj4gPj4gIAljb25maWcuZGV2ID0gJm10ZC0+ZGV2Owo+ID4+ID4+ICAJY29uZmlnLm5hbWUgPSBk
-ZXZfbmFtZSgmbXRkLT5kZXYpOwo+ID4+ID4+ICAJY29uZmlnLm93bmVyID0gVEhJU19NT0RVTEU7
-Cj4gPj4gPj4gKwljb25maWcudXNlX2ZpeGVkX29mX2NlbGxzID0gb2ZfZGV2aWNlX2lzX2NvbXBh
-dGlibGUobm9kZSwgPj4gIm52bWVtLWNlbGxzIik7ICAKPiA+PiA+Cj4gPj4gPiBJIGFtIHdvbmRl
-cmluZyBob3cgbXRkIHNwZWNpZmljIHRoaXMgaXM/IEZvciBtZSBhbGwgT0Ygbm9kZXMgY29udGFp
-bmluZwo+ID4+ID4gdGhlIG52bWVtLWNlbGxzIGNvbXBhdGlibGUgc2hvdWxkIGJlIHRyZWF0ZWQg
-YXMgY2VsbHMgcHJvdmlkZXJzIGFuZAo+ID4+ID4gcG9wdWxhdGUgbnZtZW0gY2VsbHMgYXMgZm9y
-IGVhY2ggY2hpbGRyZW4uCj4gPj4gPgo+ID4+ID4gV2h5IGRvbid0IHdlIGp1c3QgY2hlY2sgZm9y
-IHRoaXMgY29tcGF0aWJsZSB0byBiZSBwcmVzZW50PyBpbgo+ID4+ID4gbnZtZW1fYWRkX2NlbGxz
-X2Zyb21fb2YoKSA/IEFuZCBpZiBub3Qgd2UganVzdCBza2lwIHRoZSBvcGVyYXRpb24uCj4gPj4g
-Pgo+ID4+ID4gVGhpcyB3YXkgd2Ugc3RpbGwgZm9sbG93IHRoZSBiaW5kaW5ncyAoZXZlbiB0aG91
-Z2ggdXNpbmcgbnZtZW0tY2VsbHMgaW4KPiA+PiA+IHRoZSBjb21wYXRpYmxlIHByb3BlcnR5IHRv
-IHJlcXVpcmUgY2VsbHMgcG9wdWxhdGlvbiB3YXMgYSBtaXN0YWtlIGluCj4gPj4gPiB0aGUgZmly
-c3QgcGxhY2UsIGFzIGRpc2N1c3NlZCBpbiB0aGUgZGV2bGluayB0aHJlYWQgcmVjZW50bHkpIGJ1
-dCB0aGVyZQo+ID4+ID4gaXMgbm8gbmVlZCBmb3IgYSBwZXItZHJpdmVyIGNvbmZpZyBvcHRpb24/
-ICAKPiA+PiA+PiBUaGlzIGlzbid0IG10ZCBzcGVjaWZpYy4gUGxlYXNlIGNoZWNrIHRoaXMgcGF0
-Y2ggZm9yIGFsbCBvY2N1cnJlbmNlcyA+PiBvZiAgCj4gPj4gdGhlOgo+ID4+IHVzZV9maXhlZF9v
-Zl9jZWxscyA9IHRydWUgIAo+ID4+ID4+IFRoZSB2ZXJ5IGZpcnN0IG9uZTogZHJpdmVycy9udm1l
-bS9hcHBsZS1lZnVzZXMuYyBkcml2ZXIgZm9yIHRoZSAgCj4gPj4gImFwcGxlLGVmdXNlcyIgYmlu
-ZGluZy4gVGhhdCBiaW5kaW5nIHN1cHBvcnRzIGZpeGVkIE9GIGNlbGxzLCBzZWU6Cj4gPj4gRG9j
-dW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL252bWVtL2FwcGxlLGVmdXNlcy55YW1sICAK
-PiA+IAo+ID4gSSdtIHNheWluZzogYmFzZWQgb24gd2hhdCBoYXMgYmVlbiBlbmZvcmNlZCBzbyBm
-YXIsIEkgd291bGQgZXhwZWN0IGFsbAo+ID4gZml4ZWQgY2VsbCBwcm92aWRlcnMgdG8gY29tZSB3
-aXRoIG52bWVtLWNlbGxzIGFzIGNvbXBhdGlibGUsIG5vPwo+ID4gCj4gPiBJZiB0aGF0J3MgdGhl
-IGNhc2Ugd2UgY291bGQgdXNlIHRoYXQgYXMgYSBjb21tb24gZGVub21pbmF0b3I/ICAKPiAKPiBT
-b3JyeSwgSSBkb24ndCBnZXQgaXQuIEhhdmUgeW91IGNoZWNrZWQKPiBEb2N1bWVudGF0aW9uL2Rl
-dmljZXRyZWUvYmluZGluZ3MvbnZtZW0vYXBwbGUsZWZ1c2VzLnlhbWwKPiA/Cj4gCj4gSXQncyBh
-IE5WTUVNIHByb3ZpZWQgYmluZGluZyB3aXRoIGZpeGVkIGNlbGxzIHRoYXQgZG9lc24ndCB1c2UK
-PiBudm1lbS1jZWxscyBhcyBjb21wYXRpYmxlLiBUaGVyZSBhcmUgbWFueSBtb3JlLgoKT2ggeWVh
-aCB5b3UncmUgcmlnaHQsIEknbSBtaXhpbmcgdGhpbmdzLiBXZWxsIEkgZ3Vlc3MgeW91J3JlIHJp
-Z2h0CnRoZW4sIGl0J3Mgc3VjaCBhIG1lc3MsIHdlIGhhdmUgdG8gdGVsbCB0aGUgY29yZSB0aGUg
-cGFyc2luZyBtZXRob2QuCgpTbyBtYXliZSBhbm90aGVyIHF1ZXN0aW9uOiBkbyB3ZSBoYXZlIG90
-aGVyIHNpdHVhdGlvbnMgdGhhbiBtdGQgd2hpY2gKc29tZXRpbWVzIGV4cGVjdCB0aGUgbnZtZW0g
-Y29yZSB0byBwYXJzZSB0aGUgT0Ygbm9kZXMgdG8gcG9wdWxhdGUgY2VsbHMsCmFuZCBzb21ldGlt
-ZXMgbm90PwoKQWxzbywgd2hhdCBhYm91dCAib2ZfY2hpbGRyZW5fYXJlX2NlbGxzIiA/IEJlY2F1
-c2UgYWN0dWFsbHkgaW4gbW9zdApjYXNlcyBpdCdzIGEgImZpeGVkIG9mIGNlbGwiLCBzbyBJIGRv
-bid0IGZpbmQgdGhlIGN1cnJlbnQgbmFtaW5nCmRlc2NyaXB0aXZlIGVub3VnaCBmb3Igc29tZXRo
-aW5nIHNvIHRvdWNoeS4KClRoYW5rcywgTWlxdcOobApfX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3Rt
-MzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rv
-cm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
+On Tue, 2023-03-07 at 21:35 +0100, Andrew Lunn wrote:
+> > Summary: Still 4 calls to mdio_bus_scan_c22, but also *2* calls to mdio_bus_scan_c45, approx. 190*100 reads by the switch driver
+> 
+> Those calls to mdio_bus_scan_c45 are caused by 743a19e38d02 net: dsa:
+> mv88e6xxx: Separate C22 and C45 transactions.
+
+Well, yes and no. I understand orion mdio is MDIOBUS_NO_CAP
+and therefore the c45 scan is *not* called until 1a136ca2e0
+net: mdio: scan bus based on bus capabilities for C22 and C45.
+Which is the behaviour I see.
+(I needed a close look at the conditions in the if statements
+that were removed then)
+
+
+> The only part of a c45 scan which is not linear is
+> mv88e6xxx_g2_smi_phy_wait() which is implemented by
+> mv88e6xxx_wait_mask(). That loops reading a register waiting for a bit
+> to change. Maybe print out the value of i, and see if it is looping
+> more times for C45 than C22?
+
+Here the debug code
+
+diff --git a/drivers/net/dsa/mv88e6xxx/chip.c b/drivers/net/dsa/mv88e6xxx/chip.c
+index 0a5d6c7bb1..23816cad41 100644
+--- a/drivers/net/dsa/mv88e6xxx/chip.c
++++ b/drivers/net/dsa/mv88e6xxx/chip.c
+@@ -90,6 +90,7 @@ int mv88e6xxx_wait_mask(struct mv88e6xxx_chip *chip, int addr, int reg,
+ 	u16 data;
+ 	int err;
+ 	int i;
++	static unsigned wait_count = 0, loop_count = 0;
+ 
+ 	/* There's no bus specific operation to wait for a mask. Even
+ 	 * if the initial poll takes longer than 50ms, always do at
+@@ -100,8 +101,13 @@ int mv88e6xxx_wait_mask(struct mv88e6xxx_chip *chip, int addr, int reg,
+ 		if (err)
+ 			return err;
+ 
+-		if ((data & mask) == val)
++		if ((data & mask) == val) {
++			wait_count++;
++			loop_count += i;
++			if (wait_count % 10 == 0)
++				dev_warn(chip->dev, "wait_count %u, loop_count %u\n", wait_count, loop_count);
+ 			return 0;
++		}
+ 
+ 		if (i < 2)
+ 			cpu_relax();
+diff --git a/drivers/net/phy/mdio_bus.c b/drivers/net/phy/mdio_bus.c
+index 5b2f48c09a..19fde21cae 100644
+--- a/drivers/net/phy/mdio_bus.c
++++ b/drivers/net/phy/mdio_bus.c
+@@ -569,6 +569,7 @@ static int mdiobus_scan_bus_c22(struct mii_bus *bus)
+ {
+ 	int i;
+ 
++	dev_warn(&bus->dev, "*** mdiobus_scan_bus_c22 call ***\n");
+ 	for (i = 0; i < PHY_MAX_ADDR; i++) {
+ 		if ((bus->phy_mask & BIT(i)) == 0) {
+ 			struct phy_device *phydev;
+@@ -578,6 +579,7 @@ static int mdiobus_scan_bus_c22(struct mii_bus *bus)
+ 				return PTR_ERR(phydev);
+ 		}
+ 	}
++	dev_warn(&bus->dev, "*** mdiobus_scan_bus_c22 return ***\n");
+ 	return 0;
+ }
+ 
+@@ -585,6 +587,7 @@ static int mdiobus_scan_bus_c45(struct mii_bus *bus)
+ {
+ 	int i;
+ 
++	dev_warn(&bus->dev, "*** mdiobus_scan_bus_c45 call ***\n");
+ 	for (i = 0; i < PHY_MAX_ADDR; i++) {
+ 		if ((bus->phy_mask & BIT(i)) == 0) {
+ 			struct phy_device *phydev;
+@@ -598,6 +601,7 @@ static int mdiobus_scan_bus_c45(struct mii_bus *bus)
+ 				return PTR_ERR(phydev);
+ 		}
+ 	}
++	dev_warn(&bus->dev, "*** mdiobus_scan_bus_c45 return ***\n");
+ 	return 0;
+ }
+ 
+
+
+And here the trimmed results from boot @ 1a136ca2e0, plus debug code.
+
+It's not only the looping during the mv88e6xxx_wait_mask calls, but
+also the sheer amount of mv88e6xxx_wait_mask calls during the c45 scans.
+(c22: ~0.1 sec & ~150 calls, c45: 2.3-2.5 sec & ~4800 calls)
+
+
+[    0.195215] mdio_bus fixed-0: *** mdiobus_scan_bus_c22 call ***
+[    0.195221] mdio_bus fixed-0: *** mdiobus_scan_bus_c22 return ***
+[    0.195617] mdio_bus f1072004.mdio-mii: *** mdiobus_scan_bus_c22 call ***
+[    0.195623] mdio_bus f1072004.mdio-mii: *** mdiobus_scan_bus_c22 return ***
+[    0.202583] mv88e6085 f1072004.mdio-mii:10: switch 0x1760 detected: Marvell 88E6176, revision 1
+[    0.212708] mdio_bus mv88e6xxx-0: *** mdiobus_scan_bus_c22 call ***
+[    0.222200] mv88e6085 f1072004.mdio-mii:10: wait_count 10, loop_count 3
+........
+[    0.315724] mv88e6085 f1072004.mdio-mii:10: wait_count 150, loop_count 76
+[    0.315908] mdio_bus mv88e6xxx-0: *** mdiobus_scan_bus_c22 return ***
+[    0.315913] mdio_bus mv88e6xxx-0: *** mdiobus_scan_bus_c45 call ***
+[    0.321095] mv88e6085 f1072004.mdio-mii:10: wait_count 160, loop_count 83
+........
+[    2.610380] mv88e6085 f1072004.mdio-mii:10: wait_count 4980, loop_count 1571
+[    2.613258] mdio_bus mv88e6xxx-0: *** mdiobus_scan_bus_c45 return ***
+[    2.755785] mv88e6085 f1072004.mdio-mii:10: switch 0x1760 detected: Marvell 88E6176, revision 1
+[    2.766047] mdio_bus mv88e6xxx-1: *** mdiobus_scan_bus_c22 call ***
+[    2.766960] mv88e6085 f1072004.mdio-mii:10: wait_count 4990, loop_count 1574
+........
+[    2.867107] mv88e6085 f1072004.mdio-mii:10: wait_count 5130, loop_count 1645
+[    2.869938] mdio_bus mv88e6xxx-1: *** mdiobus_scan_bus_c22 return ***
+[    2.869943] mdio_bus mv88e6xxx-1: *** mdiobus_scan_bus_c45 call ***
+[    2.871556] mv88e6085 f1072004.mdio-mii:10: wait_count 5140, loop_count 1649
+........
+[    5.371710] mv88e6085 f1072004.mdio-mii:10: wait_count 9970, loop_count 4282
+[    5.373332] mdio_bus mv88e6xxx-1: *** mdiobus_scan_bus_c45 return ***
+
+
+
+
+Best regards, Klaus
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
