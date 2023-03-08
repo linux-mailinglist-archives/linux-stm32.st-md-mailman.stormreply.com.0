@@ -2,90 +2,165 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 007346B1119
-	for <lists+linux-stm32@lfdr.de>; Wed,  8 Mar 2023 19:34:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D3F796B123C
+	for <lists+linux-stm32@lfdr.de>; Wed,  8 Mar 2023 20:44:02 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B76F2C6A5EB;
-	Wed,  8 Mar 2023 18:34:44 +0000 (UTC)
-Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com
- [209.85.208.51])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5D15AC6A5EB;
+	Wed,  8 Mar 2023 19:44:02 +0000 (UTC)
+Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com
+ [205.220.165.32])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BB9CAC6907D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DEC99C6907B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  8 Mar 2023 18:34:42 +0000 (UTC)
-Received: by mail-ed1-f51.google.com with SMTP id k10so45591366edk.13
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 08 Mar 2023 10:34:42 -0800 (PST)
+ Wed,  8 Mar 2023 19:43:59 +0000 (UTC)
+Received: from pps.filterd (m0246629.ppops.net [127.0.0.1])
+ by mx0b-00069f02.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 328HibjQ022874; Wed, 8 Mar 2023 19:43:47 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+ h=from : to : cc :
+ subject : date : message-id : in-reply-to : references :
+ content-transfer-encoding : content-type : mime-version; s=corp-2022-7-12;
+ bh=O0INB61mcO7lM8+ur+wboNoKYzpmUybq4SQvP3uhmJ0=;
+ b=PgEXCmKB9eSjYXL3tXdBVCAEzVVwhWO4Nk+jup3O0ByeoX7jwIHN25vmecS4G2dlbU4s
+ I4teHA/yqfPE1yLBb+haCfK+SkMMD1feWfjcxcIJH7i+6eaSzCjq00LlyE9ahIVqtFVi
+ yTBzHYp0rguYOGCIG0eqHjkTHJ7XH5Sv+K2wimJnWxv1d+zPQfhgGPHgb4rzr58mC7UO
+ 1oM2HXzGFARSmCoqoh7oAQ15/iYcUKKZ/dqYVMxPqrd8VvEbY4K00hd+iBoZ50QPLnL9
+ +MxaRd08EleYztAZ2PHXtZlLODokPmESUTTHfp6iUKBKm8H2O2LquDIiTVaXMmiKDMT8 aA== 
+Received: from phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com
+ (phxpaimrmta01.appoci.oracle.com [138.1.114.2])
+ by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 3p41620y8u-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Wed, 08 Mar 2023 19:43:46 +0000
+Received: from pps.filterd
+ (phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com [127.0.0.1])
+ by phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com (8.17.1.5/8.17.1.5)
+ with ESMTP id 328JRWiP015511; Wed, 8 Mar 2023 19:43:44 GMT
+Received: from nam11-co1-obe.outbound.protection.outlook.com
+ (mail-co1nam11lp2169.outbound.protection.outlook.com [104.47.56.169])
+ by phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com (PPS) with ESMTPS id
+ 3p6femr8tb-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Wed, 08 Mar 2023 19:43:44 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=k9GmZYK5FfaicNDUuuVkCmAf4mFUAlRNpqwqa0+eSzGOaYchjPt3IY0o/mqUpAIl8wE/Bko1JGM+Q2ghA8e+W1RDkJUZny5c8ib5apfCti9eQF3RjbWGSdo7vhAqVcaXZ/PLzNUzjycnT1j4rDAE/YACFVEppIZEUe9eVDUf0c4Zm+peFZYWcBbspKDRLiu2wBkk20jit4+3jQ8ASrBbGRHOZQzaP7uh6wFqvHX47SFrS+cPwuKb0iaEcj5InwN7TewVqr8r+NkfahAIoRHBFWs+23H6ltA+idrU1dVXNMfdq+WW0BVCNomFyskGD41hlcmOYT3UyH84GwRCAmSv6A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=O0INB61mcO7lM8+ur+wboNoKYzpmUybq4SQvP3uhmJ0=;
+ b=V/sDqrYQgF6kvTlPuu9tOMzgFIu/H3l7MFQ9tKj5GwUu1eHPWfrGQrWyqfFgcFrUNSiJm7ivPX0FZXkc7z5BvlxdvOu3789VrGot+9SrUVEcbeXoSktVkDAIb00TfEs2ynFAKSJVfSMABbaDbtoiDRwr2x6RLUHQz/YXwmtTMWaTOm0SvqZ3F8h62hrAS9OW75QV04454Vw9KDe52qs50xXamdIVU+YYqyo/UpYqQUJHf1MtJe60GijOVy4Gad+49oJj0Vt2uHCXuQHjgBSumStC/v5TX+PyU1vWsidDn91PAqttud6i1TAgUzA+PIh2cLDPs8YfwSzeT75bwXqXyA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
+ dkim=pass header.d=oracle.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20210112; t=1678300482;
- h=mime-version:user-agent:content-transfer-encoding:references
- :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
- :date:message-id:reply-to;
- bh=VtUE/7DBohqNr7IJ3h/RgLd1gCpyEJMqeBsb1dHhiiw=;
- b=fHmNlpoMEszeE15zSWXKhmvAq0EDBulLvVk7HYWuPhBWDAN3TUjmkcrisqicYJ3bW/
- 20+ijoy3Y/FQhe5M69QbmFhsZihZK7M8h3X6+HDqYB3hqjql8woeHenCG4MUgzzC8A3g
- ejqZNbW1gsV1Gfwit4wm46QaHrrj9hda+JuGS9nqE2CDZIMy6mO5ocOA00kalBh3HmTI
- oLceEemLvRTcQXfAbwysUE0hFZ+sJcvXGxLNk1KkV3kQjTmky04YODCLVdAZiZUGM84K
- kxxvEnQHVsNLf79Po4HmwGO3h5IjsYrZf3L2tNMVKHJ68/DMP2MRkmOny8WjTZ/N8W8H
- Ub9Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1678300482;
- h=mime-version:user-agent:content-transfer-encoding:references
- :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=VtUE/7DBohqNr7IJ3h/RgLd1gCpyEJMqeBsb1dHhiiw=;
- b=jkUCmRK67Qj2B2al5i7UV1Dj8PoK8ibXvbDB4BhD9m6Ung69FyY3QJ3+fNNRqNonrd
- P5wAnip4dh9a4xSWT/EdZrwjip/Q+0hltLLdz+b4G3480IYqKrxa5iuFRk2oKwJnufmz
- 8IoKroJRashUtXLjSEO/KkyDbqUhjuj9hL9JKVictQak2MwziZ6qAQrGhNS0RSQ9AMHX
- 4+IuYGGm40O3GzRQtrC1dzgm2WT3Y4gqV8tHrzqquR3iaFe8+6p82bjTD2c/gkZRk865
- 4dKG22O3QXojy1+6cPpmjU0QRGAhN1HUQDf/pIbZesqMcEe0rn49jilTJ/+LKLPbi8Ep
- B3sg==
-X-Gm-Message-State: AO0yUKW+QeBwrxNlYjvoGkaYrsp1EV5g8PaEbrZqhIrZbbylrinar24j
- 24vWLVQo7VWiQH+IoSXBjoM=
-X-Google-Smtp-Source: AK7set+NcA0sgdg4llwz3yGkNz7kStT6sPz/Ru82tgxk1Zl88I1GbZ2ntBhg9IwWQghzRUFE1LELOQ==
-X-Received: by 2002:a05:6402:5154:b0:4bd:6b93:1289 with SMTP id
- n20-20020a056402515400b004bd6b931289mr17146099edd.15.1678300482112; 
- Wed, 08 Mar 2023 10:34:42 -0800 (PST)
-Received: from ?IPv6:2a02:168:6806:0:3ab6:1404:fd5c:80ff?
- ([2a02:168:6806:0:3ab6:1404:fd5c:80ff])
- by smtp.gmail.com with ESMTPSA id
- q18-20020a170906771200b008cc920469b5sm7922081ejm.18.2023.03.08.10.34.41
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 08 Mar 2023 10:34:41 -0800 (PST)
-Message-ID: <09d65e1ee0679e1e74b4f3a5a4c55bd48332f043.camel@gmail.com>
-From: Klaus Kudielka <klaus.kudielka@gmail.com>
-To: Andrew Lunn <andrew@lunn.ch>
-Date: Wed, 08 Mar 2023 19:34:40 +0100
-In-Reply-To: <72530e86-9ba9-4a01-9cd2-68835ecae7a0@lunn.ch>
-References: <20230116-net-next-remove-probe-capabilities-v2-0-15513b05e1f4@walle.cc>
- <20230116-net-next-remove-probe-capabilities-v2-4-15513b05e1f4@walle.cc>
- <449bde236c08d5ab5e54abd73b645d8b29955894.camel@gmail.com>
- <100c439a-2a4d-4cb2-96f2-5bf273e2121a@lunn.ch>
- <712bc92ca6d576f33f63f1e9c2edf0030b10d3ae.camel@gmail.com>
- <db6b8a09-b680-4baa-8963-d355ad29eb09@lunn.ch>
- <0e10aa8492eadb587949d8744b56fccaabbd183b.camel@gmail.com>
- <72530e86-9ba9-4a01-9cd2-68835ecae7a0@lunn.ch>
-User-Agent: Evolution 3.46.4-1 
+ d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=O0INB61mcO7lM8+ur+wboNoKYzpmUybq4SQvP3uhmJ0=;
+ b=RcLdS8WM1Iza62TVWcckVrnulysXcIwxbVeq/WG0jG1Iz5FQy0EEyt/OnegUbZdwoodohX8eXCdY/o0rTvBQQfd/BWSsTOiZbKjGHOi95stDFdEAY9jU4cYyeCMfarmV5qKBlaWjPFa/fUNJCYZPy11ac/4vvqlrbiXLkeGgOVY=
+Received: from DS0PR10MB6798.namprd10.prod.outlook.com (2603:10b6:8:13c::20)
+ by PH7PR10MB7035.namprd10.prod.outlook.com (2603:10b6:510:275::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6156.29; Wed, 8 Mar
+ 2023 19:43:43 +0000
+Received: from DS0PR10MB6798.namprd10.prod.outlook.com
+ ([fe80::d0f7:e4fd:bd4:b760]) by DS0PR10MB6798.namprd10.prod.outlook.com
+ ([fe80::d0f7:e4fd:bd4:b760%4]) with mapi id 15.20.6156.027; Wed, 8 Mar 2023
+ 19:43:43 +0000
+From: Nick Alcock <nick.alcock@oracle.com>
+To: lee@kernel.org
+Date: Wed,  8 Mar 2023 19:42:56 +0000
+Message-Id: <20230308194307.374789-7-nick.alcock@oracle.com>
+X-Mailer: git-send-email 2.39.1.268.g9de2f9a303
+In-Reply-To: <20230308194307.374789-1-nick.alcock@oracle.com>
+References: <20230308194307.374789-1-nick.alcock@oracle.com>
+X-ClientProxiedBy: LO4P265CA0051.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:2ac::13) To DS0PR10MB6798.namprd10.prod.outlook.com
+ (2603:10b6:8:13c::20)
 MIME-Version: 1.0
-Cc: linux-aspeed@lists.ozlabs.org,
- Jesse Brandeburg <jesse.brandeburg@intel.com>,
- Eric Dumazet <edumazet@google.com>, linux-stm32@st-md-mailman.stormreply.com,
- Russell King <linux@armlinux.org.uk>, Jose Abreu <joabreu@synopsys.com>,
- Joel Stanley <joel@jms.id.au>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Lorenzo Bianconi <lorenzo@kernel.org>,
- Mark Lee <Mark-MC.Lee@mediatek.com>, Sean Wang <sean.wang@mediatek.com>,
- linux-mediatek@lists.infradead.org, John Crispin <john@phrozen.org>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- linux-arm-kernel@lists.infradead.org, Andrew Jeffery <andrew@aj.id.au>,
- Bryan Whitehead <bryan.whitehead@microchip.com>, linux-kernel@vger.kernel.org,
- UNGLinuxDriver@microchip.com, Michael Walle <michael@walle.cc>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
- Heiner Kallweit <hkallweit1@gmail.com>, "David S.
- Miller" <davem@davemloft.net>, Felix Fietkau <nbd@nbd.name>
-Subject: Re: [Linux-stm32] [PATCH net-next v2 4/6] net: mdio: scan bus based
- on bus capabilities for C22 and C45
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR10MB6798:EE_|PH7PR10MB7035:EE_
+X-MS-Office365-Filtering-Correlation-Id: cca60431-ba88-4deb-2c43-08db200d6c61
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: s7WtI5Wfx1I3BuFtc5aGyeZZhvDQR/qlg078jLV+m4sjKR95IUAvYpO3HYZnPfbpyVU5dViH2W8ajhQz1g1/OQ05hFAKG3/5kND6Ruyzi76ALV4nfBqePoXOk1HuKctbZxIX1PFMrB5eA5IpjyZ/FqlyhU8uZVmlS7pIFAyMGbn6V+gRPKUxyP2FIOVa2S+Bm+4+61+nuyKfkKLzr5NYprKAxN2oyp5MFRb4zJKzOCc5TA4hKqHWwXYCttrZmUeN62HnRJIEd13/NuMv11oarfZ7L1h0gWew6NzGA6kVmEfgaD9VCjOR2ogWyfomGSSBtjwdO7jO/XsK//1KQOFuIc03+9SiN2UTIz6dBBEZ5mO6GgOW00n5zEyE04tZbdasb66z9y+FqzwnTP0/zOc2K9UdJnNBlmXgJQ5lzr53wsWdVVxrMBq2uy12vdn/XBlGiiVnRNEvm165iapSRU56Q9NYZApFvKr8UwgKtcVAoIZ2j27zNGwReGh9o+Gix/0oNEPJPhWwEF0uMYMmZsww7e8ej1PyRxc5FVj+YzyE8r8GDmq3eDoLFKCZ61cV+U9bcSyym258GdcpRskdEa9doeRnSdUH6CCzDgbwRIqcWXo/Ffoekam2kU6Na1kn6tAfDOU8cUIKHV/EqFbLWWkJ5A==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS0PR10MB6798.namprd10.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230025)(346002)(39860400002)(366004)(376002)(136003)(396003)(451199018)(5660300002)(44832011)(38100700002)(86362001)(8936002)(6916009)(36756003)(4326008)(8676002)(41300700001)(2906002)(66476007)(1076003)(6666004)(2616005)(6512007)(6506007)(186003)(83380400001)(316002)(478600001)(54906003)(66946007)(66556008)(6486002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?g7zxdJsJyVUk0nFPrBboUGxvO12/8MmmfWNCtmAP8ccF1fFFNI7wjox4AWS9?=
+ =?us-ascii?Q?FVXyzNp+Q1Nheev267ATZ0pVu0fcp4Ii5olw2tg6Z5jyDE0GYnGE0hN8ELKL?=
+ =?us-ascii?Q?BZdmtT0r1KWthg01YySKV2HeZdVHRX2AF7V3Sa4xnloviYaNP5/Lr32EnmJZ?=
+ =?us-ascii?Q?femZh3BsKbMhBdWpMIuBHr2mnjjzVd3n7eWuxzIwx7VZVdQcUeT3QzabiNRb?=
+ =?us-ascii?Q?Gfc0wGmkwuAPhWnXnWZgVAyfx8V/j8alNmazE8j1ZKvyQelqVrHPqDVJ4JrF?=
+ =?us-ascii?Q?CDGcVub6qFrF4YJQ+c7eTGEtV9Lr42zE36YbHFMBpjB3hSWFmchNqL1mj1S5?=
+ =?us-ascii?Q?VYvgeXb3o1s6zDu1RNtVpk1cC2OKhz1181zwnQi/B3BWGU5JVn0xUAlSwg28?=
+ =?us-ascii?Q?jjK5Yw3eI48ATt1dWZOxRXVPdf6J3UQTH7KNtNK9ai2WjFWUVjmMZNbN6+rH?=
+ =?us-ascii?Q?MTGHH6XPGtJxFwUIJYGHYe7jAUNS66z5bHAg8mYqftxHc4ULGneV61XGdWCL?=
+ =?us-ascii?Q?pt38TMBASnzEbDSSAhyg4mPuR/yGNQ0t2AY3enF8C6Ro6MgXMqrrNx4QedyH?=
+ =?us-ascii?Q?In85DBoBsV5tIoFq6EkUCzsvABtefaYG12Uqv/E2Xfwmr4bJva0r8WqTwabk?=
+ =?us-ascii?Q?JbzgldNbH71PMQWqnDZKdiYaBHikpfYtXvb0RVFdhTttEVFBZ+6lCFJc0L55?=
+ =?us-ascii?Q?dHAoT3SZ0pznf5/JotbgsKedfgWONK9dvY3ksymrGPr/UfkilCY3zrP8OygV?=
+ =?us-ascii?Q?6zodlK90aUwzOhtic57/69D3wcuAFVg0o0E87n4sNzAzlySsqDUYgVRI77ZS?=
+ =?us-ascii?Q?LOLwBTSLUX651ddgQhLtrUJb0agbk9rlzpGV/46z+od0t4cfqVRA2ewqMyW2?=
+ =?us-ascii?Q?IwYRHvXVTxnVel667UfVq4pTxtIl8bU1pS6TUyOsaoJxlCey0qr9yyT9aISS?=
+ =?us-ascii?Q?WWALsug2CDImt1RqfqAchTtFMGt+Xt8Uek059n+tGvAANNYLRYT0K9sIk2QR?=
+ =?us-ascii?Q?dFNYDoqfxiOV/M+mGDzKjXCWEf1c5ObmywqnFkZswi3W+tsxeZbuCmkedOtf?=
+ =?us-ascii?Q?4WZlLTG1+NdafjAVYNYlsduixW1uqMVTWVkJ5xncdSNUpvgMXPdNhVcfiyf4?=
+ =?us-ascii?Q?oq08Sz4zA+vbKfcNSf64w8vlUlllCFd0pNz0tU5NGYXcbrHnOTo0HW9yPGx/?=
+ =?us-ascii?Q?tCytS7hXyYsGe+RRyliFFgkGD+qg6c1JiJZJsNstC4sxsobpE3n9zdB5abxv?=
+ =?us-ascii?Q?XOpmQSwpncNacVsLvYsQGZjQhhPfpqT1Y06xR47CgYiDUO+SwTUCf9sMh+Fq?=
+ =?us-ascii?Q?qiJVhSKuxBiwRGMlpNaFJh2w8kcso42v13XOiIbbdNQxQIaoLTd/AoYDcHBS?=
+ =?us-ascii?Q?5OsUPRH/4kpPF3/u9WQJHO08Zd83klgMwkXGbJOwaR9LxNSAc+5bkGJyabkF?=
+ =?us-ascii?Q?ylwjnCy5rcuj7jHAXCvYqG25NflQb4ZQjHQ8AOGaf51NiySKkbhiOu0Kq5DH?=
+ =?us-ascii?Q?LiR1x1pYevcdJsuAiqeEpXr2ffCXfqqkYf3g9mHIJ3j/vRu9wk6fesvJwaQE?=
+ =?us-ascii?Q?Ir+dkvlwN3+X4B1B2tnOOl+DL66sQXydOTvVVQYyeHd2UHkH3/vKk/z+nbbV?=
+ =?us-ascii?Q?zxcNODeHlC69oiAZ9nUUA3U=3D?=
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0: =?us-ascii?Q?Ub/Kmmj2K8OzM/tCa16IuXwj8YJglNWv01SCvK211Hr+2rYUdI5vrfsevmCJ?=
+ =?us-ascii?Q?GfQaSaaKM7Re4CzkvrtZ9mRumqhZAFv+RkOplxQ7IeCTVOMRwRHi/XNXLQvQ?=
+ =?us-ascii?Q?mFMKfpI6dZoun66a73hNcE6rUmitZKVpb3PVm9ZDpbF1MMtk/aVKG8D7d54d?=
+ =?us-ascii?Q?Sq5kGtKD8xp55Vj8ElICeUjmoJKOc3Uw84E17sUaiByNRfgHCN1Y32bl2ic+?=
+ =?us-ascii?Q?bKZhAJB3ujsRwifwlNxZ/K/+Z0SnDuq+X1juNHyhstgyncPzFxi+bWCh6lHT?=
+ =?us-ascii?Q?4ykH2oq3PG9FBL1Aw/BUVt6FQktYQh/AXqS/1XSYWqg77YZbuHafmsmfz/Pz?=
+ =?us-ascii?Q?lzoGfULOlmccaww7uSTzgHcSK/bDdf1xMq+YsvdQYkzMoYuyuVio1Z0o1l37?=
+ =?us-ascii?Q?9gsl49LptEP+/Jexv87zH+8ve+fpYFlk8+s24q2j/9NjgA61tV/5zX9IUMz6?=
+ =?us-ascii?Q?Ls6lh+IWafxIgRk0KhKN4uJdgRUGO/EkP/Yb+d7X/zkWyvWSvJJmJCooF6Bj?=
+ =?us-ascii?Q?nsYI/BTAdy07g4GjFbda2rujCKU4LyAytr+NILy67bKhSAyQjXAeCY9Gf0tL?=
+ =?us-ascii?Q?z9GgLy/jg93wvR+ubl4zUMToq3/MR23muIW8/vyCNm8r6gWjeD7W6BojfjNv?=
+ =?us-ascii?Q?ObU1GN/b1UrCpfr2pFuuyQ9jyLlDbfOpmwWm07KSN1Gkh0NagKaA6MFcLpy9?=
+ =?us-ascii?Q?CauGVcFMNASiXcfxIpJSYI4GLNwAngy4WKwZcR1M/INqnBcffUDM2zkhcvh9?=
+ =?us-ascii?Q?2DqspuQXf3xcnN6we8OYdS03MRVjP2x6xfXoY7W2c3Emw/x1zE08QQpsK9fu?=
+ =?us-ascii?Q?1386spVk047nFMVN/Zz1YsdhbBhIGNdvXwM6ERcuTQ0gQ9L3I+qh1wTTACsg?=
+ =?us-ascii?Q?43CwG+85T2+s9M4pu/YhzcUeOGquDqz5jXT7Ndtv4StPZY6n8Z0L8LqCH+Yc?=
+ =?us-ascii?Q?4BPAS25mi5OmkKQH8q8tk4e2MLLdhVLjQfkkPP6RiGM=3D?=
+X-OriginatorOrg: oracle.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: cca60431-ba88-4deb-2c43-08db200d6c61
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR10MB6798.namprd10.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Mar 2023 19:43:42.8966 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: EOPxjLZCoMMCJEPx6GyKS/PgM140yvKnN6OxqK4s1DnzGAYqQkKyJHPevPOuItBBc3ikUyaAS93kgxlPtk/c/Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR10MB7035
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.254,Aquarius:18.0.942,Hydra:6.0.573,FMLib:17.11.170.22
+ definitions=2023-03-08_14,2023-03-08_03,2023-02-09_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 phishscore=0
+ spamscore=0 bulkscore=0
+ mlxlogscore=999 suspectscore=0 malwarescore=0 mlxscore=0 adultscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2212070000
+ definitions=main-2303080166
+X-Proofpoint-GUID: qc3DPJEGLuaryd8iweXmeRvFKIHvOtU3
+X-Proofpoint-ORIG-GUID: qc3DPJEGLuaryd8iweXmeRvFKIHvOtU3
+Cc: linux-kernel@vger.kernel.org, Luis Chamberlain <mcgrof@kernel.org>,
+ linux-arm-kernel@lists.infradead.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-modules@vger.kernel.org
+Subject: [Linux-stm32] [PATCH 07/18] mfd: stmpe-i2c: remove MODULE_LICENSE
+	in non-modules
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,131 +177,44 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, 2023-03-07 at 21:35 +0100, Andrew Lunn wrote:
-> > Summary: Still 4 calls to mdio_bus_scan_c22, but also *2* calls to mdio_bus_scan_c45, approx. 190*100 reads by the switch driver
-> 
-> Those calls to mdio_bus_scan_c45 are caused by 743a19e38d02 net: dsa:
-> mv88e6xxx: Separate C22 and C45 transactions.
+Since commit 8b41fc4454e ("kbuild: create modules.builtin without
+Makefile.modbuiltin or tristate.conf"), MODULE_LICENSE declarations
+are used to identify modules. As a consequence, uses of the macro
+in non-modules will cause modprobe to misidentify their containing
+object file as a module when it is not (false positives), and modprobe
+might succeed rather than failing with a suitable error message.
 
-Well, yes and no. I understand orion mdio is MDIOBUS_NO_CAP
-and therefore the c45 scan is *not* called until 1a136ca2e0
-net: mdio: scan bus based on bus capabilities for C22 and C45.
-Which is the behaviour I see.
-(I needed a close look at the conditions in the if statements
-that were removed then)
+So remove it in the files in this commit, none of which can be built as
+modules.
 
+Signed-off-by: Nick Alcock <nick.alcock@oracle.com>
+Suggested-by: Luis Chamberlain <mcgrof@kernel.org>
+Cc: Luis Chamberlain <mcgrof@kernel.org>
+Cc: linux-modules@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: Lee Jones <lee@kernel.org>
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
+Cc: linux-stm32@st-md-mailman.stormreply.com
+Cc: linux-arm-kernel@lists.infradead.org
+---
+ drivers/mfd/stmpe-i2c.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-> The only part of a c45 scan which is not linear is
-> mv88e6xxx_g2_smi_phy_wait() which is implemented by
-> mv88e6xxx_wait_mask(). That loops reading a register waiting for a bit
-> to change. Maybe print out the value of i, and see if it is looping
-> more times for C45 than C22?
-
-Here the debug code
-
-diff --git a/drivers/net/dsa/mv88e6xxx/chip.c b/drivers/net/dsa/mv88e6xxx/chip.c
-index 0a5d6c7bb1..23816cad41 100644
---- a/drivers/net/dsa/mv88e6xxx/chip.c
-+++ b/drivers/net/dsa/mv88e6xxx/chip.c
-@@ -90,6 +90,7 @@ int mv88e6xxx_wait_mask(struct mv88e6xxx_chip *chip, int addr, int reg,
- 	u16 data;
- 	int err;
- 	int i;
-+	static unsigned wait_count = 0, loop_count = 0;
- 
- 	/* There's no bus specific operation to wait for a mask. Even
- 	 * if the initial poll takes longer than 50ms, always do at
-@@ -100,8 +101,13 @@ int mv88e6xxx_wait_mask(struct mv88e6xxx_chip *chip, int addr, int reg,
- 		if (err)
- 			return err;
- 
--		if ((data & mask) == val)
-+		if ((data & mask) == val) {
-+			wait_count++;
-+			loop_count += i;
-+			if (wait_count % 10 == 0)
-+				dev_warn(chip->dev, "wait_count %u, loop_count %u\n", wait_count, loop_count);
- 			return 0;
-+		}
- 
- 		if (i < 2)
- 			cpu_relax();
-diff --git a/drivers/net/phy/mdio_bus.c b/drivers/net/phy/mdio_bus.c
-index 5b2f48c09a..19fde21cae 100644
---- a/drivers/net/phy/mdio_bus.c
-+++ b/drivers/net/phy/mdio_bus.c
-@@ -569,6 +569,7 @@ static int mdiobus_scan_bus_c22(struct mii_bus *bus)
- {
- 	int i;
- 
-+	dev_warn(&bus->dev, "*** mdiobus_scan_bus_c22 call ***\n");
- 	for (i = 0; i < PHY_MAX_ADDR; i++) {
- 		if ((bus->phy_mask & BIT(i)) == 0) {
- 			struct phy_device *phydev;
-@@ -578,6 +579,7 @@ static int mdiobus_scan_bus_c22(struct mii_bus *bus)
- 				return PTR_ERR(phydev);
- 		}
- 	}
-+	dev_warn(&bus->dev, "*** mdiobus_scan_bus_c22 return ***\n");
- 	return 0;
+diff --git a/drivers/mfd/stmpe-i2c.c b/drivers/mfd/stmpe-i2c.c
+index d4944fc1feb18..7998e0db1e158 100644
+--- a/drivers/mfd/stmpe-i2c.c
++++ b/drivers/mfd/stmpe-i2c.c
+@@ -135,6 +135,5 @@ static void __exit stmpe_exit(void)
  }
+ module_exit(stmpe_exit);
  
-@@ -585,6 +587,7 @@ static int mdiobus_scan_bus_c45(struct mii_bus *bus)
- {
- 	int i;
- 
-+	dev_warn(&bus->dev, "*** mdiobus_scan_bus_c45 call ***\n");
- 	for (i = 0; i < PHY_MAX_ADDR; i++) {
- 		if ((bus->phy_mask & BIT(i)) == 0) {
- 			struct phy_device *phydev;
-@@ -598,6 +601,7 @@ static int mdiobus_scan_bus_c45(struct mii_bus *bus)
- 				return PTR_ERR(phydev);
- 		}
- 	}
-+	dev_warn(&bus->dev, "*** mdiobus_scan_bus_c45 return ***\n");
- 	return 0;
- }
- 
+-MODULE_LICENSE("GPL v2");
+ MODULE_DESCRIPTION("STMPE MFD I2C Interface Driver");
+ MODULE_AUTHOR("Rabin Vincent <rabin.vincent@stericsson.com>");
+-- 
+2.39.1.268.g9de2f9a303
 
-
-And here the trimmed results from boot @ 1a136ca2e0, plus debug code.
-
-It's not only the looping during the mv88e6xxx_wait_mask calls, but
-also the sheer amount of mv88e6xxx_wait_mask calls during the c45 scans.
-(c22: ~0.1 sec & ~150 calls, c45: 2.3-2.5 sec & ~4800 calls)
-
-
-[    0.195215] mdio_bus fixed-0: *** mdiobus_scan_bus_c22 call ***
-[    0.195221] mdio_bus fixed-0: *** mdiobus_scan_bus_c22 return ***
-[    0.195617] mdio_bus f1072004.mdio-mii: *** mdiobus_scan_bus_c22 call ***
-[    0.195623] mdio_bus f1072004.mdio-mii: *** mdiobus_scan_bus_c22 return ***
-[    0.202583] mv88e6085 f1072004.mdio-mii:10: switch 0x1760 detected: Marvell 88E6176, revision 1
-[    0.212708] mdio_bus mv88e6xxx-0: *** mdiobus_scan_bus_c22 call ***
-[    0.222200] mv88e6085 f1072004.mdio-mii:10: wait_count 10, loop_count 3
-........
-[    0.315724] mv88e6085 f1072004.mdio-mii:10: wait_count 150, loop_count 76
-[    0.315908] mdio_bus mv88e6xxx-0: *** mdiobus_scan_bus_c22 return ***
-[    0.315913] mdio_bus mv88e6xxx-0: *** mdiobus_scan_bus_c45 call ***
-[    0.321095] mv88e6085 f1072004.mdio-mii:10: wait_count 160, loop_count 83
-........
-[    2.610380] mv88e6085 f1072004.mdio-mii:10: wait_count 4980, loop_count 1571
-[    2.613258] mdio_bus mv88e6xxx-0: *** mdiobus_scan_bus_c45 return ***
-[    2.755785] mv88e6085 f1072004.mdio-mii:10: switch 0x1760 detected: Marvell 88E6176, revision 1
-[    2.766047] mdio_bus mv88e6xxx-1: *** mdiobus_scan_bus_c22 call ***
-[    2.766960] mv88e6085 f1072004.mdio-mii:10: wait_count 4990, loop_count 1574
-........
-[    2.867107] mv88e6085 f1072004.mdio-mii:10: wait_count 5130, loop_count 1645
-[    2.869938] mdio_bus mv88e6xxx-1: *** mdiobus_scan_bus_c22 return ***
-[    2.869943] mdio_bus mv88e6xxx-1: *** mdiobus_scan_bus_c45 call ***
-[    2.871556] mv88e6085 f1072004.mdio-mii:10: wait_count 5140, loop_count 1649
-........
-[    5.371710] mv88e6085 f1072004.mdio-mii:10: wait_count 9970, loop_count 4282
-[    5.373332] mdio_bus mv88e6xxx-1: *** mdiobus_scan_bus_c45 return ***
-
-
-
-
-Best regards, Klaus
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
