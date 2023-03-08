@@ -2,29 +2,31 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7A8426B0049
+	by mail.lfdr.de (Postfix) with ESMTPS id 59EE66B0048
 	for <lists+linux-stm32@lfdr.de>; Wed,  8 Mar 2023 08:55:58 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DF28AC69067;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 000E4C6907D;
 	Wed,  8 Mar 2023 07:55:57 +0000 (UTC)
 Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
  [85.220.165.71])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1265EC035BC
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 29D45C65E42
  for <linux-stm32@st-md-mailman.stormreply.com>;
  Wed,  8 Mar 2023 07:55:57 +0000 (UTC)
 Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77]
  helo=pengutronix.de)
  by metis.ext.pengutronix.de with esmtp (Exim 4.92)
  (envelope-from <s.trumtrar@pengutronix.de>)
- id 1pZoeR-0001n3-0G; Wed, 08 Mar 2023 08:55:55 +0100
+ id 1pZoeR-0001n3-G6; Wed, 08 Mar 2023 08:55:55 +0100
 From: Steffen Trumtrar <s.trumtrar@pengutronix.de>
 To: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>
-Date: Wed,  8 Mar 2023 08:55:23 +0100
-Message-Id: <20230308075532.672858-1-s.trumtrar@pengutronix.de>
+Date: Wed,  8 Mar 2023 08:55:24 +0100
+Message-Id: <20230308075532.672858-2-s.trumtrar@pengutronix.de>
 X-Mailer: git-send-email 2.39.1
+In-Reply-To: <20230308075532.672858-1-s.trumtrar@pengutronix.de>
+References: <20230308075532.672858-1-s.trumtrar@pengutronix.de>
 MIME-Version: 1.0
 X-SA-Exim-Connect-IP: 2a0a:edc0:0:900:1d::77
 X-SA-Exim-Mail-From: s.trumtrar@pengutronix.de
@@ -33,8 +35,8 @@ X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
 X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
 Cc: linux-stm32@st-md-mailman.stormreply.com,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
-Subject: [Linux-stm32] [PATCH v4 01/10] ARM: dts: stm32: Add alternate
-	pinmux for ethernet
+Subject: [Linux-stm32] [PATCH v4 02/10] ARM: dts: stm32: Add alternate
+	pinmux for sai2b
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -51,8 +53,7 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add another option for the ethernet0 pins.
-It is almost identical to ethernet0_rgmii_pins_c apart from TXD0/1.
+Add another option for the SAI2B pins.
 
 This is used on the Phycore STM32MP1.
 
@@ -62,70 +63,44 @@ Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
 Cc: linux-stm32@st-md-mailman.stormreply.com
 To: linux-arm-kernel@lists.infradead.org
 ---
- arch/arm/boot/dts/stm32mp15-pinctrl.dtsi | 50 ++++++++++++++++++++++++
- 1 file changed, 50 insertions(+)
+ arch/arm/boot/dts/stm32mp15-pinctrl.dtsi | 24 ++++++++++++++++++++++++
+ 1 file changed, 24 insertions(+)
 
 diff --git a/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi b/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
-index a9d2bec990141..1c97db4dbfc6d 100644
+index 1c97db4dbfc6d..0062f8ea17aab 100644
 --- a/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
 +++ b/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
-@@ -341,6 +341,56 @@ pins1 {
+@@ -1491,6 +1491,30 @@ pins {
  		};
  	};
  
-+	ethernet0_rgmii_pins_d: rgmii-3 {
++	sai2b_pins_d: sai2b-3 {
 +		pins1 {
-+			pinmux = <STM32_PINMUX('G', 5, AF11)>, /* ETH_RGMII_CLK125 */
-+				 <STM32_PINMUX('G', 13, AF11)>,	/* ETH_RGMII_TXD0 */
-+				 <STM32_PINMUX('G', 14, AF11)>,	/* ETH_RGMII_TXD1 */
-+				 <STM32_PINMUX('C', 2, AF11)>, /* ETH_RGMII_TXD2 */
-+				 <STM32_PINMUX('E', 2, AF11)>, /* ETH_RGMII_TXD3 */
-+				 <STM32_PINMUX('B', 11, AF11)>,	/* ETH_RGMII_TX_CTL */
-+				 <STM32_PINMUX('C', 1, AF11)>; /* ETH_MDC */
-+			bias-disable;
++			pinmux = <STM32_PINMUX('H', 2, AF10)>, /* SAI2_SCK_B */
++				 <STM32_PINMUX('C', 0, AF8)>, /* SAI2_FS_B */
++				 <STM32_PINMUX('H', 3, AF10)>; /* SAI2_MCLK_B */
++			slew-rate = <0>;
 +			drive-push-pull;
-+			slew-rate = <2>;
++			bias-disable;
 +		};
 +		pins2 {
-+			pinmux = <STM32_PINMUX('A', 2, AF11)>; /* ETH_MDIO */
-+			bias-disable;
-+			drive-push-pull;
-+			slew-rate = <0>;
-+		};
-+		pins3 {
-+			pinmux = <STM32_PINMUX('C', 4, AF11)>, /* ETH_RGMII_RXD0 */
-+				 <STM32_PINMUX('C', 5, AF11)>, /* ETH_RGMII_RXD1 */
-+				 <STM32_PINMUX('H', 6, AF11)>, /* ETH_RGMII_RXD2 */
-+				 <STM32_PINMUX('B', 1, AF11)>, /* ETH_RGMII_RXD3 */
-+				 <STM32_PINMUX('A', 1, AF11)>, /* ETH_RGMII_RX_CLK */
-+				 <STM32_PINMUX('A', 7, AF11)>; /* ETH_RGMII_RX_CTL */
++			pinmux = <STM32_PINMUX('F', 11, AF10)>; /* SAI2_SD_B */
 +			bias-disable;
 +		};
 +	};
 +
-+	ethernet0_rgmii_sleep_pins_d: rgmii-sleep-8 {
++	sai2b_sleep_pins_d: sai2b-sleep-3 {
 +		pins1 {
-+			pinmux = <STM32_PINMUX('G', 5, ANALOG)>, /* ETH_RGMII_CLK125 */
-+				 <STM32_PINMUX('G', 4, ANALOG)>, /* ETH_RGMII_GTX_CLK */
-+				 <STM32_PINMUX('G', 13, ANALOG)>, /* ETH_RGMII_TXD0 */
-+				 <STM32_PINMUX('G', 14, ANALOG)>, /* ETH_RGMII_TXD1 */
-+				 <STM32_PINMUX('C', 2, ANALOG)>, /* ETH_RGMII_TXD2 */
-+				 <STM32_PINMUX('E', 2, ANALOG)>, /* ETH_RGMII_TXD3 */
-+				 <STM32_PINMUX('B', 11, ANALOG)>, /* ETH_RGMII_TX_CTL */
-+				 <STM32_PINMUX('A', 2, ANALOG)>, /* ETH_MDIO */
-+				 <STM32_PINMUX('C', 1, ANALOG)>, /* ETH_MDC */
-+				 <STM32_PINMUX('C', 4, ANALOG)>, /* ETH_RGMII_RXD0 */
-+				 <STM32_PINMUX('C', 5, ANALOG)>, /* ETH_RGMII_RXD1 */
-+				 <STM32_PINMUX('H', 6, ANALOG)>, /* ETH_RGMII_RXD2 */
-+				 <STM32_PINMUX('B', 1, ANALOG)>, /* ETH_RGMII_RXD3 */
-+				 <STM32_PINMUX('A', 1, ANALOG)>, /* ETH_RGMII_RX_CLK */
-+				 <STM32_PINMUX('A', 7, ANALOG)>; /* ETH_RGMII_RX_CTL */
++			pinmux = <STM32_PINMUX('H', 2, ANALOG)>, /* SAI2_SCK_B */
++				 <STM32_PINMUX('C', 0, ANALOG)>, /* SAI2_FS_B */
++				 <STM32_PINMUX('H', 3, ANALOG)>, /* SAI2_MCLK_B */
++				 <STM32_PINMUX('F', 11, ANALOG)>; /* SAI2_SD_B */
 +		};
 +	};
 +
- 	ethernet0_rmii_pins_a: rmii-0 {
- 		pins1 {
- 			pinmux = <STM32_PINMUX('G', 13, AF11)>, /* ETH1_RMII_TXD0 */
+ 	sai4a_pins_a: sai4a-0 {
+ 		pins {
+ 			pinmux = <STM32_PINMUX('B', 5, AF10)>; /* SAI4_SD_A */
 -- 
 2.39.1
 
