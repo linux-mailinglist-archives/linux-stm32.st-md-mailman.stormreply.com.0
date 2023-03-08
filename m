@@ -2,28 +2,28 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB3656B0051
+	by mail.lfdr.de (Postfix) with ESMTPS id DE0D96B0052
 	for <lists+linux-stm32@lfdr.de>; Wed,  8 Mar 2023 08:56:02 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 88304C6A608;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 957C1C6A60E;
 	Wed,  8 Mar 2023 07:56:02 +0000 (UTC)
 Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
  [85.220.165.71])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4F893C6A5F8
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AD5EFC6A5E8
  for <linux-stm32@st-md-mailman.stormreply.com>;
  Wed,  8 Mar 2023 07:56:00 +0000 (UTC)
 Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77]
  helo=pengutronix.de)
  by metis.ext.pengutronix.de with esmtp (Exim 4.92)
  (envelope-from <s.trumtrar@pengutronix.de>)
- id 1pZoeU-0001n3-Nl; Wed, 08 Mar 2023 08:55:58 +0100
+ id 1pZoeV-0001n3-5U; Wed, 08 Mar 2023 08:55:59 +0100
 From: Steffen Trumtrar <s.trumtrar@pengutronix.de>
 To: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>
-Date: Wed,  8 Mar 2023 08:55:31 +0100
-Message-Id: <20230308075532.672858-9-s.trumtrar@pengutronix.de>
+Date: Wed,  8 Mar 2023 08:55:32 +0100
+Message-Id: <20230308075532.672858-10-s.trumtrar@pengutronix.de>
 X-Mailer: git-send-email 2.39.1
 In-Reply-To: <20230308075532.672858-1-s.trumtrar@pengutronix.de>
 References: <20230308075532.672858-1-s.trumtrar@pengutronix.de>
@@ -35,8 +35,8 @@ X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
 X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
 Cc: linux-stm32@st-md-mailman.stormreply.com,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
-Subject: [Linux-stm32] [PATCH v4 09/10] ARM: dts: stm32: add STM32MP1-based
-	Phytec board
+Subject: [Linux-stm32] [PATCH v4 10/10] dt-bindings: arm: stm32: Add Phytec
+	STM32MP1 board
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -53,8 +53,8 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add the Phytec STM32MP1-3 Dev board. The devboard uses a Phytec
-stm32m157c-som.
+The Phytec STM32MP1 based SoMs feature up to 1 GB DDR3LP RAM, up to
+1 GB eMMC, up to 16 MB QSPI and up to 128 GB NAND flash.
 
 Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
 Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
@@ -62,97 +62,26 @@ Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
 Cc: linux-stm32@st-md-mailman.stormreply.com
 To: linux-arm-kernel@lists.infradead.org
 ---
- arch/arm/boot/dts/Makefile                    |  3 +-
- .../dts/stm32mp157c-phycore-stm32mp1-3.dts    | 66 +++++++++++++++++++
- 2 files changed, 68 insertions(+), 1 deletion(-)
- create mode 100644 arch/arm/boot/dts/stm32mp157c-phycore-stm32mp1-3.dts
+ Documentation/devicetree/bindings/arm/stm32/stm32.yaml | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/arch/arm/boot/dts/Makefile b/arch/arm/boot/dts/Makefile
-index efe4152e5846d..dfa9a7477c825 100644
---- a/arch/arm/boot/dts/Makefile
-+++ b/arch/arm/boot/dts/Makefile
-@@ -1252,7 +1252,8 @@ dtb-$(CONFIG_ARCH_STM32) += \
- 	stm32mp157c-ev1.dtb \
- 	stm32mp157c-ev1-scmi.dtb \
- 	stm32mp157c-lxa-mc1.dtb \
--	stm32mp157c-odyssey.dtb
-+	stm32mp157c-odyssey.dtb \
-+	stm32mp157c-phycore-stm32mp1-3.dtb
- dtb-$(CONFIG_MACH_SUN4I) += \
- 	sun4i-a10-a1000.dtb \
- 	sun4i-a10-ba10-tvbox.dtb \
-diff --git a/arch/arm/boot/dts/stm32mp157c-phycore-stm32mp1-3.dts b/arch/arm/boot/dts/stm32mp157c-phycore-stm32mp1-3.dts
-new file mode 100644
-index 0000000000000..6f4e5f326bdd3
---- /dev/null
-+++ b/arch/arm/boot/dts/stm32mp157c-phycore-stm32mp1-3.dts
-@@ -0,0 +1,66 @@
-+// SPDX-License-Identifier: (GPL-2.0+ OR BSD-3-Clause)
-+/*
-+ * Copyright (C) Phytec GmbH 2019-2020 - All Rights Reserved
-+ * Author: Dom VOVARD <dom.vovard@linrt.com>.
-+ */
+diff --git a/Documentation/devicetree/bindings/arm/stm32/stm32.yaml b/Documentation/devicetree/bindings/arm/stm32/stm32.yaml
+index 13e34241145b4..4af5b8f4f8032 100644
+--- a/Documentation/devicetree/bindings/arm/stm32/stm32.yaml
++++ b/Documentation/devicetree/bindings/arm/stm32/stm32.yaml
+@@ -155,6 +155,12 @@ properties:
+           - const: seeed,stm32mp157c-odyssey-som
+           - const: st,stm32mp157
+ 
++      - description: Phytec STM32MP1 SoM based Boards
++        items:
++          - const: phytec,phycore-stm32mp1-3
++          - const: phytec,phycore-stm32mp157c-som
++          - const: st,stm32mp157
 +
-+/dts-v1/;
-+
-+#include <dt-bindings/pinctrl/stm32-pinfunc.h>
-+#include "stm32mp157.dtsi"
-+#include "stm32mp15xc.dtsi"
-+#include "stm32mp15xxac-pinctrl.dtsi"
-+#include "stm32mp157c-phycore-stm32mp15-som.dtsi"
-+
-+/ {
-+	model = "PHYTEC phyCORE-STM32MP1-3 Dev Board";
-+	compatible = "phytec,phycore-stm32mp1-3",
-+		     "phytec,phycore-stm32mp157c-som", "st,stm32mp157";
-+
-+	aliases {
-+		mmc0 = &sdmmc1;
-+		mmc1 = &sdmmc2;
-+		mmc2 = &sdmmc3;
-+		serial0 = &uart4;
-+		serial1 = &usart3;
-+		serial2 = &usart1;
-+	};
-+};
-+
-+&cryp1 {
-+	status = "okay";
-+};
-+
-+&dts {
-+	status = "okay";
-+};
-+
-+&fmc {
-+	status = "disabled";
-+};
-+
-+&gpu {
-+	status = "okay";
-+	contiguous-area = <&gpu_reserved>;
-+};
-+
-+&i2c4_eeprom {
-+	status = "okay";
-+};
-+
-+&i2c4_rtc {
-+	status = "okay";
-+};
-+
-+&qspi {
-+	status = "okay";
-+};
-+
-+&sdmmc1 {
-+	secure-status = "disabled";
-+};
-+
-+&sdmmc2 {
-+	status = "okay";
-+	secure-status = "disabled";
-+};
+ additionalProperties: true
+ 
+ ...
 -- 
 2.39.1
 
