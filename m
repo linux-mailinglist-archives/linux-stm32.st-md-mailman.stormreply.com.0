@@ -2,81 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 465EF6B1E42
-	for <lists+linux-stm32@lfdr.de>; Thu,  9 Mar 2023 09:34:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8D0066B1E5E
+	for <lists+linux-stm32@lfdr.de>; Thu,  9 Mar 2023 09:38:08 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EB5A2C6A60C;
-	Thu,  9 Mar 2023 08:34:25 +0000 (UTC)
-Received: from relay2-d.mail.gandi.net (relay2-d.mail.gandi.net
- [217.70.183.194])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 464C5C6A60C;
+	Thu,  9 Mar 2023 08:38:08 +0000 (UTC)
+Received: from mail.3ffe.de (0001.3ffe.de [159.69.201.130])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 98DBBC6A5FD
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 00E3BC6A5FD
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  9 Mar 2023 08:34:23 +0000 (UTC)
-Received: (Authenticated sender: miquel.raynal@bootlin.com)
- by mail.gandi.net (Postfix) with ESMTPSA id DD94740008;
- Thu,  9 Mar 2023 08:34:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1678350863;
+ Thu,  9 Mar 2023 08:38:06 +0000 (UTC)
+Received: from 3ffe.de (0001.3ffe.de [IPv6:2a01:4f8:c0c:9d57::1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mail.3ffe.de (Postfix) with ESMTPSA id 06553D5A;
+ Thu,  9 Mar 2023 09:38:06 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=walle.cc;
+ s=mail2022082101; t=1678351086;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=JvVWKDWpW82EIc/5m7XR6L0BqajtMzEqVu8FozcS4pM=;
- b=KhUwKgKc+Bp5qcFfKcYCJmI9qPX3mLXDhO01xY/n3oJrjDMeyca9P6bgRFhsT5S99Gmq3y
- 0iDZrEf56yX14q9MHLqtj0xsG94nIxX9u07zDNjeG3ZB0LrraKUzKFQ/QE3kYdtYhMOXF6
- MWFk+2fxhcl3z9X/lRBraJhdimBKU1A3CuSXV7vIsRZeZA2uv3pBHHxxAqwvy50v3Z7BZS
- RZih6m8jgUphAkjdNkm3SByqPF8eCXukcBwKNdmZFaUVkPasxol95KV9mvsa+/Z2Te21ZN
- fxiUuaIJq9kcJyBa1zNS9wX8b47ql1sjUVzPH51Nqm7aVxXNgkC4NqYsRWWNTg==
-Date: Thu, 9 Mar 2023 09:34:15 +0100
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: =?UTF-8?B?UmFmYcWCIE1pxYJlY2tp?= <zajec5@gmail.com>
-Message-ID: <20230309093415.2b1088c8@xps-13>
-In-Reply-To: <930f3549-440d-adac-ae9d-1aa6ef07c44b@gmail.com>
-References: <20230224072903.20945-1-zajec5@gmail.com>
- <20230308173256.3837b87b@xps-13>
- <91ff425b4c901648b1faf34c784f20ad@milecki.pl>
- <20230308190636.7fabab9c@xps-13>
- <5974d28426057975e701c4a8454b5a13@milecki.pl>
- <20230308193121.7f5b3d02@xps-13>
- <930f3549-440d-adac-ae9d-1aa6ef07c44b@gmail.com>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.0.0 (GTK+ 3.24.33; x86_64-pc-linux-gnu)
+ bh=y41tMb7AS1Jh/KPkjkW3IKsx9az487kv51tekdAE29Q=;
+ b=ubF2lj5lvtCp3H7KLxdAsbRS49b+6sBRLrUXT9KQPAgSrFQzeRzDS2fkDLPSfxRKxt25Py
+ hhzH14kjrTJ0eUyJPpIVEPLzilgqwrH77iFF2rczY3X2G6Whjsyv75W5o2zLkv4xQr0gS3
+ 6/DwPS9d5+CcLnmWTtd0b2D4aR8vAOPXcJSIhsTen4XwVezu/C9iULPkPkJ8scOVW8Rqwi
+ XgfaTBwuaDA9OgZLRgWwM3HjL8p90rrGeieoSN7ZzRIM0/TCOY48OR3QUrjt4XEXy+a5Nk
+ 4LKbiDSTBEEp1YIlprtkvdq1LtX0K44TNRpBr6xjevQvrOhW6/dMHqZlCotLiw==
 MIME-Version: 1.0
-Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Alessandro Zummo <a.zummo@towertech.it>, Vignesh Raghavendra <vigneshr@ti.com>,
- Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- =?UTF-8?B?UmFmYcWCIE1pxYJlY2tp?= <rafal@milecki.pl>,
- Evgeniy Polyakov <zbr@ioremap.net>, Fabio Estevam <festevam@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Alyssa Rosenzweig <alyssa@rosenzweig.io>, Jerome Brunet <jbrunet@baylibre.com>,
- linux-rtc@vger.kernel.org, Samuel Holland <samuel@sholland.org>,
- Richard Weinberger <richard@nod.at>, Michal Simek <michal.simek@xilinx.com>,
- Jernej Skrabec <jernej.skrabec@gmail.com>, linux-rockchip@lists.infradead.org,
- Chen-Yu Tsai <wens@csie.org>, Andy Gross <agross@kernel.org>,
- NXP Linux Team <linux-imx@nxp.com>, Vincent Shih <vincent.sunplus@gmail.com>,
- Orson Zhai <orsonzhai@gmail.com>, linux-sunxi@lists.linux.dev,
- asahi@lists.linux.dev, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Sven Peter <sven@svenpeter.dev>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- linux-arm-msm@vger.kernel.org, Sascha Hauer <s.hauer@pengutronix.de>,
- linux-mediatek@lists.infradead.org,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Matthias Brugger <matthias.bgg@gmail.com>, linux-amlogic@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Chunyan Zhang <zhang.lyra@gmail.com>, Bjorn Andersson <andersson@kernel.org>,
- Hector Martin <marcan@marcan.st>, Heiko Stuebner <heiko@sntech.de>,
- linux-kernel@vger.kernel.org, Konrad Dybcio <konrad.dybcio@linaro.org>,
- Masami Hiramatsu <mhiramat@kernel.org>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Kevin Hilman <khilman@baylibre.com>, linux-mtd@lists.infradead.org,
- Shawn Guo <shawnguo@kernel.org>, Claudiu Beznea <claudiu.beznea@microchip.com>
-Subject: Re: [Linux-stm32] [PATCH V2] nvmem: add explicit config option to
- read OF fixed cells
+Date: Thu, 09 Mar 2023 09:38:05 +0100
+From: Michael Walle <michael@walle.cc>
+To: Tudor Ambarus <tudor.ambarus@linaro.org>
+In-Reply-To: <1766f6ef-d9d8-04f7-a6bf-0ea6bc0b3d23@linaro.org>
+References: <20220911174551.653599-1-sergiu.moga@microchip.com>
+ <20220925220304.buk3yuqoh6vszfci@mobilestation>
+ <18e6e8a8-6412-7e31-21e0-6becd4400ac1@microchip.com>
+ <20220926172454.kbpzck7med5bopre@mobilestation>
+ <1766f6ef-d9d8-04f7-a6bf-0ea6bc0b3d23@linaro.org>
+User-Agent: Roundcube Webmail/1.4.13
+Message-ID: <f647e713a65f5d3f0f2e3af95c4d0a89@walle.cc>
+X-Sender: michael@walle.cc
+Cc: alexandre.belloni@bootlin.com, vigneshr@ti.com,
+ linux-aspeed@lists.ozlabs.org, tali.perry1@gmail.com,
+ linux-mtd@lists.infradead.org, miquel.raynal@bootlin.com,
+ linux-spi@vger.kernel.org, michal.simek@xilinx.com, tmaimon77@gmail.com,
+ benjaminfair@google.com, kdasu.kdev@gmail.com, richard@nod.at,
+ chin-ting_kuo@aspeedtech.com, Sergiu.Moga@microchip.com, haibo.chen@nxp.com,
+ openbmc@lists.ozlabs.org, yuenn@google.com,
+ bcm-kernel-feedback-list@broadcom.com, joel@jms.id.au, yogeshgaur.83@gmail.com,
+ linux-rockchip@lists.infradead.org,
+ Tudor Ambarus <tudor.ambarus@microchip.com>, john.garry@huawei.com,
+ Mark Brown <broonie@kernel.org>, linux-mediatek@lists.infradead.org,
+ clg@kaod.org, matthias.bgg@gmail.com, han.xu@nxp.com,
+ linux-arm-kernel@lists.infradead.org, andrew@aj.id.au, venture@google.com,
+ linux-stm32@st-md-mailman.stormreply.com, heiko@sntech.de,
+ Nicolas.Ferre@microchip.com, Serge Semin <fancer.lancer@gmail.com>,
+ linux-kernel@vger.kernel.org, avifishman70@gmail.com,
+ mcoquelin.stm32@gmail.com, Claudiu.Beznea@microchip.com,
+ Pratyush Yadav <pratyush@kernel.org>
+Subject: Re: [Linux-stm32] [PATCH] spi: Replace `dummy.nbytes` with
+	`dummy.ncycles`
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,154 +75,49 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SGkgUmFmYcWCLAoKemFqZWM1QGdtYWlsLmNvbSB3cm90ZSBvbiBUaHUsIDkgTWFyIDIwMjMgMDc6
-NTY6MDUgKzAxMDA6Cgo+IE9uIDguMDMuMjAyMyAxOTozMSwgTWlxdWVsIFJheW5hbCB3cm90ZToK
-PiA+IEhpIFJhZmHFgiwKPiA+IAo+ID4gcmFmYWxAbWlsZWNraS5wbCB3cm90ZSBvbiBXZWQsIDA4
-IE1hciAyMDIzIDE5OjEyOjMyICswMTAwOgo+ID4gICAKPiA+PiBPbiAyMDIzLTAzLTA4IDE5OjA2
-LCBNaXF1ZWwgUmF5bmFsIHdyb3RlOiAgCj4gPj4+IEhpIFJhZmHFgiwKPiA+Pj4KPiA+Pj4gcmFm
-YWxAbWlsZWNraS5wbCB3cm90ZSBvbiBXZWQsIDA4IE1hciAyMDIzIDE3OjU1OjQ2ICswMTAwOiAg
-Cj4gPj4+ICAgID4+Pj4gT24gMjAyMy0wMy0wOCAxNzozNCwgTWlxdWVsIFJheW5hbCB3cm90ZTog
-IAo+ID4+Pj4+IEhpIFJhZmHFgiwKPiA+Pj4+Pgo+ID4+Pj4+IHphamVjNUBnbWFpbC5jb20gd3Jv
-dGUgb24gRnJpLCAyNCBGZWIgMjAyMyAwODoyOTowMyArMDEwMDogIAo+ID4+Pj4+ICAgPj4+Pj4+
-IEZyb206IFJhZmHFgiBNacWCZWNraSA8cmFmYWxAbWlsZWNraS5wbD4gIAo+ID4+Pj4+Pj4+IE5W
-TUVNIHN1YnN5c3RlbSBsb29rcyBmb3IgZml4ZWQgTlZNRU0gY2VsbHMgKHNwZWNpZmllZCBpbiBE
-VCkgYnkgIAo+ID4+Pj4+PiBkZWZhdWx0LiBUaGlzIGJlaGF2aW91ciBtYWRlIHNlbnNlIGluIGVh
-cmx5IGRheXMgYmVmb3JlIGFkZGluZyBzdXBwb3J0Cj4gPj4+Pj4+IGZvciBkeW5hbWljIGNlbGxz
-LiAgCj4gPj4+Pj4+Pj4gV2l0aCBldmVyeSBuZXcgc3VwcG9ydGVkIE5WTUVNIGRldmljZSB3aXRo
-IGR5bmFtaWMgY2VsbHMgY3VycmVudCAgCj4gPj4+Pj4+IGJlaGF2aW91ciBiZWNvbWVzIG5vbi1v
-cHRpbWFsLiBJdCByZXN1bHRzIGluIHVubmVlZGVkIGl0ZXJhdGluZyBvdmVyID4+IERUCj4gPj4+
-Pj4+IG5vZGVzIGFuZCBtYXkgcmVzdWx0IGluIGZhbHNlIGRpc2NvdmVyeSBvZiBjZWxscyAoZGVw
-ZW5kaW5nIG9uIHVzZWQgRFQKPiA+Pj4+Pj4gcHJvcGVydGllcykuICAKPiA+Pj4+Pj4+PiBUaGlz
-IGJlaGF2aW91ciBoYXMgYWN0dWFsbHkgY2F1c2VkIGEgcHJvYmxlbSBhbHJlYWR5IHdpdGggdGhl
-IE1URCAgCj4gPj4+Pj4+IHN1YnN5c3RlbS4gTVREIHN1YnBhcnRpdGlvbnMgd2VyZSBpbmNvcnJl
-Y3RseSB0cmVhdGVkIGFzIE5WTUVNIGNlbGxzLiAgCj4gPj4+Pj4KPiA+Pj4+PiBUaGF0J3MgdHJ1
-ZSwgYnV0IEkgZXhwZWN0IHRoaXMgdG8gYmUgcmVhbGx5IE1URCBzcGVjaWZpYy4KPiA+Pj4+Pgo+
-ID4+Pj4+IEEgY29uY3JldGUgcHJvcG9zYWwgYmVsb3cuICAKPiA+Pj4+PiAgID4+Pj4+PiBBbHNv
-IHdpdGggdXBjb21pbmcgc3VwcG9ydCBmb3IgTlZNRU0gbGF5b3V0cyBubyBuZXcgYmluZGluZyBv
-ciBkcml2ZXIgIAo+ID4+Pj4+PiBzaG91bGQgc3VwcG9ydCBmaXhlZCBjZWxscyBkZWZpbmVkIGlu
-IGRldmljZSBub2RlLiAgCj4gPj4+Pj4KPiA+Pj4+PiBJJ20gbm90IHN1cmUgSSBhZ3JlZSB3aXRo
-IHRoaXMgc3RhdGVtZW50LiBXZSBhcmUgbm90IHByZXZlbnRpbmcgbmV3Cj4gPj4+Pj4gYmluZGlu
-Zy9kcml2ZXIgdG8gdXNlIGZpeGVkIGNlbGxzLCBvci4uLj8gV2Ugb2ZmZXIgYSBuZXcgd2F5IHRv
-IGV4cG9zZQo+ID4+Pj4+IG52bWVtIGNlbGxzIHdpdGggYW5vdGhlciB3YXkgdGhhbiAiZml4ZWQt
-b2Zmc2V0IiBhbmQgImZpeGVkLXNpemUiIE9GCj4gPj4+Pj4gbm9kZXMuICAKPiA+Pj4+Pj4gICBG
-cm9tIHdoYXQgSSB1bmRlcnN0b29kIGFsbCBuZXcgTlZNRU0gYmluZGluZ3Mgc2hvdWxkIGhhdmUg
-Y2VsbHMgPj4gZGVmaW5lZCAgCj4gPj4+PiBpbiB0aGUgbnZtZW0tbGF5b3V0IHsgfSBub2RlLiBU
-aGF0J3Mgd2hhdCBJIG1lYW4gYnkgc2F5aW5nIHRoZXkgc2hvdWxkCj4gPj4+PiBub3QgYmUgZGVm
-aW5lZCBpbiBkZXZpY2Ugbm9kZSAoYnV0IGl0cyAibnZtZW0tbGF5b3V0IiBpbnN0ZWFkKS4gIAo+
-ID4+Pgo+ID4+PiBMYXlvdXRzIGFyZSBqdXN0IGFub3RoZXIgcG9zc2liaWxpdHksIGVpdGhlciB5
-b3UgdXNlciB0aGUgbnZtZW0tY2VsbHMKPiA+Pj4gY29tcGF0aWJsZSBhbmQgcHJvZHVjZSBudm1l
-bSBjZWxscyB3aXRoIGZpeGVkIE9GIG5vZGVzLCBvciB5b3UgdXNlIHRoZQo+ID4+PiBudm1lbS1s
-YXlvdXQgY29udGFpbmVyLiBJIGRvbid0IHRoaW5rIGFsbCBuZXcgYmluZGluZ3Mgc2hvdWxkIGhh
-dmUKPiA+Pj4gY2VsbHMgaW4gbGF5b3V0cy4gSXQgZGVwZW5kcyBpZiB0aGUgY29udGVudCBpcyBz
-dGF0aWMgb3Igbm90LiAgCj4gPj4+ICAgID4+Pj4+PiBTb2x2ZSB0aGlzIGJ5IG1vZGlmeWluZyBk
-cml2ZXJzIGZvciBiaW5kaW5ncyB0aGF0IHN1cHBvcnQgc3BlY2lmeWluZyAgCj4gPj4+Pj4+IGZp
-eGVkIE5WTUVNIGNlbGxzIGluIERULiBNYWtlIHRoZW0gZXhwbGljaXRseSB0ZWxsIE5WTUVNIHN1
-YnN5c3RlbSB0bwo+ID4+Pj4+PiByZWFkIGNlbGxzIGZyb20gRFQuICAKPiA+Pj4+Pj4+PiBJdCB3
-YXNuJ3QgY2xlYXIgKHRvIG1lKSBpZiBydGMgYW5kIHcxIGNvZGUgYWN0dWFsbHkgdXNlcyBmaXhl
-ZCBjZWxscy4gPj4gSSAgCj4gPj4+Pj4+IGVuYWJsZWQgdGhlbSB0byBkb24ndCByaXNrIGFueSBi
-cmVha2FnZS4gIAo+ID4+Pj4+Pj4+IFNpZ25lZC1vZmYtYnk6IFJhZmHFgiBNacWCZWNraSA8cmFm
-YWxAbWlsZWNraS5wbD4gIAo+ID4+Pj4+PiBbZm9yIGRyaXZlcnMvbnZtZW0vbWVzb24te2VmdXNl
-LG14LWVmdXNlfS5jXQo+ID4+Pj4+PiBBY2tlZC1ieTogTWFydGluIEJsdW1lbnN0aW5nbCA8bWFy
-dGluLmJsdW1lbnN0aW5nbEBnb29nbGVtYWlsLmNvbT4KPiA+Pj4+Pj4gLS0tCj4gPj4+Pj4+IFYy
-OiBGaXggc3RtMzItcm9tZW0uYyB0eXBvIGJyZWFraW5nIGl0cyBjb21waWxhdGlvbgo+ID4+Pj4+
-PiAgICAgIFBpY2sgTWFydGluJ3MgQWNrZWQtYnkKPiA+Pj4+Pj4gICAgICBBZGQgcGFyYWdyYXBo
-IGFib3V0IGxheW91dHMgZGVwcmVjYXRpbmcgdXNlX2ZpeGVkX29mX2NlbGxzCj4gPj4+Pj4+IC0t
-LQo+ID4+Pj4+PiAgIGRyaXZlcnMvbXRkL210ZGNvcmUuYyAgICAgICAgICB8IDIgKysKPiA+Pj4+
-Pj4gICBkcml2ZXJzL252bWVtL2FwcGxlLWVmdXNlcy5jICAgfCAxICsKPiA+Pj4+Pj4gICBkcml2
-ZXJzL252bWVtL2NvcmUuYyAgICAgICAgICAgfCA4ICsrKysrLS0tCj4gPj4+Pj4+ICAgZHJpdmVy
-cy9udm1lbS9pbXgtb2NvdHAtc2N1LmMgIHwgMSArCj4gPj4+Pj4+ICAgZHJpdmVycy9udm1lbS9p
-bXgtb2NvdHAuYyAgICAgIHwgMSArCj4gPj4+Pj4+ICAgZHJpdmVycy9udm1lbS9tZXNvbi1lZnVz
-ZS5jICAgIHwgMSArCj4gPj4+Pj4+ICAgZHJpdmVycy9udm1lbS9tZXNvbi1teC1lZnVzZS5jIHwg
-MSArCj4gPj4+Pj4+ICAgZHJpdmVycy9udm1lbS9taWNyb2NoaXAtb3RwYy5jIHwgMSArCj4gPj4+
-Pj4+ICAgZHJpdmVycy9udm1lbS9tdGstZWZ1c2UuYyAgICAgIHwgMSArCj4gPj4+Pj4+ICAgZHJp
-dmVycy9udm1lbS9xY29tLXNwbWktc2RhbS5jIHwgMSArCj4gPj4+Pj4+ICAgZHJpdmVycy9udm1l
-bS9xZnByb20uYyAgICAgICAgIHwgMSArCj4gPj4+Pj4+ICAgZHJpdmVycy9udm1lbS9yYXZlLXNw
-LWVlcHJvbS5jIHwgMSArCj4gPj4+Pj4+ICAgZHJpdmVycy9udm1lbS9yb2NrY2hpcC1lZnVzZS5j
-IHwgMSArCj4gPj4+Pj4+ICAgZHJpdmVycy9udm1lbS9zYzI3eHgtZWZ1c2UuYyAgIHwgMSArCj4g
-Pj4+Pj4+ICAgZHJpdmVycy9udm1lbS9zcHJkLWVmdXNlLmMgICAgIHwgMSArCj4gPj4+Pj4+ICAg
-ZHJpdmVycy9udm1lbS9zdG0zMi1yb21lbS5jICAgIHwgMSArCj4gPj4+Pj4+ICAgZHJpdmVycy9u
-dm1lbS9zdW5wbHVzLW9jb3RwLmMgIHwgMSArCj4gPj4+Pj4+ICAgZHJpdmVycy9udm1lbS9zdW54
-aV9zaWQuYyAgICAgIHwgMSArCj4gPj4+Pj4+ICAgZHJpdmVycy9udm1lbS91bmlwaGllci1lZnVz
-ZS5jIHwgMSArCj4gPj4+Pj4+ICAgZHJpdmVycy9udm1lbS96eW5xbXBfbnZtZW0uYyAgIHwgMSAr
-Cj4gPj4+Pj4+ICAgZHJpdmVycy9ydGMvbnZtZW0uYyAgICAgICAgICAgIHwgMSArCj4gPj4+Pj4+
-ICAgZHJpdmVycy93MS9zbGF2ZXMvdzFfZHMyNTB4LmMgIHwgMSArCj4gPj4+Pj4+ICAgaW5jbHVk
-ZS9saW51eC9udm1lbS1wcm92aWRlci5oIHwgMiArKwo+ID4+Pj4+PiAgIDIzIGZpbGVzIGNoYW5n
-ZWQsIDI5IGluc2VydGlvbnMoKyksIDMgZGVsZXRpb25zKC0pICAKPiA+Pj4+Pj4+PiBkaWZmIC0t
-Z2l0IGEvZHJpdmVycy9tdGQvbXRkY29yZS5jIGIvZHJpdmVycy9tdGQvbXRkY29yZS5jICAKPiA+
-Pj4+Pj4gaW5kZXggMGZlYWNiOWZiZGFjLi4xYmI0NzljMGY3NTggMTAwNjQ0Cj4gPj4+Pj4+IC0t
-LSBhL2RyaXZlcnMvbXRkL210ZGNvcmUuYwo+ID4+Pj4+PiArKysgYi9kcml2ZXJzL210ZC9tdGRj
-b3JlLmMKPiA+Pj4+Pj4gQEAgLTUyMyw2ICs1MjMsNyBAQCBzdGF0aWMgaW50IG10ZF9udm1lbV9h
-ZGQoc3RydWN0IG10ZF9pbmZvICptdGQpCj4gPj4+Pj4+ICAgCWNvbmZpZy5kZXYgPSAmbXRkLT5k
-ZXY7Cj4gPj4+Pj4+ICAgCWNvbmZpZy5uYW1lID0gZGV2X25hbWUoJm10ZC0+ZGV2KTsKPiA+Pj4+
-Pj4gICAJY29uZmlnLm93bmVyID0gVEhJU19NT0RVTEU7Cj4gPj4+Pj4+ICsJY29uZmlnLnVzZV9m
-aXhlZF9vZl9jZWxscyA9IG9mX2RldmljZV9pc19jb21wYXRpYmxlKG5vZGUsID4+ICJudm1lbS1j
-ZWxscyIpOyAgCj4gPj4+Pj4KPiA+Pj4+PiBJIGFtIHdvbmRlcmluZyBob3cgbXRkIHNwZWNpZmlj
-IHRoaXMgaXM/IEZvciBtZSBhbGwgT0Ygbm9kZXMgY29udGFpbmluZwo+ID4+Pj4+IHRoZSBudm1l
-bS1jZWxscyBjb21wYXRpYmxlIHNob3VsZCBiZSB0cmVhdGVkIGFzIGNlbGxzIHByb3ZpZGVycyBh
-bmQKPiA+Pj4+PiBwb3B1bGF0ZSBudm1lbSBjZWxscyBhcyBmb3IgZWFjaCBjaGlsZHJlbi4KPiA+
-Pj4+Pgo+ID4+Pj4+IFdoeSBkb24ndCB3ZSBqdXN0IGNoZWNrIGZvciB0aGlzIGNvbXBhdGlibGUg
-dG8gYmUgcHJlc2VudD8gaW4KPiA+Pj4+PiBudm1lbV9hZGRfY2VsbHNfZnJvbV9vZigpID8gQW5k
-IGlmIG5vdCB3ZSBqdXN0IHNraXAgdGhlIG9wZXJhdGlvbi4KPiA+Pj4+Pgo+ID4+Pj4+IFRoaXMg
-d2F5IHdlIHN0aWxsIGZvbGxvdyB0aGUgYmluZGluZ3MgKGV2ZW4gdGhvdWdoIHVzaW5nIG52bWVt
-LWNlbGxzIGluCj4gPj4+Pj4gdGhlIGNvbXBhdGlibGUgcHJvcGVydHkgdG8gcmVxdWlyZSBjZWxs
-cyBwb3B1bGF0aW9uIHdhcyBhIG1pc3Rha2UgaW4KPiA+Pj4+PiB0aGUgZmlyc3QgcGxhY2UsIGFz
-IGRpc2N1c3NlZCBpbiB0aGUgZGV2bGluayB0aHJlYWQgcmVjZW50bHkpIGJ1dCB0aGVyZQo+ID4+
-Pj4+IGlzIG5vIG5lZWQgZm9yIGEgcGVyLWRyaXZlciBjb25maWcgb3B0aW9uPyAgCj4gPj4+Pj4+
-IFRoaXMgaXNuJ3QgbXRkIHNwZWNpZmljLiBQbGVhc2UgY2hlY2sgdGhpcyBwYXRjaCBmb3IgYWxs
-IG9jY3VycmVuY2VzID4+IG9mICAKPiA+Pj4+IHRoZToKPiA+Pj4+IHVzZV9maXhlZF9vZl9jZWxs
-cyA9IHRydWUgIAo+ID4+Pj4+PiBUaGUgdmVyeSBmaXJzdCBvbmU6IGRyaXZlcnMvbnZtZW0vYXBw
-bGUtZWZ1c2VzLmMgZHJpdmVyIGZvciB0aGUgIAo+ID4+Pj4gImFwcGxlLGVmdXNlcyIgYmluZGlu
-Zy4gVGhhdCBiaW5kaW5nIHN1cHBvcnRzIGZpeGVkIE9GIGNlbGxzLCBzZWU6Cj4gPj4+PiBEb2N1
-bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvbnZtZW0vYXBwbGUsZWZ1c2VzLnlhbWwgIAo+
-ID4+Pgo+ID4+PiBJJ20gc2F5aW5nOiBiYXNlZCBvbiB3aGF0IGhhcyBiZWVuIGVuZm9yY2VkIHNv
-IGZhciwgSSB3b3VsZCBleHBlY3QgYWxsCj4gPj4+IGZpeGVkIGNlbGwgcHJvdmlkZXJzIHRvIGNv
-bWUgd2l0aCBudm1lbS1jZWxscyBhcyBjb21wYXRpYmxlLCBubz8KPiA+Pj4KPiA+Pj4gSWYgdGhh
-dCdzIHRoZSBjYXNlIHdlIGNvdWxkIHVzZSB0aGF0IGFzIGEgY29tbW9uIGRlbm9taW5hdG9yPyAg
-Cj4gPj4KPiA+PiBTb3JyeSwgSSBkb24ndCBnZXQgaXQuIEhhdmUgeW91IGNoZWNrZWQKPiA+PiBE
-b2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvbnZtZW0vYXBwbGUsZWZ1c2VzLnlhbWwK
-PiA+PiA/Cj4gPj4KPiA+PiBJdCdzIGEgTlZNRU0gcHJvdmllZCBiaW5kaW5nIHdpdGggZml4ZWQg
-Y2VsbHMgdGhhdCBkb2Vzbid0IHVzZQo+ID4+IG52bWVtLWNlbGxzIGFzIGNvbXBhdGlibGUuIFRo
-ZXJlIGFyZSBtYW55IG1vcmUuICAKPiA+IAo+ID4gT2ggeWVhaCB5b3UncmUgcmlnaHQsIEknbSBt
-aXhpbmcgdGhpbmdzLiBXZWxsIEkgZ3Vlc3MgeW91J3JlIHJpZ2h0Cj4gPiB0aGVuLCBpdCdzIHN1
-Y2ggYSBtZXNzLCB3ZSBoYXZlIHRvIHRlbGwgdGhlIGNvcmUgdGhlIHBhcnNpbmcgbWV0aG9kLgo+
-ID4gCj4gPiBTbyBtYXliZSBhbm90aGVyIHF1ZXN0aW9uOiBkbyB3ZSBoYXZlIG90aGVyIHNpdHVh
-dGlvbnMgdGhhbiBtdGQgd2hpY2gKPiA+IHNvbWV0aW1lcyBleHBlY3QgdGhlIG52bWVtIGNvcmUg
-dG8gcGFyc2UgdGhlIE9GIG5vZGVzIHRvIHBvcHVsYXRlIGNlbGxzLAo+ID4gYW5kIHNvbWV0aW1l
-cyBub3Q/ICAKPiAKPiBJJ20gbm90IGF3YXJlIG9mIHRoYXQuIFBsZWFzZSBhbHNvIGNoZWNrIG15
-IHBhdGNoLiBUaGUgb25seSBjYXNlIEkgc2V0Cj4gInVzZV9maXhlZF9vZl9jZWxscyIgY29uZGl0
-aW9uYWxseSBpcyBtdGQgY29kZS4gSW4gb3RoZXIgY2FzZXMgaXQncwo+IGhhcmRjb2RlZCB0byAi
-dHJ1ZSIuCj4gCj4gCj4gPiBBbHNvLCB3aGF0IGFib3V0ICJvZl9jaGlsZHJlbl9hcmVfY2VsbHMi
-ID8gQmVjYXVzZSBhY3R1YWxseSBpbiBtb3N0Cj4gPiBjYXNlcyBpdCdzIGEgImZpeGVkIG9mIGNl
-bGwiLCBzbyBJIGRvbid0IGZpbmQgdGhlIGN1cnJlbnQgbmFtaW5nCj4gPiBkZXNjcmlwdGl2ZSBl
-bm91Z2ggZm9yIHNvbWV0aGluZyBzbyB0b3VjaHkuICAKPiAKPiBUaGF0IHdvdWxkIGJlIGp1c3Qg
-aW5jb3JyZWN0IGJlY2F1c2UgdGhpcyBuZXcgY29uZmlnIHByb3BlcnR5Cj4gKCJ1c2VfZml4ZWRf
-b2ZfY2VsbHMiKSBpcyBvbmx5IGFib3V0IEZJWEVEIGNlbGxzLgo+IAo+IFRoZXJlIGFyZSBjYXNl
-cyBvZiBPRiBjaGlsZHJlbiBiZWluZyBjZWxscyBidXQgTk9UIGJlaW5nIGZpeGVkIGNlbGxzLgo+
-IFRoZXkgc2hvdWxkIE5PVCBiZSBwYXJzZWQgYnkgdGhlIG52bWVtX2FkZF9jZWxsc19mcm9tX29m
-KCkuCj4gCj4gRXhhbXBsZToKPiBhNjA3YTg1MGJhMWYgKCJkdC1iaW5kaW5nczogbnZtZW06IHUt
-Ym9vdCxlbnY6IGFkZCBiYXNpYyBOVk1FTSBjZWxscyIpCj4gaHR0cHM6Ly9naXQua2VybmVsLm9y
-Zy9wdWIvc2NtL2xpbnV4L2tlcm5lbC9naXQvdG9ydmFsZHMvbGludXguZ2l0L2NvbW1pdC8/aWQ9
-YTYwN2E4NTBiYTFmYTk2NmNiYjAzNTU0NGMxNTg4ZTI0YTYzMDdkZgoKVGhpcyBpcyBiYWNrd2Fy
-ZHMuIFRoYXQncyB3aHkgbGF5b3V0cyBoYXZlIGJlZW4gcHJvcG9zZWQ6IGhhdmluZwphIGNsZWFy
-IGZyYW1ld29yayB3ZXJlIHRoZSBudm1lbSBjb3JlIHNob3VsZCBvciBzaG91bGQgbm90IHBsYXkg
-d2l0aAp0aGUgT0YgY2hpbGRyZW4gbm9kZXMuIElmIGVhY2ggYmluZGluZyBpcyBkaWZmZXJlbnQs
-IHlvdSBlbmQgdXAgd2l0aAp0aGUgbWVzcyB3ZSBoYXZlIHRvZGF5LCB3aGVyZSBub2JvZHkga25v
-d3MgaG93IHRvIHByb3Blcmx5CnBvcHVsYXRlIHRoZSBjZWxscy4KCkFueXdheSwgaXQncyBub3Qg
-YSBiaWcgZGVhbCBlaXRoZXIsIGlmIHRoZSBjZWxscyBhcmUgZW1wdHkgd2UgY2FuCmVhc2lseSBj
-aGVjayB0aGF0IGFuZCBoYXZlICp5ZXQgYW5vdGhlciogc3BlY2lmaWMgY2FzZSBpbiB0aGUgY29y
-ZS4KCj4gU28gdGhhdCB3b3VsZCByZXN1bHQgaW4gVS1Cb290IGVudjoKPiAxLiBIYXZpbmcgT0Yg
-Y2hpbGRyZW4gbm9kZXMgYmVpbmcgY2VsbHMKPiAyLiBTZXR0aW5nICJvZl9jaGlsZHJlbl9hcmVf
-Y2VsbHMiIHRvIGZhbHNlIChjb3VudGVyLWludHVpdGl2ZSkgdG8gYXZvaWQgbnZtZW1fYWRkX2Nl
-bGxzX2Zyb21fb2YoKQoKQWdyZWVkLiBTbyB3aGF0IGFib3V0IGNvbmZpZy5pZ25vcmVfb2ZfY2hp
-bGRyZW4/Ci0gbXRkIHNldHMgdGhpcyB0byAhaXNfY29tcGF0aWJsZShudm1lbS1jZWxscykKLSBu
-b2JvZHkgZWxzZSB0b3VjaGVzIGl0ICh0aGUgY29yZSBkb24ndCB0cnkgdG8gcGFyc2UgdGhlIGNl
-bGwgaWYgaXQncwogIGVtcHR5IHNvIFUtQm9vdCBlbnYgZHJpdmVyIHdvcmtzKQoKVGhhbmtzLApN
-aXF1w6hsCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxp
-bnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVw
-bHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3Rp
-bmZvL2xpbnV4LXN0bTMyCg==
+> In an ideal world, where both the controller and the device talk about
+> dummy number of cycles, I would agree with you, buswidth and dtr should
+> not be relevant for the number of dummy cycles. But it seems that there
+> are old controllers (e.g. spi-hisi-sfc-v3xx.c, spi-mt65xx.c, 
+> spi-mxic.c)
+> that support buswidths > 1 and work only with dummy nbytes, they are 
+> not
+> capable of specifying a smaller granularity (ncycles). Thus the older
+> controllers would have to convert the dummy ncycles to dummy nbytes.
+> Since mixed transfer modes are a thing (see jesd251, it talks about
+> 4S-4D-4D), where single transfer mode (S) can be mixed with double
+> transfer mode (D) for a command, the controller would have to guess the
+> buswidth and dtr of the dummy. Shall they replicate the buswidth and 
+> dtr
+> of the address or of the data? There's no rule for that.
+
+But in the end that doesn't matter because they are just dummy clock
+cycles and the mode will only affect the data/address/command. 
+Therefore,
+the controller is free to choose the mode that suits it best.
+
+But that begs the question, is ncycles in regard to DTR or SDR? That is,
+are you counting just one type of edges or both the falling and rising
+edges. The smallest granularity would be ncycles in regard of DTR. To 
+me,
+it's not obvious what the SEMPER Nano Flash [1] uses. I'd say we choose
+the smallest granularty in spi-mem to be future proof and maybe provide
+some spi-mem helper to help setting the cycles for SDR/DTR. As an 
+example,
+if you want to wait 4 cycles in SDR you'd have ncycles=8 in spi-mem.
+
+So you won't need the mode nor the dtr property.
+
+-michael
+
+[1] 
+https://www.infineon.com/dgdl/Infineon-S25FS256T_256Mb_SEMPER_Nano_Flash_Quad_SPI_1.8V-DataSheet-v01_00-EN.pdf?fileId=8ac78c8c80027ecd0180740c5a46707a
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
