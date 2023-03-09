@@ -2,72 +2,87 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 44D4C6B243F
-	for <lists+linux-stm32@lfdr.de>; Thu,  9 Mar 2023 13:35:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EDBAA6B26B1
+	for <lists+linux-stm32@lfdr.de>; Thu,  9 Mar 2023 15:22:47 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EA13FC6A60C;
-	Thu,  9 Mar 2023 12:35:36 +0000 (UTC)
-Received: from mail.3ffe.de (0001.3ffe.de [159.69.201.130])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 755A0C6A5FD
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 67708C6A60D;
+	Thu,  9 Mar 2023 14:22:47 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 491D6C6A5FD
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  9 Mar 2023 12:35:36 +0000 (UTC)
-Received: from 3ffe.de (0001.3ffe.de [IPv6:2a01:4f8:c0c:9d57::1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by mail.3ffe.de (Postfix) with ESMTPSA id AB60AD5A;
- Thu,  9 Mar 2023 13:35:35 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=walle.cc;
- s=mail2022082101; t=1678365335;
+ Thu,  9 Mar 2023 11:04:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1678359883;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=+YkbL6egC+tLS7Ekib2vq6k/gQvvMNd5aYQVsJy/3LI=;
- b=bws+pQkVyr4zuAoqJt1XiD0qkswr4UwqWsh7Q8g/iTCsdijXujtyR0vGjUKRs5vGFDrL/M
- sh8LIIH6TBghtFfKY9ovpIv/HoXYyWIgtw26RL0nVmBpoc1bUj6ns3BaWDCgNdTAVsvkX2
- Ft0xU7peSsWfmrHI8QrFLurdfSO4cTAOEb9xQC1Gz1KawG/jCXUmVXyyAYz8rJTlSka5nF
- vlT9dcdmpLW4tWDT1y4oYA8VvMPAOp7JsDGfKq0q8YMctBfoaUH2rgDIZTrRszOaQG2Ro1
- 3jKOFDnBBiT8KjunvovcZ0hx7boRaLbReOPK1K4Hu9l1ameEMBhx8pIQEpWg8Q==
+ in-reply-to:in-reply-to; bh=rIKq23+uaKpJ1OE/0bOsZp271hw8KGnFAFpE9HnsfKM=;
+ b=UNga34wB14jZIEOSkbnx2HCFmp8EtUXZV6fIhPfyu4mYqONezpbT8CBnfmP3iY5S8zKBL0
+ G7NIkEq6ou04p4ttPTZZ8qkTsUKZQclMuxAwcCuqLBxC+ev6Ad/EHesSZ4urSNr8y/FXJj
+ duKcuBn93QN9d2ysN9VTEB90L5d0Q0c=
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
+ [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-94-YlfVF3CdOPCya1GcYI9b1w-1; Thu, 09 Mar 2023 06:04:34 -0500
+X-MC-Unique: YlfVF3CdOPCya1GcYI9b1w-1
+Received: by mail-wm1-f72.google.com with SMTP id
+ m31-20020a05600c3b1f00b003e9de8c95easo527468wms.2
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 09 Mar 2023 03:04:34 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112; t=1678359873;
+ h=mime-version:message-id:date:in-reply-to:subject:cc:to:from
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=rIKq23+uaKpJ1OE/0bOsZp271hw8KGnFAFpE9HnsfKM=;
+ b=6uEIkO4aDTwKMBQDn/5MMuKlZfCoxROM8MeeeoKc1PCLqeIeFAT5GE75pwG3oTG3TO
+ sMobz18rMry+wBmV8IOpPUS4ImnjS9BFPpvUC2GpkvrA+FIzwj0xc7C9UI9/wSUmeR1O
+ XQghjo9i54btz6/+Vo5tQKf2HizyHep1belmuTrHRxZtiYPMhOLueO9H8mqzdXwQkgxi
+ 8tQv2XR8p43XHBZ3o1ICkhHzvmrrJe+eRX0w69wf6FrA6ApbO4crAVehcPlyevoLaDmF
+ ohNr9Qn/dVUPLH421c0e3X1R0zPO5BkS20R/mUqaOu+PHTWr+9xdp6YzcRIfjvqlhjKA
+ cWHw==
+X-Gm-Message-State: AO0yUKWQ38tLdYN+gVe6Jx1N/pWo6/saeiehxbjL/K1vUW1i8JDQrRJ6
+ 1tEppozpCklHW4xjJEvMXD/LuBDekp1qCs9y8bMz1mYoItY/dNQqnT1OyK7E3EUGGr7dSeqRaVy
+ AOONmiQezlMMeGYTTv10vlYno3BczGGpI513dCvHY
+X-Received: by 2002:adf:dd4d:0:b0:2c7:dfc:47a8 with SMTP id
+ u13-20020adfdd4d000000b002c70dfc47a8mr13928113wrm.66.1678359873464; 
+ Thu, 09 Mar 2023 03:04:33 -0800 (PST)
+X-Google-Smtp-Source: AK7set/WEjfKPC+jhxXW6ijuedDfyidmiJJoYJDI9DsQt9cbEhaxwvCHVmnIbZ4cOwrnEzJA2b9WDA==
+X-Received: by 2002:adf:dd4d:0:b0:2c7:dfc:47a8 with SMTP id
+ u13-20020adfdd4d000000b002c70dfc47a8mr13928071wrm.66.1678359873107; 
+ Thu, 09 Mar 2023 03:04:33 -0800 (PST)
+Received: from localhost (205.pool92-176-231.dynamic.orange.es.
+ [92.176.231.205]) by smtp.gmail.com with ESMTPSA id
+ o6-20020a5d6706000000b002c573778432sm17174423wru.102.2023.03.09.03.04.32
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 09 Mar 2023 03:04:32 -0800 (PST)
+From: Javier Martinez Canillas <javierm@redhat.com>
+To: Thomas Zimmermann <tzimmermann@suse.de>,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com,
+ daniel@ffwll.ch, andrew@aj.id.au, laurentiu.palcu@oss.nxp.com,
+ l.stach@pengutronix.de, shawnguo@kernel.org, s.hauer@pengutronix.de,
+ kernel@pengutronix.de, festevam@gmail.com, linux-imx@nxp.com,
+ p.zabel@pengutronix.de, anitha.chrisanthus@intel.com,
+ edmund.j.dea@intel.com, khilman@baylibre.com, jbrunet@baylibre.com,
+ martin.blumenstingl@googlemail.com, alain.volmat@foss.st.com,
+ yannick.fertre@foss.st.com, raphael.gallais-pou@foss.st.com,
+ philippe.cornu@foss.st.com, mcoquelin.stm32@gmail.com,
+ alexandre.torgue@foss.st.com, jernej.skrabec@gmail.com,
+ samuel@sholland.org, jyri.sarha@iki.fi, tomba@kernel.org,
+ linus.walleij@linaro.org, hyun.kwon@xilinx.com,
+ laurent.pinchart@ideasonboard.com
+In-Reply-To: <20230301153101.4282-2-tzimmermann@suse.de>
+Date: Thu, 09 Mar 2023 12:04:31 +0100
+Message-ID: <87o7p2p4n4.fsf@minerva.mail-host-address-is-not-set>
 MIME-Version: 1.0
-Date: Thu, 09 Mar 2023 13:35:35 +0100
-From: Michael Walle <michael@walle.cc>
-To: Tudor Ambarus <tudor.ambarus@linaro.org>
-In-Reply-To: <5183a184-c72d-3acd-70cd-6aa1e31533f5@linaro.org>
-References: <20220911174551.653599-1-sergiu.moga@microchip.com>
- <20220925220304.buk3yuqoh6vszfci@mobilestation>
- <18e6e8a8-6412-7e31-21e0-6becd4400ac1@microchip.com>
- <20220926172454.kbpzck7med5bopre@mobilestation>
- <1766f6ef-d9d8-04f7-a6bf-0ea6bc0b3d23@linaro.org>
- <f647e713a65f5d3f0f2e3af95c4d0a89@walle.cc>
- <1849e2c8-54f5-9e56-4ed8-8b0e4a826d04@linaro.org>
- <302ecf0421fe4c99fca3eb0ca2f66127@walle.cc>
- <5183a184-c72d-3acd-70cd-6aa1e31533f5@linaro.org>
-User-Agent: Roundcube Webmail/1.4.13
-Message-ID: <03a9f117316ab81f1b5a18100f771e65@walle.cc>
-X-Sender: michael@walle.cc
-Cc: alexandre.belloni@bootlin.com, vigneshr@ti.com,
- linux-aspeed@lists.ozlabs.org, tali.perry1@gmail.com,
- linux-mtd@lists.infradead.org, miquel.raynal@bootlin.com,
- linux-spi@vger.kernel.org, michal.simek@xilinx.com, tmaimon77@gmail.com,
- benjaminfair@google.com, kdasu.kdev@gmail.com, richard@nod.at,
- chin-ting_kuo@aspeedtech.com, Sergiu.Moga@microchip.com, haibo.chen@nxp.com,
- openbmc@lists.ozlabs.org, yuenn@google.com,
- bcm-kernel-feedback-list@broadcom.com, joel@jms.id.au, yogeshgaur.83@gmail.com,
- linux-rockchip@lists.infradead.org,
- Tudor Ambarus <tudor.ambarus@microchip.com>, john.garry@huawei.com,
- Mark Brown <broonie@kernel.org>, linux-mediatek@lists.infradead.org,
- clg@kaod.org, matthias.bgg@gmail.com, han.xu@nxp.com,
- linux-arm-kernel@lists.infradead.org, andrew@aj.id.au, venture@google.com,
- linux-stm32@st-md-mailman.stormreply.com, heiko@sntech.de,
- Nicolas.Ferre@microchip.com, Serge Semin <fancer.lancer@gmail.com>,
- linux-kernel@vger.kernel.org, avifishman70@gmail.com,
- mcoquelin.stm32@gmail.com, Claudiu.Beznea@microchip.com,
- Pratyush Yadav <pratyush@kernel.org>
-Subject: Re: [Linux-stm32] [PATCH] spi: Replace `dummy.nbytes` with
-	`dummy.ncycles`
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+X-Mailman-Approved-At: Thu, 09 Mar 2023 14:22:45 +0000
+Cc: linux-aspeed@lists.ozlabs.org, dri-devel@lists.freedesktop.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Thomas Zimmermann <tzimmermann@suse.de>, linux-amlogic@lists.infradead.org,
+ linux-sunxi@lists.linux.dev, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 01/22] drm/fbdev-dma: Implement fbdev
+ emulation for GEM DMA helpers
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,99 +94,257 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-QW0gMjAyMy0wMy0wOSAxMzowOSwgc2NocmllYiBUdWRvciBBbWJhcnVzOgo+IE9uIDMvOS8yMyAx
-MDo1NiwgTWljaGFlbCBXYWxsZSB3cm90ZToKPj4gQW0gMjAyMy0wMy0wOSAxMTo0Miwgc2Nocmll
-YiBUdWRvciBBbWJhcnVzOgo+Pj4gT24gMDkuMDMuMjAyMyAxMDozOCwgTWljaGFlbCBXYWxsZSB3
-cm90ZToKPj4+Pj4gSW4gYW4gaWRlYWwgd29ybGQsIHdoZXJlIGJvdGggdGhlIGNvbnRyb2xsZXIg
-YW5kIHRoZSBkZXZpY2UgdGFsayAKPj4+Pj4gYWJvdXQKPj4+Pj4gZHVtbXkgbnVtYmVyIG9mIGN5
-Y2xlcywgSSB3b3VsZCBhZ3JlZSB3aXRoIHlvdSwgYnVzd2lkdGggYW5kIGR0ciAKPj4+Pj4gc2hv
-dWxkCj4+Pj4+IG5vdCBiZSByZWxldmFudCBmb3IgdGhlIG51bWJlciBvZiBkdW1teSBjeWNsZXMu
-IEJ1dCBpdCBzZWVtcyB0aGF0IAo+Pj4+PiB0aGVyZQo+Pj4+PiBhcmUgb2xkIGNvbnRyb2xsZXJz
-IChlLmcuIHNwaS1oaXNpLXNmYy12M3h4LmMsIHNwaS1tdDY1eHguYywKPj4+Pj4gc3BpLW14aWMu
-YykKPj4+Pj4gdGhhdCBzdXBwb3J0IGJ1c3dpZHRocyA+IDEgYW5kIHdvcmsgb25seSB3aXRoIGR1
-bW15IG5ieXRlcywgdGhleSAKPj4+Pj4gYXJlCj4+Pj4+IG5vdAo+Pj4+PiBjYXBhYmxlIG9mIHNw
-ZWNpZnlpbmcgYSBzbWFsbGVyIGdyYW51bGFyaXR5IChuY3ljbGVzKS4gVGh1cyB0aGUgCj4+Pj4+
-IG9sZGVyCj4+Pj4+IGNvbnRyb2xsZXJzIHdvdWxkIGhhdmUgdG8gY29udmVydCB0aGUgZHVtbXkg
-bmN5Y2xlcyB0byBkdW1teSAKPj4+Pj4gbmJ5dGVzLgo+Pj4+PiBTaW5jZSBtaXhlZCB0cmFuc2Zl
-ciBtb2RlcyBhcmUgYSB0aGluZyAoc2VlIGplc2QyNTEsIGl0IHRhbGtzIGFib3V0Cj4+Pj4+IDRT
-LTRELTREKSwgd2hlcmUgc2luZ2xlIHRyYW5zZmVyIG1vZGUgKFMpIGNhbiBiZSBtaXhlZCB3aXRo
-IGRvdWJsZQo+Pj4+PiB0cmFuc2ZlciBtb2RlIChEKSBmb3IgYSBjb21tYW5kLCB0aGUgY29udHJv
-bGxlciB3b3VsZCBoYXZlIHRvIGd1ZXNzIAo+Pj4+PiB0aGUKPj4+Pj4gYnVzd2lkdGggYW5kIGR0
-ciBvZiB0aGUgZHVtbXkuIFNoYWxsIHRoZXkgcmVwbGljYXRlIHRoZSBidXN3aWR0aCAKPj4+Pj4g
-YW5kCj4+Pj4+IGR0cgo+Pj4+PiBvZiB0aGUgYWRkcmVzcyBvciBvZiB0aGUgZGF0YT8gVGhlcmUn
-cyBubyBydWxlIGZvciB0aGF0Lgo+Pj4+IAo+Pj4+IEJ1dCBpbiB0aGUgZW5kIHRoYXQgZG9lc24n
-dCBtYXR0ZXIgYmVjYXVzZSB0aGV5IGFyZSBqdXN0IGR1bW15IGNsb2NrCj4+Pj4gY3ljbGVzIGFu
-ZCB0aGUgbW9kZSB3aWxsIG9ubHkgYWZmZWN0IHRoZSBkYXRhL2FkZHJlc3MvY29tbWFuZC4KPj4+
-PiBUaGVyZWZvcmUsCj4+Pj4gdGhlIGNvbnRyb2xsZXIgaXMgZnJlZSB0byBjaG9vc2UgdGhlIG1v
-ZGUgdGhhdCBzdWl0cyBpdCBiZXN0Lgo+Pj4+IMKgPiBCdXQgdGhhdCBiZWdzIHRoZSBxdWVzdGlv
-biwgaXMgbmN5Y2xlcyBpbiByZWdhcmQgdG8gRFRSIG9yIFNEUj8KPj4+PiBUaGF0IGlzLAo+Pj4+
-IGFyZSB5b3UgY291bnRpbmcganVzdCBvbmUgdHlwZSBvZiBlZGdlcyBvciBib3RoIHRoZSBmYWxs
-aW5nIGFuZCAKPj4+PiByaXNpbmcKPj4+PiBlZGdlcy4gVGhlIHNtYWxsZXN0IGdyYW51bGFyaXR5
-IHdvdWxkIGJlIG5jeWNsZXMgaW4gcmVnYXJkIG9mIERUUi4gCj4+Pj4gVG8KPj4+PiBtZSwKPj4+
-PiBpdCdzIG5vdCBvYnZpb3VzIHdoYXQgdGhlIFNFTVBFUiBOYW5vIEZsYXNoIFsxXSB1c2VzLiBJ
-J2Qgc2F5IHdlIAo+Pj4+IGNob29zZQo+Pj4+IHRoZSBzbWFsbGVzdCBncmFudWxhcnR5IGluIHNw
-aS1tZW0gdG8gYmUgZnV0dXJlIHByb29mIGFuZCBtYXliZSAKPj4+PiBwcm92aWRlCj4+Pj4gc29t
-ZSBzcGktbWVtIGhlbHBlciB0byBoZWxwIHNldHRpbmcgdGhlIGN5Y2xlcyBmb3IgU0RSL0RUUi4g
-QXMgYW4KPj4+PiBleGFtcGxlLAo+Pj4+IGlmIHlvdSB3YW50IHRvIHdhaXQgNCBjeWNsZXMgaW4g
-U0RSIHlvdSdkIGhhdmUgbmN5Y2xlcz04IGluIHNwaS1tZW0uCj4+Pj4gCj4+PiAKPj4+IE5vLCB3
-ZSBjYW4ndCBpbnZlbnQgb3VyIG93biBtZWFzdXJpbmcgdW5pdHMuIFdlIGhhdmUgY3ljbGVzIGFu
-ZCBoYWxmCj4+PiBjeWNsZXMgKHJlZ2FyZGxlc3Mgb2YgdGhlIHRyYW5zZmVyIG1vZGUgdXNlZCAo
-U1RSLCBEVFIpKS4KPj4gCj4+IFRoYXQgaXMgYmFzaWNhbGx5IHdoYXQgSSB3YXMgc2F5aW5nLCBq
-dXN0IHVzaW5nIHRoZSBjb3JyZWN0IHRlcm0uCj4+IE9rLiBTbyB3ZSBkb24ndCBuZWVkIHRoZSBk
-dHIgcHJvcGVydHksIHJpZ2h0PyBJJ20gc3RpbGwgbm90IHN1cmUsCj4gCj4gV2UgZG8uCj4gCj4g
-QXMgb2Ygbm93IHlvdSBjYW4ndCBzcGVjaWZ5IDIwIGR1bW15IGN5Y2xlcyBmb3IgUkVBRElEIGlu
-IDhELThELThEIG1vZGUKPiBiZWNhdXNlIGFsbCB0aGUgbGF5ZXJzIHRyZWF0cyBkdW1teSBhcyBi
-eXRlcywgd2hlcmVhcyB0aGV5IHNob3VsZCB0cmVhdAo+IGl0IGFzIGN5Y2xlcy4gT25lIGR1bW15
-IGJ5dGUgaW4gOEQtOEQtOEQgbWVhbnMgMTYgZHVtbXkgY3ljbGVzLiAyMCAKPiBkdW1teQo+IGN5
-Y2xlcyBpbiA4RC04RC04RCBtZWFucyBvbmUgYnl0ZSBhbmQgYSBxdWFydGVyPyBUaGlzIGlzIGEg
-bm9uLXNlbnNlLgoKQWdyZWVkLgoKPiBBcyB0aGUgY29kZSBpcyBub3csIFNQSSBOQU5EIHVzZXMg
-ZHVtbXkgY3ljbGVzIHRoYXQgYXJlIG11bHRpcGxlIG9mIDguCj4gU1BJIE5PUiByZXF1aXJlcyBh
-IHZhcmlhYmxlIG51bWJlciBvZiBkdW1teSBjeWNsZXMsIHRoZXJlJ3Mgbm8KPiByZXN0cmljdGlv
-bnMuIEluIFNQSSBOT1Igd2UgZ2V0IGZyb20gU0ZEUCBvciBkYXRhc2hlZXRzIHRoZSBudW1iZXIg
-b2YKPiBkdW1teSBjeWNsZXMsIGFuZCBpbiB0aGUgY29kZSB3ZSBjb252ZXJ0IHRoZW0gdG8gZHVt
-bXkgbmJ5dGVzLiBUaGVuIAo+IHdoZW4KPiB3ZSBnZXQgYXQgdGhlIGNvbnRyb2xsZXIgc2lkZSwg
-dGhlIG1ham9yaXR5IG9mIHRoZSBjb250cm9sbGVycyB1bmRvIHRoZQo+IG9wZXJhdGlvbiwgdGhl
-eSB0YWtlIHRoZSBkdW1teSBuYnl0ZXMgYW5kIGNvbnZlcnQgdGhlbSB0byBkdW1teSAKPiBuY3lj
-bGVzLgo+IElzbid0IGJldHRlciB0byB1c2UgZHVtbXkgbmN5Y2xlcyBmcm9tIHRoZSBiZWdpbm5p
-bmc/CgpZZXMsIGJ1dCBub3cgd2Ugc2hvdWxkIGRlZmluZSB3aGF0ICpvbmUqIGN5Y2xlIGlzLiBB
-bmQgdGhhdCBpdCBpcyAKZGVmaW5lZApyZWdhcmRsZXNzIG9mIHRoZSBtb2RlLCBiZWNhdXNlIHRo
-ZSBtb2RlIG9ubHkgYWZmZWN0cyB0aGUgSU8gbGluZXMuIEJ1dAphIGNsb2NrIGN5Y2xlIHJlZmVy
-cyB0byB0aGUgY2xvY2sgbGluZS4gW2NvbWluZyBiYWNrIHRvIGhlcmVdIEFuZCBhcyB5b3UKc2Fp
-ZCBvbmUgY3ljbGUgaXMgb25lIGZ1bGwgY2xvY2sgY3ljbGUsIGl0IGlzIGFsc28gaW5kZXBlbmRl
-bnQgb2YgdGhlIApkdHIKc2V0dGluZy4KCj4gVGhlIGNvbnRyb2xsZXJzIHRoYXQgY2FuIHRhbGsg
-aW4gZHVtbXkgbmN5Y2xlcyBkb24ndCBuZWVkIHRoZQo+IGR1bW15LntidXN3aWR0aCwgZHRyfSBm
-aWVsZHMuCj4gCj4gVGhlIGNvbnRyb2xsZXJzIHRoYXQgY2FuJ3QgdGFsayBpbiBkdW1teSBjeWNs
-ZXMsIGJ1dCBvbmx5IG9uIGEgImJ5dGUiCj4gYm91bmRhcnkgbmVlZCBib3RoIGJ1c3dpZHRoIGFu
-ZCBkdHIgZmllbGRzLiBBc3N1bWUgYSBmbGFzaCBuZWVkcyAzMgo+IGR1bW15IGN5Y2xlcyBmb3Ig
-YW4gb3Agb24gOEQtOEQtOEQgbW9kZS4gSWYgdGhlIGNvbnRyb2xsZXIgZG9lcyBub3QgCj4gaGF2
-ZQo+IHRoZSBidXN3aWR0aCBhbmQgZHRyIGluZm8sIGl0IGNhbid0IGNvbnZlcnQgdGhlIGR1bW15
-IG5jeWNsZXMgdG8gCj4gbmJ5dGVzLgo+IElmIGhlIGtub3dzIG9ubHkgdGhhdCBidXN3aWR0aCBp
-cyA4LCBpdCB3aWxsIGNvbnZlcnQgbmN5Y2xlcyB0byA0IAo+IGJ5dGVzLgo+IElmIGR0ciBpcyBh
-bHNvIHNwZWNpZmllZCBpdCBjb252ZXJ0cyBuY3ljbGVzIHRvIDIgYnl0ZXMuCgpObyB0aGV5IGRv
-bid0IG5lZWQgaXQuIExldHMgdGFrZSB5b3VyIHNlbXBlciBmbGFzaCBhbmQgYXNzdW1lIGl0IG5l
-ZWRzCjEyIGxhdGVuY3kgY3ljbGVzLiBTUEktTk9SIHdpbGwgc2V0IG5jeWNsZXMgdG8gMTIgKnJl
-Z2FyZGxlc3Mgb2YgdGhlIAptb2RlCm9yIGR0ciBzZXR0aW5nKi4gVGhlIGNvbnRyb2xsZXIgdGhl
-biBrbm93cyB3ZSBuZWVkIDEyIGNsb2NrIGN5Y2xlcy4gSXQgCmhhcwp0aGVuIHRvIGZpZ3VyZSBv
-dXQgaG93IHRoYXQgY2FuIGJlIGFjaGlldmVkLiBFLmcuIGlmIGl0IGNhbiBvbmx5IGRvIHRoZQoi
-b2xkIiBieXRlIHByb2dyYW1taW5nIGFuZCBpcyBpbiBxdWFkIG1vZGUsIGdvb2QgZm9yIGl0LiBJ
-dCB3aWxsIHNlbmQgNgpkdW1teSBieXRlcywgd2hpY2ggd2lsbCByZXN1bHQgaW4gMTIgZHVtbXkg
-Y2xvY2sgY3ljbGVzLCBiZWNhdXNlIDEgYnl0ZQp0YWtlcyB0d28gY2xvY2sgY3ljbGVzIGluIHF1
-YWQgU0RSIG1vZGUuIElmIGl0cyBpbiBvY3RhbCBtb2RlLCBzZW5kIDEyCmJ5dGVzLiBJZiBpdHMg
-aW4gZHVhbCBtb2RlLCBzZW5kIDMgYnl0ZXMuIE9iaW91c2x5LCBpdCBjYW5ub3QgYmUgaW4Kc2lu
-Z2xlIGJpdCBtb2RlLCBiZWNhdXNlIGl0IGNhbm5vdCBzZW5kIDEuNSBieXRlcy4uCgpJZiBpdCdz
-IGZyZWVseSBwcm9ncmFtbWFibGUsIGl0IHdpbGwganVzdCB0ZWxsIHRoZSBoYXJkd2FyZSB0byBp
-bnNlcnQKMTIgZHVtbXkgY2xvY2sgY3ljbGVzLgoKPj4gd2hhdCB0aGUgc2VtcGVyIG5hbm8gZmxh
-c2ggdXNlcy4gSGFsZiBjeWNsZXM/IEJ1dCBhY2NvcmRpbmcgdG8geW91cgo+IAo+IHRoZXJlJ3Mg
-bm8gc3BpbWVtIGZsYXNoIGNvZGUgdGhhdCB1c2UgaGFsZiBjeWNsZXMgZm9yIG5vdy4KCkFoaCwg
-SSBqdXN0IHNhdyB0aGUgc2VtcGVyIGZsYXNoIGRvZXNuJ3Qgc3VwcG9ydCBEVFIgYXQgYWxsLiBP
-ayB0aGVuLAptYWtlcyB0aGluZ3MgZXZlbiBzaW1wbGVyLgoKPj4gbmFtaW5nIHlvdSdkIHNwZWNp
-ZnkgZnVsbCBjeWxjZXM/Cj4gCj4gQSBjbG9jayBwZXJpb2QsIHllcy4KCk9rLgoKLW1pY2hhZWwK
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3Rt
-MzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20K
-aHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGlu
-dXgtc3RtMzIK
+Thomas Zimmermann <tzimmermann@suse.de> writes:
+
+> Implement fbdev emulation that is optimized for drivers that use
+> DMA helpers. The buffers may no tbe moveable, may not require damage
+
+"may not be"
+
+Is may the correct verb here though? I guess you meant "shall not".
+
+> handling and have to be located in system memory. This allows fbdev
+> emulation to operate directly on the buffer and mmap it to userspace.
+>
+> Besides those constraints, the emulation works like in the generic
+> code. As an internal DRM client provides, it receives hotplug, restore
+> and unregister events. The DRM client is independent from the fbdev
+> probing, which runs on the first successful hotplug event.
+>
+> The emulation is part of the DMA helper module and not build unless
+> DMA helpers and fbdev emulation has been configured.
+>
+> Tested with vc4.
+>
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+> ---
+
+[...]
+
+> +static int drm_fbdev_dma_fb_open(struct fb_info *info, int user)
+> +{
+> +	struct drm_fb_helper *fb_helper = info->par;
+> +
+> +	/* No need to take a ref for fbcon because it unbinds on unregister */
+> +	if (user && !try_module_get(fb_helper->dev->driver->fops->owner))
+> +		return -ENODEV;
+> +
+> +	return 0;
+> +}
+> +
+> +static int drm_fbdev_dma_fb_release(struct fb_info *info, int user)
+> +{
+> +	struct drm_fb_helper *fb_helper = info->par;
+> +
+> +	if (user)
+> +		module_put(fb_helper->dev->driver->fops->owner);
+> +
+> +	return 0;
+> +}
+> +
+
+These two functions are the same than what's used by the generic fbdev
+emulation. Maybe they could be moved to drivers/gpu/drm/drm_fb_helper.c
+and be reused ?
+
+> +static int drm_fbdev_dma_helper_fb_probe(struct drm_fb_helper *fb_helper,
+> +					 struct drm_fb_helper_surface_size *sizes)
+> +{
+> +	struct drm_client_dev *client = &fb_helper->client;
+> +	struct drm_device *dev = fb_helper->dev;
+> +	struct drm_client_buffer *buffer;
+> +	struct drm_gem_dma_object *dma_obj;
+> +	struct drm_framebuffer *fb;
+> +	struct fb_info *info;
+> +	u32 format;
+> +	struct iosys_map map;
+> +	int ret;
+> +
+> +	drm_dbg_kms(dev, "surface width(%d), height(%d) and bpp(%d)\n",
+> +		    sizes->surface_width, sizes->surface_height,
+> +		    sizes->surface_bpp);
+> +
+> +	format = drm_mode_legacy_fb_format(sizes->surface_bpp, sizes->surface_depth);
+> +	buffer = drm_client_framebuffer_create(client, sizes->surface_width,
+> +					       sizes->surface_height, format);
+> +	if (IS_ERR(buffer))
+> +		return PTR_ERR(buffer);
+> +	dma_obj = to_drm_gem_dma_obj(buffer->gem);
+> +
+> +	fb = buffer->fb;
+> +	if (drm_WARN_ON(dev, fb->funcs->dirty)) {
+> +		ret = -ENODEV; /* damage handling not supported; use generic emulation */
+> +		goto err_drm_client_buffer_delete;
+> +	}
+
+Should we have a similar check for drm_fbdev_use_shadow_fb(fb_helper)
+and warn on ?
+
+> +
+> +	ret = drm_client_buffer_vmap(buffer, &map);
+> +	if (ret) {
+> +		goto err_drm_client_buffer_delete;
+> +	} else if (drm_WARN_ON(dev, map.is_iomem)) {
+> +		ret = -ENODEV; /* I/O memory not supported; use generic emulation */
+
+I also wonder if here and above instead of the warn on, there should
+just be a normal check and print more verbose warning messages.
+
+[...]
+
+> +static void drm_fbdev_dma_client_unregister(struct drm_client_dev *client)
+> +{
+> +	struct drm_fb_helper *fb_helper = drm_fb_helper_from_client(client);
+> +
+> +	if (fb_helper->info) {
+> +		drm_fb_helper_unregister_info(fb_helper);
+> +	} else {
+> +		drm_client_release(&fb_helper->client);
+> +		drm_fb_helper_unprepare(fb_helper);
+> +		kfree(fb_helper);
+> +	}
+> +}
+
+This is again the same than drm_fbdev_client_unregister() so I think
+that can be made a helper and shared bewteen the two implementations.
+
+> +
+> +static int drm_fbdev_dma_client_restore(struct drm_client_dev *client)
+> +{
+> +	drm_fb_helper_lastclose(client->dev);
+> +
+> +	return 0;
+> +}
+
+Same for this one.
+
+> +
+> +static int drm_fbdev_dma_client_hotplug(struct drm_client_dev *client)
+> +{
+> +	struct drm_fb_helper *fb_helper = drm_fb_helper_from_client(client);
+> +	struct drm_device *dev = client->dev;
+> +	int ret;
+> +
+> +	if (dev->fb_helper)
+> +		return drm_fb_helper_hotplug_event(dev->fb_helper);
+> +
+> +	ret = drm_fb_helper_init(dev, fb_helper);
+> +	if (ret)
+> +		goto err_drm_err;
+> +
+> +	if (!drm_drv_uses_atomic_modeset(dev))
+> +		drm_helper_disable_unused_functions(dev);
+> +
+> +	ret = drm_fb_helper_initial_config(fb_helper);
+> +	if (ret)
+> +		goto err_drm_fb_helper_fini;
+> +
+> +	return 0;
+> +
+> +err_drm_fb_helper_fini:
+> +	drm_fb_helper_fini(fb_helper);
+> +err_drm_err:
+> +	drm_err(dev, "fbdev-dma: Failed to setup generic emulation (ret=%d)\n", ret);
+> +	return ret;
+> +}
+
+And this one.
+
+> +/**
+> + * drm_fbdev_dma_setup() - Setup fbdev emulation for GEM DMA helpers
+> + * @dev: DRM device
+> + * @preferred_bpp: Preferred bits per pixel for the device.
+> + *                 @dev->mode_config.preferred_depth is used if this is zero.
+> + *
+> + * This function sets up fbdev emulation for GEM DMA drivers that support
+> + * dumb buffers with a virtual address and that can be mmap'ed.
+> + * drm_fbdev_dma_setup() shall be called after the DRM driver registered
+> + * the new DRM device with drm_dev_register().
+> + *
+> + * Restore, hotplug events and teardown are all taken care of. Drivers that do
+> + * suspend/resume need to call drm_fb_helper_set_suspend_unlocked() themselves.
+> + * Simple drivers might use drm_mode_config_helper_suspend().
+> + *
+> + * This function is safe to call even when there are no connectors present.
+> + * Setup will be retried on the next hotplug event.
+> + *
+> + * The fbdev is destroyed by drm_dev_unregister().
+> + */
+> +void drm_fbdev_dma_setup(struct drm_device *dev, unsigned int preferred_bpp)
+> +{
+> +	struct drm_fb_helper *fb_helper;
+> +	int ret;
+> +
+> +	drm_WARN(dev, !dev->registered, "Device has not been registered.\n");
+> +	drm_WARN(dev, dev->fb_helper, "fb_helper is already set!\n");
+> +
+> +	fb_helper = kzalloc(sizeof(*fb_helper), GFP_KERNEL);
+> +	if (!fb_helper)
+> +		return;
+> +	drm_fb_helper_prepare(dev, fb_helper, preferred_bpp, &drm_fbdev_dma_helper_funcs);
+> +
+> +	ret = drm_client_init(dev, &fb_helper->client, "fbdev", &drm_fbdev_dma_client_funcs);
+> +	if (ret) {
+> +		drm_err(dev, "Failed to register client: %d\n", ret);
+> +		goto err_drm_client_init;
+> +	}
+> +
+> +	ret = drm_fbdev_dma_client_hotplug(&fb_helper->client);
+> +	if (ret)
+> +		drm_dbg_kms(dev, "client hotplug ret=%d\n", ret);
+> +
+> +	drm_client_register(&fb_helper->client);
+> +
+> +	return;
+> +
+> +err_drm_client_init:
+> +	drm_fb_helper_unprepare(fb_helper);
+> +	kfree(fb_helper);
+> +}
+> +EXPORT_SYMBOL(drm_fbdev_dma_setup);
+
+And this one could also be shared AFAICT if drm_fbdev_client_hotplug()
+is used instead.
+
+> diff --git a/include/drm/drm_fbdev_dma.h b/include/drm/drm_fbdev_dma.h
+> new file mode 100644
+> index 000000000000..2da7ee784133
+> --- /dev/null
+> +++ b/include/drm/drm_fbdev_dma.h
+> @@ -0,0 +1,15 @@
+> +/* SPDX-License-Identifier: MIT */
+> +
+> +#ifndef DRM_FBDEV_DMA_H
+> +#define DRM_FBDEV_DMA_H
+> +
+> +struct drm_device;
+> +
+> +#ifdef CONFIG_DRM_FBDEV_EMULATION
+> +void drm_fbdev_dma_setup(struct drm_device *dev, unsigned int preferred_bpp);
+> +#else
+> +static inline void drm_fbdev_dma_setup(struct drm_device *dev, unsigned int preferred_bpp)
+> +{ }
+> +#endif
+> +
+> +#endif
+> -- 
+
+And you should be able to drop this header too if split the common
+helpers from drm_fbdev_generic.c or maybe I'm missing something ?
+
+-- 
+Best regards,
+
+Javier Martinez Canillas
+Core Platforms
+Red Hat
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
