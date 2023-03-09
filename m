@@ -2,60 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F5006B22FC
-	for <lists+linux-stm32@lfdr.de>; Thu,  9 Mar 2023 12:28:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6720C6B2300
+	for <lists+linux-stm32@lfdr.de>; Thu,  9 Mar 2023 12:29:09 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F193DC6A60C;
-	Thu,  9 Mar 2023 11:28:46 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 16758C6A60C;
+	Thu,  9 Mar 2023 11:29:09 +0000 (UTC)
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 856F5C6A5FD
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9382EC6A5FD
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  9 Mar 2023 11:28:45 +0000 (UTC)
+ Thu,  9 Mar 2023 11:29:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1678361324;
+ s=mimecast20190719; t=1678361346;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
  bh=ZE/7iJwefnAXFkAm0lKDfvx+6HRiN8eOH8p7Wvai0wo=;
- b=Y0w9WY0anRnaOp5s5PVvSnqnK0gUmSfQDPj5w7KRjHBA9isrVwZCevt0G13wpgMz5zKWs5
- u+hrjU8ksyk/DJxBACl24ZHXKRoZltK9pOdOjn3sn/zpPvvhNsdYIwAXpYnd41d/Vy6yBa
- xTqWMM3TgbGklMK0X2X4eODs1ytlQJk=
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
- [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ b=QGtKIkAUDfax/IoBNEytpljnWwNlAd5TGdI7mxG9OyrPt13m1KB3h8HlHEySbVuStsGkzI
+ DokXitxMdSnZXYDxdJMthC8yhk1SbzwGyA9V+lZSHqxiiTbGAxsjXJedhhNmzEFygy8mPl
+ 99lWZ8WoYWmx3Abv1pnaKZJQPLFwXhU=
+Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
+ [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-299-rn64yLq4O4yHUgmOZ1sIyg-1; Thu, 09 Mar 2023 06:28:43 -0500
-X-MC-Unique: rn64yLq4O4yHUgmOZ1sIyg-1
-Received: by mail-wm1-f71.google.com with SMTP id
- k20-20020a05600c1c9400b003e2249bd2b4so545655wms.5
+ us-mta-653-U6SdSVxPPduo48zwT4qkow-1; Thu, 09 Mar 2023 06:29:05 -0500
+X-MC-Unique: U6SdSVxPPduo48zwT4qkow-1
+Received: by mail-wr1-f70.google.com with SMTP id
+ ba28-20020a0560001c1c00b002cc6d1f0c06so352740wrb.17
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 09 Mar 2023 03:28:43 -0800 (PST)
+ Thu, 09 Mar 2023 03:29:05 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1678361322;
+ d=1e100.net; s=20210112; t=1678361344;
  h=mime-version:message-id:date:references:in-reply-to:subject:cc:to
  :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
  bh=ZE/7iJwefnAXFkAm0lKDfvx+6HRiN8eOH8p7Wvai0wo=;
- b=Q2/HujOtkra2LZQDWb3ztJoEg1mjpuLs77PhGoyrm4lbi6JD6KKM/EYg2aqU5OE1y/
- YII+3v0Y393sCvaEvvaIO/iLbGsNfs1eIgB9DAcZEJo8vySFBU+IijPms/usTWuC0h9r
- uUsnzF6ZyHsNpz9JXNKbuxTXN7om/15RNSvd+8r4OSaBABD3jYVcu4Tm8vi9Tpt8uz2/
- o66P/mdz1AAGmQ6g5YCFHxNcehThIxQ52qJM2t7yhLi5hHMtUZwUQPgnHxfDsEEXkqeZ
- WKnBx7AzXicJAEV+3uELpAal9GZ2HAq0L7JzBDzVoh7fNSQ7ekoT7XCmF2HEtgyuc12P
- XvgQ==
-X-Gm-Message-State: AO0yUKU7YYWzhUQ+c00UVTmrgF+ELeEU6X+ECOZ/dtpkS6vR62k/UnkN
- Y7GtTbufbYQRDUulwdsYaK7G6u0F6nHmLnlbBLrQ0A+qPVitPIYAUpS3+mAw05opCu2+gNW6uC+
- SJKGreV2nPNJ+2MCvcx3RQdjHNSOfIyNjPzDFoLHq
-X-Received: by 2002:adf:fb51:0:b0:2ce:7219:42b8 with SMTP id
- c17-20020adffb51000000b002ce721942b8mr7244747wrs.32.1678361322365; 
- Thu, 09 Mar 2023 03:28:42 -0800 (PST)
-X-Google-Smtp-Source: AK7set8Mn2JIY54bbfAArMm1jwHLD5d38GNHioh3xaVKkpiDjrBseSSAAHghi7SxByPhaXqMV5nmpg==
-X-Received: by 2002:adf:fb51:0:b0:2ce:7219:42b8 with SMTP id
- c17-20020adffb51000000b002ce721942b8mr7244719wrs.32.1678361322054; 
- Thu, 09 Mar 2023 03:28:42 -0800 (PST)
+ b=cfuwZxNY1InRxgzNyp9KHbOhKobI7F9hjsEuYhd+EDJujCJigySw+8JOgSkCYGEBbp
+ qP8b+7Xoq+qNDcSz4sxwQ+WSrJ+qub55QCatqO1mkFZuzZYG8DmFV/T/OO2Hd88f/Ycw
+ eL7NX0PHNq9VHU4L9OJ3Qd26QxXrpc5/1LrnBEdaUmWWV/zpzTn0VGHC48K0QWOeyLTm
+ a8IlYcP7DkKrYMYBQCSkxP11SgfKOHQn4/QwWN0Qdcv5qgHAG2F1Tb24zb8djWElKe91
+ YnB4ZfEUwh1PlTAU41Ljtf12b6Ltkaoxsq4Pdz3/zcflA186EGuvU1ASQXgAhogkeTLH
+ vfwg==
+X-Gm-Message-State: AO0yUKXVMpTwCSUHPlr62UGLl5xB5ovUYkBDg7w/rZ6r0OCKpPcFxTNO
+ sUj0WaaMKY8qlKoDKmDEzPsZjDR/3r2z0Bb9HBCDuQiQLkDK+Gr2j3S9u7D/ofy5LdaT5p75qTP
+ EEtr94FA6Nmrhs0FvkUDfstusUZsAEtj/3ogAUQdx
+X-Received: by 2002:a5d:6505:0:b0:2c6:e682:e55b with SMTP id
+ x5-20020a5d6505000000b002c6e682e55bmr11934476wru.48.1678361344740; 
+ Thu, 09 Mar 2023 03:29:04 -0800 (PST)
+X-Google-Smtp-Source: AK7set/SuOlGzNjzuB+/71QhRoDFVzQZ5KDl1yemHeUwxjB4OayINr1XWjAGx9mSH74oqRW7vJe0XA==
+X-Received: by 2002:a5d:6505:0:b0:2c6:e682:e55b with SMTP id
+ x5-20020a5d6505000000b002c6e682e55bmr11934447wru.48.1678361344548; 
+ Thu, 09 Mar 2023 03:29:04 -0800 (PST)
 Received: from localhost (205.pool92-176-231.dynamic.orange.es.
  [92.176.231.205]) by smtp.gmail.com with ESMTPSA id
- c22-20020a7bc856000000b003dc4a47605fsm2372395wml.8.2023.03.09.03.28.41
+ bg2-20020a05600c3c8200b003e214803343sm2615371wmb.46.2023.03.09.03.29.04
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 09 Mar 2023 03:28:41 -0800 (PST)
+ Thu, 09 Mar 2023 03:29:04 -0800 (PST)
 From: Javier Martinez Canillas <javierm@redhat.com>
 To: Thomas Zimmermann <tzimmermann@suse.de>,
  maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com,
@@ -71,11 +71,11 @@ To: Thomas Zimmermann <tzimmermann@suse.de>,
  samuel@sholland.org, jyri.sarha@iki.fi, tomba@kernel.org,
  linus.walleij@linaro.org, hyun.kwon@xilinx.com,
  laurent.pinchart@ideasonboard.com
-In-Reply-To: <20230301153101.4282-22-tzimmermann@suse.de>
+In-Reply-To: <20230301153101.4282-23-tzimmermann@suse.de>
 References: <20230301153101.4282-1-tzimmermann@suse.de>
- <20230301153101.4282-22-tzimmermann@suse.de>
-Date: Thu, 09 Mar 2023 12:28:41 +0100
-Message-ID: <878rg66u52.fsf@minerva.mail-host-address-is-not-set>
+ <20230301153101.4282-23-tzimmermann@suse.de>
+Date: Thu, 09 Mar 2023 12:29:03 +0100
+Message-ID: <875yba6u4g.fsf@minerva.mail-host-address-is-not-set>
 MIME-Version: 1.0
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
@@ -83,7 +83,8 @@ Cc: linux-aspeed@lists.ozlabs.org, dri-devel@lists.freedesktop.org,
  linux-stm32@st-md-mailman.stormreply.com,
  Thomas Zimmermann <tzimmermann@suse.de>, linux-amlogic@lists.infradead.org,
  linux-sunxi@lists.linux.dev, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 21/22] drm/vc4: Use GEM DMA fbdev emulation
+Subject: Re: [Linux-stm32] [PATCH 22/22] drm/xlnx: Use GEM DMA fbdev
+	emulation
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
