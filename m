@@ -2,70 +2,71 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id EFFF76B46FC
-	for <lists+linux-stm32@lfdr.de>; Fri, 10 Mar 2023 15:47:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B2FE06B499C
+	for <lists+linux-stm32@lfdr.de>; Fri, 10 Mar 2023 16:14:25 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B4D24C6A60C;
-	Fri, 10 Mar 2023 14:47:59 +0000 (UTC)
-Received: from mail-oa1-f50.google.com (mail-oa1-f50.google.com
- [209.85.160.50])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6D98FC6A60C;
+	Fri, 10 Mar 2023 15:14:25 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 251ADC640E6
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DCB8AC640E6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 10 Mar 2023 14:47:58 +0000 (UTC)
-Received: by mail-oa1-f50.google.com with SMTP id
- 586e51a60fabf-176eae36feaso6063487fac.6
+ Fri, 10 Mar 2023 15:14:23 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id B3D9861976
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 10 Mar 2023 06:47:58 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1678459677;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=8lNbDhvtNNABoeoJ1EEfrQ6VIu2kxnEGjaB82Wf/W24=;
- b=Zq6csq/PfOHtup5LchfEynZag/8wATpjlnf34NzAzKG3htJdEECfO+/90KxkEU6HIy
- bSYDTRuYO8YHowtledqCwIpLHPXeq6ku3NlzX9bIKglXq/yDlekgBp2BpjN+i5WLNbmX
- hyaPYYVR+xjF2VHg8d7bPfotZi00IgM6Y9fLuvGVigBmzZixp1h+ib5NpWHhaIYjIY92
- 0Fpx2833C2y8Xk85FMXQdfJcvwMR3/znEyIeGdZUSBZ1pslofR7jk1PRoM5bMWnTyaHv
- ZjPtlqeHBjbnTSZ8cSRaXa4jvvPbj/ue9v2+V8x9dOE4f58EvhqlZBRtfFXVPUYnY0Vw
- l1DA==
-X-Gm-Message-State: AO0yUKWmpas1zlwt+SlxiaTqPV7xdkOWrLWIsnRs28NLxrqu6W03+ycB
- gqalDJE/i+30nyH3feZFcQ==
-X-Google-Smtp-Source: AK7set9I+4VRoGtOVjvZEWPeH4QUf03Pg5OM+6KwBoqWhi2Fyc9oRdnGlhttZ2bQMXTrEhf9nUK3ig==
-X-Received: by 2002:a05:6870:73c6:b0:163:535d:4a86 with SMTP id
- a6-20020a05687073c600b00163535d4a86mr15295757oan.22.1678459676973; 
- Fri, 10 Mar 2023 06:47:56 -0800 (PST)
-Received: from robh_at_kernel.org (66-90-144-107.dyn.grandenetworks.net.
- [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
- m3-20020a056870a40300b00172289de1besm115189oal.18.2023.03.10.06.47.54
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 10 Mar 2023 06:47:56 -0800 (PST)
-Received: (nullmailer pid 1546370 invoked by uid 1000);
- Fri, 10 Mar 2023 14:47:32 -0000
-From: Rob Herring <robh@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, NXP Linux Team <linux-imx@nxp.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Sylwester Nawrocki <s.nawrocki@samsung.com>,
- Olivier Moysan <olivier.moysan@foss.st.com>,
- Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Thierry Reding <thierry.reding@gmail.com>,
- Jonathan Hunter <jonathanh@nvidia.com>
-Date: Fri, 10 Mar 2023 08:47:31 -0600
-Message-Id: <20230310144732.1546328-1-robh@kernel.org>
-X-Mailer: git-send-email 2.39.2
+ Fri, 10 Mar 2023 15:14:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C7C1AC433A4
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 10 Mar 2023 15:14:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1678461261;
+ bh=sgc8sIikzUKf8oaUnbtaXcTY2+rUOaKm8L45dmJWIxw=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=XsSdofoMEl9DiYAK/5ZfZwS39YNneCyCkE2OMaRWREuFbfAKyFkSbPfX7MGZcG4M7
+ JAeBtbixw/gZHCVfI2L/DClYn6pJa7qjBMGz08lE6JrnCEkh0hSOMt43r5/aUqmZSz
+ OH855hrU5l1onGHH6KfbzuDFtdHssh/uoofSzr19FlyR2g9v+q5I70AUu22M+BmnRO
+ b8+zztOPCyBsxmSt4a6CqbzxeWH73JK8u/OCwRnI6XUMFF6eeqPuu0PTriEqEY1Asx
+ 1WnD7DVAkpnF8vMtJpiy6LsQrLt/e0y4uqrj2F4+wPGAlLSnraGi8gEAXKDxdBpMdK
+ ELb1vvyozXFrw==
+Received: by mail-yw1-f177.google.com with SMTP id
+ 00721157ae682-53916ab0c6bso103351897b3.7
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 10 Mar 2023 07:14:21 -0800 (PST)
+X-Gm-Message-State: AO0yUKV5LQJ5605oCIQ8tyFNAVHdaF9bEHnre64EL8zXyYht4F9XV9zZ
+ ymmBCn6RJR0wSyQAPoBUtPBQt0wwf5ZW8JpNfg==
+X-Google-Smtp-Source: AK7set9VS13tgdT+DzbUPAyK1hhAFX+2x0Vswnb9c7OreYxCI/2ydgI/cIMuWNP/8hWsvzFznbnbU6n4F1bUdn7w/qM=
+X-Received: by 2002:a81:ad5a:0:b0:536:4d58:54b2 with SMTP id
+ l26-20020a81ad5a000000b005364d5854b2mr17238450ywk.4.1678461260807; Fri, 10
+ Mar 2023 07:14:20 -0800 (PST)
 MIME-Version: 1.0
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, linux-tegra@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH] ASoC: Use of_property_present() for testing
-	DT property presence
+References: <20230310144732.1546328-1-robh@kernel.org>
+ <a23852d7-c70c-a03c-99fb-b453bdc750a1@linux.intel.com>
+In-Reply-To: <a23852d7-c70c-a03c-99fb-b453bdc750a1@linux.intel.com>
+From: Rob Herring <robh@kernel.org>
+Date: Fri, 10 Mar 2023 09:14:08 -0600
+X-Gmail-Original-Message-ID: <CAL_Jsq+XBzEMWrz=quxq4TkrejMMFRRvo0UinghmBphtmr=XXw@mail.gmail.com>
+Message-ID: <CAL_Jsq+XBzEMWrz=quxq4TkrejMMFRRvo0UinghmBphtmr=XXw@mail.gmail.com>
+To: =?UTF-8?B?QW1hZGV1c3ogU8WCYXdpxYRza2k=?=
+ <amadeuszx.slawinski@linux.intel.com>
+Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Sylwester Nawrocki <s.nawrocki@samsung.com>,
+ Fabio Estevam <festevam@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
+ Jonathan Hunter <jonathanh@nvidia.com>, NXP Linux Team <linux-imx@nxp.com>,
+ Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>, devicetree@vger.kernel.org,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Sascha Hauer <s.hauer@pengutronix.de>, Mark Brown <broonie@kernel.org>,
+ linux-tegra@vger.kernel.org, Jaroslav Kysela <perex@perex.cz>,
+ linux-arm-kernel@lists.infradead.org, Takashi Iwai <tiwai@suse.com>,
+ linux-kernel@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Shawn Guo <shawnguo@kernel.org>
+Subject: Re: [Linux-stm32] [PATCH] ASoC: Use of_property_present() for
+	testing DT property presence
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,161 +78,55 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-It is preferred to use typed property access functions (i.e.
-of_property_read_<type> functions) rather than low-level
-of_get_property/of_find_property functions for reading properties. As
-part of this, convert of_get_property/of_find_property calls to the
-recently added of_property_present() helper when we just want to test
-for presence of a property and nothing more.
-
-Signed-off-by: Rob Herring <robh@kernel.org>
----
- sound/soc/codecs/lpass-macro-common.c | 2 +-
- sound/soc/generic/audio-graph-card.c  | 2 +-
- sound/soc/generic/audio-graph-card2.c | 2 +-
- sound/soc/mxs/mxs-sgtl5000.c          | 2 +-
- sound/soc/samsung/i2s.c               | 2 +-
- sound/soc/sh/fsi.c                    | 2 +-
- sound/soc/stm/stm32_i2s.c             | 2 +-
- sound/soc/stm/stm32_sai_sub.c         | 4 ++--
- sound/soc/tegra/tegra_asoc_machine.c  | 2 +-
- 9 files changed, 10 insertions(+), 10 deletions(-)
-
-diff --git a/sound/soc/codecs/lpass-macro-common.c b/sound/soc/codecs/lpass-macro-common.c
-index 1b9082d237c1..f54baaad54d4 100644
---- a/sound/soc/codecs/lpass-macro-common.c
-+++ b/sound/soc/codecs/lpass-macro-common.c
-@@ -16,7 +16,7 @@ struct lpass_macro *lpass_macro_pds_init(struct device *dev)
- 	struct lpass_macro *l_pds;
- 	int ret;
- 
--	if (!of_find_property(dev->of_node, "power-domains", NULL))
-+	if (!of_property_present(dev->of_node, "power-domains"))
- 		return NULL;
- 
- 	l_pds = devm_kzalloc(dev, sizeof(*l_pds), GFP_KERNEL);
-diff --git a/sound/soc/generic/audio-graph-card.c b/sound/soc/generic/audio-graph-card.c
-index 5daa824a4ffc..d788f5f23a8a 100644
---- a/sound/soc/generic/audio-graph-card.c
-+++ b/sound/soc/generic/audio-graph-card.c
-@@ -78,7 +78,7 @@ static int graph_get_dai_id(struct device_node *ep)
- 		 * only of_graph_parse_endpoint().
- 		 * We need to check "reg" property
- 		 */
--		if (of_get_property(ep,   "reg", NULL))
-+		if (of_property_present(ep,   "reg"))
- 			return info.id;
- 
- 		node = of_get_parent(ep);
-diff --git a/sound/soc/generic/audio-graph-card2.c b/sound/soc/generic/audio-graph-card2.c
-index 06609a526b78..259544f64df9 100644
---- a/sound/soc/generic/audio-graph-card2.c
-+++ b/sound/soc/generic/audio-graph-card2.c
-@@ -376,7 +376,7 @@ static int graph_get_dai_id(struct device_node *ep)
- 		 * only of_graph_parse_endpoint().
- 		 * We need to check "reg" property
- 		 */
--		if (of_get_property(ep,   "reg", NULL))
-+		if (of_property_present(ep,   "reg"))
- 			return info.id;
- 
- 		node = of_get_parent(ep);
-diff --git a/sound/soc/mxs/mxs-sgtl5000.c b/sound/soc/mxs/mxs-sgtl5000.c
-index 746f40938675..a55e7256a4c3 100644
---- a/sound/soc/mxs/mxs-sgtl5000.c
-+++ b/sound/soc/mxs/mxs-sgtl5000.c
-@@ -150,7 +150,7 @@ static int mxs_sgtl5000_probe(struct platform_device *pdev)
- 
- 	card->dev = &pdev->dev;
- 
--	if (of_find_property(np, "audio-routing", NULL)) {
-+	if (of_property_present(np, "audio-routing")) {
- 		card->dapm_widgets = mxs_sgtl5000_dapm_widgets;
- 		card->num_dapm_widgets = ARRAY_SIZE(mxs_sgtl5000_dapm_widgets);
- 
-diff --git a/sound/soc/samsung/i2s.c b/sound/soc/samsung/i2s.c
-index 6f96032090de..083e278aa021 100644
---- a/sound/soc/samsung/i2s.c
-+++ b/sound/soc/samsung/i2s.c
-@@ -1289,7 +1289,7 @@ static int i2s_register_clock_provider(struct samsung_i2s_priv *priv)
- 	int ret, i;
- 
- 	/* Register the clock provider only if it's expected in the DTB */
--	if (!of_find_property(dev->of_node, "#clock-cells", NULL))
-+	if (!of_property_present(dev->of_node, "#clock-cells"))
- 		return 0;
- 
- 	/* Get the RCLKSRC mux clock parent clock names */
-diff --git a/sound/soc/sh/fsi.c b/sound/soc/sh/fsi.c
-index f3edc2e3d9d7..9f3f1af6349f 100644
---- a/sound/soc/sh/fsi.c
-+++ b/sound/soc/sh/fsi.c
-@@ -1855,7 +1855,7 @@ static void fsi_of_parse(char *name,
- 
- 	for (i = 0; i < ARRAY_SIZE(of_parse_property); i++) {
- 		sprintf(prop, "%s,%s", name, of_parse_property[i].name);
--		if (of_get_property(np, prop, NULL))
-+		if (of_property_present(np, prop))
- 			flags |= of_parse_property[i].val;
- 	}
- 	info->flags = flags;
-diff --git a/sound/soc/stm/stm32_i2s.c b/sound/soc/stm/stm32_i2s.c
-index f3dd9f8e621c..9dad85ecb93f 100644
---- a/sound/soc/stm/stm32_i2s.c
-+++ b/sound/soc/stm/stm32_i2s.c
-@@ -1066,7 +1066,7 @@ static int stm32_i2s_parse_dt(struct platform_device *pdev,
- 				     "Could not get x11k parent clock\n");
- 
- 	/* Register mclk provider if requested */
--	if (of_find_property(np, "#clock-cells", NULL)) {
-+	if (of_property_present(np, "#clock-cells")) {
- 		ret = stm32_i2s_add_mclk_provider(i2s);
- 		if (ret < 0)
- 			return ret;
-diff --git a/sound/soc/stm/stm32_sai_sub.c b/sound/soc/stm/stm32_sai_sub.c
-index eb31b49e6597..8ba4206f751d 100644
---- a/sound/soc/stm/stm32_sai_sub.c
-+++ b/sound/soc/stm/stm32_sai_sub.c
-@@ -1394,7 +1394,7 @@ static int stm32_sai_sub_parse_of(struct platform_device *pdev,
- 
- 	/* Get spdif iec60958 property */
- 	sai->spdif = false;
--	if (of_get_property(np, "st,iec60958", NULL)) {
-+	if (of_property_present(np, "st,iec60958")) {
- 		if (!STM_SAI_HAS_SPDIF(sai) ||
- 		    sai->dir == SNDRV_PCM_STREAM_CAPTURE) {
- 			dev_err(&pdev->dev, "S/PDIF IEC60958 not supported\n");
-@@ -1480,7 +1480,7 @@ static int stm32_sai_sub_parse_of(struct platform_device *pdev,
- 		return 0;
- 
- 	/* Register mclk provider if requested */
--	if (of_find_property(np, "#clock-cells", NULL)) {
-+	if (of_property_present(np, "#clock-cells")) {
- 		ret = stm32_sai_add_mclk_provider(sai);
- 		if (ret < 0)
- 			return ret;
-diff --git a/sound/soc/tegra/tegra_asoc_machine.c b/sound/soc/tegra/tegra_asoc_machine.c
-index 78faa8bcae27..2dc1f44c5a8b 100644
---- a/sound/soc/tegra/tegra_asoc_machine.c
-+++ b/sound/soc/tegra/tegra_asoc_machine.c
-@@ -502,7 +502,7 @@ int tegra_asoc_machine_probe(struct platform_device *pdev)
- 	 * If clock parents are not set in DT, configure here to use clk_out_1
- 	 * as mclk and extern1 as parent for Tegra30 and higher.
- 	 */
--	if (!of_find_property(dev->of_node, "assigned-clock-parents", NULL) &&
-+	if (!of_property_present(dev->of_node, "assigned-clock-parents") &&
- 	    !of_machine_is_compatible("nvidia,tegra20")) {
- 		struct clk *clk_out_1, *clk_extern1;
- 
--- 
-2.39.2
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gRnJpLCBNYXIgMTAsIDIwMjMgYXQgOTowMeKAr0FNIEFtYWRldXN6IFPFgmF3acWEc2tpCjxh
+bWFkZXVzenguc2xhd2luc2tpQGxpbnV4LmludGVsLmNvbT4gd3JvdGU6Cj4KPiBPbiAzLzEwLzIw
+MjMgMzo0NyBQTSwgUm9iIEhlcnJpbmcgd3JvdGU6Cj4gPiBJdCBpcyBwcmVmZXJyZWQgdG8gdXNl
+IHR5cGVkIHByb3BlcnR5IGFjY2VzcyBmdW5jdGlvbnMgKGkuZS4KPiA+IG9mX3Byb3BlcnR5X3Jl
+YWRfPHR5cGU+IGZ1bmN0aW9ucykgcmF0aGVyIHRoYW4gbG93LWxldmVsCj4gPiBvZl9nZXRfcHJv
+cGVydHkvb2ZfZmluZF9wcm9wZXJ0eSBmdW5jdGlvbnMgZm9yIHJlYWRpbmcgcHJvcGVydGllcy4g
+QXMKPiA+IHBhcnQgb2YgdGhpcywgY29udmVydCBvZl9nZXRfcHJvcGVydHkvb2ZfZmluZF9wcm9w
+ZXJ0eSBjYWxscyB0byB0aGUKPiA+IHJlY2VudGx5IGFkZGVkIG9mX3Byb3BlcnR5X3ByZXNlbnQo
+KSBoZWxwZXIgd2hlbiB3ZSBqdXN0IHdhbnQgdG8gdGVzdAo+ID4gZm9yIHByZXNlbmNlIG9mIGEg
+cHJvcGVydHkgYW5kIG5vdGhpbmcgbW9yZS4KPiA+Cj4gPiBTaWduZWQtb2ZmLWJ5OiBSb2IgSGVy
+cmluZyA8cm9iaEBrZXJuZWwub3JnPgo+ID4gLS0tCj4gPiAgIHNvdW5kL3NvYy9jb2RlY3MvbHBh
+c3MtbWFjcm8tY29tbW9uLmMgfCAyICstCj4gPiAgIHNvdW5kL3NvYy9nZW5lcmljL2F1ZGlvLWdy
+YXBoLWNhcmQuYyAgfCAyICstCj4gPiAgIHNvdW5kL3NvYy9nZW5lcmljL2F1ZGlvLWdyYXBoLWNh
+cmQyLmMgfCAyICstCj4gPiAgIHNvdW5kL3NvYy9teHMvbXhzLXNndGw1MDAwLmMgICAgICAgICAg
+fCAyICstCj4gPiAgIHNvdW5kL3NvYy9zYW1zdW5nL2kycy5jICAgICAgICAgICAgICAgfCAyICst
+Cj4gPiAgIHNvdW5kL3NvYy9zaC9mc2kuYyAgICAgICAgICAgICAgICAgICAgfCAyICstCj4gPiAg
+IHNvdW5kL3NvYy9zdG0vc3RtMzJfaTJzLmMgICAgICAgICAgICAgfCAyICstCj4gPiAgIHNvdW5k
+L3NvYy9zdG0vc3RtMzJfc2FpX3N1Yi5jICAgICAgICAgfCA0ICsrLS0KPiA+ICAgc291bmQvc29j
+L3RlZ3JhL3RlZ3JhX2Fzb2NfbWFjaGluZS5jICB8IDIgKy0KPiA+ICAgOSBmaWxlcyBjaGFuZ2Vk
+LCAxMCBpbnNlcnRpb25zKCspLCAxMCBkZWxldGlvbnMoLSkKPiA+Cj4gPiBkaWZmIC0tZ2l0IGEv
+c291bmQvc29jL2NvZGVjcy9scGFzcy1tYWNyby1jb21tb24uYyBiL3NvdW5kL3NvYy9jb2RlY3Mv
+bHBhc3MtbWFjcm8tY29tbW9uLmMKPiA+IGluZGV4IDFiOTA4MmQyMzdjMS4uZjU0YmFhYWQ1NGQ0
+IDEwMDY0NAo+ID4gLS0tIGEvc291bmQvc29jL2NvZGVjcy9scGFzcy1tYWNyby1jb21tb24uYwo+
+ID4gKysrIGIvc291bmQvc29jL2NvZGVjcy9scGFzcy1tYWNyby1jb21tb24uYwo+ID4gQEAgLTE2
+LDcgKzE2LDcgQEAgc3RydWN0IGxwYXNzX21hY3JvICpscGFzc19tYWNyb19wZHNfaW5pdChzdHJ1
+Y3QgZGV2aWNlICpkZXYpCj4gPiAgICAgICBzdHJ1Y3QgbHBhc3NfbWFjcm8gKmxfcGRzOwo+ID4g
+ICAgICAgaW50IHJldDsKPiA+Cj4gPiAtICAgICBpZiAoIW9mX2ZpbmRfcHJvcGVydHkoZGV2LT5v
+Zl9ub2RlLCAicG93ZXItZG9tYWlucyIsIE5VTEwpKQo+ID4gKyAgICAgaWYgKCFvZl9wcm9wZXJ0
+eV9wcmVzZW50KGRldi0+b2Zfbm9kZSwgInBvd2VyLWRvbWFpbnMiKSkKPiA+ICAgICAgICAgICAg
+ICAgcmV0dXJuIE5VTEw7Cj4gPgo+ID4gICAgICAgbF9wZHMgPSBkZXZtX2t6YWxsb2MoZGV2LCBz
+aXplb2YoKmxfcGRzKSwgR0ZQX0tFUk5FTCk7Cj4gPiBkaWZmIC0tZ2l0IGEvc291bmQvc29jL2dl
+bmVyaWMvYXVkaW8tZ3JhcGgtY2FyZC5jIGIvc291bmQvc29jL2dlbmVyaWMvYXVkaW8tZ3JhcGgt
+Y2FyZC5jCj4gPiBpbmRleCA1ZGFhODI0YTRmZmMuLmQ3ODhmNWYyM2E4YSAxMDA2NDQKPiA+IC0t
+LSBhL3NvdW5kL3NvYy9nZW5lcmljL2F1ZGlvLWdyYXBoLWNhcmQuYwo+ID4gKysrIGIvc291bmQv
+c29jL2dlbmVyaWMvYXVkaW8tZ3JhcGgtY2FyZC5jCj4gPiBAQCAtNzgsNyArNzgsNyBAQCBzdGF0
+aWMgaW50IGdyYXBoX2dldF9kYWlfaWQoc3RydWN0IGRldmljZV9ub2RlICplcCkKPiA+ICAgICAg
+ICAgICAgICAgICogb25seSBvZl9ncmFwaF9wYXJzZV9lbmRwb2ludCgpLgo+ID4gICAgICAgICAg
+ICAgICAgKiBXZSBuZWVkIHRvIGNoZWNrICJyZWciIHByb3BlcnR5Cj4gPiAgICAgICAgICAgICAg
+ICAqLwo+ID4gLSAgICAgICAgICAgICBpZiAob2ZfZ2V0X3Byb3BlcnR5KGVwLCAgICJyZWciLCBO
+VUxMKSkKPiA+ICsgICAgICAgICAgICAgaWYgKG9mX3Byb3BlcnR5X3ByZXNlbnQoZXAsICAgInJl
+ZyIpKQo+Cj4gQml0IG9mIG5pdCBwaWNraW5nLCBidXQgYW55IHJlYXNvbiwgd2h5IHRoZXJlIGFy
+ZSBtdWx0aXBsZSBzcGFjZXMsCj4gYmVmb3JlICJyZWciIGhlcmU/CgpPbmx5IGJlY2F1c2UgdGhl
+cmUgd2FzIGJlZm9yZSBhbmQgaXQgd2FzIGEgc2NyaXB0ZWQgY2hhbmdlLgoKUm9iCl9fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxp
+bmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8v
+c3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMy
+Cg==
