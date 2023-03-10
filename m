@@ -2,67 +2,70 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2AD316B4719
-	for <lists+linux-stm32@lfdr.de>; Fri, 10 Mar 2023 15:48:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EFFF76B46FC
+	for <lists+linux-stm32@lfdr.de>; Fri, 10 Mar 2023 15:47:59 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E2358C6A60C;
-	Fri, 10 Mar 2023 14:48:44 +0000 (UTC)
-Received: from mail-oi1-f171.google.com (mail-oi1-f171.google.com
- [209.85.167.171])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B4D24C6A60C;
+	Fri, 10 Mar 2023 14:47:59 +0000 (UTC)
+Received: from mail-oa1-f50.google.com (mail-oa1-f50.google.com
+ [209.85.160.50])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6D13DC640E6
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 251ADC640E6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 10 Mar 2023 14:48:43 +0000 (UTC)
-Received: by mail-oi1-f171.google.com with SMTP id be16so4448545oib.0
+ Fri, 10 Mar 2023 14:47:58 +0000 (UTC)
+Received: by mail-oa1-f50.google.com with SMTP id
+ 586e51a60fabf-176eae36feaso6063487fac.6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 10 Mar 2023 06:48:43 -0800 (PST)
+ Fri, 10 Mar 2023 06:47:58 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1678459722;
+ d=1e100.net; s=20210112; t=1678459677;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=hwhYtKzDnXEsLBl9Tm3BqnXbNzyUsQ3KuTYFbJoohGM=;
- b=pxAcm+XVlqEj4CRuHmytiY9/rjBuxvsxYN9s9stxdh1ENvjJ1/FfupWRC1tqcI7Ewg
- j2+2hG9VmrB/PS8fwIEaq7ygai+dlc/XTLihtK5ttLRCNcKRRLFBKILG9YDKVVRb7oHX
- NXC4vWXsF2oRCmrSmyhfLyQ/j95vrnv0wYo9DLL03A2uoyqosK9hWR0ii1zkEREIEpQV
- PXOlV/XD82qzdki0F2HUrIQUL9a2RkGAc/llBMegQb94Z4xX4mQRA+wt0nmrp98ZB1s4
- Ke3O5ovR6EznVzqGkHPp5x7I24CHIao1ypW9WqhBIZeT9ukNN3CjSjNtXNkpzkAsLNjL
- TOvg==
-X-Gm-Message-State: AO0yUKUr2xgT1gsZeDJDvF9z0sc3/fGo5l7u7Xw30C5TELurEM7NttQ0
- XWkkn7QiwhRhW5oJP8h02Q==
-X-Google-Smtp-Source: AK7set/2Hv/GHCQ4CWKw9+OchH8gffT8eqBP4iLmC17qsMPdXt7UFyt1xWM3HZum7IWwuaM8TqbJlg==
-X-Received: by 2002:a05:6808:1d7:b0:383:ef56:a34c with SMTP id
- x23-20020a05680801d700b00383ef56a34cmr1364469oic.2.1678459722220; 
- Fri, 10 Mar 2023 06:48:42 -0800 (PST)
+ bh=8lNbDhvtNNABoeoJ1EEfrQ6VIu2kxnEGjaB82Wf/W24=;
+ b=Zq6csq/PfOHtup5LchfEynZag/8wATpjlnf34NzAzKG3htJdEECfO+/90KxkEU6HIy
+ bSYDTRuYO8YHowtledqCwIpLHPXeq6ku3NlzX9bIKglXq/yDlekgBp2BpjN+i5WLNbmX
+ hyaPYYVR+xjF2VHg8d7bPfotZi00IgM6Y9fLuvGVigBmzZixp1h+ib5NpWHhaIYjIY92
+ 0Fpx2833C2y8Xk85FMXQdfJcvwMR3/znEyIeGdZUSBZ1pslofR7jk1PRoM5bMWnTyaHv
+ ZjPtlqeHBjbnTSZ8cSRaXa4jvvPbj/ue9v2+V8x9dOE4f58EvhqlZBRtfFXVPUYnY0Vw
+ l1DA==
+X-Gm-Message-State: AO0yUKWmpas1zlwt+SlxiaTqPV7xdkOWrLWIsnRs28NLxrqu6W03+ycB
+ gqalDJE/i+30nyH3feZFcQ==
+X-Google-Smtp-Source: AK7set9I+4VRoGtOVjvZEWPeH4QUf03Pg5OM+6KwBoqWhi2Fyc9oRdnGlhttZ2bQMXTrEhf9nUK3ig==
+X-Received: by 2002:a05:6870:73c6:b0:163:535d:4a86 with SMTP id
+ a6-20020a05687073c600b00163535d4a86mr15295757oan.22.1678459676973; 
+ Fri, 10 Mar 2023 06:47:56 -0800 (PST)
 Received: from robh_at_kernel.org (66-90-144-107.dyn.grandenetworks.net.
  [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
- y129-20020acae187000000b0038476262f65sm967331oig.33.2023.03.10.06.48.41
+ m3-20020a056870a40300b00172289de1besm115189oal.18.2023.03.10.06.47.54
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 10 Mar 2023 06:48:41 -0800 (PST)
-Received: (nullmailer pid 1544713 invoked by uid 1000);
- Fri, 10 Mar 2023 14:47:21 -0000
+ Fri, 10 Mar 2023 06:47:56 -0800 (PST)
+Received: (nullmailer pid 1546370 invoked by uid 1000);
+ Fri, 10 Mar 2023 14:47:32 -0000
 From: Rob Herring <robh@kernel.org>
-To: Sean Wang <sean.wang@kernel.org>, Linus Walleij <linus.walleij@linaro.org>,
- Tony Lindgren <tony@atomide.com>, Haojian Zhuang <haojian.zhuang@linaro.org>,
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, NXP Linux Team <linux-imx@nxp.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Sylwester Nawrocki <s.nawrocki@samsung.com>,
+ Olivier Moysan <olivier.moysan@foss.st.com>,
+ Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>, Chen-Yu Tsai <wens@csie.org>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Samuel Holland <samuel@sholland.org>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Date: Fri, 10 Mar 2023 08:47:20 -0600
-Message-Id: <20230310144721.1544669-1-robh@kernel.org>
+ Thierry Reding <thierry.reding@gmail.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>
+Date: Fri, 10 Mar 2023 08:47:31 -0600
+Message-Id: <20230310144732.1546328-1-robh@kernel.org>
 X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-sunxi@lists.linux.dev, linux-renesas-soc@vger.kernel.org,
- linux-gpio@vger.kernel.org, linux-mediatek@lists.infradead.org,
- linux-omap@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH] pinctrl: Use of_property_present() for
-	testing DT property presence
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, linux-tegra@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH] ASoC: Use of_property_present() for testing
+	DT property presence
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,139 +91,143 @@ for presence of a property and nothing more.
 
 Signed-off-by: Rob Herring <robh@kernel.org>
 ---
- drivers/pinctrl/mediatek/pinctrl-moore.c |  2 +-
- drivers/pinctrl/pinctrl-single.c         |  4 ++--
- drivers/pinctrl/pinctrl-stmfx.c          |  2 +-
- drivers/pinctrl/renesas/pinctrl.c        |  4 ++--
- drivers/pinctrl/stm32/pinctrl-stm32.c    |  2 +-
- drivers/pinctrl/sunxi/pinctrl-sunxi.c    | 20 ++++++++++----------
- 6 files changed, 17 insertions(+), 17 deletions(-)
+ sound/soc/codecs/lpass-macro-common.c | 2 +-
+ sound/soc/generic/audio-graph-card.c  | 2 +-
+ sound/soc/generic/audio-graph-card2.c | 2 +-
+ sound/soc/mxs/mxs-sgtl5000.c          | 2 +-
+ sound/soc/samsung/i2s.c               | 2 +-
+ sound/soc/sh/fsi.c                    | 2 +-
+ sound/soc/stm/stm32_i2s.c             | 2 +-
+ sound/soc/stm/stm32_sai_sub.c         | 4 ++--
+ sound/soc/tegra/tegra_asoc_machine.c  | 2 +-
+ 9 files changed, 10 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/pinctrl/mediatek/pinctrl-moore.c b/drivers/pinctrl/mediatek/pinctrl-moore.c
-index 007b98ce5631..8649a2f9d324 100644
---- a/drivers/pinctrl/mediatek/pinctrl-moore.c
-+++ b/drivers/pinctrl/mediatek/pinctrl-moore.c
-@@ -586,7 +586,7 @@ static int mtk_build_gpiochip(struct mtk_pinctrl *hw)
- 	 * Documentation/devicetree/bindings/gpio/gpio.txt on how to
- 	 * bind pinctrl and gpio drivers via the "gpio-ranges" property.
- 	 */
--	if (!of_find_property(hw->dev->of_node, "gpio-ranges", NULL)) {
-+	if (!of_property_present(hw->dev->of_node, "gpio-ranges")) {
- 		ret = gpiochip_add_pin_range(chip, dev_name(hw->dev), 0, 0,
- 					     chip->ngpio);
- 		if (ret < 0) {
-diff --git a/drivers/pinctrl/pinctrl-single.c b/drivers/pinctrl/pinctrl-single.c
-index 190923757cda..0dabbcf68b9f 100644
---- a/drivers/pinctrl/pinctrl-single.c
-+++ b/drivers/pinctrl/pinctrl-single.c
-@@ -939,11 +939,11 @@ static int pcs_parse_pinconf(struct pcs_device *pcs, struct device_node *np,
+diff --git a/sound/soc/codecs/lpass-macro-common.c b/sound/soc/codecs/lpass-macro-common.c
+index 1b9082d237c1..f54baaad54d4 100644
+--- a/sound/soc/codecs/lpass-macro-common.c
++++ b/sound/soc/codecs/lpass-macro-common.c
+@@ -16,7 +16,7 @@ struct lpass_macro *lpass_macro_pds_init(struct device *dev)
+ 	struct lpass_macro *l_pds;
+ 	int ret;
  
- 	/* cacluate how much properties are supported in current node */
- 	for (i = 0; i < ARRAY_SIZE(prop2); i++) {
--		if (of_find_property(np, prop2[i].name, NULL))
-+		if (of_property_present(np, prop2[i].name))
- 			nconfs++;
- 	}
- 	for (i = 0; i < ARRAY_SIZE(prop4); i++) {
--		if (of_find_property(np, prop4[i].name, NULL))
-+		if (of_property_present(np, prop4[i].name))
- 			nconfs++;
- 	}
- 	if (!nconfs)
-diff --git a/drivers/pinctrl/pinctrl-stmfx.c b/drivers/pinctrl/pinctrl-stmfx.c
-index 1181c4b506b1..3c031692e44d 100644
---- a/drivers/pinctrl/pinctrl-stmfx.c
-+++ b/drivers/pinctrl/pinctrl-stmfx.c
-@@ -632,7 +632,7 @@ static int stmfx_pinctrl_probe(struct platform_device *pdev)
- 	pctl->dev = &pdev->dev;
- 	pctl->stmfx = stmfx;
- 
--	if (!of_find_property(np, "gpio-ranges", NULL)) {
-+	if (!of_property_present(np, "gpio-ranges")) {
- 		dev_err(pctl->dev, "missing required gpio-ranges property\n");
- 		return -EINVAL;
- 	}
-diff --git a/drivers/pinctrl/renesas/pinctrl.c b/drivers/pinctrl/renesas/pinctrl.c
-index b74147800319..5c71e168b370 100644
---- a/drivers/pinctrl/renesas/pinctrl.c
-+++ b/drivers/pinctrl/renesas/pinctrl.c
-@@ -125,8 +125,8 @@ static int sh_pfc_dt_subnode_to_map(struct pinctrl_dev *pctldev,
- 	 * inside a subnode nor across subnodes.
- 	 */
- 	if (!pmx->func_prop_name) {
--		if (of_find_property(np, "groups", NULL) ||
--		    of_find_property(np, "pins", NULL)) {
-+		if (of_property_present(np, "groups")||
-+		    of_property_present(np, "pins")) {
- 			pmx->func_prop_name = "function";
- 			pmx->groups_prop_name = "groups";
- 			pmx->pins_prop_name = "pins";
-diff --git a/drivers/pinctrl/stm32/pinctrl-stm32.c b/drivers/pinctrl/stm32/pinctrl-stm32.c
-index cb33a23ab0c1..66a25becd8f5 100644
---- a/drivers/pinctrl/stm32/pinctrl-stm32.c
-+++ b/drivers/pinctrl/stm32/pinctrl-stm32.c
-@@ -1374,7 +1374,7 @@ static struct irq_domain *stm32_pctrl_get_irq_domain(struct platform_device *pde
- 	struct device_node *parent;
- 	struct irq_domain *domain;
- 
--	if (!of_find_property(np, "interrupt-parent", NULL))
-+	if (!of_property_present(np, "interrupt-parent"))
+-	if (!of_find_property(dev->of_node, "power-domains", NULL))
++	if (!of_property_present(dev->of_node, "power-domains"))
  		return NULL;
  
- 	parent = of_irq_find_parent(np);
-diff --git a/drivers/pinctrl/sunxi/pinctrl-sunxi.c b/drivers/pinctrl/sunxi/pinctrl-sunxi.c
-index f35179eceb4e..1dc1882cbdd7 100644
---- a/drivers/pinctrl/sunxi/pinctrl-sunxi.c
-+++ b/drivers/pinctrl/sunxi/pinctrl-sunxi.c
-@@ -224,16 +224,16 @@ static int sunxi_pctrl_get_group_pins(struct pinctrl_dev *pctldev,
+ 	l_pds = devm_kzalloc(dev, sizeof(*l_pds), GFP_KERNEL);
+diff --git a/sound/soc/generic/audio-graph-card.c b/sound/soc/generic/audio-graph-card.c
+index 5daa824a4ffc..d788f5f23a8a 100644
+--- a/sound/soc/generic/audio-graph-card.c
++++ b/sound/soc/generic/audio-graph-card.c
+@@ -78,7 +78,7 @@ static int graph_get_dai_id(struct device_node *ep)
+ 		 * only of_graph_parse_endpoint().
+ 		 * We need to check "reg" property
+ 		 */
+-		if (of_get_property(ep,   "reg", NULL))
++		if (of_property_present(ep,   "reg"))
+ 			return info.id;
  
- static bool sunxi_pctrl_has_bias_prop(struct device_node *node)
- {
--	return of_find_property(node, "bias-pull-up", NULL) ||
--		of_find_property(node, "bias-pull-down", NULL) ||
--		of_find_property(node, "bias-disable", NULL) ||
--		of_find_property(node, "allwinner,pull", NULL);
-+	return of_property_present(node, "bias-pull-up") ||
-+		of_property_present(node, "bias-pull-down") ||
-+		of_property_present(node, "bias-disable") ||
-+		of_property_present(node, "allwinner,pull");
- }
+ 		node = of_get_parent(ep);
+diff --git a/sound/soc/generic/audio-graph-card2.c b/sound/soc/generic/audio-graph-card2.c
+index 06609a526b78..259544f64df9 100644
+--- a/sound/soc/generic/audio-graph-card2.c
++++ b/sound/soc/generic/audio-graph-card2.c
+@@ -376,7 +376,7 @@ static int graph_get_dai_id(struct device_node *ep)
+ 		 * only of_graph_parse_endpoint().
+ 		 * We need to check "reg" property
+ 		 */
+-		if (of_get_property(ep,   "reg", NULL))
++		if (of_property_present(ep,   "reg"))
+ 			return info.id;
  
- static bool sunxi_pctrl_has_drive_prop(struct device_node *node)
- {
--	return of_find_property(node, "drive-strength", NULL) ||
--		of_find_property(node, "allwinner,drive", NULL);
-+	return of_property_present(node, "drive-strength") ||
-+		of_property_present(node, "allwinner,drive");
- }
+ 		node = of_get_parent(ep);
+diff --git a/sound/soc/mxs/mxs-sgtl5000.c b/sound/soc/mxs/mxs-sgtl5000.c
+index 746f40938675..a55e7256a4c3 100644
+--- a/sound/soc/mxs/mxs-sgtl5000.c
++++ b/sound/soc/mxs/mxs-sgtl5000.c
+@@ -150,7 +150,7 @@ static int mxs_sgtl5000_probe(struct platform_device *pdev)
  
- static int sunxi_pctrl_parse_bias_prop(struct device_node *node)
-@@ -241,13 +241,13 @@ static int sunxi_pctrl_parse_bias_prop(struct device_node *node)
- 	u32 val;
+ 	card->dev = &pdev->dev;
  
- 	/* Try the new style binding */
--	if (of_find_property(node, "bias-pull-up", NULL))
-+	if (of_property_present(node, "bias-pull-up"))
- 		return PIN_CONFIG_BIAS_PULL_UP;
+-	if (of_find_property(np, "audio-routing", NULL)) {
++	if (of_property_present(np, "audio-routing")) {
+ 		card->dapm_widgets = mxs_sgtl5000_dapm_widgets;
+ 		card->num_dapm_widgets = ARRAY_SIZE(mxs_sgtl5000_dapm_widgets);
  
--	if (of_find_property(node, "bias-pull-down", NULL))
-+	if (of_property_present(node, "bias-pull-down"))
- 		return PIN_CONFIG_BIAS_PULL_DOWN;
+diff --git a/sound/soc/samsung/i2s.c b/sound/soc/samsung/i2s.c
+index 6f96032090de..083e278aa021 100644
+--- a/sound/soc/samsung/i2s.c
++++ b/sound/soc/samsung/i2s.c
+@@ -1289,7 +1289,7 @@ static int i2s_register_clock_provider(struct samsung_i2s_priv *priv)
+ 	int ret, i;
  
--	if (of_find_property(node, "bias-disable", NULL))
-+	if (of_property_present(node, "bias-disable"))
- 		return PIN_CONFIG_BIAS_DISABLE;
- 
- 	/* And fall back to the old binding */
-@@ -1424,7 +1424,7 @@ static int sunxi_pinctrl_setup_debounce(struct sunxi_pinctrl *pctl,
+ 	/* Register the clock provider only if it's expected in the DTB */
+-	if (!of_find_property(dev->of_node, "#clock-cells", NULL))
++	if (!of_property_present(dev->of_node, "#clock-cells"))
  		return 0;
  
- 	/* If we don't have any setup, bail out */
--	if (!of_find_property(node, "input-debounce", NULL))
-+	if (!of_property_present(node, "input-debounce"))
+ 	/* Get the RCLKSRC mux clock parent clock names */
+diff --git a/sound/soc/sh/fsi.c b/sound/soc/sh/fsi.c
+index f3edc2e3d9d7..9f3f1af6349f 100644
+--- a/sound/soc/sh/fsi.c
++++ b/sound/soc/sh/fsi.c
+@@ -1855,7 +1855,7 @@ static void fsi_of_parse(char *name,
+ 
+ 	for (i = 0; i < ARRAY_SIZE(of_parse_property); i++) {
+ 		sprintf(prop, "%s,%s", name, of_parse_property[i].name);
+-		if (of_get_property(np, prop, NULL))
++		if (of_property_present(np, prop))
+ 			flags |= of_parse_property[i].val;
+ 	}
+ 	info->flags = flags;
+diff --git a/sound/soc/stm/stm32_i2s.c b/sound/soc/stm/stm32_i2s.c
+index f3dd9f8e621c..9dad85ecb93f 100644
+--- a/sound/soc/stm/stm32_i2s.c
++++ b/sound/soc/stm/stm32_i2s.c
+@@ -1066,7 +1066,7 @@ static int stm32_i2s_parse_dt(struct platform_device *pdev,
+ 				     "Could not get x11k parent clock\n");
+ 
+ 	/* Register mclk provider if requested */
+-	if (of_find_property(np, "#clock-cells", NULL)) {
++	if (of_property_present(np, "#clock-cells")) {
+ 		ret = stm32_i2s_add_mclk_provider(i2s);
+ 		if (ret < 0)
+ 			return ret;
+diff --git a/sound/soc/stm/stm32_sai_sub.c b/sound/soc/stm/stm32_sai_sub.c
+index eb31b49e6597..8ba4206f751d 100644
+--- a/sound/soc/stm/stm32_sai_sub.c
++++ b/sound/soc/stm/stm32_sai_sub.c
+@@ -1394,7 +1394,7 @@ static int stm32_sai_sub_parse_of(struct platform_device *pdev,
+ 
+ 	/* Get spdif iec60958 property */
+ 	sai->spdif = false;
+-	if (of_get_property(np, "st,iec60958", NULL)) {
++	if (of_property_present(np, "st,iec60958")) {
+ 		if (!STM_SAI_HAS_SPDIF(sai) ||
+ 		    sai->dir == SNDRV_PCM_STREAM_CAPTURE) {
+ 			dev_err(&pdev->dev, "S/PDIF IEC60958 not supported\n");
+@@ -1480,7 +1480,7 @@ static int stm32_sai_sub_parse_of(struct platform_device *pdev,
  		return 0;
  
- 	losc = devm_clk_get(pctl->dev, "losc");
+ 	/* Register mclk provider if requested */
+-	if (of_find_property(np, "#clock-cells", NULL)) {
++	if (of_property_present(np, "#clock-cells")) {
+ 		ret = stm32_sai_add_mclk_provider(sai);
+ 		if (ret < 0)
+ 			return ret;
+diff --git a/sound/soc/tegra/tegra_asoc_machine.c b/sound/soc/tegra/tegra_asoc_machine.c
+index 78faa8bcae27..2dc1f44c5a8b 100644
+--- a/sound/soc/tegra/tegra_asoc_machine.c
++++ b/sound/soc/tegra/tegra_asoc_machine.c
+@@ -502,7 +502,7 @@ int tegra_asoc_machine_probe(struct platform_device *pdev)
+ 	 * If clock parents are not set in DT, configure here to use clk_out_1
+ 	 * as mclk and extern1 as parent for Tegra30 and higher.
+ 	 */
+-	if (!of_find_property(dev->of_node, "assigned-clock-parents", NULL) &&
++	if (!of_property_present(dev->of_node, "assigned-clock-parents") &&
+ 	    !of_machine_is_compatible("nvidia,tegra20")) {
+ 		struct clk *clk_out_1, *clk_extern1;
+ 
 -- 
 2.39.2
 
