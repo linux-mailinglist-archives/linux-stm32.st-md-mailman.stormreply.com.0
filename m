@@ -2,64 +2,71 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 566926B6FBE
-	for <lists+linux-stm32@lfdr.de>; Mon, 13 Mar 2023 07:57:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E604B6B704B
+	for <lists+linux-stm32@lfdr.de>; Mon, 13 Mar 2023 08:50:20 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D3441C6A60F;
-	Mon, 13 Mar 2023 06:57:43 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0FE8CC65E60
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 13 Mar 2023 06:57:42 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 93EF9C6B443;
+	Mon, 13 Mar 2023 07:50:20 +0000 (UTC)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id A057E610E8;
- Mon, 13 Mar 2023 06:57:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF9A8C433EF;
- Mon, 13 Mar 2023 06:57:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1678690661;
- bh=yXZd505XmCeN942UNqXIjHQ5Kwm2nMyuVli34Flsl0k=;
- h=From:To:Cc:Subject:References:Date:In-Reply-To:From;
- b=OV3Qmz/IfYFypeHG/KN765o4V5OmR9wF58a5r9sl82BrhzjL6RJ0t2BMCNGpw1ntM
- KjslQkVZ0JESUZldaRATa7IiEt8tChEUY7aZGOsKDbNPnUsdLkk50GUTNcHuQt8uwu
- /nvJPmC0zq/U3J3CkrwQSJOg3YVsyp9NHgqDbR+vvwKY5uHZfopN5Xhlfq4vRJqL5K
- 2lcLp4KOgNNKzHrc3lBCwzRTQhSEaT9H270FVzm0fOR5LBxNIFif2HMZyuJyMpJZPr
- JZdom+77L9fbpCIolgn8UTraemz7xWvoDX9JRXWvn+mO+3wAXa1vcYQvfqy6DaFU28
- H00x/o9omaPFw==
-From: Kalle Valo <kvalo@kernel.org>
-To: Rob Herring <robh@kernel.org>
-References: <20230310144718.1544169-1-robh@kernel.org>
-Date: Mon, 13 Mar 2023 08:57:31 +0200
-In-Reply-To: <20230310144718.1544169-1-robh@kernel.org> (Rob Herring's message
- of "Fri, 10 Mar 2023 08:47:16 -0600")
-Message-ID: <87ttypnnok.fsf@kernel.org>
-User-Agent: Gnus/5.13 (Gnus v5.13) Emacs/26.1 (gnu/linux)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8FAF9C640E6
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 10 Mar 2023 15:01:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1678460518; x=1709996518;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=FdWrrEiVvcGV5We2oP4cFNJrwxSOXnTFkXSWK6R+KRo=;
+ b=m6nGaprR4P5riPaJbS4wH6175951O3zw4yZZ3vgn+zbbVm3o86tU1dqA
+ E9/uzb4Hy323VL6v2d9/5qs3P4Lr2B6OHxvIbmLEkTrtkJmtIQ3PlLQ0y
+ mtlutZLdyl3rC0unuGLK0WslaVv7LtPtrg4KqZdeFZY0B9JqZWVv15k1R
+ mRkbgMKXar6J1zXotM/fqxYA69U3WMuD8oIraKbAXmncDXdGAhTcxKG//
+ ivA62wEIjOrtHiZC4ScDEnlUihFRdCDpAZ3CcYUdejFYtX3GeKZMZpewW
+ 147V6//m8+bjpD09GdJFP+1Y3SoTdMILw3+egDvZyXUEH3gomOaiuf3FE w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10645"; a="336764008"
+X-IronPort-AV: E=Sophos;i="5.98,250,1673942400"; d="scan'208";a="336764008"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Mar 2023 07:01:52 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6500,9779,10645"; a="788037593"
+X-IronPort-AV: E=Sophos;i="5.98,250,1673942400"; d="scan'208";a="788037593"
+Received: from aslawinx-mobl.ger.corp.intel.com (HELO [10.99.16.144])
+ ([10.99.16.144])
+ by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Mar 2023 07:01:47 -0800
+Message-ID: <a23852d7-c70c-a03c-99fb-b453bdc750a1@linux.intel.com>
+Date: Fri, 10 Mar 2023 16:01:45 +0100
 MIME-Version: 1.0
-Cc: linux-kernel@vger.kernel.org, Eric Dumazet <edumazet@google.com>,
- Shenwei Wang <shenwei.wang@nxp.com>, Fabio Estevam <festevam@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, Zhao Qiang <qiang.zhao@nxp.com>,
- Michal Simek <michal.simek@xilinx.com>, Jose Abreu <joabreu@synopsys.com>,
- Clark Wang <xiaoning.wang@nxp.com>, NXP Linux Team <linux-imx@nxp.com>,
- Francois Romieu <romieu@fr.zoreil.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Wolfgang Grandegger <wg@grandegger.com>,
- devicetree@vger.kernel.org, Grygorii Strashko <grygorii.strashko@ti.com>,
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.8.0
+Content-Language: en-US
+To: Rob Herring <robh@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, Shawn Guo <shawnguo@kernel.org>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
  Pengutronix Kernel Team <kernel@pengutronix.de>,
- Sascha Hauer <s.hauer@pengutronix.de>, linuxppc-dev@lists.ozlabs.org,
- linux-can@vger.kernel.org, Claudiu Manoil <claudiu.manoil@nxp.com>,
- Marc Kleine-Budde <mkl@pengutronix.de>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>, linux-omap@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
- linux-wireless@vger.kernel.org, Nicolas Ferre <nicolas.ferre@microchip.com>,
- "David S. Miller" <davem@davemloft.net>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Wei Fang <wei.fang@nxp.com>,
- Samuel Mendoza-Jonas <sam@mendozajonas.com>, Shawn Guo <shawnguo@kernel.org>,
- Claudiu Beznea <claudiu.beznea@microchip.com>
-Subject: Re: [Linux-stm32] [PATCH] net: Use of_property_read_bool() for
-	boolean properties
+ Fabio Estevam <festevam@gmail.com>, NXP Linux Team <linux-imx@nxp.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Sylwester Nawrocki <s.nawrocki@samsung.com>,
+ Olivier Moysan <olivier.moysan@foss.st.com>,
+ Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>
+References: <20230310144732.1546328-1-robh@kernel.org>
+From: =?UTF-8?Q?Amadeusz_S=c5=82awi=c5=84ski?=
+ <amadeuszx.slawinski@linux.intel.com>
+In-Reply-To: <20230310144732.1546328-1-robh@kernel.org>
+X-Mailman-Approved-At: Mon, 13 Mar 2023 07:50:17 +0000
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, linux-tegra@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] ASoC: Use of_property_present() for
+ testing DT property presence
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,47 +78,76 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Rob Herring <robh@kernel.org> writes:
-
+On 3/10/2023 3:47 PM, Rob Herring wrote:
 > It is preferred to use typed property access functions (i.e.
 > of_property_read_<type> functions) rather than low-level
-> of_get_property/of_find_property functions for reading properties.
-> Convert reading boolean properties to to of_property_read_bool().
->
+> of_get_property/of_find_property functions for reading properties. As
+> part of this, convert of_get_property/of_find_property calls to the
+> recently added of_property_present() helper when we just want to test
+> for presence of a property and nothing more.
+> 
 > Signed-off-by: Rob Herring <robh@kernel.org>
 > ---
->  drivers/net/can/cc770/cc770_platform.c          | 12 ++++++------
->  drivers/net/ethernet/cadence/macb_main.c        |  2 +-
->  drivers/net/ethernet/davicom/dm9000.c           |  4 ++--
->  drivers/net/ethernet/freescale/fec_main.c       |  2 +-
->  drivers/net/ethernet/freescale/fec_mpc52xx.c    |  2 +-
->  drivers/net/ethernet/freescale/gianfar.c        |  4 ++--
->  drivers/net/ethernet/ibm/emac/core.c            |  8 ++++----
->  drivers/net/ethernet/ibm/emac/rgmii.c           |  2 +-
->  drivers/net/ethernet/stmicro/stmmac/dwmac-imx.c |  3 +--
->  drivers/net/ethernet/sun/niu.c                  |  2 +-
->  drivers/net/ethernet/ti/cpsw-phy-sel.c          |  3 +--
->  drivers/net/ethernet/ti/netcp_ethss.c           |  8 +++-----
->  drivers/net/ethernet/via/via-velocity.c         |  3 +--
->  drivers/net/ethernet/xilinx/ll_temac_main.c     |  9 ++++-----
->  drivers/net/wan/fsl_ucc_hdlc.c                  | 11 +++--------
->  drivers/net/wireless/ti/wlcore/spi.c            |  3 +--
->  net/ncsi/ncsi-manage.c                          |  4 ++--
->  17 files changed, 35 insertions(+), 47 deletions(-)
+>   sound/soc/codecs/lpass-macro-common.c | 2 +-
+>   sound/soc/generic/audio-graph-card.c  | 2 +-
+>   sound/soc/generic/audio-graph-card2.c | 2 +-
+>   sound/soc/mxs/mxs-sgtl5000.c          | 2 +-
+>   sound/soc/samsung/i2s.c               | 2 +-
+>   sound/soc/sh/fsi.c                    | 2 +-
+>   sound/soc/stm/stm32_i2s.c             | 2 +-
+>   sound/soc/stm/stm32_sai_sub.c         | 4 ++--
+>   sound/soc/tegra/tegra_asoc_machine.c  | 2 +-
+>   9 files changed, 10 insertions(+), 10 deletions(-)
+> 
+> diff --git a/sound/soc/codecs/lpass-macro-common.c b/sound/soc/codecs/lpass-macro-common.c
+> index 1b9082d237c1..f54baaad54d4 100644
+> --- a/sound/soc/codecs/lpass-macro-common.c
+> +++ b/sound/soc/codecs/lpass-macro-common.c
+> @@ -16,7 +16,7 @@ struct lpass_macro *lpass_macro_pds_init(struct device *dev)
+>   	struct lpass_macro *l_pds;
+>   	int ret;
+>   
+> -	if (!of_find_property(dev->of_node, "power-domains", NULL))
+> +	if (!of_property_present(dev->of_node, "power-domains"))
+>   		return NULL;
+>   
+>   	l_pds = devm_kzalloc(dev, sizeof(*l_pds), GFP_KERNEL);
+> diff --git a/sound/soc/generic/audio-graph-card.c b/sound/soc/generic/audio-graph-card.c
+> index 5daa824a4ffc..d788f5f23a8a 100644
+> --- a/sound/soc/generic/audio-graph-card.c
+> +++ b/sound/soc/generic/audio-graph-card.c
+> @@ -78,7 +78,7 @@ static int graph_get_dai_id(struct device_node *ep)
+>   		 * only of_graph_parse_endpoint().
+>   		 * We need to check "reg" property
+>   		 */
+> -		if (of_get_property(ep,   "reg", NULL))
+> +		if (of_property_present(ep,   "reg"))
 
-For wireless:
+Bit of nit picking, but any reason, why there are multiple spaces, 
+before "reg" here?
 
-Acked-by: Kalle Valo <kvalo@kernel.org>
+>   			return info.id;
+>   
+>   		node = of_get_parent(ep);
+> diff --git a/sound/soc/generic/audio-graph-card2.c b/sound/soc/generic/audio-graph-card2.c
+> index 06609a526b78..259544f64df9 100644
+> --- a/sound/soc/generic/audio-graph-card2.c
+> +++ b/sound/soc/generic/audio-graph-card2.c
+> @@ -376,7 +376,7 @@ static int graph_get_dai_id(struct device_node *ep)
+>   		 * only of_graph_parse_endpoint().
+>   		 * We need to check "reg" property
+>   		 */
+> -		if (of_get_property(ep,   "reg", NULL))
+> +		if (of_property_present(ep,   "reg"))
 
--- 
-https://patchwork.kernel.org/project/linux-wireless/list/
+And here?
 
-https://wireless.wiki.kernel.org/en/developers/documentation/submittingpatches
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
