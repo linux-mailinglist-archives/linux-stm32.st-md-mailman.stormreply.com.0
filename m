@@ -2,64 +2,56 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3DE116B304F
-	for <lists+linux-stm32@lfdr.de>; Thu,  9 Mar 2023 23:19:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 557B36B3766
+	for <lists+linux-stm32@lfdr.de>; Fri, 10 Mar 2023 08:32:25 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D6935C6A60D;
-	Thu,  9 Mar 2023 22:19:49 +0000 (UTC)
-Received: from eu-smtp-delivery-151.mimecast.com
- (eu-smtp-delivery-151.mimecast.com [185.58.85.151])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 22750C65042
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 06BF5C6A60D;
+	Fri, 10 Mar 2023 07:32:25 +0000 (UTC)
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [85.220.165.71])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 398ACC6A609
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  9 Mar 2023 22:19:48 +0000 (UTC)
-Received: from AcuMS.aculab.com (156.67.243.121 [156.67.243.121]) by
- relay.mimecast.com with ESMTP with both STARTTLS and AUTH (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
- uk-mta-16-mytVSe0nOmGLnDgiSo5IHA-1; Thu, 09 Mar 2023 22:19:46 +0000
-X-MC-Unique: mytVSe0nOmGLnDgiSo5IHA-1
-Received: from AcuMS.Aculab.com (10.202.163.4) by AcuMS.aculab.com
- (10.202.163.4) with Microsoft SMTP Server (TLS) id 15.0.1497.47; Thu, 9 Mar
- 2023 22:19:44 +0000
-Received: from AcuMS.Aculab.com ([::1]) by AcuMS.aculab.com ([::1]) with mapi
- id 15.00.1497.047; Thu, 9 Mar 2023 22:19:44 +0000
-From: David Laight <David.Laight@ACULAB.COM>
-To: 'Linus Walleij' <linus.walleij@linaro.org>, Herbert Xu
- <herbert@gondor.apana.org.au>
-Thread-Topic: [v5 PATCH 7/7] crypto: stm32 - Save and restore between each
- request
-Thread-Index: AQHZUlnVfe29z1dm7kSSXyVRszx6pK7zBGDQ
-Date: Thu, 9 Mar 2023 22:19:44 +0000
-Message-ID: <dac62e9452a5417e9de00546d1aae1f4@AcuMS.aculab.com>
-References: <E1pZ2fs-000e27-4H@formenos.hmeau.com>
- <CACRpkdY8iN_ga0VuQ-z=8KUWaJ6=5rh2vZEwcp+oNgcBuPFk=g@mail.gmail.com>
- <ZAcNhtm/+mik1N2m@gondor.apana.org.au>
- <CACRpkdbcrCa9v82xVWtixWdDPvCu6E6Rkw-3Vg3APisdvYGwqQ@mail.gmail.com>
- <ZAf/rAbc3bMIwBcr@gondor.apana.org.au> <ZAgDku9htWcetafb@gondor.apana.org.au>
- <CACRpkdZ-zPZG4jK-AF2YF0wUFb8qrKBeoa4feb1qJ9SPusjv+Q@mail.gmail.com>
- <ZAhfBmlNHUpGEwW3@gondor.apana.org.au> <ZAhhGch6TtI8LA6x@gondor.apana.org.au>
- <CACRpkdabjrpsiVgm=EyGrTK7PGXth6FdvxSp=QULA+LyqtdBgg@mail.gmail.com>
- <ZAl1gGCv51FKOXtm@gondor.apana.org.au>
- <CACRpkdY4gAT7RUtL6ctcsqxEX2_rZMyjMktPta7e4UB19OyGow@mail.gmail.com>
-In-Reply-To: <CACRpkdY4gAT7RUtL6ctcsqxEX2_rZMyjMktPta7e4UB19OyGow@mail.gmail.com>
-Accept-Language: en-GB, en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.202.205.107]
+ Fri, 10 Mar 2023 07:32:24 +0000 (UTC)
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+ by metis.ext.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1paXEX-0002G3-W2; Fri, 10 Mar 2023 08:32:10 +0100
+Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
+ by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.94.2)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1paXES-0037ox-Nl; Fri, 10 Mar 2023 08:32:04 +0100
+Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.94.2)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1paXES-003jf4-1H; Fri, 10 Mar 2023 08:32:04 +0100
+Date: Fri, 10 Mar 2023 08:32:03 +0100
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+To: Bartosz Golaszewski <brgl@bgdev.pl>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Message-ID: <20230310073203.2mpd24pxe5rvm4e7@pengutronix.de>
+References: <20230306195556.55475-1-andriy.shevchenko@linux.intel.com>
+ <CAMRc=Me-FMZ3e=EaUA1kimEonz=HVHBp7coxCz53bJK9NYBuFg@mail.gmail.com>
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: aculab.com
-Content-Language: en-US
-Cc: Li kunyu <kunyu@nfschina.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "linux-crypto@vger.kernel.org" <linux-crypto@vger.kernel.org>,
- "mcoquelin.stm32@gmail.com" <mcoquelin.stm32@gmail.com>,
- "davem@davemloft.net" <davem@davemloft.net>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [v5 PATCH 7/7] crypto: stm32 - Save and restore
- between each request
+In-Reply-To: <CAMRc=Me-FMZ3e=EaUA1kimEonz=HVHBp7coxCz53bJK9NYBuFg@mail.gmail.com>
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: ukl@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
+Cc: Andy Shevchenko <andy@kernel.org>, linux-pwm@vger.kernel.org,
+ Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>,
+ Doug Berger <opendmb@gmail.com>, Schspa Shi <schspa@gmail.com>,
+ Marc Zyngier <maz@kernel.org>, Linus Walleij <linus.walleij@linaro.org>,
+ Nandor Han <nandor.han@ge.com>, linux-kernel@vger.kernel.org,
+ linux-gpio@vger.kernel.org, Florian Fainelli <f.fainelli@gmail.com>,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+ Semi Malinen <semi.malinen@ge.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, patches@opensource.cirrus.com,
+ Thierry Reding <thierry.reding@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v1 00/16] gpio: Use string_choices.h
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,40 +63,84 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============7715591060121809197=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Linus Walleij
-> Sent: 09 March 2023 07:35
-...
-> But actually I think the bug will never trigger, because the datasheet
-> for the DB8500 (Ux500) says this:
-> 
-> "Then the message can be sent, by writing it word per word into the
-> HASH_DIN register.
-> When a block of 512 bits, i.e. 16 words have been written, a partial
-> digest computation will
-> start upon writing the first data of the next block. The AHB bus will
-> be busy for 82 cycles for
-> SHA-1 algorithm (66 cycles for SHA-256 algorithm)."
 
-What speed clock is that?
+--===============7715591060121809197==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="vlcr3xdkx227as3g"
+Content-Disposition: inline
 
-4 or 5 extra clocks/word may (or may not) be significant.
 
-In terms of latency it may be noise compared to some PCIe
-reads done by hardware interrupt handlers.
-Some slow PCIe targets (like the fpga one we use) pretty
-much take 1us to handle a read cycle.
+--vlcr3xdkx227as3g
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-	David
+Hi Bart, hi Andy,
 
--
-Registered Address Lakeside, Bramley Road, Mount Farm, Milton Keynes, MK1 1PT, UK
-Registration No: 1397386 (Wales)
+On Thu, Mar 09, 2023 at 04:22:19PM +0100, Bartosz Golaszewski wrote:
+> I've been thinking about this and I must say it doesn't make much
+> sense to me. Not only does it NOT reduce the code size (even if we
+> assume the unlikely case where we'd build all those modules that use
+> the helpers) but also decreases the readability for anyone not
+> familiar with the new interfaces (meaning time spent looking up the
+> new function). The "%s", x ? "if" : "else" statement is concise and
+> clear already, I don't see much improvement with this series. And I'm
+> saying it from the position of someone who loves factoring out common
+> code. :)
+>=20
+> I'll wait to hear what others have to say but if it were up to me, I'd
+> politely say no.
+
+Interpreting this as request to share my view: I'm having the same
+doubts. While I'm not a big fan of the ?: operator, it's semantic is
+more obvious here.
+
+What I find most difficult about
+
+	str_high_low(plr & BIT(j))
+
+(from patch #6) is: Does this give me "high" or "low" if the argument is
+zero? You could tell me, and judging from the patch I'd hope that it
+would give me "low". But if I stumble over this code in two weeks I
+have probably forgotten and have to look it up again.
+
+Best regards
+Uwe
+
+--=20
+Pengutronix e.K.                           | Uwe Kleine-K=F6nig            |
+Industrial Linux Solutions                 | https://www.pengutronix.de/ |
+
+--vlcr3xdkx227as3g
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEfnIqFpAYrP8+dKQLwfwUeK3K7AkFAmQK3PAACgkQwfwUeK3K
+7AmKrQgAi8eFePklYAe1Wkc5DrOA8FgxUuMACZnge32N4GuJ70WGZLkl0kmPTU1b
+ljClqGfUibetO51uLK9T73BwZNJYXSjcEQ70XwdyiSIronRbhlzw13m6+/JdGD6y
+b//gxazdUU3qw70JoLbKZwfBHea/9CPDEJdcb6OvqkrVbH6GMjg5Lsyf3SW4dfRe
+Td4CSACc7My0VurOCjOPWw0Ui3gUws20Zs5/dKgZCHzjYlykGC9rS2mmn5CZP2oB
+L5AriYmEQodEt6FLgbkYhp1gDE2ONqYwm64RsHUJcWcBKZahBDFuXAoGZLVjgeXo
+YMvSCemK36RkwM5w3AHNzK63ETBAIA==
+=s9xY
+-----END PGP SIGNATURE-----
+
+--vlcr3xdkx227as3g--
+
+--===============7715591060121809197==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============7715591060121809197==--
