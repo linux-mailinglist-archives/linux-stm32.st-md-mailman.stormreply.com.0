@@ -2,72 +2,93 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D9D076B4F27
-	for <lists+linux-stm32@lfdr.de>; Fri, 10 Mar 2023 18:41:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 64D616B51BA
+	for <lists+linux-stm32@lfdr.de>; Fri, 10 Mar 2023 21:22:59 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9CD0FC6A60D;
-	Fri, 10 Mar 2023 17:41:25 +0000 (UTC)
-Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com
- [209.85.214.174])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 25DA7C6A60C;
+	Fri, 10 Mar 2023 20:22:59 +0000 (UTC)
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com
+ [209.85.128.42])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9F04DC6A609
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 533E5C65E60
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 10 Mar 2023 17:41:24 +0000 (UTC)
-Received: by mail-pl1-f174.google.com with SMTP id u5so6387419plq.7
+ Fri, 10 Mar 2023 20:22:58 +0000 (UTC)
+Received: by mail-wm1-f42.google.com with SMTP id
+ j19-20020a05600c191300b003eb3e1eb0caso6947184wmq.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 10 Mar 2023 09:41:24 -0800 (PST)
+ Fri, 10 Mar 2023 12:22:58 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20210112; t=1678470083;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=9i01GHUbBCk3rnTRWnFMgPlkOeiOaiqgzdCZVZASJxs=;
- b=IECSjKaVJTupiu7cziuQExZtGqDUR877vSWtG6NaFDHfm0fLdIWPGaGudpvpqieV2Q
- 2SwruSxTo/Dc+bCgJEx7kJQ0gTpUqbINF0apdm/2fxMGakqMEeu1FCLeiVpSmg/DlSXc
- klxi3OHIww37WozkkjHY4EGDF86u06cxDbZLk9zMde+izrNUc0YxDn0SNGx+jGpIocA8
- n7XnYaIh3WzfP7y0cHeP7iJCdgJqlgiF20sYwiQpU+OIlE42L2wUC69M157Zb66u4+jq
- UVXaaUKgNgXbpdUP/7wvcyatiDUzkhw/KfyQxJMCXZSMLRPu3jWTlSOf/89cfVcKNTIk
- dnJQ==
+ d=gmail.com; s=20210112; t=1678479778;
+ h=mime-version:user-agent:content-transfer-encoding:references
+ :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=4FSUfPM9PzkBQgHDUuENGncvGQIkUiTKD50SixP/pVQ=;
+ b=nqYajTJnlqn2QszL583h60rJxUCMetnsvZgOsAO3yQAfcrcBdEo8ujageLvtqCYR1C
+ EWgzG34cjLhLbcN7aJJpu48AZ4GJOjR/lpJu3wYFmjF8nEqXcEIUWHhA/XO01XBK/KOl
+ cW4rWfcpfb+IWiCe5/+7ZV5n5gYAttg7um8uQH9aMdNGjyZIvqHHcr/gXZ4S/31TsRXz
+ gWu3t9TM1IV3j3/3DNK8Dg60318W85GLtsAc7npo0uVGZvcoer/OD3fANpZRJkO4vkU7
+ ycrXXqP0TTHiM3zAo+1tjLoQGM7zk5RgYPG2JXldcnhAbIdK5G+jqkQssPhif40m7KGy
+ SDaw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1678470083;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=9i01GHUbBCk3rnTRWnFMgPlkOeiOaiqgzdCZVZASJxs=;
- b=rJLyCi2Zewea7GbSkKURfHrUx86JsVyI1rcstgNnvQeldeLm7d0DGb2BcAJJRkFjwZ
- klfXHMMNfFDMGtidjGUmFMGK7ozhj6HC4+NhaXvDcocDZhTDqgh0Y0gP+DNMYc8YYwD6
- GRbXGqN4PGlhRwq/6D5dfTgBRTukVEaO1v2a9U2PG92Tky1k2G8XwSmOdWvwZK/N/WX/
- CITRyZShjLiF9/xPfaA9OhDnVwurdHKhIBMr1U22Mev4oRhePBFpnjmI9mDc0grOt/Ku
- ec01Rsntzza7TPMaT7wxot84iprz4KRpna4ptLNa2l5IxlT9z+ADJ5GntobWvvcUP02m
- QuSA==
-X-Gm-Message-State: AO0yUKXtnPri+LIMARUyj8mP6srB8VxkUipIY6GnH7lZYFWKnUq5Qf31
- L0xFGi0Wbbzhq3Cf26AKGvV1oY7bsu9YDN7iLDcbHA==
-X-Google-Smtp-Source: AK7set+B943YKtR8tOTl36xpuw9/f7/8OomUcUBm+hMbC1PQDc3TJfFM/qdNItwupJpJWPycii8cIXVvL5+5QhY/SsU=
-X-Received: by 2002:a17:90a:c688:b0:22c:89b:8e97 with SMTP id
- n8-20020a17090ac68800b0022c089b8e97mr1183720pjt.1.1678470082815; Fri, 10 Mar
- 2023 09:41:22 -0800 (PST)
+ d=1e100.net; s=20210112; t=1678479778;
+ h=mime-version:user-agent:content-transfer-encoding:references
+ :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=4FSUfPM9PzkBQgHDUuENGncvGQIkUiTKD50SixP/pVQ=;
+ b=qX8bGybBubKnimNck1BXpKRJG3LQVyeDyzAis9clF+IX/d8f+8ISt/BjhMgK8eHvgn
+ fyHXDnO8OHsG2kbsWil4M8uWj4PYegwyzfYlxS1/BATU1Zk8MELFVSdC4DMqFEkAeCv3
+ wD8mcZ3hmTYJutTTL5SxQqa4A20NG7yN89ydm9imtlbgMfuDWeyQH5OKlZjshllgP0IL
+ 1ssZv1sBJjfQBLwlqDVYdtJ3062MnPi9sZsr6Q4+76BZ1thEIpLalRTj9dCAwq2G8bMP
+ WJGvIEuFXw3BqbW6nOB4iGR5VT5IvZgKKUxvHbFUgMrZ+XFANqg7YrXuzXrWHEuthaLo
+ ylNQ==
+X-Gm-Message-State: AO0yUKXrYe6ZTydHcclE9SlKcYhOJhyNuoj5nk+shKVpCZB5Au7sJoCS
+ 9Xw05oMVtaDB2VvMMnSGL90=
+X-Google-Smtp-Source: AK7set+Y2IDpfiEwJF5RRzfh95sswmbosQPuhKf9C3F+lrJubOCiXt2+E2ADzjiE7HXqA7OK3SfoaQ==
+X-Received: by 2002:a05:600c:4f01:b0:3ea:f6c4:3060 with SMTP id
+ l1-20020a05600c4f0100b003eaf6c43060mr3857549wmq.18.1678479777626; 
+ Fri, 10 Mar 2023 12:22:57 -0800 (PST)
+Received: from ?IPv6:2a02:168:6806:0:66a2:bd80:e6ae:416?
+ ([2a02:168:6806:0:66a2:bd80:e6ae:416])
+ by smtp.gmail.com with ESMTPSA id
+ k6-20020a5d5186000000b002c707785da4sm576606wrv.107.2023.03.10.12.22.56
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 10 Mar 2023 12:22:57 -0800 (PST)
+Message-ID: <10da10caea22a8f5da8f1779df3e13b948e8a363.camel@gmail.com>
+From: Klaus Kudielka <klaus.kudielka@gmail.com>
+To: Andrew Lunn <andrew@lunn.ch>
+Date: Fri, 10 Mar 2023 21:22:56 +0100
+In-Reply-To: <70f5bca0-322c-4bae-b880-742e56365abe@lunn.ch>
+References: <20230116-net-next-remove-probe-capabilities-v2-0-15513b05e1f4@walle.cc>
+ <20230116-net-next-remove-probe-capabilities-v2-4-15513b05e1f4@walle.cc>
+ <449bde236c08d5ab5e54abd73b645d8b29955894.camel@gmail.com>
+ <100c439a-2a4d-4cb2-96f2-5bf273e2121a@lunn.ch>
+ <712bc92ca6d576f33f63f1e9c2edf0030b10d3ae.camel@gmail.com>
+ <db6b8a09-b680-4baa-8963-d355ad29eb09@lunn.ch>
+ <0e10aa8492eadb587949d8744b56fccaabbd183b.camel@gmail.com>
+ <72530e86-9ba9-4a01-9cd2-68835ecae7a0@lunn.ch>
+ <09d65e1ee0679e1e74b4f3a5a4c55bd48332f043.camel@gmail.com>
+ <70f5bca0-322c-4bae-b880-742e56365abe@lunn.ch>
+User-Agent: Evolution 3.46.4-1 
 MIME-Version: 1.0
-References: <20230301214952.2190757-1-saravanak@google.com>
- <aca28784-c526-566b-dd7c-9cfda17e697a@foss.st.com>
-In-Reply-To: <aca28784-c526-566b-dd7c-9cfda17e697a@foss.st.com>
-From: Saravana Kannan <saravanak@google.com>
-Date: Fri, 10 Mar 2023 09:40:46 -0800
-Message-ID: <CAGETcx8K47t6X4biCYq+m8NcQFrUMyXvHknCRYUkuUbkw1_i6g@mail.gmail.com>
-To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-Cc: Martin Kepplinger <martin.kepplinger@puri.sm>,
- Heikki Krogerus <heikki.krogerus@linux.intel.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- "Rafael J. Wysocki" <rafael@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org, Daniel Scally <djrscally@gmail.com>,
- linux-acpi@vger.kernel.org, Yongqin Liu <yongqin.liu@linaro.org>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>, kernel-team@android.com,
- Sumit Semwal <sumit.semwal@linaro.org>, Guenter Roeck <linux@roeck-us.net>,
- Len Brown <lenb@kernel.org>
-Subject: Re: [Linux-stm32] [PATCH v1 0/4] Remove use of
-	fw_devlink_purge_absent_suppliers()
+Cc: linux-aspeed@lists.ozlabs.org,
+ Jesse Brandeburg <jesse.brandeburg@intel.com>,
+ Eric Dumazet <edumazet@google.com>, linux-stm32@st-md-mailman.stormreply.com,
+ Russell King <linux@armlinux.org.uk>, Jose Abreu <joabreu@synopsys.com>,
+ Joel Stanley <joel@jms.id.au>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Lorenzo Bianconi <lorenzo@kernel.org>,
+ Mark Lee <Mark-MC.Lee@mediatek.com>, Sean Wang <sean.wang@mediatek.com>,
+ linux-mediatek@lists.infradead.org, John Crispin <john@phrozen.org>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ linux-arm-kernel@lists.infradead.org, Andrew Jeffery <andrew@aj.id.au>,
+ Bryan Whitehead <bryan.whitehead@microchip.com>, linux-kernel@vger.kernel.org,
+ UNGLinuxDriver@microchip.com, Michael Walle <michael@walle.cc>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
+ Heiner Kallweit <hkallweit1@gmail.com>, "David S.
+ Miller" <davem@davemloft.net>, Felix Fietkau <nbd@nbd.name>
+Subject: Re: [Linux-stm32] [PATCH net-next v2 4/6] net: mdio: scan bus based
+ on bus capabilities for C22 and C45
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,124 +100,79 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gRnJpLCBNYXIgMTAsIDIwMjMgYXQgOToyMeKAr0FNIEZhYnJpY2UgR2Fzbmllcgo8ZmFicmlj
-ZS5nYXNuaWVyQGZvc3Muc3QuY29tPiB3cm90ZToKPgo+IE9uIDMvMS8yMyAyMjo0OSwgU2FyYXZh
-bmEgS2FubmFuIHdyb3RlOgo+ID4gWW9uZ3FpbiwgTWFydGluLCBBbWVsaWUsCj4gPgo+ID4gV2Ug
-cmVjZW50IHJlZmFjdG9yIG9mIGZ3X2RldmxpbmsgdGhhdCBlbmRzIHdpdGggY29tbWl0IGZiNDIz
-NzhkY2M3Zgo+ID4gKCJtdGQ6IG10ZHBhcnQ6IERvbid0IGNyZWF0ZSBwbGF0Zm9ybSBkZXZpY2Ug
-dGhhdCdsbCBuZXZlciBwcm9iZSIpLAo+ID4gZndfZGV2bGluayBpcyBzbWFydGVyIGFuZCBkb2Vz
-bid0IGRlcGVuZCBvbiBjb21wYXRpYmxlIHByb3BlcnR5LiBTbywgSQo+ID4gZG9uJ3QgdGhpbmsg
-dGhlc2UgY2FsbHMgYXJlIG5lZWRlZCBhbnltb3JlLiBCdXQgSSBkb24ndCBoYXZlIHRoZXNlCj4g
-PiBkZXZpY2VzIHRvIHRlc3Qgb24gYW5kIGJlIHN1cmUgYW5kIHRoZSBoYXJkd2FyZSBJIHVzZSB0
-byB0ZXN0IGNoYW5nZXMKPiA+IGRvZXNuJ3QgaGF2ZSB0aGlzIGlzc3VlIGVpdGhlci4KPiA+Cj4g
-PiBDYW4geW91IHBsZWFzZSB0ZXN0IHRoZXNlIGNoYW5nZXMgb24gdGhlIGhhcmR3YXJlIHdoZXJl
-IHlvdSBoaXQgdGhlCj4gPiBpc3N1ZSB0byBtYWtlIHN1cmUgdGhpbmdzIHdvcmsgYXMgZXhwZWN0
-ZWQ/Cj4KPgo+IEhpIFNhcmF2YW5hLAo+Cj4gU29ycnkgZm9yIHRoZSBsYXRlIHJlcGx5LAoKVGhh
-bmtzIGZvciB0ZXN0aW5nIQoKPiBPbiBiZWhhbGYgb2YgQW1lbGllLCBJIGRpZCBzb21lIHRlc3Rp
-bmcgb24gU1RNMzJNUDE1IERLMiBib2FyZCwgb24gdG9wCj4gb2YgY29tbWl0IGZiNDIzNzhkY2M3
-ZiwgYW5kIGFsc28gd2l0aCB5b3VyIHNlcmllcyBhcHBsaWVkLgo+IEZvciByZWZlcmVuY2UsIGl0
-J3MgYmFzZWQgb246IGFyY2gvYXJtL2Jvb3QvZHRzL3N0bTMybXAxNXh4LWRreC5kdHNpCj4KPiBJ
-IG5vdGljZWQgc29tZSBlcnJvciBtZXNzYWdlcyBvbiB0aGlzIGJvYXJkLCBzaW5jZSB0aGUgMTIg
-cGF0Y2ggc2VyaWVzLAo+IGFyb3VuZCB0aGUgSTJDIFBNSUMgZGV2aWNlIGxpbmtzOgo+Cj4gWyAg
-ICAzLjU4NTUxNF0gaTJjIDEtMDAzMzogRmFpbGVkIHRvIGNyZWF0ZSBkZXZpY2UgbGluayB3aXRo
-IDEtMDAzMwo+IFsgICAgMy41OTAxMTVdIGkyYyAxLTAwMzM6IEZhaWxlZCB0byBjcmVhdGUgZGV2
-aWNlIGxpbmsgd2l0aCAxLTAwMzMKPiBbICAgIDMuNTk2Mjc4XSBpMmMgMS0wMDMzOiBGYWlsZWQg
-dG8gY3JlYXRlIGRldmljZSBsaW5rIHdpdGggMS0wMDMzCj4gWyAgICAzLjYwMjE4OF0gaTJjIDEt
-MDAzMzogRmFpbGVkIHRvIGNyZWF0ZSBkZXZpY2UgbGluayB3aXRoIDEtMDAzMwo+IFsgICAgMy42
-MDgxNjVdIGkyYyAxLTAwMzM6IEZhaWxlZCB0byBjcmVhdGUgZGV2aWNlIGxpbmsgd2l0aCAxLTAw
-MzMKPiBbICAgIDMuNjE0Mjc4XSBpMmMgMS0wMDMzOiBGYWlsZWQgdG8gY3JlYXRlIGRldmljZSBs
-aW5rIHdpdGggMS0wMDMzCj4gWyAgICAzLjYyMDI1Nl0gaTJjIDEtMDAzMzogRmFpbGVkIHRvIGNy
-ZWF0ZSBkZXZpY2UgbGluayB3aXRoIDEtMDAzMwo+IFsgICAgMy42MjYyNTNdIGkyYyAxLTAwMzM6
-IEZhaWxlZCB0byBjcmVhdGUgZGV2aWNlIGxpbmsgd2l0aCAxLTAwMzMKPiBbICAgIDMuNjMyMjUy
-XSBpMmMgMS0wMDMzOiBGYWlsZWQgdG8gY3JlYXRlIGRldmljZSBsaW5rIHdpdGggMS0wMDMzCj4g
-WyAgICAzLjYzOTAwMV0gc3RwbWljMSAxLTAwMzM6IFBNSUMgQ2hpcCBWZXJzaW9uOiAweDEwCj4g
-WyAgICAzLjY0NTM5OF0gcGxhdGZvcm0gNWMwMDIwMDAuaTJjOnN0cG1pY0AzMzpyZWd1bGF0b3Jz
-OiBGaXhlZAo+IGRlcGVuZGVuY3kgY3ljbGUocykgd2l0aCAvc29jL2kyY0A1YzAwMjAwCj4gMC9z
-dHBtaWNAMzMvcmVndWxhdG9ycy9ib29zdAo+IFsgICAgMy42NTU5MzddIHBsYXRmb3JtIDVjMDAy
-MDAwLmkyYzpzdHBtaWNAMzM6cmVndWxhdG9yczogRml4ZWQKPiBkZXBlbmRlbmN5IGN5Y2xlKHMp
-IHdpdGggL3NvYy9pMmNANWMwMDIwMAo+IDAvc3RwbWljQDMzL3JlZ3VsYXRvcnMvYnVjazIKPiBb
-ICAgIDMuNjY3ODI0XSBwbGF0Zm9ybSA1YzAwMjAwMC5pMmM6c3RwbWljQDMzOnJlZ3VsYXRvcnM6
-IEZpeGVkCj4gZGVwZW5kZW5jeSBjeWNsZShzKSB3aXRoIC9zb2MvaTJjQDVjMDAyMDAKPiAwL3N0
-cG1pY0AzMy9yZWd1bGF0b3JzL2J1Y2s0Cj4gWyAgICAzLjcxOTc1MV0gc3RwbWljMS1yZWd1bGF0
-b3IgNWMwMDIwMDAuaTJjOnN0cG1pY0AzMzpyZWd1bGF0b3JzOgo+IEZhaWxlZCB0byBjcmVhdGUg
-ZGV2aWNlIGxpbmsgd2l0aCAxLTAwMzMKPiBbICAgIDMuNzI4MDk5XSBzdHBtaWMxLXJlZ3VsYXRv
-ciA1YzAwMjAwMC5pMmM6c3RwbWljQDMzOnJlZ3VsYXRvcnM6Cj4gRmFpbGVkIHRvIGNyZWF0ZSBk
-ZXZpY2UgbGluayB3aXRoIDEtMDAzMwo+IFsgICAgMy43Mzc1NzZdIHN0cG1pYzEtcmVndWxhdG9y
-IDVjMDAyMDAwLmkyYzpzdHBtaWNAMzM6cmVndWxhdG9yczoKPiBGYWlsZWQgdG8gY3JlYXRlIGRl
-dmljZSBsaW5rIHdpdGggMS0wMDMzCj4gWyAgICAzLjc0NzIxNl0gc3RwbWljMS1yZWd1bGF0b3Ig
-NWMwMDIwMDAuaTJjOnN0cG1pY0AzMzpyZWd1bGF0b3JzOgo+IEZhaWxlZCB0byBjcmVhdGUgZGV2
-aWNlIGxpbmsgd2l0aCAxLTAwMzMKPiBbICAgIDMuNzU2NzUwXSBzdHBtaWMxLXJlZ3VsYXRvciA1
-YzAwMjAwMC5pMmM6c3RwbWljQDMzOnJlZ3VsYXRvcnM6Cj4gRmFpbGVkIHRvIGNyZWF0ZSBkZXZp
-Y2UgbGluayB3aXRoIDEtMDAzMwo+IFsgICAgMy43NjYzODJdIHN0cG1pYzEtcmVndWxhdG9yIDVj
-MDAyMDAwLmkyYzpzdHBtaWNAMzM6cmVndWxhdG9yczoKPiBGYWlsZWQgdG8gY3JlYXRlIGRldmlj
-ZSBsaW5rIHdpdGggMS0wMDMzCj4gWyAgICAzLjc3NTkxNF0gc3RwbWljMS1yZWd1bGF0b3IgNWMw
-MDIwMDAuaTJjOnN0cG1pY0AzMzpyZWd1bGF0b3JzOgo+IEZhaWxlZCB0byBjcmVhdGUgZGV2aWNl
-IGxpbmsgd2l0aCAxLTAwMzMKPiBbICAgIDMuNzg1NTQ1XSBzdHBtaWMxLXJlZ3VsYXRvciA1YzAw
-MjAwMC5pMmM6c3RwbWljQDMzOnJlZ3VsYXRvcnM6Cj4gRmFpbGVkIHRvIGNyZWF0ZSBkZXZpY2Ug
-bGluayB3aXRoIDEtMDAzMwoKWW91IGNhbiBpZ25vcmUgYWxsIHRoZSAiRmFpbGVkIHRvIGNyZWF0
-ZSBkZXZpY2UgbGluayIgZXJyb3JzLiBUaGV5IGFyZQpqdXN0IGVycm9yIGxvZ3MgZm9yIHN0dWZm
-IHRoYXQgd2FzIGJlaW5nIGlnbm9yZWQgc2lsZW50bHkgYmVmb3JlLiBTbwp0aGF0J3Mgbm8gZnVu
-Y3Rpb25hbCByZWdyZXNzaW9uIEFGQUlLLiBJJ2xsIGZpeCB0aGVtIHNlcGFyYXRlbHkgaWYKbmVj
-ZXNzYXJ5LiBBbmQgSSdtIHN1cmUgeW91J2xsIHNlZSB0aGVzZSBtZXNzYWdlcyBldmVuIHdpdGhv
-dXQgbXkKZndfZGV2bGluayByZWZhY3RvciBzZXJpZXMuCgo+IFN0cmFuZ2VseSBzb21lIG9mIHRo
-ZSByZWd1bGF0b3JzIHNlZW1zIHRvIGhhdmUgIkZpeGVkIGRlcGVuZGVuY3kiLCBidXQKPiBub3Qg
-YWxsLgoKWWVhaCwgdGhhdCdzIGZpbmUgdG9vIC0tIHRoYXQncyBqdXN0IGZ3X2RldmxpbmsgYmVp
-bmcgdmVyYm9zZSBhYm91dApub3QgZW5mb3JjaW5nIHByb2JlIG9yZGVyaW5nIGJldHdlZW4gZGV2
-aWNlcyBpbiB0aGF0IGN5Y2xlIGJlY2F1c2UgaXQKY2FuJ3QgdGVsbCB3aGljaCBvbmUgb2YgdGhl
-IGRlcGVuZGVuY2llcyBpcyBub3QgYSBwcm9iZSByZXF1aXJlbWVudC4KTWF5YmUgSSdsbCBtYWtl
-IGl0IGEgZGJnIGxvZyBpZiBpdCdzIGNvbmZ1c2luZyBwZW9wbGUuCgo+IFJlZ2FyZGluZyB0aGUg
-dHlwZWMgc3R1c2IxNjB4IEkgbm90aWNlZCB0aGUgbWVzc2FnZSBiZWxvdy4gSXQgc2VlbXMKPiBj
-b3JyZWN0LCByaWdodCA/Cj4KPiBbICAgMTUuOTYyNzcxXSB0eXBlYyBwb3J0MDogRml4ZWQgZGVw
-ZW5kZW5jeSBjeWNsZShzKSB3aXRoCj4gL3NvYy91c2Itb3RnQDQ5MDAwMDAwL3BvcnQvZW5kcG9p
-bnQKCkkgZG9uJ3Qga25vdyBpZiB0aGVyZSBpcyBhIGN5Y2xpYyBkZXBlbmRlbmN5IGluIHlvdXIg
-RFQgb3Igbm90LiBCdXQKdGhpcyBtZXNzYWdlIGl0c2VsZiBpcyBub3QgYW4gaXNzdWUuCgo+IEJ1
-dCBzb21ldGltZXMgKGxldHMgc2F5IDEvNSB0aW1lcykgZHVyaW5nIGJvb3QsIHdoZW4gSSBoYXZl
-IGEgY2FibGUKPiBhbHJlYWR5IHBsdWdnZWQgaW4sIGl0IGxvb2tzIGxpa2UgdGhlcmUncyBzb21l
-IHJhY2UgY29uZGl0aW9uLiBUaGUgZHdjMgo+IGRyaXZlciByZXBvcnRzIHNvbWUgZXJyb3IgbG9n
-cyBpbiBhIGxvb3AsIGluZGVmaW5pdGVseSwgdXAgdG8gdGhlCj4gd2F0Y2hkb2cgcmVzZXRzIHRo
-ZSBwbGF0Zm9ybSA6LSguCgpDYW4geW91IHRyeSB0aGlzIHNlcmllcyAodGhlIG9uZSB5b3UgYXJl
-IHRlc3RpbmcpIHdpdGhvdXQgbXkKZndfZGV2bGluayByZWZhY3RvciB0aGF0IGVuZHMgd2l0aCBj
-b21taXQgZmI0MjM3OGRjYzdmPyBUcnlpbmcgdG8gbWFrZQpzdXJlIHdlIGNhbiByZXByb2R1Y2Ug
-dGhlIGlzc3VlIEFtZWxpZSB3YXMgZml4aW5nIGJlZm9yZSBJIGNsYWltIG15CnJlZmFjdG9yIHNl
-cmllcyBmaXhlcyBpdC4KCj4gWyAgIDE2LjI4ODQ1OF0gZHdjMiA0OTAwMDAwMC51c2Itb3RnOiBN
-b2RlIE1pc21hdGNoIEludGVycnVwdDogY3VycmVudGx5Cj4gaW4gSG9zdCBtb2RlCj4gWyAgIDE2
-LjI4ODQ5MF0gZHdjMiA0OTAwMDAwMC51c2Itb3RnOiBNb2RlIE1pc21hdGNoIEludGVycnVwdDog
-Y3VycmVudGx5Cj4gaW4gSG9zdCBtb2RlCj4gWyAgIDE2LjMxMDQyOV0gZHdjMiA0OTAwMDAwMC51
-c2Itb3RnOiBNb2RlIE1pc21hdGNoIEludGVycnVwdDogY3VycmVudGx5Cj4gaW4gSG9zdCBtb2Rl
-Cj4KPiBJdCBwcm9iYWJseSBqdXN0IHBvaW50cyBzb21lIGFscmVhZHkgZXhpc3RpbmcgcmFjZSBj
-b25kaXRpb24gaGVyZS4gTWF5YmUKPiBpdCBpc24ndCBldmVuIGxpbmtlZCB0byB0aGlzIHBhdGNo
-LiBCdXQgSSBoYXZlIG5vIGV2aWRlbmNlIGF0IHRoaXMKPiBzdGFnZS4gSSBob3BlIEkgY2FuIGlu
-dmVzdGlnYXRlIGZ1cnRoZXIgb24gdGhpcyBvbmUsIGhvcGVmdWxseSBJIGNhbgo+IGZyZWUgdXAg
-c29tZSB0aW1lIGZvciB0aGF0LgoKSWYgeW91IG5ldmVyIHBpY2sgdXAgdGhpcyBzZXJpZXMsIGFy
-ZSB5b3Ugbm90IGhhdmluZyBhbnkgb2YgdGhlc2UgMS81CnRpbWVzIGJvb3QgaXNzdWVzPyBJIHdv
-dWxkbid0IGV4cGVjdCBteSBjaGFuZ2VzIHRvIGFkZCBhbnkgcmFjZXMsIGJ1dApJJ2xsIHdhaXQg
-dG8gc2VlIHdoYXQgeW91IGZpbmQgaGVyZS4KClRoYW5rcywKU2FyYXZhbmEKCj4KPiBCZXN0IFJl
-Z2FyZHMsCj4gRmFicmljZQo+Cj4gPgo+ID4gWW9uZ3FpbiwgSWYgeW91IGRpZG4ndCBoYXZlIHRo
-ZSBjb250ZXh0LCB0aGlzIGFmZmVjdGVkIGhpa2V5OTYwLgo+ID4KPiA+IEdyZWcsCj4gPgo+ID4g
-TGV0J3Mgd2FpdCBmb3Igc29tZSB0ZXN0cyBiZWZvcmUgd2UgbGFuZCB0aGVzZS4KPiA+Cj4gPiBU
-aGFua3MsCj4gPiBTYXJhdmFuYQo+ID4KPiA+IENjOiBZb25ncWluIExpdSA8eW9uZ3Fpbi5saXVA
-bGluYXJvLm9yZz4KPiA+IENjOiBTdW1pdCBTZW13YWwgPHN1bWl0LnNlbXdhbEBsaW5hcm8ub3Jn
-Pgo+ID4gQ2M6IE1hcnRpbiBLZXBwbGluZ2VyIDxtYXJ0aW4ua2VwcGxpbmdlckBwdXJpLnNtPgo+
-ID4gQ2M6IEFtZWxpZSBEZWxhdW5heSA8YW1lbGllLmRlbGF1bmF5QGZvc3Muc3QuY29tPgo+ID4K
-PiA+IFNhcmF2YW5hIEthbm5hbiAoNCk6Cj4gPiAgIHVzYjogdHlwZWM6IHN0dXNiMTYweDogUmVt
-b3ZlIHVzZSBvZgo+ID4gICAgIGZ3X2RldmxpbmtfcHVyZ2VfYWJzZW50X3N1cHBsaWVycygpCj4g
-PiAgIHVzYjogdHlwZWM6IHRpcGQ6IFJlbW92ZSB1c2Ugb2YgZndfZGV2bGlua19wdXJnZV9hYnNl
-bnRfc3VwcGxpZXJzKCkKPiA+ICAgdXNiOiB0eXBlYzogdGNwbTogUmVtb3ZlIHVzZSBvZiBmd19k
-ZXZsaW5rX3B1cmdlX2Fic2VudF9zdXBwbGllcnMoKQo+ID4gICBkcml2ZXIgY29yZTogRGVsZXRl
-IGZ3X2RldmxpbmtfcHVyZ2VfYWJzZW50X3N1cHBsaWVycygpCj4gPgo+ID4gIGRyaXZlcnMvYmFz
-ZS9jb3JlLmMgICAgICAgICAgIHwgMTYgLS0tLS0tLS0tLS0tLS0tLQo+ID4gIGRyaXZlcnMvdXNi
-L3R5cGVjL3N0dXNiMTYweC5jIHwgIDkgLS0tLS0tLS0tCj4gPiAgZHJpdmVycy91c2IvdHlwZWMv
-dGNwbS90Y3BtLmMgfCAgOSAtLS0tLS0tLS0KPiA+ICBkcml2ZXJzL3VzYi90eXBlYy90aXBkL2Nv
-cmUuYyB8ICA5IC0tLS0tLS0tLQo+ID4gIGluY2x1ZGUvbGludXgvZndub2RlLmggICAgICAgIHwg
-IDEgLQo+ID4gIDUgZmlsZXMgY2hhbmdlZCwgNDQgZGVsZXRpb25zKC0pCj4gPgo+Cj4gLS0KPiBU
-byB1bnN1YnNjcmliZSBmcm9tIHRoaXMgZ3JvdXAgYW5kIHN0b3AgcmVjZWl2aW5nIGVtYWlscyBm
-cm9tIGl0LCBzZW5kIGFuIGVtYWlsIHRvIGtlcm5lbC10ZWFtK3Vuc3Vic2NyaWJlQGFuZHJvaWQu
-Y29tLgo+Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxp
-bnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVw
-bHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3Rp
-bmZvL2xpbnV4LXN0bTMyCg==
+On Thu, 2023-03-09 at 17:36 +0100, Andrew Lunn wrote:
+> 
+> I was wrong about something i said earlier. A C22 scan reads two
+> registers for each of the 32 possible locations of a C22 PHY on the
+> bus. A C45 scan is however much more expensive. It will read 30 time
+> two registers for each of the 32 possible locations of a C45 PHY on
+> the bus.
+> 
+> One things that could help is moving some code around a bit. Currently
+> mv88e6xxx_mdios_register() is called at the end of
+> mv88e6xxx_probe(). Try moving it to the beginning of
+> mv88e6xxx_setup(). The call to mv88e6xxx_mdios_unregister() then need
+> to move into mv88e6xxx_teardown().
+> 
+
+Yes, that helps. Primarily, because mdiobus_scan_bus_c45 now is called only once,
+and at least some things are done in parallel.
+
+(Still, ~2s waiting for the C45 scan to complete).
+
+[    0.382715] mdio_bus mv88e6xxx-0: *** mdiobus_scan_bus_c22 call ***
+[    0.387571] mmc0: new high speed MMC card at address 0001
+[    0.387953] mmcblk0: mmc0:0001 H8G4a\x92 7.28 GiB 
+[    0.388929]  mmcblk0: p1
+[    0.389197] mmcblk0boot0: mmc0:0001 H8G4a\x92 4.00 MiB 
+[    0.389508] mmcblk0boot1: mmc0:0001 H8G4a\x92 4.00 MiB 
+[    0.389850] mmcblk0rpmb: mmc0:0001 H8G4a\x92 4.00 MiB, chardev (250:0)
+[    0.393323] ata2: SATA link down (SStatus 0 SControl 300)
+[    0.486839] mdio_bus mv88e6xxx-0: *** mdiobus_scan_bus_c22 return ***
+[    0.486850] mdio_bus mv88e6xxx-0: *** mdiobus_scan_bus_c45 call ***
+[    0.554696] ata1: SATA link up 6.0 Gbps (SStatus 133 SControl 300)
+[    0.555373] ata1.00: supports DRM functions and may not be fully accessible
+[    0.555378] ata1.00: ATA-10: KINGSTON SKC600MS512G, S4800105, max UDMA/133
+[    0.555384] ata1.00: 1000215216 sectors, multi 1: LBA48 NCQ (depth 32)
+[    0.556055] ata1.00: Features: Trust Dev-Sleep
+[    0.556150] ata1.00: supports DRM functions and may not be fully accessible
+[    0.556800] ata1.00: configured for UDMA/133
+[    0.556981] scsi 0:0:0:0: Direct-Access     ATA      KINGSTON SKC600M 0105 PQ: 0 ANSI: 5
+[    0.557506] sd 0:0:0:0: [sda] 1000215216 512-byte logical blocks: (512 GB/477 GiB)
+[    0.557515] sd 0:0:0:0: [sda] 4096-byte physical blocks
+[    0.557552] sd 0:0:0:0: [sda] Write Protect is off
+[    0.557557] sd 0:0:0:0: [sda] Mode Sense: 00 3a 00 00
+[    0.557613] sd 0:0:0:0: [sda] Write cache: enabled, read cache: enabled, doesn't support DPO or FUA
+[    0.557736] sd 0:0:0:0: [sda] Preferred minimum I/O size 4096 bytes
+[    0.558295]  sda: sda1
+[    0.558417] sd 0:0:0:0: [sda] Attached SCSI removable disk
+[    0.685992] sfp sfp: module TP-LINK          TL-SM321B        rev      sn 1403076900       dc 140401
+[    0.686009] mvneta f1034000.ethernet eth2: switched to inband/1000base-x link mode
+[    2.820390] mdio_bus mv88e6xxx-0: *** mdiobus_scan_bus_c45 return ***
+[    3.464461] mv88e6085 f1072004.mdio-mii:10: configuring for fixed/rgmii-id link mode
+[    3.466123] mv88e6085 f1072004.mdio-mii:10: configuring for fixed/rgmii-id link mode
+[    3.467397] mv88e6085 f1072004.mdio-mii:10: Link is Up - 1Gbps/Full - flow control off
+[    3.471263] mv88e6085 f1072004.mdio-mii:10: Link is Up - 1Gbps/Full - flow control off
+[    3.538112] mv88e6085 f1072004.mdio-mii:10 lan0 (uninitialized): PHY [mv88e6xxx-0:00] driver [Marvell 88E1540] (irq=68)
+[    3.602833] mv88e6085 f1072004.mdio-mii:10 lan1 (uninitialized): PHY [mv88e6xxx-0:01] driver [Marvell 88E1540] (irq=69)
+[    3.674111] mv88e6085 f1072004.mdio-mii:10 lan2 (uninitialized): PHY [mv88e6xxx-0:02] driver [Marvell 88E1540] (irq=70)
+[    3.746290] mv88e6085 f1072004.mdio-mii:10 lan3 (uninitialized): PHY [mv88e6xxx-0:03] driver [Marvell 88E1540] (irq=71)
+[    3.818291] mv88e6085 f1072004.mdio-mii:10 lan4 (uninitialized): PHY [mv88e6xxx-0:04] driver [Marvell 88E1540] (irq=72)
+[    3.820845] device eth1 entered promiscuous mode
+[    3.821730] device eth0 entered promiscuous mode
+[    3.821749] DSA: tree 0 setup
+[    3.822563] Freeing unused kernel image (initmem) memory: 1024K
+[    3.822727] Run /init as init process
+
+
+Regards, Klaus
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
