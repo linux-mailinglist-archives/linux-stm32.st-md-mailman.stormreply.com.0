@@ -2,61 +2,72 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 238086B4B23
-	for <lists+linux-stm32@lfdr.de>; Fri, 10 Mar 2023 16:31:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F23B6B4E67
+	for <lists+linux-stm32@lfdr.de>; Fri, 10 Mar 2023 18:21:42 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B0E17C6A60C;
-	Fri, 10 Mar 2023 15:31:55 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8636EC65E60
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 10 Mar 2023 15:31:54 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DE268C6A60C;
+	Fri, 10 Mar 2023 17:21:41 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 3E2876195A;
- Fri, 10 Mar 2023 15:31:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A2C7C433EF;
- Fri, 10 Mar 2023 15:31:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1678462312;
- bh=nUzOTuEgT91ilSzmzilIEFK3iqUy+T792nACm/ObXo8=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=gVDFRff32CUeg4VYZc0KxwyW7FRibHcCgOsXmEDulirUJ1Y3IyxHc+k5rgu+krn+f
- LBLRHqN5iB4qujARfr6I9K6XSy+CpZYXKc9iBpNeqJgEQjktyxklC051kSVeXuXp86
- JVJvV5eicKe6jDyHOv2homy93sYvRn15szXjW3Tj1/dYeFN8Wt6oinxlLREFqNWcDj
- OiaZHKqvOX2i3j13+TXuGVlappDzZhw+hPOVsmKsc7A50KTP6aUO8ZEAsiAIbyz1QU
- Bmga1n6munzOp/7VgWSY+hRQ5BxxIuDpQJbVN4cUcijREMpgWaikEsXTllWMHmJTis
- IaWc+rpQsCniw==
-Date: Fri, 10 Mar 2023 15:31:49 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Rob Herring <robh@kernel.org>
-Message-ID: <ZAtNZUifDt/Yl2qp@sirena.org.uk>
-References: <20230310144732.1546328-1-robh@kernel.org>
- <a23852d7-c70c-a03c-99fb-b453bdc750a1@linux.intel.com>
- <CAL_Jsq+XBzEMWrz=quxq4TkrejMMFRRvo0UinghmBphtmr=XXw@mail.gmail.com>
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 35538C640E6
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 10 Mar 2023 17:21:40 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 32AFFK7V011608; Fri, 10 Mar 2023 18:21:00 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=YlmLOht25d1B1Huzy9T+x0MO+6RZN6cC1UZx/AC2t0M=;
+ b=DuK/G3tC4ceOg/WF5XKpg5GXgb9s/jvah2H/XOSMFIlL7+ia/vuyOO2Yrc0HjwXxq5/X
+ K8gBLmbBtGVDplSPYjDwOwpi5ev21nwtya3lwbg/el6j+0XApl8r7xW6o7HCXx+PmjcP
+ tXBkOCBoCAeX4q3uFjSUT4pSjRkLV2T3OqgTGVUbzY4jImksZMRM4tOepIYDv36W1EHZ
+ dtVLbjomrYAYz+TjECAtN/SIzqdWCBUiQ9Y4gVlEO2pL2YwzbhkmLjQhhDBsBnNxgc5U
+ IkBWlisqJieEBSktLYkOhCGFGX/TucqCuQr8in0nj9DvIyG5+oCtTQ7eDFGQLXvWfgJ+ 1g== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3p7vynd7k9-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 10 Mar 2023 18:21:00 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 5891D10002A;
+ Fri, 10 Mar 2023 18:20:57 +0100 (CET)
+Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 3840521BF45;
+ Fri, 10 Mar 2023 18:20:57 +0100 (CET)
+Received: from [10.252.12.230] (10.252.12.230) by SHFDAG1NODE2.st.com
+ (10.75.129.70) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.17; Fri, 10 Mar
+ 2023 18:20:53 +0100
+Message-ID: <aca28784-c526-566b-dd7c-9cfda17e697a@foss.st.com>
+Date: Fri, 10 Mar 2023 18:20:53 +0100
 MIME-Version: 1.0
-In-Reply-To: <CAL_Jsq+XBzEMWrz=quxq4TkrejMMFRRvo0UinghmBphtmr=XXw@mail.gmail.com>
-X-Cookie: Single tasking: Just Say No.
-Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>,
- Thierry Reding <thierry.reding@gmail.com>,
- Sylwester Nawrocki <s.nawrocki@samsung.com>,
- Fabio Estevam <festevam@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
- Takashi Iwai <tiwai@suse.com>, Jonathan Hunter <jonathanh@nvidia.com>,
- NXP Linux Team <linux-imx@nxp.com>,
- Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>, devicetree@vger.kernel.org,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Sascha Hauer <s.hauer@pengutronix.de>, linux-tegra@vger.kernel.org,
- Jaroslav Kysela <perex@perex.cz>, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Amadeusz =?utf-8?B?U8WCYXdpxYRza2k=?= <amadeuszx.slawinski@linux.intel.com>,
- Shawn Guo <shawnguo@kernel.org>
-Subject: Re: [Linux-stm32] [PATCH] ASoC: Use of_property_present() for
- testing DT property presence
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.7.1
+To: Saravana Kannan <saravanak@google.com>, Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>, Guenter Roeck
+ <linux@roeck-us.net>, Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Daniel Scally <djrscally@gmail.com>, Sakari Ailus
+ <sakari.ailus@linux.intel.com>, Len Brown <lenb@kernel.org>
+References: <20230301214952.2190757-1-saravanak@google.com>
+Content-Language: en-US
+From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+In-Reply-To: <20230301214952.2190757-1-saravanak@google.com>
+X-Originating-IP: [10.252.12.230]
+X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE2.st.com
+ (10.75.129.70)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.254,Aquarius:18.0.942,Hydra:6.0.573,FMLib:17.11.170.22
+ definitions=2023-03-10_08,2023-03-10_01,2023-02-09_01
+Cc: Martin Kepplinger <martin.kepplinger@puri.sm>, linux-usb@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
+ linux-acpi@vger.kernel.org, Yongqin Liu <yongqin.liu@linaro.org>,
+ kernel-team@android.com, Sumit Semwal <sumit.semwal@linaro.org>
+Subject: Re: [Linux-stm32] [PATCH v1 0/4] Remove use of
+	fw_devlink_purge_absent_suppliers()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -68,63 +79,130 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============7877075296597694335=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+On 3/1/23 22:49, Saravana Kannan wrote:
+> Yongqin, Martin, Amelie,
+> 
+> We recent refactor of fw_devlink that ends with commit fb42378dcc7f
+> ("mtd: mtdpart: Don't create platform device that'll never probe"),
+> fw_devlink is smarter and doesn't depend on compatible property. So, I
+> don't think these calls are needed anymore. But I don't have these
+> devices to test on and be sure and the hardware I use to test changes
+> doesn't have this issue either.
+> 
+> Can you please test these changes on the hardware where you hit the
+> issue to make sure things work as expected?
 
---===============7877075296597694335==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="YQTqPomgC6kqCvBH"
-Content-Disposition: inline
 
+Hi Saravana,
 
---YQTqPomgC6kqCvBH
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Sorry for the late reply,
+On behalf of Amelie, I did some testing on STM32MP15 DK2 board, on top
+of commit fb42378dcc7f, and also with your series applied.
+For reference, it's based on: arch/arm/boot/dts/stm32mp15xx-dkx.dtsi
 
-On Fri, Mar 10, 2023 at 09:14:08AM -0600, Rob Herring wrote:
-> On Fri, Mar 10, 2023 at 9:01=E2=80=AFAM Amadeusz S=C5=82awi=C5=84ski
-> > On 3/10/2023 3:47 PM, Rob Herring wrote:
+I noticed some error messages on this board, since the 12 patch series,
+around the I2C PMIC device links:
 
-> > > -             if (of_get_property(ep,   "reg", NULL))
-> > > +             if (of_property_present(ep,   "reg"))
+[    3.585514] i2c 1-0033: Failed to create device link with 1-0033
+[    3.590115] i2c 1-0033: Failed to create device link with 1-0033
+[    3.596278] i2c 1-0033: Failed to create device link with 1-0033
+[    3.602188] i2c 1-0033: Failed to create device link with 1-0033
+[    3.608165] i2c 1-0033: Failed to create device link with 1-0033
+[    3.614278] i2c 1-0033: Failed to create device link with 1-0033
+[    3.620256] i2c 1-0033: Failed to create device link with 1-0033
+[    3.626253] i2c 1-0033: Failed to create device link with 1-0033
+[    3.632252] i2c 1-0033: Failed to create device link with 1-0033
+[    3.639001] stpmic1 1-0033: PMIC Chip Version: 0x10
+[    3.645398] platform 5c002000.i2c:stpmic@33:regulators: Fixed
+dependency cycle(s) with /soc/i2c@5c00200
+0/stpmic@33/regulators/boost
+[    3.655937] platform 5c002000.i2c:stpmic@33:regulators: Fixed
+dependency cycle(s) with /soc/i2c@5c00200
+0/stpmic@33/regulators/buck2
+[    3.667824] platform 5c002000.i2c:stpmic@33:regulators: Fixed
+dependency cycle(s) with /soc/i2c@5c00200
+0/stpmic@33/regulators/buck4
+[    3.719751] stpmic1-regulator 5c002000.i2c:stpmic@33:regulators:
+Failed to create device link with 1-0033
+[    3.728099] stpmic1-regulator 5c002000.i2c:stpmic@33:regulators:
+Failed to create device link with 1-0033
+[    3.737576] stpmic1-regulator 5c002000.i2c:stpmic@33:regulators:
+Failed to create device link with 1-0033
+[    3.747216] stpmic1-regulator 5c002000.i2c:stpmic@33:regulators:
+Failed to create device link with 1-0033
+[    3.756750] stpmic1-regulator 5c002000.i2c:stpmic@33:regulators:
+Failed to create device link with 1-0033
+[    3.766382] stpmic1-regulator 5c002000.i2c:stpmic@33:regulators:
+Failed to create device link with 1-0033
+[    3.775914] stpmic1-regulator 5c002000.i2c:stpmic@33:regulators:
+Failed to create device link with 1-0033
+[    3.785545] stpmic1-regulator 5c002000.i2c:stpmic@33:regulators:
+Failed to create device link with 1-0033
 
-> > Bit of nit picking, but any reason, why there are multiple spaces,
-> > before "reg" here?
+Strangely some of the regulators seems to have "Fixed dependency", but
+not all.
 
-> Only because there was before and it was a scripted change.
+Regarding the typec stusb160x I noticed the message below. It seems
+correct, right ?
 
-Yeah, I don't think there's any reason for that - perhaps at some
-point it caused the code to line up?
+[   15.962771] typec port0: Fixed dependency cycle(s) with
+/soc/usb-otg@49000000/port/endpoint
 
---YQTqPomgC6kqCvBH
-Content-Type: application/pgp-signature; name="signature.asc"
+But sometimes (lets say 1/5 times) during boot, when I have a cable
+already plugged in, it looks like there's some race condition. The dwc2
+driver reports some error logs in a loop, indefinitely, up to the
+watchdog resets the platform :-(.
 
------BEGIN PGP SIGNATURE-----
+[   16.288458] dwc2 49000000.usb-otg: Mode Mismatch Interrupt: currently
+in Host mode
+[   16.288490] dwc2 49000000.usb-otg: Mode Mismatch Interrupt: currently
+in Host mode
+[   16.310429] dwc2 49000000.usb-otg: Mode Mismatch Interrupt: currently
+in Host mode
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmQLTWQACgkQJNaLcl1U
-h9Ap4gf9HaaXZcTMkFjkbHzWE/oyzg7IX24irsYTqkShQjQs79+TcFLpH/R2wAJP
-D5Op6bvPzyNokg0rlIA1bPuTtJxvAOgboa9LobpsLRNso9ezIW/7c+IXmDfa1ZAB
-eWXBs3HN4IXKkDybSV2eyC5e9wckRJQfOAx2OTMeT7AmNs1nWTw4Ls6sIbAKxh4o
-osLdFick4HeMgxdZtNeTFr9dvlGqjkh6zR78oavbu132XUlvfqctErcIQ9qh4w7Y
-8yGUubnPOeOfr54Z5iT1MgcgLXXiyuziWdWaRGupAV8WqKmf8O0HySGKr1w3IVYP
-vyuuWuc++z0Kg8zh15H/vsdrTSVlUg==
-=7fFJ
------END PGP SIGNATURE-----
+It probably just points some already existing race condition here. Maybe
+it isn't even linked to this patch. But I have no evidence at this
+stage. I hope I can investigate further on this one, hopefully I can
+free up some time for that.
 
---YQTqPomgC6kqCvBH--
+Best Regards,
+Fabrice
 
---===============7877075296597694335==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+> 
+> Yongqin, If you didn't have the context, this affected hikey960.
+> 
+> Greg,
+> 
+> Let's wait for some tests before we land these.
+> 
+> Thanks,
+> Saravana
+> 
+> Cc: Yongqin Liu <yongqin.liu@linaro.org>
+> Cc: Sumit Semwal <sumit.semwal@linaro.org>
+> Cc: Martin Kepplinger <martin.kepplinger@puri.sm>
+> Cc: Amelie Delaunay <amelie.delaunay@foss.st.com>
+> 
+> Saravana Kannan (4):
+>   usb: typec: stusb160x: Remove use of
+>     fw_devlink_purge_absent_suppliers()
+>   usb: typec: tipd: Remove use of fw_devlink_purge_absent_suppliers()
+>   usb: typec: tcpm: Remove use of fw_devlink_purge_absent_suppliers()
+>   driver core: Delete fw_devlink_purge_absent_suppliers()
+> 
+>  drivers/base/core.c           | 16 ----------------
+>  drivers/usb/typec/stusb160x.c |  9 ---------
+>  drivers/usb/typec/tcpm/tcpm.c |  9 ---------
+>  drivers/usb/typec/tipd/core.c |  9 ---------
+>  include/linux/fwnode.h        |  1 -
+>  5 files changed, 44 deletions(-)
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============7877075296597694335==--
