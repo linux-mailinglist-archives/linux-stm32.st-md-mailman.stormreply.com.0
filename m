@@ -2,91 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8BF4C6B60E9
-	for <lists+linux-stm32@lfdr.de>; Sat, 11 Mar 2023 22:17:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 24B716B6115
+	for <lists+linux-stm32@lfdr.de>; Sat, 11 Mar 2023 22:45:07 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 52CB8C6A60C;
-	Sat, 11 Mar 2023 21:17:15 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D3292C6A60C;
+	Sat, 11 Mar 2023 21:45:06 +0000 (UTC)
+Received: from mail-yb1-f170.google.com (mail-yb1-f170.google.com
+ [209.85.219.170])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E5C86C01E98
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 67E4BC6A608
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 11 Mar 2023 21:17:13 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 8AE6CB80B47;
- Sat, 11 Mar 2023 21:17:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B025C433A8;
- Sat, 11 Mar 2023 21:16:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1678569432;
- bh=nxjIZb2lDBuKK2G4lNzbnKP45y5UoeG95pRVo5INiRE=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=bvzKGPqJVg2bAaBl8LvuSNq4FE4F8OHaj0dxY1RmvBRvrUteeh49EnCBFgpLpsimi
- X9QjmQX5ru5ARgvQanZf4uxwTdtbSXJBvWNRv/d86I7owOd9TPANApjMIEt8UOom/V
- rlpKM3DSWdmGVC5sTOOGKI7C35EJY3xqnU9SQBlbwRy+sPkyfeO2xcIoXPdhr3KG5S
- maSO5XBX1iOLzTj27xMUWw1Z5Arz1xysQ8bAZkDXGqorBZ3q1BRVnKovYh/ImB0NqZ
- 5jPOxe6cAx/K/KlowItsOB1tQgOaqn0wX00B/jAga6Qsnzqoh25kwlapaLa6EQAQNP
- eT/NzyqjKOROw==
-From: Mark Brown <broonie@kernel.org>
-To: miquel.raynal@bootlin.com, richard@nod.at, vigneshr@ti.com, 
- jic23@kernel.org, pratyush@kernel.org, Sanju.Mehta@amd.com, 
- chin-ting_kuo@aspeedtech.com, clg@kaod.org, kdasu.kdev@gmail.com, 
- f.fainelli@gmail.com, rjui@broadcom.com, sbranden@broadcom.com, 
- eajames@linux.ibm.com, olteanv@gmail.com, han.xu@nxp.com, 
- john.garry@huawei.com, shawnguo@kernel.org, s.hauer@pengutronix.de, 
- khilman@baylibre.com, matthias.bgg@gmail.com, haibo.chen@nxp.com, 
- linus.walleij@linaro.org, daniel@zonque.org, haojian.zhuang@gmail.com, 
- robert.jarzmik@free.fr, agross@kernel.org, heiko@sntech.de, 
- krzysztof.kozlowski@linaro.org, andi@etezian.org, mcoquelin.stm32@gmail.com, 
- alexandre.torgue@foss.st.com, wens@csie.org, jernej.skrabec@gmail.com, 
- samuel@sholland.org, masahisa.kojima@linaro.org, jaswinder.singh@linaro.org, 
- rostedt@goodmis.org, mingo@redhat.com, l.stelmach@samsung.com, 
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org, 
- pabeni@redhat.com, alex.aring@gmail.com, stefan@datenfreihafen.org, 
- kvalo@kernel.org, james.schulman@cirrus.com, david.rhodes@cirrus.com, 
- tanureal@opensource.cirrus.com, rf@opensource.cirrus.com, perex@perex.cz, 
- tiwai@suse.com, npiggin@gmail.com, christophe.leroy@csgroup.eu, 
- mpe@ellerman.id.au, oss@buserror.net, windhl@126.com, 
- yangyingliang@huawei.com, william.zhang@broadcom.com, 
- kursad.oney@broadcom.com, jonas.gorski@gmail.com, anand.gore@broadcom.com, 
- rafal@milecki.pl, Tudor Ambarus <tudor.ambarus@linaro.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Bjorn Andersson <andersson@kernel.org>, 
- Amit Kumar Mahapatra <amit.kumar-mahapatra@amd.com>
-In-Reply-To: <20230310173217.3429788-1-amit.kumar-mahapatra@amd.com>
-References: <20230310173217.3429788-1-amit.kumar-mahapatra@amd.com>
-Message-Id: <167856940280.964268.10660159170818600511.b4-ty@kernel.org>
-Date: Sat, 11 Mar 2023 21:16:42 +0000
+ Sat, 11 Mar 2023 21:45:05 +0000 (UTC)
+Received: by mail-yb1-f170.google.com with SMTP id h97so1462819ybi.5
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Sat, 11 Mar 2023 13:45:05 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1678571104;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=V78i6y2U0JrvgA27xfI4kIOjh7BS243z1h7M0b9g4iI=;
+ b=CAWhIbPWKjVi7CdJFPa7TuXndq4ajKqJs7evVWtdvZ1Pm8sMxs5sOFbn2CFGHFiVXS
+ g2hzPCQRVOgkYRF8TkjIMf1oF+ZamxeA/w5E/VAufRVu5xWmM6UPUQ4KufBLuxnz96mJ
+ GSEor/3TSqHw7KHYRUYMR7Id0wWUxney1RDbUuK/Mi0HT6tj/rjG1po4YeIb8F6GA/AM
+ P+vGZB4uQgfLL+XzyZnQiLYZSQmQTFLj4GdkShV0lfzb+z0/DroSnhVMUaHtukAWFc+x
+ 0AH9qEw13tlZn5lJHc29ngleS1VCBg6q0uAyXPdaFV+w2smVJjxa1PO0cogHtqypnOIE
+ yfHw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112; t=1678571104;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=V78i6y2U0JrvgA27xfI4kIOjh7BS243z1h7M0b9g4iI=;
+ b=1WKtlqHqoF/XRi/HzOiuMMcAzDcrrKl41bbAdQvxvViPe83/N59+cIROZkEx9bUeAe
+ 8wlXbRIjJgzfdem3prL3bNO6QoHAeA/aWi0EHqjS5UowfnQbuF9Ew+mqG8YxiuXCppW5
+ 9283zioqFgDfAA73Jpnyq4EuY8yOB93sgUjeXR9C+Rx0sspsdDV2Sc6aBQmcutT+xTGH
+ VzHvXgkK38mu9pPeBDROJAJ/ZVyAHvjKM8PEICq2D6Ik/7Hm8xGSoL89j86QBORTu1Q5
+ Ed5nMClsPkoDZ86hqHjZvvHLquJw76rWTXHwZ0W0Lkf9RKSXc9vxn3k3mmWo+TkwapTY
+ 3trg==
+X-Gm-Message-State: AO0yUKUWjQ+RsvHvnmutyVrY1WNIjQQAIS6yZEz+ipsSyyssdTZ3beOL
+ ECfHPdTteZDSW5q2n9fFNnc23aWTQ0qtomXcUBRLJQ==
+X-Google-Smtp-Source: AK7set+39HzMoBpl+vvm9JGXuO6EGGnCk4eBVUYGG6a176w4mALlPDxN42Bby7S6RrQONDPKM6nr5DzH2Xk3Aa6DWwk=
+X-Received: by 2002:a05:6902:4f4:b0:a06:5ef5:3a82 with SMTP id
+ w20-20020a05690204f400b00a065ef53a82mr14712961ybs.5.1678571104368; Sat, 11
+ Mar 2023 13:45:04 -0800 (PST)
 MIME-Version: 1.0
-X-Mailer: b4 0.13-dev-2eb1a
-Cc: alexandre.belloni@bootlin.com, tmaimon77@gmail.com,
- linux-aspeed@lists.ozlabs.org, linux-iio@vger.kernel.org,
- konrad.dybcio@somainline.org, alsa-devel@alsa-project.org,
- tali.perry1@gmail.com, ldewangan@nvidia.com, linux-mtd@lists.infradead.org,
- alim.akhtar@samsung.com, linux-riscv@lists.infradead.org,
- linux-spi@vger.kernel.org, festevam@gmail.com,
- linux-stm32@st-md-mailman.stormreply.com, jbrunet@baylibre.com, git@amd.com,
- linux-samsung-soc@vger.kernel.org, benjaminfair@google.com,
- yogeshgaur.83@gmail.com, openbmc@lists.ozlabs.org, jonathanh@nvidia.com,
- yuenn@google.com, bcm-kernel-feedback-list@broadcom.com, joel@jms.id.au,
- linux-rockchip@lists.infradead.org, linux-sunxi@lists.linux.dev,
- linux-imx@nxp.com, amitrkcian2002@gmail.com, Michael.Hennerich@analog.com,
- martin.blumenstingl@googlemail.com, linux-arm-msm@vger.kernel.org,
- radu_nicolae.pirea@upb.ro, linuxppc-dev@lists.ozlabs.org, lars@metafoo.de,
- linux-mediatek@lists.infradead.org, linux-rpi-kernel@lists.infradead.org,
- linux-tegra@vger.kernel.org, linux-amlogic@lists.infradead.org,
- michal.simek@amd.com, linux-arm-kernel@lists.infradead.org,
- avifishman70@gmail.com, venture@google.com, libertas-dev@lists.infradead.org,
- linux-wireless@vger.kernel.org, nicolas.ferre@microchip.com,
- fancer.lancer@gmail.com, linux-kernel@vger.kernel.org, andrew@aj.id.au,
- michael@walle.cc, thierry.reding@gmail.com, palmer@dabbelt.com,
- kernel@pengutronix.de, netdev@vger.kernel.org, patches@opensource.cirrus.com,
- linux-wpan@vger.kernel.org, claudiu.beznea@microchip.com
-Subject: Re: [Linux-stm32] (subset) [PATCH V6 00/15] Add support for
- stacked/parallel memories
+References: <ZAxFBR3TdA7jUAgJ@gondor.apana.org.au>
+ <E1pavEB-002xbR-I9@formenos.hmeau.com>
+In-Reply-To: <E1pavEB-002xbR-I9@formenos.hmeau.com>
+From: Linus Walleij <linus.walleij@linaro.org>
+Date: Sat, 11 Mar 2023 22:44:52 +0100
+Message-ID: <CACRpkdb-tCWAHS3Bt8q2q3sXE5bWVVf42_qOS0ogKhCj_VRksw@mail.gmail.com>
+To: Herbert Xu <herbert@gondor.apana.org.au>
+Cc: Li kunyu <kunyu@nfschina.com>, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-crypto@vger.kernel.org,
+ mcoquelin.stm32@gmail.com, davem@davemloft.net,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [v7 PATCH 7/8] crypto: stm32 - Fix empty message
+	processing
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,64 +72,21 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, 10 Mar 2023 23:02:02 +0530, Amit Kumar Mahapatra wrote:
-> This patch is in the continuation to the discussions which happened on
-> 'commit f89504300e94 ("spi: Stacked/parallel memories bindings")' for
-> adding dt-binding support for stacked/parallel memories.
-> 
-> This patch series updated the spi-nor, spi core and the spi drivers
-> to add stacked and parallel memories support.
-> 
-> [...]
-
-Applied to
-
-   broonie/spi.git for-next
-
-Thanks!
-
-[01/15] spi: Replace all spi->chip_select and spi->cs_gpiod references with function call
-        commit: 9e264f3f85a56cc109cc2d6010a48aa89d5c1ff1
-[02/15] net: Replace all spi->chip_select and spi->cs_gpiod references with function call
-        commit: 25fd0550d9b9c92288a17fb7d605cdcdb4a65a64
-[03/15] iio: imu: Replace all spi->chip_select and spi->cs_gpiod references with function call
-        commit: 0183f81fce154ae1d4df2bb28d22ad6612317148
-[04/15] mtd: devices: Replace all spi->chip_select and spi->cs_gpiod references with function call
-        commit: 0817bcef53e4e3df23c023eddaa2b35b7288400e
-[05/15] staging: Replace all spi->chip_select and spi->cs_gpiod references with function call
-        commit: caa9d3475b1c5566f0272273c147cc9b72f2be28
-[06/15] platform/x86: serial-multi-instantiate: Replace all spi->chip_select and spi->cs_gpiod references with function call
-        commit: e20451f44ca33ec40422e9868775e117ef2da935
-[07/15] powerpc/83xx/mpc832x_rdb: Replace all spi->chip_select references with function call
-        commit: 3aba06a9fee04f6fefa9df71d3ee27dd4c464ad5
-[08/15] ALSA: hda: cs35l41: Replace all spi->chip_select references with function call
-        commit: 06b5e53c8b2b016e06a53ab6f01006ca7bbfa5df
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gU2F0LCBNYXIgMTEsIDIwMjMgYXQgMTA6MDnigK9BTSBIZXJiZXJ0IFh1IDxoZXJiZXJ0QGdv
+bmRvci5hcGFuYS5vcmcuYXU+IHdyb3RlOgoKPiBDaGFuZ2UgdGhlIGVtcHR5bXNnIGNoZWNrIGlu
+IHN0bTMyX2hhc2hfY29weV9oYXNoIHRvIHJlbHkgb24gd2hldGhlcgo+IHdlIGhhdmUgYW55IGV4
+aXN0aW5nIGhhc2ggc3RhdGUsIHJhdGhlciB0aGFuIHdoZXRoZXIgdGhpcyBwYXJ0aWN1bGFyCj4g
+dXBkYXRlIHJlcXVlc3QgaXMgZW1wdHkuCj4KPiBBbHNvIGF2b2lkIGNvbXB1dGluZyB0aGUgaGFz
+aCBmb3IgZW1wdHkgbWVzc2FnZXMgYXMgdGhpcyBjb3VsZCBoYW5nLgo+Cj4gU2lnbmVkLW9mZi1i
+eTogSGVyYmVydCBYdSA8aGVyYmVydEBnb25kb3IuYXBhbmEub3JnLmF1PgoKRXhjZWxsZW50IHBh
+dGNoLiBBbHNvIHdvcmtzIGZsYXdsZXNzbHkuClJldmlld2VkLWJ5OiBMaW51cyBXYWxsZWlqIDxs
+aW51cy53YWxsZWlqQGxpbmFyby5vcmc+ClRlc3RlZC1ieTogTGludXMgV2FsbGVpaiA8bGludXMu
+d2FsbGVpakBsaW5hcm8ub3JnPgoKWW91cnMsCkxpbnVzIFdhbGxlaWoKX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0
+CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1t
+YWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
