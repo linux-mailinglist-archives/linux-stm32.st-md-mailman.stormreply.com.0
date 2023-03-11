@@ -2,94 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 59CE16B5EDE
-	for <lists+linux-stm32@lfdr.de>; Sat, 11 Mar 2023 18:32:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 974F56B5F21
+	for <lists+linux-stm32@lfdr.de>; Sat, 11 Mar 2023 18:37:39 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0C0ACC6A608;
-	Sat, 11 Mar 2023 17:32:58 +0000 (UTC)
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com
- [209.85.221.45])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5B876C6A608;
+	Sat, 11 Mar 2023 17:37:39 +0000 (UTC)
+Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com
+ [209.85.208.46])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BCCB9C6A5F6
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C9D74C6A5F6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 11 Mar 2023 17:32:56 +0000 (UTC)
-Received: by mail-wr1-f45.google.com with SMTP id h14so7812969wru.4
+ Sat, 11 Mar 2023 17:37:37 +0000 (UTC)
+Received: by mail-ed1-f46.google.com with SMTP id y4so3593939edo.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 11 Mar 2023 09:32:56 -0800 (PST)
+ Sat, 11 Mar 2023 09:37:37 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20210112; t=1678555976;
- h=mime-version:user-agent:content-transfer-encoding:references
- :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
- :date:message-id:reply-to;
- bh=BS/U63CP8kyc4s3+ndFwYv3c/IbBKEKDtQ8znLZINo4=;
- b=RX+BkKj+x9TiMv3r/lL//tQpdeczI/eIoOk8GNW2B997wf/HecmbDllwY2uelEG6SW
- NFzKMG9Y8UUTaOLQdyxRPlkDNP1u2gbO2I6JCDlC9f8n0tVMzUtVmkPrYMQ/5gTTvIex
- B7MpIpXwFxRMt4Za9+FOvX04zp7uhkrZF+ENEt6FiCUbmO97P3IiIUFHVUKwj/V2aZEO
- ubZie3KLAa3d3xuXS3uikY5XNveSErnSmyofgMAptn+7YChpYU7HHwVPbpFGXsb5GHU8
- pN427twy0g9FmB350c4j7aDVbOSqRrNc7uvq+AaCQtSGNScLHq5tbsThpFh3D5t1SlDX
- SKgg==
+ d=linaro.org; s=google; t=1678556257;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=B0p0qqpSJoTCtFb+Kr7i0GNnHTIvTQKai2vdNlxuKcM=;
+ b=WK3QS4sDwcl1MqsLZ8ZlJxBQN83C2NF1ZVUas7Zl16IihZuW8nnIiAdMlXVMQstawm
+ aSFXBEdoeRHAIlLChzTvHtvDu26dyUkunrmDxTMVkpIkxs2BkyC5bOVJyCR0YxQLFJSa
+ x/depFRKep/anvIBotssZD8NTUXO1cfEOd3ZXEFJ+un3wIKGeIS6yibWWrSKqBTEAjOl
+ jMN+Ct87AroeiHIqPLojAgVZZ733+E8IUZ9Ap1uT5gT3PezCbTk4W3g+bIL9RAnHRdMV
+ S8ODEW3VD0b9RaZmdAiddu87FtWTOM6/TrhR9jBcOi7tV9E9yJruCRrsSBcqNiHs7KPm
+ 6nxA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1678555976;
- h=mime-version:user-agent:content-transfer-encoding:references
- :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=BS/U63CP8kyc4s3+ndFwYv3c/IbBKEKDtQ8znLZINo4=;
- b=JaV0T1wcuJVGrNpyz7olLPt6L0Izg+Go8wRfcNj9IQ9G93yqss2Ayqrh0r9tWcjdlZ
- oBZLSUuIFC5sPkon/6t8FXGfURmtY8r1cKvz1AegBdPrEvYb6zVvA4G9EZ1p5WWFmgYy
- KtjhILnkURWuO6xt9sJOlUF3izzwQFXco/1r9nTwaXfEOXrVXv5hMB7jTzsEOWwDBgtc
- fDAmfyHjoVzNlUIucX0g/ANHwk5mskwPZ4kBiMyRj6EgWFpfVOXk7vj5zFPkc96kDoaC
- w3M6AzS5L/fijylpZn2dzSP4jN/kow8elwAlZG+fKMYCRa9t4Tz88U4APGSshvQFfRKP
- tYVw==
-X-Gm-Message-State: AO0yUKVGPbR7URw6Rmeb9Q/bLPnvE5s991QelTAU/tAJCscrt8x5Txd5
- qh31BJvTKHOceTcGURrn2MY=
-X-Google-Smtp-Source: AK7set9ukWzDo0xy6J7gbHp7jIKCnz8dTe9J/CWuuqUqxE+n+q/r8zAWdbMSQuUV7O2FnpyIFohiiA==
-X-Received: by 2002:a5d:5145:0:b0:2c7:a0e:347b with SMTP id
- u5-20020a5d5145000000b002c70a0e347bmr19984098wrt.8.1678555976064; 
- Sat, 11 Mar 2023 09:32:56 -0800 (PST)
-Received: from ?IPv6:2a02:168:6806:0:cb1:a328:ee29:2bd6?
- ([2a02:168:6806:0:cb1:a328:ee29:2bd6])
+ d=1e100.net; s=20210112; t=1678556257;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=B0p0qqpSJoTCtFb+Kr7i0GNnHTIvTQKai2vdNlxuKcM=;
+ b=eD5hhGEAcr2MtgUbA2p82DwmQjTkvLKkEHh31AXIpdgMhk/dE6OcL6Zrla1sA487Br
+ qbyjtLUMQHtoYQ1E/wXf+vraZMK1ADZSyWeRqtTAJ+anh+K3wCkbCIbTvJ2+xICe7ykh
+ YhTwHqeU+LgCattJgPA6DQeKTDsd7VjWX6WpZePC1K4Bng/R3f0L4+8+uk+WXTep6LmL
+ cAE4wFJP9hJ6RbuTpdFO9Q2opNFg2wl+4y3jpFbflMcIF4ovCYYKG1f/AyN0iA9U/UUK
+ u1rpXUd3tK7dkAzdSqfjVNw+Qp4fXz2V3tUCfALpKciMscoe55hiUi2eX/gyHgHLGXtW
+ SU8w==
+X-Gm-Message-State: AO0yUKUEZ+2F323LaICJjiQLIIZe99Vje+tCNOEnp1doujGLf2z6m8e5
+ RlyaQy1c+8X0gT17wejrkycUow==
+X-Google-Smtp-Source: AK7set8RZc0nvHdqJFDMyISOImOTBaMDNv5a9BgnTgUHSP/vQIbWUHqUGpilsm9lUqmtf3eDSf0ZFg==
+X-Received: by 2002:a05:6402:10c9:b0:4f9:9be3:a538 with SMTP id
+ p9-20020a05640210c900b004f99be3a538mr3722729edu.13.1678556257370; 
+ Sat, 11 Mar 2023 09:37:37 -0800 (PST)
+Received: from krzk-bin.. ([2a02:810d:15c0:828:6927:e94d:fc63:9d6e])
  by smtp.gmail.com with ESMTPSA id
- a10-20020adfe5ca000000b002cde25fba30sm3059307wrn.1.2023.03.11.09.32.55
+ k15-20020a50ce4f000000b004d8287c775fsm1444903edj.8.2023.03.11.09.37.36
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 11 Mar 2023 09:32:55 -0800 (PST)
-Message-ID: <49a9154ae4e2b3e6bc85e560368f6474f97cea88.camel@gmail.com>
-From: Klaus Kudielka <klaus.kudielka@gmail.com>
-To: Andrew Lunn <andrew@lunn.ch>
-Date: Sat, 11 Mar 2023 18:32:54 +0100
-In-Reply-To: <2f64385a350359c5755eb4d2479e2efef7a96216.camel@gmail.com>
-References: <100c439a-2a4d-4cb2-96f2-5bf273e2121a@lunn.ch>
- <712bc92ca6d576f33f63f1e9c2edf0030b10d3ae.camel@gmail.com>
- <db6b8a09-b680-4baa-8963-d355ad29eb09@lunn.ch>
- <0e10aa8492eadb587949d8744b56fccaabbd183b.camel@gmail.com>
- <72530e86-9ba9-4a01-9cd2-68835ecae7a0@lunn.ch>
- <09d65e1ee0679e1e74b4f3a5a4c55bd48332f043.camel@gmail.com>
- <70f5bca0-322c-4bae-b880-742e56365abe@lunn.ch>
- <10da10caea22a8f5da8f1779df3e13b948e8a363.camel@gmail.com>
- <4abd56aa-5b9f-4e16-b0ca-11989bb8c764@lunn.ch>
- <bff0e542b8c04980e9e3af1d3e6bf739c87eb514.camel@gmail.com>
- <a57a216d-ff5a-46e6-9780-e53772dcefc8@lunn.ch>
- <2f64385a350359c5755eb4d2479e2efef7a96216.camel@gmail.com>
-User-Agent: Evolution 3.46.4-1 
+ Sat, 11 Mar 2023 09:37:37 -0800 (PST)
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+To: Thierry Reding <thierry.reding@gmail.com>,
+ =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
+ Fabrice Gasnier <fabrice.gasnier@foss.st.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, linux-pwm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Date: Sat, 11 Mar 2023 18:37:34 +0100
+Message-Id: <20230311173735.263293-1-krzysztof.kozlowski@linaro.org>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Cc: linux-aspeed@lists.ozlabs.org,
- Jesse Brandeburg <jesse.brandeburg@intel.com>,
- Eric Dumazet <edumazet@google.com>, linux-stm32@st-md-mailman.stormreply.com,
- Russell King <linux@armlinux.org.uk>, Jose Abreu <joabreu@synopsys.com>,
- Joel Stanley <joel@jms.id.au>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Lorenzo Bianconi <lorenzo@kernel.org>,
- Mark Lee <Mark-MC.Lee@mediatek.com>, Sean Wang <sean.wang@mediatek.com>,
- linux-mediatek@lists.infradead.org, John Crispin <john@phrozen.org>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- linux-arm-kernel@lists.infradead.org, Andrew Jeffery <andrew@aj.id.au>,
- Bryan Whitehead <bryan.whitehead@microchip.com>, linux-kernel@vger.kernel.org,
- UNGLinuxDriver@microchip.com, Michael Walle <michael@walle.cc>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
- Heiner Kallweit <hkallweit1@gmail.com>, "David S.
- Miller" <davem@davemloft.net>, Felix Fietkau <nbd@nbd.name>
-Subject: Re: [Linux-stm32] [PATCH net-next v2 4/6] net: mdio: scan bus based
- on bus capabilities for C22 and C45
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Subject: [Linux-stm32] [PATCH 1/2] pwm: rcar: drop of_match_ptr for ID table
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,52 +76,28 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Sat, 2023-03-11 at 17:11 +0100, Klaus Kudielka wrote:
-> On Sat, 2023-03-11 at 16:39 +0100, Andrew Lunn wrote:
-> 
-> > If there is no DT node, by default, all 32 addresses on the bus are
-> > scanned. However, DSA makes another assumption. There is a one to one
-> > mapping between port number and PHY address on the MDIO bus. Port 0
-> > uses MDIO address 0. Port 7 uses MDIO address 7 etc. If you have an 8
-> > port switch, there is no point scanning addresses 8 to 31, they will
-> > never be used.
-> > 
-> > The mdio bus structure has a member phy_mask. This is a bitmap. If bit
-> > N is set, address N is not scanned. So i suggest you extend
-> > mv88e6xxx_mdio_register() to set phy_mask based on
-> > mv88e6xxx_num_ports(chip).
-> > 
-> 
-> What you are proposing here would not show any improvement on the
-> Omnia, as only the 6 ports would be scanned - right? 
-> 
-
-Well, maybe I misunderstood the argument with DT completely, so I gave it a try:
-
---- a/drivers/net/dsa/mv88e6xxx/chip.c
-+++ b/drivers/net/dsa/mv88e6xxx/chip.c
-@@ -3797,6 +3797,7 @@ static int mv88e6xxx_mdio_register(struct mv88e6xxx_chip *chip,
-        bus->read_c45 = mv88e6xxx_mdio_read_c45;
-        bus->write_c45 = mv88e6xxx_mdio_write_c45;
-        bus->parent = chip->dev;
-+       bus->phy_mask = GENMASK(31, mv88e6xxx_num_ports(chip));
- 
-        if (!external) {
-                err = mv88e6xxx_g2_irq_mdio_setup(chip, bus);
-
-> 
-
-Now THAT one makes a difference! With this on top, I'm back at normal boot time!
-I hope this is what you had in mind?
-
-Best regards, Klaus
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+VGhlIGRyaXZlciBjYW4gbWF0Y2ggb25seSB2aWEgdGhlIERUIHRhYmxlIHNvIHRoZSB0YWJsZSBz
+aG91bGQgYmUgYWx3YXlzCnVzZWQgYW5kIHRoZSBvZl9tYXRjaF9wdHIgZG9lcyBub3QgaGF2ZSBh
+bnkgc2Vuc2UgKHRoaXMgYWxzbyBhbGxvd3MgQUNQSQptYXRjaGluZyB2aWEgUFJQMDAwMSwgZXZl
+biB0aG91Z2ggaXQgbWlnaHQgbm90IGJlIHJlbGV2YW50IGhlcmUpLgoKICBkcml2ZXJzL3B3bS9w
+d20tcmNhci5jOjI1MjozNDogZXJyb3I6IOKAmHJjYXJfcHdtX29mX3RhYmxl4oCZIGRlZmluZWQg
+YnV0IG5vdCB1c2VkIFstV2Vycm9yPXVudXNlZC1jb25zdC12YXJpYWJsZT1dCgpTaWduZWQtb2Zm
+LWJ5OiBLcnp5c3p0b2YgS296bG93c2tpIDxrcnp5c3p0b2Yua296bG93c2tpQGxpbmFyby5vcmc+
+Ci0tLQogZHJpdmVycy9wd20vcHdtLXJjYXIuYyB8IDIgKy0KIDEgZmlsZSBjaGFuZ2VkLCAxIGlu
+c2VydGlvbigrKSwgMSBkZWxldGlvbigtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvcHdtL3B3bS1y
+Y2FyLmMgYi9kcml2ZXJzL3B3bS9wd20tcmNhci5jCmluZGV4IDU1ZjQ2ZDA5NjAyYi4uOGYzMWYz
+Y2M5M2Q1IDEwMDY0NAotLS0gYS9kcml2ZXJzL3B3bS9wd20tcmNhci5jCisrKyBiL2RyaXZlcnMv
+cHdtL3B3bS1yY2FyLmMKQEAgLTI2MCw3ICsyNjAsNyBAQCBzdGF0aWMgc3RydWN0IHBsYXRmb3Jt
+X2RyaXZlciByY2FyX3B3bV9kcml2ZXIgPSB7CiAJLnJlbW92ZSA9IHJjYXJfcHdtX3JlbW92ZSwK
+IAkuZHJpdmVyID0gewogCQkubmFtZSA9ICJwd20tcmNhciIsCi0JCS5vZl9tYXRjaF90YWJsZSA9
+IG9mX21hdGNoX3B0cihyY2FyX3B3bV9vZl90YWJsZSksCisJCS5vZl9tYXRjaF90YWJsZSA9IHJj
+YXJfcHdtX29mX3RhYmxlLAogCX0KIH07CiBtb2R1bGVfcGxhdGZvcm1fZHJpdmVyKHJjYXJfcHdt
+X2RyaXZlcik7Ci0tIAoyLjM0LjEKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1t
+YWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNv
+bS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
