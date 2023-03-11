@@ -2,128 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4CBDC6B5B50
-	for <lists+linux-stm32@lfdr.de>; Sat, 11 Mar 2023 12:50:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5D24C6B5D60
+	for <lists+linux-stm32@lfdr.de>; Sat, 11 Mar 2023 16:40:18 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E8051C6A609;
-	Sat, 11 Mar 2023 11:50:46 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2092.outbound.protection.outlook.com [40.107.244.92])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F3AB1C6A608;
+	Sat, 11 Mar 2023 15:40:17 +0000 (UTC)
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 577C7C6A5F6
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EA0E0C6A5F6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 11 Mar 2023 11:50:46 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=kag6z5Uirzciws4nEQJd3TgbkOJBNaXYN+gR/XCcfbwLGVBwRaOTTuNhqRuTPONhxpbfNnJ1SIerNhgVEhm9b9MPjgseasjpqO+iV41XhWjlaqy5zb/R/44QkBzlMwB7gigflahdSD/6eQ7oFaQZV20DO7MIPYMa8+zPC2oM8vaXMLfB8kPZZv65caN5GJxjG2vcy2U84kGY+gdTFbi6x9CEOEa9Gs63Pk4uoETUs45WX3YYU+Vj6eFyLozwMx9uZYdfAbEcg2xcVYhy+8p3BFYi3lvc9CfqCoPAlEJABAly/XHsopmlU60fe7tPldlMIhlsJMoctkFMexmjn5/91A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=LAPuUMNN/pyrWUcMpJ1tl15Jt0/Lq5Jnz65GeyrtiCI=;
- b=VkDN+9bv4EyMcaYxV8cso8mqO9Wkzx8lcugFEwkw+zQ+/KtHABXqxkygnyBk3OV+Sb12/J2c4fFfS0jRhG5euGPnpE/TZFiZOtkPD82ctJXXx0FRVKHDCsVIgNrGNEmNCdGGNezjjEjprLfLVo/TAukn/vJzftwreHVRtwr2Oqd+0U4GhLkBRlW4t1Eqh1W8V+kf2wJkUDr6VwDsPRbKuPZqaMEre2hGxeJ5xeqAQdfHh84USfNDGDiO43yXfZQtDLSMeZuzvCL9rIVHYD8fndj6SnOx+qNpbMKaqe4G5oQk0wThVNWhOOUm1CORm7j0UTZa3XbPci//ct/4dFG6Ug==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=corigine.com; dmarc=pass action=none header.from=corigine.com;
- dkim=pass header.d=corigine.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=corigine.onmicrosoft.com; s=selector2-corigine-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LAPuUMNN/pyrWUcMpJ1tl15Jt0/Lq5Jnz65GeyrtiCI=;
- b=EzmX2aDL9uRDpeHOQ547gRxk73ietKvb68t/jGf+KMcbsUsLPtEJn6vjIG63V54mnX695o+9qGNYBDPdMzHg2QNK/TZzADRhfCpOIzu3AXxudFzeYZPk8OuaOqojfGiFgdEcakItmBnYAPjjTKoHkDlcdxjV+e6pk6CdomgCiPk=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=corigine.com;
-Received: from PH0PR13MB4842.namprd13.prod.outlook.com (2603:10b6:510:78::6)
- by BL3PR13MB5121.namprd13.prod.outlook.com (2603:10b6:208:350::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.20; Sat, 11 Mar
- 2023 11:50:42 +0000
-Received: from PH0PR13MB4842.namprd13.prod.outlook.com
- ([fe80::85f5:bdb:fb9e:294c]) by PH0PR13MB4842.namprd13.prod.outlook.com
- ([fe80::85f5:bdb:fb9e:294c%2]) with mapi id 15.20.6178.020; Sat, 11 Mar 2023
- 11:50:42 +0000
-Date: Sat, 11 Mar 2023 12:50:30 +0100
-From: Simon Horman <simon.horman@corigine.com>
-To: Rob Herring <robh@kernel.org>
-Message-ID: <ZAxrBtNdou28yPPB@corigine.com>
-References: <20230310144718.1544169-1-robh@kernel.org>
-Content-Disposition: inline
-In-Reply-To: <20230310144718.1544169-1-robh@kernel.org>
-X-ClientProxiedBy: AM0PR01CA0098.eurprd01.prod.exchangelabs.com
- (2603:10a6:208:10e::39) To PH0PR13MB4842.namprd13.prod.outlook.com
- (2603:10b6:510:78::6)
+ Sat, 11 Mar 2023 15:40:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+ s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+ References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+ Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+ Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+ bh=L1cjWa/ZkeQ8ynLS3HKj8W+1nV4bPBS6kn+zz6pEL5o=; b=lDIfeYMpfdi1Shz/zgmeAVzusF
+ x0OEDGQ7Z6xWJV0WYKAedb45mhigl1d3v7Rp4+oxS6/c7dG4Gtq5h8DXWBlX2hNo1fHCotl1eOB/J
+ GWSyM2lJOXImtgRMI7Ct7afh4KEiz7rG2+6+STKjo44VLsu9aDw855+FMSxYMvtefYn8=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+ (envelope-from <andrew@lunn.ch>)
+ id 1pb1Jo-0074HD-9X; Sat, 11 Mar 2023 16:39:36 +0100
+Date: Sat, 11 Mar 2023 16:39:36 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: Klaus Kudielka <klaus.kudielka@gmail.com>
+Message-ID: <a57a216d-ff5a-46e6-9780-e53772dcefc8@lunn.ch>
+References: <100c439a-2a4d-4cb2-96f2-5bf273e2121a@lunn.ch>
+ <712bc92ca6d576f33f63f1e9c2edf0030b10d3ae.camel@gmail.com>
+ <db6b8a09-b680-4baa-8963-d355ad29eb09@lunn.ch>
+ <0e10aa8492eadb587949d8744b56fccaabbd183b.camel@gmail.com>
+ <72530e86-9ba9-4a01-9cd2-68835ecae7a0@lunn.ch>
+ <09d65e1ee0679e1e74b4f3a5a4c55bd48332f043.camel@gmail.com>
+ <70f5bca0-322c-4bae-b880-742e56365abe@lunn.ch>
+ <10da10caea22a8f5da8f1779df3e13b948e8a363.camel@gmail.com>
+ <4abd56aa-5b9f-4e16-b0ca-11989bb8c764@lunn.ch>
+ <bff0e542b8c04980e9e3af1d3e6bf739c87eb514.camel@gmail.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH0PR13MB4842:EE_|BL3PR13MB5121:EE_
-X-MS-Office365-Filtering-Correlation-Id: 300f51b5-03a4-4d69-f2f7-08db2226d74a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: YxKzWDfaCiJLc++Qw0BB2RYxLP+p3eh2jp+z/O1JGmtteZXktxSta8AB8WqhCCFE6qdTtfEyPxkOz//bEEK5T85vdi4eM3eZdco+wieWFnhd3jBh9rfbV9MS4PmE8D6KHaYfPIJr6Cvk/Gb6/b8Mryo/Dm18XGa+ymPPNy4Ei1J/GZ89tRIXHxZSkDOKMrptgDfNIl0a+2xXZTkY9Q8ruwarBQvNL/WhF/INuozhdO/iJYltR/dT5x8wFM72qQhYbtSe1Uh1m+nhVFm4/2EXVzumLuMDq7/yYlLkiYiatRTusbb1BICQbHvfQQhxbYAbxdqWJvwoO12l3bcGCtXS4PLWtSbbZ61x/Q9TrYdwKxEXamyMzXWc5SUdPFlS9W1bsUcxcVZ5/JlcEtlfzafMmpTxyt36uCwm67k0gnRDeDfxWN5KOeOWeyKm/YtgBB6FIjdHXESlONr1RtSwMmQmW64vvpw8HR4xSEkjgDTfl9ELY6FIkK2afHb3vPntn2aHGSTvQoVA0+h9mnBDxIVSZrrweYuQL8d9ivw3TBQM7ma7AAOF/wpTyITHdqh2wWjOaEVC5lg9IH5XdFM81Dha+UgMU3M74A2i+emcTMoNfTT4/5Lw5YMxXaPcoa90M+Nnm/YxZewV3N0cfM8ZP47d16SyIHjUUZ4NVFqwClKgXC9WW3j0EG+PNw1hNEJX0auF
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH0PR13MB4842.namprd13.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230025)(4636009)(366004)(346002)(136003)(39840400004)(396003)(376002)(451199018)(36756003)(86362001)(83380400001)(38100700002)(8936002)(478600001)(41300700001)(7416002)(2906002)(5660300002)(7406005)(6486002)(44832011)(6916009)(66556008)(66946007)(66476007)(8676002)(316002)(4326008)(54906003)(186003)(2616005)(6666004)(6512007)(6506007);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?pzN5DVG29kX2M9Xa9Ub6RXXfUKSzW+Bfvk3cGi1Kh/KzqPt6a5GLgNqPQ2mY?=
- =?us-ascii?Q?rKBHHKUy8Uzob9I4VbOON8CU/N3WP2xE5JEtnjAVKqCg1q30C4V9/XJS5zH+?=
- =?us-ascii?Q?Byvam1h112E58yu+KfmrwFuAuHFNqhc15QOt37BCFVjfOIRBxhHMLXmJBftC?=
- =?us-ascii?Q?9bWVvDYYIkDD4Ws8dx2BhthFx643uaSnZ7mfcGRyrrxeURrfnwx3zSZVeLS/?=
- =?us-ascii?Q?gajnTXcMj/Ysi8yjoTg7IXhIo86V3ojSfyh1U49XwZR9QGVczr3ZBnTGJBcu?=
- =?us-ascii?Q?qgaU4iwQh1e+nOK0OyPpi38unk2q3hjcjF2cZ0bJDqI3Zu3vNIOZZWJaqO2I?=
- =?us-ascii?Q?feRdE7q1lkFFxwxf+KuGu2/UfR3JnQ2bnmFN2xkyzoIQ0NIT3oVZe7J0TR2I?=
- =?us-ascii?Q?viHt+JhRrlajTosuPpmfz0S5vsY8ax9mqFCwqDi7r4TPePTfPBcZhaYDGSL/?=
- =?us-ascii?Q?oVW+5aW2yNRMzh1aaADgaF+D3eQXFizQ34M1UU/mF/SipvF3kDPjhHB474HU?=
- =?us-ascii?Q?96mIXHme80LJPEs/AO490ZA8Shud/PaxjVWQetv8neulmWpOF/3UeUcc+seb?=
- =?us-ascii?Q?bbRImFU1LP+Lp4LRrJNCK2pQt/nxzUa161+X83iQ35gSEt3iFh9XgTU0Pphz?=
- =?us-ascii?Q?tBUUR29izugrA3jZZU9cU1j97gjKKyKt4MhA+2YYPtdumppPCYP6hhkdTIPo?=
- =?us-ascii?Q?8htHou63Sh+d3K2e3um8IImd6OuK07gRbrVS+uAYh53dooBn6K85X0UmLuhf?=
- =?us-ascii?Q?2TcKqgBCBKyrjKLsJzPjJVIqz3i2PIz/PN4XAFt7pHKPqsNrpaPKZsq3A97s?=
- =?us-ascii?Q?RhvoVM5wtx8E6/VDFttI6gOZ6wxP1+85H97PTvQUkuFTIFso0Nn/Vz39geYf?=
- =?us-ascii?Q?X9j2Tb9Plu46+AL+BaWIz/xzslZsJ1yiH6K90vGsOMjKo+cX3/ug5HoerAni?=
- =?us-ascii?Q?XUrrrckohB2Y9QjOy1OsUWBvEyT87YLVjM8ot8xOU7x1/gbx/wkS2LK3SpIj?=
- =?us-ascii?Q?Y/y5LL7XtVkCrAUbua1/6Hu9mN1mKOpEQ4KJ5mRmPtHt5YvU31+svygGn4BT?=
- =?us-ascii?Q?BKANpk2zJT9RqGQW466z1T8gtlxRw7o1UV8YrUlGxaMbLii/nU+si1umeqQQ?=
- =?us-ascii?Q?MZClcPe+Pc0h9FI8Vax04tjvbsk3VADdNUIX+B0c5dFYtKZvdOkHx9tI6dFN?=
- =?us-ascii?Q?SBMruHbZMF5WG/6S+3+zL1f8sx9HgVqd8MZa/NCzwdI/+x0V7Lv3dMadY/d6?=
- =?us-ascii?Q?yozjtriVWQkudT86xUHLs0TC+EaC4ak/YvcE60SbyemNjhdQqtt3KDD1BplS?=
- =?us-ascii?Q?DCjrsONVbdPqYUxoPxW0YYf7yTtZxYRsQwuboCP3Tu59zgIu4PpNQZeCZAMj?=
- =?us-ascii?Q?1tktAySmxTfmfun4aVBngxncmcnlaZz8/w771PphV0mQcEICvqxnTz+hYkmY?=
- =?us-ascii?Q?1hBb3RP8jW7IJJUW2mUp3y4FhHPf+vyMVaaxYX9JJxhZ3NvlUzEw3nwdQxcD?=
- =?us-ascii?Q?WCRVqUFtHMtKZR844sGP9R6woik6/3821Ov1AmLJNm/fzodmU2bW7SjGAGdH?=
- =?us-ascii?Q?RnDSRlwZC77oEBCL/aCm2zIBXB2bzbens56imOQFeezuc6g3ceePmRXxsyUp?=
- =?us-ascii?Q?wtKsRsR2XXdeJxet0hFNvvhhbAVKXWV2AEX3hwJx4sNU2U5dIXixo/lexmpC?=
- =?us-ascii?Q?QiEo6w=3D=3D?=
-X-OriginatorOrg: corigine.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 300f51b5-03a4-4d69-f2f7-08db2226d74a
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR13MB4842.namprd13.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Mar 2023 11:50:42.3702 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: fe128f2c-073b-4c20-818e-7246a585940c
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: +bZDklU53lRpr3xCoY58QZy7nlMvpDDoaMZm507OpZ+skdhpHsSdZhisf3vMwwVNmXm+ALGT1o9AFPjoOHbSWZSeYM+bfqdI4kd7W1CTA4g=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR13MB5121
-Cc: linux-kernel@vger.kernel.org, Eric Dumazet <edumazet@google.com>,
- Shenwei Wang <shenwei.wang@nxp.com>, Fabio Estevam <festevam@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, Zhao Qiang <qiang.zhao@nxp.com>,
- Michal Simek <michal.simek@xilinx.com>, Jose Abreu <joabreu@synopsys.com>,
- Clark Wang <xiaoning.wang@nxp.com>, NXP Linux Team <linux-imx@nxp.com>,
- Francois Romieu <romieu@fr.zoreil.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Kalle Valo <kvalo@kernel.org>,
- Wolfgang Grandegger <wg@grandegger.com>, devicetree@vger.kernel.org,
- Grygorii Strashko <grygorii.strashko@ti.com>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Sascha Hauer <s.hauer@pengutronix.de>, linuxppc-dev@lists.ozlabs.org,
- linux-can@vger.kernel.org, Claudiu Manoil <claudiu.manoil@nxp.com>,
- Marc Kleine-Budde <mkl@pengutronix.de>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>, linux-omap@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
- linux-wireless@vger.kernel.org, Nicolas Ferre <nicolas.ferre@microchip.com>,
- "David S. Miller" <davem@davemloft.net>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Wei Fang <wei.fang@nxp.com>,
- Samuel Mendoza-Jonas <sam@mendozajonas.com>, Shawn Guo <shawnguo@kernel.org>,
- Claudiu Beznea <claudiu.beznea@microchip.com>
-Subject: Re: [Linux-stm32] [PATCH] net: Use of_property_read_bool() for
-	boolean properties
+Content-Disposition: inline
+In-Reply-To: <bff0e542b8c04980e9e3af1d3e6bf739c87eb514.camel@gmail.com>
+Cc: linux-aspeed@lists.ozlabs.org,
+ Jesse Brandeburg <jesse.brandeburg@intel.com>,
+ Eric Dumazet <edumazet@google.com>, linux-stm32@st-md-mailman.stormreply.com,
+ Russell King <linux@armlinux.org.uk>, Jose Abreu <joabreu@synopsys.com>,
+ Joel Stanley <joel@jms.id.au>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Lorenzo Bianconi <lorenzo@kernel.org>,
+ Mark Lee <Mark-MC.Lee@mediatek.com>, Sean Wang <sean.wang@mediatek.com>,
+ linux-mediatek@lists.infradead.org, John Crispin <john@phrozen.org>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ linux-arm-kernel@lists.infradead.org, Andrew Jeffery <andrew@aj.id.au>,
+ Bryan Whitehead <bryan.whitehead@microchip.com>, linux-kernel@vger.kernel.org,
+ UNGLinuxDriver@microchip.com, Michael Walle <michael@walle.cc>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
+ Heiner Kallweit <hkallweit1@gmail.com>,
+ "David S. Miller" <davem@davemloft.net>, Felix Fietkau <nbd@nbd.name>
+Subject: Re: [Linux-stm32] [PATCH net-next v2 4/6] net: mdio: scan bus based
+ on bus capabilities for C22 and C45
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -140,68 +75,38 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, Mar 10, 2023 at 08:47:16AM -0600, Rob Herring wrote:
-> It is preferred to use typed property access functions (i.e.
-> of_property_read_<type> functions) rather than low-level
-> of_get_property/of_find_property functions for reading properties.
-> Convert reading boolean properties to to of_property_read_bool().
+On Sat, Mar 11, 2023 at 07:49:23AM +0100, Klaus Kudielka wrote:
+> On Sat, 2023-03-11 at 00:49 +0100, Andrew Lunn wrote:
+> > > Yes, that helps. Primarily, because mdiobus_scan_bus_c45 now is called only once,
+> > > and at least some things are done in parallel.
+> > 
+> > Great. Could you cook up a proper patch and submit it?
 > 
-> Signed-off-by: Rob Herring <robh@kernel.org>
+> I can give it a try. The commit message will be from my perspective,
+> and the change Suggested-By you.
 
-Reviewed-by: Simon Horman <simon.horman@corigine.com>
+The commit message is fine.
 
-...
+I have one more idea which can speed things up. The scanning of the
+MDIO bus works in two different ways depending on if there is a DT
+node, describing what should be found on the bus. For mv88e6xxx, using
+DT is optional. Some boards do, some don't.
 
-> diff --git a/drivers/net/ethernet/via/via-velocity.c b/drivers/net/ethernet/via/via-velocity.c
-> index a502812ac418..86f7843b4591 100644
-> --- a/drivers/net/ethernet/via/via-velocity.c
-> +++ b/drivers/net/ethernet/via/via-velocity.c
-> @@ -2709,8 +2709,7 @@ static int velocity_get_platform_info(struct velocity_info *vptr)
->  	struct resource res;
->  	int ret;
->  
-> -	if (of_get_property(vptr->dev->of_node, "no-eeprom", NULL))
-> -		vptr->no_eeprom = 1;
-> +	vptr->no_eeprom = of_property_read_bool(vptr->dev->of_node, "no-eeprom");
+If there is a DT node, only the addresses listed in DT are scanned.
 
-As per my comment on "[PATCH] nfc: mrvl: Use of_property_read_bool() for
-boolean properties".
+If there is no DT node, by default, all 32 addresses on the bus are
+scanned. However, DSA makes another assumption. There is a one to one
+mapping between port number and PHY address on the MDIO bus. Port 0
+uses MDIO address 0. Port 7 uses MDIO address 7 etc. If you have an 8
+port switch, there is no point scanning addresses 8 to 31, they will
+never be used.
 
-I'm not that enthusiastic about assigning a bool value to a field
-with an integer type. But that is likely a topic for another patch.
+The mdio bus structure has a member phy_mask. This is a bitmap. If bit
+N is set, address N is not scanned. So i suggest you extend
+mv88e6xxx_mdio_register() to set phy_mask based on
+mv88e6xxx_num_ports(chip).
 
->  	ret = of_address_to_resource(vptr->dev->of_node, 0, &res);
->  	if (ret) {
-
-...
-
-> diff --git a/drivers/net/wan/fsl_ucc_hdlc.c b/drivers/net/wan/fsl_ucc_hdlc.c
-> index 1c53b5546927..47c2ad7a3e42 100644
-> --- a/drivers/net/wan/fsl_ucc_hdlc.c
-> +++ b/drivers/net/wan/fsl_ucc_hdlc.c
-> @@ -1177,14 +1177,9 @@ static int ucc_hdlc_probe(struct platform_device *pdev)
->  	uhdlc_priv->dev = &pdev->dev;
->  	uhdlc_priv->ut_info = ut_info;
->  
-> -	if (of_get_property(np, "fsl,tdm-interface", NULL))
-> -		uhdlc_priv->tsa = 1;
-> -
-> -	if (of_get_property(np, "fsl,ucc-internal-loopback", NULL))
-> -		uhdlc_priv->loopback = 1;
-> -
-> -	if (of_get_property(np, "fsl,hdlc-bus", NULL))
-> -		uhdlc_priv->hdlc_bus = 1;
-> +	uhdlc_priv->tsa = of_property_read_bool(np, "fsl,tdm-interface");
-
-Here too.
-
-> +	uhdlc_priv->loopback = of_property_read_bool(np, "fsl,ucc-internal-loopback");
-> +	uhdlc_priv->hdlc_bus = of_property_read_bool(np, "fsl,hdlc-bus");
->  
->  	if (uhdlc_priv->tsa == 1) {
->  		utdm = kzalloc(sizeof(*utdm), GFP_KERNEL);
-
-...
+	Andrew
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
