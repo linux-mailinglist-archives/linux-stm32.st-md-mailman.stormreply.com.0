@@ -2,37 +2,37 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9048C6B60E3
-	for <lists+linux-stm32@lfdr.de>; Sat, 11 Mar 2023 22:16:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8BF4C6B60E9
+	for <lists+linux-stm32@lfdr.de>; Sat, 11 Mar 2023 22:17:15 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 353B5C6A60C;
-	Sat, 11 Mar 2023 21:16:50 +0000 (UTC)
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 52CB8C6A60C;
+	Sat, 11 Mar 2023 21:17:15 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B1877C01E98
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E5C86C01E98
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 11 Mar 2023 21:16:47 +0000 (UTC)
+ Sat, 11 Mar 2023 21:17:13 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by sin.source.kernel.org (Postfix) with ESMTPS id 30E3FCE0AC6;
- Sat, 11 Mar 2023 21:16:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 74CADC433EF;
- Sat, 11 Mar 2023 21:16:17 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 8AE6CB80B47;
+ Sat, 11 Mar 2023 21:17:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B025C433A8;
+ Sat, 11 Mar 2023 21:16:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1678569403;
- bh=+DzB7/8CoWnkO/XRI1leyDdvUnpN9ch8MSd2GNMDJTM=;
+ s=k20201202; t=1678569432;
+ bh=nxjIZb2lDBuKK2G4lNzbnKP45y5UoeG95pRVo5INiRE=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=MtiLuqbg+ewNrORM7gYuVWtDY1WITP8fnDMohaMDfvWiK44HvE3TXPL+xscranYBF
- yf1cemIotmGqM2ROCJKFIbsDGJT3UhZqQwDXgx6UPzbcJrejJnMC8imhMQDvh/3otz
- wQ6QvUFpmKZqwcQ0FlnWNou2FH119vYfI+6XYOoc4Eq2rGIbp0vxaPq+RgishnR9ku
- DRAHcvNCbawn8KZYF6NlW5WDU1hyJ4TX6kHb4jQ03jf2xQJXjTCRrFF2p/607748IQ
- RgZSHqHtQF0djp0rR09WieyymQvaZ306PNgk7wdUdd9UxHPOis6usgGrTDI1JSrbQM
- TV9gW7JLoVEeg==
+ b=bvzKGPqJVg2bAaBl8LvuSNq4FE4F8OHaj0dxY1RmvBRvrUteeh49EnCBFgpLpsimi
+ X9QjmQX5ru5ARgvQanZf4uxwTdtbSXJBvWNRv/d86I7owOd9TPANApjMIEt8UOom/V
+ rlpKM3DSWdmGVC5sTOOGKI7C35EJY3xqnU9SQBlbwRy+sPkyfeO2xcIoXPdhr3KG5S
+ maSO5XBX1iOLzTj27xMUWw1Z5Arz1xysQ8bAZkDXGqorBZ3q1BRVnKovYh/ImB0NqZ
+ 5jPOxe6cAx/K/KlowItsOB1tQgOaqn0wX00B/jAga6Qsnzqoh25kwlapaLa6EQAQNP
+ eT/NzyqjKOROw==
 From: Mark Brown <broonie@kernel.org>
 To: miquel.raynal@bootlin.com, richard@nod.at, vigneshr@ti.com, 
- jic23@kernel.org, pratyush@kernel.org, sanju.mehta@amd.com, 
+ jic23@kernel.org, pratyush@kernel.org, Sanju.Mehta@amd.com, 
  chin-ting_kuo@aspeedtech.com, clg@kaod.org, kdasu.kdev@gmail.com, 
  f.fainelli@gmail.com, rjui@broadcom.com, sbranden@broadcom.com, 
  eajames@linux.ibm.com, olteanv@gmail.com, han.xu@nxp.com, 
@@ -50,14 +50,16 @@ To: miquel.raynal@bootlin.com, richard@nod.at, vigneshr@ti.com,
  tanureal@opensource.cirrus.com, rf@opensource.cirrus.com, perex@perex.cz, 
  tiwai@suse.com, npiggin@gmail.com, christophe.leroy@csgroup.eu, 
  mpe@ellerman.id.au, oss@buserror.net, windhl@126.com, 
- yangyingliang@huawei.com, Tudor Ambarus <tudor.ambarus@linaro.org>, 
+ yangyingliang@huawei.com, william.zhang@broadcom.com, 
+ kursad.oney@broadcom.com, jonas.gorski@gmail.com, anand.gore@broadcom.com, 
+ rafal@milecki.pl, Tudor Ambarus <tudor.ambarus@linaro.org>, 
  Neil Armstrong <neil.armstrong@linaro.org>, 
  Bjorn Andersson <andersson@kernel.org>, 
  Amit Kumar Mahapatra <amit.kumar-mahapatra@amd.com>
-In-Reply-To: <20230210193647.4159467-1-amit.kumar-mahapatra@amd.com>
-References: <20230210193647.4159467-1-amit.kumar-mahapatra@amd.com>
-Message-Id: <167856937606.964268.6047676283886463336.b4-ty@kernel.org>
-Date: Sat, 11 Mar 2023 21:16:16 +0000
+In-Reply-To: <20230310173217.3429788-1-amit.kumar-mahapatra@amd.com>
+References: <20230310173217.3429788-1-amit.kumar-mahapatra@amd.com>
+Message-Id: <167856940280.964268.10660159170818600511.b4-ty@kernel.org>
+Date: Sat, 11 Mar 2023 21:16:42 +0000
 MIME-Version: 1.0
 X-Mailer: b4 0.13-dev-2eb1a
 Cc: alexandre.belloni@bootlin.com, tmaimon77@gmail.com,
@@ -83,7 +85,7 @@ Cc: alexandre.belloni@bootlin.com, tmaimon77@gmail.com,
  michael@walle.cc, thierry.reding@gmail.com, palmer@dabbelt.com,
  kernel@pengutronix.de, netdev@vger.kernel.org, patches@opensource.cirrus.com,
  linux-wpan@vger.kernel.org, claudiu.beznea@microchip.com
-Subject: Re: [Linux-stm32] (subset) [PATCH v4 00/15] spi: Add support for
+Subject: Re: [Linux-stm32] (subset) [PATCH V6 00/15] Add support for
  stacked/parallel memories
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -101,7 +103,7 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Sat, 11 Feb 2023 01:06:31 +0530, Amit Kumar Mahapatra wrote:
+On Fri, 10 Mar 2023 23:02:02 +0530, Amit Kumar Mahapatra wrote:
 > This patch is in the continuation to the discussions which happened on
 > 'commit f89504300e94 ("spi: Stacked/parallel memories bindings")' for
 > adding dt-binding support for stacked/parallel memories.
@@ -133,8 +135,6 @@ Thanks!
         commit: 3aba06a9fee04f6fefa9df71d3ee27dd4c464ad5
 [08/15] ALSA: hda: cs35l41: Replace all spi->chip_select references with function call
         commit: 06b5e53c8b2b016e06a53ab6f01006ca7bbfa5df
-[09/15] spi: Add stacked and parallel memories support in SPI core
-        (no commit info)
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during
