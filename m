@@ -2,69 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DF4646B5F2F
-	for <lists+linux-stm32@lfdr.de>; Sat, 11 Mar 2023 18:38:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0CE206B5F73
+	for <lists+linux-stm32@lfdr.de>; Sat, 11 Mar 2023 18:58:06 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9ADC6C6A608;
-	Sat, 11 Mar 2023 17:38:07 +0000 (UTC)
-Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com
- [209.85.208.52])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B5FBDC6A608;
+	Sat, 11 Mar 2023 17:58:05 +0000 (UTC)
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F0E1DC6A5F6
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2B0CFC6A5F6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 11 Mar 2023 17:38:05 +0000 (UTC)
-Received: by mail-ed1-f52.google.com with SMTP id r15so5869141edq.11
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 11 Mar 2023 09:38:05 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1678556285;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=ADvKOM9mwPGgDKNtE5dHDUeEeCiEDQjXCHZYcW8EzbA=;
- b=CfgPKp92BDxt/iJ36GZbumEkQyrTaHn83Rgu02Fy64E+0eT2AdQkqJa9PkPQJ1sscS
- D35vUWnyMAAeE01nc02vSGHXBFWR6KLslM0C2fs3XrJYDWqzrn8jALpfbKFk3lQSMY/T
- HYdKEE01VjHy2oy2Wlk868ULw7d6hYJm2kOe5nxTArNqJ2ZRlgrzJHxAXOxj0rkz2L3/
- YnF9iDRdFr7S/6/EPaE1Ydrh32BTeLVe8rTxVanE2aZ4z6FJcg5JgQVReOx+Y4rLw+SI
- nRyM4BGzV+6g900B2nNRHVepwruQJgGYKn9MvXi1Dcw7lQy2cgJHjycyG7YWAjnIbV56
- tPCg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1678556285;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=ADvKOM9mwPGgDKNtE5dHDUeEeCiEDQjXCHZYcW8EzbA=;
- b=b4pSU4Lj9uYhUuQ8lqp/cxnnj0ANkrOLNhKSJj7ehi6AT9dd+I46mUiQR6d4NUOX5/
- MP3ty/3DuQVCEi3doz6vet1H+7HrIMov7wuSXYFddnf7+Gq3d7o2+M5n+/KkR2c45y8f
- rp6o4P50D/gdXkdPZ4aOi0F8su3xPL96x6qw6/r6l58FGPM1iqCKIeCDFfa931VnBy1q
- jiRYsM7rmIV6WrgRARuiUNVUp39TnF1CF4Ulr9O0TyKMRNz813nZ1gGODa9eneuHOPVY
- 08ubBymsu/hDzlLVZSjBWGZrkFwxCh/X9g8gb8Rc61xIN1bD5nXOZ245AAwjLFPEyt/L
- kS3g==
-X-Gm-Message-State: AO0yUKW1AZ/eQslUy/9tFl98/a66QvTHKajr6LolTZK5GyvC1nR87taT
- w8VA98Rg0qfKeHA5iwYHDhvBsw==
-X-Google-Smtp-Source: AK7set9QxtYe1KQEiI0JGd+JCQrlJIVoCYHDahDGxoaZhvwxYbQmCI120IdIT+4Rxw+dOw2QsBQqrQ==
-X-Received: by 2002:a50:ff0a:0:b0:4fa:fa6a:1a with SMTP id
- a10-20020a50ff0a000000b004fafa6a001amr1170089edu.12.1678556285634; 
- Sat, 11 Mar 2023 09:38:05 -0800 (PST)
-Received: from krzk-bin.. ([2a02:810d:15c0:828:6927:e94d:fc63:9d6e])
- by smtp.gmail.com with ESMTPSA id
- b4-20020a50ccc4000000b004c09527d62dsm1444082edj.30.2023.03.11.09.38.04
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 11 Mar 2023 09:38:05 -0800 (PST)
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-To: Daniel Lezcano <daniel.lezcano@linaro.org>,
- Thomas Gleixner <tglx@linutronix.de>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Date: Sat, 11 Mar 2023 18:38:03 +0100
-Message-Id: <20230311173803.263446-1-krzysztof.kozlowski@linaro.org>
-X-Mailer: git-send-email 2.34.1
+ Sat, 11 Mar 2023 17:58:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+ s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+ References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+ Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+ Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+ bh=0SuW2teqPrJO0c83NljG0OZlfdMMqc0MljQGQttnRBc=; b=sQgqYODQW6+hMJ349CW0h7g+VR
+ 3Fe0n53zYw4LUHpulr7v4SlGWofZ+pTierKd0l12AlOJHuQ83eUj4tqvSX2kf3tIqqPt9FIaXRhD0
+ wSdBUNnELsujz4wEPv/XasLijg7mlCDwN6Ew8wMg804jluCcCj9BJ8BV77MNfamkkpo8=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+ (envelope-from <andrew@lunn.ch>)
+ id 1pb3TD-0074hS-FW; Sat, 11 Mar 2023 18:57:27 +0100
+Date: Sat, 11 Mar 2023 18:57:27 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: Klaus Kudielka <klaus.kudielka@gmail.com>
+Message-ID: <f70aa0ea-5d8e-4cc3-bd5e-5b4a79d67281@lunn.ch>
+References: <0e10aa8492eadb587949d8744b56fccaabbd183b.camel@gmail.com>
+ <72530e86-9ba9-4a01-9cd2-68835ecae7a0@lunn.ch>
+ <09d65e1ee0679e1e74b4f3a5a4c55bd48332f043.camel@gmail.com>
+ <70f5bca0-322c-4bae-b880-742e56365abe@lunn.ch>
+ <10da10caea22a8f5da8f1779df3e13b948e8a363.camel@gmail.com>
+ <4abd56aa-5b9f-4e16-b0ca-11989bb8c764@lunn.ch>
+ <bff0e542b8c04980e9e3af1d3e6bf739c87eb514.camel@gmail.com>
+ <a57a216d-ff5a-46e6-9780-e53772dcefc8@lunn.ch>
+ <2f64385a350359c5755eb4d2479e2efef7a96216.camel@gmail.com>
+ <49a9154ae4e2b3e6bc85e560368f6474f97cea88.camel@gmail.com>
 MIME-Version: 1.0
-Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Subject: [Linux-stm32] [PATCH] clocksource: stm32-lp: drop of_match_ptr for
-	ID table
+Content-Disposition: inline
+In-Reply-To: <49a9154ae4e2b3e6bc85e560368f6474f97cea88.camel@gmail.com>
+Cc: linux-aspeed@lists.ozlabs.org,
+ Jesse Brandeburg <jesse.brandeburg@intel.com>,
+ Eric Dumazet <edumazet@google.com>, linux-stm32@st-md-mailman.stormreply.com,
+ Russell King <linux@armlinux.org.uk>, Jose Abreu <joabreu@synopsys.com>,
+ Joel Stanley <joel@jms.id.au>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Lorenzo Bianconi <lorenzo@kernel.org>,
+ Mark Lee <Mark-MC.Lee@mediatek.com>, Sean Wang <sean.wang@mediatek.com>,
+ linux-mediatek@lists.infradead.org, John Crispin <john@phrozen.org>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ linux-arm-kernel@lists.infradead.org, Andrew Jeffery <andrew@aj.id.au>,
+ Bryan Whitehead <bryan.whitehead@microchip.com>, linux-kernel@vger.kernel.org,
+ UNGLinuxDriver@microchip.com, Michael Walle <michael@walle.cc>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
+ Heiner Kallweit <hkallweit1@gmail.com>,
+ "David S. Miller" <davem@davemloft.net>, Felix Fietkau <nbd@nbd.name>
+Subject: Re: [Linux-stm32] [PATCH net-next v2 4/6] net: mdio: scan bus based
+ on bus capabilities for C22 and C45
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,31 +70,34 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-VGhlIGRyaXZlciBjYW4gbWF0Y2ggb25seSB2aWEgdGhlIERUIHRhYmxlIHNvIHRoZSB0YWJsZSBz
-aG91bGQgYmUgYWx3YXlzCnVzZWQgYW5kIHRoZSBvZl9tYXRjaF9wdHIgZG9lcyBub3QgaGF2ZSBh
-bnkgc2Vuc2UgKHRoaXMgYWxzbyBhbGxvd3MgQUNQSQptYXRjaGluZyB2aWEgUFJQMDAwMSwgZXZl
-biB0aG91Z2ggaXQgbWlnaHQgbm90IGJlIHJlbGV2YW50IGhlcmUpLgoKICBkcml2ZXJzL2Nsb2Nr
-c291cmNlL3RpbWVyLXN0bTMyLWxwLmM6MjAzOjM0OiBlcnJvcjog4oCYc3RtMzJfY2xrZXZlbnRf
-bHBfb2ZfbWF0Y2jigJkgZGVmaW5lZCBidXQgbm90IHVzZWQgWy1XZXJyb3I9dW51c2VkLWNvbnN0
-LXZhcmlhYmxlPV0KClNpZ25lZC1vZmYtYnk6IEtyenlzenRvZiBLb3psb3dza2kgPGtyenlzenRv
-Zi5rb3psb3dza2lAbGluYXJvLm9yZz4KLS0tCiBkcml2ZXJzL2Nsb2Nrc291cmNlL3RpbWVyLXN0
-bTMyLWxwLmMgfCAyICstCiAxIGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKyksIDEgZGVsZXRp
-b24oLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2Nsb2Nrc291cmNlL3RpbWVyLXN0bTMyLWxwLmMg
-Yi9kcml2ZXJzL2Nsb2Nrc291cmNlL3RpbWVyLXN0bTMyLWxwLmMKaW5kZXggZGIyODQxZDBiZWI4
-Li42NDZiYjkwZjVlOTIgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvY2xvY2tzb3VyY2UvdGltZXItc3Rt
-MzItbHAuYworKysgYi9kcml2ZXJzL2Nsb2Nrc291cmNlL3RpbWVyLXN0bTMyLWxwLmMKQEAgLTIx
-MSw3ICsyMTEsNyBAQCBzdGF0aWMgc3RydWN0IHBsYXRmb3JtX2RyaXZlciBzdG0zMl9jbGtldmVu
-dF9scF9kcml2ZXIgPSB7CiAJLnJlbW92ZSA9IHN0bTMyX2Nsa2V2ZW50X2xwX3JlbW92ZSwKIAku
-ZHJpdmVyCT0gewogCQkubmFtZSA9ICJzdG0zMi1scHRpbWVyLXRpbWVyIiwKLQkJLm9mX21hdGNo
-X3RhYmxlID0gb2ZfbWF0Y2hfcHRyKHN0bTMyX2Nsa2V2ZW50X2xwX29mX21hdGNoKSwKKwkJLm9m
-X21hdGNoX3RhYmxlID0gc3RtMzJfY2xrZXZlbnRfbHBfb2ZfbWF0Y2gsCiAJfSwKIH07CiBtb2R1
-bGVfcGxhdGZvcm1fZHJpdmVyKHN0bTMyX2Nsa2V2ZW50X2xwX2RyaXZlcik7Ci0tIAoyLjM0LjEK
-Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0
-bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29t
-Cmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xp
-bnV4LXN0bTMyCg==
+> Well, maybe I misunderstood the argument with DT completely, so I gave it a try:
+> 
+> --- a/drivers/net/dsa/mv88e6xxx/chip.c
+> +++ b/drivers/net/dsa/mv88e6xxx/chip.c
+> @@ -3797,6 +3797,7 @@ static int mv88e6xxx_mdio_register(struct mv88e6xxx_chip *chip,
+>         bus->read_c45 = mv88e6xxx_mdio_read_c45;
+>         bus->write_c45 = mv88e6xxx_mdio_write_c45;
+>         bus->parent = chip->dev;
+> +       bus->phy_mask = GENMASK(31, mv88e6xxx_num_ports(chip));
+>  
+>         if (!external) {
+>                 err = mv88e6xxx_g2_irq_mdio_setup(chip, bus);
+> 
+> > 
+> 
+> Now THAT one makes a difference! With this on top, I'm back at normal boot time!
+> I hope this is what you had in mind?
+
+Yep, that is what i meant. Please could you also submit a patch for this?
+
+     Andrew
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
