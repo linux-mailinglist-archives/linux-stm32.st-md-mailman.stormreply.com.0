@@ -2,63 +2,89 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0CE206B5F73
-	for <lists+linux-stm32@lfdr.de>; Sat, 11 Mar 2023 18:58:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9048C6B60E3
+	for <lists+linux-stm32@lfdr.de>; Sat, 11 Mar 2023 22:16:50 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B5FBDC6A608;
-	Sat, 11 Mar 2023 17:58:05 +0000 (UTC)
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 353B5C6A60C;
+	Sat, 11 Mar 2023 21:16:50 +0000 (UTC)
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B1877C01E98
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Sat, 11 Mar 2023 21:16:47 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2B0CFC6A5F6
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 11 Mar 2023 17:58:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
- s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
- References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
- Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
- Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
- bh=0SuW2teqPrJO0c83NljG0OZlfdMMqc0MljQGQttnRBc=; b=sQgqYODQW6+hMJ349CW0h7g+VR
- 3Fe0n53zYw4LUHpulr7v4SlGWofZ+pTierKd0l12AlOJHuQ83eUj4tqvSX2kf3tIqqPt9FIaXRhD0
- wSdBUNnELsujz4wEPv/XasLijg7mlCDwN6Ew8wMg804jluCcCj9BJ8BV77MNfamkkpo8=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
- (envelope-from <andrew@lunn.ch>)
- id 1pb3TD-0074hS-FW; Sat, 11 Mar 2023 18:57:27 +0100
-Date: Sat, 11 Mar 2023 18:57:27 +0100
-From: Andrew Lunn <andrew@lunn.ch>
-To: Klaus Kudielka <klaus.kudielka@gmail.com>
-Message-ID: <f70aa0ea-5d8e-4cc3-bd5e-5b4a79d67281@lunn.ch>
-References: <0e10aa8492eadb587949d8744b56fccaabbd183b.camel@gmail.com>
- <72530e86-9ba9-4a01-9cd2-68835ecae7a0@lunn.ch>
- <09d65e1ee0679e1e74b4f3a5a4c55bd48332f043.camel@gmail.com>
- <70f5bca0-322c-4bae-b880-742e56365abe@lunn.ch>
- <10da10caea22a8f5da8f1779df3e13b948e8a363.camel@gmail.com>
- <4abd56aa-5b9f-4e16-b0ca-11989bb8c764@lunn.ch>
- <bff0e542b8c04980e9e3af1d3e6bf739c87eb514.camel@gmail.com>
- <a57a216d-ff5a-46e6-9780-e53772dcefc8@lunn.ch>
- <2f64385a350359c5755eb4d2479e2efef7a96216.camel@gmail.com>
- <49a9154ae4e2b3e6bc85e560368f6474f97cea88.camel@gmail.com>
+ by sin.source.kernel.org (Postfix) with ESMTPS id 30E3FCE0AC6;
+ Sat, 11 Mar 2023 21:16:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 74CADC433EF;
+ Sat, 11 Mar 2023 21:16:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1678569403;
+ bh=+DzB7/8CoWnkO/XRI1leyDdvUnpN9ch8MSd2GNMDJTM=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=MtiLuqbg+ewNrORM7gYuVWtDY1WITP8fnDMohaMDfvWiK44HvE3TXPL+xscranYBF
+ yf1cemIotmGqM2ROCJKFIbsDGJT3UhZqQwDXgx6UPzbcJrejJnMC8imhMQDvh/3otz
+ wQ6QvUFpmKZqwcQ0FlnWNou2FH119vYfI+6XYOoc4Eq2rGIbp0vxaPq+RgishnR9ku
+ DRAHcvNCbawn8KZYF6NlW5WDU1hyJ4TX6kHb4jQ03jf2xQJXjTCRrFF2p/607748IQ
+ RgZSHqHtQF0djp0rR09WieyymQvaZ306PNgk7wdUdd9UxHPOis6usgGrTDI1JSrbQM
+ TV9gW7JLoVEeg==
+From: Mark Brown <broonie@kernel.org>
+To: miquel.raynal@bootlin.com, richard@nod.at, vigneshr@ti.com, 
+ jic23@kernel.org, pratyush@kernel.org, sanju.mehta@amd.com, 
+ chin-ting_kuo@aspeedtech.com, clg@kaod.org, kdasu.kdev@gmail.com, 
+ f.fainelli@gmail.com, rjui@broadcom.com, sbranden@broadcom.com, 
+ eajames@linux.ibm.com, olteanv@gmail.com, han.xu@nxp.com, 
+ john.garry@huawei.com, shawnguo@kernel.org, s.hauer@pengutronix.de, 
+ khilman@baylibre.com, matthias.bgg@gmail.com, haibo.chen@nxp.com, 
+ linus.walleij@linaro.org, daniel@zonque.org, haojian.zhuang@gmail.com, 
+ robert.jarzmik@free.fr, agross@kernel.org, heiko@sntech.de, 
+ krzysztof.kozlowski@linaro.org, andi@etezian.org, mcoquelin.stm32@gmail.com, 
+ alexandre.torgue@foss.st.com, wens@csie.org, jernej.skrabec@gmail.com, 
+ samuel@sholland.org, masahisa.kojima@linaro.org, jaswinder.singh@linaro.org, 
+ rostedt@goodmis.org, mingo@redhat.com, l.stelmach@samsung.com, 
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org, 
+ pabeni@redhat.com, alex.aring@gmail.com, stefan@datenfreihafen.org, 
+ kvalo@kernel.org, james.schulman@cirrus.com, david.rhodes@cirrus.com, 
+ tanureal@opensource.cirrus.com, rf@opensource.cirrus.com, perex@perex.cz, 
+ tiwai@suse.com, npiggin@gmail.com, christophe.leroy@csgroup.eu, 
+ mpe@ellerman.id.au, oss@buserror.net, windhl@126.com, 
+ yangyingliang@huawei.com, Tudor Ambarus <tudor.ambarus@linaro.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Amit Kumar Mahapatra <amit.kumar-mahapatra@amd.com>
+In-Reply-To: <20230210193647.4159467-1-amit.kumar-mahapatra@amd.com>
+References: <20230210193647.4159467-1-amit.kumar-mahapatra@amd.com>
+Message-Id: <167856937606.964268.6047676283886463336.b4-ty@kernel.org>
+Date: Sat, 11 Mar 2023 21:16:16 +0000
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <49a9154ae4e2b3e6bc85e560368f6474f97cea88.camel@gmail.com>
-Cc: linux-aspeed@lists.ozlabs.org,
- Jesse Brandeburg <jesse.brandeburg@intel.com>,
- Eric Dumazet <edumazet@google.com>, linux-stm32@st-md-mailman.stormreply.com,
- Russell King <linux@armlinux.org.uk>, Jose Abreu <joabreu@synopsys.com>,
- Joel Stanley <joel@jms.id.au>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Lorenzo Bianconi <lorenzo@kernel.org>,
- Mark Lee <Mark-MC.Lee@mediatek.com>, Sean Wang <sean.wang@mediatek.com>,
- linux-mediatek@lists.infradead.org, John Crispin <john@phrozen.org>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- linux-arm-kernel@lists.infradead.org, Andrew Jeffery <andrew@aj.id.au>,
- Bryan Whitehead <bryan.whitehead@microchip.com>, linux-kernel@vger.kernel.org,
- UNGLinuxDriver@microchip.com, Michael Walle <michael@walle.cc>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
- Heiner Kallweit <hkallweit1@gmail.com>,
- "David S. Miller" <davem@davemloft.net>, Felix Fietkau <nbd@nbd.name>
-Subject: Re: [Linux-stm32] [PATCH net-next v2 4/6] net: mdio: scan bus based
- on bus capabilities for C22 and C45
+X-Mailer: b4 0.13-dev-2eb1a
+Cc: alexandre.belloni@bootlin.com, tmaimon77@gmail.com,
+ linux-aspeed@lists.ozlabs.org, linux-iio@vger.kernel.org,
+ konrad.dybcio@somainline.org, alsa-devel@alsa-project.org,
+ tali.perry1@gmail.com, ldewangan@nvidia.com, linux-mtd@lists.infradead.org,
+ alim.akhtar@samsung.com, linux-riscv@lists.infradead.org,
+ linux-spi@vger.kernel.org, festevam@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com, jbrunet@baylibre.com, git@amd.com,
+ linux-samsung-soc@vger.kernel.org, benjaminfair@google.com,
+ yogeshgaur.83@gmail.com, openbmc@lists.ozlabs.org, jonathanh@nvidia.com,
+ yuenn@google.com, bcm-kernel-feedback-list@broadcom.com, joel@jms.id.au,
+ linux-rockchip@lists.infradead.org, linux-sunxi@lists.linux.dev,
+ linux-imx@nxp.com, amitrkcian2002@gmail.com, Michael.Hennerich@analog.com,
+ martin.blumenstingl@googlemail.com, linux-arm-msm@vger.kernel.org,
+ radu_nicolae.pirea@upb.ro, linuxppc-dev@lists.ozlabs.org, lars@metafoo.de,
+ linux-mediatek@lists.infradead.org, linux-rpi-kernel@lists.infradead.org,
+ linux-tegra@vger.kernel.org, linux-amlogic@lists.infradead.org,
+ michal.simek@amd.com, linux-arm-kernel@lists.infradead.org,
+ avifishman70@gmail.com, venture@google.com, libertas-dev@lists.infradead.org,
+ linux-wireless@vger.kernel.org, nicolas.ferre@microchip.com,
+ fancer.lancer@gmail.com, linux-kernel@vger.kernel.org, andrew@aj.id.au,
+ michael@walle.cc, thierry.reding@gmail.com, palmer@dabbelt.com,
+ kernel@pengutronix.de, netdev@vger.kernel.org, patches@opensource.cirrus.com,
+ linux-wpan@vger.kernel.org, claudiu.beznea@microchip.com
+Subject: Re: [Linux-stm32] (subset) [PATCH v4 00/15] spi: Add support for
+ stacked/parallel memories
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,27 +101,59 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-> Well, maybe I misunderstood the argument with DT completely, so I gave it a try:
+On Sat, 11 Feb 2023 01:06:31 +0530, Amit Kumar Mahapatra wrote:
+> This patch is in the continuation to the discussions which happened on
+> 'commit f89504300e94 ("spi: Stacked/parallel memories bindings")' for
+> adding dt-binding support for stacked/parallel memories.
 > 
-> --- a/drivers/net/dsa/mv88e6xxx/chip.c
-> +++ b/drivers/net/dsa/mv88e6xxx/chip.c
-> @@ -3797,6 +3797,7 @@ static int mv88e6xxx_mdio_register(struct mv88e6xxx_chip *chip,
->         bus->read_c45 = mv88e6xxx_mdio_read_c45;
->         bus->write_c45 = mv88e6xxx_mdio_write_c45;
->         bus->parent = chip->dev;
-> +       bus->phy_mask = GENMASK(31, mv88e6xxx_num_ports(chip));
->  
->         if (!external) {
->                 err = mv88e6xxx_g2_irq_mdio_setup(chip, bus);
+> This patch series updated the spi-nor, spi core and the spi drivers
+> to add stacked and parallel memories support.
 > 
-> > 
-> 
-> Now THAT one makes a difference! With this on top, I'm back at normal boot time!
-> I hope this is what you had in mind?
+> [...]
 
-Yep, that is what i meant. Please could you also submit a patch for this?
+Applied to
 
-     Andrew
+   broonie/spi.git for-next
+
+Thanks!
+
+[01/15] spi: Replace all spi->chip_select and spi->cs_gpiod references with function call
+        commit: 9e264f3f85a56cc109cc2d6010a48aa89d5c1ff1
+[02/15] net: Replace all spi->chip_select and spi->cs_gpiod references with function call
+        commit: 25fd0550d9b9c92288a17fb7d605cdcdb4a65a64
+[03/15] iio: imu: Replace all spi->chip_select and spi->cs_gpiod references with function call
+        commit: 0183f81fce154ae1d4df2bb28d22ad6612317148
+[04/15] mtd: devices: Replace all spi->chip_select and spi->cs_gpiod references with function call
+        commit: 0817bcef53e4e3df23c023eddaa2b35b7288400e
+[05/15] staging: Replace all spi->chip_select and spi->cs_gpiod references with function call
+        commit: caa9d3475b1c5566f0272273c147cc9b72f2be28
+[06/15] platform/x86: serial-multi-instantiate: Replace all spi->chip_select and spi->cs_gpiod references with function call
+        commit: e20451f44ca33ec40422e9868775e117ef2da935
+[07/15] powerpc/83xx/mpc832x_rdb: Replace all spi->chip_select references with function call
+        commit: 3aba06a9fee04f6fefa9df71d3ee27dd4c464ad5
+[08/15] ALSA: hda: cs35l41: Replace all spi->chip_select references with function call
+        commit: 06b5e53c8b2b016e06a53ab6f01006ca7bbfa5df
+[09/15] spi: Add stacked and parallel memories support in SPI core
+        (no commit info)
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
 
 _______________________________________________
 Linux-stm32 mailing list
