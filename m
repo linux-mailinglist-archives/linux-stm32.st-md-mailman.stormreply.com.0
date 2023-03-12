@@ -2,48 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 63C386B68EB
-	for <lists+linux-stm32@lfdr.de>; Sun, 12 Mar 2023 18:45:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7BCF66B6CB0
+	for <lists+linux-stm32@lfdr.de>; Mon, 13 Mar 2023 00:58:24 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EDBC7C69073;
-	Sun, 12 Mar 2023 17:45:22 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DF19AC57B6A
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 12 Mar 2023 17:45:21 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2BEF7C6A610;
+	Sun, 12 Mar 2023 23:58:24 +0000 (UTC)
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id AE21A60F8A;
- Sun, 12 Mar 2023 17:45:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF26EC433D2;
- Sun, 12 Mar 2023 17:45:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1678643120;
- bh=YEdUsPYrGcfGa+1Q3JmQqtfsYE5Mu9KqGWmOkv1vGKI=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=Gk98wvfrmLxkM4Ks+krsYRFLGE6WEwv7U2tXorF44jRdMofBAiXmSqqZqI8CTSiN2
- OgYYzaj5Cg7CUn+r2S31ClA460gZ4dkvHFwjpfLEIwb/WVf2kAMpUMAWsi+5Tydj4x
- Nh/TtzDfdK55WHLLxNY+O5tjarroB1CDdJpU1S9WGISW3I9RL333LCPHFgGb29fqHF
- dbWgYQaZBogboZDqgiH/0x+FSQyLXOBV/AlJL26RUht6XZnCGDQTedFM3+BpUqPXG6
- KeYEMLYqX/DYy+62AH9YvN+vLPMlbW3iGngYV2AIXN6lary3MvfQVvBgOvlaVBBLTo
- k3rVFg2kAIvbw==
-Date: Sun, 12 Mar 2023 17:45:24 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Tom Rix <trix@redhat.com>
-Message-ID: <20230312174524.75e55ce8@jic23-huawei>
-In-Reply-To: <20230312161733.470617-1-trix@redhat.com>
-References: <20230312161733.470617-1-trix@redhat.com>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.37; x86_64-pc-linux-gnu)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8AAC6C69073
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Sun, 12 Mar 2023 23:58:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+ s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+ References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+ Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+ Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+ bh=0L7vTZLcerwnAyoI0HVYfhsjcRF+aysJp1HB0AOdCV4=; b=RigY3aTC9kT+QiKNzqRX38zVCH
+ H9IyfEUEinWJxoVVOnQL7KViGfh7ztg4ru5NXEGuXPJCagcFhLsCPgYkFt0Kq4kJQ3Kjrxr03MMdr
+ rJAatoXBJw2VG1GfOT1bgchjypQ3DpfV21hmdBXDLsOb6ziWbAAjef7IoVoF2hHdfhII=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+ (envelope-from <andrew@lunn.ch>)
+ id 1pbVZI-0078fQ-FU; Mon, 13 Mar 2023 00:57:36 +0100
+Date: Mon, 13 Mar 2023 00:57:36 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: Klaus Kudielka <klaus.kudielka@gmail.com>
+Message-ID: <04d0bf49-452c-472c-add4-a0d5bd944476@lunn.ch>
+References: <09d65e1ee0679e1e74b4f3a5a4c55bd48332f043.camel@gmail.com>
+ <70f5bca0-322c-4bae-b880-742e56365abe@lunn.ch>
+ <10da10caea22a8f5da8f1779df3e13b948e8a363.camel@gmail.com>
+ <4abd56aa-5b9f-4e16-b0ca-11989bb8c764@lunn.ch>
+ <bff0e542b8c04980e9e3af1d3e6bf739c87eb514.camel@gmail.com>
+ <a57a216d-ff5a-46e6-9780-e53772dcefc8@lunn.ch>
+ <2f64385a350359c5755eb4d2479e2efef7a96216.camel@gmail.com>
+ <29ee3cc4-a1d6-4a07-8d90-4b2f26059e7d@lunn.ch>
+ <0a1ec04fe494fcd8c68d03e4f544d7162c0e4f39.camel@gmail.com>
+ <024b696003d8403d62c45411c813058684e0418c.camel@gmail.com>
 MIME-Version: 1.0
-Cc: lars@metafoo.de, mcoquelin.stm32@gmail.com, yannick.brosseau@gmail.com,
- linux-kernel@vger.kernel.org, nuno.sa@analog.com, linux-iio@vger.kernel.org,
- andy.shevchenko@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] iio: adc: stm32-adc: set some stm32-adc.c
- variables storage-class-specifier to static
+Content-Disposition: inline
+In-Reply-To: <024b696003d8403d62c45411c813058684e0418c.camel@gmail.com>
+Cc: linux-aspeed@lists.ozlabs.org,
+ Jesse Brandeburg <jesse.brandeburg@intel.com>,
+ Eric Dumazet <edumazet@google.com>, linux-stm32@st-md-mailman.stormreply.com,
+ Russell King <linux@armlinux.org.uk>, Jose Abreu <joabreu@synopsys.com>,
+ Joel Stanley <joel@jms.id.au>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Lorenzo Bianconi <lorenzo@kernel.org>,
+ Mark Lee <Mark-MC.Lee@mediatek.com>, Sean Wang <sean.wang@mediatek.com>,
+ linux-mediatek@lists.infradead.org, John Crispin <john@phrozen.org>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ linux-arm-kernel@lists.infradead.org, Andrew Jeffery <andrew@aj.id.au>,
+ Bryan Whitehead <bryan.whitehead@microchip.com>, linux-kernel@vger.kernel.org,
+ UNGLinuxDriver@microchip.com, Michael Walle <michael@walle.cc>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
+ Heiner Kallweit <hkallweit1@gmail.com>,
+ "David S. Miller" <davem@davemloft.net>, Felix Fietkau <nbd@nbd.name>
+Subject: Re: [Linux-stm32] [PATCH net-next v2 4/6] net: mdio: scan bus based
+ on bus capabilities for C22 and C45
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,69 +75,46 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Sun, 12 Mar 2023 12:17:33 -0400
-Tom Rix <trix@redhat.com> wrote:
-
-> smatch reports several warnings
-> drivers/iio/adc/stm32-adc.c:2591:20: warning:
->   symbol 'stm32_adc_min_ts_h7' was not declared. Should it be static?
-> drivers/iio/adc/stm32-adc.c:2610:20: warning:
->   symbol 'stm32_adc_min_ts_mp1' was not declared. Should it be static?
-> drivers/iio/adc/stm32-adc.c:2630:20: warning:
->   symbol 'stm32_adc_min_ts_mp13' was not declared. Should it be static?
+On Sun, Mar 12, 2023 at 04:15:41PM +0100, Klaus Kudielka wrote:
+> On Sun, 2023-03-12 at 10:04 +0100, Klaus Kudielka wrote:
+> > On Sun, 2023-03-12 at 03:53 +0100, Andrew Lunn wrote:
+> > > 
+> > > Correct. But their also should not of been any noticeable slow down,
+> > > because there should not be any additional scanning when everything is
+> > > described in DT. And the move of the MDIO bus registration from probe
+> > > to setup should actually make it faster than before.
+> > > 
+> > 
+> > But then, why *do* I see such a big difference on the Omnia?
+> > 
+> > mdiobus_scan_bus_c45() takes:
+> > ~2.7 seconds without phy_mask patch
+> > ~0.2 seconds with phy_mask patch
 > 
-> These variables are only used in stm32-adc.c, so they should be static
+> Following up myself, the answer is in the call path
+> mv88e6xxx_mdios_register()
+> 	 -> mv88e6xxx_mdio_register()
+> 		-> of_mdiobus_register()
 > 
-> Signed-off-by: Tom Rix <trix@redhat.com>
-
-Thanks Tom,
-
-I wonder why these didn't show up in earlier build reports?
-Ah well.
-
-Applied to the togreg branch of iio.git and pushed out as testing for
-0-day to take a look at it.
-
-Thanks,
-
-Jonathan
-
-> ---
->  drivers/iio/adc/stm32-adc.c | 6 +++---
->  1 file changed, 3 insertions(+), 3 deletions(-)
+> A child node "mdio" would be needed for the scan to be limited by
+> the device tree. And this one is *not* in armada-385-turris-omnia.dts.
 > 
-> diff --git a/drivers/iio/adc/stm32-adc.c b/drivers/iio/adc/stm32-adc.c
-> index 45d4e79f8e55..1aadb2ad2cab 100644
-> --- a/drivers/iio/adc/stm32-adc.c
-> +++ b/drivers/iio/adc/stm32-adc.c
-> @@ -2588,7 +2588,7 @@ static const struct stm32_adc_cfg stm32f4_adc_cfg = {
->  	.irq_clear = stm32f4_adc_irq_clear,
->  };
->  
-> -const unsigned int stm32_adc_min_ts_h7[] = { 0, 0, 0, 4300, 9000 };
-> +static const unsigned int stm32_adc_min_ts_h7[] = { 0, 0, 0, 4300, 9000 };
->  static_assert(ARRAY_SIZE(stm32_adc_min_ts_h7) == STM32_ADC_INT_CH_NB);
->  
->  static const struct stm32_adc_cfg stm32h7_adc_cfg = {
-> @@ -2607,7 +2607,7 @@ static const struct stm32_adc_cfg stm32h7_adc_cfg = {
->  	.ts_int_ch = stm32_adc_min_ts_h7,
->  };
->  
-> -const unsigned int stm32_adc_min_ts_mp1[] = { 100, 100, 100, 4300, 9800 };
-> +static const unsigned int stm32_adc_min_ts_mp1[] = { 100, 100, 100, 4300, 9800 };
->  static_assert(ARRAY_SIZE(stm32_adc_min_ts_mp1) == STM32_ADC_INT_CH_NB);
->  
->  static const struct stm32_adc_cfg stm32mp1_adc_cfg = {
-> @@ -2627,7 +2627,7 @@ static const struct stm32_adc_cfg stm32mp1_adc_cfg = {
->  	.ts_int_ch = stm32_adc_min_ts_mp1,
->  };
->  
-> -const unsigned int stm32_adc_min_ts_mp13[] = { 100, 0, 0, 4300, 9800 };
-> +static const unsigned int stm32_adc_min_ts_mp13[] = { 100, 0, 0, 4300, 9800 };
->  static_assert(ARRAY_SIZE(stm32_adc_min_ts_mp13) == STM32_ADC_INT_CH_NB);
->  
->  static const struct stm32_adc_cfg stm32mp13_adc_cfg = {
+> My (incorrect) understanding was, the child node "ports" would trigger
+> that behaviour.
 
+Yes, of_mdiobus_register() calls mdiobus_register() if there is no
+MDIO node in DT. And that will result in a full bus scan, limited by
+phy_mask.
+
+And for completeness, there is one additional case. When there is a DT
+description, reg = <> is optional for a PHY. Most cases, it is used,
+but if you have a board designs which can take different pin
+compatible PHYs, the address of the PHY might not be known. After
+probing PHYs which are listed in DT with reg properties, it will scan
+the bus for additional PHYs and assign them to entries which do not
+have reg properties.
+
+	Andrew
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
