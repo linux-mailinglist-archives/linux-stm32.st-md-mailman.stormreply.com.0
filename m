@@ -2,62 +2,78 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 382A26B67E2
-	for <lists+linux-stm32@lfdr.de>; Sun, 12 Mar 2023 17:15:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 93A2D6B6826
+	for <lists+linux-stm32@lfdr.de>; Sun, 12 Mar 2023 17:17:50 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EFCB8C6A610;
-	Sun, 12 Mar 2023 16:15:29 +0000 (UTC)
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
- [85.220.165.71])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D8128C69073
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4B0B8C69073;
+	Sun, 12 Mar 2023 16:17:50 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8DD0CC57B6A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 12 Mar 2023 16:15:27 +0000 (UTC)
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
- by metis.ext.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <ukl@pengutronix.de>)
- id 1pbOM1-0007s2-Bk; Sun, 12 Mar 2023 17:15:25 +0100
-Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
- by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.94.2)
- (envelope-from <ukl@pengutronix.de>)
- id 1pbOM0-003f3O-Mu; Sun, 12 Mar 2023 17:15:24 +0100
-Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.94.2)
- (envelope-from <ukl@pengutronix.de>)
- id 1pbOLz-004K9a-MQ; Sun, 12 Mar 2023 17:15:23 +0100
-From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
-To: Michael Turquette <mturquette@baylibre.com>,
- Stephen Boyd <sboyd@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-Date: Sun, 12 Mar 2023 17:15:07 +0100
-Message-Id: <20230312161512.2715500-26-u.kleine-koenig@pengutronix.de>
-X-Mailer: git-send-email 2.39.1
-In-Reply-To: <20230312161512.2715500-1-u.kleine-koenig@pengutronix.de>
-References: <20230312161512.2715500-1-u.kleine-koenig@pengutronix.de>
+ Sun, 12 Mar 2023 16:17:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1678637868;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=q4/iPsVRBPkg6AepawVnMg1wwRgKOLDi6FjhOobj1H0=;
+ b=gEyUrG5Zd8yfVUxPlS/1hrbpv0il4Ja+cG2bOlzYOhEhvyfbmIq4DWr0eXALJkNUY8B0EG
+ 8gJo7jukvlxp2Oz8DCkuOmpUdqm2jOxbPECU126Li2cJSoylQp4OHJoPP9AGadoa5bidW6
+ ZX42RIhYRjPcdHzVIw2AGaeox8bBz6w=
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
+ [209.85.160.198]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-359-xSf01exfMOar_DQvR434DQ-1; Sun, 12 Mar 2023 12:17:47 -0400
+X-MC-Unique: xSf01exfMOar_DQvR434DQ-1
+Received: by mail-qt1-f198.google.com with SMTP id
+ x21-20020ac86b55000000b003c01d1a0708so5670222qts.19
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Sun, 12 Mar 2023 09:17:47 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112; t=1678637866;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=q4/iPsVRBPkg6AepawVnMg1wwRgKOLDi6FjhOobj1H0=;
+ b=hP+ORPcXuZ3IsEBawySJBCVk/4zZ3907Ree2qDeghmtaZy+5RcbQ5Qek4Jj64RALSa
+ 0HovZ9yZC3zHLo9gsCmIj/66i9gjJugbe5h+fikOV6ht6Km/lTT3RoKfxqhpJ3gSQI9m
+ Hp9O1esZp3tjZ69LxFWxKiU9HmDMCwKs81kFUqlESKDOYX8dZDIoVkrZcvAeBC/bv82d
+ JRv18BLqS1Tnua5ICUBmyu3mYm0ph5A6ZcDkMxHJhyA8mmZhZ1nvhsQf3LM7uuNwjrrG
+ /y0ipzVfXGwwM2UztqhL/Q1miU00RdVJZniZIgYfzFLMs2FSIbMZX8XwiPnSxTMfVHj9
+ X08A==
+X-Gm-Message-State: AO0yUKXKuLpNJZTcXZl4IQKKqy8yG/y3aAPfW5JH7SU9MLhve4ofKNL7
+ 73GdzyYPjH/vZ62elwmp1ttad+1kJQtKFcbfsVEGReMdYvoHz+uYpS8tDEdqiAO0LNu6MQvgRbN
+ D7/YlBB6nyuoVDq/2oM294XUs1GtiujbrSamd6K99
+X-Received: by 2002:a05:622a:1811:b0:3bf:b70c:cb02 with SMTP id
+ t17-20020a05622a181100b003bfb70ccb02mr56462026qtc.61.1678637866662; 
+ Sun, 12 Mar 2023 09:17:46 -0700 (PDT)
+X-Google-Smtp-Source: AK7set/zwEcGLiorbWwvzcLRN7QE8tQwzoIcsH7hK+o/zR3XjwOjx605byBFLnz8cxnvcIf7BNPJ8w==
+X-Received: by 2002:a05:622a:1811:b0:3bf:b70c:cb02 with SMTP id
+ t17-20020a05622a181100b003bfb70ccb02mr56462004qtc.61.1678637866429; 
+ Sun, 12 Mar 2023 09:17:46 -0700 (PDT)
+Received: from dell-per740-01.7a2m.lab.eng.bos.redhat.com
+ (nat-pool-bos-t.redhat.com. [66.187.233.206])
+ by smtp.gmail.com with ESMTPSA id
+ g1-20020ac84801000000b003b7e8c04d2esm3815120qtq.64.2023.03.12.09.17.45
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 12 Mar 2023 09:17:46 -0700 (PDT)
+From: Tom Rix <trix@redhat.com>
+To: jic23@kernel.org, lars@metafoo.de, mcoquelin.stm32@gmail.com,
+ alexandre.torgue@foss.st.com, fabrice.gasnier@foss.st.com,
+ olivier.moysan@foss.st.com, andy.shevchenko@gmail.com,
+ yannick.brosseau@gmail.com, nuno.sa@analog.com
+Date: Sun, 12 Mar 2023 12:17:33 -0400
+Message-Id: <20230312161733.470617-1-trix@redhat.com>
+X-Mailer: git-send-email 2.27.0
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1789;
- i=u.kleine-koenig@pengutronix.de; h=from:subject;
- bh=YSdgKydMUmqqeYG946UQat08kJ/q2KTOaGSGnm0gse0=;
- b=owEBbQGS/pANAwAKAcH8FHityuwJAcsmYgBkDfp6xwsITcqTQd1LtV6bSmWobY11RcAQyBADL
- isAsR//OeaJATMEAAEKAB0WIQR+cioWkBis/z50pAvB/BR4rcrsCQUCZA36egAKCRDB/BR4rcrs
- CS0HCACeU/irJ0xObgGaUABt1LhZ3HhEP2AcWllEyHGs4VYMe2fhsL6WkHa1Xb0Zm2QIOi4pOSU
- cIsBOQHJzzeKxQxycQxnZ+t+iPAhaaorEtHf6W0eBtCTEW2XWK0usG5SGO1Je1QzetwHujE4Zei
- FfIlcwx2jmvEZpNK9kQLzYxLKzy3Xwv3SRoCHMh0+ZLjHiMIktVPFK8UE/X6YT7cnzN+IJA/P34
- 01tCWyMZmvUw46b6Ghm/LyOqfyoS/dPFqLK1A4vjJuQkuDOwOJ/m7kIj5zhZ3M9rRxNt0Y5nYKY
- vao6Xw+ru12lquwaUV1yM5TyB9xaMilvr1ASZYLqoM39TwrS
-X-Developer-Key: i=u.kleine-koenig@pengutronix.de; a=openpgp;
- fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: ukl@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
-Cc: linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH 25/30] clk: stm32: Convert to platform remove
-	callback returning void
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Cc: linux-iio@vger.kernel.org, Tom Rix <trix@redhat.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Subject: [Linux-stm32] [PATCH] iio: adc: stm32-adc: set some stm32-adc.c
+	variables storage-class-specifier to static
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,42 +85,61 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-VGhlIC5yZW1vdmUoKSBjYWxsYmFjayBmb3IgYSBwbGF0Zm9ybSBkcml2ZXIgcmV0dXJucyBhbiBp
-bnQgd2hpY2ggbWFrZXMKbWFueSBkcml2ZXIgYXV0aG9ycyB3cm9uZ2x5IGFzc3VtZSBpdCdzIHBv
-c3NpYmxlIHRvIGRvIGVycm9yIGhhbmRsaW5nIGJ5CnJldHVybmluZyBhbiBlcnJvciBjb2RlLiBI
-b3dldmVyIHRoZSB2YWx1ZSByZXR1cm5lZCBpcyAobW9zdGx5KSBpZ25vcmVkCmFuZCB0aGlzIHR5
-cGljYWxseSByZXN1bHRzIGluIHJlc291cmNlIGxlYWtzLiBUbyBpbXByb3ZlIGhlcmUgdGhlcmUg
-aXMgYQpxdWVzdCB0byBtYWtlIHRoZSByZW1vdmUgY2FsbGJhY2sgcmV0dXJuIHZvaWQuIEluIHRo
-ZSBmaXJzdCBzdGVwIG9mIHRoaXMKcXVlc3QgYWxsIGRyaXZlcnMgYXJlIGNvbnZlcnRlZCB0byAu
-cmVtb3ZlX25ldygpIHdoaWNoIGFscmVhZHkgcmV0dXJucwp2b2lkLgoKVHJpdmlhbGx5IGNvbnZl
-cnQgdGhpcyBkcml2ZXIgZnJvbSBhbHdheXMgcmV0dXJuaW5nIHplcm8gaW4gdGhlIHJlbW92ZQpj
-YWxsYmFjayB0byB0aGUgdm9pZCByZXR1cm5pbmcgdmFyaWFudC4KClNpZ25lZC1vZmYtYnk6IFV3
-ZSBLbGVpbmUtS8O2bmlnIDx1LmtsZWluZS1rb2VuaWdAcGVuZ3V0cm9uaXguZGU+Ci0tLQogZHJp
-dmVycy9jbGsvc3RtMzIvY2xrLXN0bTMybXAxMy5jIHwgNiArKy0tLS0KIDEgZmlsZSBjaGFuZ2Vk
-LCAyIGluc2VydGlvbnMoKyksIDQgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9j
-bGsvc3RtMzIvY2xrLXN0bTMybXAxMy5jIGIvZHJpdmVycy9jbGsvc3RtMzIvY2xrLXN0bTMybXAx
-My5jCmluZGV4IDExOTJlZWU4YWJlNC4uYzRhNzM3NDgyZmU1IDEwMDY0NAotLS0gYS9kcml2ZXJz
-L2Nsay9zdG0zMi9jbGstc3RtMzJtcDEzLmMKKysrIGIvZHJpdmVycy9jbGsvc3RtMzIvY2xrLXN0
-bTMybXAxMy5jCkBAIC0xNTkzLDE1ICsxNTkzLDEzIEBAIHN0YXRpYyBpbnQgc3RtMzJtcDFfcmNj
-X2Nsb2Nrc19wcm9iZShzdHJ1Y3QgcGxhdGZvcm1fZGV2aWNlICpwZGV2KQogCXJldHVybiByZXQ7
-CiB9CiAKLXN0YXRpYyBpbnQgc3RtMzJtcDFfcmNjX2Nsb2Nrc19yZW1vdmUoc3RydWN0IHBsYXRm
-b3JtX2RldmljZSAqcGRldikKK3N0YXRpYyB2b2lkIHN0bTMybXAxX3JjY19jbG9ja3NfcmVtb3Zl
-KHN0cnVjdCBwbGF0Zm9ybV9kZXZpY2UgKnBkZXYpCiB7CiAJc3RydWN0IGRldmljZSAqZGV2ID0g
-JnBkZXYtPmRldjsKIAlzdHJ1Y3QgZGV2aWNlX25vZGUgKmNoaWxkLCAqbnAgPSBkZXZfb2Zfbm9k
-ZShkZXYpOwogCiAJZm9yX2VhY2hfYXZhaWxhYmxlX2NoaWxkX29mX25vZGUobnAsIGNoaWxkKQog
-CQlvZl9jbGtfZGVsX3Byb3ZpZGVyKGNoaWxkKTsKLQotCXJldHVybiAwOwogfQogCiBzdGF0aWMg
-c3RydWN0IHBsYXRmb3JtX2RyaXZlciBzdG0zMm1wMTNfcmNjX2Nsb2Nrc19kcml2ZXIgPSB7CkBA
-IC0xNjEwLDcgKzE2MDgsNyBAQCBzdGF0aWMgc3RydWN0IHBsYXRmb3JtX2RyaXZlciBzdG0zMm1w
-MTNfcmNjX2Nsb2Nrc19kcml2ZXIgPSB7CiAJCS5vZl9tYXRjaF90YWJsZSA9IHN0bTMybXAxM19t
-YXRjaF9kYXRhLAogCX0sCiAJLnByb2JlID0gc3RtMzJtcDFfcmNjX2Nsb2Nrc19wcm9iZSwKLQku
-cmVtb3ZlID0gc3RtMzJtcDFfcmNjX2Nsb2Nrc19yZW1vdmUsCisJLnJlbW92ZV9uZXcgPSBzdG0z
-Mm1wMV9yY2NfY2xvY2tzX3JlbW92ZSwKIH07CiAKIHN0YXRpYyBpbnQgX19pbml0IHN0bTMybXAx
-M19jbG9ja3NfaW5pdCh2b2lkKQotLSAKMi4zOS4xCgpfX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3Rt
-MzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rv
-cm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
+smatch reports several warnings
+drivers/iio/adc/stm32-adc.c:2591:20: warning:
+  symbol 'stm32_adc_min_ts_h7' was not declared. Should it be static?
+drivers/iio/adc/stm32-adc.c:2610:20: warning:
+  symbol 'stm32_adc_min_ts_mp1' was not declared. Should it be static?
+drivers/iio/adc/stm32-adc.c:2630:20: warning:
+  symbol 'stm32_adc_min_ts_mp13' was not declared. Should it be static?
+
+These variables are only used in stm32-adc.c, so they should be static
+
+Signed-off-by: Tom Rix <trix@redhat.com>
+---
+ drivers/iio/adc/stm32-adc.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/iio/adc/stm32-adc.c b/drivers/iio/adc/stm32-adc.c
+index 45d4e79f8e55..1aadb2ad2cab 100644
+--- a/drivers/iio/adc/stm32-adc.c
++++ b/drivers/iio/adc/stm32-adc.c
+@@ -2588,7 +2588,7 @@ static const struct stm32_adc_cfg stm32f4_adc_cfg = {
+ 	.irq_clear = stm32f4_adc_irq_clear,
+ };
+ 
+-const unsigned int stm32_adc_min_ts_h7[] = { 0, 0, 0, 4300, 9000 };
++static const unsigned int stm32_adc_min_ts_h7[] = { 0, 0, 0, 4300, 9000 };
+ static_assert(ARRAY_SIZE(stm32_adc_min_ts_h7) == STM32_ADC_INT_CH_NB);
+ 
+ static const struct stm32_adc_cfg stm32h7_adc_cfg = {
+@@ -2607,7 +2607,7 @@ static const struct stm32_adc_cfg stm32h7_adc_cfg = {
+ 	.ts_int_ch = stm32_adc_min_ts_h7,
+ };
+ 
+-const unsigned int stm32_adc_min_ts_mp1[] = { 100, 100, 100, 4300, 9800 };
++static const unsigned int stm32_adc_min_ts_mp1[] = { 100, 100, 100, 4300, 9800 };
+ static_assert(ARRAY_SIZE(stm32_adc_min_ts_mp1) == STM32_ADC_INT_CH_NB);
+ 
+ static const struct stm32_adc_cfg stm32mp1_adc_cfg = {
+@@ -2627,7 +2627,7 @@ static const struct stm32_adc_cfg stm32mp1_adc_cfg = {
+ 	.ts_int_ch = stm32_adc_min_ts_mp1,
+ };
+ 
+-const unsigned int stm32_adc_min_ts_mp13[] = { 100, 0, 0, 4300, 9800 };
++static const unsigned int stm32_adc_min_ts_mp13[] = { 100, 0, 0, 4300, 9800 };
+ static_assert(ARRAY_SIZE(stm32_adc_min_ts_mp13) == STM32_ADC_INT_CH_NB);
+ 
+ static const struct stm32_adc_cfg stm32mp13_adc_cfg = {
+-- 
+2.27.0
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
