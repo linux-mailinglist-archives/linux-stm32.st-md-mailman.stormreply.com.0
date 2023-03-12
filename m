@@ -2,65 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 346196B6118
-	for <lists+linux-stm32@lfdr.de>; Sat, 11 Mar 2023 22:45:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 925296B62F6
+	for <lists+linux-stm32@lfdr.de>; Sun, 12 Mar 2023 03:54:18 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id ED8AFC6A60C;
-	Sat, 11 Mar 2023 21:45:58 +0000 (UTC)
-Received: from mail-yb1-f179.google.com (mail-yb1-f179.google.com
- [209.85.219.179])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 38F7AC6A60C;
+	Sun, 12 Mar 2023 02:54:18 +0000 (UTC)
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 88223C6A608
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AA5DBC01E98
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 11 Mar 2023 21:45:57 +0000 (UTC)
-Received: by mail-yb1-f179.google.com with SMTP id i6so8437837ybu.8
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 11 Mar 2023 13:45:57 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1678571156;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=xIO3rO4aGCtwUEkB8d2zjOpDq8nsRdAWUmtEv8HqUxo=;
- b=tcydFMereuu6QiVey96AVlVmSth/WTgNtXhO9Ex+Fvikha6efmOWzBJk6/nlCNnDDx
- QMNI0FigegqadxnzYIGjfGHURM0kNb6Mny+7st4f867ym/B9npZBSZWLoG80BScSKtBS
- DQnflxWRufkNTJf3mCTWRnlc2Lw+NhDHX97JB+rtzrVhWnGh9o3s7AOjrUSaeBqXKE7O
- HT94zNppNjMfYW3lHuA61ZHYfLxYlkqhEWFaAP5F6vkdTgdcPYq3dPid771R2OuomXoY
- IKypPMFuNgvFqT3oX4T8XRkOPkPLOInUZrEM/Wmkxk0ZEkjZrAq1B3weXd9zSB/rYSH8
- XpJQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1678571156;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=xIO3rO4aGCtwUEkB8d2zjOpDq8nsRdAWUmtEv8HqUxo=;
- b=6ZPL5MzKHW7r0voO3QkKbLxqVDadUfhd3K40mUzBPR4gaAR79C3vGyy/o6+xe5V6Rp
- N8fkY86N/RzkX6nAx/zf6doY6/6liRSBNj0PHc9AEPLerpk3KH++mNSniZY2KgmvEUZ4
- 0zCuFROpspAEAh854xGPyJkRhs1whnw03gSYy7i5OgGaAmwIYrCHnLuE9PKbqEWL9CNz
- qutYcw+ieecabc5mwDdbX6ARz9Q3D+DBeVDZyMU/wnzasTBQ607rOT046Jk7paYjLA+a
- HRJvWsAUWzPBtDmOCo5MsLogaBZj3xasVwJVCeom/wp1fVnX2UyZh6iIiiLEUoaAjM95
- kxrg==
-X-Gm-Message-State: AO0yUKWZbs0DIdZjJ5SA7C/OSZqGJsyxgjUEh6kjH8OzyEhj1wSg5JMW
- 85aYF8VnEjwDF5EC6rGwhIYoAswZIUgoPZEHKZY84w==
-X-Google-Smtp-Source: AK7set97TRRn5zro0f1CokXy1dp6GtRXg6jzkXUSAR5uBUJ6eQKiMW5l+rX3fqvk3vDUcvlZRQ+1eNhDn+TE93s9NLg=
-X-Received: by 2002:a25:e201:0:b0:b2e:f387:b428 with SMTP id
- h1-20020a25e201000000b00b2ef387b428mr4074930ybe.5.1678571156557; Sat, 11 Mar
- 2023 13:45:56 -0800 (PST)
+ Sun, 12 Mar 2023 02:54:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+ s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+ References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+ Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+ Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+ bh=xLIgvG34Sc+lDohdVZWPEZo6FgjzStnEHWeCstzLe6k=; b=JJC1gzH4XjKAY1yMwNL6sqcv37
+ gSSSB8dGXc3gMl0PdFDUv5w3aSdiDh9830SEmmbma+yikri5UNuOesvefuHisH8/fpv0HNO4ICXC0
+ Pr97yR0lgntFbgpaWKDDaTvR4i/nOnW29hKU0w3QeXYDB7DkO1n6s7925UjcRlWlZ4eU=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+ (envelope-from <andrew@lunn.ch>)
+ id 1pbBq8-0075xU-UV; Sun, 12 Mar 2023 03:53:40 +0100
+Date: Sun, 12 Mar 2023 03:53:40 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: Klaus Kudielka <klaus.kudielka@gmail.com>
+Message-ID: <29ee3cc4-a1d6-4a07-8d90-4b2f26059e7d@lunn.ch>
+References: <db6b8a09-b680-4baa-8963-d355ad29eb09@lunn.ch>
+ <0e10aa8492eadb587949d8744b56fccaabbd183b.camel@gmail.com>
+ <72530e86-9ba9-4a01-9cd2-68835ecae7a0@lunn.ch>
+ <09d65e1ee0679e1e74b4f3a5a4c55bd48332f043.camel@gmail.com>
+ <70f5bca0-322c-4bae-b880-742e56365abe@lunn.ch>
+ <10da10caea22a8f5da8f1779df3e13b948e8a363.camel@gmail.com>
+ <4abd56aa-5b9f-4e16-b0ca-11989bb8c764@lunn.ch>
+ <bff0e542b8c04980e9e3af1d3e6bf739c87eb514.camel@gmail.com>
+ <a57a216d-ff5a-46e6-9780-e53772dcefc8@lunn.ch>
+ <2f64385a350359c5755eb4d2479e2efef7a96216.camel@gmail.com>
 MIME-Version: 1.0
-References: <ZAxFBR3TdA7jUAgJ@gondor.apana.org.au>
- <E1pavED-002xbf-LL@formenos.hmeau.com>
-In-Reply-To: <E1pavED-002xbf-LL@formenos.hmeau.com>
-From: Linus Walleij <linus.walleij@linaro.org>
-Date: Sat, 11 Mar 2023 22:45:44 +0100
-Message-ID: <CACRpkdav9u1_YR7mc9iz2OR=6itHhgGBFobZdtniZ7TttLY0Tw@mail.gmail.com>
-To: Herbert Xu <herbert@gondor.apana.org.au>
-Cc: Li kunyu <kunyu@nfschina.com>, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-crypto@vger.kernel.org,
- mcoquelin.stm32@gmail.com, davem@davemloft.net,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [v7 PATCH 8/8] crypto: stm32 - Save and restore
-	between each request
+Content-Disposition: inline
+In-Reply-To: <2f64385a350359c5755eb4d2479e2efef7a96216.camel@gmail.com>
+Cc: linux-aspeed@lists.ozlabs.org,
+ Jesse Brandeburg <jesse.brandeburg@intel.com>,
+ Eric Dumazet <edumazet@google.com>, linux-stm32@st-md-mailman.stormreply.com,
+ Russell King <linux@armlinux.org.uk>, Jose Abreu <joabreu@synopsys.com>,
+ Joel Stanley <joel@jms.id.au>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Lorenzo Bianconi <lorenzo@kernel.org>,
+ Mark Lee <Mark-MC.Lee@mediatek.com>, Sean Wang <sean.wang@mediatek.com>,
+ linux-mediatek@lists.infradead.org, John Crispin <john@phrozen.org>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ linux-arm-kernel@lists.infradead.org, Andrew Jeffery <andrew@aj.id.au>,
+ Bryan Whitehead <bryan.whitehead@microchip.com>, linux-kernel@vger.kernel.org,
+ UNGLinuxDriver@microchip.com, Michael Walle <michael@walle.cc>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
+ Heiner Kallweit <hkallweit1@gmail.com>,
+ "David S. Miller" <davem@davemloft.net>, Felix Fietkau <nbd@nbd.name>
+Subject: Re: [Linux-stm32] [PATCH net-next v2 4/6] net: mdio: scan bus based
+ on bus capabilities for C22 and C45
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,29 +70,91 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gU2F0LCBNYXIgMTEsIDIwMjMgYXQgMTA6MDnigK9BTSBIZXJiZXJ0IFh1IDxoZXJiZXJ0QGdv
-bmRvci5hcGFuYS5vcmcuYXU+IHdyb3RlOgoKPiBUaGUgQ3J5cHRvIEFQSSBoYXNoaW5nIHBhcmFk
-aWdtIHJlcXVpcmVzIHRoZSBoYXJkd2FyZSBzdGF0ZSB0bwo+IGJlIGV4cG9ydGVkIGJldHdlZW4g
-KmVhY2gqIHJlcXVlc3QgYmVjYXVzZSBtdWx0aXBsZSB1bnJlbGF0ZWQKPiBoYXNoZXMgbWF5IGJl
-IHByb2Nlc3NlZCBjb25jdXJyZW50bHkuCj4KPiBUaGUgc3RtMzIgaGFyZHdhcmUgaXMgY2FwYWJs
-ZSBvZiBwcm9kdWNpbmcgdGhlIGhhcmR3YXJlIGhhc2hpbmcKPiBzdGF0ZSBidXQgaXQgd2FzIG9u
-bHkgZG9pbmcgaXQgaW4gdGhlIGV4cG9ydCBmdW5jdGlvbi4gIFRoaXMgaXMKPiBub3Qgb25seSBi
-cm9rZW4gZm9yIGV4cG9ydCBhcyB5b3UgY2FuJ3QgZXhwb3J0IGEga2VybmVsIHBvaW50ZXIKPiBh
-bmQgcmVpbXBvcnQgaXQsIGJ1dCBpdCBhbHNvIG1lYW5zIHRoYXQgY29uY3VycmVudCBoYXNoaW5n
-IHdhcwo+IGZ1bmRhbWVudGFsbHkgYnJva2VuLgo+Cj4gRml4IHRoaXMgYnkgbW92aW5nIHRoZSBz
-YXZpbmcgYW5kIHJlc3RvcmluZyBvZiBoYXJkd2FyZSBoYXNoCj4gc3RhdGUgYmV0d2VlbiBlYWNo
-IGFuZCBldmVyeSBoYXNoaW5nIHJlcXVlc3QuCj4KPiBGaXhlczogOGExMDEyZDNmMmFiICgiY3J5
-cHRvOiBzdG0zMiAtIFN1cHBvcnQgZm9yIFNUTTMyIEhBU0ggbW9kdWxlIikKPiBSZXBvcnRlZC1i
-eTogTGkga3VueXUgPGt1bnl1QG5mc2NoaW5hLmNvbT4KPiBTaWduZWQtb2ZmLWJ5OiBIZXJiZXJ0
-IFh1IDxoZXJiZXJ0QGdvbmRvci5hcGFuYS5vcmcuYXU+CgpSZXZpZXdlZC1ieTogTGludXMgV2Fs
-bGVpaiA8bGludXMud2FsbGVpakBsaW5hcm8ub3JnPgpUZXN0ZWQtYnk6IExpbnVzIFdhbGxlaWog
-PGxpbnVzLndhbGxlaWpAbGluYXJvLm9yZz4KCllvdXJzLApMaW51cyBXYWxsZWlqCl9fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxp
-bmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8v
-c3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMy
-Cg==
+> Here's the definition of the switch in the Turris Omnia device tree.
+> 
+> 	/* Switch MV88E6176 at address 0x10 */
+> 	switch@10 {
+> 		pinctrl-names = "default";
+> 		pinctrl-0 = <&swint_pins>;
+> 		compatible = "marvell,mv88e6085";
+> 		#address-cells = <1>;
+> 		#size-cells = <0>;
+> 
+> 		dsa,member = <0 0>;
+> 		reg = <0x10>;
+> 
+> 		interrupt-parent = <&gpio1>;
+> 		interrupts = <13 IRQ_TYPE_LEVEL_LOW>;
+> 
+> 		ports {
+> 			#address-cells = <1>;
+> 			#size-cells = <0>;
+> 
+> 			ports@0 {
+> 				reg = <0>;
+> 				label = "lan0";
+> 			};
+> 
+> 			ports@1 {
+> 				reg = <1>;
+> 				label = "lan1";
+> 			};
+> 
+> 			ports@2 {
+> 				reg = <2>;
+> 				label = "lan2";
+> 			};
+> 
+> 			ports@3 {
+> 				reg = <3>;
+> 				label = "lan3";
+> 			};
+> 
+> 			ports@4 {
+> 				reg = <4>;
+> 				label = "lan4";
+> 			};
+> 
+> 			ports@5 {
+> 				reg = <5>;
+> 				label = "cpu";
+> 				ethernet = <&eth1>;
+> 				phy-mode = "rgmii-id";
+> 
+> 				fixed-link {
+> 					speed = <1000>;
+> 					full-duplex;
+> 				};
+> 			};
+> 
+> 			ports@6 {
+> 				reg = <6>;
+> 				label = "cpu";
+> 				ethernet = <&eth0>;
+> 				phy-mode = "rgmii-id";
+> 
+> 				fixed-link {
+> 					speed = <1000>;
+> 					full-duplex;
+> 				};
+> 			};
+> 		};
+> 
+> What you are proposing here would not show any improvement on the
+> Omnia, as only the 6 ports would be scanned - right? 
+
+Correct. But their also should not of been any noticeable slow down,
+because there should not be any additional scanning when everything is
+described in DT. And the move of the MDIO bus registration from probe
+to setup should actually make it faster than before.
+
+	  Andrew
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
