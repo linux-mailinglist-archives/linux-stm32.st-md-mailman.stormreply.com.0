@@ -2,95 +2,48 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF7576B6770
-	for <lists+linux-stm32@lfdr.de>; Sun, 12 Mar 2023 16:15:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 486E76B6798
+	for <lists+linux-stm32@lfdr.de>; Sun, 12 Mar 2023 16:42:25 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 85CE3C69073;
-	Sun, 12 Mar 2023 15:15:45 +0000 (UTC)
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
- [209.85.128.41])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E99F0C69073;
+	Sun, 12 Mar 2023 15:42:24 +0000 (UTC)
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [85.220.165.71])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 31EC9C65E59
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6DB2CC57B6A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 12 Mar 2023 15:15:44 +0000 (UTC)
-Received: by mail-wm1-f41.google.com with SMTP id
- l7-20020a05600c4f0700b003e79fa98ce1so6341933wmq.2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 12 Mar 2023 08:15:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20210112; t=1678634143;
- h=mime-version:user-agent:content-transfer-encoding:references
- :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
- :date:message-id:reply-to;
- bh=HKhPGEn48aizwdQtbeZiRqDsuVUTk1YIcEaDe2udzRA=;
- b=gEuJTs8rAj1FCry+rF1CeDbSIJK4LxGMUnOjarG4/VP8KKgqsJUS97hWWDm/LLbiLW
- DNQ0Lgv+r71NlgTtrHCdRkFUVfk67F+DDREcWS4aUT+4VSSOCJmJZsO8W0QkU9rwf7Pt
- Cn53G5xe1ZmguLXX7D5vjKUUiGAvx0jMMHBtIGc0xb6cQC0pyqgYzQq/5exWq7S2NgAw
- puJNDQ7cMwLtW2DmEDwPz2M617RtRbHrqK+okSwZHzrkzpQJMYdHvGJ3PJY/Qo8cR4bp
- uGPv8bwajsDGqCgW0wzlKakgzcPmmU6xg/kmQMWn5STGhVY0qNHM1t9MX50d2RvaCpBy
- MmyA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1678634143;
- h=mime-version:user-agent:content-transfer-encoding:references
- :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=HKhPGEn48aizwdQtbeZiRqDsuVUTk1YIcEaDe2udzRA=;
- b=fnHXGFFIQyYB9EZHG1gZ5p6+49ql3n8N0cf48opn9M+63WbRiH+n8wDtrgd8rz+SDK
- HL6ukF3EfbiDK9kWP72NL+yJ/O4Kf5j27MZvDXvO5IVwiUVfLL8G2G6SHUjsbGiUT9H6
- Bx76AA14dtF3j0BizOHlmsvqDOXy391oIPrp1+cq7Z/oAJhM1X/+PKfSg0Dzd80+7FaE
- VohU+DZxQVCcVpfilcVJbqkLdFSkpN+FfbgU02wMggLQlodxCSv1sRsswUM3hGkRXRMg
- VbUfSD3wqpdoGO9cvV8QTirat4m3Av2duhdlf5AAdiJ7KPX18r8hgWpduNA9D0WiLEgx
- Yh7g==
-X-Gm-Message-State: AO0yUKUMapMUFe0eQAcX6tbsbxrHr9zlXQsvb7FxURSNqDzSy0omfMSb
- H950K2e4RIpbmkj+ZMe9MfA=
-X-Google-Smtp-Source: AK7set/bjPBg/zjhzM6DAttzOabIYrkqkkyVgJDWMpQSEhOR00TB9rrFvoFv2QmmclSj+Zkfo4wXvg==
-X-Received: by 2002:a05:600c:46cc:b0:3ed:1f9c:aeff with SMTP id
- q12-20020a05600c46cc00b003ed1f9caeffmr2414620wmo.36.1678634143542; 
- Sun, 12 Mar 2023 08:15:43 -0700 (PDT)
-Received: from ?IPv6:2a02:168:6806:0:1606:cc8d:640:3d4d?
- ([2a02:168:6806:0:1606:cc8d:640:3d4d])
- by smtp.gmail.com with ESMTPSA id
- v7-20020a05600c444700b003e204fdb160sm6741547wmn.3.2023.03.12.08.15.42
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 12 Mar 2023 08:15:42 -0700 (PDT)
-Message-ID: <024b696003d8403d62c45411c813058684e0418c.camel@gmail.com>
-From: Klaus Kudielka <klaus.kudielka@gmail.com>
-To: Andrew Lunn <andrew@lunn.ch>
-Date: Sun, 12 Mar 2023 16:15:41 +0100
-In-Reply-To: <0a1ec04fe494fcd8c68d03e4f544d7162c0e4f39.camel@gmail.com>
-References: <db6b8a09-b680-4baa-8963-d355ad29eb09@lunn.ch>
- <0e10aa8492eadb587949d8744b56fccaabbd183b.camel@gmail.com>
- <72530e86-9ba9-4a01-9cd2-68835ecae7a0@lunn.ch>
- <09d65e1ee0679e1e74b4f3a5a4c55bd48332f043.camel@gmail.com>
- <70f5bca0-322c-4bae-b880-742e56365abe@lunn.ch>
- <10da10caea22a8f5da8f1779df3e13b948e8a363.camel@gmail.com>
- <4abd56aa-5b9f-4e16-b0ca-11989bb8c764@lunn.ch>
- <bff0e542b8c04980e9e3af1d3e6bf739c87eb514.camel@gmail.com>
- <a57a216d-ff5a-46e6-9780-e53772dcefc8@lunn.ch>
- <2f64385a350359c5755eb4d2479e2efef7a96216.camel@gmail.com>
- <29ee3cc4-a1d6-4a07-8d90-4b2f26059e7d@lunn.ch>
- <0a1ec04fe494fcd8c68d03e4f544d7162c0e4f39.camel@gmail.com>
-User-Agent: Evolution 3.46.4-1 
+ Sun, 12 Mar 2023 15:42:23 +0000 (UTC)
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+ by metis.ext.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1pbNpx-0004iu-Dx; Sun, 12 Mar 2023 16:42:17 +0100
+Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
+ by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.94.2)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1pbNpv-003eWq-3a; Sun, 12 Mar 2023 16:42:15 +0100
+Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.94.2)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1pbNpu-004Jch-3M; Sun, 12 Mar 2023 16:42:14 +0100
+Date: Sun, 12 Mar 2023 16:42:10 +0100
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Message-ID: <20230312154210.ovm54x2qtcv7fp7r@pengutronix.de>
+References: <20230312135120.357713-1-krzysztof.kozlowski@linaro.org>
 MIME-Version: 1.0
-Cc: linux-aspeed@lists.ozlabs.org,
- Jesse Brandeburg <jesse.brandeburg@intel.com>,
- Eric Dumazet <edumazet@google.com>, linux-stm32@st-md-mailman.stormreply.com,
- Russell King <linux@armlinux.org.uk>, Jose Abreu <joabreu@synopsys.com>,
- Joel Stanley <joel@jms.id.au>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Lorenzo Bianconi <lorenzo@kernel.org>,
- Mark Lee <Mark-MC.Lee@mediatek.com>, Sean Wang <sean.wang@mediatek.com>,
- linux-mediatek@lists.infradead.org, John Crispin <john@phrozen.org>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- linux-arm-kernel@lists.infradead.org, Andrew Jeffery <andrew@aj.id.au>,
- Bryan Whitehead <bryan.whitehead@microchip.com>, linux-kernel@vger.kernel.org,
- UNGLinuxDriver@microchip.com, Michael Walle <michael@walle.cc>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
- Heiner Kallweit <hkallweit1@gmail.com>, "David S.
- Miller" <davem@davemloft.net>, Felix Fietkau <nbd@nbd.name>
-Subject: Re: [Linux-stm32] [PATCH net-next v2 4/6] net: mdio: scan bus based
- on bus capabilities for C22 and C45
+In-Reply-To: <20230312135120.357713-1-krzysztof.kozlowski@linaro.org>
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: ukl@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
+Cc: linux-pwm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v2 1/2] pwm: rcar: drop of_match_ptr for
+	ID table
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,40 +55,107 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============0787839901585850741=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Sun, 2023-03-12 at 10:04 +0100, Klaus Kudielka wrote:
-> On Sun, 2023-03-12 at 03:53 +0100, Andrew Lunn wrote:
-> > 
-> > Correct. But their also should not of been any noticeable slow down,
-> > because there should not be any additional scanning when everything is
-> > described in DT. And the move of the MDIO bus registration from probe
-> > to setup should actually make it faster than before.
-> > 
-> 
-> But then, why *do* I see such a big difference on the Omnia?
-> 
-> mdiobus_scan_bus_c45() takes:
-> ~2.7 seconds without phy_mask patch
-> ~0.2 seconds with phy_mask patch
 
-Following up myself, the answer is in the call path
-mv88e6xxx_mdios_register()
-	 -> mv88e6xxx_mdio_register()
-		-> of_mdiobus_register()
+--===============0787839901585850741==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="dzhk73rozkcsmxbj"
+Content-Disposition: inline
 
-A child node "mdio" would be needed for the scan to be limited by
-the device tree. And this one is *not* in armada-385-turris-omnia.dts.
 
-My (incorrect) understanding was, the child node "ports" would trigger
-that behaviour.
+--dzhk73rozkcsmxbj
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Best regards, Klaus
+Hello,
+
+On Sun, Mar 12, 2023 at 02:51:19PM +0100, Krzysztof Kozlowski wrote:
+> The driver can match only via the DT table so the table should be always
+> used and the of_match_ptr does not have any sense (this also allows ACPI
+> matching via PRP0001, even though it might not be relevant here).  This
+> also fixes !CONFIG_OF error:
+>=20
+>   drivers/pwm/pwm-rcar.c:252:34: error: =E2=80=98rcar_pwm_of_table=E2=80=
+=99 defined but not used [-Werror=3Dunused-const-variable=3D]
+>=20
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+
+Hmm, I wonder what else is required here to trigger that warning. On
+amd64 I also disabled CONFIG_MODULES as otherwise rcar_pwm_of_table is
+used by
+
+	MODULE_DEVICE_TABLE(of, rcar_pwm_of_table);
+
+With that I have:
+
+	uwe@taurus:~/work/kbuild/amd64$ make drivers/pwm/pwm-rcar.o=20
+	  GEN     Makefile
+	  CALL    /home/uwe/gsrc/linux/scripts/checksyscalls.sh
+	  DESCEND objtool
+	  INSTALL libsubcmd_headers
+	  CC      drivers/pwm/pwm-rcar.o
+	uwe@taurus:~/work/kbuild/amd64$ make drivers/pwm/pwm-rcar.i
+	  GEN     Makefile
+	  CALL    /home/uwe/gsrc/linux/scripts/checksyscalls.sh
+	  DESCEND objtool
+	  INSTALL libsubcmd_headers
+	  CPP     drivers/pwm/pwm-rcar.i
+	uwe@taurus:~/work/kbuild/amd64$ grep rcar_pwm_of_table drivers/pwm/pwm-rca=
+r.i
+	static const struct of_device_id rcar_pwm_of_table[] =3D {
+
+=2E.. some time later ...
+
+ah, you also need W=3D1 to get that warning because of
+
+	# These warnings generated too much noise in a regular build.
+	# Use make W=3D1 to enable them (see scripts/Makefile.extrawarn)
+	KBUILD_CFLAGS +=3D $(call cc-disable-warning, unused-but-set-variable)
+	KBUILD_CFLAGS +=3D $(call cc-disable-warning, unused-const-variable)
+
+in the toplevel Makefile.
+
+I guess that explains why there is no previous report by one of the
+build bots about this issue.
+
+Best regards
+Uwe
+
+--=20
+Pengutronix e.K.                           | Uwe Kleine-K=C3=B6nig         =
+   |
+Industrial Linux Solutions                 | https://www.pengutronix.de/ |
+
+--dzhk73rozkcsmxbj
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEfnIqFpAYrP8+dKQLwfwUeK3K7AkFAmQN8s4ACgkQwfwUeK3K
+7AmBVgf7BWzGBbyB5eY9U2UaqiiAl/c9xENIkpkw2tYuoglHWE09cMrY/hlqK09q
+vcHFteBiC+YSGAU7zSFi32vQlMtsKfryHrjIviXMzpBIFoILcElV2F+YsLz9hjj7
+eq1q3DWTzmpQRGSi931BW1CnCTuVg63WwxEUPXyN25CijA/jnsiiiZUIMmxqcCso
+KAai0pDUEn+K2KCxU3Tl89cghJu3Ov7J5teDsbqwlmkpywi3Uc7EblFTnjI5Cb6x
+6GHENVTVp2R6Tignc+6O8V8ne1DEdBkMmZp19Cf+g1bdWNWBjvYOFmcaJdYHqPTX
+bfpswuOSYEJEHycPG8AcCJls5KbKpg==
+=7TYH
+-----END PGP SIGNATURE-----
+
+--dzhk73rozkcsmxbj--
+
+--===============0787839901585850741==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============0787839901585850741==--
