@@ -2,126 +2,91 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 06E186B7D79
-	for <lists+linux-stm32@lfdr.de>; Mon, 13 Mar 2023 17:28:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 50B0F6B7E10
+	for <lists+linux-stm32@lfdr.de>; Mon, 13 Mar 2023 17:49:46 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B530BC69053;
-	Mon, 13 Mar 2023 16:28:16 +0000 (UTC)
-Received: from NAM02-BN1-obe.outbound.protection.outlook.com
- (mail-bn1nam02on2134.outbound.protection.outlook.com [40.107.212.134])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F0D7BC65E5A;
+	Mon, 13 Mar 2023 16:49:45 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 667A8C035BC
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 13 Mar 2023 16:49:44 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1CAF4C6904A
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 13 Mar 2023 16:28:15 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=KCrDgWcoqdNjFYQI37E/dlCp2k8O9KiNV/nZ6Jbz+wJKrKRh4WSXKtGWm7m7mVkevnjwzPzM4xVK8jZLN7B85c4bHpzPCm0tQbVabfL5wfS98ptAPwbjvtDPhllMPC6edvfDazhgQgFWgKOO6YaH60Od0LSI5xMWe3vji2r2DEY0zw2XnhIqqx228Yo2o8VDjcQH7ioVndqg9iGK65avvKlv3f8vrsZS4cXrO4scsmVVgkCHYDLnmP3t7L4Fybf9sXPh+x06hUEz/tqzV2Cn/UE8fwEuhOgA8sb3BxBCFiuvvaBJejMBXP/HsNvFA/76xvsjTpvvzm5q+zBbONoPvw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hVNv5/yl2U+V/UZxwhbaP/kIuuHZMdWCNoRtjcpS4C4=;
- b=GyhKdLyeKJjSseKc6reEWvzinermI+sP1b1+RMAUFGYJCOPwVXFO126hieGUjaSbPaXayjJU5NZZKVpRf7ThC/LYNOzxxDwcsqk6FGtU4Noz4CkxWewEeZ52igFBYzQv371La78PdYn8ufyCuMSRMszlTq27w3Fda64DqH7OhDSfsH27KoQ6m26mjYzZMbdI1ZEVGYU2ZfB9udlAhtqGX1ZfkwZeXgLKhSP+6c8kbPxqTB9Bm2yU5NmR2OsqRHCkDFeFmF/As7A5QYRnM40XlefP0bU1sDo5sjkKTRgrR3d7f6QtHl8X+rPLfrCBIQnGMS/NmuRyDNVg+CYFoRdJOQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=corigine.com; dmarc=pass action=none header.from=corigine.com;
- dkim=pass header.d=corigine.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=corigine.onmicrosoft.com; s=selector2-corigine-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hVNv5/yl2U+V/UZxwhbaP/kIuuHZMdWCNoRtjcpS4C4=;
- b=Ler8am5divGsBBiJ/pT/iKIfZ5O7r9FztgjxzCckwlLrx2Eh5iWZM1nR4Wtn7IytXuiI7LpgQk3a/7svUfJgj0cSf10Ve71Tu0NjVufwzharZdUS04vwFRfAc019TTWhXYTQG5biE4oqy9gf7Z7Y8OzovwJzpMQbKy9aRA+iXUU=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=corigine.com;
-Received: from PH0PR13MB4842.namprd13.prod.outlook.com (2603:10b6:510:78::6)
- by DM6PR13MB4147.namprd13.prod.outlook.com (2603:10b6:5:2a0::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.24; Mon, 13 Mar
- 2023 16:28:12 +0000
-Received: from PH0PR13MB4842.namprd13.prod.outlook.com
- ([fe80::85f5:bdb:fb9e:294c]) by PH0PR13MB4842.namprd13.prod.outlook.com
- ([fe80::85f5:bdb:fb9e:294c%2]) with mapi id 15.20.6178.024; Mon, 13 Mar 2023
- 16:28:11 +0000
-Date: Mon, 13 Mar 2023 17:28:04 +0100
-From: Simon Horman <simon.horman@corigine.com>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Message-ID: <ZA9PFB/0iphpTRWp@corigine.com>
-References: <20230310214632.275648-1-krzysztof.kozlowski@linaro.org>
- <20230310214632.275648-3-krzysztof.kozlowski@linaro.org>
-Content-Disposition: inline
-In-Reply-To: <20230310214632.275648-3-krzysztof.kozlowski@linaro.org>
-X-ClientProxiedBy: AS4P251CA0007.EURP251.PROD.OUTLOOK.COM
- (2603:10a6:20b:5d2::11) To PH0PR13MB4842.namprd13.prod.outlook.com
- (2603:10b6:510:78::6)
+ by ams.source.kernel.org (Postfix) with ESMTPS id EAFFCB811A1;
+ Mon, 13 Mar 2023 16:49:43 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD418C433EF;
+ Mon, 13 Mar 2023 16:49:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1678726182;
+ bh=8KYXMoHAD5Z4NBIseAq6bsT/0yPZHnSTiR9g+F3H6mQ=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=a2JoV3Ky1b2rAYHvjxOxSJk1TNI3heElPwvSF5YrOvneNeV0VdzwNhQXiUrffvmto
+ JA7P0WeiStnDt/6J8n1J9O5jnVgObXfH8lS4KXLMLBqO4DJUKBDJIvP6ivTa/Y09Sn
+ HR1pOKRuwrPDI/baAtt5wUZ6Gocqmmqr2buMgjA/aCshs3yaJSkT/BdMx60/VeJQN4
+ dkvphu6x3RN4fI6sEcajBAho9BdeW92stv1wsZ7bHVNaqIqINFZydvDFvpdEiWiF0m
+ eG/X/a/XjC1FXr2cscVZU8Cm2pQpTkDOWTAiQQum9/Cqx4Qc/c+wOmHVG5htVbTJPc
+ eI6rbG1xa4RhQ==
+From: Mark Brown <broonie@kernel.org>
+To: miquel.raynal@bootlin.com, richard@nod.at, vigneshr@ti.com, 
+ jic23@kernel.org, pratyush@kernel.org, Sanju.Mehta@amd.com, 
+ chin-ting_kuo@aspeedtech.com, clg@kaod.org, kdasu.kdev@gmail.com, 
+ f.fainelli@gmail.com, rjui@broadcom.com, sbranden@broadcom.com, 
+ eajames@linux.ibm.com, olteanv@gmail.com, han.xu@nxp.com, 
+ john.garry@huawei.com, shawnguo@kernel.org, s.hauer@pengutronix.de, 
+ khilman@baylibre.com, matthias.bgg@gmail.com, haibo.chen@nxp.com, 
+ linus.walleij@linaro.org, daniel@zonque.org, haojian.zhuang@gmail.com, 
+ robert.jarzmik@free.fr, agross@kernel.org, heiko@sntech.de, 
+ krzysztof.kozlowski@linaro.org, andi@etezian.org, mcoquelin.stm32@gmail.com, 
+ alexandre.torgue@foss.st.com, wens@csie.org, jernej.skrabec@gmail.com, 
+ samuel@sholland.org, masahisa.kojima@linaro.org, jaswinder.singh@linaro.org, 
+ rostedt@goodmis.org, mingo@redhat.com, l.stelmach@samsung.com, 
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org, 
+ pabeni@redhat.com, alex.aring@gmail.com, stefan@datenfreihafen.org, 
+ kvalo@kernel.org, james.schulman@cirrus.com, david.rhodes@cirrus.com, 
+ tanureal@opensource.cirrus.com, rf@opensource.cirrus.com, perex@perex.cz, 
+ tiwai@suse.com, npiggin@gmail.com, christophe.leroy@csgroup.eu, 
+ mpe@ellerman.id.au, oss@buserror.net, windhl@126.com, 
+ yangyingliang@huawei.com, william.zhang@broadcom.com, 
+ kursad.oney@broadcom.com, jonas.gorski@gmail.com, anand.gore@broadcom.com, 
+ rafal@milecki.pl, Tudor Ambarus <tudor.ambarus@linaro.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Amit Kumar Mahapatra <amit.kumar-mahapatra@amd.com>
+In-Reply-To: <20230306172109.595464-1-amit.kumar-mahapatra@amd.com>
+References: <20230306172109.595464-1-amit.kumar-mahapatra@amd.com>
+Message-Id: <167872615942.75015.12960472969249845825.b4-ty@kernel.org>
+Date: Mon, 13 Mar 2023 16:49:19 +0000
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH0PR13MB4842:EE_|DM6PR13MB4147:EE_
-X-MS-Office365-Filtering-Correlation-Id: c6e5bd49-ee93-499e-5d4a-08db23dfeffa
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: ldZxgN36bL5AR3kp2xWJzJbLRjYjL61KTJyKiVUXXZ1kCR9ZuJPG9DYRnXxSGbOgHq7tmjUW/Bw08lk4LDggSlhRt6ys7K2R1LGQSApf7Ud/FzMqpSV9TA1Z2UQwcuxGj0CrsOCMleflOyPkU4+lRSWt9eopEUR7az7YDxjP7NM+6+T97wIx1e/2U48/AWOF9ynfZIhMn6ZJzeA1jpRVJwVFmyqRUHMxRei0KxjgT4zCtOWus1gf0HdCNINQlIfD3nocROOIQgAl6G3UklwWqZe9t+B3NwZ69AFjlLW3MQpX+zH1qf+5DKbBR1EjJNIdZnRPwVXF+zB5J8ARWCI1IcV05jFIE3rhu2um1ksQaDCp7gJHiqHNS6xzfzPQFGOQCZs+3U3bRL3z+LCSKs2liGVXimikSDvdB2Frl+SXg93XRBcvJY1WpuUxxskjhE4fSCv0MLb22jCqjz54WfM3bQ2zZd7UH+8zQV7rYDgTBPC3jQdPxipmFQBW3KzQjCQ50RYh2SVG9cacZETo+5XBOZaWXfy8inyntpU6ZlzXylCBFCf64wmjPmJymvtFTg0WdDDr1tMLTlTOkOXzIoEP7x94WKV8UIm9kU+5ANGi/Rc6CY45ph0QOlOyVQxxKcht9p8YywhiVKgEM4aBxGnwOsbCq+6LQdV1o79At3w0xz6jkPAWDrOfru9ZRsVLX6Zw
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH0PR13MB4842.namprd13.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230025)(4636009)(366004)(39840400004)(346002)(396003)(376002)(136003)(451199018)(41300700001)(54906003)(478600001)(8676002)(4326008)(66556008)(66476007)(66946007)(8936002)(6916009)(36756003)(86362001)(38100700002)(6512007)(6486002)(6666004)(186003)(44832011)(5660300002)(7416002)(4744005)(2906002)(316002)(6506007)(2616005);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SzJaVk5PWDlpNXlTVWRpTzdvNkF3QmdNREE1NVQrSnJzMXNiWU05cEwxblgz?=
- =?utf-8?B?OUR2NjViVlZuc0pqZUg4K3BGUnhkYzFtSW1pOU9NeTZNOW05OEYvRFpPZE9Z?=
- =?utf-8?B?bEhnNlRIMG1sQXdYNldsZThtSGNhUmdTamZET0d4MUtHOVpzQ2w3QTFTcGVM?=
- =?utf-8?B?amNMZW8wYUM1bGhtUUdlTkE4MDNOa3J1M1N1UnFldjlIYmx2eEVhcWhCVVAw?=
- =?utf-8?B?M0pxM1l2QVM4aHozMzREZjFpZVZhTlZEcWtwV1BmUXhrZEhDNGtTN0hJcmZH?=
- =?utf-8?B?YUQ0S1BsRnpZZTlvbGJIaTFoK3lpa2lmRGgzbTlPMzlOdFluYWZFOWs0MXJE?=
- =?utf-8?B?aFlUYUplTlAxU2VDV2EvcEorMjdYVHhlZlJLODdZTnd6cG9UM0RibWxzaWNz?=
- =?utf-8?B?K1FHNDRYQlhUTnZ2S2wyeXZZVEJEK1FTcG4wdE1yL2I4dlZoODlsUTg5VTVR?=
- =?utf-8?B?TUQ2dXFRN2dNRWY5SDUxYmRUUEljcEMvOTFXVGxmY3JxSytObmNHN0drM0c5?=
- =?utf-8?B?T2ZnQk0vQ0R5bmI5aWRISmZyTEE5NTZxUUEzWXJrOTBseStLYmNIVHpmdEhY?=
- =?utf-8?B?UlJHZ2ZwNDY3U3E1aktqR2dhQm14WndhT3NGMkU0YmpXaUtPUVR2cUltKzlm?=
- =?utf-8?B?ajBYR1BydnBmNC9tT09MdWlpQkxmNmlpbVNvK3d6SWZTRVl3aU9rcFA1OWUx?=
- =?utf-8?B?OFJuRFJPQVVZZ0hqaVVyWmlkZEtIN3IxZUZLYitDdFNPQWFzdUMrZEFwZHIx?=
- =?utf-8?B?UjJVU0tvVllzYmxkMm1IMUZrR0hjUDZCNmhsQldqck9wR0c4QlhkYWg0U3py?=
- =?utf-8?B?b0RJVWQrSGsydUNNSytua0oyaVpsZFlGTXBoOE5JZ1NJYk1PM0dsZ0FZTUdl?=
- =?utf-8?B?Yy9pU2FJZEYrV0UwVkFneDNtbW5PdVJacXprclJxVkFsakhxY0llU0JIbVdV?=
- =?utf-8?B?dVAvWGdWZ3R6azVqRFk1azYrdTNneFNTNjJMbW43bzJEYnpYVmFTK3dPd2tz?=
- =?utf-8?B?enNhVCtyR25EeVY1bW44cUswYzE2VXJ6SWhhVFVLMFFwNlJKZDgyRGJUVmtZ?=
- =?utf-8?B?cFpqT25KY0tEdFBENW1POVpienZSTXZIZ0VEQ0R3bm4yZ3pxQWw5V1dpbWxJ?=
- =?utf-8?B?cURDQTRVbENnM3pWTVBvb0gvZnN2Vy9xbktkS3JRSWRJNjd2NmdZUTJKVnRW?=
- =?utf-8?B?alFOWHVEN21tVWgxaWUwdmthejNhWlBtVjd1SjJHaHlXUUw4K1hPSE9QdzRI?=
- =?utf-8?B?WjNJams0ZDIzZENTV0FxVjl0dVV0VzlubmpsQXRjZWVlcE8xamZkSS9zNUw3?=
- =?utf-8?B?Nk51ckFGT0NZU2dKTHZHUi9aS2QyS2xhWjErdG4xQzY0djVmOXd4S0tUNXJv?=
- =?utf-8?B?b2ExTEdNSktoa2o4NHpOZ01IbVFBMjdZeHRCZElnQWdVNWxScDZTanBMamN4?=
- =?utf-8?B?YkEyVW1teTB6dllyM3llRUlpMWQvemJVQjBXRjl2QkJIdHlUTk9OY2lXZGdW?=
- =?utf-8?B?cDdybWp0OVlDeWJmNVcvNFovK3BxZmRXV0lhQk9QRmtjQWZQaGhWMGpwajlz?=
- =?utf-8?B?Nis4dlRBajFycWYwMlVsU3ByUGY3bGNDaVhNa3RCRWRYQU96RXdiTm82MWFm?=
- =?utf-8?B?ODJqSlJEVzJ3UGZDRHg5NFhKM1ZvcUpKTFJHb2p1dDNZekJnN1dJS2Rrd3di?=
- =?utf-8?B?OHNoOWRzOUU0ck53OGE1VE5JMy96dTl5dTE5S0pCSlhZc3pySHV1Y0NqK09I?=
- =?utf-8?B?R05tWHMrc0FKRlM4cFZuQWVreWJyNFdXd01raEQ4TEVJY281YTlEMWJ0cUxY?=
- =?utf-8?B?Q2NZeHR6eGIvQm1sY1Vpb2x2ZU5UQzkxQzdHeER6RmNXbHprUWZ4SWxRWEpS?=
- =?utf-8?B?cERtR0hZcm9KdXhpOGcwcVNqL2RjNklIemVOdS9MTDhKM3RnSEhxaGNOOVpQ?=
- =?utf-8?B?UjdaaHpZbkRxa2hWUm9TOWVwQXhMNG9oQlFWckRvK00zV2VtbVBvemg5dndp?=
- =?utf-8?B?WnQ4a05NZGRBZWtSWVE0ekxMdjg3cTJhL3NNMTJVajJvVzRML2RuVE9qdDBB?=
- =?utf-8?B?OGZRU2NoMm5SVnc4SUlFZmVIbWJScDVTSlk4cmhkKzV0di90bWMrQmdadG5K?=
- =?utf-8?B?ZE9HaENCWCtFbzlNcnJNc242M2x6Z2ZwSmY5VGQvWXBoaWdEd1lRdkgrVGNa?=
- =?utf-8?B?V1JScUVoM0YzRk1uY2hIZHNMdG4rc2hMMllzQW52ejJ1VkFBbi93VWZreFhD?=
- =?utf-8?B?Uk5QTW9FWGhMUEFjemIrL3BTbEVRPT0=?=
-X-OriginatorOrg: corigine.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c6e5bd49-ee93-499e-5d4a-08db23dfeffa
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR13MB4842.namprd13.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Mar 2023 16:28:11.6242 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: fe128f2c-073b-4c20-818e-7246a585940c
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 5FMo1aiypoRujuMUs3j4y3/uBELKsnc9vYjPgbEKeaIXkib+ZiZUct0JSU381sMxcSHSLVIGkUyeLQYSPE4atkv/JgK8hUZpGdLjAGKdjPY=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR13MB4147
-Cc: Vinod Koul <vkoul@kernel.org>, Byungho An <bh74.an@samsung.com>,
- Bhupesh Sharma <bhupesh.sharma@linaro.org>, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
- Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 3/5] net: marvell: pxa168_eth: drop
- of_match_ptr for ID table
+X-Mailer: b4 0.13-dev-bd1bf
+Cc: alexandre.belloni@bootlin.com, tmaimon77@gmail.com,
+ linux-aspeed@lists.ozlabs.org, linux-iio@vger.kernel.org,
+ konrad.dybcio@somainline.org, alsa-devel@alsa-project.org,
+ tali.perry1@gmail.com, ldewangan@nvidia.com, linux-mtd@lists.infradead.org,
+ alim.akhtar@samsung.com, linux-riscv@lists.infradead.org,
+ linux-spi@vger.kernel.org, festevam@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com, jbrunet@baylibre.com, git@amd.com,
+ linux-samsung-soc@vger.kernel.org, benjaminfair@google.com,
+ yogeshgaur.83@gmail.com, openbmc@lists.ozlabs.org, jonathanh@nvidia.com,
+ yuenn@google.com, bcm-kernel-feedback-list@broadcom.com, joel@jms.id.au,
+ linux-rockchip@lists.infradead.org, linux-sunxi@lists.linux.dev,
+ linux-imx@nxp.com, amitrkcian2002@gmail.com, Michael.Hennerich@analog.com,
+ martin.blumenstingl@googlemail.com, linux-arm-msm@vger.kernel.org,
+ radu_nicolae.pirea@upb.ro, linuxppc-dev@lists.ozlabs.org, lars@metafoo.de,
+ linux-mediatek@lists.infradead.org, linux-rpi-kernel@lists.infradead.org,
+ linux-tegra@vger.kernel.org, linux-amlogic@lists.infradead.org,
+ michal.simek@amd.com, linux-arm-kernel@lists.infradead.org,
+ avifishman70@gmail.com, venture@google.com, libertas-dev@lists.infradead.org,
+ linux-wireless@vger.kernel.org, nicolas.ferre@microchip.com,
+ fancer.lancer@gmail.com, linux-kernel@vger.kernel.org, andrew@aj.id.au,
+ michael@walle.cc, thierry.reding@gmail.com, palmer@dabbelt.com,
+ kernel@pengutronix.de, netdev@vger.kernel.org, patches@opensource.cirrus.com,
+ linux-wpan@vger.kernel.org, claudiu.beznea@microchip.com
+Subject: Re: [Linux-stm32] (subset) [PATCH V5 00/15] spi: Add support for
+ stacked/parallel memories
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -133,21 +98,50 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gRnJpLCBNYXIgMTAsIDIwMjMgYXQgMTA6NDY6MzBQTSArMDEwMCwgS3J6eXN6dG9mIEtvemxv
-d3NraSB3cm90ZToKPiBUaGUgZHJpdmVyIGNhbiBtYXRjaCBvbmx5IHZpYSB0aGUgRFQgdGFibGUg
-c28gdGhlIHRhYmxlIHNob3VsZCBiZSBhbHdheXMKPiB1c2VkIGFuZCB0aGUgb2ZfbWF0Y2hfcHRy
-IGRvZXMgbm90IGhhdmUgYW55IHNlbnNlICh0aGlzIGFsc28gYWxsb3dzIEFDUEkKPiBtYXRjaGlu
-ZyB2aWEgUFJQMDAwMSwgZXZlbiB0aG91Z2ggaXQgaXMgbm90IHJlbGV2YW50IGhlcmUpLgo+IAo+
-ICAgZHJpdmVycy9uZXQvZXRoZXJuZXQvbWFydmVsbC9weGExNjhfZXRoLmM6MTU3NTozNDogZXJy
-b3I6IOKAmHB4YTE2OF9ldGhfb2ZfbWF0Y2jigJkgZGVmaW5lZCBidXQgbm90IHVzZWQgWy1XZXJy
-b3I9dW51c2VkLWNvbnN0LXZhcmlhYmxlPV0KPiAKPiBTaWduZWQtb2ZmLWJ5OiBLcnp5c3p0b2Yg
-S296bG93c2tpIDxrcnp5c3p0b2Yua296bG93c2tpQGxpbmFyby5vcmc+CgpSZXZpZXdlZC1ieTog
-U2ltb24gSG9ybWFuIDxzaW1vbi5ob3JtYW5AY29yaWdpbmUuY29tPgoKX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0
-CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1t
-YWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+On Mon, 06 Mar 2023 22:50:54 +0530, Amit Kumar Mahapatra wrote:
+> This patch is in the continuation to the discussions which happened on
+> 'commit f89504300e94 ("spi: Stacked/parallel memories bindings")' for
+> adding dt-binding support for stacked/parallel memories.
+> 
+> This patch series updated the spi-nor, spi core and the spi drivers
+> to add stacked and parallel memories support.
+> 
+> [...]
+
+Applied to
+
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-next
+
+Thanks!
+
+[01/15] spi: Replace all spi->chip_select and spi->cs_gpiod references with function call
+        commit: 9e264f3f85a56cc109cc2d6010a48aa89d5c1ff1
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
