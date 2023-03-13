@@ -2,32 +2,32 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 32AFD6B852D
-	for <lists+linux-stm32@lfdr.de>; Mon, 13 Mar 2023 23:51:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4BFF36B852E
+	for <lists+linux-stm32@lfdr.de>; Mon, 13 Mar 2023 23:51:25 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EACA1C6A617;
-	Mon, 13 Mar 2023 22:51:23 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0AA68C6A61A;
+	Mon, 13 Mar 2023 22:51:25 +0000 (UTC)
 Received: from post.baikalelectronics.com (post.baikalelectronics.com
  [213.79.110.86])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1162EC6A5E7
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D3DA9C6A5E7
  for <linux-stm32@st-md-mailman.stormreply.com>;
  Mon, 13 Mar 2023 22:51:22 +0000 (UTC)
 Received: from post.baikalelectronics.com (localhost.localdomain [127.0.0.1])
- by post.baikalelectronics.com (Proxmox) with ESMTP id 2E4DEE0EBC;
- Tue, 14 Mar 2023 01:51:21 +0300 (MSK)
+ by post.baikalelectronics.com (Proxmox) with ESMTP id 5CF5CE0EBB;
+ Tue, 14 Mar 2023 01:51:22 +0300 (MSK)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  baikalelectronics.ru; h=cc:cc:content-transfer-encoding
  :content-type:content-type:date:from:from:in-reply-to:message-id
  :mime-version:references:reply-to:subject:subject:to:to; s=post;
- bh=Y6oIna2GYsMa/tMSylL09FYzZvzOQ9lU2CFxdQGOfk0=; b=SKtYgXiuZg8S
- apeiyaaMAoOItS4nHGsGT8jBPqU1dYK1JbgTyXFxti7Ojg7do32VL0YqEt4XFiK2
- pfM82JbaZ0/G9zbTCQXLz06JusQB2qt1BNst8Aubak4/rko4X7Jvu77e2LUs6WPB
- mwRvjSNsFz50lqF06FtsQrT3c8Dsi5Y=
+ bh=/8CHQKcSQNOd84jUFb0GyleIApZIHIOE6ipgEgcboPQ=; b=ZuW2NnJXGaCa
+ c8rmEbdZS4jhKDKbFuLmgLUJ+xIQ3xyiHEkmBOC7PdC6lZ7b+c5VFWNEbQPmZX/r
+ BJAccZwbsCKjZvg5sCodLLvxDU7/kYeB0NoZnb+fLzdRMC1+gNOzYG+fYnWWmvKc
+ TVssdaQGDKLUn6Eam7qkE2qryHILJKM=
 Received: from mail.baikal.int (mail.baikal.int [192.168.51.25])
- by post.baikalelectronics.com (Proxmox) with ESMTP id A1151E0EBB;
- Tue, 14 Mar 2023 01:51:20 +0300 (MSK)
+ by post.baikalelectronics.com (Proxmox) with ESMTP id 3DF24E0E6A;
+ Tue, 14 Mar 2023 01:51:22 +0300 (MSK)
 Received: from localhost (10.8.30.10) by mail (192.168.51.25) with Microsoft
- SMTP Server (TLS) id 15.0.1395.4; Tue, 14 Mar 2023 01:51:19 +0300
+ SMTP Server (TLS) id 15.0.1395.4; Tue, 14 Mar 2023 01:51:21 +0300
 From: Serge Semin <Sergey.Semin@baikalelectronics.ru>
 To: Giuseppe Cavallaro <peppe.cavallaro@st.com>, Alexandre Torgue
  <alexandre.torgue@foss.st.com>, Jose Abreu <joabreu@synopsys.com>, "David S.
@@ -35,8 +35,8 @@ To: Giuseppe Cavallaro <peppe.cavallaro@st.com>, Alexandre Torgue
  Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Maxime Coquelin
  <mcoquelin.stm32@gmail.com>, Rob Herring <robh+dt@kernel.org>, Krzysztof
  Kozlowski <krzysztof.kozlowski+dt@linaro.org>
-Date: Tue, 14 Mar 2023 01:50:56 +0300
-Message-ID: <20230313225103.30512-10-Sergey.Semin@baikalelectronics.ru>
+Date: Tue, 14 Mar 2023 01:50:57 +0300
+Message-ID: <20230313225103.30512-11-Sergey.Semin@baikalelectronics.ru>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230313225103.30512-1-Sergey.Semin@baikalelectronics.ru>
 References: <20230313225103.30512-1-Sergey.Semin@baikalelectronics.ru>
@@ -52,8 +52,8 @@ Cc: devicetree@vger.kernel.org, Biao Huang <biao.huang@mediatek.com>,
  Pavel Parkhomenko <Pavel.Parkhomenko@baikalelectronics.ru>,
  Yang Yingliang <yangyingliang@huawei.com>,
  Christian Marangi <ansuelsmth@gmail.com>, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next 09/16] dt-bindings: net: dwmac:
-	Prohibit additional props in AXI-config
+Subject: [Linux-stm32] [PATCH net-next 10/16] dt-bindings: net: dwmac: Add
+	AXI-bus properties constraints
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,38 +70,56 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Currently DT-schema of the AXI-bus config sub-node prohibits to have
-unknown properties by using the unevaluatedProperties property. It's
-overkill for the sub-node which doesn't use any combining schemas
-keywords (allOf, anyOf, etc). Instead more natural is to use
-additionalProperties to prohibit for that.
+Currently none of the AXI-bus non-boolean DT-properties have constraints
+defined meanwhile they can be specified at least based on the
+corresponding device configs. Let's do that:
++ snps,wr_osr_lm/snps,rd_osr_lmt - maximum number of outstanding AXI-bus
+read/write requests is limited with the IP-core synthesize parameter
+AXI_MAX_{RD,WR}_REQ. DW MAC/GMAC: <= 16, DW Eth QoS: <= 32, DW xGMAC: <=
+64. The least restrictive constraint is defined since the DT-schema is
+common for all IP-cores.
++ snps,blen - array of the burst lengths supported by the AXI-bus. Values
+are limited by the AXI3/4 bus standard, available AXI/System bus CSR flags
+and the AXI-bus IP-core synthesize config . All DW *MACs support setting
+the burst length within the set: 4, 8, 16, 32, 64, 128, 256. If some burst
+length is unsupported a zero value can be specified instead in the array.
 
 Signed-off-by: Serge Semin <Sergey.Semin@baikalelectronics.ru>
 ---
- Documentation/devicetree/bindings/net/snps,dwmac.yaml | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ Documentation/devicetree/bindings/net/snps,dwmac.yaml | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
 diff --git a/Documentation/devicetree/bindings/net/snps,dwmac.yaml b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
-index 89be67e55c3e..d1b2910b799b 100644
+index d1b2910b799b..f24718a8d184 100644
 --- a/Documentation/devicetree/bindings/net/snps,dwmac.yaml
 +++ b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
-@@ -466,7 +466,6 @@ properties:
- 
-   stmmac-axi-config:
-     type: object
--    unevaluatedProperties: false
-     description:
-       AXI BUS Mode parameters.
- 
-@@ -518,6 +517,8 @@ properties:
+@@ -484,11 +484,17 @@ properties:
+         $ref: /schemas/types.yaml#/definitions/uint32
          description:
-           rebuild INCRx Burst
+           max write outstanding req. limit
++        default: 1
++        minimum: 1
++        maximum: 64
  
-+    additionalProperties: false
-+
- required:
-   - compatible
-   - reg
+       snps,rd_osr_lmt:
+         $ref: /schemas/types.yaml#/definitions/uint32
+         description:
+           max read outstanding req. limit
++        default: 1
++        minimum: 1
++        maximum: 64
+ 
+       snps,kbbe:
+         $ref: /schemas/types.yaml#/definitions/uint32
+@@ -501,6 +507,8 @@ properties:
+           this is a vector of supported burst length.
+         minItems: 7
+         maxItems: 7
++        items:
++          enum: [256, 128, 64, 32, 16, 8, 4, 0]
+ 
+       snps,fb:
+         $ref: /schemas/types.yaml#/definitions/flag
 -- 
 2.39.2
 
