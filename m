@@ -2,73 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 01B5C6B721E
-	for <lists+linux-stm32@lfdr.de>; Mon, 13 Mar 2023 10:10:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B52BF6B72E9
+	for <lists+linux-stm32@lfdr.de>; Mon, 13 Mar 2023 10:43:51 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A6FACC6904C;
-	Mon, 13 Mar 2023 09:10:05 +0000 (UTC)
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com
- [68.232.154.123])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 648AAC6904C;
+	Mon, 13 Mar 2023 09:43:51 +0000 (UTC)
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [85.220.165.71])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9BAFFC65E60
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 50552C65E5A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 13 Mar 2023 09:10:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
- t=1678698604; x=1710234604;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=YivqxS+zeFWZMfPdu5ClCSUPNAcBM+7zK7hLm2cpsW4=;
- b=wasYGmVA8DAT5dH9FRnB78xElFLooUZ/cO2mjOdXKoSX/7ujyfxE4+Zr
- qZNTp/ZSLWu5tu/vpdNqzmvPqngBwmHHxh6JDhVlahf/gQqd5d0CMo2Vh
- 82+moKhh5n1HpjT1Dn29DzNOBF6xVMytydht/Q20kUWhRTn74z+qyJqUK
- H5d7NNcdzXtvTgH28LgLFKcBL7ao206UQXTSllqhHTPnBP0cqW4HP4sHP
- plD6d+PEJLVnaq2vKUzdyKgV1yyhK+AcJp2+70gcucu1+9qHV7UGNan1w
- 3l6uIWvP+oveHCaw2LKbZ5xGc70cRt7GGyQM1vnSGqruS8VFXMQTgpVx1 A==;
-X-IronPort-AV: E=Sophos;i="5.98,256,1673938800"; d="scan'208";a="205062965"
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
- by esa2.microchip.iphmx.com with ESMTP/TLS/AES256-SHA256;
- 13 Mar 2023 02:10:01 -0700
-Received: from chn-vm-ex04.mchp-main.com (10.10.85.152) by
- chn-vm-ex02.mchp-main.com (10.10.85.144) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.21; Mon, 13 Mar 2023 02:09:47 -0700
-Received: from [10.159.245.112] (10.10.115.15) by chn-vm-ex04.mchp-main.com
- (10.10.85.152) with Microsoft SMTP Server id 15.1.2507.21 via Frontend
- Transport; Mon, 13 Mar 2023 02:09:40 -0700
-Message-ID: <21d44d0b-05c0-1912-15de-a5c74d3ff4c6@microchip.com>
-Date: Mon, 13 Mar 2023 10:09:37 +0100
+ Mon, 13 Mar 2023 09:43:50 +0000 (UTC)
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+ by metis.ext.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1pbeiZ-0001bb-NA; Mon, 13 Mar 2023 10:43:47 +0100
+Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
+ by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.94.2)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1pbeiX-003okP-IY; Mon, 13 Mar 2023 10:43:45 +0100
+Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.94.2)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1pbeiW-004UsW-RW; Mon, 13 Mar 2023 10:43:44 +0100
+Date: Mon, 13 Mar 2023 10:43:44 +0100
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+To: Daniel Lezcano <daniel.lezcano@linaro.org>,
+ Thomas Gleixner <tglx@linutronix.de>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>
+Message-ID: <20230313094344.emv6pazrvberusil@pengutronix.de>
+References: <20230313075430.2730803-1-u.kleine-koenig@pengutronix.de>
+ <20230313075430.2730803-3-u.kleine-koenig@pengutronix.de>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.8.0
-Content-Language: en-US
-To: Rob Herring <robh@kernel.org>, Wolfgang Grandegger <wg@grandegger.com>,
- Marc Kleine-Budde <mkl@pengutronix.de>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski
- <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Claudiu Beznea
- <claudiu.beznea@microchip.com>, Wei Fang <wei.fang@nxp.com>, Shenwei Wang
- <shenwei.wang@nxp.com>, Clark Wang <xiaoning.wang@nxp.com>, NXP Linux Team
- <linux-imx@nxp.com>, Claudiu Manoil <claudiu.manoil@nxp.com>, "Giuseppe
- Cavallaro" <peppe.cavallaro@st.com>, Alexandre Torgue
- <alexandre.torgue@foss.st.com>, Jose Abreu <joabreu@synopsys.com>, Shawn Guo
- <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, "Pengutronix
- Kernel Team" <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Grygorii Strashko
- <grygorii.strashko@ti.com>, Francois Romieu <romieu@fr.zoreil.com>, "Michal
- Simek" <michal.simek@xilinx.com>, Zhao Qiang <qiang.zhao@nxp.com>, Kalle Valo
- <kvalo@kernel.org>, Samuel Mendoza-Jonas <sam@mendozajonas.com>
-References: <20230310144718.1544169-1-robh@kernel.org>
-From: Nicolas Ferre <nicolas.ferre@microchip.com>
-Organization: microchip
-In-Reply-To: <20230310144718.1544169-1-robh@kernel.org>
-Cc: devicetree@vger.kernel.org, netdev@vger.kernel.org,
- linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-can@vger.kernel.org, linux-omap@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] net: Use of_property_read_bool() for
-	boolean properties
+In-Reply-To: <20230313075430.2730803-3-u.kleine-koenig@pengutronix.de>
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: ukl@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
+Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH 2/5] clocksource: timer-stm32-lp: Mark
+ driver as non-removable
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,47 +57,105 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Type: multipart/mixed; boundary="===============7138554661864659507=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 10/03/2023 at 15:47, Rob Herring wrote:
-> EXTERNAL EMAIL: Do not click links or open attachments unless you know the content is safe
-> 
-> It is preferred to use typed property access functions (i.e.
-> of_property_read_<type> functions) rather than low-level
-> of_get_property/of_find_property functions for reading properties.
-> Convert reading boolean properties to to of_property_read_bool().
-> 
-> Signed-off-by: Rob Herring <robh@kernel.org>
+
+--===============7138554661864659507==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="rm7zyqg5zd7u5psn"
+Content-Disposition: inline
+
+
+--rm7zyqg5zd7u5psn
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+Hello,
+
+On Mon, Mar 13, 2023 at 08:54:27AM +0100, Uwe Kleine-K=F6nig wrote:
+> The comment in the remove callback suggests that the driver is not
+> supposed to be unbound. However returning an error code in the remove
+> callback doesn't accomplish that. Instead set the suppress_bind_attrs
+> property (which makes it impossible to unbind the driver via sysfs).
+> The only remaining way to unbind an stm32-lp device would be module
+> unloading, but that doesn't apply here, as the driver cannot be built as
+> a module.
+>=20
+> Also drop the useless remove callback.
+>=20
+> Signed-off-by: Uwe Kleine-K=F6nig <u.kleine-koenig@pengutronix.de>
 > ---
->   drivers/net/can/cc770/cc770_platform.c          | 12 ++++++------
->   drivers/net/ethernet/cadence/macb_main.c        |  2 +-
+>  drivers/clocksource/timer-stm32-lp.c | 7 +------
+>  1 file changed, 1 insertion(+), 6 deletions(-)
+>=20
+> diff --git a/drivers/clocksource/timer-stm32-lp.c b/drivers/clocksource/t=
+imer-stm32-lp.c
+> index db2841d0beb8..616ea4fe4234 100644
+> --- a/drivers/clocksource/timer-stm32-lp.c
+> +++ b/drivers/clocksource/timer-stm32-lp.c
+> @@ -195,11 +195,6 @@ static int stm32_clkevent_lp_probe(struct platform_d=
+evice *pdev)
+>  	return ret;
+>  }
+> =20
+> -static int stm32_clkevent_lp_remove(struct platform_device *pdev)
+> -{
+> -	return -EBUSY; /* cannot unregister clockevent */
+> -}
+> -
+>  static const struct of_device_id stm32_clkevent_lp_of_match[] =3D {
+>  	{ .compatible =3D "st,stm32-lptimer-timer", },
+>  	{},
+> @@ -207,11 +202,11 @@ static const struct of_device_id stm32_clkevent_lp_=
+of_match[] =3D {
+>  MODULE_DEVICE_TABLE(of, stm32_clkevent_lp_of_match);
+> =20
+>  static struct platform_driver stm32_clkevent_lp_driver =3D {
+> -	.probe	=3D stm32_clkevent_lp_probe,
+>  	.remove =3D stm32_clkevent_lp_remove,
 
-Acked-by: Nicolas Ferre <nicolas.ferre@microchip.com>
+This is of course broken, I intended to drop the remove line ... and
+only noticed that breakage after sending out the patch set :-\
 
->   drivers/net/ethernet/davicom/dm9000.c           |  4 ++--
+So please either skip this patch, or fixup while applying. If you do the
+former I'll come back to this driver and send a fixed patch.
 
-[..]
+Best regards and sorry
+Uwe
 
-> --- a/drivers/net/ethernet/cadence/macb_main.c
-> +++ b/drivers/net/ethernet/cadence/macb_main.c
-> @@ -4990,7 +4990,7 @@ static int macb_probe(struct platform_device *pdev)
->                  bp->jumbo_max_len = macb_config->jumbo_max_len;
-> 
->          bp->wol = 0;
-> -       if (of_get_property(np, "magic-packet", NULL))
-> +       if (of_property_read_bool(np, "magic-packet"))
->                  bp->wol |= MACB_WOL_HAS_MAGIC_PACKET;
->          device_set_wakeup_capable(&pdev->dev, bp->wol & MACB_WOL_HAS_MAGIC_PACKET);
+--=20
+Pengutronix e.K.                           | Uwe Kleine-K=F6nig            |
+Industrial Linux Solutions                 | https://www.pengutronix.de/ |
 
-[..]
+--rm7zyqg5zd7u5psn
+Content-Type: application/pgp-signature; name="signature.asc"
 
--- 
-Nicolas Ferre
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEfnIqFpAYrP8+dKQLwfwUeK3K7AkFAmQO8E0ACgkQwfwUeK3K
+7Ama0Af9EAieyD1ilr+oUAsZ/Eghf0bXKulJmBLB9iw5CfGxUqr9e6wgKKREjimg
+HNzY5n//YrM0/VjyRSmSVmO5ZTs0MfuHPt7aj6S5bP/EPX8C7WmfJ6e7+KdJqJvN
+Gqfy9pn5/yFprpiM7Uv1o7vxFIDTqLfWIf3s0tLwxEY7IE5TZcFewmF5Y70UhyyZ
+sPC4zKtimQf2q4e6JiB8OwX8LICHALRsVAwrb4WN+CkM84TcMPihc0rB4XvJEgpJ
+ZKIRG0Riq7fB1TYc5RA+K1dwdSPbEXy7oFHJ9YaHg7fnU6g8OII42DoVxUI3Oyht
+HGZ8yjATI4rGmdPfj79+s3n7B6g0fQ==
+=51x9
+-----END PGP SIGNATURE-----
+
+--rm7zyqg5zd7u5psn--
+
+--===============7138554661864659507==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============7138554661864659507==--
