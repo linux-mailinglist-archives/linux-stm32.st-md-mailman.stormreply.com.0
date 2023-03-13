@@ -2,66 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E81C46B7E51
-	for <lists+linux-stm32@lfdr.de>; Mon, 13 Mar 2023 17:57:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 145A66B7E52
+	for <lists+linux-stm32@lfdr.de>; Mon, 13 Mar 2023 17:57:52 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B3D84C69053;
-	Mon, 13 Mar 2023 16:57:46 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D1279C69053;
+	Mon, 13 Mar 2023 16:57:51 +0000 (UTC)
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 699EDC6904A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3405FC6904A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 13 Mar 2023 16:57:45 +0000 (UTC)
+ Mon, 13 Mar 2023 16:57:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1678726664;
+ s=mimecast20190719; t=1678726669;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=FkVDFtAQ2HQaEyizSIOrTNSjW2E/XPvrw+UQkBvQei4=;
- b=cxw5MI7axlHvX+HtFrp/MJ9jxWen48K1cf5mDUtz451QdCALfC2CUKmNNikl6sePjzKlP7
- 4z3RbGtyqhJpKaeO6B0iD0xiwmrmSNX4OQUxcJu2LgdYy9+MARehmiRfoksQQUge7zGZfm
- 6TNCfxgLAb15z2l1IyLwIm+YnVKMc5E=
-Received: from mail-oo1-f72.google.com (mail-oo1-f72.google.com
- [209.85.161.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=yTmnd9hxPpCOOutU5STf4RtQkxrVi6PXtGHNfI7VNJw=;
+ b=DEaL0+fNPUYXgw5OhGyCV7Lp6czBeQLYg4QxQZXIrLrRPVzZlL4TyMakB5vhz52QKCpqB9
+ S7QTQG6boTy8bY110wxsBz66z44RBF1iRkK29LHiDbYHL6LzqilVt7HeA78P7zl2qbD9iB
+ HA7OJ1zXJEoBecKYX6GqnkQ5rCamb7g=
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com
+ [209.85.167.200]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-190-vhuDsjGOMXKMiH8jfurzGg-1; Mon, 13 Mar 2023 12:57:43 -0400
-X-MC-Unique: vhuDsjGOMXKMiH8jfurzGg-1
-Received: by mail-oo1-f72.google.com with SMTP id
- y140-20020a4a4592000000b0052540059057so3511175ooa.6
+ us-mta-614-a_kTgyVEPjyFalqgQh63TQ-1; Mon, 13 Mar 2023 12:57:48 -0400
+X-MC-Unique: a_kTgyVEPjyFalqgQh63TQ-1
+Received: by mail-oi1-f200.google.com with SMTP id
+ bf30-20020a056808191e00b003843744eaecso5615939oib.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 13 Mar 2023 09:57:43 -0700 (PDT)
+ Mon, 13 Mar 2023 09:57:48 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1678726662;
+ d=1e100.net; s=20210112; t=1678726667;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=FkVDFtAQ2HQaEyizSIOrTNSjW2E/XPvrw+UQkBvQei4=;
- b=j8D/DuCh6pIrEUIY92bwdvRP/DUADmjhkS2wqq3dBvkJjTYuGySmiI+AFmIuzJFTs5
- fPwUDPgLQTHzGsYv+axCjaQR0qtswGEas3lrYePflEMFw53NgAcUMM4Jd2sMBqo77TIk
- pWy90NnzpKXRpUaDm9Q15W0+f8v4f9rd/eLVlOm9kEWy4wCywFKZySF6uTqVkT8YVhWL
- gDBO6teDmaMRvpVyNvjs5xRT8jvj0KXZywDbjQK1AQcarvU6Jhk3I6wm4SSViR+XOyB6
- kmDEwu5D+Y50UcLWJBIPjtezLVRFapk4cj7RDuEkr1AqxlIEBfuOl94QunTXBKZU4x5A
- uxHA==
-X-Gm-Message-State: AO0yUKU0wEVPFA2a9VP8WPI3w6fzDk5AG7ryxLeDlOP+j6MxFXUUCNAQ
- hArhd9jT+GMq88RQ454klZvaE9qcsHyWkvUbvvfOIi/uGolp++yY3HA7X+gCBCMTRXP2f1g1utD
- F51o7OOv0ermbg6m+0lwWZU7js6u2rxT/NWtOfrX5
-X-Received: by 2002:aca:130d:0:b0:378:7c77:6021 with SMTP id
- e13-20020aca130d000000b003787c776021mr13373617oii.8.1678726662722; 
- Mon, 13 Mar 2023 09:57:42 -0700 (PDT)
-X-Google-Smtp-Source: AK7set9zI+gra3VQW7qNd6jbtiTXOZJk4ZtO+IfaDcE9o1iUhzMPehPEW5A3iOw3mlYvk5kuKPNxoA==
-X-Received: by 2002:aca:130d:0:b0:378:7c77:6021 with SMTP id
- e13-20020aca130d000000b003787c776021mr13373580oii.8.1678726662434; 
- Mon, 13 Mar 2023 09:57:42 -0700 (PDT)
+ bh=yTmnd9hxPpCOOutU5STf4RtQkxrVi6PXtGHNfI7VNJw=;
+ b=GorYITCvQ5c3fKixaO1eBrxFViPRzTF2uZqSTQA8OF52vLrG2fuCUnveGJdVHKS7CX
+ ITUYGK2pJIyzDKxTgGzP98QdoOCFtOb2v+4ZdiiL6a3fGhj9z3PPQfssQ16rlsNa26Cq
+ Hq2MTOt6O1IZZUmh+zw1kddogrJFD14WRq3Fmxe+ieZeYzrl47uaX8dijIXYR7zJXFTr
+ vynFCKnFhdya6REZ3JzgDgHoFCQeKTmq9Crdfop6Vz/vbTOz8OYwfeQioJHkTXllMJvo
+ nUQFrsj4fONqeZwivs8Kya+GqTlqxU2IcUAAlSwCRK6pSd+0+9VUiyIbcyBrVFEWLwtg
+ fI0Q==
+X-Gm-Message-State: AO0yUKXso6QSIpTk1huAN7iPEwQTGgQfz9cI1fyjDgYpOKR8MBtBo+q3
+ b1UvExv7hclZKMIRiCdnH+5/lrwwddEy3zF5rTMrKjtQyp3GBe0N0XWSpm9yPtETR6zqJNXfGWo
+ JIkSB630/iHHt44V5Ld2qoFZgKbHjJ3gk7+rbUYSH
+X-Received: by 2002:a05:6870:100f:b0:177:c2bd:3f70 with SMTP id
+ 15-20020a056870100f00b00177c2bd3f70mr1768605oai.54.1678726666846; 
+ Mon, 13 Mar 2023 09:57:46 -0700 (PDT)
+X-Google-Smtp-Source: AK7set9LTjJnVi7KbqyM3HxA+UA+0412jb6ywCtvfKt8ocQUFVHxB1G6jo2+/GA0kywQ4LDzFQSvgA==
+X-Received: by 2002:a05:6870:100f:b0:177:c2bd:3f70 with SMTP id
+ 15-20020a056870100f00b00177c2bd3f70mr1768573oai.54.1678726666521; 
+ Mon, 13 Mar 2023 09:57:46 -0700 (PDT)
 Received: from halaney-x13s.attlocal.net ([2600:1700:1ff0:d0e0::21])
  by smtp.gmail.com with ESMTPSA id
- o2-20020acad702000000b00384d3003fa3sm3365273oig.26.2023.03.13.09.57.40
+ o2-20020acad702000000b00384d3003fa3sm3365273oig.26.2023.03.13.09.57.44
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 13 Mar 2023 09:57:42 -0700 (PDT)
+ Mon, 13 Mar 2023 09:57:46 -0700 (PDT)
 From: Andrew Halaney <ahalaney@redhat.com>
 To: linux-kernel@vger.kernel.org
-Date: Mon, 13 Mar 2023 11:56:14 -0500
-Message-Id: <20230313165620.128463-6-ahalaney@redhat.com>
+Date: Mon, 13 Mar 2023 11:56:15 -0500
+Message-Id: <20230313165620.128463-7-ahalaney@redhat.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230313165620.128463-1-ahalaney@redhat.com>
 References: <20230313165620.128463-1-ahalaney@redhat.com>
@@ -82,8 +82,8 @@ Cc: mturquette@baylibre.com, edumazet@google.com,
  andersson@kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  agross@kernel.org, konrad.dybcio@linaro.org, vkoul@kernel.org,
  mcoquelin.stm32@gmail.com, davem@davemloft.net
-Subject: [Linux-stm32] [PATCH net-next 05/11] clk: qcom: gcc-sc8280xp: Add
-	EMAC GDSCs
+Subject: [Linux-stm32] [PATCH net-next 06/11] arm64: dts: qcom: sc8280xp:
+	Add ethernet nodes
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,62 +100,77 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add the EMAC GDSCs to allow the EMAC hardware to be enabled.
+This platform has 2 MACs integrated in it, go ahead and describe them.
 
 Signed-off-by: Andrew Halaney <ahalaney@redhat.com>
 ---
- drivers/clk/qcom/gcc-sc8280xp.c               | 18 ++++++++++++++++++
- include/dt-bindings/clock/qcom,gcc-sc8280xp.h |  2 ++
- 2 files changed, 20 insertions(+)
+ arch/arm64/boot/dts/qcom/sc8280xp.dtsi | 53 ++++++++++++++++++++++++++
+ 1 file changed, 53 insertions(+)
 
-diff --git a/drivers/clk/qcom/gcc-sc8280xp.c b/drivers/clk/qcom/gcc-sc8280xp.c
-index b3198784e1c3..04a99dbaa57e 100644
---- a/drivers/clk/qcom/gcc-sc8280xp.c
-+++ b/drivers/clk/qcom/gcc-sc8280xp.c
-@@ -6873,6 +6873,22 @@ static struct gdsc usb30_sec_gdsc = {
- 	.pwrsts = PWRSTS_RET_ON,
- };
+diff --git a/arch/arm64/boot/dts/qcom/sc8280xp.dtsi b/arch/arm64/boot/dts/qcom/sc8280xp.dtsi
+index 0d02599d8867..a63e8e81a8c4 100644
+--- a/arch/arm64/boot/dts/qcom/sc8280xp.dtsi
++++ b/arch/arm64/boot/dts/qcom/sc8280xp.dtsi
+@@ -761,6 +761,59 @@ soc: soc@0 {
+ 		ranges = <0 0 0 0 0x10 0>;
+ 		dma-ranges = <0 0 0 0 0x10 0>;
  
-+static struct gdsc emac_0_gdsc = {
-+	.gdscr = 0xaa004,
-+	.pd = {
-+		.name = "emac_0_gdsc",
-+	},
-+	.pwrsts = PWRSTS_OFF_ON,
-+};
++		ethernet0: ethernet@20000 {
++			compatible = "qcom,sc8280xp-ethqos";
++			reg = <0x0 0x00020000 0x0 0x10000>,
++				<0x0 0x00036000 0x0 0x100>;
++			reg-names = "stmmaceth", "rgmii";
 +
-+static struct gdsc emac_1_gdsc = {
-+	.gdscr = 0xba004,
-+	.pd = {
-+		.name = "emac_1_gdsc",
-+	},
-+	.pwrsts = PWRSTS_OFF_ON,
-+};
++			clocks = <&gcc GCC_EMAC0_AXI_CLK>,
++				<&gcc GCC_EMAC0_SLV_AHB_CLK>,
++				<&gcc GCC_EMAC0_PTP_CLK>,
++				<&gcc GCC_EMAC0_RGMII_CLK>;
++			clock-names = "stmmaceth", "pclk", "ptp_ref", "rgmii";
 +
- static struct clk_regmap *gcc_sc8280xp_clocks[] = {
- 	[GCC_AGGRE_NOC_PCIE0_TUNNEL_AXI_CLK] = &gcc_aggre_noc_pcie0_tunnel_axi_clk.clkr,
- 	[GCC_AGGRE_NOC_PCIE1_TUNNEL_AXI_CLK] = &gcc_aggre_noc_pcie1_tunnel_axi_clk.clkr,
-@@ -7351,6 +7367,8 @@ static struct gdsc *gcc_sc8280xp_gdscs[] = {
- 	[USB30_MP_GDSC] = &usb30_mp_gdsc,
- 	[USB30_PRIM_GDSC] = &usb30_prim_gdsc,
- 	[USB30_SEC_GDSC] = &usb30_sec_gdsc,
-+	[EMAC_0_GDSC] = &emac_0_gdsc,
-+	[EMAC_1_GDSC] = &emac_1_gdsc,
- };
- 
- static const struct clk_rcg_dfs_data gcc_dfs_clocks[] = {
-diff --git a/include/dt-bindings/clock/qcom,gcc-sc8280xp.h b/include/dt-bindings/clock/qcom,gcc-sc8280xp.h
-index cb2fb638825c..721105ea4fad 100644
---- a/include/dt-bindings/clock/qcom,gcc-sc8280xp.h
-+++ b/include/dt-bindings/clock/qcom,gcc-sc8280xp.h
-@@ -492,5 +492,7 @@
- #define USB30_MP_GDSC					9
- #define USB30_PRIM_GDSC					10
- #define USB30_SEC_GDSC					11
-+#define EMAC_0_GDSC					12
-+#define EMAC_1_GDSC					13
- 
- #endif
++			interrupts = <GIC_SPI 946 IRQ_TYPE_LEVEL_HIGH>,
++				<GIC_SPI 936 IRQ_TYPE_LEVEL_HIGH>;
++			interrupt-names = "macirq", "eth_lpi";
++			iommus = <&apps_smmu 0x4c0 0xf>;
++			power-domains = <&gcc EMAC_0_GDSC>;
++
++			snps,tso;
++			snps,pbl = <32>;
++			rx-fifo-depth = <4096>;
++			tx-fifo-depth = <4096>;
++
++			status = "disabled";
++		};
++
++		ethernet1: ethernet@23000000 {
++			compatible = "qcom,sc8280xp-ethqos";
++			reg = <0x0 0x23000000 0x0 0x10000>,
++				<0x0 0x23016000 0x0 0x100>;
++			reg-names = "stmmaceth", "rgmii";
++
++			clocks = <&gcc GCC_EMAC1_AXI_CLK>,
++				<&gcc GCC_EMAC1_SLV_AHB_CLK>,
++				<&gcc GCC_EMAC1_PTP_CLK>,
++				<&gcc GCC_EMAC1_RGMII_CLK>;
++			clock-names = "stmmaceth", "pclk", "ptp_ref", "rgmii";
++
++			interrupts = <GIC_SPI 929 IRQ_TYPE_LEVEL_HIGH>,
++				<GIC_SPI 919 IRQ_TYPE_LEVEL_HIGH>;
++			interrupt-names = "macirq", "eth_lpi";
++
++			iommus = <&apps_smmu 0x40 0xf>;
++			power-domains = <&gcc EMAC_1_GDSC>;
++
++			snps,tso;
++			snps,pbl = <32>;
++			rx-fifo-depth = <4096>;
++			tx-fifo-depth = <4096>;
++
++			status = "disabled";
++		};
++
+ 		gcc: clock-controller@100000 {
+ 			compatible = "qcom,gcc-sc8280xp";
+ 			reg = <0x0 0x00100000 0x0 0x1f0000>;
 -- 
 2.39.2
 
