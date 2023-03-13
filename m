@@ -2,58 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A75C36B7886
-	for <lists+linux-stm32@lfdr.de>; Mon, 13 Mar 2023 14:11:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 691A56B7D5F
+	for <lists+linux-stm32@lfdr.de>; Mon, 13 Mar 2023 17:23:13 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 57D60C6904C;
-	Mon, 13 Mar 2023 13:11:26 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0368BC65E5A;
+	Mon, 13 Mar 2023 16:23:13 +0000 (UTC)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8D4FDC65E5A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8BD56C035BC
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 13 Mar 2023 13:11:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1678713084; x=1710249084;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=5/v8hZeX3JHTuddiH+ohsP0faMUyO1GG9lvlYbgaG4s=;
- b=Z9FDokwYc1m+IdWQWOm6fvbXv4xeL4J6FbM2CpTI8vrJvXH71cVn/D4B
- W60/Roiq1UbuuWHzoUv3+FaKdI1Xnd6U+p0AklpKocYGlm6HHE2NYK4gr
- +0StmnUvQZ3v3jgbriuI1XFGhXn3Odgqf8bbLtg6jPWofzG6M+2RvlolA
- jhj1E1BtPVzUjez/5FBvzotxUz6oc/pLuP+x72l9KIMz4eHVH0Wn2UMbl
- 8g+M961OQ/hEAXsclFgRLFIXKZ0sXNv0KtHNqIlTQfZ4rgRUHgL5vDGh5
- ZoDZGRTzmjz0R+Ho3qAMjPraitiReKAU4Hhw1liTay3QHsyXtpUjlKc7U g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10647"; a="316788220"
-X-IronPort-AV: E=Sophos;i="5.98,257,1673942400"; d="scan'208";a="316788220"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Mar 2023 06:11:22 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10647"; a="671890390"
-X-IronPort-AV: E=Sophos;i="5.98,257,1673942400"; d="scan'208";a="671890390"
-Received: from lkp-server01.sh.intel.com (HELO b613635ddfff) ([10.239.97.150])
- by orsmga007.jf.intel.com with ESMTP; 13 Mar 2023 06:11:19 -0700
-Received: from kbuild by b613635ddfff with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1pbhxP-0005gb-03;
- Mon, 13 Mar 2023 13:11:19 +0000
-Date: Mon, 13 Mar 2023 21:10:21 +0800
-From: kernel test robot <lkp@intel.com>
-To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>,
- Daniel Lezcano <daniel.lezcano@linaro.org>,
- Thomas Gleixner <tglx@linutronix.de>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-Message-ID: <202303132013.6jB1U6Dg-lkp@intel.com>
-References: <20230313075430.2730803-3-u.kleine-koenig@pengutronix.de>
+ Mon, 13 Mar 2023 15:51:40 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 2A1A61FE0E;
+ Mon, 13 Mar 2023 15:51:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1678722700; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=47A4YXQ11MpeBJn1Uq9igqUu87CbauQsH7PzCpVKLYs=;
+ b=mDP/gC9Cpoqys6XsSv0Z2byMXySgxxZUj5gPc+bAOyHdJVSxBDB5W4gAcwBejKoqJ+WKR1
+ +tlFS3kAigGODyc2xc8Qpf4SStsbhrQL3K37dVpmNq4WFpQuskoSWYTNk8slm2tzB2INm4
+ T0tKZegDMYzadP1WsEr3KxyWWWnTe+k=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1678722700;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=47A4YXQ11MpeBJn1Uq9igqUu87CbauQsH7PzCpVKLYs=;
+ b=uAOnQ4AYZqwVx/tSGur4PPPV0yjkl7p1dZ1luN8QZS/LCWRpfNkbBSJAqxnkiv0qdDzo7W
+ IZGy8YGc69SYoACQ==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id DED4713517;
+ Mon, 13 Mar 2023 15:51:39 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id 9Wp9NYtGD2RhegAAMHmgww
+ (envelope-from <tzimmermann@suse.de>); Mon, 13 Mar 2023 15:51:39 +0000
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: javierm@redhat.com, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ airlied@gmail.com, daniel@ffwll.ch, linus.walleij@linaro.org
+Date: Mon, 13 Mar 2023 16:51:13 +0100
+Message-Id: <20230313155138.20584-1-tzimmermann@suse.de>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20230313075430.2730803-3-u.kleine-koenig@pengutronix.de>
-Cc: linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, oe-kbuild-all@lists.linux.dev
-Subject: Re: [Linux-stm32] [PATCH 2/5] clocksource: timer-stm32-lp: Mark
- driver as non-removable
+X-Mailman-Approved-At: Mon, 13 Mar 2023 16:23:11 +0000
+Cc: linux-aspeed@lists.ozlabs.org, dri-devel@lists.freedesktop.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Thomas Zimmermann <tzimmermann@suse.de>, linux-amlogic@lists.infradead.org,
+ linux-sunxi@lists.linux.dev, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH v2 00/25] drm/dma-helper: Add dedicated fbdev
+	emulation
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -65,89 +67,110 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Uwe,
+Add fbdev emulation that is optimized for DMA helpers, as used by most
+drivers. It operates directly on GEM DMA buffers in system memory.
+Memory pages are mmap'ed directly to userspace. No implicit shadow
+buffers need to be allocated; as can happen with the generic fbdev
+emulation. Convert drivers that fulfil the requirements.
 
-I love your patch! Yet something to improve:
+Tested with fbcon and IGT on vc4.
 
-[auto build test ERROR on fe15c26ee26efa11741a7b632e9f23b01aca4cc6]
+Future direction: providing a dedicated fbdev emulation for GEM DMA
+helpers will allow us to remove this case from the generic fbdev code.
+The latter can then be simplified.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Uwe-Kleine-K-nig/clo=
-cksource-sh_mtu2-Mark-driver-as-non-removable/20230313-155913
-base:   fe15c26ee26efa11741a7b632e9f23b01aca4cc6
-patch link:    https://lore.kernel.org/r/20230313075430.2730803-3-u.kleine-=
-koenig%40pengutronix.de
-patch subject: [PATCH 2/5] clocksource: timer-stm32-lp: Mark driver as non-=
-removable
-config: m68k-allyesconfig (https://download.01.org/0day-ci/archive/20230313=
-/202303132013.6jB1U6Dg-lkp@intel.com/config)
-compiler: m68k-linux-gcc (GCC) 12.1.0
-reproduce (this is a W=3D1 build):
-        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/=
-make.cross -O ~/bin/make.cross
-        chmod +x ~/bin/make.cross
-        # https://github.com/intel-lab-lkp/linux/commit/d4016ca907c0dd473c1=
-f28ce43f4ef2495cf1dd5
-        git remote add linux-review https://github.com/intel-lab-lkp/linux
-        git fetch --no-tags linux-review Uwe-Kleine-K-nig/clocksource-sh_mt=
-u2-Mark-driver-as-non-removable/20230313-155913
-        git checkout d4016ca907c0dd473c1f28ce43f4ef2495cf1dd5
-        # save the config file
-        mkdir build_dir && cp config build_dir/.config
-        COMPILER_INSTALL_PATH=3D$HOME/0day COMPILER=3Dgcc-12.1.0 make.cross=
- W=3D1 O=3Dbuild_dir ARCH=3Dm68k olddefconfig
-        COMPILER_INSTALL_PATH=3D$HOME/0day COMPILER=3Dgcc-12.1.0 make.cross=
- W=3D1 O=3Dbuild_dir ARCH=3Dm68k SHELL=3D/bin/bash drivers/
+v2:
+	* update mcde and pl111 as well (Linus)
 
-If you fix the issue, kindly add following tag where applicable
-| Reported-by: kernel test robot <lkp@intel.com>
-| Link: https://lore.kernel.org/oe-kbuild-all/202303132013.6jB1U6Dg-lkp@int=
-el.com/
+Linus Walleij (1):
+  drm/mcde: Do not use dirty GEM FB handling
 
-All errors (new ones prefixed by >>):
+Thomas Zimmermann (24):
+  drm/fbdev-dma: Implement fbdev emulation for GEM DMA helpers
+  arm/hdlcd: Use GEM DMA fbdev emulation
+  arm/malidp: Use GEM DMA fbdev emulation
+  drm/aspeed: Use GEM DMA fbdev emulation
+  drm/atmel-hlcdc: Use GEM DMA fbdev emulation
+  drm/fsl-dcu: Use GEM DMA fbdev emulation
+  drm/imx/dcss: Use GEM DMA fbdev emulation
+  drm/imx: Use GEM DMA fbdev emulation
+  drm/kmb: Use GEM DMA fbdev emulation
+  drm/logicvc: Use GEM DMA fbdev emulation
+  drm/meson: Use GEM DMA fbdev emulation
+  drm/mxsfb/lcdif: Use GEM DMA fbdev emulation
+  drm/mxsfb: Use GEM DMA fbdev emulation
+  drm/sti: Use GEM DMA fbdev emulation
+  drm/stm: Use GEM DMA fbdev emulation
+  drm/sun4i: Use GEM DMA fbdev emulation
+  drm/tidss: Use GEM DMA fbdev emulation
+  drm/tilcdc: Use GEM DMA fbdev emulation
+  drm/arcpgu: Use GEM DMA fbdev emulation
+  drm/tve200: Use GEM DMA fbdev emulation
+  drm/vc4: Use GEM DMA fbdev emulation
+  drm/xlnx: Use GEM DMA fbdev emulation
+  drm/mcde: Use GEM DMA fbdev emulation
+  drm/pl111: Use GEM DMA fbdev emulation
 
->> drivers/clocksource/timer-stm32-lp.c:205:19: error: 'stm32_clkevent_lp_r=
-emove' undeclared here (not in a function); did you mean 'stm32_clkevent_lp=
-_probe'?
-     205 |         .remove =3D stm32_clkevent_lp_remove,
-         |                   ^~~~~~~~~~~~~~~~~~~~~~~~
-         |                   stm32_clkevent_lp_probe
-   drivers/clocksource/timer-stm32-lp.c:142:12: warning: 'stm32_clkevent_lp=
-_probe' defined but not used [-Wunused-function]
-     142 | static int stm32_clkevent_lp_probe(struct platform_device *pdev)
-         |            ^~~~~~~~~~~~~~~~~~~~~~~
-
-
-vim +205 drivers/clocksource/timer-stm32-lp.c
-
-48b41c5e2de6c5 Benjamin Gaignard 2020-06-03  203  =
-
-48b41c5e2de6c5 Benjamin Gaignard 2020-06-03  204  static struct platform_dr=
-iver stm32_clkevent_lp_driver =3D {
-48b41c5e2de6c5 Benjamin Gaignard 2020-06-03 @205  	.remove =3D stm32_clkeve=
-nt_lp_remove,
-48b41c5e2de6c5 Benjamin Gaignard 2020-06-03  206  	.driver	=3D {
-48b41c5e2de6c5 Benjamin Gaignard 2020-06-03  207  		.name =3D "stm32-lptime=
-r-timer",
-48b41c5e2de6c5 Benjamin Gaignard 2020-06-03  208  		.of_match_table =3D of_=
-match_ptr(stm32_clkevent_lp_of_match),
-d4016ca907c0dd Uwe Kleine-K=F6nig  2023-03-13  209  		.suppress_bind_attrs =
-=3D true,
-48b41c5e2de6c5 Benjamin Gaignard 2020-06-03  210  	},
-48b41c5e2de6c5 Benjamin Gaignard 2020-06-03  211  };
-48b41c5e2de6c5 Benjamin Gaignard 2020-06-03  212  module_platform_driver(st=
-m32_clkevent_lp_driver);
-48b41c5e2de6c5 Benjamin Gaignard 2020-06-03  213  =
+ drivers/gpu/drm/Makefile                     |   1 +
+ drivers/gpu/drm/arm/hdlcd_drv.c              |   4 +-
+ drivers/gpu/drm/arm/malidp_drv.c             |   4 +-
+ drivers/gpu/drm/aspeed/aspeed_gfx_drv.c      |   4 +-
+ drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_dc.c |   4 +-
+ drivers/gpu/drm/drm_fbdev_dma.c              | 275 +++++++++++++++++++
+ drivers/gpu/drm/fsl-dcu/fsl_dcu_drm_drv.c    |   4 +-
+ drivers/gpu/drm/imx/dcss/dcss-kms.c          |   4 +-
+ drivers/gpu/drm/imx/ipuv3/imx-drm-core.c     |   4 +-
+ drivers/gpu/drm/kmb/kmb_drv.c                |   4 +-
+ drivers/gpu/drm/logicvc/logicvc_drm.c        |   4 +-
+ drivers/gpu/drm/mcde/mcde_drv.c              |   6 +-
+ drivers/gpu/drm/meson/meson_drv.c            |   4 +-
+ drivers/gpu/drm/mxsfb/lcdif_drv.c            |   4 +-
+ drivers/gpu/drm/mxsfb/mxsfb_drv.c            |   4 +-
+ drivers/gpu/drm/pl111/pl111_drv.c            |   4 +-
+ drivers/gpu/drm/sti/sti_drv.c                |   4 +-
+ drivers/gpu/drm/stm/drv.c                    |   4 +-
+ drivers/gpu/drm/sun4i/sun4i_drv.c            |   4 +-
+ drivers/gpu/drm/tidss/tidss_drv.c            |   4 +-
+ drivers/gpu/drm/tilcdc/tilcdc_drv.c          |   4 +-
+ drivers/gpu/drm/tiny/arcpgu.c                |   4 +-
+ drivers/gpu/drm/tve200/tve200_drv.c          |   4 +-
+ drivers/gpu/drm/vc4/vc4_drv.c                |   4 +-
+ drivers/gpu/drm/xlnx/zynqmp_kms.c            |   4 +-
+ include/drm/drm_fbdev_dma.h                  |  15 +
+ 26 files changed, 338 insertions(+), 47 deletions(-)
+ create mode 100644 drivers/gpu/drm/drm_fbdev_dma.c
+ create mode 100644 include/drm/drm_fbdev_dma.h
 
 
--- =
+base-commit: b21ced77ae1dbc3d8b01d3aef3c99bba7377a69b
+prerequisite-patch-id: 0aa359f6144c4015c140c8a6750be19099c676fb
+prerequisite-patch-id: c67e5d886a47b7d0266d81100837557fda34cb24
+prerequisite-patch-id: 3f204510fcbf9530d6540bd8e6128cce598988b6
+prerequisite-patch-id: 75f2ebf12693f23508f00d574b2b57488723e474
+prerequisite-patch-id: 718531bf5cf15716834cfaf3008ea0e2366ec927
+prerequisite-patch-id: a793aa283cf41f290d970404881f24bffc48caff
+prerequisite-patch-id: e74f259d1923247a74d5bf7d996afb0e6ca01883
+prerequisite-patch-id: a1d12b9548110b1f5e9aa3803b21e2a7f9f8c19d
+prerequisite-patch-id: 033f10da72f10d82f113a5066a3b3a7ff91d13aa
+prerequisite-patch-id: 976264fafbd69d0996209a90a3d546d9be3f3779
+prerequisite-patch-id: 617c74af5e16717898a23ced9c8badfff1e0ade7
+prerequisite-patch-id: 5e0cfa9c81aa7ceb2cc48c5cbc9934496251fac4
+prerequisite-patch-id: 13594c3cc8102960bb195bc7f572fefba8eb19d7
+prerequisite-patch-id: 99d9da7e08369050d135c23d32dead811bb9cf97
+prerequisite-patch-id: 833f9d8341a287961ee653b04730da57ce987b06
+prerequisite-patch-id: 5d5c9caaf9489a6c2f688d632a57a0fb65fcb5f7
+prerequisite-patch-id: b64758ecd64ec0c0acd96d0766ba891378c5c539
+prerequisite-patch-id: 37a7d3e9fb3e4e2b7ebeac3f77da6610f12beea3
+prerequisite-patch-id: 99073429dafdc98cdd31464ce28e795696a149f9
+prerequisite-patch-id: c2247eca44927569cd2b6d9f370195965346adb4
+-- 
+2.39.2
 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
