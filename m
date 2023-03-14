@@ -2,75 +2,83 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 80B3F6BC121
-	for <lists+linux-stm32@lfdr.de>; Thu, 16 Mar 2023 00:33:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9DC0B6BC709
+	for <lists+linux-stm32@lfdr.de>; Thu, 16 Mar 2023 08:28:07 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 39FE1C6904C;
-	Wed, 15 Mar 2023 23:33:04 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 55459C6904C;
+	Thu, 16 Mar 2023 07:28:07 +0000 (UTC)
+Received: from mail-lf1-f44.google.com (mail-lf1-f44.google.com
+ [209.85.167.44])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8E907C65E60
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6C4E1C64107
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 15 Mar 2023 23:33:03 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 0A96DB81FA9;
- Wed, 15 Mar 2023 23:33:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD3EEC433D2;
- Wed, 15 Mar 2023 23:32:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1678923181;
- bh=ZW0cW6j0eZ3LRxXMTCWZrrkIV3axsHJnqHcZZpwnlco=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=DQEoGlYRaWYHi/3uI8nc0LhUk+/xLW7zzvBumLCc+upwsanoVQoyggJaMNzHIBAah
- dUqX7NTdlqtNqmVH/DkhNlmdhG2TDo8lVKgqn9b4iqOz8VxYmzIKSA6ocnC0RE5iVF
- gCDXLOCIQ9m3MCqH92jKnf66VpJfg28tUC4YFJRgv4WmV+H6ZpiS4GYhkT0Ulh7v6k
- 0P0eiOIcdIton2WyhrGiY3/0QMrCKisubp+rlcPe4QhNIGfYkwOLPEua2qEBOr2RK8
- 0lW00iPAGST7rIrGR+59BXC9kt6+CZ3pQcxZeLVFPF7TYXG9jP8MadTZ9rbSwtx0/w
- ga0o2PgaBXBEA==
-From: Bjorn Andersson <andersson@kernel.org>
-To: Tero Kristo <kristo@kernel.org>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Chanwoo Choi <cw00.choi@samsung.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Santosh Shilimkar <ssantosh@kernel.org>,
- Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>,
- Michal Simek <michal.simek@xilinx.com>, Nishanth Menon <nm@ti.com>,
- Michael Turquette <mturquette@baylibre.com>,
- Peter De Schrijver <pdeschrijver@nvidia.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Thierry Reding <thierry.reding@gmail.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Tomasz Figa <tomasz.figa@gmail.com>, Stephen Boyd <sboyd@kernel.org>,
- =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
- Sylwester Nawrocki <s.nawrocki@samsung.com>,
- Andy Gross <agross@kernel.org>, Masami Hiramatsu <mhiramat@kernel.org>,
- Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
- Florian Fainelli <f.fainelli@gmail.com>,
- Sudeep Holla <sudeep.holla@arm.com>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Prashant Gaikwad <pgaikwad@nvidia.com>,
- Matthias Brugger <matthias.bgg@gmail.com>
-Date: Wed, 15 Mar 2023 16:35:30 -0700
-Message-Id: <167892332563.4030021.12717582908504193989.b4-ty@kernel.org>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20230312161512.2715500-1-u.kleine-koenig@pengutronix.de>
-References: <20230312161512.2715500-1-u.kleine-koenig@pengutronix.de>
+ Tue, 14 Mar 2023 15:13:22 +0000 (UTC)
+Received: by mail-lf1-f44.google.com with SMTP id n2so20417106lfb.12
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 14 Mar 2023 08:13:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1678806801;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=aWquE/66XhiUdKcAjOZcdT8JwAjOV0jdF3ZReJh+jhU=;
+ b=A70OxIRflPWeFRqLRBN8qDh9Nnpwl6mYudE01YgkwWijNkevncaAafkm4hhBFkYlPY
+ B+r3GEwqp0NgXcsOp5XuGK9r6rRnB/Obx5FjFgTAiep+FKTJN4Wf8YdFdeEt+FGeianQ
+ HKZRv9Gxy6ZXY22rJYBwB5fqIrxLopllTUZDbEXoT8/sDmpetnaCfVfzZjKfHbsVw5Ma
+ sKRrOmFpYtj4/IWOdsY6LEdG6eur/ataMRIvXZhgMnc/+DueCevIubHxa7SwxkyI+bBL
+ soT9s0BQKP1rOM59EGlR7NRgMnjXylMelTjMehReRdJPPj/aP3dV4uNWBeArjdPde47F
+ bsqg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112; t=1678806801;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=aWquE/66XhiUdKcAjOZcdT8JwAjOV0jdF3ZReJh+jhU=;
+ b=ofin13q/aid5/8mdZaGUXJbmsqExqrwNlVRQvKzUUgcOJZxeqTKINNH7Eu7v/TnFwv
+ /VzNftsjo4T/+m1stp45C0NMGSeZ4gIt2uJPWeU6rYxnVn0dMCSZ1oeo1WZXWXnRdgbp
+ rCDQTKUSLWuaIaXc1ao8Dq9CQyazLuQgsHpFiHg+d35vF7GUzYiNW+073qfwhz8Z6oFj
+ mW69VWGY3ng+HSRIF+fLkIEvE9ZUGe+N2hBEO3b5a3JB063ut841xHahUUzKHOemEhvu
+ vw6aYg2GZxzmvq0pe3fTp8ivLej7oycmI0b9QZCYy1Ch439O0EScdACWbUjDez4jQ7qn
+ R23A==
+X-Gm-Message-State: AO0yUKWVeiNCoyzZTAHMqMb+xIDRx7lM/X9xQDAKrzgCrJAgnEj/bTf0
+ whMJbVJlKIamDAn/GKqXshwHOQ==
+X-Google-Smtp-Source: AK7set+0FwZrp2Kqmgi11czNIWqOTIdgsRQEqlYZ+eN8f1lZ8ifft3X4RqJNjukpilWNLQkafq+Kxg==
+X-Received: by 2002:ac2:43ad:0:b0:4dc:4bda:c26f with SMTP id
+ t13-20020ac243ad000000b004dc4bdac26fmr973810lfl.23.1678806801649; 
+ Tue, 14 Mar 2023 08:13:21 -0700 (PDT)
+Received: from [192.168.1.101] (abyj16.neoplus.adsl.tpnet.pl. [83.9.29.16])
+ by smtp.gmail.com with ESMTPSA id
+ l7-20020ac24a87000000b004d23763fe96sm431973lfp.72.2023.03.14.08.13.18
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 14 Mar 2023 08:13:20 -0700 (PDT)
+Message-ID: <3f37eede-6d62-fb92-9cff-b308de333ebd@linaro.org>
+Date: Tue, 14 Mar 2023 16:13:18 +0100
 MIME-Version: 1.0
-Cc: linux-renesas-soc@vger.kernel.org, linux-rpi-kernel@lists.infradead.org,
- linux-samsung-soc@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org,
- Konrad Dybcio <konrad.dybcio@linaro.org>,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
- Cristian Marussi <cristian.marussi@arm.com>,
- Alim Akhtar <alim.akhtar@samsung.com>, linux-tegra@vger.kernel.org,
- linux-mediatek@lists.infradead.org, linux-omap@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Subject: Re: [Linux-stm32] (subset) [PATCH 00/30] clk: Convert to platform
-	remove callback returning void
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.8.0
+Content-Language: en-US
+To: Andrew Halaney <ahalaney@redhat.com>, linux-kernel@vger.kernel.org
+References: <20230313165620.128463-1-ahalaney@redhat.com>
+ <20230313165620.128463-6-ahalaney@redhat.com>
+From: Konrad Dybcio <konrad.dybcio@linaro.org>
+In-Reply-To: <20230313165620.128463-6-ahalaney@redhat.com>
+X-Mailman-Approved-At: Thu, 16 Mar 2023 07:28:05 +0000
+Cc: mturquette@baylibre.com, edumazet@google.com,
+ krzysztof.kozlowski+dt@linaro.org, jonathanh@nvidia.com,
+ linux-clk@vger.kernel.org, tee.min.tan@linux.intel.com, linux@armlinux.org.uk,
+ veekhee@apple.com, hisunil@quicinc.com, joabreu@synopsys.com, kuba@kernel.org,
+ pabeni@redhat.com, andrey.konovalov@linaro.org, ncai@quicinc.com,
+ devicetree@vger.kernel.org, bhupesh.sharma@linaro.org,
+ linux-arm-msm@vger.kernel.org, richardcochran@gmail.com, bmasney@redhat.com,
+ mohammad.athari.ismail@intel.com, robh+dt@kernel.org, ruppala@nvidia.com,
+ jsuraj@qti.qualcomm.com, peppe.cavallaro@st.com,
+ linux-arm-kernel@lists.infradead.org, sboyd@kernel.org, netdev@vger.kernel.org,
+ andersson@kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ agross@kernel.org, vkoul@kernel.org, mcoquelin.stm32@gmail.com,
+ davem@davemloft.net
+Subject: Re: [Linux-stm32] [PATCH net-next 05/11] clk: qcom: gcc-sc8280xp:
+	Add EMAC GDSCs
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,25 +90,76 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gU3VuLCAxMiBNYXIgMjAyMyAxNzoxNDo0MiArMDEwMCwgVXdlIEtsZWluZS1Lw7ZuaWcgd3Jv
-dGU6Cj4gdGhpcyBwYXRjaCBzZXJpZXMgYWRhcHRzIHRoZSBwbGF0Zm9ybSBkcml2ZXJzIGJlbG93
-IGRyaXZlcnMvY2xrCj4gdG8gdXNlIHRoZSAucmVtb3ZlX25ldygpIGNhbGxiYWNrLiBDb21wYXJl
-ZCB0byB0aGUgdHJhZGl0aW9uYWwgLnJlbW92ZSgpCj4gY2FsbGJhY2sgLnJlbW92ZV9uZXcoKSBy
-ZXR1cm5zIG5vIHZhbHVlLiBUaGlzIGlzIGEgZ29vZCB0aGluZyBiZWNhdXNlCj4gdGhlIGRyaXZl
-ciBjb3JlIGRvZXNuJ3QgKGFuZCBjYW5ub3QpIGNvcGUgZm9yIGVycm9ycyBkdXJpbmcgcmVtb3Zl
-LiBUaGUKPiBvbmx5IGVmZmVjdCBvZiBhIG5vbi16ZXJvIHJldHVybiB2YWx1ZSBpbiAucmVtb3Zl
-KCkgaXMgdGhhdCB0aGUgZHJpdmVyCj4gY29yZSBlbWl0cyBhIHdhcm5pbmcuIFRoZSBkZXZpY2Ug
-aXMgcmVtb3ZlZCBhbnlob3cgYW5kIGFuIGVhcmx5IHJldHVybgo+IGZyb20gLnJlbW92ZSgpIHVz
-dWFsbHkgeWllbGRzIGEgcmVzb3VyY2UgbGVhay4KPiAKPiBbLi4uXQoKQXBwbGllZCwgdGhhbmtz
-IQoKWzIyLzMwXSBjbGs6IHFjb206IENvbnZlcnQgdG8gcGxhdGZvcm0gcmVtb3ZlIGNhbGxiYWNr
-IHJldHVybmluZyB2b2lkCiAgICAgICAgY29tbWl0OiBjNGRjMjRkYTUyODY3NDJmOGNjNzI4Mzc5
-ZjYxMTVjOWU4ODZhOGE0CgpCZXN0IHJlZ2FyZHMsCi0tIApCam9ybiBBbmRlcnNzb24gPGFuZGVy
-c3NvbkBrZXJuZWwub3JnPgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1h
-bi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFp
-bG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
+
+
+On 13.03.2023 17:56, Andrew Halaney wrote:
+> Add the EMAC GDSCs to allow the EMAC hardware to be enabled.
+> 
+> Signed-off-by: Andrew Halaney <ahalaney@redhat.com>
+> ---
+Was it tested to not cause issues on access on "normal" 8280xp?
+AFAICS if there would be any, they would happen at registration
+time, as gdsc_init already accesses its registers
+
+Konrad
+>  drivers/clk/qcom/gcc-sc8280xp.c               | 18 ++++++++++++++++++
+>  include/dt-bindings/clock/qcom,gcc-sc8280xp.h |  2 ++
+>  2 files changed, 20 insertions(+)
+> 
+> diff --git a/drivers/clk/qcom/gcc-sc8280xp.c b/drivers/clk/qcom/gcc-sc8280xp.c
+> index b3198784e1c3..04a99dbaa57e 100644
+> --- a/drivers/clk/qcom/gcc-sc8280xp.c
+> +++ b/drivers/clk/qcom/gcc-sc8280xp.c
+> @@ -6873,6 +6873,22 @@ static struct gdsc usb30_sec_gdsc = {
+>  	.pwrsts = PWRSTS_RET_ON,
+>  };
+>  
+> +static struct gdsc emac_0_gdsc = {
+> +	.gdscr = 0xaa004,
+> +	.pd = {
+> +		.name = "emac_0_gdsc",
+> +	},
+> +	.pwrsts = PWRSTS_OFF_ON,
+> +};
+> +
+> +static struct gdsc emac_1_gdsc = {
+> +	.gdscr = 0xba004,
+> +	.pd = {
+> +		.name = "emac_1_gdsc",
+> +	},
+> +	.pwrsts = PWRSTS_OFF_ON,
+> +};
+> +
+>  static struct clk_regmap *gcc_sc8280xp_clocks[] = {
+>  	[GCC_AGGRE_NOC_PCIE0_TUNNEL_AXI_CLK] = &gcc_aggre_noc_pcie0_tunnel_axi_clk.clkr,
+>  	[GCC_AGGRE_NOC_PCIE1_TUNNEL_AXI_CLK] = &gcc_aggre_noc_pcie1_tunnel_axi_clk.clkr,
+> @@ -7351,6 +7367,8 @@ static struct gdsc *gcc_sc8280xp_gdscs[] = {
+>  	[USB30_MP_GDSC] = &usb30_mp_gdsc,
+>  	[USB30_PRIM_GDSC] = &usb30_prim_gdsc,
+>  	[USB30_SEC_GDSC] = &usb30_sec_gdsc,
+> +	[EMAC_0_GDSC] = &emac_0_gdsc,
+> +	[EMAC_1_GDSC] = &emac_1_gdsc,
+>  };
+>  
+>  static const struct clk_rcg_dfs_data gcc_dfs_clocks[] = {
+> diff --git a/include/dt-bindings/clock/qcom,gcc-sc8280xp.h b/include/dt-bindings/clock/qcom,gcc-sc8280xp.h
+> index cb2fb638825c..721105ea4fad 100644
+> --- a/include/dt-bindings/clock/qcom,gcc-sc8280xp.h
+> +++ b/include/dt-bindings/clock/qcom,gcc-sc8280xp.h
+> @@ -492,5 +492,7 @@
+>  #define USB30_MP_GDSC					9
+>  #define USB30_PRIM_GDSC					10
+>  #define USB30_SEC_GDSC					11
+> +#define EMAC_0_GDSC					12
+> +#define EMAC_1_GDSC					13
+>  
+>  #endif
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
