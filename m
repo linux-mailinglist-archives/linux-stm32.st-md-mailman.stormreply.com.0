@@ -2,58 +2,89 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B46F6B95D8
-	for <lists+linux-stm32@lfdr.de>; Tue, 14 Mar 2023 14:18:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E1056B96DD
+	for <lists+linux-stm32@lfdr.de>; Tue, 14 Mar 2023 14:53:19 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 36E0EC6904F;
-	Tue, 14 Mar 2023 13:18:43 +0000 (UTC)
-Received: from mail.sgstbr.de (mail.sgstbr.de [94.130.16.250])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EF202C035BB
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0DD16C65E60;
+	Tue, 14 Mar 2023 13:53:19 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B4B30C035BB
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 14 Mar 2023 09:56:33 +0000 (UTC)
-Received: from [IPV6:2a02:810d:ab40:2500:3b46:4127:c750:bf0] (unknown
- [IPv6:2a02:810d:ab40:2500:3b46:4127:c750:bf0])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-384) server-signature RSA-PSS (4096 bits))
- (No client certificate requested)
- (Authenticated sender: fabian@blaese.de)
- by mail.sgstbr.de (Postfix) with ESMTPSA id CD29A249440;
- Tue, 14 Mar 2023 10:56:32 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=blaese.de; s=201803;
- t=1678787793; bh=2YHHIOnfCNb0tl9AGjKfzZ+jPiMxd5LIoKufI4ihP0c=;
- h=Date:Subject:To:References:From:In-Reply-To:From;
- b=wadZqMqq6kk9Y3Z29PL08r1mM8MJuJg10klMiJ1n0XzL6l0Zyqk9ibZ9OVjIFYZzu
- SUJ4nviYK36Z9U64Oxz3J84nk9EoH8BRWu6c5ePrVaVeXnd5VvSXgG8xBeOGXhY5Gj
- UgRbwH2mcggyFnxPc6BSL3MWGcf5kkMxAfJZSIqUidqpt21qIDeUJbZjb9OAxRmALs
- I7LmnONEayviRGhIepyd8MPjGDYstdAqVgmsI2micefL5No1rTR8uIDy2IBIfg0Wn7
- RRzXtWfafKSXmsHhW00rnxzsVX26sc6TlfkVfbXLH2ulX29LQl8hdvPUmXP2slNABu
- WrB6edUDgWytw==
-Message-ID: <e9a84798-84c6-1d4b-499b-072868577330@blaese.de>
-Date: Tue, 14 Mar 2023 10:56:32 +0100
+ Tue, 14 Mar 2023 13:53:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1678801996;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=27KQYZgjkZx3cO9u5MRtjq+WwG0d0GtPOCjo6zjWpFI=;
+ b=T+MkSe9kx3BlrRELLxiAlM2xiVqd/Stk1vTOqYJc2mMGeJtN8uNwtixYULjzRz/3rpH4lb
+ wJwBxfiEN+V83eflgUOzjafrUCoTrvCdBmngJULK7oyMyl4cXkhY9SDUPODO3kW9EId25w
+ LUiiWIl3+bOLDtv71X4cOqUMvabK/QI=
+Received: from mail-ot1-f69.google.com (mail-ot1-f69.google.com
+ [209.85.210.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-166-LG6B783QMgK740r6d0J5NA-1; Tue, 14 Mar 2023 09:53:13 -0400
+X-MC-Unique: LG6B783QMgK740r6d0J5NA-1
+Received: by mail-ot1-f69.google.com with SMTP id
+ e2-20020a9d5602000000b00694299f6ea9so7491423oti.19
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 14 Mar 2023 06:53:13 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112; t=1678801993;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=27KQYZgjkZx3cO9u5MRtjq+WwG0d0GtPOCjo6zjWpFI=;
+ b=FGwweJ1K9zggjMTSnDXf8YURa23Ia4di9PTS3rDANs9fjcuK4Bw56/V8yBLNUba17b
+ S97oOBvCDFklj1ytKkwBRwoJTrlE3NgLUhHCEXuH7uIe7xEgzHOnGrDQarxU0ceaO/ta
+ g+OffP57/qUtHf/U697Qi4S/VN0gqOIWeanpAQnvP0HrjZPRUuTy0OhKoIqcBvr0tZPG
+ Y667eiZLUrnoAft1UO+eEz9zOI5uO80Q0X2+xIKTkd12EHbC1Zcjncvxq6oyD6tqKH2C
+ B+ZojEy6PWR70mBkP6SYfHNXE8mb/fOXtpfc5OoBixd+yqlQzs5Si2bOFaGLhTZgHIrs
+ PxIA==
+X-Gm-Message-State: AO0yUKVPkon3OYTChkCtFCtz937M/cIyaQ1PESiyid31V1/jKTF5BaAl
+ e+d9TQsoUDBX6hD22rc/hZwCc5/tKgmerBjxCdEP0MfwK5M6rDzR6yTaAujEdQMvw1nxjguUXGT
+ /UQReASVRAPgGKVSIYU+EjR/suDbizIjgNY+0sxgY
+X-Received: by 2002:a05:6870:40c5:b0:177:9f48:6282 with SMTP id
+ l5-20020a05687040c500b001779f486282mr5967645oal.53.1678801992955; 
+ Tue, 14 Mar 2023 06:53:12 -0700 (PDT)
+X-Google-Smtp-Source: AK7set865OV+J0WHIBTC/561ECQlv4RbYP6x5QMO3SK6tB+6M0mPsz58Rsx3evTgj9Holgi7Z6/nvg==
+X-Received: by 2002:a05:6870:40c5:b0:177:9f48:6282 with SMTP id
+ l5-20020a05687040c500b001779f486282mr5967618oal.53.1678801992726; 
+ Tue, 14 Mar 2023 06:53:12 -0700 (PDT)
+Received: from halaney-x13s (104-53-165-62.lightspeed.stlsmo.sbcglobal.net.
+ [104.53.165.62]) by smtp.gmail.com with ESMTPSA id
+ an36-20020a056871b1a400b00177c314a358sm1088290oac.22.2023.03.14.06.53.10
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 14 Mar 2023 06:53:12 -0700 (PDT)
+Date: Tue, 14 Mar 2023 08:53:09 -0500
+From: Andrew Halaney <ahalaney@redhat.com>
+To: Stephen Boyd <sboyd@kernel.org>, andersson@kernel.org
+Message-ID: <20230314135309.o7y2ofzdvpowu53j@halaney-x13s>
+References: <20230313165620.128463-1-ahalaney@redhat.com>
+ <20230313165620.128463-6-ahalaney@redhat.com>
+ <e5cb46e8874b12dbe438be12ee0cf949.sboyd@kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.8.0
-Content-Language: de-DE
-To: Michael Sit Wei Hong <michael.wei.hong.sit@intel.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Jose Abreu <joabreu@synopsys.com>, "David S . Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>, Ong Boon Leong <boon.leong.ong@intel.com>,
- netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20230314070208.3703963-1-michael.wei.hong.sit@intel.com>
- <20230314070208.3703963-3-michael.wei.hong.sit@intel.com>
-From: =?UTF-8?Q?Fabian_Bl=c3=a4se?= <fabian@blaese.de>
-In-Reply-To: <20230314070208.3703963-3-michael.wei.hong.sit@intel.com>
-X-Mailman-Approved-At: Tue, 14 Mar 2023 13:18:41 +0000
-Cc: Lai Peter Jun Ann <peter.jun.ann.lai@intel.com>,
- Looi Hong Aun <hong.aun.looi@intel.com>, Voon Weifeng <weifeng.voon@intel.com>
-Subject: Re: [Linux-stm32] [PATCH net v2 2/2] net: stmmac: move fixed-link
- support fixup code
+In-Reply-To: <e5cb46e8874b12dbe438be12ee0cf949.sboyd@kernel.org>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Disposition: inline
+Cc: mturquette@baylibre.com, edumazet@google.com,
+ krzysztof.kozlowski+dt@linaro.org, jonathanh@nvidia.com,
+ linux-clk@vger.kernel.org, tee.min.tan@linux.intel.com, linux@armlinux.org.uk,
+ veekhee@apple.com, hisunil@quicinc.com, joabreu@synopsys.com,
+ agross@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ andrey.konovalov@linaro.org, ncai@quicinc.com, devicetree@vger.kernel.org,
+ bhupesh.sharma@linaro.org, linux-arm-msm@vger.kernel.org,
+ richardcochran@gmail.com, bmasney@redhat.com, mohammad.athari.ismail@intel.com,
+ robh+dt@kernel.org, ruppala@nvidia.com, jsuraj@qti.qualcomm.com,
+ peppe.cavallaro@st.com, linux-arm-kernel@lists.infradead.org,
+ netdev@vger.kernel.org, andersson@kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
+ konrad.dybcio@linaro.org, vkoul@kernel.org, mcoquelin.stm32@gmail.com,
+ davem@davemloft.net
+Subject: Re: [Linux-stm32] [PATCH net-next 05/11] clk: qcom: gcc-sc8280xp:
+	Add EMAC GDSCs
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -65,21 +96,36 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gMTQuMDMuMjMgMDg6MDIsIE1pY2hhZWwgU2l0IFdlaSBIb25nIHdyb3RlOgo+IHhwY3NfYW5f
-aW5iYW5kIHZhbHVlIGlzIHVwZGF0ZWQgaW4gdGhlIHNwZWVkX21vZGVfMjUwMCBmdW5jdGlvbgo+
-IHdoaWNoIHR1cm5zIG9uIHRoZSB4cGNzX2FuX2luYmFuZCBtb2RlLgo+IAo+IE1vdmluZyB0aGUg
-Zml4ZWQtbGluayBmaXh1cCBjb2RlIHRvIHJpZ2h0IGJlZm9yZSBwaHlsaW5rIHNldHVwIHRvCj4g
-ZW5zdXJlIG5vIG1vcmUgZml4dXAgd2lsbCBhZmZlY3QgdGhlIGZpeGVkLWxpbmsgbW9kZSBjb25m
-aWd1cmF0aW9ucy4KPiAKPiBGaXhlczogNzJlZGFmMzlmYzY1ICgic3RtbWFjOiBpbnRlbDogYWRk
-IHBoeS1tb2RlIGFuZCBmaXhlZC1saW5rIEFDUEkgX0RTRCBzZXR0aW5nIHN1cHBvcnQiKQo+IFNp
-Z25lZC1vZmYtYnk6IE1pY2hhZWwgU2l0IFdlaSBIb25nIDxtaWNoYWVsLndlaS5ob25nLnNpdEBp
-bnRlbC5jb20+CgpUZXN0ZWQtYnk6IEZhYmlhbiBCbMOkc2UgPGZhYmlhbkBibGFlc2UuZGU+Cl9f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMy
-IG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0
-dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4
-LXN0bTMyCg==
+Bjorn,
+
+On Mon, Mar 13, 2023 at 03:57:27PM -0700, Stephen Boyd wrote:
+> Quoting Andrew Halaney (2023-03-13 09:56:14)
+> > Add the EMAC GDSCs to allow the EMAC hardware to be enabled.
+> > 
+> > Signed-off-by: Andrew Halaney <ahalaney@redhat.com>
+> > ---
+> 
+> Acked-by: Stephen Boyd <sboyd@kernel.org>
+> 
+> I'm not sure if Bjorn Andersson is planning on modifying this file too,
+> so please confirm it can go through netdev tree.
+> 
+
+Can you please help respond to Stephen's comment above? I admittedly
+don't have much experience sending patch series that span across
+multiple subsystems, so if there's something I should be doing
+differently (to indicate who takes what patches, etc) in submission
+please do not hesitate to be overly verbose in instructing me!
+
+Thanks,
+Andrew
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
