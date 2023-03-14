@@ -2,60 +2,80 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 16FB06B8E8B
-	for <lists+linux-stm32@lfdr.de>; Tue, 14 Mar 2023 10:23:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 257C56B915F
+	for <lists+linux-stm32@lfdr.de>; Tue, 14 Mar 2023 12:17:01 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BA3FAC65E60;
-	Tue, 14 Mar 2023 09:23:13 +0000 (UTC)
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
- [85.220.165.71])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D638FC65E60;
+	Tue, 14 Mar 2023 11:17:00 +0000 (UTC)
+Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com
+ [209.85.167.42])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 88525C64107
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A3A3CC64107
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 14 Mar 2023 09:23:11 +0000 (UTC)
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
- by metis.ext.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <p.zabel@pengutronix.de>)
- id 1pc0ri-0004VU-7h; Tue, 14 Mar 2023 10:22:42 +0100
-Received: from [2a0a:edc0:0:900:1d::4e] (helo=lupine)
- by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.94.2)
- (envelope-from <p.zabel@pengutronix.de>)
- id 1pc0rc-0042uO-J6; Tue, 14 Mar 2023 10:22:36 +0100
-Received: from pza by lupine with local (Exim 4.94.2)
- (envelope-from <p.zabel@pengutronix.de>)
- id 1pc0rb-0002Dp-TC; Tue, 14 Mar 2023 10:22:35 +0100
-Message-ID: <bbd54405501ec660ac941971e2203855fd79a90f.camel@pengutronix.de>
-From: Philipp Zabel <p.zabel@pengutronix.de>
-To: Uwe =?ISO-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>, 
- Arnd Bergmann <arnd@arndb.de>, Inki Dae <inki.dae@samsung.com>, Seung-Woo
- Kim <sw0312.kim@samsung.com>, Kyungmin Park <kyungmin.park@samsung.com>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, Shawn Guo
- <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, Tomi
- Valkeinen <tomba@kernel.org>, Alain Volmat <alain.volmat@foss.st.com>,
- Yannick Fertre <yannick.fertre@foss.st.com>,  Raphael Gallais-Pou
- <raphael.gallais-pou@foss.st.com>, Philippe Cornu
- <philippe.cornu@foss.st.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-Date: Tue, 14 Mar 2023 10:22:35 +0100
-In-Reply-To: <20221209220555.3631364-1-u.kleine-koenig@pengutronix.de>
-References: <20221209220555.3631364-1-u.kleine-koenig@pengutronix.de>
-User-Agent: Evolution 3.38.3-1+deb11u1 
+ Tue, 14 Mar 2023 11:16:59 +0000 (UTC)
+Received: by mail-lf1-f42.google.com with SMTP id br6so1336315lfb.11
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 14 Mar 2023 04:16:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20210112; t=1678792619;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=xqpuC0LKrzGcakbAULieo80qd/AxM1sSXYQ7KZfz9CA=;
+ b=JfWQLDnss9RLHNQT55qIGS7gtnCy62QpDQIUDeg79wYVY91Jw/3YXc1F0z+nyOtiO2
+ nFkf2/EEka2c/FmumixC9rihiTVJW3OJjXdGGjtfhIznb+dubYo3ONv0+F0XS+PXyRDD
+ IWagIto5G2xwdRaSrZQ7Wd5dexIqaV34M4cKotJLIAIogNdJh/bqyv6qG2NUCJ3rn15G
+ 7nipq10oEMqOSJOfHKzu0U7dJRX0IusaF3FFWe37xqJMi+K3F/6iLJaPxgdshwhkQvma
+ vMqNjiONBJOFOEgEk58PdFrCMWluAibeawFS1u/PPyXAIAzv9JV1QnJzNUtP31E3sdQR
+ kQvA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112; t=1678792619;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=xqpuC0LKrzGcakbAULieo80qd/AxM1sSXYQ7KZfz9CA=;
+ b=4Nz5GdMlDWjdtOgSjDVHk3hKvqyBNMegWsXuWnQcVE7YsLQIEr+VU8XTUJoDfNTfrO
+ 2LQTzwhARBEWifL/05xfrqdsOCLezRDrSDEivioUmu8cE2yQN7QYyPRa+ZDjKWoFT8Bg
+ fabDfiI8bVQcC++y1j7L2m3VrsrfZae6Dgh9+fvky5e7p73dVVRauN9Z4lhuUoOo+r91
+ eaux1L697woWWyBDNmDv4CKIG+HwOVRKoxpnqKqNnzrhy0N8d9OPnE15NxN+4oJ9ovDS
+ zzggNnImlNSR5j6OL/JD3Aw0u6AnRMJ5mWVojihW6NOojbt2aXILgSBxJWsJj81nhm4I
+ 8o3A==
+X-Gm-Message-State: AO0yUKUKjtDb7T6DPPHR3F2gHH0/PBnK3WippJvKPW1az5P2T5yfO9ru
+ 8cNKRJcHfTD9fJL0P6CayPY=
+X-Google-Smtp-Source: AK7set9ZcenVszb/blJH1/YrWz7TaGM2/EeKvjtDVgJWlZfEvoGSveVyrjgsuwIuViFfdf8ZyAN9/Q==
+X-Received: by 2002:a05:6512:4c7:b0:4b4:8f01:f8b1 with SMTP id
+ w7-20020a05651204c700b004b48f01f8b1mr628005lfq.31.1678792618656; 
+ Tue, 14 Mar 2023 04:16:58 -0700 (PDT)
+Received: from mobilestation ([95.79.133.202])
+ by smtp.gmail.com with ESMTPSA id
+ u10-20020a056512040a00b004dd7ddc696esm356706lfk.293.2023.03.14.04.16.56
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 14 Mar 2023 04:16:57 -0700 (PDT)
+Date: Tue, 14 Mar 2023 14:16:54 +0300
+From: Serge Semin <fancer.lancer@gmail.com>
+To: Andrew Lunn <andrew@lunn.ch>
+Message-ID: <20230314111654.x2nsdr7jmumg6bp7@mobilestation>
+References: <20230313224237.28757-1-Sergey.Semin@baikalelectronics.ru>
+ <20230313224237.28757-2-Sergey.Semin@baikalelectronics.ru>
+ <c87c9964-af29-4885-a977-c8a4a2fe704e@lunn.ch>
 MIME-Version: 1.0
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: p.zabel@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
-Cc: linux-samsung-soc@vger.kernel.org, Alim Akhtar <alim.akhtar@samsung.com>,
- dri-devel@lists.freedesktop.org, NXP Linux Team <linux-imx@nxp.com>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] drm: Drop ARCH_MULTIPLATFORM from
-	dependencies
+Content-Disposition: inline
+In-Reply-To: <c87c9964-af29-4885-a977-c8a4a2fe704e@lunn.ch>
+Cc: linux-kernel@vger.kernel.org, Biao Huang <biao.huang@mediatek.com>,
+ netdev@vger.kernel.org, Yang Yingliang <yangyingliang@huawei.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Alexey Malahov <Alexey.Malahov@baikalelectronics.ru>,
+ Russell King <linux@armlinux.org.uk>,
+ Serge Semin <Sergey.Semin@baikalelectronics.ru>,
+ Christian Marangi <ansuelsmth@gmail.com>, Eric Dumazet <edumazet@google.com>,
+ Jose Abreu <joabreu@synopsys.com>,
+ Pavel Parkhomenko <Pavel.Parkhomenko@baikalelectronics.ru>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>, Paolo Abeni <pabeni@redhat.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
+ Heiner Kallweit <hkallweit1@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH net 01/13] net: phy: realtek: Fix events
+ detection failure in LPI mode
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,24 +87,32 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gRnIsIDIwMjItMTItMDkgYXQgMjM6MDUgKzAxMDAsIFV3ZSBLbGVpbmUtS8O2bmlnIHdyb3Rl
-Ogo+IFNvbWUgb2YgdGhlc2UgZGVwZW5kZW5jaWVzIHVzZWQgdG8gYmUgc2Vuc2libGUgd2hlbiBv
-bmx5IGEgc21hbGwgcGFydCBvZgo+IHRoZSBwbGF0Zm9ybXMgc3VwcG9ydGVkIGJ5IEFSQ0g9YXJt
-IGNvdWxkIGJlIGNvbXBpbGVkIHRvZ2V0aGVyIGluIGEKPiBzaW5nbGUga2VybmVsIGltYWdlLiBO
-b3dhZGF5cyBBUkNIX01VTFRJUExBVEZPUk0gaXMgb25seSB1c2VkIGFzIGEgZ3VhcmQKPiBmb3Ig
-a2VybmVsIG9wdGlvbnMgaW5jb21wYXRpYmxlIHdpdGggYSBtdWx0aXBsYXRmb3JtIGltYWdlLiBT
-ZWUgY29tbWl0Cj4gODRmYzg2MzYwNjIzICgiQVJNOiBtYWtlIEFSQ0hfTVVMVElQTEFURk9STSB1
-c2VyLXZpc2libGUiKSBmb3Igc29tZSBtb3JlCj4gZGV0YWlscy4KPiAKPiBTaWduZWQtb2ZmLWJ5
-OiBVd2UgS2xlaW5lLUvDtm5pZyA8dS5rbGVpbmUta29lbmlnQHBlbmd1dHJvbml4LmRlPgo+IC0t
-LQo+IMKgZHJpdmVycy9ncHUvZHJtL2lteC9LY29uZmlnICAgICB8IDIgKy0KPiDCoGRyaXZlcnMv
-Z3B1L2lwdS12My9LY29uZmlnICAgICAgfCAyICstCgpGb3IgaS5NWCAvIElQVXYzLAoKUmV2aWV3
-ZWQtYnk6IFBoaWxpcHAgWmFiZWwgPHAuemFiZWxAcGVuZ3V0cm9uaXguZGU+CgpyZWdhcmRzClBo
-aWxpcHAKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGlu
-dXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBs
-eS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGlu
-Zm8vbGludXgtc3RtMzIK
+Hi Andrew
+
+On Tue, Mar 14, 2023 at 01:39:43AM +0100, Andrew Lunn wrote:
+> > Signed-off-by: Serge Semin <Sergey.Semin@baikalelectronics.ru>
+> > Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+> 
+> Since this is for net, you need to provide a Fixes: tag.
+
+Hm, for some reason I was sure that all the patches in this series were
+equipped with the Fixes-tags. Anyway since the patch fixes the particular
+device malfunction then it's relevant to the commit initially adding the
+device support:
+Fixes: ef3d90491a15 ("net: phy: realtek: add rtl8211e driver")
+
+I'll add that tag on v2. Thanks for reminding.
+
+-Serge(y)
+
+> 
+>       Andrew
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
