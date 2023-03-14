@@ -2,145 +2,82 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 79C416B8E04
-	for <lists+linux-stm32@lfdr.de>; Tue, 14 Mar 2023 10:01:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A27F86B8E1E
+	for <lists+linux-stm32@lfdr.de>; Tue, 14 Mar 2023 10:06:14 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0822AC65E60;
-	Tue, 14 Mar 2023 09:01:53 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5AE57C65E60;
+	Tue, 14 Mar 2023 09:06:14 +0000 (UTC)
+Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com
+ [209.85.214.180])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 476ADC65043
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3F9C6C65043
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 14 Mar 2023 09:01:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1678784511; x=1710320511;
- h=date:from:to:cc:subject:message-id:references:
- in-reply-to:mime-version;
- bh=PRwBc2mWXDwUFUu9827A7ZtM8AF2b6dqMKyzpXtPkHY=;
- b=nv7nfJJNAnVTzIqAC17ZpoKAnHelVblRXKkPLKVeyoSKufL9QBxRrX0V
- tk0t3YXDR0kPLfKoxLl5oQK8a39kkvRvTqNpAZjGd99KQrE5KLqg1a94s
- nW2dmKgAfcXc06ShvE8KbxCdCw9nfRooSS5VeIeUKUNRgC0gSdVZq99D5
- C9XMo7sKZ54A1A2TVQaw37GlZdH/1KXsXizP74zobvcrSGgmn6o598Yib
- 8Zk3dP0+0BQnVO0VPeu0T4iXheMm8rw6DI9/0d2IqAZRvxIFfymCbOZi+
- RdDex6tgV/GW4lxkiY96BnvvqTQkNv/cgHceCfrRoPJaE/cFRtFUyx4NQ w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10648"; a="317016153"
-X-IronPort-AV: E=Sophos;i="5.98,259,1673942400"; d="scan'208";a="317016153"
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Mar 2023 02:01:48 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10648"; a="681340987"
-X-IronPort-AV: E=Sophos;i="5.98,259,1673942400"; d="scan'208";a="681340987"
-Received: from fmsmsx601.amr.corp.intel.com ([10.18.126.81])
- by fmsmga007.fm.intel.com with ESMTP; 14 Mar 2023 02:01:48 -0700
-Received: from fmsmsx610.amr.corp.intel.com (10.18.126.90) by
- fmsmsx601.amr.corp.intel.com (10.18.126.81) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.21; Tue, 14 Mar 2023 02:01:48 -0700
-Received: from fmsedg602.ED.cps.intel.com (10.1.192.136) by
- fmsmsx610.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.21 via Frontend Transport; Tue, 14 Mar 2023 02:01:48 -0700
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com (104.47.56.169)
- by edgegateway.intel.com (192.55.55.71) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2507.21; Tue, 14 Mar 2023 02:01:48 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=P7stEySC0gaQKjvv3sBaeAX8/8gC1u9LG+GV8Xiq+aO5IJMZtvvGoEXTYeTmwgEL/CteA24iegK/8idtVvBfQkMWGbBeO8TI9KkF/vxMdPJit6kkUyoKcY4jkh6FrdewVJO2zyP10lyZ0PAypVrb41O50aqyISO3Ukh2EnpOm3LNbt6r5fBicGHlrWzNv/dQqzWX9r2uSFE7OBgjGCEQV/bf8fr+Dc8tdYw9ISDf8c3feJa252Vu2I0QGzjUy3/q5g6jGvp7HpEomy7SKVtIgroW9d8m5UiHYP2BYAD3mTMo1e0wp8sd/KYdXPZ3nW7oG4Z3X98uI6Zhts6wx415/Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=smo5gY9yR8ZCTXYg7jKFPiLRMuM7Z388nOA9fUtt8j4=;
- b=Z84ctMV9iD9aWf3WIx5l/NMMpGfI26PQ10lkiDEPw4cYn56Oj3gSLzrN4G5ggf+VurHKFej1j3ZoUDvg5AucrRuZDMoLA/yre4qLmMEHYUN72hLNT3LCGvlKmA8ysyDzQgqSBP+csfO8X2+uJoqNfSHJ3ZLKzkcPbzBIQli7ZV0w8Z+hHIJm/gPjDAYDazOmdDucYJCentxai/S7pm4WC2XnSP4PkST6fPz2yKSZISoS84ziFOKmfILwfozkoWoq1k0uP+Ee6UjmHOcyVMw4OErVC0rTkTLxklyjzs0vsZjkxwBz6ToGh5pc53d2sGPy7kmqzDccjC/fyrFWYVZ+fg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from PH0PR11MB7471.namprd11.prod.outlook.com (2603:10b6:510:28a::13)
- by SJ0PR11MB5102.namprd11.prod.outlook.com (2603:10b6:a03:2ac::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.24; Tue, 14 Mar
- 2023 09:01:46 +0000
-Received: from PH0PR11MB7471.namprd11.prod.outlook.com
- ([fe80::37bf:fa82:8a21:a056]) by PH0PR11MB7471.namprd11.prod.outlook.com
- ([fe80::37bf:fa82:8a21:a056%2]) with mapi id 15.20.6178.024; Tue, 14 Mar 2023
- 09:01:46 +0000
-Date: Tue, 14 Mar 2023 10:01:44 +0100
-From: Piotr Raczynski <piotr.raczynski@intel.com>
-To: Michael Sit Wei Hong <michael.wei.hong.sit@intel.com>
-Message-ID: <ZBA3+LqAaWXDZCKZ@nimitz>
-References: <20230313080135.2952774-1-michael.wei.hong.sit@intel.com>
- <20230313080135.2952774-3-michael.wei.hong.sit@intel.com>
-Content-Disposition: inline
-In-Reply-To: <20230313080135.2952774-3-michael.wei.hong.sit@intel.com>
-X-ClientProxiedBy: LO2P265CA0015.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:62::27) To PH0PR11MB7471.namprd11.prod.outlook.com
- (2603:10b6:510:28a::13)
+ Tue, 14 Mar 2023 09:06:13 +0000 (UTC)
+Received: by mail-pl1-f180.google.com with SMTP id p6so15903964plf.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 14 Mar 2023 02:06:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1678784772;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=VvVKKTfClzDHbKr25iX73V342HR8rTZ6C7kPvWX0aBY=;
+ b=ta4LarLUW8GVYewL3V7G52f2PnqeptY/XG+Xj++LeAYExfggHPOU6rG3/4/3rQXG+n
+ AzvmQ2wQl0ABLmLB+j8uqP96pHc5Kxv0AojIqlYpcGB1hUHvyyK276Yy6PoiJmTkGYcu
+ zGJWJSkXkAHoByUCG6b1z7gylywfPo1un+ivuW9QzU19dOPVUL+TdFCv2jh27+uFdlUv
+ 7c7ZUWQY8PPanuRhSoHepXGS5nc7Tm/aIJfcWW/45typlJNAf25mejQ/TUovv4vr0E7i
+ ZjaKWWdJFJ1ZCo3L2LxQbfB4xP8RlcaiME0yAjDtKQXdfMsvfTAldgKplyZxAWY1yeil
+ yyWg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112; t=1678784772;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=VvVKKTfClzDHbKr25iX73V342HR8rTZ6C7kPvWX0aBY=;
+ b=OYbJrWKORRUTOOb5MPAVGXCGdzjzCrx7CA6D3DcmOF21Ys1p02zQ8bC13wpLeiVKJS
+ zrVbbob6LCBHBLUEODOTr/kuay7yRt3fI9kZ9v0TVL2QQTOmTx3cmptoJxB32cYle1mo
+ JzG+V+2UZQPUwJPoKS9Nqb+OipzIJRnVp84azyuNxR28OdZdNHdwc0lNGSUQAr6NwjJf
+ M6Su7EdpsKAkphL+gNLXJo6jd1Svb53zJ7qrlEM4Rc97+abO5UAvliEw2gFNVs4FQv4I
+ vh/GerF+y3rnWG3HU7SpsLHB35HsL5VwHJHSkCN7R688Fa1qf+gDxhXgWycqAkKHmv3a
+ Hf1w==
+X-Gm-Message-State: AO0yUKVXAQN0tUZHyZTvhqnQJ43ZMgnh4XSI0JIlF297gZb1Ul3FrNcD
+ xXsde4La0pSYlAn9quRWVpVNkA==
+X-Google-Smtp-Source: AK7set/XpT6XzJflkOougYbJXIWlZCBg7D1MY8N+0OWLt8IZY2LG8a7E83HVnkqfAtO3xcf+IpKViQ==
+X-Received: by 2002:a17:902:d4cc:b0:19a:b033:2bb0 with SMTP id
+ o12-20020a170902d4cc00b0019ab0332bb0mr43699652plg.46.1678784771688; 
+ Tue, 14 Mar 2023 02:06:11 -0700 (PDT)
+Received: from localhost.localdomain ([49.206.34.126])
+ by smtp.gmail.com with ESMTPSA id
+ kv3-20020a17090328c300b0019c919bccf8sm1254131plb.86.2023.03.14.02.06.02
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 14 Mar 2023 02:06:10 -0700 (PDT)
+From: Naresh Kamboju <naresh.kamboju@linaro.org>
+To: u.kleine-koenig@pengutronix.de
+Date: Tue, 14 Mar 2023 14:35:57 +0530
+Message-Id: <20230314090557.41960-1-naresh.kamboju@linaro.org>
+X-Mailer: git-send-email 2.30.2
+In-Reply-To: <20230304133028.2135435-1-u.kleine-koenig@pengutronix.de>
+References: <20230304133028.2135435-1-u.kleine-koenig@pengutronix.de>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH0PR11MB7471:EE_|SJ0PR11MB5102:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6ca127f2-2c47-47fc-121e-08db246abcf0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: XehmPxh+g4xpC4EuiRE29i0vunf1oFz7KL0zvPmUGQ5Mans1wmxnyRS0vNc6nAPyPy/ly2SFjtNYnJnhWp60EBJ7hbxaEDiPfUxAwX/PWo7YHdamZNiOUsLu+aEdHZz8Scwx4sk2qEmK/7lJvl0QHEyULPZJYkCxrb3soByBLSGeKD6433rrFaGjqj4hWGnhxAniEuEZSYZMKlf7PoULH8mNPAp90FklTAszSPwrHFISVhSaV/MGuMlucqFkW5EIzvuQMsHKJZzh0SRmVdWPBVKtpPXX9Q7i0fXT6DTaTQXhQp1b9bNcTApWyCR+PSscf9UG9KzYyA+xKb204jMM/3/6smitYJq/QOqQKxtkz5XZbOGrzt2aIeXacypLsPR1OQWnWOVfC2xM24/5kL3EbZ0+IqQcfpMuaAlrBN8V/tKMtdWXj7FIJw/Ih2atRRHkNJN0FNgWf4bK22aPy/BU4AMg2X9ZLfyPObR6hYgFTRufVFGiDzwfmcM27AlAsrLjiiDMWLnaThjuTtZTD2MhOaVPsTgSyO9ZcG63tAkebdzk9JZldhOiYSEH1oCqdSG/+aRvxN34KeJPB2zXq0e6acD08ng/K804/PZMmeKCkdbykaETq3NowSmmCaToHHVzxBXWBp/i/JR+fiCIxJJlHAEwagFzhTG1M9WGC6qQkB5fY9+ACkRNapjOpvAm/N2G
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH0PR11MB7471.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230025)(7916004)(346002)(39860400002)(366004)(136003)(376002)(396003)(451199018)(6486002)(2906002)(33716001)(82960400001)(83380400001)(107886003)(5660300002)(26005)(9686003)(6506007)(8936002)(186003)(8676002)(86362001)(6512007)(66946007)(41300700001)(6862004)(44832011)(66556008)(7416002)(66476007)(4326008)(478600001)(38100700002)(316002)(6636002)(54906003)(67856001);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?xQLvtsEadMp9bX8w3W/7pO7c5FXi7qAk47XsMaUKKVyS7kilavaD01IBz9B0?=
- =?us-ascii?Q?IfuqCHAqcLEr/fjfUwMsNDhl5i28eXM39FVnOnkHTmyLHEKMLMVyKPtP/G5v?=
- =?us-ascii?Q?tkLkVWfRShUZfLu1xiHPouhvbi0txRSzfEUHxjHgsCkz7MhC+rqhZ6qZy92M?=
- =?us-ascii?Q?W40z7v5ZKhxP+G4JSSt0FT5qmYQPp/UiGo8R2QnD9uy6Xp6LgYfWoo4I1e0o?=
- =?us-ascii?Q?09F7T9IrBjvFBqA9Q5Qcdao+SjBtfSH4V8ahJoO2JbobjmUkG00Vq9AfFIwb?=
- =?us-ascii?Q?7A4eEFNBmG1Xtf/Xec9Zv6rfXnv2EizsCDyVq5aO4JKlDBg9z/fIDFo0+8WI?=
- =?us-ascii?Q?IY0Quk+0lgKP9sku1Nlpoaf9T7A+MFERDnDzI0tmNm+ecUKiCRA564rhw0P0?=
- =?us-ascii?Q?ovHXmNxCY5KZKcezO2ONZNys1vinE0FEhwF8DNKbv2B0Fs/oK/6RBetOaA2Z?=
- =?us-ascii?Q?nINDh8P0Op4cy2QcOBuH163eix0AX5WfPkgdDNx1OocEfHJEHLx3mEg/HeT5?=
- =?us-ascii?Q?JqsHDHy/ENTgsaKH8QfA56nwJ9pa8UqOGnIeWll9NRknxBpKorjBZ81d7KYn?=
- =?us-ascii?Q?mpchrvnzsdQ5bSlakbiKS65r6OSyHsnfkBd8hL6fTw2VRiKmzNPxLQNLriHE?=
- =?us-ascii?Q?NmyOv9hQ/g2qcPkid/uufihQHjjX23Atw/rUHmbpUIO+ISsGsh7rdwRIuESw?=
- =?us-ascii?Q?P418XGxRW+xa0biefHEf6RHnwMzOgiQIkU6O/ObTQN5QhZ41OJuBM2RLh9mH?=
- =?us-ascii?Q?RTOFE0JUQDzx0V+eBlJUkMdAv+RKeTgomqPBVOl3Ywi51JsAoyCJsvsPngtb?=
- =?us-ascii?Q?DBb10D88fMkGp5jxK3vBtD08cv6u5pTRdhuaYjJ02yuRN1DpVyKU+bxFww27?=
- =?us-ascii?Q?i451zz5gD8dQ12bjq5awraqFb5Z/ToFAdmKaBRlGFAxRanSR+IwDzeV5q5ju?=
- =?us-ascii?Q?hfn0HjErWTIVXFnlLoOvO8GOx7BDA4QvUfn9X5jxKf+Y0CPNNNWa/GWjVpb7?=
- =?us-ascii?Q?7yxDs4WxGwH04UDTc2RVPGouHcCuH03gUfJ0+RAStjhmpRZbWWJEYBBqwdKB?=
- =?us-ascii?Q?lAT6X35XFpcb7qPQvgNkdWqKsiIgAgCycUkuh+y2dAI1xSa3kdxGZOvWGHCz?=
- =?us-ascii?Q?GvXqwBHHmvUN/a8GmoCXO5r3T9l/qtJU52dt5IantrVApEh7GU8z2jmnAfH4?=
- =?us-ascii?Q?eb5uw8xcEVGnsxYMroUuiIVqeNislZZK/HQ3p0SXPCu4F1QaJhE6x9OGRHUD?=
- =?us-ascii?Q?v/B6/2Ag2eytNpp8oriFFZMXNirOPTDsquB+dTJpw9ABGcJ6N5Th4sIfUOwM?=
- =?us-ascii?Q?l9YEZD+4Y2JxL4215SrBH7Vp/p+Bbz5MRBSx7aUetSPCdCjxorKzcVt70pC/?=
- =?us-ascii?Q?ho560foWZ9I+yWEB+uWqt8hGNbiMFXYA8wc9hfV5ZOekODKB7XQbYq8Ly3WR?=
- =?us-ascii?Q?5pRFniHqX/ZzVHvI8jMaWtpZHfpTFDrdWlnT2bNMmk3oms8iCfQ5EUeFynBV?=
- =?us-ascii?Q?/jxS5BV0lwGnnLluP9SEv69D7SLEaL/Jt5nMjKT/5u5COB1vUgBoM43XLSqJ?=
- =?us-ascii?Q?dZH8Z+5MxDcOqRuaJo2kt4W2uRXUjaGJ1BUWqveIwIloVrILnyAZKwKxr7Nl?=
- =?us-ascii?Q?+g=3D=3D?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6ca127f2-2c47-47fc-121e-08db246abcf0
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR11MB7471.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Mar 2023 09:01:46.3508 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: CvpGGnxF75Ro+kQcFhM7EhPZrntPLKtwkVCBlpL5non0S2xILIehJa8skzxfVG3InA1R5G+yLzIUnkbpl80GemTxGN7BLm6wf/1MeI6ER9U=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR11MB5102
-X-OriginatorOrg: intel.com
-Cc: linux-kernel@vger.kernel.org, Voon Weifeng <weifeng.voon@intel.com>,
- netdev@vger.kernel.org, Lai Peter Jun Ann <peter.jun.ann.lai@intel.com>,
- linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
- Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Jakub
- Kicinski <kuba@kernel.org>, Ong Boon Leong <boon.leong.ong@intel.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>, Looi
- Hong Aun <hong.aun.looi@intel.com>, Paolo Abeni <pabeni@redhat.com>, "David S .
- Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net 2/2] net: stmmac: move fixed-link
-	support fixup code
+Cc: alexandre.belloni@bootlin.com, linus.walleij@linaro.org,
+ matthias.bgg@gmail.com, conor.dooley@microchip.com, thierry.reding@gmail.com,
+ miquel.raynal@bootlin.com, groeck@chromium.org,
+ linux-riscv@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-rtc@vger.kernel.org, chrome-platform@lists.linux.dev,
+ f.fainelli@gmail.com, michal.simek@xilinx.com, jonathanh@nvidia.com,
+ cw00.choi@samsung.com, bcm-kernel-feedback-list@broadcom.com,
+ vincent.sunplus@gmail.com, Linux Kernel Functional Testing <lkft@linaro.org>,
+ mcoquelin.stm32@gmail.com, ulli.kroll@googlemail.com, sean.wang@mediatek.com,
+ vz@mleia.com, linux-mediatek@lists.infradead.org, linux-tegra@vger.kernel.org,
+ eddie.huang@mediatek.com, bleung@chromium.org,
+ linux-arm-kernel@lists.infradead.org, angelogioacchino.delregno@collabora.com,
+ a.zummo@towertech.it, daire.mcnamara@microchip.com,
+ patches@opensource.cirrus.com, nicolas.ferre@microchip.com,
+ linux-renesas-soc@vger.kernel.org, krzysztof.kozlowski@linaro.org,
+ kernel@pengutronix.de, claudiu.beznea@microchip.com, kumba@gentoo.org
+Subject: [Linux-stm32] [PATCH 00/41] rtc: Convert to platform remove
+	callback returning void
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -157,84 +94,34 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Mar 13, 2023 at 04:01:35PM +0800, Michael Sit Wei Hong wrote:
-> xpcs_an_inband value is updated in the speed_mode_2500 function
-> which turns on the xpcs_an_inband mode.
+> Hello,
 > 
-> Moving the fixed-link fixup code to right before phylink setup to
-> ensure no more fixup will affect the fixed-link mode configurations.
-> 
-> Fixes: 72edaf39fc65 ("stmmac: intel: add phy-mode and fixed-link ACPI _DSD setting support")
-> Signed-off-by: Michael Sit Wei Hong <michael.wei.hong.sit@intel.com>
-> ---
->  drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c | 11 -----------
->  drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 15 +++++++++++++++
->  2 files changed, 15 insertions(+), 11 deletions(-)
-> 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
-> index 7deb1f817dac..d02db2b529b9 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
-> @@ -592,17 +592,6 @@ static int intel_mgbe_common_data(struct pci_dev *pdev,
->  		plat->mdio_bus_data->xpcs_an_inband = true;
->  	}
->  
-> -	/* For fixed-link setup, we clear xpcs_an_inband */
-> -	if (fwnode) {
-> -		struct fwnode_handle *fixed_node;
-> -
-> -		fixed_node = fwnode_get_named_child_node(fwnode, "fixed-link");
-> -		if (fixed_node)
-> -			plat->mdio_bus_data->xpcs_an_inband = false;
-> -
-> -		fwnode_handle_put(fixed_node);
-> -	}
-> -
->  	/* Ensure mdio bus scan skips intel serdes and pcs-xpcs */
->  	plat->mdio_bus_data->phy_mask = 1 << INTEL_MGBE_ADHOC_ADDR;
->  	plat->mdio_bus_data->phy_mask |= 1 << INTEL_MGBE_XPCS_ADDR;
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> index 398adcd68ee8..5a9abafba490 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> @@ -7064,6 +7064,7 @@ int stmmac_dvr_probe(struct device *device,
->  		     struct stmmac_resources *res)
->  {
->  	struct net_device *ndev = NULL;
-> +	struct fwnode_handle *fwnode;
->  	struct stmmac_priv *priv;
->  	u32 rxq;
->  	int i, ret = 0;
-> @@ -7306,6 +7307,20 @@ int stmmac_dvr_probe(struct device *device,
->  			goto error_xpcs_setup;
->  	}
->  
-> +	/* For fixed-link setup, we clear xpcs_an_inband */
-> +	if (!fwnode)
-> +		fwnode = dev_fwnode(priv->device);
-> +
-> +	if (fwnode) {
-> +		struct fwnode_handle *fixed_node;
-> +
-> +		fixed_node = fwnode_get_named_child_node(fwnode, "fixed-link");
-> +		if (fixed_node)
-> +			priv->plat->mdio_bus_data->xpcs_an_inband = false;
-> +
-> +		fwnode_handle_put(fixed_node);
-> +	}
-> +
+> this patch series adapts the platform drivers below drivers/rtc to use the
+> .remove_new() callback. Compared to the traditional .remove() callback
+> .remove_new() returns no value. This is a good thing because the driver core
+> doesn't (and cannot) cope for errors during remove. The only effect of a
+> non-zero return value in .remove() is that the driver core emits a warning. The
+> device is removed anyhow and an early return from .remove() usually yields a
+> resource leak.
 
-Now you're doing similar checks here and inside stmmac_init_phy. Maybe
-you could combined this to some function?
+This patch set applied on top of Linux next.
 
-Piotr
+Build tested with gcc-12, clang-16 and clang nightly.
+Boot and LTP smoketests performed on
+ - qemu-x86_64
+ - qemu-arm64
+ - fvp-aemva
+ - qemu-armv7
+ - qemu-i386
 
->  	ret = stmmac_phy_setup(priv);
->  	if (ret) {
->  		netdev_err(ndev, "failed to setup phy (%d)\n", ret);
-> -- 
-> 2.34.1
-> 
+Tested-by: Linux Kernel Functional Testing <lkft@linaro.org>
+
+Link,
+https://qa-reports.linaro.org/~anders.roxell/linux-mainline-patches/build/lore_kernel_org_linux-arm-kernel_20230304133028_2135435-1-u_kleine-koenig_pengutronix_de/?failures_only=false#!#test-results
+
+--
+Linaro LKFT
+https://lkft.linaro.org
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
