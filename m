@@ -2,82 +2,76 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id EC1A16B9C84
-	for <lists+linux-stm32@lfdr.de>; Tue, 14 Mar 2023 18:09:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 729DD6B9F67
+	for <lists+linux-stm32@lfdr.de>; Tue, 14 Mar 2023 20:14:54 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9DC8CC65E60;
-	Tue, 14 Mar 2023 17:09:51 +0000 (UTC)
-Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com
- [209.85.167.53])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 24FE8C6904A;
+	Tue, 14 Mar 2023 19:14:54 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D29BEC64107
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B34FAC64107
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 14 Mar 2023 17:09:49 +0000 (UTC)
-Received: by mail-lf1-f53.google.com with SMTP id d36so20914372lfv.8
+ Tue, 14 Mar 2023 19:14:52 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 331D2B81B60
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 14 Mar 2023 10:09:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20210112; t=1678813789;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=A3mTGYj7JV/DxYx8PY7Jjtyf3i3A4TY4QKPyGUShY+4=;
- b=Pt9FXMyV5qPTnBsN9S1/ue6ef/xHOAdmSIiLfyYu0b5z8FVXXS1yj4ZK1ucSROuPRG
- jDyAlusKmNAaEVi6bK3kDVBpf6AGWU9T7G5LNXbgXRxebGCYrJidVsFdZ+6LCbkTcR59
- xnKKxVKWv9z9kJBHtIXobR8p6nSXCU3GzZTqFQP7wexHJsPLFmx2tZSCK/GA+REeelbu
- 0SxCODAFMY88ynul6wJCGBHe7NI+t6qu825Iptsp1ZbKcS8A9M1zyNkc1e1A84ehOq4o
- IdU+k74tQ+L39Bk+Fa/ESNr/YZwbgGVjHerqrj0/7/gdEYmlX3/IBoI1i1DggLgPpprn
- f2+g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1678813789;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=A3mTGYj7JV/DxYx8PY7Jjtyf3i3A4TY4QKPyGUShY+4=;
- b=Q0C1AcD+aMVxW3DVIHQROSEtQg1K2kizKX+d+4l11njO/cATEg3GYxNQUwtl7t2ljb
- SWlQzFYFqtqGkyKFOxD1vbSJY3xIPYazJvUPR7HS7jX4HjY4N4fbUJY94sVLoSMlBedk
- Ft6HzpFo/EI/HrbSFsaQV3lpS8C3KLnvehN6et0MG2htgO/iDjhQzqPdKGQ5fpsdxJKh
- iZarzze/q0mtiVQu3VVb4jZ1CWXddn+vwGIdanNEezspgOwGvXv7xDAM4bDywEUa/dUP
- A+dVEJcSWw8Ch9UDhXjNm8HnD7oHxifFpg8I461let9jVCGuL4EN9YGbel6YbOwfISoD
- U4NA==
-X-Gm-Message-State: AO0yUKWmyXArqsE6ptuurrbHdmBs07xl7ydCKDGPl25IN2CZQybGt+Se
- fm2PjNWGZ8fNebEq1px6Bi8=
-X-Google-Smtp-Source: AK7set+uEt5IoqG9OS+mes6VV9AY4oMiyZ0VVvoQaK5iRVnuv11mr63pkW7lH+CP6HBvafiA2+RvoQ==
-X-Received: by 2002:ac2:5449:0:b0:4e7:b481:c1c3 with SMTP id
- d9-20020ac25449000000b004e7b481c1c3mr1072908lfn.20.1678813788840; 
- Tue, 14 Mar 2023 10:09:48 -0700 (PDT)
-Received: from mobilestation ([95.79.133.202])
- by smtp.gmail.com with ESMTPSA id
- b7-20020a056512024700b004caf992bba9sm464219lfo.268.2023.03.14.10.09.47
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 14 Mar 2023 10:09:48 -0700 (PDT)
-Date: Tue, 14 Mar 2023 20:09:45 +0300
-From: Serge Semin <fancer.lancer@gmail.com>
-To: Rob Herring <robh@kernel.org>
-Message-ID: <20230314170945.6yow2i5z4jdubwgt@mobilestation>
-References: <20230313225103.30512-1-Sergey.Semin@baikalelectronics.ru>
- <20230313225103.30512-2-Sergey.Semin@baikalelectronics.ru>
- <167880254800.26004.7037306365469081272.robh@kernel.org>
- <20230314150657.ytgyegi7qlwao6px@mobilestation>
+ Tue, 14 Mar 2023 19:14:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 225A8C433A1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 14 Mar 2023 19:14:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1678821290;
+ bh=/o++2orgkh0eYVR24mG2HNDYYvTQagQPn7YxqtJRIGM=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=HOI98Pw9VCCF8s+F6gT0/O1R6qRkVaDVxGLQ8shxkdNBfBdydmcUvFW6EQfLc7YM0
+ vmBilZVquc485LrVfceEBDtZ5LybBi3iYyZJu5Atg66iC/jClxnCI2aezJYdFFoATb
+ zNO4ffMMmIujIN8SSLwFySmlQoHxUQvvxe7gYff9gAP/mw3Qg4H2W8KnmPzBqFmV95
+ G4EAy1yl9InhDz5pDcACZQnS0w4q+XWfFxqzwmWoan2fay6DQ7ZJw+WU+KfGEmfVb6
+ j4wRetXsbLov1/7Zp70w8um2hZFbKP7zYGebUQ5xbc0+mXL+JgIwQSiCO2mSEkyh8Z
+ nDFNqyakCiYkA==
+Received: by mail-vs1-f54.google.com with SMTP id e19so8676003vsu.4
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 14 Mar 2023 12:14:50 -0700 (PDT)
+X-Gm-Message-State: AO0yUKXgfaGYo4WjEv888YeloIv4s7cj7qB0c9Z/dmj/uhHuWZDoBJSL
+ RyO5FUvhAT27aCDHpG6hqg//r18TPrh2prbiUw==
+X-Google-Smtp-Source: AK7set+w7Dteu6Gz2fQIttAdFvbMZqpID4AHKHx68t3xQwsHx6BtKsv/C7yfYxJySG1yjFVS7BCS5PCUX/PHC6Xr3l0=
+X-Received: by 2002:a67:b142:0:b0:41b:dc0c:a668 with SMTP id
+ z2-20020a67b142000000b0041bdc0ca668mr25692104vsl.7.1678821289005; Tue, 14 Mar
+ 2023 12:14:49 -0700 (PDT)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20230314150657.ytgyegi7qlwao6px@mobilestation>
-Cc: Eric Dumazet <edumazet@google.com>,
- Pavel Parkhomenko <Pavel.Parkhomenko@baikalelectronics.ru>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- linux-stm32@st-md-mailman.stormreply.com, Jose Abreu <joabreu@synopsys.com>,
- Yang Yingliang <yangyingliang@huawei.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Christian Marangi <ansuelsmth@gmail.com>,
- devicetree@vger.kernel.org, Biao Huang <biao.huang@mediatek.com>,
- Richard Cochran <richardcochran@gmail.com>,
- Alexey Malahov <Alexey.Malahov@baikalelectronics.ru>,
- Rob Herring <robh+dt@kernel.org>, Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+References: <20230310144718.1544169-1-robh@kernel.org>
+ <ZAxrBtNdou28yPPB@corigine.com>
+In-Reply-To: <ZAxrBtNdou28yPPB@corigine.com>
+From: Rob Herring <robh@kernel.org>
+Date: Tue, 14 Mar 2023 14:14:37 -0500
+X-Gmail-Original-Message-ID: <CAL_JsqJTsgmdwZZTfcMRnqaUfCNbgjO2mshxtAQK-qwoFqwCyw@mail.gmail.com>
+Message-ID: <CAL_JsqJTsgmdwZZTfcMRnqaUfCNbgjO2mshxtAQK-qwoFqwCyw@mail.gmail.com>
+To: Simon Horman <simon.horman@corigine.com>
+Cc: linux-kernel@vger.kernel.org, Eric Dumazet <edumazet@google.com>,
+ Shenwei Wang <shenwei.wang@nxp.com>, Fabio Estevam <festevam@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Zhao Qiang <qiang.zhao@nxp.com>,
+ Michal Simek <michal.simek@xilinx.com>, Jose Abreu <joabreu@synopsys.com>,
+ Clark Wang <xiaoning.wang@nxp.com>, NXP Linux Team <linux-imx@nxp.com>,
+ Francois Romieu <romieu@fr.zoreil.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Kalle Valo <kvalo@kernel.org>,
+ Wolfgang Grandegger <wg@grandegger.com>, devicetree@vger.kernel.org,
+ Grygorii Strashko <grygorii.strashko@ti.com>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Sascha Hauer <s.hauer@pengutronix.de>, linuxppc-dev@lists.ozlabs.org,
+ linux-can@vger.kernel.org, Claudiu Manoil <claudiu.manoil@nxp.com>,
+ Marc Kleine-Budde <mkl@pengutronix.de>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>, linux-omap@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, Serge Semin <Sergey.Semin@baikalelectronics.ru>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- "David S. Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH net-next 01/16] dt-bindings: net: dwmac:
- Validate PBL for all IP-cores
+ linux-wireless@vger.kernel.org, Nicolas Ferre <nicolas.ferre@microchip.com>,
+ "David S. Miller" <davem@davemloft.net>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Wei Fang <wei.fang@nxp.com>,
+ Samuel Mendoza-Jonas <sam@mendozajonas.com>, Shawn Guo <shawnguo@kernel.org>,
+ Claudiu Beznea <claudiu.beznea@microchip.com>
+Subject: Re: [Linux-stm32] [PATCH] net: Use of_property_read_bool() for
+	boolean properties
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,88 +83,54 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Mar 14, 2023 at 06:07:01PM +0300, Serge Semin wrote:
-> On Tue, Mar 14, 2023 at 09:10:19AM -0500, Rob Herring wrote:
-> > 
-> > On Tue, 14 Mar 2023 01:50:48 +0300, Serge Semin wrote:
-> > > Indeed the maximum DMA burst length can be programmed not only for DW
-> > > xGMACs, Allwinner EMACs and Spear SoC GMAC, but in accordance with [1]
-> > > for Generic DW *MAC IP-cores. Moreover the STMMAC set of drivers parse
-> > > the property and then apply the configuration for all supported DW MAC
-> > > devices. All of that makes the property being available for all IP-cores
-> > > the bindings supports. Let's make sure the PBL-related properties are
-> > > validated for all of them by the common DW MAC DT schema.
-> > > 
-> > > [1] DesignWare Cores Ethernet MAC Universal Databook, Revision 3.73a,
-> > >     October 2013, p. 380.
-> > > 
-> > > Signed-off-by: Serge Semin <Sergey.Semin@baikalelectronics.ru>
-> > > Reviewed-by: Rob Herring <robh@kernel.org>
-> > > 
-> > > ---
-> > > 
-> > > Changelog v1:
-> > > - Use correct syntax of the JSON pointers, so the later would begin
-> > >   with a '/' after the '#'.
-> > > ---
-> > >  .../devicetree/bindings/net/snps,dwmac.yaml   | 77 +++++++------------
-> > >  1 file changed, 26 insertions(+), 51 deletions(-)
-> > > 
-> > 
-> > My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
-> > on your patch (DT_CHECKER_FLAGS is new in v5.13):
-> > 
-> > yamllint warnings/errors:
-> > 
-> > dtschema/dtc warnings/errors:
-> > /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/net/mediatek-dwmac.example.dtb: ethernet@1101c000: snps,txpbl:0:0: 1 is not one of [2, 4, 8]
-> > 	From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/net/snps,dwmac.yaml
-> > /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/net/mediatek-dwmac.example.dtb: ethernet@1101c000: snps,rxpbl:0:0: 1 is not one of [2, 4, 8]
-> > 	From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/net/snps,dwmac.yaml
-> > /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/net/mediatek-dwmac.example.dtb: ethernet@1101c000: snps,txpbl:0:0: 1 is not one of [2, 4, 8]
-> > 	From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/net/mediatek-dwmac.yaml
-> > /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/net/mediatek-dwmac.example.dtb: ethernet@1101c000: snps,rxpbl:0:0: 1 is not one of [2, 4, 8]
-> > 	From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/net/mediatek-dwmac.yaml
-> > /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/net/mediatek-dwmac.example.dtb: ethernet@1101c000: Unevaluated properties are not allowed ('interrupt-names', 'interrupts', 'mac-address', 'phy-mode', 'reg', 'snps,reset-delays-us', 'snps,reset-gpio', 'snps,rxpbl', 'snps,txpbl' were unexpected)
-> > 	From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/net/mediatek-dwmac.yaml
-> 
-> Oops, on rebasing my work from older kernel I missed that the PBL
-> properties constraints have already been extended. I'll drop the next
-> patch in the series then and fix this one so the already defined
-> constraints would be preserved.
-
-BTW it's strange I didn't have that bug spotted during my
-dt_binding_check run...
-
--Serge(y)
-
-> 
-> -Serge(y)
-> 
-> > 
-> > doc reference errors (make refcheckdocs):
-> > 
-> > See https://patchwork.ozlabs.org/project/devicetree-bindings/patch/20230313225103.30512-2-Sergey.Semin@baikalelectronics.ru
-> > 
-> > The base for the series is generally the latest rc1. A different dependency
-> > should be noted in *this* patch.
-> > 
-> > If you already ran 'make dt_binding_check' and didn't see the above
-> > error(s), then make sure 'yamllint' is installed and dt-schema is up to
-> > date:
-> > 
-> > pip3 install dtschema --upgrade
-> > 
-> > Please check and re-submit after running the above command yourself. Note
-> > that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-> > your schema. However, it must be unset to test all examples with your schema.
-> > 
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gU2F0LCBNYXIgMTEsIDIwMjMgYXQgNTo1MOKAr0FNIFNpbW9uIEhvcm1hbiA8c2ltb24uaG9y
+bWFuQGNvcmlnaW5lLmNvbT4gd3JvdGU6Cj4KPiBPbiBGcmksIE1hciAxMCwgMjAyMyBhdCAwODo0
+NzoxNkFNIC0wNjAwLCBSb2IgSGVycmluZyB3cm90ZToKPiA+IEl0IGlzIHByZWZlcnJlZCB0byB1
+c2UgdHlwZWQgcHJvcGVydHkgYWNjZXNzIGZ1bmN0aW9ucyAoaS5lLgo+ID4gb2ZfcHJvcGVydHlf
+cmVhZF88dHlwZT4gZnVuY3Rpb25zKSByYXRoZXIgdGhhbiBsb3ctbGV2ZWwKPiA+IG9mX2dldF9w
+cm9wZXJ0eS9vZl9maW5kX3Byb3BlcnR5IGZ1bmN0aW9ucyBmb3IgcmVhZGluZyBwcm9wZXJ0aWVz
+Lgo+ID4gQ29udmVydCByZWFkaW5nIGJvb2xlYW4gcHJvcGVydGllcyB0byB0byBvZl9wcm9wZXJ0
+eV9yZWFkX2Jvb2woKS4KPiA+Cj4gPiBTaWduZWQtb2ZmLWJ5OiBSb2IgSGVycmluZyA8cm9iaEBr
+ZXJuZWwub3JnPgo+Cj4gUmV2aWV3ZWQtYnk6IFNpbW9uIEhvcm1hbiA8c2ltb24uaG9ybWFuQGNv
+cmlnaW5lLmNvbT4KPgo+IC4uLgo+Cj4gPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9uZXQvZXRoZXJu
+ZXQvdmlhL3ZpYS12ZWxvY2l0eS5jIGIvZHJpdmVycy9uZXQvZXRoZXJuZXQvdmlhL3ZpYS12ZWxv
+Y2l0eS5jCj4gPiBpbmRleCBhNTAyODEyYWM0MTguLjg2Zjc4NDNiNDU5MSAxMDA2NDQKPiA+IC0t
+LSBhL2RyaXZlcnMvbmV0L2V0aGVybmV0L3ZpYS92aWEtdmVsb2NpdHkuYwo+ID4gKysrIGIvZHJp
+dmVycy9uZXQvZXRoZXJuZXQvdmlhL3ZpYS12ZWxvY2l0eS5jCj4gPiBAQCAtMjcwOSw4ICsyNzA5
+LDcgQEAgc3RhdGljIGludCB2ZWxvY2l0eV9nZXRfcGxhdGZvcm1faW5mbyhzdHJ1Y3QgdmVsb2Np
+dHlfaW5mbyAqdnB0cikKPiA+ICAgICAgIHN0cnVjdCByZXNvdXJjZSByZXM7Cj4gPiAgICAgICBp
+bnQgcmV0Owo+ID4KPiA+IC0gICAgIGlmIChvZl9nZXRfcHJvcGVydHkodnB0ci0+ZGV2LT5vZl9u
+b2RlLCAibm8tZWVwcm9tIiwgTlVMTCkpCj4gPiAtICAgICAgICAgICAgIHZwdHItPm5vX2VlcHJv
+bSA9IDE7Cj4gPiArICAgICB2cHRyLT5ub19lZXByb20gPSBvZl9wcm9wZXJ0eV9yZWFkX2Jvb2wo
+dnB0ci0+ZGV2LT5vZl9ub2RlLCAibm8tZWVwcm9tIik7Cj4KPiBBcyBwZXIgbXkgY29tbWVudCBv
+biAiW1BBVENIXSBuZmM6IG1ydmw6IFVzZSBvZl9wcm9wZXJ0eV9yZWFkX2Jvb2woKSBmb3IKPiBi
+b29sZWFuIHByb3BlcnRpZXMiLgo+Cj4gSSdtIG5vdCB0aGF0IGVudGh1c2lhc3RpYyBhYm91dCBh
+c3NpZ25pbmcgYSBib29sIHZhbHVlIHRvIGEgZmllbGQKPiB3aXRoIGFuIGludGVnZXIgdHlwZS4g
+QnV0IHRoYXQgaXMgbGlrZWx5IGEgdG9waWMgZm9yIGFub3RoZXIgcGF0Y2guCj4KPiA+ICAgICAg
+IHJldCA9IG9mX2FkZHJlc3NfdG9fcmVzb3VyY2UodnB0ci0+ZGV2LT5vZl9ub2RlLCAwLCAmcmVz
+KTsKPiA+ICAgICAgIGlmIChyZXQpIHsKPgo+IC4uLgo+Cj4gPiBkaWZmIC0tZ2l0IGEvZHJpdmVy
+cy9uZXQvd2FuL2ZzbF91Y2NfaGRsYy5jIGIvZHJpdmVycy9uZXQvd2FuL2ZzbF91Y2NfaGRsYy5j
+Cj4gPiBpbmRleCAxYzUzYjU1NDY5MjcuLjQ3YzJhZDdhM2U0MiAxMDA2NDQKPiA+IC0tLSBhL2Ry
+aXZlcnMvbmV0L3dhbi9mc2xfdWNjX2hkbGMuYwo+ID4gKysrIGIvZHJpdmVycy9uZXQvd2FuL2Zz
+bF91Y2NfaGRsYy5jCj4gPiBAQCAtMTE3NywxNCArMTE3Nyw5IEBAIHN0YXRpYyBpbnQgdWNjX2hk
+bGNfcHJvYmUoc3RydWN0IHBsYXRmb3JtX2RldmljZSAqcGRldikKPiA+ICAgICAgIHVoZGxjX3By
+aXYtPmRldiA9ICZwZGV2LT5kZXY7Cj4gPiAgICAgICB1aGRsY19wcml2LT51dF9pbmZvID0gdXRf
+aW5mbzsKPiA+Cj4gPiAtICAgICBpZiAob2ZfZ2V0X3Byb3BlcnR5KG5wLCAiZnNsLHRkbS1pbnRl
+cmZhY2UiLCBOVUxMKSkKPiA+IC0gICAgICAgICAgICAgdWhkbGNfcHJpdi0+dHNhID0gMTsKPiA+
+IC0KPiA+IC0gICAgIGlmIChvZl9nZXRfcHJvcGVydHkobnAsICJmc2wsdWNjLWludGVybmFsLWxv
+b3BiYWNrIiwgTlVMTCkpCj4gPiAtICAgICAgICAgICAgIHVoZGxjX3ByaXYtPmxvb3BiYWNrID0g
+MTsKPiA+IC0KPiA+IC0gICAgIGlmIChvZl9nZXRfcHJvcGVydHkobnAsICJmc2wsaGRsYy1idXMi
+LCBOVUxMKSkKPiA+IC0gICAgICAgICAgICAgdWhkbGNfcHJpdi0+aGRsY19idXMgPSAxOwo+ID4g
+KyAgICAgdWhkbGNfcHJpdi0+dHNhID0gb2ZfcHJvcGVydHlfcmVhZF9ib29sKG5wLCAiZnNsLHRk
+bS1pbnRlcmZhY2UiKTsKPgo+IEhlcmUgdG9vLgoKVGhlc2UgYXJlIGFscmVhZHkgYm9vbC4gVHVy
+bnMgb3V0IHRoZSBvbmx5IG9uZSB0aGF0IG5lZWRzIGNoYW5naW5nIGlzCm5vX2VlcHJvbS4gbmV0
+ZGV2IGZvbGtzIG1hcmtlZCB0aGlzIGFzIGNoYW5nZXMgcmVxdWVzdGVkLCBzbyBJJ2xsIGFkZAp0
+aGF0IGluIHYyLgoKUm9iCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFu
+LnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWls
+bWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
