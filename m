@@ -2,83 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9DC0B6BC709
+	by mail.lfdr.de (Postfix) with ESMTPS id AC5646BC70A
 	for <lists+linux-stm32@lfdr.de>; Thu, 16 Mar 2023 08:28:07 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 55459C6904C;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 66DBFC69067;
 	Thu, 16 Mar 2023 07:28:07 +0000 (UTC)
-Received: from mail-lf1-f44.google.com (mail-lf1-f44.google.com
- [209.85.167.44])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6C4E1C64107
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7A897C035BB
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 14 Mar 2023 15:13:22 +0000 (UTC)
-Received: by mail-lf1-f44.google.com with SMTP id n2so20417106lfb.12
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 14 Mar 2023 08:13:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1678806801;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=aWquE/66XhiUdKcAjOZcdT8JwAjOV0jdF3ZReJh+jhU=;
- b=A70OxIRflPWeFRqLRBN8qDh9Nnpwl6mYudE01YgkwWijNkevncaAafkm4hhBFkYlPY
- B+r3GEwqp0NgXcsOp5XuGK9r6rRnB/Obx5FjFgTAiep+FKTJN4Wf8YdFdeEt+FGeianQ
- HKZRv9Gxy6ZXY22rJYBwB5fqIrxLopllTUZDbEXoT8/sDmpetnaCfVfzZjKfHbsVw5Ma
- sKRrOmFpYtj4/IWOdsY6LEdG6eur/ataMRIvXZhgMnc/+DueCevIubHxa7SwxkyI+bBL
- soT9s0BQKP1rOM59EGlR7NRgMnjXylMelTjMehReRdJPPj/aP3dV4uNWBeArjdPde47F
- bsqg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1678806801;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=aWquE/66XhiUdKcAjOZcdT8JwAjOV0jdF3ZReJh+jhU=;
- b=ofin13q/aid5/8mdZaGUXJbmsqExqrwNlVRQvKzUUgcOJZxeqTKINNH7Eu7v/TnFwv
- /VzNftsjo4T/+m1stp45C0NMGSeZ4gIt2uJPWeU6rYxnVn0dMCSZ1oeo1WZXWXnRdgbp
- rCDQTKUSLWuaIaXc1ao8Dq9CQyazLuQgsHpFiHg+d35vF7GUzYiNW+073qfwhz8Z6oFj
- mW69VWGY3ng+HSRIF+fLkIEvE9ZUGe+N2hBEO3b5a3JB063ut841xHahUUzKHOemEhvu
- vw6aYg2GZxzmvq0pe3fTp8ivLej7oycmI0b9QZCYy1Ch439O0EScdACWbUjDez4jQ7qn
- R23A==
-X-Gm-Message-State: AO0yUKWVeiNCoyzZTAHMqMb+xIDRx7lM/X9xQDAKrzgCrJAgnEj/bTf0
- whMJbVJlKIamDAn/GKqXshwHOQ==
-X-Google-Smtp-Source: AK7set+0FwZrp2Kqmgi11czNIWqOTIdgsRQEqlYZ+eN8f1lZ8ifft3X4RqJNjukpilWNLQkafq+Kxg==
-X-Received: by 2002:ac2:43ad:0:b0:4dc:4bda:c26f with SMTP id
- t13-20020ac243ad000000b004dc4bdac26fmr973810lfl.23.1678806801649; 
- Tue, 14 Mar 2023 08:13:21 -0700 (PDT)
-Received: from [192.168.1.101] (abyj16.neoplus.adsl.tpnet.pl. [83.9.29.16])
- by smtp.gmail.com with ESMTPSA id
- l7-20020ac24a87000000b004d23763fe96sm431973lfp.72.2023.03.14.08.13.18
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 14 Mar 2023 08:13:20 -0700 (PDT)
-Message-ID: <3f37eede-6d62-fb92-9cff-b308de333ebd@linaro.org>
-Date: Tue, 14 Mar 2023 16:13:18 +0100
+ Tue, 14 Mar 2023 16:09:35 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 19A741F8B5;
+ Tue, 14 Mar 2023 16:09:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1678810175; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=V34Gc2z7vPN8OnVeCrHSmsPv1GE4iORsCJqUxRIkUNs=;
+ b=xcY6MkbQroZ6h/KfEa+dhUc28+jiAPtyeyk2DtovFjjGI5XwGSNkQ9MKoON5PJSXxHZqS6
+ rIH7AYalheshR8xOXoGqmNupJMf1IbzEB3YBopCssAkqlHptVul0AJCZpiFaQCIwMyrpB7
+ Da/wrg/JcA4ehZeNUyzSdoHF/L2b85U=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1678810175;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=V34Gc2z7vPN8OnVeCrHSmsPv1GE4iORsCJqUxRIkUNs=;
+ b=/GrjtSos3fy4VOf4ycEmrurt5GZTahAkaHL0OLZuugwapt8xtWVpeqEHlx0ywIeOgNgk6e
+ Foqwrhg7VOSBwiDA==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id CC2B113A26;
+ Tue, 14 Mar 2023 16:09:34 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id 3MPYMD6cEGRlWgAAMHmgww
+ (envelope-from <tzimmermann@suse.de>); Tue, 14 Mar 2023 16:09:34 +0000
+Message-ID: <85c3029e-796d-3c3f-7f4c-9c2552312e4c@suse.de>
+Date: Tue, 14 Mar 2023 17:09:34 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.8.0
+To: javierm@redhat.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, airlied@gmail.com, daniel@ffwll.ch,
+ linus.walleij@linaro.org
+References: <20230313155138.20584-1-tzimmermann@suse.de>
 Content-Language: en-US
-To: Andrew Halaney <ahalaney@redhat.com>, linux-kernel@vger.kernel.org
-References: <20230313165620.128463-1-ahalaney@redhat.com>
- <20230313165620.128463-6-ahalaney@redhat.com>
-From: Konrad Dybcio <konrad.dybcio@linaro.org>
-In-Reply-To: <20230313165620.128463-6-ahalaney@redhat.com>
+From: Thomas Zimmermann <tzimmermann@suse.de>
+In-Reply-To: <20230313155138.20584-1-tzimmermann@suse.de>
 X-Mailman-Approved-At: Thu, 16 Mar 2023 07:28:05 +0000
-Cc: mturquette@baylibre.com, edumazet@google.com,
- krzysztof.kozlowski+dt@linaro.org, jonathanh@nvidia.com,
- linux-clk@vger.kernel.org, tee.min.tan@linux.intel.com, linux@armlinux.org.uk,
- veekhee@apple.com, hisunil@quicinc.com, joabreu@synopsys.com, kuba@kernel.org,
- pabeni@redhat.com, andrey.konovalov@linaro.org, ncai@quicinc.com,
- devicetree@vger.kernel.org, bhupesh.sharma@linaro.org,
- linux-arm-msm@vger.kernel.org, richardcochran@gmail.com, bmasney@redhat.com,
- mohammad.athari.ismail@intel.com, robh+dt@kernel.org, ruppala@nvidia.com,
- jsuraj@qti.qualcomm.com, peppe.cavallaro@st.com,
- linux-arm-kernel@lists.infradead.org, sboyd@kernel.org, netdev@vger.kernel.org,
- andersson@kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- agross@kernel.org, vkoul@kernel.org, mcoquelin.stm32@gmail.com,
- davem@davemloft.net
-Subject: Re: [Linux-stm32] [PATCH net-next 05/11] clk: qcom: gcc-sc8280xp:
-	Add EMAC GDSCs
+Cc: linux-aspeed@lists.ozlabs.org, dri-devel@lists.freedesktop.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-amlogic@lists.infradead.org,
+ linux-sunxi@lists.linux.dev, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v2 00/25] drm/dma-helper: Add dedicated
+	fbdev emulation
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,76 +73,170 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============2780298838117923396=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--===============2780298838117923396==
+Content-Language: en-US
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------en9l0DwBxcBWW0NhRIAsEb20"
 
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------en9l0DwBxcBWW0NhRIAsEb20
+Content-Type: multipart/mixed; boundary="------------A0DTXeDh2q5iHYwnkuQuoTIq";
+ protected-headers="v1"
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: javierm@redhat.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, airlied@gmail.com, daniel@ffwll.ch,
+ linus.walleij@linaro.org
+Cc: linux-aspeed@lists.ozlabs.org, dri-devel@lists.freedesktop.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-amlogic@lists.infradead.org,
+ linux-sunxi@lists.linux.dev, linux-arm-kernel@lists.infradead.org
+Message-ID: <85c3029e-796d-3c3f-7f4c-9c2552312e4c@suse.de>
+Subject: Re: [PATCH v2 00/25] drm/dma-helper: Add dedicated fbdev emulation
+References: <20230313155138.20584-1-tzimmermann@suse.de>
+In-Reply-To: <20230313155138.20584-1-tzimmermann@suse.de>
 
-On 13.03.2023 17:56, Andrew Halaney wrote:
-> Add the EMAC GDSCs to allow the EMAC hardware to be enabled.
-> 
-> Signed-off-by: Andrew Halaney <ahalaney@redhat.com>
-> ---
-Was it tested to not cause issues on access on "normal" 8280xp?
-AFAICS if there would be any, they would happen at registration
-time, as gdsc_init already accesses its registers
+--------------A0DTXeDh2q5iHYwnkuQuoTIq
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-Konrad
->  drivers/clk/qcom/gcc-sc8280xp.c               | 18 ++++++++++++++++++
->  include/dt-bindings/clock/qcom,gcc-sc8280xp.h |  2 ++
->  2 files changed, 20 insertions(+)
-> 
-> diff --git a/drivers/clk/qcom/gcc-sc8280xp.c b/drivers/clk/qcom/gcc-sc8280xp.c
-> index b3198784e1c3..04a99dbaa57e 100644
-> --- a/drivers/clk/qcom/gcc-sc8280xp.c
-> +++ b/drivers/clk/qcom/gcc-sc8280xp.c
-> @@ -6873,6 +6873,22 @@ static struct gdsc usb30_sec_gdsc = {
->  	.pwrsts = PWRSTS_RET_ON,
->  };
->  
-> +static struct gdsc emac_0_gdsc = {
-> +	.gdscr = 0xaa004,
-> +	.pd = {
-> +		.name = "emac_0_gdsc",
-> +	},
-> +	.pwrsts = PWRSTS_OFF_ON,
-> +};
-> +
-> +static struct gdsc emac_1_gdsc = {
-> +	.gdscr = 0xba004,
-> +	.pd = {
-> +		.name = "emac_1_gdsc",
-> +	},
-> +	.pwrsts = PWRSTS_OFF_ON,
-> +};
-> +
->  static struct clk_regmap *gcc_sc8280xp_clocks[] = {
->  	[GCC_AGGRE_NOC_PCIE0_TUNNEL_AXI_CLK] = &gcc_aggre_noc_pcie0_tunnel_axi_clk.clkr,
->  	[GCC_AGGRE_NOC_PCIE1_TUNNEL_AXI_CLK] = &gcc_aggre_noc_pcie1_tunnel_axi_clk.clkr,
-> @@ -7351,6 +7367,8 @@ static struct gdsc *gcc_sc8280xp_gdscs[] = {
->  	[USB30_MP_GDSC] = &usb30_mp_gdsc,
->  	[USB30_PRIM_GDSC] = &usb30_prim_gdsc,
->  	[USB30_SEC_GDSC] = &usb30_sec_gdsc,
-> +	[EMAC_0_GDSC] = &emac_0_gdsc,
-> +	[EMAC_1_GDSC] = &emac_1_gdsc,
->  };
->  
->  static const struct clk_rcg_dfs_data gcc_dfs_clocks[] = {
-> diff --git a/include/dt-bindings/clock/qcom,gcc-sc8280xp.h b/include/dt-bindings/clock/qcom,gcc-sc8280xp.h
-> index cb2fb638825c..721105ea4fad 100644
-> --- a/include/dt-bindings/clock/qcom,gcc-sc8280xp.h
-> +++ b/include/dt-bindings/clock/qcom,gcc-sc8280xp.h
-> @@ -492,5 +492,7 @@
->  #define USB30_MP_GDSC					9
->  #define USB30_PRIM_GDSC					10
->  #define USB30_SEC_GDSC					11
-> +#define EMAC_0_GDSC					12
-> +#define EMAC_1_GDSC					13
->  
->  #endif
+TWVyZ2VkIGludG8gZHJtLW1pc2MtbmV4dC4gVGhhbmtzIGEgbG90IGZvciByZXZpZXdzIGFu
+ZCBjb21tZW50cy4NCg0KQW0gMTMuMDMuMjMgdW0gMTY6NTEgc2NocmllYiBUaG9tYXMgWmlt
+bWVybWFubjoNCj4gQWRkIGZiZGV2IGVtdWxhdGlvbiB0aGF0IGlzIG9wdGltaXplZCBmb3Ig
+RE1BIGhlbHBlcnMsIGFzIHVzZWQgYnkgbW9zdA0KPiBkcml2ZXJzLiBJdCBvcGVyYXRlcyBk
+aXJlY3RseSBvbiBHRU0gRE1BIGJ1ZmZlcnMgaW4gc3lzdGVtIG1lbW9yeS4NCj4gTWVtb3J5
+IHBhZ2VzIGFyZSBtbWFwJ2VkIGRpcmVjdGx5IHRvIHVzZXJzcGFjZS4gTm8gaW1wbGljaXQg
+c2hhZG93DQo+IGJ1ZmZlcnMgbmVlZCB0byBiZSBhbGxvY2F0ZWQ7IGFzIGNhbiBoYXBwZW4g
+d2l0aCB0aGUgZ2VuZXJpYyBmYmRldg0KPiBlbXVsYXRpb24uIENvbnZlcnQgZHJpdmVycyB0
+aGF0IGZ1bGZpbCB0aGUgcmVxdWlyZW1lbnRzLg0KPiANCj4gVGVzdGVkIHdpdGggZmJjb24g
+YW5kIElHVCBvbiB2YzQuDQo+IA0KPiBGdXR1cmUgZGlyZWN0aW9uOiBwcm92aWRpbmcgYSBk
+ZWRpY2F0ZWQgZmJkZXYgZW11bGF0aW9uIGZvciBHRU0gRE1BDQo+IGhlbHBlcnMgd2lsbCBh
+bGxvdyB1cyB0byByZW1vdmUgdGhpcyBjYXNlIGZyb20gdGhlIGdlbmVyaWMgZmJkZXYgY29k
+ZS4NCj4gVGhlIGxhdHRlciBjYW4gdGhlbiBiZSBzaW1wbGlmaWVkLg0KPiANCj4gdjI6DQo+
+IAkqIHVwZGF0ZSBtY2RlIGFuZCBwbDExMSBhcyB3ZWxsIChMaW51cykNCj4gDQo+IExpbnVz
+IFdhbGxlaWogKDEpOg0KPiAgICBkcm0vbWNkZTogRG8gbm90IHVzZSBkaXJ0eSBHRU0gRkIg
+aGFuZGxpbmcNCj4gDQo+IFRob21hcyBaaW1tZXJtYW5uICgyNCk6DQo+ICAgIGRybS9mYmRl
+di1kbWE6IEltcGxlbWVudCBmYmRldiBlbXVsYXRpb24gZm9yIEdFTSBETUEgaGVscGVycw0K
+PiAgICBhcm0vaGRsY2Q6IFVzZSBHRU0gRE1BIGZiZGV2IGVtdWxhdGlvbg0KPiAgICBhcm0v
+bWFsaWRwOiBVc2UgR0VNIERNQSBmYmRldiBlbXVsYXRpb24NCj4gICAgZHJtL2FzcGVlZDog
+VXNlIEdFTSBETUEgZmJkZXYgZW11bGF0aW9uDQo+ICAgIGRybS9hdG1lbC1obGNkYzogVXNl
+IEdFTSBETUEgZmJkZXYgZW11bGF0aW9uDQo+ICAgIGRybS9mc2wtZGN1OiBVc2UgR0VNIERN
+QSBmYmRldiBlbXVsYXRpb24NCj4gICAgZHJtL2lteC9kY3NzOiBVc2UgR0VNIERNQSBmYmRl
+diBlbXVsYXRpb24NCj4gICAgZHJtL2lteDogVXNlIEdFTSBETUEgZmJkZXYgZW11bGF0aW9u
+DQo+ICAgIGRybS9rbWI6IFVzZSBHRU0gRE1BIGZiZGV2IGVtdWxhdGlvbg0KPiAgICBkcm0v
+bG9naWN2YzogVXNlIEdFTSBETUEgZmJkZXYgZW11bGF0aW9uDQo+ICAgIGRybS9tZXNvbjog
+VXNlIEdFTSBETUEgZmJkZXYgZW11bGF0aW9uDQo+ICAgIGRybS9teHNmYi9sY2RpZjogVXNl
+IEdFTSBETUEgZmJkZXYgZW11bGF0aW9uDQo+ICAgIGRybS9teHNmYjogVXNlIEdFTSBETUEg
+ZmJkZXYgZW11bGF0aW9uDQo+ICAgIGRybS9zdGk6IFVzZSBHRU0gRE1BIGZiZGV2IGVtdWxh
+dGlvbg0KPiAgICBkcm0vc3RtOiBVc2UgR0VNIERNQSBmYmRldiBlbXVsYXRpb24NCj4gICAg
+ZHJtL3N1bjRpOiBVc2UgR0VNIERNQSBmYmRldiBlbXVsYXRpb24NCj4gICAgZHJtL3RpZHNz
+OiBVc2UgR0VNIERNQSBmYmRldiBlbXVsYXRpb24NCj4gICAgZHJtL3RpbGNkYzogVXNlIEdF
+TSBETUEgZmJkZXYgZW11bGF0aW9uDQo+ICAgIGRybS9hcmNwZ3U6IFVzZSBHRU0gRE1BIGZi
+ZGV2IGVtdWxhdGlvbg0KPiAgICBkcm0vdHZlMjAwOiBVc2UgR0VNIERNQSBmYmRldiBlbXVs
+YXRpb24NCj4gICAgZHJtL3ZjNDogVXNlIEdFTSBETUEgZmJkZXYgZW11bGF0aW9uDQo+ICAg
+IGRybS94bG54OiBVc2UgR0VNIERNQSBmYmRldiBlbXVsYXRpb24NCj4gICAgZHJtL21jZGU6
+IFVzZSBHRU0gRE1BIGZiZGV2IGVtdWxhdGlvbg0KPiAgICBkcm0vcGwxMTE6IFVzZSBHRU0g
+RE1BIGZiZGV2IGVtdWxhdGlvbg0KPiANCj4gICBkcml2ZXJzL2dwdS9kcm0vTWFrZWZpbGUg
+ICAgICAgICAgICAgICAgICAgICB8ICAgMSArDQo+ICAgZHJpdmVycy9ncHUvZHJtL2FybS9o
+ZGxjZF9kcnYuYyAgICAgICAgICAgICAgfCAgIDQgKy0NCj4gICBkcml2ZXJzL2dwdS9kcm0v
+YXJtL21hbGlkcF9kcnYuYyAgICAgICAgICAgICB8ICAgNCArLQ0KPiAgIGRyaXZlcnMvZ3B1
+L2RybS9hc3BlZWQvYXNwZWVkX2dmeF9kcnYuYyAgICAgIHwgICA0ICstDQo+ICAgZHJpdmVy
+cy9ncHUvZHJtL2F0bWVsLWhsY2RjL2F0bWVsX2hsY2RjX2RjLmMgfCAgIDQgKy0NCj4gICBk
+cml2ZXJzL2dwdS9kcm0vZHJtX2ZiZGV2X2RtYS5jICAgICAgICAgICAgICB8IDI3NSArKysr
+KysrKysrKysrKysrKysrDQo+ICAgZHJpdmVycy9ncHUvZHJtL2ZzbC1kY3UvZnNsX2RjdV9k
+cm1fZHJ2LmMgICAgfCAgIDQgKy0NCj4gICBkcml2ZXJzL2dwdS9kcm0vaW14L2Rjc3MvZGNz
+cy1rbXMuYyAgICAgICAgICB8ICAgNCArLQ0KPiAgIGRyaXZlcnMvZ3B1L2RybS9pbXgvaXB1
+djMvaW14LWRybS1jb3JlLmMgICAgIHwgICA0ICstDQo+ICAgZHJpdmVycy9ncHUvZHJtL2tt
+Yi9rbWJfZHJ2LmMgICAgICAgICAgICAgICAgfCAgIDQgKy0NCj4gICBkcml2ZXJzL2dwdS9k
+cm0vbG9naWN2Yy9sb2dpY3ZjX2RybS5jICAgICAgICB8ICAgNCArLQ0KPiAgIGRyaXZlcnMv
+Z3B1L2RybS9tY2RlL21jZGVfZHJ2LmMgICAgICAgICAgICAgIHwgICA2ICstDQo+ICAgZHJp
+dmVycy9ncHUvZHJtL21lc29uL21lc29uX2Rydi5jICAgICAgICAgICAgfCAgIDQgKy0NCj4g
+ICBkcml2ZXJzL2dwdS9kcm0vbXhzZmIvbGNkaWZfZHJ2LmMgICAgICAgICAgICB8ICAgNCAr
+LQ0KPiAgIGRyaXZlcnMvZ3B1L2RybS9teHNmYi9teHNmYl9kcnYuYyAgICAgICAgICAgIHwg
+ICA0ICstDQo+ICAgZHJpdmVycy9ncHUvZHJtL3BsMTExL3BsMTExX2Rydi5jICAgICAgICAg
+ICAgfCAgIDQgKy0NCj4gICBkcml2ZXJzL2dwdS9kcm0vc3RpL3N0aV9kcnYuYyAgICAgICAg
+ICAgICAgICB8ICAgNCArLQ0KPiAgIGRyaXZlcnMvZ3B1L2RybS9zdG0vZHJ2LmMgICAgICAg
+ICAgICAgICAgICAgIHwgICA0ICstDQo+ICAgZHJpdmVycy9ncHUvZHJtL3N1bjRpL3N1bjRp
+X2Rydi5jICAgICAgICAgICAgfCAgIDQgKy0NCj4gICBkcml2ZXJzL2dwdS9kcm0vdGlkc3Mv
+dGlkc3NfZHJ2LmMgICAgICAgICAgICB8ICAgNCArLQ0KPiAgIGRyaXZlcnMvZ3B1L2RybS90
+aWxjZGMvdGlsY2RjX2Rydi5jICAgICAgICAgIHwgICA0ICstDQo+ICAgZHJpdmVycy9ncHUv
+ZHJtL3RpbnkvYXJjcGd1LmMgICAgICAgICAgICAgICAgfCAgIDQgKy0NCj4gICBkcml2ZXJz
+L2dwdS9kcm0vdHZlMjAwL3R2ZTIwMF9kcnYuYyAgICAgICAgICB8ICAgNCArLQ0KPiAgIGRy
+aXZlcnMvZ3B1L2RybS92YzQvdmM0X2Rydi5jICAgICAgICAgICAgICAgIHwgICA0ICstDQo+
+ICAgZHJpdmVycy9ncHUvZHJtL3hsbngvenlucW1wX2ttcy5jICAgICAgICAgICAgfCAgIDQg
+Ky0NCj4gICBpbmNsdWRlL2RybS9kcm1fZmJkZXZfZG1hLmggICAgICAgICAgICAgICAgICB8
+ICAxNSArDQo+ICAgMjYgZmlsZXMgY2hhbmdlZCwgMzM4IGluc2VydGlvbnMoKyksIDQ3IGRl
+bGV0aW9ucygtKQ0KPiAgIGNyZWF0ZSBtb2RlIDEwMDY0NCBkcml2ZXJzL2dwdS9kcm0vZHJt
+X2ZiZGV2X2RtYS5jDQo+ICAgY3JlYXRlIG1vZGUgMTAwNjQ0IGluY2x1ZGUvZHJtL2RybV9m
+YmRldl9kbWEuaA0KPiANCj4gDQo+IGJhc2UtY29tbWl0OiBiMjFjZWQ3N2FlMWRiYzNkOGIw
+MWQzYWVmM2M5OWJiYTczNzdhNjliDQo+IHByZXJlcXVpc2l0ZS1wYXRjaC1pZDogMGFhMzU5
+ZjYxNDRjNDAxNWMxNDBjOGE2NzUwYmUxOTA5OWM2NzZmYg0KPiBwcmVyZXF1aXNpdGUtcGF0
+Y2gtaWQ6IGM2N2U1ZDg4NmE0N2I3ZDAyNjZkODExMDA4Mzc1NTdmZGEzNGNiMjQNCj4gcHJl
+cmVxdWlzaXRlLXBhdGNoLWlkOiAzZjIwNDUxMGZjYmY5NTMwZDY1NDBiZDhlNjEyOGNjZTU5
+ODk4OGI2DQo+IHByZXJlcXVpc2l0ZS1wYXRjaC1pZDogNzVmMmViZjEyNjkzZjIzNTA4ZjAw
+ZDU3NGIyYjU3NDg4NzIzZTQ3NA0KPiBwcmVyZXF1aXNpdGUtcGF0Y2gtaWQ6IDcxODUzMWJm
+NWNmMTU3MTY4MzRjZmFmMzAwOGVhMGUyMzY2ZWM5MjcNCj4gcHJlcmVxdWlzaXRlLXBhdGNo
+LWlkOiBhNzkzYWEyODNjZjQxZjI5MGQ5NzA0MDQ4ODFmMjRiZmZjNDhjYWZmDQo+IHByZXJl
+cXVpc2l0ZS1wYXRjaC1pZDogZTc0ZjI1OWQxOTIzMjQ3YTc0ZDViZjdkOTk2YWZiMGU2Y2Ew
+MTg4Mw0KPiBwcmVyZXF1aXNpdGUtcGF0Y2gtaWQ6IGExZDEyYjk1NDgxMTBiMWY1ZTlhYTM4
+MDNiMjFlMmE3ZjlmOGMxOWQNCj4gcHJlcmVxdWlzaXRlLXBhdGNoLWlkOiAwMzNmMTBkYTcy
+ZjEwZDgyZjExM2E1MDY2YTNiM2E3ZmY5MWQxM2FhDQo+IHByZXJlcXVpc2l0ZS1wYXRjaC1p
+ZDogOTc2MjY0ZmFmYmQ2OWQwOTk2MjA5YTkwYTNkNTQ2ZDliZTNmMzc3OQ0KPiBwcmVyZXF1
+aXNpdGUtcGF0Y2gtaWQ6IDYxN2M3NGFmNWUxNjcxNzg5OGEyM2NlZDljOGJhZGZmZjFlMGFk
+ZTcNCj4gcHJlcmVxdWlzaXRlLXBhdGNoLWlkOiA1ZTBjZmE5YzgxYWE3Y2ViMmNjNDhjNWNi
+Yzk5MzQ0OTYyNTFmYWM0DQo+IHByZXJlcXVpc2l0ZS1wYXRjaC1pZDogMTM1OTRjM2NjODEw
+Mjk2MGJiMTk1YmM3ZjU3MmZlZmJhOGViMTlkNw0KPiBwcmVyZXF1aXNpdGUtcGF0Y2gtaWQ6
+IDk5ZDlkYTdlMDgzNjkwNTBkMTM1YzIzZDMyZGVhZDgxMWJiOWNmOTcNCj4gcHJlcmVxdWlz
+aXRlLXBhdGNoLWlkOiA4MzNmOWQ4MzQxYTI4Nzk2MWVlNjUzYjA0NzMwZGE1N2NlOTg3YjA2
+DQo+IHByZXJlcXVpc2l0ZS1wYXRjaC1pZDogNWQ1YzljYWFmOTQ4OWE2YzJmNjg4ZDYzMmE1
+N2EwZmI2NWZjYjVmNw0KPiBwcmVyZXF1aXNpdGUtcGF0Y2gtaWQ6IGI2NDc1OGVjZDY0ZWMw
+YzBhY2Q5NmQwNzY2YmE4OTEzNzhjNWM1MzkNCj4gcHJlcmVxdWlzaXRlLXBhdGNoLWlkOiAz
+N2E3ZDNlOWZiM2U0ZTJiN2ViZWFjM2Y3N2RhNjYxMGYxMmJlZWEzDQo+IHByZXJlcXVpc2l0
+ZS1wYXRjaC1pZDogOTkwNzM0MjlkYWZkYzk4Y2RkMzE0NjRjZTI4ZTc5NTY5NmExNDlmOQ0K
+PiBwcmVyZXF1aXNpdGUtcGF0Y2gtaWQ6IGMyMjQ3ZWNhNDQ5Mjc1NjljZDJiNmQ5ZjM3MDE5
+NTk2NTM0NmFkYjQNCg0KLS0gDQpUaG9tYXMgWmltbWVybWFubg0KR3JhcGhpY3MgRHJpdmVy
+IERldmVsb3Blcg0KU1VTRSBTb2Z0d2FyZSBTb2x1dGlvbnMgR2VybWFueSBHbWJIDQpNYXhm
+ZWxkc3RyLiA1LCA5MDQwOSBOw7xybmJlcmcsIEdlcm1hbnkNCihIUkIgMzY4MDksIEFHIE7D
+vHJuYmVyZykNCkdlc2Now6RmdHNmw7xocmVyOiBJdm8gVG90ZXYNCg==
+
+--------------A0DTXeDh2q5iHYwnkuQuoTIq--
+
+--------------en9l0DwBxcBWW0NhRIAsEb20
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsF5BAABCAAjFiEExndm/fpuMUdwYFFolh/E3EQov+AFAmQQnD4FAwAAAAAACgkQlh/E3EQov+Ds
+zA//eGDlQBjEUQR7gg0qMH1dwstBZ5Jd794YT7sYGGI2b3gCe8OevwaZxHi39cyvSAj88wxQoTlF
+ZlZ6wfQs+TPZA4UpfPZmPIaT/XVUvMHXzUzE2FRvm05SkAht4DCXn+DZfhQGgKoqW/MvFM/WUkAe
+dU0DphygusHBSU1++fdpzjXYTnYyEbtfziSVhyomvlqM/wOmn88OjK6zuuuBeiYOU5gtqkAU9shU
+4cFNFYA4RGy+Acr7GL5tOFLKH5xkVljVZj+kQvwBymCHz+TXzG7oYUUcIyGGJ42zUmQuj2bAsHYD
+8RyMEcTVOGAAG0R4pRIG/4x9uL2Wya3RW84aMjwAPcUavMK+XvfHLZz9dedVOjhcJjFn99iK5AKa
+/r4hc/HjRa3wNOcXxYxVDd7GoiLqMH67vuQZVFTEwn9jwX9GiwrzzzJrAvELvfW80VH3aQZ1Z6OA
+cvE5VNA/FvfENo0ESsl4vXpGm9TjJaHePCLDMVfwEYZAqkNcQghQwuIWRsRIg3IGh00V9K0rMqug
+uwBhAVSzEpyg2vE9AvTkH5pXg1GZAFo+fXaK9J6SH1srRzeO/v/Qlg1R2915qQasBPYGd2W/eJ9/
+qUXWQY43RLjONtodxXdwmCUDKJFvIJRCRpu3R7uIBNNzdCMqybTVVOj3j6CksM5kvdMDGyRg1ti4
+les=
+=24Iy
+-----END PGP SIGNATURE-----
+
+--------------en9l0DwBxcBWW0NhRIAsEb20--
+
+--===============2780298838117923396==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============2780298838117923396==--
