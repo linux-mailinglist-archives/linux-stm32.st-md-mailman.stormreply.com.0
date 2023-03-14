@@ -2,90 +2,88 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 869196B9A9F
-	for <lists+linux-stm32@lfdr.de>; Tue, 14 Mar 2023 17:05:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B69E96B9AAD
+	for <lists+linux-stm32@lfdr.de>; Tue, 14 Mar 2023 17:08:29 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 34150C65E60;
-	Tue, 14 Mar 2023 16:05:13 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 719E8C65E60;
+	Tue, 14 Mar 2023 16:08:29 +0000 (UTC)
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8A97AC035BB
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 18A3EC035BB
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 14 Mar 2023 16:05:11 +0000 (UTC)
+ Tue, 14 Mar 2023 16:08:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1678809910;
+ s=mimecast20190719; t=1678810107;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=dGR7rnzQU4+OplsWaATHZ55m61w54EhaATkQ2WBXuU8=;
- b=i9C0M4/h38tzzE9gMyYjdwpnlGfJoZo08gwKS9OAv1eKsRw1Xq6EN9e4A3ArVUkahJSykm
- EGUTwFVA/MHFNTP5eGYgSzrO65SKxwXbybYqfn2/Vs2h5VblJjglyUknBSAoEQdqyJckEH
- W3VC4x/fonweJHkADcbQHofQ6pqvvIQ=
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
- [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=ye+Zs2ZnlofuAeakJPo0MMXWynO6qrZaDf6LrDdzxr0=;
+ b=ejwrMlFsx1TxgmmnRNZhp3+NMS3Xr5MoIU7OzdUMwnWM4XLbnfPLFFJGDLg0YuDIn/2wBU
+ vYwsjMc76wYFtmLwoBEcfF7bWYK4TsPUiitBCW0LNyxzoAtJZYuwfNPv053qToMq7bw0WG
+ qRIuEu8hnmiV7jgmnmyMrUqG09lyJhg=
+Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com
+ [209.85.219.70]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-614-U5zbeomNNke1m2mh1R2e1g-1; Tue, 14 Mar 2023 12:05:08 -0400
-X-MC-Unique: U5zbeomNNke1m2mh1R2e1g-1
-Received: by mail-wm1-f70.google.com with SMTP id
- az12-20020a05600c600c00b003e8910ec2fdso5684607wmb.6
+ us-mta-646-JaAIAYpDPSG5o9lchyF3OQ-1; Tue, 14 Mar 2023 12:08:23 -0400
+X-MC-Unique: JaAIAYpDPSG5o9lchyF3OQ-1
+Received: by mail-qv1-f70.google.com with SMTP id
+ px10-20020a056214050a00b005ab138d7672so2353134qvb.7
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 14 Mar 2023 09:05:08 -0700 (PDT)
+ Tue, 14 Mar 2023 09:08:23 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1678809907;
- h=content-transfer-encoding:mime-version:message-id:date:references
- :in-reply-to:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=dGR7rnzQU4+OplsWaATHZ55m61w54EhaATkQ2WBXuU8=;
- b=MZ5cMycevYmrMt7KydYpzrZfVADJLmGlFBQNb/11WnH7PpeyDagBSrFIpoi9A/GJWg
- +i84EYrSdPBHJY3LD6xt6Q1C10YdrNgsy/wESN3QZyHBZ4O1Fc/40WgsP0ExbUOr7xT3
- 7HTEub+GhF5c43j01YoT5bHXCwJnMsg8fazZcCKudk/MqSc651/TuhzgUF21uMohZ5BU
- 7L13kFF/VuZPVDoXYXiE+F+bdp+SOQZj5vFJdSq6Rd6dTTkg3Kive+wPjJ/WwHoEw8Jr
- u54tf28iGGi1HXPb8xM36R0nDsEBYYFsEuriNgS9RBaoYKPnnS5Sorb2VbtCRH2wV/Vy
- BORg==
-X-Gm-Message-State: AO0yUKWsiuY1VVg863V+s5JsB+YbP306FL9mEmxYSdb4UL2h3yi0lo6n
- eBAQ1IEF6UidmUqsQ3SihytKN4Y2GTQ2YGJFYASe7ByVc7qJ6UvfID/K0rNOWR7m4fwqKTchUnE
- UCRWZ0i82wRizFCs7pQdmQB2jkRi//E5wK7YUtE56
-X-Received: by 2002:a05:600c:4f91:b0:3ed:2c92:9f4f with SMTP id
- n17-20020a05600c4f9100b003ed2c929f4fmr2497191wmq.10.1678809907241; 
- Tue, 14 Mar 2023 09:05:07 -0700 (PDT)
-X-Google-Smtp-Source: AK7set9xSEo7gCICSkLAf2zsB02OWfCkjdy+yaejHZtyJwi5t5dZZAehVmN38jPmBozEi8lyKugTiQ==
-X-Received: by 2002:a05:600c:4f91:b0:3ed:2c92:9f4f with SMTP id
- n17-20020a05600c4f9100b003ed2c929f4fmr2497152wmq.10.1678809906889; 
- Tue, 14 Mar 2023 09:05:06 -0700 (PDT)
-Received: from localhost (205.pool92-176-231.dynamic.orange.es.
- [92.176.231.205]) by smtp.gmail.com with ESMTPSA id
- t18-20020a1c7712000000b003ed2987690dsm3148966wmi.26.2023.03.14.09.05.06
+ d=1e100.net; s=20210112; t=1678810103;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=ye+Zs2ZnlofuAeakJPo0MMXWynO6qrZaDf6LrDdzxr0=;
+ b=VpCH5d6GKFuBK2tAz/VlP46LuQD6JjEVgLs77+pJGsO5SNAUwIaVNvYu8Wfx8ItA4j
+ U2+IASi2Cy4Oo9M9DQxQQEgyRSbBFHWYCmZVOA2HuTYpJTiXbSBUtC7Sw/AEbKpwd5Wm
+ NKzC31KbI59EmOs6lf4WOzVw56BOIeL2Ex3fynRzO7UdR5BoDkgUDy7mT1zlNGFZDka8
+ 6wDHM945Yji28YfEac80ARaIDJCpm9qZ/mhfhAvRgAXUFmWZPtofffzMifZjmh6zWRBE
+ aX7CsrSURaSxXeTazjdYqMSDTjrRk6ViuqKxFIxynGDtAdX3T1uRi6y9zNE51ayjAZ5/
+ ypMw==
+X-Gm-Message-State: AO0yUKXBAH2XOGlK0zPynrhFD+l46wpzYgEp3H1QuGArXpqLKJLA+ECx
+ hNWSSOhQAHqquNbkyhqLm414FH0t+N36NkK4tZyHE2C3XbxbQz06G2S8nswQnIHwaubL0sEbwac
+ gGjOz3GhsfOf/3URgbGextRrLA3U3Jn8pKHSnvvyD
+X-Received: by 2002:a05:622a:134b:b0:3b6:3260:fa1d with SMTP id
+ w11-20020a05622a134b00b003b63260fa1dmr63289007qtk.45.1678810102797; 
+ Tue, 14 Mar 2023 09:08:22 -0700 (PDT)
+X-Google-Smtp-Source: AK7set8+Q/YIESpi+tpsA8aTC6oiVaMszVdOh9hZlBEg5fft+wCfZpLbUpRbaWQbPDeCDDmvmA+rsw==
+X-Received: by 2002:a05:622a:134b:b0:3b6:3260:fa1d with SMTP id
+ w11-20020a05622a134b00b003b63260fa1dmr63288928qtk.45.1678810102361; 
+ Tue, 14 Mar 2023 09:08:22 -0700 (PDT)
+Received: from halaney-x13s (104-53-165-62.lightspeed.stlsmo.sbcglobal.net.
+ [104.53.165.62]) by smtp.gmail.com with ESMTPSA id
+ s81-20020a374554000000b007426b917031sm1989714qka.121.2023.03.14.09.08.20
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 14 Mar 2023 09:05:06 -0700 (PDT)
-From: Javier Martinez Canillas <javierm@redhat.com>
-To: Philipp Zabel <p.zabel@pengutronix.de>, Uwe =?utf-8?Q?Kleine-K=C3=B6ni?=
- =?utf-8?Q?g?=
- <u.kleine-koenig@pengutronix.de>, Arnd Bergmann <arnd@arndb.de>, Inki Dae
- <inki.dae@samsung.com>, Seung-Woo
- Kim <sw0312.kim@samsung.com>, Kyungmin Park <kyungmin.park@samsung.com>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, Shawn Guo
- <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, Tomi
- Valkeinen <tomba@kernel.org>, Alain Volmat <alain.volmat@foss.st.com>,
- Yannick Fertre <yannick.fertre@foss.st.com>, Raphael Gallais-Pou
- <raphael.gallais-pou@foss.st.com>, Philippe Cornu
- <philippe.cornu@foss.st.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-In-Reply-To: <bbd54405501ec660ac941971e2203855fd79a90f.camel@pengutronix.de>
-References: <20221209220555.3631364-1-u.kleine-koenig@pengutronix.de>
- <bbd54405501ec660ac941971e2203855fd79a90f.camel@pengutronix.de>
-Date: Tue, 14 Mar 2023 17:05:04 +0100
-Message-ID: <87ilf3l3nz.fsf@minerva.mail-host-address-is-not-set>
+ Tue, 14 Mar 2023 09:08:21 -0700 (PDT)
+Date: Tue, 14 Mar 2023 11:08:18 -0500
+From: Andrew Halaney <ahalaney@redhat.com>
+To: Konrad Dybcio <konrad.dybcio@linaro.org>
+Message-ID: <20230314160818.2yopv6yeczne7gfi@halaney-x13s>
+References: <20230313165620.128463-1-ahalaney@redhat.com>
+ <20230313165620.128463-6-ahalaney@redhat.com>
+ <3f37eede-6d62-fb92-9cff-b308de333ebd@linaro.org>
 MIME-Version: 1.0
+In-Reply-To: <3f37eede-6d62-fb92-9cff-b308de333ebd@linaro.org>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Cc: linux-samsung-soc@vger.kernel.org, Alim Akhtar <alim.akhtar@samsung.com>,
- dri-devel@lists.freedesktop.org, NXP Linux Team <linux-imx@nxp.com>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] drm: Drop ARCH_MULTIPLATFORM from
-	dependencies
+Content-Disposition: inline
+Cc: mturquette@baylibre.com, edumazet@google.com,
+ krzysztof.kozlowski+dt@linaro.org, jonathanh@nvidia.com,
+ linux-clk@vger.kernel.org, tee.min.tan@linux.intel.com, linux@armlinux.org.uk,
+ veekhee@apple.com, hisunil@quicinc.com, joabreu@synopsys.com,
+ agross@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ andrey.konovalov@linaro.org, ncai@quicinc.com, devicetree@vger.kernel.org,
+ bhupesh.sharma@linaro.org, linux-arm-msm@vger.kernel.org,
+ richardcochran@gmail.com, bmasney@redhat.com, mohammad.athari.ismail@intel.com,
+ robh+dt@kernel.org, ruppala@nvidia.com, jsuraj@qti.qualcomm.com,
+ peppe.cavallaro@st.com, linux-arm-kernel@lists.infradead.org, sboyd@kernel.org,
+ netdev@vger.kernel.org, andersson@kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
+ vkoul@kernel.org, mcoquelin.stm32@gmail.com, davem@davemloft.net
+Subject: Re: [Linux-stm32] [PATCH net-next 05/11] clk: qcom: gcc-sc8280xp:
+	Add EMAC GDSCs
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,27 +95,87 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-UGhpbGlwcCBaYWJlbCA8cC56YWJlbEBwZW5ndXRyb25peC5kZT4gd3JpdGVzOgoKPiBPbiBGciwg
-MjAyMi0xMi0wOSBhdCAyMzowNSArMDEwMCwgVXdlIEtsZWluZS1Lw7ZuaWcgd3JvdGU6Cj4+IFNv
-bWUgb2YgdGhlc2UgZGVwZW5kZW5jaWVzIHVzZWQgdG8gYmUgc2Vuc2libGUgd2hlbiBvbmx5IGEg
-c21hbGwgcGFydCBvZgo+PiB0aGUgcGxhdGZvcm1zIHN1cHBvcnRlZCBieSBBUkNIPWFybSBjb3Vs
-ZCBiZSBjb21waWxlZCB0b2dldGhlciBpbiBhCj4+IHNpbmdsZSBrZXJuZWwgaW1hZ2UuIE5vd2Fk
-YXlzIEFSQ0hfTVVMVElQTEFURk9STSBpcyBvbmx5IHVzZWQgYXMgYSBndWFyZAo+PiBmb3Iga2Vy
-bmVsIG9wdGlvbnMgaW5jb21wYXRpYmxlIHdpdGggYSBtdWx0aXBsYXRmb3JtIGltYWdlLiBTZWUg
-Y29tbWl0Cj4+IDg0ZmM4NjM2MDYyMyAoIkFSTTogbWFrZSBBUkNIX01VTFRJUExBVEZPUk0gdXNl
-ci12aXNpYmxlIikgZm9yIHNvbWUgbW9yZQo+PiBkZXRhaWxzLgo+PiAKPj4gU2lnbmVkLW9mZi1i
-eTogVXdlIEtsZWluZS1Lw7ZuaWcgPHUua2xlaW5lLWtvZW5pZ0BwZW5ndXRyb25peC5kZT4KPj4g
-LS0tCj4+IMKgZHJpdmVycy9ncHUvZHJtL2lteC9LY29uZmlnICAgICB8IDIgKy0KPj4gwqBkcml2
-ZXJzL2dwdS9pcHUtdjMvS2NvbmZpZyAgICAgIHwgMiArLQo+Cj4gRm9yIGkuTVggLyBJUFV2MywK
-Pgo+IFJldmlld2VkLWJ5OiBQaGlsaXBwIFphYmVsIDxwLnphYmVsQHBlbmd1dHJvbml4LmRlPgo+
-CgpQdXNoZWQgdG8gZHJtLW1pc2MgKGRybS1taXNjLW5leHQpLiBUaGFua3MhCgotLSAKQmVzdCBy
-ZWdhcmRzLAoKSmF2aWVyIE1hcnRpbmV6IENhbmlsbGFzCkNvcmUgUGxhdGZvcm1zClJlZCBIYXQK
-Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0
-bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29t
-Cmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xp
-bnV4LXN0bTMyCg==
+On Tue, Mar 14, 2023 at 04:13:18PM +0100, Konrad Dybcio wrote:
+> 
+> 
+> On 13.03.2023 17:56, Andrew Halaney wrote:
+> > Add the EMAC GDSCs to allow the EMAC hardware to be enabled.
+> > 
+> > Signed-off-by: Andrew Halaney <ahalaney@redhat.com>
+> > ---
+> Was it tested to not cause issues on access on "normal" 8280xp?
+> AFAICS if there would be any, they would happen at registration
+> time, as gdsc_init already accesses its registers
+
+No, I've only tested this series on the sa8540p-ride. I luckily also am
+working from an x13s, I will use that to confirm nothing strange happens
+with this applied before sending v2 and confirm the results.
+
+Thanks for the idea,
+Andrew
+
+> 
+> Konrad
+> >  drivers/clk/qcom/gcc-sc8280xp.c               | 18 ++++++++++++++++++
+> >  include/dt-bindings/clock/qcom,gcc-sc8280xp.h |  2 ++
+> >  2 files changed, 20 insertions(+)
+> > 
+> > diff --git a/drivers/clk/qcom/gcc-sc8280xp.c b/drivers/clk/qcom/gcc-sc8280xp.c
+> > index b3198784e1c3..04a99dbaa57e 100644
+> > --- a/drivers/clk/qcom/gcc-sc8280xp.c
+> > +++ b/drivers/clk/qcom/gcc-sc8280xp.c
+> > @@ -6873,6 +6873,22 @@ static struct gdsc usb30_sec_gdsc = {
+> >  	.pwrsts = PWRSTS_RET_ON,
+> >  };
+> >  
+> > +static struct gdsc emac_0_gdsc = {
+> > +	.gdscr = 0xaa004,
+> > +	.pd = {
+> > +		.name = "emac_0_gdsc",
+> > +	},
+> > +	.pwrsts = PWRSTS_OFF_ON,
+> > +};
+> > +
+> > +static struct gdsc emac_1_gdsc = {
+> > +	.gdscr = 0xba004,
+> > +	.pd = {
+> > +		.name = "emac_1_gdsc",
+> > +	},
+> > +	.pwrsts = PWRSTS_OFF_ON,
+> > +};
+> > +
+> >  static struct clk_regmap *gcc_sc8280xp_clocks[] = {
+> >  	[GCC_AGGRE_NOC_PCIE0_TUNNEL_AXI_CLK] = &gcc_aggre_noc_pcie0_tunnel_axi_clk.clkr,
+> >  	[GCC_AGGRE_NOC_PCIE1_TUNNEL_AXI_CLK] = &gcc_aggre_noc_pcie1_tunnel_axi_clk.clkr,
+> > @@ -7351,6 +7367,8 @@ static struct gdsc *gcc_sc8280xp_gdscs[] = {
+> >  	[USB30_MP_GDSC] = &usb30_mp_gdsc,
+> >  	[USB30_PRIM_GDSC] = &usb30_prim_gdsc,
+> >  	[USB30_SEC_GDSC] = &usb30_sec_gdsc,
+> > +	[EMAC_0_GDSC] = &emac_0_gdsc,
+> > +	[EMAC_1_GDSC] = &emac_1_gdsc,
+> >  };
+> >  
+> >  static const struct clk_rcg_dfs_data gcc_dfs_clocks[] = {
+> > diff --git a/include/dt-bindings/clock/qcom,gcc-sc8280xp.h b/include/dt-bindings/clock/qcom,gcc-sc8280xp.h
+> > index cb2fb638825c..721105ea4fad 100644
+> > --- a/include/dt-bindings/clock/qcom,gcc-sc8280xp.h
+> > +++ b/include/dt-bindings/clock/qcom,gcc-sc8280xp.h
+> > @@ -492,5 +492,7 @@
+> >  #define USB30_MP_GDSC					9
+> >  #define USB30_PRIM_GDSC					10
+> >  #define USB30_SEC_GDSC					11
+> > +#define EMAC_0_GDSC					12
+> > +#define EMAC_1_GDSC					13
+> >  
+> >  #endif
+> 
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
