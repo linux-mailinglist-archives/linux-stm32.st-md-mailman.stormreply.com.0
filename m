@@ -2,80 +2,149 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 257C56B915F
-	for <lists+linux-stm32@lfdr.de>; Tue, 14 Mar 2023 12:17:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A1FDB6B9192
+	for <lists+linux-stm32@lfdr.de>; Tue, 14 Mar 2023 12:25:11 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D638FC65E60;
-	Tue, 14 Mar 2023 11:17:00 +0000 (UTC)
-Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com
- [209.85.167.42])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 56507C65E60;
+	Tue, 14 Mar 2023 11:25:11 +0000 (UTC)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A3A3CC64107
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0EF2CC64107
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 14 Mar 2023 11:16:59 +0000 (UTC)
-Received: by mail-lf1-f42.google.com with SMTP id br6so1336315lfb.11
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 14 Mar 2023 04:16:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20210112; t=1678792619;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=xqpuC0LKrzGcakbAULieo80qd/AxM1sSXYQ7KZfz9CA=;
- b=JfWQLDnss9RLHNQT55qIGS7gtnCy62QpDQIUDeg79wYVY91Jw/3YXc1F0z+nyOtiO2
- nFkf2/EEka2c/FmumixC9rihiTVJW3OJjXdGGjtfhIznb+dubYo3ONv0+F0XS+PXyRDD
- IWagIto5G2xwdRaSrZQ7Wd5dexIqaV34M4cKotJLIAIogNdJh/bqyv6qG2NUCJ3rn15G
- 7nipq10oEMqOSJOfHKzu0U7dJRX0IusaF3FFWe37xqJMi+K3F/6iLJaPxgdshwhkQvma
- vMqNjiONBJOFOEgEk58PdFrCMWluAibeawFS1u/PPyXAIAzv9JV1QnJzNUtP31E3sdQR
- kQvA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1678792619;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=xqpuC0LKrzGcakbAULieo80qd/AxM1sSXYQ7KZfz9CA=;
- b=4Nz5GdMlDWjdtOgSjDVHk3hKvqyBNMegWsXuWnQcVE7YsLQIEr+VU8XTUJoDfNTfrO
- 2LQTzwhARBEWifL/05xfrqdsOCLezRDrSDEivioUmu8cE2yQN7QYyPRa+ZDjKWoFT8Bg
- fabDfiI8bVQcC++y1j7L2m3VrsrfZae6Dgh9+fvky5e7p73dVVRauN9Z4lhuUoOo+r91
- eaux1L697woWWyBDNmDv4CKIG+HwOVRKoxpnqKqNnzrhy0N8d9OPnE15NxN+4oJ9ovDS
- zzggNnImlNSR5j6OL/JD3Aw0u6AnRMJ5mWVojihW6NOojbt2aXILgSBxJWsJj81nhm4I
- 8o3A==
-X-Gm-Message-State: AO0yUKUKjtDb7T6DPPHR3F2gHH0/PBnK3WippJvKPW1az5P2T5yfO9ru
- 8cNKRJcHfTD9fJL0P6CayPY=
-X-Google-Smtp-Source: AK7set9ZcenVszb/blJH1/YrWz7TaGM2/EeKvjtDVgJWlZfEvoGSveVyrjgsuwIuViFfdf8ZyAN9/Q==
-X-Received: by 2002:a05:6512:4c7:b0:4b4:8f01:f8b1 with SMTP id
- w7-20020a05651204c700b004b48f01f8b1mr628005lfq.31.1678792618656; 
- Tue, 14 Mar 2023 04:16:58 -0700 (PDT)
-Received: from mobilestation ([95.79.133.202])
- by smtp.gmail.com with ESMTPSA id
- u10-20020a056512040a00b004dd7ddc696esm356706lfk.293.2023.03.14.04.16.56
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 14 Mar 2023 04:16:57 -0700 (PDT)
-Date: Tue, 14 Mar 2023 14:16:54 +0300
-From: Serge Semin <fancer.lancer@gmail.com>
-To: Andrew Lunn <andrew@lunn.ch>
-Message-ID: <20230314111654.x2nsdr7jmumg6bp7@mobilestation>
+ Tue, 14 Mar 2023 11:25:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1678793110; x=1710329110;
+ h=date:from:to:cc:subject:message-id:references:
+ in-reply-to:mime-version;
+ bh=j5RfpFoGWQFUgOSyuslq4GilOKjBwT0pindTDzJ8Kag=;
+ b=TL6roY0KFLKyrVWbJT1Qotk+zJ3ThS6Cq+RmFtUAPiG5j6B6oSScqPPp
+ Mr4Axp1nE16Xp0AG0+c069+PurAep1u8O9LR2UgWO2msUTu54sRBN+F/W
+ lMHa6SgAg7aEoGEEKyF6C49TUi/SAZABv6xiiZfAfWZYexdJ64AYP6po2
+ 48fO1gIwpZufZTTj9qKHu0uWz/S8+I4OKPMr1Vweqwq6v4xs8r6PcOTPG
+ uE+yzcYDpawSDnkZmlFDHghI7FgzOtEqgNiVScbsvnn/BVq+q4TQcVDIY
+ WtdigGyTNPJ7yZEouHCwSFkpgWye99x2yywSHUtiivHdFQNy3cAGICd4I Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10648"; a="337421383"
+X-IronPort-AV: E=Sophos;i="5.98,259,1673942400"; d="scan'208";a="337421383"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Mar 2023 04:20:28 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6500,9779,10648"; a="743281845"
+X-IronPort-AV: E=Sophos;i="5.98,259,1673942400"; d="scan'208";a="743281845"
+Received: from fmsmsx602.amr.corp.intel.com ([10.18.126.82])
+ by fmsmga008.fm.intel.com with ESMTP; 14 Mar 2023 04:20:27 -0700
+Received: from fmsmsx602.amr.corp.intel.com (10.18.126.82) by
+ fmsmsx602.amr.corp.intel.com (10.18.126.82) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.21; Tue, 14 Mar 2023 04:20:27 -0700
+Received: from FMSEDG603.ED.cps.intel.com (10.1.192.133) by
+ fmsmsx602.amr.corp.intel.com (10.18.126.82) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.21 via Frontend Transport; Tue, 14 Mar 2023 04:20:27 -0700
+Received: from NAM04-DM6-obe.outbound.protection.outlook.com (104.47.73.48) by
+ edgegateway.intel.com (192.55.55.68) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.21; Tue, 14 Mar 2023 04:20:27 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=cevgGpbHDRO5R/Fc2iI0TjQRz51Y71xuaPxxVE/8M4zwo3EJAEIme3+W+u0dymwQSBWii/o7IVPj2+bFoRJjNyQIFjG9qx8wmGD3Vdl4rEbowSettL48Lgrtq9TnU14wx7fPyNqUJQ6vOVV5/3BDGr5jfR/hjlOJrPLALknyWvrkwPeBQOnPmyHUzTB7ID3m/GlclfQKC0Sz1+YRlTS6qflcjN8E4Z52vrTbxAbNHMltXpfaLNPfLRV5RBOyZ6B+4TE378O5B2bSAaU9ox+BgiW3dYbgGsHqbHoHz4WPPy3UtmfbaWNkV7QDlG4YPv+8P5Sc1L5P2TphwuWt7nprEg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=nDvoR3P2lSqWaV31HssjPOgE1bYRXr7uQVrHtoyzAb0=;
+ b=Qx0t4vxDkckX/dYu+CTylam0e10JadYr+6eSLUKZR9KbPKg1IakFmrjtVKrAdldMT323XpASa1PYZZQC76qHhW39Ka6gInbNLxqFM6/jkA6yxIkEvuyPIg2JOHS5QxLEPzW9Xc0/ZdlIpyFhsiNnoVcWgP2oPxtCBLdES574LKYD8dbh1HHVIHzi0rB4vlTzONwhEiBQPk2eNCkbD+Usay0v6yPXJK96fOhaAS+X2O/kMllrNHDmtIANcdNlz7lHwU6iC+ggpy6siaOzGbdHMOiHoLISJPdmaI6oYAxxp7jlvLhy/xSd2HyC4NsrlWai84ryhAjh+ej/idfjOaYpIQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from PH0PR11MB7471.namprd11.prod.outlook.com (2603:10b6:510:28a::13)
+ by SJ1PR11MB6156.namprd11.prod.outlook.com (2603:10b6:a03:45d::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.24; Tue, 14 Mar
+ 2023 11:20:25 +0000
+Received: from PH0PR11MB7471.namprd11.prod.outlook.com
+ ([fe80::37bf:fa82:8a21:a056]) by PH0PR11MB7471.namprd11.prod.outlook.com
+ ([fe80::37bf:fa82:8a21:a056%2]) with mapi id 15.20.6178.024; Tue, 14 Mar 2023
+ 11:20:25 +0000
+Date: Tue, 14 Mar 2023 12:20:18 +0100
+From: Piotr Raczynski <piotr.raczynski@intel.com>
+To: Serge Semin <Sergey.Semin@baikalelectronics.ru>
+Message-ID: <ZBBYcnh51WMutdG8@nimitz>
 References: <20230313224237.28757-1-Sergey.Semin@baikalelectronics.ru>
- <20230313224237.28757-2-Sergey.Semin@baikalelectronics.ru>
- <c87c9964-af29-4885-a977-c8a4a2fe704e@lunn.ch>
-MIME-Version: 1.0
+ <20230313224237.28757-10-Sergey.Semin@baikalelectronics.ru>
 Content-Disposition: inline
-In-Reply-To: <c87c9964-af29-4885-a977-c8a4a2fe704e@lunn.ch>
-Cc: linux-kernel@vger.kernel.org, Biao Huang <biao.huang@mediatek.com>,
- netdev@vger.kernel.org, Yang Yingliang <yangyingliang@huawei.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Alexey Malahov <Alexey.Malahov@baikalelectronics.ru>,
- Russell King <linux@armlinux.org.uk>,
- Serge Semin <Sergey.Semin@baikalelectronics.ru>,
- Christian Marangi <ansuelsmth@gmail.com>, Eric Dumazet <edumazet@google.com>,
- Jose Abreu <joabreu@synopsys.com>,
+In-Reply-To: <20230313224237.28757-10-Sergey.Semin@baikalelectronics.ru>
+X-ClientProxiedBy: DB6PR0201CA0031.eurprd02.prod.outlook.com
+ (2603:10a6:4:3f::41) To PH0PR11MB7471.namprd11.prod.outlook.com
+ (2603:10b6:510:28a::13)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH0PR11MB7471:EE_|SJ1PR11MB6156:EE_
+X-MS-Office365-Filtering-Correlation-Id: 669bc0ff-6e91-440b-3f86-08db247e1be2
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 5IN1hdHCS8SeNIDEEWUuhIuc06wjBnkWQJf1QH9hHz9ucTlbfeSxjc90fjLKCw5OT0bv1xxEQ24w3Y1+F5KasSuXDCxFrWasFqM/P6PVeMSsZHGJpBNidt0pxtGPQlIpsgY82uF4/YhM1ltdqX/JBL8k46CUJIzNx+VWqokCvTS8n1hez2fvEisidFxuZZ6XmFCyX5bb3eK8v0BCpua9Tds3dNHFg3aiI70G6YA4plfai8SgQ2vqu/5JnUGcbL+WkxfLDO5QfEzEJRG5dqPLXsjbVC7jgIPRW3OoF9NZMYiNYvQxZ9BWZ7rhbjuIbBhF5kP6MOHJu21jIQy+qjvCa86TdRnogLjq/6gsmW6jQ7vTVIv5G0k7BfBziV5SGJKqOmFBMW/KnqXIoIHoWJg0rO+xidGpz04oTUX0qEkm/JzrI7Xxly2fB+kX3U+77Mu0g7GYd6YLTXZknE+B7sMPszHxfvhUG32G3f9aoLf7fMpt9/fQV7zK9Y1wx1v1N0QmekJYgOzVhiN7qKgQTSkkgBQWJUG1HRxKmM5bA6Jw627PnFWyMIwuVBywsOvFuXdOPJDUQ+h1EeBqOgcDGv45Rltf6gXF5DnClz6QmnRnyTuM6yCywMFjBM0c72RZ3kV/LXI+y2eebTGAl/1qDFx9Gw==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH0PR11MB7471.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230025)(7916004)(396003)(376002)(346002)(136003)(39860400002)(366004)(451199018)(316002)(54906003)(83380400001)(478600001)(33716001)(86362001)(38100700002)(82960400001)(6506007)(6512007)(9686003)(186003)(26005)(6666004)(6486002)(66556008)(44832011)(4326008)(6916009)(8676002)(5660300002)(66476007)(66946007)(41300700001)(2906002)(8936002)(7416002);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?hlbuZco8CBt9YbeKRZ4NuS4ALzWsxwQpn09lzDMN44iIpKxP4V84eFxb+Q4G?=
+ =?us-ascii?Q?ElKmC46LEI6VS7IT29Cy8V7oKtiD5mbpCMT6QlI6TOvJ/pJTMwClj+GPfmbC?=
+ =?us-ascii?Q?9Su8LzQN/i58MrpLzr50cuOx+c2R5xYKqyZHrhjXLRR0TyNdCGL6XkrpYWA3?=
+ =?us-ascii?Q?pzhstnLqtSwwJ9fiywkNRvHwl5ixqqW7eCZGXEVNMpk/jlRpR8OkR5d7wuhK?=
+ =?us-ascii?Q?sNmuzBZ8Wjghopp96w2mv0VGKyX0FRiS5+ezm38sFlOPHZGqIjEG6hDU+ol0?=
+ =?us-ascii?Q?H1NXP8+z8Un2cHjLXx2MV1rxyuGQPNkeSQEdChiNTW3BqGpmCJsIhAr784fd?=
+ =?us-ascii?Q?/AVw01DTuAn/3Uz/e0+wWwJ5vBHUseZzeJL7f35CkYrXBjOwBx+6YnEDngYL?=
+ =?us-ascii?Q?6JIaDmEpHZcnm6XsH1IyipcUcbYRQTHGMywXdZ8hxVcC+NlOVYHFrcvin/mj?=
+ =?us-ascii?Q?FhkxPiwTzDx39rVpd5dI5t7E8iF9Ks4XQ4akVoZZ/MdtkDhRPqBM4Azl9sjx?=
+ =?us-ascii?Q?8Lbt7Oa67MhZlHVznpTUrwzMAZgkEXjECig6voarRHYl+U4Kb/vE7MXGIsve?=
+ =?us-ascii?Q?Kx2pBrT7ER4kPqcKZJCmS8Y+0PDQy3DmnWhoGWjAeD+2/K1tF8f2SqxXOYAP?=
+ =?us-ascii?Q?FROEKrVDgDFDcMXVj1Bt+IBCKJsO4bUe+o6tMnHN58JppFtzQ+fubTNdq9ep?=
+ =?us-ascii?Q?61NkvUedtH0OSH6yOyBj/mXiKeWMMFncNxTVrsANDVDO/2mkzlYc+4q/Yq+3?=
+ =?us-ascii?Q?ZgdrO01hWof9W5Ff9DUOSsxFX0gmUr7hPUgysnqMHuvjcyG77Z4bpHPwHaO9?=
+ =?us-ascii?Q?iVMv0R+kgAZPb3ix5XYXkKljxZV8AFIjz3OZ9whlDj5CwwHVK6rh1UcD1DZU?=
+ =?us-ascii?Q?W0TbrTu5e57FP0RQ7unDvi0yPWI8IrPpR7IbkukTQHNWw5AsD2YXkIY6ex6E?=
+ =?us-ascii?Q?a3lWpAcdcWLBlFuqvFL1mX0PmxyWt9HIj8D2LuBY5TReJgLXNNxA4liKc2km?=
+ =?us-ascii?Q?vK2CNIhb5hxnw3pok+Dxs46Qh4E8S5V6iadHB664KAgVvB+xIn1vyEvZwRSC?=
+ =?us-ascii?Q?JqidcOeA82EpcD0sulfufkjwnlauZIAaFsEVKwa3VGpUQaUigaTH+7v+FlvX?=
+ =?us-ascii?Q?m8f7wrG/l2Ps8vzYKVHAvNstucqjZ3WPosAY4jpop4b03+n5vFU0o4MZRs7d?=
+ =?us-ascii?Q?tFNFuk4A7PBl3sVL66dgqRZY23ysCj0rWenSQm3YIZUmE1P3du2QWCo2wQg9?=
+ =?us-ascii?Q?yRiSKmhht63GeNUiUhgttZ2zip2FDZRBoLJMlNmDsBNttWQx6n1FqIwNaP7O?=
+ =?us-ascii?Q?5c63e34XPXJszuVw0JPuB+zYsXqQ+iFvn4rAQBzP5fZDM7bUFWPaWTErCx8I?=
+ =?us-ascii?Q?lMcoIh7W+xP/UCTXZDHHhcMFVeKm9SakR/ySa+8oPSCX2mDj67QxoxbtgVEI?=
+ =?us-ascii?Q?vbMx2+RX802Nnve/sW4ABLVWnGed1SWE6I84LqKjqlRspwwuk3c6yv4Xqx0T?=
+ =?us-ascii?Q?mwSQvnMbMH/3i7KIqKbBAyTFG7af9HAsLxsLsbfoYoZGDl2nu/Dwue7ajGW3?=
+ =?us-ascii?Q?IvsH/JQybGEOuYxcDWl47c3xMHAOepKVBhtg4ugh5p8T/SEqKpzln+zpGB2e?=
+ =?us-ascii?Q?wQ=3D=3D?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 669bc0ff-6e91-440b-3f86-08db247e1be2
+X-MS-Exchange-CrossTenant-AuthSource: PH0PR11MB7471.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Mar 2023 11:20:25.6910 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: VLvu+1FXxQsR5U52MkT9JgDPBzlGrAQdiOrFDiyVjU/SJQXcBA0swu7bFAKVUbAEM96d54kvOWfS1G9ijDykokmUDKqGg8v0H7cTexdFfbg=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR11MB6156
+X-OriginatorOrg: intel.com
+Cc: Andrew Lunn <andrew@lunn.ch>, Eric Dumazet <edumazet@google.com>,
  Pavel Parkhomenko <Pavel.Parkhomenko@baikalelectronics.ru>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>, Paolo Abeni <pabeni@redhat.com>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
- Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH net 01/13] net: phy: realtek: Fix events
- detection failure in LPI mode
+ linux-stm32@st-md-mailman.stormreply.com, Russell King <linux@armlinux.org.uk>,
+ Jose Abreu <joabreu@synopsys.com>, Yang Yingliang <yangyingliang@huawei.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Christian Marangi <ansuelsmth@gmail.com>, Jose
+ Abreu <Jose.Abreu@synopsys.com>, Biao Huang <biao.huang@mediatek.com>,
+ Alexey Malahov <Alexey.Malahov@baikalelectronics.ru>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Serge Semin <fancer.lancer@gmail.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, "David S.
+ Miller" <davem@davemloft.net>, Heiner Kallweit <hkallweit1@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH net 09/13] net: stmmac: Remove default
+ maxmtu DT-platform setting
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,26 +161,73 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Andrew
-
-On Tue, Mar 14, 2023 at 01:39:43AM +0100, Andrew Lunn wrote:
-> > Signed-off-by: Serge Semin <Sergey.Semin@baikalelectronics.ru>
-> > Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+On Tue, Mar 14, 2023 at 01:42:33AM +0300, Serge Semin wrote:
+> Initializing maxmtu platform parameter in the stmmac_probe_config_dt()
+> method by default makes being pointless the DW MAC-specific maximum MTU
+> selection algorithm implemented in the stmmac_dvr_probe() method. At least
+> for xGMAC we'll always have a frame MTU limited with 9000 while it
+> supports units up to 16KB. Let's remove the default initialization of
+> the maxmtu platform setting then. We don't replace it with setting the
+> maxmtu with some greater value because a default maximum MTU is
+> calculated later in the stmmac_dvr_probe() anyway. That would have been a
+> pointless limitation too. Instead from now the main STMMAC driver code
+> will consider the out of bounds maxmtu value as invalid and will silently
+> replace it with a maximum MTU value specific to the corresponding DW MAC.
 > 
-> Since this is for net, you need to provide a Fixes: tag.
-
-Hm, for some reason I was sure that all the patches in this series were
-equipped with the Fixes-tags. Anyway since the patch fixes the particular
-device malfunction then it's relevant to the commit initially adding the
-device support:
-Fixes: ef3d90491a15 ("net: phy: realtek: add rtl8211e driver")
-
-I'll add that tag on v2. Thanks for reminding.
-
--Serge(y)
-
+> Note this alteration will only affect the xGMAC IP-cores due to the way
+> the MTU autodetecion algorithm is implemented. So from now the driver will
+> permit DW xGMACs to handle frames up to 16KB length (XGMAC_JUMBO_LEN). As
+> before DW GMAC IP-cores of v4.0 and higher and IP-cores with enhanced
+> descriptor support will be able to work with frames up to 8KB (JUMBO_LEN).
+> The rest of the NICs will support frames of SKB_MAX_HEAD(NET_SKB_PAD +
+> NET_IP_ALIGN) size.
 > 
->       Andrew
+> Fixes: 7d9e6c5afab6 ("net: stmmac: Integrate XGMAC into main driver flow")
+> Signed-off-by: Serge Semin <Sergey.Semin@baikalelectronics.ru>
+> ---
+>  drivers/net/ethernet/stmicro/stmmac/stmmac_main.c     | 4 ----
+>  drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c | 5 -----
+>  2 files changed, 9 deletions(-)
+> 
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> index 32aa7953d296..e5cb4edc4e23 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> @@ -7252,10 +7252,6 @@ int stmmac_dvr_probe(struct device *device,
+>  	if ((priv->plat->maxmtu < ndev->max_mtu) &&
+>  	    (priv->plat->maxmtu >= ndev->min_mtu))
+>  		ndev->max_mtu = priv->plat->maxmtu;
+> -	else if (priv->plat->maxmtu < ndev->min_mtu)
+> -		dev_warn(priv->device,
+> -			 "%s: warning: maxmtu having invalid value (%d)\n",
+> -			 __func__, priv->plat->maxmtu);
+
+Looks fine but by removing plat->maxmtu = JUMBO_LEN; you eliminate the
+case of dev_warn here or you remove dev_warn since the driver will be
+able to fix the mtu value?
+>  
+>  	if (flow_ctrl)
+>  		priv->flow_ctrl = FLOW_AUTO;	/* RX/TX pause on */
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+> index 067a40fe0a23..857411105a0a 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+> @@ -468,11 +468,6 @@ stmmac_probe_config_dt(struct platform_device *pdev, u8 *mac)
+>  	plat->en_tx_lpi_clockgating =
+>  		of_property_read_bool(np, "snps,en-tx-lpi-clockgating");
+>  
+> -	/* Set the maxmtu to a default of JUMBO_LEN in case the
+> -	 * parameter is not present in the device tree.
+> -	 */
+> -	plat->maxmtu = JUMBO_LEN;
+> -
+>  	/* Set default value for multicast hash bins */
+>  	plat->multicast_filter_bins = HASH_TABLE_SIZE;
+>  
+> -- 
+> 2.39.2
+> 
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
