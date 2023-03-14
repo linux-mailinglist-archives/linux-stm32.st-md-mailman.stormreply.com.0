@@ -2,75 +2,77 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 729DD6B9F67
-	for <lists+linux-stm32@lfdr.de>; Tue, 14 Mar 2023 20:14:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AA3956B9F79
+	for <lists+linux-stm32@lfdr.de>; Tue, 14 Mar 2023 20:19:01 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 24FE8C6904A;
-	Tue, 14 Mar 2023 19:14:54 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6A6C9C6904A;
+	Tue, 14 Mar 2023 19:19:01 +0000 (UTC)
+Received: from mail-il1-f180.google.com (mail-il1-f180.google.com
+ [209.85.166.180])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B34FAC64107
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7D922C64107
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 14 Mar 2023 19:14:52 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 331D2B81B60
+ Tue, 14 Mar 2023 19:18:59 +0000 (UTC)
+Received: by mail-il1-f180.google.com with SMTP id h7so9181271ila.5
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 14 Mar 2023 19:14:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 225A8C433A1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 14 Mar 2023 19:14:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1678821290;
- bh=/o++2orgkh0eYVR24mG2HNDYYvTQagQPn7YxqtJRIGM=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=HOI98Pw9VCCF8s+F6gT0/O1R6qRkVaDVxGLQ8shxkdNBfBdydmcUvFW6EQfLc7YM0
- vmBilZVquc485LrVfceEBDtZ5LybBi3iYyZJu5Atg66iC/jClxnCI2aezJYdFFoATb
- zNO4ffMMmIujIN8SSLwFySmlQoHxUQvvxe7gYff9gAP/mw3Qg4H2W8KnmPzBqFmV95
- G4EAy1yl9InhDz5pDcACZQnS0w4q+XWfFxqzwmWoan2fay6DQ7ZJw+WU+KfGEmfVb6
- j4wRetXsbLov1/7Zp70w8um2hZFbKP7zYGebUQ5xbc0+mXL+JgIwQSiCO2mSEkyh8Z
- nDFNqyakCiYkA==
-Received: by mail-vs1-f54.google.com with SMTP id e19so8676003vsu.4
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 14 Mar 2023 12:14:50 -0700 (PDT)
-X-Gm-Message-State: AO0yUKXgfaGYo4WjEv888YeloIv4s7cj7qB0c9Z/dmj/uhHuWZDoBJSL
- RyO5FUvhAT27aCDHpG6hqg//r18TPrh2prbiUw==
-X-Google-Smtp-Source: AK7set+w7Dteu6Gz2fQIttAdFvbMZqpID4AHKHx68t3xQwsHx6BtKsv/C7yfYxJySG1yjFVS7BCS5PCUX/PHC6Xr3l0=
-X-Received: by 2002:a67:b142:0:b0:41b:dc0c:a668 with SMTP id
- z2-20020a67b142000000b0041bdc0ca668mr25692104vsl.7.1678821289005; Tue, 14 Mar
- 2023 12:14:49 -0700 (PDT)
-MIME-Version: 1.0
-References: <20230310144718.1544169-1-robh@kernel.org>
- <ZAxrBtNdou28yPPB@corigine.com>
-In-Reply-To: <ZAxrBtNdou28yPPB@corigine.com>
+ Tue, 14 Mar 2023 12:18:59 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112; t=1678821538;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=7SHHH82b44ejO8hTyfXFkG6QT42FRv8xv8FBLwbDdBU=;
+ b=EUW/Wicyr/T7siWPgfWmROun1uW0h6uzsC2541jPnBmxPIAk5IvQlqBSSjY7Sg4N0Q
+ FaNoZh90gBrZ1QXEioO2W0zP+e7enDIU8Ha94f86AB6Om8pQorO8FqrSzB6kuLs20HUh
+ iYtpPlM6kpcgJn1O/82qgnS0eQQa2zF5d1zVB0IrnGOYpghjFwpQsul5iHXSZEv9OnEa
+ wD4FthQ5vUi3C+qRilYY0piXX2+iILVYFl2CyK+krtTg3NrQXF8y8LacjjlA4GkXzRIv
+ t46gz2hQnFQwjpy9fYtFZVa2HceG/uweN39UA2F2UIiTae4G6HuWvf+pEWAuagcn8cMX
+ wRkw==
+X-Gm-Message-State: AO0yUKVDTcqoaEsJSRb1ax9K/u9hLECOgUv840Cyyl+mzsEWW3L33Jb7
+ jLNsa+fikwUklC6VHMO1ow==
+X-Google-Smtp-Source: AK7set+D4OgbXOnjCh9jn0yevluq/zU240KhGAAqP+qZ9PQbeEy3MjIEdlBp1nmgLk0F0k16FEDCEw==
+X-Received: by 2002:a05:6e02:10c1:b0:317:c80f:b416 with SMTP id
+ s1-20020a056e0210c100b00317c80fb416mr2957326ilj.20.1678821538158; 
+ Tue, 14 Mar 2023 12:18:58 -0700 (PDT)
+Received: from robh_at_kernel.org ([64.188.179.249])
+ by smtp.gmail.com with ESMTPSA id
+ h13-20020a02c72d000000b003bf39936d1esm987920jao.131.2023.03.14.12.18.55
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 14 Mar 2023 12:18:57 -0700 (PDT)
+Received: (nullmailer pid 914779 invoked by uid 1000);
+ Tue, 14 Mar 2023 19:18:55 -0000
 From: Rob Herring <robh@kernel.org>
-Date: Tue, 14 Mar 2023 14:14:37 -0500
-X-Gmail-Original-Message-ID: <CAL_JsqJTsgmdwZZTfcMRnqaUfCNbgjO2mshxtAQK-qwoFqwCyw@mail.gmail.com>
-Message-ID: <CAL_JsqJTsgmdwZZTfcMRnqaUfCNbgjO2mshxtAQK-qwoFqwCyw@mail.gmail.com>
-To: Simon Horman <simon.horman@corigine.com>
-Cc: linux-kernel@vger.kernel.org, Eric Dumazet <edumazet@google.com>,
- Shenwei Wang <shenwei.wang@nxp.com>, Fabio Estevam <festevam@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, Zhao Qiang <qiang.zhao@nxp.com>,
- Michal Simek <michal.simek@xilinx.com>, Jose Abreu <joabreu@synopsys.com>,
- Clark Wang <xiaoning.wang@nxp.com>, NXP Linux Team <linux-imx@nxp.com>,
- Francois Romieu <romieu@fr.zoreil.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Kalle Valo <kvalo@kernel.org>,
- Wolfgang Grandegger <wg@grandegger.com>, devicetree@vger.kernel.org,
- Grygorii Strashko <grygorii.strashko@ti.com>,
+To: Wolfgang Grandegger <wg@grandegger.com>,
+ Marc Kleine-Budde <mkl@pengutronix.de>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Claudiu Beznea <claudiu.beznea@microchip.com>, 
+ Wei Fang <wei.fang@nxp.com>, Shenwei Wang <shenwei.wang@nxp.com>, 
+ Clark Wang <xiaoning.wang@nxp.com>, NXP Linux Team <linux-imx@nxp.com>, 
+ Claudiu Manoil <claudiu.manoil@nxp.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Jose Abreu <joabreu@synopsys.com>, 
+ Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, 
  Pengutronix Kernel Team <kernel@pengutronix.de>,
- Sascha Hauer <s.hauer@pengutronix.de>, linuxppc-dev@lists.ozlabs.org,
- linux-can@vger.kernel.org, Claudiu Manoil <claudiu.manoil@nxp.com>,
- Marc Kleine-Budde <mkl@pengutronix.de>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>, linux-omap@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
- linux-wireless@vger.kernel.org, Nicolas Ferre <nicolas.ferre@microchip.com>,
- "David S. Miller" <davem@davemloft.net>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Wei Fang <wei.fang@nxp.com>,
- Samuel Mendoza-Jonas <sam@mendozajonas.com>, Shawn Guo <shawnguo@kernel.org>,
- Claudiu Beznea <claudiu.beznea@microchip.com>
-Subject: Re: [Linux-stm32] [PATCH] net: Use of_property_read_bool() for
+ Fabio Estevam <festevam@gmail.com>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Grygorii Strashko <grygorii.strashko@ti.com>, 
+ Francois Romieu <romieu@fr.zoreil.com>, Michal Simek <michal.simek@xilinx.com>,
+ Zhao Qiang <qiang.zhao@nxp.com>, Kalle Valo <kvalo@kernel.org>, 
+ Samuel Mendoza-Jonas <sam@mendozajonas.com>
+Date: Tue, 14 Mar 2023 14:18:27 -0500
+Message-Id: <20230314191828.914124-1-robh@kernel.org>
+X-Mailer: git-send-email 2.39.2
+MIME-Version: 1.0
+Cc: Simon Horman <simon.horman@corigine.com>, linux-wireless@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-can@vger.kernel.org,
+ netdev@vger.kernel.org, linux-omap@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH v2] net: Use of_property_read_bool() for
 	boolean properties
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -83,54 +85,362 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gU2F0LCBNYXIgMTEsIDIwMjMgYXQgNTo1MOKAr0FNIFNpbW9uIEhvcm1hbiA8c2ltb24uaG9y
-bWFuQGNvcmlnaW5lLmNvbT4gd3JvdGU6Cj4KPiBPbiBGcmksIE1hciAxMCwgMjAyMyBhdCAwODo0
-NzoxNkFNIC0wNjAwLCBSb2IgSGVycmluZyB3cm90ZToKPiA+IEl0IGlzIHByZWZlcnJlZCB0byB1
-c2UgdHlwZWQgcHJvcGVydHkgYWNjZXNzIGZ1bmN0aW9ucyAoaS5lLgo+ID4gb2ZfcHJvcGVydHlf
-cmVhZF88dHlwZT4gZnVuY3Rpb25zKSByYXRoZXIgdGhhbiBsb3ctbGV2ZWwKPiA+IG9mX2dldF9w
-cm9wZXJ0eS9vZl9maW5kX3Byb3BlcnR5IGZ1bmN0aW9ucyBmb3IgcmVhZGluZyBwcm9wZXJ0aWVz
-Lgo+ID4gQ29udmVydCByZWFkaW5nIGJvb2xlYW4gcHJvcGVydGllcyB0byB0byBvZl9wcm9wZXJ0
-eV9yZWFkX2Jvb2woKS4KPiA+Cj4gPiBTaWduZWQtb2ZmLWJ5OiBSb2IgSGVycmluZyA8cm9iaEBr
-ZXJuZWwub3JnPgo+Cj4gUmV2aWV3ZWQtYnk6IFNpbW9uIEhvcm1hbiA8c2ltb24uaG9ybWFuQGNv
-cmlnaW5lLmNvbT4KPgo+IC4uLgo+Cj4gPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9uZXQvZXRoZXJu
-ZXQvdmlhL3ZpYS12ZWxvY2l0eS5jIGIvZHJpdmVycy9uZXQvZXRoZXJuZXQvdmlhL3ZpYS12ZWxv
-Y2l0eS5jCj4gPiBpbmRleCBhNTAyODEyYWM0MTguLjg2Zjc4NDNiNDU5MSAxMDA2NDQKPiA+IC0t
-LSBhL2RyaXZlcnMvbmV0L2V0aGVybmV0L3ZpYS92aWEtdmVsb2NpdHkuYwo+ID4gKysrIGIvZHJp
-dmVycy9uZXQvZXRoZXJuZXQvdmlhL3ZpYS12ZWxvY2l0eS5jCj4gPiBAQCAtMjcwOSw4ICsyNzA5
-LDcgQEAgc3RhdGljIGludCB2ZWxvY2l0eV9nZXRfcGxhdGZvcm1faW5mbyhzdHJ1Y3QgdmVsb2Np
-dHlfaW5mbyAqdnB0cikKPiA+ICAgICAgIHN0cnVjdCByZXNvdXJjZSByZXM7Cj4gPiAgICAgICBp
-bnQgcmV0Owo+ID4KPiA+IC0gICAgIGlmIChvZl9nZXRfcHJvcGVydHkodnB0ci0+ZGV2LT5vZl9u
-b2RlLCAibm8tZWVwcm9tIiwgTlVMTCkpCj4gPiAtICAgICAgICAgICAgIHZwdHItPm5vX2VlcHJv
-bSA9IDE7Cj4gPiArICAgICB2cHRyLT5ub19lZXByb20gPSBvZl9wcm9wZXJ0eV9yZWFkX2Jvb2wo
-dnB0ci0+ZGV2LT5vZl9ub2RlLCAibm8tZWVwcm9tIik7Cj4KPiBBcyBwZXIgbXkgY29tbWVudCBv
-biAiW1BBVENIXSBuZmM6IG1ydmw6IFVzZSBvZl9wcm9wZXJ0eV9yZWFkX2Jvb2woKSBmb3IKPiBi
-b29sZWFuIHByb3BlcnRpZXMiLgo+Cj4gSSdtIG5vdCB0aGF0IGVudGh1c2lhc3RpYyBhYm91dCBh
-c3NpZ25pbmcgYSBib29sIHZhbHVlIHRvIGEgZmllbGQKPiB3aXRoIGFuIGludGVnZXIgdHlwZS4g
-QnV0IHRoYXQgaXMgbGlrZWx5IGEgdG9waWMgZm9yIGFub3RoZXIgcGF0Y2guCj4KPiA+ICAgICAg
-IHJldCA9IG9mX2FkZHJlc3NfdG9fcmVzb3VyY2UodnB0ci0+ZGV2LT5vZl9ub2RlLCAwLCAmcmVz
-KTsKPiA+ICAgICAgIGlmIChyZXQpIHsKPgo+IC4uLgo+Cj4gPiBkaWZmIC0tZ2l0IGEvZHJpdmVy
-cy9uZXQvd2FuL2ZzbF91Y2NfaGRsYy5jIGIvZHJpdmVycy9uZXQvd2FuL2ZzbF91Y2NfaGRsYy5j
-Cj4gPiBpbmRleCAxYzUzYjU1NDY5MjcuLjQ3YzJhZDdhM2U0MiAxMDA2NDQKPiA+IC0tLSBhL2Ry
-aXZlcnMvbmV0L3dhbi9mc2xfdWNjX2hkbGMuYwo+ID4gKysrIGIvZHJpdmVycy9uZXQvd2FuL2Zz
-bF91Y2NfaGRsYy5jCj4gPiBAQCAtMTE3NywxNCArMTE3Nyw5IEBAIHN0YXRpYyBpbnQgdWNjX2hk
-bGNfcHJvYmUoc3RydWN0IHBsYXRmb3JtX2RldmljZSAqcGRldikKPiA+ICAgICAgIHVoZGxjX3By
-aXYtPmRldiA9ICZwZGV2LT5kZXY7Cj4gPiAgICAgICB1aGRsY19wcml2LT51dF9pbmZvID0gdXRf
-aW5mbzsKPiA+Cj4gPiAtICAgICBpZiAob2ZfZ2V0X3Byb3BlcnR5KG5wLCAiZnNsLHRkbS1pbnRl
-cmZhY2UiLCBOVUxMKSkKPiA+IC0gICAgICAgICAgICAgdWhkbGNfcHJpdi0+dHNhID0gMTsKPiA+
-IC0KPiA+IC0gICAgIGlmIChvZl9nZXRfcHJvcGVydHkobnAsICJmc2wsdWNjLWludGVybmFsLWxv
-b3BiYWNrIiwgTlVMTCkpCj4gPiAtICAgICAgICAgICAgIHVoZGxjX3ByaXYtPmxvb3BiYWNrID0g
-MTsKPiA+IC0KPiA+IC0gICAgIGlmIChvZl9nZXRfcHJvcGVydHkobnAsICJmc2wsaGRsYy1idXMi
-LCBOVUxMKSkKPiA+IC0gICAgICAgICAgICAgdWhkbGNfcHJpdi0+aGRsY19idXMgPSAxOwo+ID4g
-KyAgICAgdWhkbGNfcHJpdi0+dHNhID0gb2ZfcHJvcGVydHlfcmVhZF9ib29sKG5wLCAiZnNsLHRk
-bS1pbnRlcmZhY2UiKTsKPgo+IEhlcmUgdG9vLgoKVGhlc2UgYXJlIGFscmVhZHkgYm9vbC4gVHVy
-bnMgb3V0IHRoZSBvbmx5IG9uZSB0aGF0IG5lZWRzIGNoYW5naW5nIGlzCm5vX2VlcHJvbS4gbmV0
-ZGV2IGZvbGtzIG1hcmtlZCB0aGlzIGFzIGNoYW5nZXMgcmVxdWVzdGVkLCBzbyBJJ2xsIGFkZAp0
-aGF0IGluIHYyLgoKUm9iCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFu
-LnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWls
-bWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+It is preferred to use typed property access functions (i.e.
+of_property_read_<type> functions) rather than low-level
+of_get_property/of_find_property functions for reading properties.
+Convert reading boolean properties to of_property_read_bool().
+
+Reviewed-by: Simon Horman <simon.horman@corigine.com>
+Acked-by: Marc Kleine-Budde <mkl@pengutronix.de> # for net/can
+Acked-by: Kalle Valo <kvalo@kernel.org>
+Acked-by: Nicolas Ferre <nicolas.ferre@microchip.com>
+Acked-by: Francois Romieu <romieu@fr.zoreil.com>
+Reviewed-by: Wei Fang <wei.fang@nxp.com>
+Signed-off-by: Rob Herring <robh@kernel.org>
+---
+v2:
+ - Convert no_eeprom type to bool.
+---
+ drivers/net/can/cc770/cc770_platform.c          | 12 ++++++------
+ drivers/net/ethernet/cadence/macb_main.c        |  2 +-
+ drivers/net/ethernet/davicom/dm9000.c           |  4 ++--
+ drivers/net/ethernet/freescale/fec_main.c       |  2 +-
+ drivers/net/ethernet/freescale/fec_mpc52xx.c    |  2 +-
+ drivers/net/ethernet/freescale/gianfar.c        |  4 ++--
+ drivers/net/ethernet/ibm/emac/core.c            |  8 ++++----
+ drivers/net/ethernet/ibm/emac/rgmii.c           |  2 +-
+ drivers/net/ethernet/stmicro/stmmac/dwmac-imx.c |  3 +--
+ drivers/net/ethernet/sun/niu.c                  |  2 +-
+ drivers/net/ethernet/ti/cpsw-phy-sel.c          |  3 +--
+ drivers/net/ethernet/ti/netcp_ethss.c           |  8 +++-----
+ drivers/net/ethernet/via/via-velocity.c         |  3 +--
+ drivers/net/ethernet/via/via-velocity.h         |  2 +-
+ drivers/net/ethernet/xilinx/ll_temac_main.c     |  9 ++++-----
+ drivers/net/wan/fsl_ucc_hdlc.c                  | 11 +++--------
+ drivers/net/wireless/ti/wlcore/spi.c            |  3 +--
+ net/ncsi/ncsi-manage.c                          |  4 ++--
+ 18 files changed, 36 insertions(+), 48 deletions(-)
+
+diff --git a/drivers/net/can/cc770/cc770_platform.c b/drivers/net/can/cc770/cc770_platform.c
+index 8d916e2ee6c2..8dcc32e4e30e 100644
+--- a/drivers/net/can/cc770/cc770_platform.c
++++ b/drivers/net/can/cc770/cc770_platform.c
+@@ -93,20 +93,20 @@ static int cc770_get_of_node_data(struct platform_device *pdev,
+ 	if (priv->can.clock.freq > 8000000)
+ 		priv->cpu_interface |= CPUIF_DMC;
+ 
+-	if (of_get_property(np, "bosch,divide-memory-clock", NULL))
++	if (of_property_read_bool(np, "bosch,divide-memory-clock"))
+ 		priv->cpu_interface |= CPUIF_DMC;
+-	if (of_get_property(np, "bosch,iso-low-speed-mux", NULL))
++	if (of_property_read_bool(np, "bosch,iso-low-speed-mux"))
+ 		priv->cpu_interface |= CPUIF_MUX;
+ 
+ 	if (!of_get_property(np, "bosch,no-comperator-bypass", NULL))
+ 		priv->bus_config |= BUSCFG_CBY;
+-	if (of_get_property(np, "bosch,disconnect-rx0-input", NULL))
++	if (of_property_read_bool(np, "bosch,disconnect-rx0-input"))
+ 		priv->bus_config |= BUSCFG_DR0;
+-	if (of_get_property(np, "bosch,disconnect-rx1-input", NULL))
++	if (of_property_read_bool(np, "bosch,disconnect-rx1-input"))
+ 		priv->bus_config |= BUSCFG_DR1;
+-	if (of_get_property(np, "bosch,disconnect-tx1-output", NULL))
++	if (of_property_read_bool(np, "bosch,disconnect-tx1-output"))
+ 		priv->bus_config |= BUSCFG_DT1;
+-	if (of_get_property(np, "bosch,polarity-dominant", NULL))
++	if (of_property_read_bool(np, "bosch,polarity-dominant"))
+ 		priv->bus_config |= BUSCFG_POL;
+ 
+ 	prop = of_get_property(np, "bosch,clock-out-frequency", &prop_size);
+diff --git a/drivers/net/ethernet/cadence/macb_main.c b/drivers/net/ethernet/cadence/macb_main.c
+index 6e141a8bbf43..66e30561569e 100644
+--- a/drivers/net/ethernet/cadence/macb_main.c
++++ b/drivers/net/ethernet/cadence/macb_main.c
+@@ -4990,7 +4990,7 @@ static int macb_probe(struct platform_device *pdev)
+ 		bp->jumbo_max_len = macb_config->jumbo_max_len;
+ 
+ 	bp->wol = 0;
+-	if (of_get_property(np, "magic-packet", NULL))
++	if (of_property_read_bool(np, "magic-packet"))
+ 		bp->wol |= MACB_WOL_HAS_MAGIC_PACKET;
+ 	device_set_wakeup_capable(&pdev->dev, bp->wol & MACB_WOL_HAS_MAGIC_PACKET);
+ 
+diff --git a/drivers/net/ethernet/davicom/dm9000.c b/drivers/net/ethernet/davicom/dm9000.c
+index b21e56de6167..05a89ab6766c 100644
+--- a/drivers/net/ethernet/davicom/dm9000.c
++++ b/drivers/net/ethernet/davicom/dm9000.c
+@@ -1393,9 +1393,9 @@ static struct dm9000_plat_data *dm9000_parse_dt(struct device *dev)
+ 	if (!pdata)
+ 		return ERR_PTR(-ENOMEM);
+ 
+-	if (of_find_property(np, "davicom,ext-phy", NULL))
++	if (of_property_read_bool(np, "davicom,ext-phy"))
+ 		pdata->flags |= DM9000_PLATF_EXT_PHY;
+-	if (of_find_property(np, "davicom,no-eeprom", NULL))
++	if (of_property_read_bool(np, "davicom,no-eeprom"))
+ 		pdata->flags |= DM9000_PLATF_NO_EEPROM;
+ 
+ 	ret = of_get_mac_address(np, pdata->dev_addr);
+diff --git a/drivers/net/ethernet/freescale/fec_main.c b/drivers/net/ethernet/freescale/fec_main.c
+index c73e25f8995e..f3b16a6673e2 100644
+--- a/drivers/net/ethernet/freescale/fec_main.c
++++ b/drivers/net/ethernet/freescale/fec_main.c
+@@ -4251,7 +4251,7 @@ fec_probe(struct platform_device *pdev)
+ 	if (ret)
+ 		goto failed_ipc_init;
+ 
+-	if (of_get_property(np, "fsl,magic-packet", NULL))
++	if (of_property_read_bool(np, "fsl,magic-packet"))
+ 		fep->wol_flag |= FEC_WOL_HAS_MAGIC_PACKET;
+ 
+ 	ret = fec_enet_init_stop_mode(fep, np);
+diff --git a/drivers/net/ethernet/freescale/fec_mpc52xx.c b/drivers/net/ethernet/freescale/fec_mpc52xx.c
+index a7f4c3c29f3e..b88816b71ddf 100644
+--- a/drivers/net/ethernet/freescale/fec_mpc52xx.c
++++ b/drivers/net/ethernet/freescale/fec_mpc52xx.c
+@@ -937,7 +937,7 @@ static int mpc52xx_fec_probe(struct platform_device *op)
+ 	priv->phy_node = of_parse_phandle(np, "phy-handle", 0);
+ 
+ 	/* the 7-wire property means don't use MII mode */
+-	if (of_find_property(np, "fsl,7-wire-mode", NULL)) {
++	if (of_property_read_bool(np, "fsl,7-wire-mode")) {
+ 		priv->seven_wire_mode = 1;
+ 		dev_info(&ndev->dev, "using 7-wire PHY mode\n");
+ 	}
+diff --git a/drivers/net/ethernet/freescale/gianfar.c b/drivers/net/ethernet/freescale/gianfar.c
+index b2def295523a..38d5013c6fed 100644
+--- a/drivers/net/ethernet/freescale/gianfar.c
++++ b/drivers/net/ethernet/freescale/gianfar.c
+@@ -787,10 +787,10 @@ static int gfar_of_init(struct platform_device *ofdev, struct net_device **pdev)
+ 	else
+ 		priv->interface = gfar_get_interface(dev);
+ 
+-	if (of_find_property(np, "fsl,magic-packet", NULL))
++	if (of_property_read_bool(np, "fsl,magic-packet"))
+ 		priv->device_flags |= FSL_GIANFAR_DEV_HAS_MAGIC_PACKET;
+ 
+-	if (of_get_property(np, "fsl,wake-on-filer", NULL))
++	if (of_property_read_bool(np, "fsl,wake-on-filer"))
+ 		priv->device_flags |= FSL_GIANFAR_DEV_HAS_WAKE_ON_FILER;
+ 
+ 	priv->phy_node = of_parse_phandle(np, "phy-handle", 0);
+diff --git a/drivers/net/ethernet/ibm/emac/core.c b/drivers/net/ethernet/ibm/emac/core.c
+index 9b08e41ccc29..c97095abd26a 100644
+--- a/drivers/net/ethernet/ibm/emac/core.c
++++ b/drivers/net/ethernet/ibm/emac/core.c
+@@ -2939,9 +2939,9 @@ static int emac_init_config(struct emac_instance *dev)
+ 	}
+ 
+ 	/* Fixup some feature bits based on the device tree */
+-	if (of_get_property(np, "has-inverted-stacr-oc", NULL))
++	if (of_property_read_bool(np, "has-inverted-stacr-oc"))
+ 		dev->features |= EMAC_FTR_STACR_OC_INVERT;
+-	if (of_get_property(np, "has-new-stacr-staopc", NULL))
++	if (of_property_read_bool(np, "has-new-stacr-staopc"))
+ 		dev->features |= EMAC_FTR_HAS_NEW_STACR;
+ 
+ 	/* CAB lacks the appropriate properties */
+@@ -3042,7 +3042,7 @@ static int emac_probe(struct platform_device *ofdev)
+ 	 * property here for now, but new flat device trees should set a
+ 	 * status property to "disabled" instead.
+ 	 */
+-	if (of_get_property(np, "unused", NULL) || !of_device_is_available(np))
++	if (of_property_read_bool(np, "unused") || !of_device_is_available(np))
+ 		return -ENODEV;
+ 
+ 	/* Find ourselves in the bootlist if we are there */
+@@ -3333,7 +3333,7 @@ static void __init emac_make_bootlist(void)
+ 
+ 		if (of_match_node(emac_match, np) == NULL)
+ 			continue;
+-		if (of_get_property(np, "unused", NULL))
++		if (of_property_read_bool(np, "unused"))
+ 			continue;
+ 		idx = of_get_property(np, "cell-index", NULL);
+ 		if (idx == NULL)
+diff --git a/drivers/net/ethernet/ibm/emac/rgmii.c b/drivers/net/ethernet/ibm/emac/rgmii.c
+index 242ef976fd15..50358cf00130 100644
+--- a/drivers/net/ethernet/ibm/emac/rgmii.c
++++ b/drivers/net/ethernet/ibm/emac/rgmii.c
+@@ -242,7 +242,7 @@ static int rgmii_probe(struct platform_device *ofdev)
+ 	}
+ 
+ 	/* Check for RGMII flags */
+-	if (of_get_property(ofdev->dev.of_node, "has-mdio", NULL))
++	if (of_property_read_bool(ofdev->dev.of_node, "has-mdio"))
+ 		dev->flags |= EMAC_RGMII_FLAG_HAS_MDIO;
+ 
+ 	/* CAB lacks the right properties, fix this up */
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-imx.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-imx.c
+index ac8580f501e2..ac550d1ac015 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-imx.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-imx.c
+@@ -213,8 +213,7 @@ imx_dwmac_parse_dt(struct imx_priv_data *dwmac, struct device *dev)
+ 	struct device_node *np = dev->of_node;
+ 	int err = 0;
+ 
+-	if (of_get_property(np, "snps,rmii_refclk_ext", NULL))
+-		dwmac->rmii_refclk_ext = true;
++	dwmac->rmii_refclk_ext = of_property_read_bool(np, "snps,rmii_refclk_ext");
+ 
+ 	dwmac->clk_tx = devm_clk_get(dev, "tx");
+ 	if (IS_ERR(dwmac->clk_tx)) {
+diff --git a/drivers/net/ethernet/sun/niu.c b/drivers/net/ethernet/sun/niu.c
+index e6144d963eaa..ab8b09a9ef61 100644
+--- a/drivers/net/ethernet/sun/niu.c
++++ b/drivers/net/ethernet/sun/niu.c
+@@ -9271,7 +9271,7 @@ static int niu_get_of_props(struct niu *np)
+ 	if (model)
+ 		strcpy(np->vpd.model, model);
+ 
+-	if (of_find_property(dp, "hot-swappable-phy", NULL)) {
++	if (of_property_read_bool(dp, "hot-swappable-phy")) {
+ 		np->flags |= (NIU_FLAGS_10G | NIU_FLAGS_FIBER |
+ 			NIU_FLAGS_HOTPLUG_PHY);
+ 	}
+diff --git a/drivers/net/ethernet/ti/cpsw-phy-sel.c b/drivers/net/ethernet/ti/cpsw-phy-sel.c
+index e8f38e3f7706..25e707d7b87c 100644
+--- a/drivers/net/ethernet/ti/cpsw-phy-sel.c
++++ b/drivers/net/ethernet/ti/cpsw-phy-sel.c
+@@ -226,8 +226,7 @@ static int cpsw_phy_sel_probe(struct platform_device *pdev)
+ 	if (IS_ERR(priv->gmii_sel))
+ 		return PTR_ERR(priv->gmii_sel);
+ 
+-	if (of_find_property(pdev->dev.of_node, "rmii-clock-ext", NULL))
+-		priv->rmii_clock_external = true;
++	priv->rmii_clock_external = of_property_read_bool(pdev->dev.of_node, "rmii-clock-ext");
+ 
+ 	dev_set_drvdata(&pdev->dev, priv);
+ 
+diff --git a/drivers/net/ethernet/ti/netcp_ethss.c b/drivers/net/ethernet/ti/netcp_ethss.c
+index 751fb0bc65c5..2adf82a32bf6 100644
+--- a/drivers/net/ethernet/ti/netcp_ethss.c
++++ b/drivers/net/ethernet/ti/netcp_ethss.c
+@@ -3583,13 +3583,11 @@ static int gbe_probe(struct netcp_device *netcp_device, struct device *dev,
+ 	/* init the hw stats lock */
+ 	spin_lock_init(&gbe_dev->hw_stats_lock);
+ 
+-	if (of_find_property(node, "enable-ale", NULL)) {
+-		gbe_dev->enable_ale = true;
++	gbe_dev->enable_ale = of_property_read_bool(node, "enable-ale");
++	if (gbe_dev->enable_ale)
+ 		dev_info(dev, "ALE enabled\n");
+-	} else {
+-		gbe_dev->enable_ale = false;
++	else
+ 		dev_dbg(dev, "ALE bypass enabled*\n");
+-	}
+ 
+ 	ret = of_property_read_u32(node, "tx-queue",
+ 				   &gbe_dev->tx_queue_id);
+diff --git a/drivers/net/ethernet/via/via-velocity.c b/drivers/net/ethernet/via/via-velocity.c
+index a502812ac418..86f7843b4591 100644
+--- a/drivers/net/ethernet/via/via-velocity.c
++++ b/drivers/net/ethernet/via/via-velocity.c
+@@ -2709,8 +2709,7 @@ static int velocity_get_platform_info(struct velocity_info *vptr)
+ 	struct resource res;
+ 	int ret;
+ 
+-	if (of_get_property(vptr->dev->of_node, "no-eeprom", NULL))
+-		vptr->no_eeprom = 1;
++	vptr->no_eeprom = of_property_read_bool(vptr->dev->of_node, "no-eeprom");
+ 
+ 	ret = of_address_to_resource(vptr->dev->of_node, 0, &res);
+ 	if (ret) {
+diff --git a/drivers/net/ethernet/via/via-velocity.h b/drivers/net/ethernet/via/via-velocity.h
+index ffdac6fac054..f64ed39b93d8 100644
+--- a/drivers/net/ethernet/via/via-velocity.h
++++ b/drivers/net/ethernet/via/via-velocity.h
+@@ -1383,7 +1383,7 @@ struct velocity_info {
+ 	struct device *dev;
+ 	struct pci_dev *pdev;
+ 	struct net_device *netdev;
+-	int no_eeprom;
++	bool no_eeprom;
+ 
+ 	unsigned long active_vlans[BITS_TO_LONGS(VLAN_N_VID)];
+ 	u8 ip_addr[4];
+diff --git a/drivers/net/ethernet/xilinx/ll_temac_main.c b/drivers/net/ethernet/xilinx/ll_temac_main.c
+index 1066420d6a83..e0ac1bcd9925 100644
+--- a/drivers/net/ethernet/xilinx/ll_temac_main.c
++++ b/drivers/net/ethernet/xilinx/ll_temac_main.c
+@@ -1455,12 +1455,11 @@ static int temac_probe(struct platform_device *pdev)
+ 	 * endianness mode.  Default for OF devices is big-endian.
+ 	 */
+ 	little_endian = false;
+-	if (temac_np) {
+-		if (of_get_property(temac_np, "little-endian", NULL))
+-			little_endian = true;
+-	} else if (pdata) {
++	if (temac_np)
++		little_endian = of_property_read_bool(temac_np, "little-endian");
++	else if (pdata)
+ 		little_endian = pdata->reg_little_endian;
+-	}
++
+ 	if (little_endian) {
+ 		lp->temac_ior = _temac_ior_le;
+ 		lp->temac_iow = _temac_iow_le;
+diff --git a/drivers/net/wan/fsl_ucc_hdlc.c b/drivers/net/wan/fsl_ucc_hdlc.c
+index 1c53b5546927..47c2ad7a3e42 100644
+--- a/drivers/net/wan/fsl_ucc_hdlc.c
++++ b/drivers/net/wan/fsl_ucc_hdlc.c
+@@ -1177,14 +1177,9 @@ static int ucc_hdlc_probe(struct platform_device *pdev)
+ 	uhdlc_priv->dev = &pdev->dev;
+ 	uhdlc_priv->ut_info = ut_info;
+ 
+-	if (of_get_property(np, "fsl,tdm-interface", NULL))
+-		uhdlc_priv->tsa = 1;
+-
+-	if (of_get_property(np, "fsl,ucc-internal-loopback", NULL))
+-		uhdlc_priv->loopback = 1;
+-
+-	if (of_get_property(np, "fsl,hdlc-bus", NULL))
+-		uhdlc_priv->hdlc_bus = 1;
++	uhdlc_priv->tsa = of_property_read_bool(np, "fsl,tdm-interface");
++	uhdlc_priv->loopback = of_property_read_bool(np, "fsl,ucc-internal-loopback");
++	uhdlc_priv->hdlc_bus = of_property_read_bool(np, "fsl,hdlc-bus");
+ 
+ 	if (uhdlc_priv->tsa == 1) {
+ 		utdm = kzalloc(sizeof(*utdm), GFP_KERNEL);
+diff --git a/drivers/net/wireless/ti/wlcore/spi.c b/drivers/net/wireless/ti/wlcore/spi.c
+index 2d2edddc77bd..3f88e6a0a510 100644
+--- a/drivers/net/wireless/ti/wlcore/spi.c
++++ b/drivers/net/wireless/ti/wlcore/spi.c
+@@ -447,8 +447,7 @@ static int wlcore_probe_of(struct spi_device *spi, struct wl12xx_spi_glue *glue,
+ 	dev_info(&spi->dev, "selected chip family is %s\n",
+ 		 pdev_data->family->name);
+ 
+-	if (of_find_property(dt_node, "clock-xtal", NULL))
+-		pdev_data->ref_clock_xtal = true;
++	pdev_data->ref_clock_xtal = of_property_read_bool(dt_node, "clock-xtal");
+ 
+ 	/* optional clock frequency params */
+ 	of_property_read_u32(dt_node, "ref-clock-frequency",
+diff --git a/net/ncsi/ncsi-manage.c b/net/ncsi/ncsi-manage.c
+index 80713febfac6..d9da942ad53d 100644
+--- a/net/ncsi/ncsi-manage.c
++++ b/net/ncsi/ncsi-manage.c
+@@ -1803,8 +1803,8 @@ struct ncsi_dev *ncsi_register_dev(struct net_device *dev,
+ 	pdev = to_platform_device(dev->dev.parent);
+ 	if (pdev) {
+ 		np = pdev->dev.of_node;
+-		if (np && (of_get_property(np, "mellanox,multi-host", NULL) ||
+-			   of_get_property(np, "mlx,multi-host", NULL)))
++		if (np && (of_property_read_bool(np, "mellanox,multi-host") ||
++			   of_property_read_bool(np, "mlx,multi-host")))
+ 			ndp->mlx_multi_host = true;
+ 	}
+ 
+-- 
+2.39.2
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
