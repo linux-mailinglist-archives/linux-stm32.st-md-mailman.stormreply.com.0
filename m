@@ -2,59 +2,57 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 41C546B856B
-	for <lists+linux-stm32@lfdr.de>; Mon, 13 Mar 2023 23:57:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BEC226B8712
+	for <lists+linux-stm32@lfdr.de>; Tue, 14 Mar 2023 01:39:09 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E258AC6A60F;
-	Mon, 13 Mar 2023 22:57:32 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5901FC6904A;
+	Tue, 14 Mar 2023 00:39:09 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 46CD5C6A5E7
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C59D9C65E42
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 13 Mar 2023 22:57:32 +0000 (UTC)
+ Tue, 14 Mar 2023 00:39:08 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id C9F136152C;
- Mon, 13 Mar 2023 22:57:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 26B70C433D2;
- Mon, 13 Mar 2023 22:57:30 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 2AA1FB816A4;
+ Tue, 14 Mar 2023 00:39:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD300C433D2;
+ Tue, 14 Mar 2023 00:39:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1678748250;
- bh=vByp+cleYjNRsooeWKVsK7Pf6qW+dTVxWVIfmwEMi/k=;
- h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
- b=LAMexyxtT93hnMxPAeSJOm3HE6EXQjwmlwxCGOXssdRS7y0uE9RV33QYRlCWl2zCF
- oT2WoR4xFQGd2eahk/s/g1Tq+mXi8SE8BHmXfwyDltOv4PJqTl4SL2QEBhBONTKvq/
- wNTh5B1YVB8wowIGd9k6hTpKPEPQKYUf7zyYVLnia+oJ9d4Gb+TTfyDBaQER8lBh7C
- BbB4IMv61ivPl9wGiWQdHwZqeNetxZ7FCjxwQLHjCpGugSTXIIQuG0yJt0SwuVVJ1X
- w+cWiz35fhNVaRCOYiNT7GqK55c4HyXYTNY18/tAxvKCDCZCQVuMKuHMt+/H6QdoJu
- wPdA15ba4fiQg==
-Message-ID: <e5cb46e8874b12dbe438be12ee0cf949.sboyd@kernel.org>
-MIME-Version: 1.0
-In-Reply-To: <20230313165620.128463-6-ahalaney@redhat.com>
+ s=k20201202; t=1678754347;
+ bh=I5IHq5bn2nVWOr2WOI4rN3AaQ6amvwyigKJTJsYavWY=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=RruQ+s06WTk+cgWdUxjMHNjDsZv9dZeRSQBbtDz0mm8ecHaKRqyke90dcSCWbvpdf
+ xOy6FZr9xiRMMF/3D/cbp9YhCSUxmF4asMpc9X0jdYOSBJLfzwpXIkETHdpLgvYyCO
+ 6ogWtkTJZhcch7QFSxcA7085rNO2EqjU0h3aQ5qvpCp+OQCJK1bpQylahTJj4TH7b1
+ flkn6Ia7DtYZvHaLvyfmfKFMEcEqxDyH8NMzkQuRtlTccvCTa0Xd09hJOJ+cftRDxb
+ aGOg+4Wf3ZWGxTxeTiNbrB9hUFlgB2r1+ebAK0+DVcjF0WdYdNoqS3IqP3KOrhN7iK
+ GIEJl2rq3Q6LQ==
+Date: Mon, 13 Mar 2023 17:39:04 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Andrew Halaney <ahalaney@redhat.com>
+Message-ID: <20230313173904.3d611e83@kernel.org>
+In-Reply-To: <20230313165620.128463-9-ahalaney@redhat.com>
 References: <20230313165620.128463-1-ahalaney@redhat.com>
- <20230313165620.128463-6-ahalaney@redhat.com>
-From: Stephen Boyd <sboyd@kernel.org>
-To: Andrew Halaney <ahalaney@redhat.com>, linux-kernel@vger.kernel.org
-Date: Mon, 13 Mar 2023 15:57:27 -0700
-User-Agent: alot/0.10
+ <20230313165620.128463-9-ahalaney@redhat.com>
+MIME-Version: 1.0
 Cc: mturquette@baylibre.com, edumazet@google.com,
  krzysztof.kozlowski+dt@linaro.org, jonathanh@nvidia.com,
  linux-clk@vger.kernel.org, tee.min.tan@linux.intel.com, linux@armlinux.org.uk,
- veekhee@apple.com, hisunil@quicinc.com, joabreu@synopsys.com, kuba@kernel.org,
- pabeni@redhat.com, andrey.konovalov@linaro.org,
- Andrew Halaney <ahalaney@redhat.com>, ncai@quicinc.com,
- devicetree@vger.kernel.org, bhupesh.sharma@linaro.org,
+ veekhee@apple.com, hisunil@quicinc.com, joabreu@synopsys.com,
+ agross@kernel.org, pabeni@redhat.com, andrey.konovalov@linaro.org,
+ ncai@quicinc.com, devicetree@vger.kernel.org, bhupesh.sharma@linaro.org,
  linux-arm-msm@vger.kernel.org, richardcochran@gmail.com, bmasney@redhat.com,
  mohammad.athari.ismail@intel.com, robh+dt@kernel.org, ruppala@nvidia.com,
  jsuraj@qti.qualcomm.com, peppe.cavallaro@st.com,
- linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, sboyd@kernel.org, netdev@vger.kernel.org,
  andersson@kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- agross@kernel.org, konrad.dybcio@linaro.org, vkoul@kernel.org,
+ linux-kernel@vger.kernel.org, konrad.dybcio@linaro.org, vkoul@kernel.org,
  mcoquelin.stm32@gmail.com, davem@davemloft.net
-Subject: Re: [Linux-stm32] [PATCH net-next 05/11] clk: qcom: gcc-sc8280xp:
-	Add EMAC GDSCs
+Subject: Re: [Linux-stm32] [PATCH net-next 08/11] net: stmmac: Add EMAC3
+	variant of dwmac4
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,16 +69,16 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Quoting Andrew Halaney (2023-03-13 09:56:14)
-> Add the EMAC GDSCs to allow the EMAC hardware to be enabled.
-> 
-> Signed-off-by: Andrew Halaney <ahalaney@redhat.com>
-> ---
+On Mon, 13 Mar 2023 11:56:17 -0500 Andrew Halaney wrote:
+> EMAC3 is a Qualcomm variant of dwmac4 that functions the same, but has a
+> different address space layout for MTL and DMA registers. This makes the
+> patch a bit more complicated than we would like so let's explain why the
+> current approach was used.
 
-Acked-by: Stephen Boyd <sboyd@kernel.org>
+Please drop all the static inlines in C sources, you're wrapping 
+a single function call, the compiler will do the right thing.
 
-I'm not sure if Bjorn Andersson is planning on modifying this file too,
-so please confirm it can go through netdev tree.
+Please no more than 6 function arguments.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
