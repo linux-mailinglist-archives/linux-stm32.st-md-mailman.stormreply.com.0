@@ -2,88 +2,82 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B69E96B9AAD
-	for <lists+linux-stm32@lfdr.de>; Tue, 14 Mar 2023 17:08:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EC1A16B9C84
+	for <lists+linux-stm32@lfdr.de>; Tue, 14 Mar 2023 18:09:51 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 719E8C65E60;
-	Tue, 14 Mar 2023 16:08:29 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 18A3EC035BB
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9DC8CC65E60;
+	Tue, 14 Mar 2023 17:09:51 +0000 (UTC)
+Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com
+ [209.85.167.53])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D29BEC64107
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 14 Mar 2023 16:08:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1678810107;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=ye+Zs2ZnlofuAeakJPo0MMXWynO6qrZaDf6LrDdzxr0=;
- b=ejwrMlFsx1TxgmmnRNZhp3+NMS3Xr5MoIU7OzdUMwnWM4XLbnfPLFFJGDLg0YuDIn/2wBU
- vYwsjMc76wYFtmLwoBEcfF7bWYK4TsPUiitBCW0LNyxzoAtJZYuwfNPv053qToMq7bw0WG
- qRIuEu8hnmiV7jgmnmyMrUqG09lyJhg=
-Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com
- [209.85.219.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-646-JaAIAYpDPSG5o9lchyF3OQ-1; Tue, 14 Mar 2023 12:08:23 -0400
-X-MC-Unique: JaAIAYpDPSG5o9lchyF3OQ-1
-Received: by mail-qv1-f70.google.com with SMTP id
- px10-20020a056214050a00b005ab138d7672so2353134qvb.7
+ Tue, 14 Mar 2023 17:09:49 +0000 (UTC)
+Received: by mail-lf1-f53.google.com with SMTP id d36so20914372lfv.8
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 14 Mar 2023 09:08:23 -0700 (PDT)
+ Tue, 14 Mar 2023 10:09:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20210112; t=1678813789;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=A3mTGYj7JV/DxYx8PY7Jjtyf3i3A4TY4QKPyGUShY+4=;
+ b=Pt9FXMyV5qPTnBsN9S1/ue6ef/xHOAdmSIiLfyYu0b5z8FVXXS1yj4ZK1ucSROuPRG
+ jDyAlusKmNAaEVi6bK3kDVBpf6AGWU9T7G5LNXbgXRxebGCYrJidVsFdZ+6LCbkTcR59
+ xnKKxVKWv9z9kJBHtIXobR8p6nSXCU3GzZTqFQP7wexHJsPLFmx2tZSCK/GA+REeelbu
+ 0SxCODAFMY88ynul6wJCGBHe7NI+t6qu825Iptsp1ZbKcS8A9M1zyNkc1e1A84ehOq4o
+ IdU+k74tQ+L39Bk+Fa/ESNr/YZwbgGVjHerqrj0/7/gdEYmlX3/IBoI1i1DggLgPpprn
+ f2+g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1678810103;
+ d=1e100.net; s=20210112; t=1678813789;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=ye+Zs2ZnlofuAeakJPo0MMXWynO6qrZaDf6LrDdzxr0=;
- b=VpCH5d6GKFuBK2tAz/VlP46LuQD6JjEVgLs77+pJGsO5SNAUwIaVNvYu8Wfx8ItA4j
- U2+IASi2Cy4Oo9M9DQxQQEgyRSbBFHWYCmZVOA2HuTYpJTiXbSBUtC7Sw/AEbKpwd5Wm
- NKzC31KbI59EmOs6lf4WOzVw56BOIeL2Ex3fynRzO7UdR5BoDkgUDy7mT1zlNGFZDka8
- 6wDHM945Yji28YfEac80ARaIDJCpm9qZ/mhfhAvRgAXUFmWZPtofffzMifZjmh6zWRBE
- aX7CsrSURaSxXeTazjdYqMSDTjrRk6ViuqKxFIxynGDtAdX3T1uRi6y9zNE51ayjAZ5/
- ypMw==
-X-Gm-Message-State: AO0yUKXBAH2XOGlK0zPynrhFD+l46wpzYgEp3H1QuGArXpqLKJLA+ECx
- hNWSSOhQAHqquNbkyhqLm414FH0t+N36NkK4tZyHE2C3XbxbQz06G2S8nswQnIHwaubL0sEbwac
- gGjOz3GhsfOf/3URgbGextRrLA3U3Jn8pKHSnvvyD
-X-Received: by 2002:a05:622a:134b:b0:3b6:3260:fa1d with SMTP id
- w11-20020a05622a134b00b003b63260fa1dmr63289007qtk.45.1678810102797; 
- Tue, 14 Mar 2023 09:08:22 -0700 (PDT)
-X-Google-Smtp-Source: AK7set8+Q/YIESpi+tpsA8aTC6oiVaMszVdOh9hZlBEg5fft+wCfZpLbUpRbaWQbPDeCDDmvmA+rsw==
-X-Received: by 2002:a05:622a:134b:b0:3b6:3260:fa1d with SMTP id
- w11-20020a05622a134b00b003b63260fa1dmr63288928qtk.45.1678810102361; 
- Tue, 14 Mar 2023 09:08:22 -0700 (PDT)
-Received: from halaney-x13s (104-53-165-62.lightspeed.stlsmo.sbcglobal.net.
- [104.53.165.62]) by smtp.gmail.com with ESMTPSA id
- s81-20020a374554000000b007426b917031sm1989714qka.121.2023.03.14.09.08.20
+ bh=A3mTGYj7JV/DxYx8PY7Jjtyf3i3A4TY4QKPyGUShY+4=;
+ b=Q0C1AcD+aMVxW3DVIHQROSEtQg1K2kizKX+d+4l11njO/cATEg3GYxNQUwtl7t2ljb
+ SWlQzFYFqtqGkyKFOxD1vbSJY3xIPYazJvUPR7HS7jX4HjY4N4fbUJY94sVLoSMlBedk
+ Ft6HzpFo/EI/HrbSFsaQV3lpS8C3KLnvehN6et0MG2htgO/iDjhQzqPdKGQ5fpsdxJKh
+ iZarzze/q0mtiVQu3VVb4jZ1CWXddn+vwGIdanNEezspgOwGvXv7xDAM4bDywEUa/dUP
+ A+dVEJcSWw8Ch9UDhXjNm8HnD7oHxifFpg8I461let9jVCGuL4EN9YGbel6YbOwfISoD
+ U4NA==
+X-Gm-Message-State: AO0yUKWmyXArqsE6ptuurrbHdmBs07xl7ydCKDGPl25IN2CZQybGt+Se
+ fm2PjNWGZ8fNebEq1px6Bi8=
+X-Google-Smtp-Source: AK7set+uEt5IoqG9OS+mes6VV9AY4oMiyZ0VVvoQaK5iRVnuv11mr63pkW7lH+CP6HBvafiA2+RvoQ==
+X-Received: by 2002:ac2:5449:0:b0:4e7:b481:c1c3 with SMTP id
+ d9-20020ac25449000000b004e7b481c1c3mr1072908lfn.20.1678813788840; 
+ Tue, 14 Mar 2023 10:09:48 -0700 (PDT)
+Received: from mobilestation ([95.79.133.202])
+ by smtp.gmail.com with ESMTPSA id
+ b7-20020a056512024700b004caf992bba9sm464219lfo.268.2023.03.14.10.09.47
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 14 Mar 2023 09:08:21 -0700 (PDT)
-Date: Tue, 14 Mar 2023 11:08:18 -0500
-From: Andrew Halaney <ahalaney@redhat.com>
-To: Konrad Dybcio <konrad.dybcio@linaro.org>
-Message-ID: <20230314160818.2yopv6yeczne7gfi@halaney-x13s>
-References: <20230313165620.128463-1-ahalaney@redhat.com>
- <20230313165620.128463-6-ahalaney@redhat.com>
- <3f37eede-6d62-fb92-9cff-b308de333ebd@linaro.org>
+ Tue, 14 Mar 2023 10:09:48 -0700 (PDT)
+Date: Tue, 14 Mar 2023 20:09:45 +0300
+From: Serge Semin <fancer.lancer@gmail.com>
+To: Rob Herring <robh@kernel.org>
+Message-ID: <20230314170945.6yow2i5z4jdubwgt@mobilestation>
+References: <20230313225103.30512-1-Sergey.Semin@baikalelectronics.ru>
+ <20230313225103.30512-2-Sergey.Semin@baikalelectronics.ru>
+ <167880254800.26004.7037306365469081272.robh@kernel.org>
+ <20230314150657.ytgyegi7qlwao6px@mobilestation>
 MIME-Version: 1.0
-In-Reply-To: <3f37eede-6d62-fb92-9cff-b308de333ebd@linaro.org>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
 Content-Disposition: inline
-Cc: mturquette@baylibre.com, edumazet@google.com,
- krzysztof.kozlowski+dt@linaro.org, jonathanh@nvidia.com,
- linux-clk@vger.kernel.org, tee.min.tan@linux.intel.com, linux@armlinux.org.uk,
- veekhee@apple.com, hisunil@quicinc.com, joabreu@synopsys.com,
- agross@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- andrey.konovalov@linaro.org, ncai@quicinc.com, devicetree@vger.kernel.org,
- bhupesh.sharma@linaro.org, linux-arm-msm@vger.kernel.org,
- richardcochran@gmail.com, bmasney@redhat.com, mohammad.athari.ismail@intel.com,
- robh+dt@kernel.org, ruppala@nvidia.com, jsuraj@qti.qualcomm.com,
- peppe.cavallaro@st.com, linux-arm-kernel@lists.infradead.org, sboyd@kernel.org,
- netdev@vger.kernel.org, andersson@kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
- vkoul@kernel.org, mcoquelin.stm32@gmail.com, davem@davemloft.net
-Subject: Re: [Linux-stm32] [PATCH net-next 05/11] clk: qcom: gcc-sc8280xp:
-	Add EMAC GDSCs
+In-Reply-To: <20230314150657.ytgyegi7qlwao6px@mobilestation>
+Cc: Eric Dumazet <edumazet@google.com>,
+ Pavel Parkhomenko <Pavel.Parkhomenko@baikalelectronics.ru>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ linux-stm32@st-md-mailman.stormreply.com, Jose Abreu <joabreu@synopsys.com>,
+ Yang Yingliang <yangyingliang@huawei.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Christian Marangi <ansuelsmth@gmail.com>,
+ devicetree@vger.kernel.org, Biao Huang <biao.huang@mediatek.com>,
+ Richard Cochran <richardcochran@gmail.com>,
+ Alexey Malahov <Alexey.Malahov@baikalelectronics.ru>,
+ Rob Herring <robh+dt@kernel.org>, Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Serge Semin <Sergey.Semin@baikalelectronics.ru>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ "David S. Miller" <davem@davemloft.net>
+Subject: Re: [Linux-stm32] [PATCH net-next 01/16] dt-bindings: net: dwmac:
+ Validate PBL for all IP-cores
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,81 +94,82 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Mar 14, 2023 at 04:13:18PM +0100, Konrad Dybcio wrote:
-> 
-> 
-> On 13.03.2023 17:56, Andrew Halaney wrote:
-> > Add the EMAC GDSCs to allow the EMAC hardware to be enabled.
+On Tue, Mar 14, 2023 at 06:07:01PM +0300, Serge Semin wrote:
+> On Tue, Mar 14, 2023 at 09:10:19AM -0500, Rob Herring wrote:
 > > 
-> > Signed-off-by: Andrew Halaney <ahalaney@redhat.com>
-> > ---
-> Was it tested to not cause issues on access on "normal" 8280xp?
-> AFAICS if there would be any, they would happen at registration
-> time, as gdsc_init already accesses its registers
-
-No, I've only tested this series on the sa8540p-ride. I luckily also am
-working from an x13s, I will use that to confirm nothing strange happens
-with this applied before sending v2 and confirm the results.
-
-Thanks for the idea,
-Andrew
-
-> 
-> Konrad
-> >  drivers/clk/qcom/gcc-sc8280xp.c               | 18 ++++++++++++++++++
-> >  include/dt-bindings/clock/qcom,gcc-sc8280xp.h |  2 ++
-> >  2 files changed, 20 insertions(+)
+> > On Tue, 14 Mar 2023 01:50:48 +0300, Serge Semin wrote:
+> > > Indeed the maximum DMA burst length can be programmed not only for DW
+> > > xGMACs, Allwinner EMACs and Spear SoC GMAC, but in accordance with [1]
+> > > for Generic DW *MAC IP-cores. Moreover the STMMAC set of drivers parse
+> > > the property and then apply the configuration for all supported DW MAC
+> > > devices. All of that makes the property being available for all IP-cores
+> > > the bindings supports. Let's make sure the PBL-related properties are
+> > > validated for all of them by the common DW MAC DT schema.
+> > > 
+> > > [1] DesignWare Cores Ethernet MAC Universal Databook, Revision 3.73a,
+> > >     October 2013, p. 380.
+> > > 
+> > > Signed-off-by: Serge Semin <Sergey.Semin@baikalelectronics.ru>
+> > > Reviewed-by: Rob Herring <robh@kernel.org>
+> > > 
+> > > ---
+> > > 
+> > > Changelog v1:
+> > > - Use correct syntax of the JSON pointers, so the later would begin
+> > >   with a '/' after the '#'.
+> > > ---
+> > >  .../devicetree/bindings/net/snps,dwmac.yaml   | 77 +++++++------------
+> > >  1 file changed, 26 insertions(+), 51 deletions(-)
+> > > 
 > > 
-> > diff --git a/drivers/clk/qcom/gcc-sc8280xp.c b/drivers/clk/qcom/gcc-sc8280xp.c
-> > index b3198784e1c3..04a99dbaa57e 100644
-> > --- a/drivers/clk/qcom/gcc-sc8280xp.c
-> > +++ b/drivers/clk/qcom/gcc-sc8280xp.c
-> > @@ -6873,6 +6873,22 @@ static struct gdsc usb30_sec_gdsc = {
-> >  	.pwrsts = PWRSTS_RET_ON,
-> >  };
-> >  
-> > +static struct gdsc emac_0_gdsc = {
-> > +	.gdscr = 0xaa004,
-> > +	.pd = {
-> > +		.name = "emac_0_gdsc",
-> > +	},
-> > +	.pwrsts = PWRSTS_OFF_ON,
-> > +};
-> > +
-> > +static struct gdsc emac_1_gdsc = {
-> > +	.gdscr = 0xba004,
-> > +	.pd = {
-> > +		.name = "emac_1_gdsc",
-> > +	},
-> > +	.pwrsts = PWRSTS_OFF_ON,
-> > +};
-> > +
-> >  static struct clk_regmap *gcc_sc8280xp_clocks[] = {
-> >  	[GCC_AGGRE_NOC_PCIE0_TUNNEL_AXI_CLK] = &gcc_aggre_noc_pcie0_tunnel_axi_clk.clkr,
-> >  	[GCC_AGGRE_NOC_PCIE1_TUNNEL_AXI_CLK] = &gcc_aggre_noc_pcie1_tunnel_axi_clk.clkr,
-> > @@ -7351,6 +7367,8 @@ static struct gdsc *gcc_sc8280xp_gdscs[] = {
-> >  	[USB30_MP_GDSC] = &usb30_mp_gdsc,
-> >  	[USB30_PRIM_GDSC] = &usb30_prim_gdsc,
-> >  	[USB30_SEC_GDSC] = &usb30_sec_gdsc,
-> > +	[EMAC_0_GDSC] = &emac_0_gdsc,
-> > +	[EMAC_1_GDSC] = &emac_1_gdsc,
-> >  };
-> >  
-> >  static const struct clk_rcg_dfs_data gcc_dfs_clocks[] = {
-> > diff --git a/include/dt-bindings/clock/qcom,gcc-sc8280xp.h b/include/dt-bindings/clock/qcom,gcc-sc8280xp.h
-> > index cb2fb638825c..721105ea4fad 100644
-> > --- a/include/dt-bindings/clock/qcom,gcc-sc8280xp.h
-> > +++ b/include/dt-bindings/clock/qcom,gcc-sc8280xp.h
-> > @@ -492,5 +492,7 @@
-> >  #define USB30_MP_GDSC					9
-> >  #define USB30_PRIM_GDSC					10
-> >  #define USB30_SEC_GDSC					11
-> > +#define EMAC_0_GDSC					12
-> > +#define EMAC_1_GDSC					13
-> >  
-> >  #endif
+> > My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
+> > on your patch (DT_CHECKER_FLAGS is new in v5.13):
+> > 
+> > yamllint warnings/errors:
+> > 
+> > dtschema/dtc warnings/errors:
+> > /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/net/mediatek-dwmac.example.dtb: ethernet@1101c000: snps,txpbl:0:0: 1 is not one of [2, 4, 8]
+> > 	From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+> > /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/net/mediatek-dwmac.example.dtb: ethernet@1101c000: snps,rxpbl:0:0: 1 is not one of [2, 4, 8]
+> > 	From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+> > /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/net/mediatek-dwmac.example.dtb: ethernet@1101c000: snps,txpbl:0:0: 1 is not one of [2, 4, 8]
+> > 	From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/net/mediatek-dwmac.yaml
+> > /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/net/mediatek-dwmac.example.dtb: ethernet@1101c000: snps,rxpbl:0:0: 1 is not one of [2, 4, 8]
+> > 	From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/net/mediatek-dwmac.yaml
+> > /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/net/mediatek-dwmac.example.dtb: ethernet@1101c000: Unevaluated properties are not allowed ('interrupt-names', 'interrupts', 'mac-address', 'phy-mode', 'reg', 'snps,reset-delays-us', 'snps,reset-gpio', 'snps,rxpbl', 'snps,txpbl' were unexpected)
+> > 	From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/net/mediatek-dwmac.yaml
 > 
+> Oops, on rebasing my work from older kernel I missed that the PBL
+> properties constraints have already been extended. I'll drop the next
+> patch in the series then and fix this one so the already defined
+> constraints would be preserved.
 
+BTW it's strange I didn't have that bug spotted during my
+dt_binding_check run...
+
+-Serge(y)
+
+> 
+> -Serge(y)
+> 
+> > 
+> > doc reference errors (make refcheckdocs):
+> > 
+> > See https://patchwork.ozlabs.org/project/devicetree-bindings/patch/20230313225103.30512-2-Sergey.Semin@baikalelectronics.ru
+> > 
+> > The base for the series is generally the latest rc1. A different dependency
+> > should be noted in *this* patch.
+> > 
+> > If you already ran 'make dt_binding_check' and didn't see the above
+> > error(s), then make sure 'yamllint' is installed and dt-schema is up to
+> > date:
+> > 
+> > pip3 install dtschema --upgrade
+> > 
+> > Please check and re-submit after running the above command yourself. Note
+> > that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+> > your schema. However, it must be unset to test all examples with your schema.
+> > 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
