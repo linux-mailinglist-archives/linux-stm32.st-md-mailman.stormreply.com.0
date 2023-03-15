@@ -2,76 +2,76 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 882D26BBA03
-	for <lists+linux-stm32@lfdr.de>; Wed, 15 Mar 2023 17:41:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BFF2F6BBE8B
+	for <lists+linux-stm32@lfdr.de>; Wed, 15 Mar 2023 22:10:59 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 372B1C6904A;
-	Wed, 15 Mar 2023 16:41:22 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 771E9C6904C;
+	Wed, 15 Mar 2023 21:10:59 +0000 (UTC)
+Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com
+ [209.85.208.48])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2AC80C03FC1
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BD671C03FC1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 15 Mar 2023 16:41:21 +0000 (UTC)
-Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 32FER3DD013012; Wed, 15 Mar 2023 17:39:51 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=MQWjDBXejnfbBkpJj9p19emeBobj1+hKsaERuT0aCjo=;
- b=g5mzqg/XRUPbwqKMwB8TSETGKtuKZQBAMcLw+nlgp4PMHoC7ZEuJv2vxCFu7FJAMMqFz
- aojvoRBrwFmGKTjMYMa9sLwVsw49wzxTKgfbGB8EB2XJ7/bAg6vPAtGcbgpGEbPUnz7u
- 5wt8POxVG1+h18kmN1zxHyRXhKicu8e+qrrALLKXWAUH/5WNClejhjYLNowqhxGah9bM
- y+jgAV74hI57J+A/fXbFNT+DKKfPISvQyyyyDEVEbXI+VoreOzycwWbS+9pPJMkOR1i0
- k9pOIWxqZI6cU1tQ4+R9JVEmKmZEmR0sGs3Qq/kyx5lqzRFH9+Y2LolMNpIQ90oWdPuv WA== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3pb2bawy7b-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 15 Mar 2023 17:39:51 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 4EE5310002A;
- Wed, 15 Mar 2023 17:39:49 +0100 (CET)
-Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 3171421FE9D;
- Wed, 15 Mar 2023 17:39:49 +0100 (CET)
-Received: from [10.48.1.102] (10.48.1.102) by SHFDAG1NODE2.st.com
- (10.75.129.70) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.17; Wed, 15 Mar
- 2023 17:39:48 +0100
-Message-ID: <48b8c84c-b2f6-5876-4855-2f9d70ac5e3e@foss.st.com>
-Date: Wed, 15 Mar 2023 17:39:47 +0100
+ Wed, 15 Mar 2023 21:10:57 +0000 (UTC)
+Received: by mail-ed1-f48.google.com with SMTP id w9so9910121edc.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 15 Mar 2023 14:10:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amarulasolutions.com; s=google; t=1678914657;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=nmKHBHnPdxu/HZFwVcQ6tfAQn/CQ7f4jjd7l14TU8o8=;
+ b=fSVEj38gpT15U/Rz8e5aph5jIrPasKcVjyQcJ6n+kMJ7Q3JYO8q8b2de1b/0EOMpFJ
+ eFxuP8nf3+F7z4e7+fZTHCR9HxmUIIsxQ9Kfp2WVifuT4WmONyJCMbYjfa6a+NwEnlEz
+ vC2e8N8DiPcdBONQFTkU8qMsNtueAgucvs21Y=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112; t=1678914657;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=nmKHBHnPdxu/HZFwVcQ6tfAQn/CQ7f4jjd7l14TU8o8=;
+ b=zWOjJl1aY8TuL3lCBZh6uJIzv5fPHArA0lC2n1VHY9/2PBDM79XnLKS3q5xGssMzpM
+ tTWgKQrp3YHVN3K7XmPmQza3nn09LV7u37mf877gLh+1fBH7mvuIkGIUqdMbWzufDbL6
+ 7Dn0LF8ObMBqPisB7rcf9NhlS9aDl2Wttw9c8RojG4ePOE74M4b7i/Mw35Edk8ai5Sde
+ fjI7LtpSz0McKnHjSJX/vPMRTZsYiO8AoFzcAhPWKMby8yqGJpqsX/xdjvogXVzdehG3
+ WC/PJUAQ//rDibilmqFQbQxPWKbrxwtODJTunOppTxfSKvWA0FeSuhSaaDBx5/iSPIoG
+ HlKA==
+X-Gm-Message-State: AO0yUKW0sIeHr115RqF8HSJQBSWb7XM+urOVYKh/uYP+n6UeljBVbXfu
+ xjnJCDuqeZCsPf6bLyDyEtDlzw==
+X-Google-Smtp-Source: AK7set80sGjVgzRsPKpu33qvGJ6vz79JtdhcZ2iJJs6WkxrncsbuBtQUQLfFdAnupPJMfyJtL99TFw==
+X-Received: by 2002:a17:906:7f12:b0:926:815e:838 with SMTP id
+ d18-20020a1709067f1200b00926815e0838mr8754863ejr.51.1678914657103; 
+ Wed, 15 Mar 2023 14:10:57 -0700 (PDT)
+Received: from dario-ThinkPad-T14s-Gen-2i.homenet.telecomitalia.it
+ (host-87-0-96-89.retail.telecomitalia.it. [87.0.96.89])
+ by smtp.gmail.com with ESMTPSA id
+ o15-20020a170906600f00b0092b5384d6desm2965366ejj.153.2023.03.15.14.10.55
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 15 Mar 2023 14:10:56 -0700 (PDT)
+From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+To: linux-kernel@vger.kernel.org
+Date: Wed, 15 Mar 2023 22:10:35 +0100
+Message-Id: <20230315211040.2455855-1-dario.binacchi@amarulasolutions.com>
+X-Mailer: git-send-email 2.32.0
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.8.0
-Content-Language: en-US
-To: Saravana Kannan <saravanak@google.com>
-References: <20230301214952.2190757-1-saravanak@google.com>
- <aca28784-c526-566b-dd7c-9cfda17e697a@foss.st.com>
- <CAGETcx8K47t6X4biCYq+m8NcQFrUMyXvHknCRYUkuUbkw1_i6g@mail.gmail.com>
-From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-In-Reply-To: <CAGETcx8K47t6X4biCYq+m8NcQFrUMyXvHknCRYUkuUbkw1_i6g@mail.gmail.com>
-X-Originating-IP: [10.48.1.102]
-X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SHFDAG1NODE2.st.com
- (10.75.129.70)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.254,Aquarius:18.0.942,Hydra:6.0.573,FMLib:17.11.170.22
- definitions=2023-03-15_08,2023-03-15_01,2023-02-09_01
-Cc: Martin Kepplinger <martin.kepplinger@puri.sm>,
- Heikki Krogerus <heikki.krogerus@linux.intel.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- "Rafael J. Wysocki" <rafael@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org, Daniel Scally <djrscally@gmail.com>,
- linux-acpi@vger.kernel.org, Yongqin Liu <yongqin.liu@linaro.org>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>, kernel-team@android.com,
- Sumit Semwal <sumit.semwal@linaro.org>, Guenter Roeck <linux@roeck-us.net>,
- Len Brown <lenb@kernel.org>
-Subject: Re: [Linux-stm32] [PATCH v1 0/4] Remove use of
-	fw_devlink_purge_absent_suppliers()
+Cc: Viresh Kumar <viresh.kumar@linaro.org>, Sebastian Reichel <sre@kernel.org>,
+ Eric Dumazet <edumazet@google.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Dario Binacchi <dario.binacchi@amarulasolutions.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Rob Herring <robh@kernel.org>,
+ Vincent Mailhol <mailhol.vincent@wanadoo.fr>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Wolfgang Grandegger <wg@grandegger.com>,
+ devicetree@vger.kernel.org, linux-can@vger.kernel.org,
+ Rob Herring <robh+dt@kernel.org>, Marc Kleine-Budde <mkl@pengutronix.de>,
+ linux-arm-kernel@lists.infradead.org, michael@amarulasolutions.com,
+ netdev@vger.kernel.org, Christophe Roullier <christophe.roullier@foss.st.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Mark Brown <broonie@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Amarula patchwork <linux-amarula@amarulasolutions.com>,
+ "David S. Miller" <davem@davemloft.net>
+Subject: [Linux-stm32] [RESEND PATCH v7 0/5] can: bxcan: add support for ST
+	bxCAN controller
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,144 +83,156 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gMy8xMC8yMyAxODo0MCwgU2FyYXZhbmEgS2FubmFuIHdyb3RlOgo+IE9uIEZyaSwgTWFyIDEw
-LCAyMDIzIGF0IDk6MjHigK9BTSBGYWJyaWNlIEdhc25pZXIKPiA8ZmFicmljZS5nYXNuaWVyQGZv
-c3Muc3QuY29tPiB3cm90ZToKPj4KPj4gT24gMy8xLzIzIDIyOjQ5LCBTYXJhdmFuYSBLYW5uYW4g
-d3JvdGU6Cj4+PiBZb25ncWluLCBNYXJ0aW4sIEFtZWxpZSwKPj4+Cj4+PiBXZSByZWNlbnQgcmVm
-YWN0b3Igb2YgZndfZGV2bGluayB0aGF0IGVuZHMgd2l0aCBjb21taXQgZmI0MjM3OGRjYzdmCj4+
-PiAoIm10ZDogbXRkcGFydDogRG9uJ3QgY3JlYXRlIHBsYXRmb3JtIGRldmljZSB0aGF0J2xsIG5l
-dmVyIHByb2JlIiksCj4+PiBmd19kZXZsaW5rIGlzIHNtYXJ0ZXIgYW5kIGRvZXNuJ3QgZGVwZW5k
-IG9uIGNvbXBhdGlibGUgcHJvcGVydHkuIFNvLCBJCj4+PiBkb24ndCB0aGluayB0aGVzZSBjYWxs
-cyBhcmUgbmVlZGVkIGFueW1vcmUuIEJ1dCBJIGRvbid0IGhhdmUgdGhlc2UKPj4+IGRldmljZXMg
-dG8gdGVzdCBvbiBhbmQgYmUgc3VyZSBhbmQgdGhlIGhhcmR3YXJlIEkgdXNlIHRvIHRlc3QgY2hh
-bmdlcwo+Pj4gZG9lc24ndCBoYXZlIHRoaXMgaXNzdWUgZWl0aGVyLgo+Pj4KPj4+IENhbiB5b3Ug
-cGxlYXNlIHRlc3QgdGhlc2UgY2hhbmdlcyBvbiB0aGUgaGFyZHdhcmUgd2hlcmUgeW91IGhpdCB0
-aGUKPj4+IGlzc3VlIHRvIG1ha2Ugc3VyZSB0aGluZ3Mgd29yayBhcyBleHBlY3RlZD8KPj4KPj4K
-Pj4gSGkgU2FyYXZhbmEsCj4+Cj4+IFNvcnJ5IGZvciB0aGUgbGF0ZSByZXBseSwKPiAKPiBUaGFu
-a3MgZm9yIHRlc3RpbmchCj4gCj4+IE9uIGJlaGFsZiBvZiBBbWVsaWUsIEkgZGlkIHNvbWUgdGVz
-dGluZyBvbiBTVE0zMk1QMTUgREsyIGJvYXJkLCBvbiB0b3AKPj4gb2YgY29tbWl0IGZiNDIzNzhk
-Y2M3ZiwgYW5kIGFsc28gd2l0aCB5b3VyIHNlcmllcyBhcHBsaWVkLgo+PiBGb3IgcmVmZXJlbmNl
-LCBpdCdzIGJhc2VkIG9uOiBhcmNoL2FybS9ib290L2R0cy9zdG0zMm1wMTV4eC1ka3guZHRzaQo+
-Pgo+PiBJIG5vdGljZWQgc29tZSBlcnJvciBtZXNzYWdlcyBvbiB0aGlzIGJvYXJkLCBzaW5jZSB0
-aGUgMTIgcGF0Y2ggc2VyaWVzLAo+PiBhcm91bmQgdGhlIEkyQyBQTUlDIGRldmljZSBsaW5rczoK
-Pj4KPj4gWyAgICAzLjU4NTUxNF0gaTJjIDEtMDAzMzogRmFpbGVkIHRvIGNyZWF0ZSBkZXZpY2Ug
-bGluayB3aXRoIDEtMDAzMwo+PiBbICAgIDMuNTkwMTE1XSBpMmMgMS0wMDMzOiBGYWlsZWQgdG8g
-Y3JlYXRlIGRldmljZSBsaW5rIHdpdGggMS0wMDMzCj4+IFsgICAgMy41OTYyNzhdIGkyYyAxLTAw
-MzM6IEZhaWxlZCB0byBjcmVhdGUgZGV2aWNlIGxpbmsgd2l0aCAxLTAwMzMKPj4gWyAgICAzLjYw
-MjE4OF0gaTJjIDEtMDAzMzogRmFpbGVkIHRvIGNyZWF0ZSBkZXZpY2UgbGluayB3aXRoIDEtMDAz
-Mwo+PiBbICAgIDMuNjA4MTY1XSBpMmMgMS0wMDMzOiBGYWlsZWQgdG8gY3JlYXRlIGRldmljZSBs
-aW5rIHdpdGggMS0wMDMzCj4+IFsgICAgMy42MTQyNzhdIGkyYyAxLTAwMzM6IEZhaWxlZCB0byBj
-cmVhdGUgZGV2aWNlIGxpbmsgd2l0aCAxLTAwMzMKPj4gWyAgICAzLjYyMDI1Nl0gaTJjIDEtMDAz
-MzogRmFpbGVkIHRvIGNyZWF0ZSBkZXZpY2UgbGluayB3aXRoIDEtMDAzMwo+PiBbICAgIDMuNjI2
-MjUzXSBpMmMgMS0wMDMzOiBGYWlsZWQgdG8gY3JlYXRlIGRldmljZSBsaW5rIHdpdGggMS0wMDMz
-Cj4+IFsgICAgMy42MzIyNTJdIGkyYyAxLTAwMzM6IEZhaWxlZCB0byBjcmVhdGUgZGV2aWNlIGxp
-bmsgd2l0aCAxLTAwMzMKPj4gWyAgICAzLjYzOTAwMV0gc3RwbWljMSAxLTAwMzM6IFBNSUMgQ2hp
-cCBWZXJzaW9uOiAweDEwCj4+IFsgICAgMy42NDUzOThdIHBsYXRmb3JtIDVjMDAyMDAwLmkyYzpz
-dHBtaWNAMzM6cmVndWxhdG9yczogRml4ZWQKPj4gZGVwZW5kZW5jeSBjeWNsZShzKSB3aXRoIC9z
-b2MvaTJjQDVjMDAyMDAKPj4gMC9zdHBtaWNAMzMvcmVndWxhdG9ycy9ib29zdAo+PiBbICAgIDMu
-NjU1OTM3XSBwbGF0Zm9ybSA1YzAwMjAwMC5pMmM6c3RwbWljQDMzOnJlZ3VsYXRvcnM6IEZpeGVk
-Cj4+IGRlcGVuZGVuY3kgY3ljbGUocykgd2l0aCAvc29jL2kyY0A1YzAwMjAwCj4+IDAvc3RwbWlj
-QDMzL3JlZ3VsYXRvcnMvYnVjazIKPj4gWyAgICAzLjY2NzgyNF0gcGxhdGZvcm0gNWMwMDIwMDAu
-aTJjOnN0cG1pY0AzMzpyZWd1bGF0b3JzOiBGaXhlZAo+PiBkZXBlbmRlbmN5IGN5Y2xlKHMpIHdp
-dGggL3NvYy9pMmNANWMwMDIwMAo+PiAwL3N0cG1pY0AzMy9yZWd1bGF0b3JzL2J1Y2s0Cj4+IFsg
-ICAgMy43MTk3NTFdIHN0cG1pYzEtcmVndWxhdG9yIDVjMDAyMDAwLmkyYzpzdHBtaWNAMzM6cmVn
-dWxhdG9yczoKPj4gRmFpbGVkIHRvIGNyZWF0ZSBkZXZpY2UgbGluayB3aXRoIDEtMDAzMwo+PiBb
-ICAgIDMuNzI4MDk5XSBzdHBtaWMxLXJlZ3VsYXRvciA1YzAwMjAwMC5pMmM6c3RwbWljQDMzOnJl
-Z3VsYXRvcnM6Cj4+IEZhaWxlZCB0byBjcmVhdGUgZGV2aWNlIGxpbmsgd2l0aCAxLTAwMzMKPj4g
-WyAgICAzLjczNzU3Nl0gc3RwbWljMS1yZWd1bGF0b3IgNWMwMDIwMDAuaTJjOnN0cG1pY0AzMzpy
-ZWd1bGF0b3JzOgo+PiBGYWlsZWQgdG8gY3JlYXRlIGRldmljZSBsaW5rIHdpdGggMS0wMDMzCj4+
-IFsgICAgMy43NDcyMTZdIHN0cG1pYzEtcmVndWxhdG9yIDVjMDAyMDAwLmkyYzpzdHBtaWNAMzM6
-cmVndWxhdG9yczoKPj4gRmFpbGVkIHRvIGNyZWF0ZSBkZXZpY2UgbGluayB3aXRoIDEtMDAzMwo+
-PiBbICAgIDMuNzU2NzUwXSBzdHBtaWMxLXJlZ3VsYXRvciA1YzAwMjAwMC5pMmM6c3RwbWljQDMz
-OnJlZ3VsYXRvcnM6Cj4+IEZhaWxlZCB0byBjcmVhdGUgZGV2aWNlIGxpbmsgd2l0aCAxLTAwMzMK
-Pj4gWyAgICAzLjc2NjM4Ml0gc3RwbWljMS1yZWd1bGF0b3IgNWMwMDIwMDAuaTJjOnN0cG1pY0Az
-MzpyZWd1bGF0b3JzOgo+PiBGYWlsZWQgdG8gY3JlYXRlIGRldmljZSBsaW5rIHdpdGggMS0wMDMz
-Cj4+IFsgICAgMy43NzU5MTRdIHN0cG1pYzEtcmVndWxhdG9yIDVjMDAyMDAwLmkyYzpzdHBtaWNA
-MzM6cmVndWxhdG9yczoKPj4gRmFpbGVkIHRvIGNyZWF0ZSBkZXZpY2UgbGluayB3aXRoIDEtMDAz
-Mwo+PiBbICAgIDMuNzg1NTQ1XSBzdHBtaWMxLXJlZ3VsYXRvciA1YzAwMjAwMC5pMmM6c3RwbWlj
-QDMzOnJlZ3VsYXRvcnM6Cj4+IEZhaWxlZCB0byBjcmVhdGUgZGV2aWNlIGxpbmsgd2l0aCAxLTAw
-MzMKPiAKPiBZb3UgY2FuIGlnbm9yZSBhbGwgdGhlICJGYWlsZWQgdG8gY3JlYXRlIGRldmljZSBs
-aW5rIiBlcnJvcnMuIFRoZXkgYXJlCj4ganVzdCBlcnJvciBsb2dzIGZvciBzdHVmZiB0aGF0IHdh
-cyBiZWluZyBpZ25vcmVkIHNpbGVudGx5IGJlZm9yZS4gU28KPiB0aGF0J3Mgbm8gZnVuY3Rpb25h
-bCByZWdyZXNzaW9uIEFGQUlLLiBJJ2xsIGZpeCB0aGVtIHNlcGFyYXRlbHkgaWYKPiBuZWNlc3Nh
-cnkuIEFuZCBJJ20gc3VyZSB5b3UnbGwgc2VlIHRoZXNlIG1lc3NhZ2VzIGV2ZW4gd2l0aG91dCBt
-eQo+IGZ3X2RldmxpbmsgcmVmYWN0b3Igc2VyaWVzLgoKSGkgU2FyYXZhbmEsCgpUaGFua3MgZm9y
-IHRoZSBpbmZvcm1hdGlvbi4KCkkgdGVzdGVkIHdpdGhvdXQgdGhlIDEyIHBhdGNoIHNlcmllcywg
-anVzdCBiZWZvcmUgY29tbWl0IDNhMmRiYzUxMGM0MwoiZHJpdmVyIGNvcmU6IGZ3X2Rldmxpbms6
-IERvbid0IHB1cmdlIGNoaWxkIGZ3bm9kZSdzIGNvbnN1bWVyIGxpbmtzIi4KCkkgZG9uJ3Qgc2Vl
-IHRoZSBtZXNzYWdlcyBoZXJlLiBCdXQgSSBjYW4gc2VlIHRoZXNlIG9uIHRvcCBvZiBmYjQyMzc4
-ZGNjN2YuCgoKPiAKPj4gU3RyYW5nZWx5IHNvbWUgb2YgdGhlIHJlZ3VsYXRvcnMgc2VlbXMgdG8g
-aGF2ZSAiRml4ZWQgZGVwZW5kZW5jeSIsIGJ1dAo+PiBub3QgYWxsLgo+IAo+IFllYWgsIHRoYXQn
-cyBmaW5lIHRvbyAtLSB0aGF0J3MganVzdCBmd19kZXZsaW5rIGJlaW5nIHZlcmJvc2UgYWJvdXQK
-PiBub3QgZW5mb3JjaW5nIHByb2JlIG9yZGVyaW5nIGJldHdlZW4gZGV2aWNlcyBpbiB0aGF0IGN5
-Y2xlIGJlY2F1c2UgaXQKPiBjYW4ndCB0ZWxsIHdoaWNoIG9uZSBvZiB0aGUgZGVwZW5kZW5jaWVz
-IGlzIG5vdCBhIHByb2JlIHJlcXVpcmVtZW50Lgo+IE1heWJlIEknbGwgbWFrZSBpdCBhIGRiZyBs
-b2cgaWYgaXQncyBjb25mdXNpbmcgcGVvcGxlLgo+IAo+PiBSZWdhcmRpbmcgdGhlIHR5cGVjIHN0
-dXNiMTYweCBJIG5vdGljZWQgdGhlIG1lc3NhZ2UgYmVsb3cuIEl0IHNlZW1zCj4+IGNvcnJlY3Qs
-IHJpZ2h0ID8KPj4KPj4gWyAgIDE1Ljk2Mjc3MV0gdHlwZWMgcG9ydDA6IEZpeGVkIGRlcGVuZGVu
-Y3kgY3ljbGUocykgd2l0aAo+PiAvc29jL3VzYi1vdGdANDkwMDAwMDAvcG9ydC9lbmRwb2ludAo+
-IAo+IEkgZG9uJ3Qga25vdyBpZiB0aGVyZSBpcyBhIGN5Y2xpYyBkZXBlbmRlbmN5IGluIHlvdXIg
-RFQgb3Igbm90LiBCdXQKPiB0aGlzIG1lc3NhZ2UgaXRzZWxmIGlzIG5vdCBhbiBpc3N1ZS4KCkFj
-aywKCj4gCj4+IEJ1dCBzb21ldGltZXMgKGxldHMgc2F5IDEvNSB0aW1lcykgZHVyaW5nIGJvb3Qs
-IHdoZW4gSSBoYXZlIGEgY2FibGUKPj4gYWxyZWFkeSBwbHVnZ2VkIGluLCBpdCBsb29rcyBsaWtl
-IHRoZXJlJ3Mgc29tZSByYWNlIGNvbmRpdGlvbi4gVGhlIGR3YzIKPj4gZHJpdmVyIHJlcG9ydHMg
-c29tZSBlcnJvciBsb2dzIGluIGEgbG9vcCwgaW5kZWZpbml0ZWx5LCB1cCB0byB0aGUKPj4gd2F0
-Y2hkb2cgcmVzZXRzIHRoZSBwbGF0Zm9ybSA6LSguCj4gCj4gQ2FuIHlvdSB0cnkgdGhpcyBzZXJp
-ZXMgKHRoZSBvbmUgeW91IGFyZSB0ZXN0aW5nKSB3aXRob3V0IG15Cj4gZndfZGV2bGluayByZWZh
-Y3RvciB0aGF0IGVuZHMgd2l0aCBjb21taXQgZmI0MjM3OGRjYzdmPyBUcnlpbmcgdG8gbWFrZQo+
-IHN1cmUgd2UgY2FuIHJlcHJvZHVjZSB0aGUgaXNzdWUgQW1lbGllIHdhcyBmaXhpbmcgYmVmb3Jl
-IEkgY2xhaW0gbXkKPiByZWZhY3RvciBzZXJpZXMgZml4ZXMgaXQuCgpTdHJhbmdlbHksIEkgdGVz
-dGVkIHdpdGhvdXQgdGhlIHNlcmllcywgYW5kIHJlbW92ZWQgZWFybGllciBwYXRjaCBmcm9tCkFt
-ZWxpZS4gSSBkb24ndCByZXByb2R1Y2UgdGhlIGlzc3VlIHNoZSB1c2VkIHRvIGhpdC4KCj4gCj4+
-IFsgICAxNi4yODg0NThdIGR3YzIgNDkwMDAwMDAudXNiLW90ZzogTW9kZSBNaXNtYXRjaCBJbnRl
-cnJ1cHQ6IGN1cnJlbnRseQo+PiBpbiBIb3N0IG1vZGUKPj4gWyAgIDE2LjI4ODQ5MF0gZHdjMiA0
-OTAwMDAwMC51c2Itb3RnOiBNb2RlIE1pc21hdGNoIEludGVycnVwdDogY3VycmVudGx5Cj4+IGlu
-IEhvc3QgbW9kZQo+PiBbICAgMTYuMzEwNDI5XSBkd2MyIDQ5MDAwMDAwLnVzYi1vdGc6IE1vZGUg
-TWlzbWF0Y2ggSW50ZXJydXB0OiBjdXJyZW50bHkKPj4gaW4gSG9zdCBtb2RlCj4+Cj4+IEl0IHBy
-b2JhYmx5IGp1c3QgcG9pbnRzIHNvbWUgYWxyZWFkeSBleGlzdGluZyByYWNlIGNvbmRpdGlvbiBo
-ZXJlLiBNYXliZQo+PiBpdCBpc24ndCBldmVuIGxpbmtlZCB0byB0aGlzIHBhdGNoLiBCdXQgSSBo
-YXZlIG5vIGV2aWRlbmNlIGF0IHRoaXMKPj4gc3RhZ2UuIEkgaG9wZSBJIGNhbiBpbnZlc3RpZ2F0
-ZSBmdXJ0aGVyIG9uIHRoaXMgb25lLCBob3BlZnVsbHkgSSBjYW4KPj4gZnJlZSB1cCBzb21lIHRp
-bWUgZm9yIHRoYXQuCj4gCj4gSWYgeW91IG5ldmVyIHBpY2sgdXAgdGhpcyBzZXJpZXMsIGFyZSB5
-b3Ugbm90IGhhdmluZyBhbnkgb2YgdGhlc2UgMS81Cj4gdGltZXMgYm9vdCBpc3N1ZXM/IEkgd291
-bGRuJ3QgZXhwZWN0IG15IGNoYW5nZXMgdG8gYWRkIGFueSByYWNlcywgYnV0Cj4gSSdsbCB3YWl0
-IHRvIHNlZSB3aGF0IHlvdSBmaW5kIGhlcmUuCgpTb21lIGdvb2QgbmV3cyBoZXJlIGlzLCBJJ3Zl
-IGlkZW50aWZpZWQgYSByZWNlbnQgY2hhbmdlIFsxXSwgdGhhdApjcmVhdGVzIHRoZSBpc3N1ZSBw
-b2ludGVkIGFib3ZlLiBJIGp1c3Qgc2VudCBhIHNlcGFyYXRlIHBhdGNoIFsyXSBmb3IgdGhpcy4K
-U28sIGl0J3Mgbm90IHJlbGF0ZWQgdG8gdGhpcyBzZXJpZXMuIChJIG1hbmFnZWQgdG8gcmVwcm9k
-dWNlIHdpdGhvdXQKcGlja2luZyBpdCkuCgpbMV0KaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvci8y
-MDIyMTIwNi1kd2MyLWdhZGdldC1kdWFsLXJvbGUtdjEtMi0zNjUxNWUxMDkyY2RAdGhlb2Jyb21h
-LXN5c3RlbXMuY29tClsyXQpodHRwczovL2xvcmUua2VybmVsLm9yZy9sa21sLzIwMjMwMzE1MTQ0
-NDMzLjMwOTU4NTktMS1mYWJyaWNlLmdhc25pZXJAZm9zcy5zdC5jb20vCgpTbyBmb3Igc3R1c2Ix
-NjB4OiBlLmcuIFBBVENIIDEsIGZlZWwgZnJlZSB0byBhZGQgb24gbXk6ClRlc3RlZC1ieTogRmFi
-cmljZSBHYXNuaWVyIDxmYWJyaWNlLmdhc25pZXJAZm9zcy5zdC5jb20+CgpCZXN0IFJlZ2FyZHMs
-CkZhYnJpY2UKCj4gCj4gVGhhbmtzLAo+IFNhcmF2YW5hCj4gCj4+Cj4+IEJlc3QgUmVnYXJkcywK
-Pj4gRmFicmljZQo+Pgo+Pj4KPj4+IFlvbmdxaW4sIElmIHlvdSBkaWRuJ3QgaGF2ZSB0aGUgY29u
-dGV4dCwgdGhpcyBhZmZlY3RlZCBoaWtleTk2MC4KPj4+Cj4+PiBHcmVnLAo+Pj4KPj4+IExldCdz
-IHdhaXQgZm9yIHNvbWUgdGVzdHMgYmVmb3JlIHdlIGxhbmQgdGhlc2UuCj4+Pgo+Pj4gVGhhbmtz
-LAo+Pj4gU2FyYXZhbmEKPj4+Cj4+PiBDYzogWW9uZ3FpbiBMaXUgPHlvbmdxaW4ubGl1QGxpbmFy
-by5vcmc+Cj4+PiBDYzogU3VtaXQgU2Vtd2FsIDxzdW1pdC5zZW13YWxAbGluYXJvLm9yZz4KPj4+
-IENjOiBNYXJ0aW4gS2VwcGxpbmdlciA8bWFydGluLmtlcHBsaW5nZXJAcHVyaS5zbT4KPj4+IENj
-OiBBbWVsaWUgRGVsYXVuYXkgPGFtZWxpZS5kZWxhdW5heUBmb3NzLnN0LmNvbT4KPj4+Cj4+PiBT
-YXJhdmFuYSBLYW5uYW4gKDQpOgo+Pj4gICB1c2I6IHR5cGVjOiBzdHVzYjE2MHg6IFJlbW92ZSB1
-c2Ugb2YKPj4+ICAgICBmd19kZXZsaW5rX3B1cmdlX2Fic2VudF9zdXBwbGllcnMoKQo+Pj4gICB1
-c2I6IHR5cGVjOiB0aXBkOiBSZW1vdmUgdXNlIG9mIGZ3X2RldmxpbmtfcHVyZ2VfYWJzZW50X3N1
-cHBsaWVycygpCj4+PiAgIHVzYjogdHlwZWM6IHRjcG06IFJlbW92ZSB1c2Ugb2YgZndfZGV2bGlu
-a19wdXJnZV9hYnNlbnRfc3VwcGxpZXJzKCkKPj4+ICAgZHJpdmVyIGNvcmU6IERlbGV0ZSBmd19k
-ZXZsaW5rX3B1cmdlX2Fic2VudF9zdXBwbGllcnMoKQo+Pj4KPj4+ICBkcml2ZXJzL2Jhc2UvY29y
-ZS5jICAgICAgICAgICB8IDE2IC0tLS0tLS0tLS0tLS0tLS0KPj4+ICBkcml2ZXJzL3VzYi90eXBl
-Yy9zdHVzYjE2MHguYyB8ICA5IC0tLS0tLS0tLQo+Pj4gIGRyaXZlcnMvdXNiL3R5cGVjL3RjcG0v
-dGNwbS5jIHwgIDkgLS0tLS0tLS0tCj4+PiAgZHJpdmVycy91c2IvdHlwZWMvdGlwZC9jb3JlLmMg
-fCAgOSAtLS0tLS0tLS0KPj4+ICBpbmNsdWRlL2xpbnV4L2Z3bm9kZS5oICAgICAgICB8ICAxIC0K
-Pj4+ICA1IGZpbGVzIGNoYW5nZWQsIDQ0IGRlbGV0aW9ucygtKQo+Pj4KPj4KPj4gLS0KPj4gVG8g
-dW5zdWJzY3JpYmUgZnJvbSB0aGlzIGdyb3VwIGFuZCBzdG9wIHJlY2VpdmluZyBlbWFpbHMgZnJv
-bSBpdCwgc2VuZCBhbiBlbWFpbCB0byBrZXJuZWwtdGVhbSt1bnN1YnNjcmliZUBhbmRyb2lkLmNv
-bS4KPj4KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGlu
-dXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBs
-eS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGlu
-Zm8vbGludXgtc3RtMzIK
+The series adds support for the basic extended CAN controller (bxCAN)
+found in many low- to middle-end STM32 SoCs.
+
+The driver design (one core module and one driver module) was inspired
+by other ST drivers (e. g. drivers/iio/adc/stm32-adc.c,
+drivers/iio/adc/stm32-adc-core.c) where device instances share resources.
+The shared resources functions are implemented in the core module, the
+device driver in a separate module.
+
+The driver has been tested on the stm32f469i-discovery board with a
+kernel version 5.19.0-rc2 in loopback + silent mode:
+
+ip link set can0 type can bitrate 125000 loopback on listen-only on
+ip link set up can0
+candump can0 -L &
+cansend can0 300#AC.AB.AD.AE.75.49.AD.D1
+
+For uboot and kernel compilation, as well as for rootfs creation I used
+buildroot:
+
+make stm32f469_disco_sd_defconfig
+make
+
+but I had to patch can-utils and busybox as can-utils and iproute are
+not compiled for MMU-less microcotrollers. In the case of can-utils,
+replacing the calls to fork() with vfork(), I was able to compile the
+package with working candump and cansend applications, while in the
+case of iproute, I ran into more than one problem and finally I decided
+to extend busybox's ip link command for CAN-type devices. I'm still
+wondering if it was really necessary, but this way I was able to test
+the driver.
+
+Changes in v7:
+- Add Vincent Mailhol's Reviewed-by tag.
+- Remove all unused macros for reading/writing the controller registers.
+- Add CAN_ERR_CNT flag to notify availability of error counter.
+- Move the "break" before the newline in the switch/case statements.
+- Print the mnemotechnic instead of the error value in each netdev_err().
+- Remove the debug print for timings parameter.
+- Do not copy the data if CAN_RTR_FLAG is set in bxcan_start_xmit().
+- Populate ndev->ethtool_ops with the default timestamp info.
+
+Changes in v6:
+- move can1 node before gcan to keep ordering by address.
+
+Changes in v5:
+- Add Rob Herring's Acked-by tag.
+- Add Rob Herring's Reviewed-by tag.
+- Put static in front of bxcan_enable_filters() definition.
+
+Changes in v4:
+- Remove "st,stm32f4-bxcan-core" compatible. In this way the can nodes
+ (compatible "st,stm32f4-bxcan") are no longer children of a parent
+  node with compatible "st,stm32f4-bxcan-core".
+- Add the "st,gcan" property (global can memory) to can nodes which
+  references a "syscon" node containing the shared clock and memory
+  addresses.
+- Replace the node can@40006400 (compatible "st,stm32f4-bxcan-core")
+  with the gcan@40006600 node ("sysnode" compatible). The gcan node
+  contains clocks and memory addresses shared by the two can nodes
+  of which it's no longer the parent.
+- Add to can nodes the "st,gcan" property (global can memory) which
+  references the gcan@40006600 node ("sysnode compatibble).
+- Add "dt-bindings: arm: stm32: add compatible for syscon gcan node" patch.
+- Drop the core driver. Thus bxcan-drv.c has been renamed to bxcan.c and
+  moved to the drivers/net/can folder. The drivers/net/can/bxcan directory
+  has therefore been removed.
+- Use the regmap_*() functions to access the shared memory registers.
+- Use spinlock to protect bxcan_rmw().
+- Use 1 space, instead of tabs, in the macros definition.
+- Drop clock ref-counting.
+- Drop unused code.
+- Drop the _SHIFT macros and use FIELD_GET()/FIELD_PREP() directly.
+- Add BXCAN_ prefix to lec error codes.
+- Add the macro BXCAN_RX_MB_NUM.
+- Enable time triggered mode and use can_rx_offload().
+- Use readx_poll_timeout() in function with timeouts.
+- Loop from tail to head in bxcan_tx_isr().
+- Check bits of tsr register instead of pkts variable in bxcan_tx_isr().
+- Don't return from bxcan_handle_state_change() if skb/cf are NULL.
+- Enable/disable the generation of the bus error interrupt depending
+  on can.ctrlmode & CAN_CTRLMODE_BERR_REPORTING.
+- Don't return from bxcan_handle_bus_err() if skb is NULL.
+- Drop statistics updating from bxcan_handle_bus_err().
+- Add an empty line in front of 'return IRQ_HANDLED;'
+- Rename bxcan_start() to bxcan_chip_start().
+- Rename bxcan_stop() to bxcan_chip_stop().
+- Disable all IRQs in bxcan_chip_stop().
+- Rename bxcan_close() to bxcan_ndo_stop().
+- Use writel instead of bxcan_rmw() to update the dlc register.
+
+Changes in v3:
+- Remove 'Dario Binacchi <dariobin@libero.it>' SOB.
+- Add description to the parent of the two child nodes.
+- Move "patterProperties:" after "properties: in top level before "required".
+- Add "clocks" to the "required:" list of the child nodes.
+- Remove 'Dario Binacchi <dariobin@libero.it>' SOB.
+- Add "clocks" to can@0 node.
+- Remove 'Dario Binacchi <dariobin@libero.it>' SOB.
+- Remove a blank line.
+- Remove 'Dario Binacchi <dariobin@libero.it>' SOB.
+- Fix the documentation file path in the MAINTAINERS entry.
+- Do not increment the "stats->rx_bytes" if the frame is remote.
+- Remove pr_debug() call from bxcan_rmw().
+
+Changes in v2:
+- Change the file name into 'st,stm32-bxcan-core.yaml'.
+- Rename compatibles:
+  - st,stm32-bxcan-core -> st,stm32f4-bxcan-core
+  - st,stm32-bxcan -> st,stm32f4-bxcan
+- Rename master property to st,can-master.
+- Remove the status property from the example.
+- Put the node child properties as required.
+- Remove a blank line.
+- Fix sparse errors.
+- Create a MAINTAINERS entry.
+- Remove the print of the registers address.
+- Remove the volatile keyword from bxcan_rmw().
+- Use tx ring algorithm to manage tx mailboxes.
+- Use can_{get|put}_echo_skb().
+- Update DT properties.
+
+Dario Binacchi (5):
+  dt-bindings: arm: stm32: add compatible for syscon gcan node
+  dt-bindings: net: can: add STM32 bxcan DT bindings
+  ARM: dts: stm32: add CAN support on stm32f429
+  ARM: dts: stm32: add pin map for CAN controller on stm32f4
+  can: bxcan: add support for ST bxCAN controller
+
+ .../bindings/arm/stm32/st,stm32-syscon.yaml   |    2 +
+ .../bindings/net/can/st,stm32-bxcan.yaml      |   83 ++
+ MAINTAINERS                                   |    7 +
+ arch/arm/boot/dts/stm32f4-pinctrl.dtsi        |   30 +
+ arch/arm/boot/dts/stm32f429.dtsi              |   29 +
+ drivers/net/can/Kconfig                       |   12 +
+ drivers/net/can/Makefile                      |    1 +
+ drivers/net/can/bxcan.c                       | 1088 +++++++++++++++++
+ 8 files changed, 1252 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/net/can/st,stm32-bxcan.yaml
+ create mode 100644 drivers/net/can/bxcan.c
+
+-- 
+2.32.0
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
