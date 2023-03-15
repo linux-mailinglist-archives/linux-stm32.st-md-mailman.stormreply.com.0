@@ -2,156 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2E3AE6BAD70
-	for <lists+linux-stm32@lfdr.de>; Wed, 15 Mar 2023 11:19:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id ECA436BB660
+	for <lists+linux-stm32@lfdr.de>; Wed, 15 Mar 2023 15:45:00 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D1CA5C65E60;
-	Wed, 15 Mar 2023 10:19:24 +0000 (UTC)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9F685C6904A;
+	Wed, 15 Mar 2023 14:45:00 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 70B0FC62EFE
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7E6FCC65048
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 15 Mar 2023 10:19:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1678875563; x=1710411563;
- h=from:to:cc:subject:date:message-id:references:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=qcljRFB6wDxNqc9lNRx5npEanbDfcy0btHbSb5vVztg=;
- b=P5Ptm3U5wWw4rvoW4BdN72VBBHT/wHtLvF22N2zhtZEcrKMn+2ta7rPB
- X3mKfXQw+e6UMCEkoHDSo+gyo/ezAc3ftse22DrteDMQ5EHGQDl6GIqos
- Gdz/Funs7aCpxYQKzy+gC7t/fjCp0eInQNwb2MIlaMrjxmGNL9EIOHifX
- afZr76dLhlbY1+9QfH0DnnuGHQqCvIrD0GeFUIr2RaexigPkxlRjZfPDf
- Mt6I/iGbYiQEuXcMz9Q8aI+ohtIWQ2wHba3iQsNRxztvopurrCocKrRnF
- 00ZbHpGjdZt6R3i0R8j/XZuzS9hggDgBMqebOdtCrTYf8QwbSzAYW+kz8 Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10649"; a="335150899"
-X-IronPort-AV: E=Sophos;i="5.98,262,1673942400"; d="scan'208";a="335150899"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Mar 2023 03:18:41 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10649"; a="822730638"
-X-IronPort-AV: E=Sophos;i="5.98,262,1673942400"; d="scan'208";a="822730638"
-Received: from fmsmsx602.amr.corp.intel.com ([10.18.126.82])
- by fmsmga001.fm.intel.com with ESMTP; 15 Mar 2023 03:18:40 -0700
-Received: from fmsmsx612.amr.corp.intel.com (10.18.126.92) by
- fmsmsx602.amr.corp.intel.com (10.18.126.82) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.21; Wed, 15 Mar 2023 03:18:40 -0700
-Received: from fmsmsx610.amr.corp.intel.com (10.18.126.90) by
- fmsmsx612.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.21; Wed, 15 Mar 2023 03:18:40 -0700
-Received: from fmsedg602.ED.cps.intel.com (10.1.192.136) by
- fmsmsx610.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.21 via Frontend Transport; Wed, 15 Mar 2023 03:18:40 -0700
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com (104.47.57.168)
- by edgegateway.intel.com (192.55.55.71) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2507.21; Wed, 15 Mar 2023 03:18:39 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=G95AASrpTlhC1oDuO0IhLrLkQ+cBlNpCGvRYJnTisGMgMq+CSzan4Ze+pwZOHAdtA5bOdxC+f45Pkb/2Hvnu+oEtSZQ3Q/gI8lABqz1SRjBoIV8qXQxEeiViIHVh5y7n4z70G17iPnbzoFq6wO77kFV8cDIlFFpdF+ZnBXjEJMM84QTmsGgJqc3r2Z9Ab+KE+lsCHEyAq7AEevUkNi0ZOpa6XjI1NnjGETe2b+8E4SZnndlOchOVXqNo8X+pRoqWgK2IhWJ9WksOE1Vv8NcrH3hCM79VH4OSRezuyePbriRIVLzvEsO1smWvxq6mBUACgScZp6RMOt1xM3e1gvYFvA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hL19weJRdWRyMgFOfvBs9zTBjJeNT/NDdUZos5kxsI0=;
- b=ie5PgCGpn/AK2a/pwDu5R5tVz6PHEFZqPYNMMjoPPEj+aRohe1mWn0CAe9V5PQPRsq8MhWab6CVGs7Bkhj8Z0kwwiRKVFOJQAh8Lw/uV/rA0STiW+yssCXDbL0GjGZH1dUkcNMB562z54etIfvWREQleHM/fWVbmFC2xzMHSIeNz3zJNM38Wqn5N+4EGnDqVCbbJ5td1x1E1SmrUIt6gf8HmbfM7seNe+8XomRS2V+Ar99AJA1U29zklkFfMZr0rAnk22E6dyGJ0sSBWAZ9ucIqok3brCfHPvA6fjo9RVD7tNPTcwNyLgBAISIsKcgOPAHME6UwWVtk1kNRoUTJZGg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from PH0PR11MB7587.namprd11.prod.outlook.com (2603:10b6:510:26d::17)
- by SJ0PR11MB6693.namprd11.prod.outlook.com (2603:10b6:a03:44b::21)
+ Wed, 15 Mar 2023 14:44:59 +0000 (UTC)
+Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 32FAR1Yl018817; Wed, 15 Mar 2023 15:44:58 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=selector1;
+ bh=R+9Q/84aRguOkrbuEcVpRrUSAL1kHPOZZn9+ptjgzkw=;
+ b=Y1RkDh260UO0oFcvEv9kK138Cx6yHE9LBVSSbt0Em2J6o9x+oHSpfMsRzXzbHkrFNgO1
+ /avevxBhoWlvcXWQGwuUWgdgh9Kj+t9YEqxB5nKmVTjIcRKNWPMm12hZ03haw81Cn30q
+ X3VKGuWimG+ZlCiFXEyY1XbKly7vEocmPupQnSlxzPlE4xF55pra3VMiUttrUQFRke2v
+ 4zNwQhIYcZFRcE7QbORxjGpmGLGfwmgp0ZhiJIzC0+4Db7rjvoiJHcDqj9gKAhjrsKHA
+ uNlgfY6nO4oJHOZiRi3yc7og5OFNmfSBmb5bImremjgGGSqdf/FkTF0oRn5iZEtSnoze hw== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3pb2aqw7hp-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 15 Mar 2023 15:44:58 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 3B9FA100034;
+ Wed, 15 Mar 2023 15:44:56 +0100 (CET)
+Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id CAD9021ADDD;
+ Wed, 15 Mar 2023 15:44:56 +0100 (CET)
+Received: from localhost (10.48.1.102) by SHFDAG1NODE2.st.com (10.75.129.70)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.24; Wed, 15 Mar
- 2023 10:18:38 +0000
-Received: from PH0PR11MB7587.namprd11.prod.outlook.com
- ([fe80::a9d7:2083:ea9f:7b0c]) by PH0PR11MB7587.namprd11.prod.outlook.com
- ([fe80::a9d7:2083:ea9f:7b0c%8]) with mapi id 15.20.6178.026; Wed, 15 Mar 2023
- 10:18:37 +0000
-From: "Sit, Michael Wei Hong" <michael.wei.hong.sit@intel.com>
-To: "Raczynski, Piotr" <piotr.raczynski@intel.com>
-Thread-Topic: [PATCH net 2/2] net: stmmac: move fixed-link support fixup code
-Thread-Index: AQHZVlOZRKoa99f9J0u3oQrqM15py677m60Q
-Date: Wed, 15 Mar 2023 10:18:36 +0000
-Message-ID: <PH0PR11MB7587C279640CA9C90CC54C489DBF9@PH0PR11MB7587.namprd11.prod.outlook.com>
-References: <20230313080135.2952774-1-michael.wei.hong.sit@intel.com>
- <20230313080135.2952774-3-michael.wei.hong.sit@intel.com>
- <ZBA3+LqAaWXDZCKZ@nimitz>
-In-Reply-To: <ZBA3+LqAaWXDZCKZ@nimitz>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH0PR11MB7587:EE_|SJ0PR11MB6693:EE_
-x-ms-office365-filtering-correlation-id: 0c0bd60b-73a2-44cf-af4a-08db253ea3cf
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: H8beQWeqFX1A5aVffoPy91HRSX1EprvKlAX8HhU4OLJbkzr1QlfVOJlVAZMkMfM5S4U/CN2LOZfvV19LLSd+tCnJrr9SNLsRZESez+4AHPHxhlhL177xa04W/QpWR7VI1CrFnhCuPROcjZNrVVtdU9cgfaQj/dymCzU095ZJTT0NdF+PFSe7jhxkRRCNXxYs7iY5zRNRGtRZDUTJFMGKSaF4L0dzJ0iRPnvWhkjcC+ZzVSTwtAOnKuTjoZQA/cK+NdJ9IkCBNVNJV/sf4hGD7tBNIcLeemSbhTuj1T1t92uHHTRHzw23BmFG3foeGPBaGsCgLB33zPRnfV8xy1moepl7iK1OpG94UGrJL1kXLrzMyRCPNbt698PBcPPV4oI7Gc2ehDT7GJmgw2hDgTzCOo3+EuhLg6UIIxYAp2/WQ+SBwU/ZkEzo7sJmIaoJ9BoVugRa/jvL5/t8l2+cMO7TCzwXlTOB2SWabp0xCS9L+1VZegFCnKr8hLTRdexeZJ8gNWvZt/hFHE4GTrT9nOG5mUfOBu0S7Ny5gaV94nONd/90oYP3YoRa8JlFvlWvLST6N9v+8oEVJVCCkfODIYvJhV4kkG91x6b1TBkYCqZyR04Ull6W27KQfGgN+AQisNfFn2AiRgHYqrwQOVcGunC0/nlWSa8M73RyjijosfOKj6Na8TNdA8KL80mmMWmTgnqCwOtmWsH/5p3xYK2V7+kuIQ==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH0PR11MB7587.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230025)(366004)(376002)(346002)(39860400002)(136003)(396003)(451199018)(478600001)(83380400001)(71200400001)(122000001)(82960400001)(2906002)(52536014)(6862004)(8936002)(33656002)(7416002)(5660300002)(86362001)(38070700005)(7696005)(38100700002)(66446008)(66556008)(8676002)(6636002)(316002)(41300700001)(4326008)(55016003)(26005)(186003)(107886003)(54906003)(6506007)(53546011)(9686003)(66946007)(64756008)(66476007)(76116006);
- DIR:OUT; SFP:1102; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?u2e2kQfSD3HVVEdaiBEjwaZWga3Ag0btJSsXmCt1qkeA4vD21F1NCfolaJEQ?=
- =?us-ascii?Q?Yoz/elOwJs7DdIu00WVIrMMFkiEQuvoP0+fAh/D/cmbDSls1C+UMMyh1jPDV?=
- =?us-ascii?Q?qLYRwPxnZmOohGeS4D6LM55b8MLE6aDVF9d7WF/CvJTvRlSyarSEtAkY9Qgz?=
- =?us-ascii?Q?CQ6DDwm4YYCWrb5sgs5Z204I3FYuErHODQuij29uIAR7wE2hm+PGp28S0xhv?=
- =?us-ascii?Q?NYN7KnhHDZqQfZDwMMsSFGARO0ewSrb1zdDUcEC0WZlvTjBL/GKftme8qSOP?=
- =?us-ascii?Q?f5wFU3qkdqmIXHvAj7yNs3nDXDSlJdKOM+KonhvkGzYan0H6gI8rLJzZGItf?=
- =?us-ascii?Q?0MOP5RWo/lBe5kpYrE3bG0Ve2qlXsrhKEeiP/UgGcKiPuMzi9P8cuLnCaD2J?=
- =?us-ascii?Q?SCxCB5mO27iikzUUjlPG8ottZMj+jKjRV/ZocavmD7yt1E3JD8gC/rXRr9lF?=
- =?us-ascii?Q?HBlSTlKqxDbUZihydf61x9+luOx37zUfcvTA2mg2xzRBuw62kJPIreW11AfT?=
- =?us-ascii?Q?1sZzT7TbB22Ar4aphcGrs8pY2P7NzGua+ayMNAbLy/4QJVFftz94pQiRkqma?=
- =?us-ascii?Q?yuGI9NVW0/FLSucHlrRZQTkTIeG1eZcSqPPKGZc/TZokpoW3J+DPH+3FUIKG?=
- =?us-ascii?Q?4IrZdvJcjMNSh7Xxn1nZv+YqrsPQYG3t+IELI75ltoMM+gdveeoGHRJvH6hV?=
- =?us-ascii?Q?ywIBD7/3HQD2310k9vj96O7z/RdzubF6PDAs4FCGCy6axjBQ8HY+SosjOt71?=
- =?us-ascii?Q?+1kgifFmX4l4hSKwvwefFLcUwnpeF49uZ81JZbdkSrDQ65xfYlZ7BFEsHA9G?=
- =?us-ascii?Q?trlUn47Z7/Rnz7TMe4elw4ljYNDtjKwlGMRd76sd0Pgi+pZBZjwHfe87HAcB?=
- =?us-ascii?Q?DG23gO1sjn3OOYrw9veV0z+VVxDKGkzyv6QKRLMc3Qu6mAbwlrOSyuyfVuPX?=
- =?us-ascii?Q?cdLLIYKkfCCAK07pj8N8Rbw2W9KF5AHN/V/4f1VOdptJwiSuO+Ay4IhbzTIN?=
- =?us-ascii?Q?I6sRl7tJ2fXTUwOQtpR5OxCs4nebtosh5xFMuwSL6bzcV4LNEvOIHX/SHaRx?=
- =?us-ascii?Q?vq+8bn6KAmR6tCPBsV4BDS6eFu5sAVAedTkGbXwmeCy34j+3JQyXZH0yQ0tU?=
- =?us-ascii?Q?Qd0IKWBV7re+SuWX/Q5LYTjFSja8A1QAvwXev2USkQQAOnfsWegw87XWFTAj?=
- =?us-ascii?Q?VUO/lbW7LT0pF3VAL4L05tq9TpAylvePq6fbXiAt1HwrUub+v836s+qHv/qt?=
- =?us-ascii?Q?qKfIBlIzS+Axbf2buiwHoLSwS6xpEfZvrkFAaPTtHDfcW7kLaSZhL7tPdLAu?=
- =?us-ascii?Q?eB+Hy322p/zyjc6KW+eRLXV/8zQ9ZGnGvEQ/ki2E4Y21Ga95Q4tO+QM/w6/l?=
- =?us-ascii?Q?wzUl3zHK0wpq87qNXTRQoYpD3Ywa2JiBrvkuu1Uqrc9a6ei1TRIbv0tyxPJ/?=
- =?us-ascii?Q?KIBELhzdKy8AGUdUNaFIHVxDxk368heN9qfYRu58kLf1kCkkVHKJEuhIXaDl?=
- =?us-ascii?Q?GjqVZkK3ovSAsH8KdUgspt0zYnmHrRsiDmrGT+TEUGxmsdi5Zzgbv1+rgZqv?=
- =?us-ascii?Q?nGeARgUNrFKVNjQerQhXKhR2/uRGgJC+LI9nKT6aiyzg3zzQH3GayO6bYFsc?=
- =?us-ascii?Q?7g=3D=3D?=
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.17; Wed, 15 Mar
+ 2023 15:44:55 +0100
+From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+To: <hminas@synopsys.com>, <gregkh@linuxfoundation.org>,
+ <quentin.schulz@theobroma-systems.com>
+Date: Wed, 15 Mar 2023 15:44:33 +0100
+Message-ID: <20230315144433.3095859-1-fabrice.gasnier@foss.st.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR11MB7587.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0c0bd60b-73a2-44cf-af4a-08db253ea3cf
-X-MS-Exchange-CrossTenant-originalarrivaltime: 15 Mar 2023 10:18:36.9087 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: jzDxOqMwRiyoKnGG+0WSJBpypz/Xu7YUizSHFdW+X26dhJPjLp3+ApbNK07AgG9xyxd8YCyoOjoDim3Hrewa40UeLVm8i9sY7S5AvWcAiWU=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR11MB6693
-X-OriginatorOrg: intel.com
-Cc: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "Voon,
- Weifeng" <weifeng.voon@intel.com>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>, "Lai,
- Peter Jun Ann" <peter.jun.ann.lai@intel.com>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>, Eric Dumazet <edumazet@google.com>,
- Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Jakub
- Kicinski <kuba@kernel.org>, "Ong, Boon Leong" <boon.leong.ong@intel.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>, "Looi,
- Hong Aun" <hong.aun.looi@intel.com>, Paolo Abeni <pabeni@redhat.com>,
- "David S . Miller" <davem@davemloft.net>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH net 2/2] net: stmmac: move fixed-link
-	support fixup code
+X-Originating-IP: [10.48.1.102]
+X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SHFDAG1NODE2.st.com
+ (10.75.129.70)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.254,Aquarius:18.0.942,Hydra:6.0.573,FMLib:17.11.170.22
+ definitions=2023-03-15_08,2023-03-15_01,2023-02-09_01
+Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [PATCH] usb: dwc2: fix a race,
+	don't power off/on phy for dual-role mode
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -168,130 +74,99 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+When in dual role mode (dr_mode == USB_DR_MODE_OTG), platform probe
+successively basically calls:
+- dwc2_gadget_init()
+- dwc2_hcd_init()
+- dwc2_lowlevel_hw_disable() since recent change [1]
+- usb_add_gadget_udc()
 
+The PHYs (and so the clocks it may provide) shouldn't be disabled for all
+SoCs, in OTG mode, as the HCD part has been initialized.
 
-> -----Original Message-----
-> From: Raczynski, Piotr <piotr.raczynski@intel.com>
-> Sent: Tuesday, March 14, 2023 5:02 PM
-> To: Sit, Michael Wei Hong <michael.wei.hong.sit@intel.com>
-> Cc: Giuseppe Cavallaro <peppe.cavallaro@st.com>; Alexandre
-> Torgue <alexandre.torgue@foss.st.com>; Jose Abreu
-> <joabreu@synopsys.com>; David S . Miller <davem@davemloft.net>;
-> Eric Dumazet <edumazet@google.com>; Jakub Kicinski
-> <kuba@kernel.org>; Paolo Abeni <pabeni@redhat.com>; Maxime
-> Coquelin <mcoquelin.stm32@gmail.com>; Ong, Boon Leong
-> <boon.leong.ong@intel.com>; netdev@vger.kernel.org; linux-
-> stm32@st-md-mailman.stormreply.com; linux-arm-
-> kernel@lists.infradead.org; linux-kernel@vger.kernel.org; Looi,
-> Hong Aun <hong.aun.looi@intel.com>; Voon, Weifeng
-> <weifeng.voon@intel.com>; Lai, Peter Jun Ann
-> <peter.jun.ann.lai@intel.com>
-> Subject: Re: [PATCH net 2/2] net: stmmac: move fixed-link support
-> fixup code
-> 
-> On Mon, Mar 13, 2023 at 04:01:35PM +0800, Michael Sit Wei Hong
-> wrote:
-> > xpcs_an_inband value is updated in the speed_mode_2500
-> function which
-> > turns on the xpcs_an_inband mode.
-> >
-> > Moving the fixed-link fixup code to right before phylink setup to
-> > ensure no more fixup will affect the fixed-link mode configurations.
-> >
-> > Fixes: 72edaf39fc65 ("stmmac: intel: add phy-mode and fixed-link
-> ACPI
-> > _DSD setting support")
-> > Signed-off-by: Michael Sit Wei Hong
-> <michael.wei.hong.sit@intel.com>
-> > ---
-> >  drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c | 11 ---------
-> --
-> > drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 15
-> +++++++++++++++
-> >  2 files changed, 15 insertions(+), 11 deletions(-)
-> >
-> > diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
-> > b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
-> > index 7deb1f817dac..d02db2b529b9 100644
-> > --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
-> > +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
-> > @@ -592,17 +592,6 @@ static int
-> intel_mgbe_common_data(struct pci_dev *pdev,
-> >  		plat->mdio_bus_data->xpcs_an_inband = true;
-> >  	}
-> >
-> > -	/* For fixed-link setup, we clear xpcs_an_inband */
-> > -	if (fwnode) {
-> > -		struct fwnode_handle *fixed_node;
-> > -
-> > -		fixed_node =
-> fwnode_get_named_child_node(fwnode, "fixed-link");
-> > -		if (fixed_node)
-> > -			plat->mdio_bus_data->xpcs_an_inband =
-> false;
-> > -
-> > -		fwnode_handle_put(fixed_node);
-> > -	}
-> > -
-> >  	/* Ensure mdio bus scan skips intel serdes and pcs-xpcs */
-> >  	plat->mdio_bus_data->phy_mask = 1 <<
-> INTEL_MGBE_ADHOC_ADDR;
-> >  	plat->mdio_bus_data->phy_mask |= 1 <<
-> INTEL_MGBE_XPCS_ADDR; diff
-> > --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> > b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> > index 398adcd68ee8..5a9abafba490 100644
-> > --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> > +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> > @@ -7064,6 +7064,7 @@ int stmmac_dvr_probe(struct device
-> *device,
-> >  		     struct stmmac_resources *res)
-> >  {
-> >  	struct net_device *ndev = NULL;
-> > +	struct fwnode_handle *fwnode;
-> >  	struct stmmac_priv *priv;
-> >  	u32 rxq;
-> >  	int i, ret = 0;
-> > @@ -7306,6 +7307,20 @@ int stmmac_dvr_probe(struct device
-> *device,
-> >  			goto error_xpcs_setup;
-> >  	}
-> >
-> > +	/* For fixed-link setup, we clear xpcs_an_inband */
-> > +	if (!fwnode)
-> > +		fwnode = dev_fwnode(priv->device);
-> > +
-> > +	if (fwnode) {
-> > +		struct fwnode_handle *fixed_node;
-> > +
-> > +		fixed_node =
-> fwnode_get_named_child_node(fwnode, "fixed-link");
-> > +		if (fixed_node)
-> > +			priv->plat->mdio_bus_data-
-> >xpcs_an_inband = false;
-> > +
-> > +		fwnode_handle_put(fixed_node);
-> > +	}
-> > +
-> 
-> Now you're doing similar checks here and inside stmmac_init_phy.
-> Maybe you could combined this to some function?
-> 
-> Piotr
-In stmmac_dvr_probe, the check for fixed-link  is to fixup the xpcs_an_inband
-data. Whereas in stmmac_init_phy, we store the fixed_node info to
-determine if we need to setup the PHY handle manually in the later code,
-and will run phylink_fwnode_phy_connect which uses the fwnode variable.
-The NULL check on fwnode is to ensure the functions that uses the fwnode
-does not access NULL pointers. It might be difficult to combine it into a
-function due to the way fixed_node is used.
-> 
-> >  	ret = stmmac_phy_setup(priv);
-> >  	if (ret) {
-> >  		netdev_err(ndev, "failed to setup phy (%d)\n", ret);
-> > --
-> > 2.34.1
-> >
+On STM32 this creates some weird race condition upon boot, when:
+- initially attached as a device, to a HOST
+- and there is a gadget script invoked to setup the device part.
+Below issue becomes systematic, as long as the gadget script isn't
+started by userland: the hardware PHYs (and so the clocks provided by the
+PHYs) remains disabled.
+It ends up in having an endless interrupt storm, before the watchdog
+resets the platform.
+
+[   16.924163] dwc2 49000000.usb-otg: EPs: 9, dedicated fifos, 952 entries in SPRAM
+[   16.962704] dwc2 49000000.usb-otg: DWC OTG Controller
+[   16.966488] dwc2 49000000.usb-otg: new USB bus registered, assigned bus number 2
+[   16.974051] dwc2 49000000.usb-otg: irq 77, io mem 0x49000000
+[   17.032170] hub 2-0:1.0: USB hub found
+[   17.042299] hub 2-0:1.0: 1 port detected
+[   17.175408] dwc2 49000000.usb-otg: Mode Mismatch Interrupt: currently in Host mode
+[   17.181741] dwc2 49000000.usb-otg: Mode Mismatch Interrupt: currently in Host mode
+[   17.189303] dwc2 49000000.usb-otg: Mode Mismatch Interrupt: currently in Host mode
+...
+
+The host part is also not functional, until the gadget part is configured.
+
+The HW may only be disabled for peripheral mode (original init), e.g.
+dr_mode == USB_DR_MODE_PERIPHERAL, until the gadget driver initializes.
+
+But when in USB_DR_MODE_OTG, the HW should remain enabled, as the HCD part
+is able to run, while the gadget part isn't necessarily configured.
+
+I don't fully get the of purpose the original change, that claims disabling
+the hardware is missing. It creates conditions on SOCs using the PHY
+initialization to be completely non working in OTG mode. Original
+change [1] should be reworked to be platform specific.
+
+[1] https://lore.kernel.org/r/20221206-dwc2-gadget-dual-role-v1-2-36515e1092cd@theobroma-systems.com
+
+Fixes: ade23d7b7ec5 ("usb: dwc2: power on/off phy for peripheral mode in dual-role mode")
+Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+---
+ drivers/usb/dwc2/gadget.c   | 6 ++----
+ drivers/usb/dwc2/platform.c | 3 +--
+ 2 files changed, 3 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/usb/dwc2/gadget.c b/drivers/usb/dwc2/gadget.c
+index 62fa6378d2d7..8b15742d9e8a 100644
+--- a/drivers/usb/dwc2/gadget.c
++++ b/drivers/usb/dwc2/gadget.c
+@@ -4549,8 +4549,7 @@ static int dwc2_hsotg_udc_start(struct usb_gadget *gadget,
+ 	hsotg->gadget.dev.of_node = hsotg->dev->of_node;
+ 	hsotg->gadget.speed = USB_SPEED_UNKNOWN;
+ 
+-	if (hsotg->dr_mode == USB_DR_MODE_PERIPHERAL ||
+-	    (hsotg->dr_mode == USB_DR_MODE_OTG && dwc2_is_device_mode(hsotg))) {
++	if (hsotg->dr_mode == USB_DR_MODE_PERIPHERAL) {
+ 		ret = dwc2_lowlevel_hw_enable(hsotg);
+ 		if (ret)
+ 			goto err;
+@@ -4612,8 +4611,7 @@ static int dwc2_hsotg_udc_stop(struct usb_gadget *gadget)
+ 	if (!IS_ERR_OR_NULL(hsotg->uphy))
+ 		otg_set_peripheral(hsotg->uphy->otg, NULL);
+ 
+-	if (hsotg->dr_mode == USB_DR_MODE_PERIPHERAL ||
+-	    (hsotg->dr_mode == USB_DR_MODE_OTG && dwc2_is_device_mode(hsotg)))
++	if (hsotg->dr_mode == USB_DR_MODE_PERIPHERAL)
+ 		dwc2_lowlevel_hw_disable(hsotg);
+ 
+ 	return 0;
+diff --git a/drivers/usb/dwc2/platform.c b/drivers/usb/dwc2/platform.c
+index 23ef75996823..262c13b6362a 100644
+--- a/drivers/usb/dwc2/platform.c
++++ b/drivers/usb/dwc2/platform.c
+@@ -576,8 +576,7 @@ static int dwc2_driver_probe(struct platform_device *dev)
+ 	dwc2_debugfs_init(hsotg);
+ 
+ 	/* Gadget code manages lowlevel hw on its own */
+-	if (hsotg->dr_mode == USB_DR_MODE_PERIPHERAL ||
+-	    (hsotg->dr_mode == USB_DR_MODE_OTG && dwc2_is_device_mode(hsotg)))
++	if (hsotg->dr_mode == USB_DR_MODE_PERIPHERAL)
+ 		dwc2_lowlevel_hw_disable(hsotg);
+ 
+ #if IS_ENABLED(CONFIG_USB_DWC2_PERIPHERAL) || \
+-- 
+2.25.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
