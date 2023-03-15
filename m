@@ -2,148 +2,53 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 00F6F6BAB61
-	for <lists+linux-stm32@lfdr.de>; Wed, 15 Mar 2023 10:00:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E1E0D6BABEC
+	for <lists+linux-stm32@lfdr.de>; Wed, 15 Mar 2023 10:18:15 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A331BC65E60;
-	Wed, 15 Mar 2023 09:00:36 +0000 (UTC)
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 99C06C65E60;
+	Wed, 15 Mar 2023 09:18:15 +0000 (UTC)
+Received: from mout.kundenserver.de (mout.kundenserver.de [217.72.192.75])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CB2B7C64107
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 63BE8C64107
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 15 Mar 2023 09:00:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1678870835; x=1710406835;
- h=date:from:to:cc:subject:message-id:references:
- in-reply-to:mime-version;
- bh=0EmbmHQz9xt6c86A3zGSNyZhzudWtXEsjtWDWqoq4uI=;
- b=D48WxvFFGnDWRVcejeNW9SRPPhuPsGpLXM/6kzQzXLL31B0e+SX8GAKG
- VHb3TerK2Zf/Ht7ujlYP85g6yeU1eFX7wWOGFlR7gIgt84mWhnPYiE1PR
- vrbsh6Iy6VaUIKtA5OGNsifxZHHrSzMtlSmU9Emvivm4FaU3ibR4NuQxC
- W95m+5ffsvlaYpaK+GkbevdDvvGrm1hcdyOun6qt0pyz0VA8NC7aKx9FM
- suUV7clSsKw0gKpMsdPwQq6Fmy5bSenYJRhVhXN6iw+UywjGIvQt2Yuz5
- OZ8kFrCxsTL3fHhbIFeL4q35h5lY3to+K+VgPgI5U4tWgHJ2edsKzejEh w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10649"; a="340012834"
-X-IronPort-AV: E=Sophos;i="5.98,262,1673942400"; d="scan'208";a="340012834"
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Mar 2023 01:59:09 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10649"; a="629381460"
-X-IronPort-AV: E=Sophos;i="5.98,262,1673942400"; d="scan'208";a="629381460"
-Received: from fmsmsx601.amr.corp.intel.com ([10.18.126.81])
- by orsmga003.jf.intel.com with ESMTP; 15 Mar 2023 01:59:09 -0700
-Received: from fmsmsx611.amr.corp.intel.com (10.18.126.91) by
- fmsmsx601.amr.corp.intel.com (10.18.126.81) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.21; Wed, 15 Mar 2023 01:59:08 -0700
-Received: from fmsmsx601.amr.corp.intel.com (10.18.126.81) by
- fmsmsx611.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.21; Wed, 15 Mar 2023 01:59:08 -0700
-Received: from fmsedg602.ED.cps.intel.com (10.1.192.136) by
- fmsmsx601.amr.corp.intel.com (10.18.126.81) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.21 via Frontend Transport; Wed, 15 Mar 2023 01:59:08 -0700
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com (104.47.55.105)
- by edgegateway.intel.com (192.55.55.71) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2507.21; Wed, 15 Mar 2023 01:59:08 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=NkZExllMY7UG3H3cJH3vq+NSPuz6RXKh9FsqowVLyVA8XOtjV1PeWaNpHfLPudNv3vhIuZVmjet3/FyP6tbaX+mz0p3Nlpb64GvwYpuql9LmNONgN6uzYNg+0DXZq6lQfFPnvelmiDEE1119yTlWRijgN0HizbfewocuWHGwHrWy2plvMy5RXvhOARcKHoXBcnBQ6Nfa4pRgkHnx40/uUF/0IdNeb6JT/2w1BH3p1DBZVqVdolLtKS+Fpc2uYEMiuv0w/p+jUWR8H5mdp9Kxwwe07VuY2We6SjijQ4iOW/+q3JSUpx8rltcxRnVrv9teNTJ9bQZXXLFEc8w2h8jnVg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=D7BKwGUb2F08CpaYhRP+u9exTLJLRpahy1Io4ttV0/I=;
- b=P8PGe0Z6lXsXilUtzFcg8xvGzjqxYZrHLP1GVDQ14/bAk6tOBLnHrd8iaFwMgx726Daon7kVi37uPplbFgkuxN6a++0yx7OSpnZ/733ZWc/rD28e7PJ3mR5RMGu3VV/rwe4jkm6CN+v7m8CGvvIoD3ZWgBpsX/MbgMVHepVqNltzbTrcz2ullUOWPqyg7wZ9w+MKW1YNBgbqbd8D/OXBsuVQ4FhBQxAYxNjU2zlFeFoyuGAW/Y9vzbFs9fLqWmSwQVLKlBfYylDx+1qCJwJzIkL6xg1AlDQeqPMDIMq3YvL+/+qc1ZGu6W9PqQWyBWhAt8AxKUoySukMcKm/SNoY9w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from PH0PR11MB7471.namprd11.prod.outlook.com (2603:10b6:510:28a::13)
- by CY5PR11MB6187.namprd11.prod.outlook.com (2603:10b6:930:25::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.29; Wed, 15 Mar
- 2023 08:59:06 +0000
-Received: from PH0PR11MB7471.namprd11.prod.outlook.com
- ([fe80::37bf:fa82:8a21:a056]) by PH0PR11MB7471.namprd11.prod.outlook.com
- ([fe80::37bf:fa82:8a21:a056%2]) with mapi id 15.20.6178.024; Wed, 15 Mar 2023
- 08:59:06 +0000
-Date: Wed, 15 Mar 2023 09:59:01 +0100
-From: Piotr Raczynski <piotr.raczynski@intel.com>
-To: Jochen Henneberg <jh@henneberg-systemdesign.com>
-Message-ID: <ZBGI1TxdNJHxPwtu@nimitz>
+ Wed, 15 Mar 2023 09:18:14 +0000 (UTC)
+Received: from maxwell ([109.43.50.216]) by mrelayeu.kundenserver.de (mreue109
+ [213.165.67.113]) with ESMTPSA (Nemesis) id 1Mj8eB-1q7s7x3pvJ-00fFAo; Wed, 15
+ Mar 2023 10:17:45 +0100
 References: <20230314123759.132521-1-jh@henneberg-systemdesign.com>
  <20230314123759.132521-2-jh@henneberg-systemdesign.com>
- <ZBCIM//XkpFkiC4W@nimitz>
- <878rfzgysa.fsf@henneberg-systemdesign.com>
-Content-Disposition: inline
-In-Reply-To: <878rfzgysa.fsf@henneberg-systemdesign.com>
-X-ClientProxiedBy: LO2P123CA0094.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:139::9) To PH0PR11MB7471.namprd11.prod.outlook.com
- (2603:10b6:510:28a::13)
+ <ZBCIM//XkpFkiC4W@nimitz> <878rfzgysa.fsf@henneberg-systemdesign.com>
+ <ZBGI1TxdNJHxPwtu@nimitz>
+User-agent: mu4e 1.8.14; emacs 28.2
+From: Jochen Henneberg <jh@henneberg-systemdesign.com>
+To: Piotr Raczynski <piotr.raczynski@intel.com>
+Date: Wed, 15 Mar 2023 10:13:46 +0100
+In-reply-to: <ZBGI1TxdNJHxPwtu@nimitz>
+Message-ID: <874jqmgyq8.fsf@henneberg-systemdesign.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH0PR11MB7471:EE_|CY5PR11MB6187:EE_
-X-MS-Office365-Filtering-Correlation-Id: a4fb88a8-6a3b-4146-dee3-08db2533885e
-X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Kn3+3jLsoFC/AP/o0TgUC5mlKr1YHYazm/SduFaiAKGu/11L76JBEkQeGQAZ8HonraERJTet/3CqJjnPNyHEA9r6TcIM1VGTpIroGos45Zrgfp4Mjp35e0FL+GFDhm2ilBa3rmH6EW48DC075Ig806XGfPQ0WgFQ2G7iVZH5oWcPUrAvTw+RFjx2aJWukT321k572hUGV4wcY0GayomT24madQK/uWJNP07EQiL8fUgwyB8QcCPEQAuMq4szPgMS2v1m9HNx8/38AnO9Ks8RSpJlP76YBlp/pLRdWTPscwhSWlwhcwVtExqU93UB34+/ht9ui8RRbqUQxH8fKHDJ6dy2FmG2AW5KtBfGo78SPw/bPZC/gEo+8oA33DqhW98nFzljqbxyXFwDGBNCR2/oRocr3q7p8juRPx9JiAVKcHrwnain2KH/qe9GKxdnXjRHojIChArNN+sSLIUXBIPKDSwmG75nZRmDbtMMpebjU+kjIJK4UBsvPIHr1PsPF3KekU+mNW/tqOKnNl0hWj0bYcXL7B2wyfugvzYvdmBCbvOaJsAMliKR4qtNjF3td5fRsrwOG9bR90KA7PmuYfR/QBEGs2hwZsJhetfGY0qYAMwgVd5IKp5GzcKITEaOxtju
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH0PR11MB7471.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230025)(7916004)(346002)(39860400002)(376002)(396003)(366004)(136003)(451199018)(6486002)(966005)(38100700002)(2906002)(6666004)(66556008)(4326008)(8676002)(6916009)(66946007)(66476007)(86362001)(26005)(6506007)(6512007)(9686003)(478600001)(186003)(82960400001)(83380400001)(316002)(33716001)(44832011)(41300700001)(8936002)(54906003)(7416002)(5660300002);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?8/OQ2qhGJOdU06WctPtkawk0izqCWIvUinWv2s2tn/FCum61kkFWYnM+jGLP?=
- =?us-ascii?Q?iUWCuFcEO7AYIPWazYyRQToihjF3SOcfgvqmSq4TRbvSDVYoHvYzM962Qewy?=
- =?us-ascii?Q?WWnIJR0Dot+qTFGQOyNgmUk3NsCdAmKHk/2/gVxEcoS60qKf860Kd657Bkj1?=
- =?us-ascii?Q?LOL334VImhg+gVn6BecS3iUOLqafR51olP418UC8p8/dlV65RODRI0evuGMw?=
- =?us-ascii?Q?AYpQEeajD3bNDCwEBMTLVE7xOeYCst3st0pGSi4VVBdBGrmR1BAvTZA8jasm?=
- =?us-ascii?Q?UiH10BjB0p2SnkhLyDkOkX7wDI01nxJFTAu3I0IX/qXBB+iYwqlHkSV88CxL?=
- =?us-ascii?Q?kKwHIqzTO+bmNdzyEEIGs1ke6thN3r/BdFSE4RHcKQzXUD3edxzQjShWGaE1?=
- =?us-ascii?Q?vXEzhPelOXgZsirMuyEu7l7wHugy1OImkjYOPKligNLCRd4J7WpETpy+h27R?=
- =?us-ascii?Q?s0fRmEjLZqObNUsrqoVHXm8u6VkeAS2Lh9R3yjLI3QCMwCPp3TC1Wc85sNa2?=
- =?us-ascii?Q?eVizJbcWYR9MeI4CwCAnkBXIHmdW6hHS0H/htlwc8Kmp7XxqDrobdcmdw6cd?=
- =?us-ascii?Q?DHa3naPdapPOvu2FBBystxnMSGE+RgwB+SJc/31fasIHFXmubMTFtZ/S9qW7?=
- =?us-ascii?Q?7OBjubBrB7GkIhiOCJrVdTDGMVCwx/00JSae5xnDoT3pmOzv3hyD/wf7wXsi?=
- =?us-ascii?Q?AysqRdmKioQin25582UhiwOAFwMU7FvP8bw3CVacNH1tNqRyV8gBPpDkKK9s?=
- =?us-ascii?Q?7mNsaANQUjkzviGpgaQeb3BasE05G4yfoR2+YMSvg504FScKTFjKrrsl0P4L?=
- =?us-ascii?Q?yOH9lgjbNMaRmD2eLn/TYT/T0PN77GXUTx1FjWAWdmqsnfUlSYHfQQREL2oU?=
- =?us-ascii?Q?VqKyOztz6lP/qZgmOGWtW9z5VyyEF6RsTXcby5fYP3AzfKmeivyqZ8egCiTS?=
- =?us-ascii?Q?F1VVjBM1hoXU5ZrPiACYxAf05w1w6coE7bY4LaCFuvXIhq1qy2s+VzYcBmMs?=
- =?us-ascii?Q?vpSoXG5InoVB/Eqlwkj4BgWx9KQKMiiWROuYl+a0Hk9YH+YUgVS6CeF0+aIA?=
- =?us-ascii?Q?+83YEhR5BrwN+CECHj47gUlBiteBX4x73P9AiKZOeNE5FanaMBB58Oos5NP7?=
- =?us-ascii?Q?jHelMzPLVmeGkFkqGwwgiLEoCZCbLV1tfrhlZ96EZLjaMeXejsWP/PwxgMyT?=
- =?us-ascii?Q?qBDQ2jZoZTAmsAeEAhsZj64YRs9lGRuY5Wnc3zu9aAz2jnsN+LcxVXo9WChc?=
- =?us-ascii?Q?oUK0wv99XHCUAjvYhq444j+ecjkAcTIzIM0zghsAxLlzIyHppT57fNWuZsDM?=
- =?us-ascii?Q?59DJrcSjQh0N0XfmE0oeu9kpkTt6fETHR+/ZyloQYSMhfw4AhsqOkeg0/QSB?=
- =?us-ascii?Q?uGykEGhJ+uO/Zw3k+LtfFw+cmMjwuwj+qzluIYi1Y+/hL3Nv3Ti3LLi99qpD?=
- =?us-ascii?Q?FbNcsQPFrCpnXm9w/lA5GitnpapnA8wocgSZE5r8AhtKMkn3V+7FL4E0WxSN?=
- =?us-ascii?Q?aVSqoU9KfZL83OFR9nHMB2BEyA1NvPXdlKuOdhZ24CBZljeB6nJZ2zCamktj?=
- =?us-ascii?Q?DObdwegk2zoAG6CQ3xDxYX6pEevGTmg0vrULBeZ/Oi4JyCRiGApdI7m+zG8F?=
- =?us-ascii?Q?IA=3D=3D?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: a4fb88a8-6a3b-4146-dee3-08db2533885e
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR11MB7471.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Mar 2023 08:59:06.6098 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: t4UG6g+U5+TWYkkQkpelJqugRqAQIFd17LmLS6UhJ7ymUNo5ceGHEexTKi1SAYuRJZKnFDAOkLhVE4MteJF6YCdGLXad/quU2vxzoPlD7ec=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR11MB6187
-X-OriginatorOrg: intel.com
+X-Provags-ID: V03:K1:S922b+8o4Y7LC9//asTBO8aSj7ByxZpvlXTwngol4C1G9miRqeI
+ vvm6FvKdKWo+THzuvwT8Mtg1Vb58BEpfsyqouvRM4xMokRYOkDnzk7XlDXo995bx9FPed7l
+ JW/0dWjLhyvYfwdyAtHS7w+8vRQo9G73hA6B5QObDuph56sEy4Kjh2bJ1Ag0MJ+LgjZoU+H
+ 5s4aN7nQGNHocQYcQoV7g==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:d3AVJOz1y2k=;717VqAdYEa2Y83A+eRm12H98nL0
+ oS9ka/XzNHQ/S91radP44utzD6sYZ2mMcMjrqJcik7CeKBu/6/XRF6+MHpTbZ62vV9+tQUinO
+ GJrRj+z34R1KlyVg+PnHhpAJuSnbOXOBc6hXW6R+6vFdu6cU3ofxVIfvFk09qsja1d81zQMm6
+ s0tqy9VoLKQG2YkOzwkSXcv80jWWNBmoMILE7J5B7pjCsz2bTDAXMgyrscn0l+XJaffgaX2KY
+ GtAmyHgvTk2knps8SSVl5j/AcoakSVbeDgAXyJTVJ9zpDYKd5hsRzvZHE8xuuwAy7LCeB3jGX
+ oB1YY6CB6pvdep+sFpjVyfnXqf1beM9Hasi/hil0NuF0RIy2f5lvWd5F/Cx9l5wRos6KiaUqU
+ jWtY9afVtZb/oP9IuepcFF2CsRWyNvtK4zFBOnVnhEkqD7OQXm1S/EgB5rNz4VdGVow//PsMm
+ fxPJELc7SZ6Yj4Z0H8uaY8arAQFPMiiiIOKhJUDrNKl7Jso7IJABhkcB/iwFFKhcnBmg7MC0Z
+ jQGAxexCoq3tpEDXX95bogiBFZmWIIM3gv2u9O3CmrQ5v00b637OD0XWaLRioizHFBzUrJXau
+ LnFNX9PJKjL/vf0G0YSD8FHBaoBkxymbh7Hsdo1y02vcxTYMiyABjELsnndm7VWg/i9G69EIW
+ 1ORDl9v5uGr4tnEb28cVG72DL/qa/Ajd/XOS66yDfQ==
 Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
  Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Jakub Kicinski <kuba@kernel.org>, Ong Boon
- Leong <boon.leong.ong@intel.com>, Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
- linux-arm-kernel@lists.infradead.org
+ Jakub Kicinski <kuba@kernel.org>, Ong Boon Leong <boon.leong.ong@intel.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>, Paolo Abeni <pabeni@redhat.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
 Subject: Re: [Linux-stm32] [PATCH net 1/2] net: stmmac: Premature loop
  termination check was ignored
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
@@ -162,77 +67,105 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Mar 14, 2023 at 04:01:11PM +0100, Jochen Henneberg wrote:
-> 
-> Piotr Raczynski <piotr.raczynski@intel.com> writes:
-> 
-> > On Tue, Mar 14, 2023 at 01:37:58PM +0100, Jochen Henneberg wrote:
-> >> The premature loop termination check makes sense only in case of the
-> >> jump to read_again where the count may have been updated. But
-> >> read_again did not include the check.
-> >
-> > Your commit titles and messages seems identical in both patches, someone
-> > may get confused, maybe you could change commit titles at least?
-> >
-> > Or since those are very related one liner fixes, maybe combine them into
-> > one?
-> 
-> I was told to split them into a series because the fixes apply to
-> different kernel versions.
-> 
-Makes sense, thanks. However I'd still at least modify title to show
-which patch fixes zc path or anything to distinguish them beside commit
-sha.
-> >
-> > Also a question, since you in generally goto backwards here, is it guarded from
-> > an infinite loop (during some corner case scenario maybe)?
-> 
-> In theory I think this may happen, however, I would consider that to be
-> a different patch since it addresses a different issue.
-> 
 
-Right, it just caught my attention, probably just make sense to check
-it.
-> >
-> > Other than that looks fine, thanks.
-> > Reviewed-by: Piotr Raczynski <piotr.raczynski@intel.com>
-> >
-> >> 
-> >> Fixes: ec222003bd94 ("net: stmmac: Prepare to add Split Header support")
-> >> Signed-off-by: Jochen Henneberg <jh@henneberg-systemdesign.com>
-> >> ---
-> >>  drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 2 +-
-> >>  1 file changed, 1 insertion(+), 1 deletion(-)
-> >> 
-> >> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> >> index e4902a7bb61e..ea51c7c93101 100644
-> >> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> >> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> >> @@ -5221,10 +5221,10 @@ static int stmmac_rx(struct stmmac_priv *priv, int limit, u32 queue)
-> >>  			len = 0;
-> >>  		}
-> >>  
-> >> +read_again:
-> >>  		if (count >= limit)
-> >>  			break;
-> >>  
-> >> -read_again:
-> >>  		buf1_len = 0;
-> >>  		buf2_len = 0;
-> >>  		entry = next_entry;
-> >> -- 
-> >> 2.39.2
-> >> 
-> 
-> 
-> -- 
-> Henneberg - Systemdesign
-> Jochen Henneberg
-> Loehnfeld 26
-> 21423 Winsen (Luhe)
-> --
-> Fon: +49 172 160 14 69
-> Url: https://www.henneberg-systemdesign.com
+Piotr Raczynski <piotr.raczynski@intel.com> writes:
+
+> On Tue, Mar 14, 2023 at 04:01:11PM +0100, Jochen Henneberg wrote:
+>> 
+>> Piotr Raczynski <piotr.raczynski@intel.com> writes:
+>> 
+>> > On Tue, Mar 14, 2023 at 01:37:58PM +0100, Jochen Henneberg wrote:
+>> >> The premature loop termination check makes sense only in case of the
+>> >> jump to read_again where the count may have been updated. But
+>> >> read_again did not include the check.
+>> >
+>> > Your commit titles and messages seems identical in both patches, someone
+>> > may get confused, maybe you could change commit titles at least?
+>> >
+>> > Or since those are very related one liner fixes, maybe combine them into
+>> > one?
+>> 
+>> I was told to split them into a series because the fixes apply to
+>> different kernel versions.
+>> 
+> Makes sense, thanks. However I'd still at least modify title to show
+> which patch fixes zc path or anything to distinguish them beside commit
+> sha.
+
+Will do.
+
+>> >
+>> > Also a question, since you in generally goto backwards here, is it guarded from
+>> > an infinite loop (during some corner case scenario maybe)?
+>> 
+>> In theory I think this may happen, however, I would consider that to be
+>> a different patch since it addresses a different issue.
+>> 
+>
+> Right, it just caught my attention, probably just make sense to check
+> it.
+
+I will take a look. Really, from code readability the driver is in a bad
+shape, comments do not match code, bool and int are mixed for flags and
+bool parameters are set with int values, DMA memory barriers are set
+inconsistently and many more. This makes it hard to be sure what things
+really do and follow code paths. I will try to check this issue and
+provide a fix if necessary.
+
+Btw., shall I copy your Reviewed-by and the reviewed-by from previous
+patches into the new series or do you set the tag again on the V2
+series?
+
+>> >
+>> > Other than that looks fine, thanks.
+>> > Reviewed-by: Piotr Raczynski <piotr.raczynski@intel.com>
+>> >
+>> >> 
+>> >> Fixes: ec222003bd94 ("net: stmmac: Prepare to add Split Header support")
+>> >> Signed-off-by: Jochen Henneberg <jh@henneberg-systemdesign.com>
+>> >> ---
+>> >>  drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 2 +-
+>> >>  1 file changed, 1 insertion(+), 1 deletion(-)
+>> >> 
+>> >> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+>> >> index e4902a7bb61e..ea51c7c93101 100644
+>> >> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+>> >> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+>> >> @@ -5221,10 +5221,10 @@ static int stmmac_rx(struct stmmac_priv *priv, int limit, u32 queue)
+>> >>  			len = 0;
+>> >>  		}
+>> >>  
+>> >> +read_again:
+>> >>  		if (count >= limit)
+>> >>  			break;
+>> >>  
+>> >> -read_again:
+>> >>  		buf1_len = 0;
+>> >>  		buf2_len = 0;
+>> >>  		entry = next_entry;
+>> >> -- 
+>> >> 2.39.2
+>> >> 
+>> 
+>> 
+>> -- 
+>> Henneberg - Systemdesign
+>> Jochen Henneberg
+>> Loehnfeld 26
+>> 21423 Winsen (Luhe)
+>> --
+>> Fon: +49 172 160 14 69
+>> Url: https://www.henneberg-systemdesign.com
+
+
+-- 
+Henneberg - Systemdesign
+Jochen Henneberg
+Loehnfeld 26
+21423 Winsen (Luhe)
+--
+Fon: +49 172 160 14 69
+Url: https://www.henneberg-systemdesign.com
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
