@@ -2,54 +2,86 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D20856BC80C
-	for <lists+linux-stm32@lfdr.de>; Thu, 16 Mar 2023 09:01:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 35E226BC826
+	for <lists+linux-stm32@lfdr.de>; Thu, 16 Mar 2023 09:04:37 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 88514C6904C;
-	Thu, 16 Mar 2023 08:01:27 +0000 (UTC)
-Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.131])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E43EFC6904F;
+	Thu, 16 Mar 2023 08:04:36 +0000 (UTC)
+Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com
+ [209.85.208.54])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9352EC65043
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C260AC65043
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 16 Mar 2023 08:01:26 +0000 (UTC)
-Received: from maxwell.fritz.box ([109.42.114.157]) by
- mrelayeu.kundenserver.de (mreue011 [213.165.67.97]) with ESMTPSA (Nemesis) id
- 1MqbI0-1qGED61Gd6-00meWG; Thu, 16 Mar 2023 09:00:52 +0100
-From: Jochen Henneberg <jh@henneberg-systemdesign.com>
-To: netdev@vger.kernel.org
-Date: Thu, 16 Mar 2023 08:59:40 +0100
-Message-Id: <20230316075940.695583-3-jh@henneberg-systemdesign.com>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20230316075940.695583-1-jh@henneberg-systemdesign.com>
-References: <20230316075940.695583-1-jh@henneberg-systemdesign.com>
+ Thu, 16 Mar 2023 08:04:35 +0000 (UTC)
+Received: by mail-ed1-f54.google.com with SMTP id r11so4168724edd.5
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 16 Mar 2023 01:04:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1678953875;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=LYB052YukoVdHW+qtRSlTHvZr0e0YBjYSQAsxVr9fBE=;
+ b=z1vfVSpJ6do8mfJMS+4lrkAz3tA2qhe1UIpap1YHopgEFIxrup8SNosmJSJDEI7tNs
+ wFfDO3mGj4g4HmkuKDvl+My2rfs1R47oG59emGK26zJYJpe3oJ5QbK5L7a0KH0nNmbkT
+ 5YfqUKui3cWOkZ4qZezj/q79D5jEXBrhLrFCnrt3zLtNQ3xqzh+HfIHxUbddMvXGxFjd
+ FkdLktkcLu8CLObIpI/8tGUr9zHgXExrsjGOFWNpw5KWk6jVwcvGqEkd+JHjJmbLIlUH
+ +tjotKe1/1nMvqrnhgs9hLoBSygJ3nzEyE0MElFR8n+tfOgWu6mHzsqjJOAKbUl/adFb
+ KaTg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112; t=1678953875;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=LYB052YukoVdHW+qtRSlTHvZr0e0YBjYSQAsxVr9fBE=;
+ b=mZhpWJW8ptyOrUxN+wZcnO+8ij768qtM2OEq47meJtWCoWwY880jE1ogU/UKbjMGD3
+ 1oszlP7KQmGSPuAoZTJQg9/2M99QkpkQ8PHsxxRvo6BpSJVbW2+qSHszOopSZRskrmvc
+ l1qta3gnGfe3elsdh3M7QmRcVZYzCRHpaiNnGfEQLH/bNoQ4wNVVhPzXyCVsWfZ20uU1
+ j5W9HIU/M+iHinP/dTijDIb3nyrm2Wbum3n7Wu3MKTfOW9O+MeorXefvwZAY28f/jRJP
+ RkCiF1kT4yqCM1b6TU+ijTnNZj33xvstze/8MCE/u8G7cHO6tHw4DW/XoL3rCrWRHLAJ
+ 3raQ==
+X-Gm-Message-State: AO0yUKULufSK9a5tIwEsQEx2jYT1n/pHaDj0fafcfagUxJ9s0GAy/Pet
+ TVz3Mqdoggetlbq/zUbkj6bLSQ==
+X-Google-Smtp-Source: AK7set8Ka9X8JPp0aKGg1LcB+NwytW8t2PaNfKlUoBo8WqOamHE19YTjKMWphrZondIJnlpijj3z8g==
+X-Received: by 2002:a17:906:fe02:b0:930:a3a1:bede with SMTP id
+ wy2-20020a170906fe0200b00930a3a1bedemr898911ejb.50.1678953875270; 
+ Thu, 16 Mar 2023 01:04:35 -0700 (PDT)
+Received: from ?IPV6:2a02:810d:15c0:828:9827:5f65:8269:a95f?
+ ([2a02:810d:15c0:828:9827:5f65:8269:a95f])
+ by smtp.gmail.com with ESMTPSA id
+ cb15-20020a170906a44f00b009226f644a07sm3486809ejb.139.2023.03.16.01.04.33
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 16 Mar 2023 01:04:34 -0700 (PDT)
+Message-ID: <7b3ec8b5-f12b-fd29-96cb-7a1e1656eb42@linaro.org>
+Date: Thu, 16 Mar 2023 09:04:33 +0100
 MIME-Version: 1.0
-X-Provags-ID: V03:K1:mqMzrAtMQmUMQjWx51L0PSHKPyASH1/pEP3wcHN2eEBqi8Q745U
- dgnh3N/rVmxXjU3Kov4wy1nZQCU97qDoSFMciWFBjRg6VkCPfWd9pgSNmsV6lDUKn1COfnv
- 93Gv3vqS/qwd2NcZCVHnCNle88/BG2ojDCQib3nNuyS9BIhUL5EPkZOpkjCRLwkakQi1R/C
- 9k7cARiszzI+CJuxOmcmw==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:ybRtu81gIRA=;V2R8iM2fSpQWWWvzF7mFI0zI+yK
- AaF3EvGmlLkuwcS8HVBO50+PQR7jc+Xn/fOmg6zduiAj1hMOlDBgTdVk7JZXioy27aV7trG5l
- o9c49RXatLazS5v2+oE15DQivVxklcmFov3N/MX+MTDkUFrgPR8Il5AlgIr5Cyt7+1uby3q3T
- jcS0Orzz+zUdTeSpcDirdU9NfB+97riiiGi5cchHjrommOkve3Q+16rMRIz+2w9EAf2keFkqY
- BoswUNwmbhcxkH+ZCRqt02sbO+2PBCJbNd09ZcxLOwlLSCwGS1Il06Cd25pHbF2NQEtBFzo4h
- NvKG9nQTKexV09UeutHA8iCq4Pi86JqjMdcsfxTTJ6lNMAyBfiFClMGsbowYqCTweJFt0Wve4
- DMIxU0lO6d3hji1C2ZKllwFm/d9TQBjDNeSW4Jd94oPut/74Wni2F79tOLLTKODmNXLIFiito
- W+0nWGgRzYCnW5FofIvHWMpC0t6KjR9LJb/Uun9WJWTL8OL4JrYlHEc7x9EniFXA7fgx0Ibwe
- pGwzy78aFPbLLLiD/HyEcDTBQ94RBQqCw2Y1KH5hJcdQ/92tHbci/FryOdDileRTjzYLjjakt
- fbWQUJ2vwfJnEEN283jS3pcv7Ws42AcraqJAENQBGo8I3ZZpn/TELx4A8mhp0LhAif2yJd3Ii
- RlnFTPzEHNh1F886moIdXs3QF0lm0UDaGtvYx7dmgo+0hPqwN7GENHXIfmm/+TE=
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.8.0
+Content-Language: en-US
+To: Serge Semin <Sergey.Semin@baikalelectronics.ru>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Jose Abreu <joabreu@synopsys.com>, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Maxime Coquelin
+ <mcoquelin.stm32@gmail.com>, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
+References: <20230313225103.30512-1-Sergey.Semin@baikalelectronics.ru>
+ <20230313225103.30512-6-Sergey.Semin@baikalelectronics.ru>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20230313225103.30512-6-Sergey.Semin@baikalelectronics.ru>
 X-Topics: 
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
- Jose Abreu <joabreu@synopsys.com>,
- Jochen Henneberg <jh@henneberg-systemdesign.com>,
- Jakub Kicinski <kuba@kernel.org>, Ong Boon Leong <boon.leong.ong@intel.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>, Paolo Abeni <pabeni@redhat.com>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net V2 2/2] net: stmmac: Premature loop
-	termination check was ignored on ZC rx
+Cc: devicetree@vger.kernel.org, Biao Huang <biao.huang@mediatek.com>,
+ netdev@vger.kernel.org, Richard Cochran <richardcochran@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
+ Serge Semin <fancer.lancer@gmail.com>,
+ Alexey Malahov <Alexey.Malahov@baikalelectronics.ru>,
+ Pavel Parkhomenko <Pavel.Parkhomenko@baikalelectronics.ru>,
+ Yang Yingliang <yangyingliang@huawei.com>,
+ Christian Marangi <ansuelsmth@gmail.com>, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next 05/16] dt-bindings: net: dwmac:
+ Elaborate snps, clk-csr description
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,34 +98,23 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The premature loop termination check makes sense only in case of the
-jump to read_again where the count may have been updated. But
-read_again did not include the check.
+On 13/03/2023 23:50, Serge Semin wrote:
+> The property is utilized to set the CSR-MDC clock selector in the STMMAC
+> driver. The specified value is used instead of auto-detecting the
+> CSR/application clocks divider based on the reference clock rate. Let's
+> add a more detailed description to clarify the property purpose and
+> permitted values. In the later case the constraints are specified based on
+> the DW *MAC CR registers permitted values.
+> 
+> Signed-off-by: Serge Semin <Sergey.Semin@baikalelectronics.ru>
+> ---
+>  Documentation/devicetree/bindings/net/snps,dwmac.yaml | 10 +++++
 
-Fixes: bba2556efad6 ("net: stmmac: Enable RX via AF_XDP zero-copy")
-Signed-off-by: Jochen Henneberg <jh@henneberg-systemdesign.com>
----
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index ea51c7c93101..4886668a54c5 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -5031,10 +5031,10 @@ static int stmmac_rx_zc(struct stmmac_priv *priv, int limit, u32 queue)
- 			len = 0;
- 		}
- 
-+read_again:
- 		if (count >= limit)
- 			break;
- 
--read_again:
- 		buf1_len = 0;
- 		entry = next_entry;
- 		buf = &rx_q->buf_pool[entry];
--- 
-2.39.2
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+
+Best regards,
+Krzysztof
 
 _______________________________________________
 Linux-stm32 mailing list
