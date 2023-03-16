@@ -2,66 +2,61 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id AA53F6BD654
-	for <lists+linux-stm32@lfdr.de>; Thu, 16 Mar 2023 17:54:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id ECBBD6BD774
+	for <lists+linux-stm32@lfdr.de>; Thu, 16 Mar 2023 18:50:24 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6763FC6907C;
-	Thu, 16 Mar 2023 16:54:14 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9BED6C65043;
+	Thu, 16 Mar 2023 17:50:24 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B1909C035BC
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 16 Mar 2023 17:50:22 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D5CEAC65043
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 16 Mar 2023 16:54:12 +0000 (UTC)
-Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 32GCLvl0025488; Thu, 16 Mar 2023 17:53:57 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-transfer-encoding : content-type; s=selector1;
- bh=A+lMTa0nB7HohOca8aARuO3o3kfnPHCwrPixYCAy+Cc=;
- b=jCalCzWEGgluzEpxxwmaELyiEdADSScn2RV6MlJVuNiwYfwne+RJr9Bwuja2e/E34WIX
- WgjqdD0IUeriFgIG54kLV5DiqK/1KKaI9WHsKMepoZNDpVD4IyfwPHsao89CcBUcWBO3
- bhADgaCpKgcbyr6RT/GpQqtxmYZ3keQEMQr6Fl4QvuGmw0viXAekvoM+jnNvMsPyetAy
- /j1Hs2G7Tar3yOQCzPbMRr5fJPyOC5Rcv6ZCj5VafNocRM9cwVTPk41mVSFzK9BVvOXf
- bjUh06RuR7yAjyuf93n/8QIai3hN1yGsNoTlPcqTYRNKeBfbBvABNemQ5n1C86wpB55w dQ== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3pbpwqwxtq-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 16 Mar 2023 17:53:57 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id E759710002A;
- Thu, 16 Mar 2023 17:53:56 +0100 (CET)
-Received: from Webmail-eu.st.com (shfdag1node3.st.com [10.75.129.71])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id E1F7221ED52;
- Thu, 16 Mar 2023 17:53:56 +0100 (CET)
-Received: from localhost (10.201.20.208) by SHFDAG1NODE3.st.com (10.75.129.71)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.17; Thu, 16 Mar
- 2023 17:53:56 +0100
-From: Amelie Delaunay <amelie.delaunay@foss.st.com>
-To: Lee Jones <lee.jones@linaro.org>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-Date: Thu, 16 Mar 2023 17:53:47 +0100
-Message-ID: <20230316165347.2669038-3-amelie.delaunay@foss.st.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20230316165347.2669038-1-amelie.delaunay@foss.st.com>
-References: <20230316165347.2669038-1-amelie.delaunay@foss.st.com>
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 45CBC620D9;
+ Thu, 16 Mar 2023 17:50:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 31B95C433A1;
+ Thu, 16 Mar 2023 17:50:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1678989020;
+ bh=/rFLNe93rQIRlAx/57xJ6NacQ6gFAXPh6A+DAAqx/RY=;
+ h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
+ b=rKgHmH1sooRqw3nGbq3dUryuP04azSVgLR00rq6MsZBt67K6xq5U/DbzcpvZwgspe
+ LDwV12ROIoHxlgKyvMkkkbsAo/Bo0YyjeDuI9yQ38MIlzJg5A90jtS5cBd+jIqUB2d
+ ZjnpEtBLXj2fI0zxBCWMS36HM7et2XB9AH2jIWKKvcUysXzNR8nT3/ek4v0Ni79GU9
+ U60CsnFj2LB59sYcNJ46yQOqptrQMaM9E1J0Gqn9OBQU1uM5ybRzEQxsFiSndKRB/m
+ Tochl8xGkSZkmS0L1QXqZBvoOblNX8O4m1G9SM5ioao93p/jS3EPqHh/ROVd7b1OXc
+ Swe/YlbXKZipg==
+Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
+ 0EAE9E29F32; Thu, 16 Mar 2023 17:50:20 +0000 (UTC)
 MIME-Version: 1.0
-X-Originating-IP: [10.201.20.208]
-X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SHFDAG1NODE3.st.com
- (10.75.129.71)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.254,Aquarius:18.0.942,Hydra:6.0.573,FMLib:17.11.170.22
- definitions=2023-03-16_10,2023-03-16_01,2023-02-09_01
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: <167898902004.2133.16158810493778389682.git-patchwork-notify@kernel.org>
+Date: Thu, 16 Mar 2023 17:50:20 +0000
+References: <20230314191828.914124-1-robh@kernel.org>
+In-Reply-To: <20230314191828.914124-1-robh@kernel.org>
+To: Rob Herring <robh@kernel.org>
 X-Topics: 
-Cc: linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: [Linux-stm32] [PATCH 2/2] mfd: stmfx: Nullify stmfx->vdd in case of
-	error
+Cc: simon.horman@corigine.com, linux-kernel@vger.kernel.org,
+ edumazet@google.com, shenwei.wang@nxp.com, festevam@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com, qiang.zhao@nxp.com,
+ michal.simek@xilinx.com, joabreu@synopsys.com, xiaoning.wang@nxp.com,
+ linux-imx@nxp.com, romieu@fr.zoreil.com, kuba@kernel.org, pabeni@redhat.com,
+ kvalo@kernel.org, wg@grandegger.com, grygorii.strashko@ti.com,
+ kernel@pengutronix.de, s.hauer@pengutronix.de, linuxppc-dev@lists.ozlabs.org,
+ linux-can@vger.kernel.org, claudiu.manoil@nxp.com, mkl@pengutronix.de,
+ peppe.cavallaro@st.com, linux-omap@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
+ linux-wireless@vger.kernel.org, nicolas.ferre@microchip.com,
+ davem@davemloft.net, mcoquelin.stm32@gmail.com, wei.fang@nxp.com,
+ sam@mendozajonas.com, shawnguo@kernel.org, claudiu.beznea@microchip.com
+Subject: Re: [Linux-stm32] [PATCH v2] net: Use of_property_read_bool() for
+	boolean properties
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,34 +73,36 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Nullify stmfx->vdd in case devm_regulator_get_optional() returns an error.
-And simplify code by returning an error only if return code is not -ENODEV,
-which means there is no vdd regulator and it is not an issue.
+Hello:
 
-Fixes: d75846ed08e6 ("mfd: stmfx: Fix dev_err_probe() call in stmfx_chip_init()")
-Signed-off-by: Amelie Delaunay <amelie.delaunay@foss.st.com>
----
- drivers/mfd/stmfx.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+This patch was applied to netdev/net.git (main)
+by David S. Miller <davem@davemloft.net>:
 
-diff --git a/drivers/mfd/stmfx.c b/drivers/mfd/stmfx.c
-index bfe89df27611..76188212c66e 100644
---- a/drivers/mfd/stmfx.c
-+++ b/drivers/mfd/stmfx.c
-@@ -330,9 +330,8 @@ static int stmfx_chip_init(struct i2c_client *client)
- 	stmfx->vdd = devm_regulator_get_optional(&client->dev, "vdd");
- 	ret = PTR_ERR_OR_ZERO(stmfx->vdd);
- 	if (ret) {
--		if (ret == -ENODEV)
--			stmfx->vdd = NULL;
--		else
-+		stmfx->vdd = NULL;
-+		if (ret != -ENODEV)
- 			return dev_err_probe(&client->dev, ret, "Failed to get VDD regulator\n");
- 	}
- 
+On Tue, 14 Mar 2023 14:18:27 -0500 you wrote:
+> It is preferred to use typed property access functions (i.e.
+> of_property_read_<type> functions) rather than low-level
+> of_get_property/of_find_property functions for reading properties.
+> Convert reading boolean properties to of_property_read_bool().
+> 
+> Reviewed-by: Simon Horman <simon.horman@corigine.com>
+> Acked-by: Marc Kleine-Budde <mkl@pengutronix.de> # for net/can
+> Acked-by: Kalle Valo <kvalo@kernel.org>
+> Acked-by: Nicolas Ferre <nicolas.ferre@microchip.com>
+> Acked-by: Francois Romieu <romieu@fr.zoreil.com>
+> Reviewed-by: Wei Fang <wei.fang@nxp.com>
+> Signed-off-by: Rob Herring <robh@kernel.org>
+> 
+> [...]
+
+Here is the summary with links:
+  - [v2] net: Use of_property_read_bool() for boolean properties
+    https://git.kernel.org/netdev/net/c/1a87e641d8a5
+
+You are awesome, thank you!
 -- 
-2.25.1
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
 
 _______________________________________________
 Linux-stm32 mailing list
