@@ -2,59 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 501B66BC82F
-	for <lists+linux-stm32@lfdr.de>; Thu, 16 Mar 2023 09:05:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 662076BC830
+	for <lists+linux-stm32@lfdr.de>; Thu, 16 Mar 2023 09:06:08 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1AAB0C6904F;
-	Thu, 16 Mar 2023 08:05:41 +0000 (UTC)
-Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com
- [209.85.208.46])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2FA72C6904F;
+	Thu, 16 Mar 2023 08:06:08 +0000 (UTC)
+Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com
+ [209.85.208.47])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 19FA5C6904A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D46C8C6904A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 16 Mar 2023 08:05:40 +0000 (UTC)
-Received: by mail-ed1-f46.google.com with SMTP id w9so4208398edc.3
+ Thu, 16 Mar 2023 08:06:06 +0000 (UTC)
+Received: by mail-ed1-f47.google.com with SMTP id cy23so4057629edb.12
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 16 Mar 2023 01:05:40 -0700 (PDT)
+ Thu, 16 Mar 2023 01:06:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1678953939;
+ d=linaro.org; s=google; t=1678953966;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=wpdl6Hym6twdRzfQa/IkeBqu6gYYM8UrFNFsPRmwB8I=;
- b=IDzW58RrWaHqufejS6WN1YFrco5gEFPtyGkiZ6YE0CDTQTPwYhs45+ZqtCzWUUdndM
- 6myppwrXVRw6oXj+TzALfVZBgQhx4shJvxNpNybLLaiylBykdsTB7itAyIA0aNbOAxqR
- 4C4WQjyy68GyxyaKDcIH9lfLf/SOedIgOGQ37aj0cw5ka42aEjIBL2uinWwLbxw1pg8L
- IZ3w0w3/jnIdTtUyO+evRRXfWVG7ZWOEEKA5Lz7VFDs6a6SWyDF0dkNjtY2sAK6HhfoE
- wzZ6ze80MCad4+48Er3tSShfnKhTP/9FKxesL6UXcrg7VQwQV5EGD60wDbaBjXUX1P9n
- 22rw==
+ bh=6OsjiDE3NuSgDjET5WMD6UNfNrRCIGptQw+4KyflP4M=;
+ b=CwY1cgzXszkGS4WESkxCLBSPnvMH/NZrsLWq2/QLedh/OR5tbm1AMfxmZ6E8ESvi3B
+ UW7DKuDh7v7p0idaBeWAoIK4SYgA3wOjjfrMuGEDO7A+fWPHbgbfxW6q/X8JIqCYACGL
+ AJAS5SoMevqLaqMZJYrDU6j56SRYBawRkl1YZtIyZPtRenxzp/1VL0x4tU6dJwd8x7W8
+ 4H1gfbz+pvV4V2dBpwgpkzBOfkHToXFHMaN5l8iWjdci5hNWUirygOsfEh/DjJBbY2UE
+ 25Rb7LrLzci7lkUI8AR8Yp5p58FzgtFT3tc6L8nIYgvac+Va9/4CKFC1V8ShGjvfFhBK
+ drNQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1678953939;
+ d=1e100.net; s=20210112; t=1678953966;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=wpdl6Hym6twdRzfQa/IkeBqu6gYYM8UrFNFsPRmwB8I=;
- b=RQfal6BOwVLsOMkgn3vkb2APXa6mNV1kKPRUWfoQmBwjG1hmkJVk+YVZjG4H7pvyhR
- phsEosg6L3iX4XwTStmXj0kDVsjtyKsajCvtDK0IKdcIqlbPoagBJQZlXG3zEj4VLu8v
- lVtZhjhF9K/T4YvaH9zxZ6PDLWu3UFkFENyxoV+5YmXfrBQDNyidvcOqQ/DChxlXQk4N
- W4qF3K7LnIlImD5QGUjAEcRfYuDd7rf2BcjH7tfMGF/pKEN7c4UpGVrR+uKBYhNpz8Ww
- oi4eOBBfi5ZkVNW1HvJZN+yfYz9UcuRzSclkhCK4aYj4mmmYQGZBK6rwJQgUiNQSy7C5
- F3bQ==
-X-Gm-Message-State: AO0yUKUKJ1fnDmbcO8xFHLmKloFRAE37ePurBLJ8htSMmotbvPwvk1cl
- xbP1nDhtuO0CRB+Fe+6DUQvRgA==
-X-Google-Smtp-Source: AK7set/iRPVqQNT1Z7S1buHPT0nh8+U/sneb6I0D/7hqFeN8kjEEcNpRmmsfQ1g69NTOISJI6yFYfw==
-X-Received: by 2002:a17:906:3c44:b0:8af:2fa1:5ae5 with SMTP id
- i4-20020a1709063c4400b008af2fa15ae5mr8454247ejg.53.1678953939596; 
- Thu, 16 Mar 2023 01:05:39 -0700 (PDT)
+ bh=6OsjiDE3NuSgDjET5WMD6UNfNrRCIGptQw+4KyflP4M=;
+ b=NDH/D0dnIGa+wa+HRxSnEjYn2pw6L4Gi1KkJlC0QKHjI8+ULHCUmuDfLy8ef12ooex
+ F6lt07UZ4yVhklJhmtmPxvcfcFTH7CrZvB5RMRsdbWn0eIX+AW5g+YIrDPJjXVI0SK6+
+ eyEts588eLyyZ2Ypv0SKQ93MySBxG5rbpHN7ivrEzVL1vFiTrCCeFKSk5xa9smg2oFlQ
+ KBQF71tnUpSUcyVTADvvTyWp3QkZ8GUjtWqKUw+pQTXVcJ6LXQ2lgRhslXSaffJciFSR
+ PPBqgUYD+dJ3oio2IKeZCQq4g4RpnsrF9rxDgmuoOOO4ceslruX8cF6Yt+xBE7qmmXtx
+ Ee1g==
+X-Gm-Message-State: AO0yUKV8B1kGZg155cIGPQYhJyJAKHWcD4dJYIqh1uLd6aOLjMMFRAQd
+ rzSOvLuLHwqIkTlTpUntXS3EEA==
+X-Google-Smtp-Source: AK7set+0+bYA3DjoEwcKwtIg4+mtWmSsVYB0+wwlaUkKsDgFBzV1Gz6/yFNUpM4ZJuB480jjnWZYuw==
+X-Received: by 2002:aa7:c40b:0:b0:4fe:96a9:ab0a with SMTP id
+ j11-20020aa7c40b000000b004fe96a9ab0amr5517331edq.1.1678953966456; 
+ Thu, 16 Mar 2023 01:06:06 -0700 (PDT)
 Received: from ?IPV6:2a02:810d:15c0:828:9827:5f65:8269:a95f?
  ([2a02:810d:15c0:828:9827:5f65:8269:a95f])
  by smtp.gmail.com with ESMTPSA id
- jj17-20020a170907985100b009300424a2fdsm793608ejc.144.2023.03.16.01.05.38
+ r24-20020a50d698000000b004af71e8cc3dsm3436547edi.60.2023.03.16.01.06.05
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 16 Mar 2023 01:05:39 -0700 (PDT)
-Message-ID: <08925242-4c2c-e149-39e5-6ee16ba17cbd@linaro.org>
-Date: Thu, 16 Mar 2023 09:05:37 +0100
+ Thu, 16 Mar 2023 01:06:06 -0700 (PDT)
+Message-ID: <78224241-00a3-2e8e-4763-603b27ac3b83@linaro.org>
+Date: Thu, 16 Mar 2023 09:06:04 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.8.0
@@ -68,9 +68,9 @@ To: Serge Semin <Sergey.Semin@baikalelectronics.ru>,
  <mcoquelin.stm32@gmail.com>, Rob Herring <robh+dt@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
 References: <20230313225103.30512-1-Sergey.Semin@baikalelectronics.ru>
- <20230313225103.30512-9-Sergey.Semin@baikalelectronics.ru>
+ <20230313225103.30512-10-Sergey.Semin@baikalelectronics.ru>
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20230313225103.30512-9-Sergey.Semin@baikalelectronics.ru>
+In-Reply-To: <20230313225103.30512-10-Sergey.Semin@baikalelectronics.ru>
 X-Topics: 
 Cc: devicetree@vger.kernel.org, Biao Huang <biao.huang@mediatek.com>,
  netdev@vger.kernel.org, Richard Cochran <richardcochran@gmail.com>,
@@ -80,8 +80,8 @@ Cc: devicetree@vger.kernel.org, Biao Huang <biao.huang@mediatek.com>,
  Pavel Parkhomenko <Pavel.Parkhomenko@baikalelectronics.ru>,
  Yang Yingliang <yangyingliang@huawei.com>,
  Christian Marangi <ansuelsmth@gmail.com>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next 08/16] dt-bindings: net: dwmac:
- Drop prop names from snps, axi-config description
+Subject: Re: [Linux-stm32] [PATCH net-next 09/16] dt-bindings: net: dwmac:
+ Prohibit additional props in AXI-config
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,19 +99,36 @@ Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 On 13/03/2023 23:50, Serge Semin wrote:
-> The property is supposed to contain a phandle reference to the DT-node
-> with the AXI-bus parameters. Such DT-node is described in the same
-> DT-bindings schema by means of the sub-node with the name
-> "stmmac-axi-config". Similarly to MTL Tx/Rx config phandle properties
-> let's drop the target DT-node properties list from the "snps,axi-config"
-> property description since having that duplicate is not only pointless,
-> but also worsens the bindings maintainability by causing a need to support
-> the two identical lists. Instead the reference to the target DT-node is
-> added to the description.
+> Currently DT-schema of the AXI-bus config sub-node prohibits to have
+> unknown properties by using the unevaluatedProperties property. It's
+> overkill for the sub-node which doesn't use any combining schemas
+> keywords (allOf, anyOf, etc). Instead more natural is to use
+> additionalProperties to prohibit for that.
 > 
+> Signed-off-by: Serge Semin <Sergey.Semin@baikalelectronics.ru>
+> ---
+>  Documentation/devicetree/bindings/net/snps,dwmac.yaml | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/net/snps,dwmac.yaml b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+> index 89be67e55c3e..d1b2910b799b 100644
+> --- a/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+> +++ b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+> @@ -466,7 +466,6 @@ properties:
+>  
+>    stmmac-axi-config:
+>      type: object
+> -    unevaluatedProperties: false
+>      description:
+>        AXI BUS Mode parameters.
+>  
+> @@ -518,6 +517,8 @@ properties:
+>          description:
+>            rebuild INCRx Burst
+>  
+> +    additionalProperties: false
 
-
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+But why moving it? Keep the same placement.
 
 Best regards,
 Krzysztof
