@@ -2,83 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 10B1E6BC6EC
-	for <lists+linux-stm32@lfdr.de>; Thu, 16 Mar 2023 08:19:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E79326BC80F
+	for <lists+linux-stm32@lfdr.de>; Thu, 16 Mar 2023 09:01:45 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C886CC6904C;
-	Thu, 16 Mar 2023 07:19:11 +0000 (UTC)
-Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com
- [209.85.208.41])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A9F40C6904C;
+	Thu, 16 Mar 2023 08:01:45 +0000 (UTC)
+Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.133])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9DD32C03FC1
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2D37DC65043
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 16 Mar 2023 07:19:10 +0000 (UTC)
-Received: by mail-ed1-f41.google.com with SMTP id eh3so3688102edb.11
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 16 Mar 2023 00:19:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1678951150;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=bm96tdwLx6fPQGeDjINABDetH/ZY7i77lBQjLJrR1ts=;
- b=lknDG8yZUnixEHyBPesXoiJREWN5L9q5lFvMBm9EJDIKbdAGhkgNdYivDsc4vUhQDD
- 8y2W+FyY+fXV3a9MIhsebmNN/Z/QCZvIAw8g7dtZRXX3ZhkZ2e4RQ40HOBjSqx39BetR
- db37n60Az/c8hzlRRM4JzCsJ4dSySNlmMS7VJHt0PyA2U4aobJKcbHV7y6osDRonesgJ
- +0EPdHijgkWkHXIlOLjPPXZwZQ2uVRe+A84j58m1duRUFqEf1ReWf1pNJoK18ONLvUZd
- 7UYyNmFLfknWngTkP5/NZfhqWVoyDWJxlLuoy7vEt6SxAcK8HnGSRSJQkuelMVg2EQ+p
- 8w7g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1678951150;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=bm96tdwLx6fPQGeDjINABDetH/ZY7i77lBQjLJrR1ts=;
- b=oCkKc/foLeArPw8vuCv7Ev68siJxrJwODFPJlfgxlZM4WQrh5SBHhqNT758+r0R8bn
- YNlmvAnIkyyoHY1XBp1kysgZHqmhMu3FUUu395fwFm7x3o/MZLc2MwJDkrExkCUvBozG
- Mhtkn8IP9xKhYT7Jw7VITf5v8aXJQ4m7q4mc0izWl82GCRNp30DoNA1otucZGvD2Nsfx
- C69wVPPo8SG0HvQbie8x1VbkpUdQn9jhUhyFWYVhujoSh3dqp89b48NDuGiEwHWUszsY
- 0b6YzZx/l548APPL0gag2Ve6ukcdy+FMOMqIbxhRHfz8N8ox2Dm9kbbKzx0D8TwfoPEc
- IYwQ==
-X-Gm-Message-State: AO0yUKWpLp9omrNZkP57elWuvCcnH5diO7garKr67x0TeQYJ0p3/Cwnw
- BJzv0OSmoTryy+5fAhsPeeROfw==
-X-Google-Smtp-Source: AK7set9cPxmxsJC+fDgnp9bdjaIupZwvekzcVHxzUtQcTePr9a9/UyCWNrhIzW+IZivrsS671zcVmg==
-X-Received: by 2002:a17:906:4e02:b0:8f7:48fe:319d with SMTP id
- z2-20020a1709064e0200b008f748fe319dmr1626347eju.17.1678951150203; 
- Thu, 16 Mar 2023 00:19:10 -0700 (PDT)
-Received: from ?IPV6:2a02:810d:15c0:828:9827:5f65:8269:a95f?
- ([2a02:810d:15c0:828:9827:5f65:8269:a95f])
- by smtp.gmail.com with ESMTPSA id
- r24-20020a50d698000000b004af71e8cc3dsm3387915edi.60.2023.03.16.00.19.08
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 16 Mar 2023 00:19:09 -0700 (PDT)
-Message-ID: <47fd240a-847b-e034-5a6a-4ed14f453612@linaro.org>
-Date: Thu, 16 Mar 2023 08:19:08 +0100
+ Thu, 16 Mar 2023 08:01:44 +0000 (UTC)
+Received: from maxwell.fritz.box ([109.42.114.157]) by
+ mrelayeu.kundenserver.de (mreue011 [213.165.67.97]) with ESMTPSA (Nemesis) id
+ 1N5VXu-1qZOzS1ix8-016vCE; Thu, 16 Mar 2023 09:00:48 +0100
+From: Jochen Henneberg <jh@henneberg-systemdesign.com>
+To: netdev@vger.kernel.org
+Date: Thu, 16 Mar 2023 08:59:38 +0100
+Message-Id: <20230316075940.695583-1-jh@henneberg-systemdesign.com>
+X-Mailer: git-send-email 2.39.2
+In-Reply-To: <20230314123759.132521-1-jh@henneberg-systemdesign.com>
+References: 
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.8.0
-Content-Language: en-US
-To: Andrew Halaney <ahalaney@redhat.com>, linux-kernel@vger.kernel.org
-References: <20230313165620.128463-1-ahalaney@redhat.com>
- <20230313165620.128463-5-ahalaney@redhat.com>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20230313165620.128463-5-ahalaney@redhat.com>
-Cc: mturquette@baylibre.com, edumazet@google.com,
- krzysztof.kozlowski+dt@linaro.org, jonathanh@nvidia.com,
- linux-clk@vger.kernel.org, tee.min.tan@linux.intel.com, linux@armlinux.org.uk,
- veekhee@apple.com, hisunil@quicinc.com, joabreu@synopsys.com, kuba@kernel.org,
- pabeni@redhat.com, andrey.konovalov@linaro.org, ncai@quicinc.com,
- devicetree@vger.kernel.org, bhupesh.sharma@linaro.org,
- linux-arm-msm@vger.kernel.org, richardcochran@gmail.com, bmasney@redhat.com,
- mohammad.athari.ismail@intel.com, robh+dt@kernel.org, ruppala@nvidia.com,
- jsuraj@qti.qualcomm.com, peppe.cavallaro@st.com,
- linux-arm-kernel@lists.infradead.org, sboyd@kernel.org, netdev@vger.kernel.org,
- andersson@kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- agross@kernel.org, konrad.dybcio@linaro.org, vkoul@kernel.org,
- mcoquelin.stm32@gmail.com, davem@davemloft.net
-Subject: Re: [Linux-stm32] [PATCH net-next 04/11] dt-bindings: net: qcom,
- ethqos: Add Qualcomm sc8280xp compatibles
+X-Provags-ID: V03:K1:MF+CTOsuaUq00JRKYZHVnsChLb87wgi4uQ1NbzyyNpJIXRd8oR5
+ W4ykBIg0Us5rgmf3C88AvJGFzY9e+D57+Muxbny4/4lOA9pbdfO5pBjBUS0iZsgTHfr1xxa
+ vmPbcloq4rtlnFdDspnr2Fi4ReAvnQz+VoN8wpBVhmTesVvd8xPjyBga/xKDXzGiYtxymLg
+ Hz52hJjfworWMxsM6lXCg==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:LIoPf2/TAMs=;QhWFGVa7tyxykKcxVcjlZU+BKF5
+ vMT3NkA0jzP5P3RSpMMkPS8EMvKA6XdEyS7Tkktzuy7QZKP4p1vMYCgSgI0w9wVrCF0UonIoh
+ 5NY+ssi7US/JeldnU15MfQxTsqeZ9daTF3qpmCiCNoKeogTlupK0lFuXzPaCTQ/9EH8CrpGlf
+ bXb+oyzUSUHtN6HKn+jaq6857IalkzXBLl5izpyxCYP6YBtR9KQDfpfkZzKp26pPaBFv6PAfj
+ 8ho4vqYOIyQsL7+5uskISN5ASCrHm0mCGsFT2uw/FwEPzfx/djOupNC7+c1I9BcL21KBkk3g3
+ fQZBFKHnfp36vCPUrV9voYEDFcRgOcWyZi72szFR8n+gF5ejb22z60w+n0k7RSLjv3FicU7Ah
+ V5nXW9OK51OW8p60ODhXkTQkZgqQxWKoyG8Hxf9z4402qEL13QROPZQzUtUrNe134Hepggwad
+ B7izy25PSjIBDhp9iCaBTokYuHwLKPimF2x9nmWwXJB3RvHnV+TQtcQDtf3rPJiu1TluSIHvG
+ DoY2WREu2848EqBILmSIbKoIapyfnchC8okgVLSO6UDi2e7H4WV97M8cXBYBl9USVw9VV5ZJe
+ 5dudodI/nlN87VoLwou1SVpypHp5Me+HTcd94RFufT2RgodBFNRqgHTTmp6MMaInGfYwK9w9O
+ fxDQe4JTllrua943bYeBHl+r4l0ZSJTSvF4bBPqc4g==
+X-Topics: 
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
+ Jose Abreu <joabreu@synopsys.com>,
+ Jochen Henneberg <jh@henneberg-systemdesign.com>,
+ Jakub Kicinski <kuba@kernel.org>, Ong Boon Leong <boon.leong.ong@intel.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>, Paolo Abeni <pabeni@redhat.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH net V2 0/2] net: stmmac: Premature loop
+	termination check was ignored
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,31 +66,21 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 13/03/2023 17:56, Andrew Halaney wrote:
-> The sc8280xp has a new version of the ETHQOS hardware in it, EMAC v3.
-> Add a compatible for this.
-> 
-> Signed-off-by: Andrew Halaney <ahalaney@redhat.com>
-> ---
->  Documentation/devicetree/bindings/net/qcom,ethqos.yaml | 1 +
->  Documentation/devicetree/bindings/net/snps,dwmac.yaml  | 3 +++
->  2 files changed, 4 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/net/qcom,ethqos.yaml b/Documentation/devicetree/bindings/net/qcom,ethqos.yaml
-> index 68ef43fb283d..89c17ed0442f 100644
-> --- a/Documentation/devicetree/bindings/net/qcom,ethqos.yaml
-> +++ b/Documentation/devicetree/bindings/net/qcom,ethqos.yaml
-> @@ -24,6 +24,7 @@ properties:
->      enum:
->        - qcom,qcs404-ethqos
->        - qcom,sm8150-ethqos
-> +      - qcom,sc8280xp-ethqos
+As proposed in [1] here is are the fixes as a patch series that do the
+premature end-of-loop check within the goto loop.
 
-Alphabetical order, same in other places.
+The commit messages now tell us which rx path has been fixed.
 
+Jochen Henneberg (2):
+  net: stmmac: Premature loop termination check was ignored on rx
+  net: stmmac: Premature loop termination check was ignored on ZC rx
 
-Best regards,
-Krzysztof
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+[1] https://lore.kernel.org/all/Y%2FdiTAg2iUopr%2FOy@corigine.com
+-- 
+2.39.2
 
 _______________________________________________
 Linux-stm32 mailing list
