@@ -2,42 +2,44 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0AD166BCBA4
-	for <lists+linux-stm32@lfdr.de>; Thu, 16 Mar 2023 10:56:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C4A06BD08C
+	for <lists+linux-stm32@lfdr.de>; Thu, 16 Mar 2023 14:16:37 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B3107C6904F;
-	Thu, 16 Mar 2023 09:56:30 +0000 (UTC)
-Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.187])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3FF15C6904C;
+	Thu, 16 Mar 2023 13:16:37 +0000 (UTC)
+Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.135])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 58290C65043
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1F30FC65043
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 16 Mar 2023 09:56:29 +0000 (UTC)
-Received: from maxwell.fritz.box ([109.42.114.157]) by
- mrelayeu.kundenserver.de (mreue009 [213.165.67.97]) with ESMTPSA (Nemesis) id
- 1Mz9d5-1qOfzi43et-00wAuI; Thu, 16 Mar 2023 10:53:42 +0100
+ Thu, 16 Mar 2023 13:16:36 +0000 (UTC)
+Received: from maxwell.localdomain ([213.61.141.186]) by
+ mrelayeu.kundenserver.de (mreue012 [213.165.67.97]) with ESMTPSA (Nemesis) id
+ 1MT7ip-1q5m9U3jBf-00UeqB; Thu, 16 Mar 2023 14:15:24 +0100
 From: Jochen Henneberg <jh@henneberg-systemdesign.com>
 To: netdev@vger.kernel.org
-Date: Thu, 16 Mar 2023 10:53:06 +0100
-Message-Id: <20230316095306.721255-1-jh@henneberg-systemdesign.com>
+Date: Thu, 16 Mar 2023 14:15:03 +0100
+Message-Id: <20230316131503.738933-1-jh@henneberg-systemdesign.com>
 X-Mailer: git-send-email 2.39.2
+In-Reply-To: <20230316095306.721255-1-jh@henneberg-systemdesign.com>
+References: <20230316095306.721255-1-jh@henneberg-systemdesign.com>
 MIME-Version: 1.0
-X-Provags-ID: V03:K1:nY7ERpKZBgVOUk7Gn2LBmd/GSuaQyU91ZLWQq4/NIDQk2uggQwv
- aHAZs+rMqa+VgBbzvz1IQq2psnFGRPpAZJheK6mqaVhndQAqsZ9fs9aHSvI0XntkEf2HCNI
- kggZpn2U1oA4WJiY2gwVEi4IK39h7faGZiBfsdwJLMI4VQlKhqKJOXSrn0WCznFk/vmbJUM
- KN0GpTZhLn6b16ZwfMwKA==
+X-Provags-ID: V03:K1:bfLeLJD9lJ3G3iT5iYg7UEsU81bVboCAdkEgfok56g7FNBxUgCq
+ LNgriGZGnkbYpSN3KWkzpEvU7GSOnbMFpLmKOCO0dQlJ6nZ3SEAWl2vPzYr7b1PCKE9xX7A
+ aPk4aLnMk+J7XvkK6quh9VuPhDfM7FPOfbpeXDOzde1tKmTBHkEwx7dDHdiTnMCJo5DNtU5
+ GvEy4RijTXnk/8jpaUPKw==
 X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:wp1lOLvxgcg=;gP2Y38D0aX/zJFjmMuI9l0jvPEl
- kdoP/BAMwrRFM+7JQRaJZz3bvwuFnn3kc48sx7oBfcQiUkfNr0gfr1T0PCCDAbbJd/OX1varW
- VnodkRyN1QBIxEkFF8250KqtNZf47WlpCf89pgUtkrurYcHthyyeNSuw4g8hzESdBhM5mDtr+
- GIK+H6nuuoyY7NdcJlpf6Q8gOuFU0dCBl8u7Z9Nqw0IKv2zH70dEVXY7fd/ziNtkBpKBBpAQy
- K58UjJh3AfUt4b2GBPm1WVfVy+5whbvyDRFJSO57gPjPRV63tfmeIdnAooFEdhzuj8szIaFAe
- OhRjbuHDsCOi4RMJI8JhRGXFwfAzDgab5f8cgrj/7cNp/ifcgbQYvG6bUbfIFAebAuJ6mirgm
- k9iLmeUA881yul1Z6IyDeYxVKphuveA5hmcErm8jH9YCmIT8lN/r5vVmRNBQV4k7iPtrPTLqZ
- mLPy2mk9QDdj65dtG1UxE/K45Fv+joPMIyzD8K0ue3vHzBayl2XDtzQyYBWYdyIgvIPkUwyst
- znP6FuD9t4iQWsI9YRqHW+UqNxsrC8s/VXojphyL83adpreLfmR/TqF4tFAY5rFnOwoDVTdI+
- XzA5mxtrrDdsBLBTAw/uWkSfIR5mpj2EjEfRMnD2iLfpbK10xSV5QZhwUWeMEX4XUm3vi+kAd
- hbPeL6vKtw2LvmM7SuZVtlKwUUGu56rFu66N9EECig==
+UI-OutboundReport: notjunk:1;M01:P0:IsJsY91fw44=;Sez0sKu91tpF1iMfVXGvU+Bl/CE
+ swTEhlRDPsrBdyqVk/cIuntzl1S4uGGV7oI3rfn8x3tkSbY2JSa6tDr6AXOBq+V420HYSv0pU
+ GGgAVL8cBWSKuEF6IdLPH1+35DvXBzA0uZEukMJX5dwAsrXWchvZEqxSxqiGGr1gcLaYdJBrX
+ hU9/wJ0jQ/lGSH9P+IViv0xIIld7dtJcBY51vbEY0v+yf8HePgpYvWnsKaJ1q9198tm4UbG3m
+ 4WUMgKzmeB4ZuMX+74A3tzn1kqWQFtge/epSAfJhsMhF42IY5F15lVPZ4RDwFTFjurOsUVXW9
+ vJbs//H6kVZ1kWEHNXPS61/75VMSKuMDS2c1bpOWrWQ1OusiRwF7mjqYPkjrKWZLIVTlWouIe
+ yIH2oGUxvEBA7jat6GxL9aHv5y3Y9hWjWbeh2sgTm7EWWQlmNlt8hJ+FrM66oEGMOCpeagMJc
+ 587m1GDGXJcubTbM0Z1s/F0BckvEg1VbGwvFlEdkbMzzi/Clgj4SlEFlq781kMMgcpqbMF80r
+ eNDNta59fIKIF6e+brSFukkbXUMaaUehIwuPCeWExGX3LrEY6DyS+j1K83KPLVCKx2Y5HKM3o
+ 7HOxMzY4ADS+kX5FYJj4uNvdfAeleajn07wI2TQCqVo5FyZKXIk5mm+zgGzn8HgewF2LKGwE6
+ /NLSDb6cdeuDIciBT4qQB/+n0TgB0Gtcn7EnDKNcgw==
 X-Topics: 
 Cc: Voon Weifeng <weifeng.voon@intel.com>, Kurt Kanzenbach <kurt@linutronix.de>,
  Eric Dumazet <edumazet@google.com>, Fabio Estevam <festevam@gmail.com>,
@@ -57,8 +59,8 @@ Cc: Voon Weifeng <weifeng.voon@intel.com>, Kurt Kanzenbach <kurt@linutronix.de>,
  AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
  linux-kernel@vger.kernel.org, Pengutronix Kernel Team <kernel@pengutronix.de>,
  Shawn Guo <shawnguo@kernel.org>, "David S. Miller" <davem@davemloft.net>
-Subject: [Linux-stm32] [PATCH] net: stmmac: Fix for mismatched host/device
-	DMA address width
+Subject: [Linux-stm32] [PATCH net V2] net: stmmac: Fix for mismatched
+	host/device DMA address width
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,8 +77,8 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Curently DMA address width is either read from a RO device register or
-force set from the platform data. This breaks DMA when the host DMA
+Currently DMA address width is either read from a RO device register
+or force set from the platform data. This breaks DMA when the host DMA
 address width is <=32it but the device is >32bit.
 
 Right now the driver may decide to use a 2nd DMA descriptor for
@@ -98,9 +100,11 @@ used in device datasheet) to host_addr and uses this value exclusively
 for host side operations while all chip operations consider the device
 DMA width as read from the device register.
 
-Fixes: 7cfc4486e7ea (stmmac: intel: Configure EHL PSE0 GbE and PSE1 GbE to 32 bits DMA addressing)
+Fixes: 7cfc4486e7ea ("stmmac: intel: Configure EHL PSE0 GbE and PSE1 GbE to 32 bits DMA addressing")
 Signed-off-by: Jochen Henneberg <jh@henneberg-systemdesign.com>
 ---
+V2: Fixes from checkpatch.pl for commit message
+
  drivers/net/ethernet/stmicro/stmmac/common.h  |  1 +
  .../net/ethernet/stmicro/stmmac/dwmac-imx.c   |  2 +-
  .../net/ethernet/stmicro/stmmac/dwmac-intel.c |  4 +--
