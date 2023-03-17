@@ -2,72 +2,86 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4782D6BF4E5
-	for <lists+linux-stm32@lfdr.de>; Fri, 17 Mar 2023 23:10:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AC53A6BF664
+	for <lists+linux-stm32@lfdr.de>; Sat, 18 Mar 2023 00:36:17 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DD4EDC69067;
-	Fri, 17 Mar 2023 22:09:59 +0000 (UTC)
-Received: from relay3-d.mail.gandi.net (relay3-d.mail.gandi.net
- [217.70.183.195])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 49442C6907C;
+	Fri, 17 Mar 2023 23:36:17 +0000 (UTC)
+Received: from mail-il1-f171.google.com (mail-il1-f171.google.com
+ [209.85.166.171])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D8CE8C0356E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B0220C57B6A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 17 Mar 2023 22:09:58 +0000 (UTC)
-Received: (Authenticated sender: alexandre.belloni@bootlin.com)
- by mail.gandi.net (Postfix) with ESMTPSA id E8C1B60006;
- Fri, 17 Mar 2023 22:09:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1679090998;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=ydOYXHQbAQwRlDgBE8D09/DiUFJ7qXsxUL0PXkGETCE=;
- b=gxdMZ2BrYyWyx9kX77EBkYQV9fTzdP0QG4+apoaarC7ba2aSSw4QOUeotjWwZPrtCPd+Vp
- dR+z7o+0JFKbhXhzIOskw65hViO8jJseil7auBmA+VfYNzl9Ba869dUOHmGsAVOaiWFwd9
- SWzvCOIEnPr83VO/3bNKnj8G+cCab+fKdo97zjpkLn+nyDciYAAFDYFxOXiX2m6xOGOQbE
- f3J90EfvlrFKodrHbp3nLL3fhmXyWm2Ho3t2mwke+h12iD3ITeQ68F3lj85T6UASbZF974
- /a71oqxxOaKR9AOjZvrAJVd2etTV8ox8FXMG5XjRSkgj9hS2jftwNMP8kwn6Vg==
-Date: Fri, 17 Mar 2023 23:09:54 +0100
-From: Alexandre Belloni <alexandre.belloni@bootlin.com>
-To: Alessandro Zummo <a.zummo@towertech.it>,
- Linus Walleij <linus.walleij@linaro.org>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- Claudiu Beznea <claudiu.beznea@microchip.com>,
- Florian Fainelli <f.fainelli@gmail.com>,
- Benson Leung <bleung@chromium.org>, Joshua Kinard <kumba@gentoo.org>,
- Hans Ulli Kroll <ulli.kroll@googlemail.com>,
- Vladimir Zapolskiy <vz@mleia.com>, Chanwoo Choi <cw00.choi@samsung.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Conor Dooley <conor.dooley@microchip.com>,
- Daire McNamara <daire.mcnamara@microchip.com>,
- Eddie Huang <eddie.huang@mediatek.com>, Sean Wang <sean.wang@mediatek.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Miquel Raynal <miquel.raynal@bootlin.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Fri, 17 Mar 2023 23:36:15 +0000 (UTC)
+Received: by mail-il1-f171.google.com with SMTP id h11so3548217ild.11
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 17 Mar 2023 16:36:15 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112; t=1679096174;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=P0aF6ySv7asajF8QSLAx821GR/b/dPYB7aTm0dn3L94=;
+ b=m6R6VDO3VbFNVt/l6K4NBZBn4UaWDzz0hpXFbGtqchXZ5CI3IvOMtvQswz1Nb+kKVo
+ iJ9kyi96W+cb+iUGJ+aRrOu0ScBIAHbS1v1j6af+QzFJdRhf5LIeDTLlKwmWLO7hnWM5
+ j7xJBAfttle74S18Dj/VKiDmnwIdFLSNHtsYMH0dzbuaR6FvakN3mS7+xzF0HTQVE48D
+ lH10dP8t7CuDdKQheJJWGAZCqYvWkzbecageQQXn/o4z+ebxf5dNv5Wcx+XX77urxLaZ
+ agez2yTX0zhhzHX/bJypL/ziw0+jF9xGrzmG/HiuPkBTPUl0VIghQWGmJojDxHSZRpAm
+ j4kg==
+X-Gm-Message-State: AO0yUKV1upW6JCM6fFnQatkR7e8Tts0U5QrwimOd/guAzKlJAmEKqgMx
+ QmqRz1/TRqJKhGyQnKxkMA==
+X-Google-Smtp-Source: AK7set8i36jIwNGiz3lVm0JEUk3Sk3gigF6WNTviKuhT/8WfE7jes3Obudbc+M/tAFS0rHecCDO7zg==
+X-Received: by 2002:a92:ca8d:0:b0:314:e56:54fc with SMTP id
+ t13-20020a92ca8d000000b003140e5654fcmr245501ilo.1.1679096174333; 
+ Fri, 17 Mar 2023 16:36:14 -0700 (PDT)
+Received: from robh_at_kernel.org ([64.188.179.249])
+ by smtp.gmail.com with ESMTPSA id
+ f6-20020a056e020c6600b00315327197d4sm960686ilj.23.2023.03.17.16.36.10
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 17 Mar 2023 16:36:13 -0700 (PDT)
+Received: (nullmailer pid 3967802 invoked by uid 1000);
+ Fri, 17 Mar 2023 23:36:10 -0000
+From: Rob Herring <robh@kernel.org>
+To: "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ =?UTF-8?Q?Andreas_F=C3=A4rber?= <afaerber@suse.de>, 
+ Manivannan Sadhasivam <mani@kernel.org>, Chen-Yu Tsai <wens@csie.org>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>,
+ Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@aj.id.au>,
+ =?UTF-8?B?UmFmYcWCIE1pxYJlY2tp?= <rafal@milecki.pl>, 
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Florian Fainelli <f.fainelli@gmail.com>, 
+ Appana Durga Kedareswara rao <appana.durga.rao@xilinx.com>, 
+ Naga Sureshkumar Relli <naga.sureshkumar.relli@xilinx.com>,
+ Wolfgang Grandegger <wg@grandegger.com>, 
+ Marc Kleine-Budde <mkl@pengutronix.de>, Michal Simek <michal.simek@xilinx.com>,
+ Andrew Lunn <andrew@lunn.ch>, Vladimir Oltean <olteanv@gmail.com>, 
+ Heiner Kallweit <hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>, 
+ Tobias Waldekranz <tobias@waldekranz.com>,
+ Lars Povlsen <lars.povlsen@microchip.com>, 
+ Steen Hegelund <Steen.Hegelund@microchip.com>,
+ Daniel Machon <daniel.machon@microchip.com>, 
+ UNGLinuxDriver@microchip.com, Andy Gross <agross@kernel.org>, 
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, 
+ Heiko Stuebner <heiko@sntech.de>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
  Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Vincent Shih <vincent.sunplus@gmail.com>,
- Thierry Reding <thierry.reding@gmail.com>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Michal Simek <michal.simek@xilinx.com>,
- Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>
-Message-ID: <167909091159.113952.12576059020896222306.b4-ty@bootlin.com>
-References: <20230304133028.2135435-1-u.kleine-koenig@pengutronix.de>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20230304133028.2135435-1-u.kleine-koenig@pengutronix.de>
-X-Topics: 
-Cc: linux-rtc@vger.kernel.org, chrome-platform@lists.linux.dev,
- patches@opensource.cirrus.com, linux-renesas-soc@vger.kernel.org,
- linux-tegra@vger.kernel.org,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
- kernel@pengutronix.de, Guenter Roeck <groeck@chromium.org>,
- linux-mediatek@lists.infradead.org, linux-riscv@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ Matthias Brugger <matthias.bgg@gmail.com>, 
  AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Subject: Re: [Linux-stm32] [PATCH 00/41] rtc: Convert to platform remove
- callback returning void
+Date: Fri, 17 Mar 2023 18:36:03 -0500
+Message-Id: <20230317233605.3967621-1-robh@kernel.org>
+X-Mailer: git-send-email 2.39.2
+MIME-Version: 1.0
+X-Topics: 
+Cc: devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-aspeed@lists.ozlabs.org, netdev@vger.kernel.org,
+ linux-actions@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-can@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ linux-mediatek@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+ linux-sunxi@lists.linux.dev, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH] dt-bindings: net: Drop unneeded quotes
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,121 +93,649 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+Cleanup bindings dropping unneeded quotes. Once all these are fixed,
+checking for this can be enabled in yamllint.
 
-On Sat, 04 Mar 2023 14:29:47 +0100, Uwe Kleine-K=F6nig wrote:
-> this patch series adapts the platform drivers below drivers/rtc to use the
-> .remove_new() callback. Compared to the traditional .remove() callback
-> .remove_new() returns no value. This is a good thing because the driver c=
-ore
-> doesn't (and cannot) cope for errors during remove. The only effect of a
-> non-zero return value in .remove() is that the driver core emits a warnin=
-g. The
-> device is removed anyhow and an early return from .remove() usually yield=
-s a
-> resource leak.
-> =
+Signed-off-by: Rob Herring <robh@kernel.org>
+---
+ .../devicetree/bindings/net/actions,owl-emac.yaml  |  2 +-
+ .../bindings/net/allwinner,sun4i-a10-emac.yaml     |  2 +-
+ .../bindings/net/allwinner,sun4i-a10-mdio.yaml     |  2 +-
+ .../devicetree/bindings/net/altr,tse.yaml          |  2 +-
+ .../bindings/net/aspeed,ast2600-mdio.yaml          |  2 +-
+ .../devicetree/bindings/net/brcm,amac.yaml         |  2 +-
+ .../devicetree/bindings/net/brcm,systemport.yaml   |  2 +-
+ .../bindings/net/broadcom-bluetooth.yaml           |  2 +-
+ .../devicetree/bindings/net/can/xilinx,can.yaml    |  6 +++---
+ .../devicetree/bindings/net/dsa/brcm,sf2.yaml      |  2 +-
+ .../devicetree/bindings/net/dsa/qca8k.yaml         |  2 +-
+ .../devicetree/bindings/net/engleder,tsnep.yaml    |  2 +-
+ .../devicetree/bindings/net/ethernet-phy.yaml      |  2 +-
+ .../bindings/net/fsl,qoriq-mc-dpmac.yaml           |  2 +-
+ .../bindings/net/intel,ixp4xx-ethernet.yaml        |  8 ++++----
+ .../devicetree/bindings/net/intel,ixp4xx-hss.yaml  | 14 +++++++-------
+ .../devicetree/bindings/net/marvell,mvusb.yaml     |  2 +-
+ .../devicetree/bindings/net/mdio-gpio.yaml         |  2 +-
+ .../devicetree/bindings/net/mediatek,net.yaml      |  2 +-
+ .../bindings/net/mediatek,star-emac.yaml           |  2 +-
+ .../bindings/net/microchip,lan966x-switch.yaml     |  2 +-
+ .../bindings/net/microchip,sparx5-switch.yaml      |  4 ++--
+ .../devicetree/bindings/net/mscc,miim.yaml         |  2 +-
+ .../devicetree/bindings/net/nfc/marvell,nci.yaml   |  2 +-
+ .../devicetree/bindings/net/nfc/nxp,pn532.yaml     |  2 +-
+ .../bindings/net/pse-pd/podl-pse-regulator.yaml    |  2 +-
+ .../devicetree/bindings/net/qcom,ipq4019-mdio.yaml |  2 +-
+ .../devicetree/bindings/net/qcom,ipq8064-mdio.yaml |  2 +-
+ .../devicetree/bindings/net/rockchip,emac.yaml     |  2 +-
+ .../devicetree/bindings/net/snps,dwmac.yaml        |  2 +-
+ .../devicetree/bindings/net/stm32-dwmac.yaml       |  4 ++--
+ .../devicetree/bindings/net/ti,cpsw-switch.yaml    | 10 +++++-----
+ .../devicetree/bindings/net/ti,davinci-mdio.yaml   |  2 +-
+ .../devicetree/bindings/net/ti,dp83822.yaml        |  2 +-
+ .../devicetree/bindings/net/ti,dp83867.yaml        |  2 +-
+ .../devicetree/bindings/net/ti,dp83869.yaml        |  2 +-
+ 36 files changed, 53 insertions(+), 53 deletions(-)
 
-> [...]
+diff --git a/Documentation/devicetree/bindings/net/actions,owl-emac.yaml b/Documentation/devicetree/bindings/net/actions,owl-emac.yaml
+index d30fada2ac39..5718ab4654b2 100644
+--- a/Documentation/devicetree/bindings/net/actions,owl-emac.yaml
++++ b/Documentation/devicetree/bindings/net/actions,owl-emac.yaml
+@@ -16,7 +16,7 @@ description: |
+   operation modes at 10/100 Mb/s data transfer rates.
+ 
+ allOf:
+-  - $ref: "ethernet-controller.yaml#"
++  - $ref: ethernet-controller.yaml#
+ 
+ properties:
+   compatible:
+diff --git a/Documentation/devicetree/bindings/net/allwinner,sun4i-a10-emac.yaml b/Documentation/devicetree/bindings/net/allwinner,sun4i-a10-emac.yaml
+index 987b91b9afe9..eb26623dab51 100644
+--- a/Documentation/devicetree/bindings/net/allwinner,sun4i-a10-emac.yaml
++++ b/Documentation/devicetree/bindings/net/allwinner,sun4i-a10-emac.yaml
+@@ -7,7 +7,7 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
+ title: Allwinner A10 EMAC Ethernet Controller
+ 
+ allOf:
+-  - $ref: "ethernet-controller.yaml#"
++  - $ref: ethernet-controller.yaml#
+ 
+ maintainers:
+   - Chen-Yu Tsai <wens@csie.org>
+diff --git a/Documentation/devicetree/bindings/net/allwinner,sun4i-a10-mdio.yaml b/Documentation/devicetree/bindings/net/allwinner,sun4i-a10-mdio.yaml
+index ede977cdfb8d..85f552b907f3 100644
+--- a/Documentation/devicetree/bindings/net/allwinner,sun4i-a10-mdio.yaml
++++ b/Documentation/devicetree/bindings/net/allwinner,sun4i-a10-mdio.yaml
+@@ -11,7 +11,7 @@ maintainers:
+   - Maxime Ripard <mripard@kernel.org>
+ 
+ allOf:
+-  - $ref: "mdio.yaml#"
++  - $ref: mdio.yaml#
+ 
+ # Select every compatible, including the deprecated ones. This way, we
+ # will be able to report a warning when we have that compatible, since
+diff --git a/Documentation/devicetree/bindings/net/altr,tse.yaml b/Documentation/devicetree/bindings/net/altr,tse.yaml
+index 8d1d94494349..9d02af468906 100644
+--- a/Documentation/devicetree/bindings/net/altr,tse.yaml
++++ b/Documentation/devicetree/bindings/net/altr,tse.yaml
+@@ -66,7 +66,7 @@ required:
+   - tx-fifo-depth
+ 
+ allOf:
+-  - $ref: "ethernet-controller.yaml#"
++  - $ref: ethernet-controller.yaml#
+   - if:
+       properties:
+         compatible:
+diff --git a/Documentation/devicetree/bindings/net/aspeed,ast2600-mdio.yaml b/Documentation/devicetree/bindings/net/aspeed,ast2600-mdio.yaml
+index f81eda8cb0a5..d6ef468495c5 100644
+--- a/Documentation/devicetree/bindings/net/aspeed,ast2600-mdio.yaml
++++ b/Documentation/devicetree/bindings/net/aspeed,ast2600-mdio.yaml
+@@ -15,7 +15,7 @@ description: |+
+   MAC.
+ 
+ allOf:
+-  - $ref: "mdio.yaml#"
++  - $ref: mdio.yaml#
+ 
+ properties:
+   compatible:
+diff --git a/Documentation/devicetree/bindings/net/brcm,amac.yaml b/Documentation/devicetree/bindings/net/brcm,amac.yaml
+index ee2eac8f5710..210fb29c4e7b 100644
+--- a/Documentation/devicetree/bindings/net/brcm,amac.yaml
++++ b/Documentation/devicetree/bindings/net/brcm,amac.yaml
+@@ -10,7 +10,7 @@ maintainers:
+   - Florian Fainelli <f.fainelli@gmail.com>
+ 
+ allOf:
+-  - $ref: "ethernet-controller.yaml#"
++  - $ref: ethernet-controller.yaml#
+   - if:
+       properties:
+         compatible:
+diff --git a/Documentation/devicetree/bindings/net/brcm,systemport.yaml b/Documentation/devicetree/bindings/net/brcm,systemport.yaml
+index 5fc9c9fafd85..b40006d44791 100644
+--- a/Documentation/devicetree/bindings/net/brcm,systemport.yaml
++++ b/Documentation/devicetree/bindings/net/brcm,systemport.yaml
+@@ -66,7 +66,7 @@ required:
+   - phy-mode
+ 
+ allOf:
+-  - $ref: "ethernet-controller.yaml#"
++  - $ref: ethernet-controller.yaml#
+ 
+ unevaluatedProperties: false
+ 
+diff --git a/Documentation/devicetree/bindings/net/broadcom-bluetooth.yaml b/Documentation/devicetree/bindings/net/broadcom-bluetooth.yaml
+index b964c7dcec15..cc70b00c6ce5 100644
+--- a/Documentation/devicetree/bindings/net/broadcom-bluetooth.yaml
++++ b/Documentation/devicetree/bindings/net/broadcom-bluetooth.yaml
+@@ -121,7 +121,7 @@ required:
+   - compatible
+ 
+ dependencies:
+-  brcm,requires-autobaud-mode: [ 'shutdown-gpios' ]
++  brcm,requires-autobaud-mode: [ shutdown-gpios ]
+ 
+ if:
+   not:
+diff --git a/Documentation/devicetree/bindings/net/can/xilinx,can.yaml b/Documentation/devicetree/bindings/net/can/xilinx,can.yaml
+index 65af8183cb9c..897d2cbda45b 100644
+--- a/Documentation/devicetree/bindings/net/can/xilinx,can.yaml
++++ b/Documentation/devicetree/bindings/net/can/xilinx,can.yaml
+@@ -35,15 +35,15 @@ properties:
+     maxItems: 1
+ 
+   tx-fifo-depth:
+-    $ref: "/schemas/types.yaml#/definitions/uint32"
++    $ref: /schemas/types.yaml#/definitions/uint32
+     description: CAN Tx fifo depth (Zynq, Axi CAN).
+ 
+   rx-fifo-depth:
+-    $ref: "/schemas/types.yaml#/definitions/uint32"
++    $ref: /schemas/types.yaml#/definitions/uint32
+     description: CAN Rx fifo depth (Zynq, Axi CAN, CAN FD in sequential Rx mode)
+ 
+   tx-mailbox-count:
+-    $ref: "/schemas/types.yaml#/definitions/uint32"
++    $ref: /schemas/types.yaml#/definitions/uint32
+     description: CAN Tx mailbox buffer count (CAN FD)
+ 
+ required:
+diff --git a/Documentation/devicetree/bindings/net/dsa/brcm,sf2.yaml b/Documentation/devicetree/bindings/net/dsa/brcm,sf2.yaml
+index eed16e216fb6..37bf33bd4670 100644
+--- a/Documentation/devicetree/bindings/net/dsa/brcm,sf2.yaml
++++ b/Documentation/devicetree/bindings/net/dsa/brcm,sf2.yaml
+@@ -103,7 +103,7 @@ required:
+   - "#size-cells"
+ 
+ allOf:
+-  - $ref: "dsa.yaml#"
++  - $ref: dsa.yaml#
+   - if:
+       properties:
+         compatible:
+diff --git a/Documentation/devicetree/bindings/net/dsa/qca8k.yaml b/Documentation/devicetree/bindings/net/dsa/qca8k.yaml
+index 389892592aac..fe9ebe285938 100644
+--- a/Documentation/devicetree/bindings/net/dsa/qca8k.yaml
++++ b/Documentation/devicetree/bindings/net/dsa/qca8k.yaml
+@@ -66,7 +66,7 @@ properties:
+                  With the legacy mapping the reg corresponding to the internal
+                  mdio is the switch reg with an offset of -1.
+ 
+-$ref: "dsa.yaml#"
++$ref: dsa.yaml#
+ 
+ patternProperties:
+   "^(ethernet-)?ports$":
+diff --git a/Documentation/devicetree/bindings/net/engleder,tsnep.yaml b/Documentation/devicetree/bindings/net/engleder,tsnep.yaml
+index 4116667133ce..82a5d7927ca4 100644
+--- a/Documentation/devicetree/bindings/net/engleder,tsnep.yaml
++++ b/Documentation/devicetree/bindings/net/engleder,tsnep.yaml
+@@ -62,7 +62,7 @@ properties:
+ 
+   mdio:
+     type: object
+-    $ref: "mdio.yaml#"
++    $ref: mdio.yaml#
+     description: optional node for embedded MDIO controller
+ 
+ required:
+diff --git a/Documentation/devicetree/bindings/net/ethernet-phy.yaml b/Documentation/devicetree/bindings/net/ethernet-phy.yaml
+index 1327b81f15a2..ac04f8efa35c 100644
+--- a/Documentation/devicetree/bindings/net/ethernet-phy.yaml
++++ b/Documentation/devicetree/bindings/net/ethernet-phy.yaml
+@@ -83,7 +83,7 @@ properties:
+       0: Disable 2.4 Vpp operating mode.
+       1: Request 2.4 Vpp operating mode from link partner.
+       Absence of this property will leave configuration to default values.
+-    $ref: "/schemas/types.yaml#/definitions/uint32"
++    $ref: /schemas/types.yaml#/definitions/uint32
+     enum: [0, 1]
+ 
+   broken-turn-around:
+diff --git a/Documentation/devicetree/bindings/net/fsl,qoriq-mc-dpmac.yaml b/Documentation/devicetree/bindings/net/fsl,qoriq-mc-dpmac.yaml
+index 6e0763898d3a..a1b71b35319e 100644
+--- a/Documentation/devicetree/bindings/net/fsl,qoriq-mc-dpmac.yaml
++++ b/Documentation/devicetree/bindings/net/fsl,qoriq-mc-dpmac.yaml
+@@ -14,7 +14,7 @@ description:
+   located under the 'dpmacs' node for the fsl-mc bus DTS node.
+ 
+ allOf:
+-  - $ref: "ethernet-controller.yaml#"
++  - $ref: ethernet-controller.yaml#
+ 
+ properties:
+   compatible:
+diff --git a/Documentation/devicetree/bindings/net/intel,ixp4xx-ethernet.yaml b/Documentation/devicetree/bindings/net/intel,ixp4xx-ethernet.yaml
+index 4e1b79818aff..d79901451abd 100644
+--- a/Documentation/devicetree/bindings/net/intel,ixp4xx-ethernet.yaml
++++ b/Documentation/devicetree/bindings/net/intel,ixp4xx-ethernet.yaml
+@@ -8,7 +8,7 @@ $schema: "http://devicetree.org/meta-schemas/core.yaml#"
+ title: Intel IXP4xx ethernet
+ 
+ allOf:
+-  - $ref: "ethernet-controller.yaml#"
++  - $ref: ethernet-controller.yaml#
+ 
+ maintainers:
+   - Linus Walleij <linus.walleij@linaro.org>
+@@ -28,7 +28,7 @@ properties:
+     description: Ethernet MMIO address range
+ 
+   queue-rx:
+-    $ref: '/schemas/types.yaml#/definitions/phandle-array'
++    $ref: /schemas/types.yaml#/definitions/phandle-array
+     items:
+       - items:
+           - description: phandle to the RX queue node
+@@ -36,7 +36,7 @@ properties:
+     description: phandle to the RX queue on the NPE
+ 
+   queue-txready:
+-    $ref: '/schemas/types.yaml#/definitions/phandle-array'
++    $ref: /schemas/types.yaml#/definitions/phandle-array
+     items:
+       - items:
+           - description: phandle to the TX READY queue node
+@@ -48,7 +48,7 @@ properties:
+   phy-handle: true
+ 
+   intel,npe-handle:
+-    $ref: '/schemas/types.yaml#/definitions/phandle-array'
++    $ref: /schemas/types.yaml#/definitions/phandle-array
+     items:
+       - items:
+           - description: phandle to the NPE this ethernet instance is using
+diff --git a/Documentation/devicetree/bindings/net/intel,ixp4xx-hss.yaml b/Documentation/devicetree/bindings/net/intel,ixp4xx-hss.yaml
+index e6329febb60c..5adf95e75781 100644
+--- a/Documentation/devicetree/bindings/net/intel,ixp4xx-hss.yaml
++++ b/Documentation/devicetree/bindings/net/intel,ixp4xx-hss.yaml
+@@ -24,7 +24,7 @@ properties:
+     description: The HSS instance
+ 
+   intel,npe-handle:
+-    $ref: '/schemas/types.yaml#/definitions/phandle-array'
++    $ref: /schemas/types.yaml#/definitions/phandle-array
+     items:
+       items:
+         - description: phandle to the NPE this HSS instance is using
+@@ -33,7 +33,7 @@ properties:
+       and the instance to use in the second cell
+ 
+   intel,queue-chl-rxtrig:
+-    $ref: '/schemas/types.yaml#/definitions/phandle-array'
++    $ref: /schemas/types.yaml#/definitions/phandle-array
+     items:
+       - items:
+           - description: phandle to the RX trigger queue on the NPE
+@@ -41,7 +41,7 @@ properties:
+     description: phandle to the RX trigger queue on the NPE
+ 
+   intel,queue-chl-txready:
+-    $ref: '/schemas/types.yaml#/definitions/phandle-array'
++    $ref: /schemas/types.yaml#/definitions/phandle-array
+     items:
+       - items:
+           - description: phandle to the TX ready queue on the NPE
+@@ -49,7 +49,7 @@ properties:
+     description: phandle to the TX ready queue on the NPE
+ 
+   intel,queue-pkt-rx:
+-    $ref: '/schemas/types.yaml#/definitions/phandle-array'
++    $ref: /schemas/types.yaml#/definitions/phandle-array
+     items:
+       - items:
+           - description: phandle to the RX queue on the NPE
+@@ -57,7 +57,7 @@ properties:
+     description: phandle to the packet RX queue on the NPE
+ 
+   intel,queue-pkt-tx:
+-    $ref: '/schemas/types.yaml#/definitions/phandle-array'
++    $ref: /schemas/types.yaml#/definitions/phandle-array
+     maxItems: 4
+     items:
+       items:
+@@ -66,7 +66,7 @@ properties:
+     description: phandle to the packet TX0, TX1, TX2 and TX3 queues on the NPE
+ 
+   intel,queue-pkt-rxfree:
+-    $ref: '/schemas/types.yaml#/definitions/phandle-array'
++    $ref: /schemas/types.yaml#/definitions/phandle-array
+     maxItems: 4
+     items:
+       items:
+@@ -76,7 +76,7 @@ properties:
+       RXFREE3 queues on the NPE
+ 
+   intel,queue-pkt-txdone:
+-    $ref: '/schemas/types.yaml#/definitions/phandle-array'
++    $ref: /schemas/types.yaml#/definitions/phandle-array
+     items:
+       - items:
+           - description: phandle to the TXDONE queue on the NPE
+diff --git a/Documentation/devicetree/bindings/net/marvell,mvusb.yaml b/Documentation/devicetree/bindings/net/marvell,mvusb.yaml
+index 8e288ab38fd7..3a3325168048 100644
+--- a/Documentation/devicetree/bindings/net/marvell,mvusb.yaml
++++ b/Documentation/devicetree/bindings/net/marvell,mvusb.yaml
+@@ -20,7 +20,7 @@ description: |+
+   definition.
+ 
+ allOf:
+-  - $ref: "mdio.yaml#"
++  - $ref: mdio.yaml#
+ 
+ properties:
+   compatible:
+diff --git a/Documentation/devicetree/bindings/net/mdio-gpio.yaml b/Documentation/devicetree/bindings/net/mdio-gpio.yaml
+index 137657341802..eb4171a1940e 100644
+--- a/Documentation/devicetree/bindings/net/mdio-gpio.yaml
++++ b/Documentation/devicetree/bindings/net/mdio-gpio.yaml
+@@ -12,7 +12,7 @@ maintainers:
+   - Russell King <linux@armlinux.org.uk>
+ 
+ allOf:
+-  - $ref: "mdio.yaml#"
++  - $ref: mdio.yaml#
+ 
+ properties:
+   compatible:
+diff --git a/Documentation/devicetree/bindings/net/mediatek,net.yaml b/Documentation/devicetree/bindings/net/mediatek,net.yaml
+index 7ef696204c5a..49e7f5e1a531 100644
+--- a/Documentation/devicetree/bindings/net/mediatek,net.yaml
++++ b/Documentation/devicetree/bindings/net/mediatek,net.yaml
+@@ -91,7 +91,7 @@ properties:
+     const: 0
+ 
+ allOf:
+-  - $ref: "ethernet-controller.yaml#"
++  - $ref: ethernet-controller.yaml#
+   - if:
+       properties:
+         compatible:
+diff --git a/Documentation/devicetree/bindings/net/mediatek,star-emac.yaml b/Documentation/devicetree/bindings/net/mediatek,star-emac.yaml
+index 64c893c98d80..2e889f9a563e 100644
+--- a/Documentation/devicetree/bindings/net/mediatek,star-emac.yaml
++++ b/Documentation/devicetree/bindings/net/mediatek,star-emac.yaml
+@@ -15,7 +15,7 @@ description:
+   modes with flow-control as well as CRC offloading and VLAN tags.
+ 
+ allOf:
+-  - $ref: "ethernet-controller.yaml#"
++  - $ref: ethernet-controller.yaml#
+ 
+ properties:
+   compatible:
+diff --git a/Documentation/devicetree/bindings/net/microchip,lan966x-switch.yaml b/Documentation/devicetree/bindings/net/microchip,lan966x-switch.yaml
+index dc116f14750e..306ef9ecf2b9 100644
+--- a/Documentation/devicetree/bindings/net/microchip,lan966x-switch.yaml
++++ b/Documentation/devicetree/bindings/net/microchip,lan966x-switch.yaml
+@@ -73,7 +73,7 @@ properties:
+       "^port@[0-9a-f]+$":
+         type: object
+ 
+-        $ref: "/schemas/net/ethernet-controller.yaml#"
++        $ref: /schemas/net/ethernet-controller.yaml#
+         unevaluatedProperties: false
+ 
+         properties:
+diff --git a/Documentation/devicetree/bindings/net/microchip,sparx5-switch.yaml b/Documentation/devicetree/bindings/net/microchip,sparx5-switch.yaml
+index 57ffeb8fc876..fcafef8d5a33 100644
+--- a/Documentation/devicetree/bindings/net/microchip,sparx5-switch.yaml
++++ b/Documentation/devicetree/bindings/net/microchip,sparx5-switch.yaml
+@@ -99,7 +99,7 @@ properties:
+ 
+           microchip,bandwidth:
+             description: Specifies bandwidth in Mbit/s allocated to the port.
+-            $ref: "/schemas/types.yaml#/definitions/uint32"
++            $ref: /schemas/types.yaml#/definitions/uint32
+             maximum: 25000
+ 
+           microchip,sd-sgpio:
+@@ -107,7 +107,7 @@ properties:
+               Index of the ports Signal Detect SGPIO in the set of 384 SGPIOs
+               This is optional, and only needed if the default used index is
+               is not correct.
+-            $ref: "/schemas/types.yaml#/definitions/uint32"
++            $ref: /schemas/types.yaml#/definitions/uint32
+             minimum: 0
+             maximum: 383
+ 
+diff --git a/Documentation/devicetree/bindings/net/mscc,miim.yaml b/Documentation/devicetree/bindings/net/mscc,miim.yaml
+index 2c451cfa4e0b..5b292e7c9e46 100644
+--- a/Documentation/devicetree/bindings/net/mscc,miim.yaml
++++ b/Documentation/devicetree/bindings/net/mscc,miim.yaml
+@@ -10,7 +10,7 @@ maintainers:
+   - Alexandre Belloni <alexandre.belloni@bootlin.com>
+ 
+ allOf:
+-  - $ref: "mdio.yaml#"
++  - $ref: mdio.yaml#
+ 
+ properties:
+   compatible:
+diff --git a/Documentation/devicetree/bindings/net/nfc/marvell,nci.yaml b/Documentation/devicetree/bindings/net/nfc/marvell,nci.yaml
+index 308485a8ee6c..8e9a95f24c80 100644
+--- a/Documentation/devicetree/bindings/net/nfc/marvell,nci.yaml
++++ b/Documentation/devicetree/bindings/net/nfc/marvell,nci.yaml
+@@ -28,7 +28,7 @@ properties:
+     maxItems: 1
+ 
+   reset-n-io:
+-    $ref: "/schemas/types.yaml#/definitions/phandle-array"
++    $ref: /schemas/types.yaml#/definitions/phandle-array
+     maxItems: 1
+     description: |
+       Output GPIO pin used to reset the chip (active low)
+diff --git a/Documentation/devicetree/bindings/net/nfc/nxp,pn532.yaml b/Documentation/devicetree/bindings/net/nfc/nxp,pn532.yaml
+index 0509e0166345..07c67c1e985f 100644
+--- a/Documentation/devicetree/bindings/net/nfc/nxp,pn532.yaml
++++ b/Documentation/devicetree/bindings/net/nfc/nxp,pn532.yaml
+@@ -31,7 +31,7 @@ required:
+   - compatible
+ 
+ dependencies:
+-  interrupts: [ 'reg' ]
++  interrupts: [ reg ]
+ 
+ additionalProperties: false
+ 
+diff --git a/Documentation/devicetree/bindings/net/pse-pd/podl-pse-regulator.yaml b/Documentation/devicetree/bindings/net/pse-pd/podl-pse-regulator.yaml
+index c6b1c188abf7..94a527e6aa1b 100644
+--- a/Documentation/devicetree/bindings/net/pse-pd/podl-pse-regulator.yaml
++++ b/Documentation/devicetree/bindings/net/pse-pd/podl-pse-regulator.yaml
+@@ -13,7 +13,7 @@ description: Regulator based PoDL PSE controller. The device must be referenced
+   by the PHY node to control power injection to the Ethernet cable.
+ 
+ allOf:
+-  - $ref: "pse-controller.yaml#"
++  - $ref: pse-controller.yaml#
+ 
+ properties:
+   compatible:
+diff --git a/Documentation/devicetree/bindings/net/qcom,ipq4019-mdio.yaml b/Documentation/devicetree/bindings/net/qcom,ipq4019-mdio.yaml
+index 7631ecc8fd01..3407e909e8a7 100644
+--- a/Documentation/devicetree/bindings/net/qcom,ipq4019-mdio.yaml
++++ b/Documentation/devicetree/bindings/net/qcom,ipq4019-mdio.yaml
+@@ -51,7 +51,7 @@ required:
+   - "#size-cells"
+ 
+ allOf:
+-  - $ref: "mdio.yaml#"
++  - $ref: mdio.yaml#
+ 
+   - if:
+       properties:
+diff --git a/Documentation/devicetree/bindings/net/qcom,ipq8064-mdio.yaml b/Documentation/devicetree/bindings/net/qcom,ipq8064-mdio.yaml
+index d7748dd33199..144001ff840c 100644
+--- a/Documentation/devicetree/bindings/net/qcom,ipq8064-mdio.yaml
++++ b/Documentation/devicetree/bindings/net/qcom,ipq8064-mdio.yaml
+@@ -14,7 +14,7 @@ description:
+   used to communicate with the gmac phy connected.
+ 
+ allOf:
+-  - $ref: "mdio.yaml#"
++  - $ref: mdio.yaml#
+ 
+ properties:
+   compatible:
+diff --git a/Documentation/devicetree/bindings/net/rockchip,emac.yaml b/Documentation/devicetree/bindings/net/rockchip,emac.yaml
+index a6d4f14df442..364028b3bba4 100644
+--- a/Documentation/devicetree/bindings/net/rockchip,emac.yaml
++++ b/Documentation/devicetree/bindings/net/rockchip,emac.yaml
+@@ -61,7 +61,7 @@ required:
+   - mdio
+ 
+ allOf:
+-  - $ref: "ethernet-controller.yaml#"
++  - $ref: ethernet-controller.yaml#
+   - if:
+       properties:
+         compatible:
+diff --git a/Documentation/devicetree/bindings/net/snps,dwmac.yaml b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+index 16b7d2904696..74f2ddc12018 100644
+--- a/Documentation/devicetree/bindings/net/snps,dwmac.yaml
++++ b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+@@ -555,7 +555,7 @@ dependencies:
+   snps,reset-delays-us: ["snps,reset-gpio"]
+ 
+ allOf:
+-  - $ref: "ethernet-controller.yaml#"
++  - $ref: ethernet-controller.yaml#
+   - if:
+       properties:
+         compatible:
+diff --git a/Documentation/devicetree/bindings/net/stm32-dwmac.yaml b/Documentation/devicetree/bindings/net/stm32-dwmac.yaml
+index 5c93167b3b41..caae3c2a9419 100644
+--- a/Documentation/devicetree/bindings/net/stm32-dwmac.yaml
++++ b/Documentation/devicetree/bindings/net/stm32-dwmac.yaml
+@@ -26,7 +26,7 @@ select:
+     - compatible
+ 
+ allOf:
+-  - $ref: "snps,dwmac.yaml#"
++  - $ref: snps,dwmac.yaml#
+ 
+ properties:
+   compatible:
+@@ -73,7 +73,7 @@ properties:
+         - ptp_ref
+ 
+   st,syscon:
+-    $ref: "/schemas/types.yaml#/definitions/phandle-array"
++    $ref: /schemas/types.yaml#/definitions/phandle-array
+     items:
+       - items:
+           - description: phandle to the syscon node which encompases the glue register
+diff --git a/Documentation/devicetree/bindings/net/ti,cpsw-switch.yaml b/Documentation/devicetree/bindings/net/ti,cpsw-switch.yaml
+index e36c7817be69..b04ac4966608 100644
+--- a/Documentation/devicetree/bindings/net/ti,cpsw-switch.yaml
++++ b/Documentation/devicetree/bindings/net/ti,cpsw-switch.yaml
+@@ -62,10 +62,10 @@ properties:
+ 
+   interrupt-names:
+     items:
+-      - const: "rx_thresh"
+-      - const: "rx"
+-      - const: "tx"
+-      - const: "misc"
++      - const: rx_thresh
++      - const: rx
++      - const: tx
++      - const: misc
+ 
+   pinctrl-names: true
+ 
+@@ -154,7 +154,7 @@ patternProperties:
+     type: object
+     description:
+       CPSW MDIO bus.
+-    $ref: "ti,davinci-mdio.yaml#"
++    $ref: ti,davinci-mdio.yaml#
+ 
+ 
+ required:
+diff --git a/Documentation/devicetree/bindings/net/ti,davinci-mdio.yaml b/Documentation/devicetree/bindings/net/ti,davinci-mdio.yaml
+index a339202c5e8e..53604fab0b73 100644
+--- a/Documentation/devicetree/bindings/net/ti,davinci-mdio.yaml
++++ b/Documentation/devicetree/bindings/net/ti,davinci-mdio.yaml
+@@ -13,7 +13,7 @@ description:
+   TI SoC Davinci/Keystone2 MDIO Controller
+ 
+ allOf:
+-  - $ref: "mdio.yaml#"
++  - $ref: mdio.yaml#
+ 
+ properties:
+   compatible:
+diff --git a/Documentation/devicetree/bindings/net/ti,dp83822.yaml b/Documentation/devicetree/bindings/net/ti,dp83822.yaml
+index f2489a9c852f..633a551c1501 100644
+--- a/Documentation/devicetree/bindings/net/ti,dp83822.yaml
++++ b/Documentation/devicetree/bindings/net/ti,dp83822.yaml
+@@ -21,7 +21,7 @@ description: |
+     http://www.ti.com/lit/ds/symlink/dp83822i.pdf
+ 
+ allOf:
+-  - $ref: "ethernet-phy.yaml#"
++  - $ref: ethernet-phy.yaml#
+ 
+ properties:
+   reg:
+diff --git a/Documentation/devicetree/bindings/net/ti,dp83867.yaml b/Documentation/devicetree/bindings/net/ti,dp83867.yaml
+index b8c0e4b5b494..d3c3e589bd6f 100644
+--- a/Documentation/devicetree/bindings/net/ti,dp83867.yaml
++++ b/Documentation/devicetree/bindings/net/ti,dp83867.yaml
+@@ -8,7 +8,7 @@ $schema: "http://devicetree.org/meta-schemas/core.yaml#"
+ title: TI DP83867 ethernet PHY
+ 
+ allOf:
+-  - $ref: "ethernet-controller.yaml#"
++  - $ref: ethernet-controller.yaml#
+ 
+ maintainers:
+   - Andrew Davis <afd@ti.com>
+diff --git a/Documentation/devicetree/bindings/net/ti,dp83869.yaml b/Documentation/devicetree/bindings/net/ti,dp83869.yaml
+index b04ff0014a59..4f1e5224bb00 100644
+--- a/Documentation/devicetree/bindings/net/ti,dp83869.yaml
++++ b/Documentation/devicetree/bindings/net/ti,dp83869.yaml
+@@ -8,7 +8,7 @@ $schema: "http://devicetree.org/meta-schemas/core.yaml#"
+ title: TI DP83869 ethernet PHY
+ 
+ allOf:
+-  - $ref: "ethernet-phy.yaml#"
++  - $ref: ethernet-phy.yaml#
+ 
+ maintainers:
+   - Andrew Davis <afd@ti.com>
+-- 
+2.39.2
 
-Applied, thanks!
-
-[01/41] rtc: 88pm80x: Convert to platform remove callback returning void
-        commit: 8ef70a5ef3ed41ce4d700794d45fd9e084460a00
-[02/41] rtc: 88pm860x: Convert to platform remove callback returning void
-        commit: 8fbff75e2b7582fc03dbcd13e67831fb75345dcb
-[03/41] rtc: ab8500: Convert to platform remove callback returning void
-        commit: 8a700af1babfc0e5d34bd95264d65ea6adb0b288
-[04/41] rtc: ac100: Convert to platform remove callback returning void
-        commit: 28015e799ad9ff04d68107b7392a4884accedb0e
-[05/41] rtc: asm9260: Convert to platform remove callback returning void
-        commit: ad01bf83bfc33c53079415f02e160bf72221d7e6
-[06/41] rtc: at91sam9: Convert to platform remove callback returning void
-        commit: 06e5e4a5a996aefb5d8e0c8db05b014e3bd91a28
-[07/41] rtc: brcmstb-waketimer: Convert to platform remove callback returni=
-ng void
-        commit: d64906b320ce6fef446ea72c6043bbec19f0da60
-[08/41] rtc: cadence: Convert to platform remove callback returning void
-        commit: 0b9efd82a63b31c7c2ce17a3d8ad3aeb28b3a928
-[09/41] rtc: cmos: Convert to platform remove callback returning void
-        commit: 63c18a079bbb5f564b30e0fa7ec292eb123b1bf6
-[10/41] rtc: cros-ec: Convert to platform remove callback returning void
-        commit: 0d8742e61098b422b1ba1458a7ce80c4f1e299bb
-[11/41] rtc: ds1685: Convert to platform remove callback returning void
-        commit: de11783c9d2a4dec9e0e2c01b9a9897d72019d5f
-[12/41] rtc: ftrtc010: Convert to platform remove callback returning void
-        commit: 43eeb707afb00579a7bb611d14fc9a056bba849e
-[13/41] rtc: hid-sensor-time: Convert to platform remove callback returning=
- void
-        commit: 30d5365c8dda63e31fb1fbbec446d72d0f1e5ce6
-[14/41] rtc: lpc24xx: Convert to platform remove callback returning void
-        commit: 52fcb90d8cdf117ade871b01861b8a8defbf3b78
-[15/41] rtc: max77686: Convert to platform remove callback returning void
-        commit: bf05de01160d493d53cc289be1b1092c26b378b4
-[16/41] rtc: mc13xxx: Convert to platform remove callback returning void
-        commit: 99c3a1367db02b6b57be54bf61da051a93e0615f
-[17/41] rtc: mpc5121: Convert to platform remove callback returning void
-        commit: 22edbc10a514a8cf56d9c8da5cc1a2d43e6832a5
-[18/41] rtc: mpfs: Convert to platform remove callback returning void
-        commit: fa147083acf61de306e2881d91401d817de11093
-[19/41] rtc: mt7622: Convert to platform remove callback returning void
-        commit: ae0ac71651c726c2f1d5af752d38bf40526b7026
-[20/41] rtc: mxc_v2: Convert to platform remove callback returning void
-        commit: 153f56f9ce99495ca4cb6d7f2047c29940aef9f5
-[21/41] rtc: omap: Convert to platform remove callback returning void
-        commit: 578afdb9084ed0446060d627e7f3ecd1c4100c3d
-[22/41] rtc: palmas: Convert to platform remove callback returning void
-        commit: a7f9864e4362e07e113517d647c5bc355cdee970
-[23/41] rtc: pcf50633: Convert to platform remove callback returning void
-        commit: d25f0ba97692b4a8ac63bbd2c562741525c5f5ca
-[24/41] rtc: pic32: Convert to platform remove callback returning void
-        commit: c3d12a10922dcf32a97d3c71f6a574529b061caf
-[25/41] rtc: pm8xxx: Convert to platform remove callback returning void
-        commit: 3fc5029a8f7d0d3c039c3649e82cc2e4eeeb46a6
-[26/41] rtc: rc5t583: Convert to platform remove callback returning void
-        commit: ade527dd2192ddabbd4926338c31ca281098c34c
-[27/41] rtc: rtd119x: Convert to platform remove callback returning void
-        commit: 0824a15b6863a19c7c8e1c16abf6090fd8ac615f
-[28/41] rtc: rzn1: Convert to platform remove callback returning void
-        commit: e55fbc80e9d2bf3ec0ec77551baa683f30e85b74
-[29/41] rtc: s3c: Convert to platform remove callback returning void
-        commit: 9e6a2ad120fa3f785f013e70ae7d872abafb8318
-[30/41] rtc: sa1100: Convert to platform remove callback returning void
-        commit: cf407e9f1a9dc290e2088c11bd0e5542334e7ab4
-[31/41] rtc: spear: Convert to platform remove callback returning void
-        commit: 25ffc856b3cb1bd08a8645839aa38505469a6edd
-[32/41] rtc: stm32: Convert to platform remove callback returning void
-        commit: 54c2cb2797cd76465dae08cd9b81676ffad36b27
-[33/41] rtc: stmp3xxx: Convert to platform remove callback returning void
-        commit: 16324165ab1f90fa06294679e3de58cb53c0423f
-[34/41] rtc: sunplus: Convert to platform remove callback returning void
-        commit: d6f525040eef1562327fccc4412acdb4f173e01b
-[35/41] rtc: tegra: Convert to platform remove callback returning void
-        commit: 31c94505f44b47493d62c0fd43d30838326d345f
-[36/41] rtc: tps6586x: Convert to platform remove callback returning void
-        commit: adebcc1c1916188c1c9ac8e8f54123b07431baf7
-[37/41] rtc: twl: Convert to platform remove callback returning void
-        commit: fff118c9e8331b9b08b69841498fbea34693a28c
-[38/41] rtc: vt8500: Convert to platform remove callback returning void
-        commit: 5b1064441f20fc3f397239599b1193fecb7a90e4
-[39/41] rtc: wm8350: Convert to platform remove callback returning void
-        commit: 631aa2d919f542373892d5ef6baf13e2969a10fd
-[40/41] rtc: xgene: Convert to platform remove callback returning void
-        commit: 257062d2679f4db5b6ebc9f4e6a77d0a45977278
-[41/41] rtc: zynqmp: Convert to platform remove callback returning void
-        commit: f45e5cfa73f445fa3cfbb7ebac3a7e2c66a9281c
-
-Best regards,
-
--- =
-
-Alexandre Belloni, co-owner and COO, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
