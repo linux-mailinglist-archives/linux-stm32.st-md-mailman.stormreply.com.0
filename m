@@ -2,64 +2,152 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D6F196BDD55
-	for <lists+linux-stm32@lfdr.de>; Fri, 17 Mar 2023 01:07:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0702B6BDE78
+	for <lists+linux-stm32@lfdr.de>; Fri, 17 Mar 2023 03:11:09 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 91E4EC69067;
-	Fri, 17 Mar 2023 00:07:21 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 73896C6904A
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 17 Mar 2023 00:07:20 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9C15CC69067;
+	Fri, 17 Mar 2023 02:11:08 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id E3725B8213B;
- Fri, 17 Mar 2023 00:07:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 12907C433EF;
- Fri, 17 Mar 2023 00:07:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1679011638;
- bh=qfqozMAegKijY8JNbuj9EKz7MePhaVeyD54LoSNyvDA=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=ZhWPY3/M3Sqi+evrt88Clwt3B9SMEDaX2TLOVy+k7nLqDt057pQc0Pbxk02rspClR
- 626vz/UV35x2vMwvvCF9Qtn6hli5foqzEvZXwtxFkb91PPN2Zkq81L95WTOgddmw7H
- iHcIfXk+406ouIkKWI9q/pfGjJg0MdTGUOD7rU9YzQfV7NaIg8MBs8iWayNU6qUX+q
- wKc9kko5zNaRoPQAw9578Em3wT39m1Iw3qu1xGG2XRFx+UwskZWBKZQYNkS2KuJ2F+
- EZYT/CuLzjp6JhmwRvJuhjJqMYLNomtdp66H/StV9XEWgx+3Eoz9R+1rtUQbZHOCM/
- t1CoZWi1wh6oA==
-Date: Thu, 16 Mar 2023 17:07:16 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: Rob Herring <robh@kernel.org>
-Message-ID: <20230316170716.7039161d@kernel.org>
-In-Reply-To: <20230314191828.914124-1-robh@kernel.org>
-References: <20230314191828.914124-1-robh@kernel.org>
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 052BBC6904C
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 17 Mar 2023 02:11:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1679019067; x=1710555067;
+ h=from:to:cc:subject:date:message-id:references:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=OIxghcQgTnrtYwgdTfhIZpTKQTvWs6MOyBZWWH2IrDs=;
+ b=FISC/gGijr/T0vwukcZSE4hVrtHNJLWc/2KRVjIM4HLfmGjh/NjiZ8Eb
+ at0kcPYUeIzh112wPqO19NzWYwIVS0pGg/y1msU5VR00uiu84S3ekdKDH
+ pITS3A1z5oQRNSWw5MSxw0DRcJfmPnFcIIdD/ban5Jsr9wTTRZWgTXOX1
+ s9Svnl7+rUMxMO8QoWCD5X1QOhaMsC9OPNDVMHidAWU0+K7KqGiHPxJm8
+ llqdkKJr18eO4hUmlcpbwEpqASjlO9NX9ODHtXjOgUeDOI6TvfbdMp3m0
+ J1Y2zz48O3ccctexwfcBxx9De/ljSZXaEAaWWoud91ulNi3OFMT+uNUKF Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10651"; a="318555923"
+X-IronPort-AV: E=Sophos;i="5.98,267,1673942400"; d="scan'208";a="318555923"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Mar 2023 19:10:45 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10651"; a="712580676"
+X-IronPort-AV: E=Sophos;i="5.98,267,1673942400"; d="scan'208";a="712580676"
+Received: from orsmsx603.amr.corp.intel.com ([10.22.229.16])
+ by orsmga001.jf.intel.com with ESMTP; 16 Mar 2023 19:10:45 -0700
+Received: from orsmsx610.amr.corp.intel.com (10.22.229.23) by
+ ORSMSX603.amr.corp.intel.com (10.22.229.16) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.21; Thu, 16 Mar 2023 19:10:45 -0700
+Received: from ORSEDG602.ED.cps.intel.com (10.7.248.7) by
+ orsmsx610.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.21 via Frontend Transport; Thu, 16 Mar 2023 19:10:45 -0700
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com (104.47.56.173)
+ by edgegateway.intel.com (134.134.137.103) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.21; Thu, 16 Mar 2023 19:10:45 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=CysxdHNsprPI0+bBgQx2y6/lhydGKOod4sHu34CSBSok5zBZ3OvTfyMt2YmURG1E0j2UOtxzgXqcbT0WqxH5nuK1Kw1681LOCsPjqvBoBCCM+YSS7yYryRJNi3kqTSdmCOVUP9hMFdW/1bI0DUbHf9wC7cbkBzdH5hjMIsMMkMRJ0BMewFS/vSD/dqEKOBPgkRaNBXASeeCGZv6J25ubbU+PfyverkTyjADSV2txvBk0sSBr8iH2xNat4sVoYn5R2aSMS9kvODIINJg0Bq8DNTRBc05PMqHSt2+FVIEglPFOGf8yeP5eITD6p2QIXndgDpBTbOl48IZ0QOkbhXC9OQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=o6HywG92nBdrMLxRP4YsVmotntRFXLZy+n3/J78nTvc=;
+ b=Vq4s2wH8cW8eYWVRCmdraM0+9qMWCQG0h1WMah2rqkq6HWExpmhl813FWpIZ9aPWsFfgc6/t0u4qVlBrtg23lJo2sGuxLF39khR1Quvm2brFD58s31hVuv9EII/p0B1Ihud5F1UaW4Ee0F0uAJc9QG2EOpOZMpEZLdVmMaCvro9ZQd/5xCPW0SsoDYlbwk6qPqsuQgfEmLyo44eGiOwW1TlcRLwIXgCSKsd9BVHXW0qBPZYczXLQFUC14NIYyKkDIc67U2SSmshSysWvBr+XfFoNYqlfDlniunBLNrD8NF7lBVez7iWi2nCsnd3ESsTB4pt39QcY7QMz15SWlTfoTQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from PH0PR11MB7587.namprd11.prod.outlook.com (2603:10b6:510:26d::17)
+ by CY5PR11MB6091.namprd11.prod.outlook.com (2603:10b6:930:2d::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.24; Fri, 17 Mar
+ 2023 02:10:42 +0000
+Received: from PH0PR11MB7587.namprd11.prod.outlook.com
+ ([fe80::a9d7:2083:ea9f:7b0c]) by PH0PR11MB7587.namprd11.prod.outlook.com
+ ([fe80::a9d7:2083:ea9f:7b0c%8]) with mapi id 15.20.6178.026; Fri, 17 Mar 2023
+ 02:10:42 +0000
+From: "Sit, Michael Wei Hong" <michael.wei.hong.sit@intel.com>
+To: Jakub Kicinski <kuba@kernel.org>
+Thread-Topic: [PATCH net v2 1/2] net: stmmac: fix PHY handle parsing
+Thread-Index: AQHZWGNyiptgMBBkxEe3QmwqS1rIqK7+Om6w
+Date: Fri, 17 Mar 2023 02:10:41 +0000
+Message-ID: <PH0PR11MB7587073E93849A1E43E3B1C49DBD9@PH0PR11MB7587.namprd11.prod.outlook.com>
+References: <20230314070208.3703963-1-michael.wei.hong.sit@intel.com>
+ <20230314070208.3703963-2-michael.wei.hong.sit@intel.com>
+ <20230316170013.4681d0f3@kernel.org>
+In-Reply-To: <20230316170013.4681d0f3@kernel.org>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PH0PR11MB7587:EE_|CY5PR11MB6091:EE_
+x-ms-office365-filtering-correlation-id: 99317b40-26b0-4fa8-67f5-08db268ccf57
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: BTA7RAUzjC7if2pPTTtUtfhQJlJUWvQylazbax5Z5z8Jx7PYEtb+FvsckiHL26rBDJ6BQOP5+bPii+8q3JZtKkmM6UcPCdEIP61fUko9qyHjch9YfmIX+dUpym6CC18S2mnGQdO1ln7f+7rxDnwIha5nXbvPneMbuVg9XAfiA6BjdjOJLpM57BJ22wI7W4OAwepEjwUc9xtivX91MLST+dFEH1faK/L7Yrcil2puyTBzEu1L7rMAodylAQaxF3wjHH5R1OFR0yMnYHKyLdOgN6pB0Ppm1Ktp7RbgLeqpNSvUpPRE4Ypzej09LqyL2pQcbOe9KT8efSmE4Ft7MUCzUNHvrdGIdqb3HtVO8weNRPeKfLHsKgKBQExwarep0EQ2DNXjrh8+PRbh/Rz8/RNKsKfFFFj/PyTtiR56/Cj2OOeu1B6tpHV7vlLtrXLQEEaUzdu3QVbqFCh2ydvpPZUxvVAVpvuvdUJyJA7DkjGODqfadthkrMtrkF03pBNiNg8Rk7hjKebL2xf0dhpXj1rCOl37441H6FMjuOwD66EHRm7RHZrl0RWPimRDOH/EQRAFwRAODpNl+8iAsOZ2m7bHUKulMzBWx3ZWyhlb137DE2GO6GKMx4KJHODWCtMhN9afa/bndLpPw0Jx/EihZm+k7g3w1cK/1X5SZTCAljKXc2J1PKkCuBZVHwL84ZbG37+KWqqF2hYWoJ0nrwPQVAiiyQ==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH0PR11MB7587.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230025)(136003)(366004)(39860400002)(396003)(376002)(346002)(451199018)(8936002)(4326008)(9686003)(53546011)(6916009)(5660300002)(26005)(186003)(52536014)(86362001)(7416002)(6506007)(41300700001)(33656002)(316002)(4744005)(66556008)(2906002)(107886003)(8676002)(83380400001)(66476007)(66946007)(38070700005)(66446008)(38100700002)(71200400001)(55016003)(478600001)(54906003)(64756008)(76116006)(7696005)(122000001)(82960400001);
+ DIR:OUT; SFP:1102; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?Z+5hfviHxR+wIm+QtzLXQWYyNwanHSKfWJh4dvbxJtrvN3U+D0xaVNFuLPcY?=
+ =?us-ascii?Q?j8cB56y5yhPtK973AGE1/HRIsqhBFtu1HUPkTOcHTHwjVujFvRA2umsEIbmM?=
+ =?us-ascii?Q?XAWPTtT/7/2YhJ8f8d8NHB2VSvY/xBmBS+wV/f1uglkytq+Zek8Hng87xaX1?=
+ =?us-ascii?Q?2lVrmfI0F0vF9jPOcqq3JyiMWezWwwiM5deAXrpJjqqbZ0sB+OrkK/vdyU7E?=
+ =?us-ascii?Q?v/cn8IcBeEJr4BFjVFJF7G2s4Fq3SOroZdG895A+njgMwkWUL22d1NVHzsOx?=
+ =?us-ascii?Q?20/4o68Dc1o7NbTfJin5KfVTsEl9R3/tYcv+ZXZ1pk+lO1dylJdYOTO/XEeT?=
+ =?us-ascii?Q?A2g7zAMPigIzL5XHDqCQT+YxUOzSB0nY6Of/hhZm1VosktbNr3ZHG1Ab6cIf?=
+ =?us-ascii?Q?0ZG9ik3Jc3B30MJGuv60/sG9QApWKxb1CaEgdQjh1paLSm6wAm8HAk65kEyx?=
+ =?us-ascii?Q?n2QWgyXSbjuh6H6U972f+OvMQMhfOLqUs75lfUboxPo1kAsUKGMH0zGVsAm4?=
+ =?us-ascii?Q?894Kq6PADByMTsMq0coP9WmZSsQia5jq93W+Uc6OobcMaV6CQT39FgCfjHyW?=
+ =?us-ascii?Q?yzrIXb7Q9bDQKScJ4Yb/iv9XjNAf4dlPMhRBruwmipSgscnrcG0+n5IGrdi6?=
+ =?us-ascii?Q?ePJTliZAKu476nz8Dd3LJmktfNDPObUkFY0jcXyDOzWAM8fFYJKFJlTYFQiF?=
+ =?us-ascii?Q?DLhVvJlVlVupaCXv488wctNF9pNEKcJ/nIE7hhZ2XTS++4KS4N3Bot9GgA3Y?=
+ =?us-ascii?Q?EEF9fpBJEiF/SdrSGwHHMtoLax+NO7hSwcZAxDf48whEOgHaXK2obcDxWsi7?=
+ =?us-ascii?Q?GBapWnUJ7Etqbwbb263DQ7rmZ5Qr1YCusJmGRwBdw0lSt54RYkZTkkEU1ASY?=
+ =?us-ascii?Q?Ab+OuSp6SgXtv0Y19GW/VgOu1bzK92JI6Llx+FX8cQoygZFS9UuYbKdmHnLr?=
+ =?us-ascii?Q?dqIxsdHgvgoLndKFw86E+APOgRs1dnXOsv1Brhx2YhX7hpZwcdjmH7tb1R5a?=
+ =?us-ascii?Q?rud4n6hir4CtkRIKOb/aa+xYExG7cis5PCx+S7zeVXrrLx/NQIHNUECDgcgL?=
+ =?us-ascii?Q?jhgfbxFYKLw80aN74uP63xto7aTCBjsDhTJH6tMODdMm5QGqn+mNfr4Pcxuf?=
+ =?us-ascii?Q?Wlx7NWmuUJtUmQvlAxW279tU3fEjRLvqaNjLVltfdmz+1f9fZW5gLyDvlkJi?=
+ =?us-ascii?Q?qzuxbsbP391TF6w9ErBy4SHVWCUiqLa8rClktzQXrB0S21VEKGRVRCLGXl1q?=
+ =?us-ascii?Q?5vXagMKjPX04dHN0HGvBnKuw6Iqbm8zHjOXUnFCr6sWz6pdD7qpwlQloq94V?=
+ =?us-ascii?Q?rezUSGm5qiWfcvWTWWdL2VDDNTph6n/Ys6UdAPNeCBkBduZIZX/yo1+R1U6V?=
+ =?us-ascii?Q?P2kFOXRYqG95uAgf5UAG9FBVZdPHmmN0eRpqtDwX1yuOjTqBJ/gTkliZsqvu?=
+ =?us-ascii?Q?jQAhNxyxqgipqi9sEDuYNjL+M292TkFFd3PcxTOYKY9Kfyx/F7ZkwIDPB/bd?=
+ =?us-ascii?Q?cHaqDWO9jjSTqD7dQAJD3JERguUz1fPrd+4lFKvB3XTagsTFdjP3oThUEkhF?=
+ =?us-ascii?Q?rL3TSniVPPRXKgzw8HWM5ZpcieRRxUK0lKicmhPVbREZXeXZdfZs1MnF1SJt?=
+ =?us-ascii?Q?RQ=3D=3D?=
 MIME-Version: 1.0
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: PH0PR11MB7587.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 99317b40-26b0-4fa8-67f5-08db268ccf57
+X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Mar 2023 02:10:41.8477 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: TW5u+3jxVOj1rTOsi4dO28/p/dGTjnPyrcweiuZp0OlupY8rxFKCc7Bq4ZVIF7axda/B/rKSM6KFCMqyydIXm69IJe3Lw82Q2EXpglaMTSg=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR11MB6091
+X-OriginatorOrg: intel.com
 X-Topics: 
-Cc: Simon Horman <simon.horman@corigine.com>, linux-kernel@vger.kernel.org,
- Eric Dumazet <edumazet@google.com>, Shenwei Wang <shenwei.wang@nxp.com>,
- Fabio Estevam <festevam@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
- Zhao Qiang <qiang.zhao@nxp.com>, Michal Simek <michal.simek@xilinx.com>,
- Jose Abreu <joabreu@synopsys.com>, Clark Wang <xiaoning.wang@nxp.com>,
- NXP Linux Team <linux-imx@nxp.com>, Francois Romieu <romieu@fr.zoreil.com>,
- Paolo Abeni <pabeni@redhat.com>, Kalle Valo <kvalo@kernel.org>,
- Wolfgang Grandegger <wg@grandegger.com>,
- Grygorii Strashko <grygorii.strashko@ti.com>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Sascha Hauer <s.hauer@pengutronix.de>, linuxppc-dev@lists.ozlabs.org,
- linux-can@vger.kernel.org, Claudiu Manoil <claudiu.manoil@nxp.com>,
- Marc Kleine-Budde <mkl@pengutronix.de>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>, linux-omap@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
- linux-wireless@vger.kernel.org, Nicolas Ferre <nicolas.ferre@microchip.com>,
- "David S. Miller" <davem@davemloft.net>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Wei Fang <wei.fang@nxp.com>,
- Samuel Mendoza-Jonas <sam@mendozajonas.com>, Shawn Guo <shawnguo@kernel.org>,
- Claudiu Beznea <claudiu.beznea@microchip.com>
-Subject: Re: [Linux-stm32] [PATCH v2] net: Use of_property_read_bool() for
- boolean properties
+Cc: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "Voon,
+ Weifeng" <weifeng.voon@intel.com>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>, "Lai,
+ Peter Jun Ann" <peter.jun.ann.lai@intel.com>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>, Eric Dumazet <edumazet@google.com>,
+ Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ "Ong, Boon Leong" <boon.leong.ong@intel.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>, "Looi,
+ Hong Aun" <hong.aun.looi@intel.com>, Paolo
+ Abeni <pabeni@redhat.com>, "David S . Miller" <davem@davemloft.net>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH net v2 1/2] net: stmmac: fix PHY handle
+	parsing
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,21 +164,34 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, 14 Mar 2023 14:18:27 -0500 Rob Herring wrote:
-> It is preferred to use typed property access functions (i.e.
-> of_property_read_<type> functions) rather than low-level
-> of_get_property/of_find_property functions for reading properties.
-> Convert reading boolean properties to of_property_read_bool().
-> 
-> Reviewed-by: Simon Horman <simon.horman@corigine.com>
-> Acked-by: Marc Kleine-Budde <mkl@pengutronix.de> # for net/can
-> Acked-by: Kalle Valo <kvalo@kernel.org>
-> Acked-by: Nicolas Ferre <nicolas.ferre@microchip.com>
-> Acked-by: Francois Romieu <romieu@fr.zoreil.com>
-> Reviewed-by: Wei Fang <wei.fang@nxp.com>
-> Signed-off-by: Rob Herring <robh@kernel.org>
 
-Applied, to net(?), thanks!
+
+> -----Original Message-----
+> From: Jakub Kicinski <kuba@kernel.org>
+> Sent: Friday, March 17, 2023 8:00 AM
+> To: Sit, Michael Wei Hong <michael.wei.hong.sit@intel.com>
+> Cc: Giuseppe Cavallaro <peppe.cavallaro@st.com>; Alexandre
+> Torgue <alexandre.torgue@foss.st.com>; Jose Abreu
+> <joabreu@synopsys.com>; David S . Miller
+> <davem@davemloft.net>; Eric Dumazet
+> <edumazet@google.com>; Paolo Abeni <pabeni@redhat.com>;
+> Maxime Coquelin <mcoquelin.stm32@gmail.com>; Ong, Boon
+> Leong <boon.leong.ong@intel.com>; netdev@vger.kernel.org;
+> linux-stm32@st-md-mailman.stormreply.com; linux-arm-
+> kernel@lists.infradead.org; linux-kernel@vger.kernel.org; Looi,
+> Hong Aun <hong.aun.looi@intel.com>; Voon, Weifeng
+> <weifeng.voon@intel.com>; Lai, Peter Jun Ann
+> <peter.jun.ann.lai@intel.com>
+> Subject: Re: [PATCH net v2 1/2] net: stmmac: fix PHY handle
+> parsing
+> 
+> On Tue, 14 Mar 2023 15:02:07 +0800 Michael Sit Wei Hong wrote:
+> > +		fixed_node =
+> fwnode_get_named_child_node(fwnode, "fixed-link");
+> > +		fwnode_handle_put(fixed_node);
+> 
+> fwnode_property_present() ?
+Good suggestion, will modify and submit in next revision.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
