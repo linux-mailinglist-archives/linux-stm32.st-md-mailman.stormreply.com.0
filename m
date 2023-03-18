@@ -2,93 +2,51 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 30FF46BF6A5
-	for <lists+linux-stm32@lfdr.de>; Sat, 18 Mar 2023 00:50:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3B8F86BF7F6
+	for <lists+linux-stm32@lfdr.de>; Sat, 18 Mar 2023 06:21:23 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C82DFC6907C;
-	Fri, 17 Mar 2023 23:50:28 +0000 (UTC)
-Received: from mail-io1-f46.google.com (mail-io1-f46.google.com
- [209.85.166.46])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D65E4C6907C;
+	Sat, 18 Mar 2023 05:21:22 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 88B63C57B6A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 71C8DC65E60
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 17 Mar 2023 23:50:27 +0000 (UTC)
-Received: by mail-io1-f46.google.com with SMTP id o14so3019619ioa.3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 17 Mar 2023 16:50:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20210112; t=1679097026;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :sender:from:to:cc:subject:date:message-id:reply-to;
- bh=SM14c4SDFEi27tcVm3RxjN0T8KcC1VspEaUxWM0AoNg=;
- b=BuHxgAxINuWI76QQ6SB8O2xyxYZIRHVqdohjc0ZufdXjEpgzZ+GBAHsgL9XjOSsaNo
- EBGBUd6S2sy38nGqFfW2KPXxzCCxRqtmu5RhIoYSHMGjWf3ElJTKGqruCMKMzXKKtpzT
- 5IN7X4TRQ07DEzqLumPpmq5fkWRJNVMC0qgvRdvtKvA2vQXarBXLRUxCL6Kw9UIaaqQa
- 05hTVzS5rfBspqwy+H+IsWvOyPlLgo0BFIfG0rHUYVn5ZgGn3CuIbzBipkASQ0Y+fjQ7
- AHBn0+K47sBP5iKEp/Ldkww1FPu9RYqSsThpYN6Yka78ZbWyv9ytuP/FR7FcoSG6USt3
- UzmQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1679097026;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :sender:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=SM14c4SDFEi27tcVm3RxjN0T8KcC1VspEaUxWM0AoNg=;
- b=5NLkv2MBH0z/Yu3GgOFa729ervDap1QeK4BCljHEFd8OpG1f2BRbddjO5To72hwAzT
- PvU6e62+eg4xz/zT8wKAaV0si82t55tbgcVx2eNjOmToJwp+NixSyCfS4Juy28ZUuMCz
- xGWjAHlx3VKDnPmFjqCtqeb9HcCD0FN80PuVlHlquxRunyDbQv05KlvqZzu9oZHku+aE
- ImPXxNB17PCfgvxLYlpVJ/+KzIxPSh8Ob3BNh2Uf1/0geIPJeQQt5ZhtmEwg62v9OuZy
- BQrPh4JyghYVzZKeR0QoQ11lbAZrKMlWnsK6P5/XUQkQh+T8APQ7BF0+29GmjhIyfiiO
- itkg==
-X-Gm-Message-State: AO0yUKXFUNAgT5tXi4hK4nyOOKuTgqwG0dcLP2ib4NyJM7vwPdsOiYNK
- NzupcLvNGQHHBKpQl7rS9t0=
-X-Google-Smtp-Source: AK7set9GtSEJgse0DOJM1F79+7e2yvPGn4Ne+i+4mN5GJ7pxVhU35LcNW0ARL8Sn772qrJfk6PXvwg==
-X-Received: by 2002:a6b:f307:0:b0:752:fd8e:5ee4 with SMTP id
- m7-20020a6bf307000000b00752fd8e5ee4mr306507ioh.1.1679097026384; 
- Fri, 17 Mar 2023 16:50:26 -0700 (PDT)
-Received: from ?IPV6:2600:1700:e321:62f0:329c:23ff:fee3:9d7c?
- ([2600:1700:e321:62f0:329c:23ff:fee3:9d7c])
- by smtp.gmail.com with ESMTPSA id
- p15-20020a056638216f00b00403089c2a1dsm1111309jak.108.2023.03.17.16.50.23
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 17 Mar 2023 16:50:25 -0700 (PDT)
-Message-ID: <bd434625-8789-e169-3a4a-4952e5e8fde2@roeck-us.net>
-Date: Fri, 17 Mar 2023 16:50:22 -0700
+ Sat, 18 Mar 2023 05:21:21 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 1E3A860A0C;
+ Sat, 18 Mar 2023 05:21:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E40A0C433D2;
+ Sat, 18 Mar 2023 05:21:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1679116879;
+ bh=ArRYF4BA+E7Tyz1BYurYG5giIOqMsCRLQshVwP1KzDc=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=obBbpX0QIRFajzPFiKavuEO5zhPk40CAT4gY88WL4IyupBpK4gsuXPsZMaOCT4TPE
+ e6S6+n51fuWf0HzlpYrOptXdxgZU6Sq/FcblaBiR+vnlRENDjnoNVEMaL0vjMCrU9A
+ z9qQq5vJXSs6vXxe3l5LRjlCOMKqC+ebv3TF4wI1Dx2KrpuYqZFBR0dQAoW2DlcbXc
+ wywhFKzC0ovE1BTfFhIivZ8QGbDdRPTar6nBnSRwRXRq0ei8DHYBkHZ+DH+530CrLO
+ DTjHkC8Ompu8DRdROTMy9QSCQB9FnZ8mMXfgaxmvNrvU2yYEBQvKQSXWJVe/r5gejk
+ m2qqC7WlF+MTw==
+Date: Fri, 17 Mar 2023 22:21:17 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Jochen Henneberg <jh@henneberg-systemdesign.com>
+Message-ID: <20230317222117.3520d4cf@kernel.org>
+In-Reply-To: <20230316075940.695583-2-jh@henneberg-systemdesign.com>
+References: <20230316075940.695583-1-jh@henneberg-systemdesign.com>
+ <20230316075940.695583-2-jh@henneberg-systemdesign.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.7.1
-Content-Language: en-US
-To: Rob Herring <robh@kernel.org>, Wim Van Sebroeck <wim@linux-watchdog.org>, 
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Chen-Yu Tsai <wens@csie.org>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Samuel Holland <samuel@sholland.org>, Hector Martin <marcan@marcan.st>,
- Sven Peter <sven@svenpeter.dev>, Alyssa Rosenzweig <alyssa@rosenzweig.io>,
- Julius Werner <jwerner@chromium.org>, Evan Benn <evanbenn@chromium.org>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Claudiu Beznea <claudiu.beznea@microchip.com>,
- Florian Fainelli <f.fainelli@gmail.com>,
- Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>, Shawn Guo <shawnguo@kernel.org>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, NXP Linux Team <linux-imx@nxp.com>,
- Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
- Masami Hiramatsu <mhiramat@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-References: <20230317233643.3969019-1-robh@kernel.org>
-From: Guenter Roeck <linux@roeck-us.net>
-In-Reply-To: <20230317233643.3969019-1-robh@kernel.org>
 X-Topics: 
-Cc: devicetree@vger.kernel.org, linux-watchdog@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- asahi@lists.linux.dev, linux-sunxi@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] dt-bindings: watchdog: Drop unneeded
-	quotes
+Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
+ Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Ong Boon Leong <boon.leong.ong@intel.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>, Paolo Abeni <pabeni@redhat.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net V2 1/2] net: stmmac: Premature loop
+ termination check was ignored on rx
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,204 +58,45 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 3/17/23 16:36, Rob Herring wrote:
-> Cleanup bindings dropping unneeded quotes. Once all these are fixed,
-> checking for this can be enabled in yamllint.
+On Thu, 16 Mar 2023 08:59:39 +0100 Jochen Henneberg wrote:
+> The premature loop termination check makes sense only in case of the
+> jump to read_again where the count may have been updated. But
+> read_again did not include the check.
 > 
-> Signed-off-by: Rob Herring <robh@kernel.org>
-
-Acked-by: Guenter Roeck <linux@roeck-us.net>
-
+> Fixes: ec222003bd94 ("net: stmmac: Prepare to add Split Header support")
+> Signed-off-by: Jochen Henneberg <jh@henneberg-systemdesign.com>
 > ---
->   .../devicetree/bindings/watchdog/allwinner,sun4i-a10-wdt.yaml   | 2 +-
->   Documentation/devicetree/bindings/watchdog/apple,wdt.yaml       | 2 +-
->   Documentation/devicetree/bindings/watchdog/arm-smc-wdt.yaml     | 2 +-
->   .../devicetree/bindings/watchdog/atmel,sama5d4-wdt.yaml         | 2 +-
->   .../devicetree/bindings/watchdog/brcm,bcm7038-wdt.yaml          | 2 +-
->   .../devicetree/bindings/watchdog/faraday,ftwdt010.yaml          | 2 +-
->   Documentation/devicetree/bindings/watchdog/fsl-imx7ulp-wdt.yaml | 2 +-
->   Documentation/devicetree/bindings/watchdog/maxim,max63xx.yaml   | 2 +-
->   Documentation/devicetree/bindings/watchdog/renesas,wdt.yaml     | 2 +-
->   Documentation/devicetree/bindings/watchdog/snps,dw-wdt.yaml     | 2 +-
->   .../devicetree/bindings/watchdog/socionext,uniphier-wdt.yaml    | 2 +-
->   Documentation/devicetree/bindings/watchdog/st,stm32-iwdg.yaml   | 2 +-
->   Documentation/devicetree/bindings/watchdog/ti,rti-wdt.yaml      | 2 +-
->   13 files changed, 13 insertions(+), 13 deletions(-)
+>  drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> diff --git a/Documentation/devicetree/bindings/watchdog/allwinner,sun4i-a10-wdt.yaml b/Documentation/devicetree/bindings/watchdog/allwinner,sun4i-a10-wdt.yaml
-> index 026c2e5e77aa..274519fc24fd 100644
-> --- a/Documentation/devicetree/bindings/watchdog/allwinner,sun4i-a10-wdt.yaml
-> +++ b/Documentation/devicetree/bindings/watchdog/allwinner,sun4i-a10-wdt.yaml
-> @@ -7,7 +7,7 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
->   title: Allwinner A10 Watchdog
->   
->   allOf:
-> -  - $ref: "watchdog.yaml#"
-> +  - $ref: watchdog.yaml#
->   
->   maintainers:
->     - Chen-Yu Tsai <wens@csie.org>
-> diff --git a/Documentation/devicetree/bindings/watchdog/apple,wdt.yaml b/Documentation/devicetree/bindings/watchdog/apple,wdt.yaml
-> index e58c56a6fdf6..20435a77e079 100644
-> --- a/Documentation/devicetree/bindings/watchdog/apple,wdt.yaml
-> +++ b/Documentation/devicetree/bindings/watchdog/apple,wdt.yaml
-> @@ -7,7 +7,7 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
->   title: Apple SoC Watchdog
->   
->   allOf:
-> -  - $ref: "watchdog.yaml#"
-> +  - $ref: watchdog.yaml#
->   
->   maintainers:
->     - Sven Peter <sven@svenpeter.dev>
-> diff --git a/Documentation/devicetree/bindings/watchdog/arm-smc-wdt.yaml b/Documentation/devicetree/bindings/watchdog/arm-smc-wdt.yaml
-> index e3a1d79574e2..fa05d6252982 100644
-> --- a/Documentation/devicetree/bindings/watchdog/arm-smc-wdt.yaml
-> +++ b/Documentation/devicetree/bindings/watchdog/arm-smc-wdt.yaml
-> @@ -7,7 +7,7 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
->   title: ARM Secure Monitor Call based watchdog
->   
->   allOf:
-> -  - $ref: "watchdog.yaml#"
-> +  - $ref: watchdog.yaml#
->   
->   maintainers:
->     - Julius Werner <jwerner@chromium.org>
-> diff --git a/Documentation/devicetree/bindings/watchdog/atmel,sama5d4-wdt.yaml b/Documentation/devicetree/bindings/watchdog/atmel,sama5d4-wdt.yaml
-> index a9635c03761c..b28f7b57c36b 100644
-> --- a/Documentation/devicetree/bindings/watchdog/atmel,sama5d4-wdt.yaml
-> +++ b/Documentation/devicetree/bindings/watchdog/atmel,sama5d4-wdt.yaml
-> @@ -10,7 +10,7 @@ maintainers:
->     - Eugen Hristev <eugen.hristev@microchip.com>
->   
->   allOf:
-> -  - $ref: "watchdog.yaml#"
-> +  - $ref: watchdog.yaml#
->   
->   properties:
->     compatible:
-> diff --git a/Documentation/devicetree/bindings/watchdog/brcm,bcm7038-wdt.yaml b/Documentation/devicetree/bindings/watchdog/brcm,bcm7038-wdt.yaml
-> index a926809352b8..428004e7f0c3 100644
-> --- a/Documentation/devicetree/bindings/watchdog/brcm,bcm7038-wdt.yaml
-> +++ b/Documentation/devicetree/bindings/watchdog/brcm,bcm7038-wdt.yaml
-> @@ -7,7 +7,7 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
->   title: BCM63xx and BCM7038 watchdog timer
->   
->   allOf:
-> -  - $ref: "watchdog.yaml#"
-> +  - $ref: watchdog.yaml#
->   
->   maintainers:
->     - Florian Fainelli <f.fainelli@gmail.com>
-> diff --git a/Documentation/devicetree/bindings/watchdog/faraday,ftwdt010.yaml b/Documentation/devicetree/bindings/watchdog/faraday,ftwdt010.yaml
-> index 6ecd429f76b5..6e135f48b3ba 100644
-> --- a/Documentation/devicetree/bindings/watchdog/faraday,ftwdt010.yaml
-> +++ b/Documentation/devicetree/bindings/watchdog/faraday,ftwdt010.yaml
-> @@ -15,7 +15,7 @@ description: |
->     SoCs and others.
->   
->   allOf:
-> -  - $ref: "watchdog.yaml#"
-> +  - $ref: watchdog.yaml#
->   
->   properties:
->     compatible:
-> diff --git a/Documentation/devicetree/bindings/watchdog/fsl-imx7ulp-wdt.yaml b/Documentation/devicetree/bindings/watchdog/fsl-imx7ulp-wdt.yaml
-> index 8562978aa0c8..d3790f1a96a2 100644
-> --- a/Documentation/devicetree/bindings/watchdog/fsl-imx7ulp-wdt.yaml
-> +++ b/Documentation/devicetree/bindings/watchdog/fsl-imx7ulp-wdt.yaml
-> @@ -10,7 +10,7 @@ maintainers:
->     - Anson Huang <Anson.Huang@nxp.com>
->   
->   allOf:
-> -  - $ref: "watchdog.yaml#"
-> +  - $ref: watchdog.yaml#
->   
->   properties:
->     compatible:
-> diff --git a/Documentation/devicetree/bindings/watchdog/maxim,max63xx.yaml b/Documentation/devicetree/bindings/watchdog/maxim,max63xx.yaml
-> index 38079e1b6a44..1a6490c43d89 100644
-> --- a/Documentation/devicetree/bindings/watchdog/maxim,max63xx.yaml
-> +++ b/Documentation/devicetree/bindings/watchdog/maxim,max63xx.yaml
-> @@ -7,7 +7,7 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
->   title: Maxim 63xx Watchdog Timers
->   
->   allOf:
-> -  - $ref: "watchdog.yaml#"
-> +  - $ref: watchdog.yaml#
->     - $ref: /schemas/memory-controllers/mc-peripheral-props.yaml#
->   
->   maintainers:
-> diff --git a/Documentation/devicetree/bindings/watchdog/renesas,wdt.yaml b/Documentation/devicetree/bindings/watchdog/renesas,wdt.yaml
-> index e2c9bf1aec38..50c5c48ee6fb 100644
-> --- a/Documentation/devicetree/bindings/watchdog/renesas,wdt.yaml
-> +++ b/Documentation/devicetree/bindings/watchdog/renesas,wdt.yaml
-> @@ -115,7 +115,7 @@ required:
->     - clocks
->   
->   allOf:
-> -  - $ref: "watchdog.yaml#"
-> +  - $ref: watchdog.yaml#
->   
->     - if:
->         not:
-> diff --git a/Documentation/devicetree/bindings/watchdog/snps,dw-wdt.yaml b/Documentation/devicetree/bindings/watchdog/snps,dw-wdt.yaml
-> index 92df6e453f64..9387e4caa0fd 100644
-> --- a/Documentation/devicetree/bindings/watchdog/snps,dw-wdt.yaml
-> +++ b/Documentation/devicetree/bindings/watchdog/snps,dw-wdt.yaml
-> @@ -7,7 +7,7 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
->   title: Synopsys Designware Watchdog Timer
->   
->   allOf:
-> -  - $ref: "watchdog.yaml#"
-> +  - $ref: watchdog.yaml#
->   
->   maintainers:
->     - Jamie Iles <jamie@jamieiles.com>
-> diff --git a/Documentation/devicetree/bindings/watchdog/socionext,uniphier-wdt.yaml b/Documentation/devicetree/bindings/watchdog/socionext,uniphier-wdt.yaml
-> index 70c005fdd197..ba0709314360 100644
-> --- a/Documentation/devicetree/bindings/watchdog/socionext,uniphier-wdt.yaml
-> +++ b/Documentation/devicetree/bindings/watchdog/socionext,uniphier-wdt.yaml
-> @@ -10,7 +10,7 @@ maintainers:
->     - Keiji Hayashibara <hayashibara.keiji@socionext.com>
->   
->   allOf:
-> -  - $ref: "watchdog.yaml#"
-> +  - $ref: watchdog.yaml#
->   
->   properties:
->     compatible:
-> diff --git a/Documentation/devicetree/bindings/watchdog/st,stm32-iwdg.yaml b/Documentation/devicetree/bindings/watchdog/st,stm32-iwdg.yaml
-> index a8e266f80c20..2cb1a2ed0f7b 100644
-> --- a/Documentation/devicetree/bindings/watchdog/st,stm32-iwdg.yaml
-> +++ b/Documentation/devicetree/bindings/watchdog/st,stm32-iwdg.yaml
-> @@ -11,7 +11,7 @@ maintainers:
->     - Christophe Roullier <christophe.roullier@foss.st.com>
->   
->   allOf:
-> -  - $ref: "watchdog.yaml#"
-> +  - $ref: watchdog.yaml#
->   
->   properties:
->     compatible:
-> diff --git a/Documentation/devicetree/bindings/watchdog/ti,rti-wdt.yaml b/Documentation/devicetree/bindings/watchdog/ti,rti-wdt.yaml
-> index 2f33635876ff..fc553211e42d 100644
-> --- a/Documentation/devicetree/bindings/watchdog/ti,rti-wdt.yaml
-> +++ b/Documentation/devicetree/bindings/watchdog/ti,rti-wdt.yaml
-> @@ -18,7 +18,7 @@ description:
->     to directly reset the SoC.
->   
->   allOf:
-> -  - $ref: "watchdog.yaml#"
-> +  - $ref: watchdog.yaml#
->   
->   properties:
->     compatible:
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> index e4902a7bb61e..ea51c7c93101 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> @@ -5221,10 +5221,10 @@ static int stmmac_rx(struct stmmac_priv *priv, int limit, u32 queue)
+>  			len = 0;
+>  		}
+>  
+> +read_again:
+>  		if (count >= limit)
+>  			break;
+
+Are you sure? Can you provide more detailed analysis?
+Do you observe a problem / error in real life or is this theoretical?
+
+As far as I can tell only path which jumps to read_again after doing
+count++ is via the drain_data jump, but I can't tell how it's
+discarding subsequent segments in that case..
+
+> -read_again:
+>  		buf1_len = 0;
+>  		buf2_len = 0;
+>  		entry = next_entry;
 
 _______________________________________________
 Linux-stm32 mailing list
