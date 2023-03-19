@@ -2,87 +2,94 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A4ECD6C0166
-	for <lists+linux-stm32@lfdr.de>; Sun, 19 Mar 2023 13:07:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 101756C0176
+	for <lists+linux-stm32@lfdr.de>; Sun, 19 Mar 2023 13:11:38 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6B3F4C6A5E7;
-	Sun, 19 Mar 2023 12:07:11 +0000 (UTC)
-Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com
- [209.85.208.48])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BA52BC6A5E7;
+	Sun, 19 Mar 2023 12:11:37 +0000 (UTC)
+Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com
+ [209.85.208.53])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BD5A3C57B6A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9EBB6C57B6A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 19 Mar 2023 12:07:10 +0000 (UTC)
-Received: by mail-ed1-f48.google.com with SMTP id b20so3840244edd.1
+ Sun, 19 Mar 2023 12:11:36 +0000 (UTC)
+Received: by mail-ed1-f53.google.com with SMTP id b20so3863543edd.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 19 Mar 2023 05:07:10 -0700 (PDT)
+ Sun, 19 Mar 2023 05:11:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1679227630;
+ d=linaro.org; s=google; t=1679227896;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=3GQ0kuX+CANTyKsciGzMU4Vb8Jeilt6T7QwH/C5HtcI=;
- b=TzAXlqE8TgfprcWtggNsM5B4SQJQtCXYoRCn8uqjU6Dppl3AIp4F/El+x+T+cy9/Hp
- oAdm77wfFODxSKeyHAiXXUxrdkhRop2rDx79qH1f2hq0fJQiR6YqC0/5p587b7PhB50N
- Az1pLOxhlA4adj+8SICk15XWO3UofGCHYaEdHmQfeW5uy/uSbfi0mu2/WOM2SoE5NwK9
- XKhHart75hNrLBOJU0s4puBzvV/H170DSekttmS/Ku+kn8xvWyBxg94fAif55VGfJ2lc
- s8ZrCs9dbcSnm0K6ktftWRN9UtNVNOy7IHzXjQI/cq3HVT1durOmcBipUAdQzSZ9tz+J
- 7FNg==
+ bh=zjQK98wMTvC2q3E7fdiQTGy4CfE9nib0P1aeqr32BDM=;
+ b=D1fP3GN2Ho75ugMAWO87ldGgGppe72Z3Y/fiWx4nspzwK7rloaOBoF9R19b0JbiRD3
+ /mLXqx0QXb4f0L0ilB3j1w+e9Fwq4+LAGzNO+pIUKuu81K+Dhs2nyPPhOdR1hF6bDzbu
+ 0y3KFtdlTTRo3LySMTaY9gOhQSMrBFk88A8n+//C69MZejED+xn55zfOI7TYqDszOPc+
+ fKWW/risjXSXRSuUrm5fQoJv/1hToGx7tQSgd3glFjr0Y54XW8bJZTY/vYLNslJ4g9T4
+ gGptc50sPXOMaTIvYxS6fPpQP0vMqlYdWsQdm9P5lE+f6mWTqVQd8o0LR1x8SVnpFN1o
+ NnGQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1679227630;
+ d=1e100.net; s=20210112; t=1679227896;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=3GQ0kuX+CANTyKsciGzMU4Vb8Jeilt6T7QwH/C5HtcI=;
- b=X89vQJxNDF+dhc/+RwKO7QgVvZj5zWKWm+/SMPao4gR5wrO6v8gk4Yhy23TkMxtBZS
- 1NxIF9gV3D1ILUgVHkBxhYRZcnfT7HQ+kVk8bKaNliXCqo5andmpK6KKQgox2MCnxOOA
- IE0nz1XXoxQQ4EBKvPILGN+87mf24Eb/acrq2p9PO7nOajen51SATWOxdVo7KY6BKxR8
- gEP8ELqe9aj2ZML2RWUPIkTA77RLW4z+UbJdU/LXNpp1PS/2m4ZDA0lZq51M9ZI0nrNK
- KCAUsa9n3MMsjRDsrEk1URmNxLKjpox8pq5Zl/t2a04iOl9y5mHfvQn6cvCpcJysk56Y
- 9WHw==
-X-Gm-Message-State: AO0yUKUmVm3oxaazdc3rz7u10+6hDw822khHb1Tu9R1OPJ9y2cgtpVfw
- oUDIhulcT9db0trmJsJckSj7Ng==
-X-Google-Smtp-Source: AK7set8ojqGhOAjmBHwzN76QhQtwOWV8Psp9NGV0PffUGEU20N+02MFB5rvCOFkPKNTFQrrwRiSzoQ==
-X-Received: by 2002:a17:906:40c2:b0:91f:32f9:82f0 with SMTP id
- a2-20020a17090640c200b0091f32f982f0mr5542602ejk.29.1679227630370; 
- Sun, 19 Mar 2023 05:07:10 -0700 (PDT)
+ bh=zjQK98wMTvC2q3E7fdiQTGy4CfE9nib0P1aeqr32BDM=;
+ b=1Ox68yXis6zG7rihGIBrcbDwW+TV+DvfUXcX2twTcZk7mtlVcxqrhhJp1wzM8Q/RAr
+ 4M7fAouOcwfj0pO6nnP04wKubl+PpttuGWepaG40PmQfC2Ank56mu2gTHuA319cpK/Z2
+ Ray40KAQXUq/HvCegyHlj0SlamLl6vrsAH90s9dr/0GEete4bQLbDtEFG2vcwzDPZB3J
+ tjDOEVBVkcd6prkDJSGYIF7Exjrg2vkIJcgxFIfNpI8jfXM8yJm4esqulgYRBlDWlVNk
+ jhpJA23a8qwSqwZGadDH4fghVzWYdRLOzMHzMPQYxEjLN5QF8MNsglf+83opqoZVxGaT
+ fkaw==
+X-Gm-Message-State: AO0yUKXtH4QV5otWJWcbBmIgQ96CSZTdxf3u/Znzq3WJ0ERqvYQwgGw2
+ vcoGAM17OgZ4Jcwlv/sgQqIFgQ==
+X-Google-Smtp-Source: AK7set8iy8PHLbwswKclQFdAmwnEMv+GMXgczERgugb4jIY36ndBXldESO9YpLHBZGsBIL348OtAog==
+X-Received: by 2002:a17:906:35d6:b0:932:be78:a728 with SMTP id
+ p22-20020a17090635d600b00932be78a728mr5583291ejb.68.1679227896102; 
+ Sun, 19 Mar 2023 05:11:36 -0700 (PDT)
 Received: from ?IPV6:2a02:810d:15c0:828:5b5f:f22b:a0b:559d?
  ([2a02:810d:15c0:828:5b5f:f22b:a0b:559d])
  by smtp.gmail.com with ESMTPSA id
- jj4-20020a170907984400b009323f08827dsm2744307ejc.13.2023.03.19.05.07.08
+ ja21-20020a170907989500b0093338259b2bsm1635711ejc.207.2023.03.19.05.11.34
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 19 Mar 2023 05:07:10 -0700 (PDT)
-Message-ID: <68a5d8d8-b70a-e58e-e38e-5f185121e01a@linaro.org>
-Date: Sun, 19 Mar 2023 13:07:08 +0100
+ Sun, 19 Mar 2023 05:11:35 -0700 (PDT)
+Message-ID: <652a5f5e-6f01-4e5b-d1e3-4161b58d5ae5@linaro.org>
+Date: Sun, 19 Mar 2023 13:11:34 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.9.0
 Content-Language: en-US
-To: Rob Herring <robh@kernel.org>, Miquel Raynal <miquel.raynal@bootlin.com>, 
- Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>,
+To: Rob Herring <robh@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Chen-Yu Tsai <wens@csie.org>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Samuel Holland <samuel@sholland.org>,
- Naga Sureshkumar Relli <nagasure@xilinx.com>,
- Tudor Ambarus <tudor.ambarus@linaro.org>,
- Pratyush Yadav <pratyush@kernel.org>, Michael Walle <michael@walle.cc>,
- Linus Walleij <linus.walleij@linaro.org>, Andy Gross <agross@kernel.org>,
+ Support Opensource <support.opensource@diasemi.com>,
+ Benson Leung <bleung@chromium.org>, Guenter Roeck <groeck@chromium.org>,
+ Bartosz Golaszewski <brgl@bgdev.pl>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Saravanan Sekar <sravanhome@gmail.com>,
+ Jagan Teki <jagan@amarulasolutions.com>, Andy Gross <agross@kernel.org>,
  Bjorn Andersson <andersson@kernel.org>,
  Konrad Dybcio <konrad.dybcio@linaro.org>,
- Manivannan Sadhasivam <mani@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
+ Florian Fainelli <f.fainelli@gmail.com>,
+ Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>,
+ Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
+ Masami Hiramatsu <mhiramat@kernel.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-References: <20230317233631.3968509-1-robh@kernel.org>
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Robert Marko <robert.marko@sartura.hr>, Luka Perkov <luka.perkov@sartura.hr>
+References: <20230317233616.3968003-1-robh@kernel.org>
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20230317233631.3968509-1-robh@kernel.org>
+In-Reply-To: <20230317233616.3968003-1-robh@kernel.org>
 X-Topics: 
-Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-renesas-soc@vger.kernel.org, linux-rockchip@lists.infradead.org,
- linux-mtd@lists.infradead.org, linux-sunxi@lists.linux.dev,
+Cc: devicetree@vger.kernel.org, chrome-platform@lists.linux.dev,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-mediatek@lists.infradead.org, linux-rpi-kernel@lists.infradead.org,
+ patches@opensource.cirrus.com, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] dt-bindings: mtd: Drop unneeded quotes
+Subject: Re: [Linux-stm32] [PATCH] regulator: dt-bindings: Drop unneeded
+	quotes
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -105,6 +112,7 @@ On 18/03/2023 00:36, Rob Herring wrote:
 > 
 > Signed-off-by: Rob Herring <robh@kernel.org>
 > ---
+
 
 Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 
