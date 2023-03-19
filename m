@@ -2,103 +2,89 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 90AF76C015C
-	for <lists+linux-stm32@lfdr.de>; Sun, 19 Mar 2023 13:06:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9541A6C0160
+	for <lists+linux-stm32@lfdr.de>; Sun, 19 Mar 2023 13:06:55 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 38251C6A5E7;
-	Sun, 19 Mar 2023 12:06:35 +0000 (UTC)
-Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com
- [209.85.208.50])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 53D44C6A5E7;
+	Sun, 19 Mar 2023 12:06:55 +0000 (UTC)
+Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com
+ [209.85.208.47])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C8B74C57B6A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1D66CC57B6A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 19 Mar 2023 12:06:33 +0000 (UTC)
-Received: by mail-ed1-f50.google.com with SMTP id eg48so36657703edb.13
+ Sun, 19 Mar 2023 12:06:53 +0000 (UTC)
+Received: by mail-ed1-f47.google.com with SMTP id r11so36796304edd.5
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 19 Mar 2023 05:06:33 -0700 (PDT)
+ Sun, 19 Mar 2023 05:06:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1679227593;
+ d=linaro.org; s=google; t=1679227612;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
  bh=3GQ0kuX+CANTyKsciGzMU4Vb8Jeilt6T7QwH/C5HtcI=;
- b=q/Wwmwtmi5ctcH6j5K3nCXBiz9uR0+OP/odaZ0yeLNMn0P9OkvfGw11VAgRnOyicjD
- dRjK50152RNnjgjge6gAAt5Oam85/MTmtLQltFikeLXblNNntYLDxeIl/jxH7cl6DlQU
- sY4XtUDCoocxbk8uJ7HOQfu1jUXU17C+IKRJby/o8bWFg/PmAAU/fafUO6CqreFLjueK
- aMRfAOGK16sg24DvYuSU3+cwAV/ypTXHaiO1E7FzvjPIDtQxYYpxTuvdJPLO5wV+DQCA
- oFGeTeBYPJtHdqLfLxMfW+FmzXsQe40biKcOOPKt9peVzMslgC29+L/CA9QbxDf/a150
- Ne3g==
+ b=wyyRNf1RVCSmVWy3uIQD6gbqmoxHXa4hhnuxOXFy5DSK6KoJMRW/7snBe+hAcOuLSh
+ 4Lil0xPsXtCAFbTqAzDdtCyDhPRNI/pweLUmN6KTonFGYaLFKA2c641IjtNvE0333K/0
+ iwf8OUVV6CImiDOkzXbLoQxSXxGLT1pNVgzmz8rjCC4TtF0xRkBnaw2J6Q6fsDn6B3vO
+ qGuzkd5xHcL84vTvayPMp0BjhvSj1BaD45jc37kce8oQ795+M7hlUkz5iakVRZLdUngL
+ KVKgU5E9wG7BR2kQZUT4ObnjiJ9P0zF028UvVcHQPrlM6HIR4Yc/BHO1sVUHHif7PQzP
+ va2g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1679227593;
+ d=1e100.net; s=20210112; t=1679227612;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
  bh=3GQ0kuX+CANTyKsciGzMU4Vb8Jeilt6T7QwH/C5HtcI=;
- b=hM0On4kCuRS0n1z5SqQxuBZ9gGdRgWCNqcmBmIDGoPmHVjpv8rV/fM65Yn3diVcpWc
- x8+H3cDreGj9nXExAT0ga1fBZKE/zE/VPKvMCTNMlqq+r2Z4KfxU8ntrzSb1Ooe35eN0
- 0ukr6hp3ig7VY9ddbzhF91TmT7YBnJEwNoUnr8y4KoVwS1w58GUZ/BxbRhU8H2UEjDYo
- c7bzeXABuYA0MnwrffZ8HCljTrNHrbGBF3MM/YcfiU3rNZmKAbnc1QfN/Mvx9V+PRuho
- IalEefJU5MKeX4wxdn5k22aO6CtG6e4g6/3YoWBweqQDsq/oBmpTnuPmmXbp5VzEJhlx
- xxfA==
-X-Gm-Message-State: AO0yUKVxKkPJjF7X4Qz2KamCVN0tPnJm8AYYoWpMO857u/t8UCmm5FDO
- kb2rCwQw2UPI5FgY16KeD8vP+Q==
-X-Google-Smtp-Source: AK7set9NHq4wBQYJWJ/ZRlVN9Tlxwe4UcNKkxGkrS38jM5S1VezeVO4DSvYLo/+tr/EvFNS6LaAQbQ==
-X-Received: by 2002:a17:907:2101:b0:8d6:626d:7e03 with SMTP id
- qn1-20020a170907210100b008d6626d7e03mr5390303ejb.40.1679227593238; 
- Sun, 19 Mar 2023 05:06:33 -0700 (PDT)
+ b=wspvTB7BNOzwyyZhnxIBUHKA8C1EGKjfm0wD3V21NnvPiVg6bAX/KmVWEnK6ud2IJq
+ jpgT9AKon8LWc2n8bnFILLr55zgu794cymg1cQM3oBc7NjdrMrOHbHfjzcp7S2SXsUfO
+ M69LYnk81WWUObxAiJ/CsE9eTVZAJRmTRcmpwrvPizkOsoCmV2GXUX1oZUyB/VbQbpxZ
+ TLnmiWwGFFvs/8zRBqj21gnustf3kwHHdYcpm/YNjkhKH7lANIj3/EH+PZeaFwVnD84i
+ cdlN69iTm0ebU6ImgmkIgfR3UgEF2lBYebQ2JzSZmJacGwF+GuSAqBqiO2TyEmZvZdIW
+ pxkQ==
+X-Gm-Message-State: AO0yUKVuU+/CyVH8Ks9E3YB/gysxoLmpRL9Re6WUQMvqlco+Py6iH+iv
+ 98jIPPMa9uL/Qg0oNXoC1H7uOw==
+X-Google-Smtp-Source: AK7set80QOZ+DV1BMmqsy+GIRzW1eJc2fyUakkB2BmV/dLpU+3H5MSHjgo5dvspVJM8r1tWCDkHtFw==
+X-Received: by 2002:a05:6402:4d2:b0:501:c120:6e90 with SMTP id
+ n18-20020a05640204d200b00501c1206e90mr1103738edw.3.1679227612697; 
+ Sun, 19 Mar 2023 05:06:52 -0700 (PDT)
 Received: from ?IPV6:2a02:810d:15c0:828:5b5f:f22b:a0b:559d?
  ([2a02:810d:15c0:828:5b5f:f22b:a0b:559d])
  by smtp.gmail.com with ESMTPSA id
- i3-20020a508703000000b004fbd365fb33sm3468506edb.38.2023.03.19.05.06.31
+ qx20-20020a170906fcd400b008eaf99be56esm3244862ejb.170.2023.03.19.05.06.51
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 19 Mar 2023 05:06:32 -0700 (PDT)
-Message-ID: <efc29278-b1b6-c30c-5c89-294e5198b80a@linaro.org>
-Date: Sun, 19 Mar 2023 13:06:30 +0100
+ Sun, 19 Mar 2023 05:06:52 -0700 (PDT)
+Message-ID: <a4d6ef37-77a4-bdf7-9281-681864b901d3@linaro.org>
+Date: Sun, 19 Mar 2023 13:06:50 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.9.0
 Content-Language: en-US
-To: Rob Herring <robh@kernel.org>, "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>,
+To: Rob Herring <robh@kernel.org>, Alessandro Zummo <a.zummo@towertech.it>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- =?UTF-8?Q?Andreas_F=c3=a4rber?= <afaerber@suse.de>,
- Manivannan Sadhasivam <mani@kernel.org>, Chen-Yu Tsai <wens@csie.org>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Samuel Holland <samuel@sholland.org>, Joel Stanley <joel@jms.id.au>,
- Andrew Jeffery <andrew@aj.id.au>, =?UTF-8?B?UmFmYcWCIE1pxYJlY2tp?=
- <rafal@milecki.pl>, Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>,
+ Chen-Yu Tsai <wens@csie.org>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Samuel Holland <samuel@sholland.org>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Claudiu Beznea <claudiu.beznea@microchip.com>,
  Florian Fainelli <f.fainelli@gmail.com>,
- Appana Durga Kedareswara rao <appana.durga.rao@xilinx.com>,
- Naga Sureshkumar Relli <naga.sureshkumar.relli@xilinx.com>,
- Wolfgang Grandegger <wg@grandegger.com>,
- Marc Kleine-Budde <mkl@pengutronix.de>,
- Michal Simek <michal.simek@xilinx.com>, Andrew Lunn <andrew@lunn.ch>,
- Vladimir Oltean <olteanv@gmail.com>, Heiner Kallweit <hkallweit1@gmail.com>,
- Russell King <linux@armlinux.org.uk>,
- Tobias Waldekranz <tobias@waldekranz.com>,
- Lars Povlsen <lars.povlsen@microchip.com>,
- Steen Hegelund <Steen.Hegelund@microchip.com>,
- Daniel Machon <daniel.machon@microchip.com>, UNGLinuxDriver@microchip.com,
- Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>, Heiko Stuebner <heiko@sntech.de>,
+ Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>,
+ Hans Ulli Kroll <ulli.kroll@googlemail.com>,
+ Linus Walleij <linus.walleij@linaro.org>,
+ Avi Fishman <avifishman70@gmail.com>, Tomer Maimon <tmaimon77@gmail.com>,
+ Tali Perry <tali.perry1@gmail.com>, Patrick Venture <venture@google.com>,
+ Nancy Yuen <yuenn@google.com>, Benjamin Fair <benjaminfair@google.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-References: <20230317233605.3967621-1-robh@kernel.org>
+ Alexandre Torgue <alexandre.torgue@foss.st.com>
+References: <20230317233634.3968656-1-robh@kernel.org>
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20230317233605.3967621-1-robh@kernel.org>
+In-Reply-To: <20230317233634.3968656-1-robh@kernel.org>
 X-Topics: 
-Cc: devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-aspeed@lists.ozlabs.org, netdev@vger.kernel.org,
- linux-actions@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-can@vger.kernel.org, linux-rockchip@lists.infradead.org,
- linux-mediatek@lists.infradead.org, linux-arm-msm@vger.kernel.org,
- linux-sunxi@lists.linux.dev, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] dt-bindings: net: Drop unneeded quotes
+Cc: linux-rtc@vger.kernel.org, devicetree@vger.kernel.org,
+ openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-sunxi@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] dt-bindings: rtc: Drop unneeded quotes
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
