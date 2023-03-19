@@ -2,69 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2FD7C6BFF6E
-	for <lists+linux-stm32@lfdr.de>; Sun, 19 Mar 2023 06:43:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 225966BFF72
+	for <lists+linux-stm32@lfdr.de>; Sun, 19 Mar 2023 06:44:14 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C9A9FC6A5E7;
-	Sun, 19 Mar 2023 05:43:52 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DE24FC6A5E7;
+	Sun, 19 Mar 2023 05:44:13 +0000 (UTC)
 Received: from mail.marcansoft.com (marcansoft.com [212.63.210.85])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7F139C57B6A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 06034C57B6A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 19 Mar 2023 05:43:51 +0000 (UTC)
+ Sun, 19 Mar 2023 05:44:12 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits))
  (No client certificate requested)
  (Authenticated sender: marcan@marcan.st)
- by mail.marcansoft.com (Postfix) with ESMTPSA id AD8FF426FC;
- Sun, 19 Mar 2023 05:43:41 +0000 (UTC)
+ by mail.marcansoft.com (Postfix) with ESMTPSA id 1208A4290B;
+ Sun, 19 Mar 2023 05:44:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=marcan.st; s=default;
- t=1679204630; bh=84MOaiyVp1I295Lym01yKlMptuceSpHgF0iohhd12CQ=;
+ t=1679204651; bh=nmQYCH8MESnpDqmsBeC0nb09vJeuV+/eGjlJtgetivU=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=HyZ7B58EnY35cal+hIqu11M/hPwZh9NCy90YPkREhETJ291Y52e5qk0l8fjJfEahl
- 5qetA9I4LA44I5W1vCmrIlqr8C8nrDkgLiWCgpSpcPAN6EV1G7LR/Uixq5zciYbF2I
- RQU+zXG26yJDVdW4Fe6b/s5hBew8aebAbEKdUzgYHR17SQf734odA0IzcIbgnCfnu8
- dHN61hpnCYJQEChAiTC3eTpK53XKemwuOMhgd2vVGpiH9sN+Kwk883oWLIWYShqd5d
- AbbndVd2zlEs/cV6WEG99rRE3COgVNHCZaqm8g1/AOywrcSmR7UrU/1hSFbbLzZk8W
- fK7XZ4+jcSl/w==
-Message-ID: <fca00ce8-3b56-9641-9eb9-f25382f29675@marcan.st>
-Date: Sun, 19 Mar 2023 14:43:38 +0900
+ b=e5a28q3gvJAr1MM54YJhJQ5V4B48+W2oERepRtJDpICJDsFAaAj9jprfh7Stw6sNH
+ 5jMblYon1oMC7DdGCHhUEePKX6BpAeD4xwamrmgOEDJYUDqx3Ro8/FxUgMnRNEJMA1
+ Al1vExaxN2FWjk9wxn1+3xhn9ITxkC/2q3+Eoga6C7wtPjl71VOrqvp9Vu4vRzqLno
+ BTC2FzyQf2De/IXeSnHE1jtQqOB/FXNbz4a2vy7DyyTkhAR5OF316A/mbWIa8ZnqGn
+ zFNsmg9I/FpA14ify7luT4zb/v/4XvdiKHPVTY40/nkdd9tn9jFVAsBIUMWdZbp7A4
+ w5OThYFf0fqhA==
+Message-ID: <9e400998-b0a6-9208-53d1-371bade2f50b@marcan.st>
+Date: Sun, 19 Mar 2023 14:44:00 +0900
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.9.1
 Content-Language: en-US
-To: Rob Herring <robh@kernel.org>, Wim Van Sebroeck <wim@linux-watchdog.org>, 
- Guenter Roeck <linux@roeck-us.net>,
+To: Rob Herring <robh@kernel.org>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
  Chen-Yu Tsai <wens@csie.org>, Jernej Skrabec <jernej.skrabec@gmail.com>,
  Samuel Holland <samuel@sholland.org>, Sven Peter <sven@svenpeter.dev>,
- Alyssa Rosenzweig <alyssa@rosenzweig.io>,
- Julius Werner <jwerner@chromium.org>, Evan Benn <evanbenn@chromium.org>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Claudiu Beznea <claudiu.beznea@microchip.com>,
- Florian Fainelli <f.fainelli@gmail.com>,
- Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>, Shawn Guo <shawnguo@kernel.org>,
+ Alyssa Rosenzweig <alyssa@rosenzweig.io>, Shawn Guo <shawnguo@kernel.org>,
  Sascha Hauer <s.hauer@pengutronix.de>,
  Pengutronix Kernel Team <kernel@pengutronix.de>,
  Fabio Estevam <festevam@gmail.com>, NXP Linux Team <linux-imx@nxp.com>,
+ Claudiu Beznea <claudiu.beznea@microchip.com>, Andy Gross
+ <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Heiko Stuebner <heiko@sntech.de>,
  Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
  Masami Hiramatsu <mhiramat@kernel.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-References: <20230317233643.3969019-1-robh@kernel.org>
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Vincent Shih <vincent.sunplus@gmail.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+References: <20230317233640.3968821-1-robh@kernel.org>
 From: Hector Martin <marcan@marcan.st>
-In-Reply-To: <20230317233643.3969019-1-robh@kernel.org>
+In-Reply-To: <20230317233640.3968821-1-robh@kernel.org>
 X-Topics: 
-Cc: devicetree@vger.kernel.org, linux-watchdog@vger.kernel.org,
+Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-rockchip@lists.infradead.org, linux-mediatek@lists.infradead.org,
  asahi@lists.linux.dev, linux-sunxi@lists.linux.dev,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] dt-bindings: watchdog: Drop unneeded
-	quotes
+Subject: Re: [Linux-stm32] [PATCH] dt-bindings: nvmem: Drop unneeded quotes
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,210 +75,199 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 18/03/2023 08.36, Rob Herring wrote:
-> Cleanup bindings dropping unneeded quotes. Once all these are fixed,
-> checking for this can be enabled in yamllint.
-> 
-> Signed-off-by: Rob Herring <robh@kernel.org>
-> ---
->  .../devicetree/bindings/watchdog/allwinner,sun4i-a10-wdt.yaml   | 2 +-
->  Documentation/devicetree/bindings/watchdog/apple,wdt.yaml       | 2 +-
->  Documentation/devicetree/bindings/watchdog/arm-smc-wdt.yaml     | 2 +-
->  .../devicetree/bindings/watchdog/atmel,sama5d4-wdt.yaml         | 2 +-
->  .../devicetree/bindings/watchdog/brcm,bcm7038-wdt.yaml          | 2 +-
->  .../devicetree/bindings/watchdog/faraday,ftwdt010.yaml          | 2 +-
->  Documentation/devicetree/bindings/watchdog/fsl-imx7ulp-wdt.yaml | 2 +-
->  Documentation/devicetree/bindings/watchdog/maxim,max63xx.yaml   | 2 +-
->  Documentation/devicetree/bindings/watchdog/renesas,wdt.yaml     | 2 +-
->  Documentation/devicetree/bindings/watchdog/snps,dw-wdt.yaml     | 2 +-
->  .../devicetree/bindings/watchdog/socionext,uniphier-wdt.yaml    | 2 +-
->  Documentation/devicetree/bindings/watchdog/st,stm32-iwdg.yaml   | 2 +-
->  Documentation/devicetree/bindings/watchdog/ti,rti-wdt.yaml      | 2 +-
->  13 files changed, 13 insertions(+), 13 deletions(-)
-
-For apple:
-
-Acked-by: Hector Martin <marcan@marcan.st>
-
-> 
-> diff --git a/Documentation/devicetree/bindings/watchdog/allwinner,sun4i-a10-wdt.yaml b/Documentation/devicetree/bindings/watchdog/allwinner,sun4i-a10-wdt.yaml
-> index 026c2e5e77aa..274519fc24fd 100644
-> --- a/Documentation/devicetree/bindings/watchdog/allwinner,sun4i-a10-wdt.yaml
-> +++ b/Documentation/devicetree/bindings/watchdog/allwinner,sun4i-a10-wdt.yaml
-> @@ -7,7 +7,7 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
->  title: Allwinner A10 Watchdog
->  
->  allOf:
-> -  - $ref: "watchdog.yaml#"
-> +  - $ref: watchdog.yaml#
->  
->  maintainers:
->    - Chen-Yu Tsai <wens@csie.org>
-> diff --git a/Documentation/devicetree/bindings/watchdog/apple,wdt.yaml b/Documentation/devicetree/bindings/watchdog/apple,wdt.yaml
-> index e58c56a6fdf6..20435a77e079 100644
-> --- a/Documentation/devicetree/bindings/watchdog/apple,wdt.yaml
-> +++ b/Documentation/devicetree/bindings/watchdog/apple,wdt.yaml
-> @@ -7,7 +7,7 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
->  title: Apple SoC Watchdog
->  
->  allOf:
-> -  - $ref: "watchdog.yaml#"
-> +  - $ref: watchdog.yaml#
->  
->  maintainers:
->    - Sven Peter <sven@svenpeter.dev>
-> diff --git a/Documentation/devicetree/bindings/watchdog/arm-smc-wdt.yaml b/Documentation/devicetree/bindings/watchdog/arm-smc-wdt.yaml
-> index e3a1d79574e2..fa05d6252982 100644
-> --- a/Documentation/devicetree/bindings/watchdog/arm-smc-wdt.yaml
-> +++ b/Documentation/devicetree/bindings/watchdog/arm-smc-wdt.yaml
-> @@ -7,7 +7,7 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
->  title: ARM Secure Monitor Call based watchdog
->  
->  allOf:
-> -  - $ref: "watchdog.yaml#"
-> +  - $ref: watchdog.yaml#
->  
->  maintainers:
->    - Julius Werner <jwerner@chromium.org>
-> diff --git a/Documentation/devicetree/bindings/watchdog/atmel,sama5d4-wdt.yaml b/Documentation/devicetree/bindings/watchdog/atmel,sama5d4-wdt.yaml
-> index a9635c03761c..b28f7b57c36b 100644
-> --- a/Documentation/devicetree/bindings/watchdog/atmel,sama5d4-wdt.yaml
-> +++ b/Documentation/devicetree/bindings/watchdog/atmel,sama5d4-wdt.yaml
-> @@ -10,7 +10,7 @@ maintainers:
->    - Eugen Hristev <eugen.hristev@microchip.com>
->  
->  allOf:
-> -  - $ref: "watchdog.yaml#"
-> +  - $ref: watchdog.yaml#
->  
->  properties:
->    compatible:
-> diff --git a/Documentation/devicetree/bindings/watchdog/brcm,bcm7038-wdt.yaml b/Documentation/devicetree/bindings/watchdog/brcm,bcm7038-wdt.yaml
-> index a926809352b8..428004e7f0c3 100644
-> --- a/Documentation/devicetree/bindings/watchdog/brcm,bcm7038-wdt.yaml
-> +++ b/Documentation/devicetree/bindings/watchdog/brcm,bcm7038-wdt.yaml
-> @@ -7,7 +7,7 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
->  title: BCM63xx and BCM7038 watchdog timer
->  
->  allOf:
-> -  - $ref: "watchdog.yaml#"
-> +  - $ref: watchdog.yaml#
->  
->  maintainers:
->    - Florian Fainelli <f.fainelli@gmail.com>
-> diff --git a/Documentation/devicetree/bindings/watchdog/faraday,ftwdt010.yaml b/Documentation/devicetree/bindings/watchdog/faraday,ftwdt010.yaml
-> index 6ecd429f76b5..6e135f48b3ba 100644
-> --- a/Documentation/devicetree/bindings/watchdog/faraday,ftwdt010.yaml
-> +++ b/Documentation/devicetree/bindings/watchdog/faraday,ftwdt010.yaml
-> @@ -15,7 +15,7 @@ description: |
->    SoCs and others.
->  
->  allOf:
-> -  - $ref: "watchdog.yaml#"
-> +  - $ref: watchdog.yaml#
->  
->  properties:
->    compatible:
-> diff --git a/Documentation/devicetree/bindings/watchdog/fsl-imx7ulp-wdt.yaml b/Documentation/devicetree/bindings/watchdog/fsl-imx7ulp-wdt.yaml
-> index 8562978aa0c8..d3790f1a96a2 100644
-> --- a/Documentation/devicetree/bindings/watchdog/fsl-imx7ulp-wdt.yaml
-> +++ b/Documentation/devicetree/bindings/watchdog/fsl-imx7ulp-wdt.yaml
-> @@ -10,7 +10,7 @@ maintainers:
->    - Anson Huang <Anson.Huang@nxp.com>
->  
->  allOf:
-> -  - $ref: "watchdog.yaml#"
-> +  - $ref: watchdog.yaml#
->  
->  properties:
->    compatible:
-> diff --git a/Documentation/devicetree/bindings/watchdog/maxim,max63xx.yaml b/Documentation/devicetree/bindings/watchdog/maxim,max63xx.yaml
-> index 38079e1b6a44..1a6490c43d89 100644
-> --- a/Documentation/devicetree/bindings/watchdog/maxim,max63xx.yaml
-> +++ b/Documentation/devicetree/bindings/watchdog/maxim,max63xx.yaml
-> @@ -7,7 +7,7 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
->  title: Maxim 63xx Watchdog Timers
->  
->  allOf:
-> -  - $ref: "watchdog.yaml#"
-> +  - $ref: watchdog.yaml#
->    - $ref: /schemas/memory-controllers/mc-peripheral-props.yaml#
->  
->  maintainers:
-> diff --git a/Documentation/devicetree/bindings/watchdog/renesas,wdt.yaml b/Documentation/devicetree/bindings/watchdog/renesas,wdt.yaml
-> index e2c9bf1aec38..50c5c48ee6fb 100644
-> --- a/Documentation/devicetree/bindings/watchdog/renesas,wdt.yaml
-> +++ b/Documentation/devicetree/bindings/watchdog/renesas,wdt.yaml
-> @@ -115,7 +115,7 @@ required:
->    - clocks
->  
->  allOf:
-> -  - $ref: "watchdog.yaml#"
-> +  - $ref: watchdog.yaml#
->  
->    - if:
->        not:
-> diff --git a/Documentation/devicetree/bindings/watchdog/snps,dw-wdt.yaml b/Documentation/devicetree/bindings/watchdog/snps,dw-wdt.yaml
-> index 92df6e453f64..9387e4caa0fd 100644
-> --- a/Documentation/devicetree/bindings/watchdog/snps,dw-wdt.yaml
-> +++ b/Documentation/devicetree/bindings/watchdog/snps,dw-wdt.yaml
-> @@ -7,7 +7,7 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
->  title: Synopsys Designware Watchdog Timer
->  
->  allOf:
-> -  - $ref: "watchdog.yaml#"
-> +  - $ref: watchdog.yaml#
->  
->  maintainers:
->    - Jamie Iles <jamie@jamieiles.com>
-> diff --git a/Documentation/devicetree/bindings/watchdog/socionext,uniphier-wdt.yaml b/Documentation/devicetree/bindings/watchdog/socionext,uniphier-wdt.yaml
-> index 70c005fdd197..ba0709314360 100644
-> --- a/Documentation/devicetree/bindings/watchdog/socionext,uniphier-wdt.yaml
-> +++ b/Documentation/devicetree/bindings/watchdog/socionext,uniphier-wdt.yaml
-> @@ -10,7 +10,7 @@ maintainers:
->    - Keiji Hayashibara <hayashibara.keiji@socionext.com>
->  
->  allOf:
-> -  - $ref: "watchdog.yaml#"
-> +  - $ref: watchdog.yaml#
->  
->  properties:
->    compatible:
-> diff --git a/Documentation/devicetree/bindings/watchdog/st,stm32-iwdg.yaml b/Documentation/devicetree/bindings/watchdog/st,stm32-iwdg.yaml
-> index a8e266f80c20..2cb1a2ed0f7b 100644
-> --- a/Documentation/devicetree/bindings/watchdog/st,stm32-iwdg.yaml
-> +++ b/Documentation/devicetree/bindings/watchdog/st,stm32-iwdg.yaml
-> @@ -11,7 +11,7 @@ maintainers:
->    - Christophe Roullier <christophe.roullier@foss.st.com>
->  
->  allOf:
-> -  - $ref: "watchdog.yaml#"
-> +  - $ref: watchdog.yaml#
->  
->  properties:
->    compatible:
-> diff --git a/Documentation/devicetree/bindings/watchdog/ti,rti-wdt.yaml b/Documentation/devicetree/bindings/watchdog/ti,rti-wdt.yaml
-> index 2f33635876ff..fc553211e42d 100644
-> --- a/Documentation/devicetree/bindings/watchdog/ti,rti-wdt.yaml
-> +++ b/Documentation/devicetree/bindings/watchdog/ti,rti-wdt.yaml
-> @@ -18,7 +18,7 @@ description:
->    to directly reset the SoC.
->  
->  allOf:
-> -  - $ref: "watchdog.yaml#"
-> +  - $ref: watchdog.yaml#
->  
->  properties:
->    compatible:
-
-
-- Hector
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gMTgvMDMvMjAyMyAwOC4zNiwgUm9iIEhlcnJpbmcgd3JvdGU6Cj4gQ2xlYW51cCBiaW5kaW5n
+cyBkcm9wcGluZyB1bm5lZWRlZCBxdW90ZXMuIE9uY2UgYWxsIHRoZXNlIGFyZSBmaXhlZCwKPiBj
+aGVja2luZyBmb3IgdGhpcyBjYW4gYmUgZW5hYmxlZCBpbiB5YW1sbGludC4KPiAKPiBTaWduZWQt
+b2ZmLWJ5OiBSb2IgSGVycmluZyA8cm9iaEBrZXJuZWwub3JnPgo+IC0tLQo+ICAuLi4vZGV2aWNl
+dHJlZS9iaW5kaW5ncy9udm1lbS9hbGx3aW5uZXIsc3VuNGktYTEwLXNpZC55YW1sICAgICAgfCAy
+ICstCj4gIERvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9udm1lbS9hcHBsZSxlZnVz
+ZXMueWFtbCAgICAgICB8IDIgKy0KPiAgRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdz
+L252bWVtL2JyY20sbnZyYW0ueWFtbCAgICAgICAgIHwgMiArLQo+ICBEb2N1bWVudGF0aW9uL2Rl
+dmljZXRyZWUvYmluZGluZ3MvbnZtZW0vZnNsLGxheWVyc2NhcGUtc2ZwLnlhbWwgfCAyICstCj4g
+IERvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9udm1lbS9pbXgtaWltLnlhbWwgICAg
+ICAgICAgICB8IDIgKy0KPiAgRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL252bWVt
+L2lteC1vY290cC55YW1sICAgICAgICAgIHwgMiArLQo+ICAuLi4vZGV2aWNldHJlZS9iaW5kaW5n
+cy9udm1lbS9pbmdlbmljLGp6NDc4MC1lZnVzZS55YW1sICAgICAgICAgfCAyICstCj4gIERvY3Vt
+ZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9udm1lbS9tZWRpYXRlayxlZnVzZS55YW1sICAg
+ICB8IDIgKy0KPiAgLi4uL2RldmljZXRyZWUvYmluZGluZ3MvbnZtZW0vbWljcm9jaGlwLHNhbWE3
+ZzUtb3RwYy55YW1sICAgICAgIHwgMiArLQo+ICBEb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmlu
+ZGluZ3MvbnZtZW0vbXhzLW9jb3RwLnlhbWwgICAgICAgICAgfCAyICstCj4gIERvY3VtZW50YXRp
+b24vZGV2aWNldHJlZS9iaW5kaW5ncy9udm1lbS9uaW50ZW5kby1vdHAueWFtbCAgICAgICB8IDIg
+Ky0KPiAgRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL252bWVtL3Fjb20scWZwcm9t
+LnlhbWwgICAgICAgIHwgMiArLQo+ICBEb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3Mv
+bnZtZW0vcWNvbSxzcG1pLXNkYW0ueWFtbCAgICAgfCAyICstCj4gIERvY3VtZW50YXRpb24vZGV2
+aWNldHJlZS9iaW5kaW5ncy9udm1lbS9ybWVtLnlhbWwgICAgICAgICAgICAgICB8IDIgKy0KPiAg
+RG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL252bWVtL3JvY2tjaGlwLWVmdXNlLnlh
+bWwgICAgIHwgMiArLQo+ICAuLi4vZGV2aWNldHJlZS9iaW5kaW5ncy9udm1lbS9zb2Npb25leHQs
+dW5pcGhpZXItZWZ1c2UueWFtbCAgICAgfCAyICstCj4gIERvY3VtZW50YXRpb24vZGV2aWNldHJl
+ZS9iaW5kaW5ncy9udm1lbS9zdCxzdG0zMi1yb21lbS55YW1sICAgICB8IDIgKy0KPiAgLi4uL2Rl
+dmljZXRyZWUvYmluZGluZ3MvbnZtZW0vc3VucGx1cyxzcDcwMjEtb2NvdHAueWFtbCAgICAgICAg
+IHwgMiArLQo+ICAxOCBmaWxlcyBjaGFuZ2VkLCAxOCBpbnNlcnRpb25zKCspLCAxOCBkZWxldGlv
+bnMoLSkKPiAKCkZvciBhcHBsZToKQWNrZWQtYnk6IEhlY3RvciBNYXJ0aW4gPG1hcmNhbkBtYXJj
+YW4uc3Q+Cgo+IGRpZmYgLS1naXQgYS9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3Mv
+bnZtZW0vYWxsd2lubmVyLHN1bjRpLWExMC1zaWQueWFtbCBiL0RvY3VtZW50YXRpb24vZGV2aWNl
+dHJlZS9iaW5kaW5ncy9udm1lbS9hbGx3aW5uZXIsc3VuNGktYTEwLXNpZC55YW1sCj4gaW5kZXgg
+MTRjMTcwYzZhODZlLi4yOTYwMDFlN2Y0OTggMTAwNjQ0Cj4gLS0tIGEvRG9jdW1lbnRhdGlvbi9k
+ZXZpY2V0cmVlL2JpbmRpbmdzL252bWVtL2FsbHdpbm5lcixzdW40aS1hMTAtc2lkLnlhbWwKPiAr
+KysgYi9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvbnZtZW0vYWxsd2lubmVyLHN1
+bjRpLWExMC1zaWQueWFtbAo+IEBAIC0xMSw3ICsxMSw3IEBAIG1haW50YWluZXJzOgo+ICAgIC0g
+TWF4aW1lIFJpcGFyZCA8bXJpcGFyZEBrZXJuZWwub3JnPgo+ICAKPiAgYWxsT2Y6Cj4gLSAgLSAk
+cmVmOiAibnZtZW0ueWFtbCMiCj4gKyAgLSAkcmVmOiBudm1lbS55YW1sIwo+ICAKPiAgcHJvcGVy
+dGllczoKPiAgICBjb21wYXRpYmxlOgo+IGRpZmYgLS1naXQgYS9Eb2N1bWVudGF0aW9uL2Rldmlj
+ZXRyZWUvYmluZGluZ3MvbnZtZW0vYXBwbGUsZWZ1c2VzLnlhbWwgYi9Eb2N1bWVudGF0aW9uL2Rl
+dmljZXRyZWUvYmluZGluZ3MvbnZtZW0vYXBwbGUsZWZ1c2VzLnlhbWwKPiBpbmRleCA1ZWM4ZjJi
+ZGIzYTUuLmUwODYwYjZiODVmMyAxMDA2NDQKPiAtLS0gYS9Eb2N1bWVudGF0aW9uL2RldmljZXRy
+ZWUvYmluZGluZ3MvbnZtZW0vYXBwbGUsZWZ1c2VzLnlhbWwKPiArKysgYi9Eb2N1bWVudGF0aW9u
+L2RldmljZXRyZWUvYmluZGluZ3MvbnZtZW0vYXBwbGUsZWZ1c2VzLnlhbWwKPiBAQCAtMTUsNyAr
+MTUsNyBAQCBtYWludGFpbmVyczoKPiAgICAtIFN2ZW4gUGV0ZXIgPHN2ZW5Ac3ZlbnBldGVyLmRl
+dj4KPiAgCj4gIGFsbE9mOgo+IC0gIC0gJHJlZjogIm52bWVtLnlhbWwjIgo+ICsgIC0gJHJlZjog
+bnZtZW0ueWFtbCMKPiAgCj4gIHByb3BlcnRpZXM6Cj4gICAgY29tcGF0aWJsZToKPiBkaWZmIC0t
+Z2l0IGEvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL252bWVtL2JyY20sbnZyYW0u
+eWFtbCBiL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9udm1lbS9icmNtLG52cmFt
+LnlhbWwKPiBpbmRleCAyNTAzM2RlM2VmNmIuLjM2ZGVmNzEyOGZjYSAxMDA2NDQKPiAtLS0gYS9E
+b2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvbnZtZW0vYnJjbSxudnJhbS55YW1sCj4g
+KysrIGIvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL252bWVtL2JyY20sbnZyYW0u
+eWFtbAo+IEBAIC0yMCw3ICsyMCw3IEBAIG1haW50YWluZXJzOgo+ICAgIC0gUmFmYcWCIE1pxYJl
+Y2tpIDxyYWZhbEBtaWxlY2tpLnBsPgo+ICAKPiAgYWxsT2Y6Cj4gLSAgLSAkcmVmOiAibnZtZW0u
+eWFtbCMiCj4gKyAgLSAkcmVmOiBudm1lbS55YW1sIwo+ICAKPiAgcHJvcGVydGllczoKPiAgICBj
+b21wYXRpYmxlOgo+IGRpZmYgLS1naXQgYS9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGlu
+Z3MvbnZtZW0vZnNsLGxheWVyc2NhcGUtc2ZwLnlhbWwgYi9Eb2N1bWVudGF0aW9uL2RldmljZXRy
+ZWUvYmluZGluZ3MvbnZtZW0vZnNsLGxheWVyc2NhcGUtc2ZwLnlhbWwKPiBpbmRleCAzYjRlNmU5
+NGNiODEuLjcwZmIyYWQyNTEwMyAxMDA2NDQKPiAtLS0gYS9Eb2N1bWVudGF0aW9uL2RldmljZXRy
+ZWUvYmluZGluZ3MvbnZtZW0vZnNsLGxheWVyc2NhcGUtc2ZwLnlhbWwKPiArKysgYi9Eb2N1bWVu
+dGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvbnZtZW0vZnNsLGxheWVyc2NhcGUtc2ZwLnlhbWwK
+PiBAQCAtMTQsNyArMTQsNyBAQCBkZXNjcmlwdGlvbjogfAo+ICAgIHVuaXF1ZSBpZGVudGlmaWVy
+IHBlciBwYXJ0Lgo+ICAKPiAgYWxsT2Y6Cj4gLSAgLSAkcmVmOiAibnZtZW0ueWFtbCMiCj4gKyAg
+LSAkcmVmOiBudm1lbS55YW1sIwo+ICAKPiAgcHJvcGVydGllczoKPiAgICBjb21wYXRpYmxlOgo+
+IGRpZmYgLS1naXQgYS9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvbnZtZW0vaW14
+LWlpbS55YW1sIGIvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL252bWVtL2lteC1p
+aW0ueWFtbAo+IGluZGV4IDdhYWMxOTk1Y2ZhZi4uZTlkOWQ4ZGY0ODExIDEwMDY0NAo+IC0tLSBh
+L0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9udm1lbS9pbXgtaWltLnlhbWwKPiAr
+KysgYi9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvbnZtZW0vaW14LWlpbS55YW1s
+Cj4gQEAgLTE0LDcgKzE0LDcgQEAgZGVzY3JpcHRpb246IHwKPiAgICBpLk1YMjUsIGkuTVgyNywg
+aS5NWDMxLCBpLk1YMzUsIGkuTVg1MSBhbmQgaS5NWDUzIFNvQ3MuCj4gIAo+ICBhbGxPZjoKPiAt
+ICAtICRyZWY6ICJudm1lbS55YW1sIyIKPiArICAtICRyZWY6IG52bWVtLnlhbWwjCj4gIAo+ICBw
+cm9wZXJ0aWVzOgo+ICAgIGNvbXBhdGlibGU6Cj4gZGlmZiAtLWdpdCBhL0RvY3VtZW50YXRpb24v
+ZGV2aWNldHJlZS9iaW5kaW5ncy9udm1lbS9pbXgtb2NvdHAueWFtbCBiL0RvY3VtZW50YXRpb24v
+ZGV2aWNldHJlZS9iaW5kaW5ncy9udm1lbS9pbXgtb2NvdHAueWFtbAo+IGluZGV4IGQwYTIzOWQ3
+ZTE5OS4uOTg3NjI0M2ZmMWU4IDEwMDY0NAo+IC0tLSBhL0RvY3VtZW50YXRpb24vZGV2aWNldHJl
+ZS9iaW5kaW5ncy9udm1lbS9pbXgtb2NvdHAueWFtbAo+ICsrKyBiL0RvY3VtZW50YXRpb24vZGV2
+aWNldHJlZS9iaW5kaW5ncy9udm1lbS9pbXgtb2NvdHAueWFtbAo+IEBAIC0xNSw3ICsxNSw3IEBA
+IGRlc2NyaXB0aW9uOiB8Cj4gICAgaS5NWDdEL1MsIGkuTVg3VUxQLCBpLk1YOE1RLCBpLk1YOE1N
+LCBpLk1YOE1OIGFuZCBpLk1YOE1QIFNvQ3MuCj4gIAo+ICBhbGxPZjoKPiAtICAtICRyZWY6ICJu
+dm1lbS55YW1sIyIKPiArICAtICRyZWY6IG52bWVtLnlhbWwjCj4gIAo+ICBwcm9wZXJ0aWVzOgo+
+ICAgIGNvbXBhdGlibGU6Cj4gZGlmZiAtLWdpdCBhL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9i
+aW5kaW5ncy9udm1lbS9pbmdlbmljLGp6NDc4MC1lZnVzZS55YW1sIGIvRG9jdW1lbnRhdGlvbi9k
+ZXZpY2V0cmVlL2JpbmRpbmdzL252bWVtL2luZ2VuaWMsano0NzgwLWVmdXNlLnlhbWwKPiBpbmRl
+eCBmZTJjZDdmMWFmYmEuLmU4OWZkODc5Yzk2OCAxMDA2NDQKPiAtLS0gYS9Eb2N1bWVudGF0aW9u
+L2RldmljZXRyZWUvYmluZGluZ3MvbnZtZW0vaW5nZW5pYyxqejQ3ODAtZWZ1c2UueWFtbAo+ICsr
+KyBiL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9udm1lbS9pbmdlbmljLGp6NDc4
+MC1lZnVzZS55YW1sCj4gQEAgLTEwLDcgKzEwLDcgQEAgbWFpbnRhaW5lcnM6Cj4gICAgLSBQcmFz
+YW5uYUt1bWFyIE11cmFsaWRoYXJhbiA8cHJhc2FubmF0c21rdW1hckBnbWFpbC5jb20+Cj4gIAo+
+ICBhbGxPZjoKPiAtICAtICRyZWY6ICJudm1lbS55YW1sIyIKPiArICAtICRyZWY6IG52bWVtLnlh
+bWwjCj4gIAo+ICBwcm9wZXJ0aWVzOgo+ICAgIGNvbXBhdGlibGU6Cj4gZGlmZiAtLWdpdCBhL0Rv
+Y3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9udm1lbS9tZWRpYXRlayxlZnVzZS55YW1s
+IGIvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL252bWVtL21lZGlhdGVrLGVmdXNl
+LnlhbWwKPiBpbmRleCA3NWUwYTUxNmU1OWEuLmQxNmQ0MmZiOThiNiAxMDA2NDQKPiAtLS0gYS9E
+b2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvbnZtZW0vbWVkaWF0ZWssZWZ1c2UueWFt
+bAo+ICsrKyBiL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9udm1lbS9tZWRpYXRl
+ayxlZnVzZS55YW1sCj4gQEAgLTE1LDcgKzE1LDcgQEAgbWFpbnRhaW5lcnM6Cj4gICAgLSBMYWxh
+IExpbiA8bGFsYS5saW5AbWVkaWF0ZWsuY29tPgo+ICAKPiAgYWxsT2Y6Cj4gLSAgLSAkcmVmOiAi
+bnZtZW0ueWFtbCMiCj4gKyAgLSAkcmVmOiBudm1lbS55YW1sIwo+ICAKPiAgcHJvcGVydGllczoK
+PiAgICAkbm9kZW5hbWU6Cj4gZGlmZiAtLWdpdCBhL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9i
+aW5kaW5ncy9udm1lbS9taWNyb2NoaXAsc2FtYTdnNS1vdHBjLnlhbWwgYi9Eb2N1bWVudGF0aW9u
+L2RldmljZXRyZWUvYmluZGluZ3MvbnZtZW0vbWljcm9jaGlwLHNhbWE3ZzUtb3RwYy55YW1sCj4g
+aW5kZXggYzNjOTZmZDBiYWFjLi5hMjk2ZDM0OGFkYjQgMTAwNjQ0Cj4gLS0tIGEvRG9jdW1lbnRh
+dGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL252bWVtL21pY3JvY2hpcCxzYW1hN2c1LW90cGMueWFt
+bAo+ICsrKyBiL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9udm1lbS9taWNyb2No
+aXAsc2FtYTdnNS1vdHBjLnlhbWwKPiBAQCAtMTUsNyArMTUsNyBAQCBkZXNjcmlwdGlvbjogfAo+
+ICAgIHNldHRpbmdzLCBjaGlwIGlkZW50aWZpZXJzKSBvciB1c2VyIHNwZWNpZmljIGRhdGEgY291
+bGQgYmUgc3RvcmVkLgo+ICAKPiAgYWxsT2Y6Cj4gLSAgLSAkcmVmOiAibnZtZW0ueWFtbCMiCj4g
+KyAgLSAkcmVmOiBudm1lbS55YW1sIwo+ICAKPiAgcHJvcGVydGllczoKPiAgICBjb21wYXRpYmxl
+Ogo+IGRpZmYgLS1naXQgYS9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvbnZtZW0v
+bXhzLW9jb3RwLnlhbWwgYi9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvbnZtZW0v
+bXhzLW9jb3RwLnlhbWwKPiBpbmRleCBmZjMxN2ZkN2MxNWIuLjg5MzhlZWMyMmI1MiAxMDA2NDQK
+PiAtLS0gYS9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvbnZtZW0vbXhzLW9jb3Rw
+LnlhbWwKPiArKysgYi9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvbnZtZW0vbXhz
+LW9jb3RwLnlhbWwKPiBAQCAtMTAsNyArMTAsNyBAQCBtYWludGFpbmVyczoKPiAgICAtIEFuc29u
+IEh1YW5nIDxBbnNvbi5IdWFuZ0BueHAuY29tPgo+ICAKPiAgYWxsT2Y6Cj4gLSAgLSAkcmVmOiAi
+bnZtZW0ueWFtbCMiCj4gKyAgLSAkcmVmOiBudm1lbS55YW1sIwo+ICAKPiAgcHJvcGVydGllczoK
+PiAgICBjb21wYXRpYmxlOgo+IGRpZmYgLS1naXQgYS9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUv
+YmluZGluZ3MvbnZtZW0vbmludGVuZG8tb3RwLnlhbWwgYi9Eb2N1bWVudGF0aW9uL2RldmljZXRy
+ZWUvYmluZGluZ3MvbnZtZW0vbmludGVuZG8tb3RwLnlhbWwKPiBpbmRleCBmOTNiYzUwYzQwZDcu
+LjZjMjY4MDBmOGI3OSAxMDA2NDQKPiAtLS0gYS9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmlu
+ZGluZ3MvbnZtZW0vbmludGVuZG8tb3RwLnlhbWwKPiArKysgYi9Eb2N1bWVudGF0aW9uL2Rldmlj
+ZXRyZWUvYmluZGluZ3MvbnZtZW0vbmludGVuZG8tb3RwLnlhbWwKPiBAQCAtMTcsNyArMTcsNyBA
+QCBtYWludGFpbmVyczoKPiAgICAtIEVtbWFudWVsIEdpbCBQZXlyb3QgPGxpbmttYXV2ZUBsaW5r
+bWF1dmUuZnI+Cj4gIAo+ICBhbGxPZjoKPiAtICAtICRyZWY6ICJudm1lbS55YW1sIyIKPiArICAt
+ICRyZWY6IG52bWVtLnlhbWwjCj4gIAo+ICBwcm9wZXJ0aWVzOgo+ICAgIGNvbXBhdGlibGU6Cj4g
+ZGlmZiAtLWdpdCBhL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9udm1lbS9xY29t
+LHFmcHJvbS55YW1sIGIvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL252bWVtL3Fj
+b20scWZwcm9tLnlhbWwKPiBpbmRleCAyMTczZmU4MjMxN2QuLmU5NTI5MDdhZDFkNSAxMDA2NDQK
+PiAtLS0gYS9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvbnZtZW0vcWNvbSxxZnBy
+b20ueWFtbAo+ICsrKyBiL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9udm1lbS9x
+Y29tLHFmcHJvbS55YW1sCj4gQEAgLTEwLDcgKzEwLDcgQEAgbWFpbnRhaW5lcnM6Cj4gICAgLSBT
+cmluaXZhcyBLYW5kYWdhdGxhIDxzcmluaXZhcy5rYW5kYWdhdGxhQGxpbmFyby5vcmc+Cj4gIAo+
+ICBhbGxPZjoKPiAtICAtICRyZWY6ICJudm1lbS55YW1sIyIKPiArICAtICRyZWY6IG52bWVtLnlh
+bWwjCj4gIAo+ICBwcm9wZXJ0aWVzOgo+ICAgIGNvbXBhdGlibGU6Cj4gZGlmZiAtLWdpdCBhL0Rv
+Y3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9udm1lbS9xY29tLHNwbWktc2RhbS55YW1s
+IGIvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL252bWVtL3Fjb20sc3BtaS1zZGFt
+LnlhbWwKPiBpbmRleCBlMDg1MDRlZjNiNmUuLjM0ODE4NjgzZjgwYyAxMDA2NDQKPiAtLS0gYS9E
+b2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvbnZtZW0vcWNvbSxzcG1pLXNkYW0ueWFt
+bAo+ICsrKyBiL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9udm1lbS9xY29tLHNw
+bWktc2RhbS55YW1sCj4gQEAgLTE1LDcgKzE1LDcgQEAgZGVzY3JpcHRpb246IHwKPiAgICB0by9m
+cm9tIHRoZSBQQlVTLgo+ICAKPiAgYWxsT2Y6Cj4gLSAgLSAkcmVmOiAibnZtZW0ueWFtbCMiCj4g
+KyAgLSAkcmVmOiBudm1lbS55YW1sIwo+ICAKPiAgcHJvcGVydGllczoKPiAgICBjb21wYXRpYmxl
+Ogo+IGRpZmYgLS1naXQgYS9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvbnZtZW0v
+cm1lbS55YW1sIGIvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL252bWVtL3JtZW0u
+eWFtbAo+IGluZGV4IGE0YTc1NWRjZmM0My4uMzhhMzljOWI4YzFjIDEwMDY0NAo+IC0tLSBhL0Rv
+Y3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9udm1lbS9ybWVtLnlhbWwKPiArKysgYi9E
+b2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvbnZtZW0vcm1lbS55YW1sCj4gQEAgLTEw
+LDcgKzEwLDcgQEAgbWFpbnRhaW5lcnM6Cj4gICAgLSBOaWNvbGFzIFNhZW56IEp1bGllbm5lIDxu
+c2FlbnpqdWxpZW5uZUBzdXNlLmRlPgo+ICAKPiAgYWxsT2Y6Cj4gLSAgLSAkcmVmOiAibnZtZW0u
+eWFtbCMiCj4gKyAgLSAkcmVmOiBudm1lbS55YW1sIwo+ICAKPiAgcHJvcGVydGllczoKPiAgICBj
+b21wYXRpYmxlOgo+IGRpZmYgLS1naXQgYS9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGlu
+Z3MvbnZtZW0vcm9ja2NoaXAtZWZ1c2UueWFtbCBiL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9i
+aW5kaW5ncy9udm1lbS9yb2NrY2hpcC1lZnVzZS55YW1sCj4gaW5kZXggZmViZWU4MTI5YWE5Li5j
+NTQwM2UxNDkwODAgMTAwNjQ0Cj4gLS0tIGEvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRp
+bmdzL252bWVtL3JvY2tjaGlwLWVmdXNlLnlhbWwKPiArKysgYi9Eb2N1bWVudGF0aW9uL2Rldmlj
+ZXRyZWUvYmluZGluZ3MvbnZtZW0vcm9ja2NoaXAtZWZ1c2UueWFtbAo+IEBAIC0xMCw3ICsxMCw3
+IEBAIG1haW50YWluZXJzOgo+ICAgIC0gSGVpa28gU3R1ZWJuZXIgPGhlaWtvQHNudGVjaC5kZT4K
+PiAgCj4gIGFsbE9mOgo+IC0gIC0gJHJlZjogIm52bWVtLnlhbWwjIgo+ICsgIC0gJHJlZjogbnZt
+ZW0ueWFtbCMKPiAgCj4gIHByb3BlcnRpZXM6Cj4gICAgY29tcGF0aWJsZToKPiBkaWZmIC0tZ2l0
+IGEvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL252bWVtL3NvY2lvbmV4dCx1bmlw
+aGllci1lZnVzZS55YW1sIGIvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL252bWVt
+L3NvY2lvbmV4dCx1bmlwaGllci1lZnVzZS55YW1sCj4gaW5kZXggZGM3OTBkMmNkOWYwLi5iOGJj
+YTA1OTljNDUgMTAwNjQ0Cj4gLS0tIGEvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdz
+L252bWVtL3NvY2lvbmV4dCx1bmlwaGllci1lZnVzZS55YW1sCj4gKysrIGIvRG9jdW1lbnRhdGlv
+bi9kZXZpY2V0cmVlL2JpbmRpbmdzL252bWVtL3NvY2lvbmV4dCx1bmlwaGllci1lZnVzZS55YW1s
+Cj4gQEAgLTExLDcgKzExLDcgQEAgbWFpbnRhaW5lcnM6Cj4gICAgLSBLdW5paGlrbyBIYXlhc2hp
+IDxoYXlhc2hpLmt1bmloaWtvQHNvY2lvbmV4dC5jb20+Cj4gIAo+ICBhbGxPZjoKPiAtICAtICRy
+ZWY6ICJudm1lbS55YW1sIyIKPiArICAtICRyZWY6IG52bWVtLnlhbWwjCj4gIAo+ICBwcm9wZXJ0
+aWVzOgo+ICAgICIjYWRkcmVzcy1jZWxscyI6IHRydWUKPiBkaWZmIC0tZ2l0IGEvRG9jdW1lbnRh
+dGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL252bWVtL3N0LHN0bTMyLXJvbWVtLnlhbWwgYi9Eb2N1
+bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvbnZtZW0vc3Qsc3RtMzItcm9tZW0ueWFtbAo+
+IGluZGV4IDE3MjU5N2NjNWM2My4uYTY5ZGUzZTkyMjgyIDEwMDY0NAo+IC0tLSBhL0RvY3VtZW50
+YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9udm1lbS9zdCxzdG0zMi1yb21lbS55YW1sCj4gKysr
+IGIvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL252bWVtL3N0LHN0bTMyLXJvbWVt
+LnlhbWwKPiBAQCAtMTYsNyArMTYsNyBAQCBtYWludGFpbmVyczoKPiAgICAtIEZhYnJpY2UgR2Fz
+bmllciA8ZmFicmljZS5nYXNuaWVyQGZvc3Muc3QuY29tPgo+ICAKPiAgYWxsT2Y6Cj4gLSAgLSAk
+cmVmOiAibnZtZW0ueWFtbCMiCj4gKyAgLSAkcmVmOiBudm1lbS55YW1sIwo+ICAKPiAgcHJvcGVy
+dGllczoKPiAgICBjb21wYXRpYmxlOgo+IGRpZmYgLS1naXQgYS9Eb2N1bWVudGF0aW9uL2Rldmlj
+ZXRyZWUvYmluZGluZ3MvbnZtZW0vc3VucGx1cyxzcDcwMjEtb2NvdHAueWFtbCBiL0RvY3VtZW50
+YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9udm1lbS9zdW5wbHVzLHNwNzAyMS1vY290cC55YW1s
+Cj4gaW5kZXggYTc2NDRlYmJjMmNhLi44ODc3YzIyODNlOWUgMTAwNjQ0Cj4gLS0tIGEvRG9jdW1l
+bnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL252bWVtL3N1bnBsdXMsc3A3MDIxLW9jb3RwLnlh
+bWwKPiArKysgYi9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvbnZtZW0vc3VucGx1
+cyxzcDcwMjEtb2NvdHAueWFtbAo+IEBAIC0xMSw3ICsxMSw3IEBAIG1haW50YWluZXJzOgo+ICAg
+IC0gVmluY2VudCBTaGloIDx2aW5jZW50LnN1bnBsdXNAZ21haWwuY29tPgo+ICAKPiAgYWxsT2Y6
+Cj4gLSAgLSAkcmVmOiAibnZtZW0ueWFtbCMiCj4gKyAgLSAkcmVmOiBudm1lbS55YW1sIwo+ICAK
+PiAgcHJvcGVydGllczoKPiAgICBjb21wYXRpYmxlOgoKCi0gSGVjdG9yCl9fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlz
+dApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQt
+bWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
