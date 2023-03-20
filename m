@@ -2,61 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 77CF76C0DC2
-	for <lists+linux-stm32@lfdr.de>; Mon, 20 Mar 2023 10:55:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7DE656C0DC5
+	for <lists+linux-stm32@lfdr.de>; Mon, 20 Mar 2023 10:55:17 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 27B00C6A5EF;
-	Mon, 20 Mar 2023 09:55:16 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3D907C6A603;
+	Mon, 20 Mar 2023 09:55:17 +0000 (UTC)
 Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com
  [209.85.167.50])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DABADC65068
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 75BCAC65068
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 20 Mar 2023 09:55:14 +0000 (UTC)
-Received: by mail-lf1-f50.google.com with SMTP id bi9so14093516lfb.12
+ Mon, 20 Mar 2023 09:55:15 +0000 (UTC)
+Received: by mail-lf1-f50.google.com with SMTP id bi9so14093600lfb.12
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 20 Mar 2023 02:55:14 -0700 (PDT)
+ Mon, 20 Mar 2023 02:55:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1679306114;
- h=cc:to:content-transfer-encoding:mime-version:message-id:date
- :subject:from:from:to:cc:subject:date:message-id:reply-to;
- bh=KLcRecY4IurzeYGepE8N1+JONZ5XYr+wjjJNzOWAqBY=;
- b=HDoNBMSCxam0/t+IGp2epNMQAJJ5tUHM384qKl5sewn/e7sZZz8G//l0WjQGZ9Y0Hu
- MNfWTjcmCW8TaXaHvrHG1CyGWLzTm8U5zwY14JLETPIt+b537SqNtl4hzl6ZSWkSQj9H
- u5sP5KjumCZitZeUKfzimfI3EbobnA5rN26jszFk42YVNZchEkaKOXI+NX0RY8OcsSmR
- gc48XGUclmJLnpEhAEex34qOIarSP8bcwebuRmhEYvuor94Z0Liw29g0PRw20rhD3J/U
- GRue9v3d5c8J4uga5nn4Dha3qkV6eRVaeq9RmY1X/NAGQui5CvSoHZwWafDtbD0duIZq
- t8CQ==
+ d=linaro.org; s=google; t=1679306115;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+ :reply-to; bh=HAnQzgricg8Usxd+K390Bg6GFFRXEBuJfLaA0TdP+hw=;
+ b=Lq7l5aeg8t6BBYbxGtC4sNU5S8fQuBBWobHnJIxj686s6RIddNS7y5zLxX+6jjMGVJ
+ q8Np1dVHSXaDhxJexJ3Cja6w9ffPRDiUNb2OCSJjWDBk8iPYyzUx4mqlgiuxNGhbPTtW
+ YgefU03E4fhoSdZAaNiHoKR5mnYkWlR3BKHnfv3+iy5d0VlNKlNoq94/wG1YS0LQJFvI
+ iP3GQHkCA7ZHxNmQTsiY5N6CqU1lk5gzClIkEC/3IZNMZqhHeiQbRLgZrW+nHe80Qnak
+ xmkD+VTW2eLGoVWT+mSMA5tyo3H4ysglh5BTU+FVTbIGQvvg5T111RiXWhyQ6HalDpq2
+ BhvA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1679306114;
- h=cc:to:content-transfer-encoding:mime-version:message-id:date
- :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=KLcRecY4IurzeYGepE8N1+JONZ5XYr+wjjJNzOWAqBY=;
- b=eF2W8gkgNtGVHTEx0f9+t2B6RUeUYENgHkJmGJvp150QaOoGpjyZ0matgmyQQXXfRs
- i075R/88zv770fluz3s/mGbab46OtYsCCq2BPpxBQGZMbfFQtNAhvMqokWcb9Bmh8IzV
- EG1UF0mBSnAY3Z22uPCWYlVuUA1J6KmRXA3h0sKeYQzWR2NUKpsjpmtgU5rTKoIF54MB
- hjiDj8zM0fW5hT4J6ls2b/RXRKQnvgMWjuefuWhVXjf+CaoHCaYAlfn5S9pKJOc1VVv2
- AukEXW/1Gw2bSi4LY4YFQfW7WbFhCzZjl1yoNC0kQuN/OAdiKd3LCorH0eDv9CMQqEMr
- 0yQg==
-X-Gm-Message-State: AO0yUKV5/KsPNXKcYEBn0vrrTNkIxNn/vbyqKL//LRFy2u1r2iMefGiL
- H6kHd/h5ceA5Q4fXBej2vzjBtw==
-X-Google-Smtp-Source: AK7set+nwU6isBHx8JOiQQkLLqlKYNWzFoGlQOBBzIDvTgOy7DPWByuQtSAP1zptVBwRdRH8luzvmA==
-X-Received: by 2002:ac2:51cc:0:b0:4e7:fa8a:886e with SMTP id
- u12-20020ac251cc000000b004e7fa8a886emr5392863lfm.51.1679306114054; 
- Mon, 20 Mar 2023 02:55:14 -0700 (PDT)
+ d=1e100.net; s=20210112; t=1679306115;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=HAnQzgricg8Usxd+K390Bg6GFFRXEBuJfLaA0TdP+hw=;
+ b=F4EyyDqF4kCUff5PN5GMH8ZrrwfZf7+CfV9QPBom4CxUzFGawTpdA1x5vvuy5HDsTP
+ 5SJ2p2YxMkYadOjChMeJjc6vqH32syHS93uRgoT5JYZrd1gYzU3hk5TGfKqH0DFGMmVS
+ 3yUkpeCYSm89FFxjOpQ4HR0VO6jQi10YDNrqZmXrXpxyjhnxsUCBnlaIA3/WZMo7RT/l
+ NaIMLGgglARxXPzBux1mpRsoAK6AKTcadxiMFpdhNcWSdG+BBhW0oF9jJ2CCtMI/NwYD
+ 6rF89jtP8+zJSiGa6uy6FxyTRpwX7tZqG3FYg0zdA7fcWhWZRmxFulzD8pIUMJDzPpXk
+ k43Q==
+X-Gm-Message-State: AO0yUKXpCsU7lWFdKC48MH/zdEdWlOYp9YChW35CnZaMdZbLZ67XfxdV
+ ii4FJg+XyqB/2mhe0qNtcF2D9Q==
+X-Google-Smtp-Source: AK7set8JyDN20awY9sNno52xF2TVH9J+MI/F8E9hCCxP2/SGPM7w1IlrEkTA+cYgLhq2Sf4h86VGVA==
+X-Received: by 2002:ac2:44ab:0:b0:4de:d16f:3938 with SMTP id
+ c11-20020ac244ab000000b004ded16f3938mr7279084lfm.53.1679306115099; 
+ Mon, 20 Mar 2023 02:55:15 -0700 (PDT)
 Received: from [127.0.1.1] ([85.235.12.219]) by smtp.gmail.com with ESMTPSA id
- c3-20020ac244a3000000b004e792045b3dsm1640104lfm.106.2023.03.20.02.55.12
+ c3-20020ac244a3000000b004e792045b3dsm1640104lfm.106.2023.03.20.02.55.14
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 20 Mar 2023 02:55:13 -0700 (PDT)
+ Mon, 20 Mar 2023 02:55:14 -0700 (PDT)
 From: Linus Walleij <linus.walleij@linaro.org>
-Date: Mon, 20 Mar 2023 10:55:07 +0100
-Message-Id: <20230316-immutable-chips-2-v1-0-053d6ede831b@linaro.org>
+Date: Mon, 20 Mar 2023 10:55:08 +0100
 MIME-Version: 1.0
-X-B4-Tracking: v=1; b=H4sIAHstGGQC/x2N0QrCMAwAf2Xk2UDXqRR/RXxI22gDto5kijD27
- 3Y+HsdxKxirsMFlWEH5Iyav1mE8DJAKtQej5M7gnZ/cNJ5Ran0vFJ+Mqchs6JGyDy7kGNzpCL2
- LZIxRqaWyl5VsYd3FrHyX7392vW3bD6EzupF8AAAA
+Message-Id: <20230316-immutable-chips-2-v1-1-053d6ede831b@linaro.org>
+References: <20230316-immutable-chips-2-v1-0-053d6ede831b@linaro.org>
+In-Reply-To: <20230316-immutable-chips-2-v1-0-053d6ede831b@linaro.org>
 To: linux-gpio@vger.kernel.org, Bartosz Golaszewski <brgl@bgdev.pl>, 
  Manivannan Sadhasivam <mani@kernel.org>, 
  Thorsten Scherer <t.scherer@eckelmann.de>, 
@@ -75,8 +74,7 @@ X-Mailer: b4 0.12.1
 Cc: Marc Zyngier <maz@kernel.org>, Linus Walleij <linus.walleij@linaro.org>,
  linux-kernel@vger.kernel.org, linux-unisoc@lists.infradead.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 0/9] Mass convert GPIO IRQ chips to be
-	immutable part 2
+Subject: [Linux-stm32] [PATCH 1/9] gpio: rda: Convert to immutable irq_chip
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,46 +91,80 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Following up on my first series with this second series
-concluding all the low-hanging immutable irqchip conversions
-in the GPIO subsystem. These are all I could easily
-convert.
+Convert the driver to immutable irq-chip with a bit of
+intuition.
 
-The remaining irqchips are not using the GPIOLIB_IRQCHIP
-for one or another reason, or too complex for me to
-deal with. Mostly they are using generic irqchip, and
-I guess those are fine as-is.
-
+Cc: Marc Zyngier <maz@kernel.org>
 Signed-off-by: Linus Walleij <linus.walleij@linaro.org>
 ---
-Linus Walleij (9):
-      gpio: rda: Convert to immutable irq_chip
-      gpio: siox: Convert to immutable irq_chip
-      gpio: stmpe: Convert to immutable irq_chip
-      gpio: thunderx: Convert to immutable irq_chip
-      gpio: tqmx86: Convert to immutable irq_chip
-      gpio: visconti: Convert to immutable irq_chip
-      gpio: xgs-iproc: Convert to immutable irq_chip
-      gpio: xilinx: Convert to immutable irq_chip
-      gpio: xlp: Convert to immutable irq_chip
+ drivers/gpio/gpio-rda.c | 22 +++++++++++++---------
+ 1 file changed, 13 insertions(+), 9 deletions(-)
 
- drivers/gpio/gpio-rda.c       | 22 +++++++------
- drivers/gpio/gpio-siox.c      | 75 ++++++++++++++++++++++---------------------
- drivers/gpio/gpio-stmpe.c     |  8 +++--
- drivers/gpio/gpio-thunderx.c  | 26 +++++++++------
- drivers/gpio/gpio-tqmx86.c    | 28 +++++++++++-----
- drivers/gpio/gpio-visconti.c  | 50 ++++++++++++++++++++++-------
- drivers/gpio/gpio-xgs-iproc.c | 32 ++++++++++++------
- drivers/gpio/gpio-xilinx.c    | 23 ++++++++-----
- drivers/gpio/gpio-xlp.c       | 14 ++++++--
- 9 files changed, 181 insertions(+), 97 deletions(-)
----
-base-commit: fe15c26ee26efa11741a7b632e9f23b01aca4cc6
-change-id: 20230316-immutable-chips-2-ad2808db8054
+diff --git a/drivers/gpio/gpio-rda.c b/drivers/gpio/gpio-rda.c
+index 62ba18b3a602..dd568907d389 100644
+--- a/drivers/gpio/gpio-rda.c
++++ b/drivers/gpio/gpio-rda.c
+@@ -38,7 +38,6 @@ struct rda_gpio {
+ 	struct gpio_chip chip;
+ 	void __iomem *base;
+ 	spinlock_t lock;
+-	struct irq_chip irq_chip;
+ 	int irq;
+ };
+ 
+@@ -74,6 +73,7 @@ static void rda_gpio_irq_mask(struct irq_data *data)
+ 	value |= BIT(offset) << RDA_GPIO_IRQ_FALL_SHIFT;
+ 
+ 	writel_relaxed(value, base + RDA_GPIO_INT_CTRL_CLR);
++	gpiochip_disable_irq(chip, offset);
+ }
+ 
+ static void rda_gpio_irq_ack(struct irq_data *data)
+@@ -154,6 +154,7 @@ static void rda_gpio_irq_unmask(struct irq_data *data)
+ 	u32 offset = irqd_to_hwirq(data);
+ 	u32 trigger = irqd_get_trigger_type(data);
+ 
++	gpiochip_enable_irq(chip, offset);
+ 	rda_gpio_set_irq(chip, offset, trigger);
+ }
+ 
+@@ -195,6 +196,16 @@ static void rda_gpio_irq_handler(struct irq_desc *desc)
+ 	chained_irq_exit(ic, desc);
+ }
+ 
++static const struct irq_chip rda_gpio_irq_chip = {
++	.name = "rda-gpio",
++	.irq_ack = rda_gpio_irq_ack,
++	.irq_mask = rda_gpio_irq_mask,
++	.irq_unmask = rda_gpio_irq_unmask,
++	.irq_set_type = rda_gpio_irq_set_type,
++	.flags = IRQCHIP_SKIP_SET_WAKE | IRQCHIP_IMMUTABLE,
++	GPIOCHIP_IRQ_RESOURCE_HELPERS,
++};
++
+ static int rda_gpio_probe(struct platform_device *pdev)
+ {
+ 	struct device *dev = &pdev->dev;
+@@ -241,15 +252,8 @@ static int rda_gpio_probe(struct platform_device *pdev)
+ 	rda_gpio->chip.base = -1;
+ 
+ 	if (rda_gpio->irq >= 0) {
+-		rda_gpio->irq_chip.name = "rda-gpio",
+-		rda_gpio->irq_chip.irq_ack = rda_gpio_irq_ack,
+-		rda_gpio->irq_chip.irq_mask = rda_gpio_irq_mask,
+-		rda_gpio->irq_chip.irq_unmask = rda_gpio_irq_unmask,
+-		rda_gpio->irq_chip.irq_set_type = rda_gpio_irq_set_type,
+-		rda_gpio->irq_chip.flags = IRQCHIP_SKIP_SET_WAKE,
+-
+ 		girq = &rda_gpio->chip.irq;
+-		girq->chip = &rda_gpio->irq_chip;
++		gpio_irq_chip_set_chip(girq, &rda_gpio_irq_chip);
+ 		girq->handler = handle_bad_irq;
+ 		girq->default_type = IRQ_TYPE_NONE;
+ 		girq->parent_handler = rda_gpio_irq_handler;
 
-Best regards,
 -- 
-Linus Walleij <linus.walleij@linaro.org>
+2.34.1
 
 _______________________________________________
 Linux-stm32 mailing list
