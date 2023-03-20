@@ -2,54 +2,67 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 43FD66C2005
-	for <lists+linux-stm32@lfdr.de>; Mon, 20 Mar 2023 19:36:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E0AA6C204E
+	for <lists+linux-stm32@lfdr.de>; Mon, 20 Mar 2023 19:49:23 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E5F6CC6A603;
-	Mon, 20 Mar 2023 18:36:47 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B06D4C6A603;
+	Mon, 20 Mar 2023 18:49:22 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CA3CEC6A5F6
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D6DA4C6A5F6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 20 Mar 2023 18:36:46 +0000 (UTC)
+ Mon, 20 Mar 2023 18:49:20 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 3A334B8108F;
- Mon, 20 Mar 2023 18:36:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95840C433EF;
- Mon, 20 Mar 2023 18:36:44 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 934CF617B8;
+ Mon, 20 Mar 2023 18:49:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 99AAFC433EF;
+ Mon, 20 Mar 2023 18:49:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1679337405;
- bh=Fgd797KbI1PdqMhgivAXqb+TVSCPpLGekpk5fhvJ4iw=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=AHqYzPWiw8XfNThoV8pZWy5B257SS/zOz3PWCdhCNnLOYro+JUcL70ZyYdlmETquW
- 5i3YL9HAl0ENz6kJcLXRAkbu2zj1YIBbnZOKBrm9DayELc9ILXa7W/fqygsXsO0DII
- farvhzxHOJ2b38f72RBgztjq4+OEJKmCdddbPTcg3l+oDofPH54QZdMMEE7zRB64ko
- GDg0zxnBfmX6Jp+5GofcV842klfBBqbqubyE3q30D6K5tTHTEs+cXsVeMKUm95Xcpy
- 757ApuM+H8bTVcj+Pv1Xg2gcxFDlxDUWqaIbFDTUq1uZ5ZbAs8lBQGRNm4sqJKX5rG
- dXORHp5MsPujw==
-Date: Mon, 20 Mar 2023 11:36:43 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: Jochen Henneberg <jh@henneberg-systemdesign.com>
-Message-ID: <20230320113643.53bbf52d@kernel.org>
-In-Reply-To: <87r0tj23eh.fsf@henneberg-systemdesign.com>
-References: <20230316075940.695583-1-jh@henneberg-systemdesign.com>
- <20230316075940.695583-2-jh@henneberg-systemdesign.com>
- <20230317222117.3520d4cf@kernel.org>
- <87sfe2gwd2.fsf@henneberg-systemdesign.com>
- <20230318190125.175b0fea@kernel.org>
- <87r0tj23eh.fsf@henneberg-systemdesign.com>
+ s=k20201202; t=1679338159;
+ bh=CZ1ZHhw3PAwUSr1RFLcjb3EwDHIuncqBo8djo22GoX0=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=EYP4qmc6qfu6EjAznMtGQhzvJWIyu3VfimKLlctzdcfkx90GWy1byGmGknYl4Wy5g
+ f+OLUhEcWq38tykmJqJIVnJz28QPzTaDnJ6XIYxqlkkp+9L2WfLHuAXUFWnBl5fsGx
+ vVlpIjPg+eps9cXh5RCYhPtsN+fzjAfxxyGhriaE+Agzrw6x5xDP+/cxv++/m3krAL
+ 10jcJcCFpfXnnqwkt5hSPWszQX0vG7p+Eaw4x7M1nSqDFRZYaA6zPrTgxkQpLW1txu
+ Mnw2mcHnjmIvUVv9qyzJ9JAlzkduVPg+8OWsNvJv0HSL8W707B0ZYzsevQ0j3gwXua
+ oC8ObwL0L1waA==
+From: Mark Brown <broonie@kernel.org>
+To: Liam Girdwood <lgirdwood@gmail.com>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, 
+ Support Opensource <support.opensource@diasemi.com>, 
+ Benson Leung <bleung@chromium.org>, Guenter Roeck <groeck@chromium.org>, 
+ Bartosz Golaszewski <brgl@bgdev.pl>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ Saravanan Sekar <sravanhome@gmail.com>, 
+ Jagan Teki <jagan@amarulasolutions.com>, Andy Gross <agross@kernel.org>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konrad.dybcio@linaro.org>, 
+ Florian Fainelli <f.fainelli@gmail.com>, 
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Kunihiko Hayashi <hayashi.kunihiko@socionext.com>, 
+ Masami Hiramatsu <mhiramat@kernel.org>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Robert Marko <robert.marko@sartura.hr>, 
+ Luka Perkov <luka.perkov@sartura.hr>, Rob Herring <robh@kernel.org>
+In-Reply-To: <20230317233616.3968003-1-robh@kernel.org>
+References: <20230317233616.3968003-1-robh@kernel.org>
+Message-Id: <167933815234.201304.14593009652707828902.b4-ty@kernel.org>
+Date: Mon, 20 Mar 2023 18:49:12 +0000
 MIME-Version: 1.0
-Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
- Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Ong Boon Leong <boon.leong.ong@intel.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>, Paolo Abeni <pabeni@redhat.com>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net V2 1/2] net: stmmac: Premature loop
- termination check was ignored on rx
+X-Mailer: b4 0.13-dev-bd1bf
+Cc: devicetree@vger.kernel.org, chrome-platform@lists.linux.dev,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-mediatek@lists.infradead.org, linux-rpi-kernel@lists.infradead.org,
+ patches@opensource.cirrus.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] regulator: dt-bindings: Drop unneeded
+	quotes
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,19 +79,39 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, 20 Mar 2023 10:04:54 +0100 Jochen Henneberg wrote:
-> For the ST and Synopsys people:
-> I could imagine that you would be able to fix this much faster than
-> I can, so if they want to work on this please let me know so I don't
-> waste my time on doing double work.
+On Fri, 17 Mar 2023 18:36:14 -0500, Rob Herring wrote:
+> Cleanup bindings dropping unneeded quotes. Once all these are fixed,
+> checking for this can be enabled in yamllint.
+> 
+> 
 
-Don't hold your breath, we haven't heard from any of the maintainers 
-in 2 years :( 
+Applied to
 
-The drivers for CoTS IPs are really not great in general, I'm guessing
-delivering solid code is both difficult for them (given customer
-parametrization of each instance) and hard to fit into their business
-process :(
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/regulator.git for-next
+
+Thanks!
+
+[1/1] regulator: dt-bindings: Drop unneeded quotes
+      commit: cff5c895137cb5c3d48811881f111b17c444e2d5
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
 
 _______________________________________________
 Linux-stm32 mailing list
