@@ -2,59 +2,77 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6FD6B6C0EF6
-	for <lists+linux-stm32@lfdr.de>; Mon, 20 Mar 2023 11:35:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6BF876C10E5
+	for <lists+linux-stm32@lfdr.de>; Mon, 20 Mar 2023 12:37:00 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E8A5EC6A5EF;
-	Mon, 20 Mar 2023 10:35:06 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6F64CC6A5E7
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 20 Mar 2023 10:35:06 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2557AC6A5EF;
+	Mon, 20 Mar 2023 11:37:00 +0000 (UTC)
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [85.220.165.71])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 98E4EB80DF4;
- Mon, 20 Mar 2023 10:35:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 348B5C433EF;
- Mon, 20 Mar 2023 10:34:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1679308504;
- bh=M/wWyAoTmx9mB/cTEjucMK8opbUBCDiaoVYvdKCtM00=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=ug4MGKB5x6BjiRYYC4VzrvoxvY/oDRwFjN2VLdzI5TBwlSfpiMayNt3lfjtPibAHu
- St7oiHUW9MjFsGWKPzLGvkvvUZqr8LOyeFgbzc19GlegmF6RIPsYIgGp3bTH5Q8xbI
- n7QyKIU3IjeRQwkowbrl/zEVnMX59V2xCugTCcAfq5tKdRQBJjp7lWTJET6pIfxMzH
- De+CtrWrTv4duxBvCTvGLvc2V1yU0OKYCkVIuUYnQkuAxg1YiezlnRyCdqXOo3KJWx
- C9ffVaU5Fppad0dttD16qvp+PBUE7PpEdPBO9Xp6YD6Bux3Yej/BZmKW9RY8T6CaBL
- AWpIEJI+3iQUQ==
-Date: Mon, 20 Mar 2023 16:04:52 +0530
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Linus Walleij <linus.walleij@linaro.org>
-Message-ID: <20230320103452.GD4564@thinkpad>
-References: <20230316-immutable-chips-2-v1-0-053d6ede831b@linaro.org>
- <20230316-immutable-chips-2-v1-1-053d6ede831b@linaro.org>
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8793EC65068
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 20 Mar 2023 11:36:59 +0000 (UTC)
+Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b]
+ helo=bjornoya.blackshift.org) by metis.ext.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <mkl@pengutronix.de>)
+ id 1peDmk-0005Mb-3u; Mon, 20 Mar 2023 12:34:42 +0100
+Received: from pengutronix.de (unknown
+ [IPv6:2a00:20:c04b:45e4:1953:f0f4:6a85:b0])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256) (Client did not present a certificate)
+ (Authenticated sender: mkl-all@blackshift.org)
+ by smtp.blackshift.org (Postfix) with ESMTPSA id 05ADB19732D;
+ Mon, 20 Mar 2023 09:23:50 +0000 (UTC)
+Date: Mon, 20 Mar 2023 10:23:49 +0100
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+To: Rob Herring <robh@kernel.org>
+Message-ID: <20230320092349.7eqjqiblksjpw3fb@pengutronix.de>
+References: <20230317233605.3967621-1-robh@kernel.org>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20230316-immutable-chips-2-v1-1-053d6ede831b@linaro.org>
-Cc: linux-kernel@vger.kernel.org, Srinivas Neeli <srinivas.neeli@xilinx.com>,
- Robert Richter <rric@kernel.org>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Scott Branden <sbranden@broadcom.com>, linux-unisoc@lists.infradead.org,
- Ray Jui <rjui@broadcom.com>, Bartosz Golaszewski <brgl@bgdev.pl>,
- Shubhrajyoti Datta <shubhrajyoti.datta@xilinx.com>,
- Michal Simek <michal.simek@xilinx.com>, linux-gpio@vger.kernel.org,
- Thorsten Scherer <t.scherer@eckelmann.de>,
+In-Reply-To: <20230317233605.3967621-1-robh@kernel.org>
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:b01:1d::7b
+X-SA-Exim-Mail-From: mkl@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
+Cc: Andrew Lunn <andrew@lunn.ch>, Heiko Stuebner <heiko@sntech.de>,
+ linux-aspeed@lists.ozlabs.org, devicetree@vger.kernel.org,
+ Russell King <linux@armlinux.org.uk>, Eric Dumazet <edumazet@google.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Tobias Waldekranz <tobias@waldekranz.com>,
+ =?utf-8?B?UmFmYcWCIE1pxYJlY2tp?= <rafal@milecki.pl>,
+ UNGLinuxDriver@microchip.com, linux-stm32@st-md-mailman.stormreply.com,
+ Florian Fainelli <f.fainelli@gmail.com>, Samuel Holland <samuel@sholland.org>,
+ Steen Hegelund <Steen.Hegelund@microchip.com>,
+ Michal Simek <michal.simek@xilinx.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, linux-rockchip@lists.infradead.org,
+ Chen-Yu Tsai <wens@csie.org>, Andy Gross <agross@kernel.org>,
  Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+ Joel Stanley <joel@jms.id.au>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, linux-sunxi@lists.linux.dev,
+ Wolfgang Grandegger <wg@grandegger.com>,
+ Naga Sureshkumar Relli <naga.sureshkumar.relli@xilinx.com>,
+ Daniel Machon <daniel.machon@microchip.com>,
+ Manivannan Sadhasivam <mani@kernel.org>, linux-arm-msm@vger.kernel.org,
+ linux-actions@lists.infradead.org, linux-can@vger.kernel.org,
+ linux-mediatek@lists.infradead.org,
+ Appana Durga Kedareswara rao <appana.durga.rao@xilinx.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Lars Povlsen <lars.povlsen@microchip.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ linux-arm-kernel@lists.infradead.org, Andrew Jeffery <andrew@aj.id.au>,
+ netdev@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>,
+ linux-kernel@vger.kernel.org, "David S. Miller" <davem@davemloft.net>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>,
- Marc Zyngier <maz@kernel.org>,
- Nobuhiro Iwamatsu <nobuhiro1.iwamatsu@toshiba.co.jp>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 1/9] gpio: rda: Convert to immutable
-	irq_chip
+ Vladimir Oltean <olteanv@gmail.com>,
+ Andreas =?utf-8?Q?F=C3=A4rber?= <afaerber@suse.de>,
+ Heiner Kallweit <hkallweit1@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH] dt-bindings: net: Drop unneeded quotes
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,58 +84,66 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============4098180046616073929=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gTW9uLCBNYXIgMjAsIDIwMjMgYXQgMTA6NTU6MDhBTSArMDEwMCwgTGludXMgV2FsbGVpaiB3
-cm90ZToKPiBDb252ZXJ0IHRoZSBkcml2ZXIgdG8gaW1tdXRhYmxlIGlycS1jaGlwIHdpdGggYSBi
-aXQgb2YKPiBpbnR1aXRpb24uCj4gCj4gQ2M6IE1hcmMgWnluZ2llciA8bWF6QGtlcm5lbC5vcmc+
-Cj4gU2lnbmVkLW9mZi1ieTogTGludXMgV2FsbGVpaiA8bGludXMud2FsbGVpakBsaW5hcm8ub3Jn
-PgoKQWNrZWQtYnk6IE1hbml2YW5uYW4gU2FkaGFzaXZhbSA8bWFuaUBrZXJuZWwub3JnPgoKVGhh
-bmtzLApNYW5pCgo+IC0tLQo+ICBkcml2ZXJzL2dwaW8vZ3Bpby1yZGEuYyB8IDIyICsrKysrKysr
-KysrKystLS0tLS0tLS0KPiAgMSBmaWxlIGNoYW5nZWQsIDEzIGluc2VydGlvbnMoKyksIDkgZGVs
-ZXRpb25zKC0pCj4gCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3Bpby9ncGlvLXJkYS5jIGIvZHJp
-dmVycy9ncGlvL2dwaW8tcmRhLmMKPiBpbmRleCA2MmJhMThiM2E2MDIuLmRkNTY4OTA3ZDM4OSAx
-MDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwaW8vZ3Bpby1yZGEuYwo+ICsrKyBiL2RyaXZlcnMvZ3Bp
-by9ncGlvLXJkYS5jCj4gQEAgLTM4LDcgKzM4LDYgQEAgc3RydWN0IHJkYV9ncGlvIHsKPiAgCXN0
-cnVjdCBncGlvX2NoaXAgY2hpcDsKPiAgCXZvaWQgX19pb21lbSAqYmFzZTsKPiAgCXNwaW5sb2Nr
-X3QgbG9jazsKPiAtCXN0cnVjdCBpcnFfY2hpcCBpcnFfY2hpcDsKPiAgCWludCBpcnE7Cj4gIH07
-Cj4gIAo+IEBAIC03NCw2ICs3Myw3IEBAIHN0YXRpYyB2b2lkIHJkYV9ncGlvX2lycV9tYXNrKHN0
-cnVjdCBpcnFfZGF0YSAqZGF0YSkKPiAgCXZhbHVlIHw9IEJJVChvZmZzZXQpIDw8IFJEQV9HUElP
-X0lSUV9GQUxMX1NISUZUOwo+ICAKPiAgCXdyaXRlbF9yZWxheGVkKHZhbHVlLCBiYXNlICsgUkRB
-X0dQSU9fSU5UX0NUUkxfQ0xSKTsKPiArCWdwaW9jaGlwX2Rpc2FibGVfaXJxKGNoaXAsIG9mZnNl
-dCk7Cj4gIH0KPiAgCj4gIHN0YXRpYyB2b2lkIHJkYV9ncGlvX2lycV9hY2soc3RydWN0IGlycV9k
-YXRhICpkYXRhKQo+IEBAIC0xNTQsNiArMTU0LDcgQEAgc3RhdGljIHZvaWQgcmRhX2dwaW9faXJx
-X3VubWFzayhzdHJ1Y3QgaXJxX2RhdGEgKmRhdGEpCj4gIAl1MzIgb2Zmc2V0ID0gaXJxZF90b19o
-d2lycShkYXRhKTsKPiAgCXUzMiB0cmlnZ2VyID0gaXJxZF9nZXRfdHJpZ2dlcl90eXBlKGRhdGEp
-Owo+ICAKPiArCWdwaW9jaGlwX2VuYWJsZV9pcnEoY2hpcCwgb2Zmc2V0KTsKPiAgCXJkYV9ncGlv
-X3NldF9pcnEoY2hpcCwgb2Zmc2V0LCB0cmlnZ2VyKTsKPiAgfQo+ICAKPiBAQCAtMTk1LDYgKzE5
-NiwxNiBAQCBzdGF0aWMgdm9pZCByZGFfZ3Bpb19pcnFfaGFuZGxlcihzdHJ1Y3QgaXJxX2Rlc2Mg
-KmRlc2MpCj4gIAljaGFpbmVkX2lycV9leGl0KGljLCBkZXNjKTsKPiAgfQo+ICAKPiArc3RhdGlj
-IGNvbnN0IHN0cnVjdCBpcnFfY2hpcCByZGFfZ3Bpb19pcnFfY2hpcCA9IHsKPiArCS5uYW1lID0g
-InJkYS1ncGlvIiwKPiArCS5pcnFfYWNrID0gcmRhX2dwaW9faXJxX2FjaywKPiArCS5pcnFfbWFz
-ayA9IHJkYV9ncGlvX2lycV9tYXNrLAo+ICsJLmlycV91bm1hc2sgPSByZGFfZ3Bpb19pcnFfdW5t
-YXNrLAo+ICsJLmlycV9zZXRfdHlwZSA9IHJkYV9ncGlvX2lycV9zZXRfdHlwZSwKPiArCS5mbGFn
-cyA9IElSUUNISVBfU0tJUF9TRVRfV0FLRSB8IElSUUNISVBfSU1NVVRBQkxFLAo+ICsJR1BJT0NI
-SVBfSVJRX1JFU09VUkNFX0hFTFBFUlMsCj4gK307Cj4gKwo+ICBzdGF0aWMgaW50IHJkYV9ncGlv
-X3Byb2JlKHN0cnVjdCBwbGF0Zm9ybV9kZXZpY2UgKnBkZXYpCj4gIHsKPiAgCXN0cnVjdCBkZXZp
-Y2UgKmRldiA9ICZwZGV2LT5kZXY7Cj4gQEAgLTI0MSwxNSArMjUyLDggQEAgc3RhdGljIGludCBy
-ZGFfZ3Bpb19wcm9iZShzdHJ1Y3QgcGxhdGZvcm1fZGV2aWNlICpwZGV2KQo+ICAJcmRhX2dwaW8t
-PmNoaXAuYmFzZSA9IC0xOwo+ICAKPiAgCWlmIChyZGFfZ3Bpby0+aXJxID49IDApIHsKPiAtCQly
-ZGFfZ3Bpby0+aXJxX2NoaXAubmFtZSA9ICJyZGEtZ3BpbyIsCj4gLQkJcmRhX2dwaW8tPmlycV9j
-aGlwLmlycV9hY2sgPSByZGFfZ3Bpb19pcnFfYWNrLAo+IC0JCXJkYV9ncGlvLT5pcnFfY2hpcC5p
-cnFfbWFzayA9IHJkYV9ncGlvX2lycV9tYXNrLAo+IC0JCXJkYV9ncGlvLT5pcnFfY2hpcC5pcnFf
-dW5tYXNrID0gcmRhX2dwaW9faXJxX3VubWFzaywKPiAtCQlyZGFfZ3Bpby0+aXJxX2NoaXAuaXJx
-X3NldF90eXBlID0gcmRhX2dwaW9faXJxX3NldF90eXBlLAo+IC0JCXJkYV9ncGlvLT5pcnFfY2hp
-cC5mbGFncyA9IElSUUNISVBfU0tJUF9TRVRfV0FLRSwKPiAtCj4gIAkJZ2lycSA9ICZyZGFfZ3Bp
-by0+Y2hpcC5pcnE7Cj4gLQkJZ2lycS0+Y2hpcCA9ICZyZGFfZ3Bpby0+aXJxX2NoaXA7Cj4gKwkJ
-Z3Bpb19pcnFfY2hpcF9zZXRfY2hpcChnaXJxLCAmcmRhX2dwaW9faXJxX2NoaXApOwo+ICAJCWdp
-cnEtPmhhbmRsZXIgPSBoYW5kbGVfYmFkX2lycTsKPiAgCQlnaXJxLT5kZWZhdWx0X3R5cGUgPSBJ
-UlFfVFlQRV9OT05FOwo+ICAJCWdpcnEtPnBhcmVudF9oYW5kbGVyID0gcmRhX2dwaW9faXJxX2hh
-bmRsZXI7Cj4gCj4gLS0gCj4gMi4zNC4xCj4gCgotLSAK4K6u4K6j4K6/4K614K6j4K+N4K6j4K6p
-4K+NIOCumuCupOCuvuCumuCuv+CuteCuruCvjQpfX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJA
-c3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1y
-ZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
+
+--===============4098180046616073929==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="5rfbuzw7ieky3r2g"
+Content-Disposition: inline
+
+
+--5rfbuzw7ieky3r2g
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On 17.03.2023 18:36:03, Rob Herring wrote:
+> Cleanup bindings dropping unneeded quotes. Once all these are fixed,
+> checking for this can be enabled in yamllint.
+>=20
+> Signed-off-by: Rob Herring <robh@kernel.org>
+> ---
+[...]
+>  .../devicetree/bindings/net/can/xilinx,can.yaml    |  6 +++---
+
+Acked-by: Marc Kleine-Budde <mkl@pengutronix.de> # for bindings/net/can
+
+Marc
+
+--=20
+Pengutronix e.K.                 | Marc Kleine-Budde           |
+Embedded Linux                   | https://www.pengutronix.de  |
+Amtsgericht Hildesheim, HRA 2686 | Fax:   +49-5121-206917-5555 |
+
+--5rfbuzw7ieky3r2g
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEDs2BvajyNKlf9TJQvlAcSiqKBOgFAmQYJiIACgkQvlAcSiqK
+BOhjVQf/acPAkVlZAgSx2EeDlEf8hS1lf2sRkjDcvxt3kTD2h5jAh5U3kLV5DTD4
+MjEV9UTZecOll5eioSnCl1DrrqCemegxaoOeML/pQDa4hNYWmm5JHZFLOKdQbL0T
+B9Jl3hxOtVzm95NTggCnKp31A7Q7ft8wfQgSN//1++W90f7Yot/HEv/oPR68ElzX
+J2GyX741B6AfKBqEztJ6OYDWiB2lHw6zzIxacqqM+zn9vjVteFg2FsbKvCRAbUCV
+Bxg0WyzixKLhUf2Of1QOnEW70UfVtICWJ25BjPXp9+WGomovd5nb0MbV+2lou9kk
+0u595tSMCR5sWDa8jKOahMLP+4ZClA==
+=xkke
+-----END PGP SIGNATURE-----
+
+--5rfbuzw7ieky3r2g--
+
+--===============4098180046616073929==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============4098180046616073929==--
