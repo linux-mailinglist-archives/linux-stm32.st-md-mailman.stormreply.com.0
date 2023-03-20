@@ -2,86 +2,90 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 636636C1F0A
-	for <lists+linux-stm32@lfdr.de>; Mon, 20 Mar 2023 19:07:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B3276C1F0F
+	for <lists+linux-stm32@lfdr.de>; Mon, 20 Mar 2023 19:08:21 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0CF2DC6A603;
-	Mon, 20 Mar 2023 18:07:47 +0000 (UTC)
-Received: from mail-qt1-f178.google.com (mail-qt1-f178.google.com
- [209.85.160.178])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 29BAAC6A606;
+	Mon, 20 Mar 2023 18:08:21 +0000 (UTC)
+Received: from mail-qt1-f181.google.com (mail-qt1-f181.google.com
+ [209.85.160.181])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A1FCFC6A5EF
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4D109C6A5EF
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 20 Mar 2023 18:07:45 +0000 (UTC)
-Received: by mail-qt1-f178.google.com with SMTP id bz27so2401049qtb.1
+ Mon, 20 Mar 2023 18:08:19 +0000 (UTC)
+Received: by mail-qt1-f181.google.com with SMTP id c19so14133830qtn.13
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 20 Mar 2023 11:07:45 -0700 (PDT)
+ Mon, 20 Mar 2023 11:08:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20210112; t=1679335664;
+ d=gmail.com; s=20210112; t=1679335698;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=L3ZgQ6hbDwLFA0+/6XyOTTwas24M548/DGldx8bD/B4=;
- b=LpTTMMaMAGr1wg0gxQpPPQJcst7GYq7vYAPtjRVIP8cmaf+ovoh4ciEsHhfsjI72S3
- LNmMof4lp289jUlBGm0qH75LQ0CEWWtVzCRDcHNa1zAYsdAXZmdAnNtD4MLAi+g54KPj
- 4H227WE8o8Kf40sjsZo96JnijcrGtUCo6gOS5QHwi1TfT2ZtLLmtiFq3AQd4IpH/iGc/
- XRmMRfibPzro/QdkcU+II9zbngeGi2EO0U2WjN2eA/BXgZBHd0ODyvvxwIfX1g2OpXjH
- 8qDJcZy+sq6X/Oa5xQqs6yjdd2aYZHxya+sjOqGm/5hthoBF+rPcqikSfMc0B9dW26dC
- xVSQ==
+ bh=uTfm42DRLF/pqyQQSDFQRYTghzUDIMmwNt3uFt+5ZVo=;
+ b=BDEvdS3CLR83im0McPFo89WtIVScQY2XOoudmTKAtD+7y6l2VP8PolUya8K44BjpOC
+ UNhptTv7tYmCF7587hlCu8wMCjxh3UlzW5YI7dIYr2IqaThnuB5vjuElL/8yFG/TbL1u
+ g+bxDQ3cpl37yZ4mJXvqzSkaXlAJmhxktqwjnGEv5/8GcgybHyB88Xjcdb6LcJid2CMG
+ Tgr/6vkH+C3QbX1Vx02hmuMBA2JuYYZbfQ3PwVMq/VHZ7xqc1ObultPvPHLmrgbQ7utT
+ 1YhGEzJpkmML5NEYRh0oX96np+sJT36GRFFdEr3HeaujoCmlj4II5jXEKyIK/wCmGChO
+ FKAg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1679335664;
+ d=1e100.net; s=20210112; t=1679335698;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=L3ZgQ6hbDwLFA0+/6XyOTTwas24M548/DGldx8bD/B4=;
- b=h2dBUZqJXm1WC/2ICW8B/AN8VSAh/JVU9LjUyUBUyrEBNAFtQF5VXd8wRBAwdFQGCK
- ARvpQKizucPJC95qgDSJ411VD5/T1eGPOUrPiWRlA795+OPMKPBUW97hFcCbtbhi6ubn
- +v0d1AtYupe+8nGPdBrbg0JEj4mdCcaZ8snKSIh4l3t3XgSJqILfljGcFfcVYml3Z1Tb
- hDDNbCiigOVGjOOxjZ3Y7wKQnilZJKUvf5eoOOWvXbGFkB9LYCllR00j19xZEjPvrOEh
- tYUHpQTX9f7tfmPsA0nyPh5ccddujFJULQ656cMKoAj6XSExHVLzET+bxxVWEbRSYUIm
- df3g==
-X-Gm-Message-State: AO0yUKXVonwv6ftu41w7MsJqYtD/nzd60lWGqzN025tw16xkUX1Urw+j
- QWQG2xh5kYoMr/L4YHpLR2g=
-X-Google-Smtp-Source: AK7set8AD38+i11dYanB4qCBbmNUzfei9aCNLyXLYPG8CRg4osCls4SV6Aq39hM7qRY/j3bqRVDkuA==
-X-Received: by 2002:a05:622a:180e:b0:3bf:bb1f:3c2b with SMTP id
- t14-20020a05622a180e00b003bfbb1f3c2bmr198499qtc.6.1679335664447; 
- Mon, 20 Mar 2023 11:07:44 -0700 (PDT)
+ bh=uTfm42DRLF/pqyQQSDFQRYTghzUDIMmwNt3uFt+5ZVo=;
+ b=Sxxel/7FfXW4+NeAZbSirJI42jAy6w7VHBkfy+7rzfyCsvr5tzQlqD7y92VTyBM9C3
+ jvfGc8bI4NzP3CRiHwfiMp5/gx0QGyB3sSX5LnYiAwkCoc1C+YfyL1+/lVDSp615Sv0s
+ ZrCd1XyZsS0isjDtS5M5vbdHjb/yCEIahSp2vt0nTSOMaMtXM0YjvCyDJHNnU4sbZfLH
+ Jcz3zm8rDfZt8bsHPwqlwTbzOnxtH/Zf1S2/mRMPxUzAxLSQEAU9rWpvCYfAk8Qnx2iJ
+ XUE3G+fOsxraI8kncaCywFe8+jWyjHwaHpGzRFXkZU2EyNhi1kDXiw4KHBzuGbPk6A4C
+ ECLQ==
+X-Gm-Message-State: AO0yUKWID9PRE8NlYn8y2XofZIISZe5S6LP2p8Epf7wJSyJfTNiLA5zQ
+ 7KlT7A7eXAnPAHC1FtKaodg=
+X-Google-Smtp-Source: AK7set+ZUF3yUcqPxvT5JrSdC2gQaXGTs/LVLEDznrAr6g4pl8nC/T/ix9WBdEtY73cm15/2Ejntww==
+X-Received: by 2002:a05:622a:144b:b0:3b6:3a12:2bf9 with SMTP id
+ v11-20020a05622a144b00b003b63a122bf9mr278501qtx.2.1679335698248; 
+ Mon, 20 Mar 2023 11:08:18 -0700 (PDT)
 Received: from [10.67.48.245] ([192.19.223.252])
  by smtp.googlemail.com with ESMTPSA id
- n3-20020a37bd03000000b007456b2759efsm7789701qkf.28.2023.03.20.11.07.33
+ v26-20020ac8729a000000b003e2e919bcf7sm1297578qto.78.2023.03.20.11.08.06
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 20 Mar 2023 11:07:43 -0700 (PDT)
-Message-ID: <b7057b51-540f-54a5-aba2-8f44da832289@gmail.com>
-Date: Mon, 20 Mar 2023 11:07:30 -0700
+ Mon, 20 Mar 2023 11:08:17 -0700 (PDT)
+Message-ID: <bbea4d6e-4435-7337-adf8-325c2f534bba@gmail.com>
+Date: Mon, 20 Mar 2023 11:08:03 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.7.1
 Content-Language: en-US
-To: Rob Herring <robh@kernel.org>, Alessandro Zummo <a.zummo@towertech.it>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
+To: Rob Herring <robh@kernel.org>, Wim Van Sebroeck <wim@linux-watchdog.org>, 
+ Guenter Roeck <linux@roeck-us.net>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
  Chen-Yu Tsai <wens@csie.org>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Samuel Holland <samuel@sholland.org>,
+ Samuel Holland <samuel@sholland.org>, Hector Martin <marcan@marcan.st>,
+ Sven Peter <sven@svenpeter.dev>, Alyssa Rosenzweig <alyssa@rosenzweig.io>,
+ Julius Werner <jwerner@chromium.org>, Evan Benn <evanbenn@chromium.org>,
  Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
  Claudiu Beznea <claudiu.beznea@microchip.com>,
  Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>,
- Hans Ulli Kroll <ulli.kroll@googlemail.com>,
- Linus Walleij <linus.walleij@linaro.org>,
- Avi Fishman <avifishman70@gmail.com>, Tomer Maimon <tmaimon77@gmail.com>,
- Tali Perry <tali.perry1@gmail.com>, Patrick Venture <venture@google.com>,
- Nancy Yuen <yuenn@google.com>, Benjamin Fair <benjaminfair@google.com>,
+ <bcm-kernel-feedback-list@broadcom.com>, Shawn Guo <shawnguo@kernel.org>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, NXP Linux Team <linux-imx@nxp.com>,
+ Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
+ Masami Hiramatsu <mhiramat@kernel.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>
-References: <20230317233634.3968656-1-robh@kernel.org>
+References: <20230317233643.3969019-1-robh@kernel.org>
 From: Florian Fainelli <f.fainelli@gmail.com>
-In-Reply-To: <20230317233634.3968656-1-robh@kernel.org>
-Cc: linux-rtc@vger.kernel.org, devicetree@vger.kernel.org,
- openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-sunxi@lists.linux.dev,
+In-Reply-To: <20230317233643.3969019-1-robh@kernel.org>
+Cc: devicetree@vger.kernel.org, linux-watchdog@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ asahi@lists.linux.dev, linux-sunxi@lists.linux.dev,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] dt-bindings: rtc: Drop unneeded quotes
+Subject: Re: [Linux-stm32] [PATCH] dt-bindings: watchdog: Drop unneeded
+	quotes
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,14 +108,13 @@ On 3/17/23 16:36, Rob Herring wrote:
 > 
 > Signed-off-by: Rob Herring <robh@kernel.org>
 > ---
->   .../devicetree/bindings/rtc/allwinner,sun4i-a10-rtc.yaml      | 2 +-
->   .../devicetree/bindings/rtc/allwinner,sun6i-a31-rtc.yaml      | 2 +-
->   .../devicetree/bindings/rtc/atmel,at91rm9200-rtc.yaml         | 2 +-
->   .../devicetree/bindings/rtc/atmel,at91sam9260-rtt.yaml        | 2 +-
->   .../devicetree/bindings/rtc/brcm,brcmstb-waketimer.yaml       | 2 +-
+>   .../devicetree/bindings/watchdog/allwinner,sun4i-a10-wdt.yaml   | 2 +-
+>   Documentation/devicetree/bindings/watchdog/apple,wdt.yaml       | 2 +-
+>   Documentation/devicetree/bindings/watchdog/arm-smc-wdt.yaml     | 2 +-
+>   .../devicetree/bindings/watchdog/atmel,sama5d4-wdt.yaml         | 2 +-
+>   .../devicetree/bindings/watchdog/brcm,bcm7038-wdt.yaml          | 2 +-
 
-Acked-by: Florian Fainelli <f.fainelli@gmail.com> 
-#brcm,brcmstb-waketimer.yaml
+Acked-by: Florian Fainelli <f.fainelli@gmail.com> #brcm,bcm7038-wdt.yaml
 -- 
 Florian
 
