@@ -2,27 +2,27 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0239D6C134E
+	by mail.lfdr.de (Postfix) with ESMTPS id 1572B6C134F
 	for <lists+linux-stm32@lfdr.de>; Mon, 20 Mar 2023 14:28:15 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B8758C6A5F6;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C46ADC6A606;
 	Mon, 20 Mar 2023 13:28:14 +0000 (UTC)
 Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
  [85.220.165.71])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5198AC6A60B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DFDF0C6A5EF
  for <linux-stm32@st-md-mailman.stormreply.com>;
  Mon, 20 Mar 2023 13:28:10 +0000 (UTC)
 Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77]
  helo=pengutronix.de)
  by metis.ext.pengutronix.de with esmtp (Exim 4.92)
  (envelope-from <s.trumtrar@pengutronix.de>)
- id 1peFYX-00065i-RW; Mon, 20 Mar 2023 14:28:09 +0100
+ id 1peFYY-00065i-E1; Mon, 20 Mar 2023 14:28:10 +0100
 From: Steffen Trumtrar <s.trumtrar@pengutronix.de>
 To: linux-stm32@st-md-mailman.stormreply.com
-Date: Mon, 20 Mar 2023 14:27:51 +0100
-Message-Id: <20230320132755.2150384-7-s.trumtrar@pengutronix.de>
+Date: Mon, 20 Mar 2023 14:27:52 +0100
+Message-Id: <20230320132755.2150384-8-s.trumtrar@pengutronix.de>
 X-Mailer: git-send-email 2.39.1
 In-Reply-To: <20230320132755.2150384-1-s.trumtrar@pengutronix.de>
 References: <20230320132755.2150384-1-s.trumtrar@pengutronix.de>
@@ -35,8 +35,8 @@ X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
 Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
-Subject: [Linux-stm32] [PATCH v5 06/10] ARM: dts: stm32: Add idle/sleep
-	pinmux for USART3
+Subject: [Linux-stm32] [PATCH v5 07/10] ARM: dts: stm32: Add sleep pinmux
+	for SPI1 pins_a
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -53,43 +53,34 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add idle and sleep mux option for the USART3 pins_a.
+Add a sleep mux option for the SPI1 pins_a mux.
 
 This is used on the Phycore STM32MP1.
 
 Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
 ---
- arch/arm/boot/dts/stm32mp15-pinctrl.dtsi | 17 +++++++++++++++++
- 1 file changed, 17 insertions(+)
+ arch/arm/boot/dts/stm32mp15-pinctrl.dtsi | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
 diff --git a/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi b/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
-index 0537aa78e82bd..7569aeca17bbc 100644
+index 7569aeca17bbc..ff53123245a76 100644
 --- a/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
 +++ b/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
-@@ -2387,6 +2387,23 @@ pins2 {
+@@ -2642,6 +2642,14 @@ pins2 {
  		};
  	};
  
-+	usart3_idle_pins_a: usart3-idle-0 {
-+		pins1 {
-+			pinmux = <STM32_PINMUX('B', 10, ANALOG)>; /* USART3_TX */
-+		};
-+		pins2 {
-+			pinmux = <STM32_PINMUX('B', 12, AF8)>; /* USART3_RX */
-+			bias-disable;
-+		};
-+	};
-+
-+	usart3_sleep_pins_a: usart3-sleep-0 {
++	spi1_sleep_pins_a: spi1-sleep-0 {
 +		pins {
-+			pinmux = <STM32_PINMUX('B', 10, ANALOG)>, /* USART3_TX */
-+				 <STM32_PINMUX('B', 12, ANALOG)>; /* USART3_RX */
++			pinmux = <STM32_PINMUX('Z', 0, ANALOG)>, /* SPI1_SCK */
++				 <STM32_PINMUX('Z', 1, ANALOG)>, /* SPI1_MISO */
++				 <STM32_PINMUX('Z', 2, ANALOG)>; /* SPI1_MOSI */
 +		};
 +	};
 +
- 	usart3_pins_b: usart3-1 {
+ 	spi1_pins_b: spi1-1 {
  		pins1 {
- 			pinmux = <STM32_PINMUX('B', 10, AF7)>, /* USART3_TX */
+ 			pinmux = <STM32_PINMUX('A', 5, AF5)>, /* SPI1_SCK */
 -- 
 2.39.1
 
