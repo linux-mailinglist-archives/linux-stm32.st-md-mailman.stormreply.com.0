@@ -2,28 +2,30 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 941586C1347
-	for <lists+linux-stm32@lfdr.de>; Mon, 20 Mar 2023 14:28:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7BD986C1348
+	for <lists+linux-stm32@lfdr.de>; Mon, 20 Mar 2023 14:28:10 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2F61DC6A602;
-	Mon, 20 Mar 2023 13:28:08 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3E7C6C6A603;
+	Mon, 20 Mar 2023 13:28:10 +0000 (UTC)
 Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
  [85.220.165.71])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 01AA4C6A5EA
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6E73EC6A5EA
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 20 Mar 2023 13:28:06 +0000 (UTC)
+ Mon, 20 Mar 2023 13:28:07 +0000 (UTC)
 Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77]
  helo=pengutronix.de)
  by metis.ext.pengutronix.de with esmtp (Exim 4.92)
  (envelope-from <s.trumtrar@pengutronix.de>)
- id 1peFYU-00065i-AI; Mon, 20 Mar 2023 14:28:06 +0100
+ id 1peFYU-00065i-Ss; Mon, 20 Mar 2023 14:28:07 +0100
 From: Steffen Trumtrar <s.trumtrar@pengutronix.de>
 To: linux-stm32@st-md-mailman.stormreply.com
-Date: Mon, 20 Mar 2023 14:27:45 +0100
-Message-Id: <20230320132755.2150384-1-s.trumtrar@pengutronix.de>
+Date: Mon, 20 Mar 2023 14:27:46 +0100
+Message-Id: <20230320132755.2150384-2-s.trumtrar@pengutronix.de>
 X-Mailer: git-send-email 2.39.1
+In-Reply-To: <20230320132755.2150384-1-s.trumtrar@pengutronix.de>
+References: <20230320132755.2150384-1-s.trumtrar@pengutronix.de>
 MIME-Version: 1.0
 X-SA-Exim-Connect-IP: 2a0a:edc0:0:900:1d::77
 X-SA-Exim-Mail-From: s.trumtrar@pengutronix.de
@@ -33,8 +35,8 @@ X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
 Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
-Subject: [Linux-stm32] [PATCH v5 00/10] ARM: stm32: add support for Phycore
-	STM32MP1
+Subject: [Linux-stm32] [PATCH v5 01/10] ARM: dts: stm32: Add alternate
+	pinmux for ethernet
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -51,53 +53,77 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi,
-   
-this is the fifth installement of my series for adding support for the
-Phytec STM32MP1-based SoM and board.
+Add another option for the ethernet0 pins.
+It is almost identical to ethernet0_rgmii_pins_c apart from TXD0/1.
+
+This is used on the Phycore STM32MP1.
+
+Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
+---
+ arch/arm/boot/dts/stm32mp15-pinctrl.dtsi | 50 ++++++++++++++++++++++++
+ 1 file changed, 50 insertions(+)
+
+diff --git a/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi b/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
+index a9d2bec990141..1c97db4dbfc6d 100644
+--- a/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
++++ b/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
+@@ -341,6 +341,56 @@ pins1 {
+ 		};
+ 	};
  
-Phytec itself calls the board "Phycore STM32MP1-3" and has other
-endnumbers. I only have access to the "-3" and that's what this series
-adds.
-
-Changes since v4:
-  - cleanup usage of "status = okay|disabled"
-  - fix remaining non-generic node names
-  - rework sai nodes to not duplicate the existing settings in stm32mp151.dtsi
-  - move the dt-bindings patch in front of the patch adding the board
-    
-Changes since v3:
-  - cleanup board-compatible
-  - cleanup aliases
-  - rename nodes according to schema
-  - use interrupt flag
-  - integrate pinmux into main stm32mp15-pinctrl.dtsi
-
-Best regards,
-Steffen
-
-
-Steffen Trumtrar (10):
-  ARM: dts: stm32: Add alternate pinmux for ethernet
-  ARM: dts: stm32: Add alternate pinmux for sai2b
-  ARM: dts: stm32: Add new pinmux for sdmmc1_b4
-  ARM: dts: stm32: Add new pinmux for sdmmc2_d47
-  ARM: dts: stm32: Add pinmux for USART1 pins
-  ARM: dts: stm32: Add idle/sleep pinmux for USART3
-  ARM: dts: stm32: Add sleep pinmux for SPI1 pins_a
-  dt-bindings: arm: stm32: Add Phytec STM32MP1 board
-  ARM: dts: stm32: add STM32MP1-based Phytec SoM
-  ARM: dts: stm32: add STM32MP1-based Phytec board
-
- .../devicetree/bindings/arm/stm32/stm32.yaml  |   6 +
- arch/arm/boot/dts/Makefile                    |   3 +-
- arch/arm/boot/dts/stm32mp15-pinctrl.dtsi      | 231 +++++++
- .../dts/stm32mp157c-phycore-stm32mp1-3.dts    |  66 ++
- .../stm32mp157c-phycore-stm32mp15-som.dtsi    | 609 ++++++++++++++++++
- 5 files changed, 914 insertions(+), 1 deletion(-)
- create mode 100644 arch/arm/boot/dts/stm32mp157c-phycore-stm32mp1-3.dts
- create mode 100644 arch/arm/boot/dts/stm32mp157c-phycore-stm32mp15-som.dtsi
-
++	ethernet0_rgmii_pins_d: rgmii-3 {
++		pins1 {
++			pinmux = <STM32_PINMUX('G', 5, AF11)>, /* ETH_RGMII_CLK125 */
++				 <STM32_PINMUX('G', 13, AF11)>,	/* ETH_RGMII_TXD0 */
++				 <STM32_PINMUX('G', 14, AF11)>,	/* ETH_RGMII_TXD1 */
++				 <STM32_PINMUX('C', 2, AF11)>, /* ETH_RGMII_TXD2 */
++				 <STM32_PINMUX('E', 2, AF11)>, /* ETH_RGMII_TXD3 */
++				 <STM32_PINMUX('B', 11, AF11)>,	/* ETH_RGMII_TX_CTL */
++				 <STM32_PINMUX('C', 1, AF11)>; /* ETH_MDC */
++			bias-disable;
++			drive-push-pull;
++			slew-rate = <2>;
++		};
++		pins2 {
++			pinmux = <STM32_PINMUX('A', 2, AF11)>; /* ETH_MDIO */
++			bias-disable;
++			drive-push-pull;
++			slew-rate = <0>;
++		};
++		pins3 {
++			pinmux = <STM32_PINMUX('C', 4, AF11)>, /* ETH_RGMII_RXD0 */
++				 <STM32_PINMUX('C', 5, AF11)>, /* ETH_RGMII_RXD1 */
++				 <STM32_PINMUX('H', 6, AF11)>, /* ETH_RGMII_RXD2 */
++				 <STM32_PINMUX('B', 1, AF11)>, /* ETH_RGMII_RXD3 */
++				 <STM32_PINMUX('A', 1, AF11)>, /* ETH_RGMII_RX_CLK */
++				 <STM32_PINMUX('A', 7, AF11)>; /* ETH_RGMII_RX_CTL */
++			bias-disable;
++		};
++	};
++
++	ethernet0_rgmii_sleep_pins_d: rgmii-sleep-8 {
++		pins1 {
++			pinmux = <STM32_PINMUX('G', 5, ANALOG)>, /* ETH_RGMII_CLK125 */
++				 <STM32_PINMUX('G', 4, ANALOG)>, /* ETH_RGMII_GTX_CLK */
++				 <STM32_PINMUX('G', 13, ANALOG)>, /* ETH_RGMII_TXD0 */
++				 <STM32_PINMUX('G', 14, ANALOG)>, /* ETH_RGMII_TXD1 */
++				 <STM32_PINMUX('C', 2, ANALOG)>, /* ETH_RGMII_TXD2 */
++				 <STM32_PINMUX('E', 2, ANALOG)>, /* ETH_RGMII_TXD3 */
++				 <STM32_PINMUX('B', 11, ANALOG)>, /* ETH_RGMII_TX_CTL */
++				 <STM32_PINMUX('A', 2, ANALOG)>, /* ETH_MDIO */
++				 <STM32_PINMUX('C', 1, ANALOG)>, /* ETH_MDC */
++				 <STM32_PINMUX('C', 4, ANALOG)>, /* ETH_RGMII_RXD0 */
++				 <STM32_PINMUX('C', 5, ANALOG)>, /* ETH_RGMII_RXD1 */
++				 <STM32_PINMUX('H', 6, ANALOG)>, /* ETH_RGMII_RXD2 */
++				 <STM32_PINMUX('B', 1, ANALOG)>, /* ETH_RGMII_RXD3 */
++				 <STM32_PINMUX('A', 1, ANALOG)>, /* ETH_RGMII_RX_CLK */
++				 <STM32_PINMUX('A', 7, ANALOG)>; /* ETH_RGMII_RX_CTL */
++		};
++	};
++
+ 	ethernet0_rmii_pins_a: rmii-0 {
+ 		pins1 {
+ 			pinmux = <STM32_PINMUX('G', 13, AF11)>, /* ETH1_RMII_TXD0 */
 -- 
 2.39.1
 
