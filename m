@@ -2,40 +2,41 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B6EC36C2891
-	for <lists+linux-stm32@lfdr.de>; Tue, 21 Mar 2023 04:28:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D4A7A6C2898
+	for <lists+linux-stm32@lfdr.de>; Tue, 21 Mar 2023 04:29:53 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 654B4C6A603;
-	Tue, 21 Mar 2023 03:28:08 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 90911C6A603;
+	Tue, 21 Mar 2023 03:29:53 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5D452C6A5F6
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7086BC6A5F6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 21 Mar 2023 03:28:07 +0000 (UTC)
+ Tue, 21 Mar 2023 03:29:52 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id D2C3C61946;
- Tue, 21 Mar 2023 03:28:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BDCE4C433EF;
- Tue, 21 Mar 2023 03:28:03 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 6275661943;
+ Tue, 21 Mar 2023 03:29:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 160ACC433D2;
+ Tue, 21 Mar 2023 03:29:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1679369285;
- bh=gPaz0m5VwLPwRghqvP+CjqfIDdbUBC7XARXxckF53iU=;
+ s=k20201202; t=1679369390;
+ bh=GZWXqBx1VZ5HLFmDQaUsHeHsXagTJgeevyhmDS9nBQI=;
  h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=U9aP+QFwl15u+q3ZUXeL7tMANBDg6IUHSaiJVTtMXXW84SMdmVBzZlwtprQKRJrrh
- brRsPaWA1aaBp/yJukvczyrPVnpUFfpduzSz3a6rGCTcOqai6meplCoJfbjiLzoKYu
- LbfDelSJfbxIf76FdEgMHyZH3y6oX0vIqarLJw3UfpJcanG7g5Jyc16aozp8ffR4dL
- rvgOA1yfhCAerANOnORiGkZ98Z1vivobuNiguIS1aw/oepjG0obV92Oed2M6v2QXzB
- MVmbtaHKqlfXofv4v4PLTa/855P2iJz9mWYvrXfpKGbw4M7TNvoougEYBTPViWI4bn
- gBJ7PcWu8Pnag==
-Date: Mon, 20 Mar 2023 20:28:02 -0700
+ b=fgt8ewdhEaKB7HcggS2oUKQwMcNjAqV2eGMyVXGnJauZ79cLN0Uq1f/sdAzSEe1L+
+ DAusnUTbcsPD7vBET9ovu5kWDQsz4LsyQ4CacIDa31R7ZZGY9SGtZUWJxHJ1jOjBOf
+ BI6cR447fnFLxdGR2kMzAfcl56Oo339nQmQ7gua4g/t4rvuu4OcwbO3KwSPoFpypE/
+ R/TQBEEnnYE4Y2SPTUUR7kj1ajpDIz0ivcl568Qs80uG7BEZQGzaCqdqDfDIUxp33y
+ P9ko7lq6mwUiJLD/E1Vbdgw8RHqnmP+RpYbcmiGVKQWaz048cEXLJtEk8JSWNXrZ8G
+ GjGG53hhlKLCA==
+Date: Mon, 20 Mar 2023 20:29:48 -0700
 From: Jakub Kicinski <kuba@kernel.org>
 To: Andrew Halaney <ahalaney@redhat.com>
-Message-ID: <20230320202802.4e7dc54c@kernel.org>
-In-Reply-To: <20230320221617.236323-1-ahalaney@redhat.com>
+Message-ID: <20230320202948.7ba109a4@kernel.org>
+In-Reply-To: <20230320221617.236323-11-ahalaney@redhat.com>
 References: <20230320221617.236323-1-ahalaney@redhat.com>
+ <20230320221617.236323-11-ahalaney@redhat.com>
 MIME-Version: 1.0
 Cc: mturquette@baylibre.com, edumazet@google.com,
  krzysztof.kozlowski+dt@linaro.org, jonathanh@nvidia.com,
@@ -50,8 +51,8 @@ Cc: mturquette@baylibre.com, edumazet@google.com,
  andersson@kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-kernel@vger.kernel.org, konrad.dybcio@linaro.org, vkoul@kernel.org,
  echanude@redhat.com, mcoquelin.stm32@gmail.com, davem@davemloft.net
-Subject: Re: [Linux-stm32] [PATCH net-next v2 00/12] Add EMAC3 support for
-	sa8540p-ride
+Subject: Re: [Linux-stm32] [PATCH net-next v2 10/12] net: stmmac:
+ dwmac-qcom-ethqos: Respect phy-mode and TX delay
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -68,31 +69,41 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, 20 Mar 2023 17:16:05 -0500 Andrew Halaney wrote:
-> This is a forward port / upstream refactor of code delivered
-> downstream by Qualcomm over at [0] to enable the DWMAC5 based
-> implementation called EMAC3 on the sa8540p-ride dev board.
-> 
-> From what I can tell with the board schematic in hand,
-> as well as the code delivered, the main changes needed are:
-> 
->     1. A new address space layout for /dwmac5/EMAC3 MTL/DMA regs
->     2. A new programming sequence required for the EMAC3 base platforms
-> 
-> This series makes those adaptations as well as other housekeeping items
-> such as converting dt-bindings to yaml, adding clock descriptions, etc.
-> 
-> [0] https://git.codelinaro.org/clo/la/kernel/ark-5.14/-/commit/510235ad02d7f0df478146fb00d7a4ba74821b17
-> 
-> v1: https://lore.kernel.org/netdev/20230313165620.128463-1-ahalaney@redhat.com/
+On Mon, 20 Mar 2023 17:16:15 -0500 Andrew Halaney wrote:
+>  static int ethqos_rgmii_macro_init(struct qcom_ethqos *ethqos)
+>  {
+> +	int phy_mode;
+> +	int phase_shift;
 
-At a glance 1-4,8-12 need to go via networking, 5 via clock tree,
-and 6,7 via ARM/Qualcomm.
+nit: invert the order, we like variable declaration lines longest 
+to shortest
 
-AFAICT there are no strong (compile) dependencies so we can each merge
-our chunk and they will meet in Linus's tree? If so please repost just
-the networking stuff for net-next, and the other bits to respective
-trees, as separate series.
+> +	/* Determine if the PHY adds a 2 ns TX delay or the MAC handles it */
+> +	phy_mode = device_get_phy_mode(&ethqos->pdev->dev);
+> +	if (phy_mode == PHY_INTERFACE_MODE_RGMII_ID || phy_mode == PHY_INTERFACE_MODE_RGMII_TXID)
+
+Let's try to stick to 80 chars where reasonable, this would be easier
+to read as 2 lines.
+
+> +		phase_shift = 0;
+> +	else
+> +		phase_shift = RGMII_CONFIG2_TX_CLK_PHASE_SHIFT_EN;
+> +
+>  	/* Disable loopback mode */
+>  	rgmii_updatel(ethqos, RGMII_CONFIG2_TX_TO_RX_LOOPBACK_EN,
+>  		      0, RGMII_IO_MACRO_CONFIG2);
+> @@ -300,9 +310,9 @@ static int ethqos_rgmii_macro_init(struct qcom_ethqos *ethqos)
+>  			      RGMII_CONFIG_PROG_SWAP, RGMII_IO_MACRO_CONFIG);
+>  		rgmii_updatel(ethqos, RGMII_CONFIG2_DATA_DIVIDE_CLK_SEL,
+>  			      0, RGMII_IO_MACRO_CONFIG2);
+> +
+>  		rgmii_updatel(ethqos, RGMII_CONFIG2_TX_CLK_PHASE_SHIFT_EN,
+> -			      RGMII_CONFIG2_TX_CLK_PHASE_SHIFT_EN,
+> -			      RGMII_IO_MACRO_CONFIG2);
+> +				  phase_shift, RGMII_IO_MACRO_CONFIG2);
+
+here and in couple more places looks like indentation got broken?
+continuation line should start under the opening bracket + 1.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
