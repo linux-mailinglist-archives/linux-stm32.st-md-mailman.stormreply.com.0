@@ -2,83 +2,45 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8C27F6C2AB1
-	for <lists+linux-stm32@lfdr.de>; Tue, 21 Mar 2023 07:48:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D325F6C2BCF
+	for <lists+linux-stm32@lfdr.de>; Tue, 21 Mar 2023 08:59:49 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4FDA9C6A603;
-	Tue, 21 Mar 2023 06:48:01 +0000 (UTC)
-Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com
- [209.85.208.42])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 88D23C6A603;
+	Tue, 21 Mar 2023 07:59:49 +0000 (UTC)
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [85.220.165.71])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3061DC6A5F6
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3FA20C6A5EF
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 21 Mar 2023 06:47:59 +0000 (UTC)
-Received: by mail-ed1-f42.google.com with SMTP id t5so18896840edd.7
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 20 Mar 2023 23:47:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1679381278;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=wInF6GafTuPljjFUA+Is8vEjW4Pl6T2we7ZsIWHpBdc=;
- b=t9qzeK5r/pPr7nWar54bwzgkW8DFarwVWfGFpk9NaytbIwZEw12umrs7bj5QwxiuK9
- +kES/0g4F0MOIqGI3y0l3OhtGun11qEdDNfxlGop6VqcPTYPWZiDsGR6MWW4HCkzKWje
- nIezYvISRxREMY9fTomU4/11ue8ESMWS4hggPvBp3S3VmXnorkI5pZ9V1KEZvhlPzbqy
- noAwHJARgZzzi+g7afH2SqNj6avLPLAFW13JEKXKc7AkAMtRUGwm40CRFQj9R3zAEcJQ
- bjV9n63wr2KXFRgENQYbp/6cJ6azeqYMXLsTGiaad8fCbNzd8Me7BOEfbYj8BF+dg5KV
- TqXQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1679381278;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=wInF6GafTuPljjFUA+Is8vEjW4Pl6T2we7ZsIWHpBdc=;
- b=oW08jgHnPBLmPAQ0jV5P/QevPz3bNfEFaoy7kjmAwhzWh6Yzxbj1qf6yW+R2pa20Iq
- c/Xhhls1DughzN5bf4lEpMzeIHnrM/VYqCQZOcjOYSnFnkilammAFkgUKmMHUyqUcqqj
- 1HKbnsXg9xmONG6trcOqvZ36GhdzWUygbGO2x9OccnXPf+lph5H6QpefPPJnsa1iYdaO
- UOu16BX+dPsj8LAKsMUuyBexKDWduOL6Of46PbIItRHlflawQj1Ch5pEJn4DLVrYWPe5
- A3puRmfvJ8AsLxVVNjnwvVdlLjn0UlF4XA7K04ys4Aj4eCWYFigia+3n3+B3fZMGkwxQ
- VnrQ==
-X-Gm-Message-State: AO0yUKWAL0V5gDZ8W7lPsNPUJTqnnRR+bqMrWKyh57iqCG0rEOVUpXoh
- 0V9DRGcQR+6P4YkvXvnTXjzBcA==
-X-Google-Smtp-Source: AK7set+yUBYPnpsgcGFshQfAIT5gVBUyoTKz/PVli/szhlsgnT8leqFozAyoOp7o+jk4oZaehIJKDw==
-X-Received: by 2002:a17:906:397:b0:932:1af9:7386 with SMTP id
- b23-20020a170906039700b009321af97386mr2043033eja.27.1679381278702; 
- Mon, 20 Mar 2023 23:47:58 -0700 (PDT)
-Received: from ?IPV6:2a02:810d:15c0:828:2142:d8da:5ae4:d817?
- ([2a02:810d:15c0:828:2142:d8da:5ae4:d817])
- by smtp.gmail.com with ESMTPSA id
- qq24-20020a17090720d800b008df7d2e122dsm5344909ejb.45.2023.03.20.23.47.57
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 20 Mar 2023 23:47:58 -0700 (PDT)
-Message-ID: <48261996-1993-7c9c-b090-eba68157aecf@linaro.org>
-Date: Tue, 21 Mar 2023 07:47:56 +0100
+ Tue, 21 Mar 2023 07:59:48 +0000 (UTC)
+Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77]
+ helo=igor.pengutronix.de) by metis.ext.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <s.trumtrar@pengutronix.de>)
+ id 1peWuF-00037K-8t; Tue, 21 Mar 2023 08:59:43 +0100
+References: <20230320132755.2150384-1-s.trumtrar@pengutronix.de>
+ <20230320132755.2150384-10-s.trumtrar@pengutronix.de>
+ <a37db3a8-a3e6-8755-2b7c-c33a1fdca469@foss.st.com>
+User-agent: mu4e 1.8.14; emacs 30.0.50
+From: Steffen Trumtrar <s.trumtrar@pengutronix.de>
+To: Alexandre TORGUE <alexandre.torgue@foss.st.com>
+Date: Tue, 21 Mar 2023 08:14:52 +0100
+In-reply-to: <a37db3a8-a3e6-8755-2b7c-c33a1fdca469@foss.st.com>
+Message-ID: <87o7omedqr.fsf@pengutronix.de>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.9.0
-Content-Language: en-US
-To: Andrew Halaney <ahalaney@redhat.com>, linux-kernel@vger.kernel.org
-References: <20230320221617.236323-1-ahalaney@redhat.com>
- <20230320221617.236323-5-ahalaney@redhat.com>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20230320221617.236323-5-ahalaney@redhat.com>
-Cc: mturquette@baylibre.com, edumazet@google.com,
- krzysztof.kozlowski+dt@linaro.org, jonathanh@nvidia.com,
- linux-clk@vger.kernel.org, tee.min.tan@linux.intel.com, linux@armlinux.org.uk,
- veekhee@apple.com, hisunil@quicinc.com, joabreu@synopsys.com, kuba@kernel.org,
- pabeni@redhat.com, andrey.konovalov@linaro.org, ncai@quicinc.com,
- devicetree@vger.kernel.org, bhupesh.sharma@linaro.org,
- linux-arm-msm@vger.kernel.org, richardcochran@gmail.com, bmasney@redhat.com,
- mohammad.athari.ismail@intel.com, robh+dt@kernel.org, ruppala@nvidia.com,
- jsuraj@qti.qualcomm.com, peppe.cavallaro@st.com,
- linux-arm-kernel@lists.infradead.org, sboyd@kernel.org, netdev@vger.kernel.org,
- andersson@kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- agross@kernel.org, konrad.dybcio@linaro.org, vkoul@kernel.org,
- echanude@redhat.com, mcoquelin.stm32@gmail.com, davem@davemloft.net
-Subject: Re: [Linux-stm32] [PATCH net-next v2 04/12] dt-bindings: net: qcom,
- ethqos: Add Qualcomm sc8280xp compatibles
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:900:1d::77
+X-SA-Exim-Mail-From: s.trumtrar@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
+Cc: linux-arm-kernel@lists.infradead.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ devicetree@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH v5 09/10] ARM: dts: stm32: add
+	STM32MP1-based Phytec SoM
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,35 +57,57 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 20/03/2023 23:16, Andrew Halaney wrote:
-> The sc8280xp has a new version of the ETHQOS hardware in it, EMAC v3.
-> Add a compatible for this.
-> 
-> Signed-off-by: Andrew Halaney <ahalaney@redhat.com>
-> ---
-> 
-> Changes since v1:
-> 	* Alphabetical sorting (Krzysztof)
-> 
->  Documentation/devicetree/bindings/net/qcom,ethqos.yaml | 1 +
->  Documentation/devicetree/bindings/net/snps,dwmac.yaml  | 3 +++
->  2 files changed, 4 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/net/qcom,ethqos.yaml b/Documentation/devicetree/bindings/net/qcom,ethqos.yaml
-> index 88234a2010b1..c60248e17e5a 100644
-> --- a/Documentation/devicetree/bindings/net/qcom,ethqos.yaml
-> +++ b/Documentation/devicetree/bindings/net/qcom,ethqos.yaml
-> @@ -21,6 +21,7 @@ properties:
->      enum:
->        - qcom,qcs404-ethqos
->        - qcom,sm8150-ethqos
-> +      - qcom,sc8280xp-ethqos
 
-This still needs sort.
+Hi Alexandre,
+
+Alexandre TORGUE <alexandre.torgue@foss.st.com> writes:
+
+> [1. text/plain]
+> Hi Steffen
+>
+> On 3/20/23 14:27, Steffen Trumtrar wrote:
+>> The Phytec STM32MP1 based SoMs feature up to 1 GB DDR3LP RAM, up to 1 GB
+>> eMMC, up to 16 MB QSPI and up to 128 GB NAND flash.
+>> Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
+>> ---
+>> Notes:
+>>      checkpatch warns about un-documented binding
+>>           According to checkpatch the binding for "winbond,w25q128"
+>>      used in this dtsi is un-documented.
+>>      However, 'jedec,spi-nor.yaml' defines the pattern
+>>               (winbond,)?w25q(16|32(w|dw)?|64(dw)?|80bl|128(fw)?|256))$"
+>>           so, this should be good!?
+>
+> We recently added some yaml fixes and we continue to send others (i.e., GPU yaml
+> error fix is under review) so please don't add new ones. Some of follownig
+> errors are directly linked to your board so please fix them.
+>
+
+sorry about that, seems like I wasn't using dt_binding_check correctly :(
+However, how did you generate these?
+
+> arch/arm/boot/dts/stm32mp157c-phycore-stm32mp1-3.dtb:
+> /soc/i2c@40012000/touch@44: failed to match any schema with compatible:
+> ['st,stmpe811']
+> arch/arm/boot/dts/stm32mp157c-phycore-stm32mp1-3.dtb:
+> /soc/i2c@40012000/touch@44/touchscreen: failed to match any schema with
+> compatible: ['st,stmpe-ts']
+> arch/arm/boot/dts/stm32mp157c-phycore-stm32mp1-3.dtb: /soc/i2c@40012000/leds@62:
+> failed to match any schema with compatible: ['nxp,pca9533']
+
+The bindings are there and if I explicitly run dt_bindings_check with
+e.g. Documentation/devicetree/bindings/leds there is no warning/error.
+
+I will fixup the rest.
 
 Best regards,
-Krzysztof
+Steffen
 
+--
+Pengutronix e.K.                | Dipl.-Inform. Steffen Trumtrar |
+Steuerwalder Str. 21            | https://www.pengutronix.de/    |
+31137 Hildesheim, Germany       | Phone: +49-5121-206917-0       |
+Amtsgericht Hildesheim, HRA 2686| Fax:   +49-5121-206917-5555    |
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
