@@ -2,69 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2A80E6C5E4F
-	for <lists+linux-stm32@lfdr.de>; Thu, 23 Mar 2023 06:00:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 54BF26C6077
+	for <lists+linux-stm32@lfdr.de>; Thu, 23 Mar 2023 08:16:15 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CAFBFC6A5EF;
-	Thu, 23 Mar 2023 05:00:22 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 707C9C65E59
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 23 Mar 2023 05:00:20 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 11867C6A5E7;
+	Thu, 23 Mar 2023 07:16:15 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id F1471623E4;
- Thu, 23 Mar 2023 05:00:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 51E55C4339C;
- Thu, 23 Mar 2023 05:00:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1679547618;
- bh=NPnB/UKnNUercF44HUDX/+E3dqZ3zJVMKeECg6m+d1A=;
- h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=IsZJcdwN7BEzr41ZzVOxogP/fo9bLZra4v8eGb4EUa1bebhFu3AHFwAuHzM+uW3j4
- FVEGqDpUtiyjsw6cxk/EY51PNCkW5TDrwdTjTsd51ePOQUek5onn2Tl45jGa/lPq7B
- IrTXp0IXIZHn9lfxZ7RvJ23PQuYkYopnkYjMbLUUsMtjrHPdokfHMkQCvc4qPucy3i
- 87hhPSfaDMVrjblhVr9BbaSaj6CmkEPSrOyN5Fqm7vs01FRYrO2P4wqjGa7Gb80a6N
- 4bncUA09GxrPJxzloqiV5FOTNOtkvYP1pWr5dwyhHFQJHmeSVQfZaM7bnhYKVJbr9U
- grdHl1qm9Jsfg==
-Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
- 1A7FDE4F0D7; Thu, 23 Mar 2023 05:00:18 +0000 (UTC)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A0DE5C01E98
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 22 Mar 2023 17:47:52 +0000 (UTC)
+Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 32MF1ZXB002582
+ for <linux-stm32@st-md-mailman.stormreply.com>; Wed, 22 Mar 2023 18:47:52 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=content-type :
+ message-id : date : mime-version : subject : to : references : from :
+ in-reply-to; s=selector1; bh=pGH5jGCFHnf8nKljFsTCBXO+D0pkZ5g2fQZbs4FxxCs=;
+ b=xAStWk94bHSXjQCMciorh6/JELyapSbVt36HDzAoeS6wX4nae+hwCr1fj//BQYASJBcA
+ qxRnvRVkboQnuKyyG7Sy/EuUC9ERj7EKvbPa9cJe+1rNHTFmX0fOvzZ8QPA7yhs88phR
+ ac36w6I65o6tWtPyy3oPm4WVvRk6IwWQvFhmMndC6bOyNSyDXEfLnsHYMlL0vHKKIIeN
+ RqpU5gTFrs2isDwk8u1abvsAKXmlLcHslAfIoelhccl8jXh9B9ysj/WcSRgoY5EF5j4k
+ 28t87m7PO7O5jzN6GKEnQUgqJcR+ScTGkZqU/AYrS9gJsbyaPrvLEVgLlTfdKGj8UJaj XA== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3pfwctv34n-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <linux-stm32@st-md-mailman.stormreply.com>; Wed, 22 Mar 2023 18:47:52 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 16C21100038
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 22 Mar 2023 18:47:51 +0100 (CET)
+Received: from Webmail-eu.st.com (shfdag1node3.st.com [10.75.129.71])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 23EF921B522
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 22 Mar 2023 18:47:46 +0100 (CET)
+Received: from [10.201.22.173] (10.201.22.173) by SHFDAG1NODE3.st.com
+ (10.75.129.71) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.17; Wed, 22 Mar
+ 2023 18:47:45 +0100
+Message-ID: <1895730f-d90e-38bb-4e02-97ee5e34a420@foss.st.com>
+Date: Wed, 22 Mar 2023 18:47:45 +0100
 MIME-Version: 1.0
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <167954761809.22889.18341092686850307793.git-patchwork-notify@kernel.org>
-Date: Thu, 23 Mar 2023 05:00:18 +0000
-References: <20230320233758.2918972-1-robh@kernel.org>
-In-Reply-To: <20230320233758.2918972-1-robh@kernel.org>
-To: Rob Herring <robh@kernel.org>
-Cc: andrew@lunn.ch, heiko@sntech.de, linux-aspeed@lists.ozlabs.org,
- devicetree@vger.kernel.org, linux@armlinux.org.uk, edumazet@google.com,
- krzysztof.kozlowski+dt@linaro.org, tobias@waldekranz.com, rafal@milecki.pl,
- nobuhiro1.iwamatsu@toshiba.co.jp, UNGLinuxDriver@microchip.com,
- linux-stm32@st-md-mailman.stormreply.com, jbrunet@baylibre.com,
- f.fainelli@gmail.com, samuel@sholland.org, khilman@baylibre.com,
- Steen.Hegelund@microchip.com, michal.simek@xilinx.com,
- jernej.skrabec@gmail.com, linux-rockchip@lists.infradead.org, wens@csie.org,
- agross@kernel.org, bcm-kernel-feedback-list@broadcom.com, joel@jms.id.au,
- kuba@kernel.org, pabeni@redhat.com, linux-sunxi@lists.linux.dev,
- wg@grandegger.com, naga.sureshkumar.relli@xilinx.com,
- daniel.machon@microchip.com, mani@kernel.org,
- martin.blumenstingl@googlemail.com, linux-arm-msm@vger.kernel.org,
- richardcochran@gmail.com, linux-actions@lists.infradead.org,
- linux-can@vger.kernel.org, mkl@pengutronix.de, appana.durga.rao@xilinx.com,
- matthias.bgg@gmail.com, linux-amlogic@lists.infradead.org,
- lars.povlsen@microchip.com, angelogioacchino.delregno@collabora.com,
- linux-arm-kernel@lists.infradead.org, neil.armstrong@linaro.org,
- andrew@aj.id.au, netdev@vger.kernel.org, andersson@kernel.org,
- linux-kernel@vger.kernel.org, davem@davemloft.net, konrad.dybcio@linaro.org,
- krzysztof.kozlowski@linaro.org, mcoquelin.stm32@gmail.com,
- linux-mediatek@lists.infradead.org, olteanv@gmail.com, afaerber@suse.de,
- hkallweit1@gmail.com
-Subject: Re: [Linux-stm32] [PATCH v2] dt-bindings: net: Drop unneeded quotes
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.7.0
+To: <linux-stm32@st-md-mailman.stormreply.com>
+References: <ZAxFBR3TdA7jUAgJ@gondor.apana.org.au>
+ <E1pavED-002xbf-LL@formenos.hmeau.com>
+From: Thomas BOURGOIN <thomas.bourgoin@foss.st.com>
+In-Reply-To: <E1pavED-002xbf-LL@formenos.hmeau.com>
+X-Originating-IP: [10.201.22.173]
+X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SHFDAG1NODE3.st.com
+ (10.75.129.71)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.254,Aquarius:18.0.942,Hydra:6.0.573,FMLib:17.11.170.22
+ definitions=2023-03-22_15,2023-03-22_01,2023-02-09_01
+X-Mailman-Approved-At: Thu, 23 Mar 2023 07:16:14 +0000
+Subject: Re: [Linux-stm32] [v7 PATCH 8/8] crypto: stm32 - Save and restore
+ between each request
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,40 +73,148 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============5292615504631922912=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello:
+--===============5292615504631922912==
+Content-Type: multipart/alternative;
+	boundary="------------81Rf0WtABThThwaLFODTt3gX"
 
-This patch was applied to netdev/net-next.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
+--------------81Rf0WtABThThwaLFODTt3gX
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Mon, 20 Mar 2023 18:37:54 -0500 you wrote:
-> Cleanup bindings dropping unneeded quotes. Once all these are fixed,
-> checking for this can be enabled in yamllint.
-> 
-> Acked-by: Marc Kleine-Budde <mkl@pengutronix.de> # for bindings/net/can
-> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-> Acked-by: Jernej Skrabec <jernej.skrabec@gmail.com>
-> Acked-by: Florian Fainelli <f.fainelli@gmail.com>
-> Reviewed-by: Steen Hegelund <Steen.Hegelund@microchip.com>
-> Signed-off-by: Rob Herring <robh@kernel.org>
-> 
-> [...]
+Hi Herbert,
 
-Here is the summary with links:
-  - [v2] dt-bindings: net: Drop unneeded quotes
-    https://git.kernel.org/netdev/net-next/c/3079bfdbda6c
+I'm working on the patch for STM32MP13.
 
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+On Sat, Mar 11, 2023 at 10:09 AM Herbert Xu<herbert@gondor.apana.org.au>  wrote:
 
+> The Crypto API hashing paradigm requires the hardware state to
+> be exported between *each* request because multiple unrelated
+> hashes may be processed concurrently.
+>
+> The stm32 hardware is capable of producing the hardware hashing
+> state but it was only doing it in the export function.  This is
+> not only broken for export as you can't export a kernel pointer
+> and reimport it, but it also means that concurrent hashing was
+> fundamentally broken.
+>
+> Fix this by moving the saving and restoring of hardware hash
+> state between each and every hashing request.
+>
+> Fixes: 8a1012d3f2ab ("crypto: stm32 - Support for STM32 HASH module")
+> Reported-by: Li kunyu<kunyu@nfschina.com>
+> Signed-off-by: Herbert Xu<herbert@gondor.apana.org.au>
+> ---
+>
+>   drivers/crypto/stm32/stm32-hash.c |  164 ++++++++++++--------------------------
+>   1 file changed, 56 insertions(+), 108 deletions(-)
+>
+> diff --git a/drivers/crypto/stm32/stm32-hash.c b/drivers/crypto/stm32/stm32-hash.c
+> index f898ec62b459..17183f631bb4 100644
+> --- a/drivers/crypto/stm32/stm32-hash.c
+> +++ b/drivers/crypto/stm32/stm32-hash.c
+> @@ -135,7 +135,7 @@ struct stm32_hash_state {
+>   	u8 buffer[HASH_BUFLEN] __aligned(4);
+>   
+>   	/* hash state */
+> -	u32			*hw_context;
+> +	u32			hw_context[3 + HASH_CSR_REGISTER_NUMBER];
+>   };
+
+The version of HASH implemented in the STM32MP13 provides new algorithms (SHA512, SHA3, ...).
+Because of that, the constant HASH_CSR_REGISTER_NUMBER increases (from 54 to 103).
+Hence, the size of stm32_hash_state is equal to 688 which is bigger than HASH_MAX_STATESIZE(=512)
+and the driver fails to register the algorithms.
+
+Is there any reasons why HASH_MAX_STATESIZE is set to 512 ?
+I only see it used to define static arrays, so maybe it could be set to 1024.
+
+BR
+
+Thomas Bourgoin
+
+--------------81Rf0WtABThThwaLFODTt3gX
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <div class="moz-text-html" lang="x-unicode">
+      <pre>Hi Herbert,
+
+I'm working on the patch for STM32MP13. </pre>
+      <div class="moz-cite-prefix">
+        <pre>On Sat, Mar 11, 2023 at 10:09 AM Herbert Xu <a class="moz-txt-link-rfc2396E" href="mailto:herbert@gondor.apana.org.au">&lt;herbert@gondor.apana.org.au&gt;</a> wrote:</pre>
+      </div>
+      <blockquote type="cite"
+        cite="mid:E1pavED-002xbf-LL@formenos.hmeau.com">
+        <pre class="moz-quote-pre" wrap="">The Crypto API hashing paradigm requires the hardware state to
+be exported between *each* request because multiple unrelated
+hashes may be processed concurrently.
+
+The stm32 hardware is capable of producing the hardware hashing
+state but it was only doing it in the export function.  This is
+not only broken for export as you can't export a kernel pointer
+and reimport it, but it also means that concurrent hashing was
+fundamentally broken.
+
+Fix this by moving the saving and restoring of hardware hash
+state between each and every hashing request.
+
+Fixes: 8a1012d3f2ab ("crypto: stm32 - Support for STM32 HASH module")
+Reported-by: Li kunyu <a class="moz-txt-link-rfc2396E" href="mailto:kunyu@nfschina.com">&lt;kunyu@nfschina.com&gt;</a>
+Signed-off-by: Herbert Xu <a class="moz-txt-link-rfc2396E" href="mailto:herbert@gondor.apana.org.au">&lt;herbert@gondor.apana.org.au&gt;</a>
+---
+
+ drivers/crypto/stm32/stm32-hash.c |  164 ++++++++++++--------------------------
+ 1 file changed, 56 insertions(+), 108 deletions(-)
+
+diff --git a/drivers/crypto/stm32/stm32-hash.c b/drivers/crypto/stm32/stm32-hash.c
+index f898ec62b459..17183f631bb4 100644
+--- a/drivers/crypto/stm32/stm32-hash.c
++++ b/drivers/crypto/stm32/stm32-hash.c
+@@ -135,7 +135,7 @@ struct stm32_hash_state {
+ 	u8 buffer[HASH_BUFLEN] __aligned(4);
+ 
+ 	/* hash state */
+-	u32			*hw_context;
++	u32			hw_context[3 + HASH_CSR_REGISTER_NUMBER];
+ };
+</pre>
+      </blockquote>
+      <pre>The version of HASH implemented in the STM32MP13 provides new algorithms (SHA512, SHA3, ...). 
+Because of that, the constant HASH_CSR_REGISTER_NUMBER increases (from 54 to 103).
+Hence, the size of stm32_hash_state is equal to 688 which is bigger than HASH_MAX_STATESIZE(=512)
+and the driver fails to register the algorithms.
+
+Is there any reasons why HASH_MAX_STATESIZE is set to 512 ? 
+I only see it used to define static arrays, so maybe it could be set to 1024.
+
+BR 
+
+Thomas Bourgoin
+</pre>
+    </div>
+  </body>
+</html>
+
+--------------81Rf0WtABThThwaLFODTt3gX--
+
+--===============5292615504631922912==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============5292615504631922912==--
