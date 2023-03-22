@@ -2,128 +2,99 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9E72A6C5925
-	for <lists+linux-stm32@lfdr.de>; Wed, 22 Mar 2023 22:56:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 76EFF6C5A5F
+	for <lists+linux-stm32@lfdr.de>; Thu, 23 Mar 2023 00:31:11 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4DD07C6A602;
-	Wed, 22 Mar 2023 21:56:16 +0000 (UTC)
-Received: from EUR02-DB5-obe.outbound.protection.outlook.com
- (mail-db5eur02on2067.outbound.protection.outlook.com [40.107.249.67])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2B46EC6A5E7;
+	Wed, 22 Mar 2023 23:31:11 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 16E9AC0356E
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 22 Mar 2023 23:31:09 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 34063C6A5E7
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 22 Mar 2023 21:56:14 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=HhQt2xF0zh/k/fRKUCKIenw1RdsXnZqCb1DWlUbC+oAztO5jUTS67hFCZ32czKxqVjbhXhdLglXlx9oQ+Reo2DcQBqieMMaHdgpmsdkpWRQu7dB1wRLL2mjGMdqden2a0xPmXtXaop/MXp1VMI1HWcp1XQgyGJSDufnf4t6FXv3Gv9pvenDhm2Y0RqnMQNiHgzutdzAKnMJRNJix+aTJHu8SlxoWreVSCsRv9v/AnuzNzIOuiVElhePJvLPIh9aBYniFz296wxE6MwCG1D/GHuN5/q1Iu2faXshhUxJWYER9bTy7Abz+u7l+3s7ReeKxNcR2+qy/4rIzxAm4JLPzGg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=KZUVesjmtdj3xDXQWBRv4RLtciwzK9UMPoaWyvE91vw=;
- b=TZRGGLPuVJmCsev/pooNrrOU7dBn1AfNb5AMAzee+Fk57KK3pDXTiJgYtvzCXfOCvxYTeIxl4/AwsUhl6k6oIqc+UtN4wSAFdJ3Tbl39Uzo5BFrXQ36w7+KlXxi/OGScuZpKSoqmcmjoIA8b/JGKrGE1Ksy7oTvUj7GbrgvnSt0KtukOxaGmsEr4FsCW1QYsb/5kgd6aZyCFiJHW41Vfq7QrOfbB4M0f49Ue5GRAmpqZWOJgICd0CRE+CFYN5+Htv6H02YZCATgmrDVRqSqadD4aZHOiGfnCFY2MErP3JJAv1IVildpfEYe4P7vk/VZDVrIN1jvdZrB6SvOsojcfUg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KZUVesjmtdj3xDXQWBRv4RLtciwzK9UMPoaWyvE91vw=;
- b=bfXvwfPhsHgV57N5PRyqHgRcZ0hH+aZXi874RmX3wVx35gA2yuOLjEBaf0Ds1wl1jn9DZKGSrxIXU7FWjp1CO4AR6RZuWOUmf5wxC9sxa6NnaA+sMF5d3ecc81EErHhoR51uJ0sB/r3lep5VI5dadLcZE4int64rFAuQgBZKxtU=
-Received: from PAXPR04MB9185.eurprd04.prod.outlook.com (2603:10a6:102:231::11)
- by AM8PR04MB8019.eurprd04.prod.outlook.com (2603:10a6:20b:24b::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.37; Wed, 22 Mar
- 2023 21:56:12 +0000
-Received: from PAXPR04MB9185.eurprd04.prod.outlook.com
- ([fe80::31d:b51c:db92:cb15]) by PAXPR04MB9185.eurprd04.prod.outlook.com
- ([fe80::31d:b51c:db92:cb15%8]) with mapi id 15.20.6178.037; Wed, 22 Mar 2023
- 21:56:12 +0000
-From: Shenwei Wang <shenwei.wang@nxp.com>
-To: Simon Horman <simon.horman@corigine.com>
-Thread-Topic: [EXT] Re: [PATCH 1/1] net: stmmac: add support for platform
- specific reset
-Thread-Index: AQHZXCi2zg+P+kQ+XUOXyeY0vvUeuK8G/7qAgABX/VA=
-Date: Wed, 22 Mar 2023 21:56:12 +0000
-Message-ID: <PAXPR04MB9185B268A25E72930112E7AB89869@PAXPR04MB9185.eurprd04.prod.outlook.com>
-References: <20230321190921.3113971-1-shenwei.wang@nxp.com>
- <ZBst1SzcIS4j+t46@corigine.com>
-In-Reply-To: <ZBst1SzcIS4j+t46@corigine.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PAXPR04MB9185:EE_|AM8PR04MB8019:EE_
-x-ms-office365-filtering-correlation-id: 7cd0cdd1-894a-4f01-44c0-08db2b20409a
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: g2aFYoWt9MzBE13qobeBAIilMjnHFsv3rl/RNvaKj/Wa+JOUqSbtZFGlQXWdykquz2M/BCvnH28NQSte0u3XnH5wRxmyEq+vcke1Bt6UlG7cTCsb2P9pMNC2G9W6jHTPUKGy6CIg4jD9I+K0YdQKR6biHQUBFZUnZrihylcCmg7ubc0lr5xODP7/4nIGQxspFY5Lqitja8knsc9IbZ8q8zAIHqpejkiGJdA+n9PLTpdnpvSgA579jLdGTu6GnSzLIZiR9L+CRik7e+I+wcveIjOtUzry9GMsgKVrGHb91EvcKcrFilH7QOucDvLsmccyHolcGLJU6kUOFa4K4h56yWLvMJ1fDrHrMp/L5e6EKSQpyAewW2JpT1gC1opp4CgFAFwapzwBNwpHxNsdaFKObM/LE9m4KCER9IffQJbhiVS3edSDRag2QCvQruH4i+WxvMySuhoKhl9vIC4toexGOJNgLpPzbRwP+sdmbbolwc+JZj2l88V3iPP4J9uN0rTGiECZK7cG5WLBpEJvcjBFFTnOPkFvYyHOlr/iN8kYs4pxWaRgGyDl9vMRkPO7T0ETytT76oyxV3tvs3R7d5SOV1yf2Z8vT14V+ljyxc3GMAnCf9rsgnvJq9j2pRabLzVgkXsUzkCqyratsBF4L56QRBLL35E0wvbloCzKNHP4Z2HVFK0yFlcRaU33rGsheXlcYq+Inw11X/7oKbQXAQuQJA==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PAXPR04MB9185.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230025)(4636009)(396003)(346002)(376002)(39860400002)(136003)(366004)(451199018)(53546011)(122000001)(38070700005)(186003)(6506007)(26005)(9686003)(71200400001)(83380400001)(7696005)(38100700002)(86362001)(478600001)(2906002)(8936002)(33656002)(76116006)(55016003)(44832011)(4326008)(66446008)(54906003)(316002)(7416002)(64756008)(41300700001)(52536014)(66946007)(66476007)(66556008)(8676002)(5660300002)(6916009);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?EhZrm617oI+CHWQ9CJSWMgBLarZtFQ4nJ5RtZdoZyQpamTfBKB9h6AszGKU/?=
- =?us-ascii?Q?MVvXo7v8xcBOWxkdKhc+VGlGtqtB7qMyjT74+ucbINAbaM5XR+cHShgTan6h?=
- =?us-ascii?Q?W51nN7U4bXZwxSVUB2DGyr/99T9lWvvYNe0CFIgGQTAOuq9iiQFD0ncacDn6?=
- =?us-ascii?Q?Nn8Nr+f14kOAe64WGhsW8NiEzS81TGHZGiIHHpcCS0XmSgYb7DLSBrCRY3Ln?=
- =?us-ascii?Q?/pThVsAiIL6oqm4veWCso2OzvO+jgv7oJhOJpFB9y9MwgmQDrv/GADNksLeX?=
- =?us-ascii?Q?AeQ2qX3Pbwktdeb/PzVRvc6r7S6vV8kfpWuZ9RD0TQ/bQLU14ryLIRFHfEr0?=
- =?us-ascii?Q?Jb1M9Aw/0Ysnm1UVqArilZOeM7YMS6M0R1/12GUzLZMxtmzu5dz3lrbAWyyK?=
- =?us-ascii?Q?N6nQGl0HlVIUqnOyo9AJohhUegn3YLoXe4NwmjVJjEIoBYVcRQ/6iyQWSjd1?=
- =?us-ascii?Q?OD+NOL21zFFULyUv3x0RIT/hHYRehFD2wvHC/ebOQYtqjlbDMsWUC3xEgk6k?=
- =?us-ascii?Q?cTAALVh/YuEZd2ufTuyZOTnD0iNYSzYkYLTRS0Bd4b6vJ54T9gFh2lIe3z1l?=
- =?us-ascii?Q?n0EghbC5KtjP2y5JfL/12bkjjYBH9VGjJPq9CwNsDofaCRWgFd+4efTm8pJ5?=
- =?us-ascii?Q?K7MiFXBmVAcRl5yxumUVJ7swhxsK00R1BxIvsw/gYQa9bxII/pd4aMkl0ghA?=
- =?us-ascii?Q?z7vhs7O0xskrmggKjyavV1LEOuvn3VONeDLVqkvVi4YNm75uxMo1f1Q+FjRW?=
- =?us-ascii?Q?PxkVfug4GnxD2En/5+OKNXfL1SeIQcT3sw0o1ummo48MEKnnldAQHYkhID/I?=
- =?us-ascii?Q?rPGiEPE32yNSHhsJZ68Fh4Wr6KzQ5jGPAAv+iwSieig4mfAvl0Lvt9kvGGB+?=
- =?us-ascii?Q?1vS1W5zfgLlwpoN/AKSAs4Gd9QWY+rhgBmXnyIQB9uZBq6ZpkFIPAnbtFxvl?=
- =?us-ascii?Q?QfME5Tw8R5U8KzWosNsj7Jz5XC0f3vaV8xfw7lsR+84GnZYZCpwuNR0ZZIOa?=
- =?us-ascii?Q?GRnN9ByaObXOgD3YxOGUdoziXg0kRIU7+pLKIKyXqk6yIXWyh6LIOz5DqB+u?=
- =?us-ascii?Q?A3L4iKuqfnKGO6NSKNijoiN6rl7aZX94u8Bj3ubku/v4qfGbtxqQ4YqYfMw3?=
- =?us-ascii?Q?jS9PPYzgTdF8RuUO3FWp50b7UzNmRHYtvmrcN1nguAKHLZbTWLlrJDLcV7T3?=
- =?us-ascii?Q?opVhfnQLs4W6o/pgIE0qUqdFUZRLFRuRMU9GsIu3XHLvq19WXvKcOWXdZrmL?=
- =?us-ascii?Q?GifXuuDkiNqWNFxnaQoo950hooWEDq03VH8wzRykNTszHP9CeYgPZCL6dHx/?=
- =?us-ascii?Q?vFJ4jK8L8cbtmae79nzW9ooAbV6qT6SFtJoyeAxP6AJhnD2A003OE46/IXbO?=
- =?us-ascii?Q?3Wq44kApCf5iqobTToh3OBoeIZkMAiz4yrovfvwed2/wROGWzkn69FSmujYX?=
- =?us-ascii?Q?4df+3I90ufU+mGj6fAHStq+Qy5CidGdp13cfXJnsWnnQ/IUB0+90y0O4XGCq?=
- =?us-ascii?Q?8PO7Z1FKvABcqC6P7EPvrzgN/euMrSInr/z1VM+UtC5mHS3S/5ftjbKG55pV?=
- =?us-ascii?Q?GYyoWSjOcM14C97KFGI=3D?=
+ by ams.source.kernel.org (Postfix) with ESMTPS id 87DAAB81E94;
+ Wed, 22 Mar 2023 23:31:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B207C433EF;
+ Wed, 22 Mar 2023 23:31:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1679527867;
+ bh=xaxJcW60Zwm6f9XPRDjOw9G3g9bY4jCl5plhR8QQllk=;
+ h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
+ b=XxL+a663rdYJkDC0EvA0wRWxQU8y8/wWyIMLeyVQpd56JOh3PJ4xG6Xmen7aCsY0x
+ 7e3+3wtdF5cWlnmjzCRbTiOZhXLKETe/N5ieLkfIJ0mqWcfMYF9JT3L0KV10igMyNC
+ HY349TuBWnVBR9NllNibpe2C+ERSVILvH8HzPnK07mFfLk4J9+/8dv0UiQMhzWHloR
+ +xjBBKkeesHxI/3mJ4WsYkOpZtDhTsAKnz2w07QHOc6gUXQ8yTDYiB8QxhmBHWA6j0
+ 5+G+v0OLs2kTWq+w5AKi1yVkG5GaJd11PliF38D+NgM7H6u8noC2UbLXnzJAmwusQa
+ GUT4P28HQzXrA==
+Message-ID: <5819b1362f35ce306e1b6d566bfd44e5.sboyd@kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PAXPR04MB9185.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7cd0cdd1-894a-4f01-44c0-08db2b20409a
-X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Mar 2023 21:56:12.5544 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: OA+Nmz20shDyiysX3HFiP8sJDIXHBCxR4d5jr9gLO6kEQVSh+tFpsf4OlvMnxLTC6n/yr4rybBkzvGkpIoLNmQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM8PR04MB8019
-Cc: Jose Abreu <joabreu@synopsys.com>,
- "imx@lists.linux.dev" <imx@lists.linux.dev>,
- Eric Dumazet <edumazet@google.com>, Wong Vee Khee <veekhee@apple.com>,
- Fabio Estevam <festevam@gmail.com>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- Tan Tee Min <tee.min.tan@linux.intel.com>, Jon Hunter <jonathanh@nvidia.com>,
- Mohammad Athari Bin Ismail <mohammad.athari.ismail@intel.com>,
- dl-linux-imx <linux-imx@nxp.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>,
- Andrey Konovalov <andrey.konovalov@linaro.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Revanth Kumar Uppala <ruppala@nvidia.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Shawn Guo <shawnguo@kernel.org>, "David S. Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [EXT] Re: [PATCH 1/1] net: stmmac: add support
- for platform specific reset
+In-Reply-To: <20221107152603.57qimyzkinhifx5p@houat>
+References: <20221018-clk-range-checks-fixes-v2-0-f6736dec138e@cerno.tech>
+ <20221018-clk-range-checks-fixes-v2-43-f6736dec138e@cerno.tech>
+ <Y2UzdYyjgahJsbHg@sirena.org.uk> <20221104155123.qomguvthehnogkdd@houat>
+ <Y2U2+ePwRieYkNjv@sirena.org.uk> <20221107084322.gk4j75r52zo5k7xk@houat>
+ <Y2j0r0wX1XtQBvqO@sirena.org.uk> <20221107152603.57qimyzkinhifx5p@houat>
+From: Stephen Boyd <sboyd@kernel.org>
+To: Mark Brown <broonie@kernel.org>, Maxime Ripard <maxime@cerno.tech>
+Date: Wed, 22 Mar 2023 16:31:04 -0700
+User-Agent: alot/0.10
+Cc: , Ulf Hansson <ulf.hansson@linaro.org>,
+	Prashant Gaikwad <pgaikwad@nvidia.com>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Sekhar Nori <nsekhar@ti.com>, dri-devel@lists.freedesktop.org,
+	Jaroslav Kysela <perex@perex.cz>,
+	Paul Cercueil <paul@crapouillou.net>,
+	Max Filippov <jcmvbkbc@gmail.com>,
+	Thierry Reding <thierry.reding@gmail.com>,
+	linux-phy@lists.infradead.org, David Airlie <airlied@gmail.com>,
+	Fabio Estevam <festevam@gmail.com>,
+	linux-stm32@st-md-mailman.stormreply.com,
+	Abel Vesa <abelvesa@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.st-md-mailman.stormreply.com>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Samuel Holland <samuel@sholland.org>,
+	Chunyan Zhang <zhang.lyra@gmail.com>, Takashi Iwai <tiwai@suse.com>,
+	linux-tegra@vger.kernel.org,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Jonathan Hunter <jonathanh@nvidia.com>, Chen-Yu Tsai <wens@csie.org>,
+	NXP Linux Team <linux-imx@nxp.com>, Orson Zhai <orsonzhai@gmail.com>,
+	linux-mips@vger.kernel.org,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Linus Walleij <linus.walleij@linaro.org>,
+	Kishon Vijay Abraham I <kishon@kernel.org>,
+	Charles Keepax <ckeepax@opensource.cirrus.com>,
+	Daniel Vetter <daniel@ffwll.ch>, alsa-devel@alsa-project.org,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	linux-kernel@vger.kernel.org, Sascha Hauer <s.hauer@pengutronix.de>,
+	linux-clk@vger.kernel.org,
+	Richard Fitzgerald <rf@opensource.cirrus.com>,
+	linux-mediatek@lists.infradead.org,
+	".com"@stm-ict-prod-mailman-01.stormreply.prv,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>, linux-actions@lists.infr,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	linux-arm-kernel@lists.infradead.org,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Alessandro Zummo <a.zummo@towertech.it>, linux-sunxi@lists.linux.dev,
+	adead.org@stm-ict-prod-mailman-01.stormreply.prv,
+	patches@opensource.cirrus.com,
+	Peter De Schrijver <pdeschrijver@nvidia.com>,
+	Nicolas Ferre <nicolas.ferre@microchip.com>,
+	Andreas =?utf-8?q?F=C3=A4rber?= <afaerber@suse.de>,
+	linux-renesas-soc@vger.kernel.org, Dinh Nguyen <dinguyen@kernel.org>,
+	Vinod Koul <vkoul@kernel.org>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	David Lechner <david@lechnology.com>,
+	Shawn Guo <shawnguo@kernel.org>,
+	Claudiu Beznea <claudiu.beznea@microchip.com>,
+	linux-rtc@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH v2 43/65] ASoC: tlv320aic32x4: Add a
+	determine_rate hook
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -140,108 +111,98 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+Quoting Maxime Ripard (2022-11-07 07:26:03)
+> On Mon, Nov 07, 2022 at 12:06:07PM +0000, Mark Brown wrote:
+> > On Mon, Nov 07, 2022 at 09:43:22AM +0100, Maxime Ripard wrote:
+> > > On Fri, Nov 04, 2022 at 03:59:53PM +0000, Mark Brown wrote:
+> > 
+> > > > Well, hopefully everyone for whom it's an issue currently will be
+> > > > objecting to this version of the change anyway so we'll either know
+> > > > where to set the flag or we'll get the whack-a-mole with the series
+> > > > being merged?
+> > 
+> > > I'm sorry, I'm not sure what you mean here. The only issue to fix at the
+> > > moment is that determine_rate and set_parent aren't coupled, and it led
+> > > to issues due to oversight.
+> > 
+> > > I initially added a warning but Stephen wanted to fix all users in that
+> > > case and make that an error instead.
+> > 
+> > My suggestion is that instead of doing either of these things it'd be
+> > quicker and less error prone to just fix the core to provide the default
+> > implementation if nothing more specific is provided.  Any issues that
+> > causes would already be present with your current series.
+> > 
+> > > If I filled __clk_mux_determine_rate into clocks that weren't using it
+> > > before, I would change their behavior. With that flag set, on all users
+> > > I add __clk_mux_determine_rate to, the behavior is the same than what we
+> > > previously had, so the risk of regressions is minimal, and everything
+> > > should keep going like it was?
+> > 
+> > The series does fill in __clk_mux_determine_rate for everything though -
+> > if it was just assumed by default the only thing that'd be needed would
+> > be adding the flag.
+> 
+> The behavior assumed by default was equivalent to
+> __clk_mux_determine_rate + CLK_SET_RATE_NO_REPARENT. We could indeed set
+> both if determine_rate is missing in the core, but that's unprecedented
+> in the clock framework so I think we'll want Stephen to comment here :)
 
+The clk_ops pointer is const (no writeable jump tables) so we'd have to
+copy the clk_ops struct on registration to set the
+__clk_mux_determine_rate() op. We could set the flag though and then
+check for the absence of a determine_rate op. Things like
+clk_core_can_round() would need to check for the flag. I'd actually
+forgotten about this flag. In hindsight I think we should delete it.
+I'd expect it to be used when walking the clk tree during rate rounding,
+but it's only used in the determine rate clk op.
 
-> -----Original Message-----
-> From: Simon Horman <simon.horman@corigine.com>
-> Sent: Wednesday, March 22, 2023 11:33 AM
-> To: Shenwei Wang <shenwei.wang@nxp.com>
-> Cc: David S. Miller <davem@davemloft.net>; Eric Dumazet
-> <edumazet@google.com>; Jakub Kicinski <kuba@kernel.org>; Paolo Abeni
-> <pabeni@redhat.com>; Maxime Coquelin <mcoquelin.stm32@gmail.com>;
-> Shawn Guo <shawnguo@kernel.org>; dl-linux-imx <linux-imx@nxp.com>;
-> Giuseppe Cavallaro <peppe.cavallaro@st.com>; Alexandre Torgue
-> <alexandre.torgue@foss.st.com>; Jose Abreu <joabreu@synopsys.com>; Sascha
-> Hauer <s.hauer@pengutronix.de>; Pengutronix Kernel Team
-> <kernel@pengutronix.de>; Fabio Estevam <festevam@gmail.com>; Wong Vee
-> Khee <veekhee@apple.com>; Jon Hunter <jonathanh@nvidia.com>;
-> Mohammad Athari Bin Ismail <mohammad.athari.ismail@intel.com>; Andrey
-> Konovalov <andrey.konovalov@linaro.org>; Revanth Kumar Uppala
-> <ruppala@nvidia.com>; Tan Tee Min <tee.min.tan@linux.intel.com>;
-> netdev@vger.kernel.org; linux-stm32@st-md-mailman.stormreply.com; linux-
-> arm-kernel@lists.infradead.org; imx@lists.linux.dev
-> Subject: [EXT] Re: [PATCH 1/1] net: stmmac: add support for platform specific
-> reset
 > 
-> Caution: EXT Email
-> 
-> On Tue, Mar 21, 2023 at 02:09:20PM -0500, Shenwei Wang wrote:
-> > This patch adds support for platform-specific reset logic in the
-> > stmmac driver. Some SoCs require a different reset mechanism than the
-> > standard dwmac IP reset. To support these platforms, a new function
-> > pointer 'fix_soc_reset' is added to the plat_stmmacenet_data structure.
-> > The stmmac_reset macro in hwif.h is modified to call the 'fix_soc_reset'
-> > function if it exists. This enables the driver to use the
-> > platform-specific reset logic when necessary.
-> >
-> > Signed-off-by: Shenwei Wang <shenwei.wang@nxp.com>
-> > ---
-> >  drivers/net/ethernet/stmicro/stmmac/hwif.h | 10 +++++++++-
-> >  include/linux/stmmac.h                     |  1 +
-> >  2 files changed, 10 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/net/ethernet/stmicro/stmmac/hwif.h
-> > b/drivers/net/ethernet/stmicro/stmmac/hwif.h
-> > index 16a7421715cb..e24ce870690e 100644
-> > --- a/drivers/net/ethernet/stmicro/stmmac/hwif.h
-> > +++ b/drivers/net/ethernet/stmicro/stmmac/hwif.h
-> > @@ -215,7 +215,15 @@ struct stmmac_dma_ops {  };
-> >
-> >  #define stmmac_reset(__priv, __args...) \
-> > -     stmmac_do_callback(__priv, dma, reset, __args)
-> > +({ \
-> > +     int __result = -EINVAL; \
-> > +     if ((__priv) && (__priv)->plat && (__priv)->plat->fix_soc_reset) { \
-> > +             __result = (__priv)->plat->fix_soc_reset((__priv)->plat, ##__args); \
-> > +     } else { \
-> > +             __result = stmmac_do_callback(__priv, dma, reset, __args); \
-> > +     } \
-> > +     __result; \
-> > +})
-> 
-> Hi Shenwei Wang,
-> 
-> I am wondering if any consideration was given to an approach that has a bit
-> better type safety.
+> It's also replacing one implicit behavior by another. The point of this
+> series was to raise awareness on that particular point, so I'm not sure
+> it actually fixes things. We'll see what Stephen thinks about it.
 > 
 
-The patch aims to add the missing feature to the original source file in a consistent coding style. 
-I am also okay to use the function prototype if everyone agrees.
+Right. A decade ago (!) when determine_rate() was introduced we
+introduced CLK_SET_RATE_NO_REPARENT and set it on each mux user (see
+commit  819c1de344c5 ("clk: add CLK_SET_RATE_NO_REPARENT flag")). This
+way driver behavior wouldn't change and the status quo would be
+maintained, i.e. that clk_set_rate() on a mux wouldn't change parents.
+We didn't enforce that determine_rate exists if the set_parent() op
+existed at the same time though. Probably an oversight.
 
-Thanks,
-Shenwei
+Most of the replies to this series have been "DT is setting the parent",
+which makes me believe that there are 'assigned-clock-parents' being
+used. The clk_set_parent() path is valid for those cases. Probably
+nobody cares about determine_rate because they don't set rates on these
+clks. Some drivers even explicitly left out
+determine_rate()/round_rate() because they didn't want to have some
+other clk round up to the mux and change the parent.
 
-> Something like this (*compile tested only!*):
-> 
-> static inline int stmmac_reset(struct stmmac_priv *priv, void __iomem *ioaddr) {
->        struct plat_stmmacenet_data *plat = priv ? priv->plat : NULL;
-> 
->        if (plat && plat->fix_soc_reset)
->                return plat->fix_soc_reset(plat, ioaddr);
-> 
->        return stmmac_do_callback(priv, dma, reset, ioaddr); }
-> 
-> In which case the first parameter of the fix_soc_reset field of struct
-> plat_stmmacenet_data can become struct plat_stmmacenet_data *.
-> 
-> diff --git a/include/linux/stmmac.h b/include/linux/stmmac.h index
-> 9044477fad61..b26ade7e4be8 100644
-> --- a/include/linux/stmmac.h
-> +++ b/include/linux/stmmac.h
-> @@ -223,6 +223,8 @@ struct plat_stmmacenet_data {
->         struct stmmac_rxq_cfg rx_queues_cfg[MTL_MAX_RX_QUEUES];
->         struct stmmac_txq_cfg tx_queues_cfg[MTL_MAX_TX_QUEUES];
->         void (*fix_mac_speed)(void *priv, unsigned int speed);
-> +       int (*fix_soc_reset)(struct plat_stmmacenet_data *,
-> +                            void __iomem *ioaddr);
->         int (*serdes_powerup)(struct net_device *ndev, void *priv);
->         void (*serdes_powerdown)(struct net_device *ndev, void *priv);
->         void (*speed_mode_2500)(struct net_device *ndev, void *priv);
-> 
-> I do see that the approach you have is
-> in keeping with the existing structure of stmmac_do_callback().
-> But I guess my question there is: why is that model used?
-> And could there be a plan to move away from that model?
+Eventually we want drivers to migrate to determine_rate op so we can get
+rid of the round_rate op and save a pointer (we're so greedy). It's been
+10 years though, and that hasn't been done. Sigh! I can see value in
+this series from the angle of migrating, but adding a determine_rate op
+when there isn't a round_rate op makes it hard to reason about. What if
+something copies the clk_ops or sets a different flag? Now we've just
+added parent changing support to clk_set_rate(). What if the clk has
+CLK_SET_RATE_PARENT flag set? Now we're going to ask the parent clk to
+change rate. Fun bugs.
+
+TL;DR: If the set_parent op exists but determine_rate/round_rate doesn't
+then the clk is a mux that doesn't want to support clk_set_rate(). Make
+a new mux function that's the contents of the CLK_SET_RATE_NO_REPARENT
+branch in clk_mux_determine_rate_flags() and call that directly from the
+clk_ops so it is clear what's happening,
+clk_hw_mux_same_parent_determine_rate() or something with a better name.
+Otherwise migrate the explicit determine_rate op to this new function
+and don't set the flag.
+
+It may be possible to entirely remove the CLK_SET_RATE_NO_REPARENT flag
+with this design, if the determine_rate clk_op can call the inner
+wrapper function instead of __clk_mux_determine_rate*() (those
+underscores are awful, we should just prefix them with clk_hw_mux_*()
+and live happier). That should be another patch series.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
