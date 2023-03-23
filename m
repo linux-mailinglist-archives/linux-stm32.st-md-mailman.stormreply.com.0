@@ -2,73 +2,72 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 344DD6C678C
-	for <lists+linux-stm32@lfdr.de>; Thu, 23 Mar 2023 13:03:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8DCC16C67AB
+	for <lists+linux-stm32@lfdr.de>; Thu, 23 Mar 2023 13:08:58 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EE070C6A602;
-	Thu, 23 Mar 2023 12:03:42 +0000 (UTC)
-Received: from mail-lj1-f175.google.com (mail-lj1-f175.google.com
- [209.85.208.175])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4DC29C6A602;
+	Thu, 23 Mar 2023 12:08:58 +0000 (UTC)
+Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com
+ [209.85.167.42])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2E824C6A602
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 64384C69053
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 23 Mar 2023 12:03:41 +0000 (UTC)
-Received: by mail-lj1-f175.google.com with SMTP id e11so13487757lji.8
+ Thu, 23 Mar 2023 12:08:57 +0000 (UTC)
+Received: by mail-lf1-f42.google.com with SMTP id c29so9925291lfv.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 23 Mar 2023 05:03:41 -0700 (PDT)
+ Thu, 23 Mar 2023 05:08:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20210112; t=1679573020;
+ d=gmail.com; s=20210112; t=1679573336;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=d2mt8Dc/ocS7AxhWRTNt2+9WEZGZV0jc7YgGpq/l2wA=;
- b=PKA51kt0JsQLOKFobEusgiO4xJ1YNpSFSbrAdYyVvaGFYamI5SD9/YMoX9/hn344/I
- CJ1dNvsSMFw+jgrkeVxmecO/d7TOM5wfn+PnXRkBAhhdRy/+gtszDOPoVy9Cex/UEWKF
- ThhaO9Jk5LKsGJu75nAaK4P16JF6HtTRCjXmb8pb7rmUkit8XLz+XX98FrNkeJg5EZjR
- EVFVBxyyMh3ZGoARC822bXiG7gyfv3Q8JglwenH2yUQt9w8S6SLC0uYg5fBNo1tkL3TA
- LyOfJL1LcAeeHU0Ib/SHhRi1fNOBWmeYyiYjBCmvER3Vnc2oVTUnn/o1OtA4wXyz/m4t
- LRcA==
+ bh=xzgI+B9ASfOGNYBH0IR4jXCQ7CKwmiqjpGUIbZHwnnc=;
+ b=LFKNwiWKSW7Ndn5zWY0V3TIVkQO7LGJoUbnGfHAzF6WG24W5M+VIvRUapx+q+WFgqu
+ SiyZaq1BBzTjpH26yZ1+BD5RLXxCxh8nNjMJnF+CGTYpFdCpXcRkYajpbGkw1zfSivqo
+ 5IbuF/edaVAQ5qWwJFUnXpaJhfGHvvtuN3Idj9qkPciVMZV3kF20JpRrP/irEPtV356v
+ YTIncCqa+BiKhDPKRbdtpvbYACV7gZI35YJAvAl+ch2HBhVuntntMdOtTX6Nz6EXUFm7
+ +TzPJp7JG42UcAAjUTqqvbbhAuK3aC9XyJgPsXIeicQ66tAIUXpg+pjastRoG67dkUgj
+ f+vQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1679573020;
+ d=1e100.net; s=20210112; t=1679573336;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=d2mt8Dc/ocS7AxhWRTNt2+9WEZGZV0jc7YgGpq/l2wA=;
- b=hbFYS5R8Fsn6PHh8Q6THJRJ9Chnm181QdIXSTmPeXO0Ed5662plQoZZQZEB1dbuXIj
- 0aF1ec9f64YWcpSexBd+KqIRr7rycrDMcRox0EU58OpvCnRp1ppo8O2r4jS+IvtlvByC
- IOIhWjvq9U65XkWTumM1DrzVpiw1BUZaoEO9KxW77FyrCGQBqYs0Xx8qtELVJeexS2w+
- cIlOna1JzIqPO/gE20X0TqzmmX/C5Aoz6Gdsz4x0G7btzIzy4J7HKEZec+HDVHDH7yYe
- xyRj34kxDbA0urP7pMaRjtFIUDB4Efb2EPU/vG1g/bbSYQ3M+HS9SiDosq0eCd9T82F4
- ga/Q==
-X-Gm-Message-State: AO0yUKVmAy2UV3qXoKyPCGma/y8CdQADbV9oH2oBSh2j/UYy/r0xkdYA
- jk1zycjHyTYnG/+T6r2p498=
-X-Google-Smtp-Source: AK7set96yscptfSwhFYLFTxrBRamLAA1lhCOjFEeDzgEeGGXtplepcLYTAzk8FeHyTyPHNUIF654Sw==
-X-Received: by 2002:a2e:9697:0:b0:29f:7525:ce90 with SMTP id
- q23-20020a2e9697000000b0029f7525ce90mr3078096lji.11.1679573020385; 
- Thu, 23 Mar 2023 05:03:40 -0700 (PDT)
+ bh=xzgI+B9ASfOGNYBH0IR4jXCQ7CKwmiqjpGUIbZHwnnc=;
+ b=o6sKIdN9Va2qDGIKW2po1hot9aH/2rYULVuXoJ4Jgw9wNRfiR+4dRkfvLSQhLkqSSM
+ Hl3qUv5rPK/QjkvdHUJrSj2S9UtuttelSIywjc9Vvt2b3cRJhHj/BzIyUhgWJeQqm6YL
+ mlzTkPHvVX/MEQv0vJZ+nGdaJ0jgpqkL0hkP1kG/Ro1GHlxCQ3/1AeoMWIrLOMCH6WvA
+ sDRxalgThtLb6I0d2ck84DwrrDCosvhvN38Xgl50QC2XoqloeWw6T40uKznLGr501vUd
+ cOEdelpbMsz7TziEUiYYx4M1VErSCCXDyJJf2EWEdV+UI519p/YQjZGu0+almGLSEML4
+ 9/Xw==
+X-Gm-Message-State: AO0yUKUZh/ieVp326ztHheqDCAHtoS/xsSJNg6vckUGl9RkKZww1h+ul
+ jyCPkOx4e8LSH10kZ23HcVM=
+X-Google-Smtp-Source: AK7set+84k7eBxJAPoHl2JzEu70ox/d+Ysoy3SdQ5Tz3UrPm6eVSvg55ypTOmhgj5bq6t2O+AVvFgA==
+X-Received: by 2002:a05:6512:249:b0:4b4:e14a:ec7d with SMTP id
+ b9-20020a056512024900b004b4e14aec7dmr3143131lfo.17.1679573336526; 
+ Thu, 23 Mar 2023 05:08:56 -0700 (PDT)
 Received: from mobilestation ([95.79.133.202])
  by smtp.gmail.com with ESMTPSA id
- h16-20020a05651211d000b004db3e445f1fsm2900003lfr.97.2023.03.23.05.03.39
+ p19-20020a19f013000000b004eaf9ef5e7asm422577lfc.226.2023.03.23.05.08.55
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 23 Mar 2023 05:03:39 -0700 (PDT)
-Date: Thu, 23 Mar 2023 15:03:37 +0300
+ Thu, 23 Mar 2023 05:08:56 -0700 (PDT)
+Date: Thu, 23 Mar 2023 15:08:53 +0300
 From: Serge Semin <fancer.lancer@gmail.com>
 To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Message-ID: <20230323120337.xdqetfgnclkmbt7o@mobilestation>
+Message-ID: <20230323120853.wse2pvknvznawxpk@mobilestation>
 References: <20230313225103.30512-1-Sergey.Semin@baikalelectronics.ru>
- <20230313225103.30512-14-Sergey.Semin@baikalelectronics.ru>
- <cee5e3d7-132c-2c6a-de11-c02ca6499231@linaro.org>
+ <20230313225103.30512-15-Sergey.Semin@baikalelectronics.ru>
+ <faf70823-f87b-ba50-ac72-3552de1cc7e3@linaro.org>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <cee5e3d7-132c-2c6a-de11-c02ca6499231@linaro.org>
+In-Reply-To: <faf70823-f87b-ba50-ac72-3552de1cc7e3@linaro.org>
 Cc: Eric Dumazet <edumazet@google.com>,
  Pavel Parkhomenko <Pavel.Parkhomenko@baikalelectronics.ru>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- linux-stm32@st-md-mailman.stormreply.com, Joao Pinto <Joao.Pinto@synopsys.com>,
- Jose Abreu <joabreu@synopsys.com>, Yang Yingliang <yangyingliang@huawei.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Christian Marangi <ansuelsmth@gmail.com>, devicetree@vger.kernel.org,
- Biao Huang <biao.huang@mediatek.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Jose Abreu <joabreu@synopsys.com>,
+ Yang Yingliang <yangyingliang@huawei.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Christian Marangi <ansuelsmth@gmail.com>,
+ devicetree@vger.kernel.org, Biao Huang <biao.huang@mediatek.com>,
  Richard Cochran <richardcochran@gmail.com>,
  Alexey Malahov <Alexey.Malahov@baikalelectronics.ru>,
  Rob Herring <robh+dt@kernel.org>, Giuseppe Cavallaro <peppe.cavallaro@st.com>,
@@ -76,8 +75,8 @@ Cc: Eric Dumazet <edumazet@google.com>,
  linux-kernel@vger.kernel.org, Serge Semin <Sergey.Semin@baikalelectronics.ru>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  "David S. Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH net-next 13/16] dt-bindings: net: dwmac:
- Fix MTL Tx Queue props description
+Subject: Re: [Linux-stm32] [PATCH net-next 14/16] dt-bindings: net: dwmac:
+ Use flag definition instead of booleans
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,26 +93,40 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, Mar 16, 2023 at 09:08:48AM +0100, Krzysztof Kozlowski wrote:
+On Thu, Mar 16, 2023 at 09:09:37AM +0100, Krzysztof Kozlowski wrote:
 > On 13/03/2023 23:51, Serge Semin wrote:
-> > Invalid MTL Tx Queues DT-properties description was added right at the
-> > initial DCB/AVB features patch. Most likely due to copy-paste mistake the
-> > text currently matches to what is specified for the AXI-bus config
-> > properties. Let's fix that by providing correct descriptions for MTL Tx
-> > Queue DT-properties utilized for the AVB feature (CBS algorithm) tuning.
+> > Currently some of the boolean properties defined in the DT-schema are
+> > marked to have the basic boolean type meanwhile the rest referencing the
+> > /schemas/types.yaml#/definitions/flag schema. For the sake of unification
+> > let's convert the first group to referencing the pre-defined flag schema.
+> > Thus bindings will look a bit more coherent and the DT-bindings
+> > maintainers will have a better control over the booleans defined in the
+> > schema (if ever needed).
 > > 
-> > Fixes: 19d918731797 ("net: stmmac: configuration of CBS in case of a TX AVB queue")
+> > Signed-off-by: Serge Semin <Sergey.Semin@baikalelectronics.ru>
+> > ---
+> >  .../devicetree/bindings/net/snps,dwmac.yaml   | 45 ++++++++++++-------
+> >  1 file changed, 30 insertions(+), 15 deletions(-)
+> > 
+> > diff --git a/Documentation/devicetree/bindings/net/snps,dwmac.yaml b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+> > index 69be39d55403..a863b5860566 100644
+> > --- a/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+> > +++ b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+> > @@ -120,11 +120,13 @@ properties:
+> >          maximum: 12
+> >  
+> >        snps,rx-sched-sp:
+> > -        type: boolean
+> > +        $ref: /schemas/types.yaml#/definitions/flag
+> >          description: Strict priority
 > 
-> Fixes must be first in the patchset.
 
-Ok.
+> If ever touching this, it should be other way -> boolean.
+
+Ok. I'll drop the patch then.
 
 -Serge(y)
 
-> 
-> > Signed-off-by: Serge Semin <Sergey.Semin@baikalelectronics.ru>
-> > ---
-> 
 > 
 > Best regards,
 > Krzysztof
