@@ -2,64 +2,56 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 192416C81D2
-	for <lists+linux-stm32@lfdr.de>; Fri, 24 Mar 2023 16:52:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 63AF16C81F1
+	for <lists+linux-stm32@lfdr.de>; Fri, 24 Mar 2023 16:56:43 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C23DAC6A60B;
-	Fri, 24 Mar 2023 15:52:46 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1FB22C6A603;
+	Fri, 24 Mar 2023 15:56:43 +0000 (UTC)
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [85.220.165.71])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 25673C6A602
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 387E7C6904F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 24 Mar 2023 15:52:45 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 32ODHvwE010735; Fri, 24 Mar 2023 16:52:27 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-transfer-encoding : content-type; s=selector1;
- bh=JFtlxCELTTuNK4fwI5IIBKgcJAW7TQM275B47uT8+VM=;
- b=zk5tQtxIrDt3yVQLjCl9PmfjPjSXrkJFdvZxtEDYmLVsTX2OnHyg/jafqNHH5wNAbuKe
- +QjiOIP97uXKdcqCEzwSz59GgFgWRWg6qA+tASLygmgZ6PO0PKk9CtRKgweufXp42Rql
- 869FyEtHCXUml+QxmyapVGsvudYdwbD+bKhDnL1QJs96j32o+yeO66tPv9bXE3Ctf4Mh
- 9M11dKPwJ0sJr51lAbqKgYIARSESkHrtA1VFIgDGDJRQKuz92Ul4BxzKEpQ6mOOI5yfe
- +gXGA4ORG450d6zcZQgGW/6/cDMhRPL16QGJjqgU90Xp1mrjYkYuTAJWiU2BZTyAsHcq Eg== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3pgxjcduna-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 24 Mar 2023 16:52:27 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 1B4B8100039;
- Fri, 24 Mar 2023 16:52:23 +0100 (CET)
-Received: from Webmail-eu.st.com (shfdag1node3.st.com [10.75.129.71])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 024F6218632;
- Fri, 24 Mar 2023 16:51:52 +0100 (CET)
-Received: from localhost (10.48.0.175) by SHFDAG1NODE3.st.com (10.75.129.71)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.17; Fri, 24 Mar
- 2023 16:51:51 +0100
-From: Christophe Kerello <christophe.kerello@foss.st.com>
-To: <miquel.raynal@bootlin.com>, <richard@nod.at>, <vigneshr@ti.com>,
- <krzysztof.kozlowski@linaro.org>
-Date: Fri, 24 Mar 2023 16:51:05 +0100
-Message-ID: <20230324155105.826063-3-christophe.kerello@foss.st.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20230324155105.826063-1-christophe.kerello@foss.st.com>
-References: <20230324155105.826063-1-christophe.kerello@foss.st.com>
+ Fri, 24 Mar 2023 15:56:42 +0000 (UTC)
+Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b]
+ helo=bjornoya.blackshift.org) by metis.ext.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <mkl@pengutronix.de>)
+ id 1pfjmN-0004MT-Sc; Fri, 24 Mar 2023 16:56:35 +0100
+Received: from pengutronix.de (unknown
+ [IPv6:2a01:4f8:1c1c:29e9:22:41ff:fe00:1400])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256) (Client did not present a certificate)
+ (Authenticated sender: mkl-all@blackshift.org)
+ by smtp.blackshift.org (Postfix) with ESMTPSA id 884E219B9F1;
+ Fri, 24 Mar 2023 15:56:33 +0000 (UTC)
+Date: Fri, 24 Mar 2023 16:56:32 +0100
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+To: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+Message-ID: <20230324155632.24chi5ndo23awhhp@pengutronix.de>
+References: <20230315211040.2455855-1-dario.binacchi@amarulasolutions.com>
+ <CABGWkvpHHLNzZHDMzWveoHtApmR3czVvoCOnuWBZt-UoLVU-6g@mail.gmail.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.48.0.175]
-X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SHFDAG1NODE3.st.com
- (10.75.129.71)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.254,Aquarius:18.0.942,Hydra:6.0.573,FMLib:17.11.170.22
- definitions=2023-03-24_10,2023-03-24_01,2023-02-09_01
-Cc: linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH 2/2] mtd: rawnand: stm32_fmc2: depends on
-	ARCH_STM32 instead of MACH_STM32MP157
+In-Reply-To: <CABGWkvpHHLNzZHDMzWveoHtApmR3czVvoCOnuWBZt-UoLVU-6g@mail.gmail.com>
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:b01:1d::7b
+X-SA-Exim-Mail-From: mkl@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
+Cc: Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org,
+ netdev@vger.kernel.org, linux-can@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Rob Herring <robh+dt@kernel.org>, linux-arm-kernel@lists.infradead.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ michael@amarulasolutions.com,
+ Amarula patchwork <linux-amarula@amarulasolutions.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Vincent Mailhol <mailhol.vincent@wanadoo.fr>
+Subject: Re: [Linux-stm32] [RESEND PATCH v7 0/5] can: bxcan: add support for
+ ST bxCAN controller
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,36 +63,66 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============4523539593505586956=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-To be able to compile the driver on all STM32MP SOCs, we move the
-"depends on" on ARCH_STM32.
 
-Signed-off-by: Christophe Kerello <christophe.kerello@foss.st.com>
----
- drivers/mtd/nand/raw/Kconfig | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+--===============4523539593505586956==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="cnvdke4jgm2e3ndt"
+Content-Disposition: inline
 
-diff --git a/drivers/mtd/nand/raw/Kconfig b/drivers/mtd/nand/raw/Kconfig
-index 170f1185ddc4..b523354dfb00 100644
---- a/drivers/mtd/nand/raw/Kconfig
-+++ b/drivers/mtd/nand/raw/Kconfig
-@@ -373,7 +373,7 @@ config MTD_NAND_TEGRA
- 
- config MTD_NAND_STM32_FMC2
- 	tristate "Support for NAND controller on STM32MP SoCs"
--	depends on MACH_STM32MP157 || COMPILE_TEST
-+	depends on ARCH_STM32 || COMPILE_TEST
- 	select MFD_SYSCON
- 	help
- 	  Enables support for NAND Flash chips on SoCs containing the FMC2
--- 
-2.25.1
+
+--cnvdke4jgm2e3ndt
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On 21.03.2023 12:25:15, Dario Binacchi wrote:
+> A gentle ping to remind you of this series.
+> I have no idea why it hasn't deserved any response for quite some
+> time.
+> Is there anything I am still missing?
+
+I wonder if we want to do a s/master/primary/ in the DT bindings and
+driver?
+
+regards,
+Marc
+
+--=20
+Pengutronix e.K.                 | Marc Kleine-Budde           |
+Embedded Linux                   | https://www.pengutronix.de  |
+Vertretung N=C3=BCrnberg              | Phone: +49-5121-206917-129  |
+Amtsgericht Hildesheim, HRA 2686 | Fax:   +49-5121-206917-5555 |
+
+--cnvdke4jgm2e3ndt
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEDs2BvajyNKlf9TJQvlAcSiqKBOgFAmQdyC0ACgkQvlAcSiqK
+BOjDgggAgzBxnVVNE5XscW/qYXMVblL8TcW+JtgR2e6p+TtN0u7OioDJmlfvtl9q
+IlRl7/cJkB9uAyVo4dUILKfekHx18vxAqc0txekYY2KQRHAjv5jtuVzaIJylaJEA
+9EyCMp8t1jMBHK0irZ4q8xfzaON5deaFT2/rKyuWGfQA5650ZaTjoZYL9dHCSEiB
+I9KBbbOxVS2ILDPyMcmj5ESg/rbig4VhoDObjz1VeFwd3mrCTg4N74lCO9jvphiB
+tz0r/IX5oLQcwK++eafeLnPUywTnBL6nu09zhn9pz5EFSDScpmvasXZ0uSZigy26
+PE1s/CCS31M48DSu1689rSXu7SSI3A==
+=dNbz
+-----END PGP SIGNATURE-----
+
+--cnvdke4jgm2e3ndt--
+
+--===============4523539593505586956==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============4523539593505586956==--
