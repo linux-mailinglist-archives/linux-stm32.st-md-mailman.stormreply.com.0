@@ -2,56 +2,47 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 63AF16C81F1
-	for <lists+linux-stm32@lfdr.de>; Fri, 24 Mar 2023 16:56:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D9A966C8213
+	for <lists+linux-stm32@lfdr.de>; Fri, 24 Mar 2023 17:03:25 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1FB22C6A603;
-	Fri, 24 Mar 2023 15:56:43 +0000 (UTC)
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
- [85.220.165.71])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8BE31C6A603;
+	Fri, 24 Mar 2023 16:03:25 +0000 (UTC)
+Received: from relay9-d.mail.gandi.net (relay9-d.mail.gandi.net
+ [217.70.183.199])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 387E7C6904F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7F4FDC6904F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 24 Mar 2023 15:56:42 +0000 (UTC)
-Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b]
- helo=bjornoya.blackshift.org) by metis.ext.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <mkl@pengutronix.de>)
- id 1pfjmN-0004MT-Sc; Fri, 24 Mar 2023 16:56:35 +0100
-Received: from pengutronix.de (unknown
- [IPv6:2a01:4f8:1c1c:29e9:22:41ff:fe00:1400])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
- server-digest SHA256) (Client did not present a certificate)
- (Authenticated sender: mkl-all@blackshift.org)
- by smtp.blackshift.org (Postfix) with ESMTPSA id 884E219B9F1;
- Fri, 24 Mar 2023 15:56:33 +0000 (UTC)
-Date: Fri, 24 Mar 2023 16:56:32 +0100
-From: Marc Kleine-Budde <mkl@pengutronix.de>
-To: Dario Binacchi <dario.binacchi@amarulasolutions.com>
-Message-ID: <20230324155632.24chi5ndo23awhhp@pengutronix.de>
-References: <20230315211040.2455855-1-dario.binacchi@amarulasolutions.com>
- <CABGWkvpHHLNzZHDMzWveoHtApmR3czVvoCOnuWBZt-UoLVU-6g@mail.gmail.com>
+ Fri, 24 Mar 2023 16:03:24 +0000 (UTC)
+Received: (Authenticated sender: miquel.raynal@bootlin.com)
+ by mail.gandi.net (Postfix) with ESMTPSA id F3B29FF80B;
+ Fri, 24 Mar 2023 16:03:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
+ t=1679673804;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=e/Ot0XeBt4bh9S+cBPdCZ8iwvY0dcGmED6USv22SRnM=;
+ b=BN22IGMZfMTPJUAD9JudirnCVZS8EtGHY8K8BBURZujAXY/BvR54yys/qrYZIVCxyYflSP
+ AikEEJ4YmqmlZbNOMemXEdao26esr6xDfEmVdFz+KufTp8PQoHKUVNBYvdzzHU/hadKb1n
+ rJzyQwdn75aimiV0tljZA6qnou0wBE06O3hApQj6gYT1QRn+MAmFrNbqHW8Bs/MvUaLBNi
+ 7MO4Hzpik1h27xB8Q1Ugzn/kyTe44hWlD+zhz1y2ARNpqq76PBoYJ0jZNg2XJ0HHHAHzla
+ SsEwmYFrxf+m345laNq4FEbaPEJM0oO8DGAl1Ii8K7HvoaqDetBZ1lJRYYf39w==
+Date: Fri, 24 Mar 2023 17:03:20 +0100
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Christophe Kerello <christophe.kerello@foss.st.com>
+Message-ID: <20230324170320.5087c223@xps-13>
+In-Reply-To: <20230324155105.826063-1-christophe.kerello@foss.st.com>
+References: <20230324155105.826063-1-christophe.kerello@foss.st.com>
+Organization: Bootlin
+X-Mailer: Claws Mail 4.0.0 (GTK+ 3.24.33; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-In-Reply-To: <CABGWkvpHHLNzZHDMzWveoHtApmR3czVvoCOnuWBZt-UoLVU-6g@mail.gmail.com>
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:b01:1d::7b
-X-SA-Exim-Mail-From: mkl@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
-Cc: Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org,
- netdev@vger.kernel.org, linux-can@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Rob Herring <robh+dt@kernel.org>, linux-arm-kernel@lists.infradead.org,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- michael@amarulasolutions.com,
- Amarula patchwork <linux-amarula@amarulasolutions.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Vincent Mailhol <mailhol.vincent@wanadoo.fr>
-Subject: Re: [Linux-stm32] [RESEND PATCH v7 0/5] can: bxcan: add support for
- ST bxCAN controller
+Cc: vigneshr@ti.com, richard@nod.at, linux-kernel@vger.kernel.org,
+ krzysztof.kozlowski@linaro.org, linux-mtd@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH 0/2] depends on ARCH_STM32 instead of
+	MACH_STM32MP157
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -63,66 +54,25 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============4523539593505586956=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-
---===============4523539593505586956==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="cnvdke4jgm2e3ndt"
-Content-Disposition: inline
-
-
---cnvdke4jgm2e3ndt
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On 21.03.2023 12:25:15, Dario Binacchi wrote:
-> A gentle ping to remind you of this series.
-> I have no idea why it hasn't deserved any response for quite some
-> time.
-> Is there anything I am still missing?
-
-I wonder if we want to do a s/master/primary/ in the DT bindings and
-driver?
-
-regards,
-Marc
-
---=20
-Pengutronix e.K.                 | Marc Kleine-Budde           |
-Embedded Linux                   | https://www.pengutronix.de  |
-Vertretung N=C3=BCrnberg              | Phone: +49-5121-206917-129  |
-Amtsgericht Hildesheim, HRA 2686 | Fax:   +49-5121-206917-5555 |
-
---cnvdke4jgm2e3ndt
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEDs2BvajyNKlf9TJQvlAcSiqKBOgFAmQdyC0ACgkQvlAcSiqK
-BOjDgggAgzBxnVVNE5XscW/qYXMVblL8TcW+JtgR2e6p+TtN0u7OioDJmlfvtl9q
-IlRl7/cJkB9uAyVo4dUILKfekHx18vxAqc0txekYY2KQRHAjv5jtuVzaIJylaJEA
-9EyCMp8t1jMBHK0irZ4q8xfzaON5deaFT2/rKyuWGfQA5650ZaTjoZYL9dHCSEiB
-I9KBbbOxVS2ILDPyMcmj5ESg/rbig4VhoDObjz1VeFwd3mrCTg4N74lCO9jvphiB
-tz0r/IX5oLQcwK++eafeLnPUywTnBL6nu09zhn9pz5EFSDScpmvasXZ0uSZigy26
-PE1s/CCS31M48DSu1689rSXu7SSI3A==
-=dNbz
------END PGP SIGNATURE-----
-
---cnvdke4jgm2e3ndt--
-
---===============4523539593505586956==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============4523539593505586956==--
+SGkgQ2hyaXN0b3BoZSwKCmNocmlzdG9waGUua2VyZWxsb0Bmb3NzLnN0LmNvbSB3cm90ZSBvbiBG
+cmksIDI0IE1hciAyMDIzIDE2OjUxOjAzICswMTAwOgoKPiBUbyBiZSBhYmxlIHRvIGNvbXBpbGUg
+dGhlIGRyaXZlciBvbiBhbGwgU1RNMzJNUCBTT0NzLCB3ZSBtb3ZlIHRoZQo+ICJkZXBlbmRzIG9u
+IiBvbiBBUkNIX1NUTTMyLgo+IAo+IENocmlzdG9waGUgS2VyZWxsbyAoMik6Cj4gICBtZW1vcnk6
+IHN0bTMyLWZtYzItZWJpOiBkZXBlbmRzIG9uIEFSQ0hfU1RNMzIgaW5zdGVhZCBvZgo+ICAgICBN
+QUNIX1NUTTMyTVAxNTcKPiAgIG10ZDogcmF3bmFuZDogc3RtMzJfZm1jMjogZGVwZW5kcyBvbiBB
+UkNIX1NUTTMyIGluc3RlYWQgb2YKPiAgICAgTUFDSF9TVE0zMk1QMTU3CgpJIGRvbid0IHNlZSBp
+c3N1ZSB3aXRoIHRha2luZyB0aGVzZSB0d28gcGF0Y2hlcyBpbiBpbmRlcGVuZGVudCB0cmVlcyBz
+bwppZiBub2JvZHkgZGlzYWdyZWVzIEkgd2lsbCB0YWtlIHRoZSBzZWNvbmQgb25lIHRocm91Z2gg
+dGhlIG10ZCB0cmVlIGFuZApsZXQgS3J6eXN6dG9mIHRha2UgdGhlIGZpcnN0IG9uZSB0aHJvdWdo
+IG1lbS1jdHJsLgoKPiAKPiAgZHJpdmVycy9tZW1vcnkvS2NvbmZpZyAgICAgICB8IDIgKy0KPiAg
+ZHJpdmVycy9tdGQvbmFuZC9yYXcvS2NvbmZpZyB8IDIgKy0KPiAgMiBmaWxlcyBjaGFuZ2VkLCAy
+IGluc2VydGlvbnMoKyksIDIgZGVsZXRpb25zKC0pCj4gCgoKVGhhbmtzLApNaXF1w6hsCl9fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1h
+aWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBz
+Oi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0
+bTMyCg==
