@@ -2,66 +2,113 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id AED1A6C826B
-	for <lists+linux-stm32@lfdr.de>; Fri, 24 Mar 2023 17:34:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B3B476C87F6
+	for <lists+linux-stm32@lfdr.de>; Fri, 24 Mar 2023 23:03:56 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6BE53C6A603;
-	Fri, 24 Mar 2023 16:34:22 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6E87FC6A606;
+	Fri, 24 Mar 2023 22:03:56 +0000 (UTC)
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com
+ [209.85.221.54])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DC1EEC69053
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9BFA2C6A602
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 24 Mar 2023 16:34:20 +0000 (UTC)
-Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 32ODBKRW011039; Fri, 24 Mar 2023 17:34:16 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=SboRCbcyRuV05Ygpi/rKpxPTf5aTWPczlwFRg2CMDRo=;
- b=T1+qXB3/c6jdtvoAkUgyEpBxAGzqwuBFCsWuiyKbxIETREUwr3A76lTJOo0vBuZAkNTy
- VO0l4l7EVVtHUdnZZ3eEBAxShGVOxviBwXQq3yHB7Ov0nom1tKaaNk+rvVNH4PSDsOwH
- Xhn3tCgGE7FhwD6BTqIbLU2FYxUu7XEBw07cKlsqF3r+W2i6u0FrfqkbGr9x/NL2ctgi
- 3r1uqqtHemjlgCwEJ9cPCAFQEuz79w6yBOgSiZs7eAT6/qYvoaiOx51qKFUexd2mQj1O
- HdgCQXQqejL4okcP6ITmGvn+/pK3Hghd6XeTjJV5SljswAZOxNp5Ob+UdTIPDvbOg3AX hg== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3pgxjwe1x7-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 24 Mar 2023 17:34:16 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 713F210002A;
- Fri, 24 Mar 2023 17:34:15 +0100 (CET)
-Received: from Webmail-eu.st.com (shfdag1node3.st.com [10.75.129.71])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 6C90921ADAE;
- Fri, 24 Mar 2023 17:34:15 +0100 (CET)
-Received: from [10.48.0.175] (10.48.0.175) by SHFDAG1NODE3.st.com
- (10.75.129.71) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.17; Fri, 24 Mar
- 2023 17:34:15 +0100
-Message-ID: <f4c32aa5-e5b1-6465-7708-ef0281baf0af@foss.st.com>
-Date: Fri, 24 Mar 2023 17:34:14 +0100
+ Fri, 24 Mar 2023 22:03:55 +0000 (UTC)
+Received: by mail-wr1-f54.google.com with SMTP id d17so3119831wrb.11
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 24 Mar 2023 15:03:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20210112; t=1679695435;
+ h=mime-version:message-id:in-reply-to:date:subject:cc:to:from
+ :references:from:to:cc:subject:date:message-id:reply-to;
+ bh=eQ3RSbBi4GxRzlwFNletxU5cxz92xG3Lj6FTyrjdc0o=;
+ b=T3F8aNz2ox9uoURQlE0mq2sXW4z262BpvG7ZxRtAtIbFhPc/TQEpQM0a0SgR+TrqHO
+ CLYGJXT6hxHwzdY9UN32CZG2dOkIF2LFvXUPmwkIF/2GkwmMW7kb6axItHjQcEjAF96P
+ YoZ2Q3loL8sCvN2e52vHQqe+AQbmZyqmh9t2+HCpPytsWAA2sxbaBc61b92bJ1dDr0QQ
+ Tdx2iHxB/Aa/m/jyDHMcs00O0mdizZduxSlMQxMVQw/7cAeVdYgYGEV+MFN8ajK6+qK2
+ SFuRxlx0kY19AQ86OkmU5aCJ9GqDDqrZ45+h67Pz4nAn4V4ElL3E8abtemphkRCVy/gF
+ HzMg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112; t=1679695435;
+ h=mime-version:message-id:in-reply-to:date:subject:cc:to:from
+ :references:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=eQ3RSbBi4GxRzlwFNletxU5cxz92xG3Lj6FTyrjdc0o=;
+ b=kJ0WM/TSWTsI54w2SdCnD7eqq2NhpiRV5g5efcXbr37al/hFzQJLIC/c63cGCV17Sy
+ NrmBqVZf2ytdrduGBsndaUVzWENZxrGnKETdkCIJSzApUEsr5V5XEjSS0CwbEB/Jgtzp
+ PVX9CaZsBsan18iGduFxaoEAREIiO5Q5xWR43jSWsz3Takg3taoUOIcVtv7rtcVgnXyd
+ nGFdljVGx5tvXKPNeJ9aUb4MLyS+YFtIuKd9AjziJKl2krq1eh+69Z0EQeHOthYOOOUO
+ xaxffiUSTmcDs2jdO7FE23x1d693BeCT1CLwA0Ywu3XzaMfHLqsTfG3175M6NePWtbLt
+ XWaQ==
+X-Gm-Message-State: AAQBX9eAAJ8zYb2+HOHFn65HdbQIfE3DJugM8YxFezdUJ9NCHbp1cI8E
+ min2mGk/8KYD3sezR94paq0=
+X-Google-Smtp-Source: AKy350bTnEgVdoWb1kTWyTj04kbZ8RkYf2o8/EHnYZiiSg63myut6K0B/vHtQugbPkbZgvwsB8kF9A==
+X-Received: by 2002:adf:e905:0:b0:2ce:a096:3ff2 with SMTP id
+ f5-20020adfe905000000b002cea0963ff2mr3187613wrm.63.1679695434807; 
+ Fri, 24 Mar 2023 15:03:54 -0700 (PDT)
+Received: from localhost (94.197.5.156.threembb.co.uk. [94.197.5.156])
+ by smtp.gmail.com with ESMTPSA id
+ e9-20020adffc49000000b002be5bdbe40csm19237361wrs.27.2023.03.24.15.03.53
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 24 Mar 2023 15:03:54 -0700 (PDT)
+References: <20221018-clk-range-checks-fixes-v2-0-f6736dec138e@cerno.tech>
+ <20221018-clk-range-checks-fixes-v2-56-f6736dec138e@cerno.tech>
+ <80VTKR.CE8RVN8M3ZYK3@crapouillou.net>
+ <20221104145946.orsyrhiqvypisl5j@houat>
+ <cp7Yh29ndlOOi1yW8KwCcpzoLPLxm1vR@localhost>
+ <20221107085417.xrsh6xy3ouwdkp4z@houat>
+ <ucJ6KSBqdPTxfxUQqLUr9C9RGiQRnY1I@localhost>
+ <20221109110045.j24vwkaq3s4yzoy3@houat>
+ <06a293adc75990ed3e297b076fc38d8a.sboyd@kernel.org>
+ <xpKMzGb1sOsucWMTlJIMzrT5KjLlZ7JP@localhost>
+ <20230324111959.frjf4neopbs67ugd@houat>
+From: Aidan MacDonald <aidanmacdonald.0x0@gmail.com>
+To: Maxime Ripard <maxime@cerno.tech>
+Date: Fri, 24 Mar 2023 20:58:48 +0000
+In-reply-to: <20230324111959.frjf4neopbs67ugd@houat>
+Message-ID: <rTJKpeLOBeu3eOLW5z3P5fEpcOJJLrGs@localhost>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.8.0
-Content-Language: en-US
-To: Miquel Raynal <miquel.raynal@bootlin.com>
-References: <20230324160918.826452-1-christophe.kerello@foss.st.com>
- <20230324172528.4d3ccd4b@xps-13>
-From: Christophe Kerello <christophe.kerello@foss.st.com>
-In-Reply-To: <20230324172528.4d3ccd4b@xps-13>
-X-Originating-IP: [10.48.0.175]
-X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SHFDAG1NODE3.st.com
- (10.75.129.71)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.254,Aquarius:18.0.942,Hydra:6.0.573,FMLib:17.11.170.22
- definitions=2023-03-24_10,2023-03-24_01,2023-02-09_01
-Cc: richard@nod.at, linux-stm32@st-md-mailman.stormreply.com,
- linux-mtd@lists.infradead.org, vigneshr@ti.com, linux-kernel@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH] mtd: rawnand: stm32_fmc2: do not support
-	EDO mode
+Cc: Ulf Hansson <ulf.hansson@linaro.org>,
+ Prashant Gaikwad <pgaikwad@nvidia.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Michael Turquette <mturquette@baylibre.com>, Sekhar Nori <nsekhar@ti.com>,
+ dri-devel@lists.freedesktop.org, Jaroslav Kysela <perex@perex.cz>,
+ Paul Cercueil <paul@crapouillou.net>, Max Filippov <jcmvbkbc@gmail.com>,
+ Thierry Reding <thierry.reding@gmail.com>, linux-phy@lists.infradead.org,
+ David Airlie <airlied@gmail.com>, Fabio Estevam <festevam@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Abel Vesa <abelvesa@kernel.org>,
+ Kishon Vijay Abraham I <kishon@kernel.org>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Samuel Holland <samuel@sholland.org>, Chunyan Zhang <zhang.lyra@gmail.com>,
+ Takashi Iwai <tiwai@suse.com>, linux-tegra@vger.kernel.org,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>, Chen-Yu Tsai <wens@csie.org>,
+ NXP Linux Team <linux-imx@nxp.com>, Orson Zhai <orsonzhai@gmail.com>,
+ linux-mips@vger.kernel.org, Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Linus Walleij <linus.walleij@linaro.org>, linux-rtc@vger.kernel.org,
+ linux-clk@vger.kernel.org, Charles Keepax <ckeepax@opensource.cirrus.com>,
+ Daniel Vetter <daniel@ffwll.ch>, alsa-devel@alsa-project.org,
+ Manivannan Sadhasivam <mani@kernel.org>, linux-kernel@vger.kernel.org,
+ Sascha Hauer <s.hauer@pengutronix.de>, linux-actions@lists.infradead.org,
+ Richard Fitzgerald <rf@opensource.cirrus.com>, Mark Brown <broonie@kernel.org>,
+ linux-mediatek@lists.infradead.org,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ linux-arm-kernel@lists.infradead.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Alessandro Zummo <a.zummo@towertech.it>, linux-sunxi@lists.linux.dev,
+ Stephen Boyd <sboyd@kernel.org>, patches@opensource.cirrus.com,
+ Peter De Schrijver <pdeschrijver@nvidia.com>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Andreas =?utf-8?Q?F=C3=A4rber?= <afaerber@suse.de>,
+ linux-renesas-soc@vger.kernel.org, Dinh Nguyen <dinguyen@kernel.org>,
+ Vinod Koul <vkoul@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ David Lechner <david@lechnology.com>, Shawn Guo <shawnguo@kernel.org>,
+ Claudiu Beznea <claudiu.beznea@microchip.com>
+Subject: Re: [Linux-stm32] [PATCH v2 56/65] clk: ingenic: cgu: Switch to
+	determine_rate
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,33 +120,119 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SGVsbG8gTWlxdWVsLAoKT24gMy8yNC8yMyAxNzoyNSwgTWlxdWVsIFJheW5hbCB3cm90ZToKPiBI
-aSBDaHJpc3RvcGhlLAo+IAo+IGNocmlzdG9waGUua2VyZWxsb0Bmb3NzLnN0LmNvbSB3cm90ZSBv
-biBGcmksIDI0IE1hciAyMDIzIDE3OjA5OjE4ICswMTAwOgo+IAo+PiBGTUMyIGNvbnRyb2xsZXIg
-ZG9lcyBub3Qgc3VwcG9ydCBFRE8gbW9kZSAodGltaW5ncyBtb2RlIDQgYW5kIDUpLgo+Pgo+PiBT
-aWduZWQtb2ZmLWJ5OiBDaHJpc3RvcGhlIEtlcmVsbG8gPGNocmlzdG9waGUua2VyZWxsb0Bmb3Nz
-LnN0LmNvbT4KPj4gRml4ZXM6IDJjZDQ1N2YzMjhjMSAoIm10ZDogcmF3bmFuZDogc3RtMzJfZm1j
-MjogYWRkIFNUTTMyIEZNQzIgTkFORCBmbGFzaCBjb250cm9sbGVyIGRyaXZlciIpCj4+IC0tLQo+
-PiAgIGRyaXZlcnMvbXRkL25hbmQvcmF3L3N0bTMyX2ZtYzJfbmFuZC5jIHwgMyArKysKPj4gICAx
-IGZpbGUgY2hhbmdlZCwgMyBpbnNlcnRpb25zKCspCj4+Cj4+IGRpZmYgLS1naXQgYS9kcml2ZXJz
-L210ZC9uYW5kL3Jhdy9zdG0zMl9mbWMyX25hbmQuYyBiL2RyaXZlcnMvbXRkL25hbmQvcmF3L3N0
-bTMyX2ZtYzJfbmFuZC5jCj4+IGluZGV4IDVkNjI3MDQ4YzQyMC4uM2FiYjYzZDAwYTBiIDEwMDY0
-NAo+PiAtLS0gYS9kcml2ZXJzL210ZC9uYW5kL3Jhdy9zdG0zMl9mbWMyX25hbmQuYwo+PiArKysg
-Yi9kcml2ZXJzL210ZC9uYW5kL3Jhdy9zdG0zMl9mbWMyX25hbmQuYwo+PiBAQCAtMTUzMSw2ICsx
-NTMxLDkgQEAgc3RhdGljIGludCBzdG0zMl9mbWMyX25mY19zZXR1cF9pbnRlcmZhY2Uoc3RydWN0
-IG5hbmRfY2hpcCAqY2hpcCwgaW50IGNoaXBuciwKPj4gICAJaWYgKElTX0VSUihzZHJ0KSkKPj4g
-ICAJCXJldHVybiBQVFJfRVJSKHNkcnQpOwo+PiAgIAo+PiArCWlmIChzZHJ0LT50UkNfbWluIDwg
-MzAwMDApCj4gCj4gV2hlbiBpbnRyb2R1Y2luZyBOVi1ERFIgc3VwcG9ydCB3ZSBhcyB3ZWxsIGFk
-ZGVkIGEgdGltaW5ncy5tb2RlIGZpZWxkLAo+IHBlcmhhcHMgeW91IGNvdWxkIHVzZSBpdD8KClll
-cywgSSBjYW4gdXNlIGl0LiBJdCB3aWxsIGJlIGRvbmUgaW4gVjIuCgpSZWdhcmRzLApDaHJpc3Rv
-cGhlIEtlcmVsbG8uCgo+IAo+PiArCQlyZXR1cm4gLUVPUE5PVFNVUFA7Cj4+ICsKPj4gICAJaWYg
-KGNoaXBuciA9PSBOQU5EX0RBVEFfSUZBQ0VfQ0hFQ0tfT05MWSkKPj4gICAJCXJldHVybiAwOwo+
-PiAgIAo+IAo+IAo+IFRoYW5rcywKPiBNaXF1w6hsCl9fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0z
-MkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9y
-bXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+
+Maxime Ripard <maxime@cerno.tech> writes:
+
+> On Thu, Mar 23, 2023 at 03:35:30PM +0000, Aidan MacDonald wrote:
+>>
+>> Stephen Boyd <sboyd@kernel.org> writes:
+>>
+>> > Quoting Maxime Ripard (2022-11-09 03:00:45)
+>> >> On Mon, Nov 07, 2022 at 08:57:22PM +0000, Aidan MacDonald wrote:
+>> >> >
+>> >> > Maxime Ripard <maxime@cerno.tech> writes:
+>> >> >
+>> >> > > Hi,
+>> >> > >
+>> >> > > On Fri, Nov 04, 2022 at 05:35:29PM +0000, Aidan MacDonald wrote:
+>> >> >
+>> >> > Assigning the parent clock in the DT works once, at boot, but going off
+>> >> > what you wrote in the commit message, if the clock driver has a
+>> >> > .determine_rate() implementation that *can* reparent clocks then it
+>> >> > probably *will* reparent them, and the DT assignment will be lost.
+>> >>
+>> >> Yes, indeed, but assigned-clock-parents never provided any sort of
+>> >> guarantee on whether or not the clock was allowed to reparent or not.
+>> >> It's just a one-off thing, right before probe, and a clk_set_parent()
+>> >> call at probe will override that just fine.
+>> >>
+>> >> Just like assigned-clock-rates isn't permanent.
+>> >>
+>> >> > What I'm suggesting is a runtime constraint that the clock subsystem
+>> >> > would enforce, and actively prevent drivers from changing the parent.
+>> >> > Either explicitly with clk_set_parent() or due to .determine_rate().
+>> >> >
+>> >> > That way you could write a .determine_rate() implementation that *can*
+>> >> > select a better parent, but if the DT applies a constraint to fix the
+>> >> > clock to a particular parent, the clock subsystem will force that parent
+>> >> > to be used so you can be sure the clock is never reparented by accident.
+>> >>
+>> >> Yeah, that sounds like a good idea, and CLK_SET_RATE_NO_REPARENT isn't
+>> >> too far off from this, it's just ignored by clk_set_parent() for now. I
+>> >> guess we could rename CLK_SET_RATE_NO_REPARENT to CLK_NO_REPARENT, make
+>> >> clk_set_parent handle it, and set that flag whenever
+>> >> assigned-clock-parents is set on a clock.
+>> >>
+>> >> It's out of scope for this series though, and I certainly don't want to
+>> >> deal with all the regressions it might create :)
+>> >>
+>> >
+>> > This sounds like a new dt binding that says the assigned parent should
+>> > never change. It sounds sort of like gpio hogs. A clock-hogs binding?
+>>
+>> Ideally we want the clock driver to be able to reparent clocks freely
+>> to get the best rate. But we also need some control over that to stop
+>> consumers from being reparented in undesired ways. Eg. you might want
+>> to make sure the GPU gets its own PLL so it can be reclocked easily,
+>> and putting another device on the GPU's PLL could prevent that.
+>>
+>> The only way to achieve this today is (1) never do any reparenting in
+>> the clock driver; and (2) use assigned-clock-parents in the DT to set
+>> up the entire clock tree manually.
+>>
+>> Maxime said that (2) is basically wrong -- if assigned-clock-parents
+>> provides no guarantee on what the OS does "after boot" then the OS is
+>> pretty much free to ignore it.
+>
+> I didn't really say it's wrong, just that it never provided the
+> guarantee you expect it to provide. I can't really say whether it's an
+> issue or not on your platform.
+>
+> It's mostly unrelated to this series though, none of these patches
+> affect that behavior in one way or the other.
+
+I know. Sorry for derailing your patch :(
+
+>> My suggestion: add a per-clock bitmap to keep track of which parents
+>> are allowed. Any operation that would select a parent clock not on the
+>> whitelist should fail. Automatic reparenting should only select from
+>> clocks on the whitelist. And we need new DT bindings for controlling
+>> the whitelist, for example:
+>>
+>>     clock-parents-0 = <&clk1>, <&pll_c>;
+>>     clock-parents-1 = <&clk2>, <&pll_a>, <&pll_b>;
+>>
+>> This means that clk1 can only have pll_c as a parent, while clk2 can
+>> have pll_a or pll_b as parents. By default every clock will be able
+>> to use any parent, so a list is only needed if the machine needs a
+>> more restrictive policy.
+>>
+>> assigned-clock-parents should disable automatic reparenting, but allow
+>> explicit clk_set_parent(). This will allow clock drivers to start doing
+>> reparenting without breaking old DTs.
+>
+> I'm generally not a fan of putting all these policies in the device
+> tree. Do you have an example where it wouldn't be possible to do exactly
+> this from the driver itself?
+>
+> Maxime
+
+I'm confused. What's implicit in the example is clk1 and clk2 might
+have *other* possible choices of parent clock and the device tree is
+limiting what the OS is allowed to choose.
+
+Why would you put such arbitrary limitations into the driver? They
+would be different from machine to machine, unless the clock tree is
+so simple there is only *one* meaningful way to configure it. Most
+SoCs are complicated enough that there will be tradeoffs depending
+on what peripherals you are using (typically a single machine will
+not use *every* peripheral device provided by the SoC).
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
