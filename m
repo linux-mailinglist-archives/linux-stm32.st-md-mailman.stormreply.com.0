@@ -2,122 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF6636C7D1A
-	for <lists+linux-stm32@lfdr.de>; Fri, 24 Mar 2023 12:20:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C89D6C7D7C
+	for <lists+linux-stm32@lfdr.de>; Fri, 24 Mar 2023 12:52:10 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7AD19C6A603;
-	Fri, 24 Mar 2023 11:20:08 +0000 (UTC)
-Received: from new2-smtp.messagingengine.com (new2-smtp.messagingengine.com
- [66.111.4.224])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3DFA6C6A603;
+	Fri, 24 Mar 2023 11:52:10 +0000 (UTC)
+Received: from mail-io1-f53.google.com (mail-io1-f53.google.com
+ [209.85.166.53])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3B49EC69053
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 173DDC6904F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 24 Mar 2023 11:20:07 +0000 (UTC)
-Received: from compute6.internal (compute6.nyi.internal [10.202.2.47])
- by mailnew.nyi.internal (Postfix) with ESMTP id 02E8758211D;
- Fri, 24 Mar 2023 07:20:06 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute6.internal (MEProxy); Fri, 24 Mar 2023 07:20:06 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=cc
- :cc:content-type:content-type:date:date:from:from:in-reply-to
- :in-reply-to:message-id:mime-version:references:reply-to:sender
- :subject:subject:to:to; s=fm3; t=1679656805; x=1679664005; bh=jn
- hC/DvfTlyZcOnZuUe9LuHIarcRp2uTbbPObwOvLtk=; b=RINbDJrDavr91qApxS
- 4BIapnsTSMpJsQcMuiekOJ4buZfgO1V5bxZUX92x96X+70RG5pM597H6X6A8ze2Q
- J3K3HTIk9bh/ZbHNJcL4cY9CXoNlp9BFd+TTAQzaGhbL4Q/xS5FNx1TElQW6xvG7
- 0pWgXxxHWJn2xo8oKO6WZBtJ8/apSTxWaFgzT4XANpTX/yFywGqPfreFSFA+SxYy
- DVWfFOmgiUFFAwcBCuUS5l1GOHRlbwP6IKA226oMHwgNZfpxX+vE/kqqplzGKxN6
- 3CA6w8YfKEc956VkNbvyMcVk4fjXMyE6jZ/K83ddG+CzpHvsr07jRCCCdY737Omz
- uzeA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-type:content-type:date:date
- :feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
- :message-id:mime-version:references:reply-to:sender:subject
- :subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
- :x-sasl-enc; s=fm2; t=1679656805; x=1679664005; bh=jnhC/DvfTlyZc
- OnZuUe9LuHIarcRp2uTbbPObwOvLtk=; b=G4KWdAq5u3yOdbhwSK/77/yGH7IQB
- 2xysJ+4DHASMDHD4DpUNSh0qiUQ7PoZ0HeB31FPCqa3ypIcHnjDyiqx4+OASl4vt
- YII+0RiTBeUGCTuHiRp/2zrlkY7JsRYyob4hyT9jfvFspEvX+TWDxi6HeqVtkkkI
- EIEz+43mJMF3TccMFqhY9/s2d2q0Bnzb5506eHVsiiRibRjc0JM/OyGd5+joNcoL
- b2y+9ja4sW5wabUkTzlsQiAxcTUWRGjZRPmuIIWmJFWEdsTq0+X56oaR8GkrkVqB
- dX4i5J533jmuMxkiG1iqzEHijtLWz0ghQXTKvlKaafFgHLlEw3jiDRZ4g==
-X-ME-Sender: <xms:YocdZJLt50SkjajEyhHxYSSrkPY2nLRG7oaF9-PbUsC11O7ePH7evw>
- <xme:YocdZFJvv5yKSgbbCu2PjUCjA3iwB3zBFKv-CakFAJTI01X8NjMVPj3knfOKgALZS
- iMcO2SYsLNKDxAxjx0>
-X-ME-Received: <xmr:YocdZBtqfm5ufo2nxuPX_n4UUydUMdQkmyrCYSBkP5S6uLxOjnGe7GgKlZv5k0gAuEdnyA>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrvdegiedgvdejucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
- cujfgurhepfffhvfevuffkfhggtggujgesghdtreertddtvdenucfhrhhomhepofgrgihi
- mhgvucftihhprghrugcuoehmrgigihhmvgestggvrhhnohdrthgvtghhqeenucggtffrrg
- htthgvrhhnpeetfefffefgkedtfefgledugfdtjeefjedvtddtkeetieffjedvgfehheff
- hfevudenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpe
- hmrgigihhmvgestggvrhhnohdrthgvtghh
-X-ME-Proxy: <xmx:YocdZKbb7h5XVzEGX4iPtxOkH5TmcsjFZOlhmJTWiCjxSzGBF3gLdQ>
- <xmx:YocdZAZuVnKbOWnxm7JK_ixmWayh3DAJUGZTPl_6A4AyOaeCS8MgPA>
- <xmx:YocdZODYFHhXEhG6sanelWXub-LDcHvfMUzvrDzXEPo_cfiaikGjCA>
- <xmx:ZYcdZJnXIuUKCYqWP9MzEN0pWHGV9cxtt8SL0wrI9YqOxIudpLjjYg>
-Feedback-ID: i8771445c:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 24 Mar 2023 07:20:01 -0400 (EDT)
-Date: Fri, 24 Mar 2023 12:19:59 +0100
-From: Maxime Ripard <maxime@cerno.tech>
-To: Aidan MacDonald <aidanmacdonald.0x0@gmail.com>
-Message-ID: <20230324111959.frjf4neopbs67ugd@houat>
-References: <20221018-clk-range-checks-fixes-v2-0-f6736dec138e@cerno.tech>
- <20221018-clk-range-checks-fixes-v2-56-f6736dec138e@cerno.tech>
- <80VTKR.CE8RVN8M3ZYK3@crapouillou.net>
- <20221104145946.orsyrhiqvypisl5j@houat>
- <cp7Yh29ndlOOi1yW8KwCcpzoLPLxm1vR@localhost>
- <20221107085417.xrsh6xy3ouwdkp4z@houat>
- <ucJ6KSBqdPTxfxUQqLUr9C9RGiQRnY1I@localhost>
- <20221109110045.j24vwkaq3s4yzoy3@houat>
- <06a293adc75990ed3e297b076fc38d8a.sboyd@kernel.org>
- <xpKMzGb1sOsucWMTlJIMzrT5KjLlZ7JP@localhost>
+ Fri, 24 Mar 2023 11:52:09 +0000 (UTC)
+Received: by mail-io1-f53.google.com with SMTP id e13so692279ioc.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 24 Mar 2023 04:52:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20210112; t=1679658728;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=iWww7KIOZBCmIAHeZv67n8Ky5bkkqCoK79aVsIAZNBI=;
+ b=TZIv8T/N6JJPGZzyhEafVekIQ23TQTiv0q+86h2sLILA6iYzEfF+u25kxtdHp0VNRq
+ oxZ78xFZORp0fy9rKmZZbV739hSARgPOxdeaHK8u5HVOOZ+XoTsb4e+8OIlwjfdD+Ql7
+ zhqN1Parx4H/ypNye6pC5LYEcdA2aVqEf5Pj85VQJCszYYHd3qwp7Z6vgH8A4g2J4iDq
+ Jvyj/nX9Kxxs1RNcEyCI4VxU8gCULSV9V72g3/PWK4V27yBgt7JRix0tewp8vbtVw3wM
+ S62jCU5Rp3Pf1rHR89/Ps52hFSuInfYfA0/v6QVaVOAAszzLLvwm1fE5xWI5yg91LgDW
+ n8Vg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112; t=1679658728;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=iWww7KIOZBCmIAHeZv67n8Ky5bkkqCoK79aVsIAZNBI=;
+ b=WPf97lr2ZplJsTj4t4FjCXZVsveI2Uoes8k9yhSwDMvpdjs/gp2CxkNUcpJYBtZy4F
+ o/jnjPZTkfHvSv1eD1XZjF+jIlNHsoNH3YprfxhbfcR+REJ5iV4gNN7/MckO+uT4TD4M
+ c1FifQ/zxWDIUplphSJCabatcMUEFWD3BeAIXpjUe8z2l1ro/MQ048OzswwX9Z060OVb
+ feB4vXgx1Ve3eJrKR/QRFnH/3QtOWBREmbE4wmrOtP8fydphAq2wVshPgyys1mZgaJBo
+ +Xzh1xhPMeZzi44Bn3al+weYJ1djTvxQyGNx7pr7MHnSA1bsZnuBqcg9l61RFtQUhhHe
+ nN2g==
+X-Gm-Message-State: AO0yUKU76qF3GJ8QH3nkThYyBf0BL3+c6fWl4gn8Q25ZgIWW9D2VNPn1
+ 4E6gTb+Ykid7l+b+/PN/RelYAj78aMCidWvd5Xg=
+X-Google-Smtp-Source: AK7set8+H6cwLxu738lkTCKCs6nwLDvrDpz/EBmL2ZmHT3i13MKkp+14knPu99WuRsmhLBPnfRJcdLzJTAFzgFo9qX0=
+X-Received: by 2002:a05:6638:22a1:b0:3ae:e73b:ff26 with SMTP id
+ z1-20020a05663822a100b003aee73bff26mr831353jas.1.1679658727838; Fri, 24 Mar
+ 2023 04:52:07 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <xpKMzGb1sOsucWMTlJIMzrT5KjLlZ7JP@localhost>
-Cc: Ulf Hansson <ulf.hansson@linaro.org>,
- Prashant Gaikwad <pgaikwad@nvidia.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Liam Girdwood <lgirdwood@gmail.com>,
- Michael Turquette <mturquette@baylibre.com>, Sekhar Nori <nsekhar@ti.com>,
- dri-devel@lists.freedesktop.org, Jaroslav Kysela <perex@perex.cz>,
- Paul Cercueil <paul@crapouillou.net>, Max Filippov <jcmvbkbc@gmail.com>,
- Thierry Reding <thierry.reding@gmail.com>, linux-phy@lists.infradead.org,
- David Airlie <airlied@gmail.com>, Fabio Estevam <festevam@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, Abel Vesa <abelvesa@kernel.org>,
- Kishon Vijay Abraham I <kishon@kernel.org>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Samuel Holland <samuel@sholland.org>, Chunyan Zhang <zhang.lyra@gmail.com>,
- Takashi Iwai <tiwai@suse.com>, linux-tegra@vger.kernel.org,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Jonathan Hunter <jonathanh@nvidia.com>, Chen-Yu Tsai <wens@csie.org>,
- NXP Linux Team <linux-imx@nxp.com>, Orson Zhai <orsonzhai@gmail.com>,
- linux-mips@vger.kernel.org, Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Linus Walleij <linus.walleij@linaro.org>, linux-rtc@vger.kernel.org,
- linux-clk@vger.kernel.org, Charles Keepax <ckeepax@opensource.cirrus.com>,
- Daniel Vetter <daniel@ffwll.ch>, alsa-devel@alsa-project.org,
- Manivannan Sadhasivam <mani@kernel.org>, linux-kernel@vger.kernel.org,
- Sascha Hauer <s.hauer@pengutronix.de>, linux-actions@lists.infradead.org,
- Richard Fitzgerald <rf@opensource.cirrus.com>, Mark Brown <broonie@kernel.org>,
- linux-mediatek@lists.infradead.org,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- linux-arm-kernel@lists.infradead.org,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Alessandro Zummo <a.zummo@towertech.it>, linux-sunxi@lists.linux.dev,
- Stephen Boyd <sboyd@kernel.org>, patches@opensource.cirrus.com,
- Peter De Schrijver <pdeschrijver@nvidia.com>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- Andreas =?utf-8?Q?F=C3=A4rber?= <afaerber@suse.de>,
- linux-renesas-soc@vger.kernel.org, Dinh Nguyen <dinguyen@kernel.org>,
- Vinod Koul <vkoul@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- David Lechner <david@lechnology.com>, Shawn Guo <shawnguo@kernel.org>,
- Claudiu Beznea <claudiu.beznea@microchip.com>
-Subject: Re: [Linux-stm32] [PATCH v2 56/65] clk: ingenic: cgu: Switch to
-	determine_rate
+References: <20230323185112.13855-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <CAMuHMdVKRS1N5s-cvxrgSj9ev-Hh+gxfa-Hp2+z1zt+r7fEUWg@mail.gmail.com>
+In-Reply-To: <CAMuHMdVKRS1N5s-cvxrgSj9ev-Hh+gxfa-Hp2+z1zt+r7fEUWg@mail.gmail.com>
+From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
+Date: Fri, 24 Mar 2023 11:51:41 +0000
+Message-ID: <CA+V-a8u5ttTsG9fn4ePKi-0=2NXzhk1seBwnzBn_X6VQDwWKpw@mail.gmail.com>
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+Cc: devicetree@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+ Daniel Lezcano <daniel.lezcano@linaro.org>, linux-kernel@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org, Chris Brandt <chris.brandt@renesas.com>,
+ Rob Herring <robh+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Biju Das <biju.das.jz@bp.renesas.com>, Thomas Gleixner <tglx@linutronix.de>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] dt-bindings: timer: renesas: ostm:
+	Document RZ/Five SoC
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -129,142 +76,46 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============3759756975816986375=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-
---===============3759756975816986375==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ygvujwxxgbycerm7"
-Content-Disposition: inline
-
-
---ygvujwxxgbycerm7
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-Hi,
-
-On Thu, Mar 23, 2023 at 03:35:30PM +0000, Aidan MacDonald wrote:
->=20
-> Stephen Boyd <sboyd@kernel.org> writes:
->=20
-> > Quoting Maxime Ripard (2022-11-09 03:00:45)
-> >> On Mon, Nov 07, 2022 at 08:57:22PM +0000, Aidan MacDonald wrote:
-> >> >
-> >> > Maxime Ripard <maxime@cerno.tech> writes:
-> >> >
-> >> > > Hi,
-> >> > >
-> >> > > On Fri, Nov 04, 2022 at 05:35:29PM +0000, Aidan MacDonald wrote:
-> >> >
-> >> > Assigning the parent clock in the DT works once, at boot, but going =
-off
-> >> > what you wrote in the commit message, if the clock driver has a
-> >> > .determine_rate() implementation that *can* reparent clocks then it
-> >> > probably *will* reparent them, and the DT assignment will be lost.
-> >>
-> >> Yes, indeed, but assigned-clock-parents never provided any sort of
-> >> guarantee on whether or not the clock was allowed to reparent or not.
-> >> It's just a one-off thing, right before probe, and a clk_set_parent()
-> >> call at probe will override that just fine.
-> >>
-> >> Just like assigned-clock-rates isn't permanent.
-> >>
-> >> > What I'm suggesting is a runtime constraint that the clock subsystem
-> >> > would enforce, and actively prevent drivers from changing the parent.
-> >> > Either explicitly with clk_set_parent() or due to .determine_rate().
-> >> >
-> >> > That way you could write a .determine_rate() implementation that *ca=
-n*
-> >> > select a better parent, but if the DT applies a constraint to fix the
-> >> > clock to a particular parent, the clock subsystem will force that pa=
-rent
-> >> > to be used so you can be sure the clock is never reparented by accid=
-ent.
-> >>
-> >> Yeah, that sounds like a good idea, and CLK_SET_RATE_NO_REPARENT isn't
-> >> too far off from this, it's just ignored by clk_set_parent() for now. I
-> >> guess we could rename CLK_SET_RATE_NO_REPARENT to CLK_NO_REPARENT, make
-> >> clk_set_parent handle it, and set that flag whenever
-> >> assigned-clock-parents is set on a clock.
-> >>
-> >> It's out of scope for this series though, and I certainly don't want to
-> >> deal with all the regressions it might create :)
-> >>
-> >
-> > This sounds like a new dt binding that says the assigned parent should
-> > never change. It sounds sort of like gpio hogs. A clock-hogs binding?
->=20
-> Ideally we want the clock driver to be able to reparent clocks freely
-> to get the best rate. But we also need some control over that to stop
-> consumers from being reparented in undesired ways. Eg. you might want
-> to make sure the GPU gets its own PLL so it can be reclocked easily,
-> and putting another device on the GPU's PLL could prevent that.
->=20
-> The only way to achieve this today is (1) never do any reparenting in
-> the clock driver; and (2) use assigned-clock-parents in the DT to set
-> up the entire clock tree manually.
->=20
-> Maxime said that (2) is basically wrong -- if assigned-clock-parents
-> provides no guarantee on what the OS does "after boot" then the OS is
-> pretty much free to ignore it.
-
-I didn't really say it's wrong, just that it never provided the
-guarantee you expect it to provide. I can't really say whether it's an
-issue or not on your platform.
-
-It's mostly unrelated to this series though, none of these patches
-affect that behavior in one way or the other.
-
-> My suggestion: add a per-clock bitmap to keep track of which parents
-> are allowed. Any operation that would select a parent clock not on the
-> whitelist should fail. Automatic reparenting should only select from
-> clocks on the whitelist. And we need new DT bindings for controlling
-> the whitelist, for example:
->=20
->     clock-parents-0 =3D <&clk1>, <&pll_c>;
->     clock-parents-1 =3D <&clk2>, <&pll_a>, <&pll_b>;
->=20
-> This means that clk1 can only have pll_c as a parent, while clk2 can
-> have pll_a or pll_b as parents. By default every clock will be able
-> to use any parent, so a list is only needed if the machine needs a
-> more restrictive policy.
->=20
-> assigned-clock-parents should disable automatic reparenting, but allow
-> explicit clk_set_parent(). This will allow clock drivers to start doing
-> reparenting without breaking old DTs.
-
-I'm generally not a fan of putting all these policies in the device
-tree. Do you have an example where it wouldn't be possible to do exactly
-this from the driver itself?
-
-Maxime
-
---ygvujwxxgbycerm7
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCZB2HXwAKCRDj7w1vZxhR
-xSbnAQCJvmVlpJgunPtELVTvf4BU6vbdciJ5jecqJV2UslBqNAEA3GtvUaTD5e0p
-e0nSvm2EbCQGLtQFj+xVrIWIaKTMYAc=
-=GgBk
------END PGP SIGNATURE-----
-
---ygvujwxxgbycerm7--
-
---===============3759756975816986375==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============3759756975816986375==--
+SGkgR2VlcnQsCgpUaGFuayB5b3UgZm9yIHRoZSByZXZpZXcuCgpPbiBGcmksIE1hciAyNCwgMjAy
+MyBhdCA5OjM14oCvQU0gR2VlcnQgVXl0dGVyaG9ldmVuIDxnZWVydEBsaW51eC1tNjhrLm9yZz4g
+d3JvdGU6Cj4KPiBIaSBQcmFiaGFrYXIsCj4KPiBUaGFua3MgZm9yIHlvdXIgcGF0Y2ghCj4KPiBP
+biBUaHUsIE1hciAyMywgMjAyMyBhdCA3OjU24oCvUE0gUHJhYmhha2FyIDxwcmFiaGFrYXIuY3Nl
+bmdnQGdtYWlsLmNvbT4gd3JvdGU6Cj4gPiBGcm9tOiBMYWQgUHJhYmhha2FyIDxwcmFiaGFrYXIu
+bWFoYWRldi1sYWQucmpAYnAucmVuZXNhcy5jb20+Cj4gPgo+ID4gVGhlIE9TVE0gYmxvY2sgb24g
+dGhlIFJaL0ZpdmUgU29DIGlzIGlkZW50aWNhbCB0byBvbmUgZm91bmQgb24gdGhlIFJaL0cyVUwK
+PiA+IFNvQy4gInJlbmVzYXMscjlhMDdnMDQzLW9zdG0iIGNvbXBhdGlibGUgc3RyaW5nIHdpbGwg
+YmUgdXNlZCBvbiB0aGUKPiA+IFJaL0ZpdmUgU29DIHNvIHRvIG1ha2UgdGhpcyBjbGVhciwgdXBk
+YXRlIHRoZSBjb21tZW50IHRvIGluY2x1ZGUgUlovRml2ZQo+ID4gU29DLgo+ID4KPiA+IE5vIGRy
+aXZlciBjaGFuZ2VzIGFyZSByZXF1aXJlZCBhcyBnZW5lcmljIGNvbXBhdGlibGUgc3RyaW5nCj4g
+PiAicmVuZXNhcyxvc3RtIiB3aWxsIGJlIHVzZWQgYXMgYSBmYWxsYmFjayBvbiBSWi9GaXZlIFNv
+Qy4KPgo+IFdoaWxlIHRoaXMgcGFyYWdyYXBoIGlzIHRydWUsIGl0IGRvZXNuJ3QgcmVhbGx5IG1h
+dHRlciwgYXMgeW91J3JlIG5vdAo+IGFkZGluZyBhIG5ldyBTb0Mtc3BlY2lmaWMgY29tcGF0aWJs
+ZSB2YWx1ZS4KPgpBZ3JlZWQsIEkgd2lsbCBrZWVwIHRoYXQgaW4gbWluZCBmb3IgZnV0dXJlIHBh
+dGNoZXMuCgpDaGVlcnMsClByYWJoYWthcgoKPiA+IFNpZ25lZC1vZmYtYnk6IExhZCBQcmFiaGFr
+YXIgPHByYWJoYWthci5tYWhhZGV2LWxhZC5yakBicC5yZW5lc2FzLmNvbT4KPgo+IFJldmlld2Vk
+LWJ5OiBHZWVydCBVeXR0ZXJob2V2ZW4gPGdlZXJ0K3JlbmVzYXNAZ2xpZGVyLmJlPgo+Cj4gPiAt
+LS0gYS9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvdGltZXIvcmVuZXNhcyxvc3Rt
+LnlhbWwKPiA+ICsrKyBiL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy90aW1lci9y
+ZW5lc2FzLG9zdG0ueWFtbAo+ID4gQEAgLTIzLDcgKzIzLDcgQEAgcHJvcGVydGllczoKPiA+ICAg
+ICAgICAtIGVudW06Cj4gPiAgICAgICAgICAgIC0gcmVuZXNhcyxyN3M3MjEwMC1vc3RtICAjIFJa
+L0ExSAo+ID4gICAgICAgICAgICAtIHJlbmVzYXMscjdzOTIxMC1vc3RtICAgIyBSWi9BMk0KPiA+
+IC0gICAgICAgICAgLSByZW5lc2FzLHI5YTA3ZzA0My1vc3RtICMgUlovRzJVTAo+ID4gKyAgICAg
+ICAgICAtIHJlbmVzYXMscjlhMDdnMDQzLW9zdG0gIyBSWi9HMlVMIGFuZCBSWi9GaXZlCj4gPiAg
+ICAgICAgICAgIC0gcmVuZXNhcyxyOWEwN2cwNDQtb3N0bSAjIFJaL0cye0wsTEN9Cj4gPiAgICAg
+ICAgICAgIC0gcmVuZXNhcyxyOWEwN2cwNTQtb3N0bSAjIFJaL1YyTAo+ID4gICAgICAgIC0gY29u
+c3Q6IHJlbmVzYXMsb3N0bSAgICAgICAgIyBHZW5lcmljCj4KPiBHcntvZXRqZSxlZXRpbmd9cywK
+Pgo+ICAgICAgICAgICAgICAgICAgICAgICAgIEdlZXJ0Cj4KPiAtLQo+IEdlZXJ0IFV5dHRlcmhv
+ZXZlbiAtLSBUaGVyZSdzIGxvdHMgb2YgTGludXggYmV5b25kIGlhMzIgLS0gZ2VlcnRAbGludXgt
+bTY4ay5vcmcKPgo+IEluIHBlcnNvbmFsIGNvbnZlcnNhdGlvbnMgd2l0aCB0ZWNobmljYWwgcGVv
+cGxlLCBJIGNhbGwgbXlzZWxmIGEgaGFja2VyLiBCdXQKPiB3aGVuIEknbSB0YWxraW5nIHRvIGpv
+dXJuYWxpc3RzIEkganVzdCBzYXkgInByb2dyYW1tZXIiIG9yIHNvbWV0aGluZyBsaWtlIHRoYXQu
+Cj4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAtLSBMaW51cyBUb3J2YWxkcwpfX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBt
+YWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRw
+czovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1z
+dG0zMgo=
