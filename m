@@ -2,61 +2,70 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 310076C797E
-	for <lists+linux-stm32@lfdr.de>; Fri, 24 Mar 2023 09:18:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2CCF46C7B82
+	for <lists+linux-stm32@lfdr.de>; Fri, 24 Mar 2023 10:35:06 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DB061C6A612;
-	Fri, 24 Mar 2023 08:17:59 +0000 (UTC)
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C9F62C6A603;
+	Fri, 24 Mar 2023 09:35:05 +0000 (UTC)
+Received: from mail-yw1-f171.google.com (mail-yw1-f171.google.com
+ [209.85.128.171])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4B110C6A60A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2E9DBC6904F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 24 Mar 2023 08:17:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1679645877; x=1711181877;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=huOgNrOBcSC1/tjpitYzPeEN/HeYkrzn2WanLt9fM1M=;
- b=VuYYSunBA75CI5fjIVajMN2avj0WAEU4v6vifZuieGOYDVmFBk7Dc+45
- 3nh7oCzT6V4KElR6DBrY9NUNazvhylzVyzXyhLGZ43PB/hFd6FNs1IWiA
- q5LqZms1ZHe3aWSmhBCuz1JRujixwivsN69D7M8zIuxgxXeOS1Iqra/TJ
- eM60RldBPLvNzKErDGqQ16p46WIEgB5ZZZ6MfG3BwmVVKFQ+aIKLSVa+z
- BYFcSDD435OC9KBUM5jBRm2uaSa4YNEFuCJER4aCyhqsE6D5m4Z0GR0JN
- odv1Xza2ClMuK9hbCvVYVhBz+8ttcLKB6iEs3vZArszDwLE+BTWzeXp5X w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10658"; a="320116171"
-X-IronPort-AV: E=Sophos;i="5.98,287,1673942400"; d="scan'208";a="320116171"
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Mar 2023 01:17:49 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10658"; a="928574755"
-X-IronPort-AV: E=Sophos;i="5.98,287,1673942400"; d="scan'208";a="928574755"
-Received: from mike-ilbpg1.png.intel.com ([10.88.227.76])
- by fmsmga006.fm.intel.com with ESMTP; 24 Mar 2023 01:17:45 -0700
-From: Michael Sit Wei Hong <michael.wei.hong.sit@intel.com>
-To: Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Jose Abreu <joabreu@synopsys.com>,
- "David S . Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Ong Boon Leong <boon.leong.ong@intel.com>, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux@armlinux.org.uk
-Date: Fri, 24 Mar 2023 16:16:56 +0800
-Message-Id: <20230324081656.2969663-4-michael.wei.hong.sit@intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20230324081656.2969663-1-michael.wei.hong.sit@intel.com>
-References: <20230324081656.2969663-1-michael.wei.hong.sit@intel.com>
+ Fri, 24 Mar 2023 09:35:04 +0000 (UTC)
+Received: by mail-yw1-f171.google.com with SMTP id
+ 00721157ae682-5445009c26bso22814367b3.8
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 24 Mar 2023 02:35:04 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112; t=1679650503;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=miXbgzLmIT8TbuaHosYV2bM+7farboHCB6roIPdYqKY=;
+ b=gbbsVXjI/GLLOUl5MpxCL7Y+lOGxpsZtgvxO4qRCweyKUIYFc4U5ehS/tB0EM16TBw
+ btHmbFi3WOUBUTVEg7XB7DS7qKQ/TEFyfMAs0e1lwmYOju+6QvOnjdC/bfjVuDYFiPuv
+ um8X6h2GiIH5XJUB6mxepYNRbIOqxVutxAp0dYceEXFjT6AyONplJCIoxM9Uj7IOcmE7
+ 1rjehrUxFBJndyjeoqLB1EFcYZg5PFdd1Uo7N+6WgbHaBbhtpYL+q0uWh/FLbPHAsiNI
+ p91DXm0EGtuY9Bal4BNEx8RAP2Rs3ivcs8Trag8+MxlA6o5lKCcgabEHIDuNr/kG49//
+ WSeA==
+X-Gm-Message-State: AAQBX9ftchiKBQNsSTdubHuPOksLyjM7i4Eaf1fKd2wdK2fnF17Wd8CY
+ ERSZiqgA9s0I7bMw7wTZkdG8x9oyJvCUPA==
+X-Google-Smtp-Source: AKy350bFpKPyytz03Sl1fqKwiSUPg5cS5CbZEY9cPAZNyVQRp+IF8k5xcdYVRcCo2zqSJcH/3/6z7g==
+X-Received: by 2002:a0d:d489:0:b0:544:626a:d90d with SMTP id
+ w131-20020a0dd489000000b00544626ad90dmr1603315ywd.40.1679650502845; 
+ Fri, 24 Mar 2023 02:35:02 -0700 (PDT)
+Received: from mail-yb1-f179.google.com (mail-yb1-f179.google.com.
+ [209.85.219.179]) by smtp.gmail.com with ESMTPSA id
+ dc8-20020a05690c0f0800b00545a08184besm317346ywb.78.2023.03.24.02.35.02
+ for <linux-stm32@st-md-mailman.stormreply.com>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 24 Mar 2023 02:35:02 -0700 (PDT)
+Received: by mail-yb1-f179.google.com with SMTP id p15so1388400ybl.9
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 24 Mar 2023 02:35:02 -0700 (PDT)
+X-Received: by 2002:a05:6902:10c3:b0:b75:9519:dbcd with SMTP id
+ w3-20020a05690210c300b00b759519dbcdmr979907ybu.12.1679650502403; Fri, 24 Mar
+ 2023 02:35:02 -0700 (PDT)
 MIME-Version: 1.0
-Cc: Lai Peter Jun Ann <peter.jun.ann.lai@intel.com>,
- Looi Hong Aun <hong.aun.looi@intel.com>, Voon Weifeng <weifeng.voon@intel.com>
-Subject: [Linux-stm32] [PATCH net v3 3/3] net: stmmac: remove redundant
-	fixup to support fixed-link mode
+References: <20230323185112.13855-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+In-Reply-To: <20230323185112.13855-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Fri, 24 Mar 2023 10:34:50 +0100
+X-Gmail-Original-Message-ID: <CAMuHMdVKRS1N5s-cvxrgSj9ev-Hh+gxfa-Hp2+z1zt+r7fEUWg@mail.gmail.com>
+Message-ID: <CAMuHMdVKRS1N5s-cvxrgSj9ev-Hh+gxfa-Hp2+z1zt+r7fEUWg@mail.gmail.com>
+To: Prabhakar <prabhakar.csengg@gmail.com>
+Cc: devicetree@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+ Daniel Lezcano <daniel.lezcano@linaro.org>, linux-kernel@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org, Chris Brandt <chris.brandt@renesas.com>,
+ Rob Herring <robh+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Biju Das <biju.das.jz@bp.renesas.com>, Thomas Gleixner <tglx@linutronix.de>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] dt-bindings: timer: renesas: ostm:
+	Document RZ/Five SoC
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -68,44 +77,41 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Currently, intel_speed_mode_2500() will fix-up xpcs_an_inband
-to 1 if the underlying controller has a max speed of 1000Mbps.
-The value has been initialized and modified if it is
-a fixed-linked setup earlier.
-
-This patch removes the fix-up to allow for fixed-linked setup
-support. In stmmac_phy_setup(), ovr_an_inband is set based on
-the value of xpcs_an_inband. Which in turn will return an
-error in phylink_parse_mode() where MLO_AN_FIXED and
-ovr_an_inband are both set.
-
-Fixes: c82386310d95 ("stmmac: intel: prepare to support 1000BASE-X phy interface setting")
-Signed-off-by: Michael Sit Wei Hong <michael.wei.hong.sit@intel.com>
----
- drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c | 1 -
- 1 file changed, 1 deletion(-)
-
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
-index 7deb1f817dac..6db87184bf75 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
-@@ -251,7 +251,6 @@ static void intel_speed_mode_2500(struct net_device *ndev, void *intel_data)
- 		priv->plat->mdio_bus_data->xpcs_an_inband = false;
- 	} else {
- 		priv->plat->max_speed = 1000;
--		priv->plat->mdio_bus_data->xpcs_an_inband = true;
- 	}
- }
- 
--- 
-2.34.1
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+SGkgUHJhYmhha2FyLAoKVGhhbmtzIGZvciB5b3VyIHBhdGNoIQoKT24gVGh1LCBNYXIgMjMsIDIw
+MjMgYXQgNzo1NuKAr1BNIFByYWJoYWthciA8cHJhYmhha2FyLmNzZW5nZ0BnbWFpbC5jb20+IHdy
+b3RlOgo+IEZyb206IExhZCBQcmFiaGFrYXIgPHByYWJoYWthci5tYWhhZGV2LWxhZC5yakBicC5y
+ZW5lc2FzLmNvbT4KPgo+IFRoZSBPU1RNIGJsb2NrIG9uIHRoZSBSWi9GaXZlIFNvQyBpcyBpZGVu
+dGljYWwgdG8gb25lIGZvdW5kIG9uIHRoZSBSWi9HMlVMCj4gU29DLiAicmVuZXNhcyxyOWEwN2cw
+NDMtb3N0bSIgY29tcGF0aWJsZSBzdHJpbmcgd2lsbCBiZSB1c2VkIG9uIHRoZQo+IFJaL0ZpdmUg
+U29DIHNvIHRvIG1ha2UgdGhpcyBjbGVhciwgdXBkYXRlIHRoZSBjb21tZW50IHRvIGluY2x1ZGUg
+UlovRml2ZQo+IFNvQy4KPgo+IE5vIGRyaXZlciBjaGFuZ2VzIGFyZSByZXF1aXJlZCBhcyBnZW5l
+cmljIGNvbXBhdGlibGUgc3RyaW5nCj4gInJlbmVzYXMsb3N0bSIgd2lsbCBiZSB1c2VkIGFzIGEg
+ZmFsbGJhY2sgb24gUlovRml2ZSBTb0MuCgpXaGlsZSB0aGlzIHBhcmFncmFwaCBpcyB0cnVlLCBp
+dCBkb2Vzbid0IHJlYWxseSBtYXR0ZXIsIGFzIHlvdSdyZSBub3QKYWRkaW5nIGEgbmV3IFNvQy1z
+cGVjaWZpYyBjb21wYXRpYmxlIHZhbHVlLgoKPiBTaWduZWQtb2ZmLWJ5OiBMYWQgUHJhYmhha2Fy
+IDxwcmFiaGFrYXIubWFoYWRldi1sYWQucmpAYnAucmVuZXNhcy5jb20+CgpSZXZpZXdlZC1ieTog
+R2VlcnQgVXl0dGVyaG9ldmVuIDxnZWVydCtyZW5lc2FzQGdsaWRlci5iZT4KCj4gLS0tIGEvRG9j
+dW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL3RpbWVyL3JlbmVzYXMsb3N0bS55YW1sCj4g
+KysrIGIvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL3RpbWVyL3JlbmVzYXMsb3N0
+bS55YW1sCj4gQEAgLTIzLDcgKzIzLDcgQEAgcHJvcGVydGllczoKPiAgICAgICAgLSBlbnVtOgo+
+ICAgICAgICAgICAgLSByZW5lc2FzLHI3czcyMTAwLW9zdG0gICMgUlovQTFICj4gICAgICAgICAg
+ICAtIHJlbmVzYXMscjdzOTIxMC1vc3RtICAgIyBSWi9BMk0KPiAtICAgICAgICAgIC0gcmVuZXNh
+cyxyOWEwN2cwNDMtb3N0bSAjIFJaL0cyVUwKPiArICAgICAgICAgIC0gcmVuZXNhcyxyOWEwN2cw
+NDMtb3N0bSAjIFJaL0cyVUwgYW5kIFJaL0ZpdmUKPiAgICAgICAgICAgIC0gcmVuZXNhcyxyOWEw
+N2cwNDQtb3N0bSAjIFJaL0cye0wsTEN9Cj4gICAgICAgICAgICAtIHJlbmVzYXMscjlhMDdnMDU0
+LW9zdG0gIyBSWi9WMkwKPiAgICAgICAgLSBjb25zdDogcmVuZXNhcyxvc3RtICAgICAgICAjIEdl
+bmVyaWMKCkdye29ldGplLGVldGluZ31zLAoKICAgICAgICAgICAgICAgICAgICAgICAgR2VlcnQK
+Ci0tIApHZWVydCBVeXR0ZXJob2V2ZW4gLS0gVGhlcmUncyBsb3RzIG9mIExpbnV4IGJleW9uZCBp
+YTMyIC0tIGdlZXJ0QGxpbnV4LW02OGsub3JnCgpJbiBwZXJzb25hbCBjb252ZXJzYXRpb25zIHdp
+dGggdGVjaG5pY2FsIHBlb3BsZSwgSSBjYWxsIG15c2VsZiBhIGhhY2tlci4gQnV0CndoZW4gSSdt
+IHRhbGtpbmcgdG8gam91cm5hbGlzdHMgSSBqdXN0IHNheSAicHJvZ3JhbW1lciIgb3Igc29tZXRo
+aW5nIGxpa2UgdGhhdC4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAtLSBMaW51cyBU
+b3J2YWxkcwpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpM
+aW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJl
+cGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0
+aW5mby9saW51eC1zdG0zMgo=
