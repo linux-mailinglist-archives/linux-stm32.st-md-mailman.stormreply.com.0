@@ -2,75 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id EBE466C968A
-	for <lists+linux-stm32@lfdr.de>; Sun, 26 Mar 2023 18:03:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3D7056C96A2
+	for <lists+linux-stm32@lfdr.de>; Sun, 26 Mar 2023 18:07:27 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B5690C6A603;
-	Sun, 26 Mar 2023 16:03:37 +0000 (UTC)
-Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com
- [209.85.208.41])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 013C5C6A5FB;
+	Sun, 26 Mar 2023 16:07:27 +0000 (UTC)
+Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com
+ [209.85.208.46])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8617BC65E6E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BE903C6A5F7
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 26 Mar 2023 16:03:36 +0000 (UTC)
-Received: by mail-ed1-f41.google.com with SMTP id i5so26454643eda.0
+ Sun, 26 Mar 2023 16:07:25 +0000 (UTC)
+Received: by mail-ed1-f46.google.com with SMTP id y4so26377304edo.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 26 Mar 2023 09:03:36 -0700 (PDT)
+ Sun, 26 Mar 2023 09:07:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amarulasolutions.com; s=google; t=1679846616;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ d=amarulasolutions.com; s=google; t=1679846845;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=QV3iGa8KiUlr1LClhXl1D1BGw0maVF3hcUmABXx2qKM=;
- b=rq5dyFnUl7RahLZHNlkhn8nQ8r1SCLpS07sZ1IVPZQJ3gVy0TCL2nFSO4YipbN3KkF
- cqTPtfp304/6vW5DlnooqxktttCdVjUHlOTqCWhTxmLShyqTJQYFn08BEWKvPXMfEDxa
- 6QhqrddIx+rQQal8P4izUsMxr75QpKTnFYBYo=
+ bh=dIi+oN72WZEPUIzF4SXi/G/Glt6kbpRtp0rjNVLhNxU=;
+ b=rYC+DXaM8jK8m+4KNtMsT/0cBAqMBwjPK7uRdODmDe+FpYpXt0WHXiiX9AF38CuVV4
+ 02Z0j2OfhQGgTKc+humC8K22N/iyMQrjCtAvFt9sWcSQ2w6sECg192pN2gdc6/J8qIOy
+ xiF7hiwyMolfZwM9rGos/DV5nbG64/s9M2zSk=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1679846616;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ d=1e100.net; s=20210112; t=1679846845;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=QV3iGa8KiUlr1LClhXl1D1BGw0maVF3hcUmABXx2qKM=;
- b=YsukzYGnRVnfz8W7D8vx6kO7LV+DdaJulZum2IFcDVUdAl5x7tyVCaGdJ/L2cbU1le
- 3el+Qy4U5PBXBOo0i2AP8cVhNbBORBuY9WuAPNmgGXmJfMkkKcR7yI5WK2uP5fc0pYtD
- uxGgm5krCfYxCQb+A0WmXUnIe286d8E2aECg9ze3lgWC8xVSgmgxR9X9vR9hJs/c/Btl
- GX8Z/8vV0vHsC8yYe4ES//PhSUsSjgknrN+wU867onfmGk1mxq03vgeih7G2IoeYPG/e
- ZgIfoCgcIlHwrNINC5zDwlT1NsYpd5vQWzXbpmkgGwHe6kyhcnmBtyFH8YPWaEjyV1jM
- hULw==
-X-Gm-Message-State: AAQBX9d186JJfRkXC959bcJfb8k7rB5m8BSHt1IEh8ee4WB+oA6lXKyH
- nrvbzqg9cND8upWawYt6Gt4j4A==
-X-Google-Smtp-Source: AKy350aWHhGJriWVrLf6TakD+wy8UiRbEvNVXeYw5vTRA6TEpbcBjqXWsqfoa/9hQ0foQ3aDVKRFZA==
-X-Received: by 2002:a05:6402:70a:b0:4fb:9b54:ccb8 with SMTP id
- w10-20020a056402070a00b004fb9b54ccb8mr9305209edx.21.1679846616252; 
- Sun, 26 Mar 2023 09:03:36 -0700 (PDT)
-Received: from dario-ThinkPad-T14s-Gen-2i.homenet.telecomitalia.it
- (host-87-0-102-254.retail.telecomitalia.it. [87.0.102.254])
- by smtp.gmail.com with ESMTPSA id
- m2-20020a50d7c2000000b00501fc87352fsm6869333edj.13.2023.03.26.09.03.35
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 26 Mar 2023 09:03:36 -0700 (PDT)
-From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
-To: linux-kernel@vger.kernel.org
-Date: Sun, 26 Mar 2023 18:03:24 +0200
-Message-Id: <20230326160325.3771891-5-dario.binacchi@amarulasolutions.com>
-X-Mailer: git-send-email 2.32.0
-In-Reply-To: <20230326160325.3771891-1-dario.binacchi@amarulasolutions.com>
-References: <20230326160325.3771891-1-dario.binacchi@amarulasolutions.com>
+ bh=dIi+oN72WZEPUIzF4SXi/G/Glt6kbpRtp0rjNVLhNxU=;
+ b=YarsI521vJ02PlHWAyHW3dtmTC0QCtivXvXi+tHkPlRf1ZzZ6m3CEyVNLrVP1f7kdo
+ mJIEmJr3x+uzT5KI1qSUXsIrujihk+whfgxc+LRabgr0DLVoKlQmClkEiVV23lduFSsV
+ IEhP0rkNMwC49zCBumdxE9vJS+jDxLklsp6M3mJPtrpKC7aVf7gSmL4f1ON1/iymell/
+ HoO71FrfUZG0amvQeyzjU7Zn0ztBQ2eGCyzRdLJF0xnC+Dvi1spWbyPxi5lu8IrP5kbP
+ aga/7PNWgeiPH+GZYJKmD+Os/lsLdFHTG8DE67ixqewi2rQM7M+D6M4/Jx/GdZZYMzAt
+ S5+g==
+X-Gm-Message-State: AAQBX9f6pRWueZZW/nYZl/Lj82P+h5AoVuyeYWXeM/kulZyaU9ipYblm
+ NJMIK4hC36TzJIDG7l3QZvpnDJl2R4/osMnxOIXNEA==
+X-Google-Smtp-Source: AKy350aSHCmM5L0AkEbNo7ZMCzsEjdop5DldR1H6TrcAFOLh2mVLvg3OquHgLQZFz71CzdYZwPS0LbUPocYBiudtQeU=
+X-Received: by 2002:a50:d517:0:b0:4fb:7e7a:ebf1 with SMTP id
+ u23-20020a50d517000000b004fb7e7aebf1mr4267496edi.6.1679846845304; Sun, 26 Mar
+ 2023 09:07:25 -0700 (PDT)
 MIME-Version: 1.0
-Cc: Rob Herring <robh@kernel.org>,
- Dario Binacchi <dario.binacchi@amarulasolutions.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, devicetree@vger.kernel.org,
+References: <20230315211040.2455855-1-dario.binacchi@amarulasolutions.com>
+ <CABGWkvpHHLNzZHDMzWveoHtApmR3czVvoCOnuWBZt-UoLVU-6g@mail.gmail.com>
+ <20230324155632.24chi5ndo23awhhp@pengutronix.de>
+In-Reply-To: <20230324155632.24chi5ndo23awhhp@pengutronix.de>
+From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+Date: Sun, 26 Mar 2023 18:07:14 +0200
+Message-ID: <CABGWkvpsza=b8GAFkyL2VMMHqkHyY4VLQ=8aky5G8vWTeAR49g@mail.gmail.com>
+To: Marc Kleine-Budde <mkl@pengutronix.de>
+Cc: Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org,
+ netdev@vger.kernel.org, linux-can@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
  Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Rob Herring <robh+dt@kernel.org>, Marc Kleine-Budde <mkl@pengutronix.de>,
- linux-arm-kernel@lists.infradead.org,
+ Rob Herring <robh+dt@kernel.org>, linux-arm-kernel@lists.infradead.org,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
  michael@amarulasolutions.com,
  Amarula patchwork <linux-amarula@amarulasolutions.com>,
  linux-stm32@st-md-mailman.stormreply.com,
  Vincent Mailhol <mailhol.vincent@wanadoo.fr>
-Subject: [Linux-stm32] [PATCH v8 4/5] ARM: dts: stm32: add pin map for CAN
-	controller on stm32f4
+Subject: Re: [Linux-stm32] [RESEND PATCH v7 0/5] can: bxcan: add support for
+	ST bxCAN controller
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,76 +76,36 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add pin configurations for using CAN controller on stm32f469-disco
-board. They are located on the Arduino compatible connector CN5 (CAN1)
-and on the extension connector CN12 (CAN2).
-
-Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
-
----
-
-(no changes since v3)
-
-Changes in v3:
-- Remove 'Dario Binacchi <dariobin@libero.it>' SOB.
-- Remove a blank line.
-
-Changes in v2:
-- Remove a blank line.
-
- arch/arm/boot/dts/stm32f4-pinctrl.dtsi | 30 ++++++++++++++++++++++++++
- 1 file changed, 30 insertions(+)
-
-diff --git a/arch/arm/boot/dts/stm32f4-pinctrl.dtsi b/arch/arm/boot/dts/stm32f4-pinctrl.dtsi
-index 4523c63475e4..3bb812d6399e 100644
---- a/arch/arm/boot/dts/stm32f4-pinctrl.dtsi
-+++ b/arch/arm/boot/dts/stm32f4-pinctrl.dtsi
-@@ -447,6 +447,36 @@ pins2 {
- 					slew-rate = <2>;
- 				};
- 			};
-+
-+			can1_pins_a: can1-0 {
-+				pins1 {
-+					pinmux = <STM32_PINMUX('B', 9, AF9)>; /* CAN1_TX */
-+				};
-+				pins2 {
-+					pinmux = <STM32_PINMUX('B', 8, AF9)>; /* CAN1_RX */
-+					bias-pull-up;
-+				};
-+			};
-+
-+			can2_pins_a: can2-0 {
-+				pins1 {
-+					pinmux = <STM32_PINMUX('B', 13, AF9)>; /* CAN2_TX */
-+				};
-+				pins2 {
-+					pinmux = <STM32_PINMUX('B', 5, AF9)>; /* CAN2_RX */
-+					bias-pull-up;
-+				};
-+			};
-+
-+			can2_pins_b: can2-1 {
-+				pins1 {
-+					pinmux = <STM32_PINMUX('B', 13, AF9)>; /* CAN2_TX */
-+				};
-+				pins2 {
-+					pinmux = <STM32_PINMUX('B', 12, AF9)>; /* CAN2_RX */
-+					bias-pull-up;
-+				};
-+			};
- 		};
- 	};
- };
--- 
-2.32.0
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+SGkgTWFyYywKCk9uIEZyaSwgTWFyIDI0LCAyMDIzIGF0IDQ6NTbigK9QTSBNYXJjIEtsZWluZS1C
+dWRkZSA8bWtsQHBlbmd1dHJvbml4LmRlPiB3cm90ZToKPgo+IE9uIDIxLjAzLjIwMjMgMTI6MjU6
+MTUsIERhcmlvIEJpbmFjY2hpIHdyb3RlOgo+ID4gQSBnZW50bGUgcGluZyB0byByZW1pbmQgeW91
+IG9mIHRoaXMgc2VyaWVzLgo+ID4gSSBoYXZlIG5vIGlkZWEgd2h5IGl0IGhhc24ndCBkZXNlcnZl
+ZCBhbnkgcmVzcG9uc2UgZm9yIHF1aXRlIHNvbWUKPiA+IHRpbWUuCj4gPiBJcyB0aGVyZSBhbnl0
+aGluZyBJIGFtIHN0aWxsIG1pc3Npbmc/Cj4KPiBJIHdvbmRlciBpZiB3ZSB3YW50IHRvIGRvIGEg
+cy9tYXN0ZXIvcHJpbWFyeS8gaW4gdGhlIERUIGJpbmRpbmdzIGFuZAo+IGRyaXZlcj8KClRoZSBT
+VCByZWZlcmVuY2UgbWFudWFsIChSTTAzODYpIGV4cGxpY2l0bHkgdXNlcyB0aGUgbWFzdGVyIGFu
+ZCBzbGF2ZSB3b3JkcwppbiB0aGUgYnhjYW4gY2hhcHRlci4gSSB3b3VsZCBzdGF5IGNvbnNpc3Rl
+bnQgd2l0aCBpdC4gQnV0IEkgaGF2ZSBubyBwcm9ibGVtCmNoYW5naW5nIGl0IHRvIHByaW1hcnku
+IEkganVzdCBzZW50IHY4IHdpdGggdGhlIGNoYW5nZXMgeW91IHN1Z2dlc3RlZApmb3Igc2hhcmVk
+IGlycQphbmQgY2xvY2sgZW5hYmxlL2Rpc2FibGUsIGJ1dCBpZiB5b3UgcHJlZmVyIHRvIHVzZSBw
+cmltYXJ5IEkgd2lsbCBzZW5kCnRoZSB2OSB2ZXJzaW9uCndpdGggdGhhdCBjaGFuZ2UuClBsZWFz
+ZSBsZXQgbWUga25vdyB5b3VyIG9waW5pb24uCgpUaGFua3MgYW5kIHJlZ2FyZHMsCkRhcmlvCgo+
+Cj4gcmVnYXJkcywKPiBNYXJjCj4KPiAtLQo+IFBlbmd1dHJvbml4IGUuSy4gICAgICAgICAgICAg
+ICAgIHwgTWFyYyBLbGVpbmUtQnVkZGUgICAgICAgICAgIHwKPiBFbWJlZGRlZCBMaW51eCAgICAg
+ICAgICAgICAgICAgICB8IGh0dHBzOi8vd3d3LnBlbmd1dHJvbml4LmRlICB8Cj4gVmVydHJldHVu
+ZyBOw7xybmJlcmcgICAgICAgICAgICAgIHwgUGhvbmU6ICs0OS01MTIxLTIwNjkxNy0xMjkgIHwK
+PiBBbXRzZ2VyaWNodCBIaWxkZXNoZWltLCBIUkEgMjY4NiB8IEZheDogICArNDktNTEyMS0yMDY5
+MTctNTU1NSB8CgoKCi0tIAoKRGFyaW8gQmluYWNjaGkKClNlbmlvciBFbWJlZGRlZCBMaW51eCBE
+ZXZlbG9wZXIKCmRhcmlvLmJpbmFjY2hpQGFtYXJ1bGFzb2x1dGlvbnMuY29tCgpfX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fCgoKQW1hcnVsYSBTb2x1dGlvbnMgU1JMCgpWaWEgTGUg
+Q2FuZXZhcmUgMzAsIDMxMTAwIFRyZXZpc28sIFZlbmV0bywgSVQKClQuICszOSAwNDIgMjQzIDUz
+MTAKaW5mb0BhbWFydWxhc29sdXRpb25zLmNvbQoKd3d3LmFtYXJ1bGFzb2x1dGlvbnMuY29tCl9f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMy
+IG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0
+dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4
+LXN0bTMyCg==
