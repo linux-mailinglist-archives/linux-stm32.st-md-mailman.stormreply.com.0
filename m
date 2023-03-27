@@ -2,63 +2,72 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 33B9A6CA06A
-	for <lists+linux-stm32@lfdr.de>; Mon, 27 Mar 2023 11:48:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 763816CA0E3
+	for <lists+linux-stm32@lfdr.de>; Mon, 27 Mar 2023 12:09:14 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EB54DC6A5FD;
-	Mon, 27 Mar 2023 09:48:50 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2613BC6A5F6;
+	Mon, 27 Mar 2023 10:09:14 +0000 (UTC)
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
+ [209.85.128.48])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CEEA1C03FC1
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9D4AEC03FC1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 27 Mar 2023 09:48:49 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 32R9EokW009540; Mon, 27 Mar 2023 11:48:39 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-transfer-encoding : content-type; s=selector1;
- bh=qc0y4lAt9GdcmkSaVA/yJM1SimYJoRCkG1QZdOU2rfQ=;
- b=6LhYbiINfXFB2MQn17wpiu3dm3tvDMi40VQ4E/3J/lraYCIYhNZH35mJ36t5W6zsTlpt
- sQ1fLf9C5tf8BKjzq8CXOyOSEItC8Rb3k+2FygHfQvvfHL18Zz21tzhslGbORadQlLIh
- 4soVMbdVNeifyvs4WzRG68KyEW6GFg1xhfsl7z1gtYuI+be0KuGVgtqB0w+Js7187/ns
- FCU56LujAdTzHxONjVVLJKFjbuQtT4uRtHGCvDmIZWhohILZdTMBYloHaqn+NdDZxkHW
- I7wcNHj6JRSG8MSMst56OwRHogoWQv6dq+5Hgo28qx2SnPgW96R2c3cYZ1HhLVi/1695 IQ== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3pk5xk9fvu-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 27 Mar 2023 11:48:39 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id C5F0A10002A;
- Mon, 27 Mar 2023 11:48:38 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node3.st.com [10.75.129.71])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id C0701212FAC;
- Mon, 27 Mar 2023 11:48:38 +0200 (CEST)
-Received: from localhost (10.48.0.175) by SHFDAG1NODE3.st.com (10.75.129.71)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.17; Mon, 27 Mar
- 2023 11:48:38 +0200
-From: Christophe Kerello <christophe.kerello@foss.st.com>
-To: <miquel.raynal@bootlin.com>, <richard@nod.at>, <vigneshr@ti.com>
-Date: Mon, 27 Mar 2023 11:47:42 +0200
-Message-ID: <20230327094742.38856-3-christophe.kerello@foss.st.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20230327094742.38856-1-christophe.kerello@foss.st.com>
-References: <20230327094742.38856-1-christophe.kerello@foss.st.com>
+ Mon, 27 Mar 2023 10:09:12 +0000 (UTC)
+Received: by mail-wm1-f48.google.com with SMTP id
+ i5-20020a05600c354500b003edd24054e0so6964055wmq.4
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 27 Mar 2023 03:09:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1679911752;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=hw+/RHBhs6qoBuvjwE715wDDIv45tvIt89aqUEaXIH8=;
+ b=N3Hr5w5nCaDfzUSpQRCDtPx/Qvsd4Gm+6qfGW2UtaaQSsKN9Pw4QMjzMKwhgZsTn7y
+ XhwI5vliTtQdo1E44Wo9dntl87Mv4rcyPrvjrNiZ5mDoElXrOFwYoPjUzEu1nRBQGqOv
+ sNNZusonmNapXEyqUqPiMo2jCD3FScrrSEy+7rAEsVVmrQPgj/yGYqmyNZ/RERs3fQTg
+ rv8qYaB7igo9EHXclRaHWjlr870TAu9AyDdaRaAaJ7Lh8JznpTVyenVDu5/xiVqZ2gUd
+ LU0JgrEPhleHqQkP17BRPq52yP3rRYrVS6N7xwTFrZxYQc5I1Oida6MgeEZmWGkbBlDy
+ yL+Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112; t=1679911752;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=hw+/RHBhs6qoBuvjwE715wDDIv45tvIt89aqUEaXIH8=;
+ b=ZmPWUpO00L977BVZ/HeuvzoDhktMj45eqgyZkr6Q3RLCHGE+ryGP7JKJYoWnsIJyLL
+ fjY5D5SAT0als/Aq+n9iLVzmYjMajRkx6rXO8AnLGaC7TJ6cdR1fCG3qDG+ZTRnQg26v
+ 7aIcxnWUeFw9EH9r2jacJFXQdyWQav6IbHNch7ZCPjoSgdUZjEYJE3EH4hV222ucNowi
+ brGPTRaCMnWrjNQQJwldTCapC2DalJk3i+DT0QiALgu9kqlharp+mdBct56GUbUHa7dG
+ TyTY9g+ebPw3RnSzxrH/faKs9yZPVPdw7ohqn2/n9QvBKChhTiM/dQYGwbLwCg8NfIWa
+ 9T5w==
+X-Gm-Message-State: AAQBX9dCImxJOcRep2LSMLFrP2Sp/8ru29MkBjBEH37aBJAR8T5hnKhw
+ F6dnAvf+qVBs7GMVpYZZLmK2Dw==
+X-Google-Smtp-Source: AKy350bAklOYTUxUxdr7ZG0/oisXLxeuAEwoOFvEmh6uLNgFLQqBGEXCgbCn+KqQuOwgQXmm7IdKFQ==
+X-Received: by 2002:a7b:c009:0:b0:3ef:62c6:9930 with SMTP id
+ c9-20020a7bc009000000b003ef62c69930mr5425149wmb.3.1679911752085; 
+ Mon, 27 Mar 2023 03:09:12 -0700 (PDT)
+Received: from [192.168.2.107] ([79.115.63.91])
+ by smtp.gmail.com with ESMTPSA id
+ h7-20020a05600c350700b003dd1bd0b915sm8402995wmq.22.2023.03.27.03.09.11
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 27 Mar 2023 03:09:11 -0700 (PDT)
+Message-ID: <5a72f14d-636d-8328-fc56-23be11c6737c@linaro.org>
+Date: Mon, 27 Mar 2023 11:09:10 +0100
 MIME-Version: 1.0
-X-Originating-IP: [10.48.0.175]
-X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SHFDAG1NODE3.st.com
- (10.75.129.71)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.254,Aquarius:18.0.942,Hydra:6.0.573,FMLib:17.11.170.22
- definitions=2023-03-24_11,2023-03-24_01,2023-02-09_01
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.7.1
+Content-Language: en-US
+To: Christophe Kerello <christophe.kerello@foss.st.com>,
+ miquel.raynal@bootlin.com, richard@nod.at, vigneshr@ti.com
+References: <20230327094742.38856-1-christophe.kerello@foss.st.com>
+From: Tudor Ambarus <tudor.ambarus@linaro.org>
+In-Reply-To: <20230327094742.38856-1-christophe.kerello@foss.st.com>
 Cc: linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH v2 2/2] mtd: rawnand: stm32_fmc2: use
-	timings.mode instead of checking tRC_min
+Subject: Re: [Linux-stm32] [PATCH v2 0/2] mtd: rawnand: stm32_fmc2: do not
+	support EDO mode
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,30 +84,31 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-This patch is using timings.mode value instead of checking tRC_min timing
-for EDO mode support.
 
-Signed-off-by: Christophe Kerello <christophe.kerello@foss.st.com>
----
- drivers/mtd/nand/raw/stm32_fmc2_nand.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/mtd/nand/raw/stm32_fmc2_nand.c b/drivers/mtd/nand/raw/stm32_fmc2_nand.c
-index 3abb63d00a0b..9e74bcd90aaa 100644
---- a/drivers/mtd/nand/raw/stm32_fmc2_nand.c
-+++ b/drivers/mtd/nand/raw/stm32_fmc2_nand.c
-@@ -1531,7 +1531,7 @@ static int stm32_fmc2_nfc_setup_interface(struct nand_chip *chip, int chipnr,
- 	if (IS_ERR(sdrt))
- 		return PTR_ERR(sdrt);
- 
--	if (sdrt->tRC_min < 30000)
-+	if (conf->timings.mode > 3)
- 		return -EOPNOTSUPP;
- 
- 	if (chipnr == NAND_DATA_IFACE_CHECK_ONLY)
--- 
-2.25.1
+On 3/27/23 10:47, Christophe Kerello wrote:
 
+Hi!
+
+> The first patch removes EDO mode support from FMC2 driver as the controller
+> does not support the feature and has to be applied on Kernel LTS. The second
+> patch uses timings.mode instead of checking tRC_min timing for Kernel next.
+> 
+
+Would have been good if you specified that the fix is needed for v5.4+
+and that the timings.mode was introduced in v5.8, it would have spared
+readers of checking if two patches are really needed. No need to resubmit.
+
+> Changes in v2:
+>  - second patch added for Kernel next
+> 
+> Christophe Kerello (2):
+>   mtd: rawnand: stm32_fmc2: do not support EDO mode
+>   mtd: rawnand: stm32_fmc2: use timings.mode instead of checking tRC_min
+> 
+>  drivers/mtd/nand/raw/stm32_fmc2_nand.c | 3 +++
+>  1 file changed, 3 insertions(+)
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
