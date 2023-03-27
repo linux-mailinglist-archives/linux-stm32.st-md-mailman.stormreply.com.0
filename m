@@ -2,69 +2,58 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B36F56C97D4
-	for <lists+linux-stm32@lfdr.de>; Sun, 26 Mar 2023 22:44:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 71CB06C9CC5
+	for <lists+linux-stm32@lfdr.de>; Mon, 27 Mar 2023 09:51:19 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3FC26C6A5FA;
-	Sun, 26 Mar 2023 20:44:56 +0000 (UTC)
-Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com
- [209.85.208.46])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 29BB8C6A5FA;
+	Mon, 27 Mar 2023 07:51:19 +0000 (UTC)
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [85.220.165.71])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6225EC6A5F6
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E0E9FC03FC1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 26 Mar 2023 20:44:55 +0000 (UTC)
-Received: by mail-ed1-f46.google.com with SMTP id eg48so27834891edb.13
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 26 Mar 2023 13:44:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1679863495;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=Rg7TxcKJoIFSkaCwotCW72pcnT4TJez67v9vLQ/IrGU=;
- b=U+UTXMMVn1I0vIb7JbhI533OPUghGmmVjN7T2j34vRiMiBVyW4+/nCIxsz2JhFQY8H
- y5702uE5WzEV8hZXaJcGeWAVNv8zTSfrYXShWORa+xFrQE/B/ia0nfG+MRFzDH5+/btO
- qI8vbw1VRM91Mnv4RV9AQctI0GzLgn5/r9XDfiIPGsqRTk7lJ3pgTCeIqsCSDMFJ0kCu
- TXV7I0pLmW/zfaqpWxwKJ+M4HLkO4ClV6sl6g6i5CYJxX5njwZ9HLx1HvBI6PgIpwgYm
- bVegUVHuMLyZN6YVVpX0CnGrpZRabRm9usFepaeQ7G9DGvDrmcY9k/n/VfLvPUX6C9hi
- Lz1g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1679863495;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=Rg7TxcKJoIFSkaCwotCW72pcnT4TJez67v9vLQ/IrGU=;
- b=TwPHGWwzypz39OkCDlhUIYeNjyO8bJoamewfFDvPngXbEEdHrK6Jetqw0katAawnNH
- RmoOQo217HiXcl4H29sYGXi6pclXzYaDRIUgcS4wuw9Xa66ekMxysD+NsoBdwS2RD3/p
- HCnFioRqR1AUieD95IonEwy6OgHimb/s+QDeU/qa7q+qKC1Ym9H/oUKWN5gwU9HFuoWU
- zGVrKNWolXFcJOq8F1K9KvsqDs0eg9PLjU0YFve837vLHxakqjSzwfCAobn6o44Ns6J7
- PRdcPdn2FP1XXc1grWjUCJd8jBSsFnEsJVGBitMCSpBTiDvM6QGNeI7kegzDX0VCV2n7
- lQBA==
-X-Gm-Message-State: AAQBX9dcl+WSNSG/oJX7LfmIdTlft+Q8uf4E7Vt//OGWSQGwl2ihnzL2
- 7E2EOSinwRqGhyh8/O7JWs1wJQ==
-X-Google-Smtp-Source: AKy350Zi4XPrE6pUIOEiX7g+AIp96m/eMZbCeuwMUcSEy8TD12/vN4JpsMygF2r/RriEcGd5dog4uQ==
-X-Received: by 2002:a17:906:4e1a:b0:935:20d8:c3c with SMTP id
- z26-20020a1709064e1a00b0093520d80c3cmr9918182eju.61.1679863494832; 
- Sun, 26 Mar 2023 13:44:54 -0700 (PDT)
-Received: from krzk-bin.. ([2a02:810d:15c0:828:6b51:4748:3f3f:ffcf])
- by smtp.gmail.com with ESMTPSA id
- t27-20020a50ab5b000000b004c0c5864cc5sm13954621edc.25.2023.03.26.13.44.54
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 26 Mar 2023 13:44:54 -0700 (PDT)
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-To: Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Date: Sun, 26 Mar 2023 22:44:52 +0200
-Message-Id: <20230326204452.80751-1-krzysztof.kozlowski@linaro.org>
-X-Mailer: git-send-email 2.34.1
+ Mon, 27 Mar 2023 07:51:17 +0000 (UTC)
+Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b]
+ helo=bjornoya.blackshift.org) by metis.ext.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <mkl@pengutronix.de>)
+ id 1pghdG-0003gU-7y; Mon, 27 Mar 2023 09:51:10 +0200
+Received: from pengutronix.de (unknown
+ [IPv6:2a01:4f8:1c1c:29e9:22:41ff:fe00:1400])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256) (Client did not present a certificate)
+ (Authenticated sender: mkl-all@blackshift.org)
+ by smtp.blackshift.org (Postfix) with ESMTPSA id ADDD219CEAC;
+ Mon, 27 Mar 2023 07:51:07 +0000 (UTC)
+Date: Mon, 27 Mar 2023 09:51:06 +0200
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+To: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+Message-ID: <20230327075106.ucfzckbhkwa23wci@pengutronix.de>
+References: <20230315211040.2455855-1-dario.binacchi@amarulasolutions.com>
+ <CABGWkvpHHLNzZHDMzWveoHtApmR3czVvoCOnuWBZt-UoLVU-6g@mail.gmail.com>
+ <20230324155632.24chi5ndo23awhhp@pengutronix.de>
+ <CABGWkvpsza=b8GAFkyL2VMMHqkHyY4VLQ=8aky5G8vWTeAR49g@mail.gmail.com>
 MIME-Version: 1.0
-Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Subject: [Linux-stm32] [PATCH] ARM: dts: stm32mp157c-lxa: drop invalid
-	simple-panel compatible
+In-Reply-To: <CABGWkvpsza=b8GAFkyL2VMMHqkHyY4VLQ=8aky5G8vWTeAR49g@mail.gmail.com>
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:b01:1d::7b
+X-SA-Exim-Mail-From: mkl@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
+Cc: Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org,
+ netdev@vger.kernel.org, linux-can@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Rob Herring <robh+dt@kernel.org>, linux-arm-kernel@lists.infradead.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ michael@amarulasolutions.com,
+ Amarula patchwork <linux-amarula@amarulasolutions.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Vincent Mailhol <mailhol.vincent@wanadoo.fr>
+Subject: Re: [Linux-stm32] [RESEND PATCH v7 0/5] can: bxcan: add support for
+ ST bxCAN controller
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,36 +65,88 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============4080518992301972276=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-"simple-panel" compatible is not documented and nothing in Linux kernel
-binds to it.
 
-Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
----
- arch/arm/boot/dts/stm32mp157c-lxa-mc1.dts | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+--===============4080518992301972276==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="w6wvx2l43euoafha"
+Content-Disposition: inline
 
-diff --git a/arch/arm/boot/dts/stm32mp157c-lxa-mc1.dts b/arch/arm/boot/dts/stm32mp157c-lxa-mc1.dts
-index cb00ce7cec8b..407ed3952f75 100644
---- a/arch/arm/boot/dts/stm32mp157c-lxa-mc1.dts
-+++ b/arch/arm/boot/dts/stm32mp157c-lxa-mc1.dts
-@@ -73,7 +73,7 @@ led-3 {
- 	};
- 
- 	panel: panel {
--		compatible = "edt,etm0700g0edh6", "simple-panel";
-+		compatible = "edt,etm0700g0edh6";
- 		backlight = <&backlight>;
- 		enable-gpios = <&gpiod 4 GPIO_ACTIVE_HIGH>;
- 		power-supply = <&reg_3v3>;
--- 
-2.34.1
+
+--w6wvx2l43euoafha
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On 26.03.2023 18:07:14, Dario Binacchi wrote:
+> > On 21.03.2023 12:25:15, Dario Binacchi wrote:
+> > > A gentle ping to remind you of this series.
+> > > I have no idea why it hasn't deserved any response for quite some
+> > > time.
+> > > Is there anything I am still missing?
+> >
+> > I wonder if we want to do a s/master/primary/ in the DT bindings and
+> > driver?
+>=20
+> The ST reference manual (RM0386) explicitly uses the master and slave wor=
+ds
+> in the bxcan chapter.
+
+ACK
+
+> I would stay consistent with it.
+
+Yes, this is a known problem, on the one hand I'd like the drivers to
+match the datasheet, but here I am in favor of a deviation.
+
+> But I have no problem changing it to primary. I just sent v8 with the
+> changes you suggested for shared irq and clock enable/disable,
+
+These changes look good!
+
+> but if you prefer to use primary I will send the v9 version with that
+> change. Please let me know your opinion.
+
+Please convert the driver and bindings to use "primary". Feel free to
+mention that the datasheet calls the primary peripheral "master".
+
+Marc
+
+--=20
+Pengutronix e.K.                 | Marc Kleine-Budde           |
+Embedded Linux                   | https://www.pengutronix.de  |
+Vertretung N=C3=BCrnberg              | Phone: +49-5121-206917-129  |
+Amtsgericht Hildesheim, HRA 2686 | Fax:   +49-5121-206917-5555 |
+
+--w6wvx2l43euoafha
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEDs2BvajyNKlf9TJQvlAcSiqKBOgFAmQhSucACgkQvlAcSiqK
+BOiPjQf9E5vCrptcbyNMbkUflXvdpNyA61rS146Nh9RTyCJEn2ACUqG+HnYYLtoY
+za2I3hFo7w8rtro5lMUCpm5VelthwcH0ye1rg6l27SrXoNJqscr1FIfjULRTCgPb
+UcKxrn++mNJILZVBCEVD0e9cEA6ZVz7aWXWOCodnjzR/Zs8t61VBYaKOU/owFzfl
+ukyZeFWOAlfHidUNyOf9DZcYH0yEyWDgQ1epR+FHvuMkj2/5u35K/dZjD0QzO0Ee
+wJzk3qbrJaR7amHXfaOwm+FYUl4xIEV6CDDXVxTvvUAAajNfzm+WZceALYU4tRQw
+GLaIUlEJklglv+zm79XBdEZeaGSQag==
+=FOmF
+-----END PGP SIGNATURE-----
+
+--w6wvx2l43euoafha--
+
+--===============4080518992301972276==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============4080518992301972276==--
