@@ -2,49 +2,67 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CD2D76C9D43
-	for <lists+linux-stm32@lfdr.de>; Mon, 27 Mar 2023 10:12:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 51A226C9D7E
+	for <lists+linux-stm32@lfdr.de>; Mon, 27 Mar 2023 10:19:31 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7E334C6A5F6;
-	Mon, 27 Mar 2023 08:12:01 +0000 (UTC)
-Received: from relay5-d.mail.gandi.net (relay5-d.mail.gandi.net
- [217.70.183.197])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 078C9C6A5F6;
+	Mon, 27 Mar 2023 08:19:31 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DB98DC03FC1
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 34213C03FC1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 27 Mar 2023 08:11:59 +0000 (UTC)
-Received: (Authenticated sender: miquel.raynal@bootlin.com)
- by mail.gandi.net (Postfix) with ESMTPSA id 9C6281C0015;
- Mon, 27 Mar 2023 08:11:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1679904719;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=GhvzASfzINt429FFDENdwaX1DAN8o/J7JPa/K12PqeE=;
- b=KtBVpLqLxvlJs8VA5ludhzfGeipr1FWpr3sHAGZ3b3nWk8iyPaq8kzNPhZGhJmjiod+8LB
- rvro547hpD376hvjvWR5ia9QivFHApEOtdEN/7R6yW+iNlxTv/8NIHzCb4XFbPRI+udoJz
- 0KCOyrK19k/RKZ7RyyFC7yWknSlFCg6rjdMu4UX4tOFUpfPF6e8ZgRFKvUk6f3iBk5yKfA
- D28+bEjlL3UkXOEF9j4pPpHoID2r+79ciMCxRHNYoUlGqH4gQCttfI9kjplPGiQTReJKGQ
- 56COzZAup502YD32YBhgNaW1Qk9QtcgwZqZBilBN0x2L6G21Nn9RXGdENtlR0g==
-Date: Mon, 27 Mar 2023 10:11:56 +0200
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: Christophe Kerello <christophe.kerello@foss.st.com>
-Message-ID: <20230327101156.0ec2816a@xps-13>
-In-Reply-To: <fcb600af-88dc-55a7-917e-4cf4673c2973@foss.st.com>
-References: <20230324160918.826452-1-christophe.kerello@foss.st.com>
- <20230324172528.4d3ccd4b@xps-13>
- <f4c32aa5-e5b1-6465-7708-ef0281baf0af@foss.st.com>
- <fcb600af-88dc-55a7-917e-4cf4673c2973@foss.st.com>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.0.0 (GTK+ 3.24.33; x86_64-pc-linux-gnu)
+ Mon, 27 Mar 2023 08:19:30 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 32R6Uniu009298; Mon, 27 Mar 2023 10:18:56 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=content-type :
+ message-id : date : mime-version : subject : to : cc : references : from :
+ in-reply-to; s=selector1; bh=y5kLfOIExEv07W1brka2YMJ9rrsL2u1+7uAbIFynvFE=;
+ b=SdzKVMVT7hjDMYXws0+P4hV98xt6q10mBjGpAXewpA2Uxj/C7oMOZDyXlmUdYin27Ghs
+ LM7Frljw63vTNoNktcf5emd/Yc+8AVSNnOiY43UTE6LHmqDySgRK0wgoSMDj9SmhxI/N
+ csHmlgV2G4AP3COtegSpo/k4h82ghKBYVhj9tauEay/cDA6/q3qed6bBvvis7uuhdCjg
+ z6+rwFSvX1Gndv5a4fHgcACB8CEorWs3NWICR9RaTku+Pd0M3CfqToVE3ZH4Uf/lQe+P
+ 3fxhGWZgvQuvI3sPdH4dNXI7JonayhE5GtvEZy8wr19vVxfeFNSglCeaom7pl+D5Fg8Q Gg== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3pk5xk8rq0-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 27 Mar 2023 10:18:56 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 84D5A10002A;
+ Mon, 27 Mar 2023 10:18:52 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node3.st.com [10.75.129.71])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 4B48E2115FD;
+ Mon, 27 Mar 2023 10:18:52 +0200 (CEST)
+Received: from [10.201.22.173] (10.201.22.173) by SHFDAG1NODE3.st.com
+ (10.75.129.71) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.17; Mon, 27 Mar
+ 2023 10:18:53 +0200
+Message-ID: <e2fd70fb-b341-a02e-b371-039cf44e2250@foss.st.com>
+Date: Mon, 27 Mar 2023 10:18:51 +0200
 MIME-Version: 1.0
-Cc: richard@nod.at, linux-stm32@st-md-mailman.stormreply.com,
- linux-mtd@lists.infradead.org, vigneshr@ti.com, linux-kernel@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH] mtd: rawnand: stm32_fmc2: do not support
-	EDO mode
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.7.0
+To: Herbert Xu <herbert@gondor.apana.org.au>
+References: <ZAxFBR3TdA7jUAgJ@gondor.apana.org.au>
+ <E1pavED-002xbf-LL@formenos.hmeau.com>
+ <CACRpkdav9u1_YR7mc9iz2OR=6itHhgGBFobZdtniZ7TttLY0Tw@mail.gmail.com>
+From: Thomas BOURGOIN <thomas.bourgoin@foss.st.com>
+In-Reply-To: <CACRpkdav9u1_YR7mc9iz2OR=6itHhgGBFobZdtniZ7TttLY0Tw@mail.gmail.com>
+X-Originating-IP: [10.201.22.173]
+X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SHFDAG1NODE3.st.com
+ (10.75.129.71)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.254,Aquarius:18.0.942,Hydra:6.0.573,FMLib:17.11.170.22
+ definitions=2023-03-24_11,2023-03-24_01,2023-02-09_01
+Cc: Linus Walleij <linus.walleij@linaro.org>, Li kunyu <kunyu@nfschina.com>,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-crypto@vger.kernel.org, mcoquelin.stm32@gmail.com, davem@davemloft.net,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [v7 PATCH 8/8] crypto: stm32 - Save and restore
+ between each request
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -56,43 +74,150 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============5437264996814495156=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SGkgQ2hyaXN0b3BoZSwKCmNocmlzdG9waGUua2VyZWxsb0Bmb3NzLnN0LmNvbSB3cm90ZSBvbiBN
-b24sIDI3IE1hciAyMDIzIDEwOjAyOjEzICswMjAwOgoKPiBIZWxsbyBNaXF1ZWwsCj4gCj4gT24g
-My8yNC8yMyAxNzozNCwgQ2hyaXN0b3BoZSBLZXJlbGxvIHdyb3RlOgo+ID4gSGVsbG8gTWlxdWVs
-LAo+ID4gCj4gPiBPbiAzLzI0LzIzIDE3OjI1LCBNaXF1ZWwgUmF5bmFsIHdyb3RlOiAgCj4gPj4g
-SGkgQ2hyaXN0b3BoZSwKPiA+Pgo+ID4+IGNocmlzdG9waGUua2VyZWxsb0Bmb3NzLnN0LmNvbSB3
-cm90ZSBvbiBGcmksIDI0IE1hciAyMDIzIDE3OjA5OjE4ICswMTAwOgo+ID4+ICAKPiA+Pj4gRk1D
-MiBjb250cm9sbGVyIGRvZXMgbm90IHN1cHBvcnQgRURPIG1vZGUgKHRpbWluZ3MgbW9kZSA0IGFu
-ZCA1KS4KPiA+Pj4KPiA+Pj4gU2lnbmVkLW9mZi1ieTogQ2hyaXN0b3BoZSBLZXJlbGxvIDxjaHJp
-c3RvcGhlLmtlcmVsbG9AZm9zcy5zdC5jb20+Cj4gPj4+IEZpeGVzOiAyY2Q0NTdmMzI4YzEgKCJt
-dGQ6IHJhd25hbmQ6IHN0bTMyX2ZtYzI6IGFkZCBTVE0zMiBGTUMyIE5BTkQgPj4+IGZsYXNoIGNv
-bnRyb2xsZXIgZHJpdmVyIikKPiA+Pj4gLS0tCj4gPj4+IMKgIGRyaXZlcnMvbXRkL25hbmQvcmF3
-L3N0bTMyX2ZtYzJfbmFuZC5jIHwgMyArKysKPiA+Pj4gwqAgMSBmaWxlIGNoYW5nZWQsIDMgaW5z
-ZXJ0aW9ucygrKQo+ID4+Pgo+ID4+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9tdGQvbmFuZC9yYXcv
-c3RtMzJfZm1jMl9uYW5kLmMgPj4+IGIvZHJpdmVycy9tdGQvbmFuZC9yYXcvc3RtMzJfZm1jMl9u
-YW5kLmMKPiA+Pj4gaW5kZXggNWQ2MjcwNDhjNDIwLi4zYWJiNjNkMDBhMGIgMTAwNjQ0Cj4gPj4+
-IC0tLSBhL2RyaXZlcnMvbXRkL25hbmQvcmF3L3N0bTMyX2ZtYzJfbmFuZC5jCj4gPj4+ICsrKyBi
-L2RyaXZlcnMvbXRkL25hbmQvcmF3L3N0bTMyX2ZtYzJfbmFuZC5jCj4gPj4+IEBAIC0xNTMxLDYg
-KzE1MzEsOSBAQCBzdGF0aWMgaW50ID4+PiBzdG0zMl9mbWMyX25mY19zZXR1cF9pbnRlcmZhY2Uo
-c3RydWN0IG5hbmRfY2hpcCAqY2hpcCwgaW50IGNoaXBuciwKPiA+Pj4gwqDCoMKgwqDCoCBpZiAo
-SVNfRVJSKHNkcnQpKQo+ID4+PiDCoMKgwqDCoMKgwqDCoMKgwqAgcmV0dXJuIFBUUl9FUlIoc2Ry
-dCk7Cj4gPj4+ICvCoMKgwqAgaWYgKHNkcnQtPnRSQ19taW4gPCAzMDAwMCkgIAo+ID4+Cj4gPj4g
-V2hlbiBpbnRyb2R1Y2luZyBOVi1ERFIgc3VwcG9ydCB3ZSBhcyB3ZWxsIGFkZGVkIGEgdGltaW5n
-cy5tb2RlIGZpZWxkLAo+ID4+IHBlcmhhcHMgeW91IGNvdWxkIHVzZSBpdD8gIAo+ID4gCj4gPiBZ
-ZXMsIEkgY2FuIHVzZSBpdC4gSXQgd2lsbCBiZSBkb25lIGluIFYyLgo+ID4gCj4gPiBSZWdhcmRz
-LAo+ID4gQ2hyaXN0b3BoZSBLZXJlbGxvLgo+ID4gICAKPiAKPiBJIGhhZCBhIGxvb2sgYXQgS2Vy
-bmVsIExUUywgYW5kIHRpbWluZ3MubW9kZSB3YXMgaW50cm9kdWNlZCBvbiBLZXJuZWwgTFRTIDUu
-MTAuIEFzIHRoaXMgcGF0Y2ggaGFzIGFsc28gdG8gYmUgYXBwbGllZCBvbiBLZXJuZWwgTFRTIDUu
-NCwgbXkgcHJvcG9zYWwgaXMgdG8gc2VuZCBhIG5ldyBwYXRjaCBzZXQuIFRoZSBmaXJzdCBwYXRj
-aCB3aWxsIGJlIHRoZSBjdXJyZW50IHBhdGNoIChmaXggZm9yIGFsbCBLZXJuZWwgTFRTKSBhbmQg
-dGhlIHNlY29uZCBwYXRjaCB3aWxsIHVzZSB0aW1pbmdzLm1vZGUgaW5zdGVhZCBvZiBjaGVja2lu
-ZyB0UkNfbWluIHRpbWluZ3MgZm9yIG5leHQgS2VybmVsIGRlbGl2ZXJ5LiBJcyB0aGlzIHByb3Bv
-c2FsIGFjY2VwdGFibGU/CgpXb3JrcyBmb3IgbWUhCgpUaGFua3MsCk1pcXXDqGwKX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGlu
-ZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9z
-dC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+--===============5437264996814495156==
+Content-Type: multipart/alternative;
+	boundary="------------at9odDqI0M0KzL853sl2g6UL"
+
+--------------at9odDqI0M0KzL853sl2g6UL
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+
+Hi Herbert,
+
+I'm working on the patch for STM32MP13.
+
+On Sat, Mar 11, 2023 at 10:09 AM Herbert Xu<herbert@gondor.apana.org.au>  wrote:
+
+> The Crypto API hashing paradigm requires the hardware state to
+> be exported between *each* request because multiple unrelated
+> hashes may be processed concurrently.
+>
+> The stm32 hardware is capable of producing the hardware hashing
+> state but it was only doing it in the export function.  This is
+> not only broken for export as you can't export a kernel pointer
+> and reimport it, but it also means that concurrent hashing was
+> fundamentally broken.
+>
+> Fix this by moving the saving and restoring of hardware hash
+> state between each and every hashing request.
+>
+> Fixes: 8a1012d3f2ab ("crypto: stm32 - Support for STM32 HASH module")
+> Reported-by: Li kunyu<kunyu@nfschina.com>
+> Signed-off-by: Herbert Xu<herbert@gondor.apana.org.au>
+> ---
+>
+>   drivers/crypto/stm32/stm32-hash.c |  164 ++++++++++++--------------------------
+>   1 file changed, 56 insertions(+), 108 deletions(-)
+>
+> diff --git a/drivers/crypto/stm32/stm32-hash.c b/drivers/crypto/stm32/stm32-hash.c
+> index f898ec62b459..17183f631bb4 100644
+> --- a/drivers/crypto/stm32/stm32-hash.c
+> +++ b/drivers/crypto/stm32/stm32-hash.c
+> @@ -135,7 +135,7 @@ struct stm32_hash_state {
+>   	u8 buffer[HASH_BUFLEN] __aligned(4);
+>   
+>   	/* hash state */
+> -	u32			*hw_context;
+> +	u32			hw_context[3 + HASH_CSR_REGISTER_NUMBER];
+>   };
+
+The version of HASH implemented in the STM32MP13 provides new algorithms (SHA512, SHA3, ...).
+Because of that, the constant HASH_CSR_REGISTER_NUMBER increases (from 54 to 103).
+Hence, the size of stm32_hash_state is equal to 688 which is bigger than HASH_MAX_STATESIZE(=512)
+and the driver fails to register the algorithms.
+
+Is there any reasons why HASH_MAX_STATESIZE is set to 512 ?
+I only see it used to define static arrays, so maybe it could be set to 1024.
+
+BR
+
+Thomas Bourgoin
+
+--------------at9odDqI0M0KzL853sl2g6UL
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <div class="moz-text-html" lang="x-unicode">
+      <div class="moz-text-html" lang="x-unicode">
+        <pre>Hi Herbert,
+
+I'm working on the patch for STM32MP13. </pre>
+        <div class="moz-cite-prefix">
+          <pre>On Sat, Mar 11, 2023 at 10:09 AM Herbert Xu <a class="moz-txt-link-rfc2396E" href="mailto:herbert@gondor.apana.org.au">&lt;herbert@gondor.apana.org.au&gt;</a> wrote:</pre>
+        </div>
+        <blockquote type="cite"
+          cite="mid:E1pavED-002xbf-LL@formenos.hmeau.com">
+          <pre class="moz-quote-pre" wrap="">The Crypto API hashing paradigm requires the hardware state to
+be exported between *each* request because multiple unrelated
+hashes may be processed concurrently.
+
+The stm32 hardware is capable of producing the hardware hashing
+state but it was only doing it in the export function.  This is
+not only broken for export as you can't export a kernel pointer
+and reimport it, but it also means that concurrent hashing was
+fundamentally broken.
+
+Fix this by moving the saving and restoring of hardware hash
+state between each and every hashing request.
+
+Fixes: 8a1012d3f2ab ("crypto: stm32 - Support for STM32 HASH module")
+Reported-by: Li kunyu <a class="moz-txt-link-rfc2396E" href="mailto:kunyu@nfschina.com">&lt;kunyu@nfschina.com&gt;</a>
+Signed-off-by: Herbert Xu <a class="moz-txt-link-rfc2396E" href="mailto:herbert@gondor.apana.org.au">&lt;herbert@gondor.apana.org.au&gt;</a>
+---
+
+ drivers/crypto/stm32/stm32-hash.c |  164 ++++++++++++--------------------------
+ 1 file changed, 56 insertions(+), 108 deletions(-)
+
+diff --git a/drivers/crypto/stm32/stm32-hash.c b/drivers/crypto/stm32/stm32-hash.c
+index f898ec62b459..17183f631bb4 100644
+--- a/drivers/crypto/stm32/stm32-hash.c
++++ b/drivers/crypto/stm32/stm32-hash.c
+@@ -135,7 +135,7 @@ struct stm32_hash_state {
+ 	u8 buffer[HASH_BUFLEN] __aligned(4);
+ 
+ 	/* hash state */
+-	u32			*hw_context;
++	u32			hw_context[3 + HASH_CSR_REGISTER_NUMBER];
+ };
+</pre>
+        </blockquote>
+        <pre>The version of HASH implemented in the STM32MP13 provides new algorithms (SHA512, SHA3, ...). 
+Because of that, the constant HASH_CSR_REGISTER_NUMBER increases (from 54 to 103).
+Hence, the size of stm32_hash_state is equal to 688 which is bigger than HASH_MAX_STATESIZE(=512)
+and the driver fails to register the algorithms.
+
+Is there any reasons why HASH_MAX_STATESIZE is set to 512 ? 
+I only see it used to define static arrays, so maybe it could be set to 1024.
+
+BR 
+
+Thomas Bourgoin
+</pre>
+      </div>
+    </div>
+  </body>
+</html>
+
+--------------at9odDqI0M0KzL853sl2g6UL--
+
+--===============5437264996814495156==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============5437264996814495156==--
