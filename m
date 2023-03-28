@@ -2,62 +2,52 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D97216CBEFA
-	for <lists+linux-stm32@lfdr.de>; Tue, 28 Mar 2023 14:27:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8393A6CC1A3
+	for <lists+linux-stm32@lfdr.de>; Tue, 28 Mar 2023 16:01:40 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4FAEBC6905A;
-	Tue, 28 Mar 2023 12:27:01 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 31305C6905A;
+	Tue, 28 Mar 2023 14:01:40 +0000 (UTC)
+Received: from relay3-d.mail.gandi.net (relay3-d.mail.gandi.net
+ [217.70.183.195])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 84353C65E42
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5DB8FC65E42
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 28 Mar 2023 12:26:59 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 32S9siE8000676; Tue, 28 Mar 2023 14:26:51 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=from : to : cc :
- subject : date : message-id : mime-version : content-transfer-encoding :
- content-type; s=selector1;
- bh=vQJyBdogS7caFFni3BiMJMfnNRw3F1q4T8Gou8pNges=;
- b=B6TaUwHbLSZ5OQwcc1LdnonVrSWWiDcyfeLik235jFNIaTt9C1rvUre60tWxw1F4xfou
- FDDyzQTHgx9p04elXUJqeJ6sbHE1nrmwurIm8cniDNo2XeKENGxIFrmvUFvSY2IIQz5o
- CrmUZmrQIztMdT16DXzYhuZbEpO2+g7ICpXfIiqF+uvOlSzuCTi/xjzFAfERuqWfW2bv
- AzEVNaRLUSGiirr3akhsQNRt+GQGrq47El/RjCS9yugBZPA5lBRhQj3ucXf+tyCUCMQQ
- TwrzIpZJiVB/bo4ndwQ59gx99lQ4lX8eI8aycTFlKEYjLD1fcsZa8IfPkSx2QcK8Dcx+ 7w== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3pkvs4smsm-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 28 Mar 2023 14:26:51 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 11BF2100034;
- Tue, 28 Mar 2023 14:26:47 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node3.st.com [10.75.129.71])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 06C7E215122;
- Tue, 28 Mar 2023 14:26:47 +0200 (CEST)
-Received: from localhost (10.48.0.175) by SHFDAG1NODE3.st.com (10.75.129.71)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.17; Tue, 28 Mar
- 2023 14:26:46 +0200
-From: Christophe Kerello <christophe.kerello@foss.st.com>
-To: <robh+dt@kernel.org>, <krzysztof.kozlowski+dt@linaro.org>,
- <alexandre.torgue@foss.st.com>
-Date: Tue, 28 Mar 2023 14:26:06 +0200
-Message-ID: <20230328122606.191211-1-christophe.kerello@foss.st.com>
-X-Mailer: git-send-email 2.25.1
+ Tue, 28 Mar 2023 14:01:38 +0000 (UTC)
+Received: (Authenticated sender: miquel.raynal@bootlin.com)
+ by mail.gandi.net (Postfix) with ESMTPSA id CB45B6001E;
+ Tue, 28 Mar 2023 14:01:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
+ t=1680012098;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=ajebor2cex6mpQmPcqQgjjD0LTwwf/mMcc5v184iISI=;
+ b=ZAIpBrc0V73yhIwZQdNSHbg3F6MObzE0GnIXlzghrmbaIRbhy1VGnMsN5SSKJvjFuVfMMQ
+ fTZQIvi+2hJ80IprvkwGAujDIJ34xGLjPMptRSAdXS3nYFaxw2FZBdcrRvRwqR820xv5bS
+ bc7OwQfWMVRz2c1pemi7eKMJgDBJQRIuTsluK3uSUhMQp8EEWAtGhRNP8MxGEcJy2mDhli
+ R81Y9TAl9tJBUqVNlXvEjpzqBwnOD0EEnJGANkjl+pzZJpdbXC0y3ip3WSlbrnFwFZy1pK
+ sPG3TIOJDD+KpGETKaT2ZrRVy0Xk7iEdkbtMb7BbywcHKMIVwbQDlzLlZlCy+g==
+Date: Tue, 28 Mar 2023 16:01:35 +0200
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Christophe Kerello <christophe.kerello@foss.st.com>
+Message-ID: <20230328160135.06ef6e50@xps-13>
+In-Reply-To: <6759a843-409b-d9fe-8a00-ed6d69144aaf@foss.st.com>
+References: <20230327094742.38856-1-christophe.kerello@foss.st.com>
+ <20230327094742.38856-3-christophe.kerello@foss.st.com>
+ <75dcd205-5432-7103-370c-d65d792631ea@linaro.org>
+ <20230327124313.1ccd3d66@xps-13>
+ <70d0a8b6-62c2-fa3e-df5c-f86ba75484d0@linaro.org>
+ <6759a843-409b-d9fe-8a00-ed6d69144aaf@foss.st.com>
+Organization: Bootlin
+X-Mailer: Claws Mail 4.0.0 (GTK+ 3.24.33; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-X-Originating-IP: [10.48.0.175]
-X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SHFDAG1NODE3.st.com
- (10.75.129.71)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.254,Aquarius:18.0.942,Hydra:6.0.573,FMLib:17.11.170.22
- definitions=2023-03-24_11,2023-03-28_01,2023-02-09_01
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH] ARM: dts: stm32: add FMC support on
-	STM32MP13x SoC family
+Cc: vigneshr@ti.com, richard@nod.at, linux-kernel@vger.kernel.org,
+ Tudor Ambarus <tudor.ambarus@linaro.org>, linux-mtd@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH v2 2/2] mtd: rawnand: stm32_fmc2: use
+ timings.mode instead of checking tRC_min
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,67 +59,42 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-This patch adds the FMC support on STM32MP13x SoC family.
-
-Signed-off-by: Christophe Kerello <christophe.kerello@foss.st.com>
----
- arch/arm/boot/dts/stm32mp131.dtsi | 34 +++++++++++++++++++++++++++++++
- 1 file changed, 34 insertions(+)
-
-diff --git a/arch/arm/boot/dts/stm32mp131.dtsi b/arch/arm/boot/dts/stm32mp131.dtsi
-index 5949473cbbfd..7af3eb15c204 100644
---- a/arch/arm/boot/dts/stm32mp131.dtsi
-+++ b/arch/arm/boot/dts/stm32mp131.dtsi
-@@ -1137,6 +1137,40 @@ mdma: dma-controller@58000000 {
- 			dma-requests = <48>;
- 		};
- 
-+		fmc: memory-controller@58002000 {
-+			#address-cells = <2>;
-+			#size-cells = <1>;
-+			compatible = "st,stm32mp1-fmc2-ebi";
-+			reg = <0x58002000 0x1000>;
-+			clocks = <&rcc FMC_K>;
-+			resets = <&rcc FMC_R>;
-+			status = "disabled";
-+
-+			ranges = <0 0 0x60000000 0x04000000>, /* EBI CS 1 */
-+				 <1 0 0x64000000 0x04000000>, /* EBI CS 2 */
-+				 <2 0 0x68000000 0x04000000>, /* EBI CS 3 */
-+				 <3 0 0x6c000000 0x04000000>, /* EBI CS 4 */
-+				 <4 0 0x80000000 0x10000000>; /* NAND */
-+
-+			nand-controller@4,0 {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+				compatible = "st,stm32mp1-fmc2-nfc";
-+				reg = <4 0x00000000 0x1000>,
-+				      <4 0x08010000 0x1000>,
-+				      <4 0x08020000 0x1000>,
-+				      <4 0x01000000 0x1000>,
-+				      <4 0x09010000 0x1000>,
-+				      <4 0x09020000 0x1000>;
-+				interrupts = <GIC_SPI 49 IRQ_TYPE_LEVEL_HIGH>;
-+				dmas = <&mdma 24 0x2 0x12000a02 0x0 0x0>,
-+				       <&mdma 24 0x2 0x12000a08 0x0 0x0>,
-+				       <&mdma 25 0x2 0x12000a0a 0x0 0x0>;
-+				dma-names = "tx", "rx", "ecc";
-+				status = "disabled";
-+			};
-+		};
-+
- 		sdmmc1: mmc@58005000 {
- 			compatible = "st,stm32-sdmmc2", "arm,pl18x", "arm,primecell";
- 			arm,primecell-periphid = <0x20253180>;
--- 
-2.25.1
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+SGkgQ2hyaXN0b3BoZSwKCmNocmlzdG9waGUua2VyZWxsb0Bmb3NzLnN0LmNvbSB3cm90ZSBvbiBU
+dWUsIDI4IE1hciAyMDIzIDA5OjI3OjU1ICswMjAwOgoKPiBIZWxsbyBNaXF1ZWwsCj4gCj4gT24g
+My8yNy8yMyAxMzowNiwgVHVkb3IgQW1iYXJ1cyB3cm90ZToKPiA+IAo+ID4gCj4gPiBPbiAzLzI3
+LzIzIDExOjQzLCBNaXF1ZWwgUmF5bmFsIHdyb3RlOiAgCj4gPj4gSGkgVHVkb3IsCj4gPj4KPiA+
+PiB0dWRvci5hbWJhcnVzQGxpbmFyby5vcmcgd3JvdGUgb24gTW9uLCAyNyBNYXIgMjAyMyAxMToz
+MDo1MSArMDEwMDoKPiA+PiAgCj4gPj4+IE9uIDMvMjcvMjMgMTA6NDcsIENocmlzdG9waGUgS2Vy
+ZWxsbyB3cm90ZTogIAo+ID4+Pj4gVGhpcyBwYXRjaCBpcyB1c2luZyB0aW1pbmdzLm1vZGUgdmFs
+dWUgaW5zdGVhZCBvZiBjaGVja2luZyB0UkNfbWluIHRpbWluZwo+ID4+Pj4gZm9yIEVETyBtb2Rl
+IHN1cHBvcnQuICAKPiA+Pj4+ICAgID4+PiAgCj4gPj4+IEZpeGVzIGFuZCBDYyB0byBzdGFibGUg
+aGVyZSB0b28sIGFzIHlvdSdkIGxpa2UgdG8gaGF2ZSB0aGlzIGJhY2twb3J0ZWQKPiA+Pj4gYXMg
+d2VsbCwgZG9uJ3QgeW91PyAgCj4gPj4KPiA+PiBBY3R1YWxseSB0aGUgcmVhc29uIHdoeSBDaHJp
+c3RvcGhlIHNwbGl0IHRoaXMgaW50byB0d28gcGF0Y2hlcyBpcwo+ID4+IGJlY2F1c2UgdGltaW5n
+cy5tb2RlIHdhcyBpbnRyb2R1Y2VkIHJhdGhlciBsYXRlbHksIGhlIHdhbnRlZCB0aGUgc2FtZQo+
+ID4+IHBhdGNoIHRvIGFwcGx5IG9uIGFsbCBzdGFibGUga2VybmVscywgaGUgYWN0dWFsbHkgYXNr
+ZWQgZm9yIHRoYXQgc3BsaXQKPiA+PiBhbmQgSSBhZ3JlZWQgKGFub3RoZXIgc29sdXRpb24gd291
+bGQgaGF2ZSBiZWVuIHRvIHNlbmQgdGhpcyBjdXJyZW50Cj4gPj4gcGF0Y2ggdG8gTGludXMgYW5k
+IGhhdmUgdGhlIG90aGVyIHZlcnNpb24gc2VudCB0byBzdGFibGUsIGJ1dCBpdAo+ID4+IHJlcXVp
+cmVzIGEgYml0IG9mIHNjaGVkdWxpbmcgb24gYm90aCBlbmRzKS4KPiA+Pgo+ID4+IExpbms6IGh0
+dHBzOi8vbG9yZS5rZXJuZWwub3JnL2xpbnV4LW10ZC8yMDIzMDMyNzEwMTE1Ni4wZWMyODE2YUB4
+cHMtMTMvVC8jdCAgCj4gPiAKPiA+IFJpZ2h0LCBJIHVuZGVyc3Rvb2QgdGhhdCBmcm9tIHRoZSBi
+ZWdpbm5pbmcuIElmIGl0IHdlcmUgdG8gbWUsIEkgd291bGQKPiA+IENjOiBzdGFibGVAdmdlci5r
+ZXJuZWwub3JnICN2NS40KyBmb3IgdGhlIGZpcnN0IHBhdGNoIGFuZAo+ID4gQ2M6IHN0YWJsZUB2
+Z2VyLmtlcm5lbC5vcmcgI3Y1LjEwKyBmb3IgdGhlIHNlY29uZC4KPiA+IAo+ID4gU28gZmlyc3Qg
+d291bGQgYmUgYWxvbmUganVzdCBpbiB2NS40LCBhbmQgc3RhcnRpbmcgd2l0aCB2NS4xMCB3ZSds
+bCBoYXZlCj4gPiBib3RoIGFuZCB3ZSdsbCBtaW1pYyB3aGF0IHdlIGN1cnJlbnRseSBoYXZlIGlu
+IHVwc3RyZWFtIG1haW5saW5lLgo+ID4gICAKPiAKPiBJIGNhbiBzZW5kIGEgVjMgd2l0aCBjYyB0
+YWcgYWRkZWQgYXMgcGVyIFR1ZG9yJ3Mgc3VnZ2VzdGlvbi4KPiBPciBjYyB0YWcgd2lsbCBiZSBh
+ZGRlZCB3aGVuIHRoZSBwYXRjaGVzIHdpbGwgYmUgYXBwbGllZD8KCkFjdHVhbGx5IEkgaGF2ZSBv
+dGhlciBmaXhlcyB0byBxdWV1ZSBlYXJseSBuZXh0IHdlZWssIHNvIGNhbiB5b3UgcGxlYXNlCnNl
+bmQgYSB2MyB3aXRoIHRoZSB0YWdzIGRpc2N1c3NlZCB3aXRoIFR1ZG9yPwoKVGhhbmtzLApNaXF1
+w6hsCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4
+LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHku
+Y29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZv
+L2xpbnV4LXN0bTMyCg==
