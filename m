@@ -2,68 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5156F6CB999
-	for <lists+linux-stm32@lfdr.de>; Tue, 28 Mar 2023 10:39:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D01C46CB9C2
+	for <lists+linux-stm32@lfdr.de>; Tue, 28 Mar 2023 10:47:37 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0CCFAC6A5EF;
-	Tue, 28 Mar 2023 08:39:56 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8025EC6A5EF;
+	Tue, 28 Mar 2023 08:47:37 +0000 (UTC)
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [85.220.165.71])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EFA21C03FC1
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1FC70C03FC1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 28 Mar 2023 08:39:54 +0000 (UTC)
-Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 32S7bdFv002982; Tue, 28 Mar 2023 10:39:46 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=message-id : date :
- mime-version : subject : to : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=Oo5Fr4iLIl0dbDky1BO8KNDKbs0qovmmIrHm+rhBjfY=;
- b=x1f+WBgbb8ohbJYPW4OP9dOg5VxsebrxULRqPggIB1f+CsM6HhSVbSHGBkT4lfkUbX4J
- koPLGYxlsczkZ0R6oCjAk7KRg8yAUS8Upg3LlbxKjGd5bFtG6GecNRXur9PwmhOzH8Uh
- 5Xukax2HlIvB4TTIlUJsuTCrzY4vDY6wLUfM1JODCgDOy10qHrhTr7WZOgizNyLNspr1
- F4w/Huse38b+ud8ZoICHE60iQORmEzmnnepCKWVW9gLUyx2Xng8eF7+3maj+osCitr45
- vMsX7+mvgdXvZ2FV+0c2fVTHPn9dbj0c44/3UAgH24plHXweyVPqZ6dU+OJ9TIhVfOKC UA== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3phsn309u3-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 28 Mar 2023 10:39:46 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id CC69E10002A;
- Tue, 28 Mar 2023 10:39:44 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id BF0D620F2AB;
- Tue, 28 Mar 2023 10:39:44 +0200 (CEST)
-Received: from [10.201.21.93] (10.201.21.93) by SHFDAG1NODE1.st.com
- (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.17; Tue, 28 Mar
- 2023 10:39:44 +0200
-Message-ID: <570618d3-fd74-1921-10cc-5ac87c16facf@foss.st.com>
-Date: Tue, 28 Mar 2023 10:39:43 +0200
+ Tue, 28 Mar 2023 08:47:36 +0000 (UTC)
+Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b]
+ helo=bjornoya.blackshift.org) by metis.ext.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <mkl@pengutronix.de>)
+ id 1ph4z7-00020w-1P; Tue, 28 Mar 2023 10:47:17 +0200
+Received: from pengutronix.de (unknown
+ [IPv6:2a01:4f8:1c1c:29e9:22:41ff:fe00:1400])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256) (Client did not present a certificate)
+ (Authenticated sender: mkl-all@blackshift.org)
+ by smtp.blackshift.org (Postfix) with ESMTPSA id EB51019E085;
+ Tue, 28 Mar 2023 08:47:11 +0000 (UTC)
+Date: Tue, 28 Mar 2023 10:47:10 +0200
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+To: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+Message-ID: <20230328084710.jnrwvydewx3atxti@pengutronix.de>
+References: <20230328073328.3949796-1-dario.binacchi@amarulasolutions.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.2
-Content-Language: en-US
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, Rob Herring
- <robh+dt@kernel.org>, Krzysztof Kozlowski
- <krzysztof.kozlowski+dt@linaro.org>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>, <devicetree@vger.kernel.org>,
- <linux-stm32@st-md-mailman.stormreply.com>,
- <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
-References: <20230326204452.80751-1-krzysztof.kozlowski@linaro.org>
-From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
-In-Reply-To: <20230326204452.80751-1-krzysztof.kozlowski@linaro.org>
-X-Originating-IP: [10.201.21.93]
-X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SHFDAG1NODE1.st.com
- (10.75.129.69)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.254,Aquarius:18.0.942,Hydra:6.0.573,FMLib:17.11.170.22
- definitions=2023-03-24_11,2023-03-27_02,2023-02-09_01
-Subject: Re: [Linux-stm32] [PATCH] ARM: dts: stm32mp157c-lxa: drop invalid
- simple-panel compatible
+In-Reply-To: <20230328073328.3949796-1-dario.binacchi@amarulasolutions.com>
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:b01:1d::7b
+X-SA-Exim-Mail-From: mkl@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
+Cc: Viresh Kumar <viresh.kumar@linaro.org>,
+ Christophe Roullier <christophe.roullier@foss.st.com>,
+ Eric Dumazet <edumazet@google.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ linux-stm32@st-md-mailman.stormreply.com, Rob Herring <robh@kernel.org>,
+ Vincent Mailhol <mailhol.vincent@wanadoo.fr>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Wolfgang Grandegger <wg@grandegger.com>,
+ devicetree@vger.kernel.org, linux-can@vger.kernel.org,
+ Rob Herring <robh+dt@kernel.org>, linux-arm-kernel@lists.infradead.org,
+ michael@amarulasolutions.com, netdev@vger.kernel.org,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>, linux-kernel@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Mark Brown <broonie@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Amarula patchwork <linux-amarula@amarulasolutions.com>,
+ "David S. Miller" <davem@davemloft.net>
+Subject: Re: [Linux-stm32] [PATCH v10 0/5] can: bxcan: add support for ST
+	bxCAN controller
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,41 +67,86 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Type: multipart/mixed; boundary="===============8153323449732462613=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Krzysztof
 
-On 3/26/23 22:44, Krzysztof Kozlowski wrote:
-> "simple-panel" compatible is not documented and nothing in Linux kernel
-> binds to it.
-> 
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-> ---
->   arch/arm/boot/dts/stm32mp157c-lxa-mc1.dts | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/arch/arm/boot/dts/stm32mp157c-lxa-mc1.dts b/arch/arm/boot/dts/stm32mp157c-lxa-mc1.dts
-> index cb00ce7cec8b..407ed3952f75 100644
-> --- a/arch/arm/boot/dts/stm32mp157c-lxa-mc1.dts
-> +++ b/arch/arm/boot/dts/stm32mp157c-lxa-mc1.dts
-> @@ -73,7 +73,7 @@ led-3 {
->   	};
->   
->   	panel: panel {
-> -		compatible = "edt,etm0700g0edh6", "simple-panel";
-> +		compatible = "edt,etm0700g0edh6";
->   		backlight = <&backlight>;
->   		enable-gpios = <&gpiod 4 GPIO_ACTIVE_HIGH>;
->   		power-supply = <&reg_3v3>;
+--===============8153323449732462613==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="jrabto3ooziwdlnq"
+Content-Disposition: inline
 
-Applied on stm32-next with a tiny update in commit title.
 
-Cheers.
-Alex
+--jrabto3ooziwdlnq
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On 28.03.2023 09:33:23, Dario Binacchi wrote:
+> The series adds support for the basic extended CAN controller (bxCAN)
+> found in many low- to middle-end STM32 SoCs.
+>=20
+> The driver has been tested on the stm32f469i-discovery board with a
+> kernel version 5.19.0-rc2 in loopback + silent mode:
+>=20
+> ip link set can0 type can bitrate 125000 loopback on listen-only on
+> ip link set up can0
+> candump can0 -L &
+> cansend can0 300#AC.AB.AD.AE.75.49.AD.D1
+>=20
+> For uboot and kernel compilation, as well as for rootfs creation I used
+> buildroot:
+>=20
+> make stm32f469_disco_sd_defconfig
+> make
+>=20
+> but I had to patch can-utils and busybox as can-utils and iproute are
+> not compiled for MMU-less microcotrollers. In the case of can-utils,
+> replacing the calls to fork() with vfork(), I was able to compile the
+> package with working candump and cansend applications, while in the
+> case of iproute, I ran into more than one problem and finally I decided
+> to extend busybox's ip link command for CAN-type devices. I'm still
+> wondering if it was really necessary, but this way I was able to test
+> the driver.
+
+Applied to linux-can-next.
+
+Thanks,
+Marc
+
+--=20
+Pengutronix e.K.                 | Marc Kleine-Budde           |
+Embedded Linux                   | https://www.pengutronix.de  |
+Vertretung N=C3=BCrnberg              | Phone: +49-5121-206917-129  |
+Amtsgericht Hildesheim, HRA 2686 | Fax:   +49-5121-206917-5555 |
+
+--jrabto3ooziwdlnq
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEDs2BvajyNKlf9TJQvlAcSiqKBOgFAmQiqYsACgkQvlAcSiqK
+BOgCXAf+NWJnGcM64I8QZW2GZ+4p1b5BV4hNDu4ehwwXOtajDqX0icFMJ+ADogBm
+1OPOaNIWM5FLmL8Psn9S2O7DIH30kTJub7X58xxQl2vw9AVvg2ufgXFsrWrNcbR0
+7lrbOzY4ghA7jXXWu7bya2sZ2OPp4xvF4zJRHF1axJ9Y4mWZ5UUomyhMc2It6nNV
+MImbzZWnuFBLQxbUXefUz0CgEMCdi8N1hpJ2rHkNR0LPTVIGFDLtxBkj7rsvn/nj
+eG2Q6WVQEFz/BWdc2e0xMjbvH5cWfp+tDDhh8UAwjSzUFCHm9sbZsXQQ5+j1S2kh
+y2zuT0AX2HJPn+sJLsz9wM8SsswTmQ==
+=7WBc
+-----END PGP SIGNATURE-----
+
+--jrabto3ooziwdlnq--
+
+--===============8153323449732462613==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============8153323449732462613==--
