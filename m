@@ -2,38 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 730226CBDB6
-	for <lists+linux-stm32@lfdr.de>; Tue, 28 Mar 2023 13:31:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A9DB6CBC7C
+	for <lists+linux-stm32@lfdr.de>; Tue, 28 Mar 2023 12:27:14 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 25880C6905A;
-	Tue, 28 Mar 2023 11:31:13 +0000 (UTC)
-Received: from smtp16.bhosted.nl (smtp16.bhosted.nl [94.124.121.27])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B236BC69069;
+	Tue, 28 Mar 2023 10:27:13 +0000 (UTC)
+Received: from mail.marcansoft.com (marcansoft.com [212.63.210.85])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3D33BC01E98
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 274FAC65E6E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 28 Mar 2023 09:34:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonic.nl; s=202111;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc:to:from:
- from; bh=bpgSkZ5zx/R2k7vE5MA+GtuUcZGBjFY+KrjObI3nadY=;
- b=gg+oV7GqDbOQPiwgw3yhmsvareFaRM5ijLAOCT7nfvy/QWU1gCEv4c2O/RQstwOofNJ/YsFcd7fkx
- qoXdH3gyz+2nThgmB6621cv6SfFy3GXT2NVzYR8VxeNhzA1yoPO6pnfkJV79jJmt0QvQv5zAVPaAbj
- dozvLcgK+12V+ffOXKKtj9hfQUVu5yFFwA++R3rsGImJWtaGGkp50fuJqsPxENK3kdSMAk9CQe3ZBO
- l8BfVruogSdQrYurvWDsBUDTgnmswlld4WiDyTEA12IOJU+FIj1HQRMbYC91/6iTs8t/6tGKO2xSsy
- lklPaAuVCzL0uJHlRMhVTuty/txaZXg==
-X-MSG-ID: b09f73ec-cd4b-11ed-829c-0050569d2c73
-From: Roan van Dijk <roan@protonic.nl>
-To: linux@armlinux.org.uk
-Date: Tue, 28 Mar 2023 11:33:11 +0200
-Message-Id: <20230328093311.1258948-1-roan@protonic.nl>
-X-Mailer: git-send-email 2.37.2
+ Tue, 28 Mar 2023 10:27:12 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits))
+ (No client certificate requested)
+ (Authenticated sender: marcan@marcan.st)
+ by mail.marcansoft.com (Postfix) with ESMTPSA id B85844248B;
+ Tue, 28 Mar 2023 10:27:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=marcan.st; s=default;
+ t=1679999231; bh=zT2koom/7W4xUS4Q4Sf76XmaDUMDIN5TnyETV511rOM=;
+ h=Date:Subject:To:Cc:From;
+ b=fDoF7aexA/9AcvnCA66GAgO+W9WNbjW5AWw4xVFwRwX9SZRxm/JPZSkZkNOrLK+c+
+ egHT+pqKAUs0KaLPXW5Tz7oQiNFzxR3gg2KH3rHVq4GJqPIgJ4e2QZcP9v+xl3PYlf
+ Ba09NK6CXwdD0KmVF3zHVZQlCdPYimKf327UbEI5io6hyajxtf/PxTwOk9+0hvnOuj
+ jhudG2tMYp6U/rOZ9iOh2gonmOvIx+5FS6rHEjvAXr4RlOKxQrx8S9uxtxQBithol3
+ l9ursIrP/XS41teW5MAscmRFYEUAeVJ7fiIeAiQ8q+Bpuu+wWcIZvaed1JbJ2CUk2k
+ ZhobpJ87npbHQ==
+Message-ID: <871beead-1cc8-bb94-7c15-0173dfb11e71@marcan.st>
+Date: Tue, 28 Mar 2023 19:27:02 +0900
 MIME-Version: 1.0
-X-Mailman-Approved-At: Tue, 28 Mar 2023 11:31:12 +0000
-Cc: linux-kernel@vger.kernel.org, Roan van Dijk <roan@protonic.nl>,
- mcoquelin.stm32@gmail.com, David Jander <david@protonic.nl>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH] arm: mach-stm32: board-dt.c: Add support for
-	STM32MP151
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.9.0
+Content-Language: en-US
+To: Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Sven Peter <sven@svenpeter.dev>, Alyssa Rosenzweig <alyssa@rosenzweig.io>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Claudiu Beznea <claudiu.beznea@microchip.com>,
+ Michal Simek <michal.simek@xilinx.com>, Peter Rosin <peda@axentia.se>,
+ Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>
+From: Hector Martin <marcan@marcan.st>
+Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, asahi@lists.linux.dev,
+ linux-amlogic@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-i2c@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH] dt-bindings: i2c: Drop unneeded quotes
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -50,31 +71,27 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-This patch adds initial support of STM32MP151 microprocessor (MPU)
-based on Arm Cortex-A7. New Cortex-A infrastructure (gic, timer,...)
-are selected if ARCH_MULTI_V7 is defined.
+On 23/03/2023 02.35, Rob Herring wrote:
+> Cleanup bindings dropping unneeded quotes. Once all these are fixed,
+> checking for this can be enabled in yamllint.
+> 
+> Signed-off-by: Rob Herring <robh@kernel.org>
+> ---
+>  Documentation/devicetree/bindings/i2c/amlogic,meson6-i2c.yaml | 4 ++--
+>  Documentation/devicetree/bindings/i2c/apple,i2c.yaml          | 4 ++--
+>  Documentation/devicetree/bindings/i2c/atmel,at91sam-i2c.yaml  | 2 +-
+>  Documentation/devicetree/bindings/i2c/cdns,i2c-r1p10.yaml     | 4 ++--
+>  Documentation/devicetree/bindings/i2c/i2c-mux-gpio.yaml       | 4 ++--
+>  Documentation/devicetree/bindings/i2c/qcom,i2c-geni-qcom.yaml | 4 ++--
+>  Documentation/devicetree/bindings/i2c/st,stm32-i2c.yaml       | 2 +-
+>  .../devicetree/bindings/i2c/xlnx,xps-iic-2.00.a.yaml          | 4 ++--
+>  8 files changed, 14 insertions(+), 14 deletions(-)
 
-Signed-off-by: David Jander <david@protonic.nl>
-Signed-off-by: Roan van Dijk <roan@protonic.nl>
+For apple:
 
----
- arch/arm/mach-stm32/board-dt.c | 1 +
- 1 file changed, 1 insertion(+)
+Reviewed-by: Hector Martin <marcan@marcan.st>
 
-diff --git a/arch/arm/mach-stm32/board-dt.c b/arch/arm/mach-stm32/board-dt.c
-index 2ccaa11aaa56..5dcc4ddd1a56 100644
---- a/arch/arm/mach-stm32/board-dt.c
-+++ b/arch/arm/mach-stm32/board-dt.c
-@@ -21,6 +21,7 @@ static const char *const stm32_compat[] __initconst = {
- 	"st,stm32mp131",
- 	"st,stm32mp133",
- 	"st,stm32mp135",
-+	"st,stm32mp151",
- 	"st,stm32mp157",
- 	NULL
- };
--- 
-2.37.2
+- Hector
 
 _______________________________________________
 Linux-stm32 mailing list
