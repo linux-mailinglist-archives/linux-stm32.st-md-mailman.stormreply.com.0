@@ -2,59 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0A9DB6CBC7C
-	for <lists+linux-stm32@lfdr.de>; Tue, 28 Mar 2023 12:27:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F2D316CBCFB
+	for <lists+linux-stm32@lfdr.de>; Tue, 28 Mar 2023 13:03:02 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B236BC69069;
-	Tue, 28 Mar 2023 10:27:13 +0000 (UTC)
-Received: from mail.marcansoft.com (marcansoft.com [212.63.210.85])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9DB7CC69069;
+	Tue, 28 Mar 2023 11:03:02 +0000 (UTC)
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [85.220.165.71])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 274FAC65E6E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C646EC03FC1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 28 Mar 2023 10:27:12 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits))
- (No client certificate requested)
- (Authenticated sender: marcan@marcan.st)
- by mail.marcansoft.com (Postfix) with ESMTPSA id B85844248B;
- Tue, 28 Mar 2023 10:27:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=marcan.st; s=default;
- t=1679999231; bh=zT2koom/7W4xUS4Q4Sf76XmaDUMDIN5TnyETV511rOM=;
- h=Date:Subject:To:Cc:From;
- b=fDoF7aexA/9AcvnCA66GAgO+W9WNbjW5AWw4xVFwRwX9SZRxm/JPZSkZkNOrLK+c+
- egHT+pqKAUs0KaLPXW5Tz7oQiNFzxR3gg2KH3rHVq4GJqPIgJ4e2QZcP9v+xl3PYlf
- Ba09NK6CXwdD0KmVF3zHVZQlCdPYimKf327UbEI5io6hyajxtf/PxTwOk9+0hvnOuj
- jhudG2tMYp6U/rOZ9iOh2gonmOvIx+5FS6rHEjvAXr4RlOKxQrx8S9uxtxQBithol3
- l9ursIrP/XS41teW5MAscmRFYEUAeVJ7fiIeAiQ8q+Bpuu+wWcIZvaed1JbJ2CUk2k
- ZhobpJ87npbHQ==
-Message-ID: <871beead-1cc8-bb94-7c15-0173dfb11e71@marcan.st>
-Date: Tue, 28 Mar 2023 19:27:02 +0900
+ Tue, 28 Mar 2023 11:03:01 +0000 (UTC)
+Received: from ptx.hi.pengutronix.de ([2001:67c:670:100:1d::c0])
+ by metis.ext.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <ore@pengutronix.de>)
+ id 1ph76I-0005mW-Es; Tue, 28 Mar 2023 13:02:50 +0200
+Received: from ore by ptx.hi.pengutronix.de with local (Exim 4.92)
+ (envelope-from <ore@pengutronix.de>)
+ id 1ph76F-0003Or-5S; Tue, 28 Mar 2023 13:02:47 +0200
+Date: Tue, 28 Mar 2023 13:02:47 +0200
+From: Oleksij Rempel <o.rempel@pengutronix.de>
+To: Alexandre TORGUE <alexandre.torgue@foss.st.com>
+Message-ID: <20230328110247.GE15196@pengutronix.de>
+References: <20230323123242.3763673-1-o.rempel@pengutronix.de>
+ <1a2d16c8-8c16-5fcc-7906-7b454a81922f@foss.st.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.9.0
-Content-Language: en-US
-To: Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Sven Peter <sven@svenpeter.dev>, Alyssa Rosenzweig <alyssa@rosenzweig.io>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Claudiu Beznea <claudiu.beznea@microchip.com>,
- Michal Simek <michal.simek@xilinx.com>, Peter Rosin <peda@axentia.se>,
- Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>,
+Content-Disposition: inline
+In-Reply-To: <1a2d16c8-8c16-5fcc-7906-7b454a81922f@foss.st.com>
+X-Sent-From: Pengutronix Hildesheim
+X-URL: http://www.pengutronix.de/
+X-Accept-Language: de,en
+X-Accept-Content-Type: text/plain
+User-Agent: Mutt/1.10.1 (2018-07-13)
+X-SA-Exim-Connect-IP: 2001:67c:670:100:1d::c0
+X-SA-Exim-Mail-From: ore@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
+Cc: devicetree@vger.kernel.org,
+ =?utf-8?B?SsOpcsO0bWU=?= Pouiller <jerome.pouiller@silabs.com>,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Rob Herring <robh+dt@kernel.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-From: Hector Martin <marcan@marcan.st>
-Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, asahi@lists.linux.dev,
- linux-amlogic@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-i2c@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH] dt-bindings: i2c: Drop unneeded quotes
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, kernel@pengutronix.de,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v1] ARM: dts: stm32: prtt1c: Add PoDL PSE
+	regulator nodes
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,28 +66,62 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 23/03/2023 02.35, Rob Herring wrote:
-> Cleanup bindings dropping unneeded quotes. Once all these are fixed,
-> checking for this can be enabled in yamllint.
+On Tue, Mar 28, 2023 at 11:58:34AM +0200, Alexandre TORGUE wrote:
+> Hi Oleksij
 > 
-> Signed-off-by: Rob Herring <robh@kernel.org>
-> ---
->  Documentation/devicetree/bindings/i2c/amlogic,meson6-i2c.yaml | 4 ++--
->  Documentation/devicetree/bindings/i2c/apple,i2c.yaml          | 4 ++--
->  Documentation/devicetree/bindings/i2c/atmel,at91sam-i2c.yaml  | 2 +-
->  Documentation/devicetree/bindings/i2c/cdns,i2c-r1p10.yaml     | 4 ++--
->  Documentation/devicetree/bindings/i2c/i2c-mux-gpio.yaml       | 4 ++--
->  Documentation/devicetree/bindings/i2c/qcom,i2c-geni-qcom.yaml | 4 ++--
->  Documentation/devicetree/bindings/i2c/st,stm32-i2c.yaml       | 2 +-
->  .../devicetree/bindings/i2c/xlnx,xps-iic-2.00.a.yaml          | 4 ++--
->  8 files changed, 14 insertions(+), 14 deletions(-)
+> On 3/23/23 13:32, Oleksij Rempel wrote:
+> > This commit introduces Power over Data Line (PoDL) Power Source
+> > Equipment (PSE) regulator nodes to the PRTT1C devicetree. The addition
+> > of these nodes enables support for PoDL in PRTT1C devices, allowing
+> > power delivery and data transmission over a single twisted pair.
+> > 
+> > The new PoDL PSE regulator nodes provide voltage capability information
+> > of the current board design, which can be used as a hint for system
+> > administrators when configuring and managing power settings. This
+> > update enhances the versatility and simplifies the power management of
+> > PRTT1C devices while ensuring compatibility with connected Powered
+> > Devices (PDs).
+> > 
+> > After applying this patch, the power delivery can be controlled from
+> > user space with a patched [1] ethtool version using the following commands:
+> >    ethtool --set-pse t1l2 podl-pse-admin-control enable
+> > to enable power delivery, and
+> >    ethtool --show-pse t1l2
+> > to display the PoDL PSE settings.
+> > 
+> > By integrating PoDL PSE support into the PRTT1C devicetree, users can
+> > benefit from streamlined power and data connections in their
+> > deployments, improving overall system efficiency and reducing cabling
+> > complexity.
+> > 
+> > [1] https://lore.kernel.org/all/20230317093024.1051999-1-o.rempel@pengutronix.de/
+> > 
+> > Signed-off-by: Oleksij Rempel <o.rempel@pengutronix.de>
+> > ---
+> 
+> Please, fix the introduction of those new yaml validation errors:
+> 
+> arch/arm/boot/dts/stm32mp151a-prtt1c.dtb: ethernet-pse-1: $nodename:0:
+> 'ethernet-pse-1' does not match '^ethernet-pse(@.*)?$'
+>         From schema:
+> /Documentation/devicetree/bindings/net/pse-pd/podl-pse-regulator.yaml
+> arch/arm/boot/dts/stm32mp151a-prtt1c.dtb: ethernet-pse-2: $nodename:0:
+> 'ethernet-pse-2' does not match '^ethernet-pse(@.*)?$'
+>         From schema: /local/home/frq08678/STLINUX/kernel/my-kernel/stm32/Documentation/devicetree/bindings/net/pse-pd/podl-pse-regulator.yaml
 
-For apple:
+Using ethernet-pse@1 will require to use "reg" or "ranges" properties.
+Which makes no sense in this use case. I need to fix the schema instead by
+allowing this patter with following regex: "^ethernet-pse(@.*|-[0-9a-f])*$"
 
-Reviewed-by: Hector Martin <marcan@marcan.st>
+Should I send schema fix together with this patch?
 
-- Hector
-
+Regards,
+Oleksij
+-- 
+Pengutronix e.K.                           |                             |
+Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
+31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
+Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
