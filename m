@@ -2,44 +2,44 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D68C26CB377
-	for <lists+linux-stm32@lfdr.de>; Tue, 28 Mar 2023 03:58:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A11636CB449
+	for <lists+linux-stm32@lfdr.de>; Tue, 28 Mar 2023 04:50:01 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8F1E8C6A5F2;
-	Tue, 28 Mar 2023 01:58:42 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4ADA3C6A5F2;
+	Tue, 28 Mar 2023 02:50:01 +0000 (UTC)
 Received: from mail.nfschina.com (unknown [42.101.60.237])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A0CE1C01E98
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2E81DC03FC1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 28 Mar 2023 01:58:40 +0000 (UTC)
+ Tue, 28 Mar 2023 02:49:59 +0000 (UTC)
 Received: from localhost (unknown [127.0.0.1])
- by mail.nfschina.com (Postfix) with ESMTP id BD2151A00AF5;
- Tue, 28 Mar 2023 09:58:46 +0800 (CST)
+ by mail.nfschina.com (Postfix) with ESMTP id 506F61A00AF3;
+ Tue, 28 Mar 2023 10:50:05 +0800 (CST)
 X-Virus-Scanned: amavisd-new at nfschina.com
 Received: from mail.nfschina.com ([127.0.0.1])
  by localhost (localhost.localdomain [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id uJEkwiY15rco; Tue, 28 Mar 2023 09:58:45 +0800 (CST)
+ with ESMTP id YYhYTM_4EMY7; Tue, 28 Mar 2023 10:50:03 +0800 (CST)
 Received: from localhost.localdomain (unknown [180.167.10.98])
  (Authenticated sender: yuzhe@nfschina.com)
- by mail.nfschina.com (Postfix) with ESMTPA id EC3BF1A0091B;
- Tue, 28 Mar 2023 09:58:43 +0800 (CST)
+ by mail.nfschina.com (Postfix) with ESMTPA id A877B1A00805;
+ Tue, 28 Mar 2023 10:50:02 +0800 (CST)
 From: Yu Zhe <yuzhe@nfschina.com>
 To: andersson@kernel.org, mathieu.poirier@linaro.org, matthias.bgg@gmail.com,
  angelogioacchino.delregno@collabora.com, agross@kernel.org,
  konrad.dybcio@linaro.org, mcoquelin.stm32@gmail.com,
  alexandre.torgue@foss.st.com
-Date: Tue, 28 Mar 2023 09:57:49 +0800
-Message-Id: <20230328015749.1608-1-yuzhe@nfschina.com>
+Date: Tue, 28 Mar 2023 10:49:07 +0800
+Message-Id: <20230328024907.29791-1-yuzhe@nfschina.com>
 X-Mailer: git-send-email 2.11.0
-In-Reply-To: <20230320061157.29660-1-yuzhe@nfschina.com>
-References: <20230320061157.29660-1-yuzhe@nfschina.com>
+In-Reply-To: <20230328015749.1608-1-yuzhe@nfschina.com>
+References: <20230328015749.1608-1-yuzhe@nfschina.com>
 Cc: kernel-janitors@vger.kernel.org, Yu Zhe <yuzhe@nfschina.com>,
  linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org,
  linux-kernel@vger.kernel.org, liqiong@nfschina.com,
  linux-mediatek@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v3] remoteproc: remove unnecessary (void*)
+Subject: [Linux-stm32] [PATCH v4] remoteproc: remove unnecessary (void*)
 	conversions
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -64,18 +64,18 @@ Reported-by: kernel test robot <lkp@intel.com>
 Link: https://lore.kernel.org/oe-kbuild-all/202303272213.jOYrwBZu-lkp@intel.com/
 Signed-off-by: Yu Zhe <yuzhe@nfschina.com>
 ---
- drivers/remoteproc/da8xx_remoteproc.c     | 12 ++++++------
- drivers/remoteproc/mtk_scp.c              | 12 ++++++------
- drivers/remoteproc/qcom_q6v5_adsp.c       | 10 +++++-----
- drivers/remoteproc/qcom_q6v5_mss.c        |  8 ++++----
- drivers/remoteproc/qcom_q6v5_pas.c        | 14 +++++++-------
- drivers/remoteproc/qcom_wcnss.c           | 10 +++++-----
- drivers/remoteproc/remoteproc_core.c      |  2 +-
- drivers/remoteproc/stm32_rproc.c          |  2 +-
- drivers/remoteproc/ti_k3_dsp_remoteproc.c |  2 +-
- drivers/remoteproc/ti_k3_r5_remoteproc.c  |  2 +-
- drivers/remoteproc/xlnx_r5_remoteproc.c   | 16 ++++++++--------
- 11 files changed, 45 insertions(+), 45 deletions(-)
+
+v3->v4:
+ Drop wrong modifies
+---
+ drivers/remoteproc/da8xx_remoteproc.c   | 12 ++++++------
+ drivers/remoteproc/mtk_scp.c            | 12 ++++++------
+ drivers/remoteproc/qcom_q6v5_adsp.c     | 10 +++++-----
+ drivers/remoteproc/qcom_q6v5_mss.c      |  8 ++++----
+ drivers/remoteproc/qcom_q6v5_pas.c      | 14 +++++++-------
+ drivers/remoteproc/qcom_wcnss.c         | 10 +++++-----
+ drivers/remoteproc/xlnx_r5_remoteproc.c | 16 ++++++++--------
+ 7 files changed, 41 insertions(+), 41 deletions(-)
 
 diff --git a/drivers/remoteproc/da8xx_remoteproc.c b/drivers/remoteproc/da8xx_remoteproc.c
 index 98e0be9476a4..768217f0f5cd 100644
@@ -384,58 +384,6 @@ index 9d4d04fff8c6..0fc317265064 100644
  	wcnss->dev = &pdev->dev;
  	wcnss->rproc = rproc;
  	platform_set_drvdata(pdev, wcnss);
-diff --git a/drivers/remoteproc/remoteproc_core.c b/drivers/remoteproc/remoteproc_core.c
-index 80072b6b6283..c48089e83026 100644
---- a/drivers/remoteproc/remoteproc_core.c
-+++ b/drivers/remoteproc/remoteproc_core.c
-@@ -2584,7 +2584,7 @@ EXPORT_SYMBOL(rproc_del);
- 
- static void devm_rproc_free(struct device *dev, void *res)
- {
--	rproc_free(*(struct rproc **)res);
-+	rproc_free(res);
- }
- 
- /**
-diff --git a/drivers/remoteproc/stm32_rproc.c b/drivers/remoteproc/stm32_rproc.c
-index 7d782ed9e589..22c0241c2c97 100644
---- a/drivers/remoteproc/stm32_rproc.c
-+++ b/drivers/remoteproc/stm32_rproc.c
-@@ -629,7 +629,7 @@ stm32_rproc_get_loaded_rsc_table(struct rproc *rproc, size_t *table_sz)
- 	 * entire area by overwriting it with the initial values stored in rproc->clean_table.
- 	 */
- 	*table_sz = RSC_TBL_SIZE;
--	return (struct resource_table *)ddata->rsc_va;
-+	return ddata->rsc_va;
- }
- 
- static const struct rproc_ops st_rproc_ops = {
-diff --git a/drivers/remoteproc/ti_k3_dsp_remoteproc.c b/drivers/remoteproc/ti_k3_dsp_remoteproc.c
-index ec626a37fef6..4bee10acf6fa 100644
---- a/drivers/remoteproc/ti_k3_dsp_remoteproc.c
-+++ b/drivers/remoteproc/ti_k3_dsp_remoteproc.c
-@@ -429,7 +429,7 @@ static struct resource_table *k3_dsp_get_loaded_rsc_table(struct rproc *rproc,
- 	 * the hard-coded value suffices to support the IPC-only mode.
- 	 */
- 	*rsc_table_sz = 256;
--	return (struct resource_table *)kproc->rmem[0].cpu_addr;
-+	return kproc->rmem[0].cpu_addr;
- }
- 
- /*
-diff --git a/drivers/remoteproc/ti_k3_r5_remoteproc.c b/drivers/remoteproc/ti_k3_r5_remoteproc.c
-index 0481926c6975..115901d1ea04 100644
---- a/drivers/remoteproc/ti_k3_r5_remoteproc.c
-+++ b/drivers/remoteproc/ti_k3_r5_remoteproc.c
-@@ -708,7 +708,7 @@ static struct resource_table *k3_r5_get_loaded_rsc_table(struct rproc *rproc,
- 	 * the hard-coded value suffices to support the IPC-only mode.
- 	 */
- 	*rsc_table_sz = 256;
--	return (struct resource_table *)kproc->rmem[0].cpu_addr;
-+	return kproc->rmem[0].cpu_addr;
- }
- 
- /*
 diff --git a/drivers/remoteproc/xlnx_r5_remoteproc.c b/drivers/remoteproc/xlnx_r5_remoteproc.c
 index 2db57d394155..5dbc12bdc29e 100644
 --- a/drivers/remoteproc/xlnx_r5_remoteproc.c
