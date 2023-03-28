@@ -2,63 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C333E6CB8CE
+	by mail.lfdr.de (Postfix) with ESMTPS id D23286CB8CF
 	for <lists+linux-stm32@lfdr.de>; Tue, 28 Mar 2023 09:56:37 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 729AFC6A5EF;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8D34EC6A5FA;
 	Tue, 28 Mar 2023 07:56:37 +0000 (UTC)
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com
- [209.85.221.49])
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com
+ [209.85.221.48])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4E648C6A5EF
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6BBA2C6A5EF
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 28 Mar 2023 07:40:09 +0000 (UTC)
-Received: by mail-wr1-f49.google.com with SMTP id r29so11081623wra.13
+ Tue, 28 Mar 2023 07:42:46 +0000 (UTC)
+Received: by mail-wr1-f48.google.com with SMTP id j24so11160001wrd.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 28 Mar 2023 00:40:09 -0700 (PDT)
+ Tue, 28 Mar 2023 00:42:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20210112; t=1679989209;
+ d=gmail.com; s=20210112; t=1679989366;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=qYSKi6P9F33q3cGk3dc2X+3QTPP68ecCLe041fZqdtM=;
- b=HbSxQr4r8Zf3+yFQGbqcSxzOtKd8vj2cIF9+ve9dHjUlZoMwR8DYHXDG3+N4uRe0Vd
- y0tyA33+FCOrO1XVTYqLMCQaVei6b+K0kcXheOPsVWLV4HEKyUxEQf1Z835o14j9bacp
- ghe9VyKKvUiP1a7uUEtkJuyjM+AOUdFwrLJWU7Q3Au0XD5DV4t0QUX5irMgq4g1YTI75
- 5fGfeDGJnMAmrLjC4zaBRLAACxa02wIPHGF48zub+woOFOA0kqTGgHJq1xBs+FeNbLW7
- h5cPb4t6yvBDTFgqAtUzrgUlRqccvDftKeSJUDmZZTvjxIVqSo3FDfDz142jvg4L4KaV
- AbLA==
+ bh=reWFyQdHA0Txjoyw/asL10WD0B3MGC9C1OYGnj8cjLU=;
+ b=WCqPg7kj6QzLXEOVdoQ1xMWD4fQdgnzUfP73CB10wcAeR2+Rvyv6nLGcAmRfEqAPBN
+ uxsVum3wm7djw1PR/wmloQ3SbizDsX/f0KKbyGVdMrIp1eRklDFd+0mUKYHzhJWdy3Ok
+ hoK4vhXeeWa7NGRBpfPq9ZeaL9R9E2inGfpoDAD+bZT41NplWgWq2QHxWZWGRX5Pb21M
+ yjGyPJV7+LorCR4Qv1Ro9oWOXMjVTMoyQR2HW502gC1l5q/gCpND23aQMEfoLZezPoYG
+ NkrPghb3zVtL3KeYo3roJmiQrOEArrxbSVIX7vN/EG+zdE89GSbv5TpVUBTU3imGpeUE
+ Ak9w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1679989209;
+ d=1e100.net; s=20210112; t=1679989366;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=qYSKi6P9F33q3cGk3dc2X+3QTPP68ecCLe041fZqdtM=;
- b=0Atnk98w6PMYGWgttAoG3CXw06UiLFV1OksUtbJNYur6n5IuXYNXZ1cza3ypIix6yL
- MslFOY5tQkhh4+Hxy+NVdkLu6WXjZJ06X77CbF3P52QX3cTFGBO2VEPtIm5eFGXZO8OR
- uIrp8uhQ2S8hEwX3EC6QOnYnciTHWuesK9Ye32Ue+vbFU8JcRWQobi0KW9BUfEV9H4So
- 8n6+XKRuh7I3Po7x6g8Xw1n21g4G6lwCIUUkRBGQFsx/mGzWPBGYlddj8+zS8NlMiMke
- VFhWDOSIZFvpzwNG4QyHhLJ3GfU0j2xORjqKQllFViVsnQWYdMTux4Rm3PTFhVq0DVhc
- AXuw==
-X-Gm-Message-State: AAQBX9dB147M9t4dLApI1UkQmsPRhoQvYv/ornh8Z8dWBDYhLjBVywzK
- pkuRLPHu6C2Jj6FTxCUFWd8=
-X-Google-Smtp-Source: AKy350ZblYUnLPCJxBsWxVjLmOt7Surp3uSMJdu3VZiB82QN73WYQMcps/WK/CciM1DKpYZAGC5tMA==
-X-Received: by 2002:adf:fe45:0:b0:2c7:d7c:7d7 with SMTP id
- m5-20020adffe45000000b002c70d7c07d7mr11055389wrs.22.1679989208657; 
- Tue, 28 Mar 2023 00:40:08 -0700 (PDT)
+ bh=reWFyQdHA0Txjoyw/asL10WD0B3MGC9C1OYGnj8cjLU=;
+ b=MwKZrXcRdq3lQs1htscnWm/CzZRjxxgUWE8I00lgjYKmD17pWjGNth5M2qYToPETT5
+ JGf2tHEpcGHZNMgKm5/ivUTRXykyp1q4Bx/TgGxoows5fiDgy16z8gh/NvpNz0FMnYcn
+ hd/gUGGQCTQNBVbIBmhspFx+FWWbXNa96gO0UtsGYIZJSM7XI6ODQVgYixeNrW03p1x4
+ 7Cs7EYVgDPIGJaR8J3NDaLgvePMdzCPhPtXHxROuRoeP4yQIgKd30DVMPVrfcaB89157
+ 3LuQsJs6WNt3jFXHGJsdmkUfIxvVLSLCS+tgaiTSoOXDFK7NZvH6WvJMI8FIKCDfTjMz
+ V1wQ==
+X-Gm-Message-State: AAQBX9fwKKkMhsRxzpVhrZDvCfnel+oqYCQ//qvdhBEJAxnLJu/w/3u5
+ 45AqbMP6n6lSXZhEXk27bgk=
+X-Google-Smtp-Source: AKy350ae8pPppl5m9E/fAgObS0u170HobthBF6NK9Qjbn7LyCnoBrzLmAj4S8NpGj1TURzpOwmkCFg==
+X-Received: by 2002:a5d:5691:0:b0:2d7:d4b:b33 with SMTP id
+ f17-20020a5d5691000000b002d70d4b0b33mr12209300wrv.21.1679989365793; 
+ Tue, 28 Mar 2023 00:42:45 -0700 (PDT)
 Received: from localhost ([102.36.222.112]) by smtp.gmail.com with ESMTPSA id
- k6-20020a5d6d46000000b002c5598c14acsm27215726wri.6.2023.03.28.00.40.07
+ v7-20020a5d4b07000000b002c56af32e8csm26731234wrq.35.2023.03.28.00.42.44
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 28 Mar 2023 00:40:08 -0700 (PDT)
-Date: Tue, 28 Mar 2023 10:40:04 +0300
+ Tue, 28 Mar 2023 00:42:45 -0700 (PDT)
+Date: Tue, 28 Mar 2023 10:42:42 +0300
 From: Dan Carpenter <error27@gmail.com>
 To: Yu Zhe <yuzhe@nfschina.com>
-Message-ID: <4b64c2ed-b3a3-46fc-b5c7-3c03b30cd8a2@kili.mountain>
-References: <20230320061157.29660-1-yuzhe@nfschina.com>
- <20230328015749.1608-1-yuzhe@nfschina.com>
+Message-ID: <fdcfe2ae-fa49-4758-8b5c-b853cc6a0b80@kili.mountain>
+References: <20230328015749.1608-1-yuzhe@nfschina.com>
+ <20230328024907.29791-1-yuzhe@nfschina.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20230328015749.1608-1-yuzhe@nfschina.com>
+In-Reply-To: <20230328024907.29791-1-yuzhe@nfschina.com>
 X-Mailman-Approved-At: Tue, 28 Mar 2023 07:56:36 +0000
 Cc: liqiong@nfschina.com, kernel-janitors@vger.kernel.org,
  mathieu.poirier@linaro.org, linux-arm-msm@vger.kernel.org,
@@ -67,7 +67,7 @@ Cc: liqiong@nfschina.com, kernel-janitors@vger.kernel.org,
  linux-mediatek@lists.infradead.org, mcoquelin.stm32@gmail.com,
  matthias.bgg@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org, angelogioacchino.delregno@collabora.com
-Subject: Re: [Linux-stm32] [PATCH v3] remoteproc: remove unnecessary (void*)
+Subject: Re: [Linux-stm32] [PATCH v4] remoteproc: remove unnecessary (void*)
 	conversions
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -85,13 +85,18 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Mar 28, 2023 at 09:57:49AM +0800, Yu Zhe wrote:
->  static void devm_rproc_free(struct device *dev, void *res)
->  {
-> -	rproc_free(*(struct rproc **)res);
-> +	rproc_free(res);
+On Tue, Mar 28, 2023 at 10:49:07AM +0800, Yu Zhe wrote:
+> Pointer variables of void * type do not require type cast.
+> 
+> Reported-by: kernel test robot <lkp@intel.com>
+> Link: https://lore.kernel.org/oe-kbuild-all/202303272213.jOYrwBZu-lkp@intel.com/
+> Signed-off-by: Yu Zhe <yuzhe@nfschina.com>
+> ---
+> 
+> v3->v4:
+>  Drop wrong modifies
 
-This introduces a bug.
+Seems okay.  (I haven't tried compiling it or anything).
 
 regards,
 dan carpenter
