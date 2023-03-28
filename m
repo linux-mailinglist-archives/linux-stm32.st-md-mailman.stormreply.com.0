@@ -2,71 +2,51 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6B2C96CB8B2
-	for <lists+linux-stm32@lfdr.de>; Tue, 28 Mar 2023 09:52:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EAA696CB8D0
+	for <lists+linux-stm32@lfdr.de>; Tue, 28 Mar 2023 09:56:40 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 21EDEC6A5EF;
-	Tue, 28 Mar 2023 07:52:08 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AE4F2C6A5FB;
+	Tue, 28 Mar 2023 07:56:40 +0000 (UTC)
+Received: from relay11.mail.gandi.net (relay11.mail.gandi.net [217.70.178.231])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 18A8CC01E98
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E9029C6A5EF
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 28 Mar 2023 07:52:06 +0000 (UTC)
-Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 32S7bG39031640; Tue, 28 Mar 2023 09:51:56 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=hjcFiiAdU8XBCSGQ/ASQ4ZZpEQVFGAfSjTdSl+f/CLE=;
- b=NgEcjvhs/T5vq1lSun4MXvOW21LLrHfaH3CV+OY87h+2uCqDzcn51T+/J5oTLPmbeTEx
- OXYihf9ERT7EgG/DGRuVVhEjWfRgTm7/gOkbKNBRGNKE6RW5ALULzwYpLUcjdx1HG7cd
- 0quNLeXDLOH7S2W2obebhLYdYGWW3UKKTKkAr1V5gpAMh7FIvIPq6f4ZgwTnVu+gjQ6+
- /2Gbq7snLVaVMtTgU9p3eXovbjWbc4Y04mJuewjT2Hf+SgYny7BDKrEnutqfKwTvRODI
- bDESP8A5NTqoGMEQWg/4UVHZLiBDYDduSnmuCt1c9vFtxVRjnlfmkJv7ko4bfnhubCZ6 3Q== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3phsqwfy81-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 28 Mar 2023 09:51:56 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id B9474100040;
- Tue, 28 Mar 2023 09:51:54 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id A1F1F20F2D2;
- Tue, 28 Mar 2023 09:51:34 +0200 (CEST)
-Received: from [10.201.21.93] (10.201.21.93) by SHFDAG1NODE1.st.com
- (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.17; Tue, 28 Mar
- 2023 09:51:34 +0200
-Message-ID: <eb8963a0-a891-8f95-300f-89682188b3a3@foss.st.com>
-Date: Tue, 28 Mar 2023 09:51:33 +0200
+ Tue, 28 Mar 2023 07:56:38 +0000 (UTC)
+Received: (Authenticated sender: miquel.raynal@bootlin.com)
+ by mail.gandi.net (Postfix) with ESMTPSA id A5C92100008;
+ Tue, 28 Mar 2023 07:56:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
+ t=1679990198;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=Zr1o5TB0Xj1P1dQ5QPlZqlhmW5d3VRuBkiP3EgOGwTw=;
+ b=eioNhmkwx4o6qxydayUajT7JJJwg2Ee8Ma2qYzqPd+QNmP8g9tAgZz4ik0cEEHBl8+UqP4
+ nC+GHT1SCbGQTUoQsVBBMOJmk7fhg1hhdesjsh6051Cu+nVKqAbLB31zo+M1ZRQeLQHeWV
+ sg8dX/J26JIyt6+oYnh7PvEMJ+B88MbdLMeajQBazRAZgsl7/PpcUkL+xmm23Pxxsa3TBj
+ 4RcYNJaouNTjqxqIOv7HmXQIAfwXKE+dNbadr6pOjmq5iZBas/HHdIColfTxL2ki9dMmIV
+ W1Mxht/dvCOmphpl0p4u2J0dgEm1j7bCVIFbpUuTDE00euphHMYAnuNAAQSMsA==
+Date: Tue, 28 Mar 2023 09:56:33 +0200
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Christophe Kerello <christophe.kerello@foss.st.com>
+Message-ID: <20230328095633.188aff27@xps-13>
+In-Reply-To: <6759a843-409b-d9fe-8a00-ed6d69144aaf@foss.st.com>
+References: <20230327094742.38856-1-christophe.kerello@foss.st.com>
+ <20230327094742.38856-3-christophe.kerello@foss.st.com>
+ <75dcd205-5432-7103-370c-d65d792631ea@linaro.org>
+ <20230327124313.1ccd3d66@xps-13>
+ <70d0a8b6-62c2-fa3e-df5c-f86ba75484d0@linaro.org>
+ <6759a843-409b-d9fe-8a00-ed6d69144aaf@foss.st.com>
+Organization: Bootlin
+X-Mailer: Claws Mail 4.0.0 (GTK+ 3.24.33; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.2
-Content-Language: en-US
-To: Steffen Trumtrar <s.trumtrar@pengutronix.de>
-References: <20230320132755.2150384-1-s.trumtrar@pengutronix.de>
- <20230320132755.2150384-10-s.trumtrar@pengutronix.de>
- <a37db3a8-a3e6-8755-2b7c-c33a1fdca469@foss.st.com>
- <87o7omedqr.fsf@pengutronix.de>
-From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
-In-Reply-To: <87o7omedqr.fsf@pengutronix.de>
-X-Originating-IP: [10.201.21.93]
-X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SHFDAG1NODE1.st.com
- (10.75.129.69)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.254,Aquarius:18.0.942,Hydra:6.0.573,FMLib:17.11.170.22
- definitions=2023-03-24_11,2023-03-27_02,2023-02-09_01
-Cc: linux-arm-kernel@lists.infradead.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- devicetree@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH v5 09/10] ARM: dts: stm32: add
-	STM32MP1-based Phytec SoM
+Cc: vigneshr@ti.com, richard@nod.at, linux-kernel@vger.kernel.org,
+ Tudor Ambarus <tudor.ambarus@linaro.org>, linux-mtd@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH v2 2/2] mtd: rawnand: stm32_fmc2: use
+ timings.mode instead of checking tRC_min
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,75 +58,60 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi steffen
-
-
-On 3/21/23 08:14, Steffen Trumtrar wrote:
-> 
-> Hi Alexandre,
-> 
-> Alexandre TORGUE <alexandre.torgue@foss.st.com> writes:
-> 
->> [1. text/plain]
->> Hi Steffen
->>
->> On 3/20/23 14:27, Steffen Trumtrar wrote:
->>> The Phytec STM32MP1 based SoMs feature up to 1 GB DDR3LP RAM, up to 1 GB
->>> eMMC, up to 16 MB QSPI and up to 128 GB NAND flash.
->>> Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
->>> ---
->>> Notes:
->>>       checkpatch warns about un-documented binding
->>>            According to checkpatch the binding for "winbond,w25q128"
->>>       used in this dtsi is un-documented.
->>>       However, 'jedec,spi-nor.yaml' defines the pattern
->>>                (winbond,)?w25q(16|32(w|dw)?|64(dw)?|80bl|128(fw)?|256))$"
->>>            so, this should be good!?
->>
->> We recently added some yaml fixes and we continue to send others (i.e., GPU yaml
->> error fix is under review) so please don't add new ones. Some of follownig
->> errors are directly linked to your board so please fix them.
->>
-> 
-> sorry about that, seems like I wasn't using dt_binding_check correctly :(
-> However, how did you generate these?
-
-I ran make dtbs_check (after updating my schemes).
-
-Cheers
-Alex
-
-
-> 
->> arch/arm/boot/dts/stm32mp157c-phycore-stm32mp1-3.dtb:
->> /soc/i2c@40012000/touch@44: failed to match any schema with compatible:
->> ['st,stmpe811']
->> arch/arm/boot/dts/stm32mp157c-phycore-stm32mp1-3.dtb:
->> /soc/i2c@40012000/touch@44/touchscreen: failed to match any schema with
->> compatible: ['st,stmpe-ts']
->> arch/arm/boot/dts/stm32mp157c-phycore-stm32mp1-3.dtb: /soc/i2c@40012000/leds@62:
->> failed to match any schema with compatible: ['nxp,pca9533']
-> 
-> The bindings are there and if I explicitly run dt_bindings_check with
-> e.g. Documentation/devicetree/bindings/leds there is no warning/error.
-> 
-> I will fixup the rest.
-> 
-> Best regards,
-> Steffen
-> 
-> --
-> Pengutronix e.K.                | Dipl.-Inform. Steffen Trumtrar |
-> Steuerwalder Str. 21            | https://www.pengutronix.de/    |
-> 31137 Hildesheim, Germany       | Phone: +49-5121-206917-0       |
-> Amtsgericht Hildesheim, HRA 2686| Fax:   +49-5121-206917-5555    |
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+SGkgQ2hyaXN0b3BoZSwKCmNocmlzdG9waGUua2VyZWxsb0Bmb3NzLnN0LmNvbSB3cm90ZSBvbiBU
+dWUsIDI4IE1hciAyMDIzIDA5OjI3OjU1ICswMjAwOgoKPiBIZWxsbyBNaXF1ZWwsCj4gCj4gT24g
+My8yNy8yMyAxMzowNiwgVHVkb3IgQW1iYXJ1cyB3cm90ZToKPiA+IAo+ID4gCj4gPiBPbiAzLzI3
+LzIzIDExOjQzLCBNaXF1ZWwgUmF5bmFsIHdyb3RlOiAgCj4gPj4gSGkgVHVkb3IsCj4gPj4KPiA+
+PiB0dWRvci5hbWJhcnVzQGxpbmFyby5vcmcgd3JvdGUgb24gTW9uLCAyNyBNYXIgMjAyMyAxMToz
+MDo1MSArMDEwMDoKPiA+PiAgCj4gPj4+IE9uIDMvMjcvMjMgMTA6NDcsIENocmlzdG9waGUgS2Vy
+ZWxsbyB3cm90ZTogIAo+ID4+Pj4gVGhpcyBwYXRjaCBpcyB1c2luZyB0aW1pbmdzLm1vZGUgdmFs
+dWUgaW5zdGVhZCBvZiBjaGVja2luZyB0UkNfbWluIHRpbWluZwo+ID4+Pj4gZm9yIEVETyBtb2Rl
+IHN1cHBvcnQuICAKPiA+Pj4+ICAgID4+PiAgCj4gPj4+IEZpeGVzIGFuZCBDYyB0byBzdGFibGUg
+aGVyZSB0b28sIGFzIHlvdSdkIGxpa2UgdG8gaGF2ZSB0aGlzIGJhY2twb3J0ZWQKPiA+Pj4gYXMg
+d2VsbCwgZG9uJ3QgeW91PyAgCj4gPj4KPiA+PiBBY3R1YWxseSB0aGUgcmVhc29uIHdoeSBDaHJp
+c3RvcGhlIHNwbGl0IHRoaXMgaW50byB0d28gcGF0Y2hlcyBpcwo+ID4+IGJlY2F1c2UgdGltaW5n
+cy5tb2RlIHdhcyBpbnRyb2R1Y2VkIHJhdGhlciBsYXRlbHksIGhlIHdhbnRlZCB0aGUgc2FtZQo+
+ID4+IHBhdGNoIHRvIGFwcGx5IG9uIGFsbCBzdGFibGUga2VybmVscywgaGUgYWN0dWFsbHkgYXNr
+ZWQgZm9yIHRoYXQgc3BsaXQKPiA+PiBhbmQgSSBhZ3JlZWQgKGFub3RoZXIgc29sdXRpb24gd291
+bGQgaGF2ZSBiZWVuIHRvIHNlbmQgdGhpcyBjdXJyZW50Cj4gPj4gcGF0Y2ggdG8gTGludXMgYW5k
+IGhhdmUgdGhlIG90aGVyIHZlcnNpb24gc2VudCB0byBzdGFibGUsIGJ1dCBpdAo+ID4+IHJlcXVp
+cmVzIGEgYml0IG9mIHNjaGVkdWxpbmcgb24gYm90aCBlbmRzKS4KPiA+Pgo+ID4+IExpbms6IGh0
+dHBzOi8vbG9yZS5rZXJuZWwub3JnL2xpbnV4LW10ZC8yMDIzMDMyNzEwMTE1Ni4wZWMyODE2YUB4
+cHMtMTMvVC8jdCAgCj4gPiAKPiA+IFJpZ2h0LCBJIHVuZGVyc3Rvb2QgdGhhdCBmcm9tIHRoZSBi
+ZWdpbm5pbmcuIElmIGl0IHdlcmUgdG8gbWUsIEkgd291bGQKPiA+IENjOiBzdGFibGVAdmdlci5r
+ZXJuZWwub3JnICN2NS40KyBmb3IgdGhlIGZpcnN0IHBhdGNoIGFuZAo+ID4gQ2M6IHN0YWJsZUB2
+Z2VyLmtlcm5lbC5vcmcgI3Y1LjEwKyBmb3IgdGhlIHNlY29uZC4KPiA+IAo+ID4gU28gZmlyc3Qg
+d291bGQgYmUgYWxvbmUganVzdCBpbiB2NS40LCBhbmQgc3RhcnRpbmcgd2l0aCB2NS4xMCB3ZSds
+bCBoYXZlCj4gPiBib3RoIGFuZCB3ZSdsbCBtaW1pYyB3aGF0IHdlIGN1cnJlbnRseSBoYXZlIGlu
+IHVwc3RyZWFtIG1haW5saW5lLgo+ID4gICAKPiAKPiBJIGNhbiBzZW5kIGEgVjMgd2l0aCBjYyB0
+YWcgYWRkZWQgYXMgcGVyIFR1ZG9yJ3Mgc3VnZ2VzdGlvbi4KPiBPciBjYyB0YWcgd2lsbCBiZSBh
+ZGRlZCB3aGVuIHRoZSBwYXRjaGVzIHdpbGwgYmUgYXBwbGllZD8KCkknbGwgaGFuZGxlIGl0LCBu
+byBwcm9ibGVtLiBJcyBpdCBmaW5lIGlmIEkgc2VuZCB0aGlzIGFzIHBhcnQgb2YgdGhlCm5leHQg
+bWVyZ2Ugd2luZG93IG9yIGRvIHlvdSBleHBlY3QgdGhpcyBmaXggdG8gYmUgYXBwbGllZCBlYXJs
+aWVyPyBJCmp1c3Qgc2VudCBteSBmaXhlcyBQUiBvbiBNb25kYXkgbW9ybmluZy4KCj4gCj4gUmVn
+YXJkcywKPiBDaHJpc3RvcGhlIEtlcmVsbG8uCj4gCj4gPj4gIAo+ID4+PiAgCj4gPj4+PiBTaWdu
+ZWQtb2ZmLWJ5OiBDaHJpc3RvcGhlIEtlcmVsbG8gPGNocmlzdG9waGUua2VyZWxsb0Bmb3NzLnN0
+LmNvbT4gIAo+ID4+Pgo+ID4+PiBSZXZpZXdlZC1ieTogVHVkb3IgQW1iYXJ1cyA8dHVkb3IuYW1i
+YXJ1c0BsaW5hcm8ub3JnPgo+ID4+PiAgCj4gPj4+PiAtLS0KPiA+Pj4+ICAgZHJpdmVycy9tdGQv
+bmFuZC9yYXcvc3RtMzJfZm1jMl9uYW5kLmMgfCAyICstCj4gPj4+PiAgIDEgZmlsZSBjaGFuZ2Vk
+LCAxIGluc2VydGlvbigrKSwgMSBkZWxldGlvbigtKQo+ID4+Pj4KPiA+Pj4+IGRpZmYgLS1naXQg
+YS9kcml2ZXJzL210ZC9uYW5kL3Jhdy9zdG0zMl9mbWMyX25hbmQuYyBiL2RyaXZlcnMvbXRkL25h
+bmQvcmF3L3N0bTMyX2ZtYzJfbmFuZC5jCj4gPj4+PiBpbmRleCAzYWJiNjNkMDBhMGIuLjllNzRi
+Y2Q5MGFhYSAxMDA2NDQKPiA+Pj4+IC0tLSBhL2RyaXZlcnMvbXRkL25hbmQvcmF3L3N0bTMyX2Zt
+YzJfbmFuZC5jCj4gPj4+PiArKysgYi9kcml2ZXJzL210ZC9uYW5kL3Jhdy9zdG0zMl9mbWMyX25h
+bmQuYwo+ID4+Pj4gQEAgLTE1MzEsNyArMTUzMSw3IEBAIHN0YXRpYyBpbnQgc3RtMzJfZm1jMl9u
+ZmNfc2V0dXBfaW50ZXJmYWNlKHN0cnVjdCBuYW5kX2NoaXAgKmNoaXAsIGludCBjaGlwbnIsCj4g
+Pj4+PiAgIAlpZiAoSVNfRVJSKHNkcnQpKQo+ID4+Pj4gICAJCXJldHVybiBQVFJfRVJSKHNkcnQp
+OyAgCj4gPj4+PiAgID4+Pj4gLQlpZiAoc2RydC0+dFJDX21pbiA8IDMwMDAwKSAgCj4gPj4+PiAr
+CWlmIChjb25mLT50aW1pbmdzLm1vZGUgPiAzKQo+ID4+Pj4gICAJCXJldHVybiAtRU9QTk9UU1VQ
+UDsgIAo+ID4+Pj4gICA+Pj4+ICAgCWlmIChjaGlwbnIgPT0gTkFORF9EQVRBX0lGQUNFX0NIRUNL
+X09OTFkpICAKPiA+Pgo+ID4+Cj4gPj4gVGhhbmtzLAo+ID4+IE1pcXXDqGwgIAoKClRoYW5rcywK
+TWlxdcOobApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpM
+aW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJl
+cGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0
+aW5mby9saW51eC1zdG0zMgo=
