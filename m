@@ -2,97 +2,71 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7A41F6CB109
-	for <lists+linux-stm32@lfdr.de>; Mon, 27 Mar 2023 23:52:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 866226CB368
+	for <lists+linux-stm32@lfdr.de>; Tue, 28 Mar 2023 03:53:33 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2A0DCC6A5F2;
-	Mon, 27 Mar 2023 21:52:52 +0000 (UTC)
-Received: from mail-yb1-f179.google.com (mail-yb1-f179.google.com
- [209.85.219.179])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 33F39C6A5F2;
+	Tue, 28 Mar 2023 01:53:33 +0000 (UTC)
+Received: from mail-ot1-f44.google.com (mail-ot1-f44.google.com
+ [209.85.210.44])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3E4B2C01E98
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BFEE7C01E98
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 27 Mar 2023 21:52:50 +0000 (UTC)
-Received: by mail-yb1-f179.google.com with SMTP id z83so12645899ybb.2
+ Tue, 28 Mar 2023 01:53:31 +0000 (UTC)
+Received: by mail-ot1-f44.google.com with SMTP id
+ o25-20020a9d4119000000b006a11eb19f8eso4414558ote.5
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 27 Mar 2023 14:52:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1679953969;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=nLI5m06f2WlStlUywkxHpgfVuIZ5JS/MDTFzEPNuSfU=;
- b=pOSHTN0gxWzMWkqyiNymvzEciJmMzDynaEbRFezy7nLLDqD1LINJt9Abz9IIuoPrea
- w6BYlguZiNT/hPuPXgbYFH+nK5VQNYOCmkfeTEJcefvBQi9za56UC8iqta+AKeLauOTu
- BYL0/iVJoeimYgwvs/tGLDATSN9mnXGj/ZTsNmgMmjZWjqUGqwweml9p3K3ISlDJ3pRy
- FJb0uOBeoz+CDw0gVfgEvWnExyi8ZW1zUmJYIiBbYreayGe/FxZCi8XsTr1Ox7zjK0S5
- OocDVIB4YAfd2kuVypBdFKkODtS9bY96MYlXVs23YNcbgJMXbEQCjP9ECgACofB2FL3i
- aWQg==
+ Mon, 27 Mar 2023 18:53:31 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1679953969;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=nLI5m06f2WlStlUywkxHpgfVuIZ5JS/MDTFzEPNuSfU=;
- b=U5f4dfDQ0tSdiw5wRstlXv6QgQ13LHQeC1XrMS5u+iJpLaaYl8qgSuBhgy/c8YmG1W
- DeXZOWzrBZD6f9EqLdSEb6qEgMdClZORlI+poIF1q0x3UyVQxdnMHFkfH2xYkXgW9j17
- Mo1qVgk31+uMWBKTlsvutxKTBzvmf6PPVe4qfJ87H4AEMAXX10yMTckth09BoHWoJVuR
- bg0axDzL6UtP1YX5oysekby+lnLKYl8Ri40npNgWhC7Dh9jhJnT5SIYn1I3wgyjKQTL/
- cCsfTRd8fwQ8DluItNK0UgBExawBe/Y/XDEWRXnkRGN8NzOJ4/jp1iyc5DA5rm/uEFQV
- bp5w==
-X-Gm-Message-State: AAQBX9cmWqYPnqzBYvYLjgcJGJbk00Fshu+x1f7ZG+OG4GHYb3UiC2F4
- DVaNQIfuRwaUANqwC3Y/bOQapqOLoBaPV+H4ylHxXA==
-X-Google-Smtp-Source: AKy350YXWieWPPn4qPNXsbtFZBIPGWFVrw4KqEcgFae4NZrCaiM4DhD+RmS9uESY7KP/zdWUYuSeFcGkhfdSERGtuKw=
-X-Received: by 2002:a25:542:0:b0:a6b:bc64:a0af with SMTP id
- 63-20020a250542000000b00a6bbc64a0afmr8149446ybf.4.1679953969020; Mon, 27 Mar
- 2023 14:52:49 -0700 (PDT)
+ d=1e100.net; s=20210112; t=1679968410;
+ h=date:subject:message-id:references:in-reply-to:cc:to:from
+ :mime-version:content-transfer-encoding:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=NyEuKekF3ixV/ghMaaLEPqxVbnElSx+vXvln8EpC1Ds=;
+ b=rDbqffMW+gw07/zmvktyhiNE3ZeouqBYjReCW39m2LjKhH1IsDyL7tezEsmbyuC/Iy
+ s7l+wxRJ3TAphbEUqlbLHYHqrm4H6pGbUWNO8Y9fvgESmuU6jigRgdUn6xyHub4wuUKx
+ saY75CIxdeylDyE+hF5GsNTTVtiHCebcinPJSz0ah6dgsYbZ6wlE00CKQGDKnPGUcWnt
+ hPLpZRa2WNTNJj00x3pmA8FTIoYRTLfJ3LU5FbRyL5940YttMkr/MmFoI20uASK9kWw3
+ aIiXc3NZslJhIZm+UXc1uBHmFo9I+YFBVnYFbwkB38v5+hkSBHCkRXl81q0nrC+CyIBd
+ 86nQ==
+X-Gm-Message-State: AO0yUKWYKpUNlX7mJnEthI0215VECmiRAXGE7IMIzEtpFz2LaXKXjicp
+ pm+BJm9TklJrTpVxYyV2lQ==
+X-Google-Smtp-Source: AK7set+Ie7ktWPg++zt8jVvHXo1cAdbhkTlL7d3DAQDJwRSvs1eNXGTNVwfZwfNY7AhS2272o09lOA==
+X-Received: by 2002:a9d:7441:0:b0:69c:639b:330e with SMTP id
+ p1-20020a9d7441000000b0069c639b330emr6956689otk.3.1679968410464; 
+ Mon, 27 Mar 2023 18:53:30 -0700 (PDT)
+Received: from robh_at_kernel.org (66-90-144-107.dyn.grandenetworks.net.
+ [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
+ i18-20020a056830011200b0069fa6ca584bsm6331858otp.40.2023.03.27.18.53.29
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 27 Mar 2023 18:53:29 -0700 (PDT)
+Received: (nullmailer pid 1306389 invoked by uid 1000);
+ Tue, 28 Mar 2023 01:53:28 -0000
 MIME-Version: 1.0
-References: <20230317233623.3968172-1-robh@kernel.org>
- <CACRpkdYq4jE7Qn1w8iPeGz7vxj_CeZ+H48B0TVYmeF4Tt=kHgA@mail.gmail.com>
- <CAL_JsqL+nF_WwZ-EDpUSD2yrxPLZWxaeb=WpTtPnnbpgcXT7qA@mail.gmail.com>
-In-Reply-To: <CAL_JsqL+nF_WwZ-EDpUSD2yrxPLZWxaeb=WpTtPnnbpgcXT7qA@mail.gmail.com>
-From: Linus Walleij <linus.walleij@linaro.org>
-Date: Mon, 27 Mar 2023 23:52:37 +0200
-Message-ID: <CACRpkdbR_PFSkqeK4xAmxdfdhi332hyax8jAnEa7VXFVp=QEDA@mail.gmail.com>
-To: Rob Herring <robh@kernel.org>
-Cc: alsa-devel@alsa-project.org, Sean Wang <sean.wang@kernel.org>,
- Jacky Bai <ping.bai@nxp.com>, Geert Uytterhoeven <geert+renesas@glider.be>,
- Tomasz Figa <tomasz.figa@gmail.com>, linux-aspeed@lists.ozlabs.org,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, asahi@lists.linux.dev,
- Sylwester Nawrocki <s.nawrocki@samsung.com>,
- Fabio Estevam <festevam@gmail.com>,
- Nobuhiro Iwamatsu <nobuhiro1.iwamatsu@toshiba.co.jp>,
- Alyssa Rosenzweig <alyssa@rosenzweig.io>, Heiko Stuebner <heiko@sntech.de>,
- linux-renesas-soc@vger.kernel.org, linux-samsung-soc@vger.kernel.org,
- Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
- Samuel Holland <samuel@sholland.org>, openbmc@lists.ozlabs.org,
- Manivannan Sadhasivam <mani@kernel.org>,
- Michal Simek <michal.simek@xilinx.com>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-rockchip@lists.infradead.org,
- Chen-Yu Tsai <wens@csie.org>, Andy Gross <agross@kernel.org>,
- Joel Stanley <joel@jms.id.au>, Alim Akhtar <alim.akhtar@samsung.com>,
- linux-sunxi@lists.linux.dev, NXP Linux Team <linux-imx@nxp.com>,
- devicetree@vger.kernel.org, Charles Keepax <ckeepax@opensource.cirrus.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Sven Peter <sven@svenpeter.dev>,
- linux-arm-msm@vger.kernel.org, Sascha Hauer <s.hauer@pengutronix.de>,
- linux-actions@lists.infradead.org, linux-gpio@vger.kernel.org,
- Richard Fitzgerald <rf@opensource.cirrus.com>,
- linux-mediatek@lists.infradead.org, Matthias Brugger <matthias.bgg@gmail.com>,
+From: Rob Herring <robh@kernel.org>
+To: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+In-Reply-To: <20230327201630.3874028-3-dario.binacchi@amarulasolutions.com>
+References: <20230327201630.3874028-1-dario.binacchi@amarulasolutions.com>
+ <20230327201630.3874028-3-dario.binacchi@amarulasolutions.com>
+Message-Id: <167996718762.1276051.14765835681406438651.robh@kernel.org>
+Date: Mon, 27 Mar 2023 20:53:28 -0500
+Cc: devicetree@vger.kernel.org, michael@amarulasolutions.com,
+ linux-kernel@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ linux-can@vger.kernel.org, Eric Dumazet <edumazet@google.com>,
+ Rob Herring <robh+dt@kernel.org>, Marc Kleine-Budde <mkl@pengutronix.de>,
  linux-arm-kernel@lists.infradead.org,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Dong Aisheng <aisheng.dong@nxp.com>, Damien Le Moal <damien.lemoal@wdc.com>,
- Andrew Jeffery <andrew@aj.id.au>, Dvorkin Dmitry <dvorkin@tibbo.com>,
- Bjorn Andersson <andersson@kernel.org>, Hector Martin <marcan@marcan.st>,
- linux-kernel@vger.kernel.org, Konrad Dybcio <konrad.dybcio@linaro.org>,
- Jianlong Huang <jianlong.huang@starfivetech.com>,
- linux-riscv@lists.infradead.org, Masami Hiramatsu <mhiramat@kernel.org>,
- Pengutronix Kernel Team <kernel@pengutronix.de>, patches@opensource.cirrus.com,
- Wells Lu <wellslutw@gmail.com>, Emil Renner Berthing <kernel@esmil.dk>,
- Shawn Guo <shawnguo@kernel.org>,
- =?UTF-8?Q?Andreas_F=C3=A4rber?= <afaerber@suse.de>
-Subject: Re: [Linux-stm32] [PATCH] dt-bindings: pinctrl: Drop unneeded quotes
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Vincent Mailhol <mailhol.vincent@wanadoo.fr>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>,
+ Amarula patchwork <linux-amarula@amarulasolutions.com>,
+ "David S. Miller" <davem@davemloft.net>,
+ Wolfgang Grandegger <wg@grandegger.com>
+Subject: Re: [Linux-stm32] [PATCH v9 2/5] dt-bindings: net: can: add STM32
+ bxcan DT bindings
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,26 +78,88 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gRnJpLCBNYXIgMjQsIDIwMjMgYXQgMzozM+KAr1BNIFJvYiBIZXJyaW5nIDxyb2JoQGtlcm5l
-bC5vcmc+IHdyb3RlOgo+IE9uIFRodSwgTWFyIDIzLCAyMDIzIGF0IDM6NDDigK9BTSBMaW51cyBX
-YWxsZWlqIDxsaW51cy53YWxsZWlqQGxpbmFyby5vcmc+IHdyb3RlOgo+ID4gT24gU2F0LCBNYXIg
-MTgsIDIwMjMgYXQgMTI6MzbigK9BTSBSb2IgSGVycmluZyA8cm9iaEBrZXJuZWwub3JnPiB3cm90
-ZToKPiA+Cj4gPiA+IENsZWFudXAgYmluZGluZ3MgZHJvcHBpbmcgdW5uZWVkZWQgcXVvdGVzLiBP
-bmNlIGFsbCB0aGVzZSBhcmUgZml4ZWQsCj4gPiA+IGNoZWNraW5nIGZvciB0aGlzIGNhbiBiZSBl
-bmFibGVkIGluIHlhbWxsaW50Lgo+ID4gPgo+ID4gPiBTaWduZWQtb2ZmLWJ5OiBSb2IgSGVycmlu
-ZyA8cm9iaEBrZXJuZWwub3JnPgo+ID4KPiA+IFNob3VsZCBJIHF1ZXVlIHRoaXMgcGF0Y2ggYnkg
-dGhlIHdheSwgb3IgZG8geW91IG5lZWQgaXQgdG8gZ28gaW50byBzb21lCj4gPiBEVC1yZWxhdGVk
-IHRyZWU/Cj4KPiBTdGFuZHMgb24gaXRzIG93bi4gWW91IGNhbiB0YWtlIGl0LgoKVGhpcyBzYWRs
-eSBjb25mbGljdHMgaGFyZCB3aXRoIG15ICJkZXZlbCIgYnJhbmNoOgpodHRwczovL2dpdC5rZXJu
-ZWwub3JnL3B1Yi9zY20vbGludXgva2VybmVsL2dpdC9saW51c3cvbGludXgtcGluY3RybC5naXQv
-bG9nLz9oPWRldmVsCgpDYXVzZSBzZWVtcyB0byBiZSBtYWpvciByZWZhY3RvcmluZ3Mgb2YgTWVk
-aWF0ZWsgYW5kIFJhbGluawpiaW5kaW5ncy4KCllvdXJzLApMaW51cyBXYWxsZWlqCl9fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxp
-bmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8v
-c3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMy
-Cg==
+
+On Mon, 27 Mar 2023 22:16:27 +0200, Dario Binacchi wrote:
+> Add documentation of device tree bindings for the STM32 basic extended
+> CAN (bxcan) controller.
+> 
+> Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+> Reviewed-by: Rob Herring <robh@kernel.org>
+> 
+> ---
+> 
+> Changes in v9:
+> - Replace master/slave terms with primary/secondary.
+> 
+> Changes in v5:
+> - Add Rob Herring's Reviewed-by tag.
+> 
+> Changes in v4:
+> - Remove "st,stm32f4-bxcan-core" compatible. In this way the can nodes
+>  (compatible "st,stm32f4-bxcan") are no longer children of a parent
+>   node with compatible "st,stm32f4-bxcan-core".
+> - Add the "st,gcan" property (global can memory) to can nodes which
+>   references a "syscon" node containing the shared clock and memory
+>   addresses.
+> 
+> Changes in v3:
+> - Remove 'Dario Binacchi <dariobin@libero.it>' SOB.
+> - Add description to the parent of the two child nodes.
+> - Move "patterProperties:" after "properties: in top level before "required".
+> - Add "clocks" to the "required:" list of the child nodes.
+> 
+> Changes in v2:
+> - Change the file name into 'st,stm32-bxcan-core.yaml'.
+> - Rename compatibles:
+>   - st,stm32-bxcan-core -> st,stm32f4-bxcan-core
+>   - st,stm32-bxcan -> st,stm32f4-bxcan
+> - Rename master property to st,can-master.
+> - Remove the status property from the example.
+> - Put the node child properties as required.
+> 
+>  .../bindings/net/can/st,stm32-bxcan.yaml      | 85 +++++++++++++++++++
+>  1 file changed, 85 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/net/can/st,stm32-bxcan.yaml
+> 
+
+My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
+on your patch (DT_CHECKER_FLAGS is new in v5.13):
+
+yamllint warnings/errors:
+./Documentation/devicetree/bindings/net/can/st,stm32-bxcan.yaml:27:11: [error] syntax error: mapping values are not allowed here (syntax)
+
+dtschema/dtc warnings/errors:
+make[1]: *** Deleting file 'Documentation/devicetree/bindings/net/can/st,stm32-bxcan.example.dts'
+Documentation/devicetree/bindings/net/can/st,stm32-bxcan.yaml:27:11: mapping values are not allowed here
+make[1]: *** [Documentation/devicetree/bindings/Makefile:26: Documentation/devicetree/bindings/net/can/st,stm32-bxcan.example.dts] Error 1
+make[1]: *** Waiting for unfinished jobs....
+./Documentation/devicetree/bindings/net/can/st,stm32-bxcan.yaml:27:11: mapping values are not allowed here
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/net/can/st,stm32-bxcan.yaml: ignoring, error parsing file
+make: *** [Makefile:1512: dt_binding_check] Error 2
+
+doc reference errors (make refcheckdocs):
+
+See https://patchwork.ozlabs.org/project/devicetree-bindings/patch/20230327201630.3874028-3-dario.binacchi@amarulasolutions.com
+
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
