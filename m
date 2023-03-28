@@ -2,27 +2,27 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0C6796CBEAC
+	by mail.lfdr.de (Postfix) with ESMTPS id 79A006CBEAD
 	for <lists+linux-stm32@lfdr.de>; Tue, 28 Mar 2023 14:10:45 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C025BC6A603;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DBCC5C6A60B;
 	Tue, 28 Mar 2023 12:10:44 +0000 (UTC)
 Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
  [85.220.165.71])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9BE1AC6A5FB
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1FAC9C6A5FB
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 28 Mar 2023 12:10:41 +0000 (UTC)
+ Tue, 28 Mar 2023 12:10:42 +0000 (UTC)
 Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77]
  helo=pengutronix.de)
  by metis.ext.pengutronix.de with esmtp (Exim 4.92)
  (envelope-from <s.trumtrar@pengutronix.de>)
- id 1ph89x-0007AZ-30; Tue, 28 Mar 2023 14:10:41 +0200
+ id 1ph89x-0007AZ-LC; Tue, 28 Mar 2023 14:10:41 +0200
 From: Steffen Trumtrar <s.trumtrar@pengutronix.de>
 To: linux-stm32@st-md-mailman.stormreply.com
-Date: Tue, 28 Mar 2023 14:10:10 +0200
-Message-Id: <20230328121016.2472819-5-s.trumtrar@pengutronix.de>
+Date: Tue, 28 Mar 2023 14:10:11 +0200
+Message-Id: <20230328121016.2472819-6-s.trumtrar@pengutronix.de>
 X-Mailer: git-send-email 2.39.1
 In-Reply-To: <20230328121016.2472819-1-s.trumtrar@pengutronix.de>
 References: <20230328121016.2472819-1-s.trumtrar@pengutronix.de>
@@ -35,8 +35,8 @@ X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
 Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
-Subject: [Linux-stm32] [PATCH v6 04/10] ARM: dts: stm32: Add new pinmux for
-	sdmmc2_d47
+Subject: [Linux-stm32] [PATCH v6 05/10] ARM: dts: stm32: Add pinmux for
+	USART1 pins
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -53,47 +53,88 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add another option for the SDMMC_D47 pins.
+Add a mux option for the USART1 pins.
 
 This is used on the Phycore STM32MP1.
 
 Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
 ---
- arch/arm/boot/dts/stm32mp15-pinctrl.dtsi | 21 +++++++++++++++++++++
- 1 file changed, 21 insertions(+)
+ arch/arm/boot/dts/stm32mp15-pinctrl.dtsi | 57 ++++++++++++++++++++++++
+ 1 file changed, 57 insertions(+)
 
 diff --git a/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi b/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
-index 6e0363f7aa12f..a23a94aa67a16 100644
+index a23a94aa67a16..0537aa78e82bd 100644
 --- a/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
 +++ b/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
-@@ -1887,6 +1887,27 @@ pins {
+@@ -2258,6 +2258,33 @@ pins {
  		};
  	};
  
-+	sdmmc2_d47_pins_e: sdmmc2-d47-4 {
-+		pins {
-+			pinmux = <STM32_PINMUX('A', 8, AF9)>,	/* SDMMC2_D4 */
-+				 <STM32_PINMUX('A', 9, AF10)>,	/* SDMMC2_D5 */
-+				 <STM32_PINMUX('C', 6, AF10)>,	/* SDMMC2_D6 */
-+				 <STM32_PINMUX('D', 3, AF9)>;	/* SDMMC2_D7 */
-+			slew-rate = <1>;
++	usart1_pins_a: usart1-0 {
++		pins1 {
++			pinmux = <STM32_PINMUX('A', 12, AF7)>; /* USART1_RTS */
++			bias-disable;
 +			drive-push-pull;
-+			bias-pull-up;
++			slew-rate = <0>;
++		};
++		pins2 {
++			pinmux = <STM32_PINMUX('A', 11, AF7)>; /* USART1_CTS_NSS */
++			bias-disable;
 +		};
 +	};
 +
-+	sdmmc2_d47_sleep_pins_e: sdmmc2-d47-sleep-4 {
++	usart1_idle_pins_a: usart1-idle-0 {
++		pins1 {
++			pinmux = <STM32_PINMUX('A', 12, ANALOG)>, /* USART1_RTS */
++				 <STM32_PINMUX('A', 11, AF7)>; /* USART1_CTS_NSS */
++		};
++	};
++
++	usart1_sleep_pins_a: usart1-sleep-0 {
 +		pins {
-+			pinmux = <STM32_PINMUX('A', 8, ANALOG)>, /* SDMMC2_D4 */
-+				 <STM32_PINMUX('A', 9, ANALOG)>, /* SDMMC2_D5 */
-+				 <STM32_PINMUX('C', 6, ANALOG)>, /* SDMMC2_D6 */
-+				 <STM32_PINMUX('D', 3, ANALOG)>; /* SDMMC2_D7 */
++			pinmux = <STM32_PINMUX('A', 12, ANALOG)>, /* USART1_RTS */
++				 <STM32_PINMUX('A', 11, ANALOG)>; /* USART1_CTS_NSS */
 +		};
 +	};
 +
- 	sdmmc3_b4_pins_a: sdmmc3-b4-0 {
+ 	usart2_pins_a: usart2-0 {
  		pins1 {
- 			pinmux = <STM32_PINMUX('F', 0, AF9)>, /* SDMMC3_D0 */
+ 			pinmux = <STM32_PINMUX('F', 5, AF7)>, /* USART2_TX */
+@@ -2612,4 +2639,34 @@ pins2 {
+ 			bias-disable;
+ 		};
+ 	};
++
++	usart1_idle_pins_b: usart1-idle-1 {
++		pins1 {
++			pinmux = <STM32_PINMUX('Z', 7, ANALOG)>; /* USART1_TX */
++		};
++		pins2 {
++			pinmux = <STM32_PINMUX('Z', 6, AF7)>; /* USART1_RX */
++			bias-disable;
++		};
++	};
++
++	usart1_sleep_pins_b: usart1-sleep-1 {
++		pins {
++			pinmux = <STM32_PINMUX('Z', 7, ANALOG)>, /* USART1_TX */
++				 <STM32_PINMUX('Z', 6, ANALOG)>; /* USART1_RX */
++		};
++	};
++
++	usart1_pins_b: usart1-1 {
++		pins1 {
++			pinmux = <STM32_PINMUX('Z', 7, AF7)>; /* USART1_TX */
++			bias-disable;
++			drive-push-pull;
++			slew-rate = <0>;
++		};
++		pins2 {
++			pinmux = <STM32_PINMUX('Z', 6, AF7)>; /* USART1_RX */
++			bias-disable;
++		};
++	};
+ };
 -- 
 2.39.1
 
