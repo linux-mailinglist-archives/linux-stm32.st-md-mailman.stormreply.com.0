@@ -2,39 +2,36 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 617E66CB53E
-	for <lists+linux-stm32@lfdr.de>; Tue, 28 Mar 2023 05:59:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C8E276CB6E4
+	for <lists+linux-stm32@lfdr.de>; Tue, 28 Mar 2023 08:18:47 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 11063C6A5F2;
-	Tue, 28 Mar 2023 03:59:03 +0000 (UTC)
-Received: from 167-179-156-38.a7b39c.syd.nbn.aussiebb.net
- (167-179-156-38.a7b39c.syd.nbn.aussiebb.net [167.179.156.38])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 59558C6A5F2;
+	Tue, 28 Mar 2023 06:18:47 +0000 (UTC)
+Received: from out30-130.freemail.mail.aliyun.com
+ (out30-130.freemail.mail.aliyun.com [115.124.30.130])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 16E2CC01E98
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E063DC01E98
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 28 Mar 2023 03:59:01 +0000 (UTC)
-Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
- by formenos.hmeau.com with smtp (Exim 4.94.2 #2 (Debian))
- id 1ph0Tf-009Oce-Ss; Tue, 28 Mar 2023 11:58:32 +0800
-Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation);
- Tue, 28 Mar 2023 11:58:31 +0800
-Date: Tue, 28 Mar 2023 11:58:31 +0800
-From: Herbert Xu <herbert@gondor.apana.org.au>
-To: Thomas BOURGOIN <thomas.bourgoin@foss.st.com>
-Message-ID: <ZCJl55aGJO8CFO0j@gondor.apana.org.au>
-References: <ZAxFBR3TdA7jUAgJ@gondor.apana.org.au>
- <E1pavED-002xbf-LL@formenos.hmeau.com>
- <e7cd1e8b-9ebc-ff6d-a8c4-1ccd11df6de1@foss.st.com>
+ Tue, 28 Mar 2023 06:18:44 +0000 (UTC)
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R181e4; CH=green; DM=||false|;
+ DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=ay29a033018045168;
+ MF=yang.lee@linux.alibaba.com; NM=1; PH=DS; RN=9; SR=0;
+ TI=SMTPD_---0VerqKNV_1679984320; 
+Received: from localhost(mailfrom:yang.lee@linux.alibaba.com
+ fp:SMTPD_---0VerqKNV_1679984320) by smtp.aliyun-inc.com;
+ Tue, 28 Mar 2023 14:18:40 +0800
+From: Yang Li <yang.lee@linux.alibaba.com>
+To: broonie@kernel.org
+Date: Tue, 28 Mar 2023 14:18:39 +0800
+Message-Id: <20230328061839.82185-1-yang.lee@linux.alibaba.com>
+X-Mailer: git-send-email 2.20.1.7.g153144c
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <e7cd1e8b-9ebc-ff6d-a8c4-1ccd11df6de1@foss.st.com>
-Cc: Linus Walleij <linus.walleij@linaro.org>, Li kunyu <kunyu@nfschina.com>,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-crypto@vger.kernel.org, mcoquelin.stm32@gmail.com, davem@davemloft.net,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [v7 PATCH 8/8] crypto: stm32 - Save and restore
- between each request
+Cc: linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org,
+ Yang Li <yang.lee@linux.alibaba.com>, mcoquelin.stm32@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH -next] spi: stm32: Use
+	devm_platform_get_and_ioremap_resource()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -51,31 +48,34 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Mar 27, 2023 at 10:33:10AM +0200, Thomas BOURGOIN wrote:
-> 
-> I'm working on the patch for STM32MP13.
+According to commit 890cc39a8799 ("drivers: provide
+devm_platform_get_and_ioremap_resource()"), convert
+platform_get_resource(), devm_ioremap_resource() to a single
+call to devm_platform_get_and_ioremap_resource(), as this is exactly
+what this function does.
 
-...
+Signed-off-by: Yang Li <yang.lee@linux.alibaba.com>
+---
+ drivers/spi/spi-stm32.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+diff --git a/drivers/spi/spi-stm32.c b/drivers/spi/spi-stm32.c
+index 8e6532d8babc..d6598e4116bd 100644
+--- a/drivers/spi/spi-stm32.c
++++ b/drivers/spi/spi-stm32.c
+@@ -1780,8 +1780,7 @@ static int stm32_spi_probe(struct platform_device *pdev)
+ 		of_match_device(pdev->dev.driver->of_match_table,
+ 				&pdev->dev)->data;
  
-> The version of HASH implemented in the STM32MP13 provides new algorithms (SHA512, SHA3, ...).
-> Because of that, the constant HASH_CSR_REGISTER_NUMBER increases (from 54 to 103).
-> Hence, the size of stm32_hash_state is equal to 688 which is bigger than HASH_MAX_STATESIZE(=512)
-> and the driver fails to register the algorithms.
-> 
-> Is there any reasons why HASH_MAX_STATESIZE is set to 512 ?
-> I only see it used to define static arrays, so maybe it could be set to 1024.
-
-Thanks for reaching out.  Please fix your emails so that they
-are plain-text only, otherwise you won't be able to send any
-patches to the list.
-
-I have just sent out two patches to remove this limit.
-
-Cheers,
+-	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
+-	spi->base = devm_ioremap_resource(&pdev->dev, res);
++	spi->base = devm_platform_get_and_ioremap_resource(pdev, 0, &res);
+ 	if (IS_ERR(spi->base))
+ 		return PTR_ERR(spi->base);
+ 
 -- 
-Email: Herbert Xu <herbert@gondor.apana.org.au>
-Home Page: http://gondor.apana.org.au/~herbert/
-PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
+2.20.1.7.g153144c
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
