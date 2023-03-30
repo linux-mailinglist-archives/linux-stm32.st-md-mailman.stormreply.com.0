@@ -2,61 +2,37 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 48F5A6CFF91
-	for <lists+linux-stm32@lfdr.de>; Thu, 30 Mar 2023 11:15:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5EC136CFF9B
+	for <lists+linux-stm32@lfdr.de>; Thu, 30 Mar 2023 11:16:19 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0B330C6A5F2;
-	Thu, 30 Mar 2023 09:15:15 +0000 (UTC)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 27EFFC6A5FB;
+	Thu, 30 Mar 2023 09:16:19 +0000 (UTC)
+Received: from smtp28.bhosted.nl (smtp28.bhosted.nl [94.124.121.40])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B6729C01E98
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7E53BC6A5F2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 30 Mar 2023 09:15:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1680167712; x=1711703712;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=huOgNrOBcSC1/tjpitYzPeEN/HeYkrzn2WanLt9fM1M=;
- b=K32SAvfIyVEiCRFHcYadsNF9Y+JJnX+mjHvdycZCiVmMdZDxi2R+Cl/A
- p3ejEsMwhH4pQVeRVVtW+NsPB2cEVmZWNp5auEfXOcCEe64fPhxg8as4m
- 43uqynf06rG5TzMK6I2nHnvb1IdzocPnjP7pV2BMY/drhmXQjv3kP8ayM
- qgkmWx1aatgmV9VyyGpoJwFRQljNCAiV067uhh3gLoEcJttI0bqBeABg0
- QZQFGfANkcd3d8VZlYpc3rYAhgIIt64mJ7+8lrHUsUBxL57etvD8XDyLF
- sW9/UsGqwSQ5huOk9H1yMjE5Hz4CokyQnJre7D4yvcoFkdH8ANfasYeWV g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10664"; a="325038922"
-X-IronPort-AV: E=Sophos;i="5.98,303,1673942400"; d="scan'208";a="325038922"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Mar 2023 02:15:08 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10664"; a="678125447"
-X-IronPort-AV: E=Sophos;i="5.98,303,1673942400"; d="scan'208";a="678125447"
-Received: from mike-ilbpg1.png.intel.com ([10.88.227.76])
- by orsmga007.jf.intel.com with ESMTP; 30 Mar 2023 02:15:04 -0700
-From: Michael Sit Wei Hong <michael.wei.hong.sit@intel.com>
-To: Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Jose Abreu <joabreu@synopsys.com>,
- "David S . Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Ong Boon Leong <boon.leong.ong@intel.com>, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux@armlinux.org.uk, hkallweit1@gmail.com, andrew@lunn.ch
-Date: Thu, 30 Mar 2023 17:14:04 +0800
-Message-Id: <20230330091404.3293431-4-michael.wei.hong.sit@intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20230330091404.3293431-1-michael.wei.hong.sit@intel.com>
-References: <20230330091404.3293431-1-michael.wei.hong.sit@intel.com>
+ Thu, 30 Mar 2023 09:16:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonic.nl; s=202111;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc:to:from:
+ from; bh=PfPZKp62ZUfMvI3fqeh72mzhaSf7vvFEI18bulM/FrI=;
+ b=gTE0TsMBwKVLxEbNOrzWrtH71pn1o+UlfqzsRG8/3UmX0iJ2rWvmntfY4g8DsNe7LPrmtWZCcxq2O
+ zIS7wl5qQ852E6qOJRU+hcwEd//h4U6pjI7bLhG9Rj32t08tD1R0/AmRTA7wwKnQKCoz3UvPRTAoGb
+ jj6f82uZnheU/dwxN4DGcqqghUd2M4haooD0aZYGv6yPx09z43PFAV4+kiOeNs/sHd8FHuk4auFjBc
+ xcI7l29bBIq1Tml+ALIp2IxGDVGDX/59XLVquMFgrWvniwOmnXwQHeCQmtuczfWENIACeTeh/lxuGZ
+ zIn9QB9TbMvPlxwRuFf6S08xUnNVOZw==
+X-MSG-ID: 85abb958-cedb-11ed-a150-0050569d11ae
+From: Roan van Dijk <roan@protonic.nl>
+To: corbet@lwn.net
+Date: Thu, 30 Mar 2023 11:16:13 +0200
+Message-Id: <20230330091613.1445734-1-roan@protonic.nl>
+X-Mailer: git-send-email 2.37.2
 MIME-Version: 1.0
-Cc: Lai Peter Jun Ann <peter.jun.ann.lai@intel.com>,
- Looi Hong Aun <hong.aun.looi@intel.com>, Voon Weifeng <weifeng.voon@intel.com>
-Subject: [Linux-stm32] [PATCH net v5 3/3] net: stmmac: remove redundant
-	fixup to support fixed-link mode
+Cc: linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Roan van Dijk <roan@protonic.nl>, mcoquelin.stm32@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH v2] ARM: stm32: add initial documentation for
+	STM32MP151
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,37 +49,76 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Currently, intel_speed_mode_2500() will fix-up xpcs_an_inband
-to 1 if the underlying controller has a max speed of 1000Mbps.
-The value has been initialized and modified if it is
-a fixed-linked setup earlier.
+This patch adds initial documentation of STM32MP151 microprocessor (MPU)
+based on Arm Cortex-A7.
 
-This patch removes the fix-up to allow for fixed-linked setup
-support. In stmmac_phy_setup(), ovr_an_inband is set based on
-the value of xpcs_an_inband. Which in turn will return an
-error in phylink_parse_mode() where MLO_AN_FIXED and
-ovr_an_inband are both set.
-
-Fixes: c82386310d95 ("stmmac: intel: prepare to support 1000BASE-X phy interface setting")
-Signed-off-by: Michael Sit Wei Hong <michael.wei.hong.sit@intel.com>
+Signed-off-by: Roan van Dijk <roan@protonic.nl>
 ---
- drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c | 1 -
- 1 file changed, 1 deletion(-)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
-index 7deb1f817dac..6db87184bf75 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
-@@ -251,7 +251,6 @@ static void intel_speed_mode_2500(struct net_device *ndev, void *intel_data)
- 		priv->plat->mdio_bus_data->xpcs_an_inband = false;
- 	} else {
- 		priv->plat->max_speed = 1000;
--		priv->plat->mdio_bus_data->xpcs_an_inband = true;
- 	}
- }
+v2: 
+ - Adds stm32mp151 to index.rst
+
+ Documentation/arm/index.rst                   |  1 +
+ .../arm/stm32/stm32mp151-overview.rst         | 36 +++++++++++++++++++
+ 2 files changed, 37 insertions(+)
+ create mode 100644 Documentation/arm/stm32/stm32mp151-overview.rst
+
+diff --git a/Documentation/arm/index.rst b/Documentation/arm/index.rst
+index ae42fe886f0d..056ac11372af 100644
+--- a/Documentation/arm/index.rst
++++ b/Documentation/arm/index.rst
+@@ -58,6 +58,7 @@ SoC-specific documents
+    stm32/stm32f769-overview
+    stm32/stm32f429-overview
+    stm32/stm32mp13-overview
++   stm32/stm32mp151-overview
+    stm32/stm32mp157-overview
+    stm32/stm32-dma-mdma-chaining
  
+diff --git a/Documentation/arm/stm32/stm32mp151-overview.rst b/Documentation/arm/stm32/stm32mp151-overview.rst
+new file mode 100644
+index 000000000000..f42a2ac309c0
+--- /dev/null
++++ b/Documentation/arm/stm32/stm32mp151-overview.rst
+@@ -0,0 +1,36 @@
++===================
++STM32MP151 Overview
++===================
++
++Introduction
++------------
++
++The STM32MP151 is a Cortex-A MPU aimed at various applications.
++It features:
++
++- Single Cortex-A7 application core
++- Standard memories interface support
++- Standard connectivity, widely inherited from the STM32 MCU family
++- Comprehensive security support
++
++More details:
++
++- Cortex-A7 core running up to @800MHz
++- FMC controller to connect SDRAM, NOR and NAND memories
++- QSPI
++- SD/MMC/SDIO support
++- Ethernet controller
++- ADC/DAC
++- USB EHCI/OHCI controllers
++- USB OTG
++- I2C, SPI busses support
++- Several general purpose timers
++- Serial Audio interface
++- LCD-TFT controller
++- DCMIPP
++- SPDIFRX
++- DFSDM
++
++:Authors:
++
++- Roan van Dijk <roan@protonic.nl>
 -- 
-2.34.1
+2.37.2
 
 _______________________________________________
 Linux-stm32 mailing list
