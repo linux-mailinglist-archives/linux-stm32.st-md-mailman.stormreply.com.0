@@ -2,99 +2,39 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0673C6CF400
-	for <lists+linux-stm32@lfdr.de>; Wed, 29 Mar 2023 22:04:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7C8F16CFA73
+	for <lists+linux-stm32@lfdr.de>; Thu, 30 Mar 2023 07:04:22 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A6DBDC69069;
-	Wed, 29 Mar 2023 20:04:19 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1BD4AC6904F
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 29 Mar 2023 20:04:18 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 118D7C6A5E7;
+	Thu, 30 Mar 2023 05:04:22 +0000 (UTC)
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [85.220.165.71])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id B515561E1B;
- Wed, 29 Mar 2023 20:04:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 090DEC433D2;
- Wed, 29 Mar 2023 20:04:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1680120256;
- bh=4zOE3jMEKOhNI25UF0fOfIL08piHi2bqDz6TyK76qR4=;
- h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
- b=uw7qtD3HESWGMQ9Baj1w6twvKM7JMNgmt7PKXoCvJOczY0u340GfBpvymvmBiBWVx
- qf+kcFVYf4dg0yAAoDZF/aYBqaksZ6Fa6+sA1PoByUd2LNaPRyh7sgPqRQE/0pwpm6
- kLBCPzCQv/zuh06cTNQJrCxJ0npzPNiAuiOv4nPQtFpsUot5FTUeXXUIthYvejQLJp
- rYE7s1omKIT+oMjKorhMYWPlc7LMeX1LkHhCE8Dy2xq0wbdX6qu2wzq8S2YfmcMFVE
- ghrqf/6Xyf4MjMXD1dbNaL7jIuCYUjU2Xzl7KYDgsErEqGoLGnH3utZKKa/Vvp72NN
- 7AGUd6HAiLFYg==
-Message-ID: <da1ea2d9278c15a4aa9d4fb3d459e819.sboyd@kernel.org>
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D5383C65E6E
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 30 Mar 2023 05:04:19 +0000 (UTC)
+Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77]
+ helo=pengutronix.de)
+ by metis.ext.pengutronix.de with esmtp (Exim 4.92)
+ (envelope-from <s.trumtrar@pengutronix.de>)
+ id 1phkSR-0005ZJ-0r; Thu, 30 Mar 2023 07:04:19 +0200
+From: Steffen Trumtrar <s.trumtrar@pengutronix.de>
+To: linux-stm32@st-md-mailman.stormreply.com
+Date: Thu, 30 Mar 2023 07:03:58 +0200
+Message-Id: <20230330050408.3806093-1-s.trumtrar@pengutronix.de>
+X-Mailer: git-send-email 2.39.1
 MIME-Version: 1.0
-In-Reply-To: <20230329195049.lbdbkbqu6zbq5xii@penduick>
-References: <20221018-clk-range-checks-fixes-v2-0-f6736dec138e@cerno.tech>
- <20221018-clk-range-checks-fixes-v2-43-f6736dec138e@cerno.tech>
- <Y2UzdYyjgahJsbHg@sirena.org.uk> <20221104155123.qomguvthehnogkdd@houat>
- <Y2U2+ePwRieYkNjv@sirena.org.uk> <20221107084322.gk4j75r52zo5k7xk@houat>
- <Y2j0r0wX1XtQBvqO@sirena.org.uk> <20221107152603.57qimyzkinhifx5p@houat>
- <5819b1362f35ce306e1b6d566bfd44e5.sboyd@kernel.org>
- <20230329195049.lbdbkbqu6zbq5xii@penduick>
-From: Stephen Boyd <sboyd@kernel.org>
-To: Maxime Ripard <maxime@cerno.tech>
-Date: Wed, 29 Mar 2023 13:04:13 -0700
-User-Agent: alot/0.10
-Cc: , Ulf Hansson <ulf.hansson@linaro.org>,
-	Prashant Gaikwad <pgaikwad@nvidia.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Michael Turquette <mturquette@baylibre.com>,
-	Sekhar Nori <nsekhar@ti.com>, dri-devel@lists.freedesktop.org,
-	Jaroslav Kysela <perex@perex.cz>,
-	Paul Cercueil <paul@crapouillou.net>,
-	Max Filippov <jcmvbkbc@gmail.com>,
-	Thierry Reding <thierry.reding@gmail.com>,
-	linux-phy@lists.infradead.org, David Airlie <airlied@gmail.com>,
-	Fabio Estevam <festevam@gmail.com>,
-	linux-stm32@st-md-mailman.stormreply.com,
-	Abel Vesa <abelvesa@kernel.org>,
-	Kishon Vijay Abraham I <kishon@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Samuel Holland <samuel@sholland.org>,
-	Chunyan Zhang <zhang.lyra@gmail.com>, Takashi Iwai <tiwai@suse.com>,
-	linux-tegra@vger.kernel.org,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Jonathan Hunter <jonathanh@nvidia.com>, Chen-Yu Tsai <wens@csie.org>,
-	NXP Linux Team <linux-imx@nxp.com>, Orson Zhai <orsonzhai@gmail.com>,
-	linux-mips@vger.kernel.org,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Linus Walleij <linus.walleij@linaro.org>, linux-rtc@vger.kernel.org,
-	linux-clk@vger.kernel.org,
-	Charles Keepax <ckeepax@opensource.cirrus.com>,
-	Daniel Vetter <daniel@ffwll.ch>, alsa-devel@alsa-project.org,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	linux-kernel@vger.kernel.org, Sascha Hauer <s.hauer@pengutronix.de>,
-	linux-actions@lists.infradead.org,
-	Richard Fitzgerald <rf@opensource.cirrus.com>,
-	Mark Brown <broonie@kernel.org>, linux-mediatek@lists.infradead.org,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	nel.org@stm-ict-prod-mailman-01.stormreply.prv,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	linux-arm-kernel@lists.infradead.org,
-	Alessandro Zummo <a.zummo@towertech.it>, linux-sunxi@lists.linux.dev,
-	patches@opensource.cirrus.com,
-	Peter De Schrijver <pdeschrijver@nvidia.com>,
-	Nicolas Ferre <nicolas.ferre@microchip.com>,
-	Andreas =?utf-8?q?F=C3=A4rber?= <afaerber@suse.de>,
-	Dinh Nguyen <dinguyen@kernel.org>, Vinod Koul <vkoul@kernel.org>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	linux-renesas-soc@vger.ker, David Lechner <david@lechnology.com>,
-	Shawn Guo <shawnguo@kernel.org>,
-	Claudiu Beznea <claudiu.beznea@microchip.com>
-Subject: Re: [Linux-stm32] [PATCH v2 43/65] ASoC: tlv320aic32x4: Add a
-	determine_rate hook
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:900:1d::77
+X-SA-Exim-Mail-From: s.trumtrar@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
+Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
+Subject: [Linux-stm32] [PATCH v7 00/10] ARM: stm32: add support for Phycore
+	STM32MP1
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -111,52 +51,57 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Quoting Maxime Ripard (2023-03-29 12:50:49)
-> On Wed, Mar 22, 2023 at 04:31:04PM -0700, Stephen Boyd wrote:
-> 
-> > The clk_set_parent() path is valid for those cases. Probably nobody
-> > cares about determine_rate because they don't set rates on these clks.
-> > Some drivers even explicitly left out determine_rate()/round_rate()
-> > because they didn't want to have some other clk round up to the mux
-> > and change the parent.
-> > 
-> > Eventually we want drivers to migrate to determine_rate op so we can get
-> > rid of the round_rate op and save a pointer (we're so greedy). It's been
-> > 10 years though, and that hasn't been done. Sigh! I can see value in
-> > this series from the angle of migrating, but adding a determine_rate op
-> > when there isn't a round_rate op makes it hard to reason about. What if
-> > something copies the clk_ops or sets a different flag? Now we've just
-> > added parent changing support to clk_set_rate(). What if the clk has
-> > CLK_SET_RATE_PARENT flag set? Now we're going to ask the parent clk to
-> > change rate. Fun bugs.
-> > 
-> > TL;DR: If the set_parent op exists but determine_rate/round_rate doesn't
-> > then the clk is a mux that doesn't want to support clk_set_rate(). Make
-> > a new mux function that's the contents of the CLK_SET_RATE_NO_REPARENT
-> > branch in clk_mux_determine_rate_flags() and call that directly from the
-> > clk_ops so it is clear what's happening,
-> > clk_hw_mux_same_parent_determine_rate() or something with a better name.
-> > Otherwise migrate the explicit determine_rate op to this new function
-> > and don't set the flag.
-> > 
-> > It may be possible to entirely remove the CLK_SET_RATE_NO_REPARENT flag
-> > with this design, if the determine_rate clk_op can call the inner
-> > wrapper function instead of __clk_mux_determine_rate*() (those
-> > underscores are awful, we should just prefix them with clk_hw_mux_*()
-> > and live happier). That should be another patch series.
-> 
-> Sorry but it's not really clear to me what you expect in the v2 of this
-> series (if you even expect one). It looks that you don't like the
-> assignment-if-missing idea Mark suggested, but should I just
-> rebase/resend or did you expect something else?
-> 
+Hi,
 
-Yes, we want explicit code. Just rebase & resend. Don't add a
-determine_rate if there isn't a round_rate. Don't add more users of
-CLK_SET_RATE_NO_REPARENT. Instead, make an explicit determine_rate
-function for that. If you want to work on the removal of
-CLK_SET_RATE_NO_REPARENT go for it. Otherwise I'll take care of it after
-this series.
+this is the seventh installement of my series for adding support for the
+Phytec STM32MP1-based SoM and board.
+
+Phytec itself calls the board "Phycore STM32MP1-3" and has other
+endnumbers. I only have access to the "-3" and that's what this series
+adds.
+
+    Changes since v6:
+      - rename mdio0->mdio
+
+    Changes since v5:
+      - add reviewed/acked-by
+      - cleanup dt_bindings_check warnings
+
+    Changes since v4:
+      - cleanup usage of "status = okay|disabled"
+      - fix remaining non-generic node names
+      - rework sai nodes to not duplicate the existing settings in stm32mp151.dtsi
+
+    Changes since v3:
+      - cleanup board-compatible
+      - cleanup aliases
+      - rename nodes according to schema
+      - use interrupt flag
+
+Steffen Trumtrar (10):
+  ARM: dts: stm32: Add alternate pinmux for ethernet
+  ARM: dts: stm32: Add alternate pinmux for sai2b
+  ARM: dts: stm32: Add new pinmux for sdmmc1_b4
+  ARM: dts: stm32: Add new pinmux for sdmmc2_d47
+  ARM: dts: stm32: Add pinmux for USART1 pins
+  ARM: dts: stm32: Add idle/sleep pinmux for USART3
+  ARM: dts: stm32: Add sleep pinmux for SPI1 pins_a
+  dt-bindings: arm: stm32: Add Phytec STM32MP1 board
+  ARM: dts: stm32: add STM32MP1-based Phytec SoM
+  ARM: dts: stm32: add STM32MP1-based Phytec board
+
+ .../devicetree/bindings/arm/stm32/stm32.yaml  |   6 +
+ arch/arm/boot/dts/Makefile                    |   3 +-
+ arch/arm/boot/dts/stm32mp15-pinctrl.dtsi      | 231 +++++++
+ .../dts/stm32mp157c-phycore-stm32mp1-3.dts    |  65 ++
+ .../stm32mp157c-phycore-stm32mp15-som.dtsi    | 594 ++++++++++++++++++
+ 5 files changed, 898 insertions(+), 1 deletion(-)
+ create mode 100644 arch/arm/boot/dts/stm32mp157c-phycore-stm32mp1-3.dts
+ create mode 100644 arch/arm/boot/dts/stm32mp157c-phycore-stm32mp15-som.dtsi
+
+-- 
+2.39.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
