@@ -2,39 +2,39 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0B7DC6CFE95
-	for <lists+linux-stm32@lfdr.de>; Thu, 30 Mar 2023 10:40:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EDB466CFE97
+	for <lists+linux-stm32@lfdr.de>; Thu, 30 Mar 2023 10:40:58 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A5C0BC6A5E7;
-	Thu, 30 Mar 2023 08:40:55 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B4E2CC6A5EF;
+	Thu, 30 Mar 2023 08:40:58 +0000 (UTC)
 Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 209CAC01E98
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 85329C6A5EF
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 30 Mar 2023 08:40:53 +0000 (UTC)
+ Thu, 30 Mar 2023 08:40:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1680165653; x=1711701653;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=E/3JzKj/ftYcVD0rt0pT36PrSlnk43aIECQPEWDRFIQ=;
- b=dFfPvsn7myccOOakZKRYgHAA2qHe4tllhFXOVREJFyEMZ5UFUjnAepvQ
- YOL68aRQpuh2hlC6y/NnBFBlVRbcq0B8Z/Jjsv5LDE0RsM9jjfHIrtY/x
- WG5vIxsJsTLA0A/63LD0lUiNw0oXcpbjco1b8ciOAnschhq3u2p7GjWo1
- ifLYrInC2ZnAajK/yOenhT3CB1CoFL20nxqj9jnlpfFq/NB6TIU4JJ1rm
- GnpIHLwImmSLk1c7Sun4mlzaRwwaNAb8lIeSVYgpEUi8Jbqt2BB5kw8TP
- AXhPzHj1lNm/8X1rfx5YWHJSpXaWBoJJLFXg7pOdQo3EkeASQbGLrigS3 g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10664"; a="343559364"
-X-IronPort-AV: E=Sophos;i="5.98,303,1673942400"; d="scan'208";a="343559364"
+ t=1680165657; x=1711701657;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=0DOTY4ZPGFZaHY/uWfGDuMYUQdXHlRV5Muct6oWwU3o=;
+ b=H18LoIdyq7eMgWshI/xN15aFm3jl8yB4ZcbFMS/F67EkGkFfY7sAkA/1
+ ZqnTp2arjgaZDUgaGv5s0LR2sDZZZKgJS5cb/poLiPXhchS7FZPVtfYOm
+ kpjX2L3ZyQTbMAuVmtvKSX/NtFv9UYS73vd1NxrD0YivkEVNvkQK/zno0
+ rAfwWxtxS1XLblux/SYk53HR0gLr9lyCKmILLi+m+iJOTB8oWcOfY1X/Y
+ KMm4sR6uNF/FFUMobVFgOW9LOjLoyDOB/0V/S9+tCWkXYxrD7+6wVoHpF
+ O4h30ixxF/zqUzLLShvdhhKk5Y+9VIGBNTSK8S4yEskePJbbuLdlCfqSu g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10664"; a="343559397"
+X-IronPort-AV: E=Sophos;i="5.98,303,1673942400"; d="scan'208";a="343559397"
 Received: from orsmga002.jf.intel.com ([10.7.209.21])
  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Mar 2023 01:40:51 -0700
+ 30 Mar 2023 01:40:56 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10664"; a="684618810"
-X-IronPort-AV: E=Sophos;i="5.98,303,1673942400"; d="scan'208";a="684618810"
+X-IronPort-AV: E=McAfee;i="6600,9927,10664"; a="684618816"
+X-IronPort-AV: E=Sophos;i="5.98,303,1673942400"; d="scan'208";a="684618816"
 Received: from mike-ilbpg1.png.intel.com ([10.88.227.76])
- by orsmga002.jf.intel.com with ESMTP; 30 Mar 2023 01:40:46 -0700
+ by orsmga002.jf.intel.com with ESMTP; 30 Mar 2023 01:40:52 -0700
 From: Michael Sit Wei Hong <michael.wei.hong.sit@intel.com>
 To: Giuseppe Cavallaro <peppe.cavallaro@st.com>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>,
@@ -47,13 +47,16 @@ To: Giuseppe Cavallaro <peppe.cavallaro@st.com>,
  linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
  linux@armlinux.org.uk, hkallweit1@gmail.com, andrew@lunn.ch
-Date: Thu, 30 Mar 2023 16:39:57 +0800
-Message-Id: <20230330084000.3292487-1-michael.wei.hong.sit@intel.com>
+Date: Thu, 30 Mar 2023 16:39:58 +0800
+Message-Id: <20230330084000.3292487-2-michael.wei.hong.sit@intel.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20230330084000.3292487-1-michael.wei.hong.sit@intel.com>
+References: <20230330084000.3292487-1-michael.wei.hong.sit@intel.com>
 MIME-Version: 1.0
 Cc: Lai Peter Jun Ann <peter.jun.ann.lai@intel.com>,
  Looi Hong Aun <hong.aun.looi@intel.com>, Voon Weifeng <weifeng.voon@intel.com>
-Subject: [Linux-stm32] [PATCH net v4 0/3] Fix PHY handle no longer parsing
+Subject: [Linux-stm32] [PATCH net v4 1/3] net: phylink: add
+	phylink_expects_phy() method
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,28 +73,59 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-After the fixed link support was introduced, it is observed that PHY
-no longer attach to the MAC properly. So we introduce a helper
-function to determine if the MAC should expect to connect to a PHY
-and proceed accordingly.
+Provide phylink_expects_phy() to allow MAC drivers to check if it
+is expecting a PHY to attach to. Since fixed-linked setups do not
+need to attach to a PHY.
 
-Michael Sit Wei Hong (3):
-  net: phylink: add phylink_expects_phy() method
-  net: stmmac: check if MAC needs to attach to a PHY
-  net: stmmac: remove redundant fixup to support fixed-link mode
+Provides a boolean value as to if the MAC should expect a PHY.
+returns true if a PHY is expected.
 
- .../net/ethernet/stmicro/stmmac/dwmac-intel.c   |  1 -
- .../net/ethernet/stmicro/stmmac/stmmac_main.c   |  4 +++-
- drivers/net/phy/phylink.c                       | 17 +++++++++++++++++
- include/linux/phylink.h                         |  1 +
- 4 files changed, 21 insertions(+), 2 deletions(-)
+Signed-off-by: Michael Sit Wei Hong <michael.wei.hong.sit@intel.com>
+---
+ drivers/net/phy/phylink.c | 17 +++++++++++++++++
+ include/linux/phylink.h   |  1 +
+ 2 files changed, 18 insertions(+)
 
-v2: Initialize fwnode before using the variable
-v3: Introduced phylink_expects_phy() method as suggested by Russell King
-    remove xpcs_an_inband fixup instead of moving the fixed-link check
-    as suggested by Andrew Lunn
-v4: Modify phylink_expects_phy() to check for more complete set of
-    conditions when no PHY is needed and return false if met.
+diff --git a/drivers/net/phy/phylink.c b/drivers/net/phy/phylink.c
+index 1a2f074685fa..4c080656e280 100644
+--- a/drivers/net/phy/phylink.c
++++ b/drivers/net/phy/phylink.c
+@@ -1586,6 +1586,23 @@ void phylink_destroy(struct phylink *pl)
+ }
+ EXPORT_SYMBOL_GPL(phylink_destroy);
+ 
++/**
++ * phylink_expects_phy() - Determine if phylink expects a phy to be attached
++ * @pl: a pointer to a &struct phylink returned from phylink_create()
++ *
++ * Fixed-link mode does not need a PHY, returns a boolean value to check if
++ * phylink will be expecting a PHY to attach.
++ */
++bool phylink_expects_phy(struct phylink *pl)
++{
++	if (pl->cfg_link_an_mode == MLO_AN_FIXED ||
++	    (pl->cfg_link_an_mode == MLO_AN_INBAND &&
++	     phy_interface_mode_is_8023z(pl->link_config.interface)))
++		return false;
++	return true;
++}
++EXPORT_SYMBOL_GPL(phylink_expects_phy);
++
+ static void phylink_phy_change(struct phy_device *phydev, bool up)
+ {
+ 	struct phylink *pl = phydev->phylink;
+diff --git a/include/linux/phylink.h b/include/linux/phylink.h
+index c492c26202b5..637698ed5cb6 100644
+--- a/include/linux/phylink.h
++++ b/include/linux/phylink.h
+@@ -574,6 +574,7 @@ struct phylink *phylink_create(struct phylink_config *, struct fwnode_handle *,
+ 			       phy_interface_t iface,
+ 			       const struct phylink_mac_ops *mac_ops);
+ void phylink_destroy(struct phylink *);
++bool phylink_expects_phy(struct phylink *pl);
+ 
+ int phylink_connect_phy(struct phylink *, struct phy_device *);
+ int phylink_of_phy_connect(struct phylink *, struct device_node *, u32 flags);
 -- 
 2.34.1
 
