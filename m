@@ -2,39 +2,39 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 07B906CFE9A
-	for <lists+linux-stm32@lfdr.de>; Thu, 30 Mar 2023 10:41:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1A3E56CFE9B
+	for <lists+linux-stm32@lfdr.de>; Thu, 30 Mar 2023 10:41:09 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C3836C6A5E7;
-	Thu, 30 Mar 2023 08:41:03 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D59A4C6A5E7;
+	Thu, 30 Mar 2023 08:41:08 +0000 (UTC)
 Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 686A7C01E98
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4A923C01E98
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 30 Mar 2023 08:41:02 +0000 (UTC)
+ Thu, 30 Mar 2023 08:41:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1680165662; x=1711701662;
+ t=1680165667; x=1711701667;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=h7HA31Ype249VhePLWHGaLt81vSRMT92v7O/eTwjq3g=;
- b=QU64LWU4cSzPceeH/cbwHgOHT/m+CAlCiTVJm8UhTptCPWoFY0Ho2swb
- ORmb9Gw/Ce9re89zxtT5vYF4ALWe+0SBhUTL7TJ3tGb+Mc0h434krGeo7
- xSplsJkcUiAcNg6SJI9ZbnkIdfDoblIJaKQRKeGwoyS1lJyEOR5QvKye6
- fudRdyDTUQPhOZTtOQGZrfvys3wG8yNVWVwdOfN+KYThAnMipBrVRzbX+
- kjVte2O4GEBgEFMIb+fFiRksAFe6fFhcOAR2YsJPYxKuUS0o9U+ypW1oY
- uCLUXhpZa0+EHrMIrKyC9FyJcjLGA2Q8VXAZfZ8CCgFGsWvOaqzDCeraK A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10664"; a="343559453"
-X-IronPort-AV: E=Sophos;i="5.98,303,1673942400"; d="scan'208";a="343559453"
+ bh=huOgNrOBcSC1/tjpitYzPeEN/HeYkrzn2WanLt9fM1M=;
+ b=FzuvVEIQT5Fe8KaRX6rsgbr5Kg6fKYsB10PueVx/u8E0hilNm607aAPy
+ JuZKZn3EFwdEPYPxS6fjqTu8phWgxaF/36qCJa7ekXtfYauXnJUdNaO47
+ WoQWwcgrNqj2g0dQebJdWalchS8dY5gSoJwmqRXq1ZVcRWZwHKiRfGP2X
+ GMigvAINPoQWTmMGTI75ZJytQSswmktHfr6cf9PpAm2NMbnwkdEXrrlgu
+ IqR5b7U5b8SaBOMrx/DKKcBdEq6C0y6vrkdpCj3hXIF8VeDQ8uGK9gGD9
+ 22LLPuucDJS7aQEPpl9BFUWLjp1ppzBFZJv/2avG+Q2cZjcyMQXVtqnku g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10664"; a="343559511"
+X-IronPort-AV: E=Sophos;i="5.98,303,1673942400"; d="scan'208";a="343559511"
 Received: from orsmga002.jf.intel.com ([10.7.209.21])
  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Mar 2023 01:41:01 -0700
+ 30 Mar 2023 01:41:06 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10664"; a="684618839"
-X-IronPort-AV: E=Sophos;i="5.98,303,1673942400"; d="scan'208";a="684618839"
+X-IronPort-AV: E=McAfee;i="6600,9927,10664"; a="684618854"
+X-IronPort-AV: E=Sophos;i="5.98,303,1673942400"; d="scan'208";a="684618854"
 Received: from mike-ilbpg1.png.intel.com ([10.88.227.76])
- by orsmga002.jf.intel.com with ESMTP; 30 Mar 2023 01:40:57 -0700
+ by orsmga002.jf.intel.com with ESMTP; 30 Mar 2023 01:41:02 -0700
 From: Michael Sit Wei Hong <michael.wei.hong.sit@intel.com>
 To: Giuseppe Cavallaro <peppe.cavallaro@st.com>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>,
@@ -47,16 +47,16 @@ To: Giuseppe Cavallaro <peppe.cavallaro@st.com>,
  linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
  linux@armlinux.org.uk, hkallweit1@gmail.com, andrew@lunn.ch
-Date: Thu, 30 Mar 2023 16:39:59 +0800
-Message-Id: <20230330084000.3292487-3-michael.wei.hong.sit@intel.com>
+Date: Thu, 30 Mar 2023 16:40:00 +0800
+Message-Id: <20230330084000.3292487-4-michael.wei.hong.sit@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230330084000.3292487-1-michael.wei.hong.sit@intel.com>
 References: <20230330084000.3292487-1-michael.wei.hong.sit@intel.com>
 MIME-Version: 1.0
 Cc: Lai Peter Jun Ann <peter.jun.ann.lai@intel.com>,
  Looi Hong Aun <hong.aun.looi@intel.com>, Voon Weifeng <weifeng.voon@intel.com>
-Subject: [Linux-stm32] [PATCH net v4 2/3] net: stmmac: check if MAC needs to
-	attach to a PHY
+Subject: [Linux-stm32] [PATCH net v4 3/3] net: stmmac: remove redundant
+	fixup to support fixed-link mode
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,44 +73,34 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-After the introduction of the fixed-link support, the MAC driver
-no longer attempt to scan for a PHY to attach to. This causes the
-non fixed-link setups to stop working.
+Currently, intel_speed_mode_2500() will fix-up xpcs_an_inband
+to 1 if the underlying controller has a max speed of 1000Mbps.
+The value has been initialized and modified if it is
+a fixed-linked setup earlier.
 
-Using the phylink_expects_phy() to check and determine if the MAC
-should expect and attach a PHY.
+This patch removes the fix-up to allow for fixed-linked setup
+support. In stmmac_phy_setup(), ovr_an_inband is set based on
+the value of xpcs_an_inband. Which in turn will return an
+error in phylink_parse_mode() where MLO_AN_FIXED and
+ovr_an_inband are both set.
 
-Fixes: ab21cf920928 ("net: stmmac: make mdio register skips PHY scanning for fixed-link")
+Fixes: c82386310d95 ("stmmac: intel: prepare to support 1000BASE-X phy interface setting")
 Signed-off-by: Michael Sit Wei Hong <michael.wei.hong.sit@intel.com>
-Signed-off-by: Lai Peter Jun Ann <peter.jun.ann.lai@intel.com>
 ---
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 8f543c3ab5c5..41f0f3b74933 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -1135,6 +1135,7 @@ static int stmmac_init_phy(struct net_device *dev)
- {
- 	struct stmmac_priv *priv = netdev_priv(dev);
- 	struct fwnode_handle *fwnode;
-+	bool phy_needed;
- 	int ret;
- 
- 	fwnode = of_fwnode_handle(priv->plat->phylink_node);
-@@ -1144,10 +1145,11 @@ static int stmmac_init_phy(struct net_device *dev)
- 	if (fwnode)
- 		ret = phylink_fwnode_phy_connect(priv->phylink, fwnode, 0);
- 
-+	phy_needed = phylink_expects_phy(priv->phylink);
- 	/* Some DT bindings do not set-up the PHY handle. Let's try to
- 	 * manually parse it
- 	 */
--	if (!fwnode || ret) {
-+	if (!fwnode || phy_needed || ret) {
- 		int addr = priv->plat->phy_addr;
- 		struct phy_device *phydev;
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
+index 7deb1f817dac..6db87184bf75 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
+@@ -251,7 +251,6 @@ static void intel_speed_mode_2500(struct net_device *ndev, void *intel_data)
+ 		priv->plat->mdio_bus_data->xpcs_an_inband = false;
+ 	} else {
+ 		priv->plat->max_speed = 1000;
+-		priv->plat->mdio_bus_data->xpcs_an_inband = true;
+ 	}
+ }
  
 -- 
 2.34.1
