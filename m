@@ -2,27 +2,27 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1477A6CFA7A
+	by mail.lfdr.de (Postfix) with ESMTPS id 271236CFA7B
 	for <lists+linux-stm32@lfdr.de>; Thu, 30 Mar 2023 07:04:26 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C56E0C6A616;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DBA41C6A619;
 	Thu, 30 Mar 2023 05:04:25 +0000 (UTC)
 Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
  [85.220.165.71])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 536F5C6A603
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E4563C6A602
  for <linux-stm32@st-md-mailman.stormreply.com>;
  Thu, 30 Mar 2023 05:04:23 +0000 (UTC)
 Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77]
  helo=pengutronix.de)
  by metis.ext.pengutronix.de with esmtp (Exim 4.92)
  (envelope-from <s.trumtrar@pengutronix.de>)
- id 1phkSU-0005ZJ-RY; Thu, 30 Mar 2023 07:04:22 +0200
+ id 1phkSV-0005ZJ-E2; Thu, 30 Mar 2023 07:04:23 +0200
 From: Steffen Trumtrar <s.trumtrar@pengutronix.de>
 To: linux-stm32@st-md-mailman.stormreply.com
-Date: Thu, 30 Mar 2023 07:04:05 +0200
-Message-Id: <20230330050408.3806093-8-s.trumtrar@pengutronix.de>
+Date: Thu, 30 Mar 2023 07:04:06 +0200
+Message-Id: <20230330050408.3806093-9-s.trumtrar@pengutronix.de>
 X-Mailer: git-send-email 2.39.1
 In-Reply-To: <20230330050408.3806093-1-s.trumtrar@pengutronix.de>
 References: <20230330050408.3806093-1-s.trumtrar@pengutronix.de>
@@ -32,11 +32,13 @@ X-SA-Exim-Mail-From: s.trumtrar@pengutronix.de
 X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
  SAEximRunCond expanded to false
 X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
-Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+Cc: devicetree@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
-Subject: [Linux-stm32] [PATCH v7 07/10] ARM: dts: stm32: Add sleep pinmux
-	for SPI1 pins_a
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH v7 08/10] dt-bindings: arm: stm32: Add Phytec
+	STM32MP1 board
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -53,34 +55,32 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add a sleep mux option for the SPI1 pins_a mux.
-
-This is used on the Phycore STM32MP1.
+The Phytec STM32MP1 based SoMs feature up to 1 GB DDR3LP RAM, up to
+1 GB eMMC, up to 16 MB QSPI and up to 128 GB NAND flash.
 
 Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 ---
- arch/arm/boot/dts/stm32mp15-pinctrl.dtsi | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ Documentation/devicetree/bindings/arm/stm32/stm32.yaml | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi b/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
-index 7569aeca17bbc..ff53123245a76 100644
---- a/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
-+++ b/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
-@@ -2642,6 +2642,14 @@ pins2 {
- 		};
- 	};
+diff --git a/Documentation/devicetree/bindings/arm/stm32/stm32.yaml b/Documentation/devicetree/bindings/arm/stm32/stm32.yaml
+index 13e34241145b4..4af5b8f4f8032 100644
+--- a/Documentation/devicetree/bindings/arm/stm32/stm32.yaml
++++ b/Documentation/devicetree/bindings/arm/stm32/stm32.yaml
+@@ -155,6 +155,12 @@ properties:
+           - const: seeed,stm32mp157c-odyssey-som
+           - const: st,stm32mp157
  
-+	spi1_sleep_pins_a: spi1-sleep-0 {
-+		pins {
-+			pinmux = <STM32_PINMUX('Z', 0, ANALOG)>, /* SPI1_SCK */
-+				 <STM32_PINMUX('Z', 1, ANALOG)>, /* SPI1_MISO */
-+				 <STM32_PINMUX('Z', 2, ANALOG)>; /* SPI1_MOSI */
-+		};
-+	};
++      - description: Phytec STM32MP1 SoM based Boards
++        items:
++          - const: phytec,phycore-stm32mp1-3
++          - const: phytec,phycore-stm32mp157c-som
++          - const: st,stm32mp157
 +
- 	spi1_pins_b: spi1-1 {
- 		pins1 {
- 			pinmux = <STM32_PINMUX('A', 5, AF5)>, /* SPI1_SCK */
+ additionalProperties: true
+ 
+ ...
 -- 
 2.39.1
 
