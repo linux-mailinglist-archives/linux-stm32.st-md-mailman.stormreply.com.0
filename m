@@ -2,62 +2,117 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B0D646D249E
-	for <lists+linux-stm32@lfdr.de>; Fri, 31 Mar 2023 18:06:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 196196D258B
+	for <lists+linux-stm32@lfdr.de>; Fri, 31 Mar 2023 18:32:12 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 65AC7C69069;
-	Fri, 31 Mar 2023 16:06:56 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BE2B5C69069;
+	Fri, 31 Mar 2023 16:32:11 +0000 (UTC)
+Received: from EUR03-DBA-obe.outbound.protection.outlook.com
+ (mail-dbaeur03on2087.outbound.protection.outlook.com [40.107.104.87])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 74B41C6904F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E3E69C65E42
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 31 Mar 2023 16:06:55 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 32VDr4TF010311; Fri, 31 Mar 2023 18:06:49 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=from : to : cc :
- subject : date : message-id : mime-version : content-transfer-encoding :
- content-type; s=selector1;
- bh=Ac3ViCSx4VTlv+LCUqAH7E7aEYqOJVCoIrcTZkiflLc=;
- b=DAqWhPxO9f0x4XYX/WTjp22Ou8QoEFOwd4cF6wTMoplIcxfg29fgVidw6j6pm7OaAWlj
- V6AaPUVl/HSwqaTriFbK2lwq7EYvJaWWU11LCD3wLNJpUYH9NTIiPWX/pE9z7JPMOxLk
- KRR0PmPUruP+EIJnUZyLumt5M17wXcaRvZEwOBwlUbtPn2kIHEsnDP/DOv67leYw2AXC
- WvLtyZQnM2jsSItfEyU626TpYI56c/UYAo1p3aDd944l4VVDqpr5AUBa1pwF5K7thwBD
- GgNyuEUMdmsiNKLHyH/BTSrtvcLu1vNotTa8G66ku0ePySujAIIqxKZkf2AafqQLPIGt oA== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3pnw9c27um-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 31 Mar 2023 18:06:48 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id E790710002A;
- Fri, 31 Mar 2023 18:06:41 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id DDF282248BA;
- Fri, 31 Mar 2023 18:06:41 +0200 (CEST)
-Received: from localhost (10.201.21.178) by SHFDAG1NODE2.st.com (10.75.129.70)
+ Fri, 31 Mar 2023 16:32:10 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=WSzZh53HkmvG7K7OgJ//T4VMselaKGH3eFhP164I5gW9DDQ6KDdVPVGtUPbUcFz2XuFFnfyLfkLtXZNihXCsyLeomZ+QwWD77DA0ixnt1aVJl4bcBGKwf/KZt/uQZNQVtNCgUAJB//R0vSfGUcx9djRURczDy8NepBeJQM8z81YheThCRYRxpHoL3tpJSxxZUTQgT5kUI9nBpfHQ0MgjREVU5mJp9g/iOnGsC5gK645vCMrxQ36PLGagkIiw7LUc3en6RibrRVmj1W11AVdmXH6bfcxfoV2iCiIIkZfJFdifmgLddNz2MhjXfREJzyWJdod5Qn1eWOCTuQ35GHcwLA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=uR6d0AOWvtLiSX9/sXhFUbQrY/UmzvZ18zgbWJkzZqs=;
+ b=FDalpYYtq7cNFX7dLIcLdAgv9Rf1AIzyPtz2TrU0IhW9tE+tW8s1LdU6Emm5UOf8FjEjp3WafmUt7WAt83NwA3QjFKVA6a9Y+8gcF6TNEM+r8d2ip5Z7gQLL1t16gZwQajxUzbaQFyov9uJFuAbdOZIn6X8D44DSbLjYIugN5PLcnlpT4+YZKm0AQqzSDfyz3mAuQ8NMGBeAPJoLVOYf2lE95G+ke6XDoGJxDLXD0pa0zx0PloZFYlolwDwEQl3Oq8RPmx71LaLq6ky8vVVcpG7G3nBc88E4wlzoX0I2z8lx7kzL/AdlRZ+RJ/s0YJNNJ6DCOshPlz24lxlltaf/nw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=uR6d0AOWvtLiSX9/sXhFUbQrY/UmzvZ18zgbWJkzZqs=;
+ b=Pxm3Gk+Bd8lcMxxyzrrl43jcruT28snIA02gfDPNXjk/mMxP2zLnIk+xfsiD4/TzXcP/5Y15CLAWhhRi/C5Jd38w1oM/fq5vrV1mb4jv77CmzFaqYJ57hFmHwVg1Q6Olrj/+malx5OdXPpzjXprLtFjubvjVSTycUe0DL4laajE=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from PAXPR04MB9185.eurprd04.prod.outlook.com (2603:10a6:102:231::11)
+ by VE1PR04MB7213.eurprd04.prod.outlook.com (2603:10a6:800:1b3::8)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.17; Fri, 31 Mar
- 2023 18:06:41 +0200
-From: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
-To: Bjorn Andersson <andersson@kernel.org>, Mathieu Poirier
- <mathieu.poirier@linaro.org>
-Date: Fri, 31 Mar 2023 18:06:34 +0200
-Message-ID: <20230331160634.3113031-1-arnaud.pouliquen@foss.st.com>
-X-Mailer: git-send-email 2.25.1
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6254.23; Fri, 31 Mar
+ 2023 16:32:09 +0000
+Received: from PAXPR04MB9185.eurprd04.prod.outlook.com
+ ([fe80::28fb:82ec:7a6:62f3]) by PAXPR04MB9185.eurprd04.prod.outlook.com
+ ([fe80::28fb:82ec:7a6:62f3%3]) with mapi id 15.20.6254.023; Fri, 31 Mar 2023
+ 16:32:09 +0000
+From: Shenwei Wang <shenwei.wang@nxp.com>
+To: "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Shawn Guo <shawnguo@kernel.org>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>
+Date: Fri, 31 Mar 2023 11:31:42 -0500
+Message-Id: <20230331163143.52506-1-shenwei.wang@nxp.com>
+X-Mailer: git-send-email 2.34.1
+X-ClientProxiedBy: BY3PR05CA0040.namprd05.prod.outlook.com
+ (2603:10b6:a03:39b::15) To PAXPR04MB9185.eurprd04.prod.outlook.com
+ (2603:10a6:102:231::11)
 MIME-Version: 1.0
-X-Originating-IP: [10.201.21.178]
-X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE2.st.com
- (10.75.129.70)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.254,Aquarius:18.0.942,Hydra:6.0.573,FMLib:17.11.170.22
- definitions=2023-03-31_07,2023-03-31_01,2023-02-09_01
-Cc: arnaud.pouliquen@foss.st.com, linux-remoteproc@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH] remoteproc: stm32_rproc: Add mutex protection
-	for workqueue
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PAXPR04MB9185:EE_|VE1PR04MB7213:EE_
+X-MS-Office365-Filtering-Correlation-Id: c1f7d365-bcfe-402b-a490-08db32057896
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: jva/LY7BrcwxKaTnPvRNCJpTv2pNnIB8BTS2T+nkB3Z3hWY6wHTEe9p3APgabXjQqMc3+M7oLfWX2/zWxqdqddPGrDxtii/c58AGUOgonrgUyI6xKbe8qqzvsC8Fp2qHNXnyR/5KS0/gMX5y/QRso8B/0oHn6tlTG/hkNEgRCFSHQHYcfLQpP8EooZUpAlIT3tuQWLCgpw3zRzBALnisOrN3l2H82fb314Wl60oo2Qq2ye7ywF+FmCGv1nXzeRCL7tEhIswlO0mAhtsuoEVNKtngMlOQ3QS96HVZYxBFSPul+eUcNMOO5QvM6YOd3atEuZkl71HapzsecP8A529lrvZf8mGFy2lkvem1PjhEZkIYwY3t+DmekclLgqQL7zbmZQc5SocE5gOJlUl+j3f7XWaMRV1EHktFKuUtnqQoRommSJMhqGnonNuSTX/yXa6bZ+jxh6ADlus066ut32U2fJMjy/m9cy01rNE7IHA9z/qn3SON5l3QZlBR7ICVbHBvShchUVqZKRqjQUgBDb9Kdhvb1r6W0cHL5yas1cYYNIiHDSgylXtw9FKlAM04CrSiLvX2RtBuiXaU2Op/WwTsV/vSmGGJT1WTX6l1Z1A8ZqXjwqY4bfLKEJvqJHdcmZ9e
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PAXPR04MB9185.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(4636009)(136003)(396003)(346002)(366004)(376002)(39860400002)(451199021)(7416002)(44832011)(1076003)(2616005)(83380400001)(6666004)(86362001)(55236004)(6506007)(26005)(6512007)(38100700002)(38350700002)(186003)(8936002)(5660300002)(478600001)(41300700001)(66946007)(54906003)(6486002)(36756003)(8676002)(66476007)(110136005)(4326008)(52116002)(66556008)(316002)(2906002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?ifm6RgLClBmtlAcHad7CbBnhKTtRe60nA8Yhg8RdGmgT4MZsrXSIjn5oTdbF?=
+ =?us-ascii?Q?EZ4IGwj4r3gGo5r3Uia3U3WeQNLYWTsJKpTXldCEzFgsAlSsQrObbDYMckya?=
+ =?us-ascii?Q?YPXQ4rM50D4ksO+m0OtU1St3aZbpQdmE2T2oM3oi0myMMDpzmlxYEQaZFhhj?=
+ =?us-ascii?Q?23H5Z/ELqan4zowmXL0WXGSbzFvqhejIWli+AzqTJl8BOZdyqW4BuNrQvb7O?=
+ =?us-ascii?Q?AyGeMfw/7Q3mkbHGF/0F9i4PltC3mpiTEDB8sZ3qvWyVUnm0mOHgI32Q/47j?=
+ =?us-ascii?Q?p60WOtO6n2pkA1s0hS7HYMsYXFqskQLMCOJlQuLtmvgN08FSrU1uoo6UgcdN?=
+ =?us-ascii?Q?7VIZZ6MavL1TzD1gSK8UTLMZqp7KliP3XdQV/B+dWcgdCxtwVjyNc5WsUk5N?=
+ =?us-ascii?Q?G1/44d0SY3wrsQRlMlAJwh6+QAGDhAAJDiLjM7oKuvf2puTZMrxq+Vt3NStI?=
+ =?us-ascii?Q?Di4upT3os9ACtW/csYhcpU6QGsmCIr3Xlv/6p8xr6ZmbOJt/x5oEDvLUHKNP?=
+ =?us-ascii?Q?y66S5WACkYW/Afns/Zw72+ziGJf44jvD55MiK77Adm8i07j1vI/CcL4tfii/?=
+ =?us-ascii?Q?6w37xmvANw28bU8fftKxNWbUeTc0kNjhkQnZU7x4l5qx0woGThf1vf0u+Eiv?=
+ =?us-ascii?Q?qV1odZYJsOZQVGV5awDB5diTxCkUcYLTov/nYCl1m/aGecDkhCIvzmHS0hdW?=
+ =?us-ascii?Q?f612UbGcDQHYi3vPo6AvLpOcU8Zh4SxU0vDuXEdQi+P95c/1Jm/0eI4fPeL1?=
+ =?us-ascii?Q?YXicw5ZJDVi+Ozdxea0iFM4QR2QtLP5FRimg3RyWkDDvPiL7UDawLxdJfS7l?=
+ =?us-ascii?Q?quI6FvNTVlRkHfthMWSBsGsVlywwYcGXn9W/LrTNOaiAXo52dwamJiZZZg9J?=
+ =?us-ascii?Q?Ue2c6fXuv7vEaOvaudVX/GbndfN8fXtR6uZC+MhyWW5Ux/3kTBXmT+S4ds0s?=
+ =?us-ascii?Q?+pZad/6jOtlfhV4F29fbK73RiqwnnugWMr/PsmF3vIaVgx4cOcJafha0VN5S?=
+ =?us-ascii?Q?aqPaJiNOwASAf393Fuxa3OnDjUzOKQOjJrgVg/PH8TPdGsBRWp6hH4oohMJE?=
+ =?us-ascii?Q?dV5pib0HRWyvBBbdffkdS+Wwfq9fZ9ElpFVcXmG1rMm1A7iOoq3EWT7RaiC8?=
+ =?us-ascii?Q?hd1BEhzfmmIc7TaaCxZHDyTyD1snEKsVris5L32lqIMhfCnSPfKeIuSWsLkA?=
+ =?us-ascii?Q?+zQrTRD/arbt/Y7TpnIB/QItzD9dsxCpHyLsxIJtojywxI4am07cgbD7BULC?=
+ =?us-ascii?Q?UGPzNauWh7zz7m8odUCt7GA+whpvUERqX5Us/c49FTr6wb9J/9oGYl6KVBNt?=
+ =?us-ascii?Q?BbopHT+XtVQ3oJy8YYseVT2JkZ4cC2w7sfpcFhKt1LO7qzoIFVcYZI2ToDv2?=
+ =?us-ascii?Q?cjt2iVCQcn2UyigW2bjXPTlCISnEONJZ+ibmIB/mjtHkjDUuaYKACuB0yw0x?=
+ =?us-ascii?Q?pXe3i4WBNYa5PGnxH5As1eqCE8ZsjStj9sHTs1p9iwMmXNw6fXD2pd2XcSPR?=
+ =?us-ascii?Q?AwCNnrKAujFbpXSkXyynDEX37CCK5PyIzMieaYZ0dqD24m4o2oJEi3cMVxN4?=
+ =?us-ascii?Q?x6KCySTTgo+nVWu2apv/hHtUjy044mhFtQDiyOek?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c1f7d365-bcfe-402b-a490-08db32057896
+X-MS-Exchange-CrossTenant-AuthSource: PAXPR04MB9185.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Mar 2023 16:32:09.2489 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: I4AePp57Bi0oJ3K+dYz390t9gYnVPZlHUeqizDaawzaTXg53f/xhg8xN55z/FVFYW11e2elx4lgO4rZbKyZVxQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VE1PR04MB7213
+Cc: imx@lists.linux.dev, linux-kernel@vger.kernel.org,
+ Tan Tee Min <tee.min.tan@linux.intel.com>,
+ Andrey Konovalov <andrey.konovalov@linaro.org>,
+ Wong Vee Khee <veekhee@apple.com>, Jose Abreu <joabreu@synopsys.com>,
+ NXP Linux Team <linux-imx@nxp.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Shenwei Wang <shenwei.wang@nxp.com>, Fabio Estevam <festevam@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ Revanth Kumar Uppala <ruppala@nvidia.com>
+Subject: [Linux-stm32] [PATCH v2 1/2] net: stmmac: add support for platform
+	specific reset
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,55 +129,77 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The workqueue may execute late even after remoteproc is stopped or
-stopping, some resources (rpmsg device and endpoint) have been
-released in rproc_stop_subdevices(), then rproc_vq_interrupt()
-accessing these resources will cause kennel dump.
+This patch adds support for platform-specific reset logic in the
+stmmac driver. Some SoCs require a different reset mechanism than
+the standard dwmac IP reset. To support these platforms, a new function
+pointer 'fix_soc_reset' is added to the plat_stmmacenet_data structure.
+The stmmac_reset macro in hwif.h is modified to call the 'fix_soc_reset'
+function if it exists. This enables the driver to use the platform-specific
+reset logic when necessary.
 
-Call trace:
-virtqueue_add_inbuf
-virtqueue_add_inbuf
-rpmsg_recv_single
-rpmsg_recv_done
-vring_interrupt
-stm32_rproc_mb_vq_work
-process_one_work
-worker_thread
-kthread
-
-Suggested-by: Mathieu Poirier <mathieu.poirier@linaro.org>
-Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
-
+Signed-off-by: Shenwei Wang <shenwei.wang@nxp.com>
 ---
-This patch is similar to the issue fixed in
-commit 47e6ab07018e ("remoteproc: imx_dsp_rproc: Add mutex protection for workqueue")
----
- drivers/remoteproc/stm32_rproc.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ drivers/net/ethernet/stmicro/stmmac/hwif.c | 10 ++++++++++
+ drivers/net/ethernet/stmicro/stmmac/hwif.h |  3 +--
+ include/linux/stmmac.h                     |  1 +
+ 3 files changed, 12 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/remoteproc/stm32_rproc.c b/drivers/remoteproc/stm32_rproc.c
-index 7d782ed9e589..f618405cf420 100644
---- a/drivers/remoteproc/stm32_rproc.c
-+++ b/drivers/remoteproc/stm32_rproc.c
-@@ -287,8 +287,16 @@ static void stm32_rproc_mb_vq_work(struct work_struct *work)
- 	struct stm32_mbox *mb = container_of(work, struct stm32_mbox, vq_work);
- 	struct rproc *rproc = dev_get_drvdata(mb->client.dev);
- 
-+	mutex_lock(&rproc->lock);
-+
-+	if (rproc->state != RPROC_RUNNING)
-+		goto unlock_mutex;
-+
- 	if (rproc_vq_interrupt(rproc, mb->vq_id) == IRQ_NONE)
- 		dev_dbg(&rproc->dev, "no message found in vq%d\n", mb->vq_id);
-+
-+unlock_mutex:
-+	mutex_unlock(&rproc->lock);
+diff --git a/drivers/net/ethernet/stmicro/stmmac/hwif.c b/drivers/net/ethernet/stmicro/stmmac/hwif.c
+index bb7114f970f8..0eefa697ffe8 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/hwif.c
++++ b/drivers/net/ethernet/stmicro/stmmac/hwif.c
+@@ -87,6 +87,16 @@ static int stmmac_dwxlgmac_quirks(struct stmmac_priv *priv)
+ 	return 0;
  }
  
- static void stm32_rproc_mb_callback(struct mbox_client *cl, void *data)
++int stmmac_reset(struct stmmac_priv *priv, void __iomem *ioaddr)
++{
++	struct plat_stmmacenet_data *plat = priv ? priv->plat : NULL;
++
++	if (plat && plat->fix_soc_reset)
++		return plat->fix_soc_reset(plat, ioaddr);
++
++	return stmmac_do_callback(priv, dma, reset, ioaddr);
++}
++
+ static const struct stmmac_hwif_entry {
+ 	bool gmac;
+ 	bool gmac4;
+diff --git a/drivers/net/ethernet/stmicro/stmmac/hwif.h b/drivers/net/ethernet/stmicro/stmmac/hwif.h
+index 16a7421715cb..47a68f506c10 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/hwif.h
++++ b/drivers/net/ethernet/stmicro/stmmac/hwif.h
+@@ -214,8 +214,6 @@ struct stmmac_dma_ops {
+ 	int (*enable_tbs)(void __iomem *ioaddr, bool en, u32 chan);
+ };
+ 
+-#define stmmac_reset(__priv, __args...) \
+-	stmmac_do_callback(__priv, dma, reset, __args)
+ #define stmmac_dma_init(__priv, __args...) \
+ 	stmmac_do_void_callback(__priv, dma, init, __args)
+ #define stmmac_init_chan(__priv, __args...) \
+@@ -640,6 +638,7 @@ extern const struct stmmac_mmc_ops dwxgmac_mmc_ops;
+ #define GMAC_VERSION		0x00000020	/* GMAC CORE Version */
+ #define GMAC4_VERSION		0x00000110	/* GMAC4+ CORE Version */
+ 
++int stmmac_reset(struct stmmac_priv *priv, void *ioaddr);
+ int stmmac_hwif_init(struct stmmac_priv *priv);
+ 
+ #endif /* __STMMAC_HWIF_H__ */
+diff --git a/include/linux/stmmac.h b/include/linux/stmmac.h
+index a152678b82b7..9044477fad61 100644
+--- a/include/linux/stmmac.h
++++ b/include/linux/stmmac.h
+@@ -223,6 +223,7 @@ struct plat_stmmacenet_data {
+ 	struct stmmac_rxq_cfg rx_queues_cfg[MTL_MAX_RX_QUEUES];
+ 	struct stmmac_txq_cfg tx_queues_cfg[MTL_MAX_TX_QUEUES];
+ 	void (*fix_mac_speed)(void *priv, unsigned int speed);
++	int (*fix_soc_reset)(void *priv, void __iomem *ioaddr);
+ 	int (*serdes_powerup)(struct net_device *ndev, void *priv);
+ 	void (*serdes_powerdown)(struct net_device *ndev, void *priv);
+ 	void (*speed_mode_2500)(struct net_device *ndev, void *priv);
 -- 
-2.25.1
+2.34.1
 
 _______________________________________________
 Linux-stm32 mailing list
