@@ -2,53 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 955116D264F
-	for <lists+linux-stm32@lfdr.de>; Fri, 31 Mar 2023 18:54:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E56506D27EE
+	for <lists+linux-stm32@lfdr.de>; Fri, 31 Mar 2023 20:37:00 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 48854C69069;
-	Fri, 31 Mar 2023 16:54:38 +0000 (UTC)
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
- [85.220.165.71])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 93864C69069;
+	Fri, 31 Mar 2023 18:37:00 +0000 (UTC)
+Received: from mail-oa1-f47.google.com (mail-oa1-f47.google.com
+ [209.85.160.47])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BF430C65E42
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 02710C65E42
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 31 Mar 2023 16:54:36 +0000 (UTC)
-Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77]
- helo=[127.0.0.1]) by metis.ext.pengutronix.de with esmtp (Exim 4.92)
- (envelope-from <a.fatoum@pengutronix.de>)
- id 1piI0q-0007MO-3L; Fri, 31 Mar 2023 18:54:04 +0200
-Message-ID: <24d12b0e-0a96-4027-988a-16b433572f68@pengutronix.de>
-Date: Fri, 31 Mar 2023 18:53:56 +0200
+ Fri, 31 Mar 2023 18:36:58 +0000 (UTC)
+Received: by mail-oa1-f47.google.com with SMTP id
+ 586e51a60fabf-177ca271cb8so24135751fac.2
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 31 Mar 2023 11:36:58 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112; t=1680287818;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=+bjD1EcJNKzAi8wncOI0Nv9d4Dm2eSpivDuCUZ0uj+Q=;
+ b=wuGFjHlIJ6f4eJCeZLrEEwwUdkagagrTH/dVdnwhym3lx/ItbwwRvZTFjG8nLb+DAi
+ XGXuFBoJxqGcJbOFo/QUsX6UB2RFssacPZJYSiCgkx0ugqM6mYXPkeSxtED0dxEYz+SD
+ VBvLvTdnyl/K3aI5fxdKJV80zZp0PkFCozTmYnw/+vM/WL7SwEdTEqROd/GD9VcW/AJk
+ 8h0lnFD76vFEPmePyaVuEdg6jXQpmYnOIyYSEdG+aG5WMXiAbJ8gHKPqdkW2Trj+saWK
+ Re58VqmrGBySY0mEmsOAAaSIhp/7a0Mnux1RuORUEo7sse5KGGgItMOBtXKCsoOo37CY
+ 00aQ==
+X-Gm-Message-State: AAQBX9d5xcg3Q+cnAwWrg8/J02LYR+Wls7gIdtjg5sQUgQ9vqh3WL6G+
+ EYWbJs2+mq+fTZI5IaH41w==
+X-Google-Smtp-Source: AKy350Y886xOZ+2ooL5E3zJvqqPPH1/c5nOufsJ+DfqnVrTuBrB0nKcCnpq/FFcxJ0fp42lzvWwBTg==
+X-Received: by 2002:a05:6870:d191:b0:177:a92e:ee6 with SMTP id
+ a17-20020a056870d19100b00177a92e0ee6mr17583742oac.54.1680287817716; 
+ Fri, 31 Mar 2023 11:36:57 -0700 (PDT)
+Received: from robh_at_kernel.org (66-90-144-107.dyn.grandenetworks.net.
+ [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
+ k24-20020a056830169800b0069f95707335sm1369913otr.69.2023.03.31.11.36.56
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 31 Mar 2023 11:36:57 -0700 (PDT)
+Received: (nullmailer pid 1920516 invoked by uid 1000);
+ Fri, 31 Mar 2023 18:36:56 -0000
+Date: Fri, 31 Mar 2023 13:36:56 -0500
+From: Rob Herring <robh@kernel.org>
+To: Prabhakar <prabhakar.csengg@gmail.com>
+Message-ID: <168028781598.1920458.10411321215956149029.robh@kernel.org>
+References: <20230323185112.13855-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.7.2
-Content-Language: en-US
-To: Shenwei Wang <shenwei.wang@nxp.com>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>
-References: <20230331163143.52506-1-shenwei.wang@nxp.com>
- <20230331163143.52506-2-shenwei.wang@nxp.com>
-From: Ahmad Fatoum <a.fatoum@pengutronix.de>
-In-Reply-To: <20230331163143.52506-2-shenwei.wang@nxp.com>
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:900:1d::77
-X-SA-Exim-Mail-From: a.fatoum@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
-Cc: imx@lists.linux.dev, Fabio Estevam <festevam@gmail.com>,
- Tan Tee Min <tee.min.tan@linux.intel.com>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, Wong Vee Khee <veekhee@apple.com>,
- Jose Abreu <joabreu@synopsys.com>, NXP Linux Team <linux-imx@nxp.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Andrey Konovalov <andrey.konovalov@linaro.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- Revanth Kumar Uppala <ruppala@nvidia.com>
-Subject: Re: [Linux-stm32] [PATCH v2 2/2] net: stmmac: dwmac-imx: use
- platform specific reset for imx93 SoCs
+Content-Disposition: inline
+In-Reply-To: <20230323185112.13855-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Cc: devicetree@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Geert Uytterhoeven <geert+renesas@glider.be>, linux-kernel@vger.kernel.org,
+ Daniel Lezcano <daniel.lezcano@linaro.org>,
+ Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+ linux-renesas-soc@vger.kernel.org, Chris Brandt <chris.brandt@renesas.com>,
+ Rob Herring <robh+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Biju Das <biju.das.jz@bp.renesas.com>, Thomas Gleixner <tglx@linutronix.de>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] dt-bindings: timer: renesas: ostm:
+	Document RZ/Five SoC
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -65,48 +78,25 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello Shenwei,
 
-On 31.03.23 18:31, Shenwei Wang wrote:
-> The patch addresses an issue with the reset logic on the i.MX93 SoC, which
-> requires configuration of the correct interface speed under RMII mode to
-> complete the reset. The patch implements a fix_soc_reset function and uses
-> it specifically for the i.MX93 SoCs.
+On Thu, 23 Mar 2023 18:51:12 +0000, Prabhakar wrote:
+> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> 
+> The OSTM block on the RZ/Five SoC is identical to one found on the RZ/G2UL
+> SoC. "renesas,r9a07g043-ostm" compatible string will be used on the
+> RZ/Five SoC so to make this clear, update the comment to include RZ/Five
+> SoC.
+> 
+> No driver changes are required as generic compatible string
+> "renesas,ostm" will be used as a fallback on RZ/Five SoC.
+> 
+> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> ---
+>  Documentation/devicetree/bindings/timer/renesas,ostm.yaml | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
 
-[...]
-
->  static int
->  imx_dwmac_parse_dt(struct imx_priv_data *dwmac, struct device *dev)
->  {
-> @@ -305,6 +327,9 @@ static int imx_dwmac_probe(struct platform_device *pdev)
->  	if (ret)
->  		goto err_dwmac_init;
->  
-> +	if (of_machine_is_compatible("fsl,imx93"))
-> +		dwmac->plat_dat->fix_soc_reset = imx_dwmac_mx93_reset;
-
-imx_dwmac_mx93_reset is accessing eqos registers in an eqos driver. I don't
-see why you need to check against SoC compatible instead of device compatible
-here.
-
-My suggestion is to add fix_soc_reset to the struct imx_dwmac_ops associated
-with "nxp,imx93-dwmac-eqos" compatible and use that to populate
-plat_dat->fix_soc_reset unconditionally.
-
-Thanks,
-Ahmad
-
-
-> +
->  	ret = stmmac_dvr_probe(&pdev->dev, plat_dat, &stmmac_res);
->  	if (ret)
->  		goto err_drv_probe;
-
--- 
-Pengutronix e.K.                           |                             |
-Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
-31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
-Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
+Acked-by: Rob Herring <robh@kernel.org>
 
 _______________________________________________
 Linux-stm32 mailing list
