@@ -2,80 +2,93 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DDBE76D2217
-	for <lists+linux-stm32@lfdr.de>; Fri, 31 Mar 2023 16:11:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5E0FE6D233B
+	for <lists+linux-stm32@lfdr.de>; Fri, 31 Mar 2023 16:57:13 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A609EC69069;
-	Fri, 31 Mar 2023 14:11:31 +0000 (UTC)
-Received: from mail-vs1-f46.google.com (mail-vs1-f46.google.com
- [209.85.217.46])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1218FC69069;
+	Fri, 31 Mar 2023 14:57:13 +0000 (UTC)
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com
+ [209.85.221.51])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B461CC6904F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B2016C65E42
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 31 Mar 2023 14:11:30 +0000 (UTC)
-Received: by mail-vs1-f46.google.com with SMTP id d2so19238610vso.9
+ Fri, 31 Mar 2023 14:57:11 +0000 (UTC)
+Received: by mail-wr1-f51.google.com with SMTP id h17so22701342wrt.8
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 31 Mar 2023 07:11:30 -0700 (PDT)
+ Fri, 31 Mar 2023 07:57:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=bgdev-pl.20210112.gappssmtp.com; s=20210112; t=1680271889;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=lG/WYsq29l19IPVJ1k1HveeXpXEw8n6whXP0RBXQsVE=;
- b=EvtZrKsNbHzwyuTtRqHQROrrofpQ/sG01uOiuhmiI8aPts7n7Ee5Ir4NvfrBMC9uI+
- rP59rZDcNbSrbcJgAHZuzWOVqM440qSkPSsXQam8gLhm6JrqARMEWp7hP37azlVW4org
- fBACV9jHeMc/fcIgXarc7w17iylr7tNHGmieksiQNlIzpXJ80+yWU+CJGHU8lpI3k2C8
- ICYW0V27W/2DBLWul+Ja7q7aEtfylH/JCpUFcy+E+zrhYwff5tk/+w+43pgclTvoUdaY
- JKB3eTBzT085pwnm7cEdG1xRDF3HVWkUIWkzjjSc40AzCnbk/tZvpSB9Tq3T3RIS9CKy
- 06FA==
+ d=linaro.org; s=google; t=1680274631;
+ h=content-transfer-encoding:in-reply-to:organization:references:cc:to
+ :content-language:subject:reply-to:from:user-agent:mime-version:date
+ :message-id:from:to:cc:subject:date:message-id:reply-to;
+ bh=X2dQ+lYOZmXZreHzCA27SPymWQu74XpJ9AsKWsdeeL4=;
+ b=LxMr8btqIWpZVBhNCuG3Pv8bToCfJWDTdR7+mR8mGHozcnAnNX8W0cDET2uL7CaGs9
+ 5e93/RuXqDOnGQEs4AERzNy/Qogvh1lNEl5m/Bf/swKpLDINZWZrVcg2ZaNJuQJxTI3k
+ scrF3ioZ8uoXF7zeOPiJ/wP8xdLa/F/5qp3ahGdIGZuPJ7thH6JA/9PSgY4cV1Egc6BI
+ O1Rz6S+5Em4dXlsXilZs5u99e4DEWL7+4xEEyTpHsjLqG+DWWc96/933gCmUjtvMCuis
+ cNHHsNXvDWRcx4rsOJaAwffsHJR3LJLod1tAvHB9N9onT9OneeyP7ioLARMZpPHqlTA4
+ cJqw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1680271889;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=lG/WYsq29l19IPVJ1k1HveeXpXEw8n6whXP0RBXQsVE=;
- b=WX3coPyuey0MwewGl0EyjkoWa8t4vAvxKaYCo1oN//v5GSIuUK4247Yc6qKu/Xunkp
- SM5iqbis4i8xzpWkitoB5KYj70OMwLgNd2dDuCK7s0dRD74j7P/yK9lpZsqmE7zeWsHt
- D/u9wLtYlztIWNONHivOtYkvBkSjAtgd0TWwpRqL/OrkN4Ar0FH/MGR4ZKTsN3J/0tyq
- PCHvtzCZXC+Hz8dz+1vESjZNWwGDCN7ld8+Vr8QVKCrv7xIgynvnyzdzXtGojsERuCrh
- yZC7kOsD7hmdli2bWQtQhkvinxepcIHrGIg9DP0lXA0w7mVRgoxClTT7lcDX/6w1EaVB
- pR6g==
-X-Gm-Message-State: AAQBX9c7Z+nUzbSFoSRRMKVLKZLVHPsifB04DbRY/O0AcrTyQcB1WDnm
- pLdrPQo4LhQK+pKJylNs4p+WeS5O+QujRVhJubC0uw==
-X-Google-Smtp-Source: AKy350Ya9O0j2IJ/iXVAszn5aY9fHDH1jV5pYhAfg5ER4OEHtZmmlP21NIaPy6SQjGvX406cL1yK9LBdk5p7JcyHINc=
-X-Received: by 2002:a67:e095:0:b0:426:b051:1c4 with SMTP id
- f21-20020a67e095000000b00426b05101c4mr9141092vsl.0.1680271889495; Fri, 31 Mar
- 2023 07:11:29 -0700 (PDT)
+ d=1e100.net; s=20210112; t=1680274631;
+ h=content-transfer-encoding:in-reply-to:organization:references:cc:to
+ :content-language:subject:reply-to:from:user-agent:mime-version:date
+ :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=X2dQ+lYOZmXZreHzCA27SPymWQu74XpJ9AsKWsdeeL4=;
+ b=T419vtRsUgfW8RIUA1rFZVLZUVSLZxnVyzTQiqDdwATd5v2a/VCQ8VlraJt2n+dYUr
+ 7vTFpt4Qv8gjP1SJiPqnX4y6f4f1/2NuzAOydxuTjUSjsfjmeHwejf7uXhWvIpVABUnZ
+ 7CfXh2MPtVjC/MK+1nlW7kNC0zuda0yN8D7U18fhJcriXIzdqvP6N+ft1JSBe6ytfAD0
+ E7/FPWQsXXBnFUbuJBxfHf/BvZOs+uePWcEDGqsPUkjHKXtoWT94cESvQ1Q8M83/yyrD
+ 2BR/SkzE8bX34WDiIeUe62GisjnfIOA2GNRNol86P9yDBdTPN7bjTmDfP50GvOYTAT4a
+ q20w==
+X-Gm-Message-State: AAQBX9depPI351YEkcmXVlFySmfn6btdBI60/WAUuDxUhUiWf7hAOoki
+ RM0Q4lHFjohlTpxEClvt12Hh9A==
+X-Google-Smtp-Source: AKy350ZhM7TlzzbkKQh+f2qjf5R7dBolMimYX1XKzO4RjCFaq7KCOpO3n90LcpUgFdpKCsl7ogNfUw==
+X-Received: by 2002:a5d:4409:0:b0:2cf:e422:e28c with SMTP id
+ z9-20020a5d4409000000b002cfe422e28cmr18329961wrq.42.1680274631125; 
+ Fri, 31 Mar 2023 07:57:11 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:982:cbb0:74cb:1a96:c994:e7e0?
+ ([2a01:e0a:982:cbb0:74cb:1a96:c994:e7e0])
+ by smtp.gmail.com with ESMTPSA id
+ b12-20020a5d4d8c000000b002e51195a3e2sm2392687wru.79.2023.03.31.07.57.06
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 31 Mar 2023 07:57:10 -0700 (PDT)
+Message-ID: <23e513ad-9fca-30cd-1f08-2ff559072314@linaro.org>
+Date: Fri, 31 Mar 2023 16:57:05 +0200
 MIME-Version: 1.0
-References: <20230331-topic-oxnas-upstream-remove-v1-0-5bd58fd1dd1f@linaro.org>
- <20230331-topic-oxnas-upstream-remove-v1-15-5bd58fd1dd1f@linaro.org>
-In-Reply-To: <20230331-topic-oxnas-upstream-remove-v1-15-5bd58fd1dd1f@linaro.org>
-From: Bartosz Golaszewski <brgl@bgdev.pl>
-Date: Fri, 31 Mar 2023 16:11:18 +0200
-Message-ID: <CAMRc=Mdp48+DitzSV5gq3arPL75TJXQLoBxTujsWSH4UVpd2ww@mail.gmail.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>
-Cc: Vignesh Raghavendra <vigneshr@ti.com>,
- Linus Walleij <linus.walleij@linaro.org>, linux-kernel@vger.kernel.org,
- Eric Dumazet <edumazet@google.com>, linux-mtd@lists.infradead.org,
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.9.1
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Content-Language: en-US
+To: Arnd Bergmann <arnd@arndb.de>, Olof Johansson <olof@lixom.net>,
+ soc@kernel.org, Rob Herring <robh+dt@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Miquel Raynal <miquel.raynal@bootlin.com>, linux-clk@vger.kernel.org,
- Richard Weinberger <richard@nod.at>,
- Daniel Lezcano <daniel.lezcano@linaro.org>,
- Russell King <linux@armlinux.org.uk>, linux-stm32@st-md-mailman.stormreply.com,
- Jose Abreu <joabreu@synopsys.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Michael Turquette <mturquette@baylibre.com>,
- devicetree@vger.kernel.org, Philipp Zabel <p.zabel@pengutronix.de>,
- Arnd Bergmann <arnd@arndb.de>, linux-pm@vger.kernel.org,
- linux-gpio@vger.kernel.org, soc@kernel.org, Rob Herring <robh+dt@kernel.org>,
+ Russell King <linux@armlinux.org.uk>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+ <sboyd@kernel.org>, Daniel Lezcano <daniel.lezcano@linaro.org>,
+ Thomas Gleixner <tglx@linutronix.de>,
+ Miquel Raynal <miquel.raynal@bootlin.com>,
+ Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>,
  Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Thomas Gleixner <tglx@linutronix.de>, linux-arm-kernel@lists.infradead.org,
- Stephen Boyd <sboyd@kernel.org>, netdev@vger.kernel.org,
- Sebastian Reichel <sre@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Marc Zyngier <maz@kernel.org>,
- Olof Johansson <olof@lixom.net>, "David S. Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH RFC 15/20] dt-bindings: gpio: gpio_oxnas:
-	remove obsolete bindings
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Jose Abreu <joabreu@synopsys.com>, "David S . Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Maxime Coquelin
+ <mcoquelin.stm32@gmail.com>, Linus Walleij <linus.walleij@linaro.org>,
+ Bartosz Golaszewski <brgl@bgdev.pl>, Sebastian Reichel <sre@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Marc Zyngier <maz@kernel.org>
+References: <20230331-topic-oxnas-upstream-remove-v1-0-5bd58fd1dd1f@linaro.org>
+ <df218abb-fa83-49d2-baf5-557b83b33670@app.fastmail.com>
+Organization: Linaro Developer Services
+In-Reply-To: <df218abb-fa83-49d2-baf5-557b83b33670@app.fastmail.com>
+Cc: devicetree@vger.kernel.org, linux-pm@vger.kernel.org,
+ Netdev <netdev@vger.kernel.org>, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
+ linux-mtd@lists.infradead.org, Daniel Golle <daniel@makrotopia.org>,
+ linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH RFC 00/20] ARM: oxnas support removal
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,55 +100,80 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Reply-To: neil.armstrong@linaro.org
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gRnJpLCBNYXIgMzEsIDIwMjMgYXQgMTA6MzXigK9BTSBOZWlsIEFybXN0cm9uZwo8bmVpbC5h
-cm1zdHJvbmdAbGluYXJvLm9yZz4gd3JvdGU6Cj4KPiBEdWUgdG8gbGFjayBvZiBtYWludGFpbmFu
-Y2UgYW5kIHN0YWxsIG9mIGRldmVsb3BtZW50IGZvciBhIGZldyB5ZWFycyBub3csCj4gYW5kIHNp
-bmNlIG5vIG5ldyBmZWF0dXJlcyB3aWxsIGV2ZXIgYmUgYWRkZWQgdXBzdHJlYW0sIHJlbW92ZSB0
-aGUKPiBPWDgxMCBhbmQgT1g4MjAgZ3BpbyBiaW5kaW5ncy4KPgo+IFNpZ25lZC1vZmYtYnk6IE5l
-aWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPgo+IC0tLQo+ICAuLi4vZGV2
-aWNldHJlZS9iaW5kaW5ncy9ncGlvL2dwaW9fb3huYXMudHh0ICAgICAgICB8IDQ3IC0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0KPiAgMSBmaWxlIGNoYW5nZWQsIDQ3IGRlbGV0aW9ucygtKQo+Cj4gZGlm
-ZiAtLWdpdCBhL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9ncGlvL2dwaW9fb3hu
-YXMudHh0IGIvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL2dwaW8vZ3Bpb19veG5h
-cy50eHQKPiBkZWxldGVkIGZpbGUgbW9kZSAxMDA2NDQKPiBpbmRleCA5NjY1MTQ3NDRkZjQuLjAw
-MDAwMDAwMDAwMAo+IC0tLSBhL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9ncGlv
-L2dwaW9fb3huYXMudHh0Cj4gKysrIC9kZXYvbnVsbAo+IEBAIC0xLDQ3ICswLDAgQEAKPiAtKiBP
-eGZvcmQgU2VtaWNvbmR1Y3RvciBPWE5BUyBTb0MgR1BJTyBDb250cm9sbGVyCj4gLQo+IC1QbGVh
-c2UgcmVmZXIgdG8gZ3Bpby50eHQgZm9yIGdlbmVyaWMgaW5mb3JtYXRpb24gcmVnYXJkaW5nIEdQ
-SU8gYmluZGluZ3MuCj4gLQo+IC1SZXF1aXJlZCBwcm9wZXJ0aWVzOgo+IC0gLSBjb21wYXRpYmxl
-OiAib3hzZW1pLG94ODEwc2UtZ3BpbyIgb3IgIm94c2VtaSxveDgyMC1ncGlvIgo+IC0gLSByZWc6
-IEJhc2UgYWRkcmVzcyBhbmQgbGVuZ3RoIGZvciB0aGUgZGV2aWNlLgo+IC0gLSBpbnRlcnJ1cHRz
-OiBUaGUgcG9ydCBpbnRlcnJ1cHQgc2hhcmVkIGJ5IGFsbCBwaW5zLgo+IC0gLSBncGlvLWNvbnRy
-b2xsZXI6IE1hcmtzIHRoZSBwb3J0IGFzIEdQSU8gY29udHJvbGxlci4KPiAtIC0gI2dwaW8tY2Vs
-bHM6IFR3by4gVGhlIGZpcnN0IGNlbGwgaXMgdGhlIHBpbiBudW1iZXIgYW5kCj4gLSAgIHRoZSBz
-ZWNvbmQgY2VsbCBpcyB1c2VkIHRvIHNwZWNpZnkgdGhlIGdwaW8gcG9sYXJpdHkgYXMgZGVmaW5l
-ZCBpbgo+IC0gICBkZWZpbmVkIGluIDxkdC1iaW5kaW5ncy9ncGlvL2dwaW8uaD46Cj4gLSAgICAg
-IDAgPSBHUElPX0FDVElWRV9ISUdICj4gLSAgICAgIDEgPSBHUElPX0FDVElWRV9MT1cKPiAtIC0g
-aW50ZXJydXB0LWNvbnRyb2xsZXI6IE1hcmtzIHRoZSBkZXZpY2Ugbm9kZSBhcyBhbiBpbnRlcnJ1
-cHQgY29udHJvbGxlci4KPiAtIC0gI2ludGVycnVwdC1jZWxsczogVHdvLiBUaGUgZmlyc3QgY2Vs
-bCBpcyB0aGUgR1BJTyBudW1iZXIgYW5kIHNlY29uZCBjZWxsCj4gLSAgIGlzIHVzZWQgdG8gc3Bl
-Y2lmeSB0aGUgdHJpZ2dlciB0eXBlIGFzIGRlZmluZWQgaW4KPiAtICAgPGR0LWJpbmRpbmdzL2lu
-dGVycnVwdC1jb250cm9sbGVyL2lycS5oPjoKPiAtICAgICAgSVJRX1RZUEVfRURHRV9SSVNJTkcK
-PiAtICAgICAgSVJRX1RZUEVfRURHRV9GQUxMSU5HCj4gLSAgICAgIElSUV9UWVBFX0VER0VfQk9U
-SAo+IC0gLSBncGlvLXJhbmdlczogSW50ZXJhY3Rpb24gd2l0aCB0aGUgUElOQ1RSTCBzdWJzeXN0
-ZW0sIGl0IGFsc28gc3BlY2lmaWVzIHRoZQo+IC0gICBncGlvIGJhc2UgYW5kIGNvdW50LCBzaG91
-bGQgYmUgaW4gdGhlIGZvcm1hdCBvZiBudW1lcmljLWdwaW8tcmFuZ2UgYXMKPiAtICAgc3BlY2lm
-aWVkIGluIHRoZSBncGlvLnR4dCBmaWxlLgo+IC0KPiAtRXhhbXBsZToKPiAtCj4gLWdwaW8wOiBn
-cGlvQDAgewo+IC0gICAgICAgY29tcGF0aWJsZSA9ICJveHNlbWksb3g4MTBzZS1ncGlvIjsKPiAt
-ICAgICAgIHJlZyA9IDwweDAwMDAwMCAweDEwMDAwMD47Cj4gLSAgICAgICBpbnRlcnJ1cHRzID0g
-PDIxPjsKPiAtICAgICAgICNncGlvLWNlbGxzID0gPDI+Owo+IC0gICAgICAgZ3Bpby1jb250cm9s
-bGVyOwo+IC0gICAgICAgaW50ZXJydXB0LWNvbnRyb2xsZXI7Cj4gLSAgICAgICAjaW50ZXJydXB0
-LWNlbGxzID0gPDI+Owo+IC0gICAgICAgZ3Bpby1yYW5nZXMgPSA8JnBpbmN0cmwgMCAwIDMyPjsK
-PiAtfTsKPiAtCj4gLWtleXMgewo+IC0gICAgICAgLi4uCj4gLQo+IC0gICAgICAgYnV0dG9uLWVz
-YyB7Cj4gLSAgICAgICAgICAgICAgIGxhYmVsID0gIkVTQyI7Cj4gLSAgICAgICAgICAgICAgIGxp
-bnV4LGNvZGUgPSA8MT47Cj4gLSAgICAgICAgICAgICAgIGdwaW9zID0gPCZncGlvMCAxMiAwPjsK
-PiAtICAgICAgIH07Cj4gLX07Cj4KPiAtLQo+IDIuMzQuMQo+CgpBY2tlZC1ieTogQmFydG9zeiBH
-b2xhc3pld3NraSA8YmFydG9zei5nb2xhc3pld3NraUBsaW5hcm8ub3JnPgpfX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxp
-c3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1k
-LW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
+On 31/03/2023 15:42, Arnd Bergmann wrote:
+> On Fri, Mar 31, 2023, at 10:34, Neil Armstrong wrote:
+>> With [1] removing MPCore SMP support, this makes the OX820 barely usable,
+>> associated with a clear lack of maintainance, development and migration to
+>> dt-schema it's clear that Linux support for OX810 and OX820 should be removed.
+>>
+>> In addition, the OX810 hasn't been booted for years and isn't even present
+>> in an ARM config file.
+>>
+>> For the OX820, lack of USB and SATA support makes the platform not usable
+>> in the current Linux support and relies on off-tree drivers hacked from the
+>> vendor (defunct for years) sources.
+>>
+>> The last users are in the OpenWRT distribution, and today's removal means
+>> support will still be in stable 6.1 LTS kernel until end of 2026.
+>>
+>> If someone wants to take over the development even with lack of SMP, I'll
+>> be happy to hand off maintainance.
+>>
+>> The plan is to apply the first 4 patches first, then the drivers
+>> followed by bindings. Finally the MAINTAINANCE entry can be removed.
+>>
+>> I'm not sure about the process of bindings removal, but perhaps the bindings
+>> should be marked as deprecated first then removed later on ?
+>>
+>> It has been a fun time adding support for this architecture, but it's time
+>> to get over!
+>>
+>> Patch 2 obviously depends on [1].
+>>
+>> [1] https://lore.kernel.org/all/20230327121317.4081816-1-arnd@kernel.org/
+>>
+>> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+> 
+> Thanks a lot for going through this and preparing the patches!
+> 
+> I've discussed this with Daniel Golle on the OpenWRT channel as well,
+> and he indicated that the timing is probably fine here, as there are
+> already close to zero downloads for oxnas builds, and the 6.1 kernel
+> will only be part of a release in 2024.
+> 
+> For the dependency on my other patch, I'd suggest you instead
+> remove the SMP files here as well, which means we can merge either
+> part independently based on just 6.3-rc. I can do that change
+> myself by picking up patches 1-4 of your RFC series, or maybe you
+> can send resend them after rebase to 6.3-rc1.
+
+Ack I'll send patches 1-4 rebased on v6.3-rc1 with the acks
+and sent a PR next week.
+
+> 
+> For the driver removals, I think we can merge those at the same
+> time as the platform removal since there are no shared header files
+> that would cause build time regressions and there are no runtime
+> regressions other than breaking the platform itself. Maybe
+> just send the driver removal separately to the subsystem
+> maintainers with my
+> 
+> Acked-by: Arnd Bergmann <arnd@arndb.de>
+
+Thanks, I'll submit those individually once the first patches are merged.
+
+Neil
+
+> 
+>       Arnd
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
