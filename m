@@ -2,118 +2,87 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 04CF36D29EB
-	for <lists+linux-stm32@lfdr.de>; Fri, 31 Mar 2023 23:23:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7D4736D2A1D
+	for <lists+linux-stm32@lfdr.de>; Fri, 31 Mar 2023 23:46:14 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BFB1CC69069;
-	Fri, 31 Mar 2023 21:23:08 +0000 (UTC)
-Received: from EUR05-DB8-obe.outbound.protection.outlook.com
- (mail-db8eur05on2071.outbound.protection.outlook.com [40.107.20.71])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CCB81C65E42
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3567AC69069;
+	Fri, 31 Mar 2023 21:46:14 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 04510C6904F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 31 Mar 2023 21:23:07 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Flor+5IANs9d021xg90TnBOAvBbyTM6pOksp//CP8utGXbAdeinc8rZWbLDUDEdoWcvZEhsBFWzXFikJ/GwdaNIp19xXU1ooiIm63N1xuDkN8e1Q9mTv3C2Qr2aLSD03aaKHNaHrruMwWrKwe9EG0DoUo5NuKPxZ3JnCyoD3zDJZkxtMU9kP4Y38kazNl/nxVkpAOWJsTrh5fIfEloP6N5WascurCoI+X59/9SQ4qVc9P+Qdq2l8SChCdoFhb85B7ALCfVNnWNuACKLmYRjpbnvICMUdpU5DYSm1PBFBjPBs8pX75XBTk6Q3YeTe0QrMbmBSNkZ/ww77ANsTft+GtQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8f1urwP/JcS7vUjP9999ZWBSe8H6+gdb6huAQDlORvs=;
- b=YAg6g03+5+cbbG8WnVjVKtVRzj9OE6LwRRqH2IPyGzzJQazfzQrjL7l1pE3jI2SvY/oqjFWVGVp7RnM40lW693/oAG0MVCHb9O/5R7Rumf9DX0cg4QnT7pZenGH72NDqV3OJR3xIqooynFODWIcj7QarYybeQS4OHNs6n4lhORQEhZYc5GJE8Qh/OkePoB/KVHK8i41ONqTJyh0/yUD0LkSyrYFFZ7d3ZCdABgytU3niu/mRy6vkc2GwG2PyLVziwzjYXaDO92f4Xq0CXZazILxSLWj+nzwXZvnO6eAo2920PhbaajzEsic2KBfds4kADosdMebNtwVLSGMU3SN8ew==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8f1urwP/JcS7vUjP9999ZWBSe8H6+gdb6huAQDlORvs=;
- b=KqoKMjIF5lxck7yjQDWCOsr0gToJ6vEt7b6JWPjVoB+jpj6ujD5e+WbN31LQJIfh6xfiogmgMT3o5dErkUfX55BOSiEeCwmL+oz2yPEjYq7B5WsiD/EGRZanr1dEfhdzXBF789eMggHKGeYj6ifg0mcisr2nzK6fUisoXQi2Amk=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from PAXPR04MB9185.eurprd04.prod.outlook.com (2603:10a6:102:231::11)
- by DB9PR04MB9992.eurprd04.prod.outlook.com (2603:10a6:10:4c1::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6254.26; Fri, 31 Mar
- 2023 21:23:06 +0000
-Received: from PAXPR04MB9185.eurprd04.prod.outlook.com
- ([fe80::28fb:82ec:7a6:62f3]) by PAXPR04MB9185.eurprd04.prod.outlook.com
- ([fe80::28fb:82ec:7a6:62f3%3]) with mapi id 15.20.6254.023; Fri, 31 Mar 2023
- 21:23:06 +0000
-From: Shenwei Wang <shenwei.wang@nxp.com>
-To: "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Shawn Guo <shawnguo@kernel.org>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Date: Fri, 31 Mar 2023 16:22:50 -0500
-Message-Id: <20230331212250.103017-2-shenwei.wang@nxp.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20230331212250.103017-1-shenwei.wang@nxp.com>
-References: <20230331212250.103017-1-shenwei.wang@nxp.com>
-X-ClientProxiedBy: SJ0PR03CA0254.namprd03.prod.outlook.com
- (2603:10b6:a03:3a0::19) To PAXPR04MB9185.eurprd04.prod.outlook.com
- (2603:10a6:102:231::11)
+ Fri, 31 Mar 2023 21:46:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1680299172;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=qRXp4dQiGms/64nGsSVBVjLN6Pe4B52p8MOn8ojXq0c=;
+ b=f99XDGIHzZ1BipsUPXuofPfH3Ltw9s/Z21T/J+T5fX79jRmgoBQnLsHxUeZDW2jDvfAdgw
+ 1p57IRYAbcNmo+rV6svtiUZEkyVrw7bv3UfiWahFShGg55vGIeoDovOhFgn3fXJoDZGSq1
+ KSe0WuL5OJXIqBdGXDIWmqyP0h0Ne6Y=
+Received: from mail-ot1-f69.google.com (mail-ot1-f69.google.com
+ [209.85.210.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-173-KGxWquoSMXmLcoTMx67QtQ-1; Fri, 31 Mar 2023 17:46:09 -0400
+X-MC-Unique: KGxWquoSMXmLcoTMx67QtQ-1
+Received: by mail-ot1-f69.google.com with SMTP id
+ y9-20020a9d4609000000b006a122249d55so7478398ote.13
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 31 Mar 2023 14:46:09 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112; t=1680299169;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=qRXp4dQiGms/64nGsSVBVjLN6Pe4B52p8MOn8ojXq0c=;
+ b=c9uCzq8maKE8+o0aS8SlVHMakRjhQqhsuzMpOSqtC4YMRuXTB7bEITB5+qiVY0sJ7u
+ 2dV+pyY33K4ZD6qP6Vhj8mtAoVM+0sx1BEw3vncixj26RP9MCBaCR6wmUrCvAOQ6uHVy
+ 9Bj7ppvw+C82az0NflqB4Mza4SRfExcvUa5Sn7rgzV3tmsOb8f/gBQzcKHMJqQyoFSzt
+ /oiq2ixEtjEQtu9qanKvXDTWyyDmpIcq4jANw40UFtxzV+JOzfOYeVGYvJYimEOa8XFM
+ dkyDI8Q76kg9zYr6sJnpzjedfzoZMiPQ1VjLMf8tcwwbW7TBZTpg325lzalWtAgcmJZ8
+ gwXg==
+X-Gm-Message-State: AAQBX9e1PS9EkFtBrUUoUvIp0xYUKcnnoLwJjgMMY/4cICc7ITwDRh5D
+ Zx9wKavJZeHp83Ht29xamVRqg0MybdaqK/SAfnoMxlkA2e1yLILCPrb7M04/WXOMPvte6je784a
+ NkGCqqYG5dSPqmxLOCG1vJk9DtWa8NbwTPLEblDrO
+X-Received: by 2002:a9d:7310:0:b0:698:d198:fe9b with SMTP id
+ e16-20020a9d7310000000b00698d198fe9bmr13806481otk.10.1680299169051; 
+ Fri, 31 Mar 2023 14:46:09 -0700 (PDT)
+X-Google-Smtp-Source: AKy350bgDIpshy7eRbTWkRwLsC3s4240Hq2Oc16KqDrLzmDT3k9i5ye972UijmCNDTVHDvOHjC4iow==
+X-Received: by 2002:a9d:7310:0:b0:698:d198:fe9b with SMTP id
+ e16-20020a9d7310000000b00698d198fe9bmr13806471otk.10.1680299168800; 
+ Fri, 31 Mar 2023 14:46:08 -0700 (PDT)
+Received: from halaney-x13s.attlocal.net
+ (104-53-165-62.lightspeed.stlsmo.sbcglobal.net. [104.53.165.62])
+ by smtp.gmail.com with ESMTPSA id
+ x80-20020a4a4153000000b0053d9be4be68sm1328531ooa.19.2023.03.31.14.46.06
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 31 Mar 2023 14:46:08 -0700 (PDT)
+From: Andrew Halaney <ahalaney@redhat.com>
+To: linux-kernel@vger.kernel.org
+Date: Fri, 31 Mar 2023 16:45:37 -0500
+Message-Id: <20230331214549.756660-1-ahalaney@redhat.com>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PAXPR04MB9185:EE_|DB9PR04MB9992:EE_
-X-MS-Office365-Filtering-Correlation-Id: f6d30dc8-58ef-4840-dbaa-08db322e1e31
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: HNiwAyiYRL9D+ub3pWcae0ky5uiPEwN8auY5v9MTJtW2KmEsJtwP7giMatGISuccfOHhoyni8d9pfhH+DK9pfOAo07pMvHwXpV46Vl61EV2Vf2aEg+mwFV7uBgZI+LVaigl5DxWV2YHaYQGlYXOlEl5Vv+Lcv5Y0ienRwQa/4ZwAv+feiIoSmBq+lLNFeGo6fNDTHdVTon5hsMtmBmfQr4icGKbD3vFxDmFYx36sfu/HE2ruGyQKRb0WcE9QuDbtgKui+hgZIumJ9TYku5XtkwPhPwAN3EqTJRsLJ6d22NIMqzIEBd29UepIr0J4jM/Nw4FfRMDFB6pZ91UTo5DKjpr51pJMUZE0lPxUH+4QEiSYVwXp7kZ9Xbs3I6oHInmP0qm04flmPqN7mC/P8gUoZ9XtPu1KZ+Xb8zcTY15e6rmzb66lekaq5sOL1kHaHsUYxyNQhuRsl9CgtNImIDeo5PHmXVPsAY1U2JtokD7ypeteXjPGQAu2ZrIKUv7zZL1VEmkJF5bHxw7Q4FoICSx6TbhKYKAuFJWMrL+FKuMmoTwwanEH55hTZzBDafrrh1BLaovWYv8876DaOxHujvdhYNXLeQKqnIwRNMnPrhZAqyDYXKcAINMrjA/eJkQY9xNM
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PAXPR04MB9185.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(6029001)(4636009)(366004)(346002)(136003)(376002)(396003)(39860400002)(451199021)(110136005)(44832011)(6666004)(316002)(55236004)(6506007)(6512007)(1076003)(54906003)(38100700002)(4326008)(36756003)(66476007)(26005)(8676002)(66556008)(66946007)(186003)(38350700002)(478600001)(2906002)(7416002)(6486002)(41300700001)(5660300002)(86362001)(2616005)(52116002)(8936002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?SH7ZB5LkkrkEs7Z1VGimc+99hbDKTPeTI/0VwZTOcIXosmb7ezjOG2q/Zdzz?=
- =?us-ascii?Q?r6y8/Js1t3DQZwKlJzvEfNms4boqnOo63WEDHlvK2mlADpVxhbB7PxLJF9fm?=
- =?us-ascii?Q?EDa7j1gLEvF2dzwv+EzbEY9AMAU3kN9ysmco1hZPqLGe+vdoOyDPrdG7JeB6?=
- =?us-ascii?Q?924nKw7B9S/0ina0CwTWcezlthMXv6bD3DbQsbSm62WtMBHe28QrTjzMW5Ui?=
- =?us-ascii?Q?KyjDwjqPRcEUKvL9DjMoEHhrvxneNsBvLRjr1BK8lJ8/zeflcAkiLFCUKFa6?=
- =?us-ascii?Q?4F3le15GRx1CQHt8T1czmoYrcgpGExYMwDjHLAZAIdNfN8hTpUZ2G+wU3tMu?=
- =?us-ascii?Q?1jqx4TZTfSHW7+p8z5eX4vbqb1l38AY12Sh1N+WljSn8msPEWLHYNmKewYOE?=
- =?us-ascii?Q?pl+DmMIIhUsdMpRDPcnmD2jgX1ToBT1Ze+6y18RwWvKtmZG2yDHCnygT+W/+?=
- =?us-ascii?Q?XgbH4ot2TOUZ5hm7k2HfdlvU3i64UFUOT36ESOKh6r/hLKGmEdbnL1A3AOl2?=
- =?us-ascii?Q?OH1LuRxBX0HTnB13tkVws1675nX2r1uqppujJgutoqsU5PkSdC4ymrQfJLio?=
- =?us-ascii?Q?neBg/roiiFZZ4Yp94As7v4qeQfN9Vxy1/Rbhu7fHptdqhnY2gk1k93uGTrwR?=
- =?us-ascii?Q?SuDVeQ+HJkinQzubAh9TgUdfktFm/UUGJ9QacW5ISUNrPTTdp59SxdTapKGZ?=
- =?us-ascii?Q?uL5Sm259GnzSZPbwbnbGihWp7A/kV/qztDWBKGdpgNWUqzO/rbVpP7n5NwEX?=
- =?us-ascii?Q?N7X7tnRNXOQ1+LkTDzxhOMhwj9Hjq0O4dB+TbtuRM/7BkgSZ/pqssR+O8GZe?=
- =?us-ascii?Q?yBHOYlsQLKJa2QH23W/vz9aPKFyCUoTrU59yNuUDNe+rwemmMDxzRLIogDAc?=
- =?us-ascii?Q?jI/lVY/L8EW6gGLteLHdXbkKI3a54wwuMYSfetxYyZPCuO87DwY/XLnNmvYS?=
- =?us-ascii?Q?44cvZ5UEkfRXADScXDWiP1Y2/X1hclCHRVs8EHiR8c3yNwDRDpH/2L1YYpy/?=
- =?us-ascii?Q?YN5vgv855eu5bh+agrykpZV8j9oC/+QmPnAtfJPHLcamDxpTHqHaOM4Dif13?=
- =?us-ascii?Q?YPvpgT5YtcvuoTsTuHvxykcFv5d4QRA6SrQVMH27GeAzy4DkkTfJBCmNx6bh?=
- =?us-ascii?Q?GldAvetTe/2PuO6wrceohBob9XtITWnRd3dKhSUpIiDF0IFe3zq/oISHxHuS?=
- =?us-ascii?Q?fpw4MPtHnl05uDmu2KXlFCMzrsAXgrZnfboutzuoqASK0z40S3Y23f8n6Gw5?=
- =?us-ascii?Q?bW1aZDPxbbka0voDt1PPAEYrcmfZvHon4rCwOuuU6wNxWTxhmQvvJNMEdD38?=
- =?us-ascii?Q?EKwa1Sj2UKLPWBMTmoWXoU7wQ/jaIzBvTjM8nAtnwztINlJmTKbMHNXcxHIi?=
- =?us-ascii?Q?qjihvckCHDMsL02DuPBNxk1Agxcw4RW7cAInqpdh5VZyZkZN9Vw5rR1tmXUs?=
- =?us-ascii?Q?tIjGFm2unU9uxI/dFS0gOohny4H+BMLu6Vx48rs5fMfxGzL/jgzhlERPoufn?=
- =?us-ascii?Q?et6DD6z+Blcad5k5eDd3aePYuBQPJ21DquLrx8V/yqqiEovOF+0jLYRc9qo2?=
- =?us-ascii?Q?OqD2Lk6X6DdAO3rcoIXCJXxEMHCidSShh6zfpu+0?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f6d30dc8-58ef-4840-dbaa-08db322e1e31
-X-MS-Exchange-CrossTenant-AuthSource: PAXPR04MB9185.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Mar 2023 21:23:06.3992 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: UlQ86ioEzNH8EiDfnQX55FbS9bZKi2L0/BFu9knCrE7D5ZLT/hLM2g0XRrBw/w2UipgmKsaYmCOG7DcDzl83rg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR04MB9992
-Cc: imx@lists.linux.dev, Tan Tee Min <tee.min.tan@linux.intel.com>,
- Andrey Konovalov <andrey.konovalov@linaro.org>,
- Kurt Kanzenbach <kurt@linutronix.de>, Wong Vee Khee <veekhee@apple.com>,
- Jose Abreu <joabreu@synopsys.com>, NXP Linux Team <linux-imx@nxp.com>,
- Pengutronix Kernel Team <kernel@pengutronix.de>, netdev@vger.kernel.org,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Shenwei Wang <shenwei.wang@nxp.com>, Fabio Estevam <festevam@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- Revanth Kumar Uppala <ruppala@nvidia.com>
-Subject: [Linux-stm32] [PATCH v4 2/2] net: stmmac: dwmac-imx: use platform
-	specific reset for imx93 SoCs
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Cc: mturquette@baylibre.com, edumazet@google.com,
+ krzysztof.kozlowski+dt@linaro.org, jonathanh@nvidia.com,
+ linux-stm32@st-md-mailman.stormreply.com, tee.min.tan@linux.intel.com,
+ samuel@sholland.org, linux@armlinux.org.uk, jernej.skrabec@gmail.com,
+ veekhee@apple.com, wens@csie.org, joabreu@synopsys.com, kuba@kernel.org,
+ pabeni@redhat.com, andrey.konovalov@linaro.org,
+ Andrew Halaney <ahalaney@redhat.com>, ncai@quicinc.com,
+ devicetree@vger.kernel.org, bhupesh.sharma@linaro.org,
+ linux-arm-msm@vger.kernel.org, richardcochran@gmail.com, bmasney@redhat.com,
+ mohammad.athari.ismail@intel.com, robh+dt@kernel.org, ruppala@nvidia.com,
+ jsuraj@qti.qualcomm.com, peppe.cavallaro@st.com,
+ linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
+ andersson@kernel.org, agross@kernel.org, echanude@redhat.com,
+ konrad.dybcio@linaro.org, vkoul@kernel.org, hisunil@quicinc.com,
+ mcoquelin.stm32@gmail.com, davem@davemloft.net
+Subject: [Linux-stm32] [PATCH net-next v3 00/12] Add EMAC3 support for
+	sa8540p-ride
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -130,82 +99,82 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The patch addresses an issue with the reset logic on the i.MX93 SoC, which
-requires configuration of the correct interface speed under RMII mode to
-complete the reset. The patch implements a fix_soc_reset function and uses
-it specifically for the i.MX93 SoCs.
+This is a forward port / upstream refactor of code delivered
+downstream by Qualcomm over at [0] to enable the DWMAC5 based
+implementation called EMAC3 on the sa8540p-ride dev board.
 
-Reviewed-by: Fabio Estevam <festevam@gmail.com>
-Signed-off-by: Shenwei Wang <shenwei.wang@nxp.com>
----
- .../net/ethernet/stmicro/stmmac/dwmac-imx.c   | 27 +++++++++++++++++++
- 1 file changed, 27 insertions(+)
+From what I can tell with the board schematic in hand,
+as well as the code delivered, the main changes needed are:
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-imx.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-imx.c
-index ac8580f501e2..ebab2ced5422 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-imx.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-imx.c
-@@ -37,10 +37,15 @@
- #define MX93_GPR_ENET_QOS_INTF_SEL_RGMII	(0x1 << 1)
- #define MX93_GPR_ENET_QOS_CLK_GEN_EN		(0x1 << 0)
+    1. A new address space layout for /dwmac5/EMAC3 MTL/DMA regs
+    2. A new programming sequence required for the EMAC3 base platforms
 
-+#define DMA_BUS_MODE			0x00001000
-+#define DMA_BUS_MODE_SFT_RESET		(0x1 << 0)
-+#define RMII_RESET_SPEED		(0x3 << 14)
-+
- struct imx_dwmac_ops {
- 	u32 addr_width;
- 	bool mac_rgmii_txclk_auto_adj;
+This series makes the change for 1 above as well as other housekeeping items
+such as converting dt-bindings to yaml, etc.
 
-+	int (*fix_soc_reset)(void *priv, void __iomem *ioaddr);
- 	int (*set_intf_mode)(struct plat_stmmacenet_data *plat_dat);
- };
+As requested[1], it has been split up by compile time / maintainer tree.
+I will post a link to the associated devicetree changes that together
+with this series get the hardware functioning.
 
-@@ -207,6 +212,25 @@ static void imx_dwmac_fix_speed(void *priv, unsigned int speed)
- 		dev_err(dwmac->dev, "failed to set tx rate %lu\n", rate);
- }
+[0] https://git.codelinaro.org/clo/la/kernel/ark-5.14/-/commit/510235ad02d7f0df478146fb00d7a4ba74821b17
+[1] https://lore.kernel.org/netdev/20230320202802.4e7dc54c@kernel.org/
 
-+static int imx_dwmac_mx93_reset(void *priv, void __iomem *ioaddr)
-+{
-+	u32 value = readl(ioaddr + DMA_BUS_MODE);
-+	struct plat_stmmacenet_data *plat_dat = priv;
-+
-+	/* DMA SW reset */
-+	value |= DMA_BUS_MODE_SFT_RESET;
-+	writel(value, ioaddr + DMA_BUS_MODE);
-+
-+	if (plat_dat->interface == PHY_INTERFACE_MODE_RMII) {
-+		usleep_range(100, 200);
-+		writel(RMII_RESET_SPEED, ioaddr + MAC_CTRL_REG);
-+	}
-+
-+	return readl_poll_timeout(ioaddr + DMA_BUS_MODE, value,
-+				 !(value & DMA_BUS_MODE_SFT_RESET),
-+				 10000, 1000000);
-+}
-+
- static int
- imx_dwmac_parse_dt(struct imx_priv_data *dwmac, struct device *dev)
- {
-@@ -305,6 +329,8 @@ static int imx_dwmac_probe(struct platform_device *pdev)
- 	if (ret)
- 		goto err_dwmac_init;
+v2: https://lore.kernel.org/netdev/20230320221617.236323-1-ahalaney@redhat.com/
+v1: https://lore.kernel.org/netdev/20230313165620.128463-1-ahalaney@redhat.com/
 
-+	dwmac->plat_dat->fix_soc_reset = dwmac->ops->fix_soc_reset;
-+
- 	ret = stmmac_dvr_probe(&pdev->dev, plat_dat, &stmmac_res);
- 	if (ret)
- 		goto err_drv_probe;
-@@ -338,6 +364,7 @@ static struct imx_dwmac_ops imx93_dwmac_data = {
- 	.addr_width = 32,
- 	.mac_rgmii_txclk_auto_adj = true,
- 	.set_intf_mode = imx93_set_intf_mode,
-+	.fix_soc_reset = imx_dwmac_mx93_reset,
- };
+Thanks,
+Andrew
 
- static const struct of_device_id imx_dwmac_match[] = {
---
-2.34.1
+Andrew Halaney (9):
+  dt-bindings: net: qcom,ethqos: Add Qualcomm sc8280xp compatibles
+  net: stmmac: Remove unnecessary if statement brackets
+  net: stmmac: Fix DMA typo
+  net: stmmac: Remove some unnecessary void pointers
+  net: stmmac: Pass stmmac_priv in some callbacks
+  net: stmmac: dwmac4: Allow platforms to specify some DMA/MTL offsets
+  net: stmmac: dwmac-qcom-ethqos: Respect phy-mode and TX delay
+  net: stmmac: dwmac-qcom-ethqos: Use loopback_en for all speeds
+  net: stmmac: dwmac-qcom-ethqos: Add EMAC3 support
+
+Bhupesh Sharma (3):
+  dt-bindings: net: snps,dwmac: Update interrupt-names
+  dt-bindings: net: snps,dwmac: Add Qualcomm Ethernet ETHQOS compatibles
+  dt-bindings: net: qcom,ethqos: Convert bindings to yaml
+
+ .../devicetree/bindings/net/qcom,ethqos.txt   |  66 ------
+ .../devicetree/bindings/net/qcom,ethqos.yaml  | 111 ++++++++++
+ .../devicetree/bindings/net/snps,dwmac.yaml   |   9 +-
+ MAINTAINERS                                   |   2 +-
+ .../net/ethernet/stmicro/stmmac/chain_mode.c  |  10 +-
+ drivers/net/ethernet/stmicro/stmmac/common.h  |   2 +-
+ .../stmicro/stmmac/dwmac-qcom-ethqos.c        | 177 +++++++++++----
+ .../net/ethernet/stmicro/stmmac/dwmac-sun8i.c |  36 ++--
+ .../ethernet/stmicro/stmmac/dwmac1000_core.c  |   3 +-
+ .../ethernet/stmicro/stmmac/dwmac1000_dma.c   |  19 +-
+ .../ethernet/stmicro/stmmac/dwmac100_dma.c    |  14 +-
+ drivers/net/ethernet/stmicro/stmmac/dwmac4.h  |  91 ++++++--
+ .../net/ethernet/stmicro/stmmac/dwmac4_core.c |  50 +++--
+ .../ethernet/stmicro/stmmac/dwmac4_descs.c    |   8 +-
+ .../net/ethernet/stmicro/stmmac/dwmac4_dma.c  | 201 +++++++++++-------
+ .../net/ethernet/stmicro/stmmac/dwmac4_dma.h  |  89 +++++---
+ .../net/ethernet/stmicro/stmmac/dwmac4_lib.c  | 105 +++++----
+ .../net/ethernet/stmicro/stmmac/dwmac_dma.h   |  22 +-
+ .../net/ethernet/stmicro/stmmac/dwmac_lib.c   |  18 +-
+ .../ethernet/stmicro/stmmac/dwxgmac2_core.c   |   9 +-
+ .../ethernet/stmicro/stmmac/dwxgmac2_descs.c  |   6 +-
+ .../ethernet/stmicro/stmmac/dwxgmac2_dma.c    |  71 ++++---
+ .../net/ethernet/stmicro/stmmac/enh_desc.c    |  11 +-
+ drivers/net/ethernet/stmicro/stmmac/hwif.h    | 176 ++++++++-------
+ .../net/ethernet/stmicro/stmmac/norm_desc.c   |   8 +-
+ .../net/ethernet/stmicro/stmmac/ring_mode.c   |  10 +-
+ .../net/ethernet/stmicro/stmmac/stmmac_mdio.c |   3 +-
+ include/linux/stmmac.h                        |  19 ++
+ 28 files changed, 871 insertions(+), 475 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/net/qcom,ethqos.txt
+ create mode 100644 Documentation/devicetree/bindings/net/qcom,ethqos.yaml
+
+-- 
+2.39.2
 
 _______________________________________________
 Linux-stm32 mailing list
