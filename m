@@ -2,59 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8980E6D1A24
-	for <lists+linux-stm32@lfdr.de>; Fri, 31 Mar 2023 10:35:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 991446D1A26
+	for <lists+linux-stm32@lfdr.de>; Fri, 31 Mar 2023 10:35:14 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 532E8C6A602;
-	Fri, 31 Mar 2023 08:35:12 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 62C88C6A5F6;
+	Fri, 31 Mar 2023 08:35:14 +0000 (UTC)
 Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com
  [209.85.221.47])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1BA9AC6A5FD
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8EBD1C6A5E7
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 31 Mar 2023 08:35:11 +0000 (UTC)
-Received: by mail-wr1-f47.google.com with SMTP id l27so21597840wrb.2
+ Fri, 31 Mar 2023 08:35:12 +0000 (UTC)
+Received: by mail-wr1-f47.google.com with SMTP id l27so21597907wrb.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 31 Mar 2023 01:35:11 -0700 (PDT)
+ Fri, 31 Mar 2023 01:35:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1680251711;
+ d=linaro.org; s=google; t=1680251712;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=5S8DS7MwX0eSMjECdngcIupXRvdIfBFKmoZZhwAEom0=;
- b=tnfnYtQdWHkb+imXQ5cdS0qz5r299xH4jhkGPSnNJ2hyhvDgzphIZ+JrRafIpmAM9p
- AYZ75Po2o2Z0SH8MZ2PJlbzGo/n61VmC8VnuZ2JuYUqUV2XrQWwn3l07chxkJqnSXjPP
- 5f1CEgxiSVpvn2h1nzoHxbtdANfxsiKSj6kGo5Gn+zXB98k4Ll0nq2FYEQMcqg9qKycl
- SaFHJ31SA4vogcCrvZnJv61gFMikTvHDNS7J+H+by9jPFBPOVQx/EaIZbfwOl1I2Oqqc
- 0h4V53L2ZH7bwDuc5XrqWaqkZAcFFMRby1EyH50XYnZmPSj9SLb8FRQWZxdM2RBBTVHm
- BCmw==
+ :reply-to; bh=Lfco65EqQfHZJxTK1kxWA78ZamfCWUWZKPHL0Bp1xH4=;
+ b=SqOTTD4EeiNGBszaNOzDLqviTo9jI0ZhAKSeRT3l5LeAaBvHoV1VbnUiNYxQjrF5S5
+ UUujdXiQCveG/Iy+PsAnxgkKeorfMhJAmQ2J1mYgkX8eg020zgf6nL/f/EExNZqkpRUx
+ XcdDXQ5bnCtHLOcSYFcdnuXeE9b+QxZG2/mH1nfNDIA7j4YtTmk1Al3zY4k3rR5puTQU
+ l2NatRLdUPmY31rjFWxbQkcwmbAI5FXvErZOPP+aB0G/SM/9J1u6rMIIFKuvCVysu2q3
+ VMSa4Jt860AaDpWD2pjM4fb8tv0/a2sxwe3l0seQy7PhpYace6EYCoZskI6VrPmid9Ji
+ W8oQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1680251711;
+ d=1e100.net; s=20210112; t=1680251712;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=5S8DS7MwX0eSMjECdngcIupXRvdIfBFKmoZZhwAEom0=;
- b=GxSm4V90d2c7pNrA8zO9AbBj/c3syjiul6l08L0Pk2ljcnWyMQDUuTtrMkz1irIPOB
- 07fhC0yhwIwNsrHpS5VVDw5N7Pzg2Js5FiKcyUPTyRDgAvA89ZFpAqEyTIIzLnBxRN5a
- ZYHfpStFyQnqBhsCE1yzUgLNcHOXmBX6XKRf5xTIrfTeNTSfFqG+CMfEy/dNbtNG7VL9
- iWDn3hxifE4TmBC1HPksfuaAdqQ7+RwamzgRhASk+rD8t6YUzoL3Hd9kdAU4so52ZXoX
- d9QXc8/11NowZwDmDm5o9BtuGTRk1mMVJsFJywhQqHVS5Q6oqSHhEA7PcoGe7eeZtnMO
- 8Yew==
-X-Gm-Message-State: AAQBX9cBDGYDuiEc9WK6lx9ghzMjHyd76axK+WGNDUbuSa2i4v7wGVCZ
- KPRhITVxZ7uxqv8t3GBzL40TBQ==
-X-Google-Smtp-Source: AKy350bVO2xvOdcujlPweNogfEF/aS/RwRjRN7oD1rhoaEfLODuiLQvDCF4zUxggrf8oM3l2ae/tZg==
-X-Received: by 2002:adf:fa09:0:b0:2dd:cb8:2299 with SMTP id
- m9-20020adffa09000000b002dd0cb82299mr20102833wrr.11.1680251710872; 
- Fri, 31 Mar 2023 01:35:10 -0700 (PDT)
+ bh=Lfco65EqQfHZJxTK1kxWA78ZamfCWUWZKPHL0Bp1xH4=;
+ b=LYBf1ER8lGWDowxIEj10Gj53xOCqp7U1Mha729ViPiVNb0IpWrIWQsJqznansh0ga4
+ CFlKqLek8BixN5i0zLGjqQ1eDpdnj4T6FFUgiLzg7WKfwP1pxB7/xzS5F5Z/hO/46CDT
+ Kq5qrRWobq/fZf3yFt/yKX5UaDvtrzq0jZCOuuX+ATcqHiugsk1vrtDIhXXWASXfT1JG
+ cqqv0yCwr8wUL9bmnA1GRbIZym9OPNuN4TXBMwpaoZQrtE2LRGTRTtxKW61cHJF0m92h
+ yJS+XNC+KFbX7s5ktGA2TLOVY+Vf5nalhPNVbockGKFxbEyJ+YsGQLrI4CzxJ5vv54yx
+ RBVA==
+X-Gm-Message-State: AAQBX9d8m+hc/WgH9D7TEnlr0acvAmTY6TXnPQLBNK/gtU7wqWLu/lOq
+ L6m76zmjt4oJ4fduNYL/S/gGzQ==
+X-Google-Smtp-Source: AKy350YfLJVXZRDyUNg84s43q40a428Zli09J7iKvodwvFp3SatohdxhFRTG46DXiPWYNxkqIkfYZA==
+X-Received: by 2002:adf:f348:0:b0:2d7:9206:488d with SMTP id
+ e8-20020adff348000000b002d79206488dmr20315336wrp.36.1680251712356; 
+ Fri, 31 Mar 2023 01:35:12 -0700 (PDT)
 Received: from arrakeen.starnux.net ([2a01:e0a:982:cbb0:8261:5fff:fe11:bdda])
  by smtp.gmail.com with ESMTPSA id
- e11-20020a5d4e8b000000b002cde626cd96sm1563153wru.65.2023.03.31.01.35.09
+ e11-20020a5d4e8b000000b002cde626cd96sm1563153wru.65.2023.03.31.01.35.10
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 31 Mar 2023 01:35:10 -0700 (PDT)
+ Fri, 31 Mar 2023 01:35:11 -0700 (PDT)
 From: Neil Armstrong <neil.armstrong@linaro.org>
-Date: Fri, 31 Mar 2023 10:34:57 +0200
+Date: Fri, 31 Mar 2023 10:34:58 +0200
 MIME-Version: 1.0
-Message-Id: <20230331-topic-oxnas-upstream-remove-v1-19-5bd58fd1dd1f@linaro.org>
+Message-Id: <20230331-topic-oxnas-upstream-remove-v1-20-5bd58fd1dd1f@linaro.org>
 References: <20230331-topic-oxnas-upstream-remove-v1-0-5bd58fd1dd1f@linaro.org>
 In-Reply-To: <20230331-topic-oxnas-upstream-remove-v1-0-5bd58fd1dd1f@linaro.org>
 To: Arnd Bergmann <arnd@arndb.de>, Olof Johansson <olof@lixom.net>, 
@@ -81,8 +81,7 @@ Cc: devicetree@vger.kernel.org, linux-pm@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-gpio@vger.kernel.org, linux-mtd@lists.infradead.org,
  linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH RFC 19/20] dt-bindings: interrupt-controller:
- arm, versatile-fpga-irq: mark oxnas compatible as deprecated
+Subject: [Linux-stm32] [PATCH RFC 20/20] MAINTAINERS: remove OXNAS entry
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,36 +99,35 @@ Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 Due to lack of maintainance and stall of development for a few years now,
-and since no new features will ever be added upstream, mark the
-OX810 and OX820 IRQ compatible as deprecated.
+and since no new features will ever be added upstream, remove MAINTAINERS
+entry for OXNAS files.
 
 Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
 ---
- .../bindings/interrupt-controller/arm,versatile-fpga-irq.txt          | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ MAINTAINERS | 10 ----------
+ 1 file changed, 10 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/interrupt-controller/arm,versatile-fpga-irq.txt b/Documentation/devicetree/bindings/interrupt-controller/arm,versatile-fpga-irq.txt
-index 2a1d16bdf834..ea939f54c5eb 100644
---- a/Documentation/devicetree/bindings/interrupt-controller/arm,versatile-fpga-irq.txt
-+++ b/Documentation/devicetree/bindings/interrupt-controller/arm,versatile-fpga-irq.txt
-@@ -6,7 +6,7 @@ controllers are OR:ed together and fed to the CPU tile's IRQ input. Each
- instance can handle up to 32 interrupts.
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 8d5bc223f305..c9a29d839ea2 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -2551,16 +2551,6 @@ S:	Maintained
+ W:	http://www.digriz.org.uk/ts78xx/kernel
+ F:	arch/arm/mach-orion5x/ts78xx-*
  
- Required properties:
--- compatible: "arm,versatile-fpga-irq" or "oxsemi,ox810se-rps-irq"
-+- compatible: "arm,versatile-fpga-irq"
- - interrupt-controller: Identifies the node as an interrupt controller
- - #interrupt-cells: The number of cells to define the interrupts.  Must be 1
-   as the FPGA IRQ controller has no configuration options for interrupt
-@@ -19,6 +19,8 @@ Required properties:
-   the system till not make it possible for devices to request these
-   interrupts.
- 
-+The "oxsemi,ox810se-rps-irq" compatible is deprecated.
-+
- Example:
- 
- pic: pic@14000000 {
+-ARM/OXNAS platform support
+-M:	Neil Armstrong <neil.armstrong@linaro.org>
+-L:	linux-arm-kernel@lists.infradead.org (moderated for non-subscribers)
+-L:	linux-oxnas@groups.io (moderated for non-subscribers)
+-S:	Maintained
+-F:	arch/arm/boot/dts/ox8*.dts*
+-F:	arch/arm/mach-oxnas/
+-F:	drivers/power/reset/oxnas-restart.c
+-N:	oxnas
+-
+ ARM/QUALCOMM SUPPORT
+ M:	Andy Gross <agross@kernel.org>
+ M:	Bjorn Andersson <andersson@kernel.org>
 
 -- 
 2.34.1
