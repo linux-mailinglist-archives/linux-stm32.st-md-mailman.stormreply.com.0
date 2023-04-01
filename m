@@ -2,107 +2,107 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 707AD6D31AB
-	for <lists+linux-stm32@lfdr.de>; Sat,  1 Apr 2023 16:59:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E79266D31D3
+	for <lists+linux-stm32@lfdr.de>; Sat,  1 Apr 2023 17:06:38 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1E9FDC6A5F7;
-	Sat,  1 Apr 2023 14:59:16 +0000 (UTC)
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam04on2097.outbound.protection.outlook.com [40.107.102.97])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 942DCC6A5F7;
+	Sat,  1 Apr 2023 15:06:38 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2130.outbound.protection.outlook.com [40.107.93.130])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A887EC6904F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 99D01C6904F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat,  1 Apr 2023 14:59:14 +0000 (UTC)
+ Sat,  1 Apr 2023 15:06:37 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=LxLjUICgS40O11S2BBvliFaMc4DT0se+nbJkqpNaaQaX2SRjTSipWMAh3Q+RA7M7B5agUe8v9XwaTupgLJogORiKqZN8RwrMsBVA6/lZUcVD5cUb7T6KBJnoUZhNVp3AJs3HLrOHNxyFfTHguGVI0/HzkIkN1Dz3A5gkJk6yIDa6HkFYzopZzYy+ibYDRFS1lj7TMo1TmyHkx9b9BgnbC6L3YX3k7c38yfHYvY0Zj1DuTCuFp2cFk1Q89qVxM1NQ+ygGvOo2UlOvHRyRnIubW828kHMTh9KQR83iQgKprczwWbHNe77eU/oy7klSVI2rE2XF3rWR3dgsU0YEOqWiag==
+ b=F6sPdqBJBfqXIvulU8srVFrkuWntw0kAfC/VkyBDOg8NVrSYDuKoSvobCd8nFeCz3ARFN8dZ/Exhvbbs5zyKzPGj6JCsuliB0hJucvwxIf3MbSmQuUeT9V0RnYtaVItNF0pmKHm2cKYNG0+4T5vsYjexxePdtmLNCNedCcU8WiPaN2qhkexsvZ+NuTf3WFiFqELHazlQlS1USIuDoJHRyH6ZxxBcRlxlIbkLyCw7iAa2+1caJo84h4i3PW3ugXaPYwnQ1LSCk6QcqhqvsOKbnLzW8Z7zhu+HEM3u+g+z6/PTOaz7g2IaJUHnwZz9j/oJYQSU59jmu1aCKGNLGJ9hlg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=voBk59DTHJVOnSlfKGn32iKhY8VuqJNvnc3DwS/EnX4=;
- b=lNU1VrTzQFYS/G0TOGouIDSFgCyowIyKLOWnCOLQGIkPX6mLFgdTZg0O+58txEvQ/y6UnoOJjuzR3kuJKzSnVdH+gFXCv0HSykf5UWsHksJKqrmh2FI+2rqS9u5xbeCyM/rO0C8c/pv9KRsD/kXkwyD/oBIKj0gwj+hBcOTN4PEDoiBshxh6z2IvJngxJY0jvS+gJkXcdVoio68uV01w0Zm8/zuhT0PwphAHVot/jOWxcurtkGrMyUoehX9EEdCFMeBjxS5TjB0D7hOy+cE85X9CT9rbwTijirYgJ2iFXbSkcmGBfXr/qmL1UVA0eYPh6IGWzccfcC2QBg+p3igXCw==
+ bh=dSvdWUxRhqVMRZjVYvUOvm7q8A0gdi9vlSZxmqDKm5A=;
+ b=C+iGwyoGHJW9kDCViQE3cKcm5l/y6JPpVWi+tRB0fWMFbGjKO4BT0NnNrV7IUEgCWYYUysKo+xZsw2Tjhq88bwf+D/rrOLjeX17yPL03H/JuUQ8bbsfNSXI2gn3fpwNVWUfak9Ft0OkgHAA+h3QFlVeNPGrIDoeobqphFPJtMxgDoFTr6jBIhF6AUcXZNk+KnAGF3q6zxXs6GxV14vGoV77xS0t76HZ/8758qdiWgm1DwCF2tw6H1Xwn8RsLeqJbbK83Axs0uIGwJF/ao1I4TCZ/l4IWZ/e1b/PAmVtzQTijLGWGOybFTgUnnHnOHToXlC9/dIOCLUMc4m9xB3apRg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=corigine.com; dmarc=pass action=none header.from=corigine.com;
  dkim=pass header.d=corigine.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=corigine.onmicrosoft.com; s=selector2-corigine-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=voBk59DTHJVOnSlfKGn32iKhY8VuqJNvnc3DwS/EnX4=;
- b=woWSpUeGfgvEVUloLdnju5WcOLu3+ZmbdTl0D8CSJHG6fiXrhIeDD8H87jBuqAcw4T+EHs7uBYZun30EoHkrDLnSG08n6dnRAVPBeG4TI6DGZv5/cNwOT9H8B7k2DvGhPK2AOisqRYecChsyG9gFJA2pPD86jVSo0mrZtref870=
+ bh=dSvdWUxRhqVMRZjVYvUOvm7q8A0gdi9vlSZxmqDKm5A=;
+ b=qDaxKVHSp6i4yPdHKLG4SIsJJPmnvI1qnOVYLynNwjVZa6eSWWfQ/5WjRWsOED90AclOg0Id3oBJQsD4AndlQCMkxMcMV4R/k4eO64qeZbFYEVeaiSSJinhiGU7HGUPNLq5nwXTuv1vfjlA3BHE+xEt/KMW43jHemZq1AT3adcU=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=corigine.com;
 Received: from PH0PR13MB4842.namprd13.prod.outlook.com (2603:10b6:510:78::6)
- by SN4PR13MB5294.namprd13.prod.outlook.com (2603:10b6:806:205::6) with
+ by DM6PR13MB4477.namprd13.prod.outlook.com (2603:10b6:5:20d::10) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6254.23; Sat, 1 Apr
- 2023 14:59:11 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6254.26; Sat, 1 Apr
+ 2023 15:06:32 +0000
 Received: from PH0PR13MB4842.namprd13.prod.outlook.com
  ([fe80::c506:5243:557e:82cb]) by PH0PR13MB4842.namprd13.prod.outlook.com
  ([fe80::c506:5243:557e:82cb%5]) with mapi id 15.20.6254.021; Sat, 1 Apr 2023
- 14:59:11 +0000
-Date: Sat, 1 Apr 2023 16:58:59 +0200
+ 15:06:32 +0000
+Date: Sat, 1 Apr 2023 17:06:21 +0200
 From: Simon Horman <simon.horman@corigine.com>
 To: Andrew Halaney <ahalaney@redhat.com>
-Message-ID: <ZChGswjgAOkT0jvY@corigine.com>
+Message-ID: <ZChIbc6TnQyZ/Fiu@corigine.com>
 References: <20230331214549.756660-1-ahalaney@redhat.com>
- <20230331214549.756660-10-ahalaney@redhat.com>
+ <20230331214549.756660-9-ahalaney@redhat.com>
 Content-Disposition: inline
-In-Reply-To: <20230331214549.756660-10-ahalaney@redhat.com>
-X-ClientProxiedBy: AM4PR0902CA0014.eurprd09.prod.outlook.com
- (2603:10a6:200:9b::24) To PH0PR13MB4842.namprd13.prod.outlook.com
+In-Reply-To: <20230331214549.756660-9-ahalaney@redhat.com>
+X-ClientProxiedBy: AM0PR04CA0072.eurprd04.prod.outlook.com
+ (2603:10a6:208:1::49) To PH0PR13MB4842.namprd13.prod.outlook.com
  (2603:10b6:510:78::6)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH0PR13MB4842:EE_|SN4PR13MB5294:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7d64d151-1bcb-41e7-1aed-08db32c1a684
+X-MS-TrafficTypeDiagnostic: PH0PR13MB4842:EE_|DM6PR13MB4477:EE_
+X-MS-Office365-Filtering-Correlation-Id: b3acb836-9e4a-4acb-09a8-08db32c2adb5
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: e+SEF7H6AVfzYKttuy3SKmW8Te1FtnrC+Ru7O1oHJ/ElbWz1bUHYXIrzY1dQxiyAl009ksGaZe0t8cPXYCnNNlOUjmxoXuE+nSonNvDpc7qEEepfdSFzLcvoK5HFjvnnWfyqSRzXiOM+lQY8YEcg4ehuIvUFjqCD+jgeuGla55jWb7mBnMIo2Bo1fL2BLYsNtAO103EFoXlK8TGib9vZx9Cl9pME2KU+AS5ly0bkGxZsJP+Vh9d+wZGL95Em5OcEplbWlYM+zopcGgNTelLEOIFAmg3/da6emlYz9kJ20g18e7agP4zLBh0STCxHLw7VwbuNAsiPSVj5JZ6FnAbCep0UJvLJDj3i6xfKhUOcwNBGA/fz8xxcNbn773afTMET+oMCQg7HUDDvLQ0aPIEGJYZHjeu5KUE1pOdjXVVY//Dfu6sl0N6a6rAHQaJa4avX736TUtmg6gqacctGU5BiZah4kVjE8CVyRh+rDkEPwgdUZsLdTAh4/Gf56lLDpkgbEwQ8elNAxuHolqtsPmmqebSLZDknwztCJ3y3L2iNCvk=
+X-Microsoft-Antispam-Message-Info: uiP5TD3i3X17lFBHCbKG7Vie0xtBKPsIc50jmrztGu2XKEaFwOehgGCv1T2SvGbH0QkJlMdV6xrwJp6Eq2/Qt2CsFoFSZA/iVWHdlHl7WagUP7IyZO6bOCaRXTslpiMjwYHyTNFA59L8J4qB6Vp5N0gt6muhcdi+jmjg8fK91ep8OlmpScPmhpg16N1KzBiY4y06XbfilFQmaQ/G7PPxXuiOMKEJeVyLoxgDQbG+cvuZ3T1gsiZ/k05qbFsmL2853fLegxqmfvQo2Kaf8zkqfrNqujVGInT44nVOlR2+B44wUYDZeZ2uVlEYDImVJownePi3FzofNr/fex1QRZjudN6qUQ1KEk4euSsQcOkNpz8yFQHpYPTM8dkL60Gvwz8wHeZQEqi5+kbEvnkFnrVWTKvlaphXnz1AIw9yxPRnp0RtST1T7ePZ1+jxfhE2MOotBHBVN88bHh8gjfpnQJ3IpbCXbb6efN8XY+b0JpgpCBFtA94vGbsM9Gz8huaGdNLdTl6bIY2DA5GCekvpKzEZbAltt5zfkKccP4mC4jEEGaKGs2a1tzHnTkgFvc6puqitSsWMS31gJrD2DP1U8eqGVMn2ZcGu9Y7LatAw9QNYFZk=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:PH0PR13MB4842.namprd13.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(396003)(366004)(39840400004)(346002)(376002)(136003)(451199021)(66899021)(186003)(6512007)(6666004)(8936002)(86362001)(7416002)(6506007)(66556008)(5660300002)(7406005)(44832011)(478600001)(66476007)(41300700001)(316002)(36756003)(66946007)(83380400001)(2616005)(6486002)(2906002)(38100700002)(966005)(4326008)(8676002)(6916009);
+ SFS:(13230028)(4636009)(366004)(396003)(39830400003)(346002)(136003)(376002)(451199021)(2906002)(44832011)(38100700002)(8676002)(7416002)(7406005)(5660300002)(66476007)(66556008)(8936002)(66946007)(36756003)(6916009)(4326008)(41300700001)(316002)(2616005)(6486002)(966005)(186003)(6512007)(6666004)(6506007)(478600001)(86362001);
  DIR:OUT; SFP:1102; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?1u4fHk4HtSM7kgAuB4AqCJDficjPcJAxed8iHrbnxL7Tg8TTFQ9mieoX8Gd/?=
- =?us-ascii?Q?9WyAMbF5Z1rLFn4LJEz0jUVO/6rtsyCyAc/+16R4gKGdNS6HbHB944f+EECg?=
- =?us-ascii?Q?XC0zsaPwGwJZb0/odY3LZvfnlV51tgvTrLfdq/L+AuZbUKfsQNgeac6PJ3TP?=
- =?us-ascii?Q?Z9YIWmaUvCBnTET+yTp16aZA7ihhlleebX2dbBRXGqNs8V9sbvSP5Z/bULjL?=
- =?us-ascii?Q?Ib4rS04iR80Pdcf0fKwPQSOa0T+Ryjtg6RzJYcAlyZu4cpcsrB9IJPrUnIKB?=
- =?us-ascii?Q?W7rISLa7tqMtohNkf+RKqMXS6+8HUhiXY9yOWZFg3Eun2Jz3Sqm7ioNYhuxQ?=
- =?us-ascii?Q?2vNZPjeWQLfaH5RXCrzq7UpKdnDzdjYR4VnoYwAYYpF5Ll9mU7OGydCnIxIX?=
- =?us-ascii?Q?PoYutYaP7RBeCNiReBpJKn/f2sNccJugU+aaYjXbUFt80tSBD3GH/PcqhaTr?=
- =?us-ascii?Q?eXlfMye6N0wHnleCnITAN4QsGgXdWp+x4S2UNZl2NzVxAZL1uHP06UOetE7/?=
- =?us-ascii?Q?BYOq+9/oezvqVtVhjMmKqio2nwn++5UBDIOfTzwbP6lf3nCW35oICMbH/Lur?=
- =?us-ascii?Q?MkpnEnVh4qlmmnzwZ/0kUo+JswuwlHfsOF4A4ffk8gCyRQTPy1/TbBppAj5C?=
- =?us-ascii?Q?Wyf/wYMUhU0x6MTRGTZOoOZ6kjArGB94NYsviPMjmEqo0bA6HZG16icshVA2?=
- =?us-ascii?Q?kMRbZhqZRIaSL46y1RYYUEjJ0M6mGkUR1e3F3dMtSTTAUM4hNJDF/IOYyqNh?=
- =?us-ascii?Q?/ukhA6irBlJi02asJdalIy6HC8OjZ0au2+1jBuCfuAAtjs9XGXmFn2UBvzxR?=
- =?us-ascii?Q?y5UadCimjcrqw/1929XurUYhRZ6kfHgdcaSJ1NSpGMOK7FcuHDrHuCOzqACd?=
- =?us-ascii?Q?NXgx8UOvnTel4WkPNPF/1g0uMGLBcz1mQR4xT4YzJ59lOk7vhe9e0+9Q/cjh?=
- =?us-ascii?Q?PjZyKesKsDp3zwIilY+IzsRE7VW6C/sdX6epUCryVB93AOeVzL0/Vriak207?=
- =?us-ascii?Q?9t5Rjr7eiPFnOO11fBGcKj4ORbzgLnOoEERVWvoCh9Glc2G85eYGAbBai66L?=
- =?us-ascii?Q?xwEuKeTsTXamTv4ST/3qqgjtaduTjFb6TaeBxO1KLsYt8Dh23dRgoe5OFPYs?=
- =?us-ascii?Q?qr9P8Sg1cSLnsSvN+KMbCNkjBaB40keWfkzK/XTCULAd5ClS9IuA7xsRXN0I?=
- =?us-ascii?Q?D+vjmaibAH3rPOrmFgXEvDDod+t4bKo/Y19a5W8AzOzBiMj+YxFnvsY+VPUZ?=
- =?us-ascii?Q?INJA2Ei9x5GKTUPLXr9G5XQgDG1/u4im29k1SncFatn6UF7DSKE8Z+WxSFWj?=
- =?us-ascii?Q?Lsm/7I0P8G6nL2MvqNUR2rkwUPYmyAXfIlSrdTOVZmh5XWAiA1MH/DsIHlpj?=
- =?us-ascii?Q?eKockzr5L1ZUpV3tUyABn44e9h2+4c36wwPJMngK6nlZsl6KUnv7SQGtXI2z?=
- =?us-ascii?Q?iecf0ctBT/spw0mKlkLFp8aJtJozfLIWbHVyagB0vwS4wbpMn2ETzr8vEV2u?=
- =?us-ascii?Q?fL7VVyxRV1MFHdJJ5PnfaBCgG2Ds96mA5OFhPozfk2gEP/I/hPJmv2sC1eGA?=
- =?us-ascii?Q?66thbD+gVQWlqEdIBMtLi4PWOCh066S/dOhWjSLcbvm4ysmg/wc/1GnKHkYt?=
- =?us-ascii?Q?ehLLmZy6yJrbs8AiayHBfTgYHEpB1Fo4KzAU/QPYTTe78SGzg9BWIATpSyNs?=
- =?us-ascii?Q?y/Mtjg=3D=3D?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?uSc+dL60KxEs3RECw7Y+9Rh+7QjbHOgU1YJrIMkU+Wm700ptlI3L1MA0q4rM?=
+ =?us-ascii?Q?vlVB5+XiaRQ1ZLb8X4h9vnDnQdEeybZvvPGRMnyRWylVFRmrH/uKeGgSNP/n?=
+ =?us-ascii?Q?Fj4+suiMDk/Wfi+qbSMsZYfiCga4FGgAf0ERnr3mcW0wbU0dAgA86vhWiku9?=
+ =?us-ascii?Q?zVRVq+vKxmlc0p4OchPOQKB1VsDAcS/0FJyaSyAj3NqMRrsEj+n1PY9l3mDC?=
+ =?us-ascii?Q?R/fq5dHBLqSGBpYfvjXgqe0LlqthzIdqwkXUmpxf/a8gasbu64WeItVwYOGe?=
+ =?us-ascii?Q?UxXTwllrgMS0r3P6x8Y0+4OAQ7274Xn4xZJNNXPT3xmFEHfDuixqgIGHlCC6?=
+ =?us-ascii?Q?7G6iJNFCLn5Yxs+3Ufepj09ivxBlQIvaDBjIc4Fmz9ZVKmslghNFfi/2Fedc?=
+ =?us-ascii?Q?Feylui5wmjWftI5ukRFNZ+IcHhO+YPSsfd0V+afppGKFGpYJoEIEaQkrCD1f?=
+ =?us-ascii?Q?B/OBfoljJjtmGUzJl0jHEB+iEViTU973lDtJsjVTahjkIgP6rCQzXojbhju9?=
+ =?us-ascii?Q?ICK8AOulJKGS2KzHgQV7bfZX+Rnf8bQbd7AXGRSJMmdd7TJ4N+YmOu3ox8lW?=
+ =?us-ascii?Q?G0mZom990Da4DScdjiz2n4YV0TffwEt8EWuouak6U77H18+j8mp73slwak0w?=
+ =?us-ascii?Q?qXOoQbJ8hSvFeWFWZ4/BHZcfjve1z3Z4QUJMk662n6nHfwJWXPPgGH9XlOVH?=
+ =?us-ascii?Q?ckkFPAS+lnr8LRkmorSa4SJc2ysBdl0Ek0zMOIld7D9ZGUCQ9CB2I3FktYRj?=
+ =?us-ascii?Q?K3vqSbEpgAVK1jYCLjoAO17t4z3xuNxdhvm6IPmKWzHMgQTzTTstwf57Oo3F?=
+ =?us-ascii?Q?5kdX3ZNp87n67PLBpq13immFiN53nH6o/4vVl0mO+UZWz0eyTxYm09dod1R4?=
+ =?us-ascii?Q?p6chkZQaGP7YcO24OjyaWrucyI2XW0RVemw6pjYDsxAcnMSF0YyTpoe3KqNU?=
+ =?us-ascii?Q?0WnvRF9D8tyJKRlf2YSSdJANmd0mMhtnpumE5hGgZWlpMwe0DeXZewEzV4Zy?=
+ =?us-ascii?Q?AhbYqYiODjROz7NjiY6ov7iDLm7A3yKi+9DXyBOXviIG3tknAWjzwJRqf+TQ?=
+ =?us-ascii?Q?IpJ56jPJZi8Fn9QNFo1IgYAqfQj+At6+5R4IYjCPMKKHu5Q0tpksqihoOZ6e?=
+ =?us-ascii?Q?uvT2dgSUFXz0RDk1hu0Yf3vB7kcvNQNGkDsHDZrSbso8NglfhfFt8Hp5PozS?=
+ =?us-ascii?Q?8Fijso6A8Gg2vU+wgJM4lqeMDNMSr6R4bL0TQo+jjEOSBiZ953fO/Aiz5hNy?=
+ =?us-ascii?Q?bT7ODWwR8tyGQqH901ruAxOMbimcew52Gty881KK8TSk5BhZH0FGK3Fhwc9y?=
+ =?us-ascii?Q?obXWAj6OEnRqxfxb+CvnzamS8MsYdmfSt7xL/XSmxHFuv0SM6i8zZrwG2/7i?=
+ =?us-ascii?Q?n7/M3Gec1Lfhe0BkZgwtV+rzPB0rW12eQhDHe1AP/LfQ6zycUGz37RqaIQy2?=
+ =?us-ascii?Q?y3eXITxi12gsDVZdZj3H7shrmtYkl0K4narxYW/SPbTUpUYltNgYniFTsDiU?=
+ =?us-ascii?Q?Ysd1Oe1ZdG0SmJUnH5omjXJBS/RcLeaKKqzO9I3DzZoRxS9M7jXbP78oosAK?=
+ =?us-ascii?Q?s6MHy4hIcvWpY/+iJp3pXVKplm3l616nK21c3zZlw9S3kvjxH92D2tr9oPDb?=
+ =?us-ascii?Q?imiWuUvVe8pEk9c+E1trpa8cLPA1rV5Gfr25wWJTmZ5AmWGDFwSUnRG9Piyb?=
+ =?us-ascii?Q?/2gJMg=3D=3D?=
 X-OriginatorOrg: corigine.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7d64d151-1bcb-41e7-1aed-08db32c1a684
+X-MS-Exchange-CrossTenant-Network-Message-Id: b3acb836-9e4a-4acb-09a8-08db32c2adb5
 X-MS-Exchange-CrossTenant-AuthSource: PH0PR13MB4842.namprd13.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Apr 2023 14:59:11.1074 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Apr 2023 15:06:32.5603 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: fe128f2c-073b-4c20-818e-7246a585940c
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: kvdBOGxMlg6hN0mn9B1R9F3uOqlyre+jxJ05/ufRxzBwRMS7Lhj0iqiqdNfiaN/UX8u/NBU8cZ/bc0fBvBLQ7N/D+fK3GgPM6fmZ8YW82as=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN4PR13MB5294
+X-MS-Exchange-CrossTenant-UserPrincipalName: yfDEYx0jK2juj/EFfHyY3fMcSkAPT6PzYWPbl2ocDED4+Dr1R6KS9w0tQRxiaNlwwIGt35kvLD0R8J4OhNxru/YC0rqs4bTOye4aq26c084=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR13MB4477
 Cc: mturquette@baylibre.com, edumazet@google.com,
  krzysztof.kozlowski+dt@linaro.org, jonathanh@nvidia.com,
  linux-stm32@st-md-mailman.stormreply.com, tee.min.tan@linux.intel.com,
@@ -117,8 +117,8 @@ Cc: mturquette@baylibre.com, edumazet@google.com,
  andersson@kernel.org, linux-kernel@vger.kernel.org, echanude@redhat.com,
  konrad.dybcio@linaro.org, vkoul@kernel.org, hisunil@quicinc.com,
  mcoquelin.stm32@gmail.com, davem@davemloft.net
-Subject: Re: [Linux-stm32] [PATCH net-next v3 09/12] net: stmmac: dwmac4:
- Allow platforms to specify some DMA/MTL offsets
+Subject: Re: [Linux-stm32] [PATCH net-next v3 08/12] net: stmmac: Pass
+ stmmac_priv in some callbacks
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -135,70 +135,192 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, Mar 31, 2023 at 04:45:46PM -0500, Andrew Halaney wrote:
-> Some platforms have dwmac4 implementations that have a different
-> address space layout than the default, resulting in the need to define
-> their own DMA/MTL offsets.
-> 
-> Extend the functions to allow a platform driver to indicate what its
-> addresses are, overriding the defaults.
+On Fri, Mar 31, 2023 at 04:45:45PM -0500, Andrew Halaney wrote:
+> Passing stmmac_priv to some of the callbacks allows hwif implementations
+> to grab some data that platforms can customize. Adjust the callbacks
+> accordingly in preparation of such a platform customization.
 > 
 > Signed-off-by: Andrew Halaney <ahalaney@redhat.com>
-> ---
-> 
-> This patch (and the prior patch) are replacements for
-> https://lore.kernel.org/netdev/20230320204153.21736840@kernel.org/
-> as was requested. Hopefully I was understanding the intent correctly :)
-> 
-> I'm pretty sure further refinement will be requested for this one, but
-> it is the best I could come up with myself! Specifically some of the
-> naming, dealing with spacing in some older spots of dwmac4,
-> where the addresses should live in the structure hierarchy, etc are
-> things I would not be surprised to have to rework if this is still
-> preferred over the wrapper approach.
-> 
-> Changes since v2:
->     * New, replacing old wrapper approach
-> 
->  drivers/net/ethernet/stmicro/stmmac/dwmac4.h  |  91 ++++++++--
->  .../net/ethernet/stmicro/stmmac/dwmac4_core.c |  36 ++--
->  .../net/ethernet/stmicro/stmmac/dwmac4_dma.c  | 157 ++++++++++--------
->  .../net/ethernet/stmicro/stmmac/dwmac4_dma.h  |  51 +++---
->  .../net/ethernet/stmicro/stmmac/dwmac4_lib.c  |  67 +++++---
->  include/linux/stmmac.h                        |  19 +++
->  6 files changed, 279 insertions(+), 142 deletions(-)
-> 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4.h b/drivers/net/ethernet/stmicro/stmmac/dwmac4.h
-> index ccd49346d3b3..a0c0ee1dc13f 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac4.h
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4.h
-> @@ -336,14 +336,23 @@ enum power_event {
->  
->  #define MTL_CHAN_BASE_ADDR		0x00000d00
->  #define MTL_CHAN_BASE_OFFSET		0x40
-> -#define MTL_CHANX_BASE_ADDR(x)		(MTL_CHAN_BASE_ADDR + \
-> -					(x * MTL_CHAN_BASE_OFFSET))
-> -
-> -#define MTL_CHAN_TX_OP_MODE(x)		MTL_CHANX_BASE_ADDR(x)
-> -#define MTL_CHAN_TX_DEBUG(x)		(MTL_CHANX_BASE_ADDR(x) + 0x8)
-> -#define MTL_CHAN_INT_CTRL(x)		(MTL_CHANX_BASE_ADDR(x) + 0x2c)
-> -#define MTL_CHAN_RX_OP_MODE(x)		(MTL_CHANX_BASE_ADDR(x) + 0x30)
-> -#define MTL_CHAN_RX_DEBUG(x)		(MTL_CHANX_BASE_ADDR(x) + 0x38)
-> +#define MTL_CHANX_BASE_ADDR(addrs, x)  \
-> +({ \
-> +	const struct dwmac4_addrs *__addrs = addrs; \
-> +	const u32 __x = x; \
-> +	u32 __addr; \
-> +	if (__addrs) \
-> +		__addr = __addrs->mtl_chan + (__x * __addrs->mtl_chan_offset); \
-> +	else \
-> +		__addr = MTL_CHAN_BASE_ADDR + (__x * MTL_CHAN_BASE_OFFSET); \
-> +	__addr; \
-> +})
 
-Could this and similar macros added by this patch be functions?
-From my pov a benefit would be slightly more type safety.
-And as a bonus there wouldn't be any need to handle aliasing of input.
+...
+
+>  #define stmmac_reset(__priv, __args...) \
+> @@ -223,59 +240,59 @@ struct stmmac_dma_ops {
+>  #define stmmac_dma_init(__priv, __args...) \
+>  	stmmac_do_void_callback(__priv, dma, init, __args)
+>  #define stmmac_init_chan(__priv, __args...) \
+> -	stmmac_do_void_callback(__priv, dma, init_chan, __args)
+> +	stmmac_do_void_callback(__priv, dma, init_chan, __priv, __args)
+
+Hi Andrew,
+
+Rather than maintaining these macros can we just get rid of them?
+I'd be surprised if things aren't nicer with functions in their place [1].
+
+f.e., we now have (__priv, ..., __priv, ...) due to a generalisation
+      that seems to take a lot more than it gives.
+
+[1] https://lore.kernel.org/linux-arm-kernel/ZBst1SzcIS4j+t46@corigine.com/
+
+>  #define stmmac_init_rx_chan(__priv, __args...) \
+> -	stmmac_do_void_callback(__priv, dma, init_rx_chan, __args)
+> +	stmmac_do_void_callback(__priv, dma, init_rx_chan, __priv, __args)
+>  #define stmmac_init_tx_chan(__priv, __args...) \
+> -	stmmac_do_void_callback(__priv, dma, init_tx_chan, __args)
+> +	stmmac_do_void_callback(__priv, dma, init_tx_chan, __priv, __args)
+>  #define stmmac_axi(__priv, __args...) \
+>  	stmmac_do_void_callback(__priv, dma, axi, __args)
+>  #define stmmac_dump_dma_regs(__priv, __args...) \
+> -	stmmac_do_void_callback(__priv, dma, dump_regs, __args)
+> +	stmmac_do_void_callback(__priv, dma, dump_regs, __priv, __args)
+>  #define stmmac_dma_rx_mode(__priv, __args...) \
+> -	stmmac_do_void_callback(__priv, dma, dma_rx_mode, __args)
+> +	stmmac_do_void_callback(__priv, dma, dma_rx_mode, __priv, __args)
+>  #define stmmac_dma_tx_mode(__priv, __args...) \
+> -	stmmac_do_void_callback(__priv, dma, dma_tx_mode, __args)
+> +	stmmac_do_void_callback(__priv, dma, dma_tx_mode, __priv, __args)
+>  #define stmmac_dma_diagnostic_fr(__priv, __args...) \
+>  	stmmac_do_void_callback(__priv, dma, dma_diagnostic_fr, __args)
+>  #define stmmac_enable_dma_transmission(__priv, __args...) \
+>  	stmmac_do_void_callback(__priv, dma, enable_dma_transmission, __args)
+>  #define stmmac_enable_dma_irq(__priv, __args...) \
+> -	stmmac_do_void_callback(__priv, dma, enable_dma_irq, __args)
+> +	stmmac_do_void_callback(__priv, dma, enable_dma_irq, __priv, __args)
+>  #define stmmac_disable_dma_irq(__priv, __args...) \
+> -	stmmac_do_void_callback(__priv, dma, disable_dma_irq, __args)
+> +	stmmac_do_void_callback(__priv, dma, disable_dma_irq, __priv, __args)
+>  #define stmmac_start_tx(__priv, __args...) \
+> -	stmmac_do_void_callback(__priv, dma, start_tx, __args)
+> +	stmmac_do_void_callback(__priv, dma, start_tx, __priv, __args)
+>  #define stmmac_stop_tx(__priv, __args...) \
+> -	stmmac_do_void_callback(__priv, dma, stop_tx, __args)
+> +	stmmac_do_void_callback(__priv, dma, stop_tx, __priv, __args)
+>  #define stmmac_start_rx(__priv, __args...) \
+> -	stmmac_do_void_callback(__priv, dma, start_rx, __args)
+> +	stmmac_do_void_callback(__priv, dma, start_rx, __priv, __args)
+>  #define stmmac_stop_rx(__priv, __args...) \
+> -	stmmac_do_void_callback(__priv, dma, stop_rx, __args)
+> +	stmmac_do_void_callback(__priv, dma, stop_rx, __priv, __args)
+>  #define stmmac_dma_interrupt_status(__priv, __args...) \
+> -	stmmac_do_callback(__priv, dma, dma_interrupt, __args)
+> +	stmmac_do_callback(__priv, dma, dma_interrupt, __priv, __args)
+>  #define stmmac_get_hw_feature(__priv, __args...) \
+>  	stmmac_do_callback(__priv, dma, get_hw_feature, __args)
+>  #define stmmac_rx_watchdog(__priv, __args...) \
+> -	stmmac_do_void_callback(__priv, dma, rx_watchdog, __args)
+> +	stmmac_do_void_callback(__priv, dma, rx_watchdog, __priv, __args)
+>  #define stmmac_set_tx_ring_len(__priv, __args...) \
+> -	stmmac_do_void_callback(__priv, dma, set_tx_ring_len, __args)
+> +	stmmac_do_void_callback(__priv, dma, set_tx_ring_len, __priv, __args)
+>  #define stmmac_set_rx_ring_len(__priv, __args...) \
+> -	stmmac_do_void_callback(__priv, dma, set_rx_ring_len, __args)
+> +	stmmac_do_void_callback(__priv, dma, set_rx_ring_len, __priv, __args)
+>  #define stmmac_set_rx_tail_ptr(__priv, __args...) \
+> -	stmmac_do_void_callback(__priv, dma, set_rx_tail_ptr, __args)
+> +	stmmac_do_void_callback(__priv, dma, set_rx_tail_ptr, __priv, __args)
+>  #define stmmac_set_tx_tail_ptr(__priv, __args...) \
+> -	stmmac_do_void_callback(__priv, dma, set_tx_tail_ptr, __args)
+> +	stmmac_do_void_callback(__priv, dma, set_tx_tail_ptr, __priv, __args)
+>  #define stmmac_enable_tso(__priv, __args...) \
+> -	stmmac_do_void_callback(__priv, dma, enable_tso, __args)
+> +	stmmac_do_void_callback(__priv, dma, enable_tso, __priv, __args)
+>  #define stmmac_dma_qmode(__priv, __args...) \
+> -	stmmac_do_void_callback(__priv, dma, qmode, __args)
+> +	stmmac_do_void_callback(__priv, dma, qmode, __priv, __args)
+>  #define stmmac_set_dma_bfsize(__priv, __args...) \
+> -	stmmac_do_void_callback(__priv, dma, set_bfsize, __args)
+> +	stmmac_do_void_callback(__priv, dma, set_bfsize, __priv, __args)
+>  #define stmmac_enable_sph(__priv, __args...) \
+> -	stmmac_do_void_callback(__priv, dma, enable_sph, __args)
+> +	stmmac_do_void_callback(__priv, dma, enable_sph, __priv, __args)
+>  #define stmmac_enable_tbs(__priv, __args...) \
+> -	stmmac_do_callback(__priv, dma, enable_tbs, __args)
+> +	stmmac_do_callback(__priv, dma, enable_tbs, __priv, __args)
+>  
+>  struct mac_device_info;
+>  struct net_device;
+> @@ -307,21 +324,23 @@ struct stmmac_ops {
+>  	/* Program TX Algorithms */
+>  	void (*prog_mtl_tx_algorithms)(struct mac_device_info *hw, u32 tx_alg);
+>  	/* Set MTL TX queues weight */
+> -	void (*set_mtl_tx_queue_weight)(struct mac_device_info *hw,
+> +	void (*set_mtl_tx_queue_weight)(struct stmmac_priv *priv,
+> +					struct mac_device_info *hw,
+>  					u32 weight, u32 queue);
+>  	/* RX MTL queue to RX dma mapping */
+>  	void (*map_mtl_to_dma)(struct mac_device_info *hw, u32 queue, u32 chan);
+>  	/* Configure AV Algorithm */
+> -	void (*config_cbs)(struct mac_device_info *hw, u32 send_slope,
+> -			   u32 idle_slope, u32 high_credit, u32 low_credit,
+> -			   u32 queue);
+> +	void (*config_cbs)(struct stmmac_priv *priv, struct mac_device_info *hw,
+> +			   u32 send_slope, u32 idle_slope, u32 high_credit,
+> +			   u32 low_credit, u32 queue);
+>  	/* Dump MAC registers */
+>  	void (*dump_regs)(struct mac_device_info *hw, u32 *reg_space);
+>  	/* Handle extra events on specific interrupts hw dependent */
+>  	int (*host_irq_status)(struct mac_device_info *hw,
+>  			       struct stmmac_extra_stats *x);
+>  	/* Handle MTL interrupts */
+> -	int (*host_mtl_irq_status)(struct mac_device_info *hw, u32 chan);
+> +	int (*host_mtl_irq_status)(struct stmmac_priv *priv,
+> +				   struct mac_device_info *hw, u32 chan);
+>  	/* Multicast filter setting */
+>  	void (*set_filter)(struct mac_device_info *hw, struct net_device *dev);
+>  	/* Flow control setting */
+> @@ -341,8 +360,9 @@ struct stmmac_ops {
+>  	void (*set_eee_lpi_entry_timer)(struct mac_device_info *hw, int et);
+>  	void (*set_eee_timer)(struct mac_device_info *hw, int ls, int tw);
+>  	void (*set_eee_pls)(struct mac_device_info *hw, int link);
+> -	void (*debug)(void __iomem *ioaddr, struct stmmac_extra_stats *x,
+> -		      u32 rx_queues, u32 tx_queues);
+> +	void (*debug)(struct stmmac_priv *priv, void __iomem *ioaddr,
+> +		      struct stmmac_extra_stats *x, u32 rx_queues,
+> +		      u32 tx_queues);
+>  	/* PCS calls */
+>  	void (*pcs_ctrl_ane)(void __iomem *ioaddr, bool ane, bool srgmi_ral,
+>  			     bool loopback);
+
+...
+
+> @@ -422,17 +442,17 @@ struct stmmac_ops {
+>  #define stmmac_prog_mtl_tx_algorithms(__priv, __args...) \
+>  	stmmac_do_void_callback(__priv, mac, prog_mtl_tx_algorithms, __args)
+>  #define stmmac_set_mtl_tx_queue_weight(__priv, __args...) \
+> -	stmmac_do_void_callback(__priv, mac, set_mtl_tx_queue_weight, __args)
+> +	stmmac_do_void_callback(__priv, mac, set_mtl_tx_queue_weight, __priv, __args)
+>  #define stmmac_map_mtl_to_dma(__priv, __args...) \
+>  	stmmac_do_void_callback(__priv, mac, map_mtl_to_dma, __args)
+>  #define stmmac_config_cbs(__priv, __args...) \
+> -	stmmac_do_void_callback(__priv, mac, config_cbs, __args)
+> +	stmmac_do_void_callback(__priv, mac, config_cbs, __priv, __args)
+>  #define stmmac_dump_mac_regs(__priv, __args...) \
+>  	stmmac_do_void_callback(__priv, mac, dump_regs, __args)
+>  #define stmmac_host_irq_status(__priv, __args...) \
+>  	stmmac_do_callback(__priv, mac, host_irq_status, __args)
+>  #define stmmac_host_mtl_irq_status(__priv, __args...) \
+> -	stmmac_do_callback(__priv, mac, host_mtl_irq_status, __args)
+> +	stmmac_do_callback(__priv, mac, host_mtl_irq_status, __priv, __args)
+>  #define stmmac_set_filter(__priv, __args...) \
+>  	stmmac_do_void_callback(__priv, mac, set_filter, __args)
+>  #define stmmac_flow_ctrl(__priv, __args...) \
+> @@ -454,11 +474,11 @@ struct stmmac_ops {
+>  #define stmmac_set_eee_pls(__priv, __args...) \
+>  	stmmac_do_void_callback(__priv, mac, set_eee_pls, __args)
+>  #define stmmac_mac_debug(__priv, __args...) \
+> -	stmmac_do_void_callback(__priv, mac, debug, __args)
+> +	stmmac_do_void_callback(__priv, mac, debug, __priv, __args)
+>  #define stmmac_pcs_ctrl_ane(__priv, __args...) \
+>  	stmmac_do_void_callback(__priv, mac, pcs_ctrl_ane, __args)
+>  #define stmmac_pcs_rane(__priv, __args...) \
+> -	stmmac_do_void_callback(__priv, mac, pcs_rane, __args)
+> +	stmmac_do_void_callback(__priv, mac, pcs_rane, __priv, __args)
+>  #define stmmac_pcs_get_adv_lp(__priv, __args...) \
+>  	stmmac_do_void_callback(__priv, mac, pcs_get_adv_lp, __args)
+>  #define stmmac_safety_feat_config(__priv, __args...) \
+> @@ -506,8 +526,6 @@ struct stmmac_ops {
+>  #define stmmac_fpe_irq_status(__priv, __args...) \
+>  	stmmac_do_callback(__priv, mac, fpe_irq_status, __args)
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
