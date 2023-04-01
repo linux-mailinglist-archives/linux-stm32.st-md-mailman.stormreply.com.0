@@ -2,123 +2,53 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E79266D31D3
-	for <lists+linux-stm32@lfdr.de>; Sat,  1 Apr 2023 17:06:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AD1276D3263
+	for <lists+linux-stm32@lfdr.de>; Sat,  1 Apr 2023 17:38:10 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 942DCC6A5F7;
-	Sat,  1 Apr 2023 15:06:38 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2130.outbound.protection.outlook.com [40.107.93.130])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 59A95C6A5F7;
+	Sat,  1 Apr 2023 15:38:10 +0000 (UTC)
+Received: from www530.your-server.de (www530.your-server.de [188.40.30.78])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 99D01C6904F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5F2DFC6A5F2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat,  1 Apr 2023 15:06:37 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=F6sPdqBJBfqXIvulU8srVFrkuWntw0kAfC/VkyBDOg8NVrSYDuKoSvobCd8nFeCz3ARFN8dZ/Exhvbbs5zyKzPGj6JCsuliB0hJucvwxIf3MbSmQuUeT9V0RnYtaVItNF0pmKHm2cKYNG0+4T5vsYjexxePdtmLNCNedCcU8WiPaN2qhkexsvZ+NuTf3WFiFqELHazlQlS1USIuDoJHRyH6ZxxBcRlxlIbkLyCw7iAa2+1caJo84h4i3PW3ugXaPYwnQ1LSCk6QcqhqvsOKbnLzW8Z7zhu+HEM3u+g+z6/PTOaz7g2IaJUHnwZz9j/oJYQSU59jmu1aCKGNLGJ9hlg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=dSvdWUxRhqVMRZjVYvUOvm7q8A0gdi9vlSZxmqDKm5A=;
- b=C+iGwyoGHJW9kDCViQE3cKcm5l/y6JPpVWi+tRB0fWMFbGjKO4BT0NnNrV7IUEgCWYYUysKo+xZsw2Tjhq88bwf+D/rrOLjeX17yPL03H/JuUQ8bbsfNSXI2gn3fpwNVWUfak9Ft0OkgHAA+h3QFlVeNPGrIDoeobqphFPJtMxgDoFTr6jBIhF6AUcXZNk+KnAGF3q6zxXs6GxV14vGoV77xS0t76HZ/8758qdiWgm1DwCF2tw6H1Xwn8RsLeqJbbK83Axs0uIGwJF/ao1I4TCZ/l4IWZ/e1b/PAmVtzQTijLGWGOybFTgUnnHnOHToXlC9/dIOCLUMc4m9xB3apRg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=corigine.com; dmarc=pass action=none header.from=corigine.com;
- dkim=pass header.d=corigine.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=corigine.onmicrosoft.com; s=selector2-corigine-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=dSvdWUxRhqVMRZjVYvUOvm7q8A0gdi9vlSZxmqDKm5A=;
- b=qDaxKVHSp6i4yPdHKLG4SIsJJPmnvI1qnOVYLynNwjVZa6eSWWfQ/5WjRWsOED90AclOg0Id3oBJQsD4AndlQCMkxMcMV4R/k4eO64qeZbFYEVeaiSSJinhiGU7HGUPNLq5nwXTuv1vfjlA3BHE+xEt/KMW43jHemZq1AT3adcU=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=corigine.com;
-Received: from PH0PR13MB4842.namprd13.prod.outlook.com (2603:10b6:510:78::6)
- by DM6PR13MB4477.namprd13.prod.outlook.com (2603:10b6:5:20d::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6254.26; Sat, 1 Apr
- 2023 15:06:32 +0000
-Received: from PH0PR13MB4842.namprd13.prod.outlook.com
- ([fe80::c506:5243:557e:82cb]) by PH0PR13MB4842.namprd13.prod.outlook.com
- ([fe80::c506:5243:557e:82cb%5]) with mapi id 15.20.6254.021; Sat, 1 Apr 2023
- 15:06:32 +0000
-Date: Sat, 1 Apr 2023 17:06:21 +0200
-From: Simon Horman <simon.horman@corigine.com>
-To: Andrew Halaney <ahalaney@redhat.com>
-Message-ID: <ZChIbc6TnQyZ/Fiu@corigine.com>
-References: <20230331214549.756660-1-ahalaney@redhat.com>
- <20230331214549.756660-9-ahalaney@redhat.com>
-Content-Disposition: inline
-In-Reply-To: <20230331214549.756660-9-ahalaney@redhat.com>
-X-ClientProxiedBy: AM0PR04CA0072.eurprd04.prod.outlook.com
- (2603:10a6:208:1::49) To PH0PR13MB4842.namprd13.prod.outlook.com
- (2603:10b6:510:78::6)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH0PR13MB4842:EE_|DM6PR13MB4477:EE_
-X-MS-Office365-Filtering-Correlation-Id: b3acb836-9e4a-4acb-09a8-08db32c2adb5
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: uiP5TD3i3X17lFBHCbKG7Vie0xtBKPsIc50jmrztGu2XKEaFwOehgGCv1T2SvGbH0QkJlMdV6xrwJp6Eq2/Qt2CsFoFSZA/iVWHdlHl7WagUP7IyZO6bOCaRXTslpiMjwYHyTNFA59L8J4qB6Vp5N0gt6muhcdi+jmjg8fK91ep8OlmpScPmhpg16N1KzBiY4y06XbfilFQmaQ/G7PPxXuiOMKEJeVyLoxgDQbG+cvuZ3T1gsiZ/k05qbFsmL2853fLegxqmfvQo2Kaf8zkqfrNqujVGInT44nVOlR2+B44wUYDZeZ2uVlEYDImVJownePi3FzofNr/fex1QRZjudN6qUQ1KEk4euSsQcOkNpz8yFQHpYPTM8dkL60Gvwz8wHeZQEqi5+kbEvnkFnrVWTKvlaphXnz1AIw9yxPRnp0RtST1T7ePZ1+jxfhE2MOotBHBVN88bHh8gjfpnQJ3IpbCXbb6efN8XY+b0JpgpCBFtA94vGbsM9Gz8huaGdNLdTl6bIY2DA5GCekvpKzEZbAltt5zfkKccP4mC4jEEGaKGs2a1tzHnTkgFvc6puqitSsWMS31gJrD2DP1U8eqGVMn2ZcGu9Y7LatAw9QNYFZk=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH0PR13MB4842.namprd13.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(366004)(396003)(39830400003)(346002)(136003)(376002)(451199021)(2906002)(44832011)(38100700002)(8676002)(7416002)(7406005)(5660300002)(66476007)(66556008)(8936002)(66946007)(36756003)(6916009)(4326008)(41300700001)(316002)(2616005)(6486002)(966005)(186003)(6512007)(6666004)(6506007)(478600001)(86362001);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?uSc+dL60KxEs3RECw7Y+9Rh+7QjbHOgU1YJrIMkU+Wm700ptlI3L1MA0q4rM?=
- =?us-ascii?Q?vlVB5+XiaRQ1ZLb8X4h9vnDnQdEeybZvvPGRMnyRWylVFRmrH/uKeGgSNP/n?=
- =?us-ascii?Q?Fj4+suiMDk/Wfi+qbSMsZYfiCga4FGgAf0ERnr3mcW0wbU0dAgA86vhWiku9?=
- =?us-ascii?Q?zVRVq+vKxmlc0p4OchPOQKB1VsDAcS/0FJyaSyAj3NqMRrsEj+n1PY9l3mDC?=
- =?us-ascii?Q?R/fq5dHBLqSGBpYfvjXgqe0LlqthzIdqwkXUmpxf/a8gasbu64WeItVwYOGe?=
- =?us-ascii?Q?UxXTwllrgMS0r3P6x8Y0+4OAQ7274Xn4xZJNNXPT3xmFEHfDuixqgIGHlCC6?=
- =?us-ascii?Q?7G6iJNFCLn5Yxs+3Ufepj09ivxBlQIvaDBjIc4Fmz9ZVKmslghNFfi/2Fedc?=
- =?us-ascii?Q?Feylui5wmjWftI5ukRFNZ+IcHhO+YPSsfd0V+afppGKFGpYJoEIEaQkrCD1f?=
- =?us-ascii?Q?B/OBfoljJjtmGUzJl0jHEB+iEViTU973lDtJsjVTahjkIgP6rCQzXojbhju9?=
- =?us-ascii?Q?ICK8AOulJKGS2KzHgQV7bfZX+Rnf8bQbd7AXGRSJMmdd7TJ4N+YmOu3ox8lW?=
- =?us-ascii?Q?G0mZom990Da4DScdjiz2n4YV0TffwEt8EWuouak6U77H18+j8mp73slwak0w?=
- =?us-ascii?Q?qXOoQbJ8hSvFeWFWZ4/BHZcfjve1z3Z4QUJMk662n6nHfwJWXPPgGH9XlOVH?=
- =?us-ascii?Q?ckkFPAS+lnr8LRkmorSa4SJc2ysBdl0Ek0zMOIld7D9ZGUCQ9CB2I3FktYRj?=
- =?us-ascii?Q?K3vqSbEpgAVK1jYCLjoAO17t4z3xuNxdhvm6IPmKWzHMgQTzTTstwf57Oo3F?=
- =?us-ascii?Q?5kdX3ZNp87n67PLBpq13immFiN53nH6o/4vVl0mO+UZWz0eyTxYm09dod1R4?=
- =?us-ascii?Q?p6chkZQaGP7YcO24OjyaWrucyI2XW0RVemw6pjYDsxAcnMSF0YyTpoe3KqNU?=
- =?us-ascii?Q?0WnvRF9D8tyJKRlf2YSSdJANmd0mMhtnpumE5hGgZWlpMwe0DeXZewEzV4Zy?=
- =?us-ascii?Q?AhbYqYiODjROz7NjiY6ov7iDLm7A3yKi+9DXyBOXviIG3tknAWjzwJRqf+TQ?=
- =?us-ascii?Q?IpJ56jPJZi8Fn9QNFo1IgYAqfQj+At6+5R4IYjCPMKKHu5Q0tpksqihoOZ6e?=
- =?us-ascii?Q?uvT2dgSUFXz0RDk1hu0Yf3vB7kcvNQNGkDsHDZrSbso8NglfhfFt8Hp5PozS?=
- =?us-ascii?Q?8Fijso6A8Gg2vU+wgJM4lqeMDNMSr6R4bL0TQo+jjEOSBiZ953fO/Aiz5hNy?=
- =?us-ascii?Q?bT7ODWwR8tyGQqH901ruAxOMbimcew52Gty881KK8TSk5BhZH0FGK3Fhwc9y?=
- =?us-ascii?Q?obXWAj6OEnRqxfxb+CvnzamS8MsYdmfSt7xL/XSmxHFuv0SM6i8zZrwG2/7i?=
- =?us-ascii?Q?n7/M3Gec1Lfhe0BkZgwtV+rzPB0rW12eQhDHe1AP/LfQ6zycUGz37RqaIQy2?=
- =?us-ascii?Q?y3eXITxi12gsDVZdZj3H7shrmtYkl0K4narxYW/SPbTUpUYltNgYniFTsDiU?=
- =?us-ascii?Q?Ysd1Oe1ZdG0SmJUnH5omjXJBS/RcLeaKKqzO9I3DzZoRxS9M7jXbP78oosAK?=
- =?us-ascii?Q?s6MHy4hIcvWpY/+iJp3pXVKplm3l616nK21c3zZlw9S3kvjxH92D2tr9oPDb?=
- =?us-ascii?Q?imiWuUvVe8pEk9c+E1trpa8cLPA1rV5Gfr25wWJTmZ5AmWGDFwSUnRG9Piyb?=
- =?us-ascii?Q?/2gJMg=3D=3D?=
-X-OriginatorOrg: corigine.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b3acb836-9e4a-4acb-09a8-08db32c2adb5
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR13MB4842.namprd13.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Apr 2023 15:06:32.5603 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: fe128f2c-073b-4c20-818e-7246a585940c
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: yfDEYx0jK2juj/EFfHyY3fMcSkAPT6PzYWPbl2ocDED4+Dr1R6KS9w0tQRxiaNlwwIGt35kvLD0R8J4OhNxru/YC0rqs4bTOye4aq26c084=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR13MB4477
-Cc: mturquette@baylibre.com, edumazet@google.com,
- krzysztof.kozlowski+dt@linaro.org, jonathanh@nvidia.com,
- linux-stm32@st-md-mailman.stormreply.com, tee.min.tan@linux.intel.com,
- samuel@sholland.org, linux@armlinux.org.uk, jernej.skrabec@gmail.com,
- veekhee@apple.com, wens@csie.org, joabreu@synopsys.com, agross@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, andrey.konovalov@linaro.org,
- ncai@quicinc.com, devicetree@vger.kernel.org, bhupesh.sharma@linaro.org,
- linux-arm-msm@vger.kernel.org, richardcochran@gmail.com, bmasney@redhat.com,
- mohammad.athari.ismail@intel.com, robh+dt@kernel.org, ruppala@nvidia.com,
- jsuraj@qti.qualcomm.com, peppe.cavallaro@st.com,
- linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
- andersson@kernel.org, linux-kernel@vger.kernel.org, echanude@redhat.com,
- konrad.dybcio@linaro.org, vkoul@kernel.org, hisunil@quicinc.com,
- mcoquelin.stm32@gmail.com, davem@davemloft.net
-Subject: Re: [Linux-stm32] [PATCH net-next v3 08/12] net: stmmac: Pass
- stmmac_priv in some callbacks
+ Sat,  1 Apr 2023 15:38:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=geanix.com; 
+ s=default2211;
+ h=To:References:Message-Id:Content-Transfer-Encoding:Cc:Date:
+ In-Reply-To:From:Subject:Mime-Version:Content-Type:Sender:Reply-To:Content-ID
+ :Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:
+ Resent-Cc:Resent-Message-ID; bh=1OF1gwVwKxRH0Bsbr3sddCdFnvOlwCDqmXr9PbGww6I=; 
+ b=NPuW8Evm/xgBsYbGTQYqTPvwwmcjLQMqELlVWCF6OWYDQJKcojZTdN7f0Mgj3+bVrpSdjnGfalF
+ XZ2j+w2PR0Nkpi25yrPyTdpcF/Dqs1OjsqTUJQKVtvdwv4eUrz5v4hH9b0PD/wKH08vwT0nG3GsID
+ nAcw9EqP68lUAzzzs/pxzlYzY1tHAf3ld/0Edu/2lOrKlN+/r9ZxslFjeBht6VldfbIc0n0HpsLE1
+ 2vf6QgO/8kEanpj2SmS05H30Tx+Vu5m1KYinsv3NLsBxnTxoJDV9DihXHpmu3TS6NjceXr5a0VjZG
+ nKhl/m8hbeQS9JnITdfx/cVt9dr9GD0oQYSg==;
+Received: from sslproxy03.your-server.de ([88.198.220.132])
+ by www530.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+ (Exim 4.94.2) (envelope-from <sean@geanix.com>)
+ id 1pidIt-0009NA-DD; Sat, 01 Apr 2023 17:38:07 +0200
+Received: from [2a06:4004:10df:0:7ca5:67b9:3ab2:84e3] (helo=smtpclient.apple)
+ by sslproxy03.your-server.de with esmtpsa
+ (TLSv1.2:ECDHE-RSA-AES256-GCM-SHA384:256) (Exim 4.92)
+ (envelope-from <sean@geanix.com>)
+ id 1pidIt-000QhM-17; Sat, 01 Apr 2023 17:38:07 +0200
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3731.500.231\))
+From: =?utf-8?Q?Sean_Nyekj=C3=A6r?= <sean@geanix.com>
+In-Reply-To: <20230401150455.3e426d1e@jic23-huawei>
+Date: Sat, 1 Apr 2023 17:37:56 +0200
+Message-Id: <57AA344C-3213-469A-8759-78C0D183B5D4@geanix.com>
+References: <20230327083449.1098174-1-sean@geanix.com>
+ <56c019d4-832e-17e1-19f8-7d8bd927c1bb@foss.st.com>
+ <20230401150455.3e426d1e@jic23-huawei>
+To: Jonathan Cameron <jic23@kernel.org>
+X-Mailer: Apple Mail (2.3731.500.231)
+X-Authenticated-Sender: sean@geanix.com
+X-Virus-Scanned: Clear (ClamAV 0.103.8/26862/Sat Apr  1 09:22:47 2023)
+Cc: lars@metafoo.de, linux-iio@vger.kernel.org, nuno.sa@analog.com,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH 1/3] iio: adc: stm32-adc: warn if dt uses
+ legacy channel config
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -130,198 +60,58 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, Mar 31, 2023 at 04:45:45PM -0500, Andrew Halaney wrote:
-> Passing stmmac_priv to some of the callbacks allows hwif implementations
-> to grab some data that platforms can customize. Adjust the callbacks
-> accordingly in preparation of such a platform customization.
-> 
-> Signed-off-by: Andrew Halaney <ahalaney@redhat.com>
-
-...
-
->  #define stmmac_reset(__priv, __args...) \
-> @@ -223,59 +240,59 @@ struct stmmac_dma_ops {
->  #define stmmac_dma_init(__priv, __args...) \
->  	stmmac_do_void_callback(__priv, dma, init, __args)
->  #define stmmac_init_chan(__priv, __args...) \
-> -	stmmac_do_void_callback(__priv, dma, init_chan, __args)
-> +	stmmac_do_void_callback(__priv, dma, init_chan, __priv, __args)
-
-Hi Andrew,
-
-Rather than maintaining these macros can we just get rid of them?
-I'd be surprised if things aren't nicer with functions in their place [1].
-
-f.e., we now have (__priv, ..., __priv, ...) due to a generalisation
-      that seems to take a lot more than it gives.
-
-[1] https://lore.kernel.org/linux-arm-kernel/ZBst1SzcIS4j+t46@corigine.com/
-
->  #define stmmac_init_rx_chan(__priv, __args...) \
-> -	stmmac_do_void_callback(__priv, dma, init_rx_chan, __args)
-> +	stmmac_do_void_callback(__priv, dma, init_rx_chan, __priv, __args)
->  #define stmmac_init_tx_chan(__priv, __args...) \
-> -	stmmac_do_void_callback(__priv, dma, init_tx_chan, __args)
-> +	stmmac_do_void_callback(__priv, dma, init_tx_chan, __priv, __args)
->  #define stmmac_axi(__priv, __args...) \
->  	stmmac_do_void_callback(__priv, dma, axi, __args)
->  #define stmmac_dump_dma_regs(__priv, __args...) \
-> -	stmmac_do_void_callback(__priv, dma, dump_regs, __args)
-> +	stmmac_do_void_callback(__priv, dma, dump_regs, __priv, __args)
->  #define stmmac_dma_rx_mode(__priv, __args...) \
-> -	stmmac_do_void_callback(__priv, dma, dma_rx_mode, __args)
-> +	stmmac_do_void_callback(__priv, dma, dma_rx_mode, __priv, __args)
->  #define stmmac_dma_tx_mode(__priv, __args...) \
-> -	stmmac_do_void_callback(__priv, dma, dma_tx_mode, __args)
-> +	stmmac_do_void_callback(__priv, dma, dma_tx_mode, __priv, __args)
->  #define stmmac_dma_diagnostic_fr(__priv, __args...) \
->  	stmmac_do_void_callback(__priv, dma, dma_diagnostic_fr, __args)
->  #define stmmac_enable_dma_transmission(__priv, __args...) \
->  	stmmac_do_void_callback(__priv, dma, enable_dma_transmission, __args)
->  #define stmmac_enable_dma_irq(__priv, __args...) \
-> -	stmmac_do_void_callback(__priv, dma, enable_dma_irq, __args)
-> +	stmmac_do_void_callback(__priv, dma, enable_dma_irq, __priv, __args)
->  #define stmmac_disable_dma_irq(__priv, __args...) \
-> -	stmmac_do_void_callback(__priv, dma, disable_dma_irq, __args)
-> +	stmmac_do_void_callback(__priv, dma, disable_dma_irq, __priv, __args)
->  #define stmmac_start_tx(__priv, __args...) \
-> -	stmmac_do_void_callback(__priv, dma, start_tx, __args)
-> +	stmmac_do_void_callback(__priv, dma, start_tx, __priv, __args)
->  #define stmmac_stop_tx(__priv, __args...) \
-> -	stmmac_do_void_callback(__priv, dma, stop_tx, __args)
-> +	stmmac_do_void_callback(__priv, dma, stop_tx, __priv, __args)
->  #define stmmac_start_rx(__priv, __args...) \
-> -	stmmac_do_void_callback(__priv, dma, start_rx, __args)
-> +	stmmac_do_void_callback(__priv, dma, start_rx, __priv, __args)
->  #define stmmac_stop_rx(__priv, __args...) \
-> -	stmmac_do_void_callback(__priv, dma, stop_rx, __args)
-> +	stmmac_do_void_callback(__priv, dma, stop_rx, __priv, __args)
->  #define stmmac_dma_interrupt_status(__priv, __args...) \
-> -	stmmac_do_callback(__priv, dma, dma_interrupt, __args)
-> +	stmmac_do_callback(__priv, dma, dma_interrupt, __priv, __args)
->  #define stmmac_get_hw_feature(__priv, __args...) \
->  	stmmac_do_callback(__priv, dma, get_hw_feature, __args)
->  #define stmmac_rx_watchdog(__priv, __args...) \
-> -	stmmac_do_void_callback(__priv, dma, rx_watchdog, __args)
-> +	stmmac_do_void_callback(__priv, dma, rx_watchdog, __priv, __args)
->  #define stmmac_set_tx_ring_len(__priv, __args...) \
-> -	stmmac_do_void_callback(__priv, dma, set_tx_ring_len, __args)
-> +	stmmac_do_void_callback(__priv, dma, set_tx_ring_len, __priv, __args)
->  #define stmmac_set_rx_ring_len(__priv, __args...) \
-> -	stmmac_do_void_callback(__priv, dma, set_rx_ring_len, __args)
-> +	stmmac_do_void_callback(__priv, dma, set_rx_ring_len, __priv, __args)
->  #define stmmac_set_rx_tail_ptr(__priv, __args...) \
-> -	stmmac_do_void_callback(__priv, dma, set_rx_tail_ptr, __args)
-> +	stmmac_do_void_callback(__priv, dma, set_rx_tail_ptr, __priv, __args)
->  #define stmmac_set_tx_tail_ptr(__priv, __args...) \
-> -	stmmac_do_void_callback(__priv, dma, set_tx_tail_ptr, __args)
-> +	stmmac_do_void_callback(__priv, dma, set_tx_tail_ptr, __priv, __args)
->  #define stmmac_enable_tso(__priv, __args...) \
-> -	stmmac_do_void_callback(__priv, dma, enable_tso, __args)
-> +	stmmac_do_void_callback(__priv, dma, enable_tso, __priv, __args)
->  #define stmmac_dma_qmode(__priv, __args...) \
-> -	stmmac_do_void_callback(__priv, dma, qmode, __args)
-> +	stmmac_do_void_callback(__priv, dma, qmode, __priv, __args)
->  #define stmmac_set_dma_bfsize(__priv, __args...) \
-> -	stmmac_do_void_callback(__priv, dma, set_bfsize, __args)
-> +	stmmac_do_void_callback(__priv, dma, set_bfsize, __priv, __args)
->  #define stmmac_enable_sph(__priv, __args...) \
-> -	stmmac_do_void_callback(__priv, dma, enable_sph, __args)
-> +	stmmac_do_void_callback(__priv, dma, enable_sph, __priv, __args)
->  #define stmmac_enable_tbs(__priv, __args...) \
-> -	stmmac_do_callback(__priv, dma, enable_tbs, __args)
-> +	stmmac_do_callback(__priv, dma, enable_tbs, __priv, __args)
->  
->  struct mac_device_info;
->  struct net_device;
-> @@ -307,21 +324,23 @@ struct stmmac_ops {
->  	/* Program TX Algorithms */
->  	void (*prog_mtl_tx_algorithms)(struct mac_device_info *hw, u32 tx_alg);
->  	/* Set MTL TX queues weight */
-> -	void (*set_mtl_tx_queue_weight)(struct mac_device_info *hw,
-> +	void (*set_mtl_tx_queue_weight)(struct stmmac_priv *priv,
-> +					struct mac_device_info *hw,
->  					u32 weight, u32 queue);
->  	/* RX MTL queue to RX dma mapping */
->  	void (*map_mtl_to_dma)(struct mac_device_info *hw, u32 queue, u32 chan);
->  	/* Configure AV Algorithm */
-> -	void (*config_cbs)(struct mac_device_info *hw, u32 send_slope,
-> -			   u32 idle_slope, u32 high_credit, u32 low_credit,
-> -			   u32 queue);
-> +	void (*config_cbs)(struct stmmac_priv *priv, struct mac_device_info *hw,
-> +			   u32 send_slope, u32 idle_slope, u32 high_credit,
-> +			   u32 low_credit, u32 queue);
->  	/* Dump MAC registers */
->  	void (*dump_regs)(struct mac_device_info *hw, u32 *reg_space);
->  	/* Handle extra events on specific interrupts hw dependent */
->  	int (*host_irq_status)(struct mac_device_info *hw,
->  			       struct stmmac_extra_stats *x);
->  	/* Handle MTL interrupts */
-> -	int (*host_mtl_irq_status)(struct mac_device_info *hw, u32 chan);
-> +	int (*host_mtl_irq_status)(struct stmmac_priv *priv,
-> +				   struct mac_device_info *hw, u32 chan);
->  	/* Multicast filter setting */
->  	void (*set_filter)(struct mac_device_info *hw, struct net_device *dev);
->  	/* Flow control setting */
-> @@ -341,8 +360,9 @@ struct stmmac_ops {
->  	void (*set_eee_lpi_entry_timer)(struct mac_device_info *hw, int et);
->  	void (*set_eee_timer)(struct mac_device_info *hw, int ls, int tw);
->  	void (*set_eee_pls)(struct mac_device_info *hw, int link);
-> -	void (*debug)(void __iomem *ioaddr, struct stmmac_extra_stats *x,
-> -		      u32 rx_queues, u32 tx_queues);
-> +	void (*debug)(struct stmmac_priv *priv, void __iomem *ioaddr,
-> +		      struct stmmac_extra_stats *x, u32 rx_queues,
-> +		      u32 tx_queues);
->  	/* PCS calls */
->  	void (*pcs_ctrl_ane)(void __iomem *ioaddr, bool ane, bool srgmi_ral,
->  			     bool loopback);
-
-...
-
-> @@ -422,17 +442,17 @@ struct stmmac_ops {
->  #define stmmac_prog_mtl_tx_algorithms(__priv, __args...) \
->  	stmmac_do_void_callback(__priv, mac, prog_mtl_tx_algorithms, __args)
->  #define stmmac_set_mtl_tx_queue_weight(__priv, __args...) \
-> -	stmmac_do_void_callback(__priv, mac, set_mtl_tx_queue_weight, __args)
-> +	stmmac_do_void_callback(__priv, mac, set_mtl_tx_queue_weight, __priv, __args)
->  #define stmmac_map_mtl_to_dma(__priv, __args...) \
->  	stmmac_do_void_callback(__priv, mac, map_mtl_to_dma, __args)
->  #define stmmac_config_cbs(__priv, __args...) \
-> -	stmmac_do_void_callback(__priv, mac, config_cbs, __args)
-> +	stmmac_do_void_callback(__priv, mac, config_cbs, __priv, __args)
->  #define stmmac_dump_mac_regs(__priv, __args...) \
->  	stmmac_do_void_callback(__priv, mac, dump_regs, __args)
->  #define stmmac_host_irq_status(__priv, __args...) \
->  	stmmac_do_callback(__priv, mac, host_irq_status, __args)
->  #define stmmac_host_mtl_irq_status(__priv, __args...) \
-> -	stmmac_do_callback(__priv, mac, host_mtl_irq_status, __args)
-> +	stmmac_do_callback(__priv, mac, host_mtl_irq_status, __priv, __args)
->  #define stmmac_set_filter(__priv, __args...) \
->  	stmmac_do_void_callback(__priv, mac, set_filter, __args)
->  #define stmmac_flow_ctrl(__priv, __args...) \
-> @@ -454,11 +474,11 @@ struct stmmac_ops {
->  #define stmmac_set_eee_pls(__priv, __args...) \
->  	stmmac_do_void_callback(__priv, mac, set_eee_pls, __args)
->  #define stmmac_mac_debug(__priv, __args...) \
-> -	stmmac_do_void_callback(__priv, mac, debug, __args)
-> +	stmmac_do_void_callback(__priv, mac, debug, __priv, __args)
->  #define stmmac_pcs_ctrl_ane(__priv, __args...) \
->  	stmmac_do_void_callback(__priv, mac, pcs_ctrl_ane, __args)
->  #define stmmac_pcs_rane(__priv, __args...) \
-> -	stmmac_do_void_callback(__priv, mac, pcs_rane, __args)
-> +	stmmac_do_void_callback(__priv, mac, pcs_rane, __priv, __args)
->  #define stmmac_pcs_get_adv_lp(__priv, __args...) \
->  	stmmac_do_void_callback(__priv, mac, pcs_get_adv_lp, __args)
->  #define stmmac_safety_feat_config(__priv, __args...) \
-> @@ -506,8 +526,6 @@ struct stmmac_ops {
->  #define stmmac_fpe_irq_status(__priv, __args...) \
->  	stmmac_do_callback(__priv, mac, fpe_irq_status, __args)
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+Cgo+IE9uIDEgQXByIDIwMjMsIGF0IDE2LjA0LCBKb25hdGhhbiBDYW1lcm9uIDxqaWMyM0BrZXJu
+ZWwub3JnPiB3cm90ZToKPiAKPiBPbiBUaHUsIDMwIE1hciAyMDIzIDE3OjMwOjMyICswMjAwCj4g
+RmFicmljZSBHYXNuaWVyIDxmYWJyaWNlLmdhc25pZXJAZm9zcy5zdC5jb20+IHdyb3RlOgo+IAo+
+PiBPbiAzLzI3LzIzIDEwOjM0LCBTZWFuIE55ZWtqYWVyIHdyb3RlOgo+Pj4gU2luY2UgbmVhcmx5
+IGFsbCBzdG0zMiBkdCdzIGFyZSB1c2luZyB0aGUgbGVnYWN5IGFkYyBjaGFubmVsIGNvbmZpZywK
+Pj4+IHdlIHNob3VsZCB3YXJuIHVzZXJzIGFib3V0IHVzaW5nIGl0Lgo+Pj4gCj4+PiBTaWduZWQt
+b2ZmLWJ5OiBTZWFuIE55ZWtqYWVyIDxzZWFuQGdlYW5peC5jb20+Cj4+PiAtLS0KPj4+IGRyaXZl
+cnMvaWlvL2FkYy9zdG0zMi1hZGMuYyB8IDIgKysKPj4+IDEgZmlsZSBjaGFuZ2VkLCAyIGluc2Vy
+dGlvbnMoKykKPj4+IAo+Pj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvaWlvL2FkYy9zdG0zMi1hZGMu
+YyBiL2RyaXZlcnMvaWlvL2FkYy9zdG0zMi1hZGMuYwo+Pj4gaW5kZXggMWFhZGIyYWQyY2FiLi5k
+OGU3NTVkMGNjNTIgMTAwNjQ0Cj4+PiAtLS0gYS9kcml2ZXJzL2lpby9hZGMvc3RtMzItYWRjLmMK
+Pj4+ICsrKyBiL2RyaXZlcnMvaWlvL2FkYy9zdG0zMi1hZGMuYwo+Pj4gQEAgLTE5OTMsNiArMTk5
+Myw4IEBAIHN0YXRpYyBpbnQgc3RtMzJfYWRjX2dldF9sZWdhY3lfY2hhbl9jb3VudChzdHJ1Y3Qg
+aWlvX2RldiAqaW5kaW9fZGV2LCBzdHJ1Y3Qgc3RtCj4+PiBjb25zdCBzdHJ1Y3Qgc3RtMzJfYWRj
+X2luZm8gKmFkY19pbmZvID0gYWRjLT5jZmctPmFkY19pbmZvOwo+Pj4gaW50IG51bV9jaGFubmVs
+cyA9IDAsIHJldDsKPj4+IAo+Pj4gKyBkZXZfd2FybigmaW5kaW9fZGV2LT5kZXYsICJ1c2luZyBs
+ZWdhY3kgY2hhbm5lbCBjb25maWdcbiIpOwo+Pj4gKyAgCj4+IAo+PiBIaSBTZWFuLAo+PiAKPj4g
+SSdkIHJlY29tbWVuZCB0byBhdm9pZCBhZGRpbmcgYSBkZXZfd2FybigpIG9uIGEgcGVyIGRyaXZl
+ciBiYXNpcywgZm9yCj4+IGRlcHJlYWN0ZWQgRFQgcHJvcGVydGllcy4gU3RpbGwgSSdtIG5vdCBz
+dXJlIGlmIHRoZXJlJ3Mgc29tZSBwb2xpY3kgaW4KPj4gdGhpcyBhcmVhLgo+PiAKPj4gSU1ITywg
+ZGVwcmVjYXRlZCBwcm9wZXJ0aWVzIHNob3VsZCBiZSBjaGVja2VkIGJ5IHVzaW5nIGR0IHRvb2xz
+Cj4+IChkdF9iaW5kaW5nX2NoZWNrIC8gZHRic19jaGVjayBvciBvdGhlciBtZWFuPykuIEJ1dCBJ
+IGhhdmUgbm8gaWRlYSBpZgo+PiB0aGlzIGlzIGdvaW5nIHRvIHJlcG9ydCB3YXJuaW5ncyBhbmQg
+d2hlbi4gUHVycG9zZSB3b3VsZCBiZSB0byBhdm9pZAo+PiBpbnRyb2R1Y2luZyBubyBkdHMgZmls
+ZXMgd2l0aCB0aGVzZS4gQXMgY29tbWVudGVkIGJ5IE9saXZpZXIgb24gUGF0Y2ggMywKPj4gd2Un
+dmUgc29tZSBkb3duc3RyZWFtIHBhdGNoZXMgdG8gYWRvcHQgdGhlIGdlbmVyaWMgYmluZGluZ3Mg
+KG5vdAo+PiB1cHN0cmVhbSAneWV0JykuCj4+IAo+PiBBbm90aGVyIGRvd25zaWRlIGlzIHJlZ2Fy
+ZGluZyBiYWNrd2FyZCBjb21wYXRpYmlsaXR5LiBJbiBjYXNlIGFuIG9sZCBkdGIKPj4gaXMgdXNl
+ZCB0byBib290IHRoZSBrZXJuZWwsIGFzIGxvbmcgYXMgdGhlcmUncyBubyBmdW5jdGlvbmFsaXR5
+IGxvc3MsCj4+IEknZCBhZHZpc2Ugbm90IHRvIHVzZSBhbnkgd2FybmluZyBoZXJlLiBUaGF0J3Mg
+YSB2YWxpZCB1c2Ugb2YgYW4gb2xkIGR0Lgo+PiAKPj4gSW4gYWxsIGNhc2UsIHRoYW5rcyBmb3Ig
+cG9pbnRpbmcgaXNzdWVzIChlLmcuIFBhdGNoIDIgJiAzKSwgcmVnYXJkaW5nCj4+IHRoaXMgcGF0
+Y2gsIEknZCBuYWNrIGFkZGluZyB0aGlzIHdhcm5pbmcuIFBsZWFzZSBkcm9wIHRoaXMgY2hhbmdl
+IGlmIHlvdQo+PiByZS1zdWJtaXQgb3IgdHVybiB0aGlzIGludG8gYSBkZXZfZGJnKCkuCj4+IAo+
+IAo+IEFncmVlZC4gQmV0dGVyIHRvIGNoYW5nZSB0byBkZXZfZGJnKCkuCj4gCj4gT3RoZXIgdHdv
+IHBhdGNoZXMgbG9vayBnb29kIHRvIG1lLCBidXQgd2lsbCBsZWF2ZSBhIGJpdCBtb3JlIHRpbWUg
+Zm9yIG90aGVycwo+IHRvIGNvbW1lbnQgYmVmb3JlIEkgcGljayB0aGVtIHVwLiAgQXMgYSBzbWFs
+bCBzaWRlIG5vdGUuIFRoZXkgYXJlIGZpeGVzIGFuZAo+IHRoaXMgZmlyc3QgcGF0Y2ggaXMgbm90
+LCBzbyB0aGV5IHNob3VsZCBoYXZlIGJlZW4gYmVmb3JlIGl0IGluIHRoZSBzZXJpZXMKPiBzbyBJ
+IGNhbiByb3V0ZSB0aGVtIHRvIG1haW5saW5lIGZhc3RlciB0aGFuIHRoZSBub24gZml4Lgo+IAo+
+IEpvbmF0aGFuCgpIaSBKb25hdGhhbiwKCknigJlsbCByZXN1Ym1pdCB0aGUgZmlyc3QgcGF0Y2gg
+d2l0aCBkZXZfZGJnKCkgYXMgYSBzaW5nbGUgY29tbWl0LCBhbmQgdGhlbiB0aGUgZml4ZXMgYXMg
+YSBzZXBhcmF0ZSBzZXJpZXMgOikKCi9TZWFuCgo+IAo+PiBCZXN0IFJlZ2FyZHMsCj4+IEZhYnJp
+Y2UKPj4gCj4+PiByZXQgPSBkZXZpY2VfcHJvcGVydHlfY291bnRfdTMyKGRldiwgInN0LGFkYy1j
+aGFubmVscyIpOwo+Pj4gaWYgKHJldCA+IGFkY19pbmZvLT5tYXhfY2hhbm5lbHMpIHsKPj4+IGRl
+dl9lcnIoJmluZGlvX2Rldi0+ZGV2LCAiQmFkIHN0LGFkYy1jaGFubmVscz9cbiIpOyAgCgoKCl9f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMy
+IG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0
+dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4
+LXN0bTMyCg==
