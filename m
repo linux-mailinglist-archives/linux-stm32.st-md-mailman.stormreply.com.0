@@ -2,59 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B99F6D3716
-	for <lists+linux-stm32@lfdr.de>; Sun,  2 Apr 2023 12:18:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A2AB6D371D
+	for <lists+linux-stm32@lfdr.de>; Sun,  2 Apr 2023 12:18:39 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2B04DC65E56;
-	Sun,  2 Apr 2023 10:18:32 +0000 (UTC)
-Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com
- [209.85.208.45])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 50928C65E56;
+	Sun,  2 Apr 2023 10:18:39 +0000 (UTC)
+Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com
+ [209.85.208.52])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6A6ECC03FC3
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D28F8C03FC3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun,  2 Apr 2023 10:18:30 +0000 (UTC)
-Received: by mail-ed1-f45.google.com with SMTP id i5so106618926eda.0
+ Sun,  2 Apr 2023 10:18:38 +0000 (UTC)
+Received: by mail-ed1-f52.google.com with SMTP id ew6so106348257edb.7
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 02 Apr 2023 03:18:30 -0700 (PDT)
+ Sun, 02 Apr 2023 03:18:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1680430710;
+ d=linaro.org; s=google; t=1680430718;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=5vbY+hH9xlDJ5JkvEylzYvLfmOyGSfk8lVRHgqhEHvY=;
- b=jt9PRfw5VQJUcClBuDD0yW3taPLHmIYTZT+hRzcnTsZeLzqTwOu592kOF52dyvMgmN
- jWia1f1dvudUnIMCqV/J9ddLPR4fuDVkJM/43X+6sdC0vLh4pkc4zEOBUy0H2h0enKHJ
- /IbIgWIWbuMI5DZwbCxvTn8TD3CPiLHME9Qjd/Pu15AtH27jrmtxex4QLF0fjsnN+1CZ
- TKvYD5ccYK1rb3AWi6KkV+vQnvdUd5CI87AS8JYq/dA76yknzmqbx5ErPLNiJgBKps2i
- 0336/3xyzwLIt2xofO6kU6atVVguHVcQwncUdT2PkiUg+34YkOH58yJpOdEaK4T/dIl0
- pByw==
+ bh=sN4W0uppG11n4amgZQQ3mpLKRvCRZOSROsn8m2Kimkg=;
+ b=jb+VJPdBqQST71dfQdR2PxUbmb8b02IKUIK2Nl00BYhPfKddUdEroPOVgXh5zH8cjW
+ hT3PIhI0fncDCliWCt7mzQiKdfPcLIS9NpPFlqPg1wjloSsgZglYv2g9tXo6sXxlVhpv
+ F1ZxTeu+g4yT8WAUGbizJsWrfQrI9Ck6M6ajArriv3d6TMFBfAupw95heEeutndZ2eZM
+ h7A5KKcasAdAz3+zklThNj3h5nGmdqSI0jnHZBDxGlLh4Vag+yZ6jWlRe3RHzdps3aMZ
+ WiXHL8dsKu+q+NaWMu12ZNa5se19Hb8+i3pVJXYsDDqt35BrNpNdRiqQWoBscwibJq3L
+ w5tQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1680430710;
+ d=1e100.net; s=20210112; t=1680430718;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=5vbY+hH9xlDJ5JkvEylzYvLfmOyGSfk8lVRHgqhEHvY=;
- b=ULqLXoJJ98IxfExjQaxwDFXPwIusz0NSodOz8JCj8ySUWTo2n6w69xQeJ4nsDyQxic
- qFc2I0h3ji6xRVSiMJvz4+Os7yLPcswsbeJJKJU+e8iU+KL+0iurPCOtPGxE+5npy3z9
- uTDC2PrUvdqlHfWmRbU3XIjWPPoumaeN5c6kNPt+Alc1hI9SVZLCQuR/9TVaW1pIRe7q
- wdFgob7w8htCDhhhpVqmri2tTfrynzHeYDBSAVMVIPXDls+jfmd8+qTXUpS3sQxG/hfP
- unZMpMMwkNfI+JX+8mKRuCZvqLHb3F8bf/cg61Gn5RhJzuMJI3PRtUN3sjCxdOTiIfMI
- vbaA==
-X-Gm-Message-State: AAQBX9cp+VUYYtedE2MeoOnmI+mchwTAAmBp1hEVRMykuoDUBs9Ac6AM
- 9O+xPSzqJkW7EO/RfpAz5nKckw==
-X-Google-Smtp-Source: AKy350Z6IQ1DInGgJ1tkTuG1NeZ3Izk22lBovEOzygEIjFvMr1KmPSan8ScnFcJMV6jOJPTmKXwNWw==
-X-Received: by 2002:aa7:c859:0:b0:4fb:78a0:eabe with SMTP id
- g25-20020aa7c859000000b004fb78a0eabemr32523704edt.14.1680430709888; 
- Sun, 02 Apr 2023 03:18:29 -0700 (PDT)
+ bh=sN4W0uppG11n4amgZQQ3mpLKRvCRZOSROsn8m2Kimkg=;
+ b=LaimzMMrx8Lg4la3Ms7SAsBVNmwFrTZkybeQnnVrfhVhhelRPtebmKBdTwN0MOqvOn
+ ip2ybu0w5eY1IyOyORJaR1J90flsmKL9BalobACTU32gFbIBJbelUOQO7yXvEcpjXtS7
+ mQ8Aw9PL8rl+N6TAl+1b7kV9bPB/KgkQ48jGeZmpaTvwBOGzat8zlphRzTa4fiQZGcbk
+ Ke/NYRQ2p0IsRsFU3prJ9mrlLFJZkKjn+eexeLhODnBSH1LxObGUGxbYDsSIXU1cThny
+ nalGI4o/WZVfwNgegMhgEObwo+Mss6noW83F4gVTlEN7/EIcEn97SVkk3SnjUF3J4CGz
+ 6lXQ==
+X-Gm-Message-State: AAQBX9fA4cXTClNHcDnxNlLvU9t0phbdIfkeI+LvKPxITCu7SK0ltO6/
+ bTVcrb1FVVCuphyRA353Jhe5Ag==
+X-Google-Smtp-Source: AKy350bl5AI/ffJhjWXPUZDpoMYhYVGYbPhasRbUNkSaaqKcK5VPx7QaTdan03JTQnaAu7+DbiZjzw==
+X-Received: by 2002:a17:907:744:b0:946:fa68:1a91 with SMTP id
+ xc4-20020a170907074400b00946fa681a91mr17736295ejb.75.1680430718427; 
+ Sun, 02 Apr 2023 03:18:38 -0700 (PDT)
 Received: from ?IPV6:2a02:810d:15c0:828:7f7f:6a30:7a20:94d5?
  ([2a02:810d:15c0:828:7f7f:6a30:7a20:94d5])
  by smtp.gmail.com with ESMTPSA id
- 9-20020a508e09000000b00501dac14d7asm3129576edw.3.2023.04.02.03.18.28
+ h3-20020a1709067cc300b0094776b4ef04sm3145749ejp.10.2023.04.02.03.18.36
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 02 Apr 2023 03:18:29 -0700 (PDT)
-Message-ID: <d79d35af-792d-4f42-03f0-37ff0abce461@linaro.org>
-Date: Sun, 2 Apr 2023 12:18:27 +0200
+ Sun, 02 Apr 2023 03:18:38 -0700 (PDT)
+Message-ID: <2c7e2f62-9f0e-3be4-0da2-e0cb89a197dc@linaro.org>
+Date: Sun, 2 Apr 2023 12:18:36 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.9.0
@@ -78,15 +78,15 @@ To: Neil Armstrong <neil.armstrong@linaro.org>, Arnd Bergmann
  Bartosz Golaszewski <brgl@bgdev.pl>, Sebastian Reichel <sre@kernel.org>,
  Philipp Zabel <p.zabel@pengutronix.de>, Marc Zyngier <maz@kernel.org>
 References: <20230331-topic-oxnas-upstream-remove-v1-0-5bd58fd1dd1f@linaro.org>
- <20230331-topic-oxnas-upstream-remove-v1-4-5bd58fd1dd1f@linaro.org>
+ <20230331-topic-oxnas-upstream-remove-v1-6-5bd58fd1dd1f@linaro.org>
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20230331-topic-oxnas-upstream-remove-v1-4-5bd58fd1dd1f@linaro.org>
+In-Reply-To: <20230331-topic-oxnas-upstream-remove-v1-6-5bd58fd1dd1f@linaro.org>
 Cc: devicetree@vger.kernel.org, linux-pm@vger.kernel.org,
  netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-gpio@vger.kernel.org,
  linux-mtd@lists.infradead.org, linux-clk@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH RFC 04/20] dt-bindings: arm: oxnas: remove
+Subject: Re: [Linux-stm32] [PATCH RFC 06/20] dt-bindings: clk: oxnas: remove
  obsolete bindings
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -107,7 +107,7 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 On 31/03/2023 10:34, Neil Armstrong wrote:
 > Due to lack of maintainance and stall of development for a few years now,
 > and since no new features will ever be added upstream, remove the
-> OX810 and OX820 SoC and boards bindings.
+> OX810 and OX820 clock bindings.
 > 
 > Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
 > ---
