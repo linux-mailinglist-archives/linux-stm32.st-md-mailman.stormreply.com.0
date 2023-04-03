@@ -2,41 +2,39 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id F0C086D41AA
-	for <lists+linux-stm32@lfdr.de>; Mon,  3 Apr 2023 12:16:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 11AD56D41B9
+	for <lists+linux-stm32@lfdr.de>; Mon,  3 Apr 2023 12:17:58 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A1344C65E70;
-	Mon,  3 Apr 2023 10:16:31 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CC552C65E70;
+	Mon,  3 Apr 2023 10:17:57 +0000 (UTC)
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 055ABC64107
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9FC9CC64107
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  3 Apr 2023 10:16:29 +0000 (UTC)
+ Mon,  3 Apr 2023 10:17:56 +0000 (UTC)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id CCB851063;
- Mon,  3 Apr 2023 03:17:13 -0700 (PDT)
-Received: from [192.168.1.3] (unknown [172.31.20.19])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id C08963F840;
- Mon,  3 Apr 2023 03:16:27 -0700 (PDT)
-Message-ID: <612a9010-6a76-6df3-9223-651e956d7cb8@arm.com>
-Date: Mon, 3 Apr 2023 11:16:26 +0100
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 885F41063;
+ Mon,  3 Apr 2023 03:18:40 -0700 (PDT)
+Received: from [10.57.54.53] (unknown [10.57.54.53])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 35E863F840;
+ Mon,  3 Apr 2023 03:17:54 -0700 (PDT)
+Message-ID: <a25804a5-c949-098e-43de-9c9046fdb2de@arm.com>
+Date: Mon, 3 Apr 2023 11:17:52 +0100
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.9.0
-To: Suzuki K Poulose <suzuki.poulose@arm.com>, coresight@lists.linaro.org,
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.9.0
+To: James Clark <james.clark@arm.com>, coresight@lists.linaro.org,
  quic_jinlmao@quicinc.com, mike.leach@linaro.org
 References: <20230329115329.2747724-1-james.clark@arm.com>
- <20230329115329.2747724-8-james.clark@arm.com>
- <c25f0d12-e820-58b0-b139-b2ca322b6b80@arm.com>
-Content-Language: en-US
-From: James Clark <james.clark@arm.com>
-In-Reply-To: <c25f0d12-e820-58b0-b139-b2ca322b6b80@arm.com>
+ <20230329115329.2747724-10-james.clark@arm.com>
+From: Suzuki K Poulose <suzuki.poulose@arm.com>
+In-Reply-To: <20230329115329.2747724-10-james.clark@arm.com>
 Cc: Mathieu Poirier <mathieu.poirier@linaro.org>,
  Alexander Shishkin <alexander.shishkin@linux.intel.com>,
  linux-kernel@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Leo Yan <leo.yan@linaro.org>, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v3 07/13] coresight: Store pointers to
- connections rather than an array of them
+Subject: Re: [Linux-stm32] [PATCH v3 09/13] coresight: Store in-connections
+ as well as out-connections
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -48,255 +46,308 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-CgpPbiAwMy8wNC8yMDIzIDA5OjQ2LCBTdXp1a2kgSyBQb3Vsb3NlIHdyb3RlOgo+IE9uIDI5LzAz
-LzIwMjMgMTI6NTMsIEphbWVzIENsYXJrIHdyb3RlOgo+PiBUaGlzIHdpbGwgYWxsb3cgdGhlIHNh
-bWUgY29ubmVjdGlvbiBvYmplY3QgdG8gYmUgcmVmZXJlbmNlZCB2aWEgdGhlCj4+IGlucHV0IGNv
-bm5lY3Rpb24gbGlzdCBpbiBhIGxhdGVyIGNvbW1pdCByYXRoZXIgdGhhbiBkdXBsaWNhdGluZyB0
-aGVtLgo+Pgo+PiBTaWduZWQtb2ZmLWJ5OiBKYW1lcyBDbGFyayA8amFtZXMuY2xhcmtAYXJtLmNv
-bT4KPj4gLS0tCj4+IMKgIGRyaXZlcnMvaHd0cmFjaW5nL2NvcmVzaWdodC9jb3Jlc2lnaHQtY29y
-ZS5jwqAgfCA0NSArKysrKysrKysrLS0tLS0tLS0tCj4+IMKgIC4uLi9od3RyYWNpbmcvY29yZXNp
-Z2h0L2NvcmVzaWdodC1wbGF0Zm9ybS5jwqAgfMKgIDggKystLQo+PiDCoCBkcml2ZXJzL2h3dHJh
-Y2luZy9jb3Jlc2lnaHQvY29yZXNpZ2h0LXByaXYuaMKgIHzCoCAxICsKPj4gwqAgLi4uL2h3dHJh
-Y2luZy9jb3Jlc2lnaHQvY29yZXNpZ2h0LXRtYy1ldHIuY8KgwqAgfMKgIDIgKy0KPj4gwqAgaW5j
-bHVkZS9saW51eC9jb3Jlc2lnaHQuaMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqAgfMKgIDIgKy0KPj4gwqAgNSBmaWxlcyBjaGFuZ2VkLCAzMSBpbnNlcnRpb25zKCspLCAy
-NyBkZWxldGlvbnMoLSkKPj4KPj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvaHd0cmFjaW5nL2NvcmVz
-aWdodC9jb3Jlc2lnaHQtY29yZS5jCj4+IGIvZHJpdmVycy9od3RyYWNpbmcvY29yZXNpZ2h0L2Nv
-cmVzaWdodC1jb3JlLmMKPj4gaW5kZXggMTJjYmI2OGU4ZTFjLi4zODlmNjIwM2M4ZjAgMTAwNjQ0
-Cj4+IC0tLSBhL2RyaXZlcnMvaHd0cmFjaW5nL2NvcmVzaWdodC9jb3Jlc2lnaHQtY29yZS5jCj4+
-ICsrKyBiL2RyaXZlcnMvaHd0cmFjaW5nL2NvcmVzaWdodC9jb3Jlc2lnaHQtY29yZS5jCj4+IEBA
-IC0xMTksNyArMTE5LDcgQEAgc3RhdGljIGludCBjb3Jlc2lnaHRfZmluZF9saW5rX2lucG9ydChz
-dHJ1Y3QKPj4gY29yZXNpZ2h0X2RldmljZSAqY3NkZXYsCj4+IMKgwqDCoMKgwqAgc3RydWN0IGNv
-cmVzaWdodF9jb25uZWN0aW9uICpjb25uOwo+PiDCoCDCoMKgwqDCoMKgIGZvciAoaSA9IDA7IGkg
-PCBwYXJlbnQtPnBkYXRhLT5ucl9vdXRjb25uczsgaSsrKSB7Cj4+IC3CoMKgwqDCoMKgwqDCoCBj
-b25uID0gJnBhcmVudC0+cGRhdGEtPm91dF9jb25uc1tpXTsKPj4gK8KgwqDCoMKgwqDCoMKgIGNv
-bm4gPSBwYXJlbnQtPnBkYXRhLT5vdXRfY29ubnNbaV07Cj4+IMKgwqDCoMKgwqDCoMKgwqDCoCBp
-ZiAoY29ubi0+ZGVzdF9kZXYgPT0gY3NkZXYpCj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-IHJldHVybiBjb25uLT5kZXN0X3BvcnQ7Cj4+IMKgwqDCoMKgwqAgfQo+PiBAQCAtMTM3LDcgKzEz
-Nyw3IEBAIHN0YXRpYyBpbnQgY29yZXNpZ2h0X2ZpbmRfbGlua19vdXRwb3J0KHN0cnVjdAo+PiBj
-b3Jlc2lnaHRfZGV2aWNlICpjc2RldiwKPj4gwqDCoMKgwqDCoCBzdHJ1Y3QgY29yZXNpZ2h0X2Nv
-bm5lY3Rpb24gKmNvbm47Cj4+IMKgIMKgwqDCoMKgwqAgZm9yIChpID0gMDsgaSA8IGNzZGV2LT5w
-ZGF0YS0+bnJfb3V0Y29ubnM7IGkrKykgewo+PiAtwqDCoMKgwqDCoMKgwqAgY29ubiA9ICZjc2Rl
-di0+cGRhdGEtPm91dF9jb25uc1tpXTsKPj4gK8KgwqDCoMKgwqDCoMKgIGNvbm4gPSBjc2Rldi0+
-cGRhdGEtPm91dF9jb25uc1tpXTsKPj4gwqDCoMKgwqDCoMKgwqDCoMKgIGlmIChjb25uLT5kZXN0
-X2RldiA9PSBjaGlsZCkKPj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgcmV0dXJuIGNvbm4t
-PnNyY19wb3J0Owo+PiDCoMKgwqDCoMKgIH0KPj4gQEAgLTYwNiw3ICs2MDYsNyBAQCBjb3Jlc2ln
-aHRfZmluZF9lbmFibGVkX3Npbmsoc3RydWN0Cj4+IGNvcmVzaWdodF9kZXZpY2UgKmNzZGV2KQo+
-PiDCoMKgwqDCoMKgIGZvciAoaSA9IDA7IGkgPCBjc2Rldi0+cGRhdGEtPm5yX291dGNvbm5zOyBp
-KyspIHsKPj4gwqDCoMKgwqDCoMKgwqDCoMKgIHN0cnVjdCBjb3Jlc2lnaHRfZGV2aWNlICpjaGls
-ZF9kZXY7Cj4+IMKgIC3CoMKgwqDCoMKgwqDCoCBjaGlsZF9kZXYgPSBjc2Rldi0+cGRhdGEtPm91
-dF9jb25uc1tpXS5kZXN0X2RldjsKPj4gK8KgwqDCoMKgwqDCoMKgIGNoaWxkX2RldiA9IGNzZGV2
-LT5wZGF0YS0+b3V0X2Nvbm5zW2ldLT5kZXN0X2RldjsKPj4gwqDCoMKgwqDCoMKgwqDCoMKgIGlm
-IChjaGlsZF9kZXYpCj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHNpbmsgPSBjb3Jlc2ln
-aHRfZmluZF9lbmFibGVkX3NpbmsoY2hpbGRfZGV2KTsKPj4gwqDCoMKgwqDCoMKgwqDCoMKgIGlm
-IChzaW5rKQo+PiBAQCAtNzIyLDcgKzcyMiw3IEBAIHN0YXRpYyBpbnQgY29yZXNpZ2h0X2dyYWJf
-ZGV2aWNlKHN0cnVjdAo+PiBjb3Jlc2lnaHRfZGV2aWNlICpjc2RldikKPj4gwqDCoMKgwqDCoCBm
-b3IgKGkgPSAwOyBpIDwgY3NkZXYtPnBkYXRhLT5ucl9vdXRjb25uczsgaSsrKSB7Cj4+IMKgwqDC
-oMKgwqDCoMKgwqDCoCBzdHJ1Y3QgY29yZXNpZ2h0X2RldmljZSAqY2hpbGQ7Cj4+IMKgIC3CoMKg
-wqDCoMKgwqDCoCBjaGlsZCA9IGNzZGV2LT5wZGF0YS0+b3V0X2Nvbm5zW2ldLmRlc3RfZGV2Owo+
-PiArwqDCoMKgwqDCoMKgwqAgY2hpbGQgPSBjc2Rldi0+cGRhdGEtPm91dF9jb25uc1tpXS0+ZGVz
-dF9kZXY7Cj4+IMKgwqDCoMKgwqDCoMKgwqDCoCBpZiAoY2hpbGQgJiYgY2hpbGQtPnR5cGUgPT0g
-Q09SRVNJR0hUX0RFVl9UWVBFX0hFTFBFUikKPj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAg
-aWYgKCFjb3Jlc2lnaHRfZ2V0X3JlZihjaGlsZCkpCj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqAgZ290byBlcnI7Cj4+IEBAIC03MzMsNyArNzMzLDcgQEAgc3RhdGljIGludCBj
-b3Jlc2lnaHRfZ3JhYl9kZXZpY2Uoc3RydWN0Cj4+IGNvcmVzaWdodF9kZXZpY2UgKmNzZGV2KQo+
-PiDCoMKgwqDCoMKgIGZvciAoaS0tOyBpID49IDA7IGktLSkgewo+PiDCoMKgwqDCoMKgwqDCoMKg
-wqAgc3RydWN0IGNvcmVzaWdodF9kZXZpY2UgKmNoaWxkOwo+PiDCoCAtwqDCoMKgwqDCoMKgwqAg
-Y2hpbGQgPSBjc2Rldi0+cGRhdGEtPm91dF9jb25uc1tpXS5kZXN0X2RldjsKPj4gK8KgwqDCoMKg
-wqDCoMKgIGNoaWxkID0gY3NkZXYtPnBkYXRhLT5vdXRfY29ubnNbaV0tPmRlc3RfZGV2Owo+PiDC
-oMKgwqDCoMKgwqDCoMKgwqAgaWYgKGNoaWxkICYmIGNoaWxkLT50eXBlID09IENPUkVTSUdIVF9E
-RVZfVFlQRV9IRUxQRVIpCj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGNvcmVzaWdodF9w
-dXRfcmVmKGNoaWxkKTsKPj4gwqDCoMKgwqDCoCB9Cj4+IEBAIC03NTIsNyArNzUyLDcgQEAgc3Rh
-dGljIHZvaWQgY29yZXNpZ2h0X2Ryb3BfZGV2aWNlKHN0cnVjdAo+PiBjb3Jlc2lnaHRfZGV2aWNl
-ICpjc2RldikKPj4gwqDCoMKgwqDCoCBmb3IgKGkgPSAwOyBpIDwgY3NkZXYtPnBkYXRhLT5ucl9v
-dXRjb25uczsgaSsrKSB7Cj4+IMKgwqDCoMKgwqDCoMKgwqDCoCBzdHJ1Y3QgY29yZXNpZ2h0X2Rl
-dmljZSAqY2hpbGQ7Cj4+IMKgIC3CoMKgwqDCoMKgwqDCoCBjaGlsZCA9IGNzZGV2LT5wZGF0YS0+
-b3V0X2Nvbm5zW2ldLmRlc3RfZGV2Owo+PiArwqDCoMKgwqDCoMKgwqAgY2hpbGQgPSBjc2Rldi0+
-cGRhdGEtPm91dF9jb25uc1tpXS0+ZGVzdF9kZXY7Cj4+IMKgwqDCoMKgwqDCoMKgwqDCoCBpZiAo
-Y2hpbGQgJiYgY2hpbGQtPnR5cGUgPT0gQ09SRVNJR0hUX0RFVl9UWVBFX0hFTFBFUikKPj4gwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgY29yZXNpZ2h0X3B1dF9yZWYoY2hpbGQpOwo+PiDCoMKg
-wqDCoMKgIH0KPj4gQEAgLTc5NCw3ICs3OTQsNyBAQCBzdGF0aWMgaW50IF9jb3Jlc2lnaHRfYnVp
-bGRfcGF0aChzdHJ1Y3QKPj4gY29yZXNpZ2h0X2RldmljZSAqY3NkZXYsCj4+IMKgwqDCoMKgwqAg
-Zm9yIChpID0gMDsgaSA8IGNzZGV2LT5wZGF0YS0+bnJfb3V0Y29ubnM7IGkrKykgewo+PiDCoMKg
-wqDCoMKgwqDCoMKgwqAgc3RydWN0IGNvcmVzaWdodF9kZXZpY2UgKmNoaWxkX2RldjsKPj4gwqAg
-LcKgwqDCoMKgwqDCoMKgIGNoaWxkX2RldiA9IGNzZGV2LT5wZGF0YS0+b3V0X2Nvbm5zW2ldLmRl
-c3RfZGV2Owo+PiArwqDCoMKgwqDCoMKgwqAgY2hpbGRfZGV2ID0gY3NkZXYtPnBkYXRhLT5vdXRf
-Y29ubnNbaV0tPmRlc3RfZGV2Owo+PiDCoMKgwqDCoMKgwqDCoMKgwqAgaWYgKGNoaWxkX2RldiAm
-Jgo+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBfY29yZXNpZ2h0X2J1aWxkX3BhdGgoY2hp
-bGRfZGV2LCBzaW5rLCBwYXRoKSA9PSAwKSB7Cj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-IGZvdW5kID0gdHJ1ZTsKPj4gQEAgLTk2NCw3ICs5NjQsNyBAQCBjb3Jlc2lnaHRfZmluZF9zaW5r
-KHN0cnVjdCBjb3Jlc2lnaHRfZGV2aWNlCj4+ICpjc2RldiwgaW50ICpkZXB0aCkKPj4gwqDCoMKg
-wqDCoMKgwqDCoMKgIHN0cnVjdCBjb3Jlc2lnaHRfZGV2aWNlICpjaGlsZF9kZXYsICpzaW5rID0g
-TlVMTDsKPj4gwqDCoMKgwqDCoMKgwqDCoMKgIGludCBjaGlsZF9kZXB0aCA9IGN1cnJfZGVwdGg7
-Cj4+IMKgIC3CoMKgwqDCoMKgwqDCoCBjaGlsZF9kZXYgPSBjc2Rldi0+cGRhdGEtPm91dF9jb25u
-c1tpXS5kZXN0X2RldjsKPj4gK8KgwqDCoMKgwqDCoMKgIGNoaWxkX2RldiA9IGNzZGV2LT5wZGF0
-YS0+b3V0X2Nvbm5zW2ldLT5kZXN0X2RldjsKPj4gwqDCoMKgwqDCoMKgwqDCoMKgIGlmIChjaGls
-ZF9kZXYpCj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHNpbmsgPSBjb3Jlc2lnaHRfZmlu
-ZF9zaW5rKGNoaWxkX2RldiwgJmNoaWxkX2RlcHRoKTsKPj4gwqAgQEAgLTEzMzQsNyArMTMzNCw3
-IEBAIHN0YXRpYyBpbnQgY29yZXNpZ2h0X29ycGhhbl9tYXRjaChzdHJ1Y3QKPj4gZGV2aWNlICpk
-ZXYsIHZvaWQgKmRhdGEpCj4+IMKgwqDCoMKgwqDCoCAqIGFuIG9ycGhhbiBjb25uZWN0aW9uIHdo
-b3NlIG5hbWUgbWF0Y2hlcyBAY3NkZXYsIGxpbmsgaXQuCj4+IMKgwqDCoMKgwqDCoCAqLwo+PiDC
-oMKgwqDCoMKgIGZvciAoaSA9IDA7IGkgPCBpX2NzZGV2LT5wZGF0YS0+bnJfb3V0Y29ubnM7IGkr
-Kykgewo+PiAtwqDCoMKgwqDCoMKgwqAgY29ubiA9ICZpX2NzZGV2LT5wZGF0YS0+b3V0X2Nvbm5z
-W2ldOwo+PiArwqDCoMKgwqDCoMKgwqAgY29ubiA9IGlfY3NkZXYtPnBkYXRhLT5vdXRfY29ubnNb
-aV07Cj4+IMKgIMKgwqDCoMKgwqDCoMKgwqDCoCAvKiBXZSBoYXZlIGZvdW5kIGF0IGxlYXN0IG9u
-ZSBvcnBoYW4gY29ubmVjdGlvbiAqLwo+PiDCoMKgwqDCoMKgwqDCoMKgwqAgaWYgKGNvbm4tPmRl
-c3RfZGV2ID09IE5VTEwpIHsKPj4gQEAgLTEzNzIsNyArMTM3Miw3IEBAIHN0YXRpYyBpbnQgY29y
-ZXNpZ2h0X2ZpeHVwX2RldmljZV9jb25ucyhzdHJ1Y3QKPj4gY29yZXNpZ2h0X2RldmljZSAqY3Nk
-ZXYpCj4+IMKgwqDCoMKgwqAgaW50IGksIHJldCA9IDA7Cj4+IMKgIMKgwqDCoMKgwqAgZm9yIChp
-ID0gMDsgaSA8IGNzZGV2LT5wZGF0YS0+bnJfb3V0Y29ubnM7IGkrKykgewo+PiAtwqDCoMKgwqDC
-oMKgwqAgc3RydWN0IGNvcmVzaWdodF9jb25uZWN0aW9uICpjb25uID0gJmNzZGV2LT5wZGF0YS0+
-b3V0X2Nvbm5zW2ldOwo+PiArwqDCoMKgwqDCoMKgwqAgc3RydWN0IGNvcmVzaWdodF9jb25uZWN0
-aW9uICpjb25uID0gY3NkZXYtPnBkYXRhLT5vdXRfY29ubnNbaV07Cj4+IMKgIMKgwqDCoMKgwqDC
-oMKgwqDCoCBjb25uLT5kZXN0X2RldiA9Cj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGNv
-cmVzaWdodF9maW5kX2NzZGV2X2J5X2Z3bm9kZShjb25uLT5kZXN0X2Z3bm9kZSk7Cj4+IEBAIC0x
-NDA2LDE1ICsxNDA2LDEyIEBAIHN0YXRpYyBpbnQgY29yZXNpZ2h0X3JlbW92ZV9tYXRjaChzdHJ1
-Y3QKPj4gZGV2aWNlICpkZXYsIHZvaWQgKmRhdGEpCj4+IMKgwqDCoMKgwqDCoCAqIGEgY29ubmVj
-dGlvbiB3aG9zZSBuYW1lIG1hdGNoZXMgQGNzZGV2LCByZW1vdmUgaXQuCj4+IMKgwqDCoMKgwqDC
-oCAqLwo+PiDCoMKgwqDCoMKgIGZvciAoaSA9IDA7IGkgPCBpdGVyYXRvci0+cGRhdGEtPm5yX291
-dGNvbm5zOyBpKyspIHsKPj4gLcKgwqDCoMKgwqDCoMKgIGNvbm4gPSAmaXRlcmF0b3ItPnBkYXRh
-LT5vdXRfY29ubnNbaV07Cj4+ICvCoMKgwqDCoMKgwqDCoCBjb25uID0gaXRlcmF0b3ItPnBkYXRh
-LT5vdXRfY29ubnNbaV07Cj4+IMKgIC3CoMKgwqDCoMKgwqDCoCBpZiAoY29ubi0+ZGVzdF9kZXYg
-PT0gTlVMTCkKPj4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgY29udGludWU7Cj4+IC0KPj4gLcKg
-wqDCoMKgwqDCoMKgIGlmIChjc2Rldi0+ZGV2LmZ3bm9kZSA9PSBjb25uLT5kZXN0X2Z3bm9kZSkg
-ewo+PiArwqDCoMKgwqDCoMKgwqAgLyogQ2hpbGRfZGV2IGJlaW5nIHNldCBzaWduaWZpZXMgdGhh
-dCB0aGUgbGlua3Mgd2VyZSBtYWRlICovCj4+ICvCoMKgwqDCoMKgwqDCoCBpZiAoY3NkZXYtPmRl
-di5md25vZGUgPT0gY29ubi0+ZGVzdF9md25vZGUgJiYgY29ubi0+ZGVzdF9kZXYpIHsKPj4gwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgaXRlcmF0b3ItPm9ycGhhbiA9IHRydWU7Cj4+IMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgIGNvcmVzaWdodF9yZW1vdmVfbGlua3MoaXRlcmF0b3IsIGNv
-bm4pOwo+PiAtCj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGNvbm4tPmRlc3RfZGV2ID0g
-TlVMTDsKPj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgLyogTm8gbmVlZCB0byBjb250aW51
-ZSAqLwo+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBicmVhazsKPj4gQEAgLTE1MzQsMjEg
-KzE1MzEsMjUgQEAgdm9pZCBjb3Jlc2lnaHRfd3JpdGU2NChzdHJ1Y3QgY29yZXNpZ2h0X2Rldmlj
-ZQo+PiAqY3NkZXYsIHU2NCB2YWwsIHUzMiBvZmZzZXQpCj4+IMKgwqAgKiB0byB0aGUgb3V0cHV0
-IHBvcnQgb2YgdGhpcyBkZXZpY2UuCj4+IMKgwqAgKi8KPj4gwqAgdm9pZCBjb3Jlc2lnaHRfcmVs
-ZWFzZV9wbGF0Zm9ybV9kYXRhKHN0cnVjdCBjb3Jlc2lnaHRfZGV2aWNlICpjc2RldiwKPj4gK8Kg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgc3RydWN0IGRldmljZSAqZGV2
-LAo+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBzdHJ1Y3Qg
-Y29yZXNpZ2h0X3BsYXRmb3JtX2RhdGEgKnBkYXRhKQo+PiDCoCB7Cj4+IMKgwqDCoMKgwqAgaW50
-IGk7Cj4+IC3CoMKgwqAgc3RydWN0IGNvcmVzaWdodF9jb25uZWN0aW9uICpjb25ucyA9IHBkYXRh
-LT5vdXRfY29ubnM7Cj4+ICvCoMKgwqAgc3RydWN0IGNvcmVzaWdodF9jb25uZWN0aW9uICoqY29u
-bnMgPSBwZGF0YS0+b3V0X2Nvbm5zOwo+PiDCoCDCoMKgwqDCoMKgIGZvciAoaSA9IDA7IGkgPCBw
-ZGF0YS0+bnJfb3V0Y29ubnM7IGkrKykgewo+PiDCoMKgwqDCoMKgwqDCoMKgwqAgLyogSWYgd2Ug
-aGF2ZSBtYWRlIHRoZSBsaW5rcywgcmVtb3ZlIHRoZW0gbm93ICovCj4+IC3CoMKgwqDCoMKgwqDC
-oCBpZiAoY3NkZXYgJiYgY29ubnNbaV0uZGVzdF9kZXYpCj4+IC3CoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgIGNvcmVzaWdodF9yZW1vdmVfbGlua3MoY3NkZXYsICZjb25uc1tpXSk7Cj4+ICvCoMKgwqDC
-oMKgwqDCoCBpZiAoY3NkZXYgJiYgY29ubnNbaV0tPmRlc3RfZGV2KQo+PiArwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoCBjb3Jlc2lnaHRfcmVtb3ZlX2xpbmtzKGNzZGV2LCBjb25uc1tpXSk7Cj4+IMKg
-wqDCoMKgwqDCoMKgwqDCoCAvKgo+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoCAqIERyb3AgdGhlIHJl
-ZmNvdW50IGFuZCBjbGVhciB0aGUgaGFuZGxlIGFzIHRoaXMgZGV2aWNlCj4+IMKgwqDCoMKgwqDC
-oMKgwqDCoMKgICogaXMgZ29pbmcgYXdheQo+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoCAqLwo+PiAt
-wqDCoMKgwqDCoMKgwqAgZndub2RlX2hhbmRsZV9wdXQoY29ubnNbaV0uZGVzdF9md25vZGUpOwo+
-PiArwqDCoMKgwqDCoMKgwqAgZndub2RlX2hhbmRsZV9wdXQoY29ubnNbaV0tPmRlc3RfZndub2Rl
-KTsKPj4gK8KgwqDCoMKgwqDCoMKgIGRldm1fa2ZyZWUoZGV2LCBjb25uc1tpXSk7Cj4+IMKgwqDC
-oMKgwqAgfQo+PiArwqDCoMKgIGRldm1fa2ZyZWUoZGV2LCBwZGF0YS0+b3V0X2Nvbm5zKTsKPj4g
-K8KgwqDCoCBkZXZtX2tmcmVlKGRldiwgcGRhdGEpOwo+IAo+IElzIHRoZXJlIGFueSBwYXJ0aWN1
-bGFyIHJlYXNvbiwgd2h5IHdlIG5lZWQgdG8gZG8gdGhpcyA/IFRoaXMgc2hvdWxkCj4gYmUgZG9u
-ZSBhdXRvbWF0aWNhbGx5IGF0IGRldmljZSB0ZWFyZG93biwgd2hpY2ggaXMgYm91bmQgdG8gaGFw
-cGVuCj4gcmlnaHQgYWZ0ZXIgdGhpcyBjYWxsID8KPiAKCkkgdGhpbmsgdGhleSdyZSBub3QgYWN0
-dWFsbHkgZnJlZWQgYmVjYXVzZSBjb25uZWN0aW9ucyBhcmUgYWRkZWQgYmVmb3JlCnRoZSBjb3Jl
-c2lnaHQgZGV2aWNlIGlzIGNyZWF0ZWQgdXNpbmcgdGhlICdwYXJlbnQnIG9mIHRoZSBkZXZpY2Ug
-d2hpY2gKbmV2ZXIgZ29lcyBhd2F5OgoKICBzdHJ1Y3QgY29yZXNpZ2h0X2RldmljZSAqY29yZXNp
-Z2h0X3JlZ2lzdGVyKHN0cnVjdCBjb3Jlc2lnaHRfZGVzYyAqZGVzYykgewogICAgLi4uCiAgICBj
-c2Rldi0+ZGV2LnBhcmVudCA9IGRlc2MtPmRldjsKCkFub3RoZXIgcmVhc29uIGlzIHRoYXQncyBp
-cyBhIGdvb2Qgd2F5IHRvIGNhdGNoIGVycm9ycy4gVGhlcmUgYXJlIHNvCm1hbnkgZGlmZmVyZW50
-IGRldmljZXMgZmxvYXRpbmcgYXJvdW5kIHRoYXQgd2l0aG91dCBhbiBleHBsaWNpdCBmcmVlLApp
-dCdzIHZlcnkgZWFzeSB0byBwYXNzIHRoZSB3cm9uZyBvbmUgYW5kIGJlIGluY29uc2lzdGVudC4g
-V2l0aCB0aGUgZnJlZQppdCBnaXZlcyB5b3UgYSB3YXJuaW5nIGlmIGl0J3MgbWlzbWF0Y2hlZC4K
-CkJ1dCBlaXRoZXIgd2F5LCBub3cgdGhhdCB3ZSBrbm93IHRoYXQgdGhleSdyZSBub3QgZnJlZWQg
-bWF5YmUgd2Ugc2hvdWxkCmZpeCB0aGF0IGlzbnRlYWQ/IEFsdGhvdWdoIGFwYXJ0IGZyb20gZG9p
-bmcgYSBmdWxsIGNvcHkgb2YgcGRhdGEgaW50bwp0aGUgY29yZXNpZ2h0IGRldmljZSBJJ20gbm90
-IHN1cmUgaG93IGl0IGNhbiBiZSBkb25lLiBUaGVuIEkgc3VwcG9zZSB3ZQpjb3VsZCByZW1vdmUg
-dGhlc2UgZnJlZXMsIGFsdGhvdWdoIEkgc3RpbGwgdGhpbmsgdGhlIGVycm9yIGNhdGNoaW5nIGlz
-Cmdvb2QuIEl0J3MgYWxzbyBub3Qgc3RyaWN0bHkgcmVsYXRlZCB0byB0aGlzIGZpeCBzbyBtYXli
-ZSBpdCBjYW4gYmUgYQpzZWNvbmQgZml4LgoKPiAKPj4gwqDCoMKgwqDCoCBpZiAoY3NkZXYpCj4+
-IMKgwqDCoMKgwqDCoMKgwqDCoCBjb3Jlc2lnaHRfcmVtb3ZlX2Nvbm5zX3N5c2ZzX2dyb3VwKGNz
-ZGV2KTsKPj4gwqAgfQo+PiBAQCAtMTY2NSw3ICsxNjY2LDcgQEAgc3RydWN0IGNvcmVzaWdodF9k
-ZXZpY2UKPj4gKmNvcmVzaWdodF9yZWdpc3RlcihzdHJ1Y3QgY29yZXNpZ2h0X2Rlc2MgKmRlc2Mp
-Cj4+IMKgIMKgIGVycl9vdXQ6Cj4+IMKgwqDCoMKgwqAgLyogQ2xlYW51cCB0aGUgY29ubmVjdGlv
-biBpbmZvcm1hdGlvbiAqLwo+PiAtwqDCoMKgIGNvcmVzaWdodF9yZWxlYXNlX3BsYXRmb3JtX2Rh
-dGEoTlVMTCwgZGVzYy0+cGRhdGEpOwo+PiArwqDCoMKgIGNvcmVzaWdodF9yZWxlYXNlX3BsYXRm
-b3JtX2RhdGEoTlVMTCwgZGVzYy0+ZGV2LCBkZXNjLT5wZGF0YSk7Cj4+IMKgwqDCoMKgwqAgcmV0
-dXJuIEVSUl9QVFIocmV0KTsKPj4gwqAgfQo+PiDCoCBFWFBPUlRfU1lNQk9MX0dQTChjb3Jlc2ln
-aHRfcmVnaXN0ZXIpOwo+PiBAQCAtMTY3OCw3ICsxNjc5LDcgQEAgdm9pZCBjb3Jlc2lnaHRfdW5y
-ZWdpc3RlcihzdHJ1Y3QKPj4gY29yZXNpZ2h0X2RldmljZSAqY3NkZXYpCj4+IMKgwqDCoMKgwqDC
-oMKgwqDCoCBjdGlfYXNzb2Nfb3BzLT5yZW1vdmUoY3NkZXYpOwo+PiDCoMKgwqDCoMKgIGNvcmVz
-aWdodF9yZW1vdmVfY29ubnMoY3NkZXYpOwo+PiDCoMKgwqDCoMKgIGNvcmVzaWdodF9jbGVhcl9k
-ZWZhdWx0X3NpbmsoY3NkZXYpOwo+PiAtwqDCoMKgIGNvcmVzaWdodF9yZWxlYXNlX3BsYXRmb3Jt
-X2RhdGEoY3NkZXYsIGNzZGV2LT5wZGF0YSk7Cj4+ICvCoMKgwqAgY29yZXNpZ2h0X3JlbGVhc2Vf
-cGxhdGZvcm1fZGF0YShjc2RldiwgY3NkZXYtPmRldi5wYXJlbnQsCj4+IGNzZGV2LT5wZGF0YSk7
-Cj4+IMKgwqDCoMKgwqAgZGV2aWNlX3VucmVnaXN0ZXIoJmNzZGV2LT5kZXYpOwo+PiDCoCB9Cj4+
-IMKgIEVYUE9SVF9TWU1CT0xfR1BMKGNvcmVzaWdodF91bnJlZ2lzdGVyKTsKPj4gZGlmZiAtLWdp
-dCBhL2RyaXZlcnMvaHd0cmFjaW5nL2NvcmVzaWdodC9jb3Jlc2lnaHQtcGxhdGZvcm0uYwo+PiBi
-L2RyaXZlcnMvaHd0cmFjaW5nL2NvcmVzaWdodC9jb3Jlc2lnaHQtcGxhdGZvcm0uYwo+PiBpbmRl
-eCA4MGVkMmU3NDYyMGIuLmJlYThmMWJhMzA5YSAxMDA2NDQKPj4gLS0tIGEvZHJpdmVycy9od3Ry
-YWNpbmcvY29yZXNpZ2h0L2NvcmVzaWdodC1wbGF0Zm9ybS5jCj4+ICsrKyBiL2RyaXZlcnMvaHd0
-cmFjaW5nL2NvcmVzaWdodC9jb3Jlc2lnaHQtcGxhdGZvcm0uYwo+PiBAQCAtMzYsNyArMzYsNyBA
-QCBpbnQgY29yZXNpZ2h0X2FkZF9vdXRfY29ubihzdHJ1Y3QgZGV2aWNlICpkZXYsCj4+IMKgwqDC
-oMKgwqDCoCAqIFdhcm4gb24gYW55IGV4aXN0aW5nIGR1cGxpY2F0ZSBvdXRwdXQgcG9ydC4KPj4g
-wqDCoMKgwqDCoMKgICovCj4+IMKgwqDCoMKgwqAgZm9yIChpID0gMDsgaSA8IHBkYXRhLT5ucl9v
-dXRjb25uczsgKytpKSB7Cj4+IC3CoMKgwqDCoMKgwqDCoCBjb25uID0gJnBkYXRhLT5vdXRfY29u
-bnNbaV07Cj4+ICvCoMKgwqDCoMKgwqDCoCBjb25uID0gcGRhdGEtPm91dF9jb25uc1tpXTsKPj4g
-wqDCoMKgwqDCoMKgwqDCoMKgIC8qIE91dHB1dCA9PSAtMSBtZWFucyBpZ25vcmUgdGhlIHBvcnQg
-Zm9yIGV4YW1wbGUgZm9yCj4+IGhlbHBlcnMgKi8KPj4gwqDCoMKgwqDCoMKgwqDCoMKgIGlmIChj
-b25uLT5zcmNfcG9ydCAhPSAtMSAmJgo+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBjb25u
-LT5zcmNfcG9ydCA9PSBuZXdfY29ubi0+c3JjX3BvcnQpIHsKPj4gQEAgLTUzLDcgKzUzLDkgQEAg
-aW50IGNvcmVzaWdodF9hZGRfb3V0X2Nvbm4oc3RydWN0IGRldmljZSAqZGV2LAo+PiDCoMKgwqDC
-oMKgIGlmICghcGRhdGEtPm91dF9jb25ucykKPj4gwqDCoMKgwqDCoMKgwqDCoMKgIHJldHVybiAt
-RU5PTUVNOwo+PiDCoCAtwqDCoMKgIHBkYXRhLT5vdXRfY29ubnNbcGRhdGEtPm5yX291dGNvbm5z
-IC0gMV0gPSAqbmV3X2Nvbm47Cj4+ICvCoMKgwqAgcGRhdGEtPm91dF9jb25uc1twZGF0YS0+bnJf
-b3V0Y29ubnMgLSAxXSA9IGRldm1fa21hbGxvYygKPj4gK8KgwqDCoMKgwqDCoMKgIGRldiwgc2l6
-ZW9mKHN0cnVjdCBjb3Jlc2lnaHRfY29ubmVjdGlvbiksIEdGUF9LRVJORUwpOwo+PiArwqDCoMKg
-ICpwZGF0YS0+b3V0X2Nvbm5zW3BkYXRhLT5ucl9vdXRjb25ucyAtIDFdID0gKm5ld19jb25uOwo+
-PiDCoMKgwqDCoMKgIHJldHVybiAwOwo+PiDCoCB9Cj4+IMKgIEVYUE9SVF9TWU1CT0xfR1BMKGNv
-cmVzaWdodF9hZGRfb3V0X2Nvbm4pOwo+PiBAQCAtODU5LDcgKzg2MSw3IEBAIGNvcmVzaWdodF9n
-ZXRfcGxhdGZvcm1fZGF0YShzdHJ1Y3QgZGV2aWNlICpkZXYpCj4+IMKgIGVycm9yOgo+PiDCoMKg
-wqDCoMKgIGlmICghSVNfRVJSX09SX05VTEwocGRhdGEpKQo+PiDCoMKgwqDCoMKgwqDCoMKgwqAg
-LyogQ2xlYW51cCB0aGUgY29ubmVjdGlvbiBpbmZvcm1hdGlvbiAqLwo+PiAtwqDCoMKgwqDCoMKg
-wqAgY29yZXNpZ2h0X3JlbGVhc2VfcGxhdGZvcm1fZGF0YShOVUxMLCBwZGF0YSk7Cj4+ICvCoMKg
-wqDCoMKgwqDCoCBjb3Jlc2lnaHRfcmVsZWFzZV9wbGF0Zm9ybV9kYXRhKE5VTEwsIGRldiwgcGRh
-dGEpOwo+PiDCoMKgwqDCoMKgIHJldHVybiBFUlJfUFRSKHJldCk7Cj4+IMKgIH0KPj4gwqAgRVhQ
-T1JUX1NZTUJPTF9HUEwoY29yZXNpZ2h0X2dldF9wbGF0Zm9ybV9kYXRhKTsKPj4gZGlmZiAtLWdp
-dCBhL2RyaXZlcnMvaHd0cmFjaW5nL2NvcmVzaWdodC9jb3Jlc2lnaHQtcHJpdi5oCj4+IGIvZHJp
-dmVycy9od3RyYWNpbmcvY29yZXNpZ2h0L2NvcmVzaWdodC1wcml2LmgKPj4gaW5kZXggNzg4ZmYx
-OWM2MGY2Li42NWFlNmQxNjFjNTcgMTAwNjQ0Cj4+IC0tLSBhL2RyaXZlcnMvaHd0cmFjaW5nL2Nv
-cmVzaWdodC9jb3Jlc2lnaHQtcHJpdi5oCj4+ICsrKyBiL2RyaXZlcnMvaHd0cmFjaW5nL2NvcmVz
-aWdodC9jb3Jlc2lnaHQtcHJpdi5oCj4+IEBAIC0yMDcsNiArMjA3LDcgQEAgc3RhdGljIGlubGlu
-ZSB2b2lkICpjb3Jlc2lnaHRfZ2V0X3VjaV9kYXRhKGNvbnN0Cj4+IHN0cnVjdCBhbWJhX2lkICpp
-ZCkKPj4gwqAgfQo+PiDCoCDCoCB2b2lkIGNvcmVzaWdodF9yZWxlYXNlX3BsYXRmb3JtX2RhdGEo
-c3RydWN0IGNvcmVzaWdodF9kZXZpY2UgKmNzZGV2LAo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoCBzdHJ1Y3QgZGV2aWNlICpkZXYsCj4+IMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHN0cnVjdCBjb3Jlc2lnaHRfcGxhdGZvcm1f
-ZGF0YSAqcGRhdGEpOwo+PiDCoCBzdHJ1Y3QgY29yZXNpZ2h0X2RldmljZSAqCj4+IMKgIGNvcmVz
-aWdodF9maW5kX2NzZGV2X2J5X2Z3bm9kZShzdHJ1Y3QgZndub2RlX2hhbmRsZSAqcl9md25vZGUp
-Owo+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9od3RyYWNpbmcvY29yZXNpZ2h0L2NvcmVzaWdodC10
-bWMtZXRyLmMKPj4gYi9kcml2ZXJzL2h3dHJhY2luZy9jb3Jlc2lnaHQvY29yZXNpZ2h0LXRtYy1l
-dHIuYwo+PiBpbmRleCA2MTIzNGNiODA1MmEuLjFiYmU1NDEwYTIzZCAxMDA2NDQKPj4gLS0tIGEv
-ZHJpdmVycy9od3RyYWNpbmcvY29yZXNpZ2h0L2NvcmVzaWdodC10bWMtZXRyLmMKPj4gKysrIGIv
-ZHJpdmVycy9od3RyYWNpbmcvY29yZXNpZ2h0L2NvcmVzaWdodC10bWMtZXRyLmMKPj4gQEAgLTc4
-Miw3ICs3ODIsNyBAQCB0bWNfZXRyX2dldF9jYXR1X2RldmljZShzdHJ1Y3QgdG1jX2RydmRhdGEg
-KmRydmRhdGEpCj4+IMKgwqDCoMKgwqDCoMKgwqDCoCByZXR1cm4gTlVMTDsKPj4gwqAgwqDCoMKg
-wqDCoCBmb3IgKGkgPSAwOyBpIDwgZXRyLT5wZGF0YS0+bnJfb3V0Y29ubnM7IGkrKykgewo+PiAt
-wqDCoMKgwqDCoMKgwqAgdG1wID0gZXRyLT5wZGF0YS0+b3V0X2Nvbm5zW2ldLmRlc3RfZGV2Owo+
-PiArwqDCoMKgwqDCoMKgwqAgdG1wID0gZXRyLT5wZGF0YS0+b3V0X2Nvbm5zW2ldLT5kZXN0X2Rl
-djsKPj4gwqDCoMKgwqDCoMKgwqDCoMKgIGlmICh0bXAgJiYgY29yZXNpZ2h0X2lzX2NhdHVfZGV2
-aWNlKHRtcCkpCj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHJldHVybiB0bXA7Cj4+IMKg
-wqDCoMKgwqAgfQo+PiBkaWZmIC0tZ2l0IGEvaW5jbHVkZS9saW51eC9jb3Jlc2lnaHQuaCBiL2lu
-Y2x1ZGUvbGludXgvY29yZXNpZ2h0LmgKPj4gaW5kZXggY2NiYzVlYWZjYjZiLi43MTk3YjA3ZGVl
-ZGUgMTAwNjQ0Cj4+IC0tLSBhL2luY2x1ZGUvbGludXgvY29yZXNpZ2h0LmgKPj4gKysrIGIvaW5j
-bHVkZS9saW51eC9jb3Jlc2lnaHQuaAo+PiBAQCAtMTExLDcgKzExMSw3IEBAIHN0cnVjdCBjb3Jl
-c2lnaHRfcGxhdGZvcm1fZGF0YSB7Cj4+IMKgwqDCoMKgwqAgaW50IGhpZ2hfb3V0cG9ydDsKPj4g
-wqDCoMKgwqDCoCBpbnQgbnJfaW5jb25uczsKPj4gwqDCoMKgwqDCoCBpbnQgbnJfb3V0Y29ubnM7
-Cj4+IC3CoMKgwqAgc3RydWN0IGNvcmVzaWdodF9jb25uZWN0aW9uICpvdXRfY29ubnM7Cj4+ICvC
-oMKgwqAgc3RydWN0IGNvcmVzaWdodF9jb25uZWN0aW9uICoqb3V0X2Nvbm5zOwo+IAo+IG1pbm9y
-IG5pdDogRG8gd2UgbmVlZCB0byB1cGRhdGUgdGhlIGNvbW1lbnQgdG9vID8KPiAKCldpbGwgZG8K
-Cj4gT3RoZXJ3aXNlIGxvb2tzIGdvb2QgdG8gbWUKPiBTdXp1a2kKPiAKPj4gwqAgfTsKPj4gwqAg
-wqAgLyoqCj4gCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-CkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3Jt
-cmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xp
-c3RpbmZvL2xpbnV4LXN0bTMyCg==
+On 29/03/2023 12:53, James Clark wrote:
+> This will allow CATU to get its associated ETR in a generic way where
+> currently the enable path has some hard coded searches which avoid
+> the need to store input connections.
+> 
+> This also means that the full search for connected devices on removal
+> can be replaced with a loop through only the input and output devices.
+> 
+> Signed-off-by: James Clark <james.clark@arm.com>
+> ---
+>   drivers/hwtracing/coresight/coresight-core.c  | 79 ++++++++-----------
+>   .../hwtracing/coresight/coresight-platform.c  | 31 +++++++-
+>   drivers/hwtracing/coresight/coresight-sysfs.c |  7 --
+>   include/linux/coresight.h                     | 26 ++++++
+>   4 files changed, 90 insertions(+), 53 deletions(-)
+> 
+> diff --git a/drivers/hwtracing/coresight/coresight-core.c b/drivers/hwtracing/coresight/coresight-core.c
+> index 2f4aa15ef8f9..be1e8be2459f 100644
+> --- a/drivers/hwtracing/coresight/coresight-core.c
+> +++ b/drivers/hwtracing/coresight/coresight-core.c
+> @@ -1349,6 +1349,16 @@ static int coresight_orphan_match(struct device *dev, void *data)
+>   			if (ret)
+>   				return ret;
+>   
+> +			/*
+> +			 * Install the device connection. This also indicates that
+> +			 * the links are operational on both ends.
+> +			 */
+> +			conn->dest_dev = csdev;
+> +			conn->src_dev = i_csdev;
+> +
+> +			ret = coresight_add_in_conn(conn);
+> +			if (ret)
+> +				return ret;
+
+Do we need to clean up this "conn" in case of an error here ?
+
+>   		} else {
+>   			/* This component still has an orphan */
+>   			still_orphan = true;
+> @@ -1370,58 +1380,36 @@ static int coresight_fixup_orphan_conns(struct coresight_device *csdev)
+>   			 csdev, coresight_orphan_match);
+>   }
+>   
+> -static int coresight_remove_match(struct device *dev, void *data)
+> +/* coresight_remove_conns - Remove other device's references to this device */
+> +static void coresight_remove_conns(struct coresight_device *csdev)
+>   {
+> -	int i;
+> -	struct coresight_device *csdev, *iterator;
+> +	int i, j;
+>   	struct coresight_connection *conn;
+>   
+> -	csdev = data;
+> -	iterator = to_coresight_device(dev);
+> -
+> -	/* No need to check oneself */
+> -	if (csdev == iterator)
+> -		return 0;
+> +	/* Remove input references on output devices */
+
+minor nit: The term "output devices" is a bit confusing.
+Could we simplify it as :
+
+	/*
+	 * Remove the input connection references from the
+	 * destination device for each output connection.
+	 */
+
+> +	for (i = 0; i < csdev->pdata->nr_outconns; i++) {
+> +		conn = csdev->pdata->out_conns[i];
+> +		if (!conn->dest_dev)
+> +			continue;
+>   
+> -	/*
+> -	 * Circle throuch all the connection of that component.  If we find
+> -	 * a connection whose name matches @csdev, remove it.
+> -	 */
+> -	for (i = 0; i < iterator->pdata->nr_outconns; i++) {
+> -		conn = iterator->pdata->out_conns[i];
+> -
+> -		/* Child_dev being set signifies that the links were made */
+> -		if (csdev->dev.fwnode == conn->dest_fwnode && conn->dest_dev) {
+> -			iterator->orphan = true;
+> -			coresight_remove_links(iterator, conn);
+> -			conn->dest_dev = NULL;
+> -			/* No need to continue */
+> -			break;
+> -		}
+> +		for (j = 0; j < conn->dest_dev->pdata->nr_inconns; ++j)
+> +			if (conn->dest_dev->pdata->in_conns[j] == conn) {
+> +				conn->dest_dev->pdata->in_conns[j] = NULL;
+> +				break;
+> +			}
+>   	}
+>   
+> -	/*
+> -	 * Returning '0' ensures that all known component on the
+> -	 * bus will be checked.
+> -	 */
+> -	return 0;
+> -}
+> +	/* Remove output connections on input devices */
+
+Similarly here :
+
+	/*
+	 * For all input connections, remove references in
+	 * the output connection.
+	 */
+> +	for (i = 0; i < csdev->pdata->nr_inconns; ++i) {
+> +		conn = csdev->pdata->in_conns[i];
+> +		/* Input conns array is sparse */
+> +		if (!conn)
+> +			continue;
+>   
+> -/*
+> - * coresight_remove_conns - Remove references to this given devices
+> - * from the connections of other devices.
+> - */
+> -static void coresight_remove_conns(struct coresight_device *csdev)
+> -{
+> -	/*
+> -	 * Another device will point to this device only if there is
+> -	 * an output port connected to this one. i.e, if the device
+> -	 * doesn't have at least one input port, there is no point
+> -	 * in searching all the devices.
+> -	 */
+> -	if (csdev->pdata->high_inport)
+> -		bus_for_each_dev(&coresight_bustype, NULL,
+> -				 csdev, coresight_remove_match);
+> +		conn->src_dev->orphan = true;
+> +		coresight_remove_links(conn->src_dev, conn);
+> +		conn->dest_dev = NULL;
+> +	}
+>   }
+>   
+>   /**
+> @@ -1531,6 +1519,7 @@ void coresight_release_platform_data(struct coresight_device *csdev,
+>   		devm_kfree(dev, conns[i]);
+>   	}
+>   	devm_kfree(dev, pdata->out_conns);
+> +	devm_kfree(dev, pdata->in_conns);
+
+As mentioned earlier, this is not required.
+
+>   	devm_kfree(dev, pdata);
+>   	if (csdev)
+>   		coresight_remove_conns_sysfs_group(csdev);
+> diff --git a/drivers/hwtracing/coresight/coresight-platform.c b/drivers/hwtracing/coresight/coresight-platform.c
+> index bea8f1ba309a..59583df2dc44 100644
+> --- a/drivers/hwtracing/coresight/coresight-platform.c
+> +++ b/drivers/hwtracing/coresight/coresight-platform.c
+> @@ -60,6 +60,35 @@ int coresight_add_out_conn(struct device *dev,
+>   }
+>   EXPORT_SYMBOL_GPL(coresight_add_out_conn);
+>   
+> +/*
+> + * Add an input connection reference to @out_conn in the target's in_conns array
+> + *
+> + * @out_conn: Existing output connection to store as an input on the
+> + *	      connection's remote device.
+> + */
+> +int coresight_add_in_conn(struct coresight_connection *out_conn)
+> +{
+> +	int i;
+> +	struct device *dev = out_conn->dest_dev->dev.parent;
+> +	struct coresight_platform_data *pdata = out_conn->dest_dev->pdata;
+> +
+> +	for (i = 0; i < pdata->nr_inconns; ++i)
+> +		if (!pdata->in_conns[i]) {
+> +			pdata->in_conns[i] = out_conn;
+> +			return 0;
+> +		}
+> +
+> +	pdata->nr_inconns++;
+> +	pdata->in_conns =
+> +		devm_krealloc_array(dev, pdata->in_conns, pdata->nr_inconns,
+> +				    sizeof(*pdata->in_conns), GFP_KERNEL);
+> +	if (!pdata->in_conns)
+> +		return -ENOMEM;
+> +	pdata->in_conns[pdata->nr_inconns - 1] = out_conn;
+> +	return 0;
+> +}
+> +EXPORT_SYMBOL_GPL(coresight_add_in_conn);
+> +
+>   static struct device *
+>   coresight_find_device_by_fwnode(struct fwnode_handle *fwnode)
+>   {
+> @@ -230,7 +259,7 @@ static int of_coresight_get_cpu(struct device *dev)
+>   
+>   /*
+>    * of_coresight_parse_endpoint : Parse the given output endpoint @ep
+> - * and fill the connection information in @conn
+> + * and fill the connection information in @in_conn and @out_conn
+
+We don't do anything about the in_conn here ? So this looks a bit
+odd.
+
+
+Rest looks good to me.
+
+Suzuki
+
+
+>    *
+>    * Parses the local port, remote device name and the remote port.
+>    *
+> diff --git a/drivers/hwtracing/coresight/coresight-sysfs.c b/drivers/hwtracing/coresight/coresight-sysfs.c
+> index a4a8e8e642e8..464ba5e1343b 100644
+> --- a/drivers/hwtracing/coresight/coresight-sysfs.c
+> +++ b/drivers/hwtracing/coresight/coresight-sysfs.c
+> @@ -173,12 +173,6 @@ int coresight_make_links(struct coresight_device *orig,
+>   			break;
+>   
+>   		conn->link = link;
+> -
+> -		/*
+> -		 * Install the device connection. This also indicates that
+> -		 * the links are operational on both ends.
+> -		 */
+> -		conn->dest_dev = target;
+>   		return 0;
+>   	} while (0);
+>   
+> @@ -202,5 +196,4 @@ void coresight_remove_links(struct coresight_device *orig,
+>   	devm_kfree(&orig->dev, conn->link->orig_name);
+>   	devm_kfree(&orig->dev, conn->link);
+>   	conn->link = NULL;
+> -	conn->dest_dev = NULL;
+>   }
+> diff --git a/include/linux/coresight.h b/include/linux/coresight.h
+> index 7197b07deede..aa36680fd264 100644
+> --- a/include/linux/coresight.h
+> +++ b/include/linux/coresight.h
+> @@ -105,6 +105,9 @@ union coresight_dev_subtype {
+>    * @nr_inconns: Number of elements for the input connections.
+>    * @nr_outconns: Number of elements for the output connections.
+>    * @out_conns:	Array of nr_outconns connections from this component.
+> + * @in_conns: Sparse array of in_conns. Sparse because the source
+> + *	      device owns the connection so when it's unloaded the
+> + *	      connection leaves an empty slot.
+>    */
+>   struct coresight_platform_data {
+>   	int high_inport;
+> @@ -112,6 +115,7 @@ struct coresight_platform_data {
+>   	int nr_inconns;
+>   	int nr_outconns;
+>   	struct coresight_connection **out_conns;
+> +	struct coresight_connection **in_conns;
+>   };
+>   
+>   /**
+> @@ -172,6 +176,26 @@ struct coresight_desc {
+>    * @dest_dev:	a @coresight_device representation of the component
+>   		connected to @src_port. NULL until the device is created
+>    * @link: Representation of the connection as a sysfs link.
+> + *
+> + * The full connection structure looks like this, where in_conns store
+> + * references to same connection as the source device's out_conns.
+> + *
+> + * +-----------------------------+   +-----------------------------+
+> + * |coresight_device             |   |coresight_connection         |
+> + * |-----------------------------|   |-----------------------------|
+> + * |                             |   |                             |
+> + * |                             |   |                  remote_dev*|<--
+> + * |pdata->out_conns[nr_outconns]|<->|src_dev*                     |   |
+> + * |                             |   |                             |   |
+> + * +-----------------------------+   +-----------------------------+   |
+> + *                                                                     |
+> + *                                   +-----------------------------+   |
+> + *                                   |coresight_device             |   |
+> + *                                   |------------------------------   |
+> + *                                   |                             |   |
+> + *                                   |  pdata->in_conns[nr_inconns]|<--
+> + *                                   |                             |
+> + *                                   +-----------------------------+
+>    */
+>   struct coresight_connection {
+>   	int src_port;
+> @@ -179,6 +203,7 @@ struct coresight_connection {
+>   	struct fwnode_handle *dest_fwnode;
+>   	struct coresight_device *dest_dev;
+>   	struct coresight_sysfs_link *link;
+> +	struct coresight_device *src_dev;
+>   };
+>   
+>   /**
+> @@ -614,5 +639,6 @@ struct coresight_platform_data *coresight_get_platform_data(struct device *dev);
+>   int coresight_add_out_conn(struct device *dev,
+>   			   struct coresight_platform_data *pdata,
+>   			   const struct coresight_connection *new_conn);
+> +int coresight_add_in_conn(struct coresight_connection *conn);
+>   
+>   #endif		/* _LINUX_COREISGHT_H */
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
