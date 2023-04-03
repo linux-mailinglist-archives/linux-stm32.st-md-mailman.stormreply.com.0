@@ -2,66 +2,47 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 02D996D4043
-	for <lists+linux-stm32@lfdr.de>; Mon,  3 Apr 2023 11:23:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5BE976D4094
+	for <lists+linux-stm32@lfdr.de>; Mon,  3 Apr 2023 11:28:28 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B083CC65E70;
-	Mon,  3 Apr 2023 09:23:26 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0A2D6C65E70;
+	Mon,  3 Apr 2023 09:28:28 +0000 (UTC)
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [85.220.165.71])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EA101C65E56
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 42765C65E56
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  3 Apr 2023 09:23:25 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 3338pK5d019557; Mon, 3 Apr 2023 11:23:18 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=YjNvltbkqwv0GajfCzB3caqZQqY82G0xYqYSg7vFACs=;
- b=RlIIgGiDacMsSyG2Gyy5QT6mHHaCKkUMyzJapbg641ACmQQQFDHc5ssGcxW1jM14dG0Q
- 4gMZ5C2mDaXBW1KGS5Lz68NG17bgrjRag0nxFOHcIlotw4z9YO+vr+eadH5rbL5y7g+k
- wXKMGC+OHqr0WH36sRXgOvrbfftQKre4bcr5+LAtDbQgV+yXZQWsezXaw2ZDv9DcoYbQ
- b+9oSQS59LF1CACM3dHvT3SRD8iVZ9BNifTfqXE1Q2DbxKlmjbffcRpDZQaTWd3EiY5t
- J8dn4qEfgyLm8iDM8kUQeWHfuvcmUazwea8ciFOomEyxFSrfl1+aINvXZX38y6aT0RqH Mg== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3pqunhg8j3-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 03 Apr 2023 11:23:18 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 099E310002A;
- Mon,  3 Apr 2023 11:23:17 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 300802138D4;
- Mon,  3 Apr 2023 11:23:17 +0200 (CEST)
-Received: from [10.201.21.93] (10.201.21.93) by SHFDAG1NODE1.st.com
- (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.17; Mon, 3 Apr
- 2023 11:23:16 +0200
-Message-ID: <f4721c8a-d4f0-d391-b9c9-d1a8cf5538b4@foss.st.com>
-Date: Mon, 3 Apr 2023 11:23:16 +0200
+ Mon,  3 Apr 2023 09:28:27 +0000 (UTC)
+Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77]
+ helo=[127.0.0.1]) by metis.ext.pengutronix.de with esmtp (Exim 4.92)
+ (envelope-from <a.fatoum@pengutronix.de>)
+ id 1pjGUE-0008BG-Kt; Mon, 03 Apr 2023 11:28:26 +0200
+Message-ID: <a8cedf08-7b7d-712c-1c35-4da8d0542e72@pengutronix.de>
+Date: Mon, 3 Apr 2023 11:28:25 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.9.0
-To: <patrice.chotard@foss.st.com>, <robh+dt@kernel.org>, Krzysztof Kozlowski
- <krzysztof.kozlowski+dt@linaro.org>
-References: <20230331071907.4127388-1-patrice.chotard@foss.st.com>
 Content-Language: en-US
-From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
-In-Reply-To: <20230331071907.4127388-1-patrice.chotard@foss.st.com>
-X-Originating-IP: [10.201.21.93]
-X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SHFDAG1NODE1.st.com
- (10.75.129.69)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.254,Aquarius:18.0.942,Hydra:6.0.573,FMLib:17.11.170.22
- definitions=2023-04-03_06,2023-03-31_01,2023-02-09_01
-Cc: devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH] ARM: dts: stm32: Add QSPI support on
- STM32MP13x SoC family
+To: Alexandre TORGUE <alexandre.torgue@foss.st.com>,
+ Steffen Trumtrar <s.trumtrar@pengutronix.de>,
+ linux-stm32@st-md-mailman.stormreply.com
+References: <20230330050408.3806093-1-s.trumtrar@pengutronix.de>
+ <20230330050408.3806093-11-s.trumtrar@pengutronix.de>
+ <31b1300b-7dd9-9bdf-be01-a79b1ac6e8cd@foss.st.com>
+From: Ahmad Fatoum <a.fatoum@pengutronix.de>
+In-Reply-To: <31b1300b-7dd9-9bdf-be01-a79b1ac6e8cd@foss.st.com>
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:900:1d::77
+X-SA-Exim-Mail-From: a.fatoum@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
+Cc: devicetree@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v7 10/10] ARM: dts: stm32: add
+ STM32MP1-based Phytec board
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,54 +54,41 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-hi Patrice
-
-On 3/31/23 09:19, patrice.chotard@foss.st.com wrote:
-> From: Patrice Chotard <patrice.chotard@foss.st.com>
-> 
-> Add QSPI support on STM32MP13x SoC family
-> 
-> Signed-off-by: Patrice Chotard <patrice.chotard@foss.st.com>
-> ---
->   arch/arm/boot/dts/stm32mp131.dtsi | 15 +++++++++++++++
->   1 file changed, 15 insertions(+)
-> 
-> diff --git a/arch/arm/boot/dts/stm32mp131.dtsi b/arch/arm/boot/dts/stm32mp131.dtsi
-> index 5949473cbbfd..544c755b6e67 100644
-> --- a/arch/arm/boot/dts/stm32mp131.dtsi
-> +++ b/arch/arm/boot/dts/stm32mp131.dtsi
-> @@ -1137,6 +1137,21 @@ mdma: dma-controller@58000000 {
->   			dma-requests = <48>;
->   		};
->   
-> +		qspi: spi@58003000 {
-> +			compatible = "st,stm32f469-qspi";
-> +			reg = <0x58003000 0x1000>, <0x70000000 0x10000000>;
-> +			reg-names = "qspi", "qspi_mm";
-> +			#address-cells = <1>;
-> +			#size-cells = <0>;
-> +			interrupts = <GIC_SPI 91 IRQ_TYPE_LEVEL_HIGH>;
-> +			dmas = <&mdma 26 0x2 0x10100002 0x0 0x0>,
-> +			       <&mdma 26 0x2 0x10100008 0x0 0x0>;
-> +			dma-names = "tx", "rx";
-> +			clocks = <&rcc QSPI_K>;
-> +			resets = <&rcc QSPI_R>;
-> +			status = "disabled";
-> +		};
-> +
->   		sdmmc1: mmc@58005000 {
->   			compatible = "st,stm32-sdmmc2", "arm,pl18x", "arm,primecell";
->   			arm,primecell-periphid = <0x20253180>;
-Applied on stm32-next.
-
-Thanks.
-Alex
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+SGVsbG8gQWxleGFuZHJlLAoKT24gMDMuMDQuMjMgMTE6MTUsIEFsZXhhbmRyZSBUT1JHVUUgd3Jv
+dGU6Cj4gT24gMy8zMC8yMyAwNzowNCwgU3RlZmZlbiBUcnVtdHJhciB3cm90ZToKPj4gQWRkIHRo
+ZSBQaHl0ZWMgU1RNMzJNUDEtMyBEZXYgYm9hcmQuIFRoZSBkZXZib2FyZCB1c2VzIGEgUGh5dGVj
+Cj4+IHN0bTMybTE1N2Mtc29tLgo+Pgo+PiBTaWduZWQtb2ZmLWJ5OiBTdGVmZmVuIFRydW10cmFy
+IDxzLnRydW10cmFyQHBlbmd1dHJvbml4LmRlPgo+PiAtLS0KCltzbmlwXQoKPj4gKy8gewo+PiAr
+wqDCoMKgIG1vZGVsID0gIlBIWVRFQyBwaHlDT1JFLVNUTTMyTVAxLTMgRGV2IEJvYXJkIjsKPj4g
+K8KgwqDCoCBjb21wYXRpYmxlID0gInBoeXRlYyxwaHljb3JlLXN0bTMybXAxLTMiLAo+PiArwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgICJwaHl0ZWMscGh5Y29yZS1zdG0zMm1wMTU3Yy1zb20iLCAi
+c3Qsc3RtMzJtcDE1NyI7Cj4+ICsKPj4gK8KgwqDCoCBhbGlhc2VzIHsKPj4gK8KgwqDCoMKgwqDC
+oMKgIG1tYzAgPSAmc2RtbWMxOwo+PiArwqDCoMKgwqDCoMKgwqAgbW1jMSA9ICZzZG1tYzI7Cj4+
+ICvCoMKgwqDCoMKgwqDCoCBtbWMyID0gJnNkbW1jMzsKPiAKPiBtbWMgYWxpYXNlcyBhcmUgc3Rp
+bGwgdXNlZCBpbiBsaW51eD8KClNpbmNlIGtlcm5lbCBjb21taXQgZmEyZDBhYTk2OTQxICgibW1j
+OiBjb3JlOiBBbGxvdyBzZXR0aW5nIHNsb3QKaW5kZXggdmlhIGRldmljZSB0cmVlIGFsaWFzIikg
+YWRkZWQgd2l0aCB2NS4xMC1yYzEsIGFsaWFzZXMKZGljdGF0ZSBrZXJuZWwgbnVtYmVyaW5nIG9m
+IC9kZXYvbW1jYmxrIGRldmljZXMsIHNvIGl0J3MgZ29vZAp0byBoYXZlIHRoZXNlIGFsaWFzZXMg
+Zm9yIGNvbnNpc3RlbmN5IGFzIHRoZSBhbHRlcm5hdGl2ZSBvZgp1c2luZyBQQVJUVVVJRCBicmVh
+a3MgZG93biBvbmNlIHRoZSBzYW1lIGltYWdlIGlzIGZsYXNoZWQgdG8KYm90aCBTRCBhbmQgZU1N
+QyBhbmQgdXNlIG9mIGFuIGluaXRyZCBpcyBub3QgYWx3YXlzIHByYWN0aWNhbC4KCj4+ICsmc2Rt
+bWMxIHsKPj4gK8KgwqDCoCBzZWN1cmUtc3RhdHVzID0gImRpc2FibGVkIjsKPj4gK307Cj4+ICsK
+Pj4gKyZzZG1tYzIgewo+PiArwqDCoMKgIHN0YXR1cyA9ICJva2F5IjsKPj4gK8KgwqDCoCBzZWN1
+cmUtc3RhdHVzID0gImRpc2FibGVkIjsKPj4gK307Cj4gCj4gV2hhdCBpcyB0aGUgbmVlZCB0byBw
+dXQgdGhlIHNlY3VyZSBzdGF0dXMgZGlzYWJsZWQgZm9yIFNETU1DIG5vZGVzID8KClRGLUEgcGFy
+c2VzIHRoZW0sIGJ1dCBmb3IgU0RNTUMsIGl0IHNob3VsZCBoYXZlIG5vIGVmZmVjdCwgc28gSSBh
+Z3JlZQp0aGV5IGNhbiBiZSByZW1vdmVkLgoKQ2hlZXJzLApBaG1hZAoKCi0tIApQZW5ndXRyb25p
+eCBlLksuICAgICAgICAgICAgICAgICAgICAgICAgICAgfCAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgfApTdGV1ZXJ3YWxkZXIgU3RyLiAyMSAgICAgICAgICAgICAgICAgICAgICAgfCBodHRw
+Oi8vd3d3LnBlbmd1dHJvbml4LmRlLyAgfAozMTEzNyBIaWxkZXNoZWltLCBHZXJtYW55ICAgICAg
+ICAgICAgICAgICAgfCBQaG9uZTogKzQ5LTUxMjEtMjA2OTE3LTAgICAgfApBbXRzZ2VyaWNodCBI
+aWxkZXNoZWltLCBIUkEgMjY4NiAgICAgICAgICAgfCBGYXg6ICAgKzQ5LTUxMjEtMjA2OTE3LTU1
+NTUgfAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGlu
+dXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBs
+eS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGlu
+Zm8vbGludXgtc3RtMzIK
