@@ -2,129 +2,39 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7969C6D3F4B
-	for <lists+linux-stm32@lfdr.de>; Mon,  3 Apr 2023 10:43:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AE0BA6D3F5D
+	for <lists+linux-stm32@lfdr.de>; Mon,  3 Apr 2023 10:46:35 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 35B49C65E70;
-	Mon,  3 Apr 2023 08:43:57 +0000 (UTC)
-Received: from EUR05-DB8-obe.outbound.protection.outlook.com
- (mail-db8eur05on2050.outbound.protection.outlook.com [40.107.20.50])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D2259C65E56
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6C61DC65E70;
+	Mon,  3 Apr 2023 08:46:35 +0000 (UTC)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1B78AC65E56
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  3 Apr 2023 08:43:55 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=gtwhDPMep4H3b0TpRsp514WXwOIFKLBWtMRES6tNirKtOUT+KiUMyE4jdG+r7JHBpVhWAqi5efUbHIFCTdEFG6fojzX+TZqavPjxNFFZzhNw5quPs08UiutAmM1Qg7iDzn+XcOZjCn9Tehh1QIfz4K7eqgsFVNyVnRM3gNPRbWnyQA29jV4NsBdOykx3URZfuJmRhYnAccVYTEzbEqaXUvjCnnGoQGUpSDcodd3jQxE1Q6Ei2D4nD6Ll/nyn1S+QsYWlrxy70/LSYuFb37Zxtxq89P/kudjXt9HT+Xxzg3TKQcJFWaGuhmT2c5I97bbR7sqPBMDt86TG9DHnX6zbpQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=LUJyKxK1pNCO50LH14WKJBKIr80qok7vEKZ6VzKF5+U=;
- b=V7B8hgkHFDgW2dMfrpzLsKL47c2QZU+mgR/sCHurRfj8109/wZe2UHFVEDax/ciztTvH/1JTJhAo17bhmJMdMPJMqbdsSmXVB13VGWpdhaKHh4qdygKfCz1BviZMr+0T1Q751k9uCTl9WKFx67QWTfG2FbrAgCToSJ7DZ7OBdQ0NImyQNXYbX13nCnJAf6bm/8SLKEAeVvMg9+24Qpf6K8jmWcofj1blDjt5uSO4T4UznnFt09BwhIsTct4LfyN22TixAq2L8MsS6CFgapff4G94Aeh5l5BWD8vqriZgoi9zsEVAmvU9Ie9wHUIx+X+05hUkVxohVU4cXfzbI49sHw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LUJyKxK1pNCO50LH14WKJBKIr80qok7vEKZ6VzKF5+U=;
- b=gdqYfDdDZrrgR/3XiPMddtob0Y0sZMFfPWRWRsR+wPUP3K7u+LG2RdBu8w+h1uk96aVU+/BEuTR5qYd2TO91AO7KpXzNGkmwe9xIKIely+j/iJm5rG75RmomJrGMkdA7ZF75pTpLZGt8K2qm7fsICV47cRT4y2Hseaf5iHWJIGI=
-Received: from AM0PR04MB5089.eurprd04.prod.outlook.com (2603:10a6:208:c6::21)
- by DU0PR04MB9276.eurprd04.prod.outlook.com (2603:10a6:10:357::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6254.33; Mon, 3 Apr
- 2023 08:43:54 +0000
-Received: from AM0PR04MB5089.eurprd04.prod.outlook.com
- ([fe80::88b3:4064:f8d1:67bb]) by AM0PR04MB5089.eurprd04.prod.outlook.com
- ([fe80::88b3:4064:f8d1:67bb%5]) with mapi id 15.20.6254.033; Mon, 3 Apr 2023
- 08:43:54 +0000
-From: Clark Wang <xiaoning.wang@nxp.com>
-To: Ahmad Fatoum <a.fatoum@pengutronix.de>, "peppe.cavallaro@st.com"
- <peppe.cavallaro@st.com>, "alexandre.torgue@foss.st.com"
- <alexandre.torgue@foss.st.com>, "joabreu@synopsys.com"
- <joabreu@synopsys.com>, "davem@davemloft.net" <davem@davemloft.net>,
- "edumazet@google.com" <edumazet@google.com>, "kuba@kernel.org"
- <kuba@kernel.org>, "pabeni@redhat.com" <pabeni@redhat.com>,
- "mcoquelin.stm32@gmail.com" <mcoquelin.stm32@gmail.com>
-Thread-Topic: [Linux-stm32] [PATCH] net: stmmac: remove the limitation of
- adding vlan in promisc mode
-Thread-Index: AQHZZgbUn2wNpKWM4EqXkGrUw6ye+68ZRDeAgAAAaQA=
-Date: Mon, 3 Apr 2023 08:43:54 +0000
-Message-ID: <AM0PR04MB5089AD62F07221A7FC326E85F3929@AM0PR04MB5089.eurprd04.prod.outlook.com>
-References: <20230403081717.2047939-1-xiaoning.wang@nxp.com>
- <33b8501c-f617-3f66-91c4-02f9963e2a2f@pengutronix.de>
-In-Reply-To: <33b8501c-f617-3f66-91c4-02f9963e2a2f@pengutronix.de>
-Accept-Language: zh-CN, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: AM0PR04MB5089:EE_|DU0PR04MB9276:EE_
-x-ms-office365-filtering-correlation-id: 44cce7f7-b5a9-465f-86ec-08db341f8e66
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: hP4crRc9hl9HvX6eJD49ADXxiPkMCIvNFO41jL7690b4ZtHWS0JzRcJ0WJeVkuArCY03UFdzmuIrgFdSeQf3L/8tGngPVTcdLRnAa9zQE8fx+auq9W1aA9HOKquFfg95uLbOmoiFwyYQ8so7nBIXur93bLElDLZyBwcSdYXsanwiKPaiB1O+VjhY9fNe1MCtFrDOlGeff7kmwukzpiW615LkxhDSrfQYbP35t1kLzjkIHgF5byJCANFiD1uipkPVSaKq3klFy2N5ZeQxnKCqv64clqqaDzxUNghjRanOBCCv9yg8snPerst4USKSqpG0TVNpPWCu9IabnF1tGeeJPpGNFKEBXmaOrSJazeT0S62MnoBTvfHDuAGhVaPj/9evh3IT4Bks2b7QjZfNE1fv192FDfbsRLKXtzSqQEUes4KVjuNyUGIeQVZGzYHsnFn56vN7HFRrwaOPitLe0KcPsic0U4JBSu0dFadE3xSHxWURSOPmJf+AySUb5QTF3OGnNK89X8CdoWfZhli9mqsnLWaX9UldFxmJlbkL+Ec3V0lSl6vayhUOeWC4Oe7BmhItZOeQhgCrRkcrdqgrZDJUcRsy0DftlwIcqMt6yTQmbww=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:AM0PR04MB5089.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(396003)(366004)(136003)(376002)(346002)(39860400002)(451199021)(33656002)(122000001)(52536014)(5660300002)(7416002)(38070700005)(55016003)(38100700002)(66946007)(4326008)(41300700001)(86362001)(8676002)(8936002)(64756008)(66446008)(66476007)(66556008)(76116006)(83380400001)(966005)(53546011)(110136005)(2906002)(9686003)(6506007)(54906003)(26005)(71200400001)(478600001)(7696005)(45080400002)(186003)(316002);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?gb2312?B?T3dtRWhLYTlCck0vVEVzelpBZTA3UG1vVVk5MndBMU4xcEt4bC9XNFlBaVNt?=
- =?gb2312?B?UkdlenV0LzUycEVTQVp2a1JaTVBKVG1ab2Z3VjFCc0N0YUdLeVJCKzVYY0pU?=
- =?gb2312?B?MExab0xBczhRVW5GQVJUaFRQVTBhS0JQZVlNTjJlUVNTNFZVNlZSUmNHR0xB?=
- =?gb2312?B?bU1KSDNaZ25oUlNCaTJsNFIrKzZzcWtyY2t4ejVVOTloUnR0L2c1VUV6c3Ax?=
- =?gb2312?B?bit4MEVwWkJJWmVNUGVDUXdLS2psZGRiVFBTZGEwZy9iRnZhTGNNOGxoajl5?=
- =?gb2312?B?UU1QZ0VjejdzU0hSTzV5SmdYRW5UbldDT2FqSnlyY2QyRHpuejFKUkJlRTBE?=
- =?gb2312?B?T3ZLZTkwWWVMNGkvNXh6V3Y0WWZxNFRvenNaUmx6Sk9aVldmNTRyOExlNFFN?=
- =?gb2312?B?QTBxeEQzMWJQTlRlWTZyeGwwbnNZZVZCVm94K2VBankzWE5EQ05PUkJpdTJ1?=
- =?gb2312?B?cWRJYURQYXhsYm1kUHlmTlB0Nit5WG1GL2Rnd0NwL0FUZWI3Vzd3K3d3MmR4?=
- =?gb2312?B?Q1RNTVFxYmpWeFMyYVpWK1BlVy9ybHZBdWJJMEx4MzloT25HTFJvNmNQN09p?=
- =?gb2312?B?YXptV3lTK0d0bDExbjgvZHpra25KU2dvaFBtS21nRU9lTUFYMlRPd1pXSUhL?=
- =?gb2312?B?M0lUMXBQODk2TUxtZFRGSUtXeFJjdUMxTHI4eXByQk9mV3A5QVBibVE3bVdh?=
- =?gb2312?B?NTZnbmIrYmtFN2dsM0Zhb2MxUFlONjJmZVZhRVZPK0Y0L3crS0EvQzZBQkpm?=
- =?gb2312?B?NDliRU1KRGN5a2loelNWSVcxWUVEYWZhNTEzMjNuUmkyMDdZQ0kwYldHZVFx?=
- =?gb2312?B?MmZLZDBqam9LcFhzanh3NTIzLzQ1NWNlMUNqeWVSOWExcFFkR2JFWUsxV0gr?=
- =?gb2312?B?c0s1UkYza3FvcXlqelRXcXRwTkEwK1JNQUdadlowRUpNcnpyY3RKWjBLdStD?=
- =?gb2312?B?R0pVNy93U2QwQzE5R0FDeUtxQ0xvQlRXUE9WTEVjbmpvdzdBQXo0d2ZtL0ND?=
- =?gb2312?B?SEJVRTk3UFhTOWM0b20vOFNJWWJEZUpUbGVmN3Y4V0RUMEtHdjVDNjJoU2VG?=
- =?gb2312?B?TGpUenlHRzAyT1Q3Tmt1b3dKalNhd1NrODBzVnNza0dPcTBWUlRUQ01JcWZM?=
- =?gb2312?B?VWhSeHJubngzQTlOVXhxSXVRcVVhRWdDNzZHblhCQ29Oclh6QkN3RlN1Vk9E?=
- =?gb2312?B?c1p5OUt0U1hjenhzWG5VVWYwc0FyUmw2ZWw2WVpsVkZzbmsxQjBQY1k4c1da?=
- =?gb2312?B?ZG5IeHVVODhkQWVnbDNSSEU1Mm9xU2tYT0tCVlJHS0FobnlhV2ZJOFVtdUwr?=
- =?gb2312?B?TTRuTy9rc3BmMk1lQTh1Q055czV5OGxyeEFoRnljLzJDOE1lSTdmWXNiNzJR?=
- =?gb2312?B?cE1FU3dBaTcyY3NYM3c3YnFWWENKM2ZzQit6SXR3ZXpaVVl0aVdrZHlicUw4?=
- =?gb2312?B?OFNFdHBMZEsxS1NxT3pkbzRUQk9sUExJYkUxSmo3a0YzaVdPdUpIYVZGYkJj?=
- =?gb2312?B?U0VmYnBxUnAwZzRUUmc1VUhJUW13SFlmbDhFUHVSYjJuZUFRalhTMitheWNi?=
- =?gb2312?B?cVhSNmNyY0xkNFRyNnFSVFBMRDhQajNzT1RGSTlsWkJ4ZERsR1Y5K2lFayta?=
- =?gb2312?B?ZWpKRmd6dlpoOGllWVdyaGhqbUx5YzJRQURxTmE2S2IvVDJnR2JjVnNWZDFx?=
- =?gb2312?B?eE5VUGFreUE5TEVjdzI4MUxnNnZ0YWtqaVFPUGdyQmJOdGlPS1QvMi80RWZR?=
- =?gb2312?B?akVldFpvc2QzamdNdDZrV2FKUFNPd1RzZTM1R0dFVTlqb2RuVEEwOXo0a1hC?=
- =?gb2312?B?NXhrMFJnTUZBQmhTZGRNeS85NVpqM0N5WkNlMUltT0tNS2dkbnpoZEUyenVu?=
- =?gb2312?B?ZEM4QUZCWDVjcTlML3JPYkdRcWdaZzcyWTRFS21RTlp5WE5VWXBlTUtxQzl6?=
- =?gb2312?B?a2VnYktJeG5GMWhXSzdHNEh6TmlTa29zZnZ0MzF0SDk5c0ZKK0hTTlJPRXZ1?=
- =?gb2312?B?TDB2SDQ5bFAwMk51QlJvQ05mVmJIdVI0ZVdpRmZKOEJFRWtTeUVmbW1RanVt?=
- =?gb2312?B?enB3R0Z2K00rRDlQV1UzMVNTYUptd3BNZC9pQi92VldiOWNwdVNTNVp5U2p5?=
- =?gb2312?Q?rYDTBZrpKKCmQHhyteqS9wR8W?=
+ Mon,  3 Apr 2023 08:46:34 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B9EB41063;
+ Mon,  3 Apr 2023 01:47:17 -0700 (PDT)
+Received: from [10.57.54.53] (unknown [10.57.54.53])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 6831B3F840;
+ Mon,  3 Apr 2023 01:46:31 -0700 (PDT)
+Message-ID: <c25f0d12-e820-58b0-b139-b2ca322b6b80@arm.com>
+Date: Mon, 3 Apr 2023 09:46:29 +0100
 MIME-Version: 1.0
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: AM0PR04MB5089.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 44cce7f7-b5a9-465f-86ec-08db341f8e66
-X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Apr 2023 08:43:54.0474 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: Rr/mi/qBbEOXSa7i9+B7AAeeJ8SQxXGrYXn5p/pb8FCwxq0aXazNdSs8RJ9J26harl8t1uOhj5k3CVN2YI2FjA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR04MB9276
-Cc: "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [Linux-stm32] [PATCH] net: stmmac: remove the limitation of
- adding vlan in promisc mode
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.9.0
+To: James Clark <james.clark@arm.com>, coresight@lists.linaro.org,
+ quic_jinlmao@quicinc.com, mike.leach@linaro.org
+References: <20230329115329.2747724-1-james.clark@arm.com>
+ <20230329115329.2747724-8-james.clark@arm.com>
+From: Suzuki K Poulose <suzuki.poulose@arm.com>
+In-Reply-To: <20230329115329.2747724-8-james.clark@arm.com>
+Cc: Mathieu Poirier <mathieu.poirier@linaro.org>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ linux-kernel@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Leo Yan <leo.yan@linaro.org>, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v3 07/13] coresight: Store pointers to
+ connections rather than an array of them
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -136,67 +46,270 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="gb2312"
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SGkgQWhtYWQsDQoNCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogQWhtYWQg
-RmF0b3VtIDxhLmZhdG91bUBwZW5ndXRyb25peC5kZT4NCj4gU2VudDogMjAyM8TqNNTCM8jVIDE2
-OjQyDQo+IFRvOiBDbGFyayBXYW5nIDx4aWFvbmluZy53YW5nQG54cC5jb20+OyBwZXBwZS5jYXZh
-bGxhcm9Ac3QuY29tOw0KPiBhbGV4YW5kcmUudG9yZ3VlQGZvc3Muc3QuY29tOyBqb2FicmV1QHN5
-bm9wc3lzLmNvbTsNCj4gZGF2ZW1AZGF2ZW1sb2Z0Lm5ldDsgZWR1bWF6ZXRAZ29vZ2xlLmNvbTsg
-a3ViYUBrZXJuZWwub3JnOw0KPiBwYWJlbmlAcmVkaGF0LmNvbTsgbWNvcXVlbGluLnN0bTMyQGdt
-YWlsLmNvbQ0KPiBDYzogbmV0ZGV2QHZnZXIua2VybmVsLm9yZzsgbGludXgtc3RtMzJAc3QtbWQt
-bWFpbG1hbi5zdG9ybXJlcGx5LmNvbTsNCj4gbGludXgtYXJtLWtlcm5lbEBsaXN0cy5pbmZyYWRl
-YWQub3JnOyBsaW51eC1rZXJuZWxAdmdlci5rZXJuZWwub3JnDQo+IFN1YmplY3Q6IFJlOiBbTGlu
-dXgtc3RtMzJdIFtQQVRDSF0gbmV0OiBzdG1tYWM6IHJlbW92ZSB0aGUgbGltaXRhdGlvbiBvZg0K
-PiBhZGRpbmcgdmxhbiBpbiBwcm9taXNjIG1vZGUNCj4gDQo+IEhlbGxvIENsYXJrLA0KPiANCj4g
-T24gMDMuMDQuMjMgMTA6MTcsIENsYXJrIFdhbmcgd3JvdGU6DQo+ID4gV2hlbiB1c2luZyBicmN0
-bCB0byBhZGQgZXFvcyB0byBhIGJyaWRnZSwgaXQgd2lsbCBmcmlzdCBzZXQgZXFvcyB0bw0KPiA+
-IHByb21pc2MgbW9kZSBhbmQgdGhlbiBzZXQgYSBWTEFOIGZvciB0aGlzIGJyaWRnZSB3aXRoIGEg
-ZmlsZXIgVklEDQo+ID4gdmFsdWUgb2YgMS4NCj4gPg0KPiA+IFRoZXNlIHR3byBlcnJvciByZXR1
-cm5zIGxpbWl0IHRoZSB1c2Ugb2YgYnJjdGwsIHJlc3VsdGluZyBpbiB0aGUNCj4gPiBpbmFiaWxp
-dHkgb2YgdGhlIGJyaWRnZSB0byBiZSBlbmFibGVkIG9uIGVxb3MuIFNvIHJlbW92ZSB0aGVtLg0K
-PiA+DQo+ID4gU2lnbmVkLW9mZi1ieTogQ2xhcmsgV2FuZyA8eGlhb25pbmcud2FuZ0BueHAuY29t
-Pg0KPiANCj4gUGxlYXNlIGFkZCBhIHN1aXRhYmxlIEZpeGVzOiB0YWcgcG9pbnRpbmcgYXQgdGhl
-IGNvbW1pdCBpbnRyb2R1Y2luZyB0aGUNCj4gcmVncmVzc2lvbi4NCg0KDQpUaGFua3MuIEkgd2ls
-bCBhZGQgaXQgaW4gVjIuDQoNCkJlc3QgUmVnYXJkcywNCkNsYXJrIFdhbmcNCj4gDQo+IFRoYW5r
-cywNCj4gQWhtYWQNCj4gDQo+ID4gLS0tDQo+ID4gIGRyaXZlcnMvbmV0L2V0aGVybmV0L3N0bWlj
-cm8vc3RtbWFjL2R3bWFjNF9jb3JlLmMgfCAxMiAtLS0tLS0tLS0tLS0NCj4gPiAgMSBmaWxlIGNo
-YW5nZWQsIDEyIGRlbGV0aW9ucygtKQ0KPiA+DQo+ID4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvbmV0
-L2V0aGVybmV0L3N0bWljcm8vc3RtbWFjL2R3bWFjNF9jb3JlLmMNCj4gPiBiL2RyaXZlcnMvbmV0
-L2V0aGVybmV0L3N0bWljcm8vc3RtbWFjL2R3bWFjNF9jb3JlLmMNCj4gPiBpbmRleCA4YzdhMGI3
-Yzk5NTIuLjY0YmJlMTVhNjk5ZSAxMDA2NDQNCj4gPiAtLS0gYS9kcml2ZXJzL25ldC9ldGhlcm5l
-dC9zdG1pY3JvL3N0bW1hYy9kd21hYzRfY29yZS5jDQo+ID4gKysrIGIvZHJpdmVycy9uZXQvZXRo
-ZXJuZXQvc3RtaWNyby9zdG1tYWMvZHdtYWM0X2NvcmUuYw0KPiA+IEBAIC00NzIsMTIgKzQ3Miw2
-IEBAIHN0YXRpYyBpbnQgZHdtYWM0X2FkZF9od192bGFuX3J4X2ZsdHIoc3RydWN0DQo+IG5ldF9k
-ZXZpY2UgKmRldiwNCj4gPiAgCWlmICh2aWQgPiA0MDk1KQ0KPiA+ICAJCXJldHVybiAtRUlOVkFM
-Ow0KPiA+DQo+ID4gLQlpZiAoaHctPnByb21pc2MpIHsNCj4gPiAtCQluZXRkZXZfZXJyKGRldiwN
-Cj4gPiAtCQkJICAgIkFkZGluZyBWTEFOIGluIHByb21pc2MgbW9kZSBub3Qgc3VwcG9ydGVkXG4i
-KTsNCj4gPiAtCQlyZXR1cm4gLUVQRVJNOw0KPiA+IC0JfQ0KPiA+IC0NCj4gPiAgCS8qIFNpbmds
-ZSBSeCBWTEFOIEZpbHRlciAqLw0KPiA+ICAJaWYgKGh3LT5udW1fdmxhbiA9PSAxKSB7DQo+ID4g
-IAkJLyogRm9yIHNpbmdsZSBWTEFOIGZpbHRlciwgVklEIDAgbWVhbnMgVkxBTiBwcm9taXNjdW91
-cyAqLyBAQA0KPiA+IC01MjcsMTIgKzUyMSw2IEBAIHN0YXRpYyBpbnQgZHdtYWM0X2RlbF9od192
-bGFuX3J4X2ZsdHIoc3RydWN0DQo+ID4gbmV0X2RldmljZSAqZGV2LCAgew0KPiA+ICAJaW50IGks
-IHJldCA9IDA7DQo+ID4NCj4gPiAtCWlmIChody0+cHJvbWlzYykgew0KPiA+IC0JCW5ldGRldl9l
-cnIoZGV2LA0KPiA+IC0JCQkgICAiRGVsZXRpbmcgVkxBTiBpbiBwcm9taXNjIG1vZGUgbm90IHN1
-cHBvcnRlZFxuIik7DQo+ID4gLQkJcmV0dXJuIC1FUEVSTTsNCj4gPiAtCX0NCj4gPiAtDQo+ID4g
-IAkvKiBTaW5nbGUgUnggVkxBTiBGaWx0ZXIgKi8NCj4gPiAgCWlmIChody0+bnVtX3ZsYW4gPT0g
-MSkgew0KPiA+ICAJCWlmICgoaHctPnZsYW5fZmlsdGVyWzBdICYgR01BQ19WTEFOX1RBR19WSUQp
-ID09IHZpZCkgew0KPiANCj4gLS0NCj4gUGVuZ3V0cm9uaXggZS5LLiAgICAgICAgICAgICAgICAg
-ICAgICAgICAgIHwNCj4gfA0KPiBTdGV1ZXJ3YWxkZXIgU3RyLiAyMSAgICAgICAgICAgICAgICAg
-ICAgICAgfA0KPiBodHRwczovL2V1cjAxLnNhZmVsaW5rcy5wcm90ZWN0aW9uLm91dGxvb2suY29t
-Lz91cmw9aHR0cCUzQSUyRiUyRnd3dy5wZQ0KPiBuZ3V0cm9uaXguZGUlMkYmZGF0YT0wNSU3QzAx
-JTdDeGlhb25pbmcud2FuZyU0MG54cC5jb20lN0MzZmNjYjg1Mw0KPiA1ODZkNDkwNDQ4NjkwOGRi
-MzQxZjQ4ODIlN0M2ODZlYTFkM2JjMmI0YzZmYTkyY2Q5OWM1YzMwMTYzNSU3QzAlDQo+IDdDMCU3
-QzYzODE2MTA4MTE4MjQyMTI3MyU3Q1Vua25vd24lN0NUV0ZwYkdac2IzZDhleUpXSWpvaU1DNHcN
-Cj4gTGpBd01EQWlMQ0pRSWpvaVYybHVNeklpTENKQlRpSTZJazFoYVd3aUxDSlhWQ0k2TW4wJTNE
-JTdDMzAwMCU3Qw0KPiAlN0MlN0Mmc2RhdGE9VW9NZk02OWQ0WTVPSTdhbnQ1VU5sTkNsODF0bHM0
-NU9uNmhzWlFlWlpIOCUzRCZyDQo+IGVzZXJ2ZWQ9MCAgfA0KPiAzMTEzNyBIaWxkZXNoZWltLCBH
-ZXJtYW55ICAgICAgICAgICAgICAgICAgfCBQaG9uZTogKzQ5LTUxMjEtMjA2OTE3LTANCj4gfA0K
-PiBBbXRzZ2VyaWNodCBIaWxkZXNoZWltLCBIUkEgMjY4NiAgICAgICAgICAgfCBGYXg6DQo+ICs0
-OS01MTIxLTIwNjkxNy01NTU1IHwNCg0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1k
-LW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHku
-Y29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+On 29/03/2023 12:53, James Clark wrote:
+> This will allow the same connection object to be referenced via the
+> input connection list in a later commit rather than duplicating them.
+> 
+> Signed-off-by: James Clark <james.clark@arm.com>
+> ---
+>   drivers/hwtracing/coresight/coresight-core.c  | 45 ++++++++++---------
+>   .../hwtracing/coresight/coresight-platform.c  |  8 ++--
+>   drivers/hwtracing/coresight/coresight-priv.h  |  1 +
+>   .../hwtracing/coresight/coresight-tmc-etr.c   |  2 +-
+>   include/linux/coresight.h                     |  2 +-
+>   5 files changed, 31 insertions(+), 27 deletions(-)
+> 
+> diff --git a/drivers/hwtracing/coresight/coresight-core.c b/drivers/hwtracing/coresight/coresight-core.c
+> index 12cbb68e8e1c..389f6203c8f0 100644
+> --- a/drivers/hwtracing/coresight/coresight-core.c
+> +++ b/drivers/hwtracing/coresight/coresight-core.c
+> @@ -119,7 +119,7 @@ static int coresight_find_link_inport(struct coresight_device *csdev,
+>   	struct coresight_connection *conn;
+>   
+>   	for (i = 0; i < parent->pdata->nr_outconns; i++) {
+> -		conn = &parent->pdata->out_conns[i];
+> +		conn = parent->pdata->out_conns[i];
+>   		if (conn->dest_dev == csdev)
+>   			return conn->dest_port;
+>   	}
+> @@ -137,7 +137,7 @@ static int coresight_find_link_outport(struct coresight_device *csdev,
+>   	struct coresight_connection *conn;
+>   
+>   	for (i = 0; i < csdev->pdata->nr_outconns; i++) {
+> -		conn = &csdev->pdata->out_conns[i];
+> +		conn = csdev->pdata->out_conns[i];
+>   		if (conn->dest_dev == child)
+>   			return conn->src_port;
+>   	}
+> @@ -606,7 +606,7 @@ coresight_find_enabled_sink(struct coresight_device *csdev)
+>   	for (i = 0; i < csdev->pdata->nr_outconns; i++) {
+>   		struct coresight_device *child_dev;
+>   
+> -		child_dev = csdev->pdata->out_conns[i].dest_dev;
+> +		child_dev = csdev->pdata->out_conns[i]->dest_dev;
+>   		if (child_dev)
+>   			sink = coresight_find_enabled_sink(child_dev);
+>   		if (sink)
+> @@ -722,7 +722,7 @@ static int coresight_grab_device(struct coresight_device *csdev)
+>   	for (i = 0; i < csdev->pdata->nr_outconns; i++) {
+>   		struct coresight_device *child;
+>   
+> -		child = csdev->pdata->out_conns[i].dest_dev;
+> +		child = csdev->pdata->out_conns[i]->dest_dev;
+>   		if (child && child->type == CORESIGHT_DEV_TYPE_HELPER)
+>   			if (!coresight_get_ref(child))
+>   				goto err;
+> @@ -733,7 +733,7 @@ static int coresight_grab_device(struct coresight_device *csdev)
+>   	for (i--; i >= 0; i--) {
+>   		struct coresight_device *child;
+>   
+> -		child = csdev->pdata->out_conns[i].dest_dev;
+> +		child = csdev->pdata->out_conns[i]->dest_dev;
+>   		if (child && child->type == CORESIGHT_DEV_TYPE_HELPER)
+>   			coresight_put_ref(child);
+>   	}
+> @@ -752,7 +752,7 @@ static void coresight_drop_device(struct coresight_device *csdev)
+>   	for (i = 0; i < csdev->pdata->nr_outconns; i++) {
+>   		struct coresight_device *child;
+>   
+> -		child = csdev->pdata->out_conns[i].dest_dev;
+> +		child = csdev->pdata->out_conns[i]->dest_dev;
+>   		if (child && child->type == CORESIGHT_DEV_TYPE_HELPER)
+>   			coresight_put_ref(child);
+>   	}
+> @@ -794,7 +794,7 @@ static int _coresight_build_path(struct coresight_device *csdev,
+>   	for (i = 0; i < csdev->pdata->nr_outconns; i++) {
+>   		struct coresight_device *child_dev;
+>   
+> -		child_dev = csdev->pdata->out_conns[i].dest_dev;
+> +		child_dev = csdev->pdata->out_conns[i]->dest_dev;
+>   		if (child_dev &&
+>   		    _coresight_build_path(child_dev, sink, path) == 0) {
+>   			found = true;
+> @@ -964,7 +964,7 @@ coresight_find_sink(struct coresight_device *csdev, int *depth)
+>   		struct coresight_device *child_dev, *sink = NULL;
+>   		int child_depth = curr_depth;
+>   
+> -		child_dev = csdev->pdata->out_conns[i].dest_dev;
+> +		child_dev = csdev->pdata->out_conns[i]->dest_dev;
+>   		if (child_dev)
+>   			sink = coresight_find_sink(child_dev, &child_depth);
+>   
+> @@ -1334,7 +1334,7 @@ static int coresight_orphan_match(struct device *dev, void *data)
+>   	 * an orphan connection whose name matches @csdev, link it.
+>   	 */
+>   	for (i = 0; i < i_csdev->pdata->nr_outconns; i++) {
+> -		conn = &i_csdev->pdata->out_conns[i];
+> +		conn = i_csdev->pdata->out_conns[i];
+>   
+>   		/* We have found at least one orphan connection */
+>   		if (conn->dest_dev == NULL) {
+> @@ -1372,7 +1372,7 @@ static int coresight_fixup_device_conns(struct coresight_device *csdev)
+>   	int i, ret = 0;
+>   
+>   	for (i = 0; i < csdev->pdata->nr_outconns; i++) {
+> -		struct coresight_connection *conn = &csdev->pdata->out_conns[i];
+> +		struct coresight_connection *conn = csdev->pdata->out_conns[i];
+>   
+>   		conn->dest_dev =
+>   			coresight_find_csdev_by_fwnode(conn->dest_fwnode);
+> @@ -1406,15 +1406,12 @@ static int coresight_remove_match(struct device *dev, void *data)
+>   	 * a connection whose name matches @csdev, remove it.
+>   	 */
+>   	for (i = 0; i < iterator->pdata->nr_outconns; i++) {
+> -		conn = &iterator->pdata->out_conns[i];
+> +		conn = iterator->pdata->out_conns[i];
+>   
+> -		if (conn->dest_dev == NULL)
+> -			continue;
+> -
+> -		if (csdev->dev.fwnode == conn->dest_fwnode) {
+> +		/* Child_dev being set signifies that the links were made */
+> +		if (csdev->dev.fwnode == conn->dest_fwnode && conn->dest_dev) {
+>   			iterator->orphan = true;
+>   			coresight_remove_links(iterator, conn);
+> -
+>   			conn->dest_dev = NULL;
+>   			/* No need to continue */
+>   			break;
+> @@ -1534,21 +1531,25 @@ void coresight_write64(struct coresight_device *csdev, u64 val, u32 offset)
+>    * to the output port of this device.
+>    */
+>   void coresight_release_platform_data(struct coresight_device *csdev,
+> +				     struct device *dev,
+>   				     struct coresight_platform_data *pdata)
+>   {
+>   	int i;
+> -	struct coresight_connection *conns = pdata->out_conns;
+> +	struct coresight_connection **conns = pdata->out_conns;
+>   
+>   	for (i = 0; i < pdata->nr_outconns; i++) {
+>   		/* If we have made the links, remove them now */
+> -		if (csdev && conns[i].dest_dev)
+> -			coresight_remove_links(csdev, &conns[i]);
+> +		if (csdev && conns[i]->dest_dev)
+> +			coresight_remove_links(csdev, conns[i]);
+>   		/*
+>   		 * Drop the refcount and clear the handle as this device
+>   		 * is going away
+>   		 */
+> -		fwnode_handle_put(conns[i].dest_fwnode);
+> +		fwnode_handle_put(conns[i]->dest_fwnode);
+> +		devm_kfree(dev, conns[i]);
+>   	}
+> +	devm_kfree(dev, pdata->out_conns);
+> +	devm_kfree(dev, pdata);
+
+Is there any particular reason, why we need to do this ? This should
+be done automatically at device teardown, which is bound to happen
+right after this call ?
+
+
+>   	if (csdev)
+>   		coresight_remove_conns_sysfs_group(csdev);
+>   }
+> @@ -1665,7 +1666,7 @@ struct coresight_device *coresight_register(struct coresight_desc *desc)
+>   
+>   err_out:
+>   	/* Cleanup the connection information */
+> -	coresight_release_platform_data(NULL, desc->pdata);
+> +	coresight_release_platform_data(NULL, desc->dev, desc->pdata);
+>   	return ERR_PTR(ret);
+>   }
+>   EXPORT_SYMBOL_GPL(coresight_register);
+> @@ -1678,7 +1679,7 @@ void coresight_unregister(struct coresight_device *csdev)
+>   		cti_assoc_ops->remove(csdev);
+>   	coresight_remove_conns(csdev);
+>   	coresight_clear_default_sink(csdev);
+> -	coresight_release_platform_data(csdev, csdev->pdata);
+> +	coresight_release_platform_data(csdev, csdev->dev.parent, csdev->pdata);
+>   	device_unregister(&csdev->dev);
+>   }
+>   EXPORT_SYMBOL_GPL(coresight_unregister);
+> diff --git a/drivers/hwtracing/coresight/coresight-platform.c b/drivers/hwtracing/coresight/coresight-platform.c
+> index 80ed2e74620b..bea8f1ba309a 100644
+> --- a/drivers/hwtracing/coresight/coresight-platform.c
+> +++ b/drivers/hwtracing/coresight/coresight-platform.c
+> @@ -36,7 +36,7 @@ int coresight_add_out_conn(struct device *dev,
+>   	 * Warn on any existing duplicate output port.
+>   	 */
+>   	for (i = 0; i < pdata->nr_outconns; ++i) {
+> -		conn = &pdata->out_conns[i];
+> +		conn = pdata->out_conns[i];
+>   		/* Output == -1 means ignore the port for example for helpers */
+>   		if (conn->src_port != -1 &&
+>   		    conn->src_port == new_conn->src_port) {
+> @@ -53,7 +53,9 @@ int coresight_add_out_conn(struct device *dev,
+>   	if (!pdata->out_conns)
+>   		return -ENOMEM;
+>   
+> -	pdata->out_conns[pdata->nr_outconns - 1] = *new_conn;
+> +	pdata->out_conns[pdata->nr_outconns - 1] = devm_kmalloc(
+> +		dev, sizeof(struct coresight_connection), GFP_KERNEL);
+> +	*pdata->out_conns[pdata->nr_outconns - 1] = *new_conn;
+>   	return 0;
+>   }
+>   EXPORT_SYMBOL_GPL(coresight_add_out_conn);
+> @@ -859,7 +861,7 @@ coresight_get_platform_data(struct device *dev)
+>   error:
+>   	if (!IS_ERR_OR_NULL(pdata))
+>   		/* Cleanup the connection information */
+> -		coresight_release_platform_data(NULL, pdata);
+> +		coresight_release_platform_data(NULL, dev, pdata);
+>   	return ERR_PTR(ret);
+>   }
+>   EXPORT_SYMBOL_GPL(coresight_get_platform_data);
+> diff --git a/drivers/hwtracing/coresight/coresight-priv.h b/drivers/hwtracing/coresight/coresight-priv.h
+> index 788ff19c60f6..65ae6d161c57 100644
+> --- a/drivers/hwtracing/coresight/coresight-priv.h
+> +++ b/drivers/hwtracing/coresight/coresight-priv.h
+> @@ -207,6 +207,7 @@ static inline void *coresight_get_uci_data(const struct amba_id *id)
+>   }
+>   
+>   void coresight_release_platform_data(struct coresight_device *csdev,
+> +				     struct device *dev,
+>   				     struct coresight_platform_data *pdata);
+>   struct coresight_device *
+>   coresight_find_csdev_by_fwnode(struct fwnode_handle *r_fwnode);
+> diff --git a/drivers/hwtracing/coresight/coresight-tmc-etr.c b/drivers/hwtracing/coresight/coresight-tmc-etr.c
+> index 61234cb8052a..1bbe5410a23d 100644
+> --- a/drivers/hwtracing/coresight/coresight-tmc-etr.c
+> +++ b/drivers/hwtracing/coresight/coresight-tmc-etr.c
+> @@ -782,7 +782,7 @@ tmc_etr_get_catu_device(struct tmc_drvdata *drvdata)
+>   		return NULL;
+>   
+>   	for (i = 0; i < etr->pdata->nr_outconns; i++) {
+> -		tmp = etr->pdata->out_conns[i].dest_dev;
+> +		tmp = etr->pdata->out_conns[i]->dest_dev;
+>   		if (tmp && coresight_is_catu_device(tmp))
+>   			return tmp;
+>   	}
+> diff --git a/include/linux/coresight.h b/include/linux/coresight.h
+> index ccbc5eafcb6b..7197b07deede 100644
+> --- a/include/linux/coresight.h
+> +++ b/include/linux/coresight.h
+> @@ -111,7 +111,7 @@ struct coresight_platform_data {
+>   	int high_outport;
+>   	int nr_inconns;
+>   	int nr_outconns;
+> -	struct coresight_connection *out_conns;
+> +	struct coresight_connection **out_conns;
+
+minor nit: Do we need to update the comment too ?
+
+Otherwise looks good to me
+Suzuki
+
+>   };
+>   
+>   /**
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
