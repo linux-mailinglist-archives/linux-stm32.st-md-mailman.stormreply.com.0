@@ -2,92 +2,123 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 98FF36D50CA
-	for <lists+linux-stm32@lfdr.de>; Mon,  3 Apr 2023 20:38:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4DCC26D518B
+	for <lists+linux-stm32@lfdr.de>; Mon,  3 Apr 2023 21:50:09 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 61BADC6A610;
-	Mon,  3 Apr 2023 18:38:14 +0000 (UTC)
-Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com
- [209.85.208.54])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F0E6BC6A610;
+	Mon,  3 Apr 2023 19:50:08 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2091.outbound.protection.outlook.com [40.107.243.91])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B4F9FC6A60B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 60DA4C6A5FD
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  3 Apr 2023 18:38:12 +0000 (UTC)
-Received: by mail-ed1-f54.google.com with SMTP id t10so120949887edd.12
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 03 Apr 2023 11:38:12 -0700 (PDT)
+ Mon,  3 Apr 2023 19:50:07 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=kH9L6CFmwKRw1jInJv4MSuq4ffyGpKkhfQdaTNIb+f96vQyfj91v/dD32kTklp8xJvkfAIIADXtOqEn0Nrkxcr98R5pV6T01kkYW1GD0irMLBBR5tq7pIgg18lOnlRXK31f67ah05brShI0qaBeahGo+hLv+8Zhu4DJ5tf/STAjAcPfUQ+drvysXECof4JbLVbZjJJScDSWWJlcL6o/PyPXNDTmc/3j4RriSPIah1ERKSRSuMZYYSJwvRVVYBo6XGMUbhOxDc3wyH9+xA3TOr9Ikzof1PfkbjaFcUczW0IZxKLNvWgl7Tq1X80LPrk5ELZME5N2QFVSdVaV9mubvYw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=eJBgXUNISmoTjoAMMXRTTHAeyrhLH1Dq9OPdxpZ6ugQ=;
+ b=VcDPV+foVz6W35s2QLwC5DKi6+uqoNTfLtKCQVOOwBCIk2HJB+8MF4+k0KsQuElcHzHcaC1e61WGNq+8yxw4eh9EoNDi/B72a2U8jGXkNdpemFRu3hf/uxnOE+xUYbQB8sggwC0ToYhT2+qQCRvEH6OVQkGcGJVgnaRwSGGl0Kjtv/5lR3nS6wQ7fVG/uwjCt0vzzEmUXrWYRxaS8cnO1lsWlYblVLVNa/FVGAr3Yw3rkcTJmtG9EzRMzUJs9DBJYnqGoD3viTIzMnMA5wHXghRA7frSbDyYNR6Shqgmys4lbEfn/imMEvJ+q8/5eU0j1QWozreehxiqPfyAogVKsQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=corigine.com; dmarc=pass action=none header.from=corigine.com;
+ dkim=pass header.d=corigine.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1680547092;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=CySdEehWspubmXAcFc/gUkZ6ALWiIO8Dims2v4pC7cI=;
- b=XxNS02hVI+u4D2pE7UGlx7ntA7oWIlCwkuRm3Gyu0E+L6ULQyC+6ShlqR4ekLzDFlT
- pRslLrKcSR/9KsmwaW7cNkZ4sBLMBrrx13XQF615coXajYG/D2tRgvu66pGLfEkrm/C8
- 2A12Wh9pO54frQbFLcjovLAct7UkfQ9S1TjuUtOPvPyfN9wP6JUhxmt2lMVWqNnXPliV
- rx/sm1EdhuYRfJXOSQ0ApUnyqwfYJXx+sqa2wWwvgay1iMPZZRXTCENV4sZ6NYwUwRpY
- /YoYeDYiuIdE9FWPQg9xmmoXwmNDiV7gsagK762uIJSgjXuFP8gohz0DLGqClEWw0WV8
- 4NmA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1680547092;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=CySdEehWspubmXAcFc/gUkZ6ALWiIO8Dims2v4pC7cI=;
- b=LXoN48jH2UkjoN5R3almVZDMqfEDjmLb4VE3MPO0iyDL0Wo6uPxaxHgq9Uyfcb6Bdf
- MycrBLULsZLwTZ7em4QIZLuXWXtVRPk8lwm60lhIhs0gqyLQJ9D0pUN6qBv2PhFNkAJ5
- IGU8kUeO7gFGJVHOvCBgWwXzXvmQKV1TZ3oGVBkO8igp0u3Vwh+n5EWuMeur8YaO/dGn
- hF7mW9kt2jgkpCueqm8pgn9Nos0lXe39i1Vxj6jDQa9c4weTb0J7ywZIkdJ+ymuoely1
- 8iTUGM642PQYsMxUy3gDph3FmO/tV0gmqATwGkREDBR9tnJXgfmx9bKT6654bhpDun4e
- YjUg==
-X-Gm-Message-State: AAQBX9d1m4T8eIQPx3g7h7tnDZEvHrPzGdkJFRlpL8dOKgDsybDvkP7x
- ExlLoMtdGNgtpnL6jifvyT1IEg==
-X-Google-Smtp-Source: AKy350a21SUvVW8zkI0jUgi5Fki72Pdn7B89a65yFrUkCNuucXQuzP/aqKcsR7vvEISiRfXbpBAEfA==
-X-Received: by 2002:a17:907:8c83:b0:939:a610:fc32 with SMTP id
- td3-20020a1709078c8300b00939a610fc32mr38202123ejc.53.1680547092335; 
- Mon, 03 Apr 2023 11:38:12 -0700 (PDT)
-Received: from ?IPV6:2a02:810d:15c0:828:ae90:d80:1069:4805?
- ([2a02:810d:15c0:828:ae90:d80:1069:4805])
- by smtp.gmail.com with ESMTPSA id
- t17-20020a1709060c5100b00927341bf69dsm4868907ejf.88.2023.04.03.11.38.10
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 03 Apr 2023 11:38:11 -0700 (PDT)
-Message-ID: <ac0a61cc-942e-191a-76f2-855b482247ff@linaro.org>
-Date: Mon, 3 Apr 2023 20:38:10 +0200
+ d=corigine.onmicrosoft.com; s=selector2-corigine-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=eJBgXUNISmoTjoAMMXRTTHAeyrhLH1Dq9OPdxpZ6ugQ=;
+ b=aFGlkRSn8ZUNkRglD89yri1T+OTuDvCWoRxHg1HoiyJJ8hcjsWpXVdYdYYpayFNt/p5i5vaAhs+qn9orOTY3bvGfl4SaBhJ09s8cGylzTRHwXcTcRvOzEpGTPJi6vG6InN/nm00LyzDwo7a7EhSH5V2yDsEjZhoGbqpsptW4RFY=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=corigine.com;
+Received: from PH0PR13MB4842.namprd13.prod.outlook.com (2603:10b6:510:78::6)
+ by PH8PR13MB6272.namprd13.prod.outlook.com (2603:10b6:510:253::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6254.33; Mon, 3 Apr
+ 2023 19:50:04 +0000
+Received: from PH0PR13MB4842.namprd13.prod.outlook.com
+ ([fe80::c506:5243:557e:82cb]) by PH0PR13MB4842.namprd13.prod.outlook.com
+ ([fe80::c506:5243:557e:82cb%5]) with mapi id 15.20.6254.030; Mon, 3 Apr 2023
+ 19:50:04 +0000
+Date: Mon, 3 Apr 2023 21:49:52 +0200
+From: Simon Horman <simon.horman@corigine.com>
+To: Shenwei Wang <shenwei.wang@nxp.com>
+Message-ID: <ZCst4PvQ+dlZEbgl@corigine.com>
+References: <20230403152408.238530-1-shenwei.wang@nxp.com>
+Content-Disposition: inline
+In-Reply-To: <20230403152408.238530-1-shenwei.wang@nxp.com>
+X-ClientProxiedBy: AS4PR09CA0010.eurprd09.prod.outlook.com
+ (2603:10a6:20b:5e0::14) To PH0PR13MB4842.namprd13.prod.outlook.com
+ (2603:10b6:510:78::6)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.9.0
-Content-Language: en-US
-To: Neil Armstrong <neil.armstrong@linaro.org>, Arnd Bergmann
- <arnd@arndb.de>, Olof Johansson <olof@lixom.net>, soc@kernel.org,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Russell King <linux@armlinux.org.uk>,
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
- <sboyd@kernel.org>, Daniel Lezcano <daniel.lezcano@linaro.org>,
- Thomas Gleixner <tglx@linutronix.de>,
- Miquel Raynal <miquel.raynal@bootlin.com>,
- Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>,
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH0PR13MB4842:EE_|PH8PR13MB6272:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7992b889-6d7f-41eb-45c1-08db347c9e14
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: ToD1Re32PZcNquGA+5d80yWqtsZ5CMeL12zj7rq/YvUDuEJ7n1P0I8heh5bgAac5KBDmKdCIRF+82HZzrzMEuJ1TDBAkyDHQqmVyfW3MBxVgeje5uZbtfmiyrP1Bkj1eaCvEGpR6zORYOipIvU+3GXzO2a+Db4WFxFiWPaeDAoECsMtMaE5io/qB2gT2gKEzINlWaAtrljpNxMmSHOvFPk7dA3biEyLLiyE39VuOaMNw+IufEtE7DTCcjc0h4IQ4qvRtg3DKKBEwaIZinDq1pbbwV8Elb7ECQX/1CyKUvt3TxmezKwuzN12/Xc/my71SOwUTFL3a2+1mq6GIMyF3EtvF/xilSQ88fxz2Ld1/7S7SAoyR4y6pWZIY7fJBYAJD9tYpCpBmxmr6qK/5RPpVcID0lY8R2HIdIiDd+T5zaM9miq1MEELTTrOtL+Ve3TSevC9IL73MPKe9I8ONgv4qu4xclSNetdRxXYhxNwG3jNwn5GGr2wiIUaipbm/LF7e7Tm47+hkUt4mStweJK/SS6/qGeLrMwayqaI2JhFH32zavEU/uDHgN48lpemmgTEb8xIgML/b0Ob/jxscuiWsoRJpoD6Sx+sQQwwSmWtBD14jnFtRWh+iGsFK9tsnRrdYebY/tHP52ZOmE3V925XOLYyoV+Tn8AqLz/FpJfOoxb2o=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH0PR13MB4842.namprd13.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(4636009)(39840400004)(346002)(396003)(136003)(366004)(376002)(451199021)(2906002)(44832011)(86362001)(5660300002)(7416002)(66476007)(8936002)(8676002)(66946007)(66556008)(41300700001)(36756003)(6916009)(4326008)(316002)(54906003)(478600001)(6486002)(186003)(6506007)(6512007)(83380400001)(2616005)(6666004)(38100700002)(67856001);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?mGrD69g5GAQH5f8HSDG71QRtovx4Vl+ehSSFb1f61EJiLqaV5OQepOMBEb6X?=
+ =?us-ascii?Q?o0re8509ZeYBFqRSJNiLV8MGbu2TziI3hakFPEjsiScPxZNN7zq2dTs3v/31?=
+ =?us-ascii?Q?bbZj9ESfpBvOccq7u7whYpmFqrFSxqsf1Jus1wH4xDeyXok0yr1MeNGGz+4O?=
+ =?us-ascii?Q?vlJecDQ4gMzq+Ksybb8WjCeObAJeTEuAt4PWp7+PTl7ybUGKZvZ1blDy7bhy?=
+ =?us-ascii?Q?hJg5VIiHCR7fSoQNQX3l5UFrOwcINvC3UIc5xFIoxRDCyZkKlTQs4EPhBp+3?=
+ =?us-ascii?Q?8/AvHRvlboTUwZW3ZXBL0aSWMwFvJLxrW49Dhfg8G6TD2QsbmnZFb31EqOkM?=
+ =?us-ascii?Q?eAJ+3cpGe5HLFdhvWalGgutFdIe3FRItkrIgx1zO8tMiYCMFtv7hr1PUm8Vm?=
+ =?us-ascii?Q?BFLKKIiDaTgttl+4VW5AGby4mcnV6nFIUBM0dDrM1B7moiy2xWKsvVi0xdfi?=
+ =?us-ascii?Q?kLrLVW/6Y5EQDPjkmJTyCfYazsUUv3Xj5l/iAEt1KVvVKl7Aot350Qa1uK8N?=
+ =?us-ascii?Q?FZSR6eD3YncgFtrSlJpB0K3sD50HgSAMvbxnfNLPpLDPyB6cCI8k/Sb+fgP8?=
+ =?us-ascii?Q?StOuLZK1qWJMNQjlXdouBYg6o7y/UBKprVgbNOmm0qWt1R2AdY+bRpvWOsLy?=
+ =?us-ascii?Q?vaPRX3+nmyWJi+SpxfF8qaKa+jnLaaMIGwrWhgVi7OTksLtgQcQqHLDAAtIj?=
+ =?us-ascii?Q?fBYsL4ghDhlK0Y1iyvum4UF4CtLFa77Pr/EYXaRxfhtU7chJl+kmlpU07UHX?=
+ =?us-ascii?Q?F3JSCGKCg0Nwxuz0WZ7W/QWS+ouALz88w+5SkLJHl2tTpmE2ShhGjP40FdTY?=
+ =?us-ascii?Q?pWsEgFQeim9e8+s4XraX31niDVBIovW8wI7nCD1EvSoOHcs27kgzIeAO77pe?=
+ =?us-ascii?Q?rvzYXunjh+aFIv5KGTcLr8OJ+MaR16+isRs7EShaD3AgEms7LshKbWhDcpv/?=
+ =?us-ascii?Q?VoKgc0wjdk0MPme9B2ZEj65hmIrOaEIQHP6OC8z6H/skA5D1Hg6CxYfFsGU7?=
+ =?us-ascii?Q?Kfq9++nuqD+WlvjHcZ4UmP4RwKpKre/3YZVp6MuEneSJEdo/N2gOujo3d/TN?=
+ =?us-ascii?Q?6TCbwTk/4/NVC1kdOsJW+Gmxg2wXAna+aPlAYg65WrkwCeTz/zPWqhtke+FD?=
+ =?us-ascii?Q?bLVhAfhPS7hmOlPQYOWmxGeWHW9XBgfyNtaOUOH2luPgxkMSD6hBkAt+PE0q?=
+ =?us-ascii?Q?0Vwaa7Af1GZiW34kATh/onKguvt9/J2gdqiIRLXmHPn/e50V+pu8lrwLmM4v?=
+ =?us-ascii?Q?Bk/n1GF9xpt9EdZ0iDW40SrMfX4dpS6GB7UEVHIcU1vaOBriiF3E3X8GysBp?=
+ =?us-ascii?Q?eWcoCdx1AtYO6GG8w8oNZxVlInJ4I94P1HrEcDk6QqBu9Qd6xDUsNtv60reB?=
+ =?us-ascii?Q?obWlX50lc8GmpiK0GwfqUnmQbf4NiaQjLBrY0kv3PIDM6NCyCY5/V/XlzZrd?=
+ =?us-ascii?Q?1F9vDSr8GA2UogNymKHYVRIpj9/S4AFd6itl3/NsjVOK0od5X4/3FRYBhE1u?=
+ =?us-ascii?Q?bkXRW90lC19ACcEqjvcZ99mi6gaTXETjmxW0Lpkk28ugfmjPGfi6gjYsZ+q+?=
+ =?us-ascii?Q?UUvmLtuWiQJv5/DD4PdlSz1Z0N8A4UW0WTSeR0knfR8q+jWyNWRKr+QKHnZF?=
+ =?us-ascii?Q?9lL06MDTmbRInh9SnswBbu/gv2O5gBHLZuLgdijrzJp/7X6ZjxySQ3ap0s+j?=
+ =?us-ascii?Q?nKB1vQ=3D=3D?=
+X-OriginatorOrg: corigine.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7992b889-6d7f-41eb-45c1-08db347c9e14
+X-MS-Exchange-CrossTenant-AuthSource: PH0PR13MB4842.namprd13.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Apr 2023 19:50:04.0569 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: fe128f2c-073b-4c20-818e-7246a585940c
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Yq9SPOvEQzW1o48YJSMXAgPZIMd6zOuHaoyScUoBtjOU2ZD25U5jbLThqQO68VqQ+Sdrazcvhe2CqVOu084DQguwF3kIHUZy6XaECO1ncTU=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR13MB6272
+Cc: Jose Abreu <joabreu@synopsys.com>, imx@lists.linux.dev,
+ Kurt Kanzenbach <kurt@linutronix.de>, Eric Dumazet <edumazet@google.com>,
+ Fabio Estevam <festevam@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
+ Tan Tee Min <tee.min.tan@linux.intel.com>, Wong Vee Khee <veekhee@apple.com>,
+ Mohammad Athari Bin Ismail <mohammad.athari.ismail@intel.com>,
+ NXP Linux Team <linux-imx@nxp.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>,
+ Andrey Konovalov <andrey.konovalov@linaro.org>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Jochen Henneberg <jh@henneberg-systemdesign.com>,
  Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Jose Abreu <joabreu@synopsys.com>, "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>, Linus Walleij <linus.walleij@linaro.org>,
- Bartosz Golaszewski <brgl@bgdev.pl>, Sebastian Reichel <sre@kernel.org>,
- Philipp Zabel <p.zabel@pengutronix.de>, Marc Zyngier <maz@kernel.org>
-References: <20230331-topic-oxnas-upstream-remove-v1-0-5bd58fd1dd1f@linaro.org>
- <20230331-topic-oxnas-upstream-remove-v1-14-5bd58fd1dd1f@linaro.org>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20230331-topic-oxnas-upstream-remove-v1-14-5bd58fd1dd1f@linaro.org>
-Cc: devicetree@vger.kernel.org, linux-pm@vger.kernel.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-gpio@vger.kernel.org,
- linux-mtd@lists.infradead.org, linux-clk@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH RFC 14/20] dt-bindings: pinctrl: oxnas,
- pinctrl: remove obsolete bindings
+ linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
+ "David S. Miller" <davem@davemloft.net>
+Subject: Re: [Linux-stm32] [PATCH v5 1/2] net: stmmac: add support for
+ platform specific reset
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,21 +135,57 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 31/03/2023 10:34, Neil Armstrong wrote:
-> Due to lack of maintainance and stall of development for a few years now,
-> and since no new features will ever be added upstream, remove the
-> OX810 and OX820 pinctrl bindings.
+On Mon, Apr 03, 2023 at 10:24:07AM -0500, Shenwei Wang wrote:
+> This patch adds support for platform-specific reset logic in the
+> stmmac driver. Some SoCs require a different reset mechanism than
+> the standard dwmac IP reset. To support these platforms, a new function
+> pointer 'fix_soc_reset' is added to the plat_stmmacenet_data structure.
+> The stmmac_reset in hwif.h is modified to call the 'fix_soc_reset'
+> function if it exists. This enables the driver to use the platform-specific
+> reset logic when necessary.
 > 
-> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+> Signed-off-by: Shenwei Wang <shenwei.wang@nxp.com>
 > ---
->  .../devicetree/bindings/pinctrl/oxnas,pinctrl.txt  | 56 -------------
+>  v5:
+>   - add the missing __iomem tag in the stmmac_reset definition.
+> 
+>  drivers/net/ethernet/stmicro/stmmac/hwif.c | 10 ++++++++++
+>  drivers/net/ethernet/stmicro/stmmac/hwif.h |  3 +--
+>  include/linux/stmmac.h                     |  1 +
+>  3 files changed, 12 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/hwif.c b/drivers/net/ethernet/stmicro/stmmac/hwif.c
+> index bb7114f970f8..0eefa697ffe8 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/hwif.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/hwif.c
+> @@ -87,6 +87,16 @@ static int stmmac_dwxlgmac_quirks(struct stmmac_priv *priv)
+>  	return 0;
+>  }
+> 
+> +int stmmac_reset(struct stmmac_priv *priv, void __iomem *ioaddr)
+> +{
+> +	struct plat_stmmacenet_data *plat = priv ? priv->plat : NULL;
 
+Here the case where priv is NULL is handled.
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> +
+> +	if (plat && plat->fix_soc_reset)
+> +		return plat->fix_soc_reset(plat, ioaddr);
+> +
+> +	return stmmac_do_callback(priv, dma, reset, ioaddr);
 
-Best regards,
-Krzysztof
+But this will dereference priv unconditionally.
 
+I think perhaps this is code that I suggested.
+If so, sorry about not noticing this then.
+
+> +}
+> +
+>  static const struct stmmac_hwif_entry {
+>  	bool gmac;
+>  	bool gmac4;
+
+...
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
