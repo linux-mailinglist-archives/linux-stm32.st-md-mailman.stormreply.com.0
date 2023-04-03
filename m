@@ -2,49 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9A36D6D4CEB
-	for <lists+linux-stm32@lfdr.de>; Mon,  3 Apr 2023 17:59:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 146D36D4DA1
+	for <lists+linux-stm32@lfdr.de>; Mon,  3 Apr 2023 18:26:50 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5B70BC6A610;
-	Mon,  3 Apr 2023 15:59:34 +0000 (UTC)
-Received: from relay9-d.mail.gandi.net (relay9-d.mail.gandi.net
- [217.70.183.199])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B9254C6A610;
+	Mon,  3 Apr 2023 16:26:49 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 51D88C6A5FD
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D61E0C6A5FD
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  3 Apr 2023 15:59:33 +0000 (UTC)
-Received: (Authenticated sender: miquel.raynal@bootlin.com)
- by mail.gandi.net (Postfix) with ESMTPSA id 6CAD2FF808;
- Mon,  3 Apr 2023 15:59:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1680537573;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=ZxzAESz2itDatQ0g4Gg/O8O4nZ6xBxSu0J0zCMfdfVI=;
- b=UEulIjSPWvrG4xKO+EsYpQG7wm/RETkk/NF4U9FqG5BeatPS1smcKB4ReIS4Cr80SuJsQz
- jQsNlPtcEnHgZKp/eQjpEdJdX6R/1x3Gq93kD9xPuGoUelcom2n9nsh3R6dvfrb3YJULNA
- L39IunvtJK2lKoqJe48mv6X1k7Orwh/WOlHi8LwNMjwBHIcfiLifNOoznjWsmQD62r8wV0
- XYOidDqFnvIZtubqH0TjsGAkCaFkXSssElf2WHGdm+R5pyWouLJyCppYi/4tGF4GZcxMUR
- mlkqIFQCMdecXXOxbW1ecIDMjubAIChU3DfbsbJrZbb2fZImxD+J7NJEx38DYQ==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: Christophe Kerello <christophe.kerello@foss.st.com>,
- miquel.raynal@bootlin.com, richard@nod.at, vigneshr@ti.com
-Date: Mon,  3 Apr 2023 17:59:29 +0200
-Message-Id: <20230403155929.137657-1-miquel.raynal@bootlin.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20230328155819.225521-2-christophe.kerello@foss.st.com>
-References: 
+ Mon,  3 Apr 2023 16:26:48 +0000 (UTC)
+Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 333CkHZ0009298; Mon, 3 Apr 2023 18:26:42 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=selector1;
+ bh=rY+Djr2HOgaqAVEnK7qs+dyjPZEDKffzgGQnxC80TYU=;
+ b=A2UU/ecL/XEpK2cTyI6ftFb/gp2EtyMfCKqFg9z+aPIT8mlPgcH06pUhSg2DKPeqm/Xz
+ w0kkrz+DxSLPlZAKFBZjwfAgwBTFpnlKT2VfAxzs33/KUH6EoCd29OPyJ9c7wscEiGPJ
+ mEWeqH1oahyHVbSSJEt9ynPrbtg6ms0g8hqHWsox3MQLH3oQZCoBPKHiwunwy2+bZZe6
+ GfD5Lh7bvUAsIpZ8oWz2d42nKKRuOF8qIQVaeFX38fWhfsHfkpB+wNoGgQTjBmlsMScQ
+ JvXJgrhuOoHRQ3GTtWSZvZeIei9+iXc8pKVsDgSDTF9ArSnjZatkieShX1dQ2QXwxbMi Fw== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3ppby3un5m-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 03 Apr 2023 18:26:41 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 06D7210002A;
+ Mon,  3 Apr 2023 18:26:40 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id E1C3720972D;
+ Mon,  3 Apr 2023 18:26:40 +0200 (CEST)
+Received: from localhost (10.201.21.178) by SHFDAG1NODE2.st.com (10.75.129.70)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.17; Mon, 3 Apr
+ 2023 18:26:38 +0200
+From: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+To: Bjorn Andersson <andersson@kernel.org>, Mathieu Poirier
+ <mathieu.poirier@linaro.org>, Rob Herring <robh+dt@kernel.org>, Krzysztof
+ Kozlowski <krzysztof.kozlowski+dt@linaro.org>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>
+Date: Mon, 3 Apr 2023 18:24:23 +0200
+Message-ID: <20230403162423.3325968-1-arnaud.pouliquen@foss.st.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-X-linux-mtd-patch-notification: thanks
-X-linux-mtd-patch-commit: b'f71e0e329c152c7f11ddfd97ffc62aba152fad3f'
-Cc: Tudor Ambarus <tudor.ambarus@linaro.org>, linux-mtd@lists.infradead.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+X-Originating-IP: [10.201.21.178]
+X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE2.st.com
+ (10.75.129.70)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.254,Aquarius:18.0.942,Hydra:6.0.573,FMLib:17.11.170.22
+ definitions=2023-04-03_13,2023-04-03_03,2023-02-09_01
+Cc: devicetree@vger.kernel.org, arnaud.pouliquen@foss.st.com,
+ linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH v3 1/2] mtd: rawnand: stm32_fmc2: remove
-	unsupported EDO mode
+Subject: [Linux-stm32] [PATCH v2] dt-bindings: remoteproc: st,
+	stm32-rproc: Typo fix
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -61,18 +77,39 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, 2023-03-28 at 15:58:18 UTC, Christophe Kerello wrote:
-> Remove the EDO mode support from as the FMC2 controller does not
-> support the feature.
-> 
-> Signed-off-by: Christophe Kerello <christophe.kerello@foss.st.com>
-> Fixes: 2cd457f328c1 ("mtd: rawnand: stm32_fmc2: add STM32 FMC2 NAND flash controller driver")
-> Cc: stable@vger.kernel.org #v5.4+
-> Reviewed-by: Tudor Ambarus <tudor.ambarus@linaro.org>
+Fix "communnication" typo error.
 
-Applied to https://git.kernel.org/pub/scm/linux/kernel/git/mtd/linux.git mtd/fixes, thanks.
+Fixes: aca8f94e5b69 ("dt-bindings: remoteproc: stm32-rproc: add new mailbox channel for detach")
+Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+---
+updates vs V1: address Krzysztof comments
+- Add missing "st,stm32-rproc" device prefix in subject
+- Drop line break between "Fixes" and "Signed-off-by"
+- Add Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+---
+ .../devicetree/bindings/remoteproc/st,stm32-rproc.yaml        | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Miquel
+diff --git a/Documentation/devicetree/bindings/remoteproc/st,stm32-rproc.yaml b/Documentation/devicetree/bindings/remoteproc/st,stm32-rproc.yaml
+index 66b1e3efdaa3..ff95648f4967 100644
+--- a/Documentation/devicetree/bindings/remoteproc/st,stm32-rproc.yaml
++++ b/Documentation/devicetree/bindings/remoteproc/st,stm32-rproc.yaml
+@@ -72,9 +72,9 @@ properties:
+               ready for shutdown
+       - description: |
+           A channel (d) used by the local proc to notify the remote proc that it
+-          has to stop interprocessor communnication.
++          has to stop interprocessor communication.
+           Unidirectional channel:
+-            - from local to remote, where ACK from the remote means that communnication
++            - from local to remote, where ACK from the remote means that communication
+               as been stopped on the remote side.
+     minItems: 1
+ 
+-- 
+2.25.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
