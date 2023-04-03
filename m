@@ -2,124 +2,79 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 65CF66D5196
-	for <lists+linux-stm32@lfdr.de>; Mon,  3 Apr 2023 21:51:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EE66D6D52A3
+	for <lists+linux-stm32@lfdr.de>; Mon,  3 Apr 2023 22:39:16 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2B422C6A610;
-	Mon,  3 Apr 2023 19:51:48 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2118.outbound.protection.outlook.com [40.107.237.118])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A7962C6A610;
+	Mon,  3 Apr 2023 20:39:16 +0000 (UTC)
+Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com
+ [209.85.208.53])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 15FA6C6A5FD
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 200A9C6A60B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  3 Apr 2023 19:51:47 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=TZRuiSL2f6Fej2DmZAieeX9awMPuExr7nmDDiTVq4pPF9U+ODpRPnVF1crEJBt/O2Yu6kJ1Qb+/O0Wn69KGshDHzGsZJLE5huCq1KBjGAwzO9+dvm2g+cSCA7fJnw2Lpvk6JrQiDuOSX4g/eIgi24VDHZoz9CMxdmzb0EZJxzGABu/+/uA2dKhDor1Vr9ke14gGo+TMFCEwE95/OElJG/lOJryI5sKOFztBiSUqriMoRduve/wguMJYeksoSeXz/VKpqpGouvKHyLgWcMSgscUNevWa1d5+Kv5YWWsFq/BcwV+g2f+SswylU+EZlPImB9uHnrSa4ju0Kqn/RobvbYA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=CpgLzJK4cnQXaGeYevChFgqCyJbTelxMpRzCH5fO43Y=;
- b=Fsfv9KA5FyO4cwlv7AcTxNvSXwxQ2UHORspVeKBGevfWAiUUVYDFG3xrlpStqETS2QKZqEwr+mSm1/2IdeWMOeFTEFfOs5PczshNWNDF0VkefuQZwCxKHuu9lHxrvc/zD5teZiuhRnQNwIFxRjuYnzHsfJpnhAT91V/F9iXVPNJX3lvFZG3ZqtB/7Y26zdkILA1MJ3ljNaVqeKT+XQpCjiCxpuYzCxxRg7kQaG3Sl2S+maZDsnkitZKCkqrWM9DjySKXR4MGhid44J8CxmpTWRfmNFFDha+6cEVZzPKmwpRf9N+a7MbNgaULqqXqk/LB08Co4fNGSreigeGLOHJ2gA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=corigine.com; dmarc=pass action=none header.from=corigine.com;
- dkim=pass header.d=corigine.com; arc=none
+ Mon,  3 Apr 2023 20:39:15 +0000 (UTC)
+Received: by mail-ed1-f53.google.com with SMTP id x3so122247343edb.10
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 03 Apr 2023 13:39:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=corigine.onmicrosoft.com; s=selector2-corigine-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=CpgLzJK4cnQXaGeYevChFgqCyJbTelxMpRzCH5fO43Y=;
- b=uf0bq/NQ3RRibKtQFAR1BdvjwjD9VAP/zy4lXiiVMR/fzfn4IcLRHx+MwQ52ltw3yrrf4B0OxJCwlw/vJD+fM8389lz3Uno95iO3dUPOS6AQBGP+ONQBwOeW7oLDL3057huJqd6nzOBTlXjdEFy89VKTtJocoSRG3nT4sAFuQTo=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=corigine.com;
-Received: from PH0PR13MB4842.namprd13.prod.outlook.com (2603:10b6:510:78::6)
- by BY3PR13MB4882.namprd13.prod.outlook.com (2603:10b6:a03:36e::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6254.33; Mon, 3 Apr
- 2023 19:51:42 +0000
-Received: from PH0PR13MB4842.namprd13.prod.outlook.com
- ([fe80::c506:5243:557e:82cb]) by PH0PR13MB4842.namprd13.prod.outlook.com
- ([fe80::c506:5243:557e:82cb%5]) with mapi id 15.20.6254.030; Mon, 3 Apr 2023
- 19:51:42 +0000
-Date: Mon, 3 Apr 2023 21:51:32 +0200
-From: Simon Horman <simon.horman@corigine.com>
-To: Shenwei Wang <shenwei.wang@nxp.com>
-Message-ID: <ZCsuRDDAmIj571wl@corigine.com>
-References: <20230403152408.238530-1-shenwei.wang@nxp.com>
- <20230403152408.238530-2-shenwei.wang@nxp.com>
-Content-Disposition: inline
-In-Reply-To: <20230403152408.238530-2-shenwei.wang@nxp.com>
-X-ClientProxiedBy: AM3PR05CA0092.eurprd05.prod.outlook.com
- (2603:10a6:207:1::18) To PH0PR13MB4842.namprd13.prod.outlook.com
- (2603:10b6:510:78::6)
+ d=googlemail.com; s=20210112; t=1680554354;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=ANuyucjG7+IOsm6+PTXTUkVZpuE117uxor/udrQsrHI=;
+ b=QBtct7OF544g4KW8FmyicOGj93ZjWlg8zuQv1bJbp8jcg7kZlaoTEPE+ZjM8qK1FvF
+ ySiNTF5dDqmcX7CK3V3nXjfCtZyZUPhXWS0tiyg1h2mmI68eIuECf75r+pVgglVEKCkU
+ kHoMUTP0p53HT7ROKBpLFzTXIvLXbS7upHKKFV+6T4zuNMqbtyJ5qYvrMPN/aHFSnads
+ mcQglHoBkCSFBXGMXHZCZrQSWHcr75YnbjUa66Tunz0FV33dyy00oLs71tZiNRBidtW4
+ jtGUBV/KHY62/FaxcVx0/bdUCldUHFYapDx3Da/E+rJH3/2oHbH6x+g4Go250AzETWuH
+ eyhQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112; t=1680554354;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=ANuyucjG7+IOsm6+PTXTUkVZpuE117uxor/udrQsrHI=;
+ b=xso8wkxuwgcb055C5qyBK65gOAcFZ6V+pV+l83CvPQ5iKFhwdy5uxVGt6zWA0h6JmP
+ NlZvv8hif5/0/0c0B1eNxr7oMd3e4HIBXcKqZY92HHCFeTmyD+qjeLn/4r74Foaxh2rK
+ KmhZW9AWCqIOgjZELXYTQ56HOPC0TWAc+MrGIPgKaA2qtE5JLfxOt3zgTi/BUPunT3uC
+ 4EIrbqcZkPPNeHZXT+1ZATGFvyKEJ3x4FONhAamGVfc1gjt1FUkHlFmQ+EkURaXyjXB1
+ WZvpz7AVWaAJhmmfPKUatggAXJ3uJ03Tj9jY3etrTZzuE4sA2D4+Mei0AcvfekbtUcvi
+ A1BA==
+X-Gm-Message-State: AAQBX9eayT7RBcil4O9lMAyMp3fvD0Sy8d2vwxJP6bwrrqZe9kjw5ECI
+ HPDGIvXfwOonhUX7pXrElo+Xfjk/nma9HKgJAW8=
+X-Google-Smtp-Source: AKy350Yxps2lCxD4+gSI3XRR+EKyXbQm+2ZcypH1MgOjQt3rpacSMedZmkVztU2IZX24o5jZNqKukzBRTVyKq2STkzU=
+X-Received: by 2002:a05:6402:a47:b0:502:3e65:44f7 with SMTP id
+ bt7-20020a0564020a4700b005023e6544f7mr10506548edb.3.1680554354318; Mon, 03
+ Apr 2023 13:39:14 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH0PR13MB4842:EE_|BY3PR13MB4882:EE_
-X-MS-Office365-Filtering-Correlation-Id: 30b33b0f-e38c-489e-759e-08db347cd8bd
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: ZP2NqlvcqkVLOnq+NlJrIVlm1mN02m3ZGTOgCxHWAbIIYXxds5OfmQCz8A3MENuwo5odyfZRZxKQfdV4dr04epKPMQ/7j55CVhyGNEvy4bahzEIqRCYvj3FLEyGUU6GLXMoOYsGHJjPZZdEpNlZ6T3/3A9meL7MMoeWJOvAIWmg0XXt4XRHUPdKX18KV6Bt5Q7elauxuSOmWqaVbjPVAXIYsragSDDQ2mkV7X26pF8TEjg3I+p5IHXegbQUt4g/vKKwJkk77Zcg4IW05MnDa+c0QBTZIS0uqE8qR/cVvkuJhZeD0F56vIVFEtCuCx6N019aGSTU3jklDRUa5cK8Pll/AA01ZbBR702v4BFk+LakvwikcRagF1MuLegOQ7ArwoeTAn4NbNH2gbpllGmI+aebqvhkO+vHm07MPn9seWdVOIh08EnAFOKvdQ7fezq71nbzviRIO3J5xDpFqloC/rChrBQWRQe7qBnoQCPDnx+3y7OobxMCzN6QQ4lxfm+9W4Cd0lvmGcSXkgCHaoKAPuPKwsbeSF0/2FlnuR5zRgjeIERJp52zLoDpWrtGuvAxF
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH0PR13MB4842.namprd13.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(6029001)(4636009)(366004)(136003)(346002)(396003)(376002)(39840400004)(451199021)(2906002)(44832011)(38100700002)(7416002)(5660300002)(66476007)(66556008)(66946007)(8936002)(41300700001)(4326008)(6916009)(8676002)(36756003)(54906003)(316002)(2616005)(86362001)(478600001)(186003)(6512007)(6506007)(6666004)(6486002);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?e8LcjUio4h6+Cf7c+493q4iaKOfANqypcrEaVEx4qABOsoR3QcU3y5XWdG7g?=
- =?us-ascii?Q?eaqQgHrRHwSTRWysdPAvIRdG8VMoZJ9kOvUHIL/nbC57DH4A7gD10iJGpPPI?=
- =?us-ascii?Q?rr9oDifQqGf9+DxPscpWWQnrq7QWdt8bfytLVz8D51YcLFcSpMt+m8M5aFP0?=
- =?us-ascii?Q?y6tdMh/FSZSNqsiCRzAkq2N410Bepapo7xxSzKptZ4H4G6vQz1bjH4S9tc4G?=
- =?us-ascii?Q?o3vz0loLodDXkdCOaiBOJadbj1QgRz9RJt5a1Nn9MgQTlDmi+GH6b4HMBC6+?=
- =?us-ascii?Q?EoSqp1ZK3VLzya1cwv8qWDwKKXptXxCLtz/W79bbe2ZbEhWgET2eZdyzqnSE?=
- =?us-ascii?Q?1ZE8dmEXWfT3GRAWTlgTdz9jrxO86WA10WdiF2pCrO7jWnpL4QUc3/7VI0B/?=
- =?us-ascii?Q?n8JeIbKdK1fzvwZ/FAvKyC0mUiSuAy7D0SOAZ9na51I/3MQBlqSB5YBrE6Q4?=
- =?us-ascii?Q?DkUzKoweXAsY8aeGAteZN+noEMPSmBwbgFtxkzwfCg94VmI6zwYLV3C3PEkR?=
- =?us-ascii?Q?i9FpZztRK/3hhn9D2Qfex3wvorCTH5RJTp6uIXmo0nRNHvfKmSXCCRY/y4bG?=
- =?us-ascii?Q?+LBIXs9/fnm6RqhiyeWS6Veida2akYaF3nG1kdWG8JGUZFLzTva6RnOxXV92?=
- =?us-ascii?Q?zNisSCS8GzvZNIINo2yPjOobhtjqobd0YK7Nm11Dre4nnKA5oSnMvUHU1N65?=
- =?us-ascii?Q?o6gFtQQnF9n3siPS9yzUOm4g8x81diGi568iNRbYWkm2UrSNsAWcgv93X+/9?=
- =?us-ascii?Q?+YzRXEbyuj54YpP1kYrNk6jf3oedWKoIEAK/MhQyQR4l0QyF2pSCPvzl8TGg?=
- =?us-ascii?Q?v4+6jrrog3BBH1tcqTSdKaj4ieM4/7RbTt2d+AaqAh44Tv+xpahbiSuISqtR?=
- =?us-ascii?Q?RBrVTUMcFGlKcnRCHlMhZfXZWazsB2ivsfNvUDpp9l5WoU0vyzktmjsDytX2?=
- =?us-ascii?Q?TjsnqqjSeRPYW/Ysyf2+iWvHRoVibr7z7kHVZzcbLmndn3BNutb3jkh9TJCG?=
- =?us-ascii?Q?d1AfiSDcR7QQIVNUq2B30c01N8k20+eb4l4WG3/Wx0R1LErMrUCIdsKHZcAP?=
- =?us-ascii?Q?xfAK0t5ixWjI87Gl3dr4rdjgpiXmBDLe90Ys6GOdmg5l0xDn/qLrnVAzZA4b?=
- =?us-ascii?Q?oLpJZVjyQev1rV5ppBFDs8xdwqYGmHipm03+zylqKoYFsT0+o+2LFr7Bglv/?=
- =?us-ascii?Q?YXipBz81xr84Oaf/GPOUU30TDn9OIElNrtptJ6REbMyfiEXgl+mm3CpnHL91?=
- =?us-ascii?Q?7koyfGUXdvL4GI45OIV55Dr1m/9ohet/udqhT0eqzZUMpJ5tBiJ1t5y9RGkV?=
- =?us-ascii?Q?mBr/A3XrUO3YmBCvYS9JSVV8lFpbztguFpSnDnINz9OJqB9qP1p7cFcBRfvj?=
- =?us-ascii?Q?itAwhNDuRPtUguC/9zgjRLuW8ncgJUywOSoRTENYuRvfejr4sSqrOPEV1aGB?=
- =?us-ascii?Q?Yc+3Qsm96ARUUEz/tXz7PDQwPFw4sdfhSEVGzzhh5bC9dPn/jQTWKh9jxHe9?=
- =?us-ascii?Q?Qf9JxSREt023lfE5MDSS9Hz944iErUvQuPmXd1FjDR9KJne4dklhsXNbVgfy?=
- =?us-ascii?Q?MpVzt5ZEX5kpzVJ9jvCb5Wv5pFCMcJf18iTYvOXIeMYSqieBEKG85vWJdAnC?=
- =?us-ascii?Q?zF+ab9Kkyq2f54802PZCdgsPkJf/u0eRw64qQLKvNPQAbAiTsZPWD4sPwUHR?=
- =?us-ascii?Q?YX5L2g=3D=3D?=
-X-OriginatorOrg: corigine.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 30b33b0f-e38c-489e-759e-08db347cd8bd
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR13MB4842.namprd13.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Apr 2023 19:51:42.2489 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: fe128f2c-073b-4c20-818e-7246a585940c
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: CCtcoEry7/WcKDJ7Z/32nxiCivuWf4S6UBv91LV/rI6xRJXM6hNNy2V+VWxf/N5+ZykPkwHIickkN8ifSQ4UgNVvYfvHESIml2aHbWvHWAY=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY3PR13MB4882
-Cc: Jose Abreu <joabreu@synopsys.com>, imx@lists.linux.dev,
- Kurt Kanzenbach <kurt@linutronix.de>, Eric Dumazet <edumazet@google.com>,
+References: <20230402143025.2524443-1-u.kleine-koenig@pengutronix.de>
+ <20230402143025.2524443-2-u.kleine-koenig@pengutronix.de>
+In-Reply-To: <20230402143025.2524443-2-u.kleine-koenig@pengutronix.de>
+From: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+Date: Mon, 3 Apr 2023 22:39:03 +0200
+Message-ID: <CAFBinCBX8dQo9898KkXaMaanQ9-LcFA7HHFf+XBM2-f+g8WY7Q@mail.gmail.com>
+To: =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+Cc: Eric Dumazet <edumazet@google.com>, linux-amlogic@lists.infradead.org,
+ Nobuhiro Iwamatsu <nobuhiro1.iwamatsu@toshiba.co.jp>,
  Fabio Estevam <festevam@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
- Tan Tee Min <tee.min.tan@linux.intel.com>, Wong Vee Khee <veekhee@apple.com>,
- Mohammad Athari Bin Ismail <mohammad.athari.ismail@intel.com>,
+ Jerome Brunet <jbrunet@baylibre.com>, Samuel Holland <samuel@sholland.org>,
+ Kevin Hilman <khilman@baylibre.com>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Chen-Yu Tsai <wens@csie.org>, Jose Abreu <joabreu@synopsys.com>,
  NXP Linux Team <linux-imx@nxp.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>,
- Andrey Konovalov <andrey.konovalov@linaro.org>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Jochen Henneberg <jh@henneberg-systemdesign.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, linux-sunxi@lists.linux.dev,
+ Bhupesh Sharma <bhupesh.sharma@linaro.org>,
+ Sascha Hauer <s.hauer@pengutronix.de>, Vladimir Zapolskiy <vz@mleia.com>,
+ linux-mediatek@lists.infradead.org, Matthias Brugger <matthias.bgg@gmail.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>, kernel@pengutronix.de,
+ linux-arm-kernel@lists.infradead.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, netdev@vger.kernel.org,
+ Vinod Koul <vkoul@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-oxnas@groups.io, Shawn Guo <shawnguo@kernel.org>,
  "David S. Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH v5 2/2] net: stmmac: dwmac-imx: use
- platform specific reset for imx93 SoCs
+Subject: Re: [Linux-stm32] [PATCH net-next 01/11] net: stmmac: Make
+ stmmac_pltfr_remove() return void
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -131,58 +86,35 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Apr 03, 2023 at 10:24:08AM -0500, Shenwei Wang wrote:
-> The patch addresses an issue with the reset logic on the i.MX93 SoC, which
-> requires configuration of the correct interface speed under RMII mode to
-> complete the reset. The patch implements a fix_soc_reset function and uses
-> it specifically for the i.MX93 SoCs.
-> 
-> Reviewed-by: Fabio Estevam <festevam@gmail.com>
-> Signed-off-by: Shenwei Wang <shenwei.wang@nxp.com>
-> ---
->  .../net/ethernet/stmicro/stmmac/dwmac-imx.c   | 27 +++++++++++++++++++
->  1 file changed, 27 insertions(+)
-> 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-imx.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-imx.c
-> index 2a2be65d65a0..465de3392e4e 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-imx.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-imx.c
-> @@ -37,10 +37,15 @@
->  #define MX93_GPR_ENET_QOS_INTF_SEL_RGMII	(0x1 << 1)
->  #define MX93_GPR_ENET_QOS_CLK_GEN_EN		(0x1 << 0)
->  
-> +#define DMA_BUS_MODE			0x00001000
-> +#define DMA_BUS_MODE_SFT_RESET		(0x1 << 0)
-> +#define RMII_RESET_SPEED		(0x3 << 14)
-> +
->  struct imx_dwmac_ops {
->  	u32 addr_width;
->  	bool mac_rgmii_txclk_auto_adj;
->  
-> +	int (*fix_soc_reset)(void *priv, void __iomem *ioaddr);
->  	int (*set_intf_mode)(struct plat_stmmacenet_data *plat_dat);
->  };
->  
-> @@ -207,6 +212,25 @@ static void imx_dwmac_fix_speed(void *priv, unsigned int speed)
->  		dev_err(dwmac->dev, "failed to set tx rate %lu\n", rate);
->  }
->  
-> +static int imx_dwmac_mx93_reset(void *priv, void __iomem *ioaddr)
-> +{
-> +	u32 value = readl(ioaddr + DMA_BUS_MODE);
-> +	struct plat_stmmacenet_data *plat_dat = priv;
-> +
-
-nit: reverse xmas tree - longest line to shortest - for local variable
-     declarations.
-
-...
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gU3VuLCBBcHIgMiwgMjAyMyBhdCA0OjMx4oCvUE0gVXdlIEtsZWluZS1Lw7ZuaWcKPHUua2xl
+aW5lLWtvZW5pZ0BwZW5ndXRyb25peC5kZT4gd3JvdGU6Cj4KPiBUaGUgZnVuY3Rpb24gcmV0dXJu
+cyB6ZXJvIHVuY29uZGl0aW9uYWxseS4gQ2hhbmdlIGl0IHRvIHJldHVybiB2b2lkIGluc3RlYWQK
+PiB3aGljaCBzaW1wbGlmaWVzIHNvbWUgY2FsbGVycyBhcyBlcnJvciBoYW5kaW5nIGJlY29tZXMg
+dW5uZWNlc3NhcnkuCj4KPiBUaGUgZnVuY3Rpb24gaXMgYWxzbyB1c2VkIGZvciBzb21lIGRyaXZl
+cnMgYXMgcmVtb3ZlIGNhbGxiYWNrLiBTd2l0Y2ggdGhlc2UKPiB0byB0aGUgLnJlbW92ZV9uZXco
+KSBjYWxsYmFjay4gRm9yIHNvbWUgb3RoZXJzIG5vIGVycm9yIGNhbiBoYXBwZW4gaW4gdGhlCj4g
+cmVtb3ZlIGNhbGxiYWNrIG5vdywgY29udmVydCB0aGVtIHRvIC5yZW1vdmVfbmV3KCksIHRvby4K
+Pgo+IFNpZ25lZC1vZmYtYnk6IFV3ZSBLbGVpbmUtS8O2bmlnIDx1LmtsZWluZS1rb2VuaWdAcGVu
+Z3V0cm9uaXguZGU+Cj4gLS0tCj4gIGRyaXZlcnMvbmV0L2V0aGVybmV0L3N0bWljcm8vc3RtbWFj
+L2R3bWFjLWFuYXJpb24uYyAgICAgfCAyICstCj4gIGRyaXZlcnMvbmV0L2V0aGVybmV0L3N0bWlj
+cm8vc3RtbWFjL2R3bWFjLWdlbmVyaWMuYyAgICAgfCAyICstCj4gIGRyaXZlcnMvbmV0L2V0aGVy
+bmV0L3N0bWljcm8vc3RtbWFjL2R3bWFjLWlteC5jICAgICAgICAgfCAyICstCj4gIGRyaXZlcnMv
+bmV0L2V0aGVybmV0L3N0bWljcm8vc3RtbWFjL2R3bWFjLWluZ2VuaWMuYyAgICAgfCAyICstCj4g
+IGRyaXZlcnMvbmV0L2V0aGVybmV0L3N0bWljcm8vc3RtbWFjL2R3bWFjLWludGVsLXBsYXQuYyAg
+fCA5ICsrKy0tLS0tLQo+ICBkcml2ZXJzL25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9kd21h
+Yy1pcHE4MDZ4LmMgICAgIHwgMiArLQo+ICBkcml2ZXJzL25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0
+bW1hYy9kd21hYy1scGMxOHh4LmMgICAgIHwgMiArLQo+ICBkcml2ZXJzL25ldC9ldGhlcm5ldC9z
+dG1pY3JvL3N0bW1hYy9kd21hYy1tZWRpYXRlay5jICAgIHwgOSArKystLS0tLS0KPiAgZHJpdmVy
+cy9uZXQvZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMvZHdtYWMtbWVzb24uYyAgICAgICB8IDIgKy0K
+PiAgZHJpdmVycy9uZXQvZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMvZHdtYWMtbWVzb244Yi5jICAg
+ICB8IDIgKy0KZm9yIGR3bWFjLW1lc29uIGFuZCBkd21hYy1tZXNvbjhiOgpBY2tlZC1ieTogTWFy
+dGluIEJsdW1lbnN0aW5nbCA8bWFydGluLmJsdW1lbnN0aW5nbEBnb29nbGVtYWlsLmNvbT4KX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIg
+bWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0
+cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgt
+c3RtMzIK
