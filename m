@@ -2,41 +2,39 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1EC446D4313
-	for <lists+linux-stm32@lfdr.de>; Mon,  3 Apr 2023 13:12:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0F7A46D43CB
+	for <lists+linux-stm32@lfdr.de>; Mon,  3 Apr 2023 13:47:45 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C38D1C65E70;
-	Mon,  3 Apr 2023 11:12:05 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B6982C65E70;
+	Mon,  3 Apr 2023 11:47:44 +0000 (UTC)
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C82CCC65E56
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0B446C64107
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  3 Apr 2023 11:12:03 +0000 (UTC)
+ Mon,  3 Apr 2023 11:47:42 +0000 (UTC)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 9EFA51063;
- Mon,  3 Apr 2023 04:12:47 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A222F1063;
+ Mon,  3 Apr 2023 04:48:26 -0700 (PDT)
 Received: from [10.57.54.53] (unknown [10.57.54.53])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 23C403F6C4;
- Mon,  3 Apr 2023 04:12:00 -0700 (PDT)
-Message-ID: <c3c2aa0e-845f-f141-1737-4253e405ab66@arm.com>
-Date: Mon, 3 Apr 2023 12:11:59 +0100
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 2FF373F6C4;
+ Mon,  3 Apr 2023 04:47:40 -0700 (PDT)
+Message-ID: <3f090ce3-618d-56d1-1ab6-b38de5c86393@arm.com>
+Date: Mon, 3 Apr 2023 12:47:38 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
  Gecko/20100101 Thunderbird/102.9.0
 To: James Clark <james.clark@arm.com>, coresight@lists.linaro.org,
  quic_jinlmao@quicinc.com, mike.leach@linaro.org
 References: <20230329115329.2747724-1-james.clark@arm.com>
- <20230329115329.2747724-8-james.clark@arm.com>
- <c25f0d12-e820-58b0-b139-b2ca322b6b80@arm.com>
- <612a9010-6a76-6df3-9223-651e956d7cb8@arm.com>
+ <20230329115329.2747724-11-james.clark@arm.com>
 From: Suzuki K Poulose <suzuki.poulose@arm.com>
-In-Reply-To: <612a9010-6a76-6df3-9223-651e956d7cb8@arm.com>
+In-Reply-To: <20230329115329.2747724-11-james.clark@arm.com>
 Cc: Mathieu Poirier <mathieu.poirier@linaro.org>,
  Alexander Shishkin <alexander.shishkin@linux.intel.com>,
  linux-kernel@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Leo Yan <leo.yan@linaro.org>, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v3 07/13] coresight: Store pointers to
- connections rather than an array of them
+Subject: Re: [Linux-stm32] [PATCH v3 10/13] coresight: Make refcount a
+ property of the connection
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -48,270 +46,201 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gMDMvMDQvMjAyMyAxMToxNiwgSmFtZXMgQ2xhcmsgd3JvdGU6Cj4gCj4gCj4gT24gMDMvMDQv
-MjAyMyAwOTo0NiwgU3V6dWtpIEsgUG91bG9zZSB3cm90ZToKPj4gT24gMjkvMDMvMjAyMyAxMjo1
-MywgSmFtZXMgQ2xhcmsgd3JvdGU6Cj4+PiBUaGlzIHdpbGwgYWxsb3cgdGhlIHNhbWUgY29ubmVj
-dGlvbiBvYmplY3QgdG8gYmUgcmVmZXJlbmNlZCB2aWEgdGhlCj4+PiBpbnB1dCBjb25uZWN0aW9u
-IGxpc3QgaW4gYSBsYXRlciBjb21taXQgcmF0aGVyIHRoYW4gZHVwbGljYXRpbmcgdGhlbS4KPj4+
-Cj4+PiBTaWduZWQtb2ZmLWJ5OiBKYW1lcyBDbGFyayA8amFtZXMuY2xhcmtAYXJtLmNvbT4KPj4+
-IC0tLQo+Pj4gIMKgIGRyaXZlcnMvaHd0cmFjaW5nL2NvcmVzaWdodC9jb3Jlc2lnaHQtY29yZS5j
-wqAgfCA0NSArKysrKysrKysrLS0tLS0tLS0tCj4+PiAgwqAgLi4uL2h3dHJhY2luZy9jb3Jlc2ln
-aHQvY29yZXNpZ2h0LXBsYXRmb3JtLmPCoCB8wqAgOCArKy0tCj4+PiAgwqAgZHJpdmVycy9od3Ry
-YWNpbmcvY29yZXNpZ2h0L2NvcmVzaWdodC1wcml2LmjCoCB8wqAgMSArCj4+PiAgwqAgLi4uL2h3
-dHJhY2luZy9jb3Jlc2lnaHQvY29yZXNpZ2h0LXRtYy1ldHIuY8KgwqAgfMKgIDIgKy0KPj4+ICDC
-oCBpbmNsdWRlL2xpbnV4L2NvcmVzaWdodC5owqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoCB8wqAgMiArLQo+Pj4gIMKgIDUgZmlsZXMgY2hhbmdlZCwgMzEgaW5zZXJ0aW9u
-cygrKSwgMjcgZGVsZXRpb25zKC0pCj4+Pgo+Pj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvaHd0cmFj
-aW5nL2NvcmVzaWdodC9jb3Jlc2lnaHQtY29yZS5jCj4+PiBiL2RyaXZlcnMvaHd0cmFjaW5nL2Nv
-cmVzaWdodC9jb3Jlc2lnaHQtY29yZS5jCj4+PiBpbmRleCAxMmNiYjY4ZThlMWMuLjM4OWY2MjAz
-YzhmMCAxMDA2NDQKPj4+IC0tLSBhL2RyaXZlcnMvaHd0cmFjaW5nL2NvcmVzaWdodC9jb3Jlc2ln
-aHQtY29yZS5jCj4+PiArKysgYi9kcml2ZXJzL2h3dHJhY2luZy9jb3Jlc2lnaHQvY29yZXNpZ2h0
-LWNvcmUuYwo+Pj4gQEAgLTExOSw3ICsxMTksNyBAQCBzdGF0aWMgaW50IGNvcmVzaWdodF9maW5k
-X2xpbmtfaW5wb3J0KHN0cnVjdAo+Pj4gY29yZXNpZ2h0X2RldmljZSAqY3NkZXYsCj4+PiAgwqDC
-oMKgwqDCoCBzdHJ1Y3QgY29yZXNpZ2h0X2Nvbm5lY3Rpb24gKmNvbm47Cj4+PiAgwqAgwqDCoMKg
-wqDCoCBmb3IgKGkgPSAwOyBpIDwgcGFyZW50LT5wZGF0YS0+bnJfb3V0Y29ubnM7IGkrKykgewo+
-Pj4gLcKgwqDCoMKgwqDCoMKgIGNvbm4gPSAmcGFyZW50LT5wZGF0YS0+b3V0X2Nvbm5zW2ldOwo+
-Pj4gK8KgwqDCoMKgwqDCoMKgIGNvbm4gPSBwYXJlbnQtPnBkYXRhLT5vdXRfY29ubnNbaV07Cj4+
-PiAgwqDCoMKgwqDCoMKgwqDCoMKgIGlmIChjb25uLT5kZXN0X2RldiA9PSBjc2RldikKPj4+ICDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCByZXR1cm4gY29ubi0+ZGVzdF9wb3J0Owo+Pj4gIMKg
-wqDCoMKgwqAgfQo+Pj4gQEAgLTEzNyw3ICsxMzcsNyBAQCBzdGF0aWMgaW50IGNvcmVzaWdodF9m
-aW5kX2xpbmtfb3V0cG9ydChzdHJ1Y3QKPj4+IGNvcmVzaWdodF9kZXZpY2UgKmNzZGV2LAo+Pj4g
-IMKgwqDCoMKgwqAgc3RydWN0IGNvcmVzaWdodF9jb25uZWN0aW9uICpjb25uOwo+Pj4gIMKgIMKg
-wqDCoMKgwqAgZm9yIChpID0gMDsgaSA8IGNzZGV2LT5wZGF0YS0+bnJfb3V0Y29ubnM7IGkrKykg
-ewo+Pj4gLcKgwqDCoMKgwqDCoMKgIGNvbm4gPSAmY3NkZXYtPnBkYXRhLT5vdXRfY29ubnNbaV07
-Cj4+PiArwqDCoMKgwqDCoMKgwqAgY29ubiA9IGNzZGV2LT5wZGF0YS0+b3V0X2Nvbm5zW2ldOwo+
-Pj4gIMKgwqDCoMKgwqDCoMKgwqDCoCBpZiAoY29ubi0+ZGVzdF9kZXYgPT0gY2hpbGQpCj4+PiAg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgcmV0dXJuIGNvbm4tPnNyY19wb3J0Owo+Pj4gIMKg
-wqDCoMKgwqAgfQo+Pj4gQEAgLTYwNiw3ICs2MDYsNyBAQCBjb3Jlc2lnaHRfZmluZF9lbmFibGVk
-X3Npbmsoc3RydWN0Cj4+PiBjb3Jlc2lnaHRfZGV2aWNlICpjc2RldikKPj4+ICDCoMKgwqDCoMKg
-IGZvciAoaSA9IDA7IGkgPCBjc2Rldi0+cGRhdGEtPm5yX291dGNvbm5zOyBpKyspIHsKPj4+ICDC
-oMKgwqDCoMKgwqDCoMKgwqAgc3RydWN0IGNvcmVzaWdodF9kZXZpY2UgKmNoaWxkX2RldjsKPj4+
-ICDCoCAtwqDCoMKgwqDCoMKgwqAgY2hpbGRfZGV2ID0gY3NkZXYtPnBkYXRhLT5vdXRfY29ubnNb
-aV0uZGVzdF9kZXY7Cj4+PiArwqDCoMKgwqDCoMKgwqAgY2hpbGRfZGV2ID0gY3NkZXYtPnBkYXRh
-LT5vdXRfY29ubnNbaV0tPmRlc3RfZGV2Owo+Pj4gIMKgwqDCoMKgwqDCoMKgwqDCoCBpZiAoY2hp
-bGRfZGV2KQo+Pj4gIMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHNpbmsgPSBjb3Jlc2lnaHRf
-ZmluZF9lbmFibGVkX3NpbmsoY2hpbGRfZGV2KTsKPj4+ICDCoMKgwqDCoMKgwqDCoMKgwqAgaWYg
-KHNpbmspCj4+PiBAQCAtNzIyLDcgKzcyMiw3IEBAIHN0YXRpYyBpbnQgY29yZXNpZ2h0X2dyYWJf
-ZGV2aWNlKHN0cnVjdAo+Pj4gY29yZXNpZ2h0X2RldmljZSAqY3NkZXYpCj4+PiAgwqDCoMKgwqDC
-oCBmb3IgKGkgPSAwOyBpIDwgY3NkZXYtPnBkYXRhLT5ucl9vdXRjb25uczsgaSsrKSB7Cj4+PiAg
-wqDCoMKgwqDCoMKgwqDCoMKgIHN0cnVjdCBjb3Jlc2lnaHRfZGV2aWNlICpjaGlsZDsKPj4+ICDC
-oCAtwqDCoMKgwqDCoMKgwqAgY2hpbGQgPSBjc2Rldi0+cGRhdGEtPm91dF9jb25uc1tpXS5kZXN0
-X2RldjsKPj4+ICvCoMKgwqDCoMKgwqDCoCBjaGlsZCA9IGNzZGV2LT5wZGF0YS0+b3V0X2Nvbm5z
-W2ldLT5kZXN0X2RldjsKPj4+ICDCoMKgwqDCoMKgwqDCoMKgwqAgaWYgKGNoaWxkICYmIGNoaWxk
-LT50eXBlID09IENPUkVTSUdIVF9ERVZfVFlQRV9IRUxQRVIpCj4+PiAgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqAgaWYgKCFjb3Jlc2lnaHRfZ2V0X3JlZihjaGlsZCkpCj4+PiAgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBnb3RvIGVycjsKPj4+IEBAIC03MzMsNyArNzMzLDcg
-QEAgc3RhdGljIGludCBjb3Jlc2lnaHRfZ3JhYl9kZXZpY2Uoc3RydWN0Cj4+PiBjb3Jlc2lnaHRf
-ZGV2aWNlICpjc2RldikKPj4+ICDCoMKgwqDCoMKgIGZvciAoaS0tOyBpID49IDA7IGktLSkgewo+
-Pj4gIMKgwqDCoMKgwqDCoMKgwqDCoCBzdHJ1Y3QgY29yZXNpZ2h0X2RldmljZSAqY2hpbGQ7Cj4+
-PiAgwqAgLcKgwqDCoMKgwqDCoMKgIGNoaWxkID0gY3NkZXYtPnBkYXRhLT5vdXRfY29ubnNbaV0u
-ZGVzdF9kZXY7Cj4+PiArwqDCoMKgwqDCoMKgwqAgY2hpbGQgPSBjc2Rldi0+cGRhdGEtPm91dF9j
-b25uc1tpXS0+ZGVzdF9kZXY7Cj4+PiAgwqDCoMKgwqDCoMKgwqDCoMKgIGlmIChjaGlsZCAmJiBj
-aGlsZC0+dHlwZSA9PSBDT1JFU0lHSFRfREVWX1RZUEVfSEVMUEVSKQo+Pj4gIMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgIGNvcmVzaWdodF9wdXRfcmVmKGNoaWxkKTsKPj4+ICDCoMKgwqDCoMKg
-IH0KPj4+IEBAIC03NTIsNyArNzUyLDcgQEAgc3RhdGljIHZvaWQgY29yZXNpZ2h0X2Ryb3BfZGV2
-aWNlKHN0cnVjdAo+Pj4gY29yZXNpZ2h0X2RldmljZSAqY3NkZXYpCj4+PiAgwqDCoMKgwqDCoCBm
-b3IgKGkgPSAwOyBpIDwgY3NkZXYtPnBkYXRhLT5ucl9vdXRjb25uczsgaSsrKSB7Cj4+PiAgwqDC
-oMKgwqDCoMKgwqDCoMKgIHN0cnVjdCBjb3Jlc2lnaHRfZGV2aWNlICpjaGlsZDsKPj4+ICDCoCAt
-wqDCoMKgwqDCoMKgwqAgY2hpbGQgPSBjc2Rldi0+cGRhdGEtPm91dF9jb25uc1tpXS5kZXN0X2Rl
-djsKPj4+ICvCoMKgwqDCoMKgwqDCoCBjaGlsZCA9IGNzZGV2LT5wZGF0YS0+b3V0X2Nvbm5zW2ld
-LT5kZXN0X2RldjsKPj4+ICDCoMKgwqDCoMKgwqDCoMKgwqAgaWYgKGNoaWxkICYmIGNoaWxkLT50
-eXBlID09IENPUkVTSUdIVF9ERVZfVFlQRV9IRUxQRVIpCj4+PiAgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqAgY29yZXNpZ2h0X3B1dF9yZWYoY2hpbGQpOwo+Pj4gIMKgwqDCoMKgwqAgfQo+Pj4g
-QEAgLTc5NCw3ICs3OTQsNyBAQCBzdGF0aWMgaW50IF9jb3Jlc2lnaHRfYnVpbGRfcGF0aChzdHJ1
-Y3QKPj4+IGNvcmVzaWdodF9kZXZpY2UgKmNzZGV2LAo+Pj4gIMKgwqDCoMKgwqAgZm9yIChpID0g
-MDsgaSA8IGNzZGV2LT5wZGF0YS0+bnJfb3V0Y29ubnM7IGkrKykgewo+Pj4gIMKgwqDCoMKgwqDC
-oMKgwqDCoCBzdHJ1Y3QgY29yZXNpZ2h0X2RldmljZSAqY2hpbGRfZGV2Owo+Pj4gIMKgIC3CoMKg
-wqDCoMKgwqDCoCBjaGlsZF9kZXYgPSBjc2Rldi0+cGRhdGEtPm91dF9jb25uc1tpXS5kZXN0X2Rl
-djsKPj4+ICvCoMKgwqDCoMKgwqDCoCBjaGlsZF9kZXYgPSBjc2Rldi0+cGRhdGEtPm91dF9jb25u
-c1tpXS0+ZGVzdF9kZXY7Cj4+PiAgwqDCoMKgwqDCoMKgwqDCoMKgIGlmIChjaGlsZF9kZXYgJiYK
-Pj4+ICDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBfY29yZXNpZ2h0X2J1aWxkX3BhdGgoY2hp
-bGRfZGV2LCBzaW5rLCBwYXRoKSA9PSAwKSB7Cj4+PiAgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqAgZm91bmQgPSB0cnVlOwo+Pj4gQEAgLTk2NCw3ICs5NjQsNyBAQCBjb3Jlc2lnaHRfZmluZF9z
-aW5rKHN0cnVjdCBjb3Jlc2lnaHRfZGV2aWNlCj4+PiAqY3NkZXYsIGludCAqZGVwdGgpCj4+PiAg
-wqDCoMKgwqDCoMKgwqDCoMKgIHN0cnVjdCBjb3Jlc2lnaHRfZGV2aWNlICpjaGlsZF9kZXYsICpz
-aW5rID0gTlVMTDsKPj4+ICDCoMKgwqDCoMKgwqDCoMKgwqAgaW50IGNoaWxkX2RlcHRoID0gY3Vy
-cl9kZXB0aDsKPj4+ICDCoCAtwqDCoMKgwqDCoMKgwqAgY2hpbGRfZGV2ID0gY3NkZXYtPnBkYXRh
-LT5vdXRfY29ubnNbaV0uZGVzdF9kZXY7Cj4+PiArwqDCoMKgwqDCoMKgwqAgY2hpbGRfZGV2ID0g
-Y3NkZXYtPnBkYXRhLT5vdXRfY29ubnNbaV0tPmRlc3RfZGV2Owo+Pj4gIMKgwqDCoMKgwqDCoMKg
-wqDCoCBpZiAoY2hpbGRfZGV2KQo+Pj4gIMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHNpbmsg
-PSBjb3Jlc2lnaHRfZmluZF9zaW5rKGNoaWxkX2RldiwgJmNoaWxkX2RlcHRoKTsKPj4+ICDCoCBA
-QCAtMTMzNCw3ICsxMzM0LDcgQEAgc3RhdGljIGludCBjb3Jlc2lnaHRfb3JwaGFuX21hdGNoKHN0
-cnVjdAo+Pj4gZGV2aWNlICpkZXYsIHZvaWQgKmRhdGEpCj4+PiAgwqDCoMKgwqDCoMKgICogYW4g
-b3JwaGFuIGNvbm5lY3Rpb24gd2hvc2UgbmFtZSBtYXRjaGVzIEBjc2RldiwgbGluayBpdC4KPj4+
-ICDCoMKgwqDCoMKgwqAgKi8KPj4+ICDCoMKgwqDCoMKgIGZvciAoaSA9IDA7IGkgPCBpX2NzZGV2
-LT5wZGF0YS0+bnJfb3V0Y29ubnM7IGkrKykgewo+Pj4gLcKgwqDCoMKgwqDCoMKgIGNvbm4gPSAm
-aV9jc2Rldi0+cGRhdGEtPm91dF9jb25uc1tpXTsKPj4+ICvCoMKgwqDCoMKgwqDCoCBjb25uID0g
-aV9jc2Rldi0+cGRhdGEtPm91dF9jb25uc1tpXTsKPj4+ICDCoCDCoMKgwqDCoMKgwqDCoMKgwqAg
-LyogV2UgaGF2ZSBmb3VuZCBhdCBsZWFzdCBvbmUgb3JwaGFuIGNvbm5lY3Rpb24gKi8KPj4+ICDC
-oMKgwqDCoMKgwqDCoMKgwqAgaWYgKGNvbm4tPmRlc3RfZGV2ID09IE5VTEwpIHsKPj4+IEBAIC0x
-MzcyLDcgKzEzNzIsNyBAQCBzdGF0aWMgaW50IGNvcmVzaWdodF9maXh1cF9kZXZpY2VfY29ubnMo
-c3RydWN0Cj4+PiBjb3Jlc2lnaHRfZGV2aWNlICpjc2RldikKPj4+ICDCoMKgwqDCoMKgIGludCBp
-LCByZXQgPSAwOwo+Pj4gIMKgIMKgwqDCoMKgwqAgZm9yIChpID0gMDsgaSA8IGNzZGV2LT5wZGF0
-YS0+bnJfb3V0Y29ubnM7IGkrKykgewo+Pj4gLcKgwqDCoMKgwqDCoMKgIHN0cnVjdCBjb3Jlc2ln
-aHRfY29ubmVjdGlvbiAqY29ubiA9ICZjc2Rldi0+cGRhdGEtPm91dF9jb25uc1tpXTsKPj4+ICvC
-oMKgwqDCoMKgwqDCoCBzdHJ1Y3QgY29yZXNpZ2h0X2Nvbm5lY3Rpb24gKmNvbm4gPSBjc2Rldi0+
-cGRhdGEtPm91dF9jb25uc1tpXTsKPj4+ICDCoCDCoMKgwqDCoMKgwqDCoMKgwqAgY29ubi0+ZGVz
-dF9kZXYgPQo+Pj4gIMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGNvcmVzaWdodF9maW5kX2Nz
-ZGV2X2J5X2Z3bm9kZShjb25uLT5kZXN0X2Z3bm9kZSk7Cj4+PiBAQCAtMTQwNiwxNSArMTQwNiwx
-MiBAQCBzdGF0aWMgaW50IGNvcmVzaWdodF9yZW1vdmVfbWF0Y2goc3RydWN0Cj4+PiBkZXZpY2Ug
-KmRldiwgdm9pZCAqZGF0YSkKPj4+ICDCoMKgwqDCoMKgwqAgKiBhIGNvbm5lY3Rpb24gd2hvc2Ug
-bmFtZSBtYXRjaGVzIEBjc2RldiwgcmVtb3ZlIGl0Lgo+Pj4gIMKgwqDCoMKgwqDCoCAqLwo+Pj4g
-IMKgwqDCoMKgwqAgZm9yIChpID0gMDsgaSA8IGl0ZXJhdG9yLT5wZGF0YS0+bnJfb3V0Y29ubnM7
-IGkrKykgewo+Pj4gLcKgwqDCoMKgwqDCoMKgIGNvbm4gPSAmaXRlcmF0b3ItPnBkYXRhLT5vdXRf
-Y29ubnNbaV07Cj4+PiArwqDCoMKgwqDCoMKgwqAgY29ubiA9IGl0ZXJhdG9yLT5wZGF0YS0+b3V0
-X2Nvbm5zW2ldOwo+Pj4gIMKgIC3CoMKgwqDCoMKgwqDCoCBpZiAoY29ubi0+ZGVzdF9kZXYgPT0g
-TlVMTCkKPj4+IC3CoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGNvbnRpbnVlOwo+Pj4gLQo+Pj4gLcKg
-wqDCoMKgwqDCoMKgIGlmIChjc2Rldi0+ZGV2LmZ3bm9kZSA9PSBjb25uLT5kZXN0X2Z3bm9kZSkg
-ewo+Pj4gK8KgwqDCoMKgwqDCoMKgIC8qIENoaWxkX2RldiBiZWluZyBzZXQgc2lnbmlmaWVzIHRo
-YXQgdGhlIGxpbmtzIHdlcmUgbWFkZSAqLwo+Pj4gK8KgwqDCoMKgwqDCoMKgIGlmIChjc2Rldi0+
-ZGV2LmZ3bm9kZSA9PSBjb25uLT5kZXN0X2Z3bm9kZSAmJiBjb25uLT5kZXN0X2Rldikgewo+Pj4g
-IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGl0ZXJhdG9yLT5vcnBoYW4gPSB0cnVlOwo+Pj4g
-IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGNvcmVzaWdodF9yZW1vdmVfbGlua3MoaXRlcmF0
-b3IsIGNvbm4pOwo+Pj4gLQo+Pj4gIMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGNvbm4tPmRl
-c3RfZGV2ID0gTlVMTDsKPj4+ICDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAvKiBObyBuZWVk
-IHRvIGNvbnRpbnVlICovCj4+PiAgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgYnJlYWs7Cj4+
-PiBAQCAtMTUzNCwyMSArMTUzMSwyNSBAQCB2b2lkIGNvcmVzaWdodF93cml0ZTY0KHN0cnVjdCBj
-b3Jlc2lnaHRfZGV2aWNlCj4+PiAqY3NkZXYsIHU2NCB2YWwsIHUzMiBvZmZzZXQpCj4+PiAgwqDC
-oCAqIHRvIHRoZSBvdXRwdXQgcG9ydCBvZiB0aGlzIGRldmljZS4KPj4+ICDCoMKgICovCj4+PiAg
-wqAgdm9pZCBjb3Jlc2lnaHRfcmVsZWFzZV9wbGF0Zm9ybV9kYXRhKHN0cnVjdCBjb3Jlc2lnaHRf
-ZGV2aWNlICpjc2RldiwKPj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgIHN0cnVjdCBkZXZpY2UgKmRldiwKPj4+ICDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoCBzdHJ1Y3QgY29yZXNpZ2h0X3BsYXRmb3JtX2RhdGEgKnBkYXRhKQo+
-Pj4gIMKgIHsKPj4+ICDCoMKgwqDCoMKgIGludCBpOwo+Pj4gLcKgwqDCoCBzdHJ1Y3QgY29yZXNp
-Z2h0X2Nvbm5lY3Rpb24gKmNvbm5zID0gcGRhdGEtPm91dF9jb25uczsKPj4+ICvCoMKgwqAgc3Ry
-dWN0IGNvcmVzaWdodF9jb25uZWN0aW9uICoqY29ubnMgPSBwZGF0YS0+b3V0X2Nvbm5zOwo+Pj4g
-IMKgIMKgwqDCoMKgwqAgZm9yIChpID0gMDsgaSA8IHBkYXRhLT5ucl9vdXRjb25uczsgaSsrKSB7
-Cj4+PiAgwqDCoMKgwqDCoMKgwqDCoMKgIC8qIElmIHdlIGhhdmUgbWFkZSB0aGUgbGlua3MsIHJl
-bW92ZSB0aGVtIG5vdyAqLwo+Pj4gLcKgwqDCoMKgwqDCoMKgIGlmIChjc2RldiAmJiBjb25uc1tp
-XS5kZXN0X2RldikKPj4+IC3CoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGNvcmVzaWdodF9yZW1vdmVf
-bGlua3MoY3NkZXYsICZjb25uc1tpXSk7Cj4+PiArwqDCoMKgwqDCoMKgwqAgaWYgKGNzZGV2ICYm
-IGNvbm5zW2ldLT5kZXN0X2RldikKPj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGNvcmVzaWdo
-dF9yZW1vdmVfbGlua3MoY3NkZXYsIGNvbm5zW2ldKTsKPj4+ICDCoMKgwqDCoMKgwqDCoMKgwqAg
-LyoKPj4+ICDCoMKgwqDCoMKgwqDCoMKgwqDCoCAqIERyb3AgdGhlIHJlZmNvdW50IGFuZCBjbGVh
-ciB0aGUgaGFuZGxlIGFzIHRoaXMgZGV2aWNlCj4+PiAgwqDCoMKgwqDCoMKgwqDCoMKgwqAgKiBp
-cyBnb2luZyBhd2F5Cj4+PiAgwqDCoMKgwqDCoMKgwqDCoMKgwqAgKi8KPj4+IC3CoMKgwqDCoMKg
-wqDCoCBmd25vZGVfaGFuZGxlX3B1dChjb25uc1tpXS5kZXN0X2Z3bm9kZSk7Cj4+PiArwqDCoMKg
-wqDCoMKgwqAgZndub2RlX2hhbmRsZV9wdXQoY29ubnNbaV0tPmRlc3RfZndub2RlKTsKPj4+ICvC
-oMKgwqDCoMKgwqDCoCBkZXZtX2tmcmVlKGRldiwgY29ubnNbaV0pOwo+Pj4gIMKgwqDCoMKgwqAg
-fQo+Pj4gK8KgwqDCoCBkZXZtX2tmcmVlKGRldiwgcGRhdGEtPm91dF9jb25ucyk7Cj4+PiArwqDC
-oMKgIGRldm1fa2ZyZWUoZGV2LCBwZGF0YSk7Cj4+Cj4+IElzIHRoZXJlIGFueSBwYXJ0aWN1bGFy
-IHJlYXNvbiwgd2h5IHdlIG5lZWQgdG8gZG8gdGhpcyA/IFRoaXMgc2hvdWxkCj4+IGJlIGRvbmUg
-YXV0b21hdGljYWxseSBhdCBkZXZpY2UgdGVhcmRvd24sIHdoaWNoIGlzIGJvdW5kIHRvIGhhcHBl
-bgo+PiByaWdodCBhZnRlciB0aGlzIGNhbGwgPwo+Pgo+IAo+IEkgdGhpbmsgdGhleSdyZSBub3Qg
-YWN0dWFsbHkgZnJlZWQgYmVjYXVzZSBjb25uZWN0aW9ucyBhcmUgYWRkZWQgYmVmb3JlCj4gdGhl
-IGNvcmVzaWdodCBkZXZpY2UgaXMgY3JlYXRlZCB1c2luZyB0aGUgJ3BhcmVudCcgb2YgdGhlIGRl
-dmljZSB3aGljaAo+IG5ldmVyIGdvZXMgYXdheToKPiAKPiAgICBzdHJ1Y3QgY29yZXNpZ2h0X2Rl
-dmljZSAqY29yZXNpZ2h0X3JlZ2lzdGVyKHN0cnVjdCBjb3Jlc2lnaHRfZGVzYyAqZGVzYykgewo+
-ICAgICAgLi4uCj4gICAgICBjc2Rldi0+ZGV2LnBhcmVudCA9IGRlc2MtPmRldjsKCgoKPiAKPiBB
-bm90aGVyIHJlYXNvbiBpcyB0aGF0J3MgaXMgYSBnb29kIHdheSB0byBjYXRjaCBlcnJvcnMuIFRo
-ZXJlIGFyZSBzbwo+IG1hbnkgZGlmZmVyZW50IGRldmljZXMgZmxvYXRpbmcgYXJvdW5kIHRoYXQg
-d2l0aG91dCBhbiBleHBsaWNpdCBmcmVlLAo+IGl0J3MgdmVyeSBlYXN5IHRvIHBhc3MgdGhlIHdy
-b25nIG9uZSBhbmQgYmUgaW5jb25zaXN0ZW50LiBXaXRoIHRoZSBmcmVlCj4gaXQgZ2l2ZXMgeW91
-IGEgd2FybmluZyBpZiBpdCdzIG1pc21hdGNoZWQuCj4gCj4gQnV0IGVpdGhlciB3YXksIG5vdyB0
-aGF0IHdlIGtub3cgdGhhdCB0aGV5J3JlIG5vdCBmcmVlZCBtYXliZSB3ZSBzaG91bGQKPiBmaXgg
-dGhhdCBpc250ZWFkPyBBbHRob3VnaCBhcGFydCBmcm9tIGRvaW5nIGEgZnVsbCBjb3B5IG9mIHBk
-YXRhIGludG8KPiB0aGUgY29yZXNpZ2h0IGRldmljZSBJJ20gbm90IHN1cmUgaG93IGl0IGNhbiBi
-ZSBkb25lLiBUaGVuIEkgc3VwcG9zZSB3ZQo+IGNvdWxkIHJlbW92ZSB0aGVzZSBmcmVlcywgYWx0
-aG91Z2ggSSBzdGlsbCB0aGluayB0aGUgZXJyb3IgY2F0Y2hpbmcgaXMKPiBnb29kLiBJdCdzIGFs
-c28gbm90IHN0cmljdGx5IHJlbGF0ZWQgdG8gdGhpcyBmaXggc28gbWF5YmUgaXQgY2FuIGJlIGEK
-PiBzZWNvbmQgZml4LgoKR29vZCBwb2ludC4gTWF5IGJlIHRoYXQgZXhwbGFpbnMgdGhlIGxlYWsg
-d2UgaGF2ZSBiZWVuIHNlZWluZyBpbiBvdXIKbG9uZyBydW5uaW5nIHN0cmVzcyB0ZXN0cyA/IE1h
-eSBiZSBzaG91bGQgZXh0ZW5kIHRoaXMgdG8gdGhlIG90aGVyCmFsbG9jYXRpb25zIHRvbyAoZS5n
-LiwgZHJ2ZGF0YSBmb3IgYWxsIGRldmljZXMgPykgVGhpcyBjYW4gYmUgZG9uZQpzZXBhcmF0ZWx5
-LiBJZGVhbGx5IGFueSBhbGxvY2F0aW9uIHRoYXQgd2UgZG8sIGFmdGVyIHRoZSBjb3Jlc2lnaHQK
-ZGV2aWNlIGhhcyBiZWVuIGNyZWF0ZWQsIG11c3QgYmUgYWxsb2NhdGVkIG9uIHRoZSBjaGlsZCBk
-ZXZpY2UKYW5kIG1ha2UgdXNlIG9mIHdoYXQgdGhlIGRldm1fIHByb3ZpZGVzIHVzIHdpdGguCgpT
-dXp1a2kKCj4gCj4+Cj4+PiAgwqDCoMKgwqDCoCBpZiAoY3NkZXYpCj4+PiAgwqDCoMKgwqDCoMKg
-wqDCoMKgIGNvcmVzaWdodF9yZW1vdmVfY29ubnNfc3lzZnNfZ3JvdXAoY3NkZXYpOwo+Pj4gIMKg
-IH0KPj4+IEBAIC0xNjY1LDcgKzE2NjYsNyBAQCBzdHJ1Y3QgY29yZXNpZ2h0X2RldmljZQo+Pj4g
-KmNvcmVzaWdodF9yZWdpc3RlcihzdHJ1Y3QgY29yZXNpZ2h0X2Rlc2MgKmRlc2MpCj4+PiAgwqAg
-wqAgZXJyX291dDoKPj4+ICDCoMKgwqDCoMKgIC8qIENsZWFudXAgdGhlIGNvbm5lY3Rpb24gaW5m
-b3JtYXRpb24gKi8KPj4+IC3CoMKgwqAgY29yZXNpZ2h0X3JlbGVhc2VfcGxhdGZvcm1fZGF0YShO
-VUxMLCBkZXNjLT5wZGF0YSk7Cj4+PiArwqDCoMKgIGNvcmVzaWdodF9yZWxlYXNlX3BsYXRmb3Jt
-X2RhdGEoTlVMTCwgZGVzYy0+ZGV2LCBkZXNjLT5wZGF0YSk7Cj4+PiAgwqDCoMKgwqDCoCByZXR1
-cm4gRVJSX1BUUihyZXQpOwo+Pj4gIMKgIH0KPj4+ICDCoCBFWFBPUlRfU1lNQk9MX0dQTChjb3Jl
-c2lnaHRfcmVnaXN0ZXIpOwo+Pj4gQEAgLTE2NzgsNyArMTY3OSw3IEBAIHZvaWQgY29yZXNpZ2h0
-X3VucmVnaXN0ZXIoc3RydWN0Cj4+PiBjb3Jlc2lnaHRfZGV2aWNlICpjc2RldikKPj4+ICDCoMKg
-wqDCoMKgwqDCoMKgwqAgY3RpX2Fzc29jX29wcy0+cmVtb3ZlKGNzZGV2KTsKPj4+ICDCoMKgwqDC
-oMKgIGNvcmVzaWdodF9yZW1vdmVfY29ubnMoY3NkZXYpOwo+Pj4gIMKgwqDCoMKgwqAgY29yZXNp
-Z2h0X2NsZWFyX2RlZmF1bHRfc2luayhjc2Rldik7Cj4+PiAtwqDCoMKgIGNvcmVzaWdodF9yZWxl
-YXNlX3BsYXRmb3JtX2RhdGEoY3NkZXYsIGNzZGV2LT5wZGF0YSk7Cj4+PiArwqDCoMKgIGNvcmVz
-aWdodF9yZWxlYXNlX3BsYXRmb3JtX2RhdGEoY3NkZXYsIGNzZGV2LT5kZXYucGFyZW50LAo+Pj4g
-Y3NkZXYtPnBkYXRhKTsKPj4+ICDCoMKgwqDCoMKgIGRldmljZV91bnJlZ2lzdGVyKCZjc2Rldi0+
-ZGV2KTsKPj4+ICDCoCB9Cj4+PiAgwqAgRVhQT1JUX1NZTUJPTF9HUEwoY29yZXNpZ2h0X3VucmVn
-aXN0ZXIpOwo+Pj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvaHd0cmFjaW5nL2NvcmVzaWdodC9jb3Jl
-c2lnaHQtcGxhdGZvcm0uYwo+Pj4gYi9kcml2ZXJzL2h3dHJhY2luZy9jb3Jlc2lnaHQvY29yZXNp
-Z2h0LXBsYXRmb3JtLmMKPj4+IGluZGV4IDgwZWQyZTc0NjIwYi4uYmVhOGYxYmEzMDlhIDEwMDY0
-NAo+Pj4gLS0tIGEvZHJpdmVycy9od3RyYWNpbmcvY29yZXNpZ2h0L2NvcmVzaWdodC1wbGF0Zm9y
-bS5jCj4+PiArKysgYi9kcml2ZXJzL2h3dHJhY2luZy9jb3Jlc2lnaHQvY29yZXNpZ2h0LXBsYXRm
-b3JtLmMKPj4+IEBAIC0zNiw3ICszNiw3IEBAIGludCBjb3Jlc2lnaHRfYWRkX291dF9jb25uKHN0
-cnVjdCBkZXZpY2UgKmRldiwKPj4+ICDCoMKgwqDCoMKgwqAgKiBXYXJuIG9uIGFueSBleGlzdGlu
-ZyBkdXBsaWNhdGUgb3V0cHV0IHBvcnQuCj4+PiAgwqDCoMKgwqDCoMKgICovCj4+PiAgwqDCoMKg
-wqDCoCBmb3IgKGkgPSAwOyBpIDwgcGRhdGEtPm5yX291dGNvbm5zOyArK2kpIHsKPj4+IC3CoMKg
-wqDCoMKgwqDCoCBjb25uID0gJnBkYXRhLT5vdXRfY29ubnNbaV07Cj4+PiArwqDCoMKgwqDCoMKg
-wqAgY29ubiA9IHBkYXRhLT5vdXRfY29ubnNbaV07Cj4+PiAgwqDCoMKgwqDCoMKgwqDCoMKgIC8q
-IE91dHB1dCA9PSAtMSBtZWFucyBpZ25vcmUgdGhlIHBvcnQgZm9yIGV4YW1wbGUgZm9yCj4+PiBo
-ZWxwZXJzICovCj4+PiAgwqDCoMKgwqDCoMKgwqDCoMKgIGlmIChjb25uLT5zcmNfcG9ydCAhPSAt
-MSAmJgo+Pj4gIMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGNvbm4tPnNyY19wb3J0ID09IG5l
-d19jb25uLT5zcmNfcG9ydCkgewo+Pj4gQEAgLTUzLDcgKzUzLDkgQEAgaW50IGNvcmVzaWdodF9h
-ZGRfb3V0X2Nvbm4oc3RydWN0IGRldmljZSAqZGV2LAo+Pj4gIMKgwqDCoMKgwqAgaWYgKCFwZGF0
-YS0+b3V0X2Nvbm5zKQo+Pj4gIMKgwqDCoMKgwqDCoMKgwqDCoCByZXR1cm4gLUVOT01FTTsKPj4+
-ICDCoCAtwqDCoMKgIHBkYXRhLT5vdXRfY29ubnNbcGRhdGEtPm5yX291dGNvbm5zIC0gMV0gPSAq
-bmV3X2Nvbm47Cj4+PiArwqDCoMKgIHBkYXRhLT5vdXRfY29ubnNbcGRhdGEtPm5yX291dGNvbm5z
-IC0gMV0gPSBkZXZtX2ttYWxsb2MoCj4+PiArwqDCoMKgwqDCoMKgwqAgZGV2LCBzaXplb2Yoc3Ry
-dWN0IGNvcmVzaWdodF9jb25uZWN0aW9uKSwgR0ZQX0tFUk5FTCk7Cj4+PiArwqDCoMKgICpwZGF0
-YS0+b3V0X2Nvbm5zW3BkYXRhLT5ucl9vdXRjb25ucyAtIDFdID0gKm5ld19jb25uOwo+Pj4gIMKg
-wqDCoMKgwqAgcmV0dXJuIDA7Cj4+PiAgwqAgfQo+Pj4gIMKgIEVYUE9SVF9TWU1CT0xfR1BMKGNv
-cmVzaWdodF9hZGRfb3V0X2Nvbm4pOwo+Pj4gQEAgLTg1OSw3ICs4NjEsNyBAQCBjb3Jlc2lnaHRf
-Z2V0X3BsYXRmb3JtX2RhdGEoc3RydWN0IGRldmljZSAqZGV2KQo+Pj4gIMKgIGVycm9yOgo+Pj4g
-IMKgwqDCoMKgwqAgaWYgKCFJU19FUlJfT1JfTlVMTChwZGF0YSkpCj4+PiAgwqDCoMKgwqDCoMKg
-wqDCoMKgIC8qIENsZWFudXAgdGhlIGNvbm5lY3Rpb24gaW5mb3JtYXRpb24gKi8KPj4+IC3CoMKg
-wqDCoMKgwqDCoCBjb3Jlc2lnaHRfcmVsZWFzZV9wbGF0Zm9ybV9kYXRhKE5VTEwsIHBkYXRhKTsK
-Pj4+ICvCoMKgwqDCoMKgwqDCoCBjb3Jlc2lnaHRfcmVsZWFzZV9wbGF0Zm9ybV9kYXRhKE5VTEws
-IGRldiwgcGRhdGEpOwo+Pj4gIMKgwqDCoMKgwqAgcmV0dXJuIEVSUl9QVFIocmV0KTsKPj4+ICDC
-oCB9Cj4+PiAgwqAgRVhQT1JUX1NZTUJPTF9HUEwoY29yZXNpZ2h0X2dldF9wbGF0Zm9ybV9kYXRh
-KTsKPj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2h3dHJhY2luZy9jb3Jlc2lnaHQvY29yZXNpZ2h0
-LXByaXYuaAo+Pj4gYi9kcml2ZXJzL2h3dHJhY2luZy9jb3Jlc2lnaHQvY29yZXNpZ2h0LXByaXYu
-aAo+Pj4gaW5kZXggNzg4ZmYxOWM2MGY2Li42NWFlNmQxNjFjNTcgMTAwNjQ0Cj4+PiAtLS0gYS9k
-cml2ZXJzL2h3dHJhY2luZy9jb3Jlc2lnaHQvY29yZXNpZ2h0LXByaXYuaAo+Pj4gKysrIGIvZHJp
-dmVycy9od3RyYWNpbmcvY29yZXNpZ2h0L2NvcmVzaWdodC1wcml2LmgKPj4+IEBAIC0yMDcsNiAr
-MjA3LDcgQEAgc3RhdGljIGlubGluZSB2b2lkICpjb3Jlc2lnaHRfZ2V0X3VjaV9kYXRhKGNvbnN0
-Cj4+PiBzdHJ1Y3QgYW1iYV9pZCAqaWQpCj4+PiAgwqAgfQo+Pj4gIMKgIMKgIHZvaWQgY29yZXNp
-Z2h0X3JlbGVhc2VfcGxhdGZvcm1fZGF0YShzdHJ1Y3QgY29yZXNpZ2h0X2RldmljZSAqY3NkZXYs
-Cj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBzdHJ1Y3QgZGV2
-aWNlICpkZXYsCj4+PiAgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqAgc3RydWN0IGNvcmVzaWdodF9wbGF0Zm9ybV9kYXRhICpwZGF0YSk7Cj4+PiAgwqAgc3RydWN0
-IGNvcmVzaWdodF9kZXZpY2UgKgo+Pj4gIMKgIGNvcmVzaWdodF9maW5kX2NzZGV2X2J5X2Z3bm9k
-ZShzdHJ1Y3QgZndub2RlX2hhbmRsZSAqcl9md25vZGUpOwo+Pj4gZGlmZiAtLWdpdCBhL2RyaXZl
-cnMvaHd0cmFjaW5nL2NvcmVzaWdodC9jb3Jlc2lnaHQtdG1jLWV0ci5jCj4+PiBiL2RyaXZlcnMv
-aHd0cmFjaW5nL2NvcmVzaWdodC9jb3Jlc2lnaHQtdG1jLWV0ci5jCj4+PiBpbmRleCA2MTIzNGNi
-ODA1MmEuLjFiYmU1NDEwYTIzZCAxMDA2NDQKPj4+IC0tLSBhL2RyaXZlcnMvaHd0cmFjaW5nL2Nv
-cmVzaWdodC9jb3Jlc2lnaHQtdG1jLWV0ci5jCj4+PiArKysgYi9kcml2ZXJzL2h3dHJhY2luZy9j
-b3Jlc2lnaHQvY29yZXNpZ2h0LXRtYy1ldHIuYwo+Pj4gQEAgLTc4Miw3ICs3ODIsNyBAQCB0bWNf
-ZXRyX2dldF9jYXR1X2RldmljZShzdHJ1Y3QgdG1jX2RydmRhdGEgKmRydmRhdGEpCj4+PiAgwqDC
-oMKgwqDCoMKgwqDCoMKgIHJldHVybiBOVUxMOwo+Pj4gIMKgIMKgwqDCoMKgwqAgZm9yIChpID0g
-MDsgaSA8IGV0ci0+cGRhdGEtPm5yX291dGNvbm5zOyBpKyspIHsKPj4+IC3CoMKgwqDCoMKgwqDC
-oCB0bXAgPSBldHItPnBkYXRhLT5vdXRfY29ubnNbaV0uZGVzdF9kZXY7Cj4+PiArwqDCoMKgwqDC
-oMKgwqAgdG1wID0gZXRyLT5wZGF0YS0+b3V0X2Nvbm5zW2ldLT5kZXN0X2RldjsKPj4+ICDCoMKg
-wqDCoMKgwqDCoMKgwqAgaWYgKHRtcCAmJiBjb3Jlc2lnaHRfaXNfY2F0dV9kZXZpY2UodG1wKSkK
-Pj4+ICDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCByZXR1cm4gdG1wOwo+Pj4gIMKgwqDCoMKg
-wqAgfQo+Pj4gZGlmZiAtLWdpdCBhL2luY2x1ZGUvbGludXgvY29yZXNpZ2h0LmggYi9pbmNsdWRl
-L2xpbnV4L2NvcmVzaWdodC5oCj4+PiBpbmRleCBjY2JjNWVhZmNiNmIuLjcxOTdiMDdkZWVkZSAx
-MDA2NDQKPj4+IC0tLSBhL2luY2x1ZGUvbGludXgvY29yZXNpZ2h0LmgKPj4+ICsrKyBiL2luY2x1
-ZGUvbGludXgvY29yZXNpZ2h0LmgKPj4+IEBAIC0xMTEsNyArMTExLDcgQEAgc3RydWN0IGNvcmVz
-aWdodF9wbGF0Zm9ybV9kYXRhIHsKPj4+ICDCoMKgwqDCoMKgIGludCBoaWdoX291dHBvcnQ7Cj4+
-PiAgwqDCoMKgwqDCoCBpbnQgbnJfaW5jb25uczsKPj4+ICDCoMKgwqDCoMKgIGludCBucl9vdXRj
-b25uczsKPj4+IC3CoMKgwqAgc3RydWN0IGNvcmVzaWdodF9jb25uZWN0aW9uICpvdXRfY29ubnM7
-Cj4+PiArwqDCoMKgIHN0cnVjdCBjb3Jlc2lnaHRfY29ubmVjdGlvbiAqKm91dF9jb25uczsKPj4K
-Pj4gbWlub3Igbml0OiBEbyB3ZSBuZWVkIHRvIHVwZGF0ZSB0aGUgY29tbWVudCB0b28gPwo+Pgo+
-IAo+IFdpbGwgZG8KPiAKPj4gT3RoZXJ3aXNlIGxvb2tzIGdvb2QgdG8gbWUKPj4gU3V6dWtpCj4+
-Cj4+PiAgwqAgfTsKPj4+ICDCoCDCoCAvKioKPj4KCl9fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0z
-MkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9y
-bXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+On 29/03/2023 12:53, James Clark wrote:
+> This removes the need to do an additional lookup for the total number
+> of ports used and also removes the need to allocate an array of
+> refcounts which is just another representation of a connection array.
+> 
+> This was only used for link type devices, for regular devices a single
+> refcount on the coresight device is used.
+> 
+> Signed-off-by: James Clark <james.clark@arm.com>
+> ---
+>   drivers/hwtracing/coresight/coresight-core.c  |  96 +++++++--------
+>   drivers/hwtracing/coresight/coresight-etb10.c |  10 +-
+>   .../hwtracing/coresight/coresight-funnel.c    |  26 +++--
+>   .../hwtracing/coresight/coresight-platform.c  | 109 +-----------------
+>   .../coresight/coresight-replicator.c          |  23 ++--
+>   .../hwtracing/coresight/coresight-tmc-etf.c   |  24 ++--
+>   .../hwtracing/coresight/coresight-tmc-etr.c   |  12 +-
+>   drivers/hwtracing/coresight/coresight-tpda.c  |  23 ++--
+>   drivers/hwtracing/coresight/coresight-tpiu.c  |   4 +-
+>   drivers/hwtracing/coresight/ultrasoc-smb.c    |   8 +-
+>   include/linux/coresight.h                     |  13 ++-
+>   11 files changed, 124 insertions(+), 224 deletions(-)
+> 
+> diff --git a/drivers/hwtracing/coresight/coresight-core.c b/drivers/hwtracing/coresight/coresight-core.c
+> index be1e8be2459f..baa23aa53971 100644
+> --- a/drivers/hwtracing/coresight/coresight-core.c
+> +++ b/drivers/hwtracing/coresight/coresight-core.c
+> @@ -112,8 +112,9 @@ struct coresight_device *coresight_get_percpu_sink(int cpu)
+>   }
+>   EXPORT_SYMBOL_GPL(coresight_get_percpu_sink);
+>   
+> -static int coresight_find_link_inport(struct coresight_device *csdev,
+> -				      struct coresight_device *parent)
+> +static struct coresight_connection *
+> +coresight_find_link_inport(struct coresight_device *csdev,
+> +			   struct coresight_device *parent)
+>   {
+>   	int i;
+>   	struct coresight_connection *conn;
+> @@ -121,17 +122,18 @@ static int coresight_find_link_inport(struct coresight_device *csdev,
+>   	for (i = 0; i < parent->pdata->nr_outconns; i++) {
+>   		conn = parent->pdata->out_conns[i];
+>   		if (conn->dest_dev == csdev)
+> -			return conn->dest_port;
+> +			return conn;
+>   	}
+>   
+>   	dev_err(&csdev->dev, "couldn't find inport, parent: %s, child: %s\n",
+>   		dev_name(&parent->dev), dev_name(&csdev->dev));
+>   
+> -	return -ENODEV;
+> +	return ERR_PTR(-ENODEV);
+>   }
+>   
+> -static int coresight_find_link_outport(struct coresight_device *csdev,
+> -				       struct coresight_device *child)
+> +static struct coresight_connection *
+> +coresight_find_link_outport(struct coresight_device *csdev,
+> +			    struct coresight_device *child)
+>   {
+>   	int i;
+>   	struct coresight_connection *conn;
+> @@ -139,13 +141,13 @@ static int coresight_find_link_outport(struct coresight_device *csdev,
+>   	for (i = 0; i < csdev->pdata->nr_outconns; i++) {
+>   		conn = csdev->pdata->out_conns[i];
+>   		if (conn->dest_dev == child)
+> -			return conn->src_port;
+> +			return conn;
+>   	}
+>   
+>   	dev_err(&csdev->dev, "couldn't find outport, parent: %s, child: %s\n",
+>   		dev_name(&csdev->dev), dev_name(&child->dev));
+>   
+> -	return -ENODEV;
+> +	return ERR_PTR(-ENODEV);
+>   }
+
+minor nit: I think the above two functions are exactly similar except 
+for the error message ? And could be unified by fixing the caller ?
+
+coresight_find_connection(src_dev, dst_dev)
+
+
+
+>   
+>   static inline u32 coresight_read_claim_tags(struct coresight_device *csdev)
+> @@ -352,24 +354,24 @@ static int coresight_enable_link(struct coresight_device *csdev,
+>   {
+>   	int ret = 0;
+>   	int link_subtype;
+> -	int inport, outport;
+> +	struct coresight_connection *inconn, *outconn;
+>   
+>   	if (!parent || !child)
+>   		return -EINVAL;
+>   
+> -	inport = coresight_find_link_inport(csdev, parent);
+> -	outport = coresight_find_link_outport(csdev, child);
+> +	inconn = coresight_find_link_inport(csdev, parent);
+> +	outconn = coresight_find_link_outport(csdev, child);
+
+here :
+
+	
+         outconn = coresight_find_connection(csdev, child);
+	inconn = coresight_find_connection(parent, csdev);
+
+>   	link_subtype = csdev->subtype.link_subtype;
+>   
+> -	if (link_subtype == CORESIGHT_DEV_SUBTYPE_LINK_MERG && inport < 0)
+> -		return inport;
+> -	if (link_subtype == CORESIGHT_DEV_SUBTYPE_LINK_SPLIT && outport < 0)
+> -		return outport;
+> +	if (link_subtype == CORESIGHT_DEV_SUBTYPE_LINK_MERG && IS_ERR(inconn))
+> +		return PTR_ERR(inconn);
+> +	if (link_subtype == CORESIGHT_DEV_SUBTYPE_LINK_SPLIT && IS_ERR(outconn))
+> +		return PTR_ERR(outconn);
+>   
+>   	if (link_ops(csdev)->enable) {
+>   		ret = coresight_control_assoc_ectdev(csdev, true);
+>   		if (!ret) {
+> -			ret = link_ops(csdev)->enable(csdev, inport, outport);
+> +			ret = link_ops(csdev)->enable(csdev, inconn, outconn);
+>   			if (ret)
+>   				coresight_control_assoc_ectdev(csdev, false);
+>   		}
+> @@ -385,33 +387,36 @@ static void coresight_disable_link(struct coresight_device *csdev,
+>   				   struct coresight_device *parent,
+>   				   struct coresight_device *child)
+>   {
+> -	int i, nr_conns;
+> +	int i;
+>   	int link_subtype;
+> -	int inport, outport;
+> +	struct coresight_connection *inconn, *outconn;
+>   
+>   	if (!parent || !child)
+>   		return;
+>   
+> -	inport = coresight_find_link_inport(csdev, parent);
+> -	outport = coresight_find_link_outport(csdev, child);
+> +	inconn = coresight_find_link_inport(csdev, parent);
+> +	outconn = coresight_find_link_outport(csdev, child);
+
+similarly here
+
+>   	link_subtype = csdev->subtype.link_subtype;
+>   
+> -	if (link_subtype == CORESIGHT_DEV_SUBTYPE_LINK_MERG) {
+> -		nr_conns = csdev->pdata->high_inport;
+> -	} else if (link_subtype == CORESIGHT_DEV_SUBTYPE_LINK_SPLIT) {
+> -		nr_conns = csdev->pdata->high_outport;
+> -	} else {
+> -		nr_conns = 1;
+> -	}
+> -
+>   	if (link_ops(csdev)->disable) {
+> -		link_ops(csdev)->disable(csdev, inport, outport);
+> +		link_ops(csdev)->disable(csdev, inconn, outconn);
+>   		coresight_control_assoc_ectdev(csdev, false);
+>   	}
+>   
+> -	for (i = 0; i < nr_conns; i++)
+> -		if (atomic_read(&csdev->refcnt[i]) != 0)
+> +	if (link_subtype == CORESIGHT_DEV_SUBTYPE_LINK_MERG) {
+> +		for (i = 0; i < csdev->pdata->nr_inconns; i++)
+> +			if (atomic_read(&csdev->pdata->in_conns[i]->refcnt) !=
+> +			    0)
+> +				return;
+> +	} else if (link_subtype == CORESIGHT_DEV_SUBTYPE_LINK_SPLIT) {
+> +		for (i = 0; i < csdev->pdata->nr_outconns; i++)
+> +			if (atomic_read(&csdev->pdata->out_conns[i]->refcnt) !=
+> +			    0)
+> +				return;
+> +	} else {
+> +		if (atomic_read(&csdev->refcnt) != 0)
+>   			return;
+> +	}
+
+I am slightly concerned about a case where a (practically a corner case,
+but not impossible) replicator-out could be connected to a funnel-in. In
+which case, we might be operating on the same "connection" and could
+mess up with the refcounting and may not do the right thing (e.g, enable
+the funnel - depends on in_conn ref, when the Replicator was enabled -
+touches out_conn ref)
+
+Suzuki
+
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
