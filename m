@@ -2,114 +2,87 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5F2BB6D4DC2
-	for <lists+linux-stm32@lfdr.de>; Mon,  3 Apr 2023 18:30:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9CF986D4E68
+	for <lists+linux-stm32@lfdr.de>; Mon,  3 Apr 2023 18:52:38 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 16AC6C6A610;
-	Mon,  3 Apr 2023 16:30:05 +0000 (UTC)
-Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com
- [209.85.208.46])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5651BC6A60B
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5337FC6A610;
+	Mon,  3 Apr 2023 16:52:38 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DA556C6A60B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  3 Apr 2023 16:30:04 +0000 (UTC)
-Received: by mail-ed1-f46.google.com with SMTP id w9so119679101edc.3
+ Mon,  3 Apr 2023 16:52:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1680540755;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=aNnj54KJ3sbCKgW+uG5+7ZfwR/tDYMYsDLk8WGo+8hY=;
+ b=B6x07fn0dfkGjlWh02kswR9tO/sq9dGV8zNXQclcw3Mbx2O7ouFFlgx2cVG203Zj3rFD2b
+ IRQMjGSUTs/8dzALvThFMmfDregijfEna8mihcifRP1XkKc0S6nc6O8UA7aRKXgxPmhJ2m
+ df0xCYKmqXnaGsWAtDRzi7XZnnmccJo=
+Received: from mail-oa1-f70.google.com (mail-oa1-f70.google.com
+ [209.85.160.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-131-DDXfXa6YMZC3GgKq9tmgPQ-1; Mon, 03 Apr 2023 12:52:34 -0400
+X-MC-Unique: DDXfXa6YMZC3GgKq9tmgPQ-1
+Received: by mail-oa1-f70.google.com with SMTP id
+ 586e51a60fabf-17afa2c993cso15893642fac.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 03 Apr 2023 09:30:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1680539404;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=MeWz95RBmI6XpSLkAR+cuB3iAEeGC3iRvwSDE5+WIbY=;
- b=vHhtKJL5afd3fDZb5Xvy5G6y/LTvqitLGSe7Ap0XWRSd3UnHwlhXG/jlL1pEDbro5N
- dDLdwGPIJVRIvCgJf+ooSRVUmcxTfsxV8spRGbOdGMiu0Yjabnu9Hv/mjHGNPXQ8lvjN
- cHe5ugODQYhlOZWDVDxVyYBUABgPfEhUNhPdKeF3/9v5wJk7oZDOr605S7tVuPNd8wTF
- bx6a/0ODqm177Gf9vkkLZzZXwHE9nR4G62csYL1zJ90eb79s5EDQerAqVGy4fDYuhuFx
- gXu3jujaXU5RPMtaZlFQ+OKGBp5RSLJJ0rYp6O8X402TZk6l3E92wW+w0z23pJ8wZvpJ
- eSIg==
+ Mon, 03 Apr 2023 09:52:34 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1680539404;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=MeWz95RBmI6XpSLkAR+cuB3iAEeGC3iRvwSDE5+WIbY=;
- b=LuwarM6rjesEG7E8YhbhtBdbcbaBG0O4Ka9T8c8oOjPM4NlHYr+/8tIzDdjRGl8r4K
- WIY1lMaO33X/pyhAcabeqbTp7blFz2z5SsZyyLmswErldWabR1ABOyFB8IUq/VnVzOif
- LSfZQg3GPbep7onfuIwVD9rKDqOv1S729zk8pN1qpnjv+gReXAu8wjWgEOvKr/Vy1r65
- sL6vybH/61vMYrFXES7pTLDin01tKdhbgLqVmMmilhv52JJWV0RlsiwZq9hUit+JRSwF
- 3qnJJTUczKCIkM4o4GKM92LYimR3+7qvxU1Iyse5KBb4ThkiZZ97NKvTBMrWhk/Slso5
- bLmw==
-X-Gm-Message-State: AAQBX9f85UIGP5Wbxp6/O2ZT6TeUvZWhQUENwnJjtZQUiwRt7pI4ynae
- QjS5Lc7JqL+nqXEAtsjRaFv0Qw==
-X-Google-Smtp-Source: AKy350YS4e1dI8mZhrbLOs96X7qTnH/JqlEPq688zdETFGPGyW8pAjyNj4FhzEJY/Pp8fKqk3yTMRQ==
-X-Received: by 2002:a17:906:3da:b0:931:95a1:a05a with SMTP id
- c26-20020a17090603da00b0093195a1a05amr37358230eja.62.1680539403777; 
- Mon, 03 Apr 2023 09:30:03 -0700 (PDT)
-Received: from [192.168.2.107] ([79.115.63.91])
- by smtp.gmail.com with ESMTPSA id
- ld4-20020a1709079c0400b009486efb9192sm2073196ejc.11.2023.04.03.09.29.59
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 03 Apr 2023 09:30:03 -0700 (PDT)
-Message-ID: <f881883e-23e1-66e0-78d2-da86533b038f@linaro.org>
-Date: Mon, 3 Apr 2023 17:29:59 +0100
+ d=1e100.net; s=20210112; t=1680540754;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=aNnj54KJ3sbCKgW+uG5+7ZfwR/tDYMYsDLk8WGo+8hY=;
+ b=ttSlaScsocEgN2oqFz40IICekwUqOy3mTVn8PCjwsCihmLFiduXopgsOEPtve6mCl3
+ w/HH5K1i8cMoR+LSZ97qBCTQaYN5s9jGSWA7LTiI+ZDhHYpYmK9plvHKZezONCp+5Wot
+ LaZXN6xMWvVgKvXwMRKmqivSIHWnVPfkUETJbF1ka5nPUBp2WmkU2I3rcmSjnD2pYVwo
+ 2IgkHDEhBHb1cZUJETRv4hIN1f6+Gwv46atVAnvs0KM+Dfpa5T5GIJOOsFfuQz2YFAtU
+ qzJEWCZFopvs9q824ddm9wui3w5N3G73upaWkAgXGbVwqGZRRy7Dn5GhxTUfl2XVM8ui
+ ZtPQ==
+X-Gm-Message-State: AO0yUKUI35atpGbvVAqy/kIzpRzbb5Fm6jX7lJAg88CMsArB+dZvXh4m
+ Eaqu2xxyerqsIdEuD6nEn/K7G+waw+BdyjF0umBILRBL/IQe8jxP1Ib2ofMwRosN3qGdoHPXk2V
+ DXGgoE3v0qjpeYXrOzSe16ZuOfz21zjuUn74plV9d
+X-Received: by 2002:a54:4e0f:0:b0:387:11d6:d48d with SMTP id
+ a15-20020a544e0f000000b0038711d6d48dmr14701110oiy.37.1680540753800; 
+ Mon, 03 Apr 2023 09:52:33 -0700 (PDT)
+X-Google-Smtp-Source: AK7set8nyuqGQ1cBcxKMmZtMf+X7ml0tFy8hvmMAEAn00O8xx7UksN2AreJp5ikhVn74Xutm5tAIaw==
+X-Received: by 2002:a54:4e0f:0:b0:387:11d6:d48d with SMTP id
+ a15-20020a544e0f000000b0038711d6d48dmr14701091oiy.37.1680540753503; 
+ Mon, 03 Apr 2023 09:52:33 -0700 (PDT)
+Received: from halaney-x13s (104-53-165-62.lightspeed.stlsmo.sbcglobal.net.
+ [104.53.165.62]) by smtp.gmail.com with ESMTPSA id
+ w129-20020a4a5d87000000b005414543377asm772820ooa.20.2023.04.03.09.52.31
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 03 Apr 2023 09:52:33 -0700 (PDT)
+Date: Mon, 3 Apr 2023 11:52:29 -0500
+From: Andrew Halaney <ahalaney@redhat.com>
+To: linux-kernel@vger.kernel.org
+Message-ID: <20230403165229.4jhpo2xs7tuclekw@halaney-x13s>
+References: <20230331214549.756660-1-ahalaney@redhat.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.7.1
-Content-Language: en-US
-To: =?UTF-8?Q?Uwe_Kleine-K=c3=b6nig?= <u.kleine-koenig@pengutronix.de>,
- Miquel Raynal <miquel.raynal@bootlin.com>,
- Vignesh Raghavendra <vigneshr@ti.com>,
- Kyungmin Park <kyungmin.park@samsung.com>,
- Naga Sureshkumar Relli <nagasure@xilinx.com>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Claudiu Beznea <claudiu.beznea@microchip.com>,
- Yang Yingliang <yangyingliang@huawei.com>,
- ye xingchen <ye.xingchen@zte.com.cn>,
- Valentin Korenblit <vkorenblit@sequans.com>,
- Wang Weiyang <wangweiyang2@huawei.com>, =?UTF-8?Q?Pali_Roh=c3=a1r?=
- <pali@kernel.org>, =?UTF-8?Q?Marek_Beh=c3=ban?= <kabel@kernel.org>,
- Han Xu <han.xu@nxp.com>, Harvey Hunt <harveyhuntnexus@gmail.com>,
- Paul Cercueil <paul@crapouillou.net>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Vladimir Zapolskiy <vz@mleia.com>, Geert Uytterhoeven
- <geert@linux-m68k.org>, Dmitry Torokhov <dmitry.torokhov@gmail.com>,
- Liang Yang <liang.yang@amlogic.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Kevin Hilman <khilman@baylibre.com>,
- Christophe Leroy <christophe.leroy@csgroup.eu>,
- Phil Edworthy <phil.edworthy@renesas.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Chuanhong Guo <gch981213@gmail.com>, Roger Quadros <rogerq@kernel.org>,
- Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
- Manivannan Sadhasivam <mani@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Arnd Bergmann <arnd@arndb.de>, Linus Walleij <linus.walleij@linaro.org>,
- Stephen Boyd <sboyd@kernel.org>, Miaoqian Lin <linmq006@gmail.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Christophe Kerello <christophe.kerello@foss.st.com>,
- Jack Wang <jinpu.wang@ionos.com>, Chen-Yu Tsai <wens@csie.org>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Samuel Holland <samuel@sholland.org>, Stefan Agner <stefan@agner.ch>,
- Lucas Stach <dev@lynxeye.de>, Thierry Reding <thierry.reding@gmail.com>,
- Jonathan Hunter <jonathanh@nvidia.com>
-References: <20230401161938.2503204-1-u.kleine-koenig@pengutronix.de>
-From: Tudor Ambarus <tudor.ambarus@linaro.org>
-In-Reply-To: <20230401161938.2503204-1-u.kleine-koenig@pengutronix.de>
-Cc: linux-oxnas@groups.io, Richard Weinberger <richard@nod.at>,
- linux-mediatek@lists.infradead.org, linux-mips@vger.kernel.org,
- linux-sunxi@lists.linux.dev, linux-renesas-soc@vger.kernel.org,
- linux-rockchip@lists.infradead.org, linux-mtd@lists.infradead.org,
- kernel@pengutronix.de, linux-arm-msm@vger.kernel.org,
- linux-tegra@vger.kernel.org, linux-amlogic@lists.infradead.org,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- Jerome Brunet <jbrunet@baylibre.com>
-Subject: Re: [Linux-stm32] [PATCH 00/49] mtd: nand: Convert to platform
- remove callback returning void
+In-Reply-To: <20230331214549.756660-1-ahalaney@redhat.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Disposition: inline
+Cc: mturquette@baylibre.com, edumazet@google.com,
+ krzysztof.kozlowski+dt@linaro.org, jonathanh@nvidia.com,
+ linux-stm32@st-md-mailman.stormreply.com, tee.min.tan@linux.intel.com,
+ samuel@sholland.org, linux@armlinux.org.uk, jernej.skrabec@gmail.com,
+ veekhee@apple.com, wens@csie.org, joabreu@synopsys.com, kuba@kernel.org,
+ pabeni@redhat.com, andrey.konovalov@linaro.org, ncai@quicinc.com,
+ devicetree@vger.kernel.org, bhupesh.sharma@linaro.org,
+ linux-arm-msm@vger.kernel.org, richardcochran@gmail.com, bmasney@redhat.com,
+ mohammad.athari.ismail@intel.com, robh+dt@kernel.org, ruppala@nvidia.com,
+ jsuraj@qti.qualcomm.com, peppe.cavallaro@st.com,
+ linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
+ andersson@kernel.org, agross@kernel.org, echanude@redhat.com,
+ konrad.dybcio@linaro.org, vkoul@kernel.org, hisunil@quicinc.com,
+ mcoquelin.stm32@gmail.com, davem@davemloft.net
+Subject: [Linux-stm32] [PATCH net-next v3 12/12] net: stmmac:
+ dwmac-qcom-ethqos: Add EMAC3 support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -121,28 +94,291 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-CgpPbiA0LzEvMjMgMTc6MTgsIFV3ZSBLbGVpbmUtS8O2bmlnIHdyb3RlOgo+IEhlbGxvLAo+IAo+
-IHRoaXMgc2VyaWVzIGFkYXB0cyB0aGUgcGxhdGZvcm0gZHJpdmVycyBiZWxvdyBkcml2ZXJzL210
-ZC9uYW5kIHRvIHVzZSB0aGUKPiAucmVtb3ZlX25ldygpIGNhbGxiYWNrLiBDb21wYXJlZCB0byB0
-aGUgdHJhZGl0aW9uYWwgLnJlbW92ZSgpIGNhbGxiYWNrCj4gLnJlbW92ZV9uZXcoKSByZXR1cm5z
-IG5vIHZhbHVlLiBUaGlzIGlzIGEgZ29vZCB0aGluZyBiZWNhdXNlIHRoZSBkcml2ZXIgY29yZQo+
-IGRvZXNuJ3QgKGFuZCBjYW5ub3QpIGNvcGUgZm9yIGVycm9ycyBkdXJpbmcgcmVtb3ZlLiBUaGUg
-b25seSBlZmZlY3Qgb2YgYQo+IG5vbi16ZXJvIHJldHVybiB2YWx1ZSBpbiAucmVtb3ZlKCkgaXMg
-dGhhdCB0aGUgZHJpdmVyIGNvcmUgZW1pdHMgYSB3YXJuaW5nLiBUaGUKPiBkZXZpY2UgaXMgcmVt
-b3ZlZCBhbnlob3cgYW5kIGFuIGVhcmx5IHJldHVybiBmcm9tIC5yZW1vdmUoKSB1c3VhbGx5IHlp
-ZWxkcyBhCj4gcmVzb3VyY2UgbGVhay4KPiAKPiBCeSBjaGFuZ2luZyB0aGUgcmVtb3ZlIGNhbGxi
-YWNrIHRvIHJldHVybiB2b2lkIGRyaXZlciBhdXRob3JzIGNhbm5vdAo+IHJlYXNvbmFibHkgYXNz
-dW1lIGFueSBtb3JlIHRoYXQgdGhlcmUgaXMgc29tZSBraW5kIG9mIGNsZWFudXAgbGF0ZXIuCj4g
-Cj4gQXMgYWxsIGRyaXZlcnMgYWxyZWFkeSByZXR1cm4gMCBpbiB0aGVpciAucmVtb3ZlIGNhbGxi
-YWNrLCB0aGV5IGNhbiBiZQo+IGNvbnZlcnRlZCB0cml2aWFsbHkuCj4gCgpJJ2QgbWFrZSBhIHNp
-bmdsZSBwYXRjaCBwZXIgc3Vic3lzdGVtIGZvciB0cml2aWFsIGNoYW5nZXMsIGJ1dCBJIGRvbid0
-Cm1pbmQgaGF2aW5nIHRoZW0gc3BsaXQgcGVyIGRyaXZlciBlaXRoZXI6CgpBY2tlZC1ieTogVHVk
-b3IgQW1iYXJ1cyA8dHVkb3IuYW1iYXJ1c0BsaW5hcm8ub3JnPgpfX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGlu
-dXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxt
-YW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
+Add the new programming sequence needed for EMAC3 based platforms such
+as the sc8280xp family.
+
+Signed-off-by: Andrew Halaney <ahalaney@redhat.com>
+---
+
+This originally did not make it to the list somehow, but was intended
+to. Apologies in advance if appending it like this is inappropriate, but
+after thinking about it more I think that works better than doing a
+RESEND (and making current comments difficult to track) or spinning a
+v4, without addressing comments in this version entirely. I'm eager to
+get some feedback on this, and I've got some property damage at home
+to deal with so I'm sending it this way instead of waiting for further
+advice on how to deal with me dropping it on accident.
+
+I know the Qualcomm team has looked at earlier versions of this offlist,
+but I'd appreciate any feedback I can get (good or bad) for this patch
+since it is a lot of programming that I took entirely from downstream
+after modifying to be more upstream appropriate (i.e., I do not have
+documentation for the IP, be it this implementation or the generic
+docs).
+
+Thanks in advance and sorry again about it getting dropped from the
+original submission!
+
+Changes since v2:
+    * Adjust to the new method of defining the MTL/DMA offsets in the
+      platform glue
+
+Changes since v1:
+    * None
+
+ .../stmicro/stmmac/dwmac-qcom-ethqos.c        | 121 +++++++++++++++---
+ 1 file changed, 100 insertions(+), 21 deletions(-)
+
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
+index ec9e93147716..f47ae62a5662 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
+@@ -11,6 +11,7 @@
+ 
+ #define RGMII_IO_MACRO_CONFIG		0x0
+ #define SDCC_HC_REG_DLL_CONFIG		0x4
++#define SDCC_TEST_CTL			0x8
+ #define SDCC_HC_REG_DDR_CONFIG		0xC
+ #define SDCC_HC_REG_DLL_CONFIG2		0x10
+ #define SDC4_STATUS			0x14
+@@ -49,6 +50,7 @@
+ #define SDCC_DDR_CONFIG_EXT_PRG_RCLK_DLY	GENMASK(26, 21)
+ #define SDCC_DDR_CONFIG_EXT_PRG_RCLK_DLY_CODE	GENMASK(29, 27)
+ #define SDCC_DDR_CONFIG_EXT_PRG_RCLK_DLY_EN	BIT(30)
++#define SDCC_DDR_CONFIG_TCXO_CYCLES_CNT		GENMASK(11, 9)
+ #define SDCC_DDR_CONFIG_PRG_RCLK_DLY		GENMASK(8, 0)
+ 
+ /* SDCC_HC_REG_DLL_CONFIG2 fields */
+@@ -79,6 +81,8 @@ struct ethqos_emac_driver_data {
+ 	const struct ethqos_emac_por *por;
+ 	unsigned int num_por;
+ 	bool rgmii_config_loopback_en;
++	bool has_emac3;
++	struct dwmac4_addrs dwmac4_addrs;
+ };
+ 
+ struct qcom_ethqos {
+@@ -92,6 +96,7 @@ struct qcom_ethqos {
+ 	const struct ethqos_emac_por *por;
+ 	unsigned int num_por;
+ 	bool rgmii_config_loopback_en;
++	bool has_emac3;
+ };
+ 
+ static int rgmii_readl(struct qcom_ethqos *ethqos, unsigned int offset)
+@@ -184,6 +189,7 @@ static const struct ethqos_emac_driver_data emac_v2_3_0_data = {
+ 	.por = emac_v2_3_0_por,
+ 	.num_por = ARRAY_SIZE(emac_v2_3_0_por),
+ 	.rgmii_config_loopback_en = true,
++	.has_emac3 = false,
+ };
+ 
+ static const struct ethqos_emac_por emac_v2_1_0_por[] = {
+@@ -199,6 +205,39 @@ static const struct ethqos_emac_driver_data emac_v2_1_0_data = {
+ 	.por = emac_v2_1_0_por,
+ 	.num_por = ARRAY_SIZE(emac_v2_1_0_por),
+ 	.rgmii_config_loopback_en = false,
++	.has_emac3 = false,
++};
++
++static const struct ethqos_emac_por emac_v3_0_0_por[] = {
++	{ .offset = RGMII_IO_MACRO_CONFIG,	.value = 0x40c01343 },
++	{ .offset = SDCC_HC_REG_DLL_CONFIG,	.value = 0x2004642c },
++	{ .offset = SDCC_HC_REG_DDR_CONFIG,	.value = 0x80040800 },
++	{ .offset = SDCC_HC_REG_DLL_CONFIG2,	.value = 0x00200000 },
++	{ .offset = SDCC_USR_CTL,		.value = 0x00010800 },
++	{ .offset = RGMII_IO_MACRO_CONFIG2,	.value = 0x00002060 },
++};
++
++static const struct ethqos_emac_driver_data emac_v3_0_0_data = {
++	.por = emac_v3_0_0_por,
++	.num_por = ARRAY_SIZE(emac_v3_0_0_por),
++	.rgmii_config_loopback_en = false,
++	.has_emac3 = true,
++	.dwmac4_addrs = {
++		.dma_chan = 0x00008100,
++		.dma_chan_offset = 0x1000,
++		.mtl_chan = 0x00008000,
++		.mtl_chan_offset = 0x1000,
++		.mtl_ets_ctrl = 0x00008010,
++		.mtl_ets_ctrl_offset = 0x1000,
++		.mtl_txq_weight = 0x00008018,
++		.mtl_txq_weight_offset = 0x1000,
++		.mtl_send_slp_cred = 0x0000801c,
++		.mtl_send_slp_cred_offset = 0x1000,
++		.mtl_high_cred = 0x00008020,
++		.mtl_high_cred_offset = 0x1000,
++		.mtl_low_cred = 0x00008024,
++		.mtl_low_cred_offset = 0x1000,
++	},
+ };
+ 
+ static int ethqos_dll_configure(struct qcom_ethqos *ethqos)
+@@ -222,11 +261,13 @@ static int ethqos_dll_configure(struct qcom_ethqos *ethqos)
+ 	rgmii_updatel(ethqos, SDCC_DLL_CONFIG_DLL_EN,
+ 		      SDCC_DLL_CONFIG_DLL_EN, SDCC_HC_REG_DLL_CONFIG);
+ 
+-	rgmii_updatel(ethqos, SDCC_DLL_MCLK_GATING_EN,
+-		      0, SDCC_HC_REG_DLL_CONFIG);
++	if (!ethqos->has_emac3) {
++		rgmii_updatel(ethqos, SDCC_DLL_MCLK_GATING_EN,
++			      0, SDCC_HC_REG_DLL_CONFIG);
+ 
+-	rgmii_updatel(ethqos, SDCC_DLL_CDR_FINE_PHASE,
+-		      0, SDCC_HC_REG_DLL_CONFIG);
++		rgmii_updatel(ethqos, SDCC_DLL_CDR_FINE_PHASE,
++			      0, SDCC_HC_REG_DLL_CONFIG);
++	}
+ 
+ 	/* Wait for CK_OUT_EN clear */
+ 	do {
+@@ -261,18 +302,20 @@ static int ethqos_dll_configure(struct qcom_ethqos *ethqos)
+ 	rgmii_updatel(ethqos, SDCC_DLL_CONFIG2_DDR_CAL_EN,
+ 		      SDCC_DLL_CONFIG2_DDR_CAL_EN, SDCC_HC_REG_DLL_CONFIG2);
+ 
+-	rgmii_updatel(ethqos, SDCC_DLL_CONFIG2_DLL_CLOCK_DIS,
+-		      0, SDCC_HC_REG_DLL_CONFIG2);
++	if (!ethqos->has_emac3) {
++		rgmii_updatel(ethqos, SDCC_DLL_CONFIG2_DLL_CLOCK_DIS,
++			      0, SDCC_HC_REG_DLL_CONFIG2);
+ 
+-	rgmii_updatel(ethqos, SDCC_DLL_CONFIG2_MCLK_FREQ_CALC,
+-		      0x1A << 10, SDCC_HC_REG_DLL_CONFIG2);
++		rgmii_updatel(ethqos, SDCC_DLL_CONFIG2_MCLK_FREQ_CALC,
++			      0x1A << 10, SDCC_HC_REG_DLL_CONFIG2);
+ 
+-	rgmii_updatel(ethqos, SDCC_DLL_CONFIG2_DDR_TRAFFIC_INIT_SEL,
+-		      BIT(2), SDCC_HC_REG_DLL_CONFIG2);
++		rgmii_updatel(ethqos, SDCC_DLL_CONFIG2_DDR_TRAFFIC_INIT_SEL,
++			      BIT(2), SDCC_HC_REG_DLL_CONFIG2);
+ 
+-	rgmii_updatel(ethqos, SDCC_DLL_CONFIG2_DDR_TRAFFIC_INIT_SW,
+-		      SDCC_DLL_CONFIG2_DDR_TRAFFIC_INIT_SW,
+-		      SDCC_HC_REG_DLL_CONFIG2);
++		rgmii_updatel(ethqos, SDCC_DLL_CONFIG2_DDR_TRAFFIC_INIT_SW,
++			      SDCC_DLL_CONFIG2_DDR_TRAFFIC_INIT_SW,
++			      SDCC_HC_REG_DLL_CONFIG2);
++	}
+ 
+ 	return 0;
+ }
+@@ -327,9 +370,17 @@ static int ethqos_rgmii_macro_init(struct qcom_ethqos *ethqos)
+ 			      RGMII_CONFIG2_RX_PROG_SWAP,
+ 			      RGMII_IO_MACRO_CONFIG2);
+ 
+-		/* Set PRG_RCLK_DLY to 57 for 1.8 ns delay */
+-		rgmii_updatel(ethqos, SDCC_DDR_CONFIG_PRG_RCLK_DLY,
+-			      57, SDCC_HC_REG_DDR_CONFIG);
++		/* PRG_RCLK_DLY = TCXO period * TCXO_CYCLES_CNT / 2 * RX delay ns,
++		 * in practice this becomes PRG_RCLK_DLY = 52 * 4 / 2 * RX delay ns
++		 */
++		if (ethqos->has_emac3)
++			/* 0.9 ns */
++			rgmii_updatel(ethqos, SDCC_DDR_CONFIG_PRG_RCLK_DLY,
++				      115, SDCC_HC_REG_DDR_CONFIG);
++		else
++			/* 1.8 ns */
++			rgmii_updatel(ethqos, SDCC_DDR_CONFIG_PRG_RCLK_DLY,
++				      57, SDCC_HC_REG_DDR_CONFIG);
+ 		rgmii_updatel(ethqos, SDCC_DDR_CONFIG_PRG_DLY_EN,
+ 			      SDCC_DDR_CONFIG_PRG_DLY_EN,
+ 			      SDCC_HC_REG_DDR_CONFIG);
+@@ -355,8 +406,15 @@ static int ethqos_rgmii_macro_init(struct qcom_ethqos *ethqos)
+ 			      BIT(6), RGMII_IO_MACRO_CONFIG);
+ 		rgmii_updatel(ethqos, RGMII_CONFIG2_RSVD_CONFIG15,
+ 			      0, RGMII_IO_MACRO_CONFIG2);
+-		rgmii_updatel(ethqos, RGMII_CONFIG2_RX_PROG_SWAP,
+-			      0, RGMII_IO_MACRO_CONFIG2);
++
++		if (ethqos->has_emac3)
++			rgmii_updatel(ethqos, RGMII_CONFIG2_RX_PROG_SWAP,
++				      RGMII_CONFIG2_RX_PROG_SWAP,
++				      RGMII_IO_MACRO_CONFIG2);
++		else
++			rgmii_updatel(ethqos, RGMII_CONFIG2_RX_PROG_SWAP,
++				      0, RGMII_IO_MACRO_CONFIG2);
++
+ 		/* Write 0x5 to PRG_RCLK_DLY_CODE */
+ 		rgmii_updatel(ethqos, SDCC_DDR_CONFIG_EXT_PRG_RCLK_DLY_CODE,
+ 			      (BIT(29) | BIT(27)), SDCC_HC_REG_DDR_CONFIG);
+@@ -389,8 +447,13 @@ static int ethqos_rgmii_macro_init(struct qcom_ethqos *ethqos)
+ 			      RGMII_IO_MACRO_CONFIG);
+ 		rgmii_updatel(ethqos, RGMII_CONFIG2_RSVD_CONFIG15,
+ 			      0, RGMII_IO_MACRO_CONFIG2);
+-		rgmii_updatel(ethqos, RGMII_CONFIG2_RX_PROG_SWAP,
+-			      0, RGMII_IO_MACRO_CONFIG2);
++		if (ethqos->has_emac3)
++			rgmii_updatel(ethqos, RGMII_CONFIG2_RX_PROG_SWAP,
++				      RGMII_CONFIG2_RX_PROG_SWAP,
++				      RGMII_IO_MACRO_CONFIG2);
++		else
++			rgmii_updatel(ethqos, RGMII_CONFIG2_RX_PROG_SWAP,
++				      0, RGMII_IO_MACRO_CONFIG2);
+ 		/* Write 0x5 to PRG_RCLK_DLY_CODE */
+ 		rgmii_updatel(ethqos, SDCC_DDR_CONFIG_EXT_PRG_RCLK_DLY_CODE,
+ 			      (BIT(29) | BIT(27)), SDCC_HC_REG_DDR_CONFIG);
+@@ -433,6 +496,17 @@ static int ethqos_configure(struct qcom_ethqos *ethqos)
+ 	rgmii_updatel(ethqos, SDCC_DLL_CONFIG_PDN,
+ 		      SDCC_DLL_CONFIG_PDN, SDCC_HC_REG_DLL_CONFIG);
+ 
++	if (ethqos->has_emac3) {
++		if (ethqos->speed == SPEED_1000) {
++			rgmii_writel(ethqos, 0x1800000, SDCC_TEST_CTL);
++			rgmii_writel(ethqos, 0x2C010800, SDCC_USR_CTL);
++			rgmii_writel(ethqos, 0xA001, SDCC_HC_REG_DLL_CONFIG2);
++		} else {
++			rgmii_writel(ethqos, 0x40010800, SDCC_USR_CTL);
++			rgmii_writel(ethqos, 0xA001, SDCC_HC_REG_DLL_CONFIG2);
++		}
++	}
++
+ 	/* Clear DLL_RST */
+ 	rgmii_updatel(ethqos, SDCC_DLL_CONFIG_DLL_RST, 0,
+ 		      SDCC_HC_REG_DLL_CONFIG);
+@@ -452,7 +526,9 @@ static int ethqos_configure(struct qcom_ethqos *ethqos)
+ 			      SDCC_HC_REG_DLL_CONFIG);
+ 
+ 		/* Set USR_CTL bit 26 with mask of 3 bits */
+-		rgmii_updatel(ethqos, GENMASK(26, 24), BIT(26), SDCC_USR_CTL);
++		if (!ethqos->has_emac3)
++			rgmii_updatel(ethqos, GENMASK(26, 24), BIT(26),
++				      SDCC_USR_CTL);
+ 
+ 		/* wait for DLL LOCK */
+ 		do {
+@@ -547,6 +623,7 @@ static int qcom_ethqos_probe(struct platform_device *pdev)
+ 	ethqos->por = data->por;
+ 	ethqos->num_por = data->num_por;
+ 	ethqos->rgmii_config_loopback_en = data->rgmii_config_loopback_en;
++	ethqos->has_emac3 = data->has_emac3;
+ 
+ 	ethqos->rgmii_clk = devm_clk_get(&pdev->dev, "rgmii");
+ 	if (IS_ERR(ethqos->rgmii_clk)) {
+@@ -566,6 +643,7 @@ static int qcom_ethqos_probe(struct platform_device *pdev)
+ 	plat_dat->fix_mac_speed = ethqos_fix_mac_speed;
+ 	plat_dat->dump_debug_regs = rgmii_dump;
+ 	plat_dat->has_gmac4 = 1;
++	plat_dat->dwmac4_addrs = &data->dwmac4_addrs;
+ 	plat_dat->pmt = 1;
+ 	plat_dat->tso_en = of_property_read_bool(np, "snps,tso");
+ 	if (of_device_is_compatible(np, "qcom,qcs404-ethqos"))
+@@ -603,6 +681,7 @@ static int qcom_ethqos_remove(struct platform_device *pdev)
+ 
+ static const struct of_device_id qcom_ethqos_match[] = {
+ 	{ .compatible = "qcom,qcs404-ethqos", .data = &emac_v2_3_0_data},
++	{ .compatible = "qcom,sc8280xp-ethqos", .data = &emac_v3_0_0_data},
+ 	{ .compatible = "qcom,sm8150-ethqos", .data = &emac_v2_1_0_data},
+ 	{ }
+ };
+-- 
+2.39.2
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
