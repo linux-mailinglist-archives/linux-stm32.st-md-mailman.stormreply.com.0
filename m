@@ -2,43 +2,75 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id F0BD46D745A
-	for <lists+linux-stm32@lfdr.de>; Wed,  5 Apr 2023 08:21:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AC9696D66F6
+	for <lists+linux-stm32@lfdr.de>; Tue,  4 Apr 2023 17:15:35 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 89472C6A618;
-	Wed,  5 Apr 2023 06:21:36 +0000 (UTC)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A791EC6A602
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 61040C6A603;
+	Tue,  4 Apr 2023 15:15:35 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 33F0AC65E56
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  4 Apr 2023 13:59:57 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 612F1D75;
- Tue,  4 Apr 2023 07:00:41 -0700 (PDT)
-Received: from [10.57.53.173] (unknown [10.57.53.173])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 0C6103F762;
- Tue,  4 Apr 2023 06:59:54 -0700 (PDT)
-Message-ID: <2e3c1a26-b4af-9e53-66d1-9553c86ce2bd@arm.com>
-Date: Tue, 4 Apr 2023 14:59:53 +0100
+ Tue,  4 Apr 2023 15:15:34 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 334CS99Z019621; Tue, 4 Apr 2023 17:15:22 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=O4QAVAXtCfAM2YMeEv35i7sxiFxYCA1KFeyN8KIQ5+8=;
+ b=nKSy0tX/2pG6fXNiReeUK1YeACTsHLeWuPfHA14D/QraNRiDwN5VUXBVofuvgmYF1DcP
+ H3Ni8+rQVObaNqIHDKjReKaNALH7Geqggz/1Tm1symw/E0HAZisw2a8h8Sy9cHKeYX8B
+ lP7CCk4OTfv+0HdaoAFQgdxmLcogndnxSVToL8OTGibH+wfwlBpvd+xzu4gY14G9ybnw
+ sGcGTb1nzv3B18PFGK44xSCvA+rBgbM2tdZaIalDp0A6sKravxPNhKtDhVQil5/fHF7R
+ y70XpE9An9zRs9DRnxUVgo3jVKI7MV/6Lxr1cZAfRjvoCrXYzwhhX45xu08C6FuKcGP9 cw== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3pqunht0vr-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 04 Apr 2023 17:15:22 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 399D910002A;
+ Tue,  4 Apr 2023 17:15:21 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 2002D2248B0;
+ Tue,  4 Apr 2023 17:15:21 +0200 (CEST)
+Received: from [10.252.11.89] (10.252.11.89) by SHFDAG1NODE2.st.com
+ (10.75.129.70) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.17; Tue, 4 Apr
+ 2023 17:15:17 +0200
+Message-ID: <6bfaef82-458e-256d-b9ba-d6d84c574d4b@foss.st.com>
+Date: Tue, 4 Apr 2023 17:15:17 +0200
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.9.0
-To: James Clark <james.clark@arm.com>, coresight@lists.linaro.org,
- quic_jinlmao@quicinc.com, mike.leach@linaro.org
-References: <20230329115329.2747724-1-james.clark@arm.com>
- <20230329115329.2747724-14-james.clark@arm.com>
- <77d890a9-9927-da8e-1460-54513784683d@arm.com>
- <61bb4e6d-5451-2f01-19b2-76c396854c23@arm.com>
- <2eecee82-2143-0da6-6132-5514336ebc6b@arm.com>
-From: Suzuki K Poulose <suzuki.poulose@arm.com>
-In-Reply-To: <2eecee82-2143-0da6-6132-5514336ebc6b@arm.com>
-X-Mailman-Approved-At: Wed, 05 Apr 2023 06:21:34 +0000
-Cc: Mathieu Poirier <mathieu.poirier@linaro.org>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- linux-kernel@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Leo Yan <leo.yan@linaro.org>, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v3 13/13] coresight: Fix CTI module
- refcount leak by making it a helper device
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.9.0
+Content-Language: en-US
+To: Peng Fan <peng.fan@nxp.com>, Bjorn Andersson <andersson@kernel.org>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>, Rob Herring
+ <robh+dt@kernel.org>, Krzysztof Kozlowski
+ <krzysztof.kozlowski+dt@linaro.org>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>
+References: <20230331154651.3107173-1-arnaud.pouliquen@foss.st.com>
+ <20230331154651.3107173-5-arnaud.pouliquen@foss.st.com>
+ <DU0PR04MB941747DDF6FD2F157A24183288939@DU0PR04MB9417.eurprd04.prod.outlook.com>
+From: Arnaud POULIQUEN <arnaud.pouliquen@foss.st.com>
+Organization: STMicroelectronics
+In-Reply-To: <DU0PR04MB941747DDF6FD2F157A24183288939@DU0PR04MB9417.eurprd04.prod.outlook.com>
+X-Originating-IP: [10.252.11.89]
+X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE2.st.com
+ (10.75.129.70)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.254,Aquarius:18.0.942,Hydra:6.0.573,FMLib:17.11.170.22
+ definitions=2023-04-04_06,2023-04-04_04,2023-02-09_01
+Cc: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "linux-remoteproc@vger.kernel.org" <linux-remoteproc@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>
+Subject: Re: [Linux-stm32] [PATCH 4/5] remoteproc: stm32: Allow hold boot
+ management by the SCMI reset controller
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -50,110 +82,116 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gMDQvMDQvMjAyMyAxNDowNCwgSmFtZXMgQ2xhcmsgd3JvdGU6Cj4gCj4gCj4gT24gMDQvMDQv
-MjAyMyAxMzo1NSwgSmFtZXMgQ2xhcmsgd3JvdGU6Cj4+Cj4+Cj4+IE9uIDA0LzA0LzIwMjMgMTA6
-MjEsIFN1enVraSBLIFBvdWxvc2Ugd3JvdGU6Cj4+PiBPbiAyOS8wMy8yMDIzIDEyOjUzLCBKYW1l
-cyBDbGFyayB3cm90ZToKPj4+PiBUaGUgQ1RJIG1vZHVsZSBoYXMgc29tZSBoYXJkIGNvZGVkIHJl
-ZmNvdW50aW5nIGNvZGUgdGhhdCBoYXMgYSBsZWFrLgo+Pj4+IEZvciBleGFtcGxlIHJ1bm5pbmcg
-cGVyZiBhbmQgdGhlbiB0cnlpbmcgdG8gdW5sb2FkIGl0IGZhaWxzOgo+Pj4+Cj4+Pj4gIMKgwqAg
-cGVyZiByZWNvcmQgLWUgY3NfZXRtLy8gLWEgLS0gbHMKPj4+PiAgwqDCoCBybW1vZCBjb3Jlc2ln
-aHRfY3RpCj4+Pj4KPj4+PiAgwqDCoCBybW1vZDogRVJST1I6IE1vZHVsZSBjb3Jlc2lnaHRfY3Rp
-IGlzIGluIHVzZQo+Pj4+Cj4+Pj4gVGhlIGNvcmVzaWdodCBjb3JlIGFscmVhZHkgaGFuZGxlcyBy
-ZWZlcmVuY2VzIG9mIGRldmljZXMgaW4gdXNlLCBzbyBieQo+Pj4+IG1ha2luZyBDVEkgYSBub3Jt
-YWwgaGVscGVyIGRldmljZSwgd2UgZ2V0IHdvcmtpbmcgcmVmY291bnRpbmcgZm9yIGZyZWUuCj4+
-Pj4KPj4+PiBTaWduZWQtb2ZmLWJ5OiBKYW1lcyBDbGFyayA8amFtZXMuY2xhcmtAYXJtLmNvbT4K
-Pj4+PiAtLS0KPj4+PiAgwqAgZHJpdmVycy9od3RyYWNpbmcvY29yZXNpZ2h0L2NvcmVzaWdodC1j
-b3JlLmPCoCB8IDk5ICsrKysrKy0tLS0tLS0tLS0tLS0KPj4+PiAgwqAgLi4uL2h3dHJhY2luZy9j
-b3Jlc2lnaHQvY29yZXNpZ2h0LWN0aS1jb3JlLmPCoCB8IDUyICsrKysrLS0tLS0KPj4+PiAgwqAg
-Li4uL2h3dHJhY2luZy9jb3Jlc2lnaHQvY29yZXNpZ2h0LWN0aS1zeXNmcy5jIHzCoCA0ICstCj4+
-Pj4gIMKgIGRyaXZlcnMvaHd0cmFjaW5nL2NvcmVzaWdodC9jb3Jlc2lnaHQtY3RpLmjCoMKgIHzC
-oCA0ICstCj4+Pj4gIMKgIGRyaXZlcnMvaHd0cmFjaW5nL2NvcmVzaWdodC9jb3Jlc2lnaHQtcHJp
-di5owqAgfMKgIDQgKy0KPj4+PiAgwqAgZHJpdmVycy9od3RyYWNpbmcvY29yZXNpZ2h0L2NvcmVz
-aWdodC1zeXNmcy5jIHzCoCA0ICsKPj4+PiAgwqAgaW5jbHVkZS9saW51eC9jb3Jlc2lnaHQuaMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgfCAzMCArLS0tLS0KPj4+PiAg
-wqAgNyBmaWxlcyBjaGFuZ2VkLCA3MCBpbnNlcnRpb25zKCspLCAxMjcgZGVsZXRpb25zKC0pCj4+
-Pj4KPj4+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9od3RyYWNpbmcvY29yZXNpZ2h0L2NvcmVzaWdo
-dC1jb3JlLmMKPj4+PiBiL2RyaXZlcnMvaHd0cmFjaW5nL2NvcmVzaWdodC9jb3Jlc2lnaHQtY29y
-ZS5jCj4+Pj4gaW5kZXggNjVmNWJkODUxNmQ4Li40NThkOTFiNGUyM2YgMTAwNjQ0Cj4+Pj4gLS0t
-IGEvZHJpdmVycy9od3RyYWNpbmcvY29yZXNpZ2h0L2NvcmVzaWdodC1jb3JlLmMKPj4+PiArKysg
-Yi9kcml2ZXJzL2h3dHJhY2luZy9jb3Jlc2lnaHQvY29yZXNpZ2h0LWNvcmUuYwo+Pj4+IEBAIC0y
-NTQsNjAgKzI1NCwzOSBAQCB2b2lkIGNvcmVzaWdodF9kaXNjbGFpbV9kZXZpY2Uoc3RydWN0Cj4+
-Pj4gY29yZXNpZ2h0X2RldmljZSAqY3NkZXYpCj4+Pj4gIMKgIH0KPj4+PiAgwqAgRVhQT1JUX1NZ
-TUJPTF9HUEwoY29yZXNpZ2h0X2Rpc2NsYWltX2RldmljZSk7Cj4+Pj4gIMKgIC0vKiBlbmFibGUg
-b3IgZGlzYWJsZSBhbiBhc3NvY2lhdGVkIENUSSBkZXZpY2Ugb2YgdGhlIHN1cHBsaWVkIENTCj4+
-Pj4gZGV2aWNlICovCj4+Pj4gLXN0YXRpYyBpbnQKPj4+PiAtY29yZXNpZ2h0X2NvbnRyb2xfYXNz
-b2NfZWN0ZGV2KHN0cnVjdCBjb3Jlc2lnaHRfZGV2aWNlICpjc2RldiwgYm9vbAo+Pj4+IGVuYWJs
-ZSkKPj4+PiAtewo+Pj4+IC3CoMKgwqAgaW50IGVjdF9yZXQgPSAwOwo+Pj4+IC3CoMKgwqAgc3Ry
-dWN0IGNvcmVzaWdodF9kZXZpY2UgKmVjdF9jc2RldiA9IGNzZGV2LT5lY3RfZGV2Owo+Pj4+IC3C
-oMKgwqAgc3RydWN0IG1vZHVsZSAqbW9kOwo+Pj4+IC0KPj4+PiAtwqDCoMKgIGlmICghZWN0X2Nz
-ZGV2KQo+Pj4+IC3CoMKgwqDCoMKgwqDCoCByZXR1cm4gMDsKPj4+PiAtwqDCoMKgIGlmICgoIWVj
-dF9vcHMoZWN0X2NzZGV2KS0+ZW5hYmxlKSB8fCAoIWVjdF9vcHMoZWN0X2NzZGV2KS0+ZGlzYWJs
-ZSkpCj4+Pj4gLcKgwqDCoMKgwqDCoMKgIHJldHVybiAwOwo+Pj4+IC0KPj4+PiAtwqDCoMKgIG1v
-ZCA9IGVjdF9jc2Rldi0+ZGV2LnBhcmVudC0+ZHJpdmVyLT5vd25lcjsKPj4+PiAtwqDCoMKgIGlm
-IChlbmFibGUpIHsKPj4+PiAtwqDCoMKgwqDCoMKgwqAgaWYgKHRyeV9tb2R1bGVfZ2V0KG1vZCkp
-IHsKPj4+PiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBlY3RfcmV0ID0gZWN0X29wcyhlY3RfY3Nk
-ZXYpLT5lbmFibGUoZWN0X2NzZGV2KTsKPj4+PiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBpZiAo
-ZWN0X3JldCkgewo+Pj4+IC3CoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgbW9kdWxlX3B1
-dChtb2QpOwo+Pj4+IC3CoMKgwqDCoMKgwqDCoMKgwqDCoMKgIH0gZWxzZSB7Cj4+Pj4gLcKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBnZXRfZGV2aWNlKGVjdF9jc2Rldi0+ZGV2LnBhcmVu
-dCk7Cj4+Pj4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBjc2Rldi0+ZWN0X2VuYWJs
-ZWQgPSB0cnVlOwo+Pj4+IC3CoMKgwqDCoMKgwqDCoMKgwqDCoMKgIH0KPj4+PiAtwqDCoMKgwqDC
-oMKgwqAgfSBlbHNlCj4+Pj4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgZWN0X3JldCA9IC1FTk9E
-RVY7Cj4+Pj4gLcKgwqDCoCB9IGVsc2Ugewo+Pj4+IC3CoMKgwqDCoMKgwqDCoCBpZiAoY3NkZXYt
-PmVjdF9lbmFibGVkKSB7Cj4+Pj4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgZWN0X3JldCA9IGVj
-dF9vcHMoZWN0X2NzZGV2KS0+ZGlzYWJsZShlY3RfY3NkZXYpOwo+Pj4+IC3CoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgIHB1dF9kZXZpY2UoZWN0X2NzZGV2LT5kZXYucGFyZW50KTsKPj4+PiAtwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoCBtb2R1bGVfcHV0KG1vZCk7Cj4+Pj4gLcKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqAgY3NkZXYtPmVjdF9lbmFibGVkID0gZmFsc2U7Cj4+Pj4gLcKgwqDCoMKgwqDCoMKgIH0K
-Pj4+PiAtwqDCoMKgIH0KPj4+PiAtCj4+Pj4gLcKgwqDCoCAvKiBvdXRwdXQgd2FybmluZyBpZiBF
-Q1QgZW5hYmxlIGlzIHByZXZlbnRpbmcgdHJhY2Ugb3BlcmF0aW9uICovCj4+Pj4gLcKgwqDCoCBp
-ZiAoZWN0X3JldCkKPj4+PiAtwqDCoMKgwqDCoMKgwqAgZGV2X2luZm8oJmNzZGV2LT5kZXYsICJB
-c3NvY2lhdGVkIEVDVCBkZXZpY2UgKCVzKSAlcyBmYWlsZWRcbiIsCj4+Pj4gLcKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoCBkZXZfbmFtZSgmZWN0X2NzZGV2LT5kZXYpLAo+Pj4+IC3CoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqAgZW5hYmxlID8gImVuYWJsZSIgOiAiZGlzYWJsZSIpOwo+Pj4+IC3CoMKg
-wqAgcmV0dXJuIGVjdF9yZXQ7Cj4+Pj4gLX0KPj4+PiAtCj4+Pj4gIMKgIC8qCj4+Pj4gLSAqIFNl
-dCB0aGUgYXNzb2NpYXRlZCBlY3QgLyBjdGkgZGV2aWNlIHdoaWxlIGhvbGRpbmcgdGhlIGNvcmVz
-aWdodF9tdXRleAo+Pj4+ICsgKiBBZGQgYSBoZWxwZXIgYXMgYW4gb3V0cHV0IGRldmljZSB3aGls
-ZSBob2xkaW5nIHRoZSBjb3Jlc2lnaHRfbXV0ZXgKPj4+PiAgwqDCoCAqIHRvIGF2b2lkIGEgcmFj
-ZSB3aXRoIGNvcmVzaWdodF9lbmFibGUgdGhhdCBtYXkgdHJ5IHRvIHVzZSB0aGlzCj4+Pj4gdmFs
-dWUuCj4+Pj4gIMKgwqAgKi8KPj4+PiAtdm9pZCBjb3Jlc2lnaHRfc2V0X2Fzc29jX2VjdGRldl9t
-dXRleChzdHJ1Y3QgY29yZXNpZ2h0X2RldmljZSAqY3NkZXYsCj4+Pj4gLcKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBzdHJ1Y3QgY29yZXNpZ2h0X2RldmljZSAqZWN0
-X2NzZGV2KQo+Pj4+ICt2b2lkIGNvcmVzaWdodF9hZGRfaGVscGVyX211dGV4KHN0cnVjdCBjb3Jl
-c2lnaHRfZGV2aWNlICpjc2RldiwKPj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-IHN0cnVjdCBjb3Jlc2lnaHRfZGV2aWNlICpoZWxwZXIpCj4+Pgo+Pj4gbWlub3Igbml0OiBJdCBt
-YXkgYmUgYSBnb29kIGlkZWEgdG8gcmVuYW1lIHRoaXMsIGluIGxpbmUgd2l0aCB0aGUKPj4+IGtl
-cm5lbCBuYW1pbmcgY29udmVudGlvbiA6Cj4+Pgo+Pj4gIMKgwqDCoMKgY29yZXNpZ2h0X2FkZF9o
-ZWxwZXJfdW5sb2NrZWQoKQo+Pj4KPj4+IE9yIGlmIHRoaXMgaXMgdGhlIG9ubHkgdmFyaWFudCwg
-aXQgaXMgT0sgdG8gbGVhdmUgaXQgYXMgOgo+Pj4gIMKgwqDCoMKgY29yZXNpZ2h0X2FkZF9oZWxw
-ZXIoKQo+Pj4gd2l0aCBhIGJpZyBmYXQgY29tbWVudCBpbiB0aGUgZnVuY3Rpb24gZGVzY3JpcHRp
-b24gdG8gaW5kaWNhdGUKPj4+IHRoYXQgaXQgdGFrZXMgdGhlIG11dGV4IGFuZCBtYXkgYmUgZXZl
-biBhZGQgYSA6Cj4+Pgo+PiBUaGVyZSBpcyBhbHJlYWR5IGEgYml0IG9mIGEgY29tbWVudCBpbiB0
-aGUgZGVzY3JpcHRpb24gYnV0IEkgY2FuIGV4cGFuZAo+PiBvbiBpdCBtb3JlLgo+Pgo+Pj4gbWln
-aHRfc2xlZXAoKSBhbmQgbG9ja2RlcF9hc3NlcnRfbm90X2hlbGQoJmNvcmVzaWdodF9tdXRleCk7
-Cj4+Pgo+Pj4gaW4gdGhlIGZ1bmN0aW9uLgo+Pj4KPj4KPj4gSSdtIG5vdCBzdXJlIGlmIGxvY2tk
-ZXBfYXNzZXJ0X25vdF9oZWxkKCkgd291bGQgYmUgcmlnaHQgYmVjYXVzZQo+PiBzb21ldGltZXMg
-aXQgY291bGQgYmUgaGVsZCBpZiBhbm90aGVyIGRldmljZSBpcyBiZWluZyBjcmVhdGVkIGF0IHRo
-ZQo+PiBzYW1lIHRpbWU/IE9yIHNvbWV0aGluZyBsaWtlIGEgc2Vzc2lvbiBpcyBzdGFydGVkIGF0
-IHRoZSBzYW1lIHRpbWUgYSBDVEkKPj4gZGV2aWNlIGlzIGFkZGVkLgo+Pgo+IAo+IE9oIEkgc2Vl
-IGl0J3Mgbm90IGZvciBhbnkgdGFzaywgaXQncyBqdXN0IGZvciB0aGUgY3VycmVudCBvbmUuIFRo
-YXQKPiBtYWtlcyBzZW5zZSB0aGVuIEkgY2FuIGFkZCBpdC4KPiAKPiBBbHRob3VnaCBpdCBsb29r
-cyBsaWtlIGl0IG9ubHkgd2FybnMgd2hlbiBsb2NrZGVwIGlzIGVuYWJsZWQsIGJ1dCBkb24ndAo+
-IHlvdSBnZXQgYSB3YXJuaW5nIGFueXdheSBpZiB5b3UgdHJ5IHRvIHRha2UgdGhlIGxvY2sgdHdp
-Y2Ugd2l0aCBsb2NrZGVwCj4gZW5hYmxlZD8KClRoYXRzIHRydWUsIHlvdSBjb3VsZCBpZ25vcmUg
-dGhlIGxvY2tkZXAgY2hlY2suCgogIFNvIEknbSBub3Qgc3VyZSB3aHkgd2Ugd291bGQgYWRkIGxv
-Y2tkZXBfYXNzZXJ0X25vdF9oZWxkKCkgaGVyZQo+IGFuZCBub3Qgb24gYWxsIHRoZSBtdXRleF9s
-b2NrKCkgY2FsbHM/XAoKQWguIEkgZG91YmxlIGNoZWNrZWQgdGhpcyBhbmQgdGhlIGNvcmVzaWdo
-dF9tdXRleCBpcyBzdGF0aWMgYW5kIGxvY2FsIHRvCiAgY29yZXNpZ2h0LWNvcmUuYy4gU28gdGhl
-cmUgaXMgbm8gcG9pbnQgaW4gdGFsa2luZyBhYm91dCBsb2NraW5nIGZvcgpleHRlcm5hbCB1c2Vy
-cy4gU28gSSB3b3VsZCBqdXN0IGxlYXZlIG91dCBhbnkgc3VmZml4ZXMgYW5kIHNpbXBseSB1c2UK
-dGhlIGxvY2tkZXAgY2hlY2sgaW1wbGljaXQgZnJvbSBtdXRleF9sb2NrKCkuCgpTdXp1a2kKCl9f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMy
-IG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0
-dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4
-LXN0bTMyCg==
+
+
+On 4/4/23 06:55, Peng Fan wrote:
+>> Subject: [PATCH 4/5] remoteproc: stm32: Allow hold boot management by
+>> the SCMI reset controller
+>>
+>> The hold boot can be managed by the SCMI controller as a reset.
+>> If the "hold_boot" reset is defined in the device tree, use it.
+>> Else use the syscon controller directly to access to the register.
+>>
+>> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+>> ---
+>>  drivers/remoteproc/stm32_rproc.c | 34 ++++++++++++++++++++++++++-----
+>> -
+>>  1 file changed, 28 insertions(+), 6 deletions(-)
+>>
+>> diff --git a/drivers/remoteproc/stm32_rproc.c
+>> b/drivers/remoteproc/stm32_rproc.c
+>> index 4be651e734ee..6b0d8f30a5c7 100644
+>> --- a/drivers/remoteproc/stm32_rproc.c
+>> +++ b/drivers/remoteproc/stm32_rproc.c
+>> @@ -78,6 +78,7 @@ struct stm32_mbox {
+>>
+>>  struct stm32_rproc {
+>>  	struct reset_control *rst;
+>> +	struct reset_control *hold_boot_rst;
+>>  	struct stm32_syscon hold_boot;
+>>  	struct stm32_syscon pdds;
+>>  	struct stm32_syscon m4_state;
+>> @@ -398,6 +399,14 @@ static int stm32_rproc_set_hold_boot(struct rproc
+>> *rproc, bool hold)
+>>  	struct stm32_syscon hold_boot = ddata->hold_boot;
+>>  	int val, err;
+>>
+>> +	if (ddata->hold_boot_rst) {
+>> +		/* Use the SCMI reset controller */
+>> +		if (!hold)
+>> +			return reset_control_deassert(ddata-
+>>> hold_boot_rst);
+>> +		else
+>> +			return reset_control_assert(ddata->hold_boot_rst);
+>> +	}
+>> +
+>>  	val = hold ? HOLD_BOOT : RELEASE_BOOT;
+>>
+>>  	err = regmap_update_bits(hold_boot.map, hold_boot.reg, @@ -
+>> 693,16 +702,29 @@ static int stm32_rproc_parse_dt(struct platform_device
+>> *pdev,
+>>  		dev_info(dev, "wdg irq registered\n");
+>>  	}
+>>
+>> -	ddata->rst = devm_reset_control_get_by_index(dev, 0);
+>> +	ddata->rst = devm_reset_control_get(dev, "mcu_rst");
+> [Peng Fan] 
+> This may break legacy device tree.
+
+That partially true by the fact that I impose the "reset-names" property
+(but also suppress the "st,syscfg-tz" property)
+
+But this should not be the case as the arch/arm/boot/dts/stm32mp151.dtsi
+is updated in patch 2/5. The DTS files associated to this chip include it.
+
+Thanks,
+Arnaud
+
+
+> 
+> Regards,
+> Peng.
+> 
+>>  	if (IS_ERR(ddata->rst))
+>>  		return dev_err_probe(dev, PTR_ERR(ddata->rst),
+>>  				     "failed to get mcu_reset\n");
+>>
+>> -	err = stm32_rproc_get_syscon(np, "st,syscfg-holdboot",
+>> -				     &ddata->hold_boot);
+>> -	if (err) {
+>> -		dev_err(dev, "failed to get hold boot\n");
+>> -		return err;
+>> +	ddata->hold_boot_rst = devm_reset_control_get(dev, "hold_boot");
+>> +	if (IS_ERR(ddata->hold_boot_rst)) {
+>> +		if (PTR_ERR(ddata->hold_boot_rst) == -EPROBE_DEFER)
+>> +			return PTR_ERR(ddata->hold_boot_rst);
+>> +		ddata->hold_boot_rst = NULL;
+>> +	}
+>> +
+>> +	if (!ddata->hold_boot_rst) {
+>> +		/*
+>> +		 * If the hold boot is not managed by the SCMI reset
+>> controller,
+>> +		 * manage it through the syscon controller
+>> +		 */
+>> +		err = stm32_rproc_get_syscon(np, "st,syscfg-holdboot",
+>> +					     &ddata->hold_boot);
+>> +		if (err) {
+>> +			dev_err(dev, "failed to get hold boot\n");
+>> +			return err;
+>> +		}
+>>  	}
+>>
+>>  	err = stm32_rproc_get_syscon(np, "st,syscfg-pdds", &ddata->pdds);
+>> --
+>> 2.25.1
+> 
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
