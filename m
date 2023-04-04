@@ -2,123 +2,84 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 635186D6733
-	for <lists+linux-stm32@lfdr.de>; Tue,  4 Apr 2023 17:25:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8FCE06D6738
+	for <lists+linux-stm32@lfdr.de>; Tue,  4 Apr 2023 17:26:37 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 28FD2C6A603;
-	Tue,  4 Apr 2023 15:25:37 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2100.outbound.protection.outlook.com [40.107.236.100])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 44A48C6A606;
+	Tue,  4 Apr 2023 15:26:37 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D8476C6A602
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue,  4 Apr 2023 15:26:35 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5A9FAC65E56
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  4 Apr 2023 15:25:35 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=XbVIwGsHwF7jWd6Y97PuORpDFYhELS3GlQdYsA+cxFfIoO0E4fQCSCKl0lhEiYM3hbbrWlKvp7em7SLT8Qnx3t8gjvL3kSk97FPQnMfKOaJyAtd71X2pk3GswsfDvZwnSMHhzm3+q6BtFfILHWHuKESIjngO71gbbJbzvGZtu096y+W1XgYY4astN2OrW2pmKzK00wGx7vL5vZz8FxUYUr31U8+F2hAvGgtR/Kcsen3bRvs5G1pWgKmKgxcGpTOAMKGdR2sggiXhmO8msH7D0Jkjd2zbdXt1J6OTWWX8vzY4/x7cmRevngSTAlKdTek6UQWa9y09+HdDqb8zeM0XUA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XbT1IMs7/MIpAC6JJNnyBThRoVIfZNpUazmS4iufOZA=;
- b=KYRw4xUsr6RdwQSRlJvqlgU5Mig3L0PKk5TQgaRUoZARpgqass3xoQFqIXrncsSNIeZRXT81igGL2OH2VuWxRbgpn1aih3SHBp+m9P015b1CarY+tA9rUH5fnvpPSuzKRUPoFpiC/EyUzH8tWB/0JBW1xkUym3J+jBbMiFR1jUX/zXOWGzsrirJ73EAFwY9dHXZsiplx0x9XVhAoMsw/s6n56hzfLQ1L5njvVGr//+aOptMLDC7flX2uosNBK7MtnMusgcTu0tHhj0cYHAMCK5EvelmMMbS3MafKZVNnb6mBiCFV4odUXWvK8ay8vAxSH5SaObqJH+NN4GyfhrFNmA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=corigine.com; dmarc=pass action=none header.from=corigine.com;
- dkim=pass header.d=corigine.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=corigine.onmicrosoft.com; s=selector2-corigine-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XbT1IMs7/MIpAC6JJNnyBThRoVIfZNpUazmS4iufOZA=;
- b=ihuxl/Ij12rb0FlSIdcLpW6Sq6XPN+gY99FBFWW9u2WU9HyA1IXZ8V7xSfAFzH/He+6LX+8CxP2QqsKgavxlYViOpAfsskv8R9u5m32ZYXmyqu5AStmgbHO3Cf4YuCKnvdUjKprDe2lMdz8mc+tpqt++CL6KctoS3wh3h/hNweg=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=corigine.com;
-Received: from PH0PR13MB4842.namprd13.prod.outlook.com (2603:10b6:510:78::6)
- by MW4PR13MB5886.namprd13.prod.outlook.com (2603:10b6:303:1b5::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6254.29; Tue, 4 Apr
- 2023 15:25:33 +0000
-Received: from PH0PR13MB4842.namprd13.prod.outlook.com
- ([fe80::c506:5243:557e:82cb]) by PH0PR13MB4842.namprd13.prod.outlook.com
- ([fe80::c506:5243:557e:82cb%5]) with mapi id 15.20.6254.035; Tue, 4 Apr 2023
- 15:25:33 +0000
-Date: Tue, 4 Apr 2023 17:25:25 +0200
-From: Simon Horman <simon.horman@corigine.com>
-To: Shenwei Wang <shenwei.wang@nxp.com>
-Message-ID: <ZCxBZZ4DAgy5dTGi@corigine.com>
-References: <20230403222302.328262-1-shenwei.wang@nxp.com>
- <20230403222302.328262-2-shenwei.wang@nxp.com>
-Content-Disposition: inline
-In-Reply-To: <20230403222302.328262-2-shenwei.wang@nxp.com>
-X-ClientProxiedBy: AS4P189CA0026.EURP189.PROD.OUTLOOK.COM
- (2603:10a6:20b:5db::13) To PH0PR13MB4842.namprd13.prod.outlook.com
- (2603:10b6:510:78::6)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 9E2866351D;
+ Tue,  4 Apr 2023 15:26:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 166DCC4339B;
+ Tue,  4 Apr 2023 15:26:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1680621994;
+ bh=S5RX+65IdJoFD1RV6kPG02G0jupKJXUIf9T04GMrChI=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=juLKZrGeWUX9d0oOR/CCL+88qbCAb/xWCfYJOewm4RggCItQtMsffW8KgmQJXRJdf
+ wIGDohsQC49Uu+Ack+4kjWMLAjsoMV3eb751vy96HTaqKD91T/UUKbpSlW86M8yyWU
+ kzibdkPn/HM0qi9cV+Pg+vpi80+5XFQ+v5x9mDGc2lQrl4NnUSCzI4lyIjnRln2nSD
+ O5kE/0LQwnVa4MaO8VpBvXstlEflZ23NPK1LSMQlUuVw1QtKT/IAOLsLs/T1N/El4F
+ IlKMU2toIuXW4dsXuO5nqayGgzbPTQ/Kz+zZdF9SFWy3SohdZ+M+0IoBj9mTyg+9sZ
+ lTrq/E6gLN+BQ==
+Date: Tue, 4 Apr 2023 16:26:18 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Maxime Ripard <maxime@cerno.tech>
+Message-ID: <01f32440-8dd2-4030-9006-a3123be55845@sirena.org.uk>
+References: <20221018-clk-range-checks-fixes-v3-0-9a1358472d52@cerno.tech>
+ <20221018-clk-range-checks-fixes-v3-43-9a1358472d52@cerno.tech>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH0PR13MB4842:EE_|MW4PR13MB5886:EE_
-X-MS-Office365-Filtering-Correlation-Id: b74b4bd6-5e4c-4a95-bc57-08db3520d504
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: TVCkR/3B44hv3EPc8lNsAscpk9jCkz+YuwqwYeYnyQssIlkXGxFWm17ih7bXq4D8GEYRIg+CVVyW7Hu983dG3ttljHG04smFKJrQwYUAEG4MOVLGIPUXEeTmNyHpVhoa1zsykSxlHTjbQGOW/VTBmTVrEjVy5JGD4v1ihRYxES7NSVKTnjTprxDI8QrmE8SEVAcqqfVyK+Gp5yd2y/LKUBUAeOb9ijZy7b5AgUH2w2hB8G/sN1TJ6C3alWSHVsi/uoSyOyymQtYXfKB3Z+2ooLbliy4lcm+Plrd+xmHVoBUxMYqzfNXu1NVEIeDBGxOFUBM0TGDlodW4DXgOhze4LEBTEfYtKCI/XpT97zHT+Qeo0ocjRz6AptPqn+80+NFm0OoWlGNOLdOrJxbIG5WVLNtYG4YfQzEN4xXngcdTpU95S4c1TY11A338YnZwxkRByiUH52PQw59k9x5s3+ubVjuhDVUhNF9Me+Q2RYxpmRpyIDx2QtjiYAGXVsIjol57v+5stfshdwDZtuxYqm7axOldWVoaDudIYip69vsrKoglOFEcf9R2OVdklLxpQ1kr
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH0PR13MB4842.namprd13.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(6029001)(4636009)(366004)(39840400004)(396003)(376002)(136003)(346002)(451199021)(7416002)(36756003)(38100700002)(66476007)(44832011)(8676002)(4326008)(66946007)(8936002)(66556008)(6916009)(5660300002)(41300700001)(2906002)(2616005)(86362001)(6486002)(6512007)(4744005)(316002)(6506007)(186003)(478600001)(6666004)(54906003);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?Fu8J9npsdZ3TEy/oPLVFHqlALDE1pIDREHCNTDdgife7NP6GaDstCxjEyp3e?=
- =?us-ascii?Q?htgQSdKVevN/mpipM53GUAxANfOeF4gQp7+xPh8l7vDa0m/gMUOOgW4n5MAz?=
- =?us-ascii?Q?TCnQLpZ0Dd/L09p90XNqd9iszYkA5wj65YDCLRgJCaYUYzmbDS3GSf3MFLAn?=
- =?us-ascii?Q?UYuto1a8kr0DnQjtIUyyqyEOHU0qYFYWFwEYUm8q6hEuv1lpBXnky2MjWSd6?=
- =?us-ascii?Q?691uv7JCSsaOMAEM6pWSXS/mWUA78XwLeJbHtxa5WIgH+qtc6AvOb4K77oaN?=
- =?us-ascii?Q?JAuY/MdarsYb3zQAXQo4dbzafLFCgH8u+WS7UJVZ5ezv12yO8xlNA+TouSX+?=
- =?us-ascii?Q?QtOlXQldz041YOu6CVRXChKLrUNVtePL7k9nkuHHVhVGiaZ18JI9tEeAtYcS?=
- =?us-ascii?Q?O5J3QJpGyUbcI8uQFnmFDnB/l9Jnk14pLrXYwsu76nORP+MdXE2w9xKjXhOn?=
- =?us-ascii?Q?iXrn7OHDyz1PoKjSflB2kpm0JiKN3bR6BxEbfyCt/afSLMuAjoV/XYfX7oUz?=
- =?us-ascii?Q?WSbXCA5JvCde9xsODd73rNHNlhkxloZQQrEYL6qbP+tZPb0c9ED1GVLxH7BW?=
- =?us-ascii?Q?WweoPbLi+VB2UwFa7aJPELwbFtxMmjA/FNYvRbqJxeHwdZta5nw6D1k5ZGwq?=
- =?us-ascii?Q?biQC8jG+DzfkLo+V/UoQVJe11BCdxd/dXN19ks2/ybozUnH2ov6k3cLzXUPv?=
- =?us-ascii?Q?T5DxNsTpBIK6e8HeSjp8hCvb0LN+NkYsA/tB3ZndovJbt/ljPlrPcZ9bET+f?=
- =?us-ascii?Q?s6Z8U/WvaBHjh9Wvp7GF8WAeqlJTnn0y6PjcdNNeUGEdXkcklmvPbsNQ9w8c?=
- =?us-ascii?Q?hDfy3myIwQx8eOtaNHdswmSWcvydtN/U7xoYVo3YtgFEiCOH26ISiMrBK4X7?=
- =?us-ascii?Q?ziDjb7M6E29IgL/7jPZ259c5OUB8AVPdLon4FhLvsHC6GWe8ABKTrPItp9ic?=
- =?us-ascii?Q?IRccQX9eGK4yz0QG7qQcnLiNa3gkWRu6LvPyPktqo/dQzqUb01ONrcSO8qUG?=
- =?us-ascii?Q?ZM3qxS0sY1MkjMyXxgN7Ge5zrtsXVuoTSKeP8zxxozBRa4+3riRYuN5wkYr8?=
- =?us-ascii?Q?aZuUc71OshJk4Lh8lHOrCyUai1CGtyOka1ckSwdTt8d/vtNqvANZDoLhdGca?=
- =?us-ascii?Q?PKZv3A5bV3Md6qwww0XdAwNL8QlD1IJZk0mc/Mp+9r2DcZJYHAQMQVHd1HCw?=
- =?us-ascii?Q?Qo4ST4aRx1Vozfii1dHfqFvJ0FL0D6G7NuUtEIBpO8+sW9aJRwPYYtt0F0i/?=
- =?us-ascii?Q?k8yAnTyADRTSMT0qVIqoQ+B8mC3vaWIbAt6ulpkpQ2S5EnHgXeZqWcjxfOKU?=
- =?us-ascii?Q?/f7Tyqqb1WWXw5G+lfdwD6J1pJdPrJyRAIkbcbjAo1FPyFuz2tk245RTPQmj?=
- =?us-ascii?Q?f7NNNVm6bk8m2LbW3YHCbkTTx858PjhW7Pbzm7Y94FbNDDQO23HJ2Mn9ruyG?=
- =?us-ascii?Q?ZWqa8fD76Fyp9jqSoTnjzh8Xq9cJIEXV3NZGKH+Y+IbTZ90UxE5hHhsbNjJ4?=
- =?us-ascii?Q?JTZ8xC3mjHkb5Zcen2YaoJqxauMzcGFLrWmweqW/N6CgBQrGAyUCihavW0UE?=
- =?us-ascii?Q?y1SIWexAMFwmAT3cdp6usT5wZL4OSTPy46P57e3cphLJTZ4TVc+TFmJTTn/p?=
- =?us-ascii?Q?CyrkIzP6zE1PU6BI5HvcujX1R5V3cfEAlpPxbeMdGlQ2JOxJfrmP6eRmbiR+?=
- =?us-ascii?Q?QUmjtw=3D=3D?=
-X-OriginatorOrg: corigine.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b74b4bd6-5e4c-4a95-bc57-08db3520d504
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR13MB4842.namprd13.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Apr 2023 15:25:33.4635 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: fe128f2c-073b-4c20-818e-7246a585940c
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: UbRn199O+dhgIa0hOCpQFcmWptd39BJ1veEw2KCC28lo+bPbMxvAdFM4GtGGBdoa8e1SsdnuAR7KCaZAPqtR4vwAa9lUE0WhaNZDbm7qQts=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR13MB5886
-Cc: imx@lists.linux.dev, Kurt Kanzenbach <kurt@linutronix.de>,
- Eric Dumazet <edumazet@google.com>, Fabio Estevam <festevam@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Tan Tee Min <tee.min.tan@linux.intel.com>, Wong Vee Khee <veekhee@apple.com>,
- Jose Abreu <joabreu@synopsys.com>, NXP Linux Team <linux-imx@nxp.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Andrey Konovalov <andrey.konovalov@linaro.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Revanth Kumar Uppala <ruppala@nvidia.com>,
- Jochen Henneberg <jh@henneberg-systemdesign.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>, netdev@vger.kernel.org,
+In-Reply-To: <20221018-clk-range-checks-fixes-v3-43-9a1358472d52@cerno.tech>
+X-Cookie: Being ugly isn't illegal.  Yet.
+Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Prashant Gaikwad <pgaikwad@nvidia.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Michael Turquette <mturquette@baylibre.com>, Sekhar Nori <nsekhar@ti.com>,
+ dri-devel@lists.freedesktop.org, Liam Girdwood <lgirdwood@gmail.com>,
+ Paul Cercueil <paul@crapouillou.net>, Max Filippov <jcmvbkbc@gmail.com>,
+ Thierry Reding <thierry.reding@gmail.com>, linux-phy@lists.infradead.org,
+ Fabio Estevam <festevam@gmail.com>, linux-clk@vger.kernel.org,
+ Abel Vesa <abelvesa@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>,
+ Samuel Holland <samuel@sholland.org>, David Airlie <airlied@gmail.com>,
+ Takashi Iwai <tiwai@suse.com>, linux-tegra@vger.kernel.org,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>, Chen-Yu Tsai <wens@csie.org>,
+ NXP Linux Team <linux-imx@nxp.com>, Orson Zhai <orsonzhai@gmail.com>,
+ Ulf Hansson <ulf.hansson@linaro.org>, linux-mips@vger.kernel.org,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Linus Walleij <linus.walleij@linaro.org>, linux-rtc@vger.kernel.org,
+ Charles Keepax <ckeepax@opensource.cirrus.com>,
+ David Lechner <david@lechnology.com>, alsa-devel@alsa-project.org,
+ Manivannan Sadhasivam <mani@kernel.org>, linux-kernel@vger.kernel.org,
+ Sascha Hauer <s.hauer@pengutronix.de>, linux-actions@lists.infradead.org,
+ Richard Fitzgerald <rf@opensource.cirrus.com>,
+ linux-mediatek@lists.infradead.org,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Jaroslav Kysela <perex@perex.cz>,
  Pengutronix Kernel Team <kernel@pengutronix.de>,
- Shawn Guo <shawnguo@kernel.org>, "David S. Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH v6 2/2] net: stmmac: dwmac-imx: use
- platform specific reset for imx93 SoCs
+ linux-arm-kernel@lists.infradead.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Alessandro Zummo <a.zummo@towertech.it>, linux-sunxi@lists.linux.dev,
+ Stephen Boyd <sboyd@kernel.org>, patches@opensource.cirrus.com,
+ Peter De Schrijver <pdeschrijver@nvidia.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Andreas =?iso-8859-1?Q?F=E4rber?= <afaerber@suse.de>,
+ linux-renesas-soc@vger.kernel.org, Dinh Nguyen <dinguyen@kernel.org>,
+ Vinod Koul <vkoul@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Chunyan Zhang <zhang.lyra@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
+ Claudiu Beznea <claudiu.beznea@microchip.com>
+Subject: Re: [Linux-stm32] [PATCH v3 43/65] ASoC: tlv320aic32x4: Add a
+	determine_rate hook
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -130,23 +91,85 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============5305919185201520765=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Apr 03, 2023 at 05:23:02PM -0500, Shenwei Wang wrote:
-> The patch addresses an issue with the reset logic on the i.MX93 SoC, which
-> requires configuration of the correct interface speed under RMII mode to
-> complete the reset. The patch implements a fix_soc_reset function and uses
-> it specifically for the i.MX93 SoCs.
-> 
-> Reviewed-by: Fabio Estevam <festevam@gmail.com>
-> Signed-off-by: Shenwei Wang <shenwei.wang@nxp.com>
 
-Reviewed-by: Simon Horman <simon.horman@corigine.com>
+--===============5305919185201520765==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="pRxU5n1hMJtSd1CQ"
+Content-Disposition: inline
+
+
+--pRxU5n1hMJtSd1CQ
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+
+On Tue, Apr 04, 2023 at 12:11:33PM +0200, Maxime Ripard wrote:
+> The tlv320aic32x4 clkin clock implements a mux with a set_parent hook,
+> but doesn't provide a determine_rate implementation.
+
+> This is a bit odd, since set_parent() is there to, as its name implies,
+> change the parent of a clock. However, the most likely candidate to
+> trigger that parent change is a call to clk_set_rate(), with
+> determine_rate() figuring out which parent is the best suited for a
+> given rate.
+
+> The other trigger would be a call to clk_set_parent(), but it's far less
+> used, and it doesn't look like there's any obvious user for that clock.
+
+It could be configured from device tree as well couldn't it?
+
+> So, the set_parent hook is effectively unused, possibly because of an
+> oversight. However, it could also be an explicit decision by the
+> original author to avoid any reparenting but through an explicit call to
+> clk_set_parent().
+
+Historically clk_set_rate() wouldn't reparent IIRC.
+
+> The latter case would be equivalent to setting the flag
+> CLK_SET_RATE_NO_REPARENT, together with setting our determine_rate hook
+> to __clk_mux_determine_rate(). Indeed, if no determine_rate
+> implementation is provided, clk_round_rate() (through
+> clk_core_round_rate_nolock()) will call itself on the parent if
+> CLK_SET_RATE_PARENT is set, and will not change the clock rate
+> otherwise. __clk_mux_determine_rate() has the exact same behavior when
+> CLK_SET_RATE_NO_REPARENT is set.
+
+> And if it was an oversight, then we are at least explicit about our
+> behavior now and it can be further refined down the line.
+
+To be honest it's surprising that we'd have to manually specify this, I
+would expect to be able to reparent.  I suspect it'd be better to go the
+other way here and allow reparenting.
+
+--pRxU5n1hMJtSd1CQ
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmQsQZoACgkQJNaLcl1U
+h9C4KAf9FbCqTcQH5npaqJcyqXkbkD2B/+L43dup6TDsW3MJ6KnGh7YONz0DFQtI
+yTePWQzrTp7lltc9dQ8/QOvh4Xj3HSYJ30m5Ok0oX7lCLwy3LjEHtJiou/laIivq
+v+hAN2lVJPs0oOLwI+1tyi2p+UjtHzWUJcD37bHzIsY4esaL/B/Bp7m6z1JNpyoj
+rIleJHkETKjUABBzN/UR62y6TPaPPm/hSUcy0eudfmZZhPOWkuX/iBrFcXcUgc+c
+XOAtB0+uAsDUhULdGhXZSInCoKu0mdVwLr1QoZOB7q7J3Tl83t/8Mxuk8Dr+XEWh
+JBFDNPB3HM8uQvBR5j9pbnSLt/7E/A==
+=Jkqi
+-----END PGP SIGNATURE-----
+
+--pRxU5n1hMJtSd1CQ--
+
+--===============5305919185201520765==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============5305919185201520765==--
