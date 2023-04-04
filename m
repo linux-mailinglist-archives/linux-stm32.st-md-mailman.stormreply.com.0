@@ -2,51 +2,51 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 91C546D609C
-	for <lists+linux-stm32@lfdr.de>; Tue,  4 Apr 2023 14:34:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A2DD76D60A2
+	for <lists+linux-stm32@lfdr.de>; Tue,  4 Apr 2023 14:34:38 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5D33FC6A614;
-	Tue,  4 Apr 2023 12:34:35 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6CAF2C6A614;
+	Tue,  4 Apr 2023 12:34:38 +0000 (UTC)
 Received: from new3-smtp.messagingengine.com (new3-smtp.messagingengine.com
  [66.111.4.229])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 100B3C6A613
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 03B45C6A614
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  4 Apr 2023 12:34:34 +0000 (UTC)
+ Tue,  4 Apr 2023 12:34:37 +0000 (UTC)
 Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
- by mailnew.nyi.internal (Postfix) with ESMTP id 547075821A5;
- Tue,  4 Apr 2023 08:34:33 -0400 (EDT)
+ by mailnew.nyi.internal (Postfix) with ESMTP id 560E75821A9;
+ Tue,  4 Apr 2023 08:34:36 -0400 (EDT)
 Received: from mailfrontend1 ([10.202.2.162])
- by compute5.internal (MEProxy); Tue, 04 Apr 2023 08:34:33 -0400
+ by compute5.internal (MEProxy); Tue, 04 Apr 2023 08:34:36 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=cc
  :cc:content-transfer-encoding:content-type:content-type:date
  :date:from:from:in-reply-to:in-reply-to:message-id:mime-version
  :references:reply-to:sender:subject:subject:to:to; s=fm3; t=
- 1680611673; x=1680618873; bh=vktqaF0FgAymg4NNxU36k4MdhmcX/jyIc5r
- ZP0GxZpg=; b=s31JpOYw0Is5/H0qPRNsBySPDf1dQBp9BiLEi1UH63Z8qrcRm43
- 3DMo29YnPJ4snvAS11TquNBAL2ntJsozPZVDmeUu8Nge5mXlX67OlvzaMyiRJO65
- eiLI7YLqbzqrMePEjKi2vhn3+chumIlPmc+gEyzBwPqLAKZlgVG2U/FWQ712kGYN
- SBqX0yHX2UISw+HaGQu3+5yEpJCBy8Gg3SEopFayC7trIBwXQar8a04ifJVCzlcx
- 7m9X7rRE/WsOBD8Bi/oXu5ybrxRagavE/CV3cxrlG3I56LAW8FOBrI4tbnR4DsE0
- dUpn63oR1Yf4+vo+AWVW7NVueXk6KK/hZRA==
+ 1680611676; x=1680618876; bh=xnvYmnPey5i3ywxRPKhBs4vnyecoxNr52oM
+ JsnNmWlY=; b=mcEwSJoCiUrmTnO4nuPEWww//PGWjeD66ZciIHSzyw8KODLRWTL
+ Zef6s8oCxToytqGox2cb3/1qyrbOuqpAf31gp2NNug95uHr5vt5tNabjpRa+Ujal
+ iWVLu8ykd3KUOg3Hghy7MZv8QmrLW10cBxKu5jhPVTQJGrZuViWGi1vH0PwosVnQ
+ BKhN1lEdrxKx6PnsqCGnF4tuQQ/bSDsabE4XSKxf4oFlU+H5GEva05ULoViktvcb
+ bSVPyNHAVmsQwXRLMIrRoY2wLrjsuhEmV2D8Z65IAoUVayehzGd4hGC9AfRTwoSx
+ uvhXFOxdWcwkuBq0L6zpPUpgb73HJXkskQQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:cc:content-transfer-encoding
  :content-type:content-type:date:date:feedback-id:feedback-id
  :from:from:in-reply-to:in-reply-to:message-id:mime-version
  :references:reply-to:sender:subject:subject:to:to:x-me-proxy
  :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
- 1680611673; x=1680618873; bh=vktqaF0FgAymg4NNxU36k4MdhmcX/jyIc5r
- ZP0GxZpg=; b=McnDD3pDNWe5jFSRLdTPcaF+hy3ZRwuouf/pwuemAuy6aNDVToF
- UXsRkckGcQVvL4wIBsh59dlJWquRuvoCcBiFQAWuFNtAEaoqD3MRgH4eP2XjvZPU
- 9kyplbzY4f/4p9Nt+JWsukMTCp2nsbr+jHK1DEDYcsh/BmbqvnPhsbWo4U9ODM1p
- YCdKc6RIZruxVs8fhSLu669rpCe6njyOv4i8Ffd+xsQ43ojTMnveMZ4d9JjNVd90
- MRpduVH5UZ7BuSaofUdXWhSpnpNx9WqWeOzgmgUbgniXsnEz1v3bvbrlbkevdXB9
- WwuJZOUMHI20X//ctpUYDIeu+2oaINML34A==
-X-ME-Sender: <xms:WRksZACUBfAWM5klj9XPNywolUaeHHCeH5uFkpAOTo-3JmW_UwNDTw>
- <xme:WRksZCggTu3Fp6C8xde_mqYkHFRO5iaVptnPuIMexWzeV92MyK2uf1HEuZwEheO9B
- AHd8Rxu3kxhgkjzlSQ>
-X-ME-Received: <xmr:WRksZDn5Z4cCrBunAg3qIR5gvMPnCshtJ7_8RCrDH6EJOn7IFnc8Uvpsd7PBMycfiwDJD5mc4dj4XN7Ewwpp_NK-WFEc5os>
+ 1680611676; x=1680618876; bh=xnvYmnPey5i3ywxRPKhBs4vnyecoxNr52oM
+ JsnNmWlY=; b=GLH7g2xSOzIARV524/JRymqL3yeigufHjs2p6v5c2g/jRMN6NKl
+ 9YddMsbb9bEYHZXw9jI1Du6E8uNAxCz4knddK6uFjjqPE4ijthmwYlqF+e1Bg9Et
+ RZHDfrLHfArAKp3OlYIy0LEx49ee64rUmNsYWgsRMPRxbFmc2IsTsJJuxvYrMKUZ
+ 8NosmZRqNdtMfHOer1dogmnpf8SYwFKA9+WCKQnmWFPKhFbG2Bp2/eI1aRPD0cvf
+ Pz7BPhJuhfhuje9ouu52wH37WvaVGA9VLBWkqMv+ls7YfI9XZ51eqeGCceMijy6F
+ GV/ZD9Hrvn70JcxZJwQYVpr2Ls64k0ZBnNA==
+X-ME-Sender: <xms:XBksZHohibHkC9DaiPpXsDmI1FJknFH7ZX9tZOKSv9JS3FoY9MowkQ>
+ <xme:XBksZBr55Lt3-lWHAHbV13HjTO7SGZoXmuP8UK6tjiQykn_cvOqIZZbg8usXwtFRB
+ 9AqZmSPLl9bEuVqiik>
+X-ME-Received: <xmr:XBksZEPEo9-AYyCfZbhCmLNHehFMYiYpNMfM8D1xYRJbbx2aqesfE1hxD10BIaCoLNSURDRjE8049AoktLbi-MqQOMT2Sos>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrvdeiledgheefucetufdoteggodetrfdotf
  fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
  uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
@@ -55,17 +55,17 @@ X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrvdeiledgheefucetufdoteggod
  grthhtvghrnhepvedvleeijeegvdekffehkeehieelhfeggfffheetkeeuledvtdeuffeh
  teeltdffnecuvehluhhsthgvrhfuihiivgepvdenucfrrghrrghmpehmrghilhhfrhhomh
  epmhgrgihimhgvsegtvghrnhhordhtvggthh
-X-ME-Proxy: <xmx:WRksZGy_nYRYIbe1PfGaSegLPd3fi5Z2hS1b4f7mSoD2nE4JR2LO4Q>
- <xmx:WRksZFRN-YyEjVmRYsTLbuXfX_hx7aEdUzsZLocAYHn0RDcz75rg7w>
- <xmx:WRksZBYB9qMwfVhPalpcm1gt8x7um1Tn8YMPZIlSQJ4MJtRLb8xbQQ>
- <xmx:WRksZJfWg7zPHQmUnpXQfKa6BuHflZ3rEQkM8vBHHIWUXHiIT-wFEQ>
+X-ME-Proxy: <xmx:XBksZK4utqdOhhgbEtTUebOlTLHvsIYczCxa_vf49Fjd85W69c3cFg>
+ <xmx:XBksZG74LT9_GnAwW8-hiJisFv1hdwOOECN37oDnDvIkcVHIjKQVxQ>
+ <xmx:XBksZCg3FB7h5sIp711p-pxUm0RlL4tv22RwXPS7XVTra-5ZOjSQHg>
+ <xmx:XBksZEF87KTvcQ0o6wH_Ti_p7cXZqOjhbkx_enyhthiTUMUmw4XcHA>
 Feedback-ID: i8771445c:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 4 Apr 2023 08:34:31 -0400 (EDT)
+ 4 Apr 2023 08:34:34 -0400 (EDT)
 From: Maxime Ripard <maxime@cerno.tech>
-Date: Tue, 04 Apr 2023 12:11:11 +0200
+Date: Tue, 04 Apr 2023 12:11:12 +0200
 MIME-Version: 1.0
-Message-Id: <20221018-clk-range-checks-fixes-v3-21-9a1358472d52@cerno.tech>
+Message-Id: <20221018-clk-range-checks-fixes-v3-22-9a1358472d52@cerno.tech>
 References: <20221018-clk-range-checks-fixes-v3-0-9a1358472d52@cerno.tech>
 In-Reply-To: <20221018-clk-range-checks-fixes-v3-0-9a1358472d52@cerno.tech>
 To: Michael Turquette <mturquette@baylibre.com>,
@@ -106,11 +106,11 @@ To: Michael Turquette <mturquette@baylibre.com>,
  Baolin Wang <baolin.wang@linux.alibaba.com>,
  Chunyan Zhang <zhang.lyra@gmail.com>
 X-Mailer: b4 0.12.1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2441; i=maxime@cerno.tech;
- h=from:subject:message-id; bh=5lyHHQpQWAiRxeRx338/dvOcr5jka0snE7w9nKtfF/s=;
- b=owGbwMvMwCX2+D1vfrpE4FHG02pJDCna37cejXnpcyT/Z7qC/p1vZn+6HgbunqjVUO07ae/8mx4L
- pCdv6ihlYRDjYpAVU2SJETZfEndq1utONr55MHNYmUCGMHBxCsBEjvAz/I/bNkn4yrcZjFuscw8LTH
- /y5JGdp4f0at9LXz1FtJas33iJkeHxorQr7axm37f8jCibcFgra7tbA1vRspOb2Y5yid7QL2EHAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2322; i=maxime@cerno.tech;
+ h=from:subject:message-id; bh=zqg97H0Ji53100uwLykPTJ08YBbIyy0+pb37UlAbn8M=;
+ b=owGbwMvMwCX2+D1vfrpE4FHG02pJDCna37cWP+yQC33iKhi06/IHYxM2J5PtL0qLA2Z5KWyMqP0h
+ eOVYRykLgxgXg6yYIkuMsPmSuFOzXney8c2DmcPKBDKEgYtTACbCocbwV36lc0jt4+41fckhNxV2W8
+ /hvp1hU3bF7Kxbsv2z/MXqjxkZ1nz/cMvxTnPstf0nhW8n6CTqRNl+nyN/rO1eaUKD9ZJ+VgA=
 X-Developer-Key: i=maxime@cerno.tech; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 Cc: linux-rtc@vger.kernel.org, alsa-devel@alsa-project.org,
@@ -122,7 +122,7 @@ Cc: linux-rtc@vger.kernel.org, alsa-devel@alsa-project.org,
  linux-mips@vger.kernel.org, linux-sunxi@lists.linux.dev,
  linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Subject: [Linux-stm32] [PATCH v3 21/65] clk: davinci: da8xx-cfgchip: Add a
+Subject: [Linux-stm32] [PATCH v3 22/65] clk: davinci: da8xx-cfgchip: Add a
  determine_rate hook
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -140,8 +140,8 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The Davinci DA8xxx cfgchip mux clock implements a mux with a set_parent
-hook, but doesn't provide a determine_rate implementation.
+The Davinci DA8xxx cfgchip "clk48" clock implements a mux with a
+set_parent hook, but doesn't provide a determine_rate implementation.
 
 This is a bit odd, since set_parent() is there to, as its name implies,
 change the parent of a clock. However, the most likely candidate to
@@ -169,33 +169,31 @@ CLK_SET_RATE_NO_REPARENT is set.
 And if it was an oversight, then we are at least explicit about our
 behavior now and it can be further refined down the line.
 
-Acked-by: David Lechner <david@lechnology.com>
 Signed-off-by: Maxime Ripard <maxime@cerno.tech>
 ---
- drivers/clk/davinci/da8xx-cfgchip.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/clk/davinci/da8xx-cfgchip.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
 diff --git a/drivers/clk/davinci/da8xx-cfgchip.c b/drivers/clk/davinci/da8xx-cfgchip.c
-index 4103d605e804..c04276bc4051 100644
+index c04276bc4051..4c1cc59bba53 100644
 --- a/drivers/clk/davinci/da8xx-cfgchip.c
 +++ b/drivers/clk/davinci/da8xx-cfgchip.c
-@@ -229,6 +229,7 @@ static u8 da8xx_cfgchip_mux_clk_get_parent(struct clk_hw *hw)
+@@ -565,6 +565,7 @@ static u8 da8xx_usb1_clk48_get_parent(struct clk_hw *hw)
  }
  
- static const struct clk_ops da8xx_cfgchip_mux_clk_ops = {
+ static const struct clk_ops da8xx_usb1_clk48_ops = {
 +	.determine_rate	= __clk_mux_determine_rate,
- 	.set_parent	= da8xx_cfgchip_mux_clk_set_parent,
- 	.get_parent	= da8xx_cfgchip_mux_clk_get_parent,
+ 	.set_parent	= da8xx_usb1_clk48_set_parent,
+ 	.get_parent	= da8xx_usb1_clk48_get_parent,
  };
-@@ -251,7 +252,7 @@ da8xx_cfgchip_mux_clk_register(struct device *dev,
- 	init.ops = &da8xx_cfgchip_mux_clk_ops;
+@@ -589,6 +590,7 @@ da8xx_cfgchip_register_usb1_clk48(struct device *dev,
+ 
+ 	init.name = "usb1_clk48";
+ 	init.ops = &da8xx_usb1_clk48_ops;
++	init.flags = CLK_SET_RATE_NO_REPARENT;
  	init.parent_names = parent_names;
  	init.num_parents = 2;
--	init.flags = 0;
-+	init.flags = CLK_SET_RATE_NO_REPARENT;
  
- 	mux->hw.init = &init;
- 	mux->regmap = regmap;
 
 -- 
 2.39.2
