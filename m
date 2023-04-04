@@ -2,78 +2,61 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 88E166D69E5
-	for <lists+linux-stm32@lfdr.de>; Tue,  4 Apr 2023 19:09:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 631CD6D6A58
+	for <lists+linux-stm32@lfdr.de>; Tue,  4 Apr 2023 19:22:04 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 53DB0C6A603;
-	Tue,  4 Apr 2023 17:09:58 +0000 (UTC)
-Received: from mail-oi1-f175.google.com (mail-oi1-f175.google.com
- [209.85.167.175])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0AC20C6A603;
+	Tue,  4 Apr 2023 17:22:04 +0000 (UTC)
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8C3E1C0D2C0
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5CD1CC0D2C0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  4 Apr 2023 17:09:56 +0000 (UTC)
-Received: by mail-oi1-f175.google.com with SMTP id bi31so24705273oib.9
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 04 Apr 2023 10:09:56 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1680628195;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=DQfDPbeHzXvhNMP21e47HMs1Ss6VjJ3ppCcbbXGV5fo=;
- b=CWqL76EfaalPdGFcqZkCN9TQcPfiL6jBXwpo8tgeIuN0ZAikhGVGCdi3uR9PZ36ZXF
- tTTwBYjLx90lFzdQ5DLIBB0Nk5Xs3U6DmS80irkrk9l2RHx9xVmJVR+gXwIWwHvj3q29
- /zDRbWww+ocr3kfvcr5I+m41m0eMtrxoZYff6QJ39y8IAlU+r5KixYhhSFyFOn4RlDHV
- i7KpK2BvY9ULJbqrbPzlwysOp4YJMIRwHUJNHvsVslOtxfN6yHbeGjlodQkGp4ouHEDq
- HdE+ewCHMUyJ9RslK3UMlnWAGvd61BrUQ0VINeEiU7OfaG5aGrLn8CI0WPFC4wt7Vgmk
- w6ig==
-X-Gm-Message-State: AAQBX9fd+o+83DB+vYcSro0tFFX+6QP7xzHtYsgMbdf2VbJVbr+gh829
- CXnVULw4b4yYEQHSAqq2jQ==
-X-Google-Smtp-Source: AKy350ZZ7BG/vNzA7V0xxF/wFLGRBOLHnE+ociOtzhxPFF1JrYNXX4h2mrA1aYYKqBLL6ePOmatUBA==
-X-Received: by 2002:a05:6808:3a99:b0:378:9c1:514e with SMTP id
- fb25-20020a0568083a9900b0037809c1514emr1312221oib.42.1680628194745; 
- Tue, 04 Apr 2023 10:09:54 -0700 (PDT)
-Received: from robh_at_kernel.org (66-90-144-107.dyn.grandenetworks.net.
- [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
- o184-20020acabec1000000b003646062e83bsm5388522oif.29.2023.04.04.10.09.53
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 04 Apr 2023 10:09:54 -0700 (PDT)
-Received: (nullmailer pid 133735 invoked by uid 1000);
- Tue, 04 Apr 2023 17:09:52 -0000
-Date: Tue, 4 Apr 2023 12:09:52 -0500
-From: Rob Herring <robh@kernel.org>
-To: Wim Van Sebroeck <wim@linux-watchdog.org>,
- Guenter Roeck <linux@roeck-us.net>, 
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Chen-Yu Tsai <wens@csie.org>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>,
- Hector Martin <marcan@marcan.st>, Sven Peter <sven@svenpeter.dev>, 
- Alyssa Rosenzweig <alyssa@rosenzweig.io>, Julius Werner <jwerner@chromium.org>,
- Evan Benn <evanbenn@chromium.org>, Nicolas Ferre <nicolas.ferre@microchip.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>, 
- Claudiu Beznea <claudiu.beznea@microchip.com>,
- Florian Fainelli <f.fainelli@gmail.com>, 
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
- Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, NXP Linux Team <linux-imx@nxp.com>, 
- Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
- Masami Hiramatsu <mhiramat@kernel.org>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-Message-ID: <20230404170952.GF49361-robh@kernel.org>
-References: <20230317233643.3969019-1-robh@kernel.org>
+ Tue,  4 Apr 2023 17:22:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=5X775OsZchfjU9qrIg8JXv+X+xJPkkCLECP3XjqF/K4=; b=y+RYifJv18Z6dqfMnt2H3SLxne
+ Smlv0kvIMQ5yZdqKwL5HSuKLHaUwxu1mVhgJnB2dyOvs0AG9W1dFZUWrhSPwluZwRHbpJm42Q+SGe
+ ch3LS4iN7XRXZlH0DkQSlOjIcrFlNNgKTBoxYZtwrYKrls+pXMRrda5BzsFLCysMe4EQEBphVdCdB
+ II+oS+WjTxF+NhsUd0V5T9av7POIBE2P3cQ21qh3JgChhNZVNljPe+OvwXY2Th3kEt3pUxP7YtnbP
+ jO2N+oGGgbLJH7iKJydOsjn3IQWbFBzXyLzKqZ0ALSjazyCOPPO0ky5ae2UvM0lSM3zmBkdOd45tB
+ CkOpf3Yg==;
+Received: from shell.armlinux.org.uk
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:50358)
+ by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.94.2)
+ (envelope-from <linux@armlinux.org.uk>)
+ id 1pjkLm-0004WQ-Qf; Tue, 04 Apr 2023 18:21:42 +0100
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.94.2)
+ (envelope-from <linux@shell.armlinux.org.uk>)
+ id 1pjkLh-0005SD-7b; Tue, 04 Apr 2023 18:21:37 +0100
+Date: Tue, 4 Apr 2023 18:21:37 +0100
+From: "Russell King (Oracle)" <linux@armlinux.org.uk>
+To: Michael Sit Wei Hong <michael.wei.hong.sit@intel.com>
+Message-ID: <ZCxcoSRSVInwC0k1@shell.armlinux.org.uk>
+References: <20230404091442.3540092-1-michael.wei.hong.sit@intel.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20230317233643.3969019-1-robh@kernel.org>
-Cc: devicetree@vger.kernel.org, linux-watchdog@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- asahi@lists.linux.dev, linux-sunxi@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] dt-bindings: watchdog: Drop unneeded
-	quotes
+In-Reply-To: <20230404091442.3540092-1-michael.wei.hong.sit@intel.com>
+Cc: andrew@lunn.ch, Voon Weifeng <weifeng.voon@intel.com>,
+ Lai Peter Jun Ann <peter.jun.ann.lai@intel.com>,
+ Eric Dumazet <edumazet@google.com>, Ong Boon Leong <boon.leong.ong@intel.com>,
+ linux-stm32@st-md-mailman.stormreply.com, hock.leong.kweh@intel.com,
+ Jose Abreu <joabreu@synopsys.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Looi Hong Aun <hong.aun.looi@intel.com>, Tan Tee Min <tee.min.tan@intel.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Zulkifli Muhammad Husaini <muhammad.husaini.zulkifli@intel.com>,
+ "David S . Miller" <davem@davemloft.net>, hkallweit1@gmail.com
+Subject: Re: [Linux-stm32] [RFC net 1/1] net: stmmac: skip PHY scanning when
+ PHY already attached in DT mode
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,28 +73,103 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, Mar 17, 2023 at 06:36:42PM -0500, Rob Herring wrote:
-> Cleanup bindings dropping unneeded quotes. Once all these are fixed,
-> checking for this can be enabled in yamllint.
+On Tue, Apr 04, 2023 at 05:14:42PM +0800, Michael Sit Wei Hong wrote:
+> If PHY is successfully attached during phylink_fwnode_phy_connect()
+> in DT mode. MAC should not need to scan for PHY again.
 > 
-> Signed-off-by: Rob Herring <robh@kernel.org>
+> Adding a logic to check if ovr_an_inband is set before scanning for
+> a PHY, since phylink_fwnode_phy_connect() returns 0 when
+> 
+> 	phy_fwnode = fwnode_get_phy_node(fwnode);
+> 	if (IS_ERR(phy_fwnode)) {
+> 		if (pl->cfg_link_an_mode == MLO_AN_PHY)
+> 			return -ENODEV;
+> 		return 0;
+> 	}
+> 
+> Fixes: fe2cfbc96803 ("net: stmmac: check if MAC needs to attach to a PHY")
+> Signed-off-by: Michael Sit Wei Hong <michael.wei.hong.sit@intel.com>
 > ---
->  .../devicetree/bindings/watchdog/allwinner,sun4i-a10-wdt.yaml   | 2 +-
->  Documentation/devicetree/bindings/watchdog/apple,wdt.yaml       | 2 +-
->  Documentation/devicetree/bindings/watchdog/arm-smc-wdt.yaml     | 2 +-
->  .../devicetree/bindings/watchdog/atmel,sama5d4-wdt.yaml         | 2 +-
->  .../devicetree/bindings/watchdog/brcm,bcm7038-wdt.yaml          | 2 +-
->  .../devicetree/bindings/watchdog/faraday,ftwdt010.yaml          | 2 +-
->  Documentation/devicetree/bindings/watchdog/fsl-imx7ulp-wdt.yaml | 2 +-
->  Documentation/devicetree/bindings/watchdog/maxim,max63xx.yaml   | 2 +-
->  Documentation/devicetree/bindings/watchdog/renesas,wdt.yaml     | 2 +-
->  Documentation/devicetree/bindings/watchdog/snps,dw-wdt.yaml     | 2 +-
->  .../devicetree/bindings/watchdog/socionext,uniphier-wdt.yaml    | 2 +-
->  Documentation/devicetree/bindings/watchdog/st,stm32-iwdg.yaml   | 2 +-
->  Documentation/devicetree/bindings/watchdog/ti,rti-wdt.yaml      | 2 +-
->  13 files changed, 13 insertions(+), 13 deletions(-)
+>  drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> index d41a5f92aee7..4b8d3d975678 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> @@ -1149,7 +1149,7 @@ static int stmmac_init_phy(struct net_device *dev)
+>  	/* Some DT bindings do not set-up the PHY handle. Let's try to
+>  	 * manually parse it
+>  	 */
+> -	if (!fwnode || phy_needed || ret) {
+> +	if (!fwnode || (phy_needed && priv->phylink_config.ovr_an_inband) || ret) {
+>  		int addr = priv->plat->phy_addr;
+>  		struct phy_device *phydev;
+>  
 
-Applied, thanks.
+Sorry, but this just doesn't look right to me. And Gnrrrrr, I wish I'd
+spotted this stupidity during the review of phylink_expects_phy().
+
+phy_needed will be true if phylink thinks there should be a PHY on the
+link, that being:
+
+	MLO_AN_PHY mode
+	MLO_AN_INBAND mode and non-802.3z interface mode
+
+If !phy_needed, then the code should not be attempting to attach a PHY,
+but calling phylink_fwnode_phy_connect() is fine as it will just return
+zero.
+
+If phy_needed is true, then phylink_fwnode_phy_connect() will check to
+see whether a PHY is in the fwnode. If we fail to find a PHY, then if
+we're in MLO_AN_PHY mode, that's an error, and we return -ENODEV. If
+there is no PHY device associated with the handle, we also return
+-ENODEV.
+
+If phy_needed is true, and phylink_fwnode_phy_connect() doesn't find
+a PHY in the fwnode, and we're in MLO_AN_INBAND mode (e.g. for SGMII)
+then we'll return zero, because we can cope without a PHY in this
+instance - it's a success. If we do find a PHY, then we will make use
+of it, and also return zero.
+
+The problem is this hacky code wants to know the difference between
+those two situations, but phylink doesn't allow you to, and I don't
+think now that phylink_expects_phy() solves that problem.
+
+I think you're better off doing this:
+
+	struct fwnode_handle *phy_fwnode;
+
+	if (!phylink_expects_phy(priv->phylink))
+		return 0;
+
+	fwnode = of_fwnode_handle(priv->plat->phylink_node);
+	if (!fwnode)
+		fwnode = dev_fwnode(priv->device);
+
+	if (fwnode)
+		phy_fwnode = fwnode_get_phy_node(fwnode);
+	else
+		phy_fwnode = NULL;
+
+	if (!phy_fwnode) {
+		... do non-DT PHY stuff ...
+		ret = phylink_connect_phy(priv->phylink, phydev);
+	} else {
+		fwnode_handle_put(phy_fwnode);
+
+		ret = phylink_fwnode_phy_connect(priv->phylink, fwnode, 0);
+	}
+
+	... ethtool wol stuff ...
+
+Doesn't that more closely reflect what you actually want this code
+to be doing, rather than messing about trying to guess it from
+phylink's return code etc?
+
+-- 
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
