@@ -2,124 +2,97 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A248E6D6990
-	for <lists+linux-stm32@lfdr.de>; Tue,  4 Apr 2023 18:54:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C2DCF6D699F
+	for <lists+linux-stm32@lfdr.de>; Tue,  4 Apr 2023 18:57:19 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5411DC6A603;
-	Tue,  4 Apr 2023 16:54:51 +0000 (UTC)
-Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com
- [210.118.77.11])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8336CC6A603;
+	Tue,  4 Apr 2023 16:57:19 +0000 (UTC)
+Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com
+ [209.85.208.54])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 78C3AC0D2C0
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E1112C0D2C0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  4 Apr 2023 16:54:49 +0000 (UTC)
-Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
- by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id
- 20230404165448euoutp01655c681abfc8182ac6450db3e41197a4~SyZ1Z86p60158601586euoutp01x
+ Tue,  4 Apr 2023 16:57:17 +0000 (UTC)
+Received: by mail-ed1-f54.google.com with SMTP id i5so133503008eda.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  4 Apr 2023 16:54:48 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com
- 20230404165448euoutp01655c681abfc8182ac6450db3e41197a4~SyZ1Z86p60158601586euoutp01x
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
- s=mail20170921; t=1680627288;
- bh=9iMtrK6fAZfZzrbdyofBDo6C2P9YnJ8/Q5xMXgSr0IE=;
- h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
- b=bbNimj9zsebe7WLvAoeAcalNN/eCswdTY2cQZs2dKIZI8RHhE0roVuCyrtDvPyeyr
- OxH7HNaIk0wOQEV40q2J7LOO/FJ48C3N0GNEaXhFvfdB7RcXL42fGJlUbzqLdgU9eu
- +fxvakQ9HTG56+SfZ50COmR3/vi8Zd76Bvt1hKdk=
-Received: from eusmges1new.samsung.com (unknown [203.254.199.242]) by
- eucas1p1.samsung.com (KnoxPortal) with ESMTP id
- 20230404165448eucas1p1080a3deead7dd60858a31b5de3e1ddcf~SyZ09kW9r0653906539eucas1p1X;
- Tue,  4 Apr 2023 16:54:48 +0000 (GMT)
-Received: from eucas1p1.samsung.com ( [182.198.249.206]) by
- eusmges1new.samsung.com (EUCPMTA) with SMTP id 2F.02.09503.7565C246; Tue,  4
- Apr 2023 17:54:48 +0100 (BST)
-Received: from eusmtrp1.samsung.com (unknown [182.198.249.138]) by
- eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
- 20230404165447eucas1p114076509978a487acfe8312e2e58ecca~SyZ0lHlJv0397903979eucas1p1j;
- Tue,  4 Apr 2023 16:54:47 +0000 (GMT)
-Received: from eusmgms1.samsung.com (unknown [182.198.249.179]) by
- eusmtrp1.samsung.com (KnoxPortal) with ESMTP id
- 20230404165447eusmtrp1c8b2a2e46e8627a0c524a720e35045ca~SyZ0kS5EI2480424804eusmtrp1h;
- Tue,  4 Apr 2023 16:54:47 +0000 (GMT)
-X-AuditID: cbfec7f2-ea5ff7000000251f-ab-642c565720ee
-Received: from eusmtip1.samsung.com ( [203.254.199.221]) by
- eusmgms1.samsung.com (EUCPMTA) with SMTP id BD.21.08862.7565C246; Tue,  4
- Apr 2023 17:54:47 +0100 (BST)
-Received: from [106.210.134.192] (unknown [106.210.134.192]) by
- eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
- 20230404165446eusmtip1b38a853bf083a308106b4b63a94bb7d2~SyZzdMr450566905669eusmtip1L;
- Tue,  4 Apr 2023 16:54:46 +0000 (GMT)
-Message-ID: <d4750775-5d74-a081-f7a4-11d67fdb80ea@samsung.com>
-Date: Tue, 4 Apr 2023 18:54:45 +0200
+ Tue, 04 Apr 2023 09:57:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20210112; t=1680627437;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=P7MhNZCWbmm+EQT2ZpLl2E/34gvDoi8JcsBYxfVZFwk=;
+ b=VpLHIMinqDrwBgJCKe6aTCq+o2ToI2AcQwk7ETuH985y5l712JB/Jr1vrwVpie63AZ
+ nP362aTfXVOwRwLlXpHGRk4PBTdeD94ijJ3+RUp1P9nqBBAXEX3pLLPbG+6Inwk7Uyaj
+ uFjOnX4OGtjx8sYfx5vR29bO11rfY1Hsi6htfgOa7JqSh39Nv9chkha/eSesvzGdBXYu
+ bpqi5ctpHBfKsmoMkLOHfPG+HXDlIrDf4yTtLRYMdJ/ZFlrEERZIjqkBnEZBJXKN5zvv
+ 6tBj4cl/oiz+AS47+YvLvIi9B3cokqy7sBMFOpBtuySkQHlO05Xw1iJ2uLy3r//bUthI
+ cYSg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112; t=1680627437;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=P7MhNZCWbmm+EQT2ZpLl2E/34gvDoi8JcsBYxfVZFwk=;
+ b=OmxEfCuD/POD3mMjYICaw6Lifrvpu9jAnTV+taeyuYVdrjwYYOBMGZK7Yo3uoA7hPS
+ 3GblU5rzpHArIF/rDH2/YhXxTn6bDJmk76RpDD2IDBqp112onVdw11fR9dB8HBRKC15a
+ gcM/K0J2x5Xv/S1woMbvlZ6lIZeaDYVMAhwLJPFENsNbMBJqKts3m7pwKkyf8Uzc7Qmi
+ WW0awzLyken8lUi597N8D5IiIfWM4spNMkbebYO2Vwz545Qyx5SD/poEaDwjx02nD2mo
+ UpcoWYypiJXnJUZkB38DNues4Rx9kzMSFjquudpAEyTVNVCURKhaz6CeYE+Zg/xGiZki
+ q55A==
+X-Gm-Message-State: AAQBX9c27j1N4jYZiZ6E8g475zA/V+FCjoz7LWqelkRLmFII/TTRyJBw
+ 401ymRZ1LrN8vgYBIOyFYlI=
+X-Google-Smtp-Source: AKy350aLVwwKqFdLN/chhOt48r5LY4guvRxpRxIkNFsLEqvsNQmQtpD22vmnvW+Hx6srEDa7zCZz5g==
+X-Received: by 2002:aa7:d514:0:b0:4fb:6523:2b38 with SMTP id
+ y20-20020aa7d514000000b004fb65232b38mr156531edq.27.1680627437154; 
+ Tue, 04 Apr 2023 09:57:17 -0700 (PDT)
+Received: from jernej-laptop.localnet (82-149-1-233.dynamic.telemach.net.
+ [82.149.1.233]) by smtp.gmail.com with ESMTPSA id
+ e27-20020a50d4db000000b004fadc041e13sm6144420edj.42.2023.04.04.09.57.14
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 04 Apr 2023 09:57:16 -0700 (PDT)
+From: Jernej =?utf-8?B?xaBrcmFiZWM=?= <jernej.skrabec@gmail.com>
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ =?utf-8?B?UmFmYcWCIE1pxYJlY2tp?= <zajec5@gmail.com>
+Date: Tue, 04 Apr 2023 18:57:14 +0200
+Message-ID: <4817385.31r3eYUQgx@jernej-laptop>
+In-Reply-To: <20230403225540.1931-1-zajec5@gmail.com>
+References: <20230403225540.1931-1-zajec5@gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0)
- Gecko/20100101 Thunderbird/102.9.1
-Content-Language: en-US
-To: Michael Sit Wei Hong <michael.wei.hong.sit@intel.com>, Giuseppe
- Cavallaro <peppe.cavallaro@st.com>, Alexandre Torgue
- <alexandre.torgue@foss.st.com>, Jose Abreu <joabreu@synopsys.com>, "David S
- . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub
- Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>, Ong Boon Leong <boon.leong.ong@intel.com>,
- netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux@armlinux.org.uk, hkallweit1@gmail.com, andrew@lunn.ch, Martin
- Blumenstingl <martin.blumenstingl@googlemail.com>
-From: Marek Szyprowski <m.szyprowski@samsung.com>
-In-Reply-To: <20230404091442.3540092-1-michael.wei.hong.sit@intel.com>
-X-Brightmail-Tracker: H4sIAAAAAAAAA01SfVDTZRy/5/ey/VgOf0yK57AX22V3YKJcej0dizIFf/2hWb5xeAY79ouZ
- A7xNCuHMnRCMNV4OW8F4WzgCFLGbOB0oiwWDSeJggG+AYhvgHHFEdSFZMYbFf5/v5/P9fD/f
- 53sPhQtOc0KpQ6lHWXmqWCbk8AiTba53fdy+1yQbz3oAmnv4NUA3Rqw4cp2v4aCKGzkEctse
- cFHNdCmJrmnsGBrIqSPQaM0vJHKYCklk/HmIRM6WCg5SD7lIZNVeBchWYydQ1ZNzJKo+acZQ
- X/d1HNn0z6E/erwA/fPoIkAny4wLKEdJoNqOUu47kHEO9eFMc8NtjHEXXeQyZt0Il9Eb0xl3
- 8Skuc/rKQ4wxnsnnMBcMJxjz5VmMmW4b5DDtbZGM+8+rC0bLLGBmjS/uWhnPE0lY2aFPWfmG
- 6ESeVFtVzTlSzs8oLLDgSuDiqUEABelNsDYvm1QDHiWg6wG0m34kfYKA/g1AT0GiX5gF0FDi
- JZ86yhuqOH6hDsDJxpalYgbA0c5B4Ovi09FwzHwX82GCfgW253YTfj4I2stci/hZWgJb7W6u
- D6+iE6Gqq2IR43QIvOOqxnxDg2kjCUfrGoGvwGk1Bn/qdS9O5dCRUD2l5vhwAB0L81tHltwv
- wUtTFbjPAGktD/7w+3dLi2+DD0rvAz9eBT1dzVw/fh72nNIQfkMegPr5e5i/KAZQOXFnyREF
- h3sfL8RRCxFh8HzLBj+9BXbYtbiPhnQgvDUV5F8iEJaYvlmi+VCVK/B3vwp1XU3/xbY7+vFi
- INQtO4xu2QF0y56j+z9XD4gzIIRNV6Qks4rIVPazCIU4RZGemhyRlJZiBAv/uOfvrl8vg0rP
- TIQVYBSwAkjhwmD+WnW4RMCXiI9lsvK0BHm6jFVYwWqKEIbw171lTxLQyeKj7GGWPcLKn6oY
- FRCqxPbEZtRLVZ3X5uIT3j3uWdN8bCwm8ct7dERsrejN3ePlWyfMdwtl6rKbltBNUwZQeT1o
- xWPXAVGMpjEDf+RUz9c5FP0nDA7jbYfscHCfI1G6N+zj+mGltkHy1aVAG+hcWSc7qLg/XF10
- oTG6IGb/rOijPRbvThPaNT3TWvtJda4qa3+egbzyvndwzdY3NJtf/iCqxrI9Ljj783Prtmiy
- c18//uQ9b9otoUggihXuKGq6OdCdtfnbku9XxL+9czIzKax/9fqwtuLacNLb8Zd+x8ED+R+a
- 9ZL5icrh8W0Du7OixkbWTpbzm/IMugbDxhecKum41zvyjPOLuL1nU6j+hH3OzA4hoZCKI8Nx
- uUL8L1QAL8s2BAAA
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFtrMKsWRmVeSWpSXmKPExsVy+t/xu7rhYTopBr3fVCx+vpzGaHH+7iFm
- iyfrF7FZzDnfwmLx9NgjdotF72ewWpzqOclkcaVlOYvFvUXvWC0ubOtjtdj0+BqrxeVdc9gs
- uq49YbU4NHUvo8WxRSdZLOb9XctqMb9pJ5PFxRNnmS2OLRCz+Hb6DaPF/9dbGS2aZm4Csloa
- WCyWHpnB7iDhcfnaRWaPLStvMnk87d/K7rFz1l12jwWbSj2eTpjM7rF4z0smj02rOtk8Ni+p
- 99i54zOTx/t9V9k8Du4z9Hj6Yy9Q4/7PjB6fN8kF8Efp2RTll5akKmTkF5fYKkUbWhjpGVpa
- 6BmZWOoZGpvHWhmZKunb2aSk5mSWpRbp2yXoZUydN5+tYDZvRV/vfuYGxidcXYycHBICJhKz
- V85j62Lk4hASWMoo8aR1JiNEQkbi5LQGVghbWOLPtS6ooveMEmf+PmEHSfAK2Ek83HmbCcRm
- EVCRONh2ggUiLihxcuYTMFtUIEVi14SlYDXCAgkSHcfngPUyC4hL3HoyHywuIrCFVWL/slCI
- eA+TxNXdxSC2kICrRPudjWwgNpuAoUTX2y4wm1PATaJz912oOWYSXVu7GCFseYntb+cwT2AU
- moXkjFlI1s1C0jILScsCRpZVjCKppcW56bnFhnrFibnFpXnpesn5uZsYgaln27Gfm3cwznv1
- Ue8QIxMH4yFGCQ5mJRFe1S6tFCHelMTKqtSi/Pii0pzU4kOMpsCwmMgsJZqcD0x+eSXxhmYG
- poYmZpYGppZmxkrivJ4FHYlCAumJJanZqakFqUUwfUwcnFINTAaObJMfmm6efeamUYyz+qvE
- 1OPFS/6er9fTc1/DN/XCIq3yloV6YinR9y/rBGWxprVx3Tyw/9dWO0nF4Cy+u39cBW6HiPL1
- sW33c7nl2rNp6raCrEC+2w+i34cIemhtUE55NzEo9Rtjf/WTi/l++w+//HBLobD7sa154DyJ
- 6Z06p/PuMt/TXi9r1HXnZsT1k29Lvio8zCut+2EbuuPbgQBjsz6FD3dN5+tFs/7mjJXLuNfL
- sd8n5di0BTr8WzYGzswtz5Q4uuXLcoXsxz07515ee+ayf9Q2eY45Hy6EOzi7+b+2cxSf1r/9
- 1RW/lJV3V8/VCr3Xfzpr4s4Ic2fWINH9KWoifarOV29dnvL5vxJLcUaioRZzUXEiABZe+xLG
- AwAA
-X-CMS-MailID: 20230404165447eucas1p114076509978a487acfe8312e2e58ecca
-X-Msg-Generator: CA
-X-RootMTR: 20230404165447eucas1p114076509978a487acfe8312e2e58ecca
-X-EPHeader: CA
-CMS-TYPE: 201P
-X-CMS-RootMailID: 20230404165447eucas1p114076509978a487acfe8312e2e58ecca
-References: <20230404091442.3540092-1-michael.wei.hong.sit@intel.com>
- <CGME20230404165447eucas1p114076509978a487acfe8312e2e58ecca@eucas1p1.samsung.com>
-Cc: hock.leong.kweh@intel.com, Voon Weifeng <weifeng.voon@intel.com>,
- Lai Peter Jun Ann <peter.jun.ann.lai@intel.com>,
- Looi Hong Aun <hong.aun.looi@intel.com>, Tan Tee Min <tee.min.tan@intel.com>,
- Zulkifli Muhammad Husaini <muhammad.husaini.zulkifli@intel.com>
-Subject: Re: [Linux-stm32] [RFC net 1/1] net: stmmac: skip PHY scanning when
- PHY already attached in DT mode
+Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Alessandro Zummo <a.zummo@towertech.it>, Vignesh Raghavendra <vigneshr@ti.com>,
+ Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
+ linux-mtd@lists.infradead.org, Miquel Raynal <miquel.raynal@bootlin.com>,
+ =?utf-8?B?UmFmYcWCIE1pxYJlY2tp?= <rafal@milecki.pl>,
+ Evgeniy Polyakov <zbr@ioremap.net>, Fabio Estevam <festevam@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Alyssa Rosenzweig <alyssa@rosenzweig.io>, Heiko Stuebner <heiko@sntech.de>,
+ linux-rtc@vger.kernel.org, Samuel Holland <samuel@sholland.org>,
+ Richard Weinberger <richard@nod.at>, Michal Simek <michal.simek@xilinx.com>,
+ linux-rockchip@lists.infradead.org, Chen-Yu Tsai <wens@csie.org>,
+ Andy Gross <agross@kernel.org>, NXP Linux Team <linux-imx@nxp.com>,
+ Vincent Shih <vincent.sunplus@gmail.com>, Orson Zhai <orsonzhai@gmail.com>,
+ Jerome Brunet <jbrunet@baylibre.com>, linux-sunxi@lists.linux.dev,
+ asahi@lists.linux.dev, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Sven Peter <sven@svenpeter.dev>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ linux-arm-msm@vger.kernel.org, Sascha Hauer <s.hauer@pengutronix.de>,
+ linux-mediatek@lists.infradead.org,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>, linux-amlogic@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Chunyan Zhang <zhang.lyra@gmail.com>, Bjorn Andersson <andersson@kernel.org>,
+ Hector Martin <marcan@marcan.st>, linux-kernel@vger.kernel.org,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Michael Walle <michael@walle.cc>,
+ Masami Hiramatsu <mhiramat@kernel.org>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Kevin Hilman <khilman@baylibre.com>, Shawn Guo <shawnguo@kernel.org>,
+ Claudiu Beznea <claudiu.beznea@microchip.com>
+Subject: [Linux-stm32] Re: [PATCH V4] nvmem: add explicit config option to
+ read old syntax fixed OF cells
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -131,59 +104,65 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi,
-
-On 04.04.2023 11:14, Michael Sit Wei Hong wrote:
-> If PHY is successfully attached during phylink_fwnode_phy_connect()
-> in DT mode. MAC should not need to scan for PHY again.
->
-> Adding a logic to check if ovr_an_inband is set before scanning for
-> a PHY, since phylink_fwnode_phy_connect() returns 0 when
->
-> 	phy_fwnode = fwnode_get_phy_node(fwnode);
-> 	if (IS_ERR(phy_fwnode)) {
-> 		if (pl->cfg_link_an_mode == MLO_AN_PHY)
-> 			return -ENODEV;
-> 		return 0;
-> 	}
->
-> Fixes: fe2cfbc96803 ("net: stmmac: check if MAC needs to attach to a PHY")
-> Signed-off-by: Michael Sit Wei Hong <michael.wei.hong.sit@intel.com>
-
-This fixes broken ethernet observed recently on various Amlogic Meson 
-based boards (like Khadas VIM3 or Odroid-C4). Thanks!
-
-Tested-by: Marek Szyprowski <m.szyprowski@samsung.com>
-
-> ---
->   drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> index d41a5f92aee7..4b8d3d975678 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> @@ -1149,7 +1149,7 @@ static int stmmac_init_phy(struct net_device *dev)
->   	/* Some DT bindings do not set-up the PHY handle. Let's try to
->   	 * manually parse it
->   	 */
-> -	if (!fwnode || phy_needed || ret) {
-> +	if (!fwnode || (phy_needed && priv->phylink_config.ovr_an_inband) || ret) {
->   		int addr = priv->plat->phy_addr;
->   		struct phy_device *phydev;
->   
-
-Best regards
--- 
-Marek Szyprowski, PhD
-Samsung R&D Institute Poland
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+RG5lIHRvcmVrLCAwNC4gYXByaWwgMjAyMyBvYiAwMDo1NTo0MCBDRVNUIGplIFJhZmHFgiBNacWC
+ZWNraSBuYXBpc2FsKGEpOgo+IEZyb206IFJhZmHFgiBNacWCZWNraSA8cmFmYWxAbWlsZWNraS5w
+bD4KPiAKPiBCaW5kaW5nIGZvciBmaXhlZCBOVk1FTSBjZWxscyBkZWZpbmVkIGRpcmVjdGx5IGFz
+IE5WTUVNIGRldmljZSBzdWJub2Rlcwo+IGhhcyBiZWVuIGRlcHJlY2F0ZWQuIEl0IGhhcyBiZWVu
+IHJlcGxhY2VkIGJ5IHRoZSAiZml4ZWQtbGF5b3V0IiBOVk1FTQo+IGxheW91dCBiaW5kaW5nLgo+
+IAo+IE5ldyBzeW50YXggaXMgbWVhbnQgdG8gYmUgY2xlYXJlciBhbmQgc2hvdWxkIGhlbHAgYXZv
+aWRpbmcgaW1wcmVjaXNlCj4gYmluZGluZ3MuCj4gCj4gTlZNRU0gc3Vic3lzdGVtIGFscmVhZHkg
+c3VwcG9ydHMgdGhlIG5ldyBiaW5kaW5nLiBJdCBzaG91bGQgYmUgYSBnb29kCj4gaWRlYSB0byBs
+aW1pdCBzdXBwb3J0IGZvciBvbGQgc3ludGF4IHRvIGV4aXN0aW5nIGRyaXZlcnMgdGhhdCBhY3R1
+YWxseQo+IHN1cHBvcnQgJiB1c2UgaXQgKHdlIGNhbid0IGJyZWFrIGJhY2t3YXJkIGNvbXBhdGli
+aWxpdHkhKS4gVGhhdCB3YXkgd2UKPiBhZGRpdGlvbmFsbHkgZW5jb3VyYWdlIG5ldyBiaW5kaW5n
+cyAmIGRyaXZlcnMgdG8gaWdub3JlIGRlcHJlY2F0ZWQKPiBiaW5kaW5nLgo+IAo+IEl0IHdhc24n
+dCBjbGVhciAodG8gbWUpIGlmIHJ0YyBhbmQgdzEgY29kZSBhY3R1YWxseSB1c2VzIG9sZCBzeW50
+YXgKPiBmaXhlZCBjZWxscy4gSSBlbmFibGVkIHRoZW0gdG8gZG9uJ3QgcmlzayBhbnkgYnJlYWth
+Z2UuCj4gCj4gU2lnbmVkLW9mZi1ieTogUmFmYcWCIE1pxYJlY2tpIDxyYWZhbEBtaWxlY2tpLnBs
+Pgo+IFtmb3IgbWVzb24te2VmdXNlLG14LWVmdXNlfS5jXQo+IEFja2VkLWJ5OiBNYXJ0aW4gQmx1
+bWVuc3RpbmdsIDxtYXJ0aW4uYmx1bWVuc3RpbmdsQGdvb2dsZW1haWwuY29tPgo+IFtmb3IgbXRr
+LWVmdXNlLmMsIG52bWVtL2NvcmUuYywgbnZtZW0tcHJvdmlkZXIuaF0KPiBSZXZpZXdlZC1ieTog
+QW5nZWxvR2lvYWNjaGlubyBEZWwgUmVnbm8KPiA8YW5nZWxvZ2lvYWNjaGluby5kZWxyZWdub0Bj
+b2xsYWJvcmEuY29tPiBbTVQ4MTkyLCBNVDgxOTUgQ2hyb21lYm9va3NdCj4gVGVzdGVkLWJ5OiBB
+bmdlbG9HaW9hY2NoaW5vIERlbCBSZWdubwo+IDxhbmdlbG9naW9hY2NoaW5vLmRlbHJlZ25vQGNv
+bGxhYm9yYS5jb20+IFtmb3IgbWljcm9jaGlwLW90cGMuY10KPiBSZXZpZXdlZC1ieTogQ2xhdWRp
+dSBCZXpuZWEgPGNsYXVkaXUuYmV6bmVhQG1pY3JvY2hpcC5jb20+Cj4gW1NBTUE3RzUtRUtdCj4g
+VGVzdGVkLWJ5OiBDbGF1ZGl1IEJlem5lYSA8Y2xhdWRpdS5iZXpuZWFAbWljcm9jaGlwLmNvbT4K
+PiAtLS0KPiBUaGlzIGlzIGJhc2VkIG9uIHRvcCBvZiB0aGVtCj4gW1BBVENIIFY2IDMvM10gbnZt
+ZW06IGNvcmU6IGFkZCBzdXBwb3J0IGZvciBmaXhlZCBjZWxscyAqbGF5b3V0Kgo+IAo+IFYyOiBG
+aXggc3RtMzItcm9tZW0uYyB0eXBvIGJyZWFraW5nIGl0cyBjb21waWxhdGlvbgo+ICAgICBQaWNr
+IE1hcnRpbidzIEFja2VkLWJ5Cj4gICAgIEFkZCBwYXJhZ3JhcGggYWJvdXQgbGF5b3V0cyBkZXBy
+ZWNhdGluZyBhZGRfbGVnYWN5X2ZpeGVkX29mX2NlbGxzCj4gVjM6IFVwZGF0ZSBjb21taXQgZGVz
+Y3JpcHRpb246Cj4gICAgIDEuIE1ha2UgaXQgY2xlYXIgd2UncmUgTk9UIGRyb3BwaW5nIGZpeGVk
+IGNlbGxzIHN1cHBvcnQKPiAgICAgMi4gVXNlIG5pY2VyIHdvcmRzIChzL21hZGUgc2Vuc2Uvd2Fz
+IHRvdGFsbHkgc2FmZS8pCj4gICAgIDMuIEV4cGxhaW4gZml4ZWQgY2VsbHMgbGF5b3V0IHRoaW5n
+Cj4gICAgIDQuIEFkZCBwYXJhZ3JhcGggd2l0aCBwdXJwb3NlIG9mIHRoaXMgY29tbWl0Cj4gVjQ6
+IENvbXBsZXRlbHkgcmV3cml0ZSBjb21taXQgbWVzc2FnZS4KPiAgICAgUmVuYW1lIGNvbmZpZyBv
+cHRpb24gdG8gImFkZF9sZWdhY3lfZml4ZWRfb2ZfY2VsbHMiLgo+IC0tLQo+ICBkcml2ZXJzL210
+ZC9tdGRjb3JlLmMgICAgICAgICAgfCAyICsrCj4gIGRyaXZlcnMvbnZtZW0vYXBwbGUtZWZ1c2Vz
+LmMgICB8IDEgKwo+ICBkcml2ZXJzL252bWVtL2NvcmUuYyAgICAgICAgICAgfCA4ICsrKysrLS0t
+Cj4gIGRyaXZlcnMvbnZtZW0vaW14LW9jb3RwLXNjdS5jICB8IDEgKwo+ICBkcml2ZXJzL252bWVt
+L2lteC1vY290cC5jICAgICAgfCAxICsKPiAgZHJpdmVycy9udm1lbS9tZXNvbi1lZnVzZS5jICAg
+IHwgMSArCj4gIGRyaXZlcnMvbnZtZW0vbWVzb24tbXgtZWZ1c2UuYyB8IDEgKwo+ICBkcml2ZXJz
+L252bWVtL21pY3JvY2hpcC1vdHBjLmMgfCAxICsKPiAgZHJpdmVycy9udm1lbS9tdGstZWZ1c2Uu
+YyAgICAgIHwgMSArCj4gIGRyaXZlcnMvbnZtZW0vcWNvbS1zcG1pLXNkYW0uYyB8IDEgKwo+ICBk
+cml2ZXJzL252bWVtL3FmcHJvbS5jICAgICAgICAgfCAxICsKPiAgZHJpdmVycy9udm1lbS9yYXZl
+LXNwLWVlcHJvbS5jIHwgMSArCj4gIGRyaXZlcnMvbnZtZW0vcm9ja2NoaXAtZWZ1c2UuYyB8IDEg
+Kwo+ICBkcml2ZXJzL252bWVtL3NjMjd4eC1lZnVzZS5jICAgfCAxICsKPiAgZHJpdmVycy9udm1l
+bS9zcHJkLWVmdXNlLmMgICAgIHwgMSArCj4gIGRyaXZlcnMvbnZtZW0vc3RtMzItcm9tZW0uYyAg
+ICB8IDEgKwo+ICBkcml2ZXJzL252bWVtL3N1bnBsdXMtb2NvdHAuYyAgfCAxICsKPiAgZHJpdmVy
+cy9udm1lbS9zdW54aV9zaWQuYyAgICAgIHwgMSArCgpGb3Igc3VueGlfc2lkOgpBY2tlZC1ieTog
+SmVybmVqIFNrcmFiZWMgPGplcm5lai5za3JhYmVjQGdtYWlsLmNvbT4KCkJlc3QgcmVnYXJkcywK
+SmVybmVqCgo+ICBkcml2ZXJzL252bWVtL3VuaXBoaWVyLWVmdXNlLmMgfCAxICsKPiAgZHJpdmVy
+cy9udm1lbS96eW5xbXBfbnZtZW0uYyAgIHwgMSArCj4gIGRyaXZlcnMvcnRjL252bWVtLmMgICAg
+ICAgICAgICB8IDEgKwo+ICBkcml2ZXJzL3cxL3NsYXZlcy93MV9kczI1MHguYyAgfCAxICsKPiAg
+aW5jbHVkZS9saW51eC9udm1lbS1wcm92aWRlci5oIHwgMiArKwo+ICAyMyBmaWxlcyBjaGFuZ2Vk
+LCAyOSBpbnNlcnRpb25zKCspLCAzIGRlbGV0aW9ucygtKQoKCgpfX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGlu
+dXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxt
+YW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
