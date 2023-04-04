@@ -2,58 +2,58 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 68A3A6D5C1D
-	for <lists+linux-stm32@lfdr.de>; Tue,  4 Apr 2023 11:43:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 808D46D5C1F
+	for <lists+linux-stm32@lfdr.de>; Tue,  4 Apr 2023 11:43:14 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 28773C6A61B;
-	Tue,  4 Apr 2023 09:43:13 +0000 (UTC)
-Received: from mail-lf1-f51.google.com (mail-lf1-f51.google.com
- [209.85.167.51])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 47267C6A61C;
+	Tue,  4 Apr 2023 09:43:14 +0000 (UTC)
+Received: from mail-lf1-f46.google.com (mail-lf1-f46.google.com
+ [209.85.167.46])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 513FFC6A615
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F2B1AC6A615
  for <linux-stm32@st-md-mailman.stormreply.com>;
  Tue,  4 Apr 2023 09:43:12 +0000 (UTC)
-Received: by mail-lf1-f51.google.com with SMTP id k37so41665788lfv.0
+Received: by mail-lf1-f46.google.com with SMTP id y20so41657210lfj.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
  Tue, 04 Apr 2023 02:43:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1680601391;
+ d=linaro.org; s=google; t=1680601392;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=E1U3mznWUSnJq2x7KzrZeo74yHwZxjse8U63SQkTN4k=;
- b=eX5ZeFcrDyeOZ/+cmIw1GthasxB336QssKMWmkFVFjzUzquTWCGLPH0q1EZGkx57D7
- lMBTV4GQvDuLwdcpX7uMkCsYiT15dsHdEflv9g0w1W+ahbDSVxbyUvz5gUTVJ5sYN5nd
- gGSkMJIKgzuEsvJpz5qvVuUa9tXPAIFLLMxBUS9ZN6aJGEJa88cvLFIhVRzr7cFD3xO4
- V/C0tVGfceLtY5T6HC9Bg5fuMQSPe39vC9gft3my7IAoHhwOGoYe386nE0RCa7Nph0FF
- HFz4nkApA+T03Chl0EFnlvCZrI+HrbjlWiHUeCW0UG/pPXcOb+msKYSk3REigmMJsDvV
- tYCQ==
+ :reply-to; bh=OEIEuBxKK8j0WCwoJQ18kuVBxSDA3HKgR75PLHwlYjY=;
+ b=QUgnZEVbU8qkLDF2ntyTZYUEn81xMGQMTF+In3pJjOtoHeA+wHfgBjiPJd3SQo2ubS
+ EdNjEPTsTPejVfxjcQyDuBp9bw6lcgMwOYJ0hzaw94espyf5V34EXkl/ZpBlcv3D9D83
+ +0V2+XrzqywGLnbVfh9drT5aX/q5V4zCL36sADRuJeqAfcn/NLlq8m4DdSrZY3wG0Zi/
+ q8FBEDa9RQuvXQZ0GWlpOlmM6ZZK4U1qYzUppqfAYv14x6YsE1Ip3xn/3V6DSPeA1aCF
+ FhyY2tH7hm6RIvEb2q12iB15E5zC2jQ355mxMbjoyJAliFKlrL3/5gyw+cCOHZfsai7x
+ J1Fw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1680601391;
+ d=1e100.net; s=20210112; t=1680601392;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=E1U3mznWUSnJq2x7KzrZeo74yHwZxjse8U63SQkTN4k=;
- b=SDYyB/YAZuTUghmJNowmgdR/AlegnKDt+8dqWvp3m2WrUZbwFmV7ar5GWxEHorS6+8
- Q0kp1PxzvNWiRkO7QsZ6lZK+IT3FyE0u1nzx16bwkuG45kfNyMUIILPNH2iFvl4nAvch
- s+15uuRJ41w48EKird6xMAoR6U5hzaRaqVOiWnf7LM8lBijLI5jpqtP1SrQYp65DI/av
- ufmPBNrAcIg8GARvRW9UYJiBUPF+A3hoSuCdrcLNqivVr3HEToFqC9/Vj15LVt2mnKXK
- ygqTbKodbh0mA6D/plY1kPMrBMK5pi0/YzM8/VSzGWVQ3H8kI4KdqGhfwPnRQIFFX0uI
- 6ljg==
-X-Gm-Message-State: AAQBX9fTIFXHuYYalnEi1cHVEamt0m4loVXOajB9cKbB7tI8lqBQZ9m6
- BjY04ghRY11f43hWip7TuFbHiA==
-X-Google-Smtp-Source: AKy350a7DLDlAx2wATbxYZ+yV4+OnJfCSexEHHMxv0+zsfQNpGxjvujPBQwRFlw396afIThPkSlLDg==
-X-Received: by 2002:a05:6512:118d:b0:4eb:2b62:134f with SMTP id
- g13-20020a056512118d00b004eb2b62134fmr4661753lfr.16.1680601391634; 
- Tue, 04 Apr 2023 02:43:11 -0700 (PDT)
+ bh=OEIEuBxKK8j0WCwoJQ18kuVBxSDA3HKgR75PLHwlYjY=;
+ b=FAB8otPtO7I0mcNIx2d5qWQA+Uduw9ypMU2IQ/FIVPxyEAE0O4h/0v+1hU1xOt7noS
+ zNjnKQVFdM1Jku6hxogScZYsrbbMeRn/ooSzI7JgmJ0kYdqIvWgLZlJjWRMvvDib7Zql
+ qxExppUB0VU9xrRUpd7l0mypcnj5OUffuESrWRt6UPifZjSLcIchI9/pF6JRy3PYBUT/
+ zqfKgbqEozsP506y+M0dS9NvCnwHdnGr2uOuRFI4mmrbtI75hunUVCZU+DIiOM5gs08E
+ TJYmTEOQ1DjAQGqu94bDU6Im6K1ofnwWnkELunH47/C9dS/c7D+FT3fM0cvq+NyZh7rF
+ aSyA==
+X-Gm-Message-State: AAQBX9cluVE4VVwK9Lj5PxkqvOADzkXGD870ITEN0SH4VrVWxvWU0UVw
+ PTY6yfKlzFeiEzkz8/DR39voqg==
+X-Google-Smtp-Source: AKy350Y1n4D3ouEbNQ+64kQoJU+ffHbBrLRRh0g8NH1+mtywafqluhvvLZ5sB6bllrfgJQ3/14bcqQ==
+X-Received: by 2002:a19:ad04:0:b0:4cb:4362:381d with SMTP id
+ t4-20020a19ad04000000b004cb4362381dmr457830lfc.62.1680601392722; 
+ Tue, 04 Apr 2023 02:43:12 -0700 (PDT)
 Received: from [127.0.1.1] ([85.235.12.238]) by smtp.gmail.com with ESMTPSA id
- l25-20020a19c219000000b004eb258f73a9sm2218443lfc.163.2023.04.04.02.43.10
+ l25-20020a19c219000000b004eb258f73a9sm2218443lfc.163.2023.04.04.02.43.11
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 04 Apr 2023 02:43:11 -0700 (PDT)
+ Tue, 04 Apr 2023 02:43:12 -0700 (PDT)
 From: Linus Walleij <linus.walleij@linaro.org>
-Date: Tue, 04 Apr 2023 11:43:04 +0200
+Date: Tue, 04 Apr 2023 11:43:05 +0200
 MIME-Version: 1.0
-Message-Id: <20230403-immutable-irqchips-v1-2-503788a7f6e6@linaro.org>
+Message-Id: <20230403-immutable-irqchips-v1-3-503788a7f6e6@linaro.org>
 References: <20230403-immutable-irqchips-v1-0-503788a7f6e6@linaro.org>
 In-Reply-To: <20230403-immutable-irqchips-v1-0-503788a7f6e6@linaro.org>
 To: Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>, 
@@ -71,8 +71,8 @@ Cc: Marc Zyngier <maz@kernel.org>, openbmc@lists.ozlabs.org,
  linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-gpio@vger.kernel.org, Linus Walleij <linus.walleij@linaro.org>,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 2/9] pinctrl: nsp: Convert to immutable
-	irq_chip
+Subject: [Linux-stm32] [PATCH 3/9] pinctrl: armada-37xx: Convert to
+	immutable irq_chip
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,78 +95,93 @@ intuition.
 Cc: Marc Zyngier <maz@kernel.org>
 Signed-off-by: Linus Walleij <linus.walleij@linaro.org>
 ---
- drivers/pinctrl/bcm/pinctrl-nsp-gpio.c | 23 +++++++++++++----------
- 1 file changed, 13 insertions(+), 10 deletions(-)
+ drivers/pinctrl/mvebu/pinctrl-armada-37xx.c | 34 ++++++++++++++++++++---------
+ 1 file changed, 24 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/pinctrl/bcm/pinctrl-nsp-gpio.c b/drivers/pinctrl/bcm/pinctrl-nsp-gpio.c
-index 3c792bf03bda..5045a7e57f1d 100644
---- a/drivers/pinctrl/bcm/pinctrl-nsp-gpio.c
-+++ b/drivers/pinctrl/bcm/pinctrl-nsp-gpio.c
-@@ -60,7 +60,6 @@ struct nsp_gpio {
- 	struct device *dev;
- 	void __iomem *base;
- 	void __iomem *io_ctrl;
--	struct irq_chip irqchip;
- 	struct gpio_chip gc;
- 	struct pinctrl_dev *pctl;
- 	struct pinctrl_desc pctldesc;
-@@ -193,6 +192,7 @@ static void nsp_gpio_irq_mask(struct irq_data *d)
- 	raw_spin_lock_irqsave(&chip->lock, flags);
- 	nsp_gpio_irq_set_mask(d, false);
- 	raw_spin_unlock_irqrestore(&chip->lock, flags);
-+	gpiochip_disable_irq(gc, irqd_to_hwirq(d));
+diff --git a/drivers/pinctrl/mvebu/pinctrl-armada-37xx.c b/drivers/pinctrl/mvebu/pinctrl-armada-37xx.c
+index 261b46841b9f..67c6751a6f06 100644
+--- a/drivers/pinctrl/mvebu/pinctrl-armada-37xx.c
++++ b/drivers/pinctrl/mvebu/pinctrl-armada-37xx.c
+@@ -23,6 +23,7 @@
+ #include <linux/platform_device.h>
+ #include <linux/property.h>
+ #include <linux/regmap.h>
++#include <linux/seq_file.h>
+ #include <linux/slab.h>
+ #include <linux/string_helpers.h>
+ 
+@@ -101,7 +102,6 @@ struct armada_37xx_pinctrl {
+ 	const struct armada_37xx_pin_data	*data;
+ 	struct device			*dev;
+ 	struct gpio_chip		gpio_chip;
+-	struct irq_chip			irq_chip;
+ 	raw_spinlock_t			irq_lock;
+ 	struct pinctrl_desc		pctl;
+ 	struct pinctrl_dev		*pctl_dev;
+@@ -548,6 +548,7 @@ static void armada_37xx_irq_mask(struct irq_data *d)
+ 	val = readl(info->base + reg);
+ 	writel(val & ~d->mask, info->base + reg);
+ 	raw_spin_unlock_irqrestore(&info->irq_lock, flags);
++	gpiochip_disable_irq(chip, irqd_to_hwirq(d));
  }
  
- static void nsp_gpio_irq_unmask(struct irq_data *d)
-@@ -201,6 +201,7 @@ static void nsp_gpio_irq_unmask(struct irq_data *d)
- 	struct nsp_gpio *chip = gpiochip_get_data(gc);
+ static void armada_37xx_irq_unmask(struct irq_data *d)
+@@ -557,6 +558,7 @@ static void armada_37xx_irq_unmask(struct irq_data *d)
+ 	u32 val, reg = IRQ_EN;
  	unsigned long flags;
  
-+	gpiochip_enable_irq(gc, irqd_to_hwirq(d));
- 	raw_spin_lock_irqsave(&chip->lock, flags);
- 	nsp_gpio_irq_set_mask(d, true);
- 	raw_spin_unlock_irqrestore(&chip->lock, flags);
-@@ -258,6 +259,16 @@ static int nsp_gpio_irq_set_type(struct irq_data *d, unsigned int type)
++	gpiochip_enable_irq(chip, irqd_to_hwirq(d));
+ 	armada_37xx_irq_update_reg(&reg, d);
+ 	raw_spin_lock_irqsave(&info->irq_lock, flags);
+ 	val = readl(info->base + reg);
+@@ -729,11 +731,30 @@ static unsigned int armada_37xx_irq_startup(struct irq_data *d)
  	return 0;
  }
  
-+static const struct irq_chip nsp_gpio_irq_chip = {
-+	.name = "gpio-a",
-+	.irq_ack = nsp_gpio_irq_ack,
-+	.irq_mask = nsp_gpio_irq_mask,
-+	.irq_unmask = nsp_gpio_irq_unmask,
-+	.irq_set_type = nsp_gpio_irq_set_type,
++static void armada_37xx_irq_print_chip(struct irq_data *d, struct seq_file *p)
++{
++	struct gpio_chip *chip = irq_data_get_irq_chip_data(d);
++	struct armada_37xx_pinctrl *info = gpiochip_get_data(chip);
++
++	seq_printf(p, info->data->name);
++}
++
++static const struct irq_chip armada_37xx_irqchip = {
++	.irq_ack = armada_37xx_irq_ack,
++	.irq_mask = armada_37xx_irq_mask,
++	.irq_unmask = armada_37xx_irq_unmask,
++	.irq_set_wake = armada_37xx_irq_set_wake,
++	.irq_set_type = armada_37xx_irq_set_type,
++	.irq_startup = armada_37xx_irq_startup,
++	.irq_print_chip = armada_37xx_irq_print_chip,
 +	.flags = IRQCHIP_IMMUTABLE,
 +	GPIOCHIP_IRQ_RESOURCE_HELPERS,
 +};
 +
- static int nsp_gpio_direction_input(struct gpio_chip *gc, unsigned gpio)
+ static int armada_37xx_irqchip_register(struct platform_device *pdev,
+ 					struct armada_37xx_pinctrl *info)
  {
- 	struct nsp_gpio *chip = gpiochip_get_data(gc);
-@@ -650,14 +661,6 @@ static int nsp_gpio_probe(struct platform_device *pdev)
- 	irq = platform_get_irq(pdev, 0);
- 	if (irq > 0) {
- 		struct gpio_irq_chip *girq;
--		struct irq_chip *irqc;
--
--		irqc = &chip->irqchip;
--		irqc->name = "gpio-a";
--		irqc->irq_ack = nsp_gpio_irq_ack;
--		irqc->irq_mask = nsp_gpio_irq_mask;
--		irqc->irq_unmask = nsp_gpio_irq_unmask;
--		irqc->irq_set_type = nsp_gpio_irq_set_type;
+ 	struct gpio_chip *gc = &info->gpio_chip;
+-	struct irq_chip *irqchip = &info->irq_chip;
+ 	struct gpio_irq_chip *girq = &gc->irq;
+ 	struct device_node *np = to_of_node(gc->fwnode);
+ 	struct device *dev = &pdev->dev;
+@@ -751,14 +772,7 @@ static int armada_37xx_irqchip_register(struct platform_device *pdev,
+ 	if (IS_ERR(info->base))
+ 		return PTR_ERR(info->base);
  
- 		val = readl(chip->base + NSP_CHIP_A_INT_MASK);
- 		val = val | NSP_CHIP_A_GPIO_INT_BIT;
-@@ -673,7 +676,7 @@ static int nsp_gpio_probe(struct platform_device *pdev)
- 		}
- 
- 		girq = &chip->gc.irq;
--		girq->chip = irqc;
-+		gpio_irq_chip_set_chip(girq, &nsp_gpio_irq_chip);
- 		/* This will let us handle the parent IRQ in the driver */
- 		girq->parent_handler = NULL;
- 		girq->num_parents = 0;
+-	irqchip->irq_ack = armada_37xx_irq_ack;
+-	irqchip->irq_mask = armada_37xx_irq_mask;
+-	irqchip->irq_unmask = armada_37xx_irq_unmask;
+-	irqchip->irq_set_wake = armada_37xx_irq_set_wake;
+-	irqchip->irq_set_type = armada_37xx_irq_set_type;
+-	irqchip->irq_startup = armada_37xx_irq_startup;
+-	irqchip->name = info->data->name;
+-	girq->chip = irqchip;
++	gpio_irq_chip_set_chip(girq, &armada_37xx_irqchip);
+ 	girq->parent_handler = armada_37xx_irq_handler;
+ 	/*
+ 	 * Many interrupts are connected to the parent interrupt
 
 -- 
 2.34.1
