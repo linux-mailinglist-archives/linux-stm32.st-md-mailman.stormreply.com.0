@@ -2,128 +2,75 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 805C46D7C7B
-	for <lists+linux-stm32@lfdr.de>; Wed,  5 Apr 2023 14:25:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A561D6D5ECA
+	for <lists+linux-stm32@lfdr.de>; Tue,  4 Apr 2023 13:16:15 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 43C5CC6A610;
-	Wed,  5 Apr 2023 12:25:52 +0000 (UTC)
-Received: from wnew2-smtp.messagingengine.com (wnew2-smtp.messagingengine.com
- [64.147.123.27])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5BDCFC6A614;
+	Tue,  4 Apr 2023 11:16:15 +0000 (UTC)
+Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com
+ [209.85.208.54])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EF65DC03FC1
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 58CE2C6A612
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  5 Apr 2023 12:25:49 +0000 (UTC)
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
- by mailnew.west.internal (Postfix) with ESMTP id 256102B06760;
- Wed,  5 Apr 2023 08:25:39 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute2.internal (MEProxy); Wed, 05 Apr 2023 08:25:48 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=cc
- :cc:content-transfer-encoding:content-type:content-type:date
- :date:from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:sender:subject:subject:to:to; s=fm3; t=
- 1680697538; x=1680704738; bh=ra217NNN+jZc6KJRT2qXuBOUmYWZS9orj2z
- niOS1IkI=; b=f7hReTkfeIxIdbCk6LMUEmXNh/8Un3OoNbvXdGfZwalPOkSxwXE
- b4T9znyrJefq22Y2syTGRRXP+3ut/i8xDpAdE4b51L9ZbNYm5Y2aRPEFrfyqxy5i
- ie5E5EVdbdhN6GAMM2MIeC2V8SH9O/mslf/tpPoVx5muluKo2+BId3XC/hcoANAl
- VF086V81bir4bMdX5HhPQ7OLtmkrqNHLKWMrM/LeQqSGwouIoEQGYCUS75DnrfLH
- vx123sEMDQxpXn7myhbTnrkj8tP70yqZUY/BvosTHDP5BUeCWgm17EjNmQ2Kil0l
- JmHKW7/vtUl/vJpO/BiBXY4NQRjcBVGHY4A==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-transfer-encoding
- :content-type:content-type:date:date:feedback-id:feedback-id
- :from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:sender:subject:subject:to:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
- 1680697538; x=1680704738; bh=ra217NNN+jZc6KJRT2qXuBOUmYWZS9orj2z
- niOS1IkI=; b=Eim1X+gGxDfIWkCW7Tu5hodpLwxyZV3fw5bO8fVQfObPq5yImdv
- E9nt5ngwZJYRn2FirXOFtNxCbu4lsxNPe456qH2p/npjmTHqf/vZ9mKp42FIHXEF
- Rv0mVKSA963ybvNuNHuyYfx7ZnrX9V1ZHNdlsrLokArgktO6+T0yrQ5f0vgvLovr
- Ggfg0SB2ZbMxJff8THPl5WdIuBoLU4HALQzDsbgq4xCgmc6P49r4dkThPVpoFnKf
- hseTtyMmmJCho8Cm3L0wEPBfHyZUAwTB5T1ZExzX4R6f0+UkS5b1+CcqKLHs6ePZ
- dIJ53ErJYK4t5pbatdQJ+mYeHrdaeAeI86g==
-X-ME-Sender: <xms:wWgtZCVvNuzoDATnIqnPPZXDjjLtbBQn11FfSb9jNuuRe3VQdPwqBg>
- <xme:wWgtZOmsGk_zcpcmWFJhtSudZeYeszviK9185WaBD-VQA4q0cXhbc-t_poQSNr5YK
- Swm9kfilzSVZjd-WGw>
-X-ME-Received: <xmr:wWgtZGZN4RGfzrewOBgiOxerhwx4mH3MWfUNAelq6cx9Y72km-E2LE1Dob137xcIZ3sSAEMCkzuVw8XIdtD0Q1TH3iLkh2Q>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrvdejuddghedvucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
- cujfgurhephfffufggtgfgkfhfjgfvvefosehtjeertdertdejnecuhfhrohhmpeforgig
- ihhmvgcutfhiphgrrhguuceomhgrgihimhgvsegtvghrnhhordhtvggthheqnecuggftrf
- grthhtvghrnhepvedvleeijeegvdekffehkeehieelhfeggfffheetkeeuledvtdeuffeh
- teeltdffnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomh
- epmhgrgihimhgvsegtvghrnhhordhtvggthh
-X-ME-Proxy: <xmx:wmgtZJUEYxuFlBgW5ITTIodg67Ti-qBLF0Y9epmePlLZwTnUwYWeEA>
- <xmx:wmgtZMmV5koPoxWHeBPBXtosWwtAX1DogWRnjHZUOD87ETtarU0bwg>
- <xmx:wmgtZOf48vIy5Q2_TKt9QYUHJIN2OxO6T1aVeuWGjaxJUcCK--j8Rw>
- <xmx:wmgtZJSqFTTvKdFpzl7BoRLbqCl6x7h04wN1HmJjswCZkYWSrenRyGvGOPQ>
-Feedback-ID: i8771445c:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 5 Apr 2023 08:25:36 -0400 (EDT)
-From: Maxime Ripard <maxime@cerno.tech>
-Date: Tue, 04 Apr 2023 12:11:55 +0200
+ Tue,  4 Apr 2023 11:16:13 +0000 (UTC)
+Received: by mail-ed1-f54.google.com with SMTP id eh3so129008356edb.11
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 04 Apr 2023 04:16:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20210112; t=1680606973;
+ h=user-agent:in-reply-to:content-disposition:mime-version:references
+ :message-id:subject:cc:to:from:date:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=a93jlFBEn37wnN+TcvU+K1AUTd72n1q82Rp2YlCTV3Q=;
+ b=UyIkfrOmB7rJCwWoTVRwQQD9qhL2RcE3FbLY5o+pvNKiqfTCRdmL+TaH24hsQTY+ic
+ /KodZsrgfNJPO93oHf67gUhdgVUgngVo1d/CxmFL4gU8qGrmHmcXfNtxCmkoESC7oU4H
+ xVRn2djQO0j39P1cxFDg/84Ef4keE0k/wYGBgDm39dTMyYDywBQ7CZwLW3tYQpzmf9en
+ yzJBz53R7NLVRYZN0nUvYPtv8HufFKZ1q+CcU/XYS/94AVd8BdW87AWvSyQJYmEisaat
+ mKHEYQ0ytW8SuPd6GQOlgZ+GnQX/viQ6V/e83g9YIbapJakUswthgweaQ2og+JRWrT0X
+ GaKw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112; t=1680606973;
+ h=user-agent:in-reply-to:content-disposition:mime-version:references
+ :message-id:subject:cc:to:from:date:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=a93jlFBEn37wnN+TcvU+K1AUTd72n1q82Rp2YlCTV3Q=;
+ b=clRODBAlYRmMaBhJ0kBpmZyGvBSnNQxD3plCVpLu972kUOKXCBt82ePf/NKHk8ZuHM
+ qJJ3D3MdHNRUncYg4eYEncKxmRq/iLxd+myI8U1YLqN0LIQXGTJKiiZH+gGYtXchUL+W
+ QUhFXB6fKdPv6ExcDn9XQhtZpefxzxBEHaNwAlHzEqQhlkLqXbU9FyHiYqfYmec8jJBo
+ ycpuhH6FDc2mNwetgQ0k5dAYTeXVs4oso1v8EUzrJGd3dJ5EO/C29OWjsLRkx1L29hRz
+ S1Ne2zz1PV8qxwWqrocAMt75CVabIY8bsXlKtFwxSRohQKMFwOwZtMBEhl2tY51K7l6t
+ FmSw==
+X-Gm-Message-State: AAQBX9f0s1kAbMHImiBxmLoqExC185MDB+dBpsTGd6y511eY5qeRra+6
+ G/8vRdc1/qDozbTYNQEJ2qU=
+X-Google-Smtp-Source: AKy350YX2rjJgE8ohoVGUGgdqkT4aMdrcxdH+2xwiWoRgZ0Iqukk70bnmVt/ZEgV6aKvJBaBqME0gg==
+X-Received: by 2002:a17:907:170a:b0:8dd:5710:a017 with SMTP id
+ le10-20020a170907170a00b008dd5710a017mr1740550ejc.4.1680606972817; 
+ Tue, 04 Apr 2023 04:16:12 -0700 (PDT)
+Received: from orome (p200300e41f1c0800f22f74fffe1f3a53.dip0.t-ipconnect.de.
+ [2003:e4:1f1c:800:f22f:74ff:fe1f:3a53])
+ by smtp.gmail.com with ESMTPSA id
+ f24-20020a170906825800b008bc8ad41646sm5815788ejx.157.2023.04.04.04.16.12
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 04 Apr 2023 04:16:12 -0700 (PDT)
+Date: Tue, 4 Apr 2023 13:16:10 +0200
+From: Thierry Reding <thierry.reding@gmail.com>
+To: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+Message-ID: <ZCwG-iyu43vKoFGu@orome>
+References: <20230402143025.2524443-1-u.kleine-koenig@pengutronix.de>
+ <20230402143025.2524443-12-u.kleine-koenig@pengutronix.de>
 MIME-Version: 1.0
-Message-Id: <20221018-clk-range-checks-fixes-v3-65-9a1358472d52@cerno.tech>
-References: <20221018-clk-range-checks-fixes-v3-0-9a1358472d52@cerno.tech>
-In-Reply-To: <20221018-clk-range-checks-fixes-v3-0-9a1358472d52@cerno.tech>
-To: Michael Turquette <mturquette@baylibre.com>,
- Stephen Boyd <sboyd@kernel.org>,
- =?utf-8?q?Andreas_F=C3=A4rber?= <afaerber@suse.de>,
- Manivannan Sadhasivam <mani@kernel.org>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Claudiu Beznea <claudiu.beznea@microchip.com>,
- Max Filippov <jcmvbkbc@gmail.com>,
- Charles Keepax <ckeepax@opensource.cirrus.com>,
- Richard Fitzgerald <rf@opensource.cirrus.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- David Lechner <david@lechnology.com>, Sekhar Nori <nsekhar@ti.com>,
- Abel Vesa <abelvesa@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, NXP Linux Team <linux-imx@nxp.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Dinh Nguyen <dinguyen@kernel.org>,
- Peter De Schrijver <pdeschrijver@nvidia.com>,
- Prashant Gaikwad <pgaikwad@nvidia.com>,
- Thierry Reding <thierry.reding@gmail.com>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Ulf Hansson <ulf.hansson@linaro.org>,
- Linus Walleij <linus.walleij@linaro.org>,
- David Airlie <airlied@gmail.com>,  Daniel Vetter <daniel@ffwll.ch>,
- Vinod Koul <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>,
- Alessandro Zummo <a.zummo@towertech.it>, Chen-Yu Tsai <wens@csie.org>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Samuel Holland <samuel@sholland.org>,
- Liam Girdwood <lgirdwood@gmail.com>,  Mark Brown <broonie@kernel.org>,
- Jaroslav Kysela <perex@perex.cz>,  Takashi Iwai <tiwai@suse.com>,
- Paul Cercueil <paul@crapouillou.net>,  Orson Zhai <orsonzhai@gmail.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Chunyan Zhang <zhang.lyra@gmail.com>
-X-Mailer: b4 0.12.1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1910; i=maxime@cerno.tech;
- h=from:subject:message-id; bh=LyE1v2/6bw3jiL0YUNQzMPdf0mqkUEJDhu2UMUH0hgk=;
- b=owGbwMvMwCX2+D1vfrpE4FHG02pJDCna33f4dR+sur5t2oLAT7/2VNx6M2HrBH+Tg1uVdd37n858
- W3LPp6OUhUGMi0FWTJElRth8SdypWa872fjmwcxhZQIZwsDFKQATKa9gZHhz2dG0eXeJWfTy68FR+v
- uPfdVV3ST/46S/w9cNDzc1L/7ByPCytvXxqVdd9zg3H2l1Xlpx8Vt/lEXQDqPCk3eWsOksW8IMAA==
-X-Developer-Key: i=maxime@cerno.tech; a=openpgp;
- fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
-Cc: linux-rtc@vger.kernel.org, alsa-devel@alsa-project.org,
- patches@opensource.cirrus.com, linux-actions@lists.infradead.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-renesas-soc@vger.kernel.org,
- linux-phy@lists.infradead.org, linux-mediatek@lists.infradead.org,
- Maxime Ripard <maxime@cerno.tech>, linux-tegra@vger.kernel.org,
- linux-mips@vger.kernel.org, linux-sunxi@lists.linux.dev,
- linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Subject: [Linux-stm32] [PATCH v3 65/65] clk: Forbid to register a mux
- without determine_rate
+In-Reply-To: <20230402143025.2524443-12-u.kleine-koenig@pengutronix.de>
+User-Agent: Mutt/2.2.10 (2023-03-25)
+Cc: kernel@pengutronix.de, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Jonathan Hunter <jonathanh@nvidia.com>, Eric Dumazet <edumazet@google.com>,
+ Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Jakub Kicinski <kuba@kernel.org>, linux-tegra@vger.kernel.org,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>, Paolo Abeni <pabeni@redhat.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next 11/11] net: stmmac: dwmac-tegra:
+ Convert to platform remove callback returning void
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -135,64 +82,72 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============5709407856313763451=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The determine_rate hook allows to select the proper parent and its rate
-for a given clock configuration. On another hand, set_parent is there to
-change the parent of a mux.
 
-Some clocks provide a set_parent hook but don't implement
-determine_rate. In such a case, set_parent is pretty much useless since
-the clock framework will always assume the current parent is to be used,
-and we will thus never change it.
+--===============5709407856313763451==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="OpE5E+f+NrCfJbvo"
+Content-Disposition: inline
 
-This situation can be solved in two ways:
-  - either we don't need to change the parent, and we thus shouldn't
-    implement set_parent;
-  - or we don't want to change the parent, in this case we should set
-    CLK_SET_RATE_NO_REPARENT;
-  - or we're missing a determine_rate implementation.
 
-The latter is probably just an oversight from the driver's author, and
-we should thus raise their awareness about the fact that the current
-state of the driver is confusing.
+--OpE5E+f+NrCfJbvo
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-All the drivers in-tree have been converted by now, so let's prevent any
-clock with set_parent but without determine_rate to register so that it
-can't sneak in again in the future.
+On Sun, Apr 02, 2023 at 04:30:25PM +0200, Uwe Kleine-K=C3=B6nig wrote:
+> The .remove() callback for a platform driver returns an int which makes
+> many driver authors wrongly assume it's possible to do error handling by
+> returning an error code. However the value returned is (mostly) ignored
+> and this typically results in resource leaks. To improve here there is a
+> quest to make the remove callback return void. In the first step of this
+> quest all drivers are converted to .remove_new() which already returns
+> void.
+>=20
+> Trivially convert this driver from always returning zero in the remove
+> callback to the void returning variant.
+>=20
+> Signed-off-by: Uwe Kleine-K=C3=B6nig <u.kleine-koenig@pengutronix.de>
+> ---
+>  drivers/net/ethernet/stmicro/stmmac/dwmac-tegra.c | 6 ++----
+>  1 file changed, 2 insertions(+), 4 deletions(-)
 
-Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Signed-off-by: Maxime Ripard <maxime@cerno.tech>
----
- drivers/clk/clk.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+Acked-by: Thierry Reding <treding@nvidia.com>
 
-diff --git a/drivers/clk/clk.c b/drivers/clk/clk.c
-index f9fc8730ed17..4c1f28fb8c1f 100644
---- a/drivers/clk/clk.c
-+++ b/drivers/clk/clk.c
-@@ -3746,6 +3746,13 @@ static int __clk_core_init(struct clk_core *core)
- 		goto out;
- 	}
- 
-+	if (core->ops->set_parent && !core->ops->determine_rate) {
-+		pr_err("%s: %s must implement .set_parent & .determine_rate\n",
-+			__func__, core->name);
-+		ret = -EINVAL;
-+		goto out;
-+	}
-+
- 	if (core->num_parents > 1 && !core->ops->get_parent) {
- 		pr_err("%s: %s must implement .get_parent as it has multi parents\n",
- 		       __func__, core->name);
+--OpE5E+f+NrCfJbvo
+Content-Type: application/pgp-signature; name="signature.asc"
 
--- 
-2.39.2
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmQsBvoACgkQ3SOs138+
+s6EduRAAv3uNT9SNrysZJ44HOk63A5CQb1xTEVAacJguS9BsNgRfH79RGsaT9jWp
+axQPQQcoyqH9pSmJLUdXyknDjQ0V2fLjCm7FlMTpPn+WGarF6FEBy2F/0Q7B30d/
+LIb1zYnuwNfW6rCWzZo/cTK/Neck8+zC7TQRbAg5PMrNGZadZf/wEpg+tBY4lL+X
+Dcrs4n+fD89x1VSEynqBIg3AyMFGsh1iWNQ9Icn7Hi9PUe2PiyUJmqmEPEwp6xEu
+qD3AwrN0jX+exBIn4BxojVms2alChLZvTDVzxWM2l217ANgALCWf/MQlBcGhuPpl
+j3wqdKpbRUcrg/B0BeFSQ1Fy2rrOnUbnexngxHsqG4voE6BZrXTicUjPH4pzOp7d
+KvEtXVVMmo5n3mXMI8PBUsJl3k3YQnMEo+Bu1JHf9q8EYrOmDLXkkopP/BmTXrN3
+WswMR7BcGyC1rkMJ6pmnAp0qvEd8E5BK5NM6I6npvs0qaqw6rzYLNylMQkAwLpgK
+lVNsi8Gl/XSFtJwADUurLKiZCy/nkNXWh7O080/EZlKPkhEnvWemUndATh29ClmP
+DI7BbFaLtnb73mTtfuBozbIiFsZMnu4KfCls72hS1zYrFJ9FahXTSE6ny1InV86T
+UMNUYLR2MpLbYdqCJ07gm/3no/ErA/L4IRmzAWPMOLPu2gg869U=
+=/3Yh
+-----END PGP SIGNATURE-----
+
+--OpE5E+f+NrCfJbvo--
+
+--===============5709407856313763451==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============5709407856313763451==--
