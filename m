@@ -2,36 +2,36 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 011246D805A
-	for <lists+linux-stm32@lfdr.de>; Wed,  5 Apr 2023 17:04:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 145326D805C
+	for <lists+linux-stm32@lfdr.de>; Wed,  5 Apr 2023 17:04:46 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BB3E5C6A606;
-	Wed,  5 Apr 2023 15:04:24 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CDF71C6A606;
+	Wed,  5 Apr 2023 15:04:45 +0000 (UTC)
 Received: from vern.gendns.com (vern.gendns.com [98.142.107.122])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 899B9C03FC3
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BA746C03FC3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  5 Apr 2023 15:04:23 +0000 (UTC)
+ Wed,  5 Apr 2023 15:04:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=lechnology.com; s=default; h=Content-Transfer-Encoding:Content-Type:
  In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
  :Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
  Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
  List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=KwsN1Jqgdt0Ru2Hhoc0LBYnmZhb8r5La/ON0Ev0Izhg=; b=Y+x4KEnYaxmTOeuiHyftGo9xdQ
- I1IkCDLcv6rx19nvnc017O7Q0VqCDu/q1lgaWg61g+UYbu9cqTokgl5+9DYvnSjmbBS3XgKXxpY3Q
- S11J4aG6c4qnzIG5yHCr/oioEBkYd+W6IFaxyucGat2uI5SFQAEeax52nY11iIGwn3haXiEgEunrY
- GE5ldbrx/L9zfJkJEcvT9/Iw5bVgh8UKVwKHUzD0TmBvaglCDwoIUaZTLqI/42TdooiVpNtHzagsr
- /5M9aotBK1c5PBNn4KWBcwtwjXsUxY1OdDbrvlDUkuwgElxvxLOuPdTvVcCbh3Sax5X6zA/ZvkOjL
- cTDrBcPw==;
-Received: from ip98-183-112-29.ok.ok.cox.net ([98.183.112.29]:45982
+ bh=9w+mHpl3Feo9gU6TGM0RoWAtGMwIO5vz3Gl4AH/wd0s=; b=ZvxTGezmCbRayrfaajPz6xpEHS
+ 9xqTZcht8r4gHITGoiwsva82Nok6b15BGWuZKWSrLl+I3zBJjcFwf+UVlJquHBRv6wFvYI9XwrFAK
+ AgzAnA6iLxp8/KslBLav3VPrwP7yzajCOoDMluwwA0p5IDJNk2ky2i4WBjsguubUmD9qlk9wIZdLh
+ Rs9LU80gk8BAFm6YxVWrvCkmN0PF+4w7b3AUJGiu8cG62CLZzIb1Vo9yu+vnZpxcqYUXpp9KjjPdh
+ et6d+RYaSjzfpPU1FvXvLAARE6lEgkgpZ0BcGTPgYxK70fO1YQVl313vPOEpltdyn9itg7zaF7T+j
+ NqJK3XzQ==;
+Received: from ip98-183-112-29.ok.ok.cox.net ([98.183.112.29]:57812
  helo=[192.168.0.134]) by vern.gendns.com with esmtpsa (TLS1.2) tls
  TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
- (envelope-from <david@lechnology.com>) id 1pk4gF-0004Ux-2Q;
- Wed, 05 Apr 2023 11:04:12 -0400
-Message-ID: <ca8efcd8-b2f1-b84d-8087-7f60795f0c0e@lechnology.com>
-Date: Wed, 5 Apr 2023 10:04:04 -0500
+ (envelope-from <david@lechnology.com>) id 1pk4gc-0004aP-2T;
+ Wed, 05 Apr 2023 11:04:35 -0400
+Message-ID: <2c8c6e3e-835e-f545-2a57-8e037d32fe9b@lechnology.com>
+Date: Wed, 5 Apr 2023 10:04:28 -0500
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.9.0
@@ -71,9 +71,9 @@ To: Maxime Ripard <maxime@cerno.tech>,
  Orson Zhai <orsonzhai@gmail.com>, Baolin Wang
  <baolin.wang@linux.alibaba.com>, Chunyan Zhang <zhang.lyra@gmail.com>
 References: <20221018-clk-range-checks-fixes-v3-0-9a1358472d52@cerno.tech>
- <20221018-clk-range-checks-fixes-v3-22-9a1358472d52@cerno.tech>
+ <20221018-clk-range-checks-fixes-v3-21-9a1358472d52@cerno.tech>
 From: David Lechner <david@lechnology.com>
-In-Reply-To: <20221018-clk-range-checks-fixes-v3-22-9a1358472d52@cerno.tech>
+In-Reply-To: <20221018-clk-range-checks-fixes-v3-21-9a1358472d52@cerno.tech>
 X-AntiAbuse: This header was added to track abuse,
  please include it with any abuse report
 X-AntiAbuse: Primary Hostname - vern.gendns.com
@@ -95,7 +95,7 @@ Cc: linux-rtc@vger.kernel.org, alsa-devel@alsa-project.org,
  linux-sunxi@lists.linux.dev, linux-clk@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org,
  AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Subject: Re: [Linux-stm32] [PATCH v3 22/65] clk: davinci: da8xx-cfgchip: Add
+Subject: Re: [Linux-stm32] [PATCH v3 21/65] clk: davinci: da8xx-cfgchip: Add
  a determine_rate hook
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -114,8 +114,8 @@ Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 On 4/4/23 5:11 AM, Maxime Ripard wrote:
-> The Davinci DA8xxx cfgchip "clk48" clock implements a mux with a
-> set_parent hook, but doesn't provide a determine_rate implementation.
+> The Davinci DA8xxx cfgchip mux clock implements a mux with a set_parent
+> hook, but doesn't provide a determine_rate implementation.
 > 
 > This is a bit odd, since set_parent() is there to, as its name implies,
 > change the parent of a clock. However, the most likely candidate to
