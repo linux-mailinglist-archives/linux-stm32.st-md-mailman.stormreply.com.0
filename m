@@ -2,42 +2,42 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A508E6D8121
-	for <lists+linux-stm32@lfdr.de>; Wed,  5 Apr 2023 17:10:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A960E6D8126
+	for <lists+linux-stm32@lfdr.de>; Wed,  5 Apr 2023 17:10:50 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3B6F2C6A606;
-	Wed,  5 Apr 2023 15:10:08 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6C622C6A60A;
+	Wed,  5 Apr 2023 15:10:50 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F013FC03FC3
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 18D01C03FC3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  5 Apr 2023 15:10:06 +0000 (UTC)
+ Wed,  5 Apr 2023 15:10:49 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id CD7E2626EA;
- Wed,  5 Apr 2023 15:10:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 604D1C433D2;
- Wed,  5 Apr 2023 15:09:52 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id D947E625CB;
+ Wed,  5 Apr 2023 15:10:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A41DAC433D2;
+ Wed,  5 Apr 2023 15:10:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1680707405;
- bh=rJ3M+zYS15q5Quad0wzrZG7xL5+9ADdP5E4EpauPQDA=;
+ s=k20201202; t=1680707447;
+ bh=D4YX5DK0pun7qG4OSMVc8e9vaDN+H7CmPuWpZRhiBTU=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=uwvoLG9Mg6dizDLr402j7UdbsqsQxuYjteYBhYwhrJlAsrbTC9nd6DQo1IzXxCIaN
- 9U72nBXMiZahaLCTdTcDIyoRUQ+ocS5hUtOmf5c/huPkH9rNDWmoozW7pynZHzH+D0
- BGkdmKh+F8uLhLLPmXVxsc28WnJBRX2V3SfGP8T4wKvdqas3AfRJERK4rgMzIwhb2E
- qUgFyspMctrP+YLPss7RMpYkfaXUxCSqnJxvkR2qxW/mhhhcEOUM7AD8vA30RzOHfq
- MNkaCuaeprkDAK/eetegajbSH5jkLfbeRNdoBlc7xa5It9mB4L6J4Y1vI1mBg8lIkR
- DpSUyJSUzAZBg==
-Date: Wed, 5 Apr 2023 16:09:49 +0100
+ b=H++unxUb7nt0bWB0cZRIpirjyl6fMUIanjR0IybKKbOFCDZQ7fl3nGRfgXxHBmOTc
+ aLr8pCNoVrScF3nXsYVeVlit6tFVqt3RTHudqPjdJeU4XNb3Fm+L6FyB4ZGRpA8mku
+ uHDprHNH/IIWooGinODcsKEp00ZKOvzTS5e+wLSdqGlH/MPkZGOJVa2hJjKHooD4a0
+ m1oiZgR8OnAyymsDZMT9AjB6JLhQsxqkpcXhI/shb8qZ4C8ggWEHL6au6GNGlms1bf
+ 2LcKx7iD5BDrkm8i9BaGwlDiJoOZSwNIUEO5nDNUcLF6Xb9gQmEcDK0dMfWFuHYUX9
+ 29DfTcAe3KLQg==
+Date: Wed, 5 Apr 2023 16:10:25 +0100
 From: Mark Brown <broonie@kernel.org>
 To: Maxime Ripard <maxime@cerno.tech>
-Message-ID: <6b83dd87-3819-4db4-bd07-92487a1df09d@sirena.org.uk>
+Message-ID: <692983f2-4aef-4ab9-9777-43f46b9cb4ba@sirena.org.uk>
 References: <20221018-clk-range-checks-fixes-v3-0-9a1358472d52@cerno.tech>
- <20221018-clk-range-checks-fixes-v3-63-9a1358472d52@cerno.tech>
+ <20221018-clk-range-checks-fixes-v3-64-9a1358472d52@cerno.tech>
 MIME-Version: 1.0
-In-Reply-To: <20221018-clk-range-checks-fixes-v3-63-9a1358472d52@cerno.tech>
+In-Reply-To: <20221018-clk-range-checks-fixes-v3-64-9a1358472d52@cerno.tech>
 X-Cookie: 1 bulls, 3 cows.
 Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
  Prashant Gaikwad <pgaikwad@nvidia.com>,
@@ -78,7 +78,7 @@ Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
  Vinod Koul <vkoul@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Chunyan Zhang <zhang.lyra@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
  Claudiu Beznea <claudiu.beznea@microchip.com>
-Subject: Re: [Linux-stm32] [PATCH v3 63/65] ASoC: tlv320aic32x4: pll: Switch
+Subject: Re: [Linux-stm32] [PATCH v3 64/65] ASoC: tlv320aic32x4: div: Switch
  to determine_rate
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -91,22 +91,22 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============7454468661610024843=="
+Content-Type: multipart/mixed; boundary="===============7032784879571823550=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 
---===============7454468661610024843==
+--===============7032784879571823550==
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="bXPsTMNAHQ2iLa6U"
+	protocol="application/pgp-signature"; boundary="3Lzv7qB7yUCBJADV"
 Content-Disposition: inline
 
 
---bXPsTMNAHQ2iLa6U
+--3Lzv7qB7yUCBJADV
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-On Tue, Apr 04, 2023 at 12:11:53PM +0200, Maxime Ripard wrote:
+On Tue, Apr 04, 2023 at 12:11:54PM +0200, Maxime Ripard wrote:
 
 > The driver does implement round_rate() though, which means that we can
 > change the rate of the clock, but we will never get to change the
@@ -123,24 +123,24 @@ Similar comments to the other patch, I'm pretty sure this is just
 surprising design on the part of the clock API and we should just allow
 reparenting.
 
---bXPsTMNAHQ2iLa6U
+--3Lzv7qB7yUCBJADV
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmQtjzwACgkQJNaLcl1U
-h9AOwgf9ErN1u2S7sQlFKj2SeLpE5lRKnNP6D1ooc6560nzhA27lBtrYHbRW8SJl
-T+kbhVrNtrlNbq+4ODnnfurtCWZnzgv4x6SDSb4ifzjckcCo4hjqHk9kcGQk/0Cw
-pe5S6KjNiGE3LWSWa85iqnAHH8XPVms/VcjAtDbLdiXBqV0fBmvKHpKkqpQ2IKiJ
-CPVabkZYMXj4Qh+tGAScos2ZPgNI6nG1euebgm1iPDvutLxcxU8RVHA++BVKNa62
-/ijunLrZY+U2Msq+RZQGuSWr7TfdD1DUhxhdnTG4Hjm4Q3r0KaWeixGyICYY6TyC
-r4CUzpWuZDn+9YNx2ETW7ACv6ayuMg==
-=P5db
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmQtj2AACgkQJNaLcl1U
+h9C6nwf/eAXWoy2nqSW5TGkiJhKHJv8x94Toi8TRODFF+R/hoCeBiwbDpLoGU2W+
+XtYiCa4AsVVTQShMscEuygSt4HqR2Hm7gaw+SoRwfdX/dEpqMCCF1Uzc9IAgRRv/
+3aWJLZtx/5Mpyu3eaA6b7ul2tFP8PDE90ePyk1zHCZGUE189FK95s3Xc6zmVnuy2
+Es8Td9JeVAZhnxCyLYGLVjoUw8/LsBEXAQWpSr/ayacNPTQa9PlPM3k/HCggwR7g
+3NRnovXN1XYJ2pkkaN9RB9yifiB9Doz8KnLhSJVYG2lIaFMyYDSuYFu2zEIa8M/y
+YabesVhSGONiNYKoP8QmdjTZqKi2nw==
+=i5C8
 -----END PGP SIGNATURE-----
 
---bXPsTMNAHQ2iLa6U--
+--3Lzv7qB7yUCBJADV--
 
---===============7454468661610024843==
+--===============7032784879571823550==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -151,4 +151,4 @@ Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
 
---===============7454468661610024843==--
+--===============7032784879571823550==--
