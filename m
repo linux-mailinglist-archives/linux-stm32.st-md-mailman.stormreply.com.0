@@ -2,98 +2,76 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4208C6D8312
-	for <lists+linux-stm32@lfdr.de>; Wed,  5 Apr 2023 18:09:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 15F656D846F
+	for <lists+linux-stm32@lfdr.de>; Wed,  5 Apr 2023 19:02:22 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E4D79C6A606;
-	Wed,  5 Apr 2023 16:09:16 +0000 (UTC)
-Received: from vern.gendns.com (vern.gendns.com [98.142.107.122])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B4809C6A606;
+	Wed,  5 Apr 2023 17:02:21 +0000 (UTC)
+Received: from mail-oa1-f43.google.com (mail-oa1-f43.google.com
+ [209.85.160.43])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E0D4BC03FC1
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5459EC03FC3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  5 Apr 2023 16:09:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=lechnology.com; s=default; h=Content-Transfer-Encoding:Content-Type:
- In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
- :Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
- Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
- List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=PEOSsUi8JIMvoW7QnnkpkkJijxo4IUuMnZ9vv3EjUhQ=; b=PlcvWllVCZZLIxn7TA0uYZOD2i
- 8Timk2idYv+lLO3yZJhWhHPsl92ZREHTEkcZ2uj1e53hz36DkB/efojzcWFV0Na8cR9Qj+10qLhOH
- ta3+36sHegS1o46TQyP99X9cQQUBT/Z1QMqvJ9krER9Ob1/RWq++SuzdzpDHI3Xhy5MHfqna5eIZw
- +3KCwr3As0xZzcRdS0d74nyj+RIivO7MbcvRaGz8ll694eT/OgE8InMgGs8kJwhgkR/6hUQpNlGNz
- Za3hBrO3EltLq0JnttfLThWdO07VZ32OqVzWbWH2mgZNY1LmC2nLtlkLnHo1jx4ghOCQVGFpuJj4L
- hqCUbhxg==;
-Received: from ip98-183-112-29.ok.ok.cox.net ([98.183.112.29]:48320
- helo=[192.168.0.134]) by vern.gendns.com with esmtpsa (TLS1.2) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
- (envelope-from <david@lechnology.com>) id 1pk5gX-00020w-28;
- Wed, 05 Apr 2023 12:08:34 -0400
-Message-ID: <9d163cc7-d7ee-55e8-c01d-a1d4b3b19877@lechnology.com>
-Date: Wed, 5 Apr 2023 11:07:56 -0500
+ Wed,  5 Apr 2023 17:02:20 +0000 (UTC)
+Received: by mail-oa1-f43.google.com with SMTP id
+ 586e51a60fabf-17fcc07d6c4so25159644fac.8
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 05 Apr 2023 10:02:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20210112; t=1680714139;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:sender:from:to:cc:subject:date:message-id
+ :reply-to; bh=wJdooDkKozVkmq/jE5ZIJWHR45XBypuBSfKalkLMI0w=;
+ b=lhndkTBq464U/Xt0gXIA3bzt6cy6hrEA9CqJAkmYdK2UONW6KBlkuDpUphZApxzZ9o
+ yH+WHRlywqpAaRY1ZtroZg+JfQkLAfyKahIkrCYlwB8BXLszNLKTUN0LxaTxuFJpxv/J
+ S2qbhbPM09ZG6KYFJPTlz29MDb3EjQCWPS/ogkmwnK4Ok3hQVrUk8DaF1hLSvfHFz2MM
+ IN/5d8GU44EBeqpNMLWKF4dmwjDfDmJYym1vvYwa+NWi0bSwStQADBYpJ2H27HZ2SAUm
+ +VswydxOZfluEWZLiH8oDcX3aCdtzHI8rUg8jISF3gXISZ067fWckPPrRZxI4ec1rMwD
+ FOHQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112; t=1680714139;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:sender:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=wJdooDkKozVkmq/jE5ZIJWHR45XBypuBSfKalkLMI0w=;
+ b=U2bGng6TScf3T/G5hqh7OZor9q2S8r8L1CQsKULc4M0VCmbR/dWE8xpEzKeLxFKtkZ
+ 9fmaZYGTyxKR2vYjzkcqOiF6xKIK7iVKHWqxNHNl5uvyBZNrUevPvz9fuqFxj9NPTlLC
+ wIMgQrSbRFpTud1QS/Emckn2ueZrtcyb+KcxB52KXNvZ2NHHAyR6LyO4/3vvW3HqvmQP
+ c3JKLfdCK+bXXp47LUsuzO7TwpavLoyTP4f7O1U96OQQb/plg1Fg+3Iz82o2y8uiZv79
+ PNXC7NK50lm5hcfEJXuJEkt8zipOJkeExTy22WoeG+svxf+RFNSCjjA53H7ta5PJweYq
+ qK/g==
+X-Gm-Message-State: AAQBX9cPNAn8N473VRh+3LZqWmg5vccVyK1UjTMJNBJTfbBqe2JKsGAe
+ td23jfxbFKm5g7K2wCG0YtB+Zgof9Us=
+X-Google-Smtp-Source: AKy350Y+q+FZUc+o6NJRWKav1W5Jicca/zmUWi5GHYLjZcSC8DIl2a9Q6sS0FbYDYCYe31KADbNeuQ==
+X-Received: by 2002:a05:6870:6025:b0:17a:cb34:758a with SMTP id
+ t37-20020a056870602500b0017acb34758amr4109941oaa.34.1680714139060; 
+ Wed, 05 Apr 2023 10:02:19 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:329c:23ff:fee3:9d7c])
+ by smtp.gmail.com with ESMTPSA id
+ s15-20020a0568301e0f00b006a1508d348dsm7177806otr.22.2023.04.05.10.02.17
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 05 Apr 2023 10:02:18 -0700 (PDT)
+Date: Wed, 5 Apr 2023 10:02:16 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Michael Sit Wei Hong <michael.wei.hong.sit@intel.com>
+Message-ID: <5bb39f85-7ef0-4cbb-a06b-0d6431ab09b7@roeck-us.net>
+References: <20230324081656.2969663-1-michael.wei.hong.sit@intel.com>
+ <20230324081656.2969663-3-michael.wei.hong.sit@intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.9.0
-Content-Language: en-US
-To: Maxime Ripard <maxime@cerno.tech>
-References: <20221018-clk-range-checks-fixes-v3-0-9a1358472d52@cerno.tech>
- <20221018-clk-range-checks-fixes-v3-54-9a1358472d52@cerno.tech>
- <04f5d305-9992-bcdc-cd54-111eb8254155@lechnology.com>
- <3nyoulu5eba6eyo644crhbtog63jh7vockbp7dz6mxquj2omsn@j56kn6vkbktg>
-From: David Lechner <david@lechnology.com>
-In-Reply-To: <3nyoulu5eba6eyo644crhbtog63jh7vockbp7dz6mxquj2omsn@j56kn6vkbktg>
-X-AntiAbuse: This header was added to track abuse,
- please include it with any abuse report
-X-AntiAbuse: Primary Hostname - vern.gendns.com
-X-AntiAbuse: Original Domain - st-md-mailman.stormreply.com
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - lechnology.com
-X-Get-Message-Sender-Via: vern.gendns.com: authenticated_id:
- davidmain+lechnology.com/only user confirmed/virtual account not confirmed
-X-Authenticated-Sender: vern.gendns.com: davidmain@lechnology.com
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Prashant Gaikwad <pgaikwad@nvidia.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Michael Turquette <mturquette@baylibre.com>, Sekhar Nori <nsekhar@ti.com>,
- dri-devel@lists.freedesktop.org, Liam Girdwood <lgirdwood@gmail.com>,
- Paul Cercueil <paul@crapouillou.net>, Max Filippov <jcmvbkbc@gmail.com>,
- Thierry Reding <thierry.reding@gmail.com>, linux-phy@lists.infradead.org,
- Fabio Estevam <festevam@gmail.com>, linux-clk@vger.kernel.org,
- Abel Vesa <abelvesa@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>,
- Samuel Holland <samuel@sholland.org>, David Airlie <airlied@gmail.com>,
- Takashi Iwai <tiwai@suse.com>, linux-tegra@vger.kernel.org,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Jonathan Hunter <jonathanh@nvidia.com>, Chen-Yu Tsai <wens@csie.org>,
- NXP Linux Team <linux-imx@nxp.com>, Orson Zhai <orsonzhai@gmail.com>,
- Ulf Hansson <ulf.hansson@linaro.org>, linux-mips@vger.kernel.org,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Linus Walleij <linus.walleij@linaro.org>, linux-rtc@vger.kernel.org,
- Charles Keepax <ckeepax@opensource.cirrus.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, alsa-devel@alsa-project.org,
- Manivannan Sadhasivam <mani@kernel.org>, linux-kernel@vger.kernel.org,
- Sascha Hauer <s.hauer@pengutronix.de>, linux-actions@lists.infradead.org,
- Richard Fitzgerald <rf@opensource.cirrus.com>, Mark Brown <broonie@kernel.org>,
- linux-mediatek@lists.infradead.org,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Matthias Brugger <matthias.bgg@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Jaroslav Kysela <perex@perex.cz>, linux-arm-kernel@lists.infradead.org,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Alessandro Zummo <a.zummo@towertech.it>, linux-sunxi@lists.linux.dev,
- Stephen Boyd <sboyd@kernel.org>, patches@opensource.cirrus.com,
- Peter De Schrijver <pdeschrijver@nvidia.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- =?UTF-8?Q?Andreas_F=c3=a4rber?= <afaerber@suse.de>,
- linux-renesas-soc@vger.kernel.org, Dinh Nguyen <dinguyen@kernel.org>,
- Vinod Koul <vkoul@kernel.org>, Pengutronix Kernel Team <kernel@pengutronix.de>,
- Chunyan Zhang <zhang.lyra@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
- Claudiu Beznea <claudiu.beznea@microchip.com>
-Subject: Re: [Linux-stm32] [PATCH v3 54/65] clk: da8xx: clk48: Switch to
-	determine_rate
+Content-Disposition: inline
+In-Reply-To: <20230324081656.2969663-3-michael.wei.hong.sit@intel.com>
+Cc: linux-kernel@vger.kernel.org, Voon Weifeng <weifeng.voon@intel.com>,
+ linux@armlinux.org.uk, netdev@vger.kernel.org,
+ Lai Peter Jun Ann <peter.jun.ann.lai@intel.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
+ Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Jakub Kicinski <kuba@kernel.org>, Ong Boon Leong <boon.leong.ong@intel.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Looi Hong Aun <hong.aun.looi@intel.com>, Paolo Abeni <pabeni@redhat.com>,
+ "David S . Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net v3 2/3] net: stmmac: check if MAC
+ needs to attach to a PHY
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -105,44 +83,74 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 4/5/23 10:22 AM, Maxime Ripard wrote:
-> Hi David,
-> 
-> On Wed, Apr 05, 2023 at 10:03:24AM -0500, David Lechner wrote:
->> On 4/4/23 5:11 AM, Maxime Ripard wrote:
->>> The TI DA8xx USB0 clk48 clocks implements a mux with a set_parent
->>> hook, but doesn't provide a determine_rate implementation.
->>>
->>> This is a bit odd, since set_parent() is there to, as its name implies,
->>> change the parent of a clock. However, the most likely candidate to
->>> trigger that parent change is a call to clk_set_rate(), with
->>> determine_rate() figuring out which parent is the best suited for a
->>> given rate.
->>>
->>
->> As mentioned in my previous review, parent is selected by device
->> tree and should never be changed after init.
-> 
-> Great minds think alike then, because the driver implements exactly
-> that, either before or after that patch.
-> 
-> That patch makes the current behaviour explicit but doesn't change it in
-> any way.
-> 
-> So I guess that means that I can add your Acked-by on the three patches
-> you reviewed with the same message?
-> 
-> Maxime
+Hi,
 
-Yes, preferably with a simplified commit message.
+On Fri, Mar 24, 2023 at 04:16:55PM +0800, Michael Sit Wei Hong wrote:
+> After the introduction of the fixed-link support, the MAC driver
+> no longer attempt to scan for a PHY to attach to. This causes the
+> non fixed-link setups to stop working.
+> 
+> Using the phylink_expects_phy() to check and determine if the MAC
+> should expect and attach a PHY.
+> 
+> Fixes: ab21cf920928 ("net: stmmac: make mdio register skips PHY scanning for fixed-link")
+> Signed-off-by: Michael Sit Wei Hong <michael.wei.hong.sit@intel.com>
+> Signed-off-by: Lai Peter Jun Ann <peter.jun.ann.lai@intel.com>
 
-Acked-by: David Lechner <david@lechnology.com>
+With this patch in linux-next, the orangepi-pc qemu emulation fails to
+bring up the Ethernet interface. The following error is seen.
 
+[   12.482401] dwmac-sun8i 1c30000.ethernet eth0: Register MEM_TYPE_PAGE_POOL RxQ-0
+[   12.487789] dwmac-sun8i 1c30000.ethernet eth0: PHY [mdio_mux-0.1:01] driver [Generic PHY] (irq=POLL)
+[   12.488177] dwmac-sun8i 1c30000.ethernet eth0: no phy found
+[   12.488295] dwmac-sun8i 1c30000.ethernet eth0: __stmmac_open: Cannot attach to PHY (error: -19)
+
+Reverting this patch fixes the problem.
+
+> ---
+>  drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> index 8f543c3ab5c5..41f0f3b74933 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> @@ -1135,6 +1135,7 @@ static int stmmac_init_phy(struct net_device *dev)
+>  {
+>  	struct stmmac_priv *priv = netdev_priv(dev);
+>  	struct fwnode_handle *fwnode;
+> +	bool phy_needed;
+>  	int ret;
+>  
+>  	fwnode = of_fwnode_handle(priv->plat->phylink_node);
+> @@ -1144,10 +1145,11 @@ static int stmmac_init_phy(struct net_device *dev)
+>  	if (fwnode)
+>  		ret = phylink_fwnode_phy_connect(priv->phylink, fwnode, 0);
+>  
+> +	phy_needed = phylink_expects_phy(priv->phylink);
+>  	/* Some DT bindings do not set-up the PHY handle. Let's try to
+>  	 * manually parse it
+>  	 */
+> -	if (!fwnode || ret) {
+> +	if (!fwnode || phy_needed || ret) {
+
+I don't really understand this condition. It starts taking this path even if ret == 0
+and fwnode != NULL if phy_needed is set. That means this path is now taken even if
+phylink_fwnode_phy_connect() returned no error. That seems odd.
+
+Guenter
+
+>  		int addr = priv->plat->phy_addr;
+>  		struct phy_device *phydev;
+>  
+> -- 
+> 2.34.1
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
