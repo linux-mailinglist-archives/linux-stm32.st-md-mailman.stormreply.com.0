@@ -2,45 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 541DF6D81FF
-	for <lists+linux-stm32@lfdr.de>; Wed,  5 Apr 2023 17:34:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4208C6D8312
+	for <lists+linux-stm32@lfdr.de>; Wed,  5 Apr 2023 18:09:17 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 15B3DC6A606;
-	Wed,  5 Apr 2023 15:34:50 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 185B1C03FC1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  5 Apr 2023 15:34:48 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E4D79C6A606;
+	Wed,  5 Apr 2023 16:09:16 +0000 (UTC)
+Received: from vern.gendns.com (vern.gendns.com [98.142.107.122])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id D76FB623C3;
- Wed,  5 Apr 2023 15:34:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF7C9C433EF;
- Wed,  5 Apr 2023 15:34:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1680708886;
- bh=q6hazTR3zs7E7OVM3zxpzK5DagX6jtQENEamOL0SGKU=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=mlbEhXatZkXJ9X7FsGvPf2rH95VpY5tOnyIMJWR/0y9to3LuusuWOEW94RzKcDlKg
- HsFf5CsPOKukH8P5uoSP2Z0JlxMdLwy9OxF/8G86S5WBCQNQtEOwVMDqSea8cvrsDU
- 564oj+TiTuatTLbxixAITrHG3+c5+iQ5kEWuaj8LLDEFmeZMfABdscXZNA/eAMWJAk
- 0YkRM5fCov8t3qCX2aBvV3kmH3qO4N9tKQnMqdz4QY5qygfyDOUcQlTmMnAu3at4ih
- jXuoUGUjvrX+RS3OfX29rQcD6mKS146C1VyprHv8nlDm6+/mgIZ+D1r/IpS6sIO5UV
- 4+HTzWQ25QIJA==
-Date: Wed, 5 Apr 2023 16:34:31 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Maxime Ripard <maxime@cerno.tech>
-Message-ID: <fcc11e4d-eba6-4eff-b3e5-9488a4da84c3@sirena.org.uk>
-References: <20221018-clk-range-checks-fixes-v3-0-9a1358472d52@cerno.tech>
- <20221018-clk-range-checks-fixes-v3-43-9a1358472d52@cerno.tech>
- <01f32440-8dd2-4030-9006-a3123be55845@sirena.org.uk>
- <erm4iq3mygnrr4h2gd5cag3sfuovv47ibdqsbmxcfabngvnwy4@z63ksvj55zuu>
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E0D4BC03FC1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed,  5 Apr 2023 16:09:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=lechnology.com; s=default; h=Content-Transfer-Encoding:Content-Type:
+ In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
+ :Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+ Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+ List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=PEOSsUi8JIMvoW7QnnkpkkJijxo4IUuMnZ9vv3EjUhQ=; b=PlcvWllVCZZLIxn7TA0uYZOD2i
+ 8Timk2idYv+lLO3yZJhWhHPsl92ZREHTEkcZ2uj1e53hz36DkB/efojzcWFV0Na8cR9Qj+10qLhOH
+ ta3+36sHegS1o46TQyP99X9cQQUBT/Z1QMqvJ9krER9Ob1/RWq++SuzdzpDHI3Xhy5MHfqna5eIZw
+ +3KCwr3As0xZzcRdS0d74nyj+RIivO7MbcvRaGz8ll694eT/OgE8InMgGs8kJwhgkR/6hUQpNlGNz
+ Za3hBrO3EltLq0JnttfLThWdO07VZ32OqVzWbWH2mgZNY1LmC2nLtlkLnHo1jx4ghOCQVGFpuJj4L
+ hqCUbhxg==;
+Received: from ip98-183-112-29.ok.ok.cox.net ([98.183.112.29]:48320
+ helo=[192.168.0.134]) by vern.gendns.com with esmtpsa (TLS1.2) tls
+ TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
+ (envelope-from <david@lechnology.com>) id 1pk5gX-00020w-28;
+ Wed, 05 Apr 2023 12:08:34 -0400
+Message-ID: <9d163cc7-d7ee-55e8-c01d-a1d4b3b19877@lechnology.com>
+Date: Wed, 5 Apr 2023 11:07:56 -0500
 MIME-Version: 1.0
-In-Reply-To: <erm4iq3mygnrr4h2gd5cag3sfuovv47ibdqsbmxcfabngvnwy4@z63ksvj55zuu>
-X-Cookie: 1 bulls, 3 cows.
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.9.0
+Content-Language: en-US
+To: Maxime Ripard <maxime@cerno.tech>
+References: <20221018-clk-range-checks-fixes-v3-0-9a1358472d52@cerno.tech>
+ <20221018-clk-range-checks-fixes-v3-54-9a1358472d52@cerno.tech>
+ <04f5d305-9992-bcdc-cd54-111eb8254155@lechnology.com>
+ <3nyoulu5eba6eyo644crhbtog63jh7vockbp7dz6mxquj2omsn@j56kn6vkbktg>
+From: David Lechner <david@lechnology.com>
+In-Reply-To: <3nyoulu5eba6eyo644crhbtog63jh7vockbp7dz6mxquj2omsn@j56kn6vkbktg>
+X-AntiAbuse: This header was added to track abuse,
+ please include it with any abuse report
+X-AntiAbuse: Primary Hostname - vern.gendns.com
+X-AntiAbuse: Original Domain - st-md-mailman.stormreply.com
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - lechnology.com
+X-Get-Message-Sender-Via: vern.gendns.com: authenticated_id:
+ davidmain+lechnology.com/only user confirmed/virtual account not confirmed
+X-Authenticated-Sender: vern.gendns.com: davidmain@lechnology.com
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
  Prashant Gaikwad <pgaikwad@nvidia.com>,
  Geert Uytterhoeven <geert+renesas@glider.be>,
@@ -59,29 +73,27 @@ Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
  Luca Ceresoli <luca.ceresoli@bootlin.com>,
  Linus Walleij <linus.walleij@linaro.org>, linux-rtc@vger.kernel.org,
  Charles Keepax <ckeepax@opensource.cirrus.com>,
- David Lechner <david@lechnology.com>, alsa-devel@alsa-project.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, alsa-devel@alsa-project.org,
  Manivannan Sadhasivam <mani@kernel.org>, linux-kernel@vger.kernel.org,
  Sascha Hauer <s.hauer@pengutronix.de>, linux-actions@lists.infradead.org,
- Richard Fitzgerald <rf@opensource.cirrus.com>,
+ Richard Fitzgerald <rf@opensource.cirrus.com>, Mark Brown <broonie@kernel.org>,
  linux-mediatek@lists.infradead.org,
  Baolin Wang <baolin.wang@linux.alibaba.com>,
  Matthias Brugger <matthias.bgg@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Jaroslav Kysela <perex@perex.cz>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- linux-arm-kernel@lists.infradead.org,
+ Jaroslav Kysela <perex@perex.cz>, linux-arm-kernel@lists.infradead.org,
  AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
  Alessandro Zummo <a.zummo@towertech.it>, linux-sunxi@lists.linux.dev,
  Stephen Boyd <sboyd@kernel.org>, patches@opensource.cirrus.com,
  Peter De Schrijver <pdeschrijver@nvidia.com>,
  linux-stm32@st-md-mailman.stormreply.com,
  Nicolas Ferre <nicolas.ferre@microchip.com>,
- Andreas =?iso-8859-1?Q?F=E4rber?= <afaerber@suse.de>,
+ =?UTF-8?Q?Andreas_F=c3=a4rber?= <afaerber@suse.de>,
  linux-renesas-soc@vger.kernel.org, Dinh Nguyen <dinguyen@kernel.org>,
- Vinod Koul <vkoul@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Vinod Koul <vkoul@kernel.org>, Pengutronix Kernel Team <kernel@pengutronix.de>,
  Chunyan Zhang <zhang.lyra@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
  Claudiu Beznea <claudiu.beznea@microchip.com>
-Subject: Re: [Linux-stm32] [PATCH v3 43/65] ASoC: tlv320aic32x4: Add a
-	determine_rate hook
+Subject: Re: [Linux-stm32] [PATCH v3 54/65] clk: da8xx: clk48: Switch to
+	determine_rate
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,63 +105,45 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============6345306644489170971=="
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+On 4/5/23 10:22 AM, Maxime Ripard wrote:
+> Hi David,
+> 
+> On Wed, Apr 05, 2023 at 10:03:24AM -0500, David Lechner wrote:
+>> On 4/4/23 5:11 AM, Maxime Ripard wrote:
+>>> The TI DA8xx USB0 clk48 clocks implements a mux with a set_parent
+>>> hook, but doesn't provide a determine_rate implementation.
+>>>
+>>> This is a bit odd, since set_parent() is there to, as its name implies,
+>>> change the parent of a clock. However, the most likely candidate to
+>>> trigger that parent change is a call to clk_set_rate(), with
+>>> determine_rate() figuring out which parent is the best suited for a
+>>> given rate.
+>>>
+>>
+>> As mentioned in my previous review, parent is selected by device
+>> tree and should never be changed after init.
+> 
+> Great minds think alike then, because the driver implements exactly
+> that, either before or after that patch.
+> 
+> That patch makes the current behaviour explicit but doesn't change it in
+> any way.
+> 
+> So I guess that means that I can add your Acked-by on the three patches
+> you reviewed with the same message?
+> 
+> Maxime
 
---===============6345306644489170971==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="rWy5+BLE6plJ+54H"
-Content-Disposition: inline
+Yes, preferably with a simplified commit message.
 
-
---rWy5+BLE6plJ+54H
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-
-On Wed, Apr 05, 2023 at 05:17:21PM +0200, Maxime Ripard wrote:
-> On Tue, Apr 04, 2023 at 04:26:18PM +0100, Mark Brown wrote:
-
-> > To be honest it's surprising that we'd have to manually specify this, I
-> > would expect to be able to reparent.  I suspect it'd be better to go the
-> > other way here and allow reparenting.
-
-> Yeah, I think I'd prefer to allow reparenting too, but as can be seen
-> from the other reviewers in that thread, it seems like we have a very
-> split community here, so that doesn't sound very realistic without some
-> major pushback :)
-
-For these ASoC drivers I think we should just do the reparenting,
-they're very much at the leaf of the tree so the considerations that
-make it a problem sometimes are unlikely to apply.
-
---rWy5+BLE6plJ+54H
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmQtlQYACgkQJNaLcl1U
-h9B5kwgAhgnq7R11Qu+B0UHvMPR+YuXSbduHynE7TqBLfStAOBSo1K13PASgQaa9
-wrmguaiF0D05AzsDdSViUh7jt1zNtO3da+OYl8oXujrIbMZbGni9L/fGVLPLH9LH
-S4EKLVYbDM7dTpVx0aDXvlVCYW21kOHRWWv/J6PmtESnjJOfnQGHe3Xs1h8ZgovN
-olevNVv7bIIBbK+syW2trg9ueeQFhIP8zFvA7seKaKplyJQN6b6ZBpF5/0RIVobC
-9KooGdA4p3nEKzSBi+TYDZL/NYxlB7m/Y8nMussyk40gnvHmlVGYXLA0nVd3MP6U
-GEwYUUby6V7fvlt7mTxduZug5WAoPQ==
-=MZpO
------END PGP SIGNATURE-----
-
---rWy5+BLE6plJ+54H--
-
---===============6345306644489170971==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+Acked-by: David Lechner <david@lechnology.com>
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============6345306644489170971==--
