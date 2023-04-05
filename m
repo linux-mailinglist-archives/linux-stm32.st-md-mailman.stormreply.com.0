@@ -2,59 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id ECE206D74A5
-	for <lists+linux-stm32@lfdr.de>; Wed,  5 Apr 2023 08:50:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 120DC6D74A6
+	for <lists+linux-stm32@lfdr.de>; Wed,  5 Apr 2023 08:50:38 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 976B3C6A617;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A9CDAC6A61A;
 	Wed,  5 Apr 2023 06:50:37 +0000 (UTC)
-Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com
- [209.85.167.53])
+Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com
+ [209.85.167.42])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 01832C01E98
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A95FBC6A610
  for <linux-stm32@st-md-mailman.stormreply.com>;
  Wed,  5 Apr 2023 06:50:36 +0000 (UTC)
-Received: by mail-lf1-f53.google.com with SMTP id h25so45324886lfv.6
+Received: by mail-lf1-f42.google.com with SMTP id c9so34891824lfb.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 04 Apr 2023 23:50:35 -0700 (PDT)
+ Tue, 04 Apr 2023 23:50:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1680677435;
+ d=linaro.org; s=google; t=1680677436;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=htFleaT/35Wjah78kezRl5LI+byd+7VcD53GDDOkAxc=;
- b=tuEyDg0Aqj7IhYFmgZGVe9k/t5Xn0hgxfRE4pF5UxJE793NNpx66snKWdLvDVypXdu
- AXT5JmeHVy9nEU4J/963/pJ3HnV4ZYGje5uR4hXtxp6oXyCCuY0u/JiA8RloiYp87WGs
- KBig72/DAEnoIKjZ7peOe8kchx9+5EJCVfgxev15TIV6MQFtGQRscCVsFvrsOuxwMcXw
- fJ734NL6O4rIkBjcqpbnRQB5AtPTjv3RvVR5xe4xVCvlPtXjuu9GOV3qzzc9YZ+0XBNW
- LGInzH33p401dYAEZPnA9fOJdmv344OMoHIoeFHZjFDOIJCMg9yvroeiCV01Vz/yTCXD
- CGGg==
+ :reply-to; bh=EzNDUri52+ydwnf/71tMhyZyGCHdCPy1yA6ftXOBwcg=;
+ b=xwbw5c1tMoZpFDnTx4NAqBXZGcaMkUkhjWMiuO9UG19bRMZaouaHMfUN4Llg69zepE
+ +24Zl+9gH8GGbC49btX52adt4iZBT+56J2Gl8mq1kqqYETj9CB1ggq8xt1lT1AFFBJL8
+ jV9TSGuFqFfBdLAAqbB1rIBXEbbM9j47YDVH8hv2sXeotgrrPi0SMWL3/o5+crv5YRtZ
+ Syap8G15D341r3qyk3srGJ0SDgS82j8dQa0EAz0g5sLCNGNYqtsBS/8DzW29bZFd4bMG
+ A9u4RVqqfPKV71XLzEHzD2S31RttzrFkdf/LHFkeGB0Sg/Aqv3Uu767EfWyVVbVSF0QY
+ 57WA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1680677435;
+ d=1e100.net; s=20210112; t=1680677436;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=htFleaT/35Wjah78kezRl5LI+byd+7VcD53GDDOkAxc=;
- b=gO2xTHKS/EmlLOZdV5/dwZBSDuAxB7K7eeNeV5QpIzec5lPTzj1tJY27xUJaKVrJ6D
- 86K4rEtLmumEsI1mXzq+lV4g7Rjlk5n7EHQNxTvalN/jTmzHq+QygUzJOzE5+4skZYuB
- 2ZEme8oRbLUhfj28N/xkJ5u0gGWU8b4zN+DKJLt0VvRyGz/dRtDHlkPNvMopJ/yejAp4
- NpGJ9WRyQbdRro4l8b9C+AduPEnwhqVJyYKp4vnhYasvskDEIP+WGOgtKMFejVdYNzXM
- p8bhibd+McAtFnzuSax7Lls8v/eKQe4VxzqQRSOvw/W8HyQiZSP6sLBPcRbR/OrSChII
- H0Bg==
-X-Gm-Message-State: AAQBX9fSby55jUOyFJZubHB8XBzADYAaMH0xiJTsBpM29ofeP/xL5Zso
- UEfnmBdeXto3OdtvDOA90D6i4g==
-X-Google-Smtp-Source: AKy350avGN+mdyKp1Y9p5PspjESseEq6nRVNgL1kpPC1dh54xzy6aldKYul26M2/CP56SKCcB9pX5w==
-X-Received: by 2002:ac2:5482:0:b0:4db:3e2d:3efc with SMTP id
- t2-20020ac25482000000b004db3e2d3efcmr1215834lfk.10.1680677435406; 
- Tue, 04 Apr 2023 23:50:35 -0700 (PDT)
+ bh=EzNDUri52+ydwnf/71tMhyZyGCHdCPy1yA6ftXOBwcg=;
+ b=o1ZyT/iO+nSBvPTu6En6F0zsFiwYSLXAsmpw2HVv0J7+uJ9Pr/u7XvEA8lZBmOvQ6m
+ 41r+jgSSk9R/q4p6pFzW4O1XPZE+m9Mm/72PE1VNdI9geICFaHKrKkplUSo5gUl5bP2h
+ 5KW7YrXbz6mnDsPbql8SWbMRpmadf06mTVSmMZii5XkNkrG27A3kT9IceFi9QmuLjkVc
+ kej0CRwQmd3dCX/72B7qU103TYtuy7KgQe/fMQvKgvGNd4LltAiB5+zxpDcqAIO0Hyl/
+ LqCOI1MvA1lRIWebN0aXtxv8fH2lOyKAdDJUI/WLC9E6nSrXSPb8qgdX5wo8vl3nFtsF
+ 6REQ==
+X-Gm-Message-State: AAQBX9dooj71wC3/cD+wGe6Mi3SvZPl7lmdmeTIDGJGptM2Tt6CXYj+w
+ GgmceXYbt+etI0em+Tx5nTiyDg==
+X-Google-Smtp-Source: AKy350bFChkzu/xDuMrQEacxaYMKmPDwmQZtQnPBti5B1xqTDTgiwMx5x20RvKZlOVJIVjSyFspsEQ==
+X-Received: by 2002:ac2:5d46:0:b0:4ea:e296:fe9e with SMTP id
+ w6-20020ac25d46000000b004eae296fe9emr1235549lfd.9.1680677436318; 
+ Tue, 04 Apr 2023 23:50:36 -0700 (PDT)
 Received: from [192.168.1.2] (c-05d8225c.014-348-6c756e10.bbcust.telenor.se.
  [92.34.216.5]) by smtp.gmail.com with ESMTPSA id
- z19-20020ac25df3000000b004eb274b3a43sm2683086lfq.134.2023.04.04.23.50.34
+ z19-20020ac25df3000000b004eb274b3a43sm2683086lfq.134.2023.04.04.23.50.35
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 04 Apr 2023 23:50:34 -0700 (PDT)
+ Tue, 04 Apr 2023 23:50:35 -0700 (PDT)
 From: Linus Walleij <linus.walleij@linaro.org>
-Date: Wed, 05 Apr 2023 08:50:28 +0200
+Date: Wed, 05 Apr 2023 08:50:29 +0200
 MIME-Version: 1.0
-Message-Id: <20230405-pl180-busydetect-fix-v1-2-28ac19a74e5e@linaro.org>
+Message-Id: <20230405-pl180-busydetect-fix-v1-3-28ac19a74e5e@linaro.org>
 References: <20230405-pl180-busydetect-fix-v1-0-28ac19a74e5e@linaro.org>
 In-Reply-To: <20230405-pl180-busydetect-fix-v1-0-28ac19a74e5e@linaro.org>
 To: Stefan Hansson <newbyte@disroot.org>, 
@@ -64,8 +64,7 @@ To: Stefan Hansson <newbyte@disroot.org>,
 X-Mailer: b4 0.12.0
 Cc: Linus Walleij <linus.walleij@linaro.org>, linux-mmc@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH 02/13] mmc: mmci: Clear busy_status when
-	starting command
+Subject: [Linux-stm32] [PATCH 03/13] mmc: mmci: Unwind big if() clause
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,56 +81,72 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-If we are starting a command which can generate a busy
-response, then clear the variable host->busy_status
-if the variant is using a ->busy_complete callback.
+This does two things: firsr replace the hard-to-read long
+if-expression:
 
-We are lucky that the member is zero by default and
-hopefully always gets cleared in the ->busy_complete
-callback even on errors, but it's just fragile so
-make sure it is always initialized to zero.
+  if (!host->busy_status && !(status & err_msk) &&
+      (readl(base + MMCISTATUS) & host->variant->busy_detect_flag)) {
+
+With the more readable:
+
+  if (!host->busy_status && !(status & err_msk)) {
+     status = readl(base + MMCISTATUS);
+     if (status & host->variant->busy_detect_flag) {
+
+Second notice that the re-read MMCISTATUS register is now
+stored into the status variable, using logic OR because what
+if something else changed too?
+
+While we are at it, explain what the function is doing.
 
 Signed-off-by: Linus Walleij <linus.walleij@linaro.org>
 ---
- drivers/mmc/host/mmci.c | 23 ++++++++++++++---------
- 1 file changed, 14 insertions(+), 9 deletions(-)
+ drivers/mmc/host/mmci.c | 24 +++++++++++++++++-------
+ 1 file changed, 17 insertions(+), 7 deletions(-)
 
 diff --git a/drivers/mmc/host/mmci.c b/drivers/mmc/host/mmci.c
-index bc150c0d5eed..3e08b2e95550 100644
+index 3e08b2e95550..3c1e11266fa9 100644
 --- a/drivers/mmc/host/mmci.c
 +++ b/drivers/mmc/host/mmci.c
-@@ -1238,17 +1238,22 @@ mmci_start_command(struct mmci_host *host, struct mmc_command *cmd, u32 c)
- 			c |= host->variant->cmdreg_srsp;
- 	}
+@@ -654,6 +654,13 @@ static u32 ux500v2_get_dctrl_cfg(struct mmci_host *host)
+ 	return MCI_DPSM_ENABLE | (host->data->blksz << 16);
+ }
  
--	if (host->variant->busy_timeout && cmd->flags & MMC_RSP_BUSY) {
--		if (!cmd->busy_timeout)
--			cmd->busy_timeout = 10 * MSEC_PER_SEC;
-+	if (cmd->flags & MMC_RSP_BUSY) {
-+		if (host->ops->busy_complete)
-+			host->busy_status = 0;
- 
--		if (cmd->busy_timeout > host->mmc->max_busy_timeout)
--			clks = (unsigned long long)host->mmc->max_busy_timeout * host->cclk;
--		else
--			clks = (unsigned long long)cmd->busy_timeout * host->cclk;
-+		if (host->variant->busy_timeout) {
-+			if (!cmd->busy_timeout)
-+				cmd->busy_timeout = 10 * MSEC_PER_SEC;
++/*
++ * ux500_busy_complete() - this will wait until the busy status
++ * goes off, saving any status that occur in the meantime into
++ * host->busy_status until we know the card is not busy any more.
++ * The function returns true when the busy detection is ended
++ * and we should continue processing the command.
++ */
+ static bool ux500_busy_complete(struct mmci_host *host, u32 status, u32 err_msk)
+ {
+ 	void __iomem *base = host->base;
+@@ -671,14 +678,17 @@ static bool ux500_busy_complete(struct mmci_host *host, u32 status, u32 err_msk)
+ 	 * while, to allow it to be set, but tests indicates that it
+ 	 * isn't needed.
+ 	 */
+-	if (!host->busy_status && !(status & err_msk) &&
+-	    (readl(base + MMCISTATUS) & host->variant->busy_detect_flag)) {
+-		writel(readl(base + MMCIMASK0) |
+-		       host->variant->busy_detect_mask,
+-		       base + MMCIMASK0);
+-
++	if (!host->busy_status && !(status & err_msk)) {
+ 		host->busy_status = status & (MCI_CMDSENT | MCI_CMDRESPEND);
+-		return false;
++		status = readl(base + MMCISTATUS);
++		if (status & host->variant->busy_detect_flag) {
++			writel(readl(base + MMCIMASK0) |
++			       host->variant->busy_detect_mask,
++			       base + MMCIMASK0);
 +
-+			if (cmd->busy_timeout > host->mmc->max_busy_timeout)
-+				clks = (unsigned long long)host->mmc->max_busy_timeout * host->cclk;
-+			else
-+				clks = (unsigned long long)cmd->busy_timeout * host->cclk;
- 
--		do_div(clks, MSEC_PER_SEC);
--		writel_relaxed(clks, host->base + MMCIDATATIMER);
-+			do_div(clks, MSEC_PER_SEC);
-+			writel_relaxed(clks, host->base + MMCIDATATIMER);
++			host->busy_status |= status & (MCI_CMDSENT | MCI_CMDRESPEND);
++			return false;
 +		}
  	}
  
- 	if (host->ops->pre_sig_volt_switch && cmd->opcode == SD_SWITCH_VOLTAGE)
+ 	/*
 
 -- 
 2.39.2
