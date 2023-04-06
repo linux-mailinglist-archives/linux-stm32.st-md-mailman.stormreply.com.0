@@ -2,63 +2,41 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 21A086D92BE
-	for <lists+linux-stm32@lfdr.de>; Thu,  6 Apr 2023 11:31:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 421A56DA959
+	for <lists+linux-stm32@lfdr.de>; Fri,  7 Apr 2023 09:22:36 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D6B2DC6A61D;
-	Thu,  6 Apr 2023 09:31:29 +0000 (UTC)
-Received: from mail-yb1-f177.google.com (mail-yb1-f177.google.com
- [209.85.219.177])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CD4D2C6B448;
+	Fri,  7 Apr 2023 07:22:35 +0000 (UTC)
+Received: from mail114-240.sinamail.sina.com.cn
+ (mail114-240.sinamail.sina.com.cn [218.30.114.240])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C7B69C6A603
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1C8ADC6A603
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  6 Apr 2023 09:31:28 +0000 (UTC)
-Received: by mail-yb1-f177.google.com with SMTP id f188so27017338ybb.3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 06 Apr 2023 02:31:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1680773487;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=nrbKJN6tNn5SoaDKodx2sPMgtPGrY3/0d4LglRnRjWw=;
- b=C3ZUWp5jv2p5k+fiz5+fnVwJBalRBkyRYyQSvDrPKCU/5iyYhOVyo/nvX9tTpcqlyE
- J9Mv7oygbSYXwW0fcQbO170abhdYtmzHNW/aB/1RlUSVxUQV6A/8FygoLBVJxCeKAwN4
- Q180JaJhTQaG+GLX2+dMq4VYtaEgx4eyPcY1HfWqYy272CSwvMsvfPV0L4gAAYTI1r7z
- bFyYTNS/ab4WKxxE1e87yxajVCh0GDXtgW+olE0nqWkPvS9E16mt7top8QvvEaMKK448
- sPjXjkeebQ9UG2qJqaAfsEQhNcTrNETtjhrtyZyv+CyTPZaiJ1IT3SZO7LxW+HufpjDs
- QYyA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1680773487;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=nrbKJN6tNn5SoaDKodx2sPMgtPGrY3/0d4LglRnRjWw=;
- b=ICVLOeNd6UfOsRZz8TWbNnvs3lLsVH5jAkAxphEFCqIjdOAi+SrrYdSJMw3oxoWK/Y
- Xt1DXYztqq95khHULkIUj+KOUCdM84Cl6YOhbt6HWDYHzkHHXQ+PT7uh8nCej8fd+cTz
- J+px1QGvIGDwmulHPLVQmfPYvQ5inN+LVi4kjvNFYeZDWjBPhX/UoX+aR/9F8CCj9t7+
- CbuK32vAiBb/FLGFiUT4x3tHRh5wVWAVg8inEciYv7+53DwWKiMj1e1vyWIWrRolPBmM
- rci3vAsct5Tj/ppXMQa19ujLKoqDVMhJ94MLSYLuO3qrdD+fILh/fo/OgxvOL0vOdtdE
- sEfw==
-X-Gm-Message-State: AAQBX9dlTJyuBC5K6I9/r9DT/AsiEOOKYYW/OuSCZbJNYTwrbIMP/5ff
- 54SAwZqrCBKtIEMy5qLy8PRMaLKAKhapHYHW+J7ieg==
-X-Google-Smtp-Source: AKy350bGsQPdLchFWKf2g9la+14ELRiC01S4GZX480KVbABfXHVsgyLauNQM0/TQCGMeGEvUf98TjPYIaK3P6Qtic9c=
-X-Received: by 2002:a25:d0c2:0:b0:b6e:361a:c86 with SMTP id
- h185-20020a25d0c2000000b00b6e361a0c86mr1385830ybg.3.1680773487671; Thu, 06
- Apr 2023 02:31:27 -0700 (PDT)
-MIME-Version: 1.0
-References: <20230405-pl180-busydetect-fix-v1-0-28ac19a74e5e@linaro.org>
- <20230405-pl180-busydetect-fix-v1-1-28ac19a74e5e@linaro.org>
-In-Reply-To: <20230405-pl180-busydetect-fix-v1-1-28ac19a74e5e@linaro.org>
-From: Ulf Hansson <ulf.hansson@linaro.org>
-Date: Thu, 6 Apr 2023 11:30:51 +0200
-Message-ID: <CAPDyKFp1KDV+q9ApKfq7C4PoiJnMOsACKJvbEiZLhv06GJGB_w@mail.gmail.com>
-To: Linus Walleij <linus.walleij@linaro.org>
-Cc: Stefan Hansson <newbyte@disroot.org>, linux-mmc@vger.kernel.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH 01/13] mmc: mmci: Only call busy_complete
-	if callback defined
+ Thu,  6 Apr 2023 10:04:53 +0000 (UTC)
+X-SMAIL-HELO: localhost.localdomain
+Received: from unknown (HELO localhost.localdomain)([180.168.184.106])
+ by sina.com (172.16.235.24) with ESMTP
+ id 642E994100001008; Thu, 6 Apr 2023 18:04:51 +0800 (CST)
+X-Sender: rocklouts@sina.com
+X-Auth-ID: rocklouts@sina.com
+Authentication-Results: sina.com; spf=none smtp.mailfrom=rocklouts@sina.com;
+ dkim=none header.i=none;
+ dmarc=none action=none header.from=rocklouts@sina.com
+X-SMAIL-MID: 1193645089172
+From: louts <rocklouts@sina.com>
+To: davem@davemloft.net
+Date: Thu,  6 Apr 2023 18:04:37 +0800
+Message-Id: <20230406100437.5402-1-rocklouts@sina.com>
+X-Mailer: git-send-email 2.17.1
+X-Mailman-Approved-At: Fri, 07 Apr 2023 07:22:33 +0000
+Cc: louts <rocklouts@sina.com>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, edumazet@google.com, joabreu@synopsys.com,
+ mcoquelin.stm32@gmail.com, kuba@kernel.org, peppe.cavallaro@st.com,
+ pabeni@redhat.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH] net: stmmac: fix system hang when setting up
+	standalone tag_8021q VLAN for DSA ports
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,54 +48,75 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, 5 Apr 2023 at 08:50, Linus Walleij <linus.walleij@linaro.org> wrote:
->
-> The code unconditionally calls host->ops->busy_complete()
-> if we get a busy response and the variant supports busy
-> detection (variant->busy_detect = true).
->
-> However there are several STM32 variants that define
-> variant->busy_detect to true but do not define any
-> busy_complete() callback. This looks like a recepie for
-> a NULL pointer exception.
+The system hang because of dsa_tag_8021q_port_setup() callbcak
+stmmac_vlan_rx_add_vid().I found in stmmac_drv_probe() that
+cailing pm_runtime_put() disabled the clock when check the stmmac
+dirver.
 
-This isn't correct, as things would have exploded by now. :-)
+First, when the kernel is compiled with CONFIG_PM=y,The stmmac's
+resume/suspend is active.
 
->
-> Check that the callback is valid before calling it.
->
-> Signed-off-by: Linus Walleij <linus.walleij@linaro.org>
-> ---
->  drivers/mmc/host/mmci.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/mmc/host/mmci.c b/drivers/mmc/host/mmci.c
-> index b9e5dfe74e5c..bc150c0d5eed 100644
-> --- a/drivers/mmc/host/mmci.c
-> +++ b/drivers/mmc/host/mmci.c
-> @@ -1381,7 +1381,7 @@ mmci_cmd_irq(struct mmci_host *host, struct mmc_command *cmd,
->                 return;
->
->         /* Handle busy detection on DAT0 if the variant supports it. */
-> -       if (busy_resp && host->variant->busy_detect)
-> +       if (busy_resp && host->variant->busy_detect && host->ops->busy_complete)
->                 if (!host->ops->busy_complete(host, status, err_msk))
->                         return;
+Secondly,stmmac as DSA master,the dsa_tag_8021q_port_setup() function
+will callback stmmac_vlan_rx_add_vid when DSA dirver starts. However,
+The system is hanged for the stmmac_vlan_rx_add_vid()  accesses its
+registers after stmmac's clock is closed.
 
-All variants that have the .busy_detect flags set, need to assign the
-->busy_complete() callback too.
+I would suggest adding the pm_runtime_resume_and_get() to the
+stmmac_vlan_rx_add_vid().This guarantees that resuming clock output
+while in use.
 
-To me it seems a bit silly, to check for a mandatory callback,
-although if you prefer it, then I suggest we do it during ->probe()
-instead.
+Signed-off-by: louts <rocklouts@sina.com>
+---
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 13 ++++++++++---
+ 1 file changed, 10 insertions(+), 3 deletions(-)
 
-Kind regards
-Uffe
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index d1a7cf4567bc..91d719ebdd97 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -6191,6 +6191,10 @@ static int stmmac_vlan_rx_add_vid(struct net_device *ndev, __be16 proto, u16 vid
+ 	bool is_double = false;
+ 	int ret;
+ 
++	ret = pm_runtime_resume_and_get(priv->device);
++	if (ret < 0)
++		return ret;
++
+ 	if (be16_to_cpu(proto) == ETH_P_8021AD)
+ 		is_double = true;
+ 
+@@ -6198,16 +6202,19 @@ static int stmmac_vlan_rx_add_vid(struct net_device *ndev, __be16 proto, u16 vid
+ 	ret = stmmac_vlan_update(priv, is_double);
+ 	if (ret) {
+ 		clear_bit(vid, priv->active_vlans);
+-		return ret;
++		goto update_vlan_error;
+ 	}
+ 
+ 	if (priv->hw->num_vlan) {
+ 		ret = stmmac_add_hw_vlan_rx_fltr(priv, ndev, priv->hw, proto, vid);
+ 		if (ret)
+-			return ret;
++			goto add_vlan_error;
+ 	}
++update_vlan_error:
++add_vlan_error:
++	pm_runtime_put(priv->device);
+ 
+-	return 0;
++	return ret;
+ }
+ 
+ static int stmmac_vlan_rx_kill_vid(struct net_device *ndev, __be16 proto, u16 vid)
+-- 
+2.17.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
