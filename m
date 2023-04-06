@@ -2,73 +2,52 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F7356DA958
+	by mail.lfdr.de (Postfix) with ESMTPS id 478C46DA95A
 	for <lists+linux-stm32@lfdr.de>; Fri,  7 Apr 2023 09:22:36 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DFEC3C6B44B;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F184AC6B44E;
 	Fri,  7 Apr 2023 07:22:35 +0000 (UTC)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5D133C6A603
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8B331C6A603
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  6 Apr 2023 15:21:25 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D7C211C0A;
- Thu,  6 Apr 2023 08:22:08 -0700 (PDT)
-Received: from [10.2.7.51] (stinger.cambridge.arm.com [10.2.7.51])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id ADE653F762;
- Thu,  6 Apr 2023 08:21:17 -0700 (PDT)
-Message-ID: <a54a4ea0-f9f5-6869-9629-747c3889a1de@arm.com>
-Date: Thu, 6 Apr 2023 16:21:15 +0100
+ Thu,  6 Apr 2023 17:30:18 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 5A87264A78;
+ Thu,  6 Apr 2023 17:30:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C469FC433EF;
+ Thu,  6 Apr 2023 17:30:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1680802216;
+ bh=hCCX2cA3QYGfj6QxeCyQVv6uXMkVZB5gXlYoQklEu+A=;
+ h=From:Subject:Date:To:Cc:From;
+ b=EOGTPMH6ZXuqE4xz3Nrf2FvN3yCGnO7fkPr8WQQwmh7WLzK32NhjVfgBSvAmWQTTg
+ xGOTv5I13I/A9BiAqFu0ybxlZaT8IBC0W07XRecaEojLs/kxzUtnea6S+9RWAiaqws
+ fm/p9xOq6wv/hZr87U90U6KNFNmpMjPXDM8JisV54uzsBBI6epBxpcslfqLGSPlJ9f
+ 73kF69CVGl4JqtCtvHWf0dgkOmxGHoOUuFRuOJ2yGcNEqZnTgn3AGitl0A1pDGqlDi
+ WbukwAZXs8N9sgw/YJM9sgjDIihr1EgjUYKUMO4uqgG81Q49IeJBKC43CwORFe8ZQX
+ mbicwgJqxyeww==
+From: Simon Horman <horms@kernel.org>
+Date: Thu, 06 Apr 2023 19:30:08 +0200
+Message-Id: <20230406-dwmac-anarion-sparse-v1-0-b0c866c8be9d@kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux aarch64; rv:102.0) Gecko/20100101
- Thunderbird/102.9.0
-Content-Language: en-US
-To: Maxime Ripard <maxime@cerno.tech>
-References: <20221018-clk-range-checks-fixes-v3-0-9a1358472d52@cerno.tech>
- <20221018-clk-range-checks-fixes-v3-36-9a1358472d52@cerno.tech>
-From: Pawel Moll <pawel.moll@arm.com>
-In-Reply-To: <20221018-clk-range-checks-fixes-v3-36-9a1358472d52@cerno.tech>
+X-B4-Tracking: v=1; b=H4sIAKABL2QC/x2NQQrCQAxFr1KyNjDtWKleRVxkZqIdqLEkVQuld
+ ze4fI//+BsYa2WDS7OB8qdafYlDe2ggjyQPxlqcoQtdDMdwwvJ9UkYSUl+izaTG2PZDjGFIfeE
+ zeJrIZVKSPHos72lyOSvf6/r/uoLwgsLrArd9/wEEpRZOhQAAAA==
+To: Jakub Kicinski <kuba@kernel.org>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Paolo Abeni <pabeni@redhat.com>
+X-Mailer: b4 0.12.2
 X-Mailman-Approved-At: Fri, 07 Apr 2023 07:22:33 +0000
-Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Prashant Gaikwad <pgaikwad@nvidia.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Michael Turquette <mturquette@baylibre.com>, Sekhar Nori <nsekhar@ti.com>,
- dri-devel@lists.freedesktop.org, Liam Girdwood <lgirdwood@gmail.com>,
- Paul Cercueil <paul@crapouillou.net>, Max Filippov <jcmvbkbc@gmail.com>,
- Thierry Reding <thierry.reding@gmail.com>, linux-phy@lists.infradead.org,
- Fabio Estevam <festevam@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
- Abel Vesa <abelvesa@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>,
- Samuel Holland <samuel@sholland.org>, David Airlie <airlied@gmail.com>,
- Takashi Iwai <tiwai@suse.com>, linux-tegra@vger.kernel.org,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Jonathan Hunter <jonathanh@nvidia.com>, Chen-Yu Tsai <wens@csie.org>,
- NXP Linux Team <linux-imx@nxp.com>, Orson Zhai <orsonzhai@gmail.com>,
- Ulf Hansson <ulf.hansson@linaro.org>, linux-mips@vger.kernel.org,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Linus Walleij <linus.walleij@linaro.org>, linux-rtc@vger.kernel.org,
- Charles Keepax <ckeepax@opensource.cirrus.com>,
- David Lechner <david@lechnology.com>, alsa-devel@alsa-project.org,
- Manivannan Sadhasivam <mani@kernel.org>, linux-kernel@vger.kernel.org,
- Sascha Hauer <s.hauer@pengutronix.de>, linux-actions@lists.infradead.org,
- Richard Fitzgerald <rf@opensource.cirrus.com>, Mark Brown <broonie@kernel.org>,
- linux-mediatek@lists.infradead.org,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Matthias Brugger <matthias.bgg@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Jaroslav Kysela <perex@perex.cz>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- linux-arm-kernel@lists.infradead.org,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Alessandro Zummo <a.zummo@towertech.it>, linux-sunxi@lists.linux.dev,
- Stephen Boyd <sboyd@kernel.org>, patches@opensource.cirrus.com,
- Peter De Schrijver <pdeschrijver@nvidia.com>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- =?UTF-8?Q?Andreas_F=c3=a4rber?= <afaerber@suse.de>,
- linux-renesas-soc@vger.kernel.org, Dinh Nguyen <dinguyen@kernel.org>,
- Vinod Koul <vkoul@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Chunyan Zhang <zhang.lyra@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
- Claudiu Beznea <claudiu.beznea@microchip.com>
-Subject: Re: [Linux-stm32] [PATCH v3 36/65] clk: versatile: sp810: Add a
-	determine_rate hook
+Cc: netdev@vger.kernel.org, Jose Abreu <joabreu@synopsys.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH net-next 0/2] net: stmmac: dwmac-anarion:
+ address issues flagged by sparse
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,38 +59,31 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gMDQvMDQvMjAyMyAxMToxMSwgTWF4aW1lIFJpcGFyZCB3cm90ZToKPiBUaGUgVmVyc2F0aWxl
-IHNwODEwICJ0aW1lcmNsa2VuIiBjbG9jayBpbXBsZW1lbnRzIGEgbXV4IHdpdGggYQo+IHNldF9w
-YXJlbnQgaG9vaywgYnV0IGRvZXNuJ3QgcHJvdmlkZSBhIGRldGVybWluZV9yYXRlIGltcGxlbWVu
-dGF0aW9uLgo+IAo+IFRoaXMgaXMgYSBiaXQgb2RkLCBzaW5jZSBzZXRfcGFyZW50KCkgaXMgdGhl
-cmUgdG8sIGFzIGl0cyBuYW1lIGltcGxpZXMsCj4gY2hhbmdlIHRoZSBwYXJlbnQgb2YgYSBjbG9j
-ay4gCgpFeHBsYW5hdGlvbiBvZiB0aGlzIG15c3RlcnkgaXMgcHJldHR5IHNpbXBsZSAtIHRoZSBv
-cmlnaW5hbCBwYXRjaDoKCgljb21taXQgNmU5NzNkMmM0Mzg1MDJkY2Y5NTZlNzYzMDUyNThiYTdk
-MWM3ZDFkMwoJQXV0aG9yOiBQYXdlbCBNb2xsIDxwYXdlbC5tb2xsQGFybS5jb20+CglEYXRlOiAg
-IFRodSBBcHIgMTggMTg6MjM6MjIgMjAxMyArMDEwMAoKCSAgICBjbGs6IHZleHByZXNzOiBBZGQg
-c2VwYXJhdGUgU1A4MTAgZHJpdmVyCgpwcmVkYXRlcyBpbnRyb2R1Y3Rpb24gb2YgZGV0ZXJtaW5l
-X3JhdGUgdG8gY2xrX29wcy4uLgoKCWNvbW1pdCA3MTQ3MmMwYzA2Y2Y5YTNkMTU0MDc2MmVhMjA1
-NjU0YzU4NGUzYmM0CglBdXRob3I6IEphbWVzIEhvZ2FuIDxqaG9nYW5Aa2VybmVsLm9yZz4KCURh
-dGU6ICAgTW9uIEp1bCAyOSAxMjoyNTowMCAyMDEzICswMTAwCgoJICAgIGNsazogYWRkIHN1cHBv
-cnQgZm9yIGNsb2NrIHJlcGFyZW50IG9uIHNldF9yYXRlCgphbmQgY2xlYXJseSBubyBvbmUgKHRo
-ZSBhdXRob3IgaW5jbHVkZWQgOy0pIGJvdGhlcmVkIHRvIGhhdmUgYW5vdGhlcgpsb29rIGF0IHRo
-aXMgc2lkZSBvZiB0aGUgZHJpdmVyLgoKPiBBbmQgaWYgaXQgd2FzIGFuIG92ZXJzaWdodCwgdGhl
-biB3ZSBhcmUgYXQgbGVhc3QgZXhwbGljaXQgYWJvdXQgb3VyCj4gYmVoYXZpb3Igbm93IGFuZCBp
-dCBjYW4gYmUgZnVydGhlciByZWZpbmVkIGRvd24gdGhlIGxpbmUuCgpJdCdzIGJlZW4gb25lIGhl
-bGwgb2YgYSBtZW1vcnkgbGFuZSB0cmlwLCBidXQgbXkgcmVjb2xsZWN0aW9uIHN1Z2dlc3QKdGhh
-dCB0aGUgbWFpbiBnb2FsIG9mIHRoZSBkcml2ZXIgd2FzIHNpbXBseSBpbml0aWFsaXNhdGlvbiBv
-ZiB0aGUgbXV4CnRvIHNlbGVjdCB0aGUgMU1IeiBwYXJlbnQsIGJlY2F1c2UgdGhlIG90aGVyIG9w
-dGlvbiAtIDMya0h6IC0ganVzdApkaWRuJ3QgbWFrZSBhbnkgc2Vuc2Ugd2hhdHNvZXZlci4gQW5k
-IHRoYXQgd291bGQgYmUgdGhlIGNhc2Ugb24gZXZlcnkKc2luZ2xlIHBsYXRmb3JtIHVzaW5nIFNQ
-ODEwIEkga25vdyAob3IgYXQgbGVhc3Q6IGtuZXcpLCBzbyBpdCdzIHNlZW1zCnRvIG1lIHRoYXQg
-bWFraW5nIHRoZSBzdGF0ZSBwZXJtYW5lbnQsIGFzIHlvdSdyZSBzdWdnZXN0aW5nIChvciBJCnRo
-aW5rIHlvdSdyZSBzdWdnZXN0aW5nPykgaXQncyB0aGUgcmlnaHQgdGhpbmcgdG8gZG8uCgpUaGFu
-a3MhCgpQYXdlxYIKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rv
-cm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4v
-bGlzdGluZm8vbGludXgtc3RtMzIK
+Two minor enhancements to dwmac-anarion to address issues flagged by
+sparse.
+
+1. Always return struct anarion_gmac * from anarion_config_dt()
+2. Add __iomem annotation to register base
+
+No functional change intended.
+Compile tested only.
+
+---
+Simon Horman (2):
+      net: stmmac: dwmac-anarion: Use annotation __iomem for register base
+      net: stmmac: dwmac-anarion: Always return struct anarion_gmac * from anarion_config_dt()
+
+ drivers/net/ethernet/stmicro/stmmac/dwmac-anarion.c | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
+
+base-commit: 0ebd4fd6b9064764a3af3d671463b1350abffb6c
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
