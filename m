@@ -2,74 +2,51 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA44C6D98BC
-	for <lists+linux-stm32@lfdr.de>; Thu,  6 Apr 2023 15:56:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 88F506D9907
+	for <lists+linux-stm32@lfdr.de>; Thu,  6 Apr 2023 16:07:49 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 99875C6A61D;
-	Thu,  6 Apr 2023 13:56:28 +0000 (UTC)
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com
- [209.85.221.41])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 400C1C6B440;
+	Thu,  6 Apr 2023 14:07:49 +0000 (UTC)
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [85.220.165.71])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BBBA1C6A61B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B7B1EC6A61B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  6 Apr 2023 13:56:27 +0000 (UTC)
-Received: by mail-wr1-f41.google.com with SMTP id i7so604290wrc.2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 06 Apr 2023 06:56:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1680789387; x=1683381387;
- h=content-transfer-encoding:in-reply-to:from:references:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=VtdWe2FmvtgwmWTeOABvPcq/IF1uN7ZuplszcAHjajI=;
- b=jOSEvV/5SZmvbDHZkDsiI5WEd69V0/TQu630mOausA4EmJ+Gl3R2IvxPQOYbNZzGqC
- 42xFXvVsZr8pW16lHPH9pA7CH1bbgJA3F/F44vKLip2HAn8QaQYJwxoFST7AfdNAbSV4
- 4BQeKKxZWLoj4JtOxS1Q7nPGoaP89nkOzme4oGlA3/y0zh7Xj9qBx6FAhdRUPfP4hi89
- +EtlWyytR9rkoVqXQsan5KPy41KOY8d+M73vmwn6grY2hITaI0jcgmqXcNxi39/51AW1
- hDBnmHExanfFuWsFA9oatcFcpRTx2/CztDedPCsukCJPlwhMJO+gg2+fpwROsd/vgaK5
- /z1Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1680789387; x=1683381387;
- h=content-transfer-encoding:in-reply-to:from:references:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=VtdWe2FmvtgwmWTeOABvPcq/IF1uN7ZuplszcAHjajI=;
- b=8P6Ql8DJs1E2WGKeixdHbr02H+cZn01z2fn9bjL0GVVKWBJmlOAaHNjog8VtGEOZig
- sswqfFxBWefZOQoQZ9PVUVjWgwhrGLW1sNDrEV/Jski/SVQzP7IoXRhqH2r7ss3gb2KV
- Cedn0DRkUhANvnuYAZJHJ+HOIBH/M6NeMbhDzBpH8AIdeSerg/ydJIVPkfFkukud124N
- DSVI4mRtcwmzsLC5fMja4++gCJqaWcrSGzFaGg2ajWa//C8SMeU0cjY0FasLoy7dubQQ
- 1u6tS5/GdAD4YEeK0RWyZTBh43+wM3eeugHldNWKU0dRfWMBLN2XQ60jPC7d2bVxQmzH
- Dj7A==
-X-Gm-Message-State: AAQBX9ex/bgK4mRYInHIwJ2t9ipQi6tiAXhw1MF8JQ6P9vEs3SAkhviC
- oIg9y6ukKxY/CJ0Jb8hkOwLg4w==
-X-Google-Smtp-Source: AKy350ao7+BZhKsr9AmZG6YqOpkivPKyiVoqslyt9TcMeCroCbSSbfCW0oHA2IneDtOuI2lJUYLGrQ==
-X-Received: by 2002:adf:f402:0:b0:2e4:cbbe:cfc2 with SMTP id
- g2-20020adff402000000b002e4cbbecfc2mr7273887wro.25.1680789387134; 
- Thu, 06 Apr 2023 06:56:27 -0700 (PDT)
-Received: from ?IPV6:2a05:6e02:1041:c10:6630:ee96:3710:24c8?
- ([2a05:6e02:1041:c10:6630:ee96:3710:24c8])
- by smtp.googlemail.com with ESMTPSA id
- f7-20020adff587000000b002cfe71153b4sm1818118wro.60.2023.04.06.06.56.26
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 06 Apr 2023 06:56:26 -0700 (PDT)
-Message-ID: <a2b0c505-29dd-446e-ab5a-95f008254a72@linaro.org>
-Date: Thu, 6 Apr 2023 15:56:25 +0200
+ Thu,  6 Apr 2023 14:07:48 +0000 (UTC)
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+ by metis.ext.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1pkQGi-0005t8-0J; Thu, 06 Apr 2023 16:07:16 +0200
+Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
+ by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.94.2)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1pkQGf-009P6h-7W; Thu, 06 Apr 2023 16:07:13 +0200
+Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.94.2)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1pkQGe-00B4LC-Gz; Thu, 06 Apr 2023 16:07:12 +0200
+Date: Thu, 6 Apr 2023 16:07:12 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+To: Daniel Lezcano <daniel.lezcano@linaro.org>
+Message-ID: <20230406140712.v73dyrxkbszxey5v@pengutronix.de>
+References: <20230313075430.2730803-1-u.kleine-koenig@pengutronix.de>
+ <0a42d419-7ec2-6d09-9b19-15aa25888625@linaro.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.9.0
-Content-Language: en-US
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Thomas Gleixner <tglx@linutronix.de>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+In-Reply-To: <0a42d419-7ec2-6d09-9b19-15aa25888625@linaro.org>
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: ukl@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
+Cc: kernel@pengutronix.de, linux-kernel@vger.kernel.org,
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-tegra@vger.kernel.org,
+ Thomas Gleixner <tglx@linutronix.de>, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-References: <20230311173803.263446-1-krzysztof.kozlowski@linaro.org>
-From: Daniel Lezcano <daniel.lezcano@linaro.org>
-In-Reply-To: <20230311173803.263446-1-krzysztof.kozlowski@linaro.org>
-Subject: Re: [Linux-stm32] [PATCH] clocksource: stm32-lp: drop of_match_ptr
-	for ID table
+Subject: Re: [Linux-stm32] [PATCH 0/5] clocksource: Convert to platform
+ remove callback returning void
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,25 +58,77 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: multipart/mixed; boundary="===============3310202567564845368=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gMTEvMDMvMjAyMyAxODozOCwgS3J6eXN6dG9mIEtvemxvd3NraSB3cm90ZToKPiBUaGUgZHJp
-dmVyIGNhbiBtYXRjaCBvbmx5IHZpYSB0aGUgRFQgdGFibGUgc28gdGhlIHRhYmxlIHNob3VsZCBi
-ZSBhbHdheXMKPiB1c2VkIGFuZCB0aGUgb2ZfbWF0Y2hfcHRyIGRvZXMgbm90IGhhdmUgYW55IHNl
-bnNlICh0aGlzIGFsc28gYWxsb3dzIEFDUEkKPiBtYXRjaGluZyB2aWEgUFJQMDAwMSwgZXZlbiB0
-aG91Z2ggaXQgbWlnaHQgbm90IGJlIHJlbGV2YW50IGhlcmUpLgo+IAo+ICAgIGRyaXZlcnMvY2xv
-Y2tzb3VyY2UvdGltZXItc3RtMzItbHAuYzoyMDM6MzQ6IGVycm9yOiDigJhzdG0zMl9jbGtldmVu
-dF9scF9vZl9tYXRjaOKAmSBkZWZpbmVkIGJ1dCBub3QgdXNlZCBbLVdlcnJvcj11bnVzZWQtY29u
-c3QtdmFyaWFibGU9XQo+IAo+IFNpZ25lZC1vZmYtYnk6IEtyenlzenRvZiBLb3psb3dza2kgPGty
-enlzenRvZi5rb3psb3dza2lAbGluYXJvLm9yZz4KPiAtLS0KCkFwcGxpZWQsIHRoYW5rcwoKLS0g
-CjxodHRwOi8vd3d3LmxpbmFyby5vcmcvPiBMaW5hcm8ub3JnIOKUgiBPcGVuIHNvdXJjZSBzb2Z0
-d2FyZSBmb3IgQVJNIFNvQ3MKCkZvbGxvdyBMaW5hcm86ICA8aHR0cDovL3d3dy5mYWNlYm9vay5j
-b20vcGFnZXMvTGluYXJvPiBGYWNlYm9vayB8CjxodHRwOi8vdHdpdHRlci5jb20vIyEvbGluYXJv
-b3JnPiBUd2l0dGVyIHwKPGh0dHA6Ly93d3cubGluYXJvLm9yZy9saW5hcm8tYmxvZy8+IEJsb2cK
-Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0
-bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29t
-Cmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xp
-bnV4LXN0bTMyCg==
+
+--===============3310202567564845368==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="xk57upxb6dtjlhaj"
+Content-Disposition: inline
+
+
+--xk57upxb6dtjlhaj
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+Hello Daniel,
+
+On Thu, Apr 06, 2023 at 03:54:11PM +0200, Daniel Lezcano wrote:
+> On 13/03/2023 08:54, Uwe Kleine-K=F6nig wrote:
+> > this patch series adapts the platform drivers below drivers/clk
+> > to use the .remove_new() callback. Compared to the traditional .remove()
+> > callback .remove_new() returns no value. This is a good thing because
+> > the driver core doesn't (and cannot) cope for errors during remove. The
+> > only effect of a non-zero return value in .remove() is that the driver
+> > core emits a warning. The device is removed anyhow and an early return
+> > from .remove() usually yields a resource leak.
+> >=20
+> > Most clocksource drivers are not supposed to be removed. Two drivers are
+> > adapted here to actually prevent removal. One driver is fixed not to
+> > return an error code in .remove() and then the two remaining drivers
+> > with a remove callback are trivially converted to .remove_new().
+> >=20
+>=20
+> Applied and fixed up patch #2
+
+Great. Thank you.
+
+Best regards
+Uwe
+
+--=20
+Pengutronix e.K.                           | Uwe Kleine-K=F6nig            |
+Industrial Linux Solutions                 | https://www.pengutronix.de/ |
+
+--xk57upxb6dtjlhaj
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmQu0g8ACgkQj4D7WH0S
+/k5gfAgAoMsAoS863CM3KocI1YpfLtjIOgiqNbEC/+aV8R+deWfCAZbI0Uyuvfum
+EEtkYZN6LOJLQRBmrmax1DbJ/TmR41teaU2agD9317k5bFJp5iqTygjH8Qjvalj7
+fdH7b88VwKTwH1g3m8IFCfNEKLGlhFa4QXUqZYtjUAdKqf7wrI6JLegYaaUErR3h
+V5nSi7RzqLWNXLzjWAKL7qoryTpa4oCqOdhJ6W+cYSo3qzEI7t+aJPnSXulD0yUB
+BeQ1ox/59XA+YkrTvX20K8TciphTFnqk+M4xq3SPaztFsSnshkQCHyvhGXOHGi5C
+9LXqquRiJnSkq+febMXlI5KRXzKokQ==
+=7ttN
+-----END PGP SIGNATURE-----
+
+--xk57upxb6dtjlhaj--
+
+--===============3310202567564845368==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============3310202567564845368==--
