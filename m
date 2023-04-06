@@ -2,55 +2,64 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id AAACB6D8D73
-	for <lists+linux-stm32@lfdr.de>; Thu,  6 Apr 2023 04:30:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AFF6E6D8DA1
+	for <lists+linux-stm32@lfdr.de>; Thu,  6 Apr 2023 04:46:47 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 585ADC6A616;
-	Thu,  6 Apr 2023 02:30:21 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E0857C6A614
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  6 Apr 2023 02:30:19 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 42230C6A616;
+	Thu,  6 Apr 2023 02:46:47 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id B9A5864122;
- Thu,  6 Apr 2023 02:30:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 1F76FC433D2;
- Thu,  6 Apr 2023 02:30:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1680748218;
- bh=3vmq/aqfbwSmZiecl7SOMVN6Ty8I+cMF/5ynkmxVNAM=;
- h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=YOekC06V9atZffKzhqsJmRk6ZWz90aLzTAVi1gs16VFOtF/fJ0Vp9MVVKJJzzDdhF
- pHFza4svN2bQkN+IwtbG96WpFaZ7lNgFDh+buM9ykcz9LOP8dwBv3xope/BdkHzWtj
- 4wEU72ubxe5q1tPObJA0W/OgRangwbvH+xRadUe/K8FygQuAtczQm3Vhxgo2nc4kHq
- SZiDnU9f6hfalpV26rUy6vvy4C9lYAq4ydYZWAzZvzqUV0N841Y6mjUhbOdmVmvyll
- 4RcJxr4kyUv6l7tklgACppZeVcFsz39A3wtZrP+4Lmj1o52gQhfrir+mTIkTylyxL6
- l2R/qyrSxTFsg==
-Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
- 03682C395D8; Thu,  6 Apr 2023 02:30:18 +0000 (UTC)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 59251C6A614
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu,  6 Apr 2023 02:46:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1680749205; x=1712285205;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=OYFGzpPYLI2q69hmtLhmRnE7jbvoO6JpkJESOEl3xDA=;
+ b=atftez5D6BOJdwDPK34SRzPqjgpOxoVqcJv10loUSKbxtevK563uw0cK
+ GKv7PMRz2pHsnhXQ4aImdiN5nKtZx4HcfNoH70yuub5Zv4377xek5V3ne
+ CEHDHgJZErLofxS2IIC6SWih3l98kBuxKPT3mNXSDxEqm28Y3vtJWWvY2
+ 1mv79ksWxZ4DOb7P75XeXoY8XMeW0utr9/1QpkKoONbnMhPsjFBEOx3Pm
+ GGkeyoTrIptaCQbVYI6hNEGTREjO0atuSOqfYiuPhOx82GGg8T5YkR99q
+ kt8HO7WNYCmsRZ+33XA0hsNMxDbb+hzBAONcwYY1tFcOawTGg5yiY4Pk/ g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10671"; a="345217312"
+X-IronPort-AV: E=Sophos;i="5.98,322,1673942400"; d="scan'208";a="345217312"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Apr 2023 19:46:43 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10671"; a="810830733"
+X-IronPort-AV: E=Sophos;i="5.98,322,1673942400"; d="scan'208";a="810830733"
+Received: from mike-ilbpg1.png.intel.com ([10.88.227.76])
+ by orsmga004.jf.intel.com with ESMTP; 05 Apr 2023 19:46:37 -0700
+From: Michael Sit Wei Hong <michael.wei.hong.sit@intel.com>
+To: Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Jose Abreu <joabreu@synopsys.com>,
+ "David S . Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Ong Boon Leong <boon.leong.ong@intel.com>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux@armlinux.org.uk, hkallweit1@gmail.com, andrew@lunn.ch,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Shahab Vahedi <Shahab.Vahedi@synopsys.com>,
+ Marek Szyprowski <m.szyprowski@samsung.com>
+Date: Thu,  6 Apr 2023 10:45:41 +0800
+Message-Id: <20230406024541.3556305-1-michael.wei.hong.sit@intel.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <168074821801.25080.4300121511824003788.git-patchwork-notify@kernel.org>
-Date: Thu, 06 Apr 2023 02:30:18 +0000
-References: <20230403222302.328262-1-shenwei.wang@nxp.com>
-In-Reply-To: <20230403222302.328262-1-shenwei.wang@nxp.com>
-To: Shenwei Wang <shenwei.wang@nxp.com>
-Cc: imx@lists.linux.dev, kurt@linutronix.de, edumazet@google.com,
- festevam@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
- tee.min.tan@linux.intel.com, veekhee@apple.com, joabreu@synopsys.com,
- linux-imx@nxp.com, kuba@kernel.org, pabeni@redhat.com,
- andrey.konovalov@linaro.org, mcoquelin.stm32@gmail.com, s.hauer@pengutronix.de,
- ruppala@nvidia.com, jh@henneberg-systemdesign.com, peppe.cavallaro@st.com,
- netdev@vger.kernel.org, kernel@pengutronix.de, shawnguo@kernel.org,
- davem@davemloft.net
-Subject: Re: [Linux-stm32] [PATCH v6 1/2] net: stmmac: add support for
-	platform specific reset
+Cc: hock.leong.kweh@intel.com, Voon Weifeng <weifeng.voon@intel.com>,
+ Lai Peter Jun Ann <peter.jun.ann.lai@intel.com>,
+ Looi Hong Aun <hong.aun.looi@intel.com>, Tan Tee Min <tee.min.tan@intel.com>,
+ Zulkifli Muhammad Husaini <muhammad.husaini.zulkifli@intel.com>
+Subject: [Linux-stm32] [RESEND PATCH net 1/1] net: stmmac: check fwnode for
+	phy device before scanning for phy
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,33 +76,73 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello:
+Some DT devices already have phy device configured in the DT/ACPI.
+Current implementation scans for a phy unconditionally even though
+there is a phy listed in the DT/ACPI and already attached.
 
-This series was applied to netdev/net-next.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
+We should check the fwnode if there is any phy device listed in
+fwnode and decide whether to scan for a phy to attach to.
 
-On Mon,  3 Apr 2023 17:23:01 -0500 you wrote:
-> This patch adds support for platform-specific reset logic in the
-> stmmac driver. Some SoCs require a different reset mechanism than
-> the standard dwmac IP reset. To support these platforms, a new function
-> pointer 'fix_soc_reset' is added to the plat_stmmacenet_data structure.
-> The stmmac_reset in hwif.h is modified to call the 'fix_soc_reset'
-> function if it exists. This enables the driver to use the platform-specific
-> reset logic when necessary.
-> 
-> [...]
+Fixes: fe2cfbc96803 ("net: stmmac: check if MAC needs to attach to a PHY")
+Reported-by: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+Link: https://lore.kernel.org/lkml/20230403212434.296975-1-martin.blumenstingl@googlemail.com/
+Tested-by: Guenter Roeck <linux@roeck-us.net>
+Tested-by: Shahab Vahedi <shahab@synopsys.com>
+Tested-by: Marek Szyprowski <m.szyprowski@samsung.com>
+Tested-by: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+Suggested-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
+Signed-off-by: Michael Sit Wei Hong <michael.wei.hong.sit@intel.com>
+---
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 15 +++++++++++----
+ 1 file changed, 11 insertions(+), 4 deletions(-)
 
-Here is the summary with links:
-  - [v6,1/2] net: stmmac: add support for platform specific reset
-    https://git.kernel.org/netdev/net-next/c/10739ea31328
-  - [v6,2/2] net: stmmac: dwmac-imx: use platform specific reset for imx93 SoCs
-    https://git.kernel.org/netdev/net-next/c/b536f32b5b03
-
-You are awesome, thank you!
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index d41a5f92aee7..7ca9be7bec06 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -1134,22 +1134,26 @@ static void stmmac_check_pcs_mode(struct stmmac_priv *priv)
+ static int stmmac_init_phy(struct net_device *dev)
+ {
+ 	struct stmmac_priv *priv = netdev_priv(dev);
++	struct fwnode_handle *phy_fwnode;
+ 	struct fwnode_handle *fwnode;
+-	bool phy_needed;
+ 	int ret;
+ 
++	if (!phylink_expects_phy(priv->phylink))
++		return 0;
++
+ 	fwnode = of_fwnode_handle(priv->plat->phylink_node);
+ 	if (!fwnode)
+ 		fwnode = dev_fwnode(priv->device);
+ 
+ 	if (fwnode)
+-		ret = phylink_fwnode_phy_connect(priv->phylink, fwnode, 0);
++		phy_fwnode = fwnode_get_phy_node(fwnode);
++	else
++		phy_fwnode = NULL;
+ 
+-	phy_needed = phylink_expects_phy(priv->phylink);
+ 	/* Some DT bindings do not set-up the PHY handle. Let's try to
+ 	 * manually parse it
+ 	 */
+-	if (!fwnode || phy_needed || ret) {
++	if (!phy_fwnode || IS_ERR(phy_fwnode)) {
+ 		int addr = priv->plat->phy_addr;
+ 		struct phy_device *phydev;
+ 
+@@ -1165,6 +1169,9 @@ static int stmmac_init_phy(struct net_device *dev)
+ 		}
+ 
+ 		ret = phylink_connect_phy(priv->phylink, phydev);
++	} else {
++		fwnode_handle_put(phy_fwnode);
++		ret = phylink_fwnode_phy_connect(priv->phylink, fwnode, 0);
+ 	}
+ 
+ 	if (!priv->plat->pmt) {
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+2.34.1
 
 _______________________________________________
 Linux-stm32 mailing list
