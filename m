@@ -2,39 +2,39 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 435756DB069
-	for <lists+linux-stm32@lfdr.de>; Fri,  7 Apr 2023 18:15:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D1E7F6DB0C9
+	for <lists+linux-stm32@lfdr.de>; Fri,  7 Apr 2023 18:43:28 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E5B65C6B44B;
-	Fri,  7 Apr 2023 16:15:42 +0000 (UTC)
-Received: from mail115-79.sinamail.sina.com.cn
- (mail115-79.sinamail.sina.com.cn [218.30.115.79])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 79A5FC6B44B;
+	Fri,  7 Apr 2023 16:43:28 +0000 (UTC)
+Received: from mail115-95.sinamail.sina.com.cn
+ (mail115-95.sinamail.sina.com.cn [218.30.115.95])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9CA7BC6B447
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EAC99C6B448
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  7 Apr 2023 16:15:40 +0000 (UTC)
+ Fri,  7 Apr 2023 16:43:24 +0000 (UTC)
 X-SMAIL-HELO: localhost.localdomain
-Received: from unknown (HELO localhost.localdomain)([180.168.184.106])
- by sina.com (10.75.12.45) with ESMTP
- id 6430419E00004168; Fri, 8 Apr 2023 00:15:31 +0800 (CST)
+Received: from unknown (HELO localhost.localdomain)([116.233.206.1])
+ by sina.com (172.16.235.24) with ESMTP
+ id 6430481C000073F8; Fri, 8 Apr 2023 00:43:13 +0800 (CST)
 X-Sender: rocklouts@sina.com
 X-Auth-ID: rocklouts@sina.com
 Authentication-Results: sina.com; spf=none smtp.mailfrom=rocklouts@sina.com;
  dkim=none header.i=none;
  dmarc=none action=none header.from=rocklouts@sina.com
-X-SMAIL-MID: 60537331457789
+X-SMAIL-MID: 51591545089253
 From: louts <rocklouts@sina.com>
 To: davem@davemloft.net
-Date: Sat,  8 Apr 2023 00:15:12 +0800
-Message-Id: <20230407161512.20109-1-rocklouts@sina.com>
+Date: Sat,  8 Apr 2023 00:42:56 +0800
+Message-Id: <20230407164256.21497-1-rocklouts@sina.com>
 X-Mailer: git-send-email 2.17.1
 Cc: louts <rocklouts@sina.com>, netdev@vger.kernel.org,
  linux-kernel@vger.kernel.org, edumazet@google.com, joabreu@synopsys.com,
  mcoquelin.stm32@gmail.com, kuba@kernel.org, peppe.cavallaro@st.com,
  pabeni@redhat.com, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH] net: stmmac: fix system hang when setting up
+Subject: [Linux-stm32] [net] net: stmmac: fix system hang when setting up
 	standalone tag_8021q VLAN for DSA ports
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
