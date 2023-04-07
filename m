@@ -2,89 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 841DC6DB1B0
-	for <lists+linux-stm32@lfdr.de>; Fri,  7 Apr 2023 19:36:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 928D96DB291
+	for <lists+linux-stm32@lfdr.de>; Fri,  7 Apr 2023 20:13:05 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4C0FBC6B44A;
-	Fri,  7 Apr 2023 17:36:11 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3A92DC0356E
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4704BC6B44B;
+	Fri,  7 Apr 2023 18:13:05 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D4A68C6B447
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  7 Apr 2023 17:36:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1680888969;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=girDT/3e1iBfq8YfqylLYXxjOSDey8dBT/Mp5wOCRPk=;
- b=UviER/VAxClIrkOFWwi9D7NCrDBJUvSROYGQ1n1GlbcD3eYK1ZOU55gCuQNHuZQd7oCPBA
- JznFj4COT3R6x9pfeprrM/aulUQ+gm53e1u/jv5P/gz7RMZPP0GyNwyvZmHMypdEjhAkeZ
- /gUD83rvSyfJu+sX1GkRajd71gGS5+s=
-Received: from mail-oo1-f71.google.com (mail-oo1-f71.google.com
- [209.85.161.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-593-y_7t7Z0BNhCMH_fd2MCuuQ-1; Fri, 07 Apr 2023 13:36:08 -0400
-X-MC-Unique: y_7t7Z0BNhCMH_fd2MCuuQ-1
-Received: by mail-oo1-f71.google.com with SMTP id
- c83-20020a4a4f56000000b0053b4b212346so11747122oob.10
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 07 Apr 2023 10:36:07 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1680888967;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=girDT/3e1iBfq8YfqylLYXxjOSDey8dBT/Mp5wOCRPk=;
- b=EO8TIPBV2N3ISubi8YKr+t/A+DNXg1JdFj2YstrgGE6YV1sYts6q3RZOmlRxAbLkn5
- fiszeguUsLn6pZNht7uUZdmc1XNoHwIG7TsH9+iyGFKPyFHZ8GKqbTKdmYN9yDqyNacU
- aumNc7LLz5NY4i4iALYkW9tYydE/7NFBhe1JAzubvXYT5D+1uBrnndh7Pj+8/xKt13sS
- a8AjXB/ty1tfroGDe/sXmHTZ228a9z1bfSJabhb4s5Gb58z/rSCzDLMRl49hdzoQ6HXN
- 57C5EdhJn9ncqWH6RcUJJbGrIbWHbO2YwNQvH7nO8xjPat68m01jdoIs2cLMZEsZxBYR
- gKmw==
-X-Gm-Message-State: AAQBX9caw4puIQmiHP3TMyJwThfygyJSzNtyI6B9DB1xHsVx1FCo7liw
- 2o2Toa1ZOQugU7W3m+AtTW3Nm0VzBCA+1PjxGPsgjYalScBScC3DqBc5oPxOJtvc+9b3t5K1u4Z
- FPbfG/oadiNyC5NtOeFjBW9U9+gBmWN32FkQ/losh
-X-Received: by 2002:a05:6870:b690:b0:17f:8da0:ce51 with SMTP id
- cy16-20020a056870b69000b0017f8da0ce51mr1898805oab.13.1680888967289; 
- Fri, 07 Apr 2023 10:36:07 -0700 (PDT)
-X-Google-Smtp-Source: AKy350aTgPrp2NCi7zwwA49Thy6Fhgfj8/rEUQEZAp6wz3jWRG4d8C8CLe9Z0+wJS8A8Vn22KfosIA==
-X-Received: by 2002:a05:6870:b690:b0:17f:8da0:ce51 with SMTP id
- cy16-20020a056870b69000b0017f8da0ce51mr1898768oab.13.1680888966976; 
- Fri, 07 Apr 2023 10:36:06 -0700 (PDT)
-Received: from halaney-x13s (104-53-165-62.lightspeed.stlsmo.sbcglobal.net.
- [104.53.165.62]) by smtp.gmail.com with ESMTPSA id
- an19-20020a056871b19300b00183fbbe8cdfsm1294396oac.31.2023.04.07.10.36.04
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 07 Apr 2023 10:36:06 -0700 (PDT)
-Date: Fri, 7 Apr 2023 12:36:03 -0500
-From: Andrew Halaney <ahalaney@redhat.com>
-To: Simon Horman <simon.horman@corigine.com>
-Message-ID: <20230407173603.lyj5fjox23uhn2gb@halaney-x13s>
-References: <20230331214549.756660-1-ahalaney@redhat.com>
- <20230331214549.756660-10-ahalaney@redhat.com>
- <ZChGswjgAOkT0jvY@corigine.com>
+ Fri,  7 Apr 2023 18:13:03 +0000 (UTC)
+Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 337CMGeF012601; Fri, 7 Apr 2023 20:12:51 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=selector1;
+ bh=F0o+B3Jxb3/uk+z8z/TkZpS2JFK+X2n8RM237B5Z72s=;
+ b=bqgkoPZvUyir/9JcBxPvKJggAKC9PUuKLgNeIkclpMXM0GLtrtPN6cxMiCfkhJWlXCmJ
+ ropCFJSTtStST82JiZPewnaKLFQNJdTASQ1c0UuWQ16chif+3rrAukGVwbQ1ZFYdZSNC
+ O/gwQRqohI8PHDEFd8/JmHOTCA+7v0czgWSVMiEyc3iJRIkT2HbKGDvCAUy/4Ts+AOxD
+ NcuS3i4UvnymrAJtOHqZZMhgtATXoamD4VZiGUJE2T72FljMT1p9cL5AvbhJUKYN/7lP
+ pAktTMoCVdAp7ppgGumZgovQMr3lsY85Rc8FFyLzHPahrfS+1Ox5Y/mkbEIXZdY7Srxr Jg== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3pteygu39y-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 07 Apr 2023 20:12:51 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 82C1210002A;
+ Fri,  7 Apr 2023 20:12:50 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node3.st.com [10.75.129.71])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 7BB7024C44C;
+ Fri,  7 Apr 2023 20:12:50 +0200 (CEST)
+Received: from localhost (10.48.0.157) by SHFDAG1NODE3.st.com (10.75.129.71)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.17; Fri, 7 Apr
+ 2023 20:12:50 +0200
+From: Patrick Delaunay <patrick.delaunay@foss.st.com>
+To: Alexandre TORGUE <alexandre.torgue@foss.st.com>, Lee Jones
+ <lee@kernel.org>, Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski
+ <krzysztof.kozlowski+dt@linaro.org>, Maxime Coquelin
+ <mcoquelin.stm32@gmail.com>
+Date: Fri, 7 Apr 2023 20:12:43 +0200
+Message-ID: <20230407201235.1.I483a676579cc7e3ac07e1db649091553743fecc8@changeid>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-In-Reply-To: <ZChGswjgAOkT0jvY@corigine.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Disposition: inline
-Cc: mturquette@baylibre.com, edumazet@google.com,
- krzysztof.kozlowski+dt@linaro.org, jonathanh@nvidia.com,
- linux-stm32@st-md-mailman.stormreply.com, tee.min.tan@linux.intel.com,
- samuel@sholland.org, linux@armlinux.org.uk, jernej.skrabec@gmail.com,
- veekhee@apple.com, wens@csie.org, joabreu@synopsys.com, agross@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, andrey.konovalov@linaro.org,
- ncai@quicinc.com, devicetree@vger.kernel.org, bhupesh.sharma@linaro.org,
- linux-arm-msm@vger.kernel.org, richardcochran@gmail.com, bmasney@redhat.com,
- mohammad.athari.ismail@intel.com, robh+dt@kernel.org, ruppala@nvidia.com,
- jsuraj@qti.qualcomm.com, peppe.cavallaro@st.com,
- linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
- andersson@kernel.org, linux-kernel@vger.kernel.org, echanude@redhat.com,
- konrad.dybcio@linaro.org, vkoul@kernel.org, hisunil@quicinc.com,
- mcoquelin.stm32@gmail.com, davem@davemloft.net
-Subject: Re: [Linux-stm32] [PATCH net-next v3 09/12] net: stmmac: dwmac4:
- Allow platforms to specify some DMA/MTL offsets
+X-Originating-IP: [10.48.0.157]
+X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE3.st.com
+ (10.75.129.71)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.942,Hydra:6.0.573,FMLib:17.11.170.22
+ definitions=2023-04-07_11,2023-04-06_03,2023-02-09_01
+Cc: Patrick Delaunay <patrick.delaunay@foss.st.com>, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [PATCH] dt-bindings: mfd: stm32: Fix STM32F4 DT
+	include file
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,79 +77,29 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Sat, Apr 01, 2023 at 04:58:59PM +0200, Simon Horman wrote:
-> On Fri, Mar 31, 2023 at 04:45:46PM -0500, Andrew Halaney wrote:
-> > Some platforms have dwmac4 implementations that have a different
-> > address space layout than the default, resulting in the need to define
-> > their own DMA/MTL offsets.
-> > 
-> > Extend the functions to allow a platform driver to indicate what its
-> > addresses are, overriding the defaults.
-> > 
-> > Signed-off-by: Andrew Halaney <ahalaney@redhat.com>
-> > ---
-> > 
-> > This patch (and the prior patch) are replacements for
-> > https://lore.kernel.org/netdev/20230320204153.21736840@kernel.org/
-> > as was requested. Hopefully I was understanding the intent correctly :)
-> > 
-> > I'm pretty sure further refinement will be requested for this one, but
-> > it is the best I could come up with myself! Specifically some of the
-> > naming, dealing with spacing in some older spots of dwmac4,
-> > where the addresses should live in the structure hierarchy, etc are
-> > things I would not be surprised to have to rework if this is still
-> > preferred over the wrapper approach.
-> > 
-> > Changes since v2:
-> >     * New, replacing old wrapper approach
-> > 
-> >  drivers/net/ethernet/stmicro/stmmac/dwmac4.h  |  91 ++++++++--
-> >  .../net/ethernet/stmicro/stmmac/dwmac4_core.c |  36 ++--
-> >  .../net/ethernet/stmicro/stmmac/dwmac4_dma.c  | 157 ++++++++++--------
-> >  .../net/ethernet/stmicro/stmmac/dwmac4_dma.h  |  51 +++---
-> >  .../net/ethernet/stmicro/stmmac/dwmac4_lib.c  |  67 +++++---
-> >  include/linux/stmmac.h                        |  19 +++
-> >  6 files changed, 279 insertions(+), 142 deletions(-)
-> > 
-> > diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4.h b/drivers/net/ethernet/stmicro/stmmac/dwmac4.h
-> > index ccd49346d3b3..a0c0ee1dc13f 100644
-> > --- a/drivers/net/ethernet/stmicro/stmmac/dwmac4.h
-> > +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4.h
-> > @@ -336,14 +336,23 @@ enum power_event {
-> >  
-> >  #define MTL_CHAN_BASE_ADDR		0x00000d00
-> >  #define MTL_CHAN_BASE_OFFSET		0x40
-> > -#define MTL_CHANX_BASE_ADDR(x)		(MTL_CHAN_BASE_ADDR + \
-> > -					(x * MTL_CHAN_BASE_OFFSET))
-> > -
-> > -#define MTL_CHAN_TX_OP_MODE(x)		MTL_CHANX_BASE_ADDR(x)
-> > -#define MTL_CHAN_TX_DEBUG(x)		(MTL_CHANX_BASE_ADDR(x) + 0x8)
-> > -#define MTL_CHAN_INT_CTRL(x)		(MTL_CHANX_BASE_ADDR(x) + 0x2c)
-> > -#define MTL_CHAN_RX_OP_MODE(x)		(MTL_CHANX_BASE_ADDR(x) + 0x30)
-> > -#define MTL_CHAN_RX_DEBUG(x)		(MTL_CHANX_BASE_ADDR(x) + 0x38)
-> > +#define MTL_CHANX_BASE_ADDR(addrs, x)  \
-> > +({ \
-> > +	const struct dwmac4_addrs *__addrs = addrs; \
-> > +	const u32 __x = x; \
-> > +	u32 __addr; \
-> > +	if (__addrs) \
-> > +		__addr = __addrs->mtl_chan + (__x * __addrs->mtl_chan_offset); \
-> > +	else \
-> > +		__addr = MTL_CHAN_BASE_ADDR + (__x * MTL_CHAN_BASE_OFFSET); \
-> > +	__addr; \
-> > +})
-> 
-> Could this and similar macros added by this patch be functions?
-> From my pov a benefit would be slightly more type safety.
-> And as a bonus there wouldn't be any need to handle aliasing of input.
-> 
+Minor cosmetic change, aligned with file in U-Boot:
+- remove extra space
 
-Sure, to be honest I'll be much more comfortable coding that up anyways.
-I don't do a ton of macro programming and had to refamiliarize myself of
-the pitfalls that comes with it when doing this.
+Signed-off-by: Patrick Delaunay <patrick.delaunay@foss.st.com>
+---
 
-Thanks,
-Andrew
+ include/dt-bindings/mfd/stm32f4-rcc.h | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/include/dt-bindings/mfd/stm32f4-rcc.h b/include/dt-bindings/mfd/stm32f4-rcc.h
+index 309e8c79f27b..36448a5619a1 100644
+--- a/include/dt-bindings/mfd/stm32f4-rcc.h
++++ b/include/dt-bindings/mfd/stm32f4-rcc.h
+@@ -34,7 +34,6 @@
+ #define STM32F4_AHB1_RESET(bit) (STM32F4_RCC_AHB1_##bit + (0x10 * 8))
+ #define STM32F4_AHB1_CLOCK(bit) (STM32F4_RCC_AHB1_##bit)
+ 
+-
+ /* AHB2 */
+ #define STM32F4_RCC_AHB2_DCMI	0
+ #define STM32F4_RCC_AHB2_CRYP	4
+-- 
+2.25.1
 
 _______________________________________________
 Linux-stm32 mailing list
