@@ -2,66 +2,85 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 225AA6DA98F
-	for <lists+linux-stm32@lfdr.de>; Fri,  7 Apr 2023 09:51:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 46FA96DA9C6
+	for <lists+linux-stm32@lfdr.de>; Fri,  7 Apr 2023 10:11:01 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B0F69C6B446;
-	Fri,  7 Apr 2023 07:51:42 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E318FC6B446;
+	Fri,  7 Apr 2023 08:11:00 +0000 (UTC)
+Received: from relay3-d.mail.gandi.net (relay3-d.mail.gandi.net
+ [217.70.183.195])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3695BC6B443
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 257E6C6B443
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  7 Apr 2023 07:51:41 +0000 (UTC)
-Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 3377codq012393; Fri, 7 Apr 2023 09:51:27 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=JZQ9ebk0VsNr3bmE9JHa8crYpwLrWBU1DloiIHkXoPc=;
- b=LATOAoa6VAv2sIlM+tG5p8SCCPc4K8iKdJp918Z0eSEhRFkDt1YH18iBa5sck1l+33rf
- cDQcHCFQF43sray9y1qxFdISoxpjSP/5yOhVMmBOFiBdytWdqCBl27HKdjs35gtPfW8n
- A5ONJu1TGJl02KSkQWCt0jUNmNEQpWKdSVhEYYnvh+JhTckINgJn08EDdd/PkrRQEjxH
- SDqA00tBDGHPh0bDgNyKq4yqmPtVw9ECW4fNq1JrlWisyeioRctkcXqf0fHxvURU+CTG
- qohwj3RtootheEg6yzbL2IVgS9yqjAsGFlN2lNGccEzIF4bl/4AdAe10DLTr12ZBcnKc xQ== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3pteygr23x-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 07 Apr 2023 09:51:27 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 61B49100113;
- Fri,  7 Apr 2023 09:42:23 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 5AB5E216EFD;
- Fri,  7 Apr 2023 09:42:23 +0200 (CEST)
-Received: from [10.201.21.93] (10.201.21.93) by SHFDAG1NODE1.st.com
- (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.17; Fri, 7 Apr
- 2023 09:42:23 +0200
-Message-ID: <ae67208f-7e04-5d53-9b7d-77bf4547a790@foss.st.com>
-Date: Fri, 7 Apr 2023 09:42:22 +0200
+ Fri,  7 Apr 2023 08:11:00 +0000 (UTC)
+Received: (Authenticated sender: miquel.raynal@bootlin.com)
+ by mail.gandi.net (Postfix) with ESMTPSA id D70776000C;
+ Fri,  7 Apr 2023 08:10:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
+ t=1680855059;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=k62lE0Z84brwUbN0RTewMQPHSeeiOVUlnJEgkCzQsvo=;
+ b=R9CLiy5G5LdE9BO36N204fuspyAxiiF7TmcabLrbwrQPeoEl5Pn0pcw2pa9LFURAj+yhqS
+ Ku6ulo+yoPDqo0ywa6hZxIhfMa2hfrKY6oIoCe+v26HM6BlIqcgn8p8u0WJDFU+gYVyAOT
+ iWOVTokLobBTMlDhc5L2oqSRq3pJIdqQ+s5IqSFwu1iEWL1rH1J0xX63ZpwsrUgxYtF5VC
+ JMA7zniKULdwaW97f/g6p4Ec2AzETlg0EBYuF+OIU67+xs5aqnBUa8bo0FWsfGskdfArda
+ sO7wxwa4nSLUU/oHmfv/0zUTbea+upPaTGkKYKQ1Sq0BSBr1Ah5yUIuIzPRbHA==
+Date: Fri, 7 Apr 2023 10:10:43 +0200
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Uwe =?UTF-8?B?S2xlaW5lLUvDtm5pZw==?= <u.kleine-koenig@pengutronix.de>
+Message-ID: <20230407101043.299f5e22@xps-13>
+In-Reply-To: <20230401161938.2503204-1-u.kleine-koenig@pengutronix.de>
+References: <20230401161938.2503204-1-u.kleine-koenig@pengutronix.de>
+Organization: Bootlin
+X-Mailer: Claws Mail 4.0.0 (GTK+ 3.24.33; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.9.0
-Content-Language: en-US
-To: Roan van Dijk <roan@protonic.nl>, <corbet@lwn.net>
-References: <20230330091613.1445734-1-roan@protonic.nl>
-From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
-In-Reply-To: <20230330091613.1445734-1-roan@protonic.nl>
-X-Originating-IP: [10.201.21.93]
-X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SHFDAG1NODE1.st.com
- (10.75.129.69)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.942,Hydra:6.0.573,FMLib:17.11.170.22
- definitions=2023-04-07_04,2023-04-06_03,2023-02-09_01
-Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, mcoquelin.stm32@gmail.com,
- linux-doc@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH v2] ARM: stm32: add initial documentation
-	for STM32MP151
+Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>, Lucas Stach <dev@lynxeye.de>,
+ Vignesh Raghavendra <vigneshr@ti.com>,
+ Linus Walleij <linus.walleij@linaro.org>, Miaoqian Lin <linmq006@gmail.com>,
+ Stefan Agner <stefan@agner.ch>, linux-mips@vger.kernel.org,
+ Paul Cercueil <paul@crapouillou.net>, linux-tegra@vger.kernel.org,
+ Liang Yang <liang.yang@amlogic.com>,
+ Naga Sureshkumar Relli <nagasure@xilinx.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, linux-amlogic@lists.infradead.org,
+ Chuanhong Guo <gch981213@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
+ Heiko Stuebner <heiko@sntech.de>,
+ Marek =?UTF-8?B?QmVow7pu?= <kabel@kernel.org>,
+ Phil Edworthy <phil.edworthy@renesas.com>,
+ Samuel Holland <samuel@sholland.org>, Kevin Hilman <khilman@baylibre.com>,
+ linux-mediatek@lists.infradead.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Christophe Leroy <christophe.leroy@csgroup.eu>,
+ Jonathan Hunter <jonathanh@nvidia.com>, linux-rockchip@lists.infradead.org,
+ Tudor Ambarus <tudor.ambarus@linaro.org>,
+ Geert Uytterhoeven <geert@linux-m68k.org>,
+ Yang Yingliang <yangyingliang@huawei.com>, Jack Wang <jinpu.wang@ionos.com>,
+ Jerome Brunet <jbrunet@baylibre.com>, linux-sunxi@lists.linux.dev,
+ linux-arm-msm@vger.kernel.org, kernel@pengutronix.de,
+ Arnd Bergmann <arnd@arndb.de>, Manivannan Sadhasivam <mani@kernel.org>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ ye xingchen <ye.xingchen@zte.com.cn>, Vladimir Zapolskiy <vz@mleia.com>,
+ Roger Quadros <rogerq@kernel.org>, Wang Weiyang <wangweiyang2@huawei.com>,
+ Harvey Hunt <harveyhuntnexus@gmail.com>,
+ Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+ Matthias Brugger <matthias.bgg@gmail.com>, Han Xu <han.xu@nxp.com>,
+ Chen-Yu Tsai <wens@csie.org>, linux-arm-kernel@lists.infradead.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Stephen Boyd <sboyd@kernel.org>,
+ Valentin Korenblit <vkorenblit@sequans.com>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>, linux-renesas-soc@vger.kernel.org,
+ Kyungmin Park <kyungmin.park@samsung.com>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Richard Weinberger <richard@nod.at>, linux-mtd@lists.infradead.org,
+ linux-oxnas@groups.io, Pali =?UTF-8?B?Um9ow6Fy?= <pali@kernel.org>,
+ Claudiu Beznea <claudiu.beznea@microchip.com>
+Subject: Re: [Linux-stm32] [PATCH 00/49] mtd: nand: Convert to platform
+ remove callback returning void
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,92 +92,45 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Roan
-
-On 3/30/23 11:16, Roan van Dijk wrote:
-> This patch adds initial documentation of STM32MP151 microprocessor (MPU)
-> based on Arm Cortex-A7.
-> 
-> Signed-off-by: Roan van Dijk <roan@protonic.nl>
-> ---
-> 
-
-
-
-Applied on stm32-next.
-
-Thanks.
-Alex
-
-> v2:
->   - Adds stm32mp151 to index.rst
-> 
->   Documentation/arm/index.rst                   |  1 +
->   .../arm/stm32/stm32mp151-overview.rst         | 36 +++++++++++++++++++
->   2 files changed, 37 insertions(+)
->   create mode 100644 Documentation/arm/stm32/stm32mp151-overview.rst
-> 
-> diff --git a/Documentation/arm/index.rst b/Documentation/arm/index.rst
-> index ae42fe886f0d..056ac11372af 100644
-> --- a/Documentation/arm/index.rst
-> +++ b/Documentation/arm/index.rst
-> @@ -58,6 +58,7 @@ SoC-specific documents
->      stm32/stm32f769-overview
->      stm32/stm32f429-overview
->      stm32/stm32mp13-overview
-> +   stm32/stm32mp151-overview
->      stm32/stm32mp157-overview
->      stm32/stm32-dma-mdma-chaining
->   
-> diff --git a/Documentation/arm/stm32/stm32mp151-overview.rst b/Documentation/arm/stm32/stm32mp151-overview.rst
-> new file mode 100644
-> index 000000000000..f42a2ac309c0
-> --- /dev/null
-> +++ b/Documentation/arm/stm32/stm32mp151-overview.rst
-> @@ -0,0 +1,36 @@
-> +===================
-> +STM32MP151 Overview
-> +===================
-> +
-> +Introduction
-> +------------
-> +
-> +The STM32MP151 is a Cortex-A MPU aimed at various applications.
-> +It features:
-> +
-> +- Single Cortex-A7 application core
-> +- Standard memories interface support
-> +- Standard connectivity, widely inherited from the STM32 MCU family
-> +- Comprehensive security support
-> +
-> +More details:
-> +
-> +- Cortex-A7 core running up to @800MHz
-> +- FMC controller to connect SDRAM, NOR and NAND memories
-> +- QSPI
-> +- SD/MMC/SDIO support
-> +- Ethernet controller
-> +- ADC/DAC
-> +- USB EHCI/OHCI controllers
-> +- USB OTG
-> +- I2C, SPI busses support
-> +- Several general purpose timers
-> +- Serial Audio interface
-> +- LCD-TFT controller
-> +- DCMIPP
-> +- SPDIFRX
-> +- DFSDM
-> +
-> +:Authors:
-> +
-> +- Roan van Dijk <roan@protonic.nl>
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+SGkgVXdlLAoKdS5rbGVpbmUta29lbmlnQHBlbmd1dHJvbml4LmRlIHdyb3RlIG9uIFNhdCwgIDEg
+QXByIDIwMjMgMTg6MTg6NDkgKzAyMDA6Cgo+IEhlbGxvLAo+IAo+IHRoaXMgc2VyaWVzIGFkYXB0
+cyB0aGUgcGxhdGZvcm0gZHJpdmVycyBiZWxvdyBkcml2ZXJzL210ZC9uYW5kIHRvIHVzZSB0aGUK
+PiAucmVtb3ZlX25ldygpIGNhbGxiYWNrLiBDb21wYXJlZCB0byB0aGUgdHJhZGl0aW9uYWwgLnJl
+bW92ZSgpIGNhbGxiYWNrCj4gLnJlbW92ZV9uZXcoKSByZXR1cm5zIG5vIHZhbHVlLiBUaGlzIGlz
+IGEgZ29vZCB0aGluZyBiZWNhdXNlIHRoZSBkcml2ZXIgY29yZQo+IGRvZXNuJ3QgKGFuZCBjYW5u
+b3QpIGNvcGUgZm9yIGVycm9ycyBkdXJpbmcgcmVtb3ZlLiBUaGUgb25seSBlZmZlY3Qgb2YgYQo+
+IG5vbi16ZXJvIHJldHVybiB2YWx1ZSBpbiAucmVtb3ZlKCkgaXMgdGhhdCB0aGUgZHJpdmVyIGNv
+cmUgZW1pdHMgYSB3YXJuaW5nLiBUaGUKPiBkZXZpY2UgaXMgcmVtb3ZlZCBhbnlob3cgYW5kIGFu
+IGVhcmx5IHJldHVybiBmcm9tIC5yZW1vdmUoKSB1c3VhbGx5IHlpZWxkcyBhCj4gcmVzb3VyY2Ug
+bGVhay4KPiAKPiBCeSBjaGFuZ2luZyB0aGUgcmVtb3ZlIGNhbGxiYWNrIHRvIHJldHVybiB2b2lk
+IGRyaXZlciBhdXRob3JzIGNhbm5vdAo+IHJlYXNvbmFibHkgYXNzdW1lIGFueSBtb3JlIHRoYXQg
+dGhlcmUgaXMgc29tZSBraW5kIG9mIGNsZWFudXAgbGF0ZXIuCj4gCj4gQXMgYWxsIGRyaXZlcnMg
+YWxyZWFkeSByZXR1cm4gMCBpbiB0aGVpciAucmVtb3ZlIGNhbGxiYWNrLCB0aGV5IGNhbiBiZQo+
+IGNvbnZlcnRlZCB0cml2aWFsbHkuCgpJJ3ZlIGxvb2tlZCBhdCB0aGUgZGlmZmVyZW50IHBhdGNo
+ZXMsIHRoZXkgbG9vayBnb29kIHRvIG1lIGJ1dCBhcyB0aGV5CmFyZSBhbGwgdHJpdmlhbCBhbmQg
+ZXhhY3RseSBpZGVudGljYWwsIHdvdWxkIHlvdSBtaW5kIHNlbmRpbmcgdGhpcwphZ2FpbiBhbGwg
+c3F1YXNoZWQgaW4gYSBzaW5nbGUgcGF0Y2g/IEEgc3Vic3lzdGVtLXdpZGUgY29udmVyc2lvbiBz
+ZWVtcwphcHByb3ByaWF0ZS4gSW4gYWxsIGNhc2VzIEkgcGxhbiB0byB0YWtlIHRoaXMgZm9yIHRo
+ZSBuZXh0IG1lcmdlCndpbmRvdy4KCkkndmUgY29sbGVjdGVkIHRoZSB0YWdzIHJlY2VpdmVkIHNv
+IGZhciBpZiB5b3Ugd2FudDoKCkFja2VkLWJ5OiBOaWNvbGFzIEZlcnJlIDxuaWNvbGFzLmZlcnJl
+QG1pY3JvY2hpcC5jb20+ICMgYXRtZWwKUmV2aWV3ZWQtYnk6IFBhdWwgQ2VyY3VlaWwgPHBhdWxA
+Y3JhcG91aWxsb3UubmV0PiAjIGluZ2VuaWMKUmV2aWV3ZWQtYnk6IFBoaWxpcHBlIE1hdGhpZXUt
+RGF1ZMOpIDxwaGlsbWRAbGluYXJvLm9yZz4gIyBpbmdlbmljCkFja2VkLWJ5OiBNYXJ0aW4gQmx1
+bWVuc3RpbmdsIDxtYXJ0aW4uYmx1bWVuc3RpbmdsQGdvb2dsZW1haWwuY29tPiAjIGludGVsClJl
+dmlld2VkLWJ5OiBNYXJ0aW4gQmx1bWVuc3RpbmdsIDxtYXJ0aW4uYmx1bWVuc3RpbmdsQGdvb2ds
+ZW1haWwuY29tPiAjIG1lc29uCkFja2VkLWJ5OiBSb2dlciBRdWFkcm9zIDxyb2dlcnFAa2VybmVs
+Lm9yZz4gIyBvbWFwClJldmlld2VkLWJ5OiBHZWVydCBVeXR0ZXJob2V2ZW4gPGdlZXJ0K3JlbmVz
+YXNAZ2xpZGVyLmJlPiAjIHJlbmVzYXMKUmV2aWV3ZWQtYnk6IEhlaWtvIFN0dWVibmVyIDxoZWlr
+b0BzbnRlY2guZGU+ICMgcm9ja2NoaXAKQWNrZWQtYnk6IEplcm5laiBTa3JhYmVjIDxqZXJuZWou
+c2tyYWJlY0BnbWFpbC5jb20+ICMgc3VueGkKQWNrZWQtYnk6IFRoaWVycnkgUmVkaW5nIDx0cmVk
+aW5nQG52aWRpYS5jb20+ICMgdGVncmEKCkJUVywgdGhhbmtzIHRvIGFsbCBvZiB5b3Ugd2hvIHJl
+dmlld2VkIGFuZCBhbnN3ZXJlZCB0byB0aGlzIHRocmVhZCEKVGhpcyBpcyBoaWdobHkgYXBwcmVj
+aWF0ZWQuIAoKVGhhbmtzLApNaXF1w6hsCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1t
+ZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5
+LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
