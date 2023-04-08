@@ -2,47 +2,47 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8BBD86DB5A9
-	for <lists+linux-stm32@lfdr.de>; Fri,  7 Apr 2023 23:02:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A8FB6DB867
+	for <lists+linux-stm32@lfdr.de>; Sat,  8 Apr 2023 04:57:35 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3EBDBC6B44C;
-	Fri,  7 Apr 2023 21:02:15 +0000 (UTC)
-Received: from phobos.denx.de (phobos.denx.de [85.214.62.61])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 27269C6B44C;
+	Sat,  8 Apr 2023 02:57:35 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 81A70C6B44A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 23C72C6B447
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  7 Apr 2023 21:02:13 +0000 (UTC)
-Received: from tr.lan (ip-86-49-120-218.bb.vodafone.cz [86.49.120.218])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
+ Sat,  8 Apr 2023 02:57:34 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- (Authenticated sender: marex@denx.de)
- by phobos.denx.de (Postfix) with ESMTPSA id 3BFCB85802;
- Fri,  7 Apr 2023 23:02:12 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de;
- s=phobos-20191101; t=1680901332;
- bh=AJ02imYCOxJwPvi0oNZrvixeZ4REKxeDBU6fHomFj48=;
- h=From:To:Cc:Subject:Date:From;
- b=WdbFZYTYB0h/+B7R7+jkPQH1WXeoVFbIiC0Vr2VngOaQWFq5PG4Vj+Z8Uls7+lN1r
- IVh1tnK9n8aiuZwApmNAO0emYsEQYkeJs84mgNo5wumOJ9NmW4knxVShM39S1O4o05
- HlNszHdDauF1/N03Y+qClpV4IRw3qs6rb1avyKeSYLyefs5fuB5Yr9Sig72FikUvoo
- qbfILf0vuzwKk3uE9CpasJuLH7RtVOtLivf38LI0fXej3rn4TcGoxBx/esbE6sqrPK
- 8VuKabLSIQSa82ASnVDXazfiB1ceExj6t9SJf3PtD+A7gCRyMD8EU8XTDWQnCjloxY
- lTY2Hxk1jQw5g==
-From: Marek Vasut <marex@denx.de>
-To: linux-arm-kernel@lists.infradead.org
-Date: Fri,  7 Apr 2023 23:01:52 +0200
-Message-Id: <20230407210152.138549-1-marex@denx.de>
-X-Mailer: git-send-email 2.39.2
+ by dfw.source.kernel.org (Postfix) with ESMTPS id C956561224;
+ Sat,  8 Apr 2023 02:57:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B0A94C433D2;
+ Sat,  8 Apr 2023 02:57:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1680922652;
+ bh=iP8ZWnwE0T7PXtn7EQ51ZN7kOpLNp41+kNEFR32XrEA=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=qO4e+GkE8r2CQ7Z32n0cj8YH9qsjSTGzwi7wxYdiZFkYbAimRaCN+8tr1y32nqWIa
+ HFXrH99fE2PF/+56nZxSk1CZNIrSKhOjoSvkDKsAmdPQDq6X0Ei1GT+N+CpJKCGySY
+ ZpZRMFHO0AHi7GTb61W3zBM8AQLmWitf8+Ng1//9UoGi6BR8oq6IaVBDkP61PLKpgS
+ w0cw4v/u5sXRHoFmQFJ7yctI6C3N5co7KRIEfnZpRVjJ+YaNlXDxvdMpF3xdWNkcx7
+ JA+jb4QLCqd77cQLykn6JFJo5h+tGa/ojKjiVMUx1kjrhL+CO5KuMZFNqbA8MK3ayF
+ MUZWcd/ZMe89w==
+Date: Fri, 7 Apr 2023 19:57:30 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: louts <rocklouts@sina.com>
+Message-ID: <20230407195730.298867dd@kernel.org>
+In-Reply-To: <20230406100437.5402-1-rocklouts@sina.com>
+References: <20230406100437.5402-1-rocklouts@sina.com>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.103.8 at phobos.denx.de
-X-Virus-Status: Clean
-Cc: Marek Vasut <marex@denx.de>, devicetree@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Rob Herring <robh+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, kernel@dh-electronics.com
-Subject: [Linux-stm32] [PATCH] ARM: dts: stm32: Replace deprecated st,
-	hw-flow-ctrl with uart-has-rtscts
+Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ edumazet@google.com, joabreu@synopsys.com, mcoquelin.stm32@gmail.com,
+ peppe.cavallaro@st.com, pabeni@redhat.com, davem@davemloft.net,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] net: stmmac: fix system hang when setting
+ up standalone tag_8021q VLAN for DSA ports
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -54,83 +54,40 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Replace deprecated st,hw-flow-ctrl with uart-has-rtscts .
-No functional change.
-
-Signed-off-by: Marek Vasut <marex@denx.de>
----
-Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
-Cc: Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
-Cc: Marek Vasut <marex@denx.de>
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Cc: Rob Herring <robh+dt@kernel.org>
-Cc: devicetree@vger.kernel.org
-Cc: kernel@dh-electronics.com
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-stm32@st-md-mailman.stormreply.com
----
- arch/arm/boot/dts/stm32h750i-art-pi.dts            | 2 +-
- arch/arm/boot/dts/stm32mp157a-stinger96.dtsi       | 4 ++--
- arch/arm/boot/dts/stm32mp15xx-dhcor-avenger96.dtsi | 2 +-
- 3 files changed, 4 insertions(+), 4 deletions(-)
-
-diff --git a/arch/arm/boot/dts/stm32h750i-art-pi.dts b/arch/arm/boot/dts/stm32h750i-art-pi.dts
-index f3e70d3b65ac4..44c307f8b09cf 100644
---- a/arch/arm/boot/dts/stm32h750i-art-pi.dts
-+++ b/arch/arm/boot/dts/stm32h750i-art-pi.dts
-@@ -208,7 +208,7 @@ &usart3 {
- 	dmas = <&dmamux1 45 0x400 0x05>,
- 	       <&dmamux1 46 0x400 0x05>;
- 	dma-names = "rx", "tx";
--	st,hw-flow-ctrl;
-+	uart-has-rtscts;
- 	status = "okay";
- 
- 	bluetooth {
-diff --git a/arch/arm/boot/dts/stm32mp157a-stinger96.dtsi b/arch/arm/boot/dts/stm32mp157a-stinger96.dtsi
-index 3a36f7fe0a2c3..5f85598cc7c6b 100644
---- a/arch/arm/boot/dts/stm32mp157a-stinger96.dtsi
-+++ b/arch/arm/boot/dts/stm32mp157a-stinger96.dtsi
-@@ -287,7 +287,7 @@ &usart2 {
- 	pinctrl-names = "default", "sleep";
- 	pinctrl-0 = <&usart2_pins_b>;
- 	pinctrl-1 = <&usart2_sleep_pins_b>;
--	st,hw-flow-ctrl;
-+	uart-has-rtscts;
- 	/delete-property/dmas;
- 	/delete-property/dma-names;
- 	status = "okay";
-@@ -297,7 +297,7 @@ &usart2 {
- &uart4 {
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&uart4_pins_c>;
--	st,hw-flow-ctrl;
-+	uart-has-rtscts;
- 	/delete-property/dmas;
- 	/delete-property/dma-names;
- 	status = "okay";
-diff --git a/arch/arm/boot/dts/stm32mp15xx-dhcor-avenger96.dtsi b/arch/arm/boot/dts/stm32mp15xx-dhcor-avenger96.dtsi
-index 50af4a27d6be4..8232bbbae379c 100644
---- a/arch/arm/boot/dts/stm32mp15xx-dhcor-avenger96.dtsi
-+++ b/arch/arm/boot/dts/stm32mp15xx-dhcor-avenger96.dtsi
-@@ -452,7 +452,7 @@ &usart2 {
- 	pinctrl-names = "default", "sleep";
- 	pinctrl-0 = <&usart2_pins_a>;
- 	pinctrl-1 = <&usart2_sleep_pins_a>;
--	st,hw-flow-ctrl;
-+	uart-has-rtscts;
- 	/delete-property/dmas;
- 	/delete-property/dma-names;
- 	status = "okay";
--- 
-2.39.2
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gVGh1LCAgNiBBcHIgMjAyMyAxODowNDozNyArMDgwMCBsb3V0cyB3cm90ZToKPiBUaGUgc3lz
+dGVtIGhhbmcgYmVjYXVzZSBvZiBkc2FfdGFnXzgwMjFxX3BvcnRfc2V0dXAoKSBjYWxsYmNhawo+
+IHN0bW1hY192bGFuX3J4X2FkZF92aWQoKS5JIGZvdW5kIGluIHN0bW1hY19kcnZfcHJvYmUoKSB0
+aGF0Cj4gY2FpbGluZyBwbV9ydW50aW1lX3B1dCgpIGRpc2FibGVkIHRoZSBjbG9jayB3aGVuIGNo
+ZWNrIHRoZSBzdG1tYWMKPiBkaXJ2ZXIuCj4gCj4gRmlyc3QsIHdoZW4gdGhlIGtlcm5lbCBpcyBj
+b21waWxlZCB3aXRoIENPTkZJR19QTT15LFRoZSBzdG1tYWMncwo+IHJlc3VtZS9zdXNwZW5kIGlz
+IGFjdGl2ZS4KPiAKPiBTZWNvbmRseSxzdG1tYWMgYXMgRFNBIG1hc3Rlcix0aGUgZHNhX3RhZ184
+MDIxcV9wb3J0X3NldHVwKCkgZnVuY3Rpb24KPiB3aWxsIGNhbGxiYWNrIHN0bW1hY192bGFuX3J4
+X2FkZF92aWQgd2hlbiBEU0EgZGlydmVyIHN0YXJ0cy4gSG93ZXZlciwKPiBUaGUgc3lzdGVtIGlz
+IGhhbmdlZCBmb3IgdGhlIHN0bW1hY192bGFuX3J4X2FkZF92aWQoKSAgYWNjZXNzZXMgaXRzCj4g
+cmVnaXN0ZXJzIGFmdGVyIHN0bW1hYydzIGNsb2NrIGlzIGNsb3NlZC4KPiAKPiBJIHdvdWxkIHN1
+Z2dlc3QgYWRkaW5nIHRoZSBwbV9ydW50aW1lX3Jlc3VtZV9hbmRfZ2V0KCkgdG8gdGhlCj4gc3Rt
+bWFjX3ZsYW5fcnhfYWRkX3ZpZCgpLlRoaXMgZ3VhcmFudGVlcyB0aGF0IHJlc3VtaW5nIGNsb2Nr
+IG91dHB1dAo+IHdoaWxlIGluIHVzZS4KPiAKPiBTaWduZWQtb2ZmLWJ5OiBsb3V0cyA8cm9ja2xv
+dXRzQHNpbmEuY29tPgoKSXMgdGhhdCB5b3VyIGZ1bGwgbmFtZT8gSWYgeW91ciBuYW1lIGlzIG5v
+dCBpbiB0aGUgTGF0aW4gYWxwaGFiZXQKZmVlbCBmcmVlIHRvIHB1dCBpdCBpbiBicmFja2V0cyBh
+ZnRlciB0aGUgTGF0aW4gdmVyc2lvbiwgZS5nLjoKClNpZ25lZC1vZmYtYnk6IEpvaG4gKNGP0LrQ
+tdGB0Ywg0ZbQvCfRjykgPGpvaG5AYmxhLmFiYz4KCj4gQEAgLTYxOTgsMTYgKzYyMDIsMTkgQEAg
+c3RhdGljIGludCBzdG1tYWNfdmxhbl9yeF9hZGRfdmlkKHN0cnVjdCBuZXRfZGV2aWNlICpuZGV2
+LCBfX2JlMTYgcHJvdG8sIHUxNiB2aWQKPiAgCXJldCA9IHN0bW1hY192bGFuX3VwZGF0ZShwcml2
+LCBpc19kb3VibGUpOwo+ICAJaWYgKHJldCkgewo+ICAJCWNsZWFyX2JpdCh2aWQsIHByaXYtPmFj
+dGl2ZV92bGFucyk7Cj4gLQkJcmV0dXJuIHJldDsKPiArCQlnb3RvIHVwZGF0ZV92bGFuX2Vycm9y
+Owo+ICAJfQo+ICAKPiAgCWlmIChwcml2LT5ody0+bnVtX3ZsYW4pIHsKPiAgCQlyZXQgPSBzdG1t
+YWNfYWRkX2h3X3ZsYW5fcnhfZmx0cihwcml2LCBuZGV2LCBwcml2LT5odywgcHJvdG8sIHZpZCk7
+Cj4gIAkJaWYgKHJldCkKPiAtCQkJcmV0dXJuIHJldDsKPiArCQkJZ290byBhZGRfdmxhbl9lcnJv
+cjsKPiAgCX0KPiArdXBkYXRlX3ZsYW5fZXJyb3I6Cj4gK2FkZF92bGFuX2Vycm9yOgoKTmFtZSB0
+aGUgbGFiZWxzIGFmdGVyIHRoZSB0YXJnZXQgcGxlYXNlLgoKZXJyX3BtX3B1dDoKCj4gKwlwbV9y
+dW50aW1lX3B1dChwcml2LT5kZXZpY2UpOwo+ICAKPiAtCXJldHVybiAwOwo+ICsJcmV0dXJuIHJl
+dDsKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgt
+c3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5j
+b20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8v
+bGludXgtc3RtMzIK
