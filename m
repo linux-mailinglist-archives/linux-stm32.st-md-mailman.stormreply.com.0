@@ -2,127 +2,90 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 20D326DCA8B
-	for <lists+linux-stm32@lfdr.de>; Mon, 10 Apr 2023 20:11:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9A48E6DCCC9
+	for <lists+linux-stm32@lfdr.de>; Mon, 10 Apr 2023 23:24:31 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AB2A1C69066;
-	Mon, 10 Apr 2023 18:11:56 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2093.outbound.protection.outlook.com [40.107.244.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 84A5CC69063
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 14C40C69065;
+	Mon, 10 Apr 2023 21:24:31 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E6353C01E98
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 10 Apr 2023 18:11:55 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=MPfPJHnMqCpH5Mt7YMKtzbG4XTlhzeIBnV/hNpnNy2dzA3HTkAmYe9Y/IKhwTnxK6LXh6gyG+1N8b0Se2yNF8+bOKUOSbaDwti3wqYJFy9ilp0IsliYTV7cTIUmIsbU3SuJyh2gPlvX26NeCbOZWAX9Dn7HKqqKRAioBdaTK+OVdI/DrlldobLQ8gg6j4HRLrZP3dX1cB8ClIQhqZ31nL+kciEQon18QoOz5Aftq1ogUPKdkWe7cjdZ2z5Wjjn8Xknxj2Ni559fzMn+m5XwaijSHw6D8nUoTokXeOqya/YluuLwhlEXrp02/HZlB7tn0XM5B0aFhebYVTOQ7hli0Vg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jtf2oEJwma+VI/kKwviJh8GilpjhJ6r2XtBRw/xhcaw=;
- b=hwzu2sdGnUaISlhrq/IMZGAZ7HiizXP7cWoPQ1LSOnsQ+Q44m83t7hLIWu3Y84EpKOsnY+Ye5mD4muBmzBfI6q4z/TTGwQSOp/LQEszZMnrjSL3ZXgk4qj4Aa6V5eqmW8M+Xg77vdWcqfqFUFI5P4Si8vWmdYkPgehhQaNxJxitzgvUU3dwNT+X2YXHVsRxsuN0TQFTLV8pJk8TpFILMe0GSQ/Imb1kUiWQ6ZiVfjteTX7Bik/90RF9gd7183Zx9yLZdrN3ElB3HtTo8DuqHPMSVjX5l9RKq/u10ZKpuxIQBRj3BfnUFh9X1UhKzwXtkTNKtWkKL453ucedCgh+0cQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=corigine.com; dmarc=pass action=none header.from=corigine.com;
- dkim=pass header.d=corigine.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=corigine.onmicrosoft.com; s=selector2-corigine-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jtf2oEJwma+VI/kKwviJh8GilpjhJ6r2XtBRw/xhcaw=;
- b=F9noO4f6+Bt0vZVJ57E5bb7PTDqLxjmv27KGLDQ8iatu7qdle+74KwvBeyS97N4n8dQwDxSQhNaboVwoSm4+p5bwSAwK85lXEtT2YJdgRevlBlPKif9MK3R6SeITB2wPW4pcVE3mk+dJXtBkdeHKgGZsArNBWksJ/eP/+/R17Gg=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=corigine.com;
-Received: from PH0PR13MB4842.namprd13.prod.outlook.com (2603:10b6:510:78::6)
- by BL3PR13MB5226.namprd13.prod.outlook.com (2603:10b6:208:345::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6277.38; Mon, 10 Apr
- 2023 18:11:53 +0000
-Received: from PH0PR13MB4842.namprd13.prod.outlook.com
- ([fe80::89d1:63f2:2ed4:9169]) by PH0PR13MB4842.namprd13.prod.outlook.com
- ([fe80::89d1:63f2:2ed4:9169%5]) with mapi id 15.20.6277.038; Mon, 10 Apr 2023
- 18:11:53 +0000
-Date: Mon, 10 Apr 2023 20:11:44 +0200
-From: Simon Horman <simon.horman@corigine.com>
-To: "Song, Yoong Siang" <yoong.siang.song@intel.com>
-Message-ID: <ZDRRYCoKxEsNIJ75@corigine.com>
-References: <20230410100939.331833-1-yoong.siang.song@intel.com>
- <20230410100939.331833-4-yoong.siang.song@intel.com>
- <ZDQZeSe5OaFlNKso@corigine.com>
- <PH0PR11MB58304A6BD97AB6DEA58067D5D8959@PH0PR11MB5830.namprd11.prod.outlook.com>
-Content-Disposition: inline
-In-Reply-To: <PH0PR11MB58304A6BD97AB6DEA58067D5D8959@PH0PR11MB5830.namprd11.prod.outlook.com>
-X-ClientProxiedBy: AM0PR02CA0157.eurprd02.prod.outlook.com
- (2603:10a6:20b:28d::24) To PH0PR13MB4842.namprd13.prod.outlook.com
- (2603:10b6:510:78::6)
+ Mon, 10 Apr 2023 21:24:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1681161868;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=guIPUS4b/KI5jRIGt0RS4kaJQ4UcCDM9VQ9qZvewB+Q=;
+ b=BfqpFF2zXOWyGwNcj8ooUjwRs1YtJGoVJRsmdR3oArqUOoZz9gXgiLZsMPbDuRA4/em/Lt
+ OfBPnS7pCc1m9XcUG0bJgNKaj53zlQQ9Jvn8GOMfTdpOLWxFWhwySoPBYX9zzdf7m/xGKF
+ Dp2QcdawAbR4X9ssld+7e+4nkHa2dK0=
+Received: from mail-ot1-f70.google.com (mail-ot1-f70.google.com
+ [209.85.210.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-187-NKW9ipcGMNum6mIgk6lilA-1; Mon, 10 Apr 2023 17:24:26 -0400
+X-MC-Unique: NKW9ipcGMNum6mIgk6lilA-1
+Received: by mail-ot1-f70.google.com with SMTP id
+ j17-20020a9d7691000000b006a36ae648cbso7465289otl.7
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 10 Apr 2023 14:24:26 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112; t=1681161866;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=guIPUS4b/KI5jRIGt0RS4kaJQ4UcCDM9VQ9qZvewB+Q=;
+ b=FwL8zcOdp7iAD/IJ7LV+j0X8E7ZqK3R8RPN/syJzVt5WJZXZuRvJte78+Vh6dCpwAi
+ HmYhk3OKHhaMGkvEUFhYK+gx4F+9qZTked6r3z5+20wC7WKhAv4QzTkchJD6XCv8mYcu
+ tt8r30im0+0zltVcl4yOY92A3RX9pLZA1NIsOrgKcaz2+xqmOXNV7OwPqkFeFp2YBAQl
+ OhQ0oWU9uJ0zVqBPNvG06a5/c/Qx3mjipl1yn7buEhEE4M1YqtHn1LZJJ90+Clwp+M+R
+ jvw8KWK2/YpMph0xIjS5Ng21heddB+dwMVfwsCX1kp4/0l5Y8YKv+K6ndpXqvRC4aZE1
+ SVSg==
+X-Gm-Message-State: AAQBX9dN5CSi5j2tnvon0KgH1Tpn9Q4t0DuFxE+GnAWjMkYNl6wwRt5m
+ QNeDhBippZw1zEKye360wJud28QbfyHdraCDVZHyvI7jGngZtXLjNUlWY3NWRlEt/XovEect32w
+ Z8yCzRtqczcxRl7nfBKZsUNSIsTBGe8Wv0u0mTWxP
+X-Received: by 2002:a05:6808:1a27:b0:38b:c1b4:6af9 with SMTP id
+ bk39-20020a0568081a2700b0038bc1b46af9mr2735755oib.4.1681161866120; 
+ Mon, 10 Apr 2023 14:24:26 -0700 (PDT)
+X-Google-Smtp-Source: AKy350bgc7ZX4XjpSwPu1lYDObg75z6mEqgIGHBCnCkz1NdyheSPE+5IoVPpSan2LLi+1tqeOtiR4Q==
+X-Received: by 2002:a05:6808:1a27:b0:38b:c1b4:6af9 with SMTP id
+ bk39-20020a0568081a2700b0038bc1b46af9mr2735718oib.4.1681161865851; 
+ Mon, 10 Apr 2023 14:24:25 -0700 (PDT)
+Received: from halaney-x13s (104-53-165-62.lightspeed.stlsmo.sbcglobal.net.
+ [104.53.165.62]) by smtp.gmail.com with ESMTPSA id
+ w127-20020a4a5d85000000b00525398a1144sm5117502ooa.32.2023.04.10.14.24.23
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 10 Apr 2023 14:24:25 -0700 (PDT)
+Date: Mon, 10 Apr 2023 16:24:22 -0500
+From: Andrew Halaney <ahalaney@redhat.com>
+To: Simon Horman <simon.horman@corigine.com>
+Message-ID: <20230410212422.2rztlqspw5vjtb4d@halaney-x13s>
+References: <20230331214549.756660-1-ahalaney@redhat.com>
+ <20230331214549.756660-9-ahalaney@redhat.com>
+ <ZChIbc6TnQyZ/Fiu@corigine.com>
+ <20230407173453.hsfhbr66254z57ym@halaney-x13s>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH0PR13MB4842:EE_|BL3PR13MB5226:EE_
-X-MS-Office365-Filtering-Correlation-Id: b43dbed3-c695-4020-e3a5-08db39ef0fad
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: IMB6Q/pjaZH7/BsJlIjqT6bzZ8DMBrq5cBNAC7jdQvPDcCSKYsGHhEYfhmd0785U+BvniNwmsTCl80AFLSM4+PSRi0Epgk5dI3p7Ykf7Y+njsBdnBnJvC/8T66QkAcKvsH9/odJiMH/cKUZLqLVD+0YdaPmACpe+JwwR37JR3emnEltIF0n5nyvL7/vj6I/4M2ZPVC+K6QQFSCu7hKzzsRquPZ9hzNYT3WUW/i10Gjeexi91fkpiM40b7lHdBQk1dcrR/XRPFyUKB2cGKDPWkBRfWM8Wo/n9enfA3BMo8v0GdheXuluaFZvjPu37uinn9qpyaZ9BVpWv5NdikW+soqp+egjjHEYgZn0UsxWRQ0rqXBD7HWAjHJH2Z2REQEG0zLZj2msoXRA/Y4TBI8bd+adDwZpkXQjP0vY8L+1ukdVpE3Ze7NT0OqDgUMb/14WmEVUsrbibsV/mNp6GipJtgw/ZESCN49SLKnZtFOLEOR0YWukk9l+6yQr7EfTCEf527Hii6GdOgbABp/RVaHgUxiMfh0zqNmireGD/GN3Kg0b+kcsc/78kc+nFj6UmEuwJlfH/egQhpUECy06zHTtv7hvN8/OjlEgrJ0jvpCLVQSY=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH0PR13MB4842.namprd13.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(366004)(376002)(396003)(136003)(39840400004)(346002)(451199021)(478600001)(86362001)(83380400001)(36756003)(38100700002)(2616005)(6486002)(6666004)(2906002)(316002)(6512007)(186003)(54906003)(44832011)(6506007)(7416002)(66476007)(8936002)(8676002)(6916009)(41300700001)(66556008)(5660300002)(66946007)(4326008);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?E0FmmLFkq6ksuy/2VLyboI5W88xxD3Ms1zQzHtz8vPEkODFhA+21gzYg67x9?=
- =?us-ascii?Q?C2G6TKvocfCgE4It7jbRhRrmTWza5bb+jcj9MTew3IPvvEo9pnAtFeCMM9b2?=
- =?us-ascii?Q?uav6Kg8v9THKEDozaC8JQIfAPR/eGrFEbgae8fv18JwUoCr7aYHblIxp/5ds?=
- =?us-ascii?Q?nAh3T5YK87I57ORpvdPOL4IeWPuZPZFr7FI0DhkNfEVjN3ctYib/ef9nICBz?=
- =?us-ascii?Q?ymfu8wCrqyFEGWr7+Bv2UwqFQdogFyJwvIS9++STWKTMVXzn+eDfXcv3gR3T?=
- =?us-ascii?Q?fzGQK2WdeOq57S7lfvIIfB1tJloIJWCuFDsx59ryjUP/MvrGRax1PEUCSNi9?=
- =?us-ascii?Q?7PhURSR5tFe+ethuFtXw6iLLikiWI941WpDD1IkGM2ID56KrNYPcychVaTsz?=
- =?us-ascii?Q?8SndcNOzwro7m3SHC+OR3usu/fOuPn2rsh1rDFMGHaEBhVVLr6CAQSpZ7wBs?=
- =?us-ascii?Q?EHrOkizrVDzJJWGwMdJMu8fuzTvl8rpuuhzyDSv7cZrbUV3FvGhrFZqEyQKV?=
- =?us-ascii?Q?1eIrl+Z8qVOSUA2iLwybEnislAaYVb1r0OLDXC/WwyqfX5bc9y430MfhFsno?=
- =?us-ascii?Q?pCabxxImb/nvsIRy5amJYHYX/6b1lh+ZILXwNi58kLDtJRaFJQq8uNrLYpBU?=
- =?us-ascii?Q?/UVoLS6jn+qL8LSQpC6e0kU2Rg7OR94LPVcxJlH4cckq26QdJOviNAG8LZuG?=
- =?us-ascii?Q?uDLVI9FrqUSk9Syc+zjshvnaxVM7KUJHxPwQBCK3Ewc2uuf9OMTyLbufJ4JO?=
- =?us-ascii?Q?HyQDDlFuTAbPi8mEDjwP3ImQWDscqrSm5neU10Q2Bm2B+FwFr3k3tb3DSLcs?=
- =?us-ascii?Q?l37xuagFFNoKc5iFQUoR49OdjNR/1XxRmskLzSKPe/pMbH9TrnUZ1w+LMxOQ?=
- =?us-ascii?Q?McgSyUG1i9n3fsjlr2uKMz5gIEgjNpVcMRKXBlgHjk708W4ylmCdL7aggGaN?=
- =?us-ascii?Q?2+YQ6Qb6uj+KYazmI+0MQHoFigjeUOKKMd//FzQPuoaB/a4pSVK14nf+m9Nq?=
- =?us-ascii?Q?uGY+86N9eeHX+QiknsEjbOFsxR4bbG5GSmRoVMzero47mmW3FMkbK9AN1D/4?=
- =?us-ascii?Q?zRl2PqHA04jcn8nlNoflfgIdBynhnBRflVL0feY10ILGMxwMUl8r7FRz3IUJ?=
- =?us-ascii?Q?mTd1p2TD6QJQQ3MmcZf1+9NolVUK0P3jvAAcJ/dwKz/bunh84HYl5GBRV8cR?=
- =?us-ascii?Q?rlRopHYWUXn2SWDoJesnXg1EFCi9U9cCAoUFVYSXi5JXbcZ+icA/8eIoIz/q?=
- =?us-ascii?Q?UqbeHG2CJIiCc+R7pjHmM0WTWgNh96vkGy7m3MjgKtt2jPlETyyDtXOtl7Bf?=
- =?us-ascii?Q?1MVTpPxWU0rE6A7hRAf4jGOn35ynpztWR3xljj/cApJfDP4v0WjIYGoTW51B?=
- =?us-ascii?Q?PMld5jSgbCv7mGbVzusnaPtnGnQMxh9xxEW3GwEtaRDXJEnLzVBHfYEriBb/?=
- =?us-ascii?Q?UeKQrVouOxajqGBSXOLXg1DE0MQy5yUZOPC2eir6TwOKDGvw4hX+UUdH+Y3r?=
- =?us-ascii?Q?/INJFiRYjhYfLe1+0gTKAUdgZrUvFhTCZZj+fPQghZybsk7U1MYSTCKIG6VD?=
- =?us-ascii?Q?NZiUOgRlNCDBzME4S8QSXTZdZvOnq3/YkAuzZ0kMxkfY3DDsX1x2eygreTSk?=
- =?us-ascii?Q?0NKV05B/IXOqjp2ROMfrkzSf4AoKK1kmwK4ZBVkRetMdTeyxQFM/O6zJWOzc?=
- =?us-ascii?Q?yyl3/A=3D=3D?=
-X-OriginatorOrg: corigine.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b43dbed3-c695-4020-e3a5-08db39ef0fad
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR13MB4842.namprd13.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Apr 2023 18:11:52.8897 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: fe128f2c-073b-4c20-818e-7246a585940c
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: BAjDA69q4PVb0B5vyJqnJ+sKxTgA3Y2x8yttHeDqqMuzZxvX4PEBpmYscDqBjtz8msCr7I/Jz+hA46vPMWQ3CSHa8M4IxfJXNTY16NRXpA0=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR13MB5226
-Cc: "xdp-hints@xdp-project.net" <xdp-hints@xdp-project.net>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Jesper Dangaard Brouer <hawk@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- Alexander Duyck <alexanderduyck@fb.com>,
- John Fastabend <john.fastabend@gmail.com>, Alexei Starovoitov <ast@kernel.org>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>, Eric Dumazet <edumazet@google.com>,
- Jose Abreu <joabreu@synopsys.com>, Stanislav Fomichev <sdf@google.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- "Ong, Boon Leong" <boon.leong.ong@intel.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- "bpf@vger.kernel.org" <bpf@vger.kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- "David S . Miller" <davem@davemloft.net>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH net-next 3/4] net: stmmac: add Rx HWTS
- metadata to XDP receive pkt
+In-Reply-To: <20230407173453.hsfhbr66254z57ym@halaney-x13s>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Disposition: inline
+Cc: mturquette@baylibre.com, edumazet@google.com,
+ krzysztof.kozlowski+dt@linaro.org, jonathanh@nvidia.com,
+ linux-stm32@st-md-mailman.stormreply.com, tee.min.tan@linux.intel.com,
+ samuel@sholland.org, linux@armlinux.org.uk, jernej.skrabec@gmail.com,
+ veekhee@apple.com, wens@csie.org, joabreu@synopsys.com, agross@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, andrey.konovalov@linaro.org,
+ ncai@quicinc.com, devicetree@vger.kernel.org, bhupesh.sharma@linaro.org,
+ linux-arm-msm@vger.kernel.org, richardcochran@gmail.com, bmasney@redhat.com,
+ mohammad.athari.ismail@intel.com, robh+dt@kernel.org, ruppala@nvidia.com,
+ jsuraj@qti.qualcomm.com, peppe.cavallaro@st.com,
+ linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
+ andersson@kernel.org, linux-kernel@vger.kernel.org, echanude@redhat.com,
+ konrad.dybcio@linaro.org, vkoul@kernel.org, hisunil@quicinc.com,
+ mcoquelin.stm32@gmail.com, davem@davemloft.net
+Subject: Re: [Linux-stm32] [PATCH net-next v3 08/12] net: stmmac: Pass
+ stmmac_priv in some callbacks
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -139,43 +102,71 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Apr 10, 2023 at 03:33:48PM +0000, Song, Yoong Siang wrote:
-> >On Mon, Apr 10, 2023 at 06:09:38PM +0800, Song Yoong Siang wrote:
-> >> Add receive hardware timestamp metadata support via kfunc to XDP
-> >> receive packets.
-> >>
-> >> Signed-off-by: Song Yoong Siang <yoong.siang.song@intel.com>
-> >
-> >...
-> >
-> >> @@ -7071,6 +7073,22 @@ void stmmac_fpe_handshake(struct stmmac_priv
-> >*priv, bool enable)
-> >>  	}
-> >>  }
-> >>
-> >> +static int stmmac_xdp_rx_timestamp(const struct xdp_md *_ctx, u64
-> >> +*timestamp) {
-> >> +	const struct stmmac_xdp_buff *ctx = (void *)_ctx;
-> >> +
-> >> +	if (ctx->rx_hwts) {
-> >> +		*timestamp = ctx->rx_hwts;
-> >> +		return 0;
-> >> +	}
-> >> +
-> >> +	return -ENODATA;
-> >> +}
-> >> +
-> >> +const struct xdp_metadata_ops stmmac_xdp_metadata_ops = {
-> >> +	.xmo_rx_timestamp		= stmmac_xdp_rx_timestamp,
-> >> +};
-> >
-> >sparse seems to think this should be static.
-> >
-> >drivers/net/ethernet/stmicro/stmmac/stmmac_main.c:7082:31: warning: symbol
-> >'stmmac_xdp_metadata_ops' was not declared. Should it be static?
-> Yes, you are right. It should be static. I will add correct it in v2. Thank you.
+On Fri, Apr 07, 2023 at 12:34:53PM -0500, Andrew Halaney wrote:
+> On Sat, Apr 01, 2023 at 05:06:21PM +0200, Simon Horman wrote:
+> > On Fri, Mar 31, 2023 at 04:45:45PM -0500, Andrew Halaney wrote:
+> > > Passing stmmac_priv to some of the callbacks allows hwif implementations
+> > > to grab some data that platforms can customize. Adjust the callbacks
+> > > accordingly in preparation of such a platform customization.
+> > > 
+> > > Signed-off-by: Andrew Halaney <ahalaney@redhat.com>
+> > 
+> > ...
+> > 
+> > >  #define stmmac_reset(__priv, __args...) \
+> > > @@ -223,59 +240,59 @@ struct stmmac_dma_ops {
+> > >  #define stmmac_dma_init(__priv, __args...) \
+> > >  	stmmac_do_void_callback(__priv, dma, init, __args)
+> > >  #define stmmac_init_chan(__priv, __args...) \
+> > > -	stmmac_do_void_callback(__priv, dma, init_chan, __args)
+> > > +	stmmac_do_void_callback(__priv, dma, init_chan, __priv, __args)
+> > 
+> > Hi Andrew,
+> > 
+> > Rather than maintaining these macros can we just get rid of them?
+> > I'd be surprised if things aren't nicer with functions in their place [1].
+> > 
+> > f.e., we now have (__priv, ..., __priv, ...) due to a generalisation
+> >       that seems to take a lot more than it gives.
+> > 
+> > [1] https://lore.kernel.org/linux-arm-kernel/ZBst1SzcIS4j+t46@corigine.com/
+> > 
+> 
+> Thanks for the pointer. I think that makes sense, I'll take that
+> approach for these functions (and maybe in a follow-up series I'll
+> tackle all of them just because the lack of consistency will eat me up).
+> 
 
-Thanks
+I tried taking this approach for a spin, and I'm not so sure about it
+now!
+
+1. Implementing the functions as static inline requires us to know
+   about stmmac_priv, but that's getting into circular dependency land
+2. You could define them in hwif.c, but then they're not inlined
+3. There's still a good bit of boilerplate that's repeated all over
+   with the approach. Ignoring 1 above, you get something like this:
+
+static inline int stmmac_init_chan(struct stmmac_priv *priv,
+				   void __iomem *ioaddr,
+				   struct stmmac_dma_cfg *dma_cfg, u32 chan)
+{
+	if (priv->hw->dma && priv->hw->dma->init_chan) {
+		priv->hw->dma->init_chan(priv, ioaddr, dma_cfg, chan);
+		return 0;
+	}
+	return -EINVAL;
+}
+
+that is then repeated for every function... which is making me actually
+appreciate the macros some for reducing boilerplate.
+
+Am I suffering from a case of holiday brain, and 1-3 above are silly
+points with obvious answers, or do they make you reconsider continuing
+with the current approach in hwif.h?
+
+Thanks,
+Andrew
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
