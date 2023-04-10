@@ -2,71 +2,125 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 554296DD697
-	for <lists+linux-stm32@lfdr.de>; Tue, 11 Apr 2023 11:27:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 20D326DCA8B
+	for <lists+linux-stm32@lfdr.de>; Mon, 10 Apr 2023 20:11:57 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 112E8C6B463;
-	Tue, 11 Apr 2023 09:27:56 +0000 (UTC)
-Received: from mail-yb1-f202.google.com (mail-yb1-f202.google.com
- [209.85.219.202])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AB2A1C69066;
+	Mon, 10 Apr 2023 18:11:56 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2093.outbound.protection.outlook.com [40.107.244.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 462DBC69063
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 84A5CC69063
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 10 Apr 2023 16:25:18 +0000 (UTC)
-Received: by mail-yb1-f202.google.com with SMTP id
- b124-20020a253482000000b00b8f1b9d74ecso9460yba.18
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 10 Apr 2023 09:25:18 -0700 (PDT)
+ Mon, 10 Apr 2023 18:11:55 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=MPfPJHnMqCpH5Mt7YMKtzbG4XTlhzeIBnV/hNpnNy2dzA3HTkAmYe9Y/IKhwTnxK6LXh6gyG+1N8b0Se2yNF8+bOKUOSbaDwti3wqYJFy9ilp0IsliYTV7cTIUmIsbU3SuJyh2gPlvX26NeCbOZWAX9Dn7HKqqKRAioBdaTK+OVdI/DrlldobLQ8gg6j4HRLrZP3dX1cB8ClIQhqZ31nL+kciEQon18QoOz5Aftq1ogUPKdkWe7cjdZ2z5Wjjn8Xknxj2Ni559fzMn+m5XwaijSHw6D8nUoTokXeOqya/YluuLwhlEXrp02/HZlB7tn0XM5B0aFhebYVTOQ7hli0Vg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=jtf2oEJwma+VI/kKwviJh8GilpjhJ6r2XtBRw/xhcaw=;
+ b=hwzu2sdGnUaISlhrq/IMZGAZ7HiizXP7cWoPQ1LSOnsQ+Q44m83t7hLIWu3Y84EpKOsnY+Ye5mD4muBmzBfI6q4z/TTGwQSOp/LQEszZMnrjSL3ZXgk4qj4Aa6V5eqmW8M+Xg77vdWcqfqFUFI5P4Si8vWmdYkPgehhQaNxJxitzgvUU3dwNT+X2YXHVsRxsuN0TQFTLV8pJk8TpFILMe0GSQ/Imb1kUiWQ6ZiVfjteTX7Bik/90RF9gd7183Zx9yLZdrN3ElB3HtTo8DuqHPMSVjX5l9RKq/u10ZKpuxIQBRj3BfnUFh9X1UhKzwXtkTNKtWkKL453ucedCgh+0cQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=corigine.com; dmarc=pass action=none header.from=corigine.com;
+ dkim=pass header.d=corigine.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20210112; t=1681143917;
- h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
- :date:from:to:cc:subject:date:message-id:reply-to;
- bh=zJZt4cv250ETxOLYWhNXH5O28WLGu+lq/P9MQwXS1vc=;
- b=Q38PWrtfrWbIykKvRvvBdbu2xEQ65qR53Fa294q6h9fTzpEgUOChCN6gZzA6J/2Jrr
- oqqSni32vEWVPYCbg0h6jm4fUOjfjFak24TvaaKhhhzysF17g2T81sIMcNE/NB6iEZfy
- +JAuyYt2ZIkrpatZUEADvUNtPERwhA5h4EJXJKEds3rQ3lUQshZ+PSpMj9wQN087+Ou9
- FPqzzKvhqvM3NpQ0KRI+2RbokVotgwcuON+I3/gS46uHJ5RfnNczmlNKsnPDqRFen6K/
- toC13G+9g8xUr2c5Iins+M2UhJTrM19tEpB1/wsJwf04OBfN3YoQtNyJepOI8VsojJVK
- Mzyw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1681143917;
- h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
- :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=zJZt4cv250ETxOLYWhNXH5O28WLGu+lq/P9MQwXS1vc=;
- b=kbb+fdkfEM1qvafIXe5I5UqgC++cBQrmnmw0JjpBTiSt/YYvHDO+tlKA37wGNAV1jK
- B/GSwNsBU4aC7ug9jkVfdeEqWmbjT35IHVbs8ZkErsiUlgEaUXpzYvIr8UDdl7C16pNU
- s/aoIPyfZKvd2VenPBIQg8wFgqGvabyb3MtCG7lK1DwrmW77dF3nBkXPnAXzSr4BuqZp
- gCbCBYvflUFYAZ7+Jyy2T4IBxoTuMF0BDVPjsG98RpfkseWnTGHKiZpOfW0TSNJ3+f8Z
- 0PmoGvpBW8UAB+zC8Uf0Oo/jw9vW0wuAYxLoumlJqUaULxfNESvxlSnesOFAas1kCKTB
- foMg==
-X-Gm-Message-State: AAQBX9dYdJ23vThKf3583KvlqdI+yYgQhzm8nT2486anQPqMNmsvNETw
- vrgrH2cIwmvbEoOtloOJs07KHrw=
-X-Google-Smtp-Source: AKy350Yza28bnGsHoOQVOcw77cb7JSctAnu5UcsxyRZ6i3OPX41XxJItWn69Z01NRHFpS7EVaLNUCGM=
-X-Received: from sdf.c.googlers.com ([fda3:e722:ac3:cc00:7f:e700:c0a8:5935])
- (user=sdf job=sendgmr) by 2002:a25:cb52:0:b0:a02:a3a6:78fa with SMTP id
- b79-20020a25cb52000000b00a02a3a678famr5422814ybg.12.1681143917218; Mon, 10
- Apr 2023 09:25:17 -0700 (PDT)
-Date: Mon, 10 Apr 2023 09:25:15 -0700
-In-Reply-To: <20230410100939.331833-4-yoong.siang.song@intel.com>
-Mime-Version: 1.0
+ d=corigine.onmicrosoft.com; s=selector2-corigine-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=jtf2oEJwma+VI/kKwviJh8GilpjhJ6r2XtBRw/xhcaw=;
+ b=F9noO4f6+Bt0vZVJ57E5bb7PTDqLxjmv27KGLDQ8iatu7qdle+74KwvBeyS97N4n8dQwDxSQhNaboVwoSm4+p5bwSAwK85lXEtT2YJdgRevlBlPKif9MK3R6SeITB2wPW4pcVE3mk+dJXtBkdeHKgGZsArNBWksJ/eP/+/R17Gg=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=corigine.com;
+Received: from PH0PR13MB4842.namprd13.prod.outlook.com (2603:10b6:510:78::6)
+ by BL3PR13MB5226.namprd13.prod.outlook.com (2603:10b6:208:345::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6277.38; Mon, 10 Apr
+ 2023 18:11:53 +0000
+Received: from PH0PR13MB4842.namprd13.prod.outlook.com
+ ([fe80::89d1:63f2:2ed4:9169]) by PH0PR13MB4842.namprd13.prod.outlook.com
+ ([fe80::89d1:63f2:2ed4:9169%5]) with mapi id 15.20.6277.038; Mon, 10 Apr 2023
+ 18:11:53 +0000
+Date: Mon, 10 Apr 2023 20:11:44 +0200
+From: Simon Horman <simon.horman@corigine.com>
+To: "Song, Yoong Siang" <yoong.siang.song@intel.com>
+Message-ID: <ZDRRYCoKxEsNIJ75@corigine.com>
 References: <20230410100939.331833-1-yoong.siang.song@intel.com>
  <20230410100939.331833-4-yoong.siang.song@intel.com>
-Message-ID: <ZDQ4a9UIVysA6hgd@google.com>
-From: Stanislav Fomichev <sdf@google.com>
-To: Song Yoong Siang <yoong.siang.song@intel.com>
-X-Mailman-Approved-At: Tue, 11 Apr 2023 09:27:54 +0000
-Cc: xdp-hints@xdp-project.net, linux-kernel@vger.kernel.org,
+ <ZDQZeSe5OaFlNKso@corigine.com>
+ <PH0PR11MB58304A6BD97AB6DEA58067D5D8959@PH0PR11MB5830.namprd11.prod.outlook.com>
+Content-Disposition: inline
+In-Reply-To: <PH0PR11MB58304A6BD97AB6DEA58067D5D8959@PH0PR11MB5830.namprd11.prod.outlook.com>
+X-ClientProxiedBy: AM0PR02CA0157.eurprd02.prod.outlook.com
+ (2603:10a6:20b:28d::24) To PH0PR13MB4842.namprd13.prod.outlook.com
+ (2603:10b6:510:78::6)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH0PR13MB4842:EE_|BL3PR13MB5226:EE_
+X-MS-Office365-Filtering-Correlation-Id: b43dbed3-c695-4020-e3a5-08db39ef0fad
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: IMB6Q/pjaZH7/BsJlIjqT6bzZ8DMBrq5cBNAC7jdQvPDcCSKYsGHhEYfhmd0785U+BvniNwmsTCl80AFLSM4+PSRi0Epgk5dI3p7Ykf7Y+njsBdnBnJvC/8T66QkAcKvsH9/odJiMH/cKUZLqLVD+0YdaPmACpe+JwwR37JR3emnEltIF0n5nyvL7/vj6I/4M2ZPVC+K6QQFSCu7hKzzsRquPZ9hzNYT3WUW/i10Gjeexi91fkpiM40b7lHdBQk1dcrR/XRPFyUKB2cGKDPWkBRfWM8Wo/n9enfA3BMo8v0GdheXuluaFZvjPu37uinn9qpyaZ9BVpWv5NdikW+soqp+egjjHEYgZn0UsxWRQ0rqXBD7HWAjHJH2Z2REQEG0zLZj2msoXRA/Y4TBI8bd+adDwZpkXQjP0vY8L+1ukdVpE3Ze7NT0OqDgUMb/14WmEVUsrbibsV/mNp6GipJtgw/ZESCN49SLKnZtFOLEOR0YWukk9l+6yQr7EfTCEf527Hii6GdOgbABp/RVaHgUxiMfh0zqNmireGD/GN3Kg0b+kcsc/78kc+nFj6UmEuwJlfH/egQhpUECy06zHTtv7hvN8/OjlEgrJ0jvpCLVQSY=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH0PR13MB4842.namprd13.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(4636009)(366004)(376002)(396003)(136003)(39840400004)(346002)(451199021)(478600001)(86362001)(83380400001)(36756003)(38100700002)(2616005)(6486002)(6666004)(2906002)(316002)(6512007)(186003)(54906003)(44832011)(6506007)(7416002)(66476007)(8936002)(8676002)(6916009)(41300700001)(66556008)(5660300002)(66946007)(4326008);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?E0FmmLFkq6ksuy/2VLyboI5W88xxD3Ms1zQzHtz8vPEkODFhA+21gzYg67x9?=
+ =?us-ascii?Q?C2G6TKvocfCgE4It7jbRhRrmTWza5bb+jcj9MTew3IPvvEo9pnAtFeCMM9b2?=
+ =?us-ascii?Q?uav6Kg8v9THKEDozaC8JQIfAPR/eGrFEbgae8fv18JwUoCr7aYHblIxp/5ds?=
+ =?us-ascii?Q?nAh3T5YK87I57ORpvdPOL4IeWPuZPZFr7FI0DhkNfEVjN3ctYib/ef9nICBz?=
+ =?us-ascii?Q?ymfu8wCrqyFEGWr7+Bv2UwqFQdogFyJwvIS9++STWKTMVXzn+eDfXcv3gR3T?=
+ =?us-ascii?Q?fzGQK2WdeOq57S7lfvIIfB1tJloIJWCuFDsx59ryjUP/MvrGRax1PEUCSNi9?=
+ =?us-ascii?Q?7PhURSR5tFe+ethuFtXw6iLLikiWI941WpDD1IkGM2ID56KrNYPcychVaTsz?=
+ =?us-ascii?Q?8SndcNOzwro7m3SHC+OR3usu/fOuPn2rsh1rDFMGHaEBhVVLr6CAQSpZ7wBs?=
+ =?us-ascii?Q?EHrOkizrVDzJJWGwMdJMu8fuzTvl8rpuuhzyDSv7cZrbUV3FvGhrFZqEyQKV?=
+ =?us-ascii?Q?1eIrl+Z8qVOSUA2iLwybEnislAaYVb1r0OLDXC/WwyqfX5bc9y430MfhFsno?=
+ =?us-ascii?Q?pCabxxImb/nvsIRy5amJYHYX/6b1lh+ZILXwNi58kLDtJRaFJQq8uNrLYpBU?=
+ =?us-ascii?Q?/UVoLS6jn+qL8LSQpC6e0kU2Rg7OR94LPVcxJlH4cckq26QdJOviNAG8LZuG?=
+ =?us-ascii?Q?uDLVI9FrqUSk9Syc+zjshvnaxVM7KUJHxPwQBCK3Ewc2uuf9OMTyLbufJ4JO?=
+ =?us-ascii?Q?HyQDDlFuTAbPi8mEDjwP3ImQWDscqrSm5neU10Q2Bm2B+FwFr3k3tb3DSLcs?=
+ =?us-ascii?Q?l37xuagFFNoKc5iFQUoR49OdjNR/1XxRmskLzSKPe/pMbH9TrnUZ1w+LMxOQ?=
+ =?us-ascii?Q?McgSyUG1i9n3fsjlr2uKMz5gIEgjNpVcMRKXBlgHjk708W4ylmCdL7aggGaN?=
+ =?us-ascii?Q?2+YQ6Qb6uj+KYazmI+0MQHoFigjeUOKKMd//FzQPuoaB/a4pSVK14nf+m9Nq?=
+ =?us-ascii?Q?uGY+86N9eeHX+QiknsEjbOFsxR4bbG5GSmRoVMzero47mmW3FMkbK9AN1D/4?=
+ =?us-ascii?Q?zRl2PqHA04jcn8nlNoflfgIdBynhnBRflVL0feY10ILGMxwMUl8r7FRz3IUJ?=
+ =?us-ascii?Q?mTd1p2TD6QJQQ3MmcZf1+9NolVUK0P3jvAAcJ/dwKz/bunh84HYl5GBRV8cR?=
+ =?us-ascii?Q?rlRopHYWUXn2SWDoJesnXg1EFCi9U9cCAoUFVYSXi5JXbcZ+icA/8eIoIz/q?=
+ =?us-ascii?Q?UqbeHG2CJIiCc+R7pjHmM0WTWgNh96vkGy7m3MjgKtt2jPlETyyDtXOtl7Bf?=
+ =?us-ascii?Q?1MVTpPxWU0rE6A7hRAf4jGOn35ynpztWR3xljj/cApJfDP4v0WjIYGoTW51B?=
+ =?us-ascii?Q?PMld5jSgbCv7mGbVzusnaPtnGnQMxh9xxEW3GwEtaRDXJEnLzVBHfYEriBb/?=
+ =?us-ascii?Q?UeKQrVouOxajqGBSXOLXg1DE0MQy5yUZOPC2eir6TwOKDGvw4hX+UUdH+Y3r?=
+ =?us-ascii?Q?/INJFiRYjhYfLe1+0gTKAUdgZrUvFhTCZZj+fPQghZybsk7U1MYSTCKIG6VD?=
+ =?us-ascii?Q?NZiUOgRlNCDBzME4S8QSXTZdZvOnq3/YkAuzZ0kMxkfY3DDsX1x2eygreTSk?=
+ =?us-ascii?Q?0NKV05B/IXOqjp2ROMfrkzSf4AoKK1kmwK4ZBVkRetMdTeyxQFM/O6zJWOzc?=
+ =?us-ascii?Q?yyl3/A=3D=3D?=
+X-OriginatorOrg: corigine.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b43dbed3-c695-4020-e3a5-08db39ef0fad
+X-MS-Exchange-CrossTenant-AuthSource: PH0PR13MB4842.namprd13.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Apr 2023 18:11:52.8897 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: fe128f2c-073b-4c20-818e-7246a585940c
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: BAjDA69q4PVb0B5vyJqnJ+sKxTgA3Y2x8yttHeDqqMuzZxvX4PEBpmYscDqBjtz8msCr7I/Jz+hA46vPMWQ3CSHa8M4IxfJXNTY16NRXpA0=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR13MB5226
+Cc: "xdp-hints@xdp-project.net" <xdp-hints@xdp-project.net>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
  Jesper Dangaard Brouer <hawk@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>, netdev@vger.kernel.org,
+ Daniel Borkmann <daniel@iogearbox.net>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
  Alexander Duyck <alexanderduyck@fb.com>,
  John Fastabend <john.fastabend@gmail.com>, Alexei Starovoitov <ast@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
- Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Jakub Kicinski <kuba@kernel.org>, Ong Boon Leong <boon.leong.ong@intel.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>, bpf@vger.kernel.org,
- Paolo Abeni <pabeni@redhat.com>, "David S . Miller" <davem@davemloft.net>,
- linux-arm-kernel@lists.infradead.org
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>, Eric Dumazet <edumazet@google.com>,
+ Jose Abreu <joabreu@synopsys.com>, Stanislav Fomichev <sdf@google.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ "Ong, Boon Leong" <boon.leong.ong@intel.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ "bpf@vger.kernel.org" <bpf@vger.kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ "David S . Miller" <davem@davemloft.net>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
 Subject: Re: [Linux-stm32] [PATCH net-next 3/4] net: stmmac: add Rx HWTS
  metadata to XDP receive pkt
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
@@ -85,114 +139,43 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 04/10, Song Yoong Siang wrote:
-> Add receive hardware timestamp metadata support via kfunc to XDP receive
-> packets.
-> 
-> Signed-off-by: Song Yoong Siang <yoong.siang.song@intel.com>
-> ---
->  drivers/net/ethernet/stmicro/stmmac/stmmac.h  |  1 +
->  .../net/ethernet/stmicro/stmmac/stmmac_main.c | 24 +++++++++++++++++--
->  2 files changed, 23 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac.h b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-> index ac8ccf851708..760445275da8 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-> @@ -94,6 +94,7 @@ struct stmmac_rx_buffer {
->  
->  struct stmmac_xdp_buff {
->  	struct xdp_buff xdp;
-> +	ktime_t rx_hwts;
->  };
->  
->  struct stmmac_rx_queue {
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> index f7bbdf04d20c..ca183fbfde85 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> @@ -5307,6 +5307,8 @@ static int stmmac_rx(struct stmmac_priv *priv, int limit, u32 queue)
->  			}
->  		}
->  
+On Mon, Apr 10, 2023 at 03:33:48PM +0000, Song, Yoong Siang wrote:
+> >On Mon, Apr 10, 2023 at 06:09:38PM +0800, Song Yoong Siang wrote:
+> >> Add receive hardware timestamp metadata support via kfunc to XDP
+> >> receive packets.
+> >>
+> >> Signed-off-by: Song Yoong Siang <yoong.siang.song@intel.com>
+> >
+> >...
+> >
+> >> @@ -7071,6 +7073,22 @@ void stmmac_fpe_handshake(struct stmmac_priv
+> >*priv, bool enable)
+> >>  	}
+> >>  }
+> >>
+> >> +static int stmmac_xdp_rx_timestamp(const struct xdp_md *_ctx, u64
+> >> +*timestamp) {
+> >> +	const struct stmmac_xdp_buff *ctx = (void *)_ctx;
+> >> +
+> >> +	if (ctx->rx_hwts) {
+> >> +		*timestamp = ctx->rx_hwts;
+> >> +		return 0;
+> >> +	}
+> >> +
+> >> +	return -ENODATA;
+> >> +}
+> >> +
+> >> +const struct xdp_metadata_ops stmmac_xdp_metadata_ops = {
+> >> +	.xmo_rx_timestamp		= stmmac_xdp_rx_timestamp,
+> >> +};
+> >
+> >sparse seems to think this should be static.
+> >
+> >drivers/net/ethernet/stmicro/stmmac/stmmac_main.c:7082:31: warning: symbol
+> >'stmmac_xdp_metadata_ops' was not declared. Should it be static?
+> Yes, you are right. It should be static. I will add correct it in v2. Thank you.
 
-[..]
-
-> +		stmmac_get_rx_hwtstamp(priv, p, np, &ctx.rx_hwts);
-
-Do we want to pay this cost for every packet?
-
-The preferred alternative is to store enough state in the
-stmmac_xdp_buff so we can get to this data from stmmac_xdp_rx_timestamp.
-
-I haven't read this code, but tentatively:
-- move priv, p, np into stmmac_xdp_buff, assign them here instead of
-  calling stmmac_get_rx_hwtstamp
-- call stmmac_get_rx_hwtstamp from stmmac_xdp_rx_timestamp with the
-  stored priv, p, np
-
-That would ensure that we won't waste the cycles pulling out the rx
-timestamp for every packet if the higher levels / users don't care.
-
-Would something like this work?
-
-> +
->  		if (!skb) {
->  			unsigned int pre_len, sync_len;
->  
-> @@ -5315,7 +5317,7 @@ static int stmmac_rx(struct stmmac_priv *priv, int limit, u32 queue)
->  
->  			xdp_init_buff(&ctx.xdp, buf_sz, &rx_q->xdp_rxq);
->  			xdp_prepare_buff(&ctx.xdp, page_address(buf->page),
-> -					 buf->page_offset, buf1_len, false);
-> +					 buf->page_offset, buf1_len, true);
->  
->  			pre_len = ctx.xdp.data_end - ctx.xdp.data_hard_start -
->  				  buf->page_offset;
-> @@ -5411,7 +5413,7 @@ static int stmmac_rx(struct stmmac_priv *priv, int limit, u32 queue)
->  
->  		shhwtstamp = skb_hwtstamps(skb);
->  		memset(shhwtstamp, 0, sizeof(struct skb_shared_hwtstamps));
-> -		stmmac_get_rx_hwtstamp(priv, p, np, &shhwtstamp->hwtstamp);
-> +		shhwtstamp->hwtstamp = ctx.rx_hwts;
->  
->  		stmmac_rx_vlan(priv->dev, skb);
->  		skb->protocol = eth_type_trans(skb, priv->dev);
-> @@ -7071,6 +7073,22 @@ void stmmac_fpe_handshake(struct stmmac_priv *priv, bool enable)
->  	}
->  }
->  
-> +static int stmmac_xdp_rx_timestamp(const struct xdp_md *_ctx, u64 *timestamp)
-> +{
-> +	const struct stmmac_xdp_buff *ctx = (void *)_ctx;
-> +
-> +	if (ctx->rx_hwts) {
-> +		*timestamp = ctx->rx_hwts;
-> +		return 0;
-> +	}
-> +
-> +	return -ENODATA;
-> +}
-> +
-> +const struct xdp_metadata_ops stmmac_xdp_metadata_ops = {
-> +	.xmo_rx_timestamp		= stmmac_xdp_rx_timestamp,
-> +};
-> +
->  /**
->   * stmmac_dvr_probe
->   * @device: device pointer
-> @@ -7178,6 +7196,8 @@ int stmmac_dvr_probe(struct device *device,
->  
->  	ndev->netdev_ops = &stmmac_netdev_ops;
->  
-> +	ndev->xdp_metadata_ops = &stmmac_xdp_metadata_ops;
-> +
->  	ndev->hw_features = NETIF_F_SG | NETIF_F_IP_CSUM | NETIF_F_IPV6_CSUM |
->  			    NETIF_F_RXCSUM;
->  	ndev->xdp_features = NETDEV_XDP_ACT_BASIC | NETDEV_XDP_ACT_REDIRECT |
-> -- 
-> 2.34.1
-> 
+Thanks
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
