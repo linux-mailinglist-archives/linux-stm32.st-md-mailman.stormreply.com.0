@@ -2,79 +2,120 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B25AD6DC757
-	for <lists+linux-stm32@lfdr.de>; Mon, 10 Apr 2023 15:40:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 66BAD6DC7AE
+	for <lists+linux-stm32@lfdr.de>; Mon, 10 Apr 2023 16:13:26 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4737BC69066;
-	Mon, 10 Apr 2023 13:40:16 +0000 (UTC)
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 11B50C69066;
+	Mon, 10 Apr 2023 14:13:26 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2093.outbound.protection.outlook.com [40.107.237.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E9590C69063
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 97C96C69063
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 10 Apr 2023 13:40:14 +0000 (UTC)
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 33A9rUTt012335; Mon, 10 Apr 2023 13:39:54 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=from : to : cc :
- subject : date : message-id : mime-version : content-transfer-encoding :
- content-type; s=qcppdkim1;
- bh=8mNfwc7kXLDbE4WHj/+oTYE7lAplk+pqGFJHIbTa8Sw=;
- b=FAMdoo6CD+cVevHtjgNtcQAyp5Qh5yScac4mGtwOtCQrKVkwQk4KeD6T8UJ92ow5C+oI
- 6r5kuO8/VaqEJQs44uCch55rsNiCR+94dq4kjhzeb6haha9CgkFKyR30yBkjYQkFYHdT
- kOLm7fWvlSs2ivP1eQbqftha+ku4BOkQr4KvxkWNFlSzaRbSybGwTXF62LyKE85U14CF
- IUBhR5TnTaT8kPoAu52UQt4mZXaJShEpH6fmmrtTvwnw9rtJ5F2fUZCI+sa13NOL1Xg0
- 4IGo/lcuITFQWT6XRjQA8xOq+5EhwSnt1DY42+enA9Q3RuAci2k0ZFsOA4cEhq28/Nfb ew== 
-Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3pty9h3523-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 10 Apr 2023 13:39:54 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 33ADdrVN023465
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 10 Apr 2023 13:39:53 GMT
-Received: from hu-jinlmao-lv.qualcomm.com (10.49.16.6) by
- nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.42; Mon, 10 Apr 2023 06:39:52 -0700
-From: Mao Jinlong <quic_jinlmao@quicinc.com>
-To: Mathieu Poirier <mathieu.poirier@linaro.org>, Suzuki K Poulose
- <suzuki.poulose@arm.com>, Mike Leach <mike.leach@linaro.org>, Leo Yan
- <leo.yan@linaro.org>, Alexander Shishkin
- <alexander.shishkin@linux.intel.com>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-Date: Mon, 10 Apr 2023 06:39:30 -0700
-Message-ID: <20230410133930.30519-1-quic_jinlmao@quicinc.com>
-X-Mailer: git-send-email 2.39.0
+ Mon, 10 Apr 2023 14:13:24 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=N0EKJqqSY/d/tFojcVVqIeBhhqArzgqQFwKLCm5Ac6/r7oaItzhSFsPxJmJ8rr066p5xBClHczOrh5ioWlkefha5HidEXXmlQZB2mooSYKP9RF8H9oJ38qC+3c2u+OrJXZD6QnsxFwxIM1/ZlZ5YSOd8S+7fzVogruwWvO4ZspG/JEkVp6wD4U8VMHePXE6aWX8s8cDmKsRSup8B4WsVG3q41Jv00nIIy2JaJQ5nicpB4IvNy2YjXUAcyXOf9Z9JorJ9NiGKe9p2vsf+r8JINJSUcTdoExyGhXjqOanH2u4SfroGKRoA0FfA8m/kquW5jZMzMHYjVnrcxrT0o/o9Sw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=kmfdLidm0/nrlfK0nxbDZEJwC3S3tjicBpsu7E8BDdo=;
+ b=V8NIBa4LsyLQhf/TfSGSUcaP1unXSHgMkiuhbBkQ19lbvNy4tewbU81DEdEZP7pbiOsrVbs+VY0Crk3h+kB3rPmE30zE7sajJfjs/VCa4KadarFp26gxmdAUnqIv9hntRJTAEdHU8AbfhzY3DdghoUnj0dRw6r4v9HmQoGpHVe9ithbOcyhHVww1h4myqL8hNRcEZOMbrNh1imzaKoyL/eA9QQwHsP7oRlxAx+SY7JTcxk1ZW1RzkMIVW0jfzHS8uUhrGPUvkYdMnFRhr6aRsEfdXTawwRzRGfcgqnRzDssj4g+oNYuiByoB9JdZkAxHHMCqQdr8WznhDcYRKG76IQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=corigine.com; dmarc=pass action=none header.from=corigine.com;
+ dkim=pass header.d=corigine.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=corigine.onmicrosoft.com; s=selector2-corigine-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=kmfdLidm0/nrlfK0nxbDZEJwC3S3tjicBpsu7E8BDdo=;
+ b=hDe/2S10JvvVN/zcNpqGvgIXHPwevKHRvbRfHcUmX78n2CUmjVsPKZE2cEHBzwZEd0J6GWZJgD+ewcwtlwzEMzjiqnjHFwiqnH6AdgAAmR31O1HE23gsCM2HFeWcsyPNwN9aqAuQX5jRXtw2ebS/OThbjuOaTclMAYFWwpSXPxg=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=corigine.com;
+Received: from PH0PR13MB4842.namprd13.prod.outlook.com (2603:10b6:510:78::6)
+ by DM8PR13MB5221.namprd13.prod.outlook.com (2603:10b6:8:f::8) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.6277.36; Mon, 10 Apr 2023 14:13:22 +0000
+Received: from PH0PR13MB4842.namprd13.prod.outlook.com
+ ([fe80::89d1:63f2:2ed4:9169]) by PH0PR13MB4842.namprd13.prod.outlook.com
+ ([fe80::89d1:63f2:2ed4:9169%5]) with mapi id 15.20.6277.038; Mon, 10 Apr 2023
+ 14:13:21 +0000
+Date: Mon, 10 Apr 2023 16:13:13 +0200
+From: Simon Horman <simon.horman@corigine.com>
+To: Song Yoong Siang <yoong.siang.song@intel.com>
+Message-ID: <ZDQZeSe5OaFlNKso@corigine.com>
+References: <20230410100939.331833-1-yoong.siang.song@intel.com>
+ <20230410100939.331833-4-yoong.siang.song@intel.com>
+Content-Disposition: inline
+In-Reply-To: <20230410100939.331833-4-yoong.siang.song@intel.com>
+X-ClientProxiedBy: AS4PR09CA0011.eurprd09.prod.outlook.com
+ (2603:10a6:20b:5e0::13) To PH0PR13MB4842.namprd13.prod.outlook.com
+ (2603:10b6:510:78::6)
 MIME-Version: 1.0
-X-Originating-IP: [10.49.16.6]
-X-ClientProxiedBy: nalasex01c.na.qualcomm.com (10.47.97.35) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: b9Rl_P7wvyWdUtUZz0rasmGPJ_tSlDQ3
-X-Proofpoint-ORIG-GUID: b9Rl_P7wvyWdUtUZz0rasmGPJ_tSlDQ3
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.254,Aquarius:18.0.942,Hydra:6.0.573,FMLib:17.11.170.22
- definitions=2023-04-10_09,2023-04-06_03,2023-02-09_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxscore=0 malwarescore=0
- spamscore=0 phishscore=0 impostorscore=0 bulkscore=0 adultscore=0
- clxscore=1011 suspectscore=0 lowpriorityscore=0 priorityscore=1501
- mlxlogscore=978 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2303200000 definitions=main-2304100115
-Cc: linux-arm-msm@vger.kernel.org, Mao Jinlong <quic_jinlmao@quicinc.com>,
- Tingwei Zhang <quic_tingweiz@quicinc.com>, linux-kernel@vger.kernel.org,
- Tao Zhang <quic_taozha@quicinc.com>, coresight@lists.linaro.org,
- Yuanfang Zhang <quic_yuanfang@quicinc.com>, Hao Zhang <quic_hazha@quicinc.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH] coresight: Add support of setting trace id
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH0PR13MB4842:EE_|DM8PR13MB5221:EE_
+X-MS-Office365-Filtering-Correlation-Id: bb5c147e-6a57-4913-758c-08db39cdbd76
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 1d19VGzlKgSvqxIH5GMEwmkZR1UlFaaa1fdgQDB39wleX01ksnXxqx5gll7aTOg3d3+E9aoBuAeL0If6ULvmY/8FauduUUFhngq2PDGdFJMy5svP4eXQ24cO1DwzJ8y6H5QmEY/Mr0BWoDlxOHpjSqs4oOvCSa+TbISxztwlUbiurZXccj1WrLzdtHXPDyHC9OeUq4cnE3oeeyhUGqxkYAh92HBkTLbZdVXYvywVUvoUjZrbQLDlp8kKSAVQnW+COp8ti9s5V7/9TqnyTyBwATKd3LZ/RSKJugwzbIdySA14PX6A8WHEd44hwtR00bkD9kEh/h65t24WT7R9IX5pJaRelq/AZMtUWKNr7u/OduBelOZ7sMtNYSxswSEzX519kZf82+Y9Nes/ZvUJq0ZPUlrEy02FxrCCUK6TH2pkuV12s4xcgqUm+IGhXhBumf6KC+qA9L/ZLRMbCS+GTA8KkneSGznsFvllCT8L74rLPl/h2nCaACj9Rbg5Aa2uLA7wm7zPX6/nG4+rUAsGlFNv0yA2U60Ho/jtUIS+oGKZniU=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH0PR13MB4842.namprd13.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(4636009)(39840400004)(366004)(396003)(136003)(376002)(346002)(451199021)(36756003)(86362001)(2906002)(2616005)(6486002)(6666004)(83380400001)(186003)(6506007)(6512007)(966005)(478600001)(66476007)(6916009)(4326008)(66556008)(66946007)(7416002)(41300700001)(8936002)(8676002)(38100700002)(54906003)(316002)(5660300002)(44832011);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?xJRnTfKZ7BOPkU4S4XOU4oOV4YTsq6nCmxyIAwQVBPwkUy4u+AMvlP7HNbjp?=
+ =?us-ascii?Q?/k7amDg9z5Lb/ZNfkVANCJkRo+C7BRdLXKVmH1Xv5XsoC0J2VkXaGxXWHmRh?=
+ =?us-ascii?Q?/QlEJ2ghY1SaEsr2jT0ArnmKSMWaxtNP29aJ4LU5InhIn0hFpG6YQNsZn391?=
+ =?us-ascii?Q?SO8VxEpBoEvAgJSx8lp/mLzFGpKXSHlsEzCt7fb0ENr5GlFWR6NpZOml+gUW?=
+ =?us-ascii?Q?nUP9AUm3aUV0J2JKvErctklo2jmT0C/Wg3n7Og+bipoXT0R6oKGOmSVYqiCL?=
+ =?us-ascii?Q?gIlt911cAc72bIYFyYIsoY8eBX5dlPQ34RjV7SXl0Ykhwgo1esz9yvFrJ1VZ?=
+ =?us-ascii?Q?kYDlywnmmbqI0nM9o2EFILgvFnkHGylpaAL2+f2mba6YUYBgX9fzRtboJmcs?=
+ =?us-ascii?Q?jmeHZ1kDt3cU7ernhufS8GOo6vDvVRrMwW7WFzT2M8VgAAgXrKkU0xv5EOEZ?=
+ =?us-ascii?Q?QISOGR46mt6ek3jHo43+gExtmU9KN1aR5vVgT2HghrAGcYNUe97IdEhKAPYu?=
+ =?us-ascii?Q?mNlr+amNKVftgASWNuZjtr5vhZEQwIE1LvINB2T/f1QhcEQSwhjj28ccNLGZ?=
+ =?us-ascii?Q?45EqsNCB7WlPUUS0B5swlWdWrnIOG41jpzxtn8wBohsK7Htme3hQG6YB6avk?=
+ =?us-ascii?Q?bc+95ezxYm6SNRIgi7taUadVPZKFiM3rPVj13Gmqr/gM+JDd8K8lOTmMjwe6?=
+ =?us-ascii?Q?xvFBwtgdtZwSuWwVeLP+b0GTLsg/5g36ERlJJhlTpq2bJS8oo1oQPc+QpXq6?=
+ =?us-ascii?Q?4Hqpk1B9odeGHs2VRJkoYI6XVXL97E6uCtrxT/+JnEVN+kuBrwHCWcZ9Yz8e?=
+ =?us-ascii?Q?pQxMnK6x1PscuaLlAf0ViKWwLm2jFhNW99wPwglUrMzH4/XLnbhSWoz0T2+p?=
+ =?us-ascii?Q?0IT7gvBVnw2v5eL1BvmeJ+6zuKchfflxrxKzEIsAWSU2+8qe3UmQVThR5cAJ?=
+ =?us-ascii?Q?2GxW1eSZuCwNrrN96rRVaw+SD74hCuBmqNKHp8iO61mdZvUJtb5rqDSFVWQT?=
+ =?us-ascii?Q?TPDYOsH0LFSPPKEUGEHYUrH6oU9rOG0k4SnivduhwniUFhq5n/s0/2ddsGtj?=
+ =?us-ascii?Q?7xq8q1eL+wCQEajOgAPZk7GYo+7QYKoVq05CxWt+RAjBIctEUN/zTjZeINwo?=
+ =?us-ascii?Q?VNr/mz5L6OVgrpDbnNCtxzVCKkncCSY6CdH6ha2biXBNlGBQILNr6JHpFzJA?=
+ =?us-ascii?Q?vm+jLwKg+3csFQgjC8Ou16R8pRpXRQqSKN+aYzMxuucRn7MIl/lyeymy/k46?=
+ =?us-ascii?Q?DOMUm7ZmB7JyOgUBroUtcR2w2ySjFc1ryuTRaupveU/HQfqjo1JzfQjnHkHE?=
+ =?us-ascii?Q?q+lJ4T3NFY3Wdys5DA0Y4c+vwZSXWrUSuYjBTpn7TnNgBxV/NxzYVeLkLFi6?=
+ =?us-ascii?Q?luebG+oDNyI572xQnNYlwlQLQjfhzMRpBRpitaeVf/UQNCdmIgBEgufQhlrh?=
+ =?us-ascii?Q?kfOxwDCslSZG0g39g53pNmChbUVIja1i0lZUH3G5vJUWcFrVgMM6fVAVelC3?=
+ =?us-ascii?Q?gSFf3WpIY8DavwdxzVxrgTMQzr4N82TIeHH5hMhwsBgIbfY7zVxt/YCPWiZF?=
+ =?us-ascii?Q?SUbde6jtfUS6cSNS9Bc8WpakPdXUNgWEuocbT0FXbIn+QTowDKBl/Z+SLFvB?=
+ =?us-ascii?Q?PIaD/eSjkIkuQ48ZY9QThTsGjSgsAT1GxPgXMtqya7Ct3ldhBmDS7XxN06MU?=
+ =?us-ascii?Q?GUxwug=3D=3D?=
+X-OriginatorOrg: corigine.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: bb5c147e-6a57-4913-758c-08db39cdbd76
+X-MS-Exchange-CrossTenant-AuthSource: PH0PR13MB4842.namprd13.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Apr 2023 14:13:21.7920 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: fe128f2c-073b-4c20-818e-7246a585940c
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: fKzvJzoTSgyJPdxw1Dz7TwggdzrlkOCKvYjbc/VQf1oF+wdkpGX1uhgso2oH5tQ/HyytWlqkyG51M5w3lg99vS5oWV8sqJEDDEjmHrJBIIg=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM8PR13MB5221
+Cc: xdp-hints@xdp-project.net, linux-kernel@vger.kernel.org,
+ Jesper Dangaard Brouer <hawk@kernel.org>,
+ Daniel Borkmann <daniel@iogearbox.net>, netdev@vger.kernel.org,
+ Alexander Duyck <alexanderduyck@fb.com>,
+ John Fastabend <john.fastabend@gmail.com>, Alexei Starovoitov <ast@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
+ Jose Abreu <joabreu@synopsys.com>, Stanislav Fomichev <sdf@google.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ Ong Boon Leong <boon.leong.ong@intel.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>, bpf@vger.kernel.org,
+ Paolo Abeni <pabeni@redhat.com>, "David S . Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next 3/4] net: stmmac: add Rx HWTS
+ metadata to XDP receive pkt
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,597 +132,44 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-With a growing number of trace sources, the number of source could
-be greater than 127 in future. There will be lack of ids. There could
-be also trace id reserved for some trace HW. With this change,
-trace id will be only configured when enable the source. Trace id
-will be dynamically allocated when traceid of driver data is not
-set when enable source. Once traceid of driver data is set when
-enable source, the traceid will be set as the specific value.
+On Mon, Apr 10, 2023 at 06:09:38PM +0800, Song Yoong Siang wrote:
+> Add receive hardware timestamp metadata support via kfunc to XDP receive
+> packets.
+> 
+> Signed-off-by: Song Yoong Siang <yoong.siang.song@intel.com>
 
-Signed-off-by: Mao Jinlong <quic_jinlmao@quicinc.com>
----
- .../coresight/coresight-etm4x-core.c          |  35 +++---
- .../coresight/coresight-etm4x-sysfs.c         |  30 +++++
- drivers/hwtracing/coresight/coresight-stm.c   |  67 ++++++++---
- drivers/hwtracing/coresight/coresight-tpda.c  | 107 ++++++++++++++----
- drivers/hwtracing/coresight/coresight-tpda.h  |   4 +-
- .../hwtracing/coresight/coresight-trace-id.c  |  56 +++++++++
- .../hwtracing/coresight/coresight-trace-id.h  |  24 ++++
- 7 files changed, 274 insertions(+), 49 deletions(-)
+...
 
-diff --git a/drivers/hwtracing/coresight/coresight-etm4x-core.c b/drivers/hwtracing/coresight/coresight-etm4x-core.c
-index 1ea8f173cca0..8f2e4d2b0fc2 100644
---- a/drivers/hwtracing/coresight/coresight-etm4x-core.c
-+++ b/drivers/hwtracing/coresight/coresight-etm4x-core.c
-@@ -233,25 +233,32 @@ static int etm4_cpu_id(struct coresight_device *csdev)
- 
- int etm4_read_alloc_trace_id(struct etmv4_drvdata *drvdata)
- {
--	int trace_id;
-+	int trace_id, ret = 0;
- 
--	/*
--	 * This will allocate a trace ID to the cpu,
--	 * or return the one currently allocated.
--	 * The trace id function has its own lock
--	 */
--	trace_id = coresight_trace_id_get_cpu_id(drvdata->cpu);
--	if (IS_VALID_CS_TRACE_ID(trace_id))
--		drvdata->trcid = (u8)trace_id;
--	else
--		dev_err(&drvdata->csdev->dev,
--			"Failed to allocate trace ID for %s on CPU%d\n",
--			dev_name(&drvdata->csdev->dev), drvdata->cpu);
--	return trace_id;
-+	if (!drvdata->trcid) {
-+		/*
-+		 * This will allocate a trace ID to the cpu,
-+		 * or return the one currently allocated.
-+		 * The trace id function has its own lock
-+		 */
-+		trace_id = coresight_trace_id_get_cpu_id(drvdata->cpu);
-+		if (IS_VALID_CS_TRACE_ID(trace_id))
-+			drvdata->trcid = (u8)trace_id;
-+		else {
-+			ret = -EINVAL;
-+			dev_err(&drvdata->csdev->dev,
-+				"Failed to allocate trace ID for %s on CPU%d\n",
-+				dev_name(&drvdata->csdev->dev), drvdata->cpu);
-+		}
-+	} else
-+		ret = coresight_trace_id_set_cpu_id(drvdata->cpu, drvdata->trcid);
-+
-+	return ret;
- }
- 
- void etm4_release_trace_id(struct etmv4_drvdata *drvdata)
- {
-+	drvdata->trcid = 0;
- 	coresight_trace_id_put_cpu_id(drvdata->cpu);
- }
- 
-diff --git a/drivers/hwtracing/coresight/coresight-etm4x-sysfs.c b/drivers/hwtracing/coresight/coresight-etm4x-sysfs.c
-index 5e62aa40ecd0..bd342e63868c 100644
---- a/drivers/hwtracing/coresight/coresight-etm4x-sysfs.c
-+++ b/drivers/hwtracing/coresight/coresight-etm4x-sysfs.c
-@@ -2335,6 +2335,35 @@ static ssize_t ts_source_show(struct device *dev,
- }
- static DEVICE_ATTR_RO(ts_source);
- 
-+static ssize_t traceid_show(struct device *dev,
-+			    struct device_attribute *attr, char *buf)
-+{
-+	int val;
-+	struct etmv4_drvdata *drvdata = dev_get_drvdata(dev->parent);
-+
-+	val = drvdata->trcid;
-+	return sysfs_emit(buf, "0x%x\n", val);
-+}
-+
-+static ssize_t traceid_store(struct device *dev,
-+			    struct device_attribute *attr,
-+			    const char *buf, size_t size)
-+{
-+	int ret;
-+	unsigned long val;
-+	struct etmv4_drvdata *drvdata = dev_get_drvdata(dev->parent);
-+
-+	ret = kstrtoul(buf, 16, &val);
-+	if (ret)
-+		return ret;
-+
-+	if (!drvdata->csdev->enable)
-+		drvdata->trcid = val;
-+
-+	return size;
-+}
-+static DEVICE_ATTR_RW(traceid);
-+
- static struct attribute *coresight_etmv4_attrs[] = {
- 	&dev_attr_nr_pe_cmp.attr,
- 	&dev_attr_nr_addr_cmp.attr,
-@@ -2390,6 +2419,7 @@ static struct attribute *coresight_etmv4_attrs[] = {
- 	&dev_attr_vmid_masks.attr,
- 	&dev_attr_cpu.attr,
- 	&dev_attr_ts_source.attr,
-+	&dev_attr_traceid.attr,
- 	NULL,
- };
- 
-diff --git a/drivers/hwtracing/coresight/coresight-stm.c b/drivers/hwtracing/coresight/coresight-stm.c
-index 66a614c5492c..1291f5f39ab1 100644
---- a/drivers/hwtracing/coresight/coresight-stm.c
-+++ b/drivers/hwtracing/coresight/coresight-stm.c
-@@ -192,10 +192,29 @@ static void stm_enable_hw(struct stm_drvdata *drvdata)
- 	CS_LOCK(drvdata->base);
- }
- 
-+static int stm_configure_trace_id(struct stm_drvdata *drvdata)
-+{
-+	int traceid, ret = 0;
-+
-+	if (!drvdata->traceid) {
-+		traceid = coresight_trace_id_get_system_id();
-+		if (traceid < 0)
-+			return traceid;
-+
-+		drvdata->traceid = traceid;
-+	} else
-+		ret = coresight_trace_id_set_system_id(drvdata->traceid);
-+
-+	return ret;
-+
-+}
-+
- static int stm_enable(struct coresight_device *csdev,
- 		      struct perf_event *event, u32 mode)
- {
- 	u32 val;
-+	int ret;
-+
- 	struct stm_drvdata *drvdata = dev_get_drvdata(csdev->dev.parent);
- 
- 	if (mode != CS_MODE_SYSFS)
-@@ -207,6 +226,10 @@ static int stm_enable(struct coresight_device *csdev,
- 	if (val)
- 		return -EBUSY;
- 
-+	ret = stm_configure_trace_id(drvdata);
-+	if (ret)
-+		return ret;
-+
- 	pm_runtime_get_sync(csdev->dev.parent);
- 
- 	spin_lock(&drvdata->spinlock);
-@@ -261,6 +284,8 @@ static void stm_disable(struct coresight_device *csdev,
- 	struct stm_drvdata *drvdata = dev_get_drvdata(csdev->dev.parent);
- 	struct csdev_access *csa = &csdev->access;
- 
-+
-+	coresight_trace_id_put_system_id(drvdata->traceid);
- 	/*
- 	 * For as long as the tracer isn't disabled another entity can't
- 	 * change its status.  As such we can read the status here without
-@@ -268,6 +293,7 @@ static void stm_disable(struct coresight_device *csdev,
- 	 */
- 	if (local_read(&drvdata->mode) == CS_MODE_SYSFS) {
- 		spin_lock(&drvdata->spinlock);
-+		drvdata->traceid = 0;
- 		stm_disable_hw(drvdata);
- 		spin_unlock(&drvdata->spinlock);
- 
-@@ -608,7 +634,33 @@ static ssize_t traceid_show(struct device *dev,
- 	val = drvdata->traceid;
- 	return sprintf(buf, "%#lx\n", val);
- }
--static DEVICE_ATTR_RO(traceid);
-+
-+static ssize_t traceid_store(struct device *dev,
-+			     struct device_attribute *attr,
-+			     const char *buf, size_t size)
-+{
-+	int ret;
-+	unsigned long val;
-+	struct stm_drvdata *drvdata = dev_get_drvdata(dev->parent);
-+
-+	ret = kstrtoul(buf, 16, &val);
-+	if (ret)
-+		return ret;
-+
-+	if (!IS_VALID_CS_TRACE_ID(val)) {
-+		dev_err(&drvdata->csdev->dev, "Invalid trace id\n");
-+		return -EINVAL;
-+	}
-+
-+	if (!drvdata->csdev->enable)
-+		drvdata->traceid = val;
-+	else
-+		dev_err(&drvdata->csdev->dev, "Device must be enabled! %s\n",
-+				__func__);
-+
-+	return size;
-+}
-+static DEVICE_ATTR_RW(traceid);
- 
- static struct attribute *coresight_stm_attrs[] = {
- 	&dev_attr_hwevent_enable.attr,
-@@ -806,7 +858,7 @@ static void stm_init_generic_data(struct stm_drvdata *drvdata,
- 
- static int stm_probe(struct amba_device *adev, const struct amba_id *id)
- {
--	int ret, trace_id;
-+	int ret;
- 	void __iomem *base;
- 	struct device *dev = &adev->dev;
- 	struct coresight_platform_data *pdata = NULL;
-@@ -890,22 +942,12 @@ static int stm_probe(struct amba_device *adev, const struct amba_id *id)
- 		goto stm_unregister;
- 	}
- 
--	trace_id = coresight_trace_id_get_system_id();
--	if (trace_id < 0) {
--		ret = trace_id;
--		goto cs_unregister;
--	}
--	drvdata->traceid = (u8)trace_id;
--
- 	pm_runtime_put(&adev->dev);
- 
- 	dev_info(&drvdata->csdev->dev, "%s initialized\n",
- 		 (char *)coresight_get_uci_data(id));
- 	return 0;
- 
--cs_unregister:
--	coresight_unregister(drvdata->csdev);
--
- stm_unregister:
- 	stm_unregister_device(&drvdata->stm);
- 	return ret;
-@@ -915,7 +957,6 @@ static void stm_remove(struct amba_device *adev)
- {
- 	struct stm_drvdata *drvdata = dev_get_drvdata(&adev->dev);
- 
--	coresight_trace_id_put_system_id(drvdata->traceid);
- 	coresight_unregister(drvdata->csdev);
- 
- 	stm_unregister_device(&drvdata->stm);
-diff --git a/drivers/hwtracing/coresight/coresight-tpda.c b/drivers/hwtracing/coresight/coresight-tpda.c
-index f712e112ecff..41f83a5de3f2 100644
---- a/drivers/hwtracing/coresight/coresight-tpda.c
-+++ b/drivers/hwtracing/coresight/coresight-tpda.c
-@@ -21,6 +21,28 @@
- 
- DEFINE_CORESIGHT_DEVLIST(tpda_devs, "tpda");
- 
-+static int tpda_configure_trace_id(struct tpda_drvdata *drvdata)
-+{
-+	int traceid, ret;
-+	/*
-+	 * TPDA must has a unique atid. This atid can uniquely
-+	 * identify the TPDM trace source connected to the TPDA.
-+	 * The TPDMs which are connected to same TPDA share the
-+	 * same trace-id. When TPDA does packetization, different
-+	 * port will have unique channel number for decoding.
-+	 */
-+	if (!drvdata->traceid) {
-+		traceid = coresight_trace_id_get_system_id();
-+		if (traceid < 0)
-+			return traceid;
-+
-+		drvdata->traceid = traceid;
-+	} else
-+		ret = coresight_trace_id_set_system_id(drvdata->traceid);
-+
-+	return ret;
-+}
-+
- /* Settings pre enabling port control register */
- static void tpda_enable_pre_port(struct tpda_drvdata *drvdata)
- {
-@@ -28,8 +50,9 @@ static void tpda_enable_pre_port(struct tpda_drvdata *drvdata)
- 
- 	val = readl_relaxed(drvdata->base + TPDA_CR);
- 	val &= ~TPDA_CR_ATID;
--	val |= FIELD_PREP(TPDA_CR_ATID, drvdata->atid);
-+	val |= FIELD_PREP(TPDA_CR_ATID, drvdata->traceid);
- 	writel_relaxed(val, drvdata->base + TPDA_CR);
-+
- }
- 
- static void tpda_enable_port(struct tpda_drvdata *drvdata, int port)
-@@ -52,11 +75,17 @@ static void __tpda_enable(struct tpda_drvdata *drvdata, int port)
- 	tpda_enable_port(drvdata, port);
- 
- 	CS_LOCK(drvdata->base);
-+
- }
- 
- static int tpda_enable(struct coresight_device *csdev, int inport, int outport)
- {
- 	struct tpda_drvdata *drvdata = dev_get_drvdata(csdev->dev.parent);
-+	int ret;
-+
-+	ret = tpda_configure_trace_id(drvdata);
-+	if (ret)
-+		return ret;
- 
- 	spin_lock(&drvdata->spinlock);
- 	if (atomic_read(&csdev->refcnt[inport]) == 0)
-@@ -87,7 +116,11 @@ static void tpda_disable(struct coresight_device *csdev, int inport,
- {
- 	struct tpda_drvdata *drvdata = dev_get_drvdata(csdev->dev.parent);
- 
-+	coresight_trace_id_put_system_id(drvdata->traceid);
- 	spin_lock(&drvdata->spinlock);
-+
-+	drvdata->traceid = 0;
-+
- 	if (atomic_dec_return(&csdev->refcnt[inport]) == 0)
- 		__tpda_disable(drvdata, inport);
- 
-@@ -105,27 +138,63 @@ static const struct coresight_ops tpda_cs_ops = {
- 	.link_ops	= &tpda_link_ops,
- };
- 
--static int tpda_init_default_data(struct tpda_drvdata *drvdata)
-+static ssize_t traceid_show(struct device *dev,
-+			    struct device_attribute *attr, char *buf)
- {
--	int atid;
--	/*
--	 * TPDA must has a unique atid. This atid can uniquely
--	 * identify the TPDM trace source connected to the TPDA.
--	 * The TPDMs which are connected to same TPDA share the
--	 * same trace-id. When TPDA does packetization, different
--	 * port will have unique channel number for decoding.
--	 */
--	atid = coresight_trace_id_get_system_id();
--	if (atid < 0)
--		return atid;
-+	int val;
-+	struct tpda_drvdata *drvdata = dev_get_drvdata(dev->parent);
- 
--	drvdata->atid = atid;
--	return 0;
-+	val = drvdata->traceid;
-+	return sysfs_emit(buf, "0x%x\n", val);
- }
- 
--static int tpda_probe(struct amba_device *adev, const struct amba_id *id)
-+static ssize_t traceid_store(struct device *dev,
-+					    struct device_attribute *attr,
-+					    const char *buf, size_t size)
- {
- 	int ret;
-+	unsigned long val;
-+	struct tpda_drvdata *drvdata = dev_get_drvdata(dev->parent);
-+
-+	ret = kstrtoul(buf, 16, &val);
-+	if (ret)
-+		return ret;
-+
-+	if (!IS_VALID_CS_TRACE_ID(val)) {
-+		dev_err(drvdata->dev, "Invalid trace id\n");
-+		return -EINVAL;
-+	}
-+
-+	if (!drvdata->csdev->enable)
-+		drvdata->traceid = val;
-+	else
-+		dev_err(drvdata->dev, "Device must be enabled! %s\n", __func__);
-+
-+	return size;
-+}
-+static DEVICE_ATTR_RW(traceid);
-+
-+static struct attribute *coresight_tpda_attrs[] = {
-+	&dev_attr_traceid.attr,
-+	NULL,
-+};
-+
-+static const struct attribute_group coresight_tpda_group = {
-+	.attrs = coresight_tpda_attrs,
-+};
-+
-+static const struct attribute_group *coresight_tpda_groups[] = {
-+	&coresight_tpda_group,
-+	NULL,
-+};
-+
-+static void tpda_init_default_data(struct tpda_drvdata *drvdata)
-+{
-+	drvdata->traceid = 0;
-+}
-+
-+static int tpda_probe(struct amba_device *adev, const struct amba_id *id)
-+{
- 	struct device *dev = &adev->dev;
- 	struct coresight_platform_data *pdata;
- 	struct tpda_drvdata *drvdata;
-@@ -151,9 +220,7 @@ static int tpda_probe(struct amba_device *adev, const struct amba_id *id)
- 
- 	spin_lock_init(&drvdata->spinlock);
- 
--	ret = tpda_init_default_data(drvdata);
--	if (ret)
--		return ret;
-+	tpda_init_default_data(drvdata);
- 
- 	desc.name = coresight_alloc_device_name(&tpda_devs, dev);
- 	if (!desc.name)
-@@ -164,6 +231,7 @@ static int tpda_probe(struct amba_device *adev, const struct amba_id *id)
- 	desc.pdata = adev->dev.platform_data;
- 	desc.dev = &adev->dev;
- 	desc.access = CSDEV_ACCESS_IOMEM(base);
-+	desc.groups = coresight_tpda_groups;
- 	drvdata->csdev = coresight_register(&desc);
- 	if (IS_ERR(drvdata->csdev))
- 		return PTR_ERR(drvdata->csdev);
-@@ -178,7 +246,6 @@ static void tpda_remove(struct amba_device *adev)
- {
- 	struct tpda_drvdata *drvdata = dev_get_drvdata(&adev->dev);
- 
--	coresight_trace_id_put_system_id(drvdata->atid);
- 	coresight_unregister(drvdata->csdev);
- }
- 
-diff --git a/drivers/hwtracing/coresight/coresight-tpda.h b/drivers/hwtracing/coresight/coresight-tpda.h
-index 0399678df312..5de6dc92f450 100644
---- a/drivers/hwtracing/coresight/coresight-tpda.h
-+++ b/drivers/hwtracing/coresight/coresight-tpda.h
-@@ -22,14 +22,14 @@
-  * @dev:        The device entity associated to this component.
-  * @csdev:      component vitals needed by the framework.
-  * @spinlock:   lock for the drvdata value.
-- * @enable:     enable status of the component.
-+ * @traceid:    the atid value of TPDA.
-  */
- struct tpda_drvdata {
- 	void __iomem		*base;
- 	struct device		*dev;
- 	struct coresight_device	*csdev;
- 	spinlock_t		spinlock;
--	u8			atid;
-+	u8			traceid;
- };
- 
- #endif  /* _CORESIGHT_CORESIGHT_TPDA_H */
-diff --git a/drivers/hwtracing/coresight/coresight-trace-id.c b/drivers/hwtracing/coresight/coresight-trace-id.c
-index af5b4ef59cea..192626efcb01 100644
---- a/drivers/hwtracing/coresight/coresight-trace-id.c
-+++ b/drivers/hwtracing/coresight/coresight-trace-id.c
-@@ -110,6 +110,19 @@ static int coresight_trace_id_alloc_new_id(struct coresight_trace_id_map *id_map
- 	return id;
- }
- 
-+static int coresight_trace_id_set(int id, struct coresight_trace_id_map *id_map)
-+{
-+	if (WARN(!IS_VALID_CS_TRACE_ID(id), "Invalid Trace ID %d\n", id))
-+		return -EINVAL;
-+	if (WARN(test_bit(id, id_map->used_ids), "ID is already used: %d\n", id))
-+		return -EINVAL;
-+	set_bit(id, id_map->used_ids);
-+
-+	DUMP_ID_MAP(id_map);
-+
-+	return 0;
-+}
-+
- static void coresight_trace_id_free(int id, struct coresight_trace_id_map *id_map)
- {
- 	if (WARN(!IS_VALID_CS_TRACE_ID(id), "Invalid Trace ID %d\n", id))
-@@ -195,6 +208,37 @@ static int coresight_trace_id_map_get_cpu_id(int cpu, struct coresight_trace_id_
- 	return id;
- }
- 
-+static int coresight_trace_id_map_set_cpu_id(int cpu, int id, struct coresight_trace_id_map *id_map)
-+{
-+	unsigned long flags;
-+
-+	spin_lock_irqsave(&id_map_lock, flags);
-+
-+	if (WARN(!IS_VALID_CS_TRACE_ID(id), "Invalid Trace ID %d\n", id)) {
-+		spin_unlock_irqrestore(&id_map_lock, flags);
-+		return -EINVAL;
-+	}
-+
-+	if (WARN(test_bit(id, id_map->used_ids), "ID is already used: %d\n", id)) {
-+		spin_unlock_irqrestore(&id_map_lock, flags);
-+		return -EINVAL;
-+	}
-+
-+	set_bit(id, id_map->used_ids);
-+
-+	/* allocate the new id to the cpu */
-+	atomic_set(&per_cpu(cpu_id, cpu), id);
-+
-+	cpumask_clear_cpu(cpu, &cpu_id_release_pending);
-+	clear_bit(id, id_map->pend_rel_ids);
-+
-+	spin_unlock_irqrestore(&id_map_lock, flags);
-+	DUMP_ID_CPU(cpu, id);
-+	DUMP_ID_MAP(id_map);
-+
-+	return 0;
-+}
-+
- static void coresight_trace_id_map_put_cpu_id(int cpu, struct coresight_trace_id_map *id_map)
- {
- 	unsigned long flags;
-@@ -251,6 +295,12 @@ static void coresight_trace_id_map_put_system_id(struct coresight_trace_id_map *
- 
- /* API functions */
- 
-+int coresight_trace_id_set_cpu_id(int cpu, int id)
-+{
-+	return coresight_trace_id_map_set_cpu_id(cpu, id, &id_map_default);
-+}
-+EXPORT_SYMBOL_GPL(coresight_trace_id_set_cpu_id);
-+
- int coresight_trace_id_get_cpu_id(int cpu)
- {
- 	return coresight_trace_id_map_get_cpu_id(cpu, &id_map_default);
-@@ -269,6 +319,12 @@ int coresight_trace_id_read_cpu_id(int cpu)
- }
- EXPORT_SYMBOL_GPL(coresight_trace_id_read_cpu_id);
- 
-+int coresight_trace_id_set_system_id(int id)
-+{
-+	return coresight_trace_id_set(id, &id_map_default);
-+}
-+EXPORT_SYMBOL_GPL(coresight_trace_id_set_system_id);
-+
- int coresight_trace_id_get_system_id(void)
- {
- 	return coresight_trace_id_map_get_system_id(&id_map_default);
-diff --git a/drivers/hwtracing/coresight/coresight-trace-id.h b/drivers/hwtracing/coresight/coresight-trace-id.h
-index 3797777d367e..5dab9a473266 100644
---- a/drivers/hwtracing/coresight/coresight-trace-id.h
-+++ b/drivers/hwtracing/coresight/coresight-trace-id.h
-@@ -61,8 +61,21 @@ struct coresight_trace_id_map {
- 	DECLARE_BITMAP(pend_rel_ids, CORESIGHT_TRACE_IDS_MAX);
- };
- 
-+
- /* Allocate and release IDs for a single default trace ID map */
- 
-+/**
-+ * Set the CoreSight Trace Id for the CPU.
-+ *
-+ * Set CoreSight Trace Id associated with the CPU.
-+ *
-+ * @cpu: The CPU index for the id.
-+ * @id: Coresight Trace ID value.
-+ *
-+ * return: 0 if set successfully or -EINVAL if fail to set.
-+ */
-+int coresight_trace_id_set_cpu_id(int cpu, int id);
-+
- /**
-  * Read and optionally allocate a CoreSight trace ID and associate with a CPU.
-  *
-@@ -111,6 +124,17 @@ void coresight_trace_id_put_cpu_id(int cpu);
-  */
- int coresight_trace_id_read_cpu_id(int cpu);
- 
-+/**
-+ * Set trace id for a system component.
-+ *
-+ * Set the trace id if system component needs a static id for the trace.
-+ *
-+ * @id: value of trace ID.
-+ *
-+ * return: 0 if set successfully or -EINVAL if fail to set.
-+ */
-+int coresight_trace_id_set_system_id(int id);
-+
- /**
-  * Allocate a CoreSight trace ID for a system component.
-  *
--- 
-2.39.0
+> @@ -7071,6 +7073,22 @@ void stmmac_fpe_handshake(struct stmmac_priv *priv, bool enable)
+>  	}
+>  }
+>  
+> +static int stmmac_xdp_rx_timestamp(const struct xdp_md *_ctx, u64 *timestamp)
+> +{
+> +	const struct stmmac_xdp_buff *ctx = (void *)_ctx;
+> +
+> +	if (ctx->rx_hwts) {
+> +		*timestamp = ctx->rx_hwts;
+> +		return 0;
+> +	}
+> +
+> +	return -ENODATA;
+> +}
+> +
+> +const struct xdp_metadata_ops stmmac_xdp_metadata_ops = {
+> +	.xmo_rx_timestamp		= stmmac_xdp_rx_timestamp,
+> +};
 
+sparse seems to think this should be static.
+
+drivers/net/ethernet/stmicro/stmmac/stmmac_main.c:7082:31: warning: symbol 'stmmac_xdp_metadata_ops' was not declared. Should it be static?
+
+Link: https://patchwork.kernel.org/project/netdevbpf/patch/20230410100939.331833-4-yoong.siang.song@intel.com/
+
+> +
+>  /**
+>   * stmmac_dvr_probe
+>   * @device: device pointer
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
