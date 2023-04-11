@@ -2,68 +2,126 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A32DF6DEBE2
-	for <lists+linux-stm32@lfdr.de>; Wed, 12 Apr 2023 08:37:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A72E26DE2DF
+	for <lists+linux-stm32@lfdr.de>; Tue, 11 Apr 2023 19:43:55 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5723CC65E4F;
-	Wed, 12 Apr 2023 06:37:34 +0000 (UTC)
-Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com
- [209.85.214.171])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 59C8DC65E4F;
+	Tue, 11 Apr 2023 17:43:55 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2138.outbound.protection.outlook.com [40.107.223.138])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D1A98C57B6A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B36D6C57B6A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 11 Apr 2023 15:52:54 +0000 (UTC)
-Received: by mail-pl1-f171.google.com with SMTP id kh6so6681181plb.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 11 Apr 2023 08:52:54 -0700 (PDT)
+ Tue, 11 Apr 2023 17:43:54 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=DKOmZpMIafwVD9SqIMKmEFuhXQcuPfh4gQt2MKpKJTyKfUP6xT2gu0orK3T+W0dRlDFwGfLNyUadzt/OyAlUADNltadp101HQYh8EREbHzkyLAgNRsa8e3Y9vO/Yw1qzIGDsquQs+NUxMutKx65ps131qkgkqbVg0QXqc3gICHJn7MNtZFJENKLJZfy98+qmFPSKW9XCAoKtljsAYY2CJRYjAqgw6oBSvK0X7ESPvlR6Hiy/PgFAE5K6OFQPwgGsaHmH+CaYwPqITt4toQu+pYMHnfAp0gjcENGPJhlACx0mge63dQJvh1qRUblSVsQZ/AK6ZYFLMMB5PP+2mZjJyA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=FTThCp7diPj0G0CkPEZ1Hprp9i3GNg0w6hwWPy296nI=;
+ b=Duypa6AO2LoVOHs1a8E+Ba/+Z/SFqV1VqgSK5rJXDsyi7pEeA9674QJrFFQsztBkDXzMifOZpbSL55lsNg7Gyy8CUSlb6EdlmF/ZF8RClJRucal615iocvrma+GZb2Ph91HFG3qTjlwueIu2Z4TdLcalbvuqnnRnH66/bJGRibJ92A04zdTCh1cuyDi13GH0cbCEvPeEYURjg1nft8iC4eIvUi22ExLiO7Zt2KPa3uE8qJuO0cyMAdyXUwE59SfMVYuqGwPQFbEfKB7Hq5o6G5fB+tHbIFl9mVSyECc/W5bMTG4PiV2b/RBTCcRROwYTld/CUyIysFCUe8UfP1BjwA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=corigine.com; dmarc=pass action=none header.from=corigine.com;
+ dkim=pass header.d=corigine.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20210112; t=1681228373;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=/oG+epnuD83PJFUb1t02t41ha4irl9qgnZRV9WS+FJU=;
- b=LsSi16s2QaAhnD5StmBi3qTbTfu6k5otTIp04Kgepy4OBb/g3EV75jjw2fZ4qPtK4J
- 6IWcwGzEMkbVCNc4GZJ1Cxn5YbdAChFrvivl1t1n0YwzFBCvTj6DQfh3H3zCElqbbRqG
- yrngWHTv3NUJp9du0NHTNGxPyIxCOTVzfY0PQatHPH2RDfxl24kq2036Du9OU44/6Ia0
- aNGBIFFhfAo1MwMBdlJqTq35nVZIDHE9FLZuZip9A/6Q7urdq9FMRXrsvZpb1+ReO4kO
- vKBQEfLc3aF3btYS4rqRTyBD+dbMdSgx3XG9NLfD7vs5/Q4abLA867CPbVe9wTxOmgxL
- espA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1681228373;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=/oG+epnuD83PJFUb1t02t41ha4irl9qgnZRV9WS+FJU=;
- b=PKUHOAkD7XP0z04c461OhZZfPQ5D/Edh/7YH5Ffud+/PwcUu5W6rVJf8SICF/rhLhV
- XacU4+rneNFtXiqTkWaDvTVTIfs4tKRs4ulO3a7lcCe/cOET/9jBsAtbl8cle/ZTsuLH
- qAMLYOcduwNLHnhgw7yPrXOR8RhKGJl3HSl3nptIW5WntElaZoPwei5A8749sFqxZP3G
- qvZ5b4pPuDcZGaJzYHFaj7IdL3XYmxh+8wbk7hd8U8NSiYj0P1kg+RV8z+X1NIgA/oBE
- 8wVOQv1CTfV/rOeOvkIrXQVY07BoVPouKhkt6CNn0/lMv4FrK4e6OYRaLhYvu8i7QE3C
- wj5A==
-X-Gm-Message-State: AAQBX9f2BiYFs5DiQALZRZ7kUt88c9cJKTrziHi5qVlcqmBtUb0f5dBt
- znVylrfWQ55EQyhQLwfhnkc=
-X-Google-Smtp-Source: AKy350bP4ymDA4siTeWNM3hYExZR4vah/5d51CIzH8d82fybAJuDqzPeiRRg5VWjKUeDoSbGI8uAvA==
-X-Received: by 2002:a17:902:f9c5:b0:1a5:f36:ae09 with SMTP id
- kz5-20020a170902f9c500b001a50f36ae09mr12465163plb.7.1681228373132; 
- Tue, 11 Apr 2023 08:52:53 -0700 (PDT)
-Received: from arm4c24g.vcn09251619.oraclevcn.com ([144.24.45.176])
- by smtp.gmail.com with ESMTPSA id
- jw23-20020a170903279700b0019e60c645b1sm3940765plb.305.2023.04.11.08.52.52
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 11 Apr 2023 08:52:52 -0700 (PDT)
-From: Xiaobing Luo <luoxiaobing0926@gmail.com>
-To: richard@nod.at, miquel.raynal@bootlin.com, vigneshr@ti.com,
- mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com
-Date: Tue, 11 Apr 2023 15:46:34 +0000
-Message-Id: <20230411154634.149350-1-luoxiaobing0926@gmail.com>
-X-Mailer: git-send-email 2.34.1
+ d=corigine.onmicrosoft.com; s=selector2-corigine-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=FTThCp7diPj0G0CkPEZ1Hprp9i3GNg0w6hwWPy296nI=;
+ b=KYkUT8lxUjDCX/62KV0OuH/rqNpNFHnjwgkiyhicGmcRw6Wh1f2NmstnFbSVaU6A2FRwn4RaGmOPeAOBRxGf/6ElU4oLnsCNSOP+TsVLB1LT8Oiye6qaB64kJxrG85r+53cQDMjNjfBceCjR7ePGgVKhLqlJrgov3ku2dVd5UO0=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=corigine.com;
+Received: from PH0PR13MB4842.namprd13.prod.outlook.com (2603:10b6:510:78::6)
+ by MW5PR13MB5995.namprd13.prod.outlook.com (2603:10b6:303:1cc::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6277.36; Tue, 11 Apr
+ 2023 17:43:50 +0000
+Received: from PH0PR13MB4842.namprd13.prod.outlook.com
+ ([fe80::89d1:63f2:2ed4:9169]) by PH0PR13MB4842.namprd13.prod.outlook.com
+ ([fe80::89d1:63f2:2ed4:9169%5]) with mapi id 15.20.6277.038; Tue, 11 Apr 2023
+ 17:43:50 +0000
+Date: Tue, 11 Apr 2023 19:43:39 +0200
+From: Simon Horman <simon.horman@corigine.com>
+To: Andrew Halaney <ahalaney@redhat.com>
+Message-ID: <ZDWcSxNivNUHyDOR@corigine.com>
+References: <20230331214549.756660-1-ahalaney@redhat.com>
+ <20230331214549.756660-9-ahalaney@redhat.com>
+ <ZChIbc6TnQyZ/Fiu@corigine.com>
+ <20230407173453.hsfhbr66254z57ym@halaney-x13s>
+ <20230410212422.2rztlqspw5vjtb4d@halaney-x13s>
+Content-Disposition: inline
+In-Reply-To: <20230410212422.2rztlqspw5vjtb4d@halaney-x13s>
+X-ClientProxiedBy: AS4P190CA0005.EURP190.PROD.OUTLOOK.COM
+ (2603:10a6:20b:5de::17) To PH0PR13MB4842.namprd13.prod.outlook.com
+ (2603:10b6:510:78::6)
 MIME-Version: 1.0
-X-Mailman-Approved-At: Wed, 12 Apr 2023 06:37:33 +0000
-Cc: Xiaobing Luo <luoxiaobing0926@gmail.com>, linux-mtd@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Subject: [Linux-stm32] [PATCH] ubi: fastmap: Reserve PEBs and init fm_work
-	when fastmap is used.
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH0PR13MB4842:EE_|MW5PR13MB5995:EE_
+X-MS-Office365-Filtering-Correlation-Id: b480b3a7-a92c-4615-8585-08db3ab44f0e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: vYgVz4fr08fEhb3eklGSrGNH6bWmLehMNl+4AWqJYoW+in5wzLV0+J+3A3a6XXV1cv27FZJGBGNHEWZB3rOWWl0tYSpTwcVIxSFc4aUe9n4dblk345o8MsowJKdLTSD0oqBmTI5XI4PeY34n9aKW1c8+GeA9u7ImUwLPTM0Typvc6y39AgEWAQvkRV99paptyfBUIt7PrxdReRzVglCXRpIUtIui1vgopoDAMzsITk8U2XCt4zuSvBlyelgfKW9I/WSZOp3hbQHaSRelAJ5XisB5hvtJ05hICm1mv/N6pjM/Sx3xRTlSd3r5nJpfObSY4PuhxYi6ieOB3vNN4fAB/s5MNWggHPN2GZEzKT89p3sOm/N/IvxaI2TsruRDUAJf26ZTrmWPlJaZzJxe8SAX/1ghh9Odo2fvIyQ2jzeaZaJTtQE9aelcvMJ5eEJBKtfwPRCHaCksK5AvOxfODGTNsvOOzbV9kuj1HjIuV4gxkyoU2E5jTWmsHthldrPn6CiYy5z5z9z7NqdOXNbrsPeyNNSvcQ8eo/JAA3DS5KZmyjU=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH0PR13MB4842.namprd13.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(4636009)(376002)(346002)(39850400004)(366004)(396003)(136003)(451199021)(36756003)(44832011)(7406005)(2906002)(5660300002)(7416002)(8936002)(86362001)(38100700002)(8676002)(966005)(6512007)(6486002)(6666004)(6506007)(478600001)(2616005)(186003)(66946007)(41300700001)(66556008)(66476007)(4326008)(6916009)(316002);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?CUNX1cJ4HiSl1glHSAfvUlGpO45kduezSJR8Lggx5VImC2DjhG94itkhdhqr?=
+ =?us-ascii?Q?EqOr9Bho7YiVUBUbidlWcPcEFtz892UMK9WVW7XRbNSQsq/sFT4DuHjff0oy?=
+ =?us-ascii?Q?I7Xo3+sUE9L3c09sgLLuVQ+BR6N/xPXwJwxvqtI+VtfPNNk9zv5y4/74c4Jp?=
+ =?us-ascii?Q?4/x0SRIK5shr0JpY2g991uFgAQ4rFiRduzpFM9yQIqGkpyGyKSaBKwA2IKAC?=
+ =?us-ascii?Q?fxSaxG5I1liOAcdCUbmz0A6kQaReCDKzmP7njSUwV7AIfql7Xjzjk5JbPZfR?=
+ =?us-ascii?Q?OTm0dP0XynVX2lPcDsx9JJewYpyQvEE5LoB/4/Bry5BQUfVwdU/MoD2Qg1Nh?=
+ =?us-ascii?Q?uK2U61xC6oOUdkG8YyvbUMtP7NEi0m4atri1ojlYFDv9EsXWbHz3SAcEtAnp?=
+ =?us-ascii?Q?HTpyZSZJtqmFLPO6oofRitckn/vSTKs7dl5/kinKH3DOQVNlgrUPHItevKD+?=
+ =?us-ascii?Q?0chCM6sWofXPcpcTcZTwYYs33yk7AWDjrmMwmzMRWpQwu4P+Gw0jssg3EFi7?=
+ =?us-ascii?Q?bl2M1BzFzinMMWCyeDKtwQQQKX5cx5/PrKvJNwqExODb3RINEx7FuqByKxPd?=
+ =?us-ascii?Q?3QXPtTQAxoW0a6fykpb+xUKNyy0QRzlIk4/Db/yajyURdEqmHCfZyPxJQ07Y?=
+ =?us-ascii?Q?uoOaWwpSAlxioeiQWhX7cN8SIlyuzO0QO0C4alwKPg6rMesory6rIUdo6p7O?=
+ =?us-ascii?Q?squCNIqwO/kW+QC3mQrzo69cQsI/Wx+GmkTWyDTwldU1sAnbC+stf018ZvA9?=
+ =?us-ascii?Q?KfpBoCM1cWZKW24r4DURi4Cfo4hETGjOB5K5CukSvgcValqXzmNyxF6AXuN3?=
+ =?us-ascii?Q?5qokS4pEP+Lgbbzj/Gx0rRnD0UyLNf50U4DIHrdpR2AJ+85l4ds055pYwmYu?=
+ =?us-ascii?Q?yfFOv7AEWeibYbaQlTpqwKAs93BsWscM4gAxgWYmBL7bQ7n0nIL9X68SMYMt?=
+ =?us-ascii?Q?2V2UUaRP7g+39WbiSdk/dbER4tKFKhsluIUiqYZB0YtDyJ0JM+5jX347LREA?=
+ =?us-ascii?Q?M5kPtp9Vctlde6IP6MCFv54fYeNDxvc6gT33zXwFW0kxbd21rz7eKuRPviUm?=
+ =?us-ascii?Q?jO9veo1jBFsLv2pv2ccIGKA25M4XvEHp2qW8VLqdGSq1pcwoj6+VyRU7Ddck?=
+ =?us-ascii?Q?GuOQbl7lpys9m1zUSx8UHjW3ElWaI4mVF/86DWjxvVVgatfhCeOKp1heqTws?=
+ =?us-ascii?Q?MdekN3l6EyqnpVbJpIib1tsW/hoeTwOI27oxU1OwdzjEyMG5+vu0nD8kXHV4?=
+ =?us-ascii?Q?LsJEUSd8Yiy9NI0UoBvfBgkcFT3YX8VPPCItCcffCqkQZDn2k6wpAw/6mLzs?=
+ =?us-ascii?Q?yiw0I53hbct8BmGgYqg1bVaGJwpcvnsc53Bag44/iF+Bb2yET3+zzabsnYfg?=
+ =?us-ascii?Q?fqgoGjOz1vR4SEorvnCs/xIx9ViU++3HyVkvmcLcJML2fNerG30XDvX0+FHt?=
+ =?us-ascii?Q?dNTM6kEY96rvrhcxQ94ajGyI1CGDwB4qYnf54MT2yIcpDsmouxoY5gu/oYEw?=
+ =?us-ascii?Q?mL3Lv5QcAeP9VyDW61j6ZtoYEYr/6UE4sYXTkhmhdKNeOtOXlq+E+3zaveCX?=
+ =?us-ascii?Q?ictyRYORppVvmabY7O23XqwG/3cF93gXJcmWc3XSQkhBRBgVJzK26zywggxV?=
+ =?us-ascii?Q?gG+Qm0xIS8C6ifWdvfZz4mcl0svyPSg0oMlLk82N92oXN0cqcc+uvXznZiyU?=
+ =?us-ascii?Q?/hIhbw=3D=3D?=
+X-OriginatorOrg: corigine.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b480b3a7-a92c-4615-8585-08db3ab44f0e
+X-MS-Exchange-CrossTenant-AuthSource: PH0PR13MB4842.namprd13.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Apr 2023 17:43:50.1006 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: fe128f2c-073b-4c20-818e-7246a585940c
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: R1rNNDEZTOMkOzp/UmG2MGW5S4laPu9dhOffChMPHCcUowfNm4qgElAZDhG53yjCqQipilbLtNOCp34bTd4Q64jqd+Qr2+p792CGXgAt44k=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW5PR13MB5995
+Cc: mturquette@baylibre.com, edumazet@google.com,
+ krzysztof.kozlowski+dt@linaro.org, jonathanh@nvidia.com,
+ linux-stm32@st-md-mailman.stormreply.com, tee.min.tan@linux.intel.com,
+ samuel@sholland.org, linux@armlinux.org.uk, jernej.skrabec@gmail.com,
+ veekhee@apple.com, wens@csie.org, joabreu@synopsys.com, agross@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, andrey.konovalov@linaro.org,
+ ncai@quicinc.com, devicetree@vger.kernel.org, bhupesh.sharma@linaro.org,
+ linux-arm-msm@vger.kernel.org, richardcochran@gmail.com, bmasney@redhat.com,
+ mohammad.athari.ismail@intel.com, robh+dt@kernel.org, ruppala@nvidia.com,
+ jsuraj@qti.qualcomm.com, peppe.cavallaro@st.com,
+ linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
+ andersson@kernel.org, linux-kernel@vger.kernel.org, echanude@redhat.com,
+ konrad.dybcio@linaro.org, vkoul@kernel.org, hisunil@quicinc.com,
+ mcoquelin.stm32@gmail.com, davem@davemloft.net
+Subject: Re: [Linux-stm32] [PATCH net-next v3 08/12] net: stmmac: Pass
+ stmmac_priv in some callbacks
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,64 +138,73 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Don't reserve the two fastmap PEBs when fastmap is disabled, then we can
-use the two PEBs in small ubi device.
-And don't init the fm_work when fastmap is disabled.
+On Mon, Apr 10, 2023 at 04:24:22PM -0500, Andrew Halaney wrote:
+> On Fri, Apr 07, 2023 at 12:34:53PM -0500, Andrew Halaney wrote:
+> > On Sat, Apr 01, 2023 at 05:06:21PM +0200, Simon Horman wrote:
+> > > On Fri, Mar 31, 2023 at 04:45:45PM -0500, Andrew Halaney wrote:
+> > > > Passing stmmac_priv to some of the callbacks allows hwif implementations
+> > > > to grab some data that platforms can customize. Adjust the callbacks
+> > > > accordingly in preparation of such a platform customization.
+> > > > 
+> > > > Signed-off-by: Andrew Halaney <ahalaney@redhat.com>
+> > > 
+> > > ...
+> > > 
+> > > >  #define stmmac_reset(__priv, __args...) \
+> > > > @@ -223,59 +240,59 @@ struct stmmac_dma_ops {
+> > > >  #define stmmac_dma_init(__priv, __args...) \
+> > > >  	stmmac_do_void_callback(__priv, dma, init, __args)
+> > > >  #define stmmac_init_chan(__priv, __args...) \
+> > > > -	stmmac_do_void_callback(__priv, dma, init_chan, __args)
+> > > > +	stmmac_do_void_callback(__priv, dma, init_chan, __priv, __args)
+> > > 
+> > > Hi Andrew,
+> > > 
+> > > Rather than maintaining these macros can we just get rid of them?
+> > > I'd be surprised if things aren't nicer with functions in their place [1].
+> > > 
+> > > f.e., we now have (__priv, ..., __priv, ...) due to a generalisation
+> > >       that seems to take a lot more than it gives.
+> > > 
+> > > [1] https://lore.kernel.org/linux-arm-kernel/ZBst1SzcIS4j+t46@corigine.com/
+> > > 
+> > 
+> > Thanks for the pointer. I think that makes sense, I'll take that
+> > approach for these functions (and maybe in a follow-up series I'll
+> > tackle all of them just because the lack of consistency will eat me up).
+> > 
+> 
+> I tried taking this approach for a spin, and I'm not so sure about it
+> now!
+> 
+> 1. Implementing the functions as static inline requires us to know
+>    about stmmac_priv, but that's getting into circular dependency land
+> 2. You could define them in hwif.c, but then they're not inlined
+> 3. There's still a good bit of boilerplate that's repeated all over
+>    with the approach. Ignoring 1 above, you get something like this:
+> 
+> static inline int stmmac_init_chan(struct stmmac_priv *priv,
+> 				   void __iomem *ioaddr,
+> 				   struct stmmac_dma_cfg *dma_cfg, u32 chan)
+> {
+> 	if (priv->hw->dma && priv->hw->dma->init_chan) {
+> 		priv->hw->dma->init_chan(priv, ioaddr, dma_cfg, chan);
+> 		return 0;
+> 	}
+> 	return -EINVAL;
+> }
+> 
+> that is then repeated for every function... which is making me actually
+> appreciate the macros some for reducing boilerplate.
+> 
+> Am I suffering from a case of holiday brain, and 1-3 above are silly
+> points with obvious answers, or do they make you reconsider continuing
+> with the current approach in hwif.h?
 
-Signed-off-by: Xiaobing Luo <luoxiaobing0926@gmail.com>
----
- drivers/mtd/ubi/build.c      | 3 ++-
- drivers/mtd/ubi/fastmap-wl.c | 2 +-
- drivers/mtd/ubi/wl.c         | 6 +++++-
- 3 files changed, 8 insertions(+), 3 deletions(-)
+I'm about to embark to the holiday brain zone.
 
-diff --git a/drivers/mtd/ubi/build.c b/drivers/mtd/ubi/build.c
-index ad025b2ee417..a98a717b0e66 100644
---- a/drivers/mtd/ubi/build.c
-+++ b/drivers/mtd/ubi/build.c
-@@ -1120,7 +1120,8 @@ int ubi_detach_mtd_dev(int ubi_num, int anyway)
- 		kthread_stop(ubi->bgt_thread);
- 
- #ifdef CONFIG_MTD_UBI_FASTMAP
--	cancel_work_sync(&ubi->fm_work);
-+	if (!ubi->fm_disabled)
-+		cancel_work_sync(&ubi->fm_work);
- #endif
- 	ubi_debugfs_exit_dev(ubi);
- 	uif_close(ubi);
-diff --git a/drivers/mtd/ubi/fastmap-wl.c b/drivers/mtd/ubi/fastmap-wl.c
-index 863f571f1adb..b3df17a782c7 100644
---- a/drivers/mtd/ubi/fastmap-wl.c
-+++ b/drivers/mtd/ubi/fastmap-wl.c
-@@ -344,7 +344,7 @@ static struct ubi_wl_entry *get_peb_for_wl(struct ubi_device *ubi)
- 		/* We cannot update the fastmap here because this
- 		 * function is called in atomic context.
- 		 * Let's fail here and refill/update it as soon as possible. */
--		if (!ubi->fm_work_scheduled) {
-+		if (!ubi->fm_work_scheduled && !ubi->fm_disabled) {
- 			ubi->fm_work_scheduled = 1;
- 			schedule_work(&ubi->fm_work);
- 		}
-diff --git a/drivers/mtd/ubi/wl.c b/drivers/mtd/ubi/wl.c
-index 26a214f016c1..8906db89808f 100644
---- a/drivers/mtd/ubi/wl.c
-+++ b/drivers/mtd/ubi/wl.c
-@@ -1908,7 +1908,11 @@ int ubi_wl_init(struct ubi_device *ubi, struct ubi_attach_info *ai)
- 	ubi_assert(ubi->good_peb_count == found_pebs);
- 
- 	reserved_pebs = WL_RESERVED_PEBS;
--	ubi_fastmap_init(ubi, &reserved_pebs);
-+
-+#ifdef CONFIG_MTD_UBI_FASTMAP
-+	if (!ubi->fm_disabled)
-+		ubi_fastmap_init(ubi, &reserved_pebs);
-+#endif
- 
- 	if (ubi->avail_pebs < reserved_pebs) {
- 		ubi_err(ubi, "no enough physical eraseblocks (%d, need %d)",
--- 
-2.34.1
-
+But before I do I wanted to acknowledge your concerns and that, yes,
+it may be easier said than done.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
