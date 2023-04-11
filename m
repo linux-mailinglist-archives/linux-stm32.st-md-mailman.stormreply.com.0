@@ -2,75 +2,74 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 43F286DE53F
-	for <lists+linux-stm32@lfdr.de>; Tue, 11 Apr 2023 22:04:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5505B6DE540
+	for <lists+linux-stm32@lfdr.de>; Tue, 11 Apr 2023 22:05:01 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 07D3DC6A60A;
-	Tue, 11 Apr 2023 20:04:51 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 17E9AC6A60A;
+	Tue, 11 Apr 2023 20:05:01 +0000 (UTC)
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8907CC6A5FD
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 78038C6A5FD
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 11 Apr 2023 20:04:49 +0000 (UTC)
+ Tue, 11 Apr 2023 20:04:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1681243488;
+ s=mimecast20190719; t=1681243498;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=06OBUIWkgRNV7Fvg7Z0iX+fADdcC3n0Oeepo2lUID2M=;
- b=ig4idc8Yzzp56eDaWVE9Ga9gztA8+pMk47cmZav45tRSDVAW7x1B5aT9b5tqpykEqGLfYx
- jH/QxsxLi83G5ZDXFD4FrAOOebvJdAN3uStw/adLzLy7cqtEw49rsLLARILogDsLnTNZre
- vIUvs6TPXbpRY7gQtADHfKtJSc5x6Uo=
-Received: from mail-oo1-f70.google.com (mail-oo1-f70.google.com
- [209.85.161.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=zenMfB5Zn+UbigAKsZIPpQknObixx5MnqQjCcDXL53w=;
+ b=bducVpbizCaDzJWm8M4wekFItk9AQ9e73Qpzvz+YeYJu3MQWNOx8HAbR7yoLfaqRxmUG1H
+ 4CPu7fuLvQxmCjbAPbJlRnL0lqhet0gtjQXSg6Wwy6vFbplHxzjm7sznuV4UYcdh6Zyh/0
+ 8CEIuA/h2onOhelrElkKIeKmVoQbbwo=
+Received: from mail-ot1-f69.google.com (mail-ot1-f69.google.com
+ [209.85.210.69]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-56-B-RmNkybNn-9H2lnj934EQ-1; Tue, 11 Apr 2023 16:04:47 -0400
-X-MC-Unique: B-RmNkybNn-9H2lnj934EQ-1
-Received: by mail-oo1-f70.google.com with SMTP id
- x132-20020a4a418a000000b0053b4ee58e0fso3062879ooa.17
+ us-mta-634-duP3tCCsNfCZROEGo2IRig-1; Tue, 11 Apr 2023 16:04:55 -0400
+X-MC-Unique: duP3tCCsNfCZROEGo2IRig-1
+Received: by mail-ot1-f69.google.com with SMTP id
+ t23-20020a9d66d7000000b0069f913914d8so2554343otm.5
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 11 Apr 2023 13:04:47 -0700 (PDT)
+ Tue, 11 Apr 2023 13:04:55 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1681243487;
+ d=1e100.net; s=20210112; t=1681243495;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=06OBUIWkgRNV7Fvg7Z0iX+fADdcC3n0Oeepo2lUID2M=;
- b=HZ/982bBKYT/T44FdD5nCpXa0ZoLfCv+15iRygfxAjRliShQ7KAlahDO+mxmuvOSZs
- qYiM8/OfXfDFcqnqcHVOQxl6NusNw7ehu17HrUejgIbOBQCyS5U2px3zQJVWi8nP/CWk
- Kzk/Gf/aj/gzM984CC4BUySAkclFUOhkYcFgsKmQyFe9Swi2MiCAWhPhvV2J8vczodn6
- OuZWj7Fa5tRz65T9yz5zX1L53MiKH74q1eUOGuS/d/QaMROMAPZ8tWJmjWNYHfdCLhHH
- pedIrI/r4nIusdFfkmKFTg6nbvGIoTQPKajlZVe9qokqHzTy0s052vMa5PpV2q2wDC9N
- 9RqQ==
-X-Gm-Message-State: AAQBX9czSq3yqutAjzmK1xmrIjawADhdn37sp2qmjQ984TpV8qtO5qSX
- R5tW567GMxASx30b4aqZogpgTtwzokusYg5hJjazJSO3wskneSFMy21lXBduBDGVAu7HkWcI3fl
- lPFAJUpUwsG4Sf4i9U3lkNzVuzGxXfFc7GfiQhmM5
-X-Received: by 2002:aca:1916:0:b0:38b:effa:7d78 with SMTP id
- l22-20020aca1916000000b0038beffa7d78mr29032oii.13.1681243486809; 
- Tue, 11 Apr 2023 13:04:46 -0700 (PDT)
-X-Google-Smtp-Source: AKy350ZD+96wPOgzlRfj4I6lXSesK7kOUy3JXAhugHSrPi7TfwOOp0WqSjbXkCy45QjGZSt9EBsTrw==
-X-Received: by 2002:aca:1916:0:b0:38b:effa:7d78 with SMTP id
- l22-20020aca1916000000b0038beffa7d78mr29012oii.13.1681243486533; 
- Tue, 11 Apr 2023 13:04:46 -0700 (PDT)
+ bh=zenMfB5Zn+UbigAKsZIPpQknObixx5MnqQjCcDXL53w=;
+ b=j5hQ4B9TZ3j3SvMI9m3Ik/WqJxgX3eE0iV93ua0Kis6Gq0Ny7WFl3XT6pKLo6YLoEG
+ 3nqj587n3MTuehU3m2EiBo18DcK/KcNRFd7rworFh2kz03NXN6QjKLZjIdhoS7hBU9+7
+ xqEGABy/BwHY0F8TTvBmhBVHH9xb3KDXjiwvR2aanAvr6DpjMpkIWtQ27McNobPs/TaG
+ kRzOkjOijpx/iqaGSasOUVuBVU8EXMUQg9r7IQr3dO5tEuHaaDLXQLeI66KAiUQjadLW
+ 45nqID41xdIndG+2BGT8Xztywo+5slANyhGHqDcvNwGQfnJFhTlJLYcaEd8UA8esUfXl
+ LNiA==
+X-Gm-Message-State: AAQBX9d5a3HuaE9Rc7EwNd2UOqRbZ0UiqxiFR9wrkGE2B5wLq0PJqSg2
+ dNiihfqjoan5xXDRTEOMN9/8YSYLiGd79Zqf+JFW0mlQAVjYvIbV54Ns9fYX+aTBrUjovDBe3Nb
+ cW+BAMgp/e3ewkQsH9TDxZgukYpPxyKq4686ELFp5
+X-Received: by 2002:aca:1a09:0:b0:387:29c3:f0a2 with SMTP id
+ a9-20020aca1a09000000b0038729c3f0a2mr4713873oia.9.1681243494810; 
+ Tue, 11 Apr 2023 13:04:54 -0700 (PDT)
+X-Google-Smtp-Source: AKy350Z2XdmlUFC0MeVBWwPYue4CzrV/HIPiMXHL6V/DCyUF8qsQRSj5c1pDR57qf/aw++mecVdqjw==
+X-Received: by 2002:aca:1a09:0:b0:387:29c3:f0a2 with SMTP id
+ a9-20020aca1a09000000b0038729c3f0a2mr4713854oia.9.1681243494605; 
+ Tue, 11 Apr 2023 13:04:54 -0700 (PDT)
 Received: from halaney-x13s.attlocal.net
  (104-53-165-62.lightspeed.stlsmo.sbcglobal.net. [104.53.165.62])
  by smtp.gmail.com with ESMTPSA id
- e20-20020a056808149400b00387764759a3sm5868545oiw.24.2023.04.11.13.04.44
+ e20-20020a056808149400b00387764759a3sm5868545oiw.24.2023.04.11.13.04.52
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 11 Apr 2023 13:04:46 -0700 (PDT)
+ Tue, 11 Apr 2023 13:04:54 -0700 (PDT)
 From: Andrew Halaney <ahalaney@redhat.com>
 To: linux-kernel@vger.kernel.org
-Date: Tue, 11 Apr 2023 15:04:01 -0500
-Message-Id: <20230411200409.455355-5-ahalaney@redhat.com>
+Date: Tue, 11 Apr 2023 15:04:02 -0500
+Message-Id: <20230411200409.455355-6-ahalaney@redhat.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230411200409.455355-1-ahalaney@redhat.com>
 References: <20230411200409.455355-1-ahalaney@redhat.com>
 MIME-Version: 1.0
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Cc: mturquette@baylibre.com,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, edumazet@google.com,
+Cc: mturquette@baylibre.com, edumazet@google.com,
  krzysztof.kozlowski+dt@linaro.org, jonathanh@nvidia.com,
  linux-stm32@st-md-mailman.stormreply.com, tee.min.tan@linux.intel.com,
  samuel@sholland.org, linux@armlinux.org.uk, jernej.skrabec@gmail.com,
@@ -85,8 +84,8 @@ Cc: mturquette@baylibre.com,
  andersson@kernel.org, agross@kernel.org, echanude@redhat.com,
  konrad.dybcio@linaro.org, vkoul@kernel.org, hisunil@quicinc.com,
  mcoquelin.stm32@gmail.com, davem@davemloft.net
-Subject: [Linux-stm32] [PATCH net-next v4 04/12] dt-bindings: net: qcom,
-	ethqos: Add Qualcomm sc8280xp compatibles
+Subject: [Linux-stm32] [PATCH net-next v4 05/12] net: stmmac: Remove
+	unnecessary if statement brackets
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,66 +102,37 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The sc8280xp has a new version of the ETHQOS hardware in it, EMAC v3.
-Add a compatible for this.
+The brackets are unnecessary, remove them to match the coding style
+used in the kernel.
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 Signed-off-by: Andrew Halaney <ahalaney@redhat.com>
 ---
 
-Changes since v3:
-    * Add Acked-by (Krzysztof)
-
-Changes since v2:
-    * *Really* alphabetical sorting (sorry Krzysztof!)
+Changes since v2/v3:
+    * None
 
 Changes since v1:
-    * Alphabetical sorting (Krzysztof)
+    * This patch is split from the next patch since it is a logically
+      different change (Andrew Lunn)
 
- Documentation/devicetree/bindings/net/qcom,ethqos.yaml | 1 +
- Documentation/devicetree/bindings/net/snps,dwmac.yaml  | 3 +++
- 2 files changed, 4 insertions(+)
+ drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/net/qcom,ethqos.yaml b/Documentation/devicetree/bindings/net/qcom,ethqos.yaml
-index 88234a2010b1..60a38044fb19 100644
---- a/Documentation/devicetree/bindings/net/qcom,ethqos.yaml
-+++ b/Documentation/devicetree/bindings/net/qcom,ethqos.yaml
-@@ -20,6 +20,7 @@ properties:
-   compatible:
-     enum:
-       - qcom,qcs404-ethqos
-+      - qcom,sc8280xp-ethqos
-       - qcom,sm8150-ethqos
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
+index 21aaa2730ac8..6807c4c1a0a2 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
+@@ -281,9 +281,8 @@ static int stmmac_mdio_read_c22(struct mii_bus *bus, int phyaddr, int phyreg)
+ 	value |= (phyreg << priv->hw->mii.reg_shift) & priv->hw->mii.reg_mask;
+ 	value |= (priv->clk_csr << priv->hw->mii.clk_csr_shift)
+ 		& priv->hw->mii.clk_csr_mask;
+-	if (priv->plat->has_gmac4) {
++	if (priv->plat->has_gmac4)
+ 		value |= MII_GMAC4_READ;
+-	}
  
-   reg:
-diff --git a/Documentation/devicetree/bindings/net/snps,dwmac.yaml b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
-index 1e7982704114..da311c1f2c88 100644
---- a/Documentation/devicetree/bindings/net/snps,dwmac.yaml
-+++ b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
-@@ -66,6 +66,7 @@ properties:
-         - loongson,ls2k-dwmac
-         - loongson,ls7a-dwmac
-         - qcom,qcs404-ethqos
-+        - qcom,sc8280xp-ethqos
-         - qcom,sm8150-ethqos
-         - renesas,r9a06g032-gmac
-         - renesas,rzn1-gmac
-@@ -574,6 +575,7 @@ allOf:
-               - ingenic,x1600-mac
-               - ingenic,x1830-mac
-               - ingenic,x2000-mac
-+              - qcom,sc8280xp-ethqos
-               - snps,dwmac-3.50a
-               - snps,dwmac-4.10a
-               - snps,dwmac-4.20a
-@@ -628,6 +630,7 @@ allOf:
-               - ingenic,x1830-mac
-               - ingenic,x2000-mac
-               - qcom,qcs404-ethqos
-+              - qcom,sc8280xp-ethqos
-               - qcom,sm8150-ethqos
-               - snps,dwmac-4.00
-               - snps,dwmac-4.10a
+ 	data = stmmac_mdio_read(priv, data, value);
+ 
 -- 
 2.39.2
 
