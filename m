@@ -2,27 +2,27 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CADA06DD581
+	by mail.lfdr.de (Postfix) with ESMTPS id F2BC16DD582
 	for <lists+linux-stm32@lfdr.de>; Tue, 11 Apr 2023 10:31:09 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8A1A5C6A60A;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9BF49C6A611;
 	Tue, 11 Apr 2023 08:31:09 +0000 (UTC)
 Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
  [85.220.165.71])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 745C5C03FC1
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0B91EC03FC1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 11 Apr 2023 08:31:06 +0000 (UTC)
+ Tue, 11 Apr 2023 08:31:07 +0000 (UTC)
 Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77]
  helo=pengutronix.de)
  by metis.ext.pengutronix.de with esmtp (Exim 4.92)
  (envelope-from <s.trumtrar@pengutronix.de>)
- id 1pm9P7-0005Nv-Va; Tue, 11 Apr 2023 10:31:06 +0200
+ id 1pm9P8-0005Nv-Fj; Tue, 11 Apr 2023 10:31:06 +0200
 From: Steffen Trumtrar <s.trumtrar@pengutronix.de>
 To: linux-stm32@st-md-mailman.stormreply.com
-Date: Tue, 11 Apr 2023 10:30:37 +0200
-Message-Id: <20230411083045.2850138-3-s.trumtrar@pengutronix.de>
+Date: Tue, 11 Apr 2023 10:30:38 +0200
+Message-Id: <20230411083045.2850138-4-s.trumtrar@pengutronix.de>
 X-Mailer: git-send-email 2.39.1
 In-Reply-To: <20230411083045.2850138-1-s.trumtrar@pengutronix.de>
 References: <20230411083045.2850138-1-s.trumtrar@pengutronix.de>
@@ -32,11 +32,11 @@ X-SA-Exim-Mail-From: s.trumtrar@pengutronix.de
 X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
  SAEximRunCond expanded to false
 X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
-Cc: devicetree@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v8 02/10] ARM: dts: stm32: Add alternate
-	pinmux for sai2b
+Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
+Subject: [Linux-stm32] [PATCH v8 03/10] ARM: dts: stm32: Add new pinmux for
+	sdmmc1_b4
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -53,51 +53,81 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add another option for the SAI2B pins.
+Add another option for the SDMMC_B4 pins.
+It is almost identical to sdmmc1_b4_pins_a but the SDMMC1_D2 pin.
 
 This is used on the Phycore STM32MP1.
 
 Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
-Reviewed-by: Olivier Moysan <olivier.moysan@foss.st.com>
 ---
- arch/arm/boot/dts/stm32mp15-pinctrl.dtsi | 24 ++++++++++++++++++++++++
- 1 file changed, 24 insertions(+)
+ arch/arm/boot/dts/stm32mp15-pinctrl.dtsi | 54 ++++++++++++++++++++++++
+ 1 file changed, 54 insertions(+)
 
 diff --git a/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi b/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
-index 1c97db4dbfc6d..0062f8ea17aab 100644
+index 0062f8ea17aab..6e0363f7aa12f 100644
 --- a/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
 +++ b/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
-@@ -1491,6 +1491,30 @@ pins {
+@@ -1596,6 +1596,60 @@ pins {
  		};
  	};
  
-+	sai2b_pins_d: sai2b-3 {
++	sdmmc1_b4_pins_b: sdmmc1-b4-1 {
 +		pins1 {
-+			pinmux = <STM32_PINMUX('H', 2, AF10)>, /* SAI2_SCK_B */
-+				 <STM32_PINMUX('C', 0, AF8)>, /* SAI2_FS_B */
-+				 <STM32_PINMUX('H', 3, AF10)>; /* SAI2_MCLK_B */
-+			slew-rate = <0>;
++			pinmux = <STM32_PINMUX('C', 8, AF12)>, /* SDMMC1_D0 */
++				 <STM32_PINMUX('C', 9, AF12)>, /* SDMMC1_D1 */
++				 <STM32_PINMUX('E', 6, AF8)>, /* SDMMC1_D2 */
++				 <STM32_PINMUX('C', 11, AF12)>, /* SDMMC1_D3 */
++				 <STM32_PINMUX('D', 2, AF12)>; /* SDMMC1_CMD */
++			slew-rate = <1>;
 +			drive-push-pull;
 +			bias-disable;
 +		};
 +		pins2 {
-+			pinmux = <STM32_PINMUX('F', 11, AF10)>; /* SAI2_SD_B */
++			pinmux = <STM32_PINMUX('C', 12, AF12)>; /* SDMMC1_CK */
++			slew-rate = <2>;
++			drive-push-pull;
 +			bias-disable;
 +		};
 +	};
 +
-+	sai2b_sleep_pins_d: sai2b-sleep-3 {
++	sdmmc1_b4_od_pins_b: sdmmc1-b4-od-1 {
 +		pins1 {
-+			pinmux = <STM32_PINMUX('H', 2, ANALOG)>, /* SAI2_SCK_B */
-+				 <STM32_PINMUX('C', 0, ANALOG)>, /* SAI2_FS_B */
-+				 <STM32_PINMUX('H', 3, ANALOG)>, /* SAI2_MCLK_B */
-+				 <STM32_PINMUX('F', 11, ANALOG)>; /* SAI2_SD_B */
++			pinmux = <STM32_PINMUX('C', 8, AF12)>, /* SDMMC1_D0 */
++				 <STM32_PINMUX('C', 9, AF12)>, /* SDMMC1_D1 */
++				 <STM32_PINMUX('E', 6, AF8)>, /* SDMMC1_D2 */
++				 <STM32_PINMUX('C', 11, AF12)>; /* SDMMC1_D3 */
++			slew-rate = <1>;
++			drive-push-pull;
++			bias-disable;
++		};
++		pins2 {
++			pinmux = <STM32_PINMUX('C', 12, AF12)>; /* SDMMC1_CK */
++			slew-rate = <2>;
++			drive-push-pull;
++			bias-disable;
++		};
++		pins3 {
++			pinmux = <STM32_PINMUX('D', 2, AF12)>; /* SDMMC1_CMD */
++			slew-rate = <1>;
++			drive-open-drain;
++			bias-disable;
 +		};
 +	};
 +
- 	sai4a_pins_a: sai4a-0 {
- 		pins {
- 			pinmux = <STM32_PINMUX('B', 5, AF10)>; /* SAI4_SD_A */
++	sdmmc1_b4_sleep_pins_b: sdmmc1-b4-sleep-1 {
++		pins {
++			pinmux = <STM32_PINMUX('C', 8, ANALOG)>, /* SDMMC1_D0 */
++				 <STM32_PINMUX('C', 9, ANALOG)>, /* SDMMC1_D1 */
++				 <STM32_PINMUX('E', 6, ANALOG)>, /* SDMMC1_D2 */
++				 <STM32_PINMUX('C', 11, ANALOG)>, /* SDMMC1_D3 */
++				 <STM32_PINMUX('C', 12, ANALOG)>, /* SDMMC1_CK */
++				 <STM32_PINMUX('D', 2, ANALOG)>; /* SDMMC1_CMD */
++		};
++	};
++
+ 	sdmmc1_dir_pins_a: sdmmc1-dir-0 {
+ 		pins1 {
+ 			pinmux = <STM32_PINMUX('F', 2, AF11)>, /* SDMMC1_D0DIR */
 -- 
 2.39.1
 
