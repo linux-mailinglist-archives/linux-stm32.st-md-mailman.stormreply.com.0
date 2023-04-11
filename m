@@ -2,126 +2,87 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A72E26DE2DF
-	for <lists+linux-stm32@lfdr.de>; Tue, 11 Apr 2023 19:43:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 08F466DE53B
+	for <lists+linux-stm32@lfdr.de>; Tue, 11 Apr 2023 22:04:31 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 59C8DC65E4F;
-	Tue, 11 Apr 2023 17:43:55 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2138.outbound.protection.outlook.com [40.107.223.138])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B36D6C57B6A
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B03E6C65E4F;
+	Tue, 11 Apr 2023 20:04:30 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5BD4FC57B6A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 11 Apr 2023 17:43:54 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=DKOmZpMIafwVD9SqIMKmEFuhXQcuPfh4gQt2MKpKJTyKfUP6xT2gu0orK3T+W0dRlDFwGfLNyUadzt/OyAlUADNltadp101HQYh8EREbHzkyLAgNRsa8e3Y9vO/Yw1qzIGDsquQs+NUxMutKx65ps131qkgkqbVg0QXqc3gICHJn7MNtZFJENKLJZfy98+qmFPSKW9XCAoKtljsAYY2CJRYjAqgw6oBSvK0X7ESPvlR6Hiy/PgFAE5K6OFQPwgGsaHmH+CaYwPqITt4toQu+pYMHnfAp0gjcENGPJhlACx0mge63dQJvh1qRUblSVsQZ/AK6ZYFLMMB5PP+2mZjJyA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=FTThCp7diPj0G0CkPEZ1Hprp9i3GNg0w6hwWPy296nI=;
- b=Duypa6AO2LoVOHs1a8E+Ba/+Z/SFqV1VqgSK5rJXDsyi7pEeA9674QJrFFQsztBkDXzMifOZpbSL55lsNg7Gyy8CUSlb6EdlmF/ZF8RClJRucal615iocvrma+GZb2Ph91HFG3qTjlwueIu2Z4TdLcalbvuqnnRnH66/bJGRibJ92A04zdTCh1cuyDi13GH0cbCEvPeEYURjg1nft8iC4eIvUi22ExLiO7Zt2KPa3uE8qJuO0cyMAdyXUwE59SfMVYuqGwPQFbEfKB7Hq5o6G5fB+tHbIFl9mVSyECc/W5bMTG4PiV2b/RBTCcRROwYTld/CUyIysFCUe8UfP1BjwA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=corigine.com; dmarc=pass action=none header.from=corigine.com;
- dkim=pass header.d=corigine.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=corigine.onmicrosoft.com; s=selector2-corigine-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FTThCp7diPj0G0CkPEZ1Hprp9i3GNg0w6hwWPy296nI=;
- b=KYkUT8lxUjDCX/62KV0OuH/rqNpNFHnjwgkiyhicGmcRw6Wh1f2NmstnFbSVaU6A2FRwn4RaGmOPeAOBRxGf/6ElU4oLnsCNSOP+TsVLB1LT8Oiye6qaB64kJxrG85r+53cQDMjNjfBceCjR7ePGgVKhLqlJrgov3ku2dVd5UO0=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=corigine.com;
-Received: from PH0PR13MB4842.namprd13.prod.outlook.com (2603:10b6:510:78::6)
- by MW5PR13MB5995.namprd13.prod.outlook.com (2603:10b6:303:1cc::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6277.36; Tue, 11 Apr
- 2023 17:43:50 +0000
-Received: from PH0PR13MB4842.namprd13.prod.outlook.com
- ([fe80::89d1:63f2:2ed4:9169]) by PH0PR13MB4842.namprd13.prod.outlook.com
- ([fe80::89d1:63f2:2ed4:9169%5]) with mapi id 15.20.6277.038; Tue, 11 Apr 2023
- 17:43:50 +0000
-Date: Tue, 11 Apr 2023 19:43:39 +0200
-From: Simon Horman <simon.horman@corigine.com>
-To: Andrew Halaney <ahalaney@redhat.com>
-Message-ID: <ZDWcSxNivNUHyDOR@corigine.com>
-References: <20230331214549.756660-1-ahalaney@redhat.com>
- <20230331214549.756660-9-ahalaney@redhat.com>
- <ZChIbc6TnQyZ/Fiu@corigine.com>
- <20230407173453.hsfhbr66254z57ym@halaney-x13s>
- <20230410212422.2rztlqspw5vjtb4d@halaney-x13s>
-Content-Disposition: inline
-In-Reply-To: <20230410212422.2rztlqspw5vjtb4d@halaney-x13s>
-X-ClientProxiedBy: AS4P190CA0005.EURP190.PROD.OUTLOOK.COM
- (2603:10a6:20b:5de::17) To PH0PR13MB4842.namprd13.prod.outlook.com
- (2603:10b6:510:78::6)
+ Tue, 11 Apr 2023 20:04:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1681243468;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=cxcg4D7oOn+vhVnnmmIAydop7TdCDBp1rp6PwiTdQPw=;
+ b=MpWLn8aaPj9nn9AH3IXpiZlr+S2X23tYPXHChCIRC4qIxveHd0TdHbYrnLBqB5t+cokysX
+ fzqvlohUSkF25S1peYs/4RqfhCZMc7VFiXSGu6/K76OuNESHAzQHeN4b08fFl1NWyIzHOr
+ r8eBfIfLMEKeqYPZdw3yOVtLgatN/tw=
+Received: from mail-oa1-f69.google.com (mail-oa1-f69.google.com
+ [209.85.160.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-56-iMlqBzmJNO6ZpLA4MiqeLA-1; Tue, 11 Apr 2023 16:04:25 -0400
+X-MC-Unique: iMlqBzmJNO6ZpLA4MiqeLA-1
+Received: by mail-oa1-f69.google.com with SMTP id
+ 586e51a60fabf-1842c947865so5229153fac.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 11 Apr 2023 13:04:25 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112; t=1681243464;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=cxcg4D7oOn+vhVnnmmIAydop7TdCDBp1rp6PwiTdQPw=;
+ b=hnqEhaMS+89VCuDtzxdwMjwgMgZTzvhCUK3aVSNhdfsr2NTqVT1thzulG1+MTDOMpG
+ r6pk9/BNzQ7WJrYNuXnmnGydVPxpVNIdiAkl+y1gTeMnsBTRQQ8Y5VXalBw3aOKmhY3n
+ VyYrk+Y2VjWzAzIMHTPhZWJ6qzZOGM6IDZ6Acef7TIafzl4Br5gVzcfXLnd0PQFUXy7n
+ t9eih6ppZTgdY5VndM2ba5RE8bo8uRWPeQS2kJfSXXtLUy53gLSJdxZsciyO5GNxOTfw
+ VLcKn/mGtTZ5/cAFfMuHjC0DUSqiH8pU3nWK4O7Xh2bbswwCuU9noNCITW0FzppIwVsy
+ xGWA==
+X-Gm-Message-State: AAQBX9c87F1jigKzoUlwx1fBTQFq/240Lv2Vs08MO3czpIYaNYNpPuFt
+ 5v6q9iZX5xfw1fOTXDo4SPBhFK8WUOFlcPf+ZWFY97i6S4zgm8guiTVGIKLPNb0KwVpU5ebh3C7
+ tDz7KPEVPXpOIgElo+WYAcEPShJ89GAMOqDigZsdi
+X-Received: by 2002:aca:d743:0:b0:386:9720:77da with SMTP id
+ o64-20020acad743000000b00386972077damr5007471oig.26.1681243464511; 
+ Tue, 11 Apr 2023 13:04:24 -0700 (PDT)
+X-Google-Smtp-Source: AKy350azWr6mlU8tkLsqApkkAbbpQnuMkm8iMeE0b6zA76CdTeqoq06KhY/ps1Hoi3qB/iOjMgYrUA==
+X-Received: by 2002:aca:d743:0:b0:386:9720:77da with SMTP id
+ o64-20020acad743000000b00386972077damr5007433oig.26.1681243464151; 
+ Tue, 11 Apr 2023 13:04:24 -0700 (PDT)
+Received: from halaney-x13s.attlocal.net
+ (104-53-165-62.lightspeed.stlsmo.sbcglobal.net. [104.53.165.62])
+ by smtp.gmail.com with ESMTPSA id
+ e20-20020a056808149400b00387764759a3sm5868545oiw.24.2023.04.11.13.04.22
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 11 Apr 2023 13:04:23 -0700 (PDT)
+From: Andrew Halaney <ahalaney@redhat.com>
+To: linux-kernel@vger.kernel.org
+Date: Tue, 11 Apr 2023 15:03:57 -0500
+Message-Id: <20230411200409.455355-1-ahalaney@redhat.com>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH0PR13MB4842:EE_|MW5PR13MB5995:EE_
-X-MS-Office365-Filtering-Correlation-Id: b480b3a7-a92c-4615-8585-08db3ab44f0e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: vYgVz4fr08fEhb3eklGSrGNH6bWmLehMNl+4AWqJYoW+in5wzLV0+J+3A3a6XXV1cv27FZJGBGNHEWZB3rOWWl0tYSpTwcVIxSFc4aUe9n4dblk345o8MsowJKdLTSD0oqBmTI5XI4PeY34n9aKW1c8+GeA9u7ImUwLPTM0Typvc6y39AgEWAQvkRV99paptyfBUIt7PrxdReRzVglCXRpIUtIui1vgopoDAMzsITk8U2XCt4zuSvBlyelgfKW9I/WSZOp3hbQHaSRelAJ5XisB5hvtJ05hICm1mv/N6pjM/Sx3xRTlSd3r5nJpfObSY4PuhxYi6ieOB3vNN4fAB/s5MNWggHPN2GZEzKT89p3sOm/N/IvxaI2TsruRDUAJf26ZTrmWPlJaZzJxe8SAX/1ghh9Odo2fvIyQ2jzeaZaJTtQE9aelcvMJ5eEJBKtfwPRCHaCksK5AvOxfODGTNsvOOzbV9kuj1HjIuV4gxkyoU2E5jTWmsHthldrPn6CiYy5z5z9z7NqdOXNbrsPeyNNSvcQ8eo/JAA3DS5KZmyjU=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH0PR13MB4842.namprd13.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(376002)(346002)(39850400004)(366004)(396003)(136003)(451199021)(36756003)(44832011)(7406005)(2906002)(5660300002)(7416002)(8936002)(86362001)(38100700002)(8676002)(966005)(6512007)(6486002)(6666004)(6506007)(478600001)(2616005)(186003)(66946007)(41300700001)(66556008)(66476007)(4326008)(6916009)(316002);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?CUNX1cJ4HiSl1glHSAfvUlGpO45kduezSJR8Lggx5VImC2DjhG94itkhdhqr?=
- =?us-ascii?Q?EqOr9Bho7YiVUBUbidlWcPcEFtz892UMK9WVW7XRbNSQsq/sFT4DuHjff0oy?=
- =?us-ascii?Q?I7Xo3+sUE9L3c09sgLLuVQ+BR6N/xPXwJwxvqtI+VtfPNNk9zv5y4/74c4Jp?=
- =?us-ascii?Q?4/x0SRIK5shr0JpY2g991uFgAQ4rFiRduzpFM9yQIqGkpyGyKSaBKwA2IKAC?=
- =?us-ascii?Q?fxSaxG5I1liOAcdCUbmz0A6kQaReCDKzmP7njSUwV7AIfql7Xjzjk5JbPZfR?=
- =?us-ascii?Q?OTm0dP0XynVX2lPcDsx9JJewYpyQvEE5LoB/4/Bry5BQUfVwdU/MoD2Qg1Nh?=
- =?us-ascii?Q?uK2U61xC6oOUdkG8YyvbUMtP7NEi0m4atri1ojlYFDv9EsXWbHz3SAcEtAnp?=
- =?us-ascii?Q?HTpyZSZJtqmFLPO6oofRitckn/vSTKs7dl5/kinKH3DOQVNlgrUPHItevKD+?=
- =?us-ascii?Q?0chCM6sWofXPcpcTcZTwYYs33yk7AWDjrmMwmzMRWpQwu4P+Gw0jssg3EFi7?=
- =?us-ascii?Q?bl2M1BzFzinMMWCyeDKtwQQQKX5cx5/PrKvJNwqExODb3RINEx7FuqByKxPd?=
- =?us-ascii?Q?3QXPtTQAxoW0a6fykpb+xUKNyy0QRzlIk4/Db/yajyURdEqmHCfZyPxJQ07Y?=
- =?us-ascii?Q?uoOaWwpSAlxioeiQWhX7cN8SIlyuzO0QO0C4alwKPg6rMesory6rIUdo6p7O?=
- =?us-ascii?Q?squCNIqwO/kW+QC3mQrzo69cQsI/Wx+GmkTWyDTwldU1sAnbC+stf018ZvA9?=
- =?us-ascii?Q?KfpBoCM1cWZKW24r4DURi4Cfo4hETGjOB5K5CukSvgcValqXzmNyxF6AXuN3?=
- =?us-ascii?Q?5qokS4pEP+Lgbbzj/Gx0rRnD0UyLNf50U4DIHrdpR2AJ+85l4ds055pYwmYu?=
- =?us-ascii?Q?yfFOv7AEWeibYbaQlTpqwKAs93BsWscM4gAxgWYmBL7bQ7n0nIL9X68SMYMt?=
- =?us-ascii?Q?2V2UUaRP7g+39WbiSdk/dbER4tKFKhsluIUiqYZB0YtDyJ0JM+5jX347LREA?=
- =?us-ascii?Q?M5kPtp9Vctlde6IP6MCFv54fYeNDxvc6gT33zXwFW0kxbd21rz7eKuRPviUm?=
- =?us-ascii?Q?jO9veo1jBFsLv2pv2ccIGKA25M4XvEHp2qW8VLqdGSq1pcwoj6+VyRU7Ddck?=
- =?us-ascii?Q?GuOQbl7lpys9m1zUSx8UHjW3ElWaI4mVF/86DWjxvVVgatfhCeOKp1heqTws?=
- =?us-ascii?Q?MdekN3l6EyqnpVbJpIib1tsW/hoeTwOI27oxU1OwdzjEyMG5+vu0nD8kXHV4?=
- =?us-ascii?Q?LsJEUSd8Yiy9NI0UoBvfBgkcFT3YX8VPPCItCcffCqkQZDn2k6wpAw/6mLzs?=
- =?us-ascii?Q?yiw0I53hbct8BmGgYqg1bVaGJwpcvnsc53Bag44/iF+Bb2yET3+zzabsnYfg?=
- =?us-ascii?Q?fqgoGjOz1vR4SEorvnCs/xIx9ViU++3HyVkvmcLcJML2fNerG30XDvX0+FHt?=
- =?us-ascii?Q?dNTM6kEY96rvrhcxQ94ajGyI1CGDwB4qYnf54MT2yIcpDsmouxoY5gu/oYEw?=
- =?us-ascii?Q?mL3Lv5QcAeP9VyDW61j6ZtoYEYr/6UE4sYXTkhmhdKNeOtOXlq+E+3zaveCX?=
- =?us-ascii?Q?ictyRYORppVvmabY7O23XqwG/3cF93gXJcmWc3XSQkhBRBgVJzK26zywggxV?=
- =?us-ascii?Q?gG+Qm0xIS8C6ifWdvfZz4mcl0svyPSg0oMlLk82N92oXN0cqcc+uvXznZiyU?=
- =?us-ascii?Q?/hIhbw=3D=3D?=
-X-OriginatorOrg: corigine.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b480b3a7-a92c-4615-8585-08db3ab44f0e
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR13MB4842.namprd13.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Apr 2023 17:43:50.1006 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: fe128f2c-073b-4c20-818e-7246a585940c
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: R1rNNDEZTOMkOzp/UmG2MGW5S4laPu9dhOffChMPHCcUowfNm4qgElAZDhG53yjCqQipilbLtNOCp34bTd4Q64jqd+Qr2+p792CGXgAt44k=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW5PR13MB5995
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
 Cc: mturquette@baylibre.com, edumazet@google.com,
  krzysztof.kozlowski+dt@linaro.org, jonathanh@nvidia.com,
  linux-stm32@st-md-mailman.stormreply.com, tee.min.tan@linux.intel.com,
  samuel@sholland.org, linux@armlinux.org.uk, jernej.skrabec@gmail.com,
- veekhee@apple.com, wens@csie.org, joabreu@synopsys.com, agross@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, andrey.konovalov@linaro.org,
- ncai@quicinc.com, devicetree@vger.kernel.org, bhupesh.sharma@linaro.org,
+ veekhee@apple.com, wens@csie.org, joabreu@synopsys.com, kuba@kernel.org,
+ pabeni@redhat.com, andrey.konovalov@linaro.org,
+ Andrew Halaney <ahalaney@redhat.com>, ncai@quicinc.com,
+ devicetree@vger.kernel.org, bhupesh.sharma@linaro.org,
  linux-arm-msm@vger.kernel.org, richardcochran@gmail.com, bmasney@redhat.com,
  mohammad.athari.ismail@intel.com, robh+dt@kernel.org, ruppala@nvidia.com,
  jsuraj@qti.qualcomm.com, peppe.cavallaro@st.com,
  linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
- andersson@kernel.org, linux-kernel@vger.kernel.org, echanude@redhat.com,
+ andersson@kernel.org, agross@kernel.org, echanude@redhat.com,
  konrad.dybcio@linaro.org, vkoul@kernel.org, hisunil@quicinc.com,
  mcoquelin.stm32@gmail.com, davem@davemloft.net
-Subject: Re: [Linux-stm32] [PATCH net-next v3 08/12] net: stmmac: Pass
- stmmac_priv in some callbacks
+Subject: [Linux-stm32] [PATCH net-next v4 00/12] Add EMAC3 support for
+	sa8540p-ride
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -138,73 +99,97 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Apr 10, 2023 at 04:24:22PM -0500, Andrew Halaney wrote:
-> On Fri, Apr 07, 2023 at 12:34:53PM -0500, Andrew Halaney wrote:
-> > On Sat, Apr 01, 2023 at 05:06:21PM +0200, Simon Horman wrote:
-> > > On Fri, Mar 31, 2023 at 04:45:45PM -0500, Andrew Halaney wrote:
-> > > > Passing stmmac_priv to some of the callbacks allows hwif implementations
-> > > > to grab some data that platforms can customize. Adjust the callbacks
-> > > > accordingly in preparation of such a platform customization.
-> > > > 
-> > > > Signed-off-by: Andrew Halaney <ahalaney@redhat.com>
-> > > 
-> > > ...
-> > > 
-> > > >  #define stmmac_reset(__priv, __args...) \
-> > > > @@ -223,59 +240,59 @@ struct stmmac_dma_ops {
-> > > >  #define stmmac_dma_init(__priv, __args...) \
-> > > >  	stmmac_do_void_callback(__priv, dma, init, __args)
-> > > >  #define stmmac_init_chan(__priv, __args...) \
-> > > > -	stmmac_do_void_callback(__priv, dma, init_chan, __args)
-> > > > +	stmmac_do_void_callback(__priv, dma, init_chan, __priv, __args)
-> > > 
-> > > Hi Andrew,
-> > > 
-> > > Rather than maintaining these macros can we just get rid of them?
-> > > I'd be surprised if things aren't nicer with functions in their place [1].
-> > > 
-> > > f.e., we now have (__priv, ..., __priv, ...) due to a generalisation
-> > >       that seems to take a lot more than it gives.
-> > > 
-> > > [1] https://lore.kernel.org/linux-arm-kernel/ZBst1SzcIS4j+t46@corigine.com/
-> > > 
-> > 
-> > Thanks for the pointer. I think that makes sense, I'll take that
-> > approach for these functions (and maybe in a follow-up series I'll
-> > tackle all of them just because the lack of consistency will eat me up).
-> > 
-> 
-> I tried taking this approach for a spin, and I'm not so sure about it
-> now!
-> 
-> 1. Implementing the functions as static inline requires us to know
->    about stmmac_priv, but that's getting into circular dependency land
-> 2. You could define them in hwif.c, but then they're not inlined
-> 3. There's still a good bit of boilerplate that's repeated all over
->    with the approach. Ignoring 1 above, you get something like this:
-> 
-> static inline int stmmac_init_chan(struct stmmac_priv *priv,
-> 				   void __iomem *ioaddr,
-> 				   struct stmmac_dma_cfg *dma_cfg, u32 chan)
-> {
-> 	if (priv->hw->dma && priv->hw->dma->init_chan) {
-> 		priv->hw->dma->init_chan(priv, ioaddr, dma_cfg, chan);
-> 		return 0;
-> 	}
-> 	return -EINVAL;
-> }
-> 
-> that is then repeated for every function... which is making me actually
-> appreciate the macros some for reducing boilerplate.
-> 
-> Am I suffering from a case of holiday brain, and 1-3 above are silly
-> points with obvious answers, or do they make you reconsider continuing
-> with the current approach in hwif.h?
+This is a forward port / upstream refactor of code delivered
+downstream by Qualcomm over at [0] to enable the DWMAC5 based
+implementation called EMAC3 on the sa8540p-ride dev board.
 
-I'm about to embark to the holiday brain zone.
+From what I can tell with the board schematic in hand,
+as well as the code delivered, the main changes needed are:
 
-But before I do I wanted to acknowledge your concerns and that, yes,
-it may be easier said than done.
+    1. A new address space layout for dwmac5/EMAC3 MTL/DMA regs
+    2. A new programming sequence required for the EMAC3 based platforms
+
+This series makes the changes above as well as other housekeeping items
+such as converting dt-bindings to yaml, etc.
+
+As requested[1], it has been split up by compilation deps / maintainer tree.
+I will post a link to the associated devicetree changes that together
+with this series get the hardware functioning.
+
+Patches 1-3 are clean ups of the currently supported dt-bindings and
+IMO could be picked up as is independent of the rest of the series to
+improve the current codebase. They've all been reviewed in prior
+versions of the series.
+
+Patches 5-7 are also clean ups of the driver and are worth picking up
+independently as well. They don't all have explicit reviews but should
+be good to go (trivial changes on non-reviewed bits).
+
+The rest of the patches have new changes, lack review, or are specificly
+being made to support the new hardware, so they should wait until the
+series as a whole is deemed ready to go by the community.
+
+[0] https://git.codelinaro.org/clo/la/kernel/ark-5.14/-/commit/510235ad02d7f0df478146fb00d7a4ba74821b17
+[1] https://lore.kernel.org/netdev/20230320202802.4e7dc54c@kernel.org/
+
+v3: https://lore.kernel.org/netdev/20230331214549.756660-1-ahalaney@redhat.com/
+v2: https://lore.kernel.org/netdev/20230320221617.236323-1-ahalaney@redhat.com/
+v1: https://lore.kernel.org/netdev/20230313165620.128463-1-ahalaney@redhat.com/
+
+Thanks,
+Andrew
+
+Andrew Halaney (9):
+  dt-bindings: net: qcom,ethqos: Add Qualcomm sc8280xp compatibles
+  net: stmmac: Remove unnecessary if statement brackets
+  net: stmmac: Fix DMA typo
+  net: stmmac: Remove some unnecessary void pointers
+  net: stmmac: Pass stmmac_priv in some callbacks
+  net: stmmac: dwmac4: Allow platforms to specify some DMA/MTL offsets
+  net: stmmac: dwmac-qcom-ethqos: Respect phy-mode and TX delay
+  net: stmmac: dwmac-qcom-ethqos: Use loopback_en for all speeds
+  net: stmmac: dwmac-qcom-ethqos: Add EMAC3 support
+
+Bhupesh Sharma (3):
+  dt-bindings: net: snps,dwmac: Update interrupt-names
+  dt-bindings: net: snps,dwmac: Add Qualcomm Ethernet ETHQOS compatibles
+  dt-bindings: net: qcom,ethqos: Convert bindings to yaml
+
+ .../devicetree/bindings/net/qcom,ethqos.txt   |  66 ------
+ .../devicetree/bindings/net/qcom,ethqos.yaml  | 111 ++++++++++
+ .../devicetree/bindings/net/snps,dwmac.yaml   |   9 +-
+ MAINTAINERS                                   |   2 +-
+ .../net/ethernet/stmicro/stmmac/chain_mode.c  |  10 +-
+ drivers/net/ethernet/stmicro/stmmac/common.h  |   2 +-
+ .../stmicro/stmmac/dwmac-qcom-ethqos.c        | 178 ++++++++++++----
+ .../net/ethernet/stmicro/stmmac/dwmac-sun8i.c |  36 ++--
+ .../ethernet/stmicro/stmmac/dwmac1000_core.c  |   3 +-
+ .../ethernet/stmicro/stmmac/dwmac1000_dma.c   |  19 +-
+ .../ethernet/stmicro/stmmac/dwmac100_dma.c    |  14 +-
+ drivers/net/ethernet/stmicro/stmmac/dwmac4.h  | 101 +++++++--
+ .../net/ethernet/stmicro/stmmac/dwmac4_core.c |  50 +++--
+ .../ethernet/stmicro/stmmac/dwmac4_descs.c    |   8 +-
+ .../net/ethernet/stmicro/stmmac/dwmac4_dma.c  | 201 +++++++++++-------
+ .../net/ethernet/stmicro/stmmac/dwmac4_dma.h  |  92 +++++---
+ .../net/ethernet/stmicro/stmmac/dwmac4_lib.c  | 105 +++++----
+ .../net/ethernet/stmicro/stmmac/dwmac_dma.h   |  22 +-
+ .../net/ethernet/stmicro/stmmac/dwmac_lib.c   |  18 +-
+ .../ethernet/stmicro/stmmac/dwxgmac2_core.c   |   9 +-
+ .../ethernet/stmicro/stmmac/dwxgmac2_descs.c  |   6 +-
+ .../ethernet/stmicro/stmmac/dwxgmac2_dma.c    |  71 ++++---
+ .../net/ethernet/stmicro/stmmac/enh_desc.c    |  11 +-
+ drivers/net/ethernet/stmicro/stmmac/hwif.h    | 176 ++++++++-------
+ .../net/ethernet/stmicro/stmmac/norm_desc.c   |   8 +-
+ .../net/ethernet/stmicro/stmmac/ring_mode.c   |  10 +-
+ .../net/ethernet/stmicro/stmmac/stmmac_mdio.c |   3 +-
+ include/linux/stmmac.h                        |  19 ++
+ 28 files changed, 886 insertions(+), 474 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/net/qcom,ethqos.txt
+ create mode 100644 Documentation/devicetree/bindings/net/qcom,ethqos.yaml
+
+-- 
+2.39.2
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
