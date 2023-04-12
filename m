@@ -2,73 +2,159 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 939096E07CB
+	by mail.lfdr.de (Postfix) with ESMTPS id A1FA06E07CC
 	for <lists+linux-stm32@lfdr.de>; Thu, 13 Apr 2023 09:33:39 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1F290C6A614;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3235AC6A617;
 	Thu, 13 Apr 2023 07:33:39 +0000 (UTC)
-Received: from mail-pj1-f73.google.com (mail-pj1-f73.google.com
- [209.85.216.73])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CE925C62EFE
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E7429C57B6A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 12 Apr 2023 17:00:06 +0000 (UTC)
-Received: by mail-pj1-f73.google.com with SMTP id
- nn5-20020a17090b38c500b00246772f5325so4879322pjb.6
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 12 Apr 2023 10:00:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20221208; t=1681318805;
- h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
- :date:from:to:cc:subject:date:message-id:reply-to;
- bh=kpKB7SqPD1WEJcm5mP/ZS9AV7kRHrr2cruyzGPdJnmY=;
- b=0dJ9X7z1jh25oYOHdd+ljdJXvOW0dD6zhgL9qARYaY8+1ZTVplJLk+y5Aqe0axj3f7
- rVda5IIvH/u9Mqx1YM4d0qjJrdRXlxwNLJlT3miGS7NcBeAWuFzmKipOZKiFXsHiIL6T
- CaKVTz/SjKtNGnp7avxMqpahnjuoTUT2P5T8gW/+RyXl9cT27GQpQ51fkvGdzeQQl5cD
- +fQ5My91JFTUE3tWCvY92nPuUsiGOO+mEOjRSnKlR/K+ZOhQwo6p0Yt8Zeb3AIof9tx9
- 0Pt0VWQRjjZjTU1US/MsJ9d5y5H4C3VMfArkbKJhdzLnma7r7K7IN7gX3VGgvRhe2V/N
- q8OQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1681318805;
- h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
- :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=kpKB7SqPD1WEJcm5mP/ZS9AV7kRHrr2cruyzGPdJnmY=;
- b=WeBI9tkX/3TgELEuwRYVzr2EhrhF2KhNRejDDwBcesOwOMTSvSh6RCS3ctUoguxUfE
- nNeYeWPoOHovbbQ4vnkpzby5Ed3YtreBpTlteW/wlx2JL+d2VnMZjVUtquPaRUe7zSbF
- 3H0HWdaCW0Wl1TzoiDLj0yFfrHoRi/4OUk/Uj8PNxQ8jAgDtb6sXe8CAmCKywTcM0z6x
- X18EOqD3/3Z65rpAGBrE/KIhD/Lo9YXa2n1ssaupG8RnRac7SijQQNdLNSruJmOnDd9t
- EpL09ELl3yEIAUpFPoebfVpuilpplZy6NgrWCZKKY1Ogm77ZMy0YG4KHVEP7X7PGQCGu
- ovtA==
-X-Gm-Message-State: AAQBX9drFUywxVnqhCHY5Yp3jX5FZTmw8F2dmV+yvBjftpO57qlFHbcJ
- kbIhc3Ix0U5rKSGypG0iimscEQ8=
-X-Google-Smtp-Source: AKy350bqCRuf2+nw6G4Xo/+RMWx8JZZGxbP78hg7vN5q2J6hphsLxNUKDMeaTSlnL3vx8TUht7eSaik=
-X-Received: from sdf.c.googlers.com ([fda3:e722:ac3:cc00:7f:e700:c0a8:5935])
- (user=sdf job=sendgmr) by 2002:a65:60c2:0:b0:51a:52b1:1b70 with SMTP id
- r2-20020a6560c2000000b0051a52b11b70mr775383pgv.10.1681318805239; Wed, 12 Apr
- 2023 10:00:05 -0700 (PDT)
-Date: Wed, 12 Apr 2023 10:00:03 -0700
-In-Reply-To: <20230412094235.589089-4-yoong.siang.song@intel.com>
-Mime-Version: 1.0
+ Wed, 12 Apr 2023 20:52:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1681332757; x=1712868757;
+ h=message-id:date:subject:to:cc:references:from:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=BPTqUyLwlBt4/gBnTNnCmnyw+KOyNQUS/PNNnUFbJj8=;
+ b=bRAIs0fa2WiGai5yJt4BCh+SO5e/TTaNTDoP4iPdjxsNfNEPXDTAZNjK
+ ddTkVusnZ/6YPlnzCjlCkS1LpliVrBu3AVAN29BcrdM47iqvwRhYD6WaD
+ aIVR0erYx/AYQrXkJA4Ba7FPskqWJ94JzqonOYi64SbQltx2Adges1u42
+ fLVEVKGiTUfkmV0tR3fzCQgZKuwQFk4T0OdaHSk/xAjuKluEzEpUylbLk
+ fYDNBkmsPE+Czz/FD6WY60t7l9QwrV7t9tX6oVeqj2VZAZsrS6RVMAXud
+ HowlhbYcgK1z/j4FTMBcAqEjX8sxswT/JlkdNum2MNXEtvIzxHLZnDabL A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10678"; a="430307044"
+X-IronPort-AV: E=Sophos;i="5.98,339,1673942400"; d="scan'208";a="430307044"
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Apr 2023 13:52:34 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10678"; a="863459432"
+X-IronPort-AV: E=Sophos;i="5.98,339,1673942400"; d="scan'208";a="863459432"
+Received: from orsmsx602.amr.corp.intel.com ([10.22.229.15])
+ by orsmga005.jf.intel.com with ESMTP; 12 Apr 2023 13:52:02 -0700
+Received: from orsmsx610.amr.corp.intel.com (10.22.229.23) by
+ ORSMSX602.amr.corp.intel.com (10.22.229.15) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.23; Wed, 12 Apr 2023 13:52:02 -0700
+Received: from ORSEDG601.ED.cps.intel.com (10.7.248.6) by
+ orsmsx610.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.23 via Frontend Transport; Wed, 12 Apr 2023 13:52:02 -0700
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com (104.47.59.168)
+ by edgegateway.intel.com (134.134.137.102) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.23; Wed, 12 Apr 2023 13:52:02 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=OluD5k9lgrDf6hqcS+FoG48SpFawFi2pifnlAu10ysrT/ev4kgbUM6G07AjTICbQqPJ4GbcCrNJT9y2xZrVZy59MQyETKgcndWHAh3+yN9gu6L9bIigJVGwzFEOlorK3jwei3qcoBOaDH/NQYjdjDiALXICbEwoMeM+ys/02BB3AU7pzmh93nZSDKgRDtKdrTJtioL55L1LJWTz+C+ZsHBJ4bh52kt3yIEqigp2KkWoNTwHzQbZyH9+4jk6PO8PfJEsUri/b3Ux0izTgyhCxkJAYr+mkHUeeEAqrUWkO6dba2S1Ib+Z+/UUL2XUhcKSU3AhDaWKUnYNiAWRt4rc5qQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=zjt5d4BC17kqWAurylH2tBreICd1k5lgE0Pi/VYEG98=;
+ b=d1gdc0IwMfVhAx0JBnXIBSxZhyeFkXsKS1WmAEja+OGosTi9XUKm+rIsyqccENqqRWC4OEMhILMRWxmTiK09/cbP6/uueyhtYQfPQOqn0u9AsOnIR5bCegZ5j9ei1cRxTpbunNl39N2pF55iIRaZGszxH8g7H506/5RYNeI25rvjcQi/Tn4phhDeS6PMbXycyp0L8sOjj8rhuQWGE4iJuB9OvZkbalqS7jDqok3XAV7aQ0Ib2/X9gt0usmf+VnC82ijcTtcp5WF0itzEmuJg7d8uEME/4BbYwl0tjxBVaZxS7jjFkHw16oO+svtCjhPq3o4veBmJdLr/ujiaGpwpNA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from CO1PR11MB5089.namprd11.prod.outlook.com (2603:10b6:303:9b::16)
+ by DM4PR11MB8203.namprd11.prod.outlook.com (2603:10b6:8:187::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6277.38; Wed, 12 Apr
+ 2023 20:52:00 +0000
+Received: from CO1PR11MB5089.namprd11.prod.outlook.com
+ ([fe80::6222:859a:41a7:e55b]) by CO1PR11MB5089.namprd11.prod.outlook.com
+ ([fe80::6222:859a:41a7:e55b%2]) with mapi id 15.20.6298.030; Wed, 12 Apr 2023
+ 20:52:00 +0000
+Message-ID: <3b324fba-d4cb-0290-f67f-6562fd7e86ad@intel.com>
+Date: Wed, 12 Apr 2023 13:52:05 -0700
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.9.1
+Content-Language: en-US
+To: Song Yoong Siang <yoong.siang.song@intel.com>, Giuseppe Cavallaro
+ <peppe.cavallaro@st.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Jose Abreu <joabreu@synopsys.com>, "David S . Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, "Paolo
+ Abeni" <pabeni@redhat.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
+ Jesper Dangaard Brouer <hawk@kernel.org>, John Fastabend
+ <john.fastabend@gmail.com>, Stanislav Fomichev <sdf@google.com>, "Alexander
+ Duyck" <alexanderduyck@fb.com>, Ong Boon Leong <boon.leong.ong@intel.com>
 References: <20230412094235.589089-1-yoong.siang.song@intel.com>
- <20230412094235.589089-4-yoong.siang.song@intel.com>
-Message-ID: <ZDbjkwGS5L9wdS5h@google.com>
-From: Stanislav Fomichev <sdf@google.com>
-To: Song Yoong Siang <yoong.siang.song@intel.com>
+ <20230412094235.589089-2-yoong.siang.song@intel.com>
+From: Jacob Keller <jacob.e.keller@intel.com>
+In-Reply-To: <20230412094235.589089-2-yoong.siang.song@intel.com>
+X-ClientProxiedBy: SJ0PR03CA0097.namprd03.prod.outlook.com
+ (2603:10b6:a03:333::12) To CO1PR11MB5089.namprd11.prod.outlook.com
+ (2603:10b6:303:9b::16)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1PR11MB5089:EE_|DM4PR11MB8203:EE_
+X-MS-Office365-Filtering-Correlation-Id: e49ceaf6-6a2f-4777-a21f-08db3b97c30f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: AMYCoSvP7MFoxr1/KjeK9MVGN8r0ebNhoaqPIIaDZotMjx/OTj98GgJs1BSZLitKWa8oaiG1sFwIe/b7X6n5Z7+vXnRv1rQBQNNbWHr4DUdVVT9jrUBmMtMyellwXtPfhqx6l+DEKZnaNY9WfvGRV290nW+hkAu5g+7B5Z84XccVgyV1z96wUHgkVf7+hYvChlvzo1Irxlh9QFrk9hMVwzpZlFqje47zLZ5rzOTPf7QzGq6j9o79cDRjDk5vr0ehLiBwy7je2Bhbfve5mXq/p5lI60MnJUXCCGbpsEHIlePsiH7T9Be4mmwWCZgGjFEmCpMF49qcEqM/BFsERkICUW1Hjj9bS6/igyxquRpkVbijUPJxjfXRX5jjkvY7Tw0qJJJBC5tBNO8gG6vERuStKDZIXjggwCI2ZpJ148jEerto/VSgTeJ9vtCI8ysG90+z5b4NfuodedAZg8Jvkd6aS3mgq86KMAjz0N1qkWMKrD1gBPqXq8mlD6yg6bGD2tTwHrsZ0UIatgD0bBri0x7GggXhY5Lwao4939vMe2pbl4NKK1kxtIWmJEZlHR4vISSwdwUsxKvEtqtvkmplx3WiU8QgVyAekvhy1U48FJuWijeynA/AyIH5zQe41yD4PVtIJ/fFTL5Ue8mZq5vz19PwijUeTv5DeeayB1Z3TlbIfUw=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CO1PR11MB5089.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(39860400002)(376002)(136003)(366004)(346002)(396003)(451199021)(31686004)(478600001)(36756003)(31696002)(82960400001)(921005)(38100700002)(86362001)(2616005)(4744005)(2906002)(316002)(26005)(5660300002)(6512007)(6506007)(110136005)(53546011)(186003)(6636002)(66556008)(6486002)(66476007)(7416002)(41300700001)(8676002)(8936002)(4326008)(66946007)(43740500002)(45980500001);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?b25OR0p2TDVIajdLWFRQVWpMWWNLUFBLSkNmVjQ2RWhicmVBbW52Z1VSZUp1?=
+ =?utf-8?B?aC9QVElRRFdldTJiS2ptb0ZUVmVvNlNId3RzUHltZWJiOEYybkRVOW9OcTdV?=
+ =?utf-8?B?VXY2dFVsNkl2TGYyczNMakJvQllxcThVSmhyb2Y0ZFp6Skt4UnV5cVRyWG1q?=
+ =?utf-8?B?V0s2YXJxc081ZVFWaTNXeVFmM0EyTWJLNHFwa3lObXMzNXpuZktYak1FU29S?=
+ =?utf-8?B?N1BaN0xXelpmN2RRaDN5VGQwVk81Y3hXc2IwSHFDQ2JtN0g3QnRoUGE0RXdv?=
+ =?utf-8?B?TExQU0pscWNSV05hZE9lTTRtZFJsRkoxVjFZL2N3bCs2NGR1aWt6MVN1cjE4?=
+ =?utf-8?B?L1JVVWszb2poMVdHZzdlcDJ3Y3FFc00rZnYvT3BMWENBVE9lRm9qL1BXZEJ3?=
+ =?utf-8?B?alR4TEsxWVJxd1A5WGFXOW44bUk4MmxqL2N3aExvSkUyakFoVnorKzBRR3E5?=
+ =?utf-8?B?MzAyOS9idTdEMEdVZVNIMWtlT2g4aHpMYmFuc0szQW5ZMUhtdjcyUG9zNCtv?=
+ =?utf-8?B?cC9ieXhBVTJGaE8rUC92KysyMnV5MUgrWGNaVFk2UXhHSmtENitpVHZaMk9R?=
+ =?utf-8?B?elZuMk0wcVN2N21xOXk1VmNzWnhLbk5WTXFkY3dmUURFR0pWOEphZkZzZVpo?=
+ =?utf-8?B?ZzZEREdpYlpKZUZ4enNsVmd2ODkzZlpmeDVyd1RDSnJXRG93bmxzbm1MVkFX?=
+ =?utf-8?B?d3BKZHB2NzJQdDl5dlRtUExrclVYSDJGeWEzZUEyZ0xveldoWTlpS0RwcXlE?=
+ =?utf-8?B?RXltcG4rK1pwdmNGV05uTVRPbTFkcGZ4OUpRblVnZXJHSWZMeU95MzVJS0FY?=
+ =?utf-8?B?MHpGQU1xcUpPRExZODlnUzJ6Y3FpUG0xSkthSktMTk1sbWZ5Q21NU25CT0N2?=
+ =?utf-8?B?TDFqVXUyU0E5c1N0M1J0TE44STVkN2xsK2RZVThhRVJpZmQ4VmFEQXIyTEk4?=
+ =?utf-8?B?aEVYdllzb0VrUXkxN3BxeDAwWnNpTFVLdFkwUGVQcUQxQkNQZ1AxLzhrUTFx?=
+ =?utf-8?B?U21LMitMM1JTYW1TRWNiQXdqek1SNDJkNTIvNTFVWHBMNFNLN3FBRmI2dzlJ?=
+ =?utf-8?B?bStlMTd1OStlRzE1TWR6cU1UL0tLdDZCYVVKeGFDWUc2UmpSRmRIV0NqYmlT?=
+ =?utf-8?B?T21tbW81V3JtK2g0NmtzeCtlZWtIK2twQjJ3MU9zUWxRbHFsT3g4bWJxM29Z?=
+ =?utf-8?B?K1RLUWIrR2c0REVGSCtvaTUxSzBkRWEySm55YzQzWld3c1Y0RnM2RnJUMmtM?=
+ =?utf-8?B?MU9aL3Z4eittTjVVcDRQelAwci9Nc0hlQ21CeXYyM3BXK0NSS0RIWlJnOFFt?=
+ =?utf-8?B?V0I0OTZQY3lLbGNoWjliWkJ2UnQvSHJpbHpMdkxiQTREUlpLKzg1UGJ3RlFk?=
+ =?utf-8?B?VlhRZHJxUnhkaFRWV2gxbmM1MXlSTkg1NHoxekxSQW9GQ0tiQ3FnNVBnZVdu?=
+ =?utf-8?B?a3JJcW5FRVp3UFhsTkdLcVlNQUFXZ3Y4Q29POTUzcXBwazZSMlpid2F6a3k1?=
+ =?utf-8?B?ZzhENE92UWVwQUh6WVFpaTNPdXVFNlo3QnZVT04zM0V4ektxRk53THBtMW9Z?=
+ =?utf-8?B?SFZselFOMzF5ZkFwbzZzL2dwVXBYZlRkTVFqMDRPR3dTOXh3bEtoK0p2ZVJK?=
+ =?utf-8?B?M2NGSU1Wdlg4bFpvMkdjOC9zdXRaMnY3YVExRDdKeGhpbDg3Smx4T2E3ejVu?=
+ =?utf-8?B?cGNwMVladkliMWVySWFCTU84NUVmbHlaS3BrSDhXVG1tN3NDVll6bDc5S2ZH?=
+ =?utf-8?B?Z2VnTVFvcFBTaVRZbmc4UmNFTXcvWUFTcXhWZDY5eXRvakdlQVpONEQ2WVVp?=
+ =?utf-8?B?TW1sTTdVRVQyZ2drcEJEdFk2U0ZHbUZzUnJsRmNhY0h5S0VSdjdLeTZLUVdK?=
+ =?utf-8?B?OGR3Nnp6amFibFQ0dGQzS1hwVFB5VnV1YTU5K2U4eGs0WmhJTUU0SnNhSEhu?=
+ =?utf-8?B?alRhS01FUlNvdGpkRVFZWEs5TXB1aVhSVUgwWmtyelYyNTZSTm9TSEpiOVJ4?=
+ =?utf-8?B?emxWNW02UWFQQjF2aGRsVHNkRmRsOWd6L3lQd3FTeldOd0pobTZBUTdQY0Yz?=
+ =?utf-8?B?d1lKeTRiYXNYS2J6OW5EZlRqRTdiSGZyMVZmK2plMXRZR1VzZGVFdGdzQVJD?=
+ =?utf-8?B?VTA0R0RLMUc0bUE5ajhuTUc4aHlkTFJwNFRueWdxTk52RHN3Y004VGc3Wm9u?=
+ =?utf-8?B?U1E9PQ==?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: e49ceaf6-6a2f-4777-a21f-08db3b97c30f
+X-MS-Exchange-CrossTenant-AuthSource: CO1PR11MB5089.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Apr 2023 20:52:00.4325 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: qtbIs1cifPsOh20w3YB/p+8BQjARy0/NRjQqZM7QfF85HODF+G6mUgRA7JMrmbPS6V33ruD3YQ8RqDq1F+Wfty3L9xuYS4DLTN4psntfaV8=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR11MB8203
+X-OriginatorOrg: intel.com
 X-Mailman-Approved-At: Thu, 13 Apr 2023 07:33:37 +0000
-Cc: xdp-hints@xdp-project.net, linux-kernel@vger.kernel.org,
- Jesper Dangaard Brouer <hawk@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>, netdev@vger.kernel.org,
- Alexander Duyck <alexanderduyck@fb.com>,
- John Fastabend <john.fastabend@gmail.com>, Alexei Starovoitov <ast@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
- Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Jakub Kicinski <kuba@kernel.org>, Ong Boon Leong <boon.leong.ong@intel.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>, bpf@vger.kernel.org,
- Paolo Abeni <pabeni@redhat.com>, "David S . Miller" <davem@davemloft.net>,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next v3 3/4] net: stmmac: add Rx HWTS
- metadata to XDP receive pkt
+Cc: xdp-hints@xdp-project.net, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, bpf@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next v3 1/4] net: stmmac: restructure
+ Rx hardware timestamping function
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,73 +171,19 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 04/12, Song Yoong Siang wrote:
-> Add receive hardware timestamp metadata support via kfunc to XDP receive
-> packets.
+
+
+On 4/12/2023 2:42 AM, Song Yoong Siang wrote:
+> From: Ong Boon Leong <boon.leong.ong@intel.com>
 > 
-> Suggested-by: Stanislav Fomichev <sdf@google.com>
+> Rearrange the function of getting Rx hardware timestamp for skb so
+> that it can be reused for XDP later.
+> 
+> Signed-off-by: Ong Boon Leong <boon.leong.ong@intel.com>
 > Signed-off-by: Song Yoong Siang <yoong.siang.song@intel.com>
 > ---
->  drivers/net/ethernet/stmicro/stmmac/stmmac.h  |  3 +++
->  .../net/ethernet/stmicro/stmmac/stmmac_main.c | 26 ++++++++++++++++++-
->  2 files changed, 28 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac.h b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-> index ac8ccf851708..826ac0ec88c6 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-> @@ -94,6 +94,9 @@ struct stmmac_rx_buffer {
->  
->  struct stmmac_xdp_buff {
->  	struct xdp_buff xdp;
-> +	struct stmmac_priv *priv;
-> +	struct dma_desc *p;
-> +	struct dma_desc *np;
->  };
->  
->  struct stmmac_rx_queue {
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> index f7bbdf04d20c..ed660927b628 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> @@ -5315,10 +5315,15 @@ static int stmmac_rx(struct stmmac_priv *priv, int limit, u32 queue)
->  
->  			xdp_init_buff(&ctx.xdp, buf_sz, &rx_q->xdp_rxq);
->  			xdp_prepare_buff(&ctx.xdp, page_address(buf->page),
-> -					 buf->page_offset, buf1_len, false);
-> +					 buf->page_offset, buf1_len, true);
->  
->  			pre_len = ctx.xdp.data_end - ctx.xdp.data_hard_start -
->  				  buf->page_offset;
-> +
-> +			ctx.priv = priv;
-> +			ctx.p = p;
-> +			ctx.np = np;
-> +
->  			skb = stmmac_xdp_run_prog(priv, &ctx.xdp);
->  			/* Due xdp_adjust_tail: DMA sync for_device
->  			 * cover max len CPU touch
-> @@ -7071,6 +7076,23 @@ void stmmac_fpe_handshake(struct stmmac_priv *priv, bool enable)
->  	}
->  }
->  
-> +static int stmmac_xdp_rx_timestamp(const struct xdp_md *_ctx, u64 *timestamp)
-> +{
-> +	const struct stmmac_xdp_buff *ctx = (void *)_ctx;
-> +
-> +	*timestamp = 0;
-> +	stmmac_get_rx_hwtstamp(ctx->priv, ctx->p, ctx->np, timestamp);
-> +
 
-[..]
-
-> +	if (*timestamp)
-
-Nit: does it make sense to change stmmac_get_rx_hwtstamp to return bool
-to indicate success/failure? Then you can do:
-
-if (!stmmac_get_rx_hwtstamp())
-	reutrn -ENODATA;
+Reviewed-by: Jacob Keller <jacob.e.keller@intel.com>
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
