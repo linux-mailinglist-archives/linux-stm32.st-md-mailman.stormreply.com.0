@@ -2,40 +2,40 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 497A06DF24C
-	for <lists+linux-stm32@lfdr.de>; Wed, 12 Apr 2023 12:56:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 560516DF24E
+	for <lists+linux-stm32@lfdr.de>; Wed, 12 Apr 2023 12:56:11 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DA3E5C69063;
-	Wed, 12 Apr 2023 10:56:09 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1057AC6A606;
+	Wed, 12 Apr 2023 10:56:11 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 490D9C57B6A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7E9E4C57B6A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 12 Apr 2023 10:56:08 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ Wed, 12 Apr 2023 10:56:09 +0000 (UTC)
+Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
  by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 33C8pegq006573; Wed, 12 Apr 2023 12:55:57 +0200
+ 33C9Ft8P001546; Wed, 12 Apr 2023 12:55:58 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
  h=from : to : cc :
  subject : date : message-id : in-reply-to : references : mime-version :
  content-transfer-encoding : content-type; s=selector1;
- bh=xBkM+wcHkn0+wAwRzFfs1U5GhFDjurk++GN6bVOC3Og=;
- b=hYYb7Puy4Sd9NST1T9rTluYjt9fkZUkBdjbAMEmsqWe/MDXGCbMfVDuJS4e578xRxD4z
- ICgTiNV5snAnd0j27ibk4LmwxfIJRKi+2f05ICcT+8ZDOdWYPZLj7SV9v69QZwP6kzeF
- 1w5wd8CuiIOg+r+SDEstNkcobsyRmC1hz8qDuhSWbtJoYRM7ErFp8F4BAWLGfGdPztv2
- /UjEHRk2ZaAE4k+eZp9W8vFKk7vQbbaxSbitUmZJjGrtKHE3NnwcMAoPB3lrIAfRzPZZ
- VVHbU1qyscEeQrVI7rlTLoY7Go7PAOAs871h/6LBQWJTdv7qKOs+6+boBUoyDVCPX7ta 5w== 
+ bh=A+lMTa0nB7HohOca8aARuO3o3kfnPHCwrPixYCAy+Cc=;
+ b=6zNuOrcdJpp999pZetREP/7mwIM30FfwC/aIbyQzH5FmhijimSA2YIksbLKS8ZwBgaRg
+ iMsxV/FykoB7vhp0XVUc0r5t9wlYzAVALYbZ/MbAUOXGKEGEUvuwjYIoCAx0D41ERtB2
+ Hhc8nNI0Gc53V/5uKLyH9Q04F5/bajFUBHgHLIdInco3Iz4izzlZTNLjzV0bopJgsrU6
+ Ixxyw+RLdZivw0jfPILr0UjXPvM7Gjn7hKA+Xx++6h/spyjtRpjJEaYcMmmMf9csmIbr
+ B6kT8FDZcUoZ8oDLa1R9KKHdKR1ho5lMRYHcYP2MzcToB94dORvjuLCNuV/p2sRKh16b wQ== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3pwsgp91ra-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3pw8b0pgrq-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 12 Apr 2023 12:55:57 +0200
+ Wed, 12 Apr 2023 12:55:58 +0200
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 40FC9100034;
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id D06A510002A;
  Wed, 12 Apr 2023 12:55:57 +0200 (CEST)
 Received: from Webmail-eu.st.com (shfdag1node3.st.com [10.75.129.71])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 3AF0D2128D0;
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id CA2C92128D0;
  Wed, 12 Apr 2023 12:55:57 +0200 (CEST)
 Received: from localhost (10.252.10.182) by SHFDAG1NODE3.st.com (10.75.129.71)
  with Microsoft SMTP Server (version=TLS1_2,
@@ -45,8 +45,8 @@ From: Amelie Delaunay <amelie.delaunay@foss.st.com>
 To: Lee Jones <lee.jones@linaro.org>, Maxime Coquelin
  <mcoquelin.stm32@gmail.com>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>
-Date: Wed, 12 Apr 2023 12:55:41 +0200
-Message-ID: <20230412105542.1231131-2-amelie.delaunay@foss.st.com>
+Date: Wed, 12 Apr 2023 12:55:42 +0200
+Message-ID: <20230412105542.1231131-3-amelie.delaunay@foss.st.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20230412105542.1231131-1-amelie.delaunay@foss.st.com>
 References: <20230412105542.1231131-1-amelie.delaunay@foss.st.com>
@@ -59,8 +59,8 @@ X-Proofpoint-Virus-Version: vendor=baseguard
  definitions=2023-04-12_03,2023-04-12_01,2023-02-09_01
 Cc: linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: [Linux-stm32] [RESEND PATCH 1/2] mfd: stmfx: Fix error path in
-	stmfx_chip_init
+Subject: [Linux-stm32] [RESEND PATCH 2/2] mfd: stmfx: Nullify stmfx->vdd in
+	case of error
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,29 +77,32 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-In error path, disable vdd regulator if it exists, but don't overload ret.
-Because if regulator_disable() is successful, stmfx_chip_init will exit
-successfully while chip init failed.
+Nullify stmfx->vdd in case devm_regulator_get_optional() returns an error.
+And simplify code by returning an error only if return code is not -ENODEV,
+which means there is no vdd regulator and it is not an issue.
 
-Fixes: 06252ade9156 ("mfd: Add ST Multi-Function eXpander (STMFX) core driver")
+Fixes: d75846ed08e6 ("mfd: stmfx: Fix dev_err_probe() call in stmfx_chip_init()")
 Signed-off-by: Amelie Delaunay <amelie.delaunay@foss.st.com>
 ---
- drivers/mfd/stmfx.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/mfd/stmfx.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/mfd/stmfx.c b/drivers/mfd/stmfx.c
-index e281971ba54e..bfe89df27611 100644
+index bfe89df27611..76188212c66e 100644
 --- a/drivers/mfd/stmfx.c
 +++ b/drivers/mfd/stmfx.c
-@@ -387,7 +387,7 @@ static int stmfx_chip_init(struct i2c_client *client)
+@@ -330,9 +330,8 @@ static int stmfx_chip_init(struct i2c_client *client)
+ 	stmfx->vdd = devm_regulator_get_optional(&client->dev, "vdd");
+ 	ret = PTR_ERR_OR_ZERO(stmfx->vdd);
+ 	if (ret) {
+-		if (ret == -ENODEV)
+-			stmfx->vdd = NULL;
+-		else
++		stmfx->vdd = NULL;
++		if (ret != -ENODEV)
+ 			return dev_err_probe(&client->dev, ret, "Failed to get VDD regulator\n");
+ 	}
  
- err:
- 	if (stmfx->vdd)
--		return regulator_disable(stmfx->vdd);
-+		regulator_disable(stmfx->vdd);
- 
- 	return ret;
- }
 -- 
 2.25.1
 
