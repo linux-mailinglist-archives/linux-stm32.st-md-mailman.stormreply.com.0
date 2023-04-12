@@ -2,57 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 284256E07C8
-	for <lists+linux-stm32@lfdr.de>; Thu, 13 Apr 2023 09:33:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 910BC6DEC18
+	for <lists+linux-stm32@lfdr.de>; Wed, 12 Apr 2023 08:50:31 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D03EEC6907A;
-	Thu, 13 Apr 2023 07:33:38 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 49B86C65E4F;
+	Wed, 12 Apr 2023 06:50:31 +0000 (UTC)
 Received: from relay9-d.mail.gandi.net (relay9-d.mail.gandi.net
  [217.70.183.199])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 08D82C03FC1
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 39A31C57B6A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 12 Apr 2023 08:06:33 +0000 (UTC)
+ Wed, 12 Apr 2023 06:40:44 +0000 (UTC)
 Received: (Authenticated sender: maxime.chevallier@bootlin.com)
- by mail.gandi.net (Postfix) with ESMTPSA id F28BBFF812;
- Wed, 12 Apr 2023 08:06:29 +0000 (UTC)
+ by mail.gandi.net (Postfix) with ESMTPSA id ABF62FF806;
+ Wed, 12 Apr 2023 06:40:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1681286793;
+ t=1681281643;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=6sMvKzPXUQPaUNOAoXoB+ksyWApeu4V++9ieBbSNplg=;
- b=AIVwknBRq8FtcBddorKYDhaPsak6w1IVgxAE9xHvkAPQVErV8RYUDd6KxSE5Er7tT0vBOu
- Dr/zOZLwchd2skzKssKhhMzHtlpL5oBblK2V12mCHU6oe9I1HtLDHGB4/vBMJcOfGauOna
- /7B10RZPn3M+Nv+lOMkBQenM38zYKP5VBOJbbXyfvi5jYNYCDg8fX026aIiocQYbGAn6AX
- W+pGpnyr7cl1G6D2ikFwuDuOKEEbDerKgYAsUJma5XImsB7RJSV06/wDsp9Te9xu7VxRnf
- PwnvgufuGi3mvEukHNtihQcLj7fNZdeUqMZFl3gCWlhgmzNt+LDl5THknAdB0A==
-Date: Wed, 12 Apr 2023 10:06:27 +0200
+ bh=0inNdIAr829fr5K7PpU7etdJAAGCFNAmGQoieYPHcMs=;
+ b=Kf6wrkZVYcGH40qojFViQ1U6OtDYwiD3KoDZyfc7LKCwqKFh0RSWyZFJWaN3XKFpAzd+od
+ zMR4e2JrTgwnWyapS3bA6zmXOrZ++EB1+ZJAC8kbQ6a+UCXr0znrcB5ike8QnOTySXMAwi
+ Eygdi0gAppNGzFzR+QxdUCrjcHjeGqqWgv3hkfkskEW/KSRN+5ex8E7tdPryUW7G2Zv0lA
+ O+tDBtJJjeuzbOcaLPY0/nxanMaRYdF0qthFaLeyl9QQNuu41JoWIPGs6LdAkO10+kty6L
+ RsVE1ZseC8SBwX++ZknMgAscxKqszVhUtclZo+5GFgXBSKNB9MELY13MGrpK4w==
+Date: Wed, 12 Apr 2023 10:38:12 +0200
 From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-To: "Russell King (Oracle)" <linux@armlinux.org.uk>
-Message-ID: <20230412100627.1daab691@pc-288.home>
-In-Reply-To: <ZDZi+fs13A8JJFOs@shell.armlinux.org.uk>
-References: <20230412074850.41260-1-maxime.chevallier@bootlin.com>
- <ZDZi+fs13A8JJFOs@shell.armlinux.org.uk>
+To: Michael Sit Wei Hong <michael.wei.hong.sit@intel.com>
+Message-ID: <20230412103812.45e52ab5@pc-288.home>
+In-Reply-To: <20230330091404.3293431-2-michael.wei.hong.sit@intel.com>
+References: <20230330091404.3293431-1-michael.wei.hong.sit@intel.com>
+ <20230330091404.3293431-2-michael.wei.hong.sit@intel.com>
 Organization: Bootlin
 X-Mailer: Claws Mail 4.1.1 (GTK 3.24.37; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-X-Mailman-Approved-At: Thu, 13 Apr 2023 07:33:37 +0000
-Cc: linux-arm-kernel@lists.infradead.org, Andrew Lunn <andrew@lunn.ch>,
- Florian Fainelli <f.fainelli@gmail.com>, thomas.petazzoni@bootlin.com,
- netdev@vger.kernel.org, "linux-stm32 @ st-md-mailman . stormreply .
- com" <linux-stm32@st-md-mailman.stormreply.com>,
- Sit Michael Wei Hong <michael.wei.hong.sit@intel.com>,
- Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
- "alexis . lothore @ bootlin . com" <alexis.lothore@bootlin.com>,
+X-Mailman-Approved-At: Wed, 12 Apr 2023 06:50:30 +0000
+Cc: andrew@lunn.ch, linux-kernel@vger.kernel.org,
+ Voon Weifeng <weifeng.voon@intel.com>, linux@armlinux.org.uk,
+ netdev@vger.kernel.org, Lai Peter Jun Ann <peter.jun.ann.lai@intel.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
+ Jose Abreu <joabreu@synopsys.com>,
+ "alexis.lothore@bootlin.com" <alexis.lothore@bootlin.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>, Paolo Abeni <pabeni@redhat.com>,
- davem@davemloft.net, linux-kernel@vger.kernel.org,
- Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH net] net: phylink: check for SFP bus
- presence in phylink_expects_phy
+ Ong Boon Leong <boon.leong.ong@intel.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Looi Hong Aun <hong.aun.looi@intel.com>, Paolo Abeni <pabeni@redhat.com>,
+ "David S
+ . Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
+ hkallweit1@gmail.com
+Subject: Re: [Linux-stm32] [PATCH net v5 1/3] net: phylink: add
+ phylink_expects_phy() method
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,46 +71,76 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello Russell,
+Hello everyone,
 
-On Wed, 12 Apr 2023 08:51:21 +0100
-"Russell King (Oracle)" <linux@armlinux.org.uk> wrote:
+On Thu, 30 Mar 2023 17:14:02 +0800
+Michael Sit Wei Hong <michael.wei.hong.sit@intel.com> wrote:
 
-> On Wed, Apr 12, 2023 at 09:48:50AM +0200, Maxime Chevallier wrote:
-> > When an SFP bus is present, we don't expect a PHY to be attached
-> > directly from the MAC driver, it will be handled by phylink at SFP
-> > attach time.  
+> Provide phylink_expects_phy() to allow MAC drivers to check if it
+> is expecting a PHY to attach to. Since fixed-linked setups do not
+> need to attach to a PHY.
 > 
-> If we have a SFP, then phylink should be configured for in-band mode.
-> Maybe fix the firmware description instead?
+> Provides a boolean value as to if the MAC should expect a PHY.
+> Returns true if a PHY is expected.
+
+I'm currently working on the TSE rework for dwmac_socfpga, and I
+noticed one regression since this patch, when using an SFP, see details
+below :
+
+> Reviewed-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
+> Signed-off-by: Michael Sit Wei Hong <michael.wei.hong.sit@intel.com>
+> ---
+>  drivers/net/phy/phylink.c | 19 +++++++++++++++++++
+>  include/linux/phylink.h   |  1 +
+>  2 files changed, 20 insertions(+)
 > 
+> diff --git a/drivers/net/phy/phylink.c b/drivers/net/phy/phylink.c
+> index 1a2f074685fa..30c166b33468 100644
+> --- a/drivers/net/phy/phylink.c
+> +++ b/drivers/net/phy/phylink.c
+> @@ -1586,6 +1586,25 @@ void phylink_destroy(struct phylink *pl)
+>  }
+>  EXPORT_SYMBOL_GPL(phylink_destroy);
+>  
+> +/**
+> + * phylink_expects_phy() - Determine if phylink expects a phy to be
+> attached
+> + * @pl: a pointer to a &struct phylink returned from phylink_create()
+> + *
+> + * When using fixed-link mode, or in-band mode with 1000base-X or
+> 2500base-X,
+> + * no PHY is needed.
+> + *
+> + * Returns true if phylink will be expecting a PHY.
+> + */
+> +bool phylink_expects_phy(struct phylink *pl)
+> +{
+> +	if (pl->cfg_link_an_mode == MLO_AN_FIXED ||
+> +	    (pl->cfg_link_an_mode == MLO_AN_INBAND &&
+> +	     phy_interface_mode_is_8023z(pl->link_config.interface)))
 
-The DT used on that platform has the following configuration :
+From the discussion, at one point Russell mentionned [1] :
+"If there's a sfp bus, then we don't expect a PHY from the MAC driver
+(as there can only be one PHY attached), and as phylink_expects_phy()
+is for the MAC driver to use, we should be returning false if
+pl->sfp_bus != NULL."
 
-[...]
-&gmac1 {
-  status = "okay";
-  phy-mode = "sgmii";
-  managed = "in-band-status";
-  sfp = <&sfp>;
-[...]
-}
+This makes sense and indeed adding the relevant check solves the issue.
 
-Here phylink_expects_phy() returns true because although we use
-in-band management, the link mode is set to sgmii, and
-phylink_expects_phy() checks if we are in in-band mode AND 802.3z.
+Am I correct in assuming this was an unintentional omission from this
+patch, or was the pl->sfp_bus check dropped on purpose ?
 
-As we have an SFP and the link mode will be changed according to the
-module we plug-in, there should be no problem switching phy-mode to
-"1000BaseX", so I'm perfectly fine with this solution.
+> +		return false;
+> +	return true;
+> +}
+> +EXPORT_SYMBOL_GPL(phylink_expects_phy);
 
-However, is it semantically correct to use sgmii here ? If so, it may be
-a bit counter-intuitive to have to set the mode to 1000BaseX just so
-that the phylink_expects_phy() check passes ?
-
-Thanks for the quick reply,
+Thanks,
 
 Maxime
+
+[1] :
+https://lore.kernel.org/netdev/ZCQJWcdfmualIjvX@shell.armlinux.org.uk/
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
