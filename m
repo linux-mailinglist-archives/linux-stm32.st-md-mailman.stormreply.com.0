@@ -2,89 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8944A6E07CA
-	for <lists+linux-stm32@lfdr.de>; Thu, 13 Apr 2023 09:33:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 942BF6DFA56
+	for <lists+linux-stm32@lfdr.de>; Wed, 12 Apr 2023 17:37:21 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 05625C6A610;
-	Thu, 13 Apr 2023 07:33:39 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BE6BEC6A5FD
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4ADB6C69063;
+	Wed, 12 Apr 2023 15:37:21 +0000 (UTC)
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [85.220.165.71])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D6C42C57B6A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 12 Apr 2023 15:25:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1681313126;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=Pl6/W8hCGdRrPSVdraI8ut0BaCLlf4yrRN6pHHW/94A=;
- b=G4p7/dcAFcXkv6IWQDOnib3ASSRzydA8qB52wx0QqaCBUs8uh23li2+6ATltTqoOCy9zO1
- DfrHcQzY6pJcmG5eHQG8G/rUh9RDZ88U1pyCfVYiZKforGYM39HzUEM/f1caIZILHQp3PS
- psftdtXe/jLUUS6KRD6Ff4dkTZj4Hck=
-Received: from mail-yb1-f197.google.com (mail-yb1-f197.google.com
- [209.85.219.197]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-488-nl0iJl3INo-V1khO3JlPFg-1; Wed, 12 Apr 2023 11:25:24 -0400
-X-MC-Unique: nl0iJl3INo-V1khO3JlPFg-1
-Received: by mail-yb1-f197.google.com with SMTP id
- o19-20020a254113000000b00b8ed021361bso12813208yba.7
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 12 Apr 2023 08:25:24 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1681313123;
- h=user-agent:in-reply-to:content-disposition:mime-version:references
- :message-id:subject:cc:to:from:date:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=Pl6/W8hCGdRrPSVdraI8ut0BaCLlf4yrRN6pHHW/94A=;
- b=VsEgq3b0Fq5fptdEML4vAbUK5fzpZINwMca918ZoLiKjap4X8eqH4cOjyjQXbTICxm
- AFhiFJRlwlY2Z2M/BjjU5Fg7+6rwR3+laERCuZiu6XicriVy2S7BElx+myfKlWPhyf3M
- JO8G0wXgJ1GBAiTHpMNa/0rOmASWWqhEvIxzbhUdM5Epn6mzSUQtCXXfmLsr+AEX3qCt
- FZsBoLcFK3dZn6ndLNHDQh9fFmvwr8u/aQxqawKqRSb8teZ3Gx3smyXxloroDq8r8b/Z
- JUCiEQ8YvSzf/SWOCoVNE5VvdP3zdSOEm0+B6Z9mLiSon3c+jd/B+AVgxtbewpUbqVf5
- tAqQ==
-X-Gm-Message-State: AAQBX9cz4dbK5MVyJaXrLgnXmbH4MP5HdMwW/e0nEPr7NEb7+yK23uGU
- QsmjKIYS2yDwZdXs9J07VSQymwutst2hrs4dAcNjooh8CYHqlmAjiJfhBiTMYGOpAqgTmRLxpHX
- 3sLtUCmEvEygxaMt9Uljq2QOjRG5/UjOPwEH1ZdMH
-X-Received: by 2002:a25:ad94:0:b0:b62:d9a1:a606 with SMTP id
- z20-20020a25ad94000000b00b62d9a1a606mr14571440ybi.62.1681313123355; 
- Wed, 12 Apr 2023 08:25:23 -0700 (PDT)
-X-Google-Smtp-Source: AKy350adNn8pbkwJ2Kq0277gghgwLXefMb+eA4EygwfbHqcH5RZ9YG9iTFp0U4fQIhM3iOy8sYtlRg==
-X-Received: by 2002:a25:ad94:0:b0:b62:d9a1:a606 with SMTP id
- z20-20020a25ad94000000b00b62d9a1a606mr14571401ybi.62.1681313123021; 
- Wed, 12 Apr 2023 08:25:23 -0700 (PDT)
-Received: from x1 (c-73-214-169-22.hsd1.pa.comcast.net. [73.214.169.22])
- by smtp.gmail.com with ESMTPSA id
- e140-20020a811e92000000b0054f8a3f6281sm686495ywe.3.2023.04.12.08.25.19
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 12 Apr 2023 08:25:22 -0700 (PDT)
-Date: Wed, 12 Apr 2023 11:25:18 -0400
-From: Brian Masney <bmasney@redhat.com>
-To: Andrew Halaney <ahalaney@redhat.com>
-Message-ID: <ZDbNXvHiyGuF2A49@x1>
-References: <20230411200409.455355-1-ahalaney@redhat.com>
+ Wed, 12 Apr 2023 15:37:19 +0000 (UTC)
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+ by metis.ext.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1pmcX6-0003bP-Ac; Wed, 12 Apr 2023 17:37:16 +0200
+Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
+ by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.94.2)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1pmcX4-00AlqQ-Hk; Wed, 12 Apr 2023 17:37:14 +0200
+Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.94.2)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1pmcX3-00CeDT-To; Wed, 12 Apr 2023 17:37:13 +0200
+From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+To: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ William Breathitt Gray <william.gray@linaro.org>,
+ Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+Date: Wed, 12 Apr 2023 17:37:09 +0200
+Message-Id: <20230412153709.3557323-1-u.kleine-koenig@pengutronix.de>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-In-Reply-To: <20230411200409.455355-1-ahalaney@redhat.com>
-User-Agent: Mutt/2.2.7 (2022-08-07)
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Disposition: inline
-X-Mailman-Approved-At: Thu, 13 Apr 2023 07:33:37 +0000
-Cc: mturquette@baylibre.com, edumazet@google.com,
- krzysztof.kozlowski+dt@linaro.org, jonathanh@nvidia.com,
- linux-stm32@st-md-mailman.stormreply.com, tee.min.tan@linux.intel.com,
- samuel@sholland.org, linux@armlinux.org.uk, jernej.skrabec@gmail.com,
- veekhee@apple.com, wens@csie.org, joabreu@synopsys.com, agross@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, andrey.konovalov@linaro.org,
- ncai@quicinc.com, devicetree@vger.kernel.org, bhupesh.sharma@linaro.org,
- linux-arm-msm@vger.kernel.org, richardcochran@gmail.com,
- mohammad.athari.ismail@intel.com, robh+dt@kernel.org, ruppala@nvidia.com,
- jsuraj@qti.qualcomm.com, peppe.cavallaro@st.com,
- linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
- andersson@kernel.org, linux-kernel@vger.kernel.org, echanude@redhat.com,
- konrad.dybcio@linaro.org, vkoul@kernel.org, hisunil@quicinc.com,
- mcoquelin.stm32@gmail.com, davem@davemloft.net
-Subject: Re: [Linux-stm32] [PATCH net-next v4 00/12] Add EMAC3 support for
-	sa8540p-ride
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2196;
+ i=u.kleine-koenig@pengutronix.de; h=from:subject;
+ bh=zc5B2LGRs54BHs4aCdePhpxua9fygSYRDSyPsSaXvAQ=;
+ b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBkNtAjdw2NqpObCpDcSjUHHwcgtWq3IXeDtu5dJ
+ I147vXR/4mJATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCZDbQIwAKCRCPgPtYfRL+
+ Tp3rB/9E4lY5pFlQ/4pLFl+7NMDzGTrTBIIBMaxCTZWaTETyfr5PUiCqal1MUl/FpK3Khbuvta3
+ JcXl5LfsAqib1UZUiBlJ66qf5ZlmzRh3T6t6W7GVkse1jkXL09lVsqYrSpkmWWer9Lw0nOIqoxX
+ hKeAtgq8QLP58Uobmjj8roK9B0ksBexK5ExKmelOXbM+cRKpLPuUE1EKrk8Gfo06jg8M9TbbQiH
+ JhFDgnqpvQjAtn9TKsW4myrklpeCbHSKt+W0SLtiPP2lSyi8Xsk3RV51ZjwrmTa4uIARJuISjLL
+ HSucF4MYaDb5abCW18X9ZzjwO8SQVmjyLDrBmbfNuzMZEu9r
+X-Developer-Key: i=u.kleine-koenig@pengutronix.de; a=openpgp;
+ fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: ukl@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
+Cc: linux-iio@vger.kernel.org, Lee Jones <lee@kernel.org>,
+ linux-kernel@vger.kernel.org, Thierry Reding <thierry.reding@gmail.com>,
+ kernel@pengutronix.de, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH] counter: stm32-timer-cnt: Reset TIM_TISEL and
+	TIM_SMCR to their default value
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,47 +69,49 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Apr 11, 2023 at 03:03:57PM -0500, Andrew Halaney wrote:
-> This is a forward port / upstream refactor of code delivered
-> downstream by Qualcomm over at [0] to enable the DWMAC5 based
-> implementation called EMAC3 on the sa8540p-ride dev board.
-> 
-> From what I can tell with the board schematic in hand,
-> as well as the code delivered, the main changes needed are:
-> 
->     1. A new address space layout for dwmac5/EMAC3 MTL/DMA regs
->     2. A new programming sequence required for the EMAC3 based platforms
-> 
-> This series makes the changes above as well as other housekeeping items
-> such as converting dt-bindings to yaml, etc.
-> 
-> As requested[1], it has been split up by compilation deps / maintainer tree.
-> I will post a link to the associated devicetree changes that together
-> with this series get the hardware functioning.
-> 
-> Patches 1-3 are clean ups of the currently supported dt-bindings and
-> IMO could be picked up as is independent of the rest of the series to
-> improve the current codebase. They've all been reviewed in prior
-> versions of the series.
-> 
-> Patches 5-7 are also clean ups of the driver and are worth picking up
-> independently as well. They don't all have explicit reviews but should
-> be good to go (trivial changes on non-reviewed bits).
-> 
-> The rest of the patches have new changes, lack review, or are specificly
-> being made to support the new hardware, so they should wait until the
-> series as a whole is deemed ready to go by the community.
-
-Looks good to me!
-
-Tested-by: Brian Masney <bmasney@redhat.com>
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+VGhlIGRyaXZlciBhc3N1bWVzIHRoYXQgdGhlIGlucHV0IHNlbGVjdGlvbiByZWdpc3RlciAoVElN
+X1RJU0VMKSBpcyBhdAppdHMgcmVzZXQgZGVmYXVsdCB2YWx1ZS4gVXN1YWxseSB0aGlzIGlzIHRo
+ZSBjYXNlLCBidXQgdGhlIGJvb3Rsb2FkZXIKbWlnaHQgaGF2ZSBtb2RpZmllZCBpdC4gQWxzbyBy
+ZXNldCB0aGUgU01DUiByZWdpc3RlciB3aGlsZSBhdCBpdC4KClRoaXMgYmFzZXMgb24gdGhlIGVm
+ZmVjdGl2ZWx5IHNhbWUgcGF0Y2ggc3VibWl0dGVkIGJ5IE9saXZpZXIgTW95c2FuIGZvcgpwd20t
+c3RtMzIuCgpTaWduZWQtb2ZmLWJ5OiBVd2UgS2xlaW5lLUvDtm5pZyA8dS5rbGVpbmUta29lbmln
+QHBlbmd1dHJvbml4LmRlPgotLS0KSGVsbG8sCgpub3RlIHRoYXQgdGhlIHBhdGNoIGJ5IE9saXZp
+ZXIgTW95c2FuWzFdIGZvciBwd20tc3RtMzIgaXMgZXhwZWN0ZWQgdG8KYXBwZWFyIGluIFRoaWVy
+cnkncyB0cmVlIHNvb24uIEl0IGFkZGVkIHRoZSBkZWZpbml0aW9uIG9mIFRJTV9USVNFTCBpbgp0
+aGUgc2FtZSB3YXksIHNvIHRoZSB0d28gcGF0Y2hlcyBzaG91bGQgbWVyZ2UganVzdCBmaW5lLiBB
+bHRlcm5hdGl2ZWx5CnlvdSBjYW4gY29tbWl0IGl0IHRvIGEgdHJlZSB0aGF0IGFscmVhZHkgaGFz
+IHRoZSBwd20gY2hhbmdlIChhbmQgdGhlbgpkcm9wIHRoZSBjaGFuZ2UgdG8gaW5jbHVkZS9saW51
+eC9tZmQvc3RtMzItdGltZXJzLmggZnJvbSB0aGlzIG9uZSkuCgpCZXN0IHJlZ2FyZHMKVXdlCgpb
+MV0gaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvbGludXgtcHdtLzIwMjIxMjEzMTAyNzA3LjEwOTYz
+NDUtMS1vbGl2aWVyLm1veXNhbkBmb3NzLnN0LmNvbQoKIGRyaXZlcnMvY291bnRlci9zdG0zMi10
+aW1lci1jbnQuYyB8IDQgKysrKwogaW5jbHVkZS9saW51eC9tZmQvc3RtMzItdGltZXJzLmggIHwg
+MSArCiAyIGZpbGVzIGNoYW5nZWQsIDUgaW5zZXJ0aW9ucygrKQoKZGlmZiAtLWdpdCBhL2RyaXZl
+cnMvY291bnRlci9zdG0zMi10aW1lci1jbnQuYyBiL2RyaXZlcnMvY291bnRlci9zdG0zMi10aW1l
+ci1jbnQuYwppbmRleCA5YmYyMGE1ZDZiZGEuLmQwMDFkNzdmMTdhYyAxMDA2NDQKLS0tIGEvZHJp
+dmVycy9jb3VudGVyL3N0bTMyLXRpbWVyLWNudC5jCisrKyBiL2RyaXZlcnMvY291bnRlci9zdG0z
+Mi10aW1lci1jbnQuYwpAQCAtMzQyLDYgKzM0MiwxMCBAQCBzdGF0aWMgaW50IHN0bTMyX3RpbWVy
+X2NudF9wcm9iZShzdHJ1Y3QgcGxhdGZvcm1fZGV2aWNlICpwZGV2KQogCiAJcGxhdGZvcm1fc2V0
+X2RydmRhdGEocGRldiwgcHJpdik7CiAKKwkvKiBSZXNldCBpbnB1dCBzZWxlY3RvciB0byBpdHMg
+ZGVmYXVsdCBpbnB1dCBhbmQgZGlzYWJsZSBzbGF2ZSBtb2RlICovCisJcmVnbWFwX3dyaXRlKHBy
+aXYtPnJlZ21hcCwgVElNX1RJU0VMLCAweDApOworCXJlZ21hcF93cml0ZShwcml2LT5yZWdtYXAs
+IFRJTV9TTUNSLCAweDApOworCiAJLyogUmVnaXN0ZXIgQ291bnRlciBkZXZpY2UgKi8KIAlyZXQg
+PSBkZXZtX2NvdW50ZXJfYWRkKGRldiwgY291bnRlcik7CiAJaWYgKHJldCA8IDApCmRpZmYgLS1n
+aXQgYS9pbmNsdWRlL2xpbnV4L21mZC9zdG0zMi10aW1lcnMuaCBiL2luY2x1ZGUvbGludXgvbWZk
+L3N0bTMyLXRpbWVycy5oCmluZGV4IDVmNWM0M2ZkNjlkZC4uMWI5NDMyNWZlYmIzIDEwMDY0NAot
+LS0gYS9pbmNsdWRlL2xpbnV4L21mZC9zdG0zMi10aW1lcnMuaAorKysgYi9pbmNsdWRlL2xpbnV4
+L21mZC9zdG0zMi10aW1lcnMuaApAQCAtMzEsNiArMzEsNyBAQAogI2RlZmluZSBUSU1fQkRUUgkw
+eDQ0CS8qIEJyZWFrIGFuZCBEZWFkLVRpbWUgUmVnICovCiAjZGVmaW5lIFRJTV9EQ1IJCTB4NDgJ
+LyogRE1BIGNvbnRyb2wgcmVnaXN0ZXIgICAgKi8KICNkZWZpbmUgVElNX0RNQVIJMHg0QwkvKiBE
+TUEgcmVnaXN0ZXIgZm9yIHRyYW5zZmVyICovCisjZGVmaW5lIFRJTV9USVNFTAkweDY4CS8qIElu
+cHV0IFNlbGVjdGlvbiAgICAgICAgICovCiAKICNkZWZpbmUgVElNX0NSMV9DRU4JQklUKDApCS8q
+IENvdW50ZXIgRW5hYmxlCSAgICovCiAjZGVmaW5lIFRJTV9DUjFfRElSCUJJVCg0KSAgLyogQ291
+bnRlciBEaXJlY3Rpb24JICAgKi8KCmJhc2UtY29tbWl0OiBmZTE1YzI2ZWUyNmVmYTExNzQxYTdi
+NjMyZTlmMjNiMDFhY2E0Y2M2Ci0tIAoyLjM5LjIKCl9fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0z
+MkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9y
+bXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
