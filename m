@@ -2,61 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C1A9A6DFB16
-	for <lists+linux-stm32@lfdr.de>; Wed, 12 Apr 2023 18:18:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DE2706DFB6D
+	for <lists+linux-stm32@lfdr.de>; Wed, 12 Apr 2023 18:34:33 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7DB73C69063;
-	Wed, 12 Apr 2023 16:18:14 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 69272C69063;
+	Wed, 12 Apr 2023 16:34:33 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 86858C62EFE
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 12 Apr 2023 16:34:30 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AD014C57B6A
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 12 Apr 2023 16:18:12 +0000 (UTC)
-Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 33CCK5sT012362; Wed, 12 Apr 2023 18:17:45 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=from : to : cc :
- subject : date : message-id : mime-version : content-transfer-encoding :
- content-type; s=selector1;
- bh=qoweobMCw9OjMJIGG9Oluh4CWDKdRBeAll2gFaHrPyY=;
- b=VZ1F0Bi1Q+9bJySmGN3Dizmwbi7b+vmqMIMIDGFTcW+Ryki2GUbGCgF+/l0pewNECfwk
- UZBtMP3dREJsSC2G5oUSXHBTZ9+QIdKFqmusw++eQSzQ4GbIiCHrzEC6F6bzKJewZycT
- MT28TZvLIShZKuHfSLgalbH+LICMtPUH0QKRaxgXbEJ+JBdY7zk5BZjymlW/+Zqk1qIE
- kcGrig0NOiLUC0SOs9FvM48AgvCnOJ94GWUIEyRqmIvZ9wmNE8mNNFc3MEXcNUN5Q1RD
- RNKcT1+OJmwyY8ktBOh7fgpp4KmjyvG7CWnDYCw2SXXtKOjqQfavZcC8H67FWwBwv9kr dQ== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3pw7wp0exg-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 12 Apr 2023 18:17:45 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 804B410002A;
- Wed, 12 Apr 2023 18:17:44 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 5414021A221;
- Wed, 12 Apr 2023 18:17:44 +0200 (CEST)
-Received: from localhost (10.48.1.102) by SHFDAG1NODE2.st.com (10.75.129.70)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.21; Wed, 12 Apr
- 2023 18:17:43 +0200
-From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-To: <heikki.krogerus@linux.intel.com>, <gregkh@linuxfoundation.org>
-Date: Wed, 12 Apr 2023 18:17:34 +0200
-Message-ID: <20230412161734.3425090-1-fabrice.gasnier@foss.st.com>
-X-Mailer: git-send-email 2.25.1
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 4C9AB6337F;
+ Wed, 12 Apr 2023 16:34:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A11B7C4339B;
+ Wed, 12 Apr 2023 16:34:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1681317268;
+ bh=0Kypuuix/45eqaiQVvX4QCLy6NM1yWXFS/W4aXnnR68=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=CZHSN/y+mwu43+o3bQ9xOtHMgYCt1GxbhaveFbEC9Hqo2gO9er73B6DD/n8hYLTzc
+ wpAcDij2EJFcxATc/trI8bQpHRrwAOaiTcn/6e8FPuW3HSzNAyygGua/2tclcC3nVG
+ CXf9Clvb4lJhZ1O1wxgCXGJRIT+21uBFSnWeA2eEbULROMbZj7O/jJabQSL2CtSMre
+ jBay7dWsI+BiWWO+GqHZaQ89G4BVTS/gQlwzCKbuP2WDT8kSgd7KyNrxKeyc18PxPv
+ yWLVEMZfAB+DrDDKB+OlnHAPYbz8zAURHme5dXogwBinfsc538dDCJyOJwbzoXRhGc
+ L+SzDkvrKb3xw==
+From: Mark Brown <broonie@kernel.org>
+To: Liam Girdwood <lgirdwood@gmail.com>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Wei Yongjun <weiyongjun1@huawei.com>, YAN SHI <m202071378@hust.edu.cn>
+In-Reply-To: <20230412033529.18890-1-m202071378@hust.edu.cn>
+References: <20230412033529.18890-1-m202071378@hust.edu.cn>
+Message-Id: <168131726636.91225.12994590690622263841.b4-ty@kernel.org>
+Date: Wed, 12 Apr 2023 17:34:26 +0100
 MIME-Version: 1.0
-X-Originating-IP: [10.48.1.102]
-X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE2.st.com
- (10.75.129.70)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.942,Hydra:6.0.573,FMLib:17.11.170.22
- definitions=2023-04-12_08,2023-04-12_01,2023-02-09_01
-Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH] usb: typec: ucsi: don't print PPM init
-	deferred errors
+X-Mailer: b4 0.13-dev-00303
+Cc: Dongliang Mu <dzm91@hust.edu.cn>, linux-stm32@st-md-mailman.stormreply.com,
+ kernel test robot <lkp@intel.com>, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH v2] Regulator: stm32-pwr: fix of_iomap leak
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,48 +61,45 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-ucsi_init() may be deferred as usb_role_sw may be deferred in
-ucsi_register_port(). This results in several PPM init failed (-517)
-messages maybe printed several times upon boot, like on stm32mp135f-dk
-board, until the role_switch driver gets probed.
+On Wed, 12 Apr 2023 11:35:29 +0800, YAN SHI wrote:
+> Smatch reports:
+> drivers/regulator/stm32-pwr.c:166 stm32_pwr_regulator_probe() warn:
+> 'base' from of_iomap() not released on lines: 151,166.
+> 
+> In stm32_pwr_regulator_probe(), base is not released
+> when devm_kzalloc() fails to allocate memory or
+> devm_regulator_register() fails to register a new regulator device,
+> which may cause a leak.
+> 
+> [...]
 
-[   19.880945] dwc2 49000000.usb: supply vusb_d not found, using dummy regulator
-[   19.887136] dwc2 49000000.usb: supply vusb_a not found, using dummy regulator
-[   19.975432] ucsi-stm32g0-i2c 0-0053: PPM init failed (-517)
-[   20.155746] dwc2 49000000.usb: EPs: 9, dedicated fifos, 952 entries in SPRAM
-[   20.175429] ucsi-stm32g0-i2c 0-0053: PPM init failed (-517)
-[   20.184242] dwc2 49000000.usb: DWC OTG Controller
+Applied to
 
-Adopt dev_err_probe() instead of dev_err(), to only print other errors.
-Also print an error in case the wait count has expired.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/regulator.git for-next
 
-Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
----
- drivers/usb/typec/ucsi/ucsi.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+Thanks!
 
-diff --git a/drivers/usb/typec/ucsi/ucsi.c b/drivers/usb/typec/ucsi/ucsi.c
-index f632350f6dcb..4d809e0d7761 100644
---- a/drivers/usb/typec/ucsi/ucsi.c
-+++ b/drivers/usb/typec/ucsi/ucsi.c
-@@ -1447,11 +1447,13 @@ static void ucsi_init_work(struct work_struct *work)
- 
- 	ret = ucsi_init(ucsi);
- 	if (ret)
--		dev_err(ucsi->dev, "PPM init failed (%d)\n", ret);
-+		dev_err_probe(ucsi->dev, ret, "PPM init failed\n");
- 
- 	if (ret == -EPROBE_DEFER) {
--		if (ucsi->work_count++ > UCSI_ROLE_SWITCH_WAIT_COUNT)
-+		if (ucsi->work_count++ > UCSI_ROLE_SWITCH_WAIT_COUNT) {
-+			dev_err(ucsi->dev, "PPM init failed, stop trying\n");
- 			return;
-+		}
- 
- 		queue_delayed_work(system_long_wq, &ucsi->work,
- 				   UCSI_ROLE_SWITCH_INTERVAL);
--- 
-2.25.1
+[1/1] Regulator: stm32-pwr: fix of_iomap leak
+      commit: c4a413e56d16a2ae84e6d8992f215c4dcc7fac20
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
 
 _______________________________________________
 Linux-stm32 mailing list
