@@ -2,70 +2,100 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 562E46E0DFC
-	for <lists+linux-stm32@lfdr.de>; Thu, 13 Apr 2023 15:06:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B8286E10FD
+	for <lists+linux-stm32@lfdr.de>; Thu, 13 Apr 2023 17:23:16 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D3A97C69063;
-	Thu, 13 Apr 2023 13:06:03 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 10EB6C69063;
+	Thu, 13 Apr 2023 15:23:16 +0000 (UTC)
+Received: from APC01-TYZ-obe.outbound.protection.outlook.com
+ (mail-tyzapc01olkn2104.outbound.protection.outlook.com [40.92.107.104])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4CE47C01E98
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C0A78C65E4F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 13 Apr 2023 13:06:02 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 33D9R7j0016008; Thu, 13 Apr 2023 15:05:05 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=fV8X/jR840R+J8jRG+/wDOQExdy42LB4fTNQAvYUlkA=;
- b=paB8uU8oahuqvLfLu5n6ygwrZegvxs4PYDxEKLDQwhECPRUlH9WUP6qhW5DFgaV3IsOY
- 5d2o9U/x58IQSIeKL6z9UlKVC4+1n7bwOQLWOtlWq4S3eKmFlQrbaxXyrKNsJpzu//Xn
- BHIs1HfJl+cnZmUHmwiT4wOK7x9nUk67hYYQ4ucTIcEDiG34vckcgkp6/hYQk8jR7NPJ
- lgfFNJtP4rOmd8o+CiaqGGPDLpJtPQyFXtr8TLshSY4myBw2kyHNsTlpwe67qs5ixDgb
- +8/RYnxc2QXwohJAXz8ZudcWpfCN9lZufFRmGUAvkDxwlNA/TjopuL9gRPX5gwkm4xmM HQ== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3pxf2q9g1g-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 13 Apr 2023 15:05:05 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 46D1010002A;
- Thu, 13 Apr 2023 15:05:04 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node3.st.com [10.75.129.71])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 32D3D21B515;
- Thu, 13 Apr 2023 15:05:04 +0200 (CEST)
-Received: from [10.252.20.144] (10.252.20.144) by SHFDAG1NODE3.st.com
- (10.75.129.71) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.21; Thu, 13 Apr
- 2023 15:05:03 +0200
-Message-ID: <31659e74-661b-8bd3-e64e-33ac6d24f577@foss.st.com>
-Date: Thu, 13 Apr 2023 15:04:37 +0200
+ Thu, 13 Apr 2023 13:39:02 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=g9xrADIMYJrEhvYmgnulJUAskHYAcS8tJ6UScpyRNlTS7SRwbunfBhXFsUZFKZo2tHLKZTDSHfqdWQAZ4PkEON0cTzsnFiD5Q083VWWyMvAUoMG9kBKSidV2eRbdaAEF87LDujAknmC2POdts2KD123wKfbpP/IUtOs93njmbZFNeUuzDxLGC+umEg8xrpi4EGZcVhWzC1gvx2QJPFbFYf9LCQEqYR7TM3pX//u1lelHwoc3UYfw+zDt4/HTG0KQxzkV9bytHHXFDeZwjfwdyucljSM7GQxXhU5/EiZQ5L8gjHxqlLo0VmBzRjkmuC8yMjD7B085EVL9Q5FeCKDnfw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=mm54x0ZpfEPUTyp717dSMXaBikmpwNkOoQc7/DEi4Rs=;
+ b=f8rxgxlaDbVbwK3HoL+FjrgVdF7OrCgwbap7MJV8FO6YkBzilDenBjVNFT7Op/o4I/Jn4yoeXMhaJXnX+//2TTIRAYyh7Uk4KBP4D71YycuxuM2SiZQ7fPjvNupyfboxc5Lp/RMwRqVngBO1xqyLn9mAoHfjt1F7b5ZYYcDCrIInDzgjHWN//p51q+M30crY3hRp0oZCGuQT9Q4bD7ANbqaH1p0WUgSxqushGZOyLYftSq9ml5jh4OMmTPvzsQImWIqHbjIyqL26KcS8duKopSPzwjN4VGxzVCoxy38vtPa2HpA0XHQDDj2u1jk30sA9fgMnPiF2rYTpstsBqiKBfw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=mm54x0ZpfEPUTyp717dSMXaBikmpwNkOoQc7/DEi4Rs=;
+ b=Sl+A1NvhqYsnMRTg2SL7sD8WVJTQqoNNStf+KvqKJnPalM7MeC/b6RlJsJhnz4mZnzekVDAvgMzsLHCGs8yDlUdXPRcXLhwdyFGD+9QNC9LUZjp/KIRtzcWGWYHDsR4CqMsE4CSxQIPOh296MWy5jSiG8gHb6wNcy9LfEqhGn5XiIZ6D0VaZOaRum37VXrUEwmUfbXdRX58+tOU0uowtRpAq4C2zLzgodGa2FbMuA+s6tKHI62k5tSADv0Wbh1/wsjZ6NGIlVwxIabUYg+dOK6YDf4UrJ7tkwZyKtyGX254nXGxyd6IKW5A7Y4FRp9Aww73DxeF1C+klEr8Afzhqrg==
+Received: from KL1PR01MB5448.apcprd01.prod.exchangelabs.com
+ (2603:1096:820:9a::12) by TY0PR01MB5412.apcprd01.prod.exchangelabs.com
+ (2603:1096:400:279::12) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6319.4; Thu, 13 Apr
+ 2023 13:38:57 +0000
+Received: from KL1PR01MB5448.apcprd01.prod.exchangelabs.com
+ ([fe80::5bff:fd7e:ec7c:e9d3]) by KL1PR01MB5448.apcprd01.prod.exchangelabs.com
+ ([fe80::5bff:fd7e:ec7c:e9d3%7]) with mapi id 15.20.6298.030; Thu, 13 Apr 2023
+ 13:38:57 +0000
+From: Yan Wang <rk.code@outlook.com>
+To: davem@davemloft.net, edumazet@google.com, pabeni@redhat.com,
+ kuba@kernel.org, mcoquelin.stm32@gmail.com
+Date: Thu, 13 Apr 2023 21:38:32 +0800
+Message-ID: <KL1PR01MB5448020DE191340AE64530B0E6989@KL1PR01MB5448.apcprd01.prod.exchangelabs.com>
+X-Mailer: git-send-email 2.17.1
+X-TMN: [FBE36qCL9osDQYswg1W5k2d0z5bBysbfamTzsZgSih8=]
+X-ClientProxiedBy: SG2PR02CA0012.apcprd02.prod.outlook.com
+ (2603:1096:3:17::24) To KL1PR01MB5448.apcprd01.prod.exchangelabs.com
+ (2603:1096:820:9a::12)
+X-Microsoft-Original-Message-ID: <20230413133832.7838-1-rk.code@outlook.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.9.0
-To: Raphael GALLAIS-POU <gallais1@gnb.st.com>, Raphael Gallais-Pou
- <raphael.gallais-pou@foss.st.com>, Philippe Cornu
- <philippe.cornu@foss.st.com>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre
- Torgue <alexandre.torgue@foss.st.com>
-References: <20230412092553.279185-1-raphael.gallais-pou@foss.st.com>
-Content-Language: en-US
-From: Yannick FERTRE <yannick.fertre@foss.st.com>
-In-Reply-To: <20230412092553.279185-1-raphael.gallais-pou@foss.st.com>
-X-Originating-IP: [10.252.20.144]
-X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE3.st.com
- (10.75.129.71)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.942,Hydra:6.0.573,FMLib:17.11.170.22
- definitions=2023-04-13_08,2023-04-13_01,2023-02-09_01
-Cc: kernel test robot <lkp@intel.com>, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, Dan Carpenter <error27@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH] drm/stm: ltdc: fix late dereference check
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: KL1PR01MB5448:EE_|TY0PR01MB5412:EE_
+X-MS-Office365-Filtering-Correlation-Id: eec0b1c0-148c-4afb-327a-08db3c246e63
+X-MS-Exchange-SLBlob-MailProps: EgT5Wr3QDKx/5wRYKwbtF7hqq2E99L18DXqaHAPjZVBBA9B1MIywpG4LTy0MxrqpW+U88FnyYC79tmKNQR7a8GxOvPldwlTMKqBrU2bn+EX8lEHDTh7UXI2TZkoxz4EFTRdfOY14tKDG7IiqfJ0E1p9Nrnul31xvP1xDhiAaY1N59lP75OVSeuAGQYnNHvG9ti7F8S2NBtB78mkmAC5IYWL0gmSvNOw3+Ey70NFRNbrvwJ291SJiLNo6hz4EPuTgFlC7nVYX0CwyMoARwnnJZXXb56j0gBXZwJEZAMG4zQGiYpRSfa0zcB3y8ONVwhbVbH5QOAP3dlkH4eqndtUqhd3P2R+hdMAP/gXspbsUgQL9lF1xaRQvp58Yqeu8sxeoNaW/VRCYgzTDNK+TUvj2S/8R9LeK5XCu9uxKD5vlfpOkwAx7y2I5TmTW3Pe2r6WVjL9xpv83WOKT4iqfwOcrDMe1yX26GHVpPpH4nEG1s/gwZlqRdWX2kd4/Oj19QaIe5nEkhnUmMbH1DvpxMgJueOhXYNXT9oHqxzk7z6ZJA7ple24XDr0aJgS0VEiudnuWH3+wSRRHZoZfjP5z2C+zxcgNs5YduKg07ssFcH0qyxaL9fgmS80Rj+CFr1Nfr4yww1+tdmu+0OoC3pXU7kPKwFWxCDmRKCGJYvzo095LYpY4+7Q8OlnJXhGGwt9Ir2BUbV8NYOB1Qa83kiKNQcd/jvugEESjEaV2GywQ6NSRdtA=
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 8MtZXCkJIx9gEEtKNhLEVrqIBGNSQH6ZsuUepAK1q7Rg0n7OCoqGTr0mxVF0D9gRwz3tyFnb4T+d3K6LoEVVvZVNTTkAcUquRt+6H4PdW3r4WnPiFceLp+oK1AGSIbb+SlTU7Z2NTHL5Bnetb9fJVBHf8g+xq2fwipYEb2wQuXboe3BNEUXaqqIvnL3Uijj37tzGrg6jAU6A7U3QKpogDtZ8la2KqfY8o4pYyX9BmyUVmnnQqigp61LpNqz39AFsJzL4N+r2ohvp41vhQevpdGu+sbIek8UW8kuKuXnuOcYO8MBjoixObjjH5fhjCIIMGbcdNfKb/fPExnc0lZO5q710klO4Aj5UhhIC/JEj0vbg7A5sz5szLBsWXAp+X0I/ZbqStOK5hzLtY4ie1Cb/yPMBDFpi7I3j7zeunF3WIqgCUI6d8YxMJRCGxsKbIrZWfpAuEdTeU50thCutjUZwGAtuLxgcb+IM86761OBqoPtbHm2mVXiB1lAcbBwHRlY7Yy1P2MaDKUTYSJHZQtg+7qP0vL3oFfvny3PLrMLZ33jqY6I6fAvOe8bYb7b9r9FwtyyUyTAqJzj2j/koUc3krKkpUN11NwQcnHYAIUCKisMmEEAXiz1eWE8/88ZmfFWP
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?qwbjwu/zFmItuqYCEJTUiHGDXjYsNFBjKbtuWGXYCAVnFiJ+B8oCOhm0wboa?=
+ =?us-ascii?Q?b6vzRWVlvVLZG5yqzK0DWr6vT8c5cSLoIkeKq8YJoUfPtgp/LDv7pA+ZS6T0?=
+ =?us-ascii?Q?sOn65OleDyvSo2o0FjJdoRDOb5J3YbD9fwwLh06boP0UY19+jqLyZCHsSkJ/?=
+ =?us-ascii?Q?kCemgJWLe2RXa1orQGPAE9jEGUzGWowhDCE4HIo1gPnwdR6lRjkAoZx+tJFz?=
+ =?us-ascii?Q?5UGCrAZbLGWmbOfebv7lZ4kTJogpdZjdqI1/3MJYdSie94GpcCzwAmPBD7Bz?=
+ =?us-ascii?Q?A+IjkcZFFthv+7GgpXVdVWp7INUygt7kaytVQcRh0u8fAfEpqg8HXOC8Lo7k?=
+ =?us-ascii?Q?82LgqX5wiI6SF5HV1H/SyaEVp+NL5/aEDqLNgnvHoOwGaf8zWe1rO4j6lyoF?=
+ =?us-ascii?Q?ybDw5j8tzf7xfgxeE7uYjise9GaCkmNqS2dZh1+UoS/5AW+ffZQ8VmbSIgXf?=
+ =?us-ascii?Q?Vy/l7VgDZwG3eZmcJl/OcOGpUXu2RSS6Lhzhrsw3UFZL1aF46PYNrKuRe4N8?=
+ =?us-ascii?Q?4QhQwnJcH3gJLgoYJNPd4YdvQ2BzF/0QXEGMJwxNkMEMGUCxdDODc2zj7OdD?=
+ =?us-ascii?Q?y7dktzVNs4H2aviHCt1GIcTGI9DUUNWiRT19pBLykQRfUBrxuESPAYHOwIHT?=
+ =?us-ascii?Q?dNL0CIYZgc3NBNk+9YltIhIhgoKf9qwYf2b778amDTuq9qWxpcQU1QHX2EBQ?=
+ =?us-ascii?Q?cYLAxmQkWhrXol9W75XG5cnDJx4Ls0n6Z3cK6cYIubv4JkBqEEaXcI5CaqI1?=
+ =?us-ascii?Q?hiHS2b9jdPKd9bjTILQ7pZ6EuFr+cb/GUMwM/IhYw1As9ScOj8Blr7cHaEEB?=
+ =?us-ascii?Q?aCZY3OwIThTgoyCseuE1PkntvedKs22M/6t1r57HTf7HbYFfDgNYTjE3qvZK?=
+ =?us-ascii?Q?3qUW8cahp5B+KZb1KQSqsc6wWJnCpjZOeV5ZVdZVqTJ3/9juKIYL/NSElb7U?=
+ =?us-ascii?Q?fcmKIg8yrXFPgDzi1Ajf6MEpzjKshagi4bgg9EMV41eQzg3zkC2dKC4YCZR6?=
+ =?us-ascii?Q?NX4cY+nAFuuudUxO0q+zMP+eCPbb6pibit9zD4Z1VP5M29+txokaZCmOAD4v?=
+ =?us-ascii?Q?dW05E2iUivXGixp0SXBssLZZRC5P+9gnblpY2t1ebVD4QrOCu3vkdmKGu3+5?=
+ =?us-ascii?Q?3u7dPlEgADMUByb609YHHkyYKUkHlHvAmIhn2V6e9aRb8Y/dZUVK/+oYfAKG?=
+ =?us-ascii?Q?VDWJg/+d1I28bWoSc25a2VEKlpQbY+sZvc02hw=3D=3D?=
+X-OriginatorOrg: outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: eec0b1c0-148c-4afb-327a-08db3c246e63
+X-MS-Exchange-CrossTenant-AuthSource: KL1PR01MB5448.apcprd01.prod.exchangelabs.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Apr 2023 13:38:57.3416 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY0PR01MB5412
+X-Mailman-Approved-At: Thu, 13 Apr 2023 15:23:15 +0000
+Cc: "open list:STMMAC ETHERNET DRIVER" <netdev@vger.kernel.org>,
+ open list <linux-kernel@vger.kernel.org>, Jose Abreu <joabreu@synopsys.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>, Yan Wang <rk.code@outlook.com>,
+ "moderated list:ARM/STM32 ARCHITECTURE"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "moderated list:ARM/STM32 ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>
+Subject: [Linux-stm32] [PATCH] net: stmmac:fix system hang when setting up
+	tag_8021q VLAN for DSA ports
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,61 +107,74 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Raphael,
+The system hang because of dsa_tag_8021q_port_setup()->
+				stmmac_vlan_rx_add_vid().
 
-thanks for the patch.
+I found in stmmac_drv_probe() that cailing pm_runtime_put()
+disabled the clock.
 
-Reviewed-by: Yannick Fertre <yannick.fertre@foss.st.com>
+First, when the kernel is compiled with CONFIG_PM=y,The stmmac's
+resume/suspend is active.
 
+Secondly,stmmac as DSA master,the dsa_tag_8021q_port_setup() function
+will callback stmmac_vlan_rx_add_vid when DSA dirver starts. However,
+The system is hanged for the stmmac_vlan_rx_add_vid() accesses its
+registers after stmmac's clock is closed.
 
-On 4/12/23 11:25, Raphael GALLAIS-POU wrote:
-> Attention: Sender not authenticated
-> --------------------------------------------------
->
-> In ltdc_crtc_set_crc_source(), struct drm_crtc was dereferenced in a
-> container_of() before the pointer check. This could cause a kernel panic.
->
-> Fix this smatch warning:
-> drivers/gpu/drm/stm/ltdc.c:1124 ltdc_crtc_set_crc_source() warn: variable dereferenced before check 'crtc' (see line 1119)
->
-> Reported-by: kernel test robot <lkp@intel.com>
-> Reported-by: Dan Carpenter <error27@gmail.com>
-> Link: https://lore.kernel.org/lkml/202212241802.zeLFZCXB-lkp@intel.com/
-> Signed-off-by: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
-> ---
->   drivers/gpu/drm/stm/ltdc.c | 4 +++-
->   1 file changed, 3 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/stm/ltdc.c b/drivers/gpu/drm/stm/ltdc.c
-> index 03c6becda795..b8be4c1db423 100644
-> --- a/drivers/gpu/drm/stm/ltdc.c
-> +++ b/drivers/gpu/drm/stm/ltdc.c
-> @@ -1145,7 +1145,7 @@ static void ltdc_crtc_disable_vblank(struct drm_crtc *crtc)
->
->   static int ltdc_crtc_set_crc_source(struct drm_crtc *crtc, const char *source)
->   {
-> -       struct ltdc_device *ldev = crtc_to_ltdc(crtc);
-> +       struct ltdc_device *ldev;
->          int ret;
->
->          DRM_DEBUG_DRIVER("\n");
-> @@ -1153,6 +1153,8 @@ static int ltdc_crtc_set_crc_source(struct drm_crtc *crtc, const char *source)
->          if (!crtc)
->                  return -ENODEV;
->
-> +       ldev = crtc_to_ltdc(crtc);
-> +
->          if (source && strcmp(source, "auto") == 0) {
->                  ldev->crc_active = true;
->                  ret = regmap_set_bits(ldev->regmap, LTDC_GCR, GCR_CRCEN);
-> --
-> 2.25.1
->
+I would suggest adding the pm_runtime_resume_and_get() to the
+stmmac_vlan_rx_add_vid().This guarantees that resuming clock output
+while in use.
+
+Signed-off-by: Yan Wang <rk.code@outlook.com>
+---
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 12 +++++++++---
+ 1 file changed, 9 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index d7fcab057032..f9cd063f1fe3 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -6350,6 +6350,10 @@ static int stmmac_vlan_rx_add_vid(struct net_device *ndev, __be16 proto, u16 vid
+ 	bool is_double = false;
+ 	int ret;
+ 
++	ret = pm_runtime_resume_and_get(priv->device);
++	if (ret < 0)
++		return ret;
++
+ 	if (be16_to_cpu(proto) == ETH_P_8021AD)
+ 		is_double = true;
+ 
+@@ -6357,16 +6361,18 @@ static int stmmac_vlan_rx_add_vid(struct net_device *ndev, __be16 proto, u16 vid
+ 	ret = stmmac_vlan_update(priv, is_double);
+ 	if (ret) {
+ 		clear_bit(vid, priv->active_vlans);
+-		return ret;
++		goto err_pm_put;
+ 	}
+ 
+ 	if (priv->hw->num_vlan) {
+ 		ret = stmmac_add_hw_vlan_rx_fltr(priv, ndev, priv->hw, proto, vid);
+ 		if (ret)
+-			return ret;
++			goto err_pm_put;
+ 	}
++err_pm_put:
++	pm_runtime_put(priv->device);
+ 
+-	return 0;
++	return ret;
+ }
+ 
+ static int stmmac_vlan_rx_kill_vid(struct net_device *ndev, __be16 proto, u16 vid)
+-- 
+2.17.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
