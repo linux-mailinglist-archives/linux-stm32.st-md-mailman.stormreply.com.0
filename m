@@ -2,100 +2,70 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 74F466E10FE
-	for <lists+linux-stm32@lfdr.de>; Thu, 13 Apr 2023 17:23:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 02EAA6E116B
+	for <lists+linux-stm32@lfdr.de>; Thu, 13 Apr 2023 17:49:54 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2EF08C6907A;
-	Thu, 13 Apr 2023 15:23:16 +0000 (UTC)
-Received: from APC01-SG2-obe.outbound.protection.outlook.com
- (mail-sgaapc01olkn2100.outbound.protection.outlook.com [40.92.53.100])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9B458C69063;
+	Thu, 13 Apr 2023 15:49:53 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0A661C01E98
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4372AC65E4F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 13 Apr 2023 15:09:07 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=T4aIH6V99QyeiZMEzNb88qf0ZaU2bhclT4rtiV+vaqQP112zPMkDlfb1tiy4Oqj5G6Nig1gQbnbgmkjhB752eDg0phXvAze3G9Jv4pvnsJKsUgECL9DarSAUzlBI3brlg0yO/a2SBwLxIk9WwIsJM7j+2BA4X3N3LqCmmdh0uvdXCGTzc7aWjq6vmpJeEHE+fYRnM3D+LqyWwZBv5xn8h7hHUh1tPmkLwUxsjq/CcmSVd2orXx3/hZv41GuqeMsDFUq6ru3dn93ZkV5cUvwmcDBAy9i0BauxL+pebENQoXo872Ax0o8sDaqRWe4oSgIoFu/NJoNtLpYWRSX1OORvug==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=mm54x0ZpfEPUTyp717dSMXaBikmpwNkOoQc7/DEi4Rs=;
- b=fWo5xYV3iNlwN3Ll6iWIMig1J8VSiC/ZE5bHdM8ZdUqvRCte7BcrWNr9xXZlgZKjSPzGyFrI5X6/Hhet7XRtyTzSMbLbZM/ByGN8/M7zaTfiXEH88k3ot2+6KkWS6CVbzqryryqDO4qo6bjcG/oBipETOrPMtYi/pB2iigAnWuW6Qml+wUEU0ds30q09lOV+6AEewHqNluTMb7bRQsM/56+hrBERyLafp3j6N6mGIEi3ffTQfrwGIffTGG4A6IJro5NLpz/V0usrsYXI0gsCgiiLqNDkm1gW+BZlfUpWvQliqjcKoAkFZUSopmHdMXMktVpva7b+k6hNFQMYX/Vo0w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mm54x0ZpfEPUTyp717dSMXaBikmpwNkOoQc7/DEi4Rs=;
- b=g3DwqYtvou3anKTin3Uoxk0wDXnMqCtiOO6Ajl33aCK+0e+5LdK9QaFNn3DCaKeYc9C19OmX7xSrtvYSJDhdgjlkbSbjrhv27lSRq3x/1l7n/GHOVOv13Os2oIxxH9pgzE10af99sUVI/glu6L5jBw9MdW0ZyUM9OebozUCqOBEY+BH+WL7SWqKRptZTJrt0tNrR52zAvz9xkeWSd03LO0AvTSEOIibuqcNWMIEQgjAtwvz4pWVOxS7Wj8znak0uzhlX0AFi7l7YI6VdiLmr5WqpWkYjnpJ9aGKoJNNpZQRCHoed7bsmP23LLqqxdoio9HEcdb7aYHOQqwrx5PhDkw==
-Received: from KL1PR01MB5448.apcprd01.prod.exchangelabs.com
- (2603:1096:820:9a::12) by SEZPR01MB4087.apcprd01.prod.exchangelabs.com
- (2603:1096:101:4a::10) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6319.4; Thu, 13 Apr
- 2023 15:09:02 +0000
-Received: from KL1PR01MB5448.apcprd01.prod.exchangelabs.com
- ([fe80::5bff:fd7e:ec7c:e9d3]) by KL1PR01MB5448.apcprd01.prod.exchangelabs.com
- ([fe80::5bff:fd7e:ec7c:e9d3%7]) with mapi id 15.20.6298.030; Thu, 13 Apr 2023
- 15:09:02 +0000
-From: Yan Wang <rk.code@outlook.com>
-To: davem@davemloft.net, edumazet@google.com, pabeni@redhat.com,
- kuba@kernel.org, mcoquelin.stm32@gmail.com
-Date: Thu, 13 Apr 2023 23:06:41 +0800
-Message-ID: <KL1PR01MB5448C7BF5A7AAC1CBCD5C36AE6989@KL1PR01MB5448.apcprd01.prod.exchangelabs.com>
-X-Mailer: git-send-email 2.17.1
-X-TMN: [VHhC3a7aJWKoe03Q7vxcoqXXRSI+VjgI]
-X-ClientProxiedBy: SG2PR03CA0088.apcprd03.prod.outlook.com
- (2603:1096:4:7c::16) To KL1PR01MB5448.apcprd01.prod.exchangelabs.com
- (2603:1096:820:9a::12)
-X-Microsoft-Original-Message-ID: <20230413150642.17871-1-rk.code@outlook.com>
+ Thu, 13 Apr 2023 15:49:52 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 33DDcXxo015973; Thu, 13 Apr 2023 17:49:27 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=10v21qlgUMLfu5kPMNcmhdYRHZiJpyjT0L0dJsmLtvw=;
+ b=v6OhYbbvrpPLx1JwxegMChOboBtJzz6Ylcpk0rKNJucPUsYQ9fGbD3rZjZvsLZRYgMaS
+ n7rSO28G+PgKy6Cf/wXXzO4Msz4+5s4qAT42Fx8Fj8UzZqnz7/jIfMfabs2yVX/tf0OB
+ cH1eIMCvtn7kXWBtR+mdOmNT4kzDwTk2AfKSvJYBwHnTU/oNblBWA6ydFj1CkHbu3KoE
+ gdZ5k3T6A3ivRznb9021jFKHjzrnbqQOHFb47c9+mi+MaIoLZ3HcjZWusxDn+BihZQPD
+ 2l8Gyjjkt8iwP5LdmUpd5jkocIvnJHVt3iWCDj69TV78dTiKqj2SvHnxNE9bZLrDcUcT tA== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3pxf2qah42-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 13 Apr 2023 17:49:26 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id F24BE10002A;
+ Thu, 13 Apr 2023 17:49:23 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id EACB9227885;
+ Thu, 13 Apr 2023 17:49:23 +0200 (CEST)
+Received: from [10.48.1.102] (10.48.1.102) by SHFDAG1NODE2.st.com
+ (10.75.129.70) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.21; Thu, 13 Apr
+ 2023 17:49:22 +0200
+Message-ID: <434b4497-0dd4-4818-b4f7-f57264d8b2a7@foss.st.com>
+Date: Thu, 13 Apr 2023 17:49:21 +0200
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: KL1PR01MB5448:EE_|SEZPR01MB4087:EE_
-X-MS-Office365-Filtering-Correlation-Id: b7726d68-79cb-4179-fdc6-08db3c3103db
-X-MS-Exchange-SLBlob-MailProps: ScCmN3RHayHCvCmR7Mrip+46pMXVmOzprsLuyh2I67kMzgUfXKxcaDCRsLbQS6h+U+rj6I5q0jhTA4VD36DsI00bh6ZfcmAQefRX2a4WK8Y/dTfZmICND861kMNDrjmItKScFMh/LT7hfE3fYo5lbY8MkHDYZroZrDHsNIbyxRJlJXR1xOOkcpUcqi1Zre3amAJy83AMSybCyFCbzQkhh7AUEXGLhS+HunNRey0U0EiuZaRNBZSHfQlG1MOehMIkNSmuWiPwgX3KSfYuEMQxsZOa4SHFXO9szYYnmrCyECGT0tWlzk0jAK5Ch/Gr8IxUDfRaLxX3yntkogqNI/SFXSZCCbC8kIijyBT+vJy2ibtxDtc/eWn19g4luPsy6igsXUkqCZzg71dvXR6G4lbIW6cy5j8mxCNtJTwNA0A674/cXkshqtD7ldakh6gfamvpDfDBStkddExXSTUOka6+r8VB/6TqBRsp0qaPiERu8YWsY4t+GPp7hp2un7UYZPJZ4Nzgiv1Ponu0UXy+DakxRv+HuJZq+kUy37kJ9KDmuT0GDXnm54t8gfGr6zPsEyinoN3igKPP+V+/kR0cK04zuG4I7XZ5SbzqW9s/F1XLjqUSLldSuasvhrp1P15nEMpMkKDfxg6+zVXUjDTNNDdcyK8gdL5g/+UkJEJ1vr1wX2Cl/tLsshHngr7jtyD7G8iC48igwBjmf4VYnFRu6sh9v0hfPF2fTeYOCBznneKQlNs=
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: DfN6BNR93eOvJOvto/0Vr2oipa/0k8IPlao9i7CSpPUiin2qdINA7DO0sYNau2wsrheZR9wJ4qEHYWBSgqrIJUBS8qXr35vJaKEfIc929h7yl0PO4B0DJwRTXVG32VHeLZdQkW/7a6sIhh02n5gm6SRTJ5Xsh6Ot72g7U7Hr28dj7ROlxfVPJHzsiZEgYIlHyQBG1amE6rZXRP7fbpAyF0k4JSJ6AEOQ0WlihJyJTqaFbkHHG9jJbaisnHOhCE4SHD+FmTdiML9uFIv2Bf5IVQ/NDkZ0U94z4v55m4w+7gW13nBj9wiE4G0TRp1Om8Vk7cDFwYBe3rjZhC9G2hIVOiwVdUNzI+DWV0EO5zvVfYTaDp7xdC3s5KfvfmYG9vKiRHfhf2wFBfPSqrhluposLEPSDn++F7HJf0MpGikiXTGEwHDAlPqyNNyhPIcFheWfyQ4+BRJ34qv31//9xwYYvdaXs4vc1JJ/Z6GkkdulfHScFLYSb+QNHDbSUCUghNKmvnfvFTvZjMlh1ZBshq4PGHxkvMu07XNuY99RKdsBIpk+PfcVzu6Cwki0TO4KWORAk3tRGGeDpHN6sI/TGd1r1O+wdW1LPMR7ZQ1ZUKWN10/gqNzdyA1j3iX8tFd2rR8l
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?pcDNVwOG1GWMFRm8q0fiPfRUgE0FaTM+aqoRcCEDOwUjuQkmbhccFN83BRBI?=
- =?us-ascii?Q?kle0iAGlv2b8m/fuRZ8fYVA/uldXBHUPhDi0rtHUc+ILeN4T7YBSbSoySxuO?=
- =?us-ascii?Q?D2J244SWn+d16K2hy+TWC2blTRpQpJmB1ctyXcKO1qhzb/OE4zVz5ODtgSHe?=
- =?us-ascii?Q?bFxXtVO5vn+WKYi9zuWF4Uo8mil25DomKC2gk0B+3cYYUKrJZUsTID4Lx2P/?=
- =?us-ascii?Q?BnYbKwjjUPohcsw3iirRyDylTSLU7GWCYOf5N5ji1NCKAhlE3Aylsm05e5jU?=
- =?us-ascii?Q?ugmZOsiyjznvptyMjpzE6xsL42TYzEkKFWOXqkbXQIyfq0QVJN+SMpoSFxUW?=
- =?us-ascii?Q?LOelpLwBVZS3UtBa0dNEK0FcnW7j/rEzHpSHUwOjMtQDfkektJAWtzdUbJNk?=
- =?us-ascii?Q?XVrmBemwGjF6wgc26vQ2EBv09cOa7F0yGER2vA9LAS+ntt/+kfLsc4pkOEhT?=
- =?us-ascii?Q?+411jZG4Cmbk+WpaXVSF0EfT61XfpAIhYZUZJ0q4nCF41SYTHzS4z4cE2Y3i?=
- =?us-ascii?Q?rE47/M5ymwr+gvt5TfgHafJBhwCmWvdkwC574gPpnxtAtkmHrraZskWKmXtp?=
- =?us-ascii?Q?Itl8JwVSoUie2KjVsnWGdVYR5AO82I8Kqld7MxgQVWdW56RC0l+RzUZcLhli?=
- =?us-ascii?Q?/ENMX4BVWtD1twN5QRZzruLfI0FBpxvujiwA10Z/0qJhn0c0QeirXcNBidi2?=
- =?us-ascii?Q?mP6YTfQFdpJMDKxe4Or4DAxPk3xc+S3X3AqgoefiIXO+kRpOaSxvKlj7oz4m?=
- =?us-ascii?Q?/BWyIdkN4Ty8qR3XvCr+UrrDccUtOMGF9zemRMtS3aHXJ+kEbeZEB9LWyhgE?=
- =?us-ascii?Q?CUzWlwMp31rsA1wAoCqUc/HUZ+mz9Oqv+vNZNTBKhdc+dI/hmsDGM1VZP1Kx?=
- =?us-ascii?Q?dMX/9TEQ1PpZGdR9E6J7Vp4emIV5jsK06wWrbbbVESjxFc5MU4A7foqlZV5n?=
- =?us-ascii?Q?pDzjyNbASygWya/hhy8fBCk4BSFMq4i6GTHJkhx7xJ/d2d0AgJ18Jp07q7FY?=
- =?us-ascii?Q?WtYDu2Vi3T7Bnskwx7xt79QvpFH14bl3pp2ktH6MX4glw7CoT9CczkkxEDaQ?=
- =?us-ascii?Q?pBF7Tw/bbGm/x4KaM9TnVQMB3gVx+Ou4f3QnddCgN8OkkTpu+fLAeJP3uZAx?=
- =?us-ascii?Q?3IbElFUtzgVI9bjuyzi+AeU/X8boGsBwEBnEhi80K/HDsGcaQ+sUdag2sYe/?=
- =?us-ascii?Q?ZAQRtac6oXzIj+CzIZlmj6WxLzygkJx/xWSgOQ=3D=3D?=
-X-OriginatorOrg: outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b7726d68-79cb-4179-fdc6-08db3c3103db
-X-MS-Exchange-CrossTenant-AuthSource: KL1PR01MB5448.apcprd01.prod.exchangelabs.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Apr 2023 15:09:02.0667 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEZPR01MB4087
-X-Mailman-Approved-At: Thu, 13 Apr 2023 15:23:15 +0000
-Cc: "open list:STMMAC ETHERNET DRIVER" <netdev@vger.kernel.org>,
- open list <linux-kernel@vger.kernel.org>, Jose Abreu <joabreu@synopsys.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>, Yan Wang <rk.code@outlook.com>,
- "moderated list:ARM/STM32 ARCHITECTURE"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "moderated list:ARM/STM32 ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>
-Subject: [Linux-stm32] [PATCH net-next v4] net: stmmac:fix system hang when
-	setting up tag_8021q VLAN for DSA ports
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.9.0
+Content-Language: en-US
+To: =?UTF-8?Q?Uwe_Kleine-K=c3=b6nig?= <u.kleine-koenig@pengutronix.de>, Maxime
+ Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>, William Breathitt Gray
+ <william.gray@linaro.org>
+References: <20230412153709.3557323-1-u.kleine-koenig@pengutronix.de>
+From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+In-Reply-To: <20230412153709.3557323-1-u.kleine-koenig@pengutronix.de>
+X-Originating-IP: [10.48.1.102]
+X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE2.st.com
+ (10.75.129.70)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.942,Hydra:6.0.573,FMLib:17.11.170.22
+ definitions=2023-04-13_11,2023-04-13_01,2023-02-09_01
+Cc: linux-iio@vger.kernel.org, Lee Jones <lee@kernel.org>,
+ linux-kernel@vger.kernel.org, Thierry Reding <thierry.reding@gmail.com>,
+ kernel@pengutronix.de, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] counter: stm32-timer-cnt: Reset TIM_TISEL
+ and TIM_SMCR to their default value
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -107,75 +77,58 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The system hang because of dsa_tag_8021q_port_setup()->
-				stmmac_vlan_rx_add_vid().
-
-I found in stmmac_drv_probe() that cailing pm_runtime_put()
-disabled the clock.
-
-First, when the kernel is compiled with CONFIG_PM=y,The stmmac's
-resume/suspend is active.
-
-Secondly,stmmac as DSA master,the dsa_tag_8021q_port_setup() function
-will callback stmmac_vlan_rx_add_vid when DSA dirver starts. However,
-The system is hanged for the stmmac_vlan_rx_add_vid() accesses its
-registers after stmmac's clock is closed.
-
-I would suggest adding the pm_runtime_resume_and_get() to the
-stmmac_vlan_rx_add_vid().This guarantees that resuming clock output
-while in use.
-
-Signed-off-by: Yan Wang <rk.code@outlook.com>
----
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 12 +++++++++---
- 1 file changed, 9 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index d7fcab057032..f9cd063f1fe3 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -6350,6 +6350,10 @@ static int stmmac_vlan_rx_add_vid(struct net_device *ndev, __be16 proto, u16 vid
- 	bool is_double = false;
- 	int ret;
- 
-+	ret = pm_runtime_resume_and_get(priv->device);
-+	if (ret < 0)
-+		return ret;
-+
- 	if (be16_to_cpu(proto) == ETH_P_8021AD)
- 		is_double = true;
- 
-@@ -6357,16 +6361,18 @@ static int stmmac_vlan_rx_add_vid(struct net_device *ndev, __be16 proto, u16 vid
- 	ret = stmmac_vlan_update(priv, is_double);
- 	if (ret) {
- 		clear_bit(vid, priv->active_vlans);
--		return ret;
-+		goto err_pm_put;
- 	}
- 
- 	if (priv->hw->num_vlan) {
- 		ret = stmmac_add_hw_vlan_rx_fltr(priv, ndev, priv->hw, proto, vid);
- 		if (ret)
--			return ret;
-+			goto err_pm_put;
- 	}
-+err_pm_put:
-+	pm_runtime_put(priv->device);
- 
--	return 0;
-+	return ret;
- }
- 
- static int stmmac_vlan_rx_kill_vid(struct net_device *ndev, __be16 proto, u16 vid)
--- 
-2.17.1
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gNC8xMi8yMyAxNzozNywgVXdlIEtsZWluZS1Lw7ZuaWcgd3JvdGU6Cj4gVGhlIGRyaXZlciBh
+c3N1bWVzIHRoYXQgdGhlIGlucHV0IHNlbGVjdGlvbiByZWdpc3RlciAoVElNX1RJU0VMKSBpcyBh
+dAo+IGl0cyByZXNldCBkZWZhdWx0IHZhbHVlLiBVc3VhbGx5IHRoaXMgaXMgdGhlIGNhc2UsIGJ1
+dCB0aGUgYm9vdGxvYWRlcgo+IG1pZ2h0IGhhdmUgbW9kaWZpZWQgaXQuIEFsc28gcmVzZXQgdGhl
+IFNNQ1IgcmVnaXN0ZXIgd2hpbGUgYXQgaXQuCj4gCj4gVGhpcyBiYXNlcyBvbiB0aGUgZWZmZWN0
+aXZlbHkgc2FtZSBwYXRjaCBzdWJtaXR0ZWQgYnkgT2xpdmllciBNb3lzYW4gZm9yCj4gcHdtLXN0
+bTMyLgo+IAo+IFNpZ25lZC1vZmYtYnk6IFV3ZSBLbGVpbmUtS8O2bmlnIDx1LmtsZWluZS1rb2Vu
+aWdAcGVuZ3V0cm9uaXguZGU+Cj4gLS0tCj4gSGVsbG8sCj4gCj4gbm90ZSB0aGF0IHRoZSBwYXRj
+aCBieSBPbGl2aWVyIE1veXNhblsxXSBmb3IgcHdtLXN0bTMyIGlzIGV4cGVjdGVkIHRvCj4gYXBw
+ZWFyIGluIFRoaWVycnkncyB0cmVlIHNvb24uIEl0IGFkZGVkIHRoZSBkZWZpbml0aW9uIG9mIFRJ
+TV9USVNFTCBpbgo+IHRoZSBzYW1lIHdheSwgc28gdGhlIHR3byBwYXRjaGVzIHNob3VsZCBtZXJn
+ZSBqdXN0IGZpbmUuIEFsdGVybmF0aXZlbHkKPiB5b3UgY2FuIGNvbW1pdCBpdCB0byBhIHRyZWUg
+dGhhdCBhbHJlYWR5IGhhcyB0aGUgcHdtIGNoYW5nZSAoYW5kIHRoZW4KPiBkcm9wIHRoZSBjaGFu
+Z2UgdG8gaW5jbHVkZS9saW51eC9tZmQvc3RtMzItdGltZXJzLmggZnJvbSB0aGlzIG9uZSkuCj4g
+Cj4gQmVzdCByZWdhcmRzCj4gVXdlCj4gCj4gWzFdIGh0dHBzOi8vbG9yZS5rZXJuZWwub3JnL2xp
+bnV4LXB3bS8yMDIyMTIxMzEwMjcwNy4xMDk2MzQ1LTEtb2xpdmllci5tb3lzYW5AZm9zcy5zdC5j
+b20KPiAKPiAgZHJpdmVycy9jb3VudGVyL3N0bTMyLXRpbWVyLWNudC5jIHwgNCArKysrCj4gIGlu
+Y2x1ZGUvbGludXgvbWZkL3N0bTMyLXRpbWVycy5oICB8IDEgKwo+ICAyIGZpbGVzIGNoYW5nZWQs
+IDUgaW5zZXJ0aW9ucygrKQo+IAo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2NvdW50ZXIvc3RtMzIt
+dGltZXItY250LmMgYi9kcml2ZXJzL2NvdW50ZXIvc3RtMzItdGltZXItY250LmMKPiBpbmRleCA5
+YmYyMGE1ZDZiZGEuLmQwMDFkNzdmMTdhYyAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2NvdW50ZXIv
+c3RtMzItdGltZXItY250LmMKPiArKysgYi9kcml2ZXJzL2NvdW50ZXIvc3RtMzItdGltZXItY250
+LmMKPiBAQCAtMzQyLDYgKzM0MiwxMCBAQCBzdGF0aWMgaW50IHN0bTMyX3RpbWVyX2NudF9wcm9i
+ZShzdHJ1Y3QgcGxhdGZvcm1fZGV2aWNlICpwZGV2KQo+ICAKPiAgCXBsYXRmb3JtX3NldF9kcnZk
+YXRhKHBkZXYsIHByaXYpOwo+ICAKPiArCS8qIFJlc2V0IGlucHV0IHNlbGVjdG9yIHRvIGl0cyBk
+ZWZhdWx0IGlucHV0IGFuZCBkaXNhYmxlIHNsYXZlIG1vZGUgKi8KPiArCXJlZ21hcF93cml0ZShw
+cml2LT5yZWdtYXAsIFRJTV9USVNFTCwgMHgwKTsKPiArCXJlZ21hcF93cml0ZShwcml2LT5yZWdt
+YXAsIFRJTV9TTUNSLCAweDApOwoKSGkgVXdlLAoKSnVzdCBvbiBTTUNSOiB0aGUgZnVuY3Rpb25f
+d3JpdGUgcm91dGluZSB3aWxsIHRha2UgY2FyZSBvZiBzZXR0aW5nIGl0CmRlcGVuZGluZyBvbiB0
+aGUgY291bnQgZnVuY3Rpb24gKGluY3JlYXNlLCBlbmNvZGVyIG1vZGUuLi4pLiBTbyBpdCBsb29r
+cwpsaWtlIHVzZWxlc3MgdG8gZGlzYWJsZSBzbGF2ZSBtb2RlIGR1cmluZyBwcm9iZS4KQ291bGQg
+aXQgYmUgcmVtb3ZlZCA/CgpXaXRoIHRoYXQsIHlvdSBjYW4gYWRkIG15OgpSZXZpZXdlZC1ieTog
+RmFicmljZSBHYXNuaWVyIDxmYWJyaWNlLmdhc25pZXJAZm9zcy5zdC5jb20KCkJlc3QgUmVnYXJk
+cywKRmFicmljZQoKPiArCj4gIAkvKiBSZWdpc3RlciBDb3VudGVyIGRldmljZSAqLwo+ICAJcmV0
+ID0gZGV2bV9jb3VudGVyX2FkZChkZXYsIGNvdW50ZXIpOwo+ICAJaWYgKHJldCA8IDApCj4gZGlm
+ZiAtLWdpdCBhL2luY2x1ZGUvbGludXgvbWZkL3N0bTMyLXRpbWVycy5oIGIvaW5jbHVkZS9saW51
+eC9tZmQvc3RtMzItdGltZXJzLmgKPiBpbmRleCA1ZjVjNDNmZDY5ZGQuLjFiOTQzMjVmZWJiMyAx
+MDA2NDQKPiAtLS0gYS9pbmNsdWRlL2xpbnV4L21mZC9zdG0zMi10aW1lcnMuaAo+ICsrKyBiL2lu
+Y2x1ZGUvbGludXgvbWZkL3N0bTMyLXRpbWVycy5oCj4gQEAgLTMxLDYgKzMxLDcgQEAKPiAgI2Rl
+ZmluZSBUSU1fQkRUUgkweDQ0CS8qIEJyZWFrIGFuZCBEZWFkLVRpbWUgUmVnICovCj4gICNkZWZp
+bmUgVElNX0RDUgkJMHg0OAkvKiBETUEgY29udHJvbCByZWdpc3RlciAgICAqLwo+ICAjZGVmaW5l
+IFRJTV9ETUFSCTB4NEMJLyogRE1BIHJlZ2lzdGVyIGZvciB0cmFuc2ZlciAqLwo+ICsjZGVmaW5l
+IFRJTV9USVNFTAkweDY4CS8qIElucHV0IFNlbGVjdGlvbiAgICAgICAgICovCj4gIAo+ICAjZGVm
+aW5lIFRJTV9DUjFfQ0VOCUJJVCgwKQkvKiBDb3VudGVyIEVuYWJsZQkgICAqLwo+ICAjZGVmaW5l
+IFRJTV9DUjFfRElSCUJJVCg0KSAgLyogQ291bnRlciBEaXJlY3Rpb24JICAgKi8KPiAKPiBiYXNl
+LWNvbW1pdDogZmUxNWMyNmVlMjZlZmExMTc0MWE3YjYzMmU5ZjIzYjAxYWNhNGNjNgpfX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWls
+aW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczov
+L3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0z
+Mgo=
