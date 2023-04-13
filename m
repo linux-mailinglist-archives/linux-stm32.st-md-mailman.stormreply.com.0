@@ -2,66 +2,53 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E9E926E052B
-	for <lists+linux-stm32@lfdr.de>; Thu, 13 Apr 2023 05:26:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 55FEC6E06D5
+	for <lists+linux-stm32@lfdr.de>; Thu, 13 Apr 2023 08:22:23 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AEA2EC69066;
-	Thu, 13 Apr 2023 03:26:42 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D4D46C65E4F;
+	Thu, 13 Apr 2023 06:22:22 +0000 (UTC)
+Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A066FC69063
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 97B5BC57B6A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 13 Apr 2023 03:26:41 +0000 (UTC)
+ Thu, 13 Apr 2023 06:22:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1681356401; x=1712892401;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=uJGAj1dfOd8XxqdoXjmCOKtKsk7xuP8pGuTOMXLVpzw=;
- b=jJWGsO7DPbbMHFyhJDkHmfxLGSxYhxNt6T7AXUcKZkoAw8XAICyRMNLW
- gRc0kNp6aGKcDSuVx413tdUy9n2DVRsMOaZP8MXQuTgvf9xSS6+8gtQoF
- tq/eF09Hj++a/dHr2VASa34P/ZATM6VOtxLjOYqBu0X8okvmFzSjIgH85
- 9DuZKzJUK69DLRjAR8IruZN6g44x6WnU3oMgXan2dQytTvNE8tnZDJzgC
- ewAeAWigaKkqnmxRHJkeuzAFHjCR5YwZh+x5NrV+Eb6R9pKCMZon5qttO
- Zh/afQQLIZlXj14fGgnJiLbNqB+1Ea3XBqYxkuV+LDDG8OGdtSk4j83p8 w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10678"; a="332781747"
-X-IronPort-AV: E=Sophos;i="5.98,339,1673942400"; d="scan'208";a="332781747"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Apr 2023 20:26:39 -0700
+ t=1681366941; x=1712902941;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=cZESwgIlk1I8vfBOGAvQXzooT82QEWSameprF1BTFBU=;
+ b=ie8iVVjqXn/MscxVnw8n/sgzit3FFS9nagRJ1p8IfynOEAlAgH1dDVRu
+ 0+bBBretaKJHZfqVV0+3S32xeNLMyc8aJKf0q7tIte1EylIHilOFRfbAf
+ pTv61Xikau/w3WrB6GJU6z/06430rCOvcoQN1GBmBsdxQbopA9CVz2hCn
+ wpMxgbrzqbjRVDwVkbRp5EQZhf1uWPHfJ5RVT0fjwBG7mfdelgOLSSImA
+ BJUOQLOe3wKxo0ajA0O2gTP5kP+/rWUhCDxSG++Kilk9wmsEV2ezjTPWn
+ cSEjEF25KvXl0ZqIhyGYyURZ4yePrhvI3n98BxKq8r0KKjJnFMLL3Dsvb Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10678"; a="406936202"
+X-IronPort-AV: E=Sophos;i="5.98,339,1673942400"; d="scan'208";a="406936202"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Apr 2023 23:22:19 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10678"; a="800597218"
-X-IronPort-AV: E=Sophos;i="5.98,339,1673942400"; d="scan'208";a="800597218"
-Received: from p12ill20yoongsia.png.intel.com ([10.88.227.28])
- by fmsmga002.fm.intel.com with ESMTP; 12 Apr 2023 20:26:34 -0700
-From: Song Yoong Siang <yoong.siang.song@intel.com>
-To: Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Jose Abreu <joabreu@synopsys.com>,
- "David S . Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexei Starovoitov <ast@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>,
- Jesper Dangaard Brouer <hawk@kernel.org>,
- John Fastabend <john.fastabend@gmail.com>,
- Stanislav Fomichev <sdf@google.com>,
- Alexander Duyck <alexanderduyck@fb.com>,
- Ong Boon Leong <boon.leong.ong@intel.com>
-Date: Thu, 13 Apr 2023 11:25:41 +0800
-Message-Id: <20230413032541.885238-4-yoong.siang.song@intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20230413032541.885238-1-yoong.siang.song@intel.com>
-References: <20230413032541.885238-1-yoong.siang.song@intel.com>
+X-IronPort-AV: E=McAfee;i="6600,9927,10678"; a="832996332"
+X-IronPort-AV: E=Sophos;i="5.98,339,1673942400"; d="scan'208";a="832996332"
+Received: from kuha.fi.intel.com ([10.237.72.185])
+ by fmsmga001.fm.intel.com with SMTP; 12 Apr 2023 23:22:16 -0700
+Received: by kuha.fi.intel.com (sSMTP sendmail emulation);
+ Thu, 13 Apr 2023 09:22:15 +0300
+Date: Thu, 13 Apr 2023 09:22:15 +0300
+From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+Message-ID: <ZDeflxzawVNxhsL7@kuha.fi.intel.com>
+References: <20230412161734.3425090-1-fabrice.gasnier@foss.st.com>
 MIME-Version: 1.0
-Cc: xdp-hints@xdp-project.net, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, Song Yoong Siang <yoong.siang.song@intel.com>,
- bpf@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next v4 3/3] net: stmmac: add Rx HWTS
-	metadata to XDP ZC receive pkt
+Content-Disposition: inline
+In-Reply-To: <20230412161734.3425090-1-fabrice.gasnier@foss.st.com>
+Cc: gregkh@linuxfoundation.org, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH] usb: typec: ucsi: don't print PPM init
+	deferred errors
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,71 +65,55 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add receive hardware timestamp metadata support via kfunc to XDP Zero Copy
-receive packets.
+On Wed, Apr 12, 2023 at 06:17:34PM +0200, Fabrice Gasnier wrote:
+> ucsi_init() may be deferred as usb_role_sw may be deferred in
+> ucsi_register_port(). This results in several PPM init failed (-517)
+> messages maybe printed several times upon boot, like on stm32mp135f-dk
+> board, until the role_switch driver gets probed.
+> 
+> [   19.880945] dwc2 49000000.usb: supply vusb_d not found, using dummy regulator
+> [   19.887136] dwc2 49000000.usb: supply vusb_a not found, using dummy regulator
+> [   19.975432] ucsi-stm32g0-i2c 0-0053: PPM init failed (-517)
+> [   20.155746] dwc2 49000000.usb: EPs: 9, dedicated fifos, 952 entries in SPRAM
+> [   20.175429] ucsi-stm32g0-i2c 0-0053: PPM init failed (-517)
+> [   20.184242] dwc2 49000000.usb: DWC OTG Controller
+> 
+> Adopt dev_err_probe() instead of dev_err(), to only print other errors.
+> Also print an error in case the wait count has expired.
+> 
+> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
 
-Signed-off-by: Song Yoong Siang <yoong.siang.song@intel.com>
----
- .../net/ethernet/stmicro/stmmac/stmmac_main.c | 22 +++++++++++++++++++
- 1 file changed, 22 insertions(+)
+Reviewed-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 831a3e22e0d8..25ec39aa3bf0 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -1614,6 +1614,12 @@ static int stmmac_alloc_rx_buffers_zc(struct stmmac_priv *priv,
- 	struct stmmac_rx_queue *rx_q = &dma_conf->rx_queue[queue];
- 	int i;
- 
-+	/* struct stmmac_xdp_buff is using cb field (maximum size of 24 bytes)
-+	 * in struct xdp_buff_xsk to stash driver specific information. Thus,
-+	 * use this macro to make sure no size violations.
-+	 */
-+	XSK_CHECK_PRIV_TYPE(struct stmmac_xdp_buff);
-+
- 	for (i = 0; i < dma_conf->dma_rx_size; i++) {
- 		struct stmmac_rx_buffer *buf;
- 		dma_addr_t dma_addr;
-@@ -4998,6 +5004,16 @@ static bool stmmac_rx_refill_zc(struct stmmac_priv *priv, u32 queue, u32 budget)
- 	return ret;
- }
- 
-+static struct stmmac_xdp_buff *xsk_buff_to_stmmac_ctx(struct xdp_buff *xdp)
-+{
-+	/* In XDP zero copy data path, xdp field in struct xdp_buff_xsk is used
-+	 * to represent incoming packet, whereas cb field in the same structure
-+	 * is used to store driver specific info. Thus, struct stmmac_xdp_buff
-+	 * is laid on top of xdp and cb fields of struct xdp_buff_xsk.
-+	 */
-+	return (struct stmmac_xdp_buff *)xdp;
-+}
-+
- static int stmmac_rx_zc(struct stmmac_priv *priv, int limit, u32 queue)
- {
- 	struct stmmac_rx_queue *rx_q = &priv->dma_conf.rx_queue[queue];
-@@ -5027,6 +5043,7 @@ static int stmmac_rx_zc(struct stmmac_priv *priv, int limit, u32 queue)
- 	}
- 	while (count < limit) {
- 		struct stmmac_rx_buffer *buf;
-+		struct stmmac_xdp_buff *ctx;
- 		unsigned int buf1_len = 0;
- 		struct dma_desc *np, *p;
- 		int entry;
-@@ -5112,6 +5129,11 @@ static int stmmac_rx_zc(struct stmmac_priv *priv, int limit, u32 queue)
- 			goto read_again;
- 		}
- 
-+		ctx = xsk_buff_to_stmmac_ctx(buf->xdp);
-+		ctx->priv = priv;
-+		ctx->p = p;
-+		ctx->np = np;
-+
- 		/* XDP ZC Frame only support primary buffers for now */
- 		buf1_len = stmmac_rx_buf1_len(priv, p, status, len);
- 		len += buf1_len;
+> ---
+>  drivers/usb/typec/ucsi/ucsi.c | 6 ++++--
+>  1 file changed, 4 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/usb/typec/ucsi/ucsi.c b/drivers/usb/typec/ucsi/ucsi.c
+> index f632350f6dcb..4d809e0d7761 100644
+> --- a/drivers/usb/typec/ucsi/ucsi.c
+> +++ b/drivers/usb/typec/ucsi/ucsi.c
+> @@ -1447,11 +1447,13 @@ static void ucsi_init_work(struct work_struct *work)
+>  
+>  	ret = ucsi_init(ucsi);
+>  	if (ret)
+> -		dev_err(ucsi->dev, "PPM init failed (%d)\n", ret);
+> +		dev_err_probe(ucsi->dev, ret, "PPM init failed\n");
+>  
+>  	if (ret == -EPROBE_DEFER) {
+> -		if (ucsi->work_count++ > UCSI_ROLE_SWITCH_WAIT_COUNT)
+> +		if (ucsi->work_count++ > UCSI_ROLE_SWITCH_WAIT_COUNT) {
+> +			dev_err(ucsi->dev, "PPM init failed, stop trying\n");
+>  			return;
+> +		}
+>  
+>  		queue_delayed_work(system_long_wq, &ucsi->work,
+>  				   UCSI_ROLE_SWITCH_INTERVAL);
+> -- 
+> 2.25.1
+
 -- 
-2.34.1
-
+heikki
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
