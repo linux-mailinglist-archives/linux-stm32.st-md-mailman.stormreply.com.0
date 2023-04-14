@@ -2,168 +2,99 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6C2386E1977
-	for <lists+linux-stm32@lfdr.de>; Fri, 14 Apr 2023 03:13:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3D8B46E1A4A
+	for <lists+linux-stm32@lfdr.de>; Fri, 14 Apr 2023 04:24:09 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1E6D3C69066;
-	Fri, 14 Apr 2023 01:13:14 +0000 (UTC)
-Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C348AC69066;
+	Fri, 14 Apr 2023 02:24:08 +0000 (UTC)
+Received: from APC01-SG2-obe.outbound.protection.outlook.com
+ (mail-sgaapc01olkn2020.outbound.protection.outlook.com [40.92.53.20])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 385C8C01E98
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 510BEC69063
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 14 Apr 2023 01:13:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1681434792; x=1712970792;
- h=from:to:cc:subject:date:message-id:references:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=VCI5DUGxh8ilz8LiajJPQ9HLoNgbFvIdHA3rnCglT/A=;
- b=JCdJBnDTYVjpFzI7FRm7OY1CxDQmNmH+3YoQMg/BxPVz4OZUJ1BWgpTA
- msL4QJOyN4z/aSzP2rOJf9vO8y0V+f5k3EdxQ2QfiqNu3oOZNwGCNeozb
- EGjsVrkUmLcGjoLMO74j/50EUgTGNFa2XO0EH/RBlygzoIYn6NXkOWsCj
- PUPSdEBeAiflrIyyqIpXXkqQ+l6IVFUOTHtfOT0YSyVMQ4o74EQsR5x7+
- BchewSM6fYMA7S7Nm3X2QddwjlJ18mES7PRBSuJ61vjTHnCFoqy3FC20F
- 7RUAXwSc6APUcFb62lsAzkVGiyYn16c4zH9deZSvcBFaARfDeL8+KdBB3 w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10679"; a="407220622"
-X-IronPort-AV: E=Sophos;i="5.99,195,1677571200"; d="scan'208";a="407220622"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Apr 2023 18:10:08 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10679"; a="800999413"
-X-IronPort-AV: E=Sophos;i="5.99,195,1677571200"; d="scan'208";a="800999413"
-Received: from orsmsx601.amr.corp.intel.com ([10.22.229.14])
- by fmsmga002.fm.intel.com with ESMTP; 13 Apr 2023 18:10:07 -0700
-Received: from orsmsx612.amr.corp.intel.com (10.22.229.25) by
- ORSMSX601.amr.corp.intel.com (10.22.229.14) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.23; Thu, 13 Apr 2023 18:10:07 -0700
-Received: from orsmsx611.amr.corp.intel.com (10.22.229.24) by
- ORSMSX612.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.23; Thu, 13 Apr 2023 18:10:07 -0700
-Received: from ORSEDG601.ED.cps.intel.com (10.7.248.6) by
- orsmsx611.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.23 via Frontend Transport; Thu, 13 Apr 2023 18:10:07 -0700
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com (104.47.59.170)
- by edgegateway.intel.com (134.134.137.102) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2507.23; Thu, 13 Apr 2023 18:10:06 -0700
+ Fri, 14 Apr 2023 02:24:07 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=T+g+2svl6rIoJrJpIDJZivuskGoOnuMhKSrNOX2hT5fh3+z9/eiwnZnG+pMDpQOzJQIjAq+Z/e/pvy3PKRPwcZertPTmQePgtqXaOdhCJ5G+4LBwAW7aBxRz3wE66EdV0NcC0nYiGEXTTelkkz7zU+kb8IeMBwfbgUAvy/1aUtV6MViLfB4c6KVNTKBDfzyaxgBmuA6i6zr0zMTb+oLTVg3GDtIJOlMR/QW3Mv3jHsfgFl56YghlTh8zcVuZt1AIi46vLakx9kk0a2DfBdDDDE3n5fJkHm/W/ym95J4yjgaXbsY1FtGyTs7aFaijso+LqNvNNKBgnxLDcmzcSgpF2g==
+ b=VotyPCJVFMIhfTrCoRucowbjF2VAOOSHEQKEUth0eG9kxv6oaqaaq0Qtn5ttWG5mjBEOiqAqAY0sf2qz0tktz09KuqcF9tn0aEQjBswKg1Voks/T1YKFaLOiEG9xXqSUg9B+rFout6Ls4y1oDThwR+TD9Pvl8w2R9eoW4Sa3kViMbAgWNtf5M87pu7G4qBkn1nt8uEmn/o2njjBmWIyGAuZJvv5B/r9uElzu7YddcRawSicqfJBaZep4uNdsUkxEOIOTjej1qVG2v0jgasqByJlKsgpHo8GbFovr7G590qeJrnZ77Jm9auu4n8XXByAC0zHnoULyuSKUuOvDwlVHOA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=VCI5DUGxh8ilz8LiajJPQ9HLoNgbFvIdHA3rnCglT/A=;
- b=j7J7oiKpQTTfQ6enjHvvB6BVBZ6L0mjs2XHy4jqTaRS1cu+pvaZj4yZJ+gs6FoxzgZW+YgIwdx4iy0KeBHttlNeCQ2sZZJXgwf3Sx4yq5cLEZ+Ubz9ByoJBMaExFolOHUcFkPL0d6UmWcdQMUiYrtb6a91rHxuuwo+6aKKvOdolMvgKaI27bZjUW76FIZKXP0mF6g9tu5u90gO2QQdXVIa05UM8fwazEqwHSpydZ2hFU16BAwyhyG9e33uhI+gLX0JGSk1wsS8TY4B0gsXw76D/JkUmNhspCL2rRPhbAzmBnPmuf60KvZfL21dAQStGDcc+z1p1AWa2DgCfmhhLWLw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from PH0PR11MB5830.namprd11.prod.outlook.com (2603:10b6:510:129::20)
- by MN2PR11MB4614.namprd11.prod.outlook.com (2603:10b6:208:268::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6298.30; Fri, 14 Apr
- 2023 01:10:04 +0000
-Received: from PH0PR11MB5830.namprd11.prod.outlook.com
- ([fe80::1c4e:86ae:810d:1fee]) by PH0PR11MB5830.namprd11.prod.outlook.com
- ([fe80::1c4e:86ae:810d:1fee%2]) with mapi id 15.20.6277.036; Fri, 14 Apr 2023
- 01:10:04 +0000
-From: "Song, Yoong Siang" <yoong.siang.song@intel.com>
-To: Jesper Dangaard Brouer <jbrouer@redhat.com>, Giuseppe Cavallaro
- <peppe.cavallaro@st.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Jose Abreu <joabreu@synopsys.com>, "David S . Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, "Paolo
- Abeni" <pabeni@redhat.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
- Jesper Dangaard Brouer <hawk@kernel.org>, John Fastabend
- <john.fastabend@gmail.com>, Stanislav Fomichev <sdf@google.com>, "Alexander
- Duyck" <alexanderduyck@fb.com>, "Ong, Boon Leong" <boon.leong.ong@intel.com>
-Thread-Topic: [PATCH net-next v4 1/3] net: stmmac: introduce wrapper for
- struct xdp_buff
-Thread-Index: AQHZbbfAhpk1/Yp8/E+PaSaWefAbMq8peg2AgACFhqA=
-Date: Fri, 14 Apr 2023 01:10:04 +0000
-Message-ID: <PH0PR11MB58304F87C004D7B243131468D8999@PH0PR11MB5830.namprd11.prod.outlook.com>
-References: <20230413032541.885238-1-yoong.siang.song@intel.com>
- <20230413032541.885238-2-yoong.siang.song@intel.com>
- <203ab7d9-3695-f734-92b5-503118444108@redhat.com>
-In-Reply-To: <203ab7d9-3695-f734-92b5-503118444108@redhat.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH0PR11MB5830:EE_|MN2PR11MB4614:EE_
-x-ms-office365-filtering-correlation-id: 2adb0ead-15f2-4d0e-157f-08db3c84fab1
-x-ld-processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 2YR+21GaqBGh7S+jIUp3NQvg7BiZ/Mri3wLCmKpJpnxd5SES1AsCrRD/wJwRJjd1WMVr17KQvXUKMHAINZZgpES0VxszD8evwl7lx5PSw7VLVIsQ1nCMSANi7y2Kg0RoCRLwHnKs2yiYO4BWJ6W1eM5PO46nMeeHFTHZ1Gbcde8eAOz+TZ8fcJYDL9nyIcR/8kiPHuhMCVdNI29JWHyjraclWEU1hZkSWu0KtuSG5gzyws18g4YyseS7gVPI/4cXTZZD/L/6Y6OIM+qtcdPFIxeqd7l4J1nU8zfLvj0c+AOwI/Cr5+uK/Db3ggFIfjhb/1Ye1f4JCJJy7SjmftUSSOR3ujF4XLQ7VzJ9zSoxMHULSCxGByVzDtPUIaCGWXmRCdqMIUlfGcVxxhT/UkkXvrhbx5jrNzzkGzYd/hQpzPxA/YiXarlRX5UOHDSASPU3ufPJVHwrn/586L7ekVbZkarqxI1v036o7W7CTKaRY7PWVighkH0x/SgHGkzdv5RYWAwzB2lX9Ao9P9sSDxUutoImCgFiQkKvCO+Zy9RtDPrvJ+/xqVfAJhxJpBlL4uShaF8vbJqkU6DSDUaFkVlC8TDcRV/6AvIAxLUtHsdRwuTc0DpB1IHZeb/riQPZiXoy
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH0PR11MB5830.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(396003)(366004)(346002)(136003)(376002)(39860400002)(451199021)(316002)(4326008)(38100700002)(64756008)(82960400001)(66446008)(66556008)(66946007)(66476007)(76116006)(5660300002)(41300700001)(52536014)(7696005)(71200400001)(966005)(86362001)(55236004)(54906003)(6636002)(26005)(186003)(9686003)(53546011)(6506007)(38070700005)(2906002)(83380400001)(7416002)(8676002)(8936002)(55016003)(33656002)(478600001)(921005)(122000001)(110136005);
- DIR:OUT; SFP:1102; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?OTRwUUdaMXJla0RtaUxob2FnVXJCM1drRjhDc0tITUlnL1hiYlV1ZUVkeDZh?=
- =?utf-8?B?bGdONFJzcmNZNVBqTDA4V29iWnZtQVhkS1BodWNEMmZ0Rmxqcy9RdzhScUw5?=
- =?utf-8?B?QklHcFRhL1Nvam5SUG5qNkFRNFlHbTlSWkhMd3MxZHM1M1RhSHpvZUNHaC9j?=
- =?utf-8?B?TVVTU1ZiWndQVHZHd2xwVVFDMXBHNXYyM1dnT3M1QllJL1JDR2ltK05QdTJk?=
- =?utf-8?B?QU9YaGxOSjlCbWNWYytQOG9uK1dpd1QrOE14SlZTQll0ajRCTDFaUDZBcGpK?=
- =?utf-8?B?OEsrNDdZOFpDRm16cndqRGJ2Sy96UGU3ZVZlcEl4WVVSTW9sNTBSRFRkZU0v?=
- =?utf-8?B?cnk5eGY4RDRoTktoMkx4dStyalhqcDJiNmdMTG53S0s4azFnYkg1MS9SQkM2?=
- =?utf-8?B?SUJ0aWI0Wm5OQ1IvNmFWMFVEMmRLUVk3ZThpa0tJOHhEdEZIT3lpV0g1UVdS?=
- =?utf-8?B?WVY0MVJoWlNYT3Q1ZTlsNURuMllHLzliSHh0azJYYyszNHh1Nm5CWUNCcU8w?=
- =?utf-8?B?Vmo2bWpZMllQWGJxUlRsbXNpVTF3M05jYmpLajBGeFpacU1OQWRPa3JlZjdV?=
- =?utf-8?B?azVyaElzRzdXZWkxTmRKN1FObThjZFYwdlJvTnBxbkJTRHRYczM0QXhLZXA1?=
- =?utf-8?B?ellhVi91UmdYcGpCbTFseUpublEvTVVzT0FxVFV3TU5ZeEJ1ditRR3VVMFJC?=
- =?utf-8?B?TGZGYnZJSmZ1cUFvNnhtRUpvc3lDZU5Kci8zblBMWkJ5WmRPYU5ndnQyZDc2?=
- =?utf-8?B?dVdTZDQ0SzRNTXQxSkpYT2NxTXBtTXNUNUp0VWdSa1RaeENEc2JROERZMC9G?=
- =?utf-8?B?WTREWEU0UkdCNTZ2QmoyZktuR1lkQTlsWmFIUnUwZ1o0OEN0dEMxTGxKTVFh?=
- =?utf-8?B?NDlRR2RPd21HQ1hLUjR0ZkNJeHlYWTRYd3BHR1JrZHlsMWtmZDJla3dtWit0?=
- =?utf-8?B?M2tqNUFEM2R2SUZKYW5rQTNJazhaR0Z1dzVEdW1FNkFHdzR2QzByNjVia1lW?=
- =?utf-8?B?M3VpdjhOelFXNUV6U00yUXA1bm41UzRlL1RZVmNEMGdhbzgrWVFycU9GbnRI?=
- =?utf-8?B?cXlXNXBMb3JZVndnU0Z4aG5wcktib21zNEVwMU1ua3ovK3NGdXZ6Z24wNmNi?=
- =?utf-8?B?eitYTzNhQzFjUWdjS29KeXRkV2luSWU3aVZaWkROZjRpWWduR0tEaTZrckpl?=
- =?utf-8?B?ZzNsNCtjeXBBTnlIRDZVdnBGNSsyZWZqVCs5M3Uybmp2azBSWTJBY2pHQlcw?=
- =?utf-8?B?Mjdrd0RTeURWMUozMmVlUmg0bXJPbG5JMnREc0g4eCszenJyVXdocnhhbWlY?=
- =?utf-8?B?YnNUNzBDSm9PMThnT2lyYlFvWHIwbU1Wb0FaMXJKQ2NIeDZXUjVtcitRak5H?=
- =?utf-8?B?QmtUUkFQK3dTT0VmYmZOZmlkdEsrMGhVenR2YTVLTDJMV0RBL1FzSmJJMTZm?=
- =?utf-8?B?OGNTNGJWSWtUQ2JvU29jbnZxeStIVVZkZ3V2QmVnV25YVHZTL2xZZzg5Z2JO?=
- =?utf-8?B?L2xENEZrNElOcFNtRUJoTkFxS1paZ2RGVEdTdHBCSEZYcUhUTVRMblRwakNr?=
- =?utf-8?B?bW9PRkNQejhacHVTVzR6bEN6aU14enNTejUxNDcva0JCbS96UURpN1lVZFdZ?=
- =?utf-8?B?UTZ1WFBLRURQNmtOcDF6d2Nwd2NESS9venpLOVNXMktnZ0JKYTRlY2lacnBv?=
- =?utf-8?B?ajBJUHJTUzM2dEYwMkhualVCcndnUFNsUk5vNVhncVhrNVhLSForaFZodUJ5?=
- =?utf-8?B?UjFJbWowU1RpZUhSeDZZSjdUaUNzTjh4Sm5YZm4wbW1EYmY5eFRxUWtZRFVH?=
- =?utf-8?B?NktWUXh0UDh1eFFkRUNhSGdxR3dWMHh0dVI0ZTlNTTJwRXFqaXFzcDdmVlQ4?=
- =?utf-8?B?c3orZy9pVkh6M0FqbnZZTi9SVEpPQWRxdG1nald1ZFROUG9QNlFYYVo1NnNo?=
- =?utf-8?B?RHVjd1hSS3V2eFZuSE9zaUF5OGRMUGYrMm5MYmxiRDFyMXlidFh0K2EvKzRH?=
- =?utf-8?B?QTFEeC9Ec1VRY3lOaytBUS9rRnJabFFvU3VrQ1VGSHdSV0xXc0dyd0NPbE1u?=
- =?utf-8?B?K3VWVGRybXl1ME1CL1JxMnVVMkRYT0g2UlhZUnRWYkYwM0JPZDFDYkJhS2tX?=
- =?utf-8?Q?y4emsdVVSXwductsj0H4FeJ9N?=
+ bh=qBDbvD3JZkVSBPlod6bdoB90wzu9+p4AQQEdai6b+04=;
+ b=Mf08bS4Uk5QmjdjjCIf8/DrkfWX1zgBAhoPpocel7yqw12HPw5M8BZcnQOCdOVhhXU4sqp3LSXMzQbiPh4xdeefSUDRdVZvdC2np9I9HLhhjk+omGM+nXkC1Ik3CT2K8N5lusPU6jb8DNEuyKvHeS1R0XYCPO1bqbeU0pAFn2tk4DXxyOltDK99PXxG+3MZQCf7ab9kfKZKu7i5K7nDPqmEMkSMr3qP+tYP00a6e8zgHo5GR8nqcNZdxjQm0S7UJflmtS7YtI6NmTSdvQioqi5qLYJYo5w7d7Q4W19f2DYGyh9fmVHVR01dh+blPQK8xJCzBkMEbQxwTsrENYhYO7g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=qBDbvD3JZkVSBPlod6bdoB90wzu9+p4AQQEdai6b+04=;
+ b=TWDB+QJi7mg8PVi6bMD85NJ5++mZFQgO8q3Cl4Lj6PUZ0u6N/ZeJxJMpYzs87r7t3PrZsJtRLxjpu3Mf1rMLbz/l7WIBLYDB0PUnS+5fAFHARboASv7R3zcMDt7o9GecQGC67bmEYem5Re6HOszbdAZog/tqhQWFyMPX0EygoPBkTvGCVRKr/dalYAfNwQO+oM5pGa/1wYJ7+Lbg53YFn4v6ItdmMrKVgU9+eZQaXwJkIHCilsHQYKAkMm41DxKMbHii1U9G70PcEwLrr6YFU11+TYF/bWkdO/AlJt737l1GUIaDkU3Lz64eGKQ66syFDudXX4Zew2dHkT+Z8Bk06A==
+Received: from KL1PR01MB5448.apcprd01.prod.exchangelabs.com
+ (2603:1096:820:9a::12) by SEZPR01MB5342.apcprd01.prod.exchangelabs.com
+ (2603:1096:101:e5::11) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6319.4; Fri, 14 Apr
+ 2023 02:24:01 +0000
+Received: from KL1PR01MB5448.apcprd01.prod.exchangelabs.com
+ ([fe80::5bff:fd7e:ec7c:e9d3]) by KL1PR01MB5448.apcprd01.prod.exchangelabs.com
+ ([fe80::5bff:fd7e:ec7c:e9d3%7]) with mapi id 15.20.6319.007; Fri, 14 Apr 2023
+ 02:24:01 +0000
+From: Yan Wang <rk.code@outlook.com>
+To: davem@davemloft.net, edumazet@google.com, pabeni@redhat.com,
+ kuba@kernel.org, mcoquelin.stm32@gmail.com
+Date: Fri, 14 Apr 2023 10:23:41 +0800
+Message-ID: <KL1PR01MB54482D50B5C8713A2CA697DFE6999@KL1PR01MB5448.apcprd01.prod.exchangelabs.com>
+X-Mailer: git-send-email 2.17.1
+X-TMN: [iutxibE7g/AJa0EZGWrBA8JcKp1NSYu2Ve8NNNXbiLE=]
+X-ClientProxiedBy: SG2PR01CA0111.apcprd01.prod.exchangelabs.com
+ (2603:1096:4:40::15) To KL1PR01MB5448.apcprd01.prod.exchangelabs.com
+ (2603:1096:820:9a::12)
+X-Microsoft-Original-Message-ID: <20230414022341.18095-1-rk.code@outlook.com>
 MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: KL1PR01MB5448:EE_|SEZPR01MB5342:EE_
+X-MS-Office365-Filtering-Correlation-Id: 157a1ed4-ba50-4fc4-4700-08db3c8f4f71
+X-MS-Exchange-SLBlob-MailProps: ScCmN3RHayHCvCmR7Mrip+46pMXVmOzprsLuyh2I67nGh5nZ7zZbEY0KUuutlMqqtHCXkPobdCGgHNhfJS+upb0wirypm/N7aVOfjvdbQhVoUvlduaM9or71uiMQbb2TZclrArSjcKMcnTjAo0cciFggy1rLkM/HP0DPfuTy/BYmN1433IYYHRp22hMaXeH45Uox2UISjxKyBOhHepyg86tv36jYUtbbgupny3H2o977FmjyWxMmzO6LICfXqZjAAu280PKYn6ZTzm4ch2+3wXvJaBiLaIhF1cvznv5v0fVlkf0nm3PQ6pa96GP+rPgNVGv9nUF/XzAa4Zvwybw7lhWRpC2sn5tqCplDb7PguPolnGMu3AQiUHg5lHAHCLvc/vTo5mfAeOjAze0kTVTF4oVHQ5onSeq37lbvNaKi8Mta+Y8m9H+0wIvm9j2M/1rkxeea3bGYmw+snfOECsW+Ja1GJpSJUj6J+arEU2anLVNxCmSnR4vUZeagnZdehwGdxLgRzQUMUwzdELo6uJf/lQHeHeR+CmGaHqg14bzF2mj7ChxxauaH3F+1jfIZc5D8/p1E5vlU3TUgWWdm0BtGH2gogfQqrwvPzNAfskrVCkQEHl6pnomgJwzjvvd6q0u34CWyFDwqno5NDsovgzc0h64n3/xRpvNa97YvXN3SkS0j7rV/8X/OvyRvB2wwoAPIBQgO5nbb0P7nUW06lNcl2VaZTmVa5zyefRLPLb3JHus=
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: qzHaPCFYOQcEQL7nliogwm1wpVh2SlFe84bjb59amplC1Tt7nLAg2fFnhpx1gb7vJ3G0+dibHjjIw8U+AB1pP0DnTHYgaNjnJclwmlpK4MWsJPfb3CurIlJUhwNOKyYjErosYzxNitGG2jzRHSV8Gvh+BWbHSLYZ2i3yCm6LZTibVAPQ8ocALgHeatheRjVMvcP5Tw6c9Rbsiyt8UlAKMIliDgEanGztDphUFL3CwUTFbd0pTUoHi/4BLT2/lGat0ovKNAHIqpm8+Sk8CtvmBXOdJtntvJbOIkRlIG2+mWruOXzKTiWnHRwN5cXfu+NB3+E6ozbGF2ewyG0oIaLWAmRcwoHJMobGGGSUVpByGwaDe7gfy2HwJUrZU7nU8JTwEb54AOhuq4YV45U5k3UQI+mqBXlzBvdFTsmspSS6pkfHvqhdBLJ6pwbQR+H89Qt9OHogz2K0ve+u6iNk+awHGUTkNtmch9sz2S5h1HFEO15AYiPDt0rhznmwQlAD2qz+N101G6BFPxPIgup9eHL8wy0sXWrf7JMA0IAzhfoSjQZbl6xGRO1EZdUmrjSqPxbMe3Gixi6Xn2rXYFXnThPtw618frRDNaixDjnAhl+35YOK4eMaR9RC4e7sYI5yIkrf
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?d8sHqUsVdDFEtfLgYcpvcd1FGuirujX/G/8IAErtjA+gg5a8DdrR0aolK4Fn?=
+ =?us-ascii?Q?nkG8xOdGev0kVF1rblcK0upEWevtcOv5Aa7dpoLc1U8Fu74j+4mJ1pb60bF4?=
+ =?us-ascii?Q?2h2wtLEIHk27PCqkYS0M7QingCO1NTlqbYg/kmkjBDM2rU642ZludhV4NaUz?=
+ =?us-ascii?Q?5G3yjqWv5tJjk4YmFxoKphzzJeVS6ACGc+aOS0uAEk+koPQE5avIAA/u2xTg?=
+ =?us-ascii?Q?PluoFxGGB3aML3E3qja1aJwqIX2Y3eKFTKiAeA7Oh9nG6TGshsJ4qkumfmrW?=
+ =?us-ascii?Q?l+kaym4kNusZFIkJ0KIJwoqt4KAywpCljw6teVUuNQryqVjIMh+uchfrjv44?=
+ =?us-ascii?Q?BeRUbEATLgn93K7N7xhw8wqkZWkeRR8B5WnVUcLdKxpw9yWH93Gzmy5AGYZz?=
+ =?us-ascii?Q?wNjixof6woRuJBBKJhXuSJIVt3K9oMFl5uo3hjS/WUreSjlvhNKD5RbaoovI?=
+ =?us-ascii?Q?7hZXXWpIN1O1ahGw7JF7nSLc+Gt08t7fcpIAGkyAQX22HsWzAlSGYy1NAGzH?=
+ =?us-ascii?Q?H2wRl76NiyUIfL3S3ZB3KZXsaIjriExno8ts6q9jFGic7L8M8YoDiJmX6nI4?=
+ =?us-ascii?Q?JZ6ZoTXXpYeE8RxKhZIqj2Wau5+1GvRvaOMTx3GtKrLRE+RyMlxeaKYiayty?=
+ =?us-ascii?Q?MwTu2L0HO1sFUC1xkkP7UfHL/XwefE0rIqUH4m3sgeSxC9zWFh4IzJHfNZYg?=
+ =?us-ascii?Q?0w3N3ndSVF5RoX25uaiV5LeLZn3CMUuQE+JnHsALAC9H5uggI3blCk/0pFSM?=
+ =?us-ascii?Q?bAZmFBbgpdHVIJ2g+WYYcu6MbrMuKZ1X8UR5wtdNaAlijvIkeRt7Y796T8i8?=
+ =?us-ascii?Q?im3pRSaL4P9jcgqPK881/GksD4ygVrkNWatJtNCXuf54R/DLJ//6Wmb7nv86?=
+ =?us-ascii?Q?1Y8IwTlUzRCDQ97wT8eWmT9x15pIlwC6QeZMN3myBiIlgc3IRArxvvKK1KyV?=
+ =?us-ascii?Q?Vlt2LLrzntJy7oh0CAYshX3PwgP9Zzxsnjk+tz0IhHb/ig7hF2OQKm6YXG9m?=
+ =?us-ascii?Q?pdlLMLI6duPAjHDlwB7rnUDY7bNKw9VcoHvKBhQUtpyt/DFM0/WLj8UcFMlO?=
+ =?us-ascii?Q?oKMIsM7CRBvwcqJ5IJG2W5na0hHlOlZYOg0hrJX8n8OjV9hnFlD3fbbgs0mN?=
+ =?us-ascii?Q?zc09JTMNfcO9Wf3y1Z1W6IUb2cwMOu/Vqdtq/f8XaSGFqN63+bhBSAL7zVS5?=
+ =?us-ascii?Q?wcdgfdnuPYDe16hcyMc8fh6n/5ociAhDZoUn/g=3D=3D?=
+X-OriginatorOrg: outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 157a1ed4-ba50-4fc4-4700-08db3c8f4f71
+X-MS-Exchange-CrossTenant-AuthSource: KL1PR01MB5448.apcprd01.prod.exchangelabs.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR11MB5830.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2adb0ead-15f2-4d0e-157f-08db3c84fab1
-X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Apr 2023 01:10:04.2096 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: lRqpDLZCDbC/yEsDacu1MDWDIS447ChNo1p5DzOzJR8HqoFuYFc5uU3r2HyG7uD8KAc1X7GUHMkvHeA827FZqyDR/BEpxCQE0PEuOEVitso=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR11MB4614
-X-OriginatorOrg: intel.com
-Cc: "xdp-hints@xdp-project.net" <xdp-hints@xdp-project.net>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "Brouer,
- Jesper" <brouer@redhat.com>, "bpf@vger.kernel.org" <bpf@vger.kernel.org>,
- "linux-stm32@st-md-mailman.stormreply.com"
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Apr 2023 02:24:01.5841 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEZPR01MB5342
+Cc: "open list:STMMAC ETHERNET DRIVER" <netdev@vger.kernel.org>,
+ open list <linux-kernel@vger.kernel.org>, Jose Abreu <joabreu@synopsys.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>, Yan Wang <rk.code@outlook.com>,
+ "moderated list:ARM/STM32 ARCHITECTURE"
  <linux-stm32@st-md-mailman.stormreply.com>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH net-next v4 1/3] net: stmmac: introduce
- wrapper for struct xdp_buff
+ "moderated list:ARM/STM32 ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>
+Subject: [Linux-stm32] [PATCH net-next v2] net: stmmac:fix system hang when
+	setting up tag_8021q VLAN for DSA ports
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -180,124 +111,69 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Friday, April 14, 2023 1:10 AM , Jesper Dangaard Brouer <jbrouer@redhat.com> wrote:
->On 13/04/2023 05.25, Song Yoong Siang wrote:
->> Introduce struct stmmac_xdp_buff as a preparation to support XDP Rx
->> metadata via kfuncs.
->>
->> Reviewed-by: Jacob Keller <jacob.e.keller@intel.com>
->> Signed-off-by: Song Yoong Siang <yoong.siang.song@intel.com>
->> ---
->>   drivers/net/ethernet/stmicro/stmmac/stmmac.h   |  4 ++++
->>   .../net/ethernet/stmicro/stmmac/stmmac_main.c  | 18 +++++++++---------
->>   2 files changed, 13 insertions(+), 9 deletions(-)
->>
->> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac.h
->> b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
->> index 3d15e1e92e18..ac8ccf851708 100644
->> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac.h
->> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
->> @@ -92,6 +92,10 @@ struct stmmac_rx_buffer {
->>   	dma_addr_t sec_addr;
->>   };
->>
->> +struct stmmac_xdp_buff {
->> +	struct xdp_buff xdp;
->> +};
->> +
->>   struct stmmac_rx_queue {
->>   	u32 rx_count_frames;
->>   	u32 queue_index;
->> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
->> b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
->> index d7fcab057032..6ffce52ca837 100644
->> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
->> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
->> @@ -5188,9 +5188,9 @@ static int stmmac_rx(struct stmmac_priv *priv, int
->limit, u32 queue)
->>   	int status = 0, coe = priv->hw->rx_csum;
->>   	unsigned int next_entry = rx_q->cur_rx;
->>   	enum dma_data_direction dma_dir;
->> +	struct stmmac_xdp_buff ctx = {};
->
->This code trick {} will zero out the struct.
->
->Is this done purpose and really needed?
->
->On x86_64 this unfortunately generates an asm instruction: rep stos
->
->A repeated store string operation, for zeroing out memory, which is slow.
->(Because[1] it supports be suspended by an exception or interrupt, which requires
->it to store/restore CPU flags).
->
->[1] https://www.felixcloutier.com/x86/rep:repe:repz:repne:repnz#tbl-4-22
+The system hang because of dsa_tag_8021q_port_setup()->
+				stmmac_vlan_rx_add_vid().
 
-Thanks for the useful information and link. I will submit v5 to remove {}.
->
->
->>   	unsigned int desc_size;
->>   	struct sk_buff *skb = NULL;
->> -	struct xdp_buff xdp;
->>   	int xdp_status = 0;
->>   	int buf_sz;
->>
->> @@ -5311,17 +5311,17 @@ static int stmmac_rx(struct stmmac_priv *priv, int
->limit, u32 queue)
->>   			dma_sync_single_for_cpu(priv->device, buf->addr,
->>   						buf1_len, dma_dir);
->>
->> -			xdp_init_buff(&xdp, buf_sz, &rx_q->xdp_rxq);
->> -			xdp_prepare_buff(&xdp, page_address(buf->page),
->> +			xdp_init_buff(&ctx.xdp, buf_sz, &rx_q->xdp_rxq);
->> +			xdp_prepare_buff(&ctx.xdp, page_address(buf->page),
->>   					 buf->page_offset, buf1_len, false);
->>
->> -			pre_len = xdp.data_end - xdp.data_hard_start -
->> +			pre_len = ctx.xdp.data_end - ctx.xdp.data_hard_start -
->>   				  buf->page_offset;
->> -			skb = stmmac_xdp_run_prog(priv, &xdp);
->> +			skb = stmmac_xdp_run_prog(priv, &ctx.xdp);
->>   			/* Due xdp_adjust_tail: DMA sync for_device
->>   			 * cover max len CPU touch
->>   			 */
->> -			sync_len = xdp.data_end - xdp.data_hard_start -
->> +			sync_len = ctx.xdp.data_end - ctx.xdp.data_hard_start -
->>   				   buf->page_offset;
->>   			sync_len = max(sync_len, pre_len);
->>
->> @@ -5331,7 +5331,7 @@ static int stmmac_rx(struct stmmac_priv *priv,
->> int limit, u32 queue)
->>
->>   				if (xdp_res & STMMAC_XDP_CONSUMED) {
->>   					page_pool_put_page(rx_q->page_pool,
->> -
->virt_to_head_page(xdp.data),
->> +
->virt_to_head_page(ctx.xdp.data),
->>   							   sync_len, true);
->>   					buf->page = NULL;
->>   					priv->dev->stats.rx_dropped++;
->> @@ -5359,7 +5359,7 @@ static int stmmac_rx(struct stmmac_priv *priv,
->> int limit, u32 queue)
->>
->>   		if (!skb) {
->>   			/* XDP program may expand or reduce tail */
->> -			buf1_len = xdp.data_end - xdp.data;
->> +			buf1_len = ctx.xdp.data_end - ctx.xdp.data;
->>
->>   			skb = napi_alloc_skb(&ch->rx_napi, buf1_len);
->>   			if (!skb) {
->> @@ -5369,7 +5369,7 @@ static int stmmac_rx(struct stmmac_priv *priv, int
->limit, u32 queue)
->>   			}
->>
->>   			/* XDP program may adjust header */
->> -			skb_copy_to_linear_data(skb, xdp.data, buf1_len);
->> +			skb_copy_to_linear_data(skb, ctx.xdp.data, buf1_len);
->>   			skb_put(skb, buf1_len);
->>
->>   			/* Data payload copied into SKB, page ready for recycle
->*/
+I found in stmmac_drv_probe() that cailing pm_runtime_put()
+disabled the clock.
+
+First, when the kernel is compiled with CONFIG_PM=y,The stmmac's
+resume/suspend is active.
+
+Secondly,stmmac as DSA master,the dsa_tag_8021q_port_setup() function
+will callback stmmac_vlan_rx_add_vid when DSA dirver starts. However,
+The system is hanged for the stmmac_vlan_rx_add_vid() accesses its
+registers after stmmac's clock is closed.
+
+I would suggest adding the pm_runtime_resume_and_get() to the
+stmmac_vlan_rx_add_vid().This guarantees that resuming clock output
+while in use.
+
+Fixes: 804ff4120f67 ("net: stmmac:fix system hang when setting up tag_8021q VLAN for DSA ports")
+Signed-off-by: Yan Wang <rk.code@outlook.com>
+---
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 12 +++++++++---
+ 1 file changed, 9 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index d7fcab057032..f9cd063f1fe3 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -6350,6 +6350,10 @@ static int stmmac_vlan_rx_add_vid(struct net_device *ndev, __be16 proto, u16 vid
+ 	bool is_double = false;
+ 	int ret;
+ 
++	ret = pm_runtime_resume_and_get(priv->device);
++	if (ret < 0)
++		return ret;
++
+ 	if (be16_to_cpu(proto) == ETH_P_8021AD)
+ 		is_double = true;
+ 
+@@ -6357,16 +6361,18 @@ static int stmmac_vlan_rx_add_vid(struct net_device *ndev, __be16 proto, u16 vid
+ 	ret = stmmac_vlan_update(priv, is_double);
+ 	if (ret) {
+ 		clear_bit(vid, priv->active_vlans);
+-		return ret;
++		goto err_pm_put;
+ 	}
+ 
+ 	if (priv->hw->num_vlan) {
+ 		ret = stmmac_add_hw_vlan_rx_fltr(priv, ndev, priv->hw, proto, vid);
+ 		if (ret)
+-			return ret;
++			goto err_pm_put;
+ 	}
++err_pm_put:
++	pm_runtime_put(priv->device);
+ 
+-	return 0;
++	return ret;
+ }
+ 
+ static int stmmac_vlan_rx_kill_vid(struct net_device *ndev, __be16 proto, u16 vid)
+-- 
+2.17.1
 
 _______________________________________________
 Linux-stm32 mailing list
