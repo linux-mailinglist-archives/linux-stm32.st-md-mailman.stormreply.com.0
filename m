@@ -2,39 +2,39 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B0206E2F50
-	for <lists+linux-stm32@lfdr.de>; Sat, 15 Apr 2023 08:45:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E1216E2F53
+	for <lists+linux-stm32@lfdr.de>; Sat, 15 Apr 2023 08:45:48 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 23ABAC6A611;
-	Sat, 15 Apr 2023 06:45:43 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 30777C6A611;
+	Sat, 15 Apr 2023 06:45:48 +0000 (UTC)
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3725AC62EFE
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CAB42C62EFE
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 15 Apr 2023 06:45:41 +0000 (UTC)
+ Sat, 15 Apr 2023 06:45:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1681541141; x=1713077141;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=XPf0NWZspgmTmraWV1B8of1VGZ27Uk2q/PwjqH0foXk=;
- b=Cf0u20txhQadr3j6YFovnIOTrVjohKFqZBCAa8gV7MBC8GBfBRdMPmM5
- A8LLIthynX24ejOWQJvuCVqdccHU1ZS9GOuKB96raJhna6lQgzCNS5m1V
- 5jpw8qrpUjTeFfoX6lypITxzVWjoqQdnfRNxA7KVG+ZLIlvlJY3aRBZES
- OngxPuH2RewZSl3bgfFpnoQn2Ibo1S5jLqz2QrTBdQXFWZjpeHZIwOY7/
- gWlCwagK/ykaXy/7Srrmu4NUQqmOfbOHdLKq7xLfQz9cBUWNpa3Om+asf
- LCmrvkgqmiGbl3wyZwL9MANV8TfJCp22qzGy5n1YzARcoyG0XRxnE3+nO Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10680"; a="343379260"
-X-IronPort-AV: E=Sophos;i="5.99,199,1677571200"; d="scan'208";a="343379260"
+ t=1681541147; x=1713077147;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=P5PNsfQVnf7JGUSyHYyZ0/5wiiYeZCsFRVfR1e/0etg=;
+ b=nvS9mbLbf9P6fKKgeCqEZaCDcxSIAG7QK5FJ1AZHB2WW1AJwFkMfhNOo
+ NzcMH41UMkp+NevmdLPg1yNj3Fs7313GdzqOkKR89mmLLHjhfFdFahVH+
+ Y0UyfNqzgvH0YQWnJTEE2N/OImx8yzaqTiOQirZYX7vICHrNxe1H+mxKc
+ iMXWdtdPR5d6XsC7iIwvhaZO2ygUojz2RPCyVebeGRkQd1RoXtjNrRsFv
+ 2UWi5L6Kd1TllOWga/UomtH0dSGGbyH+g9jnz0EPfqPSXV9AMsLeKiIEd
+ WSiiB4ZN+xQCSlQTixZfhXDH2Po2WBcIj+l6EF2hte3SA/yG/Tc8D9NZd w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10680"; a="343379280"
+X-IronPort-AV: E=Sophos;i="5.99,199,1677571200"; d="scan'208";a="343379280"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Apr 2023 23:45:39 -0700
+ 14 Apr 2023 23:45:46 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10680"; a="754727538"
-X-IronPort-AV: E=Sophos;i="5.99,199,1677571200"; d="scan'208";a="754727538"
+X-IronPort-AV: E=McAfee;i="6600,9927,10680"; a="754727543"
+X-IronPort-AV: E=Sophos;i="5.99,199,1677571200"; d="scan'208";a="754727543"
 Received: from p12ill20yoongsia.png.intel.com ([10.88.227.28])
- by fmsmga008.fm.intel.com with ESMTP; 14 Apr 2023 23:45:33 -0700
+ by fmsmga008.fm.intel.com with ESMTP; 14 Apr 2023 23:45:40 -0700
 From: Song Yoong Siang <yoong.siang.song@intel.com>
 To: Giuseppe Cavallaro <peppe.cavallaro@st.com>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>,
@@ -52,16 +52,18 @@ To: Giuseppe Cavallaro <peppe.cavallaro@st.com>,
  Jesper Dangaard Brouer <brouer@redhat.com>,
  Ong Boon Leong <boon.leong.ong@intel.com>,
  Jacob Keller <jacob.e.keller@intel.com>
-Date: Sat, 15 Apr 2023 14:45:00 +0800
-Message-Id: <20230415064503.3225835-1-yoong.siang.song@intel.com>
+Date: Sat, 15 Apr 2023 14:45:01 +0800
+Message-Id: <20230415064503.3225835-2-yoong.siang.song@intel.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20230415064503.3225835-1-yoong.siang.song@intel.com>
+References: <20230415064503.3225835-1-yoong.siang.song@intel.com>
 MIME-Version: 1.0
 Cc: xdp-hints@xdp-project.net, netdev@vger.kernel.org,
  linux-kernel@vger.kernel.org, Song Yoong Siang <yoong.siang.song@intel.com>,
  bpf@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next v6 0/3] XDP Rx HWTS metadata for
-	stmmac driver
+Subject: [Linux-stm32] [PATCH net-next v6 1/3] net: stmmac: introduce
+	wrapper for struct xdp_buff
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,54 +80,95 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Implemented XDP receive hardware timestamp metadata for stmmac driver.
+Introduce struct stmmac_xdp_buff as a preparation to support XDP Rx
+metadata via kfuncs.
 
-This patchset is tested with tools/testing/selftests/bpf/xdp_hw_metadata.
-Below are the test steps and results.
-
-Command on DUT:
-	sudo ./xdp_hw_metadata <interface name>
-
-Command on Link Partner:
-	echo -n xdp | nc -u -q1 <destination IPv4 addr> 9091
-	echo -n skb | nc -u -q1 <destination IPv4 addr> 9092
-
-Result for port 9091:
-	poll: 1 (0) skip=1 fail=0 redir=1
-	xsk_ring_cons__peek: 1
-	0x55f69f65f6d0: rx_desc[0]->addr=100000000008000 addr=8100 comp_addr=8000
-	rx_timestamp: 1677762069053692631
-	No rx_hash err=-95
-	0x55f69f65f6d0: complete idx=8 addr=8000
-
-Result for port 9092:
-	poll: 1 (0) skip=2 fail=0 redir=1
-	found skb hwtstamp = 1677762071.937207680
-
-changelog:
-v5 -> v6: improve field naming of struct stmmac_xdp_buff
-
-v4 -> v5: remove zeroing operation on ctx variable
-
-v3 -> v4: directly retrieve Rx HWTS in stmmac_xdp_rx_timestamp(), instead
-	  of reuse stmmac_get_rx_hwtstamp()
-
-v2 -> v3: To reduce packet processing cost, get the Rx HWTS only when
-	  xmo_rx_timestamp() is called
-
-v1 -> v2: Add static to stmmac_xdp_metadata_ops declaration
-
+Signed-off-by: Song Yoong Siang <yoong.siang.song@intel.com>
+Reviewed-by: Jacob Keller <jacob.e.keller@intel.com>
+Acked-by: Jesper Dangaard Brouer <brouer@redhat.com>
 ---
+ drivers/net/ethernet/stmicro/stmmac/stmmac.h   |  4 ++++
+ .../net/ethernet/stmicro/stmmac/stmmac_main.c  | 18 +++++++++---------
+ 2 files changed, 13 insertions(+), 9 deletions(-)
 
-Song Yoong Siang (3):
-  net: stmmac: introduce wrapper for struct xdp_buff
-  net: stmmac: add Rx HWTS metadata to XDP receive pkt
-  net: stmmac: add Rx HWTS metadata to XDP ZC receive pkt
-
- drivers/net/ethernet/stmicro/stmmac/stmmac.h  |  7 ++
- .../net/ethernet/stmicro/stmmac/stmmac_main.c | 80 ++++++++++++++++---
- 2 files changed, 77 insertions(+), 10 deletions(-)
-
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac.h b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
+index 3d15e1e92e18..ac8ccf851708 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac.h
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
+@@ -92,6 +92,10 @@ struct stmmac_rx_buffer {
+ 	dma_addr_t sec_addr;
+ };
+ 
++struct stmmac_xdp_buff {
++	struct xdp_buff xdp;
++};
++
+ struct stmmac_rx_queue {
+ 	u32 rx_count_frames;
+ 	u32 queue_index;
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index d7fcab057032..10b9f8912bb2 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -5190,7 +5190,7 @@ static int stmmac_rx(struct stmmac_priv *priv, int limit, u32 queue)
+ 	enum dma_data_direction dma_dir;
+ 	unsigned int desc_size;
+ 	struct sk_buff *skb = NULL;
+-	struct xdp_buff xdp;
++	struct stmmac_xdp_buff ctx;
+ 	int xdp_status = 0;
+ 	int buf_sz;
+ 
+@@ -5311,17 +5311,17 @@ static int stmmac_rx(struct stmmac_priv *priv, int limit, u32 queue)
+ 			dma_sync_single_for_cpu(priv->device, buf->addr,
+ 						buf1_len, dma_dir);
+ 
+-			xdp_init_buff(&xdp, buf_sz, &rx_q->xdp_rxq);
+-			xdp_prepare_buff(&xdp, page_address(buf->page),
++			xdp_init_buff(&ctx.xdp, buf_sz, &rx_q->xdp_rxq);
++			xdp_prepare_buff(&ctx.xdp, page_address(buf->page),
+ 					 buf->page_offset, buf1_len, false);
+ 
+-			pre_len = xdp.data_end - xdp.data_hard_start -
++			pre_len = ctx.xdp.data_end - ctx.xdp.data_hard_start -
+ 				  buf->page_offset;
+-			skb = stmmac_xdp_run_prog(priv, &xdp);
++			skb = stmmac_xdp_run_prog(priv, &ctx.xdp);
+ 			/* Due xdp_adjust_tail: DMA sync for_device
+ 			 * cover max len CPU touch
+ 			 */
+-			sync_len = xdp.data_end - xdp.data_hard_start -
++			sync_len = ctx.xdp.data_end - ctx.xdp.data_hard_start -
+ 				   buf->page_offset;
+ 			sync_len = max(sync_len, pre_len);
+ 
+@@ -5331,7 +5331,7 @@ static int stmmac_rx(struct stmmac_priv *priv, int limit, u32 queue)
+ 
+ 				if (xdp_res & STMMAC_XDP_CONSUMED) {
+ 					page_pool_put_page(rx_q->page_pool,
+-							   virt_to_head_page(xdp.data),
++							   virt_to_head_page(ctx.xdp.data),
+ 							   sync_len, true);
+ 					buf->page = NULL;
+ 					priv->dev->stats.rx_dropped++;
+@@ -5359,7 +5359,7 @@ static int stmmac_rx(struct stmmac_priv *priv, int limit, u32 queue)
+ 
+ 		if (!skb) {
+ 			/* XDP program may expand or reduce tail */
+-			buf1_len = xdp.data_end - xdp.data;
++			buf1_len = ctx.xdp.data_end - ctx.xdp.data;
+ 
+ 			skb = napi_alloc_skb(&ch->rx_napi, buf1_len);
+ 			if (!skb) {
+@@ -5369,7 +5369,7 @@ static int stmmac_rx(struct stmmac_priv *priv, int limit, u32 queue)
+ 			}
+ 
+ 			/* XDP program may adjust header */
+-			skb_copy_to_linear_data(skb, xdp.data, buf1_len);
++			skb_copy_to_linear_data(skb, ctx.xdp.data, buf1_len);
+ 			skb_put(skb, buf1_len);
+ 
+ 			/* Data payload copied into SKB, page ready for recycle */
 -- 
 2.34.1
 
