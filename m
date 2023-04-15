@@ -2,56 +2,56 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2C3876E303A
-	for <lists+linux-stm32@lfdr.de>; Sat, 15 Apr 2023 11:58:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 414216E303C
+	for <lists+linux-stm32@lfdr.de>; Sat, 15 Apr 2023 11:58:25 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DE779C6A613;
-	Sat, 15 Apr 2023 09:58:22 +0000 (UTC)
-Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com
- [209.85.218.45])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 06F75C6A613;
+	Sat, 15 Apr 2023 09:58:25 +0000 (UTC)
+Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com
+ [209.85.218.49])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4C478C6A614
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A6D98C6A614
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 15 Apr 2023 09:58:21 +0000 (UTC)
-Received: by mail-ej1-f45.google.com with SMTP id dx24so7653322ejb.11
+ Sat, 15 Apr 2023 09:58:23 +0000 (UTC)
+Received: by mail-ej1-f49.google.com with SMTP id rp27so14678681ejb.12
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 15 Apr 2023 02:58:21 -0700 (PDT)
+ Sat, 15 Apr 2023 02:58:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1681552701; x=1684144701;
+ d=linaro.org; s=google; t=1681552703; x=1684144703;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=X++FhK1t/fMQBncyu3FeTc1IPRncKd5sGne3lbXD1HA=;
- b=ElHS0DixfV4Wx0/NRCOiZ3tsYfPcSyO/g1j7g/FJw5/YfXipUfJBvmFPzXl13E2Tvf
- SlSdK+EcP2/VLC4TtP1izTSZh2TYXhQwqrEHTP4zmLknPDHuF6W0Ez3oOwri2AO4Ln8J
- DKM/IsZIxge+Q36axXN56jyjNpGR6y1DekpVmrGRzkbCcPf8lzZTffR5fyyV3yf3kqgU
- XY3Jr5gNhHwtScMoax+woXvPJV+LbcS1d3mQ8aHbvrtS9cqK7eNuaskGH+C3p4x28hPk
- gE0r2qXpKKwQao2swDA6m552WDpf1EkvhZhgjtn7/+5P2CZIcSXmPfyymhrvI2osVwKR
- mSyg==
+ bh=mICjLWmF/LNoSL6NvsOb+8lhWw0UJh5jOmm9qwOxptg=;
+ b=F+IR/off6Tme4IZyE6DN1+wfs9kbpla6jlIL3VVwih9UcpOCWzUJ71w7RdKLDqiLoQ
+ 2kGpTLz3bjJtdYCshc4S/lDbmWsST2QG/9tjtRhQGt/Om7N3ANXxHCn+JpA6njFeqswV
+ ZoJjNJktUl6tcrtSFp/+9Cp1jM0AJW73F/y9ecu8nljzuHhEqC5t/MRjOCXv8ISYWK0B
+ THmdrRsv8fLjkOn+vhU+597RuD21pqBJUgn9aXHwOIavjJdzf6TD+iDJJN2DmtQsEm4u
+ 3f2eRGld4bEiRAsq4kqLoMy1WMV1vpixqzacgCMOsrAJCL0QOGMRibGUQQAqrXhA5Ydf
+ YFgg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1681552701; x=1684144701;
+ d=1e100.net; s=20221208; t=1681552703; x=1684144703;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=X++FhK1t/fMQBncyu3FeTc1IPRncKd5sGne3lbXD1HA=;
- b=BvGypDjpchGAy15Vh2G+h5/kL/RBESiWbACGZ/e4t85Pve7bywVRmibjurEizhivqw
- y5wVs9iLdVVtveUg+weA0o2wDNA8MIml/x8NNLYyA+iymBnK8f1A0ZjROlqP7eb3rCJg
- OELL77eIUF3lZlnBgLL4o8aRoaka/P3/NoDPC2UVMxqnWGR3v/2gTf8abaQpSWA2dMZO
- wSgZMBs+M8I89c40Io2cuUojGxOme6PUQ6Wtw9Mh7gjlBvFlh0I/dc1xZTTHFDSfyjhB
- rVK011GJCDgmlo7zHctkvRxHABVITmEmOm+cjdYQwxzAHXIQSkCkBrGFqs7kI9aJ6MFw
- BvsA==
-X-Gm-Message-State: AAQBX9dgL5EjlvjFTKpses3bhbbA17v3LJg+OPjIpoJaDIIrFEv+m3hp
- K9Okso9h6HAugFNoMh7k59KXZg==
-X-Google-Smtp-Source: AKy350Yav0SQe0tEvR6ZtIMRzAj9K6H8406yqb7Hzclv9sLARZM1w9Vr1g/iMuC5RnPGGtv3bjO69Q==
-X-Received: by 2002:a17:906:149b:b0:948:b9ea:3302 with SMTP id
- x27-20020a170906149b00b00948b9ea3302mr1901974ejc.1.1681552700850; 
- Sat, 15 Apr 2023 02:58:20 -0700 (PDT)
+ bh=mICjLWmF/LNoSL6NvsOb+8lhWw0UJh5jOmm9qwOxptg=;
+ b=N9JyrEq1r5U9ifMHBB2qjojxmirSYCCUs6+I4zmsuf+tpiRAXlE9SEeI4GQyHsCNpU
+ KZfcSZ6pXZM3pkbdn67tf81EJLSegAY9IRXtS582TVUEpOqaMmE6a60K2LKd89ZVdzbc
+ FktlT6/WjOgei35CwMjz2kIN/0kyKKuG1grzBgSBPZRB67ZzdfbNI5EICC91GMuf4Buq
+ 7QWQd8hLqwMy7iJubOkfkvRJW0CzcfJ7VxQO6a4Z8Ns21LjrFobS/jLRAHIwr0g6EcoL
+ kP/iE6Q3gYQbqyW9NqE4bGPG3eCrFPgQXjvA1MivGZrXRPIdKgTy8Ixa3QoImE0AqClG
+ juOQ==
+X-Gm-Message-State: AAQBX9f4gUBrnn8sXKWnr5HGAipU5X5qxsAZD3eJjnnKI+dFqNPnKAe2
+ bi4i+loEVzUvjQsyUgUVs3vxug==
+X-Google-Smtp-Source: AKy350Yl7r7VuDqDzLWQRNAgcjR0HSlTkvOCXUrie3RgrYqoOlXErvIpYyC3N6eYoIbrvn50xJkc1Q==
+X-Received: by 2002:a17:906:824e:b0:94f:31da:8c38 with SMTP id
+ f14-20020a170906824e00b0094f31da8c38mr195996ejx.24.1681552703329; 
+ Sat, 15 Apr 2023 02:58:23 -0700 (PDT)
 Received: from krzk-bin.. ([2a02:810d:15c0:828:a3bf:4ed:6c53:2a36])
  by smtp.gmail.com with ESMTPSA id
- gn23-20020a1709070d1700b009373f1b5c4esm3594248ejc.161.2023.04.15.02.58.18
+ gn23-20020a1709070d1700b009373f1b5c4esm3594248ejc.161.2023.04.15.02.58.21
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 15 Apr 2023 02:58:20 -0700 (PDT)
+ Sat, 15 Apr 2023 02:58:22 -0700 (PDT)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 To: Wim Van Sebroeck <wim@linux-watchdog.org>,
  Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh+dt@kernel.org>,
@@ -97,15 +97,15 @@ To: Wim Van Sebroeck <wim@linux-watchdog.org>,
  linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org,
  linux-mediatek@lists.infradead.org, linux-arm-msm@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-renesas-soc@vger.kernel.org
-Date: Sat, 15 Apr 2023 11:51:10 +0200
-Message-Id: <20230415095112.51257-4-krzysztof.kozlowski@linaro.org>
+Date: Sat, 15 Apr 2023 11:51:11 +0200
+Message-Id: <20230415095112.51257-5-krzysztof.kozlowski@linaro.org>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230415095112.51257-1-krzysztof.kozlowski@linaro.org>
 References: <20230415095112.51257-1-krzysztof.kozlowski@linaro.org>
 MIME-Version: 1.0
 Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Subject: [Linux-stm32] [PATCH 4/6] dt-bindings: watchdog: fsl-imx7ulp-wdt:
-	simplify with unevaluatedProperties
+Subject: [Linux-stm32] [PATCH 5/6] dt-bindings: watchdog: toshiba,
+	visconti-wdt: simplify with unevaluatedProperties
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -126,14 +126,14 @@ Allow generic watchdog properties by using unevaluatedProperties: false.
 
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 ---
- .../devicetree/bindings/watchdog/fsl-imx7ulp-wdt.yaml         | 4 +---
+ .../devicetree/bindings/watchdog/toshiba,visconti-wdt.yaml    | 4 +---
  1 file changed, 1 insertion(+), 3 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/watchdog/fsl-imx7ulp-wdt.yaml b/Documentation/devicetree/bindings/watchdog/fsl-imx7ulp-wdt.yaml
-index d3790f1a96a2..4b7ed1355701 100644
---- a/Documentation/devicetree/bindings/watchdog/fsl-imx7ulp-wdt.yaml
-+++ b/Documentation/devicetree/bindings/watchdog/fsl-imx7ulp-wdt.yaml
-@@ -30,15 +30,13 @@ properties:
+diff --git a/Documentation/devicetree/bindings/watchdog/toshiba,visconti-wdt.yaml b/Documentation/devicetree/bindings/watchdog/toshiba,visconti-wdt.yaml
+index eba083822d1f..51d03d5b08ad 100644
+--- a/Documentation/devicetree/bindings/watchdog/toshiba,visconti-wdt.yaml
++++ b/Documentation/devicetree/bindings/watchdog/toshiba,visconti-wdt.yaml
+@@ -24,14 +24,12 @@ properties:
    clocks:
      maxItems: 1
  
@@ -141,7 +141,6 @@ index d3790f1a96a2..4b7ed1355701 100644
 -
  required:
    - compatible
-   - interrupts
    - reg
    - clocks
  
