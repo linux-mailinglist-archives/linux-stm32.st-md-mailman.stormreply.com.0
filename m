@@ -2,68 +2,93 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8F9DD6E2F58
-	for <lists+linux-stm32@lfdr.de>; Sat, 15 Apr 2023 08:46:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 93C3C6E3018
+	for <lists+linux-stm32@lfdr.de>; Sat, 15 Apr 2023 11:33:29 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 58531C6A611;
-	Sat, 15 Apr 2023 06:46:03 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6882DC62EFE
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2FB8AC6A613;
+	Sat, 15 Apr 2023 09:33:29 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4D61BC6A610
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 15 Apr 2023 06:46:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1681541162; x=1713077162;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=rr53Ducgp0LeWa/C3dMJZpRzn/yRbmXHBfZUhtLC8nk=;
- b=c4kGTLwGPh0V8rLW8Y8eA1qIyzpDWDqDjJrQyr14w7sOvJSP9ki57mDD
- n0tof0Q1tdEE3vVmiWfWwE7RzXPoePsbr/sFHe/cEiCw5AjevJRIGeSaa
- khZrdWHbH3+k+4wCy65R4iKQ7WbF3q606AwVJF7nyKA/MhVHRFjpChQAr
- TKghejaG8So910ZW6bWrGEpTgq4lF7fjOiCM3lLGEjVnMXGf/moelmkMo
- 3B3/hgG5uvEJ4wEOqfH82RRhS9UdY62s/jnu7iffn/spsHIHkidSyXTJH
- XaJSJOYyQJVcy0l5GPxu6cvRL4v+S61z03cFHsKt60z7w6GP83Ukkrt68 g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10680"; a="343379314"
-X-IronPort-AV: E=Sophos;i="5.99,199,1677571200"; d="scan'208";a="343379314"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Apr 2023 23:46:00 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10680"; a="754727565"
-X-IronPort-AV: E=Sophos;i="5.99,199,1677571200"; d="scan'208";a="754727565"
-Received: from p12ill20yoongsia.png.intel.com ([10.88.227.28])
- by fmsmga008.fm.intel.com with ESMTP; 14 Apr 2023 23:45:55 -0700
-From: Song Yoong Siang <yoong.siang.song@intel.com>
-To: Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Sat, 15 Apr 2023 09:33:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1681551207;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=yiqPklxUzRy8bqs+v/ZpMBXMKYs89gD+rYERGCmxvBI=;
+ b=NSzsuY3nh20hYKR5r63/OntVkBwtUdSwYVQi5ne3bwsnVCvkSyp3REmpdB+pmQh/CQxb3U
+ xdt51IRHR5Tp4EFPhnxO0Jc/Opk0PD1Z1dnhJVNyORgLgpmVw0E3RO0NLuy07NCU0cmrd3
+ y00iarI++EwbiAty4ByULvjdJMz+hU0=
+Received: from mail-ed1-f71.google.com (mail-ed1-f71.google.com
+ [209.85.208.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-612-StYmo3MRNG29DSRH6ReQ6A-1; Sat, 15 Apr 2023 05:33:26 -0400
+X-MC-Unique: StYmo3MRNG29DSRH6ReQ6A-1
+Received: by mail-ed1-f71.google.com with SMTP id
+ 4fb4d7f45d1cf-5067c88a429so967266a12.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Sat, 15 Apr 2023 02:33:25 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1681551205; x=1684143205;
+ h=content-transfer-encoding:in-reply-to:references:to
+ :content-language:subject:cc:user-agent:mime-version:date:message-id
+ :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=yiqPklxUzRy8bqs+v/ZpMBXMKYs89gD+rYERGCmxvBI=;
+ b=FyX2Mes/cnIBcatd1/tt96PzlZYtIcVSUglZF0tVo38MgVN4lgOWCAQZijvZJSOG53
+ mh+z9GTogHqJ0aA5AYCHfrKl9ZuY4uxl2lXnmw2x7vdZfkgYl5OM83KZ8e+BeeEZFKx1
+ 8vrOph3ZhvqcQxQBCEG1m7Cz6arOSaAHHbxjZe+Yrx/upq2nPwfN+q71L8Nia0VDK7E5
+ ncwwvUakQwNpp/UyvL8Pd1kAa88WPaTUmzqvBi3kOsp85pGYzOnPrNRnXmpoqRcjOlRI
+ bpTV7YC4GRxXu3Tscau4E1tzhhyA75+ILdTz3QlDQPLeM8tSCIZW3qmEYPhr2N1lUxVQ
+ RzMA==
+X-Gm-Message-State: AAQBX9fULRvbehh2AX5ikclLPzHJ4xe4qw0AsbMbjcZcUx/sslcCilYG
+ FG/hrfpCt4T1BcYxvtrB0pnweoHSPMhlKzt7phWcnF6PKdUZ3DKWAhGIjagD+F0zcgBCAPjIqjG
+ JWjNUoBya0lhvpeq0qoD4tKJOzFQiaXIFJhYhXPhN
+X-Received: by 2002:aa7:d04e:0:b0:505:7d54:db93 with SMTP id
+ n14-20020aa7d04e000000b005057d54db93mr8621913edo.21.1681551204996; 
+ Sat, 15 Apr 2023 02:33:24 -0700 (PDT)
+X-Google-Smtp-Source: AKy350YF2Zbojdxq6qbQxtDvNXENyG1SKgwEvrcmid1+4koV/BuLd+OMKg6WCD3kviyV5EY7ijM6YA==
+X-Received: by 2002:aa7:d04e:0:b0:505:7d54:db93 with SMTP id
+ n14-20020aa7d04e000000b005057d54db93mr8621886edo.21.1681551204598; 
+ Sat, 15 Apr 2023 02:33:24 -0700 (PDT)
+Received: from [192.168.42.222] (194-45-78-10.static.kviknet.net.
+ [194.45.78.10]) by smtp.gmail.com with ESMTPSA id
+ o24-20020aa7c7d8000000b005067d089aafsm2138743eds.11.2023.04.15.02.33.23
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sat, 15 Apr 2023 02:33:24 -0700 (PDT)
+From: Jesper Dangaard Brouer <jbrouer@redhat.com>
+X-Google-Original-From: Jesper Dangaard Brouer <brouer@redhat.com>
+Message-ID: <164fc8a0-0248-76dc-be53-706eb36a9ec2@redhat.com>
+Date: Sat, 15 Apr 2023 11:33:22 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.8.0
+To: Song Yoong Siang <yoong.siang.song@intel.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Jose Abreu <joabreu@synopsys.com>,
- "David S . Miller" <davem@davemloft.net>,
+ Jose Abreu <joabreu@synopsys.com>, "David S . Miller" <davem@davemloft.net>,
  Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexei Starovoitov <ast@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Maxime Coquelin
+ <mcoquelin.stm32@gmail.com>, Alexei Starovoitov <ast@kernel.org>,
  Daniel Borkmann <daniel@iogearbox.net>,
  Jesper Dangaard Brouer <hawk@kernel.org>,
  John Fastabend <john.fastabend@gmail.com>,
- Stanislav Fomichev <sdf@google.com>,
- Alexander Duyck <alexanderduyck@fb.com>,
- Jesper Dangaard Brouer <brouer@redhat.com>,
- Ong Boon Leong <boon.leong.ong@intel.com>,
+ Stanislav Fomichev <sdf@google.com>, Alexander Duyck
+ <alexanderduyck@fb.com>, Ong Boon Leong <boon.leong.ong@intel.com>,
  Jacob Keller <jacob.e.keller@intel.com>
-Date: Sat, 15 Apr 2023 14:45:03 +0800
-Message-Id: <20230415064503.3225835-4-yoong.siang.song@intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20230415064503.3225835-1-yoong.siang.song@intel.com>
 References: <20230415064503.3225835-1-yoong.siang.song@intel.com>
-MIME-Version: 1.0
+ <20230415064503.3225835-3-yoong.siang.song@intel.com>
+In-Reply-To: <20230415064503.3225835-3-yoong.siang.song@intel.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Language: en-US
 Cc: xdp-hints@xdp-project.net, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, Song Yoong Siang <yoong.siang.song@intel.com>,
- bpf@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next v6 3/3] net: stmmac: add Rx HWTS
-	metadata to XDP ZC receive pkt
+ linux-kernel@vger.kernel.org, brouer@redhat.com, bpf@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next v6 2/3] net: stmmac: add Rx HWTS
+ metadata to XDP receive pkt
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,75 +100,40 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add receive hardware timestamp metadata support via kfunc to XDP Zero Copy
-receive packets.
 
-Signed-off-by: Song Yoong Siang <yoong.siang.song@intel.com>
----
- .../net/ethernet/stmicro/stmmac/stmmac_main.c | 22 +++++++++++++++++++
- 1 file changed, 22 insertions(+)
+On 15/04/2023 08.45, Song Yoong Siang wrote:
+> Add receive hardware timestamp metadata support via kfunc to XDP receive
+> packets.
+> 
+> Suggested-by: Stanislav Fomichev <sdf@google.com>
+> Signed-off-by: Song Yoong Siang <yoong.siang.song@intel.com>
+> Acked-by: Stanislav Fomichev <sdf@google.com>
+> ---
+>   drivers/net/ethernet/stmicro/stmmac/stmmac.h  |  3 ++
+>   .../net/ethernet/stmicro/stmmac/stmmac_main.c | 40 ++++++++++++++++++-
+>   2 files changed, 42 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac.h b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
+> index ac8ccf851708..07ea5ab0a60b 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac.h
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
+> @@ -94,6 +94,9 @@ struct stmmac_rx_buffer {
+>   
+>   struct stmmac_xdp_buff {
+>   	struct xdp_buff xdp;
+> +	struct stmmac_priv *priv;
+> +	struct dma_desc *desc;
+> +	struct dma_desc *ndesc;
+>   };
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 2bfcc5347d6a..c0e90fda572a 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -1614,6 +1614,12 @@ static int stmmac_alloc_rx_buffers_zc(struct stmmac_priv *priv,
- 	struct stmmac_rx_queue *rx_q = &dma_conf->rx_queue[queue];
- 	int i;
- 
-+	/* struct stmmac_xdp_buff is using cb field (maximum size of 24 bytes)
-+	 * in struct xdp_buff_xsk to stash driver specific information. Thus,
-+	 * use this macro to make sure no size violations.
-+	 */
-+	XSK_CHECK_PRIV_TYPE(struct stmmac_xdp_buff);
-+
- 	for (i = 0; i < dma_conf->dma_rx_size; i++) {
- 		struct stmmac_rx_buffer *buf;
- 		dma_addr_t dma_addr;
-@@ -4998,6 +5004,16 @@ static bool stmmac_rx_refill_zc(struct stmmac_priv *priv, u32 queue, u32 budget)
- 	return ret;
- }
- 
-+static struct stmmac_xdp_buff *xsk_buff_to_stmmac_ctx(struct xdp_buff *xdp)
-+{
-+	/* In XDP zero copy data path, xdp field in struct xdp_buff_xsk is used
-+	 * to represent incoming packet, whereas cb field in the same structure
-+	 * is used to store driver specific info. Thus, struct stmmac_xdp_buff
-+	 * is laid on top of xdp and cb fields of struct xdp_buff_xsk.
-+	 */
-+	return (struct stmmac_xdp_buff *)xdp;
-+}
-+
- static int stmmac_rx_zc(struct stmmac_priv *priv, int limit, u32 queue)
- {
- 	struct stmmac_rx_queue *rx_q = &priv->dma_conf.rx_queue[queue];
-@@ -5027,6 +5043,7 @@ static int stmmac_rx_zc(struct stmmac_priv *priv, int limit, u32 queue)
- 	}
- 	while (count < limit) {
- 		struct stmmac_rx_buffer *buf;
-+		struct stmmac_xdp_buff *ctx;
- 		unsigned int buf1_len = 0;
- 		struct dma_desc *np, *p;
- 		int entry;
-@@ -5112,6 +5129,11 @@ static int stmmac_rx_zc(struct stmmac_priv *priv, int limit, u32 queue)
- 			goto read_again;
- 		}
- 
-+		ctx = xsk_buff_to_stmmac_ctx(buf->xdp);
-+		ctx->priv = priv;
-+		ctx->desc = p;
-+		ctx->ndesc = np;
-+
- 		/* XDP ZC Frame only support primary buffers for now */
- 		buf1_len = stmmac_rx_buf1_len(priv, p, status, len);
- 		len += buf1_len;
--- 
-2.34.1
+Thanks for the adjustments.
+
+Acked-by: Jesper Dangaard Brouer <brouer@redhat.com>
 
 _______________________________________________
 Linux-stm32 mailing list
