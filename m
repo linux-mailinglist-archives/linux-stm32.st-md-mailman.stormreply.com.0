@@ -2,57 +2,144 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D31486E3BBD
-	for <lists+linux-stm32@lfdr.de>; Sun, 16 Apr 2023 21:56:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D8C9F6E3BDB
+	for <lists+linux-stm32@lfdr.de>; Sun, 16 Apr 2023 22:15:26 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4D5F3C6B448;
-	Sun, 16 Apr 2023 19:56:22 +0000 (UTC)
-Received: from st43p00im-zteg10073501.me.com (st43p00im-zteg10073501.me.com
- [17.58.63.180])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D068BC6A61F
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5F017C6B448;
+	Sun, 16 Apr 2023 20:15:26 +0000 (UTC)
+Received: from mo-csw.securemx.jp (mo-csw1116-1.securemx.jp [210.130.202.133])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128
+ bits)) (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 90E2CC6A61F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 16 Apr 2023 19:56:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=me.com; s=1a1hai;
- t=1681674979; bh=O2TgTgX7Cq2LJV67gutPlIPCO8dEwx+fpuc5YkEkMmg=;
- h=From:To:Subject:Date:Message-Id:MIME-Version;
- b=XiM+52YdQzHlNrICnD+SpK/PumIEIs8y6iUR1ed6CEDCdOcJkhnx55KiZBI3ClnlR
- yt4rOX2A8yuFRrT7QadN9Wjsm/dycbOo7vNnI/0sfuycIH+MwwIzDO8mhLZ5n3set4
- l+JPOXApJelaJsInpXAQXEiH6gZpCZW+DgFT6aUvkxFGZ/zJjN+Z/igEp5wJpeoeX7
- WWJt46cw+Zg1gnIuVewk8LrJRxgdW6+MjO+JbxTHeKPEfI2SQ+uJ8vrQ+5Hx/BMhHU
- hV+jMVdnnuqa0lZPKLvUpyEfh6qohD7Xvv84a4V6myVVRuDshccQet2i5krPaAeLBm
- pbXbt3Gmo48JA==
-Received: from localhost (st43p00im-dlb-asmtp-mailmevip.me.com [17.42.251.41])
- by st43p00im-zteg10073501.me.com (Postfix) with ESMTPSA id
- B440936071D; Sun, 16 Apr 2023 19:56:18 +0000 (UTC)
-From: Alain Volmat <avolmat@me.com>
-To: Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Jose Abreu <joabreu@synopsys.com>, "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Date: Sun, 16 Apr 2023 21:55:23 +0200
-Message-Id: <20230416195523.61075-1-avolmat@me.com>
-X-Mailer: git-send-email 2.34.1
+ Sun, 16 Apr 2023 20:15:24 +0000 (UTC)
+Received: by mo-csw.securemx.jp (mx-mo-csw1116) id 33GKCsu3024054;
+ Mon, 17 Apr 2023 05:12:54 +0900
+X-Iguazu-Qid: 2wHHFCEuz6IBojmDnU
+X-Iguazu-QSIG: v=2; s=0; t=1681675973; q=2wHHFCEuz6IBojmDnU;
+ m=tTSnWXhHtV9kCpSleMgE0kMLKoKq8vaG12bkcjuj8n0=
+Received: from imx2-a.toshiba.co.jp (imx2-a.toshiba.co.jp [106.186.93.35])
+ by relay.securemx.jp (mx-mr1110) id 33GKCck4037842
+ (version=TLSv1.2 cipher=AES128-GCM-SHA256 bits=128 verify=NOT);
+ Mon, 17 Apr 2023 05:12:41 +0900
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=fblBl7QaFKPEYJsRa+w1Tb83Lltyhu/mLLiwdAeKXJzNIWZhw8Z2njn0kqWtN8gQqmzcWBAE4MemsPZTALmkDXggUqqdhEvRuYJulHK16rItvu6O+VU2nGqsYb5IerdN87L2b5waxmpMQLskYpGE9qRx3gQkgw8DJGWSYugWjx/8EY20gZEeLjKCmNekHBCNjuobA4ZV/bnmCAN2kHpEV5MDjC2z/WBdShZ98iA82QnI1yAtZ7USiHIk8j3ImGMve1Miu1egapWK/sxHYDrQ3pbPNWn/ABg1Sz4FZk4a8Ox41LAa7ffVliZq4Ne9pw3WtDVIHBjDNNVlidTKFN8kpA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=FAoR7cBrKKiyN7RN+qFS16+6bqWB6IXIXSGC3Ti/0cQ=;
+ b=hqVywAheNvB/Nui985Iv8d3wwm4ns/IVdJShgvEQ3c8EEpRDtiaRv6XMIyN/Acp3hi+dGrHFbJK+Usn3xcG7MY3rnnY4knQ2KGQ2KsQGvJuh6tujO07FzHVDmKkIV/DVqBe9MhZG468PzdyLqtT07PHEF2LT1migBziJ+P7lMmbSAtLruci9Pvra6onYRyZ+MHTKUMzQrcbUTo4A9iPFUEc+l/fB+pcm9TohJUbqawpCo1eGohIoB2rolCJjtzUWPkIyXyYRmhkB0EvPVr/31XuNf5J3Vb14BGLhksJ4OPSxE7WeOjUloW7ws0PrJxoabQj7k6N1GGI2CievUhUbSA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=toshiba.co.jp; dmarc=pass action=none
+ header.from=toshiba.co.jp; dkim=pass header.d=toshiba.co.jp; arc=none
+From: <nobuhiro1.iwamatsu@toshiba.co.jp>
+To: <krzysztof.kozlowski@linaro.org>, <wim@linux-watchdog.org>,
+ <linux@roeck-us.net>, <robh+dt@kernel.org>,
+ <krzysztof.kozlowski+dt@linaro.org>, <neil.armstrong@linaro.org>,
+ <khilman@baylibre.com>, <jbrunet@baylibre.com>,
+ <martin.blumenstingl@googlemail.com>, <jwerner@chromium.org>,
+ <evanbenn@chromium.org>, <nicolas.ferre@microchip.com>,
+ <alexandre.belloni@bootlin.com>, <claudiu.beznea@microchip.com>,
+ <f.fainelli@gmail.com>, <bcm-kernel-feedback-list@broadcom.com>,
+ <shawnguo@kernel.org>, <s.hauer@pengutronix.de>,
+ <kernel@pengutronix.de>, <festevam@gmail.com>, <linux-imx@nxp.com>,
+ <matthias.bgg@gmail.com>, <angelogioacchino.delregno@collabora.com>,
+ <agross@kernel.org>, <andersson@kernel.org>,
+ <konrad.dybcio@linaro.org>, <sander@svanheule.net>,
+ <mcoquelin.stm32@gmail.com>, <alexandre.torgue@foss.st.com>,
+ <geert+renesas@glider.be>, <magnus.damm@gmail.com>,
+ <fu.wei@linaro.org>, <vireshk@kernel.org>,
+ <eugen.hristev@collabora.com>, <justinpopo6@gmail.com>,
+ <rafal@milecki.pl>, <linus.walleij@linaro.org>, <clabbe@baylibre.com>,
+ <Anson.Huang@nxp.com>, <robert.marko@sartura.hr>,
+ <sergio.paracuellos@gmail.com>, <quic_saipraka@quicinc.com>,
+ <wsa+renesas@sang-engineering.com>, <jamie@jamieiles.com>,
+ <yannick.fertre@foss.st.com>, <christophe.roullier@foss.st.com>,
+ <shubhrajyoti.datta@xilinx.com>, <srinivas.neeli@xilinx.com>,
+ <linux-watchdog@vger.kernel.org>, <devicetree@vger.kernel.org>,
+ <linux-arm-kernel@lists.infradead.org>,
+ <linux-amlogic@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+ <linux-mediatek@lists.infradead.org>, <linux-arm-msm@vger.kernel.org>,
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ <linux-renesas-soc@vger.kernel.org>
+Thread-Topic: [PATCH 5/6] dt-bindings: watchdog: toshiba,visconti-wdt:
+ simplify with unevaluatedProperties
+Thread-Index: AQHZb4DW/nyKteRfzE6TT61PALyrca8uYDxw
+Date: Sun, 16 Apr 2023 20:12:32 +0000
+X-TSB-HOP2: ON
+Message-ID: <TYWPR01MB9420BB1F19C8EE8B87F92542929F9@TYWPR01MB9420.jpnprd01.prod.outlook.com>
+References: <20230415095112.51257-1-krzysztof.kozlowski@linaro.org>
+ <20230415095112.51257-5-krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20230415095112.51257-5-krzysztof.kozlowski@linaro.org>
+Accept-Language: ja-JP, en-US
+Content-Language: ja-JP
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=toshiba.co.jp;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: TYWPR01MB9420:EE_|TY3PR01MB11007:EE_
+x-ms-office365-filtering-correlation-id: af03b371-85d2-459d-0d57-08db3eb6e995
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: Wj0duY5uKC7QEELuIhqkWrJDP3vfEEkePcP89hYSDST1L5F8vyh2oC32D69iu9xtu0zZyKPHJ25P8Vlw8snivMC6HgBqmgI/HT/JTfFOYeRX8uMYvObsaW4wewddEmsmL1soJEfovlQ9mZI2Ls0kv93UKacgD7jkVhctZraXrSRLqqyvZyPk3EpNuY6/8OE6ABvcQvaLC7IQfupkA06jvlJ6X/FUX5itX11Oaa4fuNDanQzAFoTx+/Nvzwr7hp8ZUj5a3ZeMu9U7GGP8WN/ZecSerEY6PcFFUmwtsewrk+a+4tNBVeZSSggR3vZGfRilPU88AF1Tt9JrMHS4jkLsBzDyvPWPt1cXuRolQffMMzRBQIBL6QQ1gmqNc3DyK+4GzmwTAT6kWHsZOAnEjnwYn5RLRzDaNF4Y6HnugXJw+uLE+ClFMFQXq4akT832w/iRwuLdzL2DzUJ3J8wgKnA5spYqVpu1FtNBu+2z9yi42KgIR+RFRUG+AC/oOh3UskRaXexamMZUSBNQSQeqNn86a8tz+pjNoHuzciNjCQMNZBeaub7demZv5tFgVFkd2qNb5BjhQnHuuBYCldkrVXt2DKvkFU2tztJl1iUCeNMPJpB4SYozgvdjqukB4gV7p4Q+eWEpqIBQrR+a1O/dXKqqQA==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:TYWPR01MB9420.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(4636009)(39860400002)(366004)(136003)(346002)(376002)(396003)(451199021)(7366002)(7406005)(7416002)(5660300002)(52536014)(86362001)(83380400001)(186003)(26005)(6506007)(9686003)(1191002)(921005)(122000001)(38100700002)(38070700005)(8936002)(8676002)(33656002)(478600001)(110136005)(71200400001)(7696005)(55016003)(41300700001)(316002)(76116006)(64756008)(66446008)(66476007)(66556008)(66946007)(2906002)(4744005);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?UlY2T25ucU5Kd0lKQVp0M2U5MlpGeXhWMG1Jamd1Q3Y0bTFaNGRJeHd2MXdn?=
+ =?utf-8?B?SDdPdGE0QWhLYnp6bEw4REFXK2lNUmU5MzVCaHJrWm92NUlPaWF5ZWZReTV6?=
+ =?utf-8?B?TXlhSFh5UGV1bFQwRlV4TDRpSCtqSWJvTXpnUlk2YmlKcHkyYnNTcUl6TmtI?=
+ =?utf-8?B?ZVVIK0xSYXRtbXBuNE5ubWs1eUQ4cVE0dC8vU2dYSU10TGEvdmZIR3U1U0pY?=
+ =?utf-8?B?VG5RZlEyZkpJaUJBc0ZNK0UxSlAxZ0ZjcDdua09iaFBzeHlkbTBaczAvV09M?=
+ =?utf-8?B?Vy9GQjRQOWhiYTVMbW1lSVN0SkVzNkdYeDJPQ1diRHR1cDhublJiZmhCbjd2?=
+ =?utf-8?B?aHQvRUw4ZmNyYXlvQXJhaGsxendoNjNqVmdjdVQvbHdTTmwrRGhzU3dTbnp6?=
+ =?utf-8?B?dEZMQjlOOHVZcG9ibG52c1VRaEUraW1zd0x2Vnp6Y1RvSnFKZHAya3k0NWNz?=
+ =?utf-8?B?Tytyd21BL1h0N3ZhVnNESnhGdkJPSjRLcyszYnloYTRjaTZuLzczaE9qaDAy?=
+ =?utf-8?B?WkhSVWlDbm5sUEp0LzRJeTJxeGUzVmdkNTZVbjFYVUo5VFhTTjQ5SG9XeWEy?=
+ =?utf-8?B?TkE3U0R2UjhMUHJKTitSdDNmc1FQY2lvN3psQVphTGZ3bnFHT3Bkdk5FcmZh?=
+ =?utf-8?B?NmFSS2dYaEt4bEE0bGphK2hKVEdPMXFGVEJYcDBoSUZWd2R6cm1zaDA4Z3lC?=
+ =?utf-8?B?OTF0MVdIR0lYOGRST0hCRW54RjFZZ3FUWUF6NCttckFINS9Fa01SREdBVys0?=
+ =?utf-8?B?bDFhODhrWjdpUjZvT1lBem5LWFhKTkptdGpZc1FXTlhJc2MwdUExLzJzVENO?=
+ =?utf-8?B?bitaNzl3Ylp3TndJVlMzSTZTeUVCWXZrOWlCVlk5cmdpWDk0VTZXVkF4ajJk?=
+ =?utf-8?B?UTdVR3ZGaFoxNGFNdVhGSUhLM29IWVRZUE9kZ2lwdlMyZVBzTmU4R3JXYVZh?=
+ =?utf-8?B?dzB3QktnTmZVTFhGbWFGanFUaDdieUl5b25WcUpqYjhSMWQvRWx1blFyd25R?=
+ =?utf-8?B?OWZrRGw0U0VCKzdUOHNZdXloYnI4VVZDRHZjMHpaVFdIUnIweEJkUkhuV2tM?=
+ =?utf-8?B?NGJNcStSbVFFQ0lQcVRHb05VL3Y2UFROMysxNXNKeEptUFpmQzc5TVFtb3pJ?=
+ =?utf-8?B?VmVRVkF0anQ4MVYwRFpjdVdCZXNFVVprVXk4dFFWUkJYYXAxOU1YZmZORllL?=
+ =?utf-8?B?R1ZkODhvNEdFaHlIc2cyQU95K0RnS1k5a1h4aGlWUHJJVHR2OXVXMjAvWitP?=
+ =?utf-8?B?NlJ1OENqb2V5YThXb0Q1M0NnZkExamdaWGhTdVQyQ2JVMHBGdjdvY1MxZXpC?=
+ =?utf-8?B?ZGkwbUI0NElMRzF4amlRNFpNWm9lMkFFYVIwSTVqMERSL216VkpERjhuNlpp?=
+ =?utf-8?B?VVlUUjVOQ1RtbTl5SHpuVnV0ZGY5TldWWTEwdmlKRk1PVlFKSXNZTzVjeEQv?=
+ =?utf-8?B?MWRTaFcrM3pqR05sYlVKUXVQeDkwbnVkd2VVUEw1L05oSDJxV1R4ZjhHRmtO?=
+ =?utf-8?B?eko4RWgzR1BSSDZEK0VFeG52eFhCdDI4WmlZMTFnV21Qb3JjR01LL0FFckgr?=
+ =?utf-8?B?a3FkY21aWHJjc1dFQVpNNmhHU1BWUHg0Zmo5ME5iRW1yeGRZRmpJOU4wdzl6?=
+ =?utf-8?B?bnZ6Nzh5NjJ1S0JGbzdNMXZxNjBqL1VyamRGcnRFdXR5TGNLSmpGaG5JWnBG?=
+ =?utf-8?B?WW9nWjRjbjg1dmdUc2ExdXJIcFRrVTI0UTlBd09Cdk9sSU41WTU1Yllxd05Y?=
+ =?utf-8?B?aGUwTGkvRjA0MGcxV0laY1h2V0RZVEEyRzZ0YzgvV1hRcGQvSEVCT2hReTF4?=
+ =?utf-8?B?b2UzN1NpSElKZkdhYjcrSFJoUlYyVkZtSlMvS1QwVy9acVdmbnBRWklWMkN1?=
+ =?utf-8?B?ZHQ5QnoxbFRQVnVIaWZBbTJIT3htcVdGOWZiNk51YmVOT2NhQzhJRytuNHRQ?=
+ =?utf-8?B?MW1GdE5PWGdSdFMwc082ZUM2bDFOendwSVlyNVZNcTZaZTZiWDRWTW9RY0s3?=
+ =?utf-8?B?M3N3ZDZyZitwUW80dFZERDZTa3M5dTVhdDZ1NkpVYmMxV3M0bTlYT3J6a2Vm?=
+ =?utf-8?B?RGJ0QnZKb1JlbnlsNnFLc3htQ3FhWVNLeVAvZ0pMU1JrcWJxT3pNa1A5N3ZW?=
+ =?utf-8?B?dGxwOXRuMTVRZXVQQmlpbzdOVjZZR0FSMEFxSDljUmRkd3Y5VWJSaU5Qd3pM?=
+ =?utf-8?B?aHc9PQ==?=
 MIME-Version: 1.0
-X-Proofpoint-GUID: -BnxXXwNbnJuEUZ46-1HnoonediJYxBc
-X-Proofpoint-ORIG-GUID: -BnxXXwNbnJuEUZ46-1HnoonediJYxBc
-X-Proofpoint-Virus-Version: =?UTF-8?Q?vendor=3Dfsecure_engine=3D1.1.170-22c6f66c430a71ce266a39bfe25bc?=
- =?UTF-8?Q?2903e8d5c8f:6.0.138,18.0.816,17.0.605.474.0000000_definitions?=
- =?UTF-8?Q?=3D2022-01-17=5F04:2020-02-14=5F02,2022-01-17=5F04,2020-01-23?=
- =?UTF-8?Q?=5F02_signatures=3D0?=
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxlogscore=999
- suspectscore=0
- clxscore=1015 phishscore=0 malwarescore=0 mlxscore=0 adultscore=0
- bulkscore=0 spamscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2212070000 definitions=main-2304160188
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- Alain Volmat <avolmat@me.com>
-Subject: [Linux-stm32] [PATCH] net: ethernet: stmmac: dwmac-sti: remove
-	stih415/stih416/stid127
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TYWPR01MB9420.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: af03b371-85d2-459d-0d57-08db3eb6e995
+X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Apr 2023 20:12:32.6613 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: f109924e-fb71-4ba0-b2cc-65dcdf6fbe4f
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 1sriqPVzycidn3s/dBSgKiYHj2knZC4QPk9TCbds6ihWkxeKG9JyULsJVH6PWl2ZENs1o8ZQY6+Ha04XKHJnfDD1d/+qYc5jvb2tO2cSalNQF2IjNDXoBrbXk/vOgo7E
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY3PR01MB11007
+X-OriginatorOrg: toshiba.co.jp
+MSSCP.TransferMailToMossAgent: 103
+Subject: Re: [Linux-stm32] [PATCH 5/6] dt-bindings: watchdog: toshiba,
+ visconti-wdt: simplify with unevaluatedProperties
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,112 +156,48 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Remove no more supported platforms (stih415/stih416 and stid127)
+> Subject: [PATCH 5/6] dt-bindings: watchdog: toshiba,visconti-wdt: simplify
+> with unevaluatedProperties
+> 
+> Allow generic watchdog properties by using unevaluatedProperties: false.
+> 
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> ---
+>  .../devicetree/bindings/watchdog/toshiba,visconti-wdt.yaml    | 4 +---
+>  1 file changed, 1 insertion(+), 3 deletions(-)
 
-Signed-off-by: Alain Volmat <avolmat@me.com>
-Acked-by: Jakub Kicinski <kuba@kernel.org>
----
-Patch sent previously as part of serie: https://lore.kernel.org/all/20230209091659.1409-8-avolmat@me.com/
+Acked-by: Nobuhiro Iwamatsu <nobuhiro1.iwamatsu@toshiba.co.jp>
 
- .../net/ethernet/stmicro/stmmac/dwmac-sti.c   | 60 +------------------
- 1 file changed, 1 insertion(+), 59 deletions(-)
+Best regards,
+  Nobuhiro
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-sti.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-sti.c
-index be3b1ebc06ab..465ce66ef9c1 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-sti.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-sti.c
-@@ -35,7 +35,7 @@
- #define IS_PHY_IF_MODE_GBIT(iface)	(IS_PHY_IF_MODE_RGMII(iface) || \
- 					 iface == PHY_INTERFACE_MODE_GMII)
- 
--/* STiH4xx register definitions (STiH415/STiH416/STiH407/STiH410 families)
-+/* STiH4xx register definitions (STiH407/STiH410 families)
-  *
-  * Below table summarizes the clock requirement and clock sources for
-  * supported phy interface modes with link speeds.
-@@ -75,27 +75,6 @@
- #define STIH4XX_ETH_SEL_INTERNAL_NOTEXT_PHYCLK	BIT(7)
- #define STIH4XX_ETH_SEL_TXCLK_NOT_CLK125	BIT(6)
- 
--/* STiD127 register definitions
-- *-----------------------
-- * src	 |BIT(6)| BIT(7)|
-- *-----------------------
-- * MII   |  1	|   n/a	|
-- *-----------------------
-- * RMII  |  n/a	|   1	|
-- * clkgen|	|	|
-- *-----------------------
-- * RMII  |  n/a	|   0	|
-- * phyclk|	|	|
-- *-----------------------
-- * RGMII |  1	|  n/a	|
-- * clkgen|	|	|
-- *-----------------------
-- */
--
--#define STID127_RETIME_SRC_MASK			GENMASK(7, 6)
--#define STID127_ETH_SEL_INTERNAL_NOTEXT_PHYCLK	BIT(7)
--#define STID127_ETH_SEL_INTERNAL_NOTEXT_TXCLK	BIT(6)
--
- #define ENMII_MASK	GENMASK(5, 5)
- #define ENMII		BIT(5)
- #define EN_MASK		GENMASK(1, 1)
-@@ -194,36 +173,6 @@ static void stih4xx_fix_retime_src(void *priv, u32 spd)
- 			   stih4xx_tx_retime_val[src]);
- }
- 
--static void stid127_fix_retime_src(void *priv, u32 spd)
--{
--	struct sti_dwmac *dwmac = priv;
--	u32 reg = dwmac->ctrl_reg;
--	u32 freq = 0;
--	u32 val = 0;
--
--	if (dwmac->interface == PHY_INTERFACE_MODE_MII) {
--		val = STID127_ETH_SEL_INTERNAL_NOTEXT_TXCLK;
--	} else if (dwmac->interface == PHY_INTERFACE_MODE_RMII) {
--		if (!dwmac->ext_phyclk) {
--			val = STID127_ETH_SEL_INTERNAL_NOTEXT_PHYCLK;
--			freq = DWMAC_50MHZ;
--		}
--	} else if (IS_PHY_IF_MODE_RGMII(dwmac->interface)) {
--		val = STID127_ETH_SEL_INTERNAL_NOTEXT_TXCLK;
--		if (spd == SPEED_1000)
--			freq = DWMAC_125MHZ;
--		else if (spd == SPEED_100)
--			freq = DWMAC_25MHZ;
--		else if (spd == SPEED_10)
--			freq = DWMAC_2_5MHZ;
--	}
--
--	if (freq)
--		clk_set_rate(dwmac->clk, freq);
--
--	regmap_update_bits(dwmac->regmap, reg, STID127_RETIME_SRC_MASK, val);
--}
--
- static int sti_dwmac_set_mode(struct sti_dwmac *dwmac)
- {
- 	struct regmap *regmap = dwmac->regmap;
-@@ -408,14 +357,7 @@ static const struct sti_dwmac_of_data stih4xx_dwmac_data = {
- 	.fix_retime_src = stih4xx_fix_retime_src,
- };
- 
--static const struct sti_dwmac_of_data stid127_dwmac_data = {
--	.fix_retime_src = stid127_fix_retime_src,
--};
--
- static const struct of_device_id sti_dwmac_match[] = {
--	{ .compatible = "st,stih415-dwmac", .data = &stih4xx_dwmac_data},
--	{ .compatible = "st,stih416-dwmac", .data = &stih4xx_dwmac_data},
--	{ .compatible = "st,stid127-dwmac", .data = &stid127_dwmac_data},
- 	{ .compatible = "st,stih407-dwmac", .data = &stih4xx_dwmac_data},
- 	{ }
- };
--- 
-2.34.1
-
+> 
+> diff --git
+> a/Documentation/devicetree/bindings/watchdog/toshiba,visconti-wdt.yaml
+> b/Documentation/devicetree/bindings/watchdog/toshiba,visconti-wdt.yaml
+> index eba083822d1f..51d03d5b08ad 100644
+> ---
+> a/Documentation/devicetree/bindings/watchdog/toshiba,visconti-wdt.yaml
+> +++
+> b/Documentation/devicetree/bindings/watchdog/toshiba,visconti-wdt.yaml
+> @@ -24,14 +24,12 @@ properties:
+>    clocks:
+>      maxItems: 1
+> 
+> -  timeout-sec: true
+> -
+>  required:
+>    - compatible
+>    - reg
+>    - clocks
+> 
+> -additionalProperties: false
+> +unevaluatedProperties: false
+> 
+>  examples:
+>    - |
+> --
+> 2.34.1
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
