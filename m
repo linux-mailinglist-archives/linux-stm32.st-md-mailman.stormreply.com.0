@@ -2,63 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 311856E495B
-	for <lists+linux-stm32@lfdr.de>; Mon, 17 Apr 2023 15:07:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 22D666E49D2
+	for <lists+linux-stm32@lfdr.de>; Mon, 17 Apr 2023 15:24:06 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A25B4C65E70;
-	Mon, 17 Apr 2023 13:07:29 +0000 (UTC)
-Received: from mail-yw1-f177.google.com (mail-yw1-f177.google.com
- [209.85.128.177])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AE136C6A5FA;
+	Mon, 17 Apr 2023 13:24:05 +0000 (UTC)
+Received: from mail-yw1-f178.google.com (mail-yw1-f178.google.com
+ [209.85.128.178])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A88E1C64107
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DEC74C65E58
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 17 Apr 2023 13:07:28 +0000 (UTC)
-Received: by mail-yw1-f177.google.com with SMTP id
- 00721157ae682-552ae3e2cbeso44459287b3.13
+ Mon, 17 Apr 2023 13:24:03 +0000 (UTC)
+Received: by mail-yw1-f178.google.com with SMTP id
+ 00721157ae682-54fe82d8bf5so103092647b3.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 17 Apr 2023 06:07:28 -0700 (PDT)
+ Mon, 17 Apr 2023 06:24:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1681736847; x=1684328847;
+ d=linaro.org; s=google; t=1681737843; x=1684329843;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=Kw+N4lmXgksiZObWsRam9O+AwFJ+q7vEUaa4tbsG2Ys=;
- b=PU2TeZwDN3uPSlXH+LcLVdrVZj1S5sbTqA4wpoggKCCF5+QoYb2X+9fqM0sVGfvpx+
- jpkIAMV4MiOT8PrgzQz8Bvulp33QCvzkxy4n67TyrItX7B7iRdVYuZ29gh7H0HFRg1kM
- 6QDd5Ma3EVEvAQ9OUQsBNU12F4WdDBmnFxG71/1iffTW0n5IMqNKmACPZfK7R5PkaqWf
- kmV8Tew4uWVMWsN0NaChfgScLQPRHlNjMaRhhl/8iQy6pz0HxZ5PlU5VqmSiD8mz/pac
- 2ar2+7JzqRilKNF3WTKlctGELMj6NxNDKUq87ru1Ew3Hc0Ys9Q7SeCLTbRctDb9X8Ero
- GQqQ==
+ bh=wJNyJPIUSDACJNhaYaxkNKlMJ6+KOJnTklHWTfRcUSc=;
+ b=JazabgTFJ+Kl/tyHV0m4uvxo0dgvefjHFgd4Qm3zlxF67Ul+05N+zsE3lVeOiwWSQM
+ /vFeRZ9w9+3liGCV/t5MSS8Pgq//i6FkxagdTxYzhnS6AxWxE7tey7HZ/AfEyp4siZkb
+ kovypUxnbHJFC1HGeF8kZbQD57K/YWaxg8VIdEHaGoaqtX7StctEYDqAH86A9+OuN+kv
+ 0ULe0cWHoCvpg+TLVHkhMh3Yn9g85u6Y7p6w+qUw5TxQfeVZaKF3SewPkk7Kdgt0oeYq
+ odHfHPgS/NVQDAWoPzTNl8E88F3r2ybQpLkWsnoBXEkC+Jk++p2kWP41zHXYQREXnCb7
+ /LRw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1681736847; x=1684328847;
+ d=1e100.net; s=20221208; t=1681737843; x=1684329843;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=Kw+N4lmXgksiZObWsRam9O+AwFJ+q7vEUaa4tbsG2Ys=;
- b=LlEnS5dMbqR1/qHodE225k9RdJqKVgUdH+gnDXYgDfkfCdilqMIVXUrUPs5V2wwljI
- F/w58G9FkDJf6cERV6J8UB/haB5lp0nxGkHtTv92qXba1VO44LZnVm+ip26hPA0VxolY
- 2IQgHwJQaBBipOiVIDDfYB8IRZ0InSDX5AXz2zqrcXdAn2SzBbqfGtMvcI1f65emtMQ+
- amH8ShIfmMAN+2x8Fky4CUhOo56kNQ4/AltZ26/Bs/RS10W9JI/zR4lC6ngMFlE75LHs
- iGKvRieVRqtg6o7rO8HKaWaJMY+tJOu/O6q7qVtYHMz+nyFmVObTxlNUeMyN7BRqEIRf
- G20g==
-X-Gm-Message-State: AAQBX9egOl/N6ZU+pVb/r/5Zh5l0rplGcroykEi0t6sqB1d2xHWZdlM9
- nkzgaTMrs8CbGIKMCSzfLjgcRJFQsR1wFw30tV6TOw==
-X-Google-Smtp-Source: AKy350ah5IOHfHIOmiogXHScEat1z0RQz/vrpZtML3zrmIwRssYWDJHmutNvFlZ+5p/8tM9Ot8saB7BioWtG0sFhul0=
-X-Received: by 2002:a81:af0c:0:b0:54c:2889:7105 with SMTP id
- n12-20020a81af0c000000b0054c28897105mr9515199ywh.0.1681736847531; Mon, 17 Apr
- 2023 06:07:27 -0700 (PDT)
+ bh=wJNyJPIUSDACJNhaYaxkNKlMJ6+KOJnTklHWTfRcUSc=;
+ b=jAlgCsj4nSJNgfkD7h1ErN844pzd9Q9bi5ZquqwYgTXn2mlazZebzWpwDAuAdpYSSp
+ piA0Yw716TwcrKUjEzy4LjY9GMU6IW01njUohzZNyH7dEYnlSDjJO/bg2hAZQ1zXIqXH
+ gHa+rHGi732FYEFGl1kQqybscCmmbozBwqwL8454H30QDJEWTjm7iIbfWqPDKesHeJHC
+ ygy5GdE+2YSSIjdsmg7g8GepGTSgMMrfD22ho8DVaDQ95w1km9mnbkJphpX1ytH2Bza9
+ jJM8FZKmITw9Wkx/eoWDGgwT3Xq7NEmgzqXJWr8p1oQrAw4K/A88yxPyWuIoejA/EB7K
+ ld7w==
+X-Gm-Message-State: AAQBX9dtH9Ua/mQq4bkZK7yWJHpfjh1sJV47FPE3fQyzSfyQH1fyhrR5
+ fgingR6tZuyuTs5JSDlDHJRPF/9ZixKKbMhUc2fHFA==
+X-Google-Smtp-Source: AKy350akHhPmT1SpV4BNvSOxnEib1lHDILTXdM8MTdKIigFYFej6SdgGNMuPOotcFSth7yw6bGwLlc1XsXt87XMgGdE=
+X-Received: by 2002:a81:ad45:0:b0:546:63a:6e23 with SMTP id
+ l5-20020a81ad45000000b00546063a6e23mr9408216ywk.0.1681737842732; Mon, 17 Apr
+ 2023 06:24:02 -0700 (PDT)
 MIME-Version: 1.0
 References: <20230405-pl180-busydetect-fix-v2-0-eeb10323b546@linaro.org>
- <20230405-pl180-busydetect-fix-v2-1-eeb10323b546@linaro.org>
-In-Reply-To: <20230405-pl180-busydetect-fix-v2-1-eeb10323b546@linaro.org>
+ <20230405-pl180-busydetect-fix-v2-4-eeb10323b546@linaro.org>
+In-Reply-To: <20230405-pl180-busydetect-fix-v2-4-eeb10323b546@linaro.org>
 From: Ulf Hansson <ulf.hansson@linaro.org>
-Date: Mon, 17 Apr 2023 15:06:51 +0200
-Message-ID: <CAPDyKFqESKrqA7u0zg+GBLad_tqzrt+wGfT-jEqvVGruv8oR0Q@mail.gmail.com>
+Date: Mon, 17 Apr 2023 15:23:26 +0200
+Message-ID: <CAPDyKFpoboq68_ysEJXCWLV8k77+ULGpF6AzcnjvUqO96r5FHw@mail.gmail.com>
 To: Linus Walleij <linus.walleij@linaro.org>
 Cc: linux-mmc@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Stefan Hansson <newbyte@disroot.org>, linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH v2 01/12] mmc: mmci: Clear busy_status
-	when starting command
+Subject: Re: [Linux-stm32] [PATCH v2 04/12] mmc: mmci: Break out error check
+	in busy detect
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,63 +77,58 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 On Sun, 9 Apr 2023 at 00:00, Linus Walleij <linus.walleij@linaro.org> wrote:
 >
-> If we are starting a command which can generate a busy
-> response, then clear the variable host->busy_status
-> if the variant is using a ->busy_complete callback.
->
-> We are lucky that the member is zero by default and
-> hopefully always gets cleared in the ->busy_complete
-> callback even on errors, but it's just fragile so
-> make sure it is always initialized to zero.
+> The busy detect callback for Ux500 checks for an error
+> in the status in the first if() clause. The only practical
+> reason is that if an error occurs, the if()-clause is not
+> executed, and the code falls through to the last
+> if()-clause if (host->busy_status) which will clear and
+> disable the irq. Make this explicit instead: it is easier
+> to read.
 >
 > Signed-off-by: Linus Walleij <linus.walleij@linaro.org>
 > ---
 > ChangeLog v1->v2:
-> - Unconditionally clear host->busy_status if we get a
->   busy response.
+> - No changes
 > ---
->  drivers/mmc/host/mmci.c | 22 +++++++++++++---------
->  1 file changed, 13 insertions(+), 9 deletions(-)
+>  drivers/mmc/host/mmci.c | 11 ++++++++++-
+>  1 file changed, 10 insertions(+), 1 deletion(-)
 >
 > diff --git a/drivers/mmc/host/mmci.c b/drivers/mmc/host/mmci.c
-> index b9e5dfe74e5c..9b48df842425 100644
+> index e742dedaca1a..7d42625f2356 100644
 > --- a/drivers/mmc/host/mmci.c
 > +++ b/drivers/mmc/host/mmci.c
-> @@ -1238,17 +1238,21 @@ mmci_start_command(struct mmci_host *host, struct mmc_command *cmd, u32 c)
->                         c |= host->variant->cmdreg_srsp;
->         }
+> @@ -665,6 +665,15 @@ static bool ux500_busy_complete(struct mmci_host *host, u32 status, u32 err_msk)
+>  {
+>         void __iomem *base = host->base;
 >
-> -       if (host->variant->busy_timeout && cmd->flags & MMC_RSP_BUSY) {
-> -               if (!cmd->busy_timeout)
-> -                       cmd->busy_timeout = 10 * MSEC_PER_SEC;
-> +       if (cmd->flags & MMC_RSP_BUSY) {
+> +       if (status & err_msk) {
+> +               /* Stop any ongoing busy detection if an error occurs */
+> +               writel(host->variant->busy_detect_mask, base + MMCICLEAR);
+> +               writel(readl(base + MMCIMASK0) &
+> +                      ~host->variant->busy_detect_mask, base + MMCIMASK0);
 > +               host->busy_status = 0;
+> +               return true;
 
-To be even more safe, I don't think we should check "cmd->flags &
-MMC_RSP_BUSY". Let's just reset it always instead.
+I agree that this makes the code more explicit, but unfortunately it
+also means duplicating the code from the bottom of this function.
 
->
-> -               if (cmd->busy_timeout > host->mmc->max_busy_timeout)
-> -                       clks = (unsigned long long)host->mmc->max_busy_timeout * host->cclk;
-> -               else
-> -                       clks = (unsigned long long)cmd->busy_timeout * host->cclk;
-> +               if (host->variant->busy_timeout) {
-> +                       if (!cmd->busy_timeout)
-> +                               cmd->busy_timeout = 10 * MSEC_PER_SEC;
->
-> -               do_div(clks, MSEC_PER_SEC);
-> -               writel_relaxed(clks, host->base + MMCIDATATIMER);
-> +                       if (cmd->busy_timeout > host->mmc->max_busy_timeout)
-> +                               clks = (unsigned long long)host->mmc->max_busy_timeout * host->cclk;
-> +                       else
-> +                               clks = (unsigned long long)cmd->busy_timeout * host->cclk;
+Can you instead add a helper function and call it from here and from
+the part at the bottom?
+
+> +       }
 > +
-> +                       do_div(clks, MSEC_PER_SEC);
-> +                       writel_relaxed(clks, host->base + MMCIDATATIMER);
-> +               }
->         }
->
->         if (host->ops->pre_sig_volt_switch && cmd->opcode == SD_SWITCH_VOLTAGE)
+>         /*
+>          * Before unmasking for the busy end IRQ, confirm that the
+>          * command was sent successfully. To keep track of having a
+> @@ -678,7 +687,7 @@ static bool ux500_busy_complete(struct mmci_host *host, u32 status, u32 err_msk)
+>          * while, to allow it to be set, but tests indicates that it
+>          * isn't needed.
+>          */
+> -       if (!host->busy_status && !(status & err_msk)) {
+> +       if (!host->busy_status) {
+>                 status = readl(base + MMCISTATUS);
+>                 if (status & host->variant->busy_detect_flag) {
+>                         writel(readl(base + MMCIMASK0) |
 >
 
 Kind regards
