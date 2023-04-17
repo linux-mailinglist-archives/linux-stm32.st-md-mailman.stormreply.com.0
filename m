@@ -2,57 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 271AC6E461A
-	for <lists+linux-stm32@lfdr.de>; Mon, 17 Apr 2023 13:13:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 311856E495B
+	for <lists+linux-stm32@lfdr.de>; Mon, 17 Apr 2023 15:07:30 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A94D3C6B453;
-	Mon, 17 Apr 2023 11:13:04 +0000 (UTC)
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com
- [68.232.154.123])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A25B4C65E70;
+	Mon, 17 Apr 2023 13:07:29 +0000 (UTC)
+Received: from mail-yw1-f177.google.com (mail-yw1-f177.google.com
+ [209.85.128.177])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 28DCBC6904B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A88E1C64107
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 17 Apr 2023 11:13:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
- t=1681729983; x=1713265983;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=W5TQ3wd/xW5hpZCXv0bBA8AsymSy3tuwpq12Dh6k4+w=;
- b=Rl2/Pgdmw8K1A/benxKgwJdcwBHSrkdk4uJ5Jz16uXVyeqX/O3GZm00O
- OLgRa8Nbo6WGb3TnXTvifFDG6OxLhe6MwgLsZGoovnbgOJND0uxXW9yZQ
- NfSEexjl23l/RdKNeg2MB4njUnpPp4cLNEA3x0yPWc0jQKMyxL4Rkiezu
- C18ip5anto4/9COgw2aJ5ce4t2mLQw7KA893X+spGsjR3apfkxastmODo
- qgjtXgnst51MldEpn6P+J8Ki/sSkyoPlA3QFyQyMTeSps/5pxFz01ifLd
- pQtWDU0ceBP8HVsOpoYSP1TWUQ+tqZR5S7ei7bnXFAjqjLxh0MQd8qOEQ w==;
-X-IronPort-AV: E=Sophos;i="5.99,204,1677567600"; d="scan'208";a="210758879"
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
- by esa2.microchip.iphmx.com with ESMTP/TLS/AES256-SHA256;
- 17 Apr 2023 04:12:58 -0700
-Received: from chn-vm-ex03.mchp-main.com (10.10.85.151) by
- chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.21; Mon, 17 Apr 2023 04:12:58 -0700
-Received: from localhost (10.10.115.15) by chn-vm-ex03.mchp-main.com
- (10.10.85.151) with Microsoft SMTP Server id 15.1.2507.21 via Frontend
- Transport; Mon, 17 Apr 2023 04:12:58 -0700
-Date: Mon, 17 Apr 2023 13:12:57 +0200
-From: Horatiu Vultur <horatiu.vultur@microchip.com>
-To: Alain Volmat <avolmat@me.com>
-Message-ID: <20230417111257.ilmlp5y3xp47edzv@soft-dev3-1>
-References: <20230416195523.61075-1-avolmat@me.com>
+ Mon, 17 Apr 2023 13:07:28 +0000 (UTC)
+Received: by mail-yw1-f177.google.com with SMTP id
+ 00721157ae682-552ae3e2cbeso44459287b3.13
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 17 Apr 2023 06:07:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1681736847; x=1684328847;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=Kw+N4lmXgksiZObWsRam9O+AwFJ+q7vEUaa4tbsG2Ys=;
+ b=PU2TeZwDN3uPSlXH+LcLVdrVZj1S5sbTqA4wpoggKCCF5+QoYb2X+9fqM0sVGfvpx+
+ jpkIAMV4MiOT8PrgzQz8Bvulp33QCvzkxy4n67TyrItX7B7iRdVYuZ29gh7H0HFRg1kM
+ 6QDd5Ma3EVEvAQ9OUQsBNU12F4WdDBmnFxG71/1iffTW0n5IMqNKmACPZfK7R5PkaqWf
+ kmV8Tew4uWVMWsN0NaChfgScLQPRHlNjMaRhhl/8iQy6pz0HxZ5PlU5VqmSiD8mz/pac
+ 2ar2+7JzqRilKNF3WTKlctGELMj6NxNDKUq87ru1Ew3Hc0Ys9Q7SeCLTbRctDb9X8Ero
+ GQqQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1681736847; x=1684328847;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=Kw+N4lmXgksiZObWsRam9O+AwFJ+q7vEUaa4tbsG2Ys=;
+ b=LlEnS5dMbqR1/qHodE225k9RdJqKVgUdH+gnDXYgDfkfCdilqMIVXUrUPs5V2wwljI
+ F/w58G9FkDJf6cERV6J8UB/haB5lp0nxGkHtTv92qXba1VO44LZnVm+ip26hPA0VxolY
+ 2IQgHwJQaBBipOiVIDDfYB8IRZ0InSDX5AXz2zqrcXdAn2SzBbqfGtMvcI1f65emtMQ+
+ amH8ShIfmMAN+2x8Fky4CUhOo56kNQ4/AltZ26/Bs/RS10W9JI/zR4lC6ngMFlE75LHs
+ iGKvRieVRqtg6o7rO8HKaWaJMY+tJOu/O6q7qVtYHMz+nyFmVObTxlNUeMyN7BRqEIRf
+ G20g==
+X-Gm-Message-State: AAQBX9egOl/N6ZU+pVb/r/5Zh5l0rplGcroykEi0t6sqB1d2xHWZdlM9
+ nkzgaTMrs8CbGIKMCSzfLjgcRJFQsR1wFw30tV6TOw==
+X-Google-Smtp-Source: AKy350ah5IOHfHIOmiogXHScEat1z0RQz/vrpZtML3zrmIwRssYWDJHmutNvFlZ+5p/8tM9Ot8saB7BioWtG0sFhul0=
+X-Received: by 2002:a81:af0c:0:b0:54c:2889:7105 with SMTP id
+ n12-20020a81af0c000000b0054c28897105mr9515199ywh.0.1681736847531; Mon, 17 Apr
+ 2023 06:07:27 -0700 (PDT)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20230416195523.61075-1-avolmat@me.com>
-Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
- Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Jakub Kicinski <kuba@kernel.org>, Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Paolo Abeni <pabeni@redhat.com>, "David S.
- Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] net: ethernet: stmmac: dwmac-sti: remove
- stih415/stih416/stid127
+References: <20230405-pl180-busydetect-fix-v2-0-eeb10323b546@linaro.org>
+ <20230405-pl180-busydetect-fix-v2-1-eeb10323b546@linaro.org>
+In-Reply-To: <20230405-pl180-busydetect-fix-v2-1-eeb10323b546@linaro.org>
+From: Ulf Hansson <ulf.hansson@linaro.org>
+Date: Mon, 17 Apr 2023 15:06:51 +0200
+Message-ID: <CAPDyKFqESKrqA7u0zg+GBLad_tqzrt+wGfT-jEqvVGruv8oR0Q@mail.gmail.com>
+To: Linus Walleij <linus.walleij@linaro.org>
+Cc: linux-mmc@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Stefan Hansson <newbyte@disroot.org>, linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH v2 01/12] mmc: mmci: Clear busy_status
+	when starting command
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,120 +75,69 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The 04/16/2023 21:55, Alain Volmat wrote:
-> 
-> Remove no more supported platforms (stih415/stih416 and stid127)
-
-Reviewed-by: Horatiu Vultur <horatiu.vultur@microchip.com>
-
-> 
-> Signed-off-by: Alain Volmat <avolmat@me.com>
-> Acked-by: Jakub Kicinski <kuba@kernel.org>
+On Sun, 9 Apr 2023 at 00:00, Linus Walleij <linus.walleij@linaro.org> wrote:
+>
+> If we are starting a command which can generate a busy
+> response, then clear the variable host->busy_status
+> if the variant is using a ->busy_complete callback.
+>
+> We are lucky that the member is zero by default and
+> hopefully always gets cleared in the ->busy_complete
+> callback even on errors, but it's just fragile so
+> make sure it is always initialized to zero.
+>
+> Signed-off-by: Linus Walleij <linus.walleij@linaro.org>
 > ---
-> Patch sent previously as part of serie: https://lore.kernel.org/all/20230209091659.1409-8-avolmat@me.com/
-> 
->  .../net/ethernet/stmicro/stmmac/dwmac-sti.c   | 60 +------------------
->  1 file changed, 1 insertion(+), 59 deletions(-)
-> 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-sti.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-sti.c
-> index be3b1ebc06ab..465ce66ef9c1 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-sti.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-sti.c
-> @@ -35,7 +35,7 @@
->  #define IS_PHY_IF_MODE_GBIT(iface)     (IS_PHY_IF_MODE_RGMII(iface) || \
->                                          iface == PHY_INTERFACE_MODE_GMII)
-> 
-> -/* STiH4xx register definitions (STiH415/STiH416/STiH407/STiH410 families)
-> +/* STiH4xx register definitions (STiH407/STiH410 families)
->   *
->   * Below table summarizes the clock requirement and clock sources for
->   * supported phy interface modes with link speeds.
-> @@ -75,27 +75,6 @@
->  #define STIH4XX_ETH_SEL_INTERNAL_NOTEXT_PHYCLK BIT(7)
->  #define STIH4XX_ETH_SEL_TXCLK_NOT_CLK125       BIT(6)
-> 
-> -/* STiD127 register definitions
-> - *-----------------------
-> - * src  |BIT(6)| BIT(7)|
-> - *-----------------------
-> - * MII   |  1  |   n/a |
-> - *-----------------------
-> - * RMII  |  n/a        |   1   |
-> - * clkgen|     |       |
-> - *-----------------------
-> - * RMII  |  n/a        |   0   |
-> - * phyclk|     |       |
-> - *-----------------------
-> - * RGMII |  1  |  n/a  |
-> - * clkgen|     |       |
-> - *-----------------------
-> - */
-> -
-> -#define STID127_RETIME_SRC_MASK                        GENMASK(7, 6)
-> -#define STID127_ETH_SEL_INTERNAL_NOTEXT_PHYCLK BIT(7)
-> -#define STID127_ETH_SEL_INTERNAL_NOTEXT_TXCLK  BIT(6)
-> -
->  #define ENMII_MASK     GENMASK(5, 5)
->  #define ENMII          BIT(5)
->  #define EN_MASK                GENMASK(1, 1)
-> @@ -194,36 +173,6 @@ static void stih4xx_fix_retime_src(void *priv, u32 spd)
->                            stih4xx_tx_retime_val[src]);
->  }
-> 
-> -static void stid127_fix_retime_src(void *priv, u32 spd)
-> -{
-> -       struct sti_dwmac *dwmac = priv;
-> -       u32 reg = dwmac->ctrl_reg;
-> -       u32 freq = 0;
-> -       u32 val = 0;
-> -
-> -       if (dwmac->interface == PHY_INTERFACE_MODE_MII) {
-> -               val = STID127_ETH_SEL_INTERNAL_NOTEXT_TXCLK;
-> -       } else if (dwmac->interface == PHY_INTERFACE_MODE_RMII) {
-> -               if (!dwmac->ext_phyclk) {
-> -                       val = STID127_ETH_SEL_INTERNAL_NOTEXT_PHYCLK;
-> -                       freq = DWMAC_50MHZ;
-> -               }
-> -       } else if (IS_PHY_IF_MODE_RGMII(dwmac->interface)) {
-> -               val = STID127_ETH_SEL_INTERNAL_NOTEXT_TXCLK;
-> -               if (spd == SPEED_1000)
-> -                       freq = DWMAC_125MHZ;
-> -               else if (spd == SPEED_100)
-> -                       freq = DWMAC_25MHZ;
-> -               else if (spd == SPEED_10)
-> -                       freq = DWMAC_2_5MHZ;
-> -       }
-> -
-> -       if (freq)
-> -               clk_set_rate(dwmac->clk, freq);
-> -
-> -       regmap_update_bits(dwmac->regmap, reg, STID127_RETIME_SRC_MASK, val);
-> -}
-> -
->  static int sti_dwmac_set_mode(struct sti_dwmac *dwmac)
->  {
->         struct regmap *regmap = dwmac->regmap;
-> @@ -408,14 +357,7 @@ static const struct sti_dwmac_of_data stih4xx_dwmac_data = {
->         .fix_retime_src = stih4xx_fix_retime_src,
->  };
-> 
-> -static const struct sti_dwmac_of_data stid127_dwmac_data = {
-> -       .fix_retime_src = stid127_fix_retime_src,
-> -};
-> -
->  static const struct of_device_id sti_dwmac_match[] = {
-> -       { .compatible = "st,stih415-dwmac", .data = &stih4xx_dwmac_data},
-> -       { .compatible = "st,stih416-dwmac", .data = &stih4xx_dwmac_data},
-> -       { .compatible = "st,stid127-dwmac", .data = &stid127_dwmac_data},
->         { .compatible = "st,stih407-dwmac", .data = &stih4xx_dwmac_data},
->         { }
->  };
-> --
-> 2.34.1
-> 
+> ChangeLog v1->v2:
+> - Unconditionally clear host->busy_status if we get a
+>   busy response.
+> ---
+>  drivers/mmc/host/mmci.c | 22 +++++++++++++---------
+>  1 file changed, 13 insertions(+), 9 deletions(-)
+>
+> diff --git a/drivers/mmc/host/mmci.c b/drivers/mmc/host/mmci.c
+> index b9e5dfe74e5c..9b48df842425 100644
+> --- a/drivers/mmc/host/mmci.c
+> +++ b/drivers/mmc/host/mmci.c
+> @@ -1238,17 +1238,21 @@ mmci_start_command(struct mmci_host *host, struct mmc_command *cmd, u32 c)
+>                         c |= host->variant->cmdreg_srsp;
+>         }
+>
+> -       if (host->variant->busy_timeout && cmd->flags & MMC_RSP_BUSY) {
+> -               if (!cmd->busy_timeout)
+> -                       cmd->busy_timeout = 10 * MSEC_PER_SEC;
+> +       if (cmd->flags & MMC_RSP_BUSY) {
+> +               host->busy_status = 0;
 
--- 
-/Horatiu
+To be even more safe, I don't think we should check "cmd->flags &
+MMC_RSP_BUSY". Let's just reset it always instead.
+
+>
+> -               if (cmd->busy_timeout > host->mmc->max_busy_timeout)
+> -                       clks = (unsigned long long)host->mmc->max_busy_timeout * host->cclk;
+> -               else
+> -                       clks = (unsigned long long)cmd->busy_timeout * host->cclk;
+> +               if (host->variant->busy_timeout) {
+> +                       if (!cmd->busy_timeout)
+> +                               cmd->busy_timeout = 10 * MSEC_PER_SEC;
+>
+> -               do_div(clks, MSEC_PER_SEC);
+> -               writel_relaxed(clks, host->base + MMCIDATATIMER);
+> +                       if (cmd->busy_timeout > host->mmc->max_busy_timeout)
+> +                               clks = (unsigned long long)host->mmc->max_busy_timeout * host->cclk;
+> +                       else
+> +                               clks = (unsigned long long)cmd->busy_timeout * host->cclk;
+> +
+> +                       do_div(clks, MSEC_PER_SEC);
+> +                       writel_relaxed(clks, host->base + MMCIDATATIMER);
+> +               }
+>         }
+>
+>         if (host->ops->pre_sig_volt_switch && cmd->opcode == SD_SWITCH_VOLTAGE)
+>
+
+Kind regards
+Uffe
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
