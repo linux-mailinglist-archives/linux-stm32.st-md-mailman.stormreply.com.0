@@ -2,42 +2,38 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B38586E3F5C
-	for <lists+linux-stm32@lfdr.de>; Mon, 17 Apr 2023 08:06:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 823E86E3F94
+	for <lists+linux-stm32@lfdr.de>; Mon, 17 Apr 2023 08:19:22 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5B889C6B455;
-	Mon, 17 Apr 2023 06:06:00 +0000 (UTC)
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
- [85.220.165.71])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2D844C6B455;
+	Mon, 17 Apr 2023 06:19:22 +0000 (UTC)
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+ [213.167.242.64])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4B3B8C6B453
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8E25CC6B453
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 17 Apr 2023 06:05:59 +0000 (UTC)
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
- by metis.ext.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <ukl@pengutronix.de>)
- id 1poHwn-0002G3-5t; Mon, 17 Apr 2023 08:02:41 +0200
-Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
- by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.94.2)
- (envelope-from <ukl@pengutronix.de>)
- id 1poHwE-00Bnse-I0; Mon, 17 Apr 2023 08:02:06 +0200
-Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.94.2)
- (envelope-from <ukl@pengutronix.de>)
- id 1poHwD-00Dolu-4U; Mon, 17 Apr 2023 08:02:05 +0200
-Date: Mon, 17 Apr 2023 08:02:03 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>
-Message-ID: <20230417060203.le3izz56wt73si6k@pengutronix.de>
+ Mon, 17 Apr 2023 06:19:20 +0000 (UTC)
+Received: from pendragon.ideasonboard.com
+ (133-32-181-51.west.xps.vectant.ne.jp [133.32.181.51])
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id B70CC75B;
+ Mon, 17 Apr 2023 08:19:10 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+ s=mail; t=1681712352;
+ bh=hUS3oAOWF+giUHWBAsyfYtTSnpYPnmumb+DnGnesqJ8=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=Q+UHkgsqoMg+RbmFKgO/pKG4ltOgU+p0CEbmAeVPPRN4I/Z0MDEKluVIEqTeJBTh9
+ iHu44ev6JJI4FvruskDtoyatzHO41OXYRlqntM4853wlvujiEUW9lTQTFW+9URIaRu
+ Pthp2nfBkldHSvMHEeDw0JIfxddwHLTf+oIOMJpY=
+Date: Mon, 17 Apr 2023 09:19:28 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+Message-ID: <20230417061928.GD28551@pendragon.ideasonboard.com>
 References: <20230326143224.572654-1-u.kleine-koenig@pengutronix.de>
+ <20230417060203.le3izz56wt73si6k@pengutronix.de>
 MIME-Version: 1.0
-In-Reply-To: <20230326143224.572654-1-u.kleine-koenig@pengutronix.de>
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: ukl@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
+Content-Disposition: inline
+In-Reply-To: <20230417060203.le3izz56wt73si6k@pengutronix.de>
 Cc: Heiko Stuebner <heiko@sntech.de>, Eddie James <eajames@linux.ibm.com>,
  Hans Verkuil <hverkuil@xs4all.nl>, Alim Akhtar <alim.akhtar@samsung.com>,
  Dmitry Osipenko <digetx@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
@@ -83,7 +79,6 @@ Cc: Heiko Stuebner <heiko@sntech.de>, Eddie James <eajames@linux.ibm.com>,
  Ettore Chimenti <ek5.chimenti@gmail.com>,
  Vikash Garodia <quic_vgarodia@quicinc.com>, linux-tegra@vger.kernel.org,
  Eduardo Valentin <edubezval@gmail.com>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
  Andrzej Hajda <andrzej.hajda@intel.com>, Fabio Estevam <festevam@gmail.com>,
  Jean-Christophe Trotin <jean-christophe.trotin@foss.st.com>,
  Stanimir Varbanov <stanimir.k.varbanov@gmail.com>,
@@ -93,7 +88,7 @@ Cc: Heiko Stuebner <heiko@sntech.de>, Eddie James <eajames@linux.ibm.com>,
  Yang Yingliang <yangyingliang@huawei.com>, Bin Liu <bin.liu@mediatek.com>,
  Nathan Chancellor <nathan@kernel.org>,
  Sylwester Nawrocki <sylvester.nawrocki@gmail.com>,
- Benson Leung <bleung@chromium.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Benson Leung <bleung@chromium.org>,
  "Daniel W. S. Almeida" <dwlsalmeida@gmail.com>,
  Qiheng Lin <linqiheng@huawei.com>, Konrad Dybcio <konrad.dybcio@linaro.org>,
  Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
@@ -133,95 +128,48 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============2742545612747825505=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-
---===============2742545612747825505==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ogmoi7vlr4vxdkq5"
-Content-Disposition: inline
-
-
---ogmoi7vlr4vxdkq5
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-Hello Mauro
-
-On Sun, Mar 26, 2023 at 04:30:25PM +0200, Uwe Kleine-K=F6nig wrote:
-> Hello,
->=20
-> this series adapts the platform drivers below drivers/pci to use the
-
-copy&paste failure here: s/pci/media/ of course.
-
-> .remove_new() callback. Compared to the traditional .remove() callback
-> .remove_new() returns no value. This is a good thing because the driver c=
-ore
-> doesn't (and cannot) cope for errors during remove. The only effect of a
-> non-zero return value in .remove() is that the driver core emits a warnin=
-g. The
-> device is removed anyhow and an early return from .remove() usually yield=
-s a
-> resource leak.
->=20
-> By changing the remove callback to return void driver authors cannot
-> reasonably assume any more that there is some kind of cleanup later.
->=20
-> Only three drivers needed some preparation first to make sure they
-> return 0 unconditionally in their remove callback. Then all drivers
-> could be trivially converted without side effects to .remove_new().
->=20
-> The changes to the individual drivers are all orthogonal. If I need to
-> resend some patches because of some review feedback, I'd like to only
-> send the patches that actually needed changes, so please pick up the
-> remaining patches that don't need changing to reduce the amount of mail.
-
-I didn't hear anything back about application of this series. Is there a
-blocker somewhere?
-
-Apart from the three preparatory patches that are a precondition to the
-conversion of the respective drivers, the patches are all pairwise
-orthogonal. So from my POV the best would be to apply all patches that
-still apply (which might be all), I will care for the fallout later
-then.
-
-Best regards
-Uwe
-
---=20
-Pengutronix e.K.                           | Uwe Kleine-K=F6nig            |
-Industrial Linux Solutions                 | https://www.pengutronix.de/ |
-
---ogmoi7vlr4vxdkq5
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmQ84NoACgkQj4D7WH0S
-/k65OwgAkM/14eqkcxTg0/453d2uwhPt/jiDru0C14NvpnN4AFU0sa+yzp1GfYRO
-WfxjudHvw/OXq+eolRu8PrqJIpLHvQhOyjblYLXPqTB8RvdJSXI2Q1ZJjozYjCNJ
-WeBerHqAXGOnxd+2kbfCs2VZWYgmJpj1VCXeRYekMB7Kv1tmfXNXetaHIH7Rypw1
-+Si1nhZN4Sk68bdXU+RaQc6UP5/E0VohPVWnSB1tsTQVL4sogBkjfDl4tueHEZxj
-959kirh12hfcFcqtz1mQ1u7V1dIc136PR+Kg/2b+GNaFbe/Zdsno5HbnbQl+NwL/
-GWFmd+GksqXkwA3k1tkqVdOFEPO4cQ==
-=K38Q
------END PGP SIGNATURE-----
-
---ogmoi7vlr4vxdkq5--
-
---===============2742545612747825505==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============2742545612747825505==--
+SGkgVXdlLAoKT24gTW9uLCBBcHIgMTcsIDIwMjMgYXQgMDg6MDI6MDNBTSArMDIwMCwgVXdlIEts
+ZWluZS1Lw7ZuaWcgd3JvdGU6Cj4gSGVsbG8gTWF1cm8KPiAKPiBPbiBTdW4sIE1hciAyNiwgMjAy
+MyBhdCAwNDozMDoyNVBNICswMjAwLCBVd2UgS2xlaW5lLUvDtm5pZyB3cm90ZToKPiA+IEhlbGxv
+LAo+ID4gCj4gPiB0aGlzIHNlcmllcyBhZGFwdHMgdGhlIHBsYXRmb3JtIGRyaXZlcnMgYmVsb3cg
+ZHJpdmVycy9wY2kgdG8gdXNlIHRoZQo+IAo+IGNvcHkmcGFzdGUgZmFpbHVyZSBoZXJlOiBzL3Bj
+aS9tZWRpYS8gb2YgY291cnNlLgo+IAo+ID4gLnJlbW92ZV9uZXcoKSBjYWxsYmFjay4gQ29tcGFy
+ZWQgdG8gdGhlIHRyYWRpdGlvbmFsIC5yZW1vdmUoKSBjYWxsYmFjawo+ID4gLnJlbW92ZV9uZXco
+KSByZXR1cm5zIG5vIHZhbHVlLiBUaGlzIGlzIGEgZ29vZCB0aGluZyBiZWNhdXNlIHRoZSBkcml2
+ZXIgY29yZQo+ID4gZG9lc24ndCAoYW5kIGNhbm5vdCkgY29wZSBmb3IgZXJyb3JzIGR1cmluZyBy
+ZW1vdmUuIFRoZSBvbmx5IGVmZmVjdCBvZiBhCj4gPiBub24temVybyByZXR1cm4gdmFsdWUgaW4g
+LnJlbW92ZSgpIGlzIHRoYXQgdGhlIGRyaXZlciBjb3JlIGVtaXRzIGEgd2FybmluZy4gVGhlCj4g
+PiBkZXZpY2UgaXMgcmVtb3ZlZCBhbnlob3cgYW5kIGFuIGVhcmx5IHJldHVybiBmcm9tIC5yZW1v
+dmUoKSB1c3VhbGx5IHlpZWxkcyBhCj4gPiByZXNvdXJjZSBsZWFrLgo+ID4gCj4gPiBCeSBjaGFu
+Z2luZyB0aGUgcmVtb3ZlIGNhbGxiYWNrIHRvIHJldHVybiB2b2lkIGRyaXZlciBhdXRob3JzIGNh
+bm5vdAo+ID4gcmVhc29uYWJseSBhc3N1bWUgYW55IG1vcmUgdGhhdCB0aGVyZSBpcyBzb21lIGtp
+bmQgb2YgY2xlYW51cCBsYXRlci4KPiA+IAo+ID4gT25seSB0aHJlZSBkcml2ZXJzIG5lZWRlZCBz
+b21lIHByZXBhcmF0aW9uIGZpcnN0IHRvIG1ha2Ugc3VyZSB0aGV5Cj4gPiByZXR1cm4gMCB1bmNv
+bmRpdGlvbmFsbHkgaW4gdGhlaXIgcmVtb3ZlIGNhbGxiYWNrLiBUaGVuIGFsbCBkcml2ZXJzCj4g
+PiBjb3VsZCBiZSB0cml2aWFsbHkgY29udmVydGVkIHdpdGhvdXQgc2lkZSBlZmZlY3RzIHRvIC5y
+ZW1vdmVfbmV3KCkuCj4gPiAKPiA+IFRoZSBjaGFuZ2VzIHRvIHRoZSBpbmRpdmlkdWFsIGRyaXZl
+cnMgYXJlIGFsbCBvcnRob2dvbmFsLiBJZiBJIG5lZWQgdG8KPiA+IHJlc2VuZCBzb21lIHBhdGNo
+ZXMgYmVjYXVzZSBvZiBzb21lIHJldmlldyBmZWVkYmFjaywgSSdkIGxpa2UgdG8gb25seQo+ID4g
+c2VuZCB0aGUgcGF0Y2hlcyB0aGF0IGFjdHVhbGx5IG5lZWRlZCBjaGFuZ2VzLCBzbyBwbGVhc2Ug
+cGljayB1cCB0aGUKPiA+IHJlbWFpbmluZyBwYXRjaGVzIHRoYXQgZG9uJ3QgbmVlZCBjaGFuZ2lu
+ZyB0byByZWR1Y2UgdGhlIGFtb3VudCBvZiBtYWlsLgo+IAo+IEkgZGlkbid0IGhlYXIgYW55dGhp
+bmcgYmFjayBhYm91dCBhcHBsaWNhdGlvbiBvZiB0aGlzIHNlcmllcy4gSXMgdGhlcmUgYQo+IGJs
+b2NrZXIgc29tZXdoZXJlPwoKSSB0aGluayB0aGUgc2VyaWVzIGdvdCBhcHBsaWVkIHRvIHRoZSBt
+YXN0ZXIgYnJhbmNoIG9mCmdpdDovL2dpdC5rZXJuZWwub3JnL3B1Yi9zY20vbGludXgva2VybmVs
+L2dpdC9zdGFibGUvbGludXgtc3RhYmxlLmdpdC4KSXQgc2hvdWxkIHRodXMgYXBwZWFyIGluIHY2
+LjQuCgpUaGUgY29ycmVzcG9uZGluZyBzZXJpZXMgZm9yIHN0YWdpbmcgbWVkaWEgZHJpdmVycyBo
+YXMgYWxzbyBiZWVuIGFwcGxpZWQKdG8gdGhlIHNhbWUgYnJhbmNoIGFzIGZhciBhcyBJIGNhbiB0
+ZWxsLgoKPiBBcGFydCBmcm9tIHRoZSB0aHJlZSBwcmVwYXJhdG9yeSBwYXRjaGVzIHRoYXQgYXJl
+IGEgcHJlY29uZGl0aW9uIHRvIHRoZQo+IGNvbnZlcnNpb24gb2YgdGhlIHJlc3BlY3RpdmUgZHJp
+dmVycywgdGhlIHBhdGNoZXMgYXJlIGFsbCBwYWlyd2lzZQo+IG9ydGhvZ29uYWwuIFNvIGZyb20g
+bXkgUE9WIHRoZSBiZXN0IHdvdWxkIGJlIHRvIGFwcGx5IGFsbCBwYXRjaGVzIHRoYXQKPiBzdGls
+bCBhcHBseSAod2hpY2ggbWlnaHQgYmUgYWxsKSwgSSB3aWxsIGNhcmUgZm9yIHRoZSBmYWxsb3V0
+IGxhdGVyCj4gdGhlbi4KCi0tIApSZWdhcmRzLAoKTGF1cmVudCBQaW5jaGFydApfX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5n
+IGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0
+LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
