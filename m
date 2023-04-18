@@ -2,76 +2,57 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 033626E5A53
-	for <lists+linux-stm32@lfdr.de>; Tue, 18 Apr 2023 09:23:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3621B6E5F56
+	for <lists+linux-stm32@lfdr.de>; Tue, 18 Apr 2023 13:07:48 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C0301C6A5FA;
-	Tue, 18 Apr 2023 07:22:59 +0000 (UTC)
-Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com
- [209.85.208.45])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9BCA2C6A5FB;
+	Tue, 18 Apr 2023 11:07:47 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A1E3AC65E70
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 49D6DC03FC3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 18 Apr 2023 07:22:58 +0000 (UTC)
-Received: by mail-ed1-f45.google.com with SMTP id
- 4fb4d7f45d1cf-504eb1155d3so23058766a12.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 18 Apr 2023 00:22:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1681802578; x=1684394578;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=N3T4qzQ386UMm1Jq1CVcwpetcL7Lh9seXXqAFFBWSFk=;
- b=RJ5M0AFQjbLXZ2h1tv8V456IdJFFK1o1tRX7zu4QYAORmnF0xm7RZcGN6NlTQkVEb2
- c0aGg8bt/LM6D6EdYZgEqvg22PNt69KuXIcsZRPrm55DnTaTbc+u8Z3kWsuLQczP/WYY
- 1kWWUKkpdmdirc5br5UpDiqUWm/ZXOFly3S1GgXScxgK5pDky4DkH2qLh0Ya4WkZcuF4
- c1/ofyONceFivJOy3O7gcCurJiFHIfKuzGGz3InCsE3rb2FQ/1wFHn20qYAxR0da5ORH
- t7jNvJe0FT0XySQfyl6tCryGQHUwbrLtV8wJTt719orO7oMho8U+NL9Emt2rn1LY69uQ
- chBw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1681802578; x=1684394578;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=N3T4qzQ386UMm1Jq1CVcwpetcL7Lh9seXXqAFFBWSFk=;
- b=iW3gJkEkcEfQlVoqVJ2ojgP2DwtgOVhfiHRg4gDgw6Exw+1uNL+Wrkf7GOUn997mnA
- dopzc+2gYAnaComJtfG/e3xfmkTyKX6AbAbUuieA1KlQ3qgqI75kRX2er/C7+1tqGTnJ
- eBKOw4bcx28HLoW/pLg/shZQFL8b9MGKoecy8wBRnc5m39LXPnLCLXmaeup94GTKG8Q5
- eKePp1NocDeXRFqVgtVWarayQTUPsPO943PJp70IitWXgjN1BMoC7WVmYh8ePn3MHBmN
- oXhVH49vmwPJg7eUF/9on0uwIah7buB7Hwytty28ZEdyB9cJOPjl2Hr1f3GGkoM53alf
- uhvQ==
-X-Gm-Message-State: AAQBX9erWYqQZfYIa//vTXMlrksJV4EDK9ZpMNlS1i3J/rXQsXd0Lg1X
- zl2rM2l69OXf0Yxy9/Jf9kujXg==
-X-Google-Smtp-Source: AKy350ZjmGyY8bBRAkFWWouo7cz6/70JF0hWdv8/eM8JpUuTiuEQkdkR4ZqLDoHyPgQr8BCrdAbrRw==
-X-Received: by 2002:aa7:c949:0:b0:504:9e79:e86f with SMTP id
- h9-20020aa7c949000000b005049e79e86fmr1391615edt.18.1681802578028; 
- Tue, 18 Apr 2023 00:22:58 -0700 (PDT)
-Received: from ?IPV6:2a02:810d:15c0:828:a276:7d35:5226:1c77?
- ([2a02:810d:15c0:828:a276:7d35:5226:1c77])
- by smtp.gmail.com with ESMTPSA id
- q6-20020aa7da86000000b00506a09795e6sm3018474eds.26.2023.04.18.00.22.57
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 18 Apr 2023 00:22:57 -0700 (PDT)
-Message-ID: <fde49fb8-c337-3a6b-811e-b9d7c3620393@linaro.org>
-Date: Tue, 18 Apr 2023 09:22:56 +0200
+ Tue, 18 Apr 2023 11:07:46 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 0FF2762691;
+ Tue, 18 Apr 2023 11:07:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8CB9C433EF;
+ Tue, 18 Apr 2023 11:07:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1681816064;
+ bh=3sMgbHnYFmyo7o83otuBC8dc0GltIp1+zccjMGc95TQ=;
+ h=From:Date:Subject:To:Cc:From;
+ b=BYabJNlsgK6TddYgNWyKF8BZQcv9Uz7Oc3ij7SyvJJIf8DEMFVP/48d1Lg+ag1Lk2
+ ny5UzarcmIHNPbH7srtzwI1uN2EU22fx8Rhdep+1O9WkZSkWMv0UrJqJFUwEfSq12p
+ n3KANzk41FZb9zrUe1oCwu8RqSkJywujWhN0fXOKoBF7Kfy+wq2Hr/5ziGXbATAFvb
+ 6YFLf4NyW7c/a11XOdNzHSPIa7ikLVTsePC9AYHX/1BeEXNjJ56FQn5Ksgld0Bkac2
+ gs/NThnM8TrVylSofi9CP8o6Yvb8hWmkywtMi7+Iqz0hOXnlRBvLXntHrOfatvq/gU
+ XVijnh2ARv3Yw==
+From: Simon Horman <horms@kernel.org>
+Date: Tue, 18 Apr 2023 13:07:33 +0200
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.10.0
-Content-Language: en-US
-To: Patrick Delaunay <patrick.delaunay@foss.st.com>,
- Alexandre TORGUE <alexandre.torgue@foss.st.com>, Lee Jones <lee@kernel.org>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>
-References: <20230417181342.v2.1.I483a676579cc7e3ac07e1db649091553743fecc8@changeid>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20230417181342.v2.1.I483a676579cc7e3ac07e1db649091553743fecc8@changeid>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH v2] dt-bindings: mfd: stm32: Remove
- unnecessary blank lines
+Message-Id: <20230418-dwmac-meson8b-clk-cb-cast-v1-1-e892b670cbbb@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAPR5PmQC/x2N2wrCMBBEf6XsswtNY2n1V8SHXLY2mG4lG7VQ+
+ u8uPg1n4MzsIFQSCVybHQp9kqSVFcypgTA7fhCmqAxd29n2bEaM38UFXEhWHj2G/MSg4aTiZH0
+ fbXcZTD+A+t4JoS+Ow6wL/M5Zy1ehKW3/wxswVWTaKtyP4weJcx0qigAAAA==
+To: Jakub Kicinski <kuba@kernel.org>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Paolo Abeni <pabeni@redhat.com>
+X-Mailer: b4 0.12.2
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Kevin Hilman <khilman@baylibre.com>, llvm@lists.linux.dev,
+ Nick Desaulniers <ndesaulniers@google.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Nathan Chancellor <nathan@kernel.org>, Jose Abreu <joabreu@synopsys.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Tom Rix <trix@redhat.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>, linux-amlogic@lists.infradead.org,
+ netdev@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ Jerome Brunet <jbrunet@baylibre.com>
+Subject: [Linux-stm32] [PATCH net-next] net: stmmac: dwmac-meson8b: Avoid
+ cast to incompatible function type
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,22 +69,49 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 17/04/2023 18:14, Patrick Delaunay wrote:
-> Remove double blank line.
-> 
-> Signed-off-by: Patrick Delaunay <patrick.delaunay@foss.st.com>
-> ---
-> 
-> Changes in v2:
-> - update commit title and commit message to reflect what the change is
->   V1="dt-bindings: mfd: stm32: Fix STM32F4 DT include fil
+Rather than casting clk_disable_unprepare to an incompatible function
+type provide a trivial wrapper with the correct signature for the
+use-case.
 
-More than one file has the same issue. This is quite a churn to handle
-such patch one by one. Please fix all of them or just skip, as it is
-harmless.
+Reported by clang-16 with W=1:
 
-Best regards,
-Krzysztof
+ drivers/net/ethernet/stmicro/stmmac/dwmac-meson8b.c:276:6: error: cast from 'void (*)(struct clk *)' to 'void (*)(void *)' converts to incompatible function type [-Werror,-Wcast-function-type-strict]
+                                        (void(*)(void *))clk_disable_unprepare,
+                                        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+No functional change intended.
+Compile tested only.
+
+Signed-off-by: Simon Horman <horms@kernel.org>
+---
+ drivers/net/ethernet/stmicro/stmmac/dwmac-meson8b.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-meson8b.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-meson8b.c
+index e8b507f88fbc..f6754e3643f3 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-meson8b.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-meson8b.c
+@@ -263,6 +263,11 @@ static int meson_axg_set_phy_mode(struct meson8b_dwmac *dwmac)
+ 	return 0;
+ }
+ 
++static void meson8b_clk_disable_unprepare(void *data)
++{
++	clk_disable_unprepare(data);
++}
++
+ static int meson8b_devm_clk_prepare_enable(struct meson8b_dwmac *dwmac,
+ 					   struct clk *clk)
+ {
+@@ -273,8 +278,7 @@ static int meson8b_devm_clk_prepare_enable(struct meson8b_dwmac *dwmac,
+ 		return ret;
+ 
+ 	return devm_add_action_or_reset(dwmac->dev,
+-					(void(*)(void *))clk_disable_unprepare,
+-					clk);
++					meson8b_clk_disable_unprepare, clk);
+ }
+ 
+ static int meson8b_init_rgmii_delays(struct meson8b_dwmac *dwmac)
 
 _______________________________________________
 Linux-stm32 mailing list
