@@ -2,66 +2,99 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3CF816E6E4E
-	for <lists+linux-stm32@lfdr.de>; Tue, 18 Apr 2023 23:35:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 45A986E6E55
+	for <lists+linux-stm32@lfdr.de>; Tue, 18 Apr 2023 23:37:04 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E6730C6B442;
-	Tue, 18 Apr 2023 21:35:52 +0000 (UTC)
-Received: from mail-oa1-f49.google.com (mail-oa1-f49.google.com
- [209.85.160.49])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0DC1DC6B442;
+	Tue, 18 Apr 2023 21:37:04 +0000 (UTC)
+Received: from mail-ot1-f43.google.com (mail-ot1-f43.google.com
+ [209.85.210.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CE837C6A5FA
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B7DF5C6A5FA
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 18 Apr 2023 21:35:51 +0000 (UTC)
-Received: by mail-oa1-f49.google.com with SMTP id
- 586e51a60fabf-187af4a5437so827450fac.0
+ Tue, 18 Apr 2023 21:37:02 +0000 (UTC)
+Received: by mail-ot1-f43.google.com with SMTP id
+ 46e09a7af769-6a5d9853d97so486846a34.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 18 Apr 2023 14:35:51 -0700 (PDT)
+ Tue, 18 Apr 2023 14:37:02 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1681853750; x=1684445750;
+ d=1e100.net; s=20221208; t=1681853821; x=1684445821;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=xiHSmFYNeiiWUCdJJE7awZ5CHROEiUdBDPkAp1lTJfE=;
- b=gBHqw/ucyMy8ANrN9LVy+BRQEXD2BLiOF/1KsmAs+4p7zmIO7kOjUklwxfJr4fp8ga
- RHsHB/NG0EXD++TXyCx4qiKlDWWZiZa0BZwUjVgfZcRpvuK1KfauyqVYdAg8irobh0uU
- kSOiLjy4mHCdFP2k7Yt1jmjge7gQJti3qm7HHqlb+3v6xLV/asB7uA9Q1y0MnDWJapSG
- aJVyyC8f9VAHjjYtXHnXHD/HI9C4pvvgiCZnZ27nHB6rT/1ALnIdCQQCexBPjO5keH5H
- 8irrC2eUQTb5lpVSrPoFCbPCugRbl1/Lp3Fo7f2jScPxboKOd+K3Hx86afN2a/8WT6TR
- 5g3Q==
-X-Gm-Message-State: AAQBX9cuCvlN34na+yTm66duVbBr1dWWjc2KFEhpAy3jla0PRDp6Dyhv
- BKqT61T7AFmr0m+POfKEbA==
-X-Google-Smtp-Source: AKy350b0ZSpKu/WLBKWeRVPeqxp22rfWdezk+dC0nuELJwJCvQMHKkxlU6SbBCluwnUHFd3X49U/OA==
-X-Received: by 2002:a05:6870:9723:b0:188:1096:246f with SMTP id
- n35-20020a056870972300b001881096246fmr1619351oaq.29.1681853750572; 
- Tue, 18 Apr 2023 14:35:50 -0700 (PDT)
+ bh=CbWVwRDoV9I2kcGoqtOHA4AoHy2tf9k4WaGcKcFo53w=;
+ b=c2I7R5Ol5Ls4OMmOIUKZOSUcBMnngwi4osa7qTtKc3GTWYiIE6Km1srPELeQIu3ESK
+ PTQLYIGZga1VtE5KPTlnPnaYUXWNKo04GU2DKuiYDrJ/ma6KfLkkeLLNDrECZ29TG9fa
+ umG8FrXdvoeiXq636HHV3J1w/XO2N+oPR4ASCfljaHAdMhlJeFR5CtzJ6qoaYyZO06iD
+ GAA1gBmtpbkmEfpr9Vqc/4EFLvt71I6Q+l9EMzysvC3sq5qkS6kQ68RgKdOsUhE6yxNo
+ gthr93z0a6cAX/oEqNIsULf4pI4hSRoboT+SanybUdrP7TCvfD0y63dJEdtax81uzYis
+ 2KfA==
+X-Gm-Message-State: AAQBX9c3VzOdt5MhdiyNSApICkiohno5eTOMqiOVrQKWKc3ZgNXitRx+
+ hRlkcx8EcdjKXWzlG8fTPA==
+X-Google-Smtp-Source: AKy350ajzlK+Nfe2WjS2CiPYlhzjq0hQUI8vA59pqj48sqD1cxE9cnAHbFCnFTn8iDnot1Luwh/ZcQ==
+X-Received: by 2002:a9d:69d3:0:b0:6a6:598:b915 with SMTP id
+ v19-20020a9d69d3000000b006a60598b915mr833018oto.8.1681853821579; 
+ Tue, 18 Apr 2023 14:37:01 -0700 (PDT)
 Received: from robh_at_kernel.org (66-90-144-107.dyn.grandenetworks.net.
  [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
- k8-20020a4a9488000000b00524f381f681sm6317500ooi.27.2023.04.18.14.35.49
+ b6-20020a9d7546000000b006a2ce5f3641sm6000241otl.8.2023.04.18.14.36.59
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 18 Apr 2023 14:35:49 -0700 (PDT)
-Received: (nullmailer pid 2372989 invoked by uid 1000);
- Tue, 18 Apr 2023 21:35:48 -0000
-Date: Tue, 18 Apr 2023 16:35:48 -0500
+ Tue, 18 Apr 2023 14:37:00 -0700 (PDT)
+Received: (nullmailer pid 2374252 invoked by uid 1000);
+ Tue, 18 Apr 2023 21:36:58 -0000
+Date: Tue, 18 Apr 2023 16:36:58 -0500
 From: Rob Herring <robh@kernel.org>
 To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Message-ID: <20230418213548.GA2370489-robh@kernel.org>
+Message-ID: <168185381738.2374180.14119161072449587074.robh@kernel.org>
 References: <20230415095112.51257-1-krzysztof.kozlowski@linaro.org>
- <16d3bb91-af02-2504-1a8b-7805a2d30bb4@roeck-us.net>
- <abefdf2e-076c-6f0e-46e3-74dae3d068c1@linaro.org>
+ <20230415095112.51257-5-krzysztof.kozlowski@linaro.org>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <abefdf2e-076c-6f0e-46e3-74dae3d068c1@linaro.org>
-Cc: devicetree@vger.kernel.org, linux-watchdog@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, Linus Walleij <linus.walleij@linaro.org>,
- linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+In-Reply-To: <20230415095112.51257-5-krzysztof.kozlowski@linaro.org>
+Cc: Sander Vanheule <sander@svanheule.net>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Sai Prakash Ranjan <quic_saipraka@quicinc.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Linus Walleij <linus.walleij@linaro.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Shubhrajyoti Datta <shubhrajyoti.datta@xilinx.com>,
+ linux-kernel@vger.kernel.org, Wolfram Sang <wsa+renesas@sang-engineering.com>,
+ Justin Chen <justinpopo6@gmail.com>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- linux-amlogic@lists.infradead.org, Wim Van Sebroeck <wim@linux-watchdog.org>,
- linux-stm32@st-md-mailman.stormreply.com, Guenter Roeck <linux@roeck-us.net>
-Subject: Re: [Linux-stm32] [PATCH 1/6] dt-bindings: watchdog: drop
- duplicated GPIO watchdog bindings
+ linux-amlogic@lists.infradead.org, =?UTF-8?B?77+9ZWNraQ==?= <rafal@milecki.pl>,
+ Jamie Iles <jamie@jamieiles.com>,
+ Nobuhiro Iwamatsu <nobuhiro1.iwamatsu@toshiba.co.jp>,
+ Fabio Estevam <festevam@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
+ Fu Wei <fu.wei@linaro.org>, Jerome Brunet <jbrunet@baylibre.com>,
+ linux-renesas-soc@vger.kernel.org, Srinivas Neeli <srinivas.neeli@xilinx.com>,
+ Robert Marko <robert.marko@sartura.hr>, Anson Huang <Anson.Huang@nxp.com>,
+ Viresh Kumar <vireshk@kernel.org>, Magnus Damm <magnus.damm@gmail.com>,
+ Sergio Paracuellos <sergio.paracuellos@gmail.com>,
+ Andy Gross <agross@kernel.org>,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+ NXP Linux Team <linux-imx@nxp.com>, Evan Benn <evanbenn@chromium.org>,
+ Guenter Roeck <linux@roeck-us.net>, Corentin Labbe <clabbe@baylibre.com>,
+ devicetree@vger.kernel.org, linux-watchdog@vger.kernel.org,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ linux-arm-msm@vger.kernel.org, Sascha Hauer <s.hauer@pengutronix.de>,
+ Eugen Hristev <eugen.hristev@collabora.com>, Rob Herring <robh+dt@kernel.org>,
+ linux-mediatek@lists.infradead.org, Matthias Brugger <matthias.bgg@gmail.com>,
+ Florian Fainelli <f.fainelli@gmail.com>,
+ Wim Van Sebroeck <wim@linux-watchdog.org>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ linux-arm-kernel@lists.infradead.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Yannick Fertre <yannick.fertre@foss.st.com>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Christophe Roullier <christophe.roullier@foss.st.com>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Kevin Hilman <khilman@baylibre.com>, Julius Werner <jwerner@chromium.org>,
+ Shawn Guo <shawnguo@kernel.org>, Claudiu Beznea <claudiu.beznea@microchip.com>
+Subject: Re: [Linux-stm32] [PATCH 5/6] dt-bindings: watchdog: toshiba,
+ visconti-wdt: simplify with unevaluatedProperties
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,55 +111,18 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Sun, Apr 16, 2023 at 07:26:27PM +0200, Krzysztof Kozlowski wrote:
-> On 16/04/2023 18:04, Guenter Roeck wrote:
-> > On 4/15/23 02:51, Krzysztof Kozlowski wrote:
-> >> Two conversions to DT schema of GPIO watchdog binding happened and came
-> >> through different trees.  Merge them into one:
-> >> 1. Combine maintainers,
-> >> 2. Use more descriptive property descriptions and constraints from
-> >>     gpio-wdt.yaml,
-> >> 3. Switch to unevaluatedProperties:false, to allow generic watchdog
-> >>     properties.
-> >>
-> >> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-> > 
-> > 
-> > For the series:
-> > 
-> > Reviewed-by: Guenter Roeck <linux@roeck-us.net>
-> > 
-> > On a side note, the e-mail addresses in patchwork are messed up for
-> > patches sent by you. As result, I can not reply to your e-mails after
-> > pulling a patch from patchwork. This means that some replies get lost
-> > if I did not keep the original e-mail.
-> > 
-> > That is how it looks like after I pull one of your patches from patchwork:
-> > 
-> > To:
-> > +=?unknown-8bit?q?Wim_Van_Sebroeck_=3Cwim=40linux-watchdog=2Eorg=3E=2C_Gu?==?unknown-8bit?q?enter_Roeck_=3Clinux=40roeck-us=2Enet=3E=2C_Rob_Herring_?==?unknown-8bit?q?=3Crobh+dt=40kernel=2Eorg=3E=2C_Krzysztof_Kozlowski_=3Ckrz?==?unknown-8bit?q?yszt
-> 
-> (Trimmed cc list)
-> 
-> Thanks for letting me know, I wonder what's the problem. I am sending
-> with send-email exactly the same way every day, but somehow this series
-> have such header in Patchwork:
-> https://patchwork.kernel.org/project/linux-watchdog/patch/20230415095112.51257-1-krzysztof.kozlowski@linaro.org/
-> 
-> Which I do not see in:
-> 1. lore:
-> https://lore.kernel.org/all/20230415095112.51257-1-krzysztof.kozlowski@linaro.org/
-> 
-> 2. Previous patches on Patchwork:
-> https://patchwork.kernel.org/project/linux-watchdog/patch/20230310223012.315897-1-krzysztof.kozlowski@linaro.org/
-> 
-> Lore (1 above) points to possible unescaped UTF character for
-> rafal@milecki.pl, but I wonder why send-email did not handle it.
 
-Looks to me like Content-Type header is missing. Usually, I get a prompt 
-from git-send-email with what encoding to use if it needs to use UTF8.
+On Sat, 15 Apr 2023 11:51:11 +0200, Krzysztof Kozlowski wrote:
+> Allow generic watchdog properties by using unevaluatedProperties: false.
+> 
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> ---
+>  .../devicetree/bindings/watchdog/toshiba,visconti-wdt.yaml    | 4 +---
+>  1 file changed, 1 insertion(+), 3 deletions(-)
+> 
 
-Rob
+Reviewed-by: Rob Herring <robh@kernel.org>
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
