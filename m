@@ -2,55 +2,226 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D2F4E6E574C
-	for <lists+linux-stm32@lfdr.de>; Tue, 18 Apr 2023 04:10:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D68936E5855
+	for <lists+linux-stm32@lfdr.de>; Tue, 18 Apr 2023 07:05:59 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7C0F4C65E70;
-	Tue, 18 Apr 2023 02:10:24 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4F246C03FC3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 18 Apr 2023 02:10:22 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7CE21C6A5FA;
+	Tue, 18 Apr 2023 05:05:59 +0000 (UTC)
+Received: from mx0b-00230701.pphosted.com (mx0b-00230701.pphosted.com
+ [148.163.158.9])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id DF51562C3A;
- Tue, 18 Apr 2023 02:10:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id D1335C433A0;
- Tue, 18 Apr 2023 02:10:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1681783819;
- bh=MvfqSWbs8IULCqRVEwCUVudPRPAhWInXRLQP6KdLf4g=;
- h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=N8dDczYqartLaUqoIyTNnBT8ml/i6GU3vvQJNL5tL0bcr7JsVZSDKTp30lcVwo6GV
- xdS7LOzJs9sHbMRrAbSswEyY4ldrTzo8T08AnKJQC65WN9LOg0h5Uaj0ouhpNnzzqP
- ubW3A/MVAXg4hxM3y/5y3mhos/Bh+v+XHRqYkB+IAmLOOmteXoiEVpRLxuj2vzhSKy
- 6PT2Qd/xDA6jCsHU7UKbRYi6+YBL7+pc4BJysYeGpUI0u9270ymphtBqPryzPUWfP7
- mDLX3mQXeWGGOvGXJwpXHoD+n3Zz6vYEZRx9u6WzWqSXpr6P+WD9mI7GdTUuD+g/G4
- n6zLzufhQHkVw==
-Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
- A8DA6C40C5E; Tue, 18 Apr 2023 02:10:19 +0000 (UTC)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 60611C65E70
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 18 Apr 2023 05:05:57 +0000 (UTC)
+Received: from pps.filterd (m0297265.ppops.net [127.0.0.1])
+ by mx0a-00230701.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 33I2Urdv001690; Mon, 17 Apr 2023 22:05:38 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=synopsys.com;
+ h=from : to : cc :
+ subject : date : message-id : references : in-reply-to : content-type :
+ content-id : content-transfer-encoding : mime-version; s=pfptdkimsnps;
+ bh=fUFbTCsbpwD34ttUos2pWGTWGlgN+Xno1UmdHJgivJ4=;
+ b=Mfn5tNU5A9Lu/fs/T2Hu7Gu96fwzPDzAfIq5WsNSodsGTfIBC9KtWkiVq8zikDoK8JT/
+ N+J/AQof7ZZEdxoQtH0Gc+0P5MjKeYq9En/uOySxTcskzRqD/MR3ze+wzm1dNtHYP0ux
+ Gd8m6ea44k11T2wg0mlXcB2fRcHbJxm/rdrc7RcPYNs1A9hrYcIgZTTyPt8qmxjIBvRu
+ 8YXTbdp9zobnKhunwkcI/X37IYdc3F+l62XraC7m2IpVLhoXGLDNWIPJF/VV3XVvXZLd
+ X0jn0bbX+34vXKAlNCqBlIwvrCopl8jw6b6tW7ky+SGMFFhQVqQrulUOtZlIXlW0CLWZ 9g== 
+Received: from smtprelay-out1.synopsys.com (smtprelay-out1.synopsys.com
+ [149.117.73.133])
+ by mx0a-00230701.pphosted.com (PPS) with ESMTPS id 3pytuvjgdq-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 17 Apr 2023 22:05:37 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=synopsys.com; s=mail;
+ t=1681794336; bh=fUFbTCsbpwD34ttUos2pWGTWGlgN+Xno1UmdHJgivJ4=;
+ h=From:To:CC:Subject:Date:References:In-Reply-To:From;
+ b=M095EgSgYPV3gu+q2P9cRE5co5FNOn54Qtc8tmdOMbUcOalAcRxuUk4tFcn/vADAD
+ 2DOYOFRFK/oV58TvasJpMaxKfCIVRCIVSUjEU/8KjQAy37Eesbv3PKa8sTruGglOeR
+ 9zO6+G5/l5R+f9G3bE4B54QZG+4ZYT7JRw3ScLnNsxt6iEWXkGjl+kgWgnljT8AKWW
+ uFFm7m+LIIjOV5KbFHE09RAfEYeBvvVZkjKiwzxI1iWjufHrkYUIg7ZXENJUHxRo5n
+ oqWgeaHfI8pmf+z9icMnl7zh8eYV5o+T55Fe28qnQUvCnXZqHCapAxzSyw33pOMGy5
+ NVOMUzjgp/cIw==
+Received: from mailhost.synopsys.com (badc-mailhost1.synopsys.com
+ [10.192.0.17])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256
+ client-signature RSA-PSS (2048 bits) client-digest SHA256)
+ (Client CN "mailhost.synopsys.com", Issuer "SNPSica2" (verified OK))
+ by smtprelay-out1.synopsys.com (Postfix) with ESMTPS id 28E73404CE;
+ Tue, 18 Apr 2023 05:05:35 +0000 (UTC)
+Received: from o365relay-in.synopsys.com (us03-o365relay3.synopsys.com
+ [10.4.161.139])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
+ (Client CN "o365relay-in.synopsys.com",
+ Issuer "Entrust Certification Authority - L1K" (verified OK))
+ by mailhost.synopsys.com (Postfix) with ESMTPS id AE154A005A;
+ Tue, 18 Apr 2023 05:05:33 +0000 (UTC)
+Authentication-Results: o365relay-in.synopsys.com;
+ dmarc=pass (p=reject dis=none) header.from=synopsys.com
+Authentication-Results: o365relay-in.synopsys.com;
+ spf=pass smtp.mailfrom=synopsys.com
+Authentication-Results: o365relay-in.synopsys.com; dkim=pass (1024-bit key;
+ unprotected) header.d=synopsys.com header.i=@synopsys.com header.a=rsa-sha256
+ header.s=selector1 header.b=IzssPAKM; 
+ dkim-atps=neutral
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12lp2170.outbound.protection.outlook.com [104.47.59.170])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (Client CN "mail.protection.outlook.com",
+ Issuer "DigiCert Cloud Services CA-1" (verified OK))
+ by o365relay-in.synopsys.com (Postfix) with ESMTPS id CE30940D07;
+ Tue, 18 Apr 2023 05:05:30 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=OMd2e4SzW03uGoLtil0hAmHoLi7pPQxOmi1BI8MdVvNkQgmTufR9fvAGsccn4V0xz6xbQCvLKAI631BAZDu2llrSlPnW0moN9JwWkVohAsBXDz6e+QZHFDfngzgN6nWQ5Q88W0kguDht3avzXZ3sjBJyeO1J66wxuzHTDzu2ZP4bW93ehNgo031UHWs6ewTHz9Vc8tZmnqb5Cd2GK3w5PbI7DuSNkhFFA9SigFEENrnpNm0b/9CDAK24+ExI0YTIYbK3hZTXYkHjR2AU1CWDlKucKHhVl8jDa7grVfsXgN9jHkN8TV51P9grEJlZYiAfz+gdObub0G4P5osv9CQ47Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=fUFbTCsbpwD34ttUos2pWGTWGlgN+Xno1UmdHJgivJ4=;
+ b=ClZTNwkCITkccgXK8yv1qzVIuDR4eE2QWxT/PNuL7yJmiNM+Ol18scNaXxoiJ4PQ2T4No8/dMyFmPxA8N7PChHi/82gkCyqWwblQS87e21o87LtgG4chHwbIBr3mvJe8aavLG67QDecBMloQnM9QMN/Jfjusr97Wt9WwzjdATEGb8bmmeTf+OyYXRHjqzez5scJ9b+VTOXUjckdfk8jDP+uIYag26ppk05gL4sGVgKZIwVj3Py4H942yqnO0AM3CnwjH49tRNaz+g5P9omAWu9ao/MwxaSa8HM/R03wuUDf2FBOF+dzVo7pBvERIDF6ZhiGnJtmSj2QQTHRMpYhyTw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=synopsys.com; dmarc=pass action=none header.from=synopsys.com;
+ dkim=pass header.d=synopsys.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=synopsys.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=fUFbTCsbpwD34ttUos2pWGTWGlgN+Xno1UmdHJgivJ4=;
+ b=IzssPAKMFhZWSPy+DlbcqKz1fRFHLS0amZbAu8w3AhC5Mm8lfSlSqqDmRFJ/cD2akAnKXhmOQQ50a7Osahf9C4EAyqmBnsap+7vYrFHsE29jzLXzFA6rx/IchqRITCuTLOFSyVoQkKMdIgf/0/yV7mrgyQznZfCt2uAXOHgMGYg=
+Received: from BYAPR12MB3399.namprd12.prod.outlook.com (2603:10b6:a03:ad::22)
+ by SA0PR12MB4479.namprd12.prod.outlook.com (2603:10b6:806:95::24)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6298.45; Tue, 18 Apr
+ 2023 05:05:27 +0000
+Received: from BYAPR12MB3399.namprd12.prod.outlook.com
+ ([fe80::2dd9:84:a1cb:ece1]) by BYAPR12MB3399.namprd12.prod.outlook.com
+ ([fe80::2dd9:84:a1cb:ece1%4]) with mapi id 15.20.6298.045; Tue, 18 Apr 2023
+ 05:05:27 +0000
+X-SNPS-Relay: synopsys.com
+From: Minas Harutyunyan <Minas.Harutyunyan@synopsys.com>
+To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>,
+ Minas Harutyunyan <Minas.Harutyunyan@synopsys.com>,
+ "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
+ "robh+dt@kernel.org" <robh+dt@kernel.org>,
+ "krzysztof.kozlowski+dt@linaro.org" <krzysztof.kozlowski+dt@linaro.org>,
+ "alexandre.torgue@foss.st.com" <alexandre.torgue@foss.st.com>
+Thread-Topic: [PATCH v2 1/4] usb: dwc2: improve error handling in
+ __dwc2_lowlevel_hw_enable
+Thread-Index: AQHZbq0XE33RmTqMaEmZZt50sYO6aK8wiWkA
+Date: Tue, 18 Apr 2023 05:05:26 +0000
+Message-ID: <e78f13a1-b035-c3b8-7aff-1eb0cd55e977@synopsys.com>
+References: <20230414084137.1050487-1-fabrice.gasnier@foss.st.com>
+ <20230414084137.1050487-2-fabrice.gasnier@foss.st.com>
+In-Reply-To: <20230414084137.1050487-2-fabrice.gasnier@foss.st.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.10.0
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BYAPR12MB3399:EE_|SA0PR12MB4479:EE_
+x-ms-office365-filtering-correlation-id: ba103daf-cd15-4f71-0e27-08db3fca85b7
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: dNVyA62c4F401jK0EJbf9P2gx9tLYchICqY/wUIvIb5sU40U7/6nd3Rd54VvIJ1NLpg2mj3K3HVhxsCovYkSh+ERR6f8VI7vW0tTSSp5T5OKFKrhCGCDJf5LQKPKa+gDG0hT5083QMRpxiznA9fp5hE7j9wQSwz0YAuEiXGv2sEpgWbh0pvXwmaLsvZ32kQUxT/4an1Z3BhIjMuXB8fR84Jopy614Xr3FHDvSL8clb17DnTVsy+pgczbCwsMUoSQmizRI4cIZtTOHze3ClbwBFpXZg+LBfZXXIN3p5Loz7NZMysCcUXaXm0rv/pleiA9s9veIM2ALggNM7Fv828vnNRpiwmnAhF+6sIcUqTm+f8bCjY9zVnryZHiVtzWtWMBhHnXtmCEolpw/HxV5Qmu+feI7CmpH4Tba2++GrsvaNbdSUIM49TUqR0vLjwssWtClfap8e7xkXM3amNrropuS4P2uNbg5PJHKN98I6DUBZdYTl7VjdJ/iLC7+E5tN7+mBm4eiZCyR1mwZxgtKELoS6wArFAvVOLv6kPx3NpyheOOD0mKVnx91EOs8x9Xef93K9voiqaaiowwLANJN5eP+4rojiHeJWn8IXPmGleaMPiB+zPaLOKIPCQ7ZzwApvqsKuDDMUsAOS1j1uolduaO6QJLia7ywBHVXFpqRNV6uepZtYldQNG15KeCbpfakjfa
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BYAPR12MB3399.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(396003)(366004)(136003)(346002)(376002)(39860400002)(451199021)(7416002)(5660300002)(2616005)(31696002)(83380400001)(122000001)(86362001)(186003)(26005)(6512007)(53546011)(6506007)(38100700002)(38070700005)(8936002)(8676002)(110136005)(54906003)(478600001)(71200400001)(6486002)(41300700001)(316002)(91956017)(36756003)(76116006)(66556008)(64756008)(66476007)(4326008)(66946007)(31686004)(66446008)(2906002)(45980500001)(43740500002);
+ DIR:OUT; SFP:1102; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?RW4wOGp3dmdQUkxNbWJzUkNVVjNUVHJlYk9CWlBpNnR5NkhFQjdZdXo4RmRY?=
+ =?utf-8?B?K1BQWTU3aGRpTllVVTBCYmYvakU5QlR1aGJrZkw4Y1A4bW52UTEyTitPNW9p?=
+ =?utf-8?B?aGF0R3draWZxeS9JdE9wMmkwK09SRDFTdFZvMlBmdURmUnp3M25CaUFiSy9J?=
+ =?utf-8?B?djQrSUtpNTFQN0tjQ2V5QzBFTzk4SWNsWEh4b2t4ODlvSU1OdlhXdGlTZEUx?=
+ =?utf-8?B?UzVGNzBSTG1WSVY4b2psRjl5L3kxd2hUdk5MR0ZmUThCOGZjUjlRZ2s1ZVVX?=
+ =?utf-8?B?QldPY1A3M3MyZERpQTRJdmhKTHdGTm5oTzE0TGV3K2hFTXJHRHdXWEo1L0R3?=
+ =?utf-8?B?NE9LUUhDVEtSK3ZkaGhPL0t6RmxXOHJFQngzeDMvazdXYkdGTXVKbUZQVC9L?=
+ =?utf-8?B?KzU5QzVKblhCc09tRUliTkgwK3FhYUN0d05QWUs0UG1qWXhIMlpCd0tSYWVw?=
+ =?utf-8?B?d3Q0dzU5d1UvNEZQcjI2RDY0TmpZS0hweXFoWlJZSG15WmJHc2x0R1ZFZ0tj?=
+ =?utf-8?B?c3V3OVVPcHBkcXRTRnNkTjhhbnRnL0JQTWtQSG4ycVErR2htYnRsayt5eWdO?=
+ =?utf-8?B?bU5xVlZIOTQwdlFLelVKbVFTS1YrWUlua1VDUkZNL3ppZjlZY3c4WEQvdFhr?=
+ =?utf-8?B?ZlRPejlDNzVDc3A1eG0yK1lGcE5TZVRUY3FxMFlITyszRWNQT2lEbEgzT3di?=
+ =?utf-8?B?UmZ2aVJ1UVZ2ZStBVzlYOTIvYWFnbXNucmlZcktuUTE0LzY0QU5sSzlYQUww?=
+ =?utf-8?B?aDBFNTd1SXExdEJHZGRQMDd5YXl5eDEwN1hqNXZUQThiR0J0SVNSaVlQYkR3?=
+ =?utf-8?B?RFBMSGdUeEQvTTBzNnAwc3k4TWVFVnRicXhOOUV4UndwWGN4UXNTSEFxMnZR?=
+ =?utf-8?B?aVN3dG5rWGowT3ZBc1IvZEpKQ1NYOWpHa1pSU0FncS9CK1Z0ZEVzNlZxYWpU?=
+ =?utf-8?B?NVZ2cldOdHA0L2tiMmxwak83UEJ0dm9kYytrTTgzeWtvTGhDb0lnVUg0RHUv?=
+ =?utf-8?B?TXhpaWNWQ0JsNGxmNUZWZXc1Q0lBMVdCWFJIeXhuK0VnWmF1VEZWUG4yNm4v?=
+ =?utf-8?B?bmJTUkZkaUhrV1RDbDNWUnhBSVZPWXY4SnUvckNOYVFMcjlWSy96SEZoalA5?=
+ =?utf-8?B?T0thSGhIZ1k0N3g0dEhZblREUU9BMjZ5WTB3MG8zSXVQSFhFdVF4QU9iZnB0?=
+ =?utf-8?B?eExrQjJEOVcvRjM1NGg3aGd3SHc5bnZzTHFUMGRqWjdHenhhVUFGOUg4T2J4?=
+ =?utf-8?B?Q25sYnR2RUdnYTljeXJpV1hGMk9pblM0bEQrQTAvRWVLZ3lNdE44S1RIYy85?=
+ =?utf-8?B?amw2Y21HQ1pVVXZhN1ZSWWZKUGpqYmZZVnNNYVNIdmNMb0dDZ3RyZlNBQlg4?=
+ =?utf-8?B?NFdwelYwQUlVa0ladWgrT05hS3hFYmYyZ0gvK2x0bzZLdWo1MlBhUWNnQkRn?=
+ =?utf-8?B?b09VN2pzSXgra2J2ckVYbDYvSmJQV2EzTG5XTmtxQ1BHSXpSaW9BSnNWeE9t?=
+ =?utf-8?B?bVE5UVQxUE84akdVV3ZjT1VRaGtodlNHQUFoQkRyc0tzWG53VCtiMzdrSEZQ?=
+ =?utf-8?B?dXpRRitZKzl4WXNzOUFwV2RzdHhwMGs2aGtxaEVDeGwzYk5hRC8wbjdJOVNF?=
+ =?utf-8?B?bkllN3RSYW5BVi9heDdDbGMxbUtnQS9tczhnV2RRRTZDc2lYVTdZTlR4OE1w?=
+ =?utf-8?B?T2NmWlU1WXdlNEQzY1BrNFpNdWJvN01mY3ZZa20va05MeWJaL2lPTm5ndkZW?=
+ =?utf-8?B?V3RYNFVtb0tDQWwwM2VMYm8vWnBtQkp2cXRsaEhQT1VmR1lNcVVVb2ViZ1hL?=
+ =?utf-8?B?RXMyU3VXV2Q5cElXd3FvQnN5a1FudEl4dGJ0bTR4TERLMWY4RVhXL0oyWjhZ?=
+ =?utf-8?B?dnJsQkRSWHpYSC8xWXNITlVrb0xmcVg3ZzcvMnR1MmNHWStWVVoweVdjbjNC?=
+ =?utf-8?B?OUpCdmNjRzUyTW02a2NtR2t2c2NhNHN2cjY4SEp0cmdleGxSMCt5UURqK21u?=
+ =?utf-8?B?VktQMEhLbE9sUzd1UjltVmFDb01EKzhQK0k3a0UvVUM2UHBUTUFiQk80V2lq?=
+ =?utf-8?B?UGZNSjVpZnVmSnowV3Jxa3dVa2lUT1NkVitoUDZKVkM5bkxRbCtZcU5aZ3o5?=
+ =?utf-8?Q?r3Wvi1ur+RzdOpSaEZ4IQZVN6?=
+Content-ID: <A591B5F669257F4B92EB73C9E41991FF@namprd12.prod.outlook.com>
 MIME-Version: 1.0
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <168178381968.5081.7896199883043114155.git-patchwork-notify@kernel.org>
-Date: Tue, 18 Apr 2023 02:10:19 +0000
-References: <20230415064503.3225835-1-yoong.siang.song@intel.com>
-In-Reply-To: <20230415064503.3225835-1-yoong.siang.song@intel.com>
-To: Song@ci.codeaurora.org, Yoong Siang <yoong.siang.song@intel.com>
-Cc: alexanderduyck@fb.com, edumazet@google.com, sdf@google.com,
- boon.leong.ong@intel.com, linux-stm32@st-md-mailman.stormreply.com,
- xdp-hints@xdp-project.net, daniel@iogearbox.net, john.fastabend@gmail.com,
- joabreu@synopsys.com, brouer@redhat.com, jacob.e.keller@intel.com,
- kuba@kernel.org, pabeni@redhat.com, hawk@kernel.org, ast@kernel.org,
- peppe.cavallaro@st.com, linux-arm-kernel@lists.infradead.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- mcoquelin.stm32@gmail.com, bpf@vger.kernel.org, davem@davemloft.net
-Subject: Re: [Linux-stm32] [PATCH net-next v6 0/3] XDP Rx HWTS metadata for
-	stmmac driver
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0: =?utf-8?B?K2NkcDNqTlA2bGVxcjJSc0FFeDd5WTlJWjRtWGNxODRjNjhpM1o1bVNXMzly?=
+ =?utf-8?B?aWYySUh2NGVHUDh4Yk96QUtxYWxibmNRZEw5ZG1HU3AvL0oxZXp0Yis2Mm9z?=
+ =?utf-8?B?eGRmTC9vSTRzRkpnTTk3ZjFGRDNNTXM5UHBjMXk3ZmpJWjBDc2NTUmUxZmc2?=
+ =?utf-8?B?WG9rTEE4ZEQ5SVVRYzBzdEZkOFhWT3NFeThqZXhXNWxEanhHMGltVHRRSWc4?=
+ =?utf-8?B?TzRRekEvT1YvQVArVUhUVVAxckR5WFBia2szdlJidE9CVzVsVE55ZTBodCsx?=
+ =?utf-8?B?YzRxZjBtQUhxRHV1TTlZODRXNGVKaU9VK2ZRUzI3KzlKTDh0SWljYkJnVnUv?=
+ =?utf-8?B?YjlLMDRvK2ZqT2lEaEZQdURrV1lXTkhTRWkwZ0pMODVaZCsxb1MyVXNUUGNW?=
+ =?utf-8?B?UTgzdGYrdnlTM1JGeE1wUlFxb0VQQTVrZFJ0VS9EZ094ckM1SmhKb2NSa3VS?=
+ =?utf-8?B?eWhFN0ltby9uWG9tNHRURjk2SFF5VjBycHJiSFpRYlFTV2habm9MWFFXTUhC?=
+ =?utf-8?B?TFhYcE14aVJINDkrekZqVGsxWFJ0bnBPU2ZMeWx6R0x2NjVxRVB3UFF0dWFZ?=
+ =?utf-8?B?cE1XTEFGTjhuTGx1U29wUFlDTzlzUGI1Rm9WT2EzWi9SUmowbjJDeit2RnlO?=
+ =?utf-8?B?Wmd0WUtmQjNDODRtTTRad29WSGR1ZldvOHhPMU1aSTRoN3hyNTVLL1RVWi82?=
+ =?utf-8?B?TGxjc0VkNDJUMWFhUUdEZEFIMzFsVjVzWEJLRTF3a1pBcmlqSnplTlpUOE9t?=
+ =?utf-8?B?RDc2YXUyRlJjWURtZGMrRDhzQnYxVlFPelcvczhYU2F2YWRJci80M0NEanB3?=
+ =?utf-8?B?REw2WXp0eXBvTGVhZlhKRkh2VzlBaEcxZ1cvQXlXOWRrVkQrU2d5Wms2aHRP?=
+ =?utf-8?B?cWh2cml5a1dZK0RlV281QXZpbkZBK0hqNGZwdFhKTjBpdnBUVFc3cXFKZ1NV?=
+ =?utf-8?B?ZGJkTGJZcjJkY3F3NEY0WTVrUGdMTXNaR2lMSjJCSWR4YU42VUlBeDlsMXcy?=
+ =?utf-8?B?aWRUL0NSTmpMQ0QwK2MrWTlRWWIvTnZ0M2VXR0Vtb1hHeHJFUnFFcEVtanAz?=
+ =?utf-8?B?N1o3ZmNwdVc1b0tXbXBEVDhmWWlTWWxVeGpsaEt0MVRJUkVyL1ovRm5KbnJR?=
+ =?utf-8?B?V3BVMEVSR3V5djA3cjZteXQwd2dFcGZocXhMb2w4TWtVVTA3cVdrT3FwRFZk?=
+ =?utf-8?B?Y3FNZExQMjJtSk01QThXNmVINnhMN25INDZWODlEYlFodjlSY1FRbkxQdnRD?=
+ =?utf-8?B?RUNVTlBUU2hWMURDRjZDZlhxdzgyRWJESU1LVi9ZNEdvUHAvOEN2Wk13OC9G?=
+ =?utf-8?B?ekJTQlRrUFR3SlVYV3B6Qlp1TUpqanN5ZzBibVoyS2hYSXY4ZUhqb2RpWStT?=
+ =?utf-8?B?emJzazQ3UFM2NDM3SmFpa01pZDZhSzI0YW1BTmVyb0dQcTZuNHRXVUl3bGxV?=
+ =?utf-8?B?VG0ybk5STnZlblFuZExza3BFVkt6ZkI5eEM0d0xRPT0=?=
+X-OriginatorOrg: synopsys.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB3399.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ba103daf-cd15-4f71-0e27-08db3fca85b7
+X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Apr 2023 05:05:26.2138 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: c33c9f88-1eb7-4099-9700-16013fd9e8aa
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 7odU8gaUqhVbLEQq6mXOTwvq+lhp8k10lO4lmDL07aTjYnZJ8VKDmCx3yGQcW/Hje0IziL3knPFtTovafnv+8Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4479
+X-Proofpoint-ORIG-GUID: pnrEe-FqBCwS81KehhCgVrbgMqDOmglj
+X-Proofpoint-GUID: pnrEe-FqBCwS81KehhCgVrbgMqDOmglj
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.942,Hydra:6.0.573,FMLib:17.11.170.22
+ definitions=2023-04-18_02,2023-04-17_01,2023-02-09_01
+X-Proofpoint-Spam-Details: rule=outbound_active_cloned_notspam
+ policy=outbound_active_cloned score=0
+ clxscore=1011 lowpriorityscore=0 phishscore=0 malwarescore=0 adultscore=0
+ spamscore=0 suspectscore=0 impostorscore=0 priorityscore=1501 mlxscore=0
+ mlxlogscore=909 bulkscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.12.0-2303200000 definitions=main-2304180046
+Cc: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH v2 1/4] usb: dwc2: improve error handling
+ in __dwc2_lowlevel_hw_enable
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,36 +238,58 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello:
-
-This series was applied to netdev/net-next.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
-
-On Sat, 15 Apr 2023 14:45:00 +0800 you wrote:
-> Implemented XDP receive hardware timestamp metadata for stmmac driver.
+On 4/14/23 12:41, Fabrice Gasnier wrote:
+> Add error handling in __dwc2_lowlevel_hw_enable() that may leave the
+> clocks and regulators enabled upon error.
 > 
-> This patchset is tested with tools/testing/selftests/bpf/xdp_hw_metadata.
-> Below are the test steps and results.
+> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+
+Acked-by: Minas Harutyunyan <hminas@synopsys.com>
+
+> ---
+>   drivers/usb/dwc2/platform.c | 19 +++++++++++++++++--
+>   1 file changed, 17 insertions(+), 2 deletions(-)
 > 
-> Command on DUT:
-> 	sudo ./xdp_hw_metadata <interface name>
-> 
-> [...]
-
-Here is the summary with links:
-  - [net-next,v6,1/3] net: stmmac: introduce wrapper for struct xdp_buff
-    https://git.kernel.org/netdev/net-next/c/5b24324a907c
-  - [net-next,v6,2/3] net: stmmac: add Rx HWTS metadata to XDP receive pkt
-    https://git.kernel.org/netdev/net-next/c/e3f9c3e34840
-  - [net-next,v6,3/3] net: stmmac: add Rx HWTS metadata to XDP ZC receive pkt
-    https://git.kernel.org/netdev/net-next/c/9570df353309
-
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
-
+> diff --git a/drivers/usb/dwc2/platform.c b/drivers/usb/dwc2/platform.c
+> index d1589ba7d322..c431ce6c119f 100644
+> --- a/drivers/usb/dwc2/platform.c
+> +++ b/drivers/usb/dwc2/platform.c
+> @@ -104,7 +104,7 @@ static int __dwc2_lowlevel_hw_enable(struct dwc2_hsotg *hsotg)
+>   	if (hsotg->clk) {
+>   		ret = clk_prepare_enable(hsotg->clk);
+>   		if (ret)
+> -			return ret;
+> +			goto err_dis_reg;
+>   	}
+>   
+>   	if (hsotg->uphy) {
+> @@ -113,10 +113,25 @@ static int __dwc2_lowlevel_hw_enable(struct dwc2_hsotg *hsotg)
+>   		ret = hsotg->plat->phy_init(pdev, hsotg->plat->phy_type);
+>   	} else {
+>   		ret = phy_init(hsotg->phy);
+> -		if (ret == 0)
+> +		if (ret == 0) {
+>   			ret = phy_power_on(hsotg->phy);
+> +			if (ret)
+> +				phy_exit(hsotg->phy);
+> +		}
+>   	}
+>   
+> +	if (ret)
+> +		goto err_dis_clk;
+> +
+> +	return 0;
+> +
+> +err_dis_clk:
+> +	if (hsotg->clk)
+> +		clk_disable_unprepare(hsotg->clk);
+> +
+> +err_dis_reg:
+> +	regulator_bulk_disable(ARRAY_SIZE(hsotg->supplies), hsotg->supplies);
+> +
+>   	return ret;
+>   }
+>   
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
