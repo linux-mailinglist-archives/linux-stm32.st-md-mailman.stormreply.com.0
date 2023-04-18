@@ -2,48 +2,55 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 870EC6E53EB
-	for <lists+linux-stm32@lfdr.de>; Mon, 17 Apr 2023 23:33:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D2F4E6E574C
+	for <lists+linux-stm32@lfdr.de>; Tue, 18 Apr 2023 04:10:24 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 33618C65E70;
-	Mon, 17 Apr 2023 21:33:54 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7C0F4C65E70;
+	Tue, 18 Apr 2023 02:10:24 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D3BFDC03FC3
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4F246C03FC3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 17 Apr 2023 21:33:52 +0000 (UTC)
+ Tue, 18 Apr 2023 02:10:22 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 4EB4B62AA8;
- Mon, 17 Apr 2023 21:33:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 745FFC433D2;
- Mon, 17 Apr 2023 21:33:49 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id DF51562C3A;
+ Tue, 18 Apr 2023 02:10:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id D1335C433A0;
+ Tue, 18 Apr 2023 02:10:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1681767230;
- bh=DevFUD2pXPhn+7qfSYqBFbAMM38Bh/J+7pB96YIeCO8=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=ADfEtqMR+K4KEUM0j4f0TkpVqPh5F4A4S6hW7z0Ozghn/n4W0SwN+di2Rii8laW3E
- KEEblr/tirCyldF9c+zbPrpYJhpGlvSPqaZnrjffWzBC7XBo/++bapkyingkVo32sP
- 4FSGNeCkMe9CfxgasFku8iN8zkQXkHfWVhhAxl6mdJiw1LzwaFB6Jk56rwjrVo2ab/
- pq+GI20Ik6SYZ9AZZweW+vTTvEZ6hq0lA+KQEVPaL5parzQyLz3EKho4sXGx0epz4s
- kwq88bnUHlZW4t4C2HVvhm3wrkYMR6UnCBfsBHSDPETfGhe7p5UbgzNNTylmiJuMF0
- TvMi2lclY9YpQ==
-Date: Mon, 17 Apr 2023 17:33:47 -0400
-From: William Breathitt Gray <wbg@kernel.org>
-To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>
-Message-ID: <ZD27O3l1WMPSQnzy@ishi>
-References: <20230413212339.3611722-1-u.kleine-koenig@pengutronix.de>
+ s=k20201202; t=1681783819;
+ bh=MvfqSWbs8IULCqRVEwCUVudPRPAhWInXRLQP6KdLf4g=;
+ h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
+ b=N8dDczYqartLaUqoIyTNnBT8ml/i6GU3vvQJNL5tL0bcr7JsVZSDKTp30lcVwo6GV
+ xdS7LOzJs9sHbMRrAbSswEyY4ldrTzo8T08AnKJQC65WN9LOg0h5Uaj0ouhpNnzzqP
+ ubW3A/MVAXg4hxM3y/5y3mhos/Bh+v+XHRqYkB+IAmLOOmteXoiEVpRLxuj2vzhSKy
+ 6PT2Qd/xDA6jCsHU7UKbRYi6+YBL7+pc4BJysYeGpUI0u9270ymphtBqPryzPUWfP7
+ mDLX3mQXeWGGOvGXJwpXHoD+n3Zz6vYEZRx9u6WzWqSXpr6P+WD9mI7GdTUuD+g/G4
+ n6zLzufhQHkVw==
+Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
+ A8DA6C40C5E; Tue, 18 Apr 2023 02:10:19 +0000 (UTC)
 MIME-Version: 1.0
-In-Reply-To: <20230413212339.3611722-1-u.kleine-koenig@pengutronix.de>
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-iio@vger.kernel.org,
- William Breathitt Gray <william.gray@linaro.org>, Lee Jones <lee@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
- Thierry Reding <thierry.reding@gmail.com>, kernel@pengutronix.de,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2] counter: stm32-timer-cnt: Reset
- TIM_TISEL to its default value in probe
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: <168178381968.5081.7896199883043114155.git-patchwork-notify@kernel.org>
+Date: Tue, 18 Apr 2023 02:10:19 +0000
+References: <20230415064503.3225835-1-yoong.siang.song@intel.com>
+In-Reply-To: <20230415064503.3225835-1-yoong.siang.song@intel.com>
+To: Song@ci.codeaurora.org, Yoong Siang <yoong.siang.song@intel.com>
+Cc: alexanderduyck@fb.com, edumazet@google.com, sdf@google.com,
+ boon.leong.ong@intel.com, linux-stm32@st-md-mailman.stormreply.com,
+ xdp-hints@xdp-project.net, daniel@iogearbox.net, john.fastabend@gmail.com,
+ joabreu@synopsys.com, brouer@redhat.com, jacob.e.keller@intel.com,
+ kuba@kernel.org, pabeni@redhat.com, hawk@kernel.org, ast@kernel.org,
+ peppe.cavallaro@st.com, linux-arm-kernel@lists.infradead.org,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ mcoquelin.stm32@gmail.com, bpf@vger.kernel.org, davem@davemloft.net
+Subject: Re: [Linux-stm32] [PATCH net-next v6 0/3] XDP Rx HWTS metadata for
+	stmmac driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -55,61 +62,42 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============3189560914115244996=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+Hello:
 
---===============3189560914115244996==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="if/W+Y61PnsCB3GM"
-Content-Disposition: inline
+This series was applied to netdev/net-next.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
 
+On Sat, 15 Apr 2023 14:45:00 +0800 you wrote:
+> Implemented XDP receive hardware timestamp metadata for stmmac driver.
+> 
+> This patchset is tested with tools/testing/selftests/bpf/xdp_hw_metadata.
+> Below are the test steps and results.
+> 
+> Command on DUT:
+> 	sudo ./xdp_hw_metadata <interface name>
+> 
+> [...]
 
---if/W+Y61PnsCB3GM
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Here is the summary with links:
+  - [net-next,v6,1/3] net: stmmac: introduce wrapper for struct xdp_buff
+    https://git.kernel.org/netdev/net-next/c/5b24324a907c
+  - [net-next,v6,2/3] net: stmmac: add Rx HWTS metadata to XDP receive pkt
+    https://git.kernel.org/netdev/net-next/c/e3f9c3e34840
+  - [net-next,v6,3/3] net: stmmac: add Rx HWTS metadata to XDP ZC receive pkt
+    https://git.kernel.org/netdev/net-next/c/9570df353309
 
-On Thu, Apr 13, 2023 at 11:23:39PM +0200, Uwe Kleine-K=F6nig wrote:
-> The driver assumes that the input selection register (TIM_TISEL) is at
-> its reset default value. Usually this is the case, but the bootloader
-> might have modified it.
->=20
-> This bases on a similar patch submitted by Olivier Moysan for pwm-stm32.
->=20
-> Reviewed-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com
-> Signed-off-by: Uwe Kleine-K=F6nig <u.kleine-koenig@pengutronix.de>
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
-Applied to the counter-next branch of the Counter tree. I made a minor
-fix to Fabrice's Reviewed-by tag line for the missing closing chevron.
-
-Thanks,
-
-William Breathitt Gray
-
---if/W+Y61PnsCB3GM
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEARYKAB0WIQSNN83d4NIlKPjon7a1SFbKvhIjKwUCZD27OwAKCRC1SFbKvhIj
-K+cOAQDeYS4l9+RlqHr4D7QYrKZxrerhqbYBTIvV2vktTXzPIwD/dhyY5SuBy/hf
-gGPzZn8MPwGhXr9LAN8tnKpuZwaoCgc=
-=AAdE
------END PGP SIGNATURE-----
-
---if/W+Y61PnsCB3GM--
-
---===============3189560914115244996==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============3189560914115244996==--
