@@ -2,102 +2,64 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CFCAB6E7C0B
-	for <lists+linux-stm32@lfdr.de>; Wed, 19 Apr 2023 16:14:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 749AE6E8138
+	for <lists+linux-stm32@lfdr.de>; Wed, 19 Apr 2023 20:27:26 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8A022C6B462;
-	Wed, 19 Apr 2023 14:14:50 +0000 (UTC)
-Received: from APC01-SG2-obe.outbound.protection.outlook.com
- (mail-sgaapc01olkn2010.outbound.protection.outlook.com [40.92.53.10])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1000DC6B461;
+	Wed, 19 Apr 2023 18:27:26 +0000 (UTC)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 661D1C6B460
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BB46CC65E58
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 19 Apr 2023 14:14:48 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=mvwwG7EORmzVEJ4aqoqG5SAkDPqm8hSfmxi0PaBN/lj9VBDlSwKhnplMTwuk411EwvR1X+MJp0cN++aqYZ65QXE80la0uV2ZSOBQaPEWmfBa0rDy05HdnDxB9dK35fZnuLPJrLoADYlygjNEmYR43jj05RoYKOaT8ug7RBtDI6XWOnYHTerO7IqqtQvr4Ogug4DC0cRIC0MA4CGUhQ6RX94TlLhw25TXy8HMgKlg/09FPOVUc8k3qpm1vJ4rhVkDzz37Wl2VNoqnWeK3nI0xQ4K+v3Fv6Uof5lu6UM3+p+WgvujrQOtMfXw/w0MnAC40Fd9s/gtOwniZ8rUC5vqfRQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=EwMex9/vqrxT/pGnN5t0f6wgraxdDhEWXacOVPgSfiM=;
- b=YTpXFCjSpC65rjC8p1lCJ88yqY0DoyblLZDymK5sK0Z7/9B8AM/5G93eOknCo+4C+MFgu2m/QnABedxVCcAHDsNkdAD2KSHhuvScOx9jRQ9NUpc1FBzSevvfvRl0jrmWc7mKuRgXwKaJi6z5ovxNFWwhcHgZh3CYkTiebwO2m5M45OR7fAOcsZB3LY3CKV5UQRz+6TdHP5euvHDxHEB1uxkbBdOliqjOqdLfHWxchkn5gBxWVjslOnOI6RNg1WFjOei6ynjRCUNuJN0c2DEfWRI7fXimGOZV+e5VvvKRPYza0Z9J1p0bUUubRMXnxp5IVbozrFX1Kf6uqn2vbJc4gA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EwMex9/vqrxT/pGnN5t0f6wgraxdDhEWXacOVPgSfiM=;
- b=lvsv37tDOh7oFGFeBVp9pWLryMarpYFUfJFba2tpf/BmMQQ+u5gxYhS3DCSe19UzZEKD5JNhqu7Qu4U6eZe1vETInx8PGtkhLZKkX22Rk+GjGIDg2YVQ6FRQqA8qKsT7FKci0Ey7jZEMZq5/CXkONwJ6C+DgJO1ACtJ5qXAfXI2v75ssaOGS5A6Z0xkkUZddvHQtZHgFeG/WvNLfEcd0Bezpww7DRQejqJRvgZyDLOJ1xLzP1dnsBEbN8DiGIPq1KBm97YnL3BLgDfmuoMYOZVCumeKJZ1X7bQPruaS6GnHv7rbLWW87dTN2PJ2a6PNDNSJh34Ch0pUPNpaez+Bd3Q==
-Received: from KL1PR01MB5448.apcprd01.prod.exchangelabs.com
- (2603:1096:820:9a::12) by PUZPR01MB5311.apcprd01.prod.exchangelabs.com
- (2603:1096:301:106::6) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6319.20; Wed, 19 Apr
- 2023 14:14:42 +0000
-Received: from KL1PR01MB5448.apcprd01.prod.exchangelabs.com
- ([fe80::5bff:fd7e:ec7c:e9d3]) by KL1PR01MB5448.apcprd01.prod.exchangelabs.com
- ([fe80::5bff:fd7e:ec7c:e9d3%7]) with mapi id 15.20.6319.021; Wed, 19 Apr 2023
- 14:14:42 +0000
-From: Yan Wang <rk.code@outlook.com>
-To: davem@davemloft.net, edumazet@google.com, pabeni@redhat.com,
- kuba@kernel.org, mcoquelin.stm32@gmail.com
-Date: Wed, 19 Apr 2023 22:13:46 +0800
-Message-ID: <KL1PR01MB544874DAEE749710E67727A2E6629@KL1PR01MB5448.apcprd01.prod.exchangelabs.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <KL1PR01MB5448020DE191340AE64530B0E6989@KL1PR01MB5448.apcprd01.prod.exchangelabs.com>
-References: <KL1PR01MB5448020DE191340AE64530B0E6989@KL1PR01MB5448.apcprd01.prod.exchangelabs.com>
-X-TMN: [T5Zz4zhCaaRN6D4NZMgacFsHXk+6xs60]
-X-ClientProxiedBy: SG2PR01CA0120.apcprd01.prod.exchangelabs.com
- (2603:1096:4:40::24) To KL1PR01MB5448.apcprd01.prod.exchangelabs.com
- (2603:1096:820:9a::12)
-X-Microsoft-Original-Message-ID: <20230419141346.10517-1-rk.code@outlook.com>
+ Wed, 19 Apr 2023 18:27:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1681928843; x=1713464843;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=hMwknj2fnthEuseGk77ISBlfTv6f5/iv+yEnHLXoIAw=;
+ b=MSwlw0Un/bwkm91A8zrtnDBZ83zks3HRNXLULcKgWZ+P0bPlOZnwPNqp
+ rST7POG1D1Rrj0EpngJG7hpbNgsIitzBp89blAjjyqSpvBU84w0PAt9y5
+ XaRck9vKwI0KvSoQQEH91i16ALa+eJFKkAtcM4KlzPgS4U8ooHPRyhVjJ
+ WZ0OSBy4RcmVwnF2tuHPIy3JDgcK7lMU2F/a+pavm+6T3DR0ZauE8oSuW
+ xj1qOFltO79BEUy/gC2paO6srxkuHKarM6M0Iflqvp5lEtT/TK9LGYU24
+ iIP1hgoDjqnbW5WiwIi7mDOyCaJyp/bJXcR5ycvPPCC2qfvBrd2+bMsXH g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10685"; a="410757550"
+X-IronPort-AV: E=Sophos;i="5.99,210,1677571200"; d="scan'208";a="410757550"
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Apr 2023 11:26:04 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10685"; a="937765285"
+X-IronPort-AV: E=Sophos;i="5.99,208,1677571200"; d="scan'208";a="937765285"
+Received: from lkp-server01.sh.intel.com (HELO b613635ddfff) ([10.239.97.150])
+ by fmsmga006.fm.intel.com with ESMTP; 19 Apr 2023 11:26:00 -0700
+Received: from kbuild by b613635ddfff with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1ppCVD-000f5y-2o;
+ Wed, 19 Apr 2023 18:25:59 +0000
+Date: Thu, 20 Apr 2023 02:25:19 +0800
+From: kernel test robot <lkp@intel.com>
+To: Mao Jinlong <quic_jinlmao@quicinc.com>,
+ Steven Rostedt <rostedt@goodmis.org>,
+ Masami Hiramatsu <mhiramat@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Tingwei Zhang <quic_tingweiz@quicinc.com>
+Message-ID: <202304200216.kvZgZcao-lkp@intel.com>
+References: <20230419141328.37472-1-quic_jinlmao@quicinc.com>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: KL1PR01MB5448:EE_|PUZPR01MB5311:EE_
-X-MS-Office365-Filtering-Correlation-Id: 690c8def-c4c0-46ca-609c-08db40e06b78
-X-MS-Exchange-SLBlob-MailProps: YfhX3sd/0TVMxuI8J5UzJ6wcIdkd2x4ktEaID4hDgJNjb+GaNGG+vZlHu3LoU5M6TN/MDJP2IprhMk63hsQGQm6XYPDXbqzoA+TZJYxtNuk9PwFIbLAjEPufhN9+Yr+2FcEGHBWTmWRMjLtniK+1Sp4IRwxLWRGb7OHDPuoRm1krZFYh0w0bmiaZ8HrrKYca40qNfs161G0yWNliKjFZ9GdVjjUqFfV1lI/ehDhFBiYVpqWn+sjolnTVog26BCsIEqH19GONXJxoV0ROk0xMQbCAOz0ypGB7Y7sTHTydF3h0u7U+VyqNd5BjkHsENMT/+EO0wKCrihZKR95k5HtbbXbfZPk0iHmAKR7DSso8sVlLAIYn7oMQggoTIi029KAJwMLHR5XwSTuMqPG+Sw9MMo+FwpY4o2uH712dXgIOa4V5xJRpVEDDJ9k+5M789HTAk1qKOywfYowPRnc4fwvFlNvDqidYcjfafGZhtCAwggkJ7HEVmXo96kuL44C3fa4apOfPD/tpZzTZomwilwxHQZPyfBdLLR2nWBCO5hMzFlbokMVRDwP5rs4oPRzyYni1Y5tWWLQv4ifqwZpY/gT/dLynwRiH/xsLwrVJTNkg/RcCTqeBvOik08SYK6azbZ5COGCDWloZre47Ddg9nTphwn0rA+44oZ9Tl95Sl2IBZafn8AOeCjnunySOmn0QLEbMmFfjVMEKcETuBrw0nkbou+TaH5EkI8hfWk6HxjXk2RFI6sNsCo4W/hXI0LRq0+nZgiHE1+k/fDLXfK5gQepJC+b1bl6XKnHE5s5Fy3edY9A=
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: OwZNjkYP+p0BXd04eqbttVf35tLK9NBQm0AEj8+78AKzlr5u3NZAk+GhF0DejVtkRO1vLMczwLt2ddcMLcOW2Em3OtA1D1yqmCbNv4khrGdhzIreGCs13L9HoLehPPESnhKuti1RRl6UZd69k1+ayGExMKp3Hosvi28JWv5XN/oBtAEyBqY+n7J0jjLuqNcT1YKUY/aFg+83dRF1wPKYJizZd+ybCgqqK7EOtHjyH4tKaVGX/z5SmZF3aA3NJylXAKW7FINW2ScHS+R1noY4dxDrhaCjlnGlOsN9vwRk4SC+4xon81mLlr/Lgfh6mp2SH4XlsLgS/METZqUIfLVlOB7QDPB8b9vCirfccURmMwj8hopvoe+InZWzL8Izq4j62TUK9U3J15cgEcFPsg2EmQo5jR0FfmT/Uajfuu1ASPnc0FT/RayojAcJAMylq3rnR3U6seI4BRhWzTiF0LE841TO+UPeuJL/rA37l4nfFS2SNayAPLmj8Sul1db5DIkGnOIyW5kb+IhdsqK55ERnCQs3ZD9bOtMu0a7DKaiyxC3z1d80YSHLOsKlhvrJ8STcLhKWsmDRMgv9LEu9E+FpRDO3hcr19clG8IvBTJwwSQgakOnyHlkiUMSHAQ0zMBQvsWWp6vazY1NJMhas78MkaQ==
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?gTyLDbLdOO3MzFousNNwvhJuGntd7XKaTu9MG2S3YHa4LkQJI8bQB/nu/4wQ?=
- =?us-ascii?Q?PMvgJMS5uZZ/lGtXFLS9KeCjnewjgPgxI/B0STwUKMkHtJbRwS6GKmpqPuJ/?=
- =?us-ascii?Q?HaBC3ZZYSA07wtBlzC1Efebo7NqMFgoA7Q1PhKO/gs+z+ahVpRejzNjrfkzv?=
- =?us-ascii?Q?+zTRX+3l4DD+lc2+7mbDgtOXuoyABX6EE5FoBl9qGMscbBJMPZ8z9Ujqmzwv?=
- =?us-ascii?Q?vJqzVDpOmMQGYjX4eRtFWlGzLZOpJIcbBSs7FPkLaeLW0ccDK39b5OdoCN9B?=
- =?us-ascii?Q?wYe/KVm+oIHPHSOf8vNF5q+3tBW17eJA43sYYPOyTh8eHxDX4mduhCFE2kIU?=
- =?us-ascii?Q?fBu4GY+mxWhYloWvQnFt702QMxcni5gIRD67Jq9qxKjC2MrfdYB7jN4Fdp+d?=
- =?us-ascii?Q?PCknxJ53YdOiEakP4RTlJqQojr78XNdDD9rG7ZoqwTw62b0YSjLxLQGd1QsY?=
- =?us-ascii?Q?0Xutp8zENrubbY12dver4HcutF4P9NkU+4fZwOZwCcvSu9LpYpRkICQ0ADat?=
- =?us-ascii?Q?20nqANOG+eUAfP7KUOoaJ9zsu/LpVzSJXL+QqR1bwNIn/pSgb+insfargA1R?=
- =?us-ascii?Q?MCp5YJXk9KAknE1itfoN8MZ89jcGYT88DXMijRMUbgThzYSKqMPhBddwgYEH?=
- =?us-ascii?Q?ObHTTiafmZSIOkUb2KtSdNjn/2gjFevp7DFXtIikNG1k0IsxAK5KEwfP3aKu?=
- =?us-ascii?Q?7xehnBfAbT90ciJ7laOITHLmLy3O4chpMHYw05dbYt+foIqFQto6GDRc4Pd1?=
- =?us-ascii?Q?OoNCIIB24AOX+yRjksfV0SKWvQOX9ok2NwJElWbaOUaM/sVJJwqm8N/PjlRC?=
- =?us-ascii?Q?ez2EclMuzww0bUal/kh5iDKTOgkGU3PKo0xBekd9rVh+1uHJyCFg/juBqXeu?=
- =?us-ascii?Q?3x+C70XLq3lujMIkBMJcH20cehagv/47JQJEBsuXsO4UC/IcnQZ+DY4KJymr?=
- =?us-ascii?Q?WzL2aup4z0sW0bFHSD2k5fXhw6fgGg5PBZ2z4OTcJDRsnt6uhZbS4LdrRj4j?=
- =?us-ascii?Q?04BCdl7vJaHiti5kvupDzDxJZEYkDcKlDeYHahavrWoKu2pgH/c+e+KsUai3?=
- =?us-ascii?Q?taUYs8/0Pgs8kYF0LUqKTMFHF5/xbRsDJo6ZXL408+t43XgqNnQcDLjuIwJM?=
- =?us-ascii?Q?gvck4Hp/Rz6xPW42/7F1dz4U91f12ZdxbqeO6w0ODyPIFbJHRhuslSRzk1SH?=
- =?us-ascii?Q?bwhfx8dsy+WhNjUZ3ZyAXn9RfqhBvefE7hyBpw=3D=3D?=
-X-OriginatorOrg: outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 690c8def-c4c0-46ca-609c-08db40e06b78
-X-MS-Exchange-CrossTenant-AuthSource: KL1PR01MB5448.apcprd01.prod.exchangelabs.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Apr 2023 14:14:42.6645 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PUZPR01MB5311
-Cc: open list <linux-kernel@vger.kernel.org>,
- "open list:STMMAC ETHERNET DRIVER" <netdev@vger.kernel.org>,
- Joakim Zhang <qiangqing.zhang@nxp.com>, Jose Abreu <joabreu@synopsys.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>, Yan Wang <rk.code@outlook.com>,
- "moderated list:ARM/STM32 ARCHITECTURE"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "moderated list:ARM/STM32 ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>
-Subject: [Linux-stm32] [PATCH net-next v6] net: stmmac:fix system hang when
-	setting up tag_8021q VLAN for DSA ports
+Content-Disposition: inline
+In-Reply-To: <20230419141328.37472-1-quic_jinlmao@quicinc.com>
+Cc: linux-doc@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ Mao Jinlong <quic_jinlmao@quicinc.com>, linux-kernel@vger.kernel.org,
+ Tao Zhang <quic_taozha@quicinc.com>, oe-kbuild-all@lists.linux.dev,
+ Yuanfang Zhang <quic_yuanfang@quicinc.com>, Hao Zhang <quic_hazha@quicinc.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ linux-trace-kernel@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH v2] stm: class: Add MIPI OST protocol
+	support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -114,84 +76,129 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The system hang because of dsa_tag_8021q_port_setup()->
-				stmmac_vlan_rx_add_vid().
+Hi Mao,
 
-I found in stmmac_drv_probe() that cailing pm_runtime_put()
-disabled the clock.
+kernel test robot noticed the following build errors:
 
-First, when the kernel is compiled with CONFIG_PM=y,The stmmac's
-resume/suspend is active.
+[auto build test ERROR on atorgue-stm32/stm32-next]
+[also build test ERROR on linus/master v6.3-rc7 next-20230418]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-Secondly,stmmac as DSA master,the dsa_tag_8021q_port_setup() function
-will callback stmmac_vlan_rx_add_vid when DSA dirver starts. However,
-The system is hanged for the stmmac_vlan_rx_add_vid() accesses its
-registers after stmmac's clock is closed.
+url:    https://github.com/intel-lab-lkp/linux/commits/Mao-Jinlong/stm-class-Add-MIPI-OST-protocol-support/20230419-221653
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/atorgue/stm32.git stm32-next
+patch link:    https://lore.kernel.org/r/20230419141328.37472-1-quic_jinlmao%40quicinc.com
+patch subject: [PATCH v2] stm: class: Add MIPI OST protocol support
+config: sparc-allyesconfig (https://download.01.org/0day-ci/archive/20230420/202304200216.kvZgZcao-lkp@intel.com/config)
+compiler: sparc64-linux-gcc (GCC) 12.1.0
+reproduce (this is a W=1 build):
+        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
+        chmod +x ~/bin/make.cross
+        # https://github.com/intel-lab-lkp/linux/commit/54db7d137859caf5a14de2b166d80913b0c80218
+        git remote add linux-review https://github.com/intel-lab-lkp/linux
+        git fetch --no-tags linux-review Mao-Jinlong/stm-class-Add-MIPI-OST-protocol-support/20230419-221653
+        git checkout 54db7d137859caf5a14de2b166d80913b0c80218
+        # save the config file
+        mkdir build_dir && cp config build_dir/.config
+        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-12.1.0 make.cross W=1 O=build_dir ARCH=sparc olddefconfig
+        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-12.1.0 make.cross W=1 O=build_dir ARCH=sparc SHELL=/bin/bash drivers/
 
-I would suggest adding the pm_runtime_resume_and_get() to the
-stmmac_vlan_rx_add_vid().This guarantees that resuming clock output
-while in use.
+If you fix the issue, kindly add following tag where applicable
+| Reported-by: kernel test robot <lkp@intel.com>
+| Link: https://lore.kernel.org/oe-kbuild-all/202304200216.kvZgZcao-lkp@intel.com/
 
-Fixes: b3dcb3127786 ("net: stmmac: correct clocks enabled in stmmac_vlan_rx_kill_vid()")
-Reviewed-by: Jacob Keller <jacob.e.keller@intel.com>
-Signed-off-by: Yan Wang <rk.code@outlook.com>
----
-v6:
-  - Add Reviewed Signature
-v5: https://lore.kernel.org/netdev/KL1PR01MB544863D839654F0EC9485894E69C9@KL1PR01MB5448.apcprd01.prod.exchangelabs.com/
-  - Add version tags.
-v4: https://lore.kernel.org/netdev/KL1PR01MB5448C7BF5A7AAC1CBCD5C36AE6989@KL1PR01MB5448.apcprd01.prod.exchangelabs.com/
-  - Fixed email address,but The Version number is wrong.
-v3: https://lore.kernel.org/netdev/KL1PR01MB544872920F00149E3BDDC7ECE6999@KL1PR01MB5448.apcprd01.prod.exchangelabs.com/
-  - Fixed the Fixes tag,but Missing version change log.
-v2: https://lore.kernel.org/netdev/KL1PR01MB54482D50B5C8713A2CA697DFE6999@KL1PR01MB5448.apcprd01.prod.exchangelabs.com/
-  - Add a error fixed tag.
-v1: https://lore.kernel.org/netdev/KL1PR01MB5448020DE191340AE64530B0E6989@KL1PR01MB5448.apcprd01.prod.exchangelabs.com/
-  - the Subject is set incorrectly
----
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 12 +++++++++---
- 1 file changed, 9 insertions(+), 3 deletions(-)
+All error/warnings (new ones prefixed by >>):
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index d7fcab057032..f9cd063f1fe3 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -6350,6 +6350,10 @@ static int stmmac_vlan_rx_add_vid(struct net_device *ndev, __be16 proto, u16 vid
- 	bool is_double = false;
- 	int ret;
- 
-+	ret = pm_runtime_resume_and_get(priv->device);
-+	if (ret < 0)
-+		return ret;
-+
- 	if (be16_to_cpu(proto) == ETH_P_8021AD)
- 		is_double = true;
- 
-@@ -6357,16 +6361,18 @@ static int stmmac_vlan_rx_add_vid(struct net_device *ndev, __be16 proto, u16 vid
- 	ret = stmmac_vlan_update(priv, is_double);
- 	if (ret) {
- 		clear_bit(vid, priv->active_vlans);
--		return ret;
-+		goto err_pm_put;
- 	}
- 
- 	if (priv->hw->num_vlan) {
- 		ret = stmmac_add_hw_vlan_rx_fltr(priv, ndev, priv->hw, proto, vid);
- 		if (ret)
--			return ret;
-+			goto err_pm_put;
- 	}
-+err_pm_put:
-+	pm_runtime_put(priv->device);
- 
--	return 0;
-+	return ret;
- }
- 
- static int stmmac_vlan_rx_kill_vid(struct net_device *ndev, __be16 proto, u16 vid)
+   drivers/hwtracing/stm/p_ost.c: In function 'ost_write':
+>> drivers/hwtracing/stm/p_ost.c:174:46: error: implicit declaration of function 'get_current'; did you mean 'get_cred'? [-Werror=implicit-function-declaration]
+     174 |         *(u64 *)(trc_hdr + 8) = task_tgid_nr(get_current());
+         |                                              ^~~~~~~~~~~
+         |                                              get_cred
+>> drivers/hwtracing/stm/p_ost.c:174:46: warning: passing argument 1 of 'task_tgid_nr' makes pointer from integer without a cast [-Wint-conversion]
+     174 |         *(u64 *)(trc_hdr + 8) = task_tgid_nr(get_current());
+         |                                              ^~~~~~~~~~~~~
+         |                                              |
+         |                                              int
+   In file included from include/linux/sched/mm.h:7,
+                    from include/linux/xarray.h:19,
+                    from include/linux/radix-tree.h:21,
+                    from include/linux/idr.h:15,
+                    from include/linux/kernfs.h:12,
+                    from include/linux/sysfs.h:16,
+                    from include/linux/kobject.h:20,
+                    from include/linux/module.h:21,
+                    from drivers/hwtracing/stm/p_ost.c:9:
+   include/linux/sched.h:1582:54: note: expected 'struct task_struct *' but argument is of type 'int'
+    1582 | static inline pid_t task_tgid_nr(struct task_struct *tsk)
+         |                                  ~~~~~~~~~~~~~~~~~~~~^~~
+   cc1: some warnings being treated as errors
+
+
+vim +174 drivers/hwtracing/stm/p_ost.c
+
+   131	
+   132	static ssize_t notrace ost_write(struct stm_data *data,
+   133			struct stm_output *output, unsigned int chan,
+   134			const char *buf, size_t count)
+   135	{
+   136		unsigned int c = output->channel + chan;
+   137		unsigned int m = output->master;
+   138		const unsigned char nil = 0;
+   139		u32 header = DATA_HEADER;
+   140		u8 trc_hdr[16];
+   141		ssize_t sz;
+   142	
+   143		struct ost_output *op = output->pdrv_private;
+   144	
+   145		/*
+   146		 * Identify the source by entity type.
+   147		 * If entity type is not set, return error value.
+   148		 */
+   149		if (op->node.entity_type == OST_ENTITY_TYPE_FTRACE) {
+   150			header |= OST_ENTITY_FTRACE;
+   151		} else if (op->node.entity_type == OST_ENTITY_TYPE_CONSOLE) {
+   152			header |= OST_ENTITY_CONSOLE;
+   153		} else {
+   154			pr_debug("p_ost: Entity must be set for trace data.");
+   155			return -EINVAL;
+   156		}
+   157	
+   158		/*
+   159		 * STP framing rules for OST frames:
+   160		 *   * the first packet of the OST frame is marked;
+   161		 *   * the last packet is a FLAG with timestamped tag.
+   162		 */
+   163		/* Message layout: HEADER / DATA / TAIL */
+   164		/* HEADER */
+   165		sz = data->packet(data, m, c, STP_PACKET_DATA, STP_PACKET_MARKED,
+   166				  4, (u8 *)&header);
+   167		if (sz <= 0)
+   168			return sz;
+   169	
+   170		/* DATA */
+   171		*(u16 *)(trc_hdr) = STM_MAKE_VERSION(0, 4);
+   172		*(u16 *)(trc_hdr + 2) = STM_HEADER_MAGIC;
+   173		*(u32 *)(trc_hdr + 4) = raw_smp_processor_id();
+ > 174		*(u64 *)(trc_hdr + 8) = task_tgid_nr(get_current());
+   175		sz = stm_data_write(data, m, c, false, trc_hdr, sizeof(trc_hdr));
+   176		if (sz <= 0)
+   177			return sz;
+   178	
+   179		sz = stm_data_write(data, m, c, false, buf, count);
+   180	
+   181		/* TAIL */
+   182		if (sz > 0)
+   183			data->packet(data, m, c, STP_PACKET_FLAG,
+   184				STP_PACKET_TIMESTAMPED, 0, &nil);
+   185	
+   186		return sz;
+   187	}
+   188	
+
 -- 
-2.17.1
-
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
