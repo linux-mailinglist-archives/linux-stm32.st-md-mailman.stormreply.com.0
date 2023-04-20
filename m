@@ -2,46 +2,48 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 41BB66E9062
-	for <lists+linux-stm32@lfdr.de>; Thu, 20 Apr 2023 12:36:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 315526E9068
+	for <lists+linux-stm32@lfdr.de>; Thu, 20 Apr 2023 12:37:44 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D5E85C65E4F;
-	Thu, 20 Apr 2023 10:36:58 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EFF3DC65E4F;
+	Thu, 20 Apr 2023 10:37:43 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 54283C62EFE
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BCFB4C62EFE
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 20 Apr 2023 10:36:57 +0000 (UTC)
+ Thu, 20 Apr 2023 10:37:42 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 115EC64710;
- Thu, 20 Apr 2023 10:36:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 92792C433D2;
- Thu, 20 Apr 2023 10:36:53 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id B05A060C38;
+ Thu, 20 Apr 2023 10:37:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F8F4C433EF;
+ Thu, 20 Apr 2023 10:37:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1681987015;
- bh=w0fd5yrWbjgttI2C+r5ejTi50O12PXHjFCdNN7uEFpY=;
+ s=k20201202; t=1681987061;
+ bh=irIU68TcV1yMUBP/LKJhStaIl6jVDYhAMhhYqnF1eW8=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=n6aosSq9fPEr4/jLahDzC1ZKlp8tPrGhuOAZp2erXS5vwf2huzEuM9tYOiBQPujtY
- XSvoMqwiRWzu8z3PBDBeKl5aOSZJb1s9IVdDBG7e+uFHVkCo4w7xAMobV3NN305e1M
- 66FHhOyxA39CgKHHOkwy0uhiRVpshv0b3rpzuXaIotZjRiYBMKgucpKXkuuSdQ4tW3
- 0N21PB0nBNnhcz63jLrCAdsa+0nXgh9vsqet7SJdlH5kTXTMkMIlGynRKNTTSaguj+
- q98PQk5sAQqUtwSqtxgv1XLrVQ7j+orEI8AvfsnzPoM44r0VYKkr2oMRHtDcPr5q7T
- 2wOBBH9A+qlmg==
-Date: Thu, 20 Apr 2023 11:36:50 +0100
+ b=omLgnpysdHVrU2VELnr+Wq6EVXsIuE6bnDWe5Te9H5bYjA5MKKrcQtyZdYEhylgc0
+ apTMvsMuV++GALQgMJa30CSJbCmATJOYMwdB9oa57KYsdg+Xy67IrdDwYhFQ8OReNA
+ LoA+dnm+c/Y4ygXAvSdjzk964hU2WQX0+QG+8xVW6P/9QiOejsffd5vZrix524h7sJ
+ gXh34cg6vIR0Cst31cCITkcwPAI5CG/zjdI6wNZNP8Iaf2zkh70jxXJhOkdL9dpLJA
+ +TJd2gQt/6J8e7N/R6GK1WlTYW+uLEyJD5qFQntL3O9C/+bhUUpf0Aim0E5zxyvQ66
+ WapKzR7cXu9XA==
+Date: Thu, 20 Apr 2023 11:37:35 +0100
 From: Lee Jones <lee@kernel.org>
-To: Patrick Delaunay <patrick.delaunay@foss.st.com>
-Message-ID: <20230420103650.GJ9904@google.com>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Message-ID: <20230420103735.GK9904@google.com>
 References: <20230417181342.v2.1.I483a676579cc7e3ac07e1db649091553743fecc8@changeid>
+ <fde49fb8-c337-3a6b-811e-b9d7c3620393@linaro.org>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20230417181342.v2.1.I483a676579cc7e3ac07e1db649091553743fecc8@changeid>
+In-Reply-To: <fde49fb8-c337-3a6b-811e-b9d7c3620393@linaro.org>
 Cc: devicetree@vger.kernel.org,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
  linux-kernel@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Patrick Delaunay <patrick.delaunay@foss.st.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
 Subject: Re: [Linux-stm32] [PATCH v2] dt-bindings: mfd: stm32: Remove
  unnecessary blank lines
@@ -61,14 +63,17 @@ Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gTW9uLCAxNyBBcHIgMjAyMywgUGF0cmljayBEZWxhdW5heSB3cm90ZToKCj4gUmVtb3ZlIGRv
-dWJsZSBibGFuayBsaW5lLgo+IAo+IFNpZ25lZC1vZmYtYnk6IFBhdHJpY2sgRGVsYXVuYXkgPHBh
-dHJpY2suZGVsYXVuYXlAZm9zcy5zdC5jb20+Cj4gLS0tCj4gCj4gQ2hhbmdlcyBpbiB2MjoKPiAt
-IHVwZGF0ZSBjb21taXQgdGl0bGUgYW5kIGNvbW1pdCBtZXNzYWdlIHRvIHJlZmxlY3Qgd2hhdCB0
-aGUgY2hhbmdlIGlzCj4gICBWMT0iZHQtYmluZGluZ3M6IG1mZDogc3RtMzI6IEZpeCBTVE0zMkY0
-IERUIGluY2x1ZGUgZmlsZSIKPiAKPiAgaW5jbHVkZS9kdC1iaW5kaW5ncy9tZmQvc3RtMzJmNC1y
-Y2MuaCB8IDEgLQo+ICAxIGZpbGUgY2hhbmdlZCwgMSBkZWxldGlvbigtKQoKQXBwbGllZCwgdGhh
-bmtzCgotLSAKTGVlIEpvbmVzIFvmnY7nkLzmlq9dCl9fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0z
-MkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9y
-bXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+T24gVHVlLCAxOCBBcHIgMjAyMywgS3J6eXN6dG9mIEtvemxvd3NraSB3cm90ZToKCj4gT24gMTcv
+MDQvMjAyMyAxODoxNCwgUGF0cmljayBEZWxhdW5heSB3cm90ZToKPiA+IFJlbW92ZSBkb3VibGUg
+YmxhbmsgbGluZS4KPiA+IAo+ID4gU2lnbmVkLW9mZi1ieTogUGF0cmljayBEZWxhdW5heSA8cGF0
+cmljay5kZWxhdW5heUBmb3NzLnN0LmNvbT4KPiA+IC0tLQo+ID4gCj4gPiBDaGFuZ2VzIGluIHYy
+Ogo+ID4gLSB1cGRhdGUgY29tbWl0IHRpdGxlIGFuZCBjb21taXQgbWVzc2FnZSB0byByZWZsZWN0
+IHdoYXQgdGhlIGNoYW5nZSBpcwo+ID4gICBWMT0iZHQtYmluZGluZ3M6IG1mZDogc3RtMzI6IEZp
+eCBTVE0zMkY0IERUIGluY2x1ZGUgZmlsCj4gCj4gTW9yZSB0aGFuIG9uZSBmaWxlIGhhcyB0aGUg
+c2FtZSBpc3N1ZS4gVGhpcyBpcyBxdWl0ZSBhIGNodXJuIHRvIGhhbmRsZQo+IHN1Y2ggcGF0Y2gg
+b25lIGJ5IG9uZS4gUGxlYXNlIGZpeCBhbGwgb2YgdGhlbSBvciBqdXN0IHNraXAsIGFzIGl0IGlz
+Cj4gaGFybWxlc3MuCgpJdCB3YXMgZWFzaWVyIHRvIGp1c3QgYXBwbHkgaXQgdGhpcyB0aW1lLgoK
+LS0gCkxlZSBKb25lcyBb5p2O55C85pavXQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3Qt
+bWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBs
+eS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
