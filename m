@@ -2,89 +2,71 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8CBBC6ED46C
-	for <lists+linux-stm32@lfdr.de>; Mon, 24 Apr 2023 20:32:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 553256ED793
+	for <lists+linux-stm32@lfdr.de>; Tue, 25 Apr 2023 00:10:39 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 14BFCC69065;
-	Mon, 24 Apr 2023 18:32:39 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F1707C69065;
+	Mon, 24 Apr 2023 22:10:38 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 62995C6905A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6B5F1C62EFE
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 24 Apr 2023 18:32:37 +0000 (UTC)
+ Mon, 24 Apr 2023 22:10:37 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id D0F47620BD;
- Mon, 24 Apr 2023 18:32:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A6DC2C433EF;
- Mon, 24 Apr 2023 18:32:29 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 36A7A629A1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 24 Apr 2023 22:10:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A07A9C433A0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 24 Apr 2023 22:10:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1682361155;
- bh=Qwb6xQXtIp9IK5K1XYNjKtQG2ZIwhMNhHPe94Eain8I=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=AL1mQRPIK32zEIp1g3UTreatnys6JEiIOElV8WxQ0HCWYrYOh9FUa/pV+J28wkIb0
- kuYZuUJpavJkOZaHtCtWDI71bQfr8PqKub4qFn3x5yzC4y8fbdLxu7HbJwBzC+XQwm
- VrE7IOJkHHjP11gDLRWFy86EVLqVWwQrt/B4cpTsksi6B3BO3cBvv6mbtnfmE01ZgB
- TzxQElbzcDm36YDmuacquU8+DAzm2Bx6Sa8BvlgfPXGSzs47J+MRnxBY/ACBhDqqPE
- NaKy9ZqKj3mZAujGR2xqbrAlZIyDJXBbelkgz2XIH4N+SG2lVTYr08TXhvRv/t7uAi
- Q8Hr8qGO9TEdw==
-Message-ID: <679921ee-98d4-d6ef-5934-e009fd4b31fc@kernel.org>
-Date: Mon, 24 Apr 2023 13:32:28 -0500
+ s=k20201202; t=1682374235;
+ bh=FnGcqvrEdLbzUlljWiXhCsHy+qSn4AIL5KgH7iNawGA=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=vD/FFfAqifz1nnj6u1cKoYA6GH2xWLs1V+ea4SuOBpAHQh0NGFjWQSVbhpBcJcyWf
+ 5aOCD+ypac0Bq6YZR1YiJlplzcuSYM9Rj/cS7VNwTmIarJqdDGwq0siT8Z1Rx3pyFd
+ uIF6CG+ld0p/DXJ2MDysgwFGm33oDzMbh8FK4uTfw2dpxgA6gSYi2UnPj9+YrUqTUc
+ RO+7Hri8oZZphp3UiJzPteyEuQ/oIqhua7BNO+3B52D/6VB2MsknlXdeKRKeWTnwr9
+ uVKS0ASFJVltj9jRqGi5XDys6F6NjS3eMd3J8yY7nKHNNoZ64TPWpTB1RlyDqpRbtD
+ Lm7Fysb+fVYSQ==
+Received: by mail-yw1-f173.google.com with SMTP id
+ 00721157ae682-54fb4c97d55so34826377b3.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 24 Apr 2023 15:10:35 -0700 (PDT)
+X-Gm-Message-State: AAQBX9eW6AngyI9u4VaC/Dbca3U+JnVYAp/TJlOckyA3hKusBqs5qS2s
+ YLlsZAS0msZr3V0v9TWUCNxC5IOGcyJ1J9vcXA==
+X-Google-Smtp-Source: AKy350Z8fwjeT6uilQZV5elUBNHPlU26+hD27eSWPRlQhPwmqTcN2nXurF+nyFvBNi+9INgYk5eGXnlLE8/dW8JHY5k=
+X-Received: by 2002:a0d:e2c9:0:b0:54f:752e:9b63 with SMTP id
+ l192-20020a0de2c9000000b0054f752e9b63mr9341801ywe.15.1682374234531; Mon, 24
+ Apr 2023 15:10:34 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.10.0
-To: Maxime Ripard <maxime@cerno.tech>,
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
- <sboyd@kernel.org>, =?UTF-8?Q?Andreas_F=c3=a4rber?= <afaerber@suse.de>,
- Manivannan Sadhasivam <mani@kernel.org>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Claudiu Beznea <claudiu.beznea@microchip.com>,
- Max Filippov <jcmvbkbc@gmail.com>,
- Charles Keepax <ckeepax@opensource.cirrus.com>,
- Richard Fitzgerald <rf@opensource.cirrus.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- David Lechner <david@lechnology.com>, Sekhar Nori <nsekhar@ti.com>,
- Abel Vesa <abelvesa@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, NXP Linux Team <linux-imx@nxp.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Peter De Schrijver <pdeschrijver@nvidia.com>,
- Prashant Gaikwad <pgaikwad@nvidia.com>,
- Thierry Reding <thierry.reding@gmail.com>,
- Jonathan Hunter <jonathanh@nvidia.com>, Ulf Hansson
- <ulf.hansson@linaro.org>, Linus Walleij <linus.walleij@linaro.org>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Vinod Koul <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>,
- Alessandro Zummo <a.zummo@towertech.it>, Chen-Yu Tsai <wens@csie.org>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Samuel Holland <samuel@sholland.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, Paul Cercueil <paul@crapouillou.net>,
- Orson Zhai <orsonzhai@gmail.com>, Baolin Wang
- <baolin.wang@linux.alibaba.com>, Chunyan Zhang <zhang.lyra@gmail.com>
-References: <20221018-clk-range-checks-fixes-v3-0-9a1358472d52@cerno.tech>
- <20221018-clk-range-checks-fixes-v3-29-9a1358472d52@cerno.tech>
-Content-Language: en-US
-From: Dinh Nguyen <dinguyen@kernel.org>
-In-Reply-To: <20221018-clk-range-checks-fixes-v3-29-9a1358472d52@cerno.tech>
-Cc: linux-rtc@vger.kernel.org, alsa-devel@alsa-project.org,
- patches@opensource.cirrus.com, linux-actions@lists.infradead.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-renesas-soc@vger.kernel.org,
- linux-phy@lists.infradead.org, linux-mediatek@lists.infradead.org,
- linux-tegra@vger.kernel.org, linux-mips@vger.kernel.org,
- linux-sunxi@lists.linux.dev, linux-clk@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Subject: Re: [Linux-stm32] [PATCH v3 29/65] clk: socfpga: gate: Add a
-	determine_rate hook
+References: <20220328000915.15041-1-ansuelsmth@gmail.com>
+ <85eb14ec-f465-7447-ad77-a3dabc666f47@kernel.org>
+ <YkKRYnN84D9VZhGj@Ansuel-xps.localdomain>
+In-Reply-To: <YkKRYnN84D9VZhGj@Ansuel-xps.localdomain>
+From: Rob Herring <robh+dt@kernel.org>
+Date: Mon, 24 Apr 2023 17:10:23 -0500
+X-Gmail-Original-Message-ID: <CAL_Jsq+RQQ-ADMxLPUFwk6S6kGmb6oNDy4k52fnU0EtbUvqmSA@mail.gmail.com>
+Message-ID: <CAL_Jsq+RQQ-ADMxLPUFwk6S6kGmb6oNDy4k52fnU0EtbUvqmSA@mail.gmail.com>
+To: Ansuel Smith <ansuelsmth@gmail.com>
+Cc: linux-aspeed@lists.ozlabs.org, linux-realtek-soc@lists.infradead.org,
+ linux-arm-kernel@axis.com, linux-stm32@st-md-mailman.stormreply.com,
+ chrome-platform@lists.linux.dev, linux-samsung-soc@vger.kernel.org,
+ openbmc@lists.ozlabs.org, Krzysztof Kozlowski <krzk@kernel.org>,
+ linux-rockchip@lists.infradead.org, linux-sunxi@lists.linux.dev,
+ devicetree@vger.kernel.org, Arnd Bergmann <arnd@arndb.de>,
+ linux-arm-msm@vger.kernel.org, linux-actions@lists.infradead.org,
+ linux-unisoc@lists.infradead.org, linux-mediatek@lists.infradead.org,
+ linux-rpi-kernel@lists.infradead.org, linux-tegra@vger.kernel.org,
+ linux-amlogic@lists.infradead.org, linux-omap@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org, kernel@dh-electronics.com,
+ Olof Johansson <olof@lixom.net>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ linux-oxnas@groups.io
+Subject: Re: [Linux-stm32] [RFC PATCH 0/1] Categorize ARM dts directory
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,75 +78,100 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Maxime,
-
-On 4/4/23 05:11, Maxime Ripard wrote:
-> The SoCFGPA gate clock implements a mux with a set_parent hook, but
-> doesn't provide a determine_rate implementation.
-> 
-> This is a bit odd, since set_parent() is there to, as its name implies,
-> change the parent of a clock. However, the most likely candidate to
-> trigger that parent change is a call to clk_set_rate(), with
-> determine_rate() figuring out which parent is the best suited for a
-> given rate.
-> 
-> The other trigger would be a call to clk_set_parent(), but it's far less
-> used, and it doesn't look like there's any obvious user for that clock.
-> 
-> So, the set_parent hook is effectively unused, possibly because of an
-> oversight. However, it could also be an explicit decision by the
-> original author to avoid any reparenting but through an explicit call to
-> clk_set_parent().
-> 
-> The latter case would be equivalent to setting the flag
-> CLK_SET_RATE_NO_REPARENT, together with setting our determine_rate hook
-> to __clk_mux_determine_rate(). Indeed, if no determine_rate
-> implementation is provided, clk_round_rate() (through
-> clk_core_round_rate_nolock()) will call itself on the parent if
-> CLK_SET_RATE_PARENT is set, and will not change the clock rate
-> otherwise. __clk_mux_determine_rate() has the exact same behavior when
-> CLK_SET_RATE_NO_REPARENT is set.
-> 
-> And if it was an oversight, then we are at least explicit about our
-> behavior now and it can be further refined down the line.
-> 
-> Signed-off-by: Maxime Ripard <maxime@cerno.tech>
-> ---
->   drivers/clk/socfpga/clk-gate.c | 3 ++-
->   1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/clk/socfpga/clk-gate.c b/drivers/clk/socfpga/clk-gate.c
-> index 32ccda960f28..cbba8462a09e 100644
-> --- a/drivers/clk/socfpga/clk-gate.c
-> +++ b/drivers/clk/socfpga/clk-gate.c
-> @@ -110,6 +110,7 @@ static unsigned long socfpga_clk_recalc_rate(struct clk_hw *hwclk,
->   
->   static struct clk_ops gateclk_ops = {
->   	.recalc_rate = socfpga_clk_recalc_rate,
-> +	.determine_rate = __clk_mux_determine_rate,
->   	.get_parent = socfpga_clk_get_parent,
->   	.set_parent = socfpga_clk_set_parent,
->   };
-> @@ -166,7 +167,7 @@ void __init socfpga_gate_init(struct device_node *node)
->   
->   	init.name = clk_name;
->   	init.ops = ops;
-> -	init.flags = 0;
-> +	init.flags = CLK_SET_RATE_NO_REPARENT;
->   
->   	init.num_parents = of_clk_parent_fill(node, parent_name, SOCFPGA_MAX_PARENTS);
->   	if (init.num_parents < 2) {
-> 
-
-This patch broke SoCFPGA boot serial port. The characters are mangled.
-
-Dinh
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gVHVlLCBNYXIgMjksIDIwMjIgYXQgODoyN+KAr0FNIEFuc3VlbCBTbWl0aCA8YW5zdWVsc210
+aEBnbWFpbC5jb20+IHdyb3RlOgo+Cj4gT24gVHVlLCBNYXIgMjksIDIwMjIgYXQgMDM6MjA6MThQ
+TSArMDIwMCwgS3J6eXN6dG9mIEtvemxvd3NraSB3cm90ZToKPiA+IE9uIDI4LzAzLzIwMjIgMDI6
+MDksIEFuc3VlbCBTbWl0aCB3cm90ZToKPiA+ID4gSGksCj4gPiA+IGFzIHRoZSB0aXRsZSBzYXks
+IHRoZSBpbnRlbnRpb24gb2YgdGhpcyAiInNlcmllcyIiIGlzIHRvIGZpbmFsbHkgY2F0ZWdvcml6
+ZQo+ID4gPiB0aGUgQVJNIGR0cyBkaXJlY3RvcnkgaW4gc3ViZGlyZWN0b3J5IGZvciBlYWNoIG9l
+bS4KPiA+ID4KPiA+ID4gVGhlIG1haW4gcmVhc29uIGZvciB0aGlzIGlzIHRoYXQgaXQgYmVjYW1l
+IHVucHJhY3RpY2FsIHRvIGhhbmRsZSAyNjAwCj4gPiA+IGR0cyBmaWxlcyBhbmQgdHJ5IHRvIGV2
+ZW4gdW5kZXJzdGFuZC9lZGl0L2NoZWNrIHRoZSBzaXR1YXRpb24gZm9yIGEKPiA+ID4gc3BlY2lm
+aWMgdGFyZ2V0Lgo+ID4gPgo+ID4gPiBJbiBhcm02NCB3ZSBhbHJlYWR5IGhhdmUgdGhpcyBraW5k
+IG9mIHNlcGFyYXRpb24gYW5kIEkgaG9uZXN0bHkgdGhpbmsKPiA+ID4gdGhhdCB0aGlzIHdhcyBu
+ZXZlciBwcm9wb3NlZCBmb3IgQVJNIGR1ZSB0byB0aGUgZmFjdCB0aGF0IHRoZXJlIGFyZQo+ID4g
+PiAyNjAwKyBmaWxlcyB0byBzb3J0IGFuZCB0aGUgZmFjdCB0aGF0IGl0IHdpbGwgYmUgYSBtZXNz
+IHRvIG1lcmdlIHRoaXMKPiA+ID4gZW50aXJlbHkgYnV0IElNSE8gd2l0aCBhIGxpdHRsZSBiaXQg
+b2YgZWZmb3J0IHdlIGNhbiBmaW5hbGx5IHNvbHZlIHRoaXMKPiA+ID4gcHJvYmxlbSBhbmQgaGF2
+ZSBhIHdlbGwgb3JnYW5pemVkIGRpcmVjdG9yeSBqdXN0IGxpa2UgYXJtNjQuCj4gPiA+Cj4gPiA+
+IFNvbWUgcHJlcmVxdWlzaXRlIG9uIGhvdyB0aGlzIHdvcmsgd2FzIGRvbmU6Cj4gPiA+IC0gVGhp
+cyBjb21lcyBlbnRpcmVseSBmcm9tIGEgcHl0aG9uIHNjcmlwdCBjcmVhdGVkIGJ5IG1lIGZvciB0
+aGUgdGFzay4KPiA+ID4gICBsaW5rZWQgaGVyZSBbMV0KPiA+ID4gLSBJIGhhZCB0byBtYW51YWxs
+eSBjYXRlZ29yaXplIGFsbCB0aGUgZGlmZmVyZW50IGFyY2ggaW4gdGhlIG1ha2VmaWxlCj4gPiA+
+ICAgYmFzZWQgb24gdGhlIG9lbS4gSSBzZWFyY2hlZCBldmVyeSBhcmNoIG9uIHRoZSBpbnRlcm5l
+dCB0cnlpbmcgdG8KPiA+ID4gICB1bmRlcnN0YW5kIHRoZSBjb3JyZWN0IG9lbS4gSSBob3BlIHRo
+ZXkgYXJlIGNvcnJlY3QgYnV0IEkgd291bGQgbG92ZQo+ID4gPiAgIHNvbWUgY29tbWVudHMgYWJv
+dXQgdGhlbS4KPiA+ID4gLSBUaGlzIGN1cnJlbnQgIiJzZXJpZXMiIiBpcyBhbGwgc3F1YXNoZWQg
+aW4gb25lIGJpZyBjb21taXQgdG8gYmV0dGVyCj4gPiA+ICAgcmVjZWl2ZSBjb21tZW50cyBmb3Ig
+dGhpcy4gVGhlIGZpbmFsIHZlcnNpb24gaWRlYWxseSB3b3VsZCBoYXZlIGFsbAo+ID4gPiAgIGNo
+YW5nZXMgaW4gc2VwYXJhdGUgY29tbWl0cy4gVGhlIHNjcmlwdCBjYW4gYWxyZWFkeSBkbyB0aGlz
+LCBpdCdzIGp1c3QKPiA+ID4gICBjb21tZW50ZWQuCj4gPiA+Cj4gPiA+IEhlcmUgaXMgYSBsaXN0
+IG9mIHNvbWUgZGlzY292ZXJpZXMgd2hpbGUgZG9pbmcgYWxsIHRoZSBzb3J0aW5nLgo+ID4gPiBU
+aGVzZSBhcmUgdG90YWxseSBhZGRpdGlvbmFsIHJlYXNvbiB3aHkgd2UgbmVlZCB0aGlzLgo+ID4g
+Pgo+ID4gPiBXaGlsZSBjcmVhdGluZyB0aGUgc2NyaXB0IEkgZGlzY292ZXJlZCBzb21lIGZ1bm55
+IHRoaW5nczoKPiA+ID4gLSBXZSBoYXZlIG9ycGhhbiBkdHMhIFRoZXJlIGFyZSBkdHMgdGhhdCBh
+cmUgbmV2ZXIgY29tcGlsZWQgYW5kIGFyZQo+ID4gPiAgIHRoZXJlIGp1c3QgZm9yIHJlZmVyZW5j
+ZS4gV2Ugd291bGQgbmV2ZXIgaGF2ZSBub3RpY2VkIHRoaXMgd2l0aG91dCB0aGlzCj4gPiA+ICAg
+Y2hhbmdlIGFuZCBwcm9iYWJseSBub2JvZHkgbm90aWNlZCBpdC4gVGhleSBhcmUgY3VycmVudGx5
+IGFsbCBsaXN0ZWQKPiA+ID4gICBpbiB0aGUgcHl0aG9uIHNjcmlwdC4KPiA+ID4gLSBXZSBoYXZl
+IGR0c2kgc2hhcmVkIGFjcm9zcyBkaWZmZXJlbnQgb2VtLiBNeSBjdXJyZW50IHNvbHV0aW9uIGZv
+ciB0aGVtCj4gPiA+ICAgaXM6IE5PVCBTT1JUIFRIRU0gYW5kIGxlYXZlIHRoZW0gaW4gdGhlIGdl
+bmVyaWMgZGlyZWN0b3J5IGFuZCBjcmVhdGUgYQo+ID4gPiAgIGxpbmsgaW4gZWFjaCBvZW0gZHRz
+IHRoYXQgcG9pbnRzIHRvIHRoZXNlIGR0c2kuIFRoaXMgaXMgdG8gdHJ5IGluCj4gPiA+ICAgZXZl
+cnkgd2F5IHBvc3NpYmxlIHRvIHNraXAgYW55IGFkZGl0aW9uYWwgY2hhbmdlcyB0byB0aGUgZHRz
+Lgo+ID4gPiAgIEN1cnJlbnQgZHRzaSB0aGF0IHN1ZmZlcnMgZnJvbSB0aGlzIGFyZSBvbmx5IDMu
+IChsaXN0ZWQgaW4gdGhlIHNjcmlwdCkKPiA+ID4gLSBhcm02NCBkdHMgYW5kIGR0c2kgcmVmZXJl
+bmNlIEFSTSBkdHMuIE9idmlvdXNseSB0aGlzIGNoYW5nZSB3b3VsZCBjYXVzZQo+ID4gPiAgIGJy
+b2tlbiBpbmNsdWRlIGZvciB0aGVzZSBzcGVjaWFsIGR0c2kuIFRoZSBzY3JpcHQgY3JlYXRlcyBh
+IGRlcGVuZGVuY3kKPiA+ID4gICB0YWJsZSBvZiB0aGUgZW50aXJlIGFybTY0IGRpcmVjdG9yeSBh
+bmQgZml4IGV2ZXJ5IGJyb2tlbiBkZXBlbmRlbmN5Cj4gPiA+ICAgKGhvcGluZyB0aGV5IGFsbCB1
+c2UgYSBzYW5lIGluY2x1ZGUgbG9naWMuLi4gcmVnZXggaXMgdXNlZCB0byBwYXJzZQo+ID4gPiAg
+IGFsbCB0aGUgZGlmZmVyZW50IGRlcGVuZGVuY3kpCj4gPiA+Cj4gPiA+IFNvIGluIHNob3J0IHRo
+ZSBzY3JpcHQgZG9lcyB0aGUgZm9sbG93aW5nIHN0ZXBzOgo+ID4gPiAxLiBFbnVtZXJhdGUgYWxs
+IHRoZSBhY3Rpb24gdG8gZG8uLi4gKGR0cyB0byBtb3ZlLCBzY2FuIGRlcGVuZGVuY3kgZm9yCj4g
+PiA+ICAgIHRoZSBkdHMuLi4pCj4gPiA+IDIuIEdlbmVyYXRlIHRoZSBhcm02NCBkZXBlbmRlbmN5
+Cj4gPiA+IDMuIENyZWF0ZXMgdGhlIE1ha2VmaWxlCj4gPiA+IDQuIEdlbmVyYXRlIHRoZSBNYWtl
+ZmlsZXMgZm9yIHRoZSBjdXJyZW50IG9lbQo+ID4gPiA1LiBNb3ZlIGFsbCB0aGUgcmVsYXRlZCBk
+dHMgYW5kIGR0c2kgZm9yIHRoZSBjdXJyZW50IG9lbQo+ID4gPiA2LiBDaGVjayBicm9rZW4gZGVw
+ZW5kZW5jeSBhbmQgZml4IHRoZW0gYnkgZWRpdGluZyB0aGUgZHRzIGFuZCB3cml0aW5nCj4gPiA+
+ICAgIHRoZSBjb3JyZWN0IGluY2x1ZGUgKG9yIGZpeCBhbnkgc3ltYm9saWMgbGluaykKPiA+ID4K
+PiA+ID4gVGhpcyBpcyBhbiBvdXRwdXQgdGhhdCBkZXNjcmliZXMgYWxsIHRoZSB0aGluZ3MgZG9u
+ZSBieSB0aGUgc2NyaXB0IFsyXQo+ID4gPgo+ID4gPiBJIHJlYWxseSBob3BlIEkgZGlkbid0IGNv
+bW1pdCBhbnkgbG9naWMgbWlzdGFrZSBpbiB0aGUgc2NyaXB0IGJ1dCBtb3N0Cj4gPiA+IG9mIHRo
+ZSB3b3JrIHNob3VsZCBiZSBkb25lLgo+ID4gPgo+ID4KPiA+ICtDYyBBcm5kIGFuZCBPbG9mLAo+
+ID4KPiA+IEFuc3VlbCwKPiA+IFRoYW5rcyBmb3IgeW91IHBhdGNoLiBQbGVhc2UgY2MgdGhlIFNv
+QyBtYWludGFpbmVycyBpbiBzdWNoIHN1Ym1pc3Npb25zLgo+ID4gSXQgc2VlbXMgdGhhdCB5b3Ug
+Z290IHNvbWUgcXVpdGUgbmljZSBkaXNjdXNzaW9uLCBidXQgc3RpbGwgdGhlIGNvcmUKPiA+IGZv
+bGtzIGFyZSBub3QgQ2NlZCwgc28gbm8gb25lIHdvdWxkIGJlIGFibGUgdG8gdGFrZSB5b3VyIHBh
+dGNoLi4uCj4gPgo+Cj4gSSBoYWQgc29tZSBwcm9ibGVtIHdpdGggZ21haWwgYW5kIHNlbmRpbmcg
+bWFpbCB0b28gbXVjaCB1c2Vycy4gSSBwdXQgUm9iCj4gYW5kIFlvdSBhbmQgYWxsIHRoZSB2YXJp
+b3VzIGxpc3QgdG8gdHJ5IHRvIHdvcmthcm91bmQgdGhlICJnbWFpbCBzcGFtCj4gcHJvdGVjdGlv
+biIKPgo+ID4gSSBhbSBwcmV0dHkgc3VyZSB3ZSB3ZXJlIGRpc2N1c3Npbmcgc3VjaCBzcGxpdCBp
+ZGVhIGluIHRoZSBwYXN0IGFuZCBpdAo+ID4gZGlkIG5vdCBnZXQgdHJhY3Rpb24sIGJ1dCBJIGNh
+bm5vdCByZWNhbGwgdGhlIGV4YWN0IGRpc2N1c3Npb24uCj4gPgo+Cj4gSSB0aGluayB0aGUgbWFp
+biBpc3N1ZSBoZXJlIGlzIGhvdyB0byBoYW5kbGUgYm90IGFuZCBob3cgcHJvYmxlbWF0aWMgaXMK
+PiB0byBtZXJnZSB0aGlzLiBBcyB3cml0dGVuIGluIHRoZSBjb3ZlciBsZXR0ZXIgdGhlIGZpbmFs
+IHZlcnNpb24gb2YgdGhpcwo+IHNob3VsZCBiZSBhIGJpZyBzZXJpZXMgb2YgNTArIHBhdGNoIHdp
+dGggZXZlcnkgY29tbWl0IHNwZWNpZmljIHRvIGVhY2gKPiBvZW0uIEluIHRoZW9yeSB3ZSBzaG91
+bGQgYmUgYWJsZSB0byBtZXJnZSB0aGUgZGlmZmVyZW50IG9lbSBzZXBhcmF0ZWx5Cj4gYW5kIHRy
+eSB0byBhdCBsZWFzdCBzdGFydCB0aGUgY2F0ZWdvcml6YXRpb24uCj4gQW5vdGhlciBpZGVhIEkg
+Z290IHRvIGF0IGxlYXN0IGhhdmUgYSAibWlncmF0aW9uIHBhdGgiIGlzIHRvIGNvbnZlcnQKPiBl
+dmVyeSBkdHMgaW4gdGhlIGR0cy8gZGlyZWN0b3J5IHRvIGEgc3ltYm9saWMgbGluayB0aGF0IHRh
+cmdldCB0aGUgZHRzCj4gaW4gdGhlIGNvcnJlY3Qgb2VtLiBCdXQgSSBhc3N1bWUgdGhhdCB3b3Vs
+ZCBmaXggb25seSBwYXJ0IG9mIHRoZSBwcm9ibGVtCj4gYW5kIGdpdCBhbSB3aWxsIHN0aWxsIGJl
+IHByb2JsZW1hdGljLgoKSSBoYXZlIGEgc2NyaXB0WzFdIHRoYXQgZG9lcyB0aGUgY29udmVyc2lv
+biB3cml0dGVuIHRoZSBsYXN0IHRpbWUgdGhpcwpjYW1lIHVwLiBKdXN0IGhhdmUgdG8gYWdyZWUg
+b24gZGlyZWN0b3J5IG5hbWVzLiBJIHRoaW5rIHRoZSBlYXNpZXN0CndvdWxkIGJlIGZvciBBcm5k
+L09sb2YgdG8gcnVuIGl0IGF0IHRoZSBlbmQgb2YgYSBtZXJnZSB3aW5kb3cgYmVmb3JlCnJjMS4K
+CkknbSB2ZXJ5IG11Y2ggaW4gZmF2b3Igb2YgdGhpcyBoYXBwZW5pbmcgZXNwZWNpYWxseSBiZWZv
+cmUgKmFueSoKb3ZlcmxheXMgYXJlIGFkZGVkIHRvIGFkZCB0byB0aGUgbWVzcyAoaXQncyBwcm9i
+YWJseSBhbHJlYWR5CmhhcHBlbmVkKS4KClJvYgoKWzFdIGh0dHBzOi8vbG9yZS5rZXJuZWwub3Jn
+L2FsbC8yMDE4MTIwNDE4MzY0OS5HQTU3MTZAYm9ndXMvCl9fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1z
+dG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5z
+dG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
