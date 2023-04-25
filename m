@@ -2,114 +2,73 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F78D6EE43A
-	for <lists+linux-stm32@lfdr.de>; Tue, 25 Apr 2023 16:48:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7456D6EE514
+	for <lists+linux-stm32@lfdr.de>; Tue, 25 Apr 2023 17:58:14 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 65C8FC69065;
-	Tue, 25 Apr 2023 14:48:33 +0000 (UTC)
-Received: from new2-smtp.messagingengine.com (new2-smtp.messagingengine.com
- [66.111.4.224])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 11151C69066;
+	Tue, 25 Apr 2023 15:58:14 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A632AC03FC3
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 85BE8C69063
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 25 Apr 2023 14:48:31 +0000 (UTC)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailnew.nyi.internal (Postfix) with ESMTP id B9A47582063;
- Tue, 25 Apr 2023 10:48:30 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute4.internal (MEProxy); Tue, 25 Apr 2023 10:48:30 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=cc
- :cc:content-type:content-type:date:date:from:from:in-reply-to
- :in-reply-to:message-id:mime-version:references:reply-to:sender
- :subject:subject:to:to; s=fm2; t=1682434110; x=1682441310; bh=2Z
- 9xscxrsAsgngjIzMB6+vzGDqIX8rHhJnudaSYumkM=; b=qBJOkoVe+VNibxNNQO
- VK2js4W7TzTuIpkDDa3BLdnOC7eWX0KgROExYuxUdEFqCJsGyLbF+D2tvbjjep3U
- bAgos8DrJ/Hjkb2ZGyXZzyFpvNCDW+gofoAROAJGv7CQnlCLqe6ATS1J4MJRcmwg
- 4Q4K2ZOUhpVU1cAQnmuGP1cxN/fjHKicRyETbAXCNO2Qviwt8gxnXoRRWuv/7jMb
- lpg2wS+gSdjofHEnqblqp4x8V5wAiRkLnum/Bj+m5Ab2mWfdXh50k0IcR2nmhcwk
- FuFT4cztt9au15O9HposWQfpC/GQXa6ocvA7cTgvabmtqhnoORgHy7MV3BJ+J4+o
- madw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-type:content-type:date:date
- :feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
- :message-id:mime-version:references:reply-to:sender:subject
- :subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
- :x-sasl-enc; s=fm3; t=1682434110; x=1682441310; bh=2Z9xscxrsAsgn
- gjIzMB6+vzGDqIX8rHhJnudaSYumkM=; b=ZbXzsek9V7jy7FBZZjfe3bm2cOnrh
- g8hTeK6Fhh/HecH47BxVkmvQT4XP9+M+x5KplHQbt5qHnZNNXyfRp06v//jCH0RC
- DUCYVonbAkK2V/lr/TciWCARVwImuF5DwfEBVrzgz0SHl4MSBuyPKdc91oYeLqSY
- pE8IfifJ7qSu7D2RWCrnrGGBDOMDaHkY8R6kvjVE+3WFWd4tRjO7Xt6yE3jhSCc/
- Aij9bWtJ1nykUzu0l0UP7BqeLIIqSMgUzPkplevnEdX0QwHjeP3gh+71Je/iz0dF
- +ymAW48RTZj+2K+0DcXQ9oCXzPQ8kyrHTzGj8aWYJ9U2KnGQiFEba+s3w==
-X-ME-Sender: <xms:PuhHZDLbuxmUpnoqvk2pbFPZI4YCEbbSxOZ4NXL8FtOSYnAeA4UioA>
- <xme:PuhHZHJc-XHI78gu6IZO_LN-Huzr4JDWRbrFwQHAhOqfTcfuJqSNIVVshGEm_Ojen
- 4xz68r8IBuWi29LLgA>
-X-ME-Received: <xmr:PuhHZLsgs5wGOs9cdcbI9NeM9EwJqurgjDl5URQyrdXV8HLV8_Bn08oaxPWQYfQojWZpWChXh1eu7rgS2E_nLBg9Mez76dY>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrfeduvddgkedtucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
- cujfgurhepfffhvfevuffkfhggtggujgesghdtsfertddtvdenucfhrhhomhepofgrgihi
- mhgvucftihhprghrugcuoehmrgigihhmvgestggvrhhnohdrthgvtghhqeenucggtffrrg
- htthgvrhhnpeeuveduheeutdekvefgudevjeeufedvvdevhfejgfelgfdtkeevueegteek
- gfelfeenucevlhhushhtvghrufhiiigvpedunecurfgrrhgrmhepmhgrihhlfhhrohhmpe
- hmrgigihhmvgestggvrhhnohdrthgvtghh
-X-ME-Proxy: <xmx:PuhHZMZd9EIBUl1Wyry-TbjgK_2L_TMsq-N8aN870T0DkJ8bJyUOzw>
- <xmx:PuhHZKaVF3HvOGKJpBoJT0DtU3QQ5hT6MNvdpXdzvoWzV37ERODA5g>
- <xmx:PuhHZAB4bMGgrV5lZuu5ELLK3c9LN4lJ_EJCMX6Bpm6vKa8U0femUA>
- <xmx:PuhHZOgJU5V6hv_jQmVadgi43lNAg_tfkJs7WPvVbbwAPmeqE1qC2w>
-Feedback-ID: i8771445c:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 25 Apr 2023 10:48:28 -0400 (EDT)
-Date: Tue, 25 Apr 2023 16:48:27 +0200
-From: Maxime Ripard <maxime@cerno.tech>
-To: Dinh Nguyen <dinguyen@kernel.org>
-Message-ID: <sjlp5ubnpvulgwhhymmfkmmobkgxacyqwagqozodkee3di2qik@3igj6k3zgbk6>
-References: <20221018-clk-range-checks-fixes-v3-0-9a1358472d52@cerno.tech>
- <20221018-clk-range-checks-fixes-v3-29-9a1358472d52@cerno.tech>
- <679921ee-98d4-d6ef-5934-e009fd4b31fc@kernel.org>
+ Tue, 25 Apr 2023 15:58:12 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 2BF1462825
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 25 Apr 2023 15:58:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E9C5C433A1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 25 Apr 2023 15:58:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1682438290;
+ bh=itrfj1uL7ULKhIO/qSGGwopdMhHtcuGv7fowY1MDPYk=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=EgTh2lVlpMtQ5px5R+jV+EfXPM/vMd0vZZcesoDR/dZgys7DryqsRrWS2pdpS9uas
+ OYd9yTEmElOVrIZbn0OqVscAcdbafdiKbG9xGY95F+dXOVKPpAW5UFqkaPFQaikMgo
+ aWZCYgp15j+P/IiGD62g++flweL1qEmmRIyA46J9ZxdgcgQr67x7Q3TlACfNIAqEWA
+ ybnHZqICC3N6Bh2h/8vZ/QwOp/oM5lTZZiMl9J1LI5jXGxCqVcLQ5wSHavpOM+9lzJ
+ GcWe9oPB1zz3J6OXPcR6ftsIf9jN3vnmyzPm8qTrcAX6jvM8Z/Yhdc9tzdb3LHV6hX
+ cc5h5IH4H4Nww==
+Received: by mail-yb1-f170.google.com with SMTP id
+ 3f1490d57ef6-b99dae893c0so2516705276.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 25 Apr 2023 08:58:10 -0700 (PDT)
+X-Gm-Message-State: AAQBX9eZqkTqmKXKAJ9BN1Ui/P0c4gSDKH3gzvfdqm3ysAfJoQ3w1CCr
+ aW/XBLG9LVlUpO+5mqAdatOFIoWkYy1FjXuqeg==
+X-Google-Smtp-Source: AKy350bpts/PPga3+dzd9vak+rbAaLdXpa4DHHS4UXvr1kLSlKfqR897O6l7AESMOVdvAuhJNuLkwu1gSc/085IiOR0=
+X-Received: by 2002:a25:b097:0:b0:b97:f46:a2b8 with SMTP id
+ f23-20020a25b097000000b00b970f46a2b8mr12284894ybj.17.1682438288965; Tue, 25
+ Apr 2023 08:58:08 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <679921ee-98d4-d6ef-5934-e009fd4b31fc@kernel.org>
-Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Prashant Gaikwad <pgaikwad@nvidia.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Michael Turquette <mturquette@baylibre.com>, Sekhar Nori <nsekhar@ti.com>,
- dri-devel@lists.freedesktop.org, Liam Girdwood <lgirdwood@gmail.com>,
- Paul Cercueil <paul@crapouillou.net>, Max Filippov <jcmvbkbc@gmail.com>,
- Thierry Reding <thierry.reding@gmail.com>, linux-phy@lists.infradead.org,
- Fabio Estevam <festevam@gmail.com>, linux-clk@vger.kernel.org,
- Abel Vesa <abelvesa@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>,
- Samuel Holland <samuel@sholland.org>, David Airlie <airlied@gmail.com>,
- Takashi Iwai <tiwai@suse.com>, linux-tegra@vger.kernel.org,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Jonathan Hunter <jonathanh@nvidia.com>, Chen-Yu Tsai <wens@csie.org>,
- NXP Linux Team <linux-imx@nxp.com>, Orson Zhai <orsonzhai@gmail.com>,
- Ulf Hansson <ulf.hansson@linaro.org>, linux-mips@vger.kernel.org,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Linus Walleij <linus.walleij@linaro.org>, linux-rtc@vger.kernel.org,
- Charles Keepax <ckeepax@opensource.cirrus.com>,
- David Lechner <david@lechnology.com>, alsa-devel@alsa-project.org,
- Manivannan Sadhasivam <mani@kernel.org>, linux-kernel@vger.kernel.org,
- Sascha Hauer <s.hauer@pengutronix.de>, linux-actions@lists.infradead.org,
- Richard Fitzgerald <rf@opensource.cirrus.com>, Mark Brown <broonie@kernel.org>,
- linux-mediatek@lists.infradead.org,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Matthias Brugger <matthias.bgg@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Jaroslav Kysela <perex@perex.cz>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- linux-arm-kernel@lists.infradead.org,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Alessandro Zummo <a.zummo@towertech.it>, Stephen Boyd <sboyd@kernel.org>,
- patches@opensource.cirrus.com, Peter De Schrijver <pdeschrijver@nvidia.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- Andreas =?utf-8?Q?F=C3=A4rber?= <afaerber@suse.de>,
- linux-renesas-soc@vger.kernel.org, linux-sunxi@lists.linux.dev,
- Vinod Koul <vkoul@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Chunyan Zhang <zhang.lyra@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
- Claudiu Beznea <claudiu.beznea@microchip.com>
-Subject: Re: [Linux-stm32] [PATCH v3 29/65] clk: socfpga: gate: Add a
-	determine_rate hook
+References: <20220328000915.15041-1-ansuelsmth@gmail.com>
+ <85eb14ec-f465-7447-ad77-a3dabc666f47@kernel.org>
+ <YkKRYnN84D9VZhGj@Ansuel-xps.localdomain>
+ <CAL_Jsq+RQQ-ADMxLPUFwk6S6kGmb6oNDy4k52fnU0EtbUvqmSA@mail.gmail.com>
+ <CAMuHMdWNTE48MFy6fqxAsfMWz9b6E7dVNXtXtESP95sxk2PGwA@mail.gmail.com>
+In-Reply-To: <CAMuHMdWNTE48MFy6fqxAsfMWz9b6E7dVNXtXtESP95sxk2PGwA@mail.gmail.com>
+From: Rob Herring <robh+dt@kernel.org>
+Date: Tue, 25 Apr 2023 10:57:57 -0500
+X-Gmail-Original-Message-ID: <CAL_JsqJthKTm8bhRF2B=ae1tvtPeYYXx_Tm76qQtSwLtH5C6VA@mail.gmail.com>
+Message-ID: <CAL_JsqJthKTm8bhRF2B=ae1tvtPeYYXx_Tm76qQtSwLtH5C6VA@mail.gmail.com>
+To: Geert Uytterhoeven <geert@linux-m68k.org>, Arnd Bergmann <arnd@arndb.de>,
+ Olof Johansson <olof@lixom.net>
+Cc: linux-aspeed@lists.ozlabs.org, linux-realtek-soc@lists.infradead.org,
+ linux-arm-kernel@axis.com, linux-stm32@st-md-mailman.stormreply.com,
+ chrome-platform@lists.linux.dev, linux-samsung-soc@vger.kernel.org,
+ openbmc@lists.ozlabs.org, Krzysztof Kozlowski <krzk@kernel.org>,
+ linux-rockchip@lists.infradead.org, linux-sunxi@lists.linux.dev,
+ devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-actions@lists.infradead.org, linux-unisoc@lists.infradead.org,
+ linux-mediatek@lists.infradead.org, linux-rpi-kernel@lists.infradead.org,
+ linux-tegra@vger.kernel.org, linux-amlogic@lists.infradead.org,
+ linux-omap@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, Ansuel Smith <ansuelsmth@gmail.com>,
+ linux-renesas-soc@vger.kernel.org, kernel@dh-electronics.com,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, linux-oxnas@groups.io
+Subject: Re: [Linux-stm32] [RFC PATCH 0/1] Categorize ARM dts directory
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -121,113 +80,47 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============7255521493742604058=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-
---===============7255521493742604058==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="635dxoh2qhipywob"
-Content-Disposition: inline
-
-
---635dxoh2qhipywob
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-Hi Dinh,
-
-On Mon, Apr 24, 2023 at 01:32:28PM -0500, Dinh Nguyen wrote:
-> On 4/4/23 05:11, Maxime Ripard wrote:
-> > The SoCFGPA gate clock implements a mux with a set_parent hook, but
-> > doesn't provide a determine_rate implementation.
-> >=20
-> > This is a bit odd, since set_parent() is there to, as its name implies,
-> > change the parent of a clock. However, the most likely candidate to
-> > trigger that parent change is a call to clk_set_rate(), with
-> > determine_rate() figuring out which parent is the best suited for a
-> > given rate.
-> >=20
-> > The other trigger would be a call to clk_set_parent(), but it's far less
-> > used, and it doesn't look like there's any obvious user for that clock.
-> >=20
-> > So, the set_parent hook is effectively unused, possibly because of an
-> > oversight. However, it could also be an explicit decision by the
-> > original author to avoid any reparenting but through an explicit call to
-> > clk_set_parent().
-> >=20
-> > The latter case would be equivalent to setting the flag
-> > CLK_SET_RATE_NO_REPARENT, together with setting our determine_rate hook
-> > to __clk_mux_determine_rate(). Indeed, if no determine_rate
-> > implementation is provided, clk_round_rate() (through
-> > clk_core_round_rate_nolock()) will call itself on the parent if
-> > CLK_SET_RATE_PARENT is set, and will not change the clock rate
-> > otherwise. __clk_mux_determine_rate() has the exact same behavior when
-> > CLK_SET_RATE_NO_REPARENT is set.
-> >=20
-> > And if it was an oversight, then we are at least explicit about our
-> > behavior now and it can be further refined down the line.
-> >=20
-> > Signed-off-by: Maxime Ripard <maxime@cerno.tech>
-> > ---
-> >   drivers/clk/socfpga/clk-gate.c | 3 ++-
-> >   1 file changed, 2 insertions(+), 1 deletion(-)
-> >=20
-> > diff --git a/drivers/clk/socfpga/clk-gate.c b/drivers/clk/socfpga/clk-g=
-ate.c
-> > index 32ccda960f28..cbba8462a09e 100644
-> > --- a/drivers/clk/socfpga/clk-gate.c
-> > +++ b/drivers/clk/socfpga/clk-gate.c
-> > @@ -110,6 +110,7 @@ static unsigned long socfpga_clk_recalc_rate(struct=
- clk_hw *hwclk,
-> >   static struct clk_ops gateclk_ops =3D {
-> >   	.recalc_rate =3D socfpga_clk_recalc_rate,
-> > +	.determine_rate =3D __clk_mux_determine_rate,
-> >   	.get_parent =3D socfpga_clk_get_parent,
-> >   	.set_parent =3D socfpga_clk_set_parent,
-> >   };
-> > @@ -166,7 +167,7 @@ void __init socfpga_gate_init(struct device_node *n=
-ode)
-> >   	init.name =3D clk_name;
-> >   	init.ops =3D ops;
-> > -	init.flags =3D 0;
-> > +	init.flags =3D CLK_SET_RATE_NO_REPARENT;
-> >   	init.num_parents =3D of_clk_parent_fill(node, parent_name, SOCFPGA_M=
-AX_PARENTS);
-> >   	if (init.num_parents < 2) {
-> >=20
->=20
-> This patch broke SoCFPGA boot serial port. The characters are mangled.
-
-Do you have any other access to that board? If so, could you dump
-clk_summary in debugfs with and without that patch?
-
-Maxime
-
---635dxoh2qhipywob
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCZEfoOwAKCRDj7w1vZxhR
-xavIAP9NdWOgKUDjN4zLo7wwwqFUwBI6vcLYDH178vQMtvLupgD9GDdlERsfJpng
-mzdl0IfdqknQqk5qHgVllUa6sstbpgY=
-=0zSO
------END PGP SIGNATURE-----
-
---635dxoh2qhipywob--
-
---===============7255521493742604058==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============7255521493742604058==--
+T24gVHVlLCBBcHIgMjUsIDIwMjMgYXQgMjoyOOKAr0FNIEdlZXJ0IFV5dHRlcmhvZXZlbiA8Z2Vl
+cnRAbGludXgtbTY4ay5vcmc+IHdyb3RlOgo+Cj4gSGkgUm9iLAo+Cj4gT24gVHVlLCBBcHIgMjUs
+IDIwMjMgYXQgMTI6MTbigK9BTSBSb2IgSGVycmluZyA8cm9iaCtkdEBrZXJuZWwub3JnPiB3cm90
+ZToKPiA+IEkgaGF2ZSBhIHNjcmlwdFsxXSB0aGF0IGRvZXMgdGhlIGNvbnZlcnNpb24gd3JpdHRl
+biB0aGUgbGFzdCB0aW1lIHRoaXMKPiA+IGNhbWUgdXAuIEp1c3QgaGF2ZSB0byBhZ3JlZSBvbiBk
+aXJlY3RvcnkgbmFtZXMuIEkgdGhpbmsgdGhlIGVhc2llc3QKPiA+IHdvdWxkIGJlIGZvciBBcm5k
+L09sb2YgdG8gcnVuIGl0IGF0IHRoZSBlbmQgb2YgYSBtZXJnZSB3aW5kb3cgYmVmb3JlCj4gPiBy
+YzEuCj4KPiAiZW1ldjIiIGFuZCAic2g3IiBhcmUgbWlzc2luZyBmb3IgcmVuZXNhcy4KCk5vIGRv
+dWJ0IGl0J3MgYmVlbiBiaXRyb3R0aW5nIChvciBJIG1heSBoYXZlIG1pc3NlZCBzb21lKS4KCj4g
+RG9lcyB5b3VyIHNjcmlwdCBhbHNvIGNhdGVyIGZvciAuZHRzIGZpbGVzIG5vdCBtYXRjaGluZyBh
+bnkgcGF0dGVybiwKPiBidXQgaW5jbHVkaW5nIGEgLmR0c2kgZmlsZSB0aGF0IGRvZXMgbWF0Y2gg
+YSBwYXR0ZXJuPwoKSSBhc3N1bWUgSSBidWlsdCBldmVyeXRoaW5nIGFmdGVyIG1vdmluZywgYnV0
+IG1heWJlIG5vdC4uLgoKVGhhdCdzIGFsbCBqdXN0ICJkZXRhaWxzIi4gRmlyc3QsIHdlIG5lZWQg
+YWdyZWVtZW50IG9uIGEpIG1vdmluZwp0aGluZ3MgdG8gc3ViZGlycyBhbmQgYikgZG9pbmcgaXQg
+MS1ieS0xIG9yIGFsbCBhdCBvbmNlLiBTbyBmYXIgd2UndmUKYmVlbiBzdHVjayBvbiBhKSBmb3Ig
+YmVpbmcgJ3RvbyBtdWNoIGNodXJuJy4KCk9uZSBuaWNlIHRoaW5nIHdpdGggc3ViZGlycyBpcyAn
+bWFrZSBDSEVDS19EVEJTPXkKYXJjaC9hcm0vYm9vdC9kdHMvZm9vLycgY2FuIGJ1aWxkIGV2ZXJ5
+dGhpbmcgZm9yIGEgcGxhdGZvcm0gZmFtaWx5CndpdGhvdXQgaGF2aW5nIHRvIG1lc3Mgd2l0aCB0
+aGUga2NvbmZpZy4gTWF5YmUgbW9zdCBmb2xrcyBkb24ndCBjYXJlLApidXQgSSBkby4gTXkgQ0kg
+am9iIHJ1bm5pbmcgc2NoZW1hIGNoZWNrcyBsb29rcyBsaWtlIHRoaXMgdG8gZGVhbCB3aXRoCmdy
+b3VwaW5nIHRoZSBhcm0gZHRzIGZpbGVzICh0aGlzIGxpc3QgaXMgcHJvYmFibHkgb3V0IG9mIGRh
+dGUgdG9vLCBidXQKbGVzcyBzbyk6CgogICAgICAgIGlmIFsgIiRBUkNIIiA9ICJhcm0iIF07IHRo
+ZW4KICAgICAgICAgICAgVkVORE9SX0xJU1Q9ImFscGhhc2NhbGUgYWxwaW5lIGFydHBlYyBhc3Bl
+ZWQgYXhtIGJjbSBjeDkKKGVjeHxoaWdoYmFuaykgXAogICAgICAgICAgICAgIGVmbSBlcDcgaW14
+MSBpbXgyMyBpbXgyOCBpbXgyNyBpbXg1IGlteDYgaW14NyBscyB2ZiBxY29tIFwKICAgICAgICAg
+ICAgICAoYW0zfGFtNHxhbTV8ZHJhfGtleXN0b25lfG9tYXB8Y29tcHVsYWJ8bG9naWNwZHxlbHBp
+ZGF8bW90b3JvbGEtY3BjYXB8ZGF8ZG0pClwKICAgICAgICAgICAgICBuc3BpcmUgYXJtYWRhIGRv
+dmUga2lya3dvb2Qgb3Jpb24gbXZlYnUgbW1wMiBiZXJsaW4gcHhhCihhcm0tfGludGVnfG1wc3x2
+ZSkgXAogICAgICAgICAgICAgIChhdDkxfHNhbWF8dXNiX3x0bnlffG1wYTE2MDB8YW5pbWVvX2lw
+fGFrcy1jZHV8ZXRoZXJudXQ1fGV2ay1wcm8zfHBtOWc0NXxnZTg2KQpcCiAgICAgICAgICAgICAg
+ZXh5bm9zIHMzYyBzNXAgZ2VtaW5pIChoaXNpfGhpM3xoaXApIG10IG1lc29uIG1veGEgbnV2bwps
+cGMgb3dsIG94OCBcCiAgICAgICAgICAgICAgKHI3fHI4fHI5fGVtZXYyfHNoNzNhfGdyLXxpd2cp
+IChya3xydjExKSBzb2NmcGdhIHN0bQooc3RpfHN0LXBpbikgc3RlIFwKICAgICAgICAgICAgICBz
+cGVhciAoc3VufGF4cCkgdGVncmEgdW5pcGggKHZ0ODUwMHx3bTgpIHhlbiB6eW5xIgogICAgICAg
+IGVsc2UKICAgICAgICAgICAgVkVORE9SX0xJU1Q9JChscyBhcmNoLyRBUkNIL2Jvb3QvZHRzLyB8
+IHhhcmdzKQogICAgICAgIGZpCgpSb2IKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1k
+LW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHku
+Y29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
