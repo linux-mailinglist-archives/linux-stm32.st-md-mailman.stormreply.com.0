@@ -2,62 +2,61 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D71856EF34A
-	for <lists+linux-stm32@lfdr.de>; Wed, 26 Apr 2023 13:21:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 13D5A6EF34C
+	for <lists+linux-stm32@lfdr.de>; Wed, 26 Apr 2023 13:21:45 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 60862C6907A;
-	Wed, 26 Apr 2023 11:21:42 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 72A9FC6907C;
+	Wed, 26 Apr 2023 11:21:44 +0000 (UTC)
 Received: from mail-lf1-f45.google.com (mail-lf1-f45.google.com
  [209.85.167.45])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9A774C69069
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6EFBCC6907C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 26 Apr 2023 11:21:41 +0000 (UTC)
+ Wed, 26 Apr 2023 11:21:42 +0000 (UTC)
 Received: by mail-lf1-f45.google.com with SMTP id
- 2adb3069b0e04-4efe9a98736so4675124e87.1
+ 2adb3069b0e04-4f004943558so787569e87.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 26 Apr 2023 04:21:41 -0700 (PDT)
+ Wed, 26 Apr 2023 04:21:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1682508101; x=1685100101;
- h=cc:to:content-transfer-encoding:mime-version:message-id:date
- :subject:from:from:to:cc:subject:date:message-id:reply-to;
- bh=G9naGDk48Zj+PlZ+Jp1u6lFmP1KTwqXU2XbLPAygHrI=;
- b=eqcXXYmFnj/dE5MQy0eqvxRenOIf3Z5w0huIAj08pe9EuYktVgOpHNkRQl8wT1jn3I
- XXDUJL0HnftlZTRlZKuhAJy4m7b7lpQU7AreWOgWmdfAhiAXaEzQSMzPUWHHESLy34YD
- 5m20EeE+Wl7tUMgCB9j9GS6Y4NENmrvk5SVXd4yHV8IVr4pfeQfFaY+m7PxA7a+K4hNo
- Rh06I9iWHUQl+NT9tIejugGmuIQmzXfjgZVf5sQbKarcAdVlHYsThSMF6ATbIBlHXU5O
- bRg11fPfPvjO/uOPsF4/zOxxqNJmBs9Woyg+EgHr+wVA/LUUPL+yDU7AmZ1G+A9eMiDf
- TuEQ==
+ d=linaro.org; s=google; t=1682508102; x=1685100102;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+ :reply-to; bh=Zyn3pWh1I5zYmXKJZnDWojm/WjqJCfT4hRVyzg3c8zM=;
+ b=AL84eNVXhM+h+pb78WkGyas5/MFVD8cGu6qX5aqC4mJg0AkPLmvvlXEdas3556gk2k
+ qgaMsEvIrooQhgFM3M7P9FzkTxd2YEACMufo5FCNMh00HhP6zjXxMmwDeLIOt3jiueLT
+ Yu9lCfLko3eN+3viE/7nYNe7N2QHjNY92YXAd04avgqgUFB/iLT0/AIJvNtd9PqWwlO4
+ 3acOv6iSujIymNCpbCeIV7vw17pulTz/J4/VP1+G6MbDYsI8aVl96IIfSSSdSBtHcYxU
+ Fdn746aHI6yb5toQrKjt/6rcntmx4ojALZ5fCg1gXc50hq3+OLTtoGD/b2OfsB+E1Hcj
+ V6Hw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1682508101; x=1685100101;
- h=cc:to:content-transfer-encoding:mime-version:message-id:date
- :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=G9naGDk48Zj+PlZ+Jp1u6lFmP1KTwqXU2XbLPAygHrI=;
- b=LTSLCqygZCe9qFjXbgjc6wkeKipkttDE8sP8vKUz53/ESXWslNJ8Buo+g8za/HuL3F
- Gi/Hi6DgZlI1bBFbhu1cDM+cVtrCJke0MdInxsVWAJKa7rrBSlgMLSpxCbBXeI9rNG53
- sXNVX2PwugqnhNEo4OCWkoLfxnfO6LRHnhVH/TsvpyncDt9Qw0IVbCuW4g87ioF4Yl8D
- rPT0R/Fk/69SGAwd8gTWD8X/8K4lAQxDBT+P+JQQ8a0ag+bcBtfu1Wip515BjuGMSatN
- 5+qvi2Xk7pnj50smug9ss/xYjWsXwdQnez9QvB6R77g75eaTYt2RkxyoCpTTLDRe3KGi
- E9ow==
-X-Gm-Message-State: AAQBX9eNpbd8BT40zzJIA7NEwE031SJuG2G7Oyjy8oh7ITBzvRdtIbZF
- EjJZla5FOjH1rjgngJJrBOgDQw==
-X-Google-Smtp-Source: AKy350Z4JDBnZVGtAj1Of/ojtlbjuivI9YyfI2Ny9UUwpUefKlwDymDGD1MQW/sISWtNsuN/8HTHJg==
-X-Received: by 2002:ac2:4ade:0:b0:4e9:c627:195d with SMTP id
- m30-20020ac24ade000000b004e9c627195dmr5125919lfp.57.1682508100620; 
- Wed, 26 Apr 2023 04:21:40 -0700 (PDT)
+ d=1e100.net; s=20221208; t=1682508102; x=1685100102;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=Zyn3pWh1I5zYmXKJZnDWojm/WjqJCfT4hRVyzg3c8zM=;
+ b=BdOhcp7QmrGhz7JAHgiuNPSCtUYLyIIUEpHWvmZ2PczF5pGhxcgwaboXAsatno6P81
+ nNqUvyeMFCY8sIB9ZMGL/mk4B0Fzir5iq3PW7K/yE52eLcpIZCtGaEWUSEvPsVyRMdw7
+ k5Nfft4m2WenVkFEntLu6IseIr6RdHZsqijdV18WMJU+32FkIpVgd/2zjDFSewLrigwF
+ 9aelv1U5yc099n7dfvcI9Et8fV3YiwhbzncGPn8KQ+Hm4+g3OWw2JlZOb9gaeb+CVSdl
+ J5l82OwBlaqVfP5aeDJ9b6gpZdp0aIhzrL0HikkYryK2ouaS+y4/q4N1HvIUphOzvYMW
+ 5ILg==
+X-Gm-Message-State: AAQBX9d+GjEzdVooqlQnqliIeGLR7eS5teMcSHpC21eLM1LoFKzEhGWV
+ YnX47ZCUWCeQ/04alJgl7MoGXA==
+X-Google-Smtp-Source: AKy350YhOl8LLm54rt/4YgIe3Ha5QTCl8gyTtf7aqKuYUiXyHktmWRGMYpRDOSjHD+nKNyCmwHspJg==
+X-Received: by 2002:a19:ae0d:0:b0:4ef:d4d7:a9f4 with SMTP id
+ f13-20020a19ae0d000000b004efd4d7a9f4mr4140058lfc.19.1682508101728; 
+ Wed, 26 Apr 2023 04:21:41 -0700 (PDT)
 Received: from [127.0.1.1] ([85.235.12.238]) by smtp.gmail.com with ESMTPSA id
- u28-20020a056512041c00b004ec84d24818sm2453237lfk.282.2023.04.26.04.21.39
+ u28-20020a056512041c00b004ec84d24818sm2453237lfk.282.2023.04.26.04.21.40
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 26 Apr 2023 04:21:40 -0700 (PDT)
+ Wed, 26 Apr 2023 04:21:41 -0700 (PDT)
 From: Linus Walleij <linus.walleij@linaro.org>
-Date: Wed, 26 Apr 2023 13:21:37 +0200
-Message-Id: <20230426-stmpe-dt-bindings-v2-0-2f85a1fffcda@linaro.org>
+Date: Wed, 26 Apr 2023 13:21:38 +0200
 MIME-Version: 1.0
-X-B4-Tracking: v=1; b=H4sIAEEJSWQC/z3NQQrCQAyF4auUrA3UtFj1KtJFZhLbgB3LpIhSe
- nenLlz+PD7eCq7Z1OFarZD1ZW7PVIIOFcSR06BoUhqopqZu6YS+TLOiLBgsiaXBMTZtdxHpjkx
- nKC6wK4bMKY67/IMPT499n7Pe7f37vPXb9gUhrSZ3gwAAAA==
+Message-Id: <20230426-stmpe-dt-bindings-v2-1-2f85a1fffcda@linaro.org>
+References: <20230426-stmpe-dt-bindings-v2-0-2f85a1fffcda@linaro.org>
+In-Reply-To: <20230426-stmpe-dt-bindings-v2-0-2f85a1fffcda@linaro.org>
 To: Bartosz Golaszewski <brgl@bgdev.pl>, Rob Herring <robh+dt@kernel.org>, 
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, 
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
@@ -71,7 +70,8 @@ Cc: devicetree@vger.kernel.org, Linus Walleij <linus.walleij@linaro.org>,
  linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
  linux-input@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v2 0/2] STMPE device tree bindings
+Subject: [Linux-stm32] [PATCH v2 1/2] dt-bindings: gpio: Add STMPE YAML DT
+	schema
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,32 +88,86 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-This adds the missing GPIO bindings for the STMPE port expander
-and converts the existing MFD binding to YAML.
-
-ChangeLog v1->v2:
-- Split off a separate GPIO binding
-- Updated the MFD binding according to feedback
+This adds a schema for the STMPE GPIO that while it is used a
+lot in the kernel tree is anyway missing its bindings.
 
 Signed-off-by: Linus Walleij <linus.walleij@linaro.org>
 ---
-Linus Walleij (2):
-      dt-bindings: gpio: Add STMPE YAML DT schema
-      dt-bindings: MFD: Convert STMPE to YAML schema
-
- .../devicetree/bindings/gpio/st,stmpe-gpio.yaml    |  60 +++++
- .../devicetree/bindings/input/stmpe-keypad.txt     |  41 ---
- .../bindings/input/touchscreen/stmpe.txt           | 108 --------
- .../devicetree/bindings/mfd/st,stmpe.yaml          | 298 +++++++++++++++++++++
- Documentation/devicetree/bindings/mfd/stmpe.txt    |  42 ---
- 5 files changed, 358 insertions(+), 191 deletions(-)
+ChangeLog v1->v2:
+- New patch split off from the MFD patch.
 ---
-base-commit: 457391b0380335d5e9a5babdec90ac53928b23b4
-change-id: 20230426-stmpe-dt-bindings-c3479dd71a28
+ .../devicetree/bindings/gpio/st,stmpe-gpio.yaml    | 60 ++++++++++++++++++++++
+ 1 file changed, 60 insertions(+)
 
-Best regards,
+diff --git a/Documentation/devicetree/bindings/gpio/st,stmpe-gpio.yaml b/Documentation/devicetree/bindings/gpio/st,stmpe-gpio.yaml
+new file mode 100644
+index 000000000000..6e991ebbdf77
+--- /dev/null
++++ b/Documentation/devicetree/bindings/gpio/st,stmpe-gpio.yaml
+@@ -0,0 +1,60 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/gpio/st,stmpe-gpio.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: STMicroelectonics Port Expander (STMPE) GPIO Block
++
++description: STMicroelectronics Port Expander (STMPE) is a series of slow
++  bus controllers for various expanded peripherals such as GPIO, keypad,
++  touchscreen, ADC, PWM or rotator. It can contain one or several different
++  peripherals connected to SPI or I2C. These bindings pertain to the
++  GPIO portions of these expanders.
++
++maintainers:
++  - Linus Walleij <linus.walleij@linaro.org>
++
++properties:
++  compatible:
++    const: st,stmpe-gpio
++
++  "#gpio-cells":
++    const: 2
++
++  "#interrupt-cells":
++    const: 2
++
++  gpio-controller: true
++
++  interrupt-controller: true
++
++  st,norequest-mask:
++    description: A bitmask of GPIO lines that cannot be requested because for
++      for example not being connected to anything on the system
++    $ref: /schemas/types.yaml#/definitions/uint32
++
++patternProperties:
++  "^.+-hog(-[0-9]+)?$":
++    type: object
++
++    properties:
++      gpio-hog: true
++      gpios: true
++      input: true
++      output-high: true
++      output-low: true
++      line-name: true
++
++    required:
++      - gpio-hog
++      - gpios
++
++additionalProperties: false
++
++required:
++  - compatible
++  - "#gpio-cells"
++  - "#interrupt-cells"
++  - gpio-controller
++  - interrupt-controller
+
 -- 
-Linus Walleij <linus.walleij@linaro.org>
+2.34.1
 
 _______________________________________________
 Linux-stm32 mailing list
