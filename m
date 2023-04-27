@@ -2,56 +2,56 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A7F376F0937
-	for <lists+linux-stm32@lfdr.de>; Thu, 27 Apr 2023 18:10:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E4F26F099B
+	for <lists+linux-stm32@lfdr.de>; Thu, 27 Apr 2023 18:16:38 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 369B9C6A5E6;
-	Thu, 27 Apr 2023 16:10:53 +0000 (UTC)
-Received: from mail-oa1-f41.google.com (mail-oa1-f41.google.com
- [209.85.160.41])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A8B38C6A5E6;
+	Thu, 27 Apr 2023 16:16:37 +0000 (UTC)
+Received: from mail-ot1-f49.google.com (mail-ot1-f49.google.com
+ [209.85.210.49])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A918BC6907A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5C342C6907A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 27 Apr 2023 16:10:51 +0000 (UTC)
-Received: by mail-oa1-f41.google.com with SMTP id
- 586e51a60fabf-18f16bb1a9bso5267491fac.1
+ Thu, 27 Apr 2023 16:16:36 +0000 (UTC)
+Received: by mail-ot1-f49.google.com with SMTP id
+ 46e09a7af769-6a5f7d10dd5so6420771a34.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 27 Apr 2023 09:10:51 -0700 (PDT)
+ Thu, 27 Apr 2023 09:16:36 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1682611850; x=1685203850;
+ d=1e100.net; s=20221208; t=1682612195; x=1685204195;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=2zb4UIqURY+BWTS3e9vX+YTZaBHbEmn0Eg9W3zLRlAs=;
- b=R+2hFlRuqCYpRdHbnrAdaFXK5oIvZQjbcY+aFydbJjKrsuJE7AJHZx9A4KXJ8vGa5t
- u0VvCA3d82pfT35bh/TcuXmS0PDsMajch1tSdLUG4MvDigXF1Aa/7E0956jdNWmvL40X
- 9X7ku5hF++AxX0QZ4/1p7XXkbgJWCjKXyTv+nw3fKPZjHqmK0MzJF5hkQheaBHtO0fE0
- ZIFbIH0HaF12yiDhbAt+DrkPgy7ERCxnXOr++7e0+xrfSlFC5QIHXRfIu8piebQwtJvN
- 0DKi7DpfKQy4rQhLlbjjUadw5VdTA7D1Ob1ZXhOfnlagSIWNilxBVaPXaMq69fhT/mSa
- 6qyA==
-X-Gm-Message-State: AC+VfDz9Q1QuUi4eq40YmfUUNNNQmcEvmF+RNeGhwYd4YPooKvNA4+T/
- PUrWx7gtZ4OguMumvzwHXgA7yKmA3w==
-X-Google-Smtp-Source: ACHHUZ69Sq4w3EraVz3yG/3YjM+ceN2r9AONaP5KgtunTytLs//j63DXjClPMLRDUmHDfuI/a8cy3w==
-X-Received: by 2002:a05:6830:201a:b0:6a7:bced:411e with SMTP id
- e26-20020a056830201a00b006a7bced411emr1138804otp.3.1682611850271; 
- Thu, 27 Apr 2023 09:10:50 -0700 (PDT)
+ bh=YpGI/IPMzlJSZJEMXDYjGQoB78K5TigUGVeI8dSNGfE=;
+ b=kHQeV3HTZx0O9NltlUnRUfGnqa3/hpRs68e+W/mwzVtWu7aFuYmsjbLVlGt+7NQFqH
+ 5TKOiMumdUwCZEChMYABqigGRxtISCWNOXF4UWn5J3pd/QUXNHZTKnSHykfCrJIjxr7B
+ 0J5v3FwImRCxMqPJ039tXRNyDyhWv/uEjEKYHjs/jGctvhEpVmmdgTb6FveFkG3FaMWM
+ YdCrOZaPkPQGhZ+FBOD+LjoQbeg5XInrp+AujCmOlPqIzw7ReDUfZynoUCrtBNJnTBdC
+ JoOE6kJug66MTnq1B495jEFKqPIoovLVqV2gZO4DGIsrudN1gOK7lHWSj7QyTJJfe5CA
+ i2nA==
+X-Gm-Message-State: AC+VfDw7PUwzsjNqvvH5eJlrlKPDskbeLDX76fkhlHsWCr3qiltH5cza
+ gyftNwbUeoZw4g7OHOYRVw==
+X-Google-Smtp-Source: ACHHUZ5p4dmgEhC6CibBNs/xrzmnRqO5GgJt8tdZzPzR40ZXII5zIwDeSsUyT/gDhpnKcDGNhHWiqg==
+X-Received: by 2002:a05:6830:13d7:b0:68b:cdc3:78d7 with SMTP id
+ e23-20020a05683013d700b0068bcdc378d7mr1034013otq.8.1682612194993; 
+ Thu, 27 Apr 2023 09:16:34 -0700 (PDT)
 Received: from robh_at_kernel.org (66-90-144-107.dyn.grandenetworks.net.
  [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
- i15-20020a9d624f000000b0069fb8bfb4f3sm8056756otk.77.2023.04.27.09.10.49
+ y20-20020a0568301d9400b006a643a2eeb5sm6299001oti.15.2023.04.27.09.16.34
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 27 Apr 2023 09:10:49 -0700 (PDT)
-Received: (nullmailer pid 3112114 invoked by uid 1000);
- Thu, 27 Apr 2023 16:10:49 -0000
-Date: Thu, 27 Apr 2023 11:10:49 -0500
+ Thu, 27 Apr 2023 09:16:34 -0700 (PDT)
+Received: (nullmailer pid 3118384 invoked by uid 1000);
+ Thu, 27 Apr 2023 16:16:33 -0000
+Date: Thu, 27 Apr 2023 11:16:33 -0500
 From: Rob Herring <robh@kernel.org>
 To: Linus Walleij <linus.walleij@linaro.org>
-Message-ID: <20230427161049.GA3107476-robh@kernel.org>
+Message-ID: <20230427161633.GA3112472-robh@kernel.org>
 References: <20230426-stmpe-dt-bindings-v2-0-2f85a1fffcda@linaro.org>
- <20230426-stmpe-dt-bindings-v2-1-2f85a1fffcda@linaro.org>
+ <20230426-stmpe-dt-bindings-v2-2-2f85a1fffcda@linaro.org>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20230426-stmpe-dt-bindings-v2-1-2f85a1fffcda@linaro.org>
+In-Reply-To: <20230426-stmpe-dt-bindings-v2-2-2f85a1fffcda@linaro.org>
 Cc: Marek Vasut <marex@denx.de>, devicetree@vger.kernel.org,
  Dmitry Torokhov <dmitry.torokhov@gmail.com>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
@@ -61,8 +61,8 @@ Cc: Marek Vasut <marex@denx.de>, devicetree@vger.kernel.org,
  Philippe Schenker <philippe.schenker@toradex.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-input@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2 1/2] dt-bindings: gpio: Add STMPE YAML
-	DT schema
+Subject: Re: [Linux-stm32] [PATCH v2 2/2] dt-bindings: MFD: Convert STMPE to
+	YAML schema
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,86 +79,355 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, Apr 26, 2023 at 01:21:38PM +0200, Linus Walleij wrote:
-> This adds a schema for the STMPE GPIO that while it is used a
-> lot in the kernel tree is anyway missing its bindings.
+On Wed, Apr 26, 2023 at 01:21:39PM +0200, Linus Walleij wrote:
+> This converts the STMPE MFD device tree bindings to the YAML
+> schema.
+> 
+> Reference the existing schema for the ADC, just define the
+> other subnode schemas directly in the MFD schema.
+> 
+> Add two examples so we have examples covering both the simple
+> GPIO expander and the more complex with ADC and touchscreen.
+> 
+> Some in-tree users do not follow the naming conventions for nodes
+> so these DTS files need to be augmented to use proper node names
+> like "adc", "pwm", "gpio", "keyboard-controller" etc before the
+> bindings take effect on them.
 > 
 > Signed-off-by: Linus Walleij <linus.walleij@linaro.org>
 > ---
 > ChangeLog v1->v2:
-> - New patch split off from the MFD patch.
+> - Split off the GPIO bindings to their own schema, as the old
+>   bindings didn't even have any GPIO bindings. Put the GPIO
+>   schema before this schema so we can use GPIO in the examples.
+> - Drop nodename and pattern as STMPE is not a generic name.
+> - Add maxItems to the resets.
+> - Make wakeup-source just :true, as it is a generic property.
+> - Move unevaluatedProperties for subnodes right before properties
+>   as requested.
+> - Name devices "port-expander" in the examples.
+> - Use lowercase hex in line init.
 > ---
->  .../devicetree/bindings/gpio/st,stmpe-gpio.yaml    | 60 ++++++++++++++++++++++
->  1 file changed, 60 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/gpio/st,stmpe-gpio.yaml b/Documentation/devicetree/bindings/gpio/st,stmpe-gpio.yaml
+>  .../devicetree/bindings/input/stmpe-keypad.txt     |  41 ---
+>  .../bindings/input/touchscreen/stmpe.txt           | 108 --------
+>  .../devicetree/bindings/mfd/st,stmpe.yaml          | 298 +++++++++++++++++++++
+>  Documentation/devicetree/bindings/mfd/stmpe.txt    |  42 ---
+>  4 files changed, 298 insertions(+), 191 deletions(-)
+
+> diff --git a/Documentation/devicetree/bindings/mfd/st,stmpe.yaml b/Documentation/devicetree/bindings/mfd/st,stmpe.yaml
 > new file mode 100644
-> index 000000000000..6e991ebbdf77
+> index 000000000000..dd24ae2d5fb4
 > --- /dev/null
-> +++ b/Documentation/devicetree/bindings/gpio/st,stmpe-gpio.yaml
-> @@ -0,0 +1,60 @@
+> +++ b/Documentation/devicetree/bindings/mfd/st,stmpe.yaml
+> @@ -0,0 +1,298 @@
 > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
 > +%YAML 1.2
 > +---
-> +$id: http://devicetree.org/schemas/gpio/st,stmpe-gpio.yaml#
+> +$id: http://devicetree.org/schemas/mfd/st,stmpe.yaml#
 > +$schema: http://devicetree.org/meta-schemas/core.yaml#
 > +
-> +title: STMicroelectonics Port Expander (STMPE) GPIO Block
+> +title: STMicroelectonics Port Expander (STMPE)
 > +
 > +description: STMicroelectronics Port Expander (STMPE) is a series of slow
 > +  bus controllers for various expanded peripherals such as GPIO, keypad,
 > +  touchscreen, ADC, PWM or rotator. It can contain one or several different
-> +  peripherals connected to SPI or I2C. These bindings pertain to the
-> +  GPIO portions of these expanders.
+> +  peripherals connected to SPI or I2C.
 > +
 > +maintainers:
 > +  - Linus Walleij <linus.walleij@linaro.org>
 > +
+> +allOf:
+> +  - $ref: /schemas/spi/spi-peripheral-props.yaml#
+> +
 > +properties:
 > +  compatible:
-> +    const: st,stmpe-gpio
+> +    enum:
+> +      - st,stmpe601
+> +      - st,stmpe801
+> +      - st,stmpe811
+> +      - st,stmpe1600
+> +      - st,stmpe1601
+> +      - st,stmpe2401
+> +      - st,stmpe2403
 > +
-> +  "#gpio-cells":
-> +    const: 2
+> +  reg:
+> +    maxItems: 1
 > +
-> +  "#interrupt-cells":
-> +    const: 2
+> +  interrupts:
+> +    maxItems: 1
 > +
-> +  gpio-controller: true
+> +  vcc-supply: true
 > +
-> +  interrupt-controller: true
+> +  vio-supply: true
 > +
-> +  st,norequest-mask:
-> +    description: A bitmask of GPIO lines that cannot be requested because for
-> +      for example not being connected to anything on the system
+> +  reset-gpios:
+> +    maxItems: 1
+> +
+> +  wakeup-source: true
+> +
+> +  st,autosleep-timeout:
 > +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    enum: [ 4, 16, 32, 64, 128, 256, 512, 1024 ]
+> +    description: Time idle before going to automatic sleep to save power
 > +
-> +patternProperties:
-> +  "^.+-hog(-[0-9]+)?$":
+> +  st,sample-time:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    enum: [ 0, 1, 2, 3, 4, 5, 6 ]
+> +    description: |
+> +      Sample time per iteration
+> +      0 = 36 clock ticks
+> +      1 = 44 clock ticks
+> +      2 = 56 clock ticks
+> +      3 = 64 clock ticks
+> +      4 = 80 clock ticks - recommended
+> +      5 = 96 clock ticks
+> +      6 = 124 clock ticks
+> +
+> +  st,mod-12b:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    enum: [ 0, 1 ]
+> +    description: ADC bit mode 0 = 10bit ADC, 1 = 12bit ADC
+> +
+> +  st,ref-sel:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    enum: [ 0, 1 ]
+> +    description: ADC reference source 0 = internal, 1 = external
+> +
+> +  st,adc-freq:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    enum: [ 0, 1, 2, 3 ]
+> +    description: |
+> +      ADC clock speed
+> +      0 = 1.625 MHz
+> +      1 = 3.25 MHz
+> +      2, 3 = 6.5 MHz
+> +
+> +  adc:
 > +    type: object
+> +    $ref: /schemas/iio/adc/st,stmpe-adc.yaml#
+> +
+> +  gpio:
+> +    type: object
+> +    $ref: /schemas/gpio/st,stmpe-gpio.yaml#
+> +
+> +  keyboard-controller:
+> +    type: object
+> +    $ref: /schemas/input/matrix-keymap.yaml#
+> +
+> +    unevaluatedProperties: false
 > +
 > +    properties:
-> +      gpio-hog: true
-> +      gpios: true
-> +      input: true
-> +      output-high: true
-> +      output-low: true
-> +      line-name: true
+> +      compatible:
+> +        const: st,stmpe-keypad
+> +
+> +      debounce-interval:
+> +        description: Debouncing interval in milliseconds
+> +        $ref: /schemas/types.yaml#/definitions/uint32
+> +
+> +      st,no-autorepeat:
+> +        description: If present, the keys will not autorepeat when pressed
+> +        $ref: /schemas/types.yaml#/definitions/flag
+> +
+> +      st,scan-count:
+> +        description: Scanning cycles elapsed before key data is updated
+> +        $ref: /schemas/types.yaml#/definitions/uint32
 > +
 > +    required:
-> +      - gpio-hog
-> +      - gpios
+> +      - compatible
+> +      - linux,keymap
+> +
+> +  pwm:
+> +    type: object
+> +    $ref: /schemas/pwm/pwm.yaml#
+> +
+> +    unevaluatedProperties: false
+> +
+> +    properties:
+> +      compatible:
+> +        const: st,stmpe-pwm
 
-All you need for hog nodes is:
+You need to define what value #pwm-cells should be.
 
-"^.+-hog(-[0-9]+)?$":
-  type: object
-  required:
-    - gpio-hog
+> +
+> +    required:
+> +      - compatible
+> +      - "#pwm-cells"
 
-The presence of 'gpio-hog' causes the hog schema to be applied.
+pwm.yaml already requires this.
 
-Rob
+With those fixed,
+
+Reviewed-by: Rob Herring <robh@kernel.org>
+
+> +
+> +  touchscreen:
+> +    type: object
+> +    $ref: /schemas/input/touchscreen/touchscreen.yaml#
+> +
+> +    unevaluatedProperties: false
+> +
+> +    properties:
+> +      compatible:
+> +        const: st,stmpe-ts
+> +
+> +      st,ave-ctrl:
+> +        $ref: /schemas/types.yaml#/definitions/uint32
+> +        enum: [ 0, 1, 2, 3 ]
+> +        description: |
+> +          Sample average control
+> +          0 = 1 sample
+> +          1 = 2 samples
+> +          2 = 4 samples
+> +          3 = 8 samples
+> +
+> +      st,touch-det-delay:
+> +        $ref: /schemas/types.yaml#/definitions/uint32
+> +        enum: [ 0, 1, 2, 3, 4, 5, 6, 7 ]
+> +        description: |
+> +          Touch detection delay
+> +          0 = 10 us
+> +          1 = 50 us
+> +          2 = 100 us
+> +          3 = 500 us - recommended
+> +          4 = 1 ms
+> +          5 = 5 ms
+> +          6 = 10 ms
+> +          7 = 50 ms
+> +
+> +      st,settling:
+> +        $ref: /schemas/types.yaml#/definitions/uint32
+> +        enum: [ 0, 1, 2, 3, 4, 5, 6, 7 ]
+> +        description: |
+> +          Panel driver settling time
+> +          0 = 10 us
+> +          1 = 100 us
+> +          2 = 500 us - recommended
+> +          3 = 1 ms
+> +          4 = 5 ms
+> +          5 = 10 ms
+> +          6 = 50 ms
+> +          7 = 100 ms
+> +
+> +      st,fraction-z:
+> +        $ref: /schemas/types.yaml#/definitions/uint32
+> +        enum: [ 0, 1, 2, 3, 4, 5, 6, 7 ]
+> +        description: Length of the fractional part in z, recommended is 7
+> +          (fraction-z ([0..7]) = Count of the fractional part)
+> +
+> +      st,i-drive:
+> +        $ref: /schemas/types.yaml#/definitions/uint32
+> +        enum: [ 0, 1 ]
+> +        description: |
+> +          current limit value of the touchscreen drivers
+> +          0 = 20 mA (typical 35 mA max)
+> +          1 = 50 mA (typical 80 mA max)
+> +
+> +    required:
+> +      - compatible
+> +
+> +additionalProperties: false
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - interrupts
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/gpio/gpio.h>
+> +    #include <dt-bindings/interrupt-controller/irq.h>
+> +    #include <dt-bindings/input/input.h>
+> +    i2c {
+> +      #address-cells = <1>;
+> +      #size-cells = <0>;
+> +
+> +      port-expander@43 {
+> +        compatible = "st,stmpe2401";
+> +        reg = <0x43>;
+> +        reset-gpios = <&gpio 13 GPIO_ACTIVE_LOW>;
+> +        interrupts = <26 IRQ_TYPE_EDGE_FALLING>;
+> +        interrupt-parent = <&gpio>;
+> +        vcc-supply = <&db8500_vsmps2_reg>;
+> +        vio-supply = <&db8500_vsmps2_reg>;
+> +        wakeup-source;
+> +        st,autosleep-timeout = <1024>;
+> +
+> +        gpio {
+> +          compatible = "st,stmpe-gpio";
+> +          gpio-controller;
+> +          #gpio-cells = <2>;
+> +          interrupt-controller;
+> +          #interrupt-cells = <2>;
+> +          st,norequest-mask = <0xf0f002>;
+> +        };
+> +
+> +        keyboard-controller {
+> +          compatible = "st,stmpe-keypad";
+> +          debounce-interval = <64>;
+> +          st,scan-count = <8>;
+> +          st,no-autorepeat;
+> +          keypad,num-rows = <8>;
+> +          keypad,num-columns = <8>;
+> +          linux,keymap = <
+> +              MATRIX_KEY(0x00, 0x00, KEY_1)
+> +              MATRIX_KEY(0x00, 0x01, KEY_2)
+> +              MATRIX_KEY(0x00, 0x02, KEY_3)
+> +              MATRIX_KEY(0x00, 0x03, KEY_4)
+> +              MATRIX_KEY(0x00, 0x04, KEY_5)
+> +              MATRIX_KEY(0x00, 0x05, KEY_6)
+> +              MATRIX_KEY(0x00, 0x06, KEY_7)
+> +              MATRIX_KEY(0x00, 0x07, KEY_8)
+> +              MATRIX_KEY(0x00, 0x08, KEY_9)
+> +              MATRIX_KEY(0x00, 0x09, KEY_0)
+> +          >;
+> +        };
+> +
+> +        pwm {
+> +          compatible = "st,stmpe-pwm";
+> +          #pwm-cells = <2>;
+> +        };
+> +      };
+> +
+> +      port-expander@41 {
+> +        compatible = "st,stmpe811";
+> +        reg = <0x41>;
+> +        interrupts = <10 IRQ_TYPE_LEVEL_LOW>;
+> +        interrupt-parent = <&gpio>;
+> +        st,adc-freq = <1>;
+> +        st,mod-12b = <1>;
+> +        st,ref-sel = <0>;
+> +        st,sample-time = <4>;
+> +
+> +        adc {
+> +          compatible = "st,stmpe-adc";
+> +          st,norequest-mask = <0x0f>;
+> +          #io-channel-cells = <1>;
+> +        };
+> +
+> +        gpio {
+> +          compatible = "st,stmpe-gpio";
+> +          gpio-controller;
+> +          #gpio-cells = <2>;
+> +          interrupt-controller;
+> +          #interrupt-cells = <2>;
+> +        };
+> +
+> +        pwm {
+> +          compatible = "st,stmpe-pwm";
+> +          #pwm-cells = <2>;
+> +        };
+> +
+> +        touchscreen {
+> +          compatible = "st,stmpe-ts";
+> +          st,ave-ctrl = <3>;
+> +          st,touch-det-delay = <5>;
+> +          st,settling = <3>;
+> +          st,fraction-z = <7>;
+> +          st,i-drive = <1>;
+> +        };
+> +      };
+> +    };
+> +...
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
