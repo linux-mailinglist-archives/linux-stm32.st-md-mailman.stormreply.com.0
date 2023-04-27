@@ -2,72 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 35FAF6F0D65
-	for <lists+linux-stm32@lfdr.de>; Thu, 27 Apr 2023 22:45:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BFB166F0D9E
+	for <lists+linux-stm32@lfdr.de>; Thu, 27 Apr 2023 23:09:23 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EE6C3C6A5EF;
-	Thu, 27 Apr 2023 20:45:55 +0000 (UTC)
-Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com
- [209.85.208.49])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6DDE6C6A5E6;
+	Thu, 27 Apr 2023 21:09:23 +0000 (UTC)
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [85.220.165.71])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 88A51C6A5E6
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2276FC69073
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 27 Apr 2023 20:45:54 +0000 (UTC)
-Received: by mail-ed1-f49.google.com with SMTP id
- 4fb4d7f45d1cf-50a145a0957so10584064a12.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 27 Apr 2023 13:45:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amarulasolutions.com; s=google; t=1682628354; x=1685220354;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=pOyJLwrnL8b7sS3XOE4C9Z2ANwLoqbgl4r9TqJMyALQ=;
- b=YFXpenH2mzoQXEXnTQ0Z3TJtyZoy5uV/6TCUoR2xIm6PYWa84vCB78MyevgbFQEhF5
- k+j6dxBfXeGBzjnklQwP8SOp0F2ftNSZE5VOU8CKGzEM1Us+V6S+XXN4HAG++Y8vgo2r
- 8YRxMtTSpS9uPEgjc8II5qs8Ep1oGPkl21SG0=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1682628354; x=1685220354;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=pOyJLwrnL8b7sS3XOE4C9Z2ANwLoqbgl4r9TqJMyALQ=;
- b=KjQOIkahKTwknr11F3XwWKqnPRRQ1ZL/gBDflDRcKbwYgzJOy+ccGtEgSL1X0A+hez
- YKFMEmwVJW8+a/htz4XjrYeRbgFkPCNJMCsTbSD8I9xTK6PTpducm08Tj29qHGy1WCSn
- +3/K63x7QO0INvg0p2NtqMRMi00unt2EBztwTuVdTXSPmszgoT9XRocZ/bqur2Uf/ioZ
- 7zr3Fng7WRnOMvFAGJkguNPUbel98DbIsp7UKHtkHNPQNHAzOFoBCS0Ag9Lx9G+ty449
- elK6WaCDgKmvLyCaTb7bgQ2BRpQ1ORa9wXZY0iQmZYBxhl/V+5H+RQ5DN6QvETM6r2KE
- 5Gew==
-X-Gm-Message-State: AC+VfDxZs9Z1WRKUZdOn/8aThO5rPcBFCHw+sIgyamY9W4sBTbrcpZbT
- nGGkl/83rOlWPuSVj3mvOSJhxUpW64WcvJjv7PQ9ow==
-X-Google-Smtp-Source: ACHHUZ4wTLVspWRSjwRxm69+yp//qRYMj0/O8K3FuIRMf6s8rUTIpE4GJYaZcDFa9HjrC81Gnpji+g==
-X-Received: by 2002:a17:907:8687:b0:94e:ffab:4ce3 with SMTP id
- qa7-20020a170907868700b0094effab4ce3mr3151905ejc.32.1682628354060; 
- Thu, 27 Apr 2023 13:45:54 -0700 (PDT)
-Received: from dario-ThinkPad-T14s-Gen-2i.homenet.telecomitalia.it
- (host-87-5-99-194.retail.telecomitalia.it. [87.5.99.194])
- by smtp.gmail.com with ESMTPSA id
- s12-20020a170906bc4c00b00947ed087a2csm10171360ejv.154.2023.04.27.13.45.52
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 27 Apr 2023 13:45:53 -0700 (PDT)
-From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
-To: linux-kernel@vger.kernel.org
-Date: Thu, 27 Apr 2023 22:45:40 +0200
-Message-Id: <20230427204540.3126234-6-dario.binacchi@amarulasolutions.com>
-X-Mailer: git-send-email 2.32.0
-In-Reply-To: <20230427204540.3126234-1-dario.binacchi@amarulasolutions.com>
+ Thu, 27 Apr 2023 21:09:22 +0000 (UTC)
+Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b]
+ helo=bjornoya.blackshift.org) by metis.ext.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <mkl@pengutronix.de>)
+ id 1ps8rO-0005ET-LI; Thu, 27 Apr 2023 23:09:02 +0200
+Received: from pengutronix.de (unknown [172.20.34.65])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256) (Client did not present a certificate)
+ (Authenticated sender: mkl-all@blackshift.org)
+ by smtp.blackshift.org (Postfix) with ESMTPSA id 0E20B1B936F;
+ Thu, 27 Apr 2023 21:08:57 +0000 (UTC)
+Date: Thu, 27 Apr 2023 23:08:57 +0200
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+To: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+Message-ID: <20230427-retaining-deeply-fcff70098e7e-mkl@pengutronix.de>
 References: <20230427204540.3126234-1-dario.binacchi@amarulasolutions.com>
 MIME-Version: 1.0
-Cc: devicetree@vger.kernel.org,
- Dario Binacchi <dario.binacchi@amarulasolutions.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Rob Herring <robh+dt@kernel.org>,
+In-Reply-To: <20230427204540.3126234-1-dario.binacchi@amarulasolutions.com>
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:b01:1d::7b
+X-SA-Exim-Mail-From: mkl@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
+Cc: devicetree@vger.kernel.org, Paolo Abeni <pabeni@redhat.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
+ linux-can@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-kernel@vger.kernel.org, Eric Dumazet <edumazet@google.com>,
+ Rob Herring <robh+dt@kernel.org>, linux-arm-kernel@lists.infradead.org,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- michael@amarulasolutions.com,
+ Jakub Kicinski <kuba@kernel.org>, michael@amarulasolutions.com,
  Amarula patchwork <linux-amarula@amarulasolutions.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v2 5/5] ARM: dts: stm32: add CAN support on
-	stm32f746
+ "David S. Miller" <davem@davemloft.net>,
+ Wolfgang Grandegger <wg@grandegger.com>
+Subject: Re: [Linux-stm32] [PATCH v2 0/5] can: bxcan: add support for single
+ peripheral configuration
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,118 +61,79 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============6150107902642583022=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add support for bxcan (Basic eXtended CAN controller) to STM32F746. The
-chip contains three CAN peripherals, CAN1 and CAN2 in dual peripheral
-configuration and CAN3 in single peripheral configuration:
-- Dual CAN peripheral configuration:
-  * CAN1: Primary bxCAN for managing the communication between a secondary
-    bxCAN and the 512-byte SRAM memory.
-  * CAN2: Secondary bxCAN with no direct access to the SRAM memory.
-  This means that the two bxCAN cells share the 512-byte SRAM memory and
-  CAN2 can't be used without enabling CAN1.
-- Single CAN peripheral configuration:
-  * CAN3: Primary bxCAN with dedicated Memory Access Controller unit and
-    512-byte SRAM memory.
 
- -------------------------------------------------------------------------
-| features | CAN1              | CAN2               | CAN 3               |
- -------------------------------------------------------------------------
-| SRAM     | 512-byte shared between CAN1 & CAN2    | 512-byte            |
- -------------------------------------------------------------------------
-| Filters  | 26 filters shared between CAN1 & CAN2  | 14 filters          |
- -------------------------------------------------------------------------
+--===============6150107902642583022==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="nzyuuy6jlpbsjjmh"
+Content-Disposition: inline
 
-Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
 
----
+--nzyuuy6jlpbsjjmh
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Changes in v2:
-- Move after the patch "can: bxcan: add support for single peripheral configuration".
-- Add node gcan3.
-- Rename gcan as gcan1.
-- Add property "st,can-secondary" to can2 node.
-- Drop patch "dt-bindings: mfd: stm32f7: add binding definition for CAN3"
-  because it has been accepted.
-- Add patch "ARM: dts: stm32f429: put can2 in secondary mode".
-- Add patch "dt-bindings: net: can: add "st,can-secondary" property".
+On 27.04.2023 22:45:35, Dario Binacchi wrote:
+>=20
+> The series adds support for managing bxCAN controllers in single peripher=
+al
+> configuration.
+> Unlike stm32f4 SOCs, where bxCAN controllers are only in dual peripheral
+> configuration, stm32f7 SOCs contain three CAN peripherals, CAN1 and CAN2
+> in dual peripheral configuration and CAN3 in single peripheral
+> configuration:
+> - Dual CAN peripheral configuration:
+>  * CAN1: Primary bxCAN for managing the communication between a secondary
+>    bxCAN and the 512-byte SRAM memory.
+>  * CAN2: Secondary bxCAN with no direct access to the SRAM memory.
+>    This means that the two bxCAN cells share the 512-byte SRAM memory and
+>    CAN2 can't be used without enabling CAN1.
+> - Single CAN peripheral configuration:
+>  * CAN3: Primary bxCAN with dedicated Memory Access Controller unit and
+>    512-byte SRAM memory.
 
- arch/arm/boot/dts/stm32f746.dtsi | 47 ++++++++++++++++++++++++++++++++
- 1 file changed, 47 insertions(+)
+This really looks good! Great work! Who takes the DT changes? I can take
+the whole series.
 
-diff --git a/arch/arm/boot/dts/stm32f746.dtsi b/arch/arm/boot/dts/stm32f746.dtsi
-index dc868e6da40e..973698bc9ef4 100644
---- a/arch/arm/boot/dts/stm32f746.dtsi
-+++ b/arch/arm/boot/dts/stm32f746.dtsi
-@@ -257,6 +257,23 @@ rtc: rtc@40002800 {
- 			status = "disabled";
- 		};
- 
-+		can3: can@40003400 {
-+			compatible = "st,stm32f4-bxcan";
-+			reg = <0x40003400 0x200>;
-+			interrupts = <104>, <105>, <106>, <107>;
-+			interrupt-names = "tx", "rx0", "rx1", "sce";
-+			resets = <&rcc STM32F7_APB1_RESET(CAN3)>;
-+			clocks = <&rcc 0 STM32F7_APB1_CLOCK(CAN3)>;
-+			st,gcan = <&gcan3>;
-+			status = "disabled";
-+		};
-+
-+		gcan3: gcan@40003600 {
-+			compatible = "st,stm32f4-gcan", "syscon";
-+			reg = <0x40003600 0x200>;
-+			clocks = <&rcc 0 STM32F7_APB1_CLOCK(CAN3)>;
-+		};
-+
- 		usart2: serial@40004400 {
- 			compatible = "st,stm32f7-uart";
- 			reg = <0x40004400 0x400>;
-@@ -337,6 +354,36 @@ i2c4: i2c@40006000 {
- 			status = "disabled";
- 		};
- 
-+		can1: can@40006400 {
-+			compatible = "st,stm32f4-bxcan";
-+			reg = <0x40006400 0x200>;
-+			interrupts = <19>, <20>, <21>, <22>;
-+			interrupt-names = "tx", "rx0", "rx1", "sce";
-+			resets = <&rcc STM32F7_APB1_RESET(CAN1)>;
-+			clocks = <&rcc 0 STM32F7_APB1_CLOCK(CAN1)>;
-+			st,can-primary;
-+			st,gcan = <&gcan1>;
-+			status = "disabled";
-+		};
-+
-+		gcan1: gcan@40006600 {
-+			compatible = "st,stm32f4-gcan", "syscon";
-+			reg = <0x40006600 0x200>;
-+			clocks = <&rcc 0 STM32F7_APB1_CLOCK(CAN1)>;
-+		};
-+
-+		can2: can@40006800 {
-+			compatible = "st,stm32f4-bxcan";
-+			reg = <0x40006800 0x200>;
-+			interrupts = <63>, <64>, <65>, <66>;
-+			interrupt-names = "tx", "rx0", "rx1", "sce";
-+			resets = <&rcc STM32F7_APB1_RESET(CAN2)>;
-+			clocks = <&rcc 0 STM32F7_APB1_CLOCK(CAN2)>;
-+			st,can-secondary;
-+			st,gcan = <&gcan1>;
-+			status = "disabled";
-+		};
-+
- 		cec: cec@40006c00 {
- 			compatible = "st,stm32-cec";
- 			reg = <0x40006C00 0x400>;
--- 
-2.32.0
+regards,
+Marc
+
+--=20
+Pengutronix e.K.                 | Marc Kleine-Budde          |
+Embedded Linux                   | https://www.pengutronix.de |
+Vertretung N=C3=BCrnberg              | Phone: +49-5121-206917-129 |
+Amtsgericht Hildesheim, HRA 2686 | Fax:   +49-5121-206917-9   |
+
+--nzyuuy6jlpbsjjmh
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEDs2BvajyNKlf9TJQvlAcSiqKBOgFAmRK5GYACgkQvlAcSiqK
+BOjH2gf/btmb76HmGphNPuGDwudwcjt004XQ1d8nxWuWd74zEwD/+Oz6W9hbZzox
+eshaIvJODyWw6Qgj+FKc+86AZvperVx+8T+Ia5PvPY8mXt0Mbh+aFM2XVTo9qXtk
+brvJPXZU/gkwFYafQeOINt2rohkeXwN+JV3s2cfj0a2b6FKUgR8a1S7DxjQdimIK
+0psXmV4IKyxQq6b2O7j5r99KYDbeokkzwOrowghxt+2JK6uwI9Fea1iOziE9JPUT
+A/mhaieHgpv4KhI4uJBxFoCOn+LPIMT54J8dT3CmChIdYYavdruibezAUvZjtDix
+IVqNdP1EjNlpTWRvNh9cIcwt6NWXrA==
+=/Q1q
+-----END PGP SIGNATURE-----
+
+--nzyuuy6jlpbsjjmh--
+
+--===============6150107902642583022==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============6150107902642583022==--
