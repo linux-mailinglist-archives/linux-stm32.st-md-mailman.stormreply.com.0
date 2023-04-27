@@ -2,59 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DE0026F0D5E
-	for <lists+linux-stm32@lfdr.de>; Thu, 27 Apr 2023 22:45:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F09D86F0D5F
+	for <lists+linux-stm32@lfdr.de>; Thu, 27 Apr 2023 22:45:48 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8FCF4C6A5E6;
-	Thu, 27 Apr 2023 20:45:46 +0000 (UTC)
-Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com
- [209.85.208.51])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BAEF6C6A5FA;
+	Thu, 27 Apr 2023 20:45:48 +0000 (UTC)
+Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com
+ [209.85.218.51])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D2DD8C69073
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 932D6C6A5E7
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 27 Apr 2023 20:45:44 +0000 (UTC)
-Received: by mail-ed1-f51.google.com with SMTP id
- 4fb4d7f45d1cf-50674656309so13825722a12.0
+ Thu, 27 Apr 2023 20:45:46 +0000 (UTC)
+Received: by mail-ej1-f51.google.com with SMTP id
+ a640c23a62f3a-959a3e2dd27so1077478066b.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 27 Apr 2023 13:45:44 -0700 (PDT)
+ Thu, 27 Apr 2023 13:45:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amarulasolutions.com; s=google; t=1682628344; x=1685220344;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=5k9dCctWANQe/yEgS6tS+0M8nlHpydDuo0y2/2pb4aE=;
- b=NQgjyC4xn/Uej85mqcMFusgacST3cB5Z7SBtNd98Z10faKY6VMJ3EhbjgaIlTrwPlN
- AmmDe6Uzg8BXmwDnPtLGQ4zkAlZ9AfSYWf3MQzUi1LSDes0If5aWc7M/CRPMxb5nkk/H
- Un5NIvV4OPhgBJBBZWZ4pOrBPRskv/Z9jCMmU=
+ d=amarulasolutions.com; s=google; t=1682628346; x=1685220346;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Hf8K+LPV3HpQoodPsHclIndfavzTHfh5H+b7Pu9+qX0=;
+ b=lYQb9N0DXJFaYlcVpdVJTsWypegS4pxbOgWG4uYPWRv0tlbBFBKpgdjjuIJ7l89OKn
+ MjxoNkkecvtACZfe3IMOjhngU6dFPvHM6Jb0dKqxdqG2fY33lE5vlStJ4DhOLLou9+Oc
+ EFPe8U5O53BQC+dflc06JM2/KRewWS9Fgm8wY=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1682628344; x=1685220344;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=5k9dCctWANQe/yEgS6tS+0M8nlHpydDuo0y2/2pb4aE=;
- b=fnVvGYNX5x6GNPUDCxSWXEUtfNnx7oUPMLLAFv5TA/9Eum/gwxbAjKqREY50rGm52c
- RpS646sOOlZNH7awUVb8l/seagRQYNE2mfjJPN6UMDBK7PMWu8H+XaqWOFrDQw615Th2
- Jdpwo3C9JbpGqWBgU6vIqIx+RrPOXcEZ5P9P2v3fxpVV4cHjhoIkB6IDu3R8Xy+oD5+j
- 8+mRWJO0l/TlB3AFIhGywc4hFxRSG7goVwkuCyWH5i/Y8U7r0+T3Jtjna+Com3+x/qLV
- vZD9P7Sq25I83uYsrqjeuEYTqF799yFiORaEGOGOlHKkECy3PXfCNNU4hBtwfaoFujvN
- wUjg==
-X-Gm-Message-State: AC+VfDxyVfRWgLLOIJgZheE8Zo2r9x5CqX+zpiMJBj3Fmj9VYbYNrdSP
- TT8WCjQs33UgUzcobr6Ro7m6mw==
-X-Google-Smtp-Source: ACHHUZ7Pu2xm4uXxSJcjBpr1Hhq7iFPzZY8LJppkL07oeAowkmx49KIhfg1j3b4w/tixepn51IrZ7A==
-X-Received: by 2002:a17:907:7fa1:b0:94e:fe77:3f47 with SMTP id
- qk33-20020a1709077fa100b0094efe773f47mr4225933ejc.67.1682628344213; 
- Thu, 27 Apr 2023 13:45:44 -0700 (PDT)
+ d=1e100.net; s=20221208; t=1682628346; x=1685220346;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=Hf8K+LPV3HpQoodPsHclIndfavzTHfh5H+b7Pu9+qX0=;
+ b=dSkWCoi3npObKhLxVpmT2xynNLS0UJfb7Pvw4QNMVTng1Wz0lS1QJqfXGGwronHJhN
+ ft/bWpIKm+3cH1W+GmFH2tSZd3vDTWwJb62E4GCR+WeQ1BB1MNVT5lmqeJb5Lp9SC+IC
+ f6F3Lmqh/YHu+mCH9bVsY+ZlLP1sRQ9cHvH0sPjS2hdnrrcsUZQgklumUw6K7qur/luh
+ A3fGg/iph1ARGfi3njJwjo5mqqdlhkgfOSYP9iDEAREWosxs7VxYDQBOlF960Ck1sHrL
+ 2KLdNCr2k+v4hhhcCAchJdaLfRetooXg1g1zyIMGg/b6uaQZ4gmreJ9r+L4tiCaTtJj6
+ FQrw==
+X-Gm-Message-State: AC+VfDwXPCp7AMvm+JGnmcVD6uoRAMz/9Wv09ITOXLV4b5gg1rTxKiR2
+ NzDlkGSGYRi17HcLe6kk3Lerwg==
+X-Google-Smtp-Source: ACHHUZ7f+2fEQbl7Qy1ajgnJooRSCuUwsjTRMFmMCuy0tPNeKm5PO7GL8KTfujgsTrfBLu+ShkBDpA==
+X-Received: by 2002:a17:906:9b86:b0:957:758e:df57 with SMTP id
+ dd6-20020a1709069b8600b00957758edf57mr3360655ejc.65.1682628346138; 
+ Thu, 27 Apr 2023 13:45:46 -0700 (PDT)
 Received: from dario-ThinkPad-T14s-Gen-2i.homenet.telecomitalia.it
  (host-87-5-99-194.retail.telecomitalia.it. [87.5.99.194])
  by smtp.gmail.com with ESMTPSA id
- s12-20020a170906bc4c00b00947ed087a2csm10171360ejv.154.2023.04.27.13.45.42
+ s12-20020a170906bc4c00b00947ed087a2csm10171360ejv.154.2023.04.27.13.45.44
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 27 Apr 2023 13:45:43 -0700 (PDT)
+ Thu, 27 Apr 2023 13:45:45 -0700 (PDT)
 From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
 To: linux-kernel@vger.kernel.org
-Date: Thu, 27 Apr 2023 22:45:35 +0200
-Message-Id: <20230427204540.3126234-1-dario.binacchi@amarulasolutions.com>
+Date: Thu, 27 Apr 2023 22:45:36 +0200
+Message-Id: <20230427204540.3126234-2-dario.binacchi@amarulasolutions.com>
 X-Mailer: git-send-email 2.32.0
+In-Reply-To: <20230427204540.3126234-1-dario.binacchi@amarulasolutions.com>
+References: <20230427204540.3126234-1-dario.binacchi@amarulasolutions.com>
 MIME-Version: 1.0
 Cc: devicetree@vger.kernel.org,
  Dario Binacchi <dario.binacchi@amarulasolutions.com>,
@@ -68,8 +71,8 @@ Cc: devicetree@vger.kernel.org,
  Amarula patchwork <linux-amarula@amarulasolutions.com>,
  "David S. Miller" <davem@davemloft.net>,
  Wolfgang Grandegger <wg@grandegger.com>
-Subject: [Linux-stm32] [PATCH v2 0/5] can: bxcan: add support for single
-	peripheral configuration
+Subject: [Linux-stm32] [PATCH v2 1/5] dt-bindings: net: can: add "st,
+	can-secondary" property
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,58 +89,53 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+On the stm32f7 Socs the can peripheral can be in single or dual
+configuration. In the dual configuration, in turn, it can be in primary
+or secondary mode. The addition of the 'st,can-secondary' property allows
+you to specify this mode in the dual configuration.
 
-The series adds support for managing bxCAN controllers in single peripheral
-configuration.
-Unlike stm32f4 SOCs, where bxCAN controllers are only in dual peripheral
-configuration, stm32f7 SOCs contain three CAN peripherals, CAN1 and CAN2
-in dual peripheral configuration and CAN3 in single peripheral
-configuration:
-- Dual CAN peripheral configuration:
- * CAN1: Primary bxCAN for managing the communication between a secondary
-   bxCAN and the 512-byte SRAM memory.
- * CAN2: Secondary bxCAN with no direct access to the SRAM memory.
-   This means that the two bxCAN cells share the 512-byte SRAM memory and
-   CAN2 can't be used without enabling CAN1.
-- Single CAN peripheral configuration:
- * CAN3: Primary bxCAN with dedicated Memory Access Controller unit and
-   512-byte SRAM memory.
+CAN peripheral nodes in single configuration contain neither
+"st,can-primary" nor "st,can-secondary".
 
-The driver has been tested on the stm32f769i-discovery board with a
-kernel version 5.19.0-rc2 in loopback + silent mode:
+Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+---
 
-ip link set can[0-2] type can bitrate 125000 loopback on listen-only on
-ip link set up can[0-2]
-candump can[0-2] -L &
-cansend can[0-2] 300#AC.AB.AD.AE.75.49.AD.D1
+(no changes since v1)
 
+ .../bindings/net/can/st,stm32-bxcan.yaml      | 19 +++++++++++++++----
+ 1 file changed, 15 insertions(+), 4 deletions(-)
 
-Changes in v2:
-- s/fiter/filter/ in the commit message
-- Replace struct bxcan_mb::primary with struct bxcan_mb::cfg.
-- Move after the patch "can: bxcan: add support for single peripheral configuration".
-- Add node gcan3.
-- Rename gcan as gcan1.
-- Add property "st,can-secondary" to can2 node.
-- Drop patch "dt-bindings: mfd: stm32f7: add binding definition for CAN3"
-  because it has been accepted.
-- Add patch "ARM: dts: stm32f429: put can2 in secondary mode".
-- Add patch "dt-bindings: net: can: add "st,can-secondary" property".
-
-Dario Binacchi (5):
-  dt-bindings: net: can: add "st,can-secondary" property
-  ARM: dts: stm32f429: put can2 in secondary mode
-  ARM: dts: stm32: add pin map for CAN controller on stm32f7
-  can: bxcan: add support for single peripheral configuration
-  ARM: dts: stm32: add CAN support on stm32f746
-
- .../bindings/net/can/st,stm32-bxcan.yaml      | 19 ++++-
- arch/arm/boot/dts/stm32f429.dtsi              |  1 +
- arch/arm/boot/dts/stm32f7-pinctrl.dtsi        | 82 +++++++++++++++++++
- arch/arm/boot/dts/stm32f746.dtsi              | 47 +++++++++++
- drivers/net/can/bxcan.c                       | 34 +++++---
- 5 files changed, 168 insertions(+), 15 deletions(-)
-
+diff --git a/Documentation/devicetree/bindings/net/can/st,stm32-bxcan.yaml b/Documentation/devicetree/bindings/net/can/st,stm32-bxcan.yaml
+index 769fa5c27b76..de1d4298893b 100644
+--- a/Documentation/devicetree/bindings/net/can/st,stm32-bxcan.yaml
++++ b/Documentation/devicetree/bindings/net/can/st,stm32-bxcan.yaml
+@@ -21,11 +21,22 @@ properties:
+ 
+   st,can-primary:
+     description:
+-      Primary and secondary mode of the bxCAN peripheral is only relevant
+-      if the chip has two CAN peripherals. In that case they share some
+-      of the required logic.
++      Primary mode of the bxCAN peripheral is only relevant if the chip has
++      two CAN peripherals in dual CAN configuration. In that case they share
++      some of the required logic.
++      Not to be used if the peripheral is in single CAN configuration.
+       To avoid misunderstandings, it should be noted that ST documentation
+-      uses the terms master/slave instead of primary/secondary.
++      uses the terms master instead of primary.
++    type: boolean
++
++  st,can-secondary:
++    description:
++      Secondary mode of the bxCAN peripheral is only relevant if the chip
++      has two CAN peripherals in dual CAN configuration. In that case they
++      share some of the required logic.
++      Not to be used if the peripheral is in single CAN configuration.
++      To avoid misunderstandings, it should be noted that ST documentation
++      uses the terms slave instead of secondary.
+     type: boolean
+ 
+   reg:
 -- 
 2.32.0
 
