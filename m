@@ -2,42 +2,42 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6D2916F2C88
-	for <lists+linux-stm32@lfdr.de>; Mon,  1 May 2023 05:01:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BAD7E6F2CB7
+	for <lists+linux-stm32@lfdr.de>; Mon,  1 May 2023 05:03:43 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 309E1C6A5ED;
-	Mon,  1 May 2023 03:01:21 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 62251C6A5ED;
+	Mon,  1 May 2023 03:03:43 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A8349C6907A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0428AC6907A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  1 May 2023 03:01:19 +0000 (UTC)
+ Mon,  1 May 2023 03:03:41 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 8863C6177C;
- Mon,  1 May 2023 03:01:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2BC4C4339B;
- Mon,  1 May 2023 03:01:16 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id EB0D261765;
+ Mon,  1 May 2023 03:03:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 50D73C4339C;
+ Mon,  1 May 2023 03:03:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1682910078;
+ s=k20201202; t=1682910220;
  bh=lW38JLU3QFhVbWOQXPhF88T4VJz8JtutIhc3gKjsfPk=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=RgRJ3WKbMwnOIcpoIxtuYbWUQvswsKjPdgj8SUSgPzaTII1+FJ3bDdmmTg79Kw8JX
- WKy3ML6vOtzu4ePciQQulKR78Fx7EJ8C0mfTvmCyEMqlr9XVjQ5CzUEk0eE8WMOdD7
- D6nwvGkmMscDXEaqQpV98J6Lc0stPXNyvDuy0t1FwauVGCYKkXO7VT+MLtaL66FVwy
- hXnyyMW1tu1dk9xOnOSmeuX1yePS1yGmX2bD1f7gF/4b5R74SJBAZfJqo5LFcqTPWt
- PLqavTkqLhoeOf4koeeY/FS5XkP/h47xOIOYMiTeIUYZkP+2i3vLrR08Uu1ILX0ufA
- nKM8ImAoCOw7Q==
+ b=fv8dm2/IVlNYGt9uaVg23cJLdl5T8Hp+qG25j6sdp1F9eOVm3AjjssBv0lLYDo+lh
+ 5nf/L4hgC57PGyNBFrqwviwp3SoL/g2m4hBq0jtJHCmQYSSo+lXsvQuws9eH4uIC/O
+ G4X81G+zJq3Z7VHrFiGuNanKOqCroIEXVTq0xi4dAxV1EURae24qYnQzo2sI5ex2v8
+ GknA13JumHt294/pROxh6Vuw32RXuKCSG1TBU4AlhEicsFsSBXpPP1H1i1lbqJKgWh
+ 4K7OGJBUDJr/Sod77u2YoWECUlLGQ2qiSurN75rhEnp063E0B/CQdSfcIS7SANTTpK
+ DHRinWlA/eZSw==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Sun, 30 Apr 2023 22:59:31 -0400
-Message-Id: <20230501025945.3253774-23-sashal@kernel.org>
+Date: Sun, 30 Apr 2023 23:02:14 -0400
+Message-Id: <20230501030227.3254266-20-sashal@kernel.org>
 X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20230501025945.3253774-1-sashal@kernel.org>
-References: <20230501025945.3253774-1-sashal@kernel.org>
+In-Reply-To: <20230501030227.3254266-1-sashal@kernel.org>
+References: <20230501030227.3254266-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -46,7 +46,7 @@ Cc: Sasha Levin <sashal@kernel.org>,
  linux-remoteproc@vger.kernel.org, mcoquelin.stm32@gmail.com,
  Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH AUTOSEL 6.2 23/37] remoteproc: stm32_rproc:
+Subject: [Linux-stm32] [PATCH AUTOSEL 6.1 20/33] remoteproc: stm32_rproc:
 	Add mutex protection for workqueue
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
