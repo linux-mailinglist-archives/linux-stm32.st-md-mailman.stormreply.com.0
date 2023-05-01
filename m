@@ -2,52 +2,47 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D20C16F2CD7
-	for <lists+linux-stm32@lfdr.de>; Mon,  1 May 2023 05:05:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 65D4B6F3337
+	for <lists+linux-stm32@lfdr.de>; Mon,  1 May 2023 17:54:18 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9A869C6A5ED;
-	Mon,  1 May 2023 03:05:58 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F21BDC6A5EE;
+	Mon,  1 May 2023 15:54:17 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 56705C6907A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2642BC6A5EA
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  1 May 2023 03:05:57 +0000 (UTC)
+ Mon,  1 May 2023 15:54:16 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 4A67461765;
- Mon,  1 May 2023 03:05:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C05CC4339E;
- Mon,  1 May 2023 03:05:54 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id DE3A6611C2;
+ Mon,  1 May 2023 15:54:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E990C433D2;
+ Mon,  1 May 2023 15:54:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1682910355;
- bh=L7TaH2CVnBpQ3FgRQFzJASy56Np5ekKgT/J9X7fsE+A=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=VrknC49X/Fri5KbYQ6+XLNmQRFRUeQxFI0SwoQ/U3PKlxmObPEAlNlyA8EmYf83jV
- CrOwcedalcZ6t0gY1R/Wqr1Vt3dnikokSrsTTs40/LgPy5/thIwUF8gV6men4EBtOJ
- Nmx0ZVj5ft6r85dbwIFAc19bLWRNFGtcPc4bivDqHBv7ytSs9+DlZ7h6ZTmvqDDFCC
- Luq8jqKtvhLTJ6LlAbhQc4iPjWEw4Gt0nfohBXle8AnuRKd4ixkDiRHNUQnvkt2cb4
- AJ8eK1YIbmlM4sw/53/EEu/ptbVfXtNrjoCt2oh0PnRK4gim5dRnK7uWbdaCFTNfkA
- lFy3zeg7crosA==
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Date: Sun, 30 Apr 2023 23:05:33 -0400
-Message-Id: <20230501030540.3254928-7-sashal@kernel.org>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20230501030540.3254928-1-sashal@kernel.org>
-References: <20230501030540.3254928-1-sashal@kernel.org>
+ s=k20201202; t=1682956454;
+ bh=yE0HzNS4WnXg5XqhBBy5O69jUV9L3mcZydmnHrZTYY8=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=sOWoTeXPZfEx6xxfnQ8bhmEnC44EG9OfyVTzmChmw2b2/4DVfUpm8zfu2H1JtB7TH
+ Qd9GQJNNk8qEaSshyWvADqRPlyIq4aQMET705nacWM/5LSDGHDQMbtBk9srnEbKxIN
+ MNjkmKFlziBSHfoNSX2ilNyLgb6WeLLuezepK9U30UHitQyGfmohUbht7WPHwWHudI
+ 0X6lYlzLmlhst2hsn0LNMt6Bxlwe8Q2BBk0diB40f3BvCwd99B9hsuXtUKIjjVEGtl
+ XDj8LxN2cGuOU8oXh5OlUz+WgWP7iPMhZCm7ybxq5dBq2pMdR4Q5ITOctTE65XTYkb
+ LWUnBbv61P9HQ==
+Date: Mon, 1 May 2023 17:09:59 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Sean Nyekjaer <sean@geanix.com>
+Message-ID: <20230501170959.48c9114f@jic23-huawei>
+In-Reply-To: <20230421113516.2710454-2-sean@geanix.com>
+References: <20230421113516.2710454-1-sean@geanix.com>
+ <20230421113516.2710454-2-sean@geanix.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.37; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-Cc: Sasha Levin <sashal@kernel.org>,
- Mathieu Poirier <mathieu.poirier@linaro.org>, andersson@kernel.org,
- linux-remoteproc@vger.kernel.org, mcoquelin.stm32@gmail.com,
- Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH AUTOSEL 5.10 07/12] remoteproc: stm32_rproc:
-	Add mutex protection for workqueue
+Cc: linux-iio@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ nuno.sa@analog.com
+Subject: Re: [Linux-stm32] [PATCH v2 2/2] iio: adc: stm32-adc: skip
+ adc-channels setup if none is present
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -64,58 +59,104 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+On Fri, 21 Apr 2023 13:35:16 +0200
+Sean Nyekjaer <sean@geanix.com> wrote:
 
-[ Upstream commit 35bdafda40cc343ad2ba2cce105eba03a70241cc ]
+> If only adc differential channels are defined driver will fail with
+> stm32-adc: probe of 48003000.adc:adc@0 failed with error -22
+> 
+> Fix this by skipping the initialization if no channels are defined.
+> 
+> This applies only to the legacy way of initializing adc channels.
+> 
+> Fixes: d7705f35448a ("iio: adc: stm32-adc: convert to device properties")
+> Signed-off-by: Sean Nyekjaer <sean@geanix.com>
 
-The workqueue may execute late even after remoteproc is stopped or
-stopping, some resources (rpmsg device and endpoint) have been
-released in rproc_stop_subdevices(), then rproc_vq_interrupt()
-accessing these resources will cause kernel dump.
+Olivier,
 
-Call trace:
-virtqueue_add_inbuf
-virtqueue_add_inbuf
-rpmsg_recv_single
-rpmsg_recv_done
-vring_interrupt
-stm32_rproc_mb_vq_work
-process_one_work
-worker_thread
-kthread
+You gave some good feedback on v1. Please take a look to see if it
+has all been addressed in v2.
 
-Suggested-by: Mathieu Poirier <mathieu.poirier@linaro.org>
-Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
-Link: https://lore.kernel.org/r/20230331160634.3113031-1-arnaud.pouliquen@foss.st.com
-Signed-off-by: Mathieu Poirier <mathieu.poirier@linaro.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/remoteproc/stm32_rproc.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+Thanks,
 
-diff --git a/drivers/remoteproc/stm32_rproc.c b/drivers/remoteproc/stm32_rproc.c
-index d2414cc1d90d6..659b747e182d5 100644
---- a/drivers/remoteproc/stm32_rproc.c
-+++ b/drivers/remoteproc/stm32_rproc.c
-@@ -297,8 +297,16 @@ static void stm32_rproc_mb_vq_work(struct work_struct *work)
- 	struct stm32_mbox *mb = container_of(work, struct stm32_mbox, vq_work);
- 	struct rproc *rproc = dev_get_drvdata(mb->client.dev);
- 
-+	mutex_lock(&rproc->lock);
-+
-+	if (rproc->state != RPROC_RUNNING)
-+		goto unlock_mutex;
-+
- 	if (rproc_vq_interrupt(rproc, mb->vq_id) == IRQ_NONE)
- 		dev_dbg(&rproc->dev, "no message found in vq%d\n", mb->vq_id);
-+
-+unlock_mutex:
-+	mutex_unlock(&rproc->lock);
- }
- 
- static void stm32_rproc_mb_callback(struct mbox_client *cl, void *data)
--- 
-2.39.2
+Jonathan
+
+> ---
+> Changes since v1:
+>  - Ignore extra channel for timestamps in PIO mode
+>  - Use single ended count in channel creation (Thanks Olivier Moysan)
+> 
+>  drivers/iio/adc/stm32-adc.c | 40 ++++++++++++++++++-------------------
+>  1 file changed, 20 insertions(+), 20 deletions(-)
+> 
+> diff --git a/drivers/iio/adc/stm32-adc.c b/drivers/iio/adc/stm32-adc.c
+> index 14524c1b5583..99bfe995b6f1 100644
+> --- a/drivers/iio/adc/stm32-adc.c
+> +++ b/drivers/iio/adc/stm32-adc.c
+> @@ -2038,6 +2038,7 @@ static int stm32_adc_legacy_chan_init(struct iio_dev *indio_dev,
+>  	struct stm32_adc_diff_channel diff[STM32_ADC_CH_MAX];
+>  	struct device *dev = &indio_dev->dev;
+>  	u32 num_diff = adc->num_diff;
+> +	int num_se = nchans - num_diff;
+>  	int size = num_diff * sizeof(*diff) / sizeof(u32);
+>  	int scan_index = 0, ret, i, c;
+>  	u32 smp = 0, smps[STM32_ADC_CH_MAX], chans[STM32_ADC_CH_MAX];
+> @@ -2065,28 +2066,27 @@ static int stm32_adc_legacy_chan_init(struct iio_dev *indio_dev,
+>  		}
+>  	}
+>  
+> -	ret = device_property_read_u32_array(dev, "st,adc-channels", chans,
+> -					     nchans);
+> -	if (ret)
+> -		return ret;
+> -
+> -	for (c = 0; c < nchans; c++) {
+> -		if (chans[c] >= adc_info->max_channels) {
+> -			dev_err(&indio_dev->dev, "Invalid channel %d\n",
+> -				chans[c]);
+> -			return -EINVAL;
+> -		}
+> -
+> -		/* Channel can't be configured both as single-ended & diff */
+> -		for (i = 0; i < num_diff; i++) {
+> -			if (chans[c] == diff[i].vinp) {
+> -				dev_err(&indio_dev->dev, "channel %d misconfigured\n",	chans[c]);
+> +	ret = device_property_read_u32_array(dev, "st,adc-channels", chans, num_se);
+> +	if (ret == 0 && num_se > 0) {
+> +		for (c = 0; c < num_se; c++) {
+> +			if (chans[c] >= adc_info->max_channels) {
+> +				dev_err(&indio_dev->dev, "Invalid channel %d\n",
+> +					chans[c]);
+>  				return -EINVAL;
+>  			}
+> +
+> +			/* Channel can't be configured both as single-ended & diff */
+> +			for (i = 0; i < num_diff; i++) {
+> +				if (chans[c] == diff[i].vinp) {
+> +					dev_err(&indio_dev->dev, "channel %d misconfigured\n",
+> +						chans[c]);
+> +					return -EINVAL;
+> +				}
+> +			}
+> +			stm32_adc_chan_init_one(indio_dev, &channels[scan_index],
+> +						chans[c], 0, scan_index, false);
+> +			scan_index++;
+>  		}
+> -		stm32_adc_chan_init_one(indio_dev, &channels[scan_index],
+> -					chans[c], 0, scan_index, false);
+> -		scan_index++;
+>  	}
+>  
+>  	if (adc->nsmps > 0) {
+> @@ -2307,7 +2307,7 @@ static int stm32_adc_chan_fw_init(struct iio_dev *indio_dev, bool timestamping)
+>  
+>  	if (legacy)
+>  		ret = stm32_adc_legacy_chan_init(indio_dev, adc, channels,
+> -						 num_channels);
+> +						 timestamping ? num_channels - 1 : num_channels);
+>  	else
+>  		ret = stm32_adc_generic_chan_init(indio_dev, adc, channels);
+>  	if (ret < 0)
 
 _______________________________________________
 Linux-stm32 mailing list
