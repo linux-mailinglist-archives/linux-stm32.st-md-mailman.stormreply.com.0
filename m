@@ -2,62 +2,52 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 68EE46F204C
-	for <lists+linux-stm32@lfdr.de>; Fri, 28 Apr 2023 23:56:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6C7576F2C33
+	for <lists+linux-stm32@lfdr.de>; Mon,  1 May 2023 04:58:29 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 184F9C6A5E7;
-	Fri, 28 Apr 2023 21:56:45 +0000 (UTC)
-Received: from mail-oa1-f50.google.com (mail-oa1-f50.google.com
- [209.85.160.50])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EF8C2C6A5ED;
+	Mon,  1 May 2023 02:58:28 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8919FC64107
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 66ED5C6907A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 28 Apr 2023 21:56:43 +0000 (UTC)
-Received: by mail-oa1-f50.google.com with SMTP id
- 586e51a60fabf-187ba2311b7so471631fac.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 28 Apr 2023 14:56:43 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1682719002; x=1685311002;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=5nFjavnBxbro/fiUVf4O04xlVdcIJiqIT9b+HFjtLWg=;
- b=OHs7TwuNZKW83Mwg16QNEosb3KcsgrvnwHzaO82j62Vz25PFGnlJ3cGhB9wIsC/PSv
- Bohy2us5ClUmvv4g8PPmsAjJMGgL4+LoTKcrUCcmbXlShIOL+sGYefaqh1HwalRIfJHv
- FY0soimP+FPhU57Vwu3wfWNbM7rZ8jjRW3h7dIBvHTxIyz9359f1ReYhhrV2C+OtHuKb
- U91wgUyyKWI0mlI67RJr8o87gAjtDxxMS46e0PgzKXtwLoAfXzZn2VV2DZlkNTfY2Pp4
- 0vmsB8lYf33oQzf80SiMx7bJBxUGSm9WKb3VxbiDFb2UuOJtO4Yupq80sraH73OsjoZw
- GKxQ==
-X-Gm-Message-State: AC+VfDyXJdmg0eWiZNB/eh2fs0gSbpKpzXFoJGia6TiNFSPr1GDHDw4g
- S7Pe6Tp6QbpPcVqWgXvlIQ==
-X-Google-Smtp-Source: ACHHUZ5OJNT5MsgdOGP6dVEQb4gbp242DVRGaHiNkTBgEHOBX2g6mFXeDDn4UrNam06kfjQ2PIi7Sw==
-X-Received: by 2002:a05:6870:d8af:b0:180:3225:b33b with SMTP id
- dv47-20020a056870d8af00b001803225b33bmr3139192oab.34.1682719002252; 
- Fri, 28 Apr 2023 14:56:42 -0700 (PDT)
-Received: from robh_at_kernel.org (66-90-144-107.dyn.grandenetworks.net.
- [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
- i4-20020a056870864400b0018e996a507esm6031489oal.31.2023.04.28.14.56.41
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 28 Apr 2023 14:56:41 -0700 (PDT)
-Received: (nullmailer pid 345861 invoked by uid 1000);
- Fri, 28 Apr 2023 21:56:41 -0000
-Date: Fri, 28 Apr 2023 16:56:41 -0500
-From: Rob Herring <robh@kernel.org>
-To: Valentin Caron <valentin.caron@foss.st.com>
-Message-ID: <20230428215641.GA332435-robh@kernel.org>
-References: <20230428121524.2125832-1-valentin.caron@foss.st.com>
- <20230428121524.2125832-7-valentin.caron@foss.st.com>
+ Mon,  1 May 2023 02:58:27 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 375FC61614;
+ Mon,  1 May 2023 02:58:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 89CFEC433D2;
+ Mon,  1 May 2023 02:58:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1682909905;
+ bh=lW38JLU3QFhVbWOQXPhF88T4VJz8JtutIhc3gKjsfPk=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=LNDM867XKrmv3pVWL2gsdAOe3tK/usCrCB/aMswNBvi/3Au0pL0UfA9gkLL94i/k7
+ NIa67vFvEk6UYfvH9VQN7S36hZGbwdBYtzGxIoReinY/6pLW/8+BMxfdOSBLMo7VB5
+ vEMWTnX5NmenF1Rvzvd+IyKJfP2qiFctDLq4mRHONMyX21L4LdlufUErJqbAuprm3S
+ YTTf6ABIYqrKq2bZIqai6HyT85dAKK3acs0Pa58Sw593KTLrFU0Lv6SdQ0E53V4xmj
+ mDomirRvicyANEcwIpOkVzbNMGlC8KRRYUDqbg9RPhjbImH4Y1xL6evtwdt6Up/i3B
+ 89zu2EvQbBJLg==
+From: Sasha Levin <sashal@kernel.org>
+To: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Date: Sun, 30 Apr 2023 22:56:13 -0400
+Message-Id: <20230501025632.3253067-25-sashal@kernel.org>
+X-Mailer: git-send-email 2.39.2
+In-Reply-To: <20230501025632.3253067-1-sashal@kernel.org>
+References: <20230501025632.3253067-1-sashal@kernel.org>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20230428121524.2125832-7-valentin.caron@foss.st.com>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-spi@vger.kernel.org, Mark Brown <broonie@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+X-stable: review
+X-Patchwork-Hint: Ignore
+Cc: Sasha Levin <sashal@kernel.org>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>, andersson@kernel.org,
+ linux-remoteproc@vger.kernel.org, mcoquelin.stm32@gmail.com,
+ Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 6/7] dt-bindings: spi: stm32: add stm32h7
- st, spi-slave-underrun property
+Subject: [Linux-stm32] [PATCH AUTOSEL 6.3 25/44] remoteproc: stm32_rproc:
+	Add mutex protection for workqueue
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,55 +64,59 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, Apr 28, 2023 at 02:15:23PM +0200, Valentin Caron wrote:
-> This property is used to enable and configure stm32h7 SPI controller to
-> handle underrun that could appear in slave mode.
-> 
-> Signed-off-by: Valentin Caron <valentin.caron@foss.st.com>
-> ---
->  .../devicetree/bindings/spi/st,stm32-spi.yaml     |  8 ++++++++
->  MAINTAINERS                                       |  1 +
->  include/dt-bindings/spi/spi-stm32.h               | 15 +++++++++++++++
->  3 files changed, 24 insertions(+)
->  create mode 100644 include/dt-bindings/spi/spi-stm32.h
-> 
-> diff --git a/Documentation/devicetree/bindings/spi/st,stm32-spi.yaml b/Documentation/devicetree/bindings/spi/st,stm32-spi.yaml
-> index 1d26fa2658c5..e946ea71a247 100644
-> --- a/Documentation/devicetree/bindings/spi/st,stm32-spi.yaml
-> +++ b/Documentation/devicetree/bindings/spi/st,stm32-spi.yaml
-> @@ -28,6 +28,7 @@ allOf:
->        properties:
->          st,spi-midi-ns: false
->          spi-slave: false
-> +        st,spi-slave-underrun: false
->  
->  properties:
->    "#address-cells": true
-> @@ -70,6 +71,13 @@ properties:
->        In case of spi-slave defined, if <0>, indicate that SS should be
->        detected via the dedicated HW pin
->  
-> +  st,spi-slave-underrun:
-> +    $ref: /schemas/types.yaml#/definitions/uint32-array
-> +    description:
-> +      First parameter enables and selects slave underrun reaction.
-> +      Refer to "dt-bindings/spi/spi-stm32.h" for the supported values.
-> +      Second parameter is the pattern in case of SPI_SEND_PATTERN mode.
+From: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
 
-So, max 2 cells? Then:
+[ Upstream commit 35bdafda40cc343ad2ba2cce105eba03a70241cc ]
 
-minItems: 1
-maxItems: 2
+The workqueue may execute late even after remoteproc is stopped or
+stopping, some resources (rpmsg device and endpoint) have been
+released in rproc_stop_subdevices(), then rproc_vq_interrupt()
+accessing these resources will cause kernel dump.
 
-Though I don't really think this belongs in DT. The driver implementing 
-the SPI slave function defines all the rest of the protocol the slave 
-implements. Why not this little bit? Perhaps there is no way for a SPI 
-slave driver to tell the SPI controller which controller specific mode 
-to use, so you abuse DT to configure the SPI controller. Also, with a 
-controller specific response, then the slave driver is coupled to that 
-SPI controller which isn't great either.
+Call trace:
+virtqueue_add_inbuf
+virtqueue_add_inbuf
+rpmsg_recv_single
+rpmsg_recv_done
+vring_interrupt
+stm32_rproc_mb_vq_work
+process_one_work
+worker_thread
+kthread
 
-Rob
+Suggested-by: Mathieu Poirier <mathieu.poirier@linaro.org>
+Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+Link: https://lore.kernel.org/r/20230331160634.3113031-1-arnaud.pouliquen@foss.st.com
+Signed-off-by: Mathieu Poirier <mathieu.poirier@linaro.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/remoteproc/stm32_rproc.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/drivers/remoteproc/stm32_rproc.c b/drivers/remoteproc/stm32_rproc.c
+index 7d782ed9e5896..f618405cf4200 100644
+--- a/drivers/remoteproc/stm32_rproc.c
++++ b/drivers/remoteproc/stm32_rproc.c
+@@ -287,8 +287,16 @@ static void stm32_rproc_mb_vq_work(struct work_struct *work)
+ 	struct stm32_mbox *mb = container_of(work, struct stm32_mbox, vq_work);
+ 	struct rproc *rproc = dev_get_drvdata(mb->client.dev);
+ 
++	mutex_lock(&rproc->lock);
++
++	if (rproc->state != RPROC_RUNNING)
++		goto unlock_mutex;
++
+ 	if (rproc_vq_interrupt(rproc, mb->vq_id) == IRQ_NONE)
+ 		dev_dbg(&rproc->dev, "no message found in vq%d\n", mb->vq_id);
++
++unlock_mutex:
++	mutex_unlock(&rproc->lock);
+ }
+ 
+ static void stm32_rproc_mb_callback(struct mbox_client *cl, void *data)
+-- 
+2.39.2
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
