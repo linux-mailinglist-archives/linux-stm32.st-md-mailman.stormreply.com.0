@@ -2,68 +2,77 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 755D96F46F0
-	for <lists+linux-stm32@lfdr.de>; Tue,  2 May 2023 17:21:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 16C756F4A07
+	for <lists+linux-stm32@lfdr.de>; Tue,  2 May 2023 21:01:20 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2BE06C6A60C;
-	Tue,  2 May 2023 15:21:03 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A6889C6A5FD;
+	Tue,  2 May 2023 19:01:19 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 69BFCC0356E
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue,  2 May 2023 19:01:18 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 70D11C69049
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 39EBC62816
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  2 May 2023 15:21:02 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 342DAHRq004639; Tue, 2 May 2023 17:20:50 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=1qvqglpRTIs9Plz1+tVBVNIDgzy97cte54MqficYL1A=;
- b=IuSoldTdoIX+wgbSNYEs5028/1CqaDrykz9M8SHUJY926TYl32edMLS3ECRy2RFjXaIP
- FHYze0r/TegXOgBS2hCTGWcmWGrhMWAnnRAuWPxr2rvJkcUSePRqPYqy8ZKBOF5J/3p3
- 0ooerTZTIUVcVJmnDvZJr2De6f1pe3qVQJzcs5mEQBKKUYk48PweYDMTkymTtb/HeS7G
- 6cJ7TjSOgW0BfmrHeDxaZC0cVAgTCx7GyeVQZa9GXpfA6ShNLQp1yub0/8oqwLhxXdr9
- kUONzIhghmHphiGGEdLGmy0bLf+UtqN7y5opkBBAkWppodywSZIQ9p3QcVEXH0DiC8Q8 pg== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3qayunjah9-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 02 May 2023 17:20:50 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 398D810002A;
- Tue,  2 May 2023 17:20:47 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 2F2CF2278B4;
- Tue,  2 May 2023 17:20:47 +0200 (CEST)
-Received: from [10.201.21.93] (10.201.21.93) by SHFDAG1NODE1.st.com
- (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.21; Tue, 2 May
- 2023 17:20:46 +0200
-Message-ID: <ebb3050c-c045-3758-5c23-349ab949340e@foss.st.com>
-Date: Tue, 2 May 2023 17:20:45 +0200
+ Tue,  2 May 2023 19:01:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2584CC433B0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue,  2 May 2023 19:01:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1683054076;
+ bh=prkycoKFrtYOB9sqzJph1/Wh7+dUYl73V0ySsrK86tE=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=rf/Ymu/EiSQOPePfJMJv1847ZBWRjnjneowURtOqNMODuCRTfcl2GQ0h/jO2AdmCs
+ leEyX7R6GR2dka6/IsiyySID/QcvyxsSv7fNtmEEy0Cm9A6hC1sqxMJ+9jfUBya5xj
+ ODLup2MnZzYCOUMdIZzoCrk5OSl4AOnL/7/DJbtkd5lptoW7/0YbgOkcgOH14mk6Au
+ qACeCdnoaBW8B9rF8o7n7shq7gT7w0jQTaVjP3mXHg69IyA+TLldeHm4Y1C5mj86Z3
+ uRYRPp4016gJq/2Xf9LklNYOIaWs99spKYSrk9MtOv6rk+8yKfvzOFwqXzWomFJ/+X
+ cezzz3yUhjKtA==
+Received: by mail-lf1-f54.google.com with SMTP id
+ 2adb3069b0e04-4f00d41df22so30189116e87.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 02 May 2023 12:01:16 -0700 (PDT)
+X-Gm-Message-State: AC+VfDywhSNXTo4BP1OKu4WgWwtkuz2igDo99xmzq66sgPmVt8ML5Ycv
+ 2WpxQzvsjzwy67OjDNZ7lKULMd+6fj95mHSEpA==
+X-Google-Smtp-Source: ACHHUZ4aQAyOb+PGJ7PQfIp0PiLUMh7I0dBEHOyVsVppKRO7n40/yktfmotxwSexv0gCD3XVcEmYB9ah5iQIzUMa54Q=
+X-Received: by 2002:a05:6512:3b07:b0:4eb:412e:b06a with SMTP id
+ f7-20020a0565123b0700b004eb412eb06amr237890lfv.22.1683054074001; Tue, 02 May
+ 2023 12:01:14 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.9.0
-Content-Language: en-US
-To: Steffen Trumtrar <s.trumtrar@pengutronix.de>,
- <linux-stm32@st-md-mailman.stormreply.com>
-References: <20230411083045.2850138-1-s.trumtrar@pengutronix.de>
- <20230411083045.2850138-2-s.trumtrar@pengutronix.de>
-From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
-In-Reply-To: <20230411083045.2850138-2-s.trumtrar@pengutronix.de>
-X-Originating-IP: [10.201.21.93]
-X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE1.st.com
- (10.75.129.69)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.942,Hydra:6.0.573,FMLib:17.11.170.22
- definitions=2023-05-02_09,2023-04-27_01,2023-02-09_01
-Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
-Subject: Re: [Linux-stm32] [PATCH v8 01/10] ARM: dts: stm32: Add alternate
- pinmux for ethernet
+References: <20220328000915.15041-1-ansuelsmth@gmail.com>
+ <CAFr9PXkgrRe-=E=GhNnZ4w1x_FMb97-_RmX6ND1vEd74_TbZSw@mail.gmail.com>
+ <4ff4f171-c5f8-87af-aad1-5e7686292288@microchip.com>
+ <45bc13a8-1442-2dd3-b9ea-1ed2f5962bac@arm.com>
+In-Reply-To: <45bc13a8-1442-2dd3-b9ea-1ed2f5962bac@arm.com>
+From: Rob Herring <robh+dt@kernel.org>
+Date: Tue, 2 May 2023 14:01:01 -0500
+X-Gmail-Original-Message-ID: <CAL_JsqL7t47x-5U6STynwW-+4wJUhs_R9wuaQ0YOgX59aJ=vew@mail.gmail.com>
+Message-ID: <CAL_JsqL7t47x-5U6STynwW-+4wJUhs_R9wuaQ0YOgX59aJ=vew@mail.gmail.com>
+To: Robin Murphy <robin.murphy@arm.com>
+Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ linux-aspeed@lists.ozlabs.org, linux-realtek-soc@lists.infradead.org,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ linux-stm32@st-md-mailman.stormreply.com, chrome-platform@lists.linux.dev,
+ linux-samsung-soc@vger.kernel.org, openbmc@lists.ozlabs.org,
+ Daniel Palmer <daniel@0x0f.com>, linux-arm-kernel@axis.com,
+ linux-rockchip@lists.infradead.org, Ansuel Smith <ansuelsmth@gmail.com>,
+ Cristian Birsan <Cristian.Birsan@microchip.com>,
+ DTML <devicetree@vger.kernel.org>, linux-arm-msm@vger.kernel.org,
+ linux-actions@lists.infradead.org, linux-unisoc@lists.infradead.org,
+ linux-mediatek@lists.infradead.org, linux-rpi-kernel@lists.infradead.org,
+ linux-tegra@vger.kernel.org, linux-amlogic@lists.infradead.org,
+ linux-omap@vger.kernel.org,
+ linux-arm-kernel <linux-arm-kernel@lists.infradead.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ linux-sunxi@lists.linux.dev, linux-renesas-soc@vger.kernel.org,
+ kernel@dh-electronics.com, Santiago Esteban <Santiago.Esteban@microchip.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, linux-oxnas@groups.io,
+ Claudiu Beznea <Claudiu.Beznea@microchip.com>
+Subject: Re: [Linux-stm32] [RFC PATCH 0/1] Categorize ARM dts directory
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,90 +84,38 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Steffen
-
-On 4/11/23 10:30, Steffen Trumtrar wrote:
-> Add another option for the ethernet0 pins.
-> It is almost identical to ethernet0_rgmii_pins_c apart from TXD0/1.
-> 
-> This is used on the Phycore STM32MP1.
-> 
-> Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
-> ---
->   arch/arm/boot/dts/stm32mp15-pinctrl.dtsi | 50 ++++++++++++++++++++++++
->   1 file changed, 50 insertions(+)
-> 
-> diff --git a/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi b/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
-> index a9d2bec990141..1c97db4dbfc6d 100644
-> --- a/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
-> +++ b/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
-> @@ -341,6 +341,56 @@ pins1 {
->   		};
->   	};
->   
-> +	ethernet0_rgmii_pins_d: rgmii-3 {
-> +		pins1 {
-> +			pinmux = <STM32_PINMUX('G', 5, AF11)>, /* ETH_RGMII_CLK125 */
-> +				 <STM32_PINMUX('G', 13, AF11)>,	/* ETH_RGMII_TXD0 */
-> +				 <STM32_PINMUX('G', 14, AF11)>,	/* ETH_RGMII_TXD1 */
-> +				 <STM32_PINMUX('C', 2, AF11)>, /* ETH_RGMII_TXD2 */
-> +				 <STM32_PINMUX('E', 2, AF11)>, /* ETH_RGMII_TXD3 */
-> +				 <STM32_PINMUX('B', 11, AF11)>,	/* ETH_RGMII_TX_CTL */
-> +				 <STM32_PINMUX('C', 1, AF11)>; /* ETH_MDC */
-> +			bias-disable;
-> +			drive-push-pull;
-> +			slew-rate = <2>;
-> +		};
-> +		pins2 {
-> +			pinmux = <STM32_PINMUX('A', 2, AF11)>; /* ETH_MDIO */
-> +			bias-disable;
-> +			drive-push-pull;
-> +			slew-rate = <0>;
-> +		};
-> +		pins3 {
-> +			pinmux = <STM32_PINMUX('C', 4, AF11)>, /* ETH_RGMII_RXD0 */
-> +				 <STM32_PINMUX('C', 5, AF11)>, /* ETH_RGMII_RXD1 */
-> +				 <STM32_PINMUX('H', 6, AF11)>, /* ETH_RGMII_RXD2 */
-> +				 <STM32_PINMUX('B', 1, AF11)>, /* ETH_RGMII_RXD3 */
-> +				 <STM32_PINMUX('A', 1, AF11)>, /* ETH_RGMII_RX_CLK */
-> +				 <STM32_PINMUX('A', 7, AF11)>; /* ETH_RGMII_RX_CTL */
-> +			bias-disable;
-> +		};
-> +	};
-> +
-> +	ethernet0_rgmii_sleep_pins_d: rgmii-sleep-8 {
-
-Mistake here, it should be rgmii-sleep-3
-
-> +		pins1 {
-> +			pinmux = <STM32_PINMUX('G', 5, ANALOG)>, /* ETH_RGMII_CLK125 */
-> +				 <STM32_PINMUX('G', 4, ANALOG)>, /* ETH_RGMII_GTX_CLK */
-> +				 <STM32_PINMUX('G', 13, ANALOG)>, /* ETH_RGMII_TXD0 */
-> +				 <STM32_PINMUX('G', 14, ANALOG)>, /* ETH_RGMII_TXD1 */
-> +				 <STM32_PINMUX('C', 2, ANALOG)>, /* ETH_RGMII_TXD2 */
-> +				 <STM32_PINMUX('E', 2, ANALOG)>, /* ETH_RGMII_TXD3 */
-> +				 <STM32_PINMUX('B', 11, ANALOG)>, /* ETH_RGMII_TX_CTL */
-> +				 <STM32_PINMUX('A', 2, ANALOG)>, /* ETH_MDIO */
-> +				 <STM32_PINMUX('C', 1, ANALOG)>, /* ETH_MDC */
-> +				 <STM32_PINMUX('C', 4, ANALOG)>, /* ETH_RGMII_RXD0 */
-> +				 <STM32_PINMUX('C', 5, ANALOG)>, /* ETH_RGMII_RXD1 */
-> +				 <STM32_PINMUX('H', 6, ANALOG)>, /* ETH_RGMII_RXD2 */
-> +				 <STM32_PINMUX('B', 1, ANALOG)>, /* ETH_RGMII_RXD3 */
-> +				 <STM32_PINMUX('A', 1, ANALOG)>, /* ETH_RGMII_RX_CLK */
-> +				 <STM32_PINMUX('A', 7, ANALOG)>; /* ETH_RGMII_RX_CTL */
-> +		};
-> +	};
-> +
->   	ethernet0_rmii_pins_a: rmii-0 {
->   		pins1 {
->   			pinmux = <STM32_PINMUX('G', 13, AF11)>, /* ETH1_RMII_TXD0 */
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gVHVlLCBBcHIgMjUsIDIwMjMgYXQgMTE6MjHigK9BTSBSb2JpbiBNdXJwaHkgPHJvYmluLm11
+cnBoeUBhcm0uY29tPiB3cm90ZToKPgo+IE9uIDI5LzAzLzIwMjIgOTo1MCBhbSwgTmljb2xhcyBG
+ZXJyZSB3cm90ZToKPiA+IEFuc3VlbCwgQWxsLAo+ID4KPiA+IE9uIDI4LzAzLzIwMjIgYXQgMTA6
+NTUsIERhbmllbCBQYWxtZXIgd3JvdGU6Cj4gPj4gSGkgQW5zdWVsCj4gPj4KPiA+PiBPbiBNb24s
+IDI4IE1hciAyMDIyIGF0IDA5OjA5LCBBbnN1ZWwgU21pdGggPGFuc3VlbHNtdGhAZ21haWwuY29t
+PiB3cm90ZToKPiA+Pj4KPiA+Pj4gSGksCj4gPj4+IGFzIHRoZSB0aXRsZSBzYXksIHRoZSBpbnRl
+bnRpb24gb2YgdGhpcyAiInNlcmllcyIiIGlzIHRvIGZpbmFsbHkKPiA+Pj4gY2F0ZWdvcml6ZQo+
+ID4+PiB0aGUgQVJNIGR0cyBkaXJlY3RvcnkgaW4gc3ViZGlyZWN0b3J5IGZvciBlYWNoIG9lbS4K
+PiA+Pgo+ID4+IFdoaWxlIEkgYWdyZWUgd2l0aCB0aGlzIGNoYW5nZSBhbmQgdGhpbmsgaXQncyBm
+b3IgdGhlIGdvb2QgKGJyb3dzaW5nCj4gPj4gdGhlIEFSTSBkdHMgZGlyZWN0b3J5IGF0IHRoZSBt
+b21lbnQgaXMgZnJ1c3RyYXRpbmcuLikgSSB0aGluawo+ID4+IGJ1aWxkcm9vdCBhbmQgb3RoZXJz
+IG5lZWQgdG8gYmUgdG9sZCBhYm91dCB0aGlzIGFzIGl0J2xsIHBvdGVudGlhbGx5Cj4gPj4gYnJl
+YWsgdGhlaXIga2VybmVsIGJ1aWxkIHNjcmlwdGluZyBmb3IgQVJNIGFuZCBwcm9iYWJseSBtZXNz
+ZXMgdXAgdGhlCj4gPj4gY29uZmlncyB0aGV5IGhhdmUgZm9yIGV4aXN0aW5nIGJvYXJkcy4KPiA+
+Cj4gPiBUaGlzIGFzcGVjdCBtdXN0bid0IGJlIHVuZGVyZXN0aW1hdGVkIGFuZCBJIGFudGljaXBh
+dGUgbG90cyBvZiBpc3N1ZXMKPiA+IGR1cmluZyBhIGxvbmcgdGltZSBvbiB0aGlzIHBhcnRpY3Vs
+YXIgdG9waWMgb2YgImJ1aWxkIHN5c3RlbXMiLgo+ID4KPiA+IEFub3RoZXIgYXNwZWN0IGlzIENJ
+IGFuZCBwdWJsaWMgb3IgcHJpdmF0ZSB0ZXN0aW5nIGZhcm1zIHdlIGFsbCBoYXZlCj4gPiBydW5u
+aW5nLgo+Cj4gWWV0IGFub3RoZXIgaXMgaWYgdGhpcyBhZmZlY3RzIHdoYXQgYG1ha2UgZHRic19p
+bnN0YWxsYCBkb2VzIChJIGRvbid0Cj4ga25vdyBmb3Igc3VyZSwgYnV0IEknZCBiZSBpbmNsaW5l
+ZCB0byBzdXNwZWN0IGl0IG1pZ2h0KS4gU29tZSBkaXN0cm9zCj4gdXNlIHRoYXQgdG8gZGVsaXZl
+ciB0aGUgRFRCcyBhcyBwYXJ0IG9mIHRoZWlyIGtlcm5lbCBwYWNrYWdlLCBzbyBpZgo+IHBhdGhz
+IHN1ZGRlbmx5IGNoYW5nZSBpdCBjb3VsZCBicmVhayBlbmQgdXNlcnMnIGJvb3Rsb2FkZXIgc2V0
+dXBzIHRvby4KCkluZGVlZCwgdGhpcyBjYW1lIHVwIGxhc3QgdGltZS4gVHVybnMgb3V0IEkgaGFk
+IGFscmVhZHkgaW1wbGVtZW50ZWQKc3VwcG9ydCB0byBtYWludGFpbiB0aGUgZmxhdCBpbnN0YWxs
+LiBJIGp1c3QgcmUtd3JvdGUgaXQgc2luY2UKTWFrZWZpbGUuZHRiaW5zdCBjaGFuZ2VkIGNvbXBs
+ZXRlbHkgc2luY2UgdGhlbi4KClJvYgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQt
+bWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5j
+b20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
