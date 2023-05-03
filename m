@@ -2,52 +2,83 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 904426F5BD7
-	for <lists+linux-stm32@lfdr.de>; Wed,  3 May 2023 18:20:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0CD996F6000
+	for <lists+linux-stm32@lfdr.de>; Wed,  3 May 2023 22:25:56 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3EC7EC6A5FD;
-	Wed,  3 May 2023 16:20:45 +0000 (UTC)
-Received: from www530.your-server.de (www530.your-server.de [188.40.30.78])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A5755C69073;
+	Wed,  3 May 2023 20:25:55 +0000 (UTC)
+Received: from mail-yb1-f173.google.com (mail-yb1-f173.google.com
+ [209.85.219.173])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D9B10C69073
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2FC0DC57B6A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  3 May 2023 16:20:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=geanix.com; 
- s=default2211;
- h=Content-Transfer-Encoding:MIME-Version:References:
- In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID;
- bh=1GoopODsvTgG4yhK/ErXIIHntPk72a3taRR/Ug0RtmE=; b=veq33OwustGPuqcUUQQ7jm2eeK
- VPnwBoCBOXoiWFcQ3qnZ9NWh0w9i8blpPtLw2rl17B8EZbcgZy4jTk/Fk0sFO1UQtWoKXsIsZPMTs
- r32VuNwMRXsML2sEaq+usgngL+nDPz6wul/S33HSq2Qe1t9InfmcpYKVSOFzG4H9D5oPXtKYg5waL
- jroOFPZk+2sOO/tr2oCrD0sUzsTP/KsN8hp1IUnHqAGte83nY7BlZLjTJStz2OZHqWWjHyuZqxrev
- SBzZVfqopD7huXuAjo9XznaoExUF3HRz6Hn1F7lXkWU4cLuls0L/l/e3S8jUc8ZEMIE0WV744U9LR
- ZkA7/lsQ==;
-Received: from sslproxy03.your-server.de ([88.198.220.132])
- by www530.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
- (Exim 4.94.2) (envelope-from <sean@geanix.com>)
- id 1puFDf-000MMN-9B; Wed, 03 May 2023 18:20:43 +0200
-Received: from [185.17.218.86] (helo=zen..)
- by sslproxy03.your-server.de with esmtpsa (TLSv1.3:TLS_AES_256_GCM_SHA384:256)
- (Exim 4.92) (envelope-from <sean@geanix.com>)
- id 1puFDe-000QMl-TC; Wed, 03 May 2023 18:20:42 +0200
-From: Sean Nyekjaer <sean@geanix.com>
-To: jic23@kernel.org, olivier.moysan@foss.st.com, alexandre.torgue@foss.st.com,
- nuno.sa@analog.com
-Date: Wed,  3 May 2023 18:20:29 +0200
-Message-Id: <20230503162029.3654093-2-sean@geanix.com>
-X-Mailer: git-send-email 2.40.0
-In-Reply-To: <20230503162029.3654093-1-sean@geanix.com>
-References: <20230503162029.3654093-1-sean@geanix.com>
+ Wed,  3 May 2023 20:25:53 +0000 (UTC)
+Received: by mail-yb1-f173.google.com with SMTP id
+ 3f1490d57ef6-b9e2f227640so4848210276.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 03 May 2023 13:25:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1683145552; x=1685737552;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=1gEz7yCW0YNWEyofUMW+bM1YB2JKr4lLhGCi/13fTrc=;
+ b=Mzh0ZV1liVt0pO7T3ehH+wp5tHq2eHIvxMQvgVLhBNtjThUcDrX/+aDvPu0tBZ/9ee
+ EXtPp3wMLIa74YOBsQ0e08IZyzEb9z2PtCzmiGLSL5FFkcqFzSprSbu/p4OtMtm5Z8vg
+ QTb+851VnqyKufW9AlhGHuA8W1rOsuyTf/U1ngEssyK7U0XiMTLfkIYXQJ/3BWdZ/+nL
+ IlkiQndW7FfaXvB3Wtdi5hEfH46S40YPblPeGAPLxeQ85pZXExi718VSSliADLafDbtF
+ EIagwxP3z0ZUYRpd+UFfoZPqXzZHPfYekCM7c+V8IvPd0peQzIxx4yrWJn2aqzP6n/mT
+ v8JQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1683145552; x=1685737552;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=1gEz7yCW0YNWEyofUMW+bM1YB2JKr4lLhGCi/13fTrc=;
+ b=fHyP68TshFOJGKmLGuwIl8dfO6QbETWCMnb/cZ7OgGnp7+ABnruynuA2iZg4iIJ6Qe
+ f1+ASpsf8SlwdkBi1GvisB8g0YBQAruVIEZTwCQYhgtwbfXRjtdFcyUhi2juPIcNNj8v
+ rkybsiEt1q8JqJHK9sPdL9seAXXPUIaYrlqL6VG1mUj37KLSjSN8vgnqxNLPnsW1q+rv
+ DBajEMiQMrZaRkmqLzMYGtR83ZGqGyzb+8GqL+ItDqNB7XxHwo98qiTpAann+jnqvmge
+ CutF9PDOh+bWtik93aoAutddnCfvsFY10kPkXwUfbWQ124P5FQdEpNRAagmh1CB6DXHG
+ qayQ==
+X-Gm-Message-State: AC+VfDwTpG0CKvjORKtxCtb4u+iaNq+SY0G3ALIY15X6MU5XUkT3STun
+ DdfbAXh3Hn+5Ph12UaolgjAiGqTTJFykS2eUYrrKoA==
+X-Google-Smtp-Source: ACHHUZ6bWBOMBfCcUnb1ZA+ngbZpzrLgmQlXt3j9zhiGPRBmWSduiRqy3n8tV6EAdgHxuWzjmwHy1P//RM78ldQ0LkU=
+X-Received: by 2002:a25:fc0c:0:b0:b9e:7ec8:5d41 with SMTP id
+ v12-20020a25fc0c000000b00b9e7ec85d41mr5902733ybd.55.1683145551966; Wed, 03
+ May 2023 13:25:51 -0700 (PDT)
 MIME-Version: 1.0
-X-Authenticated-Sender: sean@geanix.com
-X-Virus-Scanned: Clear (ClamAV 0.103.8/26895/Wed May  3 09:23:02 2023)
-Cc: linux-iio@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Sean Nyekjaer <sean@geanix.com>
-Subject: [Linux-stm32] [PATCH v3 2/2] iio: adc: stm32-adc: skip adc-channels
-	setup if none is present
+References: <20220328000915.15041-1-ansuelsmth@gmail.com>
+ <85eb14ec-f465-7447-ad77-a3dabc666f47@kernel.org>
+ <YkKRYnN84D9VZhGj@Ansuel-xps.localdomain>
+ <CAL_Jsq+RQQ-ADMxLPUFwk6S6kGmb6oNDy4k52fnU0EtbUvqmSA@mail.gmail.com>
+ <CAMuHMdWNTE48MFy6fqxAsfMWz9b6E7dVNXtXtESP95sxk2PGwA@mail.gmail.com>
+ <CAL_JsqJthKTm8bhRF2B=ae1tvtPeYYXx_Tm76qQtSwLtH5C6VA@mail.gmail.com>
+ <720a2829-b6b5-411c-ac69-9a53e881f48d@app.fastmail.com>
+ <CAL_JsqKCtmkwzKa01gyG65fH8ye6R3KhR41PJbJhOJ4X9j=znA@mail.gmail.com>
+ <99b49e6b-e963-415a-a2c9-72505087833c@app.fastmail.com>
+In-Reply-To: <99b49e6b-e963-415a-a2c9-72505087833c@app.fastmail.com>
+From: Linus Walleij <linus.walleij@linaro.org>
+Date: Wed, 3 May 2023 22:25:39 +0200
+Message-ID: <CACRpkdaZdxNZ3amHxE44NZOZcVMpBa4Kx126+7WW3XHGM2NU=A@mail.gmail.com>
+To: Arnd Bergmann <arnd@arndb.de>
+Cc: linux-aspeed@lists.ozlabs.org, linux-realtek-soc@lists.infradead.org,
+ linux-arm-kernel@axis.com, linux-stm32@st-md-mailman.stormreply.com,
+ chrome-platform@lists.linux.dev, linux-samsung-soc@vger.kernel.org,
+ openbmc@lists.ozlabs.org, Krzysztof Kozlowski <krzk@kernel.org>,
+ linux-rockchip@lists.infradead.org, Geert Uytterhoeven <geert@linux-m68k.org>,
+ linux-sunxi@lists.linux.dev, devicetree@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-actions@lists.infradead.org,
+ linux-unisoc@lists.infradead.org, Rob Herring <robh+dt@kernel.org>,
+ linux-mediatek@lists.infradead.org, linux-rpi-kernel@lists.infradead.org,
+ linux-tegra@vger.kernel.org, linux-amlogic@lists.infradead.org,
+ Linux-OMAP <linux-omap@vger.kernel.org>, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, Christian Marangi <ansuelsmth@gmail.com>,
+ Linux-Renesas <linux-renesas-soc@vger.kernel.org>, kernel@dh-electronics.com,
+ Olof Johansson <olof@lixom.net>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ "linux-oxnas@groups.io" <linux-oxnas@groups.io>
+Subject: Re: [Linux-stm32] [RFC PATCH 0/1] Categorize ARM dts directory
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,107 +90,25 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-If only adc differential channels are defined driver will fail with
-stm32-adc: probe of 48003000.adc:adc@0 failed with error -22
-
-Fix this by skipping the initialization if no channels are defined.
-
-This applies only to the legacy way of initializing adc channels.
-
-Fixes: d7705f35448a ("iio: adc: stm32-adc: convert to device properties")
-Signed-off-by: Sean Nyekjaer <sean@geanix.com>
----
-Changes since v1:
-- Ignore extra channel for timestamps in PIO mode
-- Use single ended count in channel creation (Thanks Olivier Moysan)
-
-Changes since v2:
-- Avoid calling device_property_read_u32_array with num_se 0 (Thanks Olivier Moysan)
-
- drivers/iio/adc/stm32-adc.c | 42 ++++++++++++++++++++-----------------
- 1 file changed, 23 insertions(+), 19 deletions(-)
-
-diff --git a/drivers/iio/adc/stm32-adc.c b/drivers/iio/adc/stm32-adc.c
-index 14524c1b5583..f7613efb870d 100644
---- a/drivers/iio/adc/stm32-adc.c
-+++ b/drivers/iio/adc/stm32-adc.c
-@@ -2038,6 +2038,7 @@ static int stm32_adc_legacy_chan_init(struct iio_dev *indio_dev,
- 	struct stm32_adc_diff_channel diff[STM32_ADC_CH_MAX];
- 	struct device *dev = &indio_dev->dev;
- 	u32 num_diff = adc->num_diff;
-+	int num_se = nchans - num_diff;
- 	int size = num_diff * sizeof(*diff) / sizeof(u32);
- 	int scan_index = 0, ret, i, c;
- 	u32 smp = 0, smps[STM32_ADC_CH_MAX], chans[STM32_ADC_CH_MAX];
-@@ -2064,29 +2065,32 @@ static int stm32_adc_legacy_chan_init(struct iio_dev *indio_dev,
- 			scan_index++;
- 		}
- 	}
--
--	ret = device_property_read_u32_array(dev, "st,adc-channels", chans,
--					     nchans);
--	if (ret)
--		return ret;
--
--	for (c = 0; c < nchans; c++) {
--		if (chans[c] >= adc_info->max_channels) {
--			dev_err(&indio_dev->dev, "Invalid channel %d\n",
--				chans[c]);
--			return -EINVAL;
-+	if (num_se > 0) {
-+		ret = device_property_read_u32_array(dev, "st,adc-channels", chans, num_se);
-+		if (ret) {
-+			dev_err(&indio_dev->dev, "Failed to get st,adc-channels %d\n", ret);
-+			return ret;
- 		}
- 
--		/* Channel can't be configured both as single-ended & diff */
--		for (i = 0; i < num_diff; i++) {
--			if (chans[c] == diff[i].vinp) {
--				dev_err(&indio_dev->dev, "channel %d misconfigured\n",	chans[c]);
-+		for (c = 0; c < num_se; c++) {
-+			if (chans[c] >= adc_info->max_channels) {
-+				dev_err(&indio_dev->dev, "Invalid channel %d\n",
-+					chans[c]);
- 				return -EINVAL;
- 			}
-+
-+			/* Channel can't be configured both as single-ended & diff */
-+			for (i = 0; i < num_diff; i++) {
-+				if (chans[c] == diff[i].vinp) {
-+					dev_err(&indio_dev->dev, "channel %d misconfigured\n",
-+						chans[c]);
-+					return -EINVAL;
-+				}
-+			}
-+			stm32_adc_chan_init_one(indio_dev, &channels[scan_index],
-+						chans[c], 0, scan_index, false);
-+			scan_index++;
- 		}
--		stm32_adc_chan_init_one(indio_dev, &channels[scan_index],
--					chans[c], 0, scan_index, false);
--		scan_index++;
- 	}
- 
- 	if (adc->nsmps > 0) {
-@@ -2307,7 +2311,7 @@ static int stm32_adc_chan_fw_init(struct iio_dev *indio_dev, bool timestamping)
- 
- 	if (legacy)
- 		ret = stm32_adc_legacy_chan_init(indio_dev, adc, channels,
--						 num_channels);
-+						 timestamping ? num_channels - 1 : num_channels);
- 	else
- 		ret = stm32_adc_generic_chan_init(indio_dev, adc, channels);
- 	if (ret < 0)
--- 
-2.40.0
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gV2VkLCBNYXkgMywgMjAyMyBhdCAxOjAz4oCvUE0gQXJuZCBCZXJnbWFubiA8YXJuZEBhcm5k
+Yi5kZT4gd3JvdGU6Cgo+ID4gICAgICdnZW1pbmknIDogJ2dlbWluaScsCj4KPiBUaGlzIG9uZSBp
+cyBhbHNvIGEgcHJvZHVjdCBuYW1lLCBub3QgYSBjb21wYW55LiBBcHBhcmVudGx5LAo+IGdlbWlu
+aSB3YXMgb3JpZ2luYWxseSBtYWRlIGJ5IFN0b3JtIFNlbWljb25kdWN0b3IsIGFuZCB0aGVuCj4g
+YnkgQ29ydGluYSwgd2hpY2ggd2FzIHN1YnNlcXVlbnRseSBhY3F1aXJlZCBieSBJbnBoaSwgYW5k
+IHRoYXQgZW5kZWQKPiB1cCBpbiBNYXJ2ZWxsIGFmdGVyIHRoZSBwcm9kdWN0IHdhcyBhbHJlYWR5
+IGRpc2NvbnRpbnVlZC4KPgo+IE91dCBvZiB0aGUgZm91ciwgSSdkIHByb2JhYmx5IGdvIHdpdGgg
+J2NvcnRpbmEnIGFzIHRoZQo+IGRpcmVjdG9yeSBuYW1lLgo+CgpTdG9yTGluayB3YXMgdGhlIGlu
+aXRpYWwgY29tcGFueSwgdGh1cyBTTDM1MTYsIFNMMzUxMgp0aGUgbmFtZSBvZiB0aGUgY2hpcHMu
+CgpUaGVuIHRoYXQgY29tcGFueSBjaGFuZ2VkIG5hbWUgdG8gU3Rvcm0gU2VtaWNvbmR1Y3Rvci4K
+CkdpdCBhY3F1aXJlZCBieSBDb3J0aW5hLgoKVGhlbiBJbnBoaSBhY3F1aXJlZCBDb3J0aW5hLgoK
+VGhlbiBNYXJ2ZWxsIHNjb29wZWQgdXAgdGhlIElQLgoKSWYgd2UgKmhhdmUqIHRvIHVzZSBhIGNv
+bXBhbnkgbmFtZSBJIHdvdWxkIHVzZSBzdG9ybGluaywKYmVjYXVzZSB0aGUgY2hpcHMgYXJlIG5h
+bWVkIGFmdGVyIHRoYXQuCgpZb3VycywKTGludXMgV2FsbGVpagpfX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGlu
+dXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxt
+YW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
