@@ -2,97 +2,97 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CE09E6F6A4C
-	for <lists+linux-stm32@lfdr.de>; Thu,  4 May 2023 13:45:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AC6606F6D09
+	for <lists+linux-stm32@lfdr.de>; Thu,  4 May 2023 15:41:26 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8ED62C6A5EE;
-	Thu,  4 May 2023 11:45:12 +0000 (UTC)
-Received: from new3-smtp.messagingengine.com (new3-smtp.messagingengine.com
- [66.111.4.229])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4809FC6A5EE;
+	Thu,  4 May 2023 13:41:26 +0000 (UTC)
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CE466C69073
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AA073C69073
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  4 May 2023 11:45:10 +0000 (UTC)
-Received: from compute6.internal (compute6.nyi.internal [10.202.2.47])
- by mailnew.nyi.internal (Postfix) with ESMTP id 7F8E7580E74;
- Thu,  4 May 2023 07:45:09 -0400 (EDT)
-Received: from imap51 ([10.202.2.101])
- by compute6.internal (MEProxy); Thu, 04 May 2023 07:45:09 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
- :cc:content-type:content-type:date:date:from:from:in-reply-to
- :in-reply-to:message-id:mime-version:references:reply-to:sender
- :subject:subject:to:to; s=fm3; t=1683200709; x=1683207909; bh=rv
- dn+vPe48KPGDs0leGYpaM1jtugXaszLFPftQ7tCmQ=; b=K3vb/txYtZKnDaX7av
- yXDErCEtK8JWoojEYV/KOhr/Dv3+/xOdTNnlfPilF7nZ1vUsdDP7l+AgwDbRQSuE
- 5AUT6SPooYuy01IO6jURwU7twh1iCROPuF4Hz3zAUJdbJERGRcVw7wLAOdZON0f2
- AhZwSiy8u7IYmN4dU7xIQbvrXShHBkCkYnYnC0IoMvFDdx6WQKJ4rLgfLXj0hCW/
- ckDTGcWhommWigg7s6rAmkjQ1+FesSQJLbAeZIs8XTPkdZlzCBQmlaWbCOt46UI7
- TaQrFKOEB7Nrxln82bVy1GZqe9KuSEr+WJIPa6wdhqmLquSGvkDqg3ABmaiUtN8f
- /V6A==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-type:content-type:date:date
- :feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
- :message-id:mime-version:references:reply-to:sender:subject
- :subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
- :x-sasl-enc; s=fm3; t=1683200709; x=1683207909; bh=rvdn+vPe48KPG
- Ds0leGYpaM1jtugXaszLFPftQ7tCmQ=; b=Pw6Rg+XVCkD8w3YHy7jGkIyjxzhiF
- bN/nWbfwIR4ZK/F9LSR2lSdh5WuOB6Zd/S/dxjLYOJX2pQKrTV0T8idbkjcOcQF5
- SwoSgg9l8jKzkx3OOYZXp9IzAPIUyKCbJYXfJ1Co1zpAhWXPmQXpDlG8hbdhXCqo
- Ide3agAfwauTe+q41YGw5qJ2db95dqZn1JU+kHQVa7baSeKRpcpIB14hYe498UV1
- qSbU08XfSJ51vZL4nbzqAVErhFeOyUkPmcXy3uA1E2ZHbZ12aj+TO8581K6JMOqx
- WSKLMOUGfU3GMPJTvVpyvFa7UxM2y027LOl0hEHvk1DeHWVGhQTOePmWQ==
-X-ME-Sender: <xms:xJpTZBRFDKFjpUX2zSPaH_4Nc8R2Qpk2no6uSQvOfRDhdZKlcM2S1w>
- <xme:xJpTZKx9r-aiclDw81Wu7rGAVEGjfn7b8plKzDI0Fm4sbn8ToKgyao_lHGOMzamjl
- uNZIJ6W5xJhlsHwBQU>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrfeeftddggedvucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
- cujfgurhepofgfggfkjghffffhvfevufgtsehttdertderredtnecuhfhrohhmpedftehr
- nhguuceuvghrghhmrghnnhdfuceorghrnhgusegrrhhnuggsrdguvgeqnecuggftrfgrth
- htvghrnhepffehueegteeihfegtefhjefgtdeugfegjeelheejueethfefgeeghfektdek
- teffnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomheprg
- hrnhgusegrrhhnuggsrdguvg
-X-ME-Proxy: <xmx:xJpTZG1ikd38RTtD1R071POfBXt5S1hFZ6Fml4H3RBTwbc4m3wVYQA>
- <xmx:xJpTZJBCtHzUiKeZoBrJeZc8fH8Ed5ISfh9DPuxYIqK6axwqLg053Q>
- <xmx:xJpTZKh7kYU5y_FppCdiasiBdQUPjv6lvIKqgolP6FEiBuWg49SF6g>
- <xmx:xZpTZKDU9-4LKKK2Ti8y1N5SEny0C66Vm4BJmIaG1feFi_OTmPFchA>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.nyi.internal (Postfix, from userid 501)
- id 5DF60B60089; Thu,  4 May 2023 07:45:08 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
-User-Agent: Cyrus-JMAP/3.9.0-alpha0-386-g2404815117-fm-20230425.001-g24048151
-Mime-Version: 1.0
-Message-Id: <6ece505b-1075-48e6-9ff9-1673014e5df1@app.fastmail.com>
-In-Reply-To: <ZFOE4wd31hpJh0ro@shell.armlinux.org.uk>
-References: <20220328000915.15041-1-ansuelsmth@gmail.com>
- <85eb14ec-f465-7447-ad77-a3dabc666f47@kernel.org>
- <YkKRYnN84D9VZhGj@Ansuel-xps.localdomain>
- <CAL_Jsq+RQQ-ADMxLPUFwk6S6kGmb6oNDy4k52fnU0EtbUvqmSA@mail.gmail.com>
- <CAMuHMdWNTE48MFy6fqxAsfMWz9b6E7dVNXtXtESP95sxk2PGwA@mail.gmail.com>
- <CAL_JsqJthKTm8bhRF2B=ae1tvtPeYYXx_Tm76qQtSwLtH5C6VA@mail.gmail.com>
- <720a2829-b6b5-411c-ac69-9a53e881f48d@app.fastmail.com>
- <CAL_JsqKCtmkwzKa01gyG65fH8ye6R3KhR41PJbJhOJ4X9j=znA@mail.gmail.com>
- <ZFOE4wd31hpJh0ro@shell.armlinux.org.uk>
-Date: Thu, 04 May 2023 13:44:37 +0200
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Russell King" <linux@armlinux.org.uk>, "Rob Herring" <robh+dt@kernel.org>
-Cc: linux-aspeed@lists.ozlabs.org, linux-realtek-soc@lists.infradead.org,
- linux-arm-kernel@axis.com, linux-stm32@st-md-mailman.stormreply.com,
- chrome-platform@lists.linux.dev, linux-samsung-soc@vger.kernel.org,
- openbmc@lists.ozlabs.org, Krzysztof Kozlowski <krzk@kernel.org>,
- linux-rockchip@lists.infradead.org, Geert Uytterhoeven <geert@linux-m68k.org>,
- linux-sunxi@lists.linux.dev, devicetree@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-actions@lists.infradead.org,
- linux-unisoc@lists.infradead.org, linux-mediatek@lists.infradead.org,
- linux-rpi-kernel@lists.infradead.org, linux-tegra@vger.kernel.org,
- linux-amlogic@lists.infradead.org, Linux-OMAP <linux-omap@vger.kernel.org>,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- Christian Marangi <ansuelsmth@gmail.com>,
- Linux-Renesas <linux-renesas-soc@vger.kernel.org>, kernel@dh-electronics.com,
- Olof Johansson <olof@lixom.net>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- "linux-oxnas@groups.io" <linux-oxnas@groups.io>
-Subject: Re: [Linux-stm32] [RFC PATCH 0/1] Categorize ARM dts directory
+ Thu,  4 May 2023 13:41:25 +0000 (UTC)
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+ by mx0b-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 3445DKX5028271; Thu, 4 May 2023 08:39:27 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=date : from : to : cc
+ : subject : message-id : references : mime-version : content-type :
+ in-reply-to; s=PODMain02222019;
+ bh=zEWDZRH16IxZH8jYRpv51rOx+oio62y+XziPw6IiJ1w=;
+ b=L9OXVtBpZ1h2EQYPU9fS+CdLeJbQogB3ovHqBxHZV93tB0yyeToDCRKM+3p1Z+XcLFZz
+ DhnfCDaIAxZdN2kEgqy91hT0ZkrDGwKDxWYOZyY84Bl71CaNzT/kQ6H7HeGti1LPjN2A
+ 1C53tmN+15LZY4Xx0LsXz3jdPfYj804ASLi4vP04knaO2fZRiDoRcGlVawsjF8dnEBef
+ /SeuYP9ruq4TACIUkQ8hZ4rHae8zIGOhnmbirZT1jFR/3kSOYyRRGhG6Ds8kk3q2z9qA
+ m1ycJOjn8GapD45ROvo5FEKeAAyqeD0ftMxijnIycmgOTyr7CJvQgOt/JbzSOHf7FjX0 fg== 
+Received: from ediex01.ad.cirrus.com ([84.19.233.68])
+ by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3q8ynqxxwk-2
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 04 May 2023 08:39:26 -0500
+Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.26; Thu, 4 May
+ 2023 08:39:24 -0500
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
+ anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
+ 15.2.1118.26 via Frontend Transport; Thu, 4 May 2023 08:39:24 -0500
+Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com [198.61.86.93])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id E168D11AA;
+ Thu,  4 May 2023 13:39:23 +0000 (UTC)
+Date: Thu, 4 May 2023 13:39:23 +0000
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: Maxime Ripard <maxime@cerno.tech>
+Message-ID: <20230504133923.GE68926@ediswmail.ad.cirrus.com>
+References: <20221018-clk-range-checks-fixes-v3-0-9a1358472d52@cerno.tech>
+ <20221018-clk-range-checks-fixes-v3-14-9a1358472d52@cerno.tech>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20221018-clk-range-checks-fixes-v3-14-9a1358472d52@cerno.tech>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+X-Proofpoint-GUID: Q2sbiD7_m7STQAOdv3OM1SrTnrP4amce
+X-Proofpoint-ORIG-GUID: Q2sbiD7_m7STQAOdv3OM1SrTnrP4amce
+X-Proofpoint-Spam-Reason: safe
+Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Prashant Gaikwad <pgaikwad@nvidia.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Michael Turquette <mturquette@baylibre.com>, Sekhar Nori <nsekhar@ti.com>,
+ dri-devel@lists.freedesktop.org, Liam Girdwood <lgirdwood@gmail.com>,
+ Paul Cercueil <paul@crapouillou.net>, Max Filippov <jcmvbkbc@gmail.com>,
+ Thierry Reding <thierry.reding@gmail.com>, linux-phy@lists.infradead.org,
+ Fabio Estevam <festevam@gmail.com>, linux-clk@vger.kernel.org,
+ Abel Vesa <abelvesa@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>,
+ Samuel Holland <samuel@sholland.org>, David Airlie <airlied@gmail.com>,
+ Takashi Iwai <tiwai@suse.com>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>, Chen-Yu Tsai <wens@csie.org>,
+ NXP Linux Team <linux-imx@nxp.com>, Orson Zhai <orsonzhai@gmail.com>,
+ Ulf Hansson <ulf.hansson@linaro.org>, linux-mips@vger.kernel.org,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Linus Walleij <linus.walleij@linaro.org>, linux-rtc@vger.kernel.org,
+ linux-tegra@vger.kernel.org, David Lechner <david@lechnology.com>,
+ alsa-devel@alsa-project.org, Manivannan Sadhasivam <mani@kernel.org>,
+ linux-kernel@vger.kernel.org, Sascha Hauer <s.hauer@pengutronix.de>,
+ linux-actions@lists.infradead.org,
+ Richard Fitzgerald <rf@opensource.cirrus.com>, Mark Brown <broonie@kernel.org>,
+ linux-mediatek@lists.infradead.org,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Jaroslav Kysela <perex@perex.cz>, linux-arm-kernel@lists.infradead.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Alessandro Zummo <a.zummo@towertech.it>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-sunxi@lists.linux.dev,
+ Stephen Boyd <sboyd@kernel.org>, patches@opensource.cirrus.com,
+ Peter De Schrijver <pdeschrijver@nvidia.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Andreas =?iso-8859-1?Q?F=E4rber?= <afaerber@suse.de>,
+ linux-renesas-soc@vger.kernel.org, Dinh Nguyen <dinguyen@kernel.org>,
+ Vinod Koul <vkoul@kernel.org>, Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Chunyan Zhang <zhang.lyra@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
+ Claudiu Beznea <claudiu.beznea@microchip.com>
+Subject: Re: [Linux-stm32] [PATCH v3 14/65] clk: lochnagar: Add a
+	determine_rate hook
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -109,30 +109,43 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, May 4, 2023, at 12:11, Russell King (Oracle) wrote:
-> On Tue, May 02, 2023 at 02:40:19PM -0500, Rob Herring wrote:
->> I think the only issue remaining is finalizing the mapping of
->> platforms to subdirs. What I have currently is a mixture of SoC
->> families and vendors. The most notable are all the Freescale/NXP
->> platforms, pxa, socfpga, and stm32. It's not consistent with arm64
->> either. Once that's finalized, I still need to go update MAINTAINERS.
->
-> I haven't followed this discussion at all, so here's a question.
->
-> What does this mean for the _installed_ dtb files? Do they move
-> location? If they do, lots is going to break, because there will
-> be u-boot configurations and other scripts that assume the flat
-> directory structure for the installed dtb files.
->
-> I don't think changing the installed dtb structure is acceptable
-> at this point in time. It's something that _should_ have been
-> thought about when ARM was converted to dtb, it's too late to be
-> changing that now.
+On Tue, Apr 04, 2023 at 12:11:04PM +0200, Maxime Ripard wrote:
+> The lochnagar clocks implement a mux with a set_parent hook, but
+> doesn't provide a determine_rate implementation.
+> 
+> This is a bit odd, since set_parent() is there to, as its name implies,
+> change the parent of a clock. However, the most likely candidate to
+> trigger that parent change is a call to clk_set_rate(), with
+> determine_rate() figuring out which parent is the best suited for a
+> given rate.
+> 
+> The other trigger would be a call to clk_set_parent(), but it's far less
+> used, and it doesn't look like there's any obvious user for that clock.
+> 
+> So, the set_parent hook is effectively unused, possibly because of an
+> oversight. However, it could also be an explicit decision by the
+> original author to avoid any reparenting but through an explicit call to
+> clk_set_parent().
+> 
+> The latter case would be equivalent to setting the flag
+> CLK_SET_RATE_NO_REPARENT, together with setting our determine_rate hook
+> to __clk_mux_determine_rate(). Indeed, if no determine_rate
+> implementation is provided, clk_round_rate() (through
+> clk_core_round_rate_nolock()) will call itself on the parent if
+> CLK_SET_RATE_PARENT is set, and will not change the clock rate
+> otherwise. __clk_mux_determine_rate() has the exact same behavior when
+> CLK_SET_RATE_NO_REPARENT is set.
+> 
+> And if it was an oversight, then we are at least explicit about our
+> behavior now and it can be further refined down the line.
+> 
+> Signed-off-by: Maxime Ripard <maxime@cerno.tech>
+> ---
 
-Rob said earlier that his script does keep a flat directory
-for the output of 'make dtbs_install'.
+Tested-by: Charles Keepax <ckeepax@opensource.cirrus.com>
 
-     Arnd
+Thanks,
+Charles
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
