@@ -2,58 +2,76 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id AC6606F6D09
-	for <lists+linux-stm32@lfdr.de>; Thu,  4 May 2023 15:41:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ECC646F7051
+	for <lists+linux-stm32@lfdr.de>; Thu,  4 May 2023 19:01:34 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4809FC6A5EE;
-	Thu,  4 May 2023 13:41:26 +0000 (UTC)
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 56F9CC6A5EE;
+	Thu,  4 May 2023 17:01:34 +0000 (UTC)
+Received: from new4-smtp.messagingengine.com (new4-smtp.messagingengine.com
+ [66.111.4.230])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AA073C69073
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B91E0C64110
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  4 May 2023 13:41:25 +0000 (UTC)
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
- by mx0b-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 3445DKX5028271; Thu, 4 May 2023 08:39:27 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=date : from : to : cc
- : subject : message-id : references : mime-version : content-type :
- in-reply-to; s=PODMain02222019;
- bh=zEWDZRH16IxZH8jYRpv51rOx+oio62y+XziPw6IiJ1w=;
- b=L9OXVtBpZ1h2EQYPU9fS+CdLeJbQogB3ovHqBxHZV93tB0yyeToDCRKM+3p1Z+XcLFZz
- DhnfCDaIAxZdN2kEgqy91hT0ZkrDGwKDxWYOZyY84Bl71CaNzT/kQ6H7HeGti1LPjN2A
- 1C53tmN+15LZY4Xx0LsXz3jdPfYj804ASLi4vP04knaO2fZRiDoRcGlVawsjF8dnEBef
- /SeuYP9ruq4TACIUkQ8hZ4rHae8zIGOhnmbirZT1jFR/3kSOYyRRGhG6Ds8kk3q2z9qA
- m1ycJOjn8GapD45ROvo5FEKeAAyqeD0ftMxijnIycmgOTyr7CJvQgOt/JbzSOHf7FjX0 fg== 
-Received: from ediex01.ad.cirrus.com ([84.19.233.68])
- by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3q8ynqxxwk-2
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 04 May 2023 08:39:26 -0500
-Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.26; Thu, 4 May
- 2023 08:39:24 -0500
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
- anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
- 15.2.1118.26 via Frontend Transport; Thu, 4 May 2023 08:39:24 -0500
-Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com [198.61.86.93])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id E168D11AA;
- Thu,  4 May 2023 13:39:23 +0000 (UTC)
-Date: Thu, 4 May 2023 13:39:23 +0000
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: Maxime Ripard <maxime@cerno.tech>
-Message-ID: <20230504133923.GE68926@ediswmail.ad.cirrus.com>
+ Thu,  4 May 2023 17:01:32 +0000 (UTC)
+Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
+ by mailnew.nyi.internal (Postfix) with ESMTP id 8758A5803C8;
+ Thu,  4 May 2023 13:01:31 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute3.internal (MEProxy); Thu, 04 May 2023 13:01:31 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=cc
+ :cc:content-type:content-type:date:date:from:from:in-reply-to
+ :in-reply-to:message-id:mime-version:references:reply-to:sender
+ :subject:subject:to:to; s=fm2; t=1683219691; x=1683226891; bh=92
+ 1YgmgJDyX8fTpEjsf680K9b88j6xKzseERDrln0VI=; b=UYj68jiu63Xrv9446C
+ U+7U9vT/DXuEOuF3C0zduG+D5WwodyQMk5zwxbNyx6IQ/IHLcFFKytQ58Niabyii
+ HVter6AnK4ozGstpWcb5IyV/Epexltg5yOm/kFrPSmr4yj5YIzaeiVlfA1JjwN+q
+ eZIFziOXq/OXFg/9YSOYo2OZTG7PRgSnfuJ/SjE7Y4ew/Bj25quWLuh/t0BdQ1nN
+ gr29J1wULKDJhJMUQ5sC6VZCQ0LmvT5mvjrh1ge/K441JeWExDM+jU8TvC9BbaI7
+ FZBNgnpNSIK7wXulqF9ONHUxtHhw/a67TW9cQwyucpsYz4ig7GrlTNbCH5W9yCeh
+ W5gA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-type:content-type:date:date
+ :feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+ :message-id:mime-version:references:reply-to:sender:subject
+ :subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
+ :x-sasl-enc; s=fm3; t=1683219691; x=1683226891; bh=921YgmgJDyX8f
+ TpEjsf680K9b88j6xKzseERDrln0VI=; b=WZAQbTl4KhdIBGFggnepbC24ozON+
+ Y9P7RamUUn7KUOWfYKgsofJKMU48g+a442uJvpwU3eSyLQOp4GW03QHV/nxVQUZy
+ kwx1JFK0G0n3OX0QxctPhaenfPjSDIRHfhQCLLL2k/1SNkO0+tdr2ePUDWuuQElv
+ hAIWgE5sxPtyjiqrYoW9Xzd1CGRPuuuJqVj0jqU1tNQgYccAk9hmIGX4ChAah8ut
+ YyPTN1JU564F6RHSmzHnxPcTGjFo5Vzs3IXod7C95xqFT6q0ULFQe2gA2K8RFkeH
+ AkTeomH/mAn/3XjfXDtpF5l4Y14mA6UOEaSmMPu86fbGpwwMJ8npfGAjQ==
+X-ME-Sender: <xms:6eRTZBd0Ca4UchpFkmcVRifBZTiLzDjaNYIL7ROKZYaoG-tDG7sJzw>
+ <xme:6eRTZPMzfdcnM01gMAo4h9ncJjXV2G6Nnz_K08C0TtkeGA9U0GpVI924kPDOXLzG1
+ o3H35qXB0mAKR_nHJo>
+X-ME-Received: <xmr:6eRTZKjIX9LfZkO66qX4gILAEZHe-iK55SIBd3aO1CEJWIS47IOXh50_YQkpM_GGYDtiztC_5PPESExggI7WAxdKyZmWwh8>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrfeeftddguddtjecutefuodetggdotefrod
+ ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
+ necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
+ enucfjughrpeffhffvvefukfhfgggtuggjsehgtdfsredttddvnecuhfhrohhmpeforgig
+ ihhmvgcutfhiphgrrhguuceomhgrgihimhgvsegtvghrnhhordhtvggthheqnecuggftrf
+ grthhtvghrnhepueevudehuedtkeevgfduveejueefvddvvefhjefglefgtdekveeugeet
+ kefgleefnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomh
+ epmhgrgihimhgvsegtvghrnhhordhtvggthh
+X-ME-Proxy: <xmx:6eRTZK_L0pD3f9C6mQznCyuZW59l3sB-Df_ouW1uu_huJ9lMp9fZrQ>
+ <xmx:6eRTZNu3V9DGdTelUE-VIZ4R-xjzfJTdBioowM4FVQ2sC0il4NTMOQ>
+ <xmx:6eRTZJGmUm2SjMFMmFm9mJ4FpEruFnIuKFeUcXhEvcHdHm2GnQML-Q>
+ <xmx:6-RTZB2mU23ipge8XMotfaWkDt4t3YRIYZvJ9OpnSv1sp4-zCY_M7A>
+Feedback-ID: i8771445c:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 4 May 2023 13:01:27 -0400 (EDT)
+Date: Thu, 4 May 2023 19:01:25 +0200
+From: Maxime Ripard <maxime@cerno.tech>
+To: Mark Brown <broonie@kernel.org>
+Message-ID: <leuxcmkwyb6k77oh47jcpcyp3dujy5f7gjijvkaxjz6gy5im3f@c4kvrnq6auug>
 References: <20221018-clk-range-checks-fixes-v3-0-9a1358472d52@cerno.tech>
- <20221018-clk-range-checks-fixes-v3-14-9a1358472d52@cerno.tech>
+ <20221018-clk-range-checks-fixes-v3-43-9a1358472d52@cerno.tech>
+ <01f32440-8dd2-4030-9006-a3123be55845@sirena.org.uk>
+ <erm4iq3mygnrr4h2gd5cag3sfuovv47ibdqsbmxcfabngvnwy4@z63ksvj55zuu>
+ <fcc11e4d-eba6-4eff-b3e5-9488a4da84c3@sirena.org.uk>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20221018-clk-range-checks-fixes-v3-14-9a1358472d52@cerno.tech>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-X-Proofpoint-GUID: Q2sbiD7_m7STQAOdv3OM1SrTnrP4amce
-X-Proofpoint-ORIG-GUID: Q2sbiD7_m7STQAOdv3OM1SrTnrP4amce
-X-Proofpoint-Spam-Reason: safe
+In-Reply-To: <fcc11e4d-eba6-4eff-b3e5-9488a4da84c3@sirena.org.uk>
 Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
  Prashant Gaikwad <pgaikwad@nvidia.com>,
  Geert Uytterhoeven <geert+renesas@glider.be>,
@@ -64,34 +82,36 @@ Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
  Fabio Estevam <festevam@gmail.com>, linux-clk@vger.kernel.org,
  Abel Vesa <abelvesa@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>,
  Samuel Holland <samuel@sholland.org>, David Airlie <airlied@gmail.com>,
- Takashi Iwai <tiwai@suse.com>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Takashi Iwai <tiwai@suse.com>, linux-tegra@vger.kernel.org,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
  Jonathan Hunter <jonathanh@nvidia.com>, Chen-Yu Tsai <wens@csie.org>,
  NXP Linux Team <linux-imx@nxp.com>, Orson Zhai <orsonzhai@gmail.com>,
  Ulf Hansson <ulf.hansson@linaro.org>, linux-mips@vger.kernel.org,
  Luca Ceresoli <luca.ceresoli@bootlin.com>,
  Linus Walleij <linus.walleij@linaro.org>, linux-rtc@vger.kernel.org,
- linux-tegra@vger.kernel.org, David Lechner <david@lechnology.com>,
- alsa-devel@alsa-project.org, Manivannan Sadhasivam <mani@kernel.org>,
- linux-kernel@vger.kernel.org, Sascha Hauer <s.hauer@pengutronix.de>,
- linux-actions@lists.infradead.org,
- Richard Fitzgerald <rf@opensource.cirrus.com>, Mark Brown <broonie@kernel.org>,
+ Charles Keepax <ckeepax@opensource.cirrus.com>,
+ David Lechner <david@lechnology.com>, alsa-devel@alsa-project.org,
+ Manivannan Sadhasivam <mani@kernel.org>, linux-kernel@vger.kernel.org,
+ Sascha Hauer <s.hauer@pengutronix.de>, linux-actions@lists.infradead.org,
+ Richard Fitzgerald <rf@opensource.cirrus.com>,
  linux-mediatek@lists.infradead.org,
  Baolin Wang <baolin.wang@linux.alibaba.com>,
  Matthias Brugger <matthias.bgg@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Jaroslav Kysela <perex@perex.cz>, linux-arm-kernel@lists.infradead.org,
+ Jaroslav Kysela <perex@perex.cz>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ linux-arm-kernel@lists.infradead.org,
  AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Alessandro Zummo <a.zummo@towertech.it>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-sunxi@lists.linux.dev,
+ Alessandro Zummo <a.zummo@towertech.it>, linux-sunxi@lists.linux.dev,
  Stephen Boyd <sboyd@kernel.org>, patches@opensource.cirrus.com,
  Peter De Schrijver <pdeschrijver@nvidia.com>,
  linux-stm32@st-md-mailman.stormreply.com,
  Nicolas Ferre <nicolas.ferre@microchip.com>,
- Andreas =?iso-8859-1?Q?F=E4rber?= <afaerber@suse.de>,
+ Andreas =?utf-8?Q?F=C3=A4rber?= <afaerber@suse.de>,
  linux-renesas-soc@vger.kernel.org, Dinh Nguyen <dinguyen@kernel.org>,
- Vinod Koul <vkoul@kernel.org>, Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Vinod Koul <vkoul@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Chunyan Zhang <zhang.lyra@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
  Claudiu Beznea <claudiu.beznea@microchip.com>
-Subject: Re: [Linux-stm32] [PATCH v3 14/65] clk: lochnagar: Add a
+Subject: Re: [Linux-stm32] [PATCH v3 43/65] ASoC: tlv320aic32x4: Add a
 	determine_rate hook
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -104,49 +124,73 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============4128041435879679219=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Apr 04, 2023 at 12:11:04PM +0200, Maxime Ripard wrote:
-> The lochnagar clocks implement a mux with a set_parent hook, but
-> doesn't provide a determine_rate implementation.
-> 
-> This is a bit odd, since set_parent() is there to, as its name implies,
-> change the parent of a clock. However, the most likely candidate to
-> trigger that parent change is a call to clk_set_rate(), with
-> determine_rate() figuring out which parent is the best suited for a
-> given rate.
-> 
-> The other trigger would be a call to clk_set_parent(), but it's far less
-> used, and it doesn't look like there's any obvious user for that clock.
-> 
-> So, the set_parent hook is effectively unused, possibly because of an
-> oversight. However, it could also be an explicit decision by the
-> original author to avoid any reparenting but through an explicit call to
-> clk_set_parent().
-> 
-> The latter case would be equivalent to setting the flag
-> CLK_SET_RATE_NO_REPARENT, together with setting our determine_rate hook
-> to __clk_mux_determine_rate(). Indeed, if no determine_rate
-> implementation is provided, clk_round_rate() (through
-> clk_core_round_rate_nolock()) will call itself on the parent if
-> CLK_SET_RATE_PARENT is set, and will not change the clock rate
-> otherwise. __clk_mux_determine_rate() has the exact same behavior when
-> CLK_SET_RATE_NO_REPARENT is set.
-> 
-> And if it was an oversight, then we are at least explicit about our
-> behavior now and it can be further refined down the line.
-> 
-> Signed-off-by: Maxime Ripard <maxime@cerno.tech>
-> ---
 
-Tested-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+--===============4128041435879679219==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="co3427ienkolccfs"
+Content-Disposition: inline
 
-Thanks,
-Charles
+
+--co3427ienkolccfs
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+Hi Mark,
+
+On Wed, Apr 05, 2023 at 04:34:31PM +0100, Mark Brown wrote:
+> On Wed, Apr 05, 2023 at 05:17:21PM +0200, Maxime Ripard wrote:
+> > On Tue, Apr 04, 2023 at 04:26:18PM +0100, Mark Brown wrote:
+>=20
+> > > To be honest it's surprising that we'd have to manually specify this,=
+ I
+> > > would expect to be able to reparent.  I suspect it'd be better to go =
+the
+> > > other way here and allow reparenting.
+>=20
+> > Yeah, I think I'd prefer to allow reparenting too, but as can be seen
+> > from the other reviewers in that thread, it seems like we have a very
+> > split community here, so that doesn't sound very realistic without some
+> > major pushback :)
+>=20
+> For these ASoC drivers I think we should just do the reparenting,
+> they're very much at the leaf of the tree so the considerations that
+> make it a problem sometimes are unlikely to apply.
+
+I'd still prefer to remain conservative on this series and try not to
+change the behaviour in it. It's pretty massive already, I'd like to
+avoid tracking regressions left and right :)
+
+Would sending a subsequent series that would do this acceptable for you?
+
+Maxime
+
+--co3427ienkolccfs
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCZFPk5QAKCRDj7w1vZxhR
+xYK/AQDT76loaORROKC2ghqyIIHmBg+xw8VB5nThUFKuIO4RhgD9ERaCF31CTPdE
+PdgL4dyZrWlQGqGmbyHbk465s505Jww=
+=OlOa
+-----END PGP SIGNATURE-----
+
+--co3427ienkolccfs--
+
+--===============4128041435879679219==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============4128041435879679219==--
