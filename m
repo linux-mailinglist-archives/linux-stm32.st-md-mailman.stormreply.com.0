@@ -2,116 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 163B96F7060
-	for <lists+linux-stm32@lfdr.de>; Thu,  4 May 2023 19:04:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 854EA6F707C
+	for <lists+linux-stm32@lfdr.de>; Thu,  4 May 2023 19:10:18 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CBD60C6A5EE;
-	Thu,  4 May 2023 17:04:15 +0000 (UTC)
-Received: from new4-smtp.messagingengine.com (new4-smtp.messagingengine.com
- [66.111.4.230])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 32CFDC6A5EE;
+	Thu,  4 May 2023 17:10:18 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0309DC64110
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 22259C64110
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  4 May 2023 17:04:13 +0000 (UTC)
-Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
- by mailnew.nyi.internal (Postfix) with ESMTP id F1E2E580E6A;
- Thu,  4 May 2023 13:04:12 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute3.internal (MEProxy); Thu, 04 May 2023 13:04:13 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=cc
- :cc:content-type:content-type:date:date:from:from:in-reply-to
- :in-reply-to:message-id:mime-version:references:reply-to:sender
- :subject:subject:to:to; s=fm2; t=1683219852; x=1683227052; bh=Pk
- SQbmz2mEiFvQuMjYfFpQvVcVsNXX6yAK0DMQvrT78=; b=cmJlwLa8yhdC4PdQoI
- d0hb531eiI2SORxL3Fl3hrBicgmrIqTK2JruPb97I5kPMeDAKroA/qfvcVn4SHpi
- 0GJwBwwJhVyBr0Z3gCWPJStGYlLHJVRHb8h+jKHQvCaAntRpesESAK3sBnsryQLT
- SY1pMZNm7NeXzxB0X4LGhh4tDtYGJwHvxymMS6zun/yeRMUOk17dwvfkedHb73tr
- HDJwJT3hqrDjvLymB2DkFIWIl9NAK1sqV8mngyOKOOkARjYozakGWeevZLdVnLJM
- 2r9OCaZnJE/Iut75vl7CK6hrYFM8e09Zs5jDuDCIHU4E46AgWleB+oJARw3dPB4i
- nWXg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-type:content-type:date:date
- :feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
- :message-id:mime-version:references:reply-to:sender:subject
- :subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
- :x-sasl-enc; s=fm3; t=1683219852; x=1683227052; bh=PkSQbmz2mEiFv
- QuMjYfFpQvVcVsNXX6yAK0DMQvrT78=; b=AuagbG+sDeabBm6qygO9uf6q6oPyP
- ln51yGwNChqfoFi25xJw+emXpwH8g/NTNhI3i5k1yWKZiYlTlAS5rplMF6gQkK/e
- laonPFrlE/3b3UZB5kH5Oe8M2j6oYoZR4K3PB9E/ohKD6c/GRXCbuk26UWMvS6ps
- IGPMb413/9tdMInk8seyummLGmLiYcAs0royMw83PEXI5IllNN1DDdz1ub/MnRtP
- jNV3A8TnFjNuN73VANJme+us+/xozB2Fslb8vtM7RCSV5PVpN7WkauqzxtupFLrH
- w6KIslwyhc14ZQfGI9ojV26lTWu/2uydNx3dHVpk0RYe0JWyoFktgKk2g==
-X-ME-Sender: <xms:iuVTZB3-j9J9v_I9u_nLe23G-6Km95qYmGddsS8j9B3EISxW2I58tQ>
- <xme:iuVTZIFcT7ZRU7I8Q-j_hIxB2UA45VX7YZUSc23XiwcJfwvL32Fc00IBM8g7HDbhY
- fDMxv-M9z8kq6nDOks>
-X-ME-Received: <xmr:iuVTZB6hMgnVSN6caEFK-biUtu_4lRmFrrREwhLfK0aqpVD8obrAFVEs3OgODGka612q-Vxrss0VmiOBn_hzt2nWqkubj9U>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrfeeftddguddtkecutefuodetggdotefrod
- ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
- necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
- enucfjughrpeffhffvvefukfhfgggtuggjsehgtdfsredttddvnecuhfhrohhmpeforgig
- ihhmvgcutfhiphgrrhguuceomhgrgihimhgvsegtvghrnhhordhtvggthheqnecuggftrf
- grthhtvghrnhepueevudehuedtkeevgfduveejueefvddvvefhjefglefgtdekveeugeet
- kefgleefnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomh
- epmhgrgihimhgvsegtvghrnhhordhtvggthh
-X-ME-Proxy: <xmx:iuVTZO352jeG413D2-8gCuvaVz9nzir5JVeGb9Qt5T66BjFUHxDI6A>
- <xmx:iuVTZEEch61XFzQdgNXpnEgchfdDLzHESPV9TD2R7L76K_Tm_CGCzg>
- <xmx:iuVTZP8JvDB9v2-05uIiSmwcEsdw1ZGXKd400N956wEG9rbS3yqRhA>
- <xmx:jOVTZIO2DARyLcbYRuAk0sTaKYb8VuLfnAb3kuIJaa_ZaJPDtFbScA>
-Feedback-ID: i8771445c:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 4 May 2023 13:04:09 -0400 (EDT)
-Date: Thu, 4 May 2023 19:04:07 +0200
-From: Maxime Ripard <maxime@cerno.tech>
-To: Dinh Nguyen <dinguyen@kernel.org>
-Message-ID: <tgtfisqxubin4cjj6q26fboirbcnjzcazt5y3m322lw5lskz6l@d3tgz4hdfnk2>
-References: <20221018-clk-range-checks-fixes-v3-0-9a1358472d52@cerno.tech>
- <20221018-clk-range-checks-fixes-v3-29-9a1358472d52@cerno.tech>
- <679921ee-98d4-d6ef-5934-e009fd4b31fc@kernel.org>
- <sjlp5ubnpvulgwhhymmfkmmobkgxacyqwagqozodkee3di2qik@3igj6k3zgbk6>
- <57dd81d0-510e-0fab-670d-1109eb8dd974@kernel.org>
+ Thu,  4 May 2023 17:10:17 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 344GYtMP016288; Thu, 4 May 2023 19:10:02 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=rkbvLyVT3Mb/rSSlFLY4A805v2Hk2Yhfbj8z298Ej7M=;
+ b=BSdj86tRf6c/laZrSlGXBL3fYo19jKVP2cAxj8qbQ63UZu2NCz8DnuhxngaNn9CWlCh6
+ anfKkr3HY3kWzAmzD8//aLI0sCLRt/SaQX7cKWho/TPXSApiZeFsNs72EI/G+yJwr9ZF
+ lgOBn15eIgjKs08ydxGOQ/mqOOGaxhS39iwmf1pwhqQ+FyI7MLW/a4MBuGIpNXfU6bRx
+ UxJEYuuxjYs8vmzW/OuPs1fXrsupmM6xU3mwRDGqZbZrzN12/TeMXTVGjOpy6pPjf7S8
+ mvYWjRED/zdlnouyq3Rue0t1epNrM6fry8VxGHcaaxIAc2y2EKzwr6UMj/Md1zG8xUGJ 2Q== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3qc6uwcjhh-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 04 May 2023 19:10:02 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id E7AE910002A;
+ Thu,  4 May 2023 19:10:01 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id C77DC227F0C;
+ Thu,  4 May 2023 19:10:01 +0200 (CEST)
+Received: from [10.201.20.168] (10.201.20.168) by SHFDAG1NODE1.st.com
+ (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.21; Thu, 4 May
+ 2023 19:10:00 +0200
+Message-ID: <9100bb4f-d12b-79f6-659c-0005294886fa@foss.st.com>
+Date: Thu, 4 May 2023 19:09:56 +0200
 MIME-Version: 1.0
-In-Reply-To: <57dd81d0-510e-0fab-670d-1109eb8dd974@kernel.org>
-Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Prashant Gaikwad <pgaikwad@nvidia.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Michael Turquette <mturquette@baylibre.com>, Sekhar Nori <nsekhar@ti.com>,
- dri-devel@lists.freedesktop.org, Liam Girdwood <lgirdwood@gmail.com>,
- Paul Cercueil <paul@crapouillou.net>, Max Filippov <jcmvbkbc@gmail.com>,
- Thierry Reding <thierry.reding@gmail.com>, linux-phy@lists.infradead.org,
- Fabio Estevam <festevam@gmail.com>, linux-clk@vger.kernel.org,
- Abel Vesa <abelvesa@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>,
- Samuel Holland <samuel@sholland.org>, David Airlie <airlied@gmail.com>,
- Takashi Iwai <tiwai@suse.com>, linux-tegra@vger.kernel.org,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Jonathan Hunter <jonathanh@nvidia.com>, Chen-Yu Tsai <wens@csie.org>,
- NXP Linux Team <linux-imx@nxp.com>, Orson Zhai <orsonzhai@gmail.com>,
- Ulf Hansson <ulf.hansson@linaro.org>, linux-mips@vger.kernel.org,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Linus Walleij <linus.walleij@linaro.org>, linux-rtc@vger.kernel.org,
- Charles Keepax <ckeepax@opensource.cirrus.com>,
- David Lechner <david@lechnology.com>, alsa-devel@alsa-project.org,
- Manivannan Sadhasivam <mani@kernel.org>, linux-kernel@vger.kernel.org,
- Sascha Hauer <s.hauer@pengutronix.de>, linux-actions@lists.infradead.org,
- Richard Fitzgerald <rf@opensource.cirrus.com>, Mark Brown <broonie@kernel.org>,
- linux-mediatek@lists.infradead.org,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Matthias Brugger <matthias.bgg@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Jaroslav Kysela <perex@perex.cz>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- linux-arm-kernel@lists.infradead.org,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Alessandro Zummo <a.zummo@towertech.it>, Stephen Boyd <sboyd@kernel.org>,
- patches@opensource.cirrus.com, Peter De Schrijver <pdeschrijver@nvidia.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- Andreas =?utf-8?Q?F=C3=A4rber?= <afaerber@suse.de>,
- linux-renesas-soc@vger.kernel.org, linux-sunxi@lists.linux.dev,
- Vinod Koul <vkoul@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Chunyan Zhang <zhang.lyra@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
- Claudiu Beznea <claudiu.beznea@microchip.com>
-Subject: Re: [Linux-stm32] [PATCH v3 29/65] clk: socfpga: gate: Add a
-	determine_rate hook
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.10.0
+To: Rob Herring <robh@kernel.org>
+References: <20230428121524.2125832-1-valentin.caron@foss.st.com>
+ <20230428121524.2125832-2-valentin.caron@foss.st.com>
+ <20230428214157.GA322525-robh@kernel.org>
+Content-Language: en-US
+From: Valentin CARON <valentin.caron@foss.st.com>
+In-Reply-To: <20230428214157.GA322525-robh@kernel.org>
+X-Originating-IP: [10.201.20.168]
+X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.942,Hydra:6.0.573,FMLib:17.11.170.22
+ definitions=2023-05-04_10,2023-05-04_01,2023-02-09_01
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-spi@vger.kernel.org, Mark Brown <broonie@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 1/7] dt-bindings: spi: stm32: add
+ address-cells and size-cells into yaml
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -123,141 +76,47 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============5287709491850650353=="
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+Hi Rob,
 
---===============5287709491850650353==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="wz33ctz6wi47hpno"
-Content-Disposition: inline
+On 4/28/23 23:41, Rob Herring wrote:
+> On Fri, Apr 28, 2023 at 02:15:18PM +0200, Valentin Caron wrote:
+>> Theses properties need to be described to satisfy dtbs_check.
+> No, they are defined in spi-controller.yaml, so they should not be
+> needed here.
 
+Yes, you're right, I cannot remember why I need to add theses properties.
 
---wz33ctz6wi47hpno
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Thank you,
+Valentin
 
-Hi Dinh,
-
-On Thu, Apr 27, 2023 at 02:09:48PM -0500, Dinh Nguyen wrote:
-> Hi Maxime,
->=20
-> On 4/25/23 09:48, Maxime Ripard wrote:
-> > Hi Dinh,
-> >=20
-> > On Mon, Apr 24, 2023 at 01:32:28PM -0500, Dinh Nguyen wrote:
-> > > On 4/4/23 05:11, Maxime Ripard wrote:
-> > > > The SoCFGPA gate clock implements a mux with a set_parent hook, but
-> > > > doesn't provide a determine_rate implementation.
-> > > >=20
-> > > > This is a bit odd, since set_parent() is there to, as its name impl=
-ies,
-> > > > change the parent of a clock. However, the most likely candidate to
-> > > > trigger that parent change is a call to clk_set_rate(), with
-> > > > determine_rate() figuring out which parent is the best suited for a
-> > > > given rate.
-> > > >=20
-> > > > The other trigger would be a call to clk_set_parent(), but it's far=
- less
-> > > > used, and it doesn't look like there's any obvious user for that cl=
-ock.
-> > > >=20
-> > > > So, the set_parent hook is effectively unused, possibly because of =
-an
-> > > > oversight. However, it could also be an explicit decision by the
-> > > > original author to avoid any reparenting but through an explicit ca=
-ll to
-> > > > clk_set_parent().
-> > > >=20
-> > > > The latter case would be equivalent to setting the flag
-> > > > CLK_SET_RATE_NO_REPARENT, together with setting our determine_rate =
-hook
-> > > > to __clk_mux_determine_rate(). Indeed, if no determine_rate
-> > > > implementation is provided, clk_round_rate() (through
-> > > > clk_core_round_rate_nolock()) will call itself on the parent if
-> > > > CLK_SET_RATE_PARENT is set, and will not change the clock rate
-> > > > otherwise. __clk_mux_determine_rate() has the exact same behavior w=
-hen
-> > > > CLK_SET_RATE_NO_REPARENT is set.
-> > > >=20
-> > > > And if it was an oversight, then we are at least explicit about our
-> > > > behavior now and it can be further refined down the line.
-> > > >=20
-> > > > Signed-off-by: Maxime Ripard <maxime@cerno.tech>
-> > > > ---
-> > > >    drivers/clk/socfpga/clk-gate.c | 3 ++-
-> > > >    1 file changed, 2 insertions(+), 1 deletion(-)
-> > > >=20
-> > > > diff --git a/drivers/clk/socfpga/clk-gate.c b/drivers/clk/socfpga/c=
-lk-gate.c
-> > > > index 32ccda960f28..cbba8462a09e 100644
-> > > > --- a/drivers/clk/socfpga/clk-gate.c
-> > > > +++ b/drivers/clk/socfpga/clk-gate.c
-> > > > @@ -110,6 +110,7 @@ static unsigned long socfpga_clk_recalc_rate(st=
-ruct clk_hw *hwclk,
-> > > >    static struct clk_ops gateclk_ops =3D {
-> > > >    	.recalc_rate =3D socfpga_clk_recalc_rate,
-> > > > +	.determine_rate =3D __clk_mux_determine_rate,
-> > > >    	.get_parent =3D socfpga_clk_get_parent,
-> > > >    	.set_parent =3D socfpga_clk_set_parent,
-> > > >    };
-> > > > @@ -166,7 +167,7 @@ void __init socfpga_gate_init(struct device_nod=
-e *node)
-> > > >    	init.name =3D clk_name;
-> > > >    	init.ops =3D ops;
-> > > > -	init.flags =3D 0;
-> > > > +	init.flags =3D CLK_SET_RATE_NO_REPARENT;
-> > > >    	init.num_parents =3D of_clk_parent_fill(node, parent_name, SOCF=
-PGA_MAX_PARENTS);
-> > > >    	if (init.num_parents < 2) {
-> > > >=20
-> > >=20
-> > > This patch broke SoCFPGA boot serial port. The characters are mangled.
-> >=20
-> > Do you have any other access to that board? If so, could you dump
-> > clk_summary in debugfs with and without that patch?
-> >=20
->=20
-> That dump from the clk_summary are identical for both cases.
-
-Thanks for testing
-
-I'm a bit confused, there should be no difference in behaviour, and if
-there was any difference I would expect the clock tree to be somewhat
-different.
-
-Could you still paste the clk_summary (and dmesg) output? Which UART
-driver is being used?
-
-Also, is there a way for me to test it somehow?
-
-Thanks,
-Maxime
-
---wz33ctz6wi47hpno
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCZFPlhwAKCRDj7w1vZxhR
-xctpAQD9sYYRJZv9h/D0iPAAtlYeOZYDF7u18IvdR8rTQHoA/wEAz3/h3C/WCX/e
-9OHv6OkqMBGTFLQxWrqvIxshn0fuYg4=
-=DIwC
------END PGP SIGNATURE-----
-
---wz33ctz6wi47hpno--
-
---===============5287709491850650353==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+>> Signed-off-by: Valentin Caron <valentin.caron@foss.st.com>
+>> ---
+>>   Documentation/devicetree/bindings/spi/st,stm32-spi.yaml | 3 +++
+>>   1 file changed, 3 insertions(+)
+>>
+>> diff --git a/Documentation/devicetree/bindings/spi/st,stm32-spi.yaml b/Documentation/devicetree/bindings/spi/st,stm32-spi.yaml
+>> index 9ca1a843c820..c599eb359d56 100644
+>> --- a/Documentation/devicetree/bindings/spi/st,stm32-spi.yaml
+>> +++ b/Documentation/devicetree/bindings/spi/st,stm32-spi.yaml
+>> @@ -29,6 +29,9 @@ allOf:
+>>           st,spi-midi-ns: false
+>>   
+>>   properties:
+>> +  "#address-cells": true
+>> +  "#size-cells": true
+>> +
+>>     compatible:
+>>       enum:
+>>         - st,stm32f4-spi
+>> -- 
+>> 2.25.1
+>>
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============5287709491850650353==--
