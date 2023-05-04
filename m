@@ -2,64 +2,67 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9E98D6F6986
-	for <lists+linux-stm32@lfdr.de>; Thu,  4 May 2023 13:07:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 94E9D6F6A46
+	for <lists+linux-stm32@lfdr.de>; Thu,  4 May 2023 13:41:47 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4FE72C6A5EE;
-	Thu,  4 May 2023 11:07:49 +0000 (UTC)
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com
- [209.85.221.47])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4227FC6A5EE;
+	Thu,  4 May 2023 11:41:47 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8C8B3C64110
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 06624C69073
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  4 May 2023 10:54:01 +0000 (UTC)
-Received: by mail-wr1-f47.google.com with SMTP id
- ffacd0b85a97d-304935cc79bso238320f8f.2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 04 May 2023 03:54:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1683197641; x=1685789641;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :from:to:cc:subject:date:message-id:reply-to;
- bh=Mak+/8tgM9Xe43QF0nYG9nprPJsIfRVjt1FrrJwmdlk=;
- b=RlNErPiKKcMDkTbpO4JaG2wnYArrg+tuU/Ka9mdSgk+28sBApqk/2xIpimVPk79Zod
- XOH5JhD8EMp7g4iLyxa+NHWHOhzAaTQnO8mzFujTXrxbEeZsdjjHWsmsZt2rgm/yusth
- DYpkZdUTytYKIZS5rLHW3PQftngkw8mIatZUxLEhYLYs3/8NHMwncOQ64GFJsFHG6/YL
- HqMUQZIIWkDPA+P+i0RR671cfK+3mLAnMNFY2dWb4flDKp8e0DiyYqr29iuiuCwYuK5h
- zudBLkm4DnFHaWRNYpCLkURaRQJUqvoa2OwFo4QwWeUNFVJnGmL/9udqUXOLJmquV9Dm
- uQcg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1683197641; x=1685789641;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=Mak+/8tgM9Xe43QF0nYG9nprPJsIfRVjt1FrrJwmdlk=;
- b=OaA0maI2mRyqXuMGpuJ1ubgyj9Vf06q4MnNNo4ieb/7Unfbsq9fGpKQF7bK94srgmk
- ZRpSCqWeLOE9QkzetsEHikaGQ1l0/TdjmknIIwxjU5C1U7oDx/sljxCfK4elMwfLiA+m
- 64XrXtjOFfxN/2Hk9oKLkEwI51RtOZ2O6QRlglGyiCVPCnJnE+4Ere9wxwTS5VHQ6TZu
- dwxvBUx/nKx/7qLyaZvXaPWP9qlqYTS7rWhx1CCmx0ygq2u/5+MC644L9xeDhgC720pf
- l1VTXP8HylmSplccjYPt7Tw9hEj7L7d2i2+IarpF8HBqd2kw9L4sw+jKXaPv6+2YwchC
- hOpA==
-X-Gm-Message-State: AC+VfDxoo824ZE4FhsMz7/cDSfYCEVbUYUePB+09vIpHO0bHixTCil3+
- nJcpNvWbiWmYbAw8/d17CAghSQ==
-X-Google-Smtp-Source: ACHHUZ6uOHiq3Q0/ZO6nIqI2wnd8IeOHXdKBaFcBaTE2/5EIEFQKmEYHsy42ufRsnDJ6Be1FWaujOw==
-X-Received: by 2002:adf:f60d:0:b0:304:9fb0:6a8 with SMTP id
- t13-20020adff60d000000b003049fb006a8mr2086930wrp.18.1683197640975; 
- Thu, 04 May 2023 03:54:00 -0700 (PDT)
-Received: from localhost ([102.36.222.112]) by smtp.gmail.com with ESMTPSA id
- j10-20020adfe50a000000b0030631f199f9sm9299272wrm.34.2023.05.04.03.53.57
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 04 May 2023 03:53:58 -0700 (PDT)
-Date: Thu, 4 May 2023 13:53:53 +0300
-From: Dan Carpenter <dan.carpenter@linaro.org>
-To: samin.guo@starfivetech.com
-Message-ID: <e16d3d7b-3789-4951-9cd0-06693c7c6293@kili.mountain>
+ Thu,  4 May 2023 11:41:45 +0000 (UTC)
+Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 344AjTRA008853; Thu, 4 May 2023 13:41:27 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=mgBoB7y0Q8zoPq556QTbRXqfnTsbr9KKVw24VOBMPss=;
+ b=faVk5/gyvYdUZfYLgFTA0Mvxz3OAtcEYPbpOHVrcbPA6Ur2868y3TE0aiqVpRNMiPJpw
+ +asAYHyLNtu4IC8ff6YwDLKhMYKpmNTBbhcWRfMyVgn7yDBt6Cvt2A3xPdafFNW99mC0
+ BkZDqhwyA2REHvm1SA9/1AT+y31e/VHNE6kh/fGCzhO0J/6N3MHRLY1GsyV4xXDQrk1E
+ QnrsQMfxe8kRLOjl7leqNWhl8DQin1kXHfiC4SEW7zgPynRKbNyH2jEoVBtjDEdtShey
+ LdxRJ8brreakDeZqhc5TyJ7lIeW1AgRw/y5mbvqW2ccfMxzdnS5rQdlm17D2UAaDyU23 cg== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3qbu1udpy4-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 04 May 2023 13:41:27 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 6EA7C10002A;
+ Thu,  4 May 2023 13:41:25 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 5F6612171F8;
+ Thu,  4 May 2023 13:41:25 +0200 (CEST)
+Received: from [10.201.20.178] (10.201.20.178) by SHFDAG1NODE1.st.com
+ (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.21; Thu, 4 May
+ 2023 13:41:24 +0200
+Message-ID: <29974337-d4a0-e295-ed0f-59f6f27576fe@foss.st.com>
+Date: Thu, 4 May 2023 13:41:24 +0200
 MIME-Version: 1.0
-Content-Disposition: inline
-X-Mailman-Approved-At: Thu, 04 May 2023 11:07:48 +0000
-Cc: kernel-janitors@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [bug report] net: stmmac: Add glue layer for StarFive
-	JH7110 SoC
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.10.0
+Content-Language: en-US
+To: Sean Nyekjaer <sean@geanix.com>, <jic23@kernel.org>,
+ <alexandre.torgue@foss.st.com>, <nuno.sa@analog.com>, Fabrice GASNIER
+ <fabrice.gasnier@st.com>
+References: <20230503162029.3654093-1-sean@geanix.com>
+ <20230503162029.3654093-2-sean@geanix.com>
+From: Olivier MOYSAN <olivier.moysan@foss.st.com>
+In-Reply-To: <20230503162029.3654093-2-sean@geanix.com>
+X-Originating-IP: [10.201.20.178]
+X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.942,Hydra:6.0.573,FMLib:17.11.170.22
+ definitions=2023-05-04_08,2023-05-04_01,2023-02-09_01
+Cc: linux-iio@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH v3 2/2] iio: adc: stm32-adc: skip
+ adc-channels setup if none is present
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,87 +74,112 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello Samin Guo,
+Hi Sean,
 
-The patch 4bd3bb7b4526: "net: stmmac: Add glue layer for StarFive
-JH7110 SoC" from Apr 17, 2023, leads to the following Smatch static
-checker warning:
+Thanks for your update
+You can add my: Reviewed-by: Olivier Moysan <olivier.moysan@foss.st.com>
 
-drivers/net/ethernet/stmicro/stmmac/dwmac-starfive.c:148 starfive_dwmac_probe()
-warn: inconsistent refcounting 'plat_dat->mdio_node->kobj.kref.refcount.refs.counter':
-  inc on: 113,117,122,140
-  dec on: 145
+BRs
+Olivier
 
-drivers/net/ethernet/stmicro/stmmac/dwmac-starfive.c
-    93 static int starfive_dwmac_probe(struct platform_device *pdev)
-    94 {
-    95         struct plat_stmmacenet_data *plat_dat;
-    96         struct stmmac_resources stmmac_res;
-    97         struct starfive_dwmac *dwmac;
-    98         struct clk *clk_gtx;
-    99         int err;
-    100 
-    101         err = stmmac_get_platform_resources(pdev, &stmmac_res);
-    102         if (err)
-    103                 return dev_err_probe(&pdev->dev, err,
-    104                                      "failed to get resources\n");
-    105 
-    106         plat_dat = stmmac_probe_config_dt(pdev, stmmac_res.mac);
-    107         if (IS_ERR(plat_dat))
-    108                 return dev_err_probe(&pdev->dev, PTR_ERR(plat_dat),
-    109                                      "dt configuration failed\n");
-
-All the error paths after stmmac_probe_config_dt() succeeds should call
-stmmac_remove_config_dt() but only the last one does.
-
-    110 
-    111         dwmac = devm_kzalloc(&pdev->dev, sizeof(*dwmac), GFP_KERNEL);
-    112         if (!dwmac)
-    113                 return -ENOMEM;
-    114 
-    115         dwmac->clk_tx = devm_clk_get_enabled(&pdev->dev, "tx");
-    116         if (IS_ERR(dwmac->clk_tx))
-    117                 return dev_err_probe(&pdev->dev, PTR_ERR(dwmac->clk_tx),
-    118                                      "error getting tx clock\n");
-    119 
-    120         clk_gtx = devm_clk_get_enabled(&pdev->dev, "gtx");
-    121         if (IS_ERR(clk_gtx))
-    122                 return dev_err_probe(&pdev->dev, PTR_ERR(clk_gtx),
-    123                                      "error getting gtx clock\n");
-    124 
-    125         /* Generally, the rgmii_tx clock is provided by the internal clock,
-    126          * which needs to match the corresponding clock frequency according
-    127          * to different speeds. If the rgmii_tx clock is provided by the
-    128          * external rgmii_rxin, there is no need to configure the clock
-    129          * internally, because rgmii_rxin will be adaptively adjusted.
-    130          */
-    131         if (!device_property_read_bool(&pdev->dev, "starfive,tx-use-rgmii-clk"))
-    132                 plat_dat->fix_mac_speed = starfive_dwmac_fix_mac_speed;
-    133 
-    134         dwmac->dev = &pdev->dev;
-    135         plat_dat->bsp_priv = dwmac;
-    136         plat_dat->dma_cfg->dche = true;
-    137 
-    138         err = starfive_dwmac_set_mode(plat_dat);
-    139         if (err)
-    140                 return err;
-    141 
-    142         err = stmmac_dvr_probe(&pdev->dev, plat_dat, &stmmac_res);
-    143         if (err) {
-    144                 stmmac_remove_config_dt(pdev, plat_dat);
-    145                 return err;
-    146         }
-    147 
---> 148         return 0;
-    149 }
-
-regards,
-dan carpenter
+On 5/3/23 18:20, Sean Nyekjaer wrote:
+> If only adc differential channels are defined driver will fail with
+> stm32-adc: probe of 48003000.adc:adc@0 failed with error -22
+> 
+> Fix this by skipping the initialization if no channels are defined.
+> 
+> This applies only to the legacy way of initializing adc channels.
+> 
+> Fixes: d7705f35448a ("iio: adc: stm32-adc: convert to device properties")
+> Signed-off-by: Sean Nyekjaer <sean@geanix.com>
+> ---
+> Changes since v1:
+> - Ignore extra channel for timestamps in PIO mode
+> - Use single ended count in channel creation (Thanks Olivier Moysan)
+> 
+> Changes since v2:
+> - Avoid calling device_property_read_u32_array with num_se 0 (Thanks Olivier Moysan)
+> 
+>   drivers/iio/adc/stm32-adc.c | 42 ++++++++++++++++++++-----------------
+>   1 file changed, 23 insertions(+), 19 deletions(-)
+> 
+> diff --git a/drivers/iio/adc/stm32-adc.c b/drivers/iio/adc/stm32-adc.c
+> index 14524c1b5583..f7613efb870d 100644
+> --- a/drivers/iio/adc/stm32-adc.c
+> +++ b/drivers/iio/adc/stm32-adc.c
+> @@ -2038,6 +2038,7 @@ static int stm32_adc_legacy_chan_init(struct iio_dev *indio_dev,
+>   	struct stm32_adc_diff_channel diff[STM32_ADC_CH_MAX];
+>   	struct device *dev = &indio_dev->dev;
+>   	u32 num_diff = adc->num_diff;
+> +	int num_se = nchans - num_diff;
+>   	int size = num_diff * sizeof(*diff) / sizeof(u32);
+>   	int scan_index = 0, ret, i, c;
+>   	u32 smp = 0, smps[STM32_ADC_CH_MAX], chans[STM32_ADC_CH_MAX];
+> @@ -2064,29 +2065,32 @@ static int stm32_adc_legacy_chan_init(struct iio_dev *indio_dev,
+>   			scan_index++;
+>   		}
+>   	}
+> -
+> -	ret = device_property_read_u32_array(dev, "st,adc-channels", chans,
+> -					     nchans);
+> -	if (ret)
+> -		return ret;
+> -
+> -	for (c = 0; c < nchans; c++) {
+> -		if (chans[c] >= adc_info->max_channels) {
+> -			dev_err(&indio_dev->dev, "Invalid channel %d\n",
+> -				chans[c]);
+> -			return -EINVAL;
+> +	if (num_se > 0) {
+> +		ret = device_property_read_u32_array(dev, "st,adc-channels", chans, num_se);
+> +		if (ret) {
+> +			dev_err(&indio_dev->dev, "Failed to get st,adc-channels %d\n", ret);
+> +			return ret;
+>   		}
+>   
+> -		/* Channel can't be configured both as single-ended & diff */
+> -		for (i = 0; i < num_diff; i++) {
+> -			if (chans[c] == diff[i].vinp) {
+> -				dev_err(&indio_dev->dev, "channel %d misconfigured\n",	chans[c]);
+> +		for (c = 0; c < num_se; c++) {
+> +			if (chans[c] >= adc_info->max_channels) {
+> +				dev_err(&indio_dev->dev, "Invalid channel %d\n",
+> +					chans[c]);
+>   				return -EINVAL;
+>   			}
+> +
+> +			/* Channel can't be configured both as single-ended & diff */
+> +			for (i = 0; i < num_diff; i++) {
+> +				if (chans[c] == diff[i].vinp) {
+> +					dev_err(&indio_dev->dev, "channel %d misconfigured\n",
+> +						chans[c]);
+> +					return -EINVAL;
+> +				}
+> +			}
+> +			stm32_adc_chan_init_one(indio_dev, &channels[scan_index],
+> +						chans[c], 0, scan_index, false);
+> +			scan_index++;
+>   		}
+> -		stm32_adc_chan_init_one(indio_dev, &channels[scan_index],
+> -					chans[c], 0, scan_index, false);
+> -		scan_index++;
+>   	}
+>   
+>   	if (adc->nsmps > 0) {
+> @@ -2307,7 +2311,7 @@ static int stm32_adc_chan_fw_init(struct iio_dev *indio_dev, bool timestamping)
+>   
+>   	if (legacy)
+>   		ret = stm32_adc_legacy_chan_init(indio_dev, adc, channels,
+> -						 num_channels);
+> +						 timestamping ? num_channels - 1 : num_channels);
+>   	else
+>   		ret = stm32_adc_generic_chan_init(indio_dev, adc, channels);
+>   	if (ret < 0)
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
