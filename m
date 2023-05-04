@@ -2,57 +2,57 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A178E6F708B
-	for <lists+linux-stm32@lfdr.de>; Thu,  4 May 2023 19:11:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CE2FE6F709B
+	for <lists+linux-stm32@lfdr.de>; Thu,  4 May 2023 19:13:45 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 63D9EC6A5EE;
-	Thu,  4 May 2023 17:11:54 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 88BB6C6A5EE;
+	Thu,  4 May 2023 17:13:45 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
  [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C5377C64110
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 941A4C64110
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  4 May 2023 17:11:52 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ Thu,  4 May 2023 17:13:43 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
  by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 344GUggf015720; Thu, 4 May 2023 19:11:43 +0200
+ 344GOodc004106; Thu, 4 May 2023 19:13:36 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
  h=message-id : date :
  mime-version : subject : to : cc : references : from : in-reply-to :
  content-type : content-transfer-encoding; s=selector1;
- bh=J4jKmf2YnViRrs4Q3HMD+7FMqDya2UEVvV21o1+C32k=;
- b=eu8mvob0gGVyS/rdi5919QIcAAabuqwY4gzwlaFUKcRxajzysruH37yoNgnJtoTs4GeL
- WZbBvvYMswWB1Ry2ZLup44dI3wH7Vp8H321PC6ps5TdrQLykJ2d39SCfHxM38afR4jQA
- SvXy2rJ+Ub4D8ThiOWH859pMd561+KpWHar/uvCIvpqlnHJfVS6l+jeIxoBf2kJwtSTz
- 8RhR39RsofbTkG6brHpedpthtVeeGNKBFeIQ2zDTOt3nHJm/1pcbcZIQV5wjVY7cMHjT
- gqjCgpYKzb/RUEAlSCGL2/h72JwAbvpww3D4Zg81wbJJoF63q1lhW+BEfWX3/p6owxoa Jg== 
+ bh=ihg12T+69B+3QoBkRHL955kHcMtgqd6NplSZmSmTng0=;
+ b=xOTudm6fa9ewAcy2R/FOby93Uc/fzNtqjriXqM5uNuVInv+UaVEHxP0hZQ3vfe1AsMMN
+ zeTz81wXONSYfDetpdbVlOz5K8+WOTyzEaqMtdPQ48pM1wYto8eS/Y/hVn9uwTJwxLf7
+ QluN2Gz5hSspBcl3pYsuXoUs/8o3oGS1MXpL2NwEzPemkBJnjgUJ4Vi2PlU5PC5ePdib
+ uzY6PusJ08QxaXi49vSWM1Ul7PYfcLMZARcF3JysW+fQKW0oQxUxRN20Ny3sm7qoIqZ+
+ b5wwmYm3MMsOyx3e5WwR1mp8VAcDJQhn9/PpSuKKPdUYzmQUYFKw7Kdizf6OFo1gA2lK 2A== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3qc6uwcjrr-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3qbu4j7au3-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 04 May 2023 19:11:43 +0200
+ Thu, 04 May 2023 19:13:36 +0200
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 90E2410002A;
- Thu,  4 May 2023 19:11:42 +0200 (CEST)
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 76E5110002A;
+ Thu,  4 May 2023 19:13:35 +0200 (CEST)
 Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 89497227EF3;
- Thu,  4 May 2023 19:11:42 +0200 (CEST)
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 6C5F3227F18;
+ Thu,  4 May 2023 19:13:35 +0200 (CEST)
 Received: from [10.201.20.168] (10.201.20.168) by SHFDAG1NODE1.st.com
  (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.21; Thu, 4 May
- 2023 19:11:41 +0200
-Message-ID: <429ee190-9397-0a31-9c05-f2b8ac92a59e@foss.st.com>
-Date: Thu, 4 May 2023 19:11:40 +0200
+ 2023 19:13:34 +0200
+Message-ID: <b03257a8-2236-c709-043d-ffa4e6b062a8@foss.st.com>
+Date: Thu, 4 May 2023 19:13:33 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.10.0
 Content-Language: en-US
 To: Rob Herring <robh@kernel.org>
 References: <20230428121524.2125832-1-valentin.caron@foss.st.com>
- <20230428121524.2125832-5-valentin.caron@foss.st.com>
- <20230428214607.GA326858-robh@kernel.org>
+ <20230428121524.2125832-7-valentin.caron@foss.st.com>
+ <20230428215641.GA332435-robh@kernel.org>
 From: Valentin CARON <valentin.caron@foss.st.com>
-In-Reply-To: <20230428214607.GA326858-robh@kernel.org>
+In-Reply-To: <20230428215641.GA332435-robh@kernel.org>
 X-Originating-IP: [10.201.20.168]
 X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE1.st.com
  (10.75.129.69)
@@ -63,8 +63,8 @@ Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-spi@vger.kernel.org, Mark Brown <broonie@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 4/7] dt-bindings: spi: stm32: add bindings
- regarding stm32h7 spi slave
+Subject: Re: [Linux-stm32] [PATCH 6/7] dt-bindings: spi: stm32: add stm32h7
+ st, spi-slave-underrun property
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,55 +82,62 @@ Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 
-On 4/28/23 23:46, Rob Herring wrote:
-> On Fri, Apr 28, 2023 at 02:15:21PM +0200, Valentin Caron wrote:
->> From: Alain Volmat <alain.volmat@foss.st.com>
+On 4/28/23 23:56, Rob Herring wrote:
+> On Fri, Apr 28, 2023 at 02:15:23PM +0200, Valentin Caron wrote:
+>> This property is used to enable and configure stm32h7 SPI controller to
+>> handle underrun that could appear in slave mode.
 >>
->> Update the spi-stm32 binding yaml regarding to the SPI slave support.
-> Why? What problem are you trying to solve.
-To add some documentation about cs-gpios and don't allow to use
-spi-slave property with st,stm32f4-spi compatible.
-
-I will specify this in next patchset.
-
->
->> Signed-off-by: Alain Volmat <alain.volmat@foss.st.com>
 >> Signed-off-by: Valentin Caron <valentin.caron@foss.st.com>
 >> ---
->>   Documentation/devicetree/bindings/spi/st,stm32-spi.yaml | 8 ++++++++
->>   1 file changed, 8 insertions(+)
+>>   .../devicetree/bindings/spi/st,stm32-spi.yaml     |  8 ++++++++
+>>   MAINTAINERS                                       |  1 +
+>>   include/dt-bindings/spi/spi-stm32.h               | 15 +++++++++++++++
+>>   3 files changed, 24 insertions(+)
+>>   create mode 100644 include/dt-bindings/spi/spi-stm32.h
 >>
 >> diff --git a/Documentation/devicetree/bindings/spi/st,stm32-spi.yaml b/Documentation/devicetree/bindings/spi/st,stm32-spi.yaml
->> index c599eb359d56..1d26fa2658c5 100644
+>> index 1d26fa2658c5..e946ea71a247 100644
 >> --- a/Documentation/devicetree/bindings/spi/st,stm32-spi.yaml
 >> +++ b/Documentation/devicetree/bindings/spi/st,stm32-spi.yaml
->> @@ -27,6 +27,7 @@ allOf:
->>       then:
+>> @@ -28,6 +28,7 @@ allOf:
 >>         properties:
 >>           st,spi-midi-ns: false
->> +        spi-slave: false
+>>           spi-slave: false
+>> +        st,spi-slave-underrun: false
 >>   
 >>   properties:
 >>     "#address-cells": true
->> @@ -62,6 +63,13 @@ properties:
->>         - const: rx
->>         - const: tx
+>> @@ -70,6 +71,13 @@ properties:
+>>         In case of spi-slave defined, if <0>, indicate that SS should be
+>>         detected via the dedicated HW pin
 >>   
->> +  cs-gpios:
+>> +  st,spi-slave-underrun:
+>> +    $ref: /schemas/types.yaml#/definitions/uint32-array
 >> +    description:
->> +      In case of spi-slave not defined, cs-gpios behave as defined in
->> +      spi-controller.yaml.
->> +      In case of spi-slave defined, if <0>, indicate that SS should be
->> +      detected via the dedicated HW pin
-> I don't understand. I though cs-gpios was for master mode. You want to
-> define 'cs-gpios = <0>;'? How would that be different than just omitting
-> cs-gpios?
+>> +      First parameter enables and selects slave underrun reaction.
+>> +      Refer to "dt-bindings/spi/spi-stm32.h" for the supported values.
+>> +      Second parameter is the pattern in case of SPI_SEND_PATTERN mode.
+> So, max 2 cells? Then:
+>
+> minItems: 1
+> maxItems: 2
+>
+> Though I don't really think this belongs in DT. The driver implementing
+> the SPI slave function defines all the rest of the protocol the slave
+> implements. Why not this little bit? Perhaps there is no way for a SPI
+> slave driver to tell the SPI controller which controller specific mode
+> to use, so you abuse DT to configure the SPI controller. Also, with a
+> controller specific response, then the slave driver is coupled to that
+> SPI controller which isn't great either.
 >
 > Rob
-We try to keep consistency with spi master, but, as you said, it is useless.
-I will remove it in next patchset.
+I basically made this DT property to configure the controler and doesn't
+give attention to the fact that this parameter can came from framework.
 
-Thanks,
+I will not rework this functionality, but simply let it down as we has
+no demands on it.
+
+Thanks for all your remarks,
 Valentin
 _______________________________________________
 Linux-stm32 mailing list
