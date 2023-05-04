@@ -2,67 +2,97 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 94E9D6F6A46
-	for <lists+linux-stm32@lfdr.de>; Thu,  4 May 2023 13:41:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CE09E6F6A4C
+	for <lists+linux-stm32@lfdr.de>; Thu,  4 May 2023 13:45:12 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4227FC6A5EE;
-	Thu,  4 May 2023 11:41:47 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8ED62C6A5EE;
+	Thu,  4 May 2023 11:45:12 +0000 (UTC)
+Received: from new3-smtp.messagingengine.com (new3-smtp.messagingengine.com
+ [66.111.4.229])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 06624C69073
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CE466C69073
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  4 May 2023 11:41:45 +0000 (UTC)
-Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 344AjTRA008853; Thu, 4 May 2023 13:41:27 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=mgBoB7y0Q8zoPq556QTbRXqfnTsbr9KKVw24VOBMPss=;
- b=faVk5/gyvYdUZfYLgFTA0Mvxz3OAtcEYPbpOHVrcbPA6Ur2868y3TE0aiqVpRNMiPJpw
- +asAYHyLNtu4IC8ff6YwDLKhMYKpmNTBbhcWRfMyVgn7yDBt6Cvt2A3xPdafFNW99mC0
- BkZDqhwyA2REHvm1SA9/1AT+y31e/VHNE6kh/fGCzhO0J/6N3MHRLY1GsyV4xXDQrk1E
- QnrsQMfxe8kRLOjl7leqNWhl8DQin1kXHfiC4SEW7zgPynRKbNyH2jEoVBtjDEdtShey
- LdxRJ8brreakDeZqhc5TyJ7lIeW1AgRw/y5mbvqW2ccfMxzdnS5rQdlm17D2UAaDyU23 cg== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3qbu1udpy4-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 04 May 2023 13:41:27 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 6EA7C10002A;
- Thu,  4 May 2023 13:41:25 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 5F6612171F8;
- Thu,  4 May 2023 13:41:25 +0200 (CEST)
-Received: from [10.201.20.178] (10.201.20.178) by SHFDAG1NODE1.st.com
- (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.21; Thu, 4 May
- 2023 13:41:24 +0200
-Message-ID: <29974337-d4a0-e295-ed0f-59f6f27576fe@foss.st.com>
-Date: Thu, 4 May 2023 13:41:24 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.10.0
-Content-Language: en-US
-To: Sean Nyekjaer <sean@geanix.com>, <jic23@kernel.org>,
- <alexandre.torgue@foss.st.com>, <nuno.sa@analog.com>, Fabrice GASNIER
- <fabrice.gasnier@st.com>
-References: <20230503162029.3654093-1-sean@geanix.com>
- <20230503162029.3654093-2-sean@geanix.com>
-From: Olivier MOYSAN <olivier.moysan@foss.st.com>
-In-Reply-To: <20230503162029.3654093-2-sean@geanix.com>
-X-Originating-IP: [10.201.20.178]
-X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE1.st.com
- (10.75.129.69)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.942,Hydra:6.0.573,FMLib:17.11.170.22
- definitions=2023-05-04_08,2023-05-04_01,2023-02-09_01
-Cc: linux-iio@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH v3 2/2] iio: adc: stm32-adc: skip
- adc-channels setup if none is present
+ Thu,  4 May 2023 11:45:10 +0000 (UTC)
+Received: from compute6.internal (compute6.nyi.internal [10.202.2.47])
+ by mailnew.nyi.internal (Postfix) with ESMTP id 7F8E7580E74;
+ Thu,  4 May 2023 07:45:09 -0400 (EDT)
+Received: from imap51 ([10.202.2.101])
+ by compute6.internal (MEProxy); Thu, 04 May 2023 07:45:09 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+ :cc:content-type:content-type:date:date:from:from:in-reply-to
+ :in-reply-to:message-id:mime-version:references:reply-to:sender
+ :subject:subject:to:to; s=fm3; t=1683200709; x=1683207909; bh=rv
+ dn+vPe48KPGDs0leGYpaM1jtugXaszLFPftQ7tCmQ=; b=K3vb/txYtZKnDaX7av
+ yXDErCEtK8JWoojEYV/KOhr/Dv3+/xOdTNnlfPilF7nZ1vUsdDP7l+AgwDbRQSuE
+ 5AUT6SPooYuy01IO6jURwU7twh1iCROPuF4Hz3zAUJdbJERGRcVw7wLAOdZON0f2
+ AhZwSiy8u7IYmN4dU7xIQbvrXShHBkCkYnYnC0IoMvFDdx6WQKJ4rLgfLXj0hCW/
+ ckDTGcWhommWigg7s6rAmkjQ1+FesSQJLbAeZIs8XTPkdZlzCBQmlaWbCOt46UI7
+ TaQrFKOEB7Nrxln82bVy1GZqe9KuSEr+WJIPa6wdhqmLquSGvkDqg3ABmaiUtN8f
+ /V6A==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-type:content-type:date:date
+ :feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+ :message-id:mime-version:references:reply-to:sender:subject
+ :subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
+ :x-sasl-enc; s=fm3; t=1683200709; x=1683207909; bh=rvdn+vPe48KPG
+ Ds0leGYpaM1jtugXaszLFPftQ7tCmQ=; b=Pw6Rg+XVCkD8w3YHy7jGkIyjxzhiF
+ bN/nWbfwIR4ZK/F9LSR2lSdh5WuOB6Zd/S/dxjLYOJX2pQKrTV0T8idbkjcOcQF5
+ SwoSgg9l8jKzkx3OOYZXp9IzAPIUyKCbJYXfJ1Co1zpAhWXPmQXpDlG8hbdhXCqo
+ Ide3agAfwauTe+q41YGw5qJ2db95dqZn1JU+kHQVa7baSeKRpcpIB14hYe498UV1
+ qSbU08XfSJ51vZL4nbzqAVErhFeOyUkPmcXy3uA1E2ZHbZ12aj+TO8581K6JMOqx
+ WSKLMOUGfU3GMPJTvVpyvFa7UxM2y027LOl0hEHvk1DeHWVGhQTOePmWQ==
+X-ME-Sender: <xms:xJpTZBRFDKFjpUX2zSPaH_4Nc8R2Qpk2no6uSQvOfRDhdZKlcM2S1w>
+ <xme:xJpTZKx9r-aiclDw81Wu7rGAVEGjfn7b8plKzDI0Fm4sbn8ToKgyao_lHGOMzamjl
+ uNZIJ6W5xJhlsHwBQU>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrfeeftddggedvucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+ cujfgurhepofgfggfkjghffffhvfevufgtsehttdertderredtnecuhfhrohhmpedftehr
+ nhguuceuvghrghhmrghnnhdfuceorghrnhgusegrrhhnuggsrdguvgeqnecuggftrfgrth
+ htvghrnhepffehueegteeihfegtefhjefgtdeugfegjeelheejueethfefgeeghfektdek
+ teffnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomheprg
+ hrnhgusegrrhhnuggsrdguvg
+X-ME-Proxy: <xmx:xJpTZG1ikd38RTtD1R071POfBXt5S1hFZ6Fml4H3RBTwbc4m3wVYQA>
+ <xmx:xJpTZJBCtHzUiKeZoBrJeZc8fH8Ed5ISfh9DPuxYIqK6axwqLg053Q>
+ <xmx:xJpTZKh7kYU5y_FppCdiasiBdQUPjv6lvIKqgolP6FEiBuWg49SF6g>
+ <xmx:xZpTZKDU9-4LKKK2Ti8y1N5SEny0C66Vm4BJmIaG1feFi_OTmPFchA>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.nyi.internal (Postfix, from userid 501)
+ id 5DF60B60089; Thu,  4 May 2023 07:45:08 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
+User-Agent: Cyrus-JMAP/3.9.0-alpha0-386-g2404815117-fm-20230425.001-g24048151
+Mime-Version: 1.0
+Message-Id: <6ece505b-1075-48e6-9ff9-1673014e5df1@app.fastmail.com>
+In-Reply-To: <ZFOE4wd31hpJh0ro@shell.armlinux.org.uk>
+References: <20220328000915.15041-1-ansuelsmth@gmail.com>
+ <85eb14ec-f465-7447-ad77-a3dabc666f47@kernel.org>
+ <YkKRYnN84D9VZhGj@Ansuel-xps.localdomain>
+ <CAL_Jsq+RQQ-ADMxLPUFwk6S6kGmb6oNDy4k52fnU0EtbUvqmSA@mail.gmail.com>
+ <CAMuHMdWNTE48MFy6fqxAsfMWz9b6E7dVNXtXtESP95sxk2PGwA@mail.gmail.com>
+ <CAL_JsqJthKTm8bhRF2B=ae1tvtPeYYXx_Tm76qQtSwLtH5C6VA@mail.gmail.com>
+ <720a2829-b6b5-411c-ac69-9a53e881f48d@app.fastmail.com>
+ <CAL_JsqKCtmkwzKa01gyG65fH8ye6R3KhR41PJbJhOJ4X9j=znA@mail.gmail.com>
+ <ZFOE4wd31hpJh0ro@shell.armlinux.org.uk>
+Date: Thu, 04 May 2023 13:44:37 +0200
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "Russell King" <linux@armlinux.org.uk>, "Rob Herring" <robh+dt@kernel.org>
+Cc: linux-aspeed@lists.ozlabs.org, linux-realtek-soc@lists.infradead.org,
+ linux-arm-kernel@axis.com, linux-stm32@st-md-mailman.stormreply.com,
+ chrome-platform@lists.linux.dev, linux-samsung-soc@vger.kernel.org,
+ openbmc@lists.ozlabs.org, Krzysztof Kozlowski <krzk@kernel.org>,
+ linux-rockchip@lists.infradead.org, Geert Uytterhoeven <geert@linux-m68k.org>,
+ linux-sunxi@lists.linux.dev, devicetree@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-actions@lists.infradead.org,
+ linux-unisoc@lists.infradead.org, linux-mediatek@lists.infradead.org,
+ linux-rpi-kernel@lists.infradead.org, linux-tegra@vger.kernel.org,
+ linux-amlogic@lists.infradead.org, Linux-OMAP <linux-omap@vger.kernel.org>,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Christian Marangi <ansuelsmth@gmail.com>,
+ Linux-Renesas <linux-renesas-soc@vger.kernel.org>, kernel@dh-electronics.com,
+ Olof Johansson <olof@lixom.net>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ "linux-oxnas@groups.io" <linux-oxnas@groups.io>
+Subject: Re: [Linux-stm32] [RFC PATCH 0/1] Categorize ARM dts directory
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,112 +104,35 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Sean,
+On Thu, May 4, 2023, at 12:11, Russell King (Oracle) wrote:
+> On Tue, May 02, 2023 at 02:40:19PM -0500, Rob Herring wrote:
+>> I think the only issue remaining is finalizing the mapping of
+>> platforms to subdirs. What I have currently is a mixture of SoC
+>> families and vendors. The most notable are all the Freescale/NXP
+>> platforms, pxa, socfpga, and stm32. It's not consistent with arm64
+>> either. Once that's finalized, I still need to go update MAINTAINERS.
+>
+> I haven't followed this discussion at all, so here's a question.
+>
+> What does this mean for the _installed_ dtb files? Do they move
+> location? If they do, lots is going to break, because there will
+> be u-boot configurations and other scripts that assume the flat
+> directory structure for the installed dtb files.
+>
+> I don't think changing the installed dtb structure is acceptable
+> at this point in time. It's something that _should_ have been
+> thought about when ARM was converted to dtb, it's too late to be
+> changing that now.
 
-Thanks for your update
-You can add my: Reviewed-by: Olivier Moysan <olivier.moysan@foss.st.com>
+Rob said earlier that his script does keep a flat directory
+for the output of 'make dtbs_install'.
 
-BRs
-Olivier
-
-On 5/3/23 18:20, Sean Nyekjaer wrote:
-> If only adc differential channels are defined driver will fail with
-> stm32-adc: probe of 48003000.adc:adc@0 failed with error -22
-> 
-> Fix this by skipping the initialization if no channels are defined.
-> 
-> This applies only to the legacy way of initializing adc channels.
-> 
-> Fixes: d7705f35448a ("iio: adc: stm32-adc: convert to device properties")
-> Signed-off-by: Sean Nyekjaer <sean@geanix.com>
-> ---
-> Changes since v1:
-> - Ignore extra channel for timestamps in PIO mode
-> - Use single ended count in channel creation (Thanks Olivier Moysan)
-> 
-> Changes since v2:
-> - Avoid calling device_property_read_u32_array with num_se 0 (Thanks Olivier Moysan)
-> 
->   drivers/iio/adc/stm32-adc.c | 42 ++++++++++++++++++++-----------------
->   1 file changed, 23 insertions(+), 19 deletions(-)
-> 
-> diff --git a/drivers/iio/adc/stm32-adc.c b/drivers/iio/adc/stm32-adc.c
-> index 14524c1b5583..f7613efb870d 100644
-> --- a/drivers/iio/adc/stm32-adc.c
-> +++ b/drivers/iio/adc/stm32-adc.c
-> @@ -2038,6 +2038,7 @@ static int stm32_adc_legacy_chan_init(struct iio_dev *indio_dev,
->   	struct stm32_adc_diff_channel diff[STM32_ADC_CH_MAX];
->   	struct device *dev = &indio_dev->dev;
->   	u32 num_diff = adc->num_diff;
-> +	int num_se = nchans - num_diff;
->   	int size = num_diff * sizeof(*diff) / sizeof(u32);
->   	int scan_index = 0, ret, i, c;
->   	u32 smp = 0, smps[STM32_ADC_CH_MAX], chans[STM32_ADC_CH_MAX];
-> @@ -2064,29 +2065,32 @@ static int stm32_adc_legacy_chan_init(struct iio_dev *indio_dev,
->   			scan_index++;
->   		}
->   	}
-> -
-> -	ret = device_property_read_u32_array(dev, "st,adc-channels", chans,
-> -					     nchans);
-> -	if (ret)
-> -		return ret;
-> -
-> -	for (c = 0; c < nchans; c++) {
-> -		if (chans[c] >= adc_info->max_channels) {
-> -			dev_err(&indio_dev->dev, "Invalid channel %d\n",
-> -				chans[c]);
-> -			return -EINVAL;
-> +	if (num_se > 0) {
-> +		ret = device_property_read_u32_array(dev, "st,adc-channels", chans, num_se);
-> +		if (ret) {
-> +			dev_err(&indio_dev->dev, "Failed to get st,adc-channels %d\n", ret);
-> +			return ret;
->   		}
->   
-> -		/* Channel can't be configured both as single-ended & diff */
-> -		for (i = 0; i < num_diff; i++) {
-> -			if (chans[c] == diff[i].vinp) {
-> -				dev_err(&indio_dev->dev, "channel %d misconfigured\n",	chans[c]);
-> +		for (c = 0; c < num_se; c++) {
-> +			if (chans[c] >= adc_info->max_channels) {
-> +				dev_err(&indio_dev->dev, "Invalid channel %d\n",
-> +					chans[c]);
->   				return -EINVAL;
->   			}
-> +
-> +			/* Channel can't be configured both as single-ended & diff */
-> +			for (i = 0; i < num_diff; i++) {
-> +				if (chans[c] == diff[i].vinp) {
-> +					dev_err(&indio_dev->dev, "channel %d misconfigured\n",
-> +						chans[c]);
-> +					return -EINVAL;
-> +				}
-> +			}
-> +			stm32_adc_chan_init_one(indio_dev, &channels[scan_index],
-> +						chans[c], 0, scan_index, false);
-> +			scan_index++;
->   		}
-> -		stm32_adc_chan_init_one(indio_dev, &channels[scan_index],
-> -					chans[c], 0, scan_index, false);
-> -		scan_index++;
->   	}
->   
->   	if (adc->nsmps > 0) {
-> @@ -2307,7 +2311,7 @@ static int stm32_adc_chan_fw_init(struct iio_dev *indio_dev, bool timestamping)
->   
->   	if (legacy)
->   		ret = stm32_adc_legacy_chan_init(indio_dev, adc, channels,
-> -						 num_channels);
-> +						 timestamping ? num_channels - 1 : num_channels);
->   	else
->   		ret = stm32_adc_generic_chan_init(indio_dev, adc, channels);
->   	if (ret < 0)
+     Arnd
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
