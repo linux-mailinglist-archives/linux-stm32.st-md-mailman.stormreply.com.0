@@ -2,41 +2,79 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 95E486F7CB6
-	for <lists+linux-stm32@lfdr.de>; Fri,  5 May 2023 08:02:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CF5286F7D8B
+	for <lists+linux-stm32@lfdr.de>; Fri,  5 May 2023 09:13:23 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5D2C6C6B44C;
-	Fri,  5 May 2023 06:02:49 +0000 (UTC)
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
- [85.220.165.71])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 829DCC6A60E;
+	Fri,  5 May 2023 07:13:23 +0000 (UTC)
+Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com
+ [209.85.218.45])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B5AD3C6B442
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AB1D1C6A60C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  5 May 2023 06:02:47 +0000 (UTC)
-Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77]
- helo=pengutronix.de)
- by metis.ext.pengutronix.de with esmtp (Exim 4.92)
- (envelope-from <s.trumtrar@pengutronix.de>)
- id 1puoWl-0005sG-7F; Fri, 05 May 2023 08:02:47 +0200
-From: Steffen Trumtrar <s.trumtrar@pengutronix.de>
-To: linux-stm32@st-md-mailman.stormreply.com
-Date: Fri,  5 May 2023 08:01:58 +0200
-Message-Id: <20230505060158.16516-11-s.trumtrar@pengutronix.de>
-X-Mailer: git-send-email 2.39.1
-In-Reply-To: <20230505060158.16516-1-s.trumtrar@pengutronix.de>
-References: <20230505060158.16516-1-s.trumtrar@pengutronix.de>
+ Fri,  5 May 2023 07:13:22 +0000 (UTC)
+Received: by mail-ej1-f45.google.com with SMTP id
+ a640c23a62f3a-96598a7c5e0so219014266b.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 05 May 2023 00:13:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1683270802; x=1685862802;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=LjPti0SVf6hmj4N0H313/55MiUrWdpZNvzPtpM8uR3Y=;
+ b=KSRYsw+W1lrvQqIyAomaDqVEM8xAGeLseIR/4uBsLmebPEyJUBuQBwvCTXEzpOMq9u
+ AFiPu0uEzbyPyzn/5fKp3RBeQMnx7feR/ep6QzWHp/2GN2vv3/We/tZUk1tgEgcKNSIp
+ mXSsfR6GbTtiv2QRS62IWB/gi0a//k2zL+Cdpz66A6DgxenD1aLu3730CP0th8T9h9D+
+ 6oOFUvslt6PzDG8AIJ9JtBmzRGaXUmxuf0JRYaj7trhS36t9EBUtFLHhzruYWePdnZyv
+ fEXX4eXaza5nVCYWycGrLxXoIt9a+fmY08OiLyJNT1E0gcmJfkZSunZD/TsWGrmAh2/I
+ Sccw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1683270802; x=1685862802;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=LjPti0SVf6hmj4N0H313/55MiUrWdpZNvzPtpM8uR3Y=;
+ b=cIp8PeuneEKOqqs//k62w9CafscwwhzRnd3ghFkEHjnZeiSccnNdesIAeYwqJ8EfmE
+ k1Y5A1/04X4jAOlAsLwC/gXJPvRwOXcjlTGV0iE/udsvZTwUget/JJ8z+Rf8qNOyiPkw
+ yJj2F2SMrmwhekGVztlA2Q2pAzs8AFMFqbLRBQJPNklLgORIrZph6rJJ3UNW8S4ZJjg3
+ qJTB7dza4b3s5o9JABNFQIuI8vYLDFXbysb//RVQhcurB836uCnHSXW9VX3ZUy6Q49G6
+ TztQplbS6wJQaZSm9kqYb0/2AraLAh/SnnjZqqgUINZA/3rmPVVK1Cai2KhBcUT78AyL
+ cFcA==
+X-Gm-Message-State: AC+VfDxavIpTygPbKK1p0Jlv496jRmDkQAMQZOhi5dLXo/rCy4rw/Rhy
+ 3i9cJt/CL+qt+782Ue808rVpXg==
+X-Google-Smtp-Source: ACHHUZ51C0pF2OmSh3ZV19RMD0Jz6GfDImw2bVfTjB/4HVx9UvCSzaKvElz8ivKA9nmTvCyMTvu8Tg==
+X-Received: by 2002:a17:907:98e:b0:94a:5c6d:3207 with SMTP id
+ bf14-20020a170907098e00b0094a5c6d3207mr320366ejc.44.1683270802121; 
+ Fri, 05 May 2023 00:13:22 -0700 (PDT)
+Received: from ?IPV6:2a02:810d:15c0:828:52e:24ce:bbc1:127d?
+ ([2a02:810d:15c0:828:52e:24ce:bbc1:127d])
+ by smtp.gmail.com with ESMTPSA id
+ n22-20020a170906b31600b00965e9a23f2bsm205645ejz.134.2023.05.05.00.13.21
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 05 May 2023 00:13:21 -0700 (PDT)
+Message-ID: <66d344b2-899b-3d00-2d8f-5dd86f0af985@linaro.org>
+Date: Fri, 5 May 2023 09:13:20 +0200
 MIME-Version: 1.0
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:900:1d::77
-X-SA-Exim-Mail-From: s.trumtrar@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
-Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
-Subject: [Linux-stm32] [PATCH v9 10/10] ARM: dts: stm32: add STM32MP1-based
-	Phytec board
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.10.1
+Content-Language: en-US
+To: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>
+References: <20230504094641.870378-1-arnaud.pouliquen@foss.st.com>
+ <20230504094641.870378-2-arnaud.pouliquen@foss.st.com>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20230504094641.870378-2-arnaud.pouliquen@foss.st.com>
+Cc: devicetree@vger.kernel.org, linux-remoteproc@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH v2 1/4] dt-bindings: remoteproc: st,
+ stm32-rproc: Rework reset declarations
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -53,103 +91,44 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add the Phytec STM32MP1-3 Dev board. The devboard uses a Phytec
-stm32m157c-som.
+On 04/05/2023 11:46, Arnaud Pouliquen wrote:
+> With the introduction of the SCMI (System Control and Management
+> Interface), it is now possible to use the SCMI to handle the
+> hold boot instead of a dedicated SMC call.
 
-Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
----
 
-Notes:
-    Changes since v7:
-       - remove secure-status for sdmmc
 
- arch/arm/boot/dts/Makefile                    |  3 +-
- .../dts/stm32mp157c-phycore-stm32mp1-3.dts    | 60 +++++++++++++++++++
- 2 files changed, 62 insertions(+), 1 deletion(-)
- create mode 100644 arch/arm/boot/dts/stm32mp157c-phycore-stm32mp1-3.dts
+>  additionalProperties: false
+>  
+>  examples:
+>    - |
+>      #include <dt-bindings/reset/stm32mp1-resets.h>
+> -    m4_rproc: m4@10000000 {
+> +    m4_rproc_example1: m4@10000000 {
 
-diff --git a/arch/arm/boot/dts/Makefile b/arch/arm/boot/dts/Makefile
-index efe4152e5846..dfa9a7477c82 100644
---- a/arch/arm/boot/dts/Makefile
-+++ b/arch/arm/boot/dts/Makefile
-@@ -1252,7 +1252,8 @@ dtb-$(CONFIG_ARCH_STM32) += \
- 	stm32mp157c-ev1.dtb \
- 	stm32mp157c-ev1-scmi.dtb \
- 	stm32mp157c-lxa-mc1.dtb \
--	stm32mp157c-odyssey.dtb
-+	stm32mp157c-odyssey.dtb \
-+	stm32mp157c-phycore-stm32mp1-3.dtb
- dtb-$(CONFIG_MACH_SUN4I) += \
- 	sun4i-a10-a1000.dtb \
- 	sun4i-a10-ba10-tvbox.dtb \
-diff --git a/arch/arm/boot/dts/stm32mp157c-phycore-stm32mp1-3.dts b/arch/arm/boot/dts/stm32mp157c-phycore-stm32mp1-3.dts
-new file mode 100644
-index 000000000000..28d7203264ce
---- /dev/null
-+++ b/arch/arm/boot/dts/stm32mp157c-phycore-stm32mp1-3.dts
-@@ -0,0 +1,60 @@
-+// SPDX-License-Identifier: (GPL-2.0+ OR BSD-3-Clause)
-+/*
-+ * Copyright (C) Phytec GmbH 2019-2020 - All Rights Reserved
-+ * Author: Dom VOVARD <dom.vovard@linrt.com>.
-+ */
-+
-+/dts-v1/;
-+
-+#include <dt-bindings/pinctrl/stm32-pinfunc.h>
-+#include "stm32mp157.dtsi"
-+#include "stm32mp15xc.dtsi"
-+#include "stm32mp15xxac-pinctrl.dtsi"
-+#include "stm32mp157c-phycore-stm32mp15-som.dtsi"
-+
-+/ {
-+	model = "PHYTEC phyCORE-STM32MP1-3 Dev Board";
-+	compatible = "phytec,phycore-stm32mp1-3",
-+		     "phytec,phycore-stm32mp157c-som", "st,stm32mp157";
-+
-+	aliases {
-+		mmc0 = &sdmmc1;
-+		mmc1 = &sdmmc2;
-+		mmc2 = &sdmmc3;
-+		serial0 = &uart4;
-+		serial1 = &usart3;
-+		serial2 = &usart1;
-+	};
-+};
-+
-+&cryp1 {
-+	status = "okay";
-+};
-+
-+&dts {
-+	status = "okay";
-+};
-+
-+&fmc {
-+	status = "disabled";
-+};
-+
-+&gpu {
-+	status = "okay";
-+};
-+
-+&i2c4_eeprom {
-+	status = "okay";
-+};
-+
-+&i2c4_rtc {
-+	status = "okay";
-+};
-+
-+&qspi {
-+	status = "okay";
-+};
-+
-+&sdmmc2 {
-+	status = "okay";
-+};
--- 
-2.39.1
+Just drop the label. It's not used.
+
+
+>        compatible = "st,stm32mp1-m4";
+>        reg = <0x10000000 0x40000>,
+>              <0x30000000 0x40000>,
+>              <0x38000000 0x10000>;
+>        resets = <&rcc MCU_R>;
+> +      reset-names = "mcu_rst";
+>        st,syscfg-holdboot = <&rcc 0x10C 0x1>;
+> -      st,syscfg-tz = <&rcc 0x000 0x1>;
+> +      st,syscfg-rsc-tbl = <&tamp 0x144 0xFFFFFFFF>;
+> +      st,syscfg-m4-state = <&tamp 0x148 0xFFFFFFFF>;
+> +    };
+> +  - |
+> +    #include <dt-bindings/reset/stm32mp1-resets.h>
+> +    m4_rproc_example2: m4@10000000 {
+
+Also here.
+
+
+Best regards,
+Krzysztof
 
 _______________________________________________
 Linux-stm32 mailing list
