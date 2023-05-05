@@ -2,69 +2,47 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9D57A6F89D2
-	for <lists+linux-stm32@lfdr.de>; Fri,  5 May 2023 21:51:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1F81A6F8B1F
+	for <lists+linux-stm32@lfdr.de>; Fri,  5 May 2023 23:37:53 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 21E84C6A60D;
-	Fri,  5 May 2023 19:51:04 +0000 (UTC)
-Received: from mail-oa1-f49.google.com (mail-oa1-f49.google.com
- [209.85.160.49])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C3B40C6A60D;
+	Fri,  5 May 2023 21:37:52 +0000 (UTC)
+Received: from phobos.denx.de (phobos.denx.de [85.214.62.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8363EC5E2C2
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CFB9EC6907C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  5 May 2023 19:51:02 +0000 (UTC)
-Received: by mail-oa1-f49.google.com with SMTP id
- 586e51a60fabf-18ef8aa1576so1853215fac.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 05 May 2023 12:51:02 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1683316261; x=1685908261;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=dguMNfMk4wcW3nSZUAYy0tuJ0r9bBR9l9tF40g9fY7I=;
- b=XE+dOf4U2mmtaEpw0ZfhdVshW8bBwfb77ik/9vzZp0BFEBEnApx+RX4zfLNiubV6nC
- /hgoHUcgqCgXJVSWpCj+iccyq+bbd74a3E8z7yDIV5GmKwk63A1W7KX4WNWJIGPql+NR
- PYkvH2JayCpXKTofE3/BjI2CHWta5Yde8/RnHOVVU07KX41U6nVYcPDEEA3Vv3y5lLwn
- dN1nQU6T9ZlJ63jDjjnHST7+5brLu4kA1gwi/Tk2j+EuH0TapwIDvCbi2M4x/zC037zw
- hp2T9FjHzR6C+ykCVhnRVci2tChYhViuNpvRgeuEJjtu4Jr5L7DJDAcsm58ZR8fL2xk4
- hY5Q==
-X-Gm-Message-State: AC+VfDyBEWOywMxy2/aZVjRdFJHCe26XYvuIF+2OEeEQjf52yrj4baCl
- EasKXBNsqSaAN+00panFuw==
-X-Google-Smtp-Source: ACHHUZ7b1sGcz+WaT+MXyYJMCCmoh/Da9MtxtY9aquw0oa5YHEQhZYwLP6Ds8cyve+AMTX6K19GXTw==
-X-Received: by 2002:a05:6870:304:b0:187:85c1:8075 with SMTP id
- m4-20020a056870030400b0018785c18075mr1432649oaf.15.1683316261202; 
- Fri, 05 May 2023 12:51:01 -0700 (PDT)
-Received: from robh_at_kernel.org (66-90-144-107.dyn.grandenetworks.net.
- [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
- e1-20020a056870c34100b0018449ae08cesm2222138oak.13.2023.05.05.12.50.59
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 05 May 2023 12:51:00 -0700 (PDT)
-Received: (nullmailer pid 3459191 invoked by uid 1000);
- Fri, 05 May 2023 19:50:58 -0000
-Date: Fri, 5 May 2023 14:50:58 -0500
-From: Rob Herring <robh@kernel.org>
-To: Dario Binacchi <dario.binacchi@amarulasolutions.com>
-Message-ID: <168331625833.3459132.18047945812995754036.robh@kernel.org>
-References: <20230427204540.3126234-1-dario.binacchi@amarulasolutions.com>
- <20230427204540.3126234-2-dario.binacchi@amarulasolutions.com>
+ Fri,  5 May 2023 21:37:50 +0000 (UTC)
+Received: from tr.lan (ip-86-49-120-218.bb.vodafone.cz [86.49.120.218])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
+ (No client certificate requested)
+ (Authenticated sender: marex@denx.de)
+ by phobos.denx.de (Postfix) with ESMTPSA id E8FD2847B4;
+ Fri,  5 May 2023 23:37:49 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de;
+ s=phobos-20191101; t=1683322670;
+ bh=sCoJIcyJn57OBbXz+UIeQXoZcPT1NlToEObIQS32cWM=;
+ h=From:To:Cc:Subject:Date:From;
+ b=bpx1YYAeXshyGsyDhZmNoRTuMtAH6I8ykEIQB/Xkjkw2eG5I1N28JsyeuKKnoBzDs
+ m4HiB/ZaOOvEgxd/qRdT67Sqg93CcFXWpo7ZXLYYxHGKdJaAkjP/CAt7o0wuABGgwa
+ T9FCRzlKAJty2jL2dV3qaFwQaMx1teJtOeJSYeQ5oOirDj3CyrrH8Fm65ERYPyO2bP
+ NqegsNq2I3kKkiOvpKBsR6rCN10pkbcs+goSdCabZZ/K73ALzZQEaR+AwIvxqZEJxF
+ UJbOaCgWcFzZOIbdMgMk2HO3owQwFnq3ofEznYSWUZ+T7TtcaXWN4H9gpiJu4EGfYe
+ gZf3ReVFvb6kQ==
+From: Marek Vasut <marex@denx.de>
+To: linux-arm-kernel@lists.infradead.org
+Date: Fri,  5 May 2023 23:37:29 +0200
+Message-Id: <20230505213729.119789-1-marex@denx.de>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20230427204540.3126234-2-dario.binacchi@amarulasolutions.com>
-Cc: devicetree@vger.kernel.org, Paolo Abeni <pabeni@redhat.com>,
- linux-kernel@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-can@vger.kernel.org, Eric Dumazet <edumazet@google.com>,
- Rob Herring <robh+dt@kernel.org>, Marc Kleine-Budde <mkl@pengutronix.de>,
- linux-arm-kernel@lists.infradead.org,
+X-Virus-Scanned: clamav-milter 0.103.8 at phobos.denx.de
+X-Virus-Status: Clean
+Cc: Marek Vasut <marex@denx.de>, devicetree@vger.kernel.org,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Jakub Kicinski <kuba@kernel.org>, michael@amarulasolutions.com,
- Amarula patchwork <linux-amarula@amarulasolutions.com>,
- "David S. Miller" <davem@davemloft.net>,
- Wolfgang Grandegger <wg@grandegger.com>
-Subject: Re: [Linux-stm32] [PATCH v2 1/5] dt-bindings: net: can: add "st,
- can-secondary" property
+ Rob Herring <robh+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, kernel@dh-electronics.com
+Subject: [Linux-stm32] [PATCH] ARM: dts: stm32: Move ethernet MAC EEPROM
+	from SoM to carrier boards
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,26 +59,100 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+The ethernet MAC EEPROM is not populated on the SoM itself, it has to be
+populated on each carrier board. Move the EEPROM into the correct place
+in DTs, i.e. the carrier board DTs. Add label to the EEPROM too.
 
-On Thu, 27 Apr 2023 22:45:36 +0200, Dario Binacchi wrote:
-> On the stm32f7 Socs the can peripheral can be in single or dual
-> configuration. In the dual configuration, in turn, it can be in primary
-> or secondary mode. The addition of the 'st,can-secondary' property allows
-> you to specify this mode in the dual configuration.
-> 
-> CAN peripheral nodes in single configuration contain neither
-> "st,can-primary" nor "st,can-secondary".
-> 
-> Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
-> ---
-> 
-> (no changes since v1)
-> 
->  .../bindings/net/can/st,stm32-bxcan.yaml      | 19 +++++++++++++++----
->  1 file changed, 15 insertions(+), 4 deletions(-)
-> 
+Fixes: 7e76f82acd9e1 ("ARM: dts: stm32: Split Avenger96 into DHCOR SoM and Avenger96 board")
+Signed-off-by: Marek Vasut <marex@denx.de>
+---
+Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Cc: Rob Herring <robh+dt@kernel.org>
+Cc: devicetree@vger.kernel.org
+Cc: kernel@dh-electronics.com
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-stm32@st-md-mailman.stormreply.com
+---
+ arch/arm/boot/dts/stm32mp15xx-dhcor-avenger96.dtsi   | 6 ++++++
+ arch/arm/boot/dts/stm32mp15xx-dhcor-drc-compact.dtsi | 6 ++++++
+ arch/arm/boot/dts/stm32mp15xx-dhcor-som.dtsi         | 6 ------
+ arch/arm/boot/dts/stm32mp15xx-dhcor-testbench.dtsi   | 8 ++++++++
+ 4 files changed, 20 insertions(+), 6 deletions(-)
 
-Reviewed-by: Rob Herring <robh@kernel.org>
+diff --git a/arch/arm/boot/dts/stm32mp15xx-dhcor-avenger96.dtsi b/arch/arm/boot/dts/stm32mp15xx-dhcor-avenger96.dtsi
+index 8232bbbae379c..302efac5d26f0 100644
+--- a/arch/arm/boot/dts/stm32mp15xx-dhcor-avenger96.dtsi
++++ b/arch/arm/boot/dts/stm32mp15xx-dhcor-avenger96.dtsi
+@@ -321,6 +321,12 @@ adv7513_i2s0: endpoint {
+ 			};
+ 		};
+ 	};
++
++	dh_mac_eeprom: eeprom@53 {
++		compatible = "atmel,24c02";
++		reg = <0x53>;
++		pagesize = <16>;
++	};
+ };
+ 
+ &ltdc {
+diff --git a/arch/arm/boot/dts/stm32mp15xx-dhcor-drc-compact.dtsi b/arch/arm/boot/dts/stm32mp15xx-dhcor-drc-compact.dtsi
+index c32c160f97f20..39af79dc654cc 100644
+--- a/arch/arm/boot/dts/stm32mp15xx-dhcor-drc-compact.dtsi
++++ b/arch/arm/boot/dts/stm32mp15xx-dhcor-drc-compact.dtsi
+@@ -192,6 +192,12 @@ eeprom@50 {
+ 		reg = <0x50>;
+ 		pagesize = <16>;
+ 	};
++
++	dh_mac_eeprom: eeprom@53 {
++		compatible = "atmel,24c02";
++		reg = <0x53>;
++		pagesize = <16>;
++	};
+ };
+ 
+ &sdmmc1 {	/* MicroSD */
+diff --git a/arch/arm/boot/dts/stm32mp15xx-dhcor-som.dtsi b/arch/arm/boot/dts/stm32mp15xx-dhcor-som.dtsi
+index 948054382136b..864960387e634 100644
+--- a/arch/arm/boot/dts/stm32mp15xx-dhcor-som.dtsi
++++ b/arch/arm/boot/dts/stm32mp15xx-dhcor-som.dtsi
+@@ -213,12 +213,6 @@ watchdog {
+ 			status = "disabled";
+ 		};
+ 	};
+-
+-	eeprom@53 {
+-		compatible = "atmel,24c02";
+-		reg = <0x53>;
+-		pagesize = <16>;
+-	};
+ };
+ 
+ &ipcc {
+diff --git a/arch/arm/boot/dts/stm32mp15xx-dhcor-testbench.dtsi b/arch/arm/boot/dts/stm32mp15xx-dhcor-testbench.dtsi
+index 5fdb74b652aca..faed31b6d84a1 100644
+--- a/arch/arm/boot/dts/stm32mp15xx-dhcor-testbench.dtsi
++++ b/arch/arm/boot/dts/stm32mp15xx-dhcor-testbench.dtsi
+@@ -90,6 +90,14 @@ phy0: ethernet-phy@7 {
+ 	};
+ };
+ 
++&i2c4 {
++	dh_mac_eeprom: eeprom@53 {
++		compatible = "atmel,24c02";
++		reg = <0x53>;
++		pagesize = <16>;
++	};
++};
++
+ &sdmmc1 {
+ 	pinctrl-names = "default", "opendrain", "sleep";
+ 	pinctrl-0 = <&sdmmc1_b4_pins_a &sdmmc1_dir_pins_b>;
+-- 
+2.39.2
 
 _______________________________________________
 Linux-stm32 mailing list
