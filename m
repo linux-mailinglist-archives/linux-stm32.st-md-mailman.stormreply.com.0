@@ -2,49 +2,51 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3A7256F937E
-	for <lists+linux-stm32@lfdr.de>; Sat,  6 May 2023 20:04:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E643B6F951D
+	for <lists+linux-stm32@lfdr.de>; Sun,  7 May 2023 01:59:09 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CA3EEC6A60E;
-	Sat,  6 May 2023 18:04:49 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 749DBC6A60F;
+	Sat,  6 May 2023 23:59:09 +0000 (UTC)
+Received: from phobos.denx.de (phobos.denx.de [85.214.62.61])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E61BFC0356E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2156DC6A60D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat,  6 May 2023 18:04:47 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ Sat,  6 May 2023 23:59:08 +0000 (UTC)
+Received: from tr.lan (ip-86-49-120-218.bb.vodafone.cz [86.49.120.218])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 931ED60920;
- Sat,  6 May 2023 18:04:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3255C433EF;
- Sat,  6 May 2023 18:04:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1683396286;
- bh=I1MijWNxyXyqex1NCPpZlVK1VDtdWQuftGubG9soG/w=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=ol4UDf+hDjQWHwrwyTp47BFSndozehemtspEdwPlhcteQH728zEDNgVob4FmiFRUY
- Jd5yaJfqMTQZjc+pbzrHE8dWxlo1vKjYh+AK+fW0G+n3va+qcCpN3JqqfPdJtoUBxP
- 6taQ2KvPRQZdkQ+ugPm2yuBD638wA67vM0Le0FhXDVyyHNGtK36ltyrZp4PSK5DYKT
- m+M7Yo6bAvinN8EaBr0gV3dzJlm0TQLt9ebd+NwbHBw7pXQT+coUBHVFj14aLHh2aE
- Rdjq4HgLDusBiwBZwvRwiZEBkG2rrPtF4j0n7gefnhxTDz5ZygyhPrzzUKuuIl0/D5
- pY12W52h+8qyQ==
-Date: Sat, 6 May 2023 19:20:39 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Olivier MOYSAN <olivier.moysan@foss.st.com>
-Message-ID: <20230506192039.36104088@jic23-huawei>
-In-Reply-To: <29974337-d4a0-e295-ed0f-59f6f27576fe@foss.st.com>
-References: <20230503162029.3654093-1-sean@geanix.com>
- <20230503162029.3654093-2-sean@geanix.com>
- <29974337-d4a0-e295-ed0f-59f6f27576fe@foss.st.com>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.37; x86_64-pc-linux-gnu)
+ (Authenticated sender: marex@denx.de)
+ by phobos.denx.de (Postfix) with ESMTPSA id C7D6B846AB;
+ Sun,  7 May 2023 01:59:04 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de;
+ s=phobos-20191101; t=1683417547;
+ bh=ZUhS1ZWLrGpvQnUbZA/62/O7dcd8ZbzQP4fKgZ8kAT0=;
+ h=From:To:Cc:Subject:Date:From;
+ b=ucU7siYSnzqN0W0WYGubOpR9qIOtKlfsdYOGyXQqWD0hOpAAACsVymjVSNfpuKWcy
+ +qTHuJDyKOMVBFCyH59kr8SsZnMw+yzJMQQ/8VF7QUnNRERt7AXGBTm+y0dUnsTBRb
+ TcADCYsPOYm4MNjh8f2kv+aW2b06d+Plqz+M3u/r6aQ50uJ+9avK0OFApzXsiE0dtX
+ UaRqRZhzH3ucgoCiX0E29wNbIiN7jPqwc7LcRULnbonf3Q7TQIermthOSh1FJ0G3ys
+ YLkrb2czuIUTa+XrD8ZXsaoWm6OJojHpLVrFBY8IhEDy0AlzquxoT+lK3IxTmSxm5i
+ axdWLJddhZ9JQ==
+From: Marek Vasut <marex@denx.de>
+To: netdev@vger.kernel.org
+Date: Sun,  7 May 2023 01:58:45 +0200
+Message-Id: <20230506235845.246105-1-marex@denx.de>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-Cc: linux-iio@vger.kernel.org, nuno.sa@analog.com,
- Sean Nyekjaer <sean@geanix.com>, Fabrice GASNIER <fabrice.gasnier@st.com>,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH v3 2/2] iio: adc: stm32-adc: skip
- adc-channels setup if none is present
+X-Virus-Scanned: clamav-milter 0.103.8 at phobos.denx.de
+X-Virus-Status: Clean
+Cc: Marek Vasut <marex@denx.de>, Paolo Abeni <pabeni@redhat.com>,
+ Marcel Ziswiler <marcel.ziswiler@toradex.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Jakub Kicinski <kuba@kernel.org>,
+ Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Francesco Dolcini <francesco.dolcini@toradex.com>, Harald Seiler <hws@denx.de>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH] net: stmmac: Initialize MAC_ONEUS_TIC_COUNTER
+	register
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -61,120 +63,114 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, 4 May 2023 13:41:24 +0200
-Olivier MOYSAN <olivier.moysan@foss.st.com> wrote:
+Initialize MAC_ONEUS_TIC_COUNTER register with correct value derived
+from CSR clock, otherwise EEE is unstable on at least NXP i.MX8M Plus
+and Micrel KSZ9131RNX PHY, to the point where not even ARP request can
+be sent out.
 
-> Hi Sean,
-> 
-> Thanks for your update
-> You can add my: Reviewed-by: Olivier Moysan <olivier.moysan@foss.st.com>
-Please keep RB on a separate line as it makes it easier for scripts to find
-it (e.g. b4)  I wasn't clear on whether RB applied to both patches or just
-this one, so I went with safe option and only applied it to this one.
+i.MX 8M Plus Applications Processor Reference Manual, Rev. 1, 06/2021
+11.7.6.1.34 One-microsecond Reference Timer (MAC_ONEUS_TIC_COUNTER)
+defines this register as:
+"
+This register controls the generation of the Reference time (1 microsecond
+tic) for all the LPI timers. This timer has to be programmed by the software
+initially.
+...
+The application must program this counter so that the number of clock cycles
+of CSR clock is 1us. (Subtract 1 from the value before programming).
+For example if the CSR clock is 100MHz then this field needs to be programmed
+to value 100 - 1 = 99 (which is 0x63).
+This is required to generate the 1US events that are used to update some of
+the EEE related counters.
+"
 
-Both patches applied to the fixes-togreg branch of iio.git
+The reset value is 0x63 on i.MX8M Plus, which means expected CSR clock are
+100 MHz. However, the i.MX8M Plus "enet_qos_root_clk" are 266 MHz instead,
+which means the LPI timers reach their count much sooner on this platform.
 
-Thanks,
+This is visible using a scope by monitoring e.g. exit from LPI mode on TX_CTL
+line from MAC to PHY. This should take 30us per STMMAC_DEFAULT_TWT_LS setting,
+during which the TX_CTL line transitions from tristate to low, and 30 us later
+from low to high. On i.MX8M Plus, this transition takes 11 us, which matches
+the 30us * 100/266 formula for misconfigured MAC_ONEUS_TIC_COUNTER register.
 
-Jonathan
+Configure MAC_ONEUS_TIC_COUNTER based on CSR clock, so that the LPI timers
+have correct 1us reference. This then fixes EEE on i.MX8M Plus with Micrel
+KSZ9131RNX PHY.
 
-> 
-> BRs
-> Olivier
-> 
-> On 5/3/23 18:20, Sean Nyekjaer wrote:
-> > If only adc differential channels are defined driver will fail with
-> > stm32-adc: probe of 48003000.adc:adc@0 failed with error -22
-> > 
-> > Fix this by skipping the initialization if no channels are defined.
-> > 
-> > This applies only to the legacy way of initializing adc channels.
-> > 
-> > Fixes: d7705f35448a ("iio: adc: stm32-adc: convert to device properties")
-> > Signed-off-by: Sean Nyekjaer <sean@geanix.com>
-> > ---
-> > Changes since v1:
-> > - Ignore extra channel for timestamps in PIO mode
-> > - Use single ended count in channel creation (Thanks Olivier Moysan)
-> > 
-> > Changes since v2:
-> > - Avoid calling device_property_read_u32_array with num_se 0 (Thanks Olivier Moysan)
-> > 
-> >   drivers/iio/adc/stm32-adc.c | 42 ++++++++++++++++++++-----------------
-> >   1 file changed, 23 insertions(+), 19 deletions(-)
-> > 
-> > diff --git a/drivers/iio/adc/stm32-adc.c b/drivers/iio/adc/stm32-adc.c
-> > index 14524c1b5583..f7613efb870d 100644
-> > --- a/drivers/iio/adc/stm32-adc.c
-> > +++ b/drivers/iio/adc/stm32-adc.c
-> > @@ -2038,6 +2038,7 @@ static int stm32_adc_legacy_chan_init(struct iio_dev *indio_dev,
-> >   	struct stm32_adc_diff_channel diff[STM32_ADC_CH_MAX];
-> >   	struct device *dev = &indio_dev->dev;
-> >   	u32 num_diff = adc->num_diff;
-> > +	int num_se = nchans - num_diff;
-> >   	int size = num_diff * sizeof(*diff) / sizeof(u32);
-> >   	int scan_index = 0, ret, i, c;
-> >   	u32 smp = 0, smps[STM32_ADC_CH_MAX], chans[STM32_ADC_CH_MAX];
-> > @@ -2064,29 +2065,32 @@ static int stm32_adc_legacy_chan_init(struct iio_dev *indio_dev,
-> >   			scan_index++;
-> >   		}
-> >   	}
-> > -
-> > -	ret = device_property_read_u32_array(dev, "st,adc-channels", chans,
-> > -					     nchans);
-> > -	if (ret)
-> > -		return ret;
-> > -
-> > -	for (c = 0; c < nchans; c++) {
-> > -		if (chans[c] >= adc_info->max_channels) {
-> > -			dev_err(&indio_dev->dev, "Invalid channel %d\n",
-> > -				chans[c]);
-> > -			return -EINVAL;
-> > +	if (num_se > 0) {
-> > +		ret = device_property_read_u32_array(dev, "st,adc-channels", chans, num_se);
-> > +		if (ret) {
-> > +			dev_err(&indio_dev->dev, "Failed to get st,adc-channels %d\n", ret);
-> > +			return ret;
-> >   		}
-> >   
-> > -		/* Channel can't be configured both as single-ended & diff */
-> > -		for (i = 0; i < num_diff; i++) {
-> > -			if (chans[c] == diff[i].vinp) {
-> > -				dev_err(&indio_dev->dev, "channel %d misconfigured\n",	chans[c]);
-> > +		for (c = 0; c < num_se; c++) {
-> > +			if (chans[c] >= adc_info->max_channels) {
-> > +				dev_err(&indio_dev->dev, "Invalid channel %d\n",
-> > +					chans[c]);
-> >   				return -EINVAL;
-> >   			}
-> > +
-> > +			/* Channel can't be configured both as single-ended & diff */
-> > +			for (i = 0; i < num_diff; i++) {
-> > +				if (chans[c] == diff[i].vinp) {
-> > +					dev_err(&indio_dev->dev, "channel %d misconfigured\n",
-> > +						chans[c]);
-> > +					return -EINVAL;
-> > +				}
-> > +			}
-> > +			stm32_adc_chan_init_one(indio_dev, &channels[scan_index],
-> > +						chans[c], 0, scan_index, false);
-> > +			scan_index++;
-> >   		}
-> > -		stm32_adc_chan_init_one(indio_dev, &channels[scan_index],
-> > -					chans[c], 0, scan_index, false);
-> > -		scan_index++;
-> >   	}
-> >   
-> >   	if (adc->nsmps > 0) {
-> > @@ -2307,7 +2311,7 @@ static int stm32_adc_chan_fw_init(struct iio_dev *indio_dev, bool timestamping)
-> >   
-> >   	if (legacy)
-> >   		ret = stm32_adc_legacy_chan_init(indio_dev, adc, channels,
-> > -						 num_channels);
-> > +						 timestamping ? num_channels - 1 : num_channels);
-> >   	else
-> >   		ret = stm32_adc_generic_chan_init(indio_dev, adc, channels);
-> >   	if (ret < 0)  
+Signed-off-by: Marek Vasut <marex@denx.de>
+---
+NOTE: The hint that this might be related to LPI timer misconfiguration
+      came from sending large fragmented ICMP request, i.e.
+      ping -4 -c 1 -s 4096 -I eth1 192.168.1.1
+      The received packets consistently missed the 1st fragment, because
+      the LPI exit time was too short and the first packet was likely
+      pushed out of the MAC while the PHY was still not ready for it.
+NOTE: I suspect this can help with Toradex ELB-3757, Marcel, can you please
+      test this patch on i.MX8M Plus Verdin ?
+      https://developer-archives.toradex.com/software/linux/release-details?module=Verdin+iMX8M+Plus&key=ELB-3757
+NOTE: STM32MP15xx sets 'ethmac' clock to 266.5 MHz, so this patch likely
+      helps there as well. The default value of MAC_ONEUS_TIC_COUNTER on
+      this platform is also 0x63, i.e. expected 100 MHz CSR clock. I can
+      not test this with KSZ9131RNX as I do not have any STM32MP15xx
+      board with this PHY. Harald, can you please test ?
+---
+Cc: "David S. Miller" <davem@davemloft.net>
+Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
+Cc: Eric Dumazet <edumazet@google.com>
+Cc: Francesco Dolcini <francesco.dolcini@toradex.com>
+Cc: Giuseppe Cavallaro <peppe.cavallaro@st.com>
+Cc: Harald Seiler <hws@denx.de>
+Cc: Jakub Kicinski <kuba@kernel.org>
+Cc: Jose Abreu <joabreu@synopsys.com>
+Cc: Marcel Ziswiler <marcel.ziswiler@toradex.com>
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Cc: Paolo Abeni <pabeni@redhat.com>
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-stm32@st-md-mailman.stormreply.com
+Cc: netdev@vger.kernel.org
+---
+ drivers/net/ethernet/stmicro/stmmac/dwmac4.h      | 1 +
+ drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c | 5 +++++
+ 2 files changed, 6 insertions(+)
+
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4.h b/drivers/net/ethernet/stmicro/stmmac/dwmac4.h
+index 4538f334df576..d3c5306f1c41f 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac4.h
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4.h
+@@ -181,6 +181,7 @@ enum power_event {
+ #define GMAC4_LPI_CTRL_STATUS	0xd0
+ #define GMAC4_LPI_TIMER_CTRL	0xd4
+ #define GMAC4_LPI_ENTRY_TIMER	0xd8
++#define GMAC4_MAC_ONEUS_TIC_COUNTER	0xdc
+ 
+ /* LPI control and status defines */
+ #define GMAC4_LPI_CTRL_STATUS_LPITCSE	BIT(21)	/* LPI Tx Clock Stop Enable */
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c b/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
+index afaec3fb9ab66..03b1c5a97826e 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
+@@ -25,6 +25,7 @@ static void dwmac4_core_init(struct mac_device_info *hw,
+ 	struct stmmac_priv *priv = netdev_priv(dev);
+ 	void __iomem *ioaddr = hw->pcsr;
+ 	u32 value = readl(ioaddr + GMAC_CONFIG);
++	u32 clk_rate;
+ 
+ 	value |= GMAC_CORE_INIT;
+ 
+@@ -47,6 +48,10 @@ static void dwmac4_core_init(struct mac_device_info *hw,
+ 
+ 	writel(value, ioaddr + GMAC_CONFIG);
+ 
++	/* Configure LPI 1us counter to number of CSR clock ticks in 1us - 1 */
++	clk_rate = clk_get_rate(priv->plat->stmmac_clk);
++	writel((clk_rate / 1000000) - 1, ioaddr + GMAC4_MAC_ONEUS_TIC_COUNTER);
++
+ 	/* Enable GMAC interrupts */
+ 	value = GMAC_INT_DEFAULT_ENABLE;
+ 
+-- 
+2.39.2
 
 _______________________________________________
 Linux-stm32 mailing list
