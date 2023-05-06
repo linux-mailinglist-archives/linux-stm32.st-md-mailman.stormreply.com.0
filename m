@@ -2,47 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1F81A6F8B1F
-	for <lists+linux-stm32@lfdr.de>; Fri,  5 May 2023 23:37:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3A7256F937E
+	for <lists+linux-stm32@lfdr.de>; Sat,  6 May 2023 20:04:50 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C3B40C6A60D;
-	Fri,  5 May 2023 21:37:52 +0000 (UTC)
-Received: from phobos.denx.de (phobos.denx.de [85.214.62.61])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CA3EEC6A60E;
+	Sat,  6 May 2023 18:04:49 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CFB9EC6907C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E61BFC0356E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  5 May 2023 21:37:50 +0000 (UTC)
-Received: from tr.lan (ip-86-49-120-218.bb.vodafone.cz [86.49.120.218])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
+ Sat,  6 May 2023 18:04:47 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- (Authenticated sender: marex@denx.de)
- by phobos.denx.de (Postfix) with ESMTPSA id E8FD2847B4;
- Fri,  5 May 2023 23:37:49 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de;
- s=phobos-20191101; t=1683322670;
- bh=sCoJIcyJn57OBbXz+UIeQXoZcPT1NlToEObIQS32cWM=;
- h=From:To:Cc:Subject:Date:From;
- b=bpx1YYAeXshyGsyDhZmNoRTuMtAH6I8ykEIQB/Xkjkw2eG5I1N28JsyeuKKnoBzDs
- m4HiB/ZaOOvEgxd/qRdT67Sqg93CcFXWpo7ZXLYYxHGKdJaAkjP/CAt7o0wuABGgwa
- T9FCRzlKAJty2jL2dV3qaFwQaMx1teJtOeJSYeQ5oOirDj3CyrrH8Fm65ERYPyO2bP
- NqegsNq2I3kKkiOvpKBsR6rCN10pkbcs+goSdCabZZ/K73ALzZQEaR+AwIvxqZEJxF
- UJbOaCgWcFzZOIbdMgMk2HO3owQwFnq3ofEznYSWUZ+T7TtcaXWN4H9gpiJu4EGfYe
- gZf3ReVFvb6kQ==
-From: Marek Vasut <marex@denx.de>
-To: linux-arm-kernel@lists.infradead.org
-Date: Fri,  5 May 2023 23:37:29 +0200
-Message-Id: <20230505213729.119789-1-marex@denx.de>
-X-Mailer: git-send-email 2.39.2
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 931ED60920;
+ Sat,  6 May 2023 18:04:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3255C433EF;
+ Sat,  6 May 2023 18:04:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1683396286;
+ bh=I1MijWNxyXyqex1NCPpZlVK1VDtdWQuftGubG9soG/w=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=ol4UDf+hDjQWHwrwyTp47BFSndozehemtspEdwPlhcteQH728zEDNgVob4FmiFRUY
+ Jd5yaJfqMTQZjc+pbzrHE8dWxlo1vKjYh+AK+fW0G+n3va+qcCpN3JqqfPdJtoUBxP
+ 6taQ2KvPRQZdkQ+ugPm2yuBD638wA67vM0Le0FhXDVyyHNGtK36ltyrZp4PSK5DYKT
+ m+M7Yo6bAvinN8EaBr0gV3dzJlm0TQLt9ebd+NwbHBw7pXQT+coUBHVFj14aLHh2aE
+ Rdjq4HgLDusBiwBZwvRwiZEBkG2rrPtF4j0n7gefnhxTDz5ZygyhPrzzUKuuIl0/D5
+ pY12W52h+8qyQ==
+Date: Sat, 6 May 2023 19:20:39 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Olivier MOYSAN <olivier.moysan@foss.st.com>
+Message-ID: <20230506192039.36104088@jic23-huawei>
+In-Reply-To: <29974337-d4a0-e295-ed0f-59f6f27576fe@foss.st.com>
+References: <20230503162029.3654093-1-sean@geanix.com>
+ <20230503162029.3654093-2-sean@geanix.com>
+ <29974337-d4a0-e295-ed0f-59f6f27576fe@foss.st.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.37; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.103.8 at phobos.denx.de
-X-Virus-Status: Clean
-Cc: Marek Vasut <marex@denx.de>, devicetree@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Rob Herring <robh+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, kernel@dh-electronics.com
-Subject: [Linux-stm32] [PATCH] ARM: dts: stm32: Move ethernet MAC EEPROM
-	from SoM to carrier boards
+Cc: linux-iio@vger.kernel.org, nuno.sa@analog.com,
+ Sean Nyekjaer <sean@geanix.com>, Fabrice GASNIER <fabrice.gasnier@st.com>,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH v3 2/2] iio: adc: stm32-adc: skip
+ adc-channels setup if none is present
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,100 +61,120 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The ethernet MAC EEPROM is not populated on the SoM itself, it has to be
-populated on each carrier board. Move the EEPROM into the correct place
-in DTs, i.e. the carrier board DTs. Add label to the EEPROM too.
+On Thu, 4 May 2023 13:41:24 +0200
+Olivier MOYSAN <olivier.moysan@foss.st.com> wrote:
 
-Fixes: 7e76f82acd9e1 ("ARM: dts: stm32: Split Avenger96 into DHCOR SoM and Avenger96 board")
-Signed-off-by: Marek Vasut <marex@denx.de>
----
-Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
-Cc: Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Cc: Rob Herring <robh+dt@kernel.org>
-Cc: devicetree@vger.kernel.org
-Cc: kernel@dh-electronics.com
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-stm32@st-md-mailman.stormreply.com
----
- arch/arm/boot/dts/stm32mp15xx-dhcor-avenger96.dtsi   | 6 ++++++
- arch/arm/boot/dts/stm32mp15xx-dhcor-drc-compact.dtsi | 6 ++++++
- arch/arm/boot/dts/stm32mp15xx-dhcor-som.dtsi         | 6 ------
- arch/arm/boot/dts/stm32mp15xx-dhcor-testbench.dtsi   | 8 ++++++++
- 4 files changed, 20 insertions(+), 6 deletions(-)
+> Hi Sean,
+> 
+> Thanks for your update
+> You can add my: Reviewed-by: Olivier Moysan <olivier.moysan@foss.st.com>
+Please keep RB on a separate line as it makes it easier for scripts to find
+it (e.g. b4)  I wasn't clear on whether RB applied to both patches or just
+this one, so I went with safe option and only applied it to this one.
 
-diff --git a/arch/arm/boot/dts/stm32mp15xx-dhcor-avenger96.dtsi b/arch/arm/boot/dts/stm32mp15xx-dhcor-avenger96.dtsi
-index 8232bbbae379c..302efac5d26f0 100644
---- a/arch/arm/boot/dts/stm32mp15xx-dhcor-avenger96.dtsi
-+++ b/arch/arm/boot/dts/stm32mp15xx-dhcor-avenger96.dtsi
-@@ -321,6 +321,12 @@ adv7513_i2s0: endpoint {
- 			};
- 		};
- 	};
-+
-+	dh_mac_eeprom: eeprom@53 {
-+		compatible = "atmel,24c02";
-+		reg = <0x53>;
-+		pagesize = <16>;
-+	};
- };
- 
- &ltdc {
-diff --git a/arch/arm/boot/dts/stm32mp15xx-dhcor-drc-compact.dtsi b/arch/arm/boot/dts/stm32mp15xx-dhcor-drc-compact.dtsi
-index c32c160f97f20..39af79dc654cc 100644
---- a/arch/arm/boot/dts/stm32mp15xx-dhcor-drc-compact.dtsi
-+++ b/arch/arm/boot/dts/stm32mp15xx-dhcor-drc-compact.dtsi
-@@ -192,6 +192,12 @@ eeprom@50 {
- 		reg = <0x50>;
- 		pagesize = <16>;
- 	};
-+
-+	dh_mac_eeprom: eeprom@53 {
-+		compatible = "atmel,24c02";
-+		reg = <0x53>;
-+		pagesize = <16>;
-+	};
- };
- 
- &sdmmc1 {	/* MicroSD */
-diff --git a/arch/arm/boot/dts/stm32mp15xx-dhcor-som.dtsi b/arch/arm/boot/dts/stm32mp15xx-dhcor-som.dtsi
-index 948054382136b..864960387e634 100644
---- a/arch/arm/boot/dts/stm32mp15xx-dhcor-som.dtsi
-+++ b/arch/arm/boot/dts/stm32mp15xx-dhcor-som.dtsi
-@@ -213,12 +213,6 @@ watchdog {
- 			status = "disabled";
- 		};
- 	};
--
--	eeprom@53 {
--		compatible = "atmel,24c02";
--		reg = <0x53>;
--		pagesize = <16>;
--	};
- };
- 
- &ipcc {
-diff --git a/arch/arm/boot/dts/stm32mp15xx-dhcor-testbench.dtsi b/arch/arm/boot/dts/stm32mp15xx-dhcor-testbench.dtsi
-index 5fdb74b652aca..faed31b6d84a1 100644
---- a/arch/arm/boot/dts/stm32mp15xx-dhcor-testbench.dtsi
-+++ b/arch/arm/boot/dts/stm32mp15xx-dhcor-testbench.dtsi
-@@ -90,6 +90,14 @@ phy0: ethernet-phy@7 {
- 	};
- };
- 
-+&i2c4 {
-+	dh_mac_eeprom: eeprom@53 {
-+		compatible = "atmel,24c02";
-+		reg = <0x53>;
-+		pagesize = <16>;
-+	};
-+};
-+
- &sdmmc1 {
- 	pinctrl-names = "default", "opendrain", "sleep";
- 	pinctrl-0 = <&sdmmc1_b4_pins_a &sdmmc1_dir_pins_b>;
--- 
-2.39.2
+Both patches applied to the fixes-togreg branch of iio.git
+
+Thanks,
+
+Jonathan
+
+> 
+> BRs
+> Olivier
+> 
+> On 5/3/23 18:20, Sean Nyekjaer wrote:
+> > If only adc differential channels are defined driver will fail with
+> > stm32-adc: probe of 48003000.adc:adc@0 failed with error -22
+> > 
+> > Fix this by skipping the initialization if no channels are defined.
+> > 
+> > This applies only to the legacy way of initializing adc channels.
+> > 
+> > Fixes: d7705f35448a ("iio: adc: stm32-adc: convert to device properties")
+> > Signed-off-by: Sean Nyekjaer <sean@geanix.com>
+> > ---
+> > Changes since v1:
+> > - Ignore extra channel for timestamps in PIO mode
+> > - Use single ended count in channel creation (Thanks Olivier Moysan)
+> > 
+> > Changes since v2:
+> > - Avoid calling device_property_read_u32_array with num_se 0 (Thanks Olivier Moysan)
+> > 
+> >   drivers/iio/adc/stm32-adc.c | 42 ++++++++++++++++++++-----------------
+> >   1 file changed, 23 insertions(+), 19 deletions(-)
+> > 
+> > diff --git a/drivers/iio/adc/stm32-adc.c b/drivers/iio/adc/stm32-adc.c
+> > index 14524c1b5583..f7613efb870d 100644
+> > --- a/drivers/iio/adc/stm32-adc.c
+> > +++ b/drivers/iio/adc/stm32-adc.c
+> > @@ -2038,6 +2038,7 @@ static int stm32_adc_legacy_chan_init(struct iio_dev *indio_dev,
+> >   	struct stm32_adc_diff_channel diff[STM32_ADC_CH_MAX];
+> >   	struct device *dev = &indio_dev->dev;
+> >   	u32 num_diff = adc->num_diff;
+> > +	int num_se = nchans - num_diff;
+> >   	int size = num_diff * sizeof(*diff) / sizeof(u32);
+> >   	int scan_index = 0, ret, i, c;
+> >   	u32 smp = 0, smps[STM32_ADC_CH_MAX], chans[STM32_ADC_CH_MAX];
+> > @@ -2064,29 +2065,32 @@ static int stm32_adc_legacy_chan_init(struct iio_dev *indio_dev,
+> >   			scan_index++;
+> >   		}
+> >   	}
+> > -
+> > -	ret = device_property_read_u32_array(dev, "st,adc-channels", chans,
+> > -					     nchans);
+> > -	if (ret)
+> > -		return ret;
+> > -
+> > -	for (c = 0; c < nchans; c++) {
+> > -		if (chans[c] >= adc_info->max_channels) {
+> > -			dev_err(&indio_dev->dev, "Invalid channel %d\n",
+> > -				chans[c]);
+> > -			return -EINVAL;
+> > +	if (num_se > 0) {
+> > +		ret = device_property_read_u32_array(dev, "st,adc-channels", chans, num_se);
+> > +		if (ret) {
+> > +			dev_err(&indio_dev->dev, "Failed to get st,adc-channels %d\n", ret);
+> > +			return ret;
+> >   		}
+> >   
+> > -		/* Channel can't be configured both as single-ended & diff */
+> > -		for (i = 0; i < num_diff; i++) {
+> > -			if (chans[c] == diff[i].vinp) {
+> > -				dev_err(&indio_dev->dev, "channel %d misconfigured\n",	chans[c]);
+> > +		for (c = 0; c < num_se; c++) {
+> > +			if (chans[c] >= adc_info->max_channels) {
+> > +				dev_err(&indio_dev->dev, "Invalid channel %d\n",
+> > +					chans[c]);
+> >   				return -EINVAL;
+> >   			}
+> > +
+> > +			/* Channel can't be configured both as single-ended & diff */
+> > +			for (i = 0; i < num_diff; i++) {
+> > +				if (chans[c] == diff[i].vinp) {
+> > +					dev_err(&indio_dev->dev, "channel %d misconfigured\n",
+> > +						chans[c]);
+> > +					return -EINVAL;
+> > +				}
+> > +			}
+> > +			stm32_adc_chan_init_one(indio_dev, &channels[scan_index],
+> > +						chans[c], 0, scan_index, false);
+> > +			scan_index++;
+> >   		}
+> > -		stm32_adc_chan_init_one(indio_dev, &channels[scan_index],
+> > -					chans[c], 0, scan_index, false);
+> > -		scan_index++;
+> >   	}
+> >   
+> >   	if (adc->nsmps > 0) {
+> > @@ -2307,7 +2311,7 @@ static int stm32_adc_chan_fw_init(struct iio_dev *indio_dev, bool timestamping)
+> >   
+> >   	if (legacy)
+> >   		ret = stm32_adc_legacy_chan_init(indio_dev, adc, channels,
+> > -						 num_channels);
+> > +						 timestamping ? num_channels - 1 : num_channels);
+> >   	else
+> >   		ret = stm32_adc_generic_chan_init(indio_dev, adc, channels);
+> >   	if (ret < 0)  
 
 _______________________________________________
 Linux-stm32 mailing list
