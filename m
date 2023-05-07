@@ -2,65 +2,77 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D65896F99C4
-	for <lists+linux-stm32@lfdr.de>; Sun,  7 May 2023 18:26:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0384D6F9BC1
+	for <lists+linux-stm32@lfdr.de>; Sun,  7 May 2023 23:19:24 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5A031C6A5F7;
-	Sun,  7 May 2023 16:26:58 +0000 (UTC)
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
- [85.220.165.71])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 65E5AC6A5F7;
+	Sun,  7 May 2023 21:19:23 +0000 (UTC)
+Received: from mail-lf1-f47.google.com (mail-lf1-f47.google.com
+ [209.85.167.47])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 36BE4C69053
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2297DC6A5F2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun,  7 May 2023 16:26:56 +0000 (UTC)
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
- by metis.ext.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <ukl@pengutronix.de>)
- id 1pvhDc-0002Hp-6J; Sun, 07 May 2023 18:26:40 +0200
-Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
- by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.94.2)
- (envelope-from <ukl@pengutronix.de>)
- id 1pvhDb-001nEc-C5; Sun, 07 May 2023 18:26:39 +0200
-Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.94.2)
- (envelope-from <ukl@pengutronix.de>)
- id 1pvhDa-002AiN-KO; Sun, 07 May 2023 18:26:38 +0200
-From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
-To: Yannick Fertre <yannick.fertre@foss.st.com>,
- Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>,
- Philippe Cornu <philippe.cornu@foss.st.com>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-Date: Sun,  7 May 2023 18:26:05 +0200
-Message-Id: <20230507162616.1368908-43-u.kleine-koenig@pengutronix.de>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20230507162616.1368908-1-u.kleine-koenig@pengutronix.de>
-References: <20230507162616.1368908-1-u.kleine-koenig@pengutronix.de>
+ Sun,  7 May 2023 21:19:22 +0000 (UTC)
+Received: by mail-lf1-f47.google.com with SMTP id
+ 2adb3069b0e04-4f24d4900bbso700136e87.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Sun, 07 May 2023 14:19:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1683494361; x=1686086361;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=7M6ub/NmPwBZXz6BefX6rH5VtXUTAlDRqSeqfc1qlxg=;
+ b=EsAGTRj4To4BnlSeJPHuQ6zLtRUgWkHzrZG3B2PmWYSFLmEvY/OCEu/yuc2F8AtK82
+ /OSXzCpBPOQGFMw+g1cqRYA1gS51dfuMHx+IsN1a4qsqhUJlO0THP8/1rscWRTQiQQN1
+ SUbhDJVLQZPbRkCKZcdFulgZpMs6h/brht98wBzdimvW51IcqLh+M5xH5zJL7/Q0h0ph
+ dR7hRuSXpn5nLr41KfQBq77unyiZL6lQmBG+LPH1Ml0GTNZ8kqntxU8UCoTMMLfgsbS1
+ 8BalEB+UDuc7452mxBLZBr0VN1v1pdw6ex3KXsNvbhEfKyB+Hyh5t+kxO2jwQ/3Snyxw
+ kCmQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1683494361; x=1686086361;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=7M6ub/NmPwBZXz6BefX6rH5VtXUTAlDRqSeqfc1qlxg=;
+ b=GNnX5HAQReT0PLHd9bL4shDZoMQYMDhCDsK+ybknBI1UlYnuk7kwLZGIIs+me7vBh2
+ 4TTnvgfa6ad7I1O9+6TsZtyoiDZOyviunmy72ItQjGBrjN0bj8YvO8AAtsGLBaymyNZL
+ IyYqbAUsQtP3E2NBSQ1bW5LotcpsSYoy2vCBlK2H+VqJyis8A+nALqngIZo1AdoP1wfr
+ pNNqkRHuCimPhCATy66O+KdLDdI/bAvmAdbujjqZ7mMIZh+D6OsBHEE1TJacV3agKVKL
+ 87JX+TbmzrJUPABSAhAhngXevy9XVcaZxlYHCHP9VH2pP6kwGwoV4IOEMGgIvGQ0R7jU
+ mmfQ==
+X-Gm-Message-State: AC+VfDzYB7ocic3Ns/yAxIMIt4Dl2QVIsDWLz9mpesBxXHC4DGCFuaZj
+ G3bzZfWcU96eqmbCjMP8yHQaMg==
+X-Google-Smtp-Source: ACHHUZ42PhnxOTSa9MUk+fDi4qwQQ2n7hdg3WYajR6JoHgqh87ZZbsxPnSWkcYDti3YOqkZNiHTpUQ==
+X-Received: by 2002:a05:6512:2185:b0:4f1:1de7:1aac with SMTP id
+ b5-20020a056512218500b004f11de71aacmr2169073lft.20.1683494361230; 
+ Sun, 07 May 2023 14:19:21 -0700 (PDT)
+Received: from [127.0.1.1] ([85.235.12.238]) by smtp.gmail.com with ESMTPSA id
+ c27-20020ac244bb000000b004f195cc3918sm623424lfm.176.2023.05.07.14.19.20
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 07 May 2023 14:19:20 -0700 (PDT)
+From: Linus Walleij <linus.walleij@linaro.org>
+Date: Sun, 07 May 2023 23:19:18 +0200
+Message-Id: <20230426-stmpe-dt-bindings-v3-0-eac1d736e488@linaro.org>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2934;
- i=u.kleine-koenig@pengutronix.de; h=from:subject;
- bh=VBjQWjzqZ0JTQET5hvmN/Q6/iuJELmv5j/ynukd6X4A=;
- b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBkV9EUK4Twf4RYXDa6P3NRl5LAxP6p01blYfQj+
- sfuV37RNpuJATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCZFfRFAAKCRCPgPtYfRL+
- Tn5BCACZXxqbkSEj64X4IO9Jl4UE5Fwcqo46zCGQPooOmtsJPnvHOMD2vrTWcdt89WbWa7HPyGW
- p68wJigwr8LgliEAG8bFBav809Ur+2IYDYVpkPTywsKw5waM0XrYaMLY2F1vodQugTwLttTS5Q9
- NaXjOLbW5Hwxl7bjMEUkL79vmwX9GFQino3lvHJbJTNuRGj1Eir7GJWRvzNUJKyA3EmXZirKoS4
- wQ47mFT617Y0LGi9fBYVJ7mRBGqo58eItCT6BRznJjnP6K88oRjUBE5Mzq8oNPv3DRhGwj+L5jF
- 9UwZ78x5QLVJ/VyxkuH6gcIlEVoNR80JhOcG5RX5cfRr76aW
-X-Developer-Key: i=u.kleine-koenig@pengutronix.de; a=openpgp;
- fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: ukl@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
-Cc: linux-arm-kernel@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com, dri-devel@lists.freedesktop.org,
- kernel@pengutronix.de
-Subject: [Linux-stm32] [PATCH 42/53] drm/stm: Convert to platform remove
-	callback returning void
+X-B4-Tracking: v=1; b=H4sIANYVWGQC/32OOw6DMBBEr4JcZyMwJJBUuUdEsfgDK4GNvBYKQ
+ tw9hiJlyjejp5lNsAlkWDyzTQSzEJN3CcpLJtSArjdAOrGQuSzzSt6B4zQb0BE6cppcz6DKqn5
+ oXRcoG5G8DtlAF9Cp4TB/worTePRzMJY+5+a7TTwQRx/W88Iij/Tf2iIhB2mbGxbWWqXxNZLD4
+ K8+9KLd9/0LVFwtENMAAAA=
+To: Bartosz Golaszewski <brgl@bgdev.pl>, Rob Herring <robh+dt@kernel.org>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>, Lee Jones <lee@kernel.org>, 
+ Philippe Schenker <philippe.schenker@toradex.com>, 
+ Stefan Agner <stefan@agner.ch>, Marek Vasut <marex@denx.de>, 
+ Steffen Trumtrar <s.trumtrar@pengutronix.de>
+X-Mailer: b4 0.12.1
+Cc: devicetree@vger.kernel.org, Rob Herring <robh@kernel.org>,
+ Linus Walleij <linus.walleij@linaro.org>, linux-kernel@vger.kernel.org,
+ linux-gpio@vger.kernel.org, linux-input@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH v3 0/2] STMPE device tree bindings
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,62 +84,46 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-VGhlIC5yZW1vdmUoKSBjYWxsYmFjayBmb3IgYSBwbGF0Zm9ybSBkcml2ZXIgcmV0dXJucyBhbiBp
-bnQgd2hpY2ggbWFrZXMKbWFueSBkcml2ZXIgYXV0aG9ycyB3cm9uZ2x5IGFzc3VtZSBpdCdzIHBv
-c3NpYmxlIHRvIGRvIGVycm9yIGhhbmRsaW5nIGJ5CnJldHVybmluZyBhbiBlcnJvciBjb2RlLiBI
-b3dldmVyIHRoZSB2YWx1ZSByZXR1cm5lZCBpcyAobW9zdGx5KSBpZ25vcmVkCmFuZCB0aGlzIHR5
-cGljYWxseSByZXN1bHRzIGluIHJlc291cmNlIGxlYWtzLiBUbyBpbXByb3ZlIGhlcmUgdGhlcmUg
-aXMgYQpxdWVzdCB0byBtYWtlIHRoZSByZW1vdmUgY2FsbGJhY2sgcmV0dXJuIHZvaWQuIEluIHRo
-ZSBmaXJzdCBzdGVwIG9mIHRoaXMKcXVlc3QgYWxsIGRyaXZlcnMgYXJlIGNvbnZlcnRlZCB0byAu
-cmVtb3ZlX25ldygpIHdoaWNoIGFscmVhZHkgcmV0dXJucwp2b2lkLgoKVHJpdmlhbGx5IGNvbnZl
-cnQgdGhlIHN0bSBkcm0gZHJpdmVycyBmcm9tIGFsd2F5cyByZXR1cm5pbmcgemVybyBpbiB0aGUK
-cmVtb3ZlIGNhbGxiYWNrIHRvIHRoZSB2b2lkIHJldHVybmluZyB2YXJpYW50LgoKU2lnbmVkLW9m
-Zi1ieTogVXdlIEtsZWluZS1Lw7ZuaWcgPHUua2xlaW5lLWtvZW5pZ0BwZW5ndXRyb25peC5kZT4K
-LS0tCiBkcml2ZXJzL2dwdS9kcm0vc3RtL2Rydi5jICAgICAgICAgICAgIHwgNiArKy0tLS0KIGRy
-aXZlcnMvZ3B1L2RybS9zdG0vZHdfbWlwaV9kc2ktc3RtLmMgfCA2ICsrLS0tLQogMiBmaWxlcyBj
-aGFuZ2VkLCA0IGluc2VydGlvbnMoKyksIDggZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJp
-dmVycy9ncHUvZHJtL3N0bS9kcnYuYyBiL2RyaXZlcnMvZ3B1L2RybS9zdG0vZHJ2LmMKaW5kZXgg
-NTA0MTBiZDk5ZGZlLi5iZTkxYjM3NWE0ZDUgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9z
-dG0vZHJ2LmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL3N0bS9kcnYuYwpAQCAtMjEzLDcgKzIxMyw3
-IEBAIHN0YXRpYyBpbnQgc3RtX2RybV9wbGF0Zm9ybV9wcm9iZShzdHJ1Y3QgcGxhdGZvcm1fZGV2
-aWNlICpwZGV2KQogCXJldHVybiByZXQ7CiB9CiAKLXN0YXRpYyBpbnQgc3RtX2RybV9wbGF0Zm9y
-bV9yZW1vdmUoc3RydWN0IHBsYXRmb3JtX2RldmljZSAqcGRldikKK3N0YXRpYyB2b2lkIHN0bV9k
-cm1fcGxhdGZvcm1fcmVtb3ZlKHN0cnVjdCBwbGF0Zm9ybV9kZXZpY2UgKnBkZXYpCiB7CiAJc3Ry
-dWN0IGRybV9kZXZpY2UgKmRkZXYgPSBwbGF0Zm9ybV9nZXRfZHJ2ZGF0YShwZGV2KTsKIApAQCAt
-MjIyLDggKzIyMiw2IEBAIHN0YXRpYyBpbnQgc3RtX2RybV9wbGF0Zm9ybV9yZW1vdmUoc3RydWN0
-IHBsYXRmb3JtX2RldmljZSAqcGRldikKIAlkcm1fZGV2X3VucmVnaXN0ZXIoZGRldik7CiAJZHJ2
-X3VubG9hZChkZGV2KTsKIAlkcm1fZGV2X3B1dChkZGV2KTsKLQotCXJldHVybiAwOwogfQogCiBz
-dGF0aWMgY29uc3Qgc3RydWN0IG9mX2RldmljZV9pZCBkcnZfZHRfaWRzW10gPSB7CkBAIC0yMzQs
-NyArMjMyLDcgQEAgTU9EVUxFX0RFVklDRV9UQUJMRShvZiwgZHJ2X2R0X2lkcyk7CiAKIHN0YXRp
-YyBzdHJ1Y3QgcGxhdGZvcm1fZHJpdmVyIHN0bV9kcm1fcGxhdGZvcm1fZHJpdmVyID0gewogCS5w
-cm9iZSA9IHN0bV9kcm1fcGxhdGZvcm1fcHJvYmUsCi0JLnJlbW92ZSA9IHN0bV9kcm1fcGxhdGZv
-cm1fcmVtb3ZlLAorCS5yZW1vdmVfbmV3ID0gc3RtX2RybV9wbGF0Zm9ybV9yZW1vdmUsCiAJLmRy
-aXZlciA9IHsKIAkJLm5hbWUgPSAic3RtMzItZGlzcGxheSIsCiAJCS5vZl9tYXRjaF90YWJsZSA9
-IGRydl9kdF9pZHMsCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vc3RtL2R3X21pcGlfZHNp
-LXN0bS5jIGIvZHJpdmVycy9ncHUvZHJtL3N0bS9kd19taXBpX2RzaS1zdG0uYwppbmRleCA4OTg5
-N2Q1ZjVjNzIuLmE3YzM0OTQwNGE3YSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL3N0bS9k
-d19taXBpX2RzaS1zdG0uYworKysgYi9kcml2ZXJzL2dwdS9kcm0vc3RtL2R3X21pcGlfZHNpLXN0
-bS5jCkBAIC01MzcsMTUgKzUzNywxMyBAQCBzdGF0aWMgaW50IGR3X21pcGlfZHNpX3N0bV9wcm9i
-ZShzdHJ1Y3QgcGxhdGZvcm1fZGV2aWNlICpwZGV2KQogCXJldHVybiByZXQ7CiB9CiAKLXN0YXRp
-YyBpbnQgZHdfbWlwaV9kc2lfc3RtX3JlbW92ZShzdHJ1Y3QgcGxhdGZvcm1fZGV2aWNlICpwZGV2
-KQorc3RhdGljIHZvaWQgZHdfbWlwaV9kc2lfc3RtX3JlbW92ZShzdHJ1Y3QgcGxhdGZvcm1fZGV2
-aWNlICpwZGV2KQogewogCXN0cnVjdCBkd19taXBpX2RzaV9zdG0gKmRzaSA9IHBsYXRmb3JtX2dl
-dF9kcnZkYXRhKHBkZXYpOwogCiAJZHdfbWlwaV9kc2lfcmVtb3ZlKGRzaS0+ZHNpKTsKIAljbGtf
-ZGlzYWJsZV91bnByZXBhcmUoZHNpLT5wbGxyZWZfY2xrKTsKIAlyZWd1bGF0b3JfZGlzYWJsZShk
-c2ktPnZkZF9zdXBwbHkpOwotCi0JcmV0dXJuIDA7CiB9CiAKIHN0YXRpYyBpbnQgX19tYXliZV91
-bnVzZWQgZHdfbWlwaV9kc2lfc3RtX3N1c3BlbmQoc3RydWN0IGRldmljZSAqZGV2KQpAQCAtNTkw
-LDcgKzU4OCw3IEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3QgZGV2X3BtX29wcyBkd19taXBpX2RzaV9z
-dG1fcG1fb3BzID0gewogCiBzdGF0aWMgc3RydWN0IHBsYXRmb3JtX2RyaXZlciBkd19taXBpX2Rz
-aV9zdG1fZHJpdmVyID0gewogCS5wcm9iZQkJPSBkd19taXBpX2RzaV9zdG1fcHJvYmUsCi0JLnJl
-bW92ZQkJPSBkd19taXBpX2RzaV9zdG1fcmVtb3ZlLAorCS5yZW1vdmVfbmV3CT0gZHdfbWlwaV9k
-c2lfc3RtX3JlbW92ZSwKIAkuZHJpdmVyCQk9IHsKIAkJLm9mX21hdGNoX3RhYmxlID0gZHdfbWlw
-aV9kc2lfc3RtX2R0X2lkcywKIAkJLm5hbWUJPSAic3RtMzItZGlzcGxheS1kc2kiLAotLSAKMi4z
-OS4yCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51
-eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5
-LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5m
-by9saW51eC1zdG0zMgo=
+This adds the missing GPIO bindings for the STMPE port expander
+and converts the existing MFD binding to YAML.
+
+Signed-off-by: Linus Walleij <linus.walleij@linaro.org>
+---
+Changes in v3:
+- Update to review feedback
+- Collected some ack/review tags
+- I guess Bartosz should apply 1/2 and Lee should apply 2/2.
+- Link to v2: https://lore.kernel.org/r/20230426-stmpe-dt-bindings-v2-0-2f85a1fffcda@linaro.org
+
+Changes in v2:
+- Split off a separate GPIO binding
+- Updated the MFD binding according to feedback
+
+---
+Linus Walleij (2):
+      dt-bindings: gpio: Add STMPE YAML DT schema
+      dt-bindings: MFD: Convert STMPE to YAML schema
+
+ .../devicetree/bindings/gpio/st,stmpe-gpio.yaml    |  51 ++++
+ .../devicetree/bindings/input/stmpe-keypad.txt     |  41 ---
+ .../bindings/input/touchscreen/stmpe.txt           | 108 --------
+ .../devicetree/bindings/mfd/st,stmpe.yaml          | 297 +++++++++++++++++++++
+ Documentation/devicetree/bindings/mfd/stmpe.txt    |  42 ---
+ 5 files changed, 348 insertions(+), 191 deletions(-)
+---
+base-commit: c712a112ed4e91afab1cc7c978af228c77a4fb13
+change-id: 20230426-stmpe-dt-bindings-c3479dd71a28
+
+Best regards,
+-- 
+Linus Walleij <linus.walleij@linaro.org>
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
