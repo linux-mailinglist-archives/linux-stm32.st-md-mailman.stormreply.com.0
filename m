@@ -2,53 +2,56 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 33B446FBFB3
+	by mail.lfdr.de (Postfix) with ESMTPS id 20E656FBFB1
 	for <lists+linux-stm32@lfdr.de>; Tue,  9 May 2023 08:56:22 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A9368C6A608;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C27F4C6A610;
 	Tue,  9 May 2023 06:56:21 +0000 (UTC)
-Received: from phobos.denx.de (phobos.denx.de [85.214.62.61])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3EA0EC6A5F6
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 74F82C6A5F6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  8 May 2023 13:11:21 +0000 (UTC)
-Received: from maia.denx.de (p578adb1c.dip0.t-ipconnect.de [87.138.219.28])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
- (No client certificate requested) (Authenticated sender: hws@denx.de)
- by phobos.denx.de (Postfix) with ESMTPSA id C85618472A;
- Mon,  8 May 2023 15:11:19 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de;
- s=phobos-20191101; t=1683551480;
- bh=kFTy1HFxA6TjrrG30+5je60VEzCjRcWjuezuFo+5A5s=;
- h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
- b=e5vOC4j+GlxV5JeeJGK2oR3mNh7znDB7g0DERNgKsRAscoYHGJWbq7YT1tnPyPURM
- 565oxwm9q/sCXf0XH66XBR12gPPkPH1B1emaNAIqUR3BDxS1K+J01MChAp3t9VmOaz
- wszmgBLu9R5LLooaBM9KJ7VHhtMCXvZKxNsaVAdzgcHoJkiAq1Oz22y9gkRx36CMgX
- q9WIX8u3JueQRYZTi/efXbnulFfJ/PBe/OJe3HCEzQbJMjX+1/iugPwmPpjMJKd1SB
- Pzfdzv/ur90r4CIl2R9YwkHEHBmYcJFkz5DToHoiXmctjlmFtum79sIOR5e3vlZ56S
- 2TDIlHWJfctcA==
-Message-ID: <fb5174e6b774e4ccda1fe274f01601661201e324.camel@denx.de>
-From: Harald Seiler <hws@denx.de>
-To: Marek Vasut <marex@denx.de>, netdev@vger.kernel.org
-Date: Mon, 08 May 2023 15:11:19 +0200
-In-Reply-To: <20230506235845.246105-1-marex@denx.de>
-References: <20230506235845.246105-1-marex@denx.de>
-User-Agent: Evolution 3.46.4 (3.46.4-1.fc37) 
-MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.103.8 at phobos.denx.de
-X-Virus-Status: Clean
-X-Mailman-Approved-At: Tue, 09 May 2023 06:56:20 +0000
-Cc: Marcel Ziswiler <marcel.ziswiler@toradex.com>,
+ Mon,  8 May 2023 14:47:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1683557229; x=1715093229;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=f9y0H45BZGZ/y5YpbN9xc9JQUz6Zyw7rmiU5RmN6aLI=;
+ b=LLRS8LRCa/HBUfqg3TuYwgknemAH2i0F39HpH9SxsN5HleY549Aa4Gxb
+ FqwOGSyO8iVucEJyT2/QezJx1ufooh9LQKmI8YZlovushb03ze+OX7bAb
+ nqnunOaRk/6yN0UTtUJFvOQnLdEXW3VxHClc6gJDmf9KgE1qCW5HAbf/S
+ qZuqqFbNTTkYpVzqnqnL6bZBAsVE9iPrHHCp+Ee8YNDlDmdBj9N1hEH2r
+ owH/llNeHJrD2yrGbOeUKGkl6xhUYy4yabFP+VWKvIKytiobn9dW3GdOf
+ JSr3nEEgtAN6cAqb8y68KM+NpStlybANMaIhrwFPSl84dy90WSdUtdrCJ A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10704"; a="347129869"
+X-IronPort-AV: E=Sophos;i="5.99,259,1677571200"; d="scan'208";a="347129869"
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 May 2023 07:46:34 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10704"; a="1028433374"
+X-IronPort-AV: E=Sophos;i="5.99,259,1677571200"; d="scan'208";a="1028433374"
+Received: from pg-esw-build.png.intel.com ([10.226.214.57])
+ by fmsmga005.fm.intel.com with ESMTP; 08 May 2023 07:46:30 -0700
+From: Teoh Ji Sheng <ji.sheng.teoh@intel.com>
+To: "David S . Miller" <davem@davemloft.net>,
  Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
- Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Jakub Kicinski <kuba@kernel.org>,
- Francesco Dolcini <francesco.dolcini@toradex.com>,
- Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] net: stmmac: Initialize
-	MAC_ONEUS_TIC_COUNTER register
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Jose Abreu <joabreu@synopsys.com>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Date: Mon,  8 May 2023 22:43:40 +0800
+Message-Id: <20230508144339.3014402-1-ji.sheng.teoh@intel.com>
+X-Mailer: git-send-email 2.34.1
+MIME-Version: 1.0
+X-Mailman-Approved-At: Tue, 09 May 2023 06:56:20 +0000
+Cc: Teoh Ji Sheng <ji.sheng.teoh@intel.com>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Subject: [Linux-stm32] [PATCH net-next 1/1] net: stmmac: xgmac: add ethtool
+	per-queue irq statistic support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -65,121 +68,36 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Marek,
+Commit af9bf70154eb ("net: stmmac: add ethtool per-queue irq statistic
+support") introduced ethtool per-queue statistics support to display
+number of interrupts generated by DMA tx and DMA rx for DWMAC4 core.
+This patch extend the support to XGMAC core.
 
-On Sun, 2023-05-07 at 01:58 +0200, Marek Vasut wrote:
-> Initialize MAC_ONEUS_TIC_COUNTER register with correct value derived
-> from CSR clock, otherwise EEE is unstable on at least NXP i.MX8M Plus
-> and Micrel KSZ9131RNX PHY, to the point where not even ARP request can
-> be sent out.
-> 
-> i.MX 8M Plus Applications Processor Reference Manual, Rev. 1, 06/2021
-> 11.7.6.1.34 One-microsecond Reference Timer (MAC_ONEUS_TIC_COUNTER)
-> defines this register as:
-> "
-> This register controls the generation of the Reference time (1 microsecond
-> tic) for all the LPI timers. This timer has to be programmed by the software
-> initially.
-> ...
-> The application must program this counter so that the number of clock cycles
-> of CSR clock is 1us. (Subtract 1 from the value before programming).
-> For example if the CSR clock is 100MHz then this field needs to be programmed
-> to value 100 - 1 = 99 (which is 0x63).
-> This is required to generate the 1US events that are used to update some of
-> the EEE related counters.
-> "
-> 
-> The reset value is 0x63 on i.MX8M Plus, which means expected CSR clock are
-> 100 MHz. However, the i.MX8M Plus "enet_qos_root_clk" are 266 MHz instead,
-> which means the LPI timers reach their count much sooner on this platform.
-> 
-> This is visible using a scope by monitoring e.g. exit from LPI mode on TX_CTL
-> line from MAC to PHY. This should take 30us per STMMAC_DEFAULT_TWT_LS setting,
-> during which the TX_CTL line transitions from tristate to low, and 30 us later
-> from low to high. On i.MX8M Plus, this transition takes 11 us, which matches
-> the 30us * 100/266 formula for misconfigured MAC_ONEUS_TIC_COUNTER register.
-> 
-> Configure MAC_ONEUS_TIC_COUNTER based on CSR clock, so that the LPI timers
-> have correct 1us reference. This then fixes EEE on i.MX8M Plus with Micrel
-> KSZ9131RNX PHY.
-> 
-> Signed-off-by: Marek Vasut <marex@denx.de>
+Signed-off-by: Teoh Ji Sheng <ji.sheng.teoh@intel.com>
+---
+ drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-Tested on STM32MP157 with KSZ9131RNX at 1000Mb/s.  This patch makes the
-network as reliable with EEE active as it is with EEE disabled.  So
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
+index dfd53264e036..070bd912580b 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
+@@ -368,10 +368,12 @@ static int dwxgmac2_dma_interrupt(struct stmmac_priv *priv,
+ 
+ 		if (likely(intr_status & XGMAC_RI)) {
+ 			x->rx_normal_irq_n++;
++			x->rxq_stats[chan].rx_normal_irq_n++;
+ 			ret |= handle_rx;
+ 		}
+ 		if (likely(intr_status & (XGMAC_TI | XGMAC_TBU))) {
+ 			x->tx_normal_irq_n++;
++			x->txq_stats[chan].tx_normal_irq_n++;
+ 			ret |= handle_tx;
+ 		}
+ 	}
+-- 
+2.34.1
 
-Tested-by: Harald Seiler <hws@denx.de>
-
-> ---
-> NOTE: The hint that this might be related to LPI timer misconfiguration
->       came from sending large fragmented ICMP request, i.e.
->       ping -4 -c 1 -s 4096 -I eth1 192.168.1.1
->       The received packets consistently missed the 1st fragment, because
->       the LPI exit time was too short and the first packet was likely
->       pushed out of the MAC while the PHY was still not ready for it.
-> NOTE: I suspect this can help with Toradex ELB-3757, Marcel, can you please
->       test this patch on i.MX8M Plus Verdin ?
->       https://developer-archives.toradex.com/software/linux/release-details?module=Verdin+iMX8M+Plus&key=ELB-3757
-> NOTE: STM32MP15xx sets 'ethmac' clock to 266.5 MHz, so this patch likely
->       helps there as well. The default value of MAC_ONEUS_TIC_COUNTER on
->       this platform is also 0x63, i.e. expected 100 MHz CSR clock. I can
->       not test this with KSZ9131RNX as I do not have any STM32MP15xx
->       board with this PHY. Harald, can you please test ?
-> ---
-> Cc: "David S. Miller" <davem@davemloft.net>
-> Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
-> Cc: Eric Dumazet <edumazet@google.com>
-> Cc: Francesco Dolcini <francesco.dolcini@toradex.com>
-> Cc: Giuseppe Cavallaro <peppe.cavallaro@st.com>
-> Cc: Harald Seiler <hws@denx.de>
-> Cc: Jakub Kicinski <kuba@kernel.org>
-> Cc: Jose Abreu <joabreu@synopsys.com>
-> Cc: Marcel Ziswiler <marcel.ziswiler@toradex.com>
-> Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-> Cc: Paolo Abeni <pabeni@redhat.com>
-> Cc: linux-arm-kernel@lists.infradead.org
-> Cc: linux-stm32@st-md-mailman.stormreply.com
-> Cc: netdev@vger.kernel.org
-> ---
->  drivers/net/ethernet/stmicro/stmmac/dwmac4.h      | 1 +
->  drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c | 5 +++++
->  2 files changed, 6 insertions(+)
-> 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4.h b/drivers/net/ethernet/stmicro/stmmac/dwmac4.h
-> index 4538f334df576..d3c5306f1c41f 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac4.h
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4.h
-> @@ -181,6 +181,7 @@ enum power_event {
->  #define GMAC4_LPI_CTRL_STATUS	0xd0
->  #define GMAC4_LPI_TIMER_CTRL	0xd4
->  #define GMAC4_LPI_ENTRY_TIMER	0xd8
-> +#define GMAC4_MAC_ONEUS_TIC_COUNTER	0xdc
->  
->  /* LPI control and status defines */
->  #define GMAC4_LPI_CTRL_STATUS_LPITCSE	BIT(21)	/* LPI Tx Clock Stop Enable */
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c b/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
-> index afaec3fb9ab66..03b1c5a97826e 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
-> @@ -25,6 +25,7 @@ static void dwmac4_core_init(struct mac_device_info *hw,
->  	struct stmmac_priv *priv = netdev_priv(dev);
->  	void __iomem *ioaddr = hw->pcsr;
->  	u32 value = readl(ioaddr + GMAC_CONFIG);
-> +	u32 clk_rate;
->  
->  	value |= GMAC_CORE_INIT;
->  
-> @@ -47,6 +48,10 @@ static void dwmac4_core_init(struct mac_device_info *hw,
->  
->  	writel(value, ioaddr + GMAC_CONFIG);
->  
-> +	/* Configure LPI 1us counter to number of CSR clock ticks in 1us - 1 */
-> +	clk_rate = clk_get_rate(priv->plat->stmmac_clk);
-> +	writel((clk_rate / 1000000) - 1, ioaddr + GMAC4_MAC_ONEUS_TIC_COUNTER);
-> +
->  	/* Enable GMAC interrupts */
->  	value = GMAC_INT_DEFAULT_ENABLE;
->  
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
