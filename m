@@ -2,63 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1DFE26FB8A5
-	for <lists+linux-stm32@lfdr.de>; Mon,  8 May 2023 22:53:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D9B1D6FB946
+	for <lists+linux-stm32@lfdr.de>; Mon,  8 May 2023 23:20:18 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D194FC6A613;
-	Mon,  8 May 2023 20:53:38 +0000 (UTC)
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
- [85.220.165.71])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7C9A7C6A606;
+	Mon,  8 May 2023 21:20:18 +0000 (UTC)
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D17BDC6A60A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7DCD6C6A5F7
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  8 May 2023 20:53:37 +0000 (UTC)
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
- by metis.ext.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <ukl@pengutronix.de>)
- id 1pw7rO-0003y4-Un; Mon, 08 May 2023 22:53:30 +0200
-Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
- by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.94.2)
- (envelope-from <ukl@pengutronix.de>)
- id 1pw7rO-0024ue-8P; Mon, 08 May 2023 22:53:30 +0200
-Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.94.2)
- (envelope-from <ukl@pengutronix.de>)
- id 1pw7rN-002YZE-Ck; Mon, 08 May 2023 22:53:29 +0200
-From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
-To: Pierre-Yves MORDRET <pierre-yves.mordret@foss.st.com>,
- Alain Volmat <alain.volmat@foss.st.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Wolfram Sang <wsa@kernel.org>
-Date: Mon,  8 May 2023 22:52:47 +0200
-Message-Id: <20230508205306.1474415-71-u.kleine-koenig@pengutronix.de>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20230508205306.1474415-1-u.kleine-koenig@pengutronix.de>
-References: <20230508205306.1474415-1-u.kleine-koenig@pengutronix.de>
+ Mon,  8 May 2023 21:20:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1683580816; x=1715116816;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=ZXD+ewt6EPlLmAFkTGfXobVhsHMapRgravjPxFdOVE4=;
+ b=a43J2D7mz0ajuhi6OAaU97iordnG5/AXXlAYqyCyZv97YR0h/TWAQR+U
+ bUsg8vf/UjgpH0rH6H7p+gisnoCMqIu/U2kaJt4zpgMZi3Og3O/WV3hjS
+ SlWG86Aaf5jTf+nGbDi3TGsjnurwsaHJ1JTQpCrbSaZRotmMK5IjAzkcO
+ 7VZ2SzBLajeizdHOgj/jJjz8l3k+SpklWJI3fTICrU1fZ0IXTAG4mWxAH
+ wUXUEUaQ0j+hzB96fUY/A+UkLQomXKYxuHb/31TRD2fovo/5It3QAZJsf
+ uvn1JuanRrfAYYrEj3C7TwmrA9/k6BWDkup9yZJzIWmxb+HO5fxg6kDsd Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10704"; a="436079614"
+X-IronPort-AV: E=Sophos;i="5.99,259,1677571200"; d="scan'208";a="436079614"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 May 2023 14:19:47 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10704"; a="692727524"
+X-IronPort-AV: E=Sophos;i="5.99,259,1677571200"; d="scan'208";a="692727524"
+Received: from lkp-server01.sh.intel.com (HELO dea6d5a4f140) ([10.239.97.150])
+ by orsmga007.jf.intel.com with ESMTP; 08 May 2023 14:19:42 -0700
+Received: from kbuild by dea6d5a4f140 with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1pw8Gk-0001QT-02;
+ Mon, 08 May 2023 21:19:42 +0000
+Date: Tue, 9 May 2023 05:19:22 +0800
+From: kernel test robot <lkp@intel.com>
+To: Lizhe <sensor1010@163.com>, marcan@marcan.st, sven@svenpeter.dev,
+ alyssa@rosenzweig.io, linus.walleij@linaro.org,
+ neil.armstrong@linaro.org, mcoquelin.stm32@gmail.com,
+ alexandre.torgue@foss.st.com, daniel@zonque.org,
+ haojian.zhuang@gmail.com, robert.jarzmik@free.fr
+Message-ID: <202305090411.OyJRHVis-lkp@intel.com>
+References: <20230508154043.11859-1-sensor1010@163.com>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1795;
- i=u.kleine-koenig@pengutronix.de; h=from:subject;
- bh=eQvd9WsH9i08sYN0qPrLQXf+L5YYyHoKbzWIJuiTnrU=;
- b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBkWWEFVCbbVDr7BY0KGmVwYpbWm6t5Zo6+u1Fs7
- 4qhIl+aby+JATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCZFlhBQAKCRCPgPtYfRL+
- TkFBCACVqkNNaHxapodNcJ981Oze3RuPzzzpYyo19iwm7REZfHq5JPL2g//mRVlaNDL+NwpzVqH
- 8FcMQ+U2pKyvJeOwAnlrLZhf+IjXLwr5VFgopopTVvm7RwcGheG8+lnfACrjNJPnWztJR4pMVDo
- WCqgBMaQkHeXTQqGkw3IAggJhLt2/EMHFFPsYkh3NwWErUnlWrhlxQbN5Y3fslUVHhAC+J7bUAT
- lb8jTKzagUH60zKG6dv8jw05/TkSPMWEkUB9lu+qeDSCjt1HpAedEnChS9K/Ex15aRyCQdHAXzS
- la1iJYLFhMSQApQ5OkQlTYmX5CHP+6CU5ca41+gKvSibyYEC
-X-Developer-Key: i=u.kleine-koenig@pengutronix.de; a=openpgp;
- fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: ukl@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
-Cc: kernel@pengutronix.de, linux-i2c@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH 70/89] i2c: stm32f7: Convert to platform
-	remove callback returning void
+Content-Disposition: inline
+In-Reply-To: <20230508154043.11859-1-sensor1010@163.com>
+Cc: Lizhe <sensor1010@163.com>, linux-kernel@vger.kernel.org,
+ linux-gpio@vger.kernel.org, asahi@lists.linux.dev,
+ oe-kbuild-all@lists.linux.dev, linux-oxnas@groups.io,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] dirvers/pinctrl.c : using
+ pinctrl_dev->dev to obtain struct device * dev
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,42 +67,220 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-VGhlIC5yZW1vdmUoKSBjYWxsYmFjayBmb3IgYSBwbGF0Zm9ybSBkcml2ZXIgcmV0dXJucyBhbiBp
-bnQgd2hpY2ggbWFrZXMKbWFueSBkcml2ZXIgYXV0aG9ycyB3cm9uZ2x5IGFzc3VtZSBpdCdzIHBv
-c3NpYmxlIHRvIGRvIGVycm9yIGhhbmRsaW5nIGJ5CnJldHVybmluZyBhbiBlcnJvciBjb2RlLiBI
-b3dldmVyIHRoZSB2YWx1ZSByZXR1cm5lZCBpcyAobW9zdGx5KSBpZ25vcmVkCmFuZCB0aGlzIHR5
-cGljYWxseSByZXN1bHRzIGluIHJlc291cmNlIGxlYWtzLiBUbyBpbXByb3ZlIGhlcmUgdGhlcmUg
-aXMgYQpxdWVzdCB0byBtYWtlIHRoZSByZW1vdmUgY2FsbGJhY2sgcmV0dXJuIHZvaWQuIEluIHRo
-ZSBmaXJzdCBzdGVwIG9mIHRoaXMKcXVlc3QgYWxsIGRyaXZlcnMgYXJlIGNvbnZlcnRlZCB0byAu
-cmVtb3ZlX25ldygpIHdoaWNoIGFscmVhZHkgcmV0dXJucwp2b2lkLgoKVHJpdmlhbGx5IGNvbnZl
-cnQgdGhpcyBkcml2ZXIgZnJvbSBhbHdheXMgcmV0dXJuaW5nIHplcm8gaW4gdGhlIHJlbW92ZQpj
-YWxsYmFjayB0byB0aGUgdm9pZCByZXR1cm5pbmcgdmFyaWFudC4KClNpZ25lZC1vZmYtYnk6IFV3
-ZSBLbGVpbmUtS8O2bmlnIDx1LmtsZWluZS1rb2VuaWdAcGVuZ3V0cm9uaXguZGU+Ci0tLQogZHJp
-dmVycy9pMmMvYnVzc2VzL2kyYy1zdG0zMmY3LmMgfCA2ICsrLS0tLQogMSBmaWxlIGNoYW5nZWQs
-IDIgaW5zZXJ0aW9ucygrKSwgNCBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2ky
-Yy9idXNzZXMvaTJjLXN0bTMyZjcuYyBiL2RyaXZlcnMvaTJjL2J1c3Nlcy9pMmMtc3RtMzJmNy5j
-CmluZGV4IGQxYzU5ZDgzYTY1Yi4uZTg5N2Q5MTAxNDM0IDEwMDY0NAotLS0gYS9kcml2ZXJzL2ky
-Yy9idXNzZXMvaTJjLXN0bTMyZjcuYworKysgYi9kcml2ZXJzL2kyYy9idXNzZXMvaTJjLXN0bTMy
-ZjcuYwpAQCAtMjMwOSw3ICsyMzA5LDcgQEAgc3RhdGljIGludCBzdG0zMmY3X2kyY19wcm9iZShz
-dHJ1Y3QgcGxhdGZvcm1fZGV2aWNlICpwZGV2KQogCXJldHVybiByZXQ7CiB9CiAKLXN0YXRpYyBp
-bnQgc3RtMzJmN19pMmNfcmVtb3ZlKHN0cnVjdCBwbGF0Zm9ybV9kZXZpY2UgKnBkZXYpCitzdGF0
-aWMgdm9pZCBzdG0zMmY3X2kyY19yZW1vdmUoc3RydWN0IHBsYXRmb3JtX2RldmljZSAqcGRldikK
-IHsKIAlzdHJ1Y3Qgc3RtMzJmN19pMmNfZGV2ICppMmNfZGV2ID0gcGxhdGZvcm1fZ2V0X2RydmRh
-dGEocGRldik7CiAKQEAgLTIzNDEsOCArMjM0MSw2IEBAIHN0YXRpYyBpbnQgc3RtMzJmN19pMmNf
-cmVtb3ZlKHN0cnVjdCBwbGF0Zm9ybV9kZXZpY2UgKnBkZXYpCiAJc3RtMzJmN19pMmNfd3JpdGVf
-Zm1fcGx1c19iaXRzKGkyY19kZXYsIGZhbHNlKTsKIAogCWNsa19kaXNhYmxlX3VucHJlcGFyZShp
-MmNfZGV2LT5jbGspOwotCi0JcmV0dXJuIDA7CiB9CiAKIHN0YXRpYyBpbnQgX19tYXliZV91bnVz
-ZWQgc3RtMzJmN19pMmNfcnVudGltZV9zdXNwZW5kKHN0cnVjdCBkZXZpY2UgKmRldikKQEAgLTI0
-ODYsNyArMjQ4NCw3IEBAIHN0YXRpYyBzdHJ1Y3QgcGxhdGZvcm1fZHJpdmVyIHN0bTMyZjdfaTJj
-X2RyaXZlciA9IHsKIAkJLnBtID0gJnN0bTMyZjdfaTJjX3BtX29wcywKIAl9LAogCS5wcm9iZSA9
-IHN0bTMyZjdfaTJjX3Byb2JlLAotCS5yZW1vdmUgPSBzdG0zMmY3X2kyY19yZW1vdmUsCisJLnJl
-bW92ZV9uZXcgPSBzdG0zMmY3X2kyY19yZW1vdmUsCiB9OwogCiBtb2R1bGVfcGxhdGZvcm1fZHJp
-dmVyKHN0bTMyZjdfaTJjX2RyaXZlcik7Ci0tIAoyLjM5LjIKCl9fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51
-eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1h
-bi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+Hi Lizhe,
+
+kernel test robot noticed the following build errors:
+
+[auto build test ERROR on linusw-pinctrl/devel]
+[also build test ERROR on linusw-pinctrl/for-next linus/master v6.4-rc1 next-20230508]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Lizhe/dirvers-pinctrl-c-using-pinctrl_dev-dev-to-obtain-struct-device-dev/20230508-234502
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/linusw/linux-pinctrl.git devel
+patch link:    https://lore.kernel.org/r/20230508154043.11859-1-sensor1010%40163.com
+patch subject: [PATCH] dirvers/pinctrl.c : using pinctrl_dev->dev to obtain struct device * dev
+config: m68k-allyesconfig (https://download.01.org/0day-ci/archive/20230509/202305090411.OyJRHVis-lkp@intel.com/config)
+compiler: m68k-linux-gcc (GCC) 12.1.0
+reproduce (this is a W=1 build):
+        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
+        chmod +x ~/bin/make.cross
+        # https://github.com/intel-lab-lkp/linux/commit/83751a28d7f5223597b6742300796fb80362dc20
+        git remote add linux-review https://github.com/intel-lab-lkp/linux
+        git fetch --no-tags linux-review Lizhe/dirvers-pinctrl-c-using-pinctrl_dev-dev-to-obtain-struct-device-dev/20230508-234502
+        git checkout 83751a28d7f5223597b6742300796fb80362dc20
+        # save the config file
+        mkdir build_dir && cp config build_dir/.config
+        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-12.1.0 make.cross W=1 O=build_dir ARCH=m68k olddefconfig
+        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-12.1.0 make.cross W=1 O=build_dir ARCH=m68k SHELL=/bin/bash drivers/
+
+If you fix the issue, kindly add following tag where applicable
+| Reported-by: kernel test robot <lkp@intel.com>
+| Link: https://lore.kernel.org/oe-kbuild-all/202305090411.OyJRHVis-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+   In file included from include/linux/device.h:15,
+                    from include/linux/platform_device.h:13,
+                    from drivers/pinctrl/pinctrl-stmfx.c:12:
+   drivers/pinctrl/pinctrl-stmfx.c: In function 'stmfx_pinctrl_probe':
+>> drivers/pinctrl/pinctrl-stmfx.c:714:25: error: 'pctldev' undeclared (first use in this function); did you mean 'pci_dev'?
+     714 |                 dev_err(pctldev->dev, "gpio_chip registration failed\n");
+         |                         ^~~~~~~
+   include/linux/dev_printk.h:110:25: note: in definition of macro 'dev_printk_index_wrap'
+     110 |                 _p_func(dev, fmt, ##__VA_ARGS__);                       \
+         |                         ^~~
+   drivers/pinctrl/pinctrl-stmfx.c:714:17: note: in expansion of macro 'dev_err'
+     714 |                 dev_err(pctldev->dev, "gpio_chip registration failed\n");
+         |                 ^~~~~~~
+   drivers/pinctrl/pinctrl-stmfx.c:714:25: note: each undeclared identifier is reported only once for each function it appears in
+     714 |                 dev_err(pctldev->dev, "gpio_chip registration failed\n");
+         |                         ^~~~~~~
+   include/linux/dev_printk.h:110:25: note: in definition of macro 'dev_printk_index_wrap'
+     110 |                 _p_func(dev, fmt, ##__VA_ARGS__);                       \
+         |                         ^~~
+   drivers/pinctrl/pinctrl-stmfx.c:714:17: note: in expansion of macro 'dev_err'
+     714 |                 dev_err(pctldev->dev, "gpio_chip registration failed\n");
+         |                 ^~~~~~~
+--
+   In file included from include/linux/printk.h:564,
+                    from include/asm-generic/bug.h:22,
+                    from arch/m68k/include/asm/bug.h:32,
+                    from include/linux/bug.h:5,
+                    from include/linux/io.h:11,
+                    from drivers/pinctrl/pxa/pinctrl-pxa2xx.c:9:
+   drivers/pinctrl/pxa/pinctrl-pxa2xx.c: In function 'pxa2xx_pmx_gpio_set_direction':
+>> drivers/pinctrl/pxa/pinctrl-pxa2xx.c:94:24: error: invalid use of undefined type 'struct pinctrl_dev'
+      94 |         dev_dbg(pctldev->dev, "set_direction(pin=%d): dir=%d\n",
+         |                        ^~
+   include/linux/dynamic_debug.h:222:29: note: in definition of macro '__dynamic_func_call_cls'
+     222 |                 func(&id, ##__VA_ARGS__);                       \
+         |                             ^~~~~~~~~~~
+   include/linux/dynamic_debug.h:248:9: note: in expansion of macro '_dynamic_func_call_cls'
+     248 |         _dynamic_func_call_cls(_DPRINTK_CLASS_DFLT, fmt, func, ##__VA_ARGS__)
+         |         ^~~~~~~~~~~~~~~~~~~~~~
+   include/linux/dynamic_debug.h:271:9: note: in expansion of macro '_dynamic_func_call'
+     271 |         _dynamic_func_call(fmt, __dynamic_dev_dbg,              \
+         |         ^~~~~~~~~~~~~~~~~~
+   include/linux/dev_printk.h:155:9: note: in expansion of macro 'dynamic_dev_dbg'
+     155 |         dynamic_dev_dbg(dev, dev_fmt(fmt), ##__VA_ARGS__)
+         |         ^~~~~~~~~~~~~~~
+   drivers/pinctrl/pxa/pinctrl-pxa2xx.c:94:9: note: in expansion of macro 'dev_dbg'
+      94 |         dev_dbg(pctldev->dev, "set_direction(pin=%d): dir=%d\n",
+         |         ^~~~~~~
+   drivers/pinctrl/pxa/pinctrl-pxa2xx.c: In function 'pxa2xx_pmx_set_mux':
+   drivers/pinctrl/pxa/pinctrl-pxa2xx.c:159:24: error: invalid use of undefined type 'struct pinctrl_dev'
+     159 |         dev_dbg(pctldev->dev, "set_mux(pin=%d): af=%d dir=%d\n",
+         |                        ^~
+   include/linux/dynamic_debug.h:222:29: note: in definition of macro '__dynamic_func_call_cls'
+     222 |                 func(&id, ##__VA_ARGS__);                       \
+         |                             ^~~~~~~~~~~
+   include/linux/dynamic_debug.h:248:9: note: in expansion of macro '_dynamic_func_call_cls'
+     248 |         _dynamic_func_call_cls(_DPRINTK_CLASS_DFLT, fmt, func, ##__VA_ARGS__)
+         |         ^~~~~~~~~~~~~~~~~~~~~~
+   include/linux/dynamic_debug.h:271:9: note: in expansion of macro '_dynamic_func_call'
+     271 |         _dynamic_func_call(fmt, __dynamic_dev_dbg,              \
+         |         ^~~~~~~~~~~~~~~~~~
+   include/linux/dev_printk.h:155:9: note: in expansion of macro 'dynamic_dev_dbg'
+     155 |         dynamic_dev_dbg(dev, dev_fmt(fmt), ##__VA_ARGS__)
+         |         ^~~~~~~~~~~~~~~
+   drivers/pinctrl/pxa/pinctrl-pxa2xx.c:159:9: note: in expansion of macro 'dev_dbg'
+     159 |         dev_dbg(pctldev->dev, "set_mux(pin=%d): af=%d dir=%d\n",
+         |         ^~~~~~~
+
+
+vim +714 drivers/pinctrl/pinctrl-stmfx.c
+
+   638	
+   639	static int stmfx_pinctrl_probe(struct platform_device *pdev)
+   640	{
+   641		struct stmfx *stmfx = dev_get_drvdata(pdev->dev.parent);
+   642		struct device_node *np = pdev->dev.of_node;
+   643		struct stmfx_pinctrl *pctl;
+   644		struct gpio_irq_chip *girq;
+   645		int irq, ret;
+   646	
+   647		pctl = devm_kzalloc(stmfx->dev, sizeof(*pctl), GFP_KERNEL);
+   648		if (!pctl)
+   649			return -ENOMEM;
+   650	
+   651		platform_set_drvdata(pdev, pctl);
+   652	
+   653		pctl->dev = &pdev->dev;
+   654		pctl->stmfx = stmfx;
+   655	
+   656		if (!of_property_present(np, "gpio-ranges")) {
+   657			dev_err(pctl->dev, "missing required gpio-ranges property\n");
+   658			return -EINVAL;
+   659		}
+   660	
+   661		irq = platform_get_irq(pdev, 0);
+   662		if (irq <= 0)
+   663			return -ENXIO;
+   664	
+   665		mutex_init(&pctl->lock);
+   666	
+   667		/* Register pin controller */
+   668		pctl->pctl_desc.name = "stmfx-pinctrl";
+   669		pctl->pctl_desc.pctlops = &stmfx_pinctrl_ops;
+   670		pctl->pctl_desc.confops = &stmfx_pinconf_ops;
+   671		pctl->pctl_desc.pins = stmfx_pins;
+   672		pctl->pctl_desc.npins = ARRAY_SIZE(stmfx_pins);
+   673		pctl->pctl_desc.owner = THIS_MODULE;
+   674		pctl->pctl_desc.link_consumers = true;
+   675	
+   676		ret = devm_pinctrl_register_and_init(pctl->dev, &pctl->pctl_desc,
+   677						     pctl, &pctl->pctl_dev);
+   678		if (ret) {
+   679			dev_err(pctl->dev, "pinctrl registration failed\n");
+   680			return ret;
+   681		}
+   682	
+   683		ret = pinctrl_enable(pctl->pctl_dev);
+   684		if (ret) {
+   685			dev_err(pctl->dev, "pinctrl enable failed\n");
+   686			return ret;
+   687		}
+   688	
+   689		/* Register gpio controller */
+   690		pctl->gpio_chip.label = "stmfx-gpio";
+   691		pctl->gpio_chip.parent = pctl->dev;
+   692		pctl->gpio_chip.get_direction = stmfx_gpio_get_direction;
+   693		pctl->gpio_chip.direction_input = stmfx_gpio_direction_input;
+   694		pctl->gpio_chip.direction_output = stmfx_gpio_direction_output;
+   695		pctl->gpio_chip.get = stmfx_gpio_get;
+   696		pctl->gpio_chip.set = stmfx_gpio_set;
+   697		pctl->gpio_chip.set_config = gpiochip_generic_config;
+   698		pctl->gpio_chip.base = -1;
+   699		pctl->gpio_chip.ngpio = pctl->pctl_desc.npins;
+   700		pctl->gpio_chip.can_sleep = true;
+   701	
+   702		girq = &pctl->gpio_chip.irq;
+   703		gpio_irq_chip_set_chip(girq, &stmfx_pinctrl_irq_chip);
+   704		/* This will let us handle the parent IRQ in the driver */
+   705		girq->parent_handler = NULL;
+   706		girq->num_parents = 0;
+   707		girq->parents = NULL;
+   708		girq->default_type = IRQ_TYPE_NONE;
+   709		girq->handler = handle_bad_irq;
+   710		girq->threaded = true;
+   711	
+   712		ret = devm_gpiochip_add_data(pctl->dev, &pctl->gpio_chip, pctl);
+   713		if (ret) {
+ > 714			dev_err(pctldev->dev, "gpio_chip registration failed\n");
+   715			return ret;
+   716		}
+   717	
+   718		ret = stmfx_pinctrl_gpio_function_enable(pctl);
+   719		if (ret)
+   720			return ret;
+   721	
+   722		ret = devm_request_threaded_irq(pctl->dev, irq, NULL,
+   723						stmfx_pinctrl_irq_thread_fn,
+   724						IRQF_ONESHOT,
+   725						dev_name(pctl->dev), pctl);
+   726		if (ret) {
+   727			dev_err(pctldev->dev, "cannot request irq%d\n", irq);
+   728			return ret;
+   729		}
+   730	
+   731		dev_info(pctldev->dev,
+   732			 "%ld GPIOs available\n", hweight_long(pctl->gpio_valid_mask));
+   733	
+   734		return 0;
+   735	}
+   736	
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
