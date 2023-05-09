@@ -2,81 +2,82 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CAC1D6FCF1B
-	for <lists+linux-stm32@lfdr.de>; Tue,  9 May 2023 22:09:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 315FD6FD2D4
+	for <lists+linux-stm32@lfdr.de>; Wed, 10 May 2023 00:54:42 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 658AAC6904F;
-	Tue,  9 May 2023 20:09:24 +0000 (UTC)
-Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com
- [209.85.210.177])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D288AC6904F;
+	Tue,  9 May 2023 22:54:41 +0000 (UTC)
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.22])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7598DC65E5A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 36F3CC65E70
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  9 May 2023 20:09:22 +0000 (UTC)
-Received: by mail-pf1-f177.google.com with SMTP id
- d2e1a72fcca58-6435bbedb4fso6861814b3a.3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 09 May 2023 13:09:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1683662961; x=1686254961;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:from:to
- :cc:subject:date:message-id:reply-to;
- bh=k+FKrsLIVkKYcsIeLT6acEHQnxxZ6Q1AY/ul3RhcaDc=;
- b=t7HcuJJ8yNGZSd5jU/xlsEmIR0LbZB3y+UKrWSXF1bjCnP1H/mulK2qxWbB9om6c5e
- EPoNhS+2F2SY6TDpNh93OfYIaBuWtDyA0WUhhijzdrOdZ209vJFBMBDEstCsarasou+9
- +aaguV9fWmvqneuHb9CoJTE/qx66MsyzXT+Vxlf3Z99RhkANcfNe43TH2ZxXjLdx2+BS
- HuT1Mt+LUKLIi9eC3VKE3enmhVi2+4/fEeTRQlISUfpnrQX7AiRV2EtLIcQYI0O8DYbA
- SgRhafl44CnHhh1/jjt5W5eRfmOo6Y3wvHoZfrVQ9hLa4M2QjasbOPOES3SF4ouZL3OB
- lEsw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1683662961; x=1686254961;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=k+FKrsLIVkKYcsIeLT6acEHQnxxZ6Q1AY/ul3RhcaDc=;
- b=adUvaKWF4JzRp8ImKnFD4YPHLQY/9cfiFn7zx+Za2R0rQZTNA4E+q6eYYG1dg7Ex/W
- h81OZ7AqvlJxWyU3ijn/gBV1BWsl8f7w0pjNnxjruMN8FVDe76THfHr+mjmWyiCyxP3G
- GTGXENLxPFCxEnw3yYE2a1Y3O7k8RrydusoSK/a/WL0cZWueXH5cRExegfo2P5fUKJGX
- LA17tv6W6NNv0gNLpVudobYdAQrSHqPb2iUpsWPunOC7eq6xyOvGvpX8ttJOoOY+5nUS
- Lutm7LIdU5GGK8u2heSKPHxzxqaK9Rd44DKcobCe3rOv5URDdqnYXqDUZp/ziW5DNonI
- ewRg==
-X-Gm-Message-State: AC+VfDzTTSbnD6/c2tEWuVRu+8+Eg4y8COXIiMz4TmxsVrbA+aD0nADP
- iWo/doUST7CHsZ32nK93YfiNgg==
-X-Google-Smtp-Source: ACHHUZ7DY1IJhZ58XkyYQJW/n6N11Hq8FL8JnuzhTJRQRu0mHe/ZFZZkYof5BJbwpbwYX39JmI5wDQ==
-X-Received: by 2002:a05:6a21:6317:b0:f3:3810:8a89 with SMTP id
- wu23-20020a056a21631700b000f338108a89mr16127445pzb.51.1683662960788; 
- Tue, 09 May 2023 13:09:20 -0700 (PDT)
-Received: from p14s ([2604:3d09:148c:c800:5e48:ff40:3eaf:3f9e])
- by smtp.gmail.com with ESMTPSA id
- a9-20020a63e409000000b0050376cedb3asm1756976pgi.24.2023.05.09.13.09.19
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 09 May 2023 13:09:20 -0700 (PDT)
-Date: Tue, 9 May 2023 14:09:17 -0600
-From: Mathieu Poirier <mathieu.poirier@linaro.org>
-To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>
-Message-ID: <ZFqobZAfdlu+Rdtt@p14s>
-References: <20230504194453.1150368-1-u.kleine-koenig@pengutronix.de>
+ Tue,  9 May 2023 22:54:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.net; s=s31663417;
+ t=1683672871; i=j.neuschaefer@gmx.net;
+ bh=IjOsP3Hl5WOUcxHtKpSlXVU2zmb5sAncILY7B0EhNVs=;
+ h=X-UI-Sender-Class:Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=ndYA2tf/LPtkgltTOvt7X2+Zi6uiTPSZbAqw/mXBwe2s3qEMYWIHbVw2U7syYOtiu
+ 0ByeTgk6m0fQkzncsA2uFg7rs+4GDkYCaq3zleDHMNFIszwJSYZevaNUwCstSv1xs2
+ q2XsYVKyF7xXnp4qsykgKdmrMBdtxCsRttws9I9ls8dUQV5PBqFxC2CHyOsYGjarJ/
+ Rr2m1bZj51r337gAlDvnDkQfA5v+OxXvevYZAHhLDsYKtlfaLNIq481n2v1Dl3mPUG
+ +ciwlK0+ezWRctjT6rrS4cmxjRJOY33gMIuTSxMpaalo6ZUK907KGn7D4ZZQnJjuQD
+ xm3g+5vkab4wA==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from probook ([95.223.44.193]) by mail.gmx.net (mrgmx104
+ [212.227.17.168]) with ESMTPSA (Nemesis) id 1Ml6m4-1qdIgl1tr2-00lTxs; Wed, 10
+ May 2023 00:54:31 +0200
+Date: Wed, 10 May 2023 00:54:29 +0200
+From: Jonathan =?utf-8?Q?Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>
+To: Rob Herring <robh+dt@kernel.org>
+Message-ID: <ZFrPJQdwoxqFpzUO@probook>
+References: <20220328000915.15041-1-ansuelsmth@gmail.com>
+ <85eb14ec-f465-7447-ad77-a3dabc666f47@kernel.org>
+ <YkKRYnN84D9VZhGj@Ansuel-xps.localdomain>
+ <CAL_Jsq+RQQ-ADMxLPUFwk6S6kGmb6oNDy4k52fnU0EtbUvqmSA@mail.gmail.com>
+ <CAMuHMdWNTE48MFy6fqxAsfMWz9b6E7dVNXtXtESP95sxk2PGwA@mail.gmail.com>
+ <CAL_JsqJthKTm8bhRF2B=ae1tvtPeYYXx_Tm76qQtSwLtH5C6VA@mail.gmail.com>
+ <720a2829-b6b5-411c-ac69-9a53e881f48d@app.fastmail.com>
+ <CAL_JsqKCtmkwzKa01gyG65fH8ye6R3KhR41PJbJhOJ4X9j=znA@mail.gmail.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20230504194453.1150368-1-u.kleine-koenig@pengutronix.de>
-Cc: linux-remoteproc@vger.kernel.org, Fabio Estevam <festevam@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, Jerome Brunet <jbrunet@baylibre.com>,
- Kevin Hilman <khilman@baylibre.com>, Andy Gross <agross@kernel.org>,
- NXP Linux Team <linux-imx@nxp.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- linux-arm-msm@vger.kernel.org, Sascha Hauer <s.hauer@pengutronix.de>,
- linux-mediatek@lists.infradead.org, Matthias Brugger <matthias.bgg@gmail.com>,
- linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>, kernel@pengutronix.de,
- Shawn Guo <shawnguo@kernel.org>
-Subject: Re: [Linux-stm32] [PATCH 00/18] remoteproc: Convert to platform
- remove callback returning void
+In-Reply-To: <CAL_JsqKCtmkwzKa01gyG65fH8ye6R3KhR41PJbJhOJ4X9j=znA@mail.gmail.com>
+X-Provags-ID: V03:K1:aR+k41JkL+Jax7RkQK1pXFPVqGsXbknpTCCf601eNGl3xQsbw4B
+ lW4IptIuDnFJb+jaCScKg4f1qDLjuoiDEqEJsUWT/Ek6YzDXkULOeXYq9EqgQyN8A6axbG1
+ JRKm5mq+iW4e1K1v2w2BOTrGSmAwegcfBLrzES8HGqnWOqrguxalKWu6+fqbhobKFkw7JNy
+ qeUuaRpvcFFSSatMddRDg==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:NarrxlSjiwo=;5z5rCQykqX1e+FbZ2ba6e5Rh6DH
+ bfvBGeIXFywNjKNr0Tn58UPG96wezZLM4+H12pkCrjAC7Mqwg2PXJ70aoM1kBI8o+tAa0/419
+ 3XnQYa+XRlKna2zFjBCJKWpZoYii5XtCMCKO105lV0P6vMHckC89sxCK/LdwCvu0lF7OfocC+
+ 2ouaaWRHCt4YshSvfh5z/Ja+IC5J4jOv8eNZ6b4Ga79LPwxkC/RJjnB/nQ4E0edaxrobbRSOn
+ Mpc/31AKJOkyrRi41IgtGWTEODyE2XZV00pU1y5sHoF3JU/eGsc2doa+Rrzh30STHQZStIaTS
+ 0sulR/BBWHEsrZf3LZvhDzOcbQ+0mpl9BfQXNLiDuCZay2ePoIqaUwts7JSoeIsxQHjZrbVOf
+ h75oej0aNqoFhgx0M6WDh9xZydkRj4bbDxKZdwcWTSlHLDLbE26jSZC/2Oe+gjXSYJFSqcTIo
+ y61XXOKn0w6OleXfF53iuFeaDOuP15yxKD4yYijJGDa3gETH/hjoY9RV4RF3njrNZ9cpp0pyL
+ Wt5sq1md9IKuXv5zDNciEDB062aPPEfIdiuOL3ekvbmUkb/y0X/5vyJogDfXW1s/BcAt1Lw7O
+ 3fGQXfFWHtWSvKoTsdKwCQNoGLoqEX0ymmlOjO2H6zmOGgpDD61I3NBO058aLG0Ir0rXeho5F
+ meMuCSguMavkm9x2cC+ehI31nsDXo/+BF4SlfWoDxIdTlxFojtrUwUJw55+y8lR/UsTKS8nM4
+ UfuLe8Un7sHRz/mdblkfo8MYekpfSGy5OF1q4F6ySdpHLnN9/KLwguD2QRIXgxNbN+S3apSzh
+ 3RdOKnqeNprc0VYDcOdrgnL7BqsQDF2Rl2MSPh0TxeAydGQ6S6Uk6WUGWH/J/uB0ZIvQUETeq
+ 5wpcXi+kJF8q+LL66lQwIIQV2De+d1d5U2u4IhbVKY+H63H0/8T+2HkkllmX/vS+xMdVykkpc
+ +lGd2EXuA+PHYRD1FvmkNVjxg7g=
+Cc: linux-aspeed@lists.ozlabs.org, linux-realtek-soc@lists.infradead.org,
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, chrome-platform@lists.linux.dev,
+ linux-samsung-soc@vger.kernel.org, openbmc@lists.ozlabs.org,
+ linux-arm-kernel@axis.com, linux-rockchip@lists.infradead.org,
+ Geert Uytterhoeven <geert@linux-m68k.org>, linux-sunxi@lists.linux.dev,
+ devicetree@vger.kernel.org, Arnd Bergmann <arnd@arndb.de>,
+ linux-arm-msm@vger.kernel.org, linux-actions@lists.infradead.org,
+ linux-unisoc@lists.infradead.org, linux-mediatek@lists.infradead.org,
+ linux-rpi-kernel@lists.infradead.org, linux-tegra@vger.kernel.org,
+ linux-amlogic@lists.infradead.org, Linux-OMAP <linux-omap@vger.kernel.org>,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Christian Marangi <ansuelsmth@gmail.com>,
+ Linux-Renesas <linux-renesas-soc@vger.kernel.org>, kernel@dh-electronics.com,
+ Olof Johansson <olof@lixom.net>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ "linux-oxnas@groups.io" <linux-oxnas@groups.io>
+Subject: Re: [Linux-stm32] [RFC PATCH 0/1] Categorize ARM dts directory
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,106 +89,100 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: multipart/mixed; boundary="===============4690370925556573189=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, May 04, 2023 at 09:44:35PM +0200, Uwe Kleine-K=F6nig wrote:
-> Hello,
-> =
 
-> this patch series adapts most platform drivers below drivers/remoteproc
-> to use the .remove_new() callback. Compared to the traditional .remove()
-> callback .remove_new() returns no value. This is a good thing because
-> the driver core doesn't (and cannot) cope for errors during remove. The
-> only effect of a non-zero return value in .remove() is that the driver
-> core emits a warning. The device is removed anyhow and an early return
-> from .remove() usually yields a resource leak. One driver suffering from
-> this problem (s3c2410) is fixed by the first patch.
-> =
+--===============4690370925556573189==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="ue5Z9u7UyMsdbJpp"
+Content-Disposition: inline
 
-> By changing the remove callback to return void driver authors cannot
-> reasonably (but wrongly) assume any more that there happens some kind of
-> cleanup later.
-> =
 
-> There is one driver (i.e. ti_k3_dsp_remoteproc.c) that might return an
-> error code in .remove(). I didn't look in detail into this driver, but
-> if that error happens, we have exactly the bad situation described
-> above. (Note that kproc->mem and the register mapping goes away.)
-> =
+--ue5Z9u7UyMsdbJpp
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-> Best regards
-> Uwe
-> =
+On Tue, May 02, 2023 at 02:40:19PM -0500, Rob Herring wrote:
+[...]
+> I've dusted off my script and made a branch[1] with the result.
+> There's just a couple of fixes needed after the script is run (see the
+> top commit). The cross arch includes are all fixed up by the script.
+> dtbs_install maintains a flat install. I compared the number of .dtbs
+> before and after to check the script.
+>=20
+> I think the only issue remaining is finalizing the mapping of
+> platforms to subdirs. What I have currently is a mixture of SoC
+> families and vendors. The most notable are all the Freescale/NXP
+> platforms, pxa, socfpga, and stm32. It's not consistent with arm64
+> either. Once that's finalized, I still need to go update MAINTAINERS.
+>=20
+> Here's the current mapping:
+>=20
+> vendor_map =3D {
+[...]
+>     'aspeed' : 'aspeed',
+>     'ast2' : 'aspeed',
+>     'facebook' : 'aspeed',
+>     'ibm' : 'aspeed',
 
-> Uwe Kleine-K=F6nig (18):
->   remoteproc: da8xx: Convert to platform remove callback returning void
->   remoteproc: imx_dsp: Convert to platform remove callback returning
->     void
->   remoteproc: imx: Convert to platform remove callback returning void
->   remoteproc: keystone: Convert to platform remove callback returning
->     void
->   remoteproc: meson_mx_ao_arc: Convert to platform remove callback
->     returning void
->   remoteproc: mtk_scp: Convert to platform remove callback returning
->     void
->   remoteproc: omap: Convert to platform remove callback returning void
->   remoteproc: pru: Convert to platform remove callback returning void
->   remoteproc: qcom_q6v5_adsp: Convert to platform remove callback
->     returning void
->   remoteproc: qcom_q6v5_mss: Convert to platform remove callback
->     returning void
->   remoteproc: qcom_q6v5_pas: Convert to platform remove callback
->     returning void
->   remoteproc: qcom_q6v5_wcss: Convert to platform remove callback
->     returning void
->   remoteproc: qcom_wcnss: Convert to platform remove callback returning
->     void
->   remoteproc: rcar: Convert to platform remove callback returning void
->   remoteproc: virtio: Convert to platform remove callback returning void
->   remoteproc: st: Convert to platform remove callback returning void
->   remoteproc: stm32: Convert to platform remove callback returning void
->   remoteproc: wkup_m3: Convert to platform remove callback returning
->     void
-> =
+>     'openbmc' : 'aspeed',
 
->  drivers/remoteproc/da8xx_remoteproc.c    | 6 ++----
->  drivers/remoteproc/imx_dsp_rproc.c       | 6 ++----
->  drivers/remoteproc/imx_rproc.c           | 6 ++----
->  drivers/remoteproc/keystone_remoteproc.c | 6 ++----
->  drivers/remoteproc/meson_mx_ao_arc.c     | 6 ++----
->  drivers/remoteproc/mtk_scp.c             | 6 ++----
->  drivers/remoteproc/omap_remoteproc.c     | 6 ++----
->  drivers/remoteproc/pru_rproc.c           | 6 ++----
->  drivers/remoteproc/qcom_q6v5_adsp.c      | 6 ++----
->  drivers/remoteproc/qcom_q6v5_mss.c       | 6 ++----
->  drivers/remoteproc/qcom_q6v5_pas.c       | 6 ++----
->  drivers/remoteproc/qcom_q6v5_wcss.c      | 6 ++----
->  drivers/remoteproc/qcom_wcnss.c          | 6 ++----
->  drivers/remoteproc/rcar_rproc.c          | 6 ++----
->  drivers/remoteproc/remoteproc_virtio.c   | 6 ++----
->  drivers/remoteproc/st_remoteproc.c       | 6 ++----
->  drivers/remoteproc/stm32_rproc.c         | 6 ++----
->  drivers/remoteproc/wkup_m3_rproc.c       | 6 ++----
->  18 files changed, 36 insertions(+), 72 deletions(-)
->
+The openbmc flash layouts are currently only used by aspeed devicetrees,
+but they don't really depend on any aspeed details. It would be possible
+to reuse them in Nuvoton BMC devicetrees in the future, for example.
 
-I have applied this set.
+In that sense, I think putting them in a separate "openbmc" directory
+would be slightly better.
 
-Thanks,
-Mathieu
 
-> =
+Jonathan
 
-> base-commit: 1a5304fecee523060f26e2778d9d8e33c0562df3
-> -- =
 
-> 2.39.2
-> =
+
+[...]
+>     'nuvo' : 'nuvoton',
+[...]
+> }
+>=20
+> Rob
+>=20
+> [1] git://git.kernel.org/pub/scm/linux/kernel/git/robh/linux.git arm-dts-=
+move-v2
+
+--ue5Z9u7UyMsdbJpp
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEvHAHGBBjQPVy+qvDCDBEmo7zX9sFAmRazv0ACgkQCDBEmo7z
+X9tB/A//Y5MU9b+r/mxCUuxjsa0CB4Ewu8xmc+YTd1pdMEIrJYfgdpXFskBmzFsg
+QFYR1gBnq7P4mhusW4RaYWxpzD3M45B2vIuhgL6t8lqIWae0UuNbPEO4rbCIbvGZ
+PCx1dTAGZ2vg+mxRK0OYouuCE9EvgrC9PGmOcgDkqCLngGsr11gXz0GMNebggmie
+TX8iauQHnzfGaSQWtwIdQRu1gj2d/VO5NSn4CrgvMIuLCSwhTwY+e9H9/+CcrqHK
+wNiMG0W8yY5CMO7ZSYf7EkEidunJ0htwqJmUoLfpqN4NZ/21yno69v+L36ZRu/lq
++KrZJeaXC3Ar39R2x75Pns5em46uwJJdI5aXumj9xPU3A3rgWCQcrECZJ7i/HEoK
+hzhnsQhJNP4jAPVxdiaWJTYUXHRwafI6/GVvj1BvfgqZ9VHE28iGdDcgVvOfmkDx
+eRZQxcJzFaWZeWTOeM05/dHUDUJXFrYvDsj0+FgneBU/oqEc+H4bR9AP2ttU24hU
+4jBq2I2FlDyKlC0ARS22oRQlZG6KS50d1Nvx6cLr7lxeOHmcW09dPCqHijQVtX3V
+f/Z7MYrDEXgTK8r1wJk6PuvVN+jFX/l/Ali5L/OJqUsZB4bgteXKEWXWMmgik1/I
+d3nr3gTYEaykVkjCJORFKu4G2FHrzWgWpFYsl8Mu+safGLa+rdA=
+=Jzyt
+-----END PGP SIGNATURE-----
+
+--ue5Z9u7UyMsdbJpp--
+
+--===============4690370925556573189==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============4690370925556573189==--
