@@ -2,82 +2,56 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 315FD6FD2D4
-	for <lists+linux-stm32@lfdr.de>; Wed, 10 May 2023 00:54:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 850456FD2F9
+	for <lists+linux-stm32@lfdr.de>; Wed, 10 May 2023 01:13:29 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D288AC6904F;
-	Tue,  9 May 2023 22:54:41 +0000 (UTC)
-Received: from mout.gmx.net (mout.gmx.net [212.227.17.22])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1F8A2C6904F;
+	Tue,  9 May 2023 23:13:29 +0000 (UTC)
+Received: from phobos.denx.de (phobos.denx.de [85.214.62.61])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 36F3CC65E70
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 13217C65E70
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  9 May 2023 22:54:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.net; s=s31663417;
- t=1683672871; i=j.neuschaefer@gmx.net;
- bh=IjOsP3Hl5WOUcxHtKpSlXVU2zmb5sAncILY7B0EhNVs=;
- h=X-UI-Sender-Class:Date:From:To:Cc:Subject:References:In-Reply-To;
- b=ndYA2tf/LPtkgltTOvt7X2+Zi6uiTPSZbAqw/mXBwe2s3qEMYWIHbVw2U7syYOtiu
- 0ByeTgk6m0fQkzncsA2uFg7rs+4GDkYCaq3zleDHMNFIszwJSYZevaNUwCstSv1xs2
- q2XsYVKyF7xXnp4qsykgKdmrMBdtxCsRttws9I9ls8dUQV5PBqFxC2CHyOsYGjarJ/
- Rr2m1bZj51r337gAlDvnDkQfA5v+OxXvevYZAHhLDsYKtlfaLNIq481n2v1Dl3mPUG
- +ciwlK0+ezWRctjT6rrS4cmxjRJOY33gMIuTSxMpaalo6ZUK907KGn7D4ZZQnJjuQD
- xm3g+5vkab4wA==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from probook ([95.223.44.193]) by mail.gmx.net (mrgmx104
- [212.227.17.168]) with ESMTPSA (Nemesis) id 1Ml6m4-1qdIgl1tr2-00lTxs; Wed, 10
- May 2023 00:54:31 +0200
-Date: Wed, 10 May 2023 00:54:29 +0200
-From: Jonathan =?utf-8?Q?Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>
-To: Rob Herring <robh+dt@kernel.org>
-Message-ID: <ZFrPJQdwoxqFpzUO@probook>
-References: <20220328000915.15041-1-ansuelsmth@gmail.com>
- <85eb14ec-f465-7447-ad77-a3dabc666f47@kernel.org>
- <YkKRYnN84D9VZhGj@Ansuel-xps.localdomain>
- <CAL_Jsq+RQQ-ADMxLPUFwk6S6kGmb6oNDy4k52fnU0EtbUvqmSA@mail.gmail.com>
- <CAMuHMdWNTE48MFy6fqxAsfMWz9b6E7dVNXtXtESP95sxk2PGwA@mail.gmail.com>
- <CAL_JsqJthKTm8bhRF2B=ae1tvtPeYYXx_Tm76qQtSwLtH5C6VA@mail.gmail.com>
- <720a2829-b6b5-411c-ac69-9a53e881f48d@app.fastmail.com>
- <CAL_JsqKCtmkwzKa01gyG65fH8ye6R3KhR41PJbJhOJ4X9j=znA@mail.gmail.com>
+ Tue,  9 May 2023 23:13:26 +0000 (UTC)
+Received: from [127.0.0.1] (p578adb1c.dip0.t-ipconnect.de [87.138.219.28])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits))
+ (No client certificate requested)
+ (Authenticated sender: marex@denx.de)
+ by phobos.denx.de (Postfix) with ESMTPSA id 5DE8685BBE;
+ Wed, 10 May 2023 01:13:25 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de;
+ s=phobos-20191101; t=1683674006;
+ bh=kUKynXHnB7hQz14g5QVtrKhIA4Q4nRMRFctlKonAY14=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=Xd0GlAhRX/ZxrY1SIXIze2aQMNCXuQ9OTxiZTK2BTxYmU+9QM+B8UZUPzwqD80h0Q
+ Vk7xMhzPt0xGKhfRgAFU4ZRd4qwrbCzXXdKTFKTbAuUT9fZm+MLIuXqxTxAg2vFhpm
+ lrDZ5b9B6YLHPBaaDOxBumToO7XPbu6tyJiE8QjurksUyTamgWJTY5MybLdgC2/VY+
+ 2YDzFzpq7euGp1sG1lZWwmS41UfXr7oMZdDRQ6rOiFOydL9U+f7EoYFRovICGJqfoe
+ EXeNByfRPLy4NE/AY2OW2gBWaig/nTF4680aIJzhqrDaXlZWSp+iz/7WDV85JvEepo
+ 9qEiyP7DvXrcw==
+Message-ID: <92210ade-85fd-e89e-615e-d81965bf6508@denx.de>
+Date: Wed, 10 May 2023 01:13:24 +0200
 MIME-Version: 1.0
-In-Reply-To: <CAL_JsqKCtmkwzKa01gyG65fH8ye6R3KhR41PJbJhOJ4X9j=znA@mail.gmail.com>
-X-Provags-ID: V03:K1:aR+k41JkL+Jax7RkQK1pXFPVqGsXbknpTCCf601eNGl3xQsbw4B
- lW4IptIuDnFJb+jaCScKg4f1qDLjuoiDEqEJsUWT/Ek6YzDXkULOeXYq9EqgQyN8A6axbG1
- JRKm5mq+iW4e1K1v2w2BOTrGSmAwegcfBLrzES8HGqnWOqrguxalKWu6+fqbhobKFkw7JNy
- qeUuaRpvcFFSSatMddRDg==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:NarrxlSjiwo=;5z5rCQykqX1e+FbZ2ba6e5Rh6DH
- bfvBGeIXFywNjKNr0Tn58UPG96wezZLM4+H12pkCrjAC7Mqwg2PXJ70aoM1kBI8o+tAa0/419
- 3XnQYa+XRlKna2zFjBCJKWpZoYii5XtCMCKO105lV0P6vMHckC89sxCK/LdwCvu0lF7OfocC+
- 2ouaaWRHCt4YshSvfh5z/Ja+IC5J4jOv8eNZ6b4Ga79LPwxkC/RJjnB/nQ4E0edaxrobbRSOn
- Mpc/31AKJOkyrRi41IgtGWTEODyE2XZV00pU1y5sHoF3JU/eGsc2doa+Rrzh30STHQZStIaTS
- 0sulR/BBWHEsrZf3LZvhDzOcbQ+0mpl9BfQXNLiDuCZay2ePoIqaUwts7JSoeIsxQHjZrbVOf
- h75oej0aNqoFhgx0M6WDh9xZydkRj4bbDxKZdwcWTSlHLDLbE26jSZC/2Oe+gjXSYJFSqcTIo
- y61XXOKn0w6OleXfF53iuFeaDOuP15yxKD4yYijJGDa3gETH/hjoY9RV4RF3njrNZ9cpp0pyL
- Wt5sq1md9IKuXv5zDNciEDB062aPPEfIdiuOL3ekvbmUkb/y0X/5vyJogDfXW1s/BcAt1Lw7O
- 3fGQXfFWHtWSvKoTsdKwCQNoGLoqEX0ymmlOjO2H6zmOGgpDD61I3NBO058aLG0Ir0rXeho5F
- meMuCSguMavkm9x2cC+ehI31nsDXo/+BF4SlfWoDxIdTlxFojtrUwUJw55+y8lR/UsTKS8nM4
- UfuLe8Un7sHRz/mdblkfo8MYekpfSGy5OF1q4F6ySdpHLnN9/KLwguD2QRIXgxNbN+S3apSzh
- 3RdOKnqeNprc0VYDcOdrgnL7BqsQDF2Rl2MSPh0TxeAydGQ6S6Uk6WUGWH/J/uB0ZIvQUETeq
- 5wpcXi+kJF8q+LL66lQwIIQV2De+d1d5U2u4IhbVKY+H63H0/8T+2HkkllmX/vS+xMdVykkpc
- +lGd2EXuA+PHYRD1FvmkNVjxg7g=
-Cc: linux-aspeed@lists.ozlabs.org, linux-realtek-soc@lists.infradead.org,
- Krzysztof Kozlowski <krzk@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com, chrome-platform@lists.linux.dev,
- linux-samsung-soc@vger.kernel.org, openbmc@lists.ozlabs.org,
- linux-arm-kernel@axis.com, linux-rockchip@lists.infradead.org,
- Geert Uytterhoeven <geert@linux-m68k.org>, linux-sunxi@lists.linux.dev,
- devicetree@vger.kernel.org, Arnd Bergmann <arnd@arndb.de>,
- linux-arm-msm@vger.kernel.org, linux-actions@lists.infradead.org,
- linux-unisoc@lists.infradead.org, linux-mediatek@lists.infradead.org,
- linux-rpi-kernel@lists.infradead.org, linux-tegra@vger.kernel.org,
- linux-amlogic@lists.infradead.org, Linux-OMAP <linux-omap@vger.kernel.org>,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- Christian Marangi <ansuelsmth@gmail.com>,
- Linux-Renesas <linux-renesas-soc@vger.kernel.org>, kernel@dh-electronics.com,
- Olof Johansson <olof@lixom.net>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- "linux-oxnas@groups.io" <linux-oxnas@groups.io>
-Subject: Re: [Linux-stm32] [RFC PATCH 0/1] Categorize ARM dts directory
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.10.0
+To: Francesco Dolcini <francesco@dolcini.it>
+References: <20230506235845.246105-1-marex@denx.de>
+ <ZFqKPyCvFA7BD3y7@francesco-nb.int.toradex.com>
+Content-Language: en-US
+From: Marek Vasut <marex@denx.de>
+In-Reply-To: <ZFqKPyCvFA7BD3y7@francesco-nb.int.toradex.com>
+X-Virus-Scanned: clamav-milter 0.103.8 at phobos.denx.de
+X-Virus-Status: Clean
+Cc: Paolo Abeni <pabeni@redhat.com>,
+ Marcel Ziswiler <marcel.ziswiler@toradex.com>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Jakub Kicinski <kuba@kernel.org>,
+ Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Francesco Dolcini <francesco.dolcini@toradex.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>, Harald Seiler <hws@denx.de>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] net: stmmac: Initialize
+	MAC_ONEUS_TIC_COUNTER register
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,100 +63,66 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============4690370925556573189=="
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+On 5/9/23 20:00, Francesco Dolcini wrote:
+> On Sun, May 07, 2023 at 01:58:45AM +0200, Marek Vasut wrote:
+>> Initialize MAC_ONEUS_TIC_COUNTER register with correct value derived
+>> from CSR clock, otherwise EEE is unstable on at least NXP i.MX8M Plus
+>> and Micrel KSZ9131RNX PHY, to the point where not even ARP request can
+>> be sent out.
+>>
+>> i.MX 8M Plus Applications Processor Reference Manual, Rev. 1, 06/2021
+>> 11.7.6.1.34 One-microsecond Reference Timer (MAC_ONEUS_TIC_COUNTER)
+>> defines this register as:
+>> "
+>> This register controls the generation of the Reference time (1 microsecond
+>> tic) for all the LPI timers. This timer has to be programmed by the software
+>> initially.
+>> ...
+>> The application must program this counter so that the number of clock cycles
+>> of CSR clock is 1us. (Subtract 1 from the value before programming).
+>> For example if the CSR clock is 100MHz then this field needs to be programmed
+>> to value 100 - 1 = 99 (which is 0x63).
+>> This is required to generate the 1US events that are used to update some of
+>> the EEE related counters.
+>> "
+>>
+>> The reset value is 0x63 on i.MX8M Plus, which means expected CSR clock are
+>> 100 MHz. However, the i.MX8M Plus "enet_qos_root_clk" are 266 MHz instead,
+>> which means the LPI timers reach their count much sooner on this platform.
+>>
+>> This is visible using a scope by monitoring e.g. exit from LPI mode on TX_CTL
+>> line from MAC to PHY. This should take 30us per STMMAC_DEFAULT_TWT_LS setting,
+>> during which the TX_CTL line transitions from tristate to low, and 30 us later
+>> from low to high. On i.MX8M Plus, this transition takes 11 us, which matches
+>> the 30us * 100/266 formula for misconfigured MAC_ONEUS_TIC_COUNTER register.
+>>
+>> Configure MAC_ONEUS_TIC_COUNTER based on CSR clock, so that the LPI timers
+>> have correct 1us reference. This then fixes EEE on i.MX8M Plus with Micrel
+>> KSZ9131RNX PHY.
+>>
+>> Signed-off-by: Marek Vasut <marex@denx.de>
+> 
+> Reviewed-by: Francesco Dolcini <francesco.dolcini@toradex.com>
+> Tested-by: Francesco Dolcini <francesco.dolcini@toradex.com> # Toradex Verdin iMX8MP
+> 
+> I think this commit should have a fixes tag, what about
+> 
+> Fixes: 477286b53f55 ("stmmac: add GMAC4 core support")
 
---===============4690370925556573189==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ue5Z9u7UyMsdbJpp"
-Content-Disposition: inline
+Fine by me.
 
+>> NOTE: I suspect this can help with Toradex ELB-3757, Marcel, can you please
+>>        test this patch on i.MX8M Plus Verdin ?
+>>        https://developer-archives.toradex.com/software/linux/release-details?module=Verdin+iMX8M+Plus&key=ELB-3757
+> I think you are right, your patch clearly makes a difference here.
 
---ue5Z9u7UyMsdbJpp
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Tue, May 02, 2023 at 02:40:19PM -0500, Rob Herring wrote:
-[...]
-> I've dusted off my script and made a branch[1] with the result.
-> There's just a couple of fixes needed after the script is run (see the
-> top commit). The cross arch includes are all fixed up by the script.
-> dtbs_install maintains a flat install. I compared the number of .dtbs
-> before and after to check the script.
->=20
-> I think the only issue remaining is finalizing the mapping of
-> platforms to subdirs. What I have currently is a mixture of SoC
-> families and vendors. The most notable are all the Freescale/NXP
-> platforms, pxa, socfpga, and stm32. It's not consistent with arm64
-> either. Once that's finalized, I still need to go update MAINTAINERS.
->=20
-> Here's the current mapping:
->=20
-> vendor_map =3D {
-[...]
->     'aspeed' : 'aspeed',
->     'ast2' : 'aspeed',
->     'facebook' : 'aspeed',
->     'ibm' : 'aspeed',
-
->     'openbmc' : 'aspeed',
-
-The openbmc flash layouts are currently only used by aspeed devicetrees,
-but they don't really depend on any aspeed details. It would be possible
-to reuse them in Nuvoton BMC devicetrees in the future, for example.
-
-In that sense, I think putting them in a separate "openbmc" directory
-would be slightly better.
-
-
-Jonathan
-
-
-
-[...]
->     'nuvo' : 'nuvoton',
-[...]
-> }
->=20
-> Rob
->=20
-> [1] git://git.kernel.org/pub/scm/linux/kernel/git/robh/linux.git arm-dts-=
-move-v2
-
---ue5Z9u7UyMsdbJpp
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEvHAHGBBjQPVy+qvDCDBEmo7zX9sFAmRazv0ACgkQCDBEmo7z
-X9tB/A//Y5MU9b+r/mxCUuxjsa0CB4Ewu8xmc+YTd1pdMEIrJYfgdpXFskBmzFsg
-QFYR1gBnq7P4mhusW4RaYWxpzD3M45B2vIuhgL6t8lqIWae0UuNbPEO4rbCIbvGZ
-PCx1dTAGZ2vg+mxRK0OYouuCE9EvgrC9PGmOcgDkqCLngGsr11gXz0GMNebggmie
-TX8iauQHnzfGaSQWtwIdQRu1gj2d/VO5NSn4CrgvMIuLCSwhTwY+e9H9/+CcrqHK
-wNiMG0W8yY5CMO7ZSYf7EkEidunJ0htwqJmUoLfpqN4NZ/21yno69v+L36ZRu/lq
-+KrZJeaXC3Ar39R2x75Pns5em46uwJJdI5aXumj9xPU3A3rgWCQcrECZJ7i/HEoK
-hzhnsQhJNP4jAPVxdiaWJTYUXHRwafI6/GVvj1BvfgqZ9VHE28iGdDcgVvOfmkDx
-eRZQxcJzFaWZeWTOeM05/dHUDUJXFrYvDsj0+FgneBU/oqEc+H4bR9AP2ttU24hU
-4jBq2I2FlDyKlC0ARS22oRQlZG6KS50d1Nvx6cLr7lxeOHmcW09dPCqHijQVtX3V
-f/Z7MYrDEXgTK8r1wJk6PuvVN+jFX/l/Ali5L/OJqUsZB4bgteXKEWXWMmgik1/I
-d3nr3gTYEaykVkjCJORFKu4G2FHrzWgWpFYsl8Mu+safGLa+rdA=
-=Jzyt
------END PGP SIGNATURE-----
-
---ue5Z9u7UyMsdbJpp--
-
---===============4690370925556573189==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+Thanks for testing !
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============4690370925556573189==--
