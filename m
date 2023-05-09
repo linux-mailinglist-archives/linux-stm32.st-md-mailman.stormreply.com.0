@@ -2,70 +2,82 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 067A46FCC6B
-	for <lists+linux-stm32@lfdr.de>; Tue,  9 May 2023 19:11:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E33236FCCAA
+	for <lists+linux-stm32@lfdr.de>; Tue,  9 May 2023 19:25:21 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A6CDEC6904F;
-	Tue,  9 May 2023 17:11:41 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8A2BCC6904F;
+	Tue,  9 May 2023 17:25:21 +0000 (UTC)
+Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com
+ [209.85.218.48])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id ABEB4C65E5A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 92A4FC65E5A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  9 May 2023 17:11:40 +0000 (UTC)
-Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 349CIsXA020568; Tue, 9 May 2023 19:11:20 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=mn5jOxLh1H2LGQF8BkirJjrvG/rHRFFa5N/haTu7SCk=;
- b=w1GEJOugTU6MG/OSxcxzMhyVxUpsKNitOvKtS0QqiQsycyC9Ssr3FD1HyAidp6nGnBjN
- wVLKmYLS7oTOYIbXqsMwwAfeT/OK2hOdQ4BWSG/cWxaaMQFi1RKT3fMY/DljnhqgZsDW
- UowzfJ7pVeTbHDwgnwOdplKXWHIV+fKqg4+xvlmzf7+cRFE6XI3F6Zs7tunHrtbLGhRq
- JGSntJi2FDLMhoTwFdo0kq5Q2lJkUQzIci70Qw8a87XjMrWjSqJiYrO8eZEBZtiIcK5d
- gSB0QkWgHLUtk4NoWnnOfnUsvLAr8EntsH/VNB68fkSZFw23FU3RFVScOGiUJxU/FT7d 2Q== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3qf79heekw-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 09 May 2023 19:11:20 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 0CA4010002A;
- Tue,  9 May 2023 19:11:19 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 04BC7231506;
- Tue,  9 May 2023 19:11:19 +0200 (CEST)
-Received: from [10.252.28.195] (10.252.28.195) by SHFDAG1NODE2.st.com
- (10.75.129.70) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.21; Tue, 9 May
- 2023 19:11:17 +0200
-Message-ID: <e14f7bc4-6705-6be6-3393-69ea962ab6ac@foss.st.com>
-Date: Tue, 9 May 2023 19:11:16 +0200
+ Tue,  9 May 2023 17:25:20 +0000 (UTC)
+Received: by mail-ej1-f48.google.com with SMTP id
+ a640c23a62f3a-965cc5170bdso875609566b.2
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 09 May 2023 10:25:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1683653120; x=1686245120;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=Em0Tlxs0MLA5e+TD26EWYH4+AdIng+idy64D5M98l8I=;
+ b=gpn6j1SbQSfKQb6jx5iCvuNvPv3Ym7oRaSmYNEvVsIwGwOet5lEy1VJGFgmrGIGIxb
+ r8aQKa0ff/uq1KJvx7fFEGx2oGmSG+j7mqcEryVvfpimGi5GQZSlZYN0s56NBc3Q5bCz
+ 5uz12JOWNYFnEBwk4v9uIV4lxCQR9zNh7kXuj+U2u+dNva23kdfKW/bD7ax3ndWAeNmK
+ nYuo5+GnpImO1ZD1+gZsv2ZoU8+xNykTKsXoyjdvejT6nEnhkzq1UytPGlNAie/mzpDy
+ zhzN3JnDaLQ+V95GOu+RmJLrwck0YU373bwHLQ4E3QGVKuS97Dd8TecAXqsSZH/S9EA+
+ hQlg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1683653120; x=1686245120;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=Em0Tlxs0MLA5e+TD26EWYH4+AdIng+idy64D5M98l8I=;
+ b=WROLznlmXIDOMU/Zju0iMECIg5qviNOS2QgferH2M3gGAfegAJ/vVVNUiTrv6I5h/I
+ VKbh1JYfpPb6rOGWakiWsTnU7/e5qfx5X48SaJ7ipCQpP0i+puNv5naBrEJhnGa8icHp
+ BXttJJ7dt4JncvhzdL7vXTsWHRpR9LDzKfhcnxnsE4mVXWhN+QFF482bxqtsXBHw0yRo
+ vSF2LII78x17WL0nzq2hUJoAB0kqcAsRvP9zrjlaDBMmRiTlG4opJqxXhCOGvIkZ1FTn
+ GbUYVaTARoYwQ9UifHYVoiKvaiBvBkj8NlBFaZEvNjpQ4YXsgGZBfB1cdrQ9gw7xPClK
+ so6w==
+X-Gm-Message-State: AC+VfDw8OciQkHlqFCzpCvtcKQqC976D3sI5nnzRXdSFO4iZD8+AwJCN
+ uG6TeegoeRJd0i7Dfp1LuJc/8Q==
+X-Google-Smtp-Source: ACHHUZ7137L7AL+XIMh5eeRUH1cmEK8Mv5X/suJrhcGkTmjpiqQqoAFJpseg+wDmAc66xXYcnPdTuQ==
+X-Received: by 2002:a17:906:fd88:b0:965:a72a:b2ae with SMTP id
+ xa8-20020a170906fd8800b00965a72ab2aemr11686758ejb.60.1683653120039; 
+ Tue, 09 May 2023 10:25:20 -0700 (PDT)
+Received: from ?IPV6:2a02:810d:15c0:828:d0d5:7818:2f46:5e76?
+ ([2a02:810d:15c0:828:d0d5:7818:2f46:5e76])
+ by smtp.gmail.com with ESMTPSA id
+ v9-20020a170906380900b0094e1344ddfdsm1553378ejc.34.2023.05.09.10.25.18
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 09 May 2023 10:25:19 -0700 (PDT)
+Message-ID: <0fdc9a5b-d369-8dd3-3f5f-1280ed25150a@linaro.org>
+Date: Tue, 9 May 2023 19:25:18 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.10.0
+ Thunderbird/102.11.0
+To: Linus Walleij <linus.walleij@linaro.org>,
+ Bartosz Golaszewski <brgl@bgdev.pl>, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>, Lee Jones <lee@kernel.org>,
+ Philippe Schenker <philippe.schenker@toradex.com>,
+ Stefan Agner <stefan@agner.ch>, Marek Vasut <marex@denx.de>,
+ Steffen Trumtrar <s.trumtrar@pengutronix.de>
+References: <20230426-stmpe-dt-bindings-v4-0-36fdd53d9919@linaro.org>
+ <20230426-stmpe-dt-bindings-v4-1-36fdd53d9919@linaro.org>
 Content-Language: en-US
-To: =?UTF-8?Q?Uwe_Kleine-K=c3=b6nig?= <u.kleine-koenig@pengutronix.de>, Bjorn
- Andersson <andersson@kernel.org>, Mathieu Poirier
- <mathieu.poirier@linaro.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-References: <20230504194453.1150368-1-u.kleine-koenig@pengutronix.de>
- <20230504194453.1150368-18-u.kleine-koenig@pengutronix.de>
-From: Arnaud POULIQUEN <arnaud.pouliquen@foss.st.com>
-Organization: STMicroelectronics
-In-Reply-To: <20230504194453.1150368-18-u.kleine-koenig@pengutronix.de>
-X-Originating-IP: [10.252.28.195]
-X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE2.st.com
- (10.75.129.70)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.942,Hydra:6.0.573,FMLib:17.11.170.22
- definitions=2023-05-09_10,2023-05-05_01,2023-02-09_01
-Cc: kernel@pengutronix.de, linux-remoteproc@vger.kernel.org,
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20230426-stmpe-dt-bindings-v4-1-36fdd53d9919@linaro.org>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-gpio@vger.kernel.org, linux-input@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 17/18] remoteproc: stm32: Convert to
- platform remove callback returning void
+Subject: Re: [Linux-stm32] [PATCH v4 1/2] dt-bindings: gpio: Convert STMPE
+ GPIO to YAML schema
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,46 +89,28 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SGkgVXdlLAoKT24gNS80LzIzIDIxOjQ0LCBVd2UgS2xlaW5lLUvDtm5pZyB3cm90ZToKPiBUaGUg
-LnJlbW92ZSgpIGNhbGxiYWNrIGZvciBhIHBsYXRmb3JtIGRyaXZlciByZXR1cm5zIGFuIGludCB3
-aGljaCBtYWtlcwo+IG1hbnkgZHJpdmVyIGF1dGhvcnMgd3JvbmdseSBhc3N1bWUgaXQncyBwb3Nz
-aWJsZSB0byBkbyBlcnJvciBoYW5kbGluZyBieQo+IHJldHVybmluZyBhbiBlcnJvciBjb2RlLiBI
-b3dldmVyIHRoZSB2YWx1ZSByZXR1cm5lZCBpcyAobW9zdGx5KSBpZ25vcmVkCj4gYW5kIHRoaXMg
-dHlwaWNhbGx5IHJlc3VsdHMgaW4gcmVzb3VyY2UgbGVha3MuIFRvIGltcHJvdmUgaGVyZSB0aGVy
-ZSBpcyBhCj4gcXVlc3QgdG8gbWFrZSB0aGUgcmVtb3ZlIGNhbGxiYWNrIHJldHVybiB2b2lkLiBJ
-biB0aGUgZmlyc3Qgc3RlcCBvZiB0aGlzCj4gcXVlc3QgYWxsIGRyaXZlcnMgYXJlIGNvbnZlcnRl
-ZCB0byAucmVtb3ZlX25ldygpIHdoaWNoIGFscmVhZHkgcmV0dXJucwo+IHZvaWQuCj4gCj4gVHJp
-dmlhbGx5IGNvbnZlcnQgdGhpcyBkcml2ZXIgZnJvbSBhbHdheXMgcmV0dXJuaW5nIHplcm8gaW4g
-dGhlIHJlbW92ZQo+IGNhbGxiYWNrIHRvIHRoZSB2b2lkIHJldHVybmluZyB2YXJpYW50LgoKUmV2
-aWV3ZWQtYnk6IEFybmF1ZCBQb3VsaXF1ZW4gPGFybmF1ZC5wb3VsaXF1ZW5AZm9zcy5zdC5jb20+
-CgpUaGFua3MsCkFybmF1ZAoKPiAKPiBTaWduZWQtb2ZmLWJ5OiBVd2UgS2xlaW5lLUvDtm5pZyA8
-dS5rbGVpbmUta29lbmlnQHBlbmd1dHJvbml4LmRlPgo+IC0tLQo+ICBkcml2ZXJzL3JlbW90ZXBy
-b2Mvc3RtMzJfcnByb2MuYyB8IDYgKystLS0tCj4gIDEgZmlsZSBjaGFuZ2VkLCAyIGluc2VydGlv
-bnMoKyksIDQgZGVsZXRpb25zKC0pCj4gCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvcmVtb3RlcHJv
-Yy9zdG0zMl9ycHJvYy5jIGIvZHJpdmVycy9yZW1vdGVwcm9jL3N0bTMyX3Jwcm9jLmMKPiBpbmRl
-eCA4NzQ2Y2JiMWYxNjguLjE5NzE2ZWM4MmFhZSAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL3JlbW90
-ZXByb2Mvc3RtMzJfcnByb2MuYwo+ICsrKyBiL2RyaXZlcnMvcmVtb3RlcHJvYy9zdG0zMl9ycHJv
-Yy5jCj4gQEAgLTg2Nyw3ICs4NjcsNyBAQCBzdGF0aWMgaW50IHN0bTMyX3Jwcm9jX3Byb2JlKHN0
-cnVjdCBwbGF0Zm9ybV9kZXZpY2UgKnBkZXYpCj4gIAlyZXR1cm4gcmV0Owo+ICB9Cj4gIAo+IC1z
-dGF0aWMgaW50IHN0bTMyX3Jwcm9jX3JlbW92ZShzdHJ1Y3QgcGxhdGZvcm1fZGV2aWNlICpwZGV2
-KQo+ICtzdGF0aWMgdm9pZCBzdG0zMl9ycHJvY19yZW1vdmUoc3RydWN0IHBsYXRmb3JtX2Rldmlj
-ZSAqcGRldikKPiAgewo+ICAJc3RydWN0IHJwcm9jICpycHJvYyA9IHBsYXRmb3JtX2dldF9kcnZk
-YXRhKHBkZXYpOwo+ICAJc3RydWN0IHN0bTMyX3Jwcm9jICpkZGF0YSA9IHJwcm9jLT5wcml2Owo+
-IEBAIC04ODUsOCArODg1LDYgQEAgc3RhdGljIGludCBzdG0zMl9ycHJvY19yZW1vdmUoc3RydWN0
-IHBsYXRmb3JtX2RldmljZSAqcGRldikKPiAgCQlkZXZpY2VfaW5pdF93YWtldXAoZGV2LCBmYWxz
-ZSk7Cj4gIAl9Cj4gIAlycHJvY19mcmVlKHJwcm9jKTsKPiAtCj4gLQlyZXR1cm4gMDsKPiAgfQo+
-ICAKPiAgc3RhdGljIGludCBfX21heWJlX3VudXNlZCBzdG0zMl9ycHJvY19zdXNwZW5kKHN0cnVj
-dCBkZXZpY2UgKmRldikKPiBAQCAtOTE2LDcgKzkxNCw3IEBAIHN0YXRpYyBTSU1QTEVfREVWX1BN
-X09QUyhzdG0zMl9ycHJvY19wbV9vcHMsCj4gIAo+ICBzdGF0aWMgc3RydWN0IHBsYXRmb3JtX2Ry
-aXZlciBzdG0zMl9ycHJvY19kcml2ZXIgPSB7Cj4gIAkucHJvYmUgPSBzdG0zMl9ycHJvY19wcm9i
-ZSwKPiAtCS5yZW1vdmUgPSBzdG0zMl9ycHJvY19yZW1vdmUsCj4gKwkucmVtb3ZlX25ldyA9IHN0
-bTMyX3Jwcm9jX3JlbW92ZSwKPiAgCS5kcml2ZXIgPSB7Cj4gIAkJLm5hbWUgPSAic3RtMzItcnBy
-b2MiLAo+ICAJCS5wbSA9ICZzdG0zMl9ycHJvY19wbV9vcHMsCl9fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51
-eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1h
-bi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+On 08/05/2023 14:35, Linus Walleij wrote:
+> This rewrites the STMPE GPIO bindings to a YAML schema.
+> 
+> We add the properties that are used in the widely used
+> STMPE GPIO device nodes found in the wild, most notably
+> interrupt support, so interrupt-cells and
+> interrupt-controller is now part of the bindings.
+> 
+> Signed-off-by: Linus Walleij <linus.walleij@linaro.org>
+
+
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+
+Best regards,
+Krzysztof
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
