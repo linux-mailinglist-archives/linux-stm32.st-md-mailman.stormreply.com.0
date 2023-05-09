@@ -2,52 +2,70 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 22BE16FC7C6
-	for <lists+linux-stm32@lfdr.de>; Tue,  9 May 2023 15:23:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 067A46FCC6B
+	for <lists+linux-stm32@lfdr.de>; Tue,  9 May 2023 19:11:42 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E1A75C6904E;
-	Tue,  9 May 2023 13:23:01 +0000 (UTC)
-Received: from www530.your-server.de (www530.your-server.de [188.40.30.78])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A6CDEC6904F;
+	Tue,  9 May 2023 17:11:41 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EF4C9C65E5A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id ABEB4C65E5A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  9 May 2023 13:23:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=geanix.com; 
- s=default2211;
- h=Content-Transfer-Encoding:MIME-Version:Message-Id:Date:
- Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:In-Reply-To:References;
- bh=Mc9JORN232SL1HsWqoXgmrDyPRbH9NMhJpNdhG1Rw7Q=; b=A3YWMGFqkSxkz1bI1aoQOIU0SV
- aUV0ZZWQEEFNEEE7GExtydHFyrODmAMFsIz2/cLYUM5m4Xy2nSxQvfPNNH78qNcKJp/IkKwlc5elk
- 7KhccITNWDA9h01I78wlQFxWACe+OTPhn/8Id812NDmhhTFl6gbaUthuT2mqbUYu2fTaQz8/4hOUe
- uz4z6gIm5E+fT63WmCHI+oIU4ZMqdTBecaruo/Pyn5s4kfUMkDo1tWAl1Fol1c4mevGSGPKkI/2l/
- XhHs9ZWzTm8sDXkIp6XCZ6tiC3TjpFPlV3bkmGe3+5OC+61UPCUYYhvab97SJS7TudVUzzCoX+Zpc
- W/z/QqLw==;
-Received: from sslproxy02.your-server.de ([78.47.166.47])
- by www530.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
- (Exim 4.94.2) (envelope-from <sean@geanix.com>)
- id 1pwNIs-000HBc-Uw; Tue, 09 May 2023 15:22:54 +0200
-Received: from [185.17.218.86] (helo=zen..)
- by sslproxy02.your-server.de with esmtpsa (TLSv1.3:TLS_AES_256_GCM_SHA384:256)
- (Exim 4.92) (envelope-from <sean@geanix.com>)
- id 1pwNIs-000RSx-IN; Tue, 09 May 2023 15:22:54 +0200
-From: Sean Nyekjaer <sean@geanix.com>
-To: Pierre-Yves MORDRET <pierre-yves.mordret@foss.st.com>,
- Alain Volmat <alain.volmat@foss.st.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-Date: Tue,  9 May 2023 15:21:59 +0200
-Message-Id: <20230509132159.4160984-1-sean@geanix.com>
-X-Mailer: git-send-email 2.40.0
+ Tue,  9 May 2023 17:11:40 +0000 (UTC)
+Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 349CIsXA020568; Tue, 9 May 2023 19:11:20 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=mn5jOxLh1H2LGQF8BkirJjrvG/rHRFFa5N/haTu7SCk=;
+ b=w1GEJOugTU6MG/OSxcxzMhyVxUpsKNitOvKtS0QqiQsycyC9Ssr3FD1HyAidp6nGnBjN
+ wVLKmYLS7oTOYIbXqsMwwAfeT/OK2hOdQ4BWSG/cWxaaMQFi1RKT3fMY/DljnhqgZsDW
+ UowzfJ7pVeTbHDwgnwOdplKXWHIV+fKqg4+xvlmzf7+cRFE6XI3F6Zs7tunHrtbLGhRq
+ JGSntJi2FDLMhoTwFdo0kq5Q2lJkUQzIci70Qw8a87XjMrWjSqJiYrO8eZEBZtiIcK5d
+ gSB0QkWgHLUtk4NoWnnOfnUsvLAr8EntsH/VNB68fkSZFw23FU3RFVScOGiUJxU/FT7d 2Q== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3qf79heekw-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 09 May 2023 19:11:20 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 0CA4010002A;
+ Tue,  9 May 2023 19:11:19 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 04BC7231506;
+ Tue,  9 May 2023 19:11:19 +0200 (CEST)
+Received: from [10.252.28.195] (10.252.28.195) by SHFDAG1NODE2.st.com
+ (10.75.129.70) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.21; Tue, 9 May
+ 2023 19:11:17 +0200
+Message-ID: <e14f7bc4-6705-6be6-3393-69ea962ab6ac@foss.st.com>
+Date: Tue, 9 May 2023 19:11:16 +0200
 MIME-Version: 1.0
-X-Authenticated-Sender: sean@geanix.com
-X-Virus-Scanned: Clear (ClamAV 0.103.8/26901/Tue May  9 09:24:37 2023)
-Cc: linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-i2c@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- Sean Nyekjaer <sean@geanix.com>
-Subject: [Linux-stm32] [PATCH] i2c: stm32f7: Add atomic_xfer method to driver
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.10.0
+Content-Language: en-US
+To: =?UTF-8?Q?Uwe_Kleine-K=c3=b6nig?= <u.kleine-koenig@pengutronix.de>, Bjorn
+ Andersson <andersson@kernel.org>, Mathieu Poirier
+ <mathieu.poirier@linaro.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>
+References: <20230504194453.1150368-1-u.kleine-koenig@pengutronix.de>
+ <20230504194453.1150368-18-u.kleine-koenig@pengutronix.de>
+From: Arnaud POULIQUEN <arnaud.pouliquen@foss.st.com>
+Organization: STMicroelectronics
+In-Reply-To: <20230504194453.1150368-18-u.kleine-koenig@pengutronix.de>
+X-Originating-IP: [10.252.28.195]
+X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE2.st.com
+ (10.75.129.70)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.942,Hydra:6.0.573,FMLib:17.11.170.22
+ definitions=2023-05-09_10,2023-05-05_01,2023-02-09_01
+Cc: kernel@pengutronix.de, linux-remoteproc@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 17/18] remoteproc: stm32: Convert to
+ platform remove callback returning void
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,164 +77,46 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add an atomic_xfer method to the driver so that it behaves correctly
-when controlling a PMIC that is responsible for device shutdown.
-
-The atomic_xfer method added is similar to the one from the i2c-mv64xxx
-driver. When running an atomic_xfer a bool flag in the driver data is
-set, the interrupt is not unmasked on transfer start, and the IRQ
-handler is manually invoked while waiting for pending transfers to
-complete.
-
-Signed-off-by: Sean Nyekjaer <sean@geanix.com>
----
-Tested on a STM32MP1 with:
-https://lore.kernel.org/all/20230428112847.2146348-2-sean@geanix.com/
-
-Is it okay to keep the DMA transfer in atomic?
-
-I'm annoyed by the return 1 in stm32f7_i2c_wait_polling() is there any
-good idea to fix that?
-
- drivers/i2c/busses/i2c-stm32f7.c | 73 ++++++++++++++++++++++++++------
- 1 file changed, 60 insertions(+), 13 deletions(-)
-
-diff --git a/drivers/i2c/busses/i2c-stm32f7.c b/drivers/i2c/busses/i2c-stm32f7.c
-index d1c59d83a65b..b63e8a7eb1aa 100644
---- a/drivers/i2c/busses/i2c-stm32f7.c
-+++ b/drivers/i2c/busses/i2c-stm32f7.c
-@@ -357,6 +357,7 @@ struct stm32f7_i2c_dev {
- 	u32 dnf_dt;
- 	u32 dnf;
- 	struct stm32f7_i2c_alert *alert;
-+	bool atomic;
- };
- 
- /*
-@@ -905,13 +906,18 @@ static void stm32f7_i2c_xfer_msg(struct stm32f7_i2c_dev *i2c_dev,
- 		cr2 |= STM32F7_I2C_CR2_NBYTES(f7_msg->count);
- 	}
- 
--	/* Enable NACK, STOP, error and transfer complete interrupts */
--	cr1 |= STM32F7_I2C_CR1_ERRIE | STM32F7_I2C_CR1_TCIE |
--		STM32F7_I2C_CR1_STOPIE | STM32F7_I2C_CR1_NACKIE;
-+	if (!i2c_dev->atomic) {
-+		/* Enable NACK, STOP, error and transfer complete interrupts */
-+		cr1 |= STM32F7_I2C_CR1_ERRIE | STM32F7_I2C_CR1_TCIE |
-+			STM32F7_I2C_CR1_STOPIE | STM32F7_I2C_CR1_NACKIE;
- 
--	/* Clear DMA req and TX/RX interrupt */
--	cr1 &= ~(STM32F7_I2C_CR1_RXIE | STM32F7_I2C_CR1_TXIE |
--			STM32F7_I2C_CR1_RXDMAEN | STM32F7_I2C_CR1_TXDMAEN);
-+		/* Clear DMA req and TX/RX interrupt */
-+		cr1 &= ~(STM32F7_I2C_CR1_RXIE | STM32F7_I2C_CR1_TXIE |
-+				STM32F7_I2C_CR1_RXDMAEN | STM32F7_I2C_CR1_TXDMAEN);
-+	} else {
-+		/* Disable interrupts */
-+		cr1 &= ~STM32F7_I2C_ALL_IRQ_MASK;
-+	}
- 
- 	/* Configure DMA or enable RX/TX interrupt */
- 	i2c_dev->use_dma = false;
-@@ -928,10 +934,12 @@ static void stm32f7_i2c_xfer_msg(struct stm32f7_i2c_dev *i2c_dev,
- 	}
- 
- 	if (!i2c_dev->use_dma) {
--		if (msg->flags & I2C_M_RD)
--			cr1 |= STM32F7_I2C_CR1_RXIE;
--		else
--			cr1 |= STM32F7_I2C_CR1_TXIE;
-+		if (!i2c_dev->atomic) {
-+			if (msg->flags & I2C_M_RD)
-+				cr1 |= STM32F7_I2C_CR1_RXIE;
-+			else
-+				cr1 |= STM32F7_I2C_CR1_TXIE;
-+		}
- 	} else {
- 		if (msg->flags & I2C_M_RD)
- 			cr1 |= STM32F7_I2C_CR1_RXDMAEN;
-@@ -1670,7 +1678,22 @@ static irqreturn_t stm32f7_i2c_isr_error(int irq, void *data)
- 	return IRQ_HANDLED;
- }
- 
--static int stm32f7_i2c_xfer(struct i2c_adapter *i2c_adap,
-+static int stm32f7_i2c_wait_polling(struct stm32f7_i2c_dev *i2c_dev)
-+{
-+	ktime_t timeout = ktime_add_ms(ktime_get(), i2c_dev->adap.timeout);
-+
-+	while (ktime_compare(ktime_get(), timeout) < 0) {
-+		udelay(5);
-+		stm32f7_i2c_isr_event(0, i2c_dev);
-+
-+		if (try_wait_for_completion(&i2c_dev->complete))
-+			return 1;
-+	}
-+
-+	return 0;
-+}
-+
-+static int stm32f7_i2c_xfer_core(struct i2c_adapter *i2c_adap,
- 			    struct i2c_msg msgs[], int num)
- {
- 	struct stm32f7_i2c_dev *i2c_dev = i2c_get_adapdata(i2c_adap);
-@@ -1694,8 +1717,13 @@ static int stm32f7_i2c_xfer(struct i2c_adapter *i2c_adap,
- 
- 	stm32f7_i2c_xfer_msg(i2c_dev, msgs);
- 
--	time_left = wait_for_completion_timeout(&i2c_dev->complete,
--						i2c_dev->adap.timeout);
-+	if (!i2c_dev->atomic) {
-+		time_left = wait_for_completion_timeout(&i2c_dev->complete,
-+							i2c_dev->adap.timeout);
-+	} else {
-+		time_left = stm32f7_i2c_wait_polling(i2c_dev);
-+	}
-+
- 	ret = f7_msg->result;
- 	if (ret) {
- 		if (i2c_dev->use_dma)
-@@ -1727,6 +1755,24 @@ static int stm32f7_i2c_xfer(struct i2c_adapter *i2c_adap,
- 	return (ret < 0) ? ret : num;
- }
- 
-+static int stm32f7_i2c_xfer(struct i2c_adapter *i2c_adap,
-+			    struct i2c_msg msgs[], int num)
-+{
-+	struct stm32f7_i2c_dev *i2c_dev = i2c_get_adapdata(i2c_adap);
-+
-+	i2c_dev->atomic = 0;
-+	return stm32f7_i2c_xfer_core(i2c_adap, msgs, num);
-+}
-+
-+static int stm32f7_i2c_xfer_atomic(struct i2c_adapter *i2c_adap,
-+			    struct i2c_msg msgs[], int num)
-+{
-+	struct stm32f7_i2c_dev *i2c_dev = i2c_get_adapdata(i2c_adap);
-+
-+	i2c_dev->atomic = 1;
-+	return stm32f7_i2c_xfer_core(i2c_adap, msgs, num);
-+}
-+
- static int stm32f7_i2c_smbus_xfer(struct i2c_adapter *adapter, u16 addr,
- 				  unsigned short flags, char read_write,
- 				  u8 command, int size,
-@@ -2095,6 +2141,7 @@ static u32 stm32f7_i2c_func(struct i2c_adapter *adap)
- 
- static const struct i2c_algorithm stm32f7_i2c_algo = {
- 	.master_xfer = stm32f7_i2c_xfer,
-+	.master_xfer_atomic = stm32f7_i2c_xfer_atomic,
- 	.smbus_xfer = stm32f7_i2c_smbus_xfer,
- 	.functionality = stm32f7_i2c_func,
- 	.reg_slave = stm32f7_i2c_reg_slave,
--- 
-2.40.0
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+SGkgVXdlLAoKT24gNS80LzIzIDIxOjQ0LCBVd2UgS2xlaW5lLUvDtm5pZyB3cm90ZToKPiBUaGUg
+LnJlbW92ZSgpIGNhbGxiYWNrIGZvciBhIHBsYXRmb3JtIGRyaXZlciByZXR1cm5zIGFuIGludCB3
+aGljaCBtYWtlcwo+IG1hbnkgZHJpdmVyIGF1dGhvcnMgd3JvbmdseSBhc3N1bWUgaXQncyBwb3Nz
+aWJsZSB0byBkbyBlcnJvciBoYW5kbGluZyBieQo+IHJldHVybmluZyBhbiBlcnJvciBjb2RlLiBI
+b3dldmVyIHRoZSB2YWx1ZSByZXR1cm5lZCBpcyAobW9zdGx5KSBpZ25vcmVkCj4gYW5kIHRoaXMg
+dHlwaWNhbGx5IHJlc3VsdHMgaW4gcmVzb3VyY2UgbGVha3MuIFRvIGltcHJvdmUgaGVyZSB0aGVy
+ZSBpcyBhCj4gcXVlc3QgdG8gbWFrZSB0aGUgcmVtb3ZlIGNhbGxiYWNrIHJldHVybiB2b2lkLiBJ
+biB0aGUgZmlyc3Qgc3RlcCBvZiB0aGlzCj4gcXVlc3QgYWxsIGRyaXZlcnMgYXJlIGNvbnZlcnRl
+ZCB0byAucmVtb3ZlX25ldygpIHdoaWNoIGFscmVhZHkgcmV0dXJucwo+IHZvaWQuCj4gCj4gVHJp
+dmlhbGx5IGNvbnZlcnQgdGhpcyBkcml2ZXIgZnJvbSBhbHdheXMgcmV0dXJuaW5nIHplcm8gaW4g
+dGhlIHJlbW92ZQo+IGNhbGxiYWNrIHRvIHRoZSB2b2lkIHJldHVybmluZyB2YXJpYW50LgoKUmV2
+aWV3ZWQtYnk6IEFybmF1ZCBQb3VsaXF1ZW4gPGFybmF1ZC5wb3VsaXF1ZW5AZm9zcy5zdC5jb20+
+CgpUaGFua3MsCkFybmF1ZAoKPiAKPiBTaWduZWQtb2ZmLWJ5OiBVd2UgS2xlaW5lLUvDtm5pZyA8
+dS5rbGVpbmUta29lbmlnQHBlbmd1dHJvbml4LmRlPgo+IC0tLQo+ICBkcml2ZXJzL3JlbW90ZXBy
+b2Mvc3RtMzJfcnByb2MuYyB8IDYgKystLS0tCj4gIDEgZmlsZSBjaGFuZ2VkLCAyIGluc2VydGlv
+bnMoKyksIDQgZGVsZXRpb25zKC0pCj4gCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvcmVtb3RlcHJv
+Yy9zdG0zMl9ycHJvYy5jIGIvZHJpdmVycy9yZW1vdGVwcm9jL3N0bTMyX3Jwcm9jLmMKPiBpbmRl
+eCA4NzQ2Y2JiMWYxNjguLjE5NzE2ZWM4MmFhZSAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL3JlbW90
+ZXByb2Mvc3RtMzJfcnByb2MuYwo+ICsrKyBiL2RyaXZlcnMvcmVtb3RlcHJvYy9zdG0zMl9ycHJv
+Yy5jCj4gQEAgLTg2Nyw3ICs4NjcsNyBAQCBzdGF0aWMgaW50IHN0bTMyX3Jwcm9jX3Byb2JlKHN0
+cnVjdCBwbGF0Zm9ybV9kZXZpY2UgKnBkZXYpCj4gIAlyZXR1cm4gcmV0Owo+ICB9Cj4gIAo+IC1z
+dGF0aWMgaW50IHN0bTMyX3Jwcm9jX3JlbW92ZShzdHJ1Y3QgcGxhdGZvcm1fZGV2aWNlICpwZGV2
+KQo+ICtzdGF0aWMgdm9pZCBzdG0zMl9ycHJvY19yZW1vdmUoc3RydWN0IHBsYXRmb3JtX2Rldmlj
+ZSAqcGRldikKPiAgewo+ICAJc3RydWN0IHJwcm9jICpycHJvYyA9IHBsYXRmb3JtX2dldF9kcnZk
+YXRhKHBkZXYpOwo+ICAJc3RydWN0IHN0bTMyX3Jwcm9jICpkZGF0YSA9IHJwcm9jLT5wcml2Owo+
+IEBAIC04ODUsOCArODg1LDYgQEAgc3RhdGljIGludCBzdG0zMl9ycHJvY19yZW1vdmUoc3RydWN0
+IHBsYXRmb3JtX2RldmljZSAqcGRldikKPiAgCQlkZXZpY2VfaW5pdF93YWtldXAoZGV2LCBmYWxz
+ZSk7Cj4gIAl9Cj4gIAlycHJvY19mcmVlKHJwcm9jKTsKPiAtCj4gLQlyZXR1cm4gMDsKPiAgfQo+
+ICAKPiAgc3RhdGljIGludCBfX21heWJlX3VudXNlZCBzdG0zMl9ycHJvY19zdXNwZW5kKHN0cnVj
+dCBkZXZpY2UgKmRldikKPiBAQCAtOTE2LDcgKzkxNCw3IEBAIHN0YXRpYyBTSU1QTEVfREVWX1BN
+X09QUyhzdG0zMl9ycHJvY19wbV9vcHMsCj4gIAo+ICBzdGF0aWMgc3RydWN0IHBsYXRmb3JtX2Ry
+aXZlciBzdG0zMl9ycHJvY19kcml2ZXIgPSB7Cj4gIAkucHJvYmUgPSBzdG0zMl9ycHJvY19wcm9i
+ZSwKPiAtCS5yZW1vdmUgPSBzdG0zMl9ycHJvY19yZW1vdmUsCj4gKwkucmVtb3ZlX25ldyA9IHN0
+bTMyX3Jwcm9jX3JlbW92ZSwKPiAgCS5kcml2ZXIgPSB7Cj4gIAkJLm5hbWUgPSAic3RtMzItcnBy
+b2MiLAo+ICAJCS5wbSA9ICZzdG0zMl9ycHJvY19wbV9vcHMsCl9fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51
+eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1h
+bi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
