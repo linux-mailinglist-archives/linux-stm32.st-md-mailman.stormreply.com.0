@@ -2,89 +2,81 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B6FDF6FCCDC
-	for <lists+linux-stm32@lfdr.de>; Tue,  9 May 2023 19:38:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CAC1D6FCF1B
+	for <lists+linux-stm32@lfdr.de>; Tue,  9 May 2023 22:09:24 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5C4E8C6904F;
-	Tue,  9 May 2023 17:38:26 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 658AAC6904F;
+	Tue,  9 May 2023 20:09:24 +0000 (UTC)
+Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com
+ [209.85.210.177])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 40C57C65E70
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7598DC65E5A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  9 May 2023 17:38:25 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id F22FD635E1;
- Tue,  9 May 2023 17:38:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 505E9C433D2;
- Tue,  9 May 2023 17:37:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1683653903;
- bh=MGShGh6VlR3Hv1wloISBcqQ3c580bpsFZyJYjZpPIOc=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=SZZkL4vQkF3AJdtwH9gbqGDk+xHHq8tV5XNIdopJaR4FlgR4t0ooio/8DGBpkkDI1
- 9XvZh/u8VrwtVLR6+bWUtuZfy3ka3/YOGDr13I6xXvr+C2HbOIlR3sg+oRq+s6WkaX
- Rkqh5xGd0kOzk1YjGukRVB1zds+TGaaDX2jB0kRdTsqYsrkO3Ft7JAKYCh7PMGBLpW
- alJPaiC0i7aYN/8emkDIP9Xwx4f44X6MEjZhGFJkaNCeUuWlR3XsB9wLz22IZkVMf/
- NN+1vwZ7hdXXNsKoUMdjVg4qk+znXu6AnK8f8h7pRveIc4z909KgFaPptU75ZM77M2
- VmsQjc6DYnN7Q==
-Message-ID: <1b766164-b5e8-61ac-bf73-6d2c49c72409@kernel.org>
-Date: Tue, 9 May 2023 12:37:39 -0500
+ Tue,  9 May 2023 20:09:22 +0000 (UTC)
+Received: by mail-pf1-f177.google.com with SMTP id
+ d2e1a72fcca58-6435bbedb4fso6861814b3a.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 09 May 2023 13:09:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1683662961; x=1686254961;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=k+FKrsLIVkKYcsIeLT6acEHQnxxZ6Q1AY/ul3RhcaDc=;
+ b=t7HcuJJ8yNGZSd5jU/xlsEmIR0LbZB3y+UKrWSXF1bjCnP1H/mulK2qxWbB9om6c5e
+ EPoNhS+2F2SY6TDpNh93OfYIaBuWtDyA0WUhhijzdrOdZ209vJFBMBDEstCsarasou+9
+ +aaguV9fWmvqneuHb9CoJTE/qx66MsyzXT+Vxlf3Z99RhkANcfNe43TH2ZxXjLdx2+BS
+ HuT1Mt+LUKLIi9eC3VKE3enmhVi2+4/fEeTRQlISUfpnrQX7AiRV2EtLIcQYI0O8DYbA
+ SgRhafl44CnHhh1/jjt5W5eRfmOo6Y3wvHoZfrVQ9hLa4M2QjasbOPOES3SF4ouZL3OB
+ lEsw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1683662961; x=1686254961;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=k+FKrsLIVkKYcsIeLT6acEHQnxxZ6Q1AY/ul3RhcaDc=;
+ b=adUvaKWF4JzRp8ImKnFD4YPHLQY/9cfiFn7zx+Za2R0rQZTNA4E+q6eYYG1dg7Ex/W
+ h81OZ7AqvlJxWyU3ijn/gBV1BWsl8f7w0pjNnxjruMN8FVDe76THfHr+mjmWyiCyxP3G
+ GTGXENLxPFCxEnw3yYE2a1Y3O7k8RrydusoSK/a/WL0cZWueXH5cRExegfo2P5fUKJGX
+ LA17tv6W6NNv0gNLpVudobYdAQrSHqPb2iUpsWPunOC7eq6xyOvGvpX8ttJOoOY+5nUS
+ Lutm7LIdU5GGK8u2heSKPHxzxqaK9Rd44DKcobCe3rOv5URDdqnYXqDUZp/ziW5DNonI
+ ewRg==
+X-Gm-Message-State: AC+VfDzTTSbnD6/c2tEWuVRu+8+Eg4y8COXIiMz4TmxsVrbA+aD0nADP
+ iWo/doUST7CHsZ32nK93YfiNgg==
+X-Google-Smtp-Source: ACHHUZ7DY1IJhZ58XkyYQJW/n6N11Hq8FL8JnuzhTJRQRu0mHe/ZFZZkYof5BJbwpbwYX39JmI5wDQ==
+X-Received: by 2002:a05:6a21:6317:b0:f3:3810:8a89 with SMTP id
+ wu23-20020a056a21631700b000f338108a89mr16127445pzb.51.1683662960788; 
+ Tue, 09 May 2023 13:09:20 -0700 (PDT)
+Received: from p14s ([2604:3d09:148c:c800:5e48:ff40:3eaf:3f9e])
+ by smtp.gmail.com with ESMTPSA id
+ a9-20020a63e409000000b0050376cedb3asm1756976pgi.24.2023.05.09.13.09.19
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 09 May 2023 13:09:20 -0700 (PDT)
+Date: Tue, 9 May 2023 14:09:17 -0600
+From: Mathieu Poirier <mathieu.poirier@linaro.org>
+To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>
+Message-ID: <ZFqobZAfdlu+Rdtt@p14s>
+References: <20230504194453.1150368-1-u.kleine-koenig@pengutronix.de>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.10.0
-Content-Language: en-US
-To: Maxime Ripard <maxime@cerno.tech>
-References: <20221018-clk-range-checks-fixes-v3-0-9a1358472d52@cerno.tech>
- <20221018-clk-range-checks-fixes-v3-29-9a1358472d52@cerno.tech>
- <679921ee-98d4-d6ef-5934-e009fd4b31fc@kernel.org>
- <sjlp5ubnpvulgwhhymmfkmmobkgxacyqwagqozodkee3di2qik@3igj6k3zgbk6>
- <57dd81d0-510e-0fab-670d-1109eb8dd974@kernel.org>
- <tgtfisqxubin4cjj6q26fboirbcnjzcazt5y3m322lw5lskz6l@d3tgz4hdfnk2>
-From: Dinh Nguyen <dinguyen@kernel.org>
-In-Reply-To: <tgtfisqxubin4cjj6q26fboirbcnjzcazt5y3m322lw5lskz6l@d3tgz4hdfnk2>
-Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Prashant Gaikwad <pgaikwad@nvidia.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Michael Turquette <mturquette@baylibre.com>, Sekhar Nori <nsekhar@ti.com>,
- dri-devel@lists.freedesktop.org, Liam Girdwood <lgirdwood@gmail.com>,
- Paul Cercueil <paul@crapouillou.net>, Max Filippov <jcmvbkbc@gmail.com>,
- Thierry Reding <thierry.reding@gmail.com>, linux-phy@lists.infradead.org,
- Fabio Estevam <festevam@gmail.com>, linux-clk@vger.kernel.org,
- Abel Vesa <abelvesa@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>,
- Samuel Holland <samuel@sholland.org>, David Airlie <airlied@gmail.com>,
- Takashi Iwai <tiwai@suse.com>, linux-tegra@vger.kernel.org,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Jonathan Hunter <jonathanh@nvidia.com>, Chen-Yu Tsai <wens@csie.org>,
- NXP Linux Team <linux-imx@nxp.com>, Orson Zhai <orsonzhai@gmail.com>,
- Ulf Hansson <ulf.hansson@linaro.org>, linux-mips@vger.kernel.org,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Linus Walleij <linus.walleij@linaro.org>, linux-rtc@vger.kernel.org,
- Charles Keepax <ckeepax@opensource.cirrus.com>,
- David Lechner <david@lechnology.com>, alsa-devel@alsa-project.org,
- Manivannan Sadhasivam <mani@kernel.org>, linux-kernel@vger.kernel.org,
- Sascha Hauer <s.hauer@pengutronix.de>, linux-actions@lists.infradead.org,
- Richard Fitzgerald <rf@opensource.cirrus.com>, Mark Brown <broonie@kernel.org>,
- linux-mediatek@lists.infradead.org,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Matthias Brugger <matthias.bgg@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Jaroslav Kysela <perex@perex.cz>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- linux-arm-kernel@lists.infradead.org,
+Content-Disposition: inline
+In-Reply-To: <20230504194453.1150368-1-u.kleine-koenig@pengutronix.de>
+Cc: linux-remoteproc@vger.kernel.org, Fabio Estevam <festevam@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Jerome Brunet <jbrunet@baylibre.com>,
+ Kevin Hilman <khilman@baylibre.com>, Andy Gross <agross@kernel.org>,
+ NXP Linux Team <linux-imx@nxp.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ linux-arm-msm@vger.kernel.org, Sascha Hauer <s.hauer@pengutronix.de>,
+ linux-mediatek@lists.infradead.org, Matthias Brugger <matthias.bgg@gmail.com>,
+ linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
  AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Alessandro Zummo <a.zummo@towertech.it>, Stephen Boyd <sboyd@kernel.org>,
- patches@opensource.cirrus.com, Peter De Schrijver <pdeschrijver@nvidia.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- =?UTF-8?Q?Andreas_F=c3=a4rber?= <afaerber@suse.de>,
- linux-renesas-soc@vger.kernel.org, linux-sunxi@lists.linux.dev,
- Vinod Koul <vkoul@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Chunyan Zhang <zhang.lyra@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
- Claudiu Beznea <claudiu.beznea@microchip.com>
-Subject: Re: [Linux-stm32] [PATCH v3 29/65] clk: socfpga: gate: Add a
-	determine_rate hook
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, kernel@pengutronix.de,
+ Shawn Guo <shawnguo@kernel.org>
+Subject: Re: [Linux-stm32] [PATCH 00/18] remoteproc: Convert to platform
+ remove callback returning void
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,229 +88,105 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Maxime,
+On Thu, May 04, 2023 at 09:44:35PM +0200, Uwe Kleine-K=F6nig wrote:
+> Hello,
+> =
 
-On 5/4/23 12:04, Maxime Ripard wrote:
-> Hi Dinh,
-> 
-> On Thu, Apr 27, 2023 at 02:09:48PM -0500, Dinh Nguyen wrote:
->> Hi Maxime,
->>
->> On 4/25/23 09:48, Maxime Ripard wrote:
->>> Hi Dinh,
->>>
->>> On Mon, Apr 24, 2023 at 01:32:28PM -0500, Dinh Nguyen wrote:
->>>> On 4/4/23 05:11, Maxime Ripard wrote:
->>>>> The SoCFGPA gate clock implements a mux with a set_parent hook, but
->>>>> doesn't provide a determine_rate implementation.
->>>>>
->>>>> This is a bit odd, since set_parent() is there to, as its name implies,
->>>>> change the parent of a clock. However, the most likely candidate to
->>>>> trigger that parent change is a call to clk_set_rate(), with
->>>>> determine_rate() figuring out which parent is the best suited for a
->>>>> given rate.
->>>>>
->>>>> The other trigger would be a call to clk_set_parent(), but it's far less
->>>>> used, and it doesn't look like there's any obvious user for that clock.
->>>>>
->>>>> So, the set_parent hook is effectively unused, possibly because of an
->>>>> oversight. However, it could also be an explicit decision by the
->>>>> original author to avoid any reparenting but through an explicit call to
->>>>> clk_set_parent().
->>>>>
->>>>> The latter case would be equivalent to setting the flag
->>>>> CLK_SET_RATE_NO_REPARENT, together with setting our determine_rate hook
->>>>> to __clk_mux_determine_rate(). Indeed, if no determine_rate
->>>>> implementation is provided, clk_round_rate() (through
->>>>> clk_core_round_rate_nolock()) will call itself on the parent if
->>>>> CLK_SET_RATE_PARENT is set, and will not change the clock rate
->>>>> otherwise. __clk_mux_determine_rate() has the exact same behavior when
->>>>> CLK_SET_RATE_NO_REPARENT is set.
->>>>>
->>>>> And if it was an oversight, then we are at least explicit about our
->>>>> behavior now and it can be further refined down the line.
->>>>>
->>>>> Signed-off-by: Maxime Ripard <maxime@cerno.tech>
->>>>> ---
->>>>>     drivers/clk/socfpga/clk-gate.c | 3 ++-
->>>>>     1 file changed, 2 insertions(+), 1 deletion(-)
->>>>>
->>>>> diff --git a/drivers/clk/socfpga/clk-gate.c b/drivers/clk/socfpga/clk-gate.c
->>>>> index 32ccda960f28..cbba8462a09e 100644
->>>>> --- a/drivers/clk/socfpga/clk-gate.c
->>>>> +++ b/drivers/clk/socfpga/clk-gate.c
->>>>> @@ -110,6 +110,7 @@ static unsigned long socfpga_clk_recalc_rate(struct clk_hw *hwclk,
->>>>>     static struct clk_ops gateclk_ops = {
->>>>>     	.recalc_rate = socfpga_clk_recalc_rate,
->>>>> +	.determine_rate = __clk_mux_determine_rate,
->>>>>     	.get_parent = socfpga_clk_get_parent,
->>>>>     	.set_parent = socfpga_clk_set_parent,
->>>>>     };
->>>>> @@ -166,7 +167,7 @@ void __init socfpga_gate_init(struct device_node *node)
->>>>>     	init.name = clk_name;
->>>>>     	init.ops = ops;
->>>>> -	init.flags = 0;
->>>>> +	init.flags = CLK_SET_RATE_NO_REPARENT;
->>>>>     	init.num_parents = of_clk_parent_fill(node, parent_name, SOCFPGA_MAX_PARENTS);
->>>>>     	if (init.num_parents < 2) {
->>>>>
->>>>
->>>> This patch broke SoCFPGA boot serial port. The characters are mangled.
->>>
->>> Do you have any other access to that board? If so, could you dump
->>> clk_summary in debugfs with and without that patch?
->>>
->>
->> That dump from the clk_summary are identical for both cases.
-> 
-> Thanks for testing
-> 
-> I'm a bit confused, there should be no difference in behaviour, and if
-> there was any difference I would expect the clock tree to be somewhat
-> different.
-> 
-> Could you still paste the clk_summary (and dmesg) output? Which UART
-> driver is being used?
-> 
-> Also, is there a way for me to test it somehow?
-> 
+> this patch series adapts most platform drivers below drivers/remoteproc
+> to use the .remove_new() callback. Compared to the traditional .remove()
+> callback .remove_new() returns no value. This is a good thing because
+> the driver core doesn't (and cannot) cope for errors during remove. The
+> only effect of a non-zero return value in .remove() is that the driver
+> core emits a warning. The device is removed anyhow and an early return
+> from .remove() usually yields a resource leak. One driver suffering from
+> this problem (s3c2410) is fixed by the first patch.
+> =
 
-Apologies, but there is a diff with/without this patch:
+> By changing the remove callback to return void driver authors cannot
+> reasonably (but wrongly) assume any more that there happens some kind of
+> cleanup later.
+> =
 
-With patch:
-<           l4_sp_clk                   3        3        0   100000000 
-         0     0  50000         ?
----
-Without patch:
- >           l4_sp_clk                   4        4        0   100000000 
-          0     0  50000         ?
+> There is one driver (i.e. ti_k3_dsp_remoteproc.c) that might return an
+> error code in .remove(). I didn't look in detail into this driver, but
+> if that error happens, we have exactly the bad situation described
+> above. (Note that kproc->mem and the register mapping goes away.)
+> =
 
-The enable/prepare count is 4 instead of 3 in the case of a working 
-UART. The debug uart is using the lp_sp_clk.
+> Best regards
+> Uwe
+> =
 
+> Uwe Kleine-K=F6nig (18):
+>   remoteproc: da8xx: Convert to platform remove callback returning void
+>   remoteproc: imx_dsp: Convert to platform remove callback returning
+>     void
+>   remoteproc: imx: Convert to platform remove callback returning void
+>   remoteproc: keystone: Convert to platform remove callback returning
+>     void
+>   remoteproc: meson_mx_ao_arc: Convert to platform remove callback
+>     returning void
+>   remoteproc: mtk_scp: Convert to platform remove callback returning
+>     void
+>   remoteproc: omap: Convert to platform remove callback returning void
+>   remoteproc: pru: Convert to platform remove callback returning void
+>   remoteproc: qcom_q6v5_adsp: Convert to platform remove callback
+>     returning void
+>   remoteproc: qcom_q6v5_mss: Convert to platform remove callback
+>     returning void
+>   remoteproc: qcom_q6v5_pas: Convert to platform remove callback
+>     returning void
+>   remoteproc: qcom_q6v5_wcss: Convert to platform remove callback
+>     returning void
+>   remoteproc: qcom_wcnss: Convert to platform remove callback returning
+>     void
+>   remoteproc: rcar: Convert to platform remove callback returning void
+>   remoteproc: virtio: Convert to platform remove callback returning void
+>   remoteproc: st: Convert to platform remove callback returning void
+>   remoteproc: stm32: Convert to platform remove callback returning void
+>   remoteproc: wkup_m3: Convert to platform remove callback returning
+>     void
+> =
 
-The Cyclone5 devkits are pretty cheap if you want to get one.
+>  drivers/remoteproc/da8xx_remoteproc.c    | 6 ++----
+>  drivers/remoteproc/imx_dsp_rproc.c       | 6 ++----
+>  drivers/remoteproc/imx_rproc.c           | 6 ++----
+>  drivers/remoteproc/keystone_remoteproc.c | 6 ++----
+>  drivers/remoteproc/meson_mx_ao_arc.c     | 6 ++----
+>  drivers/remoteproc/mtk_scp.c             | 6 ++----
+>  drivers/remoteproc/omap_remoteproc.c     | 6 ++----
+>  drivers/remoteproc/pru_rproc.c           | 6 ++----
+>  drivers/remoteproc/qcom_q6v5_adsp.c      | 6 ++----
+>  drivers/remoteproc/qcom_q6v5_mss.c       | 6 ++----
+>  drivers/remoteproc/qcom_q6v5_pas.c       | 6 ++----
+>  drivers/remoteproc/qcom_q6v5_wcss.c      | 6 ++----
+>  drivers/remoteproc/qcom_wcnss.c          | 6 ++----
+>  drivers/remoteproc/rcar_rproc.c          | 6 ++----
+>  drivers/remoteproc/remoteproc_virtio.c   | 6 ++----
+>  drivers/remoteproc/st_remoteproc.c       | 6 ++----
+>  drivers/remoteproc/stm32_rproc.c         | 6 ++----
+>  drivers/remoteproc/wkup_m3_rproc.c       | 6 ++----
+>  18 files changed, 36 insertions(+), 72 deletions(-)
+>
 
-Here is the full out of clk_summary:
+I have applied this set.
 
-# cat /sys/kernel/debug/clk/clk_summary
-                                  enable  prepare protect 
-                 duty  hardware
-    clock                          count    count    count rate 
-accuracy phase  cycle    enable
--------------------------------------------------------------------------------------------------------
-  osc1                                 5        5        0 25000000 
-     0     0  50000         Y
-     sdram_pll                         0        0        0 800000000 
-      0     0  50000         Y
-        h2f_usr2_clk                   0        0        0 133333333 
-      0     0  50000         Y
-           h2f_user2_clk               0        0        0 133333333 
-      0     0  50000         ?
-        ddr_dq_clk                     0        0        0 400000000 
-      0     0  50000         Y
-           ddr_dq_clk_gate             0        0        0 400000000 
-      0     0  50000         ?
-        ddr_2x_dqs_clk                 0        0        0 800000000 
-      0     0  50000         Y
-           ddr_2x_dqs_clk_gate         0        0        0 800000000 
-      0     0  50000         ?
-        ddr_dqs_clk                    0        0        0 400000000 
-      0     0  50000         Y
-           ddr_dqs_clk_gate            0        0        0 400000000 
-      0     0  50000         ?
-     periph_pll                        3        3        0 1000000000 
-       0     0  50000         Y
-        h2f_usr1_clk                   0        0        0 1953125 
-    0     0  50000         Y
-           h2f_user1_clk               0        0        0 1953125 
-    0     0  50000         ?
-        per_base_clk                   4        4        0 200000000 
-      0     0  50000         Y
-           gpio_db_clk                 0        0        0 32000 
-  0     0  50000         ?
-           can1_clk                    0        0        0 40000000 
-     0     0  50000         ?
-           can0_clk                    0        0        0 100000000 
-      0     0  50000         ?
-           spi_m_clk                   1        1        0 200000000 
-      0     0  50000         ?
-           usb_mp_clk                  1        1        0 200000000 
-      0     0  50000         ?
-           l4_sp_clk                   4        4        0 100000000 
-      0     0  50000         ?
-           l4_mp_clk                   1        1        0 100000000 
-      0     0  50000         ?
-        per_nand_mmc_clk               1        1        0 200000000 
-      0     0  50000         Y
-           nand_x_clk                  0        0        0 200000000 
-      0     0  50000         ?
-              nand_clk                 0        0        0 50000000 
-     0     0  50000         ?
-              nand_ecc_clk             0        0        0 200000000 
-      0     0  50000         ?
-           sdmmc_clk                   1        1        0 200000000 
-      0     0  50000         ?
-              sdmmc_clk_divided        1        1        0 50000000 
-     0     0  50000         ?
-        per_qsi_clk                    0        0        0 1953125 
-    0     0  50000         Y
-        emac1_clk                      1        1        0 250000000 
-      0     0  50000         Y
-           emac_1_clk                  1        1        0 250000000 
-      0     0  50000         ?
-        emac0_clk                      0        0        0 1953125 
-    0     0  50000         Y
-           emac_0_clk                  0        0        0 1953125 
-    0     0  50000         ?
-     dbg_base_clk                      0        0        0 6250000 
-    0     0  50000         Y
-        dbg_timer_clk                  0        0        0 6250000 
-    0     0  50000         ?
-        dbg_trace_clk                  0        0        0 6250000 
-    0     0  50000         ?
-        dbg_at_clk                     0        0        0 6250000 
-    0     0  50000         ?
-           dbg_clk                     0        0        0 3125000 
-    0     0  50000         ?
-     main_pll                          2        3        0 1850000000 
-       0     0  50000         Y
-        cfg_h2f_usr0_clk               0        0        0 123333333 
-      0     0  50000         Y
-           h2f_user0_clk               0        0        0 123333333 
-      0     0  50000         ?
-           cfg_clk                     0        0        0 123333333 
-      0     0  50000         ?
-        main_nand_sdmmc_clk            0        0        0 3613281 
-    0     0  50000         Y
-        main_qspi_clk                  1        1        0 370000000 
-      0     0  50000         Y
-           qspi_clk                    1        1        0 370000000 
-      0     0  50000         ?
-        mainclk                        0        1        0 370000000 
-      0     0  50000         Y
-           l3_mp_clk                   0        0        0 185000000 
-      0     0  50000         ?
-              l3_sp_clk                0        0        0 92500000 
-     0     0  50000         Y
-           l3_main_clk                 0        0        0 370000000 
-      0     0  50000         Y
-           l4_main_clk                 0        1        0 370000000 
-      0     0  50000         ?
-        mpuclk                         1        1        0 925000000 
-      0     0  50000         Y
-           mpu_l2_ram_clk              0        0        0 462500000 
-      0     0  50000         Y
-           mpu_periph_clk              1        1        0 231250000 
-      0     0  50000         Y
+Thanks,
+Mathieu
 
+> =
 
-Dinh
+> base-commit: 1a5304fecee523060f26e2778d9d8e33c0562df3
+> -- =
+
+> 2.39.2
+> =
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
