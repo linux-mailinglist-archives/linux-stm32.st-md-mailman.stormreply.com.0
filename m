@@ -2,52 +2,40 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 791046FD41F
-	for <lists+linux-stm32@lfdr.de>; Wed, 10 May 2023 05:20:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9A7846FD683
+	for <lists+linux-stm32@lfdr.de>; Wed, 10 May 2023 08:07:10 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 127E9C6904F;
-	Wed, 10 May 2023 03:20:25 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 43E52C6904F;
+	Wed, 10 May 2023 06:07:10 +0000 (UTC)
+Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A3830C65E70
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E4722C65E70
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 10 May 2023 03:20:23 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 5F146638AE;
- Wed, 10 May 2023 03:20:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 7355BC433D2;
- Wed, 10 May 2023 03:20:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1683688821;
- bh=CzZfzTu8RicmrAihhEdj3n4Hnw9ijOZRpa2C8Uf+YwU=;
- h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=LJngmX87oEH0CJoIoFzovj4uJrFXep5qK6hKJROBFMBdO5YXiTDc+rDApQj3cuRpV
- FnxJwCG93tbRWr+kjnYUpBczk/v0NxqG2yv733P/XS6DK0CuTLfVl55MmhiXi8iSKY
- Yh7oBS73Orl4mJZY3al3sCmUDGiBmhWsgGRhXhDNQQLDOKCQ5lgxZ0aP5YCK5NmaDC
- fOPE96YgbSfcc7Sbdqp2hlMWDoU5mnznHoeBxbrUjzR15ecv6+4TBPxNj9MGKSZ+EI
- c5tzYiRN86WG8jm9MRm2wv2s9+BX0TFEGIJkkMBhLtb4cKOZEX9faPlp8ZTFXx/A+A
- 5VkRrt4+oNtGw==
-Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
- 55D9EC39562; Wed, 10 May 2023 03:20:21 +0000 (UTC)
+ Tue,  9 May 2023 18:00:36 +0000 (UTC)
+Received: from francesco-nb.int.toradex.com (31-10-206-125.static.upc.ch
+ [31.10.206.125])
+ by mail11.truemail.it (Postfix) with ESMTPA id 98FA5206F1;
+ Tue,  9 May 2023 20:00:35 +0200 (CEST)
+Date: Tue, 9 May 2023 20:00:31 +0200
+From: Francesco Dolcini <francesco@dolcini.it>
+To: Marek Vasut <marex@denx.de>
+Message-ID: <ZFqKPyCvFA7BD3y7@francesco-nb.int.toradex.com>
+References: <20230506235845.246105-1-marex@denx.de>
 MIME-Version: 1.0
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <168368882134.6867.7268121417623894775.git-patchwork-notify@kernel.org>
-Date: Wed, 10 May 2023 03:20:21 +0000
-References: <20230508144339.3014402-1-ji.sheng.teoh@intel.com>
-In-Reply-To: <20230508144339.3014402-1-ji.sheng.teoh@intel.com>
-To: Teoh Ji Sheng <ji.sheng.teoh@intel.com>
-Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, edumazet@google.com,
- joabreu@synopsys.com, mcoquelin.stm32@gmail.com, kuba@kernel.org,
- peppe.cavallaro@st.com, pabeni@redhat.com, davem@davemloft.net,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next 1/1] net: stmmac: xgmac: add
- ethtool per-queue irq statistic support
+Content-Disposition: inline
+In-Reply-To: <20230506235845.246105-1-marex@denx.de>
+X-Mailman-Approved-At: Wed, 10 May 2023 06:07:09 +0000
+Cc: Paolo Abeni <pabeni@redhat.com>,
+ Marcel Ziswiler <marcel.ziswiler@toradex.com>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Jakub Kicinski <kuba@kernel.org>,
+ Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Francesco Dolcini <francesco.dolcini@toradex.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>, Harald Seiler <hws@denx.de>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] net: stmmac: Initialize
+	MAC_ONEUS_TIC_COUNTER register
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -64,30 +52,57 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello:
-
-This patch was applied to netdev/net-next.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
-
-On Mon,  8 May 2023 22:43:40 +0800 you wrote:
-> Commit af9bf70154eb ("net: stmmac: add ethtool per-queue irq statistic
-> support") introduced ethtool per-queue statistics support to display
-> number of interrupts generated by DMA tx and DMA rx for DWMAC4 core.
-> This patch extend the support to XGMAC core.
+On Sun, May 07, 2023 at 01:58:45AM +0200, Marek Vasut wrote:
+> Initialize MAC_ONEUS_TIC_COUNTER register with correct value derived
+> from CSR clock, otherwise EEE is unstable on at least NXP i.MX8M Plus
+> and Micrel KSZ9131RNX PHY, to the point where not even ARP request can
+> be sent out.
 > 
-> Signed-off-by: Teoh Ji Sheng <ji.sheng.teoh@intel.com>
+> i.MX 8M Plus Applications Processor Reference Manual, Rev. 1, 06/2021
+> 11.7.6.1.34 One-microsecond Reference Timer (MAC_ONEUS_TIC_COUNTER)
+> defines this register as:
+> "
+> This register controls the generation of the Reference time (1 microsecond
+> tic) for all the LPI timers. This timer has to be programmed by the software
+> initially.
+> ...
+> The application must program this counter so that the number of clock cycles
+> of CSR clock is 1us. (Subtract 1 from the value before programming).
+> For example if the CSR clock is 100MHz then this field needs to be programmed
+> to value 100 - 1 = 99 (which is 0x63).
+> This is required to generate the 1US events that are used to update some of
+> the EEE related counters.
+> "
 > 
-> [...]
+> The reset value is 0x63 on i.MX8M Plus, which means expected CSR clock are
+> 100 MHz. However, the i.MX8M Plus "enet_qos_root_clk" are 266 MHz instead,
+> which means the LPI timers reach their count much sooner on this platform.
+> 
+> This is visible using a scope by monitoring e.g. exit from LPI mode on TX_CTL
+> line from MAC to PHY. This should take 30us per STMMAC_DEFAULT_TWT_LS setting,
+> during which the TX_CTL line transitions from tristate to low, and 30 us later
+> from low to high. On i.MX8M Plus, this transition takes 11 us, which matches
+> the 30us * 100/266 formula for misconfigured MAC_ONEUS_TIC_COUNTER register.
+> 
+> Configure MAC_ONEUS_TIC_COUNTER based on CSR clock, so that the LPI timers
+> have correct 1us reference. This then fixes EEE on i.MX8M Plus with Micrel
+> KSZ9131RNX PHY.
+> 
+> Signed-off-by: Marek Vasut <marex@denx.de>
 
-Here is the summary with links:
-  - [net-next,1/1] net: stmmac: xgmac: add ethtool per-queue irq statistic support
-    https://git.kernel.org/netdev/net-next/c/af8eacf2b42e
+Reviewed-by: Francesco Dolcini <francesco.dolcini@toradex.com>
+Tested-by: Francesco Dolcini <francesco.dolcini@toradex.com> # Toradex Verdin iMX8MP
 
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+I think this commit should have a fixes tag, what about
 
+Fixes: 477286b53f55 ("stmmac: add GMAC4 core support")
+
+> NOTE: I suspect this can help with Toradex ELB-3757, Marcel, can you please
+>       test this patch on i.MX8M Plus Verdin ?
+>       https://developer-archives.toradex.com/software/linux/release-details?module=Verdin+iMX8M+Plus&key=ELB-3757
+I think you are right, your patch clearly makes a difference here.
+
+Francesco
 
 _______________________________________________
 Linux-stm32 mailing list
