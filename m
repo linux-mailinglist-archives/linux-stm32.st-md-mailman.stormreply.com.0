@@ -2,60 +2,121 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D9B1D6FB946
-	for <lists+linux-stm32@lfdr.de>; Mon,  8 May 2023 23:20:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D5DDD6FBC8A
+	for <lists+linux-stm32@lfdr.de>; Tue,  9 May 2023 03:34:55 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7C9A7C6A606;
-	Mon,  8 May 2023 21:20:18 +0000 (UTC)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 87A78C6A606;
+	Tue,  9 May 2023 01:34:55 +0000 (UTC)
+Received: from mo-csw.securemx.jp (mo-csw1115.securemx.jp [210.130.202.157])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7DCD6C6A5F7
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B5E42C65E60
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  8 May 2023 21:20:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1683580816; x=1715116816;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=ZXD+ewt6EPlLmAFkTGfXobVhsHMapRgravjPxFdOVE4=;
- b=a43J2D7mz0ajuhi6OAaU97iordnG5/AXXlAYqyCyZv97YR0h/TWAQR+U
- bUsg8vf/UjgpH0rH6H7p+gisnoCMqIu/U2kaJt4zpgMZi3Og3O/WV3hjS
- SlWG86Aaf5jTf+nGbDi3TGsjnurwsaHJ1JTQpCrbSaZRotmMK5IjAzkcO
- 7VZ2SzBLajeizdHOgj/jJjz8l3k+SpklWJI3fTICrU1fZ0IXTAG4mWxAH
- wUXUEUaQ0j+hzB96fUY/A+UkLQomXKYxuHb/31TRD2fovo/5It3QAZJsf
- uvn1JuanRrfAYYrEj3C7TwmrA9/k6BWDkup9yZJzIWmxb+HO5fxg6kDsd Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10704"; a="436079614"
-X-IronPort-AV: E=Sophos;i="5.99,259,1677571200"; d="scan'208";a="436079614"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 May 2023 14:19:47 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10704"; a="692727524"
-X-IronPort-AV: E=Sophos;i="5.99,259,1677571200"; d="scan'208";a="692727524"
-Received: from lkp-server01.sh.intel.com (HELO dea6d5a4f140) ([10.239.97.150])
- by orsmga007.jf.intel.com with ESMTP; 08 May 2023 14:19:42 -0700
-Received: from kbuild by dea6d5a4f140 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1pw8Gk-0001QT-02;
- Mon, 08 May 2023 21:19:42 +0000
-Date: Tue, 9 May 2023 05:19:22 +0800
-From: kernel test robot <lkp@intel.com>
-To: Lizhe <sensor1010@163.com>, marcan@marcan.st, sven@svenpeter.dev,
- alyssa@rosenzweig.io, linus.walleij@linaro.org,
- neil.armstrong@linaro.org, mcoquelin.stm32@gmail.com,
- alexandre.torgue@foss.st.com, daniel@zonque.org,
- haojian.zhuang@gmail.com, robert.jarzmik@free.fr
-Message-ID: <202305090411.OyJRHVis-lkp@intel.com>
-References: <20230508154043.11859-1-sensor1010@163.com>
+ Tue,  9 May 2023 01:34:53 +0000 (UTC)
+Received: by mo-csw.securemx.jp (mx-mo-csw1115) id 3491XnBi003131;
+ Tue, 9 May 2023 10:33:49 +0900
+X-Iguazu-Qid: 2wHH8MjPaUWJxIqQBE
+X-Iguazu-QSIG: v=2; s=0; t=1683596029; q=2wHH8MjPaUWJxIqQBE;
+ m=gaKboDerq6gAl1gFLPSFPf5M2bVp6sXAYvmUYKiKqS0=
+Received: from imx2-a.toshiba.co.jp (imx2-a.toshiba.co.jp [106.186.93.35])
+ by relay.securemx.jp (mx-mr1111) id 3491XiO6005040
+ (version=TLSv1.2 cipher=AES128-GCM-SHA256 bits=128 verify=NOT);
+ Tue, 9 May 2023 10:33:45 +0900
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=AeDMUGB04QouUXfG704xqGEsY686Wj8hk4WSniK85QsDgy4IVT9hNetED86iNvnt8kCaQWV9S8wfN6DUpBbk7k741HSiG15LDFQWyKNMLGYI677Vi6TFHxWvLPTb9brTajpGSLHot3yveGQZPpNDr/jgXC2tZMA68QR0udqgAoPtHMGqQzG0vIJ0m1+4+pXjfx33VQFQiS/o6OAz4EvjjP07GEeBoHWlF/WdpzzUUTgQwrlFwSi4jKWTUhFdxkXEYLscaaNYkIYqLPsyaEtmRFV41rhD3OBoIiFwh1opItNnJtnwyes6q4o7nBobJDYrcS+y0GUmrspUwDcWzgQoyQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=1lRIxqbva96T5WaQum0MUZBTsdwrHmTF6Y/B2CAtZck=;
+ b=iseKMoFyBtSxZ4rnRx0X8G4yLKloIdbOxAPxLQNw9YXE998v29g1mLl+cZLFQ47BEhFvIOodZZQdx1UOrkl4KRy/4NgJIDY77LRIm1WjW797KXv2wvaBq5XQiD/gb+GZc7I+TQZ9EUG3Z8uQKCNtAvmil0wuaWu1DXk+HhfjLe3TqSn+5QlPM7zcI7vgB56bN1drPDHmhoQ9xqj/fG9KVV08peSrlS67JvLgkmC0gMskLIzJZJXiSOhW1YVkcaNV77N2+lBRpvT2GgFsdEP9HnAmszBw1o6zBxXG6i+8op0LFzRH/XH8Jb/F7yhlgfq1fy134y+HHLcw6hhRduNz2g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=toshiba.co.jp; dmarc=pass action=none
+ header.from=toshiba.co.jp; dkim=pass header.d=toshiba.co.jp; arc=none
+From: <nobuhiro1.iwamatsu@toshiba.co.jp>
+To: <u.kleine-koenig@pengutronix.de>, <peppe.cavallaro@st.com>,
+ <alexandre.torgue@foss.st.com>, <joabreu@synopsys.com>,
+ <davem@davemloft.net>, <edumazet@google.com>, <kuba@kernel.org>,
+ <pabeni@redhat.com>, <mcoquelin.stm32@gmail.com>
+Thread-Topic: [PATCH net-next v2 02/11] net: stmmac: dwmac-visconti: Make
+ visconti_eth_clock_remove() return void
+Thread-Index: AQHZgbk4wR/hiqTSp0KOy9NMLJTePK9RKLZg
+Date: Tue, 9 May 2023 01:33:39 +0000
+X-TSB-HOP2: ON
+Message-ID: <TYWPR01MB9420B21A11C1586EDCF9270892769@TYWPR01MB9420.jpnprd01.prod.outlook.com>
+References: <20230508142637.1449363-1-u.kleine-koenig@pengutronix.de>
+ <20230508142637.1449363-3-u.kleine-koenig@pengutronix.de>
+In-Reply-To: <20230508142637.1449363-3-u.kleine-koenig@pengutronix.de>
+Accept-Language: ja-JP, en-US
+Content-Language: ja-JP
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=toshiba.co.jp;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: TYWPR01MB9420:EE_|OS3PR01MB5655:EE_
+x-ms-office365-filtering-correlation-id: 1d70b588-7678-4ec7-a128-08db502d6af5
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 5jkzdUwk8Z7lBHi/30ApPhh0iZz7jQAqiGFQygWHIEGxTGfNFTnwqV9c+Wt65XFNiuvCxwbia3tEvJYvlzsckb53ge202stNpHI2CWBZLoqGCR17dpIaoW6eaHR7qkMEP3OT+y6gMuBOoQFuSKCfGEtLWp/v1WUv3JNpFpeSyzafv6jdv6Q0m7ZVgkCrrokuz/PMcs7XFkxQH7IiW9g7zOWSg58pXT/dyyc+olo15yGe+fVirSQ1iJn4Ds8Yp84mdYPKaA7B5gKbUpnp8awiIaLJMVy+Ry+0pBk6MEQiPsrA6ks8j+qdHDP+whHubJz7H2x2lp6/Dupnb9tM6io7HXP7Iy2y94YKVMDa8/AVnzt6eOfULJ9cwWGBeA7HWYnPQ8kc9Z0jbfKiINE6dgcNJBBMrydeWAx2Z6LtzcUkJDjt9KhriIGCXsRZljBwK424DAkt2HLE6UPYtBDpHzhAVhZsw66mRji0LM0f9Zx8GqeLH8wAxEhQ93/x4ToLAzL9HJzRtPCQb/s6W4f/iz2Iai3PxShSLzUtNuDZgEAkmlKQZsUmsvnBiUOIEIOsW354l3kDbyxpOWDjvZJybKX+BUIeMvRKkBP6rxISHG8reVf3FhZaGQH7/MKS2srmf2ZL
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:TYWPR01MB9420.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(4636009)(396003)(346002)(376002)(136003)(39860400002)(366004)(451199021)(2906002)(186003)(4744005)(26005)(6506007)(9686003)(53546011)(33656002)(38100700002)(83380400001)(55016003)(122000001)(71200400001)(316002)(38070700005)(64756008)(41300700001)(66446008)(66946007)(66476007)(66556008)(76116006)(7696005)(4326008)(54906003)(86362001)(110136005)(478600001)(7416002)(52536014)(5660300002)(8936002)(8676002);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?YWJvQTlCakE1UVk5UUhzOWxyVXI2cGs5OHFxZVkvcG82UERGY2VUcXVjWmNJ?=
+ =?utf-8?B?amRXV28rWlYzTHh2YXAvOXZkbTNNUW9ucTVHb1c1Tlh5eUsrOGFYSjVtVk8x?=
+ =?utf-8?B?cDRYUlhjbTloTW9laEdMaElDdHFUclphOVozTzhWZmx1ZGhjSDNpa2NlbXAr?=
+ =?utf-8?B?bnY1REZKbW1oakpxWTdVaHI2bkdaanRZaHA1d0FscCtDc3JLNS9RREU1bFcw?=
+ =?utf-8?B?SktrclFsZS9MZVQ3Y0p0N0FkdmJpL0M5Mms5RTFFcEN0OS9HY2ZmOTgwL2lL?=
+ =?utf-8?B?aTdUV0tiTktObjVtRnhzbmRLenFwZC8zNUtuMmZraXBiTzNBR2R6WU9sUWQz?=
+ =?utf-8?B?R0QrS05yUmY4b3lVUFBhTTRZUUpDUUdOL2IvUHZBYytMNkpaVGZRZVBmbFdM?=
+ =?utf-8?B?OTRUR1RieU84Z042b3pvdDcxemk4Qm85SkhXM2VSZjNMcFV6L3RNdDV4c0Yw?=
+ =?utf-8?B?bnFJRXgzZXhXY2RzZk04V0tqOWxmSWQ5MnZSSlV1UWJ3TG52dk5XQmF1cUMr?=
+ =?utf-8?B?R1JNdFMwdHhFWnlBbVJSbXdNQ2NET2lEVFV0ODBVWTAwUkl0SEhvWWdsRnBF?=
+ =?utf-8?B?V2JYRzRCazNYNW1wbnpqVk43RU1yZmQ4WXBXQ3hDRHRKRXZ6RzdyclUrV0Zu?=
+ =?utf-8?B?S3REOVdTMWJuRU9NQUMwaFdFZFIzL0JHZERpS2hXOG5COU14bjN3RENvcHlM?=
+ =?utf-8?B?RENCNSszZHRxK0xBcDNVY0U1SzVCakp6N0dobDN1VFlwclAxYy9xMVc1dmI3?=
+ =?utf-8?B?b3VOWVNyc0Z2TkVURFJ1WnBTUk01dmdhS3kydDdBVTJIYTZDTUpLTUtEWGVa?=
+ =?utf-8?B?QzZWMUMzbWpvbDQzaGFOSWR5c1NiZEpMMjlIZzVBZ0VRMkVjN2hIUG96ckVt?=
+ =?utf-8?B?QXpLSjRHYUw4OGpuMXZPcXhFZWZQLyt2Y3VSSEdyeForQkc0ZmFRK3FmZnV4?=
+ =?utf-8?B?S2t3UDdYWTZCWkE3OTJwczJJWGlRM3lXWmtOMEwxY1Y2UmFyMyt0WEVISE4r?=
+ =?utf-8?B?TXcwbXV0Tk1wNUVxMXV3MERXWmtHQ2tUQllyd2tucW4wUzVDQUFGdUdBbFF3?=
+ =?utf-8?B?RytKV1NpN1JFWURKVkl2UEhhTjNHMkZwam0rQWVNOEtuOXhiZW80NlZqdDlj?=
+ =?utf-8?B?MU5OaThtaXoySjQzeUYva3B1V3lWNFBnVGhvQS81THVGbEduS2xZMFFWaGor?=
+ =?utf-8?B?YnA1STFHN0RIeC9ETFBUWHVhQ2JFUWNzcTBqRk5DQ2t4WUtBRlVKYkFlQkJh?=
+ =?utf-8?B?dTZYclBZbWRFSUFPNmxrQU0vMUpPcG1jOG9iTzhtUmVPTUU4eS9XZi9yQjRi?=
+ =?utf-8?B?ZHAyNkFzZzhFTUp5a2JwSzdoRjdXM0l6eEpaTCtsM0FHTFllODVpdDRIRTls?=
+ =?utf-8?B?dWVoeGgwazdWQjBOUUJ0Q21CdXR0SnowOUJSbEdlZFg4ZStpUVlBMFlkRXhq?=
+ =?utf-8?B?emQ2M2YxcnlweXVpMXIwY2RmSWFFQXFuTTRsbkhub0JLTzF6MWtxVlBCMjNt?=
+ =?utf-8?B?Mm9sN3plNW9MekprQTRDZmw1U0FSbXA3WXRSWVk3SW56eXVJYVpHUzQyZzdW?=
+ =?utf-8?B?VzBEeDEyRFJWcVNxQ3lLOXE5STVqcGE1SWV1MFRyNEVUZDE0aFgrczJrTDJ4?=
+ =?utf-8?B?ek94bWR4eUE5ekRENDg2bnErdmRyUUlielJkaU5qbVZSTTMyb3NONUN1dGtl?=
+ =?utf-8?B?cFp4Sjkrc3UvcUxKSGxLQVFCOGJGcTh4QTN3WU5XOStUQTB1bThLVWtBMUZ3?=
+ =?utf-8?B?ejUzMHBQZkt6WW1mVFVPdDUwT0luQjJ6ZXBRQVBJbTB4SGFmd2hqc3BGRURt?=
+ =?utf-8?B?RDVZeXlLYkpTZGxWYmlhN1R3cm52MWJweEhGa0R4MVlVdDZyMDV3QTB6NEdj?=
+ =?utf-8?B?WHdoYmx1d0xrejlsbVJNRzQyVDluYnFSK1Bxdmt0VFdlczhZTXQ1REVvYnda?=
+ =?utf-8?B?R21wVEt2NW1OMmtIS0VBTkdHQ2FDT0p0TU1IQlNpTXBpazRrL3FFTDNWUWxa?=
+ =?utf-8?B?ZGFRbExMZTJ5aEhaZU03K3ZGRFdNd1BPK29GTG1TL3JoVGlSY2dNUC9QT3k0?=
+ =?utf-8?B?NktiWnd1Si9jK0locFN6a0NnR1kxM1VGZTk0VVl4YWtBKzUxbW1xUzJSckpw?=
+ =?utf-8?B?ckxFMHVlRE5ocHpPa0hDYlVnbUxNMTZXYmFpVzI3ZVcyajU1ZTVqVmJEd3Z3?=
+ =?utf-8?B?T2c9PQ==?=
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20230508154043.11859-1-sensor1010@163.com>
-Cc: Lizhe <sensor1010@163.com>, linux-kernel@vger.kernel.org,
- linux-gpio@vger.kernel.org, asahi@lists.linux.dev,
- oe-kbuild-all@lists.linux.dev, linux-oxnas@groups.io,
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TYWPR01MB9420.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1d70b588-7678-4ec7-a128-08db502d6af5
+X-MS-Exchange-CrossTenant-originalarrivaltime: 09 May 2023 01:33:40.0680 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: f109924e-fb71-4ba0-b2cc-65dcdf6fbe4f
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: VYyVLsXIP5ibnwwlgqnh+dNsicsR7R/lydsWNSoEMb5plt/Nx4uGzVbs0k2hScj8CABZpPIDZxN38StjAdIG/aEuAvzwxKjIlhUZuq3HXX8p5s/A9UOQ9bpacXr69m4c
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS3PR01MB5655
+X-OriginatorOrg: toshiba.co.jp
+MSSCP.TransferMailToMossAgent: 103
+Cc: kernel@pengutronix.de, netdev@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] dirvers/pinctrl.c : using
- pinctrl_dev->dev to obtain struct device * dev
+Subject: Re: [Linux-stm32] [PATCH net-next v2 02/11] net: stmmac:
+ dwmac-visconti: Make visconti_eth_clock_remove() return void
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,220 +128,32 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Lizhe,
-
-kernel test robot noticed the following build errors:
-
-[auto build test ERROR on linusw-pinctrl/devel]
-[also build test ERROR on linusw-pinctrl/for-next linus/master v6.4-rc1 next-20230508]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Lizhe/dirvers-pinctrl-c-using-pinctrl_dev-dev-to-obtain-struct-device-dev/20230508-234502
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/linusw/linux-pinctrl.git devel
-patch link:    https://lore.kernel.org/r/20230508154043.11859-1-sensor1010%40163.com
-patch subject: [PATCH] dirvers/pinctrl.c : using pinctrl_dev->dev to obtain struct device * dev
-config: m68k-allyesconfig (https://download.01.org/0day-ci/archive/20230509/202305090411.OyJRHVis-lkp@intel.com/config)
-compiler: m68k-linux-gcc (GCC) 12.1.0
-reproduce (this is a W=1 build):
-        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
-        chmod +x ~/bin/make.cross
-        # https://github.com/intel-lab-lkp/linux/commit/83751a28d7f5223597b6742300796fb80362dc20
-        git remote add linux-review https://github.com/intel-lab-lkp/linux
-        git fetch --no-tags linux-review Lizhe/dirvers-pinctrl-c-using-pinctrl_dev-dev-to-obtain-struct-device-dev/20230508-234502
-        git checkout 83751a28d7f5223597b6742300796fb80362dc20
-        # save the config file
-        mkdir build_dir && cp config build_dir/.config
-        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-12.1.0 make.cross W=1 O=build_dir ARCH=m68k olddefconfig
-        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-12.1.0 make.cross W=1 O=build_dir ARCH=m68k SHELL=/bin/bash drivers/
-
-If you fix the issue, kindly add following tag where applicable
-| Reported-by: kernel test robot <lkp@intel.com>
-| Link: https://lore.kernel.org/oe-kbuild-all/202305090411.OyJRHVis-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
-   In file included from include/linux/device.h:15,
-                    from include/linux/platform_device.h:13,
-                    from drivers/pinctrl/pinctrl-stmfx.c:12:
-   drivers/pinctrl/pinctrl-stmfx.c: In function 'stmfx_pinctrl_probe':
->> drivers/pinctrl/pinctrl-stmfx.c:714:25: error: 'pctldev' undeclared (first use in this function); did you mean 'pci_dev'?
-     714 |                 dev_err(pctldev->dev, "gpio_chip registration failed\n");
-         |                         ^~~~~~~
-   include/linux/dev_printk.h:110:25: note: in definition of macro 'dev_printk_index_wrap'
-     110 |                 _p_func(dev, fmt, ##__VA_ARGS__);                       \
-         |                         ^~~
-   drivers/pinctrl/pinctrl-stmfx.c:714:17: note: in expansion of macro 'dev_err'
-     714 |                 dev_err(pctldev->dev, "gpio_chip registration failed\n");
-         |                 ^~~~~~~
-   drivers/pinctrl/pinctrl-stmfx.c:714:25: note: each undeclared identifier is reported only once for each function it appears in
-     714 |                 dev_err(pctldev->dev, "gpio_chip registration failed\n");
-         |                         ^~~~~~~
-   include/linux/dev_printk.h:110:25: note: in definition of macro 'dev_printk_index_wrap'
-     110 |                 _p_func(dev, fmt, ##__VA_ARGS__);                       \
-         |                         ^~~
-   drivers/pinctrl/pinctrl-stmfx.c:714:17: note: in expansion of macro 'dev_err'
-     714 |                 dev_err(pctldev->dev, "gpio_chip registration failed\n");
-         |                 ^~~~~~~
---
-   In file included from include/linux/printk.h:564,
-                    from include/asm-generic/bug.h:22,
-                    from arch/m68k/include/asm/bug.h:32,
-                    from include/linux/bug.h:5,
-                    from include/linux/io.h:11,
-                    from drivers/pinctrl/pxa/pinctrl-pxa2xx.c:9:
-   drivers/pinctrl/pxa/pinctrl-pxa2xx.c: In function 'pxa2xx_pmx_gpio_set_direction':
->> drivers/pinctrl/pxa/pinctrl-pxa2xx.c:94:24: error: invalid use of undefined type 'struct pinctrl_dev'
-      94 |         dev_dbg(pctldev->dev, "set_direction(pin=%d): dir=%d\n",
-         |                        ^~
-   include/linux/dynamic_debug.h:222:29: note: in definition of macro '__dynamic_func_call_cls'
-     222 |                 func(&id, ##__VA_ARGS__);                       \
-         |                             ^~~~~~~~~~~
-   include/linux/dynamic_debug.h:248:9: note: in expansion of macro '_dynamic_func_call_cls'
-     248 |         _dynamic_func_call_cls(_DPRINTK_CLASS_DFLT, fmt, func, ##__VA_ARGS__)
-         |         ^~~~~~~~~~~~~~~~~~~~~~
-   include/linux/dynamic_debug.h:271:9: note: in expansion of macro '_dynamic_func_call'
-     271 |         _dynamic_func_call(fmt, __dynamic_dev_dbg,              \
-         |         ^~~~~~~~~~~~~~~~~~
-   include/linux/dev_printk.h:155:9: note: in expansion of macro 'dynamic_dev_dbg'
-     155 |         dynamic_dev_dbg(dev, dev_fmt(fmt), ##__VA_ARGS__)
-         |         ^~~~~~~~~~~~~~~
-   drivers/pinctrl/pxa/pinctrl-pxa2xx.c:94:9: note: in expansion of macro 'dev_dbg'
-      94 |         dev_dbg(pctldev->dev, "set_direction(pin=%d): dir=%d\n",
-         |         ^~~~~~~
-   drivers/pinctrl/pxa/pinctrl-pxa2xx.c: In function 'pxa2xx_pmx_set_mux':
-   drivers/pinctrl/pxa/pinctrl-pxa2xx.c:159:24: error: invalid use of undefined type 'struct pinctrl_dev'
-     159 |         dev_dbg(pctldev->dev, "set_mux(pin=%d): af=%d dir=%d\n",
-         |                        ^~
-   include/linux/dynamic_debug.h:222:29: note: in definition of macro '__dynamic_func_call_cls'
-     222 |                 func(&id, ##__VA_ARGS__);                       \
-         |                             ^~~~~~~~~~~
-   include/linux/dynamic_debug.h:248:9: note: in expansion of macro '_dynamic_func_call_cls'
-     248 |         _dynamic_func_call_cls(_DPRINTK_CLASS_DFLT, fmt, func, ##__VA_ARGS__)
-         |         ^~~~~~~~~~~~~~~~~~~~~~
-   include/linux/dynamic_debug.h:271:9: note: in expansion of macro '_dynamic_func_call'
-     271 |         _dynamic_func_call(fmt, __dynamic_dev_dbg,              \
-         |         ^~~~~~~~~~~~~~~~~~
-   include/linux/dev_printk.h:155:9: note: in expansion of macro 'dynamic_dev_dbg'
-     155 |         dynamic_dev_dbg(dev, dev_fmt(fmt), ##__VA_ARGS__)
-         |         ^~~~~~~~~~~~~~~
-   drivers/pinctrl/pxa/pinctrl-pxa2xx.c:159:9: note: in expansion of macro 'dev_dbg'
-     159 |         dev_dbg(pctldev->dev, "set_mux(pin=%d): af=%d dir=%d\n",
-         |         ^~~~~~~
-
-
-vim +714 drivers/pinctrl/pinctrl-stmfx.c
-
-   638	
-   639	static int stmfx_pinctrl_probe(struct platform_device *pdev)
-   640	{
-   641		struct stmfx *stmfx = dev_get_drvdata(pdev->dev.parent);
-   642		struct device_node *np = pdev->dev.of_node;
-   643		struct stmfx_pinctrl *pctl;
-   644		struct gpio_irq_chip *girq;
-   645		int irq, ret;
-   646	
-   647		pctl = devm_kzalloc(stmfx->dev, sizeof(*pctl), GFP_KERNEL);
-   648		if (!pctl)
-   649			return -ENOMEM;
-   650	
-   651		platform_set_drvdata(pdev, pctl);
-   652	
-   653		pctl->dev = &pdev->dev;
-   654		pctl->stmfx = stmfx;
-   655	
-   656		if (!of_property_present(np, "gpio-ranges")) {
-   657			dev_err(pctl->dev, "missing required gpio-ranges property\n");
-   658			return -EINVAL;
-   659		}
-   660	
-   661		irq = platform_get_irq(pdev, 0);
-   662		if (irq <= 0)
-   663			return -ENXIO;
-   664	
-   665		mutex_init(&pctl->lock);
-   666	
-   667		/* Register pin controller */
-   668		pctl->pctl_desc.name = "stmfx-pinctrl";
-   669		pctl->pctl_desc.pctlops = &stmfx_pinctrl_ops;
-   670		pctl->pctl_desc.confops = &stmfx_pinconf_ops;
-   671		pctl->pctl_desc.pins = stmfx_pins;
-   672		pctl->pctl_desc.npins = ARRAY_SIZE(stmfx_pins);
-   673		pctl->pctl_desc.owner = THIS_MODULE;
-   674		pctl->pctl_desc.link_consumers = true;
-   675	
-   676		ret = devm_pinctrl_register_and_init(pctl->dev, &pctl->pctl_desc,
-   677						     pctl, &pctl->pctl_dev);
-   678		if (ret) {
-   679			dev_err(pctl->dev, "pinctrl registration failed\n");
-   680			return ret;
-   681		}
-   682	
-   683		ret = pinctrl_enable(pctl->pctl_dev);
-   684		if (ret) {
-   685			dev_err(pctl->dev, "pinctrl enable failed\n");
-   686			return ret;
-   687		}
-   688	
-   689		/* Register gpio controller */
-   690		pctl->gpio_chip.label = "stmfx-gpio";
-   691		pctl->gpio_chip.parent = pctl->dev;
-   692		pctl->gpio_chip.get_direction = stmfx_gpio_get_direction;
-   693		pctl->gpio_chip.direction_input = stmfx_gpio_direction_input;
-   694		pctl->gpio_chip.direction_output = stmfx_gpio_direction_output;
-   695		pctl->gpio_chip.get = stmfx_gpio_get;
-   696		pctl->gpio_chip.set = stmfx_gpio_set;
-   697		pctl->gpio_chip.set_config = gpiochip_generic_config;
-   698		pctl->gpio_chip.base = -1;
-   699		pctl->gpio_chip.ngpio = pctl->pctl_desc.npins;
-   700		pctl->gpio_chip.can_sleep = true;
-   701	
-   702		girq = &pctl->gpio_chip.irq;
-   703		gpio_irq_chip_set_chip(girq, &stmfx_pinctrl_irq_chip);
-   704		/* This will let us handle the parent IRQ in the driver */
-   705		girq->parent_handler = NULL;
-   706		girq->num_parents = 0;
-   707		girq->parents = NULL;
-   708		girq->default_type = IRQ_TYPE_NONE;
-   709		girq->handler = handle_bad_irq;
-   710		girq->threaded = true;
-   711	
-   712		ret = devm_gpiochip_add_data(pctl->dev, &pctl->gpio_chip, pctl);
-   713		if (ret) {
- > 714			dev_err(pctldev->dev, "gpio_chip registration failed\n");
-   715			return ret;
-   716		}
-   717	
-   718		ret = stmfx_pinctrl_gpio_function_enable(pctl);
-   719		if (ret)
-   720			return ret;
-   721	
-   722		ret = devm_request_threaded_irq(pctl->dev, irq, NULL,
-   723						stmfx_pinctrl_irq_thread_fn,
-   724						IRQF_ONESHOT,
-   725						dev_name(pctl->dev), pctl);
-   726		if (ret) {
-   727			dev_err(pctldev->dev, "cannot request irq%d\n", irq);
-   728			return ret;
-   729		}
-   730	
-   731		dev_info(pctldev->dev,
-   732			 "%ld GPIOs available\n", hweight_long(pctl->gpio_valid_mask));
-   733	
-   734		return 0;
-   735	}
-   736	
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+SGkgVXdlLA0KDQo+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+IEZyb206IFV3ZSBLbGVp
+bmUtS8O2bmlnIDx1LmtsZWluZS1rb2VuaWdAcGVuZ3V0cm9uaXguZGU+DQo+IFNlbnQ6IE1vbmRh
+eSwgTWF5IDgsIDIwMjMgMTE6MjYgUE0NCj4gVG86IEdpdXNlcHBlIENhdmFsbGFybyA8cGVwcGUu
+Y2F2YWxsYXJvQHN0LmNvbT47IEFsZXhhbmRyZSBUb3JndWUNCj4gPGFsZXhhbmRyZS50b3JndWVA
+Zm9zcy5zdC5jb20+OyBKb3NlIEFicmV1IDxqb2FicmV1QHN5bm9wc3lzLmNvbT47DQo+IERhdmlk
+IFMuIE1pbGxlciA8ZGF2ZW1AZGF2ZW1sb2Z0Lm5ldD47IEVyaWMgRHVtYXpldA0KPiA8ZWR1bWF6
+ZXRAZ29vZ2xlLmNvbT47IEpha3ViIEtpY2luc2tpIDxrdWJhQGtlcm5lbC5vcmc+OyBQYW9sbyBB
+YmVuaQ0KPiA8cGFiZW5pQHJlZGhhdC5jb20+OyBNYXhpbWUgQ29xdWVsaW4gPG1jb3F1ZWxpbi5z
+dG0zMkBnbWFpbC5jb20+Ow0KPiBpd2FtYXRzdSBub2J1aGlybyjlsqnmnb4g5L+h5rSLIOKXi++8
+pO+8qe+8tO+8o+KWoe+8pO+8qe+8tOKXi++8r++8s++8tCkNCj4gPG5vYnVoaXJvMS5pd2FtYXRz
+dUB0b3NoaWJhLmNvLmpwPg0KPiBDYzogbmV0ZGV2QHZnZXIua2VybmVsLm9yZzsgbGludXgtc3Rt
+MzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbTsNCj4gbGludXgtYXJtLWtlcm5lbEBsaXN0
+cy5pbmZyYWRlYWQub3JnOyBrZXJuZWxAcGVuZ3V0cm9uaXguZGUNCj4gU3ViamVjdDogW1BBVENI
+IG5ldC1uZXh0IHYyIDAyLzExXSBuZXQ6IHN0bW1hYzogZHdtYWMtdmlzY29udGk6IE1ha2UNCj4g
+dmlzY29udGlfZXRoX2Nsb2NrX3JlbW92ZSgpIHJldHVybiB2b2lkDQo+IA0KPiBUaGUgZnVuY3Rp
+b24gcmV0dXJucyB6ZXJvIHVuY29uZGl0aW9uYWxseS4gQ2hhbmdlIGl0IHRvIHJldHVybiB2b2lk
+IGluc3RlYWQNCj4gd2hpY2ggc2ltcGxpZmllcyBvbmUgY2FsbGVyIGFzIGVycm9yIGhhbmRpbmcg
+YmVjb21lcyB1bm5lY2Vzc2FyeS4NCj4gDQo+IFNpZ25lZC1vZmYtYnk6IFV3ZSBLbGVpbmUtS8O2
+bmlnIDx1LmtsZWluZS1rb2VuaWdAcGVuZ3V0cm9uaXguZGU+DQoNCkFja2VkLWJ5OiBOb2J1aGly
+byBJd2FtYXRzdSA8bm9idWhpcm8xLml3YW1hdHN1QHRvc2hpYmEuY28uanA+DQoNCkJlc3QgcmVn
+YXJkcywNCiBOb2J1aGlybw0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxt
+YW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21h
+aWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
