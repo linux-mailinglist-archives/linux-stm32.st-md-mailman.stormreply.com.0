@@ -2,52 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F7886FD3E5
-	for <lists+linux-stm32@lfdr.de>; Wed, 10 May 2023 04:50:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 34A536FD3F7
+	for <lists+linux-stm32@lfdr.de>; Wed, 10 May 2023 05:00:28 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 32294C6904F;
-	Wed, 10 May 2023 02:50:24 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D7FA2C6904F;
+	Wed, 10 May 2023 03:00:27 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id ED2C3C65E70
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EBB50C65E70
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 10 May 2023 02:50:22 +0000 (UTC)
+ Wed, 10 May 2023 03:00:26 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id AAC90638F0;
- Wed, 10 May 2023 02:50:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id D3A43C433D2;
- Wed, 10 May 2023 02:50:20 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 808DC638FF;
+ Wed, 10 May 2023 03:00:25 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id B5C7CC4339B;
+ Wed, 10 May 2023 03:00:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1683687020;
- bh=uYGUc2iemDUAZix/3j2XeIERBHlEpfWv5ACO+Ofk21I=;
+ s=k20201202; t=1683687624;
+ bh=7LO/nm+SvO2zUJm9O7tKkRrwmKO+jJgciV/tuTaQgEI=;
  h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=RdJEjA12dj4F0THfzvCLgpra7SlZYVF+g9Ir2ZbBYbG/XP2Y38KPlnt5ahBVPBLaF
- CDcpN/4wfGFX8iYkh5gxGQo4JJlU+7+NY+QS/lvnsUShqwUo2ZiTnOoXknq6uGv4Sc
- jRexMbAPkWn3DoiCxIyI5bA9H+diGdO3sURPsERlWWVOOBr7IZM3EnvF1tDz6axlg8
- qpo/cukK6uI7oOCDgck/wXKeKELjp/46GZCPEPUeUvZu9NdUYiv+j/HYQXuPAuYIPT
- qRJ92f7uH7g/UOhnuueRtE+HnnWfFQLo4wJRWrG88DbZ3WYiQODnWUmaVglJUkx6eI
- BtAYDjqPenspA==
+ b=RTOVU+VB5lVL3KuGZFTpoKDpYjJRZaFEG2sQHTVRB003U8JjjD5mssizr5+LQvmxS
+ FiRe09LS1LVd1YWnDEJh5qAL8JXede7MYdp/xXZvK/GdzrksCN2HWYx2Yl6T6VU0FJ
+ 9JyyJlSaOGUYos/Lyy9six7qob5Gkj21W/akStnMjymLUTb5PyAM8M1Wbf3N951mzV
+ Eg6NfnYrqIYGWQtpMzg4W3Sk8GzvYYx+hlaSlCIHcLFyllWUB3ydom5VLPkfJdMfc6
+ YNs6Y4Xid5qDf/PpW1q5ZniGiemNLv2Btm+78JH6TJxiVI7ORNqyekAAsAcCAtY5+p
+ +unEdK3RS/REg==
 Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
  (localhost.localdomain [127.0.0.1])
  by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
- AA571C39562; Wed, 10 May 2023 02:50:20 +0000 (UTC)
+ 8C0E5C39562; Wed, 10 May 2023 03:00:24 +0000 (UTC)
 MIME-Version: 1.0
 From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <168368702069.23144.12939098876302994192.git-patchwork-notify@kernel.org>
-Date: Wed, 10 May 2023 02:50:20 +0000
-References: <20230506235845.246105-1-marex@denx.de>
-In-Reply-To: <20230506235845.246105-1-marex@denx.de>
-To: Marek Vasut <marex@denx.de>
-Cc: pabeni@redhat.com, marcel.ziswiler@toradex.com, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, kuba@kernel.org, edumazet@google.com,
- joabreu@synopsys.com, mcoquelin.stm32@gmail.com, francesco.dolcini@toradex.com,
- peppe.cavallaro@st.com, hws@denx.de, davem@davemloft.net,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] net: stmmac: Initialize
-	MAC_ONEUS_TIC_COUNTER register
+Message-Id: <168368762456.27124.17176817660933091864.git-patchwork-notify@kernel.org>
+Date: Wed, 10 May 2023 03:00:24 +0000
+References: <20230508142637.1449363-1-u.kleine-koenig@pengutronix.de>
+In-Reply-To: <20230508142637.1449363-1-u.kleine-koenig@pengutronix.de>
+To: =?utf-8?q?Uwe_Kleine-K=C3=B6nig_=3Cu=2Ekleine-koenig=40pengutronix=2Ede=3E?=@ci.codeaurora.org
+Cc: kernel@esmil.dk, linux-tegra@vger.kernel.org, edumazet@google.com,
+ thierry.reding@gmail.com, linux-amlogic@lists.infradead.org,
+ nobuhiro1.iwamatsu@toshiba.co.jp, festevam@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com, jbrunet@baylibre.com,
+ samuel@sholland.org, khilman@baylibre.com, jernej.skrabec@gmail.com,
+ jonathanh@nvidia.com, wens@csie.org, joabreu@synopsys.com,
+ samin.guo@starfivetech.com, linux-imx@nxp.com, kuba@kernel.org,
+ pabeni@redhat.com, linux-sunxi@lists.linux.dev, bhupesh.sharma@linaro.org,
+ martin.blumenstingl@googlemail.com, s.hauer@pengutronix.de, vz@mleia.com,
+ linux-mediatek@lists.infradead.org, matthias.bgg@gmail.com,
+ peppe.cavallaro@st.com, kernel@pengutronix.de,
+ linux-arm-kernel@lists.infradead.org, angelogioacchino.delregno@collabora.com,
+ neil.armstrong@linaro.org, netdev@vger.kernel.org, vkoul@kernel.org,
+ mcoquelin.stm32@gmail.com, linux-oxnas@groups.io, shawnguo@kernel.org,
+ davem@davemloft.net
+Subject: Re: [Linux-stm32] [PATCH net-next v2 00/11] net: stmmac: Convert to
+ platform remove callback returning void
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,36 +76,43 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 Hello:
 
-This patch was applied to netdev/net.git (main)
+This series was applied to netdev/net-next.git (main)
 by Jakub Kicinski <kuba@kernel.org>:
 
-On Sun,  7 May 2023 01:58:45 +0200 you wrote:
-> Initialize MAC_ONEUS_TIC_COUNTER register with correct value derived
-> from CSR clock, otherwise EEE is unstable on at least NXP i.MX8M Plus
-> and Micrel KSZ9131RNX PHY, to the point where not even ARP request can
-> be sent out.
+On Mon,  8 May 2023 16:26:26 +0200 you wrote:
+> Hello,
 > 
-> i.MX 8M Plus Applications Processor Reference Manual, Rev. 1, 06/2021
-> 11.7.6.1.34 One-microsecond Reference Timer (MAC_ONEUS_TIC_COUNTER)
-> defines this register as:
-> "
-> This register controls the generation of the Reference time (1 microsecond
-> tic) for all the LPI timers. This timer has to be programmed by the software
-> initially.
-> ...
-> The application must program this counter so that the number of clock cycles
-> of CSR clock is 1us. (Subtract 1 from the value before programming).
-> For example if the CSR clock is 100MHz then this field needs to be programmed
-> to value 100 - 1 = 99 (which is 0x63).
-> This is required to generate the 1US events that are used to update some of
-> the EEE related counters.
-> "
+> (implicit) v1 of this series is available at
+> https://lore.kernel.org/netdev/20230402143025.2524443-1-u.kleine-koenig@pengutronix.de
+> .
+> 
+> Changes since then:
 > 
 > [...]
 
 Here is the summary with links:
-  - net: stmmac: Initialize MAC_ONEUS_TIC_COUNTER register
-    https://git.kernel.org/netdev/net/c/8efbdbfa9938
+  - [net-next,v2,01/11] net: stmmac: Make stmmac_pltfr_remove() return void
+    https://git.kernel.org/netdev/net-next/c/3246627f11c5
+  - [net-next,v2,02/11] net: stmmac: dwmac-visconti: Make visconti_eth_clock_remove() return void
+    https://git.kernel.org/netdev/net-next/c/b9bc44fe068d
+  - [net-next,v2,03/11] net: stmmac: dwmac-qcom-ethqos: Drop an if with an always false condition
+    https://git.kernel.org/netdev/net-next/c/c5f3ffe35cc9
+  - [net-next,v2,04/11] net: stmmac: dwmac-visconti: Convert to platform remove callback returning void
+    https://git.kernel.org/netdev/net-next/c/f4d05c419761
+  - [net-next,v2,05/11] net: stmmac: dwmac-dwc-qos-eth: Convert to platform remove callback returning void
+    https://git.kernel.org/netdev/net-next/c/360cd89064b6
+  - [net-next,v2,06/11] net: stmmac: dwmac-qcom-ethqos: Convert to platform remove callback returning void
+    https://git.kernel.org/netdev/net-next/c/5580b559a80a
+  - [net-next,v2,07/11] net: stmmac: dwmac-rk: Convert to platform remove callback returning void
+    https://git.kernel.org/netdev/net-next/c/903cc461c901
+  - [net-next,v2,08/11] net: stmmac: dwmac-sti: Convert to platform remove callback returning void
+    https://git.kernel.org/netdev/net-next/c/b394982a10d9
+  - [net-next,v2,09/11] net: stmmac: dwmac-stm32: Convert to platform remove callback returning void
+    https://git.kernel.org/netdev/net-next/c/fec3f552140e
+  - [net-next,v2,10/11] net: stmmac: dwmac-sun8i: Convert to platform remove callback returning void
+    https://git.kernel.org/netdev/net-next/c/cc708d4ed7b3
+  - [net-next,v2,11/11] net: stmmac: dwmac-tegra: Convert to platform remove callback returning void
+    https://git.kernel.org/netdev/net-next/c/a86f8601c8f0
 
 You are awesome, thank you!
 -- 
