@@ -2,53 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 195936FD701
-	for <lists+linux-stm32@lfdr.de>; Wed, 10 May 2023 08:30:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A1686FDD5D
+	for <lists+linux-stm32@lfdr.de>; Wed, 10 May 2023 14:02:26 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B63BFC6904F;
-	Wed, 10 May 2023 06:30:09 +0000 (UTC)
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
- [85.220.165.71])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 18C92C69053;
+	Wed, 10 May 2023 12:02:26 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C6789C6904E
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 10 May 2023 12:02:24 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C9794C65E70
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 10 May 2023 06:30:08 +0000 (UTC)
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
- by metis.ext.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <ukl@pengutronix.de>)
- id 1pwdKu-0007AP-Us; Wed, 10 May 2023 08:30:04 +0200
-Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
- by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.94.2)
- (envelope-from <ukl@pengutronix.de>)
- id 1pwdKq-002PS9-K9; Wed, 10 May 2023 08:30:00 +0200
-Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.94.2)
- (envelope-from <ukl@pengutronix.de>)
- id 1pwdKp-002ztf-QJ; Wed, 10 May 2023 08:29:59 +0200
-Date: Wed, 10 May 2023 08:29:59 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
-To: Bhupesh Sharma <bhupesh.sharma@linaro.org>
-Message-ID: <20230510062959.ll5cr5s3uhjrdufj@pengutronix.de>
-References: <20230508142637.1449363-1-u.kleine-koenig@pengutronix.de>
- <20230508142637.1449363-7-u.kleine-koenig@pengutronix.de>
- <CAH=2Ntyc-Oi-FCNQJbLwgyWT8Tt7tVpHO7HOc=hM2RdNweOzjg@mail.gmail.com>
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 5B56463C7F;
+ Wed, 10 May 2023 12:02:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36A2CC433D2;
+ Wed, 10 May 2023 12:02:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1683720142;
+ bh=2ILLQ6Iy+EQzWADwWGcsm6vbdNQ9DyBgRr+4GFanAbk=;
+ h=From:Date:Subject:To:Cc:From;
+ b=HpMhmafbOlDyWZIxveCigP0xuhFOy8HViQyON8PLi3HjEfZABji4ECqMYVFjnH2n2
+ n7/hpNRN+9Co4yRNWsmI7sMnKSmz/rYhz1Z/yYQpm/Xfl2ms2XamoAuiKZAz1Lhb/r
+ 0YsBRFNDw6a0PUqv+3Os6lI6JkW+QTZDXSehvrxyNp0Od71hp1UpgR8KNjuoClogT+
+ LQQDgDuF1PB8ftZJ9cbxkf4K2Q+WVJ0OyuRZWJBzEvl0wrxHf74T3rdo67NPWYWKMV
+ +OmsRvhyDDlKpKRy27m8Zi49uvtiEeCbhDX714psCe3hZm6FYFukPfZKlTDOzNrzYv
+ K42z9izut8sEA==
+From: Simon Horman <horms@kernel.org>
+Date: Wed, 10 May 2023 14:02:09 +0200
 MIME-Version: 1.0
-In-Reply-To: <CAH=2Ntyc-Oi-FCNQJbLwgyWT8Tt7tVpHO7HOc=hM2RdNweOzjg@mail.gmail.com>
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: ukl@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- "David S. Miller" <davem@davemloft.net>, netdev@vger.kernel.org,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>, Vinod Koul <vkoul@kernel.org>,
- Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
- kernel@pengutronix.de, Simon Horman <simon.horman@corigine.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next v2 06/11] net: stmmac:
- dwmac-qcom-ethqos: Convert to platform remove callback returning void
+Message-Id: <20230510-dwmac-mediatek-field_prep-v1-1-51c1f9291908@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAMCHW2QC/x2NwQrCMBBEfyXs2YW0tdZ6LfgBXkUkTbZ2MV1LE
+ rVQ+u8Gj2+YN7NCpMAU4aRWCPThyC/JUOwU2NHIg5BdZih1Wem60Oi+k7E4kWOT6IkDk3f3OdC
+ MrWtsU++PpmoPkP3eRMI+GLFjXpC39znMzYGX/+EVLudOCSUUWhLctu0HR+QilY4AAAA=
+To: Jakub Kicinski <kuba@kernel.org>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Paolo Abeni <pabeni@redhat.com>
+X-Mailer: b4 0.12.2
+Cc: netdev@vger.kernel.org, Jose Abreu <joabreu@synopsys.com>,
+ linux-mediatek@lists.infradead.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Subject: [Linux-stm32] [PATCH RFC net-next] net: stmmac: dwmac-mediatek: Use
+ integer values with FIELD_PREP
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,82 +61,207 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============5648964859545327030=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+FIELD_PREP() takes two arguments, a mask and a value, both of
+which are unsigned integers.
 
---===============5648964859545327030==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ujbmobocnpqqxvme"
-Content-Disposition: inline
+The dwmac-mediatek driver calls for filling in single bit enable fields
+based on an wider integer value being 0 or non-zero.
 
+Prior to this patch this is achieved using !!.  Sparse feels this is
+dubious and I tend to agree because ! is a logical operator while
+FIELD_PREP() deals with integers.
 
---ujbmobocnpqqxvme
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Address this by explicitly passing the integer values 0 and 1 to
+FIELD_PREP. And as this is a bit repetitive, create a macro to help out.
 
-Hello Bhupesh,
+Reported by sparse as follows:
+ .../dwmac-mediatek.c:201:30: warning: dubious: x & !y
+ .../dwmac-mediatek.c:205:30: warning: dubious: x & !y
+ .../dwmac-mediatek.c:216:38: warning: dubious: x & !y
+ .../dwmac-mediatek.c:220:38: warning: dubious: x & !y
+ .../dwmac-mediatek.c:235:46: warning: dubious: x & !y
+ .../dwmac-mediatek.c:243:46: warning: dubious: x & !y
+ .../dwmac-mediatek.c:261:30: warning: dubious: x & !y
+ .../dwmac-mediatek.c:265:30: warning: dubious: x & !y
+ .../dwmac-mediatek.c:352:30: warning: dubious: x & !y
+ .../dwmac-mediatek.c:356:30: warning: dubious: x & !y
+ .../dwmac-mediatek.c:367:43: warning: dubious: x & !y
+ .../dwmac-mediatek.c:374:43: warning: dubious: x & !y
+ .../dwmac-mediatek.c:392:46: warning: dubious: x & !y
+ .../dwmac-mediatek.c:403:46: warning: dubious: x & !y
+ .../dwmac-mediatek.c:416:35: warning: dubious: x & !y
+ .../dwmac-mediatek.c:420:30: warning: dubious: x & !y
 
-On Tue, May 09, 2023 at 01:21:56PM +0530, Bhupesh Sharma wrote:
-> On Mon, 8 May 2023 at 19:56, Uwe Kleine-K=F6nig
-> <u.kleine-koenig@pengutronix.de> wrote:
-> >
-> > The .remove() callback for a platform driver returns an int which makes
-> > many driver authors wrongly assume it's possible to do error handling by
-> > returning an error code. However the value returned is (mostly) ignored
->=20
-> ^^^ mostly, here seems confusing. Only if the return value is ignored
-> marking the function
-> as 'void' makes sense IMO.
+No functional change intended.
+Compile tested only.
 
-FTR: It's only mostly ignored because a message is emitted:
+Signed-off-by: Simon Horman <horms@kernel.org>
+---
+ .../net/ethernet/stmicro/stmmac/dwmac-mediatek.c   | 54 ++++++++++++++--------
+ 1 file changed, 34 insertions(+), 20 deletions(-)
 
-	dev_warn(_dev, "remove callback returned a non-zero value. This will be ig=
-nored.\n");
-
-(see platform_remove() in drivers/base/platform.c).
-
-> Also a small note (maybe a TBD) indicating that 'remove_new' will be
-> eventually replaced with 'remove' would make reading this easier.
-
-I adapted the commit message for future similar submissions. Thanks for
-the feedback.
-
-Best regards
-Uwe
-
---=20
-Pengutronix e.K.                           | Uwe Kleine-K=F6nig            |
-Industrial Linux Solutions                 | https://www.pengutronix.de/ |
-
---ujbmobocnpqqxvme
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmRbOeYACgkQj4D7WH0S
-/k5/GwgApW0aJFnjWf98AQ2GZft5CQeuQgfG9/DAnorz18X3IVbz5SUAyHBulSuP
-CUx7GTREdCDoTXzgHUYz7vSqYzL2Ms0wfNBU+e7yTPmwlXOg+LTKURGb1hQghH7z
-4GykefqgvVoF71QJvh2mCzmJZShPRGbQhV5x/K3N1vabiMKtOGT16uL+urxHAjOi
-JcoO4QmLbgqscnWSy9ArmedFM7qtF0zNfhgA4EShG9UwgFSBxyqdfmKmYVJkQza+
-fKjeD1pjYRSZVRfX6bC4LhlC7aMF3sjjOBhOP4QjoHf7BVH7Z6uJdXKqIEYX7ha7
-bGJDn1V7wRLu3JchRl0ZgZOki4QouQ==
-=PMrW
------END PGP SIGNATURE-----
-
---ujbmobocnpqqxvme--
-
---===============5648964859545327030==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
+index 73c1dfa7ecb1..a691abd52388 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
+@@ -66,6 +66,8 @@
+ #define MT8195_DLY_RMII_TXC_ENABLE	BIT(5)
+ #define MT8195_DLY_RMII_TXC_STAGES	GENMASK(4, 0)
+ 
++#define MT8195_FIELD_ENABLE(_mask, _val) FIELD_PREP(_mask, _val ? 1UL : 0UL)
++
+ struct mac_delay_struct {
+ 	u32 tx_delay;
+ 	u32 rx_delay;
+@@ -198,11 +200,13 @@ static int mt2712_set_delay(struct mediatek_dwmac_plat_data *plat)
+ 
+ 	switch (plat->phy_mode) {
+ 	case PHY_INTERFACE_MODE_MII:
+-		delay_val |= FIELD_PREP(ETH_DLY_TXC_ENABLE, !!mac_delay->tx_delay);
++		delay_val |= MT8195_FIELD_ENABLE(ETH_DLY_TXC_ENABLE,
++						 mac_delay->tx_delay);
+ 		delay_val |= FIELD_PREP(ETH_DLY_TXC_STAGES, mac_delay->tx_delay);
+ 		delay_val |= FIELD_PREP(ETH_DLY_TXC_INV, mac_delay->tx_inv);
+ 
+-		delay_val |= FIELD_PREP(ETH_DLY_RXC_ENABLE, !!mac_delay->rx_delay);
++		delay_val |= MT8195_FIELD_ENABLE(ETH_DLY_RXC_ENABLE,
++						 mac_delay->rx_delay);
+ 		delay_val |= FIELD_PREP(ETH_DLY_RXC_STAGES, mac_delay->rx_delay);
+ 		delay_val |= FIELD_PREP(ETH_DLY_RXC_INV, mac_delay->rx_inv);
+ 		break;
+@@ -213,11 +217,13 @@ static int mt2712_set_delay(struct mediatek_dwmac_plat_data *plat)
+ 			 * The egress timing can be adjusted by GTXC delay macro circuit.
+ 			 * The ingress timing can be adjusted by TXC delay macro circuit.
+ 			 */
+-			delay_val |= FIELD_PREP(ETH_DLY_TXC_ENABLE, !!mac_delay->rx_delay);
++			delay_val |= MT8195_FIELD_ENABLE(ETH_DLY_TXC_ENABLE,
++							 mac_delay->rx_delay);
+ 			delay_val |= FIELD_PREP(ETH_DLY_TXC_STAGES, mac_delay->rx_delay);
+ 			delay_val |= FIELD_PREP(ETH_DLY_TXC_INV, mac_delay->rx_inv);
+ 
+-			delay_val |= FIELD_PREP(ETH_DLY_GTXC_ENABLE, !!mac_delay->tx_delay);
++			delay_val |= MT8195_FIELD_ENABLE(ETH_DLY_GTXC_ENABLE,
++							 mac_delay->tx_delay);
+ 			delay_val |= FIELD_PREP(ETH_DLY_GTXC_STAGES, mac_delay->tx_delay);
+ 			delay_val |= FIELD_PREP(ETH_DLY_GTXC_INV, mac_delay->tx_inv);
+ 		} else {
+@@ -232,7 +238,8 @@ static int mt2712_set_delay(struct mediatek_dwmac_plat_data *plat)
+ 				 * to RXC pin, the reference clock will be adjusted
+ 				 * by RXC delay macro circuit.
+ 				 */
+-				delay_val |= FIELD_PREP(ETH_DLY_RXC_ENABLE, !!mac_delay->rx_delay);
++				delay_val |= FIELD_PREP(ETH_DLY_RXC_ENABLE,
++							mac_delay->rx_delay ? 1 : 0);
+ 				delay_val |= FIELD_PREP(ETH_DLY_RXC_STAGES, mac_delay->rx_delay);
+ 				delay_val |= FIELD_PREP(ETH_DLY_RXC_INV, mac_delay->rx_inv);
+ 			} else {
+@@ -240,7 +247,8 @@ static int mt2712_set_delay(struct mediatek_dwmac_plat_data *plat)
+ 				 * to TXC pin, the reference clock will be adjusted
+ 				 * by TXC delay macro circuit.
+ 				 */
+-				delay_val |= FIELD_PREP(ETH_DLY_TXC_ENABLE, !!mac_delay->rx_delay);
++				delay_val |= MT8195_FIELD_ENABLE(ETH_DLY_TXC_ENABLE,
++								 mac_delay->rx_delay);
+ 				delay_val |= FIELD_PREP(ETH_DLY_TXC_STAGES, mac_delay->rx_delay);
+ 				delay_val |= FIELD_PREP(ETH_DLY_TXC_INV, mac_delay->rx_inv);
+ 			}
+@@ -258,11 +266,13 @@ static int mt2712_set_delay(struct mediatek_dwmac_plat_data *plat)
+ 	case PHY_INTERFACE_MODE_RGMII_ID:
+ 		fine_val = ETH_FINE_DLY_GTXC | ETH_FINE_DLY_RXC;
+ 
+-		delay_val |= FIELD_PREP(ETH_DLY_GTXC_ENABLE, !!mac_delay->tx_delay);
++		delay_val |= MT8195_FIELD_ENABLE(ETH_DLY_GTXC_ENABLE,
++						 mac_delay->tx_delay);
+ 		delay_val |= FIELD_PREP(ETH_DLY_GTXC_STAGES, mac_delay->tx_delay);
+ 		delay_val |= FIELD_PREP(ETH_DLY_GTXC_INV, mac_delay->tx_inv);
+ 
+-		delay_val |= FIELD_PREP(ETH_DLY_RXC_ENABLE, !!mac_delay->rx_delay);
++		delay_val |= MT8195_FIELD_ENABLE(ETH_DLY_RXC_ENABLE,
++						 mac_delay->rx_delay);
+ 		delay_val |= FIELD_PREP(ETH_DLY_RXC_STAGES, mac_delay->rx_delay);
+ 		delay_val |= FIELD_PREP(ETH_DLY_RXC_INV, mac_delay->rx_inv);
+ 		break;
+@@ -349,11 +359,13 @@ static int mt8195_set_delay(struct mediatek_dwmac_plat_data *plat)
+ 
+ 	switch (plat->phy_mode) {
+ 	case PHY_INTERFACE_MODE_MII:
+-		delay_val |= FIELD_PREP(MT8195_DLY_TXC_ENABLE, !!mac_delay->tx_delay);
++		delay_val |= MT8195_FIELD_ENABLE(MT8195_DLY_TXC_ENABLE,
++						 mac_delay->tx_delay);
+ 		delay_val |= FIELD_PREP(MT8195_DLY_TXC_STAGES, mac_delay->tx_delay);
+ 		delay_val |= FIELD_PREP(MT8195_DLY_TXC_INV, mac_delay->tx_inv);
+ 
+-		delay_val |= FIELD_PREP(MT8195_DLY_RXC_ENABLE, !!mac_delay->rx_delay);
++		delay_val |= MT8195_FIELD_ENABLE(MT8195_DLY_RXC_ENABLE,
++						 mac_delay->rx_delay);
+ 		delay_val |= FIELD_PREP(MT8195_DLY_RXC_STAGES, mac_delay->rx_delay);
+ 		delay_val |= FIELD_PREP(MT8195_DLY_RXC_INV, mac_delay->rx_inv);
+ 		break;
+@@ -364,15 +376,15 @@ static int mt8195_set_delay(struct mediatek_dwmac_plat_data *plat)
+ 			 * The egress timing can be adjusted by RMII_TXC delay macro circuit.
+ 			 * The ingress timing can be adjusted by RMII_RXC delay macro circuit.
+ 			 */
+-			rmii_delay_val |= FIELD_PREP(MT8195_DLY_RMII_TXC_ENABLE,
+-						     !!mac_delay->tx_delay);
++			rmii_delay_val |= MT8195_FIELD_ENABLE(MT8195_DLY_RMII_TXC_ENABLE,
++							      mac_delay->tx_delay);
+ 			rmii_delay_val |= FIELD_PREP(MT8195_DLY_RMII_TXC_STAGES,
+ 						     mac_delay->tx_delay);
+ 			rmii_delay_val |= FIELD_PREP(MT8195_DLY_RMII_TXC_INV,
+ 						     mac_delay->tx_inv);
+ 
+-			rmii_delay_val |= FIELD_PREP(MT8195_DLY_RMII_RXC_ENABLE,
+-						     !!mac_delay->rx_delay);
++			rmii_delay_val |= MT8195_FIELD_ENABLE(MT8195_DLY_RMII_RXC_ENABLE,
++							      mac_delay->rx_delay);
+ 			rmii_delay_val |= FIELD_PREP(MT8195_DLY_RMII_RXC_STAGES,
+ 						     mac_delay->rx_delay);
+ 			rmii_delay_val |= FIELD_PREP(MT8195_DLY_RMII_RXC_INV,
+@@ -389,8 +401,8 @@ static int mt8195_set_delay(struct mediatek_dwmac_plat_data *plat)
+ 				 * to RXC pin, the reference clock will be adjusted
+ 				 * by RXC delay macro circuit.
+ 				 */
+-				delay_val |= FIELD_PREP(MT8195_DLY_RXC_ENABLE,
+-							!!mac_delay->rx_delay);
++				delay_val |= MT8195_FIELD_ENABLE(MT8195_DLY_RXC_ENABLE,
++								 mac_delay->rx_delay);
+ 				delay_val |= FIELD_PREP(MT8195_DLY_RXC_STAGES,
+ 							mac_delay->rx_delay);
+ 				delay_val |= FIELD_PREP(MT8195_DLY_RXC_INV,
+@@ -400,8 +412,8 @@ static int mt8195_set_delay(struct mediatek_dwmac_plat_data *plat)
+ 				 * to TXC pin, the reference clock will be adjusted
+ 				 * by TXC delay macro circuit.
+ 				 */
+-				delay_val |= FIELD_PREP(MT8195_DLY_TXC_ENABLE,
+-							!!mac_delay->rx_delay);
++				delay_val |= MT8195_FIELD_ENABLE(MT8195_DLY_TXC_ENABLE,
++								 mac_delay->rx_delay);
+ 				delay_val |= FIELD_PREP(MT8195_DLY_TXC_STAGES,
+ 							mac_delay->rx_delay);
+ 				delay_val |= FIELD_PREP(MT8195_DLY_TXC_INV,
+@@ -413,11 +425,13 @@ static int mt8195_set_delay(struct mediatek_dwmac_plat_data *plat)
+ 	case PHY_INTERFACE_MODE_RGMII_TXID:
+ 	case PHY_INTERFACE_MODE_RGMII_RXID:
+ 	case PHY_INTERFACE_MODE_RGMII_ID:
+-		gtxc_delay_val |= FIELD_PREP(MT8195_DLY_GTXC_ENABLE, !!mac_delay->tx_delay);
++		gtxc_delay_val |= MT8195_FIELD_ENABLE(MT8195_DLY_GTXC_ENABLE,
++						      mac_delay->tx_delay);
+ 		gtxc_delay_val |= FIELD_PREP(MT8195_DLY_GTXC_STAGES, mac_delay->tx_delay);
+ 		gtxc_delay_val |= FIELD_PREP(MT8195_DLY_GTXC_INV, mac_delay->tx_inv);
+ 
+-		delay_val |= FIELD_PREP(MT8195_DLY_RXC_ENABLE, !!mac_delay->rx_delay);
++		delay_val |= MT8195_FIELD_ENABLE(MT8195_DLY_RXC_ENABLE,
++						 mac_delay->rx_delay);
+ 		delay_val |= FIELD_PREP(MT8195_DLY_RXC_STAGES, mac_delay->rx_delay);
+ 		delay_val |= FIELD_PREP(MT8195_DLY_RXC_INV, mac_delay->rx_inv);
+ 
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============5648964859545327030==--
