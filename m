@@ -2,54 +2,72 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C76C16FE874
-	for <lists+linux-stm32@lfdr.de>; Thu, 11 May 2023 02:20:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BFC606FEE9A
+	for <lists+linux-stm32@lfdr.de>; Thu, 11 May 2023 11:22:30 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 77201C6A60A;
-	Thu, 11 May 2023 00:20:12 +0000 (UTC)
-Received: from phobos.denx.de (phobos.denx.de [85.214.62.61])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 63C66C69053;
+	Thu, 11 May 2023 09:22:30 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C5815C57B6A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4E569C6904E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 11 May 2023 00:20:10 +0000 (UTC)
-Received: from tr.lan (ip-86-49-120-218.bb.vodafone.cz [86.49.120.218])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
- (No client certificate requested)
- (Authenticated sender: marex@denx.de)
- by phobos.denx.de (Postfix) with ESMTPSA id C6EF1860B5;
- Thu, 11 May 2023 02:20:09 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de;
- s=phobos-20191101; t=1683764410;
- bh=cMWsdqqR/k7zantlDh1d1yj4kxNqX+XUZVoR17bWKo8=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=ch+8Y/AjeEeKXxuF3ahse8H8zIlH4LQJJUSTLe4Y/vZusBqGliN/ODbZhRN0WCNj6
- WsEQ1l1h00UlJWwqlEumSx4LSgetYoDmJT2kylxtI0baZYtUy5M6LrbXEQiZM5iM/w
- s0ACHA9TVZzk4/3lUjKH1Xub1KJAPV0mGfJwUAFRevJwUsb64TWN5S5SdmJInwjKZY
- 9QXd6jyYWM5J7+yNHFd6m7lodcIAjWVhQlhJpU7rwR9v2GT5YS8Yjb2jHPqVrmD920
- tphfAg1IeN12JsW3MMfrLaLJDFuLWzeWjQ+XcLO9tf+FXnDlR9fHMvgEy1CfMudjqt
- NVgAGNBLfGduA==
-From: Marek Vasut <marex@denx.de>
-To: linux-arm-kernel@lists.infradead.org
-Date: Thu, 11 May 2023 02:19:49 +0200
-Message-Id: <20230511001949.179521-3-marex@denx.de>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20230511001949.179521-1-marex@denx.de>
-References: <20230511001949.179521-1-marex@denx.de>
+ Thu, 11 May 2023 09:22:29 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 34B78eoF003364; Thu, 11 May 2023 11:21:59 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=SeWGtG+XiqIvze4ZZLjFVr2B3K2HgCHgt+uSIHu1cd0=;
+ b=xfoz1DcUtxYMHhLfxpMljJurG3O+QF3UahoG5vMp05o1N4XXk8UJ8Zw/7HgzqIAx8n7W
+ ZJF8ieQpHapWlHPB7cYOrchfzUfaVDruvGHUTBrtacC/kH3TSv55ZqCvy/DbY3Q5TZZU
+ WwQrXTqe+bpZ4aRrKA+CFcu4NZDR7XGGs7lXAVI2Ade4iZvcIeZ9wagT2FnwAHEG/Itj
+ 1YmHB4woAUqLRA+LuNyc9XTzfIC3ryeuuLtg/egvx5GbQKbj0yTO4Gbv8ziuzZofp5Wy
+ 3J6FV7hsR5D5qn/f2FjYnLCDwVNJu9SIhPNbMZ1Tb/rgl8SISw930978hjZvseurYj2U 2g== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3qg9hfevru-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 11 May 2023 11:21:59 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 6FD13100038;
+ Thu, 11 May 2023 11:21:45 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 663D5216ECC;
+ Thu, 11 May 2023 11:21:45 +0200 (CEST)
+Received: from [10.48.0.11] (10.48.0.11) by SHFDAG1NODE1.st.com (10.75.129.69)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.21; Thu, 11 May
+ 2023 11:21:44 +0200
+Message-ID: <067b2abb-9a84-db6c-725b-87307839b81a@foss.st.com>
+Date: Thu, 11 May 2023 11:21:31 +0200
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.103.8 at phobos.denx.de
-X-Virus-Status: Clean
-Cc: Marek Vasut <marex@denx.de>, devicetree@vger.kernel.org,
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.10.0
+To: Conor Dooley <conor@kernel.org>, Patrick Delaunay
+ <patrick.delaunay@foss.st.com>
+References: <20230510184305.v2.1.I417093ddcea282be479f10a37147d1935a9050b7@changeid>
+ <20230510-cornball-compacter-39e57a5c1906@spud>
+Content-Language: en-US
+From: Gabriel FERNANDEZ <gabriel.fernandez@foss.st.com>
+In-Reply-To: <20230510-cornball-compacter-39e57a5c1906@spud>
+X-Originating-IP: [10.48.0.11]
+X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.942,Hydra:6.0.573,FMLib:17.11.170.22
+ definitions=2023-05-11_06,2023-05-05_01,2023-02-09_01
+Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Stephen Boyd <sboyd@kernel.org>,
+ linux-kernel@vger.kernel.org, Michael Turquette <mturquette@baylibre.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-clk@vger.kernel.org,
+ Rob Herring <robh+dt@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Marc Zyngier <maz@kernel.org>, Richard Cochran <richardcochran@gmail.com>,
- linux-kernel@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Thomas Gleixner <tglx@linutronix.de>,
- Wim Van Sebroeck <wim@linux-watchdog.org>,
- linux-stm32@st-md-mailman.stormreply.com, Guenter Roeck <linux@roeck-us.net>,
- linux-watchdog@vger.kernel.org
-Subject: [Linux-stm32] [PATCH 3/3] ARM: dts: stm32: Add IWDG2 EXTI interrupt
-	mapping and mark as wakeup source
+ Philipp Zabel <p.zabel@pengutronix.de>, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v2] dt-bindings: rcc: stm32: Sync with
+ u-boot copy for STM32MP13 SoC
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -61,50 +79,55 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The IWDG2 is capable of generating pre-timeout interrupt, which can be used
-to wake the system up from suspend to mem. Add the EXTI interrupt mapping
-and mark the IWDG2 as wake up source.
 
-Signed-off-by: Marek Vasut <marex@denx.de>
----
-Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
-Cc: Guenter Roeck <linux@roeck-us.net>
-Cc: Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
-Cc: Marc Zyngier <maz@kernel.org>
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Cc: Richard Cochran <richardcochran@gmail.com>
-Cc: Rob Herring <robh+dt@kernel.org>
-Cc: Thomas Gleixner <tglx@linutronix.de>
-Cc: Wim Van Sebroeck <wim@linux-watchdog.org>
-Cc: devicetree@vger.kernel.org
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-kernel@vger.kernel.org
-Cc: linux-stm32@st-md-mailman.stormreply.com
-Cc: linux-watchdog@vger.kernel.org
----
- arch/arm/boot/dts/stm32mp151.dtsi | 2 ++
- 1 file changed, 2 insertions(+)
+On 5/10/23 19:02, Conor Dooley wrote:
+> On Wed, May 10, 2023 at 06:51:40PM +0200, Patrick Delaunay wrote:
+>> Minor cosmetic change, aligned with files in U-Boot:
+>> - change obsolete SPDX id : GPL-2.0+ and use the same license
+>>    GPL-2.0-only for the 2 files
+>> - use correct mail address gabriel.fernandez@foss.st.com
+>> - remove extra space
+> Rob's comments on v1 were about $subject, which you've fixed, although
+> the second prefix is a bit odd (I assume since you're changing clock and
+> reset headers) and about the change in license to "or-later" for the
+> resets header, which you've changed too, so...
+>> Signed-off-by: Patrick Delaunay <patrick.delaunay@foss.st.com>
+>> ---
+>>
+>> Changes in v2:
+>> - Change title "Fix STM32MP13 include file"
+>> - Use the same license for the 2 files GPL-2.0-only as recommended
+>>    to avoid check-patch issue on next
+>>
+>>   include/dt-bindings/clock/stm32mp13-clks.h   | 6 +++---
+>>   include/dt-bindings/reset/stm32mp13-resets.h | 4 ++--
+>>   2 files changed, 5 insertions(+), 5 deletions(-)
+>>
+>> diff --git a/include/dt-bindings/clock/stm32mp13-clks.h b/include/dt-bindings/clock/stm32mp13-clks.h
+>> index 02befd25edce..0bd7b54c65ff 100644
+>> --- a/include/dt-bindings/clock/stm32mp13-clks.h
+>> +++ b/include/dt-bindings/clock/stm32mp13-clks.h
+>> @@ -1,7 +1,7 @@
+>> -/* SPDX-License-Identifier: GPL-2.0+ or BSD-3-Clause */
+>> +/* SPDX-License-Identifier: GPL-2.0-only OR BSD-3-Clause */
+> ...since Gabriel does appear to be the only author of this file:
+>
+> Acked-by: Conor Dooley <conor.dooley@microchip.com>
+>
+> Thanks,
+> Conor.
 
-diff --git a/arch/arm/boot/dts/stm32mp151.dtsi b/arch/arm/boot/dts/stm32mp151.dtsi
-index 63f4c78fcc1dc..792324b6f9b6a 100644
---- a/arch/arm/boot/dts/stm32mp151.dtsi
-+++ b/arch/arm/boot/dts/stm32mp151.dtsi
-@@ -1541,6 +1541,8 @@ iwdg2: watchdog@5a002000 {
- 			reg = <0x5a002000 0x400>;
- 			clocks = <&rcc IWDG2>, <&rcc CK_LSI>;
- 			clock-names = "pclk", "lsi";
-+			interrupts-extended = <&exti 46 IRQ_TYPE_LEVEL_HIGH>;
-+			wakeup-source;
- 			status = "disabled";
- 		};
- 
--- 
-2.39.2
+Hi
+
+Acked-by: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
+
+Thanks
+Gabriel
 
 _______________________________________________
 Linux-stm32 mailing list
