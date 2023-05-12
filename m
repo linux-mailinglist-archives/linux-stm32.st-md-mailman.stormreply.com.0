@@ -2,53 +2,53 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8A667700405
-	for <lists+linux-stm32@lfdr.de>; Fri, 12 May 2023 11:39:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 66F69700402
+	for <lists+linux-stm32@lfdr.de>; Fri, 12 May 2023 11:39:53 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 43B60C6A613;
-	Fri, 12 May 2023 09:39:55 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 16C38C6A602;
+	Fri, 12 May 2023 09:39:53 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
  [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EC17BC6A606
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5ABB1C6904E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 12 May 2023 09:39:53 +0000 (UTC)
+ Fri, 12 May 2023 09:39:51 +0000 (UTC)
 Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
  by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 34C8Qr6R025593; Fri, 12 May 2023 11:39:32 +0200
+ 34C8bG0T025488; Fri, 12 May 2023 11:39:33 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
  h=from : to : cc :
  subject : date : message-id : in-reply-to : references : mime-version :
  content-transfer-encoding : content-type; s=selector1;
- bh=yMVXfzGr6CyJqoITq1F7C9+yE8pmzBojhHVwsRcheFY=;
- b=jRt5jU7ZZXv2e6CcTl1PRSLk3JF9ySZOGvYsubxeOt5Us8jy8Sqyeyzo6kBwQwzX1IwP
- II2L/36TR+WJMn9SamRP3AM1dmho2VXC8Iwe6zKDRwgTemxR10PezzKsrhT/D2tzjdMQ
- wyNAx+sA1tTbqsFqR8WBJdB5fH85SbUse2McHYUoR1uTtYaVbHalSicy0L92HA6qCsFe
- RZnV3MfX0gInwltp9FK0WJspJZHzpwfUEG5FuCkfeVdKfkYYe4cAKQdmApazSg7z3iMk
- Hikhp+EpnVB7u6jOwfL3HuNU9sJI4xlLU+EtIwIFBNu9MN03oFJQYO8jR7sHywwX3sxL yw== 
+ bh=tr01CIe/LpDGGpoPafu39bOHteV6ORG+tu0CkFYJUD0=;
+ b=vBk9mG9Q/KmMCVqg48ljoIqEpnKCRZ2+N/aFo6SjONW6Y918JMzJn4Y1o8xBHn65NdPE
+ NcDP+edBHIGFWXLUF/Ud9ASFiW0lKTs62vGouVJIgZrlXxHN2SXQfvhc/yOEE0ktWN3x
+ WRK1qI2GQ3/sr/T3ItTEW9pJCE/tM8KP6RqYFlbMwLk1f1PvFFMlS0nsrnAb9cqMIDpa
+ xzLiiFwVlhWsxaCtTow+acZOvF1wah+QeH/2dgPANx9Y8xqhaBU2eMf9o5ce+q8a5ZS3
+ Ou29m/fLLi42BbpZhFyJxp9hOXHjrT7VLofevWBNI/+dtGSR1botx84J3cgTqK8Dq75W kQ== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3qguwkrskq-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3qguwkrsks-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 12 May 2023 11:39:32 +0200
+ Fri, 12 May 2023 11:39:33 +0200
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 2D273100039;
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id CE23B10002A;
  Fri, 12 May 2023 11:39:32 +0200 (CEST)
 Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 275592248B0;
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id C5E172248B0;
  Fri, 12 May 2023 11:39:32 +0200 (CEST)
 Received: from localhost (10.201.21.213) by SHFDAG1NODE2.st.com (10.75.129.70)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.21; Fri, 12 May
- 2023 11:39:31 +0200
+ 2023 11:39:32 +0200
 From: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
 To: Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski
  <krzysztof.kozlowski+dt@linaro.org>,
  Bjorn Andersson <andersson@kernel.org>,
  Mathieu Poirier <mathieu.poirier@linaro.org>, Alexandre Torgue
  <alexandre.torgue@foss.st.com>
-Date: Fri, 12 May 2023 11:39:25 +0200
-Message-ID: <20230512093926.661509-4-arnaud.pouliquen@foss.st.com>
+Date: Fri, 12 May 2023 11:39:26 +0200
+Message-ID: <20230512093926.661509-5-arnaud.pouliquen@foss.st.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20230512093926.661509-1-arnaud.pouliquen@foss.st.com>
 References: <20230512093926.661509-1-arnaud.pouliquen@foss.st.com>
@@ -62,8 +62,8 @@ X-Proofpoint-Virus-Version: vendor=baseguard
 Cc: devicetree@vger.kernel.org, linux-remoteproc@vger.kernel.org,
  linux-kernel@vger.kernel.org, Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v3 3/4] ARM: dts: stm32: Update reset
-	declarations
+Subject: [Linux-stm32] [PATCH v3 4/4] ARM: dts: stm32: fix m4_rproc
+	references to use SCMI
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,33 +80,91 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Since the introduction of the SCMI for the management
-of the MCU hold boot in OP-TEE, management of the hold boot by SMC call
-is deprecated.
-- Clean the st,syscfg-tz  which allows to determine if the trust
-zone is enable.
-- Add reset-names properties to be able to differentiate the MCU reset and
-  the MCU HOLD BOOT.
+Fixes stm32mp15*-scmi DTS files introduced in [1]:
+This patch fixes the node which uses the MCU reset and adds the
+missing HOLD_BOOT which is also handled by the SCMI reset service.
+
+This change cannot be applied as a fix on commit [1], the management
+of the hold boot impacts also the stm32_rproc driver.
+
+[1] 'commit 5b7e58313a77 ("ARM: dts: stm32: Add SCMI version of STM32 boards (DK1/DK2/ED1/EV1)")'
 
 Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
 ---
- arch/arm/boot/dts/stm32mp151.dtsi | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ arch/arm/boot/dts/stm32mp157a-dk1-scmi.dts | 6 ++++--
+ arch/arm/boot/dts/stm32mp157c-dk2-scmi.dts | 6 ++++--
+ arch/arm/boot/dts/stm32mp157c-ed1-scmi.dts | 6 ++++--
+ arch/arm/boot/dts/stm32mp157c-ev1-scmi.dts | 6 ++++--
+ 4 files changed, 16 insertions(+), 8 deletions(-)
 
-diff --git a/arch/arm/boot/dts/stm32mp151.dtsi b/arch/arm/boot/dts/stm32mp151.dtsi
-index 63f4c78fcc1d..56d73d8d5cfe 100644
---- a/arch/arm/boot/dts/stm32mp151.dtsi
-+++ b/arch/arm/boot/dts/stm32mp151.dtsi
-@@ -1820,8 +1820,8 @@ m4_rproc: m4@10000000 {
- 			      <0x30000000 0x40000>,
- 			      <0x38000000 0x10000>;
- 			resets = <&rcc MCU_R>;
-+			reset-names = "mcu_rst";
- 			st,syscfg-holdboot = <&rcc 0x10C 0x1>;
--			st,syscfg-tz = <&rcc 0x000 0x1>;
- 			st,syscfg-pdds = <&pwr_mcu 0x0 0x1>;
- 			st,syscfg-rsc-tbl = <&tamp 0x144 0xFFFFFFFF>;
- 			st,syscfg-m4-state = <&tamp 0x148 0xFFFFFFFF>;
+diff --git a/arch/arm/boot/dts/stm32mp157a-dk1-scmi.dts b/arch/arm/boot/dts/stm32mp157a-dk1-scmi.dts
+index e539cc80bef8..134788e64265 100644
+--- a/arch/arm/boot/dts/stm32mp157a-dk1-scmi.dts
++++ b/arch/arm/boot/dts/stm32mp157a-dk1-scmi.dts
+@@ -55,8 +55,10 @@ &mdma1 {
+ 	resets = <&scmi_reset RST_SCMI_MDMA>;
+ };
+ 
+-&mlahb {
+-	resets = <&scmi_reset RST_SCMI_MCU>;
++&m4_rproc {
++	resets = <&scmi_reset RST_SCMI_MCU>,
++		 <&scmi_reset RST_SCMI_MCU_HOLD_BOOT>;
++	reset-names =  "mcu_rst", "hold_boot";
+ };
+ 
+ &rcc {
+diff --git a/arch/arm/boot/dts/stm32mp157c-dk2-scmi.dts b/arch/arm/boot/dts/stm32mp157c-dk2-scmi.dts
+index 97e4f94b0a24..c42e658debfb 100644
+--- a/arch/arm/boot/dts/stm32mp157c-dk2-scmi.dts
++++ b/arch/arm/boot/dts/stm32mp157c-dk2-scmi.dts
+@@ -61,8 +61,10 @@ &mdma1 {
+ 	resets = <&scmi_reset RST_SCMI_MDMA>;
+ };
+ 
+-&mlahb {
+-	resets = <&scmi_reset RST_SCMI_MCU>;
++&m4_rproc {
++	resets = <&scmi_reset RST_SCMI_MCU>,
++		 <&scmi_reset RST_SCMI_MCU_HOLD_BOOT>;
++	reset-names =  "mcu_rst", "hold_boot";
+ };
+ 
+ &rcc {
+diff --git a/arch/arm/boot/dts/stm32mp157c-ed1-scmi.dts b/arch/arm/boot/dts/stm32mp157c-ed1-scmi.dts
+index 9cf0a44d2f47..7a56ff2d4185 100644
+--- a/arch/arm/boot/dts/stm32mp157c-ed1-scmi.dts
++++ b/arch/arm/boot/dts/stm32mp157c-ed1-scmi.dts
+@@ -60,8 +60,10 @@ &mdma1 {
+ 	resets = <&scmi_reset RST_SCMI_MDMA>;
+ };
+ 
+-&mlahb {
+-	resets = <&scmi_reset RST_SCMI_MCU>;
++&m4_rproc {
++	resets = <&scmi_reset RST_SCMI_MCU>,
++		 <&scmi_reset RST_SCMI_MCU_HOLD_BOOT>;
++	reset-names =  "mcu_rst", "hold_boot";
+ };
+ 
+ &rcc {
+diff --git a/arch/arm/boot/dts/stm32mp157c-ev1-scmi.dts b/arch/arm/boot/dts/stm32mp157c-ev1-scmi.dts
+index 3b9dd6f4ccc9..119874dd91e4 100644
+--- a/arch/arm/boot/dts/stm32mp157c-ev1-scmi.dts
++++ b/arch/arm/boot/dts/stm32mp157c-ev1-scmi.dts
+@@ -66,8 +66,10 @@ &mdma1 {
+ 	resets = <&scmi_reset RST_SCMI_MDMA>;
+ };
+ 
+-&mlahb {
+-	resets = <&scmi_reset RST_SCMI_MCU>;
++&m4_rproc {
++	resets = <&scmi_reset RST_SCMI_MCU>,
++		 <&scmi_reset RST_SCMI_MCU_HOLD_BOOT>;
++	reset-names =  "mcu_rst", "hold_boot";
+ };
+ 
+ &rcc {
 -- 
 2.25.1
 
