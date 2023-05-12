@@ -2,68 +2,73 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 66F69700402
-	for <lists+linux-stm32@lfdr.de>; Fri, 12 May 2023 11:39:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 86EAA700E03
+	for <lists+linux-stm32@lfdr.de>; Fri, 12 May 2023 19:38:52 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 16C38C6A602;
-	Fri, 12 May 2023 09:39:53 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5017BC6907C;
+	Fri, 12 May 2023 17:38:52 +0000 (UTC)
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [85.220.165.71])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5ABB1C6904E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BA4A9C65E60
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 12 May 2023 09:39:51 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 34C8bG0T025488; Fri, 12 May 2023 11:39:33 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-transfer-encoding : content-type; s=selector1;
- bh=tr01CIe/LpDGGpoPafu39bOHteV6ORG+tu0CkFYJUD0=;
- b=vBk9mG9Q/KmMCVqg48ljoIqEpnKCRZ2+N/aFo6SjONW6Y918JMzJn4Y1o8xBHn65NdPE
- NcDP+edBHIGFWXLUF/Ud9ASFiW0lKTs62vGouVJIgZrlXxHN2SXQfvhc/yOEE0ktWN3x
- WRK1qI2GQ3/sr/T3ItTEW9pJCE/tM8KP6RqYFlbMwLk1f1PvFFMlS0nsrnAb9cqMIDpa
- xzLiiFwVlhWsxaCtTow+acZOvF1wah+QeH/2dgPANx9Y8xqhaBU2eMf9o5ce+q8a5ZS3
- Ou29m/fLLi42BbpZhFyJxp9hOXHjrT7VLofevWBNI/+dtGSR1botx84J3cgTqK8Dq75W kQ== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3qguwkrsks-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 12 May 2023 11:39:33 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id CE23B10002A;
- Fri, 12 May 2023 11:39:32 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id C5E172248B0;
- Fri, 12 May 2023 11:39:32 +0200 (CEST)
-Received: from localhost (10.201.21.213) by SHFDAG1NODE2.st.com (10.75.129.70)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.21; Fri, 12 May
- 2023 11:39:32 +0200
-From: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
-To: Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski
- <krzysztof.kozlowski+dt@linaro.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Mathieu Poirier <mathieu.poirier@linaro.org>, Alexandre Torgue
- <alexandre.torgue@foss.st.com>
-Date: Fri, 12 May 2023 11:39:26 +0200
-Message-ID: <20230512093926.661509-5-arnaud.pouliquen@foss.st.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20230512093926.661509-1-arnaud.pouliquen@foss.st.com>
-References: <20230512093926.661509-1-arnaud.pouliquen@foss.st.com>
+ Fri, 12 May 2023 17:38:50 +0000 (UTC)
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+ by metis.ext.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1pxWil-0004jz-32; Fri, 12 May 2023 19:38:23 +0200
+Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
+ by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.94.2)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1pxWig-0031HJ-Qu; Fri, 12 May 2023 19:38:18 +0200
+Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.94.2)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1pxWif-003nru-TC; Fri, 12 May 2023 19:38:17 +0200
+From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jiri Slaby <jirislaby@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Richard Genoud <richard.genoud@gmail.com>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Claudiu Beznea <claudiu.beznea@microchip.com>,
+ Alexander Shiyan <shc_work@mail.ru>, Shawn Guo <shawnguo@kernel.org>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Patrice Chotard <patrice.chotard@foss.st.com>,
+ Peter Korsgaard <jacmet@sunsite.dk>, Michal Simek <michal.simek@amd.com>,
+ =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ Andy Shevchenko <andy.shevchenko@gmail.com>,
+ Christophe Leroy <christophe.leroy@csgroup.eu>,
+ YueHaibing <yuehaibing@huawei.com>
+Date: Fri, 12 May 2023 19:38:08 +0200
+Message-Id: <20230512173810.131447-1-u.kleine-koenig@pengutronix.de>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-X-Originating-IP: [10.201.21.213]
-X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE2.st.com
- (10.75.129.70)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.942,Hydra:6.0.573,FMLib:17.11.170.22
- definitions=2023-05-12_06,2023-05-05_01,2023-02-09_01
-Cc: devicetree@vger.kernel.org, linux-remoteproc@vger.kernel.org,
- linux-kernel@vger.kernel.org, Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1571;
+ i=u.kleine-koenig@pengutronix.de; h=from:subject;
+ bh=Vax8qKrHs4Gg+inxaybO9VSOevVZbn78AXGxPoOWfRs=;
+ b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBkXnl7GQba5f5/U9cBAKa1hjmTkzHwcbmipUsOS
+ R9QOs4EtJaJATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCZF55ewAKCRCPgPtYfRL+
+ TkTLB/0TZE6vdhOclWvy8SNtqKjv+Rn0YSIBBG4CWqadlJ+ZNF98QzZYOK9mq+DMx9Nlh0SliR3
+ 9IEkl9LfM1AwaHuutbbVFHSmIPmFAVDlglYyrXfPGkNqAmGz5HguCTdhhYA8ttnwFsiqRaKS7eI
+ 2U3Y3SZoNHKLbdL9raPKYgE+kPZdENXdZ00Mfi/X+pEd7YoDPQsLR0n56HmA7djs6vgCygf0vQ7
+ 2qkqKcQWzGq6cLNkrfEnHU6FOSbZ8g+Ok2fZM5CbG3fOBMrvpi5D7G3pRbIBLjmjUbdxJ+jw1N+
+ wCxIzQKFofDjbhJWFzrnx6pFew81qeYnzzF4mdbuJfeeSwXQ
+X-Developer-Key: i=u.kleine-koenig@pengutronix.de; a=openpgp;
+ fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: ukl@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
+Cc: kernel@pengutronix.de, NXP Linux Team <linux-imx@nxp.com>,
+ linux-serial@vger.kernel.org, Fabio Estevam <festevam@gmail.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v3 4/4] ARM: dts: stm32: fix m4_rproc
-	references to use SCMI
+Subject: [Linux-stm32] [PATCH 0/2] serial: Make uart_remove_one_port()
+	return void
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,100 +80,39 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Fixes stm32mp15*-scmi DTS files introduced in [1]:
-This patch fixes the node which uses the MCU reset and adds the
-missing HOLD_BOOT which is also handled by the SCMI reset service.
-
-This change cannot be applied as a fix on commit [1], the management
-of the hold boot impacts also the stm32_rproc driver.
-
-[1] 'commit 5b7e58313a77 ("ARM: dts: stm32: Add SCMI version of STM32 boards (DK1/DK2/ED1/EV1)")'
-
-Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
----
- arch/arm/boot/dts/stm32mp157a-dk1-scmi.dts | 6 ++++--
- arch/arm/boot/dts/stm32mp157c-dk2-scmi.dts | 6 ++++--
- arch/arm/boot/dts/stm32mp157c-ed1-scmi.dts | 6 ++++--
- arch/arm/boot/dts/stm32mp157c-ev1-scmi.dts | 6 ++++--
- 4 files changed, 16 insertions(+), 8 deletions(-)
-
-diff --git a/arch/arm/boot/dts/stm32mp157a-dk1-scmi.dts b/arch/arm/boot/dts/stm32mp157a-dk1-scmi.dts
-index e539cc80bef8..134788e64265 100644
---- a/arch/arm/boot/dts/stm32mp157a-dk1-scmi.dts
-+++ b/arch/arm/boot/dts/stm32mp157a-dk1-scmi.dts
-@@ -55,8 +55,10 @@ &mdma1 {
- 	resets = <&scmi_reset RST_SCMI_MDMA>;
- };
- 
--&mlahb {
--	resets = <&scmi_reset RST_SCMI_MCU>;
-+&m4_rproc {
-+	resets = <&scmi_reset RST_SCMI_MCU>,
-+		 <&scmi_reset RST_SCMI_MCU_HOLD_BOOT>;
-+	reset-names =  "mcu_rst", "hold_boot";
- };
- 
- &rcc {
-diff --git a/arch/arm/boot/dts/stm32mp157c-dk2-scmi.dts b/arch/arm/boot/dts/stm32mp157c-dk2-scmi.dts
-index 97e4f94b0a24..c42e658debfb 100644
---- a/arch/arm/boot/dts/stm32mp157c-dk2-scmi.dts
-+++ b/arch/arm/boot/dts/stm32mp157c-dk2-scmi.dts
-@@ -61,8 +61,10 @@ &mdma1 {
- 	resets = <&scmi_reset RST_SCMI_MDMA>;
- };
- 
--&mlahb {
--	resets = <&scmi_reset RST_SCMI_MCU>;
-+&m4_rproc {
-+	resets = <&scmi_reset RST_SCMI_MCU>,
-+		 <&scmi_reset RST_SCMI_MCU_HOLD_BOOT>;
-+	reset-names =  "mcu_rst", "hold_boot";
- };
- 
- &rcc {
-diff --git a/arch/arm/boot/dts/stm32mp157c-ed1-scmi.dts b/arch/arm/boot/dts/stm32mp157c-ed1-scmi.dts
-index 9cf0a44d2f47..7a56ff2d4185 100644
---- a/arch/arm/boot/dts/stm32mp157c-ed1-scmi.dts
-+++ b/arch/arm/boot/dts/stm32mp157c-ed1-scmi.dts
-@@ -60,8 +60,10 @@ &mdma1 {
- 	resets = <&scmi_reset RST_SCMI_MDMA>;
- };
- 
--&mlahb {
--	resets = <&scmi_reset RST_SCMI_MCU>;
-+&m4_rproc {
-+	resets = <&scmi_reset RST_SCMI_MCU>,
-+		 <&scmi_reset RST_SCMI_MCU_HOLD_BOOT>;
-+	reset-names =  "mcu_rst", "hold_boot";
- };
- 
- &rcc {
-diff --git a/arch/arm/boot/dts/stm32mp157c-ev1-scmi.dts b/arch/arm/boot/dts/stm32mp157c-ev1-scmi.dts
-index 3b9dd6f4ccc9..119874dd91e4 100644
---- a/arch/arm/boot/dts/stm32mp157c-ev1-scmi.dts
-+++ b/arch/arm/boot/dts/stm32mp157c-ev1-scmi.dts
-@@ -66,8 +66,10 @@ &mdma1 {
- 	resets = <&scmi_reset RST_SCMI_MDMA>;
- };
- 
--&mlahb {
--	resets = <&scmi_reset RST_SCMI_MCU>;
-+&m4_rproc {
-+	resets = <&scmi_reset RST_SCMI_MCU>,
-+		 <&scmi_reset RST_SCMI_MCU_HOLD_BOOT>;
-+	reset-names =  "mcu_rst", "hold_boot";
- };
- 
- &rcc {
--- 
-2.25.1
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+SGVsbG8sCgp0aGlzIGlzIHBhcnQgb2YgYSBxdWVzdCB0byBtYWtlIHN0cnVjdCBwbGF0Zm9ybV9k
+cml2ZXI6OnJlbW92ZSByZXR1cm4Kdm9pZC4gQnV0IHRoaXMgc2VyaWVzIGNhbiBiZSBjb25zaWRl
+cmVkIGEgY2xlYW51cCBvbiBpdHMgb3duLgoKVGhlIG1vdGl2YXRpb24gdG8gbWFrZSB0aGUgcmVt
+b3ZlIGNhbGxiYWNrIG9mIHBsYXRmb3JtIGRyaXZlcnMgcmV0dXJuCnZvaWQgaXMgdGhhdCByZXR1
+cm5pbmcgYW4gaW50IG1ha2UgZHJpdmVyIGF1dGhvcnMgKHdyb25nbHkpIGFzc3VtZSB0aGVyZQpp
+cyBzb21lIGtpbmQgb2YgZXJyb3IgaGFuZGxpbmcgaW4gdGhlIGNvcmUgYW5kIGl0J3MgYSBnb29k
+IGlkZWEgdG8KcmV0dXJuIGFuIGVycm9yIGNvZGUuIEluIHJlYWxpdHkgYSByZXR1cm5lZCBlcnJv
+ciBjb2RlIGlzIGlnbm9yZWQgd2hpY2gKeWllbGRzIHRvIGxlYWtlZCByZXNvdXJjZXMgYW5kIGlu
+IHNvbWUgY2FzZXMgYWxzbyB1c2UtYWZ0ZXItZnJlZQpzaXR1YXRpb25zIGJlY2F1c2UgZm9yIGV4
+YW1wbGUgdGhlIGRldmljZSBpc24ndCBkaXNhYmxlZCBhbmQgc28gbGF0ZXIgYW4KaXJxIG1pZ2h0
+IHRyaWdnZXIgd2hpbGUgdGhlIHJlZ2lzdGVyIG1hcHBpbmcgaXMgYWxyZWFkeSBnb25lLgoKQmVz
+dCByZWdhcmRzClV3ZQoKVXdlIEtsZWluZS1Lw7ZuaWcgKDIpOgogIHNlcmlhbDogc3RtMzI6IEln
+bm9yZSByZXR1cm4gdmFsdWUgb2YgdWFydF9yZW1vdmVfb25lX3BvcnQoKSBpbgogICAgLnJlbW92
+ZSgpCiAgc2VyaWFsOiBNYWtlIHVhcnRfcmVtb3ZlX29uZV9wb3J0KCkgcmV0dXJuIHZvaWQKCiBk
+cml2ZXJzL3R0eS9zZXJpYWwvYXRtZWxfc2VyaWFsLmMgICAgICAgICAgIHwgIDUgKystLS0KIGRy
+aXZlcnMvdHR5L3NlcmlhbC9jbHBzNzExeC5jICAgICAgICAgICAgICAgfCAgNCArKystCiBkcml2
+ZXJzL3R0eS9zZXJpYWwvY3BtX3VhcnQvY3BtX3VhcnRfY29yZS5jIHwgIDUgKysrKy0KIGRyaXZl
+cnMvdHR5L3NlcmlhbC9pbXguYyAgICAgICAgICAgICAgICAgICAgfCAgNCArKystCiBkcml2ZXJz
+L3R0eS9zZXJpYWwvbGFudGlxLmMgICAgICAgICAgICAgICAgIHwgIDQgKysrLQogZHJpdmVycy90
+dHkvc2VyaWFsL3NlcmlhbF9jb3JlLmMgICAgICAgICAgICB8ICA2ICstLS0tLQogZHJpdmVycy90
+dHkvc2VyaWFsL3N0LWFzYy5jICAgICAgICAgICAgICAgICB8ICA0ICsrKy0KIGRyaXZlcnMvdHR5
+L3NlcmlhbC9zdG0zMi11c2FydC5jICAgICAgICAgICAgfCAgNSArLS0tLQogZHJpdmVycy90dHkv
+c2VyaWFsL3VhcnRsaXRlLmMgICAgICAgICAgICAgICB8IDEyICsrKystLS0tLS0tLQogZHJpdmVy
+cy90dHkvc2VyaWFsL3hpbGlueF91YXJ0cHMuYyAgICAgICAgICB8ICA1ICsrLS0tCiBpbmNsdWRl
+L2xpbnV4L3NlcmlhbF9jb3JlLmggICAgICAgICAgICAgICAgIHwgIDIgKy0KIDExIGZpbGVzIGNo
+YW5nZWQsIDI3IGluc2VydGlvbnMoKyksIDI5IGRlbGV0aW9ucygtKQoKCmJhc2UtY29tbWl0OiBh
+YzlhNzg2ODFiOTIxODc3NTE4NzYzYmEwZTg5MjAyMjU0MzQ5ZDFiCi0tIAoyLjM5LjIKCl9fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1h
+aWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBz
+Oi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0
+bTMyCg==
