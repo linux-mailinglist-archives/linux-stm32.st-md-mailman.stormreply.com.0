@@ -2,63 +2,79 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9B5BD700E01
-	for <lists+linux-stm32@lfdr.de>; Fri, 12 May 2023 19:38:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 931A2701CAB
+	for <lists+linux-stm32@lfdr.de>; Sun, 14 May 2023 11:40:29 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3A065C6907C;
-	Fri, 12 May 2023 17:38:30 +0000 (UTC)
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
- [85.220.165.71])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2D144C6A60A;
+	Sun, 14 May 2023 09:40:29 +0000 (UTC)
+Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com
+ [209.85.208.46])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8156DC65E60
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 95A66C01E98
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 12 May 2023 17:38:28 +0000 (UTC)
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
- by metis.ext.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <ukl@pengutronix.de>)
- id 1pxWii-0004jy-SJ; Fri, 12 May 2023 19:38:20 +0200
-Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
- by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.94.2)
- (envelope-from <ukl@pengutronix.de>)
- id 1pxWig-0031HH-Oq; Fri, 12 May 2023 19:38:18 +0200
-Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.94.2)
- (envelope-from <ukl@pengutronix.de>)
- id 1pxWig-003nrx-2D; Fri, 12 May 2023 19:38:18 +0200
-From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jiri Slaby <jirislaby@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-Date: Fri, 12 May 2023 19:38:09 +0200
-Message-Id: <20230512173810.131447-2-u.kleine-koenig@pengutronix.de>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20230512173810.131447-1-u.kleine-koenig@pengutronix.de>
-References: <20230512173810.131447-1-u.kleine-koenig@pengutronix.de>
+ Sun, 14 May 2023 09:40:28 +0000 (UTC)
+Received: by mail-ed1-f46.google.com with SMTP id
+ 4fb4d7f45d1cf-50bc070c557so21627697a12.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Sun, 14 May 2023 02:40:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1684057228; x=1686649228;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=BUW5Igqs7LC8kFWD+gx7NXGPi2rebIGLbHvwwwSiejg=;
+ b=qXXhvc16BjYtVI3RbWOmC2jcpEyJzngGFk7rTOlKurSjGDFWBpYgdEvBtpF7PbvqPk
+ LcF8bPTz/Z2ubuDmYhgV4xpBsUpjue1LmwZElZ5UBB3Ko/KlU8ajA0UnrVTl7a6MrT/R
+ 8ZFK0CXEPdUAYwSd9NrcTMyzrHZRaCaEjkk/f8HcdW4jOnbwkRi+iFozOOjGzTn/WjNP
+ EMVB013lxv2F6V1fzPbMtP4n/+dw/vhcALq2AUFAFTngW/dtGKYKjRISLzCtnwDsoa0L
+ rNozicmyV8IeEo9P2/2j3Gntpa75d5DBBMc1QToOBDpLjhFPh5WWT9e59MeOz8xE+zL4
+ 1FkA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1684057228; x=1686649228;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=BUW5Igqs7LC8kFWD+gx7NXGPi2rebIGLbHvwwwSiejg=;
+ b=lBWEm7OOfRJymHyRZEtf0k2mxGxkRwNBNTk5MwT6E23etGYGmrubl9NmufdTKchx+X
+ 1xCl80ugFhttGCdm+CKTIk1RM+uMyA0nTwx/WFQvsxFSiqDsDfWM4sI/xTe7wB+gVHWb
+ T12CQHLkcV2OQoeOhydYYhwR3AejIHlJZ0Yt9mmJNAQmMXdjrw28vr5+cZhPsBY8YRFp
+ gB9BL48lmaCRZ5XTRyUMVxvgr5eYP9dVWyz1OtJt06AuJQfwguq/ow5fwy9/WazWZ38e
+ hyeZ0Zb+RjESUtK/Mz7BgRD2Rr+xgvxX5FOPpimfoJ7Ya7sVwXfK6branSOoGZOIY2sm
+ iLcw==
+X-Gm-Message-State: AC+VfDyqNfIMyEfRcG2Efa9iPrhh8thAFUqvPLDQYlsJpaCuJUz8aU/Y
+ veKNPH40+FP/7K3FTMK10g2Q/g==
+X-Google-Smtp-Source: ACHHUZ5tvbL4jEsqJPpeimvea31dJCAToYMyDZrxSAb7ema2CejXD77WW74NrQEAUWZyA9z90xWIjA==
+X-Received: by 2002:a17:907:1b29:b0:94f:2d5f:6949 with SMTP id
+ mp41-20020a1709071b2900b0094f2d5f6949mr32171616ejc.42.1684057227954; 
+ Sun, 14 May 2023 02:40:27 -0700 (PDT)
+Received: from ?IPV6:2a02:810d:15c0:828:715f:ddce:f2ba:123b?
+ ([2a02:810d:15c0:828:715f:ddce:f2ba:123b])
+ by smtp.gmail.com with ESMTPSA id
+ w10-20020a170907270a00b00965e9a23f2bsm7882998ejk.134.2023.05.14.02.40.26
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sun, 14 May 2023 02:40:27 -0700 (PDT)
+Message-ID: <e61d2168-9114-6f95-2607-a553d1046caa@linaro.org>
+Date: Sun, 14 May 2023 11:40:26 +0200
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1631;
- i=u.kleine-koenig@pengutronix.de; h=from:subject;
- bh=2vlMXGGCVahNI3ka92R9UEaW26yVnbxKviGYxwDHwHI=;
- b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBkXnl8XOlqYTrlntQBtWRe0BgeL6TRM0AdNYGMU
- lOxq8sMDLaJATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCZF55fAAKCRCPgPtYfRL+
- TndZB/9l6fw/rsarQumOA/889xFG4Wnn4OSbNFhyCe0HTdP5eIsEBjCjAZev0Zm7DmRGFSLS3ZT
- hVL2eJUuplPzlzGLQW7FxVVK4m/cmURX3ciNYpfZLwUt5r2yiTvrdeLPRMDHvYTPEiXA5EFOa2G
- 19HdfD1FrYWecH9HSWy/E6rb/zHXhld/NO2QExehO3vPWIwV1YBOJC9qXp0zYMBPB1USUQp8vrX
- I7mBi5jYc2g6L9MpGxLhJqo1wMjcl28GrF6601f3q+YpWtKpSZLsNTUkL3M/vyWxAbqLpDGjUWB
- 16Js0R/8z5ZzLhn9NDDP92OLkCVw65uzRAMlDW9Gqmqqsx43
-X-Developer-Key: i=u.kleine-koenig@pengutronix.de; a=openpgp;
- fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: ukl@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
-Cc: linux-arm-kernel@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-serial@vger.kernel.org,
- kernel@pengutronix.de
-Subject: [Linux-stm32] [PATCH 1/2] serial: stm32: Ignore return value of
-	uart_remove_one_port() in .remove()
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Content-Language: en-US
+To: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>
+References: <20230512093926.661509-1-arnaud.pouliquen@foss.st.com>
+ <20230512093926.661509-2-arnaud.pouliquen@foss.st.com>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20230512093926.661509-2-arnaud.pouliquen@foss.st.com>
+Cc: devicetree@vger.kernel.org, linux-remoteproc@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH v3 1/4] dt-bindings: remoteproc: st,
+ stm32-rproc: Rework reset declarations
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,40 +86,29 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-UmV0dXJuaW5nIGVhcmx5IGZyb20gc3RtMzJfdXNhcnRfc2VyaWFsX3JlbW92ZSgpIHJlc3VsdHMg
-aW4gYSByZXNvdXJjZQpsZWFrIGFzIHNldmVyYWwgY2xlYW51cCBmdW5jdGlvbnMgYXJlIG5vdCBj
-YWxsZWQuIFRoZSBkcml2ZXIgY29yZSBpZ25vcmVzCnRoZSByZXR1cm4gdmFsdWUgYW5kIHRoZXJl
-IGlzIG5vIHBvc3NpYmlsaXR5IHRvIGNsZWFuIHVwIGxhdGVyLgoKdWFydF9yZW1vdmVfb25lX3Bv
-cnQoKSBvbmx5IHJldHVybnMgbm9uLXplcm8gaWYgdGhlcmUgaXMgc29tZQppbmNvbnNpc3RlbmN5
-IChpLmUuIHN0bTMyX3VzYXJ0X2RyaXZlci5zdGF0ZVtwb3J0LT5saW5lXS51YXJ0X3BvcnQgPT0g
-TlVMTCkuClRoaXMgc2hvdWxkIG5ldmVyIGhhcHBlbiwgYW5kIGV2ZW4gaWYgaXQgZG9lcyBpdCdz
-IGEgYmFkIGlkZWEgdG8gZXhpdAplYXJseSBpbiB0aGUgcmVtb3ZlIGNhbGxiYWNrIHdpdGhvdXQg
-Y2xlYW5pbmcgdXAuCgpUaGlzIHByZXBhcmVzIGNoYW5naW5nIHRoZSBwcm90b3R5cGUgb2Ygc3Ry
-dWN0IHBsYXRmb3JtX2RyaXZlcjo6cmVtb3ZlIHRvCnJldHVybiB2b2lkLiBTZWUgY29tbWl0IDVj
-NWE3NjgwZTY3YiAoInBsYXRmb3JtOiBQcm92aWRlIGEgcmVtb3ZlIGNhbGxiYWNrCnRoYXQgcmV0
-dXJucyBubyB2YWx1ZSIpIGZvciBmdXJ0aGVyIGRldGFpbHMgYWJvdXQgdGhpcyBxdWVzdC4KClNp
-Z25lZC1vZmYtYnk6IFV3ZSBLbGVpbmUtS8O2bmlnIDx1LmtsZWluZS1rb2VuaWdAcGVuZ3V0cm9u
-aXguZGU+Ci0tLQogZHJpdmVycy90dHkvc2VyaWFsL3N0bTMyLXVzYXJ0LmMgfCA1ICstLS0tCiAx
-IGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKyksIDQgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0
-IGEvZHJpdmVycy90dHkvc2VyaWFsL3N0bTMyLXVzYXJ0LmMgYi9kcml2ZXJzL3R0eS9zZXJpYWwv
-c3RtMzItdXNhcnQuYwppbmRleCAxZTM4ZmM5YjEwYzEuLmU5ZTExYTI1OTYyMSAxMDA2NDQKLS0t
-IGEvZHJpdmVycy90dHkvc2VyaWFsL3N0bTMyLXVzYXJ0LmMKKysrIGIvZHJpdmVycy90dHkvc2Vy
-aWFsL3N0bTMyLXVzYXJ0LmMKQEAgLTE3NTUsMTMgKzE3NTUsMTAgQEAgc3RhdGljIGludCBzdG0z
-Ml91c2FydF9zZXJpYWxfcmVtb3ZlKHN0cnVjdCBwbGF0Zm9ybV9kZXZpY2UgKnBkZXYpCiAJc3Ry
-dWN0IHVhcnRfcG9ydCAqcG9ydCA9IHBsYXRmb3JtX2dldF9kcnZkYXRhKHBkZXYpOwogCXN0cnVj
-dCBzdG0zMl9wb3J0ICpzdG0zMl9wb3J0ID0gdG9fc3RtMzJfcG9ydChwb3J0KTsKIAljb25zdCBz
-dHJ1Y3Qgc3RtMzJfdXNhcnRfb2Zmc2V0cyAqb2ZzID0gJnN0bTMyX3BvcnQtPmluZm8tPm9mczsK
-LQlpbnQgZXJyOwogCXUzMiBjcjM7CiAKIAlwbV9ydW50aW1lX2dldF9zeW5jKCZwZGV2LT5kZXYp
-OwotCWVyciA9IHVhcnRfcmVtb3ZlX29uZV9wb3J0KCZzdG0zMl91c2FydF9kcml2ZXIsIHBvcnQp
-OwotCWlmIChlcnIpCi0JCXJldHVybihlcnIpOworCXVhcnRfcmVtb3ZlX29uZV9wb3J0KCZzdG0z
-Ml91c2FydF9kcml2ZXIsIHBvcnQpOwogCiAJcG1fcnVudGltZV9kaXNhYmxlKCZwZGV2LT5kZXYp
-OwogCXBtX3J1bnRpbWVfc2V0X3N1c3BlbmRlZCgmcGRldi0+ZGV2KTsKLS0gCjIuMzkuMgoKX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIg
-bWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0
-cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgt
-c3RtMzIK
+On 12/05/2023 11:39, Arnaud Pouliquen wrote:
+> With the introduction of the SCMI (System Control and Management
+> Interface), it is now possible to use the SCMI to handle the
+> hold boot instead of a dedicated SMC call.
+> 
+> As consequence two configurations are possible:
+> - without SCMI server on OP-TEE:
+>   use the Linux rcc reset service and use syscon for the MCU hold boot
+> - With SCMI server on OP-TEE:
+>   use the SCMI reset service for both the MCU reset and the MCU hold boot.
+> 
+
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+
+Best regards,
+Krzysztof
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
