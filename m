@@ -2,72 +2,71 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 08B10702ED4
-	for <lists+linux-stm32@lfdr.de>; Mon, 15 May 2023 15:53:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7113B703826
+	for <lists+linux-stm32@lfdr.de>; Mon, 15 May 2023 19:27:49 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AC08DC6A611;
-	Mon, 15 May 2023 13:53:29 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 194B7C6A613;
+	Mon, 15 May 2023 17:27:49 +0000 (UTC)
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com
+ [209.85.214.182])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BCCBDC6A5E6
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 63DD0C6A603
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 15 May 2023 13:53:28 +0000 (UTC)
-Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 34FA5aib001358; Mon, 15 May 2023 15:53:16 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=wJTVVQU6gHrKP7FxazviMV+fmvh7U/y/xzaBWMZNeRo=;
- b=SjpatxYSG2dv6B3MYE3CvtLdw7i136p3ksBZcnil9pCa/6QKOxgs5EhZUEe7JPuEJyRS
- ZMlt4Cdje+8/cuA6YAylc/24b7TENZll1oRYeT0J3gE5+lxFk1hVAtas9g2RkKkX3Ezs
- B9aIvaB3mV5Viy7VPxAT1/55U25X78NU35JpgseN8AsQ40muTeCQ67SJr1yXPD+TFZDg
- UP6hOSwaDNfHQcTgE2YASGTQ2rRWqKUzsXwk5W4pSyIL8UAACbzLB4unCOHHpwCWBvQT
- iYh1wq5UUrows+HrWs+VCPdnCJECZ5sZoEw0Vd17ZvjtFR3YApv9PeelcAFBz33UiutD Og== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3qj1w0jttw-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 15 May 2023 15:53:16 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id CEFC1100034;
- Mon, 15 May 2023 15:53:15 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 7E081237D90;
- Mon, 15 May 2023 15:53:15 +0200 (CEST)
-Received: from [10.129.178.187] (10.129.178.187) by SHFDAG1NODE2.st.com
- (10.75.129.70) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.21; Mon, 15 May
- 2023 15:53:15 +0200
-Message-ID: <9be85e4c-4cdb-03fc-f3a4-253c076fcb52@foss.st.com>
-Date: Mon, 15 May 2023 15:53:14 +0200
+ Mon, 15 May 2023 17:27:47 +0000 (UTC)
+Received: by mail-pl1-f182.google.com with SMTP id
+ d9443c01a7336-1aad5245632so93143825ad.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 15 May 2023 10:27:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1684171666; x=1686763666;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=HV5hzOslSr/FLxQgkUOdAb0ubgv7oB3Gzqp0pqYMQsc=;
+ b=X/eq65FBsDIPDo2Wfb1iwHSoJisHGVKTWyP2n3KTfJga69cQVWysciK1ZDjhlavC7r
+ KF0RmdnEOogoZKah/bR6k20VbeKpwafYM9t8+/0zY0xRXIduYg5yKbZ9E6spflp3waIe
+ GHVj0DHBIfvPtm7rnej1OBje66kBLGnnF/lbmDHV3A0dDQxPl5+hmVEmPpmEDv9w3OHh
+ UdmxdlwCJkaUDXTY0670ar+7CIlGLDPLlRePUFxclSKX/9evlhDEUmIW0nfA20CB5udq
+ MKNhHPmvJbbF59DU9avkZkGi6z+FgiUYleHpVpaKex3BexNZMM6HvJcuYogUEAzL7LUs
+ da0Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1684171666; x=1686763666;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=HV5hzOslSr/FLxQgkUOdAb0ubgv7oB3Gzqp0pqYMQsc=;
+ b=QRHmJGxbhpr8QJtT8DFvxSsn20G/swHj+9LPXmeCjb6C/1cXVg120yAfUOLTYd/NiY
+ q3j7Jsg+JU40dzxIF9Kos+vlr1ja3vIxv4E7j7WaDNrcwtmu3TLCs7boLeivhWjloPfR
+ dDFAWGMZclnWHMzoq/GQo9SRLFbkPepplWk0V7yi9e03hY0MBt801xcy091f0CB3NbEZ
+ aL+4ENUzf7QfHPi87rYhEqgTVs+6E0gXEhYnicybVhgye6teoafuI2Hy6oyjjVDPDzUp
+ a2x1/DYlJHv5qk1l4AcBOXewORl31LXsDEx696EnXiqNX/tx7FTfFetrYF+iu4PQXg1R
+ nY6g==
+X-Gm-Message-State: AC+VfDyLxgSf/VSIudjZvnIzWDrMEN+Tzj0mEx46k2dJpuDU30kKmNUl
+ e7ARlraARqjisGRohPt4OKcM2A==
+X-Google-Smtp-Source: ACHHUZ7MrWABVtEdp/AF7fMlIN83m73eYhwUr7xcWs5Y2Ma+gMOWf1rxaW/Y38x6qhqzqMOLcvdB2A==
+X-Received: by 2002:a17:902:a516:b0:1ab:1355:1a45 with SMTP id
+ s22-20020a170902a51600b001ab13551a45mr32579411plq.30.1684171665794; 
+ Mon, 15 May 2023 10:27:45 -0700 (PDT)
+Received: from p14s ([2604:3d09:148c:c800:d401:af78:6aa0:cf61])
+ by smtp.gmail.com with ESMTPSA id
+ d1-20020a170902aa8100b001aafb802efbsm13847316plr.12.2023.05.15.10.27.44
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 15 May 2023 10:27:45 -0700 (PDT)
+Date: Mon, 15 May 2023 11:27:43 -0600
+From: Mathieu Poirier <mathieu.poirier@linaro.org>
+To: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+Message-ID: <ZGJrj9Vu2H9NZdlH@p14s>
+References: <20230512093926.661509-1-arnaud.pouliquen@foss.st.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.10.0
-To: =?UTF-8?Q?Uwe_Kleine-K=c3=b6nig?= <u.kleine-koenig@pengutronix.de>,
- Yannick Fertre <yannick.fertre@foss.st.com>, Philippe Cornu
- <philippe.cornu@foss.st.com>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre
- Torgue <alexandre.torgue@foss.st.com>
-References: <20230507162616.1368908-1-u.kleine-koenig@pengutronix.de>
- <20230507162616.1368908-43-u.kleine-koenig@pengutronix.de>
-Content-Language: en-US
-From: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
-In-Reply-To: <20230507162616.1368908-43-u.kleine-koenig@pengutronix.de>
-X-Originating-IP: [10.129.178.187]
-X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SHFDAG1NODE2.st.com
- (10.75.129.70)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.942,Hydra:6.0.573,FMLib:17.11.170.22
- definitions=2023-05-15_11,2023-05-05_01,2023-02-09_01
-Cc: linux-arm-kernel@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com, dri-devel@lists.freedesktop.org,
- kernel@pengutronix.de
-Subject: Re: [Linux-stm32] [PATCH 42/53] drm/stm: Convert to platform remove
- callback returning void
+Content-Disposition: inline
+In-Reply-To: <20230512093926.661509-1-arnaud.pouliquen@foss.st.com>
+Cc: devicetree@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>,
+ linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v3 0/4] stm32mp15: update remoteproc to
+ support SCMI Device tree
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,26 +78,78 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SGkgVXdlLAoKT24gNS83LzIzIDE4OjI2LCBVd2UgS2xlaW5lLUvDtm5pZyB3cm90ZToKPiBUaGUg
-LnJlbW92ZSgpIGNhbGxiYWNrIGZvciBhIHBsYXRmb3JtIGRyaXZlciByZXR1cm5zIGFuIGludCB3
-aGljaCBtYWtlcwo+IG1hbnkgZHJpdmVyIGF1dGhvcnMgd3JvbmdseSBhc3N1bWUgaXQncyBwb3Nz
-aWJsZSB0byBkbyBlcnJvciBoYW5kbGluZyBieQo+IHJldHVybmluZyBhbiBlcnJvciBjb2RlLiBI
-b3dldmVyIHRoZSB2YWx1ZSByZXR1cm5lZCBpcyAobW9zdGx5KSBpZ25vcmVkCj4gYW5kIHRoaXMg
-dHlwaWNhbGx5IHJlc3VsdHMgaW4gcmVzb3VyY2UgbGVha3MuIFRvIGltcHJvdmUgaGVyZSB0aGVy
-ZSBpcyBhCj4gcXVlc3QgdG8gbWFrZSB0aGUgcmVtb3ZlIGNhbGxiYWNrIHJldHVybiB2b2lkLiBJ
-biB0aGUgZmlyc3Qgc3RlcCBvZiB0aGlzCj4gcXVlc3QgYWxsIGRyaXZlcnMgYXJlIGNvbnZlcnRl
-ZCB0byAucmVtb3ZlX25ldygpIHdoaWNoIGFscmVhZHkgcmV0dXJucwo+IHZvaWQuCj4KPiBUcml2
-aWFsbHkgY29udmVydCB0aGUgc3RtIGRybSBkcml2ZXJzIGZyb20gYWx3YXlzIHJldHVybmluZyB6
-ZXJvIGluIHRoZQo+IHJlbW92ZSBjYWxsYmFjayB0byB0aGUgdm9pZCByZXR1cm5pbmcgdmFyaWFu
-dC4KPgo+IFNpZ25lZC1vZmYtYnk6IFV3ZSBLbGVpbmUtS8O2bmlnIDx1LmtsZWluZS1rb2VuaWdA
-cGVuZ3V0cm9uaXguZGU+CgoKQWNrZWQtYnk6IFJhcGhhw6tsIEdhbGxhaXMtUG91IDxyYXBoYWVs
-LmdhbGxhaXMtcG91QGZvc3Muc3QuY29tPgoKClRoYW5rcyBmb3IgeW91IHBhdGNoCgpSYXBoYcOr
-bCBHLi1QLgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18K
-TGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1y
-ZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlz
-dGluZm8vbGludXgtc3RtMzIK
+On Fri, May 12, 2023 at 11:39:22AM +0200, Arnaud Pouliquen wrote:
+> Update vs V2[1]:
+> ---------------
+> - update yaml to remove label in examples
+> - fix error management for  devm_reset_control_get_optional(dev, "hold_boot")
+> - rebased on commit ac9a78681b92 ("Linux 6.4-rc1")
+> 
+> [1]https://lore.kernel.org/lkml/20230504094641.870378-1-arnaud.pouliquen@foss.st.com/T/
+> 
+> 
+> Description:
+> -----------
+> This series updates the stm32_rproc driver and associated DT node to
+> support device tree configuration with and without SCMI server. 
+> The impact is mainly on the MCU hold boot management.
+> 
+> Three configurations have to be supported:
+> 
+> 1) Configuration without OP-TEE SCMI (legacy): Trusted context not activated
+> - The MCU reset is controlled through the Linux RCC reset driver.
+> - The MCU HOLD BOOT is controlled through The RCC sysconf.
+> 
+> 2) Configuration with SCMI server: Trusted context activated
+> - The MCU reset is controlled through the SCMI reset service.
+> - The MCU HOLD BOOT is no more controlled through a SMC call service but
+>   through the SCMI reset service.
+> 
+> 3) Configuration with OP-TEE SMC call (deprecated): Trusted context activated
+> - The MCU reset is controlled through the Linux RCC reset driver.
+> - The MCU HOLD BOOT is controlled through The SMC call.
+> 
+> In consequence this series:
+> - adds the use of the SCMI reset service to manage the MCU hold boot,
+> - determines the configuration to use depending on the presence of the
+>   "reset-names" property
+>   if ( "reset-names" property contains "hold_boot")
+>   then use reset_control services
+>   else use regmap access based on "st,syscfg-holdboot" property.
+> - set the DT st,syscfg-tz property as deprecated
+> 
+> Arnaud Pouliquen (4):
+>   dt-bindings: remoteproc: st,stm32-rproc: Rework reset declarations
+>   remoteproc: stm32: Allow hold boot management by the SCMI reset
+>     controller
+>   ARM: dts: stm32: Update reset declarations
+>   ARM: dts: stm32: fix m4_rproc references to use SCMI
+> 
+>  .../bindings/remoteproc/st,stm32-rproc.yaml   | 44 +++++++++--
+>  arch/arm/boot/dts/stm32mp151.dtsi             |  2 +-
+>  arch/arm/boot/dts/stm32mp157a-dk1-scmi.dts    |  6 +-
+>  arch/arm/boot/dts/stm32mp157c-dk2-scmi.dts    |  6 +-
+>  arch/arm/boot/dts/stm32mp157c-ed1-scmi.dts    |  6 +-
+>  arch/arm/boot/dts/stm32mp157c-ev1-scmi.dts    |  6 +-
+>  drivers/remoteproc/stm32_rproc.c              | 76 ++++++++++++++-----
+>  7 files changed, 111 insertions(+), 35 deletions(-)
+> 
+
+I have applied patch 1 and 2.  Unless Alexandre wants to proceed differently,
+patches 3 and 4 should go through his tree.
+
+Thanks,
+Mathieu
+
+> -- 
+> 2.25.1
+> 
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
