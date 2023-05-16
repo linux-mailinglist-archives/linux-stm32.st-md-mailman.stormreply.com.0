@@ -2,68 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 23E90705079
-	for <lists+linux-stm32@lfdr.de>; Tue, 16 May 2023 16:21:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D68D7050C2
+	for <lists+linux-stm32@lfdr.de>; Tue, 16 May 2023 16:31:25 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A70E4C6B441;
-	Tue, 16 May 2023 14:21:37 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 51DEFC6B441;
+	Tue, 16 May 2023 14:31:25 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
  [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 26064C6A614
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5EA56C6A615
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 16 May 2023 14:21:36 +0000 (UTC)
+ Tue, 16 May 2023 14:31:23 +0000 (UTC)
 Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
  by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 34GBN5ht012009; Tue, 16 May 2023 16:21:19 +0200
+ 34GBJq7T012005; Tue, 16 May 2023 16:31:11 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
  h=message-id : date :
  mime-version : subject : to : cc : references : from : in-reply-to :
  content-type : content-transfer-encoding; s=selector1;
- bh=AiCKeYgU5G48GckAjtlCIZjdqSK5C4db7GnegqubSJA=;
- b=SUUgTEuh74w6Df5PCtVkMH27lqjIbfm8tBgtVhsj1jNhr92iVpx2JthOsRg/S2hHlTT4
- aSzap3xtKS6hxD6iU1ELsiqkmhOgsxBpv2+HTBEVGTeErqvLk8pLfOg9Sc4HtTv/IUZY
- KjqffjgeR1VsyieRtkl+4UVAVA3u2OW5ghYeFKPdpQ4Fy/DSi1YOGcdvj8HBPFMJ6D4x
- EkCxrgx9xKkSyuctpZT+hYSuy/h2+R/i0yrlacnYRU00GOcG3ZicaCq4VieqCZgkVZqL
- O32jpcBCqbfBMdaiaQcWT2xb97xCXjRuXo+mEeT/gU/wgyo4PN/VuiaqKoLMBZJB/ttk Jg== 
+ bh=6nNiCRdvvjRnaHdbPAL4fDI0MyKgQh3CQiE0id+v8TU=;
+ b=kuGrszbY9SFO9KkdWJJuYUqoimbZ+EVuXcXUkPVhHPjEo+A+B5oIdgIzgOQV0QmSDUnb
+ A9mWd6RqKhlAZQNx2jQlVZMdkRH++NmHO+b5cjIxPEYtJ8aldsnN6p0QbIRlJbDjVaK0
+ WOfsukN4fA+lOvS5cPbC9PzNy11lAtfIYJqZIYf72nkreA0xH+IfFw0NKASSwXlVv1X2
+ 2aTm1wwzJrM6s4g8+rQp8ooTr1XVPms4RtG03lo+JLpRNSRV92EqiU00c/ZrOp20DIi9
+ CxsqutuF6wzVyYD3NLENuzjQ31K48xQJYlkF68Mja4eEwnXcOhCtEwzdXSEmzRF/ca90 TA== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3qkgqx1q01-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3qkgqx1rs4-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 16 May 2023 16:21:19 +0200
+ Tue, 16 May 2023 16:31:11 +0200
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 4470F10002A;
- Tue, 16 May 2023 16:21:18 +0200 (CEST)
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id D1C0B10002A;
+ Tue, 16 May 2023 16:31:10 +0200 (CEST)
 Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 3779422F7B6;
- Tue, 16 May 2023 16:21:18 +0200 (CEST)
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id BCC0022F7C3;
+ Tue, 16 May 2023 16:31:10 +0200 (CEST)
 Received: from [10.252.0.230] (10.252.0.230) by SHFDAG1NODE1.st.com
  (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.21; Tue, 16 May
- 2023 16:21:17 +0200
-Message-ID: <0dc56bcc-1873-1f79-197d-8a1fd5a99cb4@foss.st.com>
-Date: Tue, 16 May 2023 16:21:12 +0200
+ 2023 16:31:10 +0200
+Message-ID: <59e7e5e8-a298-81b2-e72d-ee657cf7aa1a@foss.st.com>
+Date: Tue, 16 May 2023 16:31:09 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.10.0
 Content-Language: en-US
-To: Marek Vasut <marex@denx.de>, <linux-arm-kernel@lists.infradead.org>
-References: <20230505213729.119789-1-marex@denx.de>
+To: Dario Binacchi <dario.binacchi@amarulasolutions.com>,
+ <linux-kernel@vger.kernel.org>
+References: <20230516085219.3797677-1-dario.binacchi@amarulasolutions.com>
 From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
-In-Reply-To: <20230505213729.119789-1-marex@denx.de>
+In-Reply-To: <20230516085219.3797677-1-dario.binacchi@amarulasolutions.com>
 X-Originating-IP: [10.252.0.230]
 X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SHFDAG1NODE1.st.com
  (10.75.129.69)
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.205,Aquarius:18.0.957,Hydra:6.0.573,FMLib:17.11.170.22
  definitions=2023-05-16_07,2023-05-16_01,2023-02-09_01
-Cc: devicetree@vger.kernel.org,
+Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Rob Herring <robh+dt@kernel.org>, kernel@dh-electronics.com,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH] ARM: dts: stm32: Move ethernet MAC EEPROM
- from SoM to carrier boards
+ Rob Herring <robh+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] ARM: dts: stm32: use RCC macro for CRC
+	node on stm32f746
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,110 +80,35 @@ Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi
+hi Dario
 
-On 5/5/23 23:37, Marek Vasut wrote:
-> The ethernet MAC EEPROM is not populated on the SoM itself, it has to be
-> populated on each carrier board. Move the EEPROM into the correct place
-> in DTs, i.e. the carrier board DTs. Add label to the EEPROM too.
+On 5/16/23 10:52, Dario Binacchi wrote:
+> The patch replaces the number 12 with the appropriate numerical constant
+> already defined in the file stm32f7-rcc.h.
 > 
-> Fixes: 7e76f82acd9e1 ("ARM: dts: stm32: Split Avenger96 into DHCOR SoM and Avenger96 board")
-> Signed-off-by: Marek Vasut <marex@denx.de>
+> Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
 > ---
-
+> 
+>   arch/arm/boot/dts/stm32f746.dtsi | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/arch/arm/boot/dts/stm32f746.dtsi b/arch/arm/boot/dts/stm32f746.dtsi
+> index dc868e6da40e..e3564b74a779 100644
+> --- a/arch/arm/boot/dts/stm32f746.dtsi
+> +++ b/arch/arm/boot/dts/stm32f746.dtsi
+> @@ -515,7 +515,7 @@ pwrcfg: power-config@40007000 {
+>   		crc: crc@40023000 {
+>   			compatible = "st,stm32f7-crc";
+>   			reg = <0x40023000 0x400>;
+> -			clocks = <&rcc 0 12>;
+> +			clocks = <&rcc 0 STM32F7_AHB1_CLOCK(CRC)>;
+>   			status = "disabled";
+>   		};
+>   
 Applied on stm32-next.
 
 Thanks.
 Alex
-
-
-
-> Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
-> Cc: Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
-> Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-> Cc: Rob Herring <robh+dt@kernel.org>
-> Cc: devicetree@vger.kernel.org
-> Cc: kernel@dh-electronics.com
-> Cc: linux-arm-kernel@lists.infradead.org
-> Cc: linux-stm32@st-md-mailman.stormreply.com
-> ---
->   arch/arm/boot/dts/stm32mp15xx-dhcor-avenger96.dtsi   | 6 ++++++
->   arch/arm/boot/dts/stm32mp15xx-dhcor-drc-compact.dtsi | 6 ++++++
->   arch/arm/boot/dts/stm32mp15xx-dhcor-som.dtsi         | 6 ------
->   arch/arm/boot/dts/stm32mp15xx-dhcor-testbench.dtsi   | 8 ++++++++
->   4 files changed, 20 insertions(+), 6 deletions(-)
-> 
-> diff --git a/arch/arm/boot/dts/stm32mp15xx-dhcor-avenger96.dtsi b/arch/arm/boot/dts/stm32mp15xx-dhcor-avenger96.dtsi
-> index 8232bbbae379c..302efac5d26f0 100644
-> --- a/arch/arm/boot/dts/stm32mp15xx-dhcor-avenger96.dtsi
-> +++ b/arch/arm/boot/dts/stm32mp15xx-dhcor-avenger96.dtsi
-> @@ -321,6 +321,12 @@ adv7513_i2s0: endpoint {
->   			};
->   		};
->   	};
-> +
-> +	dh_mac_eeprom: eeprom@53 {
-> +		compatible = "atmel,24c02";
-> +		reg = <0x53>;
-> +		pagesize = <16>;
-> +	};
->   };
->   
->   &ltdc {
-> diff --git a/arch/arm/boot/dts/stm32mp15xx-dhcor-drc-compact.dtsi b/arch/arm/boot/dts/stm32mp15xx-dhcor-drc-compact.dtsi
-> index c32c160f97f20..39af79dc654cc 100644
-> --- a/arch/arm/boot/dts/stm32mp15xx-dhcor-drc-compact.dtsi
-> +++ b/arch/arm/boot/dts/stm32mp15xx-dhcor-drc-compact.dtsi
-> @@ -192,6 +192,12 @@ eeprom@50 {
->   		reg = <0x50>;
->   		pagesize = <16>;
->   	};
-> +
-> +	dh_mac_eeprom: eeprom@53 {
-> +		compatible = "atmel,24c02";
-> +		reg = <0x53>;
-> +		pagesize = <16>;
-> +	};
->   };
->   
->   &sdmmc1 {	/* MicroSD */
-> diff --git a/arch/arm/boot/dts/stm32mp15xx-dhcor-som.dtsi b/arch/arm/boot/dts/stm32mp15xx-dhcor-som.dtsi
-> index 948054382136b..864960387e634 100644
-> --- a/arch/arm/boot/dts/stm32mp15xx-dhcor-som.dtsi
-> +++ b/arch/arm/boot/dts/stm32mp15xx-dhcor-som.dtsi
-> @@ -213,12 +213,6 @@ watchdog {
->   			status = "disabled";
->   		};
->   	};
-> -
-> -	eeprom@53 {
-> -		compatible = "atmel,24c02";
-> -		reg = <0x53>;
-> -		pagesize = <16>;
-> -	};
->   };
->   
->   &ipcc {
-> diff --git a/arch/arm/boot/dts/stm32mp15xx-dhcor-testbench.dtsi b/arch/arm/boot/dts/stm32mp15xx-dhcor-testbench.dtsi
-> index 5fdb74b652aca..faed31b6d84a1 100644
-> --- a/arch/arm/boot/dts/stm32mp15xx-dhcor-testbench.dtsi
-> +++ b/arch/arm/boot/dts/stm32mp15xx-dhcor-testbench.dtsi
-> @@ -90,6 +90,14 @@ phy0: ethernet-phy@7 {
->   	};
->   };
->   
-> +&i2c4 {
-> +	dh_mac_eeprom: eeprom@53 {
-> +		compatible = "atmel,24c02";
-> +		reg = <0x53>;
-> +		pagesize = <16>;
-> +	};
-> +};
-> +
->   &sdmmc1 {
->   	pinctrl-names = "default", "opendrain", "sleep";
->   	pinctrl-0 = <&sdmmc1_b4_pins_a &sdmmc1_dir_pins_b>;
-
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
