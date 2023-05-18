@@ -2,77 +2,76 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C3D87083DD
-	for <lists+linux-stm32@lfdr.de>; Thu, 18 May 2023 16:22:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7F1BF7083E8
+	for <lists+linux-stm32@lfdr.de>; Thu, 18 May 2023 16:26:46 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E637BC6B445;
-	Thu, 18 May 2023 14:22:52 +0000 (UTC)
-Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com
- [209.85.218.48])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3EAB0C6B445;
+	Thu, 18 May 2023 14:26:46 +0000 (UTC)
+Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com
+ [209.85.208.42])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 61FEDC6B443
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3A3E9C6B443
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 18 May 2023 14:22:51 +0000 (UTC)
-Received: by mail-ej1-f48.google.com with SMTP id
- a640c23a62f3a-96652cb7673so335060166b.0
+ Thu, 18 May 2023 14:26:45 +0000 (UTC)
+Received: by mail-ed1-f42.google.com with SMTP id
+ 4fb4d7f45d1cf-510e682795fso1347119a12.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 18 May 2023 07:22:51 -0700 (PDT)
+ Thu, 18 May 2023 07:26:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1684419770; x=1687011770;
+ d=linaro.org; s=google; t=1684420004; x=1687012004;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=EaUa6BG/75CAIk0ZhFg5FlY0gWuIfk/ZjnI5LggGAEA=;
- b=gyXgCWS9+AoPebMYx0nb+nsrAvi7EHFbw778/P7da+8L4wUlXZMHPqdxFQ9FeTCDEK
- tGB8asgwVf4fASEvQPBeS7f+4wjEjgYRPRKZVJPWw3HVAlpRgu5SUv2gldJ7HM8KtAJ6
- Jcbe0uL9LvsqznYSgW4nXbgy1f+xAiBytwMAdDZYrem+ZI0bDESIvuvhVS2fV3+tnkg8
- 9lIIyF2T04oo2cPbr9EaVUUVaDKJROMsDOIzbho/ceRIsL0zkgTtQ65RzjMKqAegcdcI
- GgbRUR7wg1dKUuwlOTNe44HePiUWcL/6/Wbm9UWVJXUbtcdT9SSaeulUPtjn1VyqR1aK
- mVKw==
+ bh=YuvcxNH7JXmFWKxshrQCssfOPyKkSR/Zuw9sucomlNs=;
+ b=r7JIGfX5eToWEIiU2ViTc64+MqKj+8KA51H8LTywYlDStm5RaxAgc8QJuMPHjmf89z
+ TEQLY/iZjrGsEJ37PGpj6Qfrak6Jj1CDQMt7KQme+TIytriUt3KLByplUeR1QO1/FwDX
+ /x89fOXRTZ/tsu5SpFb51MjbdDsil/5PkGRvaWlmlIXnIpTMQ/s3xMY1QwdzybkXlxyV
+ c4aCfsC2gJESlrUOis+1V0YMW0ieazBsAoHuKMKxPH6Rv4jNCr7EDXIIOXQKGmMML1+3
+ n5CZWoC9iPkO6eMnOIsR4wD24nY8KhFJIzE9zjMOwzx56WFQeaT8xP43KMUmGN6QPFef
+ Ufxw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1684419770; x=1687011770;
+ d=1e100.net; s=20221208; t=1684420004; x=1687012004;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=EaUa6BG/75CAIk0ZhFg5FlY0gWuIfk/ZjnI5LggGAEA=;
- b=PPhkooWHZD2LEvAlgUIbwiJp9jKVmTDUpLiQsSQDdY7KMT55jnOT+EMN7ZpDCJGl5s
- c03p7VgPwkQOSCkEq9ItEcqBGKhQx7/gQhkiqIJKikK1PiafyVLtpMyN18VRljnmGYAz
- U7yb7dA0g72xbbaZv37INVEsRVCg9qzqV6iIgAR8csO8qlrLRgQG/giX7RuqilHEPlgH
- TSFws+QXOrEgXxGK9TuGi2uoBP5CWTgN8RsLfDp9uyDiHt5LLXMbQE5J9hS2hDqx+K7N
- Pm+emtjdOZhJUp/MFHpNlpvTuSRO08aSTkVFEUHNliFkEQkIrb1YE7KJZjeAosirl3e9
- mDTw==
-X-Gm-Message-State: AC+VfDxmN820HYWMR9LQ4kffJo5numQT9dK/SUq1U2vRNqrZNGCzClEh
- 0CJoXPjG63dKmK4pfB+XzkBYPg==
-X-Google-Smtp-Source: ACHHUZ5rsY+4ZrddPTzi5yGYTO6uB2CoMYBZEjeQ/IZNgpiBRqKppp9e+ejrsC4yzyX2lc6OrJo9ig==
-X-Received: by 2002:a17:907:7e99:b0:96a:2dd7:2ef9 with SMTP id
- qb25-20020a1709077e9900b0096a2dd72ef9mr30255867ejc.39.1684419770584; 
- Thu, 18 May 2023 07:22:50 -0700 (PDT)
+ bh=YuvcxNH7JXmFWKxshrQCssfOPyKkSR/Zuw9sucomlNs=;
+ b=kIjSPqnlnnkIkkdQtyMARYFgvx+7J8NUbcBAWkpURb4Tn6SmRkmpSVXTU+6yxd3zTA
+ M/6rg+i/6y0IZHyA+BprtYlOEdVnlVVsHIwhtUUPsP/6yDme4yCeQoiA+zcxf8dD385L
+ gZSQhpCBzwXSDsi9VofT5hhIja9NpKsmTBwc+psTm5MeUKglGAvEbzxGx/1cc+zinlf0
+ 4mpOwP+O8F1PCsGag8yeHzcVOVrdPJJEP9ijaYJeew2J31LGa1t6gvGAH9rNa7L+Z1gp
+ qmG3ljtuG/0bPHUE6ebm9GakcxtkC2XctEfDtsDA/g6QZddsDprYQ0t1UNdlr13rOBlB
+ C6Cw==
+X-Gm-Message-State: AC+VfDxuWA0bOEiCUjZtCqlJgt9Pf9QWr6MsX5AHo3lo3Ngi4MPuOTzx
+ 9ok05uz3zo49zKEY1Fjfclpb3g==
+X-Google-Smtp-Source: ACHHUZ520EF3osA7uFm0FAgBBBlw2Ae6R7OE4gQPTEbEx8PFtBsMh4TIg48XFmdqz2nOIyJaWe7SKQ==
+X-Received: by 2002:aa7:d849:0:b0:504:9393:18b1 with SMTP id
+ f9-20020aa7d849000000b00504939318b1mr4996447eds.9.1684420004594; 
+ Thu, 18 May 2023 07:26:44 -0700 (PDT)
 Received: from ?IPV6:2a02:810d:15c0:828:7e24:6d1b:6bf:4249?
  ([2a02:810d:15c0:828:7e24:6d1b:6bf:4249])
  by smtp.gmail.com with ESMTPSA id
- y21-20020a1709060a9500b00965cd15c9bbsm1032892ejf.62.2023.05.18.07.22.49
+ g17-20020a056402181100b0050bc5acfcc0sm657310edy.24.2023.05.18.07.26.43
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 18 May 2023 07:22:50 -0700 (PDT)
-Message-ID: <e7859392-fd52-e4ba-d7b2-f77ede98e0e1@linaro.org>
-Date: Thu, 18 May 2023 16:22:48 +0200
+ Thu, 18 May 2023 07:26:44 -0700 (PDT)
+Message-ID: <3951bf42-bf77-20a5-a343-46127b875dd5@linaro.org>
+Date: Thu, 18 May 2023 16:26:43 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.11.0
 Content-Language: en-US
 To: Marek Vasut <marex@denx.de>, linux-arm-kernel@lists.infradead.org
 References: <20230517152513.27922-1-marex@denx.de>
- <20230517152513.27922-2-marex@denx.de>
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20230517152513.27922-2-marex@denx.de>
+In-Reply-To: <20230517152513.27922-1-marex@denx.de>
 Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
  Rob Herring <robh+dt@kernel.org>,
  Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  linux-stm32@st-md-mailman.stormreply.com, kernel@dh-electronics.com
-Subject: Re: [Linux-stm32] [PATCH v2 2/3] nvmem: syscon: Add syscon backed
-	nvmem driver
+Subject: Re: [Linux-stm32] [PATCH v2 1/3] dt-bindings: nvmem: syscon: Add
+ syscon backed nvmem bindings
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,10 +89,10 @@ Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 On 17/05/2023 17:25, Marek Vasut wrote:
-> Add trivial driver which permits exposing syscon backed register
-> to userspace. This is useful e.g. to expose U-Boot boot counter
-> on various platforms where the boot counter is stored in random
-> volatile register, like STM32MP15xx TAMP_BKPxR register.
+> Add trivial bindings for driver which permits exposing syscon backed
+> register to userspace. This is useful e.g. to expose U-Boot boot
+> counter on various platforms where the boot counter is stored in
+> random volatile register, like STM32MP15xx TAMP_BKPxR register.
 > 
 > Signed-off-by: Marek Vasut <marex@denx.de>
 > ---
@@ -109,134 +108,82 @@ On 17/05/2023 17:25, Marek Vasut wrote:
 > Cc: linux-arm-kernel@lists.infradead.org
 > Cc: linux-stm32@st-md-mailman.stormreply.com
 > ---
-> V2: No change
+> V2: Use generic syscon supernode
 > ---
->  drivers/nvmem/Kconfig        |  10 ++++
->  drivers/nvmem/Makefile       |   2 +
->  drivers/nvmem/nvmem-syscon.c | 105 +++++++++++++++++++++++++++++++++++
->  3 files changed, 117 insertions(+)
->  create mode 100644 drivers/nvmem/nvmem-syscon.c
+>  .../bindings/nvmem/nvmem-syscon.yaml          | 39 +++++++++++++++++++
+>  1 file changed, 39 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/nvmem/nvmem-syscon.yaml
 > 
-> diff --git a/drivers/nvmem/Kconfig b/drivers/nvmem/Kconfig
-> index b291b27048c76..4e4aecdd9c293 100644
-> --- a/drivers/nvmem/Kconfig
-> +++ b/drivers/nvmem/Kconfig
-> @@ -303,6 +303,16 @@ config NVMEM_STM32_BSEC_OPTEE_TA
->  	  This library is a used by stm32-romem driver or included in the module
->  	  called nvmem-stm32-romem.
->  
-> +config NVMEM_SYSCON
-> +	tristate "Generic syscon backed nvmem"
-> +	help
-> +	  This is a driver for generic syscon backed nvmem. This can be
-> +	  used to expose arbitrary syscon backed register to user space
-> +	  via nvmem, like the U-Boot boot counter.
-> +
-> +	  This driver can also be built as a module. If so, the module
-> +	  will be called nvmem-syscon.
-> +
->  config NVMEM_STM32_ROMEM
->  	tristate "STMicroelectronics STM32 factory-programmed memory support"
->  	depends on ARCH_STM32 || COMPILE_TEST
-> diff --git a/drivers/nvmem/Makefile b/drivers/nvmem/Makefile
-> index f82431ec8aef0..d10e478e6a6c9 100644
-> --- a/drivers/nvmem/Makefile
-> +++ b/drivers/nvmem/Makefile
-> @@ -60,6 +60,8 @@ obj-$(CONFIG_NVMEM_SPMI_SDAM)		+= nvmem_qcom-spmi-sdam.o
->  nvmem_qcom-spmi-sdam-y			+= qcom-spmi-sdam.o
->  obj-$(CONFIG_NVMEM_SPRD_EFUSE)		+= nvmem_sprd_efuse.o
->  nvmem_sprd_efuse-y			:= sprd-efuse.o
-> +obj-$(CONFIG_NVMEM_SYSCON)		+= nvmem_syscon.o
-> +nvmem_syscon-y				:= nvmem-syscon.o
->  obj-$(CONFIG_NVMEM_STM32_ROMEM)		+= nvmem_stm32_romem.o
->  nvmem_stm32_romem-y 			:= stm32-romem.o
->  nvmem_stm32_romem-$(CONFIG_NVMEM_STM32_BSEC_OPTEE_TA) += stm32-bsec-optee-ta.o
-> diff --git a/drivers/nvmem/nvmem-syscon.c b/drivers/nvmem/nvmem-syscon.c
+> diff --git a/Documentation/devicetree/bindings/nvmem/nvmem-syscon.yaml b/Documentation/devicetree/bindings/nvmem/nvmem-syscon.yaml
 > new file mode 100644
-> index 0000000000000..e0aa5af0300d3
+> index 0000000000000..7c1173a1a6218
 > --- /dev/null
-> +++ b/drivers/nvmem/nvmem-syscon.c
-> @@ -0,0 +1,105 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * Copyright (C) 2022 Marek Vasut <marex@denx.de>
-> + *
-> + * Based on snvs_lpgpr.c .
-> + */
+> +++ b/Documentation/devicetree/bindings/nvmem/nvmem-syscon.yaml
+> @@ -0,0 +1,39 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/nvmem/nvmem-syscon.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
 > +
-> +#include <linux/mfd/syscon.h>
-> +#include <linux/module.h>
-> +#include <linux/nvmem-provider.h>
-> +#include <linux/of_device.h>
-> +#include <linux/regmap.h>
+> +title: Generic syscon backed nvmem
 > +
-> +struct nvmem_syscon_priv {
-> +	struct device_d		*dev;
-> +	struct regmap		*regmap;
-> +	struct nvmem_config	cfg;
-> +	unsigned int		off;
-> +};
+> +maintainers:
+> +  - Marek Vasut <marex@denx.de>
 > +
-> +static int nvmem_syscon_write(void *context, unsigned int offset, void *val,
-> +			      size_t bytes)
-> +{
-> +	struct nvmem_syscon_priv *priv = context;
-> +
-> +	return regmap_bulk_write(priv->regmap, priv->off + offset,
-> +				 val, bytes / 4);
-> +}
-> +
-> +static int nvmem_syscon_read(void *context, unsigned int offset, void *val,
-> +			     size_t bytes)
-> +{
-> +	struct nvmem_syscon_priv *priv = context;
-> +
-> +	return regmap_bulk_read(priv->regmap, priv->off + offset,
-> +				val, bytes / 4);
-> +}
-> +
-> +static int nvmem_syscon_probe(struct platform_device *pdev)
-> +{
-> +	struct device *dev = &pdev->dev;
-> +	struct device_node *node = dev->of_node;
-> +	struct device_node *syscon_node;
-> +	struct nvmem_syscon_priv *priv;
-> +	struct nvmem_device *nvmem;
-> +	struct nvmem_config *cfg;
-> +	int ret;
-> +
-> +	if (!node)
-> +		return -ENOENT;
-> +
-> +	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
-> +	if (!priv)
-> +		return -ENOMEM;
-> +
-> +	ret = of_property_read_u32_index(node, "reg", 0, &priv->off);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = of_property_read_u32_index(node, "reg", 1, &priv->cfg.size);
-> +	if (ret)
-> +		return ret;
-> +
-> +	syscon_node = of_get_parent(node);
+> +allOf:
+> +  - $ref: "nvmem.yaml#"
 
-This does not look correct. You hard-code dependency that it must be a
-child of syscon node. This is weird requirement and not explained in the
-bindings.
+Usual comment: drop quotes. We removed them everywhere, so you based
+your work on some old tree.
 
-Why this cannot be then generic MMIO node? Why it has to be a child of
-syscon?
-
-
-> +	if (!syscon_node)
-> +		return -ENODEV;
 > +
-> +	priv->regmap = syscon_node_to_regmap(syscon_node);
-> +	of_node_put(syscon_node);
-> +	if (IS_ERR(priv->regmap))
-> +		return PTR_ERR(priv->regmap);
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - nvmem-syscon
+> +
+> +  reg:
+> +    maxItems: 1
+
+Rob's questions are not solved. The nvmem.yaml schema expects here to
+allow children. This should not be created per-register, but per entire
+block of registers.
+
+OTOH, using nvmem for syscon (which are MMIO and writeable registers
+usually) seems odd.
+
+> +
+
+missing nvmem cells
+
+> +required:
+> +  - compatible
+> +  - reg
+> +
+> +additionalProperties: false
+
+unevaluatedProps: false
+
+> +
+> +examples:
+> +  - |
+> +    syscon {
+> +        #address-cells = <1>;
+> +        #size-cells = <1>;
+> +
+> +        syscon@14c {
+
+It's not really a syscon, but efuse, otp or nvmem.
+
+> +            compatible = "nvmem-syscon";
+> +            reg = <0x14c 0x4>;
+
+Missing nvmem cells
+
+> +        };
+> +    };
+
 Best regards,
 Krzysztof
 
