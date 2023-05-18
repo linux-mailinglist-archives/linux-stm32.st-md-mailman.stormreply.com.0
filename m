@@ -2,50 +2,51 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C789707B2D
-	for <lists+linux-stm32@lfdr.de>; Thu, 18 May 2023 09:38:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 745BE707B36
+	for <lists+linux-stm32@lfdr.de>; Thu, 18 May 2023 09:39:05 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 156CCC6B443;
-	Thu, 18 May 2023 07:38:33 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3963EC6B443;
+	Thu, 18 May 2023 07:39:05 +0000 (UTC)
 Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com
  [68.232.154.123])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DFABDC03FC1
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9CC99C03FC1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 18 May 2023 07:38:31 +0000 (UTC)
+ Thu, 18 May 2023 07:39:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
- t=1684395512; x=1715931512;
+ t=1684395543; x=1715931543;
  h=from:to:cc:subject:date:message-id:references:
  in-reply-to:content-id:content-transfer-encoding: mime-version;
- bh=h8geLpCv1xn+fbqE+K6gWLeud9KKyULiITwZgz4d7mg=;
- b=c+1HBkvVhD2UpkdieicqLnJYW/bSXzrkWE3TI8T8iDDvs1IA/E0+77ef
- hbiW51F3fYOuxvRyOo4q3uColBlHQ4eSYWTsh0QxKQMC78NXQWMhDAiEW
- 6gDMannXU3RHUBQiwU4H52ehsNp8UrKHomjPno/T+N1BoAdnEOr7Hmlz7
- 6HeSYr3ajZE7v5M4uQwjott1BcWX6BlndP+09KpfzjQPad0qwM3KAdULm
- OtvkCxupWzBwVCxCfkugEXl/AO9SAOem5PnrvJSazViQQEGXkTD5yjLjJ
- 5xezS5dDHqEfXMGGNZNaNNjHMqTj7Iro/YGHvMz4wGDz4bOiGyhvdEJXb w==;
-X-IronPort-AV: E=Sophos;i="5.99,284,1677567600"; d="scan'208";a="216051228"
+ bh=uSTkrbAO7Ncg5G3B0H2CZkAdV5X66E3cgDWt/Md9oFY=;
+ b=XJxWIHHYw8UbtCV0Ggy9tMNHddrAYcJywnAO3YFC4H0QQwAezcO7VKTB
+ kuQccAtDW7PsCx3UPf1I6BcZKQAbYkQ8CyU53DUtVzF8bQksgA0WRMyh6
+ H6BPyAoWXNaJmmRFkV2MIRuuItE0dRwl0ylYXHwmSyFrxMcBKrRaVlbhY
+ /AYFra1S9R3/am3V4OAmuxawU0pEwDZQfZ48gnaEZwVaN4Kqu5zg2W+eb
+ ZbY0//Xw7JnxS66XQtnhOgerUkDGIIBnyp7Iio99b5nt/RX/vIyJ7ZKH4
+ 6jn+pNJuL8S9yo9MOL/tnd5+CVDIeZDkAG/BZ3/2rMIbv1SWiHZP82P5k g==;
+X-IronPort-AV: E=Sophos;i="5.99,284,1677567600"; d="scan'208";a="216051304"
 X-Amp-Result: SKIPPED(no attachment in message)
 Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
  by esa2.microchip.iphmx.com with ESMTP/TLS/AES256-SHA256;
- 18 May 2023 00:38:28 -0700
-Received: from chn-vm-ex03.mchp-main.com (10.10.85.151) by
- chn-vm-ex03.mchp-main.com (10.10.85.151) with Microsoft SMTP Server
+ 18 May 2023 00:38:59 -0700
+Received: from chn-vm-ex02.mchp-main.com (10.10.85.144) by
+ chn-vm-ex01.mchp-main.com (10.10.85.143) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.21; Thu, 18 May 2023 00:38:27 -0700
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com (10.10.215.89) by
- email.microchip.com (10.10.87.152) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.21 via Frontend Transport; Thu, 18 May 2023 00:38:27 -0700
+ 15.1.2507.21; Thu, 18 May 2023 00:38:56 -0700
+Received: from NAM04-DM6-obe.outbound.protection.outlook.com (10.10.215.89) by
+ email.microchip.com (10.10.87.72) with Microsoft SMTP Server
+ (version=TLS1_2, 
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.21 via Frontend
+ Transport; Thu, 18 May 2023 00:38:56 -0700
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=fGkn9JtVt7DkNzrfUCbGkmhREzQN7nx0zj45coe8wH4qtzGM5dvUZIeVZEHaT3PG5YqwiKHbE7r8xenrspKfr+Kajvm1LGMwJO07RfI41rqzEYCZJ8yVHcyrnBCGDgqxdbTgDi/mXwCvkMGQs9rD+c0pEmdLnSr0qHlqjx+SeIc3fu9uY3jTSb2nZJ9VSqV4VcAAthHJVJiwBbUfP96a4D5V0gStlC70AjinKy7LOoCbMoysa18B/Ptax91I9/Xt4BjnhfxQ92eLAAJUnVsF76ckz47MviLXechpBXsXLxLkMwXhjxu/zQ2Ee3BAVnRhFo+v9h9ViNItTH6O8H4oMw==
+ b=GQ8EcSQ3zIME+DehnLyKp3iC6hs5lqNO2r1QhZRcIrcKJ5amBYZXfyLh2R3zzIOHt3SUx3CrVc2SuDi7UZcND2oCdBSd25+K55L49Na2FoChSML36h/7eDX/v2mBBWdTVHOh2Ql7qSEsaBXmM9P6v3gIAnU83hkIGLfEZy+9gq6DCIMEMZ6QaD2fIouh1szhagXnC3VEnHS+Zjmusn62n+lP6MMASytPTt0B/SzFk4exFP0v8OG5jcSS9Dbbyt/IR5BM3VcdbQRWBXdmE055XuYoSY9h9nrHOLGvA2vRaBuxX02ZJRai5oihnbUQL37VviGrN1rHUw+XAwqRWXbXtQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=h8geLpCv1xn+fbqE+K6gWLeud9KKyULiITwZgz4d7mg=;
- b=INYAmP9KCe9qpvBy1F4bsh988rBWjU3BX1wG9b82JNnBXpmrPUL1nijePkTTgAljZVhS17lOP8pXav3FhJpuZxm0m0eno9PF/Oho7UxuREtwVSTFKSLkIPfd8cPpsHywach1Myh9Xw1ZR6zP5G9zeGhLD1EUiNmgrM1WUzX3yyKFtaMSrrrQfBMnb8Od6mim4B4fjWYFvEekwVwF0BCgO/C8Y+gGivl1+9u6FXM1ObF0sGm/vstuwbt/42s8i6dyT4HXH1/9pPNqU/x1x2iLNItP+m2cMt8qmJetS17yBaczXiXzuQwEi2TJjgqFcpDhY0KnNLrt77Tw0S5C8mzwVA==
+ bh=uSTkrbAO7Ncg5G3B0H2CZkAdV5X66E3cgDWt/Md9oFY=;
+ b=R2XOx3FP97KJ5N2kRw5ERbcXxZyPs/yS1Y8Ckc8xXfJqE2MC6gCnaFozox8Pmqz/Ml9s1zWDhMnSMcs28e7dp8nkBzpLdhsHq86knJnpjj1PjIhFAktMJ64Y0UuvPggB2InfEOLk3131OLN20FnlnU4fMe0auYErufmOZFgzDsbMSactYN0wi9O1lu85IBHERNMlFU4yg8IPzitbfV5bcy7zxZoqxB0AzshBkf5uNkkAnDWcQySibOxacoOxs+a/qel23jY2sa3YnNVa3YoQ/0ZV9/taySaCEg74LFxAqPoIBi2/JvARyp4pwK3arBoVbgGzb1nEznvCGqVBxzt9Bg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=microchip.com; dmarc=pass action=none
  header.from=microchip.com; dkim=pass header.d=microchip.com; arc=none
@@ -53,17 +54,17 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=microchiptechnology.onmicrosoft.com;
  s=selector2-microchiptechnology-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=h8geLpCv1xn+fbqE+K6gWLeud9KKyULiITwZgz4d7mg=;
- b=MJkd1ZdW4fl/9hau2aTd5OboKR2of0bG4ZZDiVbZTaBUmsAa5OUUL3yWtEfSBYFmPMSwdQAs4vSnyrXXguhyGlmgpLMVd0dxeDcFYF6qVUNghGVKhtaLgQfkZJB9uuc8lPayW/U7STR2y+n4zRGgw9Li4IkKWF7HKCX9RToWDtc=
+ bh=uSTkrbAO7Ncg5G3B0H2CZkAdV5X66E3cgDWt/Md9oFY=;
+ b=uPCry+jAcMt3FOJ6CpO42Ij5cauJuKEPWo4ykMorVhwwH7oIVU4oiLbr9km0sA69pqVF+h5HOnsPq5kB6HA4IfrExc3TPdFmDI7r8IP4sMduAtF6/nLW6e1pI8RS/7j/wl9iatWKNLZtK9r49Ec4ktR7bSQytmUFEbbjOIxaqMU=
 Received: from SJ2PR11MB7648.namprd11.prod.outlook.com (2603:10b6:a03:4c3::17)
  by DS0PR11MB8017.namprd11.prod.outlook.com (2603:10b6:8:115::10) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6387.30; Thu, 18 May
- 2023 07:38:26 +0000
+ 2023 07:38:54 +0000
 Received: from SJ2PR11MB7648.namprd11.prod.outlook.com
  ([fe80::27bf:a69f:806f:67be]) by SJ2PR11MB7648.namprd11.prod.outlook.com
  ([fe80::27bf:a69f:806f:67be%5]) with mapi id 15.20.6411.019; Thu, 18 May 2023
- 07:38:26 +0000
+ 07:38:54 +0000
 From: <Claudiu.Beznea@microchip.com>
 To: <maxime@cerno.tech>, <mturquette@baylibre.com>, <sboyd@kernel.org>,
  <afaerber@suse.de>, <mani@kernel.org>, <Nicolas.Ferre@microchip.com>,
@@ -82,13 +83,13 @@ To: <maxime@cerno.tech>, <mturquette@baylibre.com>, <sboyd@kernel.org>,
  <broonie@kernel.org>, <perex@perex.cz>, <tiwai@suse.com>,
  <paul@crapouillou.net>, <orsonzhai@gmail.com>,
  <baolin.wang@linux.alibaba.com>, <zhang.lyra@gmail.com>
-Thread-Topic: [PATCH v3 07/65] clk: at91: sckc: Add a determine_rate hook
-Thread-Index: AQHZiVu6mMAsLYAy0kOu5A2m3KQy7w==
-Date: Thu, 18 May 2023 07:38:25 +0000
-Message-ID: <10fca778-f8a5-e844-7fcb-469a0cf31a90@microchip.com>
+Thread-Topic: [PATCH v3 46/65] clk: at91: smd: Switch to determine_rate
+Thread-Index: AQHZiVvMh8mlcLuc5k2DWCq7QLqcHw==
+Date: Thu, 18 May 2023 07:38:54 +0000
+Message-ID: <ca4e1c30-1faf-f4e5-980b-20f5307a580c@microchip.com>
 References: <20221018-clk-range-checks-fixes-v3-0-9a1358472d52@cerno.tech>
- <20221018-clk-range-checks-fixes-v3-7-9a1358472d52@cerno.tech>
-In-Reply-To: <20221018-clk-range-checks-fixes-v3-7-9a1358472d52@cerno.tech>
+ <20221018-clk-range-checks-fixes-v3-46-9a1358472d52@cerno.tech>
+In-Reply-To: <20221018-clk-range-checks-fixes-v3-46-9a1358472d52@cerno.tech>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
@@ -99,63 +100,62 @@ authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=microchip.com;
 x-ms-publictraffictype: Email
 x-ms-traffictypediagnostic: SJ2PR11MB7648:EE_|DS0PR11MB8017:EE_
-x-ms-office365-filtering-correlation-id: 6c72a09a-642c-47f3-562a-08db5772dd7c
+x-ms-office365-filtering-correlation-id: ab55f6ba-3d35-435f-a903-08db5772ee99
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: zpChqX+M06zBaM60HPDo8ThsKxfqaUtv2yGj0NCaNhfzMQjK+weUgv16LxhFLGcgtswln/ASG9/dwxyhgICkZJZmYm8274ZublUefbwzE9qM5F9AcMQ/M6Vpu0bPOf/LzLKE2zg20DGQuifxCnx1VVbfROTs6QLuYkqVn4MQpy3VX7JsTc4usL9C9m61h+gKnX6M3w8Y5YwYzdT1kgSTAVVN6M8pOYLlVczQfbMGkhusXRMVvIDmMovLeMzfk6KitYtu8j9120np8Bc4Dl0/JbP5jg/FC7DrHDNtSHkAbeBnEfLTYvNcGiZU7OVHKzCFlkDEnCZ7Zj04BTuXcEz1n/sPN8+H3k0JltcdA6KBe9ZFgkpO3wsJEQceE1cg/zKXvXiAdt/kHlqP1icjZn5e87IvGvSefETCjMJo5wuCT4w4xVCzS3IqyoHZw9BpckBkoe6riTXXLO4mXsDYEUFhot+gACwl66caE3V5RYviBj/qEDQ+rIIwQtxk5f7DwQH0+laws9rDYsvDL4bF4K2Vab8qAP+38U6UfTK2ATMUX7aUZtcUUwMTwpvDI/VnVinrsjpc9v2ejK02XS0iYFHItDwup+8XNNVatmUhkpgL3fZlnVOsYWo8zViYtJrkl7YuIzA18knZK21Kq3imzMvuNDtb6v58Du8eELpKvbXGaX5pc/IyHRu61rvWO+lvY9C62Fl/76KCXxZazdM2zpEkqA==
+x-microsoft-antispam-message-info: 1W9jjSH6AuCOEUHJUPkFhxD27c4UwT4ID1jj/+NZQFo9ilnqG7bi2ehJ7Chx7c46LrT04adEQ9nCjE69Ujv0ae5AShM7lK8rNORQVzVKs8uULjRt65zVqEwr/kl0kF/BtseO53w8/X0NP8e2PJa+XrhIDV3DyvCvlh0dMM7PifHinGnCoTjwyw9EcIfn9lKFrrVHa2URZ/mkwd/KEVXrMI3TxBY+dbrH4FByhyuzkzSwuzw9l+6zFzJaLvGGt8K6qHhMsTRufnPSAFWKhLB/W5DvPYtznSeNjiUthvfJmt9UmCxR/Gex4KVC+yXj2nkFWZSXNLdvrmfIQd6da/KXR3orMqkEmcw2pm624i3COXCU1qQ+DFAV3xRyXxY1n9WEmFZ/fxfTYVzlfoj7JXAjBK+BrUc3viWROF/3EhtrhfRcYLYZSutge+O2nFPfMph8SFTUMrnXdVn0WvHrgovl10pd5cyD9DkZyh+PPURErNAr6olGoVfeoaQmd2jHNx7uMH6h4nleb4B6ZGRkn9lLVjmOxUuFtz/QPyNvQfQmhDwhRlf1c+FI3Kv9vBk7lC2CfLeTpk+Pb1tRT/eBPWsV8wdy5THZLQeOElUqWDwY3mMyILWbCjwWvoGrXmBrapGUVWUDKAt1vJHekNqnfa9H+QcNlGna5WmJ2rsxHmk4cmNUHlyoVlREIDHqah8Ypm6ez/4UW/v/ypmnMQ7nBVa7Iw==
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:SJ2PR11MB7648.namprd11.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(13230028)(376002)(39860400002)(136003)(396003)(346002)(366004)(451199021)(110136005)(2906002)(91956017)(41300700001)(316002)(54906003)(478600001)(7406005)(7416002)(7366002)(31686004)(71200400001)(6486002)(66946007)(8676002)(66446008)(4326008)(8936002)(66556008)(76116006)(66476007)(64756008)(5660300002)(6506007)(26005)(53546011)(186003)(2616005)(83380400001)(36756003)(86362001)(38070700005)(921005)(38100700002)(122000001)(6512007)(31696002)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?S3dtLzAzbXU0R2dPZWtKSDZzMUp4bXk3Wms3TDVKK1JSaHZjbHpJZmtpUXNV?=
- =?utf-8?B?V3lwdDlHSzIzMUdyakx5aVNEWVVlNkh0dkEzdjdXV1poOFI1amlqdUpqdWVU?=
- =?utf-8?B?L3k2dFdtUGpzdXh5WVFYZmdVQjJDNXd4NnR0blNaWkRCTDZwemVEYi9PWnBM?=
- =?utf-8?B?OWE5ZFNhVHdPQy9Nb1VFcFVPdmp0SWc1SFlwNVU3YmtrNXY5bk1HK3hBMVFv?=
- =?utf-8?B?MEdsVEsrRlVZbjg2eVVBV28rV3ZSaklocFhtcmg5MEtOZFNuV0xUQzBOODNR?=
- =?utf-8?B?R0VBSzIyZGhRdXdUcXR1WWFYamIwN21KUU1MekZDTmIzRDk0dG14eVVmMDh5?=
- =?utf-8?B?RHZJemJQcXhQeEdGdkVRRkErNGphaFc5KzdlZDE1b2xoR0xKbjc1dE9RemZw?=
- =?utf-8?B?bDVLbGhFOURtTmEyR0tYcDNUazRpQUtvM1VSamFueTZNOWxVVmxnZXZia3lZ?=
- =?utf-8?B?QlAwUjB4dmJZYW83bVAxQzJkSEhhc3F3U2J6MkExdTNYNHhCRzhEQlpWcGM3?=
- =?utf-8?B?TzRZM0M1bGdUOHNsUnRRTzRiRGs4bUtFTUszdmkxK0crVUdVQXMwUUpLTzBh?=
- =?utf-8?B?OVBDZUNMaDAyaHM3VXNoNjE1MjA0WUxBdTBoOGdmM09pcjZ2d0hJaEszRG9w?=
- =?utf-8?B?UENEQ3l3Vm5RV2QwUUFWeWN2TWFKT0FER1cyblhId2FrcmF3Q1lYdDNqakhn?=
- =?utf-8?B?M3BSQVhOODgyOGFBRjQzMXJSNzJQUE5XUVYzSkFQSlRRVjVsbjVla2x1Y21K?=
- =?utf-8?B?anRsODBZcWNuUjV2eGZiQXZBQkJGZHY5Tnh3K0hYNWd2Q01Kd2h3Q0xNWmxq?=
- =?utf-8?B?dnBDOWl5TmZiNFlSb2NIaHFhTGxxMFZNeUxlRjJhR3ovdkRsak5DOWVudjlM?=
- =?utf-8?B?ODRIcHJUKzR0dU1kdkhGTFl1Q01JRkpwRThMVVVZVy80SjNyYUsxZVhIZm1k?=
- =?utf-8?B?Ukd1MzA4OFU5N1hmbmxnU2kyeE1hWkpKQnJYUUd2dWN0cDJ4VlJoeGRZbkND?=
- =?utf-8?B?aVJrR0E0VTJWREtJSCtPbmR1QUpsNGpXWDc3VDhXdzMwRUhRZDRSMUFURWtG?=
- =?utf-8?B?MldQT0RlT1loLzMzS3p2TUMxKzVJbHFHQUxyeWRDaTJZb2tpY21sbFN1RGln?=
- =?utf-8?B?a05zNXRvRXVWcFEyNEtwSnQ4bGs1eEsxbFl0SkhicHltdUFxWjM5bFJENFVh?=
- =?utf-8?B?VFFaT3lWWk41NVRaT1BSU1hxdGhHYXBPcWE0bTBQWUgzK25hdUlHMjBxVTlt?=
- =?utf-8?B?c2JidkNoQlJ0NHlITUxoWldqMnNpZlNURHcwVTB5eHNHY3BIWmo3V2k4b0NP?=
- =?utf-8?B?ZlRoMitQRHM3bVZhaTdTWVZjbWc5MU4vUzkwaWdqbDJKTnhjZzRkdVl2bE5o?=
- =?utf-8?B?dmQzeUNLeGgzYWJoZ3l0OU1nQVdQQUhFdUF3TENkL1VpbnlVQ0piTzVGS2Qy?=
- =?utf-8?B?cFVmSlFEZ0h1a0NUQW1lTnpqY2Y4b2hIaElIVkNoSDNIME1ycWxEbWRkMEV2?=
- =?utf-8?B?WHdDNHcwaW5vdnJVeDlEY09FN2kzdDRsRUYxSzM0WElCNnp4RC91emlvdVE4?=
- =?utf-8?B?WGxlaWhtZXZqSzN6OWk2eC9OK0xmcTBSdHA4VjdBbXJycytiYytvYkwyQVZi?=
- =?utf-8?B?QzUvTWpzcmIyVWdRQnQzNmdPMERzS0pLeTcwMlUxMWNTaWw4S1ZFbzd3ckR2?=
- =?utf-8?B?QW5HdDY2S3c5ZFU5N3NBSmU4cXI1WnpnbVRXQWJxZ1BYbWZGYUZiTUZNVk5a?=
- =?utf-8?B?bWlPQWhZR0tIRFlxbVN6d2RqQ01QLzBGTGc0eTVJS3o2YnlDSGN4d2hDbElx?=
- =?utf-8?B?WWhOVnEwVDlNYzlRc3lZZmxtRzVveVpwejNyT0RLRURSejRTNnNIbWIrdk1N?=
- =?utf-8?B?RzlSdWFENFpJUmhiakRuUUo2bEs5T0xnVjdaMmZSc0xCS3B2cURYZE9MTnpZ?=
- =?utf-8?B?L2VOMXpXZDVOZDB3dy8zeHFzMWlRYWM3NXEwZktOb0lkdGNZWE5iVmlJQUVF?=
- =?utf-8?B?cWkrTzNFcHY0ZDhZdFVadmJaeDFaMXRJRzQzdkhRcENReE9Kcnd3V0daZGVy?=
- =?utf-8?B?Wk51VGF2MnRENUZ6bUU2dWQ4a3B5aU14MkROMWtBOXpUT2NlMEhSdWVJWjZD?=
- =?utf-8?B?WXVlZGtkUW9OZTFuRzdlMUlnRE42cllmWlAxM1FwWnFZOGtKUmJuUlJTUFZF?=
- =?utf-8?B?UlE9PQ==?=
-Content-ID: <5CDF0816C96D4B46AA2D2570930E37F2@namprd11.prod.outlook.com>
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?QUs1cGFIRGZ2Nnl3NnVkZjdCYTJMWE0yU3ljMW1RS3dSUFZSM1Q5dFFaYUhL?=
+ =?utf-8?B?dXkzT0phSzlROHdCMWdQVUZjT2pGWWcxeENHcytHNU9vdGgwRGNPT050RGxn?=
+ =?utf-8?B?bG5LMFNPWGtNU0NLWlEya1U5SDdQd1VzUUI3RVpuV0ZjTHN0WndoNzVQNFBl?=
+ =?utf-8?B?a1p3UTJpWjJPTkZxWnVrR0FWVUpQSWdSNWdrb2U4dVFmRjZZRE9ocDlYN1hT?=
+ =?utf-8?B?WERudGI5TzhrZDdFZUdWMm1ZOTlINWJTUGUyQUEvOEtYRkVpRXZhNE1jR3RT?=
+ =?utf-8?B?RDVVajhoc1pTL2FyTzk0dHY5UHNlbG5jbnlaZ1paaysyVXZRTFl1QXpOcWFZ?=
+ =?utf-8?B?Q3VuNS9oSWVXdXZMKzlPK1lhcnlYUmlHQmFscmVYczZ3bkgycWZicEFyN3RG?=
+ =?utf-8?B?dGRmWVc3RjdqUzhlVE1pSjdNQ0RZQXVoaDhpK0pCczIrcjlVWUhiSkJVekxW?=
+ =?utf-8?B?MW9ZbG9hNTNmR1FQMWZlaU42eFJoYm5rTnRIVElUWktidjZVcENhL0twZTBO?=
+ =?utf-8?B?UEw2SDVCTGtsRFZWazNBZXN0aHZpbVFmelE2ekdTZ2tnR0FFemhZQjhwSjFn?=
+ =?utf-8?B?eFhSVWFKY3NlVEIySXZHY3lJY011L0RPSWFUbDhPM2daN2xLZVZpUjk1d0VW?=
+ =?utf-8?B?TGRQSXRHV3lDcTdDNmp1RkdKL1BjbVdVdEVXc2FhMUJFWkh6aExYbkNqSHpH?=
+ =?utf-8?B?OVdNTit6Yzl4WGw1ejJLbVo2WGE4ZmJid1dBSzI0eEYwVGhVa2N5QWdDS2dT?=
+ =?utf-8?B?ZG1oQ2JzMkg3d3ArTDFNRE8ySFp0QmJMenQvcTVlNkVKMkJ6MW84TEh1WWRL?=
+ =?utf-8?B?RVVhbUtIL1JJbmFqSEQySFRseENIQ1VTeHVoU25VbDd0QzRLa0FYdDFoa2Fm?=
+ =?utf-8?B?YWhHZVpuc1RPc0hBUlhrMWNoRWhwSXZJT1V2WkFxRFF3T3o2UXVYZEk2ZDhU?=
+ =?utf-8?B?ajZhWlJiZE14SXAzMWlndER2Y3FERXRuNUpiVGU1NFV6bXpNYTdLbE1TdG1Q?=
+ =?utf-8?B?NHVENStLRnM1UUk0ZmhwMjFHYXpUU0tJMzU2ZWgrbkVoeEFaQTI4SHJ2bG5s?=
+ =?utf-8?B?Q3FDV0pmcnl6RzBESWNxUHFUYnFJcExTRU1LK0YvdXV6amxuek1mK01sSkJa?=
+ =?utf-8?B?VlFPdnJ5ZXRadnpUaTVudTBiemYwdU14eEVDSGhVTkh0RmNQZ0V1WDFOOERY?=
+ =?utf-8?B?M25NcjEra0hOMUlsc2pBQ2QwUzNWSFB6NWhOVk8raEhRZjdGMXhpd0RlUEcz?=
+ =?utf-8?B?N2VBTitiSy81OUQ5ck8wNHFpQ29JSGtVV09ZbkpQcGVyNHA4TEdwOWRqM0Rq?=
+ =?utf-8?B?WjhCUzVIaklWOU42bElxZHNoeko4UHVxaCtTVyswaEpyTWNXUUJKc1IvZG1O?=
+ =?utf-8?B?eGhERTAyeG5YSVJxQ2JVeXVTNFJqMEc5SG9UUkpzOXpSeHdxcnRMNFF2ZUsy?=
+ =?utf-8?B?d0l0ZG5xVUhRd0paSFFNUVp5d1RGZk1LR0RzWWE5Yk1wL29XRkRlcmQvUG5U?=
+ =?utf-8?B?TDNOQ2tScFdJekxRL2FuN3dEMGo4YUhjMFhHU1VpRkhRTHBUWGNXWFNaamx1?=
+ =?utf-8?B?WGRhUnBBZDRjbkkzYmxETllacTduWmdJTmUvRElMVWN3eFRiOHFoVkxteWtx?=
+ =?utf-8?B?anp3cUcrUytZQ1VGVUM5QTAwQ01YU2JncHNLUmRiZXZ3bGRvYlJLYjhwL0Zx?=
+ =?utf-8?B?Q1NwR0pyV0JhQVFFQ2x2dFlWdUVMZ1RWOTlxS2Nmc2drZHZUdEVINHBVbGJJ?=
+ =?utf-8?B?cHk3dHB1RDM0VWc4MDJ1M0xtZC8xZmxKcmlBTitOTkZZNDNJcGEweGh6Q1d4?=
+ =?utf-8?B?R005cWhpV1AyQ1hpN05RQ0UreG13NWNoUWdlWE8ybVVnSEVHcUxOZFVSSnNM?=
+ =?utf-8?B?RlB3Nm5RVnJlU01uUGNQbUptSjNLdGpRcjY1K2ZGVnVIeHZDQlljZlpNSG9k?=
+ =?utf-8?B?cEJpMTF5d0o1NXZNZVh4eHRpQ09sTlRnQWhrKzQ3TUFQeFNLam5ESGYwaDVI?=
+ =?utf-8?B?VElIN01vbDJITWNkUFA5eWFYVGRmdUpzSEFJMENvZjhLT3dLdE1MQ3lJdjcz?=
+ =?utf-8?B?dE1hN0Q5a3UvbXRFS2hSVzhISkkwb0VnMEl4TTBjL0RhamxsTHh2cFFmUUhE?=
+ =?utf-8?Q?Tknp64AFOs0aW/Y0Ca/7yY1y/?=
+Content-ID: <3DD7ECCC95B9014AB73596C62ABF099D@namprd11.prod.outlook.com>
 MIME-Version: 1.0
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: SJ2PR11MB7648.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6c72a09a-642c-47f3-562a-08db5772dd7c
-X-MS-Exchange-CrossTenant-originalarrivaltime: 18 May 2023 07:38:25.6333 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ab55f6ba-3d35-435f-a903-08db5772ee99
+X-MS-Exchange-CrossTenant-originalarrivaltime: 18 May 2023 07:38:54.3655 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3f4057f3-b418-4d4e-ba84-d55b4e897d88
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: G+qwxf8q/DeJrMIiITjrg9bFuaCLfylK8CzHJI5SxpoHmmBKuG9pqJQgjwGS3LdK+3Qt67xwRXUpIxLvH3tjdljOq44y7XX5dNHF+0k6NxI=
+X-MS-Exchange-CrossTenant-userprincipalname: tIHhA4JV6XGm3rx5F/qQ0KuLDMr+ApqTlMwb8yKOan+wL9HsAdxRpZF7IK+WSL5XYR+LHfkrIt/p3oqci7HB1qTSrkKEsfWH8Ivy4uxtKxY=
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR11MB8017
 Cc: linux-rtc@vger.kernel.org, alsa-devel@alsa-project.org,
  patches@opensource.cirrus.com, linux-actions@lists.infradead.org,
@@ -165,8 +165,8 @@ Cc: linux-rtc@vger.kernel.org, alsa-devel@alsa-project.org,
  linux-tegra@vger.kernel.org, linux-mips@vger.kernel.org,
  linux-sunxi@lists.linux.dev, linux-clk@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, angelogioacchino.delregno@collabora.com
-Subject: Re: [Linux-stm32] [PATCH v3 07/65] clk: at91: sckc: Add a
-	determine_rate hook
+Subject: Re: [Linux-stm32] [PATCH v3 46/65] clk: at91: smd: Switch to
+	determine_rate
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -183,11 +183,11 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 04.04.2023 13:10, Maxime Ripard wrote:
+On 04.04.2023 13:11, Maxime Ripard wrote:
 > EXTERNAL EMAIL: Do not click links or open attachments unless you know the content is safe
 > 
-> The SAM9x5 slow clock implements a mux with a set_parent hook, but
-> doesn't provide a determine_rate implementation.
+> The Atmel SAM9x5 SMD clocks implements a mux with a set_parent
+> hook, but doesn't provide a determine_rate implementation.
 > 
 > This is a bit odd, since set_parent() is there to, as its name implies,
 > change the parent of a clock. However, the most likely candidate to
@@ -203,17 +203,16 @@ On 04.04.2023 13:10, Maxime Ripard wrote:
 > original author to avoid any reparenting but through an explicit call to
 > clk_set_parent().
 > 
-> The latter case would be equivalent to setting the flag
-> CLK_SET_RATE_NO_REPARENT, together with setting our determine_rate hook
-> to __clk_mux_determine_rate(). Indeed, if no determine_rate
-> implementation is provided, clk_round_rate() (through
-> clk_core_round_rate_nolock()) will call itself on the parent if
-> CLK_SET_RATE_PARENT is set, and will not change the clock rate
-> otherwise. __clk_mux_determine_rate() has the exact same behavior when
-> CLK_SET_RATE_NO_REPARENT is set.
+> The driver does implement round_rate() though, which means that we can
+> change the rate of the clock, but we will never get to change the
+> parent.
 > 
-> And if it was an oversight, then we are at least explicit about our
-> behavior now and it can be further refined down the line.
+> However, It's hard to tell whether it's been done on purpose or not.
+> 
+> Since we'll start mandating a determine_rate() implementation, let's
+> convert the round_rate() implementation to a determine_rate(), which
+> will also make the current behavior explicit. And if it was an
+> oversight, the clock behaviour can be adjusted later on.
 > 
 > Signed-off-by: Maxime Ripard <maxime@cerno.tech>
 
@@ -222,30 +221,65 @@ Reviewed-by: Claudiu Beznea <claudiu.beznea@microchip.com>
 Tested-by: Claudiu Beznea <claudiu.beznea@microchip.com>
 
 > ---
->  drivers/clk/at91/sckc.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
+>  drivers/clk/at91/clk-smd.c | 29 +++++++++++++++++------------
+>  1 file changed, 17 insertions(+), 12 deletions(-)
 > 
-> diff --git a/drivers/clk/at91/sckc.c b/drivers/clk/at91/sckc.c
-> index fdc9b669f8a7..9c42961a8a2f 100644
-> --- a/drivers/clk/at91/sckc.c
-> +++ b/drivers/clk/at91/sckc.c
-> @@ -310,6 +310,7 @@ static u8 clk_sam9x5_slow_get_parent(struct clk_hw *hw)
+> diff --git a/drivers/clk/at91/clk-smd.c b/drivers/clk/at91/clk-smd.c
+> index 160378438f1b..09c649c8598e 100644
+> --- a/drivers/clk/at91/clk-smd.c
+> +++ b/drivers/clk/at91/clk-smd.c
+> @@ -36,26 +36,31 @@ static unsigned long at91sam9x5_clk_smd_recalc_rate(struct clk_hw *hw,
+>         return parent_rate / (smddiv + 1);
 >  }
 > 
->  static const struct clk_ops sam9x5_slow_ops = {
-> +       .determine_rate = __clk_mux_determine_rate,
->         .set_parent = clk_sam9x5_slow_set_parent,
->         .get_parent = clk_sam9x5_slow_get_parent,
->  };
-> @@ -337,7 +338,7 @@ at91_clk_register_sam9x5_slow(void __iomem *sckcr,
->         init.ops = &sam9x5_slow_ops;
->         init.parent_names = parent_names;
->         init.num_parents = num_parents;
-> -       init.flags = 0;
-> +       init.flags = CLK_SET_RATE_NO_REPARENT;
+> -static long at91sam9x5_clk_smd_round_rate(struct clk_hw *hw, unsigned long rate,
+> -                                         unsigned long *parent_rate)
+> +static int at91sam9x5_clk_smd_determine_rate(struct clk_hw *hw,
+> +                                            struct clk_rate_request *req)
+>  {
+>         unsigned long div;
+>         unsigned long bestrate;
+>         unsigned long tmp;
 > 
->         slowck->hw.init = &init;
->         slowck->sckcr = sckcr;
+> -       if (rate >= *parent_rate)
+> -               return *parent_rate;
+> +       if (req->rate >= req->best_parent_rate) {
+> +               req->rate = req->best_parent_rate;
+> +               return 0;
+> +       }
+> 
+> -       div = *parent_rate / rate;
+> -       if (div > SMD_MAX_DIV)
+> -               return *parent_rate / (SMD_MAX_DIV + 1);
+> +       div = req->best_parent_rate / req->rate;
+> +       if (div > SMD_MAX_DIV) {
+> +               req->rate = req->best_parent_rate / (SMD_MAX_DIV + 1);
+> +               return 0;
+> +       }
+> 
+> -       bestrate = *parent_rate / div;
+> -       tmp = *parent_rate / (div + 1);
+> -       if (bestrate - rate > rate - tmp)
+> +       bestrate = req->best_parent_rate / div;
+> +       tmp = req->best_parent_rate / (div + 1);
+> +       if (bestrate - req->rate > req->rate - tmp)
+>                 bestrate = tmp;
+> 
+> -       return bestrate;
+> +       req->rate = bestrate;
+> +       return 0;
+>  }
+> 
+>  static int at91sam9x5_clk_smd_set_parent(struct clk_hw *hw, u8 index)
+> @@ -98,7 +103,7 @@ static int at91sam9x5_clk_smd_set_rate(struct clk_hw *hw, unsigned long rate,
+> 
+>  static const struct clk_ops at91sam9x5_smd_ops = {
+>         .recalc_rate = at91sam9x5_clk_smd_recalc_rate,
+> -       .round_rate = at91sam9x5_clk_smd_round_rate,
+> +       .determine_rate = at91sam9x5_clk_smd_determine_rate,
+>         .get_parent = at91sam9x5_clk_smd_get_parent,
+>         .set_parent = at91sam9x5_clk_smd_set_parent,
+>         .set_rate = at91sam9x5_clk_smd_set_rate,
 > 
 > --
 > 2.39.2
