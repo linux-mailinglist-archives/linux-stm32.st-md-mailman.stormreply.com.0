@@ -2,73 +2,52 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2D8EE70B4DE
+	by mail.lfdr.de (Postfix) with ESMTPS id 3D76C70B4DF
 	for <lists+linux-stm32@lfdr.de>; Mon, 22 May 2023 08:07:26 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E30C1C6B461;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F1674C6B464;
 	Mon, 22 May 2023 06:07:25 +0000 (UTC)
-Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com
- [209.85.210.178])
+Received: from smtp.smtpout.orange.fr (smtp-15.smtpout.orange.fr
+ [80.12.242.15])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 58B49C6A60C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 191C8C62EFE
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 20 May 2023 07:34:34 +0000 (UTC)
-Received: by mail-pf1-f178.google.com with SMTP id
- d2e1a72fcca58-64d3bc502ddso1479666b3a.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 20 May 2023 00:34:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1684568073; x=1687160073;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=wBXlPJ2WOFDTyTHyLQ9M5/vOMvc7Mykf2q4oVdOVeEg=;
- b=QN6XoqWxTSy3GlTXwrZ/aRy5SVogCyExaBhpUYS1aG7Mq5WOb3qX89yDQW8ui6jALU
- bbgFOuA1cNZJjGOuz1NMI+TgiAvv8r+7u4GoJbQ/p40sdOef28WYQn5FJQsFXbtVkGDm
- SX52G9VZgX+PVbKjFyJ7NzW8uysNXhnSRHv/pWPAGBJcV90ve/ITlbXMgbPfhEEehLdS
- yOXFaDq9UrMxxK9Ddi4FhGa3KlEDmLTFJGylHHfigZTp9Vtx6Cdn3h8lgnVfIEHEjfIu
- O/TCrxI/eZzHhH4oqB0CX6HqHyqAINBdChpbtn26Owd3g88VwyG5oE4+njobqdVbxS0v
- 3PsQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1684568073; x=1687160073;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=wBXlPJ2WOFDTyTHyLQ9M5/vOMvc7Mykf2q4oVdOVeEg=;
- b=JhiN01DJ3yA/xwqQnfbo9V3jWwsN4Zz1OLJbso2H6KLHlXMJoLiBm8VaPNDMBkcJxe
- T1q1/7PViFzOTBKMM5Ss3Fu5md2jDWq3c1CqFY5Cc9aYIHMJQiiMxpkKHAyLJhYFzgyZ
- AC4BoY4fQtF/LflmKbZXGVuBbTwAc26DMh9QMvR2WySk2j6USOGPlOJdPkwugXzQ50hh
- 2w2y1Noc3CBfR0nQbo9bq44FkMO1euDSRiP5klaRaabAq74H8XX/srUifPo3mD+j10Yd
- IRwpJCtkk+RRNpvAFvAjCMFYvfBmC36T1mPH8xjWiRKjOLMkKEQzn50ke10vgYfhyDea
- 4PMg==
-X-Gm-Message-State: AC+VfDzErXp++pMWr+iqRNkDfCwvgFUW3fjZRhOV8ilBYGZZD2Ucc8iV
- aMMdnVBUZGn4C/3GKf2s4e0=
-X-Google-Smtp-Source: ACHHUZ5QxeqwpmX+8bEEsL5MfjtiJ1O/rhGic4E6owcjthl0YEtN976ophiU97AJmOE0F6GQ6X+Lyw==
-X-Received: by 2002:a05:6a00:2e87:b0:636:f899:46a0 with SMTP id
- fd7-20020a056a002e8700b00636f89946a0mr7194401pfb.15.1684568072820; 
- Sat, 20 May 2023 00:34:32 -0700 (PDT)
-Received: from ubuntu777.domain.name (36-228-97-28.dynamic-ip.hinet.net.
- [36.228.97.28]) by smtp.gmail.com with ESMTPSA id
- fe21-20020a056a002f1500b0064d47cd117esm499146pfb.39.2023.05.20.00.34.30
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 20 May 2023 00:34:32 -0700 (PDT)
-From: Min-Hua Chen <minhuadotchen@gmail.com>
-To: kuba@kernel.org
-Date: Sat, 20 May 2023 15:34:28 +0800
-Message-Id: <20230520073428.3781-1-minhuadotchen@gmail.com>
+ Sat, 20 May 2023 15:00:53 +0000 (UTC)
+Received: from pop-os.home ([86.243.2.178]) by smtp.orange.fr with ESMTPA
+ id 0O4hqFQmweM6M0O4iqgCiP; Sat, 20 May 2023 17:00:53 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wanadoo.fr;
+ s=t20230301; t=1684594853;
+ bh=5VvxviU32EnF0yUc09qoA4jqdLeStDT9+mAuA1G4mT8=;
+ h=From:To:Cc:Subject:Date;
+ b=QyT70HvV0e5RPfiuGIrnDb/2Rni0o2JNkfLH9Xnif4lQWNXymjTE4Pp8pXFvUuufv
+ jAodpg9v2ARZslta04J0XOkseNB0plN7Gta57uvW+RwcGBsd7ANChzHaTYEYD67/A+
+ t7RPE59bhX6x1mwoaaOB9xIzomKA+h3J9Mw4f5dlJAjBzp6AiAP6HfM/kYYjfUe2ag
+ KFSdS66CHdYGz8ctvva/4/sAhcqImOmUZ59GMfyExKNsrSFaXWfWd6daxlaVOaP392
+ 1TdFD5Xk+Tz2/xAKb3gbZoPbaFloiA5dtXhg6vRLml1TapBPcqtUSMNUmu+as7ZIf6
+ MOMw8Bb4h58YQ==
+X-ME-Helo: pop-os.home
+X-ME-Auth: Y2hyaXN0b3BoZS5qYWlsbGV0QHdhbmFkb28uZnI=
+X-ME-Date: Sat, 20 May 2023 17:00:53 +0200
+X-ME-IP: 86.243.2.178
+From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+To: Olivier Moysan <olivier.moysan@foss.st.com>,
+ Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>
+Date: Sat, 20 May 2023 17:00:50 +0200
+Message-Id: <f7987f18dadf77bfa09969fd4c82d5a0f4e4e3b7.1684594838.git.christophe.jaillet@wanadoo.fr>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20230519210439.4a3bb326@kernel.org>
-References: <20230519210439.4a3bb326@kernel.org>
 MIME-Version: 1.0
 X-Mailman-Approved-At: Mon, 22 May 2023 06:07:23 +0000
-Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-kernel@vger.kernel.org, edumazet@google.com, joabreu@synopsys.com,
- mcoquelin.stm32@gmail.com, simon.horman@corigine.com, peppe.cavallaro@st.com,
- pabeni@redhat.com, davem@davemloft.net, linux-arm-kernel@lists.infradead.org,
- minhuadotchen@gmail.com
-Subject: Re: [Linux-stm32] [PATCH v3] net: stmmac: compare p->des0 and
-	p->des1 with __le32 type values
+Cc: alsa-devel@alsa-project.org, kernel-janitors@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH] ASoC: stm32: sai: Use the
+	devm_clk_get_optional() helper
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,26 +64,37 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Jakub,
+Use devm_clk_get_optional() instead of hand writing it.
+This saves some LoC and improves the semantic.
 
->We can make working with sparse easier by making sure it doesn't
->generate false positive warnings :\
+Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+---
+ sound/soc/stm/stm32_sai_sub.c | 9 +++------
+ 1 file changed, 3 insertions(+), 6 deletions(-)
 
-It will be good if sparse can handle this case correctly.
+diff --git a/sound/soc/stm/stm32_sai_sub.c b/sound/soc/stm/stm32_sai_sub.c
+index f6695dee353b..271ec5b3378d 100644
+--- a/sound/soc/stm/stm32_sai_sub.c
++++ b/sound/soc/stm/stm32_sai_sub.c
+@@ -1485,12 +1485,9 @@ static int stm32_sai_sub_parse_of(struct platform_device *pdev,
+ 		if (ret < 0)
+ 			return ret;
+ 	} else {
+-		sai->sai_mclk = devm_clk_get(&pdev->dev, "MCLK");
+-		if (IS_ERR(sai->sai_mclk)) {
+-			if (PTR_ERR(sai->sai_mclk) != -ENOENT)
+-				return PTR_ERR(sai->sai_mclk);
+-			sai->sai_mclk = NULL;
+-		}
++		sai->sai_mclk = devm_clk_get_optional(&pdev->dev, "MCLK");
++		if (IS_ERR(sai->sai_mclk))
++			return PTR_ERR(sai->sai_mclk);
+ 	}
+ 
+ 	return 0;
+-- 
+2.34.1
 
->
->> (There are around 7000 sparse warning in ARCH=arm64 defconfig build and
->> sometimes it is hard to remember all the false alarm cases)
->>
->> Could you consider taking this patch, please?
->
->No. We don't take patches to address false positive static
->checker warnings.
-
-No problem.
-
-thanks,
-Min-Hua
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
