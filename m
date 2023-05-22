@@ -2,67 +2,75 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 10C3370B6E1
-	for <lists+linux-stm32@lfdr.de>; Mon, 22 May 2023 09:46:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D769770C0B1
+	for <lists+linux-stm32@lfdr.de>; Mon, 22 May 2023 16:09:19 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B301FC6A61A;
-	Mon, 22 May 2023 07:46:17 +0000 (UTC)
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com
- [209.85.221.50])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 78889C6A61A;
+	Mon, 22 May 2023 14:09:19 +0000 (UTC)
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com
+ [209.85.128.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id ED19AC6A5E6
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4FB53C6A614
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 22 May 2023 07:46:16 +0000 (UTC)
-Received: by mail-wr1-f50.google.com with SMTP id
- ffacd0b85a97d-30a4ebbda56so1655469f8f.1
+ Mon, 22 May 2023 14:09:17 +0000 (UTC)
+Received: by mail-wm1-f43.google.com with SMTP id
+ 5b1f17b1804b1-3f42d937d2eso38238435e9.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 22 May 2023 00:46:16 -0700 (PDT)
+ Mon, 22 May 2023 07:09:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1684741576; x=1687333576;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :from:to:cc:subject:date:message-id:reply-to;
- bh=RIVk01vUE32Fs5xmh6uGF+YSpQzTcY9OgG1aTov+WQM=;
- b=aJRU56KCSo3rpIlXDTIxgutOm21kKy4pCK66q+4n23HGRVPpaHZ5t/IbiMDcg7xCuv
- 4GCem5qCSVC6EYh9WGOI8/10GlUS5tuxOR2nUWxbeeJF167/MDDiSn4dWSw0S+LLy31t
- CF/ABoFrh40zfGyBbPC+qXy3UqY4m4fe6+D/rlof4kyKWHt2VEZRsXwcoONP6Dheffpk
- BbXo0EkS57WXREeM5uUaCQh+FhxLv2bVH34MMgZRF7x01Sj2FVKrqsB9bLYAK8y8+o74
- LSFCN5M2zDH3pSfwQpdZPksdF7Cs7/6XzjjGKsqE2zouxyHOWZNyA4v9LbT7x5WN9ET+
- NcDw==
+ d=gmail.com; s=20221208; t=1684764557; x=1687356557;
+ h=content-transfer-encoding:content-language:in-reply-to:mime-version
+ :user-agent:date:message-id:from:references:cc:to:subject:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=WexhjTh9EgipPESTAcIjs8YMKr9plgty6KmA22728Fs=;
+ b=VDb8SOZPw6Zet5F7yalYSYV9wdMDyhck+Db1K6DyCn8tQuiYEH+dC4Kdp5H8wLCI3c
+ 8X+b/oZTRESTmVQTUnzCNP6U4m7j0cPoPKS3RU/r/v6i093TPa5a9N74fUVR/GxkpxDf
+ 1R/FE3giFkmmxiaIPYoVg17UtL2sCbFjeiaGoMfOPoIFbEF0AhGvhtkyl34bq6TPX5Rk
+ H7jrKxUtYm7NDE+dPNw9OvckuKBNEeVCl+ZYev1n2S4MH8BeCpEiopDy/UkG31idWrqm
+ 6dzH+c3NNcGB5cpJuXN1/BnJJYPaMYd5ocRBBm5HKnZI+QTw1X2jbY/zrOthHLWtCPJr
+ iFmA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1684741576; x=1687333576;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ d=1e100.net; s=20221208; t=1684764557; x=1687356557;
+ h=content-transfer-encoding:content-language:in-reply-to:mime-version
+ :user-agent:date:message-id:from:references:cc:to:subject
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=RIVk01vUE32Fs5xmh6uGF+YSpQzTcY9OgG1aTov+WQM=;
- b=CVtIXEwGA1xymvA86kvYjGbbyKiD/3unS/+Eg7NyvFx6BYB2tKgeVI2vzDUtXAL+XU
- BcDdLZMQOVjr7Es1Vjsbxjz58O2SG+0hSmehEhNSoqSkbZ2cnz7RxuJlyWa4LqgyOZfR
- QewHnx0rfdEp6o4nvVrOLgVYKnSioU2FPFPifkyy+ho8G6byJlg9GFR2XdqRF+1dMLES
- 7MQzVwlnud6x0+3sNKa/F5qA8MakqIBBTwPHM02x0zepuywBx036vuZM6PPgckNNSVaJ
- aHVPNl5NJKC+1xF25k3E91kSkAmjigH6ZSt4PkO9XISXJIeWJX9/mrW3VWQ0S/FP0Cuh
- dIIQ==
-X-Gm-Message-State: AC+VfDxbaJdMseq0SgEUItZHuzaxIJ/rGQwAnUyLRQPfbPCYHbeSRdfh
- YodPE7EAXmaGC6uu8Lol4AcSpA==
-X-Google-Smtp-Source: ACHHUZ5WPY0s+puoCLwPIv3+dZIthZntG1qO8mejkYgqwA0xER2gHbAwLfhkvLu0SZTyKxPKdCZmfw==
-X-Received: by 2002:adf:de10:0:b0:306:2dd6:95d3 with SMTP id
- b16-20020adfde10000000b003062dd695d3mr8301383wrm.22.1684741576394; 
- Mon, 22 May 2023 00:46:16 -0700 (PDT)
-Received: from localhost ([102.36.222.112]) by smtp.gmail.com with ESMTPSA id
- a2-20020a5d53c2000000b002ffbf2213d4sm6816964wrw.75.2023.05.22.00.46.14
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 22 May 2023 00:46:15 -0700 (PDT)
-Date: Mon, 22 May 2023 10:46:11 +0300
-From: Dan Carpenter <dan.carpenter@linaro.org>
-To: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
-Message-ID: <6f457246-6446-42cb-81ae-d37221d726b1@kili.mountain>
+ bh=WexhjTh9EgipPESTAcIjs8YMKr9plgty6KmA22728Fs=;
+ b=FLPyDqJwtmN7Qk04mr7nvA3hck51TgHmK8Q0KZyFraKx5gqIIdDGYzNlNnOP8Tk5zj
+ ymhHC5hv7ro70O7T4hjxujtvxygWgE/L247HOL0Mzj0MBHNK+OrSlpMzqhx2MC10a6Hw
+ UVuuMdmpxntvtTMivxyMXPrEP9T85tRe+QHVKylSyAbQ/ItJuGgHGw80rEoUL3Yd2vuN
+ LkaK7SeTyTdu6oGZwIIBfyuOpr4Hkmah2ajW6D3HpF3Z6+Gk/Y1k/d2rVYbA0NoH2Bvu
+ BoyPi5lUmGA8AYswT7sxAlajEDSmPgPorfNy5NaO0vhVHbKuzsirWwWPt1I33wOOV9BV
+ zWMA==
+X-Gm-Message-State: AC+VfDzjPqk40N5eb8ohS4XbAMP4Gp1m5HjZOvLTQIh6dv+c5QZpMMAL
+ tAoTgUjPo5cJigvrjRkuK1g=
+X-Google-Smtp-Source: ACHHUZ73Fy76JqxgxOq6PygIGGHMHrrwk/atOHcAPHzEai7lV3H36Khz2+J59mn/1eAm5zPigReK7w==
+X-Received: by 2002:a1c:c903:0:b0:3eb:42fc:fb30 with SMTP id
+ f3-20020a1cc903000000b003eb42fcfb30mr7876135wmb.32.1684764556512; 
+ Mon, 22 May 2023 07:09:16 -0700 (PDT)
+Received: from [192.168.1.122]
+ (cpc159313-cmbg20-2-0-cust161.5-4.cable.virginm.net. [82.0.78.162])
+ by smtp.gmail.com with ESMTPSA id
+ s9-20020a1cf209000000b003f3e50eb606sm8483308wmc.13.2023.05.22.07.09.15
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 22 May 2023 07:09:16 -0700 (PDT)
+To: Min-Hua Chen <minhuadotchen@gmail.com>, kuba@kernel.org
+References: <20230519152715.7d1c3a49@kernel.org>
+ <20230520015527.215952-1-minhuadotchen@gmail.com>
+From: Edward Cree <ecree.xilinx@gmail.com>
+Message-ID: <9e6b813a-bc1a-6a39-904d-5c45f983cd23@gmail.com>
+Date: Mon, 22 May 2023 15:09:14 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.14.0
 MIME-Version: 1.0
-Content-Disposition: inline
-X-Mailer: git-send-email haha only kidding
-Cc: Mathieu Poirier <mathieu.poirier@linaro.org>,
- kernel-janitors@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>,
- linux-remoteproc@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH] remoteproc: stm32: Fix error code in
-	stm32_rproc_parse_dt()
+In-Reply-To: <20230520015527.215952-1-minhuadotchen@gmail.com>
+Content-Language: en-GB
+Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-kernel@vger.kernel.org, edumazet@google.com, joabreu@synopsys.com,
+ mcoquelin.stm32@gmail.com, simon.horman@corigine.com, peppe.cavallaro@st.com,
+ pabeni@redhat.com, davem@davemloft.net, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v3] net: stmmac: compare p->des0 and
+ p->des1 with __le32 type values
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,32 +87,29 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-There is a cut and paste bug so this code was returning the wrong
-variable.  It should have been "ddata->hold_boot_rst" instead of
-"ddata->rst".
+On 20/05/2023 02:55, Min-Hua Chen wrote:
+>> On Fri, 19 May 2023 19:50:28 +0800 Min-Hua Chen wrote:
+>>> -		if ((p->des0 == 0xffffffff) && (p->des1 == 0xffffffff))
+>>> +		if (p->des0 == cpu_to_le32(0xffffffff) &&
+>>> +		    p->des1 == cpu_to_le32(0xffffffff))
+>>
+>> Can you try to fix the sparse tool instead? I believe it already
+>> ignores such errors for the constant of 0, maybe it can be taught 
+>> to ignore all "isomorphic" values?
+>>
+> 
+> I downloaded the source code of sparse and I'm afraid that I cannot make
+> 0xFFFFFFFF ignored easily. I've tried ~0 instead of 0xFFFFFF,
+> but it did not work with current sparse.
+> 
+> 0 is a special case mentioned in [1].
 
-Fixes: de598695a2ad ("remoteproc: stm32: Allow hold boot management by the SCMI reset controller")
-Signed-off-by: Dan Carpenter <dan.carpenter@linaro.org>
----
- drivers/remoteproc/stm32_rproc.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/remoteproc/stm32_rproc.c b/drivers/remoteproc/stm32_rproc.c
-index 0e322697d210..a7457777aae4 100644
---- a/drivers/remoteproc/stm32_rproc.c
-+++ b/drivers/remoteproc/stm32_rproc.c
-@@ -755,7 +755,7 @@ static int stm32_rproc_parse_dt(struct platform_device *pdev,
- 
- 	ddata->hold_boot_rst = devm_reset_control_get_optional(dev, "hold_boot");
- 	if (IS_ERR(ddata->hold_boot_rst))
--		return dev_err_probe(dev, PTR_ERR(ddata->rst),
-+		return dev_err_probe(dev, PTR_ERR(ddata->hold_boot_rst),
- 				     "failed to get hold_boot reset\n");
- 
- 	if (!ddata->hold_boot_rst && IS_ENABLED(CONFIG_HAVE_ARM_SMCCC)) {
--- 
-2.39.2
-
+I believe you can do something like
+    if ((p->des0 == ~(__le32)0) && (p->des1 == ~(__le32)0))
+ and sparse will accept that, because the cast is allowed under the
+ special case.
+HTH,
+-ed
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
