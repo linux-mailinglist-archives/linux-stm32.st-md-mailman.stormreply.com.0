@@ -2,72 +2,57 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id EAA1570C289
-	for <lists+linux-stm32@lfdr.de>; Mon, 22 May 2023 17:36:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2834070D29E
+	for <lists+linux-stm32@lfdr.de>; Tue, 23 May 2023 05:58:00 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9DEA0C6A61A;
-	Mon, 22 May 2023 15:36:22 +0000 (UTC)
-Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com
- [209.85.210.178])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CAA54C6A61A;
+	Tue, 23 May 2023 03:57:59 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 004B3C6A614
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B0C2EC6A614
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 22 May 2023 15:36:21 +0000 (UTC)
-Received: by mail-pf1-f178.google.com with SMTP id
- d2e1a72fcca58-64d604cc0aaso1223481b3a.2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 22 May 2023 08:36:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1684769780; x=1687361780;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=DenES0KQSjrCWYfYQgXjcF0k/ImoCZJgCineCmXx+NE=;
- b=jASfy9rNHOxQwklay2dl4HeJfqhrXM71IqRNK25gCbRc8zhxHX1xrhfX0geOpAgTJq
- XyeDtcJk8UZYGfNrZqN3ijB11s5Bs3QsX5Cv7MfFgQfd+ZVuVwIaAgVpxGwwMRyxMW8F
- oADHQ2s5A/1zr8r6IibKMoSQcwpoNg269LCdwzHdvFaG5qGo2tlwycSFg5f5ru/NQpOb
- /XYub7ZNNyeD3mRl9rob1nesDHRLBnbOA3qJ9aid+EX9zCmLJCpjYAyGpI2FquCdRra0
- 24IZnWPrM6RzIpBfsgga0JOYD7LoBkVv2dTgyP9TUXgKVpbUTYOpnXmhYjI8NIO1Gsv3
- Gjpw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1684769780; x=1687361780;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=DenES0KQSjrCWYfYQgXjcF0k/ImoCZJgCineCmXx+NE=;
- b=U7Hs7vinIrtyaSTt4PiLvVOrFY4L+zArYsv7r6gtmlXd7qB/WySzg4p0JNVEFuJ58r
- bTdgN3DoiKiJHgiUhZC0/XBFmhaUTr5dSz2uu+sopo9u2LJlT3gVoNwHawX9JfMPYXD7
- JTQXrsTCpGiCBSCBX8+REcenkW+ZE7fHzXvfM5EgOoy16l8SvdmYm/sRRiAvDCrmgn6r
- PdQxez1L5MOIG14rYZkboSL08+z8gikBH1Ty47iYQUv7rQAE3oUtM5KpZG4YwctIJlWT
- 3p6JumRI9+a4hCZWnBuZFF1/kjQaazk+bL0k6K9gLI9Jl4vi5XVVflcpNNpLX1JJ7gwL
- Qrrg==
-X-Gm-Message-State: AC+VfDwGwLD7wSXy85ST8DSTOxzDz1mu2A9PYnNeJ/qcacL17mvyAVmY
- t9oCLLh0vADDFJn2L6rO/rM=
-X-Google-Smtp-Source: ACHHUZ5kMw3+1b6tLTszJJvFqHHI3vChTGvGuyKIosGush/AiROF93kKWL+uNb5ZHIVOgEby3Ng5/A==
-X-Received: by 2002:a05:6a00:248a:b0:64d:5b4b:8429 with SMTP id
- c10-20020a056a00248a00b0064d5b4b8429mr8042391pfv.18.1684769780446; 
- Mon, 22 May 2023 08:36:20 -0700 (PDT)
-Received: from ubuntu777.domain.name (36-228-81-153.dynamic-ip.hinet.net.
- [36.228.81.153]) by smtp.gmail.com with ESMTPSA id
- w17-20020aa78591000000b006414c3ba8a3sm4447849pfn.177.2023.05.22.08.36.17
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 22 May 2023 08:36:19 -0700 (PDT)
-From: Min-Hua Chen <minhuadotchen@gmail.com>
-To: ecree.xilinx@gmail.com
-Date: Mon, 22 May 2023 23:36:15 +0800
-Message-Id: <20230522153615.247577-1-minhuadotchen@gmail.com>
+ Tue, 23 May 2023 03:57:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1684814277; x=1716350277;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=kv+U3eR2t5jXrzu7bhE+tT5rUsZNuQI3uVH6Dk7rusQ=;
+ b=W12L+yy6UrVaoamQ+qwC1Bb45qAv3Z8AGszufYeTLzhLR1Nfsc4q6bTi
+ ssYISkwXKK4ECtw76YdSQo0K2nRxGCMYldId3Ds6we+vVhIUTLlR4WnQ/
+ y3cyjGRst8XCz17/e8cy2dem7Ls/k7mS0T1ThdULPUlWmojPYiR4qI6xq
+ oMzWjGMqeiuSUjmzaKFNTVJGlmpSWZpcpxkNO2BmEUBdrmOTwGbRBxEh0
+ kBkUiIQWNax7gtHvSQZTs9hNuAoS2J0mVO+aGQ6Vuwc2PQ2JVtXmq4d+n
+ Usgh50XWDyRgs6bN9ebxE4Kxn55r0tLTKDjkbmDWi6cTe7jVeD/mY2Iw1 g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10718"; a="342577146"
+X-IronPort-AV: E=Sophos;i="6.00,185,1681196400"; d="scan'208";a="342577146"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 May 2023 20:56:22 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10718"; a="681240866"
+X-IronPort-AV: E=Sophos;i="6.00,185,1681196400"; d="scan'208";a="681240866"
+Received: from ganyifangubuntu20-ilbpg12.png.intel.com ([10.88.229.31])
+ by orsmga006.jf.intel.com with ESMTP; 22 May 2023 20:56:19 -0700
+From: Gan Yi Fang <yi.fang.gan@intel.com>
+To: Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Alexandre Torgue <alexandre.torgue@st.com>,
+ Jose Abreu <joabreu@synopsys.com>,
+ "David S . Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Date: Mon, 22 May 2023 23:55:48 -0400
+Message-Id: <20230523035548.188651-1-yi.fang.gan@intel.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <9e6b813a-bc1a-6a39-904d-5c45f983cd23@gmail.com>
-References: <9e6b813a-bc1a-6a39-904d-5c45f983cd23@gmail.com>
 MIME-Version: 1.0
-Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-kernel@vger.kernel.org, edumazet@google.com, joabreu@synopsys.com,
- mcoquelin.stm32@gmail.com, peppe.cavallaro@st.com, simon.horman@corigine.com,
- kuba@kernel.org, pabeni@redhat.com, davem@davemloft.net,
- linux-arm-kernel@lists.infradead.org, minhuadotchen@gmail.com
-Subject: Re: [Linux-stm32] [PATCH v3] net: stmmac: compare p->des0 and
-	p->des1 with __le32 type values
+Cc: Gan Yi Fang <yi.fang.gan@intel.com>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Looi Hong Aun <hong.aun.looi@intel.com>,
+ Michael Sit Wei Hong <michael.wei.hong.sit@intel.com>,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH net 1/1] net: stmmac: Remove redundant
+	checking for rx_coalesce_usecs
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,36 +69,31 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-hi Edward,
+The datatype of rx_coalesce_usecs is u32, always larger or equal to zero.
+Previous checking does not include value 0, this patch removes the
+checking to handle the value 0.
 
->>> On Fri, 19 May 2023 19:50:28 +0800 Min-Hua Chen wrote:
->>>> -		if ((p->des0 == 0xffffffff) && (p->des1 == 0xffffffff))
->>>> +		if (p->des0 == cpu_to_le32(0xffffffff) &&
->>>> +		    p->des1 == cpu_to_le32(0xffffffff))
->>>
->>> Can you try to fix the sparse tool instead? I believe it already
->>> ignores such errors for the constant of 0, maybe it can be taught 
->>> to ignore all "isomorphic" values?
->>>
->> 
->> I downloaded the source code of sparse and I'm afraid that I cannot make
->> 0xFFFFFFFF ignored easily. I've tried ~0 instead of 0xFFFFFF,
->> but it did not work with current sparse.
->> 
->> 0 is a special case mentioned in [1].
->
->I believe you can do something like
->    if ((p->des0 == ~(__le32)0) && (p->des1 == ~(__le32)0))
-> and sparse will accept that, because the cast is allowed under the
-> special case.
->HTH,
->-ed
+Signed-off-by: Gan Yi Fang <yi.fang.gan@intel.com>
+---
+ drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-I tested ~(__le32)0 and it worked: sparse accpets this.
-Thanks for sharing this.
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
+index 35c8dd92d369..6ed0e683b5e0 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
+@@ -917,7 +917,7 @@ static int __stmmac_set_coalesce(struct net_device *dev,
+ 	else if (queue >= max_cnt)
+ 		return -EINVAL;
+ 
+-	if (priv->use_riwt && (ec->rx_coalesce_usecs > 0)) {
++	if (priv->use_riwt) {
+ 		rx_riwt = stmmac_usec2riwt(ec->rx_coalesce_usecs, priv);
+ 
+ 		if ((rx_riwt > MAX_DMA_RIWT) || (rx_riwt < MIN_DMA_RIWT))
+-- 
+2.34.1
 
-cheers,
-Min-Hua
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
