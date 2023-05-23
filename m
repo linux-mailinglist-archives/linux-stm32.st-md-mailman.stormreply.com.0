@@ -2,64 +2,116 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id ADCB470DB5F
-	for <lists+linux-stm32@lfdr.de>; Tue, 23 May 2023 13:19:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BF69270DB1D
+	for <lists+linux-stm32@lfdr.de>; Tue, 23 May 2023 13:04:25 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 68A89C6B442;
-	Tue, 23 May 2023 11:19:31 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6AF34C6A61A;
+	Tue, 23 May 2023 11:04:25 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2136.outbound.protection.outlook.com [40.107.220.136])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7A55CC6A614
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 29B7AC03FC1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 23 May 2023 07:42:23 +0000 (UTC)
-Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 34N41JOv005315; Tue, 23 May 2023 09:42:12 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=from : to : cc :
- subject : date : message-id : mime-version : content-transfer-encoding :
- content-type; s=selector1;
- bh=9KXPbntQJjThryM7ZH+pOmBiljxCSklz9zzzhSCRtqg=;
- b=vzn1lJK0lbm2qCgl4ZlUV3WkI6TBP5LXnDCzBKN3h5AMCc4l89PALKf0inFqgHv3GNIb
- FyTU3E6hOFkgVYlWPhq48V0jHVMNhLnzywb8QgX7fUoiMXsKUMPl8CWonDg9+P+2khI2
- qPAfrNdkIosUy5McwJb6O9+tdb66W69dDFsgtv+SZw3Lv5ZaTM6fMbKJ0s+xPcPgijHh
- tGnPM+cCCAmTgFF4PM45QK4x5/cHFkFntylMC1uKsACtF1j9L3zsjZSa+4Giko/a2mDQ
- CfKAVweB9JHSgRXbA8vRh15ovPlmdrB66LZLE4PtRPdSgZy0ny3jgcSWUb67PqFTOvJ4 dg== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3qpnj1fkaw-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 23 May 2023 09:42:12 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id DA7A910002A;
- Tue, 23 May 2023 09:42:11 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id BF2B221ADC9;
- Tue, 23 May 2023 09:42:11 +0200 (CEST)
-Received: from localhost (10.201.22.238) by SHFDAG1NODE2.st.com (10.75.129.70)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.21; Tue, 23 May
- 2023 09:42:10 +0200
-From: <p.paillet@foss.st.com>
-To: <lee@kernel.org>, Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski
- <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley <conor+dt@kernel.org>,
- Pascal Paillet <p.paillet@foss.st.com>
-Date: Tue, 23 May 2023 09:42:06 +0200
-Message-ID: <20230523074206.201962-1-p.paillet@foss.st.com>
-X-Mailer: git-send-email 2.25.1
+ Tue, 23 May 2023 11:04:23 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=c6ogsKvHTj+z7HB7MqRkCk3csDAK8Dj1FCtePGpmpq/f0Notp2xreoMK+WJSUg2xY2Ks91e0IfacyzOI/jY2R5aOPaLbZpu90uF01TAojl7YljaSziX9X1gbeWqu1Kp63lEITd5pzeHFIweweECUWBnrhig5ejBCucARWVZNrvFaXqE01lvePFFnuyW9GDl5LVeuK5fReylT6OoewGpAe2GX0exoMUqkaq3EmmMRMtJMNmzCjDtTsun+xu4LuV6NTyjwfI6TL6o7vk8paJiZnusY80kdATMQ1dt/FWfZNqIkb0L6HPqfUf7qdmWlJj0/I2Yz3Cm/wT63boBzmblVkw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=vt8ofYJRZQDel/FPkhs4YEzF4Cv9/gMM0nJsV3GK9a0=;
+ b=fg8gncZP308CtZTCkEtzderKhHPicQ+OQ5wJrpYtywq79VipdNEH61ebDRk6QBgTWOPoBJyw5YJahbGNDagBR/i/wEPnLDkYDvBea7ORCWOKZ2GXtgF7XF35RUg8L9FyFGS4SGa2aAfkRutxWcm4GiyvxQmEzU2KXSekzAfIYCSsvqfpc63iZtXmIXIVmDMzDV6etdaSlFBubI1rR1uNYGKnq64zrM14jPXwEAOltYHyLJr9v2HxabvnAxKg3vV4RLFPhVzLC4OnAxmTbQ60DLFl4ZpyGf+i1+ohhUs34n5bowVA6WY6pw1wLYscBhTIZnE4NnqzDGNJN17PaVfQrg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=corigine.com; dmarc=pass action=none header.from=corigine.com;
+ dkim=pass header.d=corigine.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=corigine.onmicrosoft.com; s=selector2-corigine-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=vt8ofYJRZQDel/FPkhs4YEzF4Cv9/gMM0nJsV3GK9a0=;
+ b=qA96A2HlVw6RsBLQRq4dPyf7WqBpNgMD0qy07+9rEVnjP00FdF1neOmeatUzCAIj5OzCJy3UJVihHTkyr/k2sjeOwX6E8POIBAhogV0glJGcHoWnkg2bAwTrvIidc3nBzdTcJXa1oi3r/BTY+iFRoYZ3Qcq3Ns0qUz018mburn0=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=corigine.com;
+Received: from PH0PR13MB4842.namprd13.prod.outlook.com (2603:10b6:510:78::6)
+ by LV3PR13MB6527.namprd13.prod.outlook.com (2603:10b6:408:1a0::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6433.14; Tue, 23 May
+ 2023 11:04:20 +0000
+Received: from PH0PR13MB4842.namprd13.prod.outlook.com
+ ([fe80::f416:544d:18b7:bb34]) by PH0PR13MB4842.namprd13.prod.outlook.com
+ ([fe80::f416:544d:18b7:bb34%5]) with mapi id 15.20.6411.029; Tue, 23 May 2023
+ 11:04:19 +0000
+Date: Tue, 23 May 2023 13:04:12 +0200
+From: Simon Horman <simon.horman@corigine.com>
+To: Gan Yi Fang <yi.fang.gan@intel.com>
+Message-ID: <ZGydrKQg6RsL1qHo@corigine.com>
+References: <20230523061952.204537-1-yi.fang.gan@intel.com>
+Content-Disposition: inline
+In-Reply-To: <20230523061952.204537-1-yi.fang.gan@intel.com>
+X-ClientProxiedBy: AS4P192CA0036.EURP192.PROD.OUTLOOK.COM
+ (2603:10a6:20b:658::29) To PH0PR13MB4842.namprd13.prod.outlook.com
+ (2603:10b6:510:78::6)
 MIME-Version: 1.0
-X-Originating-IP: [10.201.22.238]
-X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SHFDAG1NODE2.st.com
- (10.75.129.70)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.957,Hydra:6.0.573,FMLib:17.11.176.26
- definitions=2023-05-23_04,2023-05-22_03,2023-05-22_02
-X-Mailman-Approved-At: Tue, 23 May 2023 11:19:29 +0000
-Cc: devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-kernel@vger.kernel.org
-Subject: [Linux-stm32] [PATCH] dt-bindings: mfd: add vref_ddr supply for
-	STPMIC1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH0PR13MB4842:EE_|LV3PR13MB6527:EE_
+X-MS-Office365-Filtering-Correlation-Id: f6d0cd89-a673-4810-e062-08db5b7d7526
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: jdaXyK2ZXNL830h32kg1pKkOGcpsR7q1uBGndIwXJSnZUAP1+Y79AHywT0cZlPJG40/0YseRZ8bnU/6znjeFk2IkciN9twTY/G8Xb1a6Tnz5QEL9NWtS47bLcSrhcyhAzZzT0XUV8z2vplOtfjGQ9Yf5MfDPBGT2/pzbz5BwuH0V0ICec2mY4nc26MMXg8wJL48mbluK0CguO7sg4Yf4b6OFlAseMnrEfbZSezMfOAeztCxJ7cIVG3m+0ZruZmYQb7ZeqKyi2uZSFrzGnRqQH+BbpzMLNhNREnSDfnP2tSoMOLZnp5xvvzEH21j/STQjF2z5pM9q7+LadeMEbAY2rB6dOzGDFkjI7/tvdQCjVLQNveVMyNCGEPb1zuFtIx1Ykhe7ALvKWOi6pnErJk37ZuNRMYWrECG/AGXqACqWq0A0nsElEuAGgq6mB012/6pKheh+9X0f3oKNf2srf0d+cTMmmOkZ0RmmZJ7NO+BkHjqCOsl/4FX461hSQWmgWtRKlNIbsdRBh9qrUvxGamG3KKo/t+MAetAvulUfvTDsFpFB//YWXHADAen8Z7mPph8V
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH0PR13MB4842.namprd13.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(4636009)(376002)(39840400004)(396003)(136003)(366004)(346002)(451199021)(36756003)(2906002)(6666004)(6486002)(38100700002)(4744005)(8936002)(66946007)(66476007)(66556008)(7416002)(8676002)(316002)(5660300002)(41300700001)(6916009)(44832011)(54906003)(4326008)(478600001)(2616005)(6512007)(6506007)(86362001)(186003);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?cqQ/ab07RN0lkISIP1C2cxdaqQI4IrcAf0PQINS0OEG6ue22qZtWzQdEBY6N?=
+ =?us-ascii?Q?NlsAzgGZYNXQ+RXmDjod9p2cxiDwklxGNGdzlzHdJC3n0Z/iHFw3GKfVVQTA?=
+ =?us-ascii?Q?Iu72iqmNNWRhIqyvsPXZINPKgUZJ634GAixi9I1GUy1TOjlHhZu/KaQyaXxi?=
+ =?us-ascii?Q?/968K35nMWVMD8AggGgk93ax+kPSeYQ3rQjzE/zOKn4Udt4slQPafg48VUDj?=
+ =?us-ascii?Q?c5YZ3M1+RztZNJZGTLb3Lc7Ma03tNHRYyJefRCrvvK8Ja3by71MXvkqlOj2/?=
+ =?us-ascii?Q?A9heB4PjTZ7u0ZZghyx29NzIrRzeKkDxs4NMjghJfXf2uRQjQAWCmP5EgTm7?=
+ =?us-ascii?Q?rwszPwvItds+iNx7dh4+SnELbXvrxrLXCueAo2w/ab9FaoruODkXUDJDgptj?=
+ =?us-ascii?Q?oMgZ7kXuNAi5VJUwD1dQLPIlDZ1s7cJ+Zv0D4k8Rakbu5Lh5Sh3PTLv7Z/DC?=
+ =?us-ascii?Q?PAM9i6bm2MGQzuaWNYuTxHItmkBNcUxssumNgcWrhEQzUXfCFH7wXPj1E852?=
+ =?us-ascii?Q?Lqi5Wli0leMG6BUGM+/0cHFRHxNzaVbXnwe4FM9GGSkmp5umFexlVkq4d2IB?=
+ =?us-ascii?Q?diIR3kE535W1SKMxXs8V0QKnwic37suKO/Ik5dbsifdlsd6amglXJIgBM0uA?=
+ =?us-ascii?Q?mhQbEftZwqbcx1wAWlTNFDO4YXsYp6Hxshge7dEqvxbcx0suJo+9kKZhWLL+?=
+ =?us-ascii?Q?l+q+xMF+rEz5c18pYEZMybwNRUbVRGDz4m2P5PLeAoQ2fHePDi3OFX3Y7IU7?=
+ =?us-ascii?Q?oEv5W0gRUdMod/3WpY8hyh7JRP3C+IqFHPBw1l5hRcNPPEYqiFC62hUHsQt7?=
+ =?us-ascii?Q?p7tPaQwW0/u5yjKRgAODlzgTciSsO1lXAUz+TTCE4JqD1P2qnCH+JXphXSY1?=
+ =?us-ascii?Q?1rwELg2/oBYCvNq6dyELCAjLDiLmolzFxEuCVeZhSiDgnn30hSGafclqV7Iy?=
+ =?us-ascii?Q?w+B+5s7fqtuy4LvmR9m/qWCvVukIS8Sz8jKwyi/W5iSasL5sI9UyiNH4LQuB?=
+ =?us-ascii?Q?e4GgRhfWDIdaIwJBqmllaB0oaos0VwwZBa5UN/F5Vt81dzIzyeVZuvypJ4vP?=
+ =?us-ascii?Q?qmbhHcPbfTElmTC2H29jnTWXMN6tgoRCY50WDhevPSIeO+JHN4u8+ISS9d5d?=
+ =?us-ascii?Q?qWbQ+dp+d6FZNKI3oWqdW64JQ9o80U5VWLJoUu1hK3gd7hx42P71hLJY6htb?=
+ =?us-ascii?Q?eMiojFQuWveowGMny1SI/hB3zM5/OB4dJXgdUFM7iPnJ8JyUAY8epfxFwOTB?=
+ =?us-ascii?Q?nYSFPJdBlxjGL5bx4sLKQT64CaVxAMvVXj72jL1sG7TC12eLcgSEnqSwnIku?=
+ =?us-ascii?Q?qmoMj6VxpS/kHR6sH0N45CRTmo6CfZ5SgXvrg01Lxj/dP7U2sAcf0by4LlUy?=
+ =?us-ascii?Q?IazyXGySKyjuk4mJkcQDzQA3GYFBmIMPP4NlIm/H73uxNRpNINSN/Zd9Lp3+?=
+ =?us-ascii?Q?0yliNUQg4WoE4EPMPgqmgvhCUfn36m+nGr41wsErfkHAV/EVb0ubTIEXXBMd?=
+ =?us-ascii?Q?jPrChcSwLLG+ywHneBHbwYi7M063TuYw7F6i/TIzgIjt5vux0lrocLlAwzCS?=
+ =?us-ascii?Q?hPOr+rsOHzSKGS+vyFLhBtYh+CK1w/pxN36TEw2ZvBVTzkZ6lQ4p+aYH1jSp?=
+ =?us-ascii?Q?necOKkW3GRxVj7QVyO0TXgNhN3Pcy0T8ZfOdqriHfmVaIqvJTGVFYOPjMVye?=
+ =?us-ascii?Q?wZ0RtQ=3D=3D?=
+X-OriginatorOrg: corigine.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f6d0cd89-a673-4810-e062-08db5b7d7526
+X-MS-Exchange-CrossTenant-AuthSource: PH0PR13MB4842.namprd13.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 May 2023 11:04:19.9208 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: fe128f2c-073b-4c20-818e-7246a585940c
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: pzTiGOr7FsorKK5U2FP59cQrLQ2+wpKM84JrSHygZyty5uGiJgAw2nUow/vx6KKPbjxfVaulbG8JO6L2LxXI2RyYp2ltvcaknGgsQgm8kRE=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR13MB6527
+Cc: Alexandre Torgue <alexandre.torgue@st.com>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ Michael Sit Wei Hong <michael.wei.hong.sit@intel.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Looi Hong Aun <hong.aun.looi@intel.com>, Paolo Abeni <pabeni@redhat.com>,
+ "David S . Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next 1/1] net: stmmac: Remove
+ redundant checking for rx_coalesce_usecs
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,30 +128,14 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Pascal Paillet <p.paillet@foss.st.com>
+On Tue, May 23, 2023 at 02:19:52AM -0400, Gan Yi Fang wrote:
+> The datatype of rx_coalesce_usecs is u32, always larger or equal to zero.
+> Previous checking does not include value 0, this patch removes the
+> checking to handle the value 0.
+> 
+> Signed-off-by: Gan Yi Fang <yi.fang.gan@intel.com>
 
-Add vref_ddr supply description for the STPMIC1.
-
-Signed-off-by: Pascal Paillet <p.paillet@foss.st.com>
----
- Documentation/devicetree/bindings/mfd/st,stpmic1.yaml | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/Documentation/devicetree/bindings/mfd/st,stpmic1.yaml b/Documentation/devicetree/bindings/mfd/st,stpmic1.yaml
-index 9573e4af949e..97c61097f9e2 100644
---- a/Documentation/devicetree/bindings/mfd/st,stpmic1.yaml
-+++ b/Documentation/devicetree/bindings/mfd/st,stpmic1.yaml
-@@ -184,7 +184,7 @@ properties:
-         additionalProperties: false
- 
-     patternProperties:
--      "^(buck[1-4]|ldo[1-6]|boost|pwr_sw[1-2])-supply$":
-+      "^(buck[1-4]|ldo[1-6]|vref_ddr|boost|pwr_sw[1-2])-supply$":
-         description: STPMIC1 voltage regulators supplies
- 
-       "^(buck[1-4]|ldo[1-6]|boost|vref_ddr|pwr_sw[1-2])$":
--- 
-2.25.1
+Reviewed-by: Simon Horman <simon.horman@corigine.com>
 
 _______________________________________________
 Linux-stm32 mailing list
