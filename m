@@ -2,67 +2,56 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1413970F7E2
-	for <lists+linux-stm32@lfdr.de>; Wed, 24 May 2023 15:41:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 259AE70F816
+	for <lists+linux-stm32@lfdr.de>; Wed, 24 May 2023 15:54:28 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CAD14C6B44B;
-	Wed, 24 May 2023 13:41:23 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AAD4AC6B442;
+	Wed, 24 May 2023 13:54:27 +0000 (UTC)
+Received: from phobos.denx.de (phobos.denx.de [85.214.62.61])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EE9BAC6B442
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A7D9FC01E98
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 24 May 2023 13:41:22 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 34OCYCKp031558; Wed, 24 May 2023 15:40:56 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-transfer-encoding : content-type; s=selector1;
- bh=Do0DjikyeIDFZP9oGmyZJjVUwz6VAIDmWXDZg0ApHTI=;
- b=IkYvi42caGJWSglmsWG2LM+rjKCJtPblzqCJuJb+iZxLN0Nfuhvh4jiR42tW73szWwKc
- v+LNBzizdEItSevfv2AE8mH3P2pSTm53diEz18E8JRDZOReJ2tQeP5qQGMatvWcpUwUh
- w61yuhfxu64uu50X/B1iy8QGgeubVti6BNOubPlIOIb64h65F8IAu/PC+oCuRXcDEuaM
- k80d2wtDhiAOKcEz1v9ACCR8NfrK295b+jQq9+X8Vr3+srcBGz9orCc+EQmkIpno7g6a
- WpzM/DcjiKRSNeYFKAckCsai30JYGqqz8PM/ZXugibhFirMDYd06PUAn0y25NldN+lhC dQ== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3qrtgv162j-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 24 May 2023 15:40:56 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 80132100034;
- Wed, 24 May 2023 15:40:55 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 78467229A88;
- Wed, 24 May 2023 15:40:55 +0200 (CEST)
-Received: from localhost (10.252.20.36) by SHFDAG1NODE1.st.com (10.75.129.69)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.21; Wed, 24 May
- 2023 15:40:55 +0200
-From: Olivier Moysan <olivier.moysan@foss.st.com>
-To: Marek Vasut <marex@denx.de>, Rob Herring <robh+dt@kernel.org>, Krzysztof
- Kozlowski <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley
- <conor+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-Date: Wed, 24 May 2023 15:39:17 +0200
-Message-ID: <20230524133918.1439516-9-olivier.moysan@foss.st.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20230524133918.1439516-1-olivier.moysan@foss.st.com>
-References: <20230524133918.1439516-1-olivier.moysan@foss.st.com>
+ Wed, 24 May 2023 13:54:26 +0000 (UTC)
+Received: from [127.0.0.1] (p578adb1c.dip0.t-ipconnect.de [87.138.219.28])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits))
+ (No client certificate requested)
+ (Authenticated sender: marex@denx.de)
+ by phobos.denx.de (Postfix) with ESMTPSA id 770C38467A;
+ Wed, 24 May 2023 15:54:25 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de;
+ s=phobos-20191101; t=1684936466;
+ bh=H9hgBK0Z2k4KJJri9AujHyxs0n8pT/bxbNuwzwsiCD8=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=BKJc/stDc1RkyJLgAWaetW9Omb0UyyG8moL/uAoBsi7B6NkeSYbJmzq5bv4tjoqEI
+ iD0CMkZAqmHD2fcHv9bxLxF+IcmC52hpehwWsB8qjwWbsNWNhvAf5dr+F4i3GL2gqd
+ szo2JC9cePe9cIQOzIpdM9ee4rLAPgD6+CsYfyWj2KukDenhhiRtBjpjsptgFgE9uu
+ 74HFFLZGdJsPhIKDmy/68A72hObbwJHnDturWRDNABjc3K+ociAHFCWZ/xUj32jogC
+ KPRUxRMMBcvX5PCandiuEAiuy4aFLFKuknILFRb0Czqa1kUj1Tk1/3VoKjxI5HYWJ9
+ ea1pBJgPn2dOg==
+Message-ID: <cc7a0a1a-31bb-92f4-6365-5e0c4a4bc85c@denx.de>
+Date: Wed, 24 May 2023 15:54:24 +0200
 MIME-Version: 1.0
-X-Originating-IP: [10.252.20.36]
-X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SHFDAG1NODE1.st.com
- (10.75.129.69)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.957,Hydra:6.0.573,FMLib:17.11.176.26
- definitions=2023-05-24_09,2023-05-24_01,2023-05-22_02
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- kernel@dh-electronics.com, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 8/8] ARM: dts: stm32: adopt generic iio
-	bindings for adc channels on dhcor-testbench
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Content-Language: en-US
+To: Olivier Moysan <olivier.moysan@foss.st.com>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>
+References: <20230524133918.1439516-1-olivier.moysan@foss.st.com>
+ <20230524133918.1439516-8-olivier.moysan@foss.st.com>
+From: Marek Vasut <marex@denx.de>
+In-Reply-To: <20230524133918.1439516-8-olivier.moysan@foss.st.com>
+X-Virus-Scanned: clamav-milter 0.103.8 at phobos.denx.de
+X-Virus-Status: Clean
+Cc: devicetree@vger.kernel.org, kernel@dh-electronics.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH 7/8] ARM: dts: stm32: adopt generic iio
+ bindings for adc channels on dhcor-drc
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,72 +63,63 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Use STM32 ADC generic bindings instead of legacy bindings on
-DHCOR Testbench board.
+On 5/24/23 15:39, Olivier Moysan wrote:
+> Use STM32 ADC generic bindings instead of legacy bindings on
+> DHCOR DRC Compact board.
+> 
+> The STM32 ADC specific binding to declare channels has been deprecated,
+> hence adopt the generic IIO channels bindings, instead.
+> The STM32MP151 device tree now exposes internal channels using the
+> generic binding. This makes the change mandatory here to avoid a mixed
+> use of legacy and generic binding, which is not supported by the driver.
+> 
+> Signed-off-by: Olivier Moysan <olivier.moysan@foss.st.com>
+> ---
+>   .../dts/stm32mp15xx-dhcor-drc-compact.dtsi    | 28 ++++++++++++++++---
+>   1 file changed, 24 insertions(+), 4 deletions(-)
+> 
+> diff --git a/arch/arm/boot/dts/stm32mp15xx-dhcor-drc-compact.dtsi b/arch/arm/boot/dts/stm32mp15xx-dhcor-drc-compact.dtsi
+> index 39af79dc654c..92d906bfd5d7 100644
+> --- a/arch/arm/boot/dts/stm32mp15xx-dhcor-drc-compact.dtsi
+> +++ b/arch/arm/boot/dts/stm32mp15xx-dhcor-drc-compact.dtsi
+> @@ -57,15 +57,35 @@ &adc {	/* X11 ADC inputs */
+>   	status = "okay";
+>   
+>   	adc1: adc@0 {
 
-The STM32 ADC specific binding to declare channels has been deprecated,
-hence adopt the generic IIO channels bindings, instead.
-The STM32MP151 device tree now exposes internal channels using the
-generic binding. This makes the change mandatory here to avoid a mixed
-use of legacy and generic binding, which is not supported by the driver.
 
-Signed-off-by: Olivier Moysan <olivier.moysan@foss.st.com>
----
- .../boot/dts/stm32mp15xx-dhcor-testbench.dtsi | 28 ++++++++++++++++---
- 1 file changed, 24 insertions(+), 4 deletions(-)
+I sent similar patch recently too:
 
-diff --git a/arch/arm/boot/dts/stm32mp15xx-dhcor-testbench.dtsi b/arch/arm/boot/dts/stm32mp15xx-dhcor-testbench.dtsi
-index faed31b6d84a..ab7f0ba49639 100644
---- a/arch/arm/boot/dts/stm32mp15xx-dhcor-testbench.dtsi
-+++ b/arch/arm/boot/dts/stm32mp15xx-dhcor-testbench.dtsi
-@@ -41,15 +41,35 @@ &adc {
- 	status = "okay";
- 
- 	adc1: adc@0 {
--		st,adc-channels = <0 1 6>;
--		st,min-sample-time-nsecs = <5000>;
- 		status = "okay";
-+		channel@0 {
-+			reg = <0>;
-+			st,min-sample-time-ns = <5000>;
-+		};
-+		channel@1 {
-+			reg = <1>;
-+			st,min-sample-time-ns = <5000>;
-+		};
-+		channel@6 {
-+			reg = <6>;
-+			st,min-sample-time-ns = <5000>;
-+		};
- 	};
- 
- 	adc2: adc@100 {
--		st,adc-channels = <0 1 2>;
--		st,min-sample-time-nsecs = <5000>;
- 		status = "okay";
-+		channel@0 {
-+			reg = <0>;
-+			st,min-sample-time-ns = <5000>;
-+		};
-+		channel@1 {
-+			reg = <1>;
-+			st,min-sample-time-ns = <5000>;
-+		};
-+		channel@2 {
-+			reg = <2>;
-+			st,min-sample-time-ns = <5000>;
-+		};
- 	};
- };
- 
--- 
-2.25.1
+[PATCH] ARM: dts: stm32: Update to generic ADC channel binding on DHSOM 
+systems
 
+But I needed to add #address-cells/#size-cells here and to adc@100, 
+otherwise DTB checker was complaining . Did you run DTB check and was it 
+OK on your side ?
+
+> -		st,adc-channels = <0 1 6>;
+> -		st,min-sample-time-nsecs = <5000>;
+>   		status = "okay";
+> +		channel@0 {
+> +			reg = <0>;
+> +			st,min-sample-time-ns = <5000>;
+> +		};
+> +		channel@1 {
+> +			reg = <1>;
+> +			st,min-sample-time-ns = <5000>;
+> +		};
+> +		channel@6 {
+> +			reg = <6>;
+> +			st,min-sample-time-ns = <5000>;
+> +		};
+>   	};
+
+[...]
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
