@@ -2,39 +2,39 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CE67771143F
-	for <lists+linux-stm32@lfdr.de>; Thu, 25 May 2023 20:38:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DA3B1711446
+	for <lists+linux-stm32@lfdr.de>; Thu, 25 May 2023 20:38:04 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8825EC6A611;
-	Thu, 25 May 2023 18:38:02 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 99894C6A61A;
+	Thu, 25 May 2023 18:38:04 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EC8D5C65E70
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CB98CC6A615
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 25 May 2023 18:38:00 +0000 (UTC)
+ Thu, 25 May 2023 18:38:02 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id DA94E64906;
+ by dfw.source.kernel.org (Postfix) with ESMTPS id BBC1464922;
+ Thu, 25 May 2023 18:38:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5DF9C433A0;
  Thu, 25 May 2023 18:37:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F284C433D2;
- Thu, 25 May 2023 18:37:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1685039879;
- bh=gJta0RJhK0F3qtSJHFKNWxtJZ8VXtbIv6gkAO7tl6z4=;
+ s=k20201202; t=1685039881;
+ bh=iN4nDzu6YDfIlpcxOzZqXOdjSyKufmN2AjJK/Sk5CJI=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=sQwdeoHW67MAwTtlJwMrOrKYKGtmZQ6InAtc/S3XIsRCqyZx/pbYdFro2Spn+Zm3x
- 2bz9A/WtlvgZUrxpePHQkMJ8I6XQ78ydAPPXbmr52npXm0acrcbQqBPlTq/BbpHLZo
- 0Vk0Naq0MCe9NvnQPfid+WW6fONTcl1LkLdXA+DLjopQqCdUlVpNXe3fwWv2oaLRJZ
- gITDXT6h7yCC7fle2wCyKi12GG8kuVg1K4N38TevovHAWABvpunmgRI2vyGb4b226+
- 60aDYN/JGdsWPFE2GJrLVkS49pDGhwnaZUQklAVQaR8sFMD+hcwGvL4N6y5Sp8hkGU
- 0qJ+xTBb4k0tA==
+ b=qIoj/b94WiQWlIWPoAwXCLDcb5DZs7DRtlVQZIhQ1Bx7Ij2tB0wfLZra2hxCpHe/u
+ ukAU+gD/vioAah0h+87ci6m1E1T3u2cO9p0Ckltbac+1d6BhiHnrI8qiakVdbetVC8
+ uRmZjtYpZ/XTyxoaJNH6OmZk92UrboqrhgYpipXvYxVtzMyQ1pEqyFOXRtRLpdt7tK
+ wbeUWX7cQaR4XqPs6X6WyTjw5KTEp7A6F+qGYHq4tHyWgzuUXWyMWyi7rLq4GobVq+
+ 2SvddxmTxypoIrwHS4pG4zAVh3YC5ELHnwwAyZobiV/UmtrCP8nEwNN07EoMz0tQIv
+ oKqmyRWbJtXyA==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Thu, 25 May 2023 14:35:45 -0400
-Message-Id: <20230525183607.1793983-35-sashal@kernel.org>
+Date: Thu, 25 May 2023 14:35:46 -0400
+Message-Id: <20230525183607.1793983-36-sashal@kernel.org>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230525183607.1793983-1-sashal@kernel.org>
 References: <20230525183607.1793983-1-sashal@kernel.org>
@@ -46,8 +46,8 @@ Cc: Sasha Levin <sashal@kernel.org>, devicetree@vger.kernel.org,
  Marc Kleine-Budde <mkl@pengutronix.de>, krzysztof.kozlowski+dt@linaro.org,
  Dario Binacchi <dario.binacchi@amarulasolutions.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH AUTOSEL 6.1 35/57] ARM: dts: stm32: add pin
-	map for CAN controller on stm32f7
+Subject: [Linux-stm32] [PATCH AUTOSEL 6.1 36/57] ARM: dts: stm32: add CAN
+	support on stm32f746
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,111 +66,102 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
 
-[ Upstream commit 011644249686f2675e142519cd59e81e04cfc231 ]
+[ Upstream commit 0920ccdf41e3078a4dd2567eb905ea154bc826e6 ]
 
-Add pin configurations for using CAN controller on stm32f7.
+Add support for bxcan (Basic eXtended CAN controller) to STM32F746. The
+chip contains three CAN peripherals, CAN1 and CAN2 in dual peripheral
+configuration and CAN3 in single peripheral configuration:
+- Dual CAN peripheral configuration:
+  * CAN1: Primary bxCAN for managing the communication between a secondary
+    bxCAN and the 512-byte SRAM memory.
+  * CAN2: Secondary bxCAN with no direct access to the SRAM memory.
+  This means that the two bxCAN cells share the 512-byte SRAM memory and
+  CAN2 can't be used without enabling CAN1.
+- Single CAN peripheral configuration:
+  * CAN3: Primary bxCAN with dedicated Memory Access Controller unit and
+    512-byte SRAM memory.
+
+ -------------------------------------------------------------------------
+| features | CAN1              | CAN2               | CAN 3               |
+ -------------------------------------------------------------------------
+| SRAM     | 512-byte shared between CAN1 & CAN2    | 512-byte            |
+ -------------------------------------------------------------------------
+| Filters  | 26 filters shared between CAN1 & CAN2  | 14 filters          |
+ -------------------------------------------------------------------------
 
 Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
-Link: https://lore.kernel.org/all/20230427204540.3126234-4-dario.binacchi@amarulasolutions.com
+Link: https://lore.kernel.org/all/20230427204540.3126234-6-dario.binacchi@amarulasolutions.com
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/arm/boot/dts/stm32f7-pinctrl.dtsi | 82 ++++++++++++++++++++++++++
- 1 file changed, 82 insertions(+)
+ arch/arm/boot/dts/stm32f746.dtsi | 47 ++++++++++++++++++++++++++++++++
+ 1 file changed, 47 insertions(+)
 
-diff --git a/arch/arm/boot/dts/stm32f7-pinctrl.dtsi b/arch/arm/boot/dts/stm32f7-pinctrl.dtsi
-index 8f37aefa73150..000278ec2c58f 100644
---- a/arch/arm/boot/dts/stm32f7-pinctrl.dtsi
-+++ b/arch/arm/boot/dts/stm32f7-pinctrl.dtsi
-@@ -284,6 +284,88 @@ pins2 {
- 					slew-rate = <2>;
- 				};
- 			};
-+
-+			can1_pins_a: can1-0 {
-+				pins1 {
-+					pinmux = <STM32_PINMUX('A', 12, AF9)>; /* CAN1_TX */
-+				};
-+				pins2 {
-+					pinmux = <STM32_PINMUX('A', 11, AF9)>; /* CAN1_RX */
-+					bias-pull-up;
-+				};
-+			};
-+
-+			can1_pins_b: can1-1 {
-+				pins1 {
-+					pinmux = <STM32_PINMUX('B', 9, AF9)>; /* CAN1_TX */
-+				};
-+				pins2 {
-+					pinmux = <STM32_PINMUX('B', 8, AF9)>; /* CAN1_RX */
-+					bias-pull-up;
-+				};
-+			};
-+
-+			can1_pins_c: can1-2 {
-+				pins1 {
-+					pinmux = <STM32_PINMUX('D', 1, AF9)>; /* CAN1_TX */
-+				};
-+				pins2 {
-+					pinmux = <STM32_PINMUX('D', 0, AF9)>; /* CAN1_RX */
-+					bias-pull-up;
-+
-+				};
-+			};
-+
-+			can1_pins_d: can1-3 {
-+				pins1 {
-+					pinmux = <STM32_PINMUX('H', 13, AF9)>; /* CAN1_TX */
-+				};
-+				pins2 {
-+					pinmux = <STM32_PINMUX('H', 14, AF9)>; /* CAN1_RX */
-+					bias-pull-up;
-+
-+				};
-+			};
-+
-+			can2_pins_a: can2-0 {
-+				pins1 {
-+					pinmux = <STM32_PINMUX('B', 6, AF9)>; /* CAN2_TX */
-+				};
-+				pins2 {
-+					pinmux = <STM32_PINMUX('B', 5, AF9)>; /* CAN2_RX */
-+					bias-pull-up;
-+				};
-+			};
-+
-+			can2_pins_b: can2-1 {
-+				pins1 {
-+					pinmux = <STM32_PINMUX('B', 13, AF9)>; /* CAN2_TX */
-+				};
-+				pins2 {
-+					pinmux = <STM32_PINMUX('B', 12, AF9)>; /* CAN2_RX */
-+					bias-pull-up;
-+				};
-+			};
-+
-+			can3_pins_a: can3-0 {
-+				pins1 {
-+					pinmux = <STM32_PINMUX('A', 15, AF11)>; /* CAN3_TX */
-+				};
-+				pins2 {
-+					pinmux = <STM32_PINMUX('A', 8, AF11)>; /* CAN3_RX */
-+					bias-pull-up;
-+				};
-+			};
-+
-+			can3_pins_b: can3-1 {
-+				pins1 {
-+					pinmux = <STM32_PINMUX('B', 4, AF11)>;  /* CAN3_TX */
-+				};
-+				pins2 {
-+					pinmux = <STM32_PINMUX('B', 3, AF11)>; /* CAN3_RX */
-+					bias-pull-up;
-+				};
-+			};
+diff --git a/arch/arm/boot/dts/stm32f746.dtsi b/arch/arm/boot/dts/stm32f746.dtsi
+index dc868e6da40e0..973698bc9ef4b 100644
+--- a/arch/arm/boot/dts/stm32f746.dtsi
++++ b/arch/arm/boot/dts/stm32f746.dtsi
+@@ -257,6 +257,23 @@ rtc: rtc@40002800 {
+ 			status = "disabled";
  		};
- 	};
- };
+ 
++		can3: can@40003400 {
++			compatible = "st,stm32f4-bxcan";
++			reg = <0x40003400 0x200>;
++			interrupts = <104>, <105>, <106>, <107>;
++			interrupt-names = "tx", "rx0", "rx1", "sce";
++			resets = <&rcc STM32F7_APB1_RESET(CAN3)>;
++			clocks = <&rcc 0 STM32F7_APB1_CLOCK(CAN3)>;
++			st,gcan = <&gcan3>;
++			status = "disabled";
++		};
++
++		gcan3: gcan@40003600 {
++			compatible = "st,stm32f4-gcan", "syscon";
++			reg = <0x40003600 0x200>;
++			clocks = <&rcc 0 STM32F7_APB1_CLOCK(CAN3)>;
++		};
++
+ 		usart2: serial@40004400 {
+ 			compatible = "st,stm32f7-uart";
+ 			reg = <0x40004400 0x400>;
+@@ -337,6 +354,36 @@ i2c4: i2c@40006000 {
+ 			status = "disabled";
+ 		};
+ 
++		can1: can@40006400 {
++			compatible = "st,stm32f4-bxcan";
++			reg = <0x40006400 0x200>;
++			interrupts = <19>, <20>, <21>, <22>;
++			interrupt-names = "tx", "rx0", "rx1", "sce";
++			resets = <&rcc STM32F7_APB1_RESET(CAN1)>;
++			clocks = <&rcc 0 STM32F7_APB1_CLOCK(CAN1)>;
++			st,can-primary;
++			st,gcan = <&gcan1>;
++			status = "disabled";
++		};
++
++		gcan1: gcan@40006600 {
++			compatible = "st,stm32f4-gcan", "syscon";
++			reg = <0x40006600 0x200>;
++			clocks = <&rcc 0 STM32F7_APB1_CLOCK(CAN1)>;
++		};
++
++		can2: can@40006800 {
++			compatible = "st,stm32f4-bxcan";
++			reg = <0x40006800 0x200>;
++			interrupts = <63>, <64>, <65>, <66>;
++			interrupt-names = "tx", "rx0", "rx1", "sce";
++			resets = <&rcc STM32F7_APB1_RESET(CAN2)>;
++			clocks = <&rcc 0 STM32F7_APB1_CLOCK(CAN2)>;
++			st,can-secondary;
++			st,gcan = <&gcan1>;
++			status = "disabled";
++		};
++
+ 		cec: cec@40006c00 {
+ 			compatible = "st,stm32-cec";
+ 			reg = <0x40006C00 0x400>;
 -- 
 2.39.2
 
