@@ -2,75 +2,120 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7126C71098D
-	for <lists+linux-stm32@lfdr.de>; Thu, 25 May 2023 12:12:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8F450710A78
+	for <lists+linux-stm32@lfdr.de>; Thu, 25 May 2023 13:02:56 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2FD23C6B442;
-	Thu, 25 May 2023 10:12:01 +0000 (UTC)
-Received: from relay6-d.mail.gandi.net (relay6-d.mail.gandi.net
- [217.70.183.198])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 40F9DC6A61A;
+	Thu, 25 May 2023 11:02:56 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2103.outbound.protection.outlook.com [40.107.220.103])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4479AC6A61A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 51741C6905A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 25 May 2023 10:11:59 +0000 (UTC)
-X-GND-Sasl: maxime.chevallier@bootlin.com
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1685009519;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=thy8THt3krQHjzuqi3AqPLfyztLfqorBBa9OW7HntmI=;
- b=JSyAaOHFoUO38LPEH5+eN6LltsF6yCgnVXk7uDn1wvw987hWbC8KdMMM5kRj3NqIweWpZY
- WtqT1AA7E+ANMoSdr16dhGDNooQU3oU8X76FuSbOYC294tGberHOweiKLRpd/Gh/s++AhK
- HdLjGyrkyFz+1oRtAlh8hB6HDLll7lES9OTgVpVJP5Z2++OFX1qfWoYBExzFNBDgDMOTau
- HKrpSCPQ4HADiICo9a49xUrFP20t+QSx0ZyGAWwOGE3cXvzMjCqWGU9BFOWGIgPgkBf0PK
- 2Rpw50aLV2lUhtIjW69eJ/f7QeH4B3Id+m7LtmOt6/Hk9j8qo4/5uJ53flwsiQ==
-X-GND-Sasl: maxime.chevallier@bootlin.com
-X-GND-Sasl: maxime.chevallier@bootlin.com
-X-GND-Sasl: maxime.chevallier@bootlin.com
-X-GND-Sasl: maxime.chevallier@bootlin.com
-X-GND-Sasl: maxime.chevallier@bootlin.com
-X-GND-Sasl: maxime.chevallier@bootlin.com
-X-GND-Sasl: maxime.chevallier@bootlin.com
-X-GND-Sasl: maxime.chevallier@bootlin.com
-X-GND-Sasl: maxime.chevallier@bootlin.com
-X-GND-Sasl: maxime.chevallier@bootlin.com
-X-GND-Sasl: maxime.chevallier@bootlin.com
-X-GND-Sasl: maxime.chevallier@bootlin.com
-X-GND-Sasl: maxime.chevallier@bootlin.com
-X-GND-Sasl: maxime.chevallier@bootlin.com
-X-GND-Sasl: maxime.chevallier@bootlin.com
-X-GND-Sasl: maxime.chevallier@bootlin.com
-X-GND-Sasl: maxime.chevallier@bootlin.com
-X-GND-Sasl: maxime.chevallier@bootlin.com
-X-GND-Sasl: maxime.chevallier@bootlin.com
-X-GND-Sasl: maxime.chevallier@bootlin.com
-X-GND-Sasl: maxime.chevallier@bootlin.com
-Received: by mail.gandi.net (Postfix) with ESMTPSA id 8835DC000C;
- Thu, 25 May 2023 10:11:49 +0000 (UTC)
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-To: Mark Brown <broonie@kernel.org>,
-	davem@davemloft.net
-Date: Thu, 25 May 2023 12:11:26 +0200
-Message-Id: <20230525101126.370108-5-maxime.chevallier@bootlin.com>
-X-Mailer: git-send-email 2.40.1
-In-Reply-To: <20230525101126.370108-1-maxime.chevallier@bootlin.com>
+ Thu, 25 May 2023 11:02:54 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Dxq17ZybKaHYCvb0aWq1JL3/PJNDxy5I0UswFL7zkEJo7B/cvQmVETrJEwCwL/iExoVBFW1xk7ofONVr+ShLF7qU7GNgmOEteRy2mu5ru9nnjAueAmWflNnQdc+BX9Egf8lBWB3y7/o3BPPQGJbKDZhkc6RjJYQ2jtXQKA26XyMZWHmFADDEN666vsbGw5hlSZxFJj0tZ37Q5MAX3SvlTYEiog4EG4L0DZ+bMk+Hrp+ynrw7pLmTOBLDuvgEo1DlEkhpX4pH1qS4/6npxmpu0a0SWOYCiQFZnTQTMVm/eSpaf4M3ucVsD0wJddmLOMHuR+fqwCQ1Zs2PttsdmdMh6Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=HGPUARBYdY0hi6FpaisPefnJW+Ybufo6DUR65e7s3T4=;
+ b=HuHbaudmsxepafwy+17/Tx+ap5kF+XgGXiRJThYe9jWv4FJjGRzY2JUjakmgAwy5GxpvZnzYmtFgyYq43qUE2JsXlIySayjT77C6syYCvMi4PEUAe6G7dUXRzLMv1OOOHIX7s2TNTdFALRhNBfUk+pQo9GSH0UtYG5Ho6Yd8aIfIbJXUAOGnmidINSu18pwAB0asPYIUA1Wwp4PsvV6PLDTClg71Ypbc5TevnZOvoS0bAqadZNRBjknRSjCYJ9WwW96HxPZ68Bg+dCnrvx8zQ3qE9gGaWsw88zmfcUuCFXUhSgnrW2xgolPcP5Y0sibzZLtLHj4whT56XG9jdDhk4Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=corigine.com; dmarc=pass action=none header.from=corigine.com;
+ dkim=pass header.d=corigine.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=corigine.onmicrosoft.com; s=selector2-corigine-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=HGPUARBYdY0hi6FpaisPefnJW+Ybufo6DUR65e7s3T4=;
+ b=h/IY37LvztwXC7A9lLNF10MTA3k8uZFL5uLkAWq3+d3oAP85dxfffaoX4QiEy4dHS5n8oIW6YPhqDX8g6cnc4dwvMRNR4OSYMyC010klCxrB8QrgcrQ4KxO2q8l2l0QdWeoPMEEnXaZ5uXa5wbkH7JC2uDhpSOWLrcFYXyi0Lkw=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=corigine.com;
+Received: from BY3PR13MB4834.namprd13.prod.outlook.com (2603:10b6:a03:36b::10)
+ by SJ0PR13MB5676.namprd13.prod.outlook.com (2603:10b6:a03:403::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6433.16; Thu, 25 May
+ 2023 11:02:49 +0000
+Received: from BY3PR13MB4834.namprd13.prod.outlook.com
+ ([fe80::d98b:da1b:b1f0:d4d7]) by BY3PR13MB4834.namprd13.prod.outlook.com
+ ([fe80::d98b:da1b:b1f0:d4d7%7]) with mapi id 15.20.6411.029; Thu, 25 May 2023
+ 11:02:49 +0000
+Date: Thu, 25 May 2023 13:02:39 +0200
+From: Simon Horman <simon.horman@corigine.com>
+To: Maxime Chevallier <maxime.chevallier@bootlin.com>
+Message-ID: <ZG9AT4EeCmoyN5N2@corigine.com>
 References: <20230525101126.370108-1-maxime.chevallier@bootlin.com>
+ <20230525101126.370108-2-maxime.chevallier@bootlin.com>
+Content-Disposition: inline
+In-Reply-To: <20230525101126.370108-2-maxime.chevallier@bootlin.com>
+X-ClientProxiedBy: AM4PR05CA0001.eurprd05.prod.outlook.com (2603:10a6:205::14)
+ To BY3PR13MB4834.namprd13.prod.outlook.com
+ (2603:10b6:a03:36b::10)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BY3PR13MB4834:EE_|SJ0PR13MB5676:EE_
+X-MS-Office365-Filtering-Correlation-Id: cc028bfa-0873-4937-b56d-08db5d0f93c0
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 1xPiAVa36J/DXO/Z/ehzhyWRNg/MP7iZutIT8rvvVJxZialuRLMSFCiJgKx8UHaogB6kLsf21J84sv5uAV6oeurbdL0rsjuqDDF+QuU6pp0Yn/rd7EGrDNCwN1olLE9u/2y8fp/6kxdaoN35RDwGzz+OJlp46Dd1CZnGC07dn/UaGxLA52QKshgWb4W4dr/W49Md7tNoMJfAjlhyL0cf6XHRxWMQwbnSm/QrjGtOC4AeetI+yqTcMdwQgwgqTwEptb3GV9DDI0qukZ962IJSWH7hoUdksvvAET9X05Q2H8Tl3G6mR0PG+raHeArGkmCMTTbvpsgC6V14mvtfQ6m3yQePDZSE0Hb3zOB1mq+DKu5nQ+t3zYNru433A/nYA3sFFGHJi6qLtj3czlnrRg0cIkBq4lvQ/xtTS9QEihu1hG7NMgorNQb4QIMw2DiJA6qLfSo6B2W9VHKaX9+aCfIWjePhVuUpJuE/J6HTTfufcGSZdkMiQwQU8KzUtsrKjn7Hgf4dhCTTK4E2Qz53u1HMUxhPSdi62br5geK/vpck1k5sCoMZDIcV/xougUfRDX+VUy2LEXRoivKlTeYpL5bjoJWrncEARrnXTAXE9SG/50o=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BY3PR13MB4834.namprd13.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(4636009)(366004)(39840400004)(136003)(346002)(376002)(396003)(451199021)(86362001)(38100700002)(36756003)(6512007)(6506007)(44832011)(7416002)(186003)(83380400001)(5660300002)(2906002)(2616005)(66946007)(478600001)(54906003)(8676002)(8936002)(4326008)(6916009)(66556008)(66476007)(41300700001)(6486002)(6666004)(316002);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?7k0U+NOcAmt7eWaNziT5OtAFz6pChoFHzGjBQQuLQphHyXpO1L7MDLgf0sma?=
+ =?us-ascii?Q?ogZL4Blr0jEKvcUzqvAweFw1TV/xtitVBDulRmHB6JEpC4O+YgebHpkEbSW8?=
+ =?us-ascii?Q?+9LMd6TEenRvn13t5QO91LSDX1nj4lTzKXVkRcGcxyhmSLa25Oe9XtjvXJRW?=
+ =?us-ascii?Q?fHJj8aiGO18OqKUJ5j9n3YjatDYKLcVGVgbEhnGXIzIpuuBtwWVeY58fYzak?=
+ =?us-ascii?Q?QxLJJLjTmeEi2gm+FMgxXgiFuioT6E64atnHwMlxhxijkki0PV/DXqBcKVl8?=
+ =?us-ascii?Q?L9cNYDl+IUe5WZrrCv73hhcDLqiKWGZ1cL/U/TyO8z+MnS6qn3/1BvSLl2NV?=
+ =?us-ascii?Q?5JiJ45FYIx7KyVrmFggcYGW4gXBaZNtLvgcyuU3dNtl9ulX6QFWulCOc7u7C?=
+ =?us-ascii?Q?ye1tXCKQZh6l4QzyteQ+rqWgrtg+g0UoaWTL6jRT9nd60NqyW6aotaG0j+0s?=
+ =?us-ascii?Q?Mm0gzSlDXPD1FBRl1OHJpoVgAGGrInsoisTU8Eu54oeharCzfH40jjRBI6rl?=
+ =?us-ascii?Q?L6gFqBSNLq2gq4El3HUyFP6xen+zJNqLT9kXrmhGB9MYOzkP04E0RkBL3SbO?=
+ =?us-ascii?Q?AwAdTY9ANfOQF7axrPCyA4V/Y4mnNz7RpzgLdMwrUnTTyDwaHOEaOO/ZH3kN?=
+ =?us-ascii?Q?7z6TaofbMWcj7SoF00RpKSv/epTkAxIfcyTJR0s+/rxv7RhNvXwV92TeZCsW?=
+ =?us-ascii?Q?EjrfLmprnTWIkJtdJExyKWNnmfR0BI6YsFnAwcHrBq4thss/U//MIUpF1Rn4?=
+ =?us-ascii?Q?QAhrfkb42j3zEcPzca5t+0QsnxTgWzpBQRCompkdEFrzEUPCzIOGm5iSx0g7?=
+ =?us-ascii?Q?Hos6hTVu0IAYGfVx7OgvTMrfpyO+1aC7nPg2iHO5mgGzXZmtM94VNwlBH7eR?=
+ =?us-ascii?Q?yYYvezuVmi4PjFTP/1MMcRToiJPu74TlXcD3gclZUay0l9Yx5I3jTI/jphA/?=
+ =?us-ascii?Q?V6K4dNnVB5pgUm1v/LgpDDm3AInu+uKWVwFht4LmZgIYoXSa++C4OibdKeTE?=
+ =?us-ascii?Q?QhrBXIxifaLgULk0nt69tTcA2RM3cJzQQfE6a3um7TT+rb7bUR+ypy+CM4tB?=
+ =?us-ascii?Q?LRqNA3EV2Indn0LTrRr9f9gnCgGb3Oy/xuqDZFtqrKgoC+CODyrKfX8xNfs7?=
+ =?us-ascii?Q?6EbU3asXtj75yVlm9Ze+Rl/ujEtc8Z2rbWg5bChCm7iblHEbVYxEaEUwFC+r?=
+ =?us-ascii?Q?um6lYsXwY+aDPq8ww/y4khtp/eqtdEVunD6kVo27HIDiM8FRmh0/M9jjaP8e?=
+ =?us-ascii?Q?8foSycTrdLo3Jg6S1jhgQ8lx3EXZQyApJze+tRbYzVGtdAgyPKt0IQcqNqTd?=
+ =?us-ascii?Q?lrFAnBPRm7xW+AIhPjxgsB1y1egarxofHNlUPfBoLod0rxJl9ZbdmGh7Jfqh?=
+ =?us-ascii?Q?VCp8tVfWDiMkWDvwB9j1P+hr7Vf5YJv7FrYGPRXP93LY/eyCT/VgfN+tEqRs?=
+ =?us-ascii?Q?8yfFNj2B47dpvIvvYnmlWAThcLrUVx1AA446KkpE5UZt5LPu5OG2eD8fZUmX?=
+ =?us-ascii?Q?6J9+RtSgkvA5TYRmSgOj5wNKgMFWBbnZemLxj4bBeqd/GvwJ5hKt5WqbuOMx?=
+ =?us-ascii?Q?cVbkfk+hZCRUTm+xg+pH7mRivtIyhrkprG7PZ9222IRLiO3N5ZIoro4NIcxx?=
+ =?us-ascii?Q?FaIV35uSvZ/4CcX1kU27Sa9JRZ66lu9xOirtSvfCbEwOxPqYtjBb89n1HCy8?=
+ =?us-ascii?Q?hMc+dw=3D=3D?=
+X-OriginatorOrg: corigine.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: cc028bfa-0873-4937-b56d-08db5d0f93c0
+X-MS-Exchange-CrossTenant-AuthSource: BY3PR13MB4834.namprd13.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 May 2023 11:02:49.1663 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: fe128f2c-073b-4c20-818e-7246a585940c
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: CjRYaZypxr5c9JSYFkBYPdcwErarxYROuBit13nunTVOBrlPRoKrQrxcThTyTjn5/BueMLEJeqMWvWYg6Ic4NFVY2F68bj89Fb/n4G7iBmE=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR13MB5676
 Cc: Andrew Lunn <andrew@lunn.ch>, Florian Fainelli <f.fainelli@gmail.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Russell King <linux@armlinux.org.uk>, netdev@vger.kernel.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
  Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Ioana Ciornei <ioana.ciornei@nxp.com>, linux-kernel@vger.kernel.org,
- Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
+ Ioana Ciornei <ioana.ciornei@nxp.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
+ Jose Abreu <joabreu@synopsys.com>, Russell King <linux@armlinux.org.uk>,
+ Eric Dumazet <edumazet@google.com>, Mark Brown <broonie@kernel.org>,
  alexis.lothore@bootlin.com, thomas.petazzoni@bootlin.com,
  Vladimir Oltean <vladimir.oltean@nxp.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, linux-stm32@st-md-mailman.stormreply.com,
+ Paolo Abeni <pabeni@redhat.com>, davem@davemloft.net,
  linux-arm-kernel@lists.infradead.org, Heiner Kallweit <hkallweit1@gmail.com>
-Subject: [Linux-stm32] [PATCH net-next v2 4/4] net: stmmac: dwmac-sogfpga:
-	use the lynx pcs driver
+Subject: Re: [Linux-stm32] [PATCH net-next v2 1/4] net: mdio: Introduce a
+ regmap-based mdio driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,591 +132,79 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-dwmac_socfpga re-implements support for the TSE PCS, which is identical
-to the already existing TSE PCS, which in turn is the same as the Lynx
-PCS. Drop the existing TSE re-implemenation and use the Lynx PCS
-instead, relying on the regmap-mdio driver to translate MDIO accesses
-into mmio accesses.
+On Thu, May 25, 2023 at 12:11:23PM +0200, Maxime Chevallier wrote:
+> There exists several examples today of devices that embed an ethernet
+> PHY or PCS directly inside an SoC. In this situation, either the device
+> is controlled through a vendor-specific register set, or sometimes
+> exposes the standard 802.3 registers that are typically accessed over
+> MDIO.
+> 
+> As phylib and phylink are designed to use mdiodevices, this driver
+> allows creating a virtual MDIO bus, that translates mdiodev register
+> accesses to regmap accesses.
+> 
+> The reason we use regmap is because there are at least 3 such devices
+> known today, 2 of them are Altera TSE PCS's, memory-mapped, exposed
+> with a 4-byte stride in stmmac's dwmac-socfpga variant, and a 2-byte
+> stride in altera-tse. The other one (nxp,sja1110-base-tx-mdio) is
+> exposed over SPI.
+> 
+> Signed-off-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
 
-Instead of extending xpcs, allow using a generic phylink_pcs, populated
-by lynx_pcs_create(), and use .mac_select_pcs() to return the relevant
-PCS to be used.
+...
 
-Signed-off-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
----
-V1->V2 : No changes
+> +struct mii_bus *devm_mdio_regmap_register(struct device *dev,
+> +					  const struct mdio_regmap_config *config)
+> +{
+> +	struct mdio_regmap_config *mrc;
+> +	struct mii_bus *mii;
+> +	int rc;
+> +
+> +	if (!config->parent)
+> +		return ERR_PTR(-EINVAL);
+> +
+> +	mii = devm_mdiobus_alloc_size(config->parent, sizeof(*mrc));
+> +	if (!mii)
+> +		return ERR_PTR(-ENOMEM);
+> +
+> +	mrc = mii->priv;
+> +	memcpy(mrc, config, sizeof(*mrc));
+> +
+> +	mrc->regmap = config->regmap;
+> +	mrc->valid_addr = config->valid_addr;
+> +
+> +	mii->name = DRV_NAME;
+> +	strscpy(mii->id, config->name, MII_BUS_ID_SIZE);
+> +	mii->parent = config->parent;
+> +	mii->read = mdio_regmap_read_c22;
+> +	mii->write = mdio_regmap_write_c22;
+> +
+> +	if (config->autoscan)
+> +		mii->phy_mask = ~BIT(config->valid_addr);
+> +	else
+> +		mii->phy_mask = ~0UL;
 
- drivers/net/ethernet/stmicro/stmmac/Kconfig   |   1 +
- drivers/net/ethernet/stmicro/stmmac/Makefile  |   2 +-
- .../ethernet/stmicro/stmmac/altr_tse_pcs.c    | 257 ------------------
- .../ethernet/stmicro/stmmac/altr_tse_pcs.h    |  29 --
- drivers/net/ethernet/stmicro/stmmac/common.h  |   1 +
- .../ethernet/stmicro/stmmac/dwmac-socfpga.c   |  90 ++++--
- .../net/ethernet/stmicro/stmmac/stmmac_main.c |  12 +-
- 7 files changed, 76 insertions(+), 316 deletions(-)
- delete mode 100644 drivers/net/ethernet/stmicro/stmmac/altr_tse_pcs.c
- delete mode 100644 drivers/net/ethernet/stmicro/stmmac/altr_tse_pcs.h
+Hi Maxime,
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/Kconfig b/drivers/net/ethernet/stmicro/stmmac/Kconfig
-index 5f5a997f21f3..62b484cca1c3 100644
---- a/drivers/net/ethernet/stmicro/stmmac/Kconfig
-+++ b/drivers/net/ethernet/stmicro/stmmac/Kconfig
-@@ -158,6 +158,7 @@ config DWMAC_SOCFPGA
- 	default ARCH_INTEL_SOCFPGA
- 	depends on OF && (ARCH_INTEL_SOCFPGA || COMPILE_TEST)
- 	select MFD_SYSCON
-+	select PCS_LYNX
- 	help
- 	  Support for ethernet controller on Altera SOCFPGA
- 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/Makefile b/drivers/net/ethernet/stmicro/stmmac/Makefile
-index 8738fdbb4b2d..7dd3d388068b 100644
---- a/drivers/net/ethernet/stmicro/stmmac/Makefile
-+++ b/drivers/net/ethernet/stmicro/stmmac/Makefile
-@@ -35,7 +35,7 @@ obj-$(CONFIG_DWMAC_IMX8)	+= dwmac-imx.o
- obj-$(CONFIG_DWMAC_TEGRA)	+= dwmac-tegra.o
- obj-$(CONFIG_DWMAC_VISCONTI)	+= dwmac-visconti.o
- stmmac-platform-objs:= stmmac_platform.o
--dwmac-altr-socfpga-objs := altr_tse_pcs.o dwmac-socfpga.o
-+dwmac-altr-socfpga-objs := dwmac-socfpga.o
- 
- obj-$(CONFIG_STMMAC_PCI)	+= stmmac-pci.o
- obj-$(CONFIG_DWMAC_INTEL)	+= dwmac-intel.o
-diff --git a/drivers/net/ethernet/stmicro/stmmac/altr_tse_pcs.c b/drivers/net/ethernet/stmicro/stmmac/altr_tse_pcs.c
-deleted file mode 100644
-index 00f6d347eaf7..000000000000
---- a/drivers/net/ethernet/stmicro/stmmac/altr_tse_pcs.c
-+++ /dev/null
-@@ -1,257 +0,0 @@
--// SPDX-License-Identifier: GPL-2.0-only
--/* Copyright Altera Corporation (C) 2016. All rights reserved.
-- *
-- * Author: Tien Hock Loh <thloh@altera.com>
-- */
--
--#include <linux/mfd/syscon.h>
--#include <linux/of.h>
--#include <linux/of_address.h>
--#include <linux/of_net.h>
--#include <linux/phy.h>
--#include <linux/regmap.h>
--#include <linux/reset.h>
--#include <linux/stmmac.h>
--
--#include "stmmac.h"
--#include "stmmac_platform.h"
--#include "altr_tse_pcs.h"
--
--#define SYSMGR_EMACGRP_CTRL_PHYSEL_ENUM_GMII_MII	0
--#define SYSMGR_EMACGRP_CTRL_PHYSEL_ENUM_RGMII		BIT(1)
--#define SYSMGR_EMACGRP_CTRL_PHYSEL_ENUM_RMII		BIT(2)
--#define SYSMGR_EMACGRP_CTRL_PHYSEL_WIDTH		2
--#define SYSMGR_EMACGRP_CTRL_PHYSEL_MASK			GENMASK(1, 0)
--
--#define TSE_PCS_CONTROL_AN_EN_MASK			BIT(12)
--#define TSE_PCS_CONTROL_REG				0x00
--#define TSE_PCS_CONTROL_RESTART_AN_MASK			BIT(9)
--#define TSE_PCS_CTRL_AUTONEG_SGMII			0x1140
--#define TSE_PCS_IF_MODE_REG				0x28
--#define TSE_PCS_LINK_TIMER_0_REG			0x24
--#define TSE_PCS_LINK_TIMER_1_REG			0x26
--#define TSE_PCS_SIZE					0x40
--#define TSE_PCS_STATUS_AN_COMPLETED_MASK		BIT(5)
--#define TSE_PCS_STATUS_LINK_MASK			0x0004
--#define TSE_PCS_STATUS_REG				0x02
--#define TSE_PCS_SGMII_SPEED_1000			BIT(3)
--#define TSE_PCS_SGMII_SPEED_100				BIT(2)
--#define TSE_PCS_SGMII_SPEED_10				0x0
--#define TSE_PCS_SW_RST_MASK				0x8000
--#define TSE_PCS_PARTNER_ABILITY_REG			0x0A
--#define TSE_PCS_PARTNER_DUPLEX_FULL			0x1000
--#define TSE_PCS_PARTNER_DUPLEX_HALF			0x0000
--#define TSE_PCS_PARTNER_DUPLEX_MASK			0x1000
--#define TSE_PCS_PARTNER_SPEED_MASK			GENMASK(11, 10)
--#define TSE_PCS_PARTNER_SPEED_1000			BIT(11)
--#define TSE_PCS_PARTNER_SPEED_100			BIT(10)
--#define TSE_PCS_PARTNER_SPEED_10			0x0000
--#define TSE_PCS_PARTNER_SPEED_1000			BIT(11)
--#define TSE_PCS_PARTNER_SPEED_100			BIT(10)
--#define TSE_PCS_PARTNER_SPEED_10			0x0000
--#define TSE_PCS_SGMII_SPEED_MASK			GENMASK(3, 2)
--#define TSE_PCS_SGMII_LINK_TIMER_0			0x0D40
--#define TSE_PCS_SGMII_LINK_TIMER_1			0x0003
--#define TSE_PCS_SW_RESET_TIMEOUT			100
--#define TSE_PCS_USE_SGMII_AN_MASK			BIT(1)
--#define TSE_PCS_USE_SGMII_ENA				BIT(0)
--#define TSE_PCS_IF_USE_SGMII				0x03
--
--#define AUTONEGO_LINK_TIMER				20
--
--static int tse_pcs_reset(void __iomem *base, struct tse_pcs *pcs)
--{
--	int counter = 0;
--	u16 val;
--
--	val = readw(base + TSE_PCS_CONTROL_REG);
--	val |= TSE_PCS_SW_RST_MASK;
--	writew(val, base + TSE_PCS_CONTROL_REG);
--
--	while (counter < TSE_PCS_SW_RESET_TIMEOUT) {
--		val = readw(base + TSE_PCS_CONTROL_REG);
--		val &= TSE_PCS_SW_RST_MASK;
--		if (val == 0)
--			break;
--		counter++;
--		udelay(1);
--	}
--	if (counter >= TSE_PCS_SW_RESET_TIMEOUT) {
--		dev_err(pcs->dev, "PCS could not get out of sw reset\n");
--		return -ETIMEDOUT;
--	}
--
--	return 0;
--}
--
--int tse_pcs_init(void __iomem *base, struct tse_pcs *pcs)
--{
--	int ret = 0;
--
--	writew(TSE_PCS_IF_USE_SGMII, base + TSE_PCS_IF_MODE_REG);
--
--	writew(TSE_PCS_CTRL_AUTONEG_SGMII, base + TSE_PCS_CONTROL_REG);
--
--	writew(TSE_PCS_SGMII_LINK_TIMER_0, base + TSE_PCS_LINK_TIMER_0_REG);
--	writew(TSE_PCS_SGMII_LINK_TIMER_1, base + TSE_PCS_LINK_TIMER_1_REG);
--
--	ret = tse_pcs_reset(base, pcs);
--	if (ret == 0)
--		writew(SGMII_ADAPTER_ENABLE,
--		       pcs->sgmii_adapter_base + SGMII_ADAPTER_CTRL_REG);
--
--	return ret;
--}
--
--static void pcs_link_timer_callback(struct tse_pcs *pcs)
--{
--	u16 val = 0;
--	void __iomem *tse_pcs_base = pcs->tse_pcs_base;
--	void __iomem *sgmii_adapter_base = pcs->sgmii_adapter_base;
--
--	val = readw(tse_pcs_base + TSE_PCS_STATUS_REG);
--	val &= TSE_PCS_STATUS_LINK_MASK;
--
--	if (val != 0) {
--		dev_dbg(pcs->dev, "Adapter: Link is established\n");
--		writew(SGMII_ADAPTER_ENABLE,
--		       sgmii_adapter_base + SGMII_ADAPTER_CTRL_REG);
--	} else {
--		mod_timer(&pcs->aneg_link_timer, jiffies +
--			  msecs_to_jiffies(AUTONEGO_LINK_TIMER));
--	}
--}
--
--static void auto_nego_timer_callback(struct tse_pcs *pcs)
--{
--	u16 val = 0;
--	u16 speed = 0;
--	u16 duplex = 0;
--	void __iomem *tse_pcs_base = pcs->tse_pcs_base;
--	void __iomem *sgmii_adapter_base = pcs->sgmii_adapter_base;
--
--	val = readw(tse_pcs_base + TSE_PCS_STATUS_REG);
--	val &= TSE_PCS_STATUS_AN_COMPLETED_MASK;
--
--	if (val != 0) {
--		dev_dbg(pcs->dev, "Adapter: Auto Negotiation is completed\n");
--		val = readw(tse_pcs_base + TSE_PCS_PARTNER_ABILITY_REG);
--		speed = val & TSE_PCS_PARTNER_SPEED_MASK;
--		duplex = val & TSE_PCS_PARTNER_DUPLEX_MASK;
--
--		if (speed == TSE_PCS_PARTNER_SPEED_10 &&
--		    duplex == TSE_PCS_PARTNER_DUPLEX_FULL)
--			dev_dbg(pcs->dev,
--				"Adapter: Link Partner is Up - 10/Full\n");
--		else if (speed == TSE_PCS_PARTNER_SPEED_100 &&
--			 duplex == TSE_PCS_PARTNER_DUPLEX_FULL)
--			dev_dbg(pcs->dev,
--				"Adapter: Link Partner is Up - 100/Full\n");
--		else if (speed == TSE_PCS_PARTNER_SPEED_1000 &&
--			 duplex == TSE_PCS_PARTNER_DUPLEX_FULL)
--			dev_dbg(pcs->dev,
--				"Adapter: Link Partner is Up - 1000/Full\n");
--		else if (speed == TSE_PCS_PARTNER_SPEED_10 &&
--			 duplex == TSE_PCS_PARTNER_DUPLEX_HALF)
--			dev_err(pcs->dev,
--				"Adapter does not support Half Duplex\n");
--		else if (speed == TSE_PCS_PARTNER_SPEED_100 &&
--			 duplex == TSE_PCS_PARTNER_DUPLEX_HALF)
--			dev_err(pcs->dev,
--				"Adapter does not support Half Duplex\n");
--		else if (speed == TSE_PCS_PARTNER_SPEED_1000 &&
--			 duplex == TSE_PCS_PARTNER_DUPLEX_HALF)
--			dev_err(pcs->dev,
--				"Adapter does not support Half Duplex\n");
--		else
--			dev_err(pcs->dev,
--				"Adapter: Invalid Partner Speed and Duplex\n");
--
--		if (duplex == TSE_PCS_PARTNER_DUPLEX_FULL &&
--		    (speed == TSE_PCS_PARTNER_SPEED_10 ||
--		     speed == TSE_PCS_PARTNER_SPEED_100 ||
--		     speed == TSE_PCS_PARTNER_SPEED_1000))
--			writew(SGMII_ADAPTER_ENABLE,
--			       sgmii_adapter_base + SGMII_ADAPTER_CTRL_REG);
--	} else {
--		val = readw(tse_pcs_base + TSE_PCS_CONTROL_REG);
--		val |= TSE_PCS_CONTROL_RESTART_AN_MASK;
--		writew(val, tse_pcs_base + TSE_PCS_CONTROL_REG);
--
--		tse_pcs_reset(tse_pcs_base, pcs);
--		mod_timer(&pcs->aneg_link_timer, jiffies +
--			  msecs_to_jiffies(AUTONEGO_LINK_TIMER));
--	}
--}
--
--static void aneg_link_timer_callback(struct timer_list *t)
--{
--	struct tse_pcs *pcs = from_timer(pcs, t, aneg_link_timer);
--
--	if (pcs->autoneg == AUTONEG_ENABLE)
--		auto_nego_timer_callback(pcs);
--	else if (pcs->autoneg == AUTONEG_DISABLE)
--		pcs_link_timer_callback(pcs);
--}
--
--void tse_pcs_fix_mac_speed(struct tse_pcs *pcs, struct phy_device *phy_dev,
--			   unsigned int speed)
--{
--	void __iomem *tse_pcs_base = pcs->tse_pcs_base;
--	u32 val;
--
--	pcs->autoneg = phy_dev->autoneg;
--
--	if (phy_dev->autoneg == AUTONEG_ENABLE) {
--		val = readw(tse_pcs_base + TSE_PCS_CONTROL_REG);
--		val |= TSE_PCS_CONTROL_AN_EN_MASK;
--		writew(val, tse_pcs_base + TSE_PCS_CONTROL_REG);
--
--		val = readw(tse_pcs_base + TSE_PCS_IF_MODE_REG);
--		val |= TSE_PCS_USE_SGMII_AN_MASK;
--		writew(val, tse_pcs_base + TSE_PCS_IF_MODE_REG);
--
--		val = readw(tse_pcs_base + TSE_PCS_CONTROL_REG);
--		val |= TSE_PCS_CONTROL_RESTART_AN_MASK;
--
--		tse_pcs_reset(tse_pcs_base, pcs);
--
--		timer_setup(&pcs->aneg_link_timer, aneg_link_timer_callback,
--			    0);
--		mod_timer(&pcs->aneg_link_timer, jiffies +
--			  msecs_to_jiffies(AUTONEGO_LINK_TIMER));
--	} else if (phy_dev->autoneg == AUTONEG_DISABLE) {
--		val = readw(tse_pcs_base + TSE_PCS_CONTROL_REG);
--		val &= ~TSE_PCS_CONTROL_AN_EN_MASK;
--		writew(val, tse_pcs_base + TSE_PCS_CONTROL_REG);
--
--		val = readw(tse_pcs_base + TSE_PCS_IF_MODE_REG);
--		val &= ~TSE_PCS_USE_SGMII_AN_MASK;
--		writew(val, tse_pcs_base + TSE_PCS_IF_MODE_REG);
--
--		val = readw(tse_pcs_base + TSE_PCS_IF_MODE_REG);
--		val &= ~TSE_PCS_SGMII_SPEED_MASK;
--
--		switch (speed) {
--		case 1000:
--			val |= TSE_PCS_SGMII_SPEED_1000;
--			break;
--		case 100:
--			val |= TSE_PCS_SGMII_SPEED_100;
--			break;
--		case 10:
--			val |= TSE_PCS_SGMII_SPEED_10;
--			break;
--		default:
--			return;
--		}
--		writew(val, tse_pcs_base + TSE_PCS_IF_MODE_REG);
--
--		tse_pcs_reset(tse_pcs_base, pcs);
--
--		timer_setup(&pcs->aneg_link_timer, aneg_link_timer_callback,
--			    0);
--		mod_timer(&pcs->aneg_link_timer, jiffies +
--			  msecs_to_jiffies(AUTONEGO_LINK_TIMER));
--	}
--}
-diff --git a/drivers/net/ethernet/stmicro/stmmac/altr_tse_pcs.h b/drivers/net/ethernet/stmicro/stmmac/altr_tse_pcs.h
-deleted file mode 100644
-index 694ac25ef426..000000000000
---- a/drivers/net/ethernet/stmicro/stmmac/altr_tse_pcs.h
-+++ /dev/null
-@@ -1,29 +0,0 @@
--/* SPDX-License-Identifier: GPL-2.0-only */
--/* Copyright Altera Corporation (C) 2016. All rights reserved.
-- *
-- * Author: Tien Hock Loh <thloh@altera.com>
-- */
--
--#ifndef __TSE_PCS_H__
--#define __TSE_PCS_H__
--
--#include <linux/phy.h>
--#include <linux/timer.h>
--
--#define SGMII_ADAPTER_CTRL_REG		0x00
--#define SGMII_ADAPTER_ENABLE		0x0000
--#define SGMII_ADAPTER_DISABLE		0x0001
--
--struct tse_pcs {
--	struct device *dev;
--	void __iomem *tse_pcs_base;
--	void __iomem *sgmii_adapter_base;
--	struct timer_list aneg_link_timer;
--	int autoneg;
--};
--
--int tse_pcs_init(void __iomem *base, struct tse_pcs *pcs);
--void tse_pcs_fix_mac_speed(struct tse_pcs *pcs, struct phy_device *phy_dev,
--			   unsigned int speed);
--
--#endif /* __TSE_PCS_H__ */
-diff --git a/drivers/net/ethernet/stmicro/stmmac/common.h b/drivers/net/ethernet/stmicro/stmmac/common.h
-index 4ad692c4116c..34751524775a 100644
---- a/drivers/net/ethernet/stmicro/stmmac/common.h
-+++ b/drivers/net/ethernet/stmicro/stmmac/common.h
-@@ -519,6 +519,7 @@ struct mac_device_info {
- 	const struct stmmac_tc_ops *tc;
- 	const struct stmmac_mmc_ops *mmc;
- 	struct dw_xpcs *xpcs;
-+	struct phylink_pcs *phylink_pcs; /* Generic external PCS */
- 	struct mii_regs mii;	/* MII register Addresses */
- 	struct mac_link link;
- 	void __iomem *pcsr;     /* vpointer to device CSRs */
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
-index 6ee050300b31..5f61b33905fc 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
-@@ -10,14 +10,14 @@
- #include <linux/of_net.h>
- #include <linux/phy.h>
- #include <linux/regmap.h>
-+#include <linux/mdio/mdio-regmap.h>
- #include <linux/reset.h>
- #include <linux/stmmac.h>
-+#include <linux/pcs-lynx.h>
- 
- #include "stmmac.h"
- #include "stmmac_platform.h"
- 
--#include "altr_tse_pcs.h"
--
- #define SYSMGR_EMACGRP_CTRL_PHYSEL_ENUM_GMII_MII 0x0
- #define SYSMGR_EMACGRP_CTRL_PHYSEL_ENUM_RGMII 0x1
- #define SYSMGR_EMACGRP_CTRL_PHYSEL_ENUM_RMII 0x2
-@@ -37,6 +37,10 @@
- #define EMAC_SPLITTER_CTRL_SPEED_100		0x3
- #define EMAC_SPLITTER_CTRL_SPEED_1000		0x0
- 
-+#define SGMII_ADAPTER_CTRL_REG		0x00
-+#define SGMII_ADAPTER_ENABLE		0x0000
-+#define SGMII_ADAPTER_DISABLE		0x0001
-+
- struct socfpga_dwmac;
- struct socfpga_dwmac_ops {
- 	int (*set_phy_mode)(struct socfpga_dwmac *dwmac_priv);
-@@ -50,16 +54,18 @@ struct socfpga_dwmac {
- 	struct reset_control *stmmac_rst;
- 	struct reset_control *stmmac_ocp_rst;
- 	void __iomem *splitter_base;
-+	void __iomem *tse_pcs_base;
-+	void __iomem *sgmii_adapter_base;
- 	bool f2h_ptp_ref_clk;
--	struct tse_pcs pcs;
- 	const struct socfpga_dwmac_ops *ops;
-+	struct mdio_device *pcs_mdiodev;
- };
- 
- static void socfpga_dwmac_fix_mac_speed(void *priv, unsigned int speed)
- {
- 	struct socfpga_dwmac *dwmac = (struct socfpga_dwmac *)priv;
- 	void __iomem *splitter_base = dwmac->splitter_base;
--	void __iomem *sgmii_adapter_base = dwmac->pcs.sgmii_adapter_base;
-+	void __iomem *sgmii_adapter_base = dwmac->sgmii_adapter_base;
- 	struct device *dev = dwmac->dev;
- 	struct net_device *ndev = dev_get_drvdata(dev);
- 	struct phy_device *phy_dev = ndev->phydev;
-@@ -89,11 +95,9 @@ static void socfpga_dwmac_fix_mac_speed(void *priv, unsigned int speed)
- 		writel(val, splitter_base + EMAC_SPLITTER_CTRL_REG);
- 	}
- 
--	if (phy_dev && sgmii_adapter_base) {
-+	if (phy_dev && sgmii_adapter_base)
- 		writew(SGMII_ADAPTER_ENABLE,
- 		       sgmii_adapter_base + SGMII_ADAPTER_CTRL_REG);
--		tse_pcs_fix_mac_speed(&dwmac->pcs, phy_dev, speed);
--	}
- }
- 
- static int socfpga_dwmac_parse_data(struct socfpga_dwmac *dwmac, struct device *dev)
-@@ -183,11 +187,11 @@ static int socfpga_dwmac_parse_data(struct socfpga_dwmac *dwmac, struct device *
- 				goto err_node_put;
- 			}
- 
--			dwmac->pcs.sgmii_adapter_base =
-+			dwmac->sgmii_adapter_base =
- 			    devm_ioremap_resource(dev, &res_sgmii_adapter);
- 
--			if (IS_ERR(dwmac->pcs.sgmii_adapter_base)) {
--				ret = PTR_ERR(dwmac->pcs.sgmii_adapter_base);
-+			if (IS_ERR(dwmac->sgmii_adapter_base)) {
-+				ret = PTR_ERR(dwmac->sgmii_adapter_base);
- 				goto err_node_put;
- 			}
- 		}
-@@ -205,11 +209,11 @@ static int socfpga_dwmac_parse_data(struct socfpga_dwmac *dwmac, struct device *
- 				goto err_node_put;
- 			}
- 
--			dwmac->pcs.tse_pcs_base =
-+			dwmac->tse_pcs_base =
- 			    devm_ioremap_resource(dev, &res_tse_pcs);
- 
--			if (IS_ERR(dwmac->pcs.tse_pcs_base)) {
--				ret = PTR_ERR(dwmac->pcs.tse_pcs_base);
-+			if (IS_ERR(dwmac->tse_pcs_base)) {
-+				ret = PTR_ERR(dwmac->tse_pcs_base);
- 				goto err_node_put;
- 			}
- 		}
-@@ -235,6 +239,13 @@ static int socfpga_get_plat_phymode(struct socfpga_dwmac *dwmac)
- 	return priv->plat->interface;
- }
- 
-+static void socfpga_sgmii_config(struct socfpga_dwmac *dwmac, bool enable)
-+{
-+	u16 val = enable ? SGMII_ADAPTER_ENABLE : SGMII_ADAPTER_DISABLE;
-+
-+	writew(val, dwmac->sgmii_adapter_base + SGMII_ADAPTER_CTRL_REG);
-+}
-+
- static int socfpga_set_phy_mode_common(int phymode, u32 *val)
- {
- 	switch (phymode) {
-@@ -310,12 +321,8 @@ static int socfpga_gen5_set_phy_mode(struct socfpga_dwmac *dwmac)
- 	 */
- 	reset_control_deassert(dwmac->stmmac_ocp_rst);
- 	reset_control_deassert(dwmac->stmmac_rst);
--	if (phymode == PHY_INTERFACE_MODE_SGMII) {
--		if (tse_pcs_init(dwmac->pcs.tse_pcs_base, &dwmac->pcs) != 0) {
--			dev_err(dwmac->dev, "Unable to initialize TSE PCS");
--			return -EINVAL;
--		}
--	}
-+	if (phymode == PHY_INTERFACE_MODE_SGMII)
-+		socfpga_sgmii_config(dwmac, true);
- 
- 	return 0;
- }
-@@ -367,12 +374,8 @@ static int socfpga_gen10_set_phy_mode(struct socfpga_dwmac *dwmac)
- 	 */
- 	reset_control_deassert(dwmac->stmmac_ocp_rst);
- 	reset_control_deassert(dwmac->stmmac_rst);
--	if (phymode == PHY_INTERFACE_MODE_SGMII) {
--		if (tse_pcs_init(dwmac->pcs.tse_pcs_base, &dwmac->pcs) != 0) {
--			dev_err(dwmac->dev, "Unable to initialize TSE PCS");
--			return -EINVAL;
--		}
--	}
-+	if (phymode == PHY_INTERFACE_MODE_SGMII)
-+		socfpga_sgmii_config(dwmac, true);
- 	return 0;
- }
- 
-@@ -386,6 +389,14 @@ static int socfpga_dwmac_probe(struct platform_device *pdev)
- 	struct net_device	*ndev;
- 	struct stmmac_priv	*stpriv;
- 	const struct socfpga_dwmac_ops *ops;
-+	struct regmap_config pcs_regmap_cfg;
-+	struct regmap *pcs_regmap;
-+	struct mii_bus *pcs_bus;
-+
-+	struct mdio_regmap_config mrc = {
-+		.parent = &pdev->dev,
-+		.valid_addr = 0x0,
-+	};
- 
- 	ops = device_get_match_data(&pdev->dev);
- 	if (!ops) {
-@@ -443,6 +454,35 @@ static int socfpga_dwmac_probe(struct platform_device *pdev)
- 	if (ret)
- 		goto err_dvr_remove;
- 
-+	memset(&pcs_regmap_cfg, 0, sizeof(pcs_regmap_cfg));
-+	pcs_regmap_cfg.reg_bits = 16;
-+	pcs_regmap_cfg.val_bits = 16;
-+	pcs_regmap_cfg.reg_shift = REGMAP_UPSHIFT(1);
-+
-+	/* Create a regmap for the PCS so that it can be used by the PCS driver,
-+	 * if we have such a PCS
-+	 */
-+	if (dwmac->tse_pcs_base) {
-+		pcs_regmap = devm_regmap_init_mmio(&pdev->dev, dwmac->tse_pcs_base,
-+						   &pcs_regmap_cfg);
-+		if (IS_ERR(pcs_regmap)) {
-+			ret = PTR_ERR(pcs_regmap);
-+			goto err_dvr_remove;
-+		}
-+
-+		mrc.regmap = pcs_regmap;
-+
-+		snprintf(mrc.name, MII_BUS_ID_SIZE, "%s-pcs-mii", ndev->name);
-+		pcs_bus = devm_mdio_regmap_register(&pdev->dev, &mrc);
-+		if (IS_ERR(pcs_bus)) {
-+			ret = PTR_ERR(pcs_bus);
-+			goto err_dvr_remove;
-+		}
-+
-+		dwmac->pcs_mdiodev = mdio_device_create(pcs_bus, 0);
-+		stpriv->hw->phylink_pcs = lynx_pcs_create(dwmac->pcs_mdiodev);
-+	}
-+
- 	return 0;
- 
- err_dvr_remove:
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 0fca81507a77..e570a95dd8d0 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -937,10 +937,13 @@ static struct phylink_pcs *stmmac_mac_select_pcs(struct phylink_config *config,
- {
- 	struct stmmac_priv *priv = netdev_priv(to_net_dev(config->dev));
- 
--	if (!priv->hw->xpcs)
--		return NULL;
-+	if (priv->hw->xpcs)
-+		return &priv->hw->xpcs->pcs;
-+
-+	if (priv->hw->phylink_pcs)
-+		return priv->hw->phylink_pcs;
- 
--	return &priv->hw->xpcs->pcs;
-+	return NULL;
- }
- 
- static void stmmac_mac_config(struct phylink_config *config, unsigned int mode,
-@@ -3813,7 +3816,8 @@ static int __stmmac_open(struct net_device *dev,
- 	if (priv->hw->pcs != STMMAC_PCS_TBI &&
- 	    priv->hw->pcs != STMMAC_PCS_RTBI &&
- 	    (!priv->hw->xpcs ||
--	     xpcs_get_an_mode(priv->hw->xpcs, mode) != DW_AN_C73)) {
-+	     xpcs_get_an_mode(priv->hw->xpcs, mode) != DW_AN_C73) &&
-+	    !priv->hw->phylink_pcs) {
- 		ret = stmmac_init_phy(dev);
- 		if (ret) {
- 			netdev_err(priv->dev,
--- 
-2.40.1
+phy_mask is a u32.
+But 0UL may be either 32 or 64 bits wide.
 
+I think a better approach would be to use U32_MAX.
+
+> +
+> +	rc = devm_mdiobus_register(dev, mii);
+> +	if (rc) {
+> +		dev_err(config->parent, "Cannot register MDIO bus![%s] (%d)\n", mii->id, rc);
+> +		return ERR_PTR(rc);
+> +	}
+> +
+> +	return mii;
+> +}
+> +EXPORT_SYMBOL_GPL(devm_mdio_regmap_register);
+> +
+> +MODULE_DESCRIPTION("MDIO API over regmap");
+> +MODULE_AUTHOR("Maxime Chevallier <maxime.chevallier@bootlin.com>");
+> +MODULE_LICENSE("GPL");
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
