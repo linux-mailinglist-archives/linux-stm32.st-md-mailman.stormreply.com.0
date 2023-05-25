@@ -2,57 +2,72 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 54E17710842
-	for <lists+linux-stm32@lfdr.de>; Thu, 25 May 2023 11:04:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 31270710983
+	for <lists+linux-stm32@lfdr.de>; Thu, 25 May 2023 12:11:34 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0699DC6A61E;
-	Thu, 25 May 2023 09:04:37 +0000 (UTC)
-Received: from relay3-d.mail.gandi.net (relay3-d.mail.gandi.net
- [217.70.183.195])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D6407C6A61A;
+	Thu, 25 May 2023 10:11:33 +0000 (UTC)
+Received: from relay6-d.mail.gandi.net (relay6-d.mail.gandi.net
+ [217.70.183.198])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8B86DC6A611
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CFD66C0356E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 25 May 2023 09:04:35 +0000 (UTC)
-Received: (Authenticated sender: maxime.chevallier@bootlin.com)
- by mail.gandi.net (Postfix) with ESMTPSA id 3DCB460013;
- Thu, 25 May 2023 09:04:29 +0000 (UTC)
+ Thu, 25 May 2023 10:11:32 +0000 (UTC)
+X-GND-Sasl: maxime.chevallier@bootlin.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1685005475;
+ t=1685009492;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=8AnUzsP3UiJT5MlwCjsZ+EyBtgzsenG9IYcBknz1kBQ=;
- b=U2M8IBLinR/uVFzSNOYp/JLVIV4pHW8pufMV2Zwvzee1LzdOwuJE1bMW6bWaMWJsNDmvSp
- x/3aTpevugcHU38/xepiBW7Sze2R82WDfkHxpB5skOSFvbT44byBFf+Q6dMFT2/F7N2huE
- Lds8/8E4zgK67x7VwXM6Y/DKtOlxlePfu8vDsCtGWfk/uAbDDltY1kFBWMIhP+gBN6hAI4
- jCozUHi3CGSgjNaz5ey+RK3dPL2f1EAqo7kivOGX3oiZT03/W+/WNraV6IZzr8uw2acXk0
- 7klvjDcM+HPd7bnQjcAnHzpowAxnzoRK1Iid2cTwu8rRXSmDvx0mp2ZIkxZ4oQ==
-Date: Thu, 25 May 2023 11:04:29 +0200
+ to:to:cc:cc:mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=2DtftuPlt7nw4969LQf7yqNdHZuf0cGj069GxF4CZik=;
+ b=DO3IpYXVy1u9yIMYSSpRmIAUueR1oIzZWUZJLgrJVhDCiYhS2cV1JPqvo3UWlGc9NJOT3m
+ bAE4iPAAvMd+e8YtAm1ZjafMkP6EU7bJx+TWCMf7fKXpGnJ7jFIRMlFT3fGkWGSmADaD0w
+ BHL0OFP2Z63czR6kV14vTMRSIVdSVVtgzKstjfOQATeaqomDIiIf9Gr1QnlYZlGQ8CpAoz
+ tMCWmNfQkXY2p0nHxAbijSbMtiUJ5Z+/Wwz86U88v4Q84geM9WW3IVmgtYbOvowATB4YNN
+ x4R55InUBIlLuoP03JjiP1pa2/tZZZ9AvnAW8VApX0HcI3RPvXNE5EX3nPFoJQ==
+X-GND-Sasl: maxime.chevallier@bootlin.com
+X-GND-Sasl: maxime.chevallier@bootlin.com
+X-GND-Sasl: maxime.chevallier@bootlin.com
+X-GND-Sasl: maxime.chevallier@bootlin.com
+X-GND-Sasl: maxime.chevallier@bootlin.com
+X-GND-Sasl: maxime.chevallier@bootlin.com
+X-GND-Sasl: maxime.chevallier@bootlin.com
+X-GND-Sasl: maxime.chevallier@bootlin.com
+X-GND-Sasl: maxime.chevallier@bootlin.com
+X-GND-Sasl: maxime.chevallier@bootlin.com
+X-GND-Sasl: maxime.chevallier@bootlin.com
+X-GND-Sasl: maxime.chevallier@bootlin.com
+X-GND-Sasl: maxime.chevallier@bootlin.com
+X-GND-Sasl: maxime.chevallier@bootlin.com
+X-GND-Sasl: maxime.chevallier@bootlin.com
+X-GND-Sasl: maxime.chevallier@bootlin.com
+X-GND-Sasl: maxime.chevallier@bootlin.com
+X-GND-Sasl: maxime.chevallier@bootlin.com
+X-GND-Sasl: maxime.chevallier@bootlin.com
+X-GND-Sasl: maxime.chevallier@bootlin.com
+X-GND-Sasl: maxime.chevallier@bootlin.com
+Received: by mail.gandi.net (Postfix) with ESMTPSA id 706B7C0005;
+ Thu, 25 May 2023 10:11:28 +0000 (UTC)
 From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-To: Vladimir Oltean <vladimir.oltean@nxp.com>
-Message-ID: <20230525110429.66ba241b@pc-7.home>
-In-Reply-To: <20230524174145.hhurl4olnzmfadww@skbuf>
-References: <20230524130807.310089-1-maxime.chevallier@bootlin.com>
- <20230524130807.310089-2-maxime.chevallier@bootlin.com>
- <8f779d98-d437-4d8b-914d-8e315b4aca17@lunn.ch>
- <20230524174145.hhurl4olnzmfadww@skbuf>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.37; x86_64-redhat-linux-gnu)
+To: Mark Brown <broonie@kernel.org>,
+	davem@davemloft.net
+Date: Thu, 25 May 2023 12:11:22 +0200
+Message-Id: <20230525101126.370108-1-maxime.chevallier@bootlin.com>
+X-Mailer: git-send-email 2.40.1
 MIME-Version: 1.0
 Cc: Andrew Lunn <andrew@lunn.ch>, Florian Fainelli <f.fainelli@gmail.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Russell King <linux@armlinux.org.uk>, netdev@vger.kernel.org,
  Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
- Jose Abreu <joabreu@synopsys.com>, Russell King <linux@armlinux.org.uk>,
- Eric Dumazet <edumazet@google.com>, Mark Brown <broonie@kernel.org>,
+ Ioana Ciornei <ioana.ciornei@nxp.com>, linux-kernel@vger.kernel.org,
+ Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
  alexis.lothore@bootlin.com, thomas.petazzoni@bootlin.com,
- Ioana Ciornei <ioana.ciornei@nxp.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, davem@davemloft.net,
+ Vladimir Oltean <vladimir.oltean@nxp.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org, Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH net-next 1/4] net: mdio: Introduce a
- regmap-based mdio driver
+Subject: [Linux-stm32] [PATCH net-next v2 0/4] net: add a regmap-based mdio
+	driver and drop TSE PCS
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,39 +84,82 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello Vlad, Andrew,
+Hello everyone,
 
-On Wed, 24 May 2023 20:41:45 +0300
-Vladimir Oltean <vladimir.oltean@nxp.com> wrote:
+This is the V2 of a series that follows-up on the work [1] aiming to drop the
+altera TSE PCS driver, as it turns out to be a version of the Lynx PCS exposed
+as a memory-mapped block, instead of living on an MDIO bus.
 
-> On Wed, May 24, 2023 at 07:30:51PM +0200, Andrew Lunn wrote:
-> > > +	mii->name = DRV_NAME;
-> > > +	strscpy(mii->id, config->name, MII_BUS_ID_SIZE);
-> > > +	mii->parent = config->parent;
-> > > +	mii->read = mdio_regmap_read_c22;
-> > > +	mii->write = mdio_regmap_write_c22;  
-> > 
-> > Since there is only one valid address on the bus, you can set
-> > mii->phy_mask to make the scanning of the bus a little faster.  
+One step of this removal involved creating a regmap-based mdio driver
+that translates MDIO accesses into the actual underlying bus that
+exposes the register. The register layout must of course match the
+standard MDIO layout, but we can now account for differences in stride
+with recent work on the regmap subsystem [2].
 
-Good point, I'll add that.
+Mark, Net maintainers, this series depends on the patch e12ff2876493 that was
+recently merged into the regmap tree [3].
 
-> Sorry, I didn't reach this thread yet, I don't have the full context.
-> Just wanted to add: if the caller knows that there's only a PCS and
-> not a PHY on this bus, you don't want auto-scanning at all, since
-> that will create an unconnected phy_device. It would be good if the
-> caller provided the phy_mask.
+For this series to be usable in net-next, this patch must be applied
+beforehand. Should Mark create a tag that would then be merged into
+net-next ?
 
-As there can only be one mdiodevice on that bus, and we are already
-passing the address of the only available device in struct
-mdio_rgmap_config.valid_addr, I guess we can simply add a flag to
-indicate if autoscan needs to be enabled or not, and set phy_mask to
-either unmask the only valid address, or plain ~0UL if we don't want
-autoscan at all.
+This series introduces a new MDIO driver, and uses it to convert Altera
+TSE from the actual TSE PCS driver to Lynx PCS.
 
-Thanks both of you for the reviews,
+Since it turns out dwmac_socfpga also uses a TSE PCS block, port that
+driver to Lynx as well.
+
+Changes in V2 :
+ - Use phy_mask to avoid unnecessarily scanning the whole mdio bus
+ - Go one step further and completely disable scanning if users
+   set the .autoscan flag to false, in case the mdiodevice isn't an
+   actual PHY (a PCS for example).
+
+Thanks,
 
 Maxime
+
+[1] : https://lore.kernel.org/all/20230324093644.464704-1-maxime.chevallier@bootlin.com/
+[2] : https://lore.kernel.org/all/20230407152604.105467-1-maxime.chevallier@bootlin.com/#t
+[3] : https://git.kernel.org/pub/scm/linux/kernel/git/broonie/regmap.git/commit/?id=e12ff28764937dd58c8613f16065da60da149048
+
+
+
+Maxime Chevallier (4):
+  net: mdio: Introduce a regmap-based mdio driver
+  net: ethernet: altera-tse: Convert to mdio-regmap and use PCS Lynx
+  net: pcs: Drop the TSE PCS driver
+  net: stmmac: dwmac-sogfpga: use the lynx pcs driver
+
+ MAINTAINERS                                   |  14 +-
+ drivers/net/ethernet/altera/Kconfig           |   2 +
+ drivers/net/ethernet/altera/altera_tse.h      |   1 +
+ drivers/net/ethernet/altera/altera_tse_main.c |  57 +++-
+ drivers/net/ethernet/stmicro/stmmac/Kconfig   |   1 +
+ drivers/net/ethernet/stmicro/stmmac/Makefile  |   2 +-
+ .../ethernet/stmicro/stmmac/altr_tse_pcs.c    | 257 ------------------
+ .../ethernet/stmicro/stmmac/altr_tse_pcs.h    |  29 --
+ drivers/net/ethernet/stmicro/stmmac/common.h  |   1 +
+ .../ethernet/stmicro/stmmac/dwmac-socfpga.c   |  90 ++++--
+ .../net/ethernet/stmicro/stmmac/stmmac_main.c |  12 +-
+ drivers/net/mdio/Kconfig                      |  10 +
+ drivers/net/mdio/Makefile                     |   1 +
+ drivers/net/mdio/mdio-regmap.c                |  90 ++++++
+ drivers/net/pcs/Kconfig                       |   6 -
+ drivers/net/pcs/Makefile                      |   1 -
+ drivers/net/pcs/pcs-altera-tse.c              | 160 -----------
+ include/linux/mdio/mdio-regmap.h              |  26 ++
+ include/linux/pcs-altera-tse.h                |  17 --
+ 19 files changed, 264 insertions(+), 513 deletions(-)
+ delete mode 100644 drivers/net/ethernet/stmicro/stmmac/altr_tse_pcs.c
+ delete mode 100644 drivers/net/ethernet/stmicro/stmmac/altr_tse_pcs.h
+ create mode 100644 drivers/net/mdio/mdio-regmap.c
+ delete mode 100644 drivers/net/pcs/pcs-altera-tse.c
+ create mode 100644 include/linux/mdio/mdio-regmap.h
+ delete mode 100644 include/linux/pcs-altera-tse.h
+
+-- 
+2.40.1
 
 _______________________________________________
 Linux-stm32 mailing list
