@@ -2,70 +2,51 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3C5EB7125BC
-	for <lists+linux-stm32@lfdr.de>; Fri, 26 May 2023 13:40:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2EBAC7126C9
+	for <lists+linux-stm32@lfdr.de>; Fri, 26 May 2023 14:38:03 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E8686C6A615;
-	Fri, 26 May 2023 11:40:55 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C6E9CC6A615;
+	Fri, 26 May 2023 12:38:02 +0000 (UTC)
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [198.137.202.133])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B61D9C6905A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 25017C65042
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 26 May 2023 11:40:54 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 34Q9qKcf012829; Fri, 26 May 2023 13:40:44 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=Q/cQ+s7tQtjC/OitTWv7XOq+cPm+R5vQ5zct/mEOgKY=;
- b=gHdi/t9om+jjKpDK0hLDKd5Nlzg/LS8AEPW7NN+OMtb+wZpLg2ii9nhCCrNANKniCc+I
- B/A7VLw9/476mOlSakzzP60KUl22NHIEKaLnt2oRgqiQhfNZgtUGhQmz676EAFR6t0vr
- lhCKEm9yXaTnEYeigzmrvL5Dys8MGMagqaY/KciWemvzDbeGLsOKda8DHf5KtzaPVmoM
- 1wsIbTuIBf1nLVFoLt8p/MRL2qlj0vj4veVIHNY/el1YsXFzPVTkgTTLNasDn+EgRMNG
- WGAsjSo/UWyU6JzgyBAVNx/i6Yd2LryQc0I2GVVahPtEjnrkRVDsMXk88/SMDCJUMueU 6g== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3qt39u1328-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 26 May 2023 13:40:44 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id E049710002A;
- Fri, 26 May 2023 13:40:42 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id D7193229A9D;
- Fri, 26 May 2023 13:40:42 +0200 (CEST)
-Received: from [10.48.0.148] (10.48.0.148) by SHFDAG1NODE1.st.com
- (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.21; Fri, 26 May
- 2023 13:40:42 +0200
-Message-ID: <62bd9682-b768-8be3-7a2f-0eceea6d9772@foss.st.com>
-Date: Fri, 26 May 2023 13:40:41 +0200
+ Fri, 26 May 2023 12:38:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
+ :References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description;
+ bh=lNfxSHS1UMaBMZLwessrox7ClcoojfQo4u1G/gCVpRk=; b=F8i1N0MhDb2OY0IY6jpteaJjel
+ J+wgVsNwzbjVDy7D+oUdf56HV2XHl1ftpFFdeSNi4anvtzKDqtEvTvhUyW0hht2K1BNkcIYn/RCOa
+ pFuadvx3d8q7hjK1Wpnip457c4/5PzOodTRcehh57MNN8Dqtl4iBNPS2I4Wht4ZhXlhkypo21wOWL
+ zLYK5HJBJglOPbpotAWAk12sisYMojHMPav90HJkeECpSTPMIXgtqMfzmL4duyRKQ8WJItqg0iGs3
+ 7Sh5BAZyWmVsPPZgz5Fx2pC7wch4F/7ZxuuxYr1IYLKgnQZMbmoQk5PDUunf4SO4R+IPyoSDN9j7w
+ naClZciw==;
+Received: from hch by bombadil.infradead.org with local (Exim 4.96 #2 (Red Hat
+ Linux)) id 1q2Whg-002VDl-2Y; Fri, 26 May 2023 12:37:56 +0000
+Date: Fri, 26 May 2023 05:37:56 -0700
+From: Christoph Hellwig <hch@infradead.org>
+To: Arnaud POULIQUEN <arnaud.pouliquen@foss.st.com>
+Message-ID: <ZHCoJEkVinvsB2lZ@infradead.org>
+References: <20230523091350.292221-1-arnaud.pouliquen@foss.st.com>
+ <20230523091350.292221-2-arnaud.pouliquen@foss.st.com>
+ <ZG2yw0xZ6XGGp9E5@infradead.org>
+ <18a8528d-7d9d-6ed0-0045-5ee47dd39fb2@foss.st.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Content-Language: en-US
-To: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>, Yannick Fertre
- <yannick.fertre@foss.st.com>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre
- Torgue <alexandre.torgue@foss.st.com>
-References: <20230515123818.93971-1-raphael.gallais-pou@foss.st.com>
-From: Philippe CORNU <philippe.cornu@foss.st.com>
-In-Reply-To: <20230515123818.93971-1-raphael.gallais-pou@foss.st.com>
-X-Originating-IP: [10.48.0.148]
-X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SHFDAG1NODE1.st.com
- (10.75.129.69)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.957,Hydra:6.0.573,FMLib:17.11.176.26
- definitions=2023-05-26_01,2023-05-25_03,2023-05-22_02
-Cc: kernel test robot <lkp@intel.com>, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, Dan Carpenter <error27@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH RESEND] drm/stm: ltdc: fix late
-	dereference check
+Content-Disposition: inline
+In-Reply-To: <18a8528d-7d9d-6ed0-0045-5ee47dd39fb2@foss.st.com>
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
+ bombadil.infradead.org. See http://www.infradead.org/rpr.html
+Cc: Mathieu Poirier <mathieu.poirier@linaro.org>,
+ Bjorn Andersson <andersson@kernel.org>, linux-remoteproc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Christoph Hellwig <hch@infradead.org>, op-tee@lists.trustedfirmware.org,
+ Jens Wiklander <jens.wiklander@linaro.org>,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [RFC PATCH 1/4] tee: Re-enable vmalloc page
+ support for shared memory
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,60 +58,37 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-
-On 5/15/23 14:38, Raphael Gallais-Pou wrote:
-> In ltdc_crtc_set_crc_source(), struct drm_crtc was dereferenced in a
-> container_of() before the pointer check. This could cause a kernel panic.
+On Wed, May 24, 2023 at 04:01:14PM +0200, Arnaud POULIQUEN wrote:
+> > As per the discussion back then: don't just blindly do the same dumb
+> > thing again and fix the interfae to actually pass in a page array,
+> > or iov_iter or an actually useful container that fits.
+> > 
 > 
-> Fix this smatch warning:
-> drivers/gpu/drm/stm/ltdc.c:1124 ltdc_crtc_set_crc_source() warn: variable dereferenced before check 'crtc' (see line 1119)
+> I suppose your are speaking about this discussion:
+> https://lore.kernel.org/all/20221002002326.946620-3-ira.weiny@intel.com/
+
+Yes.
+
 > 
-> Reported-by: kernel test robot <lkp@intel.com>
-> Reported-by: Dan Carpenter <error27@gmail.com>
-> Link: https://lore.kernel.org/lkml/202212241802.zeLFZCXB-lkp@intel.com/
-> Signed-off-by: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
-> ---
->   drivers/gpu/drm/stm/ltdc.c | 4 +++-
->   1 file changed, 3 insertions(+), 1 deletion(-)
+> If I'm not mistaken, I should modify at tee_shm_register_kernel_buf API and
+> register_shm_helper inernal function, right?
 > 
-> diff --git a/drivers/gpu/drm/stm/ltdc.c b/drivers/gpu/drm/stm/ltdc.c
-> index 03c6becda795..b8be4c1db423 100644
-> --- a/drivers/gpu/drm/stm/ltdc.c
-> +++ b/drivers/gpu/drm/stm/ltdc.c
-> @@ -1145,7 +1145,7 @@ static void ltdc_crtc_disable_vblank(struct drm_crtc *crtc)
->   
->   static int ltdc_crtc_set_crc_source(struct drm_crtc *crtc, const char *source)
->   {
-> -	struct ltdc_device *ldev = crtc_to_ltdc(crtc);
-> +	struct ltdc_device *ldev;
->   	int ret;
->   
->   	DRM_DEBUG_DRIVER("\n");
-> @@ -1153,6 +1153,8 @@ static int ltdc_crtc_set_crc_source(struct drm_crtc *crtc, const char *source)
->   	if (!crtc)
->   		return -ENODEV;
->   
-> +	ldev = crtc_to_ltdc(crtc);
-> +
->   	if (source && strcmp(source, "auto") == 0) {
->   		ldev->crc_active = true;
->   		ret = regmap_set_bits(ldev->regmap, LTDC_GCR, GCR_CRCEN);
 
-Hi Raphael,
-Applied on drm-misc-next.
+> What about having equivalent of shm_get_kernel_pages in an external helper (to
+> defined where to put it), could it be an alternative of the upadate of the
+> tee_shm API?
 
-Note & fyi, I fixed the following warning, please be sure to follow this 
-rule next time :-)
-WARNING:BAD_REPORTED_BY_LINK: Reported-by: should be immediately 
-followed by Closes: with a URL to the report
+I think the fundamentally right thing is to pass an iov_iter to
+register_shm_helper, and then use the new as of 6.3
+iov_iter_extract_pages helper to extract the pages from that.  For
+the kernel users you can then simply pass down an ITER_BVEC iter
+that you can fill with vmalloc pages if you want.
 
-Many thanks for your patch,
-Philippe :-)
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
