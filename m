@@ -2,55 +2,74 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 66312711EA6
-	for <lists+linux-stm32@lfdr.de>; Fri, 26 May 2023 06:10:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 948E2712155
+	for <lists+linux-stm32@lfdr.de>; Fri, 26 May 2023 09:42:58 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0F620C6905A;
-	Fri, 26 May 2023 04:10:25 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3EB68C6A61A;
+	Fri, 26 May 2023 07:42:58 +0000 (UTC)
+Received: from relay5-d.mail.gandi.net (relay5-d.mail.gandi.net
+ [217.70.183.197])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5C975C65E70
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EA1BBC6905A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 26 May 2023 04:10:23 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 1ABD464CB0;
- Fri, 26 May 2023 04:10:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 0D1A0C433A7;
- Fri, 26 May 2023 04:10:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1685074221;
- bh=JQyCrb/AS2AU8eNQv+rZMtDQP68aB0ijNJNGaDOoPzg=;
- h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=FIl7fGndcDdMNTUUBjQ/lxk9ckLrCRUIBlDx3quOHau9ufxJApcUj8W88eIZFB7ow
- NPV4ejdISGmoGjkF9LzOSCCTD1DNzvOlNLaGPJHAgv22iI5Eu+153JBshgoDraOwj+
- 26yIfSIWsmdNoblJnu+D4wyEOyUBKpQDXYPMXboptdow27omZLy4+TcuKJtobn8EAO
- 31bcAsT+EDqcob6emXWeyzLwkrdjSGfxbcG8PlGWfZELjdd8OIszgA4N9DbwSURSjn
- PHD3cfMoyzWS4u65abuCoxAtadl/sspFPWIR9Qe+rGa3utWna40RTLLUBctKwYOD9C
- 2ErQTwwp9jODQ==
-Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
- E10A5E4F138; Fri, 26 May 2023 04:10:20 +0000 (UTC)
+ Fri, 26 May 2023 07:42:57 +0000 (UTC)
+X-GND-Sasl: maxime.chevallier@bootlin.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
+ t=1685086977;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=CD5MYQG/P9DJMQ6F69EVjqv9sqK9CsGsG57bFzikUnQ=;
+ b=FlJ92oUAtihkmjG7KIBvcWJ/aMq/FKssGkp03r4QeRvVj2JZy2JvTB742uVx0T6KVAOdZz
+ fSU/oqC3RJ5KcsEYoYuJeGJtmW/XaYdVUdVx1MZ0bdO63slhxLW+v4kRnS/cEFs/Hq1rDG
+ K6VTivOvJfamvdX8IrAYdhthvLJz6IUj744WbfpHvVMLV1oqqcbGFCtIb4AKrFoNqu3pd6
+ HFxdN07p6cNx2+mtwTYw7nAbmO7wDjDziKYLPemMhC5xb8xnBo/ikNJXD/XHKucrxjnVfJ
+ cLsGCQXxsCDs/w6n8CBmb3ZHEeL5x8XTWFWjd2ZUsASo34CekI0ILSK3nXCL0w==
+X-GND-Sasl: maxime.chevallier@bootlin.com
+X-GND-Sasl: maxime.chevallier@bootlin.com
+X-GND-Sasl: maxime.chevallier@bootlin.com
+X-GND-Sasl: maxime.chevallier@bootlin.com
+X-GND-Sasl: maxime.chevallier@bootlin.com
+X-GND-Sasl: maxime.chevallier@bootlin.com
+X-GND-Sasl: maxime.chevallier@bootlin.com
+X-GND-Sasl: maxime.chevallier@bootlin.com
+X-GND-Sasl: maxime.chevallier@bootlin.com
+X-GND-Sasl: maxime.chevallier@bootlin.com
+X-GND-Sasl: maxime.chevallier@bootlin.com
+X-GND-Sasl: maxime.chevallier@bootlin.com
+X-GND-Sasl: maxime.chevallier@bootlin.com
+X-GND-Sasl: maxime.chevallier@bootlin.com
+X-GND-Sasl: maxime.chevallier@bootlin.com
+X-GND-Sasl: maxime.chevallier@bootlin.com
+X-GND-Sasl: maxime.chevallier@bootlin.com
+X-GND-Sasl: maxime.chevallier@bootlin.com
+X-GND-Sasl: maxime.chevallier@bootlin.com
+X-GND-Sasl: maxime.chevallier@bootlin.com
+X-GND-Sasl: maxime.chevallier@bootlin.com
+X-GND-Sasl: maxime.chevallier@bootlin.com
+Received: by mail.gandi.net (Postfix) with ESMTPSA id 02D191C000F;
+ Fri, 26 May 2023 07:42:53 +0000 (UTC)
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+To: Mark Brown <broonie@kernel.org>,
+	davem@davemloft.net
+Date: Fri, 26 May 2023 09:42:48 +0200
+Message-Id: <20230526074252.480200-1-maxime.chevallier@bootlin.com>
+X-Mailer: git-send-email 2.40.1
 MIME-Version: 1.0
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <168507422091.22221.15153316764967144660.git-patchwork-notify@kernel.org>
-Date: Fri, 26 May 2023 04:10:20 +0000
-References: <20230524125714.357337-1-wei.fang@nxp.com>
-In-Reply-To: <20230524125714.357337-1-wei.fang@nxp.com>
-To: Wei Fang <wei.fang@nxp.com>
-Cc: linux-kernel@vger.kernel.org, hawk@kernel.org, daniel@iogearbox.net,
- simon.horman@corigine.com, linux-stm32@st-md-mailman.stormreply.com,
- bpf@vger.kernel.org, john.fastabend@gmail.com, ast@kernel.org,
- edumazet@google.com, joabreu@synopsys.com, sdf@google.com,
- mcoquelin.stm32@gmail.com, peppe.cavallaro@st.com,
- gerhard@engleder-embedded.com, kuba@kernel.org, netdev@vger.kernel.org,
- pabeni@redhat.com, lorenzo@kernel.org, davem@davemloft.net,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net] net: stmmac: fix call trace when
- stmmac_xdp_xmit() is invoked
+Cc: Andrew Lunn <andrew@lunn.ch>, Florian Fainelli <f.fainelli@gmail.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Russell King <linux@armlinux.org.uk>, netdev@vger.kernel.org,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Ioana Ciornei <ioana.ciornei@nxp.com>, linux-kernel@vger.kernel.org,
+ Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
+ alexis.lothore@bootlin.com, thomas.petazzoni@bootlin.com,
+ Vladimir Oltean <vladimir.oltean@nxp.com>,
+ Simon Horman <simon.horman@corigine.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, Heiner Kallweit <hkallweit1@gmail.com>
+Subject: [Linux-stm32] [PATCH net-next v3 0/4] net: add a regmap-based mdio
+	driver and drop TSE PCS
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,44 +86,89 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello:
+Hello everyone,
 
-This patch was applied to netdev/net.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
+This is the V3 of a series that follows-up on the work [1] aiming to drop the
+altera TSE PCS driver, as it turns out to be a version of the Lynx PCS exposed
+as a memory-mapped block, instead of living on an MDIO bus.
 
-On Wed, 24 May 2023 20:57:14 +0800 you wrote:
-> From: Wei Fang <wei.fang@nxp.com>
-> 
-> We encountered a kernel call trace issue which was related to
-> ndo_xdp_xmit callback on our i.MX8MP platform. The reproduce
-> steps show as follows.
-> 1. The FEC port (eth0) connects to a PC port, and the PC uses
-> pktgen_sample03_burst_single_flow.sh to generate packets and
-> send these packets to the FEC port. Notice that the script must
-> be executed before step 2.
-> 2. Run the "./xdp_redirect eth0 eth1" command on i.MX8MP, the
-> eth1 interface is the dwmac. Then there will be a call trace
-> issue soon. Please see the log for more details.
-> The root cause is that the NETDEV_XDP_ACT_NDO_XMIT feature is
-> enabled by default, so when the step 2 command is exexcuted
-> and packets have already been sent to eth0, the stmmac_xdp_xmit()
-> starts running before the stmmac_xdp_set_prog() finishes. To
-> resolve this issue, we disable the NETDEV_XDP_ACT_NDO_XMIT
-> feature by default and turn on/off this feature when the bpf
-> program is installed/uninstalled which just like the other
-> ethernet drivers.
-> 
-> [...]
+One step of this removal involved creating a regmap-based mdio driver
+that translates MDIO accesses into the actual underlying bus that
+exposes the register. The register layout must of course match the
+standard MDIO layout, but we can now account for differences in stride
+with recent work on the regmap subsystem [2].
 
-Here is the summary with links:
-  - [net] net: stmmac: fix call trace when stmmac_xdp_xmit() is invoked
-    https://git.kernel.org/netdev/net/c/ffb3322181d9
+Mark, Net maintainers, this series depends on the patch e12ff2876493 that was
+recently merged into the regmap tree [3].
 
-You are awesome, thank you!
+For this series to be usable in net-next, this patch must be applied
+beforehand. Should Mark create a tag that would then be merged into
+net-next ?
+
+This series introduces a new MDIO driver, and uses it to convert Altera
+TSE from the actual TSE PCS driver to Lynx PCS.
+
+Since it turns out dwmac_socfpga also uses a TSE PCS block, port that
+driver to Lynx as well.
+
+Changes in V3 :
+ - Use a dedicated struct for the mii bus's priv data, to avoid
+   duplicating the whole struct mdio_regmap_config, from which 2 fields
+   only are necessary after init, as suggested by Russell
+ - Use ~0 instead of ~0UL for the no-scan bitmask, following Simon's
+   review.
+
+Changes in V2 :
+ - Use phy_mask to avoid unnecessarily scanning the whole mdio bus
+ - Go one step further and completely disable scanning if users
+   set the .autoscan flag to false, in case the mdiodevice isn't an
+   actual PHY (a PCS for example).
+
+Thanks,
+
+Maxime
+
+[1] : https://lore.kernel.org/all/20230324093644.464704-1-maxime.chevallier@bootlin.com/
+[2] : https://lore.kernel.org/all/20230407152604.105467-1-maxime.chevallier@bootlin.com/#t
+[3] : https://git.kernel.org/pub/scm/linux/kernel/git/broonie/regmap.git/commit/?id=e12ff28764937dd58c8613f16065da60da149048
+
+
+
+Maxime Chevallier (4):
+  net: mdio: Introduce a regmap-based mdio driver
+  net: ethernet: altera-tse: Convert to mdio-regmap and use PCS Lynx
+  net: pcs: Drop the TSE PCS driver
+  net: stmmac: dwmac-sogfpga: use the lynx pcs driver
+
+ MAINTAINERS                                   |  14 +-
+ drivers/net/ethernet/altera/Kconfig           |   2 +
+ drivers/net/ethernet/altera/altera_tse.h      |   1 +
+ drivers/net/ethernet/altera/altera_tse_main.c |  57 +++-
+ drivers/net/ethernet/stmicro/stmmac/Kconfig   |   1 +
+ drivers/net/ethernet/stmicro/stmmac/Makefile  |   2 +-
+ .../ethernet/stmicro/stmmac/altr_tse_pcs.c    | 257 ------------------
+ .../ethernet/stmicro/stmmac/altr_tse_pcs.h    |  29 --
+ drivers/net/ethernet/stmicro/stmmac/common.h  |   1 +
+ .../ethernet/stmicro/stmmac/dwmac-socfpga.c   |  90 ++++--
+ .../net/ethernet/stmicro/stmmac/stmmac_main.c |  12 +-
+ drivers/net/mdio/Kconfig                      |  10 +
+ drivers/net/mdio/Makefile                     |   1 +
+ drivers/net/mdio/mdio-regmap.c                |  93 +++++++
+ drivers/net/pcs/Kconfig                       |   6 -
+ drivers/net/pcs/Makefile                      |   1 -
+ drivers/net/pcs/pcs-altera-tse.c              | 160 -----------
+ include/linux/mdio/mdio-regmap.h              |  26 ++
+ include/linux/pcs-altera-tse.h                |  17 --
+ 19 files changed, 267 insertions(+), 513 deletions(-)
+ delete mode 100644 drivers/net/ethernet/stmicro/stmmac/altr_tse_pcs.c
+ delete mode 100644 drivers/net/ethernet/stmicro/stmmac/altr_tse_pcs.h
+ create mode 100644 drivers/net/mdio/mdio-regmap.c
+ delete mode 100644 drivers/net/pcs/pcs-altera-tse.c
+ create mode 100644 include/linux/mdio/mdio-regmap.h
+ delete mode 100644 include/linux/pcs-altera-tse.h
+
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+2.40.1
 
 _______________________________________________
 Linux-stm32 mailing list
