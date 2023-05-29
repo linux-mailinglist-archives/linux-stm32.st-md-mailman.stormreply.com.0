@@ -2,51 +2,51 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5F715714DB9
-	for <lists+linux-stm32@lfdr.de>; Mon, 29 May 2023 18:02:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B202A714E11
+	for <lists+linux-stm32@lfdr.de>; Mon, 29 May 2023 18:21:03 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0E000C6A608;
-	Mon, 29 May 2023 16:02:14 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 779D2C6A61E;
+	Mon, 29 May 2023 16:21:03 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 89B98C65E58
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 996A6C6A616
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 29 May 2023 16:02:12 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ Mon, 29 May 2023 16:21:02 +0000 (UTC)
+Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
  by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 34TBP6U8020334; Mon, 29 May 2023 18:01:42 +0200
+ 34TBP5Lp014132; Mon, 29 May 2023 18:20:51 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
  h=from : to : cc :
  subject : date : message-id : mime-version : content-type; s=selector1;
  bh=R7roW/pXBm1AzX1ECpv0Ow4olyyWijd6fAx4mT/U654=;
- b=EKpI+Ml/9CzbSv+0r9wyIwDQkobCJlkxAj3T2qbNKkdtu45oaADa7HeKAOwytpbaZxJZ
- wr/R7yR3q224DGgRlBYGRjxNcSYT20/hYUAjsP6jCn0dH/zRxFixLUy6LKYqHGlkv62A
- sRr8EueSS0ZTvkoUA7P+pkah6TlTw1iaE+dZRuuXwgXjTQubFExgkAInHgXUxocxUaeG
- FSQxCOlBogs/Oo/SlDjC8o2W9bv7oBLRN8fgyGvRPnwWhFpjkaLfKqP/3pjiUhcBsWNy
- W/Fs3/p9sIB4K/TVaQ0kwkA7gQOqE8J/5Wp8OXZtslRRHwJoOttvO02jExEj4sPkecL+ VQ== 
+ b=rKKWWShAAaoZfxuiWwq7ehnP0eeGYX4d5a/bAXwhovoCfGeeHG5ryv4N69GhisLuQWWf
+ 1+3gnOh3Q9TPK998v+azfamrkdUo92Hcv+5I+qz/Hfr9D+SpMbNVRZ5IgXTp68ENmzIA
+ EkA6aYgqufGzp4U7MAy3fZ+Cye5MAqF8HjDvtDeRwbIFok35zS9FoEhdh4GONzOoclwb
+ 4i/IIX1TWGttFGSfKUu7sDkZByth+1NTAkPYR5tcXDcJUmzELql57iKo4UBXJURlB9Sj
+ J9GMPjQAbuwes8KNx7FY4ZEUXYisy2/e4WRd5Fjr5S/Mi4C8tdiLPWnbCdO6vt8Pf1jD 8Q== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3quakpas41-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3quahy2mcq-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 29 May 2023 18:01:42 +0200
+ Mon, 29 May 2023 18:20:50 +0200
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 4E7EB10002A;
- Mon, 29 May 2023 18:01:40 +0200 (CEST)
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id C84EC10002A;
+ Mon, 29 May 2023 18:20:41 +0200 (CEST)
 Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 3F3A2232FF4;
- Mon, 29 May 2023 18:01:40 +0200 (CEST)
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 9FED1233C87;
+ Mon, 29 May 2023 18:20:41 +0200 (CEST)
 Received: from localhost (10.201.21.93) by SHFDAG1NODE1.st.com (10.75.129.69)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.21; Mon, 29 May
- 2023 18:01:39 +0200
+ 2023 18:20:41 +0200
 From: Alexandre Torgue <alexandre.torgue@foss.st.com>
 To: <robh+dt@kernel.org>, <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley
  <conor+dt@kernel.org>, Linus Walleij <linus.walleij@linaro.org>, Catalin
  Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Arnd
  Bergmann <arnd@arndb.de>, Olof Johansson <olof@lixom.net>, <soc@kernel.org>
-Date: Mon, 29 May 2023 18:01:19 +0200
-Message-ID: <20230529160130.18940-1-alexandre.torgue@foss.st.com>
+Date: Mon, 29 May 2023 18:20:23 +0200
+Message-ID: <20230529162034.20481-1-alexandre.torgue@foss.st.com>
 X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
 X-Originating-IP: [10.201.21.93]
