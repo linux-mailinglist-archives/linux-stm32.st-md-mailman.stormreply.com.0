@@ -2,69 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 97C9D7146EC
-	for <lists+linux-stm32@lfdr.de>; Mon, 29 May 2023 11:14:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2FF04714776
+	for <lists+linux-stm32@lfdr.de>; Mon, 29 May 2023 11:54:53 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2C31AC6B442;
-	Mon, 29 May 2023 09:14:49 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D795EC6A614;
+	Mon, 29 May 2023 09:54:52 +0000 (UTC)
+Received: from phobos.denx.de (phobos.denx.de [85.214.62.61])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 44E00C6A608
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 69F5EC65E58
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 29 May 2023 09:14:47 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 34T6E9rj029309; Mon, 29 May 2023 11:14:26 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-transfer-encoding : content-type; s=selector1;
- bh=B28932ysMM4Fnx/W56GI8Wfbt/tHdsgnlH6ChOgbdy8=;
- b=c3iK2C0iCut8yrNZ0Ob/dWcLgkDNKVmy2W7l8qhEV1dqr6QER/IcpBekMpITPr0Ln1PG
- e/YJ/HtyOjbh28+FlBstGKO6Xog0AY3wC+zFQAtVsLeg/Vz3Oo8/1F8xYWE5369VKq9b
- JROHXFscKpjP+m/bSUilvXyHOEf0TZMYpwNjFtRY9zM/JC0agEyGTPsEOVWU05PkNqvb
- VCq+vfVXENj6J5AuHio9EBnzg1usy7hSAnBJ0qh9Yznui4bgX3Pb3xbBPRzmn1Kf5m4g
- tuHXWs9FH5OjywbM02Rt5qcrVrOuDz9nDDcD5QBHxdHsYZJ7rdyEUDGg/n3zMjcpARKi 1A== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3quakkrscm-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 29 May 2023 11:14:26 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id EA4DE10002A;
- Mon, 29 May 2023 11:14:25 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id DDBAD217B8F;
- Mon, 29 May 2023 11:14:25 +0200 (CEST)
-Received: from localhost (10.252.18.236) by SHFDAG1NODE2.st.com (10.75.129.70)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.21; Mon, 29 May
- 2023 11:14:25 +0200
-From: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
-To: David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, Rob
- Herring <robh+dt@kernel.org>, Krzysztof Kozlowski
- <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley <conor+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
- <alexandre.torgue@foss.st.com>, Marek Vasut <marex@denx.de>, Philippe Cornu
- <philippe.cornu@foss.st.com>, Yannick Fertre <yannick.fertre@foss.st.com>
-Date: Mon, 29 May 2023 11:13:59 +0200
-Message-ID: <20230529091359.71987-5-raphael.gallais-pou@foss.st.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20230529091359.71987-1-raphael.gallais-pou@foss.st.com>
-References: <20230529091359.71987-1-raphael.gallais-pou@foss.st.com>
+ Mon, 29 May 2023 09:54:51 +0000 (UTC)
+Received: from [127.0.0.1] (p578adb1c.dip0.t-ipconnect.de [87.138.219.28])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits))
+ (No client certificate requested)
+ (Authenticated sender: marex@denx.de)
+ by phobos.denx.de (Postfix) with ESMTPSA id B384A84735;
+ Mon, 29 May 2023 11:54:49 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de;
+ s=phobos-20191101; t=1685354090;
+ bh=db2/0jhEQ1Ay6cgSGxPYGzJJhbyarHWQB1FeiHON+yU=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=stg3lphYIBiYglR9o8zo1bU1Q7StF5VBbmN8WKFt79S6EQGJuTazU/lu3n/aJYRvS
+ PKIGEsGb9mfeEX9x2Pc2KCL3jqpFCHAVappvtfshIXB0EstlL+LJXjeNvb0HqPmqlt
+ h/MaLgb04lJi2sa2MHFfkutZFTY5u8lxUFRiBkOOJDL3oPdttnYlzQn3RN+p/9TxyY
+ XYpoyVF8Nrywlul9WwR13w2bFIGuCgZ0mbIHHR17PbOy/vT62PY9Xi/KlXxWi5Az7g
+ 53uYhc+ILRQ6ZJ8vkorUAVPvN265xyqt0tjRzBY8iNQxK6guq+UFOQjT7RM13Nd+cN
+ UbQELe2JZdplQ==
+Message-ID: <948ad9a2-f346-c42f-7b1f-47edda19a823@denx.de>
+Date: Mon, 29 May 2023 11:49:38 +0200
 MIME-Version: 1.0
-X-Originating-IP: [10.252.18.236]
-X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE2.st.com
- (10.75.129.70)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.957,Hydra:6.0.573,FMLib:17.11.176.26
- definitions=2023-05-29_06,2023-05-25_03,2023-05-22_02
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Content-Language: en-US
+To: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Philippe Cornu <philippe.cornu@foss.st.com>,
+ Yannick Fertre <yannick.fertre@foss.st.com>
+References: <20230517143542.284029-1-raphael.gallais-pou@foss.st.com>
+ <20230517143542.284029-4-raphael.gallais-pou@foss.st.com>
+ <f64de05b-8854-4345-80c2-f424968defdc@denx.de>
+ <e963370c-7018-243a-712d-62ca8463bfd8@foss.st.com>
+ <5f201903-17cb-5054-763c-f03b1066db1d@denx.de>
+ <32fafa74-8964-c9cf-f95b-f2cd084f46c6@foss.st.com>
+ <b23ddf9e-6bba-68df-cf28-cc0e2c4218ac@denx.de>
+ <cc6a1064-8b53-c63d-9592-92748b67639a@foss.st.com>
+From: Marek Vasut <marex@denx.de>
+In-Reply-To: <cc6a1064-8b53-c63d-9592-92748b67639a@foss.st.com>
+X-Virus-Scanned: clamav-milter 0.103.8 at phobos.denx.de
+X-Virus-Status: Clean
 Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  dri-devel@lists.freedesktop.org, kernel@dh-electronics.com,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v4 4/4] ARM: dts: stm32: fix ltdc warnings in
-	stm32mp15 boards
+Subject: Re: [Linux-stm32] [PATCH v3 3/3] ARM: dts: stm32: fix several DT
+ warnings on stm32mp15
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,163 +72,63 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Those concern:
-  * "#size-cells" and "#address-cells" wrongly used
-  * residual "reg" property appearing on endpoints where it could be
-    avoided
+On 5/29/23 10:07, Raphael Gallais-Pou wrote:
 
-Signed-off-by: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
----
- arch/arm/boot/dts/stm32mp151.dtsi                           | 5 -----
- .../boot/dts/stm32mp157a-icore-stm32mp1-ctouch2-of10.dts    | 3 +--
- arch/arm/boot/dts/stm32mp157a-icore-stm32mp1-edimm2.2.dts   | 3 +--
- .../dts/stm32mp157a-microgea-stm32mp1-microdev2.0-of7.dts   | 3 +--
- arch/arm/boot/dts/stm32mp157c-dk2.dts                       | 3 +++
- arch/arm/boot/dts/stm32mp157c-ev1.dts                       | 3 +--
- arch/arm/boot/dts/stm32mp157c-lxa-mc1.dts                   | 3 +--
- arch/arm/boot/dts/stm32mp15xx-dhcor-avenger96.dtsi          | 6 +-----
- arch/arm/boot/dts/stm32mp15xx-dkx.dtsi                      | 3 +--
- 9 files changed, 10 insertions(+), 22 deletions(-)
+Hi,
 
-diff --git a/arch/arm/boot/dts/stm32mp151.dtsi b/arch/arm/boot/dts/stm32mp151.dtsi
-index a98ae58e2c1c..bf3830dca742 100644
---- a/arch/arm/boot/dts/stm32mp151.dtsi
-+++ b/arch/arm/boot/dts/stm32mp151.dtsi
-@@ -1529,11 +1529,6 @@ ltdc: display-controller@5a001000 {
- 			clock-names = "lcd";
- 			resets = <&rcc LTDC_R>;
- 			status = "disabled";
--
--			port {
--				#address-cells = <1>;
--				#size-cells = <0>;
--			};
- 		};
- 
- 		iwdg2: watchdog@5a002000 {
-diff --git a/arch/arm/boot/dts/stm32mp157a-icore-stm32mp1-ctouch2-of10.dts b/arch/arm/boot/dts/stm32mp157a-icore-stm32mp1-ctouch2-of10.dts
-index 47d03bd9ef0b..4279b26547df 100644
---- a/arch/arm/boot/dts/stm32mp157a-icore-stm32mp1-ctouch2-of10.dts
-+++ b/arch/arm/boot/dts/stm32mp157a-icore-stm32mp1-ctouch2-of10.dts
-@@ -107,8 +107,7 @@ &ltdc {
- 	status = "okay";
- 
- 	port {
--		ltdc_ep0_out: endpoint@0 {
--			reg = <0>;
-+		ltdc_ep0_out: endpoint {
- 			remote-endpoint = <&dsi_in>;
- 		};
- 	};
-diff --git a/arch/arm/boot/dts/stm32mp157a-icore-stm32mp1-edimm2.2.dts b/arch/arm/boot/dts/stm32mp157a-icore-stm32mp1-edimm2.2.dts
-index d2f68997a471..efba54289820 100644
---- a/arch/arm/boot/dts/stm32mp157a-icore-stm32mp1-edimm2.2.dts
-+++ b/arch/arm/boot/dts/stm32mp157a-icore-stm32mp1-edimm2.2.dts
-@@ -107,8 +107,7 @@ &ltdc {
- 	status = "okay";
- 
- 	port {
--		ltdc_out_dsi: endpoint@0 {
--			reg = <0>;
-+		ltdc_out_dsi: endpoint {
- 			remote-endpoint = <&dsi_in_ltdc>;
- 		};
- 	};
-diff --git a/arch/arm/boot/dts/stm32mp157a-microgea-stm32mp1-microdev2.0-of7.dts b/arch/arm/boot/dts/stm32mp157a-microgea-stm32mp1-microdev2.0-of7.dts
-index 0d7560ba2950..5116a7785201 100644
---- a/arch/arm/boot/dts/stm32mp157a-microgea-stm32mp1-microdev2.0-of7.dts
-+++ b/arch/arm/boot/dts/stm32mp157a-microgea-stm32mp1-microdev2.0-of7.dts
-@@ -81,8 +81,7 @@ &ltdc {
- 	status = "okay";
- 
- 	port {
--		ltdc_ep0_out: endpoint@0 {
--			reg = <0>;
-+		ltdc_ep0_out: endpoint {
- 			remote-endpoint = <&panel_in>;
- 		};
- 	};
-diff --git a/arch/arm/boot/dts/stm32mp157c-dk2.dts b/arch/arm/boot/dts/stm32mp157c-dk2.dts
-index 0067c6248cd1..4bef2300ed7c 100644
---- a/arch/arm/boot/dts/stm32mp157c-dk2.dts
-+++ b/arch/arm/boot/dts/stm32mp157c-dk2.dts
-@@ -87,6 +87,9 @@ &ltdc {
- 	status = "okay";
- 
- 	port {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
- 		ltdc_ep1_out: endpoint@1 {
- 			reg = <1>;
- 			remote-endpoint = <&dsi_in>;
-diff --git a/arch/arm/boot/dts/stm32mp157c-ev1.dts b/arch/arm/boot/dts/stm32mp157c-ev1.dts
-index 67c6b9440878..49ca94c19b02 100644
---- a/arch/arm/boot/dts/stm32mp157c-ev1.dts
-+++ b/arch/arm/boot/dts/stm32mp157c-ev1.dts
-@@ -244,8 +244,7 @@ &ltdc {
- 	status = "okay";
- 
- 	port {
--		ltdc_ep0_out: endpoint@0 {
--			reg = <0>;
-+		ltdc_ep0_out: endpoint {
- 			remote-endpoint = <&dsi_in>;
- 		};
- 	};
-diff --git a/arch/arm/boot/dts/stm32mp157c-lxa-mc1.dts b/arch/arm/boot/dts/stm32mp157c-lxa-mc1.dts
-index 407ed3952f75..eada9cf257be 100644
---- a/arch/arm/boot/dts/stm32mp157c-lxa-mc1.dts
-+++ b/arch/arm/boot/dts/stm32mp157c-lxa-mc1.dts
-@@ -161,8 +161,7 @@ &ltdc {
- 	status = "okay";
- 
- 	port {
--		ltdc_ep0_out: endpoint@0 {
--			reg = <0>;
-+		ltdc_ep0_out: endpoint {
- 			remote-endpoint = <&panel_input>;
- 		};
- 	};
-diff --git a/arch/arm/boot/dts/stm32mp15xx-dhcor-avenger96.dtsi b/arch/arm/boot/dts/stm32mp15xx-dhcor-avenger96.dtsi
-index 302efac5d26f..e1306f92fd82 100644
---- a/arch/arm/boot/dts/stm32mp15xx-dhcor-avenger96.dtsi
-+++ b/arch/arm/boot/dts/stm32mp15xx-dhcor-avenger96.dtsi
-@@ -336,11 +336,7 @@ &ltdc {
- 	status = "okay";
- 
- 	port {
--		#address-cells = <1>;
--		#size-cells = <0>;
--
--		ltdc_ep0_out: endpoint@0 {
--			reg = <0>;
-+		ltdc_ep0_out: endpoint {
- 			remote-endpoint = <&adv7513_in>;
- 		};
- 	};
-diff --git a/arch/arm/boot/dts/stm32mp15xx-dkx.dtsi b/arch/arm/boot/dts/stm32mp15xx-dkx.dtsi
-index 0f1110e42c93..a6e2e20f12fa 100644
---- a/arch/arm/boot/dts/stm32mp15xx-dkx.dtsi
-+++ b/arch/arm/boot/dts/stm32mp15xx-dkx.dtsi
-@@ -457,8 +457,7 @@ &ltdc {
- 	status = "okay";
- 
- 	port {
--		ltdc_ep0_out: endpoint@0 {
--			reg = <0>;
-+		ltdc_ep0_out: endpoint {
- 			remote-endpoint = <&sii9022_in>;
- 		};
- 	};
--- 
-2.25.1
+>>>> I think if you retain the stm32mp151.dtsi &ltdc { port { #address-cells = <1>;
+>>>> #size-cells = <0>; }; }; part, then you wouldn't be getting any warnings
+>>>> regarding LTDC , and you wouldn't have to remove the unit-address from
+>>>> endpoint@0 .
+>>>>
+>>>> btw. I do use both endpoint@0/endpoint@1 in Avenger96 DTOs, but those are not
+>>>> submitted yet, I have to clean them up a bit more first.
+>>>>
+>>>>> One way to do it would be to make the endpoint@0 go down in the device-tree
+>>>>> with
+>>>>> its dependencies, so that both endpoints are the same level without generating
+>>>>> noise.
+>>>>
+>>>> I'm afraid I really don't quite understand which warning you're referring to.
+>>>> Can you please share that warning and ideally how to trigger it (the
+>>>> command-line incantation) ?
+>>>
+>>> Using '$ make dtbs W=1', you can observe several of the followings:
+>>>
+>>> arch/arm/boot/dts/stm32mp151.dtsi:1533.9-1536.6: Warning
+>>> (avoid_unnecessary_addr_size): /soc/display-controller@5a001000/port:
+>>> unnecessary #address-cells/#size-cells without "ranges" or child "reg" property
+>>> arch/arm/boot/dts/stm32mp151.dtsi:1533.9-1536.6: Warning (graph_child_address):
+>>> /soc/display-controller@5a001000/port: graph node has single child node
+>>> 'endpoint@0', #address-cells/#size-cells are not necessary
+>>>
+>>> This &ltdc { port { #address-cells = <1>; #size-cells = <0>; }; }; part is
+>>> actually annoying. This is because there is several device-trees that only got
+>>> one endpoint, and some other that includes two.
+>>>
+>>> For instance: stm32mp15xx-dhcor-avenger96.dtsi vs stm32mp157c-dk2.dts.
+>>>
+>>> I would like to remove to root part of address/size field and let only the lower
+>>> device-trees with with multiple endpoints handle their own fields. I hope this
+>>> explains a bit better my process.
+>>
+>> After thinking about this some more, and digging through LTDC driver, and
+>> testing on EV1, I think dropping the LTDC node endpoint@N and reg=<N>
+>> altogether and just using port/endpoint (singular) is fine.
+>>
+>> You might want to split the DSI node specific changes and the LTDC node
+>> specific changes into separate patches (LTDC specific change like you did in
+>> 1/3).
+> 
+> Yes, I prepared a new serie with that split, to that it is better to read and
+> review.
 
+Thank you !
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
