@@ -2,59 +2,46 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 51917714778
-	for <lists+linux-stm32@lfdr.de>; Mon, 29 May 2023 11:54:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1ED7E714CFB
+	for <lists+linux-stm32@lfdr.de>; Mon, 29 May 2023 17:27:02 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0A184C6A61A;
-	Mon, 29 May 2023 09:54:56 +0000 (UTC)
-Received: from phobos.denx.de (phobos.denx.de [85.214.62.61])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BDDFAC6A608;
+	Mon, 29 May 2023 15:27:01 +0000 (UTC)
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A4673C6A608
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7F13CC65E56
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 29 May 2023 09:54:54 +0000 (UTC)
-Received: from [127.0.0.1] (p578adb1c.dip0.t-ipconnect.de [87.138.219.28])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits))
- (No client certificate requested)
- (Authenticated sender: marex@denx.de)
- by phobos.denx.de (Postfix) with ESMTPSA id 1EC8885727;
- Mon, 29 May 2023 11:54:53 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de;
- s=phobos-20191101; t=1685354094;
- bh=9GUyg9+gt7TVBcEa/jnDJGhoVSQTLctlj2bS4yr1fZY=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=mIyaKHlWyKDfRge7rpO4RsQnmyhSUWEcSRJY7Fi1gP8w06+cu8xmBDWbLPOeDzS/U
- +Rxtd1qQWyV4rmnUmCnnsst7K60Lgw0CDnehN4+eCmv9Fmi6D0STvSJ5OUR5KniP1d
- oCbvGPJNCLY5P0BamRPTDIR8hd1yNtKFgGlCKF+CmI4sxge1EEZ9N5HmO5P/wXAWou
- oIHnhcQtyIoYoQWOHXDTVCgdVNvRr5/MITRXfNir+a8DLvyBRXarvucXBPg5PrAKfH
- uU4CpcV8SFsQqI0s95yjCf/eAjEuX4h8CO0WJhVAFHv06gfO35PxuUmZfjA/3pOBHi
- 4Rc9MkON9wEOw==
-Message-ID: <f5b83a37-f448-64e5-1d7a-b297106ce22a@denx.de>
-Date: Mon, 29 May 2023 11:54:01 +0200
+ Mon, 29 May 2023 15:27:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+ s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+ References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+ Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+ Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+ bh=XrhKs65eVR58nzvXmimckGR4A5aMYBx7snNEVddnqrI=; b=JHdOXlJY9504uBQHj2BYyKS7W1
+ /GSyjv4auAV6uEG5HXPY6lXLKc0LHKWObBJ+kX0ev/LKZZFi+dhJlTSlsR4zo0HfAeHjsjDwBtNAt
+ 93gg6YbcQLF4oGw+yilC4YJQRCTvhjIIrNdzAv6yOGhT5s8DbUplLztm+2GZOHAb7yRY=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+ (envelope-from <andrew@lunn.ch>)
+ id 1q3eli-00EEsr-6P; Mon, 29 May 2023 17:26:46 +0200
+Date: Mon, 29 May 2023 17:26:46 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
+Message-ID: <c5ee51e5-56d6-4f85-a70b-21f763d8c2f5@lunn.ch>
+References: <ZHCGZ8IgAAwr8bla@shell.armlinux.org.uk>
+ <E1q2USw-008PAa-Nl@rmk-PC.armlinux.org.uk>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Content-Language: en-US
-To: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Philippe Cornu <philippe.cornu@foss.st.com>,
- Yannick Fertre <yannick.fertre@foss.st.com>
-References: <20230529091359.71987-1-raphael.gallais-pou@foss.st.com>
- <20230529091359.71987-5-raphael.gallais-pou@foss.st.com>
-From: Marek Vasut <marex@denx.de>
-In-Reply-To: <20230529091359.71987-5-raphael.gallais-pou@foss.st.com>
-X-Virus-Scanned: clamav-milter 0.103.8 at phobos.denx.de
-X-Virus-Status: Clean
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, kernel@dh-electronics.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v4 4/4] ARM: dts: stm32: fix ltdc warnings
- in stm32mp15 boards
+Content-Disposition: inline
+In-Reply-To: <E1q2USw-008PAa-Nl@rmk-PC.armlinux.org.uk>
+Cc: Jose Abreu <joabreu@synopsys.com>, Simon Horman <simon.horman@corigine.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
+ Jiawen Wu <jiawenwu@trustnetic.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>, netdev@vger.kernel.org,
+ Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org, Heiner Kallweit <hkallweit1@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH net-next 3/6] net: stmmac: use
+	xpcs_create_mdiodev()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,20 +53,20 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 5/29/23 11:13, Raphael Gallais-Pou wrote:
-> Those concern:
->    * "#size-cells" and "#address-cells" wrongly used
->    * residual "reg" property appearing on endpoints where it could be
->      avoided
+On Fri, May 26, 2023 at 11:14:34AM +0100, Russell King (Oracle) wrote:
+> Use the new xpcs_create_mdiodev() creator, which simplifies the
+> creation and destruction of the mdio device associated with xpcs.
 > 
-> Signed-off-by: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
+> Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 
-Reviewed-by: Marek Vasut <marex@denx.de>
+Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+
+    Andrew
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
