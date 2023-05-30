@@ -2,74 +2,74 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 82D32715E83
-	for <lists+linux-stm32@lfdr.de>; Tue, 30 May 2023 14:09:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9DC68715F3E
+	for <lists+linux-stm32@lfdr.de>; Tue, 30 May 2023 14:27:41 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 23FA7C6A613;
-	Tue, 30 May 2023 12:09:02 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 69DFFC6A613;
+	Tue, 30 May 2023 12:27:41 +0000 (UTC)
+Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com
+ [209.85.218.42])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6C84EC65E5A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9F9A3C65E5A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 30 May 2023 12:08:59 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 34UC4pTN018239; Tue, 30 May 2023 14:08:32 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=eUMt/DGvSnsVrLlt9wTQ7XbXUJ6l9bqRdAwrT9NXRl4=;
- b=gpY60mVqFAHm5rhYyUhnApTQy+VI+kpHjEhL+RL0V2FdWiHUyjZb48b4pLS6qiNbGX2e
- 8xG4XR6+yUNpNSeUxA4EXa5JjMMkmNjj5IK73Vel8PP7cYDEwSL0b7/tylFqnodu4hur
- fbTNPB4qVeEaXOjcwJERDAbMS+VHSlHWumhHWNtGtSfgWnexxbyY9outi7zR0CxkGOB4
- PPVL1rjtBiY/OfGpBt6JBbHG3PcHaoPvvt9Zf3zcy80AcRq+f+/mewrlw4x+tQTT9vFl
- zWUaCpiAUxiejXCqZ3+nZTRv+EaoIv/xBqq7cZpZoZgOpY4PQaXDVZztTUYO6JQAj1Yq hw== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3qwdm5hhgj-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 30 May 2023 14:08:32 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 5F0C610002A;
- Tue, 30 May 2023 14:08:30 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 3839E21ED5D;
- Tue, 30 May 2023 14:08:30 +0200 (CEST)
-Received: from [10.201.21.93] (10.201.21.93) by SHFDAG1NODE1.st.com
- (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.21; Tue, 30 May
- 2023 14:08:29 +0200
-Message-ID: <4308327f-d2e2-e9a2-6add-5e0352d3f1e2@foss.st.com>
-Date: Tue, 30 May 2023 14:08:29 +0200
+ Tue, 30 May 2023 12:27:40 +0000 (UTC)
+Received: by mail-ej1-f42.google.com with SMTP id
+ a640c23a62f3a-973f8dbcc02so440270466b.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 30 May 2023 05:27:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1685449660; x=1688041660;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=Mlnk799/MfyB54DQ8/eLtl8DYJIH7QAdWviYq7D2W+E=;
+ b=yabZWQjhxV76ieZOcwL1QgqGXFdbyAPcvg4gA6AvveAl2Iz8NAKMYmReuySiJmc1Cg
+ tE0SupZtraraFkF2PWWdUNgvLks4oInKExm0cvA3IZ4I026dgvWUKK4VfvqYB3Xq0al1
+ YaWqyGUpOXyHXL/gAFpld4uzzD8RPMllYPjgO3JKnvEAKr9ENX218gDzbIm5rfcWfLvC
+ owmyR6u/rHAZn1MAg8F6nq6wD7ZnR0nWIE+BUCNrHaHRpPUpLaPeMB1NV7SgKxm5xfaZ
+ aYJcg6CnwtfvmjcnEt4ZC2xAL47yxCWJwpltUMT7TuHqkPy0TRpN4Xm18NsWllBZzzQK
+ 99bQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1685449660; x=1688041660;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Mlnk799/MfyB54DQ8/eLtl8DYJIH7QAdWviYq7D2W+E=;
+ b=XXLUdPH7EtjhzmDQ7wzT/dk8EkJbKUqVeIC6tzUfJgPG7NIV4lS9YBLTYo/LZS5YoP
+ WSjMP3MhHjc6vHtX/rnCF44SDIU6tjaKzRtsb2Lw3D3tlhOu/hLYUDkX7VQ7rYNF0W7m
+ Nd4x3A7j6lMqProBBSHG0s9gGrxeQESkZnf6ggvZCWOLwg1KBgEZpqIXqRrTZr7KPD8k
+ qwQK6s6R+k1FYox5p4Uj5wspDRdhGjvb6hTSOXeTymoih4ED+1BUy4FZs0tvOr751SS5
+ yfqeZa5DjzBogemaSvYvKU46rBaUjMbrrJB47UWPrGXTdJ5YCLWjEMMaZTy7TnY3vy0S
+ p2FQ==
+X-Gm-Message-State: AC+VfDyRxvcu5PfUVdW3E943O2ZtFMEyh2OlgKBC7a6cyO05ZWOR1TEi
+ 4I+APGg5Yqxp3oZr3RGKOM6OJw==
+X-Google-Smtp-Source: ACHHUZ4FRtZtGdub5NQDntPy9nGyeS/bwj7mFnRDmzYb5VuO1PJh2E+P8gVT3nDseQEkWbZm/MnbqQ==
+X-Received: by 2002:a17:907:318d:b0:961:69a2:c8d6 with SMTP id
+ xe13-20020a170907318d00b0096169a2c8d6mr2552988ejb.69.1685449660040; 
+ Tue, 30 May 2023 05:27:40 -0700 (PDT)
+Received: from krzk-bin ([178.197.199.204]) by smtp.gmail.com with ESMTPSA id
+ f18-20020a170906049200b009661484e84esm7356444eja.191.2023.05.30.05.27.38
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 30 May 2023 05:27:39 -0700 (PDT)
+Date: Tue, 30 May 2023 14:27:36 +0200
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+To: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
+Message-ID: <20230530122736.tflfu5cugbd7ooup@krzk-bin>
+References: <20230529091359.71987-1-raphael.gallais-pou@foss.st.com>
+ <20230529091359.71987-3-raphael.gallais-pou@foss.st.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.10.0
-Content-Language: en-US
-To: Conor Dooley <conor.dooley@microchip.com>
-References: <20230529162034.20481-1-alexandre.torgue@foss.st.com>
- <20230529162034.20481-3-alexandre.torgue@foss.st.com>
- <20230529-enrich-clammy-14b498baf09f@spud>
- <879b7689-5663-28b5-9431-2fdd243ffff2@foss.st.com>
- <20230530-payday-gravity-45a26bd7f2dc@wendy>
-From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
-In-Reply-To: <20230530-payday-gravity-45a26bd7f2dc@wendy>
-X-Originating-IP: [10.201.21.93]
-X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SHFDAG1NODE1.st.com
- (10.75.129.69)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.957,Hydra:6.0.573,FMLib:17.11.176.26
- definitions=2023-05-30_08,2023-05-30_01,2023-05-22_02
-Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- Arnd Bergmann <arnd@arndb.de>, Catalin Marinas <catalin.marinas@arm.com>,
- Linus Walleij <linus.walleij@linaro.org>, linux-kernel@vger.kernel.org,
- Conor Dooley <conor@kernel.org>, linux-gpio@vger.kernel.org, soc@kernel.org,
- robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org,
- Olof Johansson <olof@lixom.net>, Will Deacon <will@kernel.org>,
+Content-Disposition: inline
+In-Reply-To: <20230529091359.71987-3-raphael.gallais-pou@foss.st.com>
+Cc: Marek Vasut <marex@denx.de>, devicetree@vger.kernel.org,
+ Conor Dooley <conor+dt@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Yannick Fertre <yannick.fertre@foss.st.com>, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Rob Herring <robh+dt@kernel.org>,
+ Conor Dooley <conor.dooley@microchip.com>, kernel@dh-electronics.com,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, David Airlie <airlied@gmail.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 02/11] pinctrl: stm32: add stm32mp257
-	pinctrl support
+Subject: Re: [Linux-stm32] [PATCH v4 2/4] dt-bindings: display: st,
+ stm32-dsi: Remove unnecessary fields
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,56 +81,41 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 5/30/23 10:56, Conor Dooley wrote:
-> On Tue, May 30, 2023 at 10:38:30AM +0200, Alexandre TORGUE wrote:
->> Hi Conor
->>
->> On 5/29/23 20:04, Conor Dooley wrote:
->>> On Mon, May 29, 2023 at 06:20:25PM +0200, Alexandre Torgue wrote:
->>>> Add stm32mp257 pinctrl support.
->>>> diff --git a/drivers/pinctrl/stm32/pinctrl-stm32.h b/drivers/pinctrl/stm32/pinctrl-stm32.h
->>>> index e0c31c4c8bca..5e5de92ddd58 100644
->>>> --- a/drivers/pinctrl/stm32/pinctrl-stm32.h
->>>> +++ b/drivers/pinctrl/stm32/pinctrl-stm32.h
->>>> @@ -24,6 +24,9 @@
->>>>    #define STM32MP_PKG_AB		BIT(1)
->>>>    #define STM32MP_PKG_AC		BIT(2)
->>>>    #define STM32MP_PKG_AD		BIT(3)
->>>> +#define STM32MP_PKG_AI		BIT(8)
->>>> +#define STM32MP_PKG_AK		BIT(10)
->>>> +#define STM32MP_PKG_AL		BIT(11)
->>>
->>> Mainly out of curiosity, why have you go duplicate defines for these?
->>
->> Mainly to fit with available packages for various STM32 MPU. Currently MP1
->> SoCs are available with packages AB/AC/AD and MP2 series with AI/AK/AL but
->> in the future we could have package AB/AC/AD/AI available for a particular
->> SoC and then I need to anticipate this case.
+On Mon, 29 May 2023 11:13:57 +0200, Raphael Gallais-Pou wrote:
+> "#address-cells" and "#size-cells" are two properties that are not
+> mandatory. For instance, the DSI could refer to a bridge outside the scope
+> of the node rather than include a 'panel@0' subnode. By doing so, address
+> and size fields become then unnecessary, creating a warning at build time.
 > 
-> Sorry, what I meant was "why have you got defines for these in this
-> header, when there is an existing set in
-> include/dt-bindings/pinctrl/stm32-pinfunc.h?".
-
-Ok, I see. To be honest I do it as we did in the past for STM32 MCU and 
-MP1 products. We had this discussion maybe 5 or 6 years ago about the 
-fact to include or not the "dt-bindings" file in the stm32 drivers. I 
-don't remember exactly the rational behind our choice. It is something 
-that we could improve for all our STM32 products. Sorry for this 
-imprecise answer.
-
-Alex
-
-
-> 
-> Cheers,
-> Conor.
+> Signed-off-by: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
+> Acked-by: Conor Dooley <conor.dooley@microchip.com>
+> Reviewed-by: Marek Vasut <marex@denx.de>
+> ---
+>  Documentation/devicetree/bindings/display/st,stm32-dsi.yaml | 2 --
+>  1 file changed, 2 deletions(-)
 > 
 
+Running 'make dtbs_check' with the schema in this patch gives the
+following warnings. Consider if they are expected or the schema is
+incorrect. These may not be new warnings.
+
+Note that it is not yet a requirement to have 0 warnings for dtbs_check.
+This will change in the future.
+
+Full log is available here: https://patchwork.ozlabs.org/patch/1787034
+
+
+dsi@40016c00: Unevaluated properties are not allowed ('panel-dsi@0' was unexpected)
+	arch/arm/boot/dts/stm32f469-disco.dtb
+
+dsi@5a000000: Unevaluated properties are not allowed ('panel-dsi@0' was unexpected)
+	arch/arm/boot/dts/stm32mp157c-ev1.dtb
+	arch/arm/boot/dts/stm32mp157c-ev1-scmi.dtb
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
