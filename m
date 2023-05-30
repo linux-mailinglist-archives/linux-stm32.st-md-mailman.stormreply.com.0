@@ -2,78 +2,52 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id BEFCA7162FE
-	for <lists+linux-stm32@lfdr.de>; Tue, 30 May 2023 16:04:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 73F1D716354
+	for <lists+linux-stm32@lfdr.de>; Tue, 30 May 2023 16:13:47 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 84564C6A613;
-	Tue, 30 May 2023 14:04:36 +0000 (UTC)
-Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com
- [209.85.208.44])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1CB88C6A614;
+	Tue, 30 May 2023 14:13:47 +0000 (UTC)
+Received: from phobos.denx.de (phobos.denx.de [85.214.62.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D168CC65E5A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0C2FFC65E5A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 30 May 2023 14:04:35 +0000 (UTC)
-Received: by mail-ed1-f44.google.com with SMTP id
- 4fb4d7f45d1cf-510f525e06cso7860401a12.2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 30 May 2023 07:04:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1685455475; x=1688047475;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=QYxvmLTRS13Ehc3QgciGTadH+O7LLfNmtYTSHMK4epM=;
- b=AfV/EiRzkrXsTyysLyhpCFT8cI/HfscqQp0tI3HrhAPz4ynNqrdym/iIYy5F/pw+74
- B9HnS9kFRB3OrvdSz+l1t5ler1GR1rUzWopwNykAPsXX4pJiWJEynSMnuIuoelqSREbq
- ozI4/MsvwNS9UHhbajkaDiRF0QC22E9exrDbrPg1dJ7luqtjpqEU6/CoFoDMGV4u1kUz
- MT9BzkXx9EfhaR9lPnuDXjPH/zoC7cnRLgGeYwlHHNve2aQQ2qD/vNc5NPFtAX0ymfoI
- ksq577fC4rGw/UrfFPjDK2aAU68qmtvXNsSuq2Jp16qUQXVVKU9+RxFPFbIcvR3uR9I2
- PR6g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1685455475; x=1688047475;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=QYxvmLTRS13Ehc3QgciGTadH+O7LLfNmtYTSHMK4epM=;
- b=U51p9rnPlS8jrrjND6tUzHhvGljBKB9PJyghU8gLewkA70G0VbwlGSoTmYK7cT/bZQ
- NSmWOQja//7ALdU54GRN0DrUn0oK5w0LX5sS/vcmQzH06Rol5PsQLECsyHiNkBIWOofC
- 4MHZ9b5AIMQvUfZnkutc1ubK2N3xFj3OWM+m1tNk00I0HvMtmeGTSAYytqIxK8pPgMZQ
- GrOifb/EvQzB4WCyaUGWEC6vpTqg79mjwo9pN3c5phi38q7Z9gGvC4e9S9WEQfEd46wY
- HS5kdZTQH1CHX3KlNorqu3Rs4kb7/iYym445QbCaTDmckwZlkDY6xoFXymk33ZG/dAcN
- 7B8g==
-X-Gm-Message-State: AC+VfDyjl+X3KohfIpxJgbpHfDoz7BZxkjM/xfW8jmaISjaoihkhBD97
- bqDu0Zmwl4nI3lAIgR77DkpR/Q==
-X-Google-Smtp-Source: ACHHUZ65SdQ7bm40X1xjIzR//czjn3KI6YOqjCZL15qypKnRSXEwK+KSK6hQIq2PFBtO6Vd526Gbkw==
-X-Received: by 2002:aa7:dccd:0:b0:50c:cde7:285b with SMTP id
- w13-20020aa7dccd000000b0050ccde7285bmr1610460edu.29.1685455475339; 
- Tue, 30 May 2023 07:04:35 -0700 (PDT)
-Received: from [192.168.1.20] ([178.197.199.204])
- by smtp.gmail.com with ESMTPSA id
- r25-20020aa7da19000000b00510d8e43fe0sm4415999eds.7.2023.05.30.07.04.33
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 30 May 2023 07:04:34 -0700 (PDT)
-Message-ID: <ca6042f7-5586-8f7d-19a1-73a3676697f6@linaro.org>
-Date: Tue, 30 May 2023 16:04:32 +0200
+ Tue, 30 May 2023 14:13:45 +0000 (UTC)
+Received: from [127.0.0.1] (p578adb1c.dip0.t-ipconnect.de [87.138.219.28])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits))
+ (No client certificate requested)
+ (Authenticated sender: marex@denx.de)
+ by phobos.denx.de (Postfix) with ESMTPSA id 171DF8215F;
+ Tue, 30 May 2023 16:13:45 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de;
+ s=phobos-20191101; t=1685456025;
+ bh=MwdNgsOpq9+luw2sK8Nh7b3bZbhR0jd153TLO6VHEDU=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=exhf/ZyE5aMegR3pXj5TfRxgcbBike+rLedJK4FOCw2KB0xf7EWir0uR+gydiqL1h
+ j9GfI6q0hbarZJKjtcrfviBLrg1D4jqz8xR6HxEjTp/NOyNf1IE86pRTlfoq4RN+xe
+ b1e1rw/WOL3TU5RaxZvpo7NFn2ZkFwiVrJCNnw0Kg/r7p4MmNT5fvFr7cxKlkQjNOs
+ Uf8cxL//gnM24ptdf4W/Yq73/voZ9KPhVN2Z9ZTZh1UKXQ/Mdfac7us3RRjy6EVrZu
+ YOAiRsHmuPaXUUXPiavWV94vCfHeiqERzy2+PooP3H8NOs1Jgh5krppZGnklkpeflk
+ V87lP+euzacig==
+Message-ID: <eb76a6e9-150a-5daf-75fd-7574c36714f8@denx.de>
+Date: Tue, 30 May 2023 16:13:44 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.11.0
 Content-Language: en-US
-To: Oleksij Rempel <o.rempel@pengutronix.de>,
+To: Amelie Delaunay <amelie.delaunay@foss.st.com>, linux-rtc@vger.kernel.org
+References: <20230518003311.415018-1-marex@denx.de>
+ <4a24cd14-9cca-7499-a0d3-37f7e4c3b087@foss.st.com>
+From: Marek Vasut <marex@denx.de>
+In-Reply-To: <4a24cd14-9cca-7499-a0d3-37f7e4c3b087@foss.st.com>
+X-Virus-Scanned: clamav-milter 0.103.8 at phobos.denx.de
+X-Virus-Status: Clean
+Cc: Alessandro Zummo <a.zummo@towertech.it>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- =?UTF-8?B?SsOpcsO0bWUgUG91aWxsZXI=?= <jerome.pouiller@silabs.com>
-References: <20230530083713.2527380-1-o.rempel@pengutronix.de>
- <20230530083713.2527380-3-o.rempel@pengutronix.de>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20230530083713.2527380-3-o.rempel@pengutronix.de>
-Cc: devicetree@vger.kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, kernel@pengutronix.de,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2 2/3] dt-bindings: net: pse-pd: Add
- "ethernet-pse-0" example to improve validation in podl-pse-regulator DT
- binding
+Subject: Re: [Linux-stm32] [PATCH] rtc: stm32: Handle single EXTI IRQ as
+	wake up source
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,38 +59,71 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 30/05/2023 10:37, Oleksij Rempel wrote:
-> This change adds a new example, "ethernet-pse-0", to the device tree
-> binding for podl-pse-regulator. This helps improve validation by
-> supporting more types of node names.
-> 
-> Signed-off-by: Oleksij Rempel <o.rempel@pengutronix.de>
-> ---
->  .../devicetree/bindings/net/pse-pd/podl-pse-regulator.yaml  | 6 ++++++
->  1 file changed, 6 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/net/pse-pd/podl-pse-regulator.yaml b/Documentation/devicetree/bindings/net/pse-pd/podl-pse-regulator.yaml
-> index 94a527e6aa1b..25d237e0f406 100644
-> --- a/Documentation/devicetree/bindings/net/pse-pd/podl-pse-regulator.yaml
-> +++ b/Documentation/devicetree/bindings/net/pse-pd/podl-pse-regulator.yaml
-> @@ -38,3 +38,9 @@ examples:
->        pse-supply = <&reg_t1l1>;
->        #pse-cells = <0>;
->      };
-> +  - |
-> +    ethernet-pse-0 {
-
-It's the same example. No need for new one with different node names.
-
-Best regards,
-Krzysztof
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gNS8zMC8yMyAxNjowMiwgQW1lbGllIERlbGF1bmF5IHdyb3RlOgo+IEhpIE1hcmVrLAoKSGVs
+bG8gQW1lbGllLAoKPiBPbiA1LzE4LzIzIDAyOjMzLCBNYXJlayBWYXN1dCB3cm90ZToKPj4gVGhl
+IGFyY2gvYXJtL2Jvb3QvZHRzL3N0bTMybXAxNTEuZHRzaSBzcGVjaWZpZXMgb25lIGludGVycnVw
+dCBmb3IgdGhlCj4+IFJUQyBub2RlLCB3aGlsZSB0aGUgZXhwZWN0YXRpb24gb2YgdGhlIFJUQyBk
+cml2ZXIgaXMgdHdvIGludGVycnVwdHMgb24KPj4gU1RNMzJNUDE1eHggU29DLCBvbmUgY29ubmVj
+dGVkIHRvIEdJQyBpbnRlcnJ1cHQgY29udHJvbGxlciBhbmQgYW5vdGhlcgo+PiBvbmUgdG8gRVhU
+SS4gUGVyIFNUTTMyTVAxNXh4IHJlZmVyZW5jZSBtYW51YWwsIHRoZSB0d28gaW50ZXJydXB0cyBz
+ZXJ2ZQo+PiB0aGUgc2FtZSBwdXJwb3NlLCBleGNlcHQgdGhlIEVYVEkgb25lIGNhbiBhbHNvIHdh
+a2UgdGhlIHN5c3RlbSB1cC4gVGhlCj4+IEVYVEkgZHJpdmVyIGFscmVhZHkgaW50ZXJuYWxseSBo
+YW5kbGVzIHRoaXMgR0lDIGFuZCBFWFRJIGR1YWxpdHkgYW5kCj4+IG1hcHMgdGhlIEVYVEkgaW50
+ZXJydXB0IG9udG8gR0lDIGR1cmluZyBydW50aW1lLCBhbmQgb25seSB1c2VzIHRoZSBFWFRJCj4+
+IGZvciB3YWtlIHVwIGZ1bmN0aW9uYWxpdHkuCj4+Cj4+IFRoZXJlZm9yZSwgZml4IHRoZSBkcml2
+ZXIgc3VjaCB0aGF0IGlmIG9uIFNUTTMyTVAxNXh4IHRoZXJlIGlzIG9ubHkgb25lCj4+IGludGVy
+cnVwdCBzcGVjaWZpZWQgaW4gdGhlIERULCB1c2UgdGhhdCBpbnRlcnJ1cHQgYXMgRVhUSSBpbnRl
+cnJ1cHQgYW5kCj4+IHNldCBpdCBhcyB3YWtlIHVwIHNvdXJjZS4KPj4KPj4gVGhpcyBmaXhlcyB0
+aGUgZm9sbG93aW5nIHdhcm5pbmcgaW4gdGhlIGtlcm5lbCBsb2cgb24gU1RNMzJNUDE1eHg6Cj4+
+ICIKPj4gc3RtMzJfcnRjIDVjMDA0MDAwLnJ0YzogZXJyb3IgLUVOWElPOiBJUlEgaW5kZXggMSBu
+b3QgZm91bmQKPj4gc3RtMzJfcnRjIDVjMDA0MDAwLnJ0YzogYWxhcm0gY2FuJ3Qgd2FrZSB1cCB0
+aGUgc3lzdGVtOiAtNgo+PiAiCj4+Cj4+IFRoaXMgYWxzbyBmaXhlcyB0aGUgc3lzdGVtIHdha2Ug
+dXAgdmlhIGJ1aWx0LWluIFJUQyB1c2luZyBlLmcuOgo+PiAkIHJ0Y3dha2UgLXMgNSAtbSBtZW0K
+Pj4KPj4gRml4ZXM6IGI3MjI1MmI2NTgwYyAoInJ0Yzogc3RtMzI6IGFkZCBzdG0zMm1wMSBydGMg
+c3VwcG9ydCIpCj4+IFNpZ25lZC1vZmYtYnk6IE1hcmVrIFZhc3V0IDxtYXJleEBkZW54LmRlPgo+
+PiAtLS0KPj4gQ2M6IEFsZXNzYW5kcm8gWnVtbW8gPGEuenVtbW9AdG93ZXJ0ZWNoLml0Pgo+PiBD
+YzogQWxleGFuZHJlIEJlbGxvbmkgPGFsZXhhbmRyZS5iZWxsb25pQGJvb3RsaW4uY29tPgo+PiBD
+YzogQWxleGFuZHJlIFRvcmd1ZSA8YWxleGFuZHJlLnRvcmd1ZUBmb3NzLnN0LmNvbT4KPj4gQ2M6
+IEFtZWxpZSBERUxBVU5BWSA8YW1lbGllLmRlbGF1bmF5QGZvc3Muc3QuY29tPgo+PiBDYzogTWF4
+aW1lIENvcXVlbGluIDxtY29xdWVsaW4uc3RtMzJAZ21haWwuY29tPgo+PiBDYzogbGludXgtYXJt
+LWtlcm5lbEBsaXN0cy5pbmZyYWRlYWQub3JnCj4+IENjOiBsaW51eC1ydGNAdmdlci5rZXJuZWwu
+b3JnCj4+IENjOiBsaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCj4+IC0t
+LQo+PiDCoCBkcml2ZXJzL3J0Yy9ydGMtc3RtMzIuYyB8IDkgKysrKystLS0tCj4+IMKgIDEgZmls
+ZSBjaGFuZ2VkLCA1IGluc2VydGlvbnMoKyksIDQgZGVsZXRpb25zKC0pCj4+Cj4+IGRpZmYgLS1n
+aXQgYS9kcml2ZXJzL3J0Yy9ydGMtc3RtMzIuYyBiL2RyaXZlcnMvcnRjL3J0Yy1zdG0zMi5jCj4+
+IGluZGV4IDIyOWNiMjg0N2NjNDguLjcyOTk0YjlmOTUzMTkgMTAwNjQ0Cj4+IC0tLSBhL2RyaXZl
+cnMvcnRjL3J0Yy1zdG0zMi5jCj4+ICsrKyBiL2RyaXZlcnMvcnRjL3J0Yy1zdG0zMi5jCj4+IEBA
+IC03ODAsMTQgKzc4MCwxNSBAQCBzdGF0aWMgaW50IHN0bTMyX3J0Y19wcm9iZShzdHJ1Y3QgCj4+
+IHBsYXRmb3JtX2RldmljZSAqcGRldikKPj4gwqDCoMKgwqDCoCByZXQgPSBkZXZpY2VfaW5pdF93
+YWtldXAoJnBkZXYtPmRldiwgdHJ1ZSk7Cj4+IMKgwqDCoMKgwqAgaWYgKHJ0Yy0+ZGF0YS0+aGFz
+X3dha2VpcnEpIHsKPj4gLcKgwqDCoMKgwqDCoMKgIHJ0Yy0+d2FrZWlycV9hbGFybSA9IHBsYXRm
+b3JtX2dldF9pcnEocGRldiwgMSk7Cj4+ICvCoMKgwqDCoMKgwqDCoCBydGMtPndha2VpcnFfYWxh
+cm0gPSBwbGF0Zm9ybV9nZXRfaXJxX29wdGlvbmFsKHBkZXYsIDEpOwo+PiDCoMKgwqDCoMKgwqDC
+oMKgwqAgaWYgKHJ0Yy0+d2FrZWlycV9hbGFybSA+IDApIHsKPj4gwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqAgcmV0ID0gZGV2X3BtX3NldF9kZWRpY2F0ZWRfd2FrZV9pcnEoJnBkZXYtPmRldiwK
+Pj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgIHJ0Yy0+d2FrZWlycV9hbGFybSk7Cj4+IC3CoMKgwqDCoMKgwqDCoCB9IGVs
+c2Ugewo+PiArwqDCoMKgwqDCoMKgwqAgfSBlbHNlIGlmIChydGMtPndha2VpcnFfYWxhcm0gPT0g
+LUVQUk9CRV9ERUZFUikgewo+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCByZXQgPSBydGMt
+Pndha2VpcnFfYWxhcm07Cj4+IC3CoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGlmIChydGMtPndha2Vp
+cnFfYWxhcm0gPT0gLUVQUk9CRV9ERUZFUikKPj4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoCBnb3RvIGVycjsKPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgZ290byBlcnI7Cj4+ICvC
+oMKgwqDCoMKgwqDCoCB9IGVsc2Ugewo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCByZXQgPSBk
+ZXZfcG1fc2V0X3dha2VfaXJxKCZwZGV2LT5kZXYsIHJ0Yy0+aXJxX2FsYXJtKTsKPj4gwqDCoMKg
+wqDCoMKgwqDCoMKgIH0KPj4gwqDCoMKgwqDCoCB9Cj4+IMKgwqDCoMKgwqAgaWYgKHJldCkKPiAK
+PiBJbiBvdXIgZG93bnN0cmVhbSBbMV0sIGRlZGljYXRlZCB3YWtldXAgaXJxIG1hbmFnZW1lbnQg
+aXMgZHJvcHBlZDogaXQgaXMgCj4gbmVpdGhlciBkZXNjcmliZWQgaW4gc3Qsc3RtMzItcnRjIGJp
+bmRpbmdzIG5vciB1c2VkIGluIFNUTTMyRngsIFNUTTMySHgsIAo+IFNUTTMyTVAxeCBkZXZpY2Ug
+dHJlZXMuCj4gVGhlIHBvaW50ZWQgcGF0Y2ggaXMgZ29pbmcgdG8gYmUgdXBzdHJlYW1lZC4KPiAK
+PiBbMV0gCj4gaHR0cHM6Ly9naXRodWIuY29tL1NUTWljcm9lbGVjdHJvbmljcy9saW51eC9jb21t
+aXQvNWE0NWUxZjEwMGQ1OWMzM2I2YjUwZmU5OGMwZjYyODYyYmQ2ZjNkMgoKV29uJ3QgdGhhdCBi
+cmVhayBjb21wYXRpYmlsaXR5IHdpdGggRFRzIHdoaWNoIGRvIHVzZSB0d28gaW50ZXJydXB0cyAK
+ZW50cmllcyA/Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+CkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3Jt
+cmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xp
+c3RpbmZvL2xpbnV4LXN0bTMyCg==
