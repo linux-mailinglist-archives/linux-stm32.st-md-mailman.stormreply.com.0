@@ -2,47 +2,70 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 41A1E71670E
-	for <lists+linux-stm32@lfdr.de>; Tue, 30 May 2023 17:30:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 730DC716915
+	for <lists+linux-stm32@lfdr.de>; Tue, 30 May 2023 18:20:54 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E50C5C6A613;
-	Tue, 30 May 2023 15:30:09 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EF811C6A613;
+	Tue, 30 May 2023 16:20:53 +0000 (UTC)
+Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com
+ [209.85.216.45])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2C5E6C65E5A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 02D93C65E5A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 30 May 2023 15:30:09 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 0D83763292;
- Tue, 30 May 2023 15:30:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5BB1C433EF;
- Tue, 30 May 2023 15:30:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1685460607;
- bh=Beb3RsFF4BhoGVJ49Ey5uypg474z6jd7D6NAu8DXOQI=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=Zb3cLGg37Y31IcEshJFJn/+CSxgmdFhJ/pa6bES39riOjBTKNtYfv+VMHXg1SGX0a
- 9aXixZyOuT+63q/ho9GwnOEslPIDWqZYWKjHzdifvCG43XymDfHpjB0tbOph1JBD5h
- nwIyUOOxl3nusTfJ5eUT7h8ig+weLjqzbPhKQhS87GShFwHdIDB+NQsgfiHg6ayjrn
- iCGtB16QybYYXMHTLCaMp2H8BGGM7NJ3oU3klzplZRK6TsElqZn6dj59SL1WWCaua/
- 6/+e41JTRuIBwStQ7XSdTuTlQ3yw1Ri9+prghAOZqyR4/T90XI0zXkOU/uNtOSG9ZZ
- P5SXgKqthwYsQ==
-From: Mark Brown <broonie@kernel.org>
-To: linux-arm-kernel@lists.infradead.org, Marek Vasut <marex@denx.de>
-In-Reply-To: <20230518023946.530381-1-marex@denx.de>
-References: <20230518023946.530381-1-marex@denx.de>
-Message-Id: <168546060437.564321.9613326589114474794.b4-ty@kernel.org>
-Date: Tue, 30 May 2023 16:30:04 +0100
+ Tue, 30 May 2023 16:20:52 +0000 (UTC)
+Received: by mail-pj1-f45.google.com with SMTP id
+ 98e67ed59e1d1-25691a1b2b8so1325221a91.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 30 May 2023 09:20:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1685463651; x=1688055651;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=Vf4YK7Nlt1xMm1TWJQkBoFqPmDurlTxDp8HiK/k4M8k=;
+ b=VjGC5EGOqpWtBh+mIxKe7Jr2JgXDaZaiVvkxKwrmhnXgWfX8Vxd90dSarJ5pyfyIG4
+ DI/4s4lFuf929W4CVXxTBTAyblpUiNV9MG/mQAaZ8YLhccAmXasXKDV3JGSRg77PgFZf
+ IkVKZprTL0nTEc9FQ9yhI8Fi65/hmkZt4rkQ/GsI3DXr4gC7kQ7apCemi6NhXu23gJfp
+ qzBq0yqJ0HP7nEFCbNLZttq/HtbDMWII9eSidc0CR+JHEuOm4uXRd6gKzDb0FxsrrWWM
+ z2N2D05S5LZml3cCs2UpK2IiFT63UMNoUo1v3rJwMN41Fk36hrhEzJy60Wr6NVhH6wFs
+ HriQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1685463651; x=1688055651;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Vf4YK7Nlt1xMm1TWJQkBoFqPmDurlTxDp8HiK/k4M8k=;
+ b=dEmjT9G2V+xkpu9RNP+eXpgQPGNmpPjQHtrZV7e/kyuLKJoY9MovRJutRLCW3wIOVg
+ 8n4plvyV31L4wm0x0Oz73kvbmIsiS0jNiQDTalW278YSV5xWRSRtWI7rdgmkMp4P20v9
+ NABi83clepOWYP1qz+Ze4ZAsducouWW/AyVf+eZSkuc1WNOxbufnViqIkE9ydiyAF0kh
+ nRxwLKNklKJAhwNvDwNM5HjRc08hleJyVzWkJZQ6oCepgmtmLOFfXPWo0Z0XGMe6PTDk
+ NiOVicwZNLIdEzjA5DuXxO9Isunr5KZi94vhtEaCjcpNOkfTI8/TETxMhAUWDYD74V7v
+ uTUw==
+X-Gm-Message-State: AC+VfDwJQZh+1EhxbJMbE/x2UbShdirmGPq9BWm2dNms2/DxVQo1J8/7
+ 46naptmAF481LjYGO+8gMzUsLQ==
+X-Google-Smtp-Source: ACHHUZ6l87ILYGpW4MUVWIF+xyHlCkMCs7tBbloFyheBZTZyYhcowO1DlaakYntogeCKPeP80JhOKA==
+X-Received: by 2002:a17:90a:c695:b0:256:c44d:e115 with SMTP id
+ n21-20020a17090ac69500b00256c44de115mr2309344pjt.12.1685463651451; 
+ Tue, 30 May 2023 09:20:51 -0700 (PDT)
+Received: from p14s ([2604:3d09:148c:c800:ec0e:68f8:4f49:7581])
+ by smtp.gmail.com with ESMTPSA id
+ a3-20020a634d03000000b0053f3797fc4asm8370567pgb.0.2023.05.30.09.20.50
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 30 May 2023 09:20:51 -0700 (PDT)
+Date: Tue, 30 May 2023 10:20:48 -0600
+From: Mathieu Poirier <mathieu.poirier@linaro.org>
+To: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+Message-ID: <ZHYiYGMHdqxBaDzc@p14s>
+References: <20230523091350.292221-1-arnaud.pouliquen@foss.st.com>
 MIME-Version: 1.0
-X-Mailer: b4 0.13-dev-bfdf5
-Cc: linux-stm32@st-md-mailman.stormreply.com,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Liam Girdwood <lgirdwood@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH] [RFC] regulator: stm32-pwr: Fix regulator
-	disabling
+Content-Disposition: inline
+In-Reply-To: <20230523091350.292221-1-arnaud.pouliquen@foss.st.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, linux-remoteproc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ op-tee@lists.trustedfirmware.org, Jens Wiklander <jens.wiklander@linaro.org>,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [RFC PATCH 0/4] introduction of a remoteproc tee
+ to load signed firmware images
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,46 +82,53 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, 18 May 2023 04:39:46 +0200, Marek Vasut wrote:
-> The following shows up in the kernel log on systems using the STM32MP15xx USBPHYC:
-> "
-> regulator regulator.19: regulator disable timed out!
-> reg18: failed to disable: -ETIMEDOUT
-> "
-> This 'regulator.19' is 'pwr@50001000' 'reg18' in stm32mp151.dts DT, or
-> "Power control (PWR)" register "PWR_CR3" bits "REG18" on STM32MP15xx
-> reference manual.
+On Tue, May 23, 2023 at 11:13:46AM +0200, Arnaud Pouliquen wrote:
+> This RFC proposes an implementation of a remoteproc tee driver to
+> communicate with a TEE trusted application in charge of authenticating
+> and loading remoteproc firmware image in an Arm secure context.
 > 
-> [...]
+> The services implemented are the same as those offered by the Linux
+> remoteproc framework:
+> - load of a signed firmware
+> - start/stop of a coprocessor
+> - get the resource table
+> 
+> 
+> The OP-TEE code in charge of providing the service in a trusted application
+> is proposed for upstream here:
+> https://github.com/OP-TEE/optee_os/pull/6027
+> 
+> For more details on the implementation a presentation is available here:
+> https://resources.linaro.org/en/resource/6c5bGvZwUAjX56fvxthxds
+> 
+> Arnaud Pouliquen (4):
+>   tee: Re-enable vmalloc page support for shared memory
+>   remoteproc: Add TEE support
+>   dt-bindings: remoteproc: add compatibility for TEE support
+>   remoteproc: stm32: Add support of an OP-TEE TA to load the firmware
+> 
+>  .../bindings/remoteproc/st,stm32-rproc.yaml   |  33 +-
+>  drivers/remoteproc/Kconfig                    |   9 +
+>  drivers/remoteproc/Makefile                   |   1 +
+>  drivers/remoteproc/stm32_rproc.c              | 234 +++++++++--
+>  drivers/remoteproc/tee_remoteproc.c           | 397 ++++++++++++++++++
+>  drivers/tee/tee_shm.c                         |  24 +-
+>  include/linux/tee_remoteproc.h                | 101 +++++
+>  7 files changed, 753 insertions(+), 46 deletions(-)
+>  create mode 100644 drivers/remoteproc/tee_remoteproc.c
+>  create mode 100644 include/linux/tee_remoteproc.h
 
-Applied to
-
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/regulator.git for-next
-
-Thanks!
-
-[1/1] regulator: stm32-pwr: Fix regulator disabling
-      commit: 959c34765cf1d0688077ec5f41f9b71a9e70a6f1
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+Looking at comments from Christoph, there seems to be a good refactoring
+exercise in store for this pathset.  As such I will wait for the next revision
+to look at it.
 
 Thanks,
-Mark
+Mathieu
 
+> 
+> -- 
+> 2.25.1
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
