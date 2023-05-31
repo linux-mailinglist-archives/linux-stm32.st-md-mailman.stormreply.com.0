@@ -2,70 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 918ED718A59
-	for <lists+linux-stm32@lfdr.de>; Wed, 31 May 2023 21:40:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6A1D5718B5A
+	for <lists+linux-stm32@lfdr.de>; Wed, 31 May 2023 22:41:29 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4D65CC6A614;
-	Wed, 31 May 2023 19:40:52 +0000 (UTC)
-Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com
- [209.85.218.49])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EEA05C6A614;
+	Wed, 31 May 2023 20:41:28 +0000 (UTC)
+Received: from phobos.denx.de (phobos.denx.de [85.214.62.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5005CC6904E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6B397C62EFE
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 31 May 2023 19:40:51 +0000 (UTC)
-Received: by mail-ej1-f49.google.com with SMTP id
- a640c23a62f3a-96fb45a5258so1076090266b.2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 31 May 2023 12:40:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1685562051; x=1688154051;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=Pobc0FZC6eSroL/2lHGSWPK4EdAbIGAq+x1N33jzXbs=;
- b=kfFl6UjQ4EwXR9O5rqEeCXLNFvrihpxmfNee25KH5BLrtviktGmFTbPdAlBFMtRHmy
- A/oqkPbSI5NZkj45ltLv4PAnSE+TGYjqg5HLNvHNOje1RBuby+fTk5j7nEZML8crztTA
- XLSGLqrCsWqJRt7vO8gNCPpd3x8QcMsBbXei2aodtMadWs0PWLs7TaSAs8jI1kVGcHDT
- 3lUZVUfgt8hpg5W+VsynbKQwIZ7ZvMvaTTNj996Yc1LAF2sUth1tMWU6d5CK6XefF6yf
- vQ3MCtPoiTAu/SAhlYINVXxdxR7ypUnrS8SesuQFOtWOECK8qr+OMpvoysYFwDbacJHZ
- G9DQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1685562051; x=1688154051;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=Pobc0FZC6eSroL/2lHGSWPK4EdAbIGAq+x1N33jzXbs=;
- b=beKIxJUVAzDVAAiT0b25fxRX4mBMyK77mJz4sHgubzSj13clPdCUZFYpTIIpqze0eC
- KGA5gNGRjG1+9AN4HI2pV9HSJigGMmijNKR8508deLBllHiSOFBRT9R3K/I4+csDwH0A
- 5t75Iv+Y9sBLxsv1iy6L271MpC25d5MNxNjt+a2BHrGcAHg1d2KeXu2Mng6gCAY//PJU
- fWRE/+uH+bhYCyaZupoQuZoN4zfJrZMKcUTQ0jgj/vm5c1+9JlQyzp9N5e4FzsJvltVH
- scBZGfIGHyxRQTrIWHuBb3ksZ4KZ+6LS6vVExJBQQCfTGYGxdJcjnLbF3gsIuvbHHyNt
- AxCA==
-X-Gm-Message-State: AC+VfDyGRrnWosd2Uy/ZQh6uCJYPvYJbhaBi15fdepMx4g0P1meoCA7j
- vFCiit80FEjcU9cCJjvM/m0jxA==
-X-Google-Smtp-Source: ACHHUZ6NOszzBlFtX4KUWAeQCIqCPlPa5liXWZCOZ+7MT+N4TdFLdIIAyRDgUmJ9D1GhTkhVXTGH5Q==
-X-Received: by 2002:a17:907:c07:b0:970:164c:31b5 with SMTP id
- ga7-20020a1709070c0700b00970164c31b5mr6228000ejc.46.1685562050764; 
- Wed, 31 May 2023 12:40:50 -0700 (PDT)
-Received: from [192.168.1.20] ([178.197.199.204])
- by smtp.gmail.com with ESMTPSA id
- se24-20020a170906ce5800b009662b4230cesm9583865ejb.148.2023.05.31.12.40.49
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 31 May 2023 12:40:50 -0700 (PDT)
-Message-ID: <6699ec62-9eb5-8b9a-97e0-4b0d5f760962@linaro.org>
-Date: Wed, 31 May 2023 21:40:48 +0200
+ Wed, 31 May 2023 20:41:28 +0000 (UTC)
+Received: from [127.0.0.1] (p578adb1c.dip0.t-ipconnect.de [87.138.219.28])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits))
+ (No client certificate requested)
+ (Authenticated sender: marex@denx.de)
+ by phobos.denx.de (Postfix) with ESMTPSA id 36E5A861FE;
+ Wed, 31 May 2023 22:41:27 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de;
+ s=phobos-20191101; t=1685565687;
+ bh=GvRpcrTeNzkvuL6E29AMLQlRsSktEVlc7ybojQ1NjcQ=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=fQAGsQNR9Rdg6oMAS+eq5tc4Ldc8cFZ/WK3mJxG2lNay/WNaK0xDX3l+jm9YfR1FM
+ prsHoJWRo/etFZ69/ElvMp1NePspZcRJJrJKoWzDUr5NAb2ceHVV2qmpnvE8ConqQy
+ Q9DAk5c5moAVp15mOw3RHR4dxd5By2rp5suioS9nJYrCi5SBLUPZkmehjrZgzOdWk4
+ O4CwIynBcbybBSwAuu17qgiHu1DDrEXw6wG8yOkGMgAwt94TRY0+sbxJwmgh16R8F6
+ ebOHjJjRqcRsIULNoSCn0q4+z157t0O2e6qEualFp8DXLkcfBddfQJ3INxa7KuqggZ
+ 4E7UJE2RSuo2A==
+Message-ID: <ca06d11c-36b9-7a16-31a2-9e4edafe137f@denx.de>
+Date: Wed, 31 May 2023 22:41:26 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.11.0
-Content-Language: en-US
-To: Marek Vasut <marex@denx.de>, linux-arm-kernel@lists.infradead.org,
- Daniel Golle <daniel@makrotopia.org>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ linux-arm-kernel@lists.infradead.org, Daniel Golle <daniel@makrotopia.org>
 References: <20230517152513.27922-1-marex@denx.de>
  <1ad00eb9-7bcb-b93a-191e-7673c835c31e@linaro.org>
  <2ff8d48f-c069-6ece-7865-4268296618fd@denx.de>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <2ff8d48f-c069-6ece-7865-4268296618fd@denx.de>
+ <6699ec62-9eb5-8b9a-97e0-4b0d5f760962@linaro.org>
+Content-Language: en-US
+From: Marek Vasut <marex@denx.de>
+In-Reply-To: <6699ec62-9eb5-8b9a-97e0-4b0d5f760962@linaro.org>
+X-Virus-Scanned: clamav-milter 0.103.8 at phobos.denx.de
+X-Virus-Status: Clean
 Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
  Rob Herring <robh+dt@kernel.org>,
@@ -85,45 +64,47 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 24/05/2023 05:29, Marek Vasut wrote:
-> On 5/18/23 16:30, Krzysztof Kozlowski wrote:
->> On 17/05/2023 17:25, Marek Vasut wrote:
->>> Add trivial bindings for driver which permits exposing syscon backed
->>> register to userspace. This is useful e.g. to expose U-Boot boot
->>> counter on various platforms where the boot counter is stored in
->>> random volatile register, like STM32MP15xx TAMP_BKPxR register.
+On 5/31/23 21:40, Krzysztof Kozlowski wrote:
+> On 24/05/2023 05:29, Marek Vasut wrote:
+>> On 5/18/23 16:30, Krzysztof Kozlowski wrote:
+>>> On 17/05/2023 17:25, Marek Vasut wrote:
+>>>> Add trivial bindings for driver which permits exposing syscon backed
+>>>> register to userspace. This is useful e.g. to expose U-Boot boot
+>>>> counter on various platforms where the boot counter is stored in
+>>>> random volatile register, like STM32MP15xx TAMP_BKPxR register.
+>>>>
+>>>> Signed-off-by: Marek Vasut <marex@denx.de>
+>>>> ---
 >>>
->>> Signed-off-by: Marek Vasut <marex@denx.de>
->>> ---
+>>> Let me also leave a note here - cross linking for all parties:
+>>>
+>>> Please propose a solution solving also mediatek,boottrap, probably
+>>> extendable to range of registers. Other solution is what Rob mentioned -
+>>> this might not be suitable for generic binding and device.
 >>
->> Let me also leave a note here - cross linking for all parties:
->>
->> Please propose a solution solving also mediatek,boottrap, probably
->> extendable to range of registers. Other solution is what Rob mentioned -
->> this might not be suitable for generic binding and device.
+>>   From what I can tell, shouldn't the mediatek 1g MAC driver have a
+>> nvmem-cells phandle to this OTP/fuses/whatever area and shouldn't the
+>> driver read out and decode its settings within the kernel ?
 > 
->  From what I can tell, shouldn't the mediatek 1g MAC driver have a 
-> nvmem-cells phandle to this OTP/fuses/whatever area and shouldn't the 
-> driver read out and decode its settings within the kernel ?
+> Maybe, but since you both implement the same driver and similar
+> bindings, it's a NAK for having both. It looks like solution matching
+> both or boottrap is not really nvmem syscon (as you said).
 
-Maybe, but since you both implement the same driver and similar
-bindings, it's a NAK for having both. It looks like solution matching
-both or boottrap is not really nvmem syscon (as you said).
+The later.
 
+>> That doesn't seem really related to this particular issue I'm trying to
+>> solve I'm afraid.
 > 
-> That doesn't seem really related to this particular issue I'm trying to 
-> solve I'm afraid.
+> It's similar in implementation, not necessarily in hardware.
 
-It's similar in implementation, not necessarily in hardware.
-
-Best regards,
-Krzysztof
-
+It seems to me what the mediatek thing is doing is already a solved 
+problem, look e.g. at what imx8mp is doing, they read MAC address from 
+OTP via nvmem . That's however unrelated to this work .
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
