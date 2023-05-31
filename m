@@ -2,69 +2,70 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7191D718A43
-	for <lists+linux-stm32@lfdr.de>; Wed, 31 May 2023 21:37:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 918ED718A59
+	for <lists+linux-stm32@lfdr.de>; Wed, 31 May 2023 21:40:52 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 08FD9C6A614;
-	Wed, 31 May 2023 19:37:18 +0000 (UTC)
-Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com
- [209.85.208.49])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4D65CC6A614;
+	Wed, 31 May 2023 19:40:52 +0000 (UTC)
+Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com
+ [209.85.218.49])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8E7FAC6904E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5005CC6904E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 31 May 2023 19:37:16 +0000 (UTC)
-Received: by mail-ed1-f49.google.com with SMTP id
- 4fb4d7f45d1cf-51492ae66a4so199153a12.1
+ Wed, 31 May 2023 19:40:51 +0000 (UTC)
+Received: by mail-ej1-f49.google.com with SMTP id
+ a640c23a62f3a-96fb45a5258so1076090266b.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 31 May 2023 12:37:16 -0700 (PDT)
+ Wed, 31 May 2023 12:40:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1685561836; x=1688153836;
+ d=linaro.org; s=google; t=1685562051; x=1688154051;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=f4CVJ2aPSnXlKEo5h1dcXTg+/9hraeZMDkdMUQ3ZvRI=;
- b=C3rUZ/nWtt08/VVwrNSPPyh4Iozms66rLQVUNTr8QQvmp2ckJH7JbT/nquDAzfjUj5
- hPmeWUg2Aid3VViCdRj38dUVflu3mjR9fY2LZbpVK5uMotOfsY1HqNLhiEBMj4bNQ6Cx
- gdTpGRI4wA++LoCCmJtPx7VyzobI4pkiz5oK9dqQOlLLISlmqR+0GitPUJDXWIUN/IMp
- tDXUCa7xhJtrPYEwtbC1Px1g4qS+ihPSb0zT9DS2VZCpq/qkN8lf1GptEi+ox6spMm/i
- PfmxLEtiTccX4EbYoOKl3A+l0eZg6xald0yMkX4CksZSpXVkg4I7U10zd2xgcOpdfSsD
- r7wQ==
+ bh=Pobc0FZC6eSroL/2lHGSWPK4EdAbIGAq+x1N33jzXbs=;
+ b=kfFl6UjQ4EwXR9O5rqEeCXLNFvrihpxmfNee25KH5BLrtviktGmFTbPdAlBFMtRHmy
+ A/oqkPbSI5NZkj45ltLv4PAnSE+TGYjqg5HLNvHNOje1RBuby+fTk5j7nEZML8crztTA
+ XLSGLqrCsWqJRt7vO8gNCPpd3x8QcMsBbXei2aodtMadWs0PWLs7TaSAs8jI1kVGcHDT
+ 3lUZVUfgt8hpg5W+VsynbKQwIZ7ZvMvaTTNj996Yc1LAF2sUth1tMWU6d5CK6XefF6yf
+ vQ3MCtPoiTAu/SAhlYINVXxdxR7ypUnrS8SesuQFOtWOECK8qr+OMpvoysYFwDbacJHZ
+ G9DQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1685561836; x=1688153836;
+ d=1e100.net; s=20221208; t=1685562051; x=1688154051;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=f4CVJ2aPSnXlKEo5h1dcXTg+/9hraeZMDkdMUQ3ZvRI=;
- b=WcxexEQ8A7ccSxSyPiYYWeiTlRuqoSc2NU1rFoCBPmk46phIzAUDqK2Xxd362SQEf/
- bim4URZ2WdPkRgcjXoVKtMxetZIYAYvVQcYMbfZpMRTiigINegzH5ELBvuUwMpOrRs88
- Y81zkPoWJAWmg5NfLHUuFTQr92kRfy/YSyZ3U4yq66gP+4l600fcRpwUofEW/vvEn81N
- PQNEFC38Flv6hh3B9wdvgDmQ0Ns6ksj/9VQXCgPspOu+MERvTjj8ewa4oRynze/neE88
- fOIG8bWjnWrRJzzZrRyy+gQuowCvURMWqR0S4T9J/Bq8yIZMTJVNJj8L+9LBgMBpReI4
- JR7A==
-X-Gm-Message-State: AC+VfDxnk4zs6sHX96WxnA0WHXah+2fr9Mz4GCvoqreLnE1MZRhJqJPW
- CNTHvc+p2MQaiqk258GHvP+pTg==
-X-Google-Smtp-Source: ACHHUZ6DYu8otCOHUm9zn9KFmrbjPg/88psB43J1UIblA5chDcugIdaCHyzDwNgHlpsTn6FF1gYLTw==
-X-Received: by 2002:a17:907:6d12:b0:96a:2b4:eb65 with SMTP id
- sa18-20020a1709076d1200b0096a02b4eb65mr5753260ejc.9.1685561835963; 
- Wed, 31 May 2023 12:37:15 -0700 (PDT)
+ bh=Pobc0FZC6eSroL/2lHGSWPK4EdAbIGAq+x1N33jzXbs=;
+ b=beKIxJUVAzDVAAiT0b25fxRX4mBMyK77mJz4sHgubzSj13clPdCUZFYpTIIpqze0eC
+ KGA5gNGRjG1+9AN4HI2pV9HSJigGMmijNKR8508deLBllHiSOFBRT9R3K/I4+csDwH0A
+ 5t75Iv+Y9sBLxsv1iy6L271MpC25d5MNxNjt+a2BHrGcAHg1d2KeXu2Mng6gCAY//PJU
+ fWRE/+uH+bhYCyaZupoQuZoN4zfJrZMKcUTQ0jgj/vm5c1+9JlQyzp9N5e4FzsJvltVH
+ scBZGfIGHyxRQTrIWHuBb3ksZ4KZ+6LS6vVExJBQQCfTGYGxdJcjnLbF3gsIuvbHHyNt
+ AxCA==
+X-Gm-Message-State: AC+VfDyGRrnWosd2Uy/ZQh6uCJYPvYJbhaBi15fdepMx4g0P1meoCA7j
+ vFCiit80FEjcU9cCJjvM/m0jxA==
+X-Google-Smtp-Source: ACHHUZ6NOszzBlFtX4KUWAeQCIqCPlPa5liXWZCOZ+7MT+N4TdFLdIIAyRDgUmJ9D1GhTkhVXTGH5Q==
+X-Received: by 2002:a17:907:c07:b0:970:164c:31b5 with SMTP id
+ ga7-20020a1709070c0700b00970164c31b5mr6228000ejc.46.1685562050764; 
+ Wed, 31 May 2023 12:40:50 -0700 (PDT)
 Received: from [192.168.1.20] ([178.197.199.204])
  by smtp.gmail.com with ESMTPSA id
- s10-20020a170906a18a00b0096f00d79d6asm9487202ejy.54.2023.05.31.12.37.14
+ se24-20020a170906ce5800b009662b4230cesm9583865ejb.148.2023.05.31.12.40.49
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 31 May 2023 12:37:15 -0700 (PDT)
-Message-ID: <a954db86-c5b7-0c07-8881-0ceb39ac7337@linaro.org>
-Date: Wed, 31 May 2023 21:37:13 +0200
+ Wed, 31 May 2023 12:40:50 -0700 (PDT)
+Message-ID: <6699ec62-9eb5-8b9a-97e0-4b0d5f760962@linaro.org>
+Date: Wed, 31 May 2023 21:40:48 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.11.0
 Content-Language: en-US
-To: Marek Vasut <marex@denx.de>, linux-arm-kernel@lists.infradead.org
+To: Marek Vasut <marex@denx.de>, linux-arm-kernel@lists.infradead.org,
+ Daniel Golle <daniel@makrotopia.org>
 References: <20230517152513.27922-1-marex@denx.de>
- <3951bf42-bf77-20a5-a343-46127b875dd5@linaro.org>
- <2aee9fc7-e0a8-b5ad-7362-8461bac618da@denx.de>
+ <1ad00eb9-7bcb-b93a-191e-7673c835c31e@linaro.org>
+ <2ff8d48f-c069-6ece-7865-4268296618fd@denx.de>
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <2aee9fc7-e0a8-b5ad-7362-8461bac618da@denx.de>
+In-Reply-To: <2ff8d48f-c069-6ece-7865-4268296618fd@denx.de>
 Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
  Rob Herring <robh+dt@kernel.org>,
@@ -89,8 +90,8 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 24/05/2023 05:30, Marek Vasut wrote:
-> On 5/18/23 16:26, Krzysztof Kozlowski wrote:
+On 24/05/2023 05:29, Marek Vasut wrote:
+> On 5/18/23 16:30, Krzysztof Kozlowski wrote:
 >> On 17/05/2023 17:25, Marek Vasut wrote:
 >>> Add trivial bindings for driver which permits exposing syscon backed
 >>> register to userspace. This is useful e.g. to expose U-Boot boot
@@ -99,76 +100,26 @@ On 24/05/2023 05:30, Marek Vasut wrote:
 >>>
 >>> Signed-off-by: Marek Vasut <marex@denx.de>
 >>> ---
->>> Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
->>> Cc: Conor Dooley <conor+dt@kernel.org>
->>> Cc: Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
->>> Cc: Marek Vasut <marex@denx.de>
->>> Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
->>> Cc: Rob Herring <robh+dt@kernel.org>
->>> Cc: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
->>> Cc: devicetree@vger.kernel.org
->>> Cc: kernel@dh-electronics.com
->>> Cc: linux-arm-kernel@lists.infradead.org
->>> Cc: linux-stm32@st-md-mailman.stormreply.com
->>> ---
->>> V2: Use generic syscon supernode
->>> ---
->>>   .../bindings/nvmem/nvmem-syscon.yaml          | 39 +++++++++++++++++++
->>>   1 file changed, 39 insertions(+)
->>>   create mode 100644 Documentation/devicetree/bindings/nvmem/nvmem-syscon.yaml
->>>
->>> diff --git a/Documentation/devicetree/bindings/nvmem/nvmem-syscon.yaml b/Documentation/devicetree/bindings/nvmem/nvmem-syscon.yaml
->>> new file mode 100644
->>> index 0000000000000..7c1173a1a6218
->>> --- /dev/null
->>> +++ b/Documentation/devicetree/bindings/nvmem/nvmem-syscon.yaml
->>> @@ -0,0 +1,39 @@
->>> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
->>> +%YAML 1.2
->>> +---
->>> +$id: http://devicetree.org/schemas/nvmem/nvmem-syscon.yaml#
->>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
->>> +
->>> +title: Generic syscon backed nvmem
->>> +
->>> +maintainers:
->>> +  - Marek Vasut <marex@denx.de>
->>> +
->>> +allOf:
->>> +  - $ref: "nvmem.yaml#"
 >>
->> Usual comment: drop quotes. We removed them everywhere, so you based
->> your work on some old tree.
+>> Let me also leave a note here - cross linking for all parties:
 >>
->>> +
->>> +properties:
->>> +  compatible:
->>> +    enum:
->>> +      - nvmem-syscon
->>> +
->>> +  reg:
->>> +    maxItems: 1
->>
->> Rob's questions are not solved.
+>> Please propose a solution solving also mediatek,boottrap, probably
+>> extendable to range of registers. Other solution is what Rob mentioned -
+>> this might not be suitable for generic binding and device.
 > 
-> Can you reiterate this one ? I likely missed it.
+>  From what I can tell, shouldn't the mediatek 1g MAC driver have a 
+> nvmem-cells phandle to this OTP/fuses/whatever area and shouldn't the 
+> driver read out and decode its settings within the kernel ?
 
-You did not solve the case of more than one register. This isn't an odd
-case.
+Maybe, but since you both implement the same driver and similar
+bindings, it's a NAK for having both. It looks like solution matching
+both or boottrap is not really nvmem syscon (as you said).
 
 > 
->> The nvmem.yaml schema expects here to
->> allow children. This should not be created per-register, but per entire
->> block of registers.
-> 
-> This thing works the other way around, I have a syscon register block 
-> already, and I want to expose subset of it to userspace as read/write 
-> accessible file to expose bootcounter available in that register (so I 
-> can read it and reset it from user application).
+> That doesn't seem really related to this particular issue I'm trying to 
+> solve I'm afraid.
 
-And this makes it too limited. I would expect one device exposing
-multiple blocks or registers, just like all nvmem providers are doing.
-
+It's similar in implementation, not necessarily in hardware.
 
 Best regards,
 Krzysztof
