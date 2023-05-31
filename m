@@ -2,58 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 83AFE717DE9
-	for <lists+linux-stm32@lfdr.de>; Wed, 31 May 2023 13:22:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 006EA717D18
+	for <lists+linux-stm32@lfdr.de>; Wed, 31 May 2023 12:21:26 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2479FC6A614;
-	Wed, 31 May 2023 11:22:22 +0000 (UTC)
-Received: from phobos.denx.de (phobos.denx.de [85.214.62.61])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9DA62C6B442;
+	Wed, 31 May 2023 10:21:26 +0000 (UTC)
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [85.220.165.71])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 96ECAC62EFE
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9D25FC6904B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 31 May 2023 11:22:20 +0000 (UTC)
-Received: from [127.0.0.1] (p578adb1c.dip0.t-ipconnect.de [87.138.219.28])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits))
- (No client certificate requested)
- (Authenticated sender: marex@denx.de)
- by phobos.denx.de (Postfix) with ESMTPSA id 58FEC8609E;
- Wed, 31 May 2023 13:22:19 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de;
- s=phobos-20191101; t=1685532139;
- bh=FoZTj/ixvD5wu3qzf/mMYrSYif01n21y7PRgY1+ycxM=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=tLSGkYhIYKrC09cMZQSMoSMApJt6dRvwhkV54b6dsJaA7rbQ65CDcx1Z0YvX9LGnK
- ylzF2x4hLL32Rr3eUMn2VB843rdniHhRKoTcx2NcXTCVwFYu2cT3g5pdy3vUNEebC4
- Ok5o2ML8hNebhVQ6opOpRoizKsUsSqOeaUkQfTf5iEcNJ2C5VTQZf6u/PyUQKj0nuN
- HfWPDWsICTQtvoaqKCZTb1DZd6L000hoxqPtqVbJqKjFEi+HH6W5HIqlkOFqqx5p+t
- jEsm/ifpPbuutM+tYtXj5aHrUuSkUBCQqlIYCs5u/EqZJR57LiONUMU8x2ZB7mP4/u
- JUaSrguRC0vNQ==
-Message-ID: <dc8dd57f-d149-ec1e-3aaa-17163d1d8bcd@denx.de>
-Date: Wed, 31 May 2023 12:17:56 +0200
+ Wed, 31 May 2023 10:21:25 +0000 (UTC)
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+ by metis.ext.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <ore@pengutronix.de>)
+ id 1q4IxA-0002GV-QI; Wed, 31 May 2023 12:21:16 +0200
+Received: from [2a0a:edc0:0:1101:1d::ac] (helo=dude04.red.stw.pengutronix.de)
+ by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.94.2)
+ (envelope-from <ore@pengutronix.de>)
+ id 1q4Ix9-0045I2-1E; Wed, 31 May 2023 12:21:15 +0200
+Received: from ore by dude04.red.stw.pengutronix.de with local (Exim 4.94.2)
+ (envelope-from <ore@pengutronix.de>)
+ id 1q4Ix8-00E4a0-E8; Wed, 31 May 2023 12:21:14 +0200
+From: Oleksij Rempel <o.rempel@pengutronix.de>
+To: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ =?UTF-8?q?J=C3=A9r=C3=B4me=20Pouiller?= <jerome.pouiller@silabs.com>
+Date: Wed, 31 May 2023 12:21:11 +0200
+Message-Id: <20230531102113.3353065-1-o.rempel@pengutronix.de>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-To: Alexandre TORGUE <alexandre.torgue@foss.st.com>,
- Amelie Delaunay <amelie.delaunay@foss.st.com>, linux-rtc@vger.kernel.org
-References: <20230518003311.415018-1-marex@denx.de>
- <4a24cd14-9cca-7499-a0d3-37f7e4c3b087@foss.st.com>
- <eb76a6e9-150a-5daf-75fd-7574c36714f8@denx.de>
- <be0aeb7e-d278-7d0e-9fdf-9974ea5a14e1@foss.st.com>
- <d9c1809f-7359-58f8-4cdf-95f957256e55@denx.de>
- <9409594f-0ae0-9a96-4eaa-4fdbecd2656f@foss.st.com>
-Content-Language: en-US
-From: Marek Vasut <marex@denx.de>
-In-Reply-To: <9409594f-0ae0-9a96-4eaa-4fdbecd2656f@foss.st.com>
-X-Virus-Scanned: clamav-milter 0.103.8 at phobos.denx.de
-X-Virus-Status: Clean
-Cc: Alessandro Zummo <a.zummo@towertech.it>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- linux-arm-kernel@lists.infradead.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH] rtc: stm32: Handle single EXTI IRQ as
-	wake up source
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: ore@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
+Cc: devicetree@vger.kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Oleksij Rempel <o.rempel@pengutronix.de>,
+ kernel@pengutronix.de, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH v3 0/2] Extend dt-bindings for PSE-PD
+	controllers and update prtt1c dts
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -65,106 +57,41 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gNS8zMS8yMyAxMTozNiwgQWxleGFuZHJlIFRPUkdVRSB3cm90ZToKPiBIaSBNYXJlawoKSGks
-Cgo+IE9uIDUvMzAvMjMgMjE6NTQsIE1hcmVrIFZhc3V0IHdyb3RlOgo+PiBPbiA1LzMwLzIzIDE3
-OjE4LCBBbWVsaWUgRGVsYXVuYXkgd3JvdGU6Cj4+PiBPbiA1LzMwLzIzIDE2OjEzLCBNYXJlayBW
-YXN1dCB3cm90ZToKPj4+PiBPbiA1LzMwLzIzIDE2OjAyLCBBbWVsaWUgRGVsYXVuYXkgd3JvdGU6
-Cj4+Pj4+IEhpIE1hcmVrLAo+Pj4+Cj4+Pj4gSGVsbG8gQW1lbGllLAo+Pj4+Cj4+Pj4+IE9uIDUv
-MTgvMjMgMDI6MzMsIE1hcmVrIFZhc3V0IHdyb3RlOgo+Pj4+Pj4gVGhlIGFyY2gvYXJtL2Jvb3Qv
-ZHRzL3N0bTMybXAxNTEuZHRzaSBzcGVjaWZpZXMgb25lIGludGVycnVwdCBmb3IgdGhlCj4+Pj4+
-PiBSVEMgbm9kZSwgd2hpbGUgdGhlIGV4cGVjdGF0aW9uIG9mIHRoZSBSVEMgZHJpdmVyIGlzIHR3
-byAKPj4+Pj4+IGludGVycnVwdHMgb24KPj4+Pj4+IFNUTTMyTVAxNXh4IFNvQywgb25lIGNvbm5l
-Y3RlZCB0byBHSUMgaW50ZXJydXB0IGNvbnRyb2xsZXIgYW5kIAo+Pj4+Pj4gYW5vdGhlcgo+Pj4+
-Pj4gb25lIHRvIEVYVEkuIFBlciBTVE0zMk1QMTV4eCByZWZlcmVuY2UgbWFudWFsLCB0aGUgdHdv
-IGludGVycnVwdHMgCj4+Pj4+PiBzZXJ2ZQo+Pj4+Pj4gdGhlIHNhbWUgcHVycG9zZSwgZXhjZXB0
-IHRoZSBFWFRJIG9uZSBjYW4gYWxzbyB3YWtlIHRoZSBzeXN0ZW0gdXAuIAo+Pj4+Pj4gVGhlCj4+
-Pj4+PiBFWFRJIGRyaXZlciBhbHJlYWR5IGludGVybmFsbHkgaGFuZGxlcyB0aGlzIEdJQyBhbmQg
-RVhUSSBkdWFsaXR5IGFuZAo+Pj4+Pj4gbWFwcyB0aGUgRVhUSSBpbnRlcnJ1cHQgb250byBHSUMg
-ZHVyaW5nIHJ1bnRpbWUsIGFuZCBvbmx5IHVzZXMgdGhlIAo+Pj4+Pj4gRVhUSQo+Pj4+Pj4gZm9y
-IHdha2UgdXAgZnVuY3Rpb25hbGl0eS4KPj4+Pj4+Cj4+Pj4+PiBUaGVyZWZvcmUsIGZpeCB0aGUg
-ZHJpdmVyIHN1Y2ggdGhhdCBpZiBvbiBTVE0zMk1QMTV4eCB0aGVyZSBpcyAKPj4+Pj4+IG9ubHkg
-b25lCj4+Pj4+PiBpbnRlcnJ1cHQgc3BlY2lmaWVkIGluIHRoZSBEVCwgdXNlIHRoYXQgaW50ZXJy
-dXB0IGFzIEVYVEkgCj4+Pj4+PiBpbnRlcnJ1cHQgYW5kCj4+Pj4+PiBzZXQgaXQgYXMgd2FrZSB1
-cCBzb3VyY2UuCj4+Pj4+Pgo+Pj4+Pj4gVGhpcyBmaXhlcyB0aGUgZm9sbG93aW5nIHdhcm5pbmcg
-aW4gdGhlIGtlcm5lbCBsb2cgb24gU1RNMzJNUDE1eHg6Cj4+Pj4+PiAiCj4+Pj4+PiBzdG0zMl9y
-dGMgNWMwMDQwMDAucnRjOiBlcnJvciAtRU5YSU86IElSUSBpbmRleCAxIG5vdCBmb3VuZAo+Pj4+
-Pj4gc3RtMzJfcnRjIDVjMDA0MDAwLnJ0YzogYWxhcm0gY2FuJ3Qgd2FrZSB1cCB0aGUgc3lzdGVt
-OiAtNgo+Pj4+Pj4gIgo+Pj4+Pj4KPj4+Pj4+IFRoaXMgYWxzbyBmaXhlcyB0aGUgc3lzdGVtIHdh
-a2UgdXAgdmlhIGJ1aWx0LWluIFJUQyB1c2luZyBlLmcuOgo+Pj4+Pj4gJCBydGN3YWtlIC1zIDUg
-LW0gbWVtCj4+Pj4+Pgo+Pj4+Pj4gRml4ZXM6IGI3MjI1MmI2NTgwYyAoInJ0Yzogc3RtMzI6IGFk
-ZCBzdG0zMm1wMSBydGMgc3VwcG9ydCIpCj4+Pj4+PiBTaWduZWQtb2ZmLWJ5OiBNYXJlayBWYXN1
-dCA8bWFyZXhAZGVueC5kZT4KPj4+Pj4+IC0tLQo+Pj4+Pj4gQ2M6IEFsZXNzYW5kcm8gWnVtbW8g
-PGEuenVtbW9AdG93ZXJ0ZWNoLml0Pgo+Pj4+Pj4gQ2M6IEFsZXhhbmRyZSBCZWxsb25pIDxhbGV4
-YW5kcmUuYmVsbG9uaUBib290bGluLmNvbT4KPj4+Pj4+IENjOiBBbGV4YW5kcmUgVG9yZ3VlIDxh
-bGV4YW5kcmUudG9yZ3VlQGZvc3Muc3QuY29tPgo+Pj4+Pj4gQ2M6IEFtZWxpZSBERUxBVU5BWSA8
-YW1lbGllLmRlbGF1bmF5QGZvc3Muc3QuY29tPgo+Pj4+Pj4gQ2M6IE1heGltZSBDb3F1ZWxpbiA8
-bWNvcXVlbGluLnN0bTMyQGdtYWlsLmNvbT4KPj4+Pj4+IENjOiBsaW51eC1hcm0ta2VybmVsQGxp
-c3RzLmluZnJhZGVhZC5vcmcKPj4+Pj4+IENjOiBsaW51eC1ydGNAdmdlci5rZXJuZWwub3JnCj4+
-Pj4+PiBDYzogbGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQo+Pj4+Pj4g
-LS0tCj4+Pj4+PiDCoCBkcml2ZXJzL3J0Yy9ydGMtc3RtMzIuYyB8IDkgKysrKystLS0tCj4+Pj4+
-PiDCoCAxIGZpbGUgY2hhbmdlZCwgNSBpbnNlcnRpb25zKCspLCA0IGRlbGV0aW9ucygtKQo+Pj4+
-Pj4KPj4+Pj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL3J0Yy9ydGMtc3RtMzIuYyBiL2RyaXZlcnMv
-cnRjL3J0Yy1zdG0zMi5jCj4+Pj4+PiBpbmRleCAyMjljYjI4NDdjYzQ4Li43Mjk5NGI5Zjk1MzE5
-IDEwMDY0NAo+Pj4+Pj4gLS0tIGEvZHJpdmVycy9ydGMvcnRjLXN0bTMyLmMKPj4+Pj4+ICsrKyBi
-L2RyaXZlcnMvcnRjL3J0Yy1zdG0zMi5jCj4+Pj4+PiBAQCAtNzgwLDE0ICs3ODAsMTUgQEAgc3Rh
-dGljIGludCBzdG0zMl9ydGNfcHJvYmUoc3RydWN0IAo+Pj4+Pj4gcGxhdGZvcm1fZGV2aWNlICpw
-ZGV2KQo+Pj4+Pj4gwqDCoMKgwqDCoCByZXQgPSBkZXZpY2VfaW5pdF93YWtldXAoJnBkZXYtPmRl
-diwgdHJ1ZSk7Cj4+Pj4+PiDCoMKgwqDCoMKgIGlmIChydGMtPmRhdGEtPmhhc193YWtlaXJxKSB7
-Cj4+Pj4+PiAtwqDCoMKgwqDCoMKgwqAgcnRjLT53YWtlaXJxX2FsYXJtID0gcGxhdGZvcm1fZ2V0
-X2lycShwZGV2LCAxKTsKPj4+Pj4+ICvCoMKgwqDCoMKgwqDCoCBydGMtPndha2VpcnFfYWxhcm0g
-PSBwbGF0Zm9ybV9nZXRfaXJxX29wdGlvbmFsKHBkZXYsIDEpOwo+Pj4+Pj4gwqDCoMKgwqDCoMKg
-wqDCoMKgIGlmIChydGMtPndha2VpcnFfYWxhcm0gPiAwKSB7Cj4+Pj4+PiDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoCByZXQgPSBkZXZfcG1fc2V0X2RlZGljYXRlZF93YWtlX2lycSgmcGRldi0+
-ZGV2LAo+Pj4+Pj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgIHJ0Yy0+d2FrZWlycV9hbGFybSk7Cj4+Pj4+PiAtwqDCoMKg
-wqDCoMKgwqAgfSBlbHNlIHsKPj4+Pj4+ICvCoMKgwqDCoMKgwqDCoCB9IGVsc2UgaWYgKHJ0Yy0+
-d2FrZWlycV9hbGFybSA9PSAtRVBST0JFX0RFRkVSKSB7Cj4+Pj4+PiDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoCByZXQgPSBydGMtPndha2VpcnFfYWxhcm07Cj4+Pj4+PiAtwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoCBpZiAocnRjLT53YWtlaXJxX2FsYXJtID09IC1FUFJPQkVfREVGRVIpCj4+Pj4+
-PiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGdvdG8gZXJyOwo+Pj4+Pj4gK8KgwqDC
-oMKgwqDCoMKgwqDCoMKgwqAgZ290byBlcnI7Cj4+Pj4+PiArwqDCoMKgwqDCoMKgwqAgfSBlbHNl
-IHsKPj4+Pj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHJldCA9IGRldl9wbV9zZXRfd2FrZV9p
-cnEoJnBkZXYtPmRldiwgcnRjLT5pcnFfYWxhcm0pOwo+Pj4+Pj4gwqDCoMKgwqDCoMKgwqDCoMKg
-IH0KPj4+Pj4+IMKgwqDCoMKgwqAgfQo+Pj4+Pj4gwqDCoMKgwqDCoCBpZiAocmV0KQo+Pj4+Pgo+
-Pj4+PiBJbiBvdXIgZG93bnN0cmVhbSBbMV0sIGRlZGljYXRlZCB3YWtldXAgaXJxIG1hbmFnZW1l
-bnQgaXMgZHJvcHBlZDogCj4+Pj4+IGl0IGlzIG5laXRoZXIgZGVzY3JpYmVkIGluIHN0LHN0bTMy
-LXJ0YyBiaW5kaW5ncyBub3IgdXNlZCBpbiAKPj4+Pj4gU1RNMzJGeCwgU1RNMzJIeCwgU1RNMzJN
-UDF4IGRldmljZSB0cmVlcy4KPj4+Pj4gVGhlIHBvaW50ZWQgcGF0Y2ggaXMgZ29pbmcgdG8gYmUg
-dXBzdHJlYW1lZC4KPj4+Pj4KPj4+Pj4gWzFdIAo+Pj4+PiBodHRwczovL2dpdGh1Yi5jb20vU1RN
-aWNyb2VsZWN0cm9uaWNzL2xpbnV4L2NvbW1pdC81YTQ1ZTFmMTAwZDU5YzMzYjZiNTBmZTk4YzBm
-NjI4NjJiZDZmM2QyCj4+Pj4KPj4+PiBXb24ndCB0aGF0IGJyZWFrIGNvbXBhdGliaWxpdHkgd2l0
-aCBEVHMgd2hpY2ggZG8gdXNlIHR3byBpbnRlcnJ1cHRzIAo+Pj4+IGVudHJpZXMgPwo+Pj4KPj4+
-IEkgZGlkbid0IGZpbmQgYW55IERUcyB1c2luZyBTVE0zMiBSVEMgd2l0aCB0d28gaW50ZXJydXB0
-cy4gRGlkIEkgbWlzcyAKPj4+IHNvbWV0aGluZz8KPj4KPj4gSSBhbSBub3QgYXdhcmUgb2YgYW55
-IGVpdGhlciAoSSBhbHNvIGRpZCBjaGVjayBhIGNvdXBsZSBvZiAKPj4gcmVwb3NpdG9yaWVzIHRv
-IGJlIHN1cmUpIC4gSG93ZXZlciwgdGhlIERUIGlzIGFuIEFCSSAsIHNvIHRoZXJlIG1pZ2h0IAo+
-PiBiZSB1c2VycyB3ZSBkbyBub3Qga25vdyBhYm91dCwgd2hvIG1pZ2h0IGJlIHVuYWJsZSB0byB1
-cGRhdGUgdGhlaXIgRFRzIAo+PiAsIGFuZCB3aG8gd291bGQgYmUgYnJva2VuIGJ5IGRyb3BwaW5n
-IHRoZSBzdXBwb3J0IGZvciB0d28gaW50ZXJydXB0cy4KPiAKPiBDdXJyZW50bHkgaWYgcGVvcGxl
-IHVzZSAyIGludGVycnVwdHMgaW4gdGhlaXIgRFQgd2l0aCBhbiB1cCB0byBkYXRlIAo+IGtlcm5l
-bCBJIGRvbid0IHRoaW5rIGl0IHdvcmtzIGZpbmUuIEF0IHRoZSBiZWdpbm5pbmcgb2YgdGhlIE1Q
-MSBzdG9yeSwgMiAKPiBpbnRlcnJ1cHRzIHdlcmUgbmVlZGVkIHRvIHdha2V1cCBzeXN0ZW0gZnJv
-bSBMUFNUT1A6IG9uZSBmb3IgR0lDIGFuZCB0aGUgCj4gb3RoZXIgb25lIGZvciBFWFRJLiBCdXQg
-c2luY2UgbWF5YmUgMiB5ZWFycywgRVhUSSBhbmQgR0lDIGludGVycnVwdHMgYXJlIAo+IGRpcmVj
-dGx5IGxpbmtlZCBpbnNpZGUgdGhlIEVYVEkgZHJpdmVyLiBTbyBub3csIGRldmljZXMgb25seSBu
-ZWVkIHRvIAo+IHRha2Ugb25lIGludGVycnVwdC4gV2l0aCB0aGlzIGltcGxlbWVudGF0aW9uIGlm
-IG9uZSBkZXZpY2UgdXNlcyAyIAo+IGludGVycnVwdHMgaW4gdGhlaXIgRFQgdGhlbiB0aGUgR0lD
-IGludGVycnVwdCB3aWxsIGJlIG1hcHBlZCB0d28gdGltZXMuIAo+IFNvIEkgdGhpbmsgdGhhdCBj
-dXJyZW50IGltcGxlbWVudGF0aW9uIGluIFJUQyBkcml2ZXIgaXMgYnJva2VuIGFuZCBpdCAKPiBz
-aG91bGQgYmUgYWxpZ25lZCB3aXRoICJuZXciIEVYVEkgaW1wbGVtZW50YXRpb24uIE5vdGUgYWxz
-byB0aGF0IHRoZSB1c2UgCj4gb2YgMiBpbnRlcnJ1cHRzIGhhcyBuZXZlciBiZWVuIGRvY3VtZW50
-ZWQgaW4gZHQtYmluZGluZ3MgZG9jdW1lbnRhdGlvbi4KCkluIHRoYXQgY2FzZSwgbWF5YmUgYWRk
-IGEgd2FybmluZyBpbnRvIHRoZSBkcml2ZXIgaWYgeW91IGRldGVjdCB0d28gCmludGVycnVwdHMs
-IG5vdGlmeSB1c2VyIGFuZCBhdm9pZCBhbnkgdW5leHBlY3RlZCBzdXJwcmlzZXMgPwoKPiBBYm92
-ZSB3b3JkcyBhcmUgZm9yIFNUTTMyIE1QVSBwcm9kdWN0cyBGb3IgU1RNMzIgTUNVIHByb2R1Y3Rz
-IFJUQyBpcyAKPiBvbmx5IG1hcHBlZCB0byB0aGUgRVhUSSAobm90IHRvIHRoZSBOVklDKSBzbyBu
-byBuZWVkcyB0byBoYW5kbGUgdHdvIAo+IGludGVycnVwdHMuCgpMaWtlIEkgd3JvdGUgYmVmb3Jl
-LCBJIGFtIGZpbmUgZWl0aGVyIHdheS4KClsuLi5dCl9fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0z
-MkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9y
-bXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+changes v3:
+- reword commit message for the pse-controller.yaml patch
+- drop podl-pse-regulator.yaml patch
+
+changes v2:
+- extend ethernet-pse regexp in the PoDL PSE dt-bindings
+
+This patch set comes in response to issues identified while adding PoDL
+PSE support to the stm32 prtt1c device tree. The existing pse-pd device
+tree bindings did not allow node name patterns like "ethernet-pse-0" and
+"ethernet-pse-1", leading to validation failures.
+
+To address these false positives in validation, the device tree bindings
+are extended to support these node name patterns. Alongside this, an
+example node is added to aid in the improved validation process.
+Following these changes, the updated PoDL PSE regulator nodes are then
+added to the stm32 prtt1c device tree.
+
+Oleksij Rempel (2):
+  dt-bindings: net: pse-pd: Allow -N suffix for ethernet-pse node names
+  ARM: dts: stm32: prtt1c: Add PoDL PSE regulator nodes
+
+ .../bindings/net/pse-pd/pse-controller.yaml   |  2 +-
+ arch/arm/boot/dts/stm32mp151a-prtt1c.dts      | 32 +++++++++++++++++++
+ 2 files changed, 33 insertions(+), 1 deletion(-)
+
+-- 
+2.39.2
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
