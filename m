@@ -2,47 +2,79 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 71175718EEE
-	for <lists+linux-stm32@lfdr.de>; Thu,  1 Jun 2023 01:10:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F04C719386
+	for <lists+linux-stm32@lfdr.de>; Thu,  1 Jun 2023 08:47:57 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 37003C6A616;
-	Wed, 31 May 2023 23:10:56 +0000 (UTC)
-Received: from phobos.denx.de (phobos.denx.de [85.214.62.61])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E0435C6A614;
+	Thu,  1 Jun 2023 06:47:56 +0000 (UTC)
+Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com
+ [209.85.208.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6BDA7C69069
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B4E7AC65042
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 31 May 2023 23:10:55 +0000 (UTC)
-Received: from tr.lan (ip-86-49-120-218.bb.vodafone.cz [86.49.120.218])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
- (No client certificate requested)
- (Authenticated sender: marex@denx.de)
- by phobos.denx.de (Postfix) with ESMTPSA id 9113A846D8;
- Thu,  1 Jun 2023 01:10:54 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de;
- s=phobos-20191101; t=1685574655;
- bh=tDonX/f79Ik45V9YBqk/CP4xiQZtcS9hSQvn3JIZ4Ms=;
- h=From:To:Cc:Subject:Date:From;
- b=HZWFsWKYJVSg3Y8hryMKiTo6YVyq0zk0+PrgN7HlOJivNyMg2lUBAOQ/lzVPhLpmy
- n0XSTe9/W893pfWHF7e/Ko/HfOARpVVWdzS+r6gkFXBrTGQ8XfXIN/cH3NuBRD1FLm
- 0cCDCDd+0B9rgVikVIHoGUHoehs6ZKmbk16w5ACyRxXw85e5DaURuu0BZslb4l13su
- d/J7tPehJ4RagcDe911AaGp9VrJUYgB9HBxZf3LislhvS2IDBzMZhM4KT71PJ9HTW3
- s7D6xFBxW+Sdm8iRZ3J3D+xxUP1MLphTJnC+KsD3mfboUc8EBFPhrknhFLyhifGqcp
- Lk0F3aa51Ya8w==
-From: Marek Vasut <marex@denx.de>
-To: linux-arm-kernel@lists.infradead.org
-Date: Thu,  1 Jun 2023 01:10:44 +0200
-Message-Id: <20230531231044.574541-1-marex@denx.de>
-X-Mailer: git-send-email 2.39.2
+ Thu,  1 Jun 2023 06:47:37 +0000 (UTC)
+Received: by mail-ed1-f43.google.com with SMTP id
+ 4fb4d7f45d1cf-51493ec65d8so793390a12.2
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 31 May 2023 23:47:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1685602057; x=1688194057;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=XcPJlre+hwC4HWFE1geR0MxXvG9lSERjFiZP6BYmvdM=;
+ b=jhBQzzTvQHKLXxX8HeEDI0ErFtmNtpJu4uRC9SEHgB7ywVzsaqoiXM9++1w7Qqpg14
+ 63UDRTL4P8dyjwUKRg2hrl9IRNjWh0wXZoyau0YdZNlQaqD1LaIPRaHyOwWYodz2zNBj
+ nETIbWFJPCkYo/XZXPVHCdjRaliJcPO/kEgf4IcB8fOCeuGVb2jgZnplkaD5yGkd+fjT
+ by/DRdHRXuShpt4Kh/As3WjFhIHFEmb3pElCERUUJvZgl0/4Ew56L24nK8ezDfdpsWMw
+ iBVTRfRBlw8Fa5BKpCQEz7bUi8kLxLNesJhJo9Kb0eS4f9gKmS88xzK34o+n8wFQzKlz
+ ecxg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1685602057; x=1688194057;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=XcPJlre+hwC4HWFE1geR0MxXvG9lSERjFiZP6BYmvdM=;
+ b=GtCqh16//hNSUVfU06opAp2Hk6B2KW5FzmhG8DMFVN5BmLQpK0iT6pxwvWJpwbO8cA
+ TfnAdSRoHjuybkRkR4QzQbCv2VzOuZVj+g6MIRrf8EYzbopefGcSTs7e4BmkwWWa50MR
+ PCEfqsGNx8lWtm7PlpPcPl7LGH8aEPoTukEWCmsq/JIdQqje/yAd2RMEkO56nU5cpsmE
+ 4zIP4ZZYHXzdU0+xodf5ChAVYWlmtn3hmWu9sEAZ7eIWvuPc2kmS/frToChA2Q9/bF0t
+ fjb0MEGGwTZ8rAQe8e/6tRypgFzJMn1BqMyjQXsYAPpEZN19gwsUhrL/tfvAs0q3gnK0
+ sH/Q==
+X-Gm-Message-State: AC+VfDzNA+Nert28vm26xZDjMgglIrH2j5EZrIWyyENWqj/2a3MghBwr
+ WnyuzDrGI19wM4fDJRxcxpY6iQ==
+X-Google-Smtp-Source: ACHHUZ4zaQuhqiSniRGwWTM2mtmjQo7gLHgX9Kg8Rxnxm6N6zPX6wYdlKh8ynufUJdKMTSPlnjTAEQ==
+X-Received: by 2002:aa7:d8c4:0:b0:50b:c3a0:40e5 with SMTP id
+ k4-20020aa7d8c4000000b0050bc3a040e5mr5197339eds.21.1685602057212; 
+ Wed, 31 May 2023 23:47:37 -0700 (PDT)
+Received: from [192.168.1.20] ([178.197.199.204])
+ by smtp.gmail.com with ESMTPSA id
+ w9-20020aa7cb49000000b0050d82f96860sm6765817edt.59.2023.05.31.23.47.35
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 31 May 2023 23:47:36 -0700 (PDT)
+Message-ID: <e496475a-6307-5a11-99c1-5cd9d43d894b@linaro.org>
+Date: Thu, 1 Jun 2023 08:47:34 +0200
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.103.8 at phobos.denx.de
-X-Virus-Status: Clean
-Cc: Marek Vasut <marex@denx.de>, devicetree@vger.kernel.org,
- Conor Dooley <conor+dt@kernel.org>,
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Content-Language: en-US
+To: Marek Vasut <marex@denx.de>, linux-arm-kernel@lists.infradead.org
+References: <20230517152513.27922-1-marex@denx.de>
+ <3951bf42-bf77-20a5-a343-46127b875dd5@linaro.org>
+ <2aee9fc7-e0a8-b5ad-7362-8461bac618da@denx.de>
+ <a954db86-c5b7-0c07-8881-0ceb39ac7337@linaro.org>
+ <e9d7b2de-ef57-80fa-f92b-6f66d413114a@denx.de>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <e9d7b2de-ef57-80fa-f92b-6f66d413114a@denx.de>
+Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Rob Herring <robh+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH] ARM: dts: stm32: Deduplicate DSI node
+ Rob Herring <robh+dt@kernel.org>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, kernel@dh-electronics.com
+Subject: Re: [Linux-stm32] [PATCH v2 1/3] dt-bindings: nvmem: syscon: Add
+ syscon backed nvmem bindings
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,257 +91,104 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-All boards using the DSI node duplicate the same pattern common pattern
-in board DTs, that pattern is ports with endpoint labels and the same
-in-SoC regulator connection. Move that common pattern into stm32mp157.dtsi
-instead.
+On 31/05/2023 22:44, Marek Vasut wrote:
+> On 5/31/23 21:37, Krzysztof Kozlowski wrote:
+>> On 24/05/2023 05:30, Marek Vasut wrote:
+>>> On 5/18/23 16:26, Krzysztof Kozlowski wrote:
+>>>> On 17/05/2023 17:25, Marek Vasut wrote:
+>>>>> Add trivial bindings for driver which permits exposing syscon backed
+>>>>> register to userspace. This is useful e.g. to expose U-Boot boot
+>>>>> counter on various platforms where the boot counter is stored in
+>>>>> random volatile register, like STM32MP15xx TAMP_BKPxR register.
+>>>>>
+>>>>> Signed-off-by: Marek Vasut <marex@denx.de>
+>>>>> ---
+>>>>> Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
+>>>>> Cc: Conor Dooley <conor+dt@kernel.org>
+>>>>> Cc: Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
+>>>>> Cc: Marek Vasut <marex@denx.de>
+>>>>> Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+>>>>> Cc: Rob Herring <robh+dt@kernel.org>
+>>>>> Cc: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+>>>>> Cc: devicetree@vger.kernel.org
+>>>>> Cc: kernel@dh-electronics.com
+>>>>> Cc: linux-arm-kernel@lists.infradead.org
+>>>>> Cc: linux-stm32@st-md-mailman.stormreply.com
+>>>>> ---
+>>>>> V2: Use generic syscon supernode
+>>>>> ---
+>>>>>    .../bindings/nvmem/nvmem-syscon.yaml          | 39 +++++++++++++++++++
+>>>>>    1 file changed, 39 insertions(+)
+>>>>>    create mode 100644 Documentation/devicetree/bindings/nvmem/nvmem-syscon.yaml
+>>>>>
+>>>>> diff --git a/Documentation/devicetree/bindings/nvmem/nvmem-syscon.yaml b/Documentation/devicetree/bindings/nvmem/nvmem-syscon.yaml
+>>>>> new file mode 100644
+>>>>> index 0000000000000..7c1173a1a6218
+>>>>> --- /dev/null
+>>>>> +++ b/Documentation/devicetree/bindings/nvmem/nvmem-syscon.yaml
+>>>>> @@ -0,0 +1,39 @@
+>>>>> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+>>>>> +%YAML 1.2
+>>>>> +---
+>>>>> +$id: http://devicetree.org/schemas/nvmem/nvmem-syscon.yaml#
+>>>>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>>>>> +
+>>>>> +title: Generic syscon backed nvmem
+>>>>> +
+>>>>> +maintainers:
+>>>>> +  - Marek Vasut <marex@denx.de>
+>>>>> +
+>>>>> +allOf:
+>>>>> +  - $ref: "nvmem.yaml#"
+>>>>
+>>>> Usual comment: drop quotes. We removed them everywhere, so you based
+>>>> your work on some old tree.
+>>>>
+>>>>> +
+>>>>> +properties:
+>>>>> +  compatible:
+>>>>> +    enum:
+>>>>> +      - nvmem-syscon
+>>>>> +
+>>>>> +  reg:
+>>>>> +    maxItems: 1
+>>>>
+>>>> Rob's questions are not solved.
+>>>
+>>> Can you reiterate this one ? I likely missed it.
+>>
+>> You did not solve the case of more than one register. This isn't an odd
+>> case.
+> 
+> So why not just extend the bindings to support
+> 
+> reg = <0x14c 0x4>, <0x180 0x10>, ... ;
+> 
+> this kind of stuff ?
 
-The two boards which do define panel@0 directly in the DSI bridge node now
-have #address-cells/#size-cells in their board DT instead of it being in
-stm32mp157.dtsi and activated incorrectly for all boards, even the ones
-which use e.g. another DSI-to-something bridge.
+Does not look right. Look at nvmem bindings and don't do it differently.
 
-Signed-off-by: Marek Vasut <marex@denx.de>
----
-Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
-Cc: Conor Dooley <conor+dt@kernel.org>
-Cc: Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Cc: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
-Cc: Rob Herring <robh+dt@kernel.org>
-Cc: devicetree@vger.kernel.org
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-stm32@st-md-mailman.stormreply.com
----
- arch/arm/boot/dts/stm32mp157.dtsi             | 18 ++++++++++++
- ...tm32mp157a-icore-stm32mp1-ctouch2-of10.dts | 24 ++++------------
- .../stm32mp157a-icore-stm32mp1-edimm2.2.dts   | 28 ++++++-------------
- arch/arm/boot/dts/stm32mp157c-dk2.dts         | 28 ++++++-------------
- arch/arm/boot/dts/stm32mp157c-ev1.dts         | 28 ++++++-------------
- 5 files changed, 48 insertions(+), 78 deletions(-)
+> 
+>>>> The nvmem.yaml schema expects here to
+>>>> allow children. This should not be created per-register, but per entire
+>>>> block of registers.
+>>>
+>>> This thing works the other way around, I have a syscon register block
+>>> already, and I want to expose subset of it to userspace as read/write
+>>> accessible file to expose bootcounter available in that register (so I
+>>> can read it and reset it from user application).
+>>
+>> And this makes it too limited. I would expect one device exposing
+>> multiple blocks or registers, just like all nvmem providers are doing.
+> 
+> What would be the real-world use case of that ?
 
-diff --git a/arch/arm/boot/dts/stm32mp157.dtsi b/arch/arm/boot/dts/stm32mp157.dtsi
-index 5e733cd16ff9e..6197d878894de 100644
---- a/arch/arm/boot/dts/stm32mp157.dtsi
-+++ b/arch/arm/boot/dts/stm32mp157.dtsi
-@@ -22,9 +22,27 @@ dsi: dsi@5a000000 {
- 			reg = <0x5a000000 0x800>;
- 			clocks = <&rcc DSI_K>, <&clk_hse>, <&rcc DSI_PX>;
- 			clock-names = "pclk", "ref", "px_clk";
-+			phy-dsi-supply = <&reg18>;
- 			resets = <&rcc DSI_R>;
- 			reset-names = "apb";
- 			status = "disabled";
-+
-+			ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@0 {
-+					reg = <0>;
-+					dsi_in: endpoint {
-+					};
-+				};
-+
-+				port@1 {
-+					reg = <1>;
-+					dsi_out: endpoint {
-+					};
-+				};
-+			};
- 		};
- 	};
- };
-diff --git a/arch/arm/boot/dts/stm32mp157a-icore-stm32mp1-ctouch2-of10.dts b/arch/arm/boot/dts/stm32mp157a-icore-stm32mp1-ctouch2-of10.dts
-index 4279b26547dfd..df97e03d2a5ac 100644
---- a/arch/arm/boot/dts/stm32mp157a-icore-stm32mp1-ctouch2-of10.dts
-+++ b/arch/arm/boot/dts/stm32mp157a-icore-stm32mp1-ctouch2-of10.dts
-@@ -46,26 +46,14 @@ panel_in_lvds: endpoint {
- 
- &dsi {
- 	status = "okay";
--	phy-dsi-supply = <&reg18>;
--
--	ports {
--		#address-cells = <1>;
--		#size-cells = <0>;
-+};
- 
--		port@0 {
--			reg = <0>;
--			dsi_in: endpoint {
--				remote-endpoint = <&ltdc_ep0_out>;
--			};
--		};
-+&dsi_in {
-+	remote-endpoint = <&ltdc_ep0_out>;
-+};
- 
--		port@1 {
--			reg = <1>;
--			dsi_out: endpoint {
--				remote-endpoint = <&bridge_in>;
--			};
--		};
--	};
-+&dsi_out {
-+	remote-endpoint = <&bridge_in>;
- };
- 
- &i2c6 {
-diff --git a/arch/arm/boot/dts/stm32mp157a-icore-stm32mp1-edimm2.2.dts b/arch/arm/boot/dts/stm32mp157a-icore-stm32mp1-edimm2.2.dts
-index efba542898207..f8e4043463964 100644
---- a/arch/arm/boot/dts/stm32mp157a-icore-stm32mp1-edimm2.2.dts
-+++ b/arch/arm/boot/dts/stm32mp157a-icore-stm32mp1-edimm2.2.dts
-@@ -46,26 +46,14 @@ panel_out_bridge: endpoint {
- 
- &dsi {
- 	status = "okay";
--	phy-dsi-supply = <&reg18>;
--
--	ports {
--		#address-cells = <1>;
--		#size-cells = <0>;
-+};
- 
--		port@0 {
--			reg = <0>;
--			dsi_in_ltdc: endpoint {
--				remote-endpoint = <&ltdc_out_dsi>;
--			};
--		};
-+&dsi_in {
-+	remote-endpoint = <&ltdc_out_dsi>;
-+};
- 
--		port@1 {
--			reg = <1>;
--			dsi_out_bridge: endpoint {
--				remote-endpoint = <&bridge_in_dsi>;
--			};
--		};
--	};
-+&dsi_out {
-+	remote-endpoint = <&bridge_in_dsi>;
- };
- 
- &i2c6 {
-@@ -88,7 +76,7 @@ ports {
- 			port@0 {
- 				reg = <0>;
- 				bridge_in_dsi: endpoint {
--					remote-endpoint = <&dsi_out_bridge>;
-+					remote-endpoint = <&dsi_out>;
- 					data-lanes = <1 2>;
- 				};
- 			};
-@@ -108,7 +96,7 @@ &ltdc {
- 
- 	port {
- 		ltdc_out_dsi: endpoint {
--			remote-endpoint = <&dsi_in_ltdc>;
-+			remote-endpoint = <&dsi_in>;
- 		};
- 	};
- };
-diff --git a/arch/arm/boot/dts/stm32mp157c-dk2.dts b/arch/arm/boot/dts/stm32mp157c-dk2.dts
-index 4bef2300ed7ca..510cca5acb79c 100644
---- a/arch/arm/boot/dts/stm32mp157c-dk2.dts
-+++ b/arch/arm/boot/dts/stm32mp157c-dk2.dts
-@@ -34,26 +34,6 @@ &dsi {
- 	#address-cells = <1>;
- 	#size-cells = <0>;
- 	status = "okay";
--	phy-dsi-supply = <&reg18>;
--
--	ports {
--		#address-cells = <1>;
--		#size-cells = <0>;
--
--		port@0 {
--			reg = <0>;
--			dsi_in: endpoint {
--				remote-endpoint = <&ltdc_ep1_out>;
--			};
--		};
--
--		port@1 {
--			reg = <1>;
--			dsi_out: endpoint {
--				remote-endpoint = <&panel_in>;
--			};
--		};
--	};
- 
- 	panel@0 {
- 		compatible = "orisetech,otm8009a";
-@@ -70,6 +50,14 @@ panel_in: endpoint {
- 	};
- };
- 
-+&dsi_in {
-+	remote-endpoint = <&ltdc_ep1_out>;
-+};
-+
-+&dsi_out {
-+	remote-endpoint = <&panel_in>;
-+};
-+
- &i2c1 {
- 	touchscreen@38 {
- 		compatible = "focaltech,ft6236";
-diff --git a/arch/arm/boot/dts/stm32mp157c-ev1.dts b/arch/arm/boot/dts/stm32mp157c-ev1.dts
-index 49ca94c19b02b..874770c997997 100644
---- a/arch/arm/boot/dts/stm32mp157c-ev1.dts
-+++ b/arch/arm/boot/dts/stm32mp157c-ev1.dts
-@@ -100,30 +100,10 @@ dcmi_0: endpoint {
- };
- 
- &dsi {
--	phy-dsi-supply = <&reg18>;
- 	#address-cells = <1>;
- 	#size-cells = <0>;
- 	status = "okay";
- 
--	ports {
--		#address-cells = <1>;
--		#size-cells = <0>;
--
--		port@0 {
--			reg = <0>;
--			dsi_in: endpoint {
--				remote-endpoint = <&ltdc_ep0_out>;
--			};
--		};
--
--		port@1 {
--			reg = <1>;
--			dsi_out: endpoint {
--				remote-endpoint = <&dsi_panel_in>;
--			};
--		};
--	};
--
- 	panel@0 {
- 		compatible = "raydium,rm68200";
- 		reg = <0>;
-@@ -140,6 +120,14 @@ dsi_panel_in: endpoint {
- 	};
- };
- 
-+&dsi_in {
-+	remote-endpoint = <&ltdc_ep0_out>;
-+};
-+
-+&dsi_out {
-+	remote-endpoint = <&dsi_panel_in>;
-+};
-+
- &ethernet0 {
- 	status = "okay";
- 	pinctrl-0 = <&ethernet0_rgmii_pins_a>;
--- 
-2.39.2
+The same as the real world use cases for nvmem. One syscon block has
+multiple registers so I can easily imagine wanting boottrap, bootstat,
+boot-whatever you want.
+
+Best regards,
+Krzysztof
 
 _______________________________________________
 Linux-stm32 mailing list
