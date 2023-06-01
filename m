@@ -2,77 +2,72 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B6AB1719F6F
-	for <lists+linux-stm32@lfdr.de>; Thu,  1 Jun 2023 16:15:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B1F3D71A227
+	for <lists+linux-stm32@lfdr.de>; Thu,  1 Jun 2023 17:15:46 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7D0AAC6B44B;
-	Thu,  1 Jun 2023 14:15:17 +0000 (UTC)
-Received: from relay7-d.mail.gandi.net (relay7-d.mail.gandi.net
- [217.70.183.200])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 533CEC6A61E;
+	Thu,  1 Jun 2023 15:15:46 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EB41AC6B442
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C0190C6A61A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  1 Jun 2023 14:15:15 +0000 (UTC)
-X-GND-Sasl: maxime.chevallier@bootlin.com
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1685628915;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=OL7zcYJTWV/nEVLufRJVs96x/jiRqDhLoDIaAwogNMU=;
- b=U2OiZEab/X89NwF/hNerB+H1MUaok3GnK+ZDaq72hBHDwfQF9XgYWnQX4Schty8/zM1Qgw
- U0BBQwBJIiRZy4UN40bLrIyEWUtNxuSA1k4CtkWHSXyOkQqPycRdtXSEwIJj/j7a2G1lPr
- wdsN+YYNhTTeRJghz4jvQ98gSDJ0XEQmm/lHNgQB8LyIy0MVnTMQeiJCOFpkhn7R1YlgqI
- rfMEqA0bMfIwv+XPh8K9u0/3gY7wNWzOCcwcQlCkQTZy4V2LcuPvkUxI/wVD5nKWP5P8MP
- JvvrMQygpUnONvqJ3VKhDdrMpiTwZQzU2mTVZBxxcR4MbmjJo4eGszUDqBT4gQ==
-X-GND-Sasl: maxime.chevallier@bootlin.com
-X-GND-Sasl: maxime.chevallier@bootlin.com
-X-GND-Sasl: maxime.chevallier@bootlin.com
-X-GND-Sasl: maxime.chevallier@bootlin.com
-X-GND-Sasl: maxime.chevallier@bootlin.com
-X-GND-Sasl: maxime.chevallier@bootlin.com
-X-GND-Sasl: maxime.chevallier@bootlin.com
-X-GND-Sasl: maxime.chevallier@bootlin.com
-X-GND-Sasl: maxime.chevallier@bootlin.com
-X-GND-Sasl: maxime.chevallier@bootlin.com
-X-GND-Sasl: maxime.chevallier@bootlin.com
-X-GND-Sasl: maxime.chevallier@bootlin.com
-X-GND-Sasl: maxime.chevallier@bootlin.com
-X-GND-Sasl: maxime.chevallier@bootlin.com
-X-GND-Sasl: maxime.chevallier@bootlin.com
-X-GND-Sasl: maxime.chevallier@bootlin.com
-X-GND-Sasl: maxime.chevallier@bootlin.com
-X-GND-Sasl: maxime.chevallier@bootlin.com
-X-GND-Sasl: maxime.chevallier@bootlin.com
-X-GND-Sasl: maxime.chevallier@bootlin.com
-X-GND-Sasl: maxime.chevallier@bootlin.com
-X-GND-Sasl: maxime.chevallier@bootlin.com
-Received: by mail.gandi.net (Postfix) with ESMTPSA id E61D620008;
- Thu,  1 Jun 2023 14:15:12 +0000 (UTC)
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-To: Mark Brown <broonie@kernel.org>,
-	davem@davemloft.net
-Date: Thu,  1 Jun 2023 16:14:54 +0200
-Message-Id: <20230601141454.67858-5-maxime.chevallier@bootlin.com>
-X-Mailer: git-send-email 2.40.1
-In-Reply-To: <20230601141454.67858-1-maxime.chevallier@bootlin.com>
-References: <20230601141454.67858-1-maxime.chevallier@bootlin.com>
+ Thu,  1 Jun 2023 15:15:44 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 351D3a9E012865; Thu, 1 Jun 2023 17:15:14 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=0RcEoXxFMEuOoi4z69XcgdJOiHIgPTlS10vQX8Lm9pc=;
+ b=fYxCX9AMXvJYDYCxGzJWFGaYDH6WmqzbvH13y3VnWU3JcnMDL2z/qk5rIJnt4GsVSdEF
+ b9Svwsa+vHjiHEsBXe5vUdOR3ufSw8l9moG7JcSFh2e0LdLooo89E6fkKzYiz+GBIkNP
+ 3HwDSwV+L2c7PsDFFOHQ5zI/6YDeL9C524ujrPBxWsxZBVeSvnc51AHvUxOetQvOqajF
+ gGnX8OXcejrfT5Y5mGqPRL0jL+niMCjRxUSEmcB8LjSwEgbvQm/jjAszeQsCPCFQ5Fsr
+ ZXk/hTJpmSRyMZy53gRyKIGi5CejQ/WC8drv0hfjAeztAuxAFsLUCsrsdGD/M7uFg1oI CA== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3qx367aak3-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 01 Jun 2023 17:15:14 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id A8CAD10002A;
+ Thu,  1 Jun 2023 17:15:12 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node3.st.com [10.75.129.71])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 8EC7C252235;
+ Thu,  1 Jun 2023 17:15:12 +0200 (CEST)
+Received: from [10.48.1.0] (10.48.1.0) by SHFDAG1NODE3.st.com (10.75.129.71)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.21; Thu, 1 Jun
+ 2023 17:15:11 +0200
+Message-ID: <fcf3157c-3417-2090-1be3-c00388c11d72@foss.st.com>
+Date: Thu, 1 Jun 2023 17:15:10 +0200
 MIME-Version: 1.0
-Cc: Andrew Lunn <andrew@lunn.ch>, Florian Fainelli <f.fainelli@gmail.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Russell King <linux@armlinux.org.uk>, netdev@vger.kernel.org,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Ioana Ciornei <ioana.ciornei@nxp.com>, linux-kernel@vger.kernel.org,
- Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
- alexis.lothore@bootlin.com, thomas.petazzoni@bootlin.com,
- Vladimir Oltean <vladimir.oltean@nxp.com>,
- Simon Horman <simon.horman@corigine.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, Heiner Kallweit <hkallweit1@gmail.com>
-Subject: [Linux-stm32] [PATCH net-next v4 4/4] net: stmmac: dwmac-sogfpga:
-	use the lynx pcs driver
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Content-Language: en-US
+To: Marek Vasut <marex@denx.de>, <linux-arm-kernel@lists.infradead.org>
+References: <20230517152513.27922-1-marex@denx.de>
+ <20230517152513.27922-3-marex@denx.de>
+ <02ca01d98fe6$ca371d80$5ea55880$@foss.st.com>
+ <25e6053b-dfc7-efce-2043-7e4f96708418@denx.de>
+From: Patrick DELAUNAY <patrick.delaunay@foss.st.com>
+In-Reply-To: <25e6053b-dfc7-efce-2043-7e4f96708418@denx.de>
+X-Originating-IP: [10.48.1.0]
+X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE3.st.com
+ (10.75.129.71)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.957,Hydra:6.0.573,FMLib:17.11.176.26
+ definitions=2023-06-01_08,2023-05-31_03,2023-05-22_02
+Cc: devicetree@vger.kernel.org, 'Conor Dooley' <conor+dt@kernel.org>,
+ 'Krzysztof Kozlowski' <krzysztof.kozlowski+dt@linaro.org>,
+ 'Rob Herring' <robh+dt@kernel.org>,
+ 'Srinivas Kandagatla' <srinivas.kandagatla@linaro.org>,
+ 'Maxime Coquelin' <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, kernel@dh-electronics.com
+Subject: Re: [Linux-stm32] [PATCH v2 3/3] ARM: dts: stm32: Add nvmem-syscon
+ node to TAMP to expose boot count on DHSOM
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,630 +79,107 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-dwmac_socfpga re-implements support for the TSE PCS, which is identical
-to the already existing TSE PCS, which in turn is the same as the Lynx
-PCS. Drop the existing TSE re-implemenation and use the Lynx PCS
-instead, relying on the regmap-mdio driver to translate MDIO accesses
-into mmio accesses.
-
-Add a lynx_pcs reference in the stmmac's internal structure, and use
-.mac_select_pcs() to return the relevant PCS to be used.
-
-Signed-off-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
----
-V3->V4 :
-	- Use pcs_lynx_create/destroy()
-	- Add a missing cleanup step for this PCS
-	- rename the new PCS field from  phylink_pcs to lynx_pcs, as we
-	  need to know which kind of PCS it is to call the proper
-	  cleanup helper
-	- Add missing Kconfig dependencies
-V2->V3 : No changes
-V1->V2 : No changes
-
- drivers/net/ethernet/stmicro/stmmac/Kconfig   |   3 +
- drivers/net/ethernet/stmicro/stmmac/Makefile  |   2 +-
- .../ethernet/stmicro/stmmac/altr_tse_pcs.c    | 257 ------------------
- .../ethernet/stmicro/stmmac/altr_tse_pcs.h    |  29 --
- drivers/net/ethernet/stmicro/stmmac/common.h  |   2 +
- .../ethernet/stmicro/stmmac/dwmac-socfpga.c   |  91 +++++--
- .../net/ethernet/stmicro/stmmac/stmmac_main.c |  12 +-
- .../net/ethernet/stmicro/stmmac/stmmac_mdio.c |   3 +
- 8 files changed, 83 insertions(+), 316 deletions(-)
- delete mode 100644 drivers/net/ethernet/stmicro/stmmac/altr_tse_pcs.c
- delete mode 100644 drivers/net/ethernet/stmicro/stmmac/altr_tse_pcs.h
-
-diff --git a/drivers/net/ethernet/stmicro/stmmac/Kconfig b/drivers/net/ethernet/stmicro/stmmac/Kconfig
-index 5f5a997f21f3..5583f0b055ec 100644
---- a/drivers/net/ethernet/stmicro/stmmac/Kconfig
-+++ b/drivers/net/ethernet/stmicro/stmmac/Kconfig
-@@ -158,6 +158,9 @@ config DWMAC_SOCFPGA
- 	default ARCH_INTEL_SOCFPGA
- 	depends on OF && (ARCH_INTEL_SOCFPGA || COMPILE_TEST)
- 	select MFD_SYSCON
-+	select MDIO_REGMAP
-+	select REGMAP_MMIO
-+	select PCS_LYNX
- 	help
- 	  Support for ethernet controller on Altera SOCFPGA
- 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/Makefile b/drivers/net/ethernet/stmicro/stmmac/Makefile
-index 8738fdbb4b2d..7dd3d388068b 100644
---- a/drivers/net/ethernet/stmicro/stmmac/Makefile
-+++ b/drivers/net/ethernet/stmicro/stmmac/Makefile
-@@ -35,7 +35,7 @@ obj-$(CONFIG_DWMAC_IMX8)	+= dwmac-imx.o
- obj-$(CONFIG_DWMAC_TEGRA)	+= dwmac-tegra.o
- obj-$(CONFIG_DWMAC_VISCONTI)	+= dwmac-visconti.o
- stmmac-platform-objs:= stmmac_platform.o
--dwmac-altr-socfpga-objs := altr_tse_pcs.o dwmac-socfpga.o
-+dwmac-altr-socfpga-objs := dwmac-socfpga.o
- 
- obj-$(CONFIG_STMMAC_PCI)	+= stmmac-pci.o
- obj-$(CONFIG_DWMAC_INTEL)	+= dwmac-intel.o
-diff --git a/drivers/net/ethernet/stmicro/stmmac/altr_tse_pcs.c b/drivers/net/ethernet/stmicro/stmmac/altr_tse_pcs.c
-deleted file mode 100644
-index 00f6d347eaf7..000000000000
---- a/drivers/net/ethernet/stmicro/stmmac/altr_tse_pcs.c
-+++ /dev/null
-@@ -1,257 +0,0 @@
--// SPDX-License-Identifier: GPL-2.0-only
--/* Copyright Altera Corporation (C) 2016. All rights reserved.
-- *
-- * Author: Tien Hock Loh <thloh@altera.com>
-- */
--
--#include <linux/mfd/syscon.h>
--#include <linux/of.h>
--#include <linux/of_address.h>
--#include <linux/of_net.h>
--#include <linux/phy.h>
--#include <linux/regmap.h>
--#include <linux/reset.h>
--#include <linux/stmmac.h>
--
--#include "stmmac.h"
--#include "stmmac_platform.h"
--#include "altr_tse_pcs.h"
--
--#define SYSMGR_EMACGRP_CTRL_PHYSEL_ENUM_GMII_MII	0
--#define SYSMGR_EMACGRP_CTRL_PHYSEL_ENUM_RGMII		BIT(1)
--#define SYSMGR_EMACGRP_CTRL_PHYSEL_ENUM_RMII		BIT(2)
--#define SYSMGR_EMACGRP_CTRL_PHYSEL_WIDTH		2
--#define SYSMGR_EMACGRP_CTRL_PHYSEL_MASK			GENMASK(1, 0)
--
--#define TSE_PCS_CONTROL_AN_EN_MASK			BIT(12)
--#define TSE_PCS_CONTROL_REG				0x00
--#define TSE_PCS_CONTROL_RESTART_AN_MASK			BIT(9)
--#define TSE_PCS_CTRL_AUTONEG_SGMII			0x1140
--#define TSE_PCS_IF_MODE_REG				0x28
--#define TSE_PCS_LINK_TIMER_0_REG			0x24
--#define TSE_PCS_LINK_TIMER_1_REG			0x26
--#define TSE_PCS_SIZE					0x40
--#define TSE_PCS_STATUS_AN_COMPLETED_MASK		BIT(5)
--#define TSE_PCS_STATUS_LINK_MASK			0x0004
--#define TSE_PCS_STATUS_REG				0x02
--#define TSE_PCS_SGMII_SPEED_1000			BIT(3)
--#define TSE_PCS_SGMII_SPEED_100				BIT(2)
--#define TSE_PCS_SGMII_SPEED_10				0x0
--#define TSE_PCS_SW_RST_MASK				0x8000
--#define TSE_PCS_PARTNER_ABILITY_REG			0x0A
--#define TSE_PCS_PARTNER_DUPLEX_FULL			0x1000
--#define TSE_PCS_PARTNER_DUPLEX_HALF			0x0000
--#define TSE_PCS_PARTNER_DUPLEX_MASK			0x1000
--#define TSE_PCS_PARTNER_SPEED_MASK			GENMASK(11, 10)
--#define TSE_PCS_PARTNER_SPEED_1000			BIT(11)
--#define TSE_PCS_PARTNER_SPEED_100			BIT(10)
--#define TSE_PCS_PARTNER_SPEED_10			0x0000
--#define TSE_PCS_PARTNER_SPEED_1000			BIT(11)
--#define TSE_PCS_PARTNER_SPEED_100			BIT(10)
--#define TSE_PCS_PARTNER_SPEED_10			0x0000
--#define TSE_PCS_SGMII_SPEED_MASK			GENMASK(3, 2)
--#define TSE_PCS_SGMII_LINK_TIMER_0			0x0D40
--#define TSE_PCS_SGMII_LINK_TIMER_1			0x0003
--#define TSE_PCS_SW_RESET_TIMEOUT			100
--#define TSE_PCS_USE_SGMII_AN_MASK			BIT(1)
--#define TSE_PCS_USE_SGMII_ENA				BIT(0)
--#define TSE_PCS_IF_USE_SGMII				0x03
--
--#define AUTONEGO_LINK_TIMER				20
--
--static int tse_pcs_reset(void __iomem *base, struct tse_pcs *pcs)
--{
--	int counter = 0;
--	u16 val;
--
--	val = readw(base + TSE_PCS_CONTROL_REG);
--	val |= TSE_PCS_SW_RST_MASK;
--	writew(val, base + TSE_PCS_CONTROL_REG);
--
--	while (counter < TSE_PCS_SW_RESET_TIMEOUT) {
--		val = readw(base + TSE_PCS_CONTROL_REG);
--		val &= TSE_PCS_SW_RST_MASK;
--		if (val == 0)
--			break;
--		counter++;
--		udelay(1);
--	}
--	if (counter >= TSE_PCS_SW_RESET_TIMEOUT) {
--		dev_err(pcs->dev, "PCS could not get out of sw reset\n");
--		return -ETIMEDOUT;
--	}
--
--	return 0;
--}
--
--int tse_pcs_init(void __iomem *base, struct tse_pcs *pcs)
--{
--	int ret = 0;
--
--	writew(TSE_PCS_IF_USE_SGMII, base + TSE_PCS_IF_MODE_REG);
--
--	writew(TSE_PCS_CTRL_AUTONEG_SGMII, base + TSE_PCS_CONTROL_REG);
--
--	writew(TSE_PCS_SGMII_LINK_TIMER_0, base + TSE_PCS_LINK_TIMER_0_REG);
--	writew(TSE_PCS_SGMII_LINK_TIMER_1, base + TSE_PCS_LINK_TIMER_1_REG);
--
--	ret = tse_pcs_reset(base, pcs);
--	if (ret == 0)
--		writew(SGMII_ADAPTER_ENABLE,
--		       pcs->sgmii_adapter_base + SGMII_ADAPTER_CTRL_REG);
--
--	return ret;
--}
--
--static void pcs_link_timer_callback(struct tse_pcs *pcs)
--{
--	u16 val = 0;
--	void __iomem *tse_pcs_base = pcs->tse_pcs_base;
--	void __iomem *sgmii_adapter_base = pcs->sgmii_adapter_base;
--
--	val = readw(tse_pcs_base + TSE_PCS_STATUS_REG);
--	val &= TSE_PCS_STATUS_LINK_MASK;
--
--	if (val != 0) {
--		dev_dbg(pcs->dev, "Adapter: Link is established\n");
--		writew(SGMII_ADAPTER_ENABLE,
--		       sgmii_adapter_base + SGMII_ADAPTER_CTRL_REG);
--	} else {
--		mod_timer(&pcs->aneg_link_timer, jiffies +
--			  msecs_to_jiffies(AUTONEGO_LINK_TIMER));
--	}
--}
--
--static void auto_nego_timer_callback(struct tse_pcs *pcs)
--{
--	u16 val = 0;
--	u16 speed = 0;
--	u16 duplex = 0;
--	void __iomem *tse_pcs_base = pcs->tse_pcs_base;
--	void __iomem *sgmii_adapter_base = pcs->sgmii_adapter_base;
--
--	val = readw(tse_pcs_base + TSE_PCS_STATUS_REG);
--	val &= TSE_PCS_STATUS_AN_COMPLETED_MASK;
--
--	if (val != 0) {
--		dev_dbg(pcs->dev, "Adapter: Auto Negotiation is completed\n");
--		val = readw(tse_pcs_base + TSE_PCS_PARTNER_ABILITY_REG);
--		speed = val & TSE_PCS_PARTNER_SPEED_MASK;
--		duplex = val & TSE_PCS_PARTNER_DUPLEX_MASK;
--
--		if (speed == TSE_PCS_PARTNER_SPEED_10 &&
--		    duplex == TSE_PCS_PARTNER_DUPLEX_FULL)
--			dev_dbg(pcs->dev,
--				"Adapter: Link Partner is Up - 10/Full\n");
--		else if (speed == TSE_PCS_PARTNER_SPEED_100 &&
--			 duplex == TSE_PCS_PARTNER_DUPLEX_FULL)
--			dev_dbg(pcs->dev,
--				"Adapter: Link Partner is Up - 100/Full\n");
--		else if (speed == TSE_PCS_PARTNER_SPEED_1000 &&
--			 duplex == TSE_PCS_PARTNER_DUPLEX_FULL)
--			dev_dbg(pcs->dev,
--				"Adapter: Link Partner is Up - 1000/Full\n");
--		else if (speed == TSE_PCS_PARTNER_SPEED_10 &&
--			 duplex == TSE_PCS_PARTNER_DUPLEX_HALF)
--			dev_err(pcs->dev,
--				"Adapter does not support Half Duplex\n");
--		else if (speed == TSE_PCS_PARTNER_SPEED_100 &&
--			 duplex == TSE_PCS_PARTNER_DUPLEX_HALF)
--			dev_err(pcs->dev,
--				"Adapter does not support Half Duplex\n");
--		else if (speed == TSE_PCS_PARTNER_SPEED_1000 &&
--			 duplex == TSE_PCS_PARTNER_DUPLEX_HALF)
--			dev_err(pcs->dev,
--				"Adapter does not support Half Duplex\n");
--		else
--			dev_err(pcs->dev,
--				"Adapter: Invalid Partner Speed and Duplex\n");
--
--		if (duplex == TSE_PCS_PARTNER_DUPLEX_FULL &&
--		    (speed == TSE_PCS_PARTNER_SPEED_10 ||
--		     speed == TSE_PCS_PARTNER_SPEED_100 ||
--		     speed == TSE_PCS_PARTNER_SPEED_1000))
--			writew(SGMII_ADAPTER_ENABLE,
--			       sgmii_adapter_base + SGMII_ADAPTER_CTRL_REG);
--	} else {
--		val = readw(tse_pcs_base + TSE_PCS_CONTROL_REG);
--		val |= TSE_PCS_CONTROL_RESTART_AN_MASK;
--		writew(val, tse_pcs_base + TSE_PCS_CONTROL_REG);
--
--		tse_pcs_reset(tse_pcs_base, pcs);
--		mod_timer(&pcs->aneg_link_timer, jiffies +
--			  msecs_to_jiffies(AUTONEGO_LINK_TIMER));
--	}
--}
--
--static void aneg_link_timer_callback(struct timer_list *t)
--{
--	struct tse_pcs *pcs = from_timer(pcs, t, aneg_link_timer);
--
--	if (pcs->autoneg == AUTONEG_ENABLE)
--		auto_nego_timer_callback(pcs);
--	else if (pcs->autoneg == AUTONEG_DISABLE)
--		pcs_link_timer_callback(pcs);
--}
--
--void tse_pcs_fix_mac_speed(struct tse_pcs *pcs, struct phy_device *phy_dev,
--			   unsigned int speed)
--{
--	void __iomem *tse_pcs_base = pcs->tse_pcs_base;
--	u32 val;
--
--	pcs->autoneg = phy_dev->autoneg;
--
--	if (phy_dev->autoneg == AUTONEG_ENABLE) {
--		val = readw(tse_pcs_base + TSE_PCS_CONTROL_REG);
--		val |= TSE_PCS_CONTROL_AN_EN_MASK;
--		writew(val, tse_pcs_base + TSE_PCS_CONTROL_REG);
--
--		val = readw(tse_pcs_base + TSE_PCS_IF_MODE_REG);
--		val |= TSE_PCS_USE_SGMII_AN_MASK;
--		writew(val, tse_pcs_base + TSE_PCS_IF_MODE_REG);
--
--		val = readw(tse_pcs_base + TSE_PCS_CONTROL_REG);
--		val |= TSE_PCS_CONTROL_RESTART_AN_MASK;
--
--		tse_pcs_reset(tse_pcs_base, pcs);
--
--		timer_setup(&pcs->aneg_link_timer, aneg_link_timer_callback,
--			    0);
--		mod_timer(&pcs->aneg_link_timer, jiffies +
--			  msecs_to_jiffies(AUTONEGO_LINK_TIMER));
--	} else if (phy_dev->autoneg == AUTONEG_DISABLE) {
--		val = readw(tse_pcs_base + TSE_PCS_CONTROL_REG);
--		val &= ~TSE_PCS_CONTROL_AN_EN_MASK;
--		writew(val, tse_pcs_base + TSE_PCS_CONTROL_REG);
--
--		val = readw(tse_pcs_base + TSE_PCS_IF_MODE_REG);
--		val &= ~TSE_PCS_USE_SGMII_AN_MASK;
--		writew(val, tse_pcs_base + TSE_PCS_IF_MODE_REG);
--
--		val = readw(tse_pcs_base + TSE_PCS_IF_MODE_REG);
--		val &= ~TSE_PCS_SGMII_SPEED_MASK;
--
--		switch (speed) {
--		case 1000:
--			val |= TSE_PCS_SGMII_SPEED_1000;
--			break;
--		case 100:
--			val |= TSE_PCS_SGMII_SPEED_100;
--			break;
--		case 10:
--			val |= TSE_PCS_SGMII_SPEED_10;
--			break;
--		default:
--			return;
--		}
--		writew(val, tse_pcs_base + TSE_PCS_IF_MODE_REG);
--
--		tse_pcs_reset(tse_pcs_base, pcs);
--
--		timer_setup(&pcs->aneg_link_timer, aneg_link_timer_callback,
--			    0);
--		mod_timer(&pcs->aneg_link_timer, jiffies +
--			  msecs_to_jiffies(AUTONEGO_LINK_TIMER));
--	}
--}
-diff --git a/drivers/net/ethernet/stmicro/stmmac/altr_tse_pcs.h b/drivers/net/ethernet/stmicro/stmmac/altr_tse_pcs.h
-deleted file mode 100644
-index 694ac25ef426..000000000000
---- a/drivers/net/ethernet/stmicro/stmmac/altr_tse_pcs.h
-+++ /dev/null
-@@ -1,29 +0,0 @@
--/* SPDX-License-Identifier: GPL-2.0-only */
--/* Copyright Altera Corporation (C) 2016. All rights reserved.
-- *
-- * Author: Tien Hock Loh <thloh@altera.com>
-- */
--
--#ifndef __TSE_PCS_H__
--#define __TSE_PCS_H__
--
--#include <linux/phy.h>
--#include <linux/timer.h>
--
--#define SGMII_ADAPTER_CTRL_REG		0x00
--#define SGMII_ADAPTER_ENABLE		0x0000
--#define SGMII_ADAPTER_DISABLE		0x0001
--
--struct tse_pcs {
--	struct device *dev;
--	void __iomem *tse_pcs_base;
--	void __iomem *sgmii_adapter_base;
--	struct timer_list aneg_link_timer;
--	int autoneg;
--};
--
--int tse_pcs_init(void __iomem *base, struct tse_pcs *pcs);
--void tse_pcs_fix_mac_speed(struct tse_pcs *pcs, struct phy_device *phy_dev,
--			   unsigned int speed);
--
--#endif /* __TSE_PCS_H__ */
-diff --git a/drivers/net/ethernet/stmicro/stmmac/common.h b/drivers/net/ethernet/stmicro/stmmac/common.h
-index 4ad692c4116c..52c5ec553276 100644
---- a/drivers/net/ethernet/stmicro/stmmac/common.h
-+++ b/drivers/net/ethernet/stmicro/stmmac/common.h
-@@ -16,6 +16,7 @@
- #include <linux/stmmac.h>
- #include <linux/phy.h>
- #include <linux/pcs/pcs-xpcs.h>
-+#include <linux/pcs-lynx.h>
- #include <linux/module.h>
- #if IS_ENABLED(CONFIG_VLAN_8021Q)
- #define STMMAC_VLAN_TAG_USED
-@@ -519,6 +520,7 @@ struct mac_device_info {
- 	const struct stmmac_tc_ops *tc;
- 	const struct stmmac_mmc_ops *mmc;
- 	struct dw_xpcs *xpcs;
-+	struct phylink_pcs *lynx_pcs; /* Lynx external PCS */
- 	struct mii_regs mii;	/* MII register Addresses */
- 	struct mac_link link;
- 	void __iomem *pcsr;     /* vpointer to device CSRs */
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
-index 6ee050300b31..e399fccbafe5 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
-@@ -10,14 +10,13 @@
- #include <linux/of_net.h>
- #include <linux/phy.h>
- #include <linux/regmap.h>
-+#include <linux/mdio/mdio-regmap.h>
- #include <linux/reset.h>
- #include <linux/stmmac.h>
- 
- #include "stmmac.h"
- #include "stmmac_platform.h"
- 
--#include "altr_tse_pcs.h"
--
- #define SYSMGR_EMACGRP_CTRL_PHYSEL_ENUM_GMII_MII 0x0
- #define SYSMGR_EMACGRP_CTRL_PHYSEL_ENUM_RGMII 0x1
- #define SYSMGR_EMACGRP_CTRL_PHYSEL_ENUM_RMII 0x2
-@@ -37,6 +36,10 @@
- #define EMAC_SPLITTER_CTRL_SPEED_100		0x3
- #define EMAC_SPLITTER_CTRL_SPEED_1000		0x0
- 
-+#define SGMII_ADAPTER_CTRL_REG		0x00
-+#define SGMII_ADAPTER_ENABLE		0x0000
-+#define SGMII_ADAPTER_DISABLE		0x0001
-+
- struct socfpga_dwmac;
- struct socfpga_dwmac_ops {
- 	int (*set_phy_mode)(struct socfpga_dwmac *dwmac_priv);
-@@ -50,16 +53,18 @@ struct socfpga_dwmac {
- 	struct reset_control *stmmac_rst;
- 	struct reset_control *stmmac_ocp_rst;
- 	void __iomem *splitter_base;
-+	void __iomem *tse_pcs_base;
-+	void __iomem *sgmii_adapter_base;
- 	bool f2h_ptp_ref_clk;
--	struct tse_pcs pcs;
- 	const struct socfpga_dwmac_ops *ops;
-+	struct mdio_device *pcs_mdiodev;
- };
- 
- static void socfpga_dwmac_fix_mac_speed(void *priv, unsigned int speed)
- {
- 	struct socfpga_dwmac *dwmac = (struct socfpga_dwmac *)priv;
- 	void __iomem *splitter_base = dwmac->splitter_base;
--	void __iomem *sgmii_adapter_base = dwmac->pcs.sgmii_adapter_base;
-+	void __iomem *sgmii_adapter_base = dwmac->sgmii_adapter_base;
- 	struct device *dev = dwmac->dev;
- 	struct net_device *ndev = dev_get_drvdata(dev);
- 	struct phy_device *phy_dev = ndev->phydev;
-@@ -89,11 +94,9 @@ static void socfpga_dwmac_fix_mac_speed(void *priv, unsigned int speed)
- 		writel(val, splitter_base + EMAC_SPLITTER_CTRL_REG);
- 	}
- 
--	if (phy_dev && sgmii_adapter_base) {
-+	if (phy_dev && sgmii_adapter_base)
- 		writew(SGMII_ADAPTER_ENABLE,
- 		       sgmii_adapter_base + SGMII_ADAPTER_CTRL_REG);
--		tse_pcs_fix_mac_speed(&dwmac->pcs, phy_dev, speed);
--	}
- }
- 
- static int socfpga_dwmac_parse_data(struct socfpga_dwmac *dwmac, struct device *dev)
-@@ -183,11 +186,11 @@ static int socfpga_dwmac_parse_data(struct socfpga_dwmac *dwmac, struct device *
- 				goto err_node_put;
- 			}
- 
--			dwmac->pcs.sgmii_adapter_base =
-+			dwmac->sgmii_adapter_base =
- 			    devm_ioremap_resource(dev, &res_sgmii_adapter);
- 
--			if (IS_ERR(dwmac->pcs.sgmii_adapter_base)) {
--				ret = PTR_ERR(dwmac->pcs.sgmii_adapter_base);
-+			if (IS_ERR(dwmac->sgmii_adapter_base)) {
-+				ret = PTR_ERR(dwmac->sgmii_adapter_base);
- 				goto err_node_put;
- 			}
- 		}
-@@ -205,11 +208,11 @@ static int socfpga_dwmac_parse_data(struct socfpga_dwmac *dwmac, struct device *
- 				goto err_node_put;
- 			}
- 
--			dwmac->pcs.tse_pcs_base =
-+			dwmac->tse_pcs_base =
- 			    devm_ioremap_resource(dev, &res_tse_pcs);
- 
--			if (IS_ERR(dwmac->pcs.tse_pcs_base)) {
--				ret = PTR_ERR(dwmac->pcs.tse_pcs_base);
-+			if (IS_ERR(dwmac->tse_pcs_base)) {
-+				ret = PTR_ERR(dwmac->tse_pcs_base);
- 				goto err_node_put;
- 			}
- 		}
-@@ -235,6 +238,13 @@ static int socfpga_get_plat_phymode(struct socfpga_dwmac *dwmac)
- 	return priv->plat->interface;
- }
- 
-+static void socfpga_sgmii_config(struct socfpga_dwmac *dwmac, bool enable)
-+{
-+	u16 val = enable ? SGMII_ADAPTER_ENABLE : SGMII_ADAPTER_DISABLE;
-+
-+	writew(val, dwmac->sgmii_adapter_base + SGMII_ADAPTER_CTRL_REG);
-+}
-+
- static int socfpga_set_phy_mode_common(int phymode, u32 *val)
- {
- 	switch (phymode) {
-@@ -310,12 +320,8 @@ static int socfpga_gen5_set_phy_mode(struct socfpga_dwmac *dwmac)
- 	 */
- 	reset_control_deassert(dwmac->stmmac_ocp_rst);
- 	reset_control_deassert(dwmac->stmmac_rst);
--	if (phymode == PHY_INTERFACE_MODE_SGMII) {
--		if (tse_pcs_init(dwmac->pcs.tse_pcs_base, &dwmac->pcs) != 0) {
--			dev_err(dwmac->dev, "Unable to initialize TSE PCS");
--			return -EINVAL;
--		}
--	}
-+	if (phymode == PHY_INTERFACE_MODE_SGMII)
-+		socfpga_sgmii_config(dwmac, true);
- 
- 	return 0;
- }
-@@ -367,12 +373,8 @@ static int socfpga_gen10_set_phy_mode(struct socfpga_dwmac *dwmac)
- 	 */
- 	reset_control_deassert(dwmac->stmmac_ocp_rst);
- 	reset_control_deassert(dwmac->stmmac_rst);
--	if (phymode == PHY_INTERFACE_MODE_SGMII) {
--		if (tse_pcs_init(dwmac->pcs.tse_pcs_base, &dwmac->pcs) != 0) {
--			dev_err(dwmac->dev, "Unable to initialize TSE PCS");
--			return -EINVAL;
--		}
--	}
-+	if (phymode == PHY_INTERFACE_MODE_SGMII)
-+		socfpga_sgmii_config(dwmac, true);
- 	return 0;
- }
- 
-@@ -386,6 +388,7 @@ static int socfpga_dwmac_probe(struct platform_device *pdev)
- 	struct net_device	*ndev;
- 	struct stmmac_priv	*stpriv;
- 	const struct socfpga_dwmac_ops *ops;
-+	struct regmap_config pcs_regmap_cfg;
- 
- 	ops = device_get_match_data(&pdev->dev);
- 	if (!ops) {
-@@ -443,6 +446,44 @@ static int socfpga_dwmac_probe(struct platform_device *pdev)
- 	if (ret)
- 		goto err_dvr_remove;
- 
-+	memset(&pcs_regmap_cfg, 0, sizeof(pcs_regmap_cfg));
-+	pcs_regmap_cfg.reg_bits = 16;
-+	pcs_regmap_cfg.val_bits = 16;
-+	pcs_regmap_cfg.reg_shift = REGMAP_UPSHIFT(1);
-+
-+	/* Create a regmap for the PCS so that it can be used by the PCS driver,
-+	 * if we have such a PCS
-+	 */
-+	if (dwmac->tse_pcs_base) {
-+		struct mdio_regmap_config mrc;
-+		struct regmap *pcs_regmap;
-+		struct mii_bus *pcs_bus;
-+
-+		pcs_regmap = devm_regmap_init_mmio(&pdev->dev, dwmac->tse_pcs_base,
-+						   &pcs_regmap_cfg);
-+		if (IS_ERR(pcs_regmap)) {
-+			ret = PTR_ERR(pcs_regmap);
-+			goto err_dvr_remove;
-+		}
-+
-+		mrc.regmap = pcs_regmap;
-+		mrc.parent = &pdev->dev;
-+		mrc.valid_addr = 0x0;
-+
-+		snprintf(mrc.name, MII_BUS_ID_SIZE, "%s-pcs-mii", ndev->name);
-+		pcs_bus = devm_mdio_regmap_register(&pdev->dev, &mrc);
-+		if (IS_ERR(pcs_bus)) {
-+			ret = PTR_ERR(pcs_bus);
-+			goto err_dvr_remove;
-+		}
-+
-+		stpriv->hw->lynx_pcs = lynx_pcs_create_mdiodev(pcs_bus, 0);
-+		if (IS_ERR(stpriv->hw->lynx_pcs)) {
-+			ret = PTR_ERR(stpriv->hw->lynx_pcs);
-+			goto err_dvr_remove;
-+		}
-+	}
-+
- 	return 0;
- 
- err_dvr_remove:
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 0fca81507a77..cff76e215f7d 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -937,10 +937,13 @@ static struct phylink_pcs *stmmac_mac_select_pcs(struct phylink_config *config,
- {
- 	struct stmmac_priv *priv = netdev_priv(to_net_dev(config->dev));
- 
--	if (!priv->hw->xpcs)
--		return NULL;
-+	if (priv->hw->xpcs)
-+		return &priv->hw->xpcs->pcs;
-+
-+	if (priv->hw->lynx_pcs)
-+		return priv->hw->lynx_pcs;
- 
--	return &priv->hw->xpcs->pcs;
-+	return NULL;
- }
- 
- static void stmmac_mac_config(struct phylink_config *config, unsigned int mode,
-@@ -3813,7 +3816,8 @@ static int __stmmac_open(struct net_device *dev,
- 	if (priv->hw->pcs != STMMAC_PCS_TBI &&
- 	    priv->hw->pcs != STMMAC_PCS_RTBI &&
- 	    (!priv->hw->xpcs ||
--	     xpcs_get_an_mode(priv->hw->xpcs, mode) != DW_AN_C73)) {
-+	     xpcs_get_an_mode(priv->hw->xpcs, mode) != DW_AN_C73) &&
-+	    !priv->hw->lynx_pcs) {
- 		ret = stmmac_init_phy(dev);
- 		if (ret) {
- 			netdev_err(priv->dev,
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
-index 3db1cb0fd160..c784a6731f08 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
-@@ -665,6 +665,9 @@ int stmmac_mdio_unregister(struct net_device *ndev)
- 	if (priv->hw->xpcs)
- 		xpcs_destroy(priv->hw->xpcs);
- 
-+	if (priv->hw->lynx_pcs)
-+		lynx_pcs_destroy(priv->hw->lynx_pcs);
-+
- 	mdiobus_unregister(priv->mii);
- 	priv->mii->priv = NULL;
- 	mdiobus_free(priv->mii);
--- 
-2.40.1
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+SGksCgpPbiA2LzEvMjMgMDE6MDksIE1hcmVrIFZhc3V0IHdyb3RlOgo+IE9uIDUvMjYvMjMgMTc6
+MjgsIHBhdHJpY2suZGVsYXVuYXlAZm9zcy5zdC5jb20gd3JvdGU6Cj4+IEhpIE1hcmVrLAo+Cj4g
+SGksCj4KPj4+IEZyb206IE1hcmVrIFZhc3V0IDxtYXJleEBkZW54LmRlPgo+Pj4gU2VudDogV2Vk
+bmVzZGF5LCBNYXkgMTcsIDIwMjMgNToyNSBQTQo+Pj4gU3ViamVjdDogW1BBVENIIHYyIDMvM10g
+QVJNOiBkdHM6IHN0bTMyOiBBZGQgbnZtZW0tc3lzY29uIG5vZGUgdG8gCj4+PiBUQU1QIHRvCj4+
+PiBleHBvc2UgYm9vdCBjb3VudCBvbiBESFNPTQo+Pj4KPj4+IEFkZCBudm1lbS1zeXNjb24gc3Vi
+bm9kZSB0byBleHBvc2UgVEFNUF9CS1B4UiByZWdpc3RlciAxOSB0byB1c2VyIAo+Pj4gc3BhY2Uu
+Cj4+PiBUaGlzIHJlZ2lzdGVyIGNvbnRhaW5zIFUtQm9vdCBib290IGNvdW50ZXIsIGJ5IGV4cG9z
+aW5nIGl0IHRvIHVzZXIgCj4+PiBzcGFjZSB0aGUgdXNlcgo+Pj4gc3BhY2UgY2FuIHJlc2V0IHRo
+ZSBib290IGNvdW50ZXIuCj4+Pgo+Pj4gUmVhZCBhY2Nlc3MgZXhhbXBsZToKPj4+ICIKPj4+ICQg
+aGV4ZHVtcCAtdkMgL3N5cy9idXMvbnZtZW0vZGV2aWNlcy81YzAwYTAwMC50YW1wXDpudm1lbTAv
+bnZtZW0KPj4+IDAwMDAwMDAwwqAgMGMgMDAgYzQgYjAKPj4+ICIKPj4+Cj4+PiBTaWduZWQtb2Zm
+LWJ5OiBNYXJlayBWYXN1dCA8bWFyZXhAZGVueC5kZT4KPj4+IC0tLQo+Pj4gQ2M6IEFsZXhhbmRy
+ZSBUb3JndWUgPGFsZXhhbmRyZS50b3JndWVAZm9zcy5zdC5jb20+Cj4+PiBDYzogQ29ub3IgRG9v
+bGV5IDxjb25vcitkdEBrZXJuZWwub3JnPgo+Pj4gQ2M6IEtyenlzenRvZiBLb3psb3dza2kgPGty
+enlzenRvZi5rb3psb3dza2krZHRAbGluYXJvLm9yZz4KPj4+IENjOiBNYXJlayBWYXN1dCA8bWFy
+ZXhAZGVueC5kZT4KPj4+IENjOiBNYXhpbWUgQ29xdWVsaW4gPG1jb3F1ZWxpbi5zdG0zMkBnbWFp
+bC5jb20+Cj4+PiBDYzogUm9iIEhlcnJpbmcgPHJvYmgrZHRAa2VybmVsLm9yZz4KPj4+IENjOiBT
+cmluaXZhcyBLYW5kYWdhdGxhIDxzcmluaXZhcy5rYW5kYWdhdGxhQGxpbmFyby5vcmc+Cj4+PiBD
+YzogZGV2aWNldHJlZUB2Z2VyLmtlcm5lbC5vcmcKPj4+IENjOiBrZXJuZWxAZGgtZWxlY3Ryb25p
+Y3MuY29tCj4+PiBDYzogbGludXgtYXJtLWtlcm5lbEBsaXN0cy5pbmZyYWRlYWQub3JnCj4+PiBD
+YzogbGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQo+Pj4gLS0tCj4+PiBW
+MjogTm8gY2hhbmdlCj4+PiAtLS0KPj4+IMKgIGFyY2gvYXJtL2Jvb3QvZHRzL3N0bTMybXAxNXh4
+LWRoY29tLXNvbS5kdHNpIHwgMTEgKysrKysrKysrKysKPj4+IGFyY2gvYXJtL2Jvb3QvZHRzL3N0
+bTMybXAxNXh4LWRoY29yLXNvbS5kdHNpIHwgMTEgKysrKysrKysrKysKPj4+IMKgIDIgZmlsZXMg
+Y2hhbmdlZCwgMjIgaW5zZXJ0aW9ucygrKQo+Pj4KPj4+IGRpZmYgLS1naXQgYS9hcmNoL2FybS9i
+b290L2R0cy9zdG0zMm1wMTV4eC1kaGNvbS1zb20uZHRzaQo+Pj4gYi9hcmNoL2FybS9ib290L2R0
+cy9zdG0zMm1wMTV4eC1kaGNvbS1zb20uZHRzaQo+Pj4gaW5kZXggNzQ3MzU1NTJmNDgwMy4uYjI1
+NTdiYjcxOGY1MiAxMDA2NDQKPj4+IC0tLSBhL2FyY2gvYXJtL2Jvb3QvZHRzL3N0bTMybXAxNXh4
+LWRoY29tLXNvbS5kdHNpCj4+PiArKysgYi9hcmNoL2FybS9ib290L2R0cy9zdG0zMm1wMTV4eC1k
+aGNvbS1zb20uZHRzaQo+Pj4gQEAgLTUzNyw2ICs1MzcsMTcgQEAgJnNkbW1jMyB7Cj4+PiDCoMKg
+wqDCoMKgIHN0YXR1cyA9ICJva2F5IjsKPj4+IMKgIH07Cj4+Pgo+Pj4gKyZ0YW1wIHsKPj4+ICvC
+oMKgwqAgI2FkZHJlc3MtY2VsbHMgPSA8MT47Cj4+PiArwqDCoMKgICNzaXplLWNlbGxzID0gPDE+
+Owo+Pj4gKwo+Pj4gK8KgwqDCoCAvKiBCb290IGNvdW50ZXIgKi8KPj4+ICvCoMKgwqAgbnZtZW0g
+ewo+Pj4gK8KgwqDCoMKgwqDCoMKgIGNvbXBhdGlibGUgPSAibnZtZW0tc3lzY29uIjsKPj4+ICvC
+oMKgwqDCoMKgwqDCoCByZWcgPSA8MHgxNGMgMHg0PjsKPj4+ICvCoMKgwqAgfTsKPj4+ICt9Owo+
+Pj4gKwo+Pj4gwqAgJnVhcnQ0IHsKPj4+IMKgwqDCoMKgwqAgcGluY3RybC1uYW1lcyA9ICJkZWZh
+dWx0IjsKPj4+IMKgwqDCoMKgwqAgcGluY3RybC0wID0gPCZ1YXJ0NF9waW5zX2E+Owo+Pj4gZGlm
+ZiAtLWdpdCBhL2FyY2gvYXJtL2Jvb3QvZHRzL3N0bTMybXAxNXh4LWRoY29yLXNvbS5kdHNpCj4+
+PiBiL2FyY2gvYXJtL2Jvb3QvZHRzL3N0bTMybXAxNXh4LWRoY29yLXNvbS5kdHNpCj4+PiBpbmRl
+eCBiYmExOWYyMWU1Mjc3Li44NjQ5NjAzODdlNjM0IDEwMDY0NAo+Pj4gLS0tIGEvYXJjaC9hcm0v
+Ym9vdC9kdHMvc3RtMzJtcDE1eHgtZGhjb3Itc29tLmR0c2kKPj4+ICsrKyBiL2FyY2gvYXJtL2Jv
+b3QvZHRzL3N0bTMybXAxNXh4LWRoY29yLXNvbS5kdHNpCj4+PiBAQCAtMjY5LDMgKzI2OSwxNCBA
+QCAmcm5nMSB7Cj4+PiDCoCAmcnRjIHsKPj4+IMKgwqDCoMKgwqAgc3RhdHVzID0gIm9rYXkiOwo+
+Pj4gwqAgfTsKPj4+ICsKPj4+ICsmdGFtcCB7Cj4+PiArwqDCoMKgICNhZGRyZXNzLWNlbGxzID0g
+PDE+Owo+Pj4gK8KgwqDCoCAjc2l6ZS1jZWxscyA9IDwxPjsKPj4+ICsKPj4+ICvCoMKgwqAgLyog
+Qm9vdCBjb3VudGVyICovCj4+PiArwqDCoMKgIG52bWVtIHsKPj4KPj4gQWNjb3JkaW5nIGJpbmRp
+bmcgeW91IG5lZWQgdG8gYWRkICJAPHJlZz4iID0+IG52bWVtQDE0Ywo+Pgo+PiBBbmQgeW91IGV4
+cG9ydCBvbmx5IFRBTVBfQktQMTlSIGRpcmVjdGx5IGluIGEgbnZtZW0gcmVnaW9uID8KPgo+IDQg
+Ynl0ZXMgaXMgbW9yZSB0aGFuIHBsZW50eSBmb3IgYm9vdCBjb3VudGVyICwgeWVzLgo+Cj4+PiAr
+wqDCoMKgwqDCoMKgwqAgY29tcGF0aWJsZSA9ICJudm1lbS1zeXNjb24iOwo+Pj4gK8KgwqDCoMKg
+wqDCoMKgIHJlZyA9IDwweDE0YyAweDQ+Owo+Pj4gK8KgwqDCoCB9Owo+Pj4gK307Cj4+Cj4+Cj4+
+IHRoZSBib290IGNvdW50ZXIgY291bGQgYmUgYSBudmVtIGNlbGwgc28geW91IGNvdWxkIGV4cG9z
+ZcKgIG90aGVyIAo+PiBiYWNrdXAgcmVnaXN0ZXJzCj4+Cj4+IEZvciBleGFtcGxlIDoKPj4KPj4g
+JnRhbXAgewo+PiDCoMKgwqDCoCNhZGRyZXNzLWNlbGxzID0gPDE+Owo+PiDCoMKgwqDCoCNzaXpl
+LWNlbGxzID0gPDE+Owo+Pgo+PiDCoMKgwqDCoG52bWVtQDE0Y8KgIHsKPj4gwqDCoMKgwqDCoMKg
+wqAgY29tcGF0aWJsZSA9ICJudm1lbS1zeXNjb24iOwo+PiDCoMKgwqDCoMKgwqDCoCByZWcgPSA8
+MHgxNGMgMHg0PjsKPj4KPj4gwqDCoMKgwqDCoMKgwqAgLyogRGF0YSBjZWxscyAqLwo+PiDCoMKg
+wqDCoMKgwqDCoCBib290X2NvdW50ZXI6IGJvb3QtY291bnRlckAxNGMgewo+PiDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgIHJlZyA9IDwweDE0YyAweDQ+Owo+PiDCoMKgwqDCoMKgwqDCoCB9Owo+PiDC
+oMKgwqDCoH07Cj4+IH07Cj4+Cj4+IEV2ZW4gaWYgeW91IGV4cG9ydCBtb3JlIGJhY2t1cCByZWdp
+c3RlciB0aGUgY2VsbCB3aWxsIGJlIGNvcnJlY3RseSAKPj4gZGVzY3JpYmVkIGluIERUCj4+IGFu
+ZCBjb3VsZCBiZSBhY2Nlc3NpYmxlIGRpcmVjdGx5wqAgd2l0aCBzeXNmcyB3aXRob3V0IG1hbmFn
+ZWQgb2Zmc2V0IAo+PiBpbiB1c2VybGFuZAo+Pgo+PiB3aXRoIGh0dHBzOi8vbG9yZS5rZXJuZWwu
+b3JnL2xrbWwvMjAyMzA1MjQwNzI0LnozTWNEdVlNLWxrcEBpbnRlbC5jb20vVC8KPj4gT3IgcHJl
+dmlvdXMgc2VyaWUgCj4+IGh0dHBzOi8vbG9yZS5rZXJuZWwub3JnL2xrbWwvMjAyMTEyMjAwNjQ3
+MzAuMjg4MDYtMS16YWplYzVAZ21haWwuY29tLwo+Pgo+Pgo+PiBmb3IgZXhhbXBsZSB0byBleHBv
+cnQgYWxsIHRoZSBmcmVlIHJlZ2lzdGVyOgo+Pgo+PiBSZWZlcmVuY2U6IGh0dHBzOi8vd2lraS5z
+dC5jb20vc3RtMzJtcHUvd2lraS9TVE0zMk1QMTVfYmFja3VwX3JlZ2lzdGVycwo+Pgo+PiB0aGUg
+Y2VsbCAiIGJvb3QtY291bnRlciIgd2lsbCBiZSBhbHdheXMgYXZhaWxhYmxlIGZvciB1c2Vycy4K
+Pj4KPj4gJnRhbXAgewo+PiDCoMKgwqDCoCNhZGRyZXNzLWNlbGxzID0gPDE+Owo+PiDCoMKgwqDC
+oCNzaXplLWNlbGxzID0gPDE+Owo+Pgo+PiDCoMKgwqDCoC8qIGJhY2t1cCByZWdpc3RlcjogMTAg
+dG8gMjEgKi8KPj4gwqDCoMKgwqBudm1lbUAweDEyOMKgIHsKPj4gwqDCoMKgwqDCoMKgwqAgY29t
+cGF0aWJsZSA9ICJudm1lbS1zeXNjb24iOwo+PiDCoMKgwqDCoMKgwqDCoCByZWcgPSA8MHgxMjgg
+MHg0ND47Cj4+Cj4+IMKgwqDCoMKgwqDCoMKgIC8qIERhdGEgY2VsbHMgKi8KPj4gwqDCoMKgwqDC
+oMKgwqAgYm9vdF9jb3VudGVyOiBib290LWNvdW50ZXJAMTRjIHsKPj4gwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoCByZWcgPSA8MHgxNGMgMHg0PjsKPj4gwqDCoMKgwqDCoMKgwqAgfTsKPj4gwqDCoMKg
+wqDCoMKgwqAgYm9vdF9tb2RlOiBib290LW1vZGVAMTUwIHsKPj4gwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoCByZWcgPSA8MHgxNTAgMHg0PjsKPj4gwqDCoMKgwqDCoMKgwqAgfTsKPj4gLi4uLgo+PiDC
+oMKgwqDCoH07Cj4+IH07Cj4KPiBTdXJlLCB0aGFua3MuIEknbSBub3Qgc3VyZSBJIHVuZGVyc3Rv
+b2QgdGhlIG1lc3NhZ2UgYWJvdmUuCgoKc29ycnkgaWYgaXQgd2Fzbid0IGNsZWFyCgoKVEFNUCBy
+ZWdpc3RlciBhIG52bWVtIGRyaXZlciA9IE5WUkFNIHByb3ZpZGVyCgo9PiBpdCBzaG91bGQgZXhw
+b3J0IEFMTCB0aGUgZnJlZSBiYWNrdXAgcmVnaXN0ZXJzCgogwqDCoMKgwqDCoCBhcyB0aGV5IGNh
+biB1c2VkIGJ5IGFwcGxpY2F0aW9uIC8ga2VybmVsIGZvciBtYW55IHB1cnBvc2UuLi4uCgogwqDC
+oMKgwqDCoCBhbmQgbm90IG9ubHkgZm9yIGJvb3QgY291bnRlcmZvciB5b3UgdXNlLWNhc2UKCgpT
+byBsaW1pdCB0aGUgZXhwb3J0ZWQgYmFja3VwIHJlZ2lzdGVyIHRvIHRoaXMgNCBieXRlcyBpcyBz
+dHJhbmdlIGZvciBtZS4KCgphbmQgQ09VTlRFUiBpcyBhIG52ZW0gY2VsbCA9wqAgYSBwYXJ0IG9m
+IGJhY2t1cCByZWdpc3RlciA9IFRBTVBfQktQMTlSCgo9PiBJIGFncmVlIDQgYnl0ZSBmb3IgdGhp
+cyBjb3VudCBpcyBmaW5lIGZvciB0aGlzIGNlbGwKCgpOQjogdG9kYXkgd2UgaGF2ZSBubyBtZWFu
+cyB0byByZWFkIG9ubHkgb25lIG52bWVtIGNlbGwgd2l0aCBzeXNmcyBBUEkKCiDCoMKgwqDCoMKg
+wqAgYnV0IEkgc2VlIHRoaXMgZmVhdHVyZSBpcyBwcm9wb3NlZCB0byBoYXZlIHNvbWV0aGluZyBh
+cwoKL3N5cy9idXMvbnZtZW0vZGV2aWNlcy9udm1lbUAweDEyOC8gPT4gYWxsIHRoZSBiYWNrdXAg
+cmVnaXN0ZXJzCgovc3lzL2J1cy9udm1lbS9kZXZpY2VzL252bWVtQDB4MTI4L2NlbGxzL2Jvb3Qt
+bW9kZSA9PiBvbmx5IHRoZSBudm1lbSAKY2VsbCB1c2VkIGFzIGNvdW50ZXIgSSB0aGluayBpdCBp
+cyBtb3JlIHNhZmUgZm9yIGxvbmcgdGVybSBzdXBwb3J0IHRvIAptYW5hZ2UgeW91ciBjb3VudGVy
+IGFzIGEgbnZtZW0gY2VsbC4gcmVnYXJkcyBQYXRyaWNrCgpfX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgt
+c3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4u
+c3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
