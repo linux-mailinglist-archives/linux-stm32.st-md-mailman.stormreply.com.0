@@ -2,79 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F04C719386
-	for <lists+linux-stm32@lfdr.de>; Thu,  1 Jun 2023 08:47:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AB78D71939C
+	for <lists+linux-stm32@lfdr.de>; Thu,  1 Jun 2023 08:54:49 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E0435C6A614;
-	Thu,  1 Jun 2023 06:47:56 +0000 (UTC)
-Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com
- [209.85.208.43])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 58E90C6A614;
+	Thu,  1 Jun 2023 06:54:49 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B4E7AC65042
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EF5D8C65042
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  1 Jun 2023 06:47:37 +0000 (UTC)
-Received: by mail-ed1-f43.google.com with SMTP id
- 4fb4d7f45d1cf-51493ec65d8so793390a12.2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 31 May 2023 23:47:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1685602057; x=1688194057;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=XcPJlre+hwC4HWFE1geR0MxXvG9lSERjFiZP6BYmvdM=;
- b=jhBQzzTvQHKLXxX8HeEDI0ErFtmNtpJu4uRC9SEHgB7ywVzsaqoiXM9++1w7Qqpg14
- 63UDRTL4P8dyjwUKRg2hrl9IRNjWh0wXZoyau0YdZNlQaqD1LaIPRaHyOwWYodz2zNBj
- nETIbWFJPCkYo/XZXPVHCdjRaliJcPO/kEgf4IcB8fOCeuGVb2jgZnplkaD5yGkd+fjT
- by/DRdHRXuShpt4Kh/As3WjFhIHFEmb3pElCERUUJvZgl0/4Ew56L24nK8ezDfdpsWMw
- iBVTRfRBlw8Fa5BKpCQEz7bUi8kLxLNesJhJo9Kb0eS4f9gKmS88xzK34o+n8wFQzKlz
- ecxg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1685602057; x=1688194057;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=XcPJlre+hwC4HWFE1geR0MxXvG9lSERjFiZP6BYmvdM=;
- b=GtCqh16//hNSUVfU06opAp2Hk6B2KW5FzmhG8DMFVN5BmLQpK0iT6pxwvWJpwbO8cA
- TfnAdSRoHjuybkRkR4QzQbCv2VzOuZVj+g6MIRrf8EYzbopefGcSTs7e4BmkwWWa50MR
- PCEfqsGNx8lWtm7PlpPcPl7LGH8aEPoTukEWCmsq/JIdQqje/yAd2RMEkO56nU5cpsmE
- 4zIP4ZZYHXzdU0+xodf5ChAVYWlmtn3hmWu9sEAZ7eIWvuPc2kmS/frToChA2Q9/bF0t
- fjb0MEGGwTZ8rAQe8e/6tRypgFzJMn1BqMyjQXsYAPpEZN19gwsUhrL/tfvAs0q3gnK0
- sH/Q==
-X-Gm-Message-State: AC+VfDzNA+Nert28vm26xZDjMgglIrH2j5EZrIWyyENWqj/2a3MghBwr
- WnyuzDrGI19wM4fDJRxcxpY6iQ==
-X-Google-Smtp-Source: ACHHUZ4zaQuhqiSniRGwWTM2mtmjQo7gLHgX9Kg8Rxnxm6N6zPX6wYdlKh8ynufUJdKMTSPlnjTAEQ==
-X-Received: by 2002:aa7:d8c4:0:b0:50b:c3a0:40e5 with SMTP id
- k4-20020aa7d8c4000000b0050bc3a040e5mr5197339eds.21.1685602057212; 
- Wed, 31 May 2023 23:47:37 -0700 (PDT)
-Received: from [192.168.1.20] ([178.197.199.204])
- by smtp.gmail.com with ESMTPSA id
- w9-20020aa7cb49000000b0050d82f96860sm6765817edt.59.2023.05.31.23.47.35
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 31 May 2023 23:47:36 -0700 (PDT)
-Message-ID: <e496475a-6307-5a11-99c1-5cd9d43d894b@linaro.org>
-Date: Thu, 1 Jun 2023 08:47:34 +0200
+ Thu,  1 Jun 2023 06:54:48 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 3516fRfn009049; Thu, 1 Jun 2023 08:53:28 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=selector1;
+ bh=8H8AEU7eqzWAvBjrD3F5quK0OnexjZy8CtWYJysXkfQ=;
+ b=kvvJtq6O+ns505n1+MyUEyqPmRLUPe0/+YetQ8I8X5vaaXVagY+sZay/FqxJbCIMnJKE
+ PibodwZoAYC/VeRB6kbH/GYeY7gfRfZdD0XJKhn8EUciutXYT+r1X6fdHwzBIHxpFEIZ
+ y6rJ+ztamNVno3e7NkisbrE5NP7TtLKEVxWzwLQRZW+dtcsG/FoV9JNZ4RcOtLnnRqBs
+ RMiB4ztk46LqfwQfw7xgurzplqqENNK9iPsDPwyrNUaJExC/nEx/EAHeeZuMBr13l3IU
+ kbYnUMBpL7PWXzqZFv/hvLbrRUGWNnHx20NSZMUcUjggTOb2GNSMubKqJpzkdGjRJ0vc tQ== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3qx95rc2kn-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 01 Jun 2023 08:53:27 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 97E9D100038;
+ Thu,  1 Jun 2023 08:52:25 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 8FF9B20E1E2;
+ Thu,  1 Jun 2023 08:52:25 +0200 (CEST)
+Received: from localhost (10.129.178.213) by SHFDAG1NODE1.st.com
+ (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.21; Thu, 1 Jun
+ 2023 08:52:25 +0200
+From: Alain Volmat <alain.volmat@foss.st.com>
+To: Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski
+ <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley <conor+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>
+Date: Thu, 1 Jun 2023 08:52:21 +0200
+Message-ID: <20230601065222.2594700-1-alain.volmat@foss.st.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Content-Language: en-US
-To: Marek Vasut <marex@denx.de>, linux-arm-kernel@lists.infradead.org
-References: <20230517152513.27922-1-marex@denx.de>
- <3951bf42-bf77-20a5-a343-46127b875dd5@linaro.org>
- <2aee9fc7-e0a8-b5ad-7362-8461bac618da@denx.de>
- <a954db86-c5b7-0c07-8881-0ceb39ac7337@linaro.org>
- <e9d7b2de-ef57-80fa-f92b-6f66d413114a@denx.de>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <e9d7b2de-ef57-80fa-f92b-6f66d413114a@denx.de>
-Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Rob Herring <robh+dt@kernel.org>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, kernel@dh-electronics.com
-Subject: Re: [Linux-stm32] [PATCH v2 1/3] dt-bindings: nvmem: syscon: Add
- syscon backed nvmem bindings
+X-Originating-IP: [10.129.178.213]
+X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.957,Hydra:6.0.573,FMLib:17.11.176.26
+ definitions=2023-06-01_04,2023-05-31_03,2023-05-22_02
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ linux-media@vger.kernel.org
+Subject: [Linux-stm32] [PATCH] ARM: dts: stm32: add required supplies of
+	ov5640 in stm32mp157c-ev1
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,104 +77,35 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 31/05/2023 22:44, Marek Vasut wrote:
-> On 5/31/23 21:37, Krzysztof Kozlowski wrote:
->> On 24/05/2023 05:30, Marek Vasut wrote:
->>> On 5/18/23 16:26, Krzysztof Kozlowski wrote:
->>>> On 17/05/2023 17:25, Marek Vasut wrote:
->>>>> Add trivial bindings for driver which permits exposing syscon backed
->>>>> register to userspace. This is useful e.g. to expose U-Boot boot
->>>>> counter on various platforms where the boot counter is stored in
->>>>> random volatile register, like STM32MP15xx TAMP_BKPxR register.
->>>>>
->>>>> Signed-off-by: Marek Vasut <marex@denx.de>
->>>>> ---
->>>>> Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
->>>>> Cc: Conor Dooley <conor+dt@kernel.org>
->>>>> Cc: Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
->>>>> Cc: Marek Vasut <marex@denx.de>
->>>>> Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
->>>>> Cc: Rob Herring <robh+dt@kernel.org>
->>>>> Cc: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
->>>>> Cc: devicetree@vger.kernel.org
->>>>> Cc: kernel@dh-electronics.com
->>>>> Cc: linux-arm-kernel@lists.infradead.org
->>>>> Cc: linux-stm32@st-md-mailman.stormreply.com
->>>>> ---
->>>>> V2: Use generic syscon supernode
->>>>> ---
->>>>>    .../bindings/nvmem/nvmem-syscon.yaml          | 39 +++++++++++++++++++
->>>>>    1 file changed, 39 insertions(+)
->>>>>    create mode 100644 Documentation/devicetree/bindings/nvmem/nvmem-syscon.yaml
->>>>>
->>>>> diff --git a/Documentation/devicetree/bindings/nvmem/nvmem-syscon.yaml b/Documentation/devicetree/bindings/nvmem/nvmem-syscon.yaml
->>>>> new file mode 100644
->>>>> index 0000000000000..7c1173a1a6218
->>>>> --- /dev/null
->>>>> +++ b/Documentation/devicetree/bindings/nvmem/nvmem-syscon.yaml
->>>>> @@ -0,0 +1,39 @@
->>>>> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
->>>>> +%YAML 1.2
->>>>> +---
->>>>> +$id: http://devicetree.org/schemas/nvmem/nvmem-syscon.yaml#
->>>>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
->>>>> +
->>>>> +title: Generic syscon backed nvmem
->>>>> +
->>>>> +maintainers:
->>>>> +  - Marek Vasut <marex@denx.de>
->>>>> +
->>>>> +allOf:
->>>>> +  - $ref: "nvmem.yaml#"
->>>>
->>>> Usual comment: drop quotes. We removed them everywhere, so you based
->>>> your work on some old tree.
->>>>
->>>>> +
->>>>> +properties:
->>>>> +  compatible:
->>>>> +    enum:
->>>>> +      - nvmem-syscon
->>>>> +
->>>>> +  reg:
->>>>> +    maxItems: 1
->>>>
->>>> Rob's questions are not solved.
->>>
->>> Can you reiterate this one ? I likely missed it.
->>
->> You did not solve the case of more than one register. This isn't an odd
->> case.
-> 
-> So why not just extend the bindings to support
-> 
-> reg = <0x14c 0x4>, <0x180 0x10>, ... ;
-> 
-> this kind of stuff ?
+Correct the following warnings by adding the required supplies (AVDD, DVDD)
+for the ov5640 node.
 
-Does not look right. Look at nvmem bindings and don't do it differently.
+arch/arm/boot/dts/stm32mp157c-ev1.dtb: camera@3c: 'AVDD-supply' is a required property
+From schema: Documentation/devicetree/bindings/media/i2c/ovti,ov5640.yaml
+arch/arm/boot/dts/stm32mp157c-ev1.dtb: camera@3c: 'DVDD-supply' is a required property
+From schema: Documentation/devicetree/bindings/media/i2c/ovti,ov5640.yaml
 
-> 
->>>> The nvmem.yaml schema expects here to
->>>> allow children. This should not be created per-register, but per entire
->>>> block of registers.
->>>
->>> This thing works the other way around, I have a syscon register block
->>> already, and I want to expose subset of it to userspace as read/write
->>> accessible file to expose bootcounter available in that register (so I
->>> can read it and reset it from user application).
->>
->> And this makes it too limited. I would expect one device exposing
->> multiple blocks or registers, just like all nvmem providers are doing.
-> 
-> What would be the real-world use case of that ?
+Signed-off-by: Alain Volmat <alain.volmat@foss.st.com>
+---
+ arch/arm/boot/dts/stm32mp157c-ev1.dts | 2 ++
+ 1 file changed, 2 insertions(+)
 
-The same as the real world use cases for nvmem. One syscon block has
-multiple registers so I can easily imagine wanting boottrap, bootstat,
-boot-whatever you want.
-
-Best regards,
-Krzysztof
+diff --git a/arch/arm/boot/dts/stm32mp157c-ev1.dts b/arch/arm/boot/dts/stm32mp157c-ev1.dts
+index ba8e9d9a42fa..f27d6dcb6651 100644
+--- a/arch/arm/boot/dts/stm32mp157c-ev1.dts
++++ b/arch/arm/boot/dts/stm32mp157c-ev1.dts
+@@ -185,7 +185,9 @@ ov5640: camera@3c {
+ 		reg = <0x3c>;
+ 		clocks = <&clk_ext_camera>;
+ 		clock-names = "xclk";
++		AVDD-supply = <&v2v8>;
+ 		DOVDD-supply = <&v2v8>;
++		DVDD-supply = <&v2v8>;
+ 		powerdown-gpios = <&stmfx_pinctrl 18 (GPIO_ACTIVE_HIGH | GPIO_PUSH_PULL)>;
+ 		reset-gpios = <&stmfx_pinctrl 19 (GPIO_ACTIVE_LOW | GPIO_PUSH_PULL)>;
+ 		rotation = <180>;
+-- 
+2.25.1
 
 _______________________________________________
 Linux-stm32 mailing list
