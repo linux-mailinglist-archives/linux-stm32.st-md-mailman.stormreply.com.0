@@ -2,72 +2,71 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7FFB171F027
-	for <lists+linux-stm32@lfdr.de>; Thu,  1 Jun 2023 19:03:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8628971F02A
+	for <lists+linux-stm32@lfdr.de>; Thu,  1 Jun 2023 19:03:55 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 35A5DC6B455;
-	Thu,  1 Jun 2023 17:03:50 +0000 (UTC)
-Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com
- [209.85.208.50])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4852DC6B444;
+	Thu,  1 Jun 2023 17:03:55 +0000 (UTC)
+Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com
+ [209.85.218.52])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D8A8BC6B443
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id ABFFBC6B442
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  1 Jun 2023 17:03:49 +0000 (UTC)
-Received: by mail-ed1-f50.google.com with SMTP id
- 4fb4d7f45d1cf-5149aafef44so1690299a12.0
+ Thu,  1 Jun 2023 17:03:54 +0000 (UTC)
+Received: by mail-ej1-f52.google.com with SMTP id
+ a640c23a62f3a-96f7bf3cf9eso165763766b.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 01 Jun 2023 10:03:49 -0700 (PDT)
+ Thu, 01 Jun 2023 10:03:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amarulasolutions.com; s=google; t=1685639029; x=1688231029;
+ d=amarulasolutions.com; s=google; t=1685639034; x=1688231034;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=UONz0K3nwm2zifFBUhCTgrepWK1oSDUw2LPUignW7i8=;
- b=UnYYUWSClBb0BsXFi3i7XAaGAFEzebmE7vqQAMf3PJ8WPIcuaZOHiSHB4JLYadsI56
- KHjENvXyzXiGTZ8X2bUEIk9Hm+14AsxYTKsb0vOCfREuWnqw8cFzb98VTRnaZSv9Jmkh
- IMZz5GcmGNMrLNsbBUBQRucQhVPF0n+MOjoNs=
+ bh=Ftjev7ny28lvJRfWKN2KXX1gaG/LDneackQ782m2++c=;
+ b=RXpREj32QF9glE5vpN59wgL/+UV12KKLNYA9IA5/BKkN5MgZGAFTz0Twq/Y4ZK8Udq
+ 3MKAomKMltBYpKajAE7tTaJq0jTEmWFCGs2ZhQaB1L+TuroGqIzUDmhiCBh2XBcq0rQR
+ wyY6MJzAzVQZ1h79fJtF4m08kX4kf4xEXSOBc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1685639029; x=1688231029;
+ d=1e100.net; s=20221208; t=1685639034; x=1688231034;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=UONz0K3nwm2zifFBUhCTgrepWK1oSDUw2LPUignW7i8=;
- b=R2gEZhFPjAeCO7llP9+Nc7zaqOlOmz03YzFrmIZ+LuATmFdr6z9YXvNJC27/D3IoLa
- ut2ETILkMHrMt9msbheYYYEGJc9J0aK0VkqWrl8iuMzoCQ9717SqJp5OJvd9FnmLOyMs
- wMuoPeOM3++GABF7ch6ePz05ohYzFXbLVLVKDs0LSjejqqT3FF6OaX7yP2zQCyUJal+r
- n+9RHLkXZnV2J5jMbN7EmCG1g34biLdzKplolDNZGhStuxd1jMDrKZaNwA6J6dQZGu7F
- l/2zdt4hinjlgge69Kq3JDLwrcMseWnKN4by5odeR47lWu7gPOBbV3wnwROUFaQZA2sO
- vFag==
-X-Gm-Message-State: AC+VfDzXwJkYE/7b+RZ6SV6B2pbUzkVmGx0gYa3jFzwfeM8rkeqmlvjD
- kcemCWABitK2XX1ewNYZ0Q4MsA==
-X-Google-Smtp-Source: ACHHUZ6q1AhVcxAlVz48b3Tk70s/OoY6OFc2SmdEUmp6hlYZs/bMvPFWf/VyyMQIDAXjCuBoS1i1rQ==
-X-Received: by 2002:a17:907:9495:b0:94e:43ce:95f6 with SMTP id
- dm21-20020a170907949500b0094e43ce95f6mr7856974ejc.47.1685639029478; 
- Thu, 01 Jun 2023 10:03:49 -0700 (PDT)
+ bh=Ftjev7ny28lvJRfWKN2KXX1gaG/LDneackQ782m2++c=;
+ b=RT5JZhq2s3d2+cuCIL6sIb+iNPteZcDb4xRpHSS0uELEj1R+7mCRSMGJDwf9o3eiYA
+ 8G0ecdFCwDsCgLigTItMfEJmo7xTwIUpbwnYE0wK4xS1QehBYewWf0sgotZqraMLWwd9
+ p+KTr21CpQP2vaaYCnLSVnH6PUS52wG1XvJjHjPEKRAPSd/92cvbbhVCB0nRUdUWFKUD
+ GD5LU9dEqBo9lhSwT5aRrPKxvHa7vDs9+H0JGHd0o9ag4DHxEDMg8MUlDQStbHeVeqwg
+ 0AVE9xhcBkgs6mdsbVpNwswHowjML//rLRF1aT+CFc0Fh3345c6TrmuLz2tBYIZ1zRED
+ YrEw==
+X-Gm-Message-State: AC+VfDxHTL1Heub1irrzU+6B/THOQ6e93x0PDyo2BhcLFaziWHYSIRgY
+ h6izDMgUfqwTsrkyecIuvVGr1w==
+X-Google-Smtp-Source: ACHHUZ5oUVMAwFD6jXFbU87iuAQJMHlHZ+OpaWeKz6pu4pcRR1a2Pb6wyFg0KLbejd0vnRuywS3xIQ==
+X-Received: by 2002:a17:907:da3:b0:973:d2b6:f536 with SMTP id
+ go35-20020a1709070da300b00973d2b6f536mr9135641ejc.21.1685639034375; 
+ Thu, 01 Jun 2023 10:03:54 -0700 (PDT)
 Received: from dario-ThinkPad-T14s-Gen-2i.homenet.telecomitalia.it
  (host-95-248-31-20.retail.telecomitalia.it. [95.248.31.20])
  by smtp.gmail.com with ESMTPSA id
- bh25-20020a170906a0d900b0096165b2703asm10658522ejb.110.2023.06.01.10.03.48
+ bh25-20020a170906a0d900b0096165b2703asm10658522ejb.110.2023.06.01.10.03.52
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 01 Jun 2023 10:03:48 -0700 (PDT)
+ Thu, 01 Jun 2023 10:03:54 -0700 (PDT)
 From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
 To: linux-kernel@vger.kernel.org
-Date: Thu,  1 Jun 2023 19:03:17 +0200
-Message-Id: <20230601170320.2845218-4-dario.binacchi@amarulasolutions.com>
+Date: Thu,  1 Jun 2023 19:03:20 +0200
+Message-Id: <20230601170320.2845218-7-dario.binacchi@amarulasolutions.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20230601170320.2845218-1-dario.binacchi@amarulasolutions.com>
 References: <20230601170320.2845218-1-dario.binacchi@amarulasolutions.com>
 MIME-Version: 1.0
-Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- Dario Binacchi <dario.binacchi@amarulasolutions.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- michael@amarulasolutions.com,
+Cc: Dario Binacchi <dario.binacchi@amarulasolutions.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Amarula patchwork <linux-amarula@amarulasolutions.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 3/6] ARM: dts: stm32: support display on
-	stm32f746-disco board
+ Yannick Fertre <yannick.fertre@foss.st.com>, dri-devel@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, michael@amarulasolutions.com,
+ David Airlie <airlied@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH 6/6] drm/stm: add an option to change FB bpp
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,87 +83,50 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add support to Rocktech RK043FN48H display on stm32f746-disco board.
+Boards that use the STM32F{4,7} series have limited amounts of RAM. The
+added parameter allows users to size, within certain limits, the memory
+footprint required by the framebuffer.
 
 Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+
 ---
 
- arch/arm/boot/dts/stm32f746-disco.dts | 51 +++++++++++++++++++++++++++
- 1 file changed, 51 insertions(+)
+ drivers/gpu/drm/stm/drv.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
-diff --git a/arch/arm/boot/dts/stm32f746-disco.dts b/arch/arm/boot/dts/stm32f746-disco.dts
-index c11616ed5fc6..cda423b6a874 100644
---- a/arch/arm/boot/dts/stm32f746-disco.dts
-+++ b/arch/arm/boot/dts/stm32f746-disco.dts
-@@ -60,10 +60,41 @@ memory@c0000000 {
- 		reg = <0xC0000000 0x800000>;
- 	};
+diff --git a/drivers/gpu/drm/stm/drv.c b/drivers/gpu/drm/stm/drv.c
+index 422220df7d8c..65be2b442a6a 100644
+--- a/drivers/gpu/drm/stm/drv.c
++++ b/drivers/gpu/drm/stm/drv.c
+@@ -30,6 +30,11 @@
+ #define STM_MAX_FB_WIDTH	2048
+ #define STM_MAX_FB_HEIGHT	2048 /* same as width to handle orientation */
  
-+	reserved-memory {
-+		#address-cells = <1>;
-+		#size-cells = <1>;
-+		ranges;
++static uint stm_bpp = 16;
 +
-+		linux,cma {
-+			compatible = "shared-dma-pool";
-+			no-map;
-+			size = <0x80000>;
-+			linux,dma-default;
-+		};
-+	};
++MODULE_PARM_DESC(bpp, "bits-per-pixel (default: 16)");
++module_param_named(bpp, stm_bpp, uint, 0644);
 +
- 	aliases {
- 		serial0 = &usart1;
- 	};
+ static const struct drm_mode_config_funcs drv_mode_config_funcs = {
+ 	.fb_create = drm_gem_fb_create,
+ 	.atomic_check = drm_atomic_helper_check,
+@@ -93,6 +98,7 @@ static int drv_load(struct drm_device *ddev)
+ 	ddev->mode_config.min_height = 0;
+ 	ddev->mode_config.max_width = STM_MAX_FB_WIDTH;
+ 	ddev->mode_config.max_height = STM_MAX_FB_HEIGHT;
++	ddev->mode_config.preferred_depth = stm_bpp;
+ 	ddev->mode_config.funcs = &drv_mode_config_funcs;
+ 	ddev->mode_config.normalize_zpos = true;
  
-+	backlight: backlight {
-+		compatible = "gpio-backlight";
-+		gpios = <&gpiok 3 GPIO_ACTIVE_HIGH>;
-+		status = "okay";
-+	};
-+
-+	panel_rgb: panel-rgb {
-+		compatible = "rocktech,rk043fn48h";
-+		backlight = <&backlight>;
-+		enable-gpios = <&gpioi 12 GPIO_ACTIVE_HIGH>;
-+		status = "okay";
-+		port {
-+			panel_in_rgb: endpoint {
-+				remote-endpoint = <&ltdc_out_rgb>;
-+			};
-+		};
-+	};
-+
- 	usbotg_hs_phy: usb-phy {
- 		#phy-cells = <0>;
- 		compatible = "usb-nop-xceiv";
-@@ -99,6 +130,26 @@ &i2c1 {
- 	status = "okay";
- };
+@@ -203,7 +209,7 @@ static int stm_drm_platform_probe(struct platform_device *pdev)
+ 	if (ret)
+ 		goto err_put;
  
-+&dma1 {
-+	status = "okay";
-+};
-+
-+&dma2 {
-+	status = "okay";
-+};
-+
-+&ltdc {
-+	pinctrl-0 = <&ltdc_pins_a>;
-+	pinctrl-names = "default";
-+	status = "okay";
-+
-+	port {
-+		ltdc_out_rgb: endpoint {
-+			remote-endpoint = <&panel_in_rgb>;
-+		};
-+	};
-+};
-+
- &sdio1 {
- 	status = "okay";
- 	vmmc-supply = <&mmc_vcard>;
+-	drm_fbdev_dma_setup(ddev, 16);
++	drm_fbdev_dma_setup(ddev, stm_bpp);
+ 
+ 	return 0;
+ 
 -- 
 2.32.0
 
