@@ -2,59 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5D15C71F026
+	by mail.lfdr.de (Postfix) with ESMTPS id 7FFB171F027
 	for <lists+linux-stm32@lfdr.de>; Thu,  1 Jun 2023 19:03:50 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 24C86C6B44B;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 35A5DC6B455;
 	Thu,  1 Jun 2023 17:03:50 +0000 (UTC)
-Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com
- [209.85.218.47])
+Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com
+ [209.85.208.50])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 444C6C65042
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D8A8BC6B443
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  1 Jun 2023 17:03:48 +0000 (UTC)
-Received: by mail-ej1-f47.google.com with SMTP id
- a640c23a62f3a-97000a039b2so157121366b.2
+ Thu,  1 Jun 2023 17:03:49 +0000 (UTC)
+Received: by mail-ed1-f50.google.com with SMTP id
+ 4fb4d7f45d1cf-5149aafef44so1690299a12.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 01 Jun 2023 10:03:48 -0700 (PDT)
+ Thu, 01 Jun 2023 10:03:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amarulasolutions.com; s=google; t=1685639028; x=1688231028;
+ d=amarulasolutions.com; s=google; t=1685639029; x=1688231029;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=mcKcmUUCIxd110zie+CjXE9D2AXIydaNegCcV+6SNq0=;
- b=ONctjRxH7/blw2xSSjhjyNIP779YSdcSYRkUGkesaThER6cV4joKdyYdDD6JLkHkFT
- 9dPXPnNYVmtgtNsGmTVl5DwIAtdk9wF9Xdre4IvLfFtPZWvq1RutMaiLGPlmUPKE75ZQ
- kYi7DRj72VsybHu0nM8m82iG42xdjhwGoGEFE=
+ bh=UONz0K3nwm2zifFBUhCTgrepWK1oSDUw2LPUignW7i8=;
+ b=UnYYUWSClBb0BsXFi3i7XAaGAFEzebmE7vqQAMf3PJ8WPIcuaZOHiSHB4JLYadsI56
+ KHjENvXyzXiGTZ8X2bUEIk9Hm+14AsxYTKsb0vOCfREuWnqw8cFzb98VTRnaZSv9Jmkh
+ IMZz5GcmGNMrLNsbBUBQRucQhVPF0n+MOjoNs=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1685639028; x=1688231028;
+ d=1e100.net; s=20221208; t=1685639029; x=1688231029;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=mcKcmUUCIxd110zie+CjXE9D2AXIydaNegCcV+6SNq0=;
- b=KniHLzrlnrOPrIiv5Oc7VwOWzvEo7+6BlM0dD8ouB34e8P7QRAsvjept2h/L7Y0Z6J
- tCI/qgIIab77YDKZwioaVkoRTTMneujUG2kqlPvp0ZHjnscnJ4OObXAd7a0fTI2XIXMB
- VQOlMDcTuWiv8iw4cPBEYgS3YUQzS1aunumpBH35SUQsKsTr9uHTw2VY+9XF9hz6geGv
- TfiesOPN+2zn4TLWgsd6luuFZiE8wUuQB1LIJOVm58ArQhjLpdk9t6BHLNpc29ENYa27
- Am643CPMnguW/2nUfNl3dpTtx7Puk/5V4cKy/WIHT3U/KCas0NgxaO0omyPM6N229MJZ
- dj2w==
-X-Gm-Message-State: AC+VfDyqGZUofCWsOT+aMVPQABuGh0X1VQLgEcs1Fwi/3E2qpjBTXJxs
- D4bPyCLTZzyckJg52J7fg+TPMg==
-X-Google-Smtp-Source: ACHHUZ5N3WWPiRYSAdp/Ws29GdL2rHIl5xREti1d8ZGXwyjdXbJK4oZ3W/krDLTO2yi+qhwVPxLgog==
-X-Received: by 2002:a17:907:ea4:b0:94f:2852:1d2b with SMTP id
- ho36-20020a1709070ea400b0094f28521d2bmr9669112ejc.72.1685639027798; 
- Thu, 01 Jun 2023 10:03:47 -0700 (PDT)
+ bh=UONz0K3nwm2zifFBUhCTgrepWK1oSDUw2LPUignW7i8=;
+ b=R2gEZhFPjAeCO7llP9+Nc7zaqOlOmz03YzFrmIZ+LuATmFdr6z9YXvNJC27/D3IoLa
+ ut2ETILkMHrMt9msbheYYYEGJc9J0aK0VkqWrl8iuMzoCQ9717SqJp5OJvd9FnmLOyMs
+ wMuoPeOM3++GABF7ch6ePz05ohYzFXbLVLVKDs0LSjejqqT3FF6OaX7yP2zQCyUJal+r
+ n+9RHLkXZnV2J5jMbN7EmCG1g34biLdzKplolDNZGhStuxd1jMDrKZaNwA6J6dQZGu7F
+ l/2zdt4hinjlgge69Kq3JDLwrcMseWnKN4by5odeR47lWu7gPOBbV3wnwROUFaQZA2sO
+ vFag==
+X-Gm-Message-State: AC+VfDzXwJkYE/7b+RZ6SV6B2pbUzkVmGx0gYa3jFzwfeM8rkeqmlvjD
+ kcemCWABitK2XX1ewNYZ0Q4MsA==
+X-Google-Smtp-Source: ACHHUZ6q1AhVcxAlVz48b3Tk70s/OoY6OFc2SmdEUmp6hlYZs/bMvPFWf/VyyMQIDAXjCuBoS1i1rQ==
+X-Received: by 2002:a17:907:9495:b0:94e:43ce:95f6 with SMTP id
+ dm21-20020a170907949500b0094e43ce95f6mr7856974ejc.47.1685639029478; 
+ Thu, 01 Jun 2023 10:03:49 -0700 (PDT)
 Received: from dario-ThinkPad-T14s-Gen-2i.homenet.telecomitalia.it
  (host-95-248-31-20.retail.telecomitalia.it. [95.248.31.20])
  by smtp.gmail.com with ESMTPSA id
- bh25-20020a170906a0d900b0096165b2703asm10658522ejb.110.2023.06.01.10.03.46
+ bh25-20020a170906a0d900b0096165b2703asm10658522ejb.110.2023.06.01.10.03.48
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 01 Jun 2023 10:03:47 -0700 (PDT)
+ Thu, 01 Jun 2023 10:03:48 -0700 (PDT)
 From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
 To: linux-kernel@vger.kernel.org
-Date: Thu,  1 Jun 2023 19:03:16 +0200
-Message-Id: <20230601170320.2845218-3-dario.binacchi@amarulasolutions.com>
+Date: Thu,  1 Jun 2023 19:03:17 +0200
+Message-Id: <20230601170320.2845218-4-dario.binacchi@amarulasolutions.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20230601170320.2845218-1-dario.binacchi@amarulasolutions.com>
 References: <20230601170320.2845218-1-dario.binacchi@amarulasolutions.com>
@@ -66,8 +66,8 @@ Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
  michael@amarulasolutions.com,
  Amarula patchwork <linux-amarula@amarulasolutions.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 2/6] ARM: dts: stm32: add pin map for LTDC on
-	stm32f7
+Subject: [Linux-stm32] [PATCH 3/6] ARM: dts: stm32: support display on
+	stm32f746-disco board
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,61 +84,87 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add pin configurations for using LTDC (LCD-tft Display Controller) on
-stm32f746-disco board.
+Add support to Rocktech RK043FN48H display on stm32f746-disco board.
 
 Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
 ---
 
- arch/arm/boot/dts/stm32f7-pinctrl.dtsi | 35 ++++++++++++++++++++++++++
- 1 file changed, 35 insertions(+)
+ arch/arm/boot/dts/stm32f746-disco.dts | 51 +++++++++++++++++++++++++++
+ 1 file changed, 51 insertions(+)
 
-diff --git a/arch/arm/boot/dts/stm32f7-pinctrl.dtsi b/arch/arm/boot/dts/stm32f7-pinctrl.dtsi
-index 9f65403295ca..f3f90b9bcd61 100644
---- a/arch/arm/boot/dts/stm32f7-pinctrl.dtsi
-+++ b/arch/arm/boot/dts/stm32f7-pinctrl.dtsi
-@@ -365,6 +365,41 @@ pins2 {
- 					bias-pull-up;
- 				};
- 			};
-+
-+
-+			ltdc_pins_a: ltdc-pins-a-0 {
-+				pins {
-+					pinmux = <STM32_PINMUX('E', 4, AF14)>, /* LCD_B0 */
-+						 <STM32_PINMUX('G',12, AF9)>,  /* LCD_B4 */
-+						 <STM32_PINMUX('I', 9, AF14)>, /* LCD_VSYNC */
-+						 <STM32_PINMUX('I',10, AF14)>, /* LCD_HSYNC */
-+						 <STM32_PINMUX('I',14, AF14)>, /* LCD_CLK */
-+						 <STM32_PINMUX('I',15, AF14)>, /* LCD_R0 */
-+						 <STM32_PINMUX('J', 0, AF14)>, /* LCD_R1 */
-+						 <STM32_PINMUX('J', 1, AF14)>, /* LCD_R2 */
-+						 <STM32_PINMUX('J', 2, AF14)>, /* LCD_R3 */
-+						 <STM32_PINMUX('J', 3, AF14)>, /* LCD_R4 */
-+						 <STM32_PINMUX('J', 4, AF14)>, /* LCD_R5 */
-+						 <STM32_PINMUX('J', 5, AF14)>, /* LCD_R6 */
-+						 <STM32_PINMUX('J', 6, AF14)>, /* LCD_R7 */
-+						 <STM32_PINMUX('J', 7, AF14)>, /* LCD_G0 */
-+						 <STM32_PINMUX('J', 8, AF14)>, /* LCD_G1 */
-+						 <STM32_PINMUX('J', 9, AF14)>, /* LCD_G2 */
-+						 <STM32_PINMUX('J',10, AF14)>, /* LCD_G3 */
-+						 <STM32_PINMUX('J',11, AF14)>, /* LCD_G4 */
-+						 <STM32_PINMUX('J',13, AF14)>, /* LCD_B1 */
-+						 <STM32_PINMUX('J',14, AF14)>, /* LCD_B2 */
-+						 <STM32_PINMUX('J',15, AF14)>, /* LCD_B3 */
-+						 <STM32_PINMUX('K', 0, AF14)>, /* LCD_G5 */
-+						 <STM32_PINMUX('K', 1, AF14)>, /* LCD_G6 */
-+						 <STM32_PINMUX('K', 2, AF14)>, /* LCD_G7 */
-+						 <STM32_PINMUX('K', 4, AF14)>, /* LCD_B5 */
-+						 <STM32_PINMUX('K', 5, AF14)>, /* LCD_B6 */
-+						 <STM32_PINMUX('K', 6, AF14)>, /* LCD_B7 */
-+						 <STM32_PINMUX('K', 7, AF14)>; /* LCD_DE */
-+					slew-rate = <2>;
-+				};
-+			};
- 		};
+diff --git a/arch/arm/boot/dts/stm32f746-disco.dts b/arch/arm/boot/dts/stm32f746-disco.dts
+index c11616ed5fc6..cda423b6a874 100644
+--- a/arch/arm/boot/dts/stm32f746-disco.dts
++++ b/arch/arm/boot/dts/stm32f746-disco.dts
+@@ -60,10 +60,41 @@ memory@c0000000 {
+ 		reg = <0xC0000000 0x800000>;
  	};
+ 
++	reserved-memory {
++		#address-cells = <1>;
++		#size-cells = <1>;
++		ranges;
++
++		linux,cma {
++			compatible = "shared-dma-pool";
++			no-map;
++			size = <0x80000>;
++			linux,dma-default;
++		};
++	};
++
+ 	aliases {
+ 		serial0 = &usart1;
+ 	};
+ 
++	backlight: backlight {
++		compatible = "gpio-backlight";
++		gpios = <&gpiok 3 GPIO_ACTIVE_HIGH>;
++		status = "okay";
++	};
++
++	panel_rgb: panel-rgb {
++		compatible = "rocktech,rk043fn48h";
++		backlight = <&backlight>;
++		enable-gpios = <&gpioi 12 GPIO_ACTIVE_HIGH>;
++		status = "okay";
++		port {
++			panel_in_rgb: endpoint {
++				remote-endpoint = <&ltdc_out_rgb>;
++			};
++		};
++	};
++
+ 	usbotg_hs_phy: usb-phy {
+ 		#phy-cells = <0>;
+ 		compatible = "usb-nop-xceiv";
+@@ -99,6 +130,26 @@ &i2c1 {
+ 	status = "okay";
  };
+ 
++&dma1 {
++	status = "okay";
++};
++
++&dma2 {
++	status = "okay";
++};
++
++&ltdc {
++	pinctrl-0 = <&ltdc_pins_a>;
++	pinctrl-names = "default";
++	status = "okay";
++
++	port {
++		ltdc_out_rgb: endpoint {
++			remote-endpoint = <&panel_in_rgb>;
++		};
++	};
++};
++
+ &sdio1 {
+ 	status = "okay";
+ 	vmmc-supply = <&mmc_vcard>;
 -- 
 2.32.0
 
