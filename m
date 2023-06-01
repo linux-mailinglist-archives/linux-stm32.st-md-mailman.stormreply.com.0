@@ -2,68 +2,73 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2A9F471EF70
-	for <lists+linux-stm32@lfdr.de>; Thu,  1 Jun 2023 18:46:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 46E6871F024
+	for <lists+linux-stm32@lfdr.de>; Thu,  1 Jun 2023 19:03:47 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D1DFBC6A61D;
-	Thu,  1 Jun 2023 16:46:51 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EC52AC6A61E;
+	Thu,  1 Jun 2023 17:03:46 +0000 (UTC)
+Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com
+ [209.85.218.51])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 50527C65042
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1739BC65042
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  1 Jun 2023 16:46:51 +0000 (UTC)
-Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 351FlpAS010603; Thu, 1 Jun 2023 18:46:38 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=message-id : date :
- mime-version : from : subject : to : cc : references : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=HqU/+Xh6ddKc8jiStCeFLG1QAjrATFCxOKZdk/TGvuM=;
- b=cXMY7fb0YFHMksJ+ic8MRcb1/QlFgJ0mErUDXX7IXdAlBRvA9tu4O0DQZeys/iF0n1yq
- qFJn3mFbI0VL4O+3aGvC/SBNegKGaL32W9YhTn+AyvAC278PMiVxQlsbLqMEIlzY/vok
- nLqVKFJvD2NpkK64cm8GwwTPwzJVizIir/NAW2e177A9jiyr7DNbep61/Sb5lkquFCEs
- bCykLSyaqYmXYvotsdmKM6aw/0XccuYg6paAcwjSI8BSW886uPrOdUN4bYnUd9UbCBMw
- WGho/aeyBl1xMPd3TvSzxbgvGBmWzwDleXda2R+TKvk3fFEojk9JThu7MJsphAos7PdE 3Q== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3qx3152cu1-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 01 Jun 2023 18:46:38 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 4135710002A;
- Thu,  1 Jun 2023 18:46:38 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 30D60267E28;
- Thu,  1 Jun 2023 18:46:38 +0200 (CEST)
-Received: from [10.129.178.187] (10.129.178.187) by SHFDAG1NODE2.st.com
- (10.75.129.70) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.21; Thu, 1 Jun
- 2023 18:46:37 +0200
-Message-ID: <b343ab21-2787-4602-57f8-4c2bf62db523@foss.st.com>
-Date: Thu, 1 Jun 2023 18:46:37 +0200
+ Thu,  1 Jun 2023 17:03:45 +0000 (UTC)
+Received: by mail-ej1-f51.google.com with SMTP id
+ a640c23a62f3a-96f99222e80so251833966b.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 01 Jun 2023 10:03:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amarulasolutions.com; s=google; t=1685639024; x=1688231024;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=7CktwIDz8iQqFve40BtvAwOOr5PjVMSEqWCcs9KU57A=;
+ b=fkg0EKdAjxwuFw+ApM6W/plP+tXu+eZpr9jZfh3mm69cAf7gyFHd7D+i7CTiq3i7Tp
+ bnXachRnfNjh91+5nuM9DfYwtLjF5b0JsT4G9Hm9y/Nn+NpOHREBHP7ibsWBTlhrSMkM
+ MR1dXNqpdI+hnBE3aN3k3EIhmqMcuDXwykx7I=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1685639024; x=1688231024;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=7CktwIDz8iQqFve40BtvAwOOr5PjVMSEqWCcs9KU57A=;
+ b=jlhOxejQH10NiEDLbvEDdZKNqpPTYzpcM0FIs5iWxu91z2EXQp/az8i8HDEd6m0Klg
+ DbRlatuhBXhbRD1/a4K1nYwcDNGOYe2LbiYtwcxz7LVOm0ZxtiE8behtk1cK8PV7t2Ie
+ qikExtQDYTDENUgIKkGhpmOs6c2M55N5Q4qEsKXBrd5KnrYB/52VX4uFzPCuCi2VBCFB
+ y1JttKQnNzhDWc0Hp5hQ8UbHSS/CdpniX8mOrOhWBfLQA2efF7AMXeEBMUJcK4JwQYtM
+ eZzqSyhdluS1+TukztmdjSMfHHTFFXH5g+I45QwxmZqkQmDawyZ4k+n77olyP6Q5pV24
+ 5uuA==
+X-Gm-Message-State: AC+VfDyBBpCJXrz8s1Uny1+ue4j1AviInXtoNJcy9XQQj0PhzNsqBvEB
+ +ibYo+AdwCYw1Pmm/gffSX19xA==
+X-Google-Smtp-Source: ACHHUZ5jWPn15sUETnU3sOiLA3ZEq58hqtWA/qPY8dV5vu8echz75s4Xk6xBQQXlIDs32fWSNQEHHw==
+X-Received: by 2002:a17:907:d13:b0:96f:8d00:43be with SMTP id
+ gn19-20020a1709070d1300b0096f8d0043bemr2133110ejc.0.1685639024540; 
+ Thu, 01 Jun 2023 10:03:44 -0700 (PDT)
+Received: from dario-ThinkPad-T14s-Gen-2i.homenet.telecomitalia.it
+ (host-95-248-31-20.retail.telecomitalia.it. [95.248.31.20])
+ by smtp.gmail.com with ESMTPSA id
+ bh25-20020a170906a0d900b0096165b2703asm10658522ejb.110.2023.06.01.10.03.42
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 01 Jun 2023 10:03:44 -0700 (PDT)
+From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+To: linux-kernel@vger.kernel.org
+Date: Thu,  1 Jun 2023 19:03:14 +0200
+Message-Id: <20230601170320.2845218-1-dario.binacchi@amarulasolutions.com>
+X-Mailer: git-send-email 2.32.0
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-From: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
-To: Marek Vasut <marex@denx.de>, <linux-arm-kernel@lists.infradead.org>,
- Philippe CORNU - foss <philippe.cornu@foss.st.com>, yannick Fertre
- <yannick.fertre@foss.st.com>
-References: <20230531231044.574541-1-marex@denx.de>
-Content-Language: en-US
-In-Reply-To: <20230531231044.574541-1-marex@denx.de>
-X-Originating-IP: [10.129.178.187]
-X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE2.st.com
- (10.75.129.70)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.957,Hydra:6.0.573,FMLib:17.11.176.26
- definitions=2023-06-01_08,2023-05-31_03,2023-05-22_02
-Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Dario Binacchi <dario.binacchi@amarulasolutions.com>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Rob Herring <robh+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH] ARM: dts: stm32: Deduplicate DSI node
+ Sam Ravnborg <sam@ravnborg.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+ David Airlie <airlied@gmail.com>, Yannick Fertre <yannick.fertre@foss.st.com>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ Rob Herring <robh+dt@kernel.org>, Thierry Reding <thierry.reding@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, michael@amarulasolutions.com,
+ Amarula patchwork <linux-amarula@amarulasolutions.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH 0/6] Add display support on the
+	stm32f746-disco board
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,52 +85,31 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Marek,
+The series adds support for the display on the stm32f746-disco board,
+along with a generic patch that adds the "bpp" parameter to the stm-drm
+module. The intention is to allow users to size, within certain limits,
+the memory footprint required by the framebuffer.
 
 
-On 6/1/23 01:10, Marek Vasut wrote:
-> All boards using the DSI node duplicate the same pattern common pattern
-> in board DTs, that pattern is ports with endpoint labels and the same
-> in-SoC regulator connection. Move that common pattern into stm32mp157.dtsi
-> instead.
+Dario Binacchi (6):
+  ARM: dts: stm32: add ltdc support on stm32f746 MCU
+  ARM: dts: stm32: add pin map for LTDC on stm32f7
+  ARM: dts: stm32: support display on stm32f746-disco board
+  dt-bindings: display: simple: add Rocktech RK043FN48H
+  drm/panel: simple: add support for Rocktech RK043FN48H panel
+  drm/stm: add an option to change FB bpp
 
-I think that is a good idea, while it did not crossed my mind implementing it
-this way on the first time.
+ .../bindings/display/panel/panel-simple.yaml  |  2 +
+ arch/arm/boot/dts/stm32f7-pinctrl.dtsi        | 35 +++++++++++++
+ arch/arm/boot/dts/stm32f746-disco.dts         | 51 +++++++++++++++++++
+ arch/arm/boot/dts/stm32f746.dtsi              | 10 ++++
+ drivers/gpu/drm/panel/panel-simple.c          | 29 +++++++++++
+ drivers/gpu/drm/stm/drv.c                     |  8 ++-
+ 6 files changed, 134 insertions(+), 1 deletion(-)
 
-I'll let my peers Philippe and Yannick review and ack it this time. I tested it
-on DK2, it seems fine.
+-- 
+2.32.0
 
-
-Thanks :)
-
-> The two boards which do define panel@0 directly in the DSI bridge node now
-> have #address-cells/#size-cells in their board DT instead of it being in
-> stm32mp157.dtsi and activated incorrectly for all boards, even the ones
-> which use e.g. another DSI-to-something bridge.
->
-> Signed-off-by: Marek Vasut <marex@denx.de>
-
-
-Reviewed-by: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
-
-
-> ---
-> Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
-> Cc: Conor Dooley <conor+dt@kernel.org>
-> Cc: Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
-> Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-> Cc: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
-> Cc: Rob Herring <robh+dt@kernel.org>
-> Cc: devicetree@vger.kernel.org
-> Cc: linux-arm-kernel@lists.infradead.org
-> Cc: linux-stm32@st-md-mailman.stormreply.com
-> ---
->  arch/arm/boot/dts/stm32mp157.dtsi             | 18 ++++++++++++
->  ...tm32mp157a-icore-stm32mp1-ctouch2-of10.dts | 24 ++++------------
->  .../stm32mp157a-icore-stm32mp1-edimm2.2.dts   | 28 ++++++-------------
->  arch/arm/boot/dts/stm32mp157c-dk2.dts         | 28 ++++++-------------
->  arch/arm/boot/dts/stm32mp157c-ev1.dts         | 28 ++++++-------------
->  5 files changed, 48 insertions(+), 78 deletions(-)
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
