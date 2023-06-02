@@ -2,52 +2,73 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4BBE271F97C
-	for <lists+linux-stm32@lfdr.de>; Fri,  2 Jun 2023 07:00:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E674871FEDF
+	for <lists+linux-stm32@lfdr.de>; Fri,  2 Jun 2023 12:21:35 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DB3B1C6B442;
-	Fri,  2 Jun 2023 05:00:23 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6267EC6B44B;
+	Fri,  2 Jun 2023 10:21:35 +0000 (UTC)
+Received: from mail-lj1-f174.google.com (mail-lj1-f174.google.com
+ [209.85.208.174])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AD3BDC6A61D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D7F05C6B442
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  2 Jun 2023 05:00:22 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 6CAF964C44;
- Fri,  2 Jun 2023 05:00:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id B2A17C4339B;
- Fri,  2 Jun 2023 05:00:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1685682020;
- bh=rUHmOXEYpK/oNBqcnTdtouxfSre1j04IJR96syYNKDw=;
- h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=Vsbzlpgdftk8smVI3yWSPQcDhM00q0Fb6ZUHq53dFVgfRBZfrtlRAQFga4wIJoVFd
- GeC7zQlHYpS8h6SGynQSJBGdqsb2iHAQuzIUp7dPdAdfgQL2wFZ37BameN0mY9xKQx
- SvsV7KQYO/qPAITjmG7L2DQq3LeJzN51/OUSpwWviRWlb1AG6ABkiRLHI7KrVf6oxP
- i/41ZPo/EGc9lN2MZ3z1/knMQA6htsN30dEdUqpMXKMWpNjFZKgXKdWMNn4vb9g9nA
- CXO1BgH82XuZyHRHRYnz4SbduC6VHUAqOWvEXk5qPVnjhFyLR2C7mo78nJzqBpampD
- x7KOVAuihf5sg==
-Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
- 979BDE29F3F; Fri,  2 Jun 2023 05:00:20 +0000 (UTC)
+ Fri,  2 Jun 2023 10:21:33 +0000 (UTC)
+Received: by mail-lj1-f174.google.com with SMTP id
+ 38308e7fff4ca-2af2d092d7aso26915061fa.2
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 02 Jun 2023 03:21:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amarulasolutions.com; s=google; t=1685701293; x=1688293293;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=3q0SzVmGHZSYA8dRUVFZwmu0+tSDXCd1K6OkYFYtOd8=;
+ b=pjzDmVWrmpv8bNLYLxvaZYL6mxAG3qQGOPJ8xm++RR5BxeesRsXpGhpys5eIzcxcHB
+ rxgB6q/xLenJIRNPnwkVkDzsQhtNqR1+AzfiU/SbEYotGzou+QdALXAT5+qDdwLxo+tz
+ xcdp4bFWejnRiySMy3kFESCse7L+7H5XqwxHM=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1685701293; x=1688293293;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=3q0SzVmGHZSYA8dRUVFZwmu0+tSDXCd1K6OkYFYtOd8=;
+ b=fmYe3jmCj+TEowzM5SMIZ/ZwQ1ouXgTXaEeRdL0Vhe7wKH7ozcc9MYsVroxHQi5I9C
+ m0OImKysdB/AQnH7z7FYaTNwe/6em8PX5ClOjYglQUoqV3dDJarBJGERqXIGq7rQOjuw
+ wxNczQwDtZEjMXnhXOJ7E4IkfawP89/k6qMGmLhW2Advd7BS+BB2a0Tvy0fLEm9dKSFT
+ 0VZgbmHz+qkJ1jBVr33G367ThbPpL88AyBap3QCK0Bhk3nNgWn4vN8xMNr/uDPZjfLMt
+ fyvWrAvbNoMzGdvbETT+HzWSF1tnj57wWjZeSnb/QAO3T3EnYhSn4lM3/KDoUF7rT4tF
+ V6pg==
+X-Gm-Message-State: AC+VfDxLyHVueHdd0axCpsGhZMs6quk5UFTGCgfIDo1DIi9jX555gDaO
+ UYZeLoZIdpZUA1t4t3TnFq9Isw==
+X-Google-Smtp-Source: ACHHUZ6co4uO+gVLS2iC+Vv8IBfeCfrH5pWd6DF66wUFf3puiaOUh6G/ryC64nR6uuVEL69eEqSvqw==
+X-Received: by 2002:a2e:9944:0:b0:2ad:8623:a97e with SMTP id
+ r4-20020a2e9944000000b002ad8623a97emr1104584ljj.50.1685701292883; 
+ Fri, 02 Jun 2023 03:21:32 -0700 (PDT)
+Received: from dario-ThinkPad-T14s-Gen-2i.homenet.telecomitalia.it
+ (host-95-248-31-20.retail.telecomitalia.it. [95.248.31.20])
+ by smtp.gmail.com with ESMTPSA id
+ x24-20020aa7d398000000b0051499320435sm528887edq.14.2023.06.02.03.21.30
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 02 Jun 2023 03:21:32 -0700 (PDT)
+From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+To: linux-kernel@vger.kernel.org
+Date: Fri,  2 Jun 2023 12:21:16 +0200
+Message-Id: <20230602102123.3345587-1-dario.binacchi@amarulasolutions.com>
+X-Mailer: git-send-email 2.32.0
 MIME-Version: 1.0
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <168568202061.24823.10947582942293943932.git-patchwork-notify@kernel.org>
-Date: Fri, 02 Jun 2023 05:00:20 +0000
-References: <20230531102113.3353065-1-o.rempel@pengutronix.de>
-In-Reply-To: <20230531102113.3353065-1-o.rempel@pengutronix.de>
-To: Oleksij Rempel <o.rempel@pengutronix.de>
-Cc: devicetree@vger.kernel.org, mcoquelin.stm32@gmail.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, robh+dt@kernel.org,
- kernel@pengutronix.de, krzk+dt@kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- jerome.pouiller@silabs.com
-Subject: Re: [Linux-stm32] [PATCH v3 0/2] Extend dt-bindings for PSE-PD
- controllers and update prtt1c dts
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Dario Binacchi <dario.binacchi@amarulasolutions.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Sam Ravnborg <sam@ravnborg.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+ David Airlie <airlied@gmail.com>, Yannick Fertre <yannick.fertre@foss.st.com>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ Rob Herring <robh+dt@kernel.org>, Thierry Reding <thierry.reding@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, michael@amarulasolutions.com,
+ Amarula patchwork <linux-amarula@amarulasolutions.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH v2 0/6] Add display support on the
+	stm32f746-disco board
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -64,32 +85,34 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello:
+The series adds support for the display on the stm32f746-disco board,
+along with a generic patch that adds the "bpp" parameter to the stm-drm
+module. The intention is to allow users to size, within certain limits,
+the memory footprint required by the framebuffer.
 
-This series was applied to netdev/net-next.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
+Changes in v2:
+- Add 'Acked-by' tag of Conor Dooley.
+- Fix build warning reported by kernel test robot.
+- Add 'Reported-by' tag of kernel test robot.
 
-On Wed, 31 May 2023 12:21:11 +0200 you wrote:
-> changes v3:
-> - reword commit message for the pse-controller.yaml patch
-> - drop podl-pse-regulator.yaml patch
-> 
-> changes v2:
-> - extend ethernet-pse regexp in the PoDL PSE dt-bindings
-> 
-> [...]
+Dario Binacchi (6):
+  ARM: dts: stm32: add ltdc support on stm32f746 MCU
+  ARM: dts: stm32: add pin map for LTDC on stm32f7
+  ARM: dts: stm32: support display on stm32f746-disco board
+  dt-bindings: display: simple: add Rocktech RK043FN48H
+  drm/panel: simple: add support for Rocktech RK043FN48H panel
+  drm/stm: add an option to change FB bpp
 
-Here is the summary with links:
-  - [v3,1/2] dt-bindings: net: pse-pd: Allow -N suffix for ethernet-pse node names
-    https://git.kernel.org/netdev/net-next/c/bd415f6c748e
-  - [v3,2/2] ARM: dts: stm32: prtt1c: Add PoDL PSE regulator nodes
-    (no matching commit)
+ .../bindings/display/panel/panel-simple.yaml  |  2 +
+ arch/arm/boot/dts/stm32f7-pinctrl.dtsi        | 35 +++++++++++++
+ arch/arm/boot/dts/stm32f746-disco.dts         | 51 +++++++++++++++++++
+ arch/arm/boot/dts/stm32f746.dtsi              | 10 ++++
+ drivers/gpu/drm/panel/panel-simple.c          | 29 +++++++++++
+ drivers/gpu/drm/stm/drv.c                     |  8 ++-
+ 6 files changed, 134 insertions(+), 1 deletion(-)
 
-You are awesome, thank you!
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+2.32.0
 
 _______________________________________________
 Linux-stm32 mailing list
