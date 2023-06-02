@@ -2,68 +2,72 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 84ABA7201E7
-	for <lists+linux-stm32@lfdr.de>; Fri,  2 Jun 2023 14:20:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B75A8720204
+	for <lists+linux-stm32@lfdr.de>; Fri,  2 Jun 2023 14:24:35 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2B652C6B444;
-	Fri,  2 Jun 2023 12:20:32 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 76D15C6B444;
+	Fri,  2 Jun 2023 12:24:35 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
  [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D3820C6B442
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 75566C6B442
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  2 Jun 2023 12:20:30 +0000 (UTC)
-Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
+ Fri,  2 Jun 2023 12:24:34 +0000 (UTC)
+Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
  by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 352BlvWf001792; Fri, 2 Jun 2023 14:20:20 +0200
+ 3528MIf3010549; Fri, 2 Jun 2023 14:24:21 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
  h=message-id : date :
  mime-version : subject : to : cc : references : from : in-reply-to :
  content-type : content-transfer-encoding; s=selector1;
- bh=HUWKSuHZrzgUnoi71cTR3/6/dID27U1wLtLLZQsF0CM=;
- b=B7C4UDgTJomLvJx5rWWctxdnL4K1ivach7+2A0d/Oy+ltYGEzL9QUsn3Z+4e/4lArv1d
- QUlzaNpF6HIlCsHN/crnCfOrkX/cRjOG+Pr0gDJqeSi3QLKw022GCUpgNiZA5OUcK0Jk
- d2nrlZIi005Xo3Q/nMmNGOiolkjE61PSiHNVyH8/uu4KGzgZveba5BVmK0bKFMbqCCfO
- cLq5JdZ/QWCstYyCqpTJeR0mFy1fmIERDilE5P0imf98uHTGAvQlGXknWHlqPEffobKw
- xRO51LrMZw47etqsaDHFF1BqKymvtTVlLFj7RODhhOmf1MNspGkvPo56+lvVTawQhFh/ cw== 
+ bh=EL9LPEgnvnxBiF/rxjtdAHWrropSEiOFCBwvxy3fJ+4=;
+ b=K+nJMGMpiDBBOQV8KtRH3bnuw4UBsl3yeC32F2awR8eG+YpP8oLHd6N+7Q7Fp+z9xaV/
+ CcMdzZHps8ziJ9hmunRkVD4Hq3iaqjHK5XB3A5eKVx17wjGQkQ/wKieQipW27myPv97N
+ XXMHP0xBdHN0L4e7W/2YJYoY062L/+zk/g+OxTSN8TBRetnb414HcL01/6a8GS631tEQ
+ fHeUangqEuzoFh7752yTSbhj9X+PK3c6YuK4MoCXf0zYNDqMOAsits6FDezDhWQ/atST
+ aLxeoNKwKjJTwcEJmKQT+fFQBBdNIA3p5gOV911ZVMgS0QuRmjXOxzAnAdT1G2hk5RX5 Zw== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3qweqep5s4-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3qx31577ke-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 02 Jun 2023 14:20:20 +0200
+ Fri, 02 Jun 2023 14:24:21 +0200
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 2B7E910002A;
- Fri,  2 Jun 2023 14:20:19 +0200 (CEST)
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 5DCC510002A;
+ Fri,  2 Jun 2023 14:24:20 +0200 (CEST)
 Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 2340423151D;
- Fri,  2 Jun 2023 14:20:19 +0200 (CEST)
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 50AD4231524;
+ Fri,  2 Jun 2023 14:24:20 +0200 (CEST)
 Received: from [10.201.21.93] (10.201.21.93) by SHFDAG1NODE1.st.com
  (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.21; Fri, 2 Jun
- 2023 14:20:18 +0200
-Message-ID: <7c5ca6cf-59aa-50f9-c127-a3dc81eb245c@foss.st.com>
-Date: Fri, 2 Jun 2023 14:20:17 +0200
+ 2023 14:24:19 +0200
+Message-ID: <a618b718-bd21-58f3-a79c-073310d39f85@foss.st.com>
+Date: Fri, 2 Jun 2023 14:24:18 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.10.0
 Content-Language: en-US
-To: Alain Volmat <alain.volmat@foss.st.com>, Rob Herring <robh+dt@kernel.org>, 
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley
- <conor+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>
-References: <20230601065222.2594700-1-alain.volmat@foss.st.com>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, <robh+dt@kernel.org>,
+ <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley <conor+dt@kernel.org>,
+ Linus Walleij <linus.walleij@linaro.org>, Catalin
+ Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Arnd
+ Bergmann <arnd@arndb.de>, Olof Johansson <olof@lixom.net>, <soc@kernel.org>
+References: <20230529162034.20481-1-alexandre.torgue@foss.st.com>
+ <20230529162034.20481-4-alexandre.torgue@foss.st.com>
+ <d35fdc37-a793-3109-1474-065dffb03069@linaro.org>
 From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
-In-Reply-To: <20230601065222.2594700-1-alain.volmat@foss.st.com>
+In-Reply-To: <d35fdc37-a793-3109-1474-065dffb03069@linaro.org>
 X-Originating-IP: [10.201.21.93]
 X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SHFDAG1NODE1.st.com
  (10.75.129.69)
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.205,Aquarius:18.0.957,Hydra:6.0.573,FMLib:17.11.176.26
  definitions=2023-06-02_08,2023-06-02_02,2023-05-22_02
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+Cc: devicetree@vger.kernel.org, linux-gpio@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- linux-media@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH] ARM: dts: stm32: add required supplies of
- ov5640 in stm32mp157c-ev1
+ linux-kernel@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH 03/11] dt-bindings: stm32: add st,
+ stm32mp25-syscfg compatible for syscon
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,41 +84,40 @@ Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Alain
+Hi Krzysztof
 
-On 6/1/23 08:52, Alain Volmat wrote:
-> Correct the following warnings by adding the required supplies (AVDD, DVDD)
-> for the ov5640 node.
+On 5/31/23 20:48, Krzysztof Kozlowski wrote:
+> On 29/05/2023 18:20, Alexandre Torgue wrote:
+>> From: Patrick Delaunay <patrick.delaunay@foss.st.com>
+>>
+>> Add the new syscon compatible for STM32MP25 syscfg = "st,stm32mp25-syscfg".
+>>
+>> Signed-off-by: Patrick Delaunay <patrick.delaunay@foss.st.com>
+>> Signed-off-by: Alexandre Torgue <alexandre.torgue@foss.st.com>
+>>
+>> diff --git a/Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.yaml b/Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.yaml
+>> index ad8e51aa01b0..9ed5b121cea9 100644
+>> --- a/Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.yaml
+>> +++ b/Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.yaml
+>> @@ -16,6 +16,7 @@ properties:
+>>         - items:
+>>             - enum:
+>>                 - st,stm32mp157-syscfg
+>> +              - st,stm32mp25-syscfg
 > 
-> arch/arm/boot/dts/stm32mp157c-ev1.dtb: camera@3c: 'AVDD-supply' is a required property
->  From schema: Documentation/devicetree/bindings/media/i2c/ovti,ov5640.yaml
-> arch/arm/boot/dts/stm32mp157c-ev1.dtb: camera@3c: 'DVDD-supply' is a required property
->  From schema: Documentation/devicetree/bindings/media/i2c/ovti,ov5640.yaml
-> 
-> Signed-off-by: Alain Volmat <alain.volmat@foss.st.com>
-> ---
->   arch/arm/boot/dts/stm32mp157c-ev1.dts | 2 ++
->   1 file changed, 2 insertions(+)
-> 
-> diff --git a/arch/arm/boot/dts/stm32mp157c-ev1.dts b/arch/arm/boot/dts/stm32mp157c-ev1.dts
-> index ba8e9d9a42fa..f27d6dcb6651 100644
-> --- a/arch/arm/boot/dts/stm32mp157c-ev1.dts
-> +++ b/arch/arm/boot/dts/stm32mp157c-ev1.dts
-> @@ -185,7 +185,9 @@ ov5640: camera@3c {
->   		reg = <0x3c>;
->   		clocks = <&clk_ext_camera>;
->   		clock-names = "xclk";
-> +		AVDD-supply = <&v2v8>;
->   		DOVDD-supply = <&v2v8>;
-> +		DVDD-supply = <&v2v8>;
->   		powerdown-gpios = <&stmfx_pinctrl 18 (GPIO_ACTIVE_HIGH | GPIO_PUSH_PULL)>;
->   		reset-gpios = <&stmfx_pinctrl 19 (GPIO_ACTIVE_LOW | GPIO_PUSH_PULL)>;
->   		rotation = <180>;
+> You should rather keep some (alphabetical?) order.
 
-Applied on stm32-next.
+I agree, I'll fix it in V2.
 
-Thanks.
 Alex
+
+> 
+> Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> 
+> Best regards,
+> Krzysztof
+> 
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
