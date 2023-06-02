@@ -2,52 +2,52 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F0E872033F
-	for <lists+linux-stm32@lfdr.de>; Fri,  2 Jun 2023 15:29:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2ECD172033E
+	for <lists+linux-stm32@lfdr.de>; Fri,  2 Jun 2023 15:29:22 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 001C8C6B454;
-	Fri,  2 Jun 2023 13:29:23 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CEDB7C6B444;
+	Fri,  2 Jun 2023 13:29:21 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
  [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E7479C6A613
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7FD36C6A613
  for <linux-stm32@st-md-mailman.stormreply.com>;
  Fri,  2 Jun 2023 13:29:20 +0000 (UTC)
-Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
+Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
  by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 352Bxqhf001514; Fri, 2 Jun 2023 15:29:07 +0200
+ 352DF1R0010654; Fri, 2 Jun 2023 15:29:08 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
  h=from : to : cc :
  subject : date : message-id : in-reply-to : references : mime-version :
  content-type; s=selector1;
- bh=AM1f4tJRimilxF3sdJas9PGFkZRJhM/VZR2iX7zQFb4=;
- b=TXDSsE2emHbj4tusgGl5fUiyMZ0RhNp/HzxUvNrHH19zaEbAbj0o9H3Ge2bDeu0S5qnn
- 41F3WsRlT+YoEm7rMzWxIF7blwt62yM6rKvstTfvJVoryKSLe69f8tnSY6/0WNH0QmbH
- +SVRx94j3oDu0DU/K5XLwoT8VDTbwgddnWii+wsP9CHX86rrezVmDuY5noyU2VxamEYz
- bb2jTZBX9EcoKDCh4O8KO/OPoeqzfFkUaQ5wVD7j+HekQOQcAepiAHtqH68DFspRLso2
- WGy/mZIWQrAhcEUVLUZn9Yybj1pMKuDJGwlTlRRl+ofH50NIei0lyM00f4sFtJjbYx+f 4w== 
+ bh=PDoE1Z+cF75l+gk9sdlZVUIvH6BbnuzzZQPvr/2NagA=;
+ b=w4x+n/mLaUYuvacsDSfd+Jb0F5jzvBPmnTE5W0pOXjhHAH0rKqfdyTJWsGDuRYF297K6
+ QR+CRiD3TWLPEe2kVeMfvOPysNJeXBkFbZMhVI4teaPkqYOH+fjCbyg/YaZALIf88r1J
+ FtOqSA1lDy99MWQrUmZfN/7AB2aMomlnaBVBjBlKyKCalyk6wquDH1YKgBA49K/y9gX1
+ zp1DOWz8hD13K8uezWYa+aX05Gf8XPsX5hhwp78GcMe1x99f4VXXfeJV1yRSolfaZiqS
+ NFty+j4MRdOrCNnaqKkO5YGy2gIR/Y3E6W4N4BBFtjFHn7rp8gDYoFjNu92+Ma5LUQ8u bQ== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3qweqepgut-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3qx3157j6p-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 02 Jun 2023 15:29:07 +0200
+ Fri, 02 Jun 2023 15:29:08 +0200
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id ED02A100034;
- Fri,  2 Jun 2023 15:29:06 +0200 (CEST)
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 8B17910002A;
+ Fri,  2 Jun 2023 15:29:07 +0200 (CEST)
 Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id E5C2F236927;
- Fri,  2 Jun 2023 15:29:06 +0200 (CEST)
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 8339E236927;
+ Fri,  2 Jun 2023 15:29:07 +0200 (CEST)
 Received: from localhost (10.201.21.93) by SHFDAG1NODE1.st.com (10.75.129.69)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.21; Fri, 2 Jun
- 2023 15:29:06 +0200
+ 2023 15:29:07 +0200
 From: Alexandre Torgue <alexandre.torgue@foss.st.com>
 To: <robh+dt@kernel.org>, <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley
  <conor+dt@kernel.org>, Linus Walleij <linus.walleij@linaro.org>, Catalin
  Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Arnd
  Bergmann <arnd@arndb.de>, Olof Johansson <olof@lixom.net>, <soc@kernel.org>
-Date: Fri, 2 Jun 2023 15:28:52 +0200
-Message-ID: <20230602132859.16442-4-alexandre.torgue@foss.st.com>
+Date: Fri, 2 Jun 2023 15:28:53 +0200
+Message-ID: <20230602132859.16442-5-alexandre.torgue@foss.st.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20230602132859.16442-1-alexandre.torgue@foss.st.com>
 References: <20230602132859.16442-1-alexandre.torgue@foss.st.com>
@@ -61,8 +61,8 @@ X-Proofpoint-Virus-Version: vendor=baseguard
 Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-gpio@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v2 03/10] dt-bindings: stm32: add st,
-	stm32mp25-syscfg compatible for syscon
+Subject: [Linux-stm32] [PATCH v2 04/10] arm64: introduce STM32 family on
+	Armv8 architecture
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,36 +79,37 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Patrick Delaunay <patrick.delaunay@foss.st.com>
+Add a dedicated ARCH_STM32 for STM32 SoCs config. First STM32 Armv8 SoC
+family is the STM32MP25 which is composed of STM32MP251, STM32MP253,
+STM32MP255, STM32MP257 SoCs.
 
-Add the new syscon compatible for STM32MP25 syscfg = "st,stm32mp25-syscfg".
-Reorder enum following ASCII oredering.
-
-Signed-off-by: Patrick Delaunay <patrick.delaunay@foss.st.com>
 Signed-off-by: Alexandre Torgue <alexandre.torgue@foss.st.com>
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 
-diff --git a/Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.yaml b/Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.yaml
-index ad8e51aa01b0..b63ff591ef8f 100644
---- a/Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.yaml
-+++ b/Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.yaml
-@@ -15,12 +15,13 @@ properties:
-     oneOf:
-       - items:
-           - enum:
--              - st,stm32mp157-syscfg
--              - st,stm32mp151-pwr-mcu
--              - st,stm32-syscfg
-               - st,stm32-power-config
-+              - st,stm32-syscfg
-               - st,stm32-tamp
-               - st,stm32f4-gcan
-+              - st,stm32mp151-pwr-mcu
-+              - st,stm32mp157-syscfg
-+              - st,stm32mp25-syscfg
-           - const: syscon
-       - items:
-           - const: st,stm32-tamp
+diff --git a/arch/arm64/Kconfig.platforms b/arch/arm64/Kconfig.platforms
+index 89a0b13b058d..b1818d100d88 100644
+--- a/arch/arm64/Kconfig.platforms
++++ b/arch/arm64/Kconfig.platforms
+@@ -277,6 +277,20 @@ config ARCH_INTEL_SOCFPGA
+ 	  Stratix 10 (ex. Altera), Stratix10 Software Virtual Platform,
+ 	  Agilex and eASIC N5X.
+ 
++config ARCH_STM32
++	bool "STMicroelectronics STM32 SoC Family"
++	select GPIOLIB
++	select PINCTRL
++	select PINCTRL_STM32MP257
++	select ARM_SMC_MBOX
++	select ARM_SCMI_PROTOCOL
++	select COMMON_CLK_SCMI
++	help
++	  This enables support for ARMv8 based STMicroelectronics
++	  STM32 family, including:
++		- STM32MP25:
++			- STM32MP251, STM32MP253, STM32MP255 and STM32MP257.
++
+ config ARCH_SYNQUACER
+ 	bool "Socionext SynQuacer SoC Family"
+ 	select IRQ_FASTEOI_HIERARCHY_HANDLERS
 -- 
 2.17.1
 
