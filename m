@@ -2,73 +2,72 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E674871FEDF
-	for <lists+linux-stm32@lfdr.de>; Fri,  2 Jun 2023 12:21:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AE76E71FEE0
+	for <lists+linux-stm32@lfdr.de>; Fri,  2 Jun 2023 12:21:36 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6267EC6B44B;
-	Fri,  2 Jun 2023 10:21:35 +0000 (UTC)
-Received: from mail-lj1-f174.google.com (mail-lj1-f174.google.com
- [209.85.208.174])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 72B9FC6B454;
+	Fri,  2 Jun 2023 10:21:36 +0000 (UTC)
+Received: from mail-lj1-f170.google.com (mail-lj1-f170.google.com
+ [209.85.208.170])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D7F05C6B442
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4085EC6B442
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  2 Jun 2023 10:21:33 +0000 (UTC)
-Received: by mail-lj1-f174.google.com with SMTP id
- 38308e7fff4ca-2af2d092d7aso26915061fa.2
+ Fri,  2 Jun 2023 10:21:35 +0000 (UTC)
+Received: by mail-lj1-f170.google.com with SMTP id
+ 38308e7fff4ca-2afb2874e83so27138141fa.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 02 Jun 2023 03:21:33 -0700 (PDT)
+ Fri, 02 Jun 2023 03:21:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amarulasolutions.com; s=google; t=1685701293; x=1688293293;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=3q0SzVmGHZSYA8dRUVFZwmu0+tSDXCd1K6OkYFYtOd8=;
- b=pjzDmVWrmpv8bNLYLxvaZYL6mxAG3qQGOPJ8xm++RR5BxeesRsXpGhpys5eIzcxcHB
- rxgB6q/xLenJIRNPnwkVkDzsQhtNqR1+AzfiU/SbEYotGzou+QdALXAT5+qDdwLxo+tz
- xcdp4bFWejnRiySMy3kFESCse7L+7H5XqwxHM=
+ d=amarulasolutions.com; s=google; t=1685701294; x=1688293294;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=2jBqOeBntw2+ThpWf4KE8BMuMRq2HYj3RR0u0oHiddc=;
+ b=kDwCkNaE67Q0xUnrv6y3DR8jLIIS8R9c9QKIj9k4/HDG9shGyNJc2foYrF04sUyYzi
+ wFf2hmqJMxPT9qwyw3s7IFZI9Z/9Su/GFyHb06gOC0kKp63hsWwD4ADpHRkRWIGPcUng
+ 3IoJjsZ7X1XaHRY7eJBjBPRJRcW4sDECsPsC0=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1685701293; x=1688293293;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=3q0SzVmGHZSYA8dRUVFZwmu0+tSDXCd1K6OkYFYtOd8=;
- b=fmYe3jmCj+TEowzM5SMIZ/ZwQ1ouXgTXaEeRdL0Vhe7wKH7ozcc9MYsVroxHQi5I9C
- m0OImKysdB/AQnH7z7FYaTNwe/6em8PX5ClOjYglQUoqV3dDJarBJGERqXIGq7rQOjuw
- wxNczQwDtZEjMXnhXOJ7E4IkfawP89/k6qMGmLhW2Advd7BS+BB2a0Tvy0fLEm9dKSFT
- 0VZgbmHz+qkJ1jBVr33G367ThbPpL88AyBap3QCK0Bhk3nNgWn4vN8xMNr/uDPZjfLMt
- fyvWrAvbNoMzGdvbETT+HzWSF1tnj57wWjZeSnb/QAO3T3EnYhSn4lM3/KDoUF7rT4tF
- V6pg==
-X-Gm-Message-State: AC+VfDxLyHVueHdd0axCpsGhZMs6quk5UFTGCgfIDo1DIi9jX555gDaO
- UYZeLoZIdpZUA1t4t3TnFq9Isw==
-X-Google-Smtp-Source: ACHHUZ6co4uO+gVLS2iC+Vv8IBfeCfrH5pWd6DF66wUFf3puiaOUh6G/ryC64nR6uuVEL69eEqSvqw==
-X-Received: by 2002:a2e:9944:0:b0:2ad:8623:a97e with SMTP id
- r4-20020a2e9944000000b002ad8623a97emr1104584ljj.50.1685701292883; 
- Fri, 02 Jun 2023 03:21:32 -0700 (PDT)
+ d=1e100.net; s=20221208; t=1685701294; x=1688293294;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=2jBqOeBntw2+ThpWf4KE8BMuMRq2HYj3RR0u0oHiddc=;
+ b=boVDK8miy904vFrW/6It74r0rAGOFsJE/7+ITJII4NRvXvYGjGej/22FtaqOf4XCFk
+ 2TPQt7zm70MgSvYdnwS6950QTOTOvVsuQNiQ00Cc8HfIEp6ytxuGE0n6xXsGXJP45uK6
+ Yy6hJl+ZNFB4cYSpWZXri8pzQ14aVB9LHVidCo5B3lE8lrLtokWJtM7+fSm96iY/RSrW
+ tUWQcpoPRt/OFMGw/sgN4gPWDWyrQtMycN3x515eZTZvdR1HL6bEzN2L9SnJp6nAvXcj
+ tKbpzLDvY3iGWTE39fO8AysxzVU8boTlVMwA4W+XYA5p1kjyGYL/SeNkIzwfCTGy+doW
+ dK1g==
+X-Gm-Message-State: AC+VfDxk6LM1Pbvazo+CGkDJlweQWI3jP2HpRDtXzqQbly2jOd4J8ezY
+ zX5kH2X4eZUnY50SB2aL5eWzZQ==
+X-Google-Smtp-Source: ACHHUZ7qNYOTd62VO/6IL66B8KwBoBWo35rkkPU2puqC/C52R5d2ygI24jDexCF3WiO0CEv1gBe8iw==
+X-Received: by 2002:a2e:3a03:0:b0:2b1:abdb:8783 with SMTP id
+ h3-20020a2e3a03000000b002b1abdb8783mr1002587lja.41.1685701294571; 
+ Fri, 02 Jun 2023 03:21:34 -0700 (PDT)
 Received: from dario-ThinkPad-T14s-Gen-2i.homenet.telecomitalia.it
  (host-95-248-31-20.retail.telecomitalia.it. [95.248.31.20])
  by smtp.gmail.com with ESMTPSA id
- x24-20020aa7d398000000b0051499320435sm528887edq.14.2023.06.02.03.21.30
+ x24-20020aa7d398000000b0051499320435sm528887edq.14.2023.06.02.03.21.33
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 02 Jun 2023 03:21:32 -0700 (PDT)
+ Fri, 02 Jun 2023 03:21:34 -0700 (PDT)
 From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
 To: linux-kernel@vger.kernel.org
-Date: Fri,  2 Jun 2023 12:21:16 +0200
-Message-Id: <20230602102123.3345587-1-dario.binacchi@amarulasolutions.com>
+Date: Fri,  2 Jun 2023 12:21:17 +0200
+Message-Id: <20230602102123.3345587-2-dario.binacchi@amarulasolutions.com>
 X-Mailer: git-send-email 2.32.0
+In-Reply-To: <20230602102123.3345587-1-dario.binacchi@amarulasolutions.com>
+References: <20230602102123.3345587-1-dario.binacchi@amarulasolutions.com>
 MIME-Version: 1.0
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Conor Dooley <conor+dt@kernel.org>,
+Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
  Dario Binacchi <dario.binacchi@amarulasolutions.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Rob Herring <robh+dt@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Sam Ravnborg <sam@ravnborg.org>, Neil Armstrong <neil.armstrong@linaro.org>,
- David Airlie <airlied@gmail.com>, Yannick Fertre <yannick.fertre@foss.st.com>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- Rob Herring <robh+dt@kernel.org>, Thierry Reding <thierry.reding@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, michael@amarulasolutions.com,
+ michael@amarulasolutions.com,
  Amarula patchwork <linux-amarula@amarulasolutions.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v2 0/6] Add display support on the
-	stm32f746-disco board
+Subject: [Linux-stm32] [PATCH v2 1/6] ARM: dts: stm32: add ltdc support on
+	stm32f746 MCU
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,32 +84,37 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The series adds support for the display on the stm32f746-disco board,
-along with a generic patch that adds the "bpp" parameter to the stm-drm
-module. The intention is to allow users to size, within certain limits,
-the memory footprint required by the framebuffer.
+Add LTDC (Lcd-tft Display Controller) support.
 
-Changes in v2:
-- Add 'Acked-by' tag of Conor Dooley.
-- Fix build warning reported by kernel test robot.
-- Add 'Reported-by' tag of kernel test robot.
+Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+---
 
-Dario Binacchi (6):
-  ARM: dts: stm32: add ltdc support on stm32f746 MCU
-  ARM: dts: stm32: add pin map for LTDC on stm32f7
-  ARM: dts: stm32: support display on stm32f746-disco board
-  dt-bindings: display: simple: add Rocktech RK043FN48H
-  drm/panel: simple: add support for Rocktech RK043FN48H panel
-  drm/stm: add an option to change FB bpp
+(no changes since v1)
 
- .../bindings/display/panel/panel-simple.yaml  |  2 +
- arch/arm/boot/dts/stm32f7-pinctrl.dtsi        | 35 +++++++++++++
- arch/arm/boot/dts/stm32f746-disco.dts         | 51 +++++++++++++++++++
- arch/arm/boot/dts/stm32f746.dtsi              | 10 ++++
- drivers/gpu/drm/panel/panel-simple.c          | 29 +++++++++++
- drivers/gpu/drm/stm/drv.c                     |  8 ++-
- 6 files changed, 134 insertions(+), 1 deletion(-)
+ arch/arm/boot/dts/stm32f746.dtsi | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
+diff --git a/arch/arm/boot/dts/stm32f746.dtsi b/arch/arm/boot/dts/stm32f746.dtsi
+index dc868e6da40e..9c4ba0b7f239 100644
+--- a/arch/arm/boot/dts/stm32f746.dtsi
++++ b/arch/arm/boot/dts/stm32f746.dtsi
+@@ -507,6 +507,16 @@ pwm {
+ 			};
+ 		};
+ 
++		ltdc: display-controller@40016800 {
++			compatible = "st,stm32-ltdc";
++			reg = <0x40016800 0x200>;
++			interrupts = <88>, <89>;
++			resets = <&rcc STM32F7_APB2_RESET(LTDC)>;
++			clocks = <&rcc 1 CLK_LCD>;
++			clock-names = "lcd";
++			status = "disabled";
++		};
++
+ 		pwrcfg: power-config@40007000 {
+ 			compatible = "st,stm32-power-config", "syscon";
+ 			reg = <0x40007000 0x400>;
 -- 
 2.32.0
 
