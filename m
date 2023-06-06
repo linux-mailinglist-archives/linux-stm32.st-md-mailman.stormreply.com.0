@@ -2,75 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 62FC67246DD
-	for <lists+linux-stm32@lfdr.de>; Tue,  6 Jun 2023 16:53:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D97A47246FC
+	for <lists+linux-stm32@lfdr.de>; Tue,  6 Jun 2023 16:56:44 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 13138C65E70;
-	Tue,  6 Jun 2023 14:53:04 +0000 (UTC)
-Received: from relay2-d.mail.gandi.net (relay2-d.mail.gandi.net
- [217.70.183.194])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 74C51C06F81;
+	Tue,  6 Jun 2023 14:56:44 +0000 (UTC)
+Received: from www530.your-server.de (www530.your-server.de [188.40.30.78])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 392C2C06F81
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 43F62C65E4C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  6 Jun 2023 14:53:03 +0000 (UTC)
-X-GND-Sasl: maxime.chevallier@bootlin.com
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1686063182;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=1nWvmzDxkh9OccWxqcWuPVSP3S+KkgZMKouYOFSnOoQ=;
- b=KFIa1Sv7Y5D32xjDjhpnj6Nlqa0AtFJiHuZf8TBvJaks65m+1dEDAA87gyJBSYEoVH6Oof
- 2xd2Wy64nbhjuFVFxSaeyWo0So5Bgza8Lcby8GKbLVBg0mnFlOkBJp0L8M0AKEpVpuDEgk
- DNjY2yeR422Qi6LMQ+jTIYkYqw24UR+gzxk1xIyrgkb2m+MFctG7JytTp6sox8KuQp4VHM
- XQSs67Zh6T513xz8mgp1vk0PisRHfSayVYiRx6m/KuJW9u+TPJTBqeIzkyBj45vPrKUe5U
- BI+WAyHMOv5RJdHS+3am7TpkKKVKS6kesr/kkVpWMJIVXVaokQHu2n9qwzcn9w==
-X-GND-Sasl: maxime.chevallier@bootlin.com
-X-GND-Sasl: maxime.chevallier@bootlin.com
-X-GND-Sasl: maxime.chevallier@bootlin.com
-X-GND-Sasl: maxime.chevallier@bootlin.com
-X-GND-Sasl: maxime.chevallier@bootlin.com
-X-GND-Sasl: maxime.chevallier@bootlin.com
-X-GND-Sasl: maxime.chevallier@bootlin.com
-X-GND-Sasl: maxime.chevallier@bootlin.com
-X-GND-Sasl: maxime.chevallier@bootlin.com
-X-GND-Sasl: maxime.chevallier@bootlin.com
-X-GND-Sasl: maxime.chevallier@bootlin.com
-X-GND-Sasl: maxime.chevallier@bootlin.com
-X-GND-Sasl: maxime.chevallier@bootlin.com
-X-GND-Sasl: maxime.chevallier@bootlin.com
-X-GND-Sasl: maxime.chevallier@bootlin.com
-X-GND-Sasl: maxime.chevallier@bootlin.com
-X-GND-Sasl: maxime.chevallier@bootlin.com
-X-GND-Sasl: maxime.chevallier@bootlin.com
-X-GND-Sasl: maxime.chevallier@bootlin.com
-X-GND-Sasl: maxime.chevallier@bootlin.com
-Received: by mail.gandi.net (Postfix) with ESMTPSA id EF9A440003;
- Tue,  6 Jun 2023 14:52:58 +0000 (UTC)
-Date: Tue, 6 Jun 2023 16:52:52 +0200
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-To: "Russell King (Oracle)" <linux@armlinux.org.uk>
-Message-ID: <20230606165252.34a1593c@pc-7.home>
-In-Reply-To: <ZH9DlUqwm3YsNPu6@shell.armlinux.org.uk>
-References: <20230606142144.308675-1-maxime.chevallier@bootlin.com>
- <ZH9DlUqwm3YsNPu6@shell.armlinux.org.uk>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.37; x86_64-redhat-linux-gnu)
+ Tue,  6 Jun 2023 14:56:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=geanix.com; 
+ s=default2211;
+ h=Content-Transfer-Encoding:MIME-Version:Message-Id:Date:
+ Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:In-Reply-To:References;
+ bh=mG4IMudBJKH36bwynHlTgxCd0dsFreE582/bDJnk7SY=; b=WYs3yRs7cIQBYA5vz+sxPx/dcs
+ ZGh7wpk0yHrIXdOrQGpU8JkDwBBW8i5HGN+MnRrzYIdJvh5KAh1/RaIrtRVMgFcaHRMkRBPAla/ik
+ i4N0iJTlFqES1LWhThtXmaiaqUPtlBbwIgIw+tqqb/0QVHGU6wgSQ2IkZyZ9t7ZsH0o1ubyO3XMPb
+ 4amur3HOO/eVLjCLfelVwxtGCBT9kpTk3WiSldUvGUlJtOSiqAJVjnEZmJKgT2P4Iegt9LcP0oUsZ
+ Z+M1RB/PyVLzlRRs75cug9TVJjCYnbkLar+Ky06CLWqVvqloZJeDEbdF6QYmM06HiqNqMNHRhswLn
+ w/+3nBpw==;
+Received: from sslproxy05.your-server.de ([78.46.172.2])
+ by www530.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+ (Exim 4.94.2) (envelope-from <sean@geanix.com>)
+ id 1q6Y6i-000Pmz-1z; Tue, 06 Jun 2023 16:56:24 +0200
+Received: from [185.17.218.86] (helo=zen..)
+ by sslproxy05.your-server.de with esmtpsa (TLSv1.3:TLS_AES_256_GCM_SHA384:256)
+ (Exim 4.92) (envelope-from <sean@geanix.com>)
+ id 1q6Y6h-0006D0-I7; Tue, 06 Jun 2023 16:56:23 +0200
+From: Sean Nyekjaer <sean@geanix.com>
+To: Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>
+Date: Tue,  6 Jun 2023 16:55:50 +0200
+Message-Id: <20230606145555.2155664-1-sean@geanix.com>
+X-Mailer: git-send-email 2.40.0
 MIME-Version: 1.0
-Cc: Andrew Lunn <andrew@lunn.ch>, Florian Fainelli <f.fainelli@gmail.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Ioana Ciornei <ioana.ciornei@nxp.com>, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
- Jose Abreu <joabreu@synopsys.com>, alexis.lothore@bootlin.com,
- thomas.petazzoni@bootlin.com, Vladimir Oltean <vladimir.oltean@nxp.com>,
- Simon Horman <simon.horman@corigine.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, davem@davemloft.net,
- linux-arm-kernel@lists.infradead.org, Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH net-next v2 0/3] Followup fixes for the
- dwmac and altera lynx conversion
+X-Authenticated-Sender: sean@geanix.com
+X-Virus-Scanned: Clear (ClamAV 0.103.8/26930/Tue Jun  6 09:25:07 2023)
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dantuguf14105@gmail.com, Sean Nyekjaer <sean@geanix.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [RFC PATCH 1/5] ARM: dts: stm32: Add alternate pinmux
+	for i2s pins
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,36 +66,46 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello Russell,
+Add another mux option for i2s pins, this is used on Octavo OSD32MP1-RED board.
 
-On Tue, 6 Jun 2023 15:32:53 +0100
-"Russell King (Oracle)" <linux@armlinux.org.uk> wrote:
+Signed-off-by: Sean Nyekjaer <sean@geanix.com>
+---
+ arch/arm/boot/dts/stm32mp15-pinctrl.dtsi | 19 +++++++++++++++++++
+ 1 file changed, 19 insertions(+)
 
-> On Tue, Jun 06, 2023 at 04:21:41PM +0200, Maxime Chevallier wrote:
-> > Following the TSE PCS removal and port of altera_tse and dwmac_socfpga,
-> > this series fixes some issues that slipped through the cracks.
-> > 
-> > Patch 1 fixes an unitialized struct in altera_tse
-> > 
-> > Patch 2 uses the correct Kconfig option for altera_tse
-> > 
-> > Patch 3 makes the Lynx PCS specific to dwmac_socfpga. This patch was
-> > originally written by Russell, my modifications just moves the
-> > #include<linux/pcs-lynx.h> around, to use it only in dwmac_socfpga.  
-> 
-> Hi Maxime,
-> 
-> I'm sorry, but I think you need an extra patch added to this series.
+diff --git a/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi b/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
+index e86d989dd351..d79f89f37bc7 100644
+--- a/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
++++ b/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
+@@ -686,6 +686,25 @@ pins {
+ 		};
+ 	};
+ 
++	i2s2_pins_b: i2s2-1 {
++		pins {
++			pinmux = <STM32_PINMUX('C',  3, AF5)>, /* I2S2_SDO */
++				 <STM32_PINMUX('B', 12, AF5)>, /* I2S2_WS */
++				 <STM32_PINMUX('B', 13, AF5)>; /* I2S2_CK */
++			bias-disable;
++			drive-push-pull;
++			slew-rate = <1>;
++		};
++	};
++
++	i2s2_sleep_pins_b: i2s2-sleep-1 {
++		pins {
++			pinmux = <STM32_PINMUX('C', 3, ANALOG)>, /* I2S2_SDO */
++				 <STM32_PINMUX('B', 12, ANALOG)>, /* I2S2_WS */
++				 <STM32_PINMUX('B', 13, ANALOG)>; /* I2S2_CK */
++		};
++	};
++
+ 	ltdc_pins_a: ltdc-0 {
+ 		pins {
+ 			pinmux = <STM32_PINMUX('G',  7, AF14)>, /* LCD_CLK */
+-- 
+2.40.0
 
-Gosh you're right... The same this also goes for altera_tse... 
-
-> Other than that, the series looks good. Thanks.
-
-I'll followup shortly then. Nice catch !
-
-Thanks,
-
-Maxime
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
