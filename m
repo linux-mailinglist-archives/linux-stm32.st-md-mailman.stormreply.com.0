@@ -2,31 +2,31 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D604D72479B
-	for <lists+linux-stm32@lfdr.de>; Tue,  6 Jun 2023 17:25:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ECAA272479C
+	for <lists+linux-stm32@lfdr.de>; Tue,  6 Jun 2023 17:25:20 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9CEBFC06F81;
-	Tue,  6 Jun 2023 15:25:18 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AF353C6905A;
+	Tue,  6 Jun 2023 15:25:20 +0000 (UTC)
 Received: from relay9-d.mail.gandi.net (relay9-d.mail.gandi.net
  [217.70.183.199])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 491AAC65E4C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CFE9AC06F81
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  6 Jun 2023 15:25:17 +0000 (UTC)
+ Tue,  6 Jun 2023 15:25:19 +0000 (UTC)
 X-GND-Sasl: maxime.chevallier@bootlin.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1686065117;
+ t=1686065119;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=ttnVbaUsbmopLb6Rdtc5eppinnLixmLTsDnBT1AeYTA=;
- b=dHuNiXq+6+m6WpaHmsIfvChgyt24BlatKTcW4ZHOOiL23GcfunRhgf9tfgTgofsVoWPkSg
- 9wRr81zMmzadPwGZw8rdby+7G0VN9kg9Zu3l1+h3vkzIPTISB9CJ6xRJh+02yLPLBZduNI
- /zCgfPdyo+eJwo5F1O+gcHDSjRmWLnMgn533IiHsTVGaJHyhIoisGFnQbbimwJpLWKNa6b
- CioSyg3jEE+3+XlubAW8lUc3zF4Vs/uZMWVh38BgeSQIvfkla9+kSmHxFyKZ2apClk6C5O
- 6+DkXpWgQcMgIEdRlrI9dBlt64nePJB2s9EQgoxPUmpsixSZaEYk3m+5vzyXQQ==
+ bh=K6EQjxJj47+qCwPEGXSw/1uOAvltL821X9GXGS6xjPk=;
+ b=eP14PuuZNrkMWf2tVRLEXLYrrm9DYmK1UYfLB+uwRE0lerHTC2PLYz0eLhX0YuUG3eW/v/
+ 4XG1ijgbYGJ3Llr/OnVII58vSoIvQbEQ1HR6TP2lz7ZqJriOo2ByghF0i6nf1VLhsgMCGs
+ GyTJrXfv2mBZUzpKh4mDa6Y1bV1B2Hn9cfEyIyw5mJOcNyPrlTSI3e/D2DwiGC7l4XSv8r
+ O05mlgUcO0Z+lZUDfPiT7qWnLGltrM4kzb98QHJXQ1GzaB6Ca2GHgZ/DnSE/oMAYk/WoL8
+ GuW3gB0VArpdC6ZL+Ewn3EGpCOChe9zIwTvFvBdX+rpNzcyGTWBUZogpljLnrA==
 X-GND-Sasl: maxime.chevallier@bootlin.com
 X-GND-Sasl: maxime.chevallier@bootlin.com
 X-GND-Sasl: maxime.chevallier@bootlin.com
@@ -49,12 +49,12 @@ X-GND-Sasl: maxime.chevallier@bootlin.com
 X-GND-Sasl: maxime.chevallier@bootlin.com
 X-GND-Sasl: maxime.chevallier@bootlin.com
 X-GND-Sasl: maxime.chevallier@bootlin.com
-Received: by mail.gandi.net (Postfix) with ESMTPSA id 2A5A7FF80D;
- Tue,  6 Jun 2023 15:25:14 +0000 (UTC)
+Received: by mail.gandi.net (Postfix) with ESMTPSA id 366D0FF80A;
+ Tue,  6 Jun 2023 15:25:17 +0000 (UTC)
 From: Maxime Chevallier <maxime.chevallier@bootlin.com>
 To: davem@davemloft.net
-Date: Tue,  6 Jun 2023 17:24:59 +0200
-Message-Id: <20230606152501.328789-4-maxime.chevallier@bootlin.com>
+Date: Tue,  6 Jun 2023 17:25:00 +0200
+Message-Id: <20230606152501.328789-5-maxime.chevallier@bootlin.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20230606152501.328789-1-maxime.chevallier@bootlin.com>
 References: <20230606152501.328789-1-maxime.chevallier@bootlin.com>
@@ -71,8 +71,8 @@ Cc: Andrew Lunn <andrew@lunn.ch>, Vladimir Oltean <vladimir.oltean@nxp.com>,
  linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
  linux-kernel@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Heiner Kallweit <hkallweit1@gmail.com>
-Subject: [Linux-stm32] [PATCH net-next v3 3/5] net: stmmac: make the
-	pcs_lynx cleanup sequence specific to dwmac_socfpga
+Subject: [Linux-stm32] [PATCH net-next v3 4/5] net: altera_tse: explicitly
+	disable autoscan on the regmap-mdio bus
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,87 +89,31 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-So far, only the dwmac_socfpga variant of stmmac uses PCS Lynx. Use a
-dedicated cleanup sequence for dwmac_socfpga instead of using the
-generic stmmac one.
+Set the .autoscan flag to false on the regmap-mdio bus, to avoid using a
+random uninitialized value. We don't want autoscan in this case as the
+mdio device is a PCS and not a PHY.
 
-Fixes: 5d1f3fe7d2d5 ("net: stmmac: dwmac-sogfpga: use the lynx pcs driver")
+Fixes: db48abbaa18e ("net: ethernet: altera-tse: Convert to mdio-regmap and use PCS Lynx")
 Suggested-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 Signed-off-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
 ---
-V2->V3 : Removed extra whiteline
-V1->V2 : New patch
+V2->V3 : New patch
 
- drivers/net/ethernet/stmicro/stmmac/common.h       |  1 -
- .../net/ethernet/stmicro/stmmac/dwmac-socfpga.c    | 14 +++++++++++++-
- drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c  |  3 ---
- 3 files changed, 13 insertions(+), 5 deletions(-)
+ drivers/net/ethernet/altera/altera_tse_main.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/common.h b/drivers/net/ethernet/stmicro/stmmac/common.h
-index 52c5ec553276..16e67c18b6f7 100644
---- a/drivers/net/ethernet/stmicro/stmmac/common.h
-+++ b/drivers/net/ethernet/stmicro/stmmac/common.h
-@@ -16,7 +16,6 @@
- #include <linux/stmmac.h>
- #include <linux/phy.h>
- #include <linux/pcs/pcs-xpcs.h>
--#include <linux/pcs-lynx.h>
- #include <linux/module.h>
- #if IS_ENABLED(CONFIG_VLAN_8021Q)
- #define STMMAC_VLAN_TAG_USED
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
-index e399fccbafe5..1fb808be843b 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
-@@ -11,6 +11,7 @@
- #include <linux/phy.h>
- #include <linux/regmap.h>
- #include <linux/mdio/mdio-regmap.h>
-+#include <linux/pcs-lynx.h>
- #include <linux/reset.h>
- #include <linux/stmmac.h>
+diff --git a/drivers/net/ethernet/altera/altera_tse_main.c b/drivers/net/ethernet/altera/altera_tse_main.c
+index df509abcd378..b0cb94fe6247 100644
+--- a/drivers/net/ethernet/altera/altera_tse_main.c
++++ b/drivers/net/ethernet/altera/altera_tse_main.c
+@@ -1287,6 +1287,7 @@ static int altera_tse_probe(struct platform_device *pdev)
+ 	mrc.regmap = pcs_regmap;
+ 	mrc.parent = &pdev->dev;
+ 	mrc.valid_addr = 0x0;
++	mrc.autoscan = false;
  
-@@ -494,6 +495,17 @@ static int socfpga_dwmac_probe(struct platform_device *pdev)
- 	return ret;
- }
- 
-+static void socfpga_dwmac_remove(struct platform_device *pdev)
-+{
-+	struct net_device *ndev = platform_get_drvdata(pdev);
-+	struct stmmac_priv *priv = netdev_priv(ndev);
-+	struct phylink_pcs *pcs = priv->hw->lynx_pcs;
-+
-+	stmmac_pltfr_remove(pdev);
-+
-+	lynx_pcs_destroy(pcs);
-+}
-+
- #ifdef CONFIG_PM_SLEEP
- static int socfpga_dwmac_resume(struct device *dev)
- {
-@@ -565,7 +577,7 @@ MODULE_DEVICE_TABLE(of, socfpga_dwmac_match);
- 
- static struct platform_driver socfpga_dwmac_driver = {
- 	.probe  = socfpga_dwmac_probe,
--	.remove_new = stmmac_pltfr_remove,
-+	.remove_new = socfpga_dwmac_remove,
- 	.driver = {
- 		.name           = "socfpga-dwmac",
- 		.pm		= &socfpga_dwmac_pm_ops,
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
-index c784a6731f08..3db1cb0fd160 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
-@@ -665,9 +665,6 @@ int stmmac_mdio_unregister(struct net_device *ndev)
- 	if (priv->hw->xpcs)
- 		xpcs_destroy(priv->hw->xpcs);
- 
--	if (priv->hw->lynx_pcs)
--		lynx_pcs_destroy(priv->hw->lynx_pcs);
--
- 	mdiobus_unregister(priv->mii);
- 	priv->mii->priv = NULL;
- 	mdiobus_free(priv->mii);
+ 	/* Rx IRQ */
+ 	priv->rx_irq = platform_get_irq_byname(pdev, "rx_irq");
 -- 
 2.40.1
 
