@@ -2,80 +2,83 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3CB2E724219
-	for <lists+linux-stm32@lfdr.de>; Tue,  6 Jun 2023 14:29:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 87217724310
+	for <lists+linux-stm32@lfdr.de>; Tue,  6 Jun 2023 14:50:53 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DC9DEC65E70;
-	Tue,  6 Jun 2023 12:29:42 +0000 (UTC)
-Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com
- [209.85.218.49])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 34DB7C65E70;
+	Tue,  6 Jun 2023 12:50:53 +0000 (UTC)
+Received: from relay6-d.mail.gandi.net (relay6-d.mail.gandi.net
+ [217.70.183.198])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B0655C65E4C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 51E50C06F81
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  6 Jun 2023 12:29:41 +0000 (UTC)
-Received: by mail-ej1-f49.google.com with SMTP id
- a640c23a62f3a-9768fd99c0cso776892066b.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 06 Jun 2023 05:29:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1686054581; x=1688646581;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=W8bjNW006lIGeXXTvLEmyObQQvWZdXaKzwPi+Kg6QFQ=;
- b=UANglB0IvH5VFytUBHWTDZr279hkDNYZk3bE/mwXdOIJ7a/USJf7JT6YT4ZlctCbJz
- V/CbT4QIfMBx0oNExmEx1Ij/xUHn56+RkvgHEiSouvLIELitNpRnb5fRv0rMNDjc1Tl9
- VAvbPCj1O0oSo0ZGenpnc5S4sJqXEJRcvB8sFoTDPCzSxoZeUCbdUtsJsDa/2bwXg7jA
- P2PQuYDoNqPZK+24zDTYSUgGI1WwS8Ve0VcxUmYlJxuMPrkj99Y2nJGjz03w/F8E24E6
- QKioE5gtAQLwV3ugVZNCGApZ5NfE5ijPrYUvWsWcW4mDYXftPpr+P8qKUyusJwJNk1V6
- GW8A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1686054581; x=1688646581;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=W8bjNW006lIGeXXTvLEmyObQQvWZdXaKzwPi+Kg6QFQ=;
- b=aukGnNGZEEFu8PCpeOiVRGQ5VO2V4VLU7FUH5Wz5H296nqAN0bJNXW6/dgCfngzY3g
- 6lXBNzonmH4hEtzEEkEVmEtY2zdR0rI1J5JUeFKsPmfeNYkRX1Y1p4OEPodkaEspeWaC
- 5zL7eqTfNCnbZo+lZIx4sE9nDbbf13UVkAFdy+QLsxfVBPsWOlRxEY+8HyGSe4wxV8Co
- tiNnG902s49GIsp85HVcNuOrarq3Uki76wJetzdWclROs2IXbtB0SlOff7FSoIn8ko3Y
- lSilPkuFWGAUfeiFGo7VYXSdmb7W1V1YEEzHt4tCtNVqNH3oNs6jZdszRoJSrKX4UaIm
- eSAg==
-X-Gm-Message-State: AC+VfDztrYixMWlnbxTQ3q68gh5k5Ieq1QA4+diTfo1egsZsbVVcqQoO
- +HWoxiff4M1FD/hjeLah3t1r8g==
-X-Google-Smtp-Source: ACHHUZ74gCkWdqGt68D2uqIK/FVkMqv6PEjoxCaeOaRCVaW8otYDttPJwhpDSCZcZtZGFkgL/JjU6Q==
-X-Received: by 2002:a17:907:70a:b0:94e:bf3e:638 with SMTP id
- xb10-20020a170907070a00b0094ebf3e0638mr2152290ejb.11.1686054581099; 
- Tue, 06 Jun 2023 05:29:41 -0700 (PDT)
-Received: from [192.168.1.20] ([178.197.219.26])
- by smtp.gmail.com with ESMTPSA id
- l4-20020a170906644400b0095707b7dd04sm5421948ejn.42.2023.06.06.05.29.39
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 06 Jun 2023 05:29:40 -0700 (PDT)
-Message-ID: <ba853327-9faf-3b2f-6e4a-e674c8b75b8f@linaro.org>
-Date: Tue, 6 Jun 2023 14:29:38 +0200
+ Tue,  6 Jun 2023 12:50:51 +0000 (UTC)
+X-GND-Sasl: maxime.chevallier@bootlin.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
+ t=1686055851;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=vPlrY3WjDY7pFW/27RY/fg0u0Ufgp/HpEKChnaNVaNo=;
+ b=WtSRmpezbXnrGJhJIzu7g1Jf7sUfirjn2Sx/wTtuHm+1CFCn0L8nfIoZU1LeRZgY387uDi
+ EfWWXvnWDucY3AsQaXso6txoCy/SNcy8eUwu73eUwE3o+pqdg9yC3DpKyisoAemNUVUoHS
+ y834jecnDNCTIdmEDxCioxJZ4GgZG8gOy3SqCArK3YEaEqX/OYti1UI3RaeZ3c+hPyGbtL
+ ZYrKf79UvScvA8tJ4zXXLg2g8uKvZO8Mnu9r/uJ4byT8lWHSIVvRZxbGBLWCivNPJtwFPM
+ vszTHIETNYRH6txrFEQaln3FlAz9j39pJEZFG3i4LkhyQTcmZtYg7KXSlHl26g==
+X-GND-Sasl: maxime.chevallier@bootlin.com
+X-GND-Sasl: maxime.chevallier@bootlin.com
+X-GND-Sasl: maxime.chevallier@bootlin.com
+X-GND-Sasl: maxime.chevallier@bootlin.com
+X-GND-Sasl: maxime.chevallier@bootlin.com
+X-GND-Sasl: maxime.chevallier@bootlin.com
+X-GND-Sasl: maxime.chevallier@bootlin.com
+X-GND-Sasl: maxime.chevallier@bootlin.com
+X-GND-Sasl: maxime.chevallier@bootlin.com
+X-GND-Sasl: maxime.chevallier@bootlin.com
+X-GND-Sasl: maxime.chevallier@bootlin.com
+X-GND-Sasl: maxime.chevallier@bootlin.com
+X-GND-Sasl: maxime.chevallier@bootlin.com
+X-GND-Sasl: maxime.chevallier@bootlin.com
+X-GND-Sasl: maxime.chevallier@bootlin.com
+X-GND-Sasl: maxime.chevallier@bootlin.com
+X-GND-Sasl: maxime.chevallier@bootlin.com
+X-GND-Sasl: maxime.chevallier@bootlin.com
+X-GND-Sasl: maxime.chevallier@bootlin.com
+X-GND-Sasl: maxime.chevallier@bootlin.com
+X-GND-Sasl: maxime.chevallier@bootlin.com
+Received: by mail.gandi.net (Postfix) with ESMTPSA id 6719DC0006;
+ Tue,  6 Jun 2023 12:50:47 +0000 (UTC)
+Date: Tue, 6 Jun 2023 14:50:46 +0200
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+To: "Russell King (Oracle)" <linux@armlinux.org.uk>
+Message-ID: <20230606145046.7181bfae@pc-7.home>
+In-Reply-To: <ZH8N+GtRFcDV4eaI@shell.armlinux.org.uk>
+References: <20230606064914.134945-1-maxime.chevallier@bootlin.com>
+ <20230606064914.134945-2-maxime.chevallier@bootlin.com>
+ <889297a0-88c3-90df-7752-efa00184859@linux-m68k.org>
+ <ZH78uGBfeHjI4Cdn@shell.armlinux.org.uk>
+ <20230606121311.3cc5aa78@pc-7.home>
+ <ZH8JxF+TNuX0C1vC@shell.armlinux.org.uk>
+ <CAMuHMdWnqmwT_rEe5G4e+yZYAeTQxjjE=Xqq7R6No9SAF16sdg@mail.gmail.com>
+ <ZH8N+GtRFcDV4eaI@shell.armlinux.org.uk>
+Organization: Bootlin
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.37; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.2
-To: Olivier Moysan <olivier.moysan@foss.st.com>,
- Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-References: <20230606115605.1633595-1-olivier.moysan@foss.st.com>
- <20230606115605.1633595-2-olivier.moysan@foss.st.com>
-Content-Language: en-US
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20230606115605.1633595-2-olivier.moysan@foss.st.com>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH v2 1/3] ASoC: dt-bindings: stm32: document
- audio of graph port for i2s
+Cc: Andrew Lunn <andrew@lunn.ch>, Florian Fainelli <f.fainelli@gmail.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Ioana Ciornei <ioana.ciornei@nxp.com>, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
+ Jose Abreu <joabreu@synopsys.com>, Geert Uytterhoeven <geert@linux-m68k.org>,
+ alexis.lothore@bootlin.com, thomas.petazzoni@bootlin.com,
+ Vladimir Oltean <vladimir.oltean@nxp.com>,
+ Simon Horman <simon.horman@corigine.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, davem@davemloft.net,
+ linux-arm-kernel@lists.infradead.org, Heiner Kallweit <hkallweit1@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH net-next 1/2] net: stmmac: Add PCS_LYNX as
+ a dependency for the whole driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,19 +95,44 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 06/06/2023 13:56, Olivier Moysan wrote:
-> When linking the STM32 I2S to another DAI component, according
-> to audio graph cards bindings, an OF graph port property is expected
-> in the node. Document the port property.
+On Tue, 6 Jun 2023 11:44:08 +0100
+"Russell King (Oracle)" <linux@armlinux.org.uk> wrote:
+
+> On Tue, Jun 06, 2023 at 12:35:23PM +0200, Geert Uytterhoeven wrote:
+> > Hi Russell,
+> >   
+> > > diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> > > index fa07b0d50b46..1801f8cc8413 100644
+> > > --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> > > +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> > > @@ -940,9 +940,6 @@ static struct phylink_pcs *stmmac_mac_select_pcs(struct phylink_config *config,
+> > >         if (priv->hw->xpcs)
+> > >                 return &priv->hw->xpcs->pcs;
+> > >
+> > > -       if (priv->hw->lynx_pcs)
+> > > -               return priv->hw->lynx_pcs;
+> > > -
+> > >         return NULL;
+> > >  }  
+> > 
+> > I think the above hunk is wrong, and should be replaced by a removal
+> > of the call to lynx_pcs_destroy()?  
 > 
-> Signed-off-by: Olivier Moysan <olivier.moysan@foss.st.com>
-> ---
+> Indeed, and wrong file too. Thanks for spotting, I think we spotted
+> the mistake at almost the same time. Replacement patch sent.
+> 
+> It'd be good to have the patch thoroughly reviewed to make sure I
+> haven't missed anything else, bearing in mind that I don't know this
+> driver inside out and don't have the hardware.
 
+I will give it a try righ-away,
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Thanks,
 
-Best regards,
-Krzysztof
+Maxime
+
+> Thanks.
+> 
 
 _______________________________________________
 Linux-stm32 mailing list
