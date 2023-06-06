@@ -2,30 +2,31 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 189597245AD
-	for <lists+linux-stm32@lfdr.de>; Tue,  6 Jun 2023 16:21:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 19DA07245AE
+	for <lists+linux-stm32@lfdr.de>; Tue,  6 Jun 2023 16:21:53 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BF633C65E70;
-	Tue,  6 Jun 2023 14:21:49 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CCC01C65E70;
+	Tue,  6 Jun 2023 14:21:52 +0000 (UTC)
 Received: from relay6-d.mail.gandi.net (relay6-d.mail.gandi.net
  [217.70.183.198])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4DFD9C65E4C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 519AEC65E70
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  6 Jun 2023 14:21:48 +0000 (UTC)
+ Tue,  6 Jun 2023 14:21:51 +0000 (UTC)
 X-GND-Sasl: maxime.chevallier@bootlin.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1686061307;
+ t=1686061311;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding;
- bh=0t7vCoDVyHCVRpFFeRRHKOJSt4buQfDPbfcgodci2/g=;
- b=Otets2FxZ6YC88+Kr8E458uM6KI2S7033D4zHHmnZL5Hxe9rKBOhhd+zAM13BXEE/EkA5x
- 8r8+XAhryxr3Swo2NHKuvmO/XKHWtOn5Fj+T21kxDfrWi9JyVLDI044iMe1lMLxhPc/57x
- msBDKmYXFW3M1OmkhJdGSEHk/sjr1ajbHl5vZHBgJBkgcbdKmeki0EsDJ3ewjVUesGsGHW
- vP8cFmRUH21u0XqWbYQQQx22/21u5JdFhWh048WANhHtWS36j9RlncVqXyou9Px93Toxl0
- RA5J0VgUHinnIPEbX6e/Ey0KHUjyu9vdg+1Impu53Lo3axJCd4mIBMr0CHCmuQ==
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=VThXr8NXS8rFWvl2CAIgnRHShKVVcGIlkBbj131gSq4=;
+ b=KBZSce67wV7oZbGwh6FkegmgSjVTEZ+VfIHehNbLzs58XAQKjrV7g4U6pDBFAmbQoejj/3
+ xWxFWDomkt+7vF8JvcBDQ6dhUrS9a4pVIMU1Sy3EzdyQpApeyozudKbOyNC7VXvj64w6jp
+ c5U23wtx3uustnF1wuEYOiCUOyMgNHb/UB0viT+0gLUxO5RGslyP7ePYmfgn7QkyDwo5O+
+ xiEV7kCStqhVYjoru+WqHAwPhgG+jCfIrn/yq2tMRDegIktqWrz0M30mLeNdSbyVKUuxxl
+ PvJE+z/UjHjF2vbXCuHxAMy404VvcHiZr+34pEdJ8vcUmxtAi2jkgJ/CEZqYmQ==
 X-GND-Sasl: maxime.chevallier@bootlin.com
 X-GND-Sasl: maxime.chevallier@bootlin.com
 X-GND-Sasl: maxime.chevallier@bootlin.com
@@ -47,13 +48,15 @@ X-GND-Sasl: maxime.chevallier@bootlin.com
 X-GND-Sasl: maxime.chevallier@bootlin.com
 X-GND-Sasl: maxime.chevallier@bootlin.com
 X-GND-Sasl: maxime.chevallier@bootlin.com
-Received: by mail.gandi.net (Postfix) with ESMTPSA id 7FD25C0013;
- Tue,  6 Jun 2023 14:21:45 +0000 (UTC)
+Received: by mail.gandi.net (Postfix) with ESMTPSA id 1EC4CC000C;
+ Tue,  6 Jun 2023 14:21:48 +0000 (UTC)
 From: Maxime Chevallier <maxime.chevallier@bootlin.com>
 To: davem@davemloft.net
-Date: Tue,  6 Jun 2023 16:21:41 +0200
-Message-Id: <20230606142144.308675-1-maxime.chevallier@bootlin.com>
+Date: Tue,  6 Jun 2023 16:21:42 +0200
+Message-Id: <20230606142144.308675-2-maxime.chevallier@bootlin.com>
 X-Mailer: git-send-email 2.40.1
+In-Reply-To: <20230606142144.308675-1-maxime.chevallier@bootlin.com>
+References: <20230606142144.308675-1-maxime.chevallier@bootlin.com>
 MIME-Version: 1.0
 Cc: Andrew Lunn <andrew@lunn.ch>, Florian Fainelli <f.fainelli@gmail.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
@@ -66,8 +69,8 @@ Cc: Andrew Lunn <andrew@lunn.ch>, Florian Fainelli <f.fainelli@gmail.com>,
  Simon Horman <simon.horman@corigine.com>, Jakub Kicinski <kuba@kernel.org>,
  Paolo Abeni <pabeni@redhat.com>, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org, Heiner Kallweit <hkallweit1@gmail.com>
-Subject: [Linux-stm32] [PATCH net-next v2 0/3] Followup fixes for the dwmac
-	and altera lynx conversion
+Subject: [Linux-stm32] [PATCH net-next v2 1/3] net: altera-tse: Initialize
+	the regmap_config struct before using it
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,31 +87,30 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Following the TSE PCS removal and port of altera_tse and dwmac_socfpga,
-this series fixes some issues that slipped through the cracks.
+The regmap_config needs to be zeroed before using it. This will cause
+spurious errors at probe time as config->pad_bits is containing random
+uninitialized data.
 
-Patch 1 fixes an unitialized struct in altera_tse
+Fixes: db48abbaa18e ("net: ethernet: altera-tse: Convert to mdio-regmap and use PCS Lynx")
+Signed-off-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
+---
+V1->V2: No change
 
-Patch 2 uses the correct Kconfig option for altera_tse
+ drivers/net/ethernet/altera/altera_tse_main.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-Patch 3 makes the Lynx PCS specific to dwmac_socfpga. This patch was
-originally written by Russell, my modifications just moves the
-#include<linux/pcs-lynx.h> around, to use it only in dwmac_socfpga.
-
-Maxime Chevallier (3):
-  net: altera-tse: Initialize the regmap_config struct before using it
-  net: altera_tse: Use the correct Kconfig option for the PCS_LYNX
-    depenency
-  net: stmmac: make the pcs_lynx cleanup sequence specific to
-    dwmac_socfpga
-
- drivers/net/ethernet/altera/Kconfig               |  2 +-
- drivers/net/ethernet/altera/altera_tse_main.c     |  1 +
- drivers/net/ethernet/stmicro/stmmac/common.h      |  1 -
- .../net/ethernet/stmicro/stmmac/dwmac-socfpga.c   | 15 ++++++++++++++-
- drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c |  3 ---
- 5 files changed, 16 insertions(+), 6 deletions(-)
-
+diff --git a/drivers/net/ethernet/altera/altera_tse_main.c b/drivers/net/ethernet/altera/altera_tse_main.c
+index d866c0f1b503..df509abcd378 100644
+--- a/drivers/net/ethernet/altera/altera_tse_main.c
++++ b/drivers/net/ethernet/altera/altera_tse_main.c
+@@ -1255,6 +1255,7 @@ static int altera_tse_probe(struct platform_device *pdev)
+ 	if (ret)
+ 		goto err_free_netdev;
+ 
++	memset(&pcs_regmap_cfg, 0, sizeof(pcs_regmap_cfg));
+ 	/* SGMII PCS address space. The location can vary depending on how the
+ 	 * IP is integrated. We can have a resource dedicated to it at a specific
+ 	 * address space, but if it's not the case, we fallback to the mdiophy0
 -- 
 2.40.1
 
