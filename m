@@ -2,31 +2,30 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF1487237DE
-	for <lists+linux-stm32@lfdr.de>; Tue,  6 Jun 2023 08:39:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 72BA2723816
+	for <lists+linux-stm32@lfdr.de>; Tue,  6 Jun 2023 08:49:23 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 75DABC6905A;
-	Tue,  6 Jun 2023 06:39:32 +0000 (UTC)
-Received: from relay2-d.mail.gandi.net (relay2-d.mail.gandi.net
- [217.70.183.194])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 18507C6905A;
+	Tue,  6 Jun 2023 06:49:23 +0000 (UTC)
+Received: from relay9-d.mail.gandi.net (relay9-d.mail.gandi.net
+ [217.70.183.199])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 22427C06F81
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6B92BC06F81
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  6 Jun 2023 06:39:31 +0000 (UTC)
+ Tue,  6 Jun 2023 06:49:22 +0000 (UTC)
 X-GND-Sasl: maxime.chevallier@bootlin.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1686033570;
+ t=1686034162;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=r3h2rz63OfzutXB59RZcgO/gJzpMB99B07DK2JRkoIg=;
- b=BHCkoLX5X22HoXzHGb8MujppnFnDTWFmr8poVY6B+5CL+Q+Z2ybX6OUWmQicxCJBRYfWoi
- 9EnPsX6jCAajf7PbC/053GAthHJh0B9zPk1ZinplqxqpkvqvkrqZKmmRXuzHgVPa5444sx
- DKm3QVtUJLO7PD6G7jQDpv10RyzEUnFQcdoTEhoYL7wkV5wmyaffoZKeyKmoagdx+d4BEW
- 0N5v5+OqH9VoEABYsWcGXiLaq39uOe+gRKCzxHsdFjuKCWHzp5ckilEYQwbIqvGJKcVlSt
- vxFPvuDZpAcsuyshfUg5Js/L5x47AI5MrrbGZJ1RC165WIQrh6XgwWhHOFawug==
+ to:to:cc:cc:mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=pqgOJXwBoPubmsCRLCNbmpzSgJcOsyXt2BEzdUDwp6M=;
+ b=MAhzZgNJUwvQedy+ZDEZ9gLaQn8BPqg82Oryj7d11RI9AY8misaMf52mxSACr16e4A8/Kc
+ 4/rOaK/33j024rfzRvM+xElxBKTOYk6yq+LrWj3VpHN/Z2voi1iXwK1v3jxcR5dJWvrQRh
+ T+9MTINwj1l5OGedX0WcuyjXhmKPV+SQY1YIS8hLsqKyNX1JM1finciP3nKlGb4tQuiZ9+
+ gyyIGhgWNsMpSz3ExeFF7GSVWDALPJnPehi1RZdXdOtIc1b08OnNWz2XnNb3LK5jbPlwza
+ YsNqQwtnNTJQk/Q09k/bqWbfVeU9RIlopqSffHQF42NLT4vEcWDuRYPu7p+g4A==
 X-GND-Sasl: maxime.chevallier@bootlin.com
 X-GND-Sasl: maxime.chevallier@bootlin.com
 X-GND-Sasl: maxime.chevallier@bootlin.com
@@ -48,30 +47,27 @@ X-GND-Sasl: maxime.chevallier@bootlin.com
 X-GND-Sasl: maxime.chevallier@bootlin.com
 X-GND-Sasl: maxime.chevallier@bootlin.com
 X-GND-Sasl: maxime.chevallier@bootlin.com
-Received: by mail.gandi.net (Postfix) with ESMTPSA id 08A1740006;
- Tue,  6 Jun 2023 06:39:26 +0000 (UTC)
-Date: Tue, 6 Jun 2023 08:39:25 +0200
+Received: by mail.gandi.net (Postfix) with ESMTPSA id 04E88FF806;
+ Tue,  6 Jun 2023 06:49:15 +0000 (UTC)
 From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-To: Jakub Kicinski <kuba@kernel.org>
-Message-ID: <20230606083925.2a543bc6@pc-7.home>
-In-Reply-To: <20230605114626.188c357f@kernel.org>
-References: <20230601141454.67858-1-maxime.chevallier@bootlin.com>
- <168596102478.26938.1530517069555858195.git-patchwork-notify@kernel.org>
- <20230605142039.3f8d1530@pc-7.home>
- <20230605114626.188c357f@kernel.org>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.37; x86_64-redhat-linux-gnu)
+To: davem@davemloft.net
+Date: Tue,  6 Jun 2023 08:49:12 +0200
+Message-Id: <20230606064914.134945-1-maxime.chevallier@bootlin.com>
+X-Mailer: git-send-email 2.40.1
 MIME-Version: 1.0
-Cc: andrew@lunn.ch, f.fainelli@gmail.com, mcoquelin.stm32@gmail.com,
- netdev@vger.kernel.org, ioana.ciornei@nxp.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
- joabreu@synopsys.com, linux@armlinux.org.uk, edumazet@google.com,
- broonie@kernel.org, alexis.lothore@bootlin.com, thomas.petazzoni@bootlin.com,
- vladimir.oltean@nxp.com, simon.horman@corigine.com, peppe.cavallaro@st.com,
- pabeni@redhat.com, davem@davemloft.net, linux-arm-kernel@lists.infradead.org,
- hkallweit1@gmail.com
-Subject: Re: [Linux-stm32] [PATCH net-next v4 0/4] net: add a regmap-based
- mdio driver and drop TSE PCS
+Cc: Andrew Lunn <andrew@lunn.ch>, Florian Fainelli <f.fainelli@gmail.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Russell King <linux@armlinux.org.uk>, netdev@vger.kernel.org,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Ioana Ciornei <ioana.ciornei@nxp.com>, linux-kernel@vger.kernel.org,
+ Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
+ alexis.lothore@bootlin.com, thomas.petazzoni@bootlin.com,
+ Vladimir Oltean <vladimir.oltean@nxp.com>,
+ Simon Horman <simon.horman@corigine.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, Heiner Kallweit <hkallweit1@gmail.com>
+Subject: [Linux-stm32] [PATCH net-next 0/2] Followup fixes for the dwmac and
+	altera lynx conversion
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,34 +84,27 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello Jakub,
+This series is a couple of fixes for errors that were detected following
+the conversion of altera TSE and dwmac_socfpga to PCS Lynx.
 
-On Mon, 5 Jun 2023 11:46:26 -0700
-Jakub Kicinski <kuba@kernel.org> wrote:
+These are targeted towards net-next as the patches they fix are also in
+net-next.
 
-> On Mon, 5 Jun 2023 14:20:39 +0200 Maxime Chevallier wrote:
-> > Thanks for applying the patch, however as mentionned (maybe not
-> > stressed enough in the cover) this series depends on a patch that went
-> > through the regmap tree :
-> > 
-> > 
-> >  https://git.kernel.org/pub/scm/linux/kernel/git/broonie/regmap.git/commit/?id=e12ff28764937dd58c8613f16065da60da149048
-> > 
-> > How can we proceed on that matter ?  
-> 
-> I don't see a great solution, Mark already applied the change and 
-> so did Dave. Don't think we can put them on stable branches now..
-> 
-> Only altera and stmmac-sogfpga are going to break?
-> Maybe we're close enough to the merge window to put our heads 
-> in the sand and wait?
-
-only these two should, indeed. I'll still followup with some fixes for
-kbuild issues still.
-
-Thanks,
+Sorry about the bugs,
 
 Maxime
+
+Maxime Chevallier (2):
+  net: stmmac: Add PCS_LYNX as a dependency for the whole driver
+  net: altera-tse: Initialize the regmap_config struct before using it
+
+ drivers/net/ethernet/altera/altera_tse_main.c | 1 +
+ drivers/net/ethernet/stmicro/stmmac/Kconfig   | 2 +-
+ 2 files changed, 2 insertions(+), 1 deletion(-)
+
+-- 
+2.40.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
