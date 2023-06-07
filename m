@@ -2,53 +2,76 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2C3677261C1
-	for <lists+linux-stm32@lfdr.de>; Wed,  7 Jun 2023 15:56:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 03037725DF9
+	for <lists+linux-stm32@lfdr.de>; Wed,  7 Jun 2023 14:08:18 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D506EC6A5E7;
-	Wed,  7 Jun 2023 13:56:49 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6E289C6A5E7;
+	Wed,  7 Jun 2023 12:08:17 +0000 (UTC)
+Received: from relay4-d.mail.gandi.net (relay4-d.mail.gandi.net
+ [217.70.183.196])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A01C1C65E70
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2B26DC65E70
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  7 Jun 2023 13:56:48 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 5AFBF6253B;
- Wed,  7 Jun 2023 13:56:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 859C2C433EF;
- Wed,  7 Jun 2023 13:56:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1686146206;
- bh=bZhwvYa05FtutRjZRtFZn41GMyv24CmHT6uPZylAuVU=;
- h=From:To:Cc:Subject:Date:From;
- b=D5AMwlgUa9w6w4Pupuocx+TfI7PB91MRhjSx1a/NTAWH2kYakHlyb8Wz01rVyXZw2
- Bx3Uxhdn0DKDTqQ2E2EfADvNY5pzcZ5SafvK1uD/F9fD6G14UKXStVvRw//yGP1t6r
- E5hsecjdLS5j2uE51Xn02etZUibWI6tQvaeu98SF/i8i5R4BFye1/V1LoJz9slB+PB
- 5NzmkaqlVkdUIxz90gI7Scg/AX8lR8zIKkifGtCf5dQ7DKGUBdZMMnulBnpfsYgW1X
- krsJQiXhaLLxRGvjMa8U+E10R3cSRLSDvxRhWu0PrSQ4ZJDuarPJp3s6lwx2ac1UPH
- GlroLJmvOsgFA==
-From: Arnd Bergmann <arnd@kernel.org>
-To: Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Jose Abreu <joabreu@synopsys.com>, "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Simon Horman <simon.horman@corigine.com>,
- Maxime Chevallier <maxime.chevallier@bootlin.com>
-Date: Wed,  7 Jun 2023 15:56:32 +0200
-Message-Id: <20230607135638.1341101-1-arnd@kernel.org>
-X-Mailer: git-send-email 2.39.2
+ Wed,  7 Jun 2023 12:08:16 +0000 (UTC)
+X-GND-Sasl: maxime.chevallier@bootlin.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
+ t=1686139695;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=zDOmdelsTF8Z6hYisJ6LU6CbovJMoLnJ7YdYJmDf1ok=;
+ b=DBOeENL1aunjzqB9GnjIuX+NQpbFPAUgX9U+zqJRBmOJxQGc3aLUl/x4yyNnyA690SBdsT
+ fam6eB4E74ikXWnKneFeZPBdZrRCANi7s9PH7c0FWqcZH0cHTe8CJz1RF01/C0CE2/R9VA
+ 1DNMpqioOz63xeQNMQ7bvPttk78uEDN4jFs27talQoWIv2XSz1mwGISQwhHHokvoI7V23v
+ TzE+M1fHhUwA8RcIdjhwKAk/D0q4YnDxGjsWd70t4sYyrQsrQJPgqcp5X76RO/9E52rNUN
+ b1PGPonop4DMBh2o4mt27FHFm7zQGDDg9b018BjLUdHqKPNf4HyVKITkegFcEQ==
+X-GND-Sasl: maxime.chevallier@bootlin.com
+X-GND-Sasl: maxime.chevallier@bootlin.com
+X-GND-Sasl: maxime.chevallier@bootlin.com
+X-GND-Sasl: maxime.chevallier@bootlin.com
+X-GND-Sasl: maxime.chevallier@bootlin.com
+X-GND-Sasl: maxime.chevallier@bootlin.com
+X-GND-Sasl: maxime.chevallier@bootlin.com
+X-GND-Sasl: maxime.chevallier@bootlin.com
+X-GND-Sasl: maxime.chevallier@bootlin.com
+X-GND-Sasl: maxime.chevallier@bootlin.com
+X-GND-Sasl: maxime.chevallier@bootlin.com
+X-GND-Sasl: maxime.chevallier@bootlin.com
+X-GND-Sasl: maxime.chevallier@bootlin.com
+X-GND-Sasl: maxime.chevallier@bootlin.com
+X-GND-Sasl: maxime.chevallier@bootlin.com
+X-GND-Sasl: maxime.chevallier@bootlin.com
+X-GND-Sasl: maxime.chevallier@bootlin.com
+X-GND-Sasl: maxime.chevallier@bootlin.com
+X-GND-Sasl: maxime.chevallier@bootlin.com
+X-GND-Sasl: maxime.chevallier@bootlin.com
+X-GND-Sasl: maxime.chevallier@bootlin.com
+X-GND-Sasl: maxime.chevallier@bootlin.com
+X-GND-Sasl: maxime.chevallier@bootlin.com
+Received: by mail.gandi.net (Postfix) with ESMTPSA id 2CF07E0009;
+ Wed,  7 Jun 2023 12:08:11 +0000 (UTC)
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+To: davem@davemloft.net
+Date: Wed,  7 Jun 2023 15:59:36 +0200
+Message-Id: <20230607135941.407054-1-maxime.chevallier@bootlin.com>
+X-Mailer: git-send-email 2.40.1
 MIME-Version: 1.0
-Cc: Bhadram Varka <vbhadram@nvidia.com>, Arnd Bergmann <arnd@arndb.de>,
- netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-kernel@vger.kernel.org, Jon Hunter <jonathanh@nvidia.com>,
- Samin Guo <samin.guo@starfivetech.com>,
- Christian Marangi <ansuelsmth@gmail.com>, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 1/2] stmmac: fix pcs_lynx link failure
+Cc: Andrew Lunn <andrew@lunn.ch>, Vladimir Oltean <vladimir.oltean@nxp.com>,
+ Eric Dumazet <edumazet@google.com>, thomas.petazzoni@bootlin.com,
+ Ioana Ciornei <ioana.ciornei@nxp.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Florian Fainelli <f.fainelli@gmail.com>, Russell King <linux@armlinux.org.uk>,
+ Jose Abreu <joabreu@synopsys.com>, Simon Horman <simon.horman@corigine.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Maciej Fijalkowski <maciej.fijalkowski@intel.com>, alexis.lothore@bootlin.com,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ linux-arm-kernel@lists.infradead.org, Feiyang Chen <chenfeiyang@loongson.cn>,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Heiner Kallweit <hkallweit1@gmail.com>
+Subject: [Linux-stm32] [PATCH net-next v4 0/5] Followup fixes for the dwmac
+	and altera lynx conversion
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -65,58 +88,43 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Arnd Bergmann <arnd@arndb.de>
+Hello everyone,
 
-The mdio code in stmmac now directly links into both the lynx_pcs and
-the xpcs device drivers, but the lynx_pcs dependency is only enforced
-for the altera variant of stmmac, which is the one that actually uses it.
+Here's yet another version of the cleanup series for the TSE PCS replacement
+by PCS Lynx. It includes Kconfig fixups, some missing initialisations
+and a slight rework suggested by Russell for the dwmac cleanup sequence,
+along with more explicit zeroing of local structures as per MAciej's
+review.
 
-Building stmmac for a non-altera platform therefore causes a link
-failure:
+V3->V4 :
+ - Zero mdio_regmap_config objects
+ - Make regmap config more local in dwmac_socfpga
+V2->V3 :
+ - Fix uninitialized .autoscan field for mdio regmap configuration in
+   both altera_tse and dwmac_socfpga
+V1->V2 : 
+ - Fix a Kconfig inconsistency
+ - rework the dwmac_socfpga cleanup sequence
 
-arm-linux-gnueabi-ld: drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.o: in function `stmmac_mdio_unregister':
-stmmac_mdio.c:(.text+0x1418): undefined reference to `lynx_pcs_destroy'
+Maxime Chevallier (5):
+  net: altera-tse: Initialize local structs before using it
+  net: altera_tse: Use the correct Kconfig option for the PCS_LYNX
+    dependency
+  net: stmmac: make the pcs_lynx cleanup sequence specific to
+    dwmac_socfpga
+  net: altera_tse: explicitly disable autoscan on the regmap-mdio bus
+  net: dwmac_socfpga: initialize local data for mdio regmap
+    configuration
 
-I've tried to come up with a patch that moves this dependency back into
-the dwmac-socfpga.c file, but there was no easy and obvious way to
-do this. It also seems that this would not be a proper solution, but
-instead there should be a real abstraction for pcs drivers that lets
-device drivers handle this transparently.
+ drivers/net/ethernet/altera/Kconfig           |  2 +-
+ drivers/net/ethernet/altera/altera_tse_main.c |  3 ++
+ drivers/net/ethernet/stmicro/stmmac/common.h  |  1 -
+ .../ethernet/stmicro/stmmac/dwmac-socfpga.c   | 29 ++++++++++++++-----
+ .../net/ethernet/stmicro/stmmac/stmmac_mdio.c |  3 --
+ 5 files changed, 26 insertions(+), 12 deletions(-)
 
-As the lynx_pcs driver is tiny, it appears that we can just avoid the
-link error by always forcing it to be built when the stmmac driver
-is, even for non-altera platforms. This matches what we already do
-for the xpcs variant that is used by the intel and tegra variants of
-stmmac.
-
-Fixes: 5d1f3fe7d2d54 ("net: stmmac: dwmac-sogfpga: use the lynx pcs driver")
-Signed-off-by: Arnd Bergmann <arnd@arndb.de>
----
- drivers/net/ethernet/stmicro/stmmac/Kconfig | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/net/ethernet/stmicro/stmmac/Kconfig b/drivers/net/ethernet/stmicro/stmmac/Kconfig
-index 5583f0b055ec7..fa956f2081a53 100644
---- a/drivers/net/ethernet/stmicro/stmmac/Kconfig
-+++ b/drivers/net/ethernet/stmicro/stmmac/Kconfig
-@@ -5,6 +5,7 @@ config STMMAC_ETH
- 	depends on PTP_1588_CLOCK_OPTIONAL
- 	select MII
- 	select PCS_XPCS
-+	select PCS_LYNX
- 	select PAGE_POOL
- 	select PHYLINK
- 	select CRC32
-@@ -160,7 +161,6 @@ config DWMAC_SOCFPGA
- 	select MFD_SYSCON
- 	select MDIO_REGMAP
- 	select REGMAP_MMIO
--	select PCS_LYNX
- 	help
- 	  Support for ethernet controller on Altera SOCFPGA
- 
 -- 
-2.39.2
+2.40.1
 
 _______________________________________________
 Linux-stm32 mailing list
