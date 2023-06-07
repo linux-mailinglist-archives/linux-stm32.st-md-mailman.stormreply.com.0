@@ -2,31 +2,31 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0DC46726072
-	for <lists+linux-stm32@lfdr.de>; Wed,  7 Jun 2023 15:06:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 17BD3726085
+	for <lists+linux-stm32@lfdr.de>; Wed,  7 Jun 2023 15:07:41 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A83DAC6A5E7;
-	Wed,  7 Jun 2023 13:06:47 +0000 (UTC)
-Received: from relay3-d.mail.gandi.net (relay3-d.mail.gandi.net
- [217.70.183.195])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D11B6C6A5E7;
+	Wed,  7 Jun 2023 13:07:40 +0000 (UTC)
+Received: from relay7-d.mail.gandi.net (relay7-d.mail.gandi.net
+ [217.70.183.200])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 02206C65E58
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D8AEAC65E58
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  7 Jun 2023 13:06:46 +0000 (UTC)
+ Wed,  7 Jun 2023 13:07:39 +0000 (UTC)
 X-GND-Sasl: maxime.chevallier@bootlin.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1686143206;
+ t=1686143259;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=ggWob9vtY0Djr17PY8lKC6mFlnjKE6vYyx6twxFu3PY=;
- b=hdjmQS6guLefKbW5moM86dBnkb2Hs7N3ZQ+u+EmbR1UWxNARCh6c/vl8JTKyTyxCuUDerG
- 0DlBVcLYtg69k2yNJ3TNGC+WQqeszDJSIlBS9L+D+YuZL0A6Q93m1QqClt7/s3f9WjlqTx
- MoumXnXcrEdzz25YcPtMeqNJ1qKeIhClm7J4lb45YYpnteJPfTPwQYvubqg3zowjD6kJw/
- /5ws7IGuuQlJVI6wqoVXaB2jjsehXInDf2IfSoDG4xAJnImNd51gC8CEh5L5IN4CPOMh9z
- OfbqmpwpLdM0VqkPhrO2WWELfWzgFsWuLyrmQH8eDbP98SBO4O4yM7W0xApWtQ==
+ bh=t4KeBVX9fh5BWILoxWykoaXgMPfgR3e6KlRWLXnIjh8=;
+ b=IFlntwt9MiUqyl4gGig/vm8dRCZC9qibzaOkFWfioFD80JRYgMO4LmWNjxgQr50TutwLfL
+ 05B0xsTMGMwWVjpZwuPpuxLAhlsUTUbqZcsWhTbx+Uyyqp38lAo/JTMwg/lo1qSo7JjoEq
+ G/RmfirGiBqZE4bbsfw5J2R8aC3PzSraNp7N3wcWT4uy9DHcTyYMvf68IZ5rBX7ohTInTv
+ UtIG93n4Pgd+bH2Dr73zbIQWO8tNPaRKTa0Op7fePe9XPgDMhJRfV4AiPgxOs8j1JR8dHA
+ AdkROzL0P3ToQ5P822B9nOrlM3vmH7IseBuir7V4Qzsqm3CnoYtTCS3jjLWGKA==
 X-GND-Sasl: maxime.chevallier@bootlin.com
 X-GND-Sasl: maxime.chevallier@bootlin.com
 X-GND-Sasl: maxime.chevallier@bootlin.com
@@ -49,16 +49,16 @@ X-GND-Sasl: maxime.chevallier@bootlin.com
 X-GND-Sasl: maxime.chevallier@bootlin.com
 X-GND-Sasl: maxime.chevallier@bootlin.com
 X-GND-Sasl: maxime.chevallier@bootlin.com
-Received: by mail.gandi.net (Postfix) with ESMTPSA id A396E6000D;
- Wed,  7 Jun 2023 13:06:42 +0000 (UTC)
-Date: Wed, 7 Jun 2023 16:53:24 +0200
+Received: by mail.gandi.net (Postfix) with ESMTPSA id B1E1920012;
+ Wed,  7 Jun 2023 13:07:32 +0000 (UTC)
+Date: Wed, 7 Jun 2023 16:54:09 +0200
 From: Maxime Chevallier <maxime.chevallier@bootlin.com>
 To: "Russell King (Oracle)" <linux@armlinux.org.uk>
-Message-ID: <20230607165324.37f981f5@pc-7.home>
-In-Reply-To: <ZIB3gQ7Ul5gi5/RC@shell.armlinux.org.uk>
+Message-ID: <20230607165409.7fddd49a@pc-7.home>
+In-Reply-To: <ZIB306nKrhiru0hJ@shell.armlinux.org.uk>
 References: <20230607135941.407054-1-maxime.chevallier@bootlin.com>
- <20230607135941.407054-5-maxime.chevallier@bootlin.com>
- <ZIB3gQ7Ul5gi5/RC@shell.armlinux.org.uk>
+ <20230607135941.407054-6-maxime.chevallier@bootlin.com>
+ <ZIB306nKrhiru0hJ@shell.armlinux.org.uk>
 Organization: Bootlin
 X-Mailer: Claws Mail 4.1.1 (GTK 3.24.37; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
@@ -75,8 +75,8 @@ Cc: Andrew Lunn <andrew@lunn.ch>, Vladimir Oltean <vladimir.oltean@nxp.com>,
  netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, davem@davemloft.net,
  Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH net-next v4 4/5] net: altera_tse:
- explicitly disable autoscan on the regmap-mdio bus
+Subject: Re: [Linux-stm32] [PATCH net-next v4 5/5] net: dwmac_socfpga:
+ initialize local data for mdio regmap configuration
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,25 +93,26 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello Russell,
-
-On Wed, 7 Jun 2023 13:26:41 +0100
+On Wed, 7 Jun 2023 13:28:03 +0100
 "Russell King (Oracle)" <linux@armlinux.org.uk> wrote:
 
-> On Wed, Jun 07, 2023 at 03:59:40PM +0200, Maxime Chevallier wrote:
-> > Set the .autoscan flag to false on the regmap-mdio bus, to avoid using a
-> > random uninitialized value. We don't want autoscan in this case as the
-> > mdio device is a PCS and not a PHY.  
+> On Wed, Jun 07, 2023 at 03:59:41PM +0200, Maxime Chevallier wrote:
+> > @@ -447,19 +446,22 @@ static int socfpga_dwmac_probe(struct platform_device *pdev)
+> >  		struct mdio_regmap_config mrc;
+> >  		struct regmap *pcs_regmap;
+> >  		struct mii_bus *pcs_bus;
+> >    
+> ...
+> > +		memset(&mrc, 0, sizeof(mrc));  
+> ...
+> >  		mrc.parent = &pdev->dev;
+> >  		mrc.valid_addr = 0x0;
+> > +		mrc.autoscan = false;  
 > 
-> Isn't this now covered by patch 1's memset of mrc?
-> 
+> Isn't this covered by the memset() ?
 
-Yes it is, however I thought it could be fine keeping it set explicitely
-anyway, as we do have a PCS on that bus and we don't want any autoscan
-happening. Since these two drivers are the first users of mdio_regmap,
-my hope is that we could get these reference usages covering all fields.
-
-Should I drop this ?
+I have the same answer as for the above. It's redundant, but I don't
+think there's any harm having it set explicitely ?
 
 Maxime
 _______________________________________________
