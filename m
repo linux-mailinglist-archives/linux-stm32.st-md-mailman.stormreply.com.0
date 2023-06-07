@@ -2,66 +2,75 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D8C0172548C
-	for <lists+linux-stm32@lfdr.de>; Wed,  7 Jun 2023 08:43:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E82E672553B
+	for <lists+linux-stm32@lfdr.de>; Wed,  7 Jun 2023 09:16:48 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 93C3DC6B455;
-	Wed,  7 Jun 2023 06:43:05 +0000 (UTC)
-Received: from mail-yw1-f178.google.com (mail-yw1-f178.google.com
- [209.85.128.178])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9D72DC6905A;
+	Wed,  7 Jun 2023 07:16:48 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A5D03C6A5FB
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CDBACC65048
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  7 Jun 2023 06:43:03 +0000 (UTC)
-Received: by mail-yw1-f178.google.com with SMTP id
- 00721157ae682-56974f42224so64308227b3.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 06 Jun 2023 23:43:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amarulasolutions.com; s=google; t=1686120182; x=1688712182;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=dsg7fMeOwWf6duFi3SL6qXsSugXJIk0Q5FLHDNP0ztQ=;
- b=kVd/MnqaoIb5oxrldwJ5KKFEpysXJo1vKiAhaP19lZrkPC6P9oUh93qci0bfIU3RYr
- FOzKnA6wBqU6vXDEPXVRMXQ54vUNAsclDBESzc7L+maa4WBFhljs6Xr+L827WRe4vcD/
- aB9DVry9wy72Eh4u11rbQThzzLKuFbWeSnLWs=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1686120182; x=1688712182;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=dsg7fMeOwWf6duFi3SL6qXsSugXJIk0Q5FLHDNP0ztQ=;
- b=EBA1zIpLVcN03rDQT4XDkPBAUbR5cD9WvLJT8Df/jbmuxQP6dMxrLIU8F/6x/vk2lt
- nznju5ZoimoFyWkwfWShlHOagKTZ6R6fZlZmpBmrsxllJ8iNsYfKA+iXL6S99tGEITM8
- Qly9H8GYeimo2NVwpPh3Q9ddpkl8ubR39wQAcIySamActObsP8rFwOGP+0CLRy8o+c13
- jlMTg1fi8XrB0Ose1ujf/PRjwKMwIRQC7dm3mdaZu4ViYAJu4ZyjsVfqibT6ovBdw4xq
- Q0D5zF0ATUpsT+FpyUL936aR/nXIS5xBupTdVac3jONjphbHrafwXQ2pgKja6f4M1/wv
- nf2g==
-X-Gm-Message-State: AC+VfDwVyvU7eBS6TwQlNgUgsqWsHrBuMX6fKn7rVivu7OybWaXyBEUK
- v9Q38teNmahV3gijnPGxLuKU5pL634feq7V+VEjAsw==
-X-Google-Smtp-Source: ACHHUZ6sjnQG6odBG4w0qQkBK4LJZGwQU7CqikJozkVHCbSGSE0jcdrkgzVwr1fXZBKKMsum+q741mo0WSCe/CRDp74=
-X-Received: by 2002:a81:8450:0:b0:565:b22c:4165 with SMTP id
- u77-20020a818450000000b00565b22c4165mr5933812ywf.11.1686120181918; Tue, 06
- Jun 2023 23:43:01 -0700 (PDT)
+ Wed,  7 Jun 2023 07:16:46 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 3575lsja030613; Wed, 7 Jun 2023 09:16:19 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=I+GTYaBhnMXgZJKGUFKMgZqicUprU1BnubXsKkDBAC8=;
+ b=Ew6Dc7KxpZO4DJGlBsUmRed+B3XAzulAOhzuTffReGuVaktFWEy4NHRPUiAGCyLBTbHU
+ ZSq+Z6hmgf2MXWYq940oFqdVzomiEVMemrJwLu+4pNc/WesGvYBdbhlMrvUu/VLQVQsI
+ 4uEAaL5xmvE6BTKSmE6CgeRgmkns6h9Gnu6PDcOWzb78NggsJYIyaN6zDdTJPh3UzpnU
+ qyonGf4NhCpSTwrn0jTxhhsDhI/3K24t42O2t3Wb2z7KKYRmH14OufqjZpwDaIPgd/y0
+ b1rvk7XivEEA4Nuo/VjHdbehhxgaAZXZSqPV5478PPP+GzW1X31fig7LFjyTejcrdhNR 0Q== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3r2m269882-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 07 Jun 2023 09:16:19 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id D09AD10002A;
+ Wed,  7 Jun 2023 09:16:16 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id C4B75212FDF;
+ Wed,  7 Jun 2023 09:16:16 +0200 (CEST)
+Received: from [10.129.178.187] (10.129.178.187) by SHFDAG1NODE2.st.com
+ (10.75.129.70) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.21; Wed, 7 Jun
+ 2023 09:16:16 +0200
+Message-ID: <074d3e57-fd1b-22c4-eecb-71d9a85babdb@foss.st.com>
+Date: Wed, 7 Jun 2023 09:16:16 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Content-Language: en-US
+To: Dario Binacchi <dario.binacchi@amarulasolutions.com>,
+ <linux-kernel@vger.kernel.org>
 References: <20230607063139.621351-1-dario.binacchi@amarulasolutions.com>
- <20230607063139.621351-4-dario.binacchi@amarulasolutions.com>
-In-Reply-To: <20230607063139.621351-4-dario.binacchi@amarulasolutions.com>
-From: Jagan Teki <jagan@amarulasolutions.com>
-Date: Wed, 7 Jun 2023 12:12:50 +0530
-Message-ID: <CAMty3ZDCkQ_T+j96iXtMAhkOLFBm=hZHk=sZzSGA=MOQQUOv7g@mail.gmail.com>
-To: Dario Binacchi <dario.binacchi@amarulasolutions.com>
-Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ <20230607063139.621351-5-dario.binacchi@amarulasolutions.com>
+From: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
+In-Reply-To: <20230607063139.621351-5-dario.binacchi@amarulasolutions.com>
+X-Originating-IP: [10.129.178.187]
+X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE2.st.com
+ (10.75.129.70)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.957,Hydra:6.0.573,FMLib:17.11.176.26
+ definitions=2023-06-07_04,2023-06-06_02,2023-05-22_02
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+ Conor Dooley <conor+dt@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Rob Herring <robh+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- michael@amarulasolutions.com,
+ devicetree@vger.kernel.org, David Airlie <airlied@gmail.com>,
+ dri-devel@lists.freedesktop.org, Sam Ravnborg <sam@ravnborg.org>,
+ Conor Dooley <conor.dooley@microchip.com>, Rob Herring <robh+dt@kernel.org>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, michael@amarulasolutions.com,
  Amarula patchwork <linux-amarula@amarulasolutions.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [RESEND PATCH v2 3/6] ARM: dts: stm32: support
- display on stm32f746-disco board
+Subject: Re: [Linux-stm32] [RESEND PATCH v2 4/6] dt-bindings: display:
+ simple: add Rocktech RK043FN48H
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,27 +87,13 @@ Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gV2VkLCBKdW4gNywgMjAyMyBhdCAxMjowMeKAr1BNIERhcmlvIEJpbmFjY2hpCjxkYXJpby5i
-aW5hY2NoaUBhbWFydWxhc29sdXRpb25zLmNvbT4gd3JvdGU6Cj4KPiBBZGQgc3VwcG9ydCB0byBS
-b2NrdGVjaCBSSzA0M0ZONDhIIGRpc3BsYXkgb24gc3RtMzJmNzQ2LWRpc2NvIGJvYXJkLgo+Cj4g
-U2lnbmVkLW9mZi1ieTogRGFyaW8gQmluYWNjaGkgPGRhcmlvLmJpbmFjY2hpQGFtYXJ1bGFzb2x1
-dGlvbnMuY29tPgo+IC0tLQo+Cj4gKG5vIGNoYW5nZXMgc2luY2UgdjEpCj4KPiAgYXJjaC9hcm0v
-Ym9vdC9kdHMvc3RtMzJmNzQ2LWRpc2NvLmR0cyB8IDUxICsrKysrKysrKysrKysrKysrKysrKysr
-KysrKwo+ICAxIGZpbGUgY2hhbmdlZCwgNTEgaW5zZXJ0aW9ucygrKQo+Cj4gZGlmZiAtLWdpdCBh
-L2FyY2gvYXJtL2Jvb3QvZHRzL3N0bTMyZjc0Ni1kaXNjby5kdHMgYi9hcmNoL2FybS9ib290L2R0
-cy9zdG0zMmY3NDYtZGlzY28uZHRzCj4gaW5kZXggYzExNjE2ZWQ1ZmM2Li5jZGE0MjNiNmE4NzQg
-MTAwNjQ0Cj4gLS0tIGEvYXJjaC9hcm0vYm9vdC9kdHMvc3RtMzJmNzQ2LWRpc2NvLmR0cwo+ICsr
-KyBiL2FyY2gvYXJtL2Jvb3QvZHRzL3N0bTMyZjc0Ni1kaXNjby5kdHMKPiBAQCAtNjAsMTAgKzYw
-LDQxIEBAIG1lbW9yeUBjMDAwMDAwMCB7Cj4gICAgICAgICAgICAgICAgIHJlZyA9IDwweEMwMDAw
-MDAwIDB4ODAwMDAwPjsKPiAgICAgICAgIH07Cj4KPiArICAgICAgIHJlc2VydmVkLW1lbW9yeSB7
-Cj4gKyAgICAgICAgICAgICAgICNhZGRyZXNzLWNlbGxzID0gPDE+Owo+ICsgICAgICAgICAgICAg
-ICAjc2l6ZS1jZWxscyA9IDwxPjsKPiArICAgICAgICAgICAgICAgcmFuZ2VzOwo+ICsKPiArICAg
-ICAgICAgICAgICAgbGludXgsY21hIHsKPiArICAgICAgICAgICAgICAgICAgICAgICBjb21wYXRp
-YmxlID0gInNoYXJlZC1kbWEtcG9vbCI7Cj4gKyAgICAgICAgICAgICAgICAgICAgICAgbm8tbWFw
-Owo+ICsgICAgICAgICAgICAgICAgICAgICAgIHNpemUgPSA8MHg4MDAwMD47Cj4gKyAgICAgICAg
-ICAgICAgICAgICAgICAgbGludXgsZG1hLWRlZmF1bHQ7Cj4gKyAgICAgICAgICAgICAgIH07Cj4g
-KyAgICAgICB9OwoKVGhpcyBsb29rcyB1bnJlbGF0ZWQgdG8gZGlzcGxheSBlbmFibGVtZW50LCBp
-c24ndCBpdD8KCkphZ2FuLgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1h
-bi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFp
-bG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
+Ck9uIDYvNy8yMyAwODozMSwgRGFyaW8gQmluYWNjaGkgd3JvdGU6Cj4gQWRkIGNvbXBhdGlibGUg
+dG8gcGFuZWwtc2ltcGxlIGZvciBSb2NrdGVjaCBEaXNwbGF5cyBMaW1pdGVkCj4gUkswNDNGTjQ4
+SCA0LjMiIDQ4MHgyNzIgTENELVRGVCBwYW5lbC4KPgo+IFNpZ25lZC1vZmYtYnk6IERhcmlvIEJp
+bmFjY2hpIDxkYXJpby5iaW5hY2NoaUBhbWFydWxhc29sdXRpb25zLmNvbT4KPiBBY2tlZC1ieTog
+Q29ub3IgRG9vbGV5IDxjb25vci5kb29sZXlAbWljcm9jaGlwLmNvbT4KUmV2aWV3ZWQtYnk6IFJh
+cGhhZWwgR2FsbGFpcy1Qb3UgPHJhcGhhZWwuZ2FsbGFpcy1wb3VAZm9zcy5zdC5jb20+CgoKVGhh
+bmtzLAoKUmFwaGHDq2wKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFu
+LnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWls
+bWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
