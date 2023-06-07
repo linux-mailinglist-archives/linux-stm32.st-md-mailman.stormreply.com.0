@@ -2,34 +2,34 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 98488726A9C
-	for <lists+linux-stm32@lfdr.de>; Wed,  7 Jun 2023 22:17:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9EEC8726A9E
+	for <lists+linux-stm32@lfdr.de>; Wed,  7 Jun 2023 22:17:38 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4BD8FC6A5E7;
-	Wed,  7 Jun 2023 20:17:35 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 66560C6A5FB;
+	Wed,  7 Jun 2023 20:17:38 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F2ED3C65E58
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5BE95C6A5E7
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  7 Jun 2023 20:17:33 +0000 (UTC)
+ Wed,  7 Jun 2023 20:17:37 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id C589F6438D;
- Wed,  7 Jun 2023 20:17:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C655AC4339C;
- Wed,  7 Jun 2023 20:17:27 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 5163560F16;
+ Wed,  7 Jun 2023 20:17:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15B71C433EF;
+ Wed,  7 Jun 2023 20:17:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1686169051;
- bh=EnhsOR6kucpdK0EOSLdjc3AK/uSODOaGZXYxak38Ha8=;
+ s=k20201202; t=1686169055;
+ bh=PV6O18lA+9napxGcKHav/7uVYF208L7SjMkH9oTun/M=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=WMAbdwrps7m7m85JIqoJJrvQxmam1frNR+HR81CoNY/zg6lhLodxJnA4TddOTqbjx
- PZv2skSn8qXfz5a5RFdSrk94Tmb7MGANXF2PYHAk/mvn3vHR+7eEa6zX4/onzQu6Bh
- HK5apALdrFPKp2Gpbx/aXqQ4OFQiHifP4+uygOhs4BYQmBBQF7AT95aj0ggKNjotkG
- pIcKWCyybe8qdhW/g8h7UQnAIIS5MjA4xTb6PP9iY505z+cbcwKgZix+s1Ab0qFqTi
- Wxt4DDCKwPud8Bnr/zow/AUoAj/7ylCYRtLBjdu2ZO4a2v8HrEGN/hu2aMmWHexE/l
- /acSByfho4/bw==
+ b=ZuMvUhucmMRy7qLFXR3Zl0ByaewODD2kXzPzagE3VzvmMZLp/ZAya9aD/OIhCIF8q
+ aQyHG02i2bCAw0t6nZETO8wO2HbzLKX28WXB4Fu0nqCUtQMnOD7OZRP2orckBKQS07
+ l0/cft+oYXolvX5HQAgTII0xvVtZ4ri0sF27PmgGIk154DE1n01471//L38tivy+wo
+ zyFEt6LoxBO49VO9HyhA4pEp32WODRpOvjlOcaYUt3rY6Rt0JgAnYuVkP5oKiGCIJ2
+ dl/cUSe/ft7F16tLFczfJLUdtp8uMuSg8gwuIvzRTAX0fBlve2/BE9+jq0NPf7sxDG
+ 2+UXtxsDGhAcQ==
 From: Mark Brown <broonie@kernel.org>
 To: James Schulman <james.schulman@cirrus.com>, 
  David Rhodes <david.rhodes@cirrus.com>, 
@@ -42,18 +42,18 @@ To: James Schulman <james.schulman@cirrus.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
  Alexandre Torgue <alexandre.torgue@foss.st.com>, 
  Olivier Moysan <olivier.moysan@foss.st.com>
-In-Reply-To: <20230531140912.819373-1-olivier.moysan@foss.st.com>
-References: <20230531140912.819373-1-olivier.moysan@foss.st.com>
-Message-Id: <168616904749.205102.9240096518191845115.b4-ty@kernel.org>
-Date: Wed, 07 Jun 2023 21:17:27 +0100
+In-Reply-To: <20230606115605.1633595-1-olivier.moysan@foss.st.com>
+References: <20230606115605.1633595-1-olivier.moysan@foss.st.com>
+Message-Id: <168616905180.205102.10881401881685811089.b4-ty@kernel.org>
+Date: Wed, 07 Jun 2023 21:17:31 +0100
 MIME-Version: 1.0
 X-Mailer: b4 0.13-dev-bfdf5
 Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
  Alexandre Torgue <alexandre.torgue@st.com>, patches@opensource.cirrus.com,
  linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] (subset) [PATCH 0/3] ASoC: stm32: fix dtbs_check
-	warnings
+Subject: Re: [Linux-stm32] (subset) [PATCH v2 0/3] ASoC: stm32: fix
+	dtbs_check warnings
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,7 +70,7 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, 31 May 2023 16:09:09 +0200, Olivier Moysan wrote:
+On Tue, 06 Jun 2023 13:56:01 +0200, Olivier Moysan wrote:
 > Fix dtbs_check warnings in STM32MP15 DK boards Devices Trees for
 > STM32 I2S and Cirrus CS42L51 codec.
 > 
