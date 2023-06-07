@@ -2,46 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 32A0172627D
-	for <lists+linux-stm32@lfdr.de>; Wed,  7 Jun 2023 16:14:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0DC46726072
+	for <lists+linux-stm32@lfdr.de>; Wed,  7 Jun 2023 15:06:48 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F063CC6A5E7;
-	Wed,  7 Jun 2023 14:13:59 +0000 (UTC)
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A83DAC6A5E7;
+	Wed,  7 Jun 2023 13:06:47 +0000 (UTC)
+Received: from relay3-d.mail.gandi.net (relay3-d.mail.gandi.net
+ [217.70.183.195])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 37DEFC65E70
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 02206C65E58
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  7 Jun 2023 14:13:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=KleB+ugHaYugKJ9gSA4qsXI2OvMw4kTkMupOcPrFgkc=; b=KgsJPTlcL74jg3sbLH88TCp8zP
- H5aobn2X5sq+oDbRQfNmgF+1obpLKR9WADsbLjRtZU+oZu+gZq/cE6/TkVpn4XKSn5WQScCRzGFl4
- BrHYrT+OAs9SodL2QDNP8bQmoOePwjkfxc6qyXUG6y+1uRLG/9W2TbKmmV4wuXE2M8bZRpsevnh3+
- QoZu2hlL+7wXlgNZ+Z6SYtbl5PflXJnKWisugDC3KQEuGeDupn2nThBo9fwD0W3jXL1+T1rIZhSJe
- 92nED/hawtNl3qbrp2qdGknIUZjyYjM8y39rtcY92CS3wv3b6RKQj+E5CZx/60D0wQmtUbL4Zc3Ff
- Nf+YS5TA==;
-Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:49616)
- by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.94.2)
- (envelope-from <linux@armlinux.org.uk>)
- id 1q6tv6-0007cF-Fo; Wed, 07 Jun 2023 15:13:52 +0100
-Received: from linux by shell.armlinux.org.uk with local (Exim 4.94.2)
- (envelope-from <linux@shell.armlinux.org.uk>)
- id 1q6tv4-0008IV-4b; Wed, 07 Jun 2023 15:13:50 +0100
-Date: Wed, 7 Jun 2023 15:13:50 +0100
-From: "Russell King (Oracle)" <linux@armlinux.org.uk>
-To: Maxime Chevallier <maxime.chevallier@bootlin.com>
-Message-ID: <ZICQngRXett8g+gj@shell.armlinux.org.uk>
+ Wed,  7 Jun 2023 13:06:46 +0000 (UTC)
+X-GND-Sasl: maxime.chevallier@bootlin.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
+ t=1686143206;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=ggWob9vtY0Djr17PY8lKC6mFlnjKE6vYyx6twxFu3PY=;
+ b=hdjmQS6guLefKbW5moM86dBnkb2Hs7N3ZQ+u+EmbR1UWxNARCh6c/vl8JTKyTyxCuUDerG
+ 0DlBVcLYtg69k2yNJ3TNGC+WQqeszDJSIlBS9L+D+YuZL0A6Q93m1QqClt7/s3f9WjlqTx
+ MoumXnXcrEdzz25YcPtMeqNJ1qKeIhClm7J4lb45YYpnteJPfTPwQYvubqg3zowjD6kJw/
+ /5ws7IGuuQlJVI6wqoVXaB2jjsehXInDf2IfSoDG4xAJnImNd51gC8CEh5L5IN4CPOMh9z
+ OfbqmpwpLdM0VqkPhrO2WWELfWzgFsWuLyrmQH8eDbP98SBO4O4yM7W0xApWtQ==
+X-GND-Sasl: maxime.chevallier@bootlin.com
+X-GND-Sasl: maxime.chevallier@bootlin.com
+X-GND-Sasl: maxime.chevallier@bootlin.com
+X-GND-Sasl: maxime.chevallier@bootlin.com
+X-GND-Sasl: maxime.chevallier@bootlin.com
+X-GND-Sasl: maxime.chevallier@bootlin.com
+X-GND-Sasl: maxime.chevallier@bootlin.com
+X-GND-Sasl: maxime.chevallier@bootlin.com
+X-GND-Sasl: maxime.chevallier@bootlin.com
+X-GND-Sasl: maxime.chevallier@bootlin.com
+X-GND-Sasl: maxime.chevallier@bootlin.com
+X-GND-Sasl: maxime.chevallier@bootlin.com
+X-GND-Sasl: maxime.chevallier@bootlin.com
+X-GND-Sasl: maxime.chevallier@bootlin.com
+X-GND-Sasl: maxime.chevallier@bootlin.com
+X-GND-Sasl: maxime.chevallier@bootlin.com
+X-GND-Sasl: maxime.chevallier@bootlin.com
+X-GND-Sasl: maxime.chevallier@bootlin.com
+X-GND-Sasl: maxime.chevallier@bootlin.com
+X-GND-Sasl: maxime.chevallier@bootlin.com
+X-GND-Sasl: maxime.chevallier@bootlin.com
+X-GND-Sasl: maxime.chevallier@bootlin.com
+Received: by mail.gandi.net (Postfix) with ESMTPSA id A396E6000D;
+ Wed,  7 Jun 2023 13:06:42 +0000 (UTC)
+Date: Wed, 7 Jun 2023 16:53:24 +0200
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+To: "Russell King (Oracle)" <linux@armlinux.org.uk>
+Message-ID: <20230607165324.37f981f5@pc-7.home>
+In-Reply-To: <ZIB3gQ7Ul5gi5/RC@shell.armlinux.org.uk>
 References: <20230607135941.407054-1-maxime.chevallier@bootlin.com>
+ <20230607135941.407054-5-maxime.chevallier@bootlin.com>
+ <ZIB3gQ7Ul5gi5/RC@shell.armlinux.org.uk>
+Organization: Bootlin
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.37; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20230607135941.407054-1-maxime.chevallier@bootlin.com>
 Cc: Andrew Lunn <andrew@lunn.ch>, Vladimir Oltean <vladimir.oltean@nxp.com>,
  Eric Dumazet <edumazet@google.com>, thomas.petazzoni@bootlin.com,
  Ioana Ciornei <ioana.ciornei@nxp.com>,
@@ -55,8 +75,8 @@ Cc: Andrew Lunn <andrew@lunn.ch>, Vladimir Oltean <vladimir.oltean@nxp.com>,
  netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, davem@davemloft.net,
  Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH net-next v4 0/5] Followup fixes for the
- dwmac and altera lynx conversion
+Subject: Re: [Linux-stm32] [PATCH net-next v4 4/5] net: altera_tse:
+ explicitly disable autoscan on the regmap-mdio bus
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,25 +93,27 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, Jun 07, 2023 at 03:59:36PM +0200, Maxime Chevallier wrote:
-> Hello everyone,
+Hello Russell,
+
+On Wed, 7 Jun 2023 13:26:41 +0100
+"Russell King (Oracle)" <linux@armlinux.org.uk> wrote:
+
+> On Wed, Jun 07, 2023 at 03:59:40PM +0200, Maxime Chevallier wrote:
+> > Set the .autoscan flag to false on the regmap-mdio bus, to avoid using a
+> > random uninitialized value. We don't want autoscan in this case as the
+> > mdio device is a PCS and not a PHY.  
 > 
-> Here's yet another version of the cleanup series for the TSE PCS replacement
-> by PCS Lynx. It includes Kconfig fixups, some missing initialisations
-> and a slight rework suggested by Russell for the dwmac cleanup sequence,
-> along with more explicit zeroing of local structures as per MAciej's
-> review.
+> Isn't this now covered by patch 1's memset of mrc?
+> 
 
-For the series, which brings an immediate fix to the problems people
-are noticing:
+Yes it is, however I thought it could be fine keeping it set explicitely
+anyway, as we do have a PCS on that bus and we don't want any autoscan
+happening. Since these two drivers are the first users of mdio_regmap,
+my hope is that we could get these reference usages covering all fields.
 
-Reviewed-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
+Should I drop this ?
 
-Thanks!
-
--- 
-RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
+Maxime
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
