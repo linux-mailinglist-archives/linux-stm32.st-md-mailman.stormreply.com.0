@@ -2,31 +2,31 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B4B29725DFA
-	for <lists+linux-stm32@lfdr.de>; Wed,  7 Jun 2023 14:08:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C64DA725DFC
+	for <lists+linux-stm32@lfdr.de>; Wed,  7 Jun 2023 14:08:22 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7BBEDC6A5E7;
-	Wed,  7 Jun 2023 12:08:20 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8BF6EC6A5FA;
+	Wed,  7 Jun 2023 12:08:22 +0000 (UTC)
 Received: from relay4-d.mail.gandi.net (relay4-d.mail.gandi.net
  [217.70.183.196])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BC432C6A5FA
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F2E69C6A5FA
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  7 Jun 2023 12:08:18 +0000 (UTC)
+ Wed,  7 Jun 2023 12:08:20 +0000 (UTC)
 X-GND-Sasl: maxime.chevallier@bootlin.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1686139698;
+ t=1686139700;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=6WgS2itewXgwIqmxjlbCVju713PZbtSt5czOzpTuXBA=;
- b=INw8V+2UyFA/SPRFanuth0K/BngfjNL1jgchzheesyHYptmp5GvGnc+eRJ3pkV5Gs1jTRf
- u000j3TuffrZhH+D4bfp2tGaxRae2v5NO547fXC+VWipEBuHWo1969nY0W7t6xUtCWbJGo
- 9lPidmLHPTrqJxsOs0RFWaFWlI45okDOx6QBUJTYWugXu4nEN2ohE5cMINXi+rMJRRF6ua
- jn0ivkiOYqYr8+Dors43NrstoqhZbrv8fAgd+F4GTPi9pQpuVDtQIDTIrX8SMb0ofGrr97
- 26hwkPgxT8FC8tdyYIP4qg6TNqjAmUlJkobM+Bcz/EUrW9m6mfi1D5M8TQaDRQ==
+ bh=At0AjpP7baWbSDLanUe9mFxHCTEVmm+qTfAUCvB7Gp8=;
+ b=dQMSXiIW3ZWK0uFu2pu1VSHFpPXVLAHgvFKT8zjRVURaM47m9LfzUQygnPD5QLsZKNeUSf
+ 0s/oLjaS8mTjTAOxjUGxDcL/x1TSZ5qfyyfF2klC7b9vQ58bVNdQpMxXpOlIQTW2+kbarU
+ 1AwqItuhADOeUwOl8WnaP4Pg1g1EbsuzCPsyVzD/NCqmmm0zokKFqLjF+jz5+C5s05AU0k
+ rRPbTJFlZsseWdPft8CGQ0BC+BPaTIStpdlZ7ymUm3xeAgMA8K+pCwqfr8fK8rsAphqBkT
+ Os652C7hkCVRjY2e4lxZPPR12yRLj+b4lVCIFVFc0nXmwjenOuvF5upae5axKw==
 X-GND-Sasl: maxime.chevallier@bootlin.com
 X-GND-Sasl: maxime.chevallier@bootlin.com
 X-GND-Sasl: maxime.chevallier@bootlin.com
@@ -50,12 +50,12 @@ X-GND-Sasl: maxime.chevallier@bootlin.com
 X-GND-Sasl: maxime.chevallier@bootlin.com
 X-GND-Sasl: maxime.chevallier@bootlin.com
 X-GND-Sasl: maxime.chevallier@bootlin.com
-Received: by mail.gandi.net (Postfix) with ESMTPSA id EAB9DE000D;
- Wed,  7 Jun 2023 12:08:15 +0000 (UTC)
+Received: by mail.gandi.net (Postfix) with ESMTPSA id AA75FE0011;
+ Wed,  7 Jun 2023 12:08:18 +0000 (UTC)
 From: Maxime Chevallier <maxime.chevallier@bootlin.com>
 To: davem@davemloft.net
-Date: Wed,  7 Jun 2023 15:59:37 +0200
-Message-Id: <20230607135941.407054-2-maxime.chevallier@bootlin.com>
+Date: Wed,  7 Jun 2023 15:59:38 +0200
+Message-Id: <20230607135941.407054-3-maxime.chevallier@bootlin.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20230607135941.407054-1-maxime.chevallier@bootlin.com>
 References: <20230607135941.407054-1-maxime.chevallier@bootlin.com>
@@ -73,8 +73,8 @@ Cc: Andrew Lunn <andrew@lunn.ch>, Vladimir Oltean <vladimir.oltean@nxp.com>,
  netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Heiner Kallweit <hkallweit1@gmail.com>
-Subject: [Linux-stm32] [PATCH net-next v4 1/5] net: altera-tse: Initialize
-	local structs before using it
+Subject: [Linux-stm32] [PATCH net-next v4 2/5] net: altera_tse: Use the
+	correct Kconfig option for the PCS_LYNX dependency
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,33 +91,32 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The regmap_config and mdio_regmap_config objects needs to be zeroed before
-using them. This will cause spurious errors at probe time as config->pad_bits
-is containing random uninitialized data.
+Use the correct Kconfig dependency for altera_tse as PCS_ALTERA_TSE was
+replaced by PCS_LYNX.
 
 Fixes: db48abbaa18e ("net: ethernet: altera-tse: Convert to mdio-regmap and use PCS Lynx")
 Signed-off-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
 ---
-V3->V4 : Also zero "mrc" from Maciej's review
-V2->V3 : No changes
-V1->V2 : No changes
+V3->V4 : No changes
+V2->V3 : Fix a typo in the commit title
+V1->V2 : New patch
 
- drivers/net/ethernet/altera/altera_tse_main.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/net/ethernet/altera/Kconfig | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/net/ethernet/altera/altera_tse_main.c b/drivers/net/ethernet/altera/altera_tse_main.c
-index d866c0f1b503..215f9fb89c5b 100644
---- a/drivers/net/ethernet/altera/altera_tse_main.c
-+++ b/drivers/net/ethernet/altera/altera_tse_main.c
-@@ -1255,6 +1255,8 @@ static int altera_tse_probe(struct platform_device *pdev)
- 	if (ret)
- 		goto err_free_netdev;
- 
-+	memset(&pcs_regmap_cfg, 0, sizeof(pcs_regmap_cfg));
-+	memset(&mrc, 0, sizeof(mrc));
- 	/* SGMII PCS address space. The location can vary depending on how the
- 	 * IP is integrated. We can have a resource dedicated to it at a specific
- 	 * address space, but if it's not the case, we fallback to the mdiophy0
+diff --git a/drivers/net/ethernet/altera/Kconfig b/drivers/net/ethernet/altera/Kconfig
+index 93533ba03429..17985319088c 100644
+--- a/drivers/net/ethernet/altera/Kconfig
++++ b/drivers/net/ethernet/altera/Kconfig
+@@ -4,7 +4,7 @@ config ALTERA_TSE
+ 	depends on HAS_DMA
+ 	select PHYLIB
+ 	select PHYLINK
+-	select PCS_ALTERA_TSE
++	select PCS_LYNX
+ 	select MDIO_REGMAP
+ 	select REGMAP_MMIO
+ 	help
 -- 
 2.40.1
 
