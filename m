@@ -2,85 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 75407727735
-	for <lists+linux-stm32@lfdr.de>; Thu,  8 Jun 2023 08:22:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D80DA727B51
+	for <lists+linux-stm32@lfdr.de>; Thu,  8 Jun 2023 11:29:03 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 21987C6905A;
-	Thu,  8 Jun 2023 06:22:19 +0000 (UTC)
-Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com
- [209.85.167.42])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 87BADC6905A;
+	Thu,  8 Jun 2023 09:29:03 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 962D4C62EFE
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 86651C65E58
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  8 Jun 2023 06:22:17 +0000 (UTC)
-Received: by mail-lf1-f42.google.com with SMTP id
- 2adb3069b0e04-4f6255ad8aeso327309e87.2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 07 Jun 2023 23:22:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1686205336; x=1688797336;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=G0VwUCmEnGX86ZCMjrjzf2n2n4i6He7mE7SapcE39jQ=;
- b=zNzdPClVFDBPvA/Sd0tnWU4q+9TDxtptLUXsJI1uzuIKW7CepO/B7U20Akb2sVNjUf
- iChrVgfRdbCukBM3ZRmwq4tdN7GbqTVNPm4Xox66Jduri+joXchA/FrGDmJBY9C72PoA
- 9JoGjTa2qwQ8C/TagifFEu2pfvGsBppwIR4LCSL+HFIa45MERVcco2p7fbwRnAa7TA2u
- lx0OfDfvg2T2IMAMc0UEWdjcz1rk4DUFcQykgrPDKjlQyM0DlDvxRlbdJM7eblnLZyLs
- AKluKMuIfFTK1Co091kHLyCIp3XxSv6ZKpTdiRftP7uL9CGY9b+Y4s7r1XHzLTn+P78i
- OfUg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1686205336; x=1688797336;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=G0VwUCmEnGX86ZCMjrjzf2n2n4i6He7mE7SapcE39jQ=;
- b=PzlEIoue4PriOqopNbU5aIt8Y94GYLMsZXthYmwtsACYKl49ShtGiJxUl8LfxJypSL
- t/7L6htvF6k2MleqmcDI2P/zv+/vdedgUwhez3dZDR4HuB3voCIzEMTNOWCjY9vX4zvk
- K6Kq9zHp4PLvOb0ykREll9uYlTlNc1D2zgplmQ64Kg6skaOaJ1ECHrSKM5NpbiImq18j
- QVTmZi2XgZDrd0imGpD4XiEfOq29pzhnd17u/OK72SE/go3pF09gbDNcGXgm1z/ChVjq
- eIWk9z8X9WU9SCu7NCJUWnlQzaY30lSijTH9o9w0E4NupfyAXCS0Fv0XB5pMXjyVR5db
- 8c4A==
-X-Gm-Message-State: AC+VfDyosz+lUNnZJW9fFDigSGhPPIOgqPLNGYoxggvJjxVWPlWLUIcF
- anr0jfpRGithhyczlvavpCSAaLF6r9z9kIX2XqbTGQ==
-X-Google-Smtp-Source: ACHHUZ7NSvEUlT8UhkX/QkQM8okQgMSoDdPNJPAgRN0eGgLLO3YmB8/MiPHPVGgliaXCkm+PDURvo1SR5U1XDuifDtY=
-X-Received: by 2002:a2e:9d5a:0:b0:2af:32a7:4eef with SMTP id
- y26-20020a2e9d5a000000b002af32a74eefmr2576295ljj.35.1686205336661; Wed, 07
- Jun 2023 23:22:16 -0700 (PDT)
+ Thu,  8 Jun 2023 09:29:02 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 3586H0pE024757; Thu, 8 Jun 2023 11:28:35 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=F4pyCRuUe4o5DvW+WPN9psEiiRx1S0h4gHiilDLeFmg=;
+ b=a+CM1Dls4E1UlSBY2eXE9rvEHh/69PRSgv3kX5sfQXEdjRWXoHXAxYyTW8PcHqdD+gED
+ 6VAeTMXOhzVZ25IIvcPrLjjaDLstAOgTuMF1dNY7V24CEKoreiZQYeJlVpreI7IPTiDn
+ 7o6cgN9vmjl3WOv7QtORqAxQXlxgdzjFDWDf2RIsT1UxPsBzVmquUV/Z4y+im8jIna8U
+ 6qpmOjtMLRbFz0J6p7lNHhXP/frsFrIMmP2i+I1b4XzY9FR0TJXH8PsHUHVyS/sfss9H
+ pkCahOp+b0r4MiodhMpMoNB3mv0Pe27HzC3o/RGY5F16FdWEeMi+o9Mau7vTrjq2UfSe gw== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3r348936kn-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 08 Jun 2023 11:28:35 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 5E98510002A;
+ Thu,  8 Jun 2023 11:28:34 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 3607A21D3FA;
+ Thu,  8 Jun 2023 11:28:34 +0200 (CEST)
+Received: from [10.201.21.93] (10.201.21.93) by SHFDAG1NODE1.st.com
+ (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.21; Thu, 8 Jun
+ 2023 11:28:33 +0200
+Message-ID: <6b6ed9e3-c420-8777-3c39-5fe558077388@foss.st.com>
+Date: Thu, 8 Jun 2023 11:28:32 +0200
 MIME-Version: 1.0
-References: <20230526010748.1222-1-masahisa.kojima@linaro.org>
- <20230526010748.1222-4-masahisa.kojima@linaro.org>
- <0d3e0370-eb76-010f-3d30-9acc9b59645c@siemens.com>
- <CAFA6WYPnWJNPvhT2JDkO-qXRUaJoxBGZEvSfhxcRynV7=VSdQA@mail.gmail.com>
- <CAMj1kXFM45PCTU--+CCed6Cq_N5XqDG6tTu6fnQTSCpW2BWA5A@mail.gmail.com>
- <4ff09002-e871-38b9-43ec-227a64bac731@siemens.com>
- <CAC_iWjJJ5E9Q1or5yTiDynzv_WAYH-g+N24aRdu9rvcsbWqnrg@mail.gmail.com>
- <CAFA6WYNFYB1LiOFB_iwTsdD5PmnDdSbtDSH2J4FVFPx3uik8rQ@mail.gmail.com>
- <CAC_iWj+E7-XK6dCeSn4205K0O3EZCLxCaC+adu-14ST6sdudfA@mail.gmail.com>
- <76da826f-b608-6add-5401-6de818b180e3@siemens.com>
- <CAFA6WYPCDRjFzsUMU=SNzEt88nT7Fcm1eOFL8z4HiQO+=2JeVA@mail.gmail.com>
- <cc6bd203-83ea-c247-0986-7fec6f327ee8@siemens.com>
- <CAC_iWjKZNHJxq4VMFnV7oQngwBBCQveh=s34u1LZ59YUqViPbw@mail.gmail.com>
- <CAC_iWjJMv68yLC606SBhMmBYkR4wVC8SvUcPvNM=RX_qL=9Bvw@mail.gmail.com>
- <b9b8c1d3-fc8e-df94-d12b-a9e3debf3418@siemens.com>
- <CAC_iWj+cP4RfDNu_n-ZOp7A62W34drLpPszN_hrkqF_aPTLtMg@mail.gmail.com>
- <871ece13-7d6e-44d4-3bda-317658202f6f@siemens.com>
-In-Reply-To: <871ece13-7d6e-44d4-3bda-317658202f6f@siemens.com>
-From: Ilias Apalodimas <ilias.apalodimas@linaro.org>
-Date: Thu, 8 Jun 2023 09:21:40 +0300
-Message-ID: <CAC_iWjKgCJWgKU8tC3Nfn-0CgwGhw89B3JpTgsjkjDDOcWZEdw@mail.gmail.com>
-To: Jan Kiszka <jan.kiszka@siemens.com>
-Cc: Sumit Garg <sumit.garg@linaro.org>, linux-efi@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
- Ard Biesheuvel <ardb@kernel.org>, op-tee@lists.trustedfirmware.org,
- linux-arm-kernel@lists.infradead.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, "Su,
- Bao Cheng \(RC-CN DF FA R&D\)" <baocheng.su@siemens.com>,
- Masahisa Kojima <masahisa.kojima@linaro.org>,
- Jens Wiklander <jens.wiklander@linaro.org>,
- Johan Hovold <johan+linaro@kernel.org>
-Subject: Re: [Linux-stm32] [PATCH v5 3/3] efi: Add tee-based EFI variable
-	driver
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Content-Language: en-US
+To: Marek Vasut <marex@denx.de>, <linux-arm-kernel@lists.infradead.org>
+References: <20230606180112.215896-1-marex@denx.de>
+From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
+In-Reply-To: <20230606180112.215896-1-marex@denx.de>
+X-Originating-IP: [10.201.21.93]
+X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.957,Hydra:6.0.573,FMLib:17.11.176.26
+ definitions=2023-06-08_06,2023-06-07_01,2023-05-22_02
+Cc: devicetree@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Mark Brown <broonie@kernel.org>, Rob Herring <robh+dt@kernel.org>,
+ kernel@dh-electronics.com, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH] ARM: dts: stm32: Fix audio routing on
+ STM32MP15xx DHCOM PDK2
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,101 +75,68 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Jan
+Hi Marek
 
+On 6/6/23 20:01, Marek Vasut wrote:
+> The audio routing flow is not correct, the flow should be from source
+> (second element in the pair) to sink (first element in the pair). The
+> flow now is from "HP_OUT" to "Playback", where "Playback" is source
+> and "HP_OUT" is sink, i.e. the direction is swapped and there is no
+> direct link between the two either.
+> 
+> Fill in the correct routing, where "HP_OUT" supplies the "Headphone Jack",
+> "Line In Jack" supplies "LINE_IN" input, "Microphone Jack" supplies "MIC_IN"
+> input and "Mic Bias" supplies "Microphone Jack".
+> 
+> Fixes: 34e0c7847dcf ("ARM: dts: stm32: Add DH Electronics DHCOM STM32MP1 SoM and PDK2 board")
+> Signed-off-by: Marek Vasut <marex@denx.de>
+> ---
+> Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
+> Cc: Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
+> Cc: Marek Vasut <marex@denx.de>
+> Cc: Mark Brown <broonie@kernel.org>
+> Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+> Cc: Rob Herring <robh+dt@kernel.org>
+> Cc: devicetree@vger.kernel.org
+> Cc: kernel@dh-electronics.com
+> Cc: linux-arm-kernel@lists.infradead.org
+> Cc: linux-stm32@st-md-mailman.stormreply.com
+> ---
+>   arch/arm/boot/dts/stm32mp15xx-dhcom-pdk2.dtsi | 11 +++++++----
+>   1 file changed, 7 insertions(+), 4 deletions(-)
+> 
+> diff --git a/arch/arm/boot/dts/stm32mp15xx-dhcom-pdk2.dtsi b/arch/arm/boot/dts/stm32mp15xx-dhcom-pdk2.dtsi
+> index 4709677151aac..46b87a27d8b37 100644
+> --- a/arch/arm/boot/dts/stm32mp15xx-dhcom-pdk2.dtsi
+> +++ b/arch/arm/boot/dts/stm32mp15xx-dhcom-pdk2.dtsi
+> @@ -137,10 +137,13 @@ reg_panel_supply: regulator-panel-supply {
+>   
+>   	sound {
+>   		compatible = "audio-graph-card";
+> -		routing =
+> -			"MIC_IN", "Capture",
+> -			"Capture", "Mic Bias",
+> -			"Playback", "HP_OUT";
+> +		widgets = "Headphone", "Headphone Jack",
+> +			  "Line", "Line In Jack",
+> +			  "Microphone", "Microphone Jack";
+> +		routing = "Headphone Jack", "HP_OUT",
+> +			  "LINE_IN", "Line In Jack",
+> +			  "MIC_IN", "Microphone Jack",
+> +			  "Microphone Jack", "Mic Bias";
+>   		dais = <&sai2a_port &sai2b_port>;
+>   		status = "okay";
+>   	};
 
-On Wed, 7 Jun 2023 at 22:46, Jan Kiszka <jan.kiszka@siemens.com> wrote:
->
-> On 07.06.23 20:17, Ilias Apalodimas wrote:
-> > On Wed, 7 Jun 2023 at 20:14, Jan Kiszka <jan.kiszka@siemens.com> wrote:
-> >>
-> >> On 07.06.23 18:59, Ilias Apalodimas wrote:
-> >>> On Wed, 7 Jun 2023 at 19:09, Ilias Apalodimas
-> >>> <ilias.apalodimas@linaro.org> wrote:
-> >>>>
-> >>>> Hi Jan,
-> >>>>
-> >>>> [...]
-> >>>>>>>> No I don't, this will work reliably without the need to remount the efivarfs.
-> >>>>>>>> As you point out you will still have this dependency if you end up
-> >>>>>>>> building them as modules and you manage to mount the efivarfs before
-> >>>>>>>> those get inserted.  Does anyone see a reasonable workaround?
-> >>>>>>>> Deceiving the kernel and making the bootloader set the RT property bit
-> >>>>>>>> to force the filesystem being mounted as rw is a nasty hack that we
-> >>>>>>>> should avoid.  Maybe adding a kernel command line parameter that says
-> >>>>>>>> "Ignore the RTPROP I know what I am doing"?  I don't particularly love
-> >>>>>>>> this either, but it's not unreasonable.
-> >>>>>>>
-> >>>>>>> In the context of https://github.com/OP-TEE/optee_os/issues/6094,
-> >>>>>>> basically this issue mapped on reboot/shutdown, I would really love to
-> >>>>>>> see the unhandy tee-supplicant daemon to be overcome.
-> >>>>>>
-> >>>>>> I have seen this error before and it has been on my todo list. So I
-> >>>>>> have tried to fix it here [1]. Feel free to test it and let me know if
-> >>>>>> you see any further issues.
-> >>>>>>
-> >>>>>> [1] https://lkml.org/lkml/2023/6/7/927
-> >>>>>>
-> >>>>>
-> >>>>> Ah, nice, will test ASAP!
-> >>>>>
-> >>>>> Meanwhile more food: I managed to build a firmware that was missing
-> >>>>> STMM. But the driver loaded, and I got this:
-> >>>>
-> >>>> Thanks for the testing. I'll try to reproduce it locally and get back to you
-> >>>
-> >>> Can you provide a bit more info on how that was triggered btw? I would
-> >>> be helpful to know
-> >>>
-> >>> - OP-TEE version
-> >>
-> >> Today's master, 145953d55.
-> >>
-> >>> - was it compiled as a module or built-in?
-> >>
-> >> Sorry, not sure anymore, switching back and forth right now. I think it
-> >> was built-in.
-> >>
-> >>> - was the supplicant running?
-> >>
-> >> Yes.
-> >>
-> >
-> > Ok thanks, that helps.  I guess this also means U-Boot was compiled to
-> > store the variables in a file in the ESP instead of the RPMB right?
-> > Otherwise, I can't see how the device booted in the first place.
->
-> U-Boot was not configured to perform secure booting in this case. It had
-> RPMB support enabled, just didn't have to use it.
+Applied on stm32-next.
 
-In your initial mail you said you managed to build a firmware without
-StMM.  If U-boot isn't reconfigured accordingly -- iow skip the EFI
-variable storage in an RPMB, the EFI subsystem will fail to start.
-
-In any case, I don't think the ooops you are seeing is not connected
-to this patchset.  Looking at the kernel EFI stub we only set the
-SetVariableRT if the RTPROP table is set accordingly by the firmware.
-U-Boot never sets the EFI_RT_SUPPORTED_SET_VARIABLE property since it
-can't support it.  What you are doing is remount the efivarfs as rw
-and then trying to set a variable, but the callback for it is  NULL.
-I think you'll be able to replicate the same behavior on the kernel
-without even inserting the new module.
-
-Thanks
-/Ilias
-
->
-> Jan
->
-> --
-> Siemens AG, Technology
-> Competence Center Embedded Linux
->
+Thanks.
+Alex
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
