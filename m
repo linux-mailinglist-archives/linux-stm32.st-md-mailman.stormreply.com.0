@@ -2,69 +2,74 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3A580727C2D
-	for <lists+linux-stm32@lfdr.de>; Thu,  8 Jun 2023 12:04:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D188727F81
+	for <lists+linux-stm32@lfdr.de>; Thu,  8 Jun 2023 13:57:37 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B36E6C6905A;
-	Thu,  8 Jun 2023 10:04:23 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 99292C6905A;
+	Thu,  8 Jun 2023 11:57:36 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E397EC62EFE
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F0BCAC62EFE
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  8 Jun 2023 10:04:21 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ Thu,  8 Jun 2023 11:57:34 +0000 (UTC)
+Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
  by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 3589VfeW024371; Thu, 8 Jun 2023 12:04:02 +0200
+ 3589OCnw007652; Thu, 8 Jun 2023 13:57:09 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
  h=message-id : date :
  mime-version : subject : to : cc : references : from : in-reply-to :
  content-type : content-transfer-encoding; s=selector1;
- bh=25By25eZ9+apvHmnFy05WmGq+kLPlKCKhTFuzTbhMlE=;
- b=Dkn/PNi/gKK44IZDaGBN3hpDzEWHfZ94uzySzRbBmb+ujKClntnMR+XIv+7W/7AMym8a
- oLaoxBk55GhhM+YaviEqGv41bm4Botlee12XI6xwzH5ia0ik3rvaqy3XHovK5ipoP44i
- B9qzcH1ghAC6QTu8TahdH+Y4xos4AdeF5os7a0HFlBBkUb2uSUB9nUtmMZhM/t+8DM/i
- DvMxrxzrEwHuUVAK4M7CtdZrt6Pni9wHXsvVKo6uRFKR9ANZialtiVKjrihd1H3ns2sx
- MUO1h8LAzkLgP8QmfSwTYKlJRLcm903aFfmr7nEeri3GT6mvyIv5Qe/CkB0ycn5yUGei Hw== 
+ bh=73Ubk5oRaELFQy9MiHEBTyfooWnX9EJZnQ7YDu0s2/M=;
+ b=S73rOSWmTnk9u+GB1rogOjulSFtgS1Yc0hW/82plEdlDrmEh7NEIIKQn34WDhlm4m6hk
+ aHL8TgxLwEnbSErpCCnYdsCvvUYntykGWAwjvdgi2ULqeqCRvxzEGyd2cP5AY6gPL3+O
+ 8VrV1n/27oCSe+A//hKYww5a2XPPDdS6qz8Dbwoy3+bLTQ7VFtlbqQoPN/4GjZj6DSZs
+ xSCl2hPEHuEN2QDDR7VNO+sg2ILkS6B/pAgnn0jvqn2Cd9lfAFV5z9AMrrxpzIoWbNGo
+ y/BuqtSQ1boqyKlU9A8eQuOvAnLwTLN8gRrqtfKobGAtcP/ZRFoo39sNXtREsDaGwy2g 2A== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3r34893emy-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3r3cax10j8-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 08 Jun 2023 12:04:02 +0200
+ Thu, 08 Jun 2023 13:57:09 +0200
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 9B081100046;
- Thu,  8 Jun 2023 12:04:01 +0200 (CEST)
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 20F8E10002A;
+ Thu,  8 Jun 2023 13:57:06 +0200 (CEST)
 Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 8A2B1222C9B;
- Thu,  8 Jun 2023 12:04:01 +0200 (CEST)
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id A15922291CB;
+ Thu,  8 Jun 2023 13:57:06 +0200 (CEST)
 Received: from [10.201.21.93] (10.201.21.93) by SHFDAG1NODE1.st.com
  (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.21; Thu, 8 Jun
- 2023 12:04:01 +0200
-Message-ID: <65e46951-6b8d-6f18-d6be-16bacd247cd6@foss.st.com>
-Date: Thu, 8 Jun 2023 12:04:00 +0200
+ 2023 13:57:05 +0200
+Message-ID: <a02ae654-b0bb-5d57-64b9-94cc3182b463@foss.st.com>
+Date: Thu, 8 Jun 2023 13:57:05 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.11.0
 Content-Language: en-US
-To: Sean Nyekjaer <sean@geanix.com>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley
- <conor+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>
-References: <20230606145555.2155664-1-sean@geanix.com>
- <20230606145555.2155664-5-sean@geanix.com>
+To: Olivier Moysan <olivier.moysan@foss.st.com>, James Schulman
+ <james.schulman@cirrus.com>, David Rhodes <david.rhodes@cirrus.com>, "Lucas
+ Tanure" <tanureal@opensource.cirrus.com>, Richard Fitzgerald
+ <rf@opensource.cirrus.com>, Liam Girdwood <lgirdwood@gmail.com>, Mark Brown
+ <broonie@kernel.org>, Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski
+ <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley <conor+dt@kernel.org>,
+ Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>, Maxime Coquelin
+ <mcoquelin.stm32@gmail.com>
+References: <20230606115605.1633595-1-olivier.moysan@foss.st.com>
 From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
-In-Reply-To: <20230606145555.2155664-5-sean@geanix.com>
+In-Reply-To: <20230606115605.1633595-1-olivier.moysan@foss.st.com>
 X-Originating-IP: [10.201.21.93]
 X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SHFDAG1NODE1.st.com
  (10.75.129.69)
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.205,Aquarius:18.0.957,Hydra:6.0.573,FMLib:17.11.176.26
- definitions=2023-06-08_06,2023-06-08_01,2023-05-22_02
-Cc: devicetree@vger.kernel.org, dantuguf14105@gmail.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [Linux-stm32] [RFC PATCH 5/5] ARM: dts: stm32: Add Octavo
-	OSD32MP1-RED board
+ definitions=2023-06-08_08,2023-06-08_01,2023-05-22_02
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ Alexandre Torgue <alexandre.torgue@st.com>, patches@opensource.cirrus.com,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v2 0/3] ASoC: stm32: fix dtbs_check
+	warnings
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,235 +86,38 @@ Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 6/6/23 16:55, Sean Nyekjaer wrote:
-> Add support for the Octavo OSD32MP1-RED development board.
-> 
-> General features:
->   - STM32MP157C
->   - 512MB DDR3
->   - CAN-FD
->   - HDMI
->   - USB-C OTG
->   - UART
-> 
-> Signed-off-by: Sean Nyekjaer <sean@geanix.com>
-> ---
-> 
-> This is made with great inspiration from Neeraj Dantu's work:
-> https://raw.githubusercontent.com/octavosystems/OSD32MP1-RED-Device-tree/main/linux-v5.10-r0/stm32mp157c-osd32mp1-red.dts
-> 
-> So what copyright is needed here?
-> And author?
+Hi
 
-hum maybe Rob, or Krzystof will have a better answer than me but I would 
-say that only your name is enough. It's boards descriptions based on 
-common binding so at the end if 2 boards are quite similar their DT will 
-be similar. Not sure, but adding Neeraj as author could impose to him a 
-kind of responsibility to this file, and you have to check this point 
-with him if plan to add him.
+On 6/6/23 13:56, Olivier Moysan wrote:
+> Fix dtbs_check warnings in STM32MP15 DK boards Devices Trees for
+> STM32 I2S and Cirrus CS42L51 codec.
+> 
+> - Add OF graph port property in I2S and CS42L51 DT bindings.
+>    Fixes warnings:
+>    audio-controller@4000b000: Unevaluated properties are not allowed
+>    ('port' was unexpected)
+>    cs42l51@4a: Unevaluated properties are not allowed
+>    ('port' was unexpected)
+> - Correct OF graph DAI audio format property for STM32MP15x Dkx I2S node
+> 
+> Changes in v2:
+> - Add port example in i2s and cs42l51 binding
+> 
+> Olivier Moysan (3):
+>    ASoC: dt-bindings: stm32: document audio of graph port for i2s
+>    ASoC: dt-bindings: document audio of graph port for cs42l51
+>    ARM: dts: stm32: fix i2s endpoint format property for stm32mp15xx-dkx
+> 
+>   .../devicetree/bindings/sound/cirrus,cs42l51.yaml     | 11 +++++++++++
+>   .../devicetree/bindings/sound/st,stm32-i2s.yaml       | 11 +++++++++++
+>   arch/arm/boot/dts/stm32mp15xx-dkx.dtsi                |  2 +-
+>   3 files changed, 23 insertions(+), 1 deletion(-)
+> 
 
+Patch[3] applied on stm32-next.
+
+Thanks
 Alex
-
-> 
-> Still need to test ethernet and HDMI, thats why I have done this a RFC.
-> 
->   .../arm/boot/dts/stm32mp157c-osd32mp1-red.dts | 186 ++++++++++++++++++
->   1 file changed, 186 insertions(+)
->   create mode 100644 arch/arm/boot/dts/stm32mp157c-osd32mp1-red.dts
-> 
-> diff --git a/arch/arm/boot/dts/stm32mp157c-osd32mp1-red.dts b/arch/arm/boot/dts/stm32mp157c-osd32mp1-red.dts
-> new file mode 100644
-> index 000000000000..dd4e2668878c
-> --- /dev/null
-> +++ b/arch/arm/boot/dts/stm32mp157c-osd32mp1-red.dts
-> @@ -0,0 +1,186 @@
-> +// SPDX-License-Identifier: (GPL-2.0+ OR BSD-3-Clause)
-> +/*
-> + * Copyright (C) ?? - All Rights Reserved
-> + * Author: ???
-> + */
-> +
-> +/dts-v1/;
-> +
-> +#include "stm32mp157.dtsi"
-> +#include "stm32mp15xc.dtsi"
-> +#include "stm32mp15xx-osd32mp1.dtsi"
-> +
-> +/ {
-> +	model = "Octavo OSD32MP1 RED board";
-> +	compatible = "octavo,stm32mp157c-osd32mp1-red", "st,stm32mp157";
-> +
-> +	aliases {
-> +		serial0 = &uart4;
-> +	};
-> +
-> +	chosen {
-> +		stdout-path = "serial0:115200n8";
-> +	};
-> +
-> +	memory@c0000000 {
-> +		device_type = "memory";
-> +		reg = <0xc0000000 0x20000000>;
-> +	};
-> +
-> +	led {
-> +		compatible = "gpio-leds";
-> +
-> +		blue {
-> +			label = "heartbeat";
-> +			gpios = <&gpiod 11 GPIO_ACTIVE_HIGH>;
-> +			linux,default-trigger = "heartbeat";
-> +			default-state = "off";
-> +		};
-> +	};
-> +};
-> +
-> +&ethernet0 {
-> +	status = "okay";
-> +	pinctrl-0 = <&ethernet0_rgmii_pins_a>;
-> +	pinctrl-1 = <&ethernet0_rgmii_sleep_pins_a>;
-> +	pinctrl-names = "default", "sleep";
-> +	phy-mode = "rgmii-id";
-> +	max-speed = <1000>;
-> +	phy-handle = <&phy0>;
-> +	st,eth-clk-sel;
-> +
-> +	mdio0 {
-> +		#address-cells = <1>;
-> +		#size-cells = <0>;
-> +		compatible = "snps,dwmac-mdio";
-> +		phy0: ethernet-phy@0 {
-> +			reg = <3>;
-> +		};
-> +	};
-> +};
-> +
-> +
-> +&i2s2{
-> +	clocks = <&rcc SPI2>, <&rcc SPI2_K>, <&rcc CK_PER>, <&rcc PLL3_R>;
-> +	clock-names = "pclk", "i2sclk", "x8k", "x11k";
-> +	pinctrl-names = "default", "sleep";
-> +	pinctrl-0 = <&i2s2_pins_b>;
-> +	pinctrl-1 = <&i2s2_sleep_pins_b>;
-> +	status = "okay";
-> +
-> +	i2s2_port: port {
-> +		i2s2_endpoint: endpoint {
-> +			remote-endpoint = <&sii9022_tx_endpoint>;
-> +			format = "i2s";
-> +			mclk-fs = <256>;
-> +		};
-> +	};
-> +};
-> +
-> +&iwdg2 {
-> +	timeout-sec = <32>;
-> +	status = "okay";
-> +};
-> +
-> +&ltdc{
-> +	status = "okay";
-> +
-> +	port {
-> +		ltdc_ep0_out: endpoint@0 {
-> +			reg = <0>;
-> +			remote-endpoint = <&sii9022_in>;
-> +		};
-> +	};
-> +};
-> +
-> +&i2c1{
-> +	pinctrl-names = "default", "sleep";
-> +	pinctrl-0 = <&i2c1_pins_a>;
-> +	pinctrl-1 = <&i2c1_sleep_pins_a>;
-> +	status = "okay";
-> +	i2c-scl-rising-time-ns = <100>;
-> +	i2c-scl-falling-time-ns = <7>;
-> +	/delete-property/dmas;
-> +	/delete-property/dma-names;
-> +
-> +	hdmi-transmitter@39 {
-> +		compatible = "sil,sii9022";
-> +		reg = <0x39>;
-> +		reset-gpios = <&gpiog 0 GPIO_ACTIVE_LOW>;
-> +		interrupts = <1 IRQ_TYPE_EDGE_FALLING>;
-> +		interrupt-parent = <&gpiog>;
-> +		pinctrl-names = "default", "sleep";
-> +		pinctrl-0 = <&ltdc_pins_e>;
-> +		pinctrl-1 = <&ltdc_sleep_pins_e>;
-> +		status = "okay";
-> +
-> +		ports {
-> +			#address-cells = <1>;
-> +			#size-cells = <0>;
-> +
-> +			port@0 {
-> +				reg = <0>;
-> +				sii9022_in: endpoint {
-> +					remote-endpoint = <&ltdc_ep0_out>;
-> +				};
-> +			};
-> +
-> +			port@1 {
-> +				reg = <1>;
-> +				sii9022_tx_endpoint: endpoint {
-> +					remote-endpoint = <&i2s2_endpoint>;
-> +				};
-> +			};
-> +		};
-> +	};
-> +};
-> +
-> +&tamp {
-> +	status = "okay";
-> +};
-> +
-> +&sdmmc1 {
-> +	pinctrl-names = "default", "opendrain", "sleep";
-> +	pinctrl-0 = <&sdmmc1_b4_pins_a>;
-> +	pinctrl-1 = <&sdmmc1_b4_od_pins_a>;
-> +	pinctrl-2 = <&sdmmc1_b4_sleep_pins_a>;
-> +	cd-gpios = <&gpioe 7 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
-> +	disable-wp;
-> +	st,neg-edge;
-> +	bus-width = <4>;
-> +	vmmc-supply = <&v3v3>;
-> +	status = "okay";
-> +};
-> +
-> +&sdmmc2 {
-> +	pinctrl-names = "default", "opendrain", "sleep";
-> +	pinctrl-0 = <&sdmmc2_b4_pins_a &sdmmc2_d47_pins_d>;
-> +	pinctrl-1 = <&sdmmc2_b4_od_pins_a>;
-> +	pinctrl-2 = <&sdmmc2_b4_sleep_pins_a &sdmmc2_d47_sleep_pins_d>;
-> +	non-removable;
-> +	no-sd;
-> +	no-sdio;
-> +	st,neg-edge;
-> +	bus-width = <8>;
-> +	vmmc-supply = <&v3v3>;
-> +	vqmmc-supply = <&vdd>;
-> +	mmc-ddr-3_3v;
-> +	status = "okay";
-> +};
-> +
-> +&uart4 {
-> +	pinctrl-names = "default", "sleep", "idle";
-> +	pinctrl-0 = <&uart4_pins_a>;
-> +	pinctrl-1 = <&uart4_sleep_pins_a>;
-> +	pinctrl-2 = <&uart4_idle_pins_a>;
-> +	/delete-property/dmas;
-> +	/delete-property/dma-names;
-> +	status = "okay";
-> +};
-> +
-> +&m_can1 {
-> +	pinctrl-names = "default", "sleep";
-> +	pinctrl-0 = <&m_can1_pins_d>;
-> +	pinctrl-1 = <&m_can1_sleep_pins_d>;
-> +	status = "okay";
-> +};
-
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
