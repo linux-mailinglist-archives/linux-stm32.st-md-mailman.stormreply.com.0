@@ -2,68 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D80DA727B51
-	for <lists+linux-stm32@lfdr.de>; Thu,  8 Jun 2023 11:29:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3A580727C2D
+	for <lists+linux-stm32@lfdr.de>; Thu,  8 Jun 2023 12:04:24 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 87BADC6905A;
-	Thu,  8 Jun 2023 09:29:03 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B36E6C6905A;
+	Thu,  8 Jun 2023 10:04:23 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
  [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 86651C65E58
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E397EC62EFE
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  8 Jun 2023 09:29:02 +0000 (UTC)
+ Thu,  8 Jun 2023 10:04:21 +0000 (UTC)
 Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
  by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 3586H0pE024757; Thu, 8 Jun 2023 11:28:35 +0200
+ 3589VfeW024371; Thu, 8 Jun 2023 12:04:02 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
  h=message-id : date :
  mime-version : subject : to : cc : references : from : in-reply-to :
  content-type : content-transfer-encoding; s=selector1;
- bh=F4pyCRuUe4o5DvW+WPN9psEiiRx1S0h4gHiilDLeFmg=;
- b=a+CM1Dls4E1UlSBY2eXE9rvEHh/69PRSgv3kX5sfQXEdjRWXoHXAxYyTW8PcHqdD+gED
- 6VAeTMXOhzVZ25IIvcPrLjjaDLstAOgTuMF1dNY7V24CEKoreiZQYeJlVpreI7IPTiDn
- 7o6cgN9vmjl3WOv7QtORqAxQXlxgdzjFDWDf2RIsT1UxPsBzVmquUV/Z4y+im8jIna8U
- 6qpmOjtMLRbFz0J6p7lNHhXP/frsFrIMmP2i+I1b4XzY9FR0TJXH8PsHUHVyS/sfss9H
- pkCahOp+b0r4MiodhMpMoNB3mv0Pe27HzC3o/RGY5F16FdWEeMi+o9Mau7vTrjq2UfSe gw== 
+ bh=25By25eZ9+apvHmnFy05WmGq+kLPlKCKhTFuzTbhMlE=;
+ b=Dkn/PNi/gKK44IZDaGBN3hpDzEWHfZ94uzySzRbBmb+ujKClntnMR+XIv+7W/7AMym8a
+ oLaoxBk55GhhM+YaviEqGv41bm4Botlee12XI6xwzH5ia0ik3rvaqy3XHovK5ipoP44i
+ B9qzcH1ghAC6QTu8TahdH+Y4xos4AdeF5os7a0HFlBBkUb2uSUB9nUtmMZhM/t+8DM/i
+ DvMxrxzrEwHuUVAK4M7CtdZrt6Pni9wHXsvVKo6uRFKR9ANZialtiVKjrihd1H3ns2sx
+ MUO1h8LAzkLgP8QmfSwTYKlJRLcm903aFfmr7nEeri3GT6mvyIv5Qe/CkB0ycn5yUGei Hw== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3r348936kn-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3r34893emy-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 08 Jun 2023 11:28:35 +0200
+ Thu, 08 Jun 2023 12:04:02 +0200
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 5E98510002A;
- Thu,  8 Jun 2023 11:28:34 +0200 (CEST)
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 9B081100046;
+ Thu,  8 Jun 2023 12:04:01 +0200 (CEST)
 Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 3607A21D3FA;
- Thu,  8 Jun 2023 11:28:34 +0200 (CEST)
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 8A2B1222C9B;
+ Thu,  8 Jun 2023 12:04:01 +0200 (CEST)
 Received: from [10.201.21.93] (10.201.21.93) by SHFDAG1NODE1.st.com
  (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.21; Thu, 8 Jun
- 2023 11:28:33 +0200
-Message-ID: <6b6ed9e3-c420-8777-3c39-5fe558077388@foss.st.com>
-Date: Thu, 8 Jun 2023 11:28:32 +0200
+ 2023 12:04:01 +0200
+Message-ID: <65e46951-6b8d-6f18-d6be-16bacd247cd6@foss.st.com>
+Date: Thu, 8 Jun 2023 12:04:00 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.11.0
 Content-Language: en-US
-To: Marek Vasut <marex@denx.de>, <linux-arm-kernel@lists.infradead.org>
-References: <20230606180112.215896-1-marex@denx.de>
+To: Sean Nyekjaer <sean@geanix.com>, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley
+ <conor+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>
+References: <20230606145555.2155664-1-sean@geanix.com>
+ <20230606145555.2155664-5-sean@geanix.com>
 From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
-In-Reply-To: <20230606180112.215896-1-marex@denx.de>
+In-Reply-To: <20230606145555.2155664-5-sean@geanix.com>
 X-Originating-IP: [10.201.21.93]
 X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SHFDAG1NODE1.st.com
  (10.75.129.69)
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.205,Aquarius:18.0.957,Hydra:6.0.573,FMLib:17.11.176.26
- definitions=2023-06-08_06,2023-06-07_01,2023-05-22_02
-Cc: devicetree@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Mark Brown <broonie@kernel.org>, Rob Herring <robh+dt@kernel.org>,
- kernel@dh-electronics.com, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH] ARM: dts: stm32: Fix audio routing on
- STM32MP15xx DHCOM PDK2
+ definitions=2023-06-08_06,2023-06-08_01,2023-05-22_02
+Cc: devicetree@vger.kernel.org, dantuguf14105@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [Linux-stm32] [RFC PATCH 5/5] ARM: dts: stm32: Add Octavo
+	OSD32MP1-RED board
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,63 +81,235 @@ Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Marek
-
-On 6/6/23 20:01, Marek Vasut wrote:
-> The audio routing flow is not correct, the flow should be from source
-> (second element in the pair) to sink (first element in the pair). The
-> flow now is from "HP_OUT" to "Playback", where "Playback" is source
-> and "HP_OUT" is sink, i.e. the direction is swapped and there is no
-> direct link between the two either.
+On 6/6/23 16:55, Sean Nyekjaer wrote:
+> Add support for the Octavo OSD32MP1-RED development board.
 > 
-> Fill in the correct routing, where "HP_OUT" supplies the "Headphone Jack",
-> "Line In Jack" supplies "LINE_IN" input, "Microphone Jack" supplies "MIC_IN"
-> input and "Mic Bias" supplies "Microphone Jack".
+> General features:
+>   - STM32MP157C
+>   - 512MB DDR3
+>   - CAN-FD
+>   - HDMI
+>   - USB-C OTG
+>   - UART
 > 
-> Fixes: 34e0c7847dcf ("ARM: dts: stm32: Add DH Electronics DHCOM STM32MP1 SoM and PDK2 board")
-> Signed-off-by: Marek Vasut <marex@denx.de>
+> Signed-off-by: Sean Nyekjaer <sean@geanix.com>
 > ---
-> Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
-> Cc: Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
-> Cc: Marek Vasut <marex@denx.de>
-> Cc: Mark Brown <broonie@kernel.org>
-> Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-> Cc: Rob Herring <robh+dt@kernel.org>
-> Cc: devicetree@vger.kernel.org
-> Cc: kernel@dh-electronics.com
-> Cc: linux-arm-kernel@lists.infradead.org
-> Cc: linux-stm32@st-md-mailman.stormreply.com
-> ---
->   arch/arm/boot/dts/stm32mp15xx-dhcom-pdk2.dtsi | 11 +++++++----
->   1 file changed, 7 insertions(+), 4 deletions(-)
 > 
-> diff --git a/arch/arm/boot/dts/stm32mp15xx-dhcom-pdk2.dtsi b/arch/arm/boot/dts/stm32mp15xx-dhcom-pdk2.dtsi
-> index 4709677151aac..46b87a27d8b37 100644
-> --- a/arch/arm/boot/dts/stm32mp15xx-dhcom-pdk2.dtsi
-> +++ b/arch/arm/boot/dts/stm32mp15xx-dhcom-pdk2.dtsi
-> @@ -137,10 +137,13 @@ reg_panel_supply: regulator-panel-supply {
->   
->   	sound {
->   		compatible = "audio-graph-card";
-> -		routing =
-> -			"MIC_IN", "Capture",
-> -			"Capture", "Mic Bias",
-> -			"Playback", "HP_OUT";
-> +		widgets = "Headphone", "Headphone Jack",
-> +			  "Line", "Line In Jack",
-> +			  "Microphone", "Microphone Jack";
-> +		routing = "Headphone Jack", "HP_OUT",
-> +			  "LINE_IN", "Line In Jack",
-> +			  "MIC_IN", "Microphone Jack",
-> +			  "Microphone Jack", "Mic Bias";
->   		dais = <&sai2a_port &sai2b_port>;
->   		status = "okay";
->   	};
+> This is made with great inspiration from Neeraj Dantu's work:
+> https://raw.githubusercontent.com/octavosystems/OSD32MP1-RED-Device-tree/main/linux-v5.10-r0/stm32mp157c-osd32mp1-red.dts
+> 
+> So what copyright is needed here?
+> And author?
 
-Applied on stm32-next.
+hum maybe Rob, or Krzystof will have a better answer than me but I would 
+say that only your name is enough. It's boards descriptions based on 
+common binding so at the end if 2 boards are quite similar their DT will 
+be similar. Not sure, but adding Neeraj as author could impose to him a 
+kind of responsibility to this file, and you have to check this point 
+with him if plan to add him.
 
-Thanks.
 Alex
+
+> 
+> Still need to test ethernet and HDMI, thats why I have done this a RFC.
+> 
+>   .../arm/boot/dts/stm32mp157c-osd32mp1-red.dts | 186 ++++++++++++++++++
+>   1 file changed, 186 insertions(+)
+>   create mode 100644 arch/arm/boot/dts/stm32mp157c-osd32mp1-red.dts
+> 
+> diff --git a/arch/arm/boot/dts/stm32mp157c-osd32mp1-red.dts b/arch/arm/boot/dts/stm32mp157c-osd32mp1-red.dts
+> new file mode 100644
+> index 000000000000..dd4e2668878c
+> --- /dev/null
+> +++ b/arch/arm/boot/dts/stm32mp157c-osd32mp1-red.dts
+> @@ -0,0 +1,186 @@
+> +// SPDX-License-Identifier: (GPL-2.0+ OR BSD-3-Clause)
+> +/*
+> + * Copyright (C) ?? - All Rights Reserved
+> + * Author: ???
+> + */
+> +
+> +/dts-v1/;
+> +
+> +#include "stm32mp157.dtsi"
+> +#include "stm32mp15xc.dtsi"
+> +#include "stm32mp15xx-osd32mp1.dtsi"
+> +
+> +/ {
+> +	model = "Octavo OSD32MP1 RED board";
+> +	compatible = "octavo,stm32mp157c-osd32mp1-red", "st,stm32mp157";
+> +
+> +	aliases {
+> +		serial0 = &uart4;
+> +	};
+> +
+> +	chosen {
+> +		stdout-path = "serial0:115200n8";
+> +	};
+> +
+> +	memory@c0000000 {
+> +		device_type = "memory";
+> +		reg = <0xc0000000 0x20000000>;
+> +	};
+> +
+> +	led {
+> +		compatible = "gpio-leds";
+> +
+> +		blue {
+> +			label = "heartbeat";
+> +			gpios = <&gpiod 11 GPIO_ACTIVE_HIGH>;
+> +			linux,default-trigger = "heartbeat";
+> +			default-state = "off";
+> +		};
+> +	};
+> +};
+> +
+> +&ethernet0 {
+> +	status = "okay";
+> +	pinctrl-0 = <&ethernet0_rgmii_pins_a>;
+> +	pinctrl-1 = <&ethernet0_rgmii_sleep_pins_a>;
+> +	pinctrl-names = "default", "sleep";
+> +	phy-mode = "rgmii-id";
+> +	max-speed = <1000>;
+> +	phy-handle = <&phy0>;
+> +	st,eth-clk-sel;
+> +
+> +	mdio0 {
+> +		#address-cells = <1>;
+> +		#size-cells = <0>;
+> +		compatible = "snps,dwmac-mdio";
+> +		phy0: ethernet-phy@0 {
+> +			reg = <3>;
+> +		};
+> +	};
+> +};
+> +
+> +
+> +&i2s2{
+> +	clocks = <&rcc SPI2>, <&rcc SPI2_K>, <&rcc CK_PER>, <&rcc PLL3_R>;
+> +	clock-names = "pclk", "i2sclk", "x8k", "x11k";
+> +	pinctrl-names = "default", "sleep";
+> +	pinctrl-0 = <&i2s2_pins_b>;
+> +	pinctrl-1 = <&i2s2_sleep_pins_b>;
+> +	status = "okay";
+> +
+> +	i2s2_port: port {
+> +		i2s2_endpoint: endpoint {
+> +			remote-endpoint = <&sii9022_tx_endpoint>;
+> +			format = "i2s";
+> +			mclk-fs = <256>;
+> +		};
+> +	};
+> +};
+> +
+> +&iwdg2 {
+> +	timeout-sec = <32>;
+> +	status = "okay";
+> +};
+> +
+> +&ltdc{
+> +	status = "okay";
+> +
+> +	port {
+> +		ltdc_ep0_out: endpoint@0 {
+> +			reg = <0>;
+> +			remote-endpoint = <&sii9022_in>;
+> +		};
+> +	};
+> +};
+> +
+> +&i2c1{
+> +	pinctrl-names = "default", "sleep";
+> +	pinctrl-0 = <&i2c1_pins_a>;
+> +	pinctrl-1 = <&i2c1_sleep_pins_a>;
+> +	status = "okay";
+> +	i2c-scl-rising-time-ns = <100>;
+> +	i2c-scl-falling-time-ns = <7>;
+> +	/delete-property/dmas;
+> +	/delete-property/dma-names;
+> +
+> +	hdmi-transmitter@39 {
+> +		compatible = "sil,sii9022";
+> +		reg = <0x39>;
+> +		reset-gpios = <&gpiog 0 GPIO_ACTIVE_LOW>;
+> +		interrupts = <1 IRQ_TYPE_EDGE_FALLING>;
+> +		interrupt-parent = <&gpiog>;
+> +		pinctrl-names = "default", "sleep";
+> +		pinctrl-0 = <&ltdc_pins_e>;
+> +		pinctrl-1 = <&ltdc_sleep_pins_e>;
+> +		status = "okay";
+> +
+> +		ports {
+> +			#address-cells = <1>;
+> +			#size-cells = <0>;
+> +
+> +			port@0 {
+> +				reg = <0>;
+> +				sii9022_in: endpoint {
+> +					remote-endpoint = <&ltdc_ep0_out>;
+> +				};
+> +			};
+> +
+> +			port@1 {
+> +				reg = <1>;
+> +				sii9022_tx_endpoint: endpoint {
+> +					remote-endpoint = <&i2s2_endpoint>;
+> +				};
+> +			};
+> +		};
+> +	};
+> +};
+> +
+> +&tamp {
+> +	status = "okay";
+> +};
+> +
+> +&sdmmc1 {
+> +	pinctrl-names = "default", "opendrain", "sleep";
+> +	pinctrl-0 = <&sdmmc1_b4_pins_a>;
+> +	pinctrl-1 = <&sdmmc1_b4_od_pins_a>;
+> +	pinctrl-2 = <&sdmmc1_b4_sleep_pins_a>;
+> +	cd-gpios = <&gpioe 7 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
+> +	disable-wp;
+> +	st,neg-edge;
+> +	bus-width = <4>;
+> +	vmmc-supply = <&v3v3>;
+> +	status = "okay";
+> +};
+> +
+> +&sdmmc2 {
+> +	pinctrl-names = "default", "opendrain", "sleep";
+> +	pinctrl-0 = <&sdmmc2_b4_pins_a &sdmmc2_d47_pins_d>;
+> +	pinctrl-1 = <&sdmmc2_b4_od_pins_a>;
+> +	pinctrl-2 = <&sdmmc2_b4_sleep_pins_a &sdmmc2_d47_sleep_pins_d>;
+> +	non-removable;
+> +	no-sd;
+> +	no-sdio;
+> +	st,neg-edge;
+> +	bus-width = <8>;
+> +	vmmc-supply = <&v3v3>;
+> +	vqmmc-supply = <&vdd>;
+> +	mmc-ddr-3_3v;
+> +	status = "okay";
+> +};
+> +
+> +&uart4 {
+> +	pinctrl-names = "default", "sleep", "idle";
+> +	pinctrl-0 = <&uart4_pins_a>;
+> +	pinctrl-1 = <&uart4_sleep_pins_a>;
+> +	pinctrl-2 = <&uart4_idle_pins_a>;
+> +	/delete-property/dmas;
+> +	/delete-property/dma-names;
+> +	status = "okay";
+> +};
+> +
+> +&m_can1 {
+> +	pinctrl-names = "default", "sleep";
+> +	pinctrl-0 = <&m_can1_pins_d>;
+> +	pinctrl-1 = <&m_can1_sleep_pins_d>;
+> +	status = "okay";
+> +};
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
