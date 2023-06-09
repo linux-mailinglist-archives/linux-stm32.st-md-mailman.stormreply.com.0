@@ -2,48 +2,71 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 33954729CAA
-	for <lists+linux-stm32@lfdr.de>; Fri,  9 Jun 2023 16:22:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 857DF729CB3
+	for <lists+linux-stm32@lfdr.de>; Fri,  9 Jun 2023 16:23:58 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E6E0AC65E70;
-	Fri,  9 Jun 2023 14:22:00 +0000 (UTC)
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
- [85.220.165.71])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 31881C6A5E7;
+	Fri,  9 Jun 2023 14:23:58 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 33A6FC65E4F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 35AC4C6905A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  9 Jun 2023 14:22:00 +0000 (UTC)
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
- by metis.ext.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <ukl@pengutronix.de>)
- id 1q7d01-0007ok-Tg; Fri, 09 Jun 2023 16:21:57 +0200
-Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
- by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.94.2)
- (envelope-from <ukl@pengutronix.de>)
- id 1q7d00-006Dw8-Nd; Fri, 09 Jun 2023 16:21:56 +0200
-Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.94.2)
- (envelope-from <ukl@pengutronix.de>)
- id 1q7d00-00CbtK-3b; Fri, 09 Jun 2023 16:21:56 +0200
-Date: Fri, 9 Jun 2023 16:21:55 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
-To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-Message-ID: <20230609142155.h5fvn4fxdcleoznw@pengutronix.de>
-References: <20230608-pwm-stm32-get-state-v1-1-db7e58a7461b@pengutronix.de>
- <dac9c545-fcbc-3aec-c341-abc62f551703@foss.st.com>
+ Fri,  9 Jun 2023 14:23:57 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 359A35SA028075; Fri, 9 Jun 2023 16:23:39 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=bj7M7t8bdQ08GXVPF25sRkD+ihWbmvO7R+gIAK9yWxE=;
+ b=m0DoBnS6trRvF1s4KiCAoQZUCLEAoZsgkHwNS6LkfGBQp6kGYGPN7fwaUZyBgrJDk2jZ
+ dFm5y+eEo5nutkVFTpPQP/8wUc6V7ZR1KBPQv9zlNgr8PX8e6qwfHc6ZG0R9LV8FPMmj
+ SEjvY+ZuWEzXYJ4ieV1+HHymQhZ8dtC1qMhdXLMPzIAlVTeWaXbLJ5mXLWzbIew7xYS4
+ bY5LP1Q7QAwE3FpHo3sKGoUe9RB3xCLaHsN0hJxWuFL0oS/G8N6HWKcIIVYWLF13gGUq
+ HMVhvXD/BQ4YFE0cxN+j9Uq068h3TGArRA2LTipHTDNDUlR1UtyAyGztvw2sr7qVS0L2 Ng== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3r3xsfb7aa-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 09 Jun 2023 16:23:39 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 63F4510002A;
+ Fri,  9 Jun 2023 16:23:38 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 532CB23695E;
+ Fri,  9 Jun 2023 16:23:38 +0200 (CEST)
+Received: from [10.129.178.187] (10.129.178.187) by SHFDAG1NODE2.st.com
+ (10.75.129.70) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.21; Fri, 9 Jun
+ 2023 16:23:35 +0200
+Message-ID: <559a146a-237b-ce42-93e7-ed13cfbb209d@foss.st.com>
+Date: Fri, 9 Jun 2023 16:23:35 +0200
 MIME-Version: 1.0
-In-Reply-To: <dac9c545-fcbc-3aec-c341-abc62f551703@foss.st.com>
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: ukl@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
-Cc: linux-pwm@vger.kernel.org, Philipp Zabel <p.zabel@pengutronix.de>,
- linux-kernel@vger.kernel.org, Thierry Reding <thierry.reding@gmail.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Content-Language: en-US
+To: Dario Binacchi <dario.binacchi@amarulasolutions.com>,
+ <linux-kernel@vger.kernel.org>
+References: <20230609062050.2107143-1-dario.binacchi@amarulasolutions.com>
+ <20230609062050.2107143-3-dario.binacchi@amarulasolutions.com>
+From: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
+In-Reply-To: <20230609062050.2107143-3-dario.binacchi@amarulasolutions.com>
+X-Originating-IP: [10.129.178.187]
+X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE2.st.com
+ (10.75.129.70)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.957,Hydra:6.0.573,FMLib:17.11.176.26
+ definitions=2023-06-09_10,2023-06-09_01,2023-05-22_02
+Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ michael@amarulasolutions.com,
+ Amarula patchwork <linux-amarula@amarulasolutions.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] pwm: stm32: Implement .get_state()
+Subject: Re: [Linux-stm32] [PATCH v3 2/4] ARM: dts: stm32: add pin map for
+ LTDC on stm32f7
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -55,97 +78,20 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============6800379144911058431=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-
---===============6800379144911058431==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="wkz2lg5pii5fhdhh"
-Content-Disposition: inline
-
-
---wkz2lg5pii5fhdhh
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-Hello Fabrice,
-
-On Fri, Jun 09, 2023 at 03:06:47PM +0200, Fabrice Gasnier wrote:
-> On 6/8/23 16:06, Philipp Zabel wrote:
-> > +static int stm32_pwm_get_state(struct pwm_chip *chip,
-> > +			       struct pwm_device *pwm, struct pwm_state *state)
-> > +{
-> > +	struct stm32_pwm *priv =3D to_stm32_pwm_dev(chip);
-> > +	int ch =3D pwm->hwpwm;
-> > +	unsigned long rate;
-> > +	u32 ccer, psc, arr, ccr;
-> > +	u64 dty, prd;
-> > +	int ret;
-> > +
-> > +	ret =3D regmap_read(priv->regmap, TIM_CCER, &ccer);
-> > +	if (ret)
-> > +		return ret;
-> > +
-> > +	state->enabled =3D ccer & (TIM_CCER_CC1E << (ch * 4));
-> > +	state->polarity =3D (ccer & (TIM_CCER_CC1P << (ch * 4))) ?
-> > +			  PWM_POLARITY_INVERSED : PWM_POLARITY_NORMAL;
-> > +	regmap_read(priv->regmap, TIM_PSC, &psc);
-> > +	regmap_read(priv->regmap, TIM_ARR, &arr);
-> > +	read_ccrx(priv, ch, &ccr);
-> > +	rate =3D clk_get_rate(priv->clk);
-> > +
-> > +	prd =3D (u64)NSEC_PER_SEC * (psc + 1) * (arr + 1);
-> > +	state->period =3D DIV_ROUND_UP_ULL(prd, rate);
-> > +	dty =3D (u64)NSEC_PER_SEC * (psc + 1) * ccr;
-> > +	state->duty_cycle =3D DIV_ROUND_UP_ULL(dty, rate);
->=20
-> Just a question/thought, could it be worth to use DIV_ROUND_CLOSEST_ULL()=
- ?
-
-No, round up is the right choice. The reason for that is that .apply()
-rounds down in its divisions. If you use ROUND_CLOSEST here, reapplying
-the result from .get_state() might not be idempotent.
-
-> > +
-> > +	return ret;
-> > +}
-
-Best regards
-Uwe
-
---=20
-Pengutronix e.K.                           | Uwe Kleine-K=F6nig            |
-Industrial Linux Solutions                 | https://www.pengutronix.de/ |
-
---wkz2lg5pii5fhdhh
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmSDNYMACgkQj4D7WH0S
-/k7s5Af/RT0ZOdJvsT4ylvLPggQkwlMTUHV0alz7e2/4+uYnw8bv5kN9Ly38Mnm5
-IKwDWxm5tRbuUNm658LqBYi4xXRnPdvkR3Sx18PE8KZsIkbjRcaizPk2UnkpIJKd
-UWtztLyKTT5LUp2mn9WGjzUgC+eXW67uSY0/ChoWVANu9/J2bpbp2rpIz3l2vk30
-jwdWMX61A7j5kS/XanteA7nKuFwI94MdzrfqCMSAW2w2YKS63RcA/aPr1tKtlPZv
-77UHlviGhFPm7R4LrAaX3Swj2OIq3Lj7nREr9YUT5/vO+AULV9pX2nUvR9zAMVVw
-y/4kR4atPgutjQ19zD+pfpXz/jlQGQ==
-=yi3A
------END PGP SIGNATURE-----
-
---wkz2lg5pii5fhdhh--
-
---===============6800379144911058431==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============6800379144911058431==--
+Ck9uIDYvOS8yMyAwODoyMCwgRGFyaW8gQmluYWNjaGkgd3JvdGU6Cj4gQWRkIHBpbiBjb25maWd1
+cmF0aW9ucyBmb3IgdXNpbmcgTFREQyAoTENELXRmdCBEaXNwbGF5IENvbnRyb2xsZXIpIG9uCj4g
+c3RtMzJmNzQ2LWRpc2NvIGJvYXJkLgo+Cj4gU2lnbmVkLW9mZi1ieTogRGFyaW8gQmluYWNjaGkg
+PGRhcmlvLmJpbmFjY2hpQGFtYXJ1bGFzb2x1dGlvbnMuY29tPgpSZXZpZXdlZC1ieTogUmFwaGHD
+q2wgR2FsbGFpcy1Qb3UgPHJhcGhhZWwuZ2FsbGFpcy1wb3VAZm9zcy5zdC5jb20+Cj4KPiAtLS0K
+Pgo+IENoYW5nZXMgaW4gdjM6Cj4gLSByZW5hbWUgbHRkYy1waW5zLWEtMCB0byBsdGRjLTAuCj4K
+PiAgYXJjaC9hcm0vYm9vdC9kdHMvc3RtMzJmNy1waW5jdHJsLmR0c2kgfCAzNSArKysrKysrKysr
+KysrKysrKysrKysrKysrKwo+ICAxIGZpbGUgY2hhbmdlZCwgMzUgaW5zZXJ0aW9ucygrKQpfX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBt
+YWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRw
+czovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1z
+dG0zMgo=
