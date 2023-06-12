@@ -2,86 +2,88 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id F12F872C7F9
-	for <lists+linux-stm32@lfdr.de>; Mon, 12 Jun 2023 16:17:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5052A72CC43
+	for <lists+linux-stm32@lfdr.de>; Mon, 12 Jun 2023 19:20:45 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A8DDBC6A60F;
-	Mon, 12 Jun 2023 14:17:41 +0000 (UTC)
-Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
- [66.111.4.28])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DFAD8C65E4C
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 003AAC6A615;
+	Mon, 12 Jun 2023 17:20:44 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C01A8C6A60E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 12 Jun 2023 14:17:40 +0000 (UTC)
-Received: from compute6.internal (compute6.nyi.internal [10.202.2.47])
- by mailout.nyi.internal (Postfix) with ESMTP id 16FDE5C012F;
- Mon, 12 Jun 2023 10:17:40 -0400 (EDT)
-Received: from imap51 ([10.202.2.101])
- by compute6.internal (MEProxy); Mon, 12 Jun 2023 10:17:40 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
- :cc:content-type:content-type:date:date:from:from:in-reply-to
- :in-reply-to:message-id:mime-version:references:reply-to:sender
- :subject:subject:to:to; s=fm1; t=1686579460; x=1686665860; bh=aP
- w1HIovDb5iJ4pYiKtcUIbVnbrPXJ4FRPPswedoB04=; b=xlRymHB7jHhqWfKboK
- BHHqpl7IpRva7ElJrYLJVJASMlzQsmeKtxySzdMSNVsP7eM9qWcHiklcKHH8ldrR
- e2RbYqLHf7hMXK2baDiAZO8QAuN8vWyOJ8O49CSDjDDJMweOyrGHjLXFwcxKTuQZ
- Zvdd9KLvcL8IYb/BgzodMn7SnK4Mcd9ujhGQmmts2bhA677S4nrIAi3KxkQXyODo
- Xt2PNj7lyC/8YcUAO9B4oCGwFBTeTuUMoeVIkvBAJMJvtm/2SHU8d5Max+IyJjB2
- 79kVFZQZ2LnrhrOI1tsi8dimV3t1/20ootFlgrgxiD16eaWycOj8gyOpkExJoaeG
- esMg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-type:content-type:date:date
- :feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
- :message-id:mime-version:references:reply-to:sender:subject
- :subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
- :x-sasl-enc; s=fm2; t=1686579460; x=1686665860; bh=aPw1HIovDb5iJ
- 4pYiKtcUIbVnbrPXJ4FRPPswedoB04=; b=kXCb8NjVNnVfQaNku5rC9rlj+tYCE
- FdaGelcMW8aCd0ol5JRcA3cj06/McwJhHYP5iMJXHVaraLvikWcfJFL3XuUnPf+J
- /BYOF70bL9Xx6bqTP9b+vFPtkrV8wKNR6u116mhWK6rNBw6N72HkBNqZWKQcF+BC
- WvrJTzswEm7G/9qBGrIaMgpVLn4dGH+9DMmf5A4T8axThkoHPPiZBYd+yUvHB68x
- m/lMiszjdT5Bv6TlfZiAXHYZK66n+mBC9zmsY8mV030VXvRhHM2Y6rQoqHYqJmf0
- 0sda/0ZdjQiR5SRYwKyR0nvGr0D3iFQP94EhgW7tEynpyckb/20r6kPfg==
-X-ME-Sender: <xms:AymHZIjn2lJtucqP8ooR0CmlmbD3XpfUMkn_7M1TJnAgC-paBlWwDQ>
- <xme:AymHZBDhjpxmEeBQy3Z6Yobz7aMaIA4ZUANBqO_qHurvdSEXB4XwWea6XgMS-zW-h
- b12jHG4SWq_j3SvdG8>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrgeduhedgjeefucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
- cujfgurhepofgfggfkjghffffhvfevufgtsehttdertderredtnecuhfhrohhmpedftehr
- nhguuceuvghrghhmrghnnhdfuceorghrnhgusegrrhhnuggsrdguvgeqnecuggftrfgrth
- htvghrnhepffehueegteeihfegtefhjefgtdeugfegjeelheejueethfefgeeghfektdek
- teffnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomheprg
- hrnhgusegrrhhnuggsrdguvg
-X-ME-Proxy: <xmx:AymHZAGMKlkcPuUrADy3F5CyMZkm-HOzaYM0AgMch72sCXleBR1ghw>
- <xmx:AymHZJTutWTBlZcjFTGMxY6LX_FoQMoY05VLUoMHSUXiBpaEvBpVFw>
- <xmx:AymHZFxRg9o5UgK776RV8TsNgTm026ETAkIi1sxIQYOPmKKYaYQv4Q>
- <xmx:BCmHZL4WckZf90RZhXQG-JfPfmj6SjErT0aGgG875uhd06imw642Lw>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.nyi.internal (Postfix, from userid 501)
- id 946CDB60086; Mon, 12 Jun 2023 10:17:39 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
-User-Agent: Cyrus-JMAP/3.9.0-alpha0-492-g08e3be04ba-fm-20230607.003-g08e3be04
-Mime-Version: 1.0
-Message-Id: <ba58f0cb-3683-4aae-8c10-2fad2e701501@app.fastmail.com>
-In-Reply-To: <7846c69b-5c2d-16d3-6079-d11a60171a69@foss.st.com>
-References: <20230609120546.3937821-1-arnd@kernel.org>
- <7846c69b-5c2d-16d3-6079-d11a60171a69@foss.st.com>
-Date: Mon, 12 Jun 2023 16:17:19 +0200
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Arnaud POULIQUEN" <arnaud.pouliquen@foss.st.com>,
- "Arnd Bergmann" <arnd@kernel.org>, "Bjorn Andersson" <andersson@kernel.org>,
- "Mathieu Poirier" <mathieu.poirier@linaro.org>,
- "Maxime Coquelin" <mcoquelin.stm32@gmail.com>,
- "Alexandre Torgue" <alexandre.torgue@foss.st.com>
-Cc: Tanmay Shah <tanmay.shah@amd.com>, linux-remoteproc@vger.kernel.org,
- linux-kernel@vger.kernel.org, Ben Levinsky <ben.levinsky@amd.com>,
- linux-arm-kernel@lists.infradead.org,
- =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
- linux-stm32@st-md-mailman.stormreply.com,
- Dan Carpenter <dan.carpenter@linaro.org>
-Subject: Re: [Linux-stm32] [PATCH] remoteproc: stm32: use correct format
-	strings on 64-bit
+ Mon, 12 Jun 2023 17:20:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1686590442;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=7qlKft7mE4b2kNS3x9A8djvNWYAtiYtMSSZe9V4o7Ek=;
+ b=fdEYm5ePBJz8/sLLgUVBm+R801+8LnD8NjUGHFbjdaf27oyWXenG6Z3ZUtVNGn5uvySK78
+ B+Osf9UhBiADVQH0iH08VioSP5Jl7ZV/lF6l1B9+FAMENolBKIZoRjRAKHGcmqluj2us/r
+ IAZNz1smwBpSZ6pB4EzfEgUQEJJRgDs=
+Received: from mail-yw1-f198.google.com (mail-yw1-f198.google.com
+ [209.85.128.198]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-639-fcrV3AgNNF-qJaUArLIE_g-1; Mon, 12 Jun 2023 13:20:41 -0400
+X-MC-Unique: fcrV3AgNNF-qJaUArLIE_g-1
+Received: by mail-yw1-f198.google.com with SMTP id
+ 00721157ae682-565ba5667d5so65743307b3.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 12 Jun 2023 10:20:41 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1686590440; x=1689182440;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=7qlKft7mE4b2kNS3x9A8djvNWYAtiYtMSSZe9V4o7Ek=;
+ b=ge6fQk8zXctIxvySPUmBWMU2F8biSFSAZl+F943TxqOrnqw3A5X7j94ytSZ3AD14AT
+ oHPTuZq7AssIqIag0+sYt/YylyRcK4OxQyImlz16+4jAes6MGoDSkUCDSGy2fSPwY3CU
+ 33BT+7aqx5Q/7Gw6/J9gbtPy0lhd9f9McLzVl2o/v1Y4K8WdtrdCl9NFX6lrVV9jrj0t
+ uKMmfSkZjQJ4DmBqIIVjWnZlSVJgjw9RNdiloHo0dS6ZCb4fQtKMCIK2Y9e+86cSyeco
+ IUO0LU3EAM0lfSrvqk5gJK7uz4MEUlk14bbSku/P4IbC3i33hpIzY5B5X0KdyKxvJy6y
+ qOng==
+X-Gm-Message-State: AC+VfDxCAwZlo4v3kdcwaRIEsIikrdtxbWJXKrqN/HqBsjQjBNlBj7Su
+ qirMb+uEz6SiS673ojZOvhq4GEEB/6DETN25NM4uKDGN1bjejkv611SjBxKdiuwMx9//5SyFBf9
+ a2JaS+ahGLt2OnqHJTeQsUL7GhkwHH11N37tIp5Nh
+X-Received: by 2002:a81:8047:0:b0:565:c888:1d09 with SMTP id
+ q68-20020a818047000000b00565c8881d09mr11436045ywf.30.1686590440570; 
+ Mon, 12 Jun 2023 10:20:40 -0700 (PDT)
+X-Google-Smtp-Source: ACHHUZ6pK0EspHiEwXLJwZSnTgF0PmnWrSSsx5/e6T7JNdTcNpiEDXWG/J7snMtSub/jvW4XBEs/gg==
+X-Received: by 2002:a81:8047:0:b0:565:c888:1d09 with SMTP id
+ q68-20020a818047000000b00565c8881d09mr11436028ywf.30.1686590440315; 
+ Mon, 12 Jun 2023 10:20:40 -0700 (PDT)
+Received: from halaney-x13s ([2600:1700:1ff0:d0e0::45])
+ by smtp.gmail.com with ESMTPSA id
+ t7-20020a815f07000000b0054f9e7fed7asm2622065ywb.137.2023.06.12.10.20.38
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 12 Jun 2023 10:20:39 -0700 (PDT)
+Date: Mon, 12 Jun 2023 12:20:36 -0500
+From: Andrew Halaney <ahalaney@redhat.com>
+To: Bartosz Golaszewski <brgl@bgdev.pl>
+Message-ID: <20230612172036.ztvjdzblh6bvmxp2@halaney-x13s>
+References: <20230612092355.87937-1-brgl@bgdev.pl>
+ <20230612092355.87937-2-brgl@bgdev.pl>
+MIME-Version: 1.0
+In-Reply-To: <20230612092355.87937-2-brgl@bgdev.pl>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Disposition: inline
+Cc: Eric Dumazet <edumazet@google.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ linux-phy@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
+ Kishon Vijay Abraham I <kishon@kernel.org>,
+ Bartosz Golaszewski <bartosz.golaszewski@linaro.org>,
+ Jose Abreu <joabreu@synopsys.com>, Andy Gross <agross@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ Bhupesh Sharma <bhupesh.sharma@linaro.org>, linux-arm-msm@vger.kernel.org,
+ Rob Herring <robh+dt@kernel.org>, Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>, linux-kernel@vger.kernel.org,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Vinod Koul <vkoul@kernel.org>,
+ "David S . Miller" <davem@davemloft.net>
+Subject: Re: [Linux-stm32] [PATCH 01/26] phy: qualcomm: fix indentation in
+	Makefile
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,23 +100,33 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Jun 12, 2023, at 16:10, Arnaud POULIQUEN wrote:
+On Mon, Jun 12, 2023 at 11:23:30AM +0200, Bartosz Golaszewski wrote:
+> From: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
+> 
+> Align all entries in Makefile.
+> 
+> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
 
->>  	ddata->rsc_va = devm_ioremap_wc(dev, rsc_pa, RSC_TBL_SIZE);
->>  	if (IS_ERR_OR_NULL(ddata->rsc_va)) {
->> -		dev_err(dev, "Unable to map memory region: %pa+%zx\n",
->> +		dev_err(dev, "Unable to map memory region: %pa+%x\n",
->>  			&rsc_pa, RSC_TBL_SIZE);
->
-> What about cast the RSC_TBL_SIZE define instead to ensure to be independent from
-> the arch and to match with the use of RSC_TBL_SIZE?
->
-> #define RSC_TBL_SIZE		((size_t)1024)
+Reviewed-by: Andrew Halaney <ahalaney@redhat.com>
 
-I have no objection to that, but I don't see it doing anything good either,
-as this is a constant value that will always work.
+> ---
+>  drivers/phy/qualcomm/Makefile | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/phy/qualcomm/Makefile b/drivers/phy/qualcomm/Makefile
+> index de3dc9ccf067..5fb33628566b 100644
+> --- a/drivers/phy/qualcomm/Makefile
+> +++ b/drivers/phy/qualcomm/Makefile
+> @@ -20,4 +20,4 @@ obj-$(CONFIG_PHY_QCOM_USB_HSIC) 	+= phy-qcom-usb-hsic.o
+>  obj-$(CONFIG_PHY_QCOM_USB_HS_28NM)	+= phy-qcom-usb-hs-28nm.o
+>  obj-$(CONFIG_PHY_QCOM_USB_SS)		+= phy-qcom-usb-ss.o
+>  obj-$(CONFIG_PHY_QCOM_USB_SNPS_FEMTO_V2)+= phy-qcom-snps-femto-v2.o
+> -obj-$(CONFIG_PHY_QCOM_IPQ806X_USB)		+= phy-qcom-ipq806x-usb.o
+> +obj-$(CONFIG_PHY_QCOM_IPQ806X_USB)	+= phy-qcom-ipq806x-usb.o
+> -- 
+> 2.39.2
+> 
 
-     Arnd
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
