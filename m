@@ -2,69 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8CA4772D0D9
-	for <lists+linux-stm32@lfdr.de>; Mon, 12 Jun 2023 22:42:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2A4B072D187
+	for <lists+linux-stm32@lfdr.de>; Mon, 12 Jun 2023 23:06:56 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4BED9C6A617;
-	Mon, 12 Jun 2023 20:42:59 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D01C0C6A617;
+	Mon, 12 Jun 2023 21:06:55 +0000 (UTC)
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AAFB2C6A60E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 885AAC6A60E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 12 Jun 2023 20:42:57 +0000 (UTC)
+ Mon, 12 Jun 2023 21:06:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1686602576;
+ s=mimecast20190719; t=1686604013;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=a+9OvtK97veHl6+HegxVNiurUYmzQbeChvO9xmQ5r5g=;
- b=I0R+X/uZrLtGtzAyQYDm9VNqRRCGuGZZ6pawqilQTJyOrTv/2dbXcM8eBri/7jGELwHtkw
- ZKFJ72U/FaKu6P+VGZuRhrez1f22al6IBxVTPqgfV5l0nExYXCpoQSMpt2FBLfSt9ZVWxA
- lfqHIjRPiDtj6KEtI0fioEnWwlKRoI4=
-Received: from mail-yw1-f200.google.com (mail-yw1-f200.google.com
- [209.85.128.200]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=UVvZ3v/vxKNyCI7w7GwLJIJ0X+T6wDAbj+0uoM6y2a8=;
+ b=YD+8krc54rdn46lHqG4VtayjsMbMcXCGWvN21Ahmqgz3qA0siBgzkgrJeryhDdlUf56uFK
+ Mv0Hmd4rs+a4PZHp7wslVZo7iTLTxcjTX9svq3BM58lDIYfqF6FCHeRcoWEml6Lok3x8S+
+ sbMg5VWr+LyHXtgKjuW90WDzGHsXWUg=
+Received: from mail-oa1-f72.google.com (mail-oa1-f72.google.com
+ [209.85.160.72]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-604-oziSkl-kNayiEzgUYDdQlw-1; Mon, 12 Jun 2023 16:42:55 -0400
-X-MC-Unique: oziSkl-kNayiEzgUYDdQlw-1
-Received: by mail-yw1-f200.google.com with SMTP id
- 00721157ae682-565d1b86a63so69925217b3.0
+ us-mta-550-U87MwG8FNb6WbP8E8IwPBw-1; Mon, 12 Jun 2023 17:06:52 -0400
+X-MC-Unique: U87MwG8FNb6WbP8E8IwPBw-1
+Received: by mail-oa1-f72.google.com with SMTP id
+ 586e51a60fabf-1a670594351so1640962fac.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 12 Jun 2023 13:42:55 -0700 (PDT)
+ Mon, 12 Jun 2023 14:06:52 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1686602575; x=1689194575;
+ d=1e100.net; s=20221208; t=1686603996; x=1689195996;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=a+9OvtK97veHl6+HegxVNiurUYmzQbeChvO9xmQ5r5g=;
- b=a2k9UdtDVsvRbUSpmpJAubj7zD7Dq8sK7b53mt7lgzJt5mx3IkOW3MW7xudM0lkuwj
- 5Qq8478EtHNmtvRliFv5NBFeKnvMH/xxMPkYv8aj5hoQ2l//B3D0cBwsvYhg/IyAlVrG
- orzAg1+WKDZraqCkFdAyrBaz1lSXzIj4rwH8+KXHq1PgDsRXJlCnV7Kx/u/dBpyjZ8dO
- DvhzrZIKqsYY7HbE5YABXar/pWL/rPpnSvVFcxrzb+pKRMQzSmb+fC937siim1ra1h4p
- WVK4Hq1g31LJAtScllroHqWqT3gg16QV4R5ol9JNqeiCiC4KxAbDZ5wb37Oo61/+/sJI
- b/Fg==
-X-Gm-Message-State: AC+VfDwH9IipfLd8bn0oJWu4UYP9E//9CYs2vUXzkoZfAr1H0bK73AmF
- LvyHy8ZvOjF3V9JzrfYFNKHrNgWX7tojrpgL1njK5+Zj5LL5e9cs3NnX2WL057ELJhL3ivIREeX
- fSMeGl9eYGNnGAZf6LWJxQi94CuqwRzC+FrbSxEkj
-X-Received: by 2002:a81:7bc6:0:b0:56d:3372:71c7 with SMTP id
- w189-20020a817bc6000000b0056d337271c7mr2596021ywc.23.1686602575040; 
- Mon, 12 Jun 2023 13:42:55 -0700 (PDT)
-X-Google-Smtp-Source: ACHHUZ5xUUOwVWCsyVOTXZeMW6GB/UM/A5jZuRMVvmYBzle/O+VHgBsWxsSIEBgDZ0wTd7/cMwI9Mg==
-X-Received: by 2002:a81:7bc6:0:b0:56d:3372:71c7 with SMTP id
- w189-20020a817bc6000000b0056d337271c7mr2596001ywc.23.1686602574825; 
- Mon, 12 Jun 2023 13:42:54 -0700 (PDT)
+ bh=UVvZ3v/vxKNyCI7w7GwLJIJ0X+T6wDAbj+0uoM6y2a8=;
+ b=lk6Bensbbti6+NeTH2BWhvQZ6k01uQPmG+lfy6ytvBgd2lgJLHb1J32bdizx6m8tsG
+ QmWiteGZNXKpmmkCHhmqqIGyLkEClMZIBzfzltZxMr7Yatbtge//OVavcSr5oaMnM+Dr
+ cmYsMuN65wxjsjWhB34QAhymaqrjPCkjAIU5gH2yanJxbwub9FBmuaqNggT6igp0BAYn
+ JPJDWVe8R6v2CUAPkQC3OLDY0RdA3DEIAezrDEUTCzxySbF46td6FxU0IpIb9HmRaBeh
+ kBWwzp5yLo8xC6SSl8ECqU2xr3J5qeI64XO51SB03PQzELRAx8NhUQjPLJ5qIYLpiOMz
+ fhtw==
+X-Gm-Message-State: AC+VfDxwBAvIA0Za4Cd9pavlzMGFpKe1RmrYDcyvY78w/XUTB2LjFWaY
+ HFlcP/FjQeouahoqqgUDqa+p2rETJ4adT4NaFCtJi9rMuncwEjqsitf6jrrp9XW3ddXScSh/dIJ
+ qrZYxV1oTTsxgudyQB2MNDCh2S1OinuiTjCbhR3KB
+X-Received: by 2002:a05:6870:770d:b0:1a6:7ae5:8e31 with SMTP id
+ dw13-20020a056870770d00b001a67ae58e31mr2707699oab.15.1686603996098; 
+ Mon, 12 Jun 2023 14:06:36 -0700 (PDT)
+X-Google-Smtp-Source: ACHHUZ5l8CIOc/fjbn/4dLBsqStqDJVa3ICb/fLC7IjnpwzGvy8FQcOZ753YVKUTI3PaLVSqB/0bAw==
+X-Received: by 2002:a05:6870:770d:b0:1a6:7ae5:8e31 with SMTP id
+ dw13-20020a056870770d00b001a67ae58e31mr2707670oab.15.1686603995860; 
+ Mon, 12 Jun 2023 14:06:35 -0700 (PDT)
 Received: from halaney-x13s ([2600:1700:1ff0:d0e0::45])
  by smtp.gmail.com with ESMTPSA id
- x186-20020a817cc3000000b00568cbb028c6sm2769484ywc.85.2023.06.12.13.42.53
+ nw27-20020a056870bb1b00b001a6825ed5cfsm2251974oab.4.2023.06.12.14.06.34
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 12 Jun 2023 13:42:54 -0700 (PDT)
-Date: Mon, 12 Jun 2023 15:42:52 -0500
+ Mon, 12 Jun 2023 14:06:35 -0700 (PDT)
+Date: Mon, 12 Jun 2023 16:06:32 -0500
 From: Andrew Halaney <ahalaney@redhat.com>
 To: Bartosz Golaszewski <brgl@bgdev.pl>
-Message-ID: <20230612204252.kb57m72ehazt4bco@halaney-x13s>
+Message-ID: <20230612210632.agp4ybeseujblao2@halaney-x13s>
 References: <20230612092355.87937-1-brgl@bgdev.pl>
- <20230612092355.87937-15-brgl@bgdev.pl>
+ <20230612092355.87937-16-brgl@bgdev.pl>
 MIME-Version: 1.0
-In-Reply-To: <20230612092355.87937-15-brgl@bgdev.pl>
+In-Reply-To: <20230612092355.87937-16-brgl@bgdev.pl>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Disposition: inline
@@ -82,8 +82,8 @@ Cc: Eric Dumazet <edumazet@google.com>,
  Bjorn Andersson <andersson@kernel.org>, linux-kernel@vger.kernel.org,
  Konrad Dybcio <konrad.dybcio@linaro.org>, Vinod Koul <vkoul@kernel.org>,
  "David S . Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH 14/26] net: stmmac: dwmac-qcom-ethqos: add
- optional phyaux clock
+Subject: Re: [Linux-stm32] [PATCH 15/26] net: stmmac: dwmac-qcom-ethqos: add
+ support for the optional phy-supply
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,69 +100,48 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Jun 12, 2023 at 11:23:43AM +0200, Bartosz Golaszewski wrote:
+On Mon, Jun 12, 2023 at 11:23:44AM +0200, Bartosz Golaszewski wrote:
 > From: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
 > 
-> On sa8775p we don't use the RGMII clock but have an additional PHYAUX
-> clock so add support for it to the driver.
+> On sa8775p-ride we need to enable the power supply for the external PHY.
+
+Is this for the external phy? It doesn't seem like it from the board
+schematic I have... the regulator never makes it out of the black box that
+is the SIP/SOM if I'm reading right.
+
+My (poor) understanding was this was for the serdes phy that's doing the
+conversion to SGMII before hitting the board... good chance I'm wrong
+though.
+
 > 
 > Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
 > ---
->  .../ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c   | 15 +++++++++++++++
->  1 file changed, 15 insertions(+)
+>  drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c | 5 +++++
+>  1 file changed, 5 insertions(+)
 > 
 > diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-> index 252dca400071..2f6b9b419601 100644
+> index 2f6b9b419601..21f329d2f7eb 100644
 > --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
 > +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-> @@ -94,6 +94,7 @@ struct qcom_ethqos {
+> @@ -8,6 +8,7 @@
+>  #include <linux/phy.h>
+>  #include <linux/phy/phy.h>
+>  #include <linux/property.h>
+> +#include <linux/regulator/consumer.h>
 >  
->  	unsigned int rgmii_clk_rate;
->  	struct clk *rgmii_clk;
-> +	struct clk *phyaux_clk;
->  	struct phy *serdes_phy;
->  	unsigned int speed;
->  
-> @@ -604,6 +605,13 @@ static int ethqos_clks_config(void *priv, bool enabled)
->  			return ret;
->  		}
->  
-> +		ret = clk_prepare_enable(ethqos->phyaux_clk);
-> +		if (ret) {
-> +			clk_disable_unprepare(ethqos->rgmii_clk);
-> +			dev_err(&ethqos->pdev->dev, "phyaux enable failed\n");
-> +			return ret;
-> +		}
-> +
->  		/* Enable functional clock to prevent DMA reset to timeout due
->  		 * to lacking PHY clock after the hardware block has been power
->  		 * cycled. The actual configuration will be adjusted once
-> @@ -611,6 +619,7 @@ static int ethqos_clks_config(void *priv, bool enabled)
->  		 */
->  		ethqos_set_func_clk_en(ethqos);
->  	} else {
-> +		clk_disable_unprepare(ethqos->phyaux_clk);
->  		clk_disable_unprepare(ethqos->rgmii_clk);
->  	}
->  
-> @@ -669,6 +678,12 @@ static int qcom_ethqos_probe(struct platform_device *pdev)
->  		goto out_config_dt;
->  	}
->  
-> +	ethqos->phyaux_clk = devm_clk_get_optional(dev, "phyaux");
-> +	if (IS_ERR(ethqos->phyaux_clk)) {
-> +		ret = PTR_ERR(ethqos->phyaux_clk);
-> +		goto out_config_dt;
-> +	}
-> +
-
-Similar comment to the prior patch about whether or not this should be
-optional (or selected via platform compatible and required),
-otherwise looks good.
-
->  	ret = ethqos_clks_config(ethqos, true);
+>  #include "stmmac.h"
+>  #include "stmmac_platform.h"
+> @@ -692,6 +693,10 @@ static int qcom_ethqos_probe(struct platform_device *pdev)
 >  	if (ret)
 >  		goto out_config_dt;
+>  
+> +	ret = devm_regulator_get_enable_optional(dev, "phy");
+> +	if (ret < 0 && ret != -ENODEV)
+> +		goto out_config_dt;
+> +
+>  	ethqos->serdes_phy = devm_phy_optional_get(dev, "serdes");
+>  	if (IS_ERR(ethqos->serdes_phy)) {
+>  		ret = PTR_ERR(ethqos->serdes_phy);
 > -- 
 > 2.39.2
 > 
