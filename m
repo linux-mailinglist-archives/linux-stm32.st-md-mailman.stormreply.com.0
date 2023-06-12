@@ -2,69 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 02E6572CDD1
-	for <lists+linux-stm32@lfdr.de>; Mon, 12 Jun 2023 20:23:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9A35072CE75
+	for <lists+linux-stm32@lfdr.de>; Mon, 12 Jun 2023 20:32:51 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A339DC6A617;
-	Mon, 12 Jun 2023 18:23:04 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4C93FC6A617;
+	Mon, 12 Jun 2023 18:32:51 +0000 (UTC)
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 70E42C6A60F
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1A949C6A60E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 12 Jun 2023 18:23:03 +0000 (UTC)
+ Mon, 12 Jun 2023 18:32:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1686594182;
+ s=mimecast20190719; t=1686594769;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=WuZqmtvd4WjoknFOrkLRYxUsHp5/t5pNlhuMb2dd9d8=;
- b=Ptgnm/zcPxh2qyvS8qltOjVRhNbDAAvI7EAtTH2NJb1Ha/K2xYBYiyD/YrumENKo1HBem3
- gj4fMo5afQ4d4ESDS6UJutNcjBWPi3onKqQoSd+olWlMqzlkCIZNbO2NCSXCJMp5IRYPlx
- tr/Kzf+m3cz+BSKhYKzD2MtmbK/2tr8=
-Received: from mail-oa1-f70.google.com (mail-oa1-f70.google.com
- [209.85.160.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=qSuO83O2GJF69D20JvszqVCusWGni7xZeOtz58f06pw=;
+ b=P1Gzm0BvCPN7KWcYUorr5D3fvJVkAGDa9p/j/PG+2h5kIVuKTNofQyGirvEUugLLMBzIMD
+ dKh5l5KPdtRspWNPJcuP/Lw6dP5PLsH+bj8a72EN8z6l+yTayTnkbnh7L2whfUeMxLP5Fd
+ BJOSzaB7QMsxJJpg7uuyEZEfS6GH2bY=
+Received: from mail-ot1-f69.google.com (mail-ot1-f69.google.com
+ [209.85.210.69]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-223-iq_xPEk8MEulVPbPC7RoPg-1; Mon, 12 Jun 2023 14:23:01 -0400
-X-MC-Unique: iq_xPEk8MEulVPbPC7RoPg-1
-Received: by mail-oa1-f70.google.com with SMTP id
- 586e51a60fabf-1a66bf3a386so1710574fac.1
+ us-mta-244-9WXxEuicPGatLSjZsn51-g-1; Mon, 12 Jun 2023 14:32:47 -0400
+X-MC-Unique: 9WXxEuicPGatLSjZsn51-g-1
+Received: by mail-ot1-f69.google.com with SMTP id
+ 46e09a7af769-6b29ac99ffaso2282778a34.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 12 Jun 2023 11:23:00 -0700 (PDT)
+ Mon, 12 Jun 2023 11:32:47 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1686594180; x=1689186180;
+ d=1e100.net; s=20221208; t=1686594767; x=1689186767;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=WuZqmtvd4WjoknFOrkLRYxUsHp5/t5pNlhuMb2dd9d8=;
- b=BZ5Iar3o/t+1R77YGA5HQcGCz0RO4kFSsiT48YXq7tYuP1B1Nw04jyxt7bQH8WXN+2
- TfJDV/vsKzolODoW03tTPAvK8RIXtQWK4h5Tb8oph24oil1TR7RH7qK2KCOxvwkMo6JP
- lPROtZPOqhj2wHcwsZbGRX44US8LYegmWLkJNG0ooYBvifo76hchiWo+w56hFMwLELcj
- IBnOwVtg/UMh1sdJVUu25mCcQCaZDHz9r4snYvNcAs2Ryou4aFPqEC8Kv8WTrFsOg0Xv
- nPMY1+C/zqEgx4cO7Wq5vpFc9WhkvJINqOCM+t2dkR/Sd69ZpR1doBR3xJvM/pobetX9
- S/Ww==
-X-Gm-Message-State: AC+VfDxipzqzCqSaCXHx69v7DsX45T5t//u0ukoCdMCC3QtgPV4hKbIV
- +ixViflMZeppAGYCTgKcM8AwsfMnLT0YXeaWh3nbad8nd/nwD0n/ox6Y59sqJMKhNYK+FBLGIkO
- 40lmCT0bR0j4AE5HZNhAcH5fKeodPyYKs577oRPif
-X-Received: by 2002:a05:6870:3403:b0:1a6:a28b:6e4 with SMTP id
- g3-20020a056870340300b001a6a28b06e4mr1424763oah.37.1686594180231; 
- Mon, 12 Jun 2023 11:23:00 -0700 (PDT)
-X-Google-Smtp-Source: ACHHUZ4ojOAZsqcF6bnSAgTcknWHmKu5ibIbDyN5vE0vwVE23kVcIn47oSmy77InfhxOlx0UQ4BxKw==
-X-Received: by 2002:a05:6870:3403:b0:1a6:a28b:6e4 with SMTP id
- g3-20020a056870340300b001a6a28b06e4mr1424739oah.37.1686594179927; 
- Mon, 12 Jun 2023 11:22:59 -0700 (PDT)
+ bh=qSuO83O2GJF69D20JvszqVCusWGni7xZeOtz58f06pw=;
+ b=Tap5Ok8MPokcChLd5tPZH1VdvSInmNiLE+h9P/ELO6XAxyO/I/7T0e4xLhW4swYsWH
+ nFBxA6RmT45k4KweO+9+ZJ2BUACDElw6dhrOSUS+JNcXODjzU2Tn5NBZPIGFqAnWLBHY
+ MdVwbYgWxPJ+f6IbF9tuF3Q8F40fl8ZBAZkwWbixcqtvHEmwzt8YXloGaxOB53zAELKb
+ 3glJ6Wa3GtZKO/T0BtsrmJXg88BLGMUsa7niToWhbNphuODSVbNlg6Ja/u9Xo2WRyEVX
+ IzygqhImiqibf8MOcpUOA9MPE5c62UCT6rhy+hBV3L+LycefAb892WoLxiZHmAiXBXSy
+ /g/Q==
+X-Gm-Message-State: AC+VfDyfuA/1DlHNG/iIyh3O55dYM12Lnj21oj16dk6Abs88JSP0V4Kk
+ 1/hrXn4s3q3FLVmZFdaGA0iNLzJSCBuGaZV6KUjDGwURGjxRCVxepGYM3svXIzxj9QunK4pfcdA
+ zSE0gan9WeBOsGVdRZQuHMYGjKH4bPxwo4hv9rGL1
+X-Received: by 2002:a05:6830:92:b0:6a5:dd70:38cd with SMTP id
+ a18-20020a056830009200b006a5dd7038cdmr6651290oto.2.1686594767178; 
+ Mon, 12 Jun 2023 11:32:47 -0700 (PDT)
+X-Google-Smtp-Source: ACHHUZ5HntANaGm+HkD+UPQVxKZBUJkVk1zEqMvLrahjA8N+vIH05i26ddN13SkrcVSLU5flZVuT2A==
+X-Received: by 2002:a05:6830:92:b0:6a5:dd70:38cd with SMTP id
+ a18-20020a056830009200b006a5dd7038cdmr6651260oto.2.1686594766931; 
+ Mon, 12 Jun 2023 11:32:46 -0700 (PDT)
 Received: from halaney-x13s ([2600:1700:1ff0:d0e0::45])
  by smtp.gmail.com with ESMTPSA id
- r34-20020a05687108a200b001a68feb9440sm1579964oaq.9.2023.06.12.11.22.58
+ w14-20020a056830060e00b006af9d8af435sm4138880oti.50.2023.06.12.11.32.45
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 12 Jun 2023 11:22:59 -0700 (PDT)
-Date: Mon, 12 Jun 2023 13:22:56 -0500
+ Mon, 12 Jun 2023 11:32:46 -0700 (PDT)
+Date: Mon, 12 Jun 2023 13:32:43 -0500
 From: Andrew Halaney <ahalaney@redhat.com>
 To: Bartosz Golaszewski <brgl@bgdev.pl>
-Message-ID: <20230612182256.7cc3goqwid32fdn6@halaney-x13s>
+Message-ID: <20230612183243.5rkphsaqofi42bgc@halaney-x13s>
 References: <20230612092355.87937-1-brgl@bgdev.pl>
- <20230612092355.87937-6-brgl@bgdev.pl>
+ <20230612092355.87937-7-brgl@bgdev.pl>
 MIME-Version: 1.0
-In-Reply-To: <20230612092355.87937-6-brgl@bgdev.pl>
+In-Reply-To: <20230612092355.87937-7-brgl@bgdev.pl>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Disposition: inline
@@ -82,8 +82,8 @@ Cc: Eric Dumazet <edumazet@google.com>,
  Bjorn Andersson <andersson@kernel.org>, linux-kernel@vger.kernel.org,
  Konrad Dybcio <konrad.dybcio@linaro.org>, Vinod Koul <vkoul@kernel.org>,
  "David S . Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH 05/26] net: stmmac: dwmac-qcom-ethqos:
- shrink clock code with devres
+Subject: Re: [Linux-stm32] [PATCH 06/26] net: stmmac: dwmac-qcom-ethqos:
+ rename a label in probe()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,89 +100,76 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Jun 12, 2023 at 11:23:34AM +0200, Bartosz Golaszewski wrote:
+On Mon, Jun 12, 2023 at 11:23:35AM +0200, Bartosz Golaszewski wrote:
 > From: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
 > 
-> We can use a devm action to completely drop the remove callback and use
-> stmmac_pltfr_remove() directly for remove. We can also drop one of the
-> goto labels.
+> The err_mem label's name is unclear. It actually should be reached on
+> any error after stmmac_probe_config_dt() succeeds. Name it after the
+> cleanup action that needs to be called before exiting.
 > 
 > Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
-
-I think using the remove callback seems more direct to a reader, but
-that's pretty opinionated. The change itself looks good so:
 
 Reviewed-by: Andrew Halaney <ahalaney@redhat.com>
 
 > ---
->  .../stmicro/stmmac/dwmac-qcom-ethqos.c        | 24 +++++++++----------
->  1 file changed, 11 insertions(+), 13 deletions(-)
+>  .../ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c    | 14 +++++++-------
+>  1 file changed, 7 insertions(+), 7 deletions(-)
 > 
 > diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-> index c801838fae2a..2da0738eed24 100644
+> index 2da0738eed24..16e856861558 100644
 > --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
 > +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-> @@ -586,6 +586,11 @@ static int ethqos_clks_config(void *priv, bool enabled)
->  	return ret;
->  }
+> @@ -615,14 +615,14 @@ static int qcom_ethqos_probe(struct platform_device *pdev)
+>  	ethqos = devm_kzalloc(&pdev->dev, sizeof(*ethqos), GFP_KERNEL);
+>  	if (!ethqos) {
+>  		ret = -ENOMEM;
+> -		goto err_mem;
+> +		goto out_config_dt;
+>  	}
 >  
-> +static void ethqos_clks_disable(void *data)
-> +{
-> +	ethqos_clks_config(data, false);
-> +}
-> +
->  static int qcom_ethqos_probe(struct platform_device *pdev)
->  {
->  	struct device_node *np = pdev->dev.of_node;
-> @@ -636,6 +641,10 @@ static int qcom_ethqos_probe(struct platform_device *pdev)
+>  	ethqos->pdev = pdev;
+>  	ethqos->rgmii_base = devm_platform_ioremap_resource_byname(pdev, "rgmii");
+>  	if (IS_ERR(ethqos->rgmii_base)) {
+>  		ret = PTR_ERR(ethqos->rgmii_base);
+> -		goto err_mem;
+> +		goto out_config_dt;
+>  	}
+>  
+>  	data = of_device_get_match_data(&pdev->dev);
+> @@ -634,16 +634,16 @@ static int qcom_ethqos_probe(struct platform_device *pdev)
+>  	ethqos->rgmii_clk = devm_clk_get(&pdev->dev, "rgmii");
+>  	if (IS_ERR(ethqos->rgmii_clk)) {
+>  		ret = PTR_ERR(ethqos->rgmii_clk);
+> -		goto err_mem;
+> +		goto out_config_dt;
+>  	}
+>  
+>  	ret = ethqos_clks_config(ethqos, true);
 >  	if (ret)
->  		goto err_mem;
+> -		goto err_mem;
+> +		goto out_config_dt;
 >  
-> +	ret = devm_add_action_or_reset(&pdev->dev, ethqos_clks_disable, ethqos);
-> +	if (ret)
-> +		goto err_mem;
-> +
+>  	ret = devm_add_action_or_reset(&pdev->dev, ethqos_clks_disable, ethqos);
+>  	if (ret)
+> -		goto err_mem;
+> +		goto out_config_dt;
+>  
 >  	ethqos->speed = SPEED_1000;
 >  	ethqos_update_rgmii_clk(ethqos, SPEED_1000);
->  	ethqos_set_func_clk_en(ethqos);
-> @@ -653,27 +662,16 @@ static int qcom_ethqos_probe(struct platform_device *pdev)
+> @@ -662,11 +662,11 @@ static int qcom_ethqos_probe(struct platform_device *pdev)
 >  
 >  	ret = stmmac_dvr_probe(&pdev->dev, plat_dat, &stmmac_res);
 >  	if (ret)
-> -		goto err_clk;
-> +		goto err_mem;
+> -		goto err_mem;
+> +		goto out_config_dt;
 >  
 >  	return ret;
 >  
-> -err_clk:
-> -	ethqos_clks_config(ethqos, false);
-> -
->  err_mem:
+> -err_mem:
+> +out_config_dt:
 >  	stmmac_remove_config_dt(pdev, plat_dat);
 >  
 >  	return ret;
->  }
->  
-> -static void qcom_ethqos_remove(struct platform_device *pdev)
-> -{
-> -	struct qcom_ethqos *ethqos = get_stmmac_bsp_priv(&pdev->dev);
-> -
-> -	stmmac_pltfr_remove(pdev);
-> -	ethqos_clks_config(ethqos, false);
-> -}
-> -
->  static const struct of_device_id qcom_ethqos_match[] = {
->  	{ .compatible = "qcom,qcs404-ethqos", .data = &emac_v2_3_0_data},
->  	{ .compatible = "qcom,sc8280xp-ethqos", .data = &emac_v3_0_0_data},
-> @@ -684,7 +682,7 @@ MODULE_DEVICE_TABLE(of, qcom_ethqos_match);
->  
->  static struct platform_driver qcom_ethqos_driver = {
->  	.probe  = qcom_ethqos_probe,
-> -	.remove_new = qcom_ethqos_remove,
-> +	.remove_new = stmmac_pltfr_remove,
->  	.driver = {
->  		.name           = "qcom-ethqos",
->  		.pm		= &stmmac_pltfr_pm_ops,
 > -- 
 > 2.39.2
 > 
