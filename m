@@ -2,66 +2,86 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D801472BCC4
-	for <lists+linux-stm32@lfdr.de>; Mon, 12 Jun 2023 11:33:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F3C4C72BCCB
+	for <lists+linux-stm32@lfdr.de>; Mon, 12 Jun 2023 11:35:56 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7C50FC6A60F;
-	Mon, 12 Jun 2023 09:33:27 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AEB8BC6A60F;
+	Mon, 12 Jun 2023 09:35:56 +0000 (UTC)
+Received: from mail-lf1-f44.google.com (mail-lf1-f44.google.com
+ [209.85.167.44])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3EEEBC06F81
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C64C5C06F81
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 12 Jun 2023 09:33:26 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 35C7chxD021269; Mon, 12 Jun 2023 11:33:05 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=message-id : date :
- mime-version : from : to : cc : subject : content-type :
- content-transfer-encoding; s=selector1;
- bh=5RxF4qfU194xVjtl7T2n/Ofe2CRBQCdrUk8f14hgpfM=;
- b=3vBWuys5F8nJELCZwcrTM50v/rgKExAz5vsH/EXhUnY5lXYc7dZb8NHAOQn2LnHIqmTf
- to7zGbbQi9AGEkjTz+amztlRaRhV+MQ+0kqbdUPGyXr0Snav28lLughLGfluvZXP5V89
- Ld74emSUsvdJ+yhTZ8/F1vvE2DmI61e7sfpAB+LhFpNKwq3KOhOiVHC9jqTyCzlwU1SC
- spRhY5gHf/tMQFj3cW0r237NgCwyxS3uNWz4703yVtU9jkT3+jSJh3pq2jNVsCuvIna3
- DgAX7ZBqGS4iYm3vK8JR6o8ZZYiQZzgeJb+LPhlVTDcdL/ZzASUjXgX4KXx3qhaW88Y7 ig== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3r5y5brspu-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 12 Jun 2023 11:33:05 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id ADB2110002A;
- Mon, 12 Jun 2023 11:33:04 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 7235F21F14C;
- Mon, 12 Jun 2023 11:33:04 +0200 (CEST)
-Received: from [10.201.21.93] (10.201.21.93) by SHFDAG1NODE1.st.com
- (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.21; Mon, 12 Jun
- 2023 11:33:03 +0200
-Message-ID: <08d711de-bb6d-a976-735b-5e18b19818ea@foss.st.com>
-Date: Mon, 12 Jun 2023 11:33:03 +0200
+ Mon, 12 Jun 2023 09:35:55 +0000 (UTC)
+Received: by mail-lf1-f44.google.com with SMTP id
+ 2adb3069b0e04-4f61d79b0f2so4912373e87.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 12 Jun 2023 02:35:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1686562555; x=1689154555;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=EVRsoBw2mYIKseG/0Qd8GC6oHBJlAAcz7DAhIfqh+7s=;
+ b=Rwr9kl19lrfXZO0AeqyotRMwrSFgHnX2AoP9H6w4oq+N6tErLHtVV+lzHKFYdeULvb
+ 0pmtApmxu/AUW/D4E+4XdehvlfPdV8hcOHKPHv6o37u4RTUzH7lrEQO6A6RrJA4LYSTe
+ cuerQiT4YbiV5uOghU2r35CX6IQAn0XlgVO84KYd+2mU1hLnzNIEtKPudu4D2NKk9DOC
+ tXKGnDD35U+C60x+tSU/qUHuRH9UI3YphmR8XP8r0xRKbFH1o2Fo+8syvQtxj8Tqp66k
+ vW8fcMPyDnIddHxQ8A7AVPkk+qmP55MTnznHaLlLWG7lpCu53xpBBjSugjQFeU9dB4jH
+ 7Apw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1686562555; x=1689154555;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=EVRsoBw2mYIKseG/0Qd8GC6oHBJlAAcz7DAhIfqh+7s=;
+ b=auX303uUtXyFXlO5FV2XMcL9HT9/oLA7kQxF31eRNHHwsI3MHvM9U1uPXM6VNRYpkq
+ YGErT3NYI3tfX3bMOWWGKUyuzu8eYYec6xzwTdsYzVkV1ntdzJBP1byMD/LQv3gfnMn7
+ 20+Zu+MdKlaIZGLTw01ouNYItCceIjo54o8VZgjCH6ruAqobUNZmdhuv+6pmNOqcYE9r
+ c1oO7OFc1hjMJhsTYbQcyb/SrtWWz15O/gtlvL4J1RJKCD7kIhvQcgy9HoGeYJv8nHxP
+ zZEIpSBD6vFR49cQd2bMWkSq3b/OVnIPOgKiyEje2zbFy8EnT7+BFclo9naQsrnDt9zS
+ Mopg==
+X-Gm-Message-State: AC+VfDyWBsnlPdc9sDL1F/24e+bq0qh6eg6D57CWCLYXndukp0xQRo0W
+ xNLrnYtFNPHGWTN9V/2dXMvC6A==
+X-Google-Smtp-Source: ACHHUZ4XIHc31aI7Yz7vxkZ7gA16gu5nwoiLxWZswPLz9iLHvgp3AlnZy1KH+hfVh/JFNYj+qnFqdw==
+X-Received: by 2002:a05:6512:1ce:b0:4f6:1154:deba with SMTP id
+ f14-20020a05651201ce00b004f61154debamr4261756lfp.65.1686562554980; 
+ Mon, 12 Jun 2023 02:35:54 -0700 (PDT)
+Received: from [192.168.1.101] (abyj190.neoplus.adsl.tpnet.pl. [83.9.29.190])
+ by smtp.gmail.com with ESMTPSA id
+ i9-20020ac25229000000b004f2b6a203aasm1386474lfl.224.2023.06.12.02.35.53
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 12 Jun 2023 02:35:54 -0700 (PDT)
+Message-ID: <9562db04-ef2e-b32e-9fd6-1396798f28e5@linaro.org>
+Date: Mon, 12 Jun 2023 11:35:52 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
+ Thunderbird/102.11.2
 Content-Language: en-US
-From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
-To: Arnd Bergmann <arnd@arndb.de>, Olof Johansson <olof@lixom.net>, Kevin
- Hilman <khilman@baylibre.com>, arm-soc <arm@kernel.org>, SoC Team
- <soc@kernel.org>
-X-Originating-IP: [10.201.21.93]
-X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SHFDAG1NODE1.st.com
- (10.75.129.69)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.957,Hydra:6.0.573,FMLib:17.11.176.26
- definitions=2023-06-12_06,2023-06-09_01,2023-05-22_02
-Cc: "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>
-Subject: [Linux-stm32] [GIT PULL] STM32 DT changes for v6.5 #1
+To: Bartosz Golaszewski <brgl@bgdev.pl>, Vinod Koul <vkoul@kernel.org>,
+ Bhupesh Sharma <bhupesh.sharma@linaro.org>, Andy Gross <agross@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ "David S . Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Kishon Vijay Abraham I <kishon@kernel.org>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Jose Abreu <joabreu@synopsys.com>
+References: <20230612092355.87937-1-brgl@bgdev.pl>
+ <20230612092355.87937-23-brgl@bgdev.pl>
+From: Konrad Dybcio <konrad.dybcio@linaro.org>
+In-Reply-To: <20230612092355.87937-23-brgl@bgdev.pl>
+Cc: devicetree@vger.kernel.org,
+ Bartosz Golaszewski <bartosz.golaszewski@linaro.org>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-phy@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 22/26] arm64: dts: qcom: sa8775p-ride: add
+ the SGMII PHY node
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,168 +93,46 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi ARM SoC maintainers,
-
-Please consider this first round of STM32 DT for v6.5 cycle. A new board 
-has been added (PHYTEC) based on STM32MP15 and we continue to fix W=1 
-warnings and YAML validation. There are no more W=1 warnings on STM32 
-MPU boards.
-
-Note that a second pull request will be sent on top of this one to add 
-support of the STM32MP25 (ARM v8 product).
 
 
-Thanks
-Alex
+On 12.06.2023 11:23, Bartosz Golaszewski wrote:
+> From: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
+> 
+> Add the internal SGMII/SerDes PHY node for sa8775p platforms.
+> 
+> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
+> ---
+>  arch/arm64/boot/dts/qcom/sa8775p.dtsi | 9 +++++++++
+>  1 file changed, 9 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/sa8775p.dtsi b/arch/arm64/boot/dts/qcom/sa8775p.dtsi
+> index b130136acffe..0e59000a0c82 100644
+> --- a/arch/arm64/boot/dts/qcom/sa8775p.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sa8775p.dtsi
+> @@ -1837,6 +1837,15 @@ adreno_smmu: iommu@3da0000 {
+>  				     <GIC_SPI 687 IRQ_TYPE_LEVEL_HIGH>;
+>  		};
+>  
+> +		serdes_phy: phy@8901000 {
+> +			compatible = "qcom,sa8775p-dwmac-sgmii-phy";
+> +			reg = <0 0x08901000 0 0xe10>;
+The usage of 0 is inconsistent with 0x0 everywhere else
 
-
-The following changes since commit ac9a78681b921877518763ba0e89202254349d1b:
-
-   Linux 6.4-rc1 (2023-05-07 13:34:35 -0700)
-
-are available in the Git repository at:
-
-   git://git.kernel.org/pub/scm/linux/kernel/git/atorgue/stm32.git 
-tags/stm32-dt-for-v6.5-1
-
-for you to fetch changes up to 076c74c592cabe4a47537fe5205b5b678bed010d:
-
-   ARM: dts: stm32: fix i2s endpoint format property for stm32mp15xx-dkx 
-(2023-06-08 12:08:54 +0200)
-
-----------------------------------------------------------------
-STM32 DT for v6.5, round 1
-
-Highlights:
-----------
-
-- MCU/MPU:
-   - Replace deprecated st,hw-flow-ctrl by uart-has-rtscts.
-   - Fix LTDC/DSI warnings.
-
-- MPU:
-   - STMP32MP15:
-     - Add OTP part number and Vrefint calibration in bsec.
-     - M4 hold management updated. As SMC call is deprecated,
-       the service is moved on a SCMI service.
-     - Add ADC internal channels (VREFINT/VDDCORE).
-
-   - ST:
-     - Enable ADC1&2 on STM32MP15 DKx boards.
-     - Adopt generic IIO bindings on STM32MP157C ED1
-     - Add supplies for OV5640 in STM32MP157C EV1
-       to fix yaml validation.
-     - Fix i2s bindings to match with the YAML validation (DKx boards).
-
-   - DH:
-     - Rearrange MAC EEPROM.
-     - Rename AV96 sound card.
-     - Adopt generic IIo bindings.
-     - Fix audio routing.
-
-   -PHYTEC:
-     - Add PHYTEC STM32MP1-3 Dev board based on STM32MP15 PHYTEC SOM.
-       This SOM embeds up to 1GB DDR3LP RAM, up to 1GB eMMC,
-       up to 16 MB QSPI and up to 128 GB NAND flash.
-
-----------------------------------------------------------------
-Alain Volmat (1):
-       ARM: dts: stm32: add required supplies of ov5640 in stm32mp157c-ev1
-
-Arnaud Pouliquen (2):
-       ARM: dts: stm32: Update Cortex-M4 reset declarations on stm32mp15
-       ARM: dts: stm32: fix m4_rproc references to use SCMI for stm32mp15
-
-Dario Binacchi (1):
-       ARM: dts: stm32: use RCC macro for CRC node on stm32f746
-
-Marek Vasut (5):
-       ARM: dts: stm32: Replace deprecated st,hw-flow-ctrl with 
-uart-has-rtscts
-       ARM: dts: stm32: Move ethernet MAC EEPROM from SoM to carrier boards
-       ARM: dts: stm32: Shorten the AV96 HDMI sound card name
-       ARM: dts: stm32: Update to generic ADC channel binding on DHSOM 
-systems
-       ARM: dts: stm32: Fix audio routing on STM32MP15xx DHCOM PDK2
-
-Olivier Moysan (9):
-       ARM: dts: stm32: add adc internal channels to stm32mp15
-       ARM: dts: stm32: add vrefint calibration on stm32mp15
-       ARM: dts: stm32: add vrefint support to adc2 on stm32mp15
-       ARM: dts: stm32: enable adc on stm32mp15xx-dkx boards
-       ARM: dts: stm32: adopt generic iio bindings for adc channels on 
-stm32mp157c-ed1
-       ARM: dts: stm32: adopt generic iio bindings for adc channels on 
-emstamp-argon
-       ARM: dts: stm32: adopt generic iio bindings for adc channels on 
-dhcor-drc
-       ARM: dts: stm32: adopt generic iio bindings for adc channels on 
-dhcor-testbench
-       ARM: dts: stm32: fix i2s endpoint format property for stm32mp15xx-dkx
-
-Patrick Delaunay (2):
-       ARM: dts: stm32: add part number for STM32MP15x
-       ARM: dts: stm32: remove extra space in stm32mp15xx-dkx.dtsi
-
-Raphael Gallais-Pou (4):
-       ARM: dts: stm32: fix warnings on stm32f469-disco board
-       dt-bindings: display: st,stm32-dsi: Remove unnecessary fields
-       ARM: dts: stm32: fix dsi warnings on stm32mp15 boards
-       ARM: dts: stm32: fix ltdc warnings in stm32mp15 boards
-
-Steffen Trumtrar (10):
-       ARM: dts: stm32: Add alternate pinmux for ethernet for stm32mp15
-       ARM: dts: stm32: Add alternate pinmux for sai2b on stm32mp15
-       ARM: dts: stm32: Add new pinmux for sdmmc1_b4 on stm32mp15
-       ARM: dts: stm32: Add new pinmux for sdmmc2_d47 on stm32mp15
-       ARM: dts: stm32: Add pinmux for USART1 pins on stm32mp15
-       ARM: dts: stm32: Add idle/sleep pinmux for USART3 on stm32mp15
-       ARM: dts: stm32: Add sleep pinmux for SPI1 pins_a on stm32mp15
-       dt-bindings: arm: stm32: Add Phytec STM32MP1 board
-       ARM: dts: stm32: add STM32MP1-based Phytec SoM
-       ARM: dts: stm32: add STM32MP1-based Phytec board
-
-  .../devicetree/bindings/arm/stm32/stm32.yaml       |   6 +
-  .../devicetree/bindings/display/st,stm32-dsi.yaml  |   2 -
-  arch/arm/boot/dts/Makefile                         |   3 +-
-  arch/arm/boot/dts/stm32f469-disco.dts              |   4 +-
-  arch/arm/boot/dts/stm32f746.dtsi                   |   2 +-
-  arch/arm/boot/dts/stm32h750i-art-pi.dts            |   2 +-
-  arch/arm/boot/dts/stm32mp15-pinctrl.dtsi           | 231 +++++++++
-  arch/arm/boot/dts/stm32mp151.dtsi                  |  27 +-
-  arch/arm/boot/dts/stm32mp157.dtsi                  |   7 -
-  arch/arm/boot/dts/stm32mp157a-dk1-scmi.dts         |   7 +-
-  .../stm32mp157a-icore-stm32mp1-ctouch2-of10.dts    |   6 +-
-  .../dts/stm32mp157a-icore-stm32mp1-edimm2.2.dts    |   6 +-
-  ...m32mp157a-microgea-stm32mp1-microdev2.0-of7.dts |   3 +-
-  arch/arm/boot/dts/stm32mp157a-stinger96.dtsi       |   4 +-
-  arch/arm/boot/dts/stm32mp157c-dk2-scmi.dts         |   7 +-
-  arch/arm/boot/dts/stm32mp157c-dk2.dts              |   8 +
-  arch/arm/boot/dts/stm32mp157c-ed1-scmi.dts         |   7 +-
-  arch/arm/boot/dts/stm32mp157c-ed1.dts              |  16 +-
-  arch/arm/boot/dts/stm32mp157c-emstamp-argon.dtsi   |   6 +-
-  arch/arm/boot/dts/stm32mp157c-ev1-scmi.dts         |   7 +-
-  arch/arm/boot/dts/stm32mp157c-ev1.dts              |  12 +-
-  arch/arm/boot/dts/stm32mp157c-lxa-mc1.dts          |   3 +-
-  .../boot/dts/stm32mp157c-phycore-stm32mp1-3.dts    |  60 +++
-  .../dts/stm32mp157c-phycore-stm32mp15-som.dtsi     | 577 
-+++++++++++++++++++++
-  arch/arm/boot/dts/stm32mp15xx-dhcom-pdk2.dtsi      |  11 +-
-  arch/arm/boot/dts/stm32mp15xx-dhcom-som.dtsi       |  18 +-
-  arch/arm/boot/dts/stm32mp15xx-dhcor-avenger96.dtsi |  54 +-
-  .../boot/dts/stm32mp15xx-dhcor-drc-compact.dtsi    |  34 +-
-  arch/arm/boot/dts/stm32mp15xx-dhcor-som.dtsi       |   6 -
-  arch/arm/boot/dts/stm32mp15xx-dhcor-testbench.dtsi |  36 +-
-  arch/arm/boot/dts/stm32mp15xx-dkx.dtsi             |  44 +-
-  31 files changed, 1112 insertions(+), 104 deletions(-)
-  create mode 100644 arch/arm/boot/dts/stm32mp157c-phycore-stm32mp1-3.dts
-  create mode 100644 
-arch/arm/boot/dts/stm32mp157c-phycore-stm32mp15-som.dtsi
+Konrad
+> +			clocks = <&gcc GCC_SGMI_CLKREF_EN>;
+> +			clock-names = "sgmi_ref";
+> +			#phy-cells = <0>;
+> +			status = "disabled";
+> +		};
+> +
+>  		pdc: interrupt-controller@b220000 {
+>  			compatible = "qcom,sa8775p-pdc", "qcom,pdc";
+>  			reg = <0x0 0x0b220000 0x0 0x30000>,
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
