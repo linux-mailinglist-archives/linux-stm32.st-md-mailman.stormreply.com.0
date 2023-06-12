@@ -2,69 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3FC7572D02B
-	for <lists+linux-stm32@lfdr.de>; Mon, 12 Jun 2023 22:07:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D12B872D079
+	for <lists+linux-stm32@lfdr.de>; Mon, 12 Jun 2023 22:33:03 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 09603C6A617;
-	Mon, 12 Jun 2023 20:07:43 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 81273C6A617;
+	Mon, 12 Jun 2023 20:33:03 +0000 (UTC)
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C586BC6A60F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 78229C6A60E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 12 Jun 2023 20:07:41 +0000 (UTC)
+ Mon, 12 Jun 2023 20:33:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1686600460;
+ s=mimecast20190719; t=1686601981;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=IuHNa6WZpYveQJr9GnIkLeDKCuARWHsJdm0re5kGQrg=;
- b=RL4ZSsiFEmr0RuV+jEChVLUd394vcByJ5YhBt119it5rFfGtMrXhRkizaZqXOXT53xwWzx
- gei/geo0eeFFVWAt3IeOFND2Tn6C53r7wjO7i8Jx4Xo4wGEV8NR646rAnDG7918QMEzG9p
- VA7U4ctSlni0bnInqbFvKlqwlDpE1/o=
-Received: from mail-oo1-f71.google.com (mail-oo1-f71.google.com
- [209.85.161.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=43J77l2MjvOeufIj2deKwRG8u6kAZJyfknPdAW9w59s=;
+ b=eBMuakVeMcC3eJgG5Srv803mdjUq+MiQNbICVR9CFATsN7bs5PiH8N9HBpWsW5Ptfjk0kU
+ diXw7VK5JvY3PSuNcv2DYlAeYvLsr1QleXvhcPPE1UwUnJ2bD90YJaXiNx7nYE8HpbVUJH
+ UG+ptB9jN0lWuhlsMfebI61vZusdmpc=
+Received: from mail-oo1-f70.google.com (mail-oo1-f70.google.com
+ [209.85.161.70]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-274-0ZrREkYQNLqjgktCltjyWw-1; Mon, 12 Jun 2023 16:07:37 -0400
-X-MC-Unique: 0ZrREkYQNLqjgktCltjyWw-1
-Received: by mail-oo1-f71.google.com with SMTP id
- 006d021491bc7-55b2dda8657so3900133eaf.1
+ us-mta-534-qMpn-yoiP7S50GvZM1Pi0g-1; Mon, 12 Jun 2023 16:33:00 -0400
+X-MC-Unique: qMpn-yoiP7S50GvZM1Pi0g-1
+Received: by mail-oo1-f70.google.com with SMTP id
+ 006d021491bc7-558b7c65e3bso2551628eaf.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 12 Jun 2023 13:07:37 -0700 (PDT)
+ Mon, 12 Jun 2023 13:33:00 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1686600457; x=1689192457;
+ d=1e100.net; s=20221208; t=1686601979; x=1689193979;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=IuHNa6WZpYveQJr9GnIkLeDKCuARWHsJdm0re5kGQrg=;
- b=TfoGBmvOhejGYUAM20zlJpogbnJOAlZcWWTJDMEcADomjsGAvw7ceTtmITwzhJUi8A
- q9Rkn/IJ0mYz9Oki8dpkwSKjXAFNey39NwhYESUHYYENXvIP9E5TW7v7eh55l6fXGRxB
- ylTtX1kY+K0wxqGWvdCb0RXVKddEnVVUADWMRfdC7gew3ZxYFMlkch6CA7IzWdy1Fqxc
- c1RZcW+vAxOxqH31/H3RRm2xovdZ7F86kbLdRYsunLGJ+XH+f4H/E6f5GCFSKdWs7/HC
- I0Qw6eFbTbWGUIk37Z8wEYc1ZPjW+DZhFltKp0XwrqvxsIYmXAIa2RdOg0SUrpphB9Yq
- Efpg==
-X-Gm-Message-State: AC+VfDy2WWt4iwB06BfNPZyn6TBp8uByWVxAfnEIskhYcWX8TdP0WkMv
- eIQBV67BtJeTIvXaT+RUtjC3A2HGxmzKtXgZHoHbEzXfnQHQAAGUbKBCrWundiszrkqIHoEPhD8
- KEDsJ/Z624IjBRV9gwrEvYsJd1UXXFLRR5Xiadnsb
-X-Received: by 2002:a4a:bd92:0:b0:556:c580:eba6 with SMTP id
- k18-20020a4abd92000000b00556c580eba6mr5832113oop.4.1686600457018; 
- Mon, 12 Jun 2023 13:07:37 -0700 (PDT)
-X-Google-Smtp-Source: ACHHUZ4Sjt0Fg2Ll+XfHA2BponpBIQ9aDoC0AyoTvbdiarG2SXbdj01ZqgXciHHSmeIvp1v/ALCRsQ==
-X-Received: by 2002:a4a:bd92:0:b0:556:c580:eba6 with SMTP id
- k18-20020a4abd92000000b00556c580eba6mr5832088oop.4.1686600456761; 
- Mon, 12 Jun 2023 13:07:36 -0700 (PDT)
+ bh=43J77l2MjvOeufIj2deKwRG8u6kAZJyfknPdAW9w59s=;
+ b=IHXrSkZtvKNChv6iANigysoe+H1E7wNQyGgwAJwqjEZEm8c0dLR2yDoye5ghoyX8kj
+ 1L7dvRzEWTiA/YRXoIiXqF6QnMFVhBhYyrTGGFtsYizDkhEIecu8QhGa7r8rsXwzjmmm
+ hu7cSR2jBPZxBDPtZVTqqXl7QODkLUDId3t3U/MdNDcdGjCrsLuzjRNjpsUETt5sEspp
+ I9JhwV81dJurWcEmUw4ZE030aXKifCDjLIdJNfJBeyH0PSk6EBIUV8vbu6hGo07mW49l
+ /qq62xcIr6uibyCZq9OD3h5bAHSwJiD3GV2BM0GE7vMxMTKS9q+DjqcLer3Qqbu/DU2m
+ X52Q==
+X-Gm-Message-State: AC+VfDxXyluSdEq7afzyfbjsUizh0Dlb7xOgeE9wsnLZjOWSEylzTCak
+ LWNxNnDxsdC/sjgee9N88FtQcwwQIz4IBXutJm5WSn8Tvso4thwOkKuT9GI4S15ZO2ssFDxP6vv
+ P++dzTVkHHqjq9Nd3nHGQ+n+VyZhQetBRAXUWlOWi
+X-Received: by 2002:a4a:eac3:0:b0:558:b3f1:1081 with SMTP id
+ s3-20020a4aeac3000000b00558b3f11081mr5365961ooh.9.1686601979256; 
+ Mon, 12 Jun 2023 13:32:59 -0700 (PDT)
+X-Google-Smtp-Source: ACHHUZ4vKyZqmPyAlZrIvh+fzGMNtvVVMAbuUA5odR16L7SaZeByU3UDtpAZGSfSXxbwRc/TkU6rpw==
+X-Received: by 2002:a4a:eac3:0:b0:558:b3f1:1081 with SMTP id
+ s3-20020a4aeac3000000b00558b3f11081mr5365934ooh.9.1686601978975; 
+ Mon, 12 Jun 2023 13:32:58 -0700 (PDT)
 Received: from halaney-x13s ([2600:1700:1ff0:d0e0::45])
  by smtp.gmail.com with ESMTPSA id
- t14-20020a4ad0ae000000b0054fd0b7af2bsm3509727oor.31.2023.06.12.13.07.35
+ o4-20020a4aa804000000b0055affd1ca3csm3556530oom.1.2023.06.12.13.32.57
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 12 Jun 2023 13:07:36 -0700 (PDT)
-Date: Mon, 12 Jun 2023 15:07:33 -0500
+ Mon, 12 Jun 2023 13:32:58 -0700 (PDT)
+Date: Mon, 12 Jun 2023 15:32:55 -0500
 From: Andrew Halaney <ahalaney@redhat.com>
 To: Bartosz Golaszewski <brgl@bgdev.pl>
-Message-ID: <20230612200733.h3323ktcggbeil3q@halaney-x13s>
+Message-ID: <20230612203255.72t52ucry7zzq3em@halaney-x13s>
 References: <20230612092355.87937-1-brgl@bgdev.pl>
- <20230612092355.87937-12-brgl@bgdev.pl>
+ <20230612092355.87937-13-brgl@bgdev.pl>
 MIME-Version: 1.0
-In-Reply-To: <20230612092355.87937-12-brgl@bgdev.pl>
+In-Reply-To: <20230612092355.87937-13-brgl@bgdev.pl>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Disposition: inline
@@ -82,8 +82,8 @@ Cc: Eric Dumazet <edumazet@google.com>,
  Bjorn Andersson <andersson@kernel.org>, linux-kernel@vger.kernel.org,
  Konrad Dybcio <konrad.dybcio@linaro.org>, Vinod Koul <vkoul@kernel.org>,
  "David S . Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH 11/26] net: stmmac: dwmac-qcom-ethqos:
-	remove stray space
+Subject: Re: [Linux-stm32] [PATCH 12/26] net: stmmac: dwmac-qcom-ethqos: add
+ support for the optional serdes phy
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,32 +100,121 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Jun 12, 2023 at 11:23:40AM +0200, Bartosz Golaszewski wrote:
+On Mon, Jun 12, 2023 at 11:23:41AM +0200, Bartosz Golaszewski wrote:
 > From: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
 > 
-> There's an unnecessary space in the rgmii_updatel() function, remove it.
+> On sa8775p platforms, there's a SGMII SerDes PHY between the MAC and
+> external PHY that we need to enable and configure.
 > 
 > Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
-
-Reviewed-by: Andrew Halaney <ahalaney@redhat.com>
-
 > ---
->  drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>  .../stmicro/stmmac/dwmac-qcom-ethqos.c        | 37 +++++++++++++++++++
+>  1 file changed, 37 insertions(+)
 > 
 > diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-> index 5b56abacbf6b..8ed05f29fe8b 100644
+> index 8ed05f29fe8b..3438b6229351 100644
 > --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
 > +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-> @@ -117,7 +117,7 @@ static void rgmii_updatel(struct qcom_ethqos *ethqos,
->  {
->  	unsigned int temp;
+> @@ -6,6 +6,7 @@
+>  #include <linux/of_device.h>
+>  #include <linux/platform_device.h>
+>  #include <linux/phy.h>
+> +#include <linux/phy/phy.h>
+>  #include <linux/property.h>
 >  
-> -	temp =  rgmii_readl(ethqos, offset);
-> +	temp = rgmii_readl(ethqos, offset);
->  	temp = (temp & ~(mask)) | val;
->  	rgmii_writel(ethqos, temp, offset);
+>  #include "stmmac.h"
+> @@ -93,6 +94,7 @@ struct qcom_ethqos {
+>  
+>  	unsigned int rgmii_clk_rate;
+>  	struct clk *rgmii_clk;
+> +	struct phy *serdes_phy;
+>  	unsigned int speed;
+>  
+>  	const struct ethqos_emac_por *por;
+> @@ -566,6 +568,30 @@ static void ethqos_fix_mac_speed(void *priv, unsigned int speed)
+>  	ethqos_configure(ethqos);
 >  }
+>  
+> +static int qcom_ethqos_serdes_powerup(struct net_device *ndev, void *priv)
+> +{
+> +	struct qcom_ethqos *ethqos = priv;
+> +	int ret;
+> +
+> +	ret = phy_set_speed(ethqos->serdes_phy, ethqos->speed);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = phy_init(ethqos->serdes_phy);
+> +	if (ret)
+> +		return ret;
+> +
+> +	return phy_power_on(ethqos->serdes_phy);
+
+The docs say (phy.rst):
+
+    The general order of calls should be::
+
+        [devm_][of_]phy_get()
+        phy_init()
+        phy_power_on()
+        [phy_set_mode[_ext]()]
+        ...
+        phy_power_off()
+        phy_exit()
+        [[of_]phy_put()]
+
+    Some PHY drivers may not implement :c:func:`phy_init` or :c:func:`phy_power_on`,
+    but controllers should always call these functions to be compatible with other
+    PHYs. Some PHYs may require :c:func:`phy_set_mode <phy_set_mode_ext>`, while
+    others may use a default mode (typically configured via devicetree or other
+    firmware). For compatibility, you should always call this function if you know
+    what mode you will be using. Generally, this function should be called after
+    :c:func:`phy_power_on`, although some PHY drivers may allow it at any time.
+
+Not really dictating you need to do that order, but if possible I think
+calling phy_set_speed after init + power_on is more generic. Not sure if
+that plays nice with the phy driver in this series or not.
+
+Otherwise, I think this looks good.
+
+> +}
+> +
+> +static void qcom_ethqos_serdes_powerdown(struct net_device *ndev, void *priv)
+> +{
+> +	struct qcom_ethqos *ethqos = priv;
+> +
+> +	phy_power_off(ethqos->serdes_phy);
+> +	phy_exit(ethqos->serdes_phy);
+> +}
+> +
+>  static int ethqos_clks_config(void *priv, bool enabled)
+>  {
+>  	struct qcom_ethqos *ethqos = priv;
+> @@ -651,6 +677,12 @@ static int qcom_ethqos_probe(struct platform_device *pdev)
+>  	if (ret)
+>  		goto out_config_dt;
+>  
+> +	ethqos->serdes_phy = devm_phy_optional_get(dev, "serdes");
+> +	if (IS_ERR(ethqos->serdes_phy)) {
+> +		ret = PTR_ERR(ethqos->serdes_phy);
+> +		goto out_config_dt;
+> +	}
+> +
+>  	ethqos->speed = SPEED_1000;
+>  	ethqos_update_rgmii_clk(ethqos, SPEED_1000);
+>  	ethqos_set_func_clk_en(ethqos);
+> @@ -666,6 +698,11 @@ static int qcom_ethqos_probe(struct platform_device *pdev)
+>  	if (of_device_is_compatible(np, "qcom,qcs404-ethqos"))
+>  		plat_dat->rx_clk_runs_in_lpi = 1;
+>  
+> +	if (ethqos->serdes_phy) {
+> +		plat_dat->serdes_powerup = qcom_ethqos_serdes_powerup;
+> +		plat_dat->serdes_powerdown  = qcom_ethqos_serdes_powerdown;
+> +	}
+> +
+>  	ret = stmmac_dvr_probe(dev, plat_dat, &stmmac_res);
+>  	if (ret)
+>  		goto out_config_dt;
 > -- 
 > 2.39.2
 > 
