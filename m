@@ -2,68 +2,80 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5C33272BBD0
-	for <lists+linux-stm32@lfdr.de>; Mon, 12 Jun 2023 11:13:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 09BCC72BC06
+	for <lists+linux-stm32@lfdr.de>; Mon, 12 Jun 2023 11:24:27 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 00792C6A60F;
-	Mon, 12 Jun 2023 09:13:08 +0000 (UTC)
-Received: from phobos.denx.de (phobos.denx.de [85.214.62.61])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AB4E5C6A60F;
+	Mon, 12 Jun 2023 09:24:26 +0000 (UTC)
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
+ [209.85.128.45])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 62496C65E4C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D09C8C65E4C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 12 Jun 2023 09:13:07 +0000 (UTC)
-Received: from [127.0.0.1] (p578adb1c.dip0.t-ipconnect.de [87.138.219.28])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits))
- (No client certificate requested)
- (Authenticated sender: marex@denx.de)
- by phobos.denx.de (Postfix) with ESMTPSA id 148A980F53;
- Mon, 12 Jun 2023 11:13:06 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de;
- s=phobos-20191101; t=1686561186;
- bh=5YCO0654Itqgrf0uCoj5p0lBM0I4GVOJ/5sMCRIUu/E=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=s+EdMc43oXFoRvGLXrkBA/uJRTxABeTWEdbiy7fkezfwUbzU3jeDXHqswxWOSRoyD
- s37K4+w1x3ZkNiWRTFcpqkigt+j0FJT0LRD96PSjruRGlkvv2V/abxhFlGpZwCNfaH
- OrwvtcCGyuGyn5oiVEVC6l5xsq1rqmHcGy6BGp8fY4N4sq6fVG5Vh/dFzJmxH7xllL
- g5hihjh+K4yXbipt9oWy8FK9rQ4oQfW2TdLk8ywcpNDRYqxcLlM8zxgkEOmV9s6QxV
- 4THAI2+lNMHdent/coKZQ3OdHm/ixp37Hz7ndVpp1d0yd8KOKBYlw5a5tnB4fk/dU/
- e0vh5lMg5eAaA==
-Message-ID: <26cfd848-a29d-2b38-3c15-fdcda532bcef@denx.de>
-Date: Mon, 12 Jun 2023 11:13:05 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.12.0
-Content-Language: en-US
-To: Arnaud POULIQUEN <arnaud.pouliquen@foss.st.com>,
- Arnaud POULIQUEN <arnaud.pouliquen@st.com>,
- "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-References: <20230518011246.438097-1-marex@denx.de>
- <PAXPR10MB471850924065C987981634C1F14B9@PAXPR10MB4718.EURPRD10.PROD.OUTLOOK.COM>
- <133c8b4a-8680-f613-807a-2d7931d0a186@denx.de>
- <PAXPR10MB4718D37242FF00D47DF0CEF1F1499@PAXPR10MB4718.EURPRD10.PROD.OUTLOOK.COM>
- <81f4574d-38c2-21f2-b947-d13e5fc99c60@denx.de>
- <PAXPR10MB471825B145645894D626F070F152A@PAXPR10MB4718.EURPRD10.PROD.OUTLOOK.COM>
- <0d304968-74c8-47ce-f87a-127449f36f4b@denx.de>
- <PAXPR10MB4718E8CE58A881DAE3983A27F153A@PAXPR10MB4718.EURPRD10.PROD.OUTLOOK.COM>
- <b65288f6-1d3d-424f-5df5-98e86cc51dec@denx.de>
- <c944123c-bcd8-89cf-c2cd-8d5742931f68@foss.st.com>
-From: Marek Vasut <marex@denx.de>
-In-Reply-To: <c944123c-bcd8-89cf-c2cd-8d5742931f68@foss.st.com>
-X-Virus-Scanned: clamav-milter 0.103.8 at phobos.denx.de
-X-Virus-Status: Clean
-Cc: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
+ Mon, 12 Jun 2023 09:24:25 +0000 (UTC)
+Received: by mail-wm1-f45.google.com with SMTP id
+ 5b1f17b1804b1-3f6dfc4e01fso41418605e9.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 12 Jun 2023 02:24:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=bgdev-pl.20221208.gappssmtp.com; s=20221208; t=1686561865; x=1689153865;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=FtFss3/4BWnZx7BK6rTdWa1DuApsa4mA3kKtcIcOXC4=;
+ b=qLJytdt6Jb/yVXsOZ6i6XGX8DjxK7ccMzfD1qS6kYgg8kta38u9WMlXXUab9tHe+YF
+ K/ACwxglRzoF8jM6P1rF9+Ps5zpHWb4gIAiIB8L0DD7wQucMjDngSXyODnCyQ/XuJnxZ
+ nDSIkg03r3lFVp/DfGV7PlLS6/gdgMWHdBwV9xrKYmPp4Ix5ADWRxT1D9s+DSFlU0BF+
+ XCGfRDHbr8rlCR3wCnBtDqpED95AsNwmBjVAcdYwcKLoCDQZ7UzlvYNVfZ2xFhNAoZf6
+ QigJ1LWe9B8J+1NmzCzmWHPrW9M+lR0OnYMO5XzU7BetZ902d+e18mzW32Tjru6XU2pp
+ 4u2A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1686561865; x=1689153865;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=FtFss3/4BWnZx7BK6rTdWa1DuApsa4mA3kKtcIcOXC4=;
+ b=EvJn/ggNk5rZmXQ88S/ikZ7uZpEooPBtPJNRtaPR10870IK+CDHtZPTYbtxSGmfRmh
+ vtkKG3EEEwDjX5RhoL7SMZc1/63eDmdQcuqqMWdD85AVs9N0eAyB2fQh2BF+bLACvGCX
+ Ad71pYsrZ0Jn7Cj7/f3zmfJT4mudVkagqKmrkGyvOZgUY0didwY8JN6ZPIJ++8xtkZxB
+ rjbLMFAj978rspwo6jKtzQZ1NhnK0oa3/abb7BwyguJwaGCFdgPBVUkwu5tvLvTU4uGa
+ 6c8PuOA7tamETourW4UAq2CUX+4clUOf22btpfQuy6BlAnkEIuA2O+D6EhBeUz4pivyB
+ l5tQ==
+X-Gm-Message-State: AC+VfDxfacAD26PsSJUn0rW3lRNEYEI8vheKmSxVmDjGXpf0t3zRYr0e
+ lFP5tCzzH9ppL4iijWLj3vXfMw==
+X-Google-Smtp-Source: ACHHUZ7jVY7WsrzBMbHCfUmR81pNeDeuO6Gb3yzNkzIgysAxxoKNzVSDsJJSKjHa4n/KMAp302GrIQ==
+X-Received: by 2002:a7b:cd8a:0:b0:3f4:1cd8:3e99 with SMTP id
+ y10-20020a7bcd8a000000b003f41cd83e99mr6686652wmj.28.1686561865141; 
+ Mon, 12 Jun 2023 02:24:25 -0700 (PDT)
+Received: from brgl-uxlite.home ([2a01:cb1d:334:ac00:a222:bbe9:c688:33ae])
+ by smtp.gmail.com with ESMTPSA id
+ p14-20020a7bcc8e000000b003f727764b10sm10892044wma.4.2023.06.12.02.24.23
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 12 Jun 2023 02:24:24 -0700 (PDT)
+From: Bartosz Golaszewski <brgl@bgdev.pl>
+To: Vinod Koul <vkoul@kernel.org>, Bhupesh Sharma <bhupesh.sharma@linaro.org>,
+ Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+ "David S . Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh+dt@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Richard Cochran <richardcochran@gmail.com>, Rob Herring <robh+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "kernel@dh-electronics.com" <kernel@dh-electronics.com>
-Subject: Re: [Linux-stm32] [PATCH 1/5] ARM: dts: stm32: Add missing detach
- mailbox for emtrion emSBC-Argon
+ Conor Dooley <conor+dt@kernel.org>,
+ Kishon Vijay Abraham I <kishon@kernel.org>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Jose Abreu <joabreu@synopsys.com>
+Date: Mon, 12 Jun 2023 11:23:29 +0200
+Message-Id: <20230612092355.87937-1-brgl@bgdev.pl>
+X-Mailer: git-send-email 2.39.2
+MIME-Version: 1.0
+Cc: devicetree@vger.kernel.org,
+ Bartosz Golaszewski <bartosz.golaszewski@linaro.org>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-phy@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH 00/26] arm64: qcom: sa8775p-ride: enable the
+	first ethernet port
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,102 +87,70 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gNi8xMi8yMyAxMDoyNiwgQXJuYXVkIFBPVUxJUVVFTiB3cm90ZToKPiAKPiAKPiBPbiA2LzEw
-LzIzIDE1OjQ2LCBNYXJlayBWYXN1dCB3cm90ZToKPj4gT24gNi83LzIzIDExOjUzLCBBcm5hdWQg
-UE9VTElRVUVOIHdyb3RlOgo+Pgo+PiBIaSwKPj4KPj4gWy4uLl0KPj4KPj4+Pj4+Pj4+IFJhdGhl
-ciB0aGFuIGFkZGluZyB1bnVzZWQgb3B0aW9uYWwgbWFpbGJveCwgSSB3aWxsIG1vcmUgaW4gZmF2
-b3IKPj4+Pj4+Pj4+IG9mIGhhdmluZyBhIG1ib3hfcmVxdWVzdF9jaGFubmVsX2J5bmFtZV9vcHRp
-b25hbCBoZWxwZXIgb3IKPj4+Pj4+Pj4+IHNvbWV0aGluZyBzaW1pbGFyCj4+Pj4+Pj4+Cj4+Pj4+
-Pj4+IFNlZSBhYm92ZSwgSSB0aGluayBpdCBpcyBiZXR0ZXIgdG8gaGF2ZSB0aGUgbWFpbGJveCBk
-ZXNjcmliZWQgaW4gRFQKPj4+Pj4+Pj4gYWx3YXlzIGFuZCBub3QgdXNlIGl0ICh0aGUgdXNlciBj
-YW4gYWx3YXlzIHJlbW92ZSBpdCksIHRoYW4gdG8gbm90Cj4+Pj4+Pj4+IGhhdmUgaXQgZGVzY3Jp
-YmVkIG9uIHNvbWUgYm9hcmRzIGFuZCBoYXZlIGl0IGRlc2NyaWJlZCBvbiBvdGhlcgo+Pj4+Pj4+
-PiBib2FyZHMKPj4+Pj4+IChpbmNvbnNpc3RlbmN5KS4KPj4+Pj4+Pgo+Pj4+Pj4+IEFkZGluZyBp
-dCBpbiB0aGUgRFQgKCBhbmQgZXNwZWNpYWxseSBpbiB0aGUgU29jIERUU0kpIGNhbiBhbHNvIGJl
-Cj4+Pj4+Pj4gaW50ZXJwcmV0ZWQgYXMgIml0IGlzIGRlZmluZWQgc28geW91IG11c3QgdXNlIGl0
-Ii4gSSB3b3VsZCBleHBlY3QKPj4+Pj4+PiB0aGF0IHRoZSBCaW5kaW5ncyBhbHJlYWR5IHByb3Zp
-ZGUgdGhlIGluZm9ybWF0aW9uIHRvIGhlbHAgdXNlciB0byBhZGQgaXQKPj4+PiBvbiBuZWVkLgo+
-Pj4+Pj4KPj4+Pj4+IFdoeSBzaG91bGQgZXZlcnkgc2luZ2xlIGJvYXJkIGFkZCBpdCBzZXBhcmF0
-ZWx5IGFuZCBkdXBsaWNhdGUgdGhlCj4+Pj4+PiBzYW1lIHN0dWZmLCBpZiB0aGV5IGNhbiBhbGwg
-c3RhcnQgd2l0aCBpdCwgYW5kIGlmIGFueW9uZSBuZWVkcyB0bwo+Pj4+Pj4gdHdlYWsgdGhlIG1h
-aWxib3ggYWxsb2NhdGlvbiwgdGhlbiB0aGV5IGNhbiBkbyB0aGF0IGluIHRoZSBib2FyZCBEVCA/
-Cj4+Pj4+PiBJIHJlYWxseSBkb24ndCBsaWtlIHRoZSBkdXBsaWNhdGlvbiBzdWdnZXN0aW9uIGhl
-cmUuCj4+Pj4+Cj4+Pj4+IEkgd2FzIHNwZWFraW5nIGFib3V0ICJkZXRhY2ggbWFpbGJveC4gSGVy
-ZSBpcyB3aGF0IEkgd291bGQgbGlrZSB0bwo+Pj4+PiBwcm9wb3NlIHRvIHlvdQo+Pj4+Pgo+Pj4+
-PiAxKcKgIG1vdmUgYWxsIHRoZSBtYWlsYm94IGRlY2xhcmF0aW9uIGluIHRoZSBEVFNJIGV4Y2Vw
-dCAiZGV0YWNoIgo+Pj4+PiAyKSBkb24ndCBkZWNsYXJlICJkZXRhY2giIGluIGJvYXJkcyBEVFMg
-KCBleGNlcHQgU1QgYm9hcmQgZm9yIGxlZ2FjeQo+Pj4+PiBjb21wbGlhbmNlKQo+Pj4+PiAzKSBh
-cyBhIG5leHQgc3RlcCB3ZSB3aWxsIGhhdmUgdG8gZml4IHRoZSB1bmV4cGVjdGVkIHdhcm5pbmcg
-b24gdGhlCj4+Pj4+ICDCoMKgwqDCoCAiZGV0YWNoIiBtYWlsYm94Lgo+Pj4+Cj4+Pj4gV2h5IG5v
-dCBtYWtlIHRoZSBtYWlsYm94IGF2YWlsYWJsZSBieSBkZWZhdWx0IG9uIGFsbCBib2FyZHMgPwo+
-Pj4KPj4+IEl0IGhhcyBiZWVuIGludHJvZHVjZWQgbWFpbmx5IHRvIHRlc3QgdGhlIGRldGFjaCBm
-ZWF0dXJlLAo+Pj4gb24gYSBzZWNvbmQgcGxhdGZvcm0gdG8gaGVscCByZW1vdGVwcm9jIG1haW50
-YWluZXJzIGZvciB0aGUgcmV2aWV3Cj4+PiBwcm9jZXNzLiBCdXQgdGhlIGZlYXR1cmUgaXMgbm90
-IGZ1bGx5IGltcGxlbWVudGVkIG9uIHN0bTMybXAxCj4+PiAoIGF1dG8gcmVib290IG9mIHRoeWUg
-TTQgb24gY3Jhc2gsIGFwcHJvcHJpYXRlIHJlc291cmNlIHRhYmxlIGNsZWFuLXVwLC4uLikKPj4K
-Pj4gVGhpcyBpcyBhIGRyaXZlciBidWcsIHVucmVsYXRlZCB0byBEVCBkZXNjcmlwdGlvbiwgcGxl
-YXNlIGp1c3QgZml4IGl0Lgo+IAo+IE5vLCBpdCBpcyBhIHN5c3RlbSB1c2VjYXNlIHRoYXQgZGVw
-ZW5kcyBvbiBIYXJkd2FyZSwgTTQgZmlybXdhcmUsIEE3Cj4gYXBwbGljYXRpb25zLCAuLi4KPiBU
-aGUgZGV0YWNoL3JlLWF0dGFjaCBpcyBhIHF1aXRlIGNvbXBsZXggZmVhdHVyZSB0aGF0IG5lZWRz
-IHRvIHVuZGVyc3RhbmQKPiB0aGUgd2hvbGUgcGljdHVyZS4gQXMgYWxyZWFkeSBtZW50aW9uZWQg
-YWJvdmUgaXQgYXMgYmVlbiBpbnRyb2R1Y2VkIGZvcgo+IHRlc3Qgb24gdXBzdHJlYW0uCj4gCj4+
-Cj4+PiBJIHdvdWxkIHByZWZlciB0byByZW1vdmUgaXQgaW4gU1QgYm9hcmQgRFQgdGhhbiBhZGQg
-aXQgaW4gdGhlIERUU0kuCj4+PiBUaGF0IHNhaWQgYXMgbWVudGlvbmVkIGZvciBsZWdhY3kgc3Vw
-cG9ydCwgYmV0dGVyIHRvIGtlZXAgZm9yIFNUIGJvYXJkLgo+Pgo+PiBXaHkgbm90IHJlbW92ZSBp
-dCBmcm9tIFNUIGJvYXJkcyBpZiB0aGlzIHdhcyBsZWdhY3kgdGVzdCBmZWF0dXJlIGFuZCBpcyBu
-bwo+PiBsb25nZXIgbmVlZGVkID8KPiAKPiBJZiB5b3UgY2FuIGd1YXJhbnR5IHRoYXQgdGhpcyB3
-aWxsIG5vdCBpbnRyb2R1Y2UgcmVncmVzc2lvbiBvbiBsZWdhY3ksIHllcyB3ZSBjYW4uCgpUaGVu
-IGNsZWFybHkgdGhlIG9ubHkgd2F5IHRvIGF2b2lkIHRoaXMgZnJhZ21lbnRhdGlvbiBpcyB0byBh
-ZGQgaXQgb24gCmFsbCBib2FyZHMuCgo+Pj4+IEFzIGZhciBhcyBJIGNhbiB0ZWxsLCBpZiB0aGUg
-c29mdHdhcmUgaXMgbm90IHVzaW5nIHRoZSBkZXRhY2ggbWFpbGJveCwgdGhlcmUKPj4+PiBpcyBu
-bwo+Pj4+IGRvd25zaWRlLCBpdCB3b3VsZCBqdXN0IGJlIHVudXNlZC4gVXNlciBjYW4gYWx3YXlz
-IHJlbW92ZSBpdCBpbiB0aGVpciBEVCBpZgo+Pj4+IHJlYWxseSBuZWVkZWQuCj4+Pgo+Pj4gVGhl
-IGludmVyc2UgaXQgdHJ1ZSwgVXNlciBjYW4gYWRkIGl0IGluIHRoZWlyIERUIGlmIHJlYWxseSBu
-ZWVkLgo+Pgo+PiBJcyB0aGVyZSBhIGRvd25zaWRlIGlmIHRoaXMgaXMgZW5hYmxlZCBieSBkZWZh
-dWx0LCB5ZXMgb3Igbm8gPwo+IAo+IFllcywgYnkgZG9pbmcgdGhpcyB5b3UgaW1wb3NlIHRoYXQg
-dGhpcyBjaGFubmVsIGlzIHJlc2VydmVkIGZvciB0aGUgZGV0YWNoLgo+IG1ha2luZyBpdCBubyBt
-b3JlIG9wdGlvbmFsLgoKTm90IHJlYWxseSwgdGhlIHVzZXIgY2FuIHN0aWxsIGRlZmluZSB3aGF0
-ZXZlciBjaGFubmVscyB0aGV5IG5lZWQgZm9yIAp0aGVpciBjdXN0b20gc2V0dXAgaW4gdGhlaXIg
-RFQuIFRoZSBTb0MgRFRTSSBzaG91bGQgYmUganVzdCBhIGRlZmF1bHQuCgo+Pj4+IEkgYmVsaWV2
-ZSBvbmNlIGNhbiBidWlsZCBkZW1vcyB1c2luZyB0aGUgZGV0YWNoIG1haWxib3ggZm9yIGJvYXJk
-cyB3aXRoCj4+Pj4gc3RtMzJtcDE1eHggbm90IG1hbnVmYWN0dXJlZCBieSBTVCwgY29ycmVjdCA/
-W10KPj4+Cj4+PiBFdmVyeXRoaW5nIGNvdWxkIGJlIHBvc3NpYmxlLi4uCj4+PiBPbmNlIGNhbiB3
-YW50IHRvIHJlcGxhY2UgdGhlIHNodXRkb3duIG1haWxib3ggYnkgdGhlIGRldGFjaC4KPj4+IE9u
-Y2UgY2FuIGFsc28gYnVpbGQgZGVtbyB1c2luZyB0aGUgZGV0YWNoIG1haWxib3ggY2hhbm5lbCBm
-b3IgYW5vdGhlciBwdXJwb3NlLgo+Pj4KPj4+IEkgcXVpdGUgY29uZnVzZSB3aHkgeW91IGluc2lz
-dCB0byBkZWNsYXJlIHRoaXMgZGV0YWNoIG1haWxib3ggaW4gdGhlIERUU0k/Cj4+PiBJcyB0aGVy
-ZSBhIHN0cm9uZyBjb25zdHJhaW50IG9uIHlvdXIgc2lkZT8KPj4KPj4gSSBqdXN0IGRvbid0IHNl
-ZSBhbnkgZXhwbGFuYXRpb24gd2h5IFNUIGJvYXJkKHMpIHNob3VsZCBiZSBzb21laG93IHNwZWNp
-YWwgYW5kCj4+IGhhdmUgdGhlIGRldGFjaCBtYWlsYm94IGRlc2NyaWJlZCBpbiBEVCBieSBkZWZh
-dWx0LCB3aGlsZSBvdGhlciBib2FyZHMgd291bGQKPj4gcmVxdWlyZSBzZXBhcmF0ZSBEVCBwYXRj
-aCB0byB1c2UgdGhlIGRldGFjaCBtYWlsYm94IGZpcnN0LiBUaGF0IGp1c3QgcmVkdWNlcwo+PiB1
-c2FiaWxpdHkgb2Ygbm9uLVNULW1hbnVmYWN0dXJlZCBib2FyZHMgYW5kIGluY3JlYXNlcyBmcmFn
-bWVudGF0aW9uLiBJIGRvIG5vdAo+PiBsaWtlIHRoYXQuCj4gCj4gVGhlICJzb21laG93IHNwZWNp
-YWwiIHNob3VsZCBvbmx5IGJlIGFuIGludGVybmFsIE00IGZpcm13YXJlICBhbGxvd2luZyB0byB0
-ZXN0Cj4gdGhlIGZlYXR1cmUgdG8gaGVscCByZW1vdGVwcm9jIG1haW50YWluZXJzIHRvIHZlcmlm
-eSBpdCBvbiBkZW1hbmQuCj4gQnV0IEkgY2FuIG5vdCBrbm93IGlmIHNvbWVvbmUgaW4gdGhlIGNv
-bW11bml0eSBoYXZlIGFub3RoZXIgZmlybXdhcmUgdXNpbmcKPiBkZXRhY2ggb24gdGhlIFNUIGJv
-YXJkcy4KPiBBbnl3YXkgd2hhdCB5b3UgcHJvcG9zZSBoZXJlIGlzIHRoYXQgd2UgaW1wb3NlIGl0
-IGZvciBhbGwgYm9hcmRzLiBTb21lIGJvYXJkcwo+IHdvdWxkIHJlcXVpcmUgc2VwYXJhdGUgRFQg
-cGF0Y2ggdG8gbm90IHVzZSBpdC4gV2UganVzdCBpbnZlcnNlIHRoZSB0aGluZ3MuLi4KPiBUaGUg
-ZGlmZmVyZW5jZSBpcyB0aGF0IEkgd291bGQgbm90IGltcG9zZSBzb21ldGhpbmcgb3B0aW9uYWwu
-CgpJIGJlbGlldmUgaXQgaXMgYmV0dGVyIHRvIGhhdmUgc2luZ2xlIGNhcGFibGUgY29uc2lzdGVu
-dCBkZWZhdWx0IGFuZCBsZXQgCnVzZXJzIHJlbW92ZSB0aGUgY2FwYWJpbGl0aWVzIGZvciBzcGVj
-aWZpYyBhcHBsaWNhdGlvbiBpZiBuZWVkZWQsIHRoYW4gCnRvIGhhdmUgZnJhZ21lbnRlZCBpbmNv
-bnNpc3RlbnQgYm9hcmQtc3BlY2lmaWMgY29uZmlndXJhdGlvbnMgd2hlcmUgCnVzZXJzIGhhdmUg
-dG8gZmlyc3QgZGV0ZXJtaW5lIHdoZXRoZXIgdGhleSBuZWVkIHRvIHBhdGNoIHRoZW0gdG8gYWRk
-IAptaXNzaW5nIGNhcGFiaWxpdGllcywgYW5kIHRoZW4gcG9zc2libHkgcGF0Y2ggdGhlbSwgdGhh
-dCdzIGp1c3QgYSBtZXNzLgoKSXQgYWxzbyBwdXRzIG5vbi1TVC1tYW51ZmFjdHVyZWQgYm9hcmRz
-IGludG8gd29yc2UgcG9zaXRpb24uCgo+IEluIHRlcm0gb2YgZnJhZ21lbnRhdGlvbiBJIGNhbiBv
-bmx5IHNlZSBhIHNwZWNpZmljaXR5IGZvciB0aGUgU1QgYm9hcmRzLkFzCj4gYWxyZWFkeSBzYWlk
-IGlmIHlvdSBjYW4gZW5zdXJlIHRoYXQgdGhpcyB3aWxsIG5vdCBnZW5lcmF0ZSBpbXBhY3Qgb24g
-bGVnYWN5LAo+IGl0IGNhbiBiZSByZW1vdmVkIGZyb20gdGhlIFNUIERULgo+IAo+IEBBbGV4OiBh
-bnkgb3BpbmlvbiBvbiB0aGF0PwoKWy4uLl0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0
-LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVw
-bHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+From: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
+
+There are three ethernet ports on sa8775p-ride. This series contains changes
+required to enable one of the two 1Gb ports (the third one is 10Gb). We need
+to add a new driver for the internal SerDes PHY, introduce several extensions
+to the MAC driver (while at it: tweak coding style a bit etc.) and finally
+add the relevant DT nodes.
+
+Bartosz Golaszewski (26):
+  phy: qualcomm: fix indentation in Makefile
+  dt-bindings: phy: describe the Qualcomm SGMII PHY
+  phy: qcom: add the SGMII SerDes PHY driver
+  arm64: defconfig: enable the SerDes PHY for Qualcomm DWMAC
+  net: stmmac: dwmac-qcom-ethqos: shrink clock code with devres
+  net: stmmac: dwmac-qcom-ethqos: rename a label in probe()
+  net: stmmac: dwmac-qcom-ethqos: tweak the order of local variables
+  net: stmmac: dwmac-qcom-ethqos: use a helper variable for &pdev->dev
+  net: stmmac: dwmac-qcom-ethqos: add missing include
+  net: stmmac: dwmac-qcom-ethqos: add a newline between headers
+  net: stmmac: dwmac-qcom-ethqos: remove stray space
+  net: stmmac: dwmac-qcom-ethqos: add support for the optional serdes
+    phy
+  net: stmmac: dwmac-qcom-ethqos: make the rgmii clock optional
+  net: stmmac: dwmac-qcom-ethqos: add optional phyaux clock
+  net: stmmac: dwmac-qcom-ethqos: add support for the optional
+    phy-supply
+  net: stmmac: dwmac-qcom-ethqos: prepare the driver for more PHY modes
+  net: stmmac: dwmac-qcom-ethqos: add support for SGMII
+  net: stmmac: add new switch to struct plat_stmmacenet_data
+  dt-bindings: net: snps,dwmac: add compatible for sa8775p ethqos
+  dt-bindings: net: qcom,ethqos: add description for sa8775p
+  net: stmmac: dwmac-qcom-ethqos: add support for emac4 on sa8775p
+    platforms
+  arm64: dts: qcom: sa8775p-ride: add the SGMII PHY node
+  arm64: dts: qcom: sa8775p: add the first 1Gb ethernet interface
+  arm64: dts: qcom: sa8775p-ride: enable the SerDes PHY
+  arm64: dts: qcom: sa8775p-ride: add pin functions for ethernet0
+  arm64: dts: qcom: sa8775p-ride: enable ethernet0
+
+ .../devicetree/bindings/net/qcom,ethqos.yaml  |  14 +-
+ .../devicetree/bindings/net/snps,dwmac.yaml   |   3 +
+ .../phy/qcom,sa8775p-dwmac-sgmii-phy.yaml     |  52 ++
+ arch/arm64/boot/dts/qcom/sa8775p-ride.dts     | 109 +++++
+ arch/arm64/boot/dts/qcom/sa8775p.dtsi         |  39 ++
+ arch/arm64/configs/defconfig                  |   1 +
+ .../stmicro/stmmac/dwmac-qcom-ethqos.c        | 273 ++++++++---
+ .../net/ethernet/stmicro/stmmac/stmmac_main.c |   2 +-
+ drivers/phy/qualcomm/Kconfig                  |   9 +
+ drivers/phy/qualcomm/Makefile                 |   3 +-
+ drivers/phy/qualcomm/phy-qcom-sgmii-eth.c     | 446 ++++++++++++++++++
+ include/linux/stmmac.h                        |   1 +
+ 12 files changed, 890 insertions(+), 62 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/phy/qcom,sa8775p-dwmac-sgmii-phy.yaml
+ create mode 100644 drivers/phy/qualcomm/phy-qcom-sgmii-eth.c
+
+-- 
+2.39.2
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
