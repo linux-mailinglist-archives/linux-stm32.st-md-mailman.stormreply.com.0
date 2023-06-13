@@ -2,109 +2,78 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B867C72E295
-	for <lists+linux-stm32@lfdr.de>; Tue, 13 Jun 2023 14:15:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AD06172E2F0
+	for <lists+linux-stm32@lfdr.de>; Tue, 13 Jun 2023 14:29:11 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 49FCCC6A61A;
-	Tue, 13 Jun 2023 12:15:14 +0000 (UTC)
-Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com
- [210.118.77.12])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 40F0CC6A61A;
+	Tue, 13 Jun 2023 12:29:11 +0000 (UTC)
+Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
+ [66.111.4.29])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2C7CBC6A615
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DC7B7C6A615
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 13 Jun 2023 12:15:13 +0000 (UTC)
-Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
- by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id
- 20230613121512euoutp0264efcaec8e8756fad5069ab849ecc161~oNvsY-9zz2354723547euoutp02U
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 13 Jun 2023 12:15:12 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com
- 20230613121512euoutp0264efcaec8e8756fad5069ab849ecc161~oNvsY-9zz2354723547euoutp02U
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
- s=mail20170921; t=1686658512;
- bh=Y3ZNB5D8AVxoBSWeoCf3C/SoDBpipqf/QKoy2s3BHR8=;
- h=Date:Subject:From:To:Cc:In-Reply-To:References:From;
- b=B7wm5ixWroIJbQCNrxd0zNLWaJQRaHIc3+ZBnr0HnBmf5xjRwb3zRjIfrXEA0TnEh
- nCuOkVy0iweygiAziGwSFVNPDBlHqsnwVKxlWcOhcGySQyPH4DdDM8gshANHhj5Uxx
- rj8lHUmR+ePu8EFB0QAqvMIUUlFqltsCU3rczYOE=
-Received: from eusmges3new.samsung.com (unknown [203.254.199.245]) by
- eucas1p1.samsung.com (KnoxPortal) with ESMTP id
- 20230613121512eucas1p1410760ed404d847dc9574bf9fa90dc24~oNvsG5s8I0929709297eucas1p1C;
- Tue, 13 Jun 2023 12:15:12 +0000 (GMT)
-Received: from eucas1p1.samsung.com ( [182.198.249.206]) by
- eusmges3new.samsung.com (EUCPMTA) with SMTP id 76.4D.37758.0DD58846; Tue, 13
- Jun 2023 13:15:12 +0100 (BST)
-Received: from eusmtrp2.samsung.com (unknown [182.198.249.139]) by
- eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
- 20230613121511eucas1p2595e0de21fadbafc1f6ffdc5636b9271~oNvrmw3Ie0194501945eucas1p2F;
- Tue, 13 Jun 2023 12:15:11 +0000 (GMT)
-Received: from eusmgms1.samsung.com (unknown [182.198.249.179]) by
- eusmtrp2.samsung.com (KnoxPortal) with ESMTP id
- 20230613121511eusmtrp220be5860b6b8ae4a818b2d62cc3c6736~oNvrl_9MU1045810458eusmtrp2J;
- Tue, 13 Jun 2023 12:15:11 +0000 (GMT)
-X-AuditID: cbfec7f5-7ffff7000002937e-29-64885dd05d25
-Received: from eusmtip1.samsung.com ( [203.254.199.221]) by
- eusmgms1.samsung.com (EUCPMTA) with SMTP id 68.A0.10549.FCD58846; Tue, 13
- Jun 2023 13:15:11 +0100 (BST)
-Received: from [106.210.134.192] (unknown [106.210.134.192]) by
- eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
- 20230613121510eusmtip1c33b374b07701936d08581bf48011228~oNvqyD9VF2427124271eusmtip1I;
- Tue, 13 Jun 2023 12:15:10 +0000 (GMT)
-Message-ID: <c031bff5-6219-adf0-6e73-b688b8de205e@samsung.com>
-Date: Tue, 13 Jun 2023 14:15:10 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0)
- Gecko/20100101 Thunderbird/102.11.2
-Content-Language: en-US
-From: Marek Szyprowski <m.szyprowski@samsung.com>
-To: Maxime Ripard <maxime@cerno.tech>, Michael Turquette
- <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>
-In-Reply-To: <b8d0272d-0193-fe40-3294-9e32a0235323@samsung.com>
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFnrAKsWRmVeSWpSXmKPExsWy7djPc7oXYjtSDJbs4rS48vU9m8WqqTtZ
- LKY9aWKx2PT4GqvFx557rBZdv1YyW3Ru2spoMWHVNxaLrS/fMVkcW32FzaLr2hNWiyn7drFZ
- dH6ZxWYx48c/RouLp1wt/l3byOIg4PH+Riu7x51z59k8Nq3qZPO4332cyWPzknqPF5tnMnps
- fLeDyaP/r4HHwX2GHp83yQVwRXHZpKTmZJalFunbJXBlbDgwi7lgv1JF7/lLrA2MO2S7GDk5
- JARMJKYcv8bcxcjFISSwglFiZ8cKKOcLo8Smvd9YIZzPjBJHjk1hgWn5NXMFO4gtJLCcUWL6
- En2Ioo+MEl3fDrKCJHgF7CRuHf3ICGKzCKhKNOxuY4SIC0qcnPkEbJCoQKrE7msHwOqFBYIl
- Lp08AmYzC4hL3HoynwnEZhMwlOh628UGYosIlEr8ezaVBWQZs8BRZomTV24zgyQ4BewlTv/+
- DNUsL9G8dTbYDxIC+zklPnVMYIY420Vi0f5FUC8IS7w6voUdwpaR+L8TZBtIQzujxILf96Gc
- CYwSDc9vMUJUWUvcOfcL6A4OoBWaEut36YOYEgKOEtf6+SFMPokbbwUhbuCTmLRtOjNEmFei
- o00IYoaaxKzj6+C2HrxwiXkCo9IspGCZheT9WUi+mYWwdgEjyypG8dTS4tz01GLjvNRyveLE
- 3OLSvHS95PzcTYzARHj63/GvOxhXvPqod4iRiYPxEKMEB7OSCO9TjfYUId6UxMqq1KL8+KLS
- nNTiQ4zSHCxK4rzatieThQTSE0tSs1NTC1KLYLJMHJxSDUzNSTyysVb/DqeItFR/16t8aGDd
- fD0/x8JzclHa9SC/vxuFtqzU/t1m5WbX//FLqwpT+9xX3kYVfFU/LsQH3S54oHl06b8vVslJ
- EVuDktr7dux+3bly6sWfCpu+T3M7GhYiZvGnOSiv3eL3Gh5OiUXOzCu6Q1hXxU+SO30m8+Gy
- gzt6en5XzNT53x7/ZHXEDX03y7QpyZGedbV9T8yLrpXN3PtZN/yJ41QhiXU+Vlc0w2f6ZFRw
- GKrFsE6TKP+yeW6fSqLCTvcnT6QmfDLOa1m7b9qThd3z1qdkStiKTy932X59un7wE0n3vGM5
- pr9cgvNnr/v70uD+spzE3rVTPeI1n8c6F9XqX0l/Ex54W4mlOCPRUIu5qDgRAI8LSEXzAwAA
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFvrCIsWRmVeSWpSXmKPExsVy+t/xu7rnYztSDJrbVS2ufH3PZrFq6k4W
- i2lPmlgsNj2+xmrxseceq0XXr5XMFp2btjJaTFj1jcVi68t3TBbHVl9hs+i69oTVYsq+XWwW
- nV9msVnM+PGP0eLiKVeLf9c2sjgIeLy/0crucefceTaPTas62Tzudx9n8ti8pN7jxeaZjB4b
- 3+1g8uj/a+BxcJ+hx+dNcgFcUXo2RfmlJakKGfnFJbZK0YYWRnqGlhZ6RiaWeobG5rFWRqZK
- +nY2Kak5mWWpRfp2CXoZGw7MYi7Yr1TRe/4SawPjDtkuRk4OCQETiV8zV7B3MXJxCAksZZT4
- 1dXIDpGQkTg5rYEVwhaW+HOtiw2i6D2jxNcFO5lBErwCdhK3jn5kBLFZBFQlGna3MULEBSVO
- znzCAmKLCqRK3F3SzwZiCwsES1w6eQRsKLOAuMStJ/OZQGw2AUOJrrddYDUiAqUSn7fuZAFZ
- xixwlFni58mFjBCbDzBKnDj/G6yKU8Be4vTvz1CTzCS6tnYxQtjyEs1bZzNPYBSaheSQWUgW
- zkLSMgtJywJGllWMIqmlxbnpucWGesWJucWleel6yfm5mxiB0b/t2M/NOxjnvfqod4iRiYPx
- EKMEB7OSCO9TjfYUId6UxMqq1KL8+KLSnNTiQ4ymwNCYyCwlmpwPTD95JfGGZgamhiZmlgam
- lmbGSuK8ngUdiUIC6YklqdmpqQWpRTB9TBycUg1MW61awrfcYU1eYyjbxbQyZWpClsfH+J1C
- 39nkK64/Uj2iV73xttj/XXNPzvwTINB1eEeI0P6Su7ah1kpqHOqKz1T2bGZbF8snuXPNrtTs
- 7KyWzhOxz3/H3X3BGZcYY1yStD7WP9isfYXzXB/+w/M75Vp7Amey2k54NT2J+9i7yc48Yqfl
- YrV8mv2unBf35S46eP7ywRI+2bU5biefn2jb/j777/LkJQ4zXHIrJ/AtzFxhPbPhguj2zdPN
- 91xht/GxK2fmytuXudEgYnZpc8eHUzfitrpOyY+Z/TDNJ3XNp4f3Hm+7m7Dyof7JZBsxS3vl
- unU3wj4tVXle+mO1yTe91a4BH5T/RB2TEmWflztLiaU4I9FQi7moOBEA7ZGLmYcDAAA=
-X-CMS-MailID: 20230613121511eucas1p2595e0de21fadbafc1f6ffdc5636b9271
-X-Msg-Generator: CA
-X-RootMTR: 20230613121511eucas1p2595e0de21fadbafc1f6ffdc5636b9271
-X-EPHeader: CA
-CMS-TYPE: 201P
-X-CMS-RootMailID: 20230613121511eucas1p2595e0de21fadbafc1f6ffdc5636b9271
+ Tue, 13 Jun 2023 12:29:09 +0000 (UTC)
+Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
+ by mailout.nyi.internal (Postfix) with ESMTP id DB9C85C0269;
+ Tue, 13 Jun 2023 08:29:08 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute1.internal (MEProxy); Tue, 13 Jun 2023 08:29:08 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=cc
+ :cc:content-type:content-type:date:date:from:from:in-reply-to
+ :in-reply-to:message-id:mime-version:references:reply-to:sender
+ :subject:subject:to:to; s=fm2; t=1686659348; x=1686745748; bh=po
+ Pn2abIHMYUZ1Dx/1E/Yp1yY1WX/gI2qJDM9zz/5yk=; b=PXNsXuFnHmtrexIvo1
+ NFkXSPmStISk2E2hflBLMeucX12cuggg9P/WQUK0Ysg3Re6rxA4pvmZ/ccEEbnYt
+ YSmpd6PiqifW8aY8XcHmNlGi1J9oioxr3Rk7IzaaLUZxkSbA+qjqCq1GhQz8N5VC
+ cB0pektTL5niAg1+mP242Zbe0j7jJTud4HGIJwWArTrFAB9zeDApLkTZn8qeG+q2
+ HQ3U5jgCZYTs8z7/e2C4M6BqRB7LxLhMSP3g+jJw+uKreGAx84bvy19F1VPMeiyA
+ JkKuxbGJxf4vr9V9sEqaWoNvm/bP/fYLHZY5KZLmzisaDsZF0SUlGmw7Tydefs28
+ XkfQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-type:content-type:date:date
+ :feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+ :message-id:mime-version:references:reply-to:sender:subject
+ :subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
+ :x-sasl-enc; s=fm2; t=1686659348; x=1686745748; bh=poPn2abIHMYUZ
+ 1Dx/1E/Yp1yY1WX/gI2qJDM9zz/5yk=; b=hTooP8qZ8p+/dvsXi9bZgAQjvAg0S
+ qO+Yg9UsC/ZYTeBBM2aIfHRN38lkedy//8gdl2lZ364a7t9SANcoQOQLq11N6xyX
+ 6iKlxsogBxV0r6ryoNGIpEBc2SOTTt5hMtmsNpNXEiOO11Qi6AF/aN0LrPG7aoWX
+ gSZGppZJI9A2ykXaeL7f4oPQin2Boug31/u5Se13f7X3pVEA0JawKvX0FDICnsHC
+ fEdUOzHwv1rWXiN+2q/IBh20y8jao6JrtD9krS5dNC/ktby8yNdMQDs2h9rriQ5a
+ RF0T1PdrwLcWpOrEDmIlUlKbaGx3Pt69VwsUFBp6pP6aEcJAis5OQravw==
+X-ME-Sender: <xms:FGGIZAqby2px9Do10fciPiXx90B24_WfNzQQi32zqhKD1_CIvMidtQ>
+ <xme:FGGIZGobKkfdXhbbNeNJCij63sG4CHwWLOs93PZ24WjdawvAFes9qdTaxa2C_DW1Q
+ __2lscgLCWBUvT4B-c>
+X-ME-Received: <xmr:FGGIZFNAp0p70b3JOlVZ20jG9QqoYxPr8eKdAsLPYkfT3WElnzr1EwYPcveDytTbsBGJAGWLylyywjowzcmovg>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrgedujedghedtucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+ cujfgurhepfffhvfevuffkfhggtggujgesghdtsfertddtudenucfhrhhomhepofgrgihi
+ mhgvucftihhprghrugcuoehmrgigihhmvgestggvrhhnohdrthgvtghhqeenucggtffrrg
+ htthgvrhhnpeefjeeiueeiheevtddvgfeluedufeeigeeijefhveelfeevueefieehuefg
+ ffetteenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpe
+ hmrgigihhmvgestggvrhhnohdrthgvtghh
+X-ME-Proxy: <xmx:FGGIZH5haJigjyHQUNGA_FU7XrE8QeZevYfo5Eac1QMl42LnJ66kvg>
+ <xmx:FGGIZP56dAzUZmr2LIg4L-mXgbxCcWrw94Th1AMGCSD0PZ9iujsiEg>
+ <xmx:FGGIZHguJxsuhh_XSoztBXXAPaiKlthqYEJ475FvDuzxci1G8R4omQ>
+ <xmx:FGGIZOSsSpPyFPx2Uocy6BBEycE94g_ucdm3Y_zCQMuKdObb4ftOZA>
+Feedback-ID: i8771445c:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 13 Jun 2023 08:29:07 -0400 (EDT)
+Date: Tue, 13 Jun 2023 14:29:05 +0200
+From: Maxime Ripard <maxime@cerno.tech>
+To: Marek Szyprowski <m.szyprowski@samsung.com>
+Message-ID: <l7jdpyp4lkqpmdxva4dkdvckjmeht2h3jfbmtvuffqgh4aaigl@k7626f2gv5tx>
 References: <20221018-clk-range-checks-fixes-v4-0-971d5077e7d2@cerno.tech>
  <20221018-clk-range-checks-fixes-v4-3-971d5077e7d2@cerno.tech>
  <b8d0272d-0193-fe40-3294-9e32a0235323@samsung.com>
  <CGME20230613121511eucas1p2595e0de21fadbafc1f6ffdc5636b9271@eucas1p2.samsung.com>
-Cc: linux-rtc@vger.kernel.org, linux-actions@lists.infradead.org,
+ <c031bff5-6219-adf0-6e73-b688b8de205e@samsung.com>
+MIME-Version: 1.0
+In-Reply-To: <c031bff5-6219-adf0-6e73-b688b8de205e@samsung.com>
+Cc: linux-rtc@vger.kernel.org, Stephen Boyd <sboyd@kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>, linux-actions@lists.infradead.org,
  linux-mips@vger.kernel.org, dri-devel@lists.freedesktop.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-renesas-soc@vger.kernel.org,
  linux-tegra@vger.kernel.org, NXP Linux Team <linux-imx@nxp.com>,
@@ -124,87 +93,156 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============7902817579856116703=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gMTMuMDYuMjAyMyAxMzoxNSwgTWFyZWsgU3p5cHJvd3NraSB3cm90ZToKPiBPbiAwNS4wNS4y
-MDIzIDEzOjI1LCBNYXhpbWUgUmlwYXJkIHdyb3RlOgo+PiBGcm9tOiBTdGVwaGVuIEJveWQgPHNi
-b3lkQGtlcm5lbC5vcmc+Cj4+Cj4+IFdlJ2xsIG5lZWQgdG8gdHVybiB0aGUgY29kZSBpbiBjbGtf
-bXV4X2RldGVybWluZV9yYXRlX2ZsYWdzKCkgdG8gZGVhbAo+PiB3aXRoIENMS19TRVRfUkFURV9O
-T19SRVBBUkVOVCBpbnRvIGEgaGVscGVyIGNsb2NrIGRyaXZlcnMgd2lsbCBiZSBhYmxlCj4+IHRv
-IHVzZSBpZiB0aGV5IGRvbid0IHdhbnQgdG8gYWxsb3cgcmVwYXJlbnRpbmcuCj4+Cj4+IENjOiBB
-YmVsIFZlc2EgPGFiZWx2ZXNhQGtlcm5lbC5vcmc+Cj4+IENjOiBBbGVzc2FuZHJvIFp1bW1vIDxh
-Lnp1bW1vQHRvd2VydGVjaC5pdD4KPj4gQ2M6IEFsZXhhbmRyZSBCZWxsb25pIDxhbGV4YW5kcmUu
-YmVsbG9uaUBib290bGluLmNvbT4KPj4gQ2M6IEFsZXhhbmRyZSBUb3JndWUgPGFsZXhhbmRyZS50
-b3JndWVAZm9zcy5zdC5jb20+Cj4+IENjOiAiQW5kcmVhcyBGw6RyYmVyIiA8YWZhZXJiZXJAc3Vz
-ZS5kZT4KPj4gQ2M6IEFuZ2Vsb0dpb2FjY2hpbm8gRGVsIFJlZ25vIDxhbmdlbG9naW9hY2NoaW5v
-LmRlbHJlZ25vQGNvbGxhYm9yYS5jb20+Cj4+IENjOiBCYW9saW4gV2FuZyA8YmFvbGluLndhbmdA
-bGludXguYWxpYmFiYS5jb20+Cj4+IENjOiBDaGFybGVzIEtlZXBheCA8Y2tlZXBheEBvcGVuc291
-cmNlLmNpcnJ1cy5jb20+Cj4+IENjOiBDaGVuLVl1IFRzYWkgPHdlbnNAY3NpZS5vcmc+Cj4+IENj
-OiBDaGVuLVl1IFRzYWkgPHdlbnN0QGNocm9taXVtLm9yZz4KPj4gQ2M6IENodW55YW4gWmhhbmcg
-PHpoYW5nLmx5cmFAZ21haWwuY29tPgo+PiBDYzogQ2xhdWRpdSBCZXpuZWEgPGNsYXVkaXUuYmV6
-bmVhQG1pY3JvY2hpcC5jb20+Cj4+IENjOiBEYW5pZWwgVmV0dGVyIDxkYW5pZWxAZmZ3bGwuY2g+
-Cj4+IENjOiBEYXZpZCBBaXJsaWUgPGFpcmxpZWRAZ21haWwuY29tPgo+PiBDYzogRGF2aWQgTGVj
-aG5lciA8ZGF2aWRAbGVjaG5vbG9neS5jb20+Cj4+IENjOiBEaW5oIE5ndXllbiA8ZGluZ3V5ZW5A
-a2VybmVsLm9yZz4KPj4gQ2M6IEZhYmlvIEVzdGV2YW0gPGZlc3RldmFtQGdtYWlsLmNvbT4KPj4g
-Q2M6IEdlZXJ0IFV5dHRlcmhvZXZlbiA8Z2VlcnQrcmVuZXNhc0BnbGlkZXIuYmU+Cj4+IENjOiBK
-YXJvc2xhdiBLeXNlbGEgPHBlcmV4QHBlcmV4LmN6Pgo+PiBDYzogSmVybmVqIFNrcmFiZWMgPGpl
-cm5lai5za3JhYmVjQGdtYWlsLmNvbT4KPj4gQ2M6IEpvbmF0aGFuIEh1bnRlciA8am9uYXRoYW5o
-QG52aWRpYS5jb20+Cj4+IENjOiBLaXNob24gVmlqYXkgQWJyYWhhbSBJIDxraXNob25Aa2VybmVs
-Lm9yZz4KPj4gQ2M6IExpYW0gR2lyZHdvb2QgPGxnaXJkd29vZEBnbWFpbC5jb20+Cj4+IENjOiBM
-aW51cyBXYWxsZWlqIDxsaW51cy53YWxsZWlqQGxpbmFyby5vcmc+Cj4+IENjOiBMdWNhIENlcmVz
-b2xpIDxsdWNhLmNlcmVzb2xpQGJvb3RsaW4uY29tPgo+PiBDYzogTWFuaXZhbm5hbiBTYWRoYXNp
-dmFtIDxtYW5pQGtlcm5lbC5vcmc+Cj4+IENjOiBNYXJrIEJyb3duIDxicm9vbmllQGtlcm5lbC5v
-cmc+Cj4+IENjOiBNYXJrdXMgU2NobmVpZGVyLVBhcmdtYW5uIDxtc3BAYmF5bGlicmUuY29tPgo+
-PiBDYzogTWF4IEZpbGlwcG92IDxqY212YmtiY0BnbWFpbC5jb20+Cj4+IENjOiBNYXhpbWUgQ29x
-dWVsaW4gPG1jb3F1ZWxpbi5zdG0zMkBnbWFpbC5jb20+Cj4+IENjOiBNaWtrbyBQZXJ0dHVuZW4g
-PG1wZXJ0dHVuZW5AbnZpZGlhLmNvbT4KPj4gQ2M6IE1pbGVzIENoZW4gPG1pbGVzLmNoZW5AbWVk
-aWF0ZWsuY29tPgo+PiBDYzogTmljb2xhcyBGZXJyZSA8bmljb2xhcy5mZXJyZUBtaWNyb2NoaXAu
-Y29tPgo+PiBDYzogT3Jzb24gWmhhaSA8b3Jzb256aGFpQGdtYWlsLmNvbT4KPj4gQ2M6IFBhdWwg
-Q2VyY3VlaWwgPHBhdWxAY3JhcG91aWxsb3UubmV0Pgo+PiBDYzogUGVuZyBGYW4gPHBlbmcuZmFu
-QG54cC5jb20+Cj4+IENjOiBQZXRlciBEZSBTY2hyaWp2ZXIgPHBkZXNjaHJpanZlckBudmlkaWEu
-Y29tPgo+PiBDYzogUHJhc2hhbnQgR2Fpa3dhZCA8cGdhaWt3YWRAbnZpZGlhLmNvbT4KPj4gQ2M6
-IFJpY2hhcmQgRml0emdlcmFsZCA8cmZAb3BlbnNvdXJjZS5jaXJydXMuY29tPgo+PiBDYzogU2Ft
-dWVsIEhvbGxhbmQgPHNhbXVlbEBzaG9sbGFuZC5vcmc+Cj4+IENjOiBTYXNjaGEgSGF1ZXIgPHMu
-aGF1ZXJAcGVuZ3V0cm9uaXguZGU+Cj4+IENjOiBTZWtoYXIgTm9yaSA8bnNla2hhckB0aS5jb20+
-Cj4+IENjOiBTaGF3biBHdW8gPHNoYXduZ3VvQGtlcm5lbC5vcmc+Cj4+IENjOiBUYWthc2hpIEl3
-YWkgPHRpd2FpQHN1c2UuY29tPgo+PiBDYzogVGhpZXJyeSBSZWRpbmcgPHRoaWVycnkucmVkaW5n
-QGdtYWlsLmNvbT4KPj4gQ2M6IFVsZiBIYW5zc29uIDx1bGYuaGFuc3NvbkBsaW5hcm8ub3JnPgo+
-PiBDYzogVmlub2QgS291bCA8dmtvdWxAa2VybmVsLm9yZz4KPj4gQ2M6IGRyaS1kZXZlbEBsaXN0
-cy5mcmVlZGVza3RvcC5vcmcKPj4gQ2M6IGxpbnV4LWFjdGlvbnNAbGlzdHMuaW5mcmFkZWFkLm9y
-Zwo+PiBDYzogbGludXgtYXJtLWtlcm5lbEBsaXN0cy5pbmZyYWRlYWQub3JnCj4+IENjOiBsaW51
-eC1taXBzQHZnZXIua2VybmVsLm9yZwo+PiBDYzogbGludXgtcGh5QGxpc3RzLmluZnJhZGVhZC5v
-cmcKPj4gQ2M6IGxpbnV4LXJlbmVzYXMtc29jQHZnZXIua2VybmVsLm9yZwo+PiBDYzogbGludXgt
-cnRjQHZnZXIua2VybmVsLm9yZwo+PiBDYzogbGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9y
-bXJlcGx5LmNvbQo+PiBDYzogbGludXgtc3VueGlAbGlzdHMubGludXguZGV2Cj4+IENjOiBsaW51
-eC10ZWdyYUB2Z2VyLmtlcm5lbC5vcmcKPj4gQ2M6IE5YUCBMaW51eCBUZWFtIDxsaW51eC1pbXhA
-bnhwLmNvbT4KPj4gQ2M6IHBhdGNoZXNAb3BlbnNvdXJjZS5jaXJydXMuY29tCj4+IENjOiBQZW5n
-dXRyb25peCBLZXJuZWwgVGVhbSA8a2VybmVsQHBlbmd1dHJvbml4LmRlPgo+PiBTaWduZWQtb2Zm
-LWJ5OiBTdGVwaGVuIEJveWQgPHNib3lkQGtlcm5lbC5vcmc+Cj4+IFNpZ25lZC1vZmYtYnk6IE1h
-eGltZSBSaXBhcmQgPG1heGltZUBjZXJuby50ZWNoPgo+PiAtLS0KPgo+IFRoaXMgcGF0Y2ggbGFu
-ZGVkIGluIHRvZGF5J3MgbGludXgtbmV4dCBhcyBjb21taXQgMWI0ZTk5ZmRhNzNmICgiY2xrOiAK
-PiBNb3ZlIG5vIHJlcGFyZW50IGNhc2UgaW50byBhIHNlcGFyYXRlIGZ1bmN0aW9uIikuIFVuZm9y
-dHVuYXRlbHkgaXQgCj4gY2F1c2VzIHNlcmlvdXMgcmVncmVzc2lvbiBvZiBzb21lIG9mIG15IHRl
-c3QgYm9hcmRzLiBOYW1lbHkgRXh5bm9zMzI1MCAKPiBiYXNlZCBib2FyZHMgYXJlIHNvIHNsb3cg
-YWZ0ZXIgaXQsIHRoYXQgbXkgdGVzdCBzY3JpcHRzIGZhaWwgd2l0aCBhIAo+IHRpbWVvdXQgd2Fp
-dGluZyBmb3IgdGhlbSB0byBmaW5pc2ggYm9vdGluZy4gSSB3aWxsIHRyeSB0byBkZWJ1ZyB0aGlz
-IAo+IGxhdGVyIGluIHRoZSBldmVuaW5nIHRvIGNoZWNrIHdoYXQgaGFzIGhhcHBlbmVkIHRoYXQg
-c29tZSBjbG9ja3MgZ290IAo+IHZlcnkgbG93IHJhdGUuCj4KSSBqdXN0IGdvdCBhIGZldyBzcGFy
-ZSBtaW51dGVzLCBzbyBJIGRlY2lkZWQgdG8gdGFrZSBhIGxvb2sgaW50byB0aGlzIAppc3N1ZS4g
-VGhlIGZvbGxvd2luZyBjaGFuZ2UgZml4ZWQgbXkgcHJvYmxlbToKCmRpZmYgLS1naXQgYS9kcml2
-ZXJzL2Nsay9jbGsuYyBiL2RyaXZlcnMvY2xrL2Nsay5jCmluZGV4IGZmYzlmMDM4NDBiNy4uN2Fj
-OWY3YThjYjg0IDEwMDY0NAotLS0gYS9kcml2ZXJzL2Nsay9jbGsuYworKysgYi9kcml2ZXJzL2Ns
-ay9jbGsuYwpAQCAtNjI5LDYgKzYyOSw3IEBAIGNsa19jb3JlX2RldGVybWluZV9yYXRlX25vX3Jl
-cGFyZW50KHN0cnVjdCBjbGtfaHcgKmh3LAogwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-IGJlc3QgPSBjbGtfY29yZV9nZXRfcmF0ZV9ub2xvY2soY29yZSk7CiDCoMKgwqDCoMKgwqDCoCB9
-CgorwqDCoMKgwqDCoMKgIHJlcS0+YmVzdF9wYXJlbnRfcmF0ZSA9IGJlc3Q7CiDCoMKgwqDCoMKg
-wqDCoCByZXEtPnJhdGUgPSBiZXN0OwoKIMKgwqDCoMKgwqDCoMKgIHJldHVybiAwOwoKYmVzdF9w
-YXJlbnRfcmF0ZSBpcyBzdGlsbCBiZWluZyB1c2VkIHNvbWV3aGVyZSBpbiB0aGUgY29kZSBhbmQg
-bmVlZHMgdG8gCmJlIHVwZGF0ZWQgcmVnYXJkbGVzcyBvZiB0aGUgQ0xLX1NFVF9SQVRFX05PX1JF
-UEFSRU5UIGZsYWcuCgogPiAuLi4KCkJlc3QgcmVnYXJkcwotLSAKTWFyZWsgU3p5cHJvd3NraSwg
-UGhEClNhbXN1bmcgUiZEIEluc3RpdHV0ZSBQb2xhbmQKCl9fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1z
-dG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5z
-dG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+
+--===============7902817579856116703==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="ym7pmf2huq36hsov"
+Content-Disposition: inline
+
+
+--ym7pmf2huq36hsov
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+Hi,
+
+On Tue, Jun 13, 2023 at 02:15:10PM +0200, Marek Szyprowski wrote:
+> On 13.06.2023 13:15, Marek Szyprowski wrote:
+> > On 05.05.2023 13:25, Maxime Ripard wrote:
+> >> From: Stephen Boyd <sboyd@kernel.org>
+> >>
+> >> We'll need to turn the code in clk_mux_determine_rate_flags() to deal
+> >> with CLK_SET_RATE_NO_REPARENT into a helper clock drivers will be able
+> >> to use if they don't want to allow reparenting.
+> >>
+> >> Cc: Abel Vesa <abelvesa@kernel.org>
+> >> Cc: Alessandro Zummo <a.zummo@towertech.it>
+> >> Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>
+> >> Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
+> >> Cc: "Andreas F=E4rber" <afaerber@suse.de>
+> >> Cc: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.co=
+m>
+> >> Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
+> >> Cc: Charles Keepax <ckeepax@opensource.cirrus.com>
+> >> Cc: Chen-Yu Tsai <wens@csie.org>
+> >> Cc: Chen-Yu Tsai <wenst@chromium.org>
+> >> Cc: Chunyan Zhang <zhang.lyra@gmail.com>
+> >> Cc: Claudiu Beznea <claudiu.beznea@microchip.com>
+> >> Cc: Daniel Vetter <daniel@ffwll.ch>
+> >> Cc: David Airlie <airlied@gmail.com>
+> >> Cc: David Lechner <david@lechnology.com>
+> >> Cc: Dinh Nguyen <dinguyen@kernel.org>
+> >> Cc: Fabio Estevam <festevam@gmail.com>
+> >> Cc: Geert Uytterhoeven <geert+renesas@glider.be>
+> >> Cc: Jaroslav Kysela <perex@perex.cz>
+> >> Cc: Jernej Skrabec <jernej.skrabec@gmail.com>
+> >> Cc: Jonathan Hunter <jonathanh@nvidia.com>
+> >> Cc: Kishon Vijay Abraham I <kishon@kernel.org>
+> >> Cc: Liam Girdwood <lgirdwood@gmail.com>
+> >> Cc: Linus Walleij <linus.walleij@linaro.org>
+> >> Cc: Luca Ceresoli <luca.ceresoli@bootlin.com>
+> >> Cc: Manivannan Sadhasivam <mani@kernel.org>
+> >> Cc: Mark Brown <broonie@kernel.org>
+> >> Cc: Markus Schneider-Pargmann <msp@baylibre.com>
+> >> Cc: Max Filippov <jcmvbkbc@gmail.com>
+> >> Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+> >> Cc: Mikko Perttunen <mperttunen@nvidia.com>
+> >> Cc: Miles Chen <miles.chen@mediatek.com>
+> >> Cc: Nicolas Ferre <nicolas.ferre@microchip.com>
+> >> Cc: Orson Zhai <orsonzhai@gmail.com>
+> >> Cc: Paul Cercueil <paul@crapouillou.net>
+> >> Cc: Peng Fan <peng.fan@nxp.com>
+> >> Cc: Peter De Schrijver <pdeschrijver@nvidia.com>
+> >> Cc: Prashant Gaikwad <pgaikwad@nvidia.com>
+> >> Cc: Richard Fitzgerald <rf@opensource.cirrus.com>
+> >> Cc: Samuel Holland <samuel@sholland.org>
+> >> Cc: Sascha Hauer <s.hauer@pengutronix.de>
+> >> Cc: Sekhar Nori <nsekhar@ti.com>
+> >> Cc: Shawn Guo <shawnguo@kernel.org>
+> >> Cc: Takashi Iwai <tiwai@suse.com>
+> >> Cc: Thierry Reding <thierry.reding@gmail.com>
+> >> Cc: Ulf Hansson <ulf.hansson@linaro.org>
+> >> Cc: Vinod Koul <vkoul@kernel.org>
+> >> Cc: dri-devel@lists.freedesktop.org
+> >> Cc: linux-actions@lists.infradead.org
+> >> Cc: linux-arm-kernel@lists.infradead.org
+> >> Cc: linux-mips@vger.kernel.org
+> >> Cc: linux-phy@lists.infradead.org
+> >> Cc: linux-renesas-soc@vger.kernel.org
+> >> Cc: linux-rtc@vger.kernel.org
+> >> Cc: linux-stm32@st-md-mailman.stormreply.com
+> >> Cc: linux-sunxi@lists.linux.dev
+> >> Cc: linux-tegra@vger.kernel.org
+> >> Cc: NXP Linux Team <linux-imx@nxp.com>
+> >> Cc: patches@opensource.cirrus.com
+> >> Cc: Pengutronix Kernel Team <kernel@pengutronix.de>
+> >> Signed-off-by: Stephen Boyd <sboyd@kernel.org>
+> >> Signed-off-by: Maxime Ripard <maxime@cerno.tech>
+> >> ---
+> >
+> > This patch landed in today's linux-next as commit 1b4e99fda73f ("clk:=
+=20
+> > Move no reparent case into a separate function"). Unfortunately it=20
+> > causes serious regression of some of my test boards. Namely Exynos3250=
+=20
+> > based boards are so slow after it, that my test scripts fail with a=20
+> > timeout waiting for them to finish booting. I will try to debug this=20
+> > later in the evening to check what has happened that some clocks got=20
+> > very low rate.
+> >
+> I just got a few spare minutes, so I decided to take a look into this=20
+> issue. The following change fixed my problem:
+>=20
+> diff --git a/drivers/clk/clk.c b/drivers/clk/clk.c
+> index ffc9f03840b7..7ac9f7a8cb84 100644
+> --- a/drivers/clk/clk.c
+> +++ b/drivers/clk/clk.c
+> @@ -629,6 +629,7 @@ clk_core_determine_rate_no_reparent(struct clk_hw *hw,
+>  =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 best =3D clk_core_get_rate=
+_nolock(core);
+>  =A0=A0=A0=A0=A0=A0=A0 }
+>=20
+> +=A0=A0=A0=A0=A0=A0 req->best_parent_rate =3D best;
+>  =A0=A0=A0=A0=A0=A0=A0 req->rate =3D best;
+>=20
+>  =A0=A0=A0=A0=A0=A0=A0 return 0;
+>=20
+> best_parent_rate is still being used somewhere in the code and needs to=
+=20
+> be updated regardless of the CLK_SET_RATE_NO_REPARENT flag.
+
+Yeah, that makes sense, could you send a patch?
+
+Thanks for figuring it out!
+Maxime
+
+--ym7pmf2huq36hsov
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCZIhhEQAKCRDj7w1vZxhR
+xXOoAQDAK6aw4nYGYRJLqebtaBE5GyDeYP0t1soy+3BsbMlFzwD/ZiRkHp+B0tCO
+03+uhQUNPVl5ZSkl2IyBNKSqkSJtOw0=
+=bV8F
+-----END PGP SIGNATURE-----
+
+--ym7pmf2huq36hsov--
+
+--===============7902817579856116703==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============7902817579856116703==--
