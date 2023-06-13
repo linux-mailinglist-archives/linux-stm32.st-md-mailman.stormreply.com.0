@@ -2,86 +2,71 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id AD06172E2F0
-	for <lists+linux-stm32@lfdr.de>; Tue, 13 Jun 2023 14:29:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 53FE372E603
+	for <lists+linux-stm32@lfdr.de>; Tue, 13 Jun 2023 16:42:05 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 40F0CC6A61A;
-	Tue, 13 Jun 2023 12:29:11 +0000 (UTC)
-Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
- [66.111.4.29])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 05834C6A61A;
+	Tue, 13 Jun 2023 14:42:05 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DC7B7C6A615
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BE648C5E2C2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 13 Jun 2023 12:29:09 +0000 (UTC)
-Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
- by mailout.nyi.internal (Postfix) with ESMTP id DB9C85C0269;
- Tue, 13 Jun 2023 08:29:08 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute1.internal (MEProxy); Tue, 13 Jun 2023 08:29:08 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=cc
- :cc:content-type:content-type:date:date:from:from:in-reply-to
- :in-reply-to:message-id:mime-version:references:reply-to:sender
- :subject:subject:to:to; s=fm2; t=1686659348; x=1686745748; bh=po
- Pn2abIHMYUZ1Dx/1E/Yp1yY1WX/gI2qJDM9zz/5yk=; b=PXNsXuFnHmtrexIvo1
- NFkXSPmStISk2E2hflBLMeucX12cuggg9P/WQUK0Ysg3Re6rxA4pvmZ/ccEEbnYt
- YSmpd6PiqifW8aY8XcHmNlGi1J9oioxr3Rk7IzaaLUZxkSbA+qjqCq1GhQz8N5VC
- cB0pektTL5niAg1+mP242Zbe0j7jJTud4HGIJwWArTrFAB9zeDApLkTZn8qeG+q2
- HQ3U5jgCZYTs8z7/e2C4M6BqRB7LxLhMSP3g+jJw+uKreGAx84bvy19F1VPMeiyA
- JkKuxbGJxf4vr9V9sEqaWoNvm/bP/fYLHZY5KZLmzisaDsZF0SUlGmw7Tydefs28
- XkfQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-type:content-type:date:date
- :feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
- :message-id:mime-version:references:reply-to:sender:subject
- :subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
- :x-sasl-enc; s=fm2; t=1686659348; x=1686745748; bh=poPn2abIHMYUZ
- 1Dx/1E/Yp1yY1WX/gI2qJDM9zz/5yk=; b=hTooP8qZ8p+/dvsXi9bZgAQjvAg0S
- qO+Yg9UsC/ZYTeBBM2aIfHRN38lkedy//8gdl2lZ364a7t9SANcoQOQLq11N6xyX
- 6iKlxsogBxV0r6ryoNGIpEBc2SOTTt5hMtmsNpNXEiOO11Qi6AF/aN0LrPG7aoWX
- gSZGppZJI9A2ykXaeL7f4oPQin2Boug31/u5Se13f7X3pVEA0JawKvX0FDICnsHC
- fEdUOzHwv1rWXiN+2q/IBh20y8jao6JrtD9krS5dNC/ktby8yNdMQDs2h9rriQ5a
- RF0T1PdrwLcWpOrEDmIlUlKbaGx3Pt69VwsUFBp6pP6aEcJAis5OQravw==
-X-ME-Sender: <xms:FGGIZAqby2px9Do10fciPiXx90B24_WfNzQQi32zqhKD1_CIvMidtQ>
- <xme:FGGIZGobKkfdXhbbNeNJCij63sG4CHwWLOs93PZ24WjdawvAFes9qdTaxa2C_DW1Q
- __2lscgLCWBUvT4B-c>
-X-ME-Received: <xmr:FGGIZFNAp0p70b3JOlVZ20jG9QqoYxPr8eKdAsLPYkfT3WElnzr1EwYPcveDytTbsBGJAGWLylyywjowzcmovg>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrgedujedghedtucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
- cujfgurhepfffhvfevuffkfhggtggujgesghdtsfertddtudenucfhrhhomhepofgrgihi
- mhgvucftihhprghrugcuoehmrgigihhmvgestggvrhhnohdrthgvtghhqeenucggtffrrg
- htthgvrhhnpeefjeeiueeiheevtddvgfeluedufeeigeeijefhveelfeevueefieehuefg
- ffetteenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpe
- hmrgigihhmvgestggvrhhnohdrthgvtghh
-X-ME-Proxy: <xmx:FGGIZH5haJigjyHQUNGA_FU7XrE8QeZevYfo5Eac1QMl42LnJ66kvg>
- <xmx:FGGIZP56dAzUZmr2LIg4L-mXgbxCcWrw94Th1AMGCSD0PZ9iujsiEg>
- <xmx:FGGIZHguJxsuhh_XSoztBXXAPaiKlthqYEJ475FvDuzxci1G8R4omQ>
- <xmx:FGGIZOSsSpPyFPx2Uocy6BBEycE94g_ucdm3Y_zCQMuKdObb4ftOZA>
-Feedback-ID: i8771445c:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 13 Jun 2023 08:29:07 -0400 (EDT)
-Date: Tue, 13 Jun 2023 14:29:05 +0200
-From: Maxime Ripard <maxime@cerno.tech>
-To: Marek Szyprowski <m.szyprowski@samsung.com>
-Message-ID: <l7jdpyp4lkqpmdxva4dkdvckjmeht2h3jfbmtvuffqgh4aaigl@k7626f2gv5tx>
-References: <20221018-clk-range-checks-fixes-v4-0-971d5077e7d2@cerno.tech>
- <20221018-clk-range-checks-fixes-v4-3-971d5077e7d2@cerno.tech>
- <b8d0272d-0193-fe40-3294-9e32a0235323@samsung.com>
- <CGME20230613121511eucas1p2595e0de21fadbafc1f6ffdc5636b9271@eucas1p2.samsung.com>
- <c031bff5-6219-adf0-6e73-b688b8de205e@samsung.com>
+ Tue, 13 Jun 2023 14:42:03 +0000 (UTC)
+Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 35DDY6Ul009653; Tue, 13 Jun 2023 16:41:46 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=QBzgnvZYhvVECTlLRUjYVkLIxxSdPPzsz4m+WBIMtA0=;
+ b=ALffOYbR7QhU+P2lgcTH5EB6/GVdjZuhII0dOcWGqr3VPnjrwevl+MoxPuomk1Amqqva
+ vBNz7QXDeDupwh9e4nW07kdU0eYjLkX9P+KUMH2PtLJyTFfivV7To+JKp4ZrV2qxB8d0
+ Wxm0+v6K70ew01w1NqsYa2rvj7Hw1Xuduh08Btv0Tbpyt6tvnvwbwv5jqggNHFim33uk
+ k1lvaDwCaVTbZFqqNcR2upxolZD/KXoUpiHSuFOhor/XLTm0Hfgb7cR0DE1CaUT0RpT/
+ YQmn7/2zEKy8ADtBlCY5tHHqa5ZL+/3fxqvOxZYyW9o6pdFB/jT9uriliSnu8Kvb9mOm RA== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3r6sf30dn2-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 13 Jun 2023 16:41:46 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id E3FFD100045;
+ Tue, 13 Jun 2023 16:41:45 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id D4C882309E8;
+ Tue, 13 Jun 2023 16:41:45 +0200 (CEST)
+Received: from [10.48.1.204] (10.48.1.204) by SHFDAG1NODE1.st.com
+ (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.21; Tue, 13 Jun
+ 2023 16:41:45 +0200
+Message-ID: <376dc16d-8896-0a47-b8dd-3f919c1e50bf@foss.st.com>
+Date: Tue, 13 Jun 2023 16:41:31 +0200
 MIME-Version: 1.0
-In-Reply-To: <c031bff5-6219-adf0-6e73-b688b8de205e@samsung.com>
-Cc: linux-rtc@vger.kernel.org, Stephen Boyd <sboyd@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>, linux-actions@lists.infradead.org,
- linux-mips@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-renesas-soc@vger.kernel.org,
- linux-tegra@vger.kernel.org, NXP Linux Team <linux-imx@nxp.com>,
- Pengutronix Kernel Team <kernel@pengutronix.de>, linux-phy@lists.infradead.org,
- linux-sunxi@lists.linux.dev, linux-clk@vger.kernel.org,
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+To: Dario Binacchi <dario.binacchi@amarulasolutions.com>,
+ <linux-kernel@vger.kernel.org>
+References: <20230609062050.2107143-1-dario.binacchi@amarulasolutions.com>
+ <20230609062050.2107143-5-dario.binacchi@amarulasolutions.com>
+Content-Language: en-US
+From: Philippe CORNU <philippe.cornu@foss.st.com>
+In-Reply-To: <20230609062050.2107143-5-dario.binacchi@amarulasolutions.com>
+X-Originating-IP: [10.48.1.204]
+X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.957,Hydra:6.0.573,FMLib:17.11.176.26
+ definitions=2023-06-13_16,2023-06-12_02,2023-05-22_02
+Cc: Daniel Vetter <daniel@ffwll.ch>,
+ Amarula patchwork <linux-amarula@amarulasolutions.com>,
+ Yannick Fertre <yannick.fertre@foss.st.com>, dri-devel@lists.freedesktop.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, michael@amarulasolutions.com,
+ David Airlie <airlied@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v4 03/68] clk: Move no reparent case into
- a separate function
+Subject: Re: [Linux-stm32] [PATCH v3 4/4] drm/stm: add an option to change
+	FB bpp
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,156 +78,72 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============7902817579856116703=="
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 
---===============7902817579856116703==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ym7pmf2huq36hsov"
-Content-Disposition: inline
 
+On 6/9/23 08:20, Dario Binacchi wrote:
+> Boards that use the STM32F{4,7} series have limited amounts of RAM. The
+> added parameter allows users to size, within certain limits, the memory
+> footprint required by the framebuffer.
+> 
+> Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+> 
+> ---
+> 
+> Changes in v3:
+> - drop [4/6] dt-bindings: display: simple: add Rocktech RK043FN48H
+>    Applied to https://anongit.freedesktop.org/git/drm/drm-misc.git (drm-misc-next):
+>    https://cgit.freedesktop.org/drm/drm-misc/commit/?id=c42a37a27c777d63961dd634a30f7c887949491a
+> - drop [5/6] drm/panel: simple: add support for Rocktech RK043FN48H panel
+>    Applied to https://anongit.freedesktop.org/git/drm/drm-misc.git (drm-misc-next)
+>    https://cgit.freedesktop.org/drm/drm-misc/commit/?id=13cdd12a9f934158f4ec817cf048fcb4384aa9dc
+> 
+>   drivers/gpu/drm/stm/drv.c | 8 +++++++-
+>   1 file changed, 7 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/stm/drv.c b/drivers/gpu/drm/stm/drv.c
+> index 422220df7d8c..65be2b442a6a 100644
+> --- a/drivers/gpu/drm/stm/drv.c
+> +++ b/drivers/gpu/drm/stm/drv.c
+> @@ -30,6 +30,11 @@
+>   #define STM_MAX_FB_WIDTH	2048
+>   #define STM_MAX_FB_HEIGHT	2048 /* same as width to handle orientation */
+>   
+> +static uint stm_bpp = 16;
+> +
+> +MODULE_PARM_DESC(bpp, "bits-per-pixel (default: 16)");
+> +module_param_named(bpp, stm_bpp, uint, 0644);
+> +
+>   static const struct drm_mode_config_funcs drv_mode_config_funcs = {
+>   	.fb_create = drm_gem_fb_create,
+>   	.atomic_check = drm_atomic_helper_check,
+> @@ -93,6 +98,7 @@ static int drv_load(struct drm_device *ddev)
+>   	ddev->mode_config.min_height = 0;
+>   	ddev->mode_config.max_width = STM_MAX_FB_WIDTH;
+>   	ddev->mode_config.max_height = STM_MAX_FB_HEIGHT;
+> +	ddev->mode_config.preferred_depth = stm_bpp;
+>   	ddev->mode_config.funcs = &drv_mode_config_funcs;
+>   	ddev->mode_config.normalize_zpos = true;
+>   
+> @@ -203,7 +209,7 @@ static int stm_drm_platform_probe(struct platform_device *pdev)
+>   	if (ret)
+>   		goto err_put;
+>   
+> -	drm_fbdev_dma_setup(ddev, 16);
+> +	drm_fbdev_dma_setup(ddev, stm_bpp);
+>   
+>   	return 0;
+>   
 
---ym7pmf2huq36hsov
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-Hi,
-
-On Tue, Jun 13, 2023 at 02:15:10PM +0200, Marek Szyprowski wrote:
-> On 13.06.2023 13:15, Marek Szyprowski wrote:
-> > On 05.05.2023 13:25, Maxime Ripard wrote:
-> >> From: Stephen Boyd <sboyd@kernel.org>
-> >>
-> >> We'll need to turn the code in clk_mux_determine_rate_flags() to deal
-> >> with CLK_SET_RATE_NO_REPARENT into a helper clock drivers will be able
-> >> to use if they don't want to allow reparenting.
-> >>
-> >> Cc: Abel Vesa <abelvesa@kernel.org>
-> >> Cc: Alessandro Zummo <a.zummo@towertech.it>
-> >> Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>
-> >> Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
-> >> Cc: "Andreas F=E4rber" <afaerber@suse.de>
-> >> Cc: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.co=
-m>
-> >> Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
-> >> Cc: Charles Keepax <ckeepax@opensource.cirrus.com>
-> >> Cc: Chen-Yu Tsai <wens@csie.org>
-> >> Cc: Chen-Yu Tsai <wenst@chromium.org>
-> >> Cc: Chunyan Zhang <zhang.lyra@gmail.com>
-> >> Cc: Claudiu Beznea <claudiu.beznea@microchip.com>
-> >> Cc: Daniel Vetter <daniel@ffwll.ch>
-> >> Cc: David Airlie <airlied@gmail.com>
-> >> Cc: David Lechner <david@lechnology.com>
-> >> Cc: Dinh Nguyen <dinguyen@kernel.org>
-> >> Cc: Fabio Estevam <festevam@gmail.com>
-> >> Cc: Geert Uytterhoeven <geert+renesas@glider.be>
-> >> Cc: Jaroslav Kysela <perex@perex.cz>
-> >> Cc: Jernej Skrabec <jernej.skrabec@gmail.com>
-> >> Cc: Jonathan Hunter <jonathanh@nvidia.com>
-> >> Cc: Kishon Vijay Abraham I <kishon@kernel.org>
-> >> Cc: Liam Girdwood <lgirdwood@gmail.com>
-> >> Cc: Linus Walleij <linus.walleij@linaro.org>
-> >> Cc: Luca Ceresoli <luca.ceresoli@bootlin.com>
-> >> Cc: Manivannan Sadhasivam <mani@kernel.org>
-> >> Cc: Mark Brown <broonie@kernel.org>
-> >> Cc: Markus Schneider-Pargmann <msp@baylibre.com>
-> >> Cc: Max Filippov <jcmvbkbc@gmail.com>
-> >> Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-> >> Cc: Mikko Perttunen <mperttunen@nvidia.com>
-> >> Cc: Miles Chen <miles.chen@mediatek.com>
-> >> Cc: Nicolas Ferre <nicolas.ferre@microchip.com>
-> >> Cc: Orson Zhai <orsonzhai@gmail.com>
-> >> Cc: Paul Cercueil <paul@crapouillou.net>
-> >> Cc: Peng Fan <peng.fan@nxp.com>
-> >> Cc: Peter De Schrijver <pdeschrijver@nvidia.com>
-> >> Cc: Prashant Gaikwad <pgaikwad@nvidia.com>
-> >> Cc: Richard Fitzgerald <rf@opensource.cirrus.com>
-> >> Cc: Samuel Holland <samuel@sholland.org>
-> >> Cc: Sascha Hauer <s.hauer@pengutronix.de>
-> >> Cc: Sekhar Nori <nsekhar@ti.com>
-> >> Cc: Shawn Guo <shawnguo@kernel.org>
-> >> Cc: Takashi Iwai <tiwai@suse.com>
-> >> Cc: Thierry Reding <thierry.reding@gmail.com>
-> >> Cc: Ulf Hansson <ulf.hansson@linaro.org>
-> >> Cc: Vinod Koul <vkoul@kernel.org>
-> >> Cc: dri-devel@lists.freedesktop.org
-> >> Cc: linux-actions@lists.infradead.org
-> >> Cc: linux-arm-kernel@lists.infradead.org
-> >> Cc: linux-mips@vger.kernel.org
-> >> Cc: linux-phy@lists.infradead.org
-> >> Cc: linux-renesas-soc@vger.kernel.org
-> >> Cc: linux-rtc@vger.kernel.org
-> >> Cc: linux-stm32@st-md-mailman.stormreply.com
-> >> Cc: linux-sunxi@lists.linux.dev
-> >> Cc: linux-tegra@vger.kernel.org
-> >> Cc: NXP Linux Team <linux-imx@nxp.com>
-> >> Cc: patches@opensource.cirrus.com
-> >> Cc: Pengutronix Kernel Team <kernel@pengutronix.de>
-> >> Signed-off-by: Stephen Boyd <sboyd@kernel.org>
-> >> Signed-off-by: Maxime Ripard <maxime@cerno.tech>
-> >> ---
-> >
-> > This patch landed in today's linux-next as commit 1b4e99fda73f ("clk:=
-=20
-> > Move no reparent case into a separate function"). Unfortunately it=20
-> > causes serious regression of some of my test boards. Namely Exynos3250=
-=20
-> > based boards are so slow after it, that my test scripts fail with a=20
-> > timeout waiting for them to finish booting. I will try to debug this=20
-> > later in the evening to check what has happened that some clocks got=20
-> > very low rate.
-> >
-> I just got a few spare minutes, so I decided to take a look into this=20
-> issue. The following change fixed my problem:
->=20
-> diff --git a/drivers/clk/clk.c b/drivers/clk/clk.c
-> index ffc9f03840b7..7ac9f7a8cb84 100644
-> --- a/drivers/clk/clk.c
-> +++ b/drivers/clk/clk.c
-> @@ -629,6 +629,7 @@ clk_core_determine_rate_no_reparent(struct clk_hw *hw,
->  =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 best =3D clk_core_get_rate=
-_nolock(core);
->  =A0=A0=A0=A0=A0=A0=A0 }
->=20
-> +=A0=A0=A0=A0=A0=A0 req->best_parent_rate =3D best;
->  =A0=A0=A0=A0=A0=A0=A0 req->rate =3D best;
->=20
->  =A0=A0=A0=A0=A0=A0=A0 return 0;
->=20
-> best_parent_rate is still being used somewhere in the code and needs to=
-=20
-> be updated regardless of the CLK_SET_RATE_NO_REPARENT flag.
-
-Yeah, that makes sense, could you send a patch?
-
-Thanks for figuring it out!
-Maxime
-
---ym7pmf2huq36hsov
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCZIhhEQAKCRDj7w1vZxhR
-xXOoAQDAK6aw4nYGYRJLqebtaBE5GyDeYP0t1soy+3BsbMlFzwD/ZiRkHp+B0tCO
-03+uhQUNPVl5ZSkl2IyBNKSqkSJtOw0=
-=bV8F
------END PGP SIGNATURE-----
-
---ym7pmf2huq36hsov--
-
---===============7902817579856116703==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+Acked-by: Philippe Cornu <philippe.cornu@foss.st.com>
+Many thanks,
+Philippe :-)
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============7902817579856116703==--
