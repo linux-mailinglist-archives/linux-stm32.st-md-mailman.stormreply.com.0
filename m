@@ -2,59 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D1EB872EB7E
-	for <lists+linux-stm32@lfdr.de>; Tue, 13 Jun 2023 21:04:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1F5DF72EB98
+	for <lists+linux-stm32@lfdr.de>; Tue, 13 Jun 2023 21:08:20 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 873DCC6A61A;
-	Tue, 13 Jun 2023 19:04:15 +0000 (UTC)
-Received: from mail-lf1-f52.google.com (mail-lf1-f52.google.com
- [209.85.167.52])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D275BC6A61A;
+	Tue, 13 Jun 2023 19:08:19 +0000 (UTC)
+Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com
+ [209.85.167.42])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 822EFC5E2C2
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 03F16C5E2C2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 13 Jun 2023 19:04:13 +0000 (UTC)
-Received: by mail-lf1-f52.google.com with SMTP id
- 2adb3069b0e04-4f762b3227dso345700e87.1
+ Tue, 13 Jun 2023 19:08:18 +0000 (UTC)
+Received: by mail-lf1-f42.google.com with SMTP id
+ 2adb3069b0e04-4f61b45ee0dso7419547e87.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 13 Jun 2023 12:04:13 -0700 (PDT)
+ Tue, 13 Jun 2023 12:08:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1686683053; x=1689275053;
+ d=linaro.org; s=google; t=1686683298; x=1689275298;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=woeYYFEiU1y3NclAr5wdCFdPFOi62sLbxPfwISR5Xn8=;
- b=q2bbZiF2Xy2JxkCX8e3y4fFp2cP9iFKv42xyhROdmk2mpDr7LXZfz3AWcU7AxuHxKc
- IBySptwOhOAewBK0W7T3JZWk1l4Kj0ib1b7kfAkZPI6Mp/FlSBZj1SdO4XPDtu53cxh+
- wzJOoSDF5OtB4VFwZt0q+PodkxVuxE0QGoEdHp9BvSX7JmMHiBIIFACiOq9QEDZ5HZeI
- xXZqzZxo83ru7G7QauolFOyXqjc0HfXZRUJgtbKj7CmSdqc+ucEjOfsDf8AdyWXweCr2
- C+2eCONnBG/Stb3+zfI0K/svhD1H7VcMrPRWr7lntdBMeOj9IO7/m0BH9YMeFk5YzD5H
- pxBA==
+ bh=F+tm3+Pdm0PaXfiZEzyRYLx0bL/2PcssnIDcJqEcG00=;
+ b=pXvtSrfvSZFtqXr7gBQNbwO93crNLRG5kDvQKUb9i07WRGV8cuKSZdeN2AHPfkSYEV
+ s9Kj4TDyZ6xACpGIQJynV4qJHfQP8x2u9sRicGgoFESj5RceIKeBfElicevTTgiNi7RL
+ 9QVYc+lVnCKM1rsbq+3A8n10G22u07GDwcLiscU3lmCZ6y7WPLfCyTgRAVZA4pyyw5Yn
+ JKU8Q+vKxm0IHBX04DCwxktI6OGATGIu3ihwztTO+oNXjo8vTM8yorfcSd8ysJEEaPSj
+ +opeKcUuZUOr+FiHdS+JpkxNfEiaACOn71VVmdwpa4d0A54Sj9plaNCeEqJ1uAKxPOTX
+ 1XpQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1686683053; x=1689275053;
+ d=1e100.net; s=20221208; t=1686683298; x=1689275298;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=woeYYFEiU1y3NclAr5wdCFdPFOi62sLbxPfwISR5Xn8=;
- b=a9MosFI4/p6pjCu8/guL424n1NA1jWC54VZnqtLo0YwLrhsNyNvRU8JO9nDr5ArvCA
- eXiIs7cNyhW8+8X8puTwvpfG1xT2niOIue4k5I6Hhuz6TZCw/febEcIU2ZcY2/VZRc2L
- KmZJD9KaFC0xBAtPspT/02dc5AQBJBV8HvUg1CKibsJxbe+H0AC/bGCa52BN6B/CUcem
- ueH8C+T5Zm3+UlQ3fUnl7lhST61sTk5W5hzAQ8B0RkBoafKVbFF3LbeiR/wYduJfbipL
- S6I3V3iD2bW6IaQ0XWVvTB5O/icbvQ1ngubFll7BJKrl5CTl7bDJBp+Xdc8Rhtd/5I1a
- u8Xw==
-X-Gm-Message-State: AC+VfDwl84/57dXWeJnAamLBzKZ+k+9t2FnWCqY36p8LeaL1B/fuTnmr
- bEzkchpWFYw5z+W6K1TrjVBpYw==
-X-Google-Smtp-Source: ACHHUZ64q3nAkmQiyy1A3DAZ+hVneYytXEVoRe5yh0a8KBFRcAQJiZjhKQQHeFFMapSCKaxVrNlEzA==
-X-Received: by 2002:a19:5e11:0:b0:4ac:b7bf:697a with SMTP id
- s17-20020a195e11000000b004acb7bf697amr4518741lfb.4.1686683053205; 
- Tue, 13 Jun 2023 12:04:13 -0700 (PDT)
+ bh=F+tm3+Pdm0PaXfiZEzyRYLx0bL/2PcssnIDcJqEcG00=;
+ b=GvZFRIpcO84WQJtgig7+2iB8CjbjW8j2124HqgRRkR1RNWQ3MD0Zmjjz0gglBLmhKL
+ xTxt1rRmT95v+x24inSYjLHv/FyKnQmCWRciZH4k7RS8n4RrfXt9cYx7DCHzRvtGoTkj
+ GNitR5wqxhcVTwCYy1Bs9GIo+TLydZqlcFcHR7aLYOnRf48KFIpzp+KV4PIsaiaSTCZp
+ nG637jG/jpPcHsXyW/nx8Trp3HT1Yqzd1sIPO4toiLt+04JJ9ClxXzG7Nnu+xtnWxVxE
+ FZeLogk0HcjpkKjfIlJrrxS40ZM24iVkMNOoUitq85OynUktagYBklYO4KC8sdW+TBaA
+ hRDQ==
+X-Gm-Message-State: AC+VfDyNfSt5aZUtIbmS2RDIgJ/CNcp/8SIAsQPWX83hStI2hpFaJrNn
+ IvXaG4X7eTRq9KGBqJwr2kjGJg==
+X-Google-Smtp-Source: ACHHUZ5hlHejaHU5jlNuZeMW5cevHnRvyHVwiIHOuhObHOVK4r0Ifh+Y4UFnRCtLYlUAMdVar7JMhg==
+X-Received: by 2002:a19:e059:0:b0:4d5:8306:4e9a with SMTP id
+ g25-20020a19e059000000b004d583064e9amr6458878lfj.46.1686683298079; 
+ Tue, 13 Jun 2023 12:08:18 -0700 (PDT)
 Received: from [192.168.1.101] (abyj190.neoplus.adsl.tpnet.pl. [83.9.29.190])
  by smtp.gmail.com with ESMTPSA id
- u7-20020ac243c7000000b004f42718cbb1sm1856560lfl.292.2023.06.13.12.04.09
+ m5-20020a056512014500b004f73eac0308sm1148576lfo.183.2023.06.13.12.08.15
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 13 Jun 2023 12:04:12 -0700 (PDT)
-Message-ID: <7b511c41-4bf5-f7ff-8ae9-5f1bffac50d9@linaro.org>
-Date: Tue, 13 Jun 2023 21:04:08 +0200
+ Tue, 13 Jun 2023 12:08:17 -0700 (PDT)
+Message-ID: <cf515539-9a60-c3ae-18af-463651651a27@linaro.org>
+Date: Tue, 13 Jun 2023 21:08:14 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.11.2
@@ -72,16 +72,16 @@ To: Bartosz Golaszewski <brgl@bgdev.pl>, Vinod Koul <vkoul@kernel.org>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>,
  Jose Abreu <joabreu@synopsys.com>
 References: <20230612092355.87937-1-brgl@bgdev.pl>
- <20230612092355.87937-26-brgl@bgdev.pl>
+ <20230612092355.87937-27-brgl@bgdev.pl>
 From: Konrad Dybcio <konrad.dybcio@linaro.org>
-In-Reply-To: <20230612092355.87937-26-brgl@bgdev.pl>
+In-Reply-To: <20230612092355.87937-27-brgl@bgdev.pl>
 Cc: devicetree@vger.kernel.org,
  Bartosz Golaszewski <bartosz.golaszewski@linaro.org>, netdev@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
  linux-phy@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 25/26] arm64: dts: qcom: sa8775p-ride: add
- pin functions for ethernet0
+Subject: Re: [Linux-stm32] [PATCH 26/26] arm64: dts: qcom: sa8775p-ride:
+	enable ethernet0
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,43 +103,119 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 On 12.06.2023 11:23, Bartosz Golaszewski wrote:
 > From: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
 > 
-> Add the MDC and MDIO pin functions for ethernet0 on sa8775p-ride.
+> Enable the first 1Gb ethernet port on sa8775p-ride development board.
 > 
 > Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
 > ---
+I don't know a whole lot about this, but it passes bindings checks
+and looks good overall, so:
+
 Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
 
 Konrad
->  arch/arm64/boot/dts/qcom/sa8775p-ride.dts | 16 ++++++++++++++++
->  1 file changed, 16 insertions(+)
+>  arch/arm64/boot/dts/qcom/sa8775p-ride.dts | 89 +++++++++++++++++++++++
+>  1 file changed, 89 insertions(+)
 > 
 > diff --git a/arch/arm64/boot/dts/qcom/sa8775p-ride.dts b/arch/arm64/boot/dts/qcom/sa8775p-ride.dts
-> index 7754788ea775..dbd9553aa5c7 100644
+> index dbd9553aa5c7..13508271bca8 100644
 > --- a/arch/arm64/boot/dts/qcom/sa8775p-ride.dts
 > +++ b/arch/arm64/boot/dts/qcom/sa8775p-ride.dts
-> @@ -370,6 +370,22 @@ &spi16 {
+> @@ -261,6 +261,95 @@ vreg_l8e: ldo8 {
+>  	};
 >  };
 >  
->  &tlmm {
-> +	ethernet0_default: ethernet0-default-state {
-> +		ethernet0_mdc: ethernet0-mdc-pins {
-> +			pins = "gpio8";
-> +			function = "emac0_mdc";
-> +			drive-strength = <16>;
-> +			bias-pull-up;
-> +		};
+> +&ethernet0 {
+> +	phy-mode = "sgmii";
+> +	phy-handle = <&sgmii_phy>;
+> +	phy-supply = <&vreg_l5a>;
 > +
-> +		ethernet0_mdio: ethernet0-mdio-pins {
-> +			pins = "gpio9";
-> +			function = "emac0_mdio";
-> +			drive-strength = <16>;
-> +			bias-pull-up;
+> +	pinctrl-0 = <&ethernet0_default>;
+> +	pinctrl-names = "default";
+> +
+> +	snps,mtl-rx-config = <&mtl_rx_setup>;
+> +	snps,mtl-tx-config = <&mtl_tx_setup>;
+> +	snps,ps-speed = <1000>;
+> +
+> +	status = "okay";
+> +
+> +	mdio {
+> +		compatible = "snps,dwmac-mdio";
+> +		#address-cells = <1>;
+> +		#size-cells = <0>;
+> +
+> +		reset-gpios = <&pmm8654au_2_gpios 8 GPIO_ACTIVE_LOW>;
+> +		reset-delay-us = <11000>;
+> +		reset-post-delay-us = <70000>;
+> +
+> +		sgmii_phy: phy@8 {
+> +			reg = <0x8>;
+> +			device_type = "ethernet-phy";
 > +		};
 > +	};
 > +
->  	qup_uart10_default: qup-uart10-state {
->  		pins = "gpio46", "gpio47";
->  		function = "qup1_se3";
+> +	mtl_rx_setup: rx-queues-config {
+> +		snps,rx-queues-to-use = <4>;
+> +		snps,rx-sched-sp;
+> +
+> +		queue0 {
+> +			snps,dcb-algorithm;
+> +			snps,map-to-dma-channel = <0x0>;
+> +			snps,route-up;
+> +			snps,priority = <0x1>;
+> +		};
+> +
+> +		queue1 {
+> +			snps,dcb-algorithm;
+> +			snps,map-to-dma-channel = <0x1>;
+> +			snps,route-ptp;
+> +		};
+> +
+> +		queue2 {
+> +			snps,avb-algorithm;
+> +			snps,map-to-dma-channel = <0x2>;
+> +			snps,route-avcp;
+> +		};
+> +
+> +		queue3 {
+> +			snps,avb-algorithm;
+> +			snps,map-to-dma-channel = <0x3>;
+> +			snps,priority = <0xc>;
+> +		};
+> +	};
+> +
+> +	mtl_tx_setup: tx-queues-config {
+> +		snps,tx-queues-to-use = <4>;
+> +		snps,tx-sched-sp;
+> +
+> +		queue0 {
+> +			snps,dcb-algorithm;
+> +		};
+> +
+> +		queue1 {
+> +			snps,dcb-algorithm;
+> +		};
+> +
+> +		queue2 {
+> +			snps,avb-algorithm;
+> +			snps,send_slope = <0x1000>;
+> +			snps,idle_slope = <0x1000>;
+> +			snps,high_credit = <0x3e800>;
+> +			snps,low_credit = <0xffc18000>;
+> +		};
+> +
+> +		queue3 {
+> +			snps,avb-algorithm;
+> +			snps,send_slope = <0x1000>;
+> +			snps,idle_slope = <0x1000>;
+> +			snps,high_credit = <0x3e800>;
+> +			snps,low_credit = <0xffc18000>;
+> +		};
+> +	};
+> +};
+> +
+>  &i2c11 {
+>  	clock-frequency = <400000>;
+>  	pinctrl-0 = <&qup_i2c11_default>;
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
