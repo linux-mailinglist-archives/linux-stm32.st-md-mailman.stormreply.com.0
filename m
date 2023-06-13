@@ -2,58 +2,86 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 46C2172E9F6
-	for <lists+linux-stm32@lfdr.de>; Tue, 13 Jun 2023 19:36:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 65BC472EB55
+	for <lists+linux-stm32@lfdr.de>; Tue, 13 Jun 2023 20:57:34 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E475DC6A61A;
-	Tue, 13 Jun 2023 17:36:18 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E71DDC6A61A;
+	Tue, 13 Jun 2023 18:57:33 +0000 (UTC)
+Received: from mail-lj1-f173.google.com (mail-lj1-f173.google.com
+ [209.85.208.173])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AC301C6A615
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5ACEFC5E2C2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 13 Jun 2023 17:36:17 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 45F8663406;
- Tue, 13 Jun 2023 17:36:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 108C9C433D9;
- Tue, 13 Jun 2023 17:36:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1686677775;
- bh=yT/YcUbrOqFENj+tlyHyK738bYhHXlmlxIpioLPwxNE=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=rsKT4uS9AZe+fe56mjdyH4mmF18zXzKHAWTiypuw4L4FlmNcloe/tEO3mgmU8ul+Z
- ycS6v4BBbOoY9vJCs5Nivz20DPB0rQAxO0C4FWbZVgoOrjqpFWj1wNkFQzqVRnaZ3v
- 7NcAPUEpf2Vz2o0h979YmL+0fa9+vT8ay5Eym2y0R5BZage9kJJZ5TcnrE3HloHtyB
- oHCv8KWsPajFqsfxtjoq6REYwNFQ+HmsGVXJPcoEi5c8Jkm66SACpJjHy43B847gSB
- KvOU0+/V3L6G02M+zRgLeipDlnY185JSyTaLeo+a/mwBh1NI6AD8DKA8M39RJoXiKO
- 5gAtpZkwrATrQ==
-Date: Tue, 13 Jun 2023 10:39:37 -0700
-From: Bjorn Andersson <andersson@kernel.org>
-To: Bartosz Golaszewski <brgl@bgdev.pl>
-Message-ID: <20230613173937.fhk2cqcankg6oej6@ripper>
-References: <20230612092355.87937-1-brgl@bgdev.pl>
- <20230612092355.87937-4-brgl@bgdev.pl>
+ Tue, 13 Jun 2023 18:57:32 +0000 (UTC)
+Received: by mail-lj1-f173.google.com with SMTP id
+ 38308e7fff4ca-2b227fdda27so51951221fa.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 13 Jun 2023 11:57:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1686682651; x=1689274651;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=zsyyTwvaw/vp2AvSdxNLXUl1Sss7B+R+faApw6mGFPk=;
+ b=EpsoCgNUbEr8P/ekHeYMePrH3lx9EnGuaih1xSHCfQ6AaSSa7tJ+X0msbZs5zB0RSh
+ Bltvzflx0blflLlM249+PTlK7N38BjYPqzgSrxSeXu4pN3yG6njvv8jc7cWijBiIGKA2
+ 6K15ceQw5uqBaHvM5VWV/tYfqevE/SUnWSbXPXmth40TgDyy8NJX7ilVxnozDQGaQSZr
+ SnXicXCwgT2ajHUDvwtsU+MfImTkCTBqZG45sR346wlpG/Ta1gjS62h3xknna+BzTKG+
+ bTpcqwD7/n0NMkoqIJdqnl/lDOYgzFBCp3ZHv8CP7A6SGX8qpgN7xTU61OTuyLZ8X61N
+ Wm6g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1686682651; x=1689274651;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=zsyyTwvaw/vp2AvSdxNLXUl1Sss7B+R+faApw6mGFPk=;
+ b=UN1BDEE2MNYXhmaX73ikAIpm1D1sOvo7K5IqimXc/oPC68l5aqBhE/4iXhFY4+6gm9
+ S0HuY+UndO072fPud7zeZKlkIuMm+FdkIfu+UkPsQrTeMe2DiMTGO5i0thuaReJY2JbS
+ P4SG82k7t8ode/t3UJgZm5MhL16c4Ru19F5/DGVIzbm+SFxneBwvkIVx2bQqoNlF85WO
+ kjfFSy4OVh19IEx0IJ+8PcVN/JY0mwr1VwenlHXaE2ZxDFHqDvNoADNxaY79CUBeeOkq
+ u5tOOvZJqTNYTPX7yNOlUoB5IPtv6mDUVIHsgD+hrs/Zf+19ErKipVq0mIpZmgCFLfXR
+ zISA==
+X-Gm-Message-State: AC+VfDy+/gae0T9mrXaEv37WrLw+7kYFvNoLxlgkICK2xY/noBVh/M+v
+ mgaVIKPq7eEISl7xEvfYkwLgxg==
+X-Google-Smtp-Source: ACHHUZ58SPWpBS7mZjv7bdICxXgiAzg0Iw/ZCUujbrRo5NysRIPz5M1A2dBrKoFVdo4w57IT44ob+Q==
+X-Received: by 2002:a2e:b98f:0:b0:2b1:fa7c:9131 with SMTP id
+ p15-20020a2eb98f000000b002b1fa7c9131mr3438013ljp.18.1686682651365; 
+ Tue, 13 Jun 2023 11:57:31 -0700 (PDT)
+Received: from [192.168.1.101] (abyj190.neoplus.adsl.tpnet.pl. [83.9.29.190])
+ by smtp.gmail.com with ESMTPSA id
+ a11-20020a2e980b000000b002b1c0a663fbsm2258476ljj.77.2023.06.13.11.57.28
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 13 Jun 2023 11:57:30 -0700 (PDT)
+Message-ID: <a21cc6ed-e894-7a38-a203-bebcc1c41230@linaro.org>
+Date: Tue, 13 Jun 2023 20:57:27 +0200
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20230612092355.87937-4-brgl@bgdev.pl>
-Cc: linux-kernel@vger.kernel.org, Eric Dumazet <edumazet@google.com>,
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.2
+Content-Language: en-US
+To: Bartosz Golaszewski <brgl@bgdev.pl>, Vinod Koul <vkoul@kernel.org>,
+ Bhupesh Sharma <bhupesh.sharma@linaro.org>, Andy Gross <agross@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ "David S . Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh+dt@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- linux-phy@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
+ Conor Dooley <conor+dt@kernel.org>,
  Kishon Vijay Abraham I <kishon@kernel.org>,
- Bartosz Golaszewski <bartosz.golaszewski@linaro.org>,
- Jose Abreu <joabreu@synopsys.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, devicetree@vger.kernel.org,
- Conor Dooley <conor+dt@kernel.org>, Bhupesh Sharma <bhupesh.sharma@linaro.org>,
- linux-arm-msm@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
  Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
- Andy Gross <agross@kernel.org>, Konrad Dybcio <konrad.dybcio@linaro.org>,
- Vinod Koul <vkoul@kernel.org>, "David S . Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH 03/26] phy: qcom: add the SGMII SerDes PHY
-	driver
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Jose Abreu <joabreu@synopsys.com>
+References: <20230612092355.87937-1-brgl@bgdev.pl>
+ <20230612092355.87937-24-brgl@bgdev.pl>
+From: Konrad Dybcio <konrad.dybcio@linaro.org>
+In-Reply-To: <20230612092355.87937-24-brgl@bgdev.pl>
+Cc: devicetree@vger.kernel.org,
+ Bartosz Golaszewski <bartosz.golaszewski@linaro.org>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-phy@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 23/26] arm64: dts: qcom: sa8775p: add the
+ first 1Gb ethernet interface
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,55 +98,67 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Jun 12, 2023 at 11:23:32AM +0200, Bartosz Golaszewski wrote:
-> diff --git a/drivers/phy/qualcomm/phy-qcom-sgmii-eth.c b/drivers/phy/qualcomm/phy-qcom-sgmii-eth.c
-[..]
-> +static int qcom_dwmac_sgmii_phy_probe(struct platform_device *pdev)
-> +{
-> +	struct qcom_dwmac_sgmii_phy_data *data;
-> +	struct device *dev = &pdev->dev;
-> +	struct phy_provider *provider;
-> +	struct clk *refclk;
-> +	void __iomem *base;
-> +	struct phy *phy;
-> +
-> +	data = devm_kzalloc(dev, sizeof(*data), GFP_KERNEL);
-> +	if (!data)
-> +		return -ENOMEM;
-> +
-> +	base = devm_platform_ioremap_resource(pdev, 0);
-> +	if (IS_ERR(base))
-> +		return PTR_ERR(base);
-> +
-> +	data->regmap = devm_regmap_init_mmio(dev, base,
-> +					     &qcom_dwmac_sgmii_phy_regmap_cfg);
-> +	if (IS_ERR(data->regmap))
-> +		return PTR_ERR(data->regmap);
-> +
-> +	phy = devm_phy_create(dev, NULL, &qcom_dwmac_sgmii_phy_ops);
-> +	if (IS_ERR(phy))
-> +		return PTR_ERR(phy);
-> +
-> +	refclk = devm_clk_get_enabled(dev, "sgmi_ref");
-> +	if (IS_ERR(refclk))
-> +		return PTR_ERR(refclk);
-> +
-> +	provider = devm_of_phy_provider_register(dev, of_phy_simple_xlate);
-> +	if (IS_ERR(provider))
-> +		return PTR_ERR(provider);
-> +
-> +	phy_set_drvdata(phy, data);
-> +	platform_set_drvdata(pdev, data);
 
-You don't use the pdev's dev's drvdata, so I think you can drop the
-platform_set_drvdata()
 
-Regards,
-Bjorn
+On 12.06.2023 11:23, Bartosz Golaszewski wrote:
+> From: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
+> 
+> Add the node for the first ethernet interface on sa8775p platforms.
+> 
+> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
+> ---
+>  arch/arm64/boot/dts/qcom/sa8775p.dtsi | 30 +++++++++++++++++++++++++++
+>  1 file changed, 30 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/sa8775p.dtsi b/arch/arm64/boot/dts/qcom/sa8775p.dtsi
+> index 0e59000a0c82..f43a2a5d1d11 100644
+> --- a/arch/arm64/boot/dts/qcom/sa8775p.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sa8775p.dtsi
+> @@ -2315,6 +2315,36 @@ cpufreq_hw: cpufreq@18591000 {
+>  
+>  			#freq-domain-cells = <1>;
+>  		};
+> +
+> +		ethernet0: ethernet@23040000 {
+> +			compatible = "qcom,sa8775p-ethqos";
+> +			reg = <0x0 0x23040000 0x0 0x10000>,
+> +			      <0x0 0x23056000 0x0 0x100>;
+> +			reg-names = "stmmaceth", "rgmii";
+> +
+> +			clocks = <&gcc GCC_EMAC0_AXI_CLK>,
+> +				 <&gcc GCC_EMAC0_SLV_AHB_CLK>,
+> +				 <&gcc GCC_EMAC0_PTP_CLK>,
+> +				 <&gcc GCC_EMAC0_PHY_AUX_CLK>;
+> +			clock-names = "stmmaceth", "pclk", "ptp_ref", "phyaux";
+Please make this a vertical list, one per line
 
 > +
-> +	return 0;
-> +}
+> +			power-domains = <&gcc EMAC0_GDSC>;
+> +
+> +			interrupts = <GIC_SPI 946 IRQ_TYPE_LEVEL_HIGH>;
+> +			interrupt-names = "macirq";
+And another nit, interrupts above clocks would match what I ask others
+to do.. Still working on checks/guidelines for this!
+
+Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+
+Konrad
+> +
+> +			phys = <&serdes_phy>;
+> +			phy-names = "serdes";
+> +
+> +			iommus = <&apps_smmu 0x120 0xf>;
+> +
+> +			snps,tso;
+> +			snps,pbl = <32>;
+> +			rx-fifo-depth = <16384>;
+> +			tx-fifo-depth = <16384>;
+> +
+> +			status = "disabled";
+> +		};
+>  	};
+>  
+>  	arch_timer: timer {
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
